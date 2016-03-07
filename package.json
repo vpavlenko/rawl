@@ -1,0 +1,21 @@
+{
+  "name": "signal",
+  "version": "0.0.1",
+  "description": "A friendly music sequencer application for OS X and Windows.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ryohey/signal.git"
+  },
+  "author": "ryohey",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ryohey/signal/issues"
+  },
+  "homepage": "https://github.com/ryohey/signal#readme",
+  "dependencies": {
+  }
+}

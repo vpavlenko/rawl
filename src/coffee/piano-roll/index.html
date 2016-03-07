@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+  <!-- 
+    起動
+    $ cd signal/src
+    $ static . 
+    $ open localhost:8080/coffee/piano-roll/
+  -->
+  <div id="container">
+    <ruler></ruler>
+    <keys></keys>
+    <grid></grid>
+    <notes></notes>
+  </div>
+</body>
+<script type="riot/tag" src="./keys.tag"></script>
+<script type="riot/tag" src="./grid.tag"></script>
+<script type="riot/tag" src="./ruler.tag"></script>
+<script type="riot/tag" src="./notes.tag"></script>
+<script src="https://cdn.jsdelivr.net/riot/2.3/riot+compiler.js"></script>
+<script src="../../lib/coffee-script.js"></script>
+<script src="../../lib/coffee-riot.js"></script>
+<script>
+  // 鍵盤の表示
+  riot.mount("keys", {numberOfKeys: 24});
+
+  // グリッドの表示
+  lines = []
+  for (i = 0; i < 4 * 4; i++) {
+    color = "rgb(210, 210, 210)";
+    if (i % 4 == 3) {
+      color = "gray";
+    }
+    lines.push({
+      x: 120 / 4 * (i + 1),
+      color: color
+    });
+  }
+
+  riot.mount("grid", {numberOfKeys: 24, lines: lines});
+
+  // ルーラーの表示
+  bars = [];
+  for (i = 0; i < 4; i++) {
+    bars.push({
+      length: 120,
+      label: i
+    });
+  }
+  bars[0].label += " Start";
+
+  riot.mount("ruler", {bars: bars});
+
+  // ノートの配置とコールバック
+  notes = [
+    {
+      x: 30 * 1,
+      y: 30 * 12,
+      width: 30 * 2
+    },
+    {
+      x: 30 * 3,
+      y: 30 * 4,
+      width: 30 * 5
+    }
+  ];
+
+  riot.mount("notes", {notes: notes, onClickNote: (e) => {
+    console.log(e.clientX, e.clientY, e.item);
+    notes.splice(notes.indexOf(e.item), 1);
+  }});
+</script>
+<style type="text/css">
+#container {
+  position: relative;
+}
+keys {
+  float: left;
+  display: block;
+  border-right: 1px solid gray;
+  width: 120px;
+}
+grid {
+  display: block;
+  float: left;
+  width: 500px;
+}
+ruler {
+  margin-left: 120px;
+  display: block;
+}
+notes {
+  display: block;
+  position: absolute;
+  top: 24px;
+  left: 120px;
+}
+</style>
+</html>

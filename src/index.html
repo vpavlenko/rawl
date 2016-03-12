@@ -21,14 +21,14 @@
     </div>
   </div>
 </body>
-<script type="riot/tag" src="./keys.tag"></script>
-<script type="riot/tag" src="./grid.tag"></script>
-<script type="riot/tag" src="./key-grid.tag"></script>
-<script type="riot/tag" src="./ruler.tag"></script>
-<script type="riot/tag" src="./notes.tag"></script>
+<script type="riot/tag" src="tag/piano-roll/keys.tag"></script>
+<script type="riot/tag" src="tag/piano-roll/grid.tag"></script>
+<script type="riot/tag" src="tag/piano-roll/key-grid.tag"></script>
+<script type="riot/tag" src="tag/piano-roll/ruler.tag"></script>
+<script type="riot/tag" src="tag/piano-roll/notes.tag"></script>
 <script src="https://cdn.jsdelivr.net/riot/2.3/riot+compiler.js"></script>
-<script src="../../lib/coffee-script.js"></script>
-<script src="../../lib/coffee-riot.js"></script>
+<script src="lib/coffee-script.js"></script>
+<script src="lib/coffee-riot.js"></script>
 <script>
   // 鍵盤の表示
   riot.mount("keys", {numberOfKeys: 24});

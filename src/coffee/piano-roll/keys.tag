@@ -17,7 +17,7 @@ opts = {
         className += " bordered" if i % 12 is 5 or i % 12 is 0
         {className: className}
 
-    this.keys = keyClasses(opts.numberOfKeys)
+    @keys = keyClasses(opts.numberOfKeys)
   </script>
 
   <style scoped>

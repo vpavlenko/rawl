@@ -1,6 +1,6 @@
 <!--
 opts = {
-  numberOfKeys: <Number> 鍵盤の数
+  cursorX: <Number> 再生位置を示す縦線の位置 (px)
   lines: [
     {
       x: <Number> 縦線の位置 (px)
@@ -10,38 +10,23 @@ opts = {
 }
 -->
 <grid>
-  <div class="container">
-    <div class="vlines">
-      <div each={ opts.lines } class="vline" style="left: { x - 1 }px; background-color: { color }"></div>
-    </div>
-    <div class="hlines">
-      <div each={ hlines } class="{className}"></div>
+  <div class="container" style="width: { width }px;">
+      <div class="vlines">
+        <div each={ opts.lines } class="vline" style="left: { x }px; background-color: { color }"></div>
+      </div>
+      <div class="cursor" style="left: { opts.cursorX }px;"></div>
     </div>
   </div>
 
   <script type="text/coffeescript">
-    classes = (keyNum) ->
-      for i in [0..keyNum]
-        className = "hline"
-        className += " bold" if i % 12 is 0 or i % 12 is 5
-        {className: className}
-
-    this.hlines = classes(opts.numberOfKeys)
+    maxX = (opts.lines.reduce (a, b) -> { x: Math.max(a.x, b.x) }).x
+    @width = maxX + 1
   </script>
 
   <style scoped>
     .container {
       position: relative;
-    }
-
-    .hline {
-      height: 30px;
-      border-top: 1px solid rgb(222, 222, 222);
-      box-sizing: border-box;
-    }
-
-    .hline.bold {
-      border-top-color: rgb(160, 160, 160);
+      height: 100%;
     }
 
     .vlines {
@@ -56,6 +41,14 @@ opts = {
       height: 100%;
       position: absolute;
       top: 0;
+    }
+
+    .cursor {
+      position: absolute;
+      top: 0;
+      width: 1px;
+      height: 100%;
+      background-color: rgb(255, 0, 0);
     }
   </style>
 </grid>

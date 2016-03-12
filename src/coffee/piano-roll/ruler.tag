@@ -9,13 +9,14 @@ opts = {
 }
 -->
 <ruler>
-  <div class="bars">
+  <div class="bars" style="width: { width }px;">
     <div each={ opts.bars } class="bar" style="width: { length }px;">
       { label }
     </div>
   </div>
 
   <script type="text/coffeescript">
+    @width = (opts.bars.map (a) -> a.length).reduce (a, b) -> a + b
   </script>
 
   <style scoped>

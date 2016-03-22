@@ -12,10 +12,22 @@ opts = {
 -->
 <notes>
   <div class="container">
-    <div each={ opts.notes } class="note" style="left: { x }px; top: { y }px; width: { width }px;" onclick={ parent.opts.onClickNote }></div>
+    <div 
+      each={ opts.notes } 
+      class="note" 
+      style="left: { x }px; top: { y }px; width: { width }px;" 
+      onclick={ parent.opts.onClickNote }
+      onmouseover={ updateCursor }
+      onmousemove={ updateCursor }
+      ></div>
   </div>
 
   <script type="text/coffeescript">
+    @updateCursor = (e) ->
+      isLeftEdge = e.layerX <= 8
+      isRightEdge = e.target.clientWidth - e.layerX <= 8
+      e.target.style.cursor = 
+        if isLeftEdge or isRightEdge then "w-resize" else "move"
   </script>
 
   <style scoped>

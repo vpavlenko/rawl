@@ -86,9 +86,11 @@
     onDragNote: (e) => {
       b = e.target.parentElement.getBoundingClientRect()
       if (e.isLeftEdge) {
+        // 右端を固定して長さを変更
         e.item.x += e.original.movementX
         e.item.width -= e.original.movementX
       } else if (e.isRightEdge) {
+        // 左端を固定して長さを変更
         e.item.width += e.original.movementX
       } else {
         // 移動

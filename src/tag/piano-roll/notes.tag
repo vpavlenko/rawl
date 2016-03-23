@@ -14,64 +14,76 @@ opts = {
 -->
 <notes>
   <div class="container" name="container"
-    onmouseup={ onMouseUp }
-    onmousemove={ onMouseMove }>
+    onmouseup={ mouseHandler.onMouseUp }
+    onmousemove={ mouseHandler.onMouseMove }>
     <div 
       each={ opts.notes } 
       class="note"
       style="left: { x }px; top: { y }px; width: { width }px;" 
-      onmousedown={ onMouseDown }
-      onmouseover={ updateCursor }
-      onmousemove={ updateCursor }
-      onmouseleave={ resetCursor }>
+      onmousedown={ mouseHandler.onMouseDown }
+      onmouseover={ mouseHandler.updateCursor }
+      onmousemove={ mouseHandler.updateCursor }
+      onmouseleave={ mouseHandler.resetCursor }>
       </div>
   </div>
 
   <script type="text/coffeescript">
-    dragging = false
-    startEvent = null
+    class MouseHandler
+      onMouseUp: (e) => undefined
+      onMouseMove: (e) => undefined
+      onMouseDown: (e) => undefined
+      resetCursor: (e) => undefined
+      updateCursor: (e) => undefined
 
-    @resetCursor = => 
-      @container.style.cursor = "default"
+    class PencilMouseHandler extends MouseHandler
+      constructor: (container) ->
+        @dragging = false
+        @startEvent = null
+        @container = container
 
-    @onMouseDown = (e) =>
-      addEdgeFlags e
-      startEvent = e 
+      resetCursor: => 
+        @container.style.cursor = "default"
 
-    @onMouseUp = (e) => 
-      if startEvent? and not dragging
-        opts.onClickNote 
-          original: e
-          target: startEvent.target
-          item: startEvent.item
-      startEvent = null
-      dragging = false
-      @resetCursor()
+      onMouseDown: (e) =>
+        @addEdgeFlags e
+        @startEvent = e 
 
-    @onMouseMove = (e) =>
-      if startEvent?
-        ev = 
-          original: e
-          target: startEvent.target
-          item: startEvent.item
-          isRightEdge: startEvent.isRightEdge
-          isLeftEdge: startEvent.isLeftEdge
+      onMouseUp: (e) => 
+        if @startEvent? and not @dragging
+          opts.onClickNote 
+            original: e
+            target: @startEvent.target
+            item: @startEvent.item
+        @startEvent = null
+        @dragging = false
+        @resetCursor()
 
-        unless dragging
-          dragging = true
-          opts.onStartDragNote ev
-        else
-          opts.onDragNote ev
+      onMouseMove: (e) =>
+        if @startEvent?
+          ev = 
+            original: e
+            target: @startEvent.target
+            item: @startEvent.item
+            isRightEdge: @startEvent.isRightEdge
+            isLeftEdge: @startEvent.isLeftEdge
 
-    addEdgeFlags = (e) =>
-      e.isLeftEdge = e.layerX <= 8
-      e.isRightEdge = e.target.clientWidth - e.layerX <= 8
+          unless @dragging
+            @dragging = true
+            opts.onStartDragNote ev
+          else
+            opts.onDragNote ev
 
-    @updateCursor = (e) =>
-      return if dragging
-      addEdgeFlags e
-      @container.style.cursor = 
-        if e.isLeftEdge or e.isRightEdge then "w-resize" else "move"
+      addEdgeFlags: (e) =>
+        e.isLeftEdge = e.layerX <= 8
+        e.isRightEdge = e.target.clientWidth - e.layerX <= 8
+
+      updateCursor: (e) =>
+        return if @dragging
+        @addEdgeFlags e
+        @container.style.cursor = 
+          if e.isLeftEdge or e.isRightEdge then "w-resize" else "move"
+
+    @mouseHandler = new PencilMouseHandler(@container)
   </script>
 
   <style scoped>

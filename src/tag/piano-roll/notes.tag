@@ -14,8 +14,9 @@ opts = {
 -->
 <notes>
   <div class="container" name="container"
-    onmouseup={ mouseHandler.onMouseUp }
-    onmousemove={ mouseHandler.onMouseMove }>
+    onmouseup={ mouseHandler.onMouseUpContainer }
+    onmousemove={ mouseHandler.onMouseMoveContainer }
+    onmousedown={ mouseHandler.onMouseDownContainer }>
     <div 
       each={ opts.notes } 
       class="note"
@@ -25,12 +26,19 @@ opts = {
       onmousemove={ mouseHandler.updateCursor }
       onmouseleave={ mouseHandler.resetCursor }>
       </div>
+    <div 
+      class="selection"
+      each={ selections } 
+      style="left: { left() }px; top: { top() }px; width: { width() }px; height: { height() }px;"
+      hide={ hidden } >
+      </div>
   </div>
 
   <script type="text/coffeescript">
     class MouseHandler
-      onMouseUp: (e) => undefined
-      onMouseMove: (e) => undefined
+      onMouseUpContainer: (e) => undefined
+      onMouseMoveContainer: (e) => undefined
+      onMouseDownContainer: (e) => undefined
       onMouseDown: (e) => undefined
       resetCursor: (e) => undefined
       updateCursor: (e) => undefined
@@ -48,7 +56,7 @@ opts = {
         @addEdgeFlags e
         @startEvent = e 
 
-      onMouseUp: (e) => 
+      onMouseUpContainer: (e) => 
         if @startEvent? and not @dragging
           opts.onClickNote 
             original: e
@@ -58,7 +66,7 @@ opts = {
         @dragging = false
         @resetCursor()
 
-      onMouseMove: (e) =>
+      onMouseMoveContainer: (e) =>
         if @startEvent?
           ev = 
             original: e
@@ -83,7 +91,44 @@ opts = {
         @container.style.cursor = 
           if e.isLeftEdge or e.isRightEdge then "w-resize" else "move"
 
-    @mouseHandler = new PencilMouseHandler(@container)
+    class Selection
+      constructor: (startX = 0, startY = 0) ->
+        @startX = startX
+        @startY = startY
+        @endX = 0
+        @endY = 0
+        @hidden = true
+      left: => Math.min(@startX, @endX)
+      top: => Math.min(@startY, @endY)
+      width: => Math.max(@startX, @endX) - @left()
+      height: => Math.max(@startY, @endY) - @top()
+
+    class SelectionMouseHandler extends MouseHandler
+      constructor: (container, selections) ->
+        @dragging = false
+        @selections = selections
+        @container = container
+
+      onMouseDownContainer: (e) => 
+        @dragging = true
+        @selections[0] = new Selection(e.layerX, e.layerY)
+
+      onMouseMoveContainer: (e) => 
+        return unless @dragging
+        b = @container.getBoundingClientRect()
+        sel = @selections[0]
+        sel.endX = e.clientX - b.left
+        sel.endY = e.clientY - b.top
+        sel.hidden = false
+
+      onMouseUpContainer: (e) => 
+        @dragging = false
+
+      resetCursor: (e) => undefined
+      updateCursor: (e) => undefined
+
+    @selections = [new Selection()]
+    @mouseHandler = new SelectionMouseHandler(@container, @selections)
   </script>
 
   <style scoped>
@@ -98,6 +143,10 @@ opts = {
       position: absolute;
       background: -webkit-linear-gradient(top, #5867FA, #3e4eee);
     }
-  
+
+    .selection {
+      position: absolute;
+      border: 3px solid rgb(0, 0, 0);
+    }
   </style>
 </notes>

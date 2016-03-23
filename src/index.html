@@ -85,8 +85,16 @@
     },
     onDragNote: (e) => {
       b = e.target.parentElement.getBoundingClientRect()
-      e.item.x += e.original.movementX
-      e.item.y += e.original.movementY
+      if (e.isLeftEdge) {
+        e.item.x += e.original.movementX
+        e.item.width -= e.original.movementX
+      } else if (e.isRightEdge) {
+        e.item.width += e.original.movementX
+      } else {
+        // 移動
+        e.item.x += e.original.movementX
+        e.item.y += e.original.movementY
+      }
     },
     onStartDragNote: (e) => {
       startPos.x = e.original.offsetX

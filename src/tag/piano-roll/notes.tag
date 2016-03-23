@@ -8,6 +8,8 @@ opts = {
     }
   ],
   onClickNote: <Function> Event#item で要素を取得
+  onStartDragNote: <Function> ノートのドラッグ開始時に呼ばれる 
+  onDragNote: <Function> ノートのドラッグ中に呼ばれる Event#isRightEdge, isLeftEdge でノートの端にあるか取得できる
 }
 -->
 <notes>
@@ -26,29 +28,34 @@ opts = {
   </div>
 
   <script type="text/coffeescript">
-    target = null
-    item = null
     dragging = false
+    startEvent = null
+
     @resetCursor = => 
       @container.style.cursor = "default"
-    @onMouseDown = (e) => 
-      target = e.target
-      item = e.item
+
+    @onMouseDown = (e) =>
+      addEdgeFlags e
+      startEvent = e 
+
     @onMouseUp = (e) => 
-      if target? and not dragging
+      if startEvent? and not dragging
         opts.onClickNote 
           original: e
-          target: target
-          item: item
-      target = null
+          target: startEvent.target
+          item: startEvent.item
+      startEvent = null
       dragging = false
       @resetCursor()
+
     @onMouseMove = (e) =>
-      if target?
+      if startEvent?
         ev = 
           original: e
-          target: target
-          item: item
+          target: startEvent.target
+          item: startEvent.item
+          isRightEdge: startEvent.isRightEdge
+          isLeftEdge: startEvent.isLeftEdge
 
         unless dragging
           dragging = true
@@ -56,12 +63,15 @@ opts = {
         else
           opts.onDragNote ev
 
+    addEdgeFlags = (e) =>
+      e.isLeftEdge = e.layerX <= 8
+      e.isRightEdge = e.target.clientWidth - e.layerX <= 8
+
     @updateCursor = (e) =>
       return if dragging
-      isLeftEdge = e.layerX <= 8
-      isRightEdge = e.target.clientWidth - e.layerX <= 8
+      addEdgeFlags e
       @container.style.cursor = 
-        if isLeftEdge or isRightEdge then "w-resize" else "move"
+        if e.isLeftEdge or e.isRightEdge then "w-resize" else "move"
   </script>
 
   <style scoped>

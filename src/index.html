@@ -77,10 +77,22 @@
     }
   ];
 
-  riot.mount("notes", {notes: notes, onClickNote: (e) => {
-    console.log(e.clientX, e.clientY, e.item);
-    notes.splice(notes.indexOf(e.item), 1);
-  }});
+  startPos = {x: 0, y: 0}
+
+  riot.mount("notes", {notes: notes, 
+    onClickNote: (e) => {
+      notes.splice(notes.indexOf(e.item), 1);
+    },
+    onDragNote: (e) => {
+      b = e.target.parentElement.getBoundingClientRect()
+      e.item.x += e.original.movementX
+      e.item.y += e.original.movementY
+    },
+    onStartDragNote: (e) => {
+      startPos.x = e.original.offsetX
+      startPos.y = e.original.offsetY
+    },
+  });
 </script>
 <style type="text/css">
 #container {
@@ -121,6 +133,7 @@ notes {
   display: block;
   position: absolute;
   top: 24px;
+  width: 100%;
   height: 100%;
 }
 </style>

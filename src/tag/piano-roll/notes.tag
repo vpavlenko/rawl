@@ -95,8 +95,8 @@ opts = {
       constructor: (startX = 0, startY = 0) ->
         @startX = startX
         @startY = startY
-        @endX = 0
-        @endY = 0
+        @endX = startX
+        @endY = startY
         @hidden = true
       left: => Math.min(@startX, @endX)
       top: => Math.min(@startY, @endY)
@@ -111,7 +111,8 @@ opts = {
 
       onMouseDownContainer: (e) => 
         @dragging = true
-        @selections[0] = new Selection(e.layerX, e.layerY)
+        b = @container.getBoundingClientRect()
+        @selections[0] = new Selection(e.clientX - b.left, e.clientY - b.top)
 
       onMouseMoveContainer: (e) => 
         return unless @dragging
@@ -123,6 +124,7 @@ opts = {
 
       onMouseUpContainer: (e) => 
         @dragging = false
+        # TODO: 選択範囲内のノートを取得し、 opts.onSelectNotes を呼ぶ
 
       resetCursor: (e) => undefined
       updateCursor: (e) => undefined

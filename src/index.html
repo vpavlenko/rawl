@@ -102,6 +102,11 @@
       startPos.x = e.original.offsetX
       startPos.y = e.original.offsetY
     },
+    onSelectNotes: (e) => {
+      notes.forEach(function(n){
+        n.selected = e.items.includes(n);
+      })
+    }
   });
 </script>
 <style type="text/css">

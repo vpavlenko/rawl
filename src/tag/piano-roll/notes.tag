@@ -10,6 +10,7 @@ opts = {
   onClickNote: <Function> Event#item で要素を取得
   onStartDragNote: <Function> ノートのドラッグ開始時に呼ばれる 
   onDragNote: <Function> ノートのドラッグ中に呼ばれる Event#isRightEdge, isLeftEdge でノートの端にあるか取得できる
+  onSelectNotes: <Function> 選択モードのときにノートが選択された時に呼ばれる items に対象のノートの情報が入っている
 }
 -->
 <notes>
@@ -19,7 +20,7 @@ opts = {
     onmousedown={ mouseHandler.onMouseDownContainer }>
     <div 
       each={ opts.notes } 
-      class="note"
+      class="note {selected ? "selected" : ""}"
       style="left: { x }px; top: { y }px; width: { width }px;" 
       onmousedown={ mouseHandler.onMouseDown }
       onmouseover={ mouseHandler.updateCursor }
@@ -100,8 +101,13 @@ opts = {
         @hidden = true
       left: => Math.min(@startX, @endX)
       top: => Math.min(@startY, @endY)
-      width: => Math.max(@startX, @endX) - @left()
-      height: => Math.max(@startY, @endY) - @top()
+      right: => Math.max(@startX, @endX)
+      bottom: => Math.max(@startY, @endY)
+      width: => @right() - @left()
+      height: => @bottom() - @top()
+      contains: (point) => 
+        point.x >= @left() and point.x <= @right() and 
+        point.y >= @top() and point.y <= @bottom()
 
     class SelectionMouseHandler extends MouseHandler
       constructor: (container, selections) ->
@@ -124,7 +130,8 @@ opts = {
 
       onMouseUpContainer: (e) => 
         @dragging = false
-        # TODO: 選択範囲内のノートを取得し、 opts.onSelectNotes を呼ぶ
+        e.items = opts.notes.filter((n) => @selections[0].contains(n))
+        opts.onSelectNotes(e)
 
       resetCursor: (e) => undefined
       updateCursor: (e) => undefined
@@ -144,6 +151,12 @@ opts = {
       height: 30px;
       position: absolute;
       background: -webkit-linear-gradient(top, #5867FA, #3e4eee);
+      box-sizing: border-box;
+      border: 1px solid rgb(88, 103, 250);
+    }
+    
+    .note.selected {
+      background: rgb(0, 0, 0);
     }
 
     .selection {

@@ -74,6 +74,11 @@
       x: 30 * 3,
       y: 30 * 4,
       width: 30 * 5
+    },
+    {
+      x: 30 * 4,
+      y: 30 * 7,
+      width: 30 * 5
     }
   ];
 
@@ -106,6 +111,12 @@
       notes.forEach(function(n){
         n.selected = e.items.includes(n);
       })
+    },
+    onMoveSelectedNotes: (e) => {
+      e.items.forEach(function(n) {
+        n.x += e.movementX
+        n.y += e.movementY
+      });
     }
   });
 </script>

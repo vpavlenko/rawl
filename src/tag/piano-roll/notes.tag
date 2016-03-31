@@ -10,7 +10,8 @@ opts = {
   onClickNote: <Function> Event#item で要素を取得
   onStartDragNote: <Function> ノートのドラッグ開始時に呼ばれる 
   onDragNote: <Function> ノートのドラッグ中に呼ばれる Event#isRightEdge, isLeftEdge でノートの端にあるか取得できる
-  onSelectNotes: <Function> 選択モードのときにノートが選択された時に呼ばれる items に対象のノートの情報が入っている
+  onSelectNotes: <Function> 選択モードのときにノートが選択された時に呼ばれる items に対象のノートが入っている
+  onMoveSelectedNotes: <Function> 選択モードのときに選択範囲がドラッグされた時に呼ばれる items に範囲内のノートが入っている
 }
 -->
 <notes>
@@ -33,9 +34,26 @@ opts = {
       style="left: { left() }px; top: { top() }px; width: { width() }px; height: { height() }px;"
       hide={ hidden } >
       </div>
+    <div 
+      class="context-menu" 
+      style="left: { menu.x }px; top: { menu.y }px; display: { menu.hidden ? "none" : "block"};">
+      <ul>
+          <li each={ menu.items }>{ title }</li>
+      </ul>
+    </div>
   </div>
 
   <script type="text/coffeescript">
+    @menu = {}
+    @menu.hidden = true
+    @menu.items = [
+      title: "item1"
+    , 
+      title: "aaa"
+    , 
+      title: "hoge"
+    ]
+
     class MouseHandler
       onMouseUpContainer: (e) => undefined
       onMouseMoveContainer: (e) => undefined
@@ -45,7 +63,8 @@ opts = {
       updateCursor: (e) => undefined
 
     class PencilMouseHandler extends MouseHandler
-      constructor: (container) ->
+      constructor: (container, menu) ->
+        @menu = menu
         @dragging = false
         @startEvent = null
         @container = container
@@ -66,6 +85,7 @@ opts = {
         @startEvent = null
         @dragging = false
         @resetCursor()
+        @menu.hidden = true
 
       onMouseMoveContainer: (e) =>
         if @startEvent?
@@ -98,6 +118,7 @@ opts = {
         @startY = startY
         @endX = startX
         @endY = startY
+        @fixed = false # マウスクリックを離した後に true
         @hidden = true
       left: => Math.min(@startX, @endX)
       top: => Math.min(@startY, @endY)
@@ -110,34 +131,59 @@ opts = {
         point.y >= @top() and point.y <= @bottom()
 
     class SelectionMouseHandler extends MouseHandler
-      constructor: (container, selections) ->
-        @dragging = false
+      constructor: (container, selections, menu) ->
+        @menu = menu
         @selections = selections
         @container = container
+        @dragging = false
 
       onMouseDownContainer: (e) => 
+        console.log "a"
         @dragging = true
         b = @container.getBoundingClientRect()
-        @selections[0] = new Selection(e.clientX - b.left, e.clientY - b.top)
+        p = {x: e.clientX - b.left, y: e.clientY - b.top}
+        unless @selections[0].contains(p)
+          # 選択範囲外でクリックした場合は選択範囲を作成
+          @selections[0] = new Selection(p.x, p.y)
 
       onMouseMoveContainer: (e) => 
-        return unless @dragging
-        b = @container.getBoundingClientRect()
+        return unless @dragging 
         sel = @selections[0]
-        sel.endX = e.clientX - b.left
-        sel.endY = e.clientY - b.top
-        sel.hidden = false
+        if sel.fixed
+          # 確定済みの選択範囲をドラッグした場合はノートの移動
+          e.items = opts.notes.filter((n) => @selections[0].contains(n))
+          opts.onMoveSelectedNotes(e)
+          # 選択範囲も移動させる
+          sel.startX += e.movementX
+          sel.startY += e.movementY
+          sel.endX += e.movementX
+          sel.endY += e.movementY
+        else
+          # 選択範囲の変形
+          b = @container.getBoundingClientRect()
+          sel.endX = e.clientX - b.left
+          sel.endY = e.clientY - b.top
+          sel.hidden = false
 
       onMouseUpContainer: (e) => 
         @dragging = false
         e.items = opts.notes.filter((n) => @selections[0].contains(n))
+        @selections[0].fixed = true
         opts.onSelectNotes(e)
+        @menu.hidden = true
 
       resetCursor: (e) => undefined
       updateCursor: (e) => undefined
 
-    @selections = [new Selection()]
-    @mouseHandler = new SelectionMouseHandler(@container, @selections)
+    @selections = [new Selection(0, 0)]
+    @mouseHandler = new SelectionMouseHandler(@container, @selections, @menu)
+
+    @container.oncontextmenu = (e) =>
+      e.preventDefault()
+      @menu.hidden = false
+      b = @container.getBoundingClientRect()
+      @menu.x = e.pageX - b.left
+      @menu.y = e.pageY - b.top
   </script>
 
   <style scoped>
@@ -154,7 +200,7 @@ opts = {
       box-sizing: border-box;
       border: 1px solid rgb(88, 103, 250);
     }
-    
+
     .note.selected {
       background: rgb(0, 0, 0);
     }
@@ -163,5 +209,23 @@ opts = {
       position: absolute;
       border: 3px solid rgb(0, 0, 0);
     }
+
+    .context-menu ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .context-menu {
+      position: absolute; 
+      background: white;
+      border: solid 1px #CCC;
+    }
+
+    .context-menu ul li {
+      padding: 0.3em 0.5em;
+      margin: 0;
+    }
+
   </style>
 </notes>

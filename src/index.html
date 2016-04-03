@@ -32,6 +32,39 @@
 <script src="lib/coffee-script.js"></script>
 <script src="lib/coffee-riot.js"></script>
 <script>
+
+// use Electron clipboard API in future
+class Clipboard {
+  constructor() {
+    this.data = {}
+  }
+  writeText(text) {
+    this.data.text = text
+  }
+  readText() {
+    return this.data.text
+  }
+  clear(type) {
+    delete this.data[type]
+  }
+  write(data, type) {
+    this.data[type] = data
+  }
+}
+const clipboard = new Clipboard
+
+Array.prototype.deleteArray = function(arr) {
+  for (var i = this.length - 1; i >= 0; i--) {
+    if (arr.indexOf(this[i]) >= 0) {
+      this.splice(i, 1)
+    }
+  }
+}
+
+Array.prototype.pushArray = function(arr) {
+  Array.prototype.push.apply(this, arr)
+}
+
 riot.compile(() => {
   contextMenu = riot.mount("context-menu", {
     hidden: true,
@@ -136,15 +169,19 @@ riot.compile(() => {
         x: e.clientX,
         y: e.clientY,
         items: [
-          { title: "Cut", onClick: (e) => {console.log("c")} },
-          { title: "Copy", onClick: (e) => {console.log("co")} },
-          { title: "Paste", onClick: (e) => {console.log("p")} },
+          { title: "Cut", onClick: (ev) => {
+            clipboard.writeText(JSON.stringify(e.items))
+            notes.deleteArray(e.items)
+          } },
+          { title: "Copy", onClick: (ev) => {
+            clipboard.writeText(JSON.stringify(e.items))
+          } },
+          { title: "Paste", onClick: (ev) => {
+            copiedNotes = JSON.parse(clipboard.readText())
+            notes.pushArray(copiedNotes)
+          } },
           { title: "Delete", onClick: (ev) => {
-            for (var i = notes.length - 1; i >= 0; i--) {
-              if (e.items.indexOf(notes[i]) >= 0) {
-                notes.splice(i, 1)
-              }
-            }
+            notes.deleteArray(e.items)
           } },
         ]
       })

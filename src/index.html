@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
   <title>Document</title>
 </head>
-<body onclick="onClickBody(event)">
+<body 
+  onclick="onClickBody(event)"
+  onmouseup="onMouseUpBody(event)">
   <!-- 
     起動
     $ cd signal/src
@@ -128,7 +130,8 @@ riot.compile(() => {
 
   startPos = {x: 0, y: 0}
 
-  riot.mount("notes", {notes: notes, 
+  var notesOpts = {notes: notes, 
+    mode: 0,
     onClickNote: (e) => {
       notes.splice(notes.indexOf(e.item), 1)
     },
@@ -152,7 +155,7 @@ riot.compile(() => {
       startPos.y = e.original.offsetY
     },
     onSelectNotes: (e) => {
-      notes.forEach(function(n){
+      notes.forEach(function(n) {
         n.selected = e.items.includes(n)
       })
     },
@@ -160,10 +163,10 @@ riot.compile(() => {
       e.items.forEach(function(n) {
         n.x += e.movementX
         n.y += e.movementY
-      });
+      })
     },
     onClickSelectedNotes: (e) => {
-      if (e.button != 2) return;
+      if (e.button != 2) return
       contextMenu.update({
         hidden: false,
         x: e.clientX,
@@ -186,13 +189,26 @@ riot.compile(() => {
         ]
       })
     }
-  })
+  }
+  document.notesOpts = notesOpts
+  riot.mount("notes", notesOpts)
 })
 
 function onClickBody(e) {
   document.contextMenu.update({
     hidden: true
   })
+}
+
+function onMouseUpBody(e) {
+  if (e.button == 2 && e.detail == 2) {
+    console.log("right double click")
+    if (document.notesOpts.mode == 0) {
+      document.notesOpts.mode = 1
+    } else {
+      document.notesOpts.mode = 0
+    }
+  }
 }
 </script>
 <style type="text/css">

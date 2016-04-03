@@ -7,6 +7,7 @@ opts = {
       width: <Number> 横幅 (px)
     }
   ],
+  mode: <Number> 0: 鉛筆, 1: 範囲選択
   onClickNote: <Function> Event#item で要素を取得
   onStartDragNote: <Function> ノートのドラッグ開始時に呼ばれる 
   onDragNote: <Function> ノートのドラッグ中に呼ばれる Event#isRightEdge, isLeftEdge でノートの端にあるか取得できる
@@ -21,7 +22,7 @@ opts = {
     onmousemove={ mouseHandler.onMouseMoveContainer }
     onmousedown={ mouseHandler.onMouseDownContainer }>
     <div 
-      each={ opts.notes } 
+      each={ notes } 
       class={"note": true, "selected": selected}
       style="left: { x }px; top: { y }px; width: { width }px;" 
       onmousedown={ mouseHandler.onMouseDown }
@@ -57,7 +58,7 @@ opts = {
 
       onMouseDown: (e) =>
         @addEdgeFlags e
-        @startEvent = e 
+        @startEvent = e
 
       onMouseUpContainer: (e) => 
         if @startEvent? and not @dragging
@@ -70,19 +71,20 @@ opts = {
         @resetCursor()
 
       onMouseMoveContainer: (e) =>
-        if @startEvent?
-          ev = 
-            original: e
-            target: @startEvent.target
-            item: @startEvent.item
-            isRightEdge: @startEvent.isRightEdge
-            isLeftEdge: @startEvent.isLeftEdge
+        return unless @startEvent?
+        console.log @startEvent
+        ev = 
+          original: e
+          target: @startEvent.target
+          item: @startEvent.item
+          isRightEdge: @startEvent.isRightEdge
+          isLeftEdge: @startEvent.isLeftEdge
 
-          unless @dragging
-            @dragging = true
-            opts.onStartDragNote ev
-          else
-            opts.onDragNote ev
+        unless @dragging
+          @dragging = true
+          opts.onStartDragNote ev
+        else
+          opts.onDragNote ev
 
       addEdgeFlags: (e) =>
         e.isLeftEdge = e.layerX <= 8
@@ -162,7 +164,11 @@ opts = {
       updateCursor: (e) => undefined
 
     @selections = [new Selection(0, 0)]
-    @mouseHandler = new SelectionMouseHandler(@container, @selections)
+    @mouseHandler = switch opts.mode 
+      when 0 then new PencilMouseHandler(@container)
+      else new SelectionMouseHandler(@container, @selections)
+
+    console.log opts.mode
 
     @container.oncontextmenu = (e) =>
       e.preventDefault()

@@ -12,6 +12,7 @@ opts = {
   onDragNote: <Function> ノートのドラッグ中に呼ばれる Event#isRightEdge, isLeftEdge でノートの端にあるか取得できる
   onSelectNotes: <Function> 選択モードのときにノートが選択された時に呼ばれる items に対象のノートが入っている
   onMoveSelectedNotes: <Function> 選択モードのときに選択範囲がドラッグされた時に呼ばれる items に範囲内のノートが入っている
+  onClickSelectedNotes: <Function> 選択モードのときに選択範囲がクリックされた時に呼ばれる　items に範囲内のノートが入っている
 }
 -->
 <notes>
@@ -21,7 +22,7 @@ opts = {
     onmousedown={ mouseHandler.onMouseDownContainer }>
     <div 
       each={ opts.notes } 
-      class="note {selected ? "selected" : ""}"
+      class={"note": true, "selected": selected}
       style="left: { x }px; top: { y }px; width: { width }px;" 
       onmousedown={ mouseHandler.onMouseDown }
       onmouseover={ mouseHandler.updateCursor }
@@ -34,26 +35,9 @@ opts = {
       style="left: { left() }px; top: { top() }px; width: { width() }px; height: { height() }px;"
       hide={ hidden } >
       </div>
-    <div 
-      class="context-menu" 
-      style="left: { menu.x }px; top: { menu.y }px; display: { menu.hidden ? "none" : "block"};">
-      <ul>
-          <li each={ menu.items }>{ title }</li>
-      </ul>
-    </div>
   </div>
 
   <script type="text/coffeescript">
-    @menu = {}
-    @menu.hidden = true
-    @menu.items = [
-      title: "item1"
-    , 
-      title: "aaa"
-    , 
-      title: "hoge"
-    ]
-
     class MouseHandler
       onMouseUpContainer: (e) => undefined
       onMouseMoveContainer: (e) => undefined
@@ -63,8 +47,7 @@ opts = {
       updateCursor: (e) => undefined
 
     class PencilMouseHandler extends MouseHandler
-      constructor: (container, menu) ->
-        @menu = menu
+      constructor: (container) ->
         @dragging = false
         @startEvent = null
         @container = container
@@ -85,7 +68,6 @@ opts = {
         @startEvent = null
         @dragging = false
         @resetCursor()
-        @menu.hidden = true
 
       onMouseMoveContainer: (e) =>
         if @startEvent?
@@ -131,15 +113,15 @@ opts = {
         point.y >= @top() and point.y <= @bottom()
 
     class SelectionMouseHandler extends MouseHandler
-      constructor: (container, selections, menu) ->
-        @menu = menu
+      constructor: (container, selections) ->
         @selections = selections
         @container = container
         @dragging = false
+        @moved = false
 
       onMouseDownContainer: (e) => 
-        console.log "a"
         @dragging = true
+        @moved = false
         b = @container.getBoundingClientRect()
         p = {x: e.clientX - b.left, y: e.clientY - b.top}
         unless @selections[0].contains(p)
@@ -148,6 +130,7 @@ opts = {
 
       onMouseMoveContainer: (e) => 
         return unless @dragging 
+        @moved = true
         sel = @selections[0]
         if sel.fixed
           # 確定済みの選択範囲をドラッグした場合はノートの移動
@@ -166,24 +149,23 @@ opts = {
           sel.hidden = false
 
       onMouseUpContainer: (e) => 
-        @dragging = false
         e.items = opts.notes.filter((n) => @selections[0].contains(n))
-        @selections[0].fixed = true
-        opts.onSelectNotes(e)
-        @menu.hidden = true
+        unless @selections[0].fixed
+          @selections[0].fixed = true
+          opts.onSelectNotes(e)
+        else unless @moved
+          opts.onClickSelectedNotes(e)
+        @dragging = false
+        @moved = false
 
       resetCursor: (e) => undefined
       updateCursor: (e) => undefined
 
     @selections = [new Selection(0, 0)]
-    @mouseHandler = new SelectionMouseHandler(@container, @selections, @menu)
+    @mouseHandler = new SelectionMouseHandler(@container, @selections)
 
     @container.oncontextmenu = (e) =>
       e.preventDefault()
-      @menu.hidden = false
-      b = @container.getBoundingClientRect()
-      @menu.x = e.pageX - b.left
-      @menu.y = e.pageY - b.top
   </script>
 
   <style scoped>
@@ -208,23 +190,6 @@ opts = {
     .selection {
       position: absolute;
       border: 3px solid rgb(0, 0, 0);
-    }
-
-    .context-menu ul {
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    .context-menu {
-      position: absolute; 
-      background: white;
-      border: solid 1px #CCC;
-    }
-
-    .context-menu ul li {
-      padding: 0.3em 0.5em;
-      margin: 0;
     }
 
   </style>

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Document</title>
 </head>
-<body>
+<body onclick="onClickBody(event)">
   <!-- 
     起動
     $ cd signal/src
@@ -19,6 +19,7 @@
       <grid></grid>
       <notes></notes>
     </div>
+    <context-menu></context-menu>
   </div>
 </body>
 <script type="riot/tag" src="tag/piano-roll/keys.tag"></script>
@@ -26,42 +27,52 @@
 <script type="riot/tag" src="tag/piano-roll/key-grid.tag"></script>
 <script type="riot/tag" src="tag/piano-roll/ruler.tag"></script>
 <script type="riot/tag" src="tag/piano-roll/notes.tag"></script>
+<script type="riot/tag" src="tag/piano-roll/context-menu.tag"></script>
 <script src="https://cdn.jsdelivr.net/riot/2.3/riot+compiler.js"></script>
 <script src="lib/coffee-script.js"></script>
 <script src="lib/coffee-riot.js"></script>
 <script>
+riot.compile(() => {
+  contextMenu = riot.mount("context-menu", {
+    hidden: true,
+    x: 0,
+    y: 0,
+    items: []
+  })[0]
+  document.contextMenu = contextMenu
+
   // 鍵盤の表示
-  riot.mount("keys", {numberOfKeys: 24});
+  riot.mount("keys", {numberOfKeys: 24})
 
   // 水平線の表示
-  riot.mount("key-grid", {numberOfKeys: 24});
+  riot.mount("key-grid", {numberOfKeys: 24})
 
   // グリッドの表示
   lines = []
   for (i = 0; i < 4 * 4; i++) {
-    color = "rgb(210, 210, 210)";
+    color = "rgb(210, 210, 210)"
     if (i % 4 == 3) {
-      color = "gray";
+      color = "gray"
     }
     lines.push({
       x: 120 / 4 * (i + 1),
       color: color
-    });
+    })
   }
 
-  riot.mount("grid", {numberOfKeys: 24, lines: lines});
+  riot.mount("grid", {numberOfKeys: 24, lines: lines})
 
   // ルーラーの表示
-  bars = [];
+  bars = []
   for (i = 0; i < 4; i++) {
     bars.push({
       length: 120,
       label: i
-    });
+    })
   }
-  bars[0].label += " Start";
+  bars[0].label += " Start"
 
-  riot.mount("ruler", {bars: bars});
+  riot.mount("ruler", {bars: bars})
 
   // ノートの配置とコールバック
   notes = [
@@ -80,13 +91,13 @@
       y: 30 * 7,
       width: 30 * 5
     }
-  ];
+  ]
 
   startPos = {x: 0, y: 0}
 
   riot.mount("notes", {notes: notes, 
     onClickNote: (e) => {
-      notes.splice(notes.indexOf(e.item), 1);
+      notes.splice(notes.indexOf(e.item), 1)
     },
     onDragNote: (e) => {
       b = e.target.parentElement.getBoundingClientRect()
@@ -109,7 +120,7 @@
     },
     onSelectNotes: (e) => {
       notes.forEach(function(n){
-        n.selected = e.items.includes(n);
+        n.selected = e.items.includes(n)
       })
     },
     onMoveSelectedNotes: (e) => {
@@ -117,10 +128,44 @@
         n.x += e.movementX
         n.y += e.movementY
       });
+    },
+    onClickSelectedNotes: (e) => {
+      if (e.button != 2) return;
+      contextMenu.update({
+        hidden: false,
+        x: e.clientX,
+        y: e.clientY,
+        items: [
+          { title: "Cut", onClick: (e) => {console.log("c")} },
+          { title: "Copy", onClick: (e) => {console.log("co")} },
+          { title: "Paste", onClick: (e) => {console.log("p")} },
+          { title: "Delete", onClick: (ev) => {
+            for (var i = notes.length - 1; i >= 0; i--) {
+              if (e.items.indexOf(notes[i]) >= 0) {
+                notes.splice(i, 1)
+              }
+            }
+          } },
+        ]
+      })
     }
-  });
+  })
+})
+
+function onClickBody(e) {
+  document.contextMenu.update({
+    hidden: true
+  })
+}
 </script>
 <style type="text/css">
+body {
+  font-family: Arial;
+  font-size: 80%;
+  -webkit-font-smoothing: antialiased;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+}
 #container {
   position: relative;
   overflow: hidden;

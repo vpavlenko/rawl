@@ -51,6 +51,7 @@ opts = {
       constructor: (container) ->
         @dragging = false
         @startEvent = null
+        @startItem = null
         @container = container
 
       resetCursor: => 
@@ -59,24 +60,23 @@ opts = {
       onMouseDown: (e) =>
         @addEdgeFlags e
         @startEvent = e
+        @startItem = e.item
 
       onMouseUpContainer: (e) => 
-        if @startEvent? and not @dragging
+        if @startItem? and not @dragging
           opts.onClickNote 
             original: e
-            target: @startEvent.target
-            item: @startEvent.item
-        @startEvent = null
+            item: @startItem
+        @startItem = null
         @dragging = false
         @resetCursor()
 
       onMouseMoveContainer: (e) =>
-        return unless @startEvent?
-        console.log @startEvent
+        return unless @startItem?
         ev = 
           original: e
           target: @startEvent.target
-          item: @startEvent.item
+          item: @startItem
           isRightEdge: @startEvent.isRightEdge
           isLeftEdge: @startEvent.isLeftEdge
 

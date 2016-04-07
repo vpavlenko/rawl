@@ -33,39 +33,30 @@
 <script src="https://cdn.jsdelivr.net/riot/2.3/riot+compiler.js"></script>
 <script src="lib/coffee-script.js"></script>
 <script src="lib/coffee-riot.js"></script>
+<script src="clipboard.js"></script>
+<script src="array_extensions.js"></script>
 <script>
-
-// use Electron clipboard API in future
-class Clipboard {
-  constructor() {
-    this.data = {}
-  }
-  writeText(text) {
-    this.data.text = text
-  }
-  readText() {
-    return this.data.text
-  }
-  clear(type) {
-    delete this.data[type]
-  }
-  write(data, type) {
-    this.data[type] = data
-  }
-}
 const clipboard = new Clipboard
 
-Array.prototype.deleteArray = function(arr) {
-  for (var i = this.length - 1; i >= 0; i--) {
-    if (arr.indexOf(this[i]) >= 0) {
-      this.splice(i, 1)
-    }
+class Quantizer {
+  constructor(pixelsPerBeat, pixelsPerKey) {
+    this.pixelsPerBeat = pixelsPerBeat
+    this.pixelsPerKey = pixelsPerKey
+  }
+
+  // denominator: N 分音符の N
+  quantizeX(x, denominator) {
+    var u = this.pixelsPerBeat * 4 / denominator
+    return Math.round(x / u) * u
+  }
+
+  quantizeY(y) {
+    var u = this.pixelsPerKey
+    return Math.round(y / u) * u
   }
 }
 
-Array.prototype.pushArray = function(arr) {
-  Array.prototype.push.apply(this, arr)
-}
+const quantizer = new Quantizer(30, 30)
 
 riot.compile(() => {
   contextMenu = riot.mount("context-menu", {
@@ -83,28 +74,22 @@ riot.compile(() => {
   riot.mount("key-grid", {numberOfKeys: 24})
 
   // グリッドの表示
-  lines = []
-  for (i = 0; i < 4 * 4; i++) {
-    color = "rgb(210, 210, 210)"
-    if (i % 4 == 3) {
-      color = "gray"
-    }
-    lines.push({
+  lines = Array.range(0, 4 * 4 - 1).map((i) => {
+    return {
       x: 120 / 4 * (i + 1),
-      color: color
-    })
-  }
+      color: i % 4 == 3 ? "gray" : "rgb(210, 210, 210)"
+    }
+  })
 
   riot.mount("grid", {numberOfKeys: 24, lines: lines})
 
   // ルーラーの表示
-  bars = []
-  for (i = 0; i < 4; i++) {
-    bars.push({
+  bars = Array.range(0, 3).map((i) => {
+    return {
       length: 120,
       label: i
-    })
-  }
+    }
+  })
   bars[0].label += " Start"
 
   riot.mount("ruler", {bars: bars})
@@ -128,8 +113,6 @@ riot.compile(() => {
     }
   ]
 
-  startPos = {x: 0, y: 0}
-
   var notesOpts = {notes: notes, 
     mode: 0,
     onClickNote: (e) => {
@@ -151,8 +134,6 @@ riot.compile(() => {
       }
     },
     onStartDragNote: (e) => {
-      startPos.x = e.original.offsetX
-      startPos.y = e.original.offsetY
     },
     onSelectNotes: (e) => {
       notes.forEach(function(n) {

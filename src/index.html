@@ -113,27 +113,35 @@ riot.compile(() => {
     }
   ]
 
+  selections = []
+
   var notesOpts = {notes: notes, 
-    mode: 0,
+    mode: 1,
+    selections: selections,
     onClickNote: (e) => {
       notes.splice(notes.indexOf(e.item), 1)
     },
-    onDragNote: (e) => {
-      b = e.target.parentElement.getBoundingClientRect()
-      if (e.isLeftEdge) {
-        // 右端を固定して長さを変更
-        e.item.x += e.original.movementX
-        e.item.width -= e.original.movementX
-      } else if (e.isRightEdge) {
-        // 左端を固定して長さを変更
-        e.item.width += e.original.movementX
-      } else {
-        // 移動
-        e.item.x += e.original.movementX
-        e.item.y += e.original.movementY
-      }
+    onResizeNote: (note, bounds) => {
+      note.x = bounds.x
+      note.y = bounds.y
+      note.width = bounds.width
+      note.height = bounds.height
     },
-    onStartDragNote: (e) => {
+    onClickOutsideSelection: (position) => {
+      selections.push({
+        x: position.x,
+        y: position.y,
+        width: 0,
+        height: 0,
+        hidden: true,
+        fixed: false
+      })
+    },
+    onResizeSelection: (selection, bounds, notes) => {
+      selection.x = bounds.x
+      selection.y = bounds.y
+      selection.width = bounds.width
+      selection.height = bounds.height
     },
     onSelectNotes: (e) => {
       notes.forEach(function(n) {

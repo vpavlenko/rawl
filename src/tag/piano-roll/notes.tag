@@ -188,6 +188,8 @@ opts = {
             hidden: true
           })
         }
+
+        this.dragOffset = { x: this.start.x - selection.x, y: this.start.y - selection.y }
       }
 
       onMouseMove(e) { 
@@ -196,13 +198,12 @@ opts = {
         selection.hidden = false
 
         var loc = this.getLocation(e)
-        var items = []
         if (selection.fixed) {
           // 確定済みの選択範囲をドラッグした場合はノートの移動
-          items = opts.notes.filter((n) => new Rect(selection).containsPoint(n))
+          var items = opts.notes.filter((n) => new Rect(selection).containsPoint(n))
           // 選択範囲も移動させる
-          selection.x += e.movementX
-          selection.y += e.movementY
+          selection.x = quantizer.quantizeX(loc.x - this.dragOffset.x)
+          selection.y = quantizer.quantizeY(loc.y - this.dragOffset.y)
 
           opts.onMoveNotes(items, {
             x: e.movementX,
@@ -210,13 +211,16 @@ opts = {
           })
         } else {
           // 選択範囲の変形
-          Object.assign(selection, Rect.fromPoints(this.start, loc))
+          var rect = Rect.fromPoints(this.start, loc)
+          selection.x = quantizer.quantizeX(rect.x)
+          selection.y = quantizer.quantizeY(rect.y)
+          selection.width = quantizer.quantizeX(rect.x + rect.width) - selection.x
+          selection.height = quantizer.quantizeY(rect.y + rect.height) - selection.y
           selection.hidden = false
         }
       }
 
       onMouseUp(e) { 
-        selection.dragging = false
         var aNotes = opts.notes.filter((n) => new Rect(selection).containsPoint(n))
         if (!selection.fixed) {
           selection.fixed = true
@@ -260,6 +264,7 @@ opts = {
     .selection {
       position: absolute;
       border: 3px solid rgb(0, 0, 0);
+      box-sizing: border-box;
     }
 
   </style>

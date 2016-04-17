@@ -96,6 +96,7 @@ opts = {
 
       onMouseDownNote(e) {
         this.startItem = e.item
+        this.dragOffset = { x: e.layerX, y: e.layerY }
         this.dragPosition = this.getDragPosition(e)
       }
 
@@ -123,21 +124,22 @@ opts = {
         }
 
         var loc = this.getLocation(e)
+        var qx = quantizer.quantizeX(loc.x)
 
         switch (this.dragPosition) {
           case DRAG_POSITION.LEFT_EDGE:
           // 右端を固定して長さを変更
-          bounds.width = item.width + item.x - loc.x 
-          bounds.x = loc.x
+          bounds.width = item.width + item.x - qx 
+          bounds.x = qx
           break
           case DRAG_POSITION.RIGHT_EDGE:
           // 左端を固定して長さを変更
-          bounds.width = loc.x - bounds.x
+          bounds.width = qx - bounds.x
           break
           case DRAG_POSITION.CENTER:
           // 移動
-          bounds.x += e.movementX
-          bounds.y += e.movementY
+          bounds.x = quantizer.quantizeX(loc.x - this.dragOffset.x)
+          bounds.y = quantizer.quantizeY(loc.y - this.dragOffset.y) 
           break
         }
 

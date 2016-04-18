@@ -9,6 +9,7 @@ opts = {
   ],
   quantizer: <Quantizer>
   mode: <Number> 0: 鉛筆, 1: 範囲選択
+  onCreateNote: <Function(bounds)> 
   onResizeNote: <Function(note, bounds)>
   onClickNote: <Function(note)>
   onSelectNotes: <Function(notes)>
@@ -39,7 +40,7 @@ opts = {
   </div>
 
   <script type="text/javascript">
-    selection = {}
+    selection = {hidden: true}
     this.selections = [selection]
 
     class MouseHandler {
@@ -102,15 +103,16 @@ opts = {
         this.dragPosition = this.getDragPosition(e)
       }
 
-      onMouseDown(e) { super.onMouseDown(e) }
-
-      onMouseUp(e) {
-        super.onMouseUp(e)
-        if (this.startItem != null && !this.isMouseMoved) {
-          opts.onClickNote(this.startItem)
+      onMouseDown(e) { 
+        super.onMouseDown(e) 
+        if (e.target == this.container) {
+          const loc = this.getLocation(e)
+          opts.onCreateNote({
+            x: quantizer.floorX(loc.x),
+            y: quantizer.floorY(loc.y),
+            width: quantizer.unitX
+          })
         }
-        this.startItem = null
-        this.resetCursor()
       }
 
       onMouseMove(e) {
@@ -121,8 +123,7 @@ opts = {
         const bounds = {
           x: item.x,
           y: item.y,
-          width: item.width,
-          height: item.height
+          width: item.width
         }
 
         const loc = this.getLocation(e)
@@ -146,6 +147,15 @@ opts = {
         }
 
         opts.onResizeNote(item, bounds)
+      }
+
+      onMouseUp(e) {
+        if (this.startItem != null && !this.isMouseMoved) {
+          opts.onClickNote(this.startItem)
+        }
+        this.startItem = null
+        this.resetCursor()
+        super.onMouseUp(e)
       }
 
       getDragPosition(e) {

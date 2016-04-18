@@ -7,25 +7,26 @@ opts = {
       width: <Number> 横幅 (px)
     }
   ],
+  quantizer: <Quantizer>
   mode: <Number> 0: 鉛筆, 1: 範囲選択
-  onClickNote: <Function> Event#item で要素を取得
-  onStartDragNote: <Function> ノートのドラッグ開始時に呼ばれる 
-  onDragNote: <Function> ノートのドラッグ中に呼ばれる Event#isRightEdge, isLeftEdge でノートの端にあるか取得できる
-  onSelectNotes: <Function> 選択モードのときにノートが選択された時に呼ばれる items に対象のノートが入っている
-  onMoveSelectedNotes: <Function> 選択モードのときに選択範囲がドラッグされた時に呼ばれる items に範囲内のノートが入っている
-  onClickSelectedNotes: <Function> 選択モードのときに選択範囲がクリックされた時に呼ばれる　items に範囲内のノートが入っている
+  onCreateNote: <Function(bounds)> 
+  onResizeNote: <Function(note, bounds)>
+  onClickNote: <Function(note)>
+  onSelectNotes: <Function(notes)>
+  onMoveNotes : <Function(notes, movement)>
+  onClickNotes <Function(notes, mouseEvent)>
 }
 -->
 <notes>
   <div class="container" name="container"
-    onmouseup={ mouseHandler.onMouseUpContainer }
-    onmousemove={ mouseHandler.onMouseMoveContainer }
-    onmousedown={ mouseHandler.onMouseDownContainer }>
+    onmouseup={ mouseHandler.onMouseUp }
+    onmousemove={ mouseHandler.onMouseMove }
+    onmousedown={ mouseHandler.onMouseDown }>
     <div 
       each={ notes } 
       class={"note": true, "selected": selected}
       style="left: { x }px; top: { y }px; width: { width }px;" 
-      onmousedown={ mouseHandler.onMouseDown }
+      onmousedown={ mouseHandler.onMouseDownNote }
       onmouseover={ mouseHandler.updateCursor }
       onmousemove={ mouseHandler.updateCursor }
       onmouseleave={ mouseHandler.resetCursor }>
@@ -33,145 +34,224 @@ opts = {
     <div 
       class="selection"
       each={ selections } 
-      style="left: { left() }px; top: { top() }px; width: { width() }px; height: { height() }px;"
-      hide={ hidden } >
+      style="left: { x }px; top: { y }px; width: { width }px; height: { height }px;"
+      if={ !hidden } >
       </div>
   </div>
 
-  <script type="text/coffeescript">
-    class MouseHandler
-      onMouseUpContainer: (e) => undefined
-      onMouseMoveContainer: (e) => undefined
-      onMouseDownContainer: (e) => undefined
-      onMouseDown: (e) => undefined
-      resetCursor: (e) => undefined
-      updateCursor: (e) => undefined
+  <script type="text/javascript">
+    selection = {hidden: true}
+    this.selections = [selection]
 
-    class PencilMouseHandler extends MouseHandler
-      constructor: (container) ->
-        @dragging = false
-        @startEvent = null
-        @startItem = null
-        @container = container
+    class MouseHandler {
+      constructor(container) {
+        this.container = container
+        this.startLocation = {x: undefined, y: undefined}
+        this.isMouseDown = false
+        this.isMouseMoved = false
+      }
 
-      resetCursor: => 
-        @container.style.cursor = "default"
+      getLocation(e) {
+        const b = this.container.getBoundingClientRect()
+        return {
+          x: e.clientX - b.left,
+          y: e.clientY - b.top
+        }
+      }
 
-      onMouseDown: (e) =>
-        @addEdgeFlags e
-        @startEvent = e
-        @startItem = e.item
+      onMouseDown(e) {
+        this.startLocation = this.getLocation(e)
+        this.isMouseDown = true
+        this.isMouseMoved = false
+      }
 
-      onMouseUpContainer: (e) => 
-        if @startItem? and not @dragging
-          opts.onClickNote 
-            original: e
-            item: @startItem
-        @startItem = null
-        @dragging = false
-        @resetCursor()
+      onMouseMove(e) { 
+        this.isMouseMoved = true
+      }
 
-      onMouseMoveContainer: (e) =>
-        return unless @startItem?
-        ev = 
-          original: e
-          target: @startEvent.target
-          item: @startItem
-          isRightEdge: @startEvent.isRightEdge
-          isLeftEdge: @startEvent.isLeftEdge
+      onMouseUp(e) {
+        this.isMouseDown = false
+        this.isMouseMoved = false
+      }
 
-        unless @dragging
-          @dragging = true
-          opts.onStartDragNote ev
-        else
-          opts.onDragNote ev
+      onMouseDownNote(e) {}
+      resetCursor(e) {}
+      updateCursor(e) {}
+    }
 
-      addEdgeFlags: (e) =>
-        e.isLeftEdge = e.layerX <= 8
-        e.isRightEdge = e.target.clientWidth - e.layerX <= 8
+    const DRAG_POSITION = {
+      LEFT_EDGE: 0,
+      CENTER: 1,
+      RIGHT_EDGE: 2
+    }
 
-      updateCursor: (e) =>
-        return if @dragging
-        @addEdgeFlags e
-        @container.style.cursor = 
-          if e.isLeftEdge or e.isRightEdge then "w-resize" else "move"
+    class PencilMouseHandler extends MouseHandler {
+      constructor(container) {
+        super(container)
+        bindAllMethods(this)
+        this.startEvent = null
+        this.startItem = null
+      }
 
-    class Selection
-      constructor: (startX = 0, startY = 0) ->
-        @startX = startX
-        @startY = startY
-        @endX = startX
-        @endY = startY
-        @fixed = false # マウスクリックを離した後に true
-        @hidden = true
-      left: => Math.min(@startX, @endX)
-      top: => Math.min(@startY, @endY)
-      right: => Math.max(@startX, @endX)
-      bottom: => Math.max(@startY, @endY)
-      width: => @right() - @left()
-      height: => @bottom() - @top()
-      contains: (point) => 
-        point.x >= @left() and point.x <= @right() and 
-        point.y >= @top() and point.y <= @bottom()
+      resetCursor() {
+        this.container.style.cursor = "default"
+      }
 
-    class SelectionMouseHandler extends MouseHandler
-      constructor: (container, selections) ->
-        @selections = selections
-        @container = container
-        @dragging = false
-        @moved = false
+      onMouseDownNote(e) {
+        this.startItem = e.item
+        this.dragOffset = { x: e.layerX, y: e.layerY }
+        this.dragPosition = this.getDragPosition(e)
+      }
 
-      onMouseDownContainer: (e) => 
-        @dragging = true
-        @moved = false
-        b = @container.getBoundingClientRect()
-        p = {x: e.clientX - b.left, y: e.clientY - b.top}
-        unless @selections[0].contains(p)
-          # 選択範囲外でクリックした場合は選択範囲を作成
-          @selections[0] = new Selection(p.x, p.y)
+      onMouseDown(e) { 
+        super.onMouseDown(e) 
+        if (e.target == this.container) {
+          const loc = this.getLocation(e)
+          opts.onCreateNote({
+            x: quantizer.floorX(loc.x),
+            y: quantizer.floorY(loc.y),
+            width: quantizer.unitX
+          })
+        }
+      }
 
-      onMouseMoveContainer: (e) => 
-        return unless @dragging 
-        @moved = true
-        sel = @selections[0]
-        if sel.fixed
-          # 確定済みの選択範囲をドラッグした場合はノートの移動
-          e.items = opts.notes.filter((n) => @selections[0].contains(n))
-          opts.onMoveSelectedNotes(e)
-          # 選択範囲も移動させる
-          sel.startX += e.movementX
-          sel.startY += e.movementY
-          sel.endX += e.movementX
-          sel.endY += e.movementY
-        else
-          # 選択範囲の変形
-          b = @container.getBoundingClientRect()
-          sel.endX = e.clientX - b.left
-          sel.endY = e.clientY - b.top
-          sel.hidden = false
+      onMouseMove(e) {
+        super.onMouseMove(e)
+        const item = this.startItem
+        if (item == null) return
 
-      onMouseUpContainer: (e) => 
-        e.items = opts.notes.filter((n) => @selections[0].contains(n))
-        unless @selections[0].fixed
-          @selections[0].fixed = true
-          opts.onSelectNotes(e)
-        else unless @moved
-          opts.onClickSelectedNotes(e)
-        @dragging = false
-        @moved = false
+        const bounds = {
+          x: item.x,
+          y: item.y,
+          width: item.width
+        }
 
-      resetCursor: (e) => undefined
-      updateCursor: (e) => undefined
+        const loc = this.getLocation(e)
+        const qx = quantizer.roundX(loc.x)
 
-    @selections = [new Selection(0, 0)]
-    @mouseHandler = switch opts.mode 
-      when 0 then new PencilMouseHandler(@container)
-      else new SelectionMouseHandler(@container, @selections)
+        switch (this.dragPosition) {
+          case DRAG_POSITION.LEFT_EDGE:
+          // 右端を固定して長さを変更
+          bounds.width = item.width + item.x - qx 
+          bounds.x = qx
+          break
+          case DRAG_POSITION.RIGHT_EDGE:
+          // 左端を固定して長さを変更
+          bounds.width = qx - bounds.x
+          break
+          case DRAG_POSITION.CENTER:
+          // 移動
+          bounds.x = quantizer.roundX(loc.x - this.dragOffset.x)
+          bounds.y = quantizer.roundY(loc.y - this.dragOffset.y) 
+          break
+        }
 
-    console.log opts.mode
+        opts.onResizeNote(item, bounds)
+      }
 
-    @container.oncontextmenu = (e) =>
+      onMouseUp(e) {
+        if (this.startItem != null && !this.isMouseMoved) {
+          opts.onClickNote(this.startItem)
+        }
+        this.startItem = null
+        this.resetCursor()
+        super.onMouseUp(e)
+      }
+
+      getDragPosition(e) {
+        if (e.layerX <= 8) return DRAG_POSITION.LEFT_EDGE
+        if (e.target.clientWidth - e.layerX <= 8) return DRAG_POSITION.RIGHT_EDGE
+        return DRAG_POSITION.CENTER
+      }
+
+      updateCursor(e) {
+        if (this.isMouseDown) return
+        switch (this.getDragPosition(e)) {
+          case DRAG_POSITION.LEFT_EDGE:
+          case DRAG_POSITION.RIGHT_EDGE: 
+          this.container.style.cursor = "w-resize"
+          break
+          default:
+          this.container.style.cursor = "move"
+          break
+        }
+      }
+    }
+
+    class SelectionMouseHandler extends MouseHandler {
+      constructor(container) {
+        super(container)
+        bindAllMethods(this)
+        this.container = container
+      }
+
+      onMouseDown(e) { 
+        super.onMouseDown(e)
+        this.start = this.getLocation(e)
+        const clicked = new Rect(selection).containsPoint(this.start)
+        if (!clicked) {
+          // 選択範囲外でクリックした場合は選択範囲をリセット
+          Object.assign(selection, {
+            x: this.start.x,
+            y: this.start.y,
+            width: 0,
+            height: 0,
+            fixed: false,
+            hidden: true
+          })
+          opts.onSelectNotes([])
+        }
+
+        this.dragOffset = { x: this.start.x - selection.x, y: this.start.y - selection.y }
+      }
+
+      onMouseMove(e) { 
+        super.onMouseMove(e)
+        if (!this.isMouseDown) return
+        selection.hidden = false
+
+        const loc = this.getLocation(e)
+        if (selection.fixed) {
+          // 確定済みの選択範囲をドラッグした場合はノートと選択範囲を移動
+          const qx = quantizer.roundX(loc.x - this.dragOffset.x)
+          const qy = quantizer.roundY(loc.y - this.dragOffset.y)
+
+          opts.onMoveNotes(selection.notes, {
+            x: qx - selection.x,
+            y: qy - selection.y
+          })
+          selection.x = qx
+          selection.y = qy
+        } else {
+          // 選択範囲の変形
+          const rect = Rect.fromPoints(this.start, loc)
+          selection.x = quantizer.roundX(rect.x)
+          selection.y = quantizer.roundY(rect.y)
+          selection.width = (quantizer.roundX(rect.x + rect.width) - selection.x) || quantizer.unitX
+          selection.height = (quantizer.roundY(rect.y + rect.height) - selection.y) || quantizer.unitY
+        }
+      }
+
+      onMouseUp(e) { 
+        if (!selection.fixed) {
+          selection.fixed = true
+          selection.notes = opts.notes.filter((n) => new Rect(selection).containsPoint(n))
+          opts.onSelectNotes(selection.notes)
+        } else if (!this.isMouseMoved) {
+          opts.onClickNotes(selection.notes, e)
+        }
+        super.onMouseUp(e)
+      }
+    }
+
+    this.mouseHandler = [ 
+      new PencilMouseHandler(this.container),
+      new SelectionMouseHandler(this.container)
+    ][opts.mode]
+
+    this.container.oncontextmenu = (e) => {
       e.preventDefault()
+    }
   </script>
 
   <style scoped>
@@ -196,6 +276,7 @@ opts = {
     .selection {
       position: absolute;
       border: 3px solid rgb(0, 0, 0);
+      box-sizing: border-box;
     }
 
   </style>

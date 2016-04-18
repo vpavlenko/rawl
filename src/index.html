@@ -34,28 +34,12 @@
 <script src="lib/coffee-script.js"></script>
 <script src="lib/coffee-riot.js"></script>
 <script src="clipboard.js"></script>
+<script src="quantizer.js"></script>
+<script src="rect.js"></script>
+<script src="helper.js"></script>
 <script src="array_extensions.js"></script>
 <script>
 const clipboard = new Clipboard
-
-class Quantizer {
-  constructor(pixelsPerBeat, pixelsPerKey) {
-    this.pixelsPerBeat = pixelsPerBeat
-    this.pixelsPerKey = pixelsPerKey
-  }
-
-  // denominator: N 分音符の N
-  quantizeX(x, denominator) {
-    var u = this.pixelsPerBeat * 4 / denominator
-    return Math.round(x / u) * u
-  }
-
-  quantizeY(y) {
-    var u = this.pixelsPerKey
-    return Math.round(y / u) * u
-  }
-}
-
 const quantizer = new Quantizer(30, 30)
 
 riot.compile(() => {
@@ -113,40 +97,37 @@ riot.compile(() => {
     }
   ]
 
-  var notesOpts = {notes: notes, 
+  selections = []
+
+  var notesOpts = {
+    notes: notes, 
     mode: 0,
-    onClickNote: (e) => {
-      notes.splice(notes.indexOf(e.item), 1)
+    quantizer: quantizer,
+    selections: selections,
+    onCreateNote: (bounds) => {
+      notes.push(bounds)
     },
-    onDragNote: (e) => {
-      b = e.target.parentElement.getBoundingClientRect()
-      if (e.isLeftEdge) {
-        // 右端を固定して長さを変更
-        e.item.x += e.original.movementX
-        e.item.width -= e.original.movementX
-      } else if (e.isRightEdge) {
-        // 左端を固定して長さを変更
-        e.item.width += e.original.movementX
-      } else {
-        // 移動
-        e.item.x += e.original.movementX
-        e.item.y += e.original.movementY
-      }
+    onClickNote: (note) => {
+      notes.splice(notes.indexOf(note), 1)
     },
-    onStartDragNote: (e) => {
+    onResizeNote: (note, bounds) => {
+      note.x = bounds.x
+      note.y = bounds.y
+      note.width = bounds.width
+      note.height = bounds.height
     },
-    onSelectNotes: (e) => {
+    onSelectNotes: (aNotes) => {
       notes.forEach(function(n) {
-        n.selected = e.items.includes(n)
+        n.selected = aNotes.includes(n)
       })
     },
-    onMoveSelectedNotes: (e) => {
-      e.items.forEach(function(n) {
-        n.x += e.movementX
-        n.y += e.movementY
+    onMoveNotes: (notes, movement) => {
+      notes.forEach(function(n) {
+        n.x += movement.x
+        n.y += movement.y
       })
     },
-    onClickSelectedNotes: (e) => {
+    onClickNotes: (aNotes, e) => {
       if (e.button != 2) return
       contextMenu.update({
         hidden: false,
@@ -154,18 +135,18 @@ riot.compile(() => {
         y: e.clientY,
         items: [
           { title: "Cut", onClick: (ev) => {
-            clipboard.writeText(JSON.stringify(e.items))
-            notes.deleteArray(e.items)
+            clipboard.writeText(JSON.stringify(aNotes))
+            notes.deleteArray(aNotes)
           } },
           { title: "Copy", onClick: (ev) => {
-            clipboard.writeText(JSON.stringify(e.items))
+            clipboard.writeText(JSON.stringify(aNotes))
           } },
           { title: "Paste", onClick: (ev) => {
             copiedNotes = JSON.parse(clipboard.readText())
             notes.pushArray(copiedNotes)
           } },
           { title: "Delete", onClick: (ev) => {
-            notes.deleteArray(e.items)
+            notes.deleteArray(aNotes)
           } },
         ]
       })

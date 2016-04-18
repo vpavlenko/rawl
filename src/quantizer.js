@@ -7,14 +7,42 @@ class Quantizer {
     this.denominator = 4
   }
 
-  quantizeX(x) {
-    var u = this.pixelsPerBeat * 4 / this.denominator
+  roundX(x) {
+    var u = this.unitX
     return Math.round(x / u) * u
   }
 
-  quantizeY(y) {
-    var u = this.pixelsPerKey
+  roundY(y) {
+    var u = this.unitY
     return Math.round(y / u) * u
+  }
+
+  ceilX(x) {
+    var u = this.unitX
+    return Math.ceil(x / u) * u
+  }
+
+  ceilY(y) {
+    var u = this.unitY
+    return Math.ceil(y / u) * u
+  }
+
+  floorX(x) {
+    var u = this.unitX
+    return Math.floor(x / u) * u
+  }
+
+  floorY(y) {
+    var u = this.unitY
+    return Math.floor(y / u) * u
+  }
+
+  get unitX() {
+    return this.pixelsPerBeat * 4 / this.denominator
+  }
+
+  get unitY() {
+    return this.pixelsPerKey
   }
 }
 

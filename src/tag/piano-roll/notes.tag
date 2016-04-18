@@ -34,7 +34,7 @@ opts = {
       class="selection"
       each={ selections } 
       style="left: { x }px; top: { y }px; width: { width }px; height: { height }px;"
-      hide={ hidden } >
+      if={ !hidden } >
       </div>
   </div>
 
@@ -126,7 +126,7 @@ opts = {
         }
 
         const loc = this.getLocation(e)
-        const qx = quantizer.quantizeX(loc.x)
+        const qx = quantizer.roundX(loc.x)
 
         switch (this.dragPosition) {
           case DRAG_POSITION.LEFT_EDGE:
@@ -140,8 +140,8 @@ opts = {
           break
           case DRAG_POSITION.CENTER:
           // 移動
-          bounds.x = quantizer.quantizeX(loc.x - this.dragOffset.x)
-          bounds.y = quantizer.quantizeY(loc.y - this.dragOffset.y) 
+          bounds.x = quantizer.roundX(loc.x - this.dragOffset.x)
+          bounds.y = quantizer.roundY(loc.y - this.dragOffset.y) 
           break
         }
 
@@ -203,8 +203,8 @@ opts = {
         const loc = this.getLocation(e)
         if (selection.fixed) {
           // 確定済みの選択範囲をドラッグした場合はノートと選択範囲を移動
-          const qx = quantizer.quantizeX(loc.x - this.dragOffset.x)
-          const qy = quantizer.quantizeY(loc.y - this.dragOffset.y)
+          const qx = quantizer.roundX(loc.x - this.dragOffset.x)
+          const qy = quantizer.roundY(loc.y - this.dragOffset.y)
 
           opts.onMoveNotes(selection.notes, {
             x: qx - selection.x,
@@ -215,11 +215,10 @@ opts = {
         } else {
           // 選択範囲の変形
           const rect = Rect.fromPoints(this.start, loc)
-          selection.x = quantizer.quantizeX(rect.x)
-          selection.y = quantizer.quantizeY(rect.y)
-          selection.width = quantizer.quantizeX(rect.x + rect.width) - selection.x
-          selection.height = quantizer.quantizeY(rect.y + rect.height) - selection.y
-          selection.hidden = false
+          selection.x = quantizer.roundX(rect.x)
+          selection.y = quantizer.roundY(rect.y)
+          selection.width = (quantizer.roundX(rect.x + rect.width) - selection.x) || quantizer.unitX
+          selection.height = (quantizer.roundY(rect.y + rect.height) - selection.y) || quantizer.unitY
         }
       }
 

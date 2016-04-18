@@ -61,6 +61,7 @@ opts = {
       onMouseDown(e) {
         this.startLocation = this.getLocation(e)
         this.isMouseDown = true
+        this.isMouseMoved = false
       }
 
       onMouseMove(e) { 
@@ -69,6 +70,7 @@ opts = {
 
       onMouseUp(e) {
         this.isMouseDown = false
+        this.isMouseMoved = false
       }
 
       onMouseDownNote(e) {}
@@ -76,7 +78,7 @@ opts = {
       updateCursor(e) {}
     }
 
-    DRAG_POSITION = {
+    var DRAG_POSITION = {
       LEFT_EDGE: 0,
       CENTER: 1,
       RIGHT_EDGE: 2
@@ -187,6 +189,7 @@ opts = {
             fixed: false,
             hidden: true
           })
+          opts.onSelectNotes([])
         }
 
         this.dragOffset = { x: this.start.x - selection.x, y: this.start.y - selection.y }
@@ -199,16 +202,16 @@ opts = {
 
         var loc = this.getLocation(e)
         if (selection.fixed) {
-          // 確定済みの選択範囲をドラッグした場合はノートの移動
-          var items = opts.notes.filter((n) => new Rect(selection).containsPoint(n))
-          // 選択範囲も移動させる
-          selection.x = quantizer.quantizeX(loc.x - this.dragOffset.x)
-          selection.y = quantizer.quantizeY(loc.y - this.dragOffset.y)
+          // 確定済みの選択範囲をドラッグした場合はノートと選択範囲を移動
+          var qx = quantizer.quantizeX(loc.x - this.dragOffset.x)
+          var qy = quantizer.quantizeY(loc.y - this.dragOffset.y)
 
-          opts.onMoveNotes(items, {
-            x: e.movementX,
-            y: e.movementY
+          opts.onMoveNotes(selection.notes, {
+            x: qx - selection.x,
+            y: qy - selection.y
           })
+          selection.x = qx
+          selection.y = qy
         } else {
           // 選択範囲の変形
           var rect = Rect.fromPoints(this.start, loc)
@@ -221,12 +224,12 @@ opts = {
       }
 
       onMouseUp(e) { 
-        var aNotes = opts.notes.filter((n) => new Rect(selection).containsPoint(n))
         if (!selection.fixed) {
           selection.fixed = true
-          opts.onSelectNotes(aNotes)
+          selection.notes = opts.notes.filter((n) => new Rect(selection).containsPoint(n))
+          opts.onSelectNotes(selection.notes)
         } else if (!this.isMouseMoved) {
-          opts.onClickNotes(aNotes, e)
+          opts.onClickNotes(selection.notes, e)
         }
         super.onMouseUp(e)
       }

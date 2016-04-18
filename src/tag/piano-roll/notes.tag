@@ -51,7 +51,7 @@ opts = {
       }
 
       getLocation(e) {
-        var b = this.container.getBoundingClientRect()
+        const b = this.container.getBoundingClientRect()
         return {
           x: e.clientX - b.left,
           y: e.clientY - b.top
@@ -78,7 +78,7 @@ opts = {
       updateCursor(e) {}
     }
 
-    var DRAG_POSITION = {
+    const DRAG_POSITION = {
       LEFT_EDGE: 0,
       CENTER: 1,
       RIGHT_EDGE: 2
@@ -115,18 +115,18 @@ opts = {
 
       onMouseMove(e) {
         super.onMouseMove(e)
-        var item = this.startItem
+        const item = this.startItem
         if (item == null) return
 
-        var bounds = {
+        const bounds = {
           x: item.x,
           y: item.y,
           width: item.width,
           height: item.height
         }
 
-        var loc = this.getLocation(e)
-        var qx = quantizer.quantizeX(loc.x)
+        const loc = this.getLocation(e)
+        const qx = quantizer.quantizeX(loc.x)
 
         switch (this.dragPosition) {
           case DRAG_POSITION.LEFT_EDGE:
@@ -178,7 +178,7 @@ opts = {
       onMouseDown(e) { 
         super.onMouseDown(e)
         this.start = this.getLocation(e)
-        var clicked = new Rect(selection).containsPoint(this.start)
+        const clicked = new Rect(selection).containsPoint(this.start)
         if (!clicked) {
           // 選択範囲外でクリックした場合は選択範囲をリセット
           Object.assign(selection, {
@@ -200,11 +200,11 @@ opts = {
         if (!this.isMouseDown) return
         selection.hidden = false
 
-        var loc = this.getLocation(e)
+        const loc = this.getLocation(e)
         if (selection.fixed) {
           // 確定済みの選択範囲をドラッグした場合はノートと選択範囲を移動
-          var qx = quantizer.quantizeX(loc.x - this.dragOffset.x)
-          var qy = quantizer.quantizeY(loc.y - this.dragOffset.y)
+          const qx = quantizer.quantizeX(loc.x - this.dragOffset.x)
+          const qy = quantizer.quantizeY(loc.y - this.dragOffset.y)
 
           opts.onMoveNotes(selection.notes, {
             x: qx - selection.x,
@@ -214,7 +214,7 @@ opts = {
           selection.y = qy
         } else {
           // 選択範囲の変形
-          var rect = Rect.fromPoints(this.start, loc)
+          const rect = Rect.fromPoints(this.start, loc)
           selection.x = quantizer.quantizeX(rect.x)
           selection.y = quantizer.quantizeY(rect.y)
           selection.width = quantizer.quantizeX(rect.x + rect.width) - selection.x

@@ -25,14 +25,14 @@ opts = {
       <th>Number</th>
       <th>Value</th>
     </tr>
-    <tr each={ opts.events }>
+    <tr each={ events }>
       <td>{ measure }</td>
       <td>{ tick }</td>
-      <td>{ step }</td>
-      <td>{ status }</td>
+      <td>{ deltaTime }</td>
+      <td>{ subtype + " " + duration }</td>
       <td>{ channel }</td>
-      <td>{ number }</td>
-      <td>{ value }</td>
+      <td>{ noteNumber }</td>
+      <td>{ velocity }</td>
     </tr>
   </table>
 

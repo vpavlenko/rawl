@@ -67,5 +67,3 @@ function Stream(str) {
 		'readVarInt': readVarInt
 	}
 }
-
-module.exports = Stream;

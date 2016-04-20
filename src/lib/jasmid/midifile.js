@@ -1,5 +1,3 @@
-var Stream = require("./stream");
-
 /*
 class to parse the .mid file format
 (depends on stream.js)
@@ -230,7 +228,6 @@ function MidiFile(data) {
 		while (!trackStream.eof()) {
 			var event = readEvent(trackStream);
 			tracks[i].push(event);
-			//console.log(event);
 		}
 	}
 	
@@ -239,5 +236,3 @@ function MidiFile(data) {
 		'tracks': tracks
 	}
 }
-
-module.exports = MidiFile;

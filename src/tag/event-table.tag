@@ -28,7 +28,7 @@ opts = {
     <tr each={ events }>
       <td>{ measure }</td>
       <td>{ tick }</td>
-      <td>{ deltaTime }</td>
+      <td>{ time }</td>
       <td>{ subtype + " " + duration }</td>
       <td>{ channel }</td>
       <td>{ noteNumber }</td>

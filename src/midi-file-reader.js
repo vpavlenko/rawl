@@ -1,7 +1,7 @@
 /**
 
-  append time each events
-  assemble noteOn and noteOff to append duration
+  append time to each events
+  assemble noteOn and noteOff to single note event to append duration
 
  */
 function assembleEvents(events) {
@@ -34,6 +34,7 @@ function assembleEvents(events) {
       const noteOn = findNoteOn(e)
       if (noteOn != null) {
         noteOn.duration = e.time - noteOn.time
+        noteOn.subtype = "note"
         result.push(noteOn)
       }
       break
@@ -79,7 +80,7 @@ function getFileMeta(tracks) {
 }
 
 class MidiFileReader {
-  read(file, callback) {
+  static read(file, callback) {
     const reader = new FileReader()
     reader.onload = (e) => {
       const midi = MidiFile(e.target.result)

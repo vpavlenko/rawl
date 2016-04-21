@@ -7,8 +7,7 @@ document.querySelector("#load-midi-input").onchange = (e) => {
   if (file.type != "audio/mid" && file.type != "audio/midi") {
     return
   }
-  const reader = new MidiFileReader
-  reader.read(file, (midi) => {
+  MidiFileReader.read(file, (midi) => {
     eventStore.addAll(midi.tracks[2].events)
   })
 }

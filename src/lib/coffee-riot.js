@@ -5,6 +5,11 @@ window.require = (module) => {
     this.compile = (js, param) => {
       return CoffeeScript.compile(js, param);
     }
+  } 
+  if (module == "babel") {
+    this.transform = function (js, param) {
+      return babel.transform(js, param);
+    }
   }
   return this;
 }

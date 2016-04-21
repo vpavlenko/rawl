@@ -16,18 +16,16 @@ class NoteCoordConverter {
   }
 
   getSecondsAtTime(time) {
-    var prev = {
-      tempo: 0,
-      time: 0
-    }
+    var prev = this.tempos[0]
     var total = 0
-    var timebase = this.timebase / 60 // in seconds
-    for (var i in this.tempos) {
-      var tempo = this.tempos[i]
-      var deltaTime = Math.max(tempo.time, time) - prev.time
-      var deltaInSec = deltaTime / prev.tempo / timebase
+    const timebase = this.timebase / 60 // in seconds
+    for (const i in this.tempos) {
+      const tempo = this.tempos[i]
+      if (tempo.time > time) break
+      const deltaTime = Math.max(tempo.time, time) - prev.time
+      const deltaInSec = deltaTime / prev.tempo / timebase
       total += deltaInSec
-      if (tempo.time >= time) break
+      prev = tempo
     }
     return total
   }
@@ -37,16 +35,17 @@ class NoteCoordConverter {
   }
 
   getTempoAtTime(time) {
-    var tempo
-    for (var i in this.tempos) {
-      if (tempo.time >= time) break
-      tempo = this.tempos[i]
+    var tempo = this.tempos[0]
+    for (const i in this.tempos) {
+      const t = this.tempos[i]
+      if (t.time > time) break
+      tempo = t
     }
-    return tempo
+    return tempo.tempo
   }
 
   getPixelsPerBeatAtTime(time) {
-    var sec = getTempoAtTime(time).tempo / timebase / 60
+    const sec = this.getTempoAtTime(time) / timebase / 60
     return sec * this.pixelsPerSecond
   }
 

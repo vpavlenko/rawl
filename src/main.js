@@ -48,6 +48,17 @@ function onMouseUpBody(e) {
   }
 }
 
+const keysElem = document.querySelector("keys")
+const rulerElem = document.querySelector("ruler")
+document.querySelector("#piano-roll").onscroll = (e) => {
+  const top = e.target.scrollTop
+  const left = e.target.scrollLeft
+  // fixed to left
+  keysElem.style.setProperty("left", `${left}px`)
+  // fixed to top
+  rulerElem.style.setProperty("top", `${top}px`)
+}
+
 riot.compile(() => {
   contextMenu = riot.mount("context-menu", {
     hidden: true,

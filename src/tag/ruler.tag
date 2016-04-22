@@ -23,14 +23,15 @@ opts = {
   .bar {
     float: left;
     border-left: 1px solid gray;
-    height: 1.5em;
     padding-left: 0.25em;
     box-sizing: border-box;
+    height: 100%;
   }
 
   .bars {
     clear: both;
     overflow: hidden;
+    height: 100%;
   }
   </style>
 </ruler>

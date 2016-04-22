@@ -19,13 +19,11 @@
   <div id="container">
     <event-table></event-table>
     <div id="piano-roll">
-      <keys></keys>
       <key-grid></key-grid>
-      <div class="scroll">
-        <ruler></ruler>
-        <grid></grid>
-        <notes></notes>
-      </div>
+      <grid></grid>
+      <notes></notes>
+      <keys></keys>
+      <ruler></ruler>
     </div>
     <context-menu></context-menu>
   </div>
@@ -53,6 +51,19 @@
 <script src="note-coord-converter.js"></script>
 <script src="main.js"></script>
 <style type="text/css">
+
+:root {
+  --key-width: 120px;
+  --ruler-height: 25px;
+  --header-height: 20px;
+  --event-table-width: 300px;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
 body {
   font-family: Arial;
   font-size: 80%;
@@ -60,60 +71,76 @@ body {
   -webkit-user-select: none;
   -webkit-user-drag: none;
 }
+
+header {
+  height: var(--header-height);
+}
+
 #container {
-  position: relative;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: calc(100% - var( --header-height));
   overflow: hidden;
 }
+event-table {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--event-table-width);
+  height: 100%;
+  overflow: scroll;
+}
 #piano-roll {
-  position: relative;
-  overflow: hidden;
-  margin-left: 300px;
+  position: absolute;
+  left: var(--event-table-width);
+  width: calc(100% - var(--event-table-width));
+  height: 100%;
+  overflow: scroll;
 }
 .scroll {
   position: absolute;
-  left: 120px;
-  width: calc(100% - 120px);
+  left: var(--key-width);
   height: 100%;
+  width: calc(100% - var(--key-width));
   overflow-x: scroll;
   overflow-y: hidden;
 }
 keys {
-  float: left;
-  display: block;
+  position: absolute;
+  left: 0;
+  top: var(--ruler-height);
+  width: var(--key-width);
   border-right: 1px solid gray;
-  width: 120px;
-  margin-top: 24px;
+  background: rgb(255, 255, 255);
 }
 key-grid {
   position: absolute;
-  left: 120px;
-  width: calc(100% - 120px);
-  margin-top: 24px;
+  left: var(--key-width);
+  top: var(--ruler-height);
+  width: calc(100% - var(--key-width));
 }
 grid {
-  display: block;
-  float: left;
-  width: 500px;
+  position: absolute;
+  left: var(--key-width);
+  top: var(--ruler-height);
   height: 100%;
 }
 ruler {
-  display: block;
-}
-notes {
-  display: block;
-  position: absolute;
-  top: 24px;
-  width: 100%;
-  height: 100%;
-}
-event-table {
-  display: block;
   position: absolute;
   left: 0;
   top: 0;
-  width: 300px;
+  padding-left: var(--key-width);
+  height: var(--ruler-height);
+  background: white;
+  border-bottom: 2px solid rgb(175, 175, 175);
+}
+notes {
+  position: absolute;
+  left: var(--key-width);
+  top: var(--ruler-height);
+  width: 100%;
   height: 100%;
-  overflow: scroll;
 }
 </style>
 </html>

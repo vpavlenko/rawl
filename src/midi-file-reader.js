@@ -1,6 +1,6 @@
 /**
 
-  append time to each events
+  append tick to each events
   assemble noteOn and noteOff to single note event to append duration
 
  */
@@ -20,11 +20,11 @@ function assembleEvents(events) {
     return null
   }
 
-  var time = 0
+  var tick = 0
   const result = []
   events.forEach((e) => {
-    time += e.deltaTime
-    e.time = time
+    tick += e.deltaTime
+    e.tick = tick
 
     switch(e.subtype) { 
     case "noteOn":
@@ -33,7 +33,7 @@ function assembleEvents(events) {
     case "noteOff":
       const noteOn = findNoteOn(e)
       if (noteOn != null) {
-        noteOn.duration = e.time - noteOn.time
+        noteOn.duration = e.tick - noteOn.tick
         noteOn.subtype = "note"
         result.push(noteOn)
       }
@@ -59,7 +59,7 @@ function getTrackMeta(events) {
       meta.name = e.text
       break
     case "endOfTrack":
-      meta.end = e.time
+      meta.end = e.tick
     }
   })
   return meta

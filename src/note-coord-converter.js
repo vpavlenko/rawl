@@ -2,27 +2,29 @@
   tempos = [
     {
       tempo: <Number>,
-      time: <Number>
+      tick: <Number>
     },
     ...
   ]
 */
 class NoteCoordConverter {
-  constructor(pixelsPerSecond, pixelsPerKey, tempos, timebase) {
-    this.pixelsPerSecond = pixelsPerSecond
+  constructor(pixelsPerBeat, pixelsPerKey, tempos, timebase, maxNoteNumber) {
+    this.pixelsPerBeat = pixelsPerBeat
     this.pixelsPerKey = pixelsPerKey
     this.tempos = tempos
     this.timebase = timebase
+    this.maxNoteNumber = maxNoteNumber
   }
 
-  getSecondsAtTime(time) {
+  // seconds
+
+  getSecondsAt(tick) {
     var prev = this.tempos[0]
     var total = 0
     const timebase = this.timebase / 60 // in seconds
-    for (const i in this.tempos) {
-      const tempo = this.tempos[i]
-      if (tempo.time > time) break
-      const deltaTime = Math.max(tempo.time, time) - prev.time
+    for (const tempo of this.tempos) {
+      if (tempo.tick > tick) break
+      const deltaTime = Math.max(tempo.tick, tick) - prev.tick
       const deltaInSec = deltaTime / prev.tempo / timebase
       total += deltaInSec
       prev = tempo
@@ -30,30 +32,21 @@ class NoteCoordConverter {
     return total
   }
 
-  getPixelsAtTime(time) {
-    return this.getSeconds(time) * this.pixelsPerSecond
-  }
-
-  getTempoAtTime(time) {
-    var tempo = this.tempos[0]
-    for (const i in this.tempos) {
-      const t = this.tempos[i]
-      if (t.time > time) break
+  getTempoAt(tick) {
+    for (const t of this.tempos) {
+      if (t.tick > tick) break
       tempo = t
     }
     return tempo.tempo
   }
 
-  getPixelsPerBeatAtTime(time) {
-    const sec = this.getTempoAtTime(time) / timebase / 60
-    return sec * this.pixelsPerSecond
+  // pixels
+
+  getPixelsAt(tick) {
+    return tick / this.timebase * this.pixelsPerBeat
   }
 
-  getPixelsPerSecond() {
-    return this.pixelsPerSecond
-  }
-
-  getPixelsPerKey() {
-    return this.pixelsPerKey
+  getPixelsForNoteNumber(noteNum) {
+    return (this.maxNoteNumber - noteNum) * this.pixelsPerKey
   }
 }

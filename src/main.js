@@ -36,7 +36,7 @@ document.querySelector("#load-midi-input").onchange = e => {
     })
     coordConverter.tempos = tempos
 
-    eventStore.addAll(midi.tracks[2].events)
+    eventStore.addAll(midi.tracks.map(t => t.events).flatten())
   })
 }
 
@@ -161,11 +161,10 @@ riot.compile(() => {
   const notesTag = riot.mount("notes", notesOpts)[0]
   const eventTable = riot.mount("event-table", eventStore)[0]
 
-  eventStore.on("change", (e) => {
-
-    notes.pushArray(eventStore.events.filter((e) => {
-      return e.subtype == "note"
-    }).map((e) => {
+  eventStore.on("change", e => {
+    notes.pushArray(eventStore.events.filter(e => {
+      return e.type == "channel" && e.subtype == "note" && e.track == 1
+    }).map(e => {
       const start = coordConverter.getPixelsAt(e.tick)
       const end = coordConverter.getPixelsAt(e.tick + e.duration)
       return {

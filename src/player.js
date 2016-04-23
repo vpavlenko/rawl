@@ -14,10 +14,12 @@ function eventToMidiMessages(e) {
         case "note":
         return [
           {
+            event: e,
             msg: [0x90 + e.channel, e.noteNumber, e.velocity],  // note on
             tick: e.tick
           },
           {
+            event: e,
             msg: [0x80 + e.channel, e.noteNumber, 0x40],
             tick: e.tick + e.duration
           }
@@ -25,7 +27,10 @@ function eventToMidiMessages(e) {
       }
     break
   }
-  return null
+  return {
+    event: e,
+    tick: e.tick
+  }
 }
 
 class Player {
@@ -34,8 +39,9 @@ class Player {
     this.eventStore = eventStore
     this.timebase = timebase
     this.playing = false
+    this.currentTempo = 120
 
-    navigator.requestMIDIAccess().then((midiAccess) => {
+    navigator.requestMIDIAccess().then(midiAccess => {
       this.midiOutput = midiAccess.outputs.values().next().value;
     }, null)
   }
@@ -57,18 +63,23 @@ class Player {
   }
 
   onTimer() {
-    const currentTempo = 120 // TODO: use setTempo event
-    const deltaTick = secToTick(INTERVAL / 1000, currentTempo, this.timebase)
+    const deltaTick = secToTick(INTERVAL / 1000, this.currentTempo, this.timebase)
     const endTick = this.currentTick + deltaTick
-    const eventsToPlay = this.events.filter((e) => {
-      return e.tick <= endTick
-    })
+    const eventsToPlay = this.events.filter(e => e.tick <= endTick)
     this.events.deleteArray(eventsToPlay)
     this.currentTick = endTick
 
     const timestamp = window.performance.now()
     eventsToPlay.forEach(e => {
-      this.midiOutput.send(e.msg, timestamp)
+      if (e.msg != null) {
+        this.midiOutput.send(e.msg, timestamp)
+      } else {
+        // MIDI 以外のイベントを実行
+        if (e.event.subtype == "setTempo") {
+          this.currentTempo = 60000000 / e.event.microsecondsPerBeat
+          console.log(this.currentTempo)
+        }
+      }
     })
   }
 }

@@ -198,6 +198,8 @@ riot.compile(() => {
 
   const notesTag = riot.mount("notes", notesOpts)[0]
   const eventTable = riot.mount("event-table", eventStore)[0]
+  measurePerformance("notes", notesTag)
+  measurePerformance("eventTable", eventTable)
 
   notesTag.root.style.height = `${MAX_NOTE_NUMBER * KEY_HEIGHT}px`
   gridTag.root.style.height = `${MAX_NOTE_NUMBER * KEY_HEIGHT}px`

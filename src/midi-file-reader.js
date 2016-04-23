@@ -8,16 +8,17 @@ function assembleEvents(events) {
   const noteOnEvents = []
 
   function findNoteOn(noteOff) {
-    for (const i in noteOnEvents) {
-      const e = noteOnEvents[i]
-      if (e.channel == noteOff.channel &&
-          e.noteNumber == noteOff.noteNumber && 
-          e.track == noteOff.track) {
-        noteOnEvents.splice(i, 1)
-        return e
-      }
+    const i = _.findIndex(noteOnEvents, e => {
+      return e.channel == noteOff.channel &&
+        e.noteNumber == noteOff.noteNumber && 
+        e.track == noteOff.track
+    })
+    if (i < 0) {
+      return null
     }
-    return null
+    const e = noteOnEvents[i]
+    noteOnEvents.splice(i, 1)
+    return e
   }
 
   var tick = 0

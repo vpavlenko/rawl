@@ -16,6 +16,7 @@ opts = {
 -->
 <event-table>
   <table>
+    <thead>
     <tr>
       <th>Measure</th>
       <th>Tick</th>
@@ -25,7 +26,9 @@ opts = {
       <th>Number</th>
       <th>Value</th>
     </tr>
-    <tr each={ events }>
+    </thead>
+    <tbody>
+    <tr each={ events } no-reorder>
       <td>{ measure }</td>
       <td>{ tick }</td>
       <td>{ time }</td>
@@ -34,6 +37,7 @@ opts = {
       <td>{ noteNumber }</td>
       <td>{ velocity }</td>
     </tr>
+    </tbody>
   </table>
 
   <script type="text/javascript">

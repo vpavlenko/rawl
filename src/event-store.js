@@ -19,7 +19,9 @@ class EventStore {
   addAll(arr) {
     arr.forEach(e => this._add(e))
     this.events = this.events.concat(arr)
+    beginPerformanceTimer("before trigger")
     this.trigger("change")
+    stopPerformanceTimer("before trigger")
   }
 
   removeEventsById(ids) {

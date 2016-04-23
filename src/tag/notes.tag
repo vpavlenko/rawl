@@ -25,6 +25,7 @@ opts = {
     style="width: { containerWidth }px;">
     <div 
       each={ notes } 
+      no-reorder
       class={"note": true, "selected": selected}
       style="left: { x }px; top: { y }px; width: { width }px;" 
       onmousedown={ mouseHandler.onMouseDownNote }

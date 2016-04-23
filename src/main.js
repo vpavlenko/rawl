@@ -5,10 +5,18 @@ const eventStore = new EventStore
 MAX_NOTE_NUMBER = 127
 KEY_HEIGHT = 30
 PIXELS_PER_BEAT = 100
+TIME_BASE = 480
+
+const player = new Player(eventStore, TIME_BASE)
+document.player = player
 
 const coordConverter = new NoteCoordConverter(PIXELS_PER_BEAT, KEY_HEIGHT, [
   { tempo: 120, tick: 0 },
-], 480, MAX_NOTE_NUMBER)
+], TIME_BASE, MAX_NOTE_NUMBER)
+
+document.querySelector("#play-button").onclick = e => {
+  player.playAt(0)
+}
 
 document.querySelector("#load-midi-input").onchange = (e) => {
   const file = e.target.files[0]
@@ -95,32 +103,11 @@ riot.compile(() => {
 
   riot.mount("ruler", {bars: bars})
 
-  // ノートの配置とコールバック
-  notes = [
-    {
-      x: PIXELS_PER_BEAT * 0,
-      y: KEY_HEIGHT * 12,
-      width: PIXELS_PER_BEAT * 2
-    },
-    {
-      x: PIXELS_PER_BEAT * 3,
-      y: KEY_HEIGHT * 4,
-      width: 30 * 5
-    },
-    {
-      x: PIXELS_PER_BEAT * 4,
-      y: KEY_HEIGHT * 7,
-      width: PIXELS_PER_BEAT * 5
-    }
-  ]
-
-  selections = []
-
+  notes = []
   const notesOpts = {
     notes: notes, 
     mode: 0,
     quantizer: quantizer,
-    selections: selections,
     onCreateNote: (bounds) => {
       notes.push(bounds)
     },

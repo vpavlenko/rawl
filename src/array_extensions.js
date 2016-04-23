@@ -17,3 +17,7 @@ Array.range = function(a, b) {
   }
   return arr
 }
+
+Array.prototype.flatten = function() {
+  return Array.prototype.concat.apply([], this)
+}

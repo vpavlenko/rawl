@@ -104,10 +104,9 @@ riot.compile(() => {
 
   riot.mount("ruler", {bars: bars})
 
-  notes = []
   const notesOpts = {
     numberOfKeys: MAX_NOTE_NUMBER,
-    notes: notes, 
+    notes: [], 
     mode: 0,
     quantizer: quantizer,
     onCreateNote: bounds => {
@@ -126,13 +125,18 @@ riot.compile(() => {
       })
     },
     onClickNote: note => {
-      notes.splice(notes.indexOf(note), 1)
+      eventStore.removeById(note.id)
     },
     onResizeNote: (note, bounds) => {
-      note.x = bounds.x
-      note.y = bounds.y
-      note.width = bounds.width
-      note.height = bounds.height
+      const start = coordConverter.getTicksForPixels(bounds.x)
+      const end = coordConverter.getTicksForPixels(bounds.x + bounds.width)
+      const noteNum = coordConverter.getNoteNumberForPixels(bounds.y)
+
+      const e = eventStore.getEventById(note.id)
+      e.tick = start
+      e.duration = end - start
+      e.noteNumber = noteNum
+      eventStore.update(e)
     },
     onSelectNotes: aNotes => {
       notes.forEach(n => {
@@ -178,12 +182,13 @@ riot.compile(() => {
   gridTag.root.style.height = `${MAX_NOTE_NUMBER * KEY_HEIGHT}px`
 
   eventStore.on("change", e => {
-    notes.pushArray(eventStore.events.filter(e => {
+    const notes = (eventStore.events.filter(e => {
       return e.type == "channel" && e.subtype == "note" && e.track == 1
     }).map(e => {
       const start = coordConverter.getPixelsAt(e.tick)
       const end = coordConverter.getPixelsAt(e.tick + e.duration)
       return {
+        id: e.id,
         x: start,
         y: coordConverter.getPixelsForNoteNumber(e.noteNumber),
         width: end - start

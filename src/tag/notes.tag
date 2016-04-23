@@ -21,7 +21,8 @@ opts = {
   <div class="container" name="container"
     onmouseup={ mouseHandler.onMouseUp }
     onmousemove={ mouseHandler.onMouseMove }
-    onmousedown={ mouseHandler.onMouseDown }>
+    onmousedown={ mouseHandler.onMouseDown }
+    style="width: { containerWidth }px;">
     <div 
       each={ notes } 
       class={"note": true, "selected": selected}
@@ -42,6 +43,11 @@ opts = {
   <script type="text/javascript">
     selection = {hidden: true}
     this.selections = [selection]
+
+    this.on("update", () => {
+      this.containerWidth = this.notes ? 
+        Math.max.apply(null, (this.notes.map(n => n.x + n.width))) : 500
+    })
 
     class MouseHandler {
       constructor(container) {

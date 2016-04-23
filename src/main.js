@@ -57,6 +57,28 @@ function onMouseUpBody(e) {
   }
 }
 
+function createNoteEventFromBounds(bounds) {
+  const e = {
+    type: "channel",
+    subtype: "note",
+    velocity: 127,
+    channel: 1,
+    track: 1
+  }
+  updateNoteEventWithBounds(e, bounds)
+  return e
+}
+
+function updateNoteEventWithBounds(e, bounds) {
+  const start = coordConverter.getTicksForPixels(bounds.x)
+  const end = coordConverter.getTicksForPixels(bounds.x + bounds.width)
+  const noteNum = coordConverter.getNoteNumberForPixels(bounds.y)
+
+  e.tick = start
+  e.duration = end - start
+  e.noteNumber = noteNum
+}
+
 const keysElem = document.querySelector("keys")
 const rulerElem = document.querySelector("ruler")
 document.querySelector("#piano-roll").onscroll = e => {
@@ -110,32 +132,14 @@ riot.compile(() => {
     mode: 0,
     quantizer: quantizer,
     onCreateNote: bounds => {
-      const start = coordConverter.getTicksForPixels(bounds.x)
-      const end = coordConverter.getTicksForPixels(bounds.x + bounds.width)
-      const noteNum = coordConverter.getNoteNumberForPixels(bounds.y)
-      eventStore.add({
-        type: "channel",
-        subtype: "note",
-        tick: start,
-        duration: end - start,
-        noteNumber: noteNum,
-        velocity: 127,
-        channel: 1,
-        track: 1
-      })
+      eventStore.add(createNoteEventFromBounds(bounds))
     },
     onClickNote: note => {
       eventStore.removeById(note.id)
     },
     onResizeNote: (note, bounds) => {
-      const start = coordConverter.getTicksForPixels(bounds.x)
-      const end = coordConverter.getTicksForPixels(bounds.x + bounds.width)
-      const noteNum = coordConverter.getNoteNumberForPixels(bounds.y)
-
       const e = eventStore.getEventById(note.id)
-      e.tick = start
-      e.duration = end - start
-      e.noteNumber = noteNum
+      updateNoteEventWithBounds(e, bounds)
       eventStore.update(e)
     },
     onSelectNotes: aNotes => {
@@ -168,7 +172,7 @@ riot.compile(() => {
             notes.pushArray(copiedNotes)
           } },
           { title: "Delete", onClick: ev => {
-            notes.deleteArray(aNotes)
+            noteStore.removeEventsById(aNotes.map(n => n.id))
           } },
         ]
       })

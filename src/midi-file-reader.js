@@ -87,6 +87,7 @@ class MidiFileReader {
       const tracks = midi.tracks.map((events, i) => {
         const anEvents = assembleEvents(events)
         const track = getTrackMeta(events)
+        anEvents.forEach(e => e.track = i)
         track.events = anEvents
         return track
       })

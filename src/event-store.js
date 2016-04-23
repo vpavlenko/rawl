@@ -22,6 +22,13 @@ class EventStore {
     this.trigger("change")
   }
 
+  removeEventsById(ids) {
+    for (const id of ids) {
+      this.events.remove(this.getEventById(id))
+    }
+    this.trigger("change")
+  }
+
   removeById(id) {
     this.events.remove(this.getEventById(id))
     this.trigger("change")

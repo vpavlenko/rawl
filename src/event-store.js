@@ -4,7 +4,7 @@ class EventStore {
     this.events = []
   }
   add(obj) {
-    this.events.push_back(obj)
+    this.events.push(obj)
     this.trigger("change")
   }
   addAll(arr) {

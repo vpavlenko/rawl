@@ -91,7 +91,7 @@ riot.compile(() => {
     }
   })
 
-  riot.mount("grid", {numberOfKeys: MAX_NOTE_NUMBER, lines: lines})
+  const gridTag = riot.mount("grid", {numberOfKeys: MAX_NOTE_NUMBER, lines: lines})[0]
 
   // ルーラーの表示
   bars = Array.range(0, 3).map(i => {
@@ -106,11 +106,24 @@ riot.compile(() => {
 
   notes = []
   const notesOpts = {
+    numberOfKeys: MAX_NOTE_NUMBER,
     notes: notes, 
     mode: 0,
     quantizer: quantizer,
     onCreateNote: bounds => {
-      notes.push(bounds)
+      const start = coordConverter.getTicksForPixels(bounds.x)
+      const end = coordConverter.getTicksForPixels(bounds.x + bounds.width)
+      const noteNum = coordConverter.getNoteNumberForPixels(bounds.y)
+      eventStore.add({
+        type: "channel",
+        subtype: "note",
+        tick: start,
+        duration: end - start,
+        noteNumber: noteNum,
+        velocity: 127,
+        channel: 1,
+        track: 1
+      })
     },
     onClickNote: note => {
       notes.splice(notes.indexOf(note), 1)
@@ -160,6 +173,9 @@ riot.compile(() => {
 
   const notesTag = riot.mount("notes", notesOpts)[0]
   const eventTable = riot.mount("event-table", eventStore)[0]
+
+  notesTag.root.style.height = `${MAX_NOTE_NUMBER * KEY_HEIGHT}px`
+  gridTag.root.style.height = `${MAX_NOTE_NUMBER * KEY_HEIGHT}px`
 
   eventStore.on("change", e => {
     notes.pushArray(eventStore.events.filter(e => {

@@ -15,7 +15,24 @@ const coordConverter = new NoteCoordConverter(PIXELS_PER_BEAT, KEY_HEIGHT, [
 ], TIME_BASE, MAX_NOTE_NUMBER)
 
 document.querySelector("#play-button").onclick = e => {
-  player.playAt(0)
+  if (player.playing) { 
+    player.stop()
+  } else {
+    player.resume()
+  }
+}
+
+document.querySelector("#stop-button").onclick = e => {
+  player.stop()
+  player.position = 0
+}
+
+document.querySelector("#forward-button").onclick = e => {
+  player.position += TIME_BASE * 4
+}
+
+document.querySelector("#backward-button").onclick = e => {
+  player.position -= TIME_BASE * 4
 }
 
 document.querySelector("#load-midi-input").onchange = e => {

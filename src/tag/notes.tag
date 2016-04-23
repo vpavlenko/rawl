@@ -45,8 +45,8 @@ opts = {
     this.selections = [selection]
 
     this.on("update", () => {
-      this.containerWidth = this.notes ? 
-        Math.max.apply(null, (this.notes.map(n => n.x + n.width))) : 500
+      this.containerWidth = Math.max(500, this.notes != null && this.notes.length > 0 ? 
+        Math.max.apply(null, (this.notes.map(n => n.x + n.width))) : 0)
     })
 
     class MouseHandler {

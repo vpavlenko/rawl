@@ -5,7 +5,32 @@ function secToTick(sec, bpm, timebase) {
   return sec *  bpm / 60 * timebase
 }
 
+const EVENT_CODES = {
+  "noteOff": 0x8,
+  "noteOn": 0x9,
+  "noteAftertouch": 0xa,
+  "controller": 0xb,
+  "programChange": 0xc,
+  "channelAftertouch": 0xd,
+  "pitchBend": 0xe,
+}
+
 function eventToMidiMessages(e) {
+  function eventType(e) {
+    const a = (EVENT_CODES[e.subtype] << 4) + e.channel
+    return a
+  }
+  function eventType2(subtype, channel) {
+    const a = (EVENT_CODES[subtype] << 4) + channel
+    return a
+  }
+  function createMessage(e, data) {
+    return [{
+      event: e,
+      tick: e.tick,
+      msg: [eventType(e)].concat(data)
+    }]
+  }
   switch (e.type) {
     case "meta":
     break
@@ -15,22 +40,32 @@ function eventToMidiMessages(e) {
         return [
           {
             event: e,
-            msg: [0x90 + e.channel, e.noteNumber, e.velocity],  // note on
+            msg: [eventType2("noteOn", e.channel), e.noteNumber, e.velocity],
             tick: e.tick
           },
           {
             event: e,
-            msg: [0x80 + e.channel, e.noteNumber, 0x40],
+            msg: [eventType2("noteOff", e.channel), e.noteNumber, 0x40],
             tick: e.tick + e.duration
           }
         ]
+        case "noteAftertouch":
+        return createMessage(e, [e.noteNumber, e.amount])
+        case "controller":
+        return createMessage(e, [e.controllerType, e.value])
+        case "programChange":
+        return createMessage(e, [e.programNumber])
+        case "channelAftertouch":
+        return createMessage(e, [e.amount])
+        case "pitchBend":
+        return createMessage(e, [e.value >> 4, e.value & 0xf])
       }
     break
   }
-  return {
+  return [{
     event: e,
     tick: e.tick
-  }
+  }]
 }
 
 class Player {
@@ -40,6 +75,7 @@ class Player {
     this.timebase = timebase
     this.playing = false
     this.currentTempo = 120
+    this.currentTick = 0
 
     navigator.requestMIDIAccess().then(midiAccess => {
       this.midiOutput = midiAccess.outputs.values().next().value;
@@ -51,15 +87,32 @@ class Player {
     this.currentTick = tick
     this.events = this.eventStore.events
       .filter(e => e.tick >= tick)
-      .map(e => eventToMidiMessages(e))
+      .map(eventToMidiMessages)
       .filter(e => e != null)
       .flatten()
     this.intervalID = setInterval(this.onTimer, INTERVAL)
   }
 
+  set position(tick) {
+    this.currentTick = tick
+  }
+
+  get position() {
+    return this.currentTick
+  }
+
+  resume() {
+    this.playAt(this.currentTick)
+  }
+
   stop() {
     clearInterval(this.intervalID)
     this.playing = false
+
+    // all sound off
+    for (const ch of Array.range(0, 0xf)) {
+      this.midiOutput.send([0xb0 + ch, 0x78, 0], window.performance.now())
+    }
   }
 
   onTimer() {
@@ -75,9 +128,14 @@ class Player {
         this.midiOutput.send(e.msg, timestamp)
       } else {
         // MIDI 以外のイベントを実行
-        if (e.event.subtype == "setTempo") {
+        switch (e.event.subtype) {
+          case "setTempo":
           this.currentTempo = 60000000 / e.event.microsecondsPerBeat
           console.log(this.currentTempo)
+          break
+          case "endOfTrack":
+          this.stop()
+          break
         }
       }
     })

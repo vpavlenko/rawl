@@ -235,7 +235,7 @@ opts = {
       onMouseUp(e) { 
         if (!selection.fixed) {
           selection.fixed = true
-          selection.notes = opts.notes.filter((n) => new Rect(selection).containsPoint(n))
+          selection.notes = opts.notes.filter(n => new Rect(selection).containsPoint(n))
           opts.onSelectNotes(selection.notes)
         } else if (!this.isMouseMoved) {
           opts.onClickNotes(selection.notes, e)
@@ -249,7 +249,7 @@ opts = {
       new SelectionMouseHandler(this.container)
     ][opts.mode]
 
-    this.container.oncontextmenu = (e) => {
+    this.container.oncontextmenu = e => {
       e.preventDefault()
     }
   </script>

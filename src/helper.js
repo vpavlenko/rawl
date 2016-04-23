@@ -17,7 +17,7 @@ function getMethodNames(obj) {
 
 /// bind all methods to this
 function bindAllMethods(obj) {
-  getMethodNames(obj).forEach((name) => {
+  getMethodNames(obj).forEach(name => {
     obj[name] = obj[name].bind(obj)
   })
 }

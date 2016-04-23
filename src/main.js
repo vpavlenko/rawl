@@ -18,16 +18,17 @@ document.querySelector("#play-button").onclick = e => {
   player.playAt(0)
 }
 
-document.querySelector("#load-midi-input").onchange = (e) => {
+document.querySelector("#load-midi-input").onchange = e => {
   const file = e.target.files[0]
   if (file.type != "audio/mid" && file.type != "audio/midi") {
     return
   }
-  MidiFileReader.read(file, (midi) => {
+  MidiFileReader.read(file, midi => {
 
-    const tempos = midi.tracks[0].events.filter((e) => {
+    const tempos = midi.tracks[0].events
+    .filter(e => {
       return e.subtype == "setTempo"
-    }).map((e) => {
+    }).map(e => {
       return {
         tempo: 1 / e.microsecondsPerBeat * 1000 * 1000 * 60,
         tick: e.tick
@@ -58,7 +59,7 @@ function onMouseUpBody(e) {
 
 const keysElem = document.querySelector("keys")
 const rulerElem = document.querySelector("ruler")
-document.querySelector("#piano-roll").onscroll = (e) => {
+document.querySelector("#piano-roll").onscroll = e => {
   const top = e.target.scrollTop
   const left = e.target.scrollLeft
   // fixed to left
@@ -83,7 +84,7 @@ riot.compile(() => {
   riot.mount("key-grid", {numberOfKeys: MAX_NOTE_NUMBER})
 
   // グリッドの表示
-  lines = Array.range(0, 4 * 4 - 1).map((i) => {
+  lines = Array.range(0, 4 * 4 - 1).map(i => {
     return {
       x: 120 / 4 * (i + 1),
       color: i % 4 == 3 ? "gray" : "rgb(210, 210, 210)"
@@ -93,7 +94,7 @@ riot.compile(() => {
   riot.mount("grid", {numberOfKeys: MAX_NOTE_NUMBER, lines: lines})
 
   // ルーラーの表示
-  bars = Array.range(0, 3).map((i) => {
+  bars = Array.range(0, 3).map(i => {
     return {
       length: 120,
       label: i
@@ -108,10 +109,10 @@ riot.compile(() => {
     notes: notes, 
     mode: 0,
     quantizer: quantizer,
-    onCreateNote: (bounds) => {
+    onCreateNote: bounds => {
       notes.push(bounds)
     },
-    onClickNote: (note) => {
+    onClickNote: note => {
       notes.splice(notes.indexOf(note), 1)
     },
     onResizeNote: (note, bounds) => {
@@ -120,13 +121,13 @@ riot.compile(() => {
       note.width = bounds.width
       note.height = bounds.height
     },
-    onSelectNotes: (aNotes) => {
-      notes.forEach(function(n) {
+    onSelectNotes: aNotes => {
+      notes.forEach(n => {
         n.selected = aNotes.includes(n)
       })
     },
     onMoveNotes: (notes, movement) => {
-      notes.forEach(function(n) {
+      notes.forEach(n => {
         n.x += movement.x
         n.y += movement.y
       })
@@ -138,18 +139,18 @@ riot.compile(() => {
         x: e.clientX,
         y: e.clientY,
         items: [
-          { title: "Cut", onClick: (ev) => {
+          { title: "Cut", onClick: ev => {
             clipboard.writeText(JSON.stringify(aNotes))
             notes.deleteArray(aNotes)
           } },
-          { title: "Copy", onClick: (ev) => {
+          { title: "Copy", onClick: ev => {
             clipboard.writeText(JSON.stringify(aNotes))
           } },
-          { title: "Paste", onClick: (ev) => {
+          { title: "Paste", onClick: ev => {
             copiedNotes = JSON.parse(clipboard.readText())
             notes.pushArray(copiedNotes)
           } },
-          { title: "Delete", onClick: (ev) => {
+          { title: "Delete", onClick: ev => {
             notes.deleteArray(aNotes)
           } },
         ]

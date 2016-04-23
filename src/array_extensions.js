@@ -11,7 +11,7 @@ Array.prototype.pushArray = function(arr) {
 }
 
 Array.range = function(a, b) {
-  var arr = []
+  const arr = []
   for (var i = a; i <= b; i++) {
     arr.push(i)
   }

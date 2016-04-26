@@ -217,7 +217,7 @@ riot.compile(() => {
         width: end - start
       }
     }))
-    eventTable.update(eventStore)
+    //eventTable.update(eventStore)
     notesTag.update({
       notes: notes
     })

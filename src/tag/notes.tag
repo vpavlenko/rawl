@@ -19,6 +19,8 @@ opts = {
 -->
 <notes>
   <div class="container" name="container"
+    style="width: { containerWidth }px;">
+  <!--<div class="container" name="container"
     onmouseup={ mouseHandler.onMouseUp }
     onmousemove={ mouseHandler.onMouseMove }
     onmousedown={ mouseHandler.onMouseDown }
@@ -33,21 +35,71 @@ opts = {
       onmousemove={ mouseHandler.updateCursor }
       onmouseleave={ mouseHandler.resetCursor }>
       </div>
-    <div 
+    <div
       class="selection"
       each={ selections } 
       style="left: { x }px; top: { y }px; width: { width }px; height: { height }px;"
       if={ !hidden } >
-      </div>
+      </div>-->
+    <canvas class="noteCanvas" width="10000" height="5000"></canvas>
   </div>
 
   <script type="text/javascript">
     selection = {hidden: true}
     this.selections = [selection]
+    this.notes = opts.notes
+
+    var stage
+
+    this.on("mount", () => {
+      stage = new createjs.Stage(document.querySelector(".noteCanvas"))
+      const circle = new createjs.Shape()
+      circle.graphics.beginFill("DeepSkyBlue").drawCircle(0, 0, 50)
+      circle.x = 300
+      circle.y = 300
+      stage.addChild(circle)
+      stage.update()
+    })
 
     this.on("update", () => {
       this.containerWidth = Math.max(500, this.notes != null && this.notes.length > 0 ? 
         Math.max.apply(null, (this.notes.map(n => n.x + n.width))) : 0)
+
+      if (stage == null) {
+        return
+      }
+      this.notes.forEach(note => {
+        var rect = _.find(stage.children, r => r.noteId == note.id)
+        if (!rect) {
+          rect = new createjs.Shape()
+          rect.noteId = note.id
+
+          rect.on("mousedown", function(e) {
+            this.mouseOffset = {
+              x: this.x - e.stageX,
+              y: this.y - e.stageY
+            }
+          })
+
+          rect.on("pressmove", function(e) {
+            this.dragged = true
+            this.x = e.stageX + this.mouseOffset.x
+            this.y = e.stageY + this.mouseOffset.y
+            stage.update()
+          })
+
+          rect.on("click", function(e) {
+            if (this.dragged) return
+            this.dragged = false
+          })
+
+          stage.addChild(rect)
+        }
+        rect.graphics.clear().beginFill("DeepSkyBlue").rect(0, 0, note.width, 30)
+        rect.x = note.x
+        rect.y = note.y
+      })
+      stage.update()
     })
 
     class MouseHandler {
@@ -284,6 +336,12 @@ opts = {
       position: absolute;
       border: 3px solid rgb(0, 0, 0);
       box-sizing: border-box;
+    }
+
+    .noteCanvas {
+      position: absolute;
+      top: 0;
+      left: 0;
     }
 
   </style>

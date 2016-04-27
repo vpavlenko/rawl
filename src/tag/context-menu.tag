@@ -20,7 +20,7 @@ opts = {
     </ul>
   </div>
 
-  <script type="text/coffeescript">
+  <script type="text/javascript">
   </script>
 
   <style scoped>

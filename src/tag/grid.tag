@@ -18,9 +18,9 @@ opts = {
     </div>
   </div>
 
-  <script type="text/coffeescript">
-    maxX = (opts.lines.reduce (a, b) -> { x: Math.max(a.x, b.x) }).x
-    @width = maxX + 1
+  <script type="text/javascript">
+    const maxX = (opts.lines.reduce((a, b) => ({ x: Math.max(a.x, b.x) }))).x
+    this.width = maxX + 1
   </script>
 
   <style scoped>

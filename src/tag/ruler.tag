@@ -15,8 +15,8 @@ opts = {
     </div>
   </div>
 
-  <script type="text/coffeescript">
-    @width = (opts.bars.map (a) -> a.length).reduce (a, b) -> a + b
+  <script type="text/javascript">
+    this.width = (opts.bars.map(a => a.length)).reduce((a, b) => a + b)
   </script>
 
   <style scoped>

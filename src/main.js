@@ -151,11 +151,11 @@ riot.compile(() => {
     onCreateNote: bounds => {
       eventStore.add(createNoteEventFromBounds(bounds))
     },
-    onClickNote: note => {
-      eventStore.removeById(note.id)
+    onClickNote: noteId => {
+      eventStore.removeById(noteId)
     },
-    onResizeNote: (note, bounds) => {
-      const e = eventStore.getEventById(note.id)
+    onResizeNote: (noteId, bounds) => {
+      const e = eventStore.getEventById(noteId)
       updateNoteEventWithBounds(e, bounds)
       eventStore.update(e)
     },
@@ -222,4 +222,6 @@ riot.compile(() => {
       notes: notes
     })
   })
+
+  eventStore.addAll([{"deltaTime":0,"eventTypeByte":255,"type":"meta","subtype":"setTempo","microsecondsPerBeat":479999,"tick":0,"track":0},{"deltaTime":0,"eventTypeByte":255,"type":"meta","subtype":"timeSignature","numerator":3,"denominator":4,"metronome":24,"thirtyseconds":8,"tick":0,"track":0},{"deltaTime":8640,"eventTypeByte":145,"channel":1,"type":"channel","noteNumber":52,"velocity":100,"subtype":"note","tick":8640,"duration":133,"track":1},{"deltaTime":113,"eventTypeByte":145,"channel":1,"type":"channel","noteNumber":57,"velocity":100,"subtype":"note","tick":8886,"duration":127,"track":1},{"deltaTime":0,"eventTypeByte":60,"channel":1,"type":"channel","noteNumber":60,"velocity":100,"subtype":"note","tick":8886,"duration":127,"track":1},{"deltaTime":107,"eventTypeByte":145,"channel":1,"type":"channel","noteNumber":52,"velocity":100,"subtype":"note","tick":9120,"duration":133,"track":1},{"deltaTime":347,"eventTypeByte":145,"channel":1,"type":"channel","noteNumber":52,"velocity":100,"subtype":"note","tick":9600,"duration":133,"track":1},{"deltaTime":113,"eventTypeByte":145,"channel":1,"type":"channel","noteNumber":57,"velocity":100,"subtype":"note","tick":9846,"duration":127,"track":1},{"deltaTime":0,"eventTypeByte":60,"channel":1,"type":"channel","noteNumber":60,"velocity":100,"subtype":"note","tick":9846,"duration":127,"track":1},{"deltaTime":107,"eventTypeByte":145,"channel":1,"type":"channel","noteNumber":53,"velocity":100,"subtype":"note","tick":10080,"duration":133,"track":1},{"deltaTime":113,"eventTypeByte":145,"channel":1,"type":"channel","noteNumber":57,"velocity":100,"subtype":"note","tick":10326,"duration":127,"track":1},{"deltaTime":0,"eventTypeByte":60,"channel":1,"type":"channel","noteNumber":60,"velocity":100,"subtype":"note","tick":10326,"duration":127,"track":1},{"deltaTime":107,"eventTypeByte":145,"channel":1,"type":"channel","noteNumber":53,"velocity":100,"subtype":"note","tick":10560,"duration":133,"track":1},{"deltaTime":347,"eventTypeByte":145,"channel":1,"type":"channel","noteNumber":53,"velocity":100,"subtype":"note","tick":11040,"duration":133,"track":1},{"deltaTime":113,"eventTypeByte":145,"channel":1,"type":"channel","noteNumber":57,"velocity":100,"subtype":"note","tick":11286,"duration":127,"track":1},{"deltaTime":0,"eventTypeByte":60,"channel":1,"type":"channel","noteNumber":60,"velocity":100,"subtype":"note","tick":11286,"duration":127,"track":1},{"deltaTime":107,"eventTypeByte":145,"channel":1,"type":"channel","noteNumber":54,"velocity":100,"subtype":"note","tick":11520,"duration":133,"track":1},{"deltaTime":113,"eventTypeByte":145,"channel":1,"type":"channel","noteNumber":57,"velocity":100,"subtype":"note","tick":11766,"duration":127,"track":1},{"deltaTime":0,"eventTypeByte":60,"channel":1,"type":"channel","noteNumber":60,"velocity":100,"subtype":"note","tick":11766,"duration":127,"track":1},{"deltaTime":107,"eventTypeByte":145,"channel":1,"type":"channel","noteNumber":54,"velocity":100,"subtype":"note","tick":12000,"duration":133,"track":1}])
 })

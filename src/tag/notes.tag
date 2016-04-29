@@ -39,6 +39,10 @@ opts = {
     this.selections = [selection]
     this.notes = opts.notes
 
+    this.container.onscroll = e => {
+      console.log(e)
+    }
+
     var stage
     const noteContainer = new createjs.Container
     noteContainer.on("mousedown", e => {
@@ -91,7 +95,7 @@ opts = {
       this.notes.forEach(note => {
         let rect = _.find(noteContainer.children, r => r.noteId == note.id)
         if (!rect) {
-          rect = new createjs.Shape()
+          rect = new NoteView()
           rect.noteId = note.id
 
           rect.on("mousedown", function(e) {
@@ -120,10 +124,9 @@ opts = {
 
           noteContainer.addChild(rect)
         }
-        rect.graphics.clear().beginFill("DeepSkyBlue").rect(0, 0, note.width, 30)
         rect.x = note.x
         rect.y = note.y
-        rect.setBounds(note.x, note.y, note.width, quantizer.unitY)
+        rect.setSize(note.width, quantizer.unitY)
       })
       stage.update()
     })

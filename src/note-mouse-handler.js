@@ -56,25 +56,40 @@ class PencilMouseHandler {
   }
 
   getPositionInNote(e) {
+    const width = e.target.getBounds().width
+    const edgeSize = Math.min(width / 3, 8)
     const p = {
       x: e.localX,
       y: e.localY,
       type: DRAG_POSITION.CENTER
     }
-    if (p.x <= 8) p.type = DRAG_POSITION.LEFT_EDGE
-    if (e.target.getBounds().width - p.x <= 8) p.type = DRAG_POSITION.RIGHT_EDGE
+    if (p.x <= edgeSize) { p.type = DRAG_POSITION.LEFT_EDGE }
+    if (width - p.x <= edgeSize) { p.type = DRAG_POSITION.RIGHT_EDGE }
+    console.log(p, width)
     return p
   }
 
+  onMouseOverNote(e) {
+    this.updateCursor(e)
+  }
+
+  onMouseOutNote(e) {
+    this.setCursor("default")
+  }
+
+  setCursor(cursor) {
+    const style = this.container.parent.canvas.style
+    style.cursor = cursor
+  }
+
   updateCursor(e) {
-    if (this.isMouseDown) return
-    switch (this.getDragPosition(e)) {
+    switch (this.getPositionInNote(e).type) {
       case DRAG_POSITION.LEFT_EDGE:
       case DRAG_POSITION.RIGHT_EDGE: 
-      this.container.style.cursor = "w-resize"
+      this.setCursor("w-resize")
       break
       default:
-      this.container.style.cursor = "move"
+      this.setCursor("move")
       break
     }
   }

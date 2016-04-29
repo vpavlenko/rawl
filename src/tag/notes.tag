@@ -23,27 +23,6 @@ opts = {
     class="container" 
     name="container"
     style="width: { containerWidth }px; height: { containerHeight }px;">
-  <!--<div class="container" name="container"
-    onmouseup={ mouseHandler.onMouseUp }
-    onmousemove={ mouseHandler.onMouseMove }
-    onmousedown={ mouseHandler.onMouseDown }
-    style="width: { containerWidth }px;">
-    <div 
-      each={ notes } 
-      no-reorder
-      class={"note": true, "selected": selected}
-      style="left: { x }px; top: { y }px; width: { width }px;" 
-      onmousedown={ mouseHandler.onMouseDownNote }
-      onmouseover={ mouseHandler.updateCursor }
-      onmousemove={ mouseHandler.updateCursor }
-      onmouseleave={ mouseHandler.resetCursor }>
-      </div>
-    <div
-      class="selection"
-      each={ selections } 
-      style="left: { x }px; top: { y }px; width: { width }px; height: { height }px;"
-      if={ !hidden } >
-      </div>-->
     <canvas 
       class="noteCanvas"
       name="noteCanvas"></canvas>
@@ -75,6 +54,7 @@ opts = {
 
     this.on("mount", () => {
       stage = new createjs.Stage(this.noteCanvas)
+      stage.enableMouseOver()
       document.noteStage = stage
       
       const keys = new PianoKeysView(KEY_WIDTH, quantizer.unitY, 127)
@@ -106,7 +86,7 @@ opts = {
 
       console.log(this.notes.length)
       this.notes.forEach(note => {
-        let rect = _.find(stage.children, r => r.noteId == note.id)
+        let rect = _.find(noteContainer.children, r => r.noteId == note.id)
         if (!rect) {
           rect = new createjs.Shape()
           rect.noteId = note.id
@@ -115,6 +95,14 @@ opts = {
             mouseHandler.onMouseDownNote(e)
             e.stopPropagation()
             stage.update()
+          })
+
+          rect.on("mouseover", function(e) {
+            mouseHandler.onMouseOverNote(e)
+          })
+
+          rect.on("mouseout", function(e) {
+            mouseHandler.onMouseOutNote(e)
           })
 
           rect.on("pressmove", function(e) {

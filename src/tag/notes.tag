@@ -8,6 +8,7 @@ opts = {
     }
   ],
   quantizer: <Quantizer>
+  coordConverter: <NoteCoordConverter>
   mode: <Number> 0: 鉛筆, 1: 範囲選択
   onCreateNote: <Function(bounds)> 
   onResizeNote: <Function(noteId, bounds)>
@@ -49,23 +50,33 @@ opts = {
     this.selections = [selection]
     this.notes = opts.notes
 
+    var stage
+    const noteContainer = new createjs.Container
+    noteContainer.on("mousedown", e => {
+      mouseHandler.onMouseDown(e)
+      stage.update()
+    })
+
     var mouseHandler = [ 
-      new PencilMouseHandler(this.container, opts),
-      new SelectionMouseHandler(this.container, opts)
+      new PencilMouseHandler(noteContainer, opts),
+      new SelectionMouseHandler(noteContainer, opts)
     ][opts.mode]
     this.mouseHandler = mouseHandler
-
-    var stage
 
     this.on("mount", () => {
       stage = new createjs.Stage(document.querySelector(".noteCanvas"))
       document.noteStage = stage
+      
       const keys = new PianoKeysView(100, quantizer.unitY, 127)
       stage.addChild(keys)
 
       const grid = new PianoGridView(quantizer.unitY, 127, coordConverter, 1000)
       grid.x = 100
       stage.addChild(grid)
+
+      noteContainer.x = 100
+      stage.addChild(noteContainer)
+
       stage.update()
     })
 
@@ -76,14 +87,16 @@ opts = {
       if (stage == null) {
         return
       }
+      console.log(this.notes.length)
       this.notes.forEach(note => {
-        var rect = _.find(stage.children, r => r.noteId == note.id)
+        let rect = _.find(stage.children, r => r.noteId == note.id)
         if (!rect) {
           rect = new createjs.Shape()
           rect.noteId = note.id
 
           rect.on("mousedown", function(e) {
             mouseHandler.onMouseDownNote(e)
+            e.stopPropagation()
             stage.update()
           })
 
@@ -97,7 +110,7 @@ opts = {
             stage.update()
           })
 
-          stage.addChild(rect)
+          noteContainer.addChild(rect)
         }
         rect.graphics.clear().beginFill("DeepSkyBlue").rect(0, 0, note.width, 30)
         rect.x = note.x

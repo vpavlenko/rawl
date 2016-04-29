@@ -4,38 +4,10 @@ const DRAG_POSITION = {
   RIGHT_EDGE: 2
 }
 
-class MouseHandler {
+class PencilMouseHandler {
   constructor(container, listener) {
     this.container = container
     this.listener = listener
-    this.startLocation = {x: undefined, y: undefined}
-    this.isMouseDown = false
-    this.isMouseMoved = false
-  }
-
-  onMouseDown(e) {
-    this.startLocation = this.getLocation(e)
-    this.isMouseDown = true
-    this.isMouseMoved = false
-  }
-
-  onMouseMove(e) { 
-    this.isMouseMoved = true
-  }
-
-  onMouseUp(e) {
-    this.isMouseDown = false
-    this.isMouseMoved = false
-  }
-
-  onMouseDownNote(e) {}
-  resetCursor(e) {}
-  updateCursor(e) {}
-}
-
-class PencilMouseHandler extends MouseHandler {
-  constructor(container, listener) {
-    super(container, listener)
     bindAllMethods(this)
   }
 
@@ -48,21 +20,20 @@ class PencilMouseHandler extends MouseHandler {
   }
 
   onMouseDown(e) { 
-    super.onMouseDown(e) 
     if (e.target == this.container) {
+      const p = this.container.globalToLocal(e.stageX, e.stageY)
       this.listener.onCreateNote({
-        x: quantizer.floorX(e.stageX),
-        y: quantizer.floorY(e.stageY),
+        x: quantizer.floorX(p.x),
+        y: quantizer.floorY(p.y),
         width: quantizer.unitX
       })
     }
   }
 
   onPressMoveNote(e) {
-    super.onMouseMove(e)
-
     const bounds = e.target.getBounds()
-    const qx = quantizer.roundX(e.stageX)
+    const p = this.container.globalToLocal(e.stageX, e.stageY)
+    const qx = quantizer.roundX(p.x)
 
     switch (this.dragPosition.type) {
       case DRAG_POSITION.LEFT_EDGE:
@@ -76,8 +47,8 @@ class PencilMouseHandler extends MouseHandler {
       break
       case DRAG_POSITION.CENTER:
       // 移動
-      bounds.x = quantizer.roundX(e.stageX - this.dragPosition.x)
-      bounds.y = quantizer.roundY(e.stageY - this.dragPosition.y) 
+      bounds.x = quantizer.roundX(p.x - this.dragPosition.x)
+      bounds.y = quantizer.roundY(p.y - this.dragPosition.y) 
       break
     }
 
@@ -86,8 +57,8 @@ class PencilMouseHandler extends MouseHandler {
 
   getPositionInNote(e) {
     const p = {
-      x: e.stageX - e.target.x,
-      y: e.stageY - e.target.y,
+      x: e.localX,
+      y: e.localY,
       type: DRAG_POSITION.CENTER
     }
     if (p.x <= 8) p.type = DRAG_POSITION.LEFT_EDGE
@@ -109,15 +80,13 @@ class PencilMouseHandler extends MouseHandler {
   }
 }
 
-class SelectionMouseHandler extends MouseHandler {
-  constructor(container) {
-    super(container)
-    bindAllMethods(this)
+class SelectionMouseHandler {
+  constructor(container, listener) {
     this.container = container
+    this.listener = listener
   }
 
   onMouseDown(e) { 
-    super.onMouseDown(e)
     this.start = this.getLocation(e)
     const clicked = new Rect(selection).containsPoint(this.start)
     if (!clicked) {
@@ -137,7 +106,6 @@ class SelectionMouseHandler extends MouseHandler {
   }
 
   onMouseMove(e) { 
-    super.onMouseMove(e)
     if (!this.isMouseDown) return
     selection.hidden = false
 
@@ -171,6 +139,5 @@ class SelectionMouseHandler extends MouseHandler {
     } else if (!this.isMouseMoved) {
       this.listener.onClickNotes(selection.notes, e)
     }
-    super.onMouseUp(e)
   }
 }

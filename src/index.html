@@ -24,8 +24,6 @@
     <event-table></event-table>
     <div id="piano-roll">
       <notes></notes>
-      <keys></keys>
-      <ruler></ruler>
     </div>
     <context-menu></context-menu>
   </div>
@@ -34,7 +32,6 @@
 <script src="node_modules/babel-polyfill/dist/polyfill.js"></script>
 <script src="node_modules/lodash/lodash.js"></script>
 <script src="node_modules/riot/riot+compiler.js"></script>
-<script type="riot/tag" src="tag/ruler.tag"></script>
 <script type="riot/tag" src="tag/notes.tag"></script>
 <script type="riot/tag" src="tag/context-menu.tag"></script>
 <script type="riot/tag" src="tag/event-table.tag"></script>
@@ -58,8 +55,6 @@
 <style type="text/css">
 
 :root {
-  --key-width: 120px;
-  --ruler-height: 25px;
   --header-height: 20px;
   --event-table-width: 300px;
 }
@@ -111,27 +106,10 @@ event-table {
   overflow-x: scroll;
   overflow-y: hidden;
 }
-keys {
-  position: absolute;
-  left: 0;
-  top: var(--ruler-height);
-  width: var(--key-width);
-  border-right: 1px solid gray;
-  background: rgb(255, 255, 255);
-}
-ruler {
-  position: absolute;
-  left: 0;
-  top: 0;
-  padding-left: var(--key-width);
-  height: var(--ruler-height);
-  background: white;
-  border-bottom: 2px solid rgb(175, 175, 175);
-}
 notes {
   position: absolute;
   left: 0;
-  top: var(--ruler-height);
+  top: 0;
   width: 100%;
   height: 100%;
 }

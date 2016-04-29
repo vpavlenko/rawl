@@ -64,17 +64,21 @@ opts = {
     this.mouseHandler = mouseHandler
 
     this.on("mount", () => {
+      const RULER_HEIGHT = 30
+
       stage = new createjs.Stage(document.querySelector(".noteCanvas"))
       document.noteStage = stage
       
       const keys = new PianoKeysView(100, quantizer.unitY, 127)
+      keys.y = RULER_HEIGHT
       stage.addChild(keys)
 
-      const grid = new PianoGridView(quantizer.unitY, 127, coordConverter, 1000)
+      const grid = new PianoGridView(quantizer.unitY, 127, RULER_HEIGHT, coordConverter, 1000)
       grid.x = 100
       stage.addChild(grid)
 
       noteContainer.x = 100
+      noteContainer.y = RULER_HEIGHT
       stage.addChild(noteContainer)
 
       stage.update()

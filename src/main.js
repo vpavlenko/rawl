@@ -9,6 +9,7 @@ TIME_BASE = 480
 
 const player = new Player(eventStore, TIME_BASE)
 document.player = player
+var currentMidi
 
 const coordConverter = new NoteCoordConverter(PIXELS_PER_BEAT, KEY_HEIGHT, [
   { tempo: 120, tick: 0 },
@@ -41,6 +42,7 @@ document.querySelector("#load-midi-input").onchange = e => {
     return
   }
   MidiFileReader.read(file, midi => {
+    currentMidi = midi
 
     const tempos = midi.tracks[0].events
     .filter(e => {
@@ -53,6 +55,7 @@ document.querySelector("#load-midi-input").onchange = e => {
     })
     coordConverter.tempos = tempos
 
+    eventStore.clear()
     eventStore.addAll(midi.tracks.map(t => t.events).flatten())
   })
 }
@@ -167,6 +170,25 @@ riot.compile(() => {
       })
     }
   }
+  const selectTag = riot.mount("riot-select", { 
+    options: [
+    {
+      name: "Track 1",
+      value: 1,
+      selected: true
+    },
+    {
+      name: "Track 2",
+      value: 2,
+      selected: false
+    },
+    ],
+    onSelect: (item, index) => {
+      console.log(item, index)
+      notesTag.clearNotes()
+      updateNotes(index)
+    }
+  })[0]
 
   const notesTag = riot.mount("notes", notesOpts)[0]
   const eventTable = riot.mount("event-table", eventStore)[0]
@@ -175,9 +197,9 @@ riot.compile(() => {
 
   notesTag.root.style.height = `${MAX_NOTE_NUMBER * KEY_HEIGHT}px`
 
-  eventStore.on("change", e => {
+  function updateNotes(track) {
     const notes = (eventStore.events.filter(e => {
-      return e.type == "channel" && e.subtype == "note" && e.track == 1
+      return e.type == "channel" && e.subtype == "note" && e.track == track
     }).map(e => {
       const start = coordConverter.getPixelsAt(e.tick)
       const end = coordConverter.getPixelsAt(e.tick + e.duration)
@@ -188,10 +210,23 @@ riot.compile(() => {
         width: end - start
       }
     }))
-    //eventTable.update(eventStore)
+
     notesTag.update({
       notes: notes
     })
+  }
+
+  eventStore.on("change", e => {
+    updateNotes(selectTag.selectedIndex)
+    //eventTable.update(eventStore)
+
+    if (currentMidi) {
+      const trackOptions = currentMidi.tracks.map((t, i) => { return {
+        name: t.name,
+        value: i
+      }})
+      selectTag.update({options: trackOptions})
+    }
   })
 
   eventStore.addAll([{"deltaTime":0,"eventTypeByte":255,"type":"meta","subtype":"setTempo","microsecondsPerBeat":479999,"tick":0,"track":0},{"deltaTime":0,"eventTypeByte":255,"type":"meta","subtype":"timeSignature","numerator":3,"denominator":4,"metronome":24,"thirtyseconds":8,"tick":0,"track":0},{"deltaTime":240,"eventTypeByte":145,"channel":1,"type":"channel","noteNumber":52,"velocity":100,"subtype":"note","tick":8640,"duration":133,"track":1},{"deltaTime":113,"eventTypeByte":145,"channel":1,"type":"channel","noteNumber":57,"velocity":100,"subtype":"note","tick":8886,"duration":127,"track":1},{"deltaTime":0,"eventTypeByte":60,"channel":1,"type":"channel","noteNumber":60,"velocity":100,"subtype":"note","tick":8886,"duration":127,"track":1},{"deltaTime":107,"eventTypeByte":145,"channel":1,"type":"channel","noteNumber":52,"velocity":100,"subtype":"note","tick":9120,"duration":133,"track":1},{"deltaTime":347,"eventTypeByte":145,"channel":1,"type":"channel","noteNumber":52,"velocity":100,"subtype":"note","tick":9600,"duration":133,"track":1},{"deltaTime":113,"eventTypeByte":145,"channel":1,"type":"channel","noteNumber":57,"velocity":100,"subtype":"note","tick":9846,"duration":127,"track":1},{"deltaTime":0,"eventTypeByte":60,"channel":1,"type":"channel","noteNumber":60,"velocity":100,"subtype":"note","tick":9846,"duration":127,"track":1},{"deltaTime":107,"eventTypeByte":145,"channel":1,"type":"channel","noteNumber":53,"velocity":100,"subtype":"note","tick":10080,"duration":133,"track":1},{"deltaTime":113,"eventTypeByte":145,"channel":1,"type":"channel","noteNumber":57,"velocity":100,"subtype":"note","tick":10326,"duration":127,"track":1},{"deltaTime":0,"eventTypeByte":60,"channel":1,"type":"channel","noteNumber":60,"velocity":100,"subtype":"note","tick":10326,"duration":127,"track":1},{"deltaTime":107,"eventTypeByte":145,"channel":1,"type":"channel","noteNumber":53,"velocity":100,"subtype":"note","tick":10560,"duration":133,"track":1},{"deltaTime":347,"eventTypeByte":145,"channel":1,"type":"channel","noteNumber":53,"velocity":100,"subtype":"note","tick":11040,"duration":133,"track":1},{"deltaTime":113,"eventTypeByte":145,"channel":1,"type":"channel","noteNumber":57,"velocity":100,"subtype":"note","tick":11286,"duration":127,"track":1},{"deltaTime":0,"eventTypeByte":60,"channel":1,"type":"channel","noteNumber":60,"velocity":100,"subtype":"note","tick":11286,"duration":127,"track":1},{"deltaTime":107,"eventTypeByte":145,"channel":1,"type":"channel","noteNumber":54,"velocity":100,"subtype":"note","tick":11520,"duration":133,"track":1},{"deltaTime":113,"eventTypeByte":145,"channel":1,"type":"channel","noteNumber":57,"velocity":100,"subtype":"note","tick":11766,"duration":127,"track":1},{"deltaTime":0,"eventTypeByte":60,"channel":1,"type":"channel","noteNumber":60,"velocity":100,"subtype":"note","tick":11766,"duration":127,"track":1},{"deltaTime":107,"eventTypeByte":145,"channel":1,"type":"channel","noteNumber":54,"velocity":100,"subtype":"note","tick":12000,"duration":133,"track":1}])

@@ -7,21 +7,24 @@ class EventStore {
 
   _add(e) {
     e.id = this.lastId
+    this.events.push(e)
     this.lastId++
   }
 
   add(e) {
     this._add(e)
-    this.events.push(e)
     this.trigger("change")
   }
 
   addAll(arr) {
     arr.forEach(e => this._add(e))
-    this.events = this.events.concat(arr)
-    beginPerformanceTimer("before trigger")
     this.trigger("change")
-    stopPerformanceTimer("before trigger")
+  }
+
+  clear() {
+    this.events = []
+    this.lastId = 0
+    this.trigger("change")
   }
 
   removeEventsById(ids) {

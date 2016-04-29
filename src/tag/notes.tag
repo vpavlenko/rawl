@@ -52,6 +52,10 @@ opts = {
     ][opts.mode]
     this.mouseHandler = mouseHandler
 
+    this.clearNotes = () => {
+      noteContainer.removeAllChildren()
+    }
+
     this.on("mount", () => {
       stage = new createjs.Stage(this.noteCanvas)
       stage.enableMouseOver()
@@ -84,7 +88,6 @@ opts = {
       this.noteCanvas.width = this.containerWidth
       this.noteCanvas.height = this.containerHeight
 
-      console.log(this.notes.length)
       this.notes.forEach(note => {
         let rect = _.find(noteContainer.children, r => r.noteId == note.id)
         if (!rect) {

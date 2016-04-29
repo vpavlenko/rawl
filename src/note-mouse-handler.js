@@ -37,8 +37,6 @@ class PencilMouseHandler extends MouseHandler {
   constructor(container, listener) {
     super(container, listener)
     bindAllMethods(this)
-    this.startEvent = null
-    this.startItem = null
   }
 
   resetCursor() {
@@ -83,17 +81,7 @@ class PencilMouseHandler extends MouseHandler {
       break
     }
 
-    console.log(e.target.getBounds(), bounds)
     this.listener.onResizeNote(e.target.noteId, bounds)
-  }
-
-  onMouseUp(e) {
-    if (this.startItem != null && !this.isMouseMoved) {
-      this.listener.onClickNote(this.startItem)
-    }
-    this.startItem = null
-    this.resetCursor()
-    super.onMouseUp(e)
   }
 
   getPositionInNote(e) {

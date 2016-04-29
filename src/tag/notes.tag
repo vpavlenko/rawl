@@ -19,8 +19,10 @@ opts = {
 }
 -->
 <notes>
-  <div class="container" name="container"
-    style="width: { containerWidth }px;">
+  <div 
+    class="container" 
+    name="container"
+    style="width: { containerWidth }px; height: { containerHeight }px;">
   <!--<div class="container" name="container"
     onmouseup={ mouseHandler.onMouseUp }
     onmousemove={ mouseHandler.onMouseMove }
@@ -42,10 +44,18 @@ opts = {
       style="left: { x }px; top: { y }px; width: { width }px; height: { height }px;"
       if={ !hidden } >
       </div>-->
-    <canvas class="noteCanvas" width="10000" height="5000"></canvas>
+    <canvas 
+      class="noteCanvas"
+      name="noteCanvas"></canvas>
   </div>
 
   <script type="text/javascript">
+    const RULER_HEIGHT = 30
+    const KEY_WIDTH = 100
+
+    this.containerWidth = 500 + KEY_WIDTH
+    this.containerHeight = coordConverter.getPixelsForNoteNumber(0) + RULER_HEIGHT
+
     selection = {hidden: true}
     this.selections = [selection]
     this.notes = opts.notes
@@ -64,20 +74,18 @@ opts = {
     this.mouseHandler = mouseHandler
 
     this.on("mount", () => {
-      const RULER_HEIGHT = 30
-
-      stage = new createjs.Stage(document.querySelector(".noteCanvas"))
+      stage = new createjs.Stage(this.noteCanvas)
       document.noteStage = stage
       
-      const keys = new PianoKeysView(100, quantizer.unitY, 127)
+      const keys = new PianoKeysView(KEY_WIDTH, quantizer.unitY, 127)
       keys.y = RULER_HEIGHT
       stage.addChild(keys)
 
       const grid = new PianoGridView(quantizer.unitY, 127, RULER_HEIGHT, coordConverter, 1000)
-      grid.x = 100
+      grid.x = KEY_WIDTH
       stage.addChild(grid)
 
-      noteContainer.x = 100
+      noteContainer.x = KEY_WIDTH
       noteContainer.y = RULER_HEIGHT
       stage.addChild(noteContainer)
 
@@ -85,12 +93,17 @@ opts = {
     })
 
     this.on("update", () => {
-      this.containerWidth = Math.max(500, this.notes != null && this.notes.length > 0 ? 
-        Math.max.apply(null, (this.notes.map(n => n.x + n.width))) : 0)
-
       if (stage == null) {
         return
       }
+
+      const maxNoteX = Math.max(500, this.notes != null && this.notes.length > 0 ? 
+        Math.max.apply(null, (this.notes.map(n => n.x + n.width))) : 0)
+
+      this.containerWidth = Math.ceil(maxNoteX) + KEY_WIDTH
+      this.noteCanvas.width = this.containerWidth
+      this.noteCanvas.height = this.containerHeight
+
       console.log(this.notes.length)
       this.notes.forEach(note => {
         let rect = _.find(stage.children, r => r.noteId == note.id)

@@ -4,7 +4,7 @@ const eventStore = new EventStore
 
 MAX_NOTE_NUMBER = 127
 KEY_HEIGHT = 30
-PIXELS_PER_BEAT = 100
+PIXELS_PER_BEAT = 50
 TIME_BASE = 480
 
 const player = new Player(eventStore, TIME_BASE)
@@ -96,14 +96,6 @@ function updateNoteEventWithBounds(e, bounds) {
   e.noteNumber = noteNum
 }
 
-const rulerElem = document.querySelector("ruler")
-document.querySelector("#piano-roll").onscroll = e => {
-  const top = e.target.scrollTop
-  const left = e.target.scrollLeft
-  // fixed to top
-  rulerElem.style.setProperty("top", `${top}px`)
-}
-
 riot.compile(() => {
   contextMenu = riot.mount("context-menu", {
     hidden: true,
@@ -121,8 +113,6 @@ riot.compile(() => {
     }
   })
   bars[0].label += " Start"
-
-  riot.mount("ruler", {bars: bars})
 
   const notesOpts = {
     numberOfKeys: MAX_NOTE_NUMBER,

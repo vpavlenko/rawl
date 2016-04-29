@@ -18,7 +18,7 @@ class PianoGridView extends createjs.Container {
           .lineTo(x, rulerHeight)
 
         const text = new createjs.Text(measure, "14px Consolas", "gray")
-        text.x = x
+        text.x = x + 5
         this.addChild(text)
       }
       this.addChild(ruler)

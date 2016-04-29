@@ -62,6 +62,10 @@ opts = {
       document.noteStage = stage
       const keys = new PianoKeysView(100, quantizer.unitY, 127)
       stage.addChild(keys)
+
+      const grid = new PianoGridView(quantizer.unitY, 127, coordConverter, 1000)
+      grid.x = 100
+      stage.addChild(grid)
       stage.update()
     })
 

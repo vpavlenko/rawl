@@ -23,8 +23,6 @@
   <div id="container">
     <event-table></event-table>
     <div id="piano-roll">
-      <key-grid></key-grid>
-      <grid></grid>
       <notes></notes>
       <keys></keys>
       <ruler></ruler>
@@ -36,8 +34,6 @@
 <script src="node_modules/babel-polyfill/dist/polyfill.js"></script>
 <script src="node_modules/lodash/lodash.js"></script>
 <script src="node_modules/riot/riot+compiler.js"></script>
-<script type="riot/tag" src="tag/grid.tag"></script>
-<script type="riot/tag" src="tag/key-grid.tag"></script>
 <script type="riot/tag" src="tag/ruler.tag"></script>
 <script type="riot/tag" src="tag/notes.tag"></script>
 <script type="riot/tag" src="tag/context-menu.tag"></script>
@@ -55,6 +51,7 @@
 <script src="event-store.js"></script>
 <script src="note-coord-converter.js"></script>
 <script src="note-mouse-handler.js"></script>
+<script src="view/piano-grid-view.js"></script>
 <script src="view/piano-keys-view.js"></script>
 <script src="player.js"></script>
 <script src="main.js"></script>
@@ -122,18 +119,6 @@ keys {
   border-right: 1px solid gray;
   background: rgb(255, 255, 255);
 }
-key-grid {
-  position: absolute;
-  left: var(--key-width);
-  top: var(--ruler-height);
-  width: calc(100% - var(--key-width));
-}
-grid {
-  position: absolute;
-  left: var(--key-width);
-  top: var(--ruler-height);
-  height: 100%;
-}
 ruler {
   position: absolute;
   left: 0;
@@ -145,7 +130,7 @@ ruler {
 }
 notes {
   position: absolute;
-  left: var(--key-width);
+  left: 0;
   top: var(--ruler-height);
   width: 100%;
   height: 100%;

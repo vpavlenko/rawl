@@ -16,7 +16,11 @@ class PencilMouseHandler {
   }
 
   onMouseDownNote(e) {
-    this.dragPosition = this.getDragPositionType(e.localX, e.target.getBounds().width)
+    this.dragPosition = {
+      x: e.localX,
+      y: e.localY,
+      type: this.getDragPositionType(e.localX, e.target.getBounds().width)
+    }
   }
 
   onMouseDown(e) { 
@@ -31,7 +35,12 @@ class PencilMouseHandler {
   }
 
   onPressMoveNote(e) {
-    const bounds = e.target.getBounds()
+    const bounds = {
+      x: e.target.x,
+      y: e.target.y,
+      width: e.target.getBounds().width,
+      height: e.target.getBounds().height
+    }
     const p = this.container.globalToLocal(e.stageX, e.stageY)
     const qx = quantizer.roundX(p.x)
 

@@ -9,8 +9,8 @@ function getWhiteKeyShape(width, height, isBordered) {
     shape.graphics
       .setStrokeStyle(1)
       .beginStroke("gray")
-      .moveTo(0, 0)
-      .lineTo(width, 0)
+      .moveTo(0, 0.5)
+      .lineTo(width, 0.5)
   }
 
   return shape
@@ -27,8 +27,8 @@ function getBlackKeyShape(width, height) {
     .drawRect(0, 0, innerWidth, height)
     .setStrokeStyle(1)
     .beginStroke("gray")
-    .moveTo(innerWidth, height / 2)
-    .lineTo(width, height / 2)
+    .moveTo(innerWidth, height / 2 + 0.5)
+    .lineTo(width, height / 2 + 0.5)
 
   return shape
 }
@@ -48,8 +48,16 @@ class PianoKeysView extends createjs.Container {
       } else {
         shape = getBlackKeyShape(width, keyHeight)
       }
-      shape.y = keyHeight * i + 0.5
+      shape.y = keyHeight * i
       this.addChild(shape)
     }
+
+    const rightBorder = new createjs.Shape
+    rightBorder.graphics
+      .setStrokeStyle(1)
+      .beginStroke("rgba(0, 0, 0, 0.2)")
+      .moveTo(width + 0.5, 0)
+      .lineTo(width + 0.5, keyHeight * numberOfKeys)
+    this.addChild(rightBorder)
   }
 }

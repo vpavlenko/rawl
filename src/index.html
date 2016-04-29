@@ -23,9 +23,7 @@
   </header>
   <div id="container">
     <event-table></event-table>
-    <div id="piano-roll">
-      <notes></notes>
-    </div>
+    <piano-roll></piano-roll>
     <context-menu></context-menu>
   </div>
 </body>
@@ -33,7 +31,7 @@
 <script src="node_modules/babel-polyfill/dist/polyfill.js"></script>
 <script src="node_modules/lodash/lodash.js"></script>
 <script src="node_modules/riot/riot+compiler.js"></script>
-<script type="riot/tag" src="tag/notes.tag"></script>
+<script type="riot/tag" src="tag/piano-roll.tag"></script>
 <script type="riot/tag" src="tag/context-menu.tag"></script>
 <script type="riot/tag" src="tag/event-table.tag"></script>
 <script type="riot/tag" src="tag/riot-select.tag"></script>
@@ -94,20 +92,12 @@ event-table {
   height: 100%;
   overflow: scroll;
 }
-#piano-roll {
+piano-roll {
   position: absolute;
   left: var(--event-table-width);
   width: calc(100% - var(--event-table-width));
   height: 100%;
   overflow: scroll;
-}
-.scroll {
-  position: absolute;
-  left: var(--key-width);
-  height: 100%;
-  width: calc(100% - var(--key-width));
-  overflow-x: scroll;
-  overflow-y: hidden;
 }
 notes {
   position: absolute;

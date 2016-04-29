@@ -96,13 +96,10 @@ function updateNoteEventWithBounds(e, bounds) {
   e.noteNumber = noteNum
 }
 
-const keysElem = document.querySelector("keys")
 const rulerElem = document.querySelector("ruler")
 document.querySelector("#piano-roll").onscroll = e => {
   const top = e.target.scrollTop
   const left = e.target.scrollLeft
-  // fixed to left
-  keysElem.style.setProperty("left", `${left}px`)
   // fixed to top
   rulerElem.style.setProperty("top", `${top}px`)
 }
@@ -115,9 +112,6 @@ riot.compile(() => {
     items: []
   })[0]
   document.contextMenu = contextMenu
-
-  // 鍵盤の表示
-  riot.mount("keys", {numberOfKeys: MAX_NOTE_NUMBER})
 
   // 水平線の表示
   riot.mount("key-grid", {numberOfKeys: MAX_NOTE_NUMBER})

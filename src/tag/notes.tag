@@ -60,11 +60,8 @@ opts = {
     this.on("mount", () => {
       stage = new createjs.Stage(document.querySelector(".noteCanvas"))
       document.noteStage = stage
-      const circle = new createjs.Shape()
-      circle.graphics.beginFill("DeepSkyBlue").drawCircle(0, 0, 50)
-      circle.x = 300
-      circle.y = 300
-      stage.addChild(circle)
+      const keys = new PianoKeysView(100, quantizer.unitY, 127)
+      stage.addChild(keys)
       stage.update()
     })
 

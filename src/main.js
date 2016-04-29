@@ -219,7 +219,8 @@ riot.compile(() => {
     if (currentMidi) {
       const trackOptions = currentMidi.tracks.map((t, i) => { return {
         name: t.name,
-        value: i
+        value: i,
+        selected: i == selectTag.selectedIndex
       }})
       selectTag.update({options: trackOptions})
     }

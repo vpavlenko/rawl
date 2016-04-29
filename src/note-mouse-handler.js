@@ -16,7 +16,7 @@ class PencilMouseHandler {
   }
 
   onMouseDownNote(e) {
-    this.dragPosition = this.getPositionInNote(e)
+    this.dragPosition = this.getDragPositionType(e.localX, e.target.getBounds().width)
   }
 
   onMouseDown(e) { 
@@ -55,42 +55,37 @@ class PencilMouseHandler {
     this.listener.onResizeNote(e.target.noteId, bounds)
   }
 
-  getPositionInNote(e) {
-    const width = e.target.getBounds().width
-    const edgeSize = Math.min(width / 3, 8)
-    const p = {
-      x: e.localX,
-      y: e.localY,
-      type: DRAG_POSITION.CENTER
+  getDragPositionType(localX, noteWidth) {
+    const edgeSize = Math.min(noteWidth / 3, 8)
+    if (localX <= edgeSize) { return DRAG_POSITION.LEFT_EDGE }
+    if (noteWidth - localX <= edgeSize) { return DRAG_POSITION.RIGHT_EDGE }
+    return DRAG_POSITION.CENTER
+  }
+
+  onMouseMove(e) {
+    const cpos = this.container.globalToLocal(e.layerX, e.layerY)
+    const obj = this.container.getObjectUnderPoint(cpos.x, cpos.y)
+    if (obj instanceof NoteView) {
+      const pos = obj.globalToLocal(e.layerX, e.layerY)
+      const type = this.getDragPositionType(pos.x, obj.getBounds().width)
+      switch (type) {
+        case DRAG_POSITION.LEFT_EDGE:
+        case DRAG_POSITION.RIGHT_EDGE: 
+        this.setCursor("w-resize")
+        break
+        default:
+        this.setCursor("move")
+        break
+      }
+    } else {
+      this.setCursor("default")
     }
-    if (p.x <= edgeSize) { p.type = DRAG_POSITION.LEFT_EDGE }
-    if (width - p.x <= edgeSize) { p.type = DRAG_POSITION.RIGHT_EDGE }
-    console.log(p, width)
-    return p
-  }
-
-  onMouseOverNote(e) {
-    this.updateCursor(e)
-  }
-
-  onMouseOutNote(e) {
-    this.setCursor("default")
   }
 
   setCursor(cursor) {
-    const style = this.container.parent.canvas.style
-    style.cursor = cursor
-  }
-
-  updateCursor(e) {
-    switch (this.getPositionInNote(e).type) {
-      case DRAG_POSITION.LEFT_EDGE:
-      case DRAG_POSITION.RIGHT_EDGE: 
-      this.setCursor("w-resize")
-      break
-      default:
-      this.setCursor("move")
-      break
+    const style = this.container.parent.canvas.parentNode.style
+    if (style.cursor != cursor) {
+      style.cursor = cursor
     }
   }
 }

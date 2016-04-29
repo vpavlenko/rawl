@@ -34,19 +34,17 @@ opts = {
     this.selections = [selection]
     this.notes = opts.notes
 
-    var stage, noteContainer
-
-    var mouseHandler = [ 
-      new PencilMouseHandler(noteContainer, opts),
-      new SelectionMouseHandler(noteContainer, opts)
-    ][opts.mode]
-    this.mouseHandler = mouseHandler
+    var stage, noteContainer, mouseHandler
 
     this.clearNotes = () => {
       noteContainer.removeAllChildren()
     }
 
     this.on("mount", () => {
+      this.noteCanvas.onmousemove = e => {
+        mouseHandler.onMouseMove(e)
+      }
+
       stage = new createjs.Stage(this.noteCanvas)
       stage.enableMouseOver()
       document.noteStage = stage
@@ -63,6 +61,12 @@ opts = {
         stage.update()
       })
       stage.addChild(noteContainer)
+
+      mouseHandler = [ 
+        new PencilMouseHandler(noteContainer, opts),
+        new SelectionMouseHandler(noteContainer, opts)
+      ][opts.mode]
+      this.mouseHandler = mouseHandler
 
       const keys = new PianoKeysView(KEY_WIDTH, quantizer.unitY, 127)
       keys.zIndex = 500
@@ -104,14 +108,6 @@ opts = {
             mouseHandler.onMouseDownNote(e)
             e.stopPropagation()
             stage.update()
-          })
-
-          rect.on("mouseover", function(e) {
-            mouseHandler.onMouseOverNote(e)
-          })
-
-          rect.on("mouseout", function(e) {
-            mouseHandler.onMouseOutNote(e)
           })
 
           rect.on("pressmove", function(e) {

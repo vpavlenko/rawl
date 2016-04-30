@@ -134,18 +134,19 @@ riot.compile(() => {
       updateNoteEventWithBounds(e, bounds)
       eventStore.update(e)
     },
-    onSelectNotes: aNotes => {
-      /*notes.forEach(n => {
-        n.selected = aNotes.includes(n)
-      })*/
+    onSelectNotes: noteIds => {
+      // eventStore.events.forEach(n => {
+      //   n.selected = noteIds.includes(n.id)
+      // })
+      // eventStore.update()
     },
-    onMoveNotes: (notes, movement) => {
-      notes.forEach(n => {
-        n.x += movement.x
-        n.y += movement.y
-      })
+    onMoveNotes: (noteIds, movement) => {
+      // notes.forEach(n => {
+      //   n.x += movement.x
+      //   n.y += movement.y
+      // })
     },
-    onClickNotes: (aNotes, e) => {
+    onClickNotes: (noteIds, e) => {
       if (e.button != 2) return
       contextMenu.update({
         hidden: false,
@@ -218,7 +219,7 @@ riot.compile(() => {
 
     if (currentMidi) {
       const trackOptions = currentMidi.tracks.map((t, i) => { return {
-        name: t.name,
+        name: `${t.name}(${i})`,
         value: i,
         selected: i == selectTag.selectedIndex
       }})

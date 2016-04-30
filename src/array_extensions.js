@@ -14,6 +14,10 @@ Array.prototype.pushArray = function(arr) {
   Array.prototype.push.apply(this, arr)
 }
 
+Array.prototype.removeAll = function() {
+  this.splice(0, this.length)
+}
+
 Array.range = function(a, b) {
   const arr = []
   for (var i = a; i <= b; i++) {

@@ -100,22 +100,22 @@ class PencilMouseHandler {
 }
 
 class SelectionMouseHandler {
-  constructor(container, selectionView, listener) {
+  constructor(container, selectionView, listener, selectedNoteIdStore) {
     this.container = container
     this.listener = listener
     this.selectionView = selectionView
-    this.selectedNotes = []
+    this.selectedNoteIdStore = selectedNoteIdStore
     this.isMouseDown = false
   }
 
   get selectionRect() {
     const b = this.selectionView.getBounds()
-    return new Rect({
-      x: this.selectionView.x,
-      y: this.selectionView.y,
-      width: b.width,
-      height: b.height
-    })
+    return new createjs.Rectangle(
+      this.selectionView.x,
+      this.selectionView.y,
+      b.width,
+      b.height
+    )
   }
 
   set selectionRect(rect) {
@@ -127,9 +127,10 @@ class SelectionMouseHandler {
   onMouseDown(e) { 
     this.isMouseDown = true
     this.start = this.container.globalToLocal(e.stageX, e.stageY)
-    const clicked = this.selectionRect.containsPoint(this.start)
+    const clicked = this.selectionRect.contains(this.start.x, this.start.y)
     if (!clicked) {
       // 選択範囲外でクリックした場合は選択範囲をリセット
+      this.selectedNoteIds = []
       this.selectionView.fixed = false
       this.selectionView.visible = false
       this.selectionRect = {
@@ -138,7 +139,6 @@ class SelectionMouseHandler {
         width: 0,
         height: 0
       }
-      this.listener.onSelectNotes([])
     }
 
     this.dragOffset = { 
@@ -160,7 +160,7 @@ class SelectionMouseHandler {
       const qx = quantizer.roundX(loc.x - this.dragOffset.x)
       const qy = quantizer.roundY(loc.y - this.dragOffset.y)
 
-      this.listener.onMoveNotes(this.selectedNotes, {
+      this.listener.onMoveNotes(this.selectedNoteIds, {
         x: qx - bounds.x,
         y: qy - bounds.y
       })
@@ -177,13 +177,31 @@ class SelectionMouseHandler {
     this.selectionRect = bounds
   }
 
+  getNoteIdsInRect(rect) {
+    return this.container.children.filter(c => {
+        if (!(c instanceof NoteView)) return
+        const b = c.getBounds()
+        return rect.contains(c.x, c.y, b.width, b.height)
+      }).map(c => c.noteId)
+  }
+
+  set selectedNoteIds(ids) {
+    this.selectedNoteIdStore.removeAll()
+    this.selectedNoteIdStore.pushArray(ids)
+    this.selectedNoteIdStore.trigger("change")
+  }
+
+  get selectedNoteIds() {
+    return this.selectedNoteIdStore
+  }
+
   onMouseUp(e) { 
     if (!this.selectionView.fixed) {
       this.selectionView.fixed = true
-      this.selectedNotes = this.listener.notes.filter(n => new Rect(selection).containsPoint(n))
-      this.listener.onSelectNotes(this.selectedNotes)
+      this.selectedNoteIds = this.getNoteIdsInRect(this.selectionRect)
+      this.listener.onSelectNotes(this.selectedNoteIds)
     } else if (!this.isMouseMoved) {
-      this.listener.onClickNotes(this.selectedNotes, e)
+      this.listener.onClickNotes(this.selectedNoteIds, e)
     }
     this.isMouseDown = false
   }

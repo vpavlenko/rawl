@@ -13,9 +13,9 @@ opts = {
   onCreateNote: <Function(bounds)> 
   onResizeNote: <Function(noteId, bounds)>
   onClickNote: <Function(noteId)>
-  onSelectNotes: <Function(notes)>
-  onMoveNotes : <Function(notes, movement)>
-  onClickNotes <Function(notes, mouseEvent)>
+  onSelectNotes: <Function(noteIds)>
+  onMoveNotes : <Function(noteIds, movement)>
+  onClickNotes <Function(noteIds, mouseEvent)>
 }
 -->
 <piano-roll>
@@ -34,10 +34,17 @@ opts = {
     this.selections = [selection]
     this.notes = opts.notes
 
+    const selectedNoteIdStore = []
+    riot.observable(selectedNoteIdStore)
+
     var stage, noteContainer, mouseHandler, selectionView
 
     this.clearNotes = () => {
+      const children = noteContainer.children.slice() // copy
       noteContainer.removeAllChildren()
+      children.filter(c => !(c instanceof NoteView)).forEach(c => {
+        noteContainer.addChild(c)
+      })
     }
 
     this.on("mount", () => {
@@ -73,7 +80,7 @@ opts = {
 
       mouseHandler = [ 
         new PencilMouseHandler(noteContainer, opts),
-        new SelectionMouseHandler(noteContainer, selectionView, opts)
+        new SelectionMouseHandler(noteContainer, selectionView, opts, selectedNoteIdStore)
       ][opts.mode]
       this.mouseHandler = mouseHandler
 
@@ -95,6 +102,14 @@ opts = {
       }
     })
 
+    selectedNoteIdStore.on("change", () => {
+      noteContainer.children.forEach(c => {
+        if (c instanceof NoteView) {
+          c.selected = selectedNoteIdStore.includes(c.noteId)
+        }
+      })
+    })
+
     this.on("update", () => {
       if (stage == null) {
         return
@@ -108,7 +123,7 @@ opts = {
       this.noteCanvas.height = this.containerHeight
 
       this.notes.forEach(note => {
-        let rect = _.find(noteContainer.children, r => r.noteId == note.id)
+        let rect = _.find(noteContainer.children, c => c instanceof NoteView && c.noteId == note.id)
         if (!rect) {
           rect = new NoteView()
           rect.noteId = note.id
@@ -133,16 +148,17 @@ opts = {
         }
         rect.x = note.x
         rect.y = note.y
+        rect.selected = selectedNoteIdStore.includes(note.id)
         rect.setSize(note.width, quantizer.unitY)
-
-        selectionView.graphics
-          .clear()
-          .setStrokeStyle(1)
-          .beginStroke("gray")
-          .drawRect(0, 0, selection.width, selection.height)
-        selectionView.x = selection.x
-        selectionView.y = selection.y
       })
+
+      selectionView.graphics
+        .clear()
+        .setStrokeStyle(1)
+        .beginStroke("gray")
+        .drawRect(0, 0, selection.width, selection.height)
+      selectionView.x = selection.x
+      selectionView.y = selection.y
 
       stage.update()
     })

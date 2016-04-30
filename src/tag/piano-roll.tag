@@ -34,21 +34,30 @@ opts = {
     this.selections = [selection]
     this.notes = opts.notes
 
-    var stage, noteContainer, mouseHandler
+    var stage, noteContainer, mouseHandler, selectionView
 
     this.clearNotes = () => {
       noteContainer.removeAllChildren()
     }
 
     this.on("mount", () => {
-      this.noteCanvas.onmousemove = e => {
-        mouseHandler.onMouseMove(e)
-      }
-
       stage = new createjs.Stage(this.noteCanvas)
       stage.enableMouseOver()
       document.noteStage = stage
-      
+
+      stage.on("stagemousedown", e => {
+        mouseHandler.onMouseDown(e)
+        stage.update()
+      })
+      stage.on("stagemouseup", e => {
+        mouseHandler.onMouseUp(e)
+        stage.update()
+      })
+      stage.on("stagemousemove", e => {
+        mouseHandler.onMouseMove(e)
+        stage.update()
+      })
+
       const grid = new PianoGridView(quantizer.unitY, 127, RULER_HEIGHT, coordConverter, 1000)
       grid.x = KEY_WIDTH
       stage.addChild(grid)
@@ -56,15 +65,15 @@ opts = {
       noteContainer = new createjs.Container
       noteContainer.x = KEY_WIDTH
       noteContainer.y = RULER_HEIGHT
-      noteContainer.on("mousedown", e => {
-        mouseHandler.onMouseDown(e)
-        stage.update()
-      })
       stage.addChild(noteContainer)
+
+      selectionView = new SelectionView
+      selectionView.setSize(0, 0)
+      noteContainer.addChild(selectionView)
 
       mouseHandler = [ 
         new PencilMouseHandler(noteContainer, opts),
-        new SelectionMouseHandler(noteContainer, opts)
+        new SelectionMouseHandler(noteContainer, selectionView, opts)
       ][opts.mode]
       this.mouseHandler = mouseHandler
 
@@ -125,7 +134,16 @@ opts = {
         rect.x = note.x
         rect.y = note.y
         rect.setSize(note.width, quantizer.unitY)
+
+        selectionView.graphics
+          .clear()
+          .setStrokeStyle(1)
+          .beginStroke("gray")
+          .drawRect(0, 0, selection.width, selection.height)
+        selectionView.x = selection.x
+        selectionView.y = selection.y
       })
+
       stage.update()
     })
   </script>

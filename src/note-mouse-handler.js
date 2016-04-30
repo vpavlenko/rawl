@@ -72,10 +72,10 @@ class PencilMouseHandler {
   }
 
   onMouseMove(e) {
-    const cpos = this.container.globalToLocal(e.layerX, e.layerY)
-    const obj = this.container.getObjectUnderPoint(cpos.x, cpos.y)
+    const cpos = this.container.globalToLocal(e.stageX, e.stageY)
+    const obj = this.container.getObjectUnderPoint(cpos.x, cpos.y) // too slow!
     if (obj instanceof NoteView) {
-      const pos = obj.globalToLocal(e.layerX, e.layerY)
+      const pos = obj.globalToLocal(e.stageX, e.stageY)
       const type = this.getDragPositionType(pos.x, obj.getBounds().width)
       switch (type) {
         case DRAG_POSITION.LEFT_EDGE:
@@ -100,63 +100,91 @@ class PencilMouseHandler {
 }
 
 class SelectionMouseHandler {
-  constructor(container, listener) {
+  constructor(container, selectionView, listener) {
     this.container = container
     this.listener = listener
+    this.selectionView = selectionView
+    this.selectedNotes = []
+    this.isMouseDown = false
+  }
+
+  get selectionRect() {
+    const b = this.selectionView.getBounds()
+    return new Rect({
+      x: this.selectionView.x,
+      y: this.selectionView.y,
+      width: b.width,
+      height: b.height
+    })
+  }
+
+  set selectionRect(rect) {
+    this.selectionView.x = rect.x
+    this.selectionView.y = rect.y
+    this.selectionView.setSize(rect.width, rect.height)
   }
 
   onMouseDown(e) { 
-    this.start = this.getLocation(e)
-    const clicked = new Rect(selection).containsPoint(this.start)
+    this.isMouseDown = true
+    this.start = this.container.globalToLocal(e.stageX, e.stageY)
+    const clicked = this.selectionRect.containsPoint(this.start)
     if (!clicked) {
       // 選択範囲外でクリックした場合は選択範囲をリセット
-      Object.assign(selection, {
+      this.selectionView.fixed = false
+      this.selectionView.visible = false
+      this.selectionRect = {
         x: this.start.x,
         y: this.start.y,
         width: 0,
-        height: 0,
-        fixed: false,
-        hidden: true
-      })
+        height: 0
+      }
       this.listener.onSelectNotes([])
     }
 
-    this.dragOffset = { x: this.start.x - selection.x, y: this.start.y - selection.y }
+    this.dragOffset = { 
+      x: this.start.x - this.selectionRect.x, 
+      y: this.start.y - this.selectionRect.y 
+    }
   }
 
-  onMouseMove(e) { 
-    if (!this.isMouseDown) return
-    selection.hidden = false
+  onMouseMove(e) {
+    if (!this.isMouseDown) {
+      return
+    }
+    this.selectionView.visible = true
 
-    const loc = this.getLocation(e)
-    if (selection.fixed) {
+    const loc = this.container.globalToLocal(e.stageX, e.stageY)
+    const bounds = this.selectionRect
+    if (this.selectionView.fixed) {
       // 確定済みの選択範囲をドラッグした場合はノートと選択範囲を移動
       const qx = quantizer.roundX(loc.x - this.dragOffset.x)
       const qy = quantizer.roundY(loc.y - this.dragOffset.y)
 
-      this.listener.onMoveNotes(selection.notes, {
-        x: qx - selection.x,
-        y: qy - selection.y
+      this.listener.onMoveNotes(this.selectedNotes, {
+        x: qx - bounds.x,
+        y: qy - bounds.y
       })
-      selection.x = qx
-      selection.y = qy
+      bounds.x = qx
+      bounds.y = qy
     } else {
       // 選択範囲の変形
       const rect = Rect.fromPoints(this.start, loc)
-      selection.x = quantizer.roundX(rect.x)
-      selection.y = quantizer.roundY(rect.y)
-      selection.width = (quantizer.roundX(rect.x + rect.width) - selection.x) || quantizer.unitX
-      selection.height = (quantizer.roundY(rect.y + rect.height) - selection.y) || quantizer.unitY
+      bounds.x = quantizer.roundX(rect.x)
+      bounds.y = quantizer.roundY(rect.y)
+      bounds.width = (quantizer.roundX(rect.x + rect.width) - bounds.x) || quantizer.unitX
+      bounds.height = (quantizer.roundY(rect.y + rect.height) - bounds.y) || quantizer.unitY
     }
+    this.selectionRect = bounds
   }
 
   onMouseUp(e) { 
-    if (!selection.fixed) {
-      selection.fixed = true
-      selection.notes = this.listener.notes.filter(n => new Rect(selection).containsPoint(n))
-      this.listener.onSelectNotes(selection.notes)
+    if (!this.selectionView.fixed) {
+      this.selectionView.fixed = true
+      this.selectedNotes = this.listener.notes.filter(n => new Rect(selection).containsPoint(n))
+      this.listener.onSelectNotes(this.selectedNotes)
     } else if (!this.isMouseMoved) {
-      this.listener.onClickNotes(selection.notes, e)
+      this.listener.onClickNotes(this.selectedNotes, e)
     }
+    this.isMouseDown = false
   }
 }

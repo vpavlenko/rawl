@@ -120,7 +120,7 @@ riot.compile(() => {
   const notesOpts = {
     numberOfKeys: MAX_NOTE_NUMBER,
     notes: [], 
-    mode: 0,
+    mode: 1,
     quantizer: quantizer,
     coordConverter: coordConverter,
     onCreateNote: bounds => {
@@ -135,9 +135,9 @@ riot.compile(() => {
       eventStore.update(e)
     },
     onSelectNotes: aNotes => {
-      notes.forEach(n => {
+      /*notes.forEach(n => {
         n.selected = aNotes.includes(n)
-      })
+      })*/
     },
     onMoveNotes: (notes, movement) => {
       notes.forEach(n => {

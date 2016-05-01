@@ -3,9 +3,12 @@ class NoteView extends createjs.Shape {
     super()
     this.isSelected = false
     this.setBounds(0, 0, 0, 0)
+    this.snapToPixel = true
   }
   
   setSize(width, height) {
+    const b = this.getBounds()
+    if (b.width == width && b.height == height) return
     this.setBounds(0, 0, width, height)
     this.refresh()
   }
@@ -20,6 +23,7 @@ class NoteView extends createjs.Shape {
   }
 
   set selected(selected) {
+    if (this.isSelected == selected) return
     this.isSelected = selected
     this.refresh()
   }

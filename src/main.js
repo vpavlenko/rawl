@@ -57,6 +57,8 @@ document.querySelector("#load-midi-input").onchange = e => {
 
     eventStore.clear()
     eventStore.addAll(midi.tracks.map(t => t.events).flatten())
+
+    player.reset()
   })
 }
 

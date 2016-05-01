@@ -19,16 +19,25 @@ const EVENT_CODES = {
   "pitchBend": 0xe,
 }
 
+function checkHex(val) {
+  if (val >= 0xFF) {
+    //debugger
+  }
+}
+
 function eventToMidiMessages(e) {
   function eventType(e) {
     const a = (EVENT_CODES[e.subtype] << 4) + e.channel
+    checkHex(a)
     return a
   }
   function eventType2(subtype, channel) {
     const a = (EVENT_CODES[subtype] << 4) + channel
+    checkHex(a)
     return a
   }
   function createMessage(e, data) {
+    data.forEach(checkHex)
     return [{
       event: e,
       tick: e.tick,
@@ -41,6 +50,8 @@ function eventToMidiMessages(e) {
     case "channel":
       switch (e.subtype) {
         case "note":
+        checkHex(e.noteNumber)
+        checkHex(e.velocity)
         return [
           {
             event: e,
@@ -50,7 +61,7 @@ function eventToMidiMessages(e) {
           {
             event: e,
             msg: [eventType2("noteOff", e.channel), e.noteNumber, 0x40],
-            tick: e.tick + e.duration
+            tick: e.tick + e.duration - 1 // prevent overlapping next note on
           }
         ]
         case "noteAftertouch":
@@ -62,7 +73,7 @@ function eventToMidiMessages(e) {
         case "channelAftertouch":
         return createMessage(e, [e.amount])
         case "pitchBend":
-        return createMessage(e, [e.value >> 4, e.value & 0xf])
+        return createMessage(e, [e.value & 0x7f, e.value >> 7])
       }
     break
   }
@@ -117,6 +128,15 @@ class Player {
     for (const ch of Array.range(0, 0xf)) {
       this.midiOutput.send([0xb0 + ch, 0x78, 0], window.performance.now())
     }
+  }
+
+  reset() {
+    // reset all controllers
+    for (const ch of Array.range(0, 0xf)) {
+      this.midiOutput.send([0xb0 + ch, 0x79, 0x7f], window.performance.now())
+    }
+    this.stop()
+    this.position = 0
   }
 
   onTimer() {

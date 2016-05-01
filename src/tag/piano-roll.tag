@@ -87,15 +87,18 @@ opts = {
       ])
 
       const keys = new PianoKeysView(KEY_WIDTH, quantizer.unitY, 127)
-      keys.zIndex = 500
       keys.y = RULER_HEIGHT
       stage.addChild(keys)
+
+      // layout the ruler above others
+      grid.ruler.x = KEY_WIDTH
+      stage.addChild(grid.ruler)
 
       stage.update()
 
       this.root.onscroll = e => {
         keys.x = e.target.scrollLeft
-        //grid.y = e.target.scrollTop
+        grid.rulerY = e.target.scrollTop
         stage.update()
       }
 

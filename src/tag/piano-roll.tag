@@ -9,7 +9,7 @@ opts = {
   ],
   quantizer: <Quantizer>
   coordConverter: <NoteCoordConverter>
-  mode: <Number> 0: 鉛筆, 1: 範囲選択
+  mouseMode: <Number> 0: pencil, 1: selection
   onCreateNote: <Function(bounds)> 
   onResizeNote: <Function(noteId, bounds)>
   onClickNote: <Function(noteId)>
@@ -33,9 +33,12 @@ opts = {
     selection = {hidden: true}
     this.selections = [selection]
     this.notes = opts.notes
+    this.mouseMode = opts.mouseMode
 
     const selectedNoteIdStore = []
     riot.observable(selectedNoteIdStore)
+
+    const mouseHandlers = []
 
     var stage, noteContainer, mouseHandler, selectionView
 
@@ -78,11 +81,10 @@ opts = {
       selectionView.setSize(0, 0)
       noteContainer.addChild(selectionView)
 
-      mouseHandler = [ 
+      mouseHandlers.pushArray([
         new PencilMouseHandler(noteContainer, opts),
         new SelectionMouseHandler(noteContainer, selectionView, opts, selectedNoteIdStore)
-      ][opts.mode]
-      this.mouseHandler = mouseHandler
+      ])
 
       const keys = new PianoKeysView(KEY_WIDTH, quantizer.unitY, 127)
       keys.zIndex = 500
@@ -115,6 +117,8 @@ opts = {
         return
       }
 
+      mouseHandler = mouseHandlers[this.mouseMode]
+
       const maxNoteX = Math.max(500, this.notes != null && this.notes.length > 0 ? 
         Math.max.apply(null, (this.notes.map(n => n.x + n.width))) : 0)
 
@@ -127,23 +131,6 @@ opts = {
         if (!rect) {
           rect = new NoteView()
           rect.noteId = note.id
-
-          rect.on("mousedown", function(e) {
-            mouseHandler.onMouseDownNote(e)
-            e.stopPropagation()
-            stage.update()
-          })
-
-          rect.on("pressmove", function(e) {
-            mouseHandler.onPressMoveNote(e)
-            stage.update()
-          })
-
-          rect.on("mouseup", function(e) {
-            mouseHandler.onMouseUpNote(e)
-            stage.update()
-          })
-
           noteContainer.addChild(rect)
         }
         rect.x = note.x

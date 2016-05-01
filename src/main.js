@@ -60,23 +60,6 @@ document.querySelector("#load-midi-input").onchange = e => {
   })
 }
 
-function onClickBody(e) {
-  document.contextMenu.update({
-    hidden: true
-  })
-}
-
-function onMouseUpBody(e) {
-  if (e.button == 2 && e.detail == 2) {
-    console.log("right double click")
-    if (document.notesOpts.mode == 0) {
-      document.notesOpts.mode = 1
-    } else {
-      document.notesOpts.mode = 0
-    }
-  }
-}
-
 function createNoteEventFromBounds(bounds) {
   const e = {
     type: "channel",
@@ -120,7 +103,7 @@ riot.compile(() => {
   const notesOpts = {
     numberOfKeys: MAX_NOTE_NUMBER,
     notes: [], 
-    mode: 1,
+    mouseMode: 1,
     quantizer: quantizer,
     coordConverter: coordConverter,
     onCreateNote: bounds => {
@@ -191,6 +174,14 @@ riot.compile(() => {
 
   const notesTag = riot.mount("piano-roll", notesOpts)[0]
   const eventTable = riot.mount("event-table", eventStore)[0]
+
+  document.querySelector("#pencil-button").onclick = e => {
+    notesTag.update({mouseMode: 0})
+  }
+
+  document.querySelector("#selection-button").onclick = e => {
+    notesTag.update({mouseMode: 1})
+  }
 
   function updateNotes(track) {
     const notes = (eventStore.events.filter(e => {

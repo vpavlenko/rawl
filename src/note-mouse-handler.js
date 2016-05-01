@@ -15,31 +15,46 @@ class PencilMouseHandler {
     this.container.style.cursor = "default"
   }
 
-  onMouseDownNote(e) {
-    this.dragPosition = {
-      x: e.localX,
-      y: e.localY,
-      type: this.getDragPositionType(e.localX, e.target.getBounds().width)
-    }
-  }
-
   onMouseDown(e) { 
-    if (e.target == this.container) {
-      const p = this.container.globalToLocal(e.stageX, e.stageY)
+    const cpos = this.container.globalToLocal(e.stageX, e.stageY)
+    const view = this.getNoteViewUnderPoint(cpos.x, cpos.y)
+    if (view) {
+      const local = view.globalToLocal(e.stageX, e.stageY)
+      this.dragPosition = {
+        x: local.x,
+        y: local.y,
+        type: this.getDragPositionType(local.x, view.getBounds().width),
+        view: view
+      }
+    } else {
+      this.dragPosition = null
       this.listener.onCreateNote({
-        x: quantizer.floorX(p.x),
-        y: quantizer.floorY(p.y),
+        x: quantizer.floorX(cpos.x),
+        y: quantizer.floorY(cpos.y),
         width: quantizer.unitX
       })
     }
   }
 
-  onPressMoveNote(e) {
+  getDragPositionType(localX, noteWidth) {
+    const edgeSize = Math.min(noteWidth / 3, 8)
+    if (localX <= edgeSize) { return DRAG_POSITION.LEFT_EDGE }
+    if (noteWidth - localX <= edgeSize) { return DRAG_POSITION.RIGHT_EDGE }
+    return DRAG_POSITION.CENTER
+  }
+
+  onMouseMove(e) {
+    if (!this.dragPosition) {
+      this.updateCursor(e)
+      return
+    }
+
+    const target = this.dragPosition.view
     const bounds = {
-      x: e.target.x,
-      y: e.target.y,
-      width: e.target.getBounds().width,
-      height: e.target.getBounds().height
+      x: target.x,
+      y: target.y,
+      width: target.getBounds().width,
+      height: target.getBounds().height
     }
     const p = this.container.globalToLocal(e.stageX, e.stageY)
     const qx = quantizer.roundX(p.x)
@@ -61,22 +76,15 @@ class PencilMouseHandler {
       break
     }
 
-    this.listener.onResizeNote(e.target.noteId, bounds)
+    this.listener.onResizeNote(target.noteId, bounds)
   }
 
-  getDragPositionType(localX, noteWidth) {
-    const edgeSize = Math.min(noteWidth / 3, 8)
-    if (localX <= edgeSize) { return DRAG_POSITION.LEFT_EDGE }
-    if (noteWidth - localX <= edgeSize) { return DRAG_POSITION.RIGHT_EDGE }
-    return DRAG_POSITION.CENTER
-  }
-
-  onMouseMove(e) {
+  updateCursor(e) {
     const cpos = this.container.globalToLocal(e.stageX, e.stageY)
-    const obj = this.container.getObjectUnderPoint(cpos.x, cpos.y) // too slow!
-    if (obj instanceof NoteView) {
-      const pos = obj.globalToLocal(e.stageX, e.stageY)
-      const type = this.getDragPositionType(pos.x, obj.getBounds().width)
+    const view = this.getNoteViewUnderPoint(cpos.x, cpos.y)
+    if (view) {
+      const pos = view.globalToLocal(e.stageX, e.stageY)
+      const type = this.getDragPositionType(pos.x, view.getBounds().width)
       switch (type) {
         case DRAG_POSITION.LEFT_EDGE:
         case DRAG_POSITION.RIGHT_EDGE: 
@@ -89,6 +97,18 @@ class PencilMouseHandler {
     } else {
       this.setCursor("default")
     }
+  }
+
+  onMouseUp(e) {
+    this.dragPosition = null
+  }
+
+  getNoteViewUnderPoint(x, y) {
+    return _.find(this.container.children, c => {
+      if (!(c instanceof NoteView)) return false
+      const b = c.getBounds()
+      return new createjs.Rectangle(c.x, c.y, b.width, b.height).contains(x, y)
+    })
   }
 
   setCursor(cursor) {
@@ -123,9 +143,6 @@ class SelectionMouseHandler {
     this.selectionView.y = rect.y
     this.selectionView.setSize(rect.width, rect.height)
   }
-
-  onMouseDownNote(e) {}
-  onPressMoveNote(e) {}
 
   onMouseDown(e) { 
     this.isMouseDown = true

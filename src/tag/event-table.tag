@@ -18,9 +18,7 @@ opts = {
   <table>
     <thead>
     <tr>
-      <th>Measure</th>
       <th>Tick</th>
-      <th>Step</th>
       <th>Status</th>
       <th>Channel</th>
       <th>Number</th>
@@ -29,10 +27,8 @@ opts = {
     </thead>
     <tbody>
     <tr each={ events } no-reorder>
-      <td>{ measure }</td>
       <td>{ tick }</td>
-      <td>{ time }</td>
-      <td>{ subtype + " " + duration }</td>
+      <td>{ subtype == "note" ? subtype + " " + duration : subtype }</td>
       <td>{ channel }</td>
       <td>{ noteNumber }</td>
       <td>{ velocity }</td>
@@ -53,6 +49,9 @@ opts = {
     border: 1px solid rgb(204, 204, 204);
     border-right: none;
     border-left: none;
+  }
+  td {
+    white-space: nowrap;
   }
   </style>
 </event-table>

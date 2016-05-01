@@ -193,8 +193,11 @@ riot.compile(() => {
   }
 
   function updateNotes(track) {
-    const notes = (eventStore.events.filter(e => {
-      return e.type == "channel" && e.subtype == "note" && e.track == track
+    const trackEvents = eventStore.events.filter(e => {
+      return e.track == track
+    })
+    const notes = trackEvents.filter(e => {
+      return e.type == "channel" && e.subtype == "note"
     }).map(e => {
       const start = coordConverter.getPixelsAt(e.tick)
       const end = coordConverter.getPixelsAt(e.tick + e.duration)
@@ -204,16 +207,17 @@ riot.compile(() => {
         y: coordConverter.getPixelsForNoteNumber(e.noteNumber),
         width: end - start
       }
-    }))
+    })
 
     notesTag.update({
       notes: notes
     })
+
+    eventTable.update({events: trackEvents})
   }
 
   eventStore.on("change", e => {
     updateNotes(selectTag.selectedIndex)
-    //eventTable.update(eventStore)
 
     if (currentMidi) {
       const trackOptions = currentMidi.tracks.map((t, i) => { return {

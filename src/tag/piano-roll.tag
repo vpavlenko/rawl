@@ -40,7 +40,7 @@ opts = {
 
     const mouseHandlers = []
 
-    var stage, noteContainer, mouseHandler, selectionView
+    var stage, noteContainer, mouseHandler, selectionView, grid, keys
 
     this.clearNotes = () => {
       const children = noteContainer.children.slice() // copy
@@ -48,6 +48,11 @@ opts = {
       children.filter(c => !(c instanceof NoteView)).forEach(c => {
         noteContainer.addChild(c)
       })
+    }
+
+    this.setCursorPosition = tick => {
+      grid.cursorPosition = coordConverter.getPixelsAt(tick)
+      stage.update()
     }
 
     this.on("mount", () => {
@@ -68,7 +73,7 @@ opts = {
         stage.update()
       })
 
-      const grid = new PianoGridView(quantizer.unitY, 127, RULER_HEIGHT, coordConverter, 1000)
+      grid = new PianoGridView(quantizer.unitY, 127, RULER_HEIGHT, coordConverter, 1000)
       grid.x = KEY_WIDTH
       stage.addChild(grid)
 
@@ -86,7 +91,7 @@ opts = {
         new SelectionMouseHandler(noteContainer, selectionView, opts, selectedNoteIdStore)
       ])
 
-      const keys = new PianoKeysView(KEY_WIDTH, quantizer.unitY, 127)
+      keys = new PianoKeysView(KEY_WIDTH, quantizer.unitY, 127)
       keys.y = RULER_HEIGHT
       stage.addChild(keys)
 
@@ -130,7 +135,7 @@ opts = {
       this.noteCanvas.height = this.containerHeight
 
       this.notes.forEach(note => {
-        let rect = _.find(noteContainer.children, c => c instanceof NoteView && c.noteId == note.id)
+        let rect = _.find(noteContainer.children, c => c.noteId == note.id)
         if (!rect) {
           rect = new NoteView()
           rect.noteId = note.id

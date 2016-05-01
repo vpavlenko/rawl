@@ -1,6 +1,7 @@
 class PianoGridView extends createjs.Container {
   constructor(keyHeight, numberOfKeys, rulerHeight, noteCoordConverter, endBeat) {
     super()
+    this.snapToPixel = true
 
     const width = noteCoordConverter.getPixelsAtBeats(endBeat)
     const height = keyHeight * numberOfKeys + rulerHeight

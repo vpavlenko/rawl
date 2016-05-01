@@ -175,6 +175,10 @@ riot.compile(() => {
   const notesTag = riot.mount("piano-roll", notesOpts)[0]
   const eventTable = riot.mount("event-table", eventStore)[0]
 
+  setInterval(() => {
+    notesTag.setCursorPosition(player.position)
+  }, 66)
+
   document.querySelector("#pencil-button").onclick = e => {
     notesTag.update({mouseMode: 0})
   }

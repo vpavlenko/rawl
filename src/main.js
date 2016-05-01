@@ -120,7 +120,7 @@ riot.compile(() => {
     onSelectNotes: noteIds => {
       console.log(`${noteIds.length} notes selected`)
     },
-    onMoveNotes: (changes) => {
+    onMoveNotes: changes => {
       changes.forEach(c => {
         const e = eventStore.getEventById(c.id)
         updateNoteEventWithBounds(e, c)
@@ -150,6 +150,9 @@ riot.compile(() => {
           } },
         ]
       })
+    },
+    onMoveCursor: tick => {
+      player.position = tick
     }
   }
   const selectTag = riot.mount("riot-select", { 

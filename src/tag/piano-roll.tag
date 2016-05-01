@@ -15,7 +15,8 @@ opts = {
   onClickNote: <Function(noteId)>
   onSelectNotes: <Function(noteIds)>
   onMoveNotes : <Function([{noteId, x, y, width, height}])>
-  onClickNotes <Function(noteIds, mouseEvent)>
+  onClickNotes: <Function(noteIds, mouseEvent)>
+  onMoveCursor: <Function(tick)>
 }
 -->
 <piano-roll>
@@ -98,6 +99,11 @@ opts = {
       // layout the ruler above others
       grid.ruler.x = KEY_WIDTH
       stage.addChild(grid.ruler)
+
+      grid.ruler.on("click", e => {
+        const tick = coordConverter.getTicksForPixels(e.localX)
+        opts.onMoveCursor(tick)
+      })
 
       stage.update()
 

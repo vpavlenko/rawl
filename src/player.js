@@ -1,8 +1,12 @@
-const INTERVAL = 10
+const INTERVAL = 1 / 15 * 1000  // low fps
 
 // timebase: 1/4拍子ごとのtick数
 function secToTick(sec, bpm, timebase) {
   return sec *  bpm / 60 * timebase
+}
+
+function tickToMillisec(tick, bpm, timebase) {
+  return tick / (timebase / 60) / bpm * 1000
 }
 
 const EVENT_CODES = {
@@ -116,16 +120,16 @@ class Player {
   }
 
   onTimer() {
-    const deltaTick = secToTick(INTERVAL / 1000, this.currentTempo, this.timebase)
+    const deltaTick = Math.ceil(secToTick(INTERVAL / 1000, this.currentTempo, this.timebase))
     const endTick = this.currentTick + deltaTick
     const eventsToPlay = this.events.filter(e => e.tick <= endTick)
     this.events.deleteArray(eventsToPlay)
-    this.currentTick = endTick
 
     const timestamp = window.performance.now()
     eventsToPlay.forEach(e => {
       if (e.msg != null) {
-        this.midiOutput.send(e.msg, timestamp)
+        const waitTick = e.tick - this.currentTick
+        this.midiOutput.send(e.msg, timestamp + tickToMillisec(waitTick, this.currentTempo, this.timebase))
       } else {
         // MIDI 以外のイベントを実行
         switch (e.event.subtype) {
@@ -139,5 +143,7 @@ class Player {
         }
       }
     })
+
+    this.currentTick = endTick
   }
 }

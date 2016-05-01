@@ -135,16 +135,14 @@ riot.compile(() => {
       eventStore.update(e)
     },
     onSelectNotes: noteIds => {
-      // eventStore.events.forEach(n => {
-      //   n.selected = noteIds.includes(n.id)
-      // })
-      // eventStore.update()
+      console.log(`${noteIds.length} notes selected`)
     },
-    onMoveNotes: (noteIds, movement) => {
-      // notes.forEach(n => {
-      //   n.x += movement.x
-      //   n.y += movement.y
-      // })
+    onMoveNotes: (changes) => {
+      changes.forEach(c => {
+        const e = eventStore.getEventById(c.id)
+        updateNoteEventWithBounds(e, c)
+      })
+      eventStore.update()
     },
     onClickNotes: (noteIds, e) => {
       if (e.button != 2) return

@@ -124,6 +124,9 @@ class SelectionMouseHandler {
     this.selectionView.setSize(rect.width, rect.height)
   }
 
+  onMouseDownNote(e) {}
+  onPressMoveNote(e) {}
+
   onMouseDown(e) { 
     this.isMouseDown = true
     this.start = this.container.globalToLocal(e.stageX, e.stageY)
@@ -160,10 +163,23 @@ class SelectionMouseHandler {
       const qx = quantizer.roundX(loc.x - this.dragOffset.x)
       const qy = quantizer.roundY(loc.y - this.dragOffset.y)
 
-      this.listener.onMoveNotes(this.selectedNoteIds, {
-        x: qx - bounds.x,
-        y: qy - bounds.y
-      })
+      const movementX = qx - bounds.x
+      const movementY = qy - bounds.y
+
+      const changes = this.selectedNoteIds
+        .map(id => { 
+          const view = this.findNoteViewById(id)
+          const b = view.getBounds()
+          return {
+            id: id,
+            x: view.x + movementX,
+            y: view.y + movementY,
+            width: b.width,
+            height: b.height
+          }
+        })
+
+      this.listener.onMoveNotes(changes)
       bounds.x = qx
       bounds.y = qy
     } else {
@@ -175,6 +191,12 @@ class SelectionMouseHandler {
       bounds.height = (quantizer.roundY(rect.y + rect.height) - bounds.y) || quantizer.unitY
     }
     this.selectionRect = bounds
+  }
+
+  findNoteViewById(id) {
+    return _.find(this.container.children, c => {
+      return c instanceof NoteView && c.noteId == id
+    }) 
   }
 
   getNoteIdsInRect(rect) {

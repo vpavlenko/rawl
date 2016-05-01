@@ -14,7 +14,7 @@ opts = {
   onResizeNote: <Function(noteId, bounds)>
   onClickNote: <Function(noteId)>
   onSelectNotes: <Function(noteIds)>
-  onMoveNotes : <Function(noteIds, movement)>
+  onMoveNotes : <Function([{noteId, x, y, width, height}])>
   onClickNotes <Function(noteIds, mouseEvent)>
 }
 -->

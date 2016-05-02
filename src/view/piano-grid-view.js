@@ -13,7 +13,7 @@ class PianoGridView extends createjs.Container {
         .setStrokeStyle(1)
 
       for (var key = 0; key < numberOfKeys; key++) {
-        const isBold = key % 12 == 0
+        const isBold = key % 12 == 5
         const alpha = isBold ? 0.3 : 0.1
         const y = key * keyHeight + 0.5 + rulerHeight
         g.beginStroke(`rgba(0, 0, 0, ${alpha})`)

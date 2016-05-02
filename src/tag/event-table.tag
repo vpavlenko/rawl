@@ -29,7 +29,7 @@ opts = {
     <tr each={ events } no-reorder>
       <td>{ tick }</td>
       <td>{ subtype == "note" ? subtype + " " + duration : subtype }</td>
-      <td>{ channel }</td>
+      <td>{ channel + 1 }</td>
       <td>{ noteNumber }</td>
       <td>{ velocity }</td>
     </tr>

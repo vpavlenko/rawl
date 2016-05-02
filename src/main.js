@@ -1,11 +1,11 @@
-const clipboard = new Clipboard
-const quantizer = new Quantizer(30, 30)
-const eventStore = new EventStore
+const MAX_NOTE_NUMBER = 127
+const KEY_HEIGHT = 15
+const PIXELS_PER_BEAT = 50
+const TIME_BASE = 480
 
-MAX_NOTE_NUMBER = 127
-KEY_HEIGHT = 30
-PIXELS_PER_BEAT = 50
-TIME_BASE = 480
+const clipboard = new Clipboard
+const quantizer = new Quantizer(PIXELS_PER_BEAT, KEY_HEIGHT)
+const eventStore = new EventStore
 
 const player = new Player(eventStore, TIME_BASE)
 document.player = player
@@ -62,13 +62,13 @@ document.querySelector("#load-midi-input").onchange = e => {
   })
 }
 
-function createNoteEventFromBounds(bounds) {
+function createNoteEvent(bounds, channel) {
   const e = {
     type: "channel",
     subtype: "note",
     velocity: 127,
-    channel: 1,
-    track: 1
+    channel: channel,
+    track: channel
   }
   updateNoteEventWithBounds(e, bounds)
   return e
@@ -109,7 +109,7 @@ riot.compile(() => {
     quantizer: quantizer,
     coordConverter: coordConverter,
     onCreateNote: bounds => {
-      eventStore.add(createNoteEventFromBounds(bounds))
+      eventStore.add(createNoteEvent(bounds, selectTag.selectedIndex))
     },
     onClickNote: noteId => {
       eventStore.removeById(noteId)
@@ -228,6 +228,4 @@ riot.compile(() => {
       selectTag.update({options: trackOptions})
     }
   })
-
-  eventStore.addAll([{"deltaTime":0,"eventTypeByte":255,"type":"meta","subtype":"setTempo","microsecondsPerBeat":479999,"tick":0,"track":0},{"deltaTime":0,"eventTypeByte":255,"type":"meta","subtype":"timeSignature","numerator":3,"denominator":4,"metronome":24,"thirtyseconds":8,"tick":0,"track":0},{"deltaTime":240,"eventTypeByte":145,"channel":1,"type":"channel","noteNumber":52,"velocity":100,"subtype":"note","tick":8640,"duration":133,"track":1},{"deltaTime":113,"eventTypeByte":145,"channel":1,"type":"channel","noteNumber":57,"velocity":100,"subtype":"note","tick":8886,"duration":127,"track":1},{"deltaTime":0,"eventTypeByte":60,"channel":1,"type":"channel","noteNumber":60,"velocity":100,"subtype":"note","tick":8886,"duration":127,"track":1},{"deltaTime":107,"eventTypeByte":145,"channel":1,"type":"channel","noteNumber":52,"velocity":100,"subtype":"note","tick":9120,"duration":133,"track":1},{"deltaTime":347,"eventTypeByte":145,"channel":1,"type":"channel","noteNumber":52,"velocity":100,"subtype":"note","tick":9600,"duration":133,"track":1},{"deltaTime":113,"eventTypeByte":145,"channel":1,"type":"channel","noteNumber":57,"velocity":100,"subtype":"note","tick":9846,"duration":127,"track":1},{"deltaTime":0,"eventTypeByte":60,"channel":1,"type":"channel","noteNumber":60,"velocity":100,"subtype":"note","tick":9846,"duration":127,"track":1},{"deltaTime":107,"eventTypeByte":145,"channel":1,"type":"channel","noteNumber":53,"velocity":100,"subtype":"note","tick":10080,"duration":133,"track":1},{"deltaTime":113,"eventTypeByte":145,"channel":1,"type":"channel","noteNumber":57,"velocity":100,"subtype":"note","tick":10326,"duration":127,"track":1},{"deltaTime":0,"eventTypeByte":60,"channel":1,"type":"channel","noteNumber":60,"velocity":100,"subtype":"note","tick":10326,"duration":127,"track":1},{"deltaTime":107,"eventTypeByte":145,"channel":1,"type":"channel","noteNumber":53,"velocity":100,"subtype":"note","tick":10560,"duration":133,"track":1},{"deltaTime":347,"eventTypeByte":145,"channel":1,"type":"channel","noteNumber":53,"velocity":100,"subtype":"note","tick":11040,"duration":133,"track":1},{"deltaTime":113,"eventTypeByte":145,"channel":1,"type":"channel","noteNumber":57,"velocity":100,"subtype":"note","tick":11286,"duration":127,"track":1},{"deltaTime":0,"eventTypeByte":60,"channel":1,"type":"channel","noteNumber":60,"velocity":100,"subtype":"note","tick":11286,"duration":127,"track":1},{"deltaTime":107,"eventTypeByte":145,"channel":1,"type":"channel","noteNumber":54,"velocity":100,"subtype":"note","tick":11520,"duration":133,"track":1},{"deltaTime":113,"eventTypeByte":145,"channel":1,"type":"channel","noteNumber":57,"velocity":100,"subtype":"note","tick":11766,"duration":127,"track":1},{"deltaTime":0,"eventTypeByte":60,"channel":1,"type":"channel","noteNumber":60,"velocity":100,"subtype":"note","tick":11766,"duration":127,"track":1},{"deltaTime":107,"eventTypeByte":145,"channel":1,"type":"channel","noteNumber":54,"velocity":100,"subtype":"note","tick":12000,"duration":133,"track":1}])
 })

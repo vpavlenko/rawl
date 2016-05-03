@@ -19,6 +19,7 @@ function getWhiteKeyShape(width, height, isBordered) {
 function getBlackKeyShape(width, height) {
   const shape = new createjs.Shape
   const innerWidth = width * 0.64
+  const middle = Math.round(height / 2) + 0.5
 
   shape.graphics
     .beginFill("white")
@@ -27,8 +28,8 @@ function getBlackKeyShape(width, height) {
     .drawRect(0, 0, innerWidth, height)
     .setStrokeStyle(1)
     .beginStroke("gray")
-    .moveTo(innerWidth, height / 2 + 0.5)
-    .lineTo(width, height / 2 + 0.5)
+    .moveTo(innerWidth, middle)
+    .lineTo(width, middle)
 
   return shape
 }

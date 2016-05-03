@@ -28,8 +28,8 @@ opts = {
     const RULER_HEIGHT = 30
     const KEY_WIDTH = 100
 
-    this.containerWidth = 500 + KEY_WIDTH
-    this.containerHeight = coordConverter.getPixelsForNoteNumber(0) + RULER_HEIGHT
+    this.contentWidth = 500 + KEY_WIDTH
+    this.contentHeight = coordConverter.getPixelsForNoteNumber(0) + RULER_HEIGHT
 
     selection = {hidden: true}
     this.selections = [selection]
@@ -41,7 +41,7 @@ opts = {
 
     const mouseHandlers = []
 
-    var stage, noteContainer, mouseHandler, selectionView, grid, keys
+    var stage, noteContainer, mouseHandler, selectionView, grid, keys, scrollContainer
 
     this.clearNotes = () => {
       const children = noteContainer.children.slice() // copy
@@ -61,6 +61,13 @@ opts = {
       stage.enableMouseOver()
       document.noteStage = stage
 
+      scrollContainer = new ScrollContainer(this.noteCanvas)
+      scrollContainer.contentSize = {
+        width: this.contentWidth, 
+        height: this.contentHeight
+      }
+      stage.addChild(scrollContainer)
+
       stage.on("stagemousedown", e => {
         mouseHandler.onMouseDown(e)
         stage.update()
@@ -76,12 +83,12 @@ opts = {
 
       grid = new PianoGridView(quantizer.unitY, 127, RULER_HEIGHT, coordConverter, 1000)
       grid.x = KEY_WIDTH
-      stage.addChild(grid)
+      scrollContainer.addChild(grid)
 
       noteContainer = new createjs.Container
       noteContainer.x = KEY_WIDTH
       noteContainer.y = RULER_HEIGHT
-      stage.addChild(noteContainer)
+      scrollContainer.addChild(noteContainer)
 
       selectionView = new SelectionView
       selectionView.setSize(0, 0)
@@ -91,14 +98,15 @@ opts = {
         new PencilMouseHandler(noteContainer, opts),
         new SelectionMouseHandler(noteContainer, selectionView, opts, selectedNoteIdStore)
       ])
+      mouseHandler = mouseHandlers[this.mouseMode]
 
       keys = new PianoKeysView(KEY_WIDTH, quantizer.unitY, 127)
       keys.y = RULER_HEIGHT
-      stage.addChild(keys)
+      scrollContainer.addChild(keys)
 
       // layout the ruler above others
       grid.ruler.x = KEY_WIDTH
-      stage.addChild(grid.ruler)
+      scrollContainer.addChild(grid.ruler)
 
       grid.ruler.on("click", e => {
         const tick = coordConverter.getTicksForPixels(e.localX)
@@ -116,6 +124,22 @@ opts = {
       this.root.oncontextmenu = e => {
         e.preventDefault()
       }
+
+      const resizeCanvas = () => {
+        const rect = this.noteCanvas.getBoundingClientRect()
+        this.noteCanvas.width = rect.width
+        this.noteCanvas.height = rect.height
+
+        scrollContainer.setBounds(0, 0, rect.width, rect.height)
+
+        stage.update()
+      }
+
+      window.onresize = (e => {
+        resizeCanvas()
+      }).bind(this)
+
+      resizeCanvas()
     })
 
     selectedNoteIdStore.on("change", () => {
@@ -136,9 +160,11 @@ opts = {
       const maxNoteX = Math.max(500, this.notes != null && this.notes.length > 0 ? 
         Math.max.apply(null, (this.notes.map(n => n.x + n.width))) : 0)
 
-      this.containerWidth = Math.ceil(maxNoteX) + KEY_WIDTH
-      this.noteCanvas.width = this.containerWidth
-      this.noteCanvas.height = this.containerHeight
+      this.contentWidth = Math.ceil(maxNoteX) + KEY_WIDTH
+      scrollContainer.contentSize = {
+        width: this.contentWidth, 
+        height: this.contentHeight
+      }
 
       this.notes.forEach(note => {
         let rect = _.find(noteContainer.children, c => c.noteId == note.id)
@@ -166,35 +192,12 @@ opts = {
   </script>
 
   <style scoped>
-    .container {
-      position: relative;
-      width: 100%;
-      height: 100%;
-    }
-
-    .note {
-      height: 30px;
-      position: absolute;
-      background: -webkit-linear-gradient(top, #5867FA, #3e4eee);
-      box-sizing: border-box;
-      border: 1px solid rgb(88, 103, 250);
-    }
-
-    .note.selected {
-      background: rgb(0, 0, 0);
-    }
-
-    .selection {
-      position: absolute;
-      border: 3px solid rgb(0, 0, 0);
-      box-sizing: border-box;
-    }
-
     .noteCanvas {
       position: absolute;
       top: 0;
       left: 0;
+      width: 100%;
+      height: 100%;
     }
-
   </style>
 </piano-roll>

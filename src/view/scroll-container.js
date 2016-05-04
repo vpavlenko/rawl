@@ -5,9 +5,48 @@ const ARROW_COLOR = "rgb(163, 163, 163)"
 const ARROW_HILIGHT = "rgb(80, 80, 80)"
 const HANDLE_COLOR = "rgb(193, 193, 193)"
 
-class ScrollBar extends createjs.Shape {
-  constructor() {
+const ScrollBarOrientaion = {
+  HORIZONTAL: 0,
+  VERTICAL: 1
+}
+
+class ScrollBar extends createjs.Container {
+  constructor(orientation) {
     super()
+
+    this._size = {
+      width: 0,
+      height: 0
+    }
+    this._contentLength = 0
+    this._value = 0
+    this.orientation = orientation
+
+    this.background = new createjs.Shape
+    this.addChild(this.background)
+
+    this.handle = new createjs.Shape
+    this.addChild(this.handle)
+    this.handle.on("mousedown", e => {
+      this.startPos = {
+        x: e.stageX,
+        y: e.stageY,
+        value: this.value
+      }
+    })
+    this.handle.on("pressmove", e => {
+      this.value = this.startPos.value + this.startPos.y - e.stageY 
+      console.log(this.value, this.startPos.y - e.stageY)
+    })
+  }
+
+  get value() {
+    return this._value
+  }
+
+  set value(value) {
+    this._value = Math.min(0, value)
+    this.redraw()
   }
 
   set size(size) {
@@ -20,63 +59,93 @@ class ScrollBar extends createjs.Shape {
     return this._size
   }
 
+  get contentLength() {
+    return this._contentLength
+  }
+
+  set contentLength(length) {
+    this._contentLength = length
+    this.redraw()
+  }
+
   redraw() {
-    this.graphics
+    this.background.graphics
       .clear()
       .beginFill(BAR_COLOR)
       .rect(0, 0, this.size.width, this.size.height)
-  }
-}
 
-class ScrollBarV extends ScrollBar {
-  constructor() {
-    super()
+    this.drawArrows()
+    this.drawHandle()
   }
 
-  redraw() {
-    super.redraw()
-    const w = this.size.width
-    const h = this.size.height
-    const arrowWidth = w * 0.5
-    const arrowHeight = arrowWidth * 0.5
-    const arrowMarginTop = (w - arrowHeight) / 2
-    const center = w / 2
+  drawHandle() {
+    const isVertical = this.orientation == ScrollBarOrientaion.VERTICAL
+    const size = [this.size.width, this.size.height]
+
+    const px = isVertical ? 0 : 1
+    const py = isVertical ? 1 : 0
+
+    const maxLength = size[py] - size[px] * 2
+    const maxValue =  size[py] - this._contentLength
+
+    const handleSize = [
+      size[px] * 0.8,
+      maxLength * size[py] / this._contentLength
+    ]
+
+    const handlePos = [
+      (size[px] - handleSize[0]) / 2,
+      size[px] + (maxLength - handleSize[1]) * (this.value / maxValue)
+    ]
+
+    this.handle.graphics
+      .clear()
+      .beginFill(HANDLE_COLOR)
+      .rect(handlePos[px], handlePos[py], handleSize[px], handleSize[py])
+  }
+
+  drawArrows() {
+    const isVertical = this.orientation == ScrollBarOrientaion.VERTICAL
+    const size = [this.size.width, this.size.height]
+
+    // short side index
+    const px = isVertical ? 0 : 1
+
+    // long side index
+    const py = isVertical ? 1 : 0
+
+    const arrowWidth = size[px] * 0.5
+    const arrowHeight = size[px] * 0.25
+    const arrowMarginTop = (size[px] - arrowHeight) / 2
+    const center = size[px] / 2
     const arrowRight = center + arrowWidth / 2
     const arrowLeft = center - arrowWidth / 2
-    this.graphics
-      .beginFill(ARROW_COLOR)
-      .moveTo(center, arrowMarginTop)
-      .lineTo(arrowRight, arrowMarginTop + arrowHeight)
-      .lineTo(arrowLeft, arrowMarginTop + arrowHeight)
-      .moveTo(center, h - arrowMarginTop)
-      .lineTo(arrowRight, h - arrowMarginTop - arrowHeight)
-      .lineTo(arrowLeft, h - arrowMarginTop - arrowHeight)
-  }
-}
 
-class ScrollBarH extends ScrollBar {
-  constructor() {
-    super()
-  }
+    const lines = [
+      [
+        [center, arrowMarginTop],
+        [arrowRight, arrowMarginTop + arrowHeight],
+        [arrowLeft, arrowMarginTop + arrowHeight]
+      ],
+      [
+        [center, size[py] - arrowMarginTop],
+        [arrowRight, size[py] - arrowMarginTop - arrowHeight],
+        [arrowLeft, size[py] - arrowMarginTop - arrowHeight]
+      ]
+    ]
 
-  redraw() {
-    super.redraw()
-    const w = this.size.width
-    const h = this.size.height
-    const arrowHeight = h * 0.5
-    const arrowWidth = arrowHeight * 0.5
-    const arrowMarginLeft = (h - arrowHeight) / 2
-    const middle = h / 2
-    const arrowTop = middle + arrowHeight / 2
-    const arrowBottom = middle - arrowHeight / 2
-    this.graphics
+    const g = this.background.graphics
       .beginFill(ARROW_COLOR)
-      .moveTo(arrowMarginLeft, middle)
-      .lineTo(arrowMarginLeft + arrowWidth, arrowTop)
-      .lineTo(arrowMarginLeft + arrowWidth, arrowBottom)
-      .moveTo(w - arrowMarginLeft, middle)
-      .lineTo(w - arrowMarginLeft - arrowWidth, arrowBottom)
-      .lineTo(w - arrowMarginLeft - arrowWidth, arrowTop)
+
+    for (const points of lines) {
+      points.forEach((point, i) => {
+        if (i == 0) {
+          g.moveTo(point[px], point[py])
+        } else {
+          g.lineTo(point[px], point[py])
+        }
+      })
+    }
   }
 }
 
@@ -86,10 +155,10 @@ class ScrollContainer extends createjs.Container {
     this.container = new createjs.Container()
     this.addChild(this.container)
 
-    this.scrollBarV = new ScrollBarV()
+    this.scrollBarV = new ScrollBar(ScrollBarOrientaion.VERTICAL)
     this.addChild(this.scrollBarV)
 
-    this.scrollBarH = new ScrollBarH()
+    this.scrollBarH = new ScrollBar(ScrollBarOrientaion.HORIZONTAL)
     this.addChild(this.scrollBarH)
 
     canvas.addEventListener("mousewheel", e => {
@@ -112,6 +181,7 @@ class ScrollContainer extends createjs.Container {
 
   set scrollX(x) {
     this.container.x = x
+    this.scrollBarH.value = x
   }
 
   get scrollY() {
@@ -120,10 +190,13 @@ class ScrollContainer extends createjs.Container {
 
   set scrollY(y) {
     this.container.y = y
+    this.scrollBarV.value = y
   }
 
   set contentSize(size) {
     this.container.setBounds(0, 0, size.width, size.height)
+    this.scrollBarH.contentLength = size.width
+    this.scrollBarV.contentLength = size.height
   }
 
   get contentSize() {
@@ -143,12 +216,12 @@ class ScrollContainer extends createjs.Container {
     this.scrollBarV.x = width - SCROLL_BAR_SIZE
     this.scrollBarV.size = {
       width: SCROLL_BAR_SIZE,
-      height: height
+      height: height - SCROLL_BAR_SIZE
     }
 
     this.scrollBarH.y = height - SCROLL_BAR_SIZE
     this.scrollBarH.size = {
-      width: width,
+      width: width - SCROLL_BAR_SIZE,
       height: SCROLL_BAR_SIZE
     }
   }

@@ -26,7 +26,7 @@ class PencilMouseHandler {
         type: this.getDragPositionType(local.x, view.getBounds().width),
         view: view
       }
-    } else {
+    } else if (!e.relatedTarget) {
       this.dragPosition = null
       this.listener.onCreateNote({
         x: quantizer.floorX(cpos.x),
@@ -145,6 +145,8 @@ class SelectionMouseHandler {
   }
 
   onMouseDown(e) { 
+    if (e.relatedTarget) return
+
     this.isMouseDown = true
     this.start = this.container.globalToLocal(e.stageX, e.stageY)
     const clicked = this.selectionRect.contains(this.start.x, this.start.y)

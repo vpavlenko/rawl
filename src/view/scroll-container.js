@@ -343,6 +343,7 @@ class ScrollContainer extends createjs.Container {
   set scrollX(x) {
     this.container.x = x
     this.scrollBarH.value = x
+    this.dispatchEvent("scroll")
   }
 
   get scrollY() {
@@ -352,6 +353,7 @@ class ScrollContainer extends createjs.Container {
   set scrollY(y) {
     this.container.y = y
     this.scrollBarV.value = y
+    this.dispatchEvent("scroll")
   }
 
   set contentSize(size) {

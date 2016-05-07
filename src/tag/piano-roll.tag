@@ -95,7 +95,7 @@ opts = {
       noteContainer.addChild(selectionView)
 
       mouseHandlers.pushArray([
-        new PencilMouseHandler(noteContainer, opts),
+        new PencilMouseHandler(noteContainer, this.noteCanvas, opts),
         new SelectionMouseHandler(noteContainer, selectionView, opts, selectedNoteIdStore)
       ])
       mouseHandler = mouseHandlers[this.mouseMode]

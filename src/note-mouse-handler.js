@@ -5,8 +5,9 @@ const DRAG_POSITION = {
 }
 
 class PencilMouseHandler {
-  constructor(container, listener) {
+  constructor(container, canvas, listener) {
     this.container = container
+    this.canvas = canvas
     this.listener = listener
     bindAllMethods(this)
   }
@@ -112,7 +113,7 @@ class PencilMouseHandler {
   }
 
   setCursor(cursor) {
-    const style = this.container.parent.canvas.parentNode.style
+    const style = this.canvas.parentNode.style
     if (style.cursor != cursor) {
       style.cursor = cursor
     }

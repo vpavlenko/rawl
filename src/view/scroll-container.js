@@ -134,9 +134,22 @@ class ScrollBar extends createjs.Container {
     this._contentLength = 0
     this._value = 0
     this.unitIncrement = 120
+    this.blockIncrement = 240
     this.orientation = orientation
 
     this.background = new createjs.Shape
+    this.background.on("mousedown", e => {
+      const pos = this.isVertical ? e.localY : e.localX
+      const b = this.handle.getBounds()
+      const handleHead = this.isVertical ? this.handle.y : this.handle.x
+      const handleTail = this.isVertical ? this.handle.y + b.height : this.handle.x + b.width
+      if (pos < handleHead) {
+        this._changeValue(e, this.value + this.blockIncrement)
+      }
+      if (pos > handleTail) {
+        this._changeValue(e, this.value - this.blockIncrement)
+      }
+    })
     this.addChild(this.background)
 
     const rot = this.isVertical ? 0 : -90
@@ -148,7 +161,7 @@ class ScrollBar extends createjs.Container {
     this.headArrow.setForegroundColor(ButtonState.NORMAL, ARROW_COLOR)
     this.headArrow.setForegroundColor(ButtonState.HOVER, ARROW_COLOR)
     this.headArrow.setForegroundColor(ButtonState.ACTIVE, ARROW_HILIGHT)
-    this.headArrow.on("click", e => {
+    this.headArrow.on("mousedown", e => {
       this._changeValue(e, this.value + this.unitIncrement)
     })
     this.addChild(this.headArrow)
@@ -160,7 +173,7 @@ class ScrollBar extends createjs.Container {
     this.tailArrow.setForegroundColor(ButtonState.NORMAL, ARROW_COLOR)
     this.tailArrow.setForegroundColor(ButtonState.HOVER, ARROW_COLOR)
     this.tailArrow.setForegroundColor(ButtonState.ACTIVE, ARROW_HILIGHT)
-    this.tailArrow.on("click", e => {
+    this.tailArrow.on("mousedown", e => {
       this._changeValue(e, this.value - this.unitIncrement)
     })
     this.addChild(this.tailArrow)

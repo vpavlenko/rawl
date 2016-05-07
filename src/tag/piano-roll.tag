@@ -109,7 +109,7 @@ opts = {
       scrollContainer.addChild(grid.ruler)
 
       grid.ruler.on("click", e => {
-        const tick = coordConverter.getTicksForPixels(e.localX)
+        const tick = coordConverter.getTicksForPixels(quantizer.roundX(e.localX))
         opts.onMoveCursor(tick)
       })
 

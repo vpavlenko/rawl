@@ -43,15 +43,15 @@ class NoteCoordConverter {
   // pixels
 
   getPixelsAt(tick) {
-    return tick / this.timebase * this.pixelsPerBeat
+    return Math.floor(tick / this.timebase * this.pixelsPerBeat)
   }
 
   getPixelsAtBeats(beats) {
-    return this.getPixelsAt(beats * this.timebase)
+    return Math.floor(this.getPixelsAt(beats * this.timebase))
   }
 
   getPixelsForNoteNumber(noteNum) {
-    return (this.maxNoteNumber - noteNum) * this.pixelsPerKey
+    return Math.floor((this.maxNoteNumber - noteNum) * this.pixelsPerKey)
   }
 
   // ticks

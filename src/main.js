@@ -109,7 +109,7 @@ riot.compile(() => {
     quantizer: quantizer,
     coordConverter: coordConverter,
     onCreateNote: bounds => {
-      eventStore.add(createNoteEvent(bounds, selectTag.selectedIndex))
+      eventStore.add(createNoteEvent(bounds, trackSelectTag.selectedIndex))
     },
     onClickNote: noteId => {
       eventStore.removeById(noteId)
@@ -278,7 +278,8 @@ riot.compile(() => {
         id: e.id,
         x: start,
         y: coordConverter.getPixelsForNoteNumber(e.noteNumber),
-        width: end - start
+        width: end - start,
+        velocity: e.velocity
       }
     })
 

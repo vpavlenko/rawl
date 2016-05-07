@@ -27,6 +27,7 @@ opts = {
   <script type="text/javascript">
     const RULER_HEIGHT = 30
     const KEY_WIDTH = 100
+    const CONTROL_HEIGHT = 200
 
     this.contentWidth = 500 + KEY_WIDTH
     this.contentHeight = coordConverter.getPixelsForNoteNumber(0) + RULER_HEIGHT
@@ -41,7 +42,7 @@ opts = {
 
     const mouseHandlers = []
 
-    var stage, noteContainer, mouseHandler, selectionView, grid, keys, scrollContainer
+    var stage, noteContainer, mouseHandler, selectionView, grid, keys, scrollContainer, controlContainer
 
     this.clearNotes = () => {
       const children = noteContainer.children.slice() // copy
@@ -90,6 +91,12 @@ opts = {
       noteContainer.y = RULER_HEIGHT
       scrollContainer.addChild(noteContainer)
 
+      controlContainer = new createjs.Container
+      controlContainer.x = KEY_WIDTH
+      controlContainer.background = new createjs.Shape
+      controlContainer.addChild(controlContainer.background)
+      scrollContainer.addChild(controlContainer)
+
       selectionView = new SelectionView
       selectionView.setSize(0, 0)
       noteContainer.addChild(selectionView)
@@ -118,7 +125,10 @@ opts = {
       scrollContainer.on("scroll", e => {
         keys.x = -scrollContainer.scrollX
         grid.rulerY = -scrollContainer.scrollY
+        controlContainer.y = scrollContainer.getBounds().height - controlContainer.getBounds().height - scrollContainer.scrollY
+        controlContainer.background.x = -scrollContainer.scrollX
         stage.update()
+        updateViews()
       })
 
       this.root.oncontextmenu = e => {
@@ -131,7 +141,12 @@ opts = {
         this.noteCanvas.height = rect.height
 
         scrollContainer.setBounds(0, 0, rect.width, rect.height)
+        controlContainer.setBounds(0, 0, rect.width, CONTROL_HEIGHT)
+        controlContainer.background.graphics.clear()
+          .beginFill("white")
+          .rect(0, 0, rect.width, CONTROL_HEIGHT)
 
+        updateViews()
         stage.update()
       }
 
@@ -150,6 +165,60 @@ opts = {
       })
     })
 
+    const updateNotes = (notes) => {
+      const views = noteContainer.children.slice()
+      this.clearNotes()
+
+      notes.forEach(note => {
+        let view = _.find(views, c => c.noteId == note.id)
+        if (!view) {
+          view = new NoteView
+          view.noteId = note.id
+        }
+        view.visible = true
+        view.x = note.x
+        view.y = note.y
+        view.velocity = note.velocity
+        view.selected = selectedNoteIdStore.includes(note.id)
+        view.setSize(note.width, quantizer.unitY)
+        view.refresh()
+        noteContainer.addChild(view)
+      })
+    }
+
+    const updateControl = (notes) => {
+      const views = controlContainer.children.slice()
+      controlContainer.removeAllChildren()
+      views.filter(c => !c.noteId).forEach(c => {
+        controlContainer.addChild(c)
+      })
+
+      notes.forEach(note => {
+        let view = _.find(views, c => c.noteId == note.id)
+        if (!view) {
+          view = new createjs.Shape
+          view.noteId = note.id
+        }
+        view.x = note.x
+        const height = note.velocity / 127 * CONTROL_HEIGHT
+        view.graphics
+          .clear()
+          .beginFill("rgb(88, 103, 250)")
+          .rect(0, CONTROL_HEIGHT - height, 5, height)
+        controlContainer.addChild(view)
+      })
+    }
+
+    const updateViews = () => {
+      const notes = this.notes.filter(note => {
+        return note.x > -scrollContainer.scrollX && 
+          note.x < -scrollContainer.scrollX + scrollContainer.getBounds().width
+      })
+
+      updateNotes(notes)
+      updateControl(notes)
+    }
+
     this.on("update", () => {
       if (stage == null) {
         return
@@ -166,18 +235,7 @@ opts = {
         height: this.contentHeight
       }
 
-      this.notes.forEach(note => {
-        let rect = _.find(noteContainer.children, c => c.noteId == note.id)
-        if (!rect) {
-          rect = new NoteView()
-          rect.noteId = note.id
-          noteContainer.addChild(rect)
-        }
-        rect.x = note.x
-        rect.y = note.y
-        rect.selected = selectedNoteIdStore.includes(note.id)
-        rect.setSize(note.width, quantizer.unitY)
-      })
+      updateViews()
 
       selectionView.graphics
         .clear()

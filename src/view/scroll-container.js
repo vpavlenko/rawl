@@ -1,13 +1,126 @@
 // default browser scroll bar width
 const SCROLL_BAR_SIZE = 17
 const BAR_COLOR = "rgb(241, 241, 241)"
-const ARROW_COLOR = "rgb(163, 163, 163)"
-const ARROW_HILIGHT = "rgb(80, 80, 80)"
+const ARROW_COLOR = "rgb(80, 80, 80)"
+const ARROW_DISABLED_COLOR = "rgb(163, 163, 163)"
+const ARROW_HILIGHT = "#fff"
+const ARROWBG_HOVER_COLOR = "#d2d2d2"
+const ARROWBG_ACTIVE_COLOR = "#787878"
 const HANDLE_COLOR = "rgb(193, 193, 193)"
+const HANDLE_HOVER_COLOR = "#a8a8a8"
+const HANDLE_ACTIVE_COLOR = "#787878"
 
 const ScrollBarOrientaion = {
   HORIZONTAL: 0,
   VERTICAL: 1
+}
+
+const ButtonState = {
+  NORMAL: 0,
+  HOVER: 1,
+  ACTIVE: 2,
+  DISABLE: 3
+}
+
+class ShapeButton extends createjs.Shape {
+  constructor() {
+    super()
+    this.setBounds(0, 0, 0, 0)
+    this._state = ButtonState.NORMAL
+    this._enable = true
+    this.foregroundColors = ["red", "green", "yellow", "blue"]
+    this.backgroundColors = ["blue", "red", "green", "yellow"]
+    this.on("mouseover", e => {
+      this.state = ButtonState.HOVER
+    })
+    this.on("mouseout", e => {
+      this.state = ButtonState.NORMAL
+    })
+    this.on("mousedown", e => {
+      this.state = ButtonState.ACTIVE
+    })
+    this.on("pressup", e => {
+      this.state = e.target.hitTest(e.localX, e.localY) ? 
+        ButtonState.HOVER : ButtonState.NORMAL
+    })
+  }
+
+  set enable(enable) {
+    this._enable = enable
+    this.state = this._state
+  }
+
+  get isEnabled() {
+    return this._enable
+  }
+
+  get state() {
+    return this._state
+  }
+
+  set state(state) {
+    this._state = this.isEnabled ? state : ButtonState.DISABLE
+    this.redraw()
+  }
+
+  redraw() {
+    this.graphics
+      .clear()
+      .beginFill(this.backgroundColors[this.state])
+      .rect(0, 0, this.getBounds().width, this.getBounds().height)
+    this.drawForeground(this.foregroundColors[this.state])
+  }
+
+  drawForeground(color) {
+    // override
+  }
+
+  setForegroundColor(state, color) {
+    this.foregroundColors[state] = color
+    this.redraw()
+  }
+
+  setBackgroundColor(state, color) {
+    this.backgroundColors[state] = color
+    this.redraw()
+  }
+}
+
+class ArrowButton extends ShapeButton {
+  constructor(arrowRotation) {
+    super()
+    this.arrowRotation = arrowRotation
+    this.arrowWidth = 10
+    this.arrowHeight = 5
+  }
+
+  drawForeground(color) {
+    function drawPoints(g, mat, points) {
+      points.forEach((point, i) => {
+        const p = mat.transformPoint(point[0], point[1])
+        p.x = Math.floor(p.x)
+        p.y = Math.floor(p.y)
+        if (i == 0) {
+          g.moveTo(p.x, p.y)
+        } else {
+          g.lineTo(p.x, p.y)
+        }
+      })
+    }
+
+    const b = this.getBounds()
+    const mat = new createjs.Matrix2D()
+      .translate(b.width / 2, b.height / 2)
+      .rotate(this.arrowRotation)
+
+    const g = this.graphics
+      .beginFill(color)
+    drawPoints(g, mat, [
+      [0, -this.arrowHeight / 2],
+      [this.arrowWidth / 2, this.arrowHeight / 2],
+      [-this.arrowWidth / 2, this.arrowHeight / 2]
+    ])
+  }
 }
 
 class ScrollBar extends createjs.Container {
@@ -20,13 +133,42 @@ class ScrollBar extends createjs.Container {
     }
     this._contentLength = 0
     this._value = 0
+    this.unitIncrement = 120
     this.orientation = orientation
 
     this.background = new createjs.Shape
     this.addChild(this.background)
 
-    this.handle = new createjs.Shape
-    this.addChild(this.handle)
+    const rot = this.isVertical ? 0 : -90
+
+    this.headArrow = new ArrowButton(rot)
+    this.headArrow.setBackgroundColor(ButtonState.NORMAL, BAR_COLOR)
+    this.headArrow.setBackgroundColor(ButtonState.HOVER, ARROWBG_HOVER_COLOR)
+    this.headArrow.setBackgroundColor(ButtonState.ACTIVE, ARROWBG_ACTIVE_COLOR)
+    this.headArrow.setForegroundColor(ButtonState.NORMAL, ARROW_COLOR)
+    this.headArrow.setForegroundColor(ButtonState.HOVER, ARROW_COLOR)
+    this.headArrow.setForegroundColor(ButtonState.ACTIVE, ARROW_HILIGHT)
+    this.headArrow.on("click", e => {
+      this._changeValue(e, this.value + this.unitIncrement)
+    })
+    this.addChild(this.headArrow)
+
+    this.tailArrow = new ArrowButton(rot + 180)
+    this.tailArrow.setBackgroundColor(ButtonState.NORMAL, BAR_COLOR)
+    this.tailArrow.setBackgroundColor(ButtonState.HOVER, ARROWBG_HOVER_COLOR)
+    this.tailArrow.setBackgroundColor(ButtonState.ACTIVE, ARROWBG_ACTIVE_COLOR)
+    this.tailArrow.setForegroundColor(ButtonState.NORMAL, ARROW_COLOR)
+    this.tailArrow.setForegroundColor(ButtonState.HOVER, ARROW_COLOR)
+    this.tailArrow.setForegroundColor(ButtonState.ACTIVE, ARROW_HILIGHT)
+    this.tailArrow.on("click", e => {
+      this._changeValue(e, this.value - this.unitIncrement)
+    })
+    this.addChild(this.tailArrow)
+
+    this.handle = new ShapeButton
+    this.handle.setBackgroundColor(ButtonState.NORMAL, HANDLE_COLOR)
+    this.handle.setBackgroundColor(ButtonState.HOVER, HANDLE_HOVER_COLOR)
+    this.handle.setBackgroundColor(ButtonState.ACTIVE, HANDLE_ACTIVE_COLOR)
     this.handle.on("mousedown", e => {
       this.startPos = {
         x: e.stageX,
@@ -35,9 +177,16 @@ class ScrollBar extends createjs.Container {
       }
     })
     this.handle.on("pressmove", e => {
-      this.value = this.startPos.value + this.startPos.y - e.stageY 
-      console.log(this.value, this.startPos.y - e.stageY)
+      const delta = this.isVertical ? this.startPos.y - e.stageY : this.startPos.x - e.stageX
+      this._changeValue(e, this.startPos.value + this.positionToValue(delta))
     })
+    this.addChild(this.handle)
+  }
+
+  _changeValue(e, value) {
+    const changed = this._value != value
+    this.value = value
+    if (changed) this.dispatchEvent("change", e)
   }
 
   get value() {
@@ -45,7 +194,7 @@ class ScrollBar extends createjs.Container {
   }
 
   set value(value) {
-    this._value = Math.min(0, value)
+    this._value = Math.max(Math.min(0, value), this.maxValue)
     this.redraw()
   }
 
@@ -78,74 +227,65 @@ class ScrollBar extends createjs.Container {
     this.drawHandle()
   }
 
+  get barWidth() {
+    return this.isVertical ? this.size.width : this.size.height
+  }
+
+  get barLength() {
+    return !this.isVertical ? this.size.width : this.size.height
+  }
+
+  get isVertical() {
+    return this.orientation == ScrollBarOrientaion.VERTICAL
+  }
+
+  get maxValue() {
+    return this.barLength - this._contentLength
+  }
+
+  positionToValue(pos) {
+    return pos * this._contentLength / (this.barLength - 2 * this.barWidth)
+  }
+
   drawHandle() {
-    const isVertical = this.orientation == ScrollBarOrientaion.VERTICAL
-    const size = [this.size.width, this.size.height]
-
-    const px = isVertical ? 0 : 1
-    const py = isVertical ? 1 : 0
-
-    const maxLength = size[py] - size[px] * 2
-    const maxValue =  size[py] - this._contentLength
+    const maxLength = this.barLength - this.barWidth * 2
 
     const handleSize = [
-      size[px] * 0.8,
-      maxLength * size[py] / this._contentLength
+      this.barWidth * 0.8,
+      maxLength * this.barLength / this._contentLength
     ]
 
     const handlePos = [
-      (size[px] - handleSize[0]) / 2,
-      size[px] + (maxLength - handleSize[1]) * (this.value / maxValue)
+      (this.barWidth - handleSize[0]) / 2,
+      this.barWidth + maxLength * (1 - this.barLength / this._contentLength) * (this.value / this.maxValue)
     ]
 
-    this.handle.graphics
-      .clear()
-      .beginFill(HANDLE_COLOR)
-      .rect(handlePos[px], handlePos[py], handleSize[px], handleSize[py])
+    const px = this.isVertical ? 0 : 1
+    const py = this.isVertical ? 1 : 0
+      
+    this.handle.x = handlePos[px]
+    this.handle.y = handlePos[py]
+    this.handle.setBounds(0, 0, handleSize[px], handleSize[py])
+    this.handle.redraw()
   }
 
   drawArrows() {
-    const isVertical = this.orientation == ScrollBarOrientaion.VERTICAL
-    const size = [this.size.width, this.size.height]
+    const size = this.barWidth
+    const px = this.isVertical ? 0 : 1
+    const py = this.isVertical ? 1 : 0
 
-    // short side index
-    const px = isVertical ? 0 : 1
+    const tailPos = [0, this.barLength - size]
+    this.tailArrow.x = tailPos[px]
+    this.tailArrow.y = tailPos[py]
 
-    // long side index
-    const py = isVertical ? 1 : 0
-
-    const arrowWidth = size[px] * 0.5
-    const arrowHeight = size[px] * 0.25
-    const arrowMarginTop = (size[px] - arrowHeight) / 2
-    const center = size[px] / 2
-    const arrowRight = center + arrowWidth / 2
-    const arrowLeft = center - arrowWidth / 2
-
-    const lines = [
-      [
-        [center, arrowMarginTop],
-        [arrowRight, arrowMarginTop + arrowHeight],
-        [arrowLeft, arrowMarginTop + arrowHeight]
-      ],
-      [
-        [center, size[py] - arrowMarginTop],
-        [arrowRight, size[py] - arrowMarginTop - arrowHeight],
-        [arrowLeft, size[py] - arrowMarginTop - arrowHeight]
-      ]
-    ]
-
-    const g = this.background.graphics
-      .beginFill(ARROW_COLOR)
-
-    for (const points of lines) {
-      points.forEach((point, i) => {
-        if (i == 0) {
-          g.moveTo(point[px], point[py])
-        } else {
-          g.lineTo(point[px], point[py])
-        }
-      })
-    }
+    this.headArrow.setBounds(0, 0, size, size)
+    this.tailArrow.setBounds(0, 0, size, size)
+    this.headArrow.arrowWidth = size / 2
+    this.headArrow.arrowHeight = size / 4
+    this.tailArrow.arrowWidth = size / 2
+    this.tailArrow.arrowHeight = size / 4
+    this.headArrow.redraw()
+    this.tailArrow.redraw()
   }
 }
 
@@ -161,11 +301,19 @@ class ScrollContainer extends createjs.Container {
     this.scrollBarH = new ScrollBar(ScrollBarOrientaion.HORIZONTAL)
     this.addChild(this.scrollBarH)
 
+    this.scrollBarV.on("change", e => {
+      this.container.y = e.target.value
+    })
+
+    this.scrollBarH.on("change", e => {
+      this.container.x = e.target.value
+    })
+
     canvas.addEventListener("mousewheel", e => {
       const h = this.contentSize.height - this.getBounds().height
       const w = this.contentSize.width - this.getBounds().width
-      this.scrollY = Math.min(0, Math.max(this.scrollY + e.wheelDeltaY, -h))
-      this.scrollX = Math.min(0, Math.max(this.scrollX + e.wheelDeltaX, -w))
+      this.scrollY = Math.min(0, Math.max(this.scrollY + e.wheelDeltaY, -h - SCROLL_BAR_SIZE))
+      this.scrollX = Math.min(0, Math.max(this.scrollX + e.wheelDeltaX, -w - SCROLL_BAR_SIZE))
     })
 
     this.superAddChild = this.addChild

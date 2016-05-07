@@ -1,0 +1,3 @@
+[submodule "src/submodules/EaselJS-ScrollContainer"]
+	path = src/submodules/EaselJS-ScrollContainer
+	url = https://github.com/ryohey/EaselJS-ScrollContainer

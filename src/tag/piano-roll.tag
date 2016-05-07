@@ -61,7 +61,7 @@ opts = {
       stage.enableMouseOver()
       document.noteStage = stage
 
-      scrollContainer = new ScrollContainer(this.noteCanvas)
+      scrollContainer = new createjs.ScrollContainer(this.noteCanvas)
       scrollContainer.contentSize = {
         width: this.contentWidth, 
         height: this.contentHeight

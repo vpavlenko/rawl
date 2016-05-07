@@ -115,11 +115,11 @@ opts = {
 
       stage.update()
 
-      this.root.onscroll = e => {
-        keys.x = e.target.scrollLeft
-        grid.rulerY = e.target.scrollTop
+      scrollContainer.on("scroll", e => {
+        keys.x = -scrollContainer.scrollX
+        grid.rulerY = -scrollContainer.scrollY
         stage.update()
-      }
+      })
 
       this.root.oncontextmenu = e => {
         e.preventDefault()

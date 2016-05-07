@@ -319,10 +319,12 @@ class ScrollContainer extends createjs.Container {
 
     this.scrollBarV.on("change", e => {
       this.container.y = e.target.value
+      this.dispatchEvent("scroll")
     })
 
     this.scrollBarH.on("change", e => {
       this.container.x = e.target.value
+      this.dispatchEvent("scroll")
     })
 
     canvas.addEventListener("mousewheel", e => {

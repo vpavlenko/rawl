@@ -197,9 +197,9 @@ class ScrollBar extends createjs.Container {
   }
 
   _changeValue(e, value) {
-    const changed = this._value != value
+    const oldValue = this._value
     this.value = value
-    if (changed) this.dispatchEvent("change", e)
+    if (oldValue != this.value) this.dispatchEvent("change", e)
   }
 
   get value() {
@@ -253,7 +253,7 @@ class ScrollBar extends createjs.Container {
   }
 
   get maxValue() {
-    return this.barLength - this._contentLength
+    return Math.min(0.001, this.barLength - this._contentLength)
   }
 
   positionToValue(pos) {
@@ -261,16 +261,19 @@ class ScrollBar extends createjs.Container {
   }
 
   drawHandle() {
+    function normalize(v) {
+      return Math.max(0, Math.min(1, v))
+    }
     const maxLength = this.barLength - this.barWidth * 2
 
     const handleSize = [
       this.barWidth * 0.8,
-      maxLength * this.barLength / this._contentLength
+      maxLength * normalize(this.barLength / this._contentLength)
     ]
 
     const handlePos = [
       (this.barWidth - handleSize[0]) / 2,
-      this.barWidth + maxLength * (1 - this.barLength / this._contentLength) * (this.value / this.maxValue)
+      this.barWidth + maxLength * (1 - normalize(this.barLength / this._contentLength)) * normalize(this.value / this.maxValue)
     ]
 
     const px = this.isVertical ? 0 : 1
@@ -319,6 +322,7 @@ class ScrollContainer extends createjs.Container {
     })
 
     this.scrollBarH.on("change", e => {
+      console.log(e.target.value)
       this.container.x = e.target.value
     })
 

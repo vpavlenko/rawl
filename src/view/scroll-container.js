@@ -322,7 +322,6 @@ class ScrollContainer extends createjs.Container {
     })
 
     this.scrollBarH.on("change", e => {
-      console.log(e.target.value)
       this.container.x = e.target.value
     })
 

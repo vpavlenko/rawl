@@ -8,6 +8,10 @@ class VelocityControlView extends createjs.Container {
     this.beatLine.endBeat = 1000
     this.addChild(this.beatLine)
 
+    this.valueLine = new createjs.Shape
+    this.valueLine.y = 0.5
+    this.addChild(this.valueLine)
+
     this.setBounds(0, 0, 0, 0)
   }
 
@@ -19,6 +23,17 @@ class VelocityControlView extends createjs.Container {
       .rect(0, 0, width, height)
 
     this.beatLine.height = height
+
+    this.valueLine.graphics
+      .clear()
+      .setStrokeStyle(1)
+      .beginStroke("gray")
+      .moveTo(0, 0)
+      .lineTo(width, 0)
+      .moveTo(0, height / 2)
+      .lineTo(width, height / 2)
+      .moveTo(0, height)
+      .lineTo(width, height)
   }
 
   set notes(notes) {

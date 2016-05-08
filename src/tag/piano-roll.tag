@@ -123,7 +123,7 @@ opts = {
       scrollContainer.on("scroll", e => {
         keys.x = -scrollContainer.scrollX
         grid.rulerY = -scrollContainer.scrollY
-        controlContainer.y = scrollContainer.getBounds().height - controlContainer.getBounds().height - scrollContainer.scrollY
+        controlContainer.y = scrollContainer.getBounds().height - controlContainer.getBounds().height - scrollContainer.scrollY - 17
         stage.update()
         updateViews()
       })
@@ -199,7 +199,7 @@ opts = {
       {
         const maxNoteX = Math.max(500, this.notes != null && this.notes.length > 0 ? 
           Math.max.apply(null, (this.notes.map(n => n.x + n.width))) : 0)
-        
+
         this.contentWidth = Math.ceil(maxNoteX) + KEY_WIDTH
         scrollContainer.contentSize = {
           width: this.contentWidth, 

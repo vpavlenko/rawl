@@ -59,12 +59,13 @@ class PencilMouseHandler {
     switch (this.dragPosition.type) {
       case DRAG_POSITION.LEFT_EDGE:
       // 右端を固定して長さを変更
-      bounds.width = bounds.width + bounds.x - qx 
-      bounds.x = qx
+      const width = Math.max(quantizer.unitX, bounds.width + bounds.x - qx) 
+      bounds.x = Math.min(bounds.width + bounds.x - quantizer.unitX, qx)
+      bounds.width = width
       break
       case DRAG_POSITION.RIGHT_EDGE:
       // 左端を固定して長さを変更
-      bounds.width = qx - bounds.x
+      bounds.width = Math.max(quantizer.unitX, qx - bounds.x)
       break
       case DRAG_POSITION.CENTER:
       // 移動

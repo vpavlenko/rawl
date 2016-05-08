@@ -270,6 +270,24 @@ riot.compile(() => {
     notesTag.update({mouseMode: 1})
   }
 
+  document.querySelector("#scale-up-button").onclick = e => {
+    changePixelsPerBeat(10)
+  }
+
+  document.querySelector("#scale-down-button").onclick = e => {
+    changePixelsPerBeat(-10)
+  }
+
+  function changePixelsPerBeat(increment) {
+    const oldValue = quantizer.pixelsPerBeat
+    const newValue = Math.max(10, oldValue + increment)
+    quantizer.pixelsPerBeat = newValue
+    coordConverter.pixelsPerBeat = newValue
+    // keep scroll position
+    notesTag.scrollContainer.scrollX = notesTag.scrollContainer.scrollX * newValue / oldValue
+    updateNotes(trackSelectTag.selectedIndex)
+  }
+
   function updateNotes(track) {
     const trackEvents = eventStore.events.filter(e => {
       return e.track == track

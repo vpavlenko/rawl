@@ -85,14 +85,14 @@ class PencilMouseHandler {
       switch (type) {
         case DRAG_POSITION.LEFT_EDGE:
         case DRAG_POSITION.RIGHT_EDGE: 
-        this.setCursor("w-resize")
+        this.listener.onCursorChanged("w-resize")
         break
         default:
-        this.setCursor("move")
+        this.listener.onCursorChanged("move")
         break
       }
     } else {
-      this.setCursor(`url("./images/iconmonstr-pencil-14-16.png") 0 16, default`)
+      this.listener.onCursorChanged(`url("./images/iconmonstr-pencil-14-16.png") 0 16, default`)
     }
   }
 
@@ -106,13 +106,6 @@ class PencilMouseHandler {
       const b = c.getBounds()
       return new createjs.Rectangle(c.x, c.y, b.width, b.height).contains(x, y)
     })
-  }
-
-  setCursor(cursor) {
-    const style = this.canvas.parentNode.style
-    if (style.cursor != cursor) {
-      style.cursor = cursor
-    }
   }
 }
 
@@ -168,6 +161,7 @@ class SelectionMouseHandler {
 
   onMouseMove(e) {
     if (!this.isMouseDown) {
+      this.updateCursor(e)
       return
     }
     this.selectionView.visible = true
@@ -207,6 +201,16 @@ class SelectionMouseHandler {
       bounds.height = (quantizer.roundY(rect.y + rect.height) - bounds.y) || quantizer.unitY
     }
     this.selectionRect = bounds
+  }
+
+  updateCursor(e) {
+    const loc = this.container.globalToLocal(e.stageX, e.stageY)
+    const hover = this.selectionRect.contains(loc.x, loc.y)
+    if (this.selectionView.visible && hover) {
+      this.listener.onCursorChanged("move")
+    } else {
+      this.listener.onCursorChanged("crosshair")
+    }
   }
 
   findNoteViewById(id) {

@@ -19,6 +19,8 @@
     <button id="forward-button">→</button>
     <button id="pencil-button">✎</button>
     <button id="selection-button">□</button>
+    <button id="scale-up-button"><img src="images/iconmonstr-magnifier-7-16.png"></button>
+    <button id="scale-down-button"><img src="images/iconmonstr-magnifier-8-16.png"></button>
     <riot-select id="track-select"></riot-select>
     <riot-select id="quantize-select"></riot-select>
   </header>
@@ -61,7 +63,7 @@
 <style type="text/css">
 
 :root {
-  --header-height: 20px;
+  --header-height: 40px;
   --event-table-width: 300px;
 }
 
@@ -80,6 +82,14 @@ body {
 
 header {
   height: var(--header-height);
+}
+
+header button {
+  width: 2em;
+  height: 1.5em;
+  padding: 0;
+  vertical-align: top;
+  font-size: 1.3em;
 }
 
 #container {

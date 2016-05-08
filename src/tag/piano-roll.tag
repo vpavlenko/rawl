@@ -64,6 +64,7 @@ opts = {
       document.noteStage = stage
 
       scrollContainer = new createjs.ScrollContainer(this.noteCanvas)
+      this.scrollContainer = scrollContainer
       scrollContainer.contentSize = {
         width: this.contentWidth, 
         height: this.contentHeight
@@ -83,8 +84,10 @@ opts = {
         stage.update()
       })
 
-      grid = new PianoGridView(quantizer.unitY, 127, RULER_HEIGHT, coordConverter, 1000)
+      grid = new PianoGridView(127, RULER_HEIGHT, coordConverter, 1000)
+      grid.endBeat = 1000
       grid.x = KEY_WIDTH
+      grid.keyHeight = quantizer.unitY
       scrollContainer.addChild(grid)
 
       noteContainer = new createjs.Container
@@ -103,6 +106,13 @@ opts = {
       selectionView.setSize(0, 0)
       noteContainer.addChild(selectionView)
 
+      opts.onCursorChanged = cursor => {
+        const style = this.noteCanvas.parentNode.style
+        if (style.cursor != cursor) {
+          style.cursor = cursor
+        }
+      }
+
       mouseHandlers.pushArray([
         new PencilMouseHandler(noteContainer, this.noteCanvas, opts),
         new SelectionMouseHandler(noteContainer, selectionView, opts, selectedNoteIdStore)
@@ -116,7 +126,6 @@ opts = {
       // layout the ruler above others
       grid.ruler.x = KEY_WIDTH
       scrollContainer.addChild(grid.ruler)
-
       grid.ruler.on("click", e => {
         const tick = coordConverter.getTicksForPixels(quantizer.roundX(e.localX))
         opts.onMoveCursor(tick)
@@ -215,6 +224,7 @@ opts = {
       }
 
       updateViews()
+      grid.redraw()
 
       selectionView.graphics
         .clear()

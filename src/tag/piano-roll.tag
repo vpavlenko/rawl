@@ -91,10 +91,8 @@ opts = {
       noteContainer.y = RULER_HEIGHT
       scrollContainer.addChild(noteContainer)
 
-      controlContainer = new createjs.Container
+      controlContainer = new VelocityControlView
       controlContainer.x = KEY_WIDTH
-      controlContainer.background = new createjs.Shape
-      controlContainer.addChild(controlContainer.background)
       scrollContainer.addChild(controlContainer)
 
       selectionView = new SelectionView
@@ -126,7 +124,6 @@ opts = {
         keys.x = -scrollContainer.scrollX
         grid.rulerY = -scrollContainer.scrollY
         controlContainer.y = scrollContainer.getBounds().height - controlContainer.getBounds().height - scrollContainer.scrollY
-        controlContainer.background.x = -scrollContainer.scrollX
         stage.update()
         updateViews()
       })
@@ -142,9 +139,6 @@ opts = {
 
         scrollContainer.setBounds(0, 0, rect.width, rect.height)
         controlContainer.setBounds(0, 0, rect.width, CONTROL_HEIGHT)
-        controlContainer.background.graphics.clear()
-          .beginFill("white")
-          .rect(0, 0, rect.width, CONTROL_HEIGHT)
 
         updateViews()
         stage.update()
@@ -186,29 +180,6 @@ opts = {
       })
     }
 
-    const updateControl = (notes) => {
-      const views = controlContainer.children.slice()
-      controlContainer.removeAllChildren()
-      views.filter(c => !c.noteId).forEach(c => {
-        controlContainer.addChild(c)
-      })
-
-      notes.forEach(note => {
-        let view = _.find(views, c => c.noteId == note.id)
-        if (!view) {
-          view = new createjs.Shape
-          view.noteId = note.id
-        }
-        view.x = note.x
-        const height = note.velocity / 127 * CONTROL_HEIGHT
-        view.graphics
-          .clear()
-          .beginFill("rgb(88, 103, 250)")
-          .rect(0, CONTROL_HEIGHT - height, 5, height)
-        controlContainer.addChild(view)
-      })
-    }
-
     const updateViews = () => {
       const notes = this.notes.filter(note => {
         return note.x > -scrollContainer.scrollX && 
@@ -216,7 +187,7 @@ opts = {
       })
 
       updateNotes(notes)
-      updateControl(notes)
+      controlContainer.notes = notes
     }
 
     this.on("update", () => {

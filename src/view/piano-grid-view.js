@@ -23,7 +23,9 @@ class PianoGridView extends createjs.Container {
     }
 
     const height = keyHeight * numberOfKeys + rulerHeight
-    const vLines = new BeatLineView(height, noteCoordConverter, endBeat)
+    const vLines = new BeatLineView(noteCoordConverter)
+    vLines.height = height
+    vLines.endBeat = endBeat
     this.addChild(vLines)
 
     {

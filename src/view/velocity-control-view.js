@@ -1,8 +1,14 @@
 class VelocityControlView extends createjs.Container {
-  constructor() {
+  constructor(noteCoordConverter) {
     super()
     this.background = new createjs.Shape
     this.addChild(this.background)
+
+    this.beatLine = new BeatLineView(noteCoordConverter)
+    this.beatLine.endBeat = 1000
+    this.addChild(this.beatLine)
+
+    this.setBounds(0, 0, 0, 0)
   }
 
   setBounds(x, y, width, height) {
@@ -11,6 +17,8 @@ class VelocityControlView extends createjs.Container {
     this.background.graphics.clear()
       .beginFill("white")
       .rect(0, 0, width, height)
+
+    this.beatLine.height = height
   }
 
   set notes(notes) {

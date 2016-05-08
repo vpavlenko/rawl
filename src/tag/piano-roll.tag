@@ -91,7 +91,7 @@ opts = {
       noteContainer.y = RULER_HEIGHT
       scrollContainer.addChild(noteContainer)
 
-      controlContainer = new VelocityControlView
+      controlContainer = new VelocityControlView(coordConverter)
       controlContainer.x = KEY_WIDTH
       scrollContainer.addChild(controlContainer)
 
@@ -138,7 +138,6 @@ opts = {
         this.noteCanvas.height = rect.height
 
         scrollContainer.setBounds(0, 0, rect.width, rect.height)
-        controlContainer.setBounds(0, 0, rect.width, CONTROL_HEIGHT)
 
         updateViews()
         stage.update()
@@ -197,13 +196,17 @@ opts = {
 
       mouseHandler = mouseHandlers[this.mouseMode]
 
-      const maxNoteX = Math.max(500, this.notes != null && this.notes.length > 0 ? 
-        Math.max.apply(null, (this.notes.map(n => n.x + n.width))) : 0)
-
-      this.contentWidth = Math.ceil(maxNoteX) + KEY_WIDTH
-      scrollContainer.contentSize = {
-        width: this.contentWidth, 
-        height: this.contentHeight
+      {
+        const maxNoteX = Math.max(500, this.notes != null && this.notes.length > 0 ? 
+          Math.max.apply(null, (this.notes.map(n => n.x + n.width))) : 0)
+        
+        this.contentWidth = Math.ceil(maxNoteX) + KEY_WIDTH
+        scrollContainer.contentSize = {
+          width: this.contentWidth, 
+          height: this.contentHeight
+        }
+        
+        controlContainer.setBounds(0, 0, this.contentWidth, CONTROL_HEIGHT)
       }
 
       updateViews()

@@ -46,11 +46,7 @@ opts = {
     var stage, noteContainer, mouseHandler, selectionView, grid, keys, scrollContainer, controlContainer
 
     this.clearNotes = () => {
-      const children = noteContainer.children.slice() // copy
-      noteContainer.removeAllChildren()
-      children.filter(c => !(c instanceof NoteView)).forEach(c => {
-        noteContainer.addChild(c)
-      })
+      noteContainer.clearNotes()
     }
 
     this.setCursorPosition = tick => {
@@ -90,7 +86,7 @@ opts = {
       grid.keyHeight = quantizer.unitY
       scrollContainer.addChild(grid)
 
-      noteContainer = new createjs.Container
+      noteContainer = new NoteContainer(selectedNoteIdStore)
       noteContainer.x = KEY_WIDTH
       noteContainer.y = RULER_HEIGHT
       scrollContainer.addChild(noteContainer)
@@ -163,35 +159,6 @@ opts = {
       resizeCanvas()
     })
 
-    selectedNoteIdStore.on("change", () => {
-      noteContainer.children.forEach(c => {
-        if (c instanceof NoteView) {
-          c.selected = selectedNoteIdStore.includes(c.noteId)
-        }
-      })
-    })
-
-    const updateNotes = (notes) => {
-      const views = noteContainer.children.slice()
-      this.clearNotes()
-
-      notes.forEach(note => {
-        let view = _.find(views, c => c.noteId == note.id)
-        if (!view) {
-          view = new NoteView
-          view.noteId = note.id
-        }
-        view.visible = true
-        view.x = note.x
-        view.y = note.y
-        view.velocity = note.velocity
-        view.selected = selectedNoteIdStore.includes(note.id)
-        view.setSize(note.width, quantizer.unitY)
-        view.refresh()
-        noteContainer.addChild(view)
-      })
-    }
-
     const updateViews = () => {
       const notes = this.notes.filter(note => {
         return note.x > -scrollContainer.scrollX && 
@@ -201,7 +168,7 @@ opts = {
         return note
       })
 
-      updateNotes(notes)
+      noteContainer.notes = notes
       controlContainer.notes = notes
     }
 

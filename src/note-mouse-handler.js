@@ -1,3 +1,4 @@
+"use strict"
 const DRAG_POSITION = {
   LEFT_EDGE: 0,
   CENTER: 1,
@@ -5,10 +6,11 @@ const DRAG_POSITION = {
 }
 
 class PencilMouseHandler {
-  constructor(container, canvas, listener) {
+  constructor(container, canvas, listener, quantizer) {
     this.container = container
     this.canvas = canvas
     this.listener = listener
+    this.quantizer = quantizer
     bindAllMethods(this)
   }
 
@@ -26,9 +28,9 @@ class PencilMouseHandler {
     } else if (!e.relatedTarget) {
       this.dragPosition = null
       this.listener.onCreateNote({
-        x: quantizer.floorX(cpos.x),
-        y: quantizer.floorY(cpos.y),
-        width: quantizer.unitX
+        x: this.quantizer.floorX(cpos.x),
+        y: this.quantizer.floorY(cpos.y),
+        width: this.quantizer.unitX
       })
     }
   }
@@ -54,23 +56,23 @@ class PencilMouseHandler {
       height: target.getBounds().height
     }
     const p = this.container.globalToLocal(e.stageX, e.stageY)
-    const qx = quantizer.roundX(p.x)
+    const qx = this.quantizer.roundX(p.x)
 
     switch (this.dragPosition.type) {
       case DRAG_POSITION.LEFT_EDGE:
       // 右端を固定して長さを変更
-      const width = Math.max(quantizer.unitX, bounds.width + bounds.x - qx) 
-      bounds.x = Math.min(bounds.width + bounds.x - quantizer.unitX, qx)
+      const width = Math.max(this.quantizer.unitX, bounds.width + bounds.x - qx) 
+      bounds.x = Math.min(bounds.width + bounds.x - this.quantizer.unitX, qx)
       bounds.width = width
       break
       case DRAG_POSITION.RIGHT_EDGE:
       // 左端を固定して長さを変更
-      bounds.width = Math.max(quantizer.unitX, qx - bounds.x)
+      bounds.width = Math.max(this.quantizer.unitX, qx - bounds.x)
       break
       case DRAG_POSITION.CENTER:
       // 移動
-      bounds.x = quantizer.roundX(p.x - this.dragPosition.x)
-      bounds.y = quantizer.roundY(p.y - this.dragPosition.y) 
+      bounds.x = this.quantizer.roundX(p.x - this.dragPosition.x)
+      bounds.y = this.quantizer.roundY(p.y - this.dragPosition.y) 
       break
     }
 
@@ -111,11 +113,12 @@ class PencilMouseHandler {
 }
 
 class SelectionMouseHandler {
-  constructor(container, selectionView, listener, selectedNoteStore) {
+  constructor(container, selectionView, listener, selectedNoteStore, quantizer) {
     this.container = container
     this.listener = listener
     this.selectionView = selectionView
     this.selectedNoteStore = selectedNoteStore
+    this.quantizer = quantizer
     this.isMouseDown = false
   }
 
@@ -180,23 +183,23 @@ class SelectionMouseHandler {
           const b = view.getBounds()
           return {
             id: id,
-            x: view.x + quantizer.roundX(x - bounds.x),
-            y: view.y + quantizer.roundY(y - bounds.y),
+            x: view.x + this.quantizer.roundX(x - bounds.x),
+            y: view.y + this.quantizer.roundY(y - bounds.y),
             width: b.width,
             height: b.height
           }
         })
 
       this.listener.onMoveNotes(changes)
-      bounds.x = quantizer.roundX(x)
-      bounds.y = quantizer.roundY(y)
+      bounds.x = this.quantizer.roundX(x)
+      bounds.y = this.quantizer.roundY(y)
     } else {
       // 選択範囲の変形
       const rect = Rect.fromPoints(this.start, loc)
-      bounds.x = quantizer.roundX(rect.x)
-      bounds.y = quantizer.roundY(rect.y)
-      bounds.width = (quantizer.roundX(rect.x + rect.width) - bounds.x) || quantizer.unitX
-      bounds.height = (quantizer.roundY(rect.y + rect.height) - bounds.y) || quantizer.unitY
+      bounds.x = this.quantizer.roundX(rect.x)
+      bounds.y = this.quantizer.roundY(rect.y)
+      bounds.width = (this.quantizer.roundX(rect.x + rect.width) - bounds.x) || this.quantizer.unitX
+      bounds.height = (this.quantizer.roundY(rect.y + rect.height) - bounds.y) || this.quantizer.unitY
     }
     this.selectionRect = bounds
   }

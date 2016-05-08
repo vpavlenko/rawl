@@ -4,6 +4,7 @@
   </select>
 
   <script type="text/javascript">
+  "use strict"
   this.options = opts.options
   this.select.onchange = e => {
     const i = this.select.selectedIndex

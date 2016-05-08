@@ -1,3 +1,4 @@
+"use strict"
 class NoteContainer extends createjs.Container {
   constructor(selectedNoteStore) {
     super()
@@ -33,7 +34,7 @@ class NoteContainer extends createjs.Container {
       view.y = note.y
       view.velocity = note.velocity
       view.selected = note.selected
-      view.setSize(note.width, quantizer.unitY)
+      view.setSize(note.width, note.height)
       view.refresh()
       this.addChild(view)
     })

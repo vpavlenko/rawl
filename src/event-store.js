@@ -1,3 +1,4 @@
+"use strict"
 class EventStore {
   constructor() {
     riot.observable(this)

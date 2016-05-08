@@ -1,3 +1,4 @@
+"use strict"
 const INTERVAL = 1 / 15 * 1000  // low fps
 
 // timebase: 1/4拍子ごとのtick数

@@ -26,17 +26,21 @@ opts = {
     name="noteCanvas"></canvas>
 
   <script type="text/javascript">
+    "use strict"
     const RULER_HEIGHT = 22
     const KEY_WIDTH = 100
     const CONTROL_HEIGHT = 200
-
-    this.contentWidth = 500 + KEY_WIDTH
-    this.contentHeight = coordConverter.getPixelsForNoteNumber(0) + RULER_HEIGHT
-
-    selection = {hidden: true}
-    this.selections = [selection]
+    
     this.notes = opts.notes
     this.mouseMode = opts.mouseMode
+    this.coordConverter = opts.coordConverter
+    this.quantizer = opts.quantizer
+
+    this.contentWidth = 500 + KEY_WIDTH
+    this.contentHeight = this.coordConverter.getPixelsForNoteNumber(0) + RULER_HEIGHT
+
+    const selection = {hidden: true}
+    this.selections = [selection]
 
     const selectedNoteIdStore = []
     riot.observable(selectedNoteIdStore)
@@ -50,7 +54,7 @@ opts = {
     }
 
     this.setCursorPosition = tick => {
-      grid.cursorPosition = coordConverter.getPixelsAt(tick)
+      grid.cursorPosition = this.coordConverter.getPixelsAt(tick)
       stage.update()
     }
 
@@ -80,10 +84,10 @@ opts = {
         stage.update()
       })
 
-      grid = new PianoGridView(127, RULER_HEIGHT, coordConverter, 1000)
+      grid = new PianoGridView(127, RULER_HEIGHT, this.coordConverter, 1000)
       grid.endBeat = 1000
       grid.x = KEY_WIDTH
-      grid.keyHeight = quantizer.unitY
+      grid.keyHeight = this.quantizer.unitY
       scrollContainer.addChild(grid)
 
       noteContainer = new NoteContainer(selectedNoteIdStore)
@@ -91,7 +95,7 @@ opts = {
       noteContainer.y = RULER_HEIGHT
       scrollContainer.addChild(noteContainer)
 
-      controlContainer = new VelocityControlView(coordConverter)
+      controlContainer = new VelocityControlView(this.coordConverter)
       controlContainer.x = KEY_WIDTH
       controlContainer.on("change", e => {
         opts.onChangeNoteVelocity(e.noteId, e.velocity)
@@ -110,12 +114,12 @@ opts = {
       }
 
       mouseHandlers.pushArray([
-        new PencilMouseHandler(noteContainer, this.noteCanvas, opts),
-        new SelectionMouseHandler(noteContainer, selectionView, opts, selectedNoteIdStore)
+        new PencilMouseHandler(noteContainer, this.noteCanvas, opts, this.quantizer),
+        new SelectionMouseHandler(noteContainer, selectionView, opts, selectedNoteIdStore, this.quantizer)
       ])
       mouseHandler = mouseHandlers[this.mouseMode]
 
-      keys = new PianoKeysView(KEY_WIDTH, quantizer.unitY, 127)
+      keys = new PianoKeysView(KEY_WIDTH, this.quantizer.unitY, 127)
       keys.y = RULER_HEIGHT
       scrollContainer.addChild(keys)
 
@@ -123,7 +127,7 @@ opts = {
       grid.ruler.x = KEY_WIDTH
       scrollContainer.addChild(grid.ruler)
       grid.ruler.on("click", e => {
-        const tick = coordConverter.getTicksForPixels(quantizer.roundX(e.localX))
+        const tick = this.coordConverter.getTicksForPixels(this.quantizer.roundX(e.localX))
         opts.onMoveCursor(tick)
       })
 

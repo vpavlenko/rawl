@@ -1,3 +1,4 @@
+"use strict"
 /**
 
   append tick to each events

@@ -1,3 +1,4 @@
+"use strict"
 class PianoGridView extends createjs.Container {
   constructor(numberOfKeys, rulerHeight, coordConverter) {
     super()

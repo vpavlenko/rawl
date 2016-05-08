@@ -1,3 +1,11 @@
+/*
+  events:
+    "change": {
+      target: view: noteId
+      value: <Number>
+    }
+*/
+const VEL_MAX_VALUE = 127
 class VelocityControlView extends createjs.Container {
   constructor(noteCoordConverter) {
     super()
@@ -13,6 +21,18 @@ class VelocityControlView extends createjs.Container {
     this.addChild(this.valueLine)
 
     this.setBounds(0, 0, 0, 0)
+
+    this.on("pressmove", e => {
+      const noteId = e.target.noteId
+      if (noteId === undefined) return
+      const height = this.getBounds().height
+      const value = Math.max(0, Math.min(VEL_MAX_VALUE, 
+        (height - this.globalToLocal(e.stageX, e.stageY).y) / height * VEL_MAX_VALUE))
+      const ev = new createjs.Event("change")
+      ev.noteId = noteId
+      ev.velocity = value
+      this.dispatchEvent(ev)
+    })
   }
 
   setBounds(x, y, width, height) {

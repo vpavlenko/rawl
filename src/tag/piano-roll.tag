@@ -17,6 +17,7 @@ opts = {
   onMoveNotes : <Function([{noteId, x, y, width, height}])>
   onClickNotes: <Function(noteIds, mouseEvent)>
   onMoveCursor: <Function(tick)>
+  onChangeNoteVelocity: <Function(noteId, velocity)>
 }
 -->
 <piano-roll>
@@ -93,6 +94,9 @@ opts = {
 
       controlContainer = new VelocityControlView(coordConverter)
       controlContainer.x = KEY_WIDTH
+      controlContainer.on("change", e => {
+        opts.onChangeNoteVelocity(e.noteId, e.velocity)
+      })
       scrollContainer.addChild(controlContainer)
 
       selectionView = new SelectionView

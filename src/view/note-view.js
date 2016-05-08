@@ -30,6 +30,11 @@ class NoteView extends createjs.Shape {
 
   set velocity(velocity) {
     this._velocity = velocity
+    this.isDirty = true
+  }
+
+  get velocity() {
+    return this._velocity
   }
 
   set selected(selected) {

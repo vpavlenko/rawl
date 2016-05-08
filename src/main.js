@@ -155,6 +155,11 @@ riot.compile(() => {
     },
     onMoveCursor: tick => {
       player.position = tick
+    },
+    onChangeNoteVelocity: (noteId, velocity) => {
+      const e = eventStore.getEventById(noteId)
+      e.velocity = velocity
+      eventStore.update()
     }
   }
   const trackSelectTag = riot.mount("#track-select", { 

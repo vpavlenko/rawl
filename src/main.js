@@ -1,6 +1,6 @@
 const MAX_NOTE_NUMBER = 127
-const KEY_HEIGHT = 15
-const PIXELS_PER_BEAT = 50
+const KEY_HEIGHT = 14
+const PIXELS_PER_BEAT = 23
 const TIME_BASE = 480
 
 const clipboard = new Clipboard

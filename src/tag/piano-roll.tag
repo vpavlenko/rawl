@@ -26,7 +26,7 @@ opts = {
     name="noteCanvas"></canvas>
 
   <script type="text/javascript">
-    const RULER_HEIGHT = 30
+    const RULER_HEIGHT = 22
     const KEY_WIDTH = 100
     const CONTROL_HEIGHT = 200
 
@@ -199,6 +199,7 @@ opts = {
       }
 
       mouseHandler = mouseHandlers[this.mouseMode]
+      this.noteCanvas.parentNode.style.cursor = this.mouseMode == 0 ? "auto" : "crosshair"
 
       {
         const maxNoteX = Math.max(500, this.notes != null && this.notes.length > 0 ? 

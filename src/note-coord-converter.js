@@ -13,7 +13,7 @@ class NoteCoordConverter {
     this.pixelsPerKey = pixelsPerKey
     this.tempos = tempos
     this.timebase = timebase
-    this.maxNoteNumber = maxNoteNumber
+    this.maxNoteNumber = maxNoteNumber - 3
   }
 
   // seconds

@@ -12,10 +12,6 @@ class PencilMouseHandler {
     bindAllMethods(this)
   }
 
-  resetCursor() {
-    this.container.style.cursor = "default"
-  }
-
   onMouseDown(e) { 
     const cpos = this.container.globalToLocal(e.stageX, e.stageY)
     const view = this.getNoteViewUnderPoint(cpos.x, cpos.y)
@@ -96,7 +92,7 @@ class PencilMouseHandler {
         break
       }
     } else {
-      this.setCursor("default")
+      this.setCursor(`url("./images/iconmonstr-pencil-14-16.png") 0 16, default`)
     }
   }
 

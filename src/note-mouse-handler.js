@@ -171,11 +171,8 @@ class SelectionMouseHandler {
     const bounds = this.selectionRect
     if (this.selectionView.fixed) {
       // 確定済みの選択範囲をドラッグした場合はノートと選択範囲を移動
-      const qx = quantizer.roundX(loc.x - this.dragOffset.x)
-      const qy = quantizer.roundY(loc.y - this.dragOffset.y)
-
-      const movementX = qx - bounds.x
-      const movementY = qy - bounds.y
+      const x = loc.x - this.dragOffset.x
+      const y = loc.y - this.dragOffset.y
 
       const changes = this.selectedNoteIds
         .map(id => { 
@@ -183,16 +180,16 @@ class SelectionMouseHandler {
           const b = view.getBounds()
           return {
             id: id,
-            x: view.x + movementX,
-            y: view.y + movementY,
+            x: quantizer.roundX(view.x + x - bounds.x),
+            y: quantizer.roundY(view.y + y - bounds.y),
             width: b.width,
             height: b.height
           }
         })
 
       this.listener.onMoveNotes(changes)
-      bounds.x = qx
-      bounds.y = qy
+      bounds.x = quantizer.roundX(x)
+      bounds.y = quantizer.roundY(y)
     } else {
       // 選択範囲の変形
       const rect = Rect.fromPoints(this.start, loc)

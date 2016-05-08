@@ -180,8 +180,8 @@ class SelectionMouseHandler {
           const b = view.getBounds()
           return {
             id: id,
-            x: quantizer.roundX(view.x + x - bounds.x),
-            y: quantizer.roundY(view.y + y - bounds.y),
+            x: view.x + quantizer.roundX(x - bounds.x),
+            y: view.y + quantizer.roundY(y - bounds.y),
             width: b.width,
             height: b.height
           }

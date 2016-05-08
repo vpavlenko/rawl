@@ -196,6 +196,9 @@ opts = {
       const notes = this.notes.filter(note => {
         return note.x > -scrollContainer.scrollX && 
           note.x < -scrollContainer.scrollX + scrollContainer.getBounds().width
+      }).map(note => {
+        note.selected = selectedNoteIdStore.includes(note.id)
+        return note
       })
 
       updateNotes(notes)

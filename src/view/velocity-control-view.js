@@ -71,10 +71,11 @@ class VelocityControlView extends createjs.Container {
         view.noteId = note.id
       }
       view.x = note.x
+      const color = note.selected ? "black" : "rgb(88, 103, 250)"
       const height = note.velocity / 127 * viewHeight
       view.graphics
         .clear()
-        .beginFill("rgb(88, 103, 250)")
+        .beginFill(color)
         .rect(0, viewHeight - height, 5, height)
       this.addChild(view)
     })

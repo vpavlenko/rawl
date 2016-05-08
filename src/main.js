@@ -1,3 +1,4 @@
+"use strict"
 const MAX_NOTE_NUMBER = 127
 const KEY_HEIGHT = 14
 const PIXELS_PER_BEAT = 23
@@ -85,7 +86,7 @@ function updateNoteEventWithBounds(e, bounds) {
 }
 
 riot.compile(() => {
-  contextMenu = riot.mount("context-menu", {
+  const contextMenu = riot.mount("context-menu", {
     hidden: true,
     x: 0,
     y: 0,
@@ -94,7 +95,7 @@ riot.compile(() => {
   document.contextMenu = contextMenu
 
   // ルーラーの表示
-  bars = Array.range(0, 3).map(i => {
+  const bars = Array.range(0, 3).map(i => {
     return {
       length: 120,
       label: i

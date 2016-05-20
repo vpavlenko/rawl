@@ -42,12 +42,20 @@ class PianoGridView extends createjs.Container {
       .setStrokeStyle(1)
 
     for (var key = 0; key < numberOfKeys; key++) {
-      const isBold = key % 12 == 5
+      const index = key % 12 
+      const isBold = index == 5
+      const isBlack = index == 1 || index == 3 || index == 6 || index == 8 || index == 10
       const alpha = isBold ? 0.3 : 0.1
       const y = key * keyHeight + 0.5
+      if (isBlack) {
+        g.beginFill("rgba(0, 0, 0, 0.04)")
+          .rect(0, y, width, keyHeight)
+          .endFill()
+      }
       g.beginStroke(`rgba(0, 0, 0, ${alpha})`)
         .moveTo(0, y)
         .lineTo(width, y)
+        .endStroke()
     }
   }
 
@@ -56,10 +64,12 @@ class PianoGridView extends createjs.Container {
       .clear()
       .beginFill("white")
       .rect(0, 0, width, height)
+      .endFill()
       .setStrokeStyle(1)
       .beginStroke("rgba(0, 0, 0, 0.5)")
       .moveTo(0, height + 0.5)
       .lineTo(width, height + 0.5)
+      .endStroke()
       .setStrokeStyle(1)
       .beginStroke("rgba(0, 0, 0, 0.2)")
 
@@ -75,6 +85,8 @@ class PianoGridView extends createjs.Container {
       text.x = x + 5
       this.ruler.addChild(text)
     }
+
+    g.endStroke()
   }
 
   drawCursor(height) {

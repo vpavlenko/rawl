@@ -132,11 +132,13 @@
         console.log(`${noteIds.length} notes selected`)
       },
       onMoveNotes: (changes, noteNumberChanged) => {
+        let playCount = 0
         changes.forEach(c => {
           const e = eventStore.getEventById(c.id)
           updateNoteEventWithBounds(e, c)
-          if (noteNumberChanged) {
+          if (noteNumberChanged && playCount < 7) {
             player.playNote(e.channel, e.noteNumber, 127, 500)
+            playCount++
           }
         })
         eventStore.update()

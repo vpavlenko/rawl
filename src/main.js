@@ -111,23 +111,33 @@
       quantizer: quantizer,
       coordConverter: coordConverter,
       onCreateNote: bounds => {
-        eventStore.add(createNoteEvent(bounds, trackSelectTag.selectedIndex))
+        const channel = trackSelectTag.selectedIndex
+        const note = createNoteEvent(bounds, channel)
+        eventStore.add(note)
+        player.playNote(channel, note.noteNumber, 127, 500)
       },
       onClickNote: noteId => {
         eventStore.removeById(noteId)
       },
       onResizeNote: (noteId, bounds) => {
         const e = eventStore.getEventById(noteId)
+        let noteNumberOld = e.noteNumber
         updateNoteEventWithBounds(e, bounds)
+        if (e.noteNumber != noteNumberOld) {
+          player.playNote(e.channel, e.noteNumber, 127, 500)
+        }
         eventStore.update(e)
       },
       onSelectNotes: noteIds => {
         console.log(`${noteIds.length} notes selected`)
       },
-      onMoveNotes: changes => {
+      onMoveNotes: (changes, noteNumberChanged) => {
         changes.forEach(c => {
           const e = eventStore.getEventById(c.id)
           updateNoteEventWithBounds(e, c)
+          if (noteNumberChanged) {
+            player.playNote(e.channel, e.noteNumber, 127, 500)
+          }
         })
         eventStore.update()
       },

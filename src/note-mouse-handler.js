@@ -49,11 +49,12 @@ class PencilMouseHandler {
     }
 
     const target = this.dragPosition.view
+    const targetSize = target.getBounds()
     const bounds = {
       x: target.x,
       y: target.y,
-      width: target.getBounds().width,
-      height: target.getBounds().height
+      width: targetSize.width,
+      height: targetSize.height
     }
     const p = this.container.globalToLocal(e.stageX, e.stageY)
     const qx = this.quantizer.roundX(p.x)
@@ -76,7 +77,9 @@ class PencilMouseHandler {
       break
     }
 
-    this.listener.onResizeNote(target.noteId, bounds)
+    if (target.x != bounds.x || target.y != bounds.y || targetSize.width != bounds.width || targetSize.height != bounds.height) {
+      this.listener.onResizeNote(target.noteId, bounds)
+    }
   }
 
   updateCursor(e) {
@@ -176,21 +179,27 @@ class SelectionMouseHandler {
       // 確定済みの選択範囲をドラッグした場合はノートと選択範囲を移動
       const x = loc.x - this.dragOffset.x
       const y = loc.y - this.dragOffset.y
+      let noteNumberChanged = false
 
       const changes = this.selectedNoteIds
         .map(id => { 
           const view = this.findNoteViewById(id)
           const b = view.getBounds()
+          const dx = this.quantizer.roundX(x - bounds.x)
+          const dy = this.quantizer.roundY(y - bounds.y)
+          if (dy) noteNumberChanged = true
+          if (dx == 0 && dy == 0) return null
           return {
             id: id,
-            x: view.x + this.quantizer.roundX(x - bounds.x),
-            y: view.y + this.quantizer.roundY(y - bounds.y),
+            x: view.x + dx,
+            y: view.y + dy,
             width: b.width,
             height: b.height
           }
         })
+        .filter(rect => rect != null)
 
-      this.listener.onMoveNotes(changes)
+      this.listener.onMoveNotes(changes, noteNumberChanged)
       bounds.x = this.quantizer.roundX(x)
       bounds.y = this.quantizer.roundY(y)
     } else {

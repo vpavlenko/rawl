@@ -13,6 +13,7 @@
   -->
   <header>
     <input type="file" id="load-midi-input" accept=".mid,.midi"></input>
+    <button id="save-button">Save</button>
     <button id="backward-button">←</button>
     <button id="stop-button">■</button>
     <button id="play-button">▶</button>
@@ -27,6 +28,7 @@
   <div id="container">
     <event-table></event-table>
     <piano-roll></piano-roll>
+    <property-pane></property-pane>
     <context-menu></context-menu>
   </div>
 </body>
@@ -38,6 +40,7 @@
 <script type="riot/tag" src="tag/context-menu.tag"></script>
 <script type="riot/tag" src="tag/event-table.tag"></script>
 <script type="riot/tag" src="tag/riot-select.tag"></script>
+<script type="riot/tag" src="tag/property-pane.tag"></script>
 <script src="lib/coffee-script.js"></script>
 <script src="lib/coffee-riot.js"></script>
 <script src="lib/jasmid/stream.js"></script>
@@ -49,6 +52,7 @@
 <script src="rect.js"></script>
 <script src="helper.js"></script>
 <script src="midi-file-reader.js"></script>
+<script src="midi-file-writer.js"></script>
 <script src="event-store.js"></script>
 <script src="note-coord-converter.js"></script>
 <script src="note-mouse-handler.js"></script>
@@ -59,6 +63,7 @@
 <script src="view/velocity-control-view.js"></script>
 <script src="view/beat-line-view.js"></script>
 <script src="view/note-container.js"></script>
+<script src="note-number-string.js"></script>
 <script src="player.js"></script>
 <script src="main.js"></script>
 <style type="text/css">
@@ -66,6 +71,7 @@
 :root {
   --header-height: 40px;
   --event-table-width: 300px;
+  --property-pane-width: 300px;
 }
 
 html, body {
@@ -111,8 +117,15 @@ event-table {
 piano-roll {
   position: absolute;
   left: var(--event-table-width);
-  width: calc(100% - var(--event-table-width));
+  width: calc(100% - var(--event-table-width) - var(--property-pane-width));
   height: 100%;
+}
+property-pane {
+  position: absolute;
+  left: calc(100% - var(--property-pane-width));
+  width: var(--property-pane-width);
+  height: 100%;
+  overflow: scroll;
 }
 notes {
   position: absolute;

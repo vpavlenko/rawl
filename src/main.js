@@ -95,6 +95,8 @@
     })[0]
     document.contextMenu = contextMenu
 
+    const propertyPane = riot.mount("property-pane")[0]
+
     // ルーラーの表示
     const bars = Array.range(0, 3).map(i => {
       return {
@@ -130,13 +132,15 @@
       },
       onSelectNotes: noteIds => {
         console.log(`${noteIds.length} notes selected`)
+        const events = noteIds.map(id => eventStore.getEventById(id))
+        propertyPane.update({notes: events})
       },
-      onMoveNotes: (changes, noteNumberChanged) => {
+      onMoveNotes: (changes, movement) => {
         let playCount = 0
         changes.forEach(c => {
           const e = eventStore.getEventById(c.id)
           updateNoteEventWithBounds(e, c)
-          if (noteNumberChanged && playCount < 7) {
+          if (movement.y != 0 && playCount < 7) {
             player.playNote(e.channel, e.noteNumber, 127, 500)
             playCount++
           }

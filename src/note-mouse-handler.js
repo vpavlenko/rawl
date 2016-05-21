@@ -159,6 +159,13 @@ class SelectionMouseHandler {
         height: 0
       }
     }
+    if (e.nativeEvent.detail == 2) {
+      this.listener.onCreateNote({
+        x: this.quantizer.floorX(this.start.x),
+        y: this.quantizer.floorY(this.start.y),
+        width: this.quantizer.unitX
+      })
+    }
 
     this.dragOffset = { 
       x: this.start.x - this.selectionRect.x, 

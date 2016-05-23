@@ -95,7 +95,38 @@
     })[0]
     document.contextMenu = contextMenu
 
-    const propertyPane = riot.mount("property-pane")[0]
+    const propertyPane = riot.mount("property-pane", {
+      onChangePitch: (notes, pitch) => {
+        notes.forEach(n => {
+          n.noteNumber = pitch
+        })
+        eventStore.update()
+      },
+      onTransformNotes: (notes, inc) => {
+        notes.forEach(n => {
+          n.noteNumber += inc
+        })
+        eventStore.update()
+      },
+      onChangeStart: (notes, start) => {
+        notes.forEach(n => {
+          n.tick = start
+        })
+        eventStore.update()
+      },
+      onChangeDuration: (notes, duration) => {
+        notes.forEach(n => {
+          n.duration = duration
+        })
+        eventStore.update()
+      },
+      onChangeVelocity: (notes, velocity) => {
+        notes.forEach(n => {
+          n.velocity = velocity
+        })
+        eventStore.update()
+      }
+    })[0]
 
     // ルーラーの表示
     const bars = Array.range(0, 3).map(i => {

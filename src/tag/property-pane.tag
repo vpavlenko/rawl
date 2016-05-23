@@ -8,34 +8,33 @@
       <button onclick={ () => onClickPitch(-1) }>-1</button>
       <button onclick={ () => onClickPitch(12) }>Oct +1</button>
       <button onclick={ () => onClickPitch(-12) }>Oct -1</button>
-      <button onclick={ onClickPitchRandomize }>R</button>
     </div>
   </li>
 
   <li>
     <label>Start</label>
     <input type="text" value="{ sections.start }" onchange={ onChangeStart }>
-    <button>R</button>
+    <button onclick={ onClickRandomStart }>R</button>
   </li>
 
   <li>
     <label>Duration</label>
     <input type="text" value="{ sections.duration }" onchange={ onChangeDuration }>
-    <button>R</button>
+    <button onclick={ onClickRandomDuration }>R</button>
   </li>
 
   <li>
     <label>Velocity</label>
     <input type="text" value="{ sections.velocity }" onchange={ onChangeVelocity }>
-    <button>R</button>
+    <button onclick={ onClickRandomVelocity }>R</button>
   </li>
 
   <li>
     <label>Align</label>
-    <button>Left</button>
-    <button>Right</button>
-    <button>Top</button>
-    <button>Bottom</button>
+    <button onclick={ onClickAlignLeft }>Left</button>
+    <button onclick={ onClickAlignRight }>Right</button>
+    <button onclick={ onClickAlignTop }>Top</button>
+    <button onclick={ onClickAlignBottom }>Bottom</button>
   </li>
 
   <li>
@@ -73,11 +72,7 @@
       // TODO: support math syntax (*25, 3 + 5, 127/3...)
       // TODO: support note number string (C# 3, D4, ...)
       const val = parseInt(e.target.value)
-      if (isNaN(val)) {
-        // TODO: reset previous value
-        return
-      }
-      const aVal = Math.min(127, Math.max(0, val))
+      const aVal = isNaN(val) ? 100 : Math.min(127, Math.max(0, val))
       e.target.value = noteNumberString(aVal)
       this.opts.onChangePitch(this.notes, aVal)
     }
@@ -86,17 +81,38 @@
       this.opts.onTransformNotes(this.notes, inc)
     }
 
-    this.onClickPitchRandomize = () => {
-      const width = 10
-      this.opts.onTransformNotes(this.notes, Math.floor(Math.random() * width - width / 2))
+    this.onChangeStart = (e) => {
+      const val = parseInt(e.target.value)
+      if (isNaN(val)) {
+        return
+      }
+      const aVal = Math.max(0, val)
+      e.target.value = aVal
+      this.opts.onChangeStart(this.notes, aVal)
     }
 
-    this.onChangeStart = (e) => {
-
+    this.onClickRandomStart = () => {
+      this.notes.forEach(n => {
+        const delta = (Math.random() - 0.5) * 240
+        this.opts.onChangeStart([n], Math.max(0, Math.round(n.tick + delta)))
+      })
     }
 
     this.onChangeDuration = (e) => {
+      const val = parseInt(e.target.value)
+      if (isNaN(val)) {
+        return
+      }
+      const aVal = Math.max(0, val)
+      e.target.value = aVal
+      this.opts.onChangeDuration(this.notes, aVal)
+    }
 
+    this.onClickRandomDuration = () => {
+      this.notes.forEach(n => {
+        const delta = n.duration * (Math.random() - 0.5) * 0.5
+        this.opts.onChangeDuration([n], Math.max(0, Math.round(n.duration + delta)))
+      })
     }
 
     this.onChangeVelocity = (e) => {
@@ -104,13 +120,65 @@
       // TODO: support %
       // TODO: support drag to change value
       const val = parseInt(e.target.value)
-      if (isNaN(val)) {
-        // TODO: reset previous value
-        return
-      }
-      const aVal = Math.min(127, Math.max(0, val))
+      const aVal = isNaN(val) ? 100 : Math.min(127, Math.max(0, val))
       e.target.value = aVal
       this.opts.onChangeVelocity(this.notes, aVal)
+    }
+
+    this.onClickRandomVelocity = () => {
+      this.notes.forEach(n => {
+        const delta = n.velocity * (Math.random() - 0.5) * 0.5
+        this.opts.onChangeVelocity([n], Math.max(0, Math.min(127, Math.round(n.velocity + delta))))
+      })
+    }
+
+    this.onClickAlignLeft = () => {
+      let minTick = Number.MAX_VALUE
+      this.notes.forEach(n => {
+        if (n.tick < minTick) {
+          minTick = n.tick
+        }
+      })
+      this.notes.forEach(n => {
+        this.opts.onChangeStart([n], minTick)
+      })
+    }
+
+    this.onClickAlignRight = () => {
+      let maxTick = Number.MIN_VALUE
+      this.notes.forEach(n => {
+        const t = n.tick + n.duration
+        if (t > maxTick) {
+          maxTick = t
+        }
+      })
+      this.notes.forEach(n => {
+        this.opts.onChangeStart([n], maxTick - n.duration)
+      })
+    }
+
+    this.onClickAlignBottom = () => {
+      let minPitch = Number.MAX_VALUE
+      this.notes.forEach(n => {
+        if (n.noteNumber < minPitch) {
+          minPitch = n.noteNumber
+        }
+      })
+      this.notes.forEach(n => {
+        this.opts.onChangePitch([n], minPitch)
+      })
+    }
+
+    this.onClickAlignTop = () => {
+      let maxPitch = Number.MIN_VALUE
+      this.notes.forEach(n => {
+        if (n.noteNumber > maxPitch) {
+          maxPitch = n.noteNumber
+        }
+      })
+      this.notes.forEach(n => {
+        this.opts.onChangePitch([n], maxPitch)
+      })
     }
 
   </script>

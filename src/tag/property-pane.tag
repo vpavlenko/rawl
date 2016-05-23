@@ -187,7 +187,11 @@
       border-bottom: 1px solid rgb(214, 214, 214);
     }
 
-    ul {list-style-type: none;padding: 0;}
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
 
     label {
       background: rgba(0, 0, 0, 0.07);

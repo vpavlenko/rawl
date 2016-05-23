@@ -26,7 +26,10 @@
     <riot-select id="quantize-select"></riot-select>
   </header>
   <div id="container">
-    <event-table></event-table>
+    <div id="side">
+      <track-info></track-info>
+      <event-table></event-table>
+    </div>
     <piano-roll></piano-roll>
     <property-pane></property-pane>
     <context-menu></context-menu>
@@ -41,6 +44,7 @@
 <script type="riot/tag" src="tag/event-table.tag"></script>
 <script type="riot/tag" src="tag/riot-select.tag"></script>
 <script type="riot/tag" src="tag/property-pane.tag"></script>
+<script type="riot/tag" src="tag/track-info.tag"></script>
 <script src="lib/coffee-script.js"></script>
 <script src="lib/coffee-riot.js"></script>
 <script src="lib/jasmid/stream.js"></script>
@@ -70,8 +74,9 @@
 
 :root {
   --header-height: 40px;
-  --event-table-width: 300px;
+  --side-width: 300px;
   --property-pane-width: 300px;
+  --track-info-height: 12em;
 }
 
 html, body {
@@ -89,6 +94,11 @@ body {
 
 header {
   height: var(--header-height);
+  box-sizing: border-box;
+  border-bottom: 1px solid rgb(204, 204, 204);
+  background: rgb(249, 249, 249);
+  padding-top: 8px;
+  padding-left: 1em;
 }
 
 header button {
@@ -97,28 +107,44 @@ header button {
   padding: 0;
   vertical-align: top;
   font-size: 1.3em;
+  -webkit-appearance: none;
+  background: rgba(0, 0, 0, 0);
+  border: none;
+  cursor: pointer;
+}
+header riot-select {
+  margin-top: 2px;
+  display: inline-block;
 }
 
 #container {
   position: absolute;
   left: 0;
   width: 100%;
-  height: calc(100% - var( --header-height));
+  height: calc(100% - var(--header-height));
   overflow: hidden;
+}
+track-info {
+  height: var(--track-info-height);
+  width: var(--side-width);
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 event-table {
   position: absolute;
   left: 0;
-  top: 0;
-  width: var(--event-table-width);
-  height: 100%;
+  top: var(--track-info-height);
+  width: var(--side-width);
+  height: calc(100% - var(--track-info-height));
   overflow: scroll;
 }
 piano-roll {
   position: absolute;
-  left: var(--event-table-width);
-  width: calc(100% - var(--event-table-width) - var(--property-pane-width));
+  left: var(--side-width);
+  width: calc(100% - var(--side-width) - var(--property-pane-width));
   height: 100%;
+  top: 0;
 }
 property-pane {
   position: absolute;
@@ -126,6 +152,7 @@ property-pane {
   width: var(--property-pane-width);
   height: 100%;
   overflow: scroll;
+  top: 0;
 }
 notes {
   position: absolute;

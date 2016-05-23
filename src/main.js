@@ -95,6 +95,8 @@
     })[0]
     document.contextMenu = contextMenu
 
+    const trackInfoTag = riot.mount("track-info")[0]
+
     const propertyPane = riot.mount("property-pane", {
       onChangePitch: (notes, pitch) => {
         notes.forEach(n => {
@@ -127,15 +129,6 @@
         eventStore.update()
       }
     })[0]
-
-    // ルーラーの表示
-    const bars = Array.range(0, 3).map(i => {
-      return {
-        length: 120,
-        label: i
-      }
-    })
-    bars[0].label += " Start"
 
     const notesOpts = {
       numberOfKeys: MAX_NOTE_NUMBER,
@@ -225,7 +218,6 @@
       },
       ],
       onSelect: (item, index) => {
-        console.log(item, index)
         notesTag.clearNotes()
         updateNotes(index)
       }
@@ -337,9 +329,9 @@
       updateNotes(trackSelectTag.selectedIndex)
     }
 
-    function updateNotes(track) {
+    function updateNotes(trackNumber) {
       const trackEvents = eventStore.events.filter(e => {
-        return e.track == track
+        return e.track == trackNumber
       })
       const notes = trackEvents.filter(e => {
         return e.type == "channel" && e.subtype == "note"
@@ -350,6 +342,21 @@
       })
 
       eventTable.update({events: trackEvents})
+
+      if (currentMidi) {
+        const track = currentMidi.tracks[trackNumber]
+        const programChangeEvent = track.events.filter(t => t.subtype == "programChange")[0]
+        const volumeEvent = track.events.filter(t => t.subtype == "controller" && t.controllerType == 7)[0]
+        const panEvent = track.events.filter(t => t.subtype == "controller" && t.controllerType == 10)[0]
+        if (programChangeEvent) {
+          trackInfoTag.update({
+            name: track.name,
+            instrument: programChangeEvent.programNumber,
+            volume: volumeEvent.value,
+            pan: panEvent.value
+          })
+        }
+      }
     }
 
     eventStore.on("change", e => {

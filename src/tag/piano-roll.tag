@@ -73,15 +73,12 @@ opts = {
 
       stage.on("stagemousedown", e => {
         mouseHandler.onMouseDown(e)
-        stage.update()
       })
       stage.on("stagemouseup", e => {
         mouseHandler.onMouseUp(e)
-        stage.update()
       })
       stage.on("stagemousemove", e => {
         mouseHandler.onMouseMove(e)
-        stage.update()
       })
 
       grid = new PianoGridView(127, RULER_HEIGHT, this.coordConverter, 1000)
@@ -97,6 +94,7 @@ opts = {
 
       controlContainer = new VelocityControlView(this.coordConverter)
       controlContainer.x = KEY_WIDTH
+      controlContainer.setBounds(0, 0, this.contentWidth, CONTROL_HEIGHT)
       controlContainer.on("change", e => {
         opts.onChangeNoteVelocity(e.noteId, e.velocity)
       })
@@ -131,13 +129,14 @@ opts = {
         opts.onMoveCursor(tick)
       })
 
-      stage.update()
-
-      scrollContainer.on("scroll", e => {
+      const updateScroll = () => {
         keys.x = -scrollContainer.scrollX
         grid.rulerY = -scrollContainer.scrollY
         controlContainer.y = scrollContainer.getBounds().height - controlContainer.getBounds().height - scrollContainer.scrollY - 17
-        stage.update()
+      }
+
+      scrollContainer.on("scroll", e => {
+        updateScroll()
         updateViews()
       })
 
@@ -152,19 +151,20 @@ opts = {
 
         scrollContainer.setBounds(0, 0, rect.width, rect.height)
 
+        updateScroll()
         updateViews()
-        stage.update()
       }
 
       window.onresize = (e => {
         resizeCanvas()
       }).bind(this)
 
+      updateScroll()
       resizeCanvas()
     })
 
-    const updateViews = () => {
-      const notes = this.notes.filter(note => {
+    const updateViews = (noteRects) => {
+      const notes = this.notes.map(this.coordConverter.eventToRect).filter(note => {
         return note.x > -scrollContainer.scrollX && 
           note.x < -scrollContainer.scrollX + scrollContainer.getBounds().width
       }).map(note => {
@@ -174,6 +174,7 @@ opts = {
 
       noteContainer.notes = notes
       controlContainer.notes = notes
+      stage.update()
     }
 
     this.on("update", () => {
@@ -185,8 +186,11 @@ opts = {
       this.noteCanvas.parentNode.style.cursor = this.mouseMode == 0 ? "auto" : "crosshair"
 
       {
-        const maxNoteX = Math.max(500, this.notes != null && this.notes.length > 0 ? 
-          Math.max.apply(null, (this.notes.map(n => n.x + n.width))) : 0)
+        const noteRightEdges = this.notes
+          .map(this.coordConverter.eventToRect)
+          .map(n => n.x + n.width)
+
+        const maxNoteX = Math.max(this.contentWidth, Math.max.apply(null, noteRightEdges))
 
         this.contentWidth = Math.ceil(maxNoteX) + KEY_WIDTH
         scrollContainer.contentSize = {
@@ -197,9 +201,6 @@ opts = {
         controlContainer.setBounds(0, 0, this.contentWidth, CONTROL_HEIGHT)
       }
 
-      updateViews()
-      grid.redraw()
-
       selectionView.graphics
         .clear()
         .setStrokeStyle(1)
@@ -208,7 +209,8 @@ opts = {
       selectionView.x = selection.x
       selectionView.y = selection.y
 
-      stage.update()
+      grid.redraw()
+      updateViews()
     })
   </script>
 

@@ -15,6 +15,7 @@ class NoteCoordConverter {
     this.tempos = tempos
     this.timebase = timebase
     this.maxNoteNumber = maxNoteNumber - 3
+    bindAllMethods(this)
   }
 
   // seconds
@@ -63,5 +64,20 @@ class NoteCoordConverter {
 
   getNoteNumberForPixels(pixels) {
     return (this.maxNoteNumber - pixels / this.pixelsPerKey)
+  }
+
+  // 
+
+  eventToRect(noteEvent) {
+    const start = this.getPixelsAt(noteEvent.tick)
+    const end = this.getPixelsAt(noteEvent.tick + noteEvent.duration)
+    return {
+      id: noteEvent.id,
+      x: start,
+      y: this.getPixelsForNoteNumber(noteEvent.noteNumber),
+      width: end - start,
+      height: this.pixelsPerKey,
+      velocity: noteEvent.velocity
+    }
   }
 }

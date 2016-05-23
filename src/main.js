@@ -343,17 +343,6 @@
       })
       const notes = trackEvents.filter(e => {
         return e.type == "channel" && e.subtype == "note"
-      }).map(e => {
-        const start = coordConverter.getPixelsAt(e.tick)
-        const end = coordConverter.getPixelsAt(e.tick + e.duration)
-        return {
-          id: e.id,
-          x: start,
-          y: coordConverter.getPixelsForNoteNumber(e.noteNumber),
-          width: end - start,
-          height: quantizer.unitY,
-          velocity: e.velocity
-        }
       })
 
       notesTag.update({

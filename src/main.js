@@ -118,7 +118,7 @@
         eventStore.add(note)
         player.playNote(channel, note.noteNumber, 127, 500)
       },
-      onClickNote: noteId => {
+      onRemoveNote: noteId => {
         eventStore.removeById(noteId)
       },
       onResizeNote: (noteId, bounds) => {

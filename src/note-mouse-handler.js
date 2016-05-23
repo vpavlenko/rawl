@@ -25,6 +25,9 @@ class PencilMouseHandler {
         type: this.getDragPositionType(local.x, view.getBounds().width),
         view: view
       }
+      if (e.nativeEvent.detail == 2) {
+        this.listener.onRemoveNote(view.noteId)
+      }
     } else if (!e.relatedTarget) {
       this.dragPosition = null
       this.listener.onCreateNote({

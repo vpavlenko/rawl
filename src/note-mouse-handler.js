@@ -1,8 +1,16 @@
 "use strict"
 const DRAG_POSITION = {
+  NONE: -1,
   LEFT_EDGE: 0,
   CENTER: 1,
   RIGHT_EDGE: 2
+}
+
+function getDragPositionType(localX, targetWidth) {
+  const edgeSize = Math.min(targetWidth / 3, 8)
+  if (localX <= edgeSize) { return DRAG_POSITION.LEFT_EDGE }
+  if (targetWidth - localX <= edgeSize) { return DRAG_POSITION.RIGHT_EDGE }
+  return DRAG_POSITION.CENTER
 }
 
 class PencilMouseHandler {
@@ -22,7 +30,7 @@ class PencilMouseHandler {
       this.dragPosition = {
         x: local.x,
         y: local.y,
-        type: this.getDragPositionType(local.x, view.getBounds().width),
+        type: getDragPositionType(local.x, view.getBounds().width),
         view: view
       }
       if (e.nativeEvent.detail == 2) {
@@ -36,13 +44,6 @@ class PencilMouseHandler {
         width: this.quantizer.unitX
       })
     }
-  }
-
-  getDragPositionType(localX, noteWidth) {
-    const edgeSize = Math.min(noteWidth / 3, 8)
-    if (localX <= edgeSize) { return DRAG_POSITION.LEFT_EDGE }
-    if (noteWidth - localX <= edgeSize) { return DRAG_POSITION.RIGHT_EDGE }
-    return DRAG_POSITION.CENTER
   }
 
   onMouseMove(e) {
@@ -90,15 +91,15 @@ class PencilMouseHandler {
     const view = this.getNoteViewUnderPoint(cpos.x, cpos.y)
     if (view) {
       const pos = view.globalToLocal(e.stageX, e.stageY)
-      const type = this.getDragPositionType(pos.x, view.getBounds().width)
+      const type = getDragPositionType(pos.x, view.getBounds().width)
       switch (type) {
         case DRAG_POSITION.LEFT_EDGE:
         case DRAG_POSITION.RIGHT_EDGE: 
-        this.listener.onCursorChanged("w-resize")
-        break
+          this.listener.onCursorChanged("w-resize")
+          break
         default:
-        this.listener.onCursorChanged("move")
-        break
+          this.listener.onCursorChanged("move")
+          break
       }
     } else {
       this.listener.onCursorChanged(`url("./images/iconmonstr-pencil-14-16.png") 0 16, default`)
@@ -161,6 +162,15 @@ class SelectionMouseHandler {
         width: 0,
         height: 0
       }
+      this.dragPosition = { x: 0, y: 0, type: DRAG_POSITION.NONE }
+    } else {
+      const x = this.start.x - this.selectionRect.x
+      const y = this.start.y - this.selectionRect.y 
+      this.dragPosition = {
+        x: x,
+        y: y,
+        type: getDragPositionType(x, this.selectionRect.width),
+      }
     }
     if (e.nativeEvent.detail == 2) {
       this.listener.onCreateNote({
@@ -168,11 +178,6 @@ class SelectionMouseHandler {
         y: this.quantizer.floorY(this.start.y),
         width: this.quantizer.unitX
       })
-    }
-
-    this.dragOffset = { 
-      x: this.start.x - this.selectionRect.x, 
-      y: this.start.y - this.selectionRect.y 
     }
   }
 
@@ -186,33 +191,89 @@ class SelectionMouseHandler {
     const loc = this.container.globalToLocal(e.stageX, e.stageY)
     const bounds = this.selectionRect
     if (this.selectionView.fixed) {
-      // 確定済みの選択範囲をドラッグした場合はノートと選択範囲を移動
-      const dx = this.quantizer.roundX(loc.x - this.dragOffset.x - bounds.x)
-      const dy = this.quantizer.roundY(loc.y - this.dragOffset.y - bounds.y)
+      switch (this.dragPosition.type) {
+        case DRAG_POSITION.CENTER: {
+          // 確定済みの選択範囲をドラッグした場合はノートと選択範囲を移動
+          const dx = this.quantizer.roundX(loc.x - this.dragPosition.x - bounds.x)
+          const dy = this.quantizer.roundY(loc.y - this.dragPosition.y - bounds.y)
 
-      if (dx == 0 && dy == 0) {
-        return
-      } 
+          if (dx == 0 && dy == 0) {
+            return
+          } 
 
-      console.log(dx, dy)
+          const changes = this.selectedNoteIds
+            .map(id => { 
+              const view = this.findNoteViewById(id)
+              const b = view.getBounds()
+              return {
+                id: id,
+                x: view.x + dx,
+                y: view.y + dy,
+                width: b.width,
+                height: b.height
+              }
+            })
+            .filter(rect => rect != null)
 
-      const changes = this.selectedNoteIds
-        .map(id => { 
-          const view = this.findNoteViewById(id)
-          const b = view.getBounds()
-          return {
-            id: id,
-            x: view.x + dx,
-            y: view.y + dy,
-            width: b.width,
-            height: b.height
+          this.listener.onMoveNotes(changes, {x: dx, y: dy})
+          bounds.x += dx
+          bounds.y += dy
+          break
+        }
+        case DRAG_POSITION.LEFT_EDGE: {
+          const qx = this.quantizer.floorX(loc.x)
+          if (bounds.x - qx == 0) {
+            return
           }
-        })
-        .filter(rect => rect != null)
+          // 右端を固定して長さを変更
+          const width = Math.max(this.quantizer.unitX, bounds.width + bounds.x - qx)
+          const x = Math.min(bounds.width + bounds.x - this.quantizer.unitX, qx)
+          const dw = width - bounds.width
+          const dx = x - bounds.x
+          console.log(dw, dx)
 
-      this.listener.onMoveNotes(changes, {x: dx, y: dy})
-      bounds.x += dx
-      bounds.y += dy
+          const noteViews = this.selectedNoteIds
+            .map(id => this.findNoteViewById(id))
+
+          // TODO: noteViews を走査してどのビューも幅が0にならないように dx, dw を調節する
+
+          noteViews.forEach(v => {
+            this.listener.onResizeNote(v.noteId, {
+              x: v.x + dx,
+              y: v.y,
+              width: v.getBounds().width + dw,
+              height: v.getBounds().height
+            })
+          })
+          bounds.x = x
+          bounds.width = width
+          break
+        }
+        case DRAG_POSITION.RIGHT_EDGE: {
+          const qx = this.quantizer.floorX(loc.x)
+          if (qx == 0) {
+            return
+          }
+          // 左端を固定して長さを変更
+          const w = Math.max(this.quantizer.unitX, qx - bounds.x)
+          const dw = w - bounds.width
+          bounds.width = w
+
+          // TODO: noteViews を走査してどのビューも幅が0にならないように dw を調節する
+
+          const noteViews = this.selectedNoteIds
+            .map(id => this.findNoteViewById(id))
+            .forEach(v => {
+              this.listener.onResizeNote(v.noteId, {
+                x: v.x,
+                y: v.y,
+                width: v.getBounds().width + dw,
+                height: v.getBounds().height
+              })
+            })
+          break
+        }
+      }
     } else {
       // 選択範囲の変形
       const rect = Rect.fromPoints(this.start, loc)
@@ -228,7 +289,15 @@ class SelectionMouseHandler {
     const loc = this.container.globalToLocal(e.stageX, e.stageY)
     const hover = this.selectionRect.contains(loc.x, loc.y)
     if (this.selectionView.visible && hover) {
-      this.listener.onCursorChanged("move")
+      switch(getDragPositionType(loc.x - this.selectionRect.x, this.selectionRect.width)) {
+        case DRAG_POSITION.LEFT_EDGE:
+        case DRAG_POSITION.RIGHT_EDGE: 
+          this.listener.onCursorChanged("w-resize")
+          break
+        default:
+          this.listener.onCursorChanged("move")
+          break
+      }
     } else {
       this.listener.onCursorChanged("crosshair")
     }
@@ -240,12 +309,16 @@ class SelectionMouseHandler {
     }) 
   }
 
-  getNoteIdsInRect(rect) {
+  getNoteViewsInRect(rect) {
     return this.container.children.filter(c => {
         if (!(c instanceof NoteView)) return
         const b = c.getBounds()
         return rect.contains(c.x, c.y, b.width, b.height)
-      }).map(c => c.noteId)
+      })
+  }
+
+  getNoteIdsInRect(rect) {
+    return this.getNoteViewsInRect(rect).map(c => c.noteId)
   }
 
   set selectedNoteIds(ids) {

@@ -190,9 +190,9 @@ opts = {
           .map(this.coordConverter.eventToRect)
           .map(n => n.x + n.width)
 
-        const maxNoteX = Math.max(this.contentWidth, Math.max.apply(null, noteRightEdges))
+        const maxNoteX = Math.max.apply(null, noteRightEdges)
+        this.contentWidth = Math.ceil(Math.max(this.contentWidth, maxNoteX + KEY_WIDTH))
 
-        this.contentWidth = Math.ceil(maxNoteX) + KEY_WIDTH
         scrollContainer.contentSize = {
           width: this.contentWidth, 
           height: this.contentHeight

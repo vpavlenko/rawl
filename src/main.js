@@ -373,8 +373,11 @@
 
     shi.onUp("update", "/tracks/:trackId/notes/:noteId/:property", req => {
       const note = eventStore.getEventById(req.params.noteId)
+      const oldValue = note[req.params.property]
       note[req.params.property] = req.value
-      eventStore.update()
+      if (oldValue != req.value) {
+        eventStore.update()
+      }
     })
 
     shi.onUp("remove", "/tracks/:trackId/notes/:noteId", req => {

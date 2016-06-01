@@ -27,8 +27,8 @@ class VelocityControlView extends createjs.Container {
       const noteId = e.target.noteId
       if (noteId === undefined) return
       const height = this.getBounds().height
-      const value = Math.max(0, Math.min(VEL_MAX_VALUE, 
-        (height - this.globalToLocal(e.stageX, e.stageY).y) / height * VEL_MAX_VALUE))
+      const value = Math.floor(Math.max(0, Math.min(VEL_MAX_VALUE, 
+        (height - this.globalToLocal(e.stageX, e.stageY).y) / height * VEL_MAX_VALUE)))
       const ev = new createjs.Event("change")
       ev.noteId = noteId
       ev.velocity = value

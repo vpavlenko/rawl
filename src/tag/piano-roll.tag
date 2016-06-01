@@ -10,14 +10,10 @@ opts = {
   quantizer: <Quantizer>
   coordConverter: <NoteCoordConverter>
   mouseMode: <Number> 0: pencil, 1: selection
-  onCreateNote: <Function(bounds)> 
-  onResizeNote: <Function(noteId, bounds)>
-  onClickNote: <Function(noteId)>
   onSelectNotes: <Function(noteIds)>
-  onMoveNotes : <Function([{noteId, x, y, width, height}], movement)>
   onClickNotes: <Function(noteIds, mouseEvent)>
   onMoveCursor: <Function(tick)>
-  onChangeNoteVelocity: <Function(noteId, velocity)>
+  shi: <Shinjuku>
 }
 -->
 <piano-roll>
@@ -97,7 +93,7 @@ opts = {
       controlContainer.x = KEY_WIDTH
       controlContainer.setBounds(0, 0, this.contentWidth, CONTROL_HEIGHT)
       controlContainer.on("change", e => {
-        opts.onChangeNoteVelocity(e.noteId, e.velocity)
+        this.shi.update(`/tracks/_/notes/${e.noteId}/velocity`, e.velocity)
       })
       scrollContainer.addChild(controlContainer)
 

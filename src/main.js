@@ -135,40 +135,10 @@
       quantizer: quantizer,
       coordConverter: coordConverter,
       shi: shi,
-      onCreateNote: bounds => {
-        const channel = trackSelectTag.selectedIndex
-        const note = createNoteEvent(bounds, channel)
-        eventStore.add(note)
-        player.playNote(channel, note.noteNumber, 127, 500)
-      },
-      onRemoveNote: noteId => {
-        eventStore.removeById(noteId)
-      },
-      onResizeNote: (noteId, bounds) => {
-        const e = eventStore.getEventById(noteId)
-        let noteNumberOld = e.noteNumber
-        updateNoteEventWithBounds(e, bounds)
-        if (e.noteNumber != noteNumberOld) {
-          player.playNote(e.channel, e.noteNumber, 127, 500)
-        }
-        eventStore.update(e)
-      },
       onSelectNotes: noteIds => {
         console.log(`${noteIds.length} notes selected`)
         const events = noteIds.map(id => eventStore.getEventById(id))
         propertyPane.update({notes: events})
-      },
-      onMoveNotes: (changes, movement) => {
-        let playCount = 0
-        changes.forEach(c => {
-          const e = eventStore.getEventById(c.id)
-          updateNoteEventWithBounds(e, c)
-          if (movement.y != 0 && playCount < 7) {
-            player.playNote(e.channel, e.noteNumber, 127, 500)
-            playCount++
-          }
-        })
-        eventStore.update()
       },
       onClickNotes: (noteIds, e) => {
         if (e.button != 2) return
@@ -196,11 +166,6 @@
       },
       onMoveCursor: tick => {
         player.position = tick
-      },
-      onChangeNoteVelocity: (noteId, velocity) => {
-        const e = eventStore.getEventById(noteId)
-        e.velocity = velocity
-        eventStore.update()
       }
     }
     const trackSelectTag = riot.mount("#track-select", { 

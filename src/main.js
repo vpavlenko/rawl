@@ -113,6 +113,12 @@
     e.noteNumber = noteNum
   }
 
+  shi.onUp("update", "/tracks/:trackId/notes/:noteId/:property", req => {
+    const note = eventStore.getEventById(req.params.noteId)
+    note[req.params.property] = req.value
+    eventStore.update()
+  })
+
   riot.compile(() => {
     const contextMenu = riot.mount("context-menu", {
       hidden: true,
@@ -125,36 +131,7 @@
     const trackInfoTag = riot.mount("track-info")[0]
 
     const propertyPane = riot.mount("property-pane", {
-      onChangePitch: (notes, pitch) => {
-        notes.forEach(n => {
-          n.noteNumber = pitch
-        })
-        eventStore.update()
-      },
-      onTransformNotes: (notes, inc) => {
-        notes.forEach(n => {
-          n.noteNumber += inc
-        })
-        eventStore.update()
-      },
-      onChangeStart: (notes, start) => {
-        notes.forEach(n => {
-          n.tick = start
-        })
-        eventStore.update()
-      },
-      onChangeDuration: (notes, duration) => {
-        notes.forEach(n => {
-          n.duration = duration
-        })
-        eventStore.update()
-      },
-      onChangeVelocity: (notes, velocity) => {
-        notes.forEach(n => {
-          n.velocity = velocity
-        })
-        eventStore.update()
-      }
+      shi: shi
     })[0]
 
     const notesOpts = {

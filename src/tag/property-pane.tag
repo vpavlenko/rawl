@@ -47,6 +47,7 @@
 
     this.notes = []
     this.sections = []
+    this.shi = opts.shi
 
     function equalValue(arr, prop, func = (v) => v, elseValue = "<multiple values>") {
       const first = arr[0][prop]
@@ -74,11 +75,15 @@
       const val = parseInt(e.target.value)
       const aVal = isNaN(val) ? 100 : Math.min(127, Math.max(0, val))
       e.target.value = noteNumberString(aVal)
-      this.opts.onChangePitch(this.notes, aVal)
+      this.notes.forEach(n => {
+        this.shi.update(`/tracks/_/notes/${n.id}/noteNumber`, aVal)
+      })
     }
 
     this.onClickPitch = (inc) => {
-      this.opts.onTransformNotes(this.notes, inc)
+      this.notes.forEach(n => {
+        this.shi.update(`/tracks/_/notes/${n.id}/noteNumber`, n.noteNumber + inc)
+      })
     }
 
     this.onChangeStart = (e) => {
@@ -88,13 +93,14 @@
       }
       const aVal = Math.max(0, val)
       e.target.value = aVal
-      this.opts.onChangeStart(this.notes, aVal)
+      this.shi.update(`/tracks/_/notes/${n.id}/tick`, aVal)
     }
 
     this.onClickRandomStart = () => {
       this.notes.forEach(n => {
         const delta = (Math.random() - 0.5) * 240
-        this.opts.onChangeStart([n], Math.max(0, Math.round(n.tick + delta)))
+        const val = Math.max(0, Math.round(n.tick + delta))
+        this.shi.update(`/tracks/_/notes/${n.id}/tick`, val)
       })
     }
 
@@ -105,13 +111,14 @@
       }
       const aVal = Math.max(0, val)
       e.target.value = aVal
-      this.opts.onChangeDuration(this.notes, aVal)
+      this.shi.update(`/tracks/_/notes/${n.id}/duration`, aVal)
     }
 
     this.onClickRandomDuration = () => {
       this.notes.forEach(n => {
         const delta = n.duration * (Math.random() - 0.5) * 0.5
-        this.opts.onChangeDuration([n], Math.max(0, Math.round(n.duration + delta)))
+        const val = Math.max(0, Math.round(n.duration + delta))
+        this.shi.update(`/tracks/_/notes/${n.id}/duration`, val)
       })
     }
 
@@ -122,13 +129,16 @@
       const val = parseInt(e.target.value)
       const aVal = isNaN(val) ? 100 : Math.min(127, Math.max(0, val))
       e.target.value = aVal
-      this.opts.onChangeVelocity(this.notes, aVal)
+      this.notes.forEach(n => {
+        this.shi.update(`/tracks/_/notes/${n.id}/velocity`, aVal)
+      })
     }
 
     this.onClickRandomVelocity = () => {
       this.notes.forEach(n => {
         const delta = n.velocity * (Math.random() - 0.5) * 0.5
-        this.opts.onChangeVelocity([n], Math.max(0, Math.min(127, Math.round(n.velocity + delta))))
+        const val = Math.max(0, Math.min(127, Math.round(n.velocity + delta)))
+        this.shi.update(`/tracks/_/notes/${n.id}/velocity`, val)
       })
     }
 
@@ -140,7 +150,7 @@
         }
       })
       this.notes.forEach(n => {
-        this.opts.onChangeStart([n], minTick)
+        this.shi.update(`/tracks/_/notes/${n.id}/tick`, minTick)
       })
     }
 
@@ -153,7 +163,7 @@
         }
       })
       this.notes.forEach(n => {
-        this.opts.onChangeStart([n], maxTick - n.duration)
+        this.shi.update(`/tracks/_/notes/${n.id}/tick`, maxTick - n.duration)
       })
     }
 
@@ -165,7 +175,7 @@
         }
       })
       this.notes.forEach(n => {
-        this.opts.onChangePitch([n], minPitch)
+        this.shi.update(`/tracks/_/notes/${n.id}/noteNumber`, minPitch)
       })
     }
 
@@ -177,7 +187,7 @@
         }
       })
       this.notes.forEach(n => {
-        this.opts.onChangePitch([n], maxPitch)
+        this.shi.update(`/tracks/_/notes/${n.id}/noteNumber`, maxPitch)
       })
     }
 

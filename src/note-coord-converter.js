@@ -59,11 +59,11 @@ class NoteCoordConverter {
   // ticks
 
   getTicksForPixels(pixels) {
-    return pixels / this.pixelsPerBeat * this.timebase
+    return Math.floor(pixels / this.pixelsPerBeat * this.timebase)
   }
 
   getNoteNumberForPixels(pixels) {
-    return (this.maxNoteNumber - pixels / this.pixelsPerKey)
+    return Math.floor(this.maxNoteNumber - pixels / this.pixelsPerKey)
   }
 
   // 

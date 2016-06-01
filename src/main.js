@@ -113,12 +113,6 @@
     e.noteNumber = noteNum
   }
 
-  shi.onUp("update", "/tracks/:trackId/notes/:noteId/:property", req => {
-    const note = eventStore.getEventById(req.params.noteId)
-    note[req.params.property] = req.value
-    eventStore.update()
-  })
-
   riot.compile(() => {
     const contextMenu = riot.mount("context-menu", {
       hidden: true,
@@ -140,6 +134,7 @@
       mouseMode: 1,
       quantizer: quantizer,
       coordConverter: coordConverter,
+      shi: shi,
       onCreateNote: bounds => {
         const channel = trackSelectTag.selectedIndex
         const note = createNoteEvent(bounds, channel)
@@ -374,6 +369,32 @@
         }})
         trackSelectTag.update({options: trackOptions})
       }
+    })
+
+    shi.onUp("update", "/tracks/:trackId/notes/:noteId/:property", req => {
+      const note = eventStore.getEventById(req.params.noteId)
+      note[req.params.property] = req.value
+      eventStore.update()
+    })
+
+    shi.onUp("remove", "/tracks/:trackId/notes/:noteId", req => {
+      eventStore.removeById(req.params.noteId)
+    })
+
+    shi.onUp("create", "/tracks/:trackId/notes", req => {
+      const channel = req.value.track || trackSelectTag.selectedIndex
+      const note = {
+        type: "channel",
+        subtype: "note",
+        noteNumber: req.value.noteNumber || 48,
+        tick: req.value.tick || 0,
+        velocity: req.value.velocity || 127,
+        duration: req.value.duration || 240,
+        channel: channel,
+        track: channel
+      }
+      eventStore.add(note)
+      player.playNote(channel, note.noteNumber, 127, 500)
     })
   })
 })()

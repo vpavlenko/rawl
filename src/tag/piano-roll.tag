@@ -35,6 +35,7 @@ opts = {
     this.mouseMode = opts.mouseMode
     this.coordConverter = opts.coordConverter
     this.quantizer = opts.quantizer
+    this.shi = opts.shi
 
     this.contentWidth = 500 + KEY_WIDTH
     this.contentHeight = this.coordConverter.getPixelsForNoteNumber(0) + RULER_HEIGHT
@@ -112,8 +113,8 @@ opts = {
       }
 
       mouseHandlers.pushArray([
-        new PencilMouseHandler(noteContainer, this.noteCanvas, opts, this.quantizer),
-        new SelectionMouseHandler(noteContainer, selectionView, opts, selectedNoteIdStore, this.quantizer)
+        new PencilMouseHandler(noteContainer, this.noteCanvas, opts, this.quantizer, this.coordConverter, this.shi),
+        new SelectionMouseHandler(noteContainer, selectionView, opts, selectedNoteIdStore, this.quantizer, this.coordConverter, this.shi)
       ])
       mouseHandler = mouseHandlers[this.mouseMode]
 

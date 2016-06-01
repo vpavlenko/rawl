@@ -14,11 +14,13 @@ function getDragPositionType(localX, targetWidth) {
 }
 
 class PencilMouseHandler {
-  constructor(container, canvas, listener, quantizer) {
+  constructor(container, canvas, listener, quantizer, coordConverter, shi) {
     this.container = container
     this.canvas = canvas
     this.listener = listener
     this.quantizer = quantizer
+    this.coordConverter = coordConverter
+    this.shi = shi
     bindAllMethods(this)
   }
 
@@ -34,14 +36,16 @@ class PencilMouseHandler {
         view: view
       }
       if (e.nativeEvent.detail == 2) {
-        this.listener.onRemoveNote(view.noteId)
+        this.shi.remove(`/tracks/_/notes/${view.noteId}`)
       }
     } else if (!e.relatedTarget) {
       this.dragPosition = null
-      this.listener.onCreateNote({
-        x: this.quantizer.floorX(cpos.x),
-        y: this.quantizer.floorY(cpos.y),
-        width: this.quantizer.unitX
+      const x = this.quantizer.floorX(cpos.x)
+      const y = this.quantizer.floorY(cpos.y)
+      this.shi.create("/tracks/_/notes", {
+        tick: this.coordConverter.getTicksForPixels(x),
+        noteNumber: this.coordConverter.getNoteNumberForPixels(y),
+        duration: 240,
       })
     }
   }
@@ -82,7 +86,12 @@ class PencilMouseHandler {
     }
 
     if (target.x != bounds.x || target.y != bounds.y || targetSize.width != bounds.width || targetSize.height != bounds.height) {
-      this.listener.onResizeNote(target.noteId, bounds)
+      const tick = this.coordConverter.getTicksForPixels(bounds.x)
+      const noteNumber = this.coordConverter.getNoteNumberForPixels(bounds.y)
+      const duration = this.coordConverter.getTicksForPixels(bounds.x + bounds.width) - tick
+      this.shi.update(`/tracks/_/notes/${target.noteId}/tick`, tick)
+      this.shi.update(`/tracks/_/notes/${target.noteId}/noteNumber`, noteNumber)
+      this.shi.update(`/tracks/_/notes/${target.noteId}/duration`, duration)
     }
   }
 
@@ -120,12 +129,14 @@ class PencilMouseHandler {
 }
 
 class SelectionMouseHandler {
-  constructor(container, selectionView, listener, selectedNoteStore, quantizer) {
+  constructor(container, selectionView, listener, selectedNoteStore, quantizer, coordConverter, shi) {
     this.container = container
     this.listener = listener
     this.selectionView = selectionView
     this.selectedNoteStore = selectedNoteStore
     this.quantizer = quantizer
+    this.coordConverter = coordConverter
+    this.shi = shi
     this.isMouseDown = false
   }
 
@@ -173,10 +184,11 @@ class SelectionMouseHandler {
       }
     }
     if (e.nativeEvent.detail == 2) {
-      this.listener.onCreateNote({
-        x: this.quantizer.floorX(this.start.x),
-        y: this.quantizer.floorY(this.start.y),
-        width: this.quantizer.unitX
+      const tick = this.coordConverter.getTicksForPixels(this.quantizer.floorX(this.start.x))
+      const noteNumber = this.coordConverter.getNoteNumberForPixels(this.quantizer.floorY(this.start.y))
+      this.shi.create("/tracks/_/notes", {
+        tick: tick,
+        noteNumber: noteNumber,
       })
     }
   }
@@ -208,14 +220,17 @@ class SelectionMouseHandler {
               return {
                 id: id,
                 x: view.x + dx,
-                y: view.y + dy,
-                width: b.width,
-                height: b.height
+                y: view.y + dy
               }
             })
             .filter(rect => rect != null)
+            .forEach(rect => {
+              const tick = this.coordConverter.getTicksForPixels(rect.x)
+              const noteNumber = this.coordConverter.getNoteNumberForPixels(rect.y)
+              this.shi.update(`/tracks/_/notes/${rect.id}/tick`, tick)
+              this.shi.update(`/tracks/_/notes/${rect.id}/noteNumber`, noteNumber)
+            })
 
-          this.listener.onMoveNotes(changes, {x: dx, y: dy})
           bounds.x += dx
           bounds.y += dy
           break
@@ -237,13 +252,11 @@ class SelectionMouseHandler {
 
           // TODO: noteViews を走査してどのビューも幅が0にならないように dx, dw を調節する
 
-          noteViews.forEach(v => {
-            this.listener.onResizeNote(v.noteId, {
-              x: v.x + dx,
-              y: v.y,
-              width: v.getBounds().width + dw,
-              height: v.getBounds().height
-            })
+          noteViews.forEach(v => { 
+            const tick = this.coordConverter.getTicksForPixels(v.x + dx)
+            const duration = this.coordConverter.getTicksForPixels(v.getBounds().width + dw)
+            this.shi.update(`/tracks/_/notes/${v.noteId}/tick`, tick)
+            this.shi.update(`/tracks/_/notes/${v.noteId}/duration`, duration)
           })
           bounds.x = x
           bounds.width = width
@@ -263,13 +276,9 @@ class SelectionMouseHandler {
 
           const noteViews = this.selectedNoteIds
             .map(id => this.findNoteViewById(id))
-            .forEach(v => {
-              this.listener.onResizeNote(v.noteId, {
-                x: v.x,
-                y: v.y,
-                width: v.getBounds().width + dw,
-                height: v.getBounds().height
-              })
+            .forEach(v => { 
+              const duration = this.coordConverter.getTicksForPixels(v.getBounds().width + dw)
+              this.shi.update(`/tracks/_/notes/${v.noteId}/duration`, duration)
             })
           break
         }

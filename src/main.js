@@ -5,6 +5,7 @@
   const PIXELS_PER_BEAT = 23
   const TIME_BASE = 480
 
+  const shi = new Shinjuku
   const clipboard = new Clipboard
   const quantizer = new Quantizer(PIXELS_PER_BEAT, KEY_HEIGHT)
   const eventStore = new EventStore

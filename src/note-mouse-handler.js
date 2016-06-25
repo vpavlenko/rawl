@@ -14,13 +14,13 @@ function getDragPositionType(localX, targetWidth) {
 }
 
 class PencilMouseHandler {
-  constructor(container, canvas, listener, quantizer, coordConverter, shi) {
+  constructor(container, canvas, listener, quantizer, coordConverter, noteStore) {
     this.container = container
     this.canvas = canvas
     this.listener = listener
     this.quantizer = quantizer
     this.coordConverter = coordConverter
-    this.shi = shi
+    this.noteStore = noteStore
     bindAllMethods(this)
   }
 
@@ -36,13 +36,13 @@ class PencilMouseHandler {
         view: view
       }
       if (e.nativeEvent.detail == 2) {
-        this.shi.remove(`/tracks/_/notes/${view.noteId}`)
+        this.noteStore.remove(view.noteId)
       }
     } else if (!e.relatedTarget) {
       this.dragPosition = null
       const x = this.quantizer.floorX(cpos.x)
       const y = this.quantizer.floorY(cpos.y)
-      this.shi.create("/tracks/_/notes", {
+      this.noteStore.create({
         tick: this.coordConverter.getTicksForPixels(x),
         noteNumber: this.coordConverter.getNoteNumberForPixels(y),
         duration: 240,
@@ -89,9 +89,9 @@ class PencilMouseHandler {
       const tick = this.coordConverter.getTicksForPixels(bounds.x)
       const noteNumber = this.coordConverter.getNoteNumberForPixels(bounds.y)
       const duration = this.coordConverter.getTicksForPixels(bounds.x + bounds.width) - tick
-      this.shi.update(`/tracks/_/notes/${target.noteId}/tick`, tick)
-      this.shi.update(`/tracks/_/notes/${target.noteId}/noteNumber`, noteNumber)
-      this.shi.update(`/tracks/_/notes/${target.noteId}/duration`, duration)
+      this.noteStore.update(target.noteId, "tick", tick)
+      this.noteStore.update(target.noteId, "noteNumber", noteNumber)
+      this.noteStore.update(target.noteId, "duration", duration)
     }
   }
 
@@ -129,14 +129,14 @@ class PencilMouseHandler {
 }
 
 class SelectionMouseHandler {
-  constructor(container, selectionView, listener, selectedNoteStore, quantizer, coordConverter, shi) {
+  constructor(container, selectionView, listener, selectedNoteStore, quantizer, coordConverter, noteStore) {
     this.container = container
     this.listener = listener
     this.selectionView = selectionView
     this.selectedNoteStore = selectedNoteStore
     this.quantizer = quantizer
     this.coordConverter = coordConverter
-    this.shi = shi
+    this.noteStore = noteStore
     this.isMouseDown = false
   }
 
@@ -186,7 +186,7 @@ class SelectionMouseHandler {
     if (e.nativeEvent.detail == 2) {
       const tick = this.coordConverter.getTicksForPixels(this.quantizer.floorX(this.start.x))
       const noteNumber = this.coordConverter.getNoteNumberForPixels(this.quantizer.floorY(this.start.y))
-      this.shi.create("/tracks/_/notes", {
+      this.noteStore.create({
         tick: tick,
         noteNumber: noteNumber,
       })
@@ -227,8 +227,8 @@ class SelectionMouseHandler {
             .forEach(rect => {
               const tick = this.coordConverter.getTicksForPixels(rect.x)
               const noteNumber = this.coordConverter.getNoteNumberForPixels(rect.y)
-              this.shi.update(`/tracks/_/notes/${rect.id}/tick`, tick)
-              this.shi.update(`/tracks/_/notes/${rect.id}/noteNumber`, noteNumber)
+              this.noteStore.update(rect.id, "tick", tick)
+              this.noteStore.update(rect.id, "noteNumber", noteNumber)
             })
 
           bounds.x += dx
@@ -255,8 +255,9 @@ class SelectionMouseHandler {
           noteViews.forEach(v => { 
             const tick = this.coordConverter.getTicksForPixels(v.x + dx)
             const duration = this.coordConverter.getTicksForPixels(v.getBounds().width + dw)
-            this.shi.update(`/tracks/_/notes/${v.noteId}/tick`, tick)
-            this.shi.update(`/tracks/_/notes/${v.noteId}/duration`, duration)
+
+            this.noteStore.update(v.noteId, "tick", tick)
+            this.noteStore.update(v.noteId, "duration", duration)
           })
           bounds.x = x
           bounds.width = width
@@ -278,7 +279,7 @@ class SelectionMouseHandler {
             .map(id => this.findNoteViewById(id))
             .forEach(v => { 
               const duration = this.coordConverter.getTicksForPixels(v.getBounds().width + dw)
-              this.shi.update(`/tracks/_/notes/${v.noteId}/duration`, duration)
+              this.noteStore.update(v.noteId, "duration", duration)
             })
           break
         }
@@ -344,7 +345,6 @@ class SelectionMouseHandler {
     if (!this.selectionView.fixed) {
       this.selectionView.fixed = true
       this.selectedNoteIds = this.getNoteIdsInRect(this.selectionRect)
-      this.listener.onSelectNotes(this.selectedNoteIds)
     } else if (!this.isMouseMoved) {
       this.listener.onClickNotes(this.selectedNoteIds, e)
     }

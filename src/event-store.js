@@ -22,6 +22,10 @@ class EventStore {
     this.trigger("change")
   }
 
+  getAll() {
+    return this.events
+  }
+
   clear() {
     this.events = []
     this.lastId = 0

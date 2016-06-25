@@ -38,7 +38,11 @@
 
   const player = new Player(eventStore, TIME_BASE)
   document.player = player
-  var currentMidi
+  var currentMidi = {
+    tracks: [{
+      events: []
+    }]
+  }
 
   const coordConverter = new NoteCoordConverter(PIXELS_PER_BEAT, KEY_HEIGHT, [
     { tempo: 120, tick: 0 },
@@ -114,6 +118,20 @@
   }
 
   riot.compile(() => {
+
+    const pianoRollController = new PianoRollController(shi, coordConverter, quantizer, player)
+    {
+      const canvas = document.querySelector("#piano-roll")
+      pianoRollController.loadView(canvas)
+
+      const resizeFunc = () => {
+        const rect = canvas.getBoundingClientRect()
+        pianoRollController.resizeView(rect.width, rect.height)
+      }
+      window.onresize = resizeFunc
+      resizeFunc()
+    }
+
     const contextMenu = riot.mount("context-menu", {
       hidden: true,
       x: 0,
@@ -183,6 +201,7 @@
       ],
       onSelect: (item, index) => {
         notesTag.clearNotes()
+        shi.update("/selected-track", index)
         updateNotes(index)
       }
     })[0]
@@ -260,19 +279,14 @@
       }
     })[0]
 
-    const notesTag = riot.mount("piano-roll", notesOpts)[0]
     const eventTable = riot.mount("event-table", eventStore)[0]
 
-    setInterval(() => {
-      notesTag.setCursorPosition(player.position)
-    }, 66)
-
     document.querySelector("#pencil-button").onclick = e => {
-      notesTag.update({mouseMode: 0})
+      pianoRollController.mouseMode = 0
     }
 
     document.querySelector("#selection-button").onclick = e => {
-      notesTag.update({mouseMode: 1})
+      pianoRollController.mouseMode = 1
     }
 
     document.querySelector("#scale-up-button").onclick = e => {
@@ -289,7 +303,7 @@
       quantizer.pixelsPerBeat = newValue
       coordConverter.pixelsPerBeat = newValue
       // keep scroll position
-      notesTag.scrollContainer.scrollX = notesTag.scrollContainer.scrollX * newValue / oldValue
+      pianoRollController.scrollContainer.scrollX = pianoRollController.scrollContainer.scrollX * newValue / oldValue
       updateNotes(trackSelectTag.selectedIndex)
     }
 
@@ -299,10 +313,6 @@
       })
       const notes = trackEvents.filter(e => {
         return e.type == "channel" && e.subtype == "note"
-      })
-
-      notesTag.update({
-        notes: notes
       })
 
       eventTable.update({events: trackEvents})
@@ -323,17 +333,33 @@
       }
     }
 
+    function getCurrentTrackId() {
+      return trackSelectTag.selectedIndex
+    }
+
     eventStore.on("change", e => {
-      updateNotes(trackSelectTag.selectedIndex)
+      const track = getCurrentTrackId()
+      shi.down("update", `/tracks/${track}/notes`)
+
+      updateNotes(track)
 
       if (currentMidi) {
         const trackOptions = currentMidi.tracks.map((t, i) => { return {
           name: `${t.name}(${i})`,
           value: i,
-          selected: i == trackSelectTag.selectedIndex
+          selected: i == track
         }})
         trackSelectTag.update({options: trackOptions})
       }
+    })
+
+    shi.resource("/tracks/:trackId/notes/", req => {
+      let trackId = req.params.trackId
+      if (trackId == "_") {
+        trackId = getCurrentTrackId()
+      }
+      const track = currentMidi.tracks[trackId]
+      return eventStore.getAll()
     })
 
     shi.onUp("update", "/tracks/:trackId/notes/:noteId/:property", req => {
@@ -350,7 +376,7 @@
     })
 
     shi.onUp("create", "/tracks/:trackId/notes", req => {
-      const channel = req.value.track || trackSelectTag.selectedIndex
+      const channel = req.value.track || getCurrentTrackId()
       const note = {
         type: "channel",
         subtype: "note",

@@ -10,31 +10,8 @@
   const quantizer = new Quantizer(PIXELS_PER_BEAT, KEY_HEIGHT)
   const eventStore = new EventStore
 
-  // shinjuku logger
-  class ShinjukuLogger {
-    constructor(shi) {
-      function typeColor(type) {
-        switch (type) {
-          case "update": return "goldenrod"
-          case "remove": return "darkred"
-          case "create": return "darkgreen"
-          default: return "gray"
-        }
-      }
-      shi.onUp("*", "*", req => {
-        console.log(`%cUP%c: %c${req.type} %c${req.path}`, 
-          "color: darkred", "", `font-weight: bold; color: ${typeColor(req.type)};`, "color: gray;",
-          req.value)
-      })
-      shi.onDown("*", "*", req => {
-        console.log(`%cDOWN%c: %c${req.type} %c${req.path}`, 
-          "color: darkblue", "", `font-weight: bold; color: ${typeColor(req.type)};`, "color: gray;",
-          req.value)
-      })
-    }
-  }
+  new Shinjuku.Logger(shi)
 
-  new ShinjukuLogger(shi)
 
   const player = new Player(eventStore, TIME_BASE)
   document.player = player

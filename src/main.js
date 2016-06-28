@@ -1,5 +1,7 @@
 (function() {
   "use strict"
+  const app = new App
+  return
   const MAX_NOTE_NUMBER = 127
   const KEY_HEIGHT = 14
   const PIXELS_PER_BEAT = 23

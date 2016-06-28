@@ -11,20 +11,7 @@
     $ static . 
     $ open localhost:8080/
   -->
-  <header>
-    <input type="file" id="load-midi-input" accept=".mid,.midi"></input>
-    <button id="save-button">Save</button>
-    <button id="backward-button">←</button>
-    <button id="stop-button">■</button>
-    <button id="play-button">▶</button>
-    <button id="forward-button">→</button>
-    <button id="pencil-button">✎</button>
-    <button id="selection-button">□</button>
-    <button id="scale-up-button"><img src="images/iconmonstr-magnifier-7-16.png"></button>
-    <button id="scale-down-button"><img src="images/iconmonstr-magnifier-8-16.png"></button>
-    <riot-select id="track-select"></riot-select>
-    <riot-select id="quantize-select"></riot-select>
-  </header>
+  <toolbar></toolbar>
   <div id="container">
     <div id="side">
       <track-info></track-info>
@@ -44,6 +31,7 @@
 <script type="riot/tag" src="tag/riot-select.tag"></script>
 <script type="riot/tag" src="tag/property-pane.tag"></script>
 <script type="riot/tag" src="tag/track-info.tag"></script>
+<script type="riot/tag" src="tag/toolbar.tag"></script>
 <script src="lib/coffee-script.js"></script>
 <script src="lib/coffee-riot.js"></script>
 <script src="lib/jasmid/stream.js"></script>
@@ -68,9 +56,12 @@
 <script src="view/velocity-control-view.js"></script>
 <script src="view/beat-line-view.js"></script>
 <script src="view/note-container.js"></script>
+<script src="view/root-view.js"></script>
 <script src="controller/piano-roll-controller.js"></script>
 <script src="note-number-string.js"></script>
+<script src="model/song.js"></script>
 <script src="player.js"></script>
+<script src="app.js"></script>
 <script src="main.js"></script>
 <style type="text/css">
 
@@ -92,31 +83,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -webkit-user-select: none;
   -webkit-user-drag: none;
-}
-
-header {
-  height: var(--header-height);
-  box-sizing: border-box;
-  border-bottom: 1px solid rgb(204, 204, 204);
-  background: rgb(249, 249, 249);
-  padding-top: 8px;
-  padding-left: 1em;
-}
-
-header button {
-  width: 2em;
-  height: 1.5em;
-  padding: 0;
-  vertical-align: top;
-  font-size: 1.3em;
-  -webkit-appearance: none;
-  background: rgba(0, 0, 0, 0);
-  border: none;
-  cursor: pointer;
-}
-header riot-select {
-  margin-top: 2px;
-  display: inline-block;
 }
 
 #container {

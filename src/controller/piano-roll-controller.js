@@ -5,24 +5,8 @@ const KEY_WIDTH = 100
 const CONTROL_HEIGHT = 200
 
 class PianoRollController {
-  constructor(shi, coordConverter, quantizer, player) {
-    this.noteStore = {
-      create: (obj) => {
-        shi.create("/tracks/_/notes", obj)
-      },
-      remove: (id) => {
-        shi.remove(`/tracks/_/notes/${id}`)
-      },
-      update: (id, prop, value) => {
-        shi.update(`/tracks/_/notes/${id}/${prop}`, value)
-      },
-      onUpdate: (func) => {
-        shi.onDown("update", "/tracks/*/notes/", () => {
-          func(shi.get("/tracks/_/notes"))
-        })
-      },
-      getAll: () => shi.get("/tracks/_/notes/")
-    }
+  constructor(noteStore, coordConverter, quantizer, player) {
+    this.noteStore = noteStore
 
     this.coordConverter = coordConverter
     this.quantizer = quantizer
@@ -130,12 +114,10 @@ class PianoRollController {
     this.controlContainer.notes = notes
 
     {
-      const noteRightEdges = notes
-        .map(this.coordConverter.eventToRect)
-        .map(n => n.x + n.width)
-
+      const noteRightEdges = notes.map(n => n.x + n.width)
       const maxNoteX = Math.max.apply(null, noteRightEdges)
       this.contentWidth = Math.ceil(maxNoteX + KEY_WIDTH)
+      this.contentHeight = this.coordConverter.getPixelsForNoteNumber(0) + RULER_HEIGHT
     }
 
     this.notes = notes

@@ -12,14 +12,54 @@
 
   new Shinjuku.Logger(shi)
 
-
   const player = new Player(eventStore, TIME_BASE)
   document.player = player
-  var currentMidi = {
+
+  const state = {
     tracks: [{
-      events: []
-    }]
+      events: new ArrayStore
+    }],
+    currentTrack: 0
   }
+
+  shi.resource("/tracks/:trackId/notes/:noteId/", req => {
+    return state.tracks[req.params.trackId].events.getById(req.params.noteId)
+  })
+
+  shi.resource("/tracks/:trackId/notes", req => {
+    return state.tracks[req.params.trackId].events.getAll()
+  })
+
+  shi.onUp("update", "/tracks/:trackId/notes/:noteId/:property", req => {
+    const note = state.tracks[req.params.trackId].events.getById(req.params.noteId)
+    const oldValue = note[req.params.property]
+    note[req.params.property] = req.value
+    if (oldValue != req.value) {
+      return note
+    }
+    return false
+  })
+
+  shi.onUp("remove", "/tracks/:trackId/notes/:noteId", req => {
+    state.tracks[req.params.trackId].events.removeById(req.params.noteId)
+    return true
+  })
+
+  shi.onUp("create", "/tracks/:trackId/notes", req => {
+    const channel = req.value.track || state.currentTrack
+    const note = {
+      type: "channel",
+      subtype: "note",
+      noteNumber: req.value.noteNumber || 48,
+      tick: req.value.tick || 0,
+      velocity: req.value.velocity || 127,
+      duration: req.value.duration || 240,
+      channel: channel,
+      track: channel
+    }
+    state.tracks[channel].events.add(note)
+    return note
+  })
 
   const coordConverter = new NoteCoordConverter(PIXELS_PER_BEAT, KEY_HEIGHT, [
     { tempo: 120, tick: 0 },
@@ -94,9 +134,29 @@
     e.noteNumber = noteNum
   }
 
+  const noteShi = shi.sub(`/tracks/${state.currentTrack}/notes`)
+
+  const noteStore = {
+    create: (obj) => {
+      noteShi.up("create", "", obj)
+    },
+    remove: (id) => {
+      noteShi.up("remove", id)
+    },
+    update: (id, prop, value) => {
+      noteShi.up("update", `${id}/${prop}`, value)
+    },
+    onUpdate: (func) => {
+      noteShi.on("update", "", () => func(noteShi.get("")))
+      noteShi.on("create", "", () => func(noteShi.get("")))
+      noteShi.on("remove", "", () => func(noteShi.get("")))
+    },
+    getAll: () => noteShi.get("*")
+  }
+
   riot.compile(() => {
 
-    const pianoRollController = new PianoRollController(shi, coordConverter, quantizer, player)
+    const pianoRollController = new PianoRollController(noteStore, coordConverter, quantizer, player)
     {
       const canvas = document.querySelector("#piano-roll")
       pianoRollController.loadView(canvas)
@@ -177,9 +237,7 @@
       },
       ],
       onSelect: (item, index) => {
-        notesTag.clearNotes()
-        shi.update("/selected-track", index)
-        updateNotes(index)
+        shi.up("update", "currentTrack", index)
       }
     })[0]
 
@@ -281,91 +339,39 @@
       coordConverter.pixelsPerBeat = newValue
       // keep scroll position
       pianoRollController.scrollContainer.scrollX = pianoRollController.scrollContainer.scrollX * newValue / oldValue
-      updateNotes(trackSelectTag.selectedIndex)
     }
 
-    function updateNotes(trackNumber) {
-      const trackEvents = eventStore.events.filter(e => {
-        return e.track == trackNumber
-      })
-      const notes = trackEvents.filter(e => {
-        return e.type == "channel" && e.subtype == "note"
-      })
-
-      eventTable.update({events: trackEvents})
-
-      if (currentMidi) {
-        const track = currentMidi.tracks[trackNumber]
-        const programChangeEvent = track.events.filter(t => t.subtype == "programChange")[0]
-        const volumeEvent = track.events.filter(t => t.subtype == "controller" && t.controllerType == 7)[0]
-        const panEvent = track.events.filter(t => t.subtype == "controller" && t.controllerType == 10)[0]
-        if (programChangeEvent) {
-          trackInfoTag.update({
-            name: track.name,
-            instrument: programChangeEvent.programNumber,
-            volume: volumeEvent.value,
-            pan: panEvent.value
-          })
-        }
-      }
-    }
-
-    function getCurrentTrackId() {
-      return trackSelectTag.selectedIndex
-    }
-
-    eventStore.on("change", e => {
-      const track = getCurrentTrackId()
-      shi.down("update", `/tracks/${track}/notes`)
-
-      updateNotes(track)
-
-      if (currentMidi) {
-        const trackOptions = currentMidi.tracks.map((t, i) => { return {
-          name: `${t.name}(${i})`,
-          value: i,
-          selected: i == track
-        }})
-        trackSelectTag.update({options: trackOptions})
+    shi.onDown("update", "currentTrack", () => {
+      const track = state.tracks[state.currentTrack]
+      const programChangeEvent = track.events.filter(t => t.subtype == "programChange")[0]
+      const volumeEvent = track.events.filter(t => t.subtype == "controller" && t.controllerType == 7)[0]
+      const panEvent = track.events.filter(t => t.subtype == "controller" && t.controllerType == 10)[0]
+      if (programChangeEvent) {
+        trackInfoTag.update({
+          name: track.name,
+          instrument: programChangeEvent.programNumber,
+          volume: volumeEvent.value,
+          pan: panEvent.value
+        })
       }
     })
 
-    shi.resource("/tracks/:trackId/notes/", req => {
-      let trackId = req.params.trackId
-      if (trackId == "_") {
-        trackId = getCurrentTrackId()
-      }
-      const track = currentMidi.tracks[trackId]
-      return eventStore.getAll()
+    shi.onDown("update", "tracks", () => {
+      const trackOptions = state.tracks.map((t, i) => { return {
+        name: `${t.name}(${i})`,
+        value: i,
+        selected: i == track
+      }})
+      trackSelectTag.update({options: trackOptions})
     })
 
-    shi.onUp("update", "/tracks/:trackId/notes/:noteId/:property", req => {
-      const note = eventStore.getEventById(req.params.noteId)
-      const oldValue = note[req.params.property]
-      note[req.params.property] = req.value
-      if (oldValue != req.value) {
-        eventStore.update()
-      }
+    shi.onDown("update", "/tracks/*/notes", () => {
+      eventTable.update({events: state.tracks[state.currentTrack].events})
     })
 
-    shi.onUp("remove", "/tracks/:trackId/notes/:noteId", req => {
-      eventStore.removeById(req.params.noteId)
-    })
-
-    shi.onUp("create", "/tracks/:trackId/notes", req => {
-      const channel = req.value.track || getCurrentTrackId()
-      const note = {
-        type: "channel",
-        subtype: "note",
-        noteNumber: req.value.noteNumber || 48,
-        tick: req.value.tick || 0,
-        velocity: req.value.velocity || 127,
-        duration: req.value.duration || 240,
-        channel: channel,
-        track: channel
-      }
-      eventStore.add(note)
-      player.playNote(channel, note.noteNumber, 127, 500)
+    shi.onDown("create", "/tracks/*/notes", req => {
+      const n = req.value
+      player.playNote(n.channel, n.noteNumber, n.velocity, n.duration)
     })
   })
 })()

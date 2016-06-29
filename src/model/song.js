@@ -31,6 +31,8 @@ class Song {
       t.events.forEach(e => {
         track.addEvent(e)
       })
+      track.name = t.name
+      track.endOfTrack = t.end
       song.addTrack(track)
     })
     return song
@@ -44,8 +46,12 @@ class Track {
     riot.observable(this)
   }
 
-  getMeta() {
+  getName() {
+    return this.name
+  }
 
+  getEndOfTrack() {
+    return this.endOfTrack
   }
 
   getEvents() {

@@ -7,6 +7,8 @@ class RootView {
     riot.observable(this.emitter)
 
     model.on("set-song", song => {
+      this.song = song
+      this.toolbar.update({"song": song})
       this.pianoRoll.setTrack(song.getTrack(0))
     })
   }
@@ -47,7 +49,20 @@ class RootView {
 
       onClickScaleDown: e => {
         this.emitter.trigger("scale-down")
+      },
+
+      onSelectTrack: e => {
+        this.emitter.trigger("change-track", e.value)
+        this.pianoRoll.setTrack(this.song.getTrack(e.value))
+      },
+
+      onSelectQuantize: e => {
+        this.emitter.trigger("change-quantize", e.value)
       }
+    })
+
+    this.pianoRoll.emitter.on("select-notes", events => {
+      this.propertyPane.update({notes: events})
     })
   }
 }

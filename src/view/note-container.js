@@ -2,10 +2,10 @@
 class NoteContainer extends createjs.Container {
   constructor(selectedNoteStore) {
     super()
-    selectedNoteStore.on("change", e => {
+    selectedNoteStore.on("change", noteIds => {
       this.children.forEach(c => {
         if (c instanceof NoteView) {
-          c.selected = e.noteIds.includes(c.noteId)
+          c.selected = noteIds.includes(c.noteId)
         }
       })
     })

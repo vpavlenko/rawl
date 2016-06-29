@@ -28,6 +28,7 @@ class App {
   initRootView() {
     this.view = new RootView(this.emitter)
     this.view.emitter.on("change-file", file => this.openSong(file))
+    this.view.emitter.on("change-quantize", denominator => SharedService.quantizer.denominator = denominator)
   }
 
   setSong(song) {

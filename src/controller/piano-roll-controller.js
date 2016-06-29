@@ -6,9 +6,16 @@ const CONTROL_HEIGHT = 200
 
 class PianoRollController {
   constructor(model, canvas) {
+    this.emitter = {}
+    riot.observable(this.emitter)
+
     this.mouseMode = 0
     this.selectedNoteIdStore = []
     riot.observable(this.selectedNoteIdStore)
+    this.selectedNoteIdStore.on("change", ids => {
+      this.emitter.trigger("select-notes", ids.map(i => this.track.getEventById(i)))
+    })
+
     this.updateNotes = this.updateNotes.bind(this)
 
     this.loadView(canvas)

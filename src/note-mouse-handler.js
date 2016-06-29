@@ -152,11 +152,11 @@ class PencilMouseHandler {
 }
 
 class SelectionMouseHandler {
-  constructor(container, selectionView, listener, selectedeventStore, quantizer, coordConverter) {
+  constructor(container, selectionView, listener, selectedNoteIdStore, quantizer, coordConverter) {
     this.container = container
     this.listener = listener
     this.selectionView = selectionView
-    this.selectedeventStore = selectedeventStore
+    this.selectedNoteIdStore = selectedNoteIdStore
     this.isMouseDown = false
     bindAllMethods(this)
   }
@@ -366,13 +366,13 @@ class SelectionMouseHandler {
   }
 
   set selectedNoteIds(ids) {
-    this.selectedeventStore.removeAll()
-    this.selectedeventStore.pushArray(ids)
-    this.selectedeventStore.trigger("change", {noteIds: this.selectedeventStore})
+    this.selectedNoteIdStore.removeAll()
+    this.selectedNoteIdStore.pushArray(ids)
+    this.selectedNoteIdStore.trigger("change", this.selectedNoteIdStore)
   }
 
   get selectedNoteIds() {
-    return this.selectedeventStore
+    return this.selectedNoteIdStore
   }
 
   onMouseUp(e) { 

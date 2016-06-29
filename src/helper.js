@@ -1,18 +1,18 @@
 "use strict"
 function extend(target, source) {
-    return Object.assign({}, target, source)
+  return Object.assign({}, target, source)
 }
 
 function getMethodNames(obj) {
-  var names = []
-  var isFirst = false
+  const names = []
+  let isFirst = false
   for (let name of Object.getOwnPropertyNames(Object.getPrototypeOf(obj))) {
-    let method = obj[name]
+    const method = obj[name]
     if (!(method instanceof Function)) continue
     names.push(name)
   }
   // remove constructer that is in head of array
-  var [_, ...result] = names
+  const [_, ...result] = names
   return result
 }
 

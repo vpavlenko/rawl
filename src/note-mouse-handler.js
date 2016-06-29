@@ -13,15 +13,37 @@ function getDragPositionType(localX, targetWidth) {
   return DRAG_POSITION.CENTER
 }
 
+function createNote(tick = 0, noteNumber = 48, duration = 240, velocity = 127, channel) {
+  return {
+    type: "channel",
+    subtype: "note",
+    noteNumber: noteNumber || 48,
+    tick: tick || 0,
+    velocity: velocity || 127,
+    duration: duration || 240,
+    channel: channel,
+    track: channel
+  }
+}
+
 class PencilMouseHandler {
-  constructor(container, canvas, listener, quantizer, coordConverter, noteStore) {
+  constructor(container, canvas, listener, quantizer, coordConverter) {
     this.container = container
     this.canvas = canvas
     this.listener = listener
-    this.quantizer = quantizer
-    this.coordConverter = coordConverter
-    this.noteStore = noteStore
     bindAllMethods(this)
+  }
+
+  get coordConverter() {
+    return SharedService.coordConverter
+  }
+
+  get quantizer() {
+    return SharedService.quantizer
+  }
+
+  setTrack(track) {
+    this.track = track
   }
 
   onMouseDown(e) { 
@@ -36,17 +58,16 @@ class PencilMouseHandler {
         view: view
       }
       if (e.nativeEvent.detail == 2) {
-        this.noteStore.remove(view.noteId)
+        this.track.removeEventById(view.noteId)
       }
     } else if (!e.relatedTarget) {
       this.dragPosition = null
       const x = this.quantizer.floorX(cpos.x)
       const y = this.quantizer.floorY(cpos.y)
-      this.noteStore.create({
-        tick: this.coordConverter.getTicksForPixels(x),
-        noteNumber: this.coordConverter.getNoteNumberForPixels(y),
-        duration: 240,
-      })
+      this.track.addEvent(createNote(
+        this.coordConverter.getTicksForPixels(x),
+        this.coordConverter.getNoteNumberForPixels(y)
+      ))
     }
   }
 
@@ -89,9 +110,11 @@ class PencilMouseHandler {
       const tick = this.coordConverter.getTicksForPixels(bounds.x)
       const noteNumber = this.coordConverter.getNoteNumberForPixels(bounds.y)
       const duration = this.coordConverter.getTicksForPixels(bounds.x + bounds.width) - tick
-      this.noteStore.update(target.noteId, "tick", tick)
-      this.noteStore.update(target.noteId, "noteNumber", noteNumber)
-      this.noteStore.update(target.noteId, "duration", duration)
+      this.track.updateEvent(target.noteId, {
+        tick: tick,
+        noteNumber: noteNumber,
+        duration: duration
+      })
     }
   }
 
@@ -129,15 +152,21 @@ class PencilMouseHandler {
 }
 
 class SelectionMouseHandler {
-  constructor(container, selectionView, listener, selectedNoteStore, quantizer, coordConverter, noteStore) {
+  constructor(container, selectionView, listener, selectedeventStore, quantizer, coordConverter) {
     this.container = container
     this.listener = listener
     this.selectionView = selectionView
-    this.selectedNoteStore = selectedNoteStore
-    this.quantizer = quantizer
-    this.coordConverter = coordConverter
-    this.noteStore = noteStore
+    this.selectedeventStore = selectedeventStore
     this.isMouseDown = false
+    bindAllMethods(this)
+  }
+
+  get coordConverter() {
+    return SharedService.coordConverter
+  }
+
+  get quantizer() {
+    return SharedService.quantizer
   }
 
   get selectionRect() {
@@ -154,6 +183,10 @@ class SelectionMouseHandler {
     this.selectionView.x = rect.x
     this.selectionView.y = rect.y
     this.selectionView.setSize(rect.width, rect.height)
+  }
+
+  setTrack(track) {
+    this.track = track
   }
 
   onMouseDown(e) { 
@@ -186,10 +219,7 @@ class SelectionMouseHandler {
     if (e.nativeEvent.detail == 2) {
       const tick = this.coordConverter.getTicksForPixels(this.quantizer.floorX(this.start.x))
       const noteNumber = this.coordConverter.getNoteNumberForPixels(this.quantizer.floorY(this.start.y))
-      this.noteStore.create({
-        tick: tick,
-        noteNumber: noteNumber,
-      })
+      this.track.addEvent(createNote(tick, noteNumber))
     }
   }
 
@@ -227,8 +257,10 @@ class SelectionMouseHandler {
             .forEach(rect => {
               const tick = this.coordConverter.getTicksForPixels(rect.x)
               const noteNumber = this.coordConverter.getNoteNumberForPixels(rect.y)
-              this.noteStore.update(rect.id, "tick", tick)
-              this.noteStore.update(rect.id, "noteNumber", noteNumber)
+              this.track.updateEvent(rect.id, {
+                tick: tick,
+                noteNumber: noteNumber
+              })
             })
 
           bounds.x += dx
@@ -256,8 +288,10 @@ class SelectionMouseHandler {
             const tick = this.coordConverter.getTicksForPixels(v.x + dx)
             const duration = this.coordConverter.getTicksForPixels(v.getBounds().width + dw)
 
-            this.noteStore.update(v.noteId, "tick", tick)
-            this.noteStore.update(v.noteId, "duration", duration)
+            this.track.updateEvent(rect.id, {
+              tick: tick,
+              duration: duration
+            })
           })
           bounds.x = x
           bounds.width = width
@@ -279,7 +313,7 @@ class SelectionMouseHandler {
             .map(id => this.findNoteViewById(id))
             .forEach(v => { 
               const duration = this.coordConverter.getTicksForPixels(v.getBounds().width + dw)
-              this.noteStore.update(v.noteId, "duration", duration)
+              this.track.updateEvent(v.noteId, {duration: duration})
             })
           break
         }
@@ -332,13 +366,13 @@ class SelectionMouseHandler {
   }
 
   set selectedNoteIds(ids) {
-    this.selectedNoteStore.removeAll()
-    this.selectedNoteStore.pushArray(ids)
-    this.selectedNoteStore.trigger("change", {noteIds: this.selectedNoteStore})
+    this.selectedeventStore.removeAll()
+    this.selectedeventStore.pushArray(ids)
+    this.selectedeventStore.trigger("change", {noteIds: this.selectedeventStore})
   }
 
   get selectedNoteIds() {
-    return this.selectedNoteStore
+    return this.selectedeventStore
   }
 
   onMouseUp(e) { 

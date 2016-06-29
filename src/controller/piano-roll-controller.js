@@ -5,15 +5,42 @@ const KEY_WIDTH = 100
 const CONTROL_HEIGHT = 200
 
 class PianoRollController {
-  constructor(noteStore, coordConverter, quantizer, player) {
-    this.noteStore = noteStore
-
-    this.coordConverter = coordConverter
-    this.quantizer = quantizer
-    this.player = player
+  constructor(model, canvas) {
     this.mouseMode = 0
     this.selectedNoteIdStore = []
     riot.observable(this.selectedNoteIdStore)
+    this.updateNotes = this.updateNotes.bind(this)
+
+    this.loadView(canvas)
+    model.on("change-tool", i => {
+      this.mouseMode = i
+    })
+  }
+
+  get coordConverter() {
+    return SharedService.coordConverter
+  }
+
+  get quantizer() {
+    return SharedService.quantizer
+  }
+
+  get player() {
+    return SharedService.player
+  }
+
+  setTrack(track) {
+    if (this.track) {
+      this.track.off("change", this.updateNotes)
+    }
+    this.track = track
+    this.track.on("change", this.updateNotes)
+
+    this.mouseHandlers.forEach(h => {
+      h.setTrack(track)
+    })
+
+    this.updateNotes()
   }
 
   loadView(canvas) {
@@ -45,6 +72,13 @@ class PianoRollController {
     this.scrollContainer.addChild(this.grid.ruler)
 
     this.viewDidLoad()
+
+    const resizeFunc = () => {
+      const rect = canvas.getBoundingClientRect()
+      this.resizeView(rect.width, rect.height)
+    }
+    window.onresize = resizeFunc
+    resizeFunc()
   }
 
   viewDidLoad() {
@@ -59,7 +93,7 @@ class PianoRollController {
     })
 
     this.controlContainer.on("change", e => {
-      this.noteStore.update(e.noteId, "velocity", e.velocity)
+      this.track.updateEvent(e.noteId, {velocity: e.velocity})
     })
 
     this.grid.ruler.on("click", e => {
@@ -84,8 +118,8 @@ class PianoRollController {
     }
 
     this.mouseHandlers = [
-      new PencilMouseHandler(this.noteContainer, this.canvas, listener, this.quantizer, this.coordConverter, this.noteStore),
-      new SelectionMouseHandler(this.noteContainer, this.selectionView, listener, this.selectedNoteIdStore, this.quantizer, this.coordConverter, this.noteStore)
+      new PencilMouseHandler(this.noteContainer, this.canvas, listener),
+      new SelectionMouseHandler(this.noteContainer, this.selectionView, listener, this.selectedNoteIdStore)
     ]
 
     setInterval(() => {
@@ -94,13 +128,11 @@ class PianoRollController {
       this.stage.update()
     }, 66)
 
-    this.noteStore.onUpdate(() => {
-      this.updateNotes()
-    })
+    this.layoutSubviews()
   }
 
   updateNotes() {
-    const notes = this.noteStore.getAll()
+    const notes = this.track.getEvents()
       .map(this.coordConverter.eventToRect)
       .filter(note => {
         return note.x > -this.scrollContainer.scrollX && 

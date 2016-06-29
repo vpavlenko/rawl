@@ -5,6 +5,10 @@ class RootView {
     this.loadView()
     this.emitter = {}
     riot.observable(this.emitter)
+
+    model.on("set-song", song => {
+      this.pianoRoll.setTrack(song.getTrack(0))
+    })
   }
 
   loadView() {
@@ -13,7 +17,7 @@ class RootView {
       this.propertyPane = riot.mount("property-pane")[0]
       this.toolbar = riot.mount("toolbar")[0]
       this.eventPane = riot.mount("event-table")
-      this.pianoRoll = new PianoRollController(document.querySelector("#piano-roll"))
+      this.pianoRoll = new PianoRollController(this.emitter, document.querySelector("#piano-roll"))
 
       this.viewDidLoad()
     })

@@ -12,11 +12,14 @@ class App {
     riot.observable(this.emitter)
     this.initServices()
     this.initRootView()
+
+    // setSong after riot.compile
+    setTimeout(() => this.setSong(Song.emptySong()), 1)
   }
 
   initServices() {
-    SharedService.song = new Song
     SharedService.player = new Player(TIME_BASE)
+    SharedService.quantizer = new Quantizer(PIXELS_PER_BEAT, KEY_HEIGHT)
     SharedService.coordConverter = new NoteCoordConverter(PIXELS_PER_BEAT, KEY_HEIGHT, [
       { tempo: 120, tick: 0 },
     ], TIME_BASE, MAX_NOTE_NUMBER)
@@ -27,10 +30,14 @@ class App {
     this.view.emitter.on("change-file", file => this.openSong(file))
   }
 
+  setSong(song) {
+    this.song = song
+    this.emitter.trigger("set-song", song)
+  }
+
   openSong(file) {
     MidiFileReader.read(file, midi => {
-      SharedService.song = Song.fromMidi(midi)
-      this.emitter.trigger("did-open-song")
+      this.setSong(Song.fromMidi(midi))
     })
   }
 }

@@ -1,10 +1,13 @@
 class Song {
   constructor() {
     this.tracks = []
+    riot.observable(this)
   }
 
   addTrack(t) {
     this.tracks.push(t)
+    this.trigger("add-track", t)
+    this.trigger("change")
   }
 
   getTracks() {
@@ -13,6 +16,12 @@ class Song {
 
   getTrack(id) {
     return this.tracks[id]
+  }
+
+  static emptySong() {
+    const song = new Song()
+    song.addTrack(new Track())
+    return song
   }
 
   static fromMidi(midi) {
@@ -32,6 +41,7 @@ class Track {
   constructor() {
     this.events = []
     this.lastEventId = 0
+    riot.observable(this)
   }
 
   getMeta() {
@@ -39,24 +49,37 @@ class Track {
   }
 
   getEvents() {
-
+    return this.events
   }
 
   getEventById(id) {
-
+    for (const e of this.events) {
+      if (e.id == id) {
+        return e
+      }
+    }
+    return null
   }
 
   updateEvent(id, obj) {
-
+    const anObj = this.getEventById(id)
+    _.extend(anObj, obj)
+    this.trigger("update-event", anObj)
+    this.trigger("change")
   }
 
   removeEvent(id) {
-
+    const obj = this.getEventById(id)
+    this.events.remove(obj)
+    this.trigger("remove-event", obj)
+    this.trigger("change")
   }
 
   addEvent(e) {
     e.id = this.lastEventId
     this.events.push(e)
     this.lastEventId++
+    this.trigger("add-event", e)
+    this.trigger("change")
   }
 }

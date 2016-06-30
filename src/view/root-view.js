@@ -1,17 +1,17 @@
 "use strict"
 
 class RootView {
-  constructor(model) {
+  constructor() {
     this.loadView()
     this.emitter = {}
     this.trackId = 0
     riot.observable(this.emitter)
+  }
 
-    model.on("set-song", song => {
-      this.song = song
-      this.toolbar.update({song: song})
-      this.pianoRoll.setTrack(song.getTrack(0))
-    })
+  setSong(song) {
+    this.song = song
+    this.toolbar.update({song: song})
+    this.pianoRoll.setTrack(song.getTrack(0))
   }
 
   loadView() {

@@ -4,6 +4,7 @@ class RootView {
   constructor(model) {
     this.loadView()
     this.emitter = {}
+    this.trackId = 0
     riot.observable(this.emitter)
 
     model.on("set-song", song => {
@@ -18,7 +19,7 @@ class RootView {
       this.trackInfoPane = riot.mount("track-info")[0]
       this.propertyPane = riot.mount("property-pane")[0]
       this.toolbar = riot.mount("toolbar")[0]
-      this.eventPane = riot.mount("event-table")
+      this.eventPane = riot.mount("event-table")[0]
       this.pianoRoll = new PianoRollController(this.emitter, document.querySelector("#piano-roll"))
 
       this.viewDidLoad()
@@ -52,8 +53,9 @@ class RootView {
       },
 
       onSelectTrack: e => {
-        this.emitter.trigger("change-track", e.value)
-        this.pianoRoll.setTrack(this.song.getTrack(e.value))
+        this.trackId = e.value
+        this.emitter.trigger("change-track", this.trackId)
+        this.pianoRoll.setTrack(this.song.getTrack(this.trackId))
       },
 
       onSelectQuantize: e => {
@@ -63,6 +65,10 @@ class RootView {
 
     this.pianoRoll.emitter.on("select-notes", events => {
       this.propertyPane.update({notes: events})
+    })
+
+    this.propertyPane.emitter.on("update-note", e => {
+      this.song.getTrack(this.trackId).updateEvent(e.id, e)
     })
   }
 }

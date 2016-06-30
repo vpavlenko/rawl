@@ -48,6 +48,8 @@
     this.notes = []
     this.sections = []
     this.shi = opts.shi
+    this.emitter = {}
+    riot.observable(this.emitter)
 
     function equalValue(arr, prop, func = (v) => v, elseValue = "<multiple values>") {
       const first = arr[0][prop]
@@ -57,6 +59,15 @@
         }
       }
       return func(first)
+    }
+
+    const emitNoteChanges = (propName, func) => {
+      this.notes.forEach(n => {
+        this.emitter.trigger("update-note", {
+          id: n.id,
+          [propName]: func(n[propName], n)
+        })
+      })
     }
 
     this.on("update", () => {
@@ -75,15 +86,11 @@
       const val = parseInt(e.target.value)
       const aVal = isNaN(val) ? 100 : Math.min(127, Math.max(0, val))
       e.target.value = noteNumberString(aVal)
-      this.notes.forEach(n => {
-        this.shi.update(`/tracks/_/notes/${n.id}/noteNumber`, aVal)
-      })
+      emitNoteChanges("noteNumber", v => aVal)
     }
 
     this.onClickPitch = (inc) => {
-      this.notes.forEach(n => {
-        this.shi.update(`/tracks/_/notes/${n.id}/noteNumber`, n.noteNumber + inc)
-      })
+      emitNoteChanges("noteNumber", v => v + inc)
     }
 
     this.onChangeStart = (e) => {
@@ -93,14 +100,13 @@
       }
       const aVal = Math.max(0, val)
       e.target.value = aVal
-      this.shi.update(`/tracks/_/notes/${n.id}/tick`, aVal)
+      emitNoteChanges("tick", v => aVal)
     }
 
     this.onClickRandomStart = () => {
-      this.notes.forEach(n => {
+      emitNoteChanges("tick", v => {
         const delta = (Math.random() - 0.5) * 240
-        const val = Math.max(0, Math.round(n.tick + delta))
-        this.shi.update(`/tracks/_/notes/${n.id}/tick`, val)
+        return Math.max(0, Math.round(v + delta))
       })
     }
 
@@ -111,14 +117,13 @@
       }
       const aVal = Math.max(0, val)
       e.target.value = aVal
-      this.shi.update(`/tracks/_/notes/${n.id}/duration`, aVal)
+      emitNoteChanges("duration", v => aVal)
     }
 
     this.onClickRandomDuration = () => {
-      this.notes.forEach(n => {
-        const delta = n.duration * (Math.random() - 0.5) * 0.5
-        const val = Math.max(0, Math.round(n.duration + delta))
-        this.shi.update(`/tracks/_/notes/${n.id}/duration`, val)
+      emitNoteChanges("duration", v => {
+        const delta = v * (Math.random() - 0.5) * 0.5
+        return Math.max(0, Math.round(v + delta))
       })
     }
 
@@ -129,16 +134,13 @@
       const val = parseInt(e.target.value)
       const aVal = isNaN(val) ? 100 : Math.min(127, Math.max(0, val))
       e.target.value = aVal
-      this.notes.forEach(n => {
-        this.shi.update(`/tracks/_/notes/${n.id}/velocity`, aVal)
-      })
+      emitNoteChanges("velocity", v => aVal)
     }
 
     this.onClickRandomVelocity = () => {
-      this.notes.forEach(n => {
-        const delta = n.velocity * (Math.random() - 0.5) * 0.5
-        const val = Math.max(0, Math.min(127, Math.round(n.velocity + delta)))
-        this.shi.update(`/tracks/_/notes/${n.id}/velocity`, val)
+      emitNoteChanges("velocity", v => {
+        const delta = v * (Math.random() - 0.5) * 0.5
+        return Math.max(0, Math.min(127, Math.round(v + delta)))
       })
     }
 
@@ -149,9 +151,7 @@
           minTick = n.tick
         }
       })
-      this.notes.forEach(n => {
-        this.shi.update(`/tracks/_/notes/${n.id}/tick`, minTick)
-      })
+      emitNoteChanges("tick", v => minTick)
     }
 
     this.onClickAlignRight = () => {
@@ -162,9 +162,7 @@
           maxTick = t
         }
       })
-      this.notes.forEach(n => {
-        this.shi.update(`/tracks/_/notes/${n.id}/tick`, maxTick - n.duration)
-      })
+      emitNoteChanges("tick", (v, n) => maxTick - n.duration)
     }
 
     this.onClickAlignBottom = () => {
@@ -174,9 +172,7 @@
           minPitch = n.noteNumber
         }
       })
-      this.notes.forEach(n => {
-        this.shi.update(`/tracks/_/notes/${n.id}/noteNumber`, minPitch)
-      })
+      emitNoteChanges("noteNumber", v => minPitch)
     }
 
     this.onClickAlignTop = () => {
@@ -186,9 +182,7 @@
           maxPitch = n.noteNumber
         }
       })
-      this.notes.forEach(n => {
-        this.shi.update(`/tracks/_/notes/${n.id}/noteNumber`, maxPitch)
-      })
+      emitNoteChanges("noteNumber", v => maxPitch)
     }
 
   </script>

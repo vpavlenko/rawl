@@ -1,22 +1,38 @@
 <track-info>
   <ul>
-    <li class="name"><input type="text" value="{ name }" placeholder="Track Name"></li>
+    <li class="name"><input type="text" value="{ fields.name }" placeholder="Track Name"></li>
     <li>
       <label>Instrument</label>
-      <input type="text" value="{ instrument }">
+      <input type="text" value="{ fields.instrument }">
     </li>
     <li>
       <label>Volume</label>
-      <input type="text" value="{ volume }">
+      <input type="text" value="{ fields.volume }">
     </li>
     <li>
       <label>Pan</label>
-      <input type="text" value="{ pan }">
+      <input type="text" value="{ fields.pan }">
     </li>
   </ul>
 
   <script type="text/javascript">
     "use strict"
+
+    this.on("update", () => {
+      if (!this.track) {
+        return
+      }
+      const track = this.track
+      const programChangeEvent = track.events.filter(t => t.subtype == "programChange")[0]
+      const volumeEvent = track.events.filter(t => t.subtype == "controller" && t.controllerType == 7)[0]
+      const panEvent = track.events.filter(t => t.subtype == "controller" && t.controllerType == 10)[0]
+      this.fields = {
+        name: track.name,
+        instrument: programChangeEvent ? programChangeEvent.programNumber : "",
+        volume: volumeEvent ? volumeEvent.value : "",
+        pan: panEvent ? panEvent.value : ""
+      }
+    })
   </script>
   <style scoped>
     li {

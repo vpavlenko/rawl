@@ -9,7 +9,7 @@ class RootView {
 
     model.on("set-song", song => {
       this.song = song
-      this.toolbar.update({"song": song})
+      this.toolbar.update({song: song})
       this.pianoRoll.setTrack(song.getTrack(0))
     })
   }
@@ -55,7 +55,9 @@ class RootView {
       onSelectTrack: e => {
         this.trackId = e.value
         this.emitter.trigger("change-track", this.trackId)
-        this.pianoRoll.setTrack(this.song.getTrack(this.trackId))
+        const track = this.song.getTrack(this.trackId)
+        this.pianoRoll.setTrack(track)
+        this.trackInfoPane.update({track: track})
       },
 
       onSelectQuantize: e => {

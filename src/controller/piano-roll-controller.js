@@ -16,12 +16,11 @@ class PianoRollController {
       this.emitter.trigger("select-notes", ids.map(i => this.track.getEventById(i)))
     })
 
-    this.updateNotes = this.updateNotes.bind(this)
+    this.showNotes = this.showNotes.bind(this)
+    this.onScroll = this.onScroll.bind(this)
 
     this.loadView(canvas)
-    model.on("change-tool", i => {
-      this.mouseMode = i
-    })
+    model.on("change-tool", i => this.mouseMode = i)
   }
 
   get coordConverter() {
@@ -38,16 +37,17 @@ class PianoRollController {
 
   setTrack(track) {
     if (this.track) {
-      this.track.off("change", this.updateNotes)
+      this.track.off("change", this.showNotes)
     }
     this.track = track
-    this.track.on("change", this.updateNotes)
+    this.track.on("change", this.showNotes)
 
     this.mouseHandlers.forEach(h => {
       h.setTrack(track)
     })
 
-    this.updateNotes()
+    this.calcContentSize()
+    this.showNotes()
   }
 
   loadView(canvas) {
@@ -108,9 +108,7 @@ class PianoRollController {
       opts.onMoveCursor(tick)
     })
 
-    this.scrollContainer.on("scroll", e => {
-      this.updateScroll()
-    })
+    this.scrollContainer.on("scroll", this.onScroll)
 
     const listener = {
       onCursorChanged: cursor => {
@@ -134,13 +132,27 @@ class PianoRollController {
       this.grid.cursorPosition = this.coordConverter.getPixelsAt(tick)
       this.stage.update()
     }, 66)
+  }
 
+  getNoteRects() {
+    return this.track.getEvents()
+      .filter(e => e.subtype == "note")
+      .map(this.coordConverter.eventToRect)
+  }
+
+  calcContentSize() {
+    const noteRightEdges = this.getNoteRects().map(n => n.x + n.width)
+    const maxNoteX = Math.max.apply(null, noteRightEdges)
+    this.contentWidth = Math.ceil(maxNoteX + KEY_WIDTH)
+    this.contentHeight = this.coordConverter.getPixelsForNoteNumber(0) + RULER_HEIGHT
     this.layoutSubviews()
   }
 
-  updateNotes() {
-    const notes = this.track.getEvents()
-      .map(this.coordConverter.eventToRect)
+  showNotes() {
+    if (!this.track) {
+      return
+    }
+    const notes = this.getNoteRects()
       .filter(note => {
         return note.x > -this.scrollContainer.scrollX && 
           note.x < -this.scrollContainer.scrollX + this.scrollContainer.getBounds().width
@@ -151,13 +163,6 @@ class PianoRollController {
 
     this.noteContainer.notes = notes
     this.controlContainer.notes = notes
-
-    {
-      const noteRightEdges = notes.map(n => n.x + n.width)
-      const maxNoteX = Math.max.apply(null, noteRightEdges)
-      this.contentWidth = Math.ceil(maxNoteX + KEY_WIDTH)
-      this.contentHeight = this.coordConverter.getPixelsForNoteNumber(0) + RULER_HEIGHT
-    }
 
     this.notes = notes
     this.stage.update()
@@ -182,7 +187,7 @@ class PianoRollController {
     this.controlContainer.x = KEY_WIDTH
     this.controlContainer.setBounds(0, 0, this.contentWidth, CONTROL_HEIGHT)
 
-    this.updateScroll()
+    this.onScroll()
   }
 
   resizeView(width, height) {
@@ -191,13 +196,14 @@ class PianoRollController {
     this.layoutSubviews()
   }
 
-  updateScroll() {
+  onScroll() {
     this.keys.x = -this.scrollContainer.scrollX
     this.grid.rulerY = -this.scrollContainer.scrollY
     this.controlContainer.y = 
       this.scrollContainer.getBounds().height - 
       this.controlContainer.getBounds().height - 
       this.scrollContainer.scrollY - 17
+    this.showNotes()
   }
 
   get mouseHandler() {

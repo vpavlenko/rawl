@@ -19,6 +19,32 @@ class NoteContainer extends createjs.Container {
     })
   }
 
+  findNoteViewById(id) {
+    return _.find(this.children, c => {
+      return c instanceof NoteView && c.noteId == id
+    }) 
+  }
+
+  getNoteViewsInRect(rect) {
+    return this.children.filter(c => {
+        if (!(c instanceof NoteView)) return
+        const b = c.getBounds()
+        return rect.contains(c.x, c.y, b.width, b.height)
+      })
+  }
+
+  getNoteIdsInRect(rect) {
+    return this.getNoteViewsInRect(rect).map(c => c.noteId)
+  }
+
+  getNoteViewUnderPoint(x, y) {
+    return _.find(this.children, c => {
+      if (!(c instanceof NoteView)) return false
+      const b = c.getBounds()
+      return new createjs.Rectangle(c.x, c.y, b.width, b.height).contains(x, y)
+    })
+  }
+
   set notes(notes) {
     const views = this.children.slice()
     this.clearNotes()

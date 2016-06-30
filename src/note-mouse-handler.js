@@ -48,7 +48,7 @@ class PencilMouseHandler {
 
   onMouseDown(e) { 
     const cpos = this.container.globalToLocal(e.stageX, e.stageY)
-    const view = this.getNoteViewUnderPoint(cpos.x, cpos.y)
+    const view = this.container.getNoteViewUnderPoint(cpos.x, cpos.y)
     if (view) {
       const local = view.globalToLocal(e.stageX, e.stageY)
       this.dragPosition = {
@@ -120,7 +120,7 @@ class PencilMouseHandler {
 
   updateCursor(e) {
     const cpos = this.container.globalToLocal(e.stageX, e.stageY)
-    const view = this.getNoteViewUnderPoint(cpos.x, cpos.y)
+    const view = this.container.getNoteViewUnderPoint(cpos.x, cpos.y)
     if (view) {
       const pos = view.globalToLocal(e.stageX, e.stageY)
       const type = getDragPositionType(pos.x, view.getBounds().width)
@@ -140,14 +140,6 @@ class PencilMouseHandler {
 
   onMouseUp(e) {
     this.dragPosition = null
-  }
-
-  getNoteViewUnderPoint(x, y) {
-    return _.find(this.container.children, c => {
-      if (!(c instanceof NoteView)) return false
-      const b = c.getBounds()
-      return new createjs.Rectangle(c.x, c.y, b.width, b.height).contains(x, y)
-    })
   }
 }
 
@@ -245,7 +237,7 @@ class SelectionMouseHandler {
 
           const changes = this.selectedNoteIds
             .map(id => { 
-              const view = this.findNoteViewById(id)
+              const view = this.container.findNoteViewById(id)
               const b = view.getBounds()
               return {
                 id: id,
@@ -280,7 +272,7 @@ class SelectionMouseHandler {
           console.log(dw, dx)
 
           const noteViews = this.selectedNoteIds
-            .map(id => this.findNoteViewById(id))
+            .map(id => this.container.findNoteViewById(id))
 
           // TODO: noteViews を走査してどのビューも幅が0にならないように dx, dw を調節する
 
@@ -310,7 +302,7 @@ class SelectionMouseHandler {
           // TODO: noteViews を走査してどのビューも幅が0にならないように dw を調節する
 
           const noteViews = this.selectedNoteIds
-            .map(id => this.findNoteViewById(id))
+            .map(id => this.container.findNoteViewById(id))
             .forEach(v => { 
               const duration = this.coordConverter.getTicksForPixels(v.getBounds().width + dw)
               this.track.updateEvent(v.noteId, {duration: duration})
@@ -346,25 +338,6 @@ class SelectionMouseHandler {
       this.listener.onCursorChanged("crosshair")
     }
   }
-
-  findNoteViewById(id) {
-    return _.find(this.container.children, c => {
-      return c instanceof NoteView && c.noteId == id
-    }) 
-  }
-
-  getNoteViewsInRect(rect) {
-    return this.container.children.filter(c => {
-        if (!(c instanceof NoteView)) return
-        const b = c.getBounds()
-        return rect.contains(c.x, c.y, b.width, b.height)
-      })
-  }
-
-  getNoteIdsInRect(rect) {
-    return this.getNoteViewsInRect(rect).map(c => c.noteId)
-  }
-
   set selectedNoteIds(ids) {
     this.selectedNoteIdStore.removeAll()
     this.selectedNoteIdStore.pushArray(ids)
@@ -378,7 +351,7 @@ class SelectionMouseHandler {
   onMouseUp(e) { 
     if (!this.selectionView.fixed) {
       this.selectionView.fixed = true
-      this.selectedNoteIds = this.getNoteIdsInRect(this.selectionRect)
+      this.selectedNoteIds = this.container.getNoteIdsInRect(this.selectionRect)
     } else if (!this.isMouseMoved) {
       this.listener.onClickNotes(this.selectedNoteIds, e)
     }

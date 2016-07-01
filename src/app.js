@@ -12,9 +12,6 @@ class App {
     riot.observable(this.emitter)
     this.initServices()
     this.initRootView()
-
-    // setSong after riot.compile
-    setTimeout(() => this.setSong(Song.emptySong()), 1)
   }
 
   initServices() {
@@ -29,6 +26,11 @@ class App {
     this.view = new RootView()
     this.view.emitter.on("change-file", file => this.openSong(file))
     this.view.emitter.on("change-quantize", denominator => SharedService.quantizer.denominator = denominator)
+    this.view.emitter.on("view-did-load", () => this.onLoadView())
+  }
+
+  onLoadView() {
+    this.setSong(Song.emptySong())
   }
 
   setSong(song) {

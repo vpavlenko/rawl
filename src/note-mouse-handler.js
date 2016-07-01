@@ -13,24 +13,12 @@ function getDragPositionType(localX, targetWidth) {
   return DRAG_POSITION.CENTER
 }
 
-function createNote(tick = 0, noteNumber = 48, duration = 240, velocity = 127, channel) {
-  return {
-    type: "channel",
-    subtype: "note",
-    noteNumber: noteNumber || 48,
-    tick: tick || 0,
-    velocity: velocity || 127,
-    duration: duration || 240,
-    channel: channel,
-    track: channel
-  }
-}
-
 class PencilMouseHandler {
   constructor(container, canvas, listener, quantizer, coordConverter) {
     this.container = container
     this.canvas = canvas
     this.listener = listener
+    riot.observable(this)
     bindAllMethods(this)
   }
 
@@ -51,70 +39,51 @@ class PencilMouseHandler {
     const view = this.container.getNoteViewUnderPoint(cpos.x, cpos.y)
     if (view) {
       const local = view.globalToLocal(e.stageX, e.stageY)
-      this.dragPosition = {
-        x: local.x,
-        y: local.y,
+      this.target = {
+        touchOrigin: {
+          x: cpos.x,
+          y: cpos.y
+        },
+        noteId: view.noteId,
         type: getDragPositionType(local.x, view.getBounds().width),
-        view: view
+        bounds: {
+          x: view.x,
+          y: view.y,
+          width: view.getBounds().width,
+          height: view.getBounds().height
+        }
       }
       if (e.nativeEvent.detail == 2) {
         this.track.removeEventById(view.noteId)
       }
     } else if (!e.relatedTarget) {
-      this.dragPosition = null
-      const x = this.quantizer.floorX(cpos.x)
-      const y = this.quantizer.floorY(cpos.y)
-      this.track.addEvent(createNote(
-        this.coordConverter.getTicksForPixels(x),
-        this.coordConverter.getNoteNumberForPixels(y)
-      ))
+      this.target = null
+      this.trigger("click-background", cpos)
     }
   }
 
   onMouseMove(e) {
-    if (!this.dragPosition) {
+    if (!this.target) {
       this.updateCursor(e)
       return
     }
 
-    const target = this.dragPosition.view
-    const targetSize = target.getBounds()
-    const bounds = {
-      x: target.x,
-      y: target.y,
-      width: targetSize.width,
-      height: targetSize.height
-    }
     const p = this.container.globalToLocal(e.stageX, e.stageY)
-    const qx = this.quantizer.roundX(p.x)
-
-    switch (this.dragPosition.type) {
-      case DRAG_POSITION.LEFT_EDGE:
-      // 右端を固定して長さを変更
-      const width = Math.max(this.quantizer.unitX, bounds.width + bounds.x - qx) 
-      bounds.x = Math.min(bounds.width + bounds.x - this.quantizer.unitX, qx)
-      bounds.width = width
-      break
-      case DRAG_POSITION.RIGHT_EDGE:
-      // 左端を固定して長さを変更
-      bounds.width = Math.max(this.quantizer.unitX, qx - bounds.x)
-      break
-      case DRAG_POSITION.CENTER:
-      // 移動
-      bounds.x = this.quantizer.roundX(p.x - this.dragPosition.x)
-      bounds.y = this.quantizer.roundY(p.y - this.dragPosition.y) 
-      break
+    const movement = {
+      x: p.x - this.target.touchOrigin.x,
+      y: p.y - this.target.touchOrigin.y
     }
 
-    if (target.x != bounds.x || target.y != bounds.y || targetSize.width != bounds.width || targetSize.height != bounds.height) {
-      const tick = this.coordConverter.getTicksForPixels(bounds.x)
-      const noteNumber = this.coordConverter.getNoteNumberForPixels(bounds.y)
-      const duration = this.coordConverter.getTicksForPixels(bounds.x + bounds.width) - tick
-      this.track.updateEvent(target.noteId, {
-        tick: tick,
-        noteNumber: noteNumber,
-        duration: duration
-      })
+    switch (this.target.type) {
+      case DRAG_POSITION.LEFT_EDGE:
+      this.trigger("drag-note-left-edge", { target: this.target, movement: movement })
+      return
+      case DRAG_POSITION.RIGHT_EDGE:
+      this.trigger("drag-note-right-edge", { target: this.target, movement: movement })
+      return
+      case DRAG_POSITION.CENTER:
+      this.trigger("drag-note-center", { target: this.target, movement: movement })
+      break
     }
   }
 
@@ -139,7 +108,7 @@ class PencilMouseHandler {
   }
 
   onMouseUp(e) {
-    this.dragPosition = null
+    this.target = null
   }
 }
 

@@ -45,11 +45,11 @@ class NoteContainer extends createjs.Container {
     })
   }
 
-  set notes(notes) {
+  set noteRects(noteRects) {
     const views = this.children.slice()
     this.clearNotes()
 
-    notes.forEach(note => {
+    noteRects.forEach(note => {
       let view = _.find(views, c => c.noteId == note.id)
       if (!view) {
         view = new NoteView

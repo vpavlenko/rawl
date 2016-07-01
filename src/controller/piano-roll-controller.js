@@ -4,6 +4,19 @@ const RULER_HEIGHT = 22
 const KEY_WIDTH = 100
 const CONTROL_HEIGHT = 200
 
+function createNote(tick = 0, noteNumber = 48, duration = 240, velocity = 127, channel) {
+  return {
+    type: "channel",
+    subtype: "note",
+    noteNumber: noteNumber || 48,
+    tick: tick || 0,
+    velocity: velocity || 127,
+    duration: duration || 240,
+    channel: channel,
+    track: channel
+  }
+}
+
 class PianoRollController {
   constructor(model, canvas) {
     this.emitter = {}
@@ -20,7 +33,7 @@ class PianoRollController {
     this.onScroll = this.onScroll.bind(this)
 
     this.loadView(canvas)
-    model.on("change-tool", i => this.mouseMode = i)
+    model.on("change-tool", i => this.setMouseMode(i))
   }
 
   get coordConverter() {
@@ -41,10 +54,6 @@ class PianoRollController {
     }
     this.track = track
     this.track.on("change", this.showNotes)
-
-    this.mouseHandlers.forEach(h => {
-      h.setTrack(track)
-    })
 
     this.calcContentSize()
     this.showNotes()
@@ -89,6 +98,8 @@ class PianoRollController {
   }
 
   viewDidLoad() {
+    this.setMouseMode(0)
+
     this.stage.on("stagemousedown", e => {
       this.mouseHandler.onMouseDown(e)
     })
@@ -109,23 +120,6 @@ class PianoRollController {
     })
 
     this.scrollContainer.on("scroll", this.onScroll)
-
-    const listener = {
-      onCursorChanged: cursor => {
-        const style = this.canvas.parentNode.style
-        if (style.cursor != cursor) {
-          style.cursor = cursor
-        }
-      },
-      onClickNotes: notes => {
-
-      }
-    }
-
-    this.mouseHandlers = [
-      new PencilMouseHandler(this.noteContainer, this.canvas, listener),
-      new SelectionMouseHandler(this.noteContainer, this.selectionView, listener, this.selectedNoteIdStore)
-    ]
 
     setInterval(() => {
       const tick = this.player.position
@@ -152,7 +146,7 @@ class PianoRollController {
     if (!this.track) {
       return
     }
-    const notes = this.getNoteRects()
+    const noteRects = this.getNoteRects()
       .filter(note => {
         return note.x > -this.scrollContainer.scrollX && 
           note.x < -this.scrollContainer.scrollX + this.scrollContainer.getBounds().width
@@ -161,10 +155,10 @@ class PianoRollController {
         return note
       })
 
-    this.noteContainer.notes = notes
-    this.controlContainer.notes = notes
+    this.noteContainer.noteRects = noteRects
+    this.controlContainer.noteRects = noteRects
 
-    this.notes = notes
+    this.noteRects = noteRects
     this.stage.update()
   }
 
@@ -206,7 +200,70 @@ class PianoRollController {
     this.showNotes()
   }
 
-  get mouseHandler() {
-    return this.mouseHandlers[this.mouseMode]
+  setMouseMode(mode) {
+    const listener = {
+      onCursorChanged: cursor => {
+        const style = this.canvas.parentNode.style
+        if (style.cursor != cursor) {
+          style.cursor = cursor
+        }
+      },
+      onClickNotes: notes => {
+
+      }
+    }
+
+    switch(mode) {
+    case 0:
+      this.bindMouseHandler(new PencilMouseHandler(this.noteContainer, this.canvas, listener))
+      break
+    case 1:
+      this.bindMouseHandler(new SelectionMouseHandler(this.noteContainer, this.selectionView, listener, this.selectedNoteIdStore))
+      break
+    }
+  }
+
+  bindMouseHandler(handler) {
+    if (this.mouseHandler) {
+      this.mouseHandler.off("*")
+    }
+    this.mouseHandler = handler
+
+    handler.on("click-background", e => {
+      const x = this.quantizer.floorX(e.x)
+      const y = this.quantizer.floorY(e.y)
+      this.track.addEvent(createNote(
+        this.coordConverter.getTicksForPixels(x),
+        this.coordConverter.getNoteNumberForPixels(y)
+      ))
+    })
+
+    handler.on("drag-note-left-edge", e => {
+      // 右端を固定して長さを変更
+      const x = this.quantizer.roundX(e.target.bounds.x + e.movement.x)
+      const width = this.quantizer.roundX(e.target.bounds.width - e.movement.x)
+
+      this.track.updateEvent(e.target.noteId, this.coordConverter.getNoteForRect({
+        x: x,
+        width: Math.max(this.quantizer.unitX, width)
+      }))
+    })
+
+    handler.on("drag-note-right-edge", e => {
+      // 長さを変更
+      const width = Math.max(this.quantizer.unitX, this.quantizer.roundX(e.target.bounds.width + e.movement.x))
+
+      this.track.updateEvent(e.target.noteId, this.coordConverter.getNoteForRect({
+        width: width
+      }))
+    })
+
+    handler.on("drag-note-center", e => {
+      // 移動
+      this.track.updateEvent(e.target.noteId, this.coordConverter.getNoteForRect({
+        x: this.quantizer.roundX(e.target.bounds.x + e.movement.x),
+        y: this.quantizer.roundY(e.target.bounds.y + e.movement.y)
+      }))
+    })
   }
 }

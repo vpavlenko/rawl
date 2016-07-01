@@ -57,7 +57,7 @@ class VelocityControlView extends createjs.Container {
       .lineTo(width, height)
   }
 
-  set notes(notes) {
+  set noteRects(noteRects) {
     const views = this.children.slice()
     this.removeAllChildren()
     views.filter(c => !c.noteId).forEach(c => {
@@ -65,7 +65,7 @@ class VelocityControlView extends createjs.Container {
     })
 
     const viewHeight = this.getBounds().height
-    notes.forEach(note => {
+    noteRects.forEach(note => {
       let view = _.find(views, c => c.noteId == note.id)
       if (!view) {
         view = new createjs.Shape

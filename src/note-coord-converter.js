@@ -18,6 +18,20 @@ class NoteCoordConverter {
     bindAllMethods(this)
   }
 
+  getNoteForRect(rect) {
+    const obj = {}
+    if (_.has(rect, "x")) {
+      obj["tick"] = this.getTicksForPixels(rect.x)
+    }
+    if (_.has(rect, "y")) {
+      obj["noteNumber"] = this.getNoteNumberForPixels(rect.y)
+    }
+    if (_.has(rect, "width")) {
+      obj["duration"] = this.getTicksForPixels(rect.width)
+    }
+    return obj
+  }
+
   // seconds
 
   getSecondsAt(tick) {

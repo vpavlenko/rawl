@@ -281,6 +281,10 @@ class PianoRollController {
     })
 
     handler.on("drag-selection-center", e => {
+      if (e.movement.x == 0 && e.movement.y == 0) {
+        return
+      }
+
       // 確定済みの選択範囲をドラッグした場合はノートと選択範囲を移動
       this.selectionView.x += e.movement.x
       this.selectionView.y += e.movement.y
@@ -296,27 +300,68 @@ class PianoRollController {
             y: view.y + e.movement.y
           }))
         })
+
+      e.changed()
     })
 
     handler.on("drag-selection-left-edge", e => {
+      if (e.movement.x == 0) {
+        return
+      }
+
+      const rects = this.selectedNoteIdStore
+        .map(id => this.noteContainer.findNoteViewById(id))
+        .filter(v => v != null)
+        .map(view => { return {
+          noteId: view.noteId,
+          x: view.x + e.movement.x,
+          width: view.getBounds().width - e.movement.x
+        }})
+
+      // 幅がゼロになるノートがあるときは変形しない
+      if (!_.every(rects, r => r.width > 0)) {
+        return
+      }
+
       // 右端を固定して長さを変更
       this.selectionView.x += e.movement.x
       const b = this.selectionView.getBounds()
       this.selectionView.setSize(b.width - e.movement.x, b.height)
 
-      e.rects.forEach(r => 
+      rects.forEach(r => 
         this.track.updateEvent(r.noteId, this.coordConverter.getNoteForRect(r))
       )
+
+      e.changed()
     })
 
     handler.on("drag-selection-right-edge", e => {
+      if (e.movement.x == 0) {
+        return
+      }
+
+      const rects = this.selectedNoteIdStore
+        .map(id => this.noteContainer.findNoteViewById(id))
+        .filter(v => v != null)
+        .map(view => { return {
+          noteId: view.noteId,
+          width: view.getBounds().width + e.movement.x
+        }})
+
+      // 幅がゼロになるノートがあるときは変形しない
+      if (!_.every(rects, r => r.width > 0)) {
+        return
+      }
+
       // 左端を固定して長さを変更
       const b = this.selectionView.getBounds()
       this.selectionView.setSize(b.width + e.movement.x, b.height)
 
-      e.rects.forEach(r => 
+      rects.forEach(r => 
         this.track.updateEvent(r.noteId, this.coordConverter.getNoteForRect(r))
       )
+
+      e.changed()
     })
   }
 }

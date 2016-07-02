@@ -13,6 +13,15 @@ function getDragPositionType(localX, targetWidth) {
   return DRAG_POSITION.CENTER
 }
 
+function cursorForPositionType(type) {
+  switch(type) {
+    case DRAG_POSITION.LEFT_EDGE:
+    case DRAG_POSITION.RIGHT_EDGE: 
+      return "w-resize"
+    default: return "move"
+  }
+}
+
 class PencilMouseHandler {
   constructor(container) {
     this.container = container
@@ -79,15 +88,7 @@ class PencilMouseHandler {
     if (view) {
       const pos = view.globalToLocal(e.stageX, e.stageY)
       const type = getDragPositionType(pos.x, view.getBounds().width)
-      switch (type) {
-        case DRAG_POSITION.LEFT_EDGE:
-        case DRAG_POSITION.RIGHT_EDGE: 
-          this.trigger("change-cursor", "w-resize")
-          break
-        default:
-          this.trigger("change-cursor", "move")
-          break
-      }
+      this.trigger("change-cursor", cursorForPositionType(type))
     } else {
       this.trigger("change-cursor", `url("./images/iconmonstr-pencil-14-16.png") 0 16, default`)
     }
@@ -154,75 +155,36 @@ class SelectionMouseHandler {
 
     const loc = this.container.globalToLocal(e.stageX, e.stageY)
     const prevOrigin = this.target.prevOrigin || this.target.touchOrigin
+    const changed = () => {
+      this.target.prevOrigin = loc
+    }
     const dx = this.quantizer.roundX(loc.x - prevOrigin.x)
     const dy = this.quantizer.roundY(loc.y - prevOrigin.y)
 
     switch (this.target.type) {
       case DRAG_POSITION.NONE: {
-        if (dx == 0 && dy == 0) {
-          return
-        }
         const rect = Rect.fromPoints(this.target.touchOrigin, loc)
         this.trigger("resize-selection", rect)
         break
       }
       case DRAG_POSITION.CENTER: {
-        if (dx == 0 && dy == 0) {
-          return
-        }
-        this.target.prevOrigin = loc
         this.trigger("drag-selection-center", {
-          target: this.target, 
+          changed: changed,
           movement: { x: dx, y: dy }
         })
         break
       }
       case DRAG_POSITION.LEFT_EDGE: {
-        if (dx == 0) {
-          return
-        }
-
-        const rects = this.selectedNoteIdStore
-          .map(id => this.container.findNoteViewById(id))
-          .filter(v => v != null)
-          .map(view => { return {
-            noteId: view.noteId,
-            x: view.x + dx,
-            width: view.getBounds().width - dx
-          }})
-
-        // 幅がゼロになるノートがあるときは変形しない
-        if (!_.every(rects, r => r.width > 0)) {
-          return
-        }
-        this.target.prevOrigin = loc
         this.trigger("drag-selection-left-edge", {
-          movement: { x: dx, y: dy },
-          rects: rects
+          changed: changed,
+          movement: { x: dx, y: dy }
         })
         break
       }
       case DRAG_POSITION.RIGHT_EDGE: {
-        if (dx == 0) {
-          return
-        }
-
-        const rects = this.selectedNoteIdStore
-          .map(id => this.container.findNoteViewById(id))
-          .filter(v => v != null)
-          .map(view => { return {
-            noteId: view.noteId,
-            width: view.getBounds().width + dx
-          }})
-
-        // 幅がゼロになるノートがあるときは変形しない
-        if (!_.every(rects, r => r.width > 0)) {
-          return
-        }
-        this.target.prevOrigin = loc
         this.trigger("drag-selection-right-edge", {
-          movement: { x: dx, y: dy },
-          rects: rects
+          changed: changed,
+          movement: { x: dx, y: dy }
         })
         break
       }
@@ -233,15 +195,8 @@ class SelectionMouseHandler {
     const loc = this.container.globalToLocal(e.stageX, e.stageY)
     const hover = this.selectionRect.contains(loc.x, loc.y)
     if (this.selectionView.visible && hover) {
-      switch(getDragPositionType(loc.x - this.selectionRect.x, this.selectionRect.width)) {
-        case DRAG_POSITION.LEFT_EDGE:
-        case DRAG_POSITION.RIGHT_EDGE: 
-          this.trigger("change-cursor", "w-resize")
-          break
-        default:
-          this.trigger("change-cursor", "move")
-          break
-      }
+      const type = getDragPositionType(loc.x - this.selectionRect.x, this.selectionRect.width)
+      this.trigger("change-cursor", cursorForPositionType(type))
     } else {
       this.trigger("change-cursor", "crosshair")
     }

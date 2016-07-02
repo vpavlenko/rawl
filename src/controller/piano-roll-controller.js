@@ -226,6 +226,8 @@ class PianoRollController {
       ))
     })
 
+    handler.on("remove-note", id => this.track.removeEvent(id))
+
     handler.on("drag-note-left-edge", e => {
       // 右端を固定して長さを変更
       const x = this.quantizer.roundX(e.target.bounds.x + e.movement.x)
@@ -294,6 +296,27 @@ class PianoRollController {
             y: view.y + e.movement.y
           }))
         })
+    })
+
+    handler.on("drag-selection-left-edge", e => {
+      // 右端を固定して長さを変更
+      this.selectionView.x += e.movement.x
+      const b = this.selectionView.getBounds()
+      this.selectionView.setSize(b.width - e.movement.x, b.height)
+
+      e.rects.forEach(r => 
+        this.track.updateEvent(r.noteId, this.coordConverter.getNoteForRect(r))
+      )
+    })
+
+    handler.on("drag-selection-right-edge", e => {
+      // 左端を固定して長さを変更
+      const b = this.selectionView.getBounds()
+      this.selectionView.setSize(b.width + e.movement.x, b.height)
+
+      e.rects.forEach(r => 
+        this.track.updateEvent(r.noteId, this.coordConverter.getNoteForRect(r))
+      )
     })
   }
 }

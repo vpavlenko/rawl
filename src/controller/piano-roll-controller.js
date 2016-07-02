@@ -201,24 +201,12 @@ class PianoRollController {
   }
 
   setMouseMode(mode) {
-    const listener = {
-      onCursorChanged: cursor => {
-        const style = this.canvas.parentNode.style
-        if (style.cursor != cursor) {
-          style.cursor = cursor
-        }
-      },
-      onClickNotes: notes => {
-
-      }
-    }
-
     switch(mode) {
     case 0:
-      this.bindMouseHandler(new PencilMouseHandler(this.noteContainer, this.canvas, listener))
+      this.bindMouseHandler(new PencilMouseHandler(this.noteContainer))
       break
     case 1:
-      this.bindMouseHandler(new SelectionMouseHandler(this.noteContainer, this.selectionView, listener, this.selectedNoteIdStore))
+      this.bindMouseHandler(new SelectionMouseHandler(this.noteContainer, this.selectionView, this.selectedNoteIdStore))
       break
     }
   }
@@ -229,7 +217,7 @@ class PianoRollController {
     }
     this.mouseHandler = handler
 
-    handler.on("click-background", e => {
+    handler.on("add-note", e => {
       const x = this.quantizer.floorX(e.x)
       const y = this.quantizer.floorY(e.y)
       this.track.addEvent(createNote(
@@ -264,6 +252,48 @@ class PianoRollController {
         x: this.quantizer.roundX(e.target.bounds.x + e.movement.x),
         y: this.quantizer.roundY(e.target.bounds.y + e.movement.y)
       }))
+    })
+
+    handler.on("change-cursor", cursor => {
+      const style = this.canvas.parentNode.style
+      if (style.cursor != cursor) {
+        style.cursor = cursor
+      }
+    })
+
+    handler.on("clear-selection", () => {
+      // 選択範囲外でクリックした場合は選択範囲をリセット
+      this.selectedNoteIds = []
+      this.selectionView.fixed = false
+      this.selectionView.visible = false
+    })
+
+    handler.on("resize-selection", rect => {
+      const w = this.quantizer.roundX(rect.width) || this.quantizer.unitX
+      const h = this.quantizer.roundY(rect.height) || this.quantizer.unitY
+
+      this.selectionView.visible = true
+      this.selectionView.x = this.quantizer.roundX(rect.x)
+      this.selectionView.y = this.quantizer.roundY(rect.y)
+      this.selectionView.setSize(w, h)
+    })
+
+    handler.on("drag-selection-center", e => {
+      // 確定済みの選択範囲をドラッグした場合はノートと選択範囲を移動
+      this.selectionView.x += e.movement.x
+      this.selectionView.y += e.movement.y
+
+      this.selectedNoteIdStore
+        .map(id => this.noteContainer.findNoteViewById(id))
+        .forEach(view => {
+          if (!view) {
+            return
+          }
+          this.track.updateEvent(view.noteId, this.coordConverter.getNoteForRect({
+            x: view.x + e.movement.x,
+            y: view.y + e.movement.y
+          }))
+        })
     })
   }
 }

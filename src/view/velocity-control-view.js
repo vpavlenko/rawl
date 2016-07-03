@@ -13,8 +13,7 @@ class VelocityControlView extends createjs.Container {
     this.background = new createjs.Shape
     this.addChild(this.background)
 
-    this.beatLine = new BeatLineView(noteCoordConverter)
-    this.beatLine.endBeat = 1000
+    this.beatLine = new BeatLineView()
     this.addChild(this.beatLine)
 
     this.valueLine = new createjs.Shape
@@ -36,6 +35,17 @@ class VelocityControlView extends createjs.Container {
     })
   }
 
+  set ticksPerBeat(ticksPerBeat) {
+    this._ticksPerBeat = ticksPerBeat
+    this.beatLine.ticksPerBeat = ticksPerBeat
+  }
+
+  set transform(t) {
+    this._transform = t
+    this.beatLine.transform = t
+    this.beatLine.endTick = t.getTicks(this.getBounds().width)
+  }
+
   setBounds(x, y, width, height) {
     super.setBounds(x, y, width, height)
 
@@ -44,6 +54,9 @@ class VelocityControlView extends createjs.Container {
       .rect(0, 0, width, height)
 
     this.beatLine.height = height
+    if (this._transform) {
+      this.beatLine.endTick = this._transform.getTicks(width)
+    }
 
     this.valueLine.graphics
       .clear()
@@ -57,7 +70,7 @@ class VelocityControlView extends createjs.Container {
       .lineTo(width, height)
   }
 
-  set noteRects(noteRects) {
+  set notes(notes) {
     const views = this.children.slice()
     this.removeAllChildren()
     views.filter(c => !c.noteId).forEach(c => {
@@ -65,13 +78,13 @@ class VelocityControlView extends createjs.Container {
     })
 
     const viewHeight = this.getBounds().height
-    noteRects.forEach(note => {
+    notes.forEach(note => {
       let view = _.find(views, c => c.noteId == note.id)
       if (!view) {
         view = new createjs.Shape
         view.noteId = note.id
       }
-      view.x = note.x
+      view.x = this._transform.getX(note.tick)
       const color = note.selected ? "black" : "rgb(88, 103, 250)"
       const height = note.velocity / 127 * viewHeight
       view.graphics

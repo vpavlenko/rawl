@@ -19,7 +19,7 @@ class BeatLineView extends createjs.Shape {
   }
 
   redraw() {
-    if (!this._transform || !this._endBeat || !this._ticksPerBeat) {
+    if (!this._transform || !this._endTick || !this._ticksPerBeat) {
       return
     }
     const g = this.graphics

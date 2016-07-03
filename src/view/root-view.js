@@ -54,7 +54,6 @@ class RootView {
 
       onSelectTrack: e => {
         this.trackId = e.value
-        this.emitter.trigger("change-track", this.trackId)
         const track = this.song.getTrack(this.trackId)
         this.pianoRoll.track = track
         this.trackInfoPane.update({track: track})

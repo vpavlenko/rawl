@@ -106,7 +106,6 @@ class PianoRollController {
     this.stage.addChild(this.scrollContainer)
 
     this.grid = new PianoGridView(RULER_HEIGHT)
-    this.grid.endTick = 100000
     this.scrollContainer.addChild(this.grid)
 
     this.noteContainer = new NoteContainer()
@@ -201,6 +200,7 @@ class PianoRollController {
 
     this.noteContainer.notes = notes
     this.controlContainer.notes = notes
+    this.grid.endTick = Math.max(100000, tickEnd)
 
     this._notes = notes
     this.stage.update()
@@ -335,6 +335,7 @@ class PianoRollController {
         this._selection.toNoteNumber,
         ids
       )
+      this.emitter.trigger("select-notes", ids.map(i => this._track.getEventById(i)))
     })
 
     handler.on("drag-selection-center", e => {

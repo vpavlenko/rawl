@@ -39,7 +39,7 @@ class PencilMouseHandler {
           x: cpos.x,
           y: cpos.y
         },
-        noteId: view.noteId,
+        note: _.cloneDeep(view.note),
         type: getDragPositionType(local.x, view.getBounds().width),
         bounds: {
           x: view.x,
@@ -49,7 +49,7 @@ class PencilMouseHandler {
         }
       }
       if (e.nativeEvent.detail == 2) {
-        this.trigger("remove-note", view.noteId)
+        this.trigger("remove-note", view.note.id)
       }
     } else if (!e.relatedTarget) {
       this.target = null
@@ -66,14 +66,7 @@ class PencilMouseHandler {
     const loc = this.container.globalToLocal(e.stageX, e.stageY)
     const prevOrigin = this.target.prevOrigin || this.target.touchOrigin
     const r = {
-      noteId: this.target.noteId,
-      changed: (dx, dy = 0) => {
-        // notify actually moved
-        this.target.prevOrigin = {
-          x: prevOrigin.x + dx,
-          y: prevOrigin.y + dy
-        }
-      },
+      note: this.target.note,
       movement: {
         x: loc.x - prevOrigin.x,
         y: loc.y - prevOrigin.y
@@ -162,13 +155,6 @@ class SelectionMouseHandler {
 
     const loc = this.container.globalToLocal(e.stageX, e.stageY)
     const prevOrigin = this.target.prevOrigin || this.target.touchOrigin
-    const changed = (dx, dy = 0) => {
-      // notify actually moved
-      this.target.prevOrigin = {
-        x: prevOrigin.x + dx,
-        y: prevOrigin.y + dy
-      }
-    }
     const dx = loc.x - prevOrigin.x
     const dy = loc.y - prevOrigin.y
 
@@ -180,21 +166,18 @@ class SelectionMouseHandler {
       }
       case DRAG_POSITION.CENTER: {
         this.trigger("drag-selection-center", {
-          changed: changed,
           movement: { x: dx, y: dy }
         })
         break
       }
       case DRAG_POSITION.LEFT_EDGE: {
         this.trigger("drag-selection-left-edge", {
-          changed: changed,
           movement: { x: dx, y: dy }
         })
         break
       }
       case DRAG_POSITION.RIGHT_EDGE: {
         this.trigger("drag-selection-right-edge", {
-          changed: changed,
           movement: { x: dx, y: dy }
         })
         break
@@ -217,6 +200,8 @@ class SelectionMouseHandler {
     this.isMouseDown = false
     if (this.target.type == DRAG_POSITION.NONE) {
       this.trigger("select-notes", this.container.getNoteIdsInRect(this.selectionRect))
+    } else {
+      this.trigger("end-dragging")
     }
   }
 }

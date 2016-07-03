@@ -60,7 +60,7 @@ class RootView {
       },
 
       onSelectQuantize: e => {
-        this.emitter.trigger("change-quantize", e.value)
+        this.pianoRoll.quantizeDenominator = e.value
       }
     })
 

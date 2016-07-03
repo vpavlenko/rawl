@@ -1,10 +1,11 @@
 class Selection {
-  constructor(fromTick, fromNoteNumber, toTick, toNoteNumber, noteIds) {
+  constructor(fromTick, fromNoteNumber, toTick, toNoteNumber, notes, original) {
     this._fromTick = fromTick
     this._fromNoteNumber = fromNoteNumber
     this._toTick = toTick
     this._toNoteNumber = toNoteNumber
-    this._noteIds = noteIds
+    this._notes = _.cloneDeep(notes)
+    this._original = original
   }
 
   get fromTick() {
@@ -24,16 +25,35 @@ class Selection {
   }
 
   get noteIds() {
-    return this._noteIds
+    return this._notes.map(n => n.id)
   }
 
-  getMoved(dt, dn) {
+  get notes() {
+    return this._notes
+  }
+
+  get original() {
+    return this._original || this
+  }
+
+  copyUpdated(notes) {
+    return new Selection(
+      this.fromTick,
+      this.fromNoteNumber,
+      this.toTick,
+      this.toNoteNumber,
+      notes
+    )
+  }
+
+  copyMoved(dt, dn = 0, dd = 0) {
     return new Selection(
       this.fromTick + dt,
       this.fromNoteNumber + dn,
-      this.toTick + dt,
+      this.toTick + dt + dd,
       this.toNoteNumber + dn,
-      this.noteIds
+      this.notes,
+      this.original
     )
   }
 }

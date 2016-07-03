@@ -26,7 +26,7 @@ class PianoRollController {
     this.emitter = {}
     riot.observable(this.emitter)
 
-    this.quantizationDenominator = 4
+    this._quantizer = new Quantizer(TIME_BASE)
 
     this.showNotes = this.showNotes.bind(this)
     this.onScroll = this.onScroll.bind(this)
@@ -47,10 +47,6 @@ class PianoRollController {
 
     this.calcContentSize()
     this.selection = this._selection
-  }
-
-  get quantizer() {
-    return SharedService.quantizer
   }
 
   get player() {
@@ -95,6 +91,10 @@ class PianoRollController {
     }
     this.stage.update()
     this.showNotes()
+  }
+
+  set quantizeDenominator(val) {
+    this._quantizer.denominator = val
   }
 
   loadView(canvas) {
@@ -250,7 +250,7 @@ class PianoRollController {
 
     handler.on("add-note", e => {
       this._track.addEvent(createNote(
-        Math.floor(this._transform.getTicks(e.x)),
+        this._quantizer.floor(this._transform.getTicks(e.x)),
         Math.ceil(this._transform.getNoteNumber(e.y))
       ))
     })
@@ -260,46 +260,43 @@ class PianoRollController {
     handler.on("drag-note-left-edge", e => {
       // 右端を固定して長さを変更
       const dt = this._transform.getTicks(e.movement.x)
-      if (dt == 0) {
+      const tick = this._quantizer.round(e.note.tick + dt)
+      if (e.note.tick < tick) {
         return
       }
 
-      const n = this._track.getEventById(e.noteId)
-
-      this._track.updateEvent(e.noteId, {
-        tick: n.tick + dt,
-        duration: n.duration - dt
+      this._track.updateEvent(e.note.id, {
+        tick: tick,
+        duration: e.note.duration + (e.note.tick - tick)
       })
-
-      e.changed(this._transform.getX(dt))
     })
 
     handler.on("drag-note-right-edge", e => {
       // 長さを変更
       const dt = this._transform.getTicks(e.movement.x)
-      if (dt == 0) {
+      const duration = Math.max(this._quantizer.unit, 
+        this._quantizer.round(dt + e.note.duration))
+      if (e.note.duration == duration) {
         return
       }
 
-      const n = this._track.getEventById(e.noteId)
-      this._track.updateEvent(e.noteId, {duration: n.duration + dt})
-      e.changed(this._transform.getX(dt))
+      this._track.updateEvent(e.note.id, {duration: duration})
     })
 
     handler.on("drag-note-center", e => {
       // 移動
       const dt = this._transform.getTicks(e.movement.x)
+      const tick = this._quantizer.round(e.note.tick + dt)
       const dn = Math.round(this._transform.getDeltaNoteNumber(e.movement.y))
-      if (dt == 0 && dn == 0) {
+      const noteNumber = e.note.noteNumber + dn
+      if (e.note.tick == tick && dn == 0) {
         return
       }
 
-      const n = this._track.getEventById(e.noteId)
-      this._track.updateEvent(e.noteId, {
-        tick: n.tick + dt,
-        noteNumber: n.noteNumber + dn
+      this._track.updateEvent(e.note.id, {
+        tick: tick,
+        noteNumber: noteNumber
       })
-      e.changed(this._transform.getX(dt), this._transform.getDeltaY(dn))
     })
 
     handler.on("change-cursor", cursor => {
@@ -316,9 +313,9 @@ class PianoRollController {
 
     handler.on("resize-selection", rect => {
       this.selection = new Selection(
-        this._transform.getTicks(rect.x), 
+        this._quantizer.round(this._transform.getTicks(rect.x)), 
         Math.ceil(this._transform.getNoteNumber(rect.y)), 
-        this._transform.getTicks(rect.x + rect.width), 
+        this._quantizer.round(this._transform.getTicks(rect.x + rect.width)), 
         Math.ceil(this._transform.getNoteNumber(rect.y + rect.height)),
         []
       )
@@ -328,21 +325,22 @@ class PianoRollController {
       if (!this._selection) {
         return
       }
+      const notes = ids.map(i => this._track.getEventById(i))
       this.selection = new Selection(
         this._selection.fromTick,
         this._selection.fromNoteNumber,
         this._selection.toTick,
         this._selection.toNoteNumber,
-        ids
+        notes
       )
-      this.emitter.trigger("select-notes", ids.map(i => this._track.getEventById(i)))
+      this.emitter.trigger("select-notes", notes)
     })
 
     handler.on("drag-selection-center", e => {
       if (!this._selection) {
         return
       }
-      const dt = this._transform.getTicks(e.movement.x)
+      const dt = this._quantizer.round(this._transform.getTicks(e.movement.x))
       const dn = Math.round(this._transform.getDeltaNoteNumber(e.movement.y))
 
       if (dt == 0 && dn == 0) {
@@ -350,40 +348,39 @@ class PianoRollController {
       }
 
       // 確定済みの選択範囲をドラッグした場合はノートと選択範囲を移動
-      this.selection = this._selection.getMoved(dt, dn)
+      this.selection = this._selection.original.copyMoved(dt, dn)
 
-      this._selection.noteIds
-        .map(id => this._track.getEventById(id))
-        .forEach(e => {
-          if (!e) {
-            return
-          }
-          this._track.updateEvent(e.id, {
-            tick: e.tick + dt,
-            noteNumber: e.noteNumber + dn
-          })
+      this._selection.notes.forEach(e => {
+        this._track.updateEvent(e.id, {
+          tick: e.tick + dt,
+          noteNumber: e.noteNumber + dn
         })
+      })
+    })
 
-      e.changed(this._transform.getX(dt), this._transform.getDeltaY(dn))
+    handler.on("end-dragging", ids => {
+      if (!this._selection) {
+        return
+      }
+      // reset selection
+      const notes = this._selection.noteIds.map(i => this._track.getEventById(i))
+      this.selection = this._selection.copyUpdated(notes)
     })
 
     handler.on("drag-selection-left-edge", e => {
       if (!this._selection) {
         return
       }
-      const dt = this._transform.getTicks(e.movement.x)
-      if (dt == 0) {
+      const dt = this._quantizer.floor(this._transform.getTicks(e.movement.x))
+      if (dt > 0) {
         return
       }
 
-      const notes = this._selection.noteIds
-        .map(id => this._track.getEventById(id))
-        .filter(e => e != null)
-        .map(e => { return {
-          id: e.id,
-          tick: e.tick + dt,
-          duration: e.duration - dt
-        }})
+      const notes = this._selection.notes.map(e => { return {
+        id: e.id,
+        tick: e.tick + dt,
+        duration: e.duration - dt
+      }})
 
       // 幅がゼロになるノートがあるときは変形しない
       if (!_.every(notes, r => r.duration > 0)) {
@@ -391,51 +388,27 @@ class PianoRollController {
       }
 
       // 右端を固定して長さを変更
-      this.selection = new Selection(
-        this._selection.fromTick + dt,
-        this._selection.fromNoteNumber,
-        this._selection.toTick,
-        this._selection.toNoteNumber,
-        this._selection.noteIds
-      )
-
+      this.selection = this._selection.original.copyMoved(dt, 0, -dt)
       notes.forEach(e => this._track.updateEvent(e.id, e))
-      e.changed(this._transform.getX(dt))
     })
 
     handler.on("drag-selection-right-edge", e => {
       if (!this._selection) {
         return
       }
-      const dt = this._transform.getTicks(e.movement.x)
+      const dt = this._quantizer.floor(this._transform.getTicks(e.movement.x))
       if (dt == 0) {
         return
       }
 
-      const notes = this._selection.noteIds
-        .map(id => this._track.getEventById(id))
-        .filter(e => e != null)
-        .map(e => { return {
-          id: e.id,
-          duration: e.duration + dt
-        }})
-
-      // 幅がゼロになるノートがあるときは変形しない
-      if (!_.every(notes, r => r.duration > 0)) {
-        return
-      }
+      const notes = this._selection.notes.map(e => { return {
+        id: e.id,
+        duration: Math.max(this._quantizer.unit, e.duration + dt)
+      }})
 
       // 左端を固定して長さを変更
-      this.selection = new Selection(
-        this._selection.fromTick,
-        this._selection.fromNoteNumber,
-        this._selection.toTick + dt,
-        this._selection.toNoteNumber,
-        this._selection.noteIds
-      )
-
+      this.selection = this._selection.original.copyMoved(0, 0, dt)
       notes.forEach(e => this._track.updateEvent(e.id, e))
-      e.changed(this._transform.getX(dt))
     })
   }
 

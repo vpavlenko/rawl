@@ -343,10 +343,6 @@ class PianoRollController {
       const dt = this._quantizer.round(this._transform.getTicks(e.movement.x))
       const dn = Math.round(this._transform.getDeltaNoteNumber(e.movement.y))
 
-      if (dt == 0 && dn == 0) {
-        return
-      }
-
       // 確定済みの選択範囲をドラッグした場合はノートと選択範囲を移動
       this.selection = this._selection.original.copyMoved(dt, dn)
 

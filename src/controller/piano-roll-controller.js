@@ -1,8 +1,12 @@
 "use strict"
 
+const MAX_NOTE_NUMBER = 127
 const RULER_HEIGHT = 22
 const KEY_WIDTH = 100
+const KEY_HEIGHT = 14
 const CONTROL_HEIGHT = 200
+const PIXELS_PER_TICK = 0.1
+const TIME_BASE = 480
 
 function createNote(tick = 0, noteNumber = 48, duration = 240, velocity = 127, channel) {
   return {
@@ -22,6 +26,8 @@ class PianoRollController {
     this.emitter = {}
     riot.observable(this.emitter)
 
+    this.quantizationDenominator = 4
+
     this.mouseMode = 0
     this.selectedNoteIdStore = []
     riot.observable(this.selectedNoteIdStore)
@@ -36,8 +42,18 @@ class PianoRollController {
     model.on("change-tool", i => this.setMouseMode(i))
   }
 
-  get coordConverter() {
-    return SharedService.coordConverter
+  set ticksPerBeat(ticksPerBeat) {
+    this._ticksPerBeat = ticksPerBeat
+    this.grid.ticksPerBeat = ticksPerBeat
+  }
+
+  set transform(t) {
+    this._transform = t
+    this.grid.transform = t
+    this.noteContainer.transform = t
+    this.keys.transform = t
+
+    this.calcContentSize()
   }
 
   get quantizer() {
@@ -67,8 +83,8 @@ class PianoRollController {
     this.scrollContainer = new createjs.ScrollContainer(canvas)
     this.stage.addChild(this.scrollContainer)
 
-    this.grid = new PianoGridView(127, RULER_HEIGHT, this.coordConverter, 1000)
-    this.grid.endBeat = 1000
+    this.grid = new PianoGridView(RULER_HEIGHT)
+    this.grid.endTick = 100000
     this.scrollContainer.addChild(this.grid)
 
     this.noteContainer = new NoteContainer(this.selectedNoteIdStore)
@@ -81,7 +97,7 @@ class PianoRollController {
     this.selectionView.setSize(0, 0)
     this.noteContainer.addChild(this.selectionView)
 
-    this.keys = new PianoKeysView(KEY_WIDTH, this.quantizer.unitY, 127)
+    this.keys = new PianoKeysView(KEY_WIDTH)
     this.keys.y = RULER_HEIGHT
     this.scrollContainer.addChild(this.keys)
 
@@ -98,6 +114,8 @@ class PianoRollController {
   }
 
   viewDidLoad() {
+    this.transform = new NoteCoordTransform(PIXELS_PER_TICK, KEY_HEIGHT, MAX_NOTE_NUMBER)
+    this.ticksPerBeat = TIME_BASE
     this.setMouseMode(0)
 
     this.stage.on("stagemousedown", e => {
@@ -121,24 +139,24 @@ class PianoRollController {
 
     this.scrollContainer.on("scroll", this.onScroll)
 
-    setInterval(() => {
-      const tick = this.player.position
-      this.grid.cursorPosition = this.coordConverter.getPixelsAt(tick)
-      this.stage.update()
-    }, 66)
+    // setInterval(() => {
+    //   const tick = this.player.position
+    //   this.grid.cursorPosition = this.coordConverter.getPixelsAt(tick)
+    //   this.stage.update()
+    // }, 66)
   }
 
-  getNoteRects() {
+  getNotes() {
     return this.track.getEvents()
       .filter(e => e.subtype == "note")
-      .map(this.coordConverter.eventToRect)
   }
 
   calcContentSize() {
-    const noteRightEdges = this.getNoteRects().map(n => n.x + n.width)
-    const maxNoteX = Math.max.apply(null, noteRightEdges)
-    this.contentWidth = Math.ceil(maxNoteX + KEY_WIDTH)
-    this.contentHeight = this.coordConverter.getPixelsForNoteNumber(0) + RULER_HEIGHT
+    const noteEnds = this.track ? this.getNotes().map(n => n.tick + n.duration) : [0]
+    const maxTick = Math.max.apply(null, noteEnds)
+    const maxX = this._transform.getX(maxTick)
+    this.contentWidth = Math.ceil(maxX + KEY_WIDTH)
+    this.contentHeight = this._transform.getY(0) + RULER_HEIGHT
     this.layoutSubviews()
   }
 
@@ -146,19 +164,19 @@ class PianoRollController {
     if (!this.track) {
       return
     }
-    const noteRects = this.getNoteRects()
-      .filter(note => {
-        return note.x > -this.scrollContainer.scrollX && 
-          note.x < -this.scrollContainer.scrollX + this.scrollContainer.getBounds().width
-      }).map(note => {
+    const tickStart = this._transform.getTicks(-this.scrollContainer.scrollX)
+    const tickEnd = this._transform.getTicks(-this.scrollContainer.scrollX + this.scrollContainer.getBounds().width)
+    const notes = this.getNotes()
+      .filter(note => note.tick >= tickStart && note.tick <= tickEnd)
+      .map(note => {
         note.selected = this.selectedNoteIdStore.includes(note.id)
         return note
       })
 
-    this.noteContainer.noteRects = noteRects
-    this.controlContainer.noteRects = noteRects
+    this.noteContainer.notes = notes
+    this.controlContainer.notes = notes
 
-    this.noteRects = noteRects
+    this._notes = notes
     this.stage.update()
   }
 
@@ -170,9 +188,7 @@ class PianoRollController {
     }
 
     this.grid.x = KEY_WIDTH
-    this.grid.keyHeight = this.quantizer.unitY
     this.grid.redraw()
-
     this.grid.ruler.x = KEY_WIDTH
 
     this.noteContainer.x = KEY_WIDTH
@@ -218,11 +234,9 @@ class PianoRollController {
     this.mouseHandler = handler
 
     handler.on("add-note", e => {
-      const x = this.quantizer.floorX(e.x)
-      const y = this.quantizer.floorY(e.y)
       this.track.addEvent(createNote(
-        this.coordConverter.getTicksForPixels(x),
-        this.coordConverter.getNoteNumberForPixels(y)
+        Math.floor(this._transform.getTicks(e.x)),
+        Math.floor(this._transform.getNoteNumber(e.y))
       ))
     })
 

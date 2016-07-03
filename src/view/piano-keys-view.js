@@ -35,8 +35,23 @@ function getBlackKeyShape(width, height) {
 }
 
 class PianoKeysView extends createjs.Container {
-  constructor(width, keyHeight, numberOfKeys) {
+  constructor(width) {
     super()
+    this._width = width
+  }
+
+  set transform(transform) {
+    this._transform = transform
+    this.redraw()
+  }
+
+  redraw() {
+    if (!this._transform) {
+      return
+    }
+    const keyHeight = this._transform.getPixelsPerKey()
+    const numberOfKeys = this._transform.getMaxNoteNumber()
+    const width = this._width
 
     // 0: white, 1: black
     const colors = [0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0]

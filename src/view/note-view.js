@@ -1,7 +1,6 @@
 class NoteView extends createjs.Shape {
   constructor() {
     super()
-    this.isSelected = false
     this.setBounds(0, 0, 0, 0)
     this.isDirty = true
   }
@@ -11,7 +10,7 @@ class NoteView extends createjs.Shape {
     this.isDirty = false
     const b = this.getBounds()
     const alpha = this._note.velocity / 127
-    const color = this.isSelected ? "black" : `rgba(88, 103, 250, ${alpha})`
+    const color = this._note.selected ? "black" : `rgba(88, 103, 250, ${alpha})`
     this.graphics
       .clear()
       .beginFill(color)
@@ -45,13 +44,6 @@ class NoteView extends createjs.Shape {
   set note(note) {
     this._note = note
     this._updateBounds()
-    this.isDirty = true
-    this.refresh()
-  }
-
-  set selected(selected) {
-    if (this.isSelected == selected) return
-    this.isSelected = selected
     this.isDirty = true
     this.refresh()
   }

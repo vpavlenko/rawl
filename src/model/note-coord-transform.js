@@ -17,6 +17,10 @@ class NoteCoordTransform {
     return (this._maxNoteNumber - noteNumber) * this._pixelsPerKey
   }
 
+  getDeltaY(deltaNoteNumber) {
+    return -deltaNoteNumber * this._pixelsPerKey
+  }
+
   // ticks
 
   getTicks(pixels) {
@@ -25,6 +29,10 @@ class NoteCoordTransform {
 
   getNoteNumber(pixels) {
     return this._maxNoteNumber - pixels / this._pixelsPerKey
+  }
+
+  getDeltaNoteNumber(deltaPixels) {
+    return -deltaPixels / this._pixelsPerKey
   }
 
   getMaxNoteNumber() {

@@ -11,7 +11,7 @@ class RootView {
   setSong(song) {
     this.song = song
     this.toolbar.update({song: song})
-    this.pianoRoll.setTrack(song.getTrack(0))
+    this.pianoRoll.track = song.getTrack(0)
   }
 
   loadView() {
@@ -20,7 +20,7 @@ class RootView {
       this.propertyPane = riot.mount("property-pane")[0]
       this.toolbar = riot.mount("toolbar")[0]
       this.eventPane = riot.mount("event-table")[0]
-      this.pianoRoll = new PianoRollController(this.emitter, document.querySelector("#piano-roll"))
+      this.pianoRoll = new PianoRollController(document.querySelector("#piano-roll"))
 
       this.viewDidLoad()
     })
@@ -37,11 +37,11 @@ class RootView {
       },
 
       onClickPencil: e => {
-        this.emitter.trigger("change-tool", 0)
+        this.pianoRoll.mouseMode = 0
       },
 
       onClickSelection: e => {
-        this.emitter.trigger("change-tool", 1)
+        this.pianoRoll.mouseMode = 1
       },
 
       onClickScaleUp: e => {
@@ -56,7 +56,7 @@ class RootView {
         this.trackId = e.value
         this.emitter.trigger("change-track", this.trackId)
         const track = this.song.getTrack(this.trackId)
-        this.pianoRoll.setTrack(track)
+        this.pianoRoll.track = track
         this.trackInfoPane.update({track: track})
       },
 

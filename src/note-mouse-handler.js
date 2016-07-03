@@ -63,21 +63,32 @@ class PencilMouseHandler {
       return
     }
 
-    const p = this.container.globalToLocal(e.stageX, e.stageY)
-    const movement = {
-      x: p.x - this.target.touchOrigin.x,
-      y: p.y - this.target.touchOrigin.y
+    const loc = this.container.globalToLocal(e.stageX, e.stageY)
+    const prevOrigin = this.target.prevOrigin || this.target.touchOrigin
+    const r = {
+      noteId: this.target.noteId,
+      changed: (dx, dy = 0) => {
+        // notify actually moved
+        this.target.prevOrigin = {
+          x: prevOrigin.x + dx,
+          y: prevOrigin.y + dy
+        }
+      },
+      movement: {
+        x: loc.x - prevOrigin.x,
+        y: loc.y - prevOrigin.y
+      }
     }
 
     switch (this.target.type) {
       case DRAG_POSITION.LEFT_EDGE:
-      this.trigger("drag-note-left-edge", { target: this.target, movement: movement })
+      this.trigger("drag-note-left-edge", r)
       return
       case DRAG_POSITION.RIGHT_EDGE:
-      this.trigger("drag-note-right-edge", { target: this.target, movement: movement })
+      this.trigger("drag-note-right-edge", r)
       return
       case DRAG_POSITION.CENTER:
-      this.trigger("drag-note-center", { target: this.target, movement: movement })
+      this.trigger("drag-note-center", r)
       break
     }
   }
@@ -100,17 +111,13 @@ class PencilMouseHandler {
 }
 
 class SelectionMouseHandler {
-  constructor(container, selectionView, selectedNoteIdStore) {
+  constructor(container, selectionView) {
     this.container = container
     this.selectionView = selectionView
-    this.selectedNoteIdStore = selectedNoteIdStore
     this.isMouseDown = false
+    this._isResizing = false
     riot.observable(this)
     bindAllMethods(this)
-  }
-
-  get quantizer() {
-    return SharedService.quantizer
   }
 
   get selectionRect() {
@@ -155,11 +162,15 @@ class SelectionMouseHandler {
 
     const loc = this.container.globalToLocal(e.stageX, e.stageY)
     const prevOrigin = this.target.prevOrigin || this.target.touchOrigin
-    const changed = () => {
-      this.target.prevOrigin = loc
+    const changed = (dx, dy = 0) => {
+      // notify actually moved
+      this.target.prevOrigin = {
+        x: prevOrigin.x + dx,
+        y: prevOrigin.y + dy
+      }
     }
-    const dx = this.quantizer.roundX(loc.x - prevOrigin.x)
-    const dy = this.quantizer.roundY(loc.y - prevOrigin.y)
+    const dx = loc.x - prevOrigin.x
+    const dy = loc.y - prevOrigin.y
 
     switch (this.target.type) {
       case DRAG_POSITION.NONE: {
@@ -202,21 +213,10 @@ class SelectionMouseHandler {
     }
   }
 
-  set selectedNoteIds(ids) {
-    this.selectedNoteIdStore.removeAll()
-    this.selectedNoteIdStore.pushArray(ids)
-    this.selectedNoteIdStore.trigger("change", this.selectedNoteIdStore)
-  }
-
-  get selectedNoteIds() {
-    return this.selectedNoteIdStore
-  }
-
   onMouseUp(e) { 
-    if (!this.selectionView.fixed) {
-      this.selectionView.fixed = true
-      this.selectedNoteIds = this.container.getNoteIdsInRect(this.selectionRect)
-    }
     this.isMouseDown = false
+    if (this.target.type == DRAG_POSITION.NONE) {
+      this.trigger("select-notes", this.container.getNoteIdsInRect(this.selectionRect))
+    }
   }
 }

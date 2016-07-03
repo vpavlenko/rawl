@@ -1,14 +1,7 @@
 "use strict"
 class NoteContainer extends createjs.Container {
-  constructor(selectedNoteStore) {
+  constructor() {
     super()
-    selectedNoteStore.on("change", noteIds => {
-      this.children.forEach(c => {
-        if (c instanceof NoteView) {
-          c.selected = noteIds.includes(c.noteId)
-        }
-      })
-    })
   }
 
   clearNotes() {

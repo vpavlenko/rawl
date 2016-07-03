@@ -22,24 +22,16 @@ function createNote(tick = 0, noteNumber = 48, duration = 240, velocity = 127, c
 }
 
 class PianoRollController {
-  constructor(model, canvas) {
+  constructor(canvas) {
     this.emitter = {}
     riot.observable(this.emitter)
 
     this.quantizationDenominator = 4
 
-    this.mouseMode = 0
-    this.selectedNoteIdStore = []
-    riot.observable(this.selectedNoteIdStore)
-    this.selectedNoteIdStore.on("change", ids => {
-      this.emitter.trigger("select-notes", ids.map(i => this.track.getEventById(i)))
-    })
-
     this.showNotes = this.showNotes.bind(this)
     this.onScroll = this.onScroll.bind(this)
 
     this.loadView(canvas)
-    model.on("change-tool", i => this.setMouseMode(i))
   }
 
   set ticksPerBeat(ticksPerBeat) {
@@ -54,6 +46,7 @@ class PianoRollController {
     this.keys.transform = t
 
     this.calcContentSize()
+    this.selection = this._selection
   }
 
   get quantizer() {
@@ -64,14 +57,43 @@ class PianoRollController {
     return SharedService.player
   }
 
-  setTrack(track) {
-    if (this.track) {
-      this.track.off("change", this.showNotes)
+  set track(track) {
+    if (this._track) {
+      this._track.off("change", this.showNotes)
     }
-    this.track = track
-    this.track.on("change", this.showNotes)
+    this._track = track
+    this._track.on("change", this.showNotes)
 
     this.calcContentSize()
+    this.showNotes()
+  }
+
+  set mouseMode(mode) {
+    switch(mode) {
+    case 0:
+      this.bindMouseHandler(new PencilMouseHandler(this.noteContainer))
+      break
+    case 1:
+      this.bindMouseHandler(new SelectionMouseHandler(this.noteContainer, this.selectionView))
+      break
+    }
+  }
+
+  set selection(selection) {
+    this._selection = selection
+    this.selectionView.visible = selection != null
+    if (selection) {
+      const left = this._transform.getX(selection.fromTick)
+      const right = this._transform.getX(selection.toTick)
+      const top = this._transform.getY(selection.fromNoteNumber)
+      const bottom = this._transform.getY(selection.toNoteNumber)
+      this.selectionView.x = left
+      this.selectionView.y = top
+      this.selectionView.setSize(right - left, bottom - top)
+    } else {
+      this.selectionView.setSize(0, 0)
+    }
+    this.stage.update()
     this.showNotes()
   }
 
@@ -87,7 +109,7 @@ class PianoRollController {
     this.grid.endTick = 100000
     this.scrollContainer.addChild(this.grid)
 
-    this.noteContainer = new NoteContainer(this.selectedNoteIdStore)
+    this.noteContainer = new NoteContainer()
     this.scrollContainer.addChild(this.noteContainer)
 
     this.controlContainer = new VelocityControlView(this.coordConverter)
@@ -116,7 +138,7 @@ class PianoRollController {
   viewDidLoad() {
     this.transform = new NoteCoordTransform(PIXELS_PER_TICK, KEY_HEIGHT, MAX_NOTE_NUMBER)
     this.ticksPerBeat = TIME_BASE
-    this.setMouseMode(0)
+    this.mouseMode = 0
 
     this.stage.on("stagemousedown", e => {
       this.mouseHandler.onMouseDown(e)
@@ -129,7 +151,7 @@ class PianoRollController {
     })
 
     this.controlContainer.on("change", e => {
-      this.track.updateEvent(e.noteId, {velocity: e.velocity})
+      this._track.updateEvent(e.noteId, {velocity: e.velocity})
     })
 
     this.grid.ruler.on("click", e => {
@@ -139,20 +161,20 @@ class PianoRollController {
 
     this.scrollContainer.on("scroll", this.onScroll)
 
-    // setInterval(() => {
-    //   const tick = this.player.position
-    //   this.grid.cursorPosition = this.coordConverter.getPixelsAt(tick)
-    //   this.stage.update()
-    // }, 66)
+    setInterval(() => {
+      const tick = this.player.position
+      this.grid.cursorPosition = this._transform.getX(tick)
+      this.stage.update()
+    }, 66)
   }
 
   getNotes() {
-    return this.track.getEvents()
+    return this._track.getEvents()
       .filter(e => e.subtype == "note")
   }
 
   calcContentSize() {
-    const noteEnds = this.track ? this.getNotes().map(n => n.tick + n.duration) : [0]
+    const noteEnds = this._track ? this.getNotes().map(n => n.tick + n.duration) : [0]
     const maxTick = Math.max.apply(null, noteEnds)
     const maxX = this._transform.getX(maxTick)
     this.contentWidth = Math.ceil(maxX + KEY_WIDTH)
@@ -161,7 +183,7 @@ class PianoRollController {
   }
 
   showNotes() {
-    if (!this.track) {
+    if (!this._track) {
       return
     }
     const tickStart = this._transform.getTicks(-this.scrollContainer.scrollX)
@@ -169,7 +191,11 @@ class PianoRollController {
     const notes = this.getNotes()
       .filter(note => note.tick >= tickStart && note.tick <= tickEnd)
       .map(note => {
-        note.selected = this.selectedNoteIdStore.includes(note.id)
+        if (this._selection) {
+          note.selected = this._selection.noteIds.includes(note.id)
+        } else {
+          note.selected = false
+        }
         return note
       })
 
@@ -216,17 +242,6 @@ class PianoRollController {
     this.showNotes()
   }
 
-  setMouseMode(mode) {
-    switch(mode) {
-    case 0:
-      this.bindMouseHandler(new PencilMouseHandler(this.noteContainer))
-      break
-    case 1:
-      this.bindMouseHandler(new SelectionMouseHandler(this.noteContainer, this.selectionView, this.selectedNoteIdStore))
-      break
-    }
-  }
-
   bindMouseHandler(handler) {
     if (this.mouseHandler) {
       this.mouseHandler.off("*")
@@ -234,40 +249,57 @@ class PianoRollController {
     this.mouseHandler = handler
 
     handler.on("add-note", e => {
-      this.track.addEvent(createNote(
+      this._track.addEvent(createNote(
         Math.floor(this._transform.getTicks(e.x)),
-        Math.floor(this._transform.getNoteNumber(e.y))
+        Math.ceil(this._transform.getNoteNumber(e.y))
       ))
     })
 
-    handler.on("remove-note", id => this.track.removeEvent(id))
+    handler.on("remove-note", id => this._track.removeEvent(id))
 
     handler.on("drag-note-left-edge", e => {
       // 右端を固定して長さを変更
-      const x = this.quantizer.roundX(e.target.bounds.x + e.movement.x)
-      const width = this.quantizer.roundX(e.target.bounds.width - e.movement.x)
+      const dt = this._transform.getTicks(e.movement.x)
+      if (dt == 0) {
+        return
+      }
 
-      this.track.updateEvent(e.target.noteId, this.coordConverter.getNoteForRect({
-        x: x,
-        width: Math.max(this.quantizer.unitX, width)
-      }))
+      const n = this._track.getEventById(e.noteId)
+
+      this._track.updateEvent(e.noteId, {
+        tick: n.tick + dt,
+        duration: n.duration - dt
+      })
+
+      e.changed(this._transform.getX(dt))
     })
 
     handler.on("drag-note-right-edge", e => {
       // 長さを変更
-      const width = Math.max(this.quantizer.unitX, this.quantizer.roundX(e.target.bounds.width + e.movement.x))
+      const dt = this._transform.getTicks(e.movement.x)
+      if (dt == 0) {
+        return
+      }
 
-      this.track.updateEvent(e.target.noteId, this.coordConverter.getNoteForRect({
-        width: width
-      }))
+      const n = this._track.getEventById(e.noteId)
+      this._track.updateEvent(e.noteId, {duration: n.duration + dt})
+      e.changed(this._transform.getX(dt))
     })
 
     handler.on("drag-note-center", e => {
       // 移動
-      this.track.updateEvent(e.target.noteId, this.coordConverter.getNoteForRect({
-        x: this.quantizer.roundX(e.target.bounds.x + e.movement.x),
-        y: this.quantizer.roundY(e.target.bounds.y + e.movement.y)
-      }))
+      const dt = this._transform.getTicks(e.movement.x)
+      const dn = Math.round(this._transform.getDeltaNoteNumber(e.movement.y))
+      if (dt == 0 && dn == 0) {
+        return
+      }
+
+      const n = this._track.getEventById(e.noteId)
+      this._track.updateEvent(e.noteId, {
+        tick: n.tick + dt,
+        noteNumber: n.noteNumber + dn
+      })
+      e.changed(this._transform.getX(dt), this._transform.getDeltaY(dn))
     })
 
     handler.on("change-cursor", cursor => {
@@ -279,103 +311,131 @@ class PianoRollController {
 
     handler.on("clear-selection", () => {
       // 選択範囲外でクリックした場合は選択範囲をリセット
-      this.selectedNoteIds = []
-      this.selectionView.fixed = false
-      this.selectionView.visible = false
+      this.selection = null
     })
 
     handler.on("resize-selection", rect => {
-      const w = this.quantizer.roundX(rect.width) || this.quantizer.unitX
-      const h = this.quantizer.roundY(rect.height) || this.quantizer.unitY
+      this.selection = new Selection(
+        this._transform.getTicks(rect.x), 
+        Math.ceil(this._transform.getNoteNumber(rect.y)), 
+        this._transform.getTicks(rect.x + rect.width), 
+        Math.ceil(this._transform.getNoteNumber(rect.y + rect.height)),
+        []
+      )
+    })
 
-      this.selectionView.visible = true
-      this.selectionView.x = this.quantizer.roundX(rect.x)
-      this.selectionView.y = this.quantizer.roundY(rect.y)
-      this.selectionView.setSize(w, h)
+    handler.on("select-notes", ids => {
+      if (!this._selection) {
+        return
+      }
+      this.selection = new Selection(
+        this._selection.fromTick,
+        this._selection.fromNoteNumber,
+        this._selection.toTick,
+        this._selection.toNoteNumber,
+        ids
+      )
     })
 
     handler.on("drag-selection-center", e => {
-      if (e.movement.x == 0 && e.movement.y == 0) {
+      if (!this._selection) {
+        return
+      }
+      const dt = this._transform.getTicks(e.movement.x)
+      const dn = Math.round(this._transform.getDeltaNoteNumber(e.movement.y))
+
+      if (dt == 0 && dn == 0) {
         return
       }
 
       // 確定済みの選択範囲をドラッグした場合はノートと選択範囲を移動
-      this.selectionView.x += e.movement.x
-      this.selectionView.y += e.movement.y
+      this.selection = this._selection.getMoved(dt, dn)
 
-      this.selectedNoteIdStore
-        .map(id => this.noteContainer.findNoteViewById(id))
-        .forEach(view => {
-          if (!view) {
+      this._selection.noteIds
+        .map(id => this._track.getEventById(id))
+        .forEach(e => {
+          if (!e) {
             return
           }
-          this.track.updateEvent(view.noteId, this.coordConverter.getNoteForRect({
-            x: view.x + e.movement.x,
-            y: view.y + e.movement.y
-          }))
+          this._track.updateEvent(e.id, {
+            tick: e.tick + dt,
+            noteNumber: e.noteNumber + dn
+          })
         })
 
-      e.changed()
+      e.changed(this._transform.getX(dt), this._transform.getDeltaY(dn))
     })
 
     handler.on("drag-selection-left-edge", e => {
-      if (e.movement.x == 0) {
+      if (!this._selection) {
+        return
+      }
+      const dt = this._transform.getTicks(e.movement.x)
+      if (dt == 0) {
         return
       }
 
-      const rects = this.selectedNoteIdStore
-        .map(id => this.noteContainer.findNoteViewById(id))
-        .filter(v => v != null)
-        .map(view => { return {
-          noteId: view.noteId,
-          x: view.x + e.movement.x,
-          width: view.getBounds().width - e.movement.x
+      const notes = this._selection.noteIds
+        .map(id => this._track.getEventById(id))
+        .filter(e => e != null)
+        .map(e => { return {
+          id: e.id,
+          tick: e.tick + dt,
+          duration: e.duration - dt
         }})
 
       // 幅がゼロになるノートがあるときは変形しない
-      if (!_.every(rects, r => r.width > 0)) {
+      if (!_.every(notes, r => r.duration > 0)) {
         return
       }
 
       // 右端を固定して長さを変更
-      this.selectionView.x += e.movement.x
-      const b = this.selectionView.getBounds()
-      this.selectionView.setSize(b.width - e.movement.x, b.height)
-
-      rects.forEach(r => 
-        this.track.updateEvent(r.noteId, this.coordConverter.getNoteForRect(r))
+      this.selection = new Selection(
+        this._selection.fromTick + dt,
+        this._selection.fromNoteNumber,
+        this._selection.toTick,
+        this._selection.toNoteNumber,
+        this._selection.noteIds
       )
 
-      e.changed()
+      notes.forEach(e => this._track.updateEvent(e.id, e))
+      e.changed(this._transform.getX(dt))
     })
 
     handler.on("drag-selection-right-edge", e => {
-      if (e.movement.x == 0) {
+      if (!this._selection) {
+        return
+      }
+      const dt = this._transform.getTicks(e.movement.x)
+      if (dt == 0) {
         return
       }
 
-      const rects = this.selectedNoteIdStore
-        .map(id => this.noteContainer.findNoteViewById(id))
-        .filter(v => v != null)
-        .map(view => { return {
-          noteId: view.noteId,
-          width: view.getBounds().width + e.movement.x
+      const notes = this._selection.noteIds
+        .map(id => this._track.getEventById(id))
+        .filter(e => e != null)
+        .map(e => { return {
+          id: e.id,
+          duration: e.duration + dt
         }})
 
       // 幅がゼロになるノートがあるときは変形しない
-      if (!_.every(rects, r => r.width > 0)) {
+      if (!_.every(notes, r => r.duration > 0)) {
         return
       }
 
       // 左端を固定して長さを変更
-      const b = this.selectionView.getBounds()
-      this.selectionView.setSize(b.width + e.movement.x, b.height)
-
-      rects.forEach(r => 
-        this.track.updateEvent(r.noteId, this.coordConverter.getNoteForRect(r))
+      this.selection = new Selection(
+        this._selection.fromTick,
+        this._selection.fromNoteNumber,
+        this._selection.toTick + dt,
+        this._selection.toNoteNumber,
+        this._selection.noteIds
       )
 
-      e.changed()
+      notes.forEach(e => this._track.updateEvent(e.id, e))
+      e.changed(this._transform.getX(dt))
     })
   }
+
 }

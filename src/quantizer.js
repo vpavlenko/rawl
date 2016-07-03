@@ -1,48 +1,30 @@
+"use strict"
 class Quantizer {
-  constructor(pixelsPerBeat, pixelsPerKey) {
-    this.pixelsPerBeat = pixelsPerBeat
-    this.pixelsPerKey = pixelsPerKey
+  constructor(ticksPerBeat) {
+    this._ticksPerBeat = ticksPerBeat
 
     // N 分音符の N
     this.denominator = 4
   }
 
-  roundX(x) {
-    var u = this.unitX
-    return Math.round(x / u) * u
+  round(tick) {
+    var u = this.unit
+    return Math.round(tick / u) * u
   }
 
-  roundY(y) {
-    var u = this.unitY
-    return Math.round(y / u) * u
+  ceil(tick) {
+    var u = this.unit
+    return Math.ceil(tick / u) * u
   }
 
-  ceilX(x) {
-    var u = this.unitX
-    return Math.ceil(x / u) * u
+  floor(tick) {
+    var u = this.unit
+    return Math.floor(tick / u) * u
   }
 
-  ceilY(y) {
-    var u = this.unitY
-    return Math.ceil(y / u) * u
+  get unit() {
+    return this._ticksPerBeat * 4 / this.denominator
   }
 
-  floorX(x) {
-    var u = this.unitX
-    return Math.floor(x / u) * u
-  }
-
-  floorY(y) {
-    var u = this.unitY
-    return Math.floor(y / u) * u
-  }
-
-  get unitX() {
-    return this.pixelsPerBeat * 4 / this.denominator
-  }
-
-  get unitY() {
-    return this.pixelsPerKey
-  }
 }
 

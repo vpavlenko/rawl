@@ -11,20 +11,14 @@
     $ static . 
     $ open localhost:8080/
   -->
-  <header>
-    <input type="file" id="load-midi-input" accept=".mid,.midi"></input>
-    <button id="backward-button">←</button>
-    <button id="stop-button">■</button>
-    <button id="play-button">▶</button>
-    <button id="forward-button">→</button>
-    <button id="pencil-button">✎</button>
-    <button id="selection-button">□</button>
-    <riot-select id="track-select"></riot-select>
-    <riot-select id="quantize-select"></riot-select>
-  </header>
+  <toolbar></toolbar>
   <div id="container">
-    <event-table></event-table>
-    <piano-roll></piano-roll>
+    <div id="side">
+      <track-info></track-info>
+      <event-table></event-table>
+    </div>
+    <canvas id="piano-roll"></canvas>
+    <property-pane></property-pane>
     <context-menu></context-menu>
   </div>
 </body>
@@ -32,23 +26,27 @@
 <script src="node_modules/babel-polyfill/dist/polyfill.js"></script>
 <script src="node_modules/lodash/lodash.js"></script>
 <script src="node_modules/riot/riot+compiler.js"></script>
-<script type="riot/tag" src="tag/piano-roll.tag"></script>
 <script type="riot/tag" src="tag/context-menu.tag"></script>
 <script type="riot/tag" src="tag/event-table.tag"></script>
 <script type="riot/tag" src="tag/riot-select.tag"></script>
+<script type="riot/tag" src="tag/property-pane.tag"></script>
+<script type="riot/tag" src="tag/track-info.tag"></script>
+<script type="riot/tag" src="tag/toolbar.tag"></script>
 <script src="lib/coffee-script.js"></script>
 <script src="lib/coffee-riot.js"></script>
 <script src="lib/jasmid/stream.js"></script>
 <script src="lib/jasmid/midifile.js"></script>
 <script src="submodules/EaselJS-ScrollContainer/scroll-container.js"></script>
+<script src="submodules/shinjuku/shinjuku.js"></script>
 <script src="array_extensions.js"></script>
 <script src="clipboard.js"></script>
 <script src="quantizer.js"></script>
 <script src="rect.js"></script>
 <script src="helper.js"></script>
 <script src="midi-file-reader.js"></script>
+<script src="midi-file-writer.js"></script>
 <script src="event-store.js"></script>
-<script src="note-coord-converter.js"></script>
+<script src="array-store.js"></script>
 <script src="note-mouse-handler.js"></script>
 <script src="view/piano-grid-view.js"></script>
 <script src="view/piano-keys-view.js"></script>
@@ -56,59 +54,17 @@
 <script src="view/selection-view.js"></script>
 <script src="view/velocity-control-view.js"></script>
 <script src="view/beat-line-view.js"></script>
+<script src="view/note-container.js"></script>
+<script src="view/root-view.js"></script>
+<script src="controller/piano-roll-controller.js"></script>
+<script src="note-number-string.js"></script>
+<script src="model/song.js"></script>
+<script src="model/note-time-transform.js"></script>
+<script src="model/note-coord-transform.js"></script>
+<script src="model/selection.js"></script>
 <script src="player.js"></script>
+<script src="app.js"></script>
 <script src="main.js"></script>
-<style type="text/css">
-
-:root {
-  --header-height: 20px;
-  --event-table-width: 300px;
-}
-
-html, body {
-  height: 100%;
-  margin: 0;
-}
-
-body {
-  font-family: Arial;
-  font-size: 80%;
-  -webkit-font-smoothing: antialiased;
-  -webkit-user-select: none;
-  -webkit-user-drag: none;
-}
-
-header {
-  height: var(--header-height);
-}
-
-#container {
-  position: absolute;
-  left: 0;
-  width: 100%;
-  height: calc(100% - var( --header-height));
-  overflow: hidden;
-}
-event-table {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: var(--event-table-width);
-  height: 100%;
-  overflow: scroll;
-}
-piano-roll {
-  position: absolute;
-  left: var(--event-table-width);
-  width: calc(100% - var(--event-table-width));
-  height: 100%;
-}
-notes {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-}
-</style>
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href='https://fonts.googleapis.com/css?family=Lato:400,700,300' rel='stylesheet' type='text/css'>
 </html>

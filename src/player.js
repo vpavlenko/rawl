@@ -1,3 +1,4 @@
+"use strict"
 const INTERVAL = 1 / 15 * 1000  // low fps
 
 // timebase: 1/4拍子ごとのtick数
@@ -25,19 +26,15 @@ function checkHex(val) {
   }
 }
 
+function firstByte(eventType, channel) {
+  return (EVENT_CODES[eventType] << 4) + channel
+}
+
 function eventToMidiMessages(e) {
   function eventType(e) {
-    const a = (EVENT_CODES[e.subtype] << 4) + e.channel
-    checkHex(a)
-    return a
-  }
-  function eventType2(subtype, channel) {
-    const a = (EVENT_CODES[subtype] << 4) + channel
-    checkHex(a)
-    return a
+    return firstByte(e.subtype, e.channel)
   }
   function createMessage(e, data) {
-    data.forEach(checkHex)
     return [{
       event: e,
       tick: e.tick,
@@ -50,17 +47,15 @@ function eventToMidiMessages(e) {
     case "channel":
       switch (e.subtype) {
         case "note":
-        checkHex(e.noteNumber)
-        checkHex(e.velocity)
         return [
           {
             event: e,
-            msg: [eventType2("noteOn", e.channel), e.noteNumber, e.velocity],
+            msg: [firstByte("noteOn", e.channel), e.noteNumber, e.velocity],
             tick: e.tick
           },
           {
             event: e,
-            msg: [eventType2("noteOff", e.channel), e.noteNumber, 0x40],
+            msg: [firstByte("noteOff", e.channel), e.noteNumber, 0x40],
             tick: e.tick + e.duration - 1 // prevent overlapping next note on
           }
         ]
@@ -137,6 +132,16 @@ class Player {
     }
     this.stop()
     this.position = 0
+  }
+
+  /**
+   preview note
+   duration in milliseconds
+   */
+  playNote(channel, noteNumber, velocity, duration) {
+    const timestamp = window.performance.now()
+    this.midiOutput.send([firstByte("noteOn", channel), noteNumber, velocity], timestamp)
+    this.midiOutput.send([firstByte("noteOff", channel), noteNumber, 0], timestamp + duration)
   }
 
   onTimer() {

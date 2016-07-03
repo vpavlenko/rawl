@@ -1,3 +1,4 @@
+"use strict"
 class EventStore {
   constructor() {
     riot.observable(this)
@@ -19,6 +20,10 @@ class EventStore {
   addAll(arr) {
     arr.forEach(e => this._add(e))
     this.trigger("change")
+  }
+
+  getAll() {
+    return this.events
   }
 
   clear() {

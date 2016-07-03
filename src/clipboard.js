@@ -1,3 +1,4 @@
+"use strict"
 // use Electron clipboard API in future
 class Clipboard {
   constructor() {

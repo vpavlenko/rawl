@@ -1,24 +1,17 @@
 class NoteView extends createjs.Shape {
   constructor() {
     super()
-    this.isSelected = false
     this.setBounds(0, 0, 0, 0)
     this.isDirty = true
-  }
-  
-  setSize(width, height) {
-    const b = this.getBounds()
-    if (b.width == width && b.height == height) return
-    this.setBounds(0, 0, width, height)
-    this.isDirty = true
+    this.mouseEnabled = false
   }
 
   refresh() {
-    if (!this.isDirty) return
+    if (!this.isDirty || !this._note) return
     this.isDirty = false
     const b = this.getBounds()
-    const alpha = this._velocity / 127
-    const color = this.isSelected ? "black" : `rgba(88, 103, 250, ${alpha})`
+    const alpha = this._note.velocity / 127
+    const color = this._note.selected ? "black" : `rgba(88, 103, 250, ${alpha})`
     this.graphics
       .clear()
       .beginFill(color)
@@ -28,18 +21,30 @@ class NoteView extends createjs.Shape {
       .rect(0.5, 0.5, b.width - 1, b.height - 1)
   }
 
-  set velocity(velocity) {
-    this._velocity = velocity
+  _updateBounds() {
+    if (!this._note || !this._transform) {
+      return
+    }
+    const r = this._transform.getRect(this._note)
+    this.x = r.x
+    this.y = r.y
+    this.setBounds(0, 0, r.width, r.height)
+  }
+
+  set transform(transform) {
+    this._transform = transform
+    this._updateBounds()
     this.isDirty = true
+    this.refresh()
   }
 
-  get velocity() {
-    return this._velocity
+  get note() {
+    return this._note
   }
 
-  set selected(selected) {
-    if (this.isSelected == selected) return
-    this.isSelected = selected
+  set note(note) {
+    this._note = note
+    this._updateBounds()
     this.isDirty = true
     this.refresh()
   }

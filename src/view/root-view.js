@@ -78,6 +78,12 @@ class RootView {
       this.song.getTrack(this.trackId).updateEvent(e.id, e)
     })
 
+    this.propertyPane.emitter.on("update-notes", changes => {
+      this.song.getTrack(this.trackId).transaction(it => {
+        changes.forEach(c => it.updateEvent(c.id, c))
+      })
+    })
+
     this.emitter.trigger("view-did-load")
   }
 }

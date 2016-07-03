@@ -62,12 +62,11 @@
     }
 
     const emitNoteChanges = (propName, func) => {
-      this.notes.forEach(n => {
-        this.emitter.trigger("update-note", {
-          id: n.id,
-          [propName]: func(n[propName], n)
-        })
-      })
+      const changes = this.notes.map(n => { return {
+        id: n.id,
+        [propName]: func(n[propName], n)
+      }})
+      this.emitter.trigger("update-notes", changes)
     }
 
     this.on("update", () => {

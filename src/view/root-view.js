@@ -45,11 +45,17 @@ class RootView {
       },
 
       onClickScaleUp: e => {
-        this.emitter.trigger("scale-up")
+        this.pianoRoll.noteScale = {
+          x: this.pianoRoll.noteScale.x + 0.1,
+          y: this.pianoRoll.noteScale.y,
+        }
       },
 
       onClickScaleDown: e => {
-        this.emitter.trigger("scale-down")
+        this.pianoRoll.noteScale = {
+          x: this.pianoRoll.noteScale.x - 0.1,
+          y: this.pianoRoll.noteScale.y,
+        }
       },
 
       onSelectTrack: e => {

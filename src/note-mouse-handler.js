@@ -199,7 +199,7 @@ class SelectionMouseHandler {
   onMouseUp(e) { 
     this.isMouseDown = false
     if (this.target.type == DRAG_POSITION.NONE) {
-      this.trigger("select-notes", this.container.getNoteIdsInRect(this.selectionRect))
+      this.trigger("select-notes", this.container.getNotesInRect(this.selectionRect))
     } else {
       this.trigger("end-dragging")
     }

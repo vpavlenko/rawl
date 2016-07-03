@@ -1,12 +1,13 @@
 "use strict"
 
 const MAX_NOTE_NUMBER = 127
-const RULER_HEIGHT = 22
-const KEY_WIDTH = 100
-const KEY_HEIGHT = 14
-const CONTROL_HEIGHT = 200
 const PIXELS_PER_TICK = 0.1
 const TIME_BASE = 480
+const KEY_HEIGHT = 14
+
+const RULER_HEIGHT = 22
+const KEY_WIDTH = 100
+const CONTROL_HEIGHT = 200
 
 function createNote(tick = 0, noteNumber = 48, duration = 240, velocity = 127, channel) {
   return {
@@ -21,22 +22,44 @@ function createNote(tick = 0, noteNumber = 48, duration = 240, velocity = 127, c
   }
 }
 
+function recursiveNumChildren(obj) {
+  let count = 0
+  if (obj.children) {
+    obj.children.forEach(c => {
+      count += recursiveNumChildren(c)
+    })
+  } else {
+    count++
+  }
+  return count
+}
+
 class PianoRollController {
   constructor(canvas) {
     this.emitter = {}
     riot.observable(this.emitter)
 
-    this._quantizer = new Quantizer(TIME_BASE)
-
     this.showNotes = this.showNotes.bind(this)
     this.onScroll = this.onScroll.bind(this)
 
     this.loadView(canvas)
+
+    this.noteScale = {x: 1, y: 1}
+  }
+
+  set noteScale(scale) {
+    this._noteScale = scale
+    this.transform = new NoteCoordTransform(PIXELS_PER_TICK * scale.x, KEY_HEIGHT * scale.y, MAX_NOTE_NUMBER)
+  }
+
+  get noteScale() {
+    return this._noteScale
   }
 
   set ticksPerBeat(ticksPerBeat) {
     this._ticksPerBeat = ticksPerBeat
     this.grid.ticksPerBeat = ticksPerBeat
+    this._quantizer = new Quantizer(ticksPerBeat)
   }
 
   set transform(t) {
@@ -135,7 +158,6 @@ class PianoRollController {
   }
 
   viewDidLoad() {
-    this.transform = new NoteCoordTransform(PIXELS_PER_TICK, KEY_HEIGHT, MAX_NOTE_NUMBER)
     this.ticksPerBeat = TIME_BASE
     this.mouseMode = 0
 
@@ -164,6 +186,8 @@ class PianoRollController {
       const tick = this.player.position
       this.grid.cursorPosition = this._transform.getX(tick)
       this.stage.update()
+
+      console.log(recursiveNumChildren(this.stage))
     }, 66)
   }
 
@@ -321,11 +345,10 @@ class PianoRollController {
       )
     })
 
-    handler.on("select-notes", ids => {
+    handler.on("select-notes", notes => {
       if (!this._selection) {
         return
       }
-      const notes = ids.map(i => this._track.getEventById(i))
       this.selection = new Selection(
         this._selection.fromTick,
         this._selection.fromNoteNumber,

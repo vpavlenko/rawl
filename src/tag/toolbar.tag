@@ -1,11 +1,11 @@
 <toolbar>
   <div class="container">
-    <input type="file" accept=".mid,.midi" onchange={onChangeFile}></input>
-    <button onclick={onClickSave}>Save</button>
-    <button onclick={onClickBackward}>←</button>
-    <button onclick={onClickStop}>■</button>
-    <button onclick={onClickPlay}>▶</button>
-    <button onclick={onClickForward}>→</button>
+    <label class="file"><span class="icon">&#xe63a;</span><input type="file" accept=".mid,.midi" onchange={onChangeFile}></input></label>
+    <button onclick={onClickSave}><span class="icon">&#xe63c;</span></button>
+    <button onclick={onClickBackward}><span class="icon">&#xe606;</span></button>
+    <button onclick={onClickStop}><span class="icon">&#xe615;</span></button>
+    <button onclick={onClickPlay}><span class="icon">&#xe616;</span></button>
+    <button onclick={onClickForward}><span class="icon">&#xe607;</span></button>
     <button onclick={onClickPencil}>✎</button>
     <button onclick={onClickSelection}>□</button>
     <button onclick={onClickScaleUp}><img src="images/iconmonstr-magnifier-7-16.png"></button>
@@ -98,6 +98,15 @@
       ]
   </script>
   <style scoped>
+    .file input[type="file"] {
+      display: none;
+    }
+
+    .icon {
+      font-family: "Flat-UI-Icons";
+      font-weight: normal;
+    }
+
     .container {
       height: var(--header-height);
       box-sizing: border-box;
@@ -107,18 +116,25 @@
       padding-left: 1em;
     }
 
-    .container button {
+
+    button:hover, .file:hover {
+      opacity: 0.5;
+    }
+
+    button, .file {
       width: 2em;
-      height: 1.5em;
       padding: 0;
-      vertical-align: top;
+      vertical-align: middle;
       font-size: 1.3em;
       -webkit-appearance: none;
       background: rgba(0, 0, 0, 0);
       border: none;
+      display: inline-block;
       cursor: pointer;
+      text-align: center;
     }
-    .container riot-select {
+      
+    riot-select {
       margin-top: 2px;
       display: inline-block;
     }

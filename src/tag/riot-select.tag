@@ -15,4 +15,19 @@
     this.selectedIndex = this.select.selectedIndex
   })
   </script>
+
+  <style scoped>
+    select {
+      -webkit-appearance: none;
+      padding: 0.4em 1em;
+      border-radius: 0;
+      background: white;
+      border: none;
+    }
+    select::after {
+      font-family: "Flat-UI-Icons";
+      font-weight: normal;
+      content: "\e603";
+    }
+  </style>
 </riot-select>

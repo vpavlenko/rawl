@@ -227,6 +227,7 @@ class PianoRollController {
     this.noteContainer.notes = notes
     this.controlView.notes = notes
     this.grid.endTick = Math.max(100000, tickEnd)
+    this.controlView.endTick = Math.max(100000, tickEnd)
 
     this._notes = notes
     this.stage.update()
@@ -315,9 +316,6 @@ class PianoRollController {
       const tick = this._quantizer.round(e.note.tick + dt)
       const dn = Math.round(this._transform.getDeltaNoteNumber(e.movement.y))
       const noteNumber = e.note.noteNumber + dn
-      if (e.note.tick == tick && dn == 0) {
-        return
-      }
 
       this._track.updateEvent(e.note.id, {
         tick: tick,
@@ -371,10 +369,12 @@ class PianoRollController {
       // 確定済みの選択範囲をドラッグした場合はノートと選択範囲を移動
       this.selection = this._selection.original.copyMoved(dt, dn)
 
-      this._selection.notes.forEach(e => {
-        this._track.updateEvent(e.id, {
-          tick: e.tick + dt,
-          noteNumber: e.noteNumber + dn
+      this._track.transaction(it => {
+        this._selection.notes.forEach(e => {
+          it.updateEvent(e.id, {
+            tick: e.tick + dt,
+            noteNumber: e.noteNumber + dn
+          })
         })
       })
     })
@@ -410,7 +410,9 @@ class PianoRollController {
 
       // 右端を固定して長さを変更
       this.selection = this._selection.original.copyMoved(dt, 0, -dt)
-      notes.forEach(e => this._track.updateEvent(e.id, e))
+      this._track.transaction(it => {
+        notes.forEach(e => it.updateEvent(e.id, e))
+      })
     })
 
     handler.on("drag-selection-right-edge", e => {
@@ -429,7 +431,9 @@ class PianoRollController {
 
       // 左端を固定して長さを変更
       this.selection = this._selection.original.copyMoved(0, 0, dt)
-      notes.forEach(e => this._track.updateEvent(e.id, e))
+      this._track.transaction(it => {
+        notes.forEach(e => it.updateEvent(e.id, e))
+      })
     })
   }
 

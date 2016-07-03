@@ -3,6 +3,7 @@ class NoteView extends createjs.Shape {
     super()
     this.setBounds(0, 0, 0, 0)
     this.isDirty = true
+    this.mouseEnabled = false
   }
 
   refresh() {

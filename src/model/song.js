@@ -70,22 +70,32 @@ class Track {
   updateEvent(id, obj) {
     const anObj = this.getEventById(id)
     _.extend(anObj, obj)
-    this.trigger("update-event", anObj)
-    this.trigger("change")
+    this.emitChange()
   }
 
   removeEvent(id) {
     const obj = this.getEventById(id)
     this.events.remove(obj)
-    this.trigger("remove-event", obj)
-    this.trigger("change")
+    this.emitChange()
   }
 
   addEvent(e) {
     e.id = this.lastEventId
     this.events.push(e)
     this.lastEventId++
-    this.trigger("add-event", e)
-    this.trigger("change")
+    this.emitChange()
+  }
+
+  transaction(func) {
+    this._paused = true
+    func(this)
+    this._paused = false
+    this.emitChange()
+  }
+
+  emitChange() {
+    if (!this._paused) { 
+      this.trigger("change")
+    }
   }
 }

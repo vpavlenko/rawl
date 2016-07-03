@@ -53,7 +53,7 @@ class RootView {
 
       onClickScaleDown: e => {
         this.pianoRoll.noteScale = {
-          x: this.pianoRoll.noteScale.x - 0.1,
+          x: Math.max(0.05, this.pianoRoll.noteScale.x - 0.1),
           y: this.pianoRoll.noteScale.y,
         }
       },

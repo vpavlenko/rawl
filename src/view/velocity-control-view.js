@@ -43,7 +43,11 @@ class VelocityControlView extends createjs.Container {
   set transform(t) {
     this._transform = t
     this.beatLine.transform = t
-    this.beatLine.endTick = t.getTicks(this.getBounds().width)
+  }
+
+  set endTick(endTick) {
+    this._endTick = endTick
+    this.beatLine.endTick = endTick
   }
 
   setBounds(x, y, width, height) {
@@ -54,9 +58,6 @@ class VelocityControlView extends createjs.Container {
       .rect(0, 0, width, height)
 
     this.beatLine.height = height
-    if (this._transform) {
-      this.beatLine.endTick = this._transform.getTicks(width)
-    }
 
     this.valueLine.graphics
       .clear()

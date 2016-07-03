@@ -21,6 +21,10 @@ class NoteCoordTransform {
     return -deltaNoteNumber * this._pixelsPerKey
   }
 
+  getPixelsPerTick() {
+    return this._pixelsPerTick
+  }
+
   // ticks
 
   getTicks(pixels) {
@@ -66,5 +70,11 @@ class NoteCoordTransform {
       obj["duration"] = this.getTicksForPixels(rect.width)
     }
     return obj
+  }
+
+  equals(t) {
+    return this.getPixelsPerKey() == t.getPixelsPerKey()
+      && this.getPixelsPerTick() == t.getPixelsPerTick()
+      && this.getMaxNoteNumber() == t.getMaxNoteNumber()
   }
 }

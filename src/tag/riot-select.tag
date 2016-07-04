@@ -1,7 +1,9 @@
 <riot-select>
-  <select name="select">
-    <option each={options} value={value} selected={selected}>{name}</option>
-  </select>
+  <div class="container">
+    <select name="select">
+      <option each={options} value={value} selected={selected}>{name}</option>
+    </select>
+  </div>
 
   <script type="text/javascript">
   "use strict"
@@ -17,17 +19,27 @@
   </script>
 
   <style scoped>
+    .container {
+      position: relative;
+      height: 100%;
+    }
     select {
       -webkit-appearance: none;
-      padding: 0.4em 1em;
       border-radius: 0;
+      padding: 0 2.5em 0 1em;
       background: white;
       border: none;
+      height: 100%;
     }
-    select::after {
+    .container::after {
       font-family: "Flat-UI-Icons";
       font-weight: normal;
       content: "\e603";
+      position: absolute;
+      top: 0.4em;
+      right: 0.5em;
+      display: inline-block;
+      pointer-events: none;
     }
   </style>
 </riot-select>

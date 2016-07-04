@@ -107,7 +107,7 @@
       font-weight: normal;
     }
 
-    .container {
+    > .container {
       height: var(--header-height);
       box-sizing: border-box;
       border-bottom: 1px solid rgb(204, 204, 204);
@@ -115,7 +115,6 @@
       padding-top: 8px;
       padding-left: 1em;
     }
-
 
     button:hover, .file:hover {
       opacity: 0.5;
@@ -135,7 +134,7 @@
     }
       
     riot-select {
-      margin-top: 2px;
+      height: 1.8em;
       display: inline-block;
     }
   </style>

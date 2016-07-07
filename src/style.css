@@ -18,41 +18,30 @@ body {
 }
 
 #container {
-  position: absolute;
-  left: 0;
-  width: 100%;
-  height: calc(100% - var(--header-height));
-  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  height: 100%;
 }
 track-info {
-  height: var(--track-info-height);
   width: var(--side-width);
-  position: absolute;
-  top: 0;
-  left: 0;
 }
 event-table {
-  position: absolute;
-  left: 0;
-  top: var(--track-info-height);
   width: var(--side-width);
-  height: calc(100% - var(--track-info-height));
-  overflow: scroll;
+  overflow: auto;
+  height: 100%;
 }
 #piano-roll {
   position: absolute;
-  left: var(--side-width);
-  width: calc(100% - var(--side-width) - var(--property-pane-width));
-  height: 100%;
+  left: 0;
   top: 0;
 }
+toolbar {
+  display: block;
+}
 property-pane {
-  position: absolute;
-  left: calc(100% - var(--property-pane-width));
   width: var(--property-pane-width);
-  height: 100%;
-  overflow: scroll;
-  top: 0;
+  overflow: auto;
 }
 notes {
   position: absolute;
@@ -66,4 +55,19 @@ notes {
 
 body, input, button, textarea {
   font-family: Avenir, Lato;
+}
+
+div#side {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+
+div#piano-roll-container {flex-grow: 1;position: relative;}
+
+div#vertical {
+  flex-direction: column;
+  display: flex;
+  flex-wrap: nowrap;
+  height: 100%;
 }

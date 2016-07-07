@@ -161,7 +161,7 @@ class PianoRollController {
     this.viewDidLoad()
 
     const resizeFunc = () => {
-      const rect = canvas.getBoundingClientRect()
+      const rect = canvas.parentNode.getBoundingClientRect()
       this.resizeView(rect.width, rect.height)
     }
     window.onresize = resizeFunc

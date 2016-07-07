@@ -1,6 +1,6 @@
 :root {
   --header-height: 40px;
-  --side-width: 300px;
+  --side-width: 16em;
   --property-pane-width: 300px;
   --track-info-height: 12em;
 }

@@ -145,9 +145,6 @@ class PianoRollController {
     this.noteContainer = new NoteContainer()
     this.scrollContainer.addChild(this.noteContainer)
 
-    this.controlView = new VelocityControlView()
-    this.scrollContainer.addChild(this.controlView)
-
     this.selectionView = new SelectionView
     this.selectionView.setSize(0, 0)
     this.noteContainer.addChild(this.selectionView)
@@ -155,6 +152,9 @@ class PianoRollController {
     this.keys = new PianoKeysView(KEY_WIDTH)
     this.keys.y = RULER_HEIGHT
     this.scrollContainer.addChild(this.keys)
+
+    this.controlView = new VelocityControlView(KEY_WIDTH)
+    this.scrollContainer.addChild(this.controlView)
 
     this.scrollContainer.addChild(this.grid.ruler)
 
@@ -208,9 +208,9 @@ class PianoRollController {
   calcContentSize() {
     const noteEnds = this._track ? this.getNotes().map(n => n.tick + n.duration) : [0]
     const maxTick = Math.max.apply(null, noteEnds)
-    const maxX = this._transform.getX(maxTick)
+    const maxX = Math.max(this._transform.getX(maxTick), this.canvas.width - KEY_WIDTH)
     this.contentWidth = Math.ceil(maxX + KEY_WIDTH)
-    this.contentHeight = this._transform.getY(0) + RULER_HEIGHT
+    this.contentHeight = this._transform.getY(0) + RULER_HEIGHT + CONTROL_HEIGHT
     this.layoutSubviews()
   }
 
@@ -254,8 +254,7 @@ class PianoRollController {
     this.noteContainer.x = KEY_WIDTH
     this.noteContainer.y = RULER_HEIGHT
 
-    this.controlView.x = KEY_WIDTH
-    this.controlView.setBounds(0, 0, this.contentWidth, CONTROL_HEIGHT)
+    this.controlView.setBounds(0, 0, this.contentWidth + KEY_WIDTH, CONTROL_HEIGHT)
 
     this.onScroll()
   }
@@ -267,12 +266,15 @@ class PianoRollController {
   }
 
   onScroll() {
-    this.keys.x = -this.scrollContainer.scrollX
-    this.grid.rulerY = -this.scrollContainer.scrollY
+    const x = this.scrollContainer.scrollX
+    const y = this.scrollContainer.scrollY
+    this.keys.onScroll(x, y)
+    this.grid.onScroll(x, y)
     this.controlView.y = 
       this.scrollContainer.getBounds().height - 
       this.controlView.getBounds().height - 
-      this.scrollContainer.scrollY - 17
+      y - 17
+    this.controlView.onScroll(x, y)
     this.showNotes()
   }
 

@@ -135,4 +135,8 @@ class PianoGridView extends createjs.Container {
   set rulerY(y) {
     this.ruler.y = y
   }
+
+  onScroll(x, y) {
+    this.rulerY = -y
+  }
 }

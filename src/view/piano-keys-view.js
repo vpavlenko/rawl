@@ -67,4 +67,8 @@ class PianoKeysView extends createjs.Shape {
       .moveTo(width + 0.5, 0)
       .lineTo(width + 0.5, keyHeight * numberOfKeys)
   }
+
+  onScroll(x, y) {
+    this.x = -x
+  }
 }

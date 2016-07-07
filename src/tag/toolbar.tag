@@ -22,7 +22,7 @@
     this.on("update", () => {
       if (this.song) {
         const trackOptions = this.song.getTracks().map((t, i) => { return {
-          name: `${t.name}(${i})`,
+          name: `${i}. ${t.name || ""}`,
           value: i,
           selected: i == 0
         }})

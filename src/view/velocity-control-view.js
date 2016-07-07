@@ -8,17 +8,26 @@
 */
 const VEL_MAX_VALUE = 127
 class VelocityControlView extends createjs.Container {
-  constructor(noteCoordConverter) {
+  constructor(keyWidth) {
     super()
+
+    this.keyWidth = keyWidth
     this.background = new createjs.Shape
     this.addChild(this.background)
 
     this.beatLine = new BeatLineView()
+    this.beatLine.x = keyWidth
     this.addChild(this.beatLine)
 
     this.valueLine = new createjs.Shape
     this.valueLine.y = 0.5
     this.addChild(this.valueLine)
+
+    this.barContainer = new createjs.Container
+    this.addChild(this.barContainer)
+
+    this.leftLabel = new createjs.Shape
+    this.addChild(this.leftLabel)
 
     this.setBounds(0, 0, 0, 0)
 
@@ -56,6 +65,10 @@ class VelocityControlView extends createjs.Container {
     this.background.graphics.clear()
       .beginFill("white")
       .rect(0, 0, width, height)
+      .setStrokeStyle(1)
+      .beginStroke("gray")
+      .moveTo(0, 0.5)
+      .lineTo(width, 0.5)
 
     this.beatLine.height = height
 
@@ -63,20 +76,30 @@ class VelocityControlView extends createjs.Container {
       .clear()
       .setStrokeStyle(1)
       .beginStroke("gray")
-      .moveTo(0, 0)
-      .lineTo(width, 0)
       .moveTo(0, height / 2)
       .lineTo(width, height / 2)
       .moveTo(0, height)
       .lineTo(width, height)
+
+    this.leftLabel.graphics
+      .clear()
+      .beginFill("white")
+      .rect(0, 0, this.keyWidth, height)
+      .endFill()
+      .setStrokeStyle(1)
+      .beginStroke("gray")
+      .moveTo(this.keyWidth + 0.5, 0)
+      .lineTo(this.keyWidth + 0.5, height)
+  }
+
+  onScroll(x, y) {
+    this.valueLine.x = -x + this.keyWidth
+    this.leftLabel.x = -x
   }
 
   set notes(notes) {
-    const views = this.children.slice()
-    this.removeAllChildren()
-    views.filter(c => !c.noteId).forEach(c => {
-      this.addChild(c)
-    })
+    const views = this.barContainer.children.slice()
+    this.barContainer.removeAllChildren()
 
     const viewHeight = this.getBounds().height
     notes.forEach(note => {
@@ -85,14 +108,14 @@ class VelocityControlView extends createjs.Container {
         view = new createjs.Shape
         view.noteId = note.id
       }
-      view.x = this._transform.getX(note.tick)
+      view.x = this.keyWidth + this._transform.getX(note.tick)
       const color = note.selected ? "black" : "rgb(88, 103, 250)"
       const height = note.velocity / 127 * viewHeight
       view.graphics
         .clear()
         .beginFill(color)
         .rect(0, viewHeight - height, 5, height)
-      this.addChild(view)
+      this.barContainer.addChild(view)
     })
   }
 }

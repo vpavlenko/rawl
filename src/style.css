@@ -57,10 +57,20 @@ body, input, button, textarea {
   font-family: Avenir, Lato;
 }
 
+
+track-list {
+  width: 13em;
+  display: block;
+  height: 100%;
+  overflow-y: auto;
+  border-right: 1px solid rgb(208, 208, 208);
+}
+
 div#side {
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
+  border-right: 1px solid rgb(208, 208, 208);
 }
 
 div#piano-roll-container {flex-grow: 1;position: relative;}

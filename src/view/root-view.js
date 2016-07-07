@@ -12,6 +12,7 @@ class RootView {
   setSong(song) {
     this.song = song
     this.toolbar.update({song: song})
+    this.trackList.update({song: song})
     this.pianoRoll.track = song.getTrack(0)
   }
 
@@ -21,10 +22,19 @@ class RootView {
       this.propertyPane = riot.mount("property-pane")[0]
       this.toolbar = riot.mount("toolbar")[0]
       this.eventPane = riot.mount("event-table")[0]
+      this.trackList = riot.mount("track-list")[0]
       this.pianoRoll = new PianoRollController(document.querySelector("#piano-roll"))
 
       this.viewDidLoad()
     })
+  }
+
+  changeTrack(trackId) {
+    this.trackId = trackId
+    const track = this.song.getTrack(trackId)
+    this.pianoRoll.track = track
+    this.trackInfoPane.update({track: track})
+    this.trackList.update({selectedTrackId: trackId})
   }
 
   viewDidLoad() {
@@ -60,10 +70,7 @@ class RootView {
       },
 
       onSelectTrack: e => {
-        this.trackId = e.value
-        const track = this.song.getTrack(this.trackId)
-        this.pianoRoll.track = track
-        this.trackInfoPane.update({track: track})
+        this.changeTrack(e.value)
       },
 
       onSelectQuantize: e => {
@@ -110,6 +117,10 @@ class RootView {
       this.song.getTrack(this.trackId).transaction(it => {
         changes.forEach(c => it.updateEvent(c.id, c))
       })
+    })
+
+    this.trackList.emitter.on("select-track", trackId => {
+      this.changeTrack(trackId)
     })
 
     this.emitter.trigger("view-did-load")

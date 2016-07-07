@@ -1,3 +1,14 @@
+function drawNoteView(g, note, bounds) {
+  const alpha = note.velocity / 127
+  const color = note.selected ? "black" : `rgba(88, 103, 250, ${alpha})`
+  g.clear()
+    .beginFill(color)
+    .rect(0, 0, bounds.width, bounds.height)
+    .setStrokeStyle(1)
+    .beginStroke("black")
+    .rect(0.5, 0.5, bounds.width - 1, bounds.height - 1)
+}
+
 class NoteView extends createjs.Shape {
   constructor() {
     super()
@@ -9,16 +20,7 @@ class NoteView extends createjs.Shape {
   refresh() {
     if (!this.isDirty || !this._note) return
     this.isDirty = false
-    const b = this.getBounds()
-    const alpha = this._note.velocity / 127
-    const color = this._note.selected ? "black" : `rgba(88, 103, 250, ${alpha})`
-    this.graphics
-      .clear()
-      .beginFill(color)
-      .rect(0, 0, b.width, b.height)
-      .setStrokeStyle(1)
-      .beginStroke("black")
-      .rect(0.5, 0.5, b.width - 1, b.height - 1)
+    drawNoteView(this.graphics, this._note, this.getBounds())
   }
 
   _updateBounds() {

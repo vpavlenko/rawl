@@ -47,13 +47,14 @@ class Selection {
   }
 
   copyMoved(dt, dn = 0, dd = 0) {
+    const s = this.original
     return new Selection(
-      this.fromTick + dt,
-      this.fromNoteNumber + dn,
-      this.toTick + dt + dd,
-      this.toNoteNumber + dn,
-      this.notes,
-      this.original
+      s.fromTick + dt,
+      s.fromNoteNumber + dn,
+      s.toTick + dt + dd,
+      s.toNoteNumber + dn,
+      s.notes,
+      s
     )
   }
 }

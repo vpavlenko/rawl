@@ -34,6 +34,19 @@ function recursiveNumChildren(obj) {
   return count
 }
 
+function getBoundsFromSelection(selection, transform) {
+  const left = transform.getX(selection.fromTick)
+  const right = transform.getX(selection.toTick)
+  const top = transform.getY(selection.fromNoteNumber)
+  const bottom = transform.getY(selection.toNoteNumber)
+  return {
+    x: left,
+    y: top,
+    width: right - left,
+    height: bottom - top
+  }
+}
+
 class PianoRollController {
   constructor(canvas) {
     this.emitter = {}
@@ -107,13 +120,10 @@ class PianoRollController {
     this._selection = selection
     this.selectionView.visible = selection != null
     if (selection) {
-      const left = this._transform.getX(selection.fromTick)
-      const right = this._transform.getX(selection.toTick)
-      const top = this._transform.getY(selection.fromNoteNumber)
-      const bottom = this._transform.getY(selection.toNoteNumber)
-      this.selectionView.x = left
-      this.selectionView.y = top
-      this.selectionView.setSize(right - left, bottom - top)
+      const b = getBoundsFromSelection(selection, this._transform)
+      this.selectionView.x = b.x
+      this.selectionView.y = b.y
+      this.selectionView.setSize(b.width, b.height)
     } else {
       this.selectionView.setSize(0, 0)
     }
@@ -135,7 +145,7 @@ class PianoRollController {
     this.noteContainer = new NoteContainer()
     this.scrollContainer.addChild(this.noteContainer)
 
-    this.controlView = new VelocityControlView(this.coordConverter)
+    this.controlView = new VelocityControlView()
     this.scrollContainer.addChild(this.controlView)
 
     this.selectionView = new SelectionView
@@ -187,8 +197,6 @@ class PianoRollController {
       const tick = this.player.position
       this.grid.cursorPosition = this._transform.getX(tick)
       this.stage.update()
-
-      console.log(recursiveNumChildren(this.stage))
     }, 66)
   }
 
@@ -348,13 +356,7 @@ class PianoRollController {
       if (!this._selection) {
         return
       }
-      this.selection = new Selection(
-        this._selection.fromTick,
-        this._selection.fromNoteNumber,
-        this._selection.toTick,
-        this._selection.toNoteNumber,
-        notes
-      )
+      this.selection = this._selection.copyUpdated(notes)
       this.emitter.trigger("select-notes", notes)
     })
 
@@ -366,7 +368,7 @@ class PianoRollController {
       const dn = Math.round(this._transform.getDeltaNoteNumber(e.movement.y))
 
       // 確定済みの選択範囲をドラッグした場合はノートと選択範囲を移動
-      this.selection = this._selection.original.copyMoved(dt, dn)
+      this.selection = this._selection.copyMoved(dt, dn)
 
       this._track.transaction(it => {
         this._selection.notes.forEach(e => {
@@ -408,7 +410,7 @@ class PianoRollController {
       }
 
       // 右端を固定して長さを変更
-      this.selection = this._selection.original.copyMoved(dt, 0, -dt)
+      this.selection = this._selection.copyMoved(dt, 0, -dt)
       this._track.transaction(it => {
         notes.forEach(e => it.updateEvent(e.id, e))
       })
@@ -422,14 +424,15 @@ class PianoRollController {
       if (dt == 0) {
         return
       }
+      
+      // 左端を固定して長さを変更
+      this.selection = this._selection.copyMoved(0, 0, dt)
 
       const notes = this._selection.notes.map(e => { return {
         id: e.id,
         duration: Math.max(this._quantizer.unit, e.duration + dt)
       }})
 
-      // 左端を固定して長さを変更
-      this.selection = this._selection.original.copyMoved(0, 0, dt)
       this._track.transaction(it => {
         notes.forEach(e => it.updateEvent(e.id, e))
       })

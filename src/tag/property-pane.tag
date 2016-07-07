@@ -215,5 +215,17 @@
       height: 23px;
       background: rgba(0, 0, 0, 0.03);
     }
+
+    button {
+      -webkit-appearance: none;
+      background: rgb(255, 255, 255);
+      border-radius: 2px;
+      border: 1px solid rgb(212, 212, 212);
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: rgb(245, 245, 245);
+    }
   </style>
 </property-pane>

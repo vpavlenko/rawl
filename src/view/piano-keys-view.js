@@ -1,3 +1,5 @@
+const KEY_BORDER_COLOR = "rgba(0, 0, 0, 0.2)"
+
 function drawWhiteKey(g, y, width, height, isBordered) {
   g.beginFill("white")
     .drawRect(0, y, width, height)
@@ -5,7 +7,7 @@ function drawWhiteKey(g, y, width, height, isBordered) {
 
   if (isBordered) {
     g.setStrokeStyle(1)
-      .beginStroke("gray")
+      .beginStroke(KEY_BORDER_COLOR)
       .moveTo(0, y + 0.5)
       .lineTo(width, y + 0.5)
       .endStroke()
@@ -23,7 +25,7 @@ function drawBlackKey(g, y, width, height) {
     .drawRect(0, y, innerWidth, height)
     .endFill()
     .setStrokeStyle(1)
-    .beginStroke("gray")
+    .beginStroke(KEY_BORDER_COLOR)
     .moveTo(innerWidth, middle)
     .lineTo(width, middle)
     .endStroke()
@@ -63,7 +65,7 @@ class PianoKeysView extends createjs.Shape {
     }
     
     g.setStrokeStyle(1)
-      .beginStroke("rgba(0, 0, 0, 0.2)")
+      .beginStroke("gray")
       .moveTo(width + 0.5, 0)
       .lineTo(width + 0.5, keyHeight * numberOfKeys)
   }

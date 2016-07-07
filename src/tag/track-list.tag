@@ -2,7 +2,7 @@
   <ul>
     <li each={tracks} class={selected ? "selected" : ""}>
       <p class="name" onclick={onClick}>{name}</p>
-      <p class="mute">{mute ? "&#xe617;" : "&#xe618;"}</p>
+      <p class="mute">{mute ? "&#xe618;" : "&#xe617;"}</p>
     </li>
   </ul>
 

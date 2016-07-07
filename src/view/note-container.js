@@ -38,14 +38,7 @@ class NoteContainer extends createjs.Container {
   }
 
   getNotesInRect(rect) {
-    const t1 = this._transform.getTicks(rect.x)
-    const n1 = this._transform.getNoteNumber(rect.y)
-    const t2 = this._transform.getTicks(rect.x + rect.width)
-    const n2 = this._transform.getNoteNumber(rect.y + rect.height)
-    return this._notes.filter(note => 
-      note.tick >= t1 && note.tick < t2 &&
-      note.noteNumber <= n1 && note.noteNumber > n2 
-    )
+    return getNotesInRect(this._notes, rect, this._transform)
   }
 
   getNoteIdsInRect(rect) {
@@ -53,11 +46,7 @@ class NoteContainer extends createjs.Container {
   }
 
   getNoteUnderPoint(x, y) {
-    const t = this._transform.getTicks(x)
-    const n = Math.ceil(this._transform.getNoteNumber(y))
-    return _.find(this._notes, note => 
-      note.noteNumber == n && note.tick <= t && note.tick + note.duration >= t
-    )
+    return getNoteUnderPoint(this._notes, x, y, this._transform)
   }
 
   findNoteViewById(id) {

@@ -26,7 +26,7 @@ body {
 track-info {
   width: var(--side-width);
 }
-event-table {
+event-list {
   width: var(--side-width);
   overflow: auto;
   height: 100%;

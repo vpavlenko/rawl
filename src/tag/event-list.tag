@@ -14,14 +14,12 @@ opts = {
   ]
 }
 -->
-<event-table>
+<event-list>
   <table>
     <thead>
     <tr>
       <th>Tick</th>
       <th>Status</th>
-      <th>Channel</th>
-      <th>Number</th>
       <th>Value</th>
     </tr>
     </thead>
@@ -29,14 +27,21 @@ opts = {
     <tr each={ events } no-reorder>
       <td>{ tick }</td>
       <td>{ subtype == "note" ? subtype + " " + duration : subtype }</td>
-      <td>{ channel + 1 }</td>
-      <td>{ noteNumber }</td>
-      <td>{ velocity }</td>
+      <td>{ value }</td>
     </tr>
     </tbody>
   </table>
 
   <script type="text/javascript">
+    this.on("update", () => {
+      if (!this.track) {
+        return
+      }
+
+      this.events = this.track.getEvents().map(e => {
+        return e
+      })
+    })
   </script>
 
   <style scoped>
@@ -54,4 +59,4 @@ opts = {
     white-space: nowrap;
   }
   </style>
-</event-table>
+</event-list>

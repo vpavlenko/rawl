@@ -21,7 +21,7 @@ class RootView {
       this.trackInfoPane = riot.mount("track-info")[0]
       this.propertyPane = riot.mount("property-pane")[0]
       this.toolbar = riot.mount("toolbar")[0]
-      this.eventPane = riot.mount("event-table")[0]
+      this.eventList = riot.mount("event-list")[0]
       this.trackList = riot.mount("track-list")[0]
       this.pianoRoll = new PianoRollController(document.querySelector("#piano-roll"))
 
@@ -35,6 +35,7 @@ class RootView {
     this.pianoRoll.track = track
     this.trackInfoPane.update({track: track})
     this.trackList.update({selectedTrackId: trackId})
+    this.eventList.update({track: track})
   }
 
   viewDidLoad() {

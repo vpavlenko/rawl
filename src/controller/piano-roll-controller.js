@@ -56,11 +56,14 @@ class PianoRollController {
     return this._noteScale
   }
 
+  get _quantizer() {
+    return SharedService.quantizer
+  }
+
   set ticksPerBeat(ticksPerBeat) {
     this._ticksPerBeat = ticksPerBeat
     this.grid.ticksPerBeat = ticksPerBeat
     this.controlView.ticksPerBeat = ticksPerBeat
-    this._quantizer = new Quantizer(ticksPerBeat)
   }
 
   set transform(t) {
@@ -116,10 +119,6 @@ class PianoRollController {
     }
     this.stage.update()
     this.showNotes()
-  }
-
-  set quantizeDenominator(val) {
-    this._quantizer.denominator = val
   }
 
   loadView(canvas) {
@@ -178,8 +177,8 @@ class PianoRollController {
     })
 
     this.grid.ruler.on("click", e => {
-      const tick = this.coordConverter.getTicksForPixels(this.quantizer.roundX(e.localX))
-      opts.onMoveCursor(tick)
+      const tick = this._transform.getTicks(e.localX)
+      this.emitter.trigger("move-cursor", tick)
     })
 
     this.scrollContainer.on("scroll", this.onScroll)

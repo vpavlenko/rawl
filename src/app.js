@@ -11,6 +11,7 @@ class App {
 
   initServices() {
     SharedService.player = new Player(TIME_BASE)
+    SharedService.quantizer = new Quantizer(TIME_BASE)
   }
 
   initRootView() {

@@ -5,6 +5,7 @@ class RootView {
     this.loadView()
     this.emitter = {}
     this.trackId = 0
+    this.quantizer = new Quantizer(TIME_BASE)
     riot.observable(this.emitter)
   }
 
@@ -66,12 +67,39 @@ class RootView {
       },
 
       onSelectQuantize: e => {
-        this.pianoRoll.quantizeDenominator = e.value
+        SharedService.quantizer.denominator = e.value
+      },
+
+      onClickPlay: e => {
+        SharedService.player.prepare(this.song)
+        SharedService.player.play()
+      },
+
+      onClickStop: e => {
+        if (SharedService.player.isPlaying) {
+          SharedService.player.stop()
+        } else {
+          SharedService.player.stop()
+          SharedService.player.position = 0
+        }
+      },
+
+      onClickBackward: e => {
+        SharedService.player.position -= TIME_BASE * 4
+      },
+
+      onClickForward: e => {
+        SharedService.player.position += TIME_BASE * 4
       }
     })
 
     this.pianoRoll.emitter.on("select-notes", events => {
       this.propertyPane.update({notes: events})
+    })
+
+    this.pianoRoll.emitter.on("move-cursor", tick => {
+        const t = SharedService.quantizer.floor(tick)
+        SharedService.player.seek(t)
     })
 
     this.propertyPane.emitter.on("update-note", e => {

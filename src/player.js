@@ -79,56 +79,78 @@ function eventToMidiMessages(e) {
 }
 
 class Player {
-  constructor(eventStore, timebase) {
+  constructor(timebase) {
     bindAllMethods(this)
-    this.eventStore = eventStore
-    this.timebase = timebase
-    this.playing = false
-    this.currentTempo = 120
-    this.currentTick = 0
+    this._timebase = timebase
+    this._playing = false
+    this._currentTempo = 120
+    this._currentTick = 0
+    this._allEvents = []
 
     navigator.requestMIDIAccess().then(midiAccess => {
-      this.midiOutput = midiAccess.outputs.values().next().value;
+      this._midiOutput = midiAccess.outputs.values().next().value;
     }, null)
   }
 
-  playAt(tick) {
-    this.playing = true
-    this.currentTick = tick
-    this.events = this.eventStore.events
-      .filter(e => e.tick >= tick)
+  prepare(song) {
+    this._allEvents = song.getTracks()
+      .map(t => t.getEvents())
+      .flatten()
       .map(eventToMidiMessages)
       .filter(e => e != null)
       .flatten()
-    this.intervalID = setInterval(this.onTimer, INTERVAL)
+  }
+
+  _updateEvents() {
+    this._events = this._allEvents.filter(e => e.tick >= this._currentTick)
+  }
+
+  // you must call prepare() before play(), playAt()
+  play(tick) {
+    if (tick) {
+      this._currentTick = Math.max(0, tick)
+    }
+    this._updateEvents()
+    this.resume()
+  }
+
+  seek(tick) {
+    this._currentTick = Math.max(0, tick)
+    this._updateEvents()
   }
 
   set position(tick) {
-    this.currentTick = tick
+    this.seek(tick)
   }
 
   get position() {
-    return this.currentTick
+    return this._currentTick
+  }
+
+  get isPlaying() {
+    return this._playing
   }
 
   resume() {
-    this.playAt(this.currentTick)
+    this._playing = true
+    clearInterval(this._intervalID)
+    this._intervalID = setInterval(this._onTimer, INTERVAL)
   }
 
   stop() {
-    clearInterval(this.intervalID)
-    this.playing = false
+    clearInterval(this._intervalID)
+    this._playing = false
 
     // all sound off
     for (const ch of Array.range(0, 0xf)) {
-      this.midiOutput.send([0xb0 + ch, 0x78, 0], window.performance.now())
+      this._midiOutput.send([0xb0 + ch, 0x78, 0], window.performance.now())
     }
   }
 
   reset() {
     // reset all controllers
     for (const ch of Array.range(0, 0xf)) {
-      this.midiOutput.send([0xb0 + ch, 0x79, 0x7f], window.performance.now())
+      this._midiOutput.send([0xb0 + ch, 0x79, 0x7f], window.performance.now())
     }
     this.stop()
     this.position = 0
@@ -140,27 +162,27 @@ class Player {
    */
   playNote(channel, noteNumber, velocity, duration) {
     const timestamp = window.performance.now()
-    this.midiOutput.send([firstByte("noteOn", channel), noteNumber, velocity], timestamp)
-    this.midiOutput.send([firstByte("noteOff", channel), noteNumber, 0], timestamp + duration)
+    this._midiOutput.send([firstByte("noteOn", channel), noteNumber, velocity], timestamp)
+    this._midiOutput.send([firstByte("noteOff", channel), noteNumber, 0], timestamp + duration)
   }
 
-  onTimer() {
-    const deltaTick = Math.ceil(secToTick(INTERVAL / 1000, this.currentTempo, this.timebase))
-    const endTick = this.currentTick + deltaTick
-    const eventsToPlay = this.events.filter(e => e.tick <= endTick)
-    this.events.deleteArray(eventsToPlay)
+  _onTimer() {
+    const deltaTick = Math.ceil(secToTick(INTERVAL / 1000, this._currentTempo, this._timebase))
+    const endTick = this._currentTick + deltaTick
+    const eventsToPlay = this._events.filter(e => e.tick <= endTick)
+    this._events.deleteArray(eventsToPlay)
 
     const timestamp = window.performance.now()
     eventsToPlay.forEach(e => {
       if (e.msg != null) {
-        const waitTick = e.tick - this.currentTick
-        this.midiOutput.send(e.msg, timestamp + tickToMillisec(waitTick, this.currentTempo, this.timebase))
+        const waitTick = e.tick - this._currentTick
+        this._midiOutput.send(e.msg, timestamp + tickToMillisec(waitTick, this._currentTempo, this._timebase))
       } else {
         // MIDI 以外のイベントを実行
         switch (e.event.subtype) {
           case "setTempo":
-          this.currentTempo = 60000000 / e.event.microsecondsPerBeat
-          console.log(this.currentTempo)
+          this._currentTempo = 60000000 / e.event.microsecondsPerBeat
+          console.log(this._currentTempo)
           break
           case "endOfTrack":
           this.stop()
@@ -169,6 +191,6 @@ class Player {
       }
     })
 
-    this.currentTick = endTick
+    this._currentTick = endTick
   }
 }

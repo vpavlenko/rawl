@@ -121,16 +121,16 @@
     }
 
     button, .file {
-      width: 2em;
+      width: 3em;
       padding: 0;
       vertical-align: middle;
-      font-size: 1.3em;
       -webkit-appearance: none;
       background: rgba(0, 0, 0, 0);
       border: none;
       display: inline-block;
       cursor: pointer;
       text-align: center;
+      font-size: 110%;
     }
       
     riot-select {

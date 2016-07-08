@@ -24,22 +24,37 @@ opts = {
     </tr>
     </thead>
     <tbody>
-    <tr each={ events } no-reorder>
+    <tr each={ events } no-reorder onclick={onClick}>
       <td>{ tick }</td>
-      <td>{ subtype == "note" ? subtype + " " + duration : subtype }</td>
+      <td>{ status }</td>
       <td>{ value }</td>
     </tr>
     </tbody>
   </table>
 
   <script type="text/javascript">
+    function statusForEvent(e) {
+      switch(e.subtype) {
+        case "controller":
+          return controllerTypeString(e.controllerType)
+        case "note":
+          return `${e.subtype} ${e.duration}`
+        default:
+          return e.subtype
+      }
+    }
+
+    this.onClick = (e) => {
+      console.log(e)
+    }
+
     this.on("update", () => {
       if (!this.track) {
         return
       }
 
       this.events = this.track.getEvents().map(e => {
-        return e
+        return _.extend(e, { status: statusForEvent(e) })
       })
     })
   </script>

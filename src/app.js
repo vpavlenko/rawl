@@ -33,5 +33,6 @@ class App {
     MidiFileReader.read(file, midi => {
       this.setSong(Song.fromMidi(midi))
     })
+    SharedService.player.reset()
   }
 }

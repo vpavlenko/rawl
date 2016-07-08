@@ -143,14 +143,18 @@ class Player {
 
     // all sound off
     for (const ch of Array.range(0, 0xf)) {
-      this._midiOutput.send([0xb0 + ch, 0x78, 0], window.performance.now())
+      this._midiOutput.send([0xb0 + ch, MIDIController.ALL_SOUNDS_OFF, 0], window.performance.now())
     }
   }
 
   reset() {
-    // reset all controllers
+    const time = window.performance.now()
     for (const ch of Array.range(0, 0xf)) {
-      this._midiOutput.send([0xb0 + ch, 0x79, 0x7f], window.performance.now())
+      // reset controllers
+      this._midiOutput.send([firstByte("controller", ch), MIDIController.RESET_CONTROLLERS, 0x7f], time)
+
+      // reset pitch bend
+      this._midiOutput.send([firstByte("pitchBend", ch), 0x00, 0x40], time)
     }
     this.stop()
     this.position = 0

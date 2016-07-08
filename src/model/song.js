@@ -5,7 +5,7 @@ class Song {
   }
 
   addTrack(t) {
-    t.trackId = this.tracks.length
+    t.channel = t.channel || this.tracks.length
     this.tracks.push(t)
     this.trigger("add-track", t)
     this.trigger("change")
@@ -34,6 +34,10 @@ class Song {
       })
       track.name = t.name
       track.endOfTrack = t.end
+      const chEvent = _.find(t.events, e => {
+        return e.type == "channel"
+      })
+      track.channel = chEvent ? chEvent.channel : undefined
       song.addTrack(track)
     })
     return song
@@ -84,7 +88,7 @@ class Track {
   addEvent(e) {
     e.id = this.lastEventId
     if (e.type == "channel" && e.channel === undefined) {
-      e.channel = this.trackId
+      e.channel = this.channel
     }
     this.events.push(e)
     this.lastEventId++

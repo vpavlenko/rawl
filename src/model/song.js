@@ -83,7 +83,7 @@ class Track {
 
   addEvent(e) {
     e.id = this.lastEventId
-    if (e.type == "channel") {
+    if (e.type == "channel" && e.channel === undefined) {
       e.channel = this.trackId
     }
     this.events.push(e)

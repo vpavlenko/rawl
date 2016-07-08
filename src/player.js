@@ -160,10 +160,10 @@ class Player {
    preview note
    duration in milliseconds
    */
-  playNote(channel, noteNumber, velocity, duration) {
+  playNote(n) {
     const timestamp = window.performance.now()
-    this._midiOutput.send([firstByte("noteOn", channel), noteNumber, velocity], timestamp)
-    this._midiOutput.send([firstByte("noteOff", channel), noteNumber, 0], timestamp + duration)
+    this._midiOutput.send([firstByte("noteOn", n.channel), n.noteNumber, n.velocity], timestamp)
+    this._midiOutput.send([firstByte("noteOff", n.channel), n.noteNumber, 0], timestamp + n.duration)
   }
 
   _onTimer() {

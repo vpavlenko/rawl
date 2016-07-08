@@ -33,27 +33,23 @@ class PencilMouseHandler {
     const cpos = this.container.globalToLocal(e.stageX, e.stageY)
     const view = this.container.getNoteViewUnderPoint(cpos.x, cpos.y)
     if (view) {
-      const local = view.globalToLocal(e.stageX, e.stageY)
-      this.target = {
-        touchOrigin: {
-          x: cpos.x,
-          y: cpos.y
-        },
-        note: _.cloneDeep(view.note),
-        type: getDragPositionType(local.x, view.getBounds().width),
-        bounds: {
-          x: view.x,
-          y: view.y,
-          width: view.getBounds().width,
-          height: view.getBounds().height
-        }
-      }
       if (e.nativeEvent.detail == 2) {
         this.trigger("remove-note", view.note.id)
+      } else {
+        const local = view.globalToLocal(e.stageX, e.stageY)
+        this.target = {
+          touchOrigin: cpos,
+          type: getDragPositionType(local.x, view.getBounds().width)
+        }
+        this.trigger("start-note-dragging", view.note)
       }
     } else if (!e.relatedTarget) {
       this.target = null
       this.trigger("add-note", cpos)
+        this.target = {
+          touchOrigin: cpos,
+          type: DRAG_POSITION.CENTER
+        }
     }
   }
 

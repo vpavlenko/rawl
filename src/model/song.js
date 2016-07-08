@@ -5,6 +5,7 @@ class Song {
   }
 
   addTrack(t) {
+    t.trackId = this.tracks.length
     this.tracks.push(t)
     this.trigger("add-track", t)
     this.trigger("change")
@@ -71,6 +72,7 @@ class Track {
     const anObj = this.getEventById(id)
     _.extend(anObj, obj)
     this.emitChange()
+    return anObj
   }
 
   removeEvent(id) {
@@ -81,9 +83,13 @@ class Track {
 
   addEvent(e) {
     e.id = this.lastEventId
+    if (e.type == "channel") {
+      e.channel = this.trackId
+    }
     this.events.push(e)
     this.lastEventId++
     this.emitChange()
+    return e
   }
 
   transaction(func) {

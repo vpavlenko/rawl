@@ -18,7 +18,6 @@ function createNote(tick = 0, noteNumber = 48, duration = 240, velocity = 127, c
     velocity: velocity || 127,
     duration: duration || 240,
     channel: channel,
-    track: channel
   }
 }
 
@@ -285,51 +284,72 @@ class PianoRollController {
     this.mouseHandler = handler
 
     handler.on("add-note", e => {
-      this._track.addEvent(createNote(
+      const note = createNote(
         this._quantizer.floor(this._transform.getTicks(e.x)),
-        Math.ceil(this._transform.getNoteNumber(e.y))
-      ))
+        Math.ceil(this._transform.getNoteNumber(e.y)),
+        this._quantizer.unit
+      )
+      this._track.addEvent(note)
+      this._draggingNote = _.cloneDeep(note)
+      
+      SharedService.player.playNote(note)
+    })
+
+    handler.on("start-note-dragging", note => {
+      this._draggingNote = _.cloneDeep(note)
     })
 
     handler.on("remove-note", id => this._track.removeEvent(id))
 
     handler.on("drag-note-left-edge", e => {
+      const note = this._draggingNote
+
       // 右端を固定して長さを変更
       const dt = this._transform.getTicks(e.movement.x)
-      const tick = this._quantizer.round(e.note.tick + dt)
-      if (e.note.tick < tick) {
+      const tick = this._quantizer.round(note.tick + dt)
+      if (note.tick < tick) {
         return
       }
 
-      this._track.updateEvent(e.note.id, {
+      this._track.updateEvent(note.id, {
         tick: tick,
-        duration: e.note.duration + (e.note.tick - tick)
+        duration: note.duration + (note.tick - tick)
       })
     })
 
     handler.on("drag-note-right-edge", e => {
+      const note = this._draggingNote
+
       // 長さを変更
       const dt = this._transform.getTicks(e.movement.x)
       const duration = Math.max(this._quantizer.unit, 
-        this._quantizer.round(dt + e.note.duration))
-      if (e.note.duration == duration) {
+        this._quantizer.round(dt + note.duration))
+      if (note.duration == duration) {
         return
       }
 
-      this._track.updateEvent(e.note.id, {duration: duration})
+      this._track.updateEvent(note.id, {duration: duration})
     })
 
     handler.on("drag-note-center", e => {
+      const note = this._draggingNote
+
       // 移動
       const dt = this._transform.getTicks(e.movement.x)
-      const tick = this._quantizer.round(e.note.tick + dt)
+      const tick = this._quantizer.round(note.tick + dt)
       const dn = Math.round(this._transform.getDeltaNoteNumber(e.movement.y))
-      const noteNumber = e.note.noteNumber + dn
+      const noteNumber = note.noteNumber + dn
 
-      this._track.updateEvent(e.note.id, {
+      const pitchChanged = noteNumber != this._track.getEventById(note.id).noteNumber
+
+      const n = this._track.updateEvent(note.id, {
         tick: tick,
         noteNumber: noteNumber
       })
+
+      if (pitchChanged) {
+        SharedService.player.playNote(n)
+      }
     })
 
     handler.on("change-cursor", cursor => {

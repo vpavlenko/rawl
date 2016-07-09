@@ -124,6 +124,10 @@ class RootView {
       this.changeTrack(trackId)
     })
 
+    this.trackList.emitter.on("add-track", () => {
+      this.song.addTrack(new Track)
+    })
+
     this.emitter.trigger("view-did-load")
   }
 }

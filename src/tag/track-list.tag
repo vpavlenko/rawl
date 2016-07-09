@@ -5,6 +5,7 @@
       <p class="mute">{mute ? "&#xe618;" : "&#xe617;"}</p>
     </li>
   </ul>
+  <p class="add-track" onclick={onClickAddTrack}><span class="icon">&#xe608;</span> Add Track</p>
 
   <script type="text/javascript">
     this.tracks = []
@@ -14,6 +15,10 @@
 
     this.onClick = e => {
       this.emitter.trigger("select-track", e.item.trackId)
+    }
+
+    this.onClickAddTrack = e => {
+      this.emitter.trigger("add-track")
     }
 
     this.on("update", () => {
@@ -45,6 +50,24 @@
 
   li.selected {
     color: rgb(62, 78, 238);
+  }
+
+  .add-track {
+    padding: 0.5em;
+    margin: 0;
+    color: rgb(183, 183, 183);
+    cursor: pointer;
+  }
+
+  .add-track:hover {
+    color: black;
+  }
+
+  .add-track .icon {
+    margin-right: 0.5em;
+    font-size: 80%;
+    font-family: "Flat-UI-Icons";
+    font-weight: normal;
   }
 
   .name {

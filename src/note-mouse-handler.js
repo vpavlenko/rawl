@@ -101,6 +101,19 @@ class ResizeNoteAction {
   onMouseUp(e, position) {}
 }
 
+class ChangeToolAction {
+  constructor(emitter) {
+    this.emitter = emitter
+  }
+
+  onMouseDown(e, position) {
+    this.emitter.trigger("change-tool")
+  }
+
+  onMouseMove(e, position) {}
+  onMouseUp(e, position) {}
+}
+
 class CreateSelectionAction {
   constructor(emitter) {
     this.emitter = emitter
@@ -157,12 +170,23 @@ class MouseHandler {
     riot.observable(this)
   }
 
+   // override this
   _getAction(e) {
-    return null // override this
+    if (e.nativeEvent.button == 1) {
+      // wheel drag to start scrolling
+      return new DragScrollAction(this)
+    }
+
+    if (e.nativeEvent.button == 2 && e.nativeEvent.detail == 2) {
+      return new ChangeToolAction(this)
+    }
+
+    return null
   }
 
+  // override this
   _getCursor(e) {
-    return "auto" // override this
+    return "auto"
   }
 
   onMouseDown(e, loc) { 
@@ -194,13 +218,11 @@ class PencilMouseHandler extends MouseHandler {
   }
 
   _getAction(e) {
+    const baseAction = super._getAction(e)
+    if (baseAction) return baseAction
+
     const cpos = this.container.globalToLocal(e.stageX, e.stageY)
     const view = this.container.getNoteViewUnderPoint(cpos.x, cpos.y)
-
-    if (e.nativeEvent.button == 1) {
-      // wheel drag to start scrolling
-      return new DragScrollAction(this)
-    }
 
     if (e.nativeEvent.button != 0) {
       return null
@@ -250,16 +272,10 @@ class SelectionMouseHandler extends MouseHandler {
   }
 
   _getAction(e) {
+    const baseAction = super._getAction(e)
+    if (baseAction) return baseAction
+      
     if (e.relatedTarget) {
-      return null
-    }
-
-    if (e.nativeEvent.button == 1) {
-      // wheel drag to start scrolling
-      return new DragScrollAction(this)
-    }
-
-    if (e.nativeEvent.button != 0) {
       return null
     }
 

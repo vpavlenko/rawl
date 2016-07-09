@@ -104,7 +104,12 @@ class PianoRollController {
     this.showNotes()
   }
 
+  get mouseMode() {
+    return this._mouseMode
+  }
+
   set mouseMode(mode) {
+    this._mouseMode = mode
     switch(mode) {
     case 0:
       this.bindMouseHandler(new PencilMouseHandler(this.noteContainer))
@@ -467,6 +472,10 @@ class PianoRollController {
     handler.on("drag-scroll", e => {
       this.scrollContainer.scrollX += e.movement.x
       this.scrollContainer.scrollY += e.movement.y
+    })
+
+    handler.on("change-tool", () => {
+      this.mouseMode = this.mouseMode == 0 ? 1 : 0 
     })
   }
 }

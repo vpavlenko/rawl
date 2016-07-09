@@ -477,5 +477,9 @@ class PianoRollController {
     handler.on("change-tool", () => {
       this.mouseMode = this.mouseMode == 0 ? 1 : 0 
     })
+
+    handler.on("move-cursor", x => {
+      this.emitter.trigger("move-cursor", this._transform.getTicks(x))
+    })
   }
 }

@@ -122,6 +122,7 @@ class CreateSelectionAction {
   onMouseDown(e, position) {
     this.startPosition = position
     this.emitter.trigger("clear-selection")
+    this.emitter.trigger("move-cursor", position.x)
   }
 
   onMouseMove(e, position) {
@@ -274,7 +275,7 @@ class SelectionMouseHandler extends MouseHandler {
   _getAction(e) {
     const baseAction = super._getAction(e)
     if (baseAction) return baseAction
-      
+
     if (e.relatedTarget) {
       return null
     }

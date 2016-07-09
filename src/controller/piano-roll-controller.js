@@ -172,13 +172,16 @@ class PianoRollController {
     this.mouseMode = 0
 
     this.stage.on("stagemousedown", e => {
-      this.mouseHandler.onMouseDown(e)
+      const loc = this.noteContainer.globalToLocal(e.stageX, e.stageY)
+      this.mouseHandler.onMouseDown(e, loc)
     })
     this.stage.on("stagemouseup", e => {
-      this.mouseHandler.onMouseUp(e)
+      const loc = this.noteContainer.globalToLocal(e.stageX, e.stageY)
+      this.mouseHandler.onMouseUp(e, loc)
     })
     this.stage.on("stagemousemove", e => {
-      this.mouseHandler.onMouseMove(e)
+      const loc = this.noteContainer.globalToLocal(e.stageX, e.stageY)
+      this.mouseHandler.onMouseMove(e, loc)
     })
 
     this.controlView.on("change", e => {
@@ -374,10 +377,11 @@ class PianoRollController {
       )
     })
 
-    handler.on("select-notes", notes => {
+    handler.on("select-notes", rect => {
       if (!this._selection) {
         return
       }
+      const notes = this.noteContainer.getNotesInRect(rect)
       this.selection = this._selection.copyUpdated(notes)
       this.emitter.trigger("select-notes", notes)
     })
@@ -459,6 +463,10 @@ class PianoRollController {
         notes.forEach(e => it.updateEvent(e.id, e))
       })
     })
-  }
 
+    handler.on("drag-scroll", e => {
+      this.scrollContainer.scrollX += e.movement.x
+      this.scrollContainer.scrollY += e.movement.y
+    })
+  }
 }

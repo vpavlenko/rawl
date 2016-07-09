@@ -22,94 +22,224 @@ function cursorForPositionType(type) {
   }
 }
 
-class PencilMouseHandler {
+class DragScrollAction {
+  constructor(emitter) {
+    this.emitter = emitter
+  }
+
+  onMouseDown(e, position) {}
+
+  onMouseMove(e) {
+    this.emitter.trigger("drag-scroll", {movement: {
+      x: e.nativeEvent.movementX,
+      y: e.nativeEvent.movementY
+    }})
+  }
+
+  onMouseUp(e, position) {}
+}
+
+class CreateNoteAction {
+  constructor(emitter) {
+    this.emitter = emitter
+  }
+
+  onMouseDown(e, position) {
+    this.startPosition = position
+    this.emitter.trigger("add-note", position)
+  }
+
+  onMouseMove(e, position) {
+    this.emitter.trigger("drag-note-center", {movement: {
+      x: position.x - this.startPosition.x,
+      y: position.y - this.startPosition.y
+    }})
+  }
+
+  onMouseUp(e, position) {}
+}
+
+class RemoveNoteAction {
+  constructor(emitter, note) {
+    this.emitter = emitter
+    this.note = note
+  }
+
+  onMouseDown(e, position) {
+    this.emitter.trigger("remove-note", this.note.id)
+  }
+
+  onMouseMove(e, position) {}
+  onMouseUp(e, position) {}
+}
+
+class ResizeNoteAction {
+  constructor(emitter, dragType, note) {
+    this.emitter = emitter
+    this.dragType = dragType
+    this.note = note
+  }
+
+  onMouseDown(e, position) {
+    this.startPosition = position
+    this.emitter.trigger("start-note-dragging", this.note)
+  }
+
+  onMouseMove(e, position) {
+    const eventName = (type => { switch(type) {
+      case DRAG_POSITION.LEFT_EDGE: return "drag-note-left-edge"
+      case DRAG_POSITION.RIGHT_EDGE: return "drag-note-right-edge"
+      case DRAG_POSITION.CENTER: return "drag-note-center"
+    }})(this.dragType)
+
+    this.emitter.trigger(eventName, { movement: {
+      x: position.x - this.startPosition.x,
+      y: position.y - this.startPosition.y
+    }})
+  }
+
+  onMouseUp(e, position) {}
+}
+
+class CreateSelectionAction {
+  constructor(emitter) {
+    this.emitter = emitter
+  }
+
+  onMouseDown(e, position) {
+    this.startPosition = position
+    this.emitter.trigger("clear-selection")
+  }
+
+  onMouseMove(e, position) {
+    const rect = Rect.fromPoints(this.startPosition, position)
+    this.emitter.trigger("resize-selection", rect)
+  }
+
+  onMouseUp(e, position) {
+    const rect = Rect.fromPoints(this.startPosition, position)
+    this.emitter.trigger("select-notes", rect)
+  }
+}
+
+class ResizeSelectionAction {
+  constructor(emitter, dragType, selection) {
+    this.emitter = emitter
+    this.dragType = dragType
+    this.selection = selection
+  }
+
+  onMouseDown(e, position) {
+    this.startPosition = position
+  }
+
+  onMouseMove(e, position) {
+    const eventName = (type => { switch(type) {
+      case DRAG_POSITION.LEFT_EDGE: return "drag-selection-left-edge"
+      case DRAG_POSITION.RIGHT_EDGE: return "drag-selection-right-edge"
+      case DRAG_POSITION.CENTER: return "drag-selection-center"
+    }})(this.dragType)
+
+    this.emitter.trigger(eventName, { movement: {
+      x: position.x - this.startPosition.x,
+      y: position.y - this.startPosition.y
+    }})
+  }
+
+  onMouseUp(e, position) {
+    this.emitter.trigger("end-dragging")
+  }
+}
+
+class MouseHandler {
   constructor(container) {
     this.container = container
     riot.observable(this)
-    bindAllMethods(this)
   }
 
-  onMouseDown(e) { 
+  _getAction(e) {
+    return null // override this
+  }
+
+  _getCursor(e) {
+    return "auto" // override this
+  }
+
+  onMouseDown(e, loc) { 
+    this.action = this._getAction(e)
+    if (this.action) {
+      this.action.onMouseDown(e, loc)
+    }
+  }
+
+  onMouseMove(e, loc) {
+    if (this.action) {
+      this.action.onMouseMove(e, loc)
+    } else {
+      this.trigger("change-cursor", this._getCursor(e))
+    }
+  }
+
+  onMouseUp(e, loc) {
+    if (this.action) {
+      this.action.onMouseUp(e, loc)
+    }
+    this.action = null
+  }
+}
+
+class PencilMouseHandler extends MouseHandler {
+  constructor(container) {
+    super(container)
+  }
+
+  _getAction(e) {
     const cpos = this.container.globalToLocal(e.stageX, e.stageY)
     const view = this.container.getNoteViewUnderPoint(cpos.x, cpos.y)
+
+    if (e.nativeEvent.button == 1) {
+      // wheel drag to start scrolling
+      return new DragScrollAction(this)
+    }
+
+    if (e.nativeEvent.button != 0) {
+      return null
+    }
+    
     if (view) {
       if (e.nativeEvent.detail == 2) {
-        this.trigger("remove-note", view.note.id)
+        return new RemoveNoteAction(this, view.note)
       } else {
         const local = view.globalToLocal(e.stageX, e.stageY)
-        this.target = {
-          touchOrigin: cpos,
-          type: getDragPositionType(local.x, view.getBounds().width)
-        }
-        this.trigger("start-note-dragging", view.note)
+        const type = getDragPositionType(local.x, view.getBounds().width)
+        return new ResizeNoteAction(this, type, view.note)
       }
     } else if (!e.relatedTarget) {
-      this.target = null
-      this.trigger("add-note", cpos)
-        this.target = {
-          touchOrigin: cpos,
-          type: DRAG_POSITION.CENTER
-        }
+      return new CreateNoteAction(this)
     }
+    return null
   }
 
-  onMouseMove(e) {
-    if (!this.target) {
-      this.updateCursor(e)
-      return
-    }
-
-    const loc = this.container.globalToLocal(e.stageX, e.stageY)
-    const prevOrigin = this.target.prevOrigin || this.target.touchOrigin
-    const r = {
-      note: this.target.note,
-      movement: {
-        x: loc.x - prevOrigin.x,
-        y: loc.y - prevOrigin.y
-      }
-    }
-
-    switch (this.target.type) {
-      case DRAG_POSITION.LEFT_EDGE:
-      this.trigger("drag-note-left-edge", r)
-      return
-      case DRAG_POSITION.RIGHT_EDGE:
-      this.trigger("drag-note-right-edge", r)
-      return
-      case DRAG_POSITION.CENTER:
-      this.trigger("drag-note-center", r)
-      break
-    }
-  }
-
-  updateCursor(e) {
+  _getCursor(e) {
     const cpos = this.container.globalToLocal(e.stageX, e.stageY)
     const view = this.container.getNoteViewUnderPoint(cpos.x, cpos.y)
     if (view) {
       const pos = view.globalToLocal(e.stageX, e.stageY)
       const type = getDragPositionType(pos.x, view.getBounds().width)
-      this.trigger("change-cursor", cursorForPositionType(type))
-    } else {
-      this.trigger("change-cursor", `url("./images/iconmonstr-pencil-14-16.png") 0 16, default`)
+      return cursorForPositionType(type)
     }
-  }
 
-  onMouseUp(e) {
-    this.target = null
+    return `url("./images/iconmonstr-pencil-14-16.png") 0 16, default`
   }
 }
 
-class SelectionMouseHandler {
+class SelectionMouseHandler extends MouseHandler {
   constructor(container, selectionView) {
-    this.container = container
+    super(container)
     this.selectionView = selectionView
-    this.isMouseDown = false
-    this._isResizing = false
-    riot.observable(this)
-    bindAllMethods(this)
   }
 
-  get selectionRect() {
+  get _selectionRect() {
     const b = this.selectionView.getBounds()
     return new createjs.Rectangle(
       this.selectionView.x,
@@ -119,85 +249,42 @@ class SelectionMouseHandler {
     )
   }
 
-  onMouseDown(e) { 
-    if (e.relatedTarget) return
-    this.isMouseDown = true
+  _getAction(e) {
+    if (e.relatedTarget) {
+      return null
+    }
+
+    if (e.nativeEvent.button == 1) {
+      // wheel drag to start scrolling
+      return new DragScrollAction(this)
+    }
+
+    if (e.nativeEvent.button != 0) {
+      return null
+    }
 
     const cpos = this.container.globalToLocal(e.stageX, e.stageY)
-    const clicked = this.selectionRect.contains(cpos.x, cpos.y)
+    const clicked = this._selectionRect.contains(cpos.x, cpos.y)
     if (!clicked) {
-      this.target = { 
-        touchOrigin: cpos,
-        type: DRAG_POSITION.NONE
+      if (e.nativeEvent.detail == 2) {
+        return CreateNoteAction(this)
+      } else {
+        return new CreateSelectionAction(this)
       }
-      this.trigger("clear-selection")
     } else {
-      this.target = {
-        touchOrigin: cpos,
-        bounds: this.selectionRect,
-        type: getDragPositionType(cpos.x - this.selectionRect.x, this.selectionRect.width),
-      }
+      const type = getDragPositionType(cpos.x - this._selectionRect.x, this._selectionRect.width)
+      return new ResizeSelectionAction(this, type, this.selectionRect)
     }
-    if (e.nativeEvent.detail == 2) {
-      this.trigger("add-note", this.start)
-    }
+    return null
   }
 
-  onMouseMove(e) {
-    if (!this.isMouseDown) {
-      this.updateCursor(e)
-      return
-    }
-
+  _getCursor(e) {
     const loc = this.container.globalToLocal(e.stageX, e.stageY)
-    const prevOrigin = this.target.prevOrigin || this.target.touchOrigin
-    const dx = loc.x - prevOrigin.x
-    const dy = loc.y - prevOrigin.y
-
-    switch (this.target.type) {
-      case DRAG_POSITION.NONE: {
-        const rect = Rect.fromPoints(this.target.touchOrigin, loc)
-        this.trigger("resize-selection", rect)
-        break
-      }
-      case DRAG_POSITION.CENTER: {
-        this.trigger("drag-selection-center", {
-          movement: { x: dx, y: dy }
-        })
-        break
-      }
-      case DRAG_POSITION.LEFT_EDGE: {
-        this.trigger("drag-selection-left-edge", {
-          movement: { x: dx, y: dy }
-        })
-        break
-      }
-      case DRAG_POSITION.RIGHT_EDGE: {
-        this.trigger("drag-selection-right-edge", {
-          movement: { x: dx, y: dy }
-        })
-        break
-      }
-    }
-  }
-
-  updateCursor(e) {
-    const loc = this.container.globalToLocal(e.stageX, e.stageY)
-    const hover = this.selectionRect.contains(loc.x, loc.y)
+    const hover = this._selectionRect.contains(loc.x, loc.y)
     if (this.selectionView.visible && hover) {
-      const type = getDragPositionType(loc.x - this.selectionRect.x, this.selectionRect.width)
-      this.trigger("change-cursor", cursorForPositionType(type))
-    } else {
-      this.trigger("change-cursor", "crosshair")
+      const type = getDragPositionType(loc.x - this._selectionRect.x, this._selectionRect.width)
+      return cursorForPositionType(type)
     }
-  }
-
-  onMouseUp(e) { 
-    this.isMouseDown = false
-    if (this.target.type == DRAG_POSITION.NONE) {
-      this.trigger("select-notes", this.container.getNotesInRect(this.selectionRect))
-    } else {
-      this.trigger("end-dragging")
-    }
+    return "crosshair"
   }
 }

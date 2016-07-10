@@ -256,7 +256,7 @@ class PianoRollController {
 
     this.grid.x = KEY_WIDTH
     this.grid.redraw()
-    this.grid.ruler.x = KEY_WIDTH
+    this.grid.ruler.x = KEY_WIDTH + 0.5
 
     this.noteContainer.x = KEY_WIDTH
     this.noteContainer.y = RULER_HEIGHT

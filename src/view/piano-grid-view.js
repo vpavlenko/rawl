@@ -6,12 +6,12 @@ function drawHorizontalLines(g, transform, endTick) {
   const width = transform.getX(endTick)
   const keyHeight = transform.getPixelsPerKey()
 
-  for (var key = 0; key < transform.getMaxNoteNumber(); key++) {
+  for (var key = 0; key <= transform.getMaxNoteNumber(); key++) {
     const index = key % 12 
-    const isBold = index == 5
     const isBlack = index == 1 || index == 3 || index == 6 || index == 8 || index == 10
+    const isBold = index == 11
     const alpha = isBold ? 0.3 : 0.1
-    const y = transform.getY(key) + 0.5
+    const y = transform.getY(key)
     if (isBlack) {
       g.beginFill("rgba(0, 0, 0, 0.04)")
         .rect(0, y, width, keyHeight)
@@ -33,23 +33,25 @@ function drawRuler(g, transform, endTick, ticksPerBeat, textContainer, height) {
     .endFill()
     .setStrokeStyle(1)
     .beginStroke("rgba(0, 0, 0, 0.5)")
-    .moveTo(0, height + 0.5)
-    .lineTo(width, height + 0.5)
+    .moveTo(0, height)
+    .lineTo(width, height)
     .endStroke()
     .setStrokeStyle(1)
     .beginStroke("rgba(0, 0, 0, 0.2)")
 
   textContainer.removeAllChildren()
 
-  for (var measure = 0; measure < endTick / ticksPerBeat; measure++) {
-    const x = transform.getX(measure * ticksPerBeat) + 0.5
+  forEachBeatPositions(transform, ticksPerBeat, endTick, (beats, x) => {
+    if (beats % 4 != 0) return
+    const measure = beats / 4
+
     g.moveTo(x, 0)
       .lineTo(x, height)
 
     const text = new createjs.Text(measure, "14px Consolas", "gray")
     text.x = x + 5
     textContainer.addChild(text)
-  }
+  })
 
   g.endStroke()
 }
@@ -57,20 +59,19 @@ function drawRuler(g, transform, endTick, ticksPerBeat, textContainer, height) {
 function drawBeatLines(g, transform, endTick, ticksPerBeat) {
   g.clear().setStrokeStyle(1)
 
-  const height = transform.getY(0)
+  const height = transform.getMaxY()
 
-  for (var beats = 0; beats < endTick / ticksPerBeat; beats++) {
+  forEachBeatPositions(transform, ticksPerBeat, endTick, (beats, x) => {
     const isBold = beats % 4 == 0
     const alpha = isBold ? 0.5 : 0.1
-    const x = transform.getX(beats * ticksPerBeat) + 0.5
     g.beginStroke(`rgba(0, 0, 0, ${alpha})`)
       .moveTo(x, 0)
       .lineTo(x, height)
-  }
+  })
 }
 
 function drawCursor(g, transform) {
-  const height = transform.getY(0)
+  const height = transform.getMaxY()
 
   g.clear()
     .setStrokeStyle(1)
@@ -85,10 +86,12 @@ class PianoGridView extends createjs.Container {
     this.rulerHeight = rulerHeight
 
     this.hLines = new createjs.Shape
-    this.hLines.y = rulerHeight
+    this.hLines.y = rulerHeight + 0.5
     this.addChild(this.hLines)
 
     this.beatLine = new createjs.Shape
+    this.beatLine.x = 0.5
+    this.beatLine.y = rulerHeight
     this.addChild(this.beatLine)
 
     this.cursorLine = new createjs.Shape
@@ -105,7 +108,7 @@ class PianoGridView extends createjs.Container {
 
   set ticksPerBeat(ticksPerBeat) {
     this._ticksPerBeat = ticksPerBeat
-    this.beatLine.ticksPerBeat = ticksPerBeat
+    this.redraw()
   }
 
   set transform(transform) {

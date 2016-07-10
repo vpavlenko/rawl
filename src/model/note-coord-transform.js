@@ -4,7 +4,7 @@ class NoteCoordTransform {
   constructor(pixelsPerTick, pixelsPerKey, maxNoteNumber) {
     this._pixelsPerTick = pixelsPerTick
     this._pixelsPerKey = pixelsPerKey
-    this._maxNoteNumber = maxNoteNumber - 3
+    this._maxNoteNumber = maxNoteNumber
   }
 
   // pixels
@@ -47,7 +47,11 @@ class NoteCoordTransform {
     return this._pixelsPerKey
   }
 
-  // 
+  //
+
+  getMaxY() {
+    return (this._maxNoteNumber + 1) * this._pixelsPerKey
+  } 
 
   getRect(note) {
     return {

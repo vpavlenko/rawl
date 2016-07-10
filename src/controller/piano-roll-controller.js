@@ -217,7 +217,7 @@ class PianoRollController {
     const maxTick = Math.max.apply(null, noteEnds)
     const maxX = Math.max(this._transform.getX(maxTick), this.canvas.width - KEY_WIDTH)
     this.contentWidth = Math.ceil(maxX + KEY_WIDTH)
-    this.contentHeight = this._transform.getY(0) + RULER_HEIGHT + CONTROL_HEIGHT
+    this.contentHeight = this._transform.getMaxY() + RULER_HEIGHT + CONTROL_HEIGHT
     this.layoutSubviews()
   }
 

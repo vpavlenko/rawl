@@ -129,6 +129,10 @@ class RootView {
     })
 
     this.trackInfoPane.update({
+      onChangeName: e => {
+        const track = this.song.getTrack(this.trackId)
+        track.setName(e.target.value)
+      },
       onChangeVolume: e => {
         const track = this.song.getTrack(this.trackId)
         const events = track.findVolumeEvents()

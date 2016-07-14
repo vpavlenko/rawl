@@ -1,6 +1,8 @@
 <track-info>
   <ul>
-    <li class="name"><input type="text" value="{ fields.name }" placeholder="Track Name"></li>
+    <li class="name">
+      <input type="text" value="{ fields.name }" placeholder="Track Name" onchange={onChangeName}>
+    </li>
     <li>
       <label>Instrument</label>
       <input type="text" value="{ fields.instrument }" onclick={onClickInstrument}>

@@ -51,6 +51,11 @@ class Track {
     riot.observable(this)
   }
 
+  setName(name) {
+    this.name = name
+    this.emitChange()
+  }
+
   getName() {
     return this.name
   }

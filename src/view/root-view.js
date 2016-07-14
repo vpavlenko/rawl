@@ -129,15 +129,35 @@ class RootView {
     })
 
     this.trackInfoPane.update({
+      onChangeVolume: e => {
+        const track = this.song.getTrack(this.trackId)
+        const events = track.findVolumeEvents()
+        if (events.length == 0) {
+          return
+        }
+        track.updateEvent(events[0].id, {
+          value: e.target.value
+        })
+      },
+      onChangePan: e => {
+        const track = this.song.getTrack(this.trackId)
+        const events = track.findPanEvents()
+        if (events.length == 0) {
+          return
+        }
+        track.updateEvent(events[0].id, {
+          value: e.target.value
+        })
+      },
       onClickInstrument: e => {
         const popup = new PopupComponent()
         const track = this.song.getTrack(this.trackId)
-        const programChangeEvents = track.findProgramChangeEvents()
-        if (programChangeEvents.length == 0) {
+        const events = track.findProgramChangeEvents()
+        if (events.length == 0) {
           return
         }
 
-        const programNumber = programChangeEvents[0].value
+        const programNumber = events[0].value
         const ids = getGMMapIndexes(programNumber)
         riot.mount(popup.getContentElement(), "instrument-browser", {
           selectedCategoryId: ids[0],
@@ -147,7 +167,7 @@ class RootView {
           },
           onClickOK: e => {
             const programNumber = getGMMapProgramNumber(e.categoryId, e.instrumentId)
-            track.updateEvent(programChangeEvents[0].id, {
+            track.updateEvent(events[0].id, {
               value: programNumber
             })
             popup.close()

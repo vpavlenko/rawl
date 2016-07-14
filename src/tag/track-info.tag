@@ -7,17 +7,16 @@
     </li>
     <li>
       <label>Volume</label>
-      <input type="text" value="{ fields.volume }">
+      <input type="text" value="{ fields.volume }" onchange={onChangeVolume}>
     </li>
     <li>
       <label>Pan</label>
-      <input type="text" value="{ fields.pan }">
+      <input type="text" value="{ fields.pan }" onchange={onChangePan}>
     </li>
   </ul>
 
   <script type="text/javascript">
     "use strict"
-
     this.on("update", () => {
       if (!this.track) {
         return

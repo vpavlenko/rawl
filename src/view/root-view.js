@@ -31,7 +31,6 @@ class RootView {
           popup.close()
         },
         onClickOK: e => {
-          console.log(e)
           popup.close()
         }
       })[0]

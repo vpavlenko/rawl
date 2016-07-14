@@ -236,7 +236,7 @@ function MidiFile(data) {
 						type: type,
 						channel: channel,
 						subtype: 'programChange',
-						programNumber: param1
+						value: param1
 					}
 				case 0x0d:
 					return {

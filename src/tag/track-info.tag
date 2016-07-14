@@ -28,7 +28,7 @@
       const panEvent = track.events.filter(t => t.subtype == "controller" && t.controllerType == 10)[0]
       this.fields = {
         name: track.name,
-        instrument: programChangeEvent ? programChangeEvent.programNumber : "",
+        instrument: programChangeEvent ? getInstrumentName(programChangeEvent.value) : "",
         volume: volumeEvent ? volumeEvent.value : "",
         pan: panEvent ? panEvent.value : ""
       }

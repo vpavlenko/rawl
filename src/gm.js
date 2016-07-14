@@ -16,3 +16,15 @@ const GMMap = {
   "Percussive": ["Tinkle Bell", "Agogo", "Steel Drums", "Woodblock", "Taiko Drum", "Melodic Tom", "Synth Drum"],
   "Sound effects": ["Reverse Cymbal", "Guitar Fret Noise", "Breath Noise", "Seashore", "Bird Tweet", "Telephone Ring", "Helicopter", "Applause", "Gunshot"]
 }
+
+// index は 1 から始まる数
+function getInstrumentName(index) {
+  let i = index　- 1
+  for (key in GMMap) {
+    const len = GMMap[key].length
+    if (i - len < 0) {
+      return GMMap[key][i]
+    }
+    i -= len
+  }
+}

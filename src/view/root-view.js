@@ -25,6 +25,18 @@ class RootView {
       this.trackList = riot.mount("track-list")[0]
       this.pianoRoll = new PianoRollController(document.querySelector("#piano-roll"))
 
+      const popup = new PopupComponent()
+      riot.mount(popup.getContentElement(), "instrument-browser", {
+        onClickCancel: () => {
+          popup.close()
+        },
+        onClickOK: e => {
+          console.log(e)
+          popup.close()
+        }
+      })[0]
+      popup.show()
+
       this.viewDidLoad()
     })
   }

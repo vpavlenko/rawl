@@ -106,7 +106,7 @@ class RootView {
     })
 
     this.pianoRoll.emitter.on("move-cursor", tick => {
-        const t = SharedService.quantizer.floor(tick)
+        const t = SharedService.quantizer.round(tick)
         SharedService.player.seek(t)
     })
 

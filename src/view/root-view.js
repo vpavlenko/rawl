@@ -25,17 +25,6 @@ class RootView {
       this.trackList = riot.mount("track-list")[0]
       this.pianoRoll = new PianoRollController(document.querySelector("#piano-roll"))
 
-      const popup = new PopupComponent()
-      riot.mount(popup.getContentElement(), "instrument-browser", {
-        onClickCancel: () => {
-          popup.close()
-        },
-        onClickOK: e => {
-          popup.close()
-        }
-      })[0]
-      popup.show()
-
       this.viewDidLoad()
     })
   }
@@ -137,6 +126,35 @@ class RootView {
 
     this.trackList.emitter.on("add-track", () => {
       this.song.addTrack(new Track)
+    })
+
+    this.trackInfoPane.update({
+      onClickInstrument: e => {
+        const popup = new PopupComponent()
+        const track = this.song.getTrack(this.trackId)
+        const programChangeEvents = track.findProgramChangeEvents()
+        if (programChangeEvents.length == 0) {
+          return
+        }
+
+        const programNumber = programChangeEvents[0].value
+        const ids = getGMMapIndexes(programNumber)
+        riot.mount(popup.getContentElement(), "instrument-browser", {
+          selectedCategoryId: ids[0],
+          selectedInstrumentId: ids[1],
+          onClickCancel: () => {
+            popup.close()
+          },
+          onClickOK: e => {
+            const programNumber = getGMMapProgramNumber(e.categoryId, e.instrumentId)
+            track.updateEvent(programChangeEvents[0].id, {
+              value: programNumber
+            })
+            popup.close()
+          }
+        })[0]
+        popup.show()
+      }
     })
 
     this.emitter.trigger("view-did-load")

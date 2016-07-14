@@ -3,7 +3,7 @@
     <li class="name"><input type="text" value="{ fields.name }" placeholder="Track Name"></li>
     <li>
       <label>Instrument</label>
-      <input type="text" value="{ fields.instrument }">
+      <input type="text" value="{ fields.instrument }" onclick={onClickInstrument}>
     </li>
     <li>
       <label>Volume</label>
@@ -23,9 +23,9 @@
         return
       }
       const track = this.track
-      const programChangeEvent = track.events.filter(t => t.subtype == "programChange")[0]
-      const volumeEvent = track.events.filter(t => t.subtype == "controller" && t.controllerType == 7)[0]
-      const panEvent = track.events.filter(t => t.subtype == "controller" && t.controllerType == 10)[0]
+      const programChangeEvent = track.findProgramChangeEvents()[0]
+      const volumeEvent = track.findVolumeEvents()[0]
+      const panEvent = track.findPanEvents()[0]
       this.fields = {
         name: track.name,
         instrument: programChangeEvent ? getInstrumentName(programChangeEvent.value) : "",

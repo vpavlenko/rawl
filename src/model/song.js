@@ -108,4 +108,18 @@ class Track {
       this.trigger("change")
     }
   }
+
+  /* helper */
+
+  findProgramChangeEvents() {
+    return this.events.filter(t => t.subtype == "programChange")
+  }
+
+  findVolumeEvents() {
+    return this.events.filter(t => t.subtype == "controller" && t.controllerType == 7)
+  }
+
+  findPanEvents() {
+    return this.events.filter(t => t.subtype == "controller" && t.controllerType == 10)
+  }
 }

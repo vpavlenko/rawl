@@ -17,14 +17,35 @@ const GMMap = {
   "Sound effects": ["Reverse Cymbal", "Guitar Fret Noise", "Breath Noise", "Seashore", "Bird Tweet", "Telephone Ring", "Helicopter", "Applause", "Gunshot"]
 }
 
-// index は 1 から始まる数
-function getInstrumentName(index) {
-  let i = index　- 1
+// programNumber は 0 から始まる数
+function getInstrumentName(programNumber) {
+  const ids = getGMMapIndexes(programNumber)
+  return GMMap[Object.keys(GMMap)[ids[0]]][ids[1]]
+}
+
+// category, instrument の index を返す
+function getGMMapIndexes(programNumber) {
+  let i = programNumber
+  let n = 0
   for (key in GMMap) {
     const len = GMMap[key].length
     if (i - len < 0) {
-      return GMMap[key][i]
+      return [n, i]
     }
     i -= len
+    n++
+  }
+}
+
+function getGMMapProgramNumber(catrgoryId, instrumentId) {
+  let i = 0
+  let n = 0
+  for (key in GMMap) {
+    const len = GMMap[key].length
+    if (i == catrgoryId) {
+      return n + instrumentId
+    }
+    i++
+    n += len
   }
 }

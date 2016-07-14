@@ -19,6 +19,9 @@
   </div>
 
   <script>
+    this.selectedCategoryId = this.opts.selectedCategoryId || 0
+    this.selectedInstrumentId = this.opts.selectedInstrumentId || 0
+
     this.onClickOK = e => {
       opts.onClickOK({
         categoryId: this.selectedCategoryId,
@@ -38,9 +41,6 @@
     }
 
     this.on("update", () => {
-      this.selectedCategoryId = this.selectedCategoryId || 0
-      this.selectedInstrumentId = this.selectedInstrumentId || 0
-
       this.categories = Object.keys(GMMap)
       this.instruments = GMMap[Object.keys(GMMap)[this.selectedCategoryId]]
     })

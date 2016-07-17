@@ -137,6 +137,13 @@ class RootView {
       SharedService.player.muteChannel(channel, !muted)
     })
 
+    this.trackList.emitter.on("solo-track", trackId => {
+      const channel = this.song.getTrack(trackId).channel
+      this.song.getTracks().forEach((t, i) => {
+        SharedService.player.muteChannel(t.channel, i != trackId)
+      })
+    })
+
     this.trackInfoPane.update({
       onChangeName: e => {
         const track = this.song.getTrack(this.trackId)

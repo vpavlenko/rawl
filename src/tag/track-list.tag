@@ -2,6 +2,7 @@
   <ul>
     <li each={tracks} class={selected ? "selected" : ""}>
       <p class="name" onclick={onClick}>{name}</p>
+      <p class="solo" onclick={onClickSolo}>S</p>
       <p class="mute" onclick={onClickMute}>{mute ? "&#xe618;" : "&#xe617;"}</p>
     </li>
   </ul>
@@ -12,6 +13,10 @@
     this.selectedTrackId = 0
     this.emitter = {}
     riot.observable(this.emitter)
+
+    this.onClickSolo = e => {
+      this.emitter.trigger("solo-track", e.item.trackId)
+    }
 
     this.onClickMute = e => {
       this.emitter.trigger("mute-track", e.item.trackId)
@@ -85,18 +90,26 @@
     box-sizing: border-box;
     padding: 0.5em;
     cursor: pointer;
+    overflow: hidden;
+    white-space: nowrap;
   }
 
-  .mute {
+  .mute, .solo {
     float: left;
-    width: 30%;
+    width: 15%;
     margin: 0;
-    font-family: "Flat-UI-Icons";
-    font-weight: normal;
-    font-size: 110%;
     padding: 0.5em;
     box-sizing: border-box;
     text-align: center;
+    cursor: pointer;
+    border-left: 1px solid rgb(224, 224, 224);
   }
+
+  .mute {
+    font-family: "Flat-UI-Icons";
+    font-weight: normal;
+    font-size: 110%;
+  }
+
   </style>
 </track-list>

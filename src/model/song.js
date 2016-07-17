@@ -1,6 +1,7 @@
 class Song {
   constructor() {
     this.tracks = []
+    this.name = "Untitled Song"
     riot.observable(this)
   }
 

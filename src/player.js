@@ -168,6 +168,10 @@ class Player {
     this.position = 0
   }
 
+  get currentTempo() {
+    return this._currentTempo
+  }
+
   /**
    preview note
    duration in milliseconds
@@ -194,6 +198,7 @@ class Player {
         switch (e.event.subtype) {
           case "setTempo":
           this._currentTempo = 60000000 / e.event.microsecondsPerBeat
+          this.trigger("change-tempo", this._currentTempo)
           console.log("setTempo", this._currentTempo)
           break
           case "endOfTrack":

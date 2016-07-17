@@ -131,6 +131,12 @@ class RootView {
       this.song.addTrack(new Track)
     })
 
+    this.trackList.emitter.on("mute-track", trackId => {
+      const channel = this.song.getTrack(trackId).channel
+      const muted = SharedService.player.isChannelMuted(channel)
+      SharedService.player.muteChannel(channel, !muted)
+    })
+
     this.trackInfoPane.update({
       onChangeName: e => {
         const track = this.song.getTrack(this.trackId)

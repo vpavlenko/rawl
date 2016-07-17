@@ -90,6 +90,7 @@ class Player {
     this._currentTempo = 120
     this._currentTick = 0
     this._allEvents = []
+    this._channelMutes = {}
 
     riot.observable(this)
 
@@ -172,6 +173,15 @@ class Player {
     return this._currentTempo
   }
 
+  muteChannel(channel, mute) {
+    this._channelMutes[channel] = mute
+    this.trigger("change-mute", channel)
+  }
+
+  isChannelMuted(channel) {
+    return this._channelMutes[channel]
+  }
+
   /**
    preview note
    duration in milliseconds
@@ -191,6 +201,9 @@ class Player {
     const timestamp = window.performance.now()
     eventsToPlay.forEach(e => {
       if (e.msg != null) {
+        if (e.event.channel >= 0 && this._channelMutes[e.event.channel]) {
+          return
+        }
         const waitTick = e.tick - this._currentTick
         this._midiOutput.send(e.msg, timestamp + tickToMillisec(waitTick, this._currentTempo, this._timebase))
       } else {

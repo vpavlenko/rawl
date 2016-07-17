@@ -2,7 +2,7 @@
   <ul>
     <li each={tracks} class={selected ? "selected" : ""}>
       <p class="name" onclick={onClick}>{name}</p>
-      <p class="mute">{mute ? "&#xe618;" : "&#xe617;"}</p>
+      <p class="mute" onclick={onClickMute}>{mute ? "&#xe618;" : "&#xe617;"}</p>
     </li>
   </ul>
   <p class="add-track" onclick={onClickAddTrack}><span class="icon">&#xe608;</span> Add Track</p>
@@ -13,6 +13,10 @@
     this.emitter = {}
     riot.observable(this.emitter)
 
+    this.onClickMute = e => {
+      this.emitter.trigger("mute-track", e.item.trackId)
+    }
+
     this.onClick = e => {
       this.emitter.trigger("select-track", e.item.trackId)
     }
@@ -21,6 +25,10 @@
       this.emitter.trigger("add-track")
     }
 
+    SharedService.player.on("change-mute", () => {
+      this.update()
+    })
+
     this.on("update", () => {
       if (!this.song) {
         return
@@ -28,7 +36,7 @@
       this.tracks = this.song.getTracks().map((t, i) => {
         return {
           name: `${i}. ${t.name || ""}`,
-          mute: false,
+          mute: SharedService.player.isChannelMuted(t.channel),
           selected: i == this.selectedTrackId,
           trackId: i
         }

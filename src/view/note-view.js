@@ -13,13 +13,11 @@ class NoteView extends createjs.Shape {
   constructor() {
     super()
     this.setBounds(0, 0, 0, 0)
-    this.isDirty = true
     this.mouseEnabled = false
   }
 
   refresh() {
-    if (!this.isDirty || !this._note) return
-    this.isDirty = false
+    if (!this._note) return
     drawNoteView(this.graphics, this._note, this.getBounds())
   }
 
@@ -36,7 +34,6 @@ class NoteView extends createjs.Shape {
   set transform(transform) {
     this._transform = transform
     this._updateBounds()
-    this.isDirty = true
     this.refresh()
   }
 
@@ -47,7 +44,6 @@ class NoteView extends createjs.Shape {
   set note(note) {
     this._note = note
     this._updateBounds()
-    this.isDirty = true
     this.refresh()
   }
 }

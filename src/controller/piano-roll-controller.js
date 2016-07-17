@@ -57,6 +57,7 @@ class PianoRollController {
     this.loadView(canvas)
 
     this.noteScale = {x: 1, y: 1}
+    this.autoScroll = true
   }
 
   set noteScale(scale) {

@@ -206,7 +206,7 @@ class PianoRollController {
       this.stage.update()
 
       // keep scroll position to cursor 
-      if (this.player.isPlaying) {
+      if (this.autoScroll && this.player.isPlaying) {
         const screenX = x + this.scrollContainer.scrollX
         if (screenX > this.canvas.width * 0.7 || screenX < 0) {
           this.scrollContainer.scrollX = -x

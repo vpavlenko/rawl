@@ -97,6 +97,10 @@ class RootView {
 
       onClickForward: e => {
         SharedService.player.position += TIME_BASE * 4
+      },
+
+      onClickAutoScroll: e => {
+        this.pianoRoll.autoScroll = !this.pianoRoll.autoScroll
       }
     })
 

@@ -10,6 +10,7 @@
     <button onclick={onClickSelection}>□</button>
     <button onclick={onClickScaleUp}><img src="images/iconmonstr-magnifier-7-16.png"></button>
     <button onclick={onClickScaleDown}><img src="images/iconmonstr-magnifier-8-16.png"></button>
+    <button onclick={onClickAutoScroll}>Auto Scroll</button>
     <riot-select name="trackSelect" onselect={onSelectTrack}></riot-select>
     <riot-select name="quantizeSelect" onselect={onSelectQuantize}></riot-select>
   </div>

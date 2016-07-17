@@ -60,14 +60,18 @@ function eventToMidiMessages(e) {
           }
         ]
         case "noteAftertouch":
+        console.log("noteAftertouch", e.amount)
         return createMessage(e, [e.noteNumber, e.amount])
         case "controller":
+        console.log("controller", e.controllerType, e.value)
         return createMessage(e, [e.controllerType, e.value])
         case "programChange":
-        return createMessage(e, [e.programNumber])
+        console.log("programChange", e.value)
+        return createMessage(e, [e.value])
         case "channelAftertouch":
         return createMessage(e, [e.amount])
         case "pitchBend":
+        console.log("pitchBend", e.value)
         return createMessage(e, [e.value & 0x7f, e.value >> 7])
       }
     break
@@ -86,6 +90,8 @@ class Player {
     this._currentTempo = 120
     this._currentTick = 0
     this._allEvents = []
+
+    riot.observable(this)
 
     navigator.requestMIDIAccess().then(midiAccess => {
       this._midiOutput = midiAccess.outputs.values().next().value;
@@ -109,6 +115,7 @@ class Player {
   play(tick) {
     if (tick) {
       this._currentTick = Math.max(0, tick)
+      this.emitChangePosition()
     }
     this._updateEvents()
     this.resume()
@@ -116,6 +123,7 @@ class Player {
 
   seek(tick) {
     this._currentTick = Math.max(0, tick)
+    this.emitChangePosition()
     this._updateEvents()
   }
 
@@ -186,7 +194,7 @@ class Player {
         switch (e.event.subtype) {
           case "setTempo":
           this._currentTempo = 60000000 / e.event.microsecondsPerBeat
-          console.log(this._currentTempo)
+          console.log("setTempo", this._currentTempo)
           break
           case "endOfTrack":
           this.stop()
@@ -196,5 +204,10 @@ class Player {
     })
 
     this._currentTick = endTick
+    this.emitChangePosition()
+  }
+
+  emitChangePosition() {
+    this.trigger("change-position", this._currentTick)
   }
 }

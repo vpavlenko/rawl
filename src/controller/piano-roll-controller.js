@@ -200,11 +200,19 @@ class PianoRollController {
 
     this.scrollContainer.on("scroll", this.onScroll)
 
-    setInterval(() => {
-      const tick = this.player.position
-      this.grid.cursorPosition = this._transform.getX(tick)
+    this.player.on("change-position", tick => {
+      const x = this._transform.getX(tick)
+      this.grid.cursorPosition = x
       this.stage.update()
-    }, 66)
+
+      // keep scroll position to cursor 
+      if (this.player.isPlaying) {
+        const screenX = x + this.scrollContainer.scrollX
+        if (screenX > this.canvas.width * 0.7 || screenX < 0) {
+          this.scrollContainer.scrollX = -x
+        }
+      }
+    })
   }
 
   getNotes() {

@@ -22,6 +22,24 @@ class App {
 
   onLoadView() {
     this.setSong(Song.emptySong())
+    this.initKeyboardShortcut()
+  }
+
+  initKeyboardShortcut() {
+    document.onkeydown = e => {
+      if (e.target != document.body) {
+        return
+      }
+      switch(e.keyCode) {
+        case 32: 
+          const player = SharedService.player
+          if (player.isPlaying) {
+            player.stop()
+          } else {
+            player.play()
+          }
+      }
+    }
   }
 
   setSong(song) {

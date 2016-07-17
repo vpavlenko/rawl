@@ -5,7 +5,6 @@ class RootView {
     this.loadView()
     this.emitter = {}
     this.trackId = 0
-    this.quantizer = new Quantizer(TIME_BASE)
     riot.observable(this.emitter)
   }
 

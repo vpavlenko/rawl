@@ -1,5 +1,5 @@
 class Selection {
-  constructor(fromTick, fromNoteNumber, toTick, toNoteNumber, notes, original) {
+  constructor(fromTick, fromNoteNumber, toTick, toNoteNumber, notes = [], original = null) {
     this._fromTick = fromTick
     this._fromNoteNumber = fromNoteNumber
     this._toTick = toTick
@@ -55,6 +55,29 @@ class Selection {
       s.toNoteNumber + dn,
       s.notes,
       s
+    )
+  }
+
+  getBounds(transform) {
+    const left = transform.getX(this.fromTick)
+    const right = transform.getX(this.toTick)
+    const top = transform.getY(this.fromNoteNumber)
+    const bottom = transform.getY(this.toNoteNumber)
+    return {
+      x: left,
+      y: top,
+      width: right - left,
+      height: bottom - top
+    }
+  }
+
+  static fromRect(rect, quantizer, transform, notes = []) {
+    return new Selection(
+      quantizer.round(transform.getTicks(rect.x)), 
+      Math.ceil(transform.getNoteNumber(rect.y)), 
+      quantizer.round(transform.getTicks(rect.x + rect.width)), 
+      Math.ceil(transform.getNoteNumber(rect.y + rect.height)),
+      notes
     )
   }
 }

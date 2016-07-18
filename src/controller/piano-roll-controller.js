@@ -33,19 +33,6 @@ function recursiveNumChildren(obj) {
   return count
 }
 
-function getBoundsFromSelection(selection, transform) {
-  const left = transform.getX(selection.fromTick)
-  const right = transform.getX(selection.toTick)
-  const top = transform.getY(selection.fromNoteNumber)
-  const bottom = transform.getY(selection.toNoteNumber)
-  return {
-    x: left,
-    y: top,
-    width: right - left,
-    height: bottom - top
-  }
-}
-
 class PianoRollController {
   constructor(canvas) {
     this.emitter = {}
@@ -125,7 +112,7 @@ class PianoRollController {
     this._selection = selection
     this.selectionView.visible = selection != null
     if (selection) {
-      const b = getBoundsFromSelection(selection, this._transform)
+      const b = selection.getBounds(this._transform)
       this.selectionView.x = b.x
       this.selectionView.y = b.y
       this.selectionView.setSize(b.width, b.height)
@@ -382,21 +369,16 @@ class PianoRollController {
     })
 
     handler.on("resize-selection", rect => {
-      this.selection = new Selection(
-        this._quantizer.round(this._transform.getTicks(rect.x)), 
-        Math.ceil(this._transform.getNoteNumber(rect.y)), 
-        this._quantizer.round(this._transform.getTicks(rect.x + rect.width)), 
-        Math.ceil(this._transform.getNoteNumber(rect.y + rect.height)),
-        []
-      )
+      this.selection = Selection.fromRect(rect, this._quantizer, this._transform)
     })
 
     handler.on("select-notes", rect => {
       if (!this._selection) {
         return
       }
-      const notes = this.noteContainer.getNotesInRect(rect)
-      this.selection = this._selection.copyUpdated(notes)
+      const s = Selection.fromRect(rect, this._quantizer, this._transform)
+      const notes = this.noteContainer.getNotesInRect(s.getBounds(this._transform))
+      this.selection = s.copyUpdated(notes)
       this.emitter.trigger("select-notes", notes)
     })
 

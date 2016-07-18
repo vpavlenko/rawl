@@ -11,6 +11,7 @@
     </div>
 
     <div class="transport-section section">
+      <p class="time">{mbtTime}</p>
       <button onclick={onClickBackward}><span class="icon">&#xe606;</span></button>
       <button onclick={onClickStop}><span class="icon">&#xe615;</span></button>
       <button onclick={onClickPlay}><span class="icon">&#xe616;</span></button>
@@ -36,9 +37,15 @@
     this.on("mount", () => {
       this.quantizeSelect._tag.update({options: quantizeOptions})
 
-      this.tempo = SharedService.player.currentTempo
-      SharedService.player.on("change-tempo", tempo => {
+      const player = SharedService.player
+      this.tempo = player.currentTempo
+      player.on("change-tempo", tempo => {
         this.update({tempo: tempo})
+      })
+      player.on("change-position", tick => {
+        this.update({
+          mbtTime: this.song.getMeasureList().getMBT(tick, TIME_BASE)
+        })
       })
     })
 
@@ -55,6 +62,7 @@
       this.trackSelect._tag.update({options: trackOptions})
 
       this.songName = this.song.name
+      this.mbtTime = this.song.getMeasureList().getMBT(SharedService.player.position, TIME_BASE)
     })
     const quantizeOptions = [
       {
@@ -171,7 +179,7 @@
       padding-right: 1em;
     }
 
-    .section>p {
+    .song-section>p {
       float: left;
     }
 
@@ -184,6 +192,17 @@
     }
 
     .tempo {
+      color: rgb(162, 162, 162);
+    }
+
+    .time {
+      font-family: "Consolas";
+      font-size: 110%;
+      white-space: pre;
+      box-sizing: border-box;
+      margin: 0;
+      display: inline-block;
+      float: none;
       color: rgb(162, 162, 162);
     }
   </style>

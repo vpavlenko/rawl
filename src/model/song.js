@@ -20,6 +20,15 @@ class Song {
     return this.tracks[id]
   }
 
+  getMeasureList() {
+    if (this.measureList) {
+      return this.measureList
+    } 
+
+    this.measureList = new MeasureList(this.getTrack(0))
+    return this.measureList
+  }
+
   static emptySong() {
     const song = new Song()
     song.addTrack(new Track())
@@ -127,5 +136,67 @@ class Track {
 
   findPanEvents() {
     return this.events.filter(t => t.subtype == "controller" && t.controllerType == 10)
+  }
+}
+
+function getMeasuresFromConductorTrack(conductorTrack) {
+  if (conductorTrack.getEvents().length == 0) {
+    return [new Measure]
+  } else {
+    return conductorTrack.getEvents()
+      .filter(e => e.subtype == "timeSignature")
+      .map((e, i) => {
+        console.log(`${e.numerator} / ${e.denominator}`)
+        return new Measure(e.tick, i, e.numerator, e.denominator)
+      })
+  }
+}
+
+class MeasureList {
+  constructor(conductorTrack) {
+    this.measures = getMeasuresFromConductorTrack(conductorTrack)
+  }
+
+  getMeasureAt(tick) {
+    let lastMeasure
+    for (const m of this.measures) {
+      if (m.startTick > tick) {
+        break
+      }
+      lastMeasure = m
+    }
+    return lastMeasure
+  }
+
+  getMBT(tick, ticksPerBeat) {
+    return this.getMeasureAt(tick).getMBT(tick, ticksPerBeat)
+  }
+}
+
+class Measure {
+  constructor(startTick = 0, measure = 0, numerator = 4, denominator = 4) {
+    this.startTick = startTick
+    this.measure = measure
+    this.numerator = numerator
+    this.denominator = denominator
+  }
+
+  getMBT(tick, ticksPerBeatBase) {
+    function format(v) {
+      return ("   " + v).slice(-4)
+    }
+
+    const ticksPerBeat = ticksPerBeatBase * 4 / this.denominator
+    const ticksPerMeasure = ticksPerBeat * this.numerator
+
+    let aTick = tick - this.startTick
+
+    const measure = Math.floor(aTick / ticksPerMeasure)
+    aTick -= measure * ticksPerMeasure
+
+    const beat = Math.floor(aTick / ticksPerBeat)
+    aTick -= beat * ticksPerBeat
+
+    return `${format(this.measure + measure + 1)}:${format(beat + 1)}:${format(aTick)}`
   }
 }

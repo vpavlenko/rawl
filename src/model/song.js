@@ -152,6 +152,13 @@ function getMeasuresFromConductorTrack(conductorTrack) {
   }
 }
 
+const defaultMBTFormatter = function(mbt, ticksPerBeat) {
+  function format(v) {
+    return ("   " + v).slice(-4)
+  }
+  return `${format(mbt.measure + 1)}:${format(mbt.beat + 1)}:${format(mbt.tick)}`
+}
+
 class MeasureList {
   constructor(conductorTrack) {
     this.measures = getMeasuresFromConductorTrack(conductorTrack)
@@ -168,6 +175,10 @@ class MeasureList {
     return lastMeasure
   }
 
+  getMBTString(tick, ticksPerBeat, formatter = defaultMBTFormatter) {
+    return formatter(this.getMBT(tick, ticksPerBeat))
+  }
+
   getMBT(tick, ticksPerBeat) {
     return this.getMeasureAt(tick).getMBT(tick, ticksPerBeat)
   }
@@ -182,10 +193,6 @@ class Measure {
   }
 
   getMBT(tick, ticksPerBeatBase) {
-    function format(v) {
-      return ("   " + v).slice(-4)
-    }
-
     const ticksPerBeat = ticksPerBeatBase * 4 / this.denominator
     const ticksPerMeasure = ticksPerBeat * this.numerator
 
@@ -197,6 +204,10 @@ class Measure {
     const beat = Math.floor(aTick / ticksPerBeat)
     aTick -= beat * ticksPerBeat
 
-    return `${format(this.measure + measure + 1)}:${format(beat + 1)}:${format(aTick)}`
+    return {
+      measure: this.measure + measure,
+      beat: beat,
+      tick: aTick
+    }
   }
 }

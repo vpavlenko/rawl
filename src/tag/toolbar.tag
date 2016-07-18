@@ -40,11 +40,11 @@
       const player = SharedService.player
       this.tempo = player.currentTempo
       player.on("change-tempo", tempo => {
-        this.update({tempo: tempo})
+        this.update({tempo: new Number(tempo).toFixed(3)})
       })
       player.on("change-position", tick => {
         this.update({
-          mbtTime: this.song.getMeasureList().getMBT(tick, TIME_BASE)
+          mbtTime: this.song.getMeasureList().getMBTString(tick, TIME_BASE)
         })
       })
     })
@@ -62,7 +62,7 @@
       this.trackSelect._tag.update({options: trackOptions})
 
       this.songName = this.song.name
-      this.mbtTime = this.song.getMeasureList().getMBT(SharedService.player.position, TIME_BASE)
+      this.mbtTime = this.song.getMeasureList().getMBTString(SharedService.player.position, TIME_BASE)
     })
     const quantizeOptions = [
       {

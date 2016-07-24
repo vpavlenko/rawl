@@ -1,3 +1,126 @@
+class MidiEvent {
+	constructor(deltaTime, type) {
+		this.deltaTime = deltaTime
+		this.type = type
+	}
+
+	toBytes() {
+		const deltaTimeBytes = MidiEvent.varIntBytes(this.deltaTime)
+		const typeByte = this.type == "meta" ? 0xff : 0
+
+		return deltaTimeBytes.concat([typeByte]) 
+	}
+
+	static varIntBytes(v) {
+		const r = []
+		while(true) {
+			const s = x & 0x7f
+			x >>= 7
+			if (x == 0) {
+				r.push(s)
+				break
+			} else {
+				r.push(s + (1 << 7))
+			}
+		}
+		return r
+	}
+}
+
+class MetaMidiEvent extends MidiEvent {
+	constructor(deltaTime, subtype, value) {
+		super(deltaTime, "meta")
+		this.subtype = subtype
+		this.value = value
+	}
+
+	toBytes() {
+		const subtypeByte = MIDIMetaEventType[this.subtype]
+		return super.toBytes().concat([subtypeByte])
+	}
+}
+
+class TextMetaMidiEvent extends MetaMidiEvent {
+	static fromStream(deltaTime, subtype, stream, length) {
+		return new TextMetaMidiEvent(deltaTime, subtype, stream.read(length)) 
+	}
+
+	get text() {
+		return this.value
+	}
+
+	toBytes() {
+		const length = this.value.length
+		const textBytes = this.value.map((c, i) => this.value.charCodeAt(i))
+		return super.toBytes()
+			.concat([length])
+			.concat(textBytes)
+	}
+}
+
+class ByteMetaMidiEvent extends MetaMidiEvent {
+	static fromStream(deltaTime, subtype, stream, length) {
+		return new ByteMetaMidiEvent(deltaTime, subtype, stream.read(length)) 
+	}
+}
+
+class Int16MetaMidiEvent extends MetaMidiEvent {
+	static fromStream(deltaTime, subtype, stream) {
+		return new Int16MetaMidiEvent(deltaTime, subtype, stream.readInt16()) 
+	}
+}
+
+class Int8MetaMidiEvent extends MetaMidiEvent {
+	static fromStream(deltaTime, subtype, stream) {
+		return new Int8MetaMidiEvent(deltaTime, subtype, stream.readInt8()) 
+	}
+}
+
+class SetTempoMidiEvent extends MetaMidiEvent {
+	constructor(deltaTime, value) {
+		super(deltaTime, "setTempo", value)
+	}
+
+	get microsecondsPerBeat() {
+		return this.value
+	}
+
+	static fromStream(deltaTime, stream) {
+		return new SetTempoMidiEvent(deltaTime, 
+			(stream.readInt8() << 16) +
+			(stream.readInt8() << 8) +
+			stream.readInt8()
+		)
+	}
+
+	toBytes() {
+		return super.toBytes()
+			.concat([3, 
+				((this.value >> 16) & 0x7f),
+				((this.value >> 8) & 0x7f),
+				(this.value & 0x7f)
+			])
+	}
+}
+
+class TimeSignatureMidiEvent extends MetaMidiEvent {
+	constructor(deltaTime, numerator, denominator, metronome, thirtyseconds) {
+		super(deltaTime, "timeSignature", `${numerator}/${denominator}`)
+		this.numerator = numerator
+		this.denominator = denominator
+		this.metronome = metronome
+		this.thirtyseconds = thirtyseconds
+	}
+
+	static fromStream(deltaTime, stream) {
+		return new TimeSignatureMidiEvent(deltaTime, 
+			stream.readInt8(), 
+			Math.pow(2, stream.readInt8()), 
+			stream.readInt8(), 
+			stream.readInt8())
+	}
+}
+
 /*
 class to parse the .mid file format
 (depends on stream.js)
@@ -28,88 +151,30 @@ function MidiFile(data) {
 				switch(subtypeByte) {
 					case 0x00:
 						if (length != 2) throw "Expected length for sequenceNumber event is 2, got " + length
-						return {
-							deltaTime: deltaTime,
-							type: type,
-							subtype: "sequenceNumber",
-							number: stream.readInt16()
-						}
+						return Int16MetaMidiEvent.fromStream(deltaTime, "sequenceNumber", stream)
 					case 0x01:
-						return {
-							deltaTime: deltaTime,
-							type: type,
-							subtype: "text",
-							text: stream.read(length)
-						}
+						return TextMetaMidiEvent.fromStream(deltaTime, "text", stream, length)
 					case 0x02:
-						return {
-							deltaTime: deltaTime,
-							type: type,
-							subtype: "copyrightNotice",
-							text: stream.read(length)
-						}
+						return TextMetaMidiEvent.fromStream(deltaTime, "copyrightNotice", stream, length)
 					case 0x03:
-						return {
-							deltaTime: deltaTime,
-							type: type,
-							subtype: "trackName",
-							text: stream.read(length)
-						}
+						return TextMetaMidiEvent.fromStream(deltaTime, "trackName", stream, length)
 					case 0x04:
-						return {
-							deltaTime: deltaTime,
-							type: type,
-							subtype: "instrumentName",
-							text: stream.read(length)
-						}
+						return TextMetaMidiEvent.fromStream(deltaTime, "instrumentName", stream, length)
 					case 0x05:
-						return {
-							deltaTime: deltaTime,
-							type: type,
-							subtype: "lyrics",
-							text: stream.read(length)
-						}
+						return TextMetaMidiEvent.fromStream(deltaTime, "lyrics", stream, length)
 					case 0x06:
-						return {
-							deltaTime: deltaTime,
-							type: type,
-							subtype: "marker",
-							text: stream.read(length)
-						}
+						return TextMetaMidiEvent.fromStream(deltaTime, "marker", stream, length)
 					case 0x07:
-						return {
-							deltaTime: deltaTime,
-							type: type,
-							subtype: "cuePoint",
-							text: stream.read(length)
-						}
+						return TextMetaMidiEvent.fromStream(deltaTime, "cuePoint", stream, length)
 					case 0x20:
 						if (length != 1) throw "Expected length for midiChannelPrefix event is 1, got " + length
-						return {
-							deltaTime: deltaTime,
-							type: type,
-							subtype: "midiChannelPrefix",
-							channel: stream.readInt8()
-						}
+						return Int8MetaMidiEvent.fromStream(deltaTime, "midiChannelPrefix", stream)
 					case 0x2f:
 						if (length != 0) throw "Expected length for endOfTrack event is 0, got " + length
-						return {
-							deltaTime: deltaTime,
-							type: type,
-							subtype: "endOfTrack"
-						}
+						return new MetaMidiEvent(deltaTime, "endOfTrack")
 					case 0x51:
 						if (length != 3) throw "Expected length for setTempo event is 3, got " + length
-						return {
-							deltaTime: deltaTime,
-							type: type,
-							subtype: "setTempo",
-							microsecondsPerBeat: (
-								(stream.readInt8() << 16)
-								+ (stream.readInt8() << 8)
-								+ stream.readInt8()
-							)
-						}
+						return SetTempoMidiEvent.fromStream(deltaTime, stream)
 					case 0x54:
 						if (length != 5) throw "Expected length for smpteOffset event is 5, got " + length
 						const hourByte = stream.readInt8()
@@ -126,15 +191,7 @@ function MidiFile(data) {
 						}
 					case 0x58:
 						if (length != 4) throw "Expected length for timeSignature event is 4, got " + length
-						return {
-							deltaTime: deltaTime,
-							type: type,
-							subtype: "timeSignature",
-							numerator: stream.readInt8(),
-							denominator: Math.pow(2, stream.readInt8()),
-							metronome: stream.readInt8(),
-							thirtyseconds: stream.readInt8()
-						}
+						return TimeSignatureMidiEvent.fromStream(deltaTime, stream)
 					case 0x59:
 						if (length != 2) throw "Expected length for keySignature event is 2, got " + length
 						return {
@@ -145,19 +202,9 @@ function MidiFile(data) {
 							scale: stream.readInt8()
 						}
 					case 0x7f:
-						return {
-							deltaTime: deltaTime,
-							type: type,
-							subtype: "sequencerSpecific",
-							data: stream.read(length)
-						}
+						return ByteMetaMidiEvent(deltaTime, "sequencerSpecific", stream, length)
 					default:
-						return {
-							deltaTime: deltaTime,
-							type: type,
-							subtype: "unknown",
-							data: stream.read(length)
-						}
+						return ByteMetaMidiEvent(deltaTime, "unknown", stream, length)
 				}
 			} else if (eventTypeByte == 0xf0) {
 				const length = stream.readVarInt()

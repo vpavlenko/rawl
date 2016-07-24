@@ -40,7 +40,7 @@
       }
       this.tracks = this.song.getTracks().map((t, i) => {
         return {
-          name: `${i}. ${t.name || ""}`,
+          name: `${i} ${t.channel}. ${t.name || ""}`,
           mute: SharedService.player.isChannelMuted(t.channel),
           selected: i == this.selectedTrackId,
           trackId: i

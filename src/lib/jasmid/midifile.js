@@ -3,28 +3,6 @@ class MidiEvent {
 		this.deltaTime = deltaTime
 		this.type = type
 	}
-
-	toBytes() {
-		const deltaTimeBytes = MidiEvent.varIntBytes(this.deltaTime)
-		const typeByte = this.type == "meta" ? 0xff : 0
-
-		return deltaTimeBytes.concat([typeByte]) 
-	}
-
-	static varIntBytes(v) {
-		const r = []
-		while(true) {
-			const s = x & 0x7f
-			x >>= 7
-			if (x == 0) {
-				r.push(s)
-				break
-			} else {
-				r.push(s + (1 << 7))
-			}
-		}
-		return r
-	}
 }
 
 class MetaMidiEvent extends MidiEvent {
@@ -32,11 +10,6 @@ class MetaMidiEvent extends MidiEvent {
 		super(deltaTime, "meta")
 		this.subtype = subtype
 		this.value = value
-	}
-
-	toBytes() {
-		const subtypeByte = MIDIMetaEventType[this.subtype]
-		return super.toBytes().concat([subtypeByte])
 	}
 }
 
@@ -47,14 +20,6 @@ class TextMetaMidiEvent extends MetaMidiEvent {
 
 	get text() {
 		return this.value
-	}
-
-	toBytes() {
-		const length = this.value.length
-		const textBytes = this.value.map((c, i) => this.value.charCodeAt(i))
-		return super.toBytes()
-			.concat([length])
-			.concat(textBytes)
 	}
 }
 
@@ -91,15 +56,6 @@ class SetTempoMidiEvent extends MetaMidiEvent {
 			(stream.readInt8() << 8) +
 			stream.readInt8()
 		)
-	}
-
-	toBytes() {
-		return super.toBytes()
-			.concat([3, 
-				((this.value >> 16) & 0x7f),
-				((this.value >> 8) & 0x7f),
-				(this.value & 0x7f)
-			])
 	}
 }
 
@@ -202,9 +158,9 @@ function MidiFile(data) {
 							scale: stream.readInt8()
 						}
 					case 0x7f:
-						return ByteMetaMidiEvent(deltaTime, "sequencerSpecific", stream, length)
+						return ByteMetaMidiEvent.fromStream(deltaTime, "sequencerSpecific", stream, length)
 					default:
-						return ByteMetaMidiEvent(deltaTime, "unknown", stream, length)
+						return ByteMetaMidiEvent.fromStream(deltaTime, "unknown", stream, length)
 				}
 			} else if (eventTypeByte == 0xf0) {
 				const length = stream.readVarInt()

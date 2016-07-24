@@ -84,7 +84,7 @@ const MIDIMetaEventTypeName = {
   0x06: "marker",
   0x07: "cuePoint",
   0x20: "midiChannelPrefix",
-  0x2f: "endOfTrack"
+  0x2f: "endOfTrack",
   0x51: "setTempo",
   0x54: "smpteOffset",
   0x58: "timeSignature",
@@ -102,7 +102,7 @@ const MIDIMetaEventType = {
   marker: 0x06,
   cuePoint: 0x07,
   midiChannelPrefix: 0x20,
-  endOfTrack: 0x2f
+  endOfTrack: 0x2f,
   setTempo: 0x51,
   smpteOffset: 0x54,
   timeSignature: 0x58,
@@ -110,3 +110,12 @@ const MIDIMetaEventType = {
   sequencerSpecific: 0x7f
 }
 
+const MIDIChannelEventType = {
+  "noteOff": 0x08,
+  "noteOn": 0x09,
+  "noteAftertouch": 0x0a,
+  "controller": 0x0b,
+  "programChange": 0x0c,
+  "channelAftertouch": 0x0d,
+  "pitchBend": 0x0e,
+}

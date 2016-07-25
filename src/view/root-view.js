@@ -47,6 +47,10 @@ class RootView {
         this.emitter.trigger("change-file", file)
       },
 
+      onClickSave: e => {
+        this.emitter.trigger("save-file")
+      },
+
       onClickPencil: e => {
         this.pianoRoll.mouseMode = 0
       },

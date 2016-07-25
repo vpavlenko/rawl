@@ -31,7 +31,21 @@ class Song {
 
   static emptySong() {
     const song = new Song()
-    song.addTrack(new Track())
+    
+    // conductor track
+    {
+      const track = new Track()
+      track.addEvent(new EndOfTrackMidiEvent(0))
+      song.addTrack(track)
+    }
+
+    {
+      const track = new Track()
+      track.addEvent(new EndOfTrackMidiEvent(1200))
+      song.addTrack(track)
+    }
+
+    song.name = "new song.mid"
     return song
   }
 
@@ -101,6 +115,10 @@ class Track {
   }
 
   addEvent(e) {
+    if (e.tick === undefined) {
+      const lastEvent = this.getEventById(this.lastEventId)
+      e.tick = e.deltaTime + (lastEvent ? lastEvent.tick : 0)
+    }
     e.id = this.lastEventId
     if (e.type == "channel" && e.channel === undefined) {
       e.channel = this.channel
@@ -165,7 +183,7 @@ class MeasureList {
   }
 
   getMeasureAt(tick) {
-    let lastMeasure
+    let lastMeasure = new Measure()
     for (const m of this.measures) {
       if (m.startTick > tick) {
         break

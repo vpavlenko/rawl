@@ -17,6 +17,7 @@ class App {
   initRootView() {
     this.view = new RootView()
     this.view.emitter.on("change-file", file => this.openSong(file))
+    this.view.emitter.on("save-file", file => this.saveSong())
     this.view.emitter.on("view-did-load", () => this.onLoadView())
   }
 
@@ -54,5 +55,10 @@ class App {
       this.setSong(song)
     })
     SharedService.player.reset()
+  }
+
+  saveSong() {
+    const bytes = MidiWriter.write(this.song.getTracks())
+    Downloader.downloadBlob(bytes, this.song.name, "application/octet-stream")
   }
 }

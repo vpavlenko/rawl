@@ -13,6 +13,12 @@ class MetaMidiEvent extends MidiEvent {
 	}
 }
 
+class EndOfTrackMidiEvent extends MetaMidiEvent {
+	constructor(deltaTime) {
+		super(deltaTime, "endOfTrack")
+	}
+}
+
 class TextMetaMidiEvent extends MetaMidiEvent {
 	static fromStream(deltaTime, subtype, stream, length) {
 		return new TextMetaMidiEvent(deltaTime, subtype, stream.read(length)) 
@@ -127,7 +133,7 @@ function MidiFile(data) {
 						return Int8MetaMidiEvent.fromStream(deltaTime, "midiChannelPrefix", stream)
 					case 0x2f:
 						if (length != 0) throw "Expected length for endOfTrack event is 0, got " + length
-						return new MetaMidiEvent(deltaTime, "endOfTrack")
+						return new EndOfTrackMidiEvent()
 					case 0x51:
 						if (length != 3) throw "Expected length for setTempo event is 3, got " + length
 						return SetTempoMidiEvent.fromStream(deltaTime, stream)

@@ -26,6 +26,45 @@
     return bytes
   }
 
+  // separate notes to noteOn + noteOff
+  function deassembleNoteEvents(events) {
+    const result = []
+    for (const e of events) {
+      if (e.subtype == "note") {
+        result.push({
+          type: "channel",
+          subtype: "noteOn",
+          tick: e.tick,
+          channel: e.channel,
+          noteNumber: e.noteNumber, 
+          velocity: e.velocity
+        })
+        result.push({
+          type: "channel",
+          subtype: "noteOff",
+          tick: e.tick + e.duration,
+          channel: e.channel,
+          noteNumber: e.noteNumber, 
+          velocity: 0
+        })
+      } else {
+        result.push(e)
+      }
+    }
+    return result
+  }
+
+  // events in each tracks
+  function addDeltaTime(events) {
+    events.sort((a, b) => a.tick - b.tick)
+    let prevTick = 0
+    for (const e of events) {
+      e.deltaTime = e.tick - prevTick
+      prevTick = e.tick
+    }
+    return events
+  }
+
   function eventToBytes(e) {
     const bytes = []
     function add(data) {
@@ -151,11 +190,15 @@
     }
 
     writeInt32(v, pos) {
-
+      this.writeByte((v >> 24) & 0xff, pos)
+      this.writeByte((v >> 16) & 0xff, pos + 1)
+      this.writeByte((v >>  8) & 0xff, pos + 2)
+      this.writeByte(v         & 0xff, pos + 3)
     }
 
     writeInt16(v, pos) {
-
+      this.writeByte((v >>  8) & 0xff, pos)
+      this.writeByte(v         & 0xff, pos + 1)
     }
 
     writeBytes(arr) {
@@ -164,11 +207,12 @@
 
     writeChunk(id, func) {
       this.writeStr(id)
-      const start = this.length
+      const sizePos = this.length
       this.writeInt32(0) // dummy chunk size
+      const start = this.length
       func(this) // write chunk contents
       const size = this.length - start
-      this.writeInt32(size, start) // write chunk size
+      this.writeInt32(size, sizePos) // write chunk size
     }
 
     toBytes() {
@@ -190,7 +234,8 @@
       // track chunk
       for (const track of tracks) {
         buf.writeChunk("MTrk", it => {
-          for (const event of track.getEvents()) {
+          let events = addDeltaTime(deassembleNoteEvents(track.getEvents()))
+          for (const event of events) {
             it.writeBytes(eventToBytes(event))
           }
         })

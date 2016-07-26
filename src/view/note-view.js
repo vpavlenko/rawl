@@ -1,12 +1,14 @@
 function drawNoteView(g, note, bounds) {
   const alpha = note.velocity / 127
-  const color = note.selected ? "black" : `rgba(88, 103, 250, ${alpha})`
+  const color = note.selected ? Theme.textColor : hslWithAlpha(Theme.themeColor, alpha)
   g.clear()
     .beginFill(color)
+    .beginStroke(Theme.textColor)
     .rect(0, 0, bounds.width, bounds.height)
-    .setStrokeStyle(1)
-    .beginStroke("black")
-    .rect(0.5, 0.5, bounds.width - 1, bounds.height - 1)
+    .endFill()
+    .beginStroke("rgba(255, 255, 255, 0.2)") // highlight
+    .moveTo(1, 1)
+    .lineTo(bounds.width, 1)
 }
 
 class NoteView extends createjs.Shape {
@@ -26,8 +28,8 @@ class NoteView extends createjs.Shape {
       return
     }
     const r = this._transform.getRect(this._note)
-    this.x = r.x
-    this.y = r.y
+    this.x = r.x + 0.5
+    this.y = r.y + 0.5
     this.setBounds(0, 0, r.width, r.height)
   }
 

@@ -47,9 +47,8 @@ class BeatLineView extends createjs.Shape {
 
     for (var beats = 0; beats < this._endTick / this._ticksPerBeat; beats++) {
       const isBold = beats % 4 == 0
-      const alpha = isBold ? 0.5 : 0.1
       const x = this._transform.getX(beats * this._ticksPerBeat) + 0.5
-      g.beginStroke(`rgba(0, 0, 0, ${alpha})`)
+      g.beginStroke(Theme.getDividerColorAccented(isBold))
         .moveTo(x, 0)
         .lineTo(x, height)
     }

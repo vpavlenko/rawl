@@ -1,9 +1,10 @@
 :root {
   --font: Avenir, Lato;
+  --canvas-font: Arial;
   --theme-color: hsl(247, 84%, 59%);
   --text-color: hsl(247, 10%, 32%);
   --secondary-text-color: hsl(247, 10%, 62%);
   --divider-color: hsl(247, 5%, 87%);
-  --background-color: white;
+  --background-color: #fff;
   --secondary-background-color: hsl(247, 14%, 98%);
 }

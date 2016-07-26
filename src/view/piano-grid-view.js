@@ -10,14 +10,13 @@ function drawHorizontalLines(g, transform, endTick) {
     const index = key % 12 
     const isBlack = index == 1 || index == 3 || index == 6 || index == 8 || index == 10
     const isBold = index == 11
-    const alpha = isBold ? 0.3 : 0.1
     const y = transform.getY(key)
     if (isBlack) {
-      g.beginFill("rgba(0, 0, 0, 0.04)")
+      g.beginFill(Theme.secondaryBackgroundColor)
         .rect(0, y, width, keyHeight)
         .endFill()
     }
-    g.beginStroke(`rgba(0, 0, 0, ${alpha})`)
+    g.beginStroke(Theme.getDividerColorAccented(isBold))
       .moveTo(0, y)
       .lineTo(width, y)
       .endStroke()
@@ -28,16 +27,16 @@ function drawRuler(g, transform, endTick, ticksPerBeat, textContainer, height) {
   const width = transform.getX(endTick)
 
   g.clear()
-    .beginFill("white")
+    .beginFill(Theme.backgroundColor)
     .rect(0, 0, width, height)
     .endFill()
     .setStrokeStyle(1)
-    .beginStroke("rgba(0, 0, 0, 0.5)")
+    .beginStroke(Theme.secondaryTextColor)
     .moveTo(0, height)
     .lineTo(width, height)
     .endStroke()
     .setStrokeStyle(1)
-    .beginStroke("rgba(0, 0, 0, 0.2)")
+    .beginStroke(Theme.secondaryTextColor)
 
   textContainer.removeAllChildren()
 
@@ -48,8 +47,9 @@ function drawRuler(g, transform, endTick, ticksPerBeat, textContainer, height) {
     g.moveTo(x, 0)
       .lineTo(x, height)
 
-    const text = new createjs.Text(measure, "14px Consolas", "gray")
+    const text = new createjs.Text(measure, `14px ${Theme.canvasFont}`, Theme.secondaryTextColor)
     text.x = x + 5
+    text.y = 2
     textContainer.addChild(text)
   })
 
@@ -63,8 +63,7 @@ function drawBeatLines(g, transform, endTick, ticksPerBeat) {
 
   forEachBeatPositions(transform, ticksPerBeat, endTick, (beats, x) => {
     const isBold = beats % 4 == 0
-    const alpha = isBold ? 0.5 : 0.1
-    g.beginStroke(`rgba(0, 0, 0, ${alpha})`)
+    g.beginStroke(Theme.getDividerColorAccented(isBold))
       .moveTo(x, 0)
       .lineTo(x, height)
   })
@@ -75,7 +74,7 @@ function drawCursor(g, transform) {
 
   g.clear()
     .setStrokeStyle(1)
-    .beginStroke("rgba(255, 0, 0, 0.5)")
+    .beginStroke(Theme.themeColor)
     .moveTo(0, 0)
     .lineTo(0, height)
 }

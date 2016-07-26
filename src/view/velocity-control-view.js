@@ -63,10 +63,10 @@ class VelocityControlView extends createjs.Container {
     super.setBounds(x, y, width, height)
 
     this.background.graphics.clear()
-      .beginFill("white")
+      .beginFill(Theme.backgroundColor)
       .rect(0, 0, width, height)
       .setStrokeStyle(1)
-      .beginStroke("gray")
+      .beginStroke(Theme.secondaryTextColor)
       .moveTo(0, 0.5)
       .lineTo(width, 0.5)
 
@@ -75,7 +75,7 @@ class VelocityControlView extends createjs.Container {
     this.valueLine.graphics
       .clear()
       .setStrokeStyle(1)
-      .beginStroke("gray")
+      .beginStroke(Theme.dividerColor)
       .moveTo(0, height / 2)
       .lineTo(width, height / 2)
       .moveTo(0, height)
@@ -83,13 +83,15 @@ class VelocityControlView extends createjs.Container {
 
     this.leftLabel.graphics
       .clear()
-      .beginFill("white")
+      .beginFill(Theme.backgroundColor)
       .rect(0, 0, this.keyWidth, height)
       .endFill()
       .setStrokeStyle(1)
-      .beginStroke("gray")
+      .beginStroke(Theme.secondaryTextColor)
       .moveTo(this.keyWidth + 0.5, 0)
       .lineTo(this.keyWidth + 0.5, height)
+      .moveTo(0, 0.5)
+      .lineTo(this.keyWidth, 0.5)
   }
 
   onScroll(x, y) {
@@ -109,7 +111,7 @@ class VelocityControlView extends createjs.Container {
         view.noteId = note.id
       }
       view.x = this.keyWidth + this._transform.getX(note.tick)
-      const color = note.selected ? "black" : "rgb(88, 103, 250)"
+      const color = note.selected ? "black" : Theme.themeColor
       const height = note.velocity / 127 * viewHeight
       view.graphics
         .clear()

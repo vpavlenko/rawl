@@ -1,13 +1,11 @@
-const KEY_BORDER_COLOR = "rgba(0, 0, 0, 0.2)"
-
 function drawWhiteKey(g, y, width, height, isBordered) {
-  g.beginFill("white")
+  g.beginFill(Theme.backgroundColor)
     .drawRect(0, y, width, height)
     .endFill()
 
   if (isBordered) {
     g.setStrokeStyle(1)
-      .beginStroke(KEY_BORDER_COLOR)
+      .beginStroke(Theme.dividerColor)
       .moveTo(0, y)
       .lineTo(width, y)
       .endStroke()
@@ -18,14 +16,14 @@ function drawBlackKey(g, y, width, height) {
   const innerWidth = width * 0.64
   const middle = Math.round(height / 2) + y
 
-  g.beginFill("white")
+  g.beginFill(Theme.backgroundColor)
     .drawRect(0, y, width, height)
     .endFill()
-    .beginFill("black")
+    .beginFill(Theme.textColor)
     .drawRect(0, y, innerWidth, height)
     .endFill()
     .setStrokeStyle(1)
-    .beginStroke(KEY_BORDER_COLOR)
+    .beginStroke(Theme.dividerColor)
     .moveTo(innerWidth, middle)
     .lineTo(width, middle)
     .endStroke()
@@ -74,7 +72,7 @@ class PianoKeysView extends createjs.Container {
     const height = keyHeight * (numberOfKeys + 1)
     
     g.setStrokeStyle(1)
-      .beginStroke("gray")
+      .beginStroke(Theme.getDividerColorAccented(true))
       .moveTo(width + 0.5, 0)
       .lineTo(width + 0.5, height)
       .moveTo(0, 0)
@@ -85,7 +83,7 @@ class PianoKeysView extends createjs.Container {
     this._textContainer.removeAllChildren()
     for (let i = 0; i <= numberOfKeys; i += 12) {
       const text = new createjs.Text(
-        noteNameWithOctString(i), "12px Consolas", "gray")
+        noteNameWithOctString(i), `12px ${Theme.canvasFont}`, Theme.secondaryTextColor)
       text.textAlign = "right"
       text.x = width - 5
       text.y = this._transform.getY(i)

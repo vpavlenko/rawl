@@ -143,10 +143,10 @@
     }
 
     > .container {
+      background: var(--secondary-background-color);
       height: var(--header-height);
       box-sizing: border-box;
-      border-bottom: 1px solid rgb(204, 204, 204);
-      background: rgb(249, 249, 249);
+      border-bottom: 1px solid var(--divider-color);
     }
 
     button:hover, .file:hover {
@@ -154,10 +154,10 @@
     }
 
     button, .file {
+      background: transparent;
       min-width: 3em;
       padding: 0 0.5em;
       -webkit-appearance: none;
-      background: rgba(0, 0, 0, 0);
       border: none;
       display: inline-block;
       cursor: pointer;
@@ -173,7 +173,7 @@
 
     .section {
       float: left;
-      border-right: 1px solid rgb(212, 212, 212);
+      border-right: 1px solid var(--divider-color);
       margin-right: 1em;
       height: 100%;
       padding-right: 1em;
@@ -192,10 +192,11 @@
     }
 
     .tempo {
-      color: rgb(162, 162, 162);
+      color: var(--secondary-text-color);
     }
 
     .time {
+      color: var(--secondary-text-color);
       font-family: "Consolas";
       font-size: 110%;
       white-space: pre;
@@ -203,7 +204,6 @@
       margin: 0;
       display: inline-block;
       float: none;
-      color: rgb(162, 162, 162);
     }
   </style>
 </toolbar>

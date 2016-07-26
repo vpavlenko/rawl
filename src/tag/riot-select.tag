@@ -24,12 +24,16 @@
       height: 100%;
     }
     select {
+      background: var(--background-color);
+      color: var(--text-color);
       -webkit-appearance: none;
       border-radius: 0;
       padding: 0 2.5em 0 1em;
-      background: white;
       border: none;
       height: 100%;
+    }
+    option {
+      color: var(--text-color);
     }
     .container::after {
       font-family: "Flat-UI-Icons";

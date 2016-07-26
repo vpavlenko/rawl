@@ -1,0 +1,9 @@
+:root {
+  --font: Avenir, Lato;
+  --theme-color: hsl(247, 84%, 59%);
+  --text-color: hsl(247, 10%, 32%);
+  --secondary-text-color: hsl(247, 10%, 62%);
+  --divider-color: hsl(247, 5%, 87%);
+  --background-color: white;
+  --secondary-background-color: hsl(247, 14%, 98%);
+}

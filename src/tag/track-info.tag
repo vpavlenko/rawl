@@ -37,7 +37,7 @@
   </script>
   <style scoped>
     li {
-      border-bottom: 1px solid rgb(214, 214, 214);
+      border-bottom: 1px solid var(--divider-color);
     }
     li.name input {
       font-weight: bold;
@@ -54,7 +54,7 @@
     }
 
     label {
-      background: rgba(0, 0, 0, 0.07);
+      background: var(--secondary-background-color);
       display: inline-block;
       padding: 0.3em;
       width: 35%;
@@ -65,12 +65,12 @@
     }
 
     input[type="text"] {
+      background: var(--background-color);
       border: none;
       padding: 0;
       margin: 0;
       outline: 0;
       height: 23px;
-      background: rgba(0, 0, 0, 0.03);
       width: 65%;
     }
   </style>

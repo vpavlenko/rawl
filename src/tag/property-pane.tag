@@ -187,7 +187,7 @@
   </script>
   <style scoped>
     li {
-      border-bottom: 1px solid rgb(214, 214, 214);
+      border-bottom: 1px solid var(--divider-color);
     }
 
     ul {
@@ -197,7 +197,7 @@
     }
 
     label {
-      background: rgba(0, 0, 0, 0.07);
+      background: var(--secondary-background-color);
       display: inline-block;
       padding: 0.3em;
       width: 5em;
@@ -208,24 +208,24 @@
     }
 
     input[type="text"] {
+      background: var(--background-color);
       border: none;
       padding: 0;
       margin: 0;
       outline: 0;
       height: 23px;
-      background: rgba(0, 0, 0, 0.03);
     }
 
     button {
+      background: var(--background-color);
       -webkit-appearance: none;
-      background: rgb(255, 255, 255);
       border-radius: 2px;
-      border: 1px solid rgb(212, 212, 212);
+      border: 1px solid var(--divider-color);
       cursor: pointer;
     }
 
     button:hover {
-      background: rgb(245, 245, 245);
+      background: var(--secondary-background-color);
     }
   </style>
 </property-pane>

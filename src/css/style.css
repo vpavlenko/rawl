@@ -15,6 +15,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -webkit-user-select: none;
   -webkit-user-drag: none;
+  background: var(--background-color);
+  color: var(--text-color);
 }
 
 #container {
@@ -23,26 +25,32 @@ body {
   flex-wrap: nowrap;
   height: 100%;
 }
+
 track-info {
   width: var(--side-width);
 }
+
 event-list {
   width: var(--side-width);
   overflow: auto;
   height: 100%;
 }
+
 #piano-roll {
   position: absolute;
   left: 0;
   top: 0;
 }
+
 toolbar {
   display: block;
 }
+
 property-pane {
   width: var(--property-pane-width);
   overflow: auto;
 }
+
 notes {
   position: absolute;
   left: 0;
@@ -51,29 +59,30 @@ notes {
   height: 100%;
 }
 
-/* fonts setting */
-
 body, input, button, textarea, option {
-  font-family: Avenir, Lato;
+  font-family: var(--font);
+  color: var(--text-color);
 }
-
 
 track-list {
   width: 13em;
   display: block;
   height: 100%;
   overflow-y: auto;
-  border-right: 1px solid rgb(208, 208, 208);
+  border-right: 1px solid var(--divider-color);
 }
 
 div#side {
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
-  border-right: 1px solid rgb(208, 208, 208);
+  border-right: 1px solid var(--divider-color);
 }
 
-div#piano-roll-container {flex-grow: 1;position: relative;}
+div#piano-roll-container {
+  flex-grow: 1;
+  position: relative;
+}
 
 div#vertical {
   flex-direction: column;
@@ -96,7 +105,7 @@ div#vertical {
 }
 
 .popup-container .content {
-  background: white;
+  background: var(--background-color);
   max-width: 50em;
   border-radius: 5px;
   margin: 0 auto;

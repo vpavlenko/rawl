@@ -57,18 +57,18 @@
   }
 
   li {
-    border-bottom: 1px solid rgb(232, 232, 232);
+    border-bottom: 1px solid var(--divider-color);
     overflow: hidden;
   }
 
   li.selected {
-    color: rgb(62, 78, 238);
+    color: var(--theme-color);
   }
 
   .add-track {
+    color: var(--secondary-text-color);
     padding: 0.5em;
     margin: 0;
-    color: rgb(183, 183, 183);
     cursor: pointer;
   }
 
@@ -102,7 +102,7 @@
     box-sizing: border-box;
     text-align: center;
     cursor: pointer;
-    border-left: 1px solid rgb(224, 224, 224);
+    border-left: 1px solid var(--divider-color);
   }
 
   .mute {

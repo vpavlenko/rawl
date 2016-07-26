@@ -66,7 +66,7 @@ opts = {
   }
   th, td {
     font-weight: normal;
-    border: 1px solid rgb(204, 204, 204);
+    border: 1px solid var(--divider-color);
     border-right: none;
     border-left: none;
   }

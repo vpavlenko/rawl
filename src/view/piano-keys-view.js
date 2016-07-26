@@ -84,8 +84,8 @@ class PianoKeysView extends createjs.Container {
 
     this._textContainer.removeAllChildren()
     for (let i = 0; i <= numberOfKeys; i += 12) {
-      const text = new createjs.Text()
-      text.text = noteNameWithOctString(i)
+      const text = new createjs.Text(
+        noteNameWithOctString(i), "12px Consolas", "gray")
       text.textAlign = "right"
       text.x = width - 5
       text.y = this._transform.getY(i)

@@ -246,3 +246,41 @@ div#vertical {
   display: inline-block;
   float: none;
 }
+
+.track-info li {
+  border-bottom: 1px solid var(--divider-color);
+}
+.track-info li.name input {
+  font-weight: bold;
+  padding: 1em;
+  font-size: 1.2em;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.track-info ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.track-info label {
+  background: var(--secondary-background-color);
+  display: inline-block;
+  padding: 0.3em;
+  width: 35%;
+  height: 23px;
+  box-sizing: border-box;
+  margin: 0;
+  float: left;
+}
+
+.track-info input[type="text"] {
+  background: var(--background-color);
+  border: none;
+  padding: 0;
+  margin: 0;
+  outline: 0;
+  height: 23px;
+  width: 65%;
+}

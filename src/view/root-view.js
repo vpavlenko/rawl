@@ -4,7 +4,6 @@ import Track from "../model/track"
 import PopupComponent from "../view/popup-component"
 import Config from "../config"
 
-import "../tag/track-info.tag"
 import "../tag/event-list.tag"
 import "../tag/riot-select.tag"
 import "../tag/context-menu.tag"
@@ -12,6 +11,7 @@ import "../tag/property-pane.tag"
 import "../tag/instrument-browser.tag"
 
 import TrackList from "./track-list"
+import TrackInfo from "./track-info"
 import Toolbar from "./toolbar"
 
 import React, { Component } from "react"
@@ -44,15 +44,75 @@ export default class RootView {
   }
 
   loadView() {
-    this.trackInfoPane = riot.mount("track-info")[0]
     this.propertyPane = riot.mount("property-pane")[0]
     this.eventList = riot.mount("event-list")[0]
     this.pianoRoll = new PianoRollController(document.querySelector("#piano-roll"))
 
+    ReactDOM.render(<TrackInfo ref={c => this.trackInfo = c}
+      onChangeName={e => {
+        const track = this.song.getTrack(this.trackId)
+        track.setName(e.target.value)
+        this.trackInfo.setState({track: track})
+      }}
+
+      onChangeVolume={e => {
+        const track = this.song.getTrack(this.trackId)
+        const events = track.findVolumeEvents()
+        if (events.length == 0) {
+          return
+        }
+        track.updateEvent(events[0].id, {
+          value: e.target.value
+        })
+        this.trackInfo.setState({track: track})
+      }}
+
+      onChangePan={e => {
+        const track = this.song.getTrack(this.trackId)
+        const events = track.findPanEvents()
+        if (events.length == 0) {
+          return
+        }
+        track.updateEvent(events[0].id, {
+          value: e.target.value
+        })
+        this.trackInfo.setState({track: track})
+      }}
+
+      onClickInstrument={e => {
+        const popup = new PopupComponent()
+        const track = this.song.getTrack(this.trackId)
+        const events = track.findProgramChangeEvents()
+        if (events.length == 0) {
+          return
+        }
+
+        const programNumber = events[0].value
+        const ids = getGMMapIndexes(programNumber)
+        riot.mount(popup.getContentElement(), "instrument-browser", {
+          selectedCategoryId: ids[0],
+          selectedInstrumentId: ids[1],
+          onClickCancel: () => {
+            popup.close()
+          },
+          onClickOK: e => {
+            const programNumber = getGMMapProgramNumber(e.categoryId, e.instrumentId)
+            track.updateEvent(events[0].id, {
+              value: programNumber
+            })
+            this.trackInfo.setState({track: track})
+            popup.close()
+          }
+        })
+        popup.show()
+      }}
+
+    />, document.querySelector("track-info"))
+
     ReactDOM.render(<Toolbar ref={c => this.toolbar = c}
       onChangeFile={e => {
         const file = e.target.files[0]
-        if (file.type != "audio/mid" && file.type != "audio/midi") {
+        if (!file || (file.type != "audio/mid" && file.type != "audio/midi")) {
           return
         }
         this.emitter.trigger("change-file", file)
@@ -149,7 +209,7 @@ export default class RootView {
     this.trackId = trackId
     const track = this.song.getTrack(trackId)
     this.pianoRoll.track = track
-    this.trackInfoPane.update({track: track})
+    this.trackInfo.setState({track: track})
     this.trackList.setState({selectedTrackId: trackId})
     this.eventList.update({track: track})
   }
@@ -172,59 +232,6 @@ export default class RootView {
       this.song.getTrack(this.trackId).transaction(it => {
         changes.forEach(c => it.updateEvent(c.id, c))
       })
-    })
-
-    this.trackInfoPane.update({
-      onChangeName: e => {
-        const track = this.song.getTrack(this.trackId)
-        track.setName(e.target.value)
-      },
-      onChangeVolume: e => {
-        const track = this.song.getTrack(this.trackId)
-        const events = track.findVolumeEvents()
-        if (events.length == 0) {
-          return
-        }
-        track.updateEvent(events[0].id, {
-          value: e.target.value
-        })
-      },
-      onChangePan: e => {
-        const track = this.song.getTrack(this.trackId)
-        const events = track.findPanEvents()
-        if (events.length == 0) {
-          return
-        }
-        track.updateEvent(events[0].id, {
-          value: e.target.value
-        })
-      },
-      onClickInstrument: e => {
-        const popup = new PopupComponent()
-        const track = this.song.getTrack(this.trackId)
-        const events = track.findProgramChangeEvents()
-        if (events.length == 0) {
-          return
-        }
-
-        const programNumber = events[0].value
-        const ids = getGMMapIndexes(programNumber)
-        riot.mount(popup.getContentElement(), "instrument-browser", {
-          selectedCategoryId: ids[0],
-          selectedInstrumentId: ids[1],
-          onClickCancel: () => {
-            popup.close()
-          },
-          onClickOK: e => {
-            const programNumber = getGMMapProgramNumber(e.categoryId, e.instrumentId)
-            track.updateEvent(events[0].id, {
-              value: programNumber
-            })
-            popup.close()
-          }
-        })[0]
-        popup.show()
-      }
     })
 
     this.emitter.trigger("view-did-load")

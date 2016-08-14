@@ -110,3 +110,65 @@ div#vertical {
   border-radius: 5px;
   margin: 0 auto;
 }
+
+
+.track-list ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.track-list li {
+  border-bottom: 1px solid var(--divider-color);
+  overflow: hidden;
+}
+
+.track-list li.selected {
+  color: var(--theme-color);
+}
+
+.track-list .add-track {
+  color: var(--secondary-text-color);
+  padding: 0.5em;
+  margin: 0;
+  cursor: pointer;
+}
+
+.track-list .add-track:hover {
+  color: black;
+}
+
+.track-list .add-track .icon {
+  margin-right: 0.5em;
+  font-size: 80%;
+  font-family: "Flat-UI-Icons";
+  font-weight: normal;
+}
+
+.track-list .name {
+  margin: 0;
+  float: left;
+  width: 70%;
+  box-sizing: border-box;
+  padding: 0.5em;
+  cursor: pointer;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.track-list .mute, .solo {
+  float: left;
+  width: 15%;
+  margin: 0;
+  padding: 0.5em;
+  box-sizing: border-box;
+  text-align: center;
+  cursor: pointer;
+  border-left: 1px solid var(--divider-color);
+}
+
+.track-list .mute {
+  font-family: "Flat-UI-Icons";
+  font-weight: normal;
+  font-size: 110%;
+}

@@ -138,6 +138,10 @@ export default class Player {
     return this._timebase
   }
 
+  get channelMutes() {
+    return this._channelMutes
+  }
+
   resume() {
     this._playing = true
     clearInterval(this._intervalID)

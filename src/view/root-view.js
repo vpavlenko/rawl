@@ -6,12 +6,13 @@ import Config from "../config"
 
 import "../tag/toolbar.tag"
 import "../tag/track-info.tag"
-import "../tag/track-list.tag"
 import "../tag/event-list.tag"
 import "../tag/riot-select.tag"
 import "../tag/context-menu.tag"
 import "../tag/property-pane.tag"
 import "../tag/instrument-browser.tag"
+
+import TrackList from "./track-list"
 
 import React, { Component } from "react"
 import ReactDOM from "react-dom"
@@ -35,8 +36,11 @@ export default class RootView {
   setSong(song) {
     this.song = song
     this.toolbar.update({song: song})
-    this.trackList.update({song: song})
+    this.trackList.setState({tracks: song.getTracks()})
     this.pianoRoll.track = song.getTrack(0)
+    song.on("add-track", () => {
+      this.trackList.setState({tracks: song.getTracks()})
+    })
   }
 
   loadView() {
@@ -44,8 +48,30 @@ export default class RootView {
     this.propertyPane = riot.mount("property-pane")[0]
     this.toolbar = riot.mount("toolbar")[0]
     this.eventList = riot.mount("event-list")[0]
-    this.trackList = riot.mount("track-list")[0]
     this.pianoRoll = new PianoRollController(document.querySelector("#piano-roll"))
+
+    ReactDOM.render(<TrackList ref={c => this.trackList = c}
+      onSelectTrack={trackId => {
+        this.changeTrack(trackId)
+      }}
+
+      onClickAddTrack={() => {
+        this.song.addTrack(new Track)
+      }}
+
+      onClickMute={trackId => {
+        const channel = this.song.getTrack(trackId).channel
+        const muted = SharedService.player.isChannelMuted(channel)
+        SharedService.player.muteChannel(channel, !muted)
+      }}
+
+      onClickSolo={trackId => {
+        const channel = this.song.getTrack(trackId).channel
+        this.song.getTracks().forEach((t, i) => {
+          SharedService.player.muteChannel(t.channel, i != trackId)
+        })
+      }}
+    />, document.querySelector("track-list"))
 
     this.viewDidLoad()
   }
@@ -55,7 +81,7 @@ export default class RootView {
     const track = this.song.getTrack(trackId)
     this.pianoRoll.track = track
     this.trackInfoPane.update({track: track})
-    this.trackList.update({selectedTrackId: trackId})
+    this.trackList.setState({selectedTrackId: trackId})
     this.eventList.update({track: track})
   }
 
@@ -146,27 +172,6 @@ export default class RootView {
     this.propertyPane.emitter.on("update-notes", changes => {
       this.song.getTrack(this.trackId).transaction(it => {
         changes.forEach(c => it.updateEvent(c.id, c))
-      })
-    })
-
-    this.trackList.emitter.on("select-track", trackId => {
-      this.changeTrack(trackId)
-    })
-
-    this.trackList.emitter.on("add-track", () => {
-      this.song.addTrack(new Track)
-    })
-
-    this.trackList.emitter.on("mute-track", trackId => {
-      const channel = this.song.getTrack(trackId).channel
-      const muted = SharedService.player.isChannelMuted(channel)
-      SharedService.player.muteChannel(channel, !muted)
-    })
-
-    this.trackList.emitter.on("solo-track", trackId => {
-      const channel = this.song.getTrack(trackId).channel
-      this.song.getTracks().forEach((t, i) => {
-        SharedService.player.muteChannel(t.channel, i != trackId)
       })
     })
 

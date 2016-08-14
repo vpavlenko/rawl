@@ -30,7 +30,6 @@
     "eslint": "^3.3.0",
     "eslint-loader": "^1.5.0",
     "lodash": "^4.11.1",
-    "midifile": "^1.0.4",
     "mocha": "^2.4.5",
     "riot": "^2.3.18",
     "webpack": "^1.13.1",

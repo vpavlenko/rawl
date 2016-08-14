@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { getInstrumentName } from "../gm.js"
+import { getInstrumentName } from "../gm"
 
 function TrackInfoContent(props) {
   const track = props.track

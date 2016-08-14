@@ -6,12 +6,12 @@ import Config from "../config"
 
 import "../tag/context-menu.tag"
 import "../tag/property-pane.tag"
-import "../tag/instrument-browser.tag"
 
 import TrackList from "./track-list"
 import TrackInfo from "./track-info"
 import Toolbar from "./toolbar"
 import EventList from "./event-list"
+import InstrumentBrowser from "./instrument-browser"
 
 import React, { Component } from "react"
 import ReactDOM from "react-dom"
@@ -81,6 +81,7 @@ export default class RootView {
 
       onClickInstrument={e => {
         const popup = new PopupComponent()
+        popup.show()
         const track = this.song.getTrack(this.trackId)
         const events = track.findProgramChangeEvents()
         if (events.length == 0) {
@@ -89,22 +90,24 @@ export default class RootView {
 
         const programNumber = events[0].value
         const ids = getGMMapIndexes(programNumber)
-        riot.mount(popup.getContentElement(), "instrument-browser", {
-          selectedCategoryId: ids[0],
-          selectedInstrumentId: ids[1],
-          onClickCancel: () => {
+
+        ReactDOM.render(<InstrumentBrowser
+          selectedCategoryId={ids[0]}
+          selectedInstrumentId={ids[1]}
+
+          onClickCancel={() => {
             popup.close()
-          },
-          onClickOK: e => {
+          }}
+
+          onClickOK={e => {
             const programNumber = getGMMapProgramNumber(e.categoryId, e.instrumentId)
             track.updateEvent(events[0].id, {
               value: programNumber
             })
             this.trackInfo.setState({track: track})
             popup.close()
-          }
-        })
-        popup.show()
+          }}
+        />, popup.getContentElement())
       }}
 
     />, document.querySelector("track-info"))

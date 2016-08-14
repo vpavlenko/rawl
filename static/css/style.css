@@ -299,3 +299,66 @@ div#vertical {
 .event-list td {
   white-space: nowrap;
 }
+
+.instrument-browser .container {
+  padding: 2em;
+  overflow: hidden;
+}
+
+.instrument-browser label {
+  padding: 0.5em 1em;
+  display: block;
+}
+
+.instrument-browser select {
+  overflow: auto;
+}
+
+.instrument-browser .left {
+  float: left;
+}
+
+.instrument-browser .left select {
+  width: 17em;
+}
+
+.instrument-browser .right {
+  float: left;
+}
+
+.instrument-browser .right select {
+  width: 17em;
+}
+
+.instrument-browser option {
+  padding: 0.5em 1em;
+}
+
+.instrument-browser .footer {
+  text-align: right;
+}
+
+.instrument-browser button {
+  -webkit-appearance: none;
+  border: none;
+  padding: 0.5em 1.5em;
+  border-radius: 4px;
+  margin-left: 1em;
+  margin-top: 1em;
+  cursor: pointer;
+}
+
+.instrument-browser button:hover {
+  opacity: 0.5;
+}
+
+.instrument-browser button.ok {
+  background: #3e4eee;
+  color: white;
+}
+
+.instrument-browser button.cancel {
+  background: transparent;
+  border: 1px solid currentColor;
+  color: rgb(183, 183, 183);
+}

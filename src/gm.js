@@ -51,6 +51,7 @@ function getGMMapProgramNumber(catrgoryId, instrumentId) {
 }
 
 export {
+  GMMap,
   getInstrumentName,
   getGMMapIndexes,
   getGMMapProgramNumber

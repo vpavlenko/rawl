@@ -2,12 +2,10 @@ export default class PopupComponent {
   constructor() {
     this.elm = PopupComponent.renderElement()
 
-    this.elm.addEventListener("click", () => {
-      this.close()
-    })
-
-    this.getContentElement().addEventListener("click", e => {
-      e.stopPropagation()
+    this.elm.addEventListener("click", e => {
+      if (e.target === this.elm) {
+        this.close()
+      }
     })
   }
 

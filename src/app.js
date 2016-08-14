@@ -25,7 +25,7 @@ export default class App {
   initRootView() {
     this.view = new RootView()
     this.view.emitter.on("change-file", file => this.openSong(file))
-    this.view.emitter.on("save-file", file => this.saveSong())
+    this.view.emitter.on("save-file", () => this.saveSong())
     this.view.emitter.on("view-did-load", () => this.onLoadView())
   }
 

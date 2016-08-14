@@ -55,18 +55,14 @@ function eventToMidiMessages(e) {
             }
           ]
         case "noteAftertouch":
-          console.log("noteAftertouch", e.amount)
           return createMessage(e, [e.noteNumber, e.amount])
         case "controller":
-          console.log("controller", e.controllerType, e.value)
           return createMessage(e, [e.controllerType, e.value])
         case "programChange":
-          console.log("programChange", e.value)
           return createMessage(e, [e.value])
         case "channelAftertouch":
           return createMessage(e, [e.amount])
         case "pitchBend":
-          console.log("pitchBend", e.value)
           return createMessage(e, [e.value & 0x7f, e.value >> 7])
       }
       break
@@ -214,7 +210,6 @@ export default class Player {
           case "setTempo":
             this._currentTempo = 60000000 / e.event.microsecondsPerBeat
             this.trigger("change-tempo", this._currentTempo)
-            console.log("setTempo", this._currentTempo)
             break
           case "endOfTrack":
             this.stop()

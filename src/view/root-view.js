@@ -13,11 +13,10 @@ import Toolbar from "./toolbar"
 import EventList from "./event-list"
 import InstrumentBrowser from "./instrument-browser"
 
-import React, { Component } from "react"
+import React from "react"
 import ReactDOM from "react-dom"
 
 import {
-  getInstrumentName,
   getGMMapIndexes,
   getGMMapProgramNumber
 } from "../gm.js"
@@ -79,7 +78,7 @@ export default class RootView {
         this.trackInfo.setState({track: track})
       }}
 
-      onClickInstrument={e => {
+      onClickInstrument={() => {
         const popup = new PopupComponent()
         popup.show()
         const track = this.song.getTrack(this.trackId)
@@ -121,26 +120,26 @@ export default class RootView {
         this.emitter.trigger("change-file", file)
       }}
 
-      onClickSave={e => {
+      onClickSave={() => {
         this.emitter.trigger("save-file")
       }}
 
-      onClickPencil={e => {
+      onClickPencil={() => {
         this.pianoRoll.mouseMode = 0
       }}
 
-      onClickSelection={e => {
+      onClickSelection={() => {
         this.pianoRoll.mouseMode = 1
       }}
 
-      onClickScaleUp={e => {
+      onClickScaleUp={() => {
         this.pianoRoll.noteScale = {
           x: this.pianoRoll.noteScale.x + 0.1,
           y: this.pianoRoll.noteScale.y,
         }
       }}
 
-      onClickScaleDown={e => {
+      onClickScaleDown={() => {
         this.pianoRoll.noteScale = {
           x: Math.max(0.05, this.pianoRoll.noteScale.x - 0.1),
           y: this.pianoRoll.noteScale.y,
@@ -155,12 +154,12 @@ export default class RootView {
         SharedService.quantizer.denominator = e.target.value
       }}
 
-      onClickPlay={e => {
+      onClickPlay={() => {
         SharedService.player.prepare(this.song)
         SharedService.player.play()
       }}
 
-      onClickStop={e => {
+      onClickStop={() => {
         if (SharedService.player.isPlaying) {
           SharedService.player.stop()
         } else {
@@ -169,15 +168,15 @@ export default class RootView {
         }
       }}
 
-      onClickBackward={e => {
+      onClickBackward={() => {
         SharedService.player.position -= Config.TIME_BASE * 4
       }}
 
-      onClickForward={e => {
+      onClickForward={() => {
         SharedService.player.position += Config.TIME_BASE * 4
       }}
 
-      onClickAutoScroll={e => {
+      onClickAutoScroll={() => {
         this.pianoRoll.autoScroll = !this.pianoRoll.autoScroll
       }}
     />, document.querySelector("toolbar"))
@@ -200,7 +199,7 @@ export default class RootView {
       onClickSolo={trackId => {
         const channel = this.song.getTrack(trackId).channel
         this.song.getTracks().forEach((t, i) => {
-          SharedService.player.muteChannel(t.channel, i != trackId)
+          SharedService.player.muteChannel(t.channel, i != channel)
         })
       }}
     />, document.querySelector("track-list"))

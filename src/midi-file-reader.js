@@ -89,7 +89,7 @@ export default class MidiFileReader {
     const reader = new FileReader()
     reader.onload = (e) => {
       const midi = MidiFile(e.target.result)
-      const tracks = midi.tracks.map((events, i) => {
+      const tracks = midi.tracks.map(events => {
         const anEvents = assembleEvents(events)
         const track = getTrackMeta(events)
         track.events = anEvents

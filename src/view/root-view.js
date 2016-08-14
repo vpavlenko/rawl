@@ -5,13 +5,13 @@ import PopupComponent from "../view/popup-component"
 import Config from "../config"
 
 import "../tag/context-menu.tag"
-import "../tag/property-pane.tag"
 
 import TrackList from "./track-list"
 import TrackInfo from "./track-info"
 import Toolbar from "./toolbar"
 import EventList from "./event-list"
 import InstrumentBrowser from "./instrument-browser"
+import PropertyPane from "./property-pane"
 
 import React from "react"
 import ReactDOM from "react-dom"
@@ -42,8 +42,15 @@ export default class RootView {
   }
 
   loadView() {
-    this.propertyPane = riot.mount("property-pane")[0]
     this.pianoRoll = new PianoRollController(document.querySelector("#piano-roll"))
+
+    ReactDOM.render(<PropertyPane ref={c => this.propertyPane = c} 
+      updateNotes={changes => {
+        this.song.getTrack(this.trackId).transaction(it => {
+          changes.forEach(c => it.updateEvent(c.id, c))
+        })
+      }}
+      />, document.querySelector("property-pane"))
 
     ReactDOM.render(<EventList ref={c => this.eventList = c} />, document.querySelector("event-list"))
 
@@ -218,22 +225,12 @@ export default class RootView {
 
   viewDidLoad() {
     this.pianoRoll.emitter.on("select-notes", events => {
-      this.propertyPane.update({notes: events})
+      this.propertyPane.setState({notes: events})
     })
 
     this.pianoRoll.emitter.on("move-cursor", tick => {
       const t = SharedService.quantizer.round(tick)
       SharedService.player.seek(t)
-    })
-
-    this.propertyPane.emitter.on("update-note", e => {
-      this.song.getTrack(this.trackId).updateEvent(e.id, e)
-    })
-
-    this.propertyPane.emitter.on("update-notes", changes => {
-      this.song.getTrack(this.trackId).transaction(it => {
-        changes.forEach(c => it.updateEvent(c.id, c))
-      })
     })
 
     this.emitter.trigger("view-did-load")

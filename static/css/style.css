@@ -284,3 +284,18 @@ div#vertical {
   height: 23px;
   width: 65%;
 }
+
+.event-list table {
+  border-collapse: collapse;
+  width: 100%;
+}
+.event-list th, 
+.event-list td {
+  font-weight: normal;
+  border: 1px solid var(--divider-color);
+  border-right: none;
+  border-left: none;
+}
+.event-list td {
+  white-space: nowrap;
+}

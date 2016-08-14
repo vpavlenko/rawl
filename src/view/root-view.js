@@ -4,8 +4,6 @@ import Track from "../model/track"
 import PopupComponent from "../view/popup-component"
 import Config from "../config"
 
-import "../tag/event-list.tag"
-import "../tag/riot-select.tag"
 import "../tag/context-menu.tag"
 import "../tag/property-pane.tag"
 import "../tag/instrument-browser.tag"
@@ -13,6 +11,7 @@ import "../tag/instrument-browser.tag"
 import TrackList from "./track-list"
 import TrackInfo from "./track-info"
 import Toolbar from "./toolbar"
+import EventList from "./event-list"
 
 import React, { Component } from "react"
 import ReactDOM from "react-dom"
@@ -45,8 +44,9 @@ export default class RootView {
 
   loadView() {
     this.propertyPane = riot.mount("property-pane")[0]
-    this.eventList = riot.mount("event-list")[0]
     this.pianoRoll = new PianoRollController(document.querySelector("#piano-roll"))
+
+    ReactDOM.render(<EventList ref={c => this.eventList = c} />, document.querySelector("event-list"))
 
     ReactDOM.render(<TrackInfo ref={c => this.trackInfo = c}
       onChangeName={e => {
@@ -211,7 +211,7 @@ export default class RootView {
     this.pianoRoll.track = track
     this.trackInfo.setState({track: track})
     this.trackList.setState({selectedTrackId: trackId})
-    this.eventList.update({track: track})
+    this.eventList.setState({track: track})
   }
 
   viewDidLoad() {

@@ -13,6 +13,9 @@ import "../tag/context-menu.tag"
 import "../tag/property-pane.tag"
 import "../tag/instrument-browser.tag"
 
+import React, { Component } from "react"
+import ReactDOM from "react-dom"
+
 import {
   getInstrumentName,
   getGMMapIndexes,

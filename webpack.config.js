@@ -1,7 +1,9 @@
 const path = require("path")
+const webpack = require("webpack")
 
 module.exports = {
   context: path.join(__dirname, "src"),
+  devtool: "inline-source-map",
   entry: {
     javascript: './main.js'
   },
@@ -10,19 +12,30 @@ module.exports = {
     filename: "bundle.js",
     publicPath: "static"
   },
+  plugins: [
+    new webpack.ProvidePlugin({
+      riot: "riot"
+    })
+  ],
   module: {
     preLoaders: [
       {
         test: /\.js$/,
-        loader: "eslint",
-        exclude: /node_modules/
+        exclude: /node_modules/,
+        loader: "eslint"
+      },
+      { 
+        test: /\.tag$/, 
+        exclude: /node_modules/, 
+        loader: "riotjs-loader", 
+        query: { type: "none" } 
       }
     ],
     loaders: [
       {
         test: /\.js$/,
-        loader: "babel-loader",
-        exclude: /node_modules/
+        exclude: /node_modules/,
+        loader: "babel-loader"
       }
     ]
   }

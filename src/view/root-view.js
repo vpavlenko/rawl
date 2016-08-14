@@ -1,9 +1,18 @@
-import riot from "riot"
 import PianoRollController from "../controller/piano-roll-controller"
 import SharedService from "../shared-service"
 import Track from "../model/track"
 import PopupComponent from "../view/popup-component"
 import Config from "../config"
+
+import "../tag/toolbar.tag"
+import "../tag/track-info.tag"
+import "../tag/track-list.tag"
+import "../tag/event-list.tag"
+import "../tag/riot-select.tag"
+import "../tag/context-menu.tag"
+import "../tag/property-pane.tag"
+import "../tag/instrument-browser.tag"
+
 import {
   getInstrumentName,
   getGMMapIndexes,
@@ -12,11 +21,13 @@ import {
 
 export default class RootView {
   constructor() {
-    this.loadView()
     this.emitter = {}
     this.trackId = 0
     riot.observable(this.emitter)
-  }
+    setTimeout(() => {
+      this.loadView()
+    }, 0)
+ }
 
   setSong(song) {
     this.song = song
@@ -26,16 +37,14 @@ export default class RootView {
   }
 
   loadView() {
-    riot.compile(() => {
-      this.trackInfoPane = riot.mount("track-info")[0]
-      this.propertyPane = riot.mount("property-pane")[0]
-      this.toolbar = riot.mount("toolbar")[0]
-      this.eventList = riot.mount("event-list")[0]
-      this.trackList = riot.mount("track-list")[0]
-      this.pianoRoll = new PianoRollController(document.querySelector("#piano-roll"))
+    this.trackInfoPane = riot.mount("track-info")[0]
+    this.propertyPane = riot.mount("property-pane")[0]
+    this.toolbar = riot.mount("toolbar")[0]
+    this.eventList = riot.mount("event-list")[0]
+    this.trackList = riot.mount("track-list")[0]
+    this.pianoRoll = new PianoRollController(document.querySelector("#piano-roll"))
 
-      this.viewDidLoad()
-    })
+    this.viewDidLoad()
   }
 
   changeTrack(trackId) {

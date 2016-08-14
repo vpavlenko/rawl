@@ -1,6 +1,5 @@
 import App from "./app"
 
-(function() {
-  "use strict"
+window.onload = () => {
   const app = new App
-})()
+}

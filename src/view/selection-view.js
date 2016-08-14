@@ -1,4 +1,3 @@
-import createjs from "createjs"
 import Theme from "../Theme"
 
 export default class SelectionView extends createjs.Shape {

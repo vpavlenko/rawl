@@ -1,5 +1,3 @@
-import createjs from "createjs"
-import riot from "riot"
 import _ from "lodash"
 import SharedService from "../shared-service"
 import PianoKeysView from "../view/piano-keys-view"

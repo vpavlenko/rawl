@@ -1,4 +1,3 @@
-import riot from "riot"
 import SharedService from "./shared-service"
 import Player from "./player"
 import Quantizer from "./quantizer"
@@ -20,6 +19,7 @@ export default class App {
   initServices() {
     SharedService.player = new Player(Config.TIME_BASE)
     SharedService.quantizer = new Quantizer(Config.TIME_BASE)
+    window.SharedService = SharedService
   }
 
   initRootView() {

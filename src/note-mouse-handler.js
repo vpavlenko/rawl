@@ -1,6 +1,4 @@
-import riot from "riot"
 import Rect from "./rect"
-import createjs from "createjs"
 
 const DRAG_POSITION = {
   NONE: -1,

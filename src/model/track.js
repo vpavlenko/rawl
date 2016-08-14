@@ -1,4 +1,3 @@
-import riot from "riot"
 import _ from "lodash"
 
 export default class Track {

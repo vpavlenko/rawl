@@ -1,4 +1,3 @@
-import createjs from "createjs"
 import _ from "lodash"
 import NoteView from "../view/note-view"
 

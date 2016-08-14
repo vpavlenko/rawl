@@ -20,6 +20,11 @@ module.exports = {
     ],
     "no-unused-vars": "warn",
     "comma-dangle": "warn",
-    "no-console": "warn"
+    "no-console": "warn",
+    "no-debugger": "warn"
+  },
+  globals: {
+    createjs: false,
+    riot: false
   }
 }

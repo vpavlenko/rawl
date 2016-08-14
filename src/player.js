@@ -1,4 +1,3 @@
-import riot from "riot"
 import { MIDIController } from "./midi-constants"
 
 const INTERVAL = 1 / 15 * 1000  // low fps
@@ -135,10 +134,14 @@ export default class Player {
     return this._playing
   }
 
+  get timebase() {
+    return this._timebase
+  }
+
   resume() {
     this._playing = true
     clearInterval(this._intervalID)
-    this._intervalID = setInterval(this._onTimer, INTERVAL)
+    this._intervalID = setInterval(this._onTimer.bind(this), INTERVAL)
   }
 
   stop() {

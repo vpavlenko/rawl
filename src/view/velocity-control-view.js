@@ -1,4 +1,3 @@
-import createjs from "createjs"
 import _ from "lodash"
 import Theme from "../Theme"
 import BeatLineView from "./beat-line-view"

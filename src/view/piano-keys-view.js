@@ -1,4 +1,3 @@
-import createjs from "createjs"
 import Theme from "../Theme"
 import { noteNameWithOctString } from "../note-number-string"
 

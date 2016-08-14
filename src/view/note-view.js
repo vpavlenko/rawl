@@ -1,4 +1,3 @@
-import createjs from "createjs"
 import Theme, { hslWithAlpha } from "../Theme"
 
 function drawNoteView(g, note, bounds) {

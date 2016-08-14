@@ -1,6 +1,5 @@
-"use strict"
 // use Electron clipboard API in future
-class Clipboard {
+export default class Clipboard {
   constructor() {
     this.data = {}
   }

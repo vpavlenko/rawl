@@ -1,3 +1,6 @@
+import createjs from "createjs"
+import Theme, { hslWithAlpha } from "../Theme"
+
 function drawNoteView(g, note, bounds) {
   const alpha = note.velocity / 127
   const color = note.selected ? Theme.textColor : hslWithAlpha(Theme.themeColor, alpha)
@@ -11,7 +14,7 @@ function drawNoteView(g, note, bounds) {
     .lineTo(bounds.width, 1)
 }
 
-class NoteView extends createjs.Shape {
+export default class NoteView extends createjs.Shape {
   constructor() {
     super()
     this.setBounds(0, 0, 0, 0)

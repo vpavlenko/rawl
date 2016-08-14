@@ -1,18 +1,25 @@
 module.exports = {
-  parser: 'babel-eslint',
-  "extends": "eslint:recommended",
-  "rules": {
+  env: {
+    browser: true,
+    es6: true
+  },
+  parser: "babel-eslint",
+  extends: "eslint:recommended",
+  rules: {
     "indent": [
-      "error",
+      "warn",
       2
     ],
     "quotes": [
-      "error",
+      "warn",
       "double"
     ],
     "semi": [
-      "error",
+      "warn",
       "never"
-    ]
+    ],
+    "no-unused-vars": "warn",
+    "comma-dangle": "warn",
+    "no-console": "warn"
   }
 }

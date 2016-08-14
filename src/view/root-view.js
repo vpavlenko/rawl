@@ -1,6 +1,16 @@
-"use strict"
+import riot from "riot"
+import PianoRollController from "../controller/piano-roll-controller"
+import SharedService from "../shared-service"
+import Track from "../model/track"
+import PopupComponent from "../view/popup-component"
+import Config from "../config"
+import {
+  getInstrumentName,
+  getGMMapIndexes,
+  getGMMapProgramNumber
+} from "../gm.js"
 
-class RootView {
+export default class RootView {
   constructor() {
     this.loadView()
     this.emitter = {}
@@ -96,11 +106,11 @@ class RootView {
       },
 
       onClickBackward: e => {
-        SharedService.player.position -= TIME_BASE * 4
+        SharedService.player.position -= Config.TIME_BASE * 4
       },
 
       onClickForward: e => {
-        SharedService.player.position += TIME_BASE * 4
+        SharedService.player.position += Config.TIME_BASE * 4
       },
 
       onClickAutoScroll: e => {

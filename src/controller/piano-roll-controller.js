@@ -1,8 +1,18 @@
-"use strict"
+import createjs from "createjs"
+import riot from "riot"
+import _ from "lodash"
+import SharedService from "../shared-service"
+import PianoKeysView from "../view/piano-keys-view"
+import NoteContainer from "../view/note-container"
+import SelectionView from "../view/selection-view"
+import PianoGridView from "../view/piano-grid-view"
+import VelocityControlView from "../view/velocity-control-view"
+import NoteCoordTransform from "../model/note-coord-transform"
+import { PencilMouseHandler, SelectionMouseHandler } from "../note-mouse-handler"
+import Config from "../config.js"
 
 const MAX_NOTE_NUMBER = 127
 const PIXELS_PER_TICK = 0.1
-const TIME_BASE = 480
 const KEY_HEIGHT = 14
 
 const RULER_HEIGHT = 22
@@ -17,7 +27,7 @@ function createNote(tick = 0, noteNumber = 48, duration = 240, velocity = 127, c
     tick: tick || 0,
     velocity: velocity || 127,
     duration: duration || 240,
-    channel: channel,
+    channel: channel
   }
 }
 
@@ -33,7 +43,7 @@ function recursiveNumChildren(obj) {
   return count
 }
 
-class PianoRollController {
+export default class PianoRollController {
   constructor(canvas) {
     this.emitter = {}
     riot.observable(this.emitter)
@@ -161,7 +171,7 @@ class PianoRollController {
   }
 
   viewDidLoad() {
-    this.ticksPerBeat = TIME_BASE
+    this.ticksPerBeat = Config.TIME_BASE
     this.mouseMode = 0
 
     this.stage.on("stagemousedown", e => {

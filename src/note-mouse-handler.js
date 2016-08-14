@@ -1,4 +1,7 @@
-"use strict"
+import riot from "riot"
+import Rect from "./rect"
+import createjs from "createjs"
+
 const DRAG_POSITION = {
   NONE: -1,
   LEFT_EDGE: 0,
@@ -285,14 +288,11 @@ class SelectionMouseHandler extends MouseHandler {
     if (!clicked) {
       if (e.nativeEvent.detail == 2) {
         return CreateNoteAction(this)
-      } else {
-        return new CreateSelectionAction(this)
       }
-    } else {
-      const type = getDragPositionType(cpos.x - this._selectionRect.x, this._selectionRect.width)
-      return new ResizeSelectionAction(this, type, this.selectionRect)
+      return new CreateSelectionAction(this)
     }
-    return null
+    const type = getDragPositionType(cpos.x - this._selectionRect.x, this._selectionRect.width)
+    return new ResizeSelectionAction(this, type, this.selectionRect)
   }
 
   _getCursor(e) {
@@ -304,4 +304,9 @@ class SelectionMouseHandler extends MouseHandler {
     }
     return "crosshair"
   }
+}
+
+export {
+  PencilMouseHandler,
+  SelectionMouseHandler
 }

@@ -1,4 +1,5 @@
-class Selection {
+
+export default class Selection {
   constructor(fromTick, fromNoteNumber, toTick, toNoteNumber, notes = [], original = null) {
     this._fromTick = fromTick
     this._fromNoteNumber = fromNoteNumber

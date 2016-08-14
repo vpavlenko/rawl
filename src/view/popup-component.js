@@ -1,4 +1,4 @@
-class PopupComponent {
+export default class PopupComponent {
   constructor() {
     this.elm = PopupComponent.renderElement()
 
@@ -38,4 +38,3 @@ class PopupComponent {
     return template.content.firstElementChild
   }
 }
-

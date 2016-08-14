@@ -1,16 +1,7 @@
-function forEachBeats(ticksPerBeat, endTick, callback) {
-  for (let beats = 0; beats < endTick / ticksPerBeat; beats++) {
-    callback(beats)
-  }
-}
+import createjs from "createjs"
+import Theme from "../Theme"
 
-function forEachBeatPositions(transform, ticksPerBeat, endTick, callback) {
-  forEachBeats(ticksPerBeat, endTick, beats => {
-    callback(beats, transform.getX(beats * ticksPerBeat))
-  })
-}
-
-class BeatLineView extends createjs.Shape {
+export default class BeatLineView extends createjs.Shape {
   constructor() {
     super()
   }

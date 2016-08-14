@@ -1,3 +1,7 @@
+import createjs from "createjs"
+import Theme from "../Theme"
+import { noteNameWithOctString } from "../note-number-string"
+
 function drawWhiteKey(g, y, width, height, isBordered) {
   g.beginFill(Theme.backgroundColor)
     .drawRect(0, y, width, height)
@@ -29,7 +33,7 @@ function drawBlackKey(g, y, width, height) {
     .endStroke()
 }
 
-class PianoKeysView extends createjs.Container {
+export default class PianoKeysView extends createjs.Container {
   constructor(width) {
     super()
     this._width = width

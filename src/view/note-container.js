@@ -1,5 +1,8 @@
-"use strict"
-class NoteContainer extends createjs.Container {
+import createjs from "createjs"
+import _ from "lodash"
+import NoteView from "../view/note-view"
+
+export default class NoteContainer extends createjs.Container {
   constructor() {
     super()
   }
@@ -62,4 +65,25 @@ class NoteContainer extends createjs.Container {
     }
     return null
   }
+}
+
+// helper
+
+function getNotesInRect(notes, rect, t) {
+  const t1 = t.getTicks(rect.x)
+  const n1 = t.getNoteNumber(rect.y)
+  const t2 = t.getTicks(rect.x + rect.width)
+  const n2 = t.getNoteNumber(rect.y + rect.height)
+  return notes.filter(note => 
+    note.tick >= t1 && note.tick < t2 &&
+    note.noteNumber <= n1 && note.noteNumber > n2 
+  )
+}
+
+function getNoteUnderPoint(notes, x, y, t) {
+  const tick = t.getTicks(x)
+  const n = Math.ceil(t.getNoteNumber(y))
+  return _.find(notes, note => 
+    note.noteNumber == n && note.tick <= tick && note.tick + note.duration >= tick
+  )
 }

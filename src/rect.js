@@ -1,5 +1,4 @@
-"use strict"
-class Rect {
+export default class Rect {
   constructor(x, y, width, height) {
     if (x instanceof Object) {
       this.x = x.x

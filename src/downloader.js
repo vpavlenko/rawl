@@ -1,6 +1,4 @@
-"use strict"
-
-class Downloader {
+export default class Downloader {
   static download(url, name){
     var a = document.createElement("a")
     a.href = url

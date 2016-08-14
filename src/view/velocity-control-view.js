@@ -1,4 +1,8 @@
-"use strict"
+import createjs from "createjs"
+import _ from "lodash"
+import Theme from "../Theme"
+import BeatLineView from "./beat-line-view"
+
 /*
   events:
     "change": {
@@ -7,7 +11,7 @@
     }
 */
 const VEL_MAX_VALUE = 127
-class VelocityControlView extends createjs.Container {
+export default class VelocityControlView extends createjs.Container {
   constructor(keyWidth) {
     super()
 

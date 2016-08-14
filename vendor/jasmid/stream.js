@@ -1,5 +1,5 @@
 /* Wrapper for accessing strings through sequential reads */
-function Stream(str) {
+export default function Stream(str) {
 	var position = 0;
 	
 	function read(length) {
@@ -46,7 +46,7 @@ function Stream(str) {
 	*/
 	function readVarInt() {
 		var result = 0;
-		while (true) {
+		for (;;) {
 			var b = readInt8();
 			if (b & 0x80) {
 				result += (b & 0x7f);

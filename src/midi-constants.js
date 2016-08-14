@@ -119,3 +119,10 @@ const MIDIChannelEventType = {
   "channelAftertouch": 0x0d,
   "pitchBend": 0x0e,
 }
+
+export {
+  MIDIController,
+  MIDIMetaEventType,
+  MIDIMetaEventTypeName,
+  MIDIChannelEventType
+}

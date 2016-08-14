@@ -1,6 +1,4 @@
-"use strict"
-
-class NoteTimeTransform {
+export default class NoteTimeTransform {
   /**
     tempos = [
       {

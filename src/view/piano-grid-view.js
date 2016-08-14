@@ -1,4 +1,17 @@
-"use strict"
+import createjs from "createjs"
+import Theme from "../Theme"
+
+function forEachBeats(ticksPerBeat, endTick, callback) {
+  for (let beats = 0; beats < endTick / ticksPerBeat; beats++) {
+    callback(beats)
+  }
+}
+
+function forEachBeatPositions(transform, ticksPerBeat, endTick, callback) {
+  forEachBeats(ticksPerBeat, endTick, beats => {
+    callback(beats, transform.getX(beats * ticksPerBeat))
+  })
+}
 
 function drawHorizontalLines(g, transform, endTick) {
   g.clear().setStrokeStyle(1)
@@ -79,7 +92,7 @@ function drawCursor(g, transform) {
     .lineTo(0, height)
 }
 
-class PianoGridView extends createjs.Container {
+export default class PianoGridView extends createjs.Container {
   constructor(rulerHeight) {
     super()
     this.rulerHeight = rulerHeight

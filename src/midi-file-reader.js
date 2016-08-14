@@ -1,4 +1,6 @@
-"use strict"
+import _ from "lodash"
+import MidiFile from "../vendor/jasmid/midifile"
+
 /**
 
   append tick to each events
@@ -32,7 +34,7 @@ function assembleEvents(events) {
     case "noteOn":
       noteOnEvents.push(e)
       break
-    case "noteOff":
+    case "noteOff": {
       const noteOn = findNoteOn(e)
       if (noteOn != null) {
         noteOn.duration = e.tick - noteOn.tick
@@ -40,6 +42,7 @@ function assembleEvents(events) {
         result.push(noteOn)
       }
       break
+    }
     case "trackName":
     case "endOfTrack":
     case "copyrightNotice":
@@ -81,7 +84,7 @@ function getFileMeta(tracks) {
   return meta
 }
 
-class MidiFileReader {
+export default class MidiFileReader {
   static read(file, callback) {
     const reader = new FileReader()
     reader.onload = (e) => {

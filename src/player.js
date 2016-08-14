@@ -1,4 +1,6 @@
-"use strict"
+import riot from "riot"
+import { MIDIController } from "./midi-constants"
+
 const INTERVAL = 1 / 15 * 1000  // low fps
 
 // timebase: 1/4拍子ごとのtick数
@@ -17,13 +19,7 @@ const EVENT_CODES = {
   "controller": 0xb,
   "programChange": 0xc,
   "channelAftertouch": 0xd,
-  "pitchBend": 0xe,
-}
-
-function checkHex(val) {
-  if (val >= 0xFF) {
-    //debugger
-  }
+  "pitchBend": 0xe
 }
 
 function firstByte(eventType, channel) {
@@ -42,38 +38,38 @@ function eventToMidiMessages(e) {
     }]
   }
   switch (e.type) {
-    case "meta":
+  case "meta":
     break
-    case "channel":
-      switch (e.subtype) {
-        case "note":
-        return [
-          {
-            event: e,
-            msg: [firstByte("noteOn", e.channel), e.noteNumber, e.velocity],
-            tick: e.tick
-          },
-          {
-            event: e,
-            msg: [firstByte("noteOff", e.channel), e.noteNumber, 0x40],
-            tick: e.tick + e.duration - 1 // prevent overlapping next note on
-          }
-        ]
-        case "noteAftertouch":
-        console.log("noteAftertouch", e.amount)
-        return createMessage(e, [e.noteNumber, e.amount])
-        case "controller":
-        console.log("controller", e.controllerType, e.value)
-        return createMessage(e, [e.controllerType, e.value])
-        case "programChange":
-        console.log("programChange", e.value)
-        return createMessage(e, [e.value])
-        case "channelAftertouch":
-        return createMessage(e, [e.amount])
-        case "pitchBend":
-        console.log("pitchBend", e.value)
-        return createMessage(e, [e.value & 0x7f, e.value >> 7])
-      }
+  case "channel":
+    switch (e.subtype) {
+    case "note":
+      return [
+        {
+          event: e,
+          msg: [firstByte("noteOn", e.channel), e.noteNumber, e.velocity],
+          tick: e.tick
+        },
+        {
+          event: e,
+          msg: [firstByte("noteOff", e.channel), e.noteNumber, 0x40],
+          tick: e.tick + e.duration - 1 // prevent overlapping next note on
+        }
+      ]
+    case "noteAftertouch":
+      console.log("noteAftertouch", e.amount)
+      return createMessage(e, [e.noteNumber, e.amount])
+    case "controller":
+      console.log("controller", e.controllerType, e.value)
+      return createMessage(e, [e.controllerType, e.value])
+    case "programChange":
+      console.log("programChange", e.value)
+      return createMessage(e, [e.value])
+    case "channelAftertouch":
+      return createMessage(e, [e.amount])
+    case "pitchBend":
+      console.log("pitchBend", e.value)
+      return createMessage(e, [e.value & 0x7f, e.value >> 7])
+    }
     break
   }
   return [{
@@ -82,9 +78,8 @@ function eventToMidiMessages(e) {
   }]
 }
 
-class Player {
+export default class Player {
   constructor(timebase) {
-    bindAllMethods(this)
     this._timebase = timebase
     this._playing = false
     this._currentTempo = 120

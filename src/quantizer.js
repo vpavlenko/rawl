@@ -1,5 +1,4 @@
-"use strict"
-class Quantizer {
+export default class Quantizer {
   constructor(ticksPerBeat) {
     this._ticksPerBeat = ticksPerBeat
 
@@ -27,4 +26,3 @@ class Quantizer {
   }
 
 }
-

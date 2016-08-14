@@ -88,3 +88,9 @@ const CTRL_EVENT_NAMES = {
 function controllerTypeString(controllerType) {
   return CTRL_EVENT_NAMES[controllerType]
 }
+
+export {
+  noteNameWithOctString,
+  noteNumberString,
+  controllerTypeString
+}

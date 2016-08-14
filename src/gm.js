@@ -27,7 +27,7 @@ function getInstrumentName(programNumber) {
 function getGMMapIndexes(programNumber) {
   let i = programNumber
   let n = 0
-  for (key in GMMap) {
+  for (const key in GMMap) {
     const len = GMMap[key].length
     if (i - len < 0) {
       return [n, i]
@@ -40,7 +40,7 @@ function getGMMapIndexes(programNumber) {
 function getGMMapProgramNumber(catrgoryId, instrumentId) {
   let i = 0
   let n = 0
-  for (key in GMMap) {
+  for (const key in GMMap) {
     const len = GMMap[key].length
     if (i == catrgoryId) {
       return n + instrumentId
@@ -48,4 +48,10 @@ function getGMMapProgramNumber(catrgoryId, instrumentId) {
     i++
     n += len
   }
+}
+
+export {
+  getInstrumentName,
+  getGMMapIndexes,
+  getGMMapProgramNumber
 }

@@ -8,7 +8,7 @@ function hslWithAlpha(hsl, alpha) {
   return `hsla(${h}, ${s}%, ${l}%, ${alpha})`
 }
 
-class Theme {
+export default class Theme {
   static get font() {
     return getCSSVariable("--font") 
   }
@@ -45,3 +45,5 @@ class Theme {
     return getCSSVariable("--secondary-text-color") 
   }
 }
+
+export { hslWithAlpha }

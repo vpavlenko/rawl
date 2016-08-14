@@ -42,7 +42,7 @@ event-list {
   top: 0;
 }
 
-toolbar {
+.toolbar {
   display: block;
 }
 
@@ -171,4 +171,78 @@ div#vertical {
   font-family: "Flat-UI-Icons";
   font-weight: normal;
   font-size: 110%;
+}
+
+
+.toolbar .file input[type="file"] {
+  display: none;
+}
+
+.toolbar .icon {
+  font-family: "Flat-UI-Icons";
+  font-weight: normal;
+}
+
+.toolbar > .container {
+  background: var(--secondary-background-color);
+  height: var(--header-height);
+  box-sizing: border-box;
+  border-bottom: 1px solid var(--divider-color);
+}
+
+.toolbar button:hover, .file:hover {
+  opacity: 0.5;
+}
+
+.toolbar button, .file {
+  background: transparent;
+  min-width: 3em;
+  padding: 0 0.5em;
+  -webkit-appearance: none;
+  border: none;
+  display: inline-block;
+  cursor: pointer;
+  text-align: center;
+  font-size: 110%;
+  height: 100%;
+}
+  
+.toolbar select {
+  height: 1.8em;
+  display: inline-block;
+}
+
+.toolbar .section {
+  float: left;
+  border-right: 1px solid var(--divider-color);
+  margin-right: 1em;
+  height: 100%;
+  padding-right: 1em;
+}
+
+.toolbar .song-section>p {
+  float: left;
+}
+
+.toolbar .song-name {
+  margin-right: 1em;
+  max-width: 10em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.toolbar .tempo {
+  color: var(--secondary-text-color);
+}
+
+.toolbar .time {
+  color: var(--secondary-text-color);
+  font-family: "Consolas";
+  font-size: 110%;
+  white-space: pre;
+  box-sizing: border-box;
+  margin: 0;
+  display: inline-block;
+  float: none;
 }

@@ -4,7 +4,6 @@ import Track from "../model/track"
 import PopupComponent from "../view/popup-component"
 import Config from "../config"
 
-import "../tag/toolbar.tag"
 import "../tag/track-info.tag"
 import "../tag/event-list.tag"
 import "../tag/riot-select.tag"
@@ -13,6 +12,7 @@ import "../tag/property-pane.tag"
 import "../tag/instrument-browser.tag"
 
 import TrackList from "./track-list"
+import Toolbar from "./toolbar"
 
 import React, { Component } from "react"
 import ReactDOM from "react-dom"
@@ -35,7 +35,7 @@ export default class RootView {
 
   setSong(song) {
     this.song = song
-    this.toolbar.update({song: song})
+    this.toolbar.setState({song: song})
     this.trackList.setState({tracks: song.getTracks()})
     this.pianoRoll.track = song.getTrack(0)
     song.on("add-track", () => {
@@ -46,9 +46,78 @@ export default class RootView {
   loadView() {
     this.trackInfoPane = riot.mount("track-info")[0]
     this.propertyPane = riot.mount("property-pane")[0]
-    this.toolbar = riot.mount("toolbar")[0]
     this.eventList = riot.mount("event-list")[0]
     this.pianoRoll = new PianoRollController(document.querySelector("#piano-roll"))
+
+    ReactDOM.render(<Toolbar ref={c => this.toolbar = c}
+      onChangeFile={e => {
+        const file = e.target.files[0]
+        if (file.type != "audio/mid" && file.type != "audio/midi") {
+          return
+        }
+        this.emitter.trigger("change-file", file)
+      }}
+
+      onClickSave={e => {
+        this.emitter.trigger("save-file")
+      }}
+
+      onClickPencil={e => {
+        this.pianoRoll.mouseMode = 0
+      }}
+
+      onClickSelection={e => {
+        this.pianoRoll.mouseMode = 1
+      }}
+
+      onClickScaleUp={e => {
+        this.pianoRoll.noteScale = {
+          x: this.pianoRoll.noteScale.x + 0.1,
+          y: this.pianoRoll.noteScale.y,
+        }
+      }}
+
+      onClickScaleDown={e => {
+        this.pianoRoll.noteScale = {
+          x: Math.max(0.05, this.pianoRoll.noteScale.x - 0.1),
+          y: this.pianoRoll.noteScale.y,
+        }
+      }}
+
+      onSelectTrack={e => {
+        this.changeTrack(e.target.value)
+      }}
+
+      onSelectQuantize={e => {
+        SharedService.quantizer.denominator = e.target.value
+      }}
+
+      onClickPlay={e => {
+        SharedService.player.prepare(this.song)
+        SharedService.player.play()
+      }}
+
+      onClickStop={e => {
+        if (SharedService.player.isPlaying) {
+          SharedService.player.stop()
+        } else {
+          SharedService.player.stop()
+          SharedService.player.position = 0
+        }
+      }}
+
+      onClickBackward={e => {
+        SharedService.player.position -= Config.TIME_BASE * 4
+      }}
+
+      onClickForward={e => {
+        SharedService.player.position += Config.TIME_BASE * 4
+      }}
+
+      onClickAutoScroll={e => {
+        this.pianoRoll.autoScroll = !this.pianoRoll.autoScroll
+      }}
+    />, document.querySelector("toolbar"))
 
     ReactDOM.render(<TrackList ref={c => this.trackList = c}
       onSelectTrack={trackId => {
@@ -86,76 +155,6 @@ export default class RootView {
   }
 
   viewDidLoad() {
-    this.toolbar.update({
-      onChangeFile: e => {
-        const file = e.target.files[0]
-        if (file.type != "audio/mid" && file.type != "audio/midi") {
-          return
-        }
-        this.emitter.trigger("change-file", file)
-      },
-
-      onClickSave: e => {
-        this.emitter.trigger("save-file")
-      },
-
-      onClickPencil: e => {
-        this.pianoRoll.mouseMode = 0
-      },
-
-      onClickSelection: e => {
-        this.pianoRoll.mouseMode = 1
-      },
-
-      onClickScaleUp: e => {
-        this.pianoRoll.noteScale = {
-          x: this.pianoRoll.noteScale.x + 0.1,
-          y: this.pianoRoll.noteScale.y,
-        }
-      },
-
-      onClickScaleDown: e => {
-        this.pianoRoll.noteScale = {
-          x: Math.max(0.05, this.pianoRoll.noteScale.x - 0.1),
-          y: this.pianoRoll.noteScale.y,
-        }
-      },
-
-      onSelectTrack: e => {
-        this.changeTrack(e.value)
-      },
-
-      onSelectQuantize: e => {
-        SharedService.quantizer.denominator = e.value
-      },
-
-      onClickPlay: e => {
-        SharedService.player.prepare(this.song)
-        SharedService.player.play()
-      },
-
-      onClickStop: e => {
-        if (SharedService.player.isPlaying) {
-          SharedService.player.stop()
-        } else {
-          SharedService.player.stop()
-          SharedService.player.position = 0
-        }
-      },
-
-      onClickBackward: e => {
-        SharedService.player.position -= Config.TIME_BASE * 4
-      },
-
-      onClickForward: e => {
-        SharedService.player.position += Config.TIME_BASE * 4
-      },
-
-      onClickAutoScroll: e => {
-        this.pianoRoll.autoScroll = !this.pianoRoll.autoScroll
-      }
-    })
-
     this.pianoRoll.emitter.on("select-notes", events => {
       this.propertyPane.update({notes: events})
     })

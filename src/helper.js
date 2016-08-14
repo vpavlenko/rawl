@@ -48,10 +48,10 @@ function measurePerformance(name, tag) {
   tag.on("mount", () => {
     stopPerformanceTimer(name+ "mount")
   })
-  tag.on('before-unmount', function() {
+  tag.on("before-unmount", function() {
     beginPerformanceTimer(name+" unmount")
   })
-  tag.on('unmount', function() {
+  tag.on("unmount", function() {
     stopPerformanceTimer(name+ "unmount")
   })
 }

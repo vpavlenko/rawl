@@ -30,7 +30,7 @@ export default class RootView {
     setTimeout(() => {
       this.loadView()
     }, 0)
- }
+  }
 
   setSong(song) {
     this.song = song
@@ -223,8 +223,8 @@ export default class RootView {
     })
 
     this.pianoRoll.emitter.on("move-cursor", tick => {
-        const t = SharedService.quantizer.round(tick)
-        SharedService.player.seek(t)
+      const t = SharedService.quantizer.round(tick)
+      SharedService.player.seek(t)
     })
 
     this.propertyPane.emitter.on("update-note", e => {

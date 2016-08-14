@@ -37,39 +37,39 @@ function eventToMidiMessages(e) {
     }]
   }
   switch (e.type) {
-  case "meta":
-    break
-  case "channel":
-    switch (e.subtype) {
-    case "note":
-      return [
-        {
-          event: e,
-          msg: [firstByte("noteOn", e.channel), e.noteNumber, e.velocity],
-          tick: e.tick
-        },
-        {
-          event: e,
-          msg: [firstByte("noteOff", e.channel), e.noteNumber, 0x40],
-          tick: e.tick + e.duration - 1 // prevent overlapping next note on
-        }
-      ]
-    case "noteAftertouch":
-      console.log("noteAftertouch", e.amount)
-      return createMessage(e, [e.noteNumber, e.amount])
-    case "controller":
-      console.log("controller", e.controllerType, e.value)
-      return createMessage(e, [e.controllerType, e.value])
-    case "programChange":
-      console.log("programChange", e.value)
-      return createMessage(e, [e.value])
-    case "channelAftertouch":
-      return createMessage(e, [e.amount])
-    case "pitchBend":
-      console.log("pitchBend", e.value)
-      return createMessage(e, [e.value & 0x7f, e.value >> 7])
-    }
-    break
+    case "meta":
+      break
+    case "channel":
+      switch (e.subtype) {
+        case "note":
+          return [
+            {
+              event: e,
+              msg: [firstByte("noteOn", e.channel), e.noteNumber, e.velocity],
+              tick: e.tick
+            },
+            {
+              event: e,
+              msg: [firstByte("noteOff", e.channel), e.noteNumber, 0x40],
+              tick: e.tick + e.duration - 1 // prevent overlapping next note on
+            }
+          ]
+        case "noteAftertouch":
+          console.log("noteAftertouch", e.amount)
+          return createMessage(e, [e.noteNumber, e.amount])
+        case "controller":
+          console.log("controller", e.controllerType, e.value)
+          return createMessage(e, [e.controllerType, e.value])
+        case "programChange":
+          console.log("programChange", e.value)
+          return createMessage(e, [e.value])
+        case "channelAftertouch":
+          return createMessage(e, [e.amount])
+        case "pitchBend":
+          console.log("pitchBend", e.value)
+          return createMessage(e, [e.value & 0x7f, e.value >> 7])
+      }
+      break
   }
   return [{
     event: e,
@@ -89,7 +89,7 @@ export default class Player {
     riot.observable(this)
 
     navigator.requestMIDIAccess().then(midiAccess => {
-      this._midiOutput = midiAccess.outputs.values().next().value;
+      this._midiOutput = midiAccess.outputs.values().next().value
     }, null)
   }
 
@@ -212,13 +212,13 @@ export default class Player {
         // MIDI 以外のイベントを実行
         switch (e.event.subtype) {
           case "setTempo":
-          this._currentTempo = 60000000 / e.event.microsecondsPerBeat
-          this.trigger("change-tempo", this._currentTempo)
-          console.log("setTempo", this._currentTempo)
-          break
+            this._currentTempo = 60000000 / e.event.microsecondsPerBeat
+            this.trigger("change-tempo", this._currentTempo)
+            console.log("setTempo", this._currentTempo)
+            break
           case "endOfTrack":
-          this.stop()
-          break
+            this.stop()
+            break
         }
       }
     })

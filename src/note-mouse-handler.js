@@ -16,10 +16,10 @@ function getDragPositionType(localX, targetWidth) {
 
 function cursorForPositionType(type) {
   switch(type) {
-  case DRAG_POSITION.LEFT_EDGE:
-  case DRAG_POSITION.RIGHT_EDGE: 
-    return "w-resize"
-  default: return "move"
+    case DRAG_POSITION.LEFT_EDGE:
+    case DRAG_POSITION.RIGHT_EDGE: 
+      return "w-resize"
+    default: return "move"
   }
 }
 
@@ -88,9 +88,9 @@ class ResizeNoteAction {
 
   onMouseMove(e, position) {
     const eventName = (type => { switch(type) {
-    case DRAG_POSITION.LEFT_EDGE: return "drag-note-left-edge"
-    case DRAG_POSITION.RIGHT_EDGE: return "drag-note-right-edge"
-    case DRAG_POSITION.CENTER: return "drag-note-center"
+      case DRAG_POSITION.LEFT_EDGE: return "drag-note-left-edge"
+      case DRAG_POSITION.RIGHT_EDGE: return "drag-note-right-edge"
+      case DRAG_POSITION.CENTER: return "drag-note-center"
     }})(this.dragType)
 
     this.emitter.trigger(eventName, { movement: {
@@ -150,9 +150,9 @@ class ResizeSelectionAction {
 
   onMouseMove(e, position) {
     const eventName = (type => { switch(type) {
-    case DRAG_POSITION.LEFT_EDGE: return "drag-selection-left-edge"
-    case DRAG_POSITION.RIGHT_EDGE: return "drag-selection-right-edge"
-    case DRAG_POSITION.CENTER: return "drag-selection-center"
+      case DRAG_POSITION.LEFT_EDGE: return "drag-selection-left-edge"
+      case DRAG_POSITION.RIGHT_EDGE: return "drag-selection-right-edge"
+      case DRAG_POSITION.CENTER: return "drag-selection-center"
     }})(this.dragType)
 
     this.emitter.trigger(eventName, { movement: {

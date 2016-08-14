@@ -95,12 +95,12 @@ export default class PianoRollController {
   set mouseMode(mode) {
     this._mouseMode = mode
     switch(mode) {
-    case 0:
-      this.bindMouseHandler(new PencilMouseHandler(this.noteContainer))
-      break
-    case 1:
-      this.bindMouseHandler(new SelectionMouseHandler(this.noteContainer, this.selectionView))
-      break
+      case 0:
+        this.bindMouseHandler(new PencilMouseHandler(this.noteContainer))
+        break
+      case 1:
+        this.bindMouseHandler(new SelectionMouseHandler(this.noteContainer, this.selectionView))
+        break
     }
   }
 

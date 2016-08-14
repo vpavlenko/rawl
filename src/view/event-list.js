@@ -45,12 +45,12 @@ function EventListContent(props) {
 
 function statusForEvent(e) {
   switch(e.subtype) {
-  case "controller":
-    return controllerTypeString(e.controllerType)
-  case "note":
-    return `${e.subtype} ${e.duration}`
-  default:
-    return e.subtype
+    case "controller":
+      return controllerTypeString(e.controllerType)
+    case "note":
+      return `${e.subtype} ${e.duration}`
+    default:
+      return e.subtype
   }
 }
 

@@ -7,7 +7,7 @@ Array.prototype.deleteArray = function(arr) {
 }
 
 Array.prototype.remove = function(obj) {
-    this.splice(this.indexOf(obj), 1)
+  this.splice(this.indexOf(obj), 1)
 }
 
 Array.prototype.pushArray = function(arr) {

@@ -31,25 +31,25 @@ function assembleEvents(events) {
     e.tick = tick
 
     switch(e.subtype) { 
-    case "noteOn":
-      noteOnEvents.push(e)
-      break
-    case "noteOff": {
-      const noteOn = findNoteOn(e)
-      if (noteOn != null) {
-        noteOn.duration = e.tick - noteOn.tick
-        noteOn.subtype = "note"
-        result.push(noteOn)
+      case "noteOn":
+        noteOnEvents.push(e)
+        break
+      case "noteOff": {
+        const noteOn = findNoteOn(e)
+        if (noteOn != null) {
+          noteOn.duration = e.tick - noteOn.tick
+          noteOn.subtype = "note"
+          result.push(noteOn)
+        }
+        break
       }
-      break
-    }
-    case "trackName":
-    case "endOfTrack":
-    case "copyrightNotice":
-      break
-    default:
-      result.push(e)
-      break
+      case "trackName":
+      case "endOfTrack":
+      case "copyrightNotice":
+        break
+      default:
+        result.push(e)
+        break
     }
   })
 
@@ -60,11 +60,11 @@ function getTrackMeta(events) {
   const meta = {}
   events.forEach((e) => {
     switch(e.subtype) { 
-    case "trackName":
-      meta.name = e.text
-      break
-    case "endOfTrack":
-      meta.end = e.tick
+      case "trackName":
+        meta.name = e.text
+        break
+      case "endOfTrack":
+        meta.end = e.tick
     }
   })
   return meta
@@ -75,9 +75,9 @@ function getFileMeta(tracks) {
   tracks.forEach((events) => {
     events.forEach((e) => {
       switch(e.subtype) { 
-      case "copyrightNotice":
-        meta.copyrightNotice = e.text
-        break
+        case "copyrightNotice":
+          meta.copyrightNotice = e.text
+          break
       }
     })
   })

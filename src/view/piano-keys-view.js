@@ -94,7 +94,7 @@ export default class PianoKeysView extends createjs.Container {
     }
   }
 
-  onScroll(x, y) {
+  onScroll(x) {
     this.x = -x
   }
 }

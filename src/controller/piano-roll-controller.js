@@ -29,18 +29,6 @@ function createNote(tick = 0, noteNumber = 48, duration = 240, velocity = 127, c
   }
 }
 
-function recursiveNumChildren(obj) {
-  let count = 0
-  if (obj.children) {
-    obj.children.forEach(c => {
-      count += recursiveNumChildren(c)
-    })
-  } else {
-    count++
-  }
-  return count
-}
-
 export default class PianoRollController {
   constructor(canvas) {
     this.emitter = {}
@@ -410,7 +398,7 @@ export default class PianoRollController {
       })
     })
 
-    handler.on("end-dragging", ids => {
+    handler.on("end-dragging", () => {
       if (!this._selection) {
         return
       }

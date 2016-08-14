@@ -4,7 +4,7 @@ function getCSSVariable(name) {
 }
 
 function hslWithAlpha(hsl, alpha) {
-  const [_, h, s, l] = hsl.match(/hsl\((.+), (.+)%, (.+)%\)/)
+  const [, h, s, l] = hsl.match(/hsl\((.+), (.+)%, (.+)%\)/)
   return `hsla(${h}, ${s}%, ${l}%, ${alpha})`
 }
 

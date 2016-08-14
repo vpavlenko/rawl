@@ -43,7 +43,7 @@ export default class InstrumentBrowser extends Component {
   }
 
   render() {
-    const onClickOK = e => {
+    const onClickOK = () => {
       this.props.onClickOK({
         categoryId: this.state.selectedCategoryId,
         instrumentId: this.state.selectedInstrumentId

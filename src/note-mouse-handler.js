@@ -16,10 +16,10 @@ function getDragPositionType(localX, targetWidth) {
 
 function cursorForPositionType(type) {
   switch(type) {
-    case DRAG_POSITION.LEFT_EDGE:
-    case DRAG_POSITION.RIGHT_EDGE: 
-      return "w-resize"
-    default: return "move"
+  case DRAG_POSITION.LEFT_EDGE:
+  case DRAG_POSITION.RIGHT_EDGE: 
+    return "w-resize"
+  default: return "move"
   }
 }
 
@@ -28,7 +28,7 @@ class DragScrollAction {
     this.emitter = emitter
   }
 
-  onMouseDown(e, position) {}
+  onMouseDown() {}
 
   onMouseMove(e) {
     this.emitter.trigger("drag-scroll", {movement: {
@@ -37,7 +37,7 @@ class DragScrollAction {
     }})
   }
 
-  onMouseUp(e, position) {}
+  onMouseUp() {}
 }
 
 class CreateNoteAction {
@@ -57,7 +57,7 @@ class CreateNoteAction {
     }})
   }
 
-  onMouseUp(e, position) {}
+  onMouseUp() {}
 }
 
 class RemoveNoteAction {
@@ -66,12 +66,12 @@ class RemoveNoteAction {
     this.note = note
   }
 
-  onMouseDown(e, position) {
+  onMouseDown() {
     this.emitter.trigger("remove-note", this.note.id)
   }
 
-  onMouseMove(e, position) {}
-  onMouseUp(e, position) {}
+  onMouseMove() {}
+  onMouseUp() {}
 }
 
 class ResizeNoteAction {
@@ -88,9 +88,9 @@ class ResizeNoteAction {
 
   onMouseMove(e, position) {
     const eventName = (type => { switch(type) {
-      case DRAG_POSITION.LEFT_EDGE: return "drag-note-left-edge"
-      case DRAG_POSITION.RIGHT_EDGE: return "drag-note-right-edge"
-      case DRAG_POSITION.CENTER: return "drag-note-center"
+    case DRAG_POSITION.LEFT_EDGE: return "drag-note-left-edge"
+    case DRAG_POSITION.RIGHT_EDGE: return "drag-note-right-edge"
+    case DRAG_POSITION.CENTER: return "drag-note-center"
     }})(this.dragType)
 
     this.emitter.trigger(eventName, { movement: {
@@ -99,7 +99,7 @@ class ResizeNoteAction {
     }})
   }
 
-  onMouseUp(e, position) {}
+  onMouseUp() {}
 }
 
 class ChangeToolAction {
@@ -107,12 +107,12 @@ class ChangeToolAction {
     this.emitter = emitter
   }
 
-  onMouseDown(e, position) {
+  onMouseDown() {
     this.emitter.trigger("change-tool")
   }
 
-  onMouseMove(e, position) {}
-  onMouseUp(e, position) {}
+  onMouseMove() {}
+  onMouseUp() {}
 }
 
 class CreateSelectionAction {
@@ -150,9 +150,9 @@ class ResizeSelectionAction {
 
   onMouseMove(e, position) {
     const eventName = (type => { switch(type) {
-      case DRAG_POSITION.LEFT_EDGE: return "drag-selection-left-edge"
-      case DRAG_POSITION.RIGHT_EDGE: return "drag-selection-right-edge"
-      case DRAG_POSITION.CENTER: return "drag-selection-center"
+    case DRAG_POSITION.LEFT_EDGE: return "drag-selection-left-edge"
+    case DRAG_POSITION.RIGHT_EDGE: return "drag-selection-right-edge"
+    case DRAG_POSITION.CENTER: return "drag-selection-center"
     }})(this.dragType)
 
     this.emitter.trigger(eventName, { movement: {
@@ -161,7 +161,7 @@ class ResizeSelectionAction {
     }})
   }
 
-  onMouseUp(e, position) {
+  onMouseUp() {
     this.emitter.trigger("end-dragging")
   }
 }
@@ -187,7 +187,7 @@ class MouseHandler {
   }
 
   // override this
-  _getCursor(e) {
+  _getCursor() {
     return "auto"
   }
 

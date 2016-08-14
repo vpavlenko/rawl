@@ -32,13 +32,12 @@ function getMeasuresFromConductorTrack(conductorTrack) {
     return conductorTrack.getEvents()
       .filter(e => e.subtype == "timeSignature")
       .map((e, i) => {
-        console.log(`${e.numerator} / ${e.denominator}`)
         return new Measure(e.tick, i, e.numerator, e.denominator)
       })
   }
 }
 
-const defaultMBTFormatter = function(mbt, ticksPerBeat) {
+const defaultMBTFormatter = function(mbt) {
   function format(v) {
     return ("   " + v).slice(-4)
   }

@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import Stream from "./stream"
 import { 
   MidiEvent, MetaMidiEvent, EndOfTrackMidiEvent, 

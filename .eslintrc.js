@@ -11,7 +11,8 @@ module.exports = {
   rules: {
     "indent": [
       "warn",
-      2
+      2,
+      { "SwitchCase": 1 }
     ],
     "quotes": [
       "warn",
@@ -23,7 +24,7 @@ module.exports = {
       "never"
     ],
     "no-unused-vars": "warn",
-    "comma-dangle": "warn",
+    "comma-dangle": "off",
     "no-console": "warn",
     "no-debugger": "warn",
     "react/jsx-uses-react": "error",

@@ -1,3 +1,4 @@
+/* eslint-disable */
 /* Wrapper for accessing strings through sequential reads */
 export default function Stream(str) {
 	var position = 0;

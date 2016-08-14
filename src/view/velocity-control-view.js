@@ -97,7 +97,7 @@ export default class VelocityControlView extends createjs.Container {
       .lineTo(this.keyWidth, 0.5)
   }
 
-  onScroll(x, y) {
+  onScroll(x) {
     this.valueLine.x = -x + this.keyWidth
     this.leftLabel.x = -x
   }

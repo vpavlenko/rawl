@@ -82,7 +82,7 @@ const CTRL_EVENT_NAMES = {
   "124": "Omni Mode Off",
   "125": "Omni Mode On",
   "126": "Mono Operation",
-  "127": "Poly Operation",
+  "127": "Poly Operation"
 }
 
 function controllerTypeString(controllerType) {

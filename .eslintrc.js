@@ -5,6 +5,9 @@ module.exports = {
   },
   parser: "babel-eslint",
   extends: "eslint:recommended",
+  plugins: [
+    "react"
+  ],
   rules: {
     "indent": [
       "warn",
@@ -12,7 +15,8 @@ module.exports = {
     ],
     "quotes": [
       "warn",
-      "double"
+      "double",
+      { allowTemplateLiterals: true }
     ],
     "semi": [
       "warn",
@@ -21,7 +25,9 @@ module.exports = {
     "no-unused-vars": "warn",
     "comma-dangle": "warn",
     "no-console": "warn",
-    "no-debugger": "warn"
+    "no-debugger": "warn",
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error"
   },
   globals: {
     createjs: false,

@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha --compilers js:babel-core/register test/**/*.js",
-    "lint": "eslint *.js"
+    "lint": "eslint *.js",
+    "start": "webpack-dev-server --host 0.0.0.0",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
@@ -18,12 +20,17 @@
   },
   "homepage": "https://github.com/ryohey/signal#readme",
   "dependencies": {
+    "babel-cli": "^6.11.4",
     "babel-core": "^6.7.7",
+    "babel-loader": "^6.2.4",
     "babel-polyfill": "^6.7.4",
+    "eslint-loader": "^1.5.0",
     "lodash": "^4.11.1",
     "midifile": "^1.0.4",
     "mocha": "^2.4.5",
-    "riot": "^2.3.18"
+    "riot": "^2.3.18",
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1"
   },
   "devDependencies": {
     "babel-core": "^6.7.7",

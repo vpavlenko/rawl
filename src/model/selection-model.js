@@ -1,5 +1,6 @@
+import _ from "lodash"
 
-export default class Selection {
+export default class SelectionModel {
   constructor(fromTick, fromNoteNumber, toTick, toNoteNumber, notes = [], original = null) {
     this._fromTick = fromTick
     this._fromNoteNumber = fromNoteNumber
@@ -38,7 +39,7 @@ export default class Selection {
   }
 
   copyUpdated(notes) {
-    return new Selection(
+    return new SelectionModel(
       this.fromTick,
       this.fromNoteNumber,
       this.toTick,
@@ -49,7 +50,7 @@ export default class Selection {
 
   copyMoved(dt, dn = 0, dd = 0) {
     const s = this.original
-    return new Selection(
+    return new SelectionModel(
       s.fromTick + dt,
       s.fromNoteNumber + dn,
       s.toTick + dt + dd,
@@ -73,7 +74,7 @@ export default class Selection {
   }
 
   static fromRect(rect, quantizer, transform, notes = []) {
-    return new Selection(
+    return new SelectionModel(
       quantizer.round(transform.getTicks(rect.x)), 
       Math.ceil(transform.getNoteNumber(rect.y)), 
       quantizer.round(transform.getTicks(rect.x + rect.width)), 

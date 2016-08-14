@@ -8,6 +8,7 @@ import VelocityControlView from "../view/velocity-control-view"
 import NoteCoordTransform from "../model/note-coord-transform"
 import { PencilMouseHandler, SelectionMouseHandler } from "../note-mouse-handler"
 import Config from "../config.js"
+import SelectionModel from "../model/selection-model"
 
 const MAX_NOTE_NUMBER = 127
 const PIXELS_PER_TICK = 0.1
@@ -365,14 +366,14 @@ export default class PianoRollController {
     })
 
     handler.on("resize-selection", rect => {
-      this.selection = Selection.fromRect(rect, this._quantizer, this._transform)
+      this.selection = SelectionModel.fromRect(rect, this._quantizer, this._transform)
     })
 
     handler.on("select-notes", rect => {
       if (!this._selection) {
         return
       }
-      const s = Selection.fromRect(rect, this._quantizer, this._transform)
+      const s = SelectionModel.fromRect(rect, this._quantizer, this._transform)
       const notes = this.noteContainer.getNotesInRect(s.getBounds(this._transform))
       this.selection = s.copyUpdated(notes)
       this.emitter.trigger("select-notes", notes)

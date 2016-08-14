@@ -1,5 +1,4 @@
 const path = require("path")
-const webpack = require("webpack")
 
 module.exports = {
   context: path.join(__dirname, "src"),
@@ -12,23 +11,12 @@ module.exports = {
     filename: "bundle.js",
     publicPath: "static"
   },
-  plugins: [
-    new webpack.ProvidePlugin({
-      riot: "riot"
-    })
-  ],
   module: {
     preLoaders: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: "eslint"
-      },
-      { 
-        test: /\.tag$/, 
-        exclude: /node_modules/, 
-        loader: "riotjs-loader", 
-        query: { type: "none" } 
       }
     ],
     loaders: [

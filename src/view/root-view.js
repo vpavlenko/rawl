@@ -4,8 +4,6 @@ import Track from "../model/track"
 import PopupComponent from "../view/popup-component"
 import Config from "../config"
 
-import "../tag/context-menu.tag"
-
 import TrackList from "./track-list"
 import TrackInfo from "./track-info"
 import Toolbar from "./toolbar"

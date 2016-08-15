@@ -7,6 +7,7 @@
     "test": "mocha --compilers js:babel-core/register test/**/*.js",
     "start": "webpack-dev-server --host 0.0.0.0",
     "build": "webpack",
+    "lint": "eslint src/**/*.js",
     "lint-fix": "eslint src/**/*.js --fix"
   },
   "repository": {

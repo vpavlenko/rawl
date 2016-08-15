@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import _ from "lodash"
 import { controllerTypeString } from "../note-number-string"
+import pureRender from "../hocs/pure-render"
 
 /*
 opts = {
@@ -26,6 +27,8 @@ function EventListItem(props) {
   </tr>
 }
 
+const PureEventListItem = pureRender(EventListItem)
+
 function EventListContent(props) {
   return <div className="event-list">
     <table>
@@ -37,7 +40,7 @@ function EventListContent(props) {
       </tr>
       </thead>
       <tbody>
-        {props.events.map(e => <EventListItem 
+        {props.events.map(e => <PureEventListItem 
           key={e.id} 
           tick={e.tick}
           status={e.status}

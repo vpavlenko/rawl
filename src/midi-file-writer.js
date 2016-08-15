@@ -223,7 +223,7 @@ class Buffer {
   }
 }
 
-export default class MidiWriter {
+export default class MidiFileWriter {
   static write(tracks, ticksPerBeat = 480) {
     const buf = new Buffer()
 

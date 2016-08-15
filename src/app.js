@@ -4,7 +4,7 @@ import Quantizer from "./quantizer"
 import RootView from "./view/root-view"
 import Song from "./model/song"
 import MidiFileReader from "./midi-file-reader"
-import MidiWriter from "./midiwriter"
+import MidiFileWriter from "./midi-file-writer"
 import Config from "./config"
 import Downloader from "./downloader"
 import observable from "riot-observable"
@@ -69,7 +69,7 @@ export default class App {
   }
 
   saveSong() {
-    const bytes = MidiWriter.write(this.song.getTracks())
+    const bytes = MidiFileWriter.write(this.song.getTracks())
     Downloader.downloadBlob(bytes, this.song.name, "application/octet-stream")
   }
 }

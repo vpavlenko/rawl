@@ -29,6 +29,12 @@ class TextMetaMidiEvent extends MetaMidiEvent {
   }
 }
 
+class TrackNameMidiEvent extends TextMetaMidiEvent {
+  constructor(deltaTime, text) {
+    super(deltaTime, "trackName", text)
+  }
+}
+
 class ByteMetaMidiEvent extends MetaMidiEvent {
   static fromStream(deltaTime, subtype, stream, length) {
     return new ByteMetaMidiEvent(deltaTime, subtype, stream.read(length)) 
@@ -66,7 +72,7 @@ class SetTempoMidiEvent extends MetaMidiEvent {
 }
 
 class TimeSignatureMidiEvent extends MetaMidiEvent {
-  constructor(deltaTime, numerator, denominator, metronome, thirtyseconds) {
+  constructor(deltaTime, numerator, denominator, metronome, thirtyseconds = 8) {
     super(deltaTime, "timeSignature", `${numerator}/${denominator}`)
     this.numerator = numerator
     this.denominator = denominator
@@ -87,5 +93,6 @@ export {
   MidiEvent, MetaMidiEvent, EndOfTrackMidiEvent, 
   TextMetaMidiEvent, ByteMetaMidiEvent,
   Int16MetaMidiEvent, Int8MetaMidiEvent,
+  TrackNameMidiEvent,
   SetTempoMidiEvent, TimeSignatureMidiEvent
 }

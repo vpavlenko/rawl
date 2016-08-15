@@ -9,12 +9,15 @@ export default class Track {
   }
 
   setName(name) {
-    this.name = name
-    this.emitChange()
+    const e = this.findTrackNameEvents()[0]
+    this.updateEvent(e.id, {
+      value: name
+    })
   }
 
   getName() {
-    return this.name
+    const e = this.findTrackNameEvents()[0]
+    return e && e.text || ""
   }
 
   getEndOfTrack() {
@@ -76,6 +79,10 @@ export default class Track {
   }
 
   /* helper */
+
+  findTrackNameEvents() {
+    return this.events.filter(t => t.subtype == "trackName")
+  }
 
   findProgramChangeEvents() {
     return this.events.filter(t => t.subtype == "programChange")

@@ -56,20 +56,17 @@ class RootComponent extends Component {
   setSong(song) {
     this.setState({ song: song })
     this.pianoRoll.track = song.getTrack(0)
-    song.on("add-track", () => {
-      // TODO: trackList observe to track changes
+    song.on("change", () => {
+      this.setState({ song: song })
     })
   }
 
   changeTrack(trackId) {
-    const track = this.state.song.getTrack(trackId)
-
     this.setState({
-      selectedTrack: track,
       selectedTrackId: trackId
     })
 
-    this.pianoRoll.track = track
+    this.pianoRoll.track = this.state.song.getTrack(trackId)
   }
 
   onChangeFile(e) {
@@ -140,17 +137,17 @@ class RootComponent extends Component {
     this.pianoRoll.autoScroll = !this.pianoRoll.autoScroll
   }
 
-  get currentTrack() {
-    return this.state.song.getTrack(this.trackId)
+  get selectedTrack() {
+    return this.state.song && this.state.song.getTrack(this.state.selectedTrackId)
   }
 
-  onChangeName(e) {
-    const track = this.currentTrack
+  onChangeTrackName(e) {
+    const track = this.selectedTrack
     track.setName(e.target.value)
   }
 
-  onChangeVolume(e) {
-    const track = this.currentTrack
+  onChangeTrackVolume(e) {
+    const track = this.selectedTrack
     const events = track.findVolumeEvents()
     if (events.length == 0) {
       return
@@ -160,8 +157,8 @@ class RootComponent extends Component {
     })
   }
 
-  onChangePan(e) {
-    const track = this.currentTrack
+  onChangeTrackPan(e) {
+    const track = this.selectedTrack
     const events = track.findPanEvents()
     if (events.length == 0) {
       return
@@ -171,10 +168,10 @@ class RootComponent extends Component {
     })
   }
 
-  onClickInstrument() {
+  onClickTrackInstrument() {
     const popup = new PopupComponent()
     popup.show()
-    const track = this.currentTrack
+    const track = this.selectedTrack
     const events = track.findProgramChangeEvents()
     if (events.length == 0) {
       return
@@ -223,7 +220,7 @@ class RootComponent extends Component {
   }
 
   updateNotes(changes) {
-    this.currentTrack.transaction(it => {
+    this.selectedTrack.transaction(it => {
       changes.forEach(c => it.updateEvent(c.id, c))
     })
   }
@@ -257,14 +254,14 @@ class RootComponent extends Component {
         />
         <div id="side">
           <TrackInfo ref={c => this.trackInfo = c}
-            track={this.state.selectedTrack}
-            onChangeName={this.onChangeName.bind(this)}
-            onChangeVolume={this.onChangeVolume.bind(this)}
-            onChangePan={this.onChangePan.bind(this)}
-            onClickInstrument={this.onClickInstrument.bind(this)}
+            track={this.selectedTrack}
+            onChangeName={this.onChangeTrackName.bind(this)}
+            onChangeVolume={this.onChangeTrackVolume.bind(this)}
+            onChangePan={this.onChangeTrackPan.bind(this)}
+            onClickInstrument={this.onClickTrackInstrument.bind(this)}
           />
           <EventList ref={c => this.eventList = c}
-            track={this.state.selectedTrack} />
+            track={this.selectedTrack} />
         </div>
         <div id="piano-roll-container">
           <canvas id="piano-roll" ref={c => this.pianoRollCanvas = c} onContextMenu={e => e.preventDefault()}></canvas>

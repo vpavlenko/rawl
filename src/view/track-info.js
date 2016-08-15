@@ -7,7 +7,7 @@ function TrackInfoContent(props) {
   const volumeEvent = track && track.findVolumeEvents()[0]
   const panEvent = track && track.findPanEvents()[0]
   const fields = {
-    name: track && track.name,
+    name: track && track.getName(),
     instrument: programChangeEvent ? getInstrumentName(programChangeEvent.value) : "",
     volume: volumeEvent ? volumeEvent.value : "",
     pan: panEvent ? panEvent.value : ""

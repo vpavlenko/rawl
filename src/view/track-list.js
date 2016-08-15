@@ -47,7 +47,7 @@ export default class TrackList extends Component {
   render() {
     const tracks = this.props.tracks.map((t, i) => {
       return {
-        name: `${i} ${t.channel}. ${t.name || ""}`,
+        name: `${i} ${t.channel}. ${t.getName() || ""}`,
         mute: this.state.channelMutes[t.channel],
         selected: i == this.props.selectedTrackId,
         trackId: i

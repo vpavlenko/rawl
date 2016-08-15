@@ -92,12 +92,13 @@ export default class Player {
   }
 
   prepare(song) {
-    this._allEvents = _(song.getTracks())
+    this._allEvents = _.chain(song.getTracks())
       .map(t => t.getEvents())
       .flatten()
       .map(eventToMidiMessages)
       .filter(e => e != null)
       .flatten()
+      .value()
   }
 
   _updateEvents() {

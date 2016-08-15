@@ -72,7 +72,7 @@ function eventToBytes(e) {
   const bytes = []
   function add(data) {
     if (data instanceof Array) {
-      bytes.pushArray(data)
+      bytes.push(...data)
     } else {
       bytes.push(data)
     }

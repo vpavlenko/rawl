@@ -10,10 +10,6 @@ Array.prototype.remove = function(obj) {
   this.splice(this.indexOf(obj), 1)
 }
 
-Array.prototype.pushArray = function(arr) {
-  Array.prototype.push.apply(this, arr)
-}
-
 Array.prototype.removeAll = function() {
   this.splice(0, this.length)
 }

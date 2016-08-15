@@ -1,5 +1,5 @@
-import NoteCoordTransform from "../src/model/note-coord-transform.js"
-const assert = require("assert")
+import assert from "assert"
+import NoteCoordTransform from "../src/model/note-coord-transform"
 
 describe("NoteCoordTransform", () => {
   const t = new NoteCoordTransform(100, 30, 127)

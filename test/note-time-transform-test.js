@@ -1,5 +1,5 @@
+import assert from "assert"
 import NoteTimeTransform from "../src/model/note-time-transform"
-const assert = require("assert")
 
 describe("NoteTimeTransform", () => {
   const t = new NoteTimeTransform([

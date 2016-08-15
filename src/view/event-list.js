@@ -57,14 +57,11 @@ function statusForEvent(e) {
 export default class EventList extends Component {
   constructor(props) {
     super(props)
-
-    this.state = {
-      events: []
-    }
+    this.state = {}
   }
   
   render() {
-    const events = this.state.track ? this.state.track.getEvents().map(e => {
+    const events = this.props.track ? this.props.track.getEvents().map(e => {
       return _.extend(e, { 
         status: statusForEvent(e)
       })

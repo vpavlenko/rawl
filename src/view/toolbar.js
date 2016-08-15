@@ -55,13 +55,13 @@ export default class Toolbar extends Component {
     })
     player.on("change-position", tick => {
       this.setState({
-        mbtTime: this.state.song.getMeasureList().getMBTString(tick, player.TIME_BASE)
+        mbtTime: this.props.song.getMeasureList().getMBTString(tick, player.TIME_BASE)
       })
     })
   }
 
   render() {
-    const song = this.state.song
+    const song = this.props.song
     const trackOptions = song ? song.getTracks().map((t, i) => { return {
       name: `${i}. ${t.name || ""}`,
       value: i,

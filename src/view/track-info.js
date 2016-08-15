@@ -36,11 +36,10 @@ function TrackInfoContent(props) {
 export default class TrackInfo extends Component {
   constructor(props) {
     super(props)
-
     this.state = {}
   }
 
   render() {
-    return <TrackInfoContent {...this.props} track={this.state.track} />
+    return <TrackInfoContent {...this.props} />
   }
 }

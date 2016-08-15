@@ -32,9 +32,7 @@ export default class TrackList extends Component {
     super(props)
 
     this.state = {
-      tracks: [],
-      channelMutes: {},
-      selectedTrackId: 0
+      channelMutes: {}
     }
   }
 
@@ -47,11 +45,11 @@ export default class TrackList extends Component {
   }
 
   render() {
-    const tracks = this.state.tracks.map((t, i) => {
+    const tracks = this.props.tracks.map((t, i) => {
       return {
         name: `${i} ${t.channel}. ${t.name || ""}`,
         mute: this.state.channelMutes[t.channel],
-        selected: i == this.state.selectedTrackId,
+        selected: i == this.props.selectedTrackId,
         trackId: i
       }
     })

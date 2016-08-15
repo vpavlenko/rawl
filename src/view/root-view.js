@@ -21,44 +21,55 @@ import {
 } from "../gm.js"
 
 class RootComponent extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      selectedTrackId: 0
+    }
+  }
+
   emit(name, obj) {
     this.props.emitter.trigger(name, obj)
   }
 
-  componentDidMount() {
-    this.pianoRoll = new PianoRollController(this.pianoRollCanvas)
+  get pianoRoll() {
+    return this.state.pianoRoll
+  }
 
-    this.pianoRoll.emitter.on("select-notes", events => {
-      this.propertyPane.setState({notes: events})
+  componentDidMount() {
+    const pianoRoll = new PianoRollController(this.pianoRollCanvas)
+
+    this.setState({ pianoRoll: pianoRoll })
+
+    pianoRoll.emitter.on("select-notes", events => {
+      this.setState({ selectedEvents: events })
     })
 
-    this.pianoRoll.emitter.on("move-cursor", tick => {
+    pianoRoll.emitter.on("move-cursor", tick => {
       const t = SharedService.quantizer.round(tick)
       SharedService.player.seek(t)
     })
 
-    this.emit("did-mount", this)
+    setTimeout(() => this.emit("did-mount", this), 0)
   }
 
   setSong(song) {
-    this.setState({
-      song: song
-    })
-    this.toolbar.setState({song: song})
-    this.trackList.setState({tracks: song.getTracks()})
+    this.setState({ song: song })
     this.pianoRoll.track = song.getTrack(0)
     song.on("add-track", () => {
-      this.trackList.setState({tracks: song.getTracks()})
+      // TODO: trackList observe to track changes
     })
   }
 
   changeTrack(trackId) {
-    this.trackId = trackId
     const track = this.state.song.getTrack(trackId)
+
+    this.setState({
+      selectedTrack: track,
+      selectedTrackId: trackId
+    })
+
     this.pianoRoll.track = track
-    this.trackInfo.setState({track: track})
-    this.trackList.setState({selectedTrackId: trackId})
-    this.eventList.setState({track: track})
   }
 
   onChangeFile(e) {
@@ -95,7 +106,7 @@ class RootComponent extends Component {
     }
   }
 
-  onSelectTrack(e) {
+  onChangeTrack(e) {
     this.changeTrack(e.target.value)
   }
 
@@ -104,7 +115,7 @@ class RootComponent extends Component {
   }
 
   onClickPlay() {
-    SharedService.player.prepare(this.song)
+    SharedService.player.prepare(this.state.song)
     SharedService.player.play()
   }
 
@@ -129,14 +140,17 @@ class RootComponent extends Component {
     this.pianoRoll.autoScroll = !this.pianoRoll.autoScroll
   }
 
+  get currentTrack() {
+    return this.state.song.getTrack(this.trackId)
+  }
+
   onChangeName(e) {
-    const track = this.song.getTrack(this.trackId)
+    const track = this.currentTrack
     track.setName(e.target.value)
-    this.trackInfo.setState({track: track})
   }
 
   onChangeVolume(e) {
-    const track = this.song.getTrack(this.trackId)
+    const track = this.currentTrack
     const events = track.findVolumeEvents()
     if (events.length == 0) {
       return
@@ -144,11 +158,10 @@ class RootComponent extends Component {
     track.updateEvent(events[0].id, {
       value: e.target.value
     })
-    this.trackInfo.setState({track: track})
   }
 
   onChangePan(e) {
-    const track = this.song.getTrack(this.trackId)
+    const track = this.currentTrack
     const events = track.findPanEvents()
     if (events.length == 0) {
       return
@@ -156,13 +169,12 @@ class RootComponent extends Component {
     track.updateEvent(events[0].id, {
       value: e.target.value
     })
-    this.trackInfo.setState({track: track})
   }
 
   onClickInstrument() {
     const popup = new PopupComponent()
     popup.show()
-    const track = this.song.getTrack(this.trackId)
+    const track = this.currentTrack
     const events = track.findProgramChangeEvents()
     if (events.length == 0) {
       return
@@ -184,35 +196,34 @@ class RootComponent extends Component {
         track.updateEvent(events[0].id, {
           value: programNumber
         })
-        this.trackInfo.setState({track: track})
         popup.close()
       }}
     />, popup.getContentElement())
   }
 
-  onChangeTrack(trackId) {
+  onSelectTrack(trackId) {
     this.changeTrack(trackId)
   }
 
   onClickAddTrack() {
-    this.song.addTrack(new Track)
+    this.state.song.addTrack(new Track)
   }
 
   onClickMute(trackId) {
-    const channel = this.song.getTrack(trackId).channel
+    const channel = this.state.song.getTrack(trackId).channel
     const muted = SharedService.player.isChannelMuted(channel)
     SharedService.player.muteChannel(channel, !muted)
   }
 
   onClickSolo(trackId) {
-    const channel = this.song.getTrack(trackId).channel
-    this.song.getTracks().forEach((t, i) => {
+    const channel = this.state.song.getTrack(trackId).channel
+    this.state.song.getTracks().forEach((t, i) => {
       SharedService.player.muteChannel(t.channel, i != channel)
     })
   }
 
   updateNotes(changes) {
-    this.song.getTrack(this.trackId).transaction(it => {
+    this.currentTrack.transaction(it => {
       changes.forEach(c => it.updateEvent(c.id, c))
     })
   }
@@ -220,9 +231,10 @@ class RootComponent extends Component {
   render() {
     return <div id="vertical">
       <Toolbar ref={c => this.toolbar = c}
+        song={this.state.song}
         onChangeFile={this.onChangeFile.bind(this)}
         onClickSave={this.onClickSave.bind(this)}
-        onClickPencil={this.onClickPencil}
+        onClickPencil={this.onClickPencil.bind(this)}
         onClickSelection={this.onClickSelection.bind(this)}
         onClickScaleUp={this.onClickScaleUp.bind(this)}
         onClickScaleDown={this.onClickScaleDown.bind(this)}
@@ -236,6 +248,8 @@ class RootComponent extends Component {
       />
       <div id="container">
         <TrackList ref={c => this.trackList = c}
+          tracks={this.state.song && this.state.song.getTracks() || []}
+          selectedTrackId={this.state.selectedTrackId}
           onSelectTrack={this.onSelectTrack.bind(this)}
           onClickAddTrack={this.onClickAddTrack.bind(this)}
           onClickMute={this.onClickMute.bind(this)}
@@ -243,17 +257,20 @@ class RootComponent extends Component {
         />
         <div id="side">
           <TrackInfo ref={c => this.trackInfo = c}
+            track={this.state.selectedTrack}
             onChangeName={this.onChangeName.bind(this)}
             onChangeVolume={this.onChangeVolume.bind(this)}
             onChangePan={this.onChangePan.bind(this)}
             onClickInstrument={this.onClickInstrument.bind(this)}
           />
-          <EventList ref={c => this.eventList = c} />
+          <EventList ref={c => this.eventList = c}
+            track={this.state.selectedTrack} />
         </div>
         <div id="piano-roll-container">
-          <canvas id="piano-roll" ref={c => this.pianoRollCanvas = c} onContextMenu={() => false}></canvas>
+          <canvas id="piano-roll" ref={c => this.pianoRollCanvas = c} onContextMenu={e => e.preventDefault()}></canvas>
         </div>
         <PropertyPane ref={c => this.propertyPane = c} 
+          notes={this.state.selectedEvents || []}
           updateNotes={this.updateNotes.bind(this)}
         />
       </div>

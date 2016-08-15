@@ -60,16 +60,8 @@ function equalValue(arr, prop, func = (v) => v, elseValue = "<multiple values>")
 }
 
 export default class PropertyPane extends Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      notes: []
-    }
-  }
-
   render() {
-    const notes = this.state.notes
+    const notes = this.props.notes
     
     const sections = {}
 

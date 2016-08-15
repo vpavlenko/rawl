@@ -1,29 +1,8 @@
+import _ from "lodash"
 import observable from "riot-observable"
 import { MIDIController } from "./midi-constants"
 
 const INTERVAL = 1 / 15 * 1000  // low fps
-
-// helper
-
-Array.prototype.deleteArray = function(arr) {
-  for (var i = this.length - 1; i >= 0; i--) {
-    if (arr.indexOf(this[i]) >= 0) {
-      this.splice(i, 1)
-    }
-  }
-}
-
-Array.range = function(a, b) {
-  const arr = []
-  for (var i = a; i <= b; i++) {
-    arr.push(i)
-  }
-  return arr
-}
-
-Array.prototype.flatten = function() {
-  return Array.prototype.concat.apply([], this)
-}
 
 // timebase: 1/4拍子ごとのtick数
 function secToTick(sec, bpm, timebase) {
@@ -113,7 +92,7 @@ export default class Player {
   }
 
   prepare(song) {
-    this._allEvents = song.getTracks()
+    this._allEvents = _(song.getTracks())
       .map(t => t.getEvents())
       .flatten()
       .map(eventToMidiMessages)
@@ -172,14 +151,14 @@ export default class Player {
     this._playing = false
 
     // all sound off
-    for (const ch of Array.range(0, 0xf)) {
       this._midiOutput.send([0xb0 + ch, MIDIController.ALL_SOUNDS_OFF, 0], window.performance.now())
+    for (const ch of _.range(0, 0xf)) {
     }
   }
 
   reset() {
     const time = window.performance.now()
-    for (const ch of Array.range(0, 0xf)) {
+    for (const ch of _.range(0, 0xf)) {
       // reset controllers
       this._midiOutput.send([firstByte("controller", ch), MIDIController.RESET_CONTROLLERS, 0x7f], time)
 
@@ -217,7 +196,7 @@ export default class Player {
     const deltaTick = Math.ceil(secToTick(INTERVAL / 1000, this._currentTempo, this._timebase))
     const endTick = this._currentTick + deltaTick
     const eventsToPlay = this._events.filter(e => e.tick <= endTick)
-    this._events.deleteArray(eventsToPlay)
+    _.pullAll(this._events, eventsToPlay)
 
     const timestamp = window.performance.now()
     eventsToPlay.forEach(e => {

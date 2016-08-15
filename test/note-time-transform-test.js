@@ -1,11 +1,11 @@
-import NoteTimeTransform from "../model/note-coord-transform.js"
+import NoteTimeTransform from "../src/model/note-time-transform"
 const assert = require("assert")
 
 describe("NoteTimeTransform", () => {
   const t = new NoteTimeTransform([
-    { tempo: 120, time: 0 },
-    { tempo: 150, time: 40 },
-    { tempo: 240, time: 120 },
+    { tempo: 120, tick: 0 },
+    { tempo: 150, tick: 40 },
+    { tempo: 240, tick: 120 },
   ], 480)
 
   it("constructor", () => {

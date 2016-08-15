@@ -26,11 +26,11 @@ body {
   height: 100%;
 }
 
-track-info {
+.track-info {
   width: var(--side-width);
 }
 
-event-list {
+.event-list {
   width: var(--side-width);
   overflow: auto;
   height: 100%;
@@ -46,17 +46,9 @@ event-list {
   display: block;
 }
 
-property-pane {
+.property-pane {
   width: var(--property-pane-width);
   overflow: auto;
-}
-
-notes {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
 }
 
 body, input, button, textarea, option {
@@ -64,7 +56,7 @@ body, input, button, textarea, option {
   color: var(--text-color);
 }
 
-track-list {
+.track-list {
   width: 13em;
   display: block;
   height: 100%;
@@ -431,4 +423,9 @@ div#vertical {
   right: 0.5em;
   display: inline-block;
   pointer-events: none;
+}
+
+
+#root {
+    height: 100%;
 }

@@ -30,6 +30,7 @@ export default class NoteTimeTransform {
   }
 
   getTempoAt(tick) {
+    let tempo
     for (const t of this._tempos) {
       if (t.tick > tick) break
       tempo = t

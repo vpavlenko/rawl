@@ -50,7 +50,10 @@ function PropertyPaneContent(props) {
 }
 
 function equalValue(arr, prop, func = (v) => v, elseValue = "<multiple values>") {
-  const first = arr[0] && arr[0][prop]
+  if (!arr || arr.length == 0) {
+    return ""
+  }
+  const first = arr[0][prop]
   for (let item of arr) {
     if (item[prop] != first) {
       return elseValue

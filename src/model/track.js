@@ -39,6 +39,9 @@ export default class Track {
 
   updateEvent(id, obj) {
     const anObj = this.getEventById(id)
+    if (_.isEqual(Object.assign({}, anObj, obj), anObj)) {
+      return
+    }
     _.extend(anObj, obj)
     this.emitChange()
     return anObj
@@ -67,12 +70,16 @@ export default class Track {
 
   transaction(func) {
     this._paused = true
+    this._changed = false
     func(this)
     this._paused = false
-    this.emitChange()
+    if (this._changed) {
+      this.emitChange()
+    }
   }
 
   emitChange() {
+    this._changed = true
     if (!this._paused) { 
       this.trigger("change")
     }

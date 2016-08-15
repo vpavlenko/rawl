@@ -7,11 +7,12 @@ import MidiFileReader from "./midi-file-reader"
 import MidiWriter from "./midiwriter"
 import Config from "./config"
 import Downloader from "./downloader"
+import observable from "riot-observable"
 
 export default class App {
   constructor() {
     this.emitter = {}
-    riot.observable(this.emitter)
+    observable(this.emitter)
     this.initServices()
     this.initRootView()
   }

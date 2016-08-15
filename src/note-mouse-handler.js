@@ -1,3 +1,4 @@
+import observable from "riot-observable"
 import Rect from "./rect"
 
 const DRAG_POSITION = {
@@ -169,7 +170,7 @@ class ResizeSelectionAction {
 class MouseHandler {
   constructor(container) {
     this.container = container
-    riot.observable(this)
+    observable(this)
   }
 
    // override this

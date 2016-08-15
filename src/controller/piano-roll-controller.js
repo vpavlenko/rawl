@@ -1,4 +1,5 @@
 import _ from "lodash"
+import observable from "riot-observable"
 import SharedService from "../shared-service"
 import PianoKeysView from "../view/piano-keys-view"
 import NoteContainer from "../view/note-container"
@@ -33,7 +34,7 @@ function createNote(tick = 0, noteNumber = 48, duration = 240, velocity = 127, c
 export default class PianoRollController {
   constructor(canvas) {
     this.emitter = {}
-    riot.observable(this.emitter)
+    observable(this.emitter)
 
     this.showNotes = this.showNotes.bind(this)
     this.onScroll = this.onScroll.bind(this)

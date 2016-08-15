@@ -2,12 +2,13 @@ import _ from "lodash"
 import MeasureList from "./measure-list"
 import Track from "./track"
 import { EndOfTrackMidiEvent } from "../../vendor/jasmid/midievent"
+import observable from "riot-observable"
 
 export default class Song {
   constructor() {
     this.tracks = []
     this.name = "Untitled Song"
-    riot.observable(this)
+    observable(this)
   }
 
   addTrack(t) {

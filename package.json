@@ -35,7 +35,7 @@
     "mocha": "^2.4.5",
     "react": "^15.3.0",
     "react-dom": "^15.3.0",
-    "riot": "^2.3.18",
+    "riot-observable": "^2.5.0",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1"
   }

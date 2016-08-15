@@ -1,3 +1,4 @@
+import observable from "riot-observable"
 import { MIDIController } from "./midi-constants"
 
 const INTERVAL = 1 / 15 * 1000  // low fps
@@ -82,7 +83,7 @@ export default class Player {
     this._allEvents = []
     this._channelMutes = {}
 
-    riot.observable(this)
+    observable(this)
 
     navigator.requestMIDIAccess().then(midiAccess => {
       this._midiOutput = midiAccess.outputs.values().next().value

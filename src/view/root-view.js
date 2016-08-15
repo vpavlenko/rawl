@@ -13,6 +13,7 @@ import PropertyPane from "./property-pane"
 
 import React from "react"
 import ReactDOM from "react-dom"
+import observable from "riot-observable"
 
 import {
   getGMMapIndexes,
@@ -23,7 +24,7 @@ export default class RootView {
   constructor() {
     this.emitter = {}
     this.trackId = 0
-    riot.observable(this.emitter)
+    observable(this.emitter)
     setTimeout(() => {
       this.loadView()
     }, 0)

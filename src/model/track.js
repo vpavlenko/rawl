@@ -1,10 +1,11 @@
 import _ from "lodash"
+import observable from "riot-observable"
 
 export default class Track {
   constructor() {
     this.events = []
     this.lastEventId = 0
-    riot.observable(this)
+    observable(this)
   }
 
   setName(name) {

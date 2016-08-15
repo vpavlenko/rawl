@@ -31,7 +31,6 @@ module.exports = {
     "react/jsx-uses-vars": "error"
   },
   globals: {
-    createjs: false,
-    riot: false
+    createjs: false
   }
 }

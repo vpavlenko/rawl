@@ -43,7 +43,7 @@ export default class Track {
 
   removeEvent(id) {
     const obj = this.getEventById(id)
-    this.events.remove(obj)
+    _.pull(this.events, obj)
     this.emitChange()
   }
 

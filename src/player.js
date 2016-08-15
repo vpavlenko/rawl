@@ -3,6 +3,28 @@ import { MIDIController } from "./midi-constants"
 
 const INTERVAL = 1 / 15 * 1000  // low fps
 
+// helper
+
+Array.prototype.deleteArray = function(arr) {
+  for (var i = this.length - 1; i >= 0; i--) {
+    if (arr.indexOf(this[i]) >= 0) {
+      this.splice(i, 1)
+    }
+  }
+}
+
+Array.range = function(a, b) {
+  const arr = []
+  for (var i = a; i <= b; i++) {
+    arr.push(i)
+  }
+  return arr
+}
+
+Array.prototype.flatten = function() {
+  return Array.prototype.concat.apply([], this)
+}
+
 // timebase: 1/4拍子ごとのtick数
 function secToTick(sec, bpm, timebase) {
   return sec *  bpm / 60 * timebase

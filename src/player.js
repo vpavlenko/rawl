@@ -151,8 +151,8 @@ export default class Player {
     this._playing = false
 
     // all sound off
-      this._midiOutput.send([0xb0 + ch, MIDIController.ALL_SOUNDS_OFF, 0], window.performance.now())
     for (const ch of _.range(0, 0xf)) {
+      this._sendMessage([0xb0 + ch, MIDIController.ALL_SOUNDS_OFF, 0], window.performance.now())
     }
   }
 
@@ -160,10 +160,10 @@ export default class Player {
     const time = window.performance.now()
     for (const ch of _.range(0, 0xf)) {
       // reset controllers
-      this._midiOutput.send([firstByte("controller", ch), MIDIController.RESET_CONTROLLERS, 0x7f], time)
+      this._sendMessage([firstByte("controller", ch), MIDIController.RESET_CONTROLLERS, 0x7f], time)
 
       // reset pitch bend
-      this._midiOutput.send([firstByte("pitchBend", ch), 0x00, 0x40], time)
+      this._sendMessage([firstByte("pitchBend", ch), 0x00, 0x40], time)
     }
     this.stop()
     this.position = 0
@@ -182,14 +182,21 @@ export default class Player {
     return this._channelMutes[channel]
   }
 
+  _sendMessage(msg, timestamp) {
+    if (!this._midiOutput) {
+      return
+    }
+    this._midiOutput.send(msg, timestamp)
+  }
+
   /**
    preview note
    duration in milliseconds
    */
   playNote(n) {
     const timestamp = window.performance.now()
-    this._midiOutput.send([firstByte("noteOn", n.channel), n.noteNumber, n.velocity], timestamp)
-    this._midiOutput.send([firstByte("noteOff", n.channel), n.noteNumber, 0], timestamp + n.duration)
+    this._sendMessage([firstByte("noteOn", n.channel), n.noteNumber, n.velocity], timestamp)
+    this._sendMessage([firstByte("noteOff", n.channel), n.noteNumber, 0], timestamp + n.duration)
   }
 
   _onTimer() {
@@ -205,7 +212,7 @@ export default class Player {
           return
         }
         const waitTick = e.tick - this._currentTick
-        this._midiOutput.send(e.msg, timestamp + tickToMillisec(waitTick, this._currentTempo, this._timebase))
+        this._sendMessage(e.msg, timestamp + tickToMillisec(waitTick, this._currentTempo, this._timebase))
       } else {
         // MIDI 以外のイベントを実行
         switch (e.event.subtype) {

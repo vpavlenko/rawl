@@ -20,9 +20,9 @@ opts = {
 */
 function EventListItem(props) {
   return <tr>
-    <td>{ props.event.tick }</td>
-    <td>{ props.event.status }</td>
-    <td>{ props.event.value }</td>
+    <td>{ props.tick }</td>
+    <td>{ props.status }</td>
+    <td>{ props.value }</td>
   </tr>
 }
 
@@ -37,7 +37,11 @@ function EventListContent(props) {
       </tr>
       </thead>
       <tbody>
-        {props.events.map(e => <EventListItem key={e.id} event={e} />)}
+        {props.events.map(e => <EventListItem 
+          key={e.id} 
+          tick={e.tick}
+          status={e.status}
+          value={e.value} />)}
       </tbody>
     </table>
   </div>

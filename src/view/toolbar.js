@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import Config from "../config"
 import SharedService from "../shared-service"
+import Select from "./select"
 
 function ToolbarContent(props) {
   return <div className="toolbar">
@@ -32,12 +33,8 @@ function ToolbarContent(props) {
       <button onClick={props.onClickScaleDown}><img src="images/iconmonstr-magnifier-8-16.png" /></button>
       <button onClick={props.onClickAutoScroll}>Auto Scroll</button>
 
-      <select onChange={props.onSelectTrack}>
-        {props.trackOptions.map((o, i) => <option key={i} value={o.value}>{o.name}</option>)}
-      </select>
-      <select onChange={props.onSelectQuantize}>
-        {props.quantizeOptions.map((o, i) => <option key={i} value={o.value}>{o.name}</option>)}
-      </select>
+      <Select onChange={props.onSelectTrack} options={props.trackOptions} />
+      <Select onChange={props.onSelectQuantize} options={props.quantizeOptions} />
     </div>
   </div>
 }

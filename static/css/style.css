@@ -207,11 +207,6 @@ div#vertical {
   height: 100%;
 }
   
-.toolbar select {
-  height: 1.8em;
-  display: inline-block;
-}
-
 .toolbar .section {
   float: left;
   border-right: 1px solid var(--divider-color);
@@ -403,4 +398,37 @@ div#vertical {
 
 .property-pane button:hover {
   background: var(--secondary-background-color);
+}
+
+.select-container {
+  position: relative;
+  display: inline-block;
+  border: 1px solid var(--divider-color);
+  margin-right: 1em;
+}
+
+.select-container select {
+  background: var(--background-color);
+  color: var(--text-color);
+  -webkit-appearance: none;
+  border-radius: 0;
+  padding: 0 2.5em 0 1em;
+  border: none;
+  height: 1.8em;
+  display: inline-block;
+}
+
+.select-container option {
+  color: var(--text-color);
+}
+
+.select-container::after {
+  font-family: "Flat-UI-Icons";
+  font-weight: normal;
+  content: "\e603";
+  position: absolute;
+  top: 0.4em;
+  right: 0.5em;
+  display: inline-block;
+  pointer-events: none;
 }

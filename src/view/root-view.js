@@ -1,4 +1,3 @@
-import PianoRollController from "../controller/piano-roll-controller"
 import SharedService from "../shared-service"
 import Track from "../model/track"
 import PopupComponent from "../view/popup-component"
@@ -10,6 +9,7 @@ import Toolbar from "./toolbar"
 import EventList from "./event-list"
 import InstrumentBrowser from "./instrument-browser"
 import PropertyPane from "./property-pane"
+import PianoRoll from "./piano-roll"
 
 import React, { Component } from "react"
 import ReactDOM from "react-dom"
@@ -23,8 +23,35 @@ import {
 class RootComponent extends Component {
   constructor(props) {
     super(props)
+    
     this.state = {
-      selectedTrackId: 0
+      selectedTrackId: 0,
+      pianoRollMouseMode: 0,
+      pianoRollScaleX: 1,
+      pianoRollScaleY: 1,
+      pianoRollAutoScroll: true
+    }
+
+    {
+      const emitter = {}
+      observable(emitter)
+
+      emitter.on("select-notes", events => {
+        this.setState({ selectedEvents: events })
+      })
+
+      emitter.on("move-cursor", tick => {
+        const t = SharedService.quantizer.round(tick)
+        SharedService.player.seek(t)
+      })
+
+      emitter.on("change-tool", () => {
+        this.setState({
+          pianoRollMouseMode: this.state.pianoRollMouseMode == 0 ? 1 : 0 
+        })
+      })
+
+      this.pianoRollEmitter = emitter
     }
   }
 
@@ -32,30 +59,13 @@ class RootComponent extends Component {
     this.props.emitter.trigger(name, obj)
   }
 
-  get pianoRoll() {
-    return this.state.pianoRoll
-  }
-
   componentDidMount() {
-    const pianoRoll = new PianoRollController(this.pianoRollCanvas)
-
-    this.setState({ pianoRoll: pianoRoll })
-
-    pianoRoll.emitter.on("select-notes", events => {
-      this.setState({ selectedEvents: events })
-    })
-
-    pianoRoll.emitter.on("move-cursor", tick => {
-      const t = SharedService.quantizer.round(tick)
-      SharedService.player.seek(t)
-    })
-
     setTimeout(() => this.emit("did-mount", this), 0)
   }
 
   setSong(song) {
     this.setState({ song: song })
-    this.pianoRoll.track = song.getTrack(0)
+
     song.on("change", () => {
       this.setState({ song: song })
     })
@@ -65,8 +75,6 @@ class RootComponent extends Component {
     this.setState({
       selectedTrackId: trackId
     })
-
-    this.pianoRoll.track = this.state.song.getTrack(trackId)
   }
 
   onChangeFile(e) {
@@ -82,25 +90,23 @@ class RootComponent extends Component {
   }
 
   onClickPencil() {
-    this.pianoRoll.mouseMode = 0
+    this.setState({pianoRollMouseMode: 0})
   }
 
   onClickSelection() {
-    this.pianoRoll.mouseMode = 1
+    this.setState({pianoRollMouseMode: 1})
   }
 
   onClickScaleUp() {
-    this.pianoRoll.noteScale = {
-      x: this.pianoRoll.noteScale.x + 0.1,
-      y: this.pianoRoll.noteScale.y,
-    }
+    this.setState({
+      pianoRollScaleX: this.state.pianoRollScaleX + 0.1
+    })
   }
 
   onClickScaleDown() {
-    this.pianoRoll.noteScale = {
-      x: Math.max(0.05, this.pianoRoll.noteScale.x - 0.1),
-      y: this.pianoRoll.noteScale.y,
-    }
+    this.setState({
+      pianoRollScaleX: Math.max(0.05, this.state.pianoRollScaleX - 0.1),
+    })
   }
 
   onChangeTrack(e) {
@@ -134,7 +140,9 @@ class RootComponent extends Component {
   }
 
   onClickAutoScroll() {
-    this.pianoRoll.autoScroll = !this.pianoRoll.autoScroll
+    this.setState({
+      pianoRollAutoScroll: !this.state.pianoRollAutoScroll
+    })
   }
 
   get selectedTrack() {
@@ -263,9 +271,13 @@ class RootComponent extends Component {
           <EventList ref={c => this.eventList = c}
             track={this.selectedTrack} />
         </div>
-        <div id="piano-roll-container">
-          <canvas id="piano-roll" ref={c => this.pianoRollCanvas = c} onContextMenu={e => e.preventDefault()}></canvas>
-        </div>
+        <PianoRoll
+          emitter={this.pianoRollEmitter}
+          track={this.selectedTrack}
+          scaleX={this.state.pianoRollScaleX}
+          scaleY={this.state.pianoRollScaleY}
+          autoScroll={this.state.pianoRollAutoScroll}
+          mouseMode={this.state.pianoRollMouseMode} />
         <PropertyPane ref={c => this.propertyPane = c} 
           notes={this.state.selectedEvents || []}
           updateNotes={this.updateNotes.bind(this)}

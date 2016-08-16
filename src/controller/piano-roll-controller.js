@@ -33,9 +33,6 @@ function createNote(tick = 0, noteNumber = 48, duration = 240, velocity = 127, c
 
 export default class PianoRollController {
   constructor(canvas) {
-    this.emitter = {}
-    observable(this.emitter)
-
     this.showNotes = this.showNotes.bind(this)
     this.onScroll = this.onScroll.bind(this)
 
@@ -46,6 +43,9 @@ export default class PianoRollController {
   }
 
   set noteScale(scale) {
+    if (this._noteScale && this._noteScale.x == scale.x && this._noteScale.y == scale.y) {
+      return
+    }
     this._noteScale = scale
     this.transform = new NoteCoordTransform(PIXELS_PER_TICK * scale.x, KEY_HEIGHT * scale.y, MAX_NOTE_NUMBER)
   }
@@ -80,6 +80,9 @@ export default class PianoRollController {
   }
 
   set track(track) {
+    if (this._track === track) {
+      return
+    }
     if (this._track) {
       this._track.off("change", this.showNotes)
     }
@@ -95,6 +98,9 @@ export default class PianoRollController {
   }
 
   set mouseMode(mode) {
+    if (this._mouseMode == mode) {
+      return
+    }
     this._mouseMode = mode
     switch(mode) {
       case 0:
@@ -464,7 +470,7 @@ export default class PianoRollController {
     })
 
     handler.on("change-tool", () => {
-      this.mouseMode = this.mouseMode == 0 ? 1 : 0 
+      this.emitter.trigger("change-tool")
     })
 
     handler.on("move-cursor", x => {

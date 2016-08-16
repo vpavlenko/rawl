@@ -2,9 +2,13 @@ import React, { Component } from "react"
 import Config from "../config"
 import SharedService from "../shared-service"
 import Select from "./select"
+import _ from "lodash"
 
 function Button(props) {
-  return <button {...props} onMouseDown={e => e.preventDefault()} />
+  return <button 
+    {..._.omit(props, "selected")}
+    className={props.selected && "selected"} 
+    onMouseDown={e => e.preventDefault()} />
 }
 
 function ToolbarContent(props) {
@@ -29,13 +33,13 @@ function ToolbarContent(props) {
       </div>
 
       <div className="tool-section section">
-        <Button onClick={props.onClickPencil} disabled={props.mouseMode == 0}>✎</Button>
-        <Button onClick={props.onClickSelection} disabled={props.mouseMode == 1}>□</Button>
+        <Button onClick={props.onClickPencil} selected={props.mouseMode == 0}>✎</Button>
+        <Button onClick={props.onClickSelection} selected={props.mouseMode == 1}>□</Button>
       </div>
 
       <Button onClick={props.onClickScaleUp}><img src="images/iconmonstr-magnifier-7-16.png" /></Button>
       <Button onClick={props.onClickScaleDown}><img src="images/iconmonstr-magnifier-8-16.png" /></Button>
-      <Button onClick={props.onClickAutoScroll}>Auto Scroll</Button>
+      <Button onClick={props.onClickAutoScroll} selected={props.autoScroll}>Auto Scroll</Button>
 
       <Select onChange={props.onSelectTrack} options={props.trackOptions} />
       <Select onChange={props.onSelectQuantize} options={props.quantizeOptions} />

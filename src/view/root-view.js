@@ -237,6 +237,8 @@ class RootComponent extends Component {
     return <div id="vertical">
       <Toolbar ref={c => this.toolbar = c}
         song={this.state.song}
+        mouseMode={this.state.pianoRollMouseMode}
+        autoScroll={this.state.pianoRollAutoScroll}
         onChangeFile={this.onChangeFile.bind(this)}
         onClickSave={this.onClickSave.bind(this)}
         onClickPencil={this.onClickPencil.bind(this)}

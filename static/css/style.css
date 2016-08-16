@@ -182,6 +182,11 @@ div#vertical {
   border-bottom: 1px solid var(--divider-color);
 }
 
+.toolbar button:disabled {
+  background: rgba(0, 0, 0, 0.03);
+  border-bottom: 2px solid var(--theme-color);
+}
+
 .toolbar button:hover, .file:hover {
   opacity: 0.5;
 }

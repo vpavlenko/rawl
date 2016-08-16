@@ -3,12 +3,16 @@ import Config from "../config"
 import SharedService from "../shared-service"
 import Select from "./select"
 
+function Button(props) {
+  return <button {...props} onMouseDown={e => e.preventDefault()} />
+}
+
 function ToolbarContent(props) {
   return <div className="toolbar">
     <div className="container">
       <div className="file-section section">
         <label className="file"><span className="icon">&#xe63a;</span><input type="file" accept=".mid,.midi" onChange={props.onChangeFile}></input></label>
-        <button onClick={props.onClickSave}><span className="icon">&#xe63c;</span></button>
+        <Button onClick={props.onClickSave}><span className="icon">&#xe63c;</span></Button>
       </div>
 
       <div className="song-section section">
@@ -18,20 +22,20 @@ function ToolbarContent(props) {
 
       <div className="transport-section section">
         <p className="time">{props.mbtTime}</p>
-        <button onClick={props.onClickBackward}><span className="icon">&#xe606;</span></button>
-        <button onClick={props.onClickStop}><span className="icon">&#xe615;</span></button>
-        <button onClick={props.onClickPlay}><span className="icon">&#xe616;</span></button>
-        <button onClick={props.onClickForward}><span className="icon">&#xe607;</span></button>
+        <Button onClick={props.onClickBackward}><span className="icon">&#xe606;</span></Button>
+        <Button onClick={props.onClickStop}><span className="icon">&#xe615;</span></Button>
+        <Button onClick={props.onClickPlay}><span className="icon">&#xe616;</span></Button>
+        <Button onClick={props.onClickForward}><span className="icon">&#xe607;</span></Button>
       </div>
 
       <div className="tool-section section">
-        <button onClick={props.onClickPencil}>✎</button>
-        <button onClick={props.onClickSelection}>□</button>
+        <Button onClick={props.onClickPencil} disabled={props.mouseMode == 0}>✎</Button>
+        <Button onClick={props.onClickSelection} disabled={props.mouseMode == 1}>□</Button>
       </div>
 
-      <button onClick={props.onClickScaleUp}><img src="images/iconmonstr-magnifier-7-16.png" /></button>
-      <button onClick={props.onClickScaleDown}><img src="images/iconmonstr-magnifier-8-16.png" /></button>
-      <button onClick={props.onClickAutoScroll}>Auto Scroll</button>
+      <Button onClick={props.onClickScaleUp}><img src="images/iconmonstr-magnifier-7-16.png" /></Button>
+      <Button onClick={props.onClickScaleDown}><img src="images/iconmonstr-magnifier-8-16.png" /></Button>
+      <Button onClick={props.onClickAutoScroll}>Auto Scroll</Button>
 
       <Select onChange={props.onSelectTrack} options={props.trackOptions} />
       <Select onChange={props.onSelectQuantize} options={props.quantizeOptions} />

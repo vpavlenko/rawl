@@ -9,19 +9,15 @@ export default class Track {
   }
 
   setName(name) {
-    const e = this.findTrackNameEvents()[0]
+    const e = this.findTrackNameEvent()
     this.updateEvent(e.id, {
       value: name
     })
   }
 
   getName() {
-    const e = this.findTrackNameEvents()[0]
+    const e = this.findTrackNameEvent()
     return e && e.text || ""
-  }
-
-  getEndOfTrack() {
-    return this.endOfTrack
   }
 
   getEvents() {
@@ -43,6 +39,8 @@ export default class Track {
       return
     }
     _.extend(anObj, obj)
+    this.updateEndOfTrack()
+    this.sortByTick()
     this.emitChange()
     return anObj
   }
@@ -50,6 +48,7 @@ export default class Track {
   removeEvent(id) {
     const obj = this.getEventById(id)
     _.pull(this.events, obj)
+    this.updateEndOfTrack()
     this.emitChange()
   }
 
@@ -63,9 +62,25 @@ export default class Track {
       e.channel = this.channel
     }
     this.events.push(e)
+    this.updateEndOfTrack()
+    this.sortByTick()
     this.lastEventId++
     this.emitChange()
     return e
+  }
+
+  sortByTick() {
+    this.events.sort((a, b) => a.tick - b.tick)
+  }
+
+  updateEndOfTrack() {
+    const eot = this.findEndOfTrackEvent()
+    if (eot) {
+      eot.tick = _.chain(this.events)
+        .map(e => e.tick + (e.duration || 0))
+        .max()
+        .value()
+    }
   }
 
   transaction(func) {
@@ -87,12 +102,16 @@ export default class Track {
 
   /* helper */
 
-  findTrackNameEvents() {
-    return this.events.filter(t => t.subtype == "trackName")
+  findTrackNameEvent() {
+    return _.head(this.events.filter(t => t.subtype == "trackName"))
   }
 
   findProgramChangeEvents() {
     return this.events.filter(t => t.subtype == "programChange")
+  }
+
+  findEndOfTrackEvent() {
+    return _.head(this.events.filter(t => t.subtype == "endOfTrack"))
   }
 
   findVolumeEvents() {

@@ -1,5 +1,4 @@
 import _ from "lodash"
-import observable from "riot-observable"
 import SharedService from "../shared-service"
 import PianoKeysView from "../view/piano-keys-view"
 import NoteContainer from "../view/note-container"

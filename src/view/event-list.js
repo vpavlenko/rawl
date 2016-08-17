@@ -1,52 +1,58 @@
 import React, { Component } from "react"
+import { Table, Column, Cell } from "fixed-data-table"
 import _ from "lodash"
 import { controllerTypeString } from "../note-number-string"
-import pureRender from "../hocs/pure-render"
+import Dimensions from "react-dimensions"
 
-/*
-opts = {
-  events: [
-    {
-      measure: <Number>
-      tick: <Number>
-      step: <Number>
-      status: <String>
-      channel: <Number>
-      number: <String>
-      value: <Number>
-    },
-    ...
-  ]
-}
-*/
-function EventListItem(props) {
-  return <tr>
-    <td>{ props.tick }</td>
-    <td>{ props.status }</td>
-    <td>{ props.value }</td>
-  </tr>
-}
-
-const PureEventListItem = pureRender(EventListItem)
+const AutoSizingTable = Dimensions()(
+  class extends Component {
+    render() {
+      const p = _.omit(this.props, ["containerWidth", "containerHeight"])
+      return <Table
+        {...p}
+        width={this.props.containerWidth}
+        height={this.props.containerHeight} />
+    }
+  })
 
 function EventListContent(props) {
+  const events = props.events
   return <div className="event-list">
-    <table>
-      <thead>
-      <tr>
-        <th>Tick</th>
-        <th>Status</th>
-        <th>Value</th>
-      </tr>
-      </thead>
-      <tbody>
-        {props.events.map(e => <PureEventListItem 
-          key={e.id} 
-          tick={e.tick}
-          status={e.status}
-          value={e.value} />)}
-      </tbody>
-    </table>
+    <AutoSizingTable
+      rowHeight={24}
+      rowsCount={events.length}
+      headerHeight={24}>
+      <Column
+        header={<Cell>Tick</Cell>}
+        cell={({rowIndex, ...props}) => (
+          <Cell {...props}>
+            {events[rowIndex].id}
+          </Cell>
+        )}
+        fixed={true}
+        width={40}
+      />
+      <Column
+        header={<Cell>Status</Cell>}
+        cell={({rowIndex, ...props}) => (
+          <Cell {...props}>
+            {events[rowIndex].status}
+          </Cell>
+        )}
+        flexGrow={2}
+        width={40}
+      />
+      <Column
+        header={<Cell>Value</Cell>}
+        cell={({rowIndex, ...props}) => (
+          <Cell {...props}>
+            {events[rowIndex].value}
+          </Cell>
+        )}
+        flexGrow={1}
+        width={40}
+      />
+    </AutoSizingTable>
   </div>
 }
 

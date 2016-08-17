@@ -26,7 +26,7 @@ function EventListContent(props) {
         header={<Cell>Tick</Cell>}
         cell={({rowIndex, ...props}) => (
           <Cell {...props}>
-            {events[rowIndex].id}
+            {events[rowIndex].tick}
           </Cell>
         )}
         fixed={true}

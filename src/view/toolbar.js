@@ -42,7 +42,7 @@ function ToolbarContent(props) {
       <Button onClick={props.onClickAutoScroll} selected={props.autoScroll}>Auto Scroll</Button>
 
       <Select onChange={props.onSelectTrack} options={props.trackOptions} />
-      <Select onChange={props.onSelectQuantize} options={props.quantizeOptions} />
+      <Select onChange={props.onSelectQuantize} options={props.quantizeOptions} value={props.quantize} />
     </div>
   </div>
 }

@@ -29,7 +29,8 @@ class RootComponent extends Component {
       pianoRollMouseMode: 0,
       pianoRollScaleX: 1,
       pianoRollScaleY: 1,
-      pianoRollAutoScroll: true
+      pianoRollAutoScroll: true,
+      quantize: SharedService.quantizer.denominator
     }
 
     {
@@ -114,7 +115,11 @@ class RootComponent extends Component {
   }
 
   onSelectQuantize(e) {
-    SharedService.quantizer.denominator = e.target.value
+    const val = e.target.value
+    SharedService.quantizer.denominator = val
+    this.setState({
+      quantize: val
+    })
   }
 
   onClickPlay() {
@@ -239,6 +244,7 @@ class RootComponent extends Component {
         song={this.state.song}
         mouseMode={this.state.pianoRollMouseMode}
         autoScroll={this.state.pianoRollAutoScroll}
+        quantize={this.state.quantize}
         onChangeFile={this.onChangeFile.bind(this)}
         onClickSave={this.onClickSave.bind(this)}
         onClickPencil={this.onClickPencil.bind(this)}

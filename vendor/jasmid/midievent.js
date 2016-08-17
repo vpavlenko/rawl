@@ -19,6 +19,12 @@ class EndOfTrackMidiEvent extends MetaMidiEvent {
   }
 }
 
+class PortPrefixMidiEvent extends MetaMidiEvent {
+  constructor(deltaTime, value) {
+    super(deltaTime, "portPrefix", value)
+  }
+}
+
 class TextMetaMidiEvent extends MetaMidiEvent {
   static fromStream(deltaTime, subtype, stream, length) {
     return new TextMetaMidiEvent(deltaTime, subtype, stream.read(length)) 
@@ -93,6 +99,6 @@ export {
   MidiEvent, MetaMidiEvent, EndOfTrackMidiEvent, 
   TextMetaMidiEvent, ByteMetaMidiEvent,
   Int16MetaMidiEvent, Int8MetaMidiEvent,
-  TrackNameMidiEvent,
+  TrackNameMidiEvent, PortPrefixMidiEvent,
   SetTempoMidiEvent, TimeSignatureMidiEvent
 }

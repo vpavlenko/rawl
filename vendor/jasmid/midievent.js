@@ -95,10 +95,62 @@ class TimeSignatureMidiEvent extends MetaMidiEvent {
   }
 }
 
+// channel events
+
+class ChannelMidiEvent extends MidiEvent {
+  constructor(deltaTime, subtype, value) {
+    super(deltaTime, "channel")
+    this.subtype = subtype
+    this.value = value
+  }
+}
+
+class PitchBendMidiEvent extends ChannelMidiEvent {
+  constructor(deltaTime, value) {
+    super(deltaTime, "pitchBend", value)
+  }
+}
+
+// controller events
+
+class ControllerMidiEvent extends ChannelMidiEvent {
+  constructor(deltaTime, controllerType, value) {
+    super(deltaTime, "controller", value)
+    this.controllerType = controllerType
+  }
+}
+
+class ModulationMidiEvent extends ControllerMidiEvent {
+  constructor(deltaTime, value) {
+    super(deltaTime, 0x01, value)
+  }
+}
+
+class VolumeMidiEvent extends ControllerMidiEvent {
+  constructor(deltaTime, value) {
+    super(deltaTime, 0x07, value)
+  }
+}
+
+class PanMidiEvent extends ControllerMidiEvent {
+  constructor(deltaTime, value) {
+    super(deltaTime, 0x0a, value)
+  }
+}
+
+class ExpressionMidiEvent extends ControllerMidiEvent {
+  constructor(deltaTime, value) {
+    super(deltaTime, 0x0b, value)
+  }
+}
+
 export { 
   MidiEvent, MetaMidiEvent, EndOfTrackMidiEvent, 
   TextMetaMidiEvent, ByteMetaMidiEvent,
   Int16MetaMidiEvent, Int8MetaMidiEvent,
   TrackNameMidiEvent, PortPrefixMidiEvent,
-  SetTempoMidiEvent, TimeSignatureMidiEvent
+  SetTempoMidiEvent, TimeSignatureMidiEvent,
+  PitchBendMidiEvent, VolumeMidiEvent,
+  PanMidiEvent, ExpressionMidiEvent,
+  ModulationMidiEvent
 }

@@ -1,5 +1,11 @@
 import _ from "lodash"
 import observable from "riot-observable"
+import { 
+  TrackNameMidiEvent, EndOfTrackMidiEvent,
+  TimeSignatureMidiEvent, SetTempoMidiEvent,
+  PitchBendMidiEvent, VolumeMidiEvent,
+  PanMidiEvent, ExpressionMidiEvent,
+  ModulationMidiEvent } from "../../vendor/jasmid/midievent"
 
 export default class Track {
   constructor() {
@@ -120,5 +126,33 @@ export default class Track {
 
   findPanEvents() {
     return this.events.filter(t => t.subtype == "controller" && t.controllerType == 10)
+  }
+
+  static conductorTrack(name = "Conductor Track") {
+    const track = new Track()
+    const events = [
+      new TrackNameMidiEvent(0, name),
+      new TimeSignatureMidiEvent(0, 4, 4, 24),
+      new SetTempoMidiEvent(0, 120),
+      new EndOfTrackMidiEvent(0)
+    ]
+    events.forEach(e => track.addEvent(e))
+    return track
+  }
+
+  static emptyTrack(channel) {
+    const track = new Track()
+    track.channel = channel
+    const events = [
+      new TrackNameMidiEvent(0, ""),
+      new PanMidiEvent(0, 64), 
+      new VolumeMidiEvent(0, 100),
+      new ExpressionMidiEvent(0, 127),
+      new PitchBendMidiEvent(0, 0x2000),
+      new ModulationMidiEvent(0, 0),
+      new EndOfTrackMidiEvent(0)
+    ]
+    events.forEach(e => track.addEvent(e))
+    return track
   }
 }

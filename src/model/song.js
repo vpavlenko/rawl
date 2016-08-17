@@ -1,9 +1,6 @@
 import _ from "lodash"
 import MeasureList from "./measure-list"
 import Track from "./track"
-import { 
-  TrackNameMidiEvent, EndOfTrackMidiEvent,
-  TimeSignatureMidiEvent, SetTempoMidiEvent } from "../../vendor/jasmid/midievent"
 import observable from "riot-observable"
 
 export default class Song {
@@ -40,24 +37,8 @@ export default class Song {
 
   static emptySong() {
     const song = new Song()
-    
-    // conductor track
-    {
-      const track = new Track()
-      track.addEvent(new TrackNameMidiEvent(0, "Conductor Track"))
-      track.addEvent(new TimeSignatureMidiEvent(0, 4, 4, 24))
-      track.addEvent(new SetTempoMidiEvent(0, 120))
-      track.addEvent(new EndOfTrackMidiEvent(0))
-      song.addTrack(track)
-    }
-
-    {
-      const track = new Track()
-      track.addEvent(new TrackNameMidiEvent(0, ""))
-      track.addEvent(new EndOfTrackMidiEvent(1200))
-      song.addTrack(track)
-    }
-
+    song.addTrack(Track.conductorTrack())
+    song.addTrack(Track.emptyTrack(0))
     song.name = "new song.mid"
     return song
   }

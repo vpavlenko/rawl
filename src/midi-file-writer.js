@@ -6,17 +6,9 @@ import {
 //https://sites.google.com/site/yyagisite/material/smfspec#format
 
 function varIntBytes(v) {
-  const r = []
-  let x = v
-  for (;;) {
-    const s = x & 0x7f
-    x >>= 7
-    if (x == 0) {
-      r.push(s)
-      break
-    } else {
-      r.push(s + (1 << 7))
-    }
+  const r = [v & 0x7f]
+  while ((v >>= 7) > 0) {
+    r.unshift(0x80 + (v & 0x7f))
   }
   return r
 }
@@ -68,6 +60,10 @@ function addDeltaTime(events) {
   return events
 }
 
+function toHex(d) {
+  return ("0"+(Number(d).toString(16))).slice(-2).toUpperCase()
+}
+
 function eventToBytes(e) {
   const bytes = []
   function add(data) {
@@ -95,6 +91,7 @@ function eventToBytes(e) {
           add(strToCharCodes(e.value))
           break
         case "midiChannelPrefix":
+        case "portPrefix":
           add(1)
           add(e.value)
           break
@@ -136,7 +133,7 @@ function eventToBytes(e) {
       add(e.data)
       break
     case "channel":
-      add(MIDIChannelEventType[e.subtype] << 4 + e.channel) // subtype + channel
+      add((MIDIChannelEventType[e.subtype] << 4) + e.channel) // subtype + channel
       switch(e.subtype) {
         case "noteOff":
         case "noteOn":

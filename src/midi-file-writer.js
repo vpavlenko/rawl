@@ -60,10 +60,6 @@ function addDeltaTime(events) {
   return events
 }
 
-function toHex(d) {
-  return ("0"+(Number(d).toString(16))).slice(-2).toUpperCase()
-}
-
 function eventToBytes(e) {
   const bytes = []
   function add(data) {

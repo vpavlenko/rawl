@@ -30,7 +30,9 @@ class RootComponent extends Component {
       pianoRollScaleX: 1,
       pianoRollScaleY: 1,
       pianoRollAutoScroll: true,
-      quantize: SharedService.quantizer.denominator
+      quantize: SharedService.quantizer.denominator,
+      showLeftPane: true,
+      showRightPane: true
     }
 
     {
@@ -231,6 +233,18 @@ class RootComponent extends Component {
     })
   }
 
+  onClickShowLeftPane() {
+    this.setState({
+      showLeftPane: !this.state.showLeftPane
+    })
+  }
+
+  onClickShowRightPane() {
+    this.setState({
+      showRightPane: !this.state.showRightPane
+    })
+  }
+
   updateNotes(changes) {
     this.selectedTrack.transaction(it => {
       changes.forEach(c => it.updateEvent(c.id, c))
@@ -241,10 +255,12 @@ class RootComponent extends Component {
     return <div id="vertical">
       <Toolbar ref={c => this.toolbar = c}
         song={this.state.song}
+        quantize={this.state.quantize}
         mouseMode={this.state.pianoRollMouseMode}
         autoScroll={this.state.pianoRollAutoScroll}
-        quantize={this.state.quantize}
         selectedTrackId={this.state.selectedTrackId}
+        showLeftPane={this.state.showLeftPane}
+        showRightPane={this.state.showRightPane}
         onChangeFile={this.onChangeFile.bind(this)}
         onClickSave={this.onClickSave.bind(this)}
         onClickPencil={this.onClickPencil.bind(this)}
@@ -258,16 +274,20 @@ class RootComponent extends Component {
         onClickBackward={this.onClickBackward.bind(this)}
         onClickForward={this.onClickForward.bind(this)}
         onClickAutoScroll={this.onClickAutoScroll.bind(this)}
+        onClickShowLeftPane={this.onClickShowLeftPane.bind(this)}
+        onClickShowRightPane={this.onClickShowRightPane.bind(this)}
       />
       <div id="container">
-        <TrackList ref={c => this.trackList = c}
-          tracks={this.state.song && this.state.song.getTracks() || []}
-          selectedTrackId={this.state.selectedTrackId}
-          onSelectTrack={this.onSelectTrack.bind(this)}
-          onClickAddTrack={this.onClickAddTrack.bind(this)}
-          onClickMute={this.onClickMute.bind(this)}
-          onClickSolo={this.onClickSolo.bind(this)}
-        />
+        {this.state.showLeftPane && 
+          <TrackList ref={c => this.trackList = c}
+            tracks={this.state.song && this.state.song.getTracks() || []}
+            selectedTrackId={this.state.selectedTrackId}
+            onSelectTrack={this.onSelectTrack.bind(this)}
+            onClickAddTrack={this.onClickAddTrack.bind(this)}
+            onClickMute={this.onClickMute.bind(this)}
+            onClickSolo={this.onClickSolo.bind(this)}
+          />
+        }
         <div id="side">
           <TrackInfo ref={c => this.trackInfo = c}
             track={this.selectedTrack}
@@ -286,10 +306,12 @@ class RootComponent extends Component {
           scaleY={this.state.pianoRollScaleY}
           autoScroll={this.state.pianoRollAutoScroll}
           mouseMode={this.state.pianoRollMouseMode} />
-        <PropertyPane ref={c => this.propertyPane = c} 
-          notes={this.state.selectedEvents || []}
-          updateNotes={this.updateNotes.bind(this)}
-        />
+        {this.state.showRightPane && 
+          <PropertyPane ref={c => this.propertyPane = c} 
+            notes={this.state.selectedEvents || []}
+            updateNotes={this.updateNotes.bind(this)}
+          />
+        }
       </div>
     </div>
   }

@@ -36,6 +36,9 @@ function ToolbarContent(props) {
 
       <Select onChange={props.onSelectTrack} options={props.trackOptions} value={props.selectedTrackId} />
       <Select onChange={props.onSelectQuantize} options={props.quantizeOptions} value={props.quantize} />
+
+      <Button onClick={props.onClickShowLeftPane} selected={props.showLeftPane}>←</Button>
+      <Button onClick={props.onClickShowRightPane} selected={props.showRightPane}>→</Button>
     </div>
   </div>
 }

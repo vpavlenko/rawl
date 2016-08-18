@@ -2,14 +2,7 @@ import React, { Component } from "react"
 import Config from "../config"
 import SharedService from "../shared-service"
 import Select from "./select"
-import _ from "lodash"
-
-function Button(props) {
-  return <button 
-    {..._.omit(props, "selected")}
-    className={props.selected && "selected"} 
-    onMouseDown={e => e.preventDefault()} />
-}
+import Button from "./button"
 
 function ToolbarContent(props) {
   return <div className="toolbar">

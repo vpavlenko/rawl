@@ -110,15 +110,14 @@ class RootComponent extends Component {
     })
   }
 
-  onChangeTrack(e) {
-    this.changeTrack(e.target.value)
+  onChangeTrack(value) {
+    this.changeTrack(value)
   }
 
-  onSelectQuantize(e) {
-    const val = e.target.value
-    SharedService.quantizer.denominator = val
+  onSelectQuantize(value) {
+    SharedService.quantizer.denominator = value
     this.setState({
-      quantize: val
+      quantize: value
     })
   }
 
@@ -245,6 +244,7 @@ class RootComponent extends Component {
         mouseMode={this.state.pianoRollMouseMode}
         autoScroll={this.state.pianoRollAutoScroll}
         quantize={this.state.quantize}
+        selectedTrackId={this.state.selectedTrackId}
         onChangeFile={this.onChangeFile.bind(this)}
         onClickSave={this.onClickSave.bind(this)}
         onClickPencil={this.onClickPencil.bind(this)}

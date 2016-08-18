@@ -41,7 +41,7 @@ function ToolbarContent(props) {
       <Button onClick={props.onClickScaleDown}><img src="images/iconmonstr-magnifier-8-16.png" /></Button>
       <Button onClick={props.onClickAutoScroll} selected={props.autoScroll}>Auto Scroll</Button>
 
-      <Select onChange={props.onSelectTrack} options={props.trackOptions} />
+      <Select onChange={props.onSelectTrack} options={props.trackOptions} value={props.selectedTrackId} />
       <Select onChange={props.onSelectQuantize} options={props.quantizeOptions} value={props.quantize} />
     </div>
   </div>
@@ -71,9 +71,8 @@ export default class Toolbar extends Component {
   render() {
     const song = this.props.song
     const trackOptions = song ? song.getTracks().map((t, i) => { return {
-      name: `${i}. ${t.name || ""}`,
-      value: i,
-      selected: i == 0
+      name: `${i}. ${t.getName() || ""}`,
+      value: i
     }}) : []
 
     const player = SharedService.player

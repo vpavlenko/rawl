@@ -15,7 +15,7 @@ describe("MidiFileWriter", () => {
   const tracks = []
   {
     const track = new Track
-  //  track0.addEvent(new SetTempoMidiEvent(0, 200))
+    track.addEvent(new SetTempoMidiEvent(0, 60000000 / 120))
     track.addEvent(new TrackNameMidiEvent(0, ""))
     track.addEvent(new TimeSignatureMidiEvent(0, 4, 4, 24, 8))
     track.addEvent(new EndOfTrackMidiEvent(0))

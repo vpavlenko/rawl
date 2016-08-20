@@ -59,9 +59,10 @@ class Int8MetaMidiEvent extends MetaMidiEvent {
   }
 }
 
+// from bpm: new SetTempoMidiEvent(t, 60000000 / bpm)
 class SetTempoMidiEvent extends MetaMidiEvent {
-  constructor(deltaTime, value) {
-    super(deltaTime, "setTempo", value)
+  constructor(deltaTime, microsecondsPerBeat) {
+    super(deltaTime, "setTempo", microsecondsPerBeat)
   }
 
   get microsecondsPerBeat() {

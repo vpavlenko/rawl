@@ -95,9 +95,9 @@ function eventToBytes(e) {
           break
         case "setTempo":
           add(3) // data length
-          add((e.value >> 16) & 0x7f)
-          add((e.value >> 8) & 0x7f)
-          add(e.value & 0x7f)
+          add((e.value >> 16) & 0xff)
+          add((e.value >> 8) & 0xff)
+          add(e.value & 0xff)
           break
         case "timeSignature":
           add(4)

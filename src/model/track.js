@@ -5,7 +5,7 @@ import {
   TimeSignatureMidiEvent, SetTempoMidiEvent,
   PitchBendMidiEvent, VolumeMidiEvent,
   PanMidiEvent, ExpressionMidiEvent,
-  ModulationMidiEvent } from "../../vendor/jasmid/midievent"
+  ModulationMidiEvent, ProgramChangeMidiEvent } from "../../vendor/jasmid/midievent"
 
 export default class Track {
   constructor() {
@@ -133,7 +133,7 @@ export default class Track {
     const events = [
       new TrackNameMidiEvent(0, name),
       new TimeSignatureMidiEvent(0, 4, 4, 24),
-      new SetTempoMidiEvent(0, 120),
+      new SetTempoMidiEvent(0, 60000 / 120),
       new EndOfTrackMidiEvent(0)
     ]
     events.forEach(e => track.addEvent(e))
@@ -150,6 +150,7 @@ export default class Track {
       new ExpressionMidiEvent(0, 127),
       new PitchBendMidiEvent(0, 0x2000),
       new ModulationMidiEvent(0, 0),
+      new ProgramChangeMidiEvent(0, 0),
       new EndOfTrackMidiEvent(0)
     ]
     events.forEach(e => track.addEvent(e))

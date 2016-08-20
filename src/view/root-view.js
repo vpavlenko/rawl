@@ -217,7 +217,7 @@ class RootComponent extends Component {
   }
 
   onClickAddTrack() {
-    this.state.song.addTrack(new Track)
+    this.state.song.addTrack(Track.emptyTrack())
   }
 
   onClickMute(trackId) {

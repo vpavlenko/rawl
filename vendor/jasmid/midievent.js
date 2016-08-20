@@ -112,6 +112,12 @@ class PitchBendMidiEvent extends ChannelMidiEvent {
   }
 }
 
+class ProgramChangeMidiEvent extends ChannelMidiEvent {
+  constructor(deltaTime, value) {
+    super(deltaTime, "programChange", value)
+  }
+}
+
 // controller events
 
 class ControllerMidiEvent extends ChannelMidiEvent {
@@ -153,5 +159,5 @@ export {
   SetTempoMidiEvent, TimeSignatureMidiEvent,
   PitchBendMidiEvent, VolumeMidiEvent,
   PanMidiEvent, ExpressionMidiEvent,
-  ModulationMidiEvent
+  ModulationMidiEvent, ProgramChangeMidiEvent
 }

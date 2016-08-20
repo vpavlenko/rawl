@@ -2,6 +2,7 @@ import _ from "lodash"
 import MeasureList from "./measure-list"
 import Track from "./track"
 import observable from "riot-observable"
+import Perf from "react-addons-perf"
 
 export default class Song {
   constructor() {
@@ -10,12 +11,19 @@ export default class Song {
     observable(this)
   }
 
+  emitChange() {
+    Perf.start()
+    this.trigger("change")
+    Perf.stop()
+    Perf.printWasted()
+  }
+
   addTrack(t) {
     t.channel = t.channel || this.tracks.length
-    t.on("change", () => this.trigger("change"))
+    t.on("change", () => this.emitChange())
     this.tracks.push(t)
     this.trigger("add-track", t)
-    this.trigger("change")
+    this.emitChange()
   }
 
   getTracks() {

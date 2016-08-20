@@ -18,7 +18,11 @@ export default class Theme {
   }
 
   static get themeColor() {
-    return getCSSVariable("--theme-color") 
+    return getCSSVariable("--theme-color")
+  }
+
+  static get noteColor() {
+    return getCSSVariable("--note-color") 
   }
 
   static get backgroundColor() {

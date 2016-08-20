@@ -2,13 +2,13 @@ import Theme, { hslWithAlpha } from "../Theme"
 
 function drawNoteView(g, note, bounds) {
   const alpha = note.velocity / 127
-  const color = note.selected ? Theme.textColor : hslWithAlpha(Theme.themeColor, alpha)
+  const color = note.selected ? Theme.textColor : hslWithAlpha(Theme.noteColor, alpha)
   g.clear()
     .beginFill(color)
     .beginStroke(Theme.textColor)
-    .rect(0, 0, bounds.width, bounds.height)
+    .drawRoundRect(0, 0, bounds.width - 1, bounds.height - 1, 1)
     .endFill()
-    .beginStroke("rgba(255, 255, 255, 0.2)") // highlight
+    .beginStroke("rgba(255, 255, 255, 0.3)") // highlight
     .moveTo(1, 1)
     .lineTo(bounds.width, 1)
 }

@@ -1,51 +1,54 @@
 import React, { Component } from "react"
 import { noteNumberString } from "../note-number-string"
+import { Section } from "./form"
 
 function PropertyPaneContent(props) {
   const s = props.sections
   return <div className="property-pane">
-    <ul>
-      <li>
-        <label>Pitch</label>
-        <input type="text" value={ s.pitch.value } onChange={ s.pitch.onChange } />
-        <div>
-          <button onClick={ () => s.pitch.onAdd(1) }>+1</button>
-          <button onClick={ () => s.pitch.onAdd(-1) }>-1</button>
-          <button onClick={ () => s.pitch.onAdd(12) }>Oct +1</button>
-          <button onClick={ () => s.pitch.onAdd(-12) }>Oct -1</button>
-        </div>
-      </li>
+    <Section title="Note Properties">
+      <ul>
+        <li>
+          <label>Pitch</label>
+          <input type="text" value={ s.pitch.value } onChange={ s.pitch.onChange } />
+          <div>
+            <button onClick={ () => s.pitch.onAdd(1) }>+1</button>
+            <button onClick={ () => s.pitch.onAdd(-1) }>-1</button>
+            <button onClick={ () => s.pitch.onAdd(12) }>Oct +1</button>
+            <button onClick={ () => s.pitch.onAdd(-12) }>Oct -1</button>
+          </div>
+        </li>
 
-      <li>
-        <label>Start</label>
-        <input type="text" value={ s.start.value } onChange={ s.start.onChange } />
-        <button onClick={ s.start.onRandom }>R</button>
-      </li>
+        <li>
+          <label>Start</label>
+          <input type="text" value={ s.start.value } onChange={ s.start.onChange } />
+          <button onClick={ s.start.onRandom }>R</button>
+        </li>
 
-      <li>
-        <label>Duration</label>
-        <input type="text" value={ s.duration.value } onChange={ s.duration.onChange } />
-        <button onClick={ s.duration.onRandom }>R</button>
-      </li>
+        <li>
+          <label>Duration</label>
+          <input type="text" value={ s.duration.value } onChange={ s.duration.onChange } />
+          <button onClick={ s.duration.onRandom }>R</button>
+        </li>
 
-      <li>
-        <label>Velocity</label>
-        <input type="text" value={ s.velocity.value } onChange={ s.velocity.onChange } />
-        <button onClick={ s.velocity.onRandom }>R</button>
-      </li>
+        <li>
+          <label>Velocity</label>
+          <input type="text" value={ s.velocity.value } onChange={ s.velocity.onChange } />
+          <button onClick={ s.velocity.onRandom }>R</button>
+        </li>
 
-      <li>
-        <label>Align</label>
-        <button onClick={ s.align.onClickLeft }>Left</button>
-        <button onClick={ s.align.onClickRight }>Right</button>
-        <button onClick={ s.align.onClickTop }>Top</button>
-        <button onClick={ s.align.onClickBottom }>Bottom</button>
-      </li>
+        <li>
+          <label>Align</label>
+          <button onClick={ s.align.onClickLeft }>Left</button>
+          <button onClick={ s.align.onClickRight }>Right</button>
+          <button onClick={ s.align.onClickTop }>Top</button>
+          <button onClick={ s.align.onClickBottom }>Bottom</button>
+        </li>
 
-      <li>
-        <button onClick={ s.quantize.onClick }>Quantize</button>
-      </li>
-    </ul>
+        <li>
+          <button onClick={ s.quantize.onClick }>Quantize</button>
+        </li>
+      </ul>
+    </Section>
   </div>
 }
 

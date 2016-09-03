@@ -1,6 +1,6 @@
 import _ from "lodash"
 import observable from "riot-observable"
-import { MIDIController } from "./midi-constants"
+import { MIDIController, MIDIChannelEventType } from "./midi-constants"
 import { deassembleNoteEvents, eventToBytes } from "./midi-helper"
 
 const INTERVAL = 1 / 15 * 1000  // low fps
@@ -14,18 +14,8 @@ function tickToMillisec(tick, bpm, timebase) {
   return tick / (timebase / 60) / bpm * 1000
 }
 
-const EVENT_CODES = {
-  "noteOff": 0x8,
-  "noteOn": 0x9,
-  "noteAftertouch": 0xa,
-  "controller": 0xb,
-  "programChange": 0xc,
-  "channelAftertouch": 0xd,
-  "pitchBend": 0xe
-}
-
 function firstByte(eventType, channel) {
-  return (EVENT_CODES[eventType] << 4) + channel
+  return (MIDIChannelEventType[eventType] << 4) + channel
 }
 
 function getEventsToPlay(song, startTick, endTick) {

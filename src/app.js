@@ -57,6 +57,7 @@ export default class App {
   setSong(song) {
     this.song = song
     this.view.setSong(song)
+    SharedService.player.prepare(song)
   }
 
   openSong(file) {

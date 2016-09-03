@@ -1,6 +1,7 @@
 import _ from "lodash"
 import observable from "riot-observable"
 import { MIDIController } from "./midi-constants"
+import { deassembleNoteEvents, eventToBytes } from "./midi-helper"
 
 const INTERVAL = 1 / 15 * 1000  // low fps
 
@@ -27,52 +28,14 @@ function firstByte(eventType, channel) {
   return (EVENT_CODES[eventType] << 4) + channel
 }
 
-function eventToMidiMessages(e) {
-  function eventType(e) {
-    return firstByte(e.subtype, e.channel)
-  }
-  function createMessage(e, data) {
-    return [{
-      event: e,
-      tick: e.tick,
-      msg: [eventType(e)].concat(data)
-    }]
-  }
-  switch (e.type) {
-    case "meta":
-      break
-    case "channel":
-      switch (e.subtype) {
-        case "note":
-          return [
-            {
-              event: e,
-              msg: [firstByte("noteOn", e.channel), e.noteNumber, e.velocity],
-              tick: e.tick
-            },
-            {
-              event: e,
-              msg: [firstByte("noteOff", e.channel), e.noteNumber, 0x40],
-              tick: e.tick + e.duration - 1 // prevent overlapping next note on
-            }
-          ]
-        case "noteAftertouch":
-          return createMessage(e, [e.noteNumber, e.amount])
-        case "controller":
-          return createMessage(e, [e.controllerType, e.value])
-        case "programChange":
-          return createMessage(e, [e.value])
-        case "channelAftertouch":
-          return createMessage(e, [e.amount])
-        case "pitchBend":
-          return createMessage(e, [e.value & 0x7f, e.value >> 7])
-      }
-      break
-  }
-  return [{
-    event: e,
-    tick: e.tick
-  }]
+function getEventsToPlay(song, startTick, endTick) {
+  return _.chain(song.getTracks())
+    .map(t => t.getEvents())
+    .flatten()
+    .map(deassembleNoteEvents)
+    .flatten()
+    .filter(e => e && e.tick >= startTick && e.tick <= endTick)
+    .value()
 }
 
 export default class Player {
@@ -81,7 +44,6 @@ export default class Player {
     this._playing = false
     this._currentTempo = 120
     this._currentTick = 0
-    this._allEvents = []
     this._channelMutes = {}
 
     observable(this)
@@ -92,17 +54,7 @@ export default class Player {
   }
 
   prepare(song) {
-    this._allEvents = _.chain(song.getTracks())
-      .map(t => t.getEvents())
-      .flatten()
-      .map(eventToMidiMessages)
-      .filter(e => e != null)
-      .flatten()
-      .value()
-  }
-
-  _updateEvents() {
-    this._events = this._allEvents.filter(e => e.tick >= this._currentTick)
+    this._song = song
   }
 
   // you must call prepare() before play(), playAt()
@@ -111,14 +63,12 @@ export default class Player {
       this._currentTick = Math.max(0, tick)
       this.emitChangePosition()
     }
-    this._updateEvents()
     this.resume()
   }
 
   seek(tick) {
     this._currentTick = Math.max(0, tick)
     this.emitChangePosition()
-    this._updateEvents()
   }
 
   set position(tick) {
@@ -162,9 +112,6 @@ export default class Player {
     for (const ch of _.range(0, 0xf)) {
       // reset controllers
       this._sendMessage([firstByte("controller", ch), MIDIController.RESET_CONTROLLERS, 0x7f], time)
-
-      // reset pitch bend
-      this._sendMessage([firstByte("pitchBend", ch), 0x00, 0x40], time)
     }
     this.stop()
     this.position = 0
@@ -203,30 +150,33 @@ export default class Player {
   _onTimer() {
     const deltaTick = Math.ceil(secToTick(INTERVAL / 1000, this._currentTempo, this._timebase))
     const endTick = this._currentTick + deltaTick
-    const eventsToPlay = this._events.filter(e => e.tick <= endTick)
-    _.pullAll(this._events, eventsToPlay)
-
     const timestamp = window.performance.now()
-    eventsToPlay.forEach(e => {
-      if (e.msg != null) {
-        if (e.event.channel >= 0 && this._channelMutes[e.event.channel]) {
-          return
-        }
+
+    const events = getEventsToPlay(this._song, this._currentTick, endTick)
+      
+
+    // channel イベントを MIDI Output に送信
+    events
+      .filter(e => e.type == "channel" && !this._channelMutes[e.channel])
+      .forEach(e => {
+        const bytes = eventToBytes(e, false)
         const waitTick = e.tick - this._currentTick
-        this._sendMessage(e.msg, timestamp + tickToMillisec(waitTick, this._currentTempo, this._timebase))
-      } else {
-        // MIDI 以外のイベントを実行
-        switch (e.event.subtype) {
+        this._sendMessage(bytes, timestamp + tickToMillisec(waitTick, this._currentTempo, this._timebase))
+      })
+
+    // channel イベント以外を実行
+    events
+      .filter(e => e.type != "channel")
+      .forEach(e => {
+        switch (e.subtype) {
           case "setTempo":
-            this._currentTempo = 60000000 / e.event.microsecondsPerBeat
+            this._currentTempo = 60000000 / e.microsecondsPerBeat
             this.trigger("change-tempo", this._currentTempo)
             break
           case "endOfTrack":
-            this.stop()
             break
         }
-      }
-    })
+      })
 
     this._currentTick = endTick
     this.emitChangePosition()

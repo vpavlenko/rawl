@@ -32,7 +32,8 @@ class RootComponent extends Component {
       pianoRollAutoScroll: true,
       quantize: SharedService.quantizer.denominator,
       showLeftPane: true,
-      showRightPane: true
+      showRightPane: true,
+      showEventList: false
     }
 
     {
@@ -124,7 +125,6 @@ class RootComponent extends Component {
   }
 
   onClickPlay() {
-    SharedService.player.prepare(this.state.song)
     SharedService.player.play()
   }
 
@@ -267,7 +267,6 @@ class RootComponent extends Component {
         onClickSelection={this.onClickSelection.bind(this)}
         onClickScaleUp={this.onClickScaleUp.bind(this)}
         onClickScaleDown={this.onClickScaleDown.bind(this)}
-        onSelectTrack={this.onChangeTrack.bind(this)}
         onSelectQuantize={this.onSelectQuantize.bind(this)}
         onClickPlay={this.onClickPlay.bind(this)}
         onClickStop={this.onClickStop.bind(this)}
@@ -288,6 +287,10 @@ class RootComponent extends Component {
             onClickSolo={this.onClickSolo.bind(this)}
           />
         }
+        {this.state.showEventList &&
+          <EventList ref={c => this.eventList = c}
+            track={this.selectedTrack} />
+        }
         <div id="side">
           <TrackInfo ref={c => this.trackInfo = c}
             track={this.selectedTrack}
@@ -296,8 +299,6 @@ class RootComponent extends Component {
             onChangePan={this.onChangeTrackPan.bind(this)}
             onClickInstrument={this.onClickTrackInstrument.bind(this)}
           />
-          <EventList ref={c => this.eventList = c}
-            track={this.selectedTrack} />
         </div>
         <PianoRoll
           emitter={this.pianoRollEmitter}

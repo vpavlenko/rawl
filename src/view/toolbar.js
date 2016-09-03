@@ -23,19 +23,17 @@ function ToolbarContent(props) {
         <Button onClick={props.onClickStop}><span className="icon">&#xe615;</span></Button>
         <Button onClick={props.onClickPlay}><span className="icon">&#xe616;</span></Button>
         <Button onClick={props.onClickForward}><span className="icon">&#xe607;</span></Button>
+        <Button onClick={props.onClickAutoScroll} selected={props.autoScroll}>Auto Scroll</Button>
       </div>
 
       <div className="tool-section section">
         <Button onClick={props.onClickPencil} selected={props.mouseMode == 0}>✎</Button>
         <Button onClick={props.onClickSelection} selected={props.mouseMode == 1}>□</Button>
+        <Select onChange={props.onSelectQuantize} options={props.quantizeOptions} value={props.quantize} />
       </div>
 
       <Button onClick={props.onClickScaleUp}><img src="images/iconmonstr-magnifier-7-16.png" /></Button>
       <Button onClick={props.onClickScaleDown}><img src="images/iconmonstr-magnifier-8-16.png" /></Button>
-      <Button onClick={props.onClickAutoScroll} selected={props.autoScroll}>Auto Scroll</Button>
-
-      <Select onChange={props.onSelectTrack} options={props.trackOptions} value={props.selectedTrackId} />
-      <Select onChange={props.onSelectQuantize} options={props.quantizeOptions} value={props.quantize} />
 
       <Button onClick={props.onClickShowLeftPane} selected={props.showLeftPane}>←</Button>
       <Button onClick={props.onClickShowRightPane} selected={props.showRightPane}>→</Button>

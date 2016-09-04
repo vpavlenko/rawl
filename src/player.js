@@ -144,7 +144,6 @@ export default class Player {
 
     const events = getEventsToPlay(this._song, this._currentTick, endTick)
       
-
     // channel イベントを MIDI Output に送信
     events
       .filter(e => e.type == "channel" && !this._channelMutes[e.channel])

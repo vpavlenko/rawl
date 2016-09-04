@@ -1,3 +1,7 @@
+import ReactDOM from "react-dom"
+import React, { Component } from "react"
+import observable from "riot-observable"
+
 import SharedService from "../shared-service"
 import Track from "../model/track"
 import PopupComponent from "../view/popup-component"
@@ -11,16 +15,12 @@ import InstrumentBrowser from "./instrument-browser"
 import PropertyPane from "./property-pane"
 import PianoRoll from "./piano-roll"
 
-import React, { Component } from "react"
-import ReactDOM from "react-dom"
-import observable from "riot-observable"
-
 import {
   getGMMapIndexes,
   getGMMapProgramNumber
 } from "../gm.js"
 
-class RootComponent extends Component {
+export default class RootView extends Component {
   constructor(props) {
     super(props)
     
@@ -59,22 +59,6 @@ class RootComponent extends Component {
     }
   }
 
-  emit(name, obj) {
-    this.props.emitter.trigger(name, obj)
-  }
-
-  componentDidMount() {
-    setTimeout(() => this.emit("did-mount", this), 0)
-  }
-
-  setSong(song) {
-    this.setState({ song: song })
-
-    song.on("change", () => {
-      this.setState({ song: song })
-    })
-  }
-
   changeTrack(trackId) {
     this.setState({
       selectedTrackId: trackId
@@ -86,11 +70,11 @@ class RootComponent extends Component {
     if (!file || (file.type != "audio/mid" && file.type != "audio/midi")) {
       return
     }
-    this.emit("change-file", file)
+    this.props.onChangeFile(file)
   }
 
   onClickSave() {
-    this.emit("save-file")
+    this.props.onSaveFile()
   }
 
   onClickPencil() {
@@ -152,7 +136,7 @@ class RootComponent extends Component {
   }
 
   get selectedTrack() {
-    return this.state.song && this.state.song.getTrack(this.state.selectedTrackId)
+    return this.props.song && this.props.song.getTrack(this.state.selectedTrackId)
   }
 
   onChangeTrackName(e) {
@@ -217,18 +201,18 @@ class RootComponent extends Component {
   }
 
   onClickAddTrack() {
-    this.state.song.addTrack(Track.emptyTrack())
+    this.props.song.addTrack(Track.emptyTrack())
   }
 
   onClickMute(trackId) {
-    const channel = this.state.song.getTrack(trackId).channel
+    const channel = this.props.song.getTrack(trackId).channel
     const muted = SharedService.player.isChannelMuted(channel)
     SharedService.player.muteChannel(channel, !muted)
   }
 
   onClickSolo(trackId) {
-    const channel = this.state.song.getTrack(trackId).channel
-    this.state.song.getTracks().forEach((t, i) => {
+    const channel = this.props.song.getTrack(trackId).channel
+    this.props.song.getTracks().forEach((t, i) => {
       SharedService.player.muteChannel(t.channel, i != channel)
     })
   }
@@ -254,7 +238,7 @@ class RootComponent extends Component {
   render() {
     return <div id="vertical">
       <Toolbar ref={c => this.toolbar = c}
-        song={this.state.song}
+        song={this.props.song}
         quantize={this.state.quantize}
         mouseMode={this.state.pianoRollMouseMode}
         autoScroll={this.state.pianoRollAutoScroll}
@@ -279,7 +263,7 @@ class RootComponent extends Component {
       <div id="container">
         {this.state.showLeftPane && 
           <TrackList ref={c => this.trackList = c}
-            tracks={this.state.song && this.state.song.getTracks() || []}
+            tracks={this.props.song && this.props.song.getTracks() || []}
             selectedTrackId={this.state.selectedTrackId}
             onSelectTrack={this.onSelectTrack.bind(this)}
             onClickAddTrack={this.onClickAddTrack.bind(this)}
@@ -315,32 +299,5 @@ class RootComponent extends Component {
         }
       </div>
     </div>
-  }
-}
-
-export default class RootView {
-  constructor() {
-    this.emitter = {}
-    observable(this.emitter)
-
-    this.trackId = 0
-
-    this.emitter.on("did-mount", rootComponent => {
-      this.component = rootComponent
-      this.emitter.trigger("view-did-load")
-    })
-
-    setTimeout(() => {
-      this.loadView()
-    }, 0)
-  }
-
-  setSong(song) {
-    this.component.setSong(song)
-  }
-
-  loadView() {
-    ReactDOM.render(<RootComponent 
-      emitter={this.emitter} />, document.querySelector("#root"))
   }
 }

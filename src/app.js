@@ -1,3 +1,4 @@
+import React, { Component } from "react"
 import SharedService from "./shared-service"
 import Player from "./player"
 import Quantizer from "./quantizer"
@@ -9,30 +10,23 @@ import Config from "./config"
 import Downloader from "./downloader"
 import observable from "riot-observable"
 
-export default class App {
-  constructor() {
-    this.emitter = {}
-    observable(this.emitter)
+export default class App extends Component {
+  constructor(props) {
+    super(props)
+
     this.initServices()
-    this.initRootView()
+    this.initKeyboardShortcut()
+
+    this.state = {
+      song: Song.emptySong()
+    }
+    this.watchSong(this.state.song)
   }
 
   initServices() {
     SharedService.player = new Player(Config.TIME_BASE)
     SharedService.quantizer = new Quantizer(Config.TIME_BASE)
     window.SharedService = SharedService
-  }
-
-  initRootView() {
-    this.view = new RootView()
-    this.view.emitter.on("change-file", file => this.openSong(file))
-    this.view.emitter.on("save-file", () => this.saveSong())
-    this.view.emitter.on("view-did-load", () => this.onLoadView())
-  }
-
-  onLoadView() {
-    this.setSong(Song.emptySong())
-    this.initKeyboardShortcut()
   }
 
   initKeyboardShortcut() {
@@ -54,10 +48,21 @@ export default class App {
     }
   }
 
-  setSong(song) {
-    this.song = song
-    this.view.setSong(song)
+  watchSong(song) {
     SharedService.player.prepare(song)
+
+    song.on("change", () => {
+      this.setState({ song })
+    })
+  }
+
+  setSong(song) {
+    if (!song || song === this.state.song) {
+      return
+    }
+
+    this.setState({song})
+    this.watchSong(song)
   }
 
   openSong(file) {
@@ -72,5 +77,13 @@ export default class App {
   saveSong() {
     const bytes = MidiFileWriter.write(this.song.getTracks())
     Downloader.downloadBlob(bytes, this.song.name, "application/octet-stream")
+  }
+
+  render() {
+    return <RootView 
+      onChangeFile={file => this.openSong(file)}
+      onSaveFile={() => this.saveSong()}
+      song={this.state.song}
+    />
   }
 }

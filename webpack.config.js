@@ -4,7 +4,7 @@ module.exports = {
   context: path.join(__dirname, "src"),
   devtool: "inline-source-map",
   entry: {
-    javascript: './main.js'
+    javascript: './index.js'
   },
   output: {
     path: path.join(__dirname, "static"),

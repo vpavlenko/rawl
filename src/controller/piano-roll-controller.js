@@ -129,6 +129,7 @@ export default class PianoRollController {
   loadView(canvas) {
     this.canvas = canvas
     this.stage = new createjs.Stage(canvas)
+    this.stage.mouseMoveOutside = true
     this.stage.enableMouseOver()
 
     this.scrollContainer = new createjs.ScrollContainer(canvas)

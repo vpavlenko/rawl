@@ -2,7 +2,6 @@ import _ from "lodash"
 import SharedService from "../shared-service"
 import PianoKeysView from "../view/piano-keys-view"
 import NoteContainer from "../view/note-container"
-import SelectionView from "../view/selection-view"
 import PianoGridView from "../view/piano-grid-view"
 import VelocityControlView from "../view/velocity-control-view"
 import NoteCoordTransform from "../model/note-coord-transform"
@@ -103,25 +102,17 @@ export default class PianoRollController {
     this._mouseMode = mode
     switch(mode) {
       case 0:
-        this.bindMouseHandler(new PencilMouseHandler(this.noteContainer))
+        this.noteContainer.mouseHandler = new PencilMouseHandler()
         break
       case 1:
-        this.bindMouseHandler(new SelectionMouseHandler(this.noteContainer, this.selectionView))
+        this.noteContainer.mouseHandler = new SelectionMouseHandler()
         break
     }
   }
 
   set selection(selection) {
     this._selection = selection
-    this.selectionView.visible = selection != null
-    if (selection) {
-      const b = selection.getBounds(this._transform)
-      this.selectionView.x = b.x
-      this.selectionView.y = b.y
-      this.selectionView.setSize(b.width, b.height)
-    } else {
-      this.selectionView.setSize(0, 0)
-    }
+    this.noteContainer.selection = selection
     this.stage.update()
     this.showNotes()
   }
@@ -139,11 +130,8 @@ export default class PianoRollController {
     this.scrollContainer.addChild(this.grid)
 
     this.noteContainer = new NoteContainer()
+    this.configureNoteContainer(this.noteContainer)
     this.scrollContainer.addChild(this.noteContainer)
-
-    this.selectionView = new SelectionView
-    this.selectionView.setSize(0, 0)
-    this.noteContainer.addChild(this.selectionView)
 
     this.keys = new PianoKeysView(KEY_WIDTH)
     this.keys.y = RULER_HEIGHT
@@ -168,18 +156,9 @@ export default class PianoRollController {
     this.ticksPerBeat = Config.TIME_BASE
     this.mouseMode = 0
 
-    this.stage.on("stagemousedown", e => {
-      const loc = this.noteContainer.globalToLocal(e.stageX, e.stageY)
-      this.mouseHandler.onMouseDown(e, loc)
-    })
-    this.stage.on("stagemouseup", e => {
-      const loc = this.noteContainer.globalToLocal(e.stageX, e.stageY)
-      this.mouseHandler.onMouseUp(e, loc)
-    })
-    this.stage.on("stagemousemove", e => {
-      const loc = this.noteContainer.globalToLocal(e.stageX, e.stageY)
-      this.mouseHandler.onMouseMove(e, loc)
-    })
+    this.stage.on("stagemousedown", e => this.noteContainer.onMouseDown(e))
+    this.stage.on("stagemousemove", e => this.noteContainer.onMouseMove(e))
+    this.stage.on("stagemouseup", e => this.noteContainer.onMouseUp(e))
 
     this.controlView.on("change", e => {
       this._track.updateEvent(e.noteId, {velocity: e.velocity})
@@ -285,13 +264,8 @@ export default class PianoRollController {
     this.showNotes()
   }
 
-  bindMouseHandler(handler) {
-    if (this.mouseHandler) {
-      this.mouseHandler.off("*")
-    }
-    this.mouseHandler = handler
-
-    handler.on("add-note", e => {
+  configureNoteContainer(container) {
+    container.on("add-note", e => {
       const note = createNote(
         this._quantizer.floor(this._transform.getTicks(e.x)),
         Math.ceil(this._transform.getNoteNumber(e.y)),
@@ -303,13 +277,13 @@ export default class PianoRollController {
       SharedService.player.playNote(note)
     })
 
-    handler.on("start-note-dragging", note => {
+    container.on("start-note-dragging", note => {
       this._draggingNote = _.cloneDeep(note)
     })
 
-    handler.on("remove-note", id => this._track.removeEvent(id))
+    container.on("remove-note", id => this._track.removeEvent(id))
 
-    handler.on("drag-note-left-edge", e => {
+    container.on("drag-note-left-edge", e => {
       const note = this._draggingNote
 
       // 右端を固定して長さを変更
@@ -325,7 +299,7 @@ export default class PianoRollController {
       })
     })
 
-    handler.on("drag-note-right-edge", e => {
+    container.on("drag-note-right-edge", e => {
       const note = this._draggingNote
 
       // 長さを変更
@@ -339,7 +313,7 @@ export default class PianoRollController {
       this._track.updateEvent(note.id, {duration: duration})
     })
 
-    handler.on("drag-note-center", e => {
+    container.on("drag-note-center", e => {
       const note = this._draggingNote
 
       // 移動
@@ -360,23 +334,23 @@ export default class PianoRollController {
       }
     })
 
-    handler.on("change-cursor", cursor => {
+    container.on("change-cursor", cursor => {
       const style = this.canvas.parentNode.style
       if (style.cursor != cursor) {
         style.cursor = cursor
       }
     })
 
-    handler.on("clear-selection", () => {
+    container.on("clear-selection", () => {
       // 選択範囲外でクリックした場合は選択範囲をリセット
       this.selection = null
     })
 
-    handler.on("resize-selection", rect => {
+    container.on("resize-selection", rect => {
       this.selection = SelectionModel.fromRect(rect, this._quantizer, this._transform)
     })
 
-    handler.on("select-notes", rect => {
+    container.on("select-notes", rect => {
       if (!this._selection) {
         return
       }
@@ -386,7 +360,7 @@ export default class PianoRollController {
       this.emitter.trigger("select-notes", notes)
     })
 
-    handler.on("drag-selection-center", e => {
+    container.on("drag-selection-center", e => {
       if (!this._selection) {
         return
       }
@@ -406,7 +380,7 @@ export default class PianoRollController {
       })
     })
 
-    handler.on("end-dragging", () => {
+    container.on("end-dragging", () => {
       if (!this._selection) {
         return
       }
@@ -415,7 +389,7 @@ export default class PianoRollController {
       this.selection = this._selection.copyUpdated(notes)
     })
 
-    handler.on("drag-selection-left-edge", e => {
+    container.on("drag-selection-left-edge", e => {
       if (!this._selection) {
         return
       }
@@ -442,7 +416,7 @@ export default class PianoRollController {
       })
     })
 
-    handler.on("drag-selection-right-edge", e => {
+    container.on("drag-selection-right-edge", e => {
       if (!this._selection) {
         return
       }
@@ -464,16 +438,16 @@ export default class PianoRollController {
       })
     })
 
-    handler.on("drag-scroll", e => {
+    container.on("drag-scroll", e => {
       this.scrollContainer.scrollX += e.movement.x
       this.scrollContainer.scrollY += e.movement.y
     })
 
-    handler.on("change-tool", () => {
+    container.on("change-tool", () => {
       this.emitter.trigger("change-tool")
     })
 
-    handler.on("move-cursor", x => {
+    container.on("move-cursor", x => {
       this.emitter.trigger("move-cursor", this._transform.getTicks(x))
     })
   }

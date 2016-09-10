@@ -168,20 +168,15 @@ class ResizeSelectionAction {
 }
 
 class MouseHandler {
-  constructor(container) {
-    this.container = container
-    observable(this)
-  }
-
    // override this
-  _getAction(e) {
+  _getAction(container, e) {
     if (e.nativeEvent.button == 1) {
       // wheel drag to start scrolling
-      return new DragScrollAction(this)
+      return new DragScrollAction(container)
     }
 
     if (e.nativeEvent.button == 2 && e.nativeEvent.detail == 2) {
-      return new ChangeToolAction(this)
+      return new ChangeToolAction(container)
     }
 
     return null
@@ -192,22 +187,22 @@ class MouseHandler {
     return "auto"
   }
 
-  onMouseDown(e, loc) { 
-    this.action = this._getAction(e)
+  onMouseDown(container, e, loc) { 
+    this.action = this._getAction(container, e)
     if (this.action) {
       this.action.onMouseDown(e, loc)
     }
   }
 
-  onMouseMove(e, loc) {
+  onMouseMove(container, e, loc) {
     if (this.action) {
       this.action.onMouseMove(e, loc)
     } else {
-      this.trigger("change-cursor", this._getCursor(e))
+      container.trigger("change-cursor", this._getCursor(container, e))
     }
   }
 
-  onMouseUp(e, loc) {
+  onMouseUp(container, e, loc) {
     if (this.action) {
       this.action.onMouseUp(e, loc)
     }
@@ -216,16 +211,12 @@ class MouseHandler {
 }
 
 class PencilMouseHandler extends MouseHandler {
-  constructor(container) {
-    super(container)
-  }
-
-  _getAction(e) {
-    const baseAction = super._getAction(e)
+  _getAction(container, e) {
+    const baseAction = super._getAction(container, e)
     if (baseAction) return baseAction
 
-    const cpos = this.container.globalToLocal(e.stageX, e.stageY)
-    const view = this.container.getNoteViewUnderPoint(cpos.x, cpos.y)
+    const cpos = container.globalToLocal(e.stageX, e.stageY)
+    const view = container.getNoteViewUnderPoint(cpos.x, cpos.y)
 
     if (e.nativeEvent.button != 0) {
       return null
@@ -233,21 +224,21 @@ class PencilMouseHandler extends MouseHandler {
     
     if (view) {
       if (e.nativeEvent.detail == 2) {
-        return new RemoveNoteAction(this, view.note)
+        return new RemoveNoteAction(container, view.note)
       } else {
         const local = view.globalToLocal(e.stageX, e.stageY)
         const type = getDragPositionType(local.x, view.getBounds().width)
-        return new ResizeNoteAction(this, type, view.note)
+        return new ResizeNoteAction(container, type, view.note)
       }
     } else if (!e.relatedTarget) {
-      return new CreateNoteAction(this)
+      return new CreateNoteAction(container)
     }
     return null
   }
 
-  _getCursor(e) {
-    const cpos = this.container.globalToLocal(e.stageX, e.stageY)
-    const view = this.container.getNoteViewUnderPoint(cpos.x, cpos.y)
+  _getCursor(container, e) {
+    const cpos = container.globalToLocal(e.stageX, e.stageY)
+    const view = container.getNoteViewUnderPoint(cpos.x, cpos.y)
     if (view) {
       const pos = view.globalToLocal(e.stageX, e.stageY)
       const type = getDragPositionType(pos.x, view.getBounds().width)
@@ -259,46 +250,33 @@ class PencilMouseHandler extends MouseHandler {
 }
 
 class SelectionMouseHandler extends MouseHandler {
-  constructor(container, selectionView) {
-    super(container)
-    this.selectionView = selectionView
-  }
-
-  get _selectionRect() {
-    const b = this.selectionView.getBounds()
-    return new createjs.Rectangle(
-      this.selectionView.x,
-      this.selectionView.y,
-      b.width,
-      b.height
-    )
-  }
-
-  _getAction(e) {
-    const baseAction = super._getAction(e)
+  _getAction(container, e) {
+    const baseAction = super._getAction(container, e)
     if (baseAction) return baseAction
 
     if (e.relatedTarget) {
       return null
     }
 
-    const cpos = this.container.globalToLocal(e.stageX, e.stageY)
-    const clicked = this._selectionRect.contains(cpos.x, cpos.y)
+    const selectionRect = container.selectionRect
+    const cpos = container.globalToLocal(e.stageX, e.stageY)
+    const clicked = selectionRect.contains(cpos.x, cpos.y)
     if (!clicked) {
       if (e.nativeEvent.detail == 2) {
-        return CreateNoteAction(this)
+        return CreateNoteAction(container)
       }
-      return new CreateSelectionAction(this)
+      return new CreateSelectionAction(container)
     }
-    const type = getDragPositionType(cpos.x - this._selectionRect.x, this._selectionRect.width)
-    return new ResizeSelectionAction(this, type, this.selectionRect)
+    const type = getDragPositionType(cpos.x - selectionRect.x, selectionRect.width)
+    return new ResizeSelectionAction(container, type, selectionRect)
   }
 
-  _getCursor(e) {
-    const loc = this.container.globalToLocal(e.stageX, e.stageY)
-    const hover = this._selectionRect.contains(loc.x, loc.y)
-    if (this.selectionView.visible && hover) {
-      const type = getDragPositionType(loc.x - this._selectionRect.x, this._selectionRect.width)
+  _getCursor(container, e) {
+    const selectionRect = container.selectionRect
+    const loc = container.globalToLocal(e.stageX, e.stageY)
+    const hover = selectionRect.contains(loc.x, loc.y)
+    if (container.selectionView.visible && hover) {
+      const type = getDragPositionType(loc.x - selectionRect.x, selectionRect.width)
       return cursorForPositionType(type)
     }
     return "crosshair"

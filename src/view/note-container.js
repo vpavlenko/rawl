@@ -1,9 +1,59 @@
 import _ from "lodash"
+import observable from "riot-observable"
 import NoteView from "../view/note-view"
+import SelectionView from "../view/selection-view"
 
 export default class NoteContainer extends createjs.Container {
   constructor() {
     super()
+    observable(this)
+
+    this.selectionView = new SelectionView
+    this.selectionView.setSize(0, 0)
+    this.addChild(this.selectionView)
+  }
+
+  // use stagemousedown
+  onMouseDown(e) {
+    const loc = this.globalToLocal(e.stageX, e.stageY)
+    this.mouseHandler.onMouseDown(this, e, loc)
+  }
+
+  // use stagemousemove
+  onMouseMove(e) {
+    const loc = this.globalToLocal(e.stageX, e.stageY)
+    this.mouseHandler.onMouseMove(this, e, loc)
+  }
+
+  // use stagemouseup
+  onMouseUp(e) {
+    const loc = this.globalToLocal(e.stageX, e.stageY)
+    this.mouseHandler.onMouseUp(this, e, loc)
+  }
+
+  get selectionRect() {
+    if (!this._selection) {
+      return new createjs.Rectangle
+    }
+    const b = this._selection.getBounds(this._transform)
+    return new createjs.Rectangle(b.x, b.y, b.width, b.height)
+  }
+
+  get selection() {
+    return this._selection
+  }
+
+  set selection(selection) {
+    this._selection = selection
+    this.selectionView.visible = selection != null
+    if (selection) {
+      const b = this.selectionRect
+      this.selectionView.x = b.x
+      this.selectionView.y = b.y
+      this.selectionView.setSize(b.width, b.height)
+    } else {
+      this.selectionView.setSize(0, 0)
+    }
   }
 
   clearNotes() {

@@ -4,7 +4,7 @@ import observable from "riot-observable"
 
 import SharedService from "../shared-service"
 import Track from "../model/track"
-import PopupComponent from "../view/popup-component"
+import PopupComponent from "./popup-component"
 import Config from "../config"
 
 import TrackList from "./track-list"
@@ -23,7 +23,7 @@ import {
 export default class RootView extends Component {
   constructor(props) {
     super(props)
-    
+
     this.state = {
       selectedTrackId: 0,
       pianoRollMouseMode: 0,
@@ -51,7 +51,7 @@ export default class RootView extends Component {
 
       emitter.on("change-tool", () => {
         this.setState({
-          pianoRollMouseMode: this.state.pianoRollMouseMode == 0 ? 1 : 0 
+          pianoRollMouseMode: this.state.pianoRollMouseMode == 0 ? 1 : 0
         })
       })
 
@@ -261,7 +261,7 @@ export default class RootView extends Component {
         onClickShowRightPane={this.onClickShowRightPane.bind(this)}
       />
       <div id="container">
-        {this.state.showLeftPane && 
+        {this.state.showLeftPane &&
           <TrackList ref={c => this.trackList = c}
             tracks={this.props.song && this.props.song.getTracks() || []}
             selectedTrackId={this.state.selectedTrackId}
@@ -291,8 +291,8 @@ export default class RootView extends Component {
           scaleY={this.state.pianoRollScaleY}
           autoScroll={this.state.pianoRollAutoScroll}
           mouseMode={this.state.pianoRollMouseMode} />
-        {this.state.showRightPane && 
-          <PropertyPane ref={c => this.propertyPane = c} 
+        {this.state.showRightPane &&
+          <PropertyPane ref={c => this.propertyPane = c}
             notes={this.state.selectedEvents || []}
             updateNotes={this.updateNotes.bind(this)}
           />

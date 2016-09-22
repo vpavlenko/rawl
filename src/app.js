@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import SharedService from "./shared-service"
 import Player from "./player"
 import Quantizer from "./quantizer"
-import RootView from "./view/root-view"
+import RootView from "./components/root-view"
 import Song from "./model/song"
 import MidiFileReader from "./midi-file-reader"
 import MidiFileWriter from "./midi-file-writer"
@@ -80,7 +80,7 @@ export default class App extends Component {
   }
 
   render() {
-    return <RootView 
+    return <RootView
       onChangeFile={file => this.openSong(file)}
       onSaveFile={() => this.saveSong()}
       song={this.state.song}

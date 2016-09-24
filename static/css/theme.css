@@ -7,4 +7,9 @@
   --divider-color: hsl(247, 5%, 87%);
   --background-color: #fff;
   --secondary-background-color: hsl(247, 14%, 98%);
+  --note-color: hsl(247, 84%, 69%);
+  --key-height: 12px;
+  --key-width: 72px;
+  --ruler-height: 24px;
+  --control-height: 120px;
 }

@@ -1,8 +1,7 @@
 import _ from "lodash"
-import MeasureList from "./measure-list"
-import Track from "./track"
-import { TrackNameMidiEvent, EndOfTrackMidiEvent } from "../../vendor/jasmid/midievent"
 import observable from "riot-observable"
+import MeasureList from "./MeasureList"
+import Track from "./Track"
 
 export default class Song {
   constructor() {
@@ -11,12 +10,16 @@ export default class Song {
     observable(this)
   }
 
+  emitChange() {
+    this.trigger("change")
+  }
+
   addTrack(t) {
     t.channel = t.channel || this.tracks.length
-    t.on("change", () => this.trigger("change"))
+    t.on("change", () => this.emitChange())
     this.tracks.push(t)
     this.trigger("add-track", t)
-    this.trigger("change")
+    this.emitChange()
   }
 
   getTracks() {
@@ -38,22 +41,8 @@ export default class Song {
 
   static emptySong() {
     const song = new Song()
-    
-    // conductor track
-    {
-      const track = new Track()
-      track.addEvent(new TrackNameMidiEvent(0, "Conductor Track"))
-      track.addEvent(new EndOfTrackMidiEvent(0))
-      song.addTrack(track)
-    }
-
-    {
-      const track = new Track()
-      track.addEvent(new TrackNameMidiEvent(0, ""))
-      track.addEvent(new EndOfTrackMidiEvent(1200))
-      song.addTrack(track)
-    }
-
+    song.addTrack(Track.conductorTrack())
+    song.addTrack(Track.emptyTrack(0))
     song.name = "new song.mid"
     return song
   }

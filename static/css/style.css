@@ -19,6 +19,11 @@ body {
   color: var(--text-color);
 }
 
+/* avoid 3px margin */
+canvas {
+  vertical-align: middle;
+}
+
 #container {
   display: flex;
   flex-direction: row;
@@ -36,11 +41,7 @@ body {
   height: 100%;
 }
 
-#piano-roll {
-  position: absolute;
-  left: 0;
-  top: 0;
-}
+#piano-roll-container .alpha .inner {position: relative;}
 
 .toolbar {
   display: block;
@@ -73,7 +74,9 @@ div#side {
 
 div#piano-roll-container {
   flex-grow: 1;
+  flex-shrink: 100;
   position: relative;
+  overflow: hidden;
 }
 
 div#vertical {
@@ -203,7 +206,7 @@ div#vertical {
   font-size: 110%;
   height: 100%;
 }
-  
+
 .toolbar .section {
   float: left;
   border-right: 1px solid var(--divider-color);
@@ -281,7 +284,7 @@ div#vertical {
   border-collapse: collapse;
   width: 100%;
 }
-.event-list th, 
+.event-list th,
 .event-list td {
   font-weight: normal;
   border: 1px solid var(--divider-color);
@@ -430,7 +433,74 @@ div#vertical {
   pointer-events: none;
 }
 
-
 #root {
-    height: 100%;
+  height: 100%;
+}
+
+.PianoKeysWrapper {
+  position: absolute;
+  top: var(--ruler-height);
+  background: white;
+  border-right: 1px solid var(--divider-color);
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 4px;
+}
+
+.PianoGridWrapper {
+  position: absolute;
+  left: var(--key-width);
+  top: var(--ruler-height);
+  width: calc(100% - var(--key-width));
+  height: 100%;
+}
+
+.PianoNotesWrapper {
+  position: absolute;
+  left: var(--key-width);
+  top: var(--ruler-height);
+  width: calc(100% - var(--key-width));
+  height: 100%;
+}
+
+.PianoRulerWrapper {
+  position: absolute;
+  left: 0;
+  padding-left: var(--key-width);
+  background: rgb(255, 255, 255);
+  border-bottom: 1px solid var(--secondary-text-color);
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 4px;
+}
+
+#piano-roll-container .alpha {
+  height: calc(100% - var(--control-height));
+  overflow-y: scroll;
+  overflow-x: hidden;
+  position: relative;
+}
+
+#piano-roll-container .beta {
+  overflow-y: hidden;
+  overflow-x: scroll;
+  position: relative;
+  padding-left: var(--key-width);
+  height: var(--control-height);
+  border-top: 1px solid var(--secondary-text-color);
+ }
+
+
+.PianoRollLeftSpace {
+  width: var(--key-width);
+  height: var(--ruler-height);
+  background: var(--background-color);
+  position: fixed;
+  border-right: 1px solid var(--divider-color);
+  border-bottom: 1px solid var(--secondary-text-color);
+}
+
+.PianoSelectionWrapper {
+  position: absolute;
+  left: var(--key-width);
+  top: var(--ruler-height);
+  width: calc(100% - var(--key-width));
+  height: 100%;
+  pointer-events: none;
 }

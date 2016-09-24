@@ -19,6 +19,12 @@ class EndOfTrackMidiEvent extends MetaMidiEvent {
   }
 }
 
+class PortPrefixMidiEvent extends MetaMidiEvent {
+  constructor(deltaTime, value) {
+    super(deltaTime, "portPrefix", value)
+  }
+}
+
 class TextMetaMidiEvent extends MetaMidiEvent {
   static fromStream(deltaTime, subtype, stream, length) {
     return new TextMetaMidiEvent(deltaTime, subtype, stream.read(length)) 
@@ -53,9 +59,10 @@ class Int8MetaMidiEvent extends MetaMidiEvent {
   }
 }
 
+// from bpm: new SetTempoMidiEvent(t, 60000000 / bpm)
 class SetTempoMidiEvent extends MetaMidiEvent {
-  constructor(deltaTime, value) {
-    super(deltaTime, "setTempo", value)
+  constructor(deltaTime, microsecondsPerBeat) {
+    super(deltaTime, "setTempo", microsecondsPerBeat)
   }
 
   get microsecondsPerBeat() {
@@ -89,10 +96,68 @@ class TimeSignatureMidiEvent extends MetaMidiEvent {
   }
 }
 
+// channel events
+
+class ChannelMidiEvent extends MidiEvent {
+  constructor(deltaTime, subtype, value) {
+    super(deltaTime, "channel")
+    this.subtype = subtype
+    this.value = value
+  }
+}
+
+class PitchBendMidiEvent extends ChannelMidiEvent {
+  constructor(deltaTime, value) {
+    super(deltaTime, "pitchBend", value)
+  }
+}
+
+class ProgramChangeMidiEvent extends ChannelMidiEvent {
+  constructor(deltaTime, value) {
+    super(deltaTime, "programChange", value)
+  }
+}
+
+// controller events
+
+class ControllerMidiEvent extends ChannelMidiEvent {
+  constructor(deltaTime, controllerType, value) {
+    super(deltaTime, "controller", value)
+    this.controllerType = controllerType
+  }
+}
+
+class ModulationMidiEvent extends ControllerMidiEvent {
+  constructor(deltaTime, value) {
+    super(deltaTime, 0x01, value)
+  }
+}
+
+class VolumeMidiEvent extends ControllerMidiEvent {
+  constructor(deltaTime, value) {
+    super(deltaTime, 0x07, value)
+  }
+}
+
+class PanMidiEvent extends ControllerMidiEvent {
+  constructor(deltaTime, value) {
+    super(deltaTime, 0x0a, value)
+  }
+}
+
+class ExpressionMidiEvent extends ControllerMidiEvent {
+  constructor(deltaTime, value) {
+    super(deltaTime, 0x0b, value)
+  }
+}
+
 export { 
   MidiEvent, MetaMidiEvent, EndOfTrackMidiEvent, 
   TextMetaMidiEvent, ByteMetaMidiEvent,
   Int16MetaMidiEvent, Int8MetaMidiEvent,
-  TrackNameMidiEvent,
-  SetTempoMidiEvent, TimeSignatureMidiEvent
+  TrackNameMidiEvent, PortPrefixMidiEvent,
+  SetTempoMidiEvent, TimeSignatureMidiEvent,
+  PitchBendMidiEvent, VolumeMidiEvent,
+  PanMidiEvent, ExpressionMidiEvent,
+  ModulationMidiEvent, ProgramChangeMidiEvent
 }

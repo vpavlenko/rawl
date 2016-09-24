@@ -1,5 +1,11 @@
 import _ from "lodash"
 import observable from "riot-observable"
+import { 
+  TrackNameMidiEvent, EndOfTrackMidiEvent,
+  TimeSignatureMidiEvent, SetTempoMidiEvent,
+  PitchBendMidiEvent, VolumeMidiEvent,
+  PanMidiEvent, ExpressionMidiEvent,
+  ModulationMidiEvent, ProgramChangeMidiEvent } from "../../vendor/jasmid/midievent"
 
 export default class Track {
   constructor() {
@@ -9,19 +15,15 @@ export default class Track {
   }
 
   setName(name) {
-    const e = this.findTrackNameEvents()[0]
+    const e = this.findTrackNameEvent()
     this.updateEvent(e.id, {
       value: name
     })
   }
 
   getName() {
-    const e = this.findTrackNameEvents()[0]
+    const e = this.findTrackNameEvent()
     return e && e.text || ""
-  }
-
-  getEndOfTrack() {
-    return this.endOfTrack
   }
 
   getEvents() {
@@ -43,6 +45,8 @@ export default class Track {
       return
     }
     _.extend(anObj, obj)
+    this.updateEndOfTrack()
+    this.sortByTick()
     this.emitChange()
     return anObj
   }
@@ -50,6 +54,7 @@ export default class Track {
   removeEvent(id) {
     const obj = this.getEventById(id)
     _.pull(this.events, obj)
+    this.updateEndOfTrack()
     this.emitChange()
   }
 
@@ -63,9 +68,25 @@ export default class Track {
       e.channel = this.channel
     }
     this.events.push(e)
+    this.updateEndOfTrack()
+    this.sortByTick()
     this.lastEventId++
     this.emitChange()
     return e
+  }
+
+  sortByTick() {
+    this.events.sort((a, b) => a.tick - b.tick)
+  }
+
+  updateEndOfTrack() {
+    const eot = this.findEndOfTrackEvent()
+    if (eot) {
+      eot.tick = _.chain(this.events)
+        .map(e => e.tick + (e.duration || 0))
+        .max()
+        .value()
+    }
   }
 
   transaction(func) {
@@ -87,12 +108,16 @@ export default class Track {
 
   /* helper */
 
-  findTrackNameEvents() {
-    return this.events.filter(t => t.subtype == "trackName")
+  findTrackNameEvent() {
+    return _.head(this.events.filter(t => t.subtype == "trackName"))
   }
 
   findProgramChangeEvents() {
     return this.events.filter(t => t.subtype == "programChange")
+  }
+
+  findEndOfTrackEvent() {
+    return _.head(this.events.filter(t => t.subtype == "endOfTrack"))
   }
 
   findVolumeEvents() {
@@ -101,5 +126,34 @@ export default class Track {
 
   findPanEvents() {
     return this.events.filter(t => t.subtype == "controller" && t.controllerType == 10)
+  }
+
+  static conductorTrack(name = "Conductor Track") {
+    const track = new Track()
+    const events = [
+      new TrackNameMidiEvent(0, name),
+      new TimeSignatureMidiEvent(0, 4, 4, 24),
+      new SetTempoMidiEvent(0, 60000 / 120),
+      new EndOfTrackMidiEvent(0)
+    ]
+    events.forEach(e => track.addEvent(e))
+    return track
+  }
+
+  static emptyTrack(channel) {
+    const track = new Track()
+    track.channel = channel
+    const events = [
+      new TrackNameMidiEvent(0, ""),
+      new PanMidiEvent(0, 64), 
+      new VolumeMidiEvent(0, 100),
+      new ExpressionMidiEvent(0, 127),
+      new PitchBendMidiEvent(0, 0x2000),
+      new ModulationMidiEvent(0, 0),
+      new ProgramChangeMidiEvent(0, 0),
+      new EndOfTrackMidiEvent(0)
+    ]
+    events.forEach(e => track.addEvent(e))
+    return track
   }
 }

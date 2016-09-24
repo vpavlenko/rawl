@@ -4,7 +4,7 @@ module.exports = {
   context: path.join(__dirname, "src"),
   devtool: "inline-source-map",
   entry: {
-    javascript: './main.js'
+    javascript: './index.js'
   },
   output: {
     path: path.join(__dirname, "static"),
@@ -24,6 +24,11 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: "babel-loader"
+      },
+      {
+        test: /\.css$/,
+        exclude: /node_modules/,
+        loader: "style-loader!css-loader"
       }
     ]
   }

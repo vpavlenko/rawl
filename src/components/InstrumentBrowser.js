@@ -1,0 +1,77 @@
+import React, { Component } from "react"
+import { GMMap } from "../midi/GM"
+
+function InstrumentBrowserContent(props) {
+  const categoryOptions = props.categories.map((name, i) => {
+    return <option key={i}>{name}</option>
+  })
+
+  const instrumentOptions = props.instruments.map((name, i) => {
+    return <option key={i}>{name}</option>
+  })
+
+  return <div className="instrument-browser">
+    <div className="container">
+      <div className="left">
+        <label>Categories</label>
+        <select size="12" onChange={props.onChangeCategory} value={props.selectedCategoryId}>
+          {categoryOptions}
+        </select>
+      </div>
+      <div className="right">
+        <label>Instruments</label>
+        <select size="12" onChange={props.onChangeInstrument} value={props.selectedInstrumentId}>
+          {instrumentOptions}
+        </select>
+      </div>
+      <div className="footer">
+        <button className="ok" onClick={props.onClickOK}>OK</button>
+        <button className="cancel" onClick={props.onClickCancel}>Cancel</button>
+      </div>
+    </div>
+  </div>
+}
+
+export default class InstrumentBrowser extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      selectedCategoryId: props.selectedCategoryId || 0,
+      selectedInstrumentId: props.selectedInstrumentId || 0
+    }
+  }
+
+  render() {
+    const onClickOK = () => {
+      this.props.onClickOK({
+        categoryId: this.state.selectedCategoryId,
+        instrumentId: this.state.selectedInstrumentId
+      })
+    }
+
+    const onChangeCategory = e => {
+      this.setState({
+        selectedCategoryId: e.target.selectedIndex
+      })
+    }
+    
+    const onChangeInstrument = e => {
+      this.setState({
+        selectedInstrumentId: e.target.selectedIndex
+      })
+    }
+
+    const categories = Object.keys(GMMap)
+    const instruments = GMMap[Object.keys(GMMap)[this.state.selectedCategoryId]]
+
+    return <InstrumentBrowserContent
+      categories={categories}
+      instruments={instruments}
+      onClickOK={onClickOK}
+      onClickCancel={this.props.onClickCancel}
+      onChangeCategory={onChangeCategory}
+      onChangeInstrument={onChangeInstrument}
+    />
+  }
+}

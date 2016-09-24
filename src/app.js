@@ -1,38 +1,32 @@
-import SharedService from "./shared-service"
-import Player from "./player"
-import Quantizer from "./quantizer"
-import RootView from "./view/root-view"
-import Song from "./model/song"
-import MidiFileReader from "./midi-file-reader"
-import MidiFileWriter from "./midi-file-writer"
-import Config from "./config"
-import Downloader from "./downloader"
+import React, { Component } from "react"
 import observable from "riot-observable"
+import SharedService from "./services/SharedService"
+import Player from "./services/Player"
+import Quantizer from "./services/Quantizer"
+import RootView from "./components/RootView"
+import Song from "./model/Song"
+import MidiFileReader from "./midi/MidiFileReader"
+import MidiFileWriter from "./midi/MidiFileWriter"
+import Config from "./Config"
+import Downloader from "./helpers/Downloader"
 
-export default class App {
-  constructor() {
-    this.emitter = {}
-    observable(this.emitter)
+export default class App extends Component {
+  constructor(props) {
+    super(props)
+
     this.initServices()
-    this.initRootView()
+    this.initKeyboardShortcut()
+
+    this.state = {
+      song: Song.emptySong()
+    }
+    this.watchSong(this.state.song)
   }
 
   initServices() {
     SharedService.player = new Player(Config.TIME_BASE)
     SharedService.quantizer = new Quantizer(Config.TIME_BASE)
     window.SharedService = SharedService
-  }
-
-  initRootView() {
-    this.view = new RootView()
-    this.view.emitter.on("change-file", file => this.openSong(file))
-    this.view.emitter.on("save-file", () => this.saveSong())
-    this.view.emitter.on("view-did-load", () => this.onLoadView())
-  }
-
-  onLoadView() {
-    this.setSong(Song.emptySong())
-    this.initKeyboardShortcut()
   }
 
   initKeyboardShortcut() {
@@ -54,9 +48,21 @@ export default class App {
     }
   }
 
+  watchSong(song) {
+    SharedService.player.prepare(song)
+
+    song.on("change", () => {
+      this.setState({ song })
+    })
+  }
+
   setSong(song) {
-    this.song = song
-    this.view.setSong(song)
+    if (!song || song === this.state.song) {
+      return
+    }
+
+    this.setState({song})
+    this.watchSong(song)
   }
 
   openSong(file) {
@@ -71,5 +77,13 @@ export default class App {
   saveSong() {
     const bytes = MidiFileWriter.write(this.song.getTracks())
     Downloader.downloadBlob(bytes, this.song.name, "application/octet-stream")
+  }
+
+  render() {
+    return <RootView
+      onChangeFile={file => this.openSong(file)}
+      onSaveFile={() => this.saveSong()}
+      song={this.state.song}
+    />
   }
 }

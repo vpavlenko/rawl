@@ -1,63 +1,19 @@
-import _ from "lodash"
+import observable from "riot-observable"
+import Rect from "../rect"
 
 export default class SelectionModel {
-  constructor(fromTick, fromNoteNumber, toTick, toNoteNumber, notes = [], original = null) {
-    this._fromTick = fromTick
-    this._fromNoteNumber = fromNoteNumber
-    this._toTick = toTick
-    this._toNoteNumber = toNoteNumber
-    this._notes = _.cloneDeep(notes)
-    this._original = original
+  constructor() {
+    this.fromTick = 0
+    this.fromNoteNumber = 0
+    this.toTick = 0
+    this.toNoteNumber = 0
+    this.enabled = false
+    this.notes = []
+    observable(this)
   }
 
-  get fromTick() {
-    return this._fromTick
-  }
-
-  get fromNoteNumber() {
-    return this._fromNoteNumber
-  }
-
-  get toTick() {
-    return this._toTick
-  }
-
-  get toNoteNumber() {
-    return this._toNoteNumber
-  }
-
-  get noteIds() {
-    return this._notes.map(n => n.id)
-  }
-
-  get notes() {
-    return this._notes
-  }
-
-  get original() {
-    return this._original || this
-  }
-
-  copyUpdated(notes) {
-    return new SelectionModel(
-      this.fromTick,
-      this.fromNoteNumber,
-      this.toTick,
-      this.toNoteNumber,
-      notes
-    )
-  }
-
-  copyMoved(dt, dn = 0, dd = 0) {
-    const s = this.original
-    return new SelectionModel(
-      s.fromTick + dt,
-      s.fromNoteNumber + dn,
-      s.toTick + dt + dd,
-      s.toNoteNumber + dn,
-      s.notes,
-      s
-    )
+  emitChanges() {
+    this.trigger("change")
   }
 
   getBounds(transform) {
@@ -65,21 +21,58 @@ export default class SelectionModel {
     const right = transform.getX(this.toTick)
     const top = transform.getY(this.fromNoteNumber)
     const bottom = transform.getY(this.toNoteNumber)
-    return {
-      x: left,
-      y: top,
-      width: right - left,
-      height: bottom - top
-    }
+    return new Rect(
+      left,
+      top,
+      right - left,
+      bottom - top
+    )
   }
 
-  static fromRect(rect, quantizer, transform, notes = []) {
-    return new SelectionModel(
-      quantizer.round(transform.getTicks(rect.x)), 
-      Math.ceil(transform.getNoteNumber(rect.y)), 
-      quantizer.round(transform.getTicks(rect.x + rect.width)), 
-      Math.ceil(transform.getNoteNumber(rect.y + rect.height)),
-      notes
-    )
+  setNotes(notes) {
+    this.notes = notes
+    this.emitChanges()
+  }
+
+  moveTo(tick, number) {
+    const duration = this.toTick - this.fromTick
+    const width = this.toNoteNumber - this.fromNoteNumber
+    this.fromTick = tick
+    this.toTick = tick + duration
+    this.fromNoteNumber = number
+    this.toNoteNumber = number + width
+    this.emitChanges()
+  }
+
+  move(dt, dn) {
+    this.fromTick += dt
+    this.toTick += dt
+    this.fromNoteNumber += dn
+    this.toNoteNumber += dn
+    this.emitChanges()
+  }
+
+  resize(rect, quantizer, transform) {
+    this.fromTick = quantizer.round(transform.getTicks(rect.x))
+    this.fromNoteNumber = Math.ceil(transform.getNoteNumber(rect.y))
+    this.toTick = quantizer.round(transform.getTicks(rect.x + rect.width))
+    this.toNoteNumber = Math.ceil(transform.getNoteNumber(rect.y + rect.height))
+    this.enabled = true
+    this.emitChanges()
+  }
+
+  setFromTick(t) {
+    this.fromTick = t
+    this.emitChanges()
+  }
+
+  setToTick(t) {
+    this.toTick = t
+    this.emitChanges()
+  }
+
+  reset() {
+    this.notes = []
+    this.enabled = false
   }
 }

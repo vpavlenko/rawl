@@ -13,11 +13,15 @@ export default class Rect {
     this.height = height
   }
 
+  contains(x, y) {
+    return this.containsPoint({x, y})
+  }
+
   containsPoint(point) {
     return point.x >= this.x && point.x <= this.x + this.width &&
            point.y >= this.y && point.y <= this.y + this.height
   }
-  
+
   static fromPoints(p1, p2) {
     var right = Math.max(p1.x, p2.x)
     var bottom = Math.max(p1.y, p2.y)

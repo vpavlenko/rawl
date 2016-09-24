@@ -1,14 +1,14 @@
 import React, { Component } from "react"
-import SharedService from "./shared-service"
-import Player from "./player"
-import Quantizer from "./quantizer"
-import RootView from "./components/root-view"
-import Song from "./model/song"
-import MidiFileReader from "./midi-file-reader"
-import MidiFileWriter from "./midi-file-writer"
-import Config from "./config"
-import Downloader from "./downloader"
 import observable from "riot-observable"
+import SharedService from "./services/SharedService"
+import Player from "./services/Player"
+import Quantizer from "./services/Quantizer"
+import RootView from "./components/RootView"
+import Song from "./model/Song"
+import MidiFileReader from "./midi/MidiFileReader"
+import MidiFileWriter from "./midi/MidiFileWriter"
+import Config from "./Config"
+import Downloader from "./helpers/Downloader"
 
 export default class App extends Component {
   constructor(props) {

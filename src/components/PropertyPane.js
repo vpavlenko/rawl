@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { noteNumberString } from "../note-number-string"
+import { noteNumberString } from "../helpers/noteNumberString"
 import { Section } from "./form"
 
 function PropertyPaneContent(props) {

@@ -1,5 +1,5 @@
 import observable from "riot-observable"
-import Rect from "../rect"
+import Rect from "./Rect"
 
 export default class SelectionModel {
   constructor() {

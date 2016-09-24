@@ -2,23 +2,23 @@ import ReactDOM from "react-dom"
 import React, { Component } from "react"
 import observable from "riot-observable"
 
-import SharedService from "../shared-service"
-import Track from "../model/track"
-import PopupComponent from "./popup-component"
-import Config from "../config"
+import SharedService from "../services/SharedService"
+import Track from "../model/Track"
+import PopupComponent from "./PopupComponent"
+import Config from "../Config"
 
-import TrackList from "./track-list"
-import TrackInfo from "./track-info"
-import Toolbar from "./toolbar"
-import EventList from "./event-list"
-import InstrumentBrowser from "./instrument-browser"
-import PropertyPane from "./property-pane"
-import PianoRoll from "./piano-roll"
+import TrackList from "./TrackList"
+import TrackInfo from "./TrackInfo"
+import Toolbar from "./Toolbar"
+import EventList from "./EventList"
+import InstrumentBrowser from "./InstrumentBrowser"
+import PropertyPane from "./PropertyPane"
+import PianoRoll from "./PianoRoll"
 
 import {
   getGMMapIndexes,
   getGMMapProgramNumber
-} from "../gm.js"
+} from "../midi/GM.js"
 
 export default class RootView extends Component {
   constructor(props) {

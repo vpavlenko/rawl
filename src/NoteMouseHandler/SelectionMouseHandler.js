@@ -1,8 +1,8 @@
 import _ from "lodash"
-import MouseHandler, { defaultActionFactory, getLocal } from "./note-mouse-handler"
-import { createNoteAction } from "./pencil-mouse-handler"
-import Rect from "./rect"
-import { pointSub } from "./helpers/point"
+import MouseHandler, { defaultActionFactory, getLocal } from "./NoteMouseHandler"
+import { createNoteAction } from "./PencilMouseHandler"
+import Rect from "../model/Rect"
+import { pointSub } from "../helpers/point"
 
 export default class SelectionMouseHandler extends MouseHandler {
   constructor(emitter) {

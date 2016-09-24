@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from "react"
-import Theme from "../Theme"
+import Theme from "../model/Theme"
 import pickMouseEvents from "../helpers/pickMouseEvents"
-import DrawCanvas from "./draw-canvas"
+import DrawCanvas from "./DrawCanvas"
 
 function rectForNote(note, transform, viewHeight) {
   const { x } = transform.getRect(note)

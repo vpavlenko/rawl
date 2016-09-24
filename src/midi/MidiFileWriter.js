@@ -4,7 +4,7 @@ import {
   addDeltaTime, 
   eventToBytes, 
   strToCharCodes 
-} from "./midi-helper"
+} from "../helpers/midiHelper"
 
 //https://sites.google.com/site/yyagisite/material/smfspec#format
 

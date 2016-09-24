@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import SharedService from "../shared-service"
+import SharedService from "../services/SharedService"
 
 function TrackListItem(props) {
   function onClickName() { props.onClickName(props.track.trackId) }

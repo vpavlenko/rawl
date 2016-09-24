@@ -1,8 +1,8 @@
 import React, { PropTypes } from "react"
-import Theme from "../Theme"
-import { noteNameWithOctString } from "../note-number-string"
-import DrawCanvas from "./draw-canvas"
-import pureRender from "../hocs/pure-render"
+import Theme from "../model/Theme"
+import { noteNameWithOctString } from "../helpers/noteNumberString"
+import DrawCanvas from "./DrawCanvas"
+import pureRender from "../hocs/pureRender"
 
 function drawBorder(ctx, width, height) {
   ctx.lineWidth = 1

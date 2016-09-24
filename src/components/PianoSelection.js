@@ -1,7 +1,7 @@
 import React, { PropTypes } from "react"
-import Theme from "../Theme"
-import DrawCanvas from "./draw-canvas"
-import pureRender from "../hocs/pure-render"
+import Theme from "../model/Theme"
+import DrawCanvas from "./DrawCanvas"
+import pureRender from "../hocs/pureRender"
 
 const LINE_WIDTH = 2
 

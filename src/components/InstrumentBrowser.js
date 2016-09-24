@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { GMMap } from "../gm"
+import { GMMap } from "../midi/GM"
 
 function InstrumentBrowserContent(props) {
   const categoryOptions = props.categories.map((name, i) => {

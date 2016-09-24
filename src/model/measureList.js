@@ -1,4 +1,4 @@
-import Measure from "./measure"
+import Measure from "./Measure"
 
 export default class MeasureList {
   constructor(conductorTrack) {

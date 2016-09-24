@@ -1,8 +1,8 @@
 import React, { Component } from "react"
 import { Table, Column, Cell } from "fixed-data-table"
-import _ from "lodash"
-import { controllerTypeString } from "../note-number-string"
 import Dimensions from "react-dimensions"
+import _ from "lodash"
+import { controllerTypeString } from "../helpers/noteNumberString"
 
 const AutoSizingTable = Dimensions()(
   class extends Component {

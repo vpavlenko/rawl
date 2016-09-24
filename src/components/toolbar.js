@@ -1,8 +1,8 @@
 import React, { Component } from "react"
-import Config from "../config"
-import SharedService from "../shared-service"
-import Select from "./select"
-import Button from "./button"
+import Config from "../Config"
+import SharedService from "../services/SharedService"
+import Select from "./Select"
+import Button from "./Button"
 
 function ToolbarContent(props) {
   return <div className="toolbar">

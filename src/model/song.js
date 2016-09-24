@@ -1,7 +1,7 @@
 import _ from "lodash"
-import MeasureList from "./measure-list"
-import Track from "./track"
 import observable from "riot-observable"
+import MeasureList from "./MeasureList"
+import Track from "./Track"
 
 export default class Song {
   constructor() {

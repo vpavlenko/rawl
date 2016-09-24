@@ -1,7 +1,7 @@
 import {
   MIDIMetaEventType,
   MIDIChannelEventType
-} from "./midi-constants"
+} from "../midi/MidiConstants"
 
 // separate notes to noteOn + noteOff
 export function deassembleNoteEvents(e) {

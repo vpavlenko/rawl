@@ -1,5 +1,5 @@
 import _ from "lodash"
-import MidiFile from "../vendor/jasmid/midifile"
+import MidiFile from "../../vendor/jasmid/midifile"
 
 /**
 

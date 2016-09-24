@@ -1,9 +1,9 @@
 import React, { PropTypes } from "react"
-import DrawCanvas from "./draw-canvas"
-import pureRender from "../hocs/pure-render"
-import Theme from "../theme"
+import DrawCanvas from "./DrawCanvas"
+import pureRender from "../hocs/pureRender"
+import Theme from "../model/Theme"
 import pickMouseEvents from "../helpers/pickMouseEvents"
-import mouseablePianoNotes from "../hocs/mouseable-piano-notes"
+import mouseablePianoNotes from "../hocs/mouseablePianoNotes"
 import _ from "lodash"
 
 function drawNote(ctx, rect, note, fillColor, strokeColor) {

@@ -1,7 +1,7 @@
 import _ from "lodash"
 import observable from "riot-observable"
-import { MIDIController, MIDIChannelEventType } from "./midi-constants"
-import { deassembleNoteEvents, eventToBytes } from "./midi-helper"
+import { MIDIController, MIDIChannelEventType } from "../midi/MidiConstants"
+import { deassembleNoteEvents, eventToBytes } from "../helpers/midiHelper"
 
 const INTERVAL = 1 / 15 * 1000  // low fps
 

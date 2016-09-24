@@ -1,7 +1,7 @@
 import _ from "lodash"
-import SharedService from "./shared-service"
-import MouseHandler, { defaultActionFactory, getLocal } from "./note-mouse-handler"
-import { pointSub } from "./helpers/point"
+import SharedService from "../services/SharedService"
+import MouseHandler, { defaultActionFactory, getLocal } from "./NoteMouseHandler"
+import { pointSub } from "../helpers/point"
 
 export default class PencilMouseHandler extends MouseHandler {
   constructor(emitter) {

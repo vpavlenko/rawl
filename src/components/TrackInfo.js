@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { getInstrumentName } from "../gm"
+import { getInstrumentName } from "../midi/GM"
 
 function TrackInfoContent(props) {
   const track = props.track

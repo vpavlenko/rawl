@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import "./form.css"
+import "./Form.css"
 
 function SectionContent(props) {
   return <section className="Section">

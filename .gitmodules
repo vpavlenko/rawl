@@ -4,3 +4,6 @@
 [submodule ".\\src\\submodules\\shinjuku"]
 	path = .\\src\\submodules\\shinjuku
 	url = https://github.com/ryohey/shinjuku.git
+[submodule "src/submodules/jasmid"]
+	path = src/submodules/jasmid
+	url = https://github.com/ryohey/jasmid.git

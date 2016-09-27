@@ -1,5 +1,5 @@
 import _ from "lodash"
-import MidiFile from "../../vendor/jasmid/midifile"
+import MidiFile from "../submodules/jasmid/midifile"
 
 /**
 
@@ -13,7 +13,7 @@ function assembleEvents(events) {
   function findNoteOn(noteOff) {
     const i = _.findIndex(noteOnEvents, e => {
       return e.channel == noteOff.channel &&
-        e.noteNumber == noteOff.noteNumber && 
+        e.noteNumber == noteOff.noteNumber &&
         e.track == noteOff.track
     })
     if (i < 0) {
@@ -30,7 +30,7 @@ function assembleEvents(events) {
     tick += e.deltaTime
     e.tick = tick
 
-    switch(e.subtype) { 
+    switch(e.subtype) {
       case "noteOn":
         noteOnEvents.push(e)
         break
@@ -59,7 +59,7 @@ function assembleEvents(events) {
 function getTrackMeta(events) {
   const meta = {}
   events.forEach((e) => {
-    switch(e.subtype) { 
+    switch(e.subtype) {
       case "trackName":
         meta.name = e.text
         break
@@ -74,7 +74,7 @@ function getFileMeta(tracks) {
   const meta = {}
   tracks.forEach((events) => {
     events.forEach((e) => {
-      switch(e.subtype) { 
+      switch(e.subtype) {
         case "copyrightNotice":
           meta.copyrightNotice = e.text
           break

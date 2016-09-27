@@ -1,11 +1,11 @@
 import _ from "lodash"
 import observable from "riot-observable"
-import { 
+import {
   TrackNameMidiEvent, EndOfTrackMidiEvent,
   TimeSignatureMidiEvent, SetTempoMidiEvent,
   PitchBendMidiEvent, VolumeMidiEvent,
   PanMidiEvent, ExpressionMidiEvent,
-  ModulationMidiEvent, ProgramChangeMidiEvent } from "../../vendor/jasmid/midievent"
+  ModulationMidiEvent, ProgramChangeMidiEvent } from "../midi/midievent"
 
 export default class Track {
   constructor() {
@@ -101,7 +101,7 @@ export default class Track {
 
   emitChange() {
     this._changed = true
-    if (!this._paused) { 
+    if (!this._paused) {
       this.trigger("change")
     }
   }
@@ -145,7 +145,7 @@ export default class Track {
     track.channel = channel
     const events = [
       new TrackNameMidiEvent(0, ""),
-      new PanMidiEvent(0, 64), 
+      new PanMidiEvent(0, 64),
       new VolumeMidiEvent(0, 100),
       new ExpressionMidiEvent(0, 127),
       new PitchBendMidiEvent(0, 0x2000),

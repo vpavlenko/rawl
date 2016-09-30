@@ -1,16 +1,12 @@
 import _ from "lodash"
-import { 
-  deassembleNoteEvents, 
-  addDeltaTime, 
-  eventToBytes, 
-  strToCharCodes 
+import {
+  deassembleNoteEvents,
+  addDeltaTime,
+  eventToBytes,
+  strToCharCodes
 } from "../helpers/midiHelper"
 
 //https://sites.google.com/site/yyagisite/material/smfspec#format
-
-function toHex(d) {
-  return ("0"+(Number(d).toString(16))).slice(-2).toUpperCase()
-}
 
 class Buffer {
   constructor() {

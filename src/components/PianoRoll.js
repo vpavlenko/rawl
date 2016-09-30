@@ -1,6 +1,5 @@
 import React, { Component } from "react"
 import observable from "riot-observable"
-import Theme from "../model/Theme"
 import SelectionModel from "../model/SelectionModel"
 import NoteCoordTransform from "../model/NoteCoordTransform"
 import SharedService from "../services/SharedService"
@@ -10,6 +9,8 @@ import PianoRuler from "./PianoRuler"
 import PianoNotes from "./PianoNotes"
 import PianoSelection from "./PianoSelection"
 import PianoVelocityControl from "./PianoVelocityControl"
+import PianoCursor from "./PianoCursor"
+import withTheme from "../hocs/withTheme"
 
 function filterEventsWithScroll(events, transform, scrollLeft, width) {
   const tickStart = transform.getTicks(scrollLeft)
@@ -50,13 +51,14 @@ function getMaxX(events) {
   )
 }
 
-export default class PianoRoll extends Component {
+class PianoRoll extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
       scrollLeft: 0,
       scrollTop: 0,
+      cursorPosition: 0,
 
       /* ノート配置部分のサイズ */
       contentWidth: 0,
@@ -69,42 +71,72 @@ export default class PianoRoll extends Component {
     })
   }
 
+  forceScrollLeft(scrollLeft) {
+    this.alpha.scrollLeft = scrollLeft
+    this.beta.scrollLeft = scrollLeft
+    this.setState({ scrollLeft })
+  }
+
   componentDidMount() {
     this.alpha.addEventListener("scroll", e => {
-      this.setState({
-        scrollTop: e.target.scrollTop
-      })
+      const { scrollTop } = e.target
+      this.setState({ scrollTop })
     })
     this.beta.addEventListener("scroll", e => {
       const { scrollLeft } = e.target
       this.alpha.scrollLeft = scrollLeft
+      this.setState({ scrollLeft })
+    })
+
+    const player = SharedService.player
+    player.on("change-position", tick => {
+      const x = this.getTransform().getX(tick)
       this.setState({
-        scrollLeft: scrollLeft
+        cursorPosition: x
       })
+      this.forceScrollLeft(x)
+
+      // keep scroll position to cursor
+      if (this.props.autoScroll && player.isPlaying) {
+        const screenX = x - this.state.scrollLeft
+        if (screenX > this.alpha.clientWidth * 0.7 || screenX < 0) {
+          //this.forceScrollLeft(x)
+        }
+      }
     })
   }
 
-  render() {
-    const props = this.props
-    const endTick = Math.max(getMaxX(props.track.getEvents()), 5000)
-    const numberOfKeys = 128
-    const pixelsPerTick = 0.1 * props.scaleX
-    const ticksPerBeat = 480
-    const contentWidth = endTick * pixelsPerTick
-    const keyWidth = Theme.keyWidth
-    const keyHeight = Theme.keyHeight
-    const rulerHeight = Theme.rulerHeight
-    const controlHeight = Theme.controlHeight
-    const contentHeight = keyHeight * numberOfKeys
-    const noteScale = {x: 1, y: 1}
-    const transform = new NoteCoordTransform(
+  getTransform() {
+    const theme = this.props.theme
+    const keyHeight = theme.keyHeight
+    const pixelsPerTick = 0.1 * this.props.scaleX
+    return new NoteCoordTransform(
       pixelsPerTick,
       keyHeight,
-      numberOfKeys)
+      127)
+  }
+
+  render() {
+    const theme = this.props.theme
+    const props = this.props
+
+    const endTick = Math.max(getMaxX(props.track.getEvents()), 5000)
+
+    const transform = this.getTransform()
+    const ticksPerBeat = 480
+    const contentWidth = endTick * transform.getPixelsPerTick()
+    const contentHeight = transform.getMaxY()
+
     const events = filterEventsWithScroll(props.track.getEvents(), transform, this.state.scrollLeft, 300)
+
     const fixedLeftStyle = {left: this.state.scrollLeft}
     const fixedTopStyle = {top: this.state.scrollTop}
+
     const quantizer = SharedService.quantizer
+
+    const keyWidth = theme.keyWidth
+    const rulerHeight = theme.rulerHeight
+    const controlHeight = theme.controlHeight
 
     const mouseEmitter = observable()
     const selection = this.state.selection
@@ -114,10 +146,8 @@ export default class PianoRoll extends Component {
         <div className="PianoGridWrapper">
           <PianoGrid
             endTick={endTick}
-            pixelsPerTick={pixelsPerTick}
             ticksPerBeat={ticksPerBeat}
-            keyHeight={keyHeight}
-            numberOfKeys={numberOfKeys} />
+            transform={transform} />
         </div>
         <div className="PianoNotesWrapper">
           <PianoNotes
@@ -136,17 +166,23 @@ export default class PianoRoll extends Component {
             transform={transform}
             selection={selection} />
         </div>
+        <div className="PianoCursorWrapper">
+          <PianoCursor
+            width={contentWidth}
+            height={contentHeight}
+            position={this.state.cursorPosition} />
+        </div>
         <div className="PianoKeysWrapper" style={fixedLeftStyle}>
           <PianoKeys
             width={keyWidth}
-            keyHeight={keyHeight}
-            numberOfKeys={numberOfKeys} />
+            keyHeight={transform.getPixelsPerKey()}
+            numberOfKeys={transform.getMaxNoteNumber()} />
         </div>
         <div className="PianoRulerWrapper" style={fixedTopStyle}>
           <PianoRuler
             height={rulerHeight}
             endTick={endTick}
-            pixelsPerTick={pixelsPerTick}
+            pixelsPerTick={transform.getPixelsPerTick()}
             ticksPerBeat={ticksPerBeat} />
         </div>
         <div className="PianoRollLeftSpace" />
@@ -157,8 +193,10 @@ export default class PianoRoll extends Component {
           height={controlHeight}
           endTick={endTick}
           transform={transform}
-          setEventBounds={(id, bounds) => true} />
+          setEventBounds={() => true} />
       </div>
     </div>
   }
 }
+
+export default withTheme(PianoRoll)

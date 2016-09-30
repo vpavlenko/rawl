@@ -66,7 +66,6 @@ const createSelectionAction = ctx => (onMouseDown, onMouseMove, onMouseUp) => {
     const rect = Rect.fromPoints(startPosition, pos)
     const events = ctx.getEventsInRect(rect)
     selection.setNotes(events)
-    console.log(events)
   })
 }
 

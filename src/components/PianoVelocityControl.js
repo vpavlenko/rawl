@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from "react"
-import Theme from "../model/Theme"
 import pickMouseEvents from "../helpers/pickMouseEvents"
 import DrawCanvas from "./DrawCanvas"
 

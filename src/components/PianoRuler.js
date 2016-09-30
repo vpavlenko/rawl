@@ -1,7 +1,10 @@
 import React, { PropTypes } from "react"
 import Theme from "../model/Theme"
 import DrawCanvas from "./DrawCanvas"
+import withTheme from "../hocs/withTheme"
 import pureRender from "../hocs/pureRender"
+
+const theme = Theme.fromCSS()
 
 /**
 
@@ -12,11 +15,9 @@ import pureRender from "../hocs/pureRender"
     })
     */
 
-function drawRuler(ctx, height, pixelsPerTick, endTick, ticksPerBeat) {
-  const width = pixelsPerTick * endTick
-
+function drawRuler(ctx, height, pixelsPerTick, endTick, ticksPerBeat, theme) {
   ctx.beginPath()
-  ctx.strokeStyle = Theme.secondaryTextColor
+  ctx.strokeStyle = theme.secondaryTextColor
   ctx.lineWidth = 1
 
   for (let beats = 0; beats < endTick / ticksPerBeat; beats++) {
@@ -34,8 +35,8 @@ function drawRuler(ctx, height, pixelsPerTick, endTick, ticksPerBeat) {
     if (isTop) {
       const measure = beats / 4
       ctx.textBaseline = "top"
-      ctx.font = `12px ${Theme.canvasFont}`
-      ctx.fillStyle = Theme.secondaryTextColor
+      ctx.font = `12px ${theme.canvasFont}`
+      ctx.fillStyle = theme.secondaryTextColor
       ctx.fillText(measure, x + 5, 2)
     }
   }
@@ -48,7 +49,7 @@ function PianoRuler(props) {
   function draw(ctx) {
     const { width, height } = ctx.canvas
     ctx.clearRect(0, 0, width, height)
-    drawRuler(ctx, props.height, props.pixelsPerTick, props.endTick, props.ticksPerBeat)
+    drawRuler(ctx, props.height, props.pixelsPerTick, props.endTick, props.ticksPerBeat, props.theme)
   }
 
   return <DrawCanvas
@@ -66,4 +67,4 @@ PianoRuler.propTypes = {
   height: PropTypes.number.isRequired
 }
 
-export default pureRender(PianoRuler)
+export default pureRender(withTheme(PianoRuler))

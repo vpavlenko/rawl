@@ -1,12 +1,12 @@
 import React, { PropTypes } from "react"
-import Theme from "../model/Theme"
 import { noteNameWithOctString } from "../helpers/noteNumberString"
 import DrawCanvas from "./DrawCanvas"
+import withTheme from "../hocs/withTheme"
 import pureRender from "../hocs/pureRender"
 
-function drawBorder(ctx, width, height) {
+function drawBorder(ctx, width, theme) {
   ctx.lineWidth = 1
-  ctx.strokeStyle = Theme.dividerColor
+  ctx.strokeStyle = theme.dividerColor
   ctx.beginPath()
   ctx.moveTo(0, 0)
   ctx.lineTo(width, 0)
@@ -14,15 +14,15 @@ function drawBorder(ctx, width, height) {
   ctx.stroke()
 }
 
-function drawBlackKey(ctx, width, height) {
+function drawBlackKey(ctx, width, height, theme) {
   const innerWidth = width * 0.64
   const middle = Math.round(height / 2)
 
-  ctx.fillStyle = Theme.textColor
+  ctx.fillStyle = theme.textColor
   ctx.fillRect(0, 0, innerWidth, height)
 
   ctx.lineWidth = 1
-  ctx.strokeStyle = Theme.dividerColor
+  ctx.strokeStyle = theme.dividerColor
   ctx.beginPath()
   ctx.moveTo(innerWidth, middle)
   ctx.lineTo(width, middle)
@@ -30,20 +30,20 @@ function drawBlackKey(ctx, width, height) {
   ctx.stroke()
 }
 
-function drawLabel(ctx, width, height, keyNum) {
+function drawLabel(ctx, width, height, keyNum, theme) {
   const x = width - 5
   ctx.textAlign = "right"
   ctx.textBaseline = "middle"
-  ctx.font = `12px ${Theme.canvasFont}`
-  ctx.fillStyle = Theme.secondaryTextColor
+  ctx.font = `12px ${theme.canvasFont}`
+  ctx.fillStyle = theme.secondaryTextColor
   ctx.fillText(noteNameWithOctString(keyNum), x, height / 2)
 }
 
-function drawKeys(ctx, width, keyHeight, numberOfKeys) {
+function drawKeys(ctx, width, keyHeight, numberOfKeys, theme) {
   ctx.save()
   ctx.translate(0, 0.5)
-  
-  drawBorder(ctx, width, keyHeight)
+
+  drawBorder(ctx, width, theme)
 
   // 0: white, 1: black
   const colors = [0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0]
@@ -54,13 +54,13 @@ function drawKeys(ctx, width, keyHeight, numberOfKeys) {
     ctx.save()
     ctx.translate(0, y)
     if (isBlack) {
-      drawBlackKey(ctx, width, keyHeight)
+      drawBlackKey(ctx, width, keyHeight, theme)
     } else if (bordered) {
-      drawBorder(ctx, width, keyHeight)
+      drawBorder(ctx, width, theme)
     }
     const isKeyC = i % 12 == 0
     if (isKeyC) {
-      drawLabel(ctx, width, keyHeight, i)
+      drawLabel(ctx, width, keyHeight, i, theme)
     }
     ctx.restore()
   }
@@ -72,7 +72,8 @@ function PianoKeys(props) {
   function draw(ctx) {
     const { width, height } = ctx.canvas
     ctx.clearRect(0, 0, width, height)
-    drawKeys(ctx, props.width, props.keyHeight, props.numberOfKeys)
+    console.log(`[PianoKeys] draw ${props.numberOfKeys} keys`)
+    drawKeys(ctx, props.width, props.keyHeight, props.numberOfKeys, props.theme)
   }
 
   return <DrawCanvas
@@ -89,4 +90,4 @@ PianoKeys.propTypes = {
   numberOfKeys: PropTypes.number.isRequired
 }
 
-export default pureRender(PianoKeys)
+export default pureRender(withTheme(PianoKeys))

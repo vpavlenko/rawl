@@ -1,15 +1,15 @@
 import React, { PropTypes } from "react"
-import Theme from "../model/Theme"
 import DrawCanvas from "./DrawCanvas"
+import withTheme from "../hocs/withTheme"
 import pureRender from "../hocs/pureRender"
 
 const LINE_WIDTH = 2
 
-function drawSelection(ctx, selection, transform) {
+function drawSelection(ctx, selection, transform, theme) {
   if (!selection.enabled) return
   const { x, y, width, height } = selection.getBounds(transform)
   ctx.beginPath()
-  ctx.strokeStyle = Theme.themeColor
+  ctx.strokeStyle = theme.themeColor
   ctx.lineWidth = LINE_WIDTH
   ctx.rect(
     x + LINE_WIDTH / 2,
@@ -23,7 +23,7 @@ function PianoSelection(props) {
   function draw(ctx) {
     const { width, height } = ctx.canvas
     ctx.clearRect(0, 0, width, height)
-    drawSelection(ctx, props.selection, props.transform)
+    drawSelection(ctx, props.selection, props.transform, props.theme)
   }
 
   return <DrawCanvas
@@ -41,4 +41,4 @@ PianoSelection.propTypes = {
   height: PropTypes.number.isRequired
 }
 
-export default pureRender(PianoSelection)
+export default pureRender(withTheme(PianoSelection))

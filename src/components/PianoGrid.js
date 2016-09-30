@@ -1,16 +1,18 @@
 import React, { PropTypes } from "react"
-import Theme from "../model/Theme"
 import DrawCanvas from "./DrawCanvas"
+import withTheme from "../hocs/withTheme"
 import pureRender from "../hocs/pureRender"
 
-function drawBeatLines(ctx, height, pixelsPerTick, endTick, ticksPerBeat) {
+function drawBeatLines(ctx, transform, endTick, ticksPerBeat, theme) {
+  const height = transform.getMaxY()
+  const pixelsPerTick = transform.getPixelsPerTick()
   ctx.lineWidth = 1
 
   ctx.beginPath()
   for (let beats = 0; beats < endTick / ticksPerBeat; beats++) {
     const x = beats * ticksPerBeat * pixelsPerTick
     const isBold = beats % 4 == 0
-    ctx.strokeStyle = Theme.getDividerColorAccented(isBold)
+    ctx.strokeStyle = isBold ? theme.secondaryTextColor : theme.dividerColor
     ctx.moveTo(x, 0)
     ctx.lineTo(x, height)
   }
@@ -18,7 +20,10 @@ function drawBeatLines(ctx, height, pixelsPerTick, endTick, ticksPerBeat) {
   ctx.stroke()
 }
 
-function drawHorizontalLines(ctx, keyHeight, numberOfKeys, pixelsPerTick, endTick) {
+function drawHorizontalLines(ctx, transform, endTick, theme) {
+  const keyHeight = transform.getPixelsPerKey()
+  const numberOfKeys = transform.getMaxNoteNumber()
+  const pixelsPerTick = transform.getPixelsPerTick()
   ctx.lineWidth = 1
 
   const width = pixelsPerTick * endTick
@@ -29,10 +34,10 @@ function drawHorizontalLines(ctx, keyHeight, numberOfKeys, pixelsPerTick, endTic
     const isBold = index == 11
     const y = (numberOfKeys - key - 1) * keyHeight
     if (isBlack) {
-      ctx.fillStyle = Theme.secondaryBackgroundColor
+      ctx.fillStyle = theme.secondaryBackgroundColor
       ctx.fillRect(0, y, width, keyHeight)
     }
-    ctx.strokeStyle = Theme.getDividerColorAccented(isBold)
+    ctx.strokeStyle = isBold ? theme.secondaryTextColor : theme.dividerColor
     ctx.beginPath()
     ctx.moveTo(0, y)
     ctx.lineTo(width, y)
@@ -41,26 +46,27 @@ function drawHorizontalLines(ctx, keyHeight, numberOfKeys, pixelsPerTick, endTic
   }
 }
 
-function drawGrid(ctx, keyHeight, numberOfKeys, pixelsPerTick, endTick, ticksPerBeat) {
+function drawGrid(ctx, transform, endTick, ticksPerBeat, theme) {
   ctx.save()
   ctx.translate(0, 0.5)
-  drawHorizontalLines(ctx, keyHeight, numberOfKeys, pixelsPerTick, endTick)
-  drawBeatLines(ctx, keyHeight * numberOfKeys, pixelsPerTick, endTick, ticksPerBeat)
+  drawHorizontalLines(ctx, transform, endTick, theme)
+  drawBeatLines(ctx, transform, endTick, ticksPerBeat, theme)
   ctx.restore()
 }
 
 function PianoGrid(props) {
+  const { transform } = props
   function draw(ctx) {
     const { width, height } = ctx.canvas
     ctx.clearRect(0, 0, width, height)
-    drawGrid(ctx, props.keyHeight, props.numberOfKeys, props.pixelsPerTick, props.endTick, props.ticksPerBeat)
+    drawGrid(ctx, transform, props.endTick, props.ticksPerBeat, props.theme)
   }
 
   return <DrawCanvas
     draw={draw}
     className="PianoGrid"
-    width={props.pixelsPerTick * props.endTick}
-    height={props.keyHeight * props.numberOfKeys}
+    width={transform.getPixelsPerTick() * props.endTick}
+    height={transform.getPixelsPerKey() * transform.getMaxNoteNumber()}
     style={props.style}
   />
 }
@@ -68,10 +74,8 @@ function PianoGrid(props) {
 PianoGrid.propTypes = {
   style: PropTypes.object,
   endTick: PropTypes.number.isRequired,
-  keyHeight: PropTypes.number.isRequired,
-  numberOfKeys: PropTypes.number.isRequired,
+  transform: PropTypes.object.isRequired,
   ticksPerBeat: PropTypes.number.isRequired,
-  pixelsPerTick: PropTypes.number.isRequired
 }
 
-export default pureRender(PianoGrid)
+export default pureRender(withTheme(PianoGrid))

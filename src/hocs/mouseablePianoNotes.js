@@ -1,6 +1,5 @@
 import React, { Component } from "react"
 import _ from "lodash"
-import PencilMouseHandler from "../NoteMouseHandler/PencilMouseHandler"
 import SelectionMouseHandler from "../NoteMouseHandler/SelectionMouseHandler"
 
 function filterEventsInRect(boundsMap, rect) {

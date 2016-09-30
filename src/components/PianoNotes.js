@@ -1,7 +1,6 @@
 import React, { PropTypes } from "react"
 import DrawCanvas from "./DrawCanvas"
 import pureRender from "../hocs/pureRender"
-import Theme from "../model/Theme"
 import pickMouseEvents from "../helpers/pickMouseEvents"
 import mouseablePianoNotes from "../hocs/mouseablePianoNotes"
 import _ from "lodash"
@@ -44,7 +43,7 @@ function PianoNotes(props) {
     const strokeColor = "black"
 
     const notes = props.events.filter(e => e.subtype == "note")
-    console.log(`[PianoNotes] draw ${notes.length} notes`)
+    //console.log(`[PianoNotes] draw ${notes.length} notes`)
 
     ctx.save()
     ctx.translate(0, 0.5)

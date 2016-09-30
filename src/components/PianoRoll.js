@@ -18,31 +18,6 @@ function filterEventsWithScroll(events, transform, scrollLeft, width) {
   return events.filter(e => e.tick >= tickStart && e.tick <= tickEnd)
 }
 
-/**
-
-FIXME
-
-mouseEmitter.on("change-cursor", cursor => {
-  const style = this.canvas.parentNode.style
-  if (style.cursor != cursor) {
-    style.cursor = cursor
-  }
-})
-
-    this.player.on("change-position", tick => {
-      const x = this._transform.getX(tick)
-      this.stage.update()
-
-      // keep scroll position to cursor
-      if (this.autoScroll && this.player.isPlaying) {
-        const screenX = x + this.scrollContainer.scrollX
-        if (screenX > this.canvas.width * 0.7 || screenX < 0) {
-          this.scrollContainer.scrollX = -x
-        }
-      }
-    })
-    */
-
 function getMaxX(events) {
   return Math.max.apply(null,
     events
@@ -59,6 +34,7 @@ class PianoRoll extends Component {
       scrollLeft: 0,
       scrollTop: 0,
       cursorPosition: 0,
+      notesCursor: "auto",
 
       /* ノート配置部分のサイズ */
       contentWidth: 0,
@@ -68,6 +44,14 @@ class PianoRoll extends Component {
 
     this.state.selection.on("change", () => {
       this.setState({selection: this.state.selection})
+    })
+
+    this.mouseEmitter = observable()
+
+    this.mouseEmitter.on("change-cursor", cursor => {
+      this.setState({
+        notesCursor: cursor
+      })
     })
   }
 
@@ -133,11 +117,8 @@ class PianoRoll extends Component {
 
     const quantizer = SharedService.quantizer
 
-    const keyWidth = theme.keyWidth
-    const rulerHeight = theme.rulerHeight
-    const controlHeight = theme.controlHeight
+    const { keyWidth, rulerHeight, controlHeight } = theme
 
-    const mouseEmitter = observable()
     const selection = this.state.selection
 
     return <div id="piano-roll-container">
@@ -153,10 +134,11 @@ class PianoRoll extends Component {
             events={events}
             transform={transform}
             endTick={endTick}
-            emitter={mouseEmitter}
+            emitter={this.mouseEmitter}
             quantizer={quantizer}
             selection={selection}
-            track={props.track} />
+            track={props.track}
+            style={{cursor: this.state.notesCursor}} />
         </div>
         <div className="PianoSelectionWrapper">
           <PianoSelection

@@ -61,6 +61,7 @@ function PianoNotes(props) {
     width={t.getPixelsPerTick() * props.endTick}
     height={t.getPixelsPerKey() * t.getMaxNoteNumber()}
     {...pickMouseEvents(props)}
+    style={props.style}
   />
 }
 

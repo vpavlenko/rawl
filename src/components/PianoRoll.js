@@ -94,13 +94,12 @@ class PianoRoll extends Component {
       this.setState({
         cursorPosition: x
       })
-      this.forceScrollLeft(x)
 
       // keep scroll position to cursor
       if (this.props.autoScroll && player.isPlaying) {
         const screenX = x - this.state.scrollLeft
         if (screenX > this.alpha.clientWidth * 0.7 || screenX < 0) {
-          //this.forceScrollLeft(x)
+          this.forceScrollLeft(x)
         }
       }
     })

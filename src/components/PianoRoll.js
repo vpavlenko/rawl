@@ -107,7 +107,7 @@ class PianoRoll extends Component {
 
     const transform = this.getTransform()
     const ticksPerBeat = 480
-    const contentWidth = endTick * transform.getPixelsPerTick()
+    const contentWidth = endTick * transform.pixelsPerTick
     const contentHeight = transform.getMaxY()
 
     const events = filterEventsWithScroll(props.track.getEvents(), transform, this.state.scrollLeft, 300)
@@ -156,14 +156,14 @@ class PianoRoll extends Component {
         <div className="PianoKeysWrapper" style={fixedLeftStyle}>
           <PianoKeys
             width={keyWidth}
-            keyHeight={transform.getPixelsPerKey()}
-            numberOfKeys={transform.getMaxNoteNumber()} />
+            keyHeight={transform.pixelsPerKey}
+            numberOfKeys={transform.numberOfKeys} />
         </div>
         <div className="PianoRulerWrapper" style={fixedTopStyle}>
           <PianoRuler
             height={rulerHeight}
             endTick={endTick}
-            pixelsPerTick={transform.getPixelsPerTick()}
+            pixelsPerTick={transform.pixelsPerTick}
             ticksPerBeat={ticksPerBeat} />
         </div>
         <div className="PianoRollLeftSpace" />

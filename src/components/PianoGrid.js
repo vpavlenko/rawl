@@ -1,11 +1,12 @@
-import React, { PropTypes } from "react"
+import React, { Component, PropTypes } from "react"
+import _ from "lodash"
 import DrawCanvas from "./DrawCanvas"
 import withTheme from "../hocs/withTheme"
-import pureRender from "../hocs/pureRender"
+import logEq from "../helpers/logEq"
 
 function drawBeatLines(ctx, transform, endTick, ticksPerBeat, theme) {
   const height = transform.getMaxY()
-  const pixelsPerTick = transform.getPixelsPerTick()
+  const pixelsPerTick = transform.pixelsPerTick
   ctx.lineWidth = 1
 
   ctx.beginPath()
@@ -21,9 +22,9 @@ function drawBeatLines(ctx, transform, endTick, ticksPerBeat, theme) {
 }
 
 function drawHorizontalLines(ctx, transform, endTick, theme) {
-  const keyHeight = transform.getPixelsPerKey()
-  const numberOfKeys = transform.getMaxNoteNumber()
-  const pixelsPerTick = transform.getPixelsPerTick()
+  const keyHeight = transform.pixelsPerKey
+  const { numberOfKeys, pixelsPerTick } = transform
+  
   ctx.lineWidth = 1
 
   const width = pixelsPerTick * endTick
@@ -65,17 +66,29 @@ function PianoGrid(props) {
   return <DrawCanvas
     draw={draw}
     className="PianoGrid"
-    width={transform.getPixelsPerTick() * props.endTick}
-    height={transform.getPixelsPerKey() * transform.getMaxNoteNumber()}
-    style={props.style}
+    width={transform.pixelsPerTick * props.endTick}
+    height={transform.pixelsPerKey * transform.maxNoteNumber}
   />
 }
 
 PianoGrid.propTypes = {
-  style: PropTypes.object,
   endTick: PropTypes.number.isRequired,
   transform: PropTypes.object.isRequired,
   ticksPerBeat: PropTypes.number.isRequired,
 }
 
-export default pureRender(withTheme(PianoGrid))
+class _PianoGrid extends Component {
+  shouldComponentUpdate(nextProps) {
+    const props = this.props
+    return !logEq(props, nextProps, "theme", _.isEqual)
+      || !logEq(props, nextProps, "ticksPerBeat", (x, y) => x === y)
+      || !logEq(props, nextProps, "endTick", (x, y) => x === y)
+      || !logEq(props, nextProps, "transform", (x, y) => x && y && x.equals(y))
+  }
+
+  render() {
+    return <PianoGrid {...this.props} />
+  }
+}
+
+export default withTheme(_PianoGrid)

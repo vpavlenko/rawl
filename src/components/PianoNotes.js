@@ -1,9 +1,9 @@
-import React, { PropTypes } from "react"
+import React, { Component, PropTypes } from "react"
+import _ from "lodash"
 import DrawCanvas from "./DrawCanvas"
-import pureRender from "../hocs/pureRender"
 import pickMouseEvents from "../helpers/pickMouseEvents"
 import mouseablePianoNotes from "../hocs/mouseablePianoNotes"
-import _ from "lodash"
+import logEq from "../helpers/logEq"
 
 function drawNote(ctx, rect, note, fillColor, strokeColor) {
   const { x, y, width, height } = rect
@@ -43,7 +43,7 @@ function PianoNotes(props) {
     const strokeColor = "black"
 
     const notes = props.events.filter(e => e.subtype == "note")
-    //console.log(`[PianoNotes] draw ${notes.length} notes`)
+    console.log(`[PianoNotes] draw ${notes.length} notes`)
 
     ctx.save()
     ctx.translate(0, 0.5)
@@ -58,8 +58,8 @@ function PianoNotes(props) {
   return <DrawCanvas
     draw={draw}
     className="PianoNotes"
-    width={t.getPixelsPerTick() * props.endTick}
-    height={t.getPixelsPerKey() * t.getMaxNoteNumber()}
+    width={t.pixelsPerTick * props.endTick}
+    height={t.pixelsPerKey * t.numberOfKeys}
     {...pickMouseEvents(props)}
     style={props.style}
   />
@@ -72,4 +72,17 @@ PianoNotes.propTypes = {
   setEventBounds: PropTypes.func.isRequired
 }
 
-export default mouseablePianoNotes(pureRender(PianoNotes))
+class _PianoNotes extends Component {
+  shouldComponentUpdate(nextProps) {
+    const props = this.props
+    return !logEq(props, nextProps, "events", _.isEqual)
+      || !logEq(props, nextProps, "endTick", (x, y) => x === y)
+      || !logEq(props, nextProps, "transform", (x, y) => x && y && x.equals(y))
+  }
+
+  render() {
+    return <PianoNotes {...this.props} />
+  }
+}
+
+export default mouseablePianoNotes(_PianoNotes)

@@ -28,6 +28,7 @@ class PianoRoll extends Component {
       scrollTop: 0,
       cursorPosition: 0,
       notesCursor: "auto",
+      alphaWidth: 0,
 
       /* ノート配置部分のサイズ */
       contentWidth: 0,
@@ -55,6 +56,12 @@ class PianoRoll extends Component {
   }
 
   componentDidMount() {
+    this.setState({ alphaWidth: this.alpha.clientWidth })
+
+    window.addEventListener("resize", () => {
+      this.setState({ alphaWidth: this.alpha.clientWidth })
+    })
+
     this.alpha.addEventListener("scroll", e => {
       const { scrollTop } = e.target
       this.setState({ scrollTop })
@@ -98,14 +105,14 @@ class PianoRoll extends Component {
 
     const { keyWidth, rulerHeight, controlHeight } = theme
 
-    const endTick = Math.max(maxX(props.track.getEvents()), 5000)
-
     const transform = this.getTransform()
+    const notesWidth = this.state.alphaWidth
+    const endTick = Math.max(maxX(props.track.getEvents()), transform.getTicks(notesWidth))
+
     const ticksPerBeat = 480
     const contentWidth = endTick * transform.pixelsPerTick
     const contentHeight = transform.getMaxY()
 
-    const notesWidth = this.alpha ? this.alpha.clientWidth - keyWidth : 0
     const events = filterEventsWithScroll(props.track.getEvents(), transform, this.state.scrollLeft, notesWidth)
 
     const fixedLeftStyle = {left: this.state.scrollLeft}
@@ -117,16 +124,14 @@ class PianoRoll extends Component {
 
     return <div id="piano-roll-container">
       <div className="alpha" ref={c => this.alpha = c}>
-        <div className="PianoGridWrapper">
-          <PianoGrid
-            endTick={endTick}
-            ticksPerBeat={ticksPerBeat}
-            transform={transform} />
-        </div>
         <div className="pseudo-content" style={{
           width: contentWidth,
           height: contentHeight
         }} />
+        <PianoGrid
+          endTick={endTick}
+          ticksPerBeat={ticksPerBeat}
+          transform={transform} />
         <PianoNotes
           events={events}
           transform={transform}
@@ -162,7 +167,8 @@ class PianoRoll extends Component {
             pixelsPerTick={transform.pixelsPerTick}
             ticksPerBeat={ticksPerBeat} />
         </div>
-        <div className="PianoRollLeftSpace" />
+        <div className="PianoRollLeftSpace"
+          style={{...fixedLeftStyle, ...fixedTopStyle}} />
       </div>
       <div className="beta" ref={c => this.beta = c}>
         <PianoVelocityControl

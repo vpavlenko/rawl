@@ -445,12 +445,10 @@ div#vertical {
   box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 4px;
 }
 
-.PianoGridWrapper {
+.PianoGrid {
   position: absolute;
   left: var(--key-width);
   top: var(--ruler-height);
-  width: calc(100% - var(--key-width));
-  height: 100%;
 }
 
 .PianoNotes {
@@ -489,7 +487,7 @@ div#vertical {
   width: var(--key-width);
   height: var(--ruler-height);
   background: var(--background-color);
-  position: fixed;
+  position: absolute;
   border-right: 1px solid var(--divider-color);
   border-bottom: 1px solid var(--secondary-text-color);
 }

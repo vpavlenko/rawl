@@ -69,7 +69,7 @@ PianoNotes.propTypes = {
   width: PropTypes.number.isRequired,
   events: PropTypes.array.isRequired,
   transform: PropTypes.object.isRequired,
-  scrollLEft: PropTypes.number.isRequired,
+  scrollLeft: PropTypes.number.isRequired,
   setEventBounds: PropTypes.func.isRequired
 }
 

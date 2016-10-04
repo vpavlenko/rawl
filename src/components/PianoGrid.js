@@ -67,7 +67,7 @@ function PianoGrid(props) {
     draw={draw}
     className="PianoGrid"
     width={transform.pixelsPerTick * props.endTick}
-    height={transform.pixelsPerKey * transform.maxNoteNumber}
+    height={transform.pixelsPerKey * transform.numberOfKeys}
   />
 }
 

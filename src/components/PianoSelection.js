@@ -22,8 +22,11 @@ function drawSelection(ctx, selection, transform, theme) {
 function PianoSelection(props) {
   function draw(ctx) {
     const { width, height } = ctx.canvas
+    ctx.save()
     ctx.clearRect(0, 0, width, height)
+    ctx.translate(-props.scrollLeft, 0.5)
     drawSelection(ctx, props.selection, props.transform, props.theme)
+    ctx.restore()
   }
 
   return <DrawCanvas
@@ -31,6 +34,7 @@ function PianoSelection(props) {
     className="PianoSelection"
     width={props.width}
     height={props.height}
+    style={props.style}
   />
 }
 

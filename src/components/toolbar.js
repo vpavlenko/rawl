@@ -32,6 +32,8 @@ function ToolbarContent(props) {
         <Select onChange={props.onSelectQuantize} options={props.quantizeOptions} value={props.quantize} />
       </div>
 
+      <Button onClick={props.onClickShowPianoRoll} selected={props.showPianoRoll}>Piano Roll</Button>
+
       <Button onClick={props.onClickScaleUp}><img src="images/iconmonstr-magnifier-7-16.png" /></Button>
       <Button onClick={props.onClickScaleDown}><img src="images/iconmonstr-magnifier-8-16.png" /></Button>
 

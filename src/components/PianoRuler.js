@@ -57,6 +57,7 @@ function PianoRuler(props) {
     className="PianoRuler"
     width={props.pixelsPerTick * props.endTick}
     height={props.height}
+    style={props.style}
   />
 }
 

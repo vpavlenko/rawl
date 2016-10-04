@@ -24,7 +24,7 @@ function drawBeatLines(ctx, transform, endTick, ticksPerBeat, theme) {
 function drawHorizontalLines(ctx, transform, endTick, theme) {
   const keyHeight = transform.pixelsPerKey
   const { numberOfKeys, pixelsPerTick } = transform
-  
+
   ctx.lineWidth = 1
 
   const width = pixelsPerTick * endTick

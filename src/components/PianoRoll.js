@@ -11,19 +11,12 @@ import PianoSelection from "./PianoSelection"
 import PianoVelocityControl from "./PianoVelocityControl"
 import PianoCursor from "./PianoCursor"
 import withTheme from "../hocs/withTheme"
+import maxX from "../helpers/maxX"
 
 function filterEventsWithScroll(events, transform, scrollLeft, width) {
   const tickStart = transform.getTicks(scrollLeft)
   const tickEnd = transform.getTicks(scrollLeft + width)
   return events.filter(e => e.tick >= tickStart && e.tick <= tickEnd)
-}
-
-function getMaxX(events) {
-  return Math.max.apply(null,
-    events
-      .filter(e => e.subtype == "note")
-      .map(n => n.tick + n.duration)
-  )
 }
 
 class PianoRoll extends Component {
@@ -103,21 +96,22 @@ class PianoRoll extends Component {
     const theme = this.props.theme
     const props = this.props
 
-    const endTick = Math.max(getMaxX(props.track.getEvents()), 5000)
+    const { keyWidth, rulerHeight, controlHeight } = theme
+
+    const endTick = Math.max(maxX(props.track.getEvents()), 5000)
 
     const transform = this.getTransform()
     const ticksPerBeat = 480
     const contentWidth = endTick * transform.pixelsPerTick
     const contentHeight = transform.getMaxY()
 
-    const events = filterEventsWithScroll(props.track.getEvents(), transform, this.state.scrollLeft, 300)
+    const notesWidth = this.alpha ? this.alpha.clientWidth - keyWidth : 0
+    const events = filterEventsWithScroll(props.track.getEvents(), transform, this.state.scrollLeft, notesWidth)
 
     const fixedLeftStyle = {left: this.state.scrollLeft}
     const fixedTopStyle = {top: this.state.scrollTop}
 
     const quantizer = SharedService.quantizer
-
-    const { keyWidth, rulerHeight, controlHeight } = theme
 
     const selection = this.state.selection
 
@@ -129,30 +123,32 @@ class PianoRoll extends Component {
             ticksPerBeat={ticksPerBeat}
             transform={transform} />
         </div>
-        <div className="PianoNotesWrapper">
-          <PianoNotes
-            events={events}
-            transform={transform}
-            endTick={endTick}
-            emitter={this.mouseEmitter}
-            quantizer={quantizer}
-            selection={selection}
-            track={props.track}
-            style={{cursor: this.state.notesCursor}} />
-        </div>
-        <div className="PianoSelectionWrapper">
-          <PianoSelection
-            width={contentWidth}
-            height={contentHeight}
-            transform={transform}
-            selection={selection} />
-        </div>
-        <div className="PianoCursorWrapper">
-          <PianoCursor
-            width={contentWidth}
-            height={contentHeight}
-            position={this.state.cursorPosition} />
-        </div>
+        <div className="pseudo-content" style={{
+          width: contentWidth,
+          height: contentHeight
+        }} />
+        <PianoNotes
+          events={events}
+          transform={transform}
+          width={notesWidth}
+          emitter={this.mouseEmitter}
+          quantizer={quantizer}
+          selection={selection}
+          track={props.track}
+          style={{...fixedLeftStyle, cursor: this.state.notesCursor}}
+          scrollLeft={this.state.scrollLeft} />
+        <PianoSelection
+          width={notesWidth}
+          height={contentHeight}
+          transform={transform}
+          selection={selection}
+          scrollLeft={this.state.scrollLeft}
+          style={fixedLeftStyle} />
+        <PianoCursor
+          width={notesWidth}
+          height={contentHeight}
+          position={this.state.cursorPosition - this.state.scrollLeft}
+          style={fixedLeftStyle} />
         <div className="PianoKeysWrapper" style={fixedLeftStyle}>
           <PianoKeys
             width={keyWidth}

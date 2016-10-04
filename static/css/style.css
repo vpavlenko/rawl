@@ -453,12 +453,10 @@ div#vertical {
   height: 100%;
 }
 
-.PianoNotesWrapper {
+.PianoNotes {
   position: absolute;
-  left: var(--key-width);
+  margin-left: var(--key-width);
   top: var(--ruler-height);
-  width: calc(100% - var(--key-width));
-  height: 100%;
 }
 
 .PianoRulerWrapper {
@@ -496,12 +494,10 @@ div#vertical {
   border-bottom: 1px solid var(--secondary-text-color);
 }
 
-.PianoSelectionWrapper,
-.PianoCursorWrapper {
+.PianoSelection,
+.PianoCursor {
   position: absolute;
-  left: var(--key-width);
+  margin-left: var(--key-width);
   top: var(--ruler-height);
-  width: calc(100% - var(--key-width));
-  height: 100%;
   pointer-events: none;
 }

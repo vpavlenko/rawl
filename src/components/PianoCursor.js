@@ -23,9 +23,10 @@ function PianoCursor(props) {
 
   return <DrawCanvas
     draw={draw}
-    className="PianoSelection"
+    className="PianoCursor"
     width={props.width}
     height={props.height}
+    style={props.style}
   />
 }
 

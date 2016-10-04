@@ -46,7 +46,7 @@ function PianoNotes(props) {
     console.log(`[PianoNotes] draw ${notes.length} notes`)
 
     ctx.save()
-    ctx.translate(0, 0.5)
+    ctx.translate(-props.scrollLeft, 0.5)
     notes.forEach(note => {
       const rect = props.transform.getRect(note)
       drawNote(ctx, rect, note, fillColor, strokeColor)
@@ -58,7 +58,7 @@ function PianoNotes(props) {
   return <DrawCanvas
     draw={draw}
     className="PianoNotes"
-    width={t.pixelsPerTick * props.endTick}
+    width={props.width}
     height={t.pixelsPerKey * t.numberOfKeys}
     {...pickMouseEvents(props)}
     style={props.style}
@@ -66,9 +66,10 @@ function PianoNotes(props) {
 }
 
 PianoNotes.propTypes = {
+  width: PropTypes.number.isRequired,
   events: PropTypes.array.isRequired,
-  endTick: PropTypes.number.isRequired,
   transform: PropTypes.object.isRequired,
+  scrollLEft: PropTypes.number.isRequired,
   setEventBounds: PropTypes.func.isRequired
 }
 
@@ -76,7 +77,8 @@ class _PianoNotes extends Component {
   shouldComponentUpdate(nextProps) {
     const props = this.props
     return !logEq(props, nextProps, "events", _.isEqual)
-      || !logEq(props, nextProps, "endTick", (x, y) => x === y)
+      || !logEq(props, nextProps, "scrollLeft", (x, y) => x === y)
+      || !logEq(props, nextProps, "width", (x, y) => x === y)
       || !logEq(props, nextProps, "transform", (x, y) => x && y && x.equals(y))
   }
 

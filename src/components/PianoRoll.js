@@ -5,6 +5,7 @@ import NoteCoordTransform from "../model/NoteCoordTransform"
 import SharedService from "../services/SharedService"
 import PianoKeys from "./PianoKeys"
 import PianoGrid from "./PianoGrid"
+import PianoLines from "./PianoLines"
 import PianoRuler from "./PianoRuler"
 import PianoNotes from "./PianoNotes"
 import PianoSelection from "./PianoSelection"
@@ -128,6 +129,11 @@ class PianoRoll extends Component {
           width: contentWidth,
           height: contentHeight
         }} />
+        <PianoLines
+          width={notesWidth}
+          pixelsPerKey={transform.pixelsPerKey}
+          numberOfKeys={transform.numberOfKeys}
+          style={fixedLeftStyle} />
         <PianoGrid
           endTick={endTick}
           ticksPerBeat={ticksPerBeat}

@@ -1,6 +1,6 @@
 import _ from "lodash"
 import SharedService from "../services/SharedService"
-import MouseHandler, { defaultActionFactory, getLocal } from "./NoteMouseHandler"
+import MouseHandler, { defaultActionFactory } from "./NoteMouseHandler"
 import { pointSub } from "../helpers/point"
 
 export default class PencilMouseHandler extends MouseHandler {
@@ -9,9 +9,8 @@ export default class PencilMouseHandler extends MouseHandler {
   }
 }
 
-function actionFactory(e, ctx) {
-  const cpos = getLocal(e)
-  const rects = ctx.getEventsUnderPoint(cpos.x, cpos.y)
+function actionFactory(local, ctx, e) {
+  const rects = ctx.getEventsUnderPoint(local.x, local.y)
 
   if (e.nativeEvent.button != 0) {
     return null
@@ -22,7 +21,7 @@ function actionFactory(e, ctx) {
     if (e.nativeEvent.detail == 2) {
       return removeNoteAction(ctx, note)
     } else {
-      const local = pointSub(cpos, note)
+      const local = pointSub(local, note)
       const type = getDragPositionType(local.x, note.width)
       switch(type) {
         case "center": return moveNoteAction(ctx, note)
@@ -36,11 +35,10 @@ function actionFactory(e, ctx) {
   return null
 }
 
-function getCursor(e, ctx) {
-  const cpos = getLocal(e)
-  const rect = ctx.getEventsUnderPoint(cpos.x, cpos.y)
+function getCursor(local, ctx) {
+  const rect = ctx.getEventsUnderPoint(local.x, local.y)
   if (rect) {
-    const pos = pointSub(cpos, rect)
+    const pos = pointSub(local, rect)
     const type = getDragPositionType(pos.x, rect.width)
     return cursorForPositionType(type)
   }
@@ -48,13 +46,12 @@ function getCursor(e, ctx) {
   return `url("./images/iconmonstr-pencil-14-16.png") 0 16, default`
 }
 
-function onNoteMouseMove(ctx, e, startPosition, note) {
+function onNoteMouseMove(local, ctx, startPosition, note) {
   const { track, transform, quantizer } = ctx
 
-  const pos = getLocal(e)
   const movement = {
-    x: pos.x - startPosition.x,
-    y: pos.y - startPosition.y
+    x: local.x - startPosition.x,
+    y: local.y - startPosition.y
   }
 
   // 移動
@@ -80,13 +77,12 @@ export const createNoteAction = ctx => (onMouseDown, onMouseMove) => {
   let startPosition
   let startNote
 
-  onMouseDown(e => {
-    const pos = getLocal(e)
-    startPosition = pos
+  onMouseDown(local => {
+    startPosition = local
 
     const note = createNote(
-      quantizer.floor(transform.getTicks(pos.x)),
-      Math.ceil(transform.getNoteNumber(pos.y)),
+      quantizer.floor(transform.getTicks(local.x)),
+      Math.ceil(transform.getNoteNumber(local.y)),
       quantizer.unit
     )
     track.addEvent(note)
@@ -94,7 +90,7 @@ export const createNoteAction = ctx => (onMouseDown, onMouseMove) => {
     startNote = _.clone(note)
   })
 
-  onMouseMove(e => { onNoteMouseMove(ctx, e, startPosition, startNote) })
+  onMouseMove(local => { onNoteMouseMove(ctx, local, startPosition, startNote) })
 }
 
 const removeNoteAction = (ctx, note) => (onMouseDown) => {
@@ -105,18 +101,18 @@ const removeNoteAction = (ctx, note) => (onMouseDown) => {
 const moveNoteAction = (ctx, note) => (onMouseDown, onMouseMove) => {
   let startPosition
   let startNote = _.clone(note)
-  onMouseDown(e => { startPosition = getLocal(e) })
-  onMouseMove(e => { onNoteMouseMove(ctx, e, startPosition, startNote) })
+  onMouseDown(local => { startPosition = local })
+  onMouseMove(local => { onNoteMouseMove(ctx, local, startPosition, startNote) })
 }
 
 const dragLeftNoteAction = (ctx, note) => (onMouseDown, onMouseMove) => {
   const { track, transform, quantizer } = ctx
   let startPosition
 
-  onMouseDown(e => { startPosition = getLocal(e) })
+  onMouseDown(local => { startPosition = local })
 
-  onMouseMove(e => {
-    const movement = pointSub(getLocal(e), startPosition)
+  onMouseMove(local => {
+    const movement = pointSub(local, startPosition)
 
     // 右端を固定して長さを変更
     const dt = transform.getTicks(movement.x)
@@ -136,10 +132,10 @@ const dragRightNoteAction = (ctx, note) => (onMouseDown, onMouseMove) => {
   const { track, transform, quantizer } = ctx
   let startPosition
 
-  onMouseDown(e => { startPosition = getLocal(e) })
+  onMouseDown(local => { startPosition = local })
 
-  onMouseMove(e => {
-    const movement = pointSub(getLocal(e), startPosition)
+  onMouseMove(local => {
+    const movement = pointSub(local, startPosition)
 
     // 長さを変更
     const dt = transform.getTicks(movement.x)

@@ -1,5 +1,5 @@
 import _ from "lodash"
-import MouseHandler, { defaultActionFactory, getLocal } from "./NoteMouseHandler"
+import MouseHandler, { defaultActionFactory } from "./NoteMouseHandler"
 import { createNoteAction } from "./PencilMouseHandler"
 import Rect from "../model/Rect"
 import { pointSub } from "../helpers/point"
@@ -10,21 +10,20 @@ export default class SelectionMouseHandler extends MouseHandler {
   }
 }
 
-function actionFactory(e, ctx) {
+function actionFactory(local, ctx, e) {
   if (e.relatedTarget) {
     return null
   }
 
   const selectionRect = ctx.selection.getBounds(ctx.transform)
-  const cpos = getLocal(e)
-  const clicked = selectionRect && selectionRect.contains(cpos.x, cpos.y)
+  const clicked = selectionRect && selectionRect.contains(local.x, local.y)
   if (!clicked) {
     if (e.nativeEvent.detail == 2) {
       return createNoteAction(ctx)
     }
     return createSelectionAction(ctx)
   }
-  const type = getDragPositionType(cpos.x - selectionRect.x, selectionRect.width)
+  const type = getDragPositionType(local.x - selectionRect.x, selectionRect.width)
   switch (type) {
     case "center": return moveSelectionAction(ctx)
     case "right": return dragSelectionRightEdgeAction(ctx)
@@ -32,12 +31,11 @@ function actionFactory(e, ctx) {
   }
 }
 
-function getCursor(e, ctx) {
-  const loc = getLocal(e)
+function getCursor(local, ctx) {
   const selectionRect = ctx.selection.getBounds(ctx.transform)
-  const hover = selectionRect && selectionRect.contains(loc.x, loc.y)
+  const hover = selectionRect && selectionRect.contains(local.x, local.y)
   if (hover) {
-    const type = getDragPositionType(loc.x - selectionRect.x, selectionRect.width)
+    const type = getDragPositionType(local.x - selectionRect.x, selectionRect.width)
     return cursorForPositionType(type)
   }
   return "crosshair"
@@ -48,22 +46,19 @@ const createSelectionAction = ctx => (onMouseDown, onMouseMove, onMouseUp) => {
   let startPosition
 
   // 選択範囲外でクリックした場合は選択範囲をリセット
-  onMouseDown(e => {
-    const pos = getLocal(e)
-    startPosition = pos
+  onMouseDown(local => {
+    startPosition = local
     selection.reset()
     // TODO: カーソルを移動
   })
 
-  onMouseMove(e => {
-    const pos = getLocal(e)
-    const rect = Rect.fromPoints(startPosition, pos)
+  onMouseMove(local => {
+    const rect = Rect.fromPoints(startPosition, local)
     selection.resize(rect, quantizer, transform)
   })
 
-  onMouseUp(e => {
-    const pos = getLocal(e)
-    const rect = Rect.fromPoints(startPosition, pos)
+  onMouseUp(local => {
+    const rect = Rect.fromPoints(startPosition, local)
     const events = ctx.getEventsInRect(rect)
     selection.setNotes(events)
   })
@@ -74,12 +69,12 @@ const moveSelectionAction = ctx => (onMouseDown, onMouseMove) => {
   const originalSelection = _.clone(ctx.selection)
   let startPosition
 
-  onMouseDown(e => {
-    startPosition = getLocal(e)
+  onMouseDown(local => {
+    startPosition = local
   })
 
-  onMouseMove(e => {
-    const movement = pointSub(getLocal(e), startPosition)
+  onMouseMove(local => {
+    const movement = pointSub(local, startPosition)
 
     const dt = quantizer.round(transform.getTicks(movement.x))
     const dn = Math.round(transform.getDeltaNoteNumber(movement.y))
@@ -105,10 +100,10 @@ const dragSelectionLeftEdgeAction = (ctx) => (onMouseDown, onMouseMove) => {
   const originalFromTick = ctx.selection.fromTick
   let startPosition
 
-  onMouseDown(e => { startPosition = getLocal(e) })
+  onMouseDown(local => { startPosition = local })
 
-  onMouseMove(e => {
-    const movement = pointSub(getLocal(e), startPosition)
+  onMouseMove(local => {
+    const movement = pointSub(local, startPosition)
     const dt = quantizer.floor(transform.getTicks(movement.x))
     const fromTick = originalFromTick + dt
 
@@ -141,10 +136,10 @@ const dragSelectionRightEdgeAction = (ctx) => (onMouseDown, onMouseMove) => {
   const originalToTick = ctx.selection.toTick
   let startPosition
 
-  onMouseDown(e => { startPosition = getLocal(e) })
+  onMouseDown(local => { startPosition = local })
 
-  onMouseMove(e => {
-    const movement = pointSub(getLocal(e), startPosition)
+  onMouseMove(local => {
+    const movement = pointSub(local, startPosition)
     const dt = quantizer.floor(transform.getTicks(movement.x))
     const toTick = originalToTick + dt
 

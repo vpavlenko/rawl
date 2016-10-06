@@ -55,10 +55,7 @@ export default function mouseablePianoNotes(WrappedComponent) {
 
       // MouseHandler が必要とする機能を提供する
       const ctx = {
-        track: props.track,
-        selection: props.selection,
-        transform: props.transform,
-        quantizer: props.quantizer,
+        ...props,
 
         getEventsUnderPoint: (x, y) => {
           return filterEventsUnderPoint(boundsMap, x, y).map(entryToObjectWithId)
@@ -69,11 +66,18 @@ export default function mouseablePianoNotes(WrappedComponent) {
         }
       }
 
+      function getLocal(e) {
+        return {
+          x: e.nativeEvent.offsetX + props.scrollLeft,
+          y: e.nativeEvent.offsetY
+        }
+      }
+
       return <WrappedComponent {...props}
         setEventBounds={setEventBounds}
-        onMouseDown={e => handler.onMouseDown(e, ctx)}
-        onMouseMove={e => handler.onMouseMove(e, ctx)}
-        onMouseUp={e => handler.onMouseUp(e, ctx)}
+        onMouseDown={e => handler.onMouseDown(getLocal(e), ctx, e)}
+        onMouseMove={e => handler.onMouseMove(getLocal(e), ctx)}
+        onMouseUp={e => handler.onMouseUp(getLocal(e))}
       />
     }
   }

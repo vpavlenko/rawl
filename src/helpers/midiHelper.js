@@ -1,7 +1,5 @@
-import {
-  MIDIMetaEventType,
-  MIDIChannelEventType
-} from "../midi/MidiConstants"
+import MIDIChannelEvents from "../constants/MIDIChannelEvents"
+import MIDIMetaEvents from "../constants/MIDIMetaEvents"
 
 // separate notes to noteOn + noteOff
 export function deassembleNoteEvents(e) {
@@ -11,7 +9,7 @@ export function deassembleNoteEvents(e) {
       subtype: "noteOn",
       tick: e.tick,
       channel: e.channel,
-      noteNumber: e.noteNumber, 
+      noteNumber: e.noteNumber,
       velocity: e.velocity
     },
     {
@@ -19,7 +17,7 @@ export function deassembleNoteEvents(e) {
       subtype: "noteOff",
       tick: e.tick + e.duration,
       channel: e.channel,
-      noteNumber: e.noteNumber, 
+      noteNumber: e.noteNumber,
       velocity: 0
     }]
   } else {
@@ -60,7 +58,7 @@ export function eventToBytes(e, includeDeltaTime = true) {
   switch (e.type) {
     case "meta":
       add(0xff) // type
-      add(MIDIMetaEventType[e.subtype]) // subtype
+      add(MIDIMetaEvents[e.subtype]) // subtype
       switch(e.subtype) {
         case "text":
         case "copyrightNotice":
@@ -114,7 +112,7 @@ export function eventToBytes(e, includeDeltaTime = true) {
       add(e.data)
       break
     case "channel":
-      add((MIDIChannelEventType[e.subtype] << 4) + e.channel) // subtype + channel
+      add((MIDIChannelEvents[e.subtype] << 4) + e.channel) // subtype + channel
       switch(e.subtype) {
         case "noteOff":
         case "noteOn":

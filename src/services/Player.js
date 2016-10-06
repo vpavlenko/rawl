@@ -1,6 +1,7 @@
 import _ from "lodash"
 import observable from "riot-observable"
-import { MIDIController, MIDIChannelEventType } from "../midi/MidiConstants"
+import MIDIControlEvents from "../constants/MIDIControlEvents"
+import MIDIChannelEvents from "../constants/MIDIChannelEvents"
 import { deassembleNoteEvents, eventToBytes } from "../helpers/midiHelper"
 
 const INTERVAL = 1 / 15 * 1000  // low fps
@@ -15,7 +16,7 @@ function tickToMillisec(tick, bpm, timebase) {
 }
 
 function firstByte(eventType, channel) {
-  return (MIDIChannelEventType[eventType] << 4) + channel
+  return (MIDIChannelEvents[eventType] << 4) + channel
 }
 
 function getEventsToPlay(song, startTick, endTick) {
@@ -40,6 +41,8 @@ export default class Player {
 
     const url = "./sf2.html"
     this.synthWindow = window.open(url, "sy1", "width=900,height=670,scrollbars=yes,resizable=yes")
+
+    document.player = this
   }
 
   prepare(song) {
@@ -92,7 +95,7 @@ export default class Player {
 
     // all sound off
     for (const ch of _.range(0, 0xf)) {
-      this._sendMessage([0xb0 + ch, MIDIController.ALL_SOUNDS_OFF, 0], window.performance.now())
+      this._sendMessage([0xb0 + ch, MIDIControlEvents.ALL_SOUNDS_OFF, 0], window.performance.now())
     }
   }
 
@@ -100,7 +103,7 @@ export default class Player {
     const time = window.performance.now()
     for (const ch of _.range(0, 0xf)) {
       // reset controllers
-      this._sendMessage([firstByte("controller", ch), MIDIController.RESET_CONTROLLERS, 0x7f], time)
+      this._sendMessage([firstByte("controller", ch), MIDIControlEvents.RESET_CONTROLLERS, 0x7f], time)
     }
     this.stop()
     this.position = 0

@@ -41,14 +41,24 @@ export default class Track {
 
   updateEvent(id, obj) {
     const anObj = this.getEventById(id)
-    if (_.isEqual(Object.assign({}, anObj, obj), anObj)) {
+    const newObj = Object.assign({}, anObj, obj)
+    if (_.isEqual(newObj, anObj)) {
       return
     }
-    _.extend(anObj, obj)
+    this.replaceEventById(id, newObj)
     this.updateEndOfTrack()
     this.sortByTick()
     this.emitChange()
     return anObj
+  }
+
+  replaceEventById(id, event) {
+    for (let i = 0; i < this.events.length; i++) {
+      if (this.events[i].id === id) {
+        this.events[i] = event
+        break
+      }
+    }
   }
 
   removeEvent(id) {

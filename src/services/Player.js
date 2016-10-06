@@ -124,7 +124,6 @@ export default class Player {
 
   _sendWebMidiLink(msg) {
     const aMsg = ["midi", ...msg.map(m => m.toString(16))].join(",")
-    console.log(aMsg)
     if (this.synthWindow) {
       this.synthWindow.postMessage(aMsg, "*")
     }

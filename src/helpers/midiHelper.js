@@ -45,8 +45,11 @@ export function eventToBytes(e, includeDeltaTime = true) {
   const bytes = []
   function add(data) {
     if (data instanceof Array) {
-      bytes.push(...data)
+      add(...data)
     } else {
+      if (!Number.isInteger(data)) {
+        throw `"${data}" is not integer`
+      }
       bytes.push(data)
     }
   }
@@ -134,8 +137,8 @@ export function eventToBytes(e, includeDeltaTime = true) {
           add(e.amount)
           break
         case "pitchBend":
-          add((e.value >> 7) & 0x7f)
           add(e.value & 0x7f)
+          add((e.value >> 7) & 0x7f)
           break
         case "unknown":
           add(e.value)

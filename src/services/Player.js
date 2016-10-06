@@ -38,9 +38,8 @@ export default class Player {
 
     observable(this)
 
-    navigator.requestMIDIAccess().then(midiAccess => {
-      this._midiOutput = midiAccess.outputs.values().next().value
-    }, null)
+    const url = "./sf2.html"
+    this.synthWindow = window.open(url, "sy1", "width=900,height=670,scrollbars=yes,resizable=yes")
   }
 
   prepare(song) {
@@ -120,11 +119,16 @@ export default class Player {
     return this._channelMutes[channel]
   }
 
-  _sendMessage(msg, timestamp) {
-    if (!this._midiOutput) {
-      return
+  _sendWebMidiLink(msg) {
+    const aMsg = ["midi", ...msg.map(m => m.toString(16))].join(",")
+    console.log(aMsg)
+    if (this.synthWindow) {
+      this.synthWindow.postMessage(aMsg, "*")
     }
-    this._midiOutput.send(msg, timestamp)
+  }
+
+  _sendMessage(msg, timestamp) {
+    this._sendWebMidiLink(msg)
   }
 
   /**
@@ -143,7 +147,7 @@ export default class Player {
     const timestamp = window.performance.now()
 
     const events = getEventsToPlay(this._song, this._currentTick, endTick)
-      
+
     // channel イベントを MIDI Output に送信
     events
       .filter(e => e.type == "channel" && !this._channelMutes[e.channel])

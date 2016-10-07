@@ -61,6 +61,7 @@ export default class Player {
   seek(tick) {
     this._currentTick = Math.max(0, tick)
     this.emitChangePosition()
+    this.allSoundsOff()
   }
 
   set position(tick) {
@@ -89,14 +90,17 @@ export default class Player {
     this._intervalID = setInterval(this._onTimer.bind(this), INTERVAL)
   }
 
-  stop() {
-    clearInterval(this._intervalID)
-    this._playing = false
-
+  allSoundsOff() {
     // all sound off
     for (const ch of _.range(0, 0xf)) {
       this._sendMessage([0xb0 + ch, MIDIControlEvents.ALL_SOUNDS_OFF, 0], window.performance.now())
     }
+  }
+
+  stop() {
+    clearInterval(this._intervalID)
+    this._playing = false
+    this.allSoundsOff()
   }
 
   reset() {

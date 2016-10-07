@@ -15,20 +15,24 @@ function actionFactory(local, ctx, e) {
     return null
   }
 
-  const selectionRect = ctx.selection.getBounds(ctx.transform)
-  const clicked = selectionRect && selectionRect.contains(local.x, local.y)
-  if (!clicked) {
-    if (e.nativeEvent.detail == 2) {
-      return createNoteAction(ctx)
+  const { selection, transform } = ctx
+  if (selection && selection.enabled) {
+    const selectionRect = selection.getBounds(transform)
+    const clicked = selectionRect.contains(local.x, local.y)
+    if (clicked) {
+      const type = getDragPositionType(local.x - selectionRect.x, selectionRect.width)
+      switch (type) {
+        case "center": return moveSelectionAction(ctx)
+        case "right": return dragSelectionRightEdgeAction(ctx)
+        case "left": return dragSelectionLeftEdgeAction(ctx)
+      }
     }
-    return createSelectionAction(ctx)
   }
-  const type = getDragPositionType(local.x - selectionRect.x, selectionRect.width)
-  switch (type) {
-    case "center": return moveSelectionAction(ctx)
-    case "right": return dragSelectionRightEdgeAction(ctx)
-    case "left": return dragSelectionLeftEdgeAction(ctx)
+
+  if (e.nativeEvent.detail == 2) {
+    return createNoteAction(ctx)
   }
+  return createSelectionAction(ctx)
 }
 
 function getCursor(local, ctx) {

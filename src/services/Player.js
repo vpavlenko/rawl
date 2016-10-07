@@ -177,6 +177,10 @@ export default class Player {
         }
       })
 
+    if (this._currentTick >= this._song.getEndOfSong()) {
+      this.stop();
+    }
+
     this._currentTick = endTick
     this.emitChangePosition()
   }

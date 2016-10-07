@@ -50,13 +50,16 @@ class PianoRoll extends Component {
     })
   }
 
-  forceScrollLeft(scrollLeft) {
+  forceScrollLeft(requiredScrollLeft) {
+    const maxScrollLeft = this.beta.scrollWidth - this.beta.clientWidth
+    const scrollLeft = Math.min(maxScrollLeft, requiredScrollLeft)
     this.alpha.scrollLeft = scrollLeft
     this.beta.scrollLeft = scrollLeft
     this.setState({ scrollLeft })
   }
 
   componentDidMount() {
+    document.roll = this
     this.setState({ alphaWidth: this.alpha.clientWidth })
 
     window.addEventListener("resize", () => {
@@ -177,6 +180,9 @@ class PianoRoll extends Component {
           style={{...fixedLeftStyle, ...fixedTopStyle}} />
       </div>
       <div className="beta" ref={c => this.beta = c}>
+        <div className="pseudo-content" style={{
+          width: contentWidth
+        }} />
         <PianoVelocityControl
           events={events}
           height={controlHeight}

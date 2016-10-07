@@ -108,7 +108,7 @@ class PianoRoll extends Component {
 
     const transform = this.getTransform()
     const notesWidth = this.state.alphaWidth
-    const endTick = Math.max(maxX(props.track.getEvents()), transform.getTicks(notesWidth))
+    const endTick = Math.max(props.endTick, transform.getTicks(notesWidth))
 
     const ticksPerBeat = 480
     const contentWidth = endTick * transform.pixelsPerTick

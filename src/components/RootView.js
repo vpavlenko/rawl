@@ -298,6 +298,7 @@ export default class RootView extends Component {
           <PianoRoll
             emitter={this.pianoRollEmitter}
             track={this.selectedTrack}
+            endTick={this.props.song.getEndOfSong()}
             scaleX={this.state.pianoRollScaleX}
             scaleY={this.state.pianoRollScaleY}
             autoScroll={this.state.pianoRollAutoScroll}

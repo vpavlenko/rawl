@@ -9,16 +9,16 @@ function drawBeatLines(ctx, transform, endTick, ticksPerBeat, theme) {
   const pixelsPerTick = transform.pixelsPerTick
   ctx.lineWidth = 1
 
-  ctx.beginPath()
   for (let beats = 0; beats < endTick / ticksPerBeat; beats++) {
     const x = beats * ticksPerBeat * pixelsPerTick
     const isBold = beats % 4 == 0
+    ctx.beginPath()
     ctx.strokeStyle = isBold ? theme.secondaryTextColor : theme.dividerColor
     ctx.moveTo(x, 0)
     ctx.lineTo(x, height)
+    ctx.closePath()
+    ctx.stroke()
   }
-  ctx.closePath()
-  ctx.stroke()
 }
 
 function PianoGrid(props) {

@@ -29,8 +29,5 @@ module.exports = {
     "no-debugger": "warn",
     "react/jsx-uses-react": "error",
     "react/jsx-uses-vars": "error"
-  },
-  globals: {
-    createjs: false
   }
 }

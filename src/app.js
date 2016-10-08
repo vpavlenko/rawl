@@ -41,6 +41,7 @@ export default class App extends Component {
           } else {
             player.play()
           }
+          e.preventDefault()
           break
         }
       }

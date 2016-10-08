@@ -63,9 +63,8 @@ const createSelectionAction = ctx => (onMouseDown, onMouseMove, onMouseUp) => {
     selection.resize(rect, quantizer, transform)
   })
 
-  onMouseUp(local => {
-    const rect = Rect.fromPoints(startPosition, local)
-    const events = ctx.getEventsInRect(rect)
+  onMouseUp(() => {
+    const events = ctx.getEventsInSelection()
     selection.setNotes(events)
   })
 }

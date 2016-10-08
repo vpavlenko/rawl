@@ -6,15 +6,6 @@ import pureRender from "../hocs/pureRender"
 
 const theme = Theme.fromCSS()
 
-/**
-
-    // FIXME
-    this.grid.ruler.on("click", e => {
-      const tick = this._transform.getTicks(e.localX)
-      this.emitter.trigger("move-cursor", tick)
-    })
-    */
-
 function drawRuler(ctx, height, pixelsPerTick, endTick, ticksPerBeat, theme) {
   ctx.beginPath()
   ctx.strokeStyle = theme.secondaryTextColor
@@ -61,6 +52,7 @@ function PianoRuler(props) {
     width={props.pixelsPerTick * props.endTick}
     height={props.height}
     style={props.style}
+    onMouseDown={props.onMouseDown}
   />
 }
 

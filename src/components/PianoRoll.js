@@ -126,6 +126,14 @@ class PianoRoll extends Component {
 
     const selection = this.state.selection
 
+    const onMouseDownRuler = e => {
+      const tick = transform.getTicks(e.nativeEvent.offsetX)
+      const player = SharedService.player
+      if (!player.isPlaying) {
+        player.seek(tick)
+      }
+    }
+
     return <div id="piano-roll-container">
       <div className="alpha" ref={c => this.alpha = c}>
         <div className="pseudo-content" style={{
@@ -174,7 +182,9 @@ class PianoRoll extends Component {
             height={rulerHeight}
             endTick={endTick}
             pixelsPerTick={transform.pixelsPerTick}
-            ticksPerBeat={ticksPerBeat} />
+            ticksPerBeat={ticksPerBeat}
+            onMouseDown={e => onMouseDownRuler(e)}
+             />
         </div>
         <div className="PianoRollLeftSpace"
           style={{...fixedLeftStyle, ...fixedTopStyle}} />

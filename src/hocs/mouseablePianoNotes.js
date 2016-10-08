@@ -41,7 +41,10 @@ export default function mouseablePianoNotes(WrappedComponent) {
   return class extends Component {
     constructor(props) {
       super(props)
-      this.mouseHandler = new SelectionMouseHandler(props.emitter)
+      this.mouseHandler = new SelectionMouseHandler()
+      this.state = {
+        cursor: "auto"
+      }
     }
 
     render() {
@@ -63,6 +66,10 @@ export default function mouseablePianoNotes(WrappedComponent) {
 
         getEventsInRect: rect => {
           return filterEventsInRect(boundsMap, rect).map(entryToObjectWithId)
+        },
+
+        changeCursor: cursor => {
+          this.setState({ cursor })
         }
       }
 
@@ -76,8 +83,9 @@ export default function mouseablePianoNotes(WrappedComponent) {
       return <WrappedComponent {...props}
         setEventBounds={setEventBounds}
         onMouseDown={e => handler.onMouseDown(getLocal(e), ctx, e)}
-        onMouseMove={e => handler.onMouseMove(getLocal(e), ctx)}
+        onMouseMove={e => handler.onMouseMove(getLocal(e), ctx, e)}
         onMouseUp={e => handler.onMouseUp(getLocal(e))}
+        style={{...props.style, cursor: this.state.cursor}}
       />
     }
   }

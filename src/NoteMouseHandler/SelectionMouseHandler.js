@@ -36,7 +36,7 @@ function actionFactory(local, ctx, e) {
 }
 
 function getCursor(local, ctx) {
-  const selectionRect = ctx.selection.getBounds(ctx.transform)
+  const selectionRect = ctx.selection.enabled && ctx.selection.getBounds(ctx.transform)
   const hover = selectionRect && selectionRect.contains(local.x, local.y)
   if (hover) {
     const type = getDragPositionType(local.x - selectionRect.x, selectionRect.width)

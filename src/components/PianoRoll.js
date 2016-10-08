@@ -28,7 +28,6 @@ class PianoRoll extends Component {
       scrollLeft: 0,
       scrollTop: 0,
       cursorPosition: 0,
-      notesCursor: "auto",
       alphaWidth: 0,
 
       /* ノート配置部分のサイズ */
@@ -148,7 +147,7 @@ class PianoRoll extends Component {
           quantizer={quantizer}
           selection={selection}
           track={props.track}
-          style={{...fixedLeftStyle, cursor: this.state.notesCursor}}
+          style={fixedLeftStyle}
           scrollLeft={this.state.scrollLeft} />
         <PianoSelection
           width={notesWidth}

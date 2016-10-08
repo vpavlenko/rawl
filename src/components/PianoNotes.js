@@ -77,6 +77,7 @@ class _PianoNotes extends Component {
       || !logEq(props, nextProps, "scrollLeft", (x, y) => x === y)
       || !logEq(props, nextProps, "width", (x, y) => x === y)
       || !logEq(props, nextProps, "transform", (x, y) => x && y && x.equals(y))
+      || !logEq(props, nextProps, "style", _.isEqual)
   }
 
   render() {

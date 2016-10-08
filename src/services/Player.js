@@ -4,7 +4,7 @@ import MIDIControlEvents from "../constants/MIDIControlEvents"
 import MIDIChannelEvents from "../constants/MIDIChannelEvents"
 import { deassembleNoteEvents, eventToBytes } from "../helpers/midiHelper"
 
-const INTERVAL = 1 / 15 * 1000  // low fps
+const INTERVAL = 1 / 15 * 1000 // seconds
 
 // timebase: 1/4拍子ごとのtick数
 function secToTick(sec, bpm, timebase) {
@@ -28,6 +28,25 @@ function getEventsToPlay(song, startTick, endTick) {
     .filter(e => e && e.tick >= startTick && e.tick <= endTick)
     .value()
 }
+
+// 同じ名前のタスクを描画タイマーごとに一度だけ実行する
+class DisplayTask {
+  constructor() {
+    this.tasks = {}
+    setInterval(() => this.perform(), 50)
+  }
+
+  add(name, func) {
+    this.tasks[name] = func
+  }
+
+  perform() {
+    _.values(this.tasks).forEach(t => t())
+    this.tasks = {}
+  }
+}
+
+const displayTask = new DisplayTask()
 
 export default class Player {
   constructor(timebase) {
@@ -126,15 +145,15 @@ export default class Player {
     return this._channelMutes[channel]
   }
 
-  _sendWebMidiLink(msg) {
-    const aMsg = ["midi", ...msg.map(m => m.toString(16))].join(",")
-    if (this.synthWindow) {
-      this.synthWindow.postMessage(aMsg, "*")
-    }
-  }
-
   _sendMessage(msg, timestamp) {
-    this._sendWebMidiLink(msg)
+    const delay = timestamp - window.performance.now()
+
+    setTimeout(() => {
+      const aMsg = ["midi", ...msg.map(m => m.toString(16))].join(",")
+      if (this.synthWindow) {
+        this.synthWindow.postMessage(aMsg, "*")
+      }
+    }, delay)
   }
 
   /**
@@ -144,11 +163,19 @@ export default class Player {
   playNote(n) {
     const timestamp = window.performance.now()
     this._sendMessage([firstByte("noteOn", n.channel), n.noteNumber, n.velocity], timestamp)
-    this._sendMessage([firstByte("noteOff", n.channel), n.noteNumber, 0], timestamp + n.duration)
+    this._sendMessage([firstByte("noteOff", n.channel), n.noteNumber, 0], timestamp + this.tickToMillisec(n.duration))
+  }
+
+  secToTick(sec) {
+    return secToTick(sec, this._currentTempo, this._timebase)
+  }
+
+  tickToMillisec(tick) {
+    return tickToMillisec(tick, this._currentTempo, this._timebase)
   }
 
   _onTimer() {
-    const deltaTick = Math.ceil(secToTick(INTERVAL / 1000, this._currentTempo, this._timebase))
+    const deltaTick = Math.ceil(this.secToTick(INTERVAL / 1000))
     const endTick = this._currentTick + deltaTick
     const timestamp = window.performance.now()
 
@@ -160,7 +187,7 @@ export default class Player {
       .forEach(e => {
         const bytes = eventToBytes(e, false)
         const waitTick = e.tick - this._currentTick
-        this._sendMessage(bytes, timestamp + tickToMillisec(waitTick, this._currentTempo, this._timebase))
+        this._sendMessage(bytes, timestamp + this.tickToMillisec(waitTick))
       })
 
     // channel イベント以外を実行
@@ -186,6 +213,8 @@ export default class Player {
   }
 
   emitChangePosition() {
-    this.trigger("change-position", this._currentTick)
+    displayTask.add("changePosition", () => {
+      this.trigger("change-position", this._currentTick)      
+    })
   }
 }

@@ -21,8 +21,8 @@ function actionFactory(local, ctx, e) {
     if (e.nativeEvent.detail == 2) {
       return removeNoteAction(ctx, note)
     } else {
-      const local = pointSub(local, note)
-      const type = getDragPositionType(local.x, note.width)
+      const offset = pointSub(local, note)
+      const type = getDragPositionType(offset.x, note.width)
       switch(type) {
         case "center": return moveNoteAction(ctx, note)
         case "left": return dragLeftNoteAction(ctx, note)
@@ -36,8 +36,9 @@ function actionFactory(local, ctx, e) {
 }
 
 function getCursor(local, ctx) {
-  const rect = ctx.getEventsUnderPoint(local.x, local.y)
-  if (rect) {
+  const rects = ctx.getEventsUnderPoint(local.x, local.y)
+  if (rects.length > 0) {
+    const rect = rects[0]
     const pos = pointSub(local, rect)
     const type = getDragPositionType(pos.x, rect.width)
     return cursorForPositionType(type)
@@ -46,7 +47,7 @@ function getCursor(local, ctx) {
   return `url("./images/iconmonstr-pencil-14-16.png") 0 16, default`
 }
 
-function onNoteMouseMove(local, ctx, startPosition, note) {
+function onNoteMouseMove(ctx, local, startPosition, note) {
   const { track, transform, quantizer } = ctx
 
   const movement = {

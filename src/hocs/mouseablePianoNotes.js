@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import _ from "lodash"
 import SelectionMouseHandler from "../NoteMouseHandler/SelectionMouseHandler"
+import PencilMouseHandler from "../NoteMouseHandler/PencilMouseHandler"
 
 function filterEventsInRect(boundsMap, rect) {
   const right = rect.x + rect.width
@@ -41,9 +42,22 @@ export default function mouseablePianoNotes(WrappedComponent) {
   return class extends Component {
     constructor(props) {
       super(props)
-      this.mouseHandler = new SelectionMouseHandler()
+      this.mouseHandler = null
       this.state = {
         cursor: "auto"
+      }
+    }
+
+    componentWillReceiveProps(nextProps) {
+      if (this.mouseHandler === null || this.props.mouseMode !== nextProps.mouseMode) {
+        switch(nextProps.mouseMode) {
+          case 0:
+            this.mouseHandler = new PencilMouseHandler()
+            break
+          case 1:
+            this.mouseHandler = new SelectionMouseHandler()
+            break
+        }
       }
     }
 

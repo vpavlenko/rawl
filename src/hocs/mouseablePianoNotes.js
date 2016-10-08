@@ -58,6 +58,7 @@ export default function mouseablePianoNotes(WrappedComponent) {
             this.mouseHandler = new SelectionMouseHandler()
             break
         }
+        this.setState({ cursor: this.mouseHandler.defaultCursor })
       }
     }
 

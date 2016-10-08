@@ -59,6 +59,7 @@ function PianoNotes(props) {
     height={t.pixelsPerKey * t.numberOfKeys}
     {...pickMouseEvents(props)}
     style={props.style}
+    onContextMenu={e => e.preventDefault()}
   />
 }
 

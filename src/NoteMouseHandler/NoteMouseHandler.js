@@ -7,9 +7,10 @@ function findMap(arr, func) {
 }
 
 export default class MouseHandler {
-  constructor(actionFactories, cursorHandler) {
+  constructor(actionFactories, cursorHandler, defaultCursor) {
     this.actionFactories = actionFactories
     this.cursorHandler = cursorHandler
+    this.defaultCursor = defaultCursor
   }
 
   onMouseDown(local, ctx, e) {
@@ -63,7 +64,7 @@ export function defaultActionFactory(local, ctx, e) {
   }
 
   if (e.nativeEvent.button == 2 && e.nativeEvent.detail == 2) {
-    return changeToolAction
+    return changeToolAction(ctx)
   }
 
   return null
@@ -79,9 +80,8 @@ function dragScrollAction(onMouseDown, onMouseMove) {
   })
 }
 
-function changeToolAction(onMouseDown) {
+const changeToolAction = ctx => onMouseDown => {
   onMouseDown(() => {
-    // FIXME
-    // emitter.trigger("change-tool")
+    ctx.changeTool()
   })
 }

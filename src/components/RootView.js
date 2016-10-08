@@ -42,19 +42,9 @@ export default class RootView extends Component {
       const emitter = {}
       observable(emitter)
 
+      // FIXME
       emitter.on("select-notes", events => {
         this.setState({ selectedEvents: events })
-      })
-
-      emitter.on("move-cursor", tick => {
-        const t = SharedService.quantizer.round(tick)
-        SharedService.player.seek(t)
-      })
-
-      emitter.on("change-tool", () => {
-        this.setState({
-          pianoRollMouseMode: this.state.pianoRollMouseMode == 0 ? 1 : 0
-        })
       })
 
       this.pianoRollEmitter = emitter
@@ -85,6 +75,12 @@ export default class RootView extends Component {
 
   onClickSelection() {
     this.setState({pianoRollMouseMode: 1})
+  }
+
+  onChangeTool() {
+    this.setState({
+      pianoRollMouseMode: this.state.pianoRollMouseMode == 0 ? 1 : 0
+    })
   }
 
   onClickScaleUp() {
@@ -302,6 +298,7 @@ export default class RootView extends Component {
             scaleX={this.state.pianoRollScaleX}
             scaleY={this.state.pianoRollScaleY}
             autoScroll={this.state.pianoRollAutoScroll}
+            onChangeTool={this.onChangeTool.bind(this)}
             mouseMode={this.state.pianoRollMouseMode} />
           : <ArrangeView
             tracks={this.props.song && this.props.song.getTracks() || []}

@@ -4,9 +4,11 @@ import { createNoteAction } from "./PencilMouseHandler"
 import Rect from "../model/Rect"
 import { pointSub } from "../helpers/point"
 
+const defaultCursor = "crosshair"
+
 export default class SelectionMouseHandler extends MouseHandler {
   constructor() {
-    super([defaultActionFactory, actionFactory], getCursor)
+    super([defaultActionFactory, actionFactory], getCursor, defaultCursor)
   }
 }
 
@@ -42,7 +44,7 @@ function getCursor(local, ctx) {
     const type = getDragPositionType(local.x - selectionRect.x, selectionRect.width)
     return cursorForPositionType(type)
   }
-  return "crosshair"
+  return defaultCursor
 }
 
 const createSelectionAction = ctx => (onMouseDown, onMouseMove, onMouseUp) => {

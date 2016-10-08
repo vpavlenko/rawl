@@ -3,9 +3,11 @@ import SharedService from "../services/SharedService"
 import MouseHandler, { defaultActionFactory } from "./NoteMouseHandler"
 import { pointSub } from "../helpers/point"
 
+const defaultCursor = `url("./images/iconmonstr-pencil-14-16.png") 0 16, default`
+
 export default class PencilMouseHandler extends MouseHandler {
   constructor() {
-    super([defaultActionFactory, actionFactory], getCursor)
+    super([defaultActionFactory, actionFactory], getCursor, defaultCursor)
   }
 }
 
@@ -44,7 +46,7 @@ function getCursor(local, ctx) {
     return cursorForPositionType(type)
   }
 
-  return `url("./images/iconmonstr-pencil-14-16.png") 0 16, default`
+  return defaultCursor
 }
 
 function onNoteMouseMove(ctx, local, startPosition, note) {

@@ -149,6 +149,7 @@ class PianoRoll extends Component {
           track={props.track}
           style={fixedLeftStyle}
           mouseMode={props.mouseMode}
+          changeTool={props.onChangeTool}
           scrollLeft={this.state.scrollLeft} />
         <PianoSelection
           width={notesWidth}

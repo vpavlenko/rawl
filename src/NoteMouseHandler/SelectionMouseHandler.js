@@ -5,8 +5,8 @@ import Rect from "../model/Rect"
 import { pointSub } from "../helpers/point"
 
 export default class SelectionMouseHandler extends MouseHandler {
-  constructor(emitter) {
-    super(emitter, [defaultActionFactory, actionFactory], getCursor)
+  constructor() {
+    super([defaultActionFactory, actionFactory], getCursor)
   }
 }
 

@@ -4,8 +4,8 @@ import MouseHandler, { defaultActionFactory } from "./NoteMouseHandler"
 import { pointSub } from "../helpers/point"
 
 export default class PencilMouseHandler extends MouseHandler {
-  constructor(emitter) {
-    super(emitter, [defaultActionFactory, actionFactory], getCursor)
+  constructor() {
+    super([defaultActionFactory, actionFactory], getCursor)
   }
 }
 

@@ -40,14 +40,6 @@ class PianoRoll extends Component {
     this.state.selection.on("change", () => {
       this.setState({selection: this.state.selection})
     })
-
-    this.mouseEmitter = observable()
-
-    this.mouseEmitter.on("change-cursor", cursor => {
-      this.setState({
-        notesCursor: cursor
-      })
-    })
   }
 
   forceScrollLeft(requiredScrollLeft) {
@@ -153,7 +145,6 @@ class PianoRoll extends Component {
           events={events}
           transform={transform}
           width={notesWidth}
-          emitter={this.mouseEmitter}
           quantizer={quantizer}
           selection={selection}
           track={props.track}

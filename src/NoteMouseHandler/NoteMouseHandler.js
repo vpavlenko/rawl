@@ -7,8 +7,7 @@ function findMap(arr, func) {
 }
 
 export default class MouseHandler {
-  constructor(emitter, actionFactories, cursorHandler) {
-    this.emitter = emitter
+  constructor(actionFactories, cursorHandler) {
     this.actionFactories = actionFactories
     this.cursorHandler = cursorHandler
   }
@@ -37,15 +36,15 @@ export default class MouseHandler {
     actionMouseDown(local)
   }
 
-  onMouseMove(local, ctx) {
+  onMouseMove(local, ctx, e) {
     if (this.action) {
-      this.actionMouseMove(local)
+      this.actionMouseMove(local, e)
     } else {
       let cursor = "auto"
       if (this.cursorHandler) {
         cursor = this.cursorHandler(local, ctx)
       }
-      this.emitter.trigger("change-cursor", cursor)
+      ctx.changeCursor(cursor)
     }
   }
 
@@ -70,17 +69,19 @@ export function defaultActionFactory(local, ctx, e) {
   return null
 }
 
-function dragScrollAction(emitter, onMouseDown, onMouseMove) {
-  onMouseMove((local, ctx, e) => {
-    emitter.trigger("drag-scroll", {movement: {
-      x: e.nativeEvent.movementX,
-      y: e.nativeEvent.movementY
-    }})
+function dragScrollAction(onMouseDown, onMouseMove) {
+  onMouseMove((local, e) => {
+    // FIXME
+    // emitter.trigger("drag-scroll", {movement: {
+    //   x: e.nativeEvent.movementX,
+    //   y: e.nativeEvent.movementY
+    // }})
   })
 }
 
-function changeToolAction(emitter, onMouseDown) {
+function changeToolAction(onMouseDown) {
   onMouseDown(() => {
-    emitter.trigger("change-tool")
+    // FIXME
+    // emitter.trigger("change-tool")
   })
 }

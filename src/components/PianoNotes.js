@@ -9,11 +9,11 @@ function drawNote(ctx, rect, note, fillColor, strokeColor) {
   const { x, y, width, height } = rect
 
   const alpha = note.velocity / 127
-  const color = note.selected ? strokeColor : fillColor
+  const color = note.selected ? "black" : `rgba(0, 0, 255, ${alpha})`
 
   ctx.beginPath()
   ctx.fillStyle = color
-  ctx.strokeStyle = strokeColor
+  ctx.strokeStyle = "black"
   ctx.lineWidth = 1
   ctx.rect(x, y, width, height)
   ctx.fill()
@@ -39,9 +39,6 @@ function PianoNotes(props) {
     const { width, height } = ctx.canvas
     ctx.clearRect(0, 0, width, height)
 
-    const fillColor = "blue"
-    const strokeColor = "black"
-
     const notes = props.events.filter(e => e.subtype == "note")
     console.log(`[PianoNotes] draw ${notes.length} notes`)
 
@@ -49,7 +46,7 @@ function PianoNotes(props) {
     ctx.translate(-props.scrollLeft, 0.5)
     notes.forEach(note => {
       const rect = props.transform.getRect(note)
-      drawNote(ctx, rect, note, fillColor, strokeColor)
+      drawNote(ctx, rect, note)
       props.setEventBounds(note.id, _.assign({}, rect, note)) // TODO 単に rect を渡すようにして、 MouseActionController 側で track から取得させる
     })
     ctx.restore()

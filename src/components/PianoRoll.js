@@ -17,7 +17,10 @@ import maxX from "../helpers/maxX"
 function filterEventsWithScroll(events, transform, scrollLeft, width) {
   const tickStart = transform.getTicks(scrollLeft)
   const tickEnd = transform.getTicks(scrollLeft + width)
-  return events.filter(e => e.tick >= tickStart && e.tick <= tickEnd)
+  function test(tick) {
+    return tick >= tickStart && tick <= tickEnd
+  }
+  return events.filter(e => test(e.tick) || test(e.tick + e.duration))
 }
 
 class PianoRoll extends Component {

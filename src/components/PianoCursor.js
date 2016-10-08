@@ -6,6 +6,7 @@ function drawCursor(ctx, position, height) {
   ctx.save()
   // ctx.translate(0, 0.5)
   ctx.strokeStyle = "red"
+  ctx.lineWidth = 1
   ctx.beginPath()
   ctx.moveTo(position, 0)
   ctx.lineTo(position, height)
@@ -18,7 +19,10 @@ function PianoCursor(props) {
   function draw(ctx) {
     const { width, height } = ctx.canvas
     ctx.clearRect(0, 0, width, height)
-    drawCursor(ctx, props.position, height)
+    ctx.save()
+    ctx.translate(0.5, 0)
+    drawCursor(ctx, Math.floor(props.position), height)
+    ctx.restore()
   }
 
   return <DrawCanvas

@@ -49,7 +49,10 @@ function PianoRuler(props) {
   function draw(ctx) {
     const { width, height } = ctx.canvas
     ctx.clearRect(0, 0, width, height)
+    ctx.save()
+    ctx.translate(0.5, 0.5)
     drawRuler(ctx, props.height, props.pixelsPerTick, props.endTick, props.ticksPerBeat, props.theme)
+    ctx.restore()
   }
 
   return <DrawCanvas

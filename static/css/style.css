@@ -441,7 +441,6 @@ div#vertical {
   position: absolute;
   top: var(--ruler-height);
   background: white;
-  border-right: 1px solid var(--divider-color);
   box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 4px;
 }
 

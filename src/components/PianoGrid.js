@@ -27,7 +27,7 @@ function PianoGrid(props) {
     const { width, height } = ctx.canvas
     ctx.clearRect(0, 0, width, height)
     ctx.save()
-    ctx.translate(0, 0.5)
+    ctx.translate(0.5, 0.5)
     drawBeatLines(ctx, transform, props.endTick, props.ticksPerBeat, props.theme)
     ctx.restore()
   }

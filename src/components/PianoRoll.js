@@ -52,7 +52,7 @@ class PianoRoll extends Component {
 
   forceScrollLeft(requiredScrollLeft) {
     const maxScrollLeft = this.beta.scrollWidth - this.beta.clientWidth
-    const scrollLeft = Math.min(maxScrollLeft, requiredScrollLeft)
+    const scrollLeft = Math.floor(Math.min(maxScrollLeft, requiredScrollLeft))
     this.alpha.scrollLeft = scrollLeft
     this.beta.scrollLeft = scrollLeft
     this.setState({ scrollLeft })

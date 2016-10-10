@@ -3,6 +3,7 @@ import observable from "riot-observable"
 import MIDIControlEvents from "../constants/MIDIControlEvents"
 import MIDIChannelEvents from "../constants/MIDIChannelEvents"
 import { deassembleNoteEvents, eventToBytes } from "../helpers/midiHelper"
+import assert from "assert"
 
 const INTERVAL = 1 / 15 * 1000 // seconds
 
@@ -60,31 +61,23 @@ export default class Player {
 
     const url = "./sf2.html"
     this.synthWindow = window.open(url, "sy1", "width=900,height=670,scrollbars=yes,resizable=yes")
-
-    document.player = this
   }
 
-  prepare(song) {
+  set song(song) {
     this._song = song
   }
 
-  // you must call prepare() before play(), playAt()
-  play(tick) {
-    if (tick) {
-      this._currentTick = Math.max(0, tick)
-      this.emitChangePosition()
-    }
-    this.resume()
-  }
-
-  seek(tick) {
-    this._currentTick = Math.max(0, tick)
-    this.emitChangePosition()
-    this.allSoundsOff()
+  play() {
+    assert(this._song, "you must set song before play")
+    this._playing = true
+    clearInterval(this._intervalID)
+    this._intervalID = setInterval(this._onTimer.bind(this), INTERVAL)
   }
 
   set position(tick) {
-    this.seek(tick)
+    this._currentTick = Math.max(0, tick)
+    this.emitChangePosition()
+    this.allSoundsOff()
   }
 
   get position() {
@@ -99,18 +92,7 @@ export default class Player {
     return this._timebase
   }
 
-  get channelMutes() {
-    return this._channelMutes
-  }
-
-  resume() {
-    this._playing = true
-    clearInterval(this._intervalID)
-    this._intervalID = setInterval(this._onTimer.bind(this), INTERVAL)
-  }
-
   allSoundsOff() {
-    // all sound off
     for (const ch of _.range(0, 0xf)) {
       this._sendMessage([0xb0 + ch, MIDIControlEvents.ALL_SOUNDS_OFF, 0], window.performance.now())
     }
@@ -156,14 +138,10 @@ export default class Player {
     }, delay)
   }
 
-  /**
-   preview note
-   duration in milliseconds
-   */
-  playNote(n) {
+  playNote({channel, noteNumber, velocity, duration}) {
     const timestamp = window.performance.now()
-    this._sendMessage([firstByte("noteOn", n.channel), n.noteNumber, n.velocity], timestamp)
-    this._sendMessage([firstByte("noteOff", n.channel), n.noteNumber, 0], timestamp + this.tickToMillisec(n.duration))
+    this._sendMessage([firstByte("noteOn", channel), noteNumber, velocity], timestamp)
+    this._sendMessage([firstByte("noteOff", channel), noteNumber, 0], timestamp + this.tickToMillisec(duration))
   }
 
   secToTick(sec) {
@@ -205,7 +183,7 @@ export default class Player {
       })
 
     if (this._currentTick >= this._song.getEndOfSong()) {
-      this.stop();
+      this.stop()
     }
 
     this._currentTick = endTick
@@ -214,7 +192,7 @@ export default class Player {
 
   emitChangePosition() {
     displayTask.add("changePosition", () => {
-      this.trigger("change-position", this._currentTick)      
+      this.trigger("change-position", this._currentTick)
     })
   }
 }

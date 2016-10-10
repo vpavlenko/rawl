@@ -49,7 +49,7 @@ export default class Root extends Component {
   }
 
   watchSong(song) {
-    SharedService.player.prepare(song)
+    SharedService.player.song = song
 
     song.on("change", () => {
       this.setState({ song })

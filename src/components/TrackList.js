@@ -38,9 +38,8 @@ export default class TrackList extends Component {
 
   componentDidMount() {
     SharedService.player.on("change-mute", () => {
-      this.setState({
-        channelMutes: SharedService.player.channelMutes
-      })
+      const channelMutes = this.props.tracks.map((t, i) => SharedService.player.isChannelMuted(i))
+      this.setState({ channelMutes })
     })
   }
 

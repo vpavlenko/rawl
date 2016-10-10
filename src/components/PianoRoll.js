@@ -124,7 +124,7 @@ class PianoRoll extends Component {
       const tick = transform.getTicks(e.nativeEvent.offsetX)
       const player = SharedService.player
       if (!player.isPlaying) {
-        player.seek(tick)
+        player.position = tick
       }
     }
 

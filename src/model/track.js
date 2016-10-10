@@ -49,7 +49,7 @@ export default class Track {
     this.updateEndOfTrack()
     this.sortByTick()
     this.emitChange()
-    return anObj
+    return newObj
   }
 
   replaceEventById(id, event) {

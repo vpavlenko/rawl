@@ -1,7 +1,7 @@
 import React from "react"
 import ReactDOM from "react-dom"
-import App from "./App"
+import Root from "./Root"
 
 window.onload = () => {
-  ReactDOM.render(<App />, document.querySelector("#root"))
+  ReactDOM.render(<Root />, document.querySelector("#root"))
 }

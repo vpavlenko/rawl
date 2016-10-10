@@ -9,7 +9,7 @@ import MidiFileWriter from "./midi/MidiFileWriter"
 import Config from "./Config"
 import Downloader from "./helpers/Downloader"
 
-export default class App extends Component {
+export default class Root extends Component {
   constructor(props) {
     super(props)
 

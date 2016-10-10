@@ -1,0 +1,96 @@
+body {
+  font-size: 12px;
+  margin: 0;
+  background: rgb(0, 0, 0);
+  color: rgb(159, 159, 253);
+  font-family: Consolas;
+}
+
+#root {
+}
+
+.keys>div {
+  float: left;
+}
+
+.keys>.white, .keys>.black {
+  position: relative;
+}
+
+.keys {
+  overflow: hidden;
+  background: black;
+}
+
+.keys>.white {
+  width: 5px;
+  height: 20px;
+  background: rgb(85, 85, 90);
+  border-right: 1px solid black;
+  box-sizing: border-box;
+}
+
+.keys>.black {
+  width: 3px;
+  background: rgb(0, 0, 0);
+  height: 11px;
+  left: 1px;
+  margin-left: -3px;
+  z-index: 999;
+}
+
+.volume::before {content: "VOL:";}
+
+.panpot::before {content: "PAN:";}
+
+.pitchBend::before {content: "BEND:";}
+
+.pitchBendSensitivity::before {
+  content: "RANGE:";
+}
+
+select {
+  background: transparent;
+  color: currentColor;
+  border: none;
+  outline: none;
+  font-family: Consolas;
+}
+
+option {
+  background: black;
+}
+
+.program, .volume, .panpot, .pitchBend, .pitchBendSensitivity {
+  display: inline-block;
+}
+
+select {
+  font-size: 100%;
+}
+
+.key.white.note-on {
+  background: rgb(255, 208, 29);
+}
+
+.key.black.note-on {
+  background: rgb(255, 208, 29);
+}
+
+h1 {
+  float: left;
+  font-size: 240%;
+  margin: 0 7px 0px 0;
+}
+
+header p {
+  margin: 0;
+}
+
+header {
+  overflow: hidden;
+}
+
+header .version {
+  opacity: 0.7;
+}

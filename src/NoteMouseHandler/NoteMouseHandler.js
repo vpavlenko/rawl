@@ -7,16 +7,14 @@ function findMap(arr, func) {
 }
 
 export default class MouseHandler {
-  constructor(emitter, actionFactories, cursorHandler) {
-    this.emitter = emitter
+  constructor(actionFactories, cursorHandler, defaultCursor) {
     this.actionFactories = actionFactories
     this.cursorHandler = cursorHandler
+    this.defaultCursor = defaultCursor
   }
 
-  onMouseDown(e, ctx) {
-    this.action = findMap(this.actionFactories, factory =>
-      factory(e, ctx)
-    )
+  onMouseDown(local, ctx, e) {
+    this.action = findMap(this.actionFactories, f => f(local, ctx, e))
     if (!this.action) {
       return
     }
@@ -36,62 +34,54 @@ export default class MouseHandler {
       registerMouseDown,
       registerMouseMove,
       registerMouseUp)
-    actionMouseDown(e, ctx)
+    actionMouseDown(local)
   }
 
-  onMouseMove(e, ctx) {
+  onMouseMove(local, ctx, e) {
     if (this.action) {
-      this.actionMouseMove(e, ctx)
+      this.actionMouseMove(local, e)
     } else {
       let cursor = "auto"
       if (this.cursorHandler) {
-        cursor = this.cursorHandler(e, ctx)
+        cursor = this.cursorHandler(local, ctx)
       }
-      this.emitter.trigger("change-cursor", cursor)
+      ctx.changeCursor(cursor)
     }
   }
 
-  onMouseUp(e, ctx) {
+  onMouseUp(local) {
     if (this.action) {
-      this.actionMouseUp(e, ctx)
+      this.actionMouseUp(local)
     }
     this.action = null
   }
 }
 
-export function defaultActionFactory(e) {
+export function defaultActionFactory(local, ctx, e) {
   if (e.nativeEvent.button == 1) {
     // wheel drag to start scrolling
     return dragScrollAction
   }
 
   if (e.nativeEvent.button == 2 && e.nativeEvent.detail == 2) {
-    return changeToolAction
+    return changeToolAction(ctx)
   }
 
   return null
 }
 
-function dragScrollAction(emitter, onMouseDown, onMouseMove) {
-  onMouseMove(e => {
-    emitter.trigger("drag-scroll", {movement: {
-      x: e.nativeEvent.movementX,
-      y: e.nativeEvent.movementY
-    }})
+function dragScrollAction(onMouseDown, onMouseMove) {
+  onMouseMove((local, e) => {
+    // FIXME
+    // emitter.trigger("drag-scroll", {movement: {
+    //   x: e.nativeEvent.movementX,
+    //   y: e.nativeEvent.movementY
+    // }})
   })
 }
 
-function changeToolAction(emitter, onMouseDown) {
+const changeToolAction = ctx => onMouseDown => {
   onMouseDown(() => {
-    emitter.trigger("change-tool")
+    ctx.changeTool()
   })
-}
-
-// helpers
-
-export function getLocal(e) {
-  return {
-    x: e.nativeEvent.offsetX,
-    y: e.nativeEvent.offsetY,
-  }
 }

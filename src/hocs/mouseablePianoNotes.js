@@ -1,19 +1,18 @@
 import React, { Component } from "react"
 import _ from "lodash"
-import PencilMouseHandler from "../NoteMouseHandler/PencilMouseHandler"
 import SelectionMouseHandler from "../NoteMouseHandler/SelectionMouseHandler"
+import PencilMouseHandler from "../NoteMouseHandler/PencilMouseHandler"
 
-function filterEventsInRect(boundsMap, rect) {
-  const right = rect.x + rect.width
-  const bottom = rect.y + rect.height
+function filterEventsInSelection(boundsMap, selection) {
+  const s = selection
   return _.chain(boundsMap)
     .entries()
     .filter(e => {
       const b = e[1]
-      return b.x >= rect.x
-        && b.x + b.width < right
-        && b.y >= rect.y
-        && b.y + b.height < bottom
+      return b.tick >= s.fromTick
+        && b.tick <= s.toTick // ノートの先頭だけ範囲にはいっていればよい
+        && b.noteNumber <= s.fromNoteNumber
+        && b.noteNumber >= s.toNoteNumber
     })
     .value()
 }
@@ -42,7 +41,24 @@ export default function mouseablePianoNotes(WrappedComponent) {
   return class extends Component {
     constructor(props) {
       super(props)
-      this.mouseHandler = new SelectionMouseHandler(props.emitter)
+      this.mouseHandler = null
+      this.state = {
+        cursor: "auto"
+      }
+    }
+
+    componentWillReceiveProps(nextProps) {
+      if (this.mouseHandler === null || this.props.mouseMode !== nextProps.mouseMode) {
+        switch(nextProps.mouseMode) {
+          case 0:
+            this.mouseHandler = new PencilMouseHandler()
+            break
+          case 1:
+            this.mouseHandler = new SelectionMouseHandler()
+            break
+        }
+        this.setState({ cursor: this.mouseHandler.defaultCursor })
+      }
     }
 
     render() {
@@ -56,25 +72,34 @@ export default function mouseablePianoNotes(WrappedComponent) {
 
       // MouseHandler が必要とする機能を提供する
       const ctx = {
-        track: props.track,
-        selection: props.selection,
-        transform: props.transform,
-        quantizer: props.quantizer,
+        ...props,
 
         getEventsUnderPoint: (x, y) => {
           return filterEventsUnderPoint(boundsMap, x, y).map(entryToObjectWithId)
         },
 
-        getEventsInRect: rect => {
-          return filterEventsInRect(boundsMap, rect).map(entryToObjectWithId)
+        getEventsInSelection: () => {
+          return filterEventsInSelection(boundsMap, props.selection).map(entryToObjectWithId)
+        },
+
+        changeCursor: cursor => {
+          this.setState({ cursor })
+        }
+      }
+
+      function getLocal(e) {
+        return {
+          x: e.nativeEvent.offsetX + props.scrollLeft,
+          y: e.nativeEvent.offsetY
         }
       }
 
       return <WrappedComponent {...props}
         setEventBounds={setEventBounds}
-        onMouseDown={e => handler.onMouseDown(e, ctx)}
-        onMouseMove={e => handler.onMouseMove(e, ctx)}
-        onMouseUp={e => handler.onMouseUp(e, ctx)}
+        onMouseDown={e => handler.onMouseDown(getLocal(e), ctx, e)}
+        onMouseMove={e => handler.onMouseMove(getLocal(e), ctx, e)}
+        onMouseUp={e => handler.onMouseUp(getLocal(e))}
+        style={{...props.style, cursor: this.state.cursor}}
       />
     }
   }

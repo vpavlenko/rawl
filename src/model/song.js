@@ -2,6 +2,7 @@ import _ from "lodash"
 import observable from "riot-observable"
 import MeasureList from "./MeasureList"
 import Track from "./Track"
+import maxX from "../helpers/maxX"
 
 export default class Song {
   constructor() {
@@ -33,10 +34,14 @@ export default class Song {
   getMeasureList() {
     if (this.measureList) {
       return this.measureList
-    } 
+    }
 
     this.measureList = new MeasureList(this.getTrack(0))
     return this.measureList
+  }
+
+  getEndOfSong() {
+    return maxX(_.flatten(this.tracks.map(t => t.getEvents())))
   }
 
   static emptySong() {

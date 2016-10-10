@@ -1,11 +1,11 @@
 import _ from "lodash"
 import observable from "riot-observable"
-import { 
+import {
   TrackNameMidiEvent, EndOfTrackMidiEvent,
   TimeSignatureMidiEvent, SetTempoMidiEvent,
   PitchBendMidiEvent, VolumeMidiEvent,
   PanMidiEvent, ExpressionMidiEvent,
-  ModulationMidiEvent, ProgramChangeMidiEvent } from "../../vendor/jasmid/midievent"
+  ModulationMidiEvent, ProgramChangeMidiEvent } from "../midi/midievent"
 
 export default class Track {
   constructor() {
@@ -41,14 +41,24 @@ export default class Track {
 
   updateEvent(id, obj) {
     const anObj = this.getEventById(id)
-    if (_.isEqual(Object.assign({}, anObj, obj), anObj)) {
+    const newObj = Object.assign({}, anObj, obj)
+    if (_.isEqual(newObj, anObj)) {
       return
     }
-    _.extend(anObj, obj)
+    this.replaceEventById(id, newObj)
     this.updateEndOfTrack()
     this.sortByTick()
     this.emitChange()
     return anObj
+  }
+
+  replaceEventById(id, event) {
+    for (let i = 0; i < this.events.length; i++) {
+      if (this.events[i].id === id) {
+        this.events[i] = event
+        break
+      }
+    }
   }
 
   removeEvent(id) {
@@ -101,7 +111,7 @@ export default class Track {
 
   emitChange() {
     this._changed = true
-    if (!this._paused) { 
+    if (!this._paused) {
       this.trigger("change")
     }
   }
@@ -133,7 +143,7 @@ export default class Track {
     const events = [
       new TrackNameMidiEvent(0, name),
       new TimeSignatureMidiEvent(0, 4, 4, 24),
-      new SetTempoMidiEvent(0, 60000 / 120),
+      new SetTempoMidiEvent(0, 60000000 / 120),
       new EndOfTrackMidiEvent(0)
     ]
     events.forEach(e => track.addEvent(e))
@@ -145,7 +155,7 @@ export default class Track {
     track.channel = channel
     const events = [
       new TrackNameMidiEvent(0, ""),
-      new PanMidiEvent(0, 64), 
+      new PanMidiEvent(0, 64),
       new VolumeMidiEvent(0, 100),
       new ExpressionMidiEvent(0, 127),
       new PitchBendMidiEvent(0, 0x2000),

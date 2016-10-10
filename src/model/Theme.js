@@ -8,60 +8,30 @@ export function hslWithAlpha(hsl, alpha) {
   return `hsla(${h}, ${s}%, ${l}%, ${alpha})`
 }
 
+let instance
+
 export default class Theme {
-  static get font() {
-    return getCSSVariable("--font")
+  static load() {
+    if (instance) {
+      return instance
+    }
+    return instance = this.fromCSS()
   }
-
-  static get canvasFont() {
-    return getCSSVariable("--canvas-font")
-  }
-
-  static get themeColor() {
-    return getCSSVariable("--theme-color")
-  }
-
-  static get noteColor() {
-    return getCSSVariable("--note-color")
-  }
-
-  static get backgroundColor() {
-    return getCSSVariable("--background-color")
-  }
-
-  static get secondaryBackgroundColor() {
-    return getCSSVariable("--secondary-background-color")
-  }
-
-  static getDividerColorAccented(accented) {
-    return accented ? this.secondaryTextColor : this.dividerColor
-  }
-
-  static get dividerColor() {
-    return getCSSVariable("--divider-color")
-  }
-
-  static get textColor() {
-    return getCSSVariable("--text-color")
-  }
-
-  static get secondaryTextColor() {
-    return getCSSVariable("--secondary-text-color")
-  }
-
-  static get keyWidth() {
-    return parseInt(getCSSVariable("--key-width"))
-  }
-
-  static get keyHeight() {
-    return parseInt(getCSSVariable("--key-height"))
-  }
-
-  static get rulerHeight() {
-    return parseInt(getCSSVariable("--ruler-height"))
-  }
-
-  static get controlHeight() {
-    return parseInt(getCSSVariable("--control-height"))
+  static fromCSS() {
+    return {
+      font: getCSSVariable("--font"),
+      canvasFont: getCSSVariable("--canvas-font"),
+      themeColor: getCSSVariable("--theme-color"),
+      noteColor: getCSSVariable("--note-color"),
+      backgroundColor: getCSSVariable("--background-color"),
+      secondaryBackgroundColor: getCSSVariable("--secondary-background-color"),
+      dividerColor: getCSSVariable("--divider-color"),
+      textColor: getCSSVariable("--text-color"),
+      secondaryTextColor: getCSSVariable("--secondary-text-color"),
+      keyWidth: parseInt(getCSSVariable("--key-width")),
+      keyHeight: parseInt(getCSSVariable("--key-height")),
+      rulerHeight: parseInt(getCSSVariable("--ruler-height")),
+      controlHeight: parseInt(getCSSVariable("--control-height"))
+    }
   }
 }

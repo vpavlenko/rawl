@@ -1,5 +1,4 @@
 import React, { Component } from "react"
-import observable from "riot-observable"
 import SharedService from "./services/SharedService"
 import Player from "./services/Player"
 import Quantizer from "./services/Quantizer"
@@ -42,6 +41,7 @@ export default class App extends Component {
           } else {
             player.play()
           }
+          e.preventDefault()
           break
         }
       }

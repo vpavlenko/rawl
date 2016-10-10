@@ -4,11 +4,12 @@ module.exports = {
   context: path.join(__dirname, "src"),
   devtool: "inline-source-map",
   entry: {
-    javascript: './index.js'
+    bundle: "./index",
+    synth: "./synth"
   },
   output: {
     path: path.join(__dirname, "static"),
-    filename: "bundle.js",
+    filename: "[name].js",
     publicPath: "static"
   },
   module: {

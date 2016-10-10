@@ -14,6 +14,7 @@ import EventList from "./EventList"
 import InstrumentBrowser from "./InstrumentBrowser"
 import PropertyPane from "./PropertyPane"
 import PianoRoll from "./PianoRoll"
+import ArrangeView from "./ArrangeView"
 
 import {
   getGMMapIndexes,
@@ -33,26 +34,17 @@ export default class RootView extends Component {
       quantize: SharedService.quantizer.denominator,
       showLeftPane: true,
       showRightPane: true,
-      showEventList: false
+      showEventList: false,
+      showPianoRoll: true
     }
 
     {
       const emitter = {}
       observable(emitter)
 
+      // FIXME
       emitter.on("select-notes", events => {
         this.setState({ selectedEvents: events })
-      })
-
-      emitter.on("move-cursor", tick => {
-        const t = SharedService.quantizer.round(tick)
-        SharedService.player.seek(t)
-      })
-
-      emitter.on("change-tool", () => {
-        this.setState({
-          pianoRollMouseMode: this.state.pianoRollMouseMode == 0 ? 1 : 0
-        })
       })
 
       this.pianoRollEmitter = emitter
@@ -83,6 +75,12 @@ export default class RootView extends Component {
 
   onClickSelection() {
     this.setState({pianoRollMouseMode: 1})
+  }
+
+  onChangeTool() {
+    this.setState({
+      pianoRollMouseMode: this.state.pianoRollMouseMode == 0 ? 1 : 0
+    })
   }
 
   onClickScaleUp() {
@@ -229,6 +227,12 @@ export default class RootView extends Component {
     })
   }
 
+  onClickShowPianoRoll() {
+    this.setState({
+      showPianoRoll: !this.state.showPianoRoll
+    })
+  }
+
   updateNotes(changes) {
     this.selectedTrack.transaction(it => {
       changes.forEach(c => it.updateEvent(c.id, c))
@@ -245,6 +249,7 @@ export default class RootView extends Component {
         selectedTrackId={this.state.selectedTrackId}
         showLeftPane={this.state.showLeftPane}
         showRightPane={this.state.showRightPane}
+        showPianoRoll={this.state.showPianoRoll}
         onChangeFile={this.onChangeFile.bind(this)}
         onClickSave={this.onClickSave.bind(this)}
         onClickPencil={this.onClickPencil.bind(this)}
@@ -259,6 +264,7 @@ export default class RootView extends Component {
         onClickAutoScroll={this.onClickAutoScroll.bind(this)}
         onClickShowLeftPane={this.onClickShowLeftPane.bind(this)}
         onClickShowRightPane={this.onClickShowRightPane.bind(this)}
+        onClickShowPianoRoll={this.onClickShowPianoRoll.bind(this)}
       />
       <div id="container">
         {this.state.showLeftPane &&
@@ -284,13 +290,20 @@ export default class RootView extends Component {
             onClickInstrument={this.onClickTrackInstrument.bind(this)}
           />
         </div>
-        <PianoRoll
-          emitter={this.pianoRollEmitter}
-          track={this.selectedTrack}
-          scaleX={this.state.pianoRollScaleX}
-          scaleY={this.state.pianoRollScaleY}
-          autoScroll={this.state.pianoRollAutoScroll}
-          mouseMode={this.state.pianoRollMouseMode} />
+        {this.state.showPianoRoll ?
+          <PianoRoll
+            emitter={this.pianoRollEmitter}
+            track={this.selectedTrack}
+            endTick={this.props.song.getEndOfSong()}
+            scaleX={this.state.pianoRollScaleX}
+            scaleY={this.state.pianoRollScaleY}
+            autoScroll={this.state.pianoRollAutoScroll}
+            onChangeTool={this.onChangeTool.bind(this)}
+            mouseMode={this.state.pianoRollMouseMode} />
+          : <ArrangeView
+            tracks={this.props.song && this.props.song.getTracks() || []}
+           />
+        }
         {this.state.showRightPane &&
           <PropertyPane ref={c => this.propertyPane = c}
             notes={this.state.selectedEvents || []}

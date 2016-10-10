@@ -14,7 +14,7 @@ function TrackListItem(props) {
 }
 
 function TrackListContent(props) {
-  const items = props.tracks.map(t => <TrackListItem 
+  const items = props.tracks.map(t => <TrackListItem
     key={t.trackId}
     track={t}
     onClickName={props.onSelectTrack}
@@ -41,13 +41,13 @@ export default class TrackList extends Component {
       this.setState({
         channelMutes: SharedService.player.channelMutes
       })
-    })     
+    })
   }
 
   render() {
     const tracks = this.props.tracks.map((t, i) => {
       return {
-        name: `${i} ${t.channel}. ${t.getName() || ""}`,
+        name: `Ch. ${t.channel + 1}. ${t.getName() || ""}`,
         mute: this.state.channelMutes[t.channel],
         selected: i == this.props.selectedTrackId,
         trackId: i

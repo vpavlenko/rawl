@@ -1,20 +1,19 @@
-import React, { PropTypes } from "react"
+import React, { Component, PropTypes } from "react"
+import _ from "lodash"
 import DrawCanvas from "./DrawCanvas"
-import pureRender from "../hocs/pureRender"
-import Theme from "../model/Theme"
 import pickMouseEvents from "../helpers/pickMouseEvents"
 import mouseablePianoNotes from "../hocs/mouseablePianoNotes"
-import _ from "lodash"
+import logEq from "../helpers/logEq"
 
 function drawNote(ctx, rect, note, fillColor, strokeColor) {
   const { x, y, width, height } = rect
 
   const alpha = note.velocity / 127
-  const color = note.selected ? strokeColor : fillColor
+  const color = note.selected ? "black" : `rgba(0, 0, 255, ${alpha})`
 
   ctx.beginPath()
   ctx.fillStyle = color
-  ctx.strokeStyle = strokeColor
+  ctx.strokeStyle = "black"
   ctx.lineWidth = 1
   ctx.rect(x, y, width, height)
   ctx.fill()
@@ -40,17 +39,14 @@ function PianoNotes(props) {
     const { width, height } = ctx.canvas
     ctx.clearRect(0, 0, width, height)
 
-    const fillColor = "blue"
-    const strokeColor = "black"
-
     const notes = props.events.filter(e => e.subtype == "note")
     console.log(`[PianoNotes] draw ${notes.length} notes`)
 
     ctx.save()
-    ctx.translate(0, 0.5)
+    ctx.translate(-props.scrollLeft, 0.5)
     notes.forEach(note => {
       const rect = props.transform.getRect(note)
-      drawNote(ctx, rect, note, fillColor, strokeColor)
+      drawNote(ctx, rect, note)
       props.setEventBounds(note.id, _.assign({}, rect, note)) // TODO 単に rect を渡すようにして、 MouseActionController 側で track から取得させる
     })
     ctx.restore()
@@ -59,17 +55,35 @@ function PianoNotes(props) {
   return <DrawCanvas
     draw={draw}
     className="PianoNotes"
-    width={t.getPixelsPerTick() * props.endTick}
-    height={t.getPixelsPerKey() * t.getMaxNoteNumber()}
+    width={props.width}
+    height={t.pixelsPerKey * t.numberOfKeys}
     {...pickMouseEvents(props)}
+    style={props.style}
+    onContextMenu={e => e.preventDefault()}
   />
 }
 
 PianoNotes.propTypes = {
+  width: PropTypes.number.isRequired,
   events: PropTypes.array.isRequired,
-  endTick: PropTypes.number.isRequired,
   transform: PropTypes.object.isRequired,
+  scrollLeft: PropTypes.number.isRequired,
   setEventBounds: PropTypes.func.isRequired
 }
 
-export default mouseablePianoNotes(pureRender(PianoNotes))
+class _PianoNotes extends Component {
+  shouldComponentUpdate(nextProps) {
+    const props = this.props
+    return !logEq(props, nextProps, "events", _.isEqual)
+      || !logEq(props, nextProps, "scrollLeft", (x, y) => x === y)
+      || !logEq(props, nextProps, "width", (x, y) => x === y)
+      || !logEq(props, nextProps, "transform", (x, y) => x && y && x.equals(y))
+      || !logEq(props, nextProps, "style", _.isEqual)
+  }
+
+  render() {
+    return <PianoNotes {...this.props} />
+  }
+}
+
+export default mouseablePianoNotes(_PianoNotes)

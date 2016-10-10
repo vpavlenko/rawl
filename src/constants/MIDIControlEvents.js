@@ -1,4 +1,4 @@
-const MIDIController = {
+export default {
   MSB_BANK: 0x00,
   MSB_MODWHEEL: 0x01,
   MSB_BREATH: 0x02,
@@ -72,59 +72,4 @@ const MIDIController = {
   OMNI_ON: 0x7d,
   MONO1: 0x7e,
   MONO2: 0x7f,
-}
-
-const MIDIMetaEventTypeName = {
-  0x00: "sequenceNumber",
-  0x01: "text",
-  0x02: "copyrightNotice",
-  0x03: "trackName",
-  0x04: "instrumentName",
-  0x05: "lyrics",
-  0x06: "marker",
-  0x07: "cuePoint",
-  0x20: "midiChannelPrefix",
-  0x21: "portPrefix",
-  0x2f: "endOfTrack",
-  0x51: "setTempo",
-  0x54: "smpteOffset",
-  0x58: "timeSignature",
-  0x59: "keySignature",
-  0x7f: "sequencerSpecific"
-}
-
-const MIDIMetaEventType = {
-  sequenceNumber: 0x00,
-  text: 0x01,
-  copyrightNotice: 0x02,
-  trackName: 0x03,
-  instrumentName: 0x04,
-  lyrics: 0x05,
-  marker: 0x06,
-  cuePoint: 0x07,
-  midiChannelPrefix: 0x20,
-  portPrefix: 0x21,
-  endOfTrack: 0x2f,
-  setTempo: 0x51,
-  smpteOffset: 0x54,
-  timeSignature: 0x58,
-  keySignature: 0x59,
-  sequencerSpecific: 0x7f
-}
-
-const MIDIChannelEventType = {
-  "noteOff": 0x08,
-  "noteOn": 0x09,
-  "noteAftertouch": 0x0a,
-  "controller": 0x0b,
-  "programChange": 0x0c,
-  "channelAftertouch": 0x0d,
-  "pitchBend": 0x0e,
-}
-
-export {
-  MIDIController,
-  MIDIMetaEventType,
-  MIDIMetaEventTypeName,
-  MIDIChannelEventType
 }

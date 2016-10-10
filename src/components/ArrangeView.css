@@ -1,0 +1,10 @@
+.ArrangeView {
+  flex-grow: 1;
+  flex-shrink: 100;
+  border-right: 1px solid var(--divider-color);
+  overflow: scroll;
+}
+
+.ArrangeTrack {
+  border-bottom: 1px solid var(--divider-color);
+}

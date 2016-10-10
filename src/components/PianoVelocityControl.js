@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from "react"
-import Theme from "../model/Theme"
+import _ from "lodash"
 import pickMouseEvents from "../helpers/pickMouseEvents"
 import DrawCanvas from "./DrawCanvas"
+import logEq from "../helpers/logEq"
 
 function rectForNote(note, transform, viewHeight) {
   const { x } = transform.getRect(note)
@@ -77,4 +78,17 @@ PianoVelocityControl.propTypes = {
   setEventBounds: PropTypes.func.isRequired
 }
 
-export default PianoVelocityControl
+class _PianoVelocityControl extends Component {
+  shouldComponentUpdate(nextProps) {
+    const props = this.props
+    return !logEq(props, nextProps, "events", _.isEqual)
+      || !logEq(props, nextProps, "endTick", (x, y) => x === y)
+      || !logEq(props, nextProps, "transform", (x, y) => x && y && x.equals(y))
+  }
+
+  render() {
+    return <PianoVelocityControl {...this.props} />
+  }
+}
+
+export default _PianoVelocityControl

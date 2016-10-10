@@ -441,24 +441,7 @@ div#vertical {
   position: absolute;
   top: var(--ruler-height);
   background: white;
-  border-right: 1px solid var(--divider-color);
   box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 4px;
-}
-
-.PianoGridWrapper {
-  position: absolute;
-  left: var(--key-width);
-  top: var(--ruler-height);
-  width: calc(100% - var(--key-width));
-  height: 100%;
-}
-
-.PianoNotesWrapper {
-  position: absolute;
-  left: var(--key-width);
-  top: var(--ruler-height);
-  width: calc(100% - var(--key-width));
-  height: 100%;
 }
 
 .PianoRulerWrapper {
@@ -486,21 +469,32 @@ div#vertical {
   border-top: 1px solid var(--secondary-text-color);
  }
 
-
 .PianoRollLeftSpace {
   width: var(--key-width);
   height: var(--ruler-height);
   background: var(--background-color);
-  position: fixed;
+  position: absolute;
   border-right: 1px solid var(--divider-color);
   border-bottom: 1px solid var(--secondary-text-color);
 }
 
-.PianoSelectionWrapper {
+.PianoGrid {
+  left: 0;
+}
+
+.PianoNotes,
+.PianoSelection,
+.PianoCursor,
+.PianoGrid,
+.PianoLines {
   position: absolute;
-  left: var(--key-width);
+  margin-left: var(--key-width);
   top: var(--ruler-height);
-  width: calc(100% - var(--key-width));
-  height: 100%;
+}
+
+.PianoSelection,
+.PianoCursor,
+.PianoGrid,
+.PianoLines {
   pointer-events: none;
 }

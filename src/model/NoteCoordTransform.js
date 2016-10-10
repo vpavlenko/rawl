@@ -21,7 +21,7 @@ export default class NoteCoordTransform {
     return -deltaNoteNumber * this._pixelsPerKey
   }
 
-  getPixelsPerTick() {
+  get pixelsPerTick() {
     return this._pixelsPerTick
   }
 
@@ -39,11 +39,15 @@ export default class NoteCoordTransform {
     return -deltaPixels / this._pixelsPerKey
   }
 
-  getMaxNoteNumber() {
+  get maxNoteNumber() {
     return this._maxNoteNumber
   }
 
-  getPixelsPerKey() {
+  get numberOfKeys() {
+    return this._maxNoteNumber + 1
+  }
+
+  get pixelsPerKey() {
     return this._pixelsPerKey
   }
 
@@ -51,7 +55,7 @@ export default class NoteCoordTransform {
 
   getMaxY() {
     return (this._maxNoteNumber + 1) * this._pixelsPerKey
-  } 
+  }
 
   getRect(note) {
     return {
@@ -77,8 +81,8 @@ export default class NoteCoordTransform {
   }
 
   equals(t) {
-    return this.getPixelsPerKey() == t.getPixelsPerKey()
-      && this.getPixelsPerTick() == t.getPixelsPerTick()
-      && this.getMaxNoteNumber() == t.getMaxNoteNumber()
+    return this.pixelsPerKey == t.pixelsPerKey
+      && this.pixelsPerTick == t.pixelsPerTick
+      && this.maxNoteNumber == t.maxNoteNumber
   }
 }

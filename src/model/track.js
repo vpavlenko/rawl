@@ -143,7 +143,7 @@ export default class Track {
     const events = [
       new TrackNameMidiEvent(0, name),
       new TimeSignatureMidiEvent(0, 4, 4, 24),
-      new SetTempoMidiEvent(0, 60000 / 120),
+      new SetTempoMidiEvent(0, 60000000 / 120),
       new EndOfTrackMidiEvent(0)
     ]
     events.forEach(e => track.addEvent(e))

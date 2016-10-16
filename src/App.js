@@ -11,8 +11,11 @@ import MidiFileWriter from "./midi/MidiFileWriter"
 export default class App {
   constructor() {
     observable(this)
-    SharedService.player = new Player(Config.TIME_BASE)
-    SharedService.quantizer = new Quantizer(Config.TIME_BASE)
+    this._player = new Player(Config.TIME_BASE)
+    SharedService.player = this._player
+
+    this._quantizer = new Quantizer(Config.TIME_BASE)
+    SharedService.quantizer = this._quantizer
 
     this.newSong()
   }
@@ -23,7 +26,7 @@ export default class App {
       song.name = file.name
       this.song = song
     })
-    SharedService.player.reset()
+    this.player.reset()
   }
 
   save() {
@@ -46,6 +49,10 @@ export default class App {
   }
 
   get player() {
-    return SharedService.player
+    return this._player
+  }
+
+  get quantizer() {
+    return this._quantizer
   }
 }

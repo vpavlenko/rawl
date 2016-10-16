@@ -31,6 +31,7 @@
     "babel-preset-react": "^6.11.1",
     "brfs": "^1.4.3",
     "css-loader": "^0.24.0",
+    "esdoc-es7-plugin": "0.0.3",
     "eslint": "^3.3.0",
     "eslint-loader": "^1.5.0",
     "eslint-plugin-react": "^6.1.0",

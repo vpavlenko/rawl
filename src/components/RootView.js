@@ -50,256 +50,253 @@ export default class RootView extends Component {
     }
   }
 
-  onChangeFile(e) {
-    const file = e.target.files[0]
-    if (!file || (file.type != "audio/mid" && file.type != "audio/midi")) {
-      return
-    }
-    this.props.onChangeFile(file)
-  }
-
-  onClickSave() {
-    this.props.onSaveFile()
-  }
-
-  onClickPencil() {
-    this.setState({pianoRollMouseMode: 0})
-  }
-
-  onClickSelection() {
-    this.setState({pianoRollMouseMode: 1})
-  }
-
-  onChangeTool() {
-    this.setState({
-      pianoRollMouseMode: this.state.pianoRollMouseMode == 0 ? 1 : 0
-    })
-  }
-
-  onClickScaleUp() {
-    this.setState({
-      pianoRollScaleX: this.state.pianoRollScaleX + 0.1
-    })
-  }
-
-  onClickScaleDown() {
-    this.setState({
-      pianoRollScaleX: Math.max(0.05, this.state.pianoRollScaleX - 0.1),
-    })
-  }
-
-  onSelectQuantize(value) {
-    SharedService.quantizer.denominator = value
-    this.setState({
-      quantize: value
-    })
-  }
-
-  onClickPlay() {
-    SharedService.player.play()
-  }
-
-  onClickStop() {
-    if (SharedService.player.isPlaying) {
-      SharedService.player.stop()
-    } else {
-      SharedService.player.stop()
-      SharedService.player.position = 0
-    }
-  }
-
-  onClickBackward() {
-    SharedService.player.position -= Config.TIME_BASE * 4
-  }
-
-  onClickForward() {
-    SharedService.player.position += Config.TIME_BASE * 4
-  }
-
-  onClickAutoScroll() {
-    this.setState({
-      pianoRollAutoScroll: !this.state.pianoRollAutoScroll
-    })
-  }
-
   get selectedTrack() {
     return this.props.song && this.props.song.selectedTrack
   }
 
-  onChangeTrackName(e) {
-    const track = this.selectedTrack
-    track.setName(e.target.value)
-  }
-
-  onChangeTrackVolume(e) {
-    const track = this.selectedTrack
-    const events = track.findVolumeEvents()
-    if (events.length == 0) {
-      return
-    }
-    track.updateEvent(events[0].id, {
-      value: e.target.value
-    })
-  }
-
-  onChangeTrackPan(e) {
-    const track = this.selectedTrack
-    const events = track.findPanEvents()
-    if (events.length == 0) {
-      return
-    }
-    track.updateEvent(events[0].id, {
-      value: e.target.value
-    })
-  }
-
-  onClickTrackInstrument() {
-    const popup = new PopupComponent()
-    popup.show()
-    const track = this.selectedTrack
-    const events = track.findProgramChangeEvents()
-    if (events.length == 0) {
-      return
-    }
-
-    const programNumber = events[0].value
-    const ids = getGMMapIndexes(programNumber)
-
-    ReactDOM.render(<InstrumentBrowser
-      selectedCategoryId={ids[0]}
-      selectedInstrumentId={ids[1]}
-
-      onClickCancel={() => {
-        popup.close()
-      }}
-
-      onClickOK={(e) => {
-        const programNumber = getGMMapProgramNumber(e.categoryId, e.instrumentId)
-        track.updateEvent(events[0].id, {
-          value: programNumber
-        })
-        popup.close()
-      }}
-    />, popup.getContentElement())
-  }
-
-  onClickAddTrack() {
-    this.props.song.addTrack(Track.emptyTrack())
-  }
-
-  onClickMute(trackId) {
-    const channel = this.props.song.getTrack(trackId).channel
-    const muted = SharedService.player.isChannelMuted(channel)
-    SharedService.player.muteChannel(channel, !muted)
-  }
-
-  onClickSolo(trackId) {
-    const channel = this.props.song.getTrack(trackId).channel
-    this.props.song.tracks.forEach((t, i) => {
-      SharedService.player.muteChannel(t.channel, i != channel)
-    })
-  }
-
-  onClickShowLeftPane() {
-    this.setState({
-      showLeftPane: !this.state.showLeftPane
-    })
-  }
-
-  onClickShowRightPane() {
-    this.setState({
-      showRightPane: !this.state.showRightPane
-    })
-  }
-
-  onClickShowPianoRoll() {
-    this.setState({
-      showPianoRoll: !this.state.showPianoRoll
-    })
-  }
-
-  updateNotes(changes) {
-    this.selectedTrack.transaction(it => {
-      changes.forEach(c => it.updateEvent(c.id, c))
-    })
-  }
-
   render() {
-    const { song } = this.props
+    const { props, state } = this
+    const { song } = props
     const { selectedTrack, selectedTrackId } = song
+    const { player, quantizer } = SharedService
 
-    function changeTrack(id) {
+    const updateNotes = (changes) => {
+      selectedTrack.transaction(it => {
+        changes.forEach(c => it.updateEvent(c.id, c))
+      })
+    }
+
+    const onChangeFile = (e) => {
+      const file = e.target.files[0]
+      if (!file || (file.type != "audio/mid" && file.type != "audio/midi")) {
+        return
+      }
+      props.onChangeFile(file)
+    }
+
+    const onClickPencil = () => {
+      this.setState({pianoRollMouseMode: 0})
+    }
+
+    const onClickSelection = () => {
+      this.setState({pianoRollMouseMode: 1})
+    }
+
+    const onChangeTool = () => {
+      this.setState({
+        pianoRollMouseMode: state.pianoRollMouseMode == 0 ? 1 : 0
+      })
+    }
+
+    const onClickScaleUp = () => {
+      this.setState({
+        pianoRollScaleX: state.pianoRollScaleX + 0.1
+      })
+    }
+
+    const onClickScaleDown = () => {
+      this.setState({
+        pianoRollScaleX: Math.max(0.05, state.pianoRollScaleX - 0.1),
+      })
+    }
+
+    const onSelectQuantize = (value) => {
+      quantizer.denominator = value
+      this.setState({
+        quantize: value
+      })
+    }
+
+    const onClickPlay = () => {
+      player.play()
+    }
+
+    const onClickStop = () => {
+      if (player.isPlaying) {
+        player.stop()
+      } else {
+        player.stop()
+        player.position = 0
+      }
+    }
+
+    const onClickBackward = () => {
+      player.position -= Config.TIME_BASE * 4
+    }
+
+    const onClickForward = () => {
+      player.position += Config.TIME_BASE * 4
+    }
+
+    const onClickAutoScroll = () => {
+      this.setState({
+        pianoRollAutoScroll: !state.pianoRollAutoScroll
+      })
+    }
+
+    const onChangeTrackName = (e) => {
+      selectedTrack.setName(e.target.value)
+    }
+
+    const onChangeTrackVolume = (e) => {
+      const track = selectedTrack
+      const events = track.findVolumeEvents()
+      if (events.length == 0) {
+        return
+      }
+      track.updateEvent(events[0].id, {
+        value: e.target.value
+      })
+    }
+
+    const onChangeTrackPan = (e) => {
+      const track = selectedTrack
+      const events = track.findPanEvents()
+      if (events.length == 0) {
+        return
+      }
+      track.updateEvent(events[0].id, {
+        value: e.target.value
+      })
+    }
+
+    const onClickTrackInstrument = () => {
+      const popup = new PopupComponent()
+      popup.show()
+      const track = selectedTrack
+      const events = track.findProgramChangeEvents()
+      if (events.length == 0) {
+        return
+      }
+
+      const programNumber = events[0].value
+      const ids = getGMMapIndexes(programNumber)
+
+      ReactDOM.render(<InstrumentBrowser
+        selectedCategoryId={ids[0]}
+        selectedInstrumentId={ids[1]}
+
+        onClickCancel={() => {
+          popup.close()
+        }}
+
+        onClickOK={(e) => {
+          const programNumber = getGMMapProgramNumber(e.categoryId, e.instrumentId)
+          track.updateEvent(events[0].id, {
+            value: programNumber
+          })
+          popup.close()
+        }}
+      />, popup.getContentElement())
+    }
+
+    const onClickAddTrack = () => {
+      song.addTrack(Track.emptyTrack())
+    }
+
+    const onClickMute = (trackId) => {
+      const channel = song.getTrack(trackId).channel
+      const muted = player.isChannelMuted(channel)
+      player.muteChannel(channel, !muted)
+    }
+
+    const onClickSolo = (trackId) => {
+      const channel = song.getTrack(trackId).channel
+      song.tracks.forEach((t, i) => {
+        player.muteChannel(t.channel, i != channel)
+      })
+    }
+
+    const onClickShowLeftPane = () => {
+      this.setState({
+        showLeftPane: !state.showLeftPane
+      })
+    }
+
+    const onClickShowRightPane = () => {
+      this.setState({
+        showRightPane: !state.showRightPane
+      })
+    }
+
+    const onClickShowPianoRoll = () => {
+      this.setState({
+        showPianoRoll: !state.showPianoRoll
+      })
+    }
+
+    const changeTrack = (id) => {
       song.selectTrack(id)
     }
 
     return <div id="vertical">
-      <Toolbar ref={c => this.toolbar = c}
-        song={this.props.song}
-        quantize={this.state.quantize}
-        mouseMode={this.state.pianoRollMouseMode}
-        autoScroll={this.state.pianoRollAutoScroll}
+      <Toolbar
+        song={props.song}
+        quantize={state.quantize}
+        mouseMode={state.pianoRollMouseMode}
+        autoScroll={state.pianoRollAutoScroll}
         selectedTrackId={selectedTrackId}
-        showLeftPane={this.state.showLeftPane}
-        showRightPane={this.state.showRightPane}
-        showPianoRoll={this.state.showPianoRoll}
-        onChangeFile={this.onChangeFile.bind(this)}
-        onClickSave={this.onClickSave.bind(this)}
-        onClickPencil={this.onClickPencil.bind(this)}
-        onClickSelection={this.onClickSelection.bind(this)}
-        onClickScaleUp={this.onClickScaleUp.bind(this)}
-        onClickScaleDown={this.onClickScaleDown.bind(this)}
-        onSelectQuantize={this.onSelectQuantize.bind(this)}
-        onClickPlay={this.onClickPlay.bind(this)}
-        onClickStop={this.onClickStop.bind(this)}
-        onClickBackward={this.onClickBackward.bind(this)}
-        onClickForward={this.onClickForward.bind(this)}
-        onClickAutoScroll={this.onClickAutoScroll.bind(this)}
-        onClickShowLeftPane={this.onClickShowLeftPane.bind(this)}
-        onClickShowRightPane={this.onClickShowRightPane.bind(this)}
-        onClickShowPianoRoll={this.onClickShowPianoRoll.bind(this)}
+        showLeftPane={state.showLeftPane}
+        showRightPane={state.showRightPane}
+        showPianoRoll={state.showPianoRoll}
+        onChangeFile={onChangeFile}
+        onClickSave={props.onSaveFile}
+        onClickPencil={onClickPencil}
+        onClickSelection={onClickSelection}
+        onClickScaleUp={onClickScaleUp}
+        onClickScaleDown={onClickScaleDown}
+        onSelectQuantize={onSelectQuantize}
+        onClickPlay={onClickPlay}
+        onClickStop={onClickStop}
+        onClickBackward={onClickBackward}
+        onClickForward={onClickForward}
+        onClickAutoScroll={onClickAutoScroll}
+        onClickShowLeftPane={onClickShowLeftPane}
+        onClickShowRightPane={onClickShowRightPane}
+        onClickShowPianoRoll={onClickShowPianoRoll}
       />
       <div id="container">
-        {this.state.showLeftPane &&
-          <TrackList ref={c => this.trackList = c}
-            tracks={this.props.song && this.props.song.tracks || []}
+        {state.showLeftPane &&
+          <TrackList
+            tracks={song && song.tracks || []}
             selectedTrackId={selectedTrackId}
             onSelectTrack={changeTrack}
-            onClickAddTrack={this.onClickAddTrack.bind(this)}
-            onClickMute={this.onClickMute.bind(this)}
-            onClickSolo={this.onClickSolo.bind(this)}
+            onClickAddTrack={onClickAddTrack}
+            onClickMute={onClickMute}
+            onClickSolo={onClickSolo}
           />
         }
-        {this.state.showEventList &&
-          <EventList ref={c => this.eventList = c}
+        {state.showEventList &&
+          <EventList
             track={selectedTrack} />
         }
         <div id="side">
-          <TrackInfo ref={c => this.trackInfo = c}
+          <TrackInfo
             track={selectedTrack}
-            onChangeName={this.onChangeTrackName.bind(this)}
-            onChangeVolume={this.onChangeTrackVolume.bind(this)}
-            onChangePan={this.onChangeTrackPan.bind(this)}
-            onClickInstrument={this.onClickTrackInstrument.bind(this)}
+            onChangeName={onChangeTrackName}
+            onChangeVolume={onChangeTrackVolume}
+            onChangePan={onChangeTrackPan}
+            onClickInstrument={onClickTrackInstrument}
           />
         </div>
-        {this.state.showPianoRoll ?
+        {state.showPianoRoll ?
           <PianoRoll
             emitter={this.pianoRollEmitter}
             track={selectedTrack}
-            endTick={this.props.song.endOfSong}
-            scaleX={this.state.pianoRollScaleX}
-            scaleY={this.state.pianoRollScaleY}
-            autoScroll={this.state.pianoRollAutoScroll}
-            onChangeTool={this.onChangeTool.bind(this)}
-            mouseMode={this.state.pianoRollMouseMode} />
+            endTick={props.song.endOfSong}
+            scaleX={state.pianoRollScaleX}
+            scaleY={state.pianoRollScaleY}
+            autoScroll={state.pianoRollAutoScroll}
+            onChangeTool={onChangeTool}
+            mouseMode={state.pianoRollMouseMode} />
           : <ArrangeView
-            tracks={this.props.song && this.props.song.tracks || []}
+            tracks={props.song && props.song.tracks || []}
            />
         }
-        {this.state.showRightPane &&
-          <PropertyPane ref={c => this.propertyPane = c}
-            notes={this.state.selectedEvents || []}
-            updateNotes={this.updateNotes.bind(this)}
+        {state.showRightPane &&
+          <PropertyPane
+            notes={state.selectedEvents || []}
+            updateNotes={updateNotes}
           />
         }
       </div>

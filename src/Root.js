@@ -6,10 +6,11 @@ function withSong(WrappedComponent) {
     constructor(props) {
       super(props)
 
-      this.state = {
-        song: props.app.song
-      }
-
+      const { song } = props.app
+      this.state = { song }
+      props.app.song.on("change", () => {
+        this.setState({ song })
+      })
       props.app.on("change-song", song => {
         this.setSong(song)
       })
@@ -28,7 +29,7 @@ function withSong(WrappedComponent) {
     }
 
     render() {
-      return <WrappedComponent {...props} song={this.state.song} />
+      return <WrappedComponent {...this.props} song={this.state.song} />
     }
   }
 }
@@ -59,12 +60,12 @@ class Root extends Component {
   }
 
   render() {
-    const { app } = this.props
+    const { app, song } = this.props
 
     return <RootView
       onChangeFile={file => app.open(file)}
       onSaveFile={() => app.save()}
-      song={this.props.song}
+      song={song}
     />
   }
 }

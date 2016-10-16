@@ -8,31 +8,35 @@ export default class Song {
   constructor() {
     this._tracks = []
     this.name = "Untitled Song"
-    this.selectedTrackId = 0
+    this._selectedTrackId = 0
     this._measureList = null
     observable(this)
   }
 
-  emitChange() {
+  _emitChange() {
     this.trigger("change")
   }
 
   addTrack(t) {
     t.channel = t.channel || this._tracks.length
-    t.on("change", () => this.emitChange())
+    t.on("change", () => this._emitChange())
     this._tracks.push(t)
     this.trigger("add-track", t)
-    this.emitChange()
+    this._emitChange()
   }
 
   selectTrack(id) {
     if (id === this.selectedTrackId) { return }
-    this.selectedTrackId = id
-    this.emitChange()
+    this._selectedTrackId = id
+    this._emitChange()
   }
 
   get selectedTrack() {
-    return this._tracks[this.selectedTrackId]
+    return this._tracks[this._selectedTrackId]
+  }
+
+  get selectedTrackId() {
+    return this._selectedTrackId
   }
 
   get tracks() {

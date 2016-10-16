@@ -26,7 +26,6 @@ export default class RootView extends Component {
     super(props)
 
     this.state = {
-      selectedTrackId: 0,
       pianoRollMouseMode: 0,
       pianoRollScaleX: 1,
       pianoRollScaleY: 1,
@@ -49,12 +48,6 @@ export default class RootView extends Component {
 
       this.pianoRollEmitter = emitter
     }
-  }
-
-  changeTrack(trackId) {
-    this.setState({
-      selectedTrackId: trackId
-    })
   }
 
   onChangeFile(e) {
@@ -95,10 +88,6 @@ export default class RootView extends Component {
     })
   }
 
-  onChangeTrack(value) {
-    this.changeTrack(value)
-  }
-
   onSelectQuantize(value) {
     SharedService.quantizer.denominator = value
     this.setState({
@@ -134,7 +123,7 @@ export default class RootView extends Component {
   }
 
   get selectedTrack() {
-    return this.props.song && this.props.song.getTrack(this.state.selectedTrackId)
+    return this.props.song && this.props.song.selectedTrack
   }
 
   onChangeTrackName(e) {
@@ -194,10 +183,6 @@ export default class RootView extends Component {
     />, popup.getContentElement())
   }
 
-  onSelectTrack(trackId) {
-    this.changeTrack(trackId)
-  }
-
   onClickAddTrack() {
     this.props.song.addTrack(Track.emptyTrack())
   }
@@ -240,13 +225,20 @@ export default class RootView extends Component {
   }
 
   render() {
+    const { song } = this.props
+    const { selectedTrack, selectedTrackId } = song
+
+    function changeTrack(id) {
+      song.selectTrack(id)
+    }
+
     return <div id="vertical">
       <Toolbar ref={c => this.toolbar = c}
         song={this.props.song}
         quantize={this.state.quantize}
         mouseMode={this.state.pianoRollMouseMode}
         autoScroll={this.state.pianoRollAutoScroll}
-        selectedTrackId={this.state.selectedTrackId}
+        selectedTrackId={selectedTrackId}
         showLeftPane={this.state.showLeftPane}
         showRightPane={this.state.showRightPane}
         showPianoRoll={this.state.showPianoRoll}
@@ -270,8 +262,8 @@ export default class RootView extends Component {
         {this.state.showLeftPane &&
           <TrackList ref={c => this.trackList = c}
             tracks={this.props.song && this.props.song.tracks || []}
-            selectedTrackId={this.state.selectedTrackId}
-            onSelectTrack={this.onSelectTrack.bind(this)}
+            selectedTrackId={selectedTrackId}
+            onSelectTrack={changeTrack}
             onClickAddTrack={this.onClickAddTrack.bind(this)}
             onClickMute={this.onClickMute.bind(this)}
             onClickSolo={this.onClickSolo.bind(this)}
@@ -279,11 +271,11 @@ export default class RootView extends Component {
         }
         {this.state.showEventList &&
           <EventList ref={c => this.eventList = c}
-            track={this.selectedTrack} />
+            track={selectedTrack} />
         }
         <div id="side">
           <TrackInfo ref={c => this.trackInfo = c}
-            track={this.selectedTrack}
+            track={selectedTrack}
             onChangeName={this.onChangeTrackName.bind(this)}
             onChangeVolume={this.onChangeTrackVolume.bind(this)}
             onChangePan={this.onChangeTrackPan.bind(this)}
@@ -293,7 +285,7 @@ export default class RootView extends Component {
         {this.state.showPianoRoll ?
           <PianoRoll
             emitter={this.pianoRollEmitter}
-            track={this.selectedTrack}
+            track={selectedTrack}
             endTick={this.props.song.endOfSong}
             scaleX={this.state.pianoRollScaleX}
             scaleY={this.state.pianoRollScaleY}

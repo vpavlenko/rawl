@@ -121,7 +121,7 @@ class PianoRoll extends Component {
     const selection = this.state.selection
 
     const onMouseDownRuler = e => {
-      const tick = transform.getTicks(e.nativeEvent.offsetX)
+      const tick = quantizer.round(transform.getTicks(e.nativeEvent.offsetX))
       const player = SharedService.player
       if (!player.isPlaying) {
         player.position = tick
@@ -134,55 +134,53 @@ class PianoRoll extends Component {
           width: contentWidth,
           height: contentHeight
         }} />
-        <PianoLines
-          width={notesWidth}
-          pixelsPerKey={transform.pixelsPerKey}
-          numberOfKeys={transform.numberOfKeys}
-          style={fixedLeftStyle} />
-        <PianoGrid
-          endTick={endTick}
-          ticksPerBeat={ticksPerBeat}
-          transform={transform} />
-        <PianoNotes
-          events={events}
-          transform={transform}
-          width={notesWidth}
-          quantizer={quantizer}
-          selection={selection}
-          track={props.track}
-          style={fixedLeftStyle}
-          mouseMode={props.mouseMode}
-          changeTool={props.onChangeTool}
-          scrollLeft={this.state.scrollLeft} />
-        <PianoSelection
-          width={notesWidth}
-          height={contentHeight}
-          transform={transform}
-          selection={selection}
-          scrollLeft={this.state.scrollLeft}
-          style={fixedLeftStyle} />
-        <PianoCursor
-          width={notesWidth}
-          height={contentHeight}
-          position={this.state.cursorPosition - this.state.scrollLeft}
-          style={fixedLeftStyle} />
-        <div className="PianoKeysWrapper" style={fixedLeftStyle}>
+        <div className="fixed-left" style={fixedLeftStyle}>
+          <PianoLines
+            width={notesWidth}
+            pixelsPerKey={transform.pixelsPerKey}
+            numberOfKeys={transform.numberOfKeys} />
+          <PianoGrid
+            endTick={endTick}
+            ticksPerBeat={ticksPerBeat}
+            width={notesWidth}
+            scrollLeft={this.state.scrollLeft}
+            transform={transform} />
+          <PianoNotes
+            events={events}
+            transform={transform}
+            width={notesWidth}
+            quantizer={quantizer}
+            selection={selection}
+            track={props.track}
+            mouseMode={props.mouseMode}
+            changeTool={props.onChangeTool}
+            scrollLeft={this.state.scrollLeft} />
+          <PianoSelection
+            width={notesWidth}
+            height={contentHeight}
+            transform={transform}
+            selection={selection}
+            scrollLeft={this.state.scrollLeft} />
+          <PianoCursor
+            width={notesWidth}
+            height={contentHeight}
+            position={this.state.cursorPosition - this.state.scrollLeft} />
           <PianoKeys
             width={keyWidth}
             keyHeight={transform.pixelsPerKey}
             numberOfKeys={transform.numberOfKeys} />
         </div>
-        <div className="PianoRulerWrapper" style={fixedTopStyle}>
+        <div className="fixed-left-top" style={{...fixedLeftStyle, ...fixedTopStyle}}>
           <PianoRuler
             height={rulerHeight}
             endTick={endTick}
             pixelsPerTick={transform.pixelsPerTick}
             ticksPerBeat={ticksPerBeat}
             onMouseDown={e => onMouseDownRuler(e)}
-             />
+            scrollLeft={this.state.scrollLeft}
+            transform={transform} />
+          <div className="PianoRollLeftSpace" />
         </div>
-        <div className="PianoRollLeftSpace"
-          style={{...fixedLeftStyle, ...fixedTopStyle}} />
       </div>
       <div className="beta" ref={c => this.beta = c}>
         <div className="pseudo-content" style={{

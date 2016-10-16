@@ -437,17 +437,17 @@ div#vertical {
   height: 100%;
 }
 
-.PianoKeysWrapper {
+.PianoKeys {
   position: absolute;
   top: var(--ruler-height);
   background: white;
   box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 4px;
 }
 
-.PianoRulerWrapper {
+.PianoRuler {
   position: absolute;
   left: 0;
-  padding-left: var(--key-width);
+  margin-left: var(--key-width);
   background: rgb(255, 255, 255);
   border-bottom: 1px solid var(--secondary-text-color);
   box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 4px;
@@ -497,4 +497,10 @@ div#vertical {
 .PianoGrid,
 .PianoLines {
   pointer-events: none;
+}
+
+#piano-roll-container .alpha .fixed-left,
+#piano-roll-container .alpha .fixed-left-top {
+  position: absolute;
+  top: 0;
 }

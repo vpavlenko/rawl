@@ -210,7 +210,7 @@ export default class RootView extends Component {
 
   onClickSolo(trackId) {
     const channel = this.props.song.getTrack(trackId).channel
-    this.props.song.getTracks().forEach((t, i) => {
+    this.props.song.tracks.forEach((t, i) => {
       SharedService.player.muteChannel(t.channel, i != channel)
     })
   }
@@ -269,7 +269,7 @@ export default class RootView extends Component {
       <div id="container">
         {this.state.showLeftPane &&
           <TrackList ref={c => this.trackList = c}
-            tracks={this.props.song && this.props.song.getTracks() || []}
+            tracks={this.props.song && this.props.song.tracks || []}
             selectedTrackId={this.state.selectedTrackId}
             onSelectTrack={this.onSelectTrack.bind(this)}
             onClickAddTrack={this.onClickAddTrack.bind(this)}
@@ -294,14 +294,14 @@ export default class RootView extends Component {
           <PianoRoll
             emitter={this.pianoRollEmitter}
             track={this.selectedTrack}
-            endTick={this.props.song.getEndOfSong()}
+            endTick={this.props.song.endOfSong}
             scaleX={this.state.pianoRollScaleX}
             scaleY={this.state.pianoRollScaleY}
             autoScroll={this.state.pianoRollAutoScroll}
             onChangeTool={this.onChangeTool.bind(this)}
             mouseMode={this.state.pianoRollMouseMode} />
           : <ArrangeView
-            tracks={this.props.song && this.props.song.getTracks() || []}
+            tracks={this.props.song && this.props.song.tracks || []}
            />
         }
         {this.state.showRightPane &&

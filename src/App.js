@@ -30,7 +30,7 @@ export default class App {
   }
 
   save() {
-    const bytes = MidiFileWriter.write(this.song.getTracks())
+    const bytes = MidiFileWriter.write(this.song.tracks)
     Downloader.downloadBlob(bytes, this.song.name, "application/octet-stream")
   }
 

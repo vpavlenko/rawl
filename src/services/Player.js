@@ -21,7 +21,7 @@ function firstByte(eventType, channel) {
 }
 
 function getEventsToPlay(song, startTick, endTick) {
-  return _.chain(song.getTracks())
+  return _.chain(song.tracks)
     .map(t => t.getEvents())
     .flatten()
     .map(deassembleNoteEvents)
@@ -182,7 +182,7 @@ export default class Player {
         }
       })
 
-    if (this._currentTick >= this._song.getEndOfSong()) {
+    if (this._currentTick >= this._song.endOfSong) {
       this.stop()
     }
 

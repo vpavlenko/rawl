@@ -6,8 +6,10 @@ import maxX from "../helpers/maxX"
 
 export default class Song {
   constructor() {
-    this.tracks = []
+    this._tracks = []
     this.name = "Untitled Song"
+    this.selectedTrackId = 0
+    this._measureList = null
     observable(this)
   }
 
@@ -16,32 +18,42 @@ export default class Song {
   }
 
   addTrack(t) {
-    t.channel = t.channel || this.tracks.length
+    t.channel = t.channel || this._tracks.length
     t.on("change", () => this.emitChange())
-    this.tracks.push(t)
+    this._tracks.push(t)
     this.trigger("add-track", t)
     this.emitChange()
   }
 
-  getTracks() {
-    return this.tracks
+  selectTrack(id) {
+    if (id === this.selectedTrackId) { return }
+    this.selectedTrackId = id
+    this.emitChange()
+  }
+
+  get selectedTrack() {
+    return this._tracks[this.selectedTrackId]
+  }
+
+  get tracks() {
+    return this._tracks
   }
 
   getTrack(id) {
-    return this.tracks[id]
+    return this._tracks[id]
   }
 
-  getMeasureList() {
-    if (this.measureList) {
-      return this.measureList
+  get measureList() {
+    if (this._measureList) {
+      return this._measureList
     }
 
-    this.measureList = new MeasureList(this.getTrack(0))
-    return this.measureList
+    this._measureList = new MeasureList(this.getTrack(0))
+    return this._measureList
   }
 
-  getEndOfSong() {
-    return maxX(_.flatten(this.tracks.map(t => t.getEvents())))
+  get endOfSong() {
+    return maxX(_.flatten(this._tracks.map(t => t.getEvents())))
   }
 
   static emptySong() {

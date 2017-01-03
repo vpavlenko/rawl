@@ -22,8 +22,10 @@ function TrackListContent(props) {
     onClickMute={props.onClickMute} />)
 
   return <div className="track-list">
-    <ul>{items}</ul>
-    <p className="add-track" onClick={props.onClickAddTrack}><span className="icon">{"\uE608"}</span> Add Track</p>
+    <ul>
+      {items}
+      <li className="add-track" onClick={props.onClickAddTrack}><span className="icon">{"\uE608"}</span> Add Track</li>
+    </ul>
   </div>
 }
 
@@ -46,7 +48,7 @@ export default class TrackList extends Component {
   render() {
     const tracks = this.props.tracks.map((t, i) => {
       return {
-        name: `Ch. ${t.channel + 1}. ${t.getName() || ""}`,
+        name: `${t.channel + 1}. ${t.getName() || ""}`,
         mute: this.state.channelMutes[t.channel],
         selected: i == this.props.selectedTrackId,
         trackId: i

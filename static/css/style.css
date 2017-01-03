@@ -31,9 +31,7 @@ canvas {
   height: 100%;
 }
 
-.track-info {
-  width: var(--side-width);
-}
+.track-info {background: var(--secondary-background-color);}
 
 .event-list {
   width: var(--side-width);
@@ -58,11 +56,12 @@ body, input, button, textarea, option {
 }
 
 .track-list {
-  width: 13em;
+  width: 15em;
   display: block;
   height: 100%;
   overflow-y: auto;
-  border-right: 1px solid var(--divider-color);
+  background: var(--tertiary-background-color);
+  border-right: 3px solid var(--divider-color);
 }
 
 div#side {
@@ -73,8 +72,6 @@ div#side {
 }
 
 div#piano-roll-container {
-  flex-grow: 1;
-  flex-shrink: 100;
   position: relative;
   overflow: hidden;
 }
@@ -110,12 +107,12 @@ div#vertical {
 .track-list ul {
   list-style-type: none;
   padding: 0;
-  margin: 0;
+  margin: 1em;
 }
 
 .track-list li {
-  border-bottom: 1px solid var(--divider-color);
   overflow: hidden;
+  margin: 1em 0;
 }
 
 .track-list li.selected {
@@ -123,10 +120,13 @@ div#vertical {
 }
 
 .track-list .add-track {
+  display: inline-block;
   color: var(--secondary-text-color);
-  padding: 0.5em;
-  margin: 0;
+  padding: 0.5em 1em;
+  margin: 0 auto;
   cursor: pointer;
+  background: var(--secondary-background-color);
+  border-radius: 99px;
 }
 
 .track-list .add-track:hover {
@@ -143,23 +143,27 @@ div#vertical {
 .track-list .name {
   margin: 0;
   float: left;
-  width: 70%;
+  width: calc(100% - 5em);
   box-sizing: border-box;
   padding: 0.5em;
   cursor: pointer;
   overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .track-list .mute, .solo {
+  display: inline-block;
   float: left;
-  width: 15%;
-  margin: 0;
+  width: 2em;
+  height: 2em;
+  margin: 0 0 0 0.25em;
   padding: 0.5em;
   box-sizing: border-box;
   text-align: center;
   cursor: pointer;
-  border-left: 1px solid var(--divider-color);
+  border-radius: 99px;
+  background: var(--secondary-background-color);
 }
 
 .track-list .mute {
@@ -244,6 +248,8 @@ div#vertical {
 
 .track-info li {
   border-bottom: 1px solid var(--divider-color);
+  display: flex;
+  align-items: center;
 }
 .track-info li.name input {
   font-weight: bold;
@@ -257,27 +263,24 @@ div#vertical {
   list-style-type: none;
   padding: 0;
   margin: 0;
+  display: flex;
 }
 
 .track-info label {
   background: var(--secondary-background-color);
-  display: inline-block;
-  padding: 0.3em;
-  width: 35%;
-  height: 23px;
-  box-sizing: border-box;
-  margin: 0;
-  float: left;
+  margin-right: 0.5em;
+  font-size: 90%;
+  font-weight: bold;
 }
 
 .track-info input[type="text"] {
-  background: var(--background-color);
   border: none;
   padding: 0;
   margin: 0;
   outline: 0;
   height: 23px;
   width: 65%;
+  background: transparent;
 }
 
 .event-list table {

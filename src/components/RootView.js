@@ -270,7 +270,7 @@ export default class RootView extends Component {
           <EventList
             track={selectedTrack} />
         }
-        <div id="side">
+        <div id="detail">
           <TrackInfo
             track={selectedTrack}
             onChangeName={onChangeTrackName}
@@ -278,21 +278,21 @@ export default class RootView extends Component {
             onChangePan={onChangeTrackPan}
             onClickInstrument={onClickTrackInstrument}
           />
+          {state.showPianoRoll ?
+            <PianoRoll
+              emitter={this.pianoRollEmitter}
+              track={selectedTrack}
+              endTick={props.song.endOfSong}
+              scaleX={state.pianoRollScaleX}
+              scaleY={state.pianoRollScaleY}
+              autoScroll={state.pianoRollAutoScroll}
+              onChangeTool={onChangeTool}
+              mouseMode={state.pianoRollMouseMode} />
+            : <ArrangeView
+              tracks={props.song && props.song.tracks || []}
+             />
+          }
         </div>
-        {state.showPianoRoll ?
-          <PianoRoll
-            emitter={this.pianoRollEmitter}
-            track={selectedTrack}
-            endTick={props.song.endOfSong}
-            scaleX={state.pianoRollScaleX}
-            scaleY={state.pianoRollScaleY}
-            autoScroll={state.pianoRollAutoScroll}
-            onChangeTool={onChangeTool}
-            mouseMode={state.pianoRollMouseMode} />
-          : <ArrangeView
-            tracks={props.song && props.song.tracks || []}
-           />
-        }
         {state.showRightPane &&
           <PropertyPane
             notes={state.selectedEvents || []}

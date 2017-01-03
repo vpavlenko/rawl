@@ -1,11 +1,13 @@
 import React from "react"
+import "./Select.css"
+import "../../static/css/flat-ui-icons.css"
 
 export default function Select(props) {
   function handleChange(e) {
     e.target.blur()
     props.onChange(e.target.value)
   }
-  
+
   function handleWheel(e) {
     const index = e.target.selectedIndex
     const size = e.target.options.length
@@ -16,7 +18,7 @@ export default function Select(props) {
 
   return <div className="select-container">
     <select value={props.value} onChange={handleChange} onWheel={handleWheel}>
-      {props.options.map(o => 
+      {props.options.map(o =>
         <option key={o.value} value={o.value}>
           {o.name}
         </option>

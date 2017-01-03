@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { noteNumberString } from "../helpers/noteNumberString"
-import { Section } from "./form"
+import Section from "./Section"
 
 function PropertyPaneContent(props) {
   const s = props.sections
@@ -68,7 +68,7 @@ function equalValue(arr, prop, func = (v) => v, elseValue = "<multiple values>")
 export default class PropertyPane extends Component {
   render() {
     const notes = this.props.notes
-    
+
     const sections = {}
 
     const emitNoteChanges = (propName, func) => {

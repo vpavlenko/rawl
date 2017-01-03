@@ -1,0 +1,78 @@
+#piano-roll-container {
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+}
+
+#piano-roll-container .alpha .inner {
+  position: relative;
+}
+
+#piano-roll-container .alpha .fixed-left,
+#piano-roll-container .alpha .fixed-left-top {
+  position: absolute;
+  top: 0;
+}
+
+#piano-roll-container .alpha {
+  height: calc(100% - var(--control-height));
+  overflow-y: scroll;
+  overflow-x: hidden;
+  position: relative;
+}
+
+#piano-roll-container .beta {
+  overflow-y: hidden;
+  overflow-x: scroll;
+  position: relative;
+  padding-left: var(--key-width);
+  height: var(--control-height);
+  border-top: 1px solid var(--secondary-text-color);
+  box-sizing: border-box;
+}
+
+.PianoKeys {
+  position: absolute;
+  top: var(--ruler-height);
+  background: white;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 4px;
+}
+
+.PianoRuler {
+  position: absolute;
+  left: 0;
+  margin-left: var(--key-width);
+  background: rgb(255, 255, 255);
+  border-bottom: 1px solid var(--secondary-text-color);
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 4px;
+}
+
+.PianoRollLeftSpace {
+  width: var(--key-width);
+  height: var(--ruler-height);
+  background: var(--background-color);
+  position: absolute;
+  border-right: 1px solid var(--divider-color);
+  border-bottom: 1px solid var(--secondary-text-color);
+}
+
+.PianoGrid {
+  left: 0;
+}
+
+.PianoNotes,
+.PianoSelection,
+.PianoCursor,
+.PianoGrid,
+.PianoLines {
+  position: absolute;
+  margin-left: var(--key-width);
+  top: var(--ruler-height);
+}
+
+.PianoSelection,
+.PianoCursor,
+.PianoGrid,
+.PianoLines {
+  pointer-events: none;
+}

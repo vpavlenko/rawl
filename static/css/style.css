@@ -39,8 +39,6 @@ canvas {
   height: 100%;
 }
 
-#piano-roll-container .alpha .inner {position: relative;}
-
 .toolbar {
   display: block;
 }
@@ -69,11 +67,6 @@ div#side {
   flex-direction: column;
   flex-wrap: nowrap;
   border-right: 1px solid var(--divider-color);
-}
-
-div#piano-roll-container {
-  position: relative;
-  overflow: hidden;
 }
 
 div#vertical {
@@ -403,107 +396,6 @@ div#vertical {
   background: var(--secondary-background-color);
 }
 
-.select-container {
-  position: relative;
-  display: inline-block;
-  border: 1px solid var(--divider-color);
-  margin-right: 1em;
-}
-
-.select-container select {
-  background: var(--background-color);
-  color: var(--text-color);
-  -webkit-appearance: none;
-  border-radius: 0;
-  padding: 0 2.5em 0 1em;
-  border: none;
-  height: 1.8em;
-  display: inline-block;
-}
-
-.select-container option {
-  color: var(--text-color);
-}
-
-.select-container::after {
-  font-family: "Flat-UI-Icons";
-  font-weight: normal;
-  content: "\e603";
-  position: absolute;
-  top: 0.4em;
-  right: 0.5em;
-  display: inline-block;
-  pointer-events: none;
-}
-
 #root {
   height: 100%;
-}
-
-.PianoKeys {
-  position: absolute;
-  top: var(--ruler-height);
-  background: white;
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 4px;
-}
-
-.PianoRuler {
-  position: absolute;
-  left: 0;
-  margin-left: var(--key-width);
-  background: rgb(255, 255, 255);
-  border-bottom: 1px solid var(--secondary-text-color);
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 4px;
-}
-
-#piano-roll-container .alpha {
-  height: calc(100% - var(--control-height));
-  overflow-y: scroll;
-  overflow-x: hidden;
-  position: relative;
-}
-
-#piano-roll-container .beta {
-  overflow-y: hidden;
-  overflow-x: scroll;
-  position: relative;
-  padding-left: var(--key-width);
-  height: var(--control-height);
-  border-top: 1px solid var(--secondary-text-color);
- }
-
-.PianoRollLeftSpace {
-  width: var(--key-width);
-  height: var(--ruler-height);
-  background: var(--background-color);
-  position: absolute;
-  border-right: 1px solid var(--divider-color);
-  border-bottom: 1px solid var(--secondary-text-color);
-}
-
-.PianoGrid {
-  left: 0;
-}
-
-.PianoNotes,
-.PianoSelection,
-.PianoCursor,
-.PianoGrid,
-.PianoLines {
-  position: absolute;
-  margin-left: var(--key-width);
-  top: var(--ruler-height);
-}
-
-.PianoSelection,
-.PianoCursor,
-.PianoGrid,
-.PianoLines {
-  pointer-events: none;
-}
-
-#piano-roll-container .alpha .fixed-left,
-#piano-roll-container .alpha .fixed-left-top {
-  position: absolute;
-  top: 0;
 }

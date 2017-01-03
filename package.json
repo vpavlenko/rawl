@@ -8,7 +8,9 @@
     "start": "webpack-dev-server --host 0.0.0.0",
     "build": "webpack",
     "lint": "eslint src/**/*.js",
-    "lint-fix": "eslint src/**/*.js --fix"
+    "lint-fix": "eslint src/**/*.js --fix",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "repository": {
     "type": "git",
@@ -48,5 +50,8 @@
     "transform-loader": "^0.2.3",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1"
+  },
+  "devDependencies": {
+    "@kadira/storybook": "^2.21.0"
   }
 }

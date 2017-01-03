@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, { Component, PropTypes } from "react"
 import observable from "riot-observable"
 import SelectionModel from "../model/SelectionModel"
 import NoteCoordTransform from "../model/NoteCoordTransform"
@@ -13,6 +13,8 @@ import PianoVelocityControl from "./PianoVelocityControl"
 import PianoCursor from "./PianoCursor"
 import withTheme from "../hocs/withTheme"
 import maxX from "../helpers/maxX"
+
+import "./PianoRoll.css"
 
 function filterEventsWithScroll(events, transform, scrollLeft, width) {
   const tickStart = transform.getTicks(scrollLeft)
@@ -53,7 +55,6 @@ class PianoRoll extends Component {
   }
 
   componentDidMount() {
-    document.roll = this
     this.setState({ alphaWidth: this.alpha.clientWidth })
 
     window.addEventListener("resize", () => {
@@ -70,7 +71,7 @@ class PianoRoll extends Component {
       this.setState({ scrollLeft })
     })
 
-    const player = SharedService.player
+    const { player } = this.props
     player.on("change-position", tick => {
       const x = this.getTransform().getX(tick)
       this.setState({
@@ -88,9 +89,9 @@ class PianoRoll extends Component {
   }
 
   getTransform() {
-    const theme = this.props.theme
+    const { theme, scaleX } = this.props
     const keyHeight = theme.keyHeight
-    const pixelsPerTick = 0.1 * this.props.scaleX
+    const pixelsPerTick = 0.1 * scaleX
     return new NoteCoordTransform(
       pixelsPerTick,
       keyHeight,
@@ -98,7 +99,7 @@ class PianoRoll extends Component {
   }
 
   render() {
-    const theme = this.props.theme
+    const { theme, track, mouseMode, onChangeTool } = this.props
     const props = this.props
 
     const { keyWidth, rulerHeight, controlHeight } = theme
@@ -111,7 +112,7 @@ class PianoRoll extends Component {
     const contentWidth = endTick * transform.pixelsPerTick
     const contentHeight = transform.getMaxY()
 
-    const events = filterEventsWithScroll(props.track.getEvents(), transform, this.state.scrollLeft, notesWidth)
+    const events = filterEventsWithScroll(track.getEvents(), transform, this.state.scrollLeft, notesWidth)
 
     const fixedLeftStyle = {left: this.state.scrollLeft}
     const fixedTopStyle = {top: this.state.scrollTop}
@@ -151,9 +152,9 @@ class PianoRoll extends Component {
             width={notesWidth}
             quantizer={quantizer}
             selection={selection}
-            track={props.track}
-            mouseMode={props.mouseMode}
-            changeTool={props.onChangeTool}
+            track={track}
+            mouseMode={mouseMode}
+            changeTool={onChangeTool}
             scrollLeft={this.state.scrollLeft} />
           <PianoSelection
             width={notesWidth}
@@ -195,6 +196,10 @@ class PianoRoll extends Component {
       </div>
     </div>
   }
+}
+
+PianoRoll.propTypes = {
+  player: PropTypes.object.isRequired
 }
 
 export default withTheme(PianoRoll)

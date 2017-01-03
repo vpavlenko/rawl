@@ -1,16 +1,16 @@
 import React, { Component } from "react"
-import "./Form.css"
+import "./Section.css"
 
 function SectionContent(props) {
   return <section className="Section">
     <header>
       <p className="title">{props.title}</p>
-      {props.hidden ? 
-        <button className="open" onClick={props.onClickOpen}>+</button> : 
+      {props.hidden ?
+        <button className="open" onClick={props.onClickOpen}>+</button> :
         <button className="close" onClick={props.onClickClose}>-</button>
       }
     </header>
-    {!props.hidden && 
+    {!props.hidden &&
       <div className="content">
         {props.children}
       </div>
@@ -18,7 +18,7 @@ function SectionContent(props) {
   </section>
 }
 
-export class Section extends Component {
+export default class Section extends Component {
   constructor(props) {
     super(props)
 
@@ -34,7 +34,7 @@ export class Section extends Component {
     const onClickClose = () => {
       this.setState({hidden: true})
     }
-    return <SectionContent {...this.props} 
+    return <SectionContent {...this.props}
       hidden={this.state.hidden}
       onClickOpen={onClickOpen}
       onClickClose={onClickClose}

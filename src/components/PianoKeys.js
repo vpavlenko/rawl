@@ -68,19 +68,29 @@ function drawKeys(ctx, width, keyHeight, numberOfKeys, theme) {
   ctx.restore()
 }
 
-function PianoKeys(props) {
+function PianoKeys({ onClickKey, numberOfKeys, width, keyHeight, theme }) {
   function draw(ctx) {
     const { width, height } = ctx.canvas
     ctx.clearRect(0, 0, width, height)
-    console.log(`[PianoKeys] draw ${props.numberOfKeys} keys`)
-    drawKeys(ctx, props.width, props.keyHeight, props.numberOfKeys, props.theme)
+    console.log(`[PianoKeys] draw ${numberOfKeys} keys`)
+    drawKeys(ctx, width, keyHeight, numberOfKeys, theme)
+  }
+
+  function pixelsToNoteNumber(y) {
+    return numberOfKeys - y / keyHeight
+  }
+
+  function onMouseDown(e) {
+    const noteNumber = Math.floor(pixelsToNoteNumber(e.nativeEvent.offsetY))
+    onClickKey(noteNumber, e)
   }
 
   return <DrawCanvas
     draw={draw}
     className="PianoKeys"
-    width={props.width}
-    height={props.keyHeight * props.numberOfKeys}
+    width={width}
+    height={keyHeight * numberOfKeys}
+    onMouseDown={onMouseDown}
   />
 }
 

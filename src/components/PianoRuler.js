@@ -36,8 +36,7 @@ function drawRuler(ctx, height, pixelsPerTick, startTick, endTick, ticksPerBeat,
   ctx.stroke()
 }
 
-function PianoRuler(props) {
-  const { height, transform, pixelsPerTick, endTick, scrollLeft, ticksPerBeat, theme, onMouseDown } = props
+function PianoRuler({ height, transform, endTick, scrollLeft, ticksPerBeat, theme, onMouseDown }) {
 
   function draw(ctx) {
     const { width, height } = ctx.canvas
@@ -45,14 +44,14 @@ function PianoRuler(props) {
     ctx.save()
     ctx.translate(-scrollLeft + 0.5, 0)
     const startTick = transform.getTicks(scrollLeft)
-    drawRuler(ctx, height, pixelsPerTick, startTick, endTick, ticksPerBeat, theme)
+    drawRuler(ctx, height, transform.pixelsPerTick, startTick, endTick, ticksPerBeat, theme)
     ctx.restore()
   }
 
   return <DrawCanvas
     draw={draw}
     className="PianoRuler"
-    width={pixelsPerTick * endTick}
+    width={transform.pixelsPerTick * endTick}
     height={height}
     onMouseDown={onMouseDown}
   />

@@ -16,6 +16,9 @@ import PropertyPane from "./PropertyPane"
 import PianoRoll from "./PianoRoll"
 import ArrangeView from "./ArrangeView"
 
+import SelectionMouseHandler from "../NoteMouseHandler/SelectionMouseHandler"
+import PencilMouseHandler from "../NoteMouseHandler/PencilMouseHandler"
+
 import {
   getGMMapIndexes,
   getGMMapProgramNumber
@@ -48,6 +51,11 @@ export default class RootView extends Component {
 
       this.pianoRollEmitter = emitter
     }
+
+    this.noteMouseHandlers = [
+      new PencilMouseHandler(),
+      new SelectionMouseHandler()
+    ]
   }
 
   get selectedTrack() {
@@ -80,6 +88,12 @@ export default class RootView extends Component {
 
     const onClickSelection = () => {
       this.setState({pianoRollMouseMode: 1})
+    }
+
+    const onClickRuler = tick => {
+      if (!player.isPlaying) {
+        player.position = tick
+      }
     }
 
     const onChangeTool = () => {
@@ -281,12 +295,15 @@ export default class RootView extends Component {
           {state.showPianoRoll ?
             <PianoRoll
               track={selectedTrack}
+              quantizer={quantizer}
+              player={player}
               endTick={props.song.endOfSong}
               scaleX={state.pianoRollScaleX}
               scaleY={state.pianoRollScaleY}
               autoScroll={state.pianoRollAutoScroll}
               onChangeTool={onChangeTool}
-              mouseMode={state.pianoRollMouseMode} />
+              onClickRuler={onClickRuler}
+              noteMouseHandler={this.noteMouseHandlers[state.pianoRollMouseMode]} />
             : <ArrangeView
               tracks={props.song && props.song.tracks || []}
              />

@@ -80,8 +80,8 @@ function dragScrollAction(onMouseDown, onMouseMove) {
   })
 }
 
-const changeToolAction = ctx => onMouseDown => {
+const changeToolAction = ({ onChangeTool }) => onMouseDown => {
   onMouseDown(() => {
-    ctx.changeTool()
+    onChangeTool()
   })
 }

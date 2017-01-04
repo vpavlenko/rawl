@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from "react"
 import observable from "riot-observable"
 import SelectionModel from "../model/SelectionModel"
 import NoteCoordTransform from "../model/NoteCoordTransform"
-import SharedService from "../services/SharedService"
+import Quantizer from "../services/Quantizer"
 import PianoKeys from "./PianoKeys"
 import PianoGrid from "./PianoGrid"
 import PianoLines from "./PianoLines"
@@ -99,16 +99,26 @@ class PianoRoll extends Component {
   }
 
   render() {
-    const { theme, track, mouseMode, onChangeTool } = this.props
+    const {
+      theme,
+      track,
+      noteMouseHandler,
+      onChangeTool,
+      onClickRuler,
+      onClickKey,
+      ticksPerBeat,
+      denominator
+    } = this.props
+
     const props = this.props
 
     const { keyWidth, rulerHeight, controlHeight } = theme
 
+    const quantizer = new Quantizer(ticksPerBeat, denominator)
     const transform = this.getTransform()
     const notesWidth = this.state.alphaWidth
     const endTick = Math.max(props.endTick, transform.getTicks(notesWidth))
 
-    const ticksPerBeat = 480
     const contentWidth = endTick * transform.pixelsPerTick
     const contentHeight = transform.getMaxY()
 
@@ -117,16 +127,11 @@ class PianoRoll extends Component {
     const fixedLeftStyle = {left: this.state.scrollLeft}
     const fixedTopStyle = {top: this.state.scrollTop}
 
-    const quantizer = SharedService.quantizer
-
     const selection = this.state.selection
 
     const onMouseDownRuler = e => {
       const tick = quantizer.round(transform.getTicks(e.nativeEvent.offsetX))
-      const player = SharedService.player
-      if (!player.isPlaying) {
-        player.position = tick
-      }
+      onClickRuler(tick, e)
     }
 
     return <div id="piano-roll-container">
@@ -153,8 +158,8 @@ class PianoRoll extends Component {
             quantizer={quantizer}
             selection={selection}
             track={track}
-            mouseMode={mouseMode}
-            changeTool={onChangeTool}
+            mouseHandler={noteMouseHandler}
+            onChangeTool={onChangeTool}
             scrollLeft={this.state.scrollLeft} />
           <PianoSelection
             width={notesWidth}
@@ -169,13 +174,13 @@ class PianoRoll extends Component {
           <PianoKeys
             width={keyWidth}
             keyHeight={transform.pixelsPerKey}
-            numberOfKeys={transform.numberOfKeys} />
+            numberOfKeys={transform.numberOfKeys}
+            onClickKey={onClickKey} />
         </div>
         <div className="fixed-left-top" style={{...fixedLeftStyle, ...fixedTopStyle}}>
           <PianoRuler
             height={rulerHeight}
             endTick={endTick}
-            pixelsPerTick={transform.pixelsPerTick}
             ticksPerBeat={ticksPerBeat}
             onMouseDown={e => onMouseDownRuler(e)}
             scrollLeft={this.state.scrollLeft}
@@ -199,7 +204,27 @@ class PianoRoll extends Component {
 }
 
 PianoRoll.propTypes = {
-  player: PropTypes.object.isRequired
+  player: PropTypes.object.isRequired,
+  quantizer: PropTypes.object.isRequired,
+  endTick: PropTypes.number.isRequired,
+  scaleX: PropTypes.number.isRequired,
+  scaleY: PropTypes.number.isRequired,
+  ticksPerBeat: PropTypes.number.isRequired,
+  denominator: PropTypes.number.isRequired,
+  autoScroll: PropTypes.bool.isRequired,
+  onChangeTool: PropTypes.func.isRequired,
+  onClickRuler: PropTypes.func.isRequired,
+  onClickKey: PropTypes.func.isRequired,
+  noteMouseHandler: PropTypes.func.isRequired,
+}
+
+PianoRoll.defaultProps = {
+  endTick: 400,
+  scaleX: 1,
+  scaleY: 1,
+  autoScroll: false,
+  ticksPerBeat: 480,
+  denominator: 4
 }
 
 export default withTheme(PianoRoll)

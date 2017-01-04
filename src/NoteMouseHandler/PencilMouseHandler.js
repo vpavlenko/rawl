@@ -2,8 +2,9 @@ import _ from "lodash"
 import SharedService from "../services/SharedService"
 import MouseHandler, { defaultActionFactory } from "./NoteMouseHandler"
 import { pointSub } from "../helpers/point"
+import pencilImage from "../images/iconmonstr-pencil-14-16.png"
 
-const defaultCursor = `url("./images/iconmonstr-pencil-14-16.png") 0 16, default`
+const defaultCursor = `url(${pencilImage}) 0 16, default`
 
 export default class PencilMouseHandler extends MouseHandler {
   constructor() {

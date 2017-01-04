@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from "react"
 import _ from "lodash"
 import DrawCanvas from "./DrawCanvas"
-import pickMouseEvents from "../helpers/pickMouseEvents"
 import mouseablePianoNotes from "../hocs/mouseablePianoNotes"
 import logEq from "../helpers/logEq"
 
@@ -32,22 +31,20 @@ function drawNote(ctx, rect, note, fillColor, strokeColor) {
   ノートイベントを描画するコンポーネント
   操作のために setEventBounds に描画結果のサイズを返す
 */
-function PianoNotes(props) {
-  const t = props.transform
-
+function PianoNotes({ events, transform, width, style, mouseHandler, scrollLeft }) {
   function draw(ctx) {
     const { width, height } = ctx.canvas
     ctx.clearRect(0, 0, width, height)
 
-    const notes = props.events.filter(e => e.subtype == "note")
+    const notes = events.filter(e => e.subtype == "note")
     console.log(`[PianoNotes] draw ${notes.length} notes`)
 
     ctx.save()
-    ctx.translate(-props.scrollLeft, 0.5)
+    ctx.translate(-scrollLeft, 0.5)
     notes.forEach(note => {
-      const rect = props.transform.getRect(note)
+      const rect = transform.getRect(note)
       drawNote(ctx, rect, note)
-      props.setEventBounds(note.id, _.assign({}, rect, note)) // TODO 単に rect を渡すようにして、 MouseActionController 側で track から取得させる
+      mouseHandler.setEventBounds(note.id, _.assign({}, rect, note)) // TODO 単に rect を渡すようにして、 MouseActionController 側で track から取得させる
     })
     ctx.restore()
   }
@@ -55,11 +52,11 @@ function PianoNotes(props) {
   return <DrawCanvas
     draw={draw}
     className="PianoNotes"
-    width={props.width}
-    height={t.pixelsPerKey * t.numberOfKeys}
-    {...pickMouseEvents(props)}
-    style={props.style}
+    width={width}
+    height={transform.pixelsPerKey * transform.numberOfKeys}
+    style={style}
     onContextMenu={e => e.preventDefault()}
+    {...mouseHandler}
   />
 }
 
@@ -68,7 +65,7 @@ PianoNotes.propTypes = {
   events: PropTypes.array.isRequired,
   transform: PropTypes.object.isRequired,
   scrollLeft: PropTypes.number.isRequired,
-  setEventBounds: PropTypes.func.isRequired
+  mouseHandler: PropTypes.object.isRequired
 }
 
 class _PianoNotes extends Component {

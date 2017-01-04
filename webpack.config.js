@@ -30,6 +30,11 @@ module.exports = {
         test: /\.css$/,
         exclude: /node_modules/,
         loader: "style-loader!css-loader"
+      },
+      {
+        test: /\.(ico|jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)(\?.*)?$/,
+        exclude: /\/favicon.ico$/,
+        loader: 'file-loader?name=[name].[ext]'
       }
     ]
   }

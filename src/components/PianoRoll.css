@@ -1,7 +1,7 @@
 #piano-roll-container {
   position: relative;
-  overflow: hidden;
-  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 #piano-roll-container .alpha .inner {
@@ -15,7 +15,6 @@
 }
 
 #piano-roll-container .alpha {
-  height: calc(100% - var(--control-height));
   overflow-y: scroll;
   overflow-x: hidden;
   position: relative;

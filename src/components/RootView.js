@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom"
 import React, { Component } from "react"
-import observable from "riot-observable"
+import SplitPane  from "react-split-pane"
 
 import SharedService from "../services/SharedService"
 import Track from "../model/Track"
@@ -24,6 +24,8 @@ import {
   getGMMapProgramNumber
 } from "../midi/GM.js"
 
+import "./Resizer.css"
+
 export default class RootView extends Component {
   constructor(props) {
     super(props)
@@ -38,18 +40,6 @@ export default class RootView extends Component {
       showRightPane: true,
       showEventList: false,
       showPianoRoll: true
-    }
-
-    {
-      const emitter = {}
-      observable(emitter)
-
-      // FIXME
-      emitter.on("select-notes", events => {
-        this.setState({ selectedEvents: events })
-      })
-
-      this.pianoRollEmitter = emitter
     }
 
     this.noteMouseHandlers = [
@@ -243,34 +233,49 @@ export default class RootView extends Component {
       song.selectTrack(id)
     }
 
+    const toolbar = <Toolbar
+      song={props.song}
+      quantize={state.quantize}
+      mouseMode={state.pianoRollMouseMode}
+      autoScroll={state.pianoRollAutoScroll}
+      selectedTrackId={selectedTrackId}
+      showLeftPane={state.showLeftPane}
+      showRightPane={state.showRightPane}
+      showPianoRoll={state.showPianoRoll}
+      onChangeFile={onChangeFile}
+      onClickSave={props.onSaveFile}
+      onClickPencil={onClickPencil}
+      onClickSelection={onClickSelection}
+      onClickScaleUp={onClickScaleUp}
+      onClickScaleDown={onClickScaleDown}
+      onSelectQuantize={onSelectQuantize}
+      onClickPlay={onClickPlay}
+      onClickStop={onClickStop}
+      onClickBackward={onClickBackward}
+      onClickForward={onClickForward}
+      onClickAutoScroll={onClickAutoScroll}
+      onClickShowLeftPane={onClickShowLeftPane}
+      onClickShowRightPane={onClickShowRightPane}
+      onClickShowPianoRoll={onClickShowPianoRoll}
+    />
+
+    const pianoRoll = <PianoRoll
+      track={selectedTrack}
+      quantizer={quantizer}
+      player={player}
+      endTick={props.song.endOfSong}
+      scaleX={state.pianoRollScaleX}
+      scaleY={state.pianoRollScaleY}
+      autoScroll={state.pianoRollAutoScroll}
+      onChangeTool={onChangeTool}
+      onClickRuler={onClickRuler}
+      noteMouseHandler={this.noteMouseHandlers[state.pianoRollMouseMode]}
+    />
+
     return <div id="vertical">
-      <Toolbar
-        song={props.song}
-        quantize={state.quantize}
-        mouseMode={state.pianoRollMouseMode}
-        autoScroll={state.pianoRollAutoScroll}
-        selectedTrackId={selectedTrackId}
-        showLeftPane={state.showLeftPane}
-        showRightPane={state.showRightPane}
-        showPianoRoll={state.showPianoRoll}
-        onChangeFile={onChangeFile}
-        onClickSave={props.onSaveFile}
-        onClickPencil={onClickPencil}
-        onClickSelection={onClickSelection}
-        onClickScaleUp={onClickScaleUp}
-        onClickScaleDown={onClickScaleDown}
-        onSelectQuantize={onSelectQuantize}
-        onClickPlay={onClickPlay}
-        onClickStop={onClickStop}
-        onClickBackward={onClickBackward}
-        onClickForward={onClickForward}
-        onClickAutoScroll={onClickAutoScroll}
-        onClickShowLeftPane={onClickShowLeftPane}
-        onClickShowRightPane={onClickShowRightPane}
-        onClickShowPianoRoll={onClickShowPianoRoll}
-      />
+      {toolbar}
       <div id="container">
-        {state.showLeftPane &&
+        <SplitPane split="vertical" minSize={200} maxSize={300}>
           <TrackList
             tracks={song && song.tracks || []}
             selectedTrackId={selectedTrackId}
@@ -279,11 +284,7 @@ export default class RootView extends Component {
             onClickMute={onClickMute}
             onClickSolo={onClickSolo}
           />
-        }
-        {state.showEventList &&
-          <EventList
-            track={selectedTrack} />
-        }
+        <SplitPane split="vertical" minSize="70%">
         <div id="detail">
           <TrackInfo
             track={selectedTrack}
@@ -292,29 +293,16 @@ export default class RootView extends Component {
             onChangePan={onChangeTrackPan}
             onClickInstrument={onClickTrackInstrument}
           />
-          {state.showPianoRoll ?
-            <PianoRoll
-              track={selectedTrack}
-              quantizer={quantizer}
-              player={player}
-              endTick={props.song.endOfSong}
-              scaleX={state.pianoRollScaleX}
-              scaleY={state.pianoRollScaleY}
-              autoScroll={state.pianoRollAutoScroll}
-              onChangeTool={onChangeTool}
-              onClickRuler={onClickRuler}
-              noteMouseHandler={this.noteMouseHandlers[state.pianoRollMouseMode]} />
-            : <ArrangeView
-              tracks={props.song && props.song.tracks || []}
-             />
-          }
+          {state.showPianoRoll ? pianoRoll : <ArrangeView
+            tracks={props.song && props.song.tracks || []}
+           />}
         </div>
-        {state.showRightPane &&
-          <PropertyPane
-            notes={state.selectedEvents || []}
-            updateNotes={updateNotes}
-          />
-        }
+        <PropertyPane
+          notes={state.selectedEvents || []}
+          updateNotes={updateNotes}
+        />
+        </SplitPane>
+      </SplitPane>
       </div>
     </div>
   }

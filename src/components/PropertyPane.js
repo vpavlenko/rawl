@@ -2,6 +2,8 @@ import React, { Component } from "react"
 import { noteNumberString } from "../helpers/noteNumberString"
 import Section from "./Section"
 
+import "./PropertyPane.css"
+
 function PropertyPaneContent(props) {
   const s = props.sections
   return <div className="property-pane">

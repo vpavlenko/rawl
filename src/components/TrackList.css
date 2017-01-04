@@ -1,0 +1,75 @@
+.track-list {
+  display: block;
+  height: 100%;
+  overflow-y: auto;
+  background: var(--tertiary-background-color);
+  border-right: 3px solid var(--divider-color);
+}
+
+.track-list ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 1em;
+}
+
+.track-list li {
+  overflow: hidden;
+  margin: 1em 0;
+}
+
+.track-list li.selected {
+  color: var(--theme-color);
+}
+
+.track-list .add-track {
+  display: inline-block;
+  color: var(--secondary-text-color);
+  padding: 0.5em 1em;
+  margin: 0 auto;
+  cursor: pointer;
+  background: var(--secondary-background-color);
+  border-radius: 99px;
+}
+
+.track-list .add-track:hover {
+  color: black;
+}
+
+.track-list .add-track .icon {
+  margin-right: 0.5em;
+  font-size: 80%;
+  font-family: "Flat-UI-Icons";
+  font-weight: normal;
+}
+
+.track-list .name {
+  margin: 0;
+  float: left;
+  width: calc(100% - 5em);
+  box-sizing: border-box;
+  padding: 0.5em;
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.track-list .mute, .solo {
+  display: inline-block;
+  float: left;
+  width: 2em;
+  height: 2em;
+  margin: 0 0 0 0.25em;
+  padding: 0.5em;
+  box-sizing: border-box;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 99px;
+  background: var(--secondary-background-color);
+}
+
+.track-list .mute {
+  font-family: "Flat-UI-Icons";
+  font-weight: normal;
+  font-size: 110%;
+}

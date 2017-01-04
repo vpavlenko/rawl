@@ -1,7 +1,6 @@
 :root {
   --header-height: 40px;
   --side-width: 16em;
-  --property-pane-width: 300px;
   --track-info-height: 12em;
 }
 
@@ -43,23 +42,9 @@ canvas {
   display: block;
 }
 
-.property-pane {
-  width: var(--property-pane-width);
-  overflow: auto;
-}
-
 body, input, button, textarea, option {
   font-family: var(--font);
   color: var(--text-color);
-}
-
-.track-list {
-  width: 15em;
-  display: block;
-  height: 100%;
-  overflow-y: auto;
-  background: var(--tertiary-background-color);
-  border-right: 3px solid var(--divider-color);
 }
 
 div#side {
@@ -95,76 +80,6 @@ div#vertical {
   border-radius: 5px;
   margin: 0 auto;
 }
-
-
-.track-list ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 1em;
-}
-
-.track-list li {
-  overflow: hidden;
-  margin: 1em 0;
-}
-
-.track-list li.selected {
-  color: var(--theme-color);
-}
-
-.track-list .add-track {
-  display: inline-block;
-  color: var(--secondary-text-color);
-  padding: 0.5em 1em;
-  margin: 0 auto;
-  cursor: pointer;
-  background: var(--secondary-background-color);
-  border-radius: 99px;
-}
-
-.track-list .add-track:hover {
-  color: black;
-}
-
-.track-list .add-track .icon {
-  margin-right: 0.5em;
-  font-size: 80%;
-  font-family: "Flat-UI-Icons";
-  font-weight: normal;
-}
-
-.track-list .name {
-  margin: 0;
-  float: left;
-  width: calc(100% - 5em);
-  box-sizing: border-box;
-  padding: 0.5em;
-  cursor: pointer;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.track-list .mute, .solo {
-  display: inline-block;
-  float: left;
-  width: 2em;
-  height: 2em;
-  margin: 0 0 0 0.25em;
-  padding: 0.5em;
-  box-sizing: border-box;
-  text-align: center;
-  cursor: pointer;
-  border-radius: 99px;
-  background: var(--secondary-background-color);
-}
-
-.track-list .mute {
-  font-family: "Flat-UI-Icons";
-  font-weight: normal;
-  font-size: 110%;
-}
-
 
 .toolbar .file input[type="file"] {
   display: none;
@@ -354,48 +269,12 @@ div#vertical {
   color: rgb(183, 183, 183);
 }
 
-.property-pane li {
-  border-bottom: 1px solid var(--divider-color);
-}
-
-.property-pane ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
-.property-pane label {
-  background: var(--secondary-background-color);
-  display: inline-block;
-  padding: 0.3em;
-  width: 5em;
-  height: 23px;
-  box-sizing: border-box;
-  margin: 0;
-  float: left;
-}
-
-.property-pane input[type="text"] {
-  background: var(--background-color);
-  border: none;
-  padding: 0;
-  margin: 0;
-  outline: 0;
-  height: 23px;
-}
-
-.property-pane button {
-  background: var(--background-color);
-  -webkit-appearance: none;
-  border-radius: 2px;
-  border: 1px solid var(--divider-color);
-  cursor: pointer;
-}
-
-.property-pane button:hover {
-  background: var(--secondary-background-color);
-}
-
 #root {
+  height: 100%;
+}
+
+#detail {
+  display: flex;
+  flex-direction: column;
   height: 100%;
 }

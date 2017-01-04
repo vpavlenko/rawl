@@ -1,6 +1,8 @@
 import React, { Component } from "react"
 import SharedService from "../services/SharedService"
 
+import "./TrackList.css"
+
 function TrackListItem(props) {
   function onClickName() { props.onClickName(props.track.trackId) }
   function onClickSolo() { props.onClickSolo(props.track.trackId) }

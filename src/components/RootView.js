@@ -15,6 +15,9 @@ import InstrumentBrowser from "./InstrumentBrowser"
 import PropertyPane from "./PropertyPane"
 import PianoRoll from "./PianoRoll"
 import ArrangeView from "./ArrangeView"
+import Button from "./Button"
+import Icon from "./Icon"
+import { MenuBar, MenuItem, SubMenu } from "./MenuBar"
 
 import SelectionMouseHandler from "../NoteMouseHandler/SelectionMouseHandler"
 import PencilMouseHandler from "../NoteMouseHandler/PencilMouseHandler"
@@ -25,6 +28,12 @@ import {
 } from "../midi/GM.js"
 
 import "./Resizer.css"
+
+function Pane(props) {
+  return <div style={{position: "relative", height: "100%"}}>
+    <SplitPane {...props} />
+  </div>
+}
 
 export default class RootView extends Component {
   constructor(props) {
@@ -243,7 +252,6 @@ export default class RootView extends Component {
       showRightPane={state.showRightPane}
       showPianoRoll={state.showPianoRoll}
       onChangeFile={onChangeFile}
-      onClickSave={props.onSaveFile}
       onClickPencil={onClickPencil}
       onClickSelection={onClickSelection}
       onClickScaleUp={onClickScaleUp}
@@ -272,37 +280,72 @@ export default class RootView extends Component {
       noteMouseHandler={this.noteMouseHandlers[state.pianoRollMouseMode]}
     />
 
+    const leftHeader =
+      <div className="left-header">
+        <label className="file">
+          <Icon>file</Icon>
+          <span className="song-name">{song && song.name}</span>
+          <input type="file" accept=".mid,.midi" onChange={onChangeFile} />
+        </label>
+        <Button onClick={props.onSaveFile}><span className="icon">&#xe63c;</span></Button>
+      </div>
+
+    const menuBar =
+      <MenuBar>
+        <MenuItem title="File">
+          <SubMenu>
+            <MenuItem title="Open" />
+            <MenuItem title="Save" />
+          </SubMenu>
+        </MenuItem>
+        <MenuItem title="Edit">
+          <SubMenu>
+            <MenuItem title="Undo" />
+            <MenuItem title="Redo" />
+          </SubMenu>
+        </MenuItem>
+      </MenuBar>
+
     return <div id="vertical">
-      {toolbar}
-      <div id="container">
-        <SplitPane split="vertical" minSize={200} maxSize={300}>
-          <TrackList
-            tracks={song && song.tracks || []}
-            selectedTrackId={selectedTrackId}
-            onSelectTrack={changeTrack}
-            onClickAddTrack={onClickAddTrack}
-            onClickMute={onClickMute}
-            onClickSolo={onClickSolo}
-          />
-        <SplitPane split="vertical" minSize="70%">
-        <div id="detail">
-          <TrackInfo
-            track={selectedTrack}
-            onChangeName={onChangeTrackName}
-            onChangeVolume={onChangeTrackVolume}
-            onChangePan={onChangeTrackPan}
-            onClickInstrument={onClickTrackInstrument}
-          />
-          {state.showPianoRoll ? pianoRoll : <ArrangeView
-            tracks={props.song && props.song.tracks || []}
-           />}
-        </div>
-        <PropertyPane
-          notes={state.selectedEvents || []}
-          updateNotes={updateNotes}
-        />
-        </SplitPane>
-      </SplitPane>
+      <div className="flow-v">
+        <Pane split="vertical" minSize={200} maxSize={300}>
+          <div className="flow-v">
+            {leftHeader}
+            <TrackList
+              tracks={song && song.tracks || []}
+              selectedTrackId={selectedTrackId}
+              onSelectTrack={changeTrack}
+              onClickAddTrack={onClickAddTrack}
+              onClickMute={onClickMute}
+              onClickSolo={onClickSolo}
+            />
+            <div className="left-footer">
+
+            </div>
+          </div>
+          <div className="flow-v">
+            {menuBar}
+            <Pane split="vertical" minSize="70%">
+              <div className="flow-v">
+                <TrackInfo
+                  track={selectedTrack}
+                  onChangeName={onChangeTrackName}
+                  onChangeVolume={onChangeTrackVolume}
+                  onChangePan={onChangeTrackPan}
+                  onClickInstrument={onClickTrackInstrument}
+                />
+                {state.showPianoRoll ? pianoRoll : <ArrangeView
+                  tracks={props.song && props.song.tracks || []}
+                 />}
+              </div>
+              <PropertyPane
+                notes={state.selectedEvents || []}
+                updateNotes={updateNotes}
+              />
+            </Pane>
+            {toolbar}
+          </div>
+        </Pane>
       </div>
     </div>
   }

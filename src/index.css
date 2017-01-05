@@ -23,23 +23,12 @@ canvas {
   vertical-align: middle;
 }
 
-#container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  height: 100%;
-}
-
 .track-info {background: var(--secondary-background-color);}
 
 .event-list {
   width: var(--side-width);
   overflow: auto;
   height: 100%;
-}
-
-.toolbar {
-  display: block;
 }
 
 body, input, button, textarea, option {
@@ -81,77 +70,8 @@ div#vertical {
   margin: 0 auto;
 }
 
-.toolbar .file input[type="file"] {
+.file input[type="file"] {
   display: none;
-}
-
-.toolbar .icon {
-  font-family: "Flat-UI-Icons";
-  font-weight: normal;
-}
-
-.toolbar > .container {
-  background: var(--secondary-background-color);
-  height: var(--header-height);
-  box-sizing: border-box;
-  border-bottom: 1px solid var(--divider-color);
-}
-
-.toolbar button.selected {
-  background: rgba(0, 0, 0, 0.03);
-  border-bottom: 2px solid var(--theme-color);
-}
-
-.toolbar button:hover, .file:hover {
-  opacity: 0.5;
-}
-
-.toolbar button, .file {
-  background: transparent;
-  min-width: 3em;
-  padding: 0 0.5em;
-  -webkit-appearance: none;
-  border: none;
-  display: inline-block;
-  cursor: pointer;
-  text-align: center;
-  font-size: 110%;
-  height: 100%;
-}
-
-.toolbar .section {
-  float: left;
-  border-right: 1px solid var(--divider-color);
-  margin-right: 1em;
-  height: 100%;
-  padding-right: 1em;
-}
-
-.toolbar .song-section>p {
-  float: left;
-}
-
-.toolbar .song-name {
-  margin-right: 1em;
-  max-width: 10em;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-}
-
-.toolbar .tempo {
-  color: var(--secondary-text-color);
-}
-
-.toolbar .time {
-  color: var(--secondary-text-color);
-  font-family: "Consolas";
-  font-size: 110%;
-  white-space: pre;
-  box-sizing: border-box;
-  margin: 0;
-  display: inline-block;
-  float: none;
 }
 
 .track-info li {
@@ -273,8 +193,42 @@ div#vertical {
   height: 100%;
 }
 
-#detail {
+.flow-h,
+.flow-v {
   display: flex;
-  flex-direction: column;
   height: 100%;
+  position: relative;
+}
+
+.flow-h {
+  flex-direction: row;
+}
+
+.flow-v {
+  flex-direction: column;
+}
+
+.left-header {
+  background: var(--theme-color);
+  color: white;
+  height: 4em;
+  display: flex;
+  align-items: center;
+  padding: 0 1em;
+}
+
+.Pane.vertical.Pane1 {
+  border-right: 3px solid var(--divider-color);
+  box-sizing: border-box;
+}
+
+.file {
+  background: rgba(0, 0, 0, 0);
+  min-width: 3em;
+  -webkit-appearance: none;
+  border: none;
+  cursor: pointer;
+  font-size: 100%;
+  display: flex;
+  align-items: center;
 }

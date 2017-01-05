@@ -36,7 +36,7 @@ function drawEvent(ctx, rect, note, fillColor, strokeColor) {
   ctx.stroke()
 }
 
-export default class PianoVelocityControl extends Component {
+class PianoVelocityControl extends Component {
   constructor(props) {
     super(props)
   }

@@ -9,8 +9,7 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, "static"),
-    filename: "[name].js",
-    publicPath: "static"
+    filename: "[name].js"
   },
   module: {
     preLoaders: [
@@ -28,13 +27,15 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        exclude: /node_modules/,
-        loader: "style-loader!css-loader"
+        loaders: [
+          "style-loader",
+          "css-loader?importLoaders=1"
+        ]
       },
       {
         test: /\.(ico|jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)(\?.*)?$/,
         exclude: /\/favicon.ico$/,
-        loader: 'file-loader?name=[name].[ext]'
+        loader: 'file-loader?name=/[name].[ext]'
       }
     ]
   }

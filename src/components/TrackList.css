@@ -3,7 +3,6 @@
   height: 100%;
   overflow-y: auto;
   background: var(--tertiary-background-color);
-  border-right: 3px solid var(--divider-color);
 }
 
 .track-list ul {

@@ -1,7 +1,7 @@
 .select-container {
   position: relative;
   display: inline-block;
-  border: 1px solid var(--divider-color);
+  border: 1px solid var(--tertiary-text-color);
   margin-right: 1em;
 }
 
@@ -14,19 +14,17 @@
   border: none;
   height: 1.8em;
   display: inline-block;
+  font-size: 90%;
 }
 
 .select-container option {
   color: var(--text-color);
 }
 
-.select-container::after {
-  font-family: "Flat-UI-Icons";
-  font-weight: normal;
-  content: "\e603";
+.select-container .arrow-down {
   position: absolute;
-  top: 0.4em;
-  right: 0.5em;
-  display: inline-block;
+  right: 0;
+  font-size: 1.6em;
   pointer-events: none;
+  color: var(--secondary-text-color);
 }

@@ -1,6 +1,6 @@
 import React from "react"
+import Icon from "./Icon"
 import "./Select.css"
-import "../../static/css/flat-ui-icons.css"
 
 export default function Select(props) {
   function handleChange(e) {
@@ -17,6 +17,7 @@ export default function Select(props) {
   }
 
   return <div className="select-container">
+    <Icon className="arrow-down">menu-down</Icon>
     <select value={props.value} onChange={handleChange} onWheel={handleWheel}>
       {props.options.map(o =>
         <option key={o.value} value={o.value}>

@@ -1,0 +1,30 @@
+.Toolbar .section {
+  display: flex;
+  border-right: 1px solid var(--divider-color);
+  margin-right: 1em;
+  height: 100%;
+  padding-right: 1em;
+}
+
+.Toolbar .song-name {
+  margin-right: 1em;
+  max-width: 10em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.Toolbar .tempo {
+  color: var(--secondary-text-color);
+}
+
+.Toolbar .time {
+  color: var(--secondary-text-color);
+  font-family: "Consolas";
+  font-size: 110%;
+  white-space: pre;
+  box-sizing: border-box;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}

@@ -1,19 +1,17 @@
-.menu-bar {
-  height: 4em;
+.MenuBar {
   display: flex;
-  align-items: center;
+  align.MenuItems: center;
   padding: 0 1.5em;
-  background: var(--secondary-background-color);
-  border-bottom: 1px solid var(--divider-color);
   box-sizing: border-box;
 }
 
-.menu-bar .item {
+.MenuBar .MenuItem {
   user-select: none;
   cursor: default;
+  transition: 0.3s ease background-color;
 }
 
-.menu-bar>.item {
+.MenuBar>.MenuItem {
   background: none;
   font-weight: bold;
   border: none;
@@ -21,20 +19,20 @@
   position: relative;
 }
 
-.menu-bar>.item:hover {
+.MenuBar>.MenuItem:hover {
   background: rgba(0, 0, 0, 0.05);
   border-radius: 0.2em;
 }
 
-.menu-bar>.item>.submenu {
+.MenuBar>.MenuItem>.SubMenu {
   display: none;
 }
 
-.menu-bar>.item:hover>.submenu {
+.MenuBar>.MenuItem:hover>.SubMenu {
   display: block;
 }
 
-.menu-bar .submenu {
+.MenuBar .SubMenu {
   position: absolute;
   background: var(--background-color);
   padding: 0.5em 0;
@@ -45,10 +43,16 @@
   min-width: 8em;
 }
 
-.menu-bar .submenu>.item {
-  padding: 1em 1.5em;
+.MenuBar .SubMenu>.MenuItem {
+  padding: 0.5em 1em;
 }
 
-.menu-bar .submenu>.item:hover {
+.MenuBar .SubMenu>.MenuItem:hover {
   background: rgba(0, 0, 0, 0.04);
+}
+
+.MenuSeparator {
+  height: 1px;
+  background: var(--divider-color);
+  margin: 0.5em 0;
 }

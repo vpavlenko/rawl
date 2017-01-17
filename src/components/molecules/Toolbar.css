@@ -1,0 +1,35 @@
+.Toolbar {
+  display: flex;
+  box-sizing: border-box;
+  position: relative;
+  padding: 0 0.5em;
+}
+
+.ToolbarItem {
+  background: rgba(0, 0, 0, 0);
+  min-width: 3em;
+  padding: 0.5em;
+  cursor: pointer;
+  text-align: center;
+  align-items: center;
+  transition: 0.3s ease background-color;
+  box-sizing: border-box;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+}
+
+.ToolbarItem.selected {
+  background: rgba(0, 0, 0, 0.03);
+  border-bottom: 2px solid var(--theme-color);
+}
+
+.ToolbarItem:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.ToolbarSeparator {
+  background: var(--divider-color);
+  margin: 0 1em 0 1em;
+  width: 1px;
+}

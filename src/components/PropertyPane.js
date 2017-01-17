@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { noteNumberString } from "../helpers/noteNumberString"
-import Section from "./Section"
+import Section from "./molecules/Section"
 
 import "./PropertyPane.css"
 

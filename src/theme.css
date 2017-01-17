@@ -1,10 +1,13 @@
+@import url("https://fonts.googleapis.com/css?family=Lato:400,700,300");
+
 :root {
   --font: Avenir, Lato;
   --canvas-font: Arial;
   --theme-color: hsl(247, 84%, 59%);
   --text-color: hsl(247, 10%, 32%);
   --secondary-text-color: hsl(247, 10%, 62%);
-  --divider-color: hsl(247, 5%, 87%);
+  --tertiary-text-color: hsl(247, 10%, 80%);
+  --divider-color: rgba(0, 0, 0, 0.07);
   --background-color: #fff;
   --secondary-background-color: hsl(247, 14%, 98%);
   --tertiary-background-color: hsl(247, 8%, 94%);
@@ -13,4 +16,12 @@
   --key-width: 72px;
   --ruler-height: 24px;
   --control-height: 120px;
+  --header-height: 40px;
+  --side-width: 16em;
+  --track-info-height: 12em;
+}
+
+body, input, button, textarea, option {
+  font-family: var(--font);
+  color: var(--text-color);
 }

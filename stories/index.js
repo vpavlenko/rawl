@@ -1,30 +1,64 @@
 import React from "react"
 import { storiesOf, action, linkTo } from "@kadira/storybook"
-import "../static/css/theme.css"
+import "../src/theme.css"
 
-import Welcome from "./Welcome"
-import Select from "../src/components/Select"
-import Section from "../src/components/Section"
+import Button from "../src/components/atoms/Button"
+import Icon from "../src/components/atoms/Icon"
+import Select from "../src/components/atoms/Select"
+import TextInput from "../src/components/atoms/TextInput"
+import { MenuBar, MenuItem, SubMenu, MenuSeparator } from "../src/components/molecules/MenuBar"
+import Section from "../src/components/molecules/Section"
+import { Toolbar, ToolbarItem, ToolbarSeparator } from "../src/components/molecules/Toolbar"
 import PianoRoll from "../src/components/PianoRoll"
 import Track from "../src/model/Track"
 
-storiesOf("Welcome", module)
-  .add("to Storybook", () => (
-    <Welcome showApp={linkTo("Button")}/>
+storiesOf("atoms", module)
+  .add("Button", () => (
+    <Button>Hello</Button>
   ))
-
-storiesOf("Select", module)
-  .add("options", () => (
+  .add("Icon", () => (
+    <Icon>earth</Icon>
+  ))
+  .add("TextInput", () => (
+    <TextInput value="hello" onChange={action("onChange")} />
+  ))
+  .add("TextInput with placeholder", () => (
+    <TextInput placeholder="type here..." onChange={action("onChange")} />
+  ))
+  .add("Select", () => (
     <Select options={[
       { value: "a", name: "option 1" },
       { value: "b", name: "option 2" },
       { value: "c", name: "option 3" },
-    ]} />
+    ]} onChange={action("onChange")} />
   ))
 
-storiesOf("Section", module)
-  .add("with contents", () => (
-    <Container>
+storiesOf("molecules", module)
+  .add("MenuBar", () => (
+    <Container overflow="visible">
+      <MenuBar>
+        <MenuItem title="File">
+          <SubMenu>
+            <MenuItem title="Open" />
+            <MenuItem title="Exit" />
+          </SubMenu>
+        </MenuItem>
+        <MenuItem title="Edit">
+          <SubMenu>
+            <MenuItem title="Undo" />
+            <MenuItem title="Redo" />
+            <MenuSeparator />
+            <MenuItem title="Cut" />
+            <MenuItem title="Copy" />
+          </SubMenu>
+        </MenuItem>
+        <MenuItem title="Window" />
+        <MenuItem title="Settings" />
+      </MenuBar>
+    </Container>
+  ))
+  .add("Section", () => (
+    <Container width={300} height={300}>
       <Section title="one">
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
       </Section>
@@ -33,15 +67,33 @@ storiesOf("Section", module)
       </Section>
     </Container>
   ))
+  .add("Toolbar", () => (
+    <Container>
+      <Toolbar>
+        <ToolbarItem><Icon>eraser</Icon></ToolbarItem>
+        <ToolbarItem><Icon>pencil</Icon></ToolbarItem>
+        <ToolbarItem selected={true}><Icon>pen</Icon></ToolbarItem>
+        <ToolbarSeparator />
+        <ToolbarItem><Icon>undo</Icon></ToolbarItem>
+        <ToolbarItem><Icon>redo</Icon></ToolbarItem>
+        <ToolbarSeparator />
+        <ToolbarItem>share</ToolbarItem>
+        <ToolbarItem><TextInput placeholder="Search" onChange={action("onChange")} /></ToolbarItem>
+      </Toolbar>
+    </Container>
+  ))
 
-function Container(props) {
+function Container({ children, width, height, overflow }) {
   return <div style={{
-    width: 300,
-    height: 300,
-    overflow: "hidden",
+    width: width,
+    height: height,
+    overflow: overflow || "hidden",
     position: "relative",
+    backgroundColor: "white",
+    boxShadow: "0 1px 10px rgba(0, 0, 0, 0.1)",
+    margin: "1em",
     resize: "both" }}>
-    {props.children}
+    {children}
   </div>
 }
 
@@ -51,7 +103,7 @@ storiesOf("PianoRoll", module)
       on: () => {}
     }
     const track = new Track()
-    return <Container>
+    return <Container width={300} height={300}>
       <PianoRoll
         track={track}
         onChangeTool={action("onChangeTool")}

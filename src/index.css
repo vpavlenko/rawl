@@ -1,8 +1,4 @@
-:root {
-  --header-height: 40px;
-  --side-width: 16em;
-  --track-info-height: 12em;
-}
+@import url("./theme.css")
 
 html, body {
   height: 100%;
@@ -23,17 +19,14 @@ canvas {
   vertical-align: middle;
 }
 
-.track-info {background: var(--secondary-background-color);}
+.track-info {
+  background: var(--secondary-background-color);
+}
 
 .event-list {
   width: var(--side-width);
   overflow: auto;
   height: 100%;
-}
-
-body, input, button, textarea, option {
-  font-family: var(--font);
-  color: var(--text-color);
 }
 
 div#side {
@@ -231,4 +224,9 @@ div#vertical {
   font-size: 100%;
   display: flex;
   align-items: center;
+}
+
+.menu-bar {
+  background: var(--secondary-background-color);
+  border-bottom: 1px solid var(--divider-color);
 }

@@ -6,6 +6,7 @@ import Button from "../src/components/atoms/Button"
 import Icon from "../src/components/atoms/Icon"
 import Select from "../src/components/atoms/Select"
 import TextInput from "../src/components/atoms/TextInput"
+import NumberInput from "../src/components/atoms/NumberInput"
 import { MenuBar, MenuItem, SubMenu, MenuSeparator } from "../src/components/molecules/MenuBar"
 import Section from "../src/components/molecules/Section"
 import { Toolbar, ToolbarItem, ToolbarSeparator } from "../src/components/molecules/Toolbar"
@@ -25,6 +26,9 @@ storiesOf("atoms", module)
   .add("TextInput with placeholder", () => (
     <TextInput placeholder="type here..." onChange={action("onChange")} />
   ))
+  .add("NumberInput", () => (
+    <NumberInput placeholder="velocity" onChange={action("onChange")} />
+  ))
   .add("Select", () => (
     <Select options={[
       { value: "a", name: "option 1" },
@@ -37,6 +41,7 @@ storiesOf("molecules", module)
   .add("MenuBar", () => (
     <Container overflow="visible">
       <MenuBar>
+        <MenuItem title={<Icon>apple</Icon>} />
         <MenuItem title="File">
           <SubMenu>
             <MenuItem title="Open" />
@@ -78,7 +83,7 @@ storiesOf("molecules", module)
         <ToolbarItem><Icon>redo</Icon></ToolbarItem>
         <ToolbarSeparator />
         <ToolbarItem>share</ToolbarItem>
-        <ToolbarItem><TextInput placeholder="Search" onChange={action("onChange")} /></ToolbarItem>
+        <ToolbarItem touchDisabled={true}><TextInput placeholder="Search" onChange={action("onChange")} /></ToolbarItem>
       </Toolbar>
     </Container>
   ))

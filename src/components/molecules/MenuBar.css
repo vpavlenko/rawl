@@ -3,6 +3,7 @@
   align.MenuItems: center;
   padding: 0 1.5em;
   box-sizing: border-box;
+  font-size: 95%;
 }
 
 .MenuBar .MenuItem {
@@ -19,9 +20,12 @@
   position: relative;
 }
 
-.MenuBar>.MenuItem:hover {
-  background: rgba(0, 0, 0, 0.05);
-  border-radius: 0.2em;
+.MenuItem:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.SubMenu>.MenuItem:active {
+  background: rgba(0, 0, 0, 0.08);
 }
 
 .MenuBar>.MenuItem>.SubMenu {
@@ -45,10 +49,6 @@
 
 .MenuBar .SubMenu>.MenuItem {
   padding: 0.5em 1em;
-}
-
-.MenuBar .SubMenu>.MenuItem:hover {
-  background: rgba(0, 0, 0, 0.04);
 }
 
 .MenuSeparator {

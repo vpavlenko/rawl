@@ -9,7 +9,7 @@
   background: rgba(0, 0, 0, 0);
   min-width: 3em;
   padding: 0.5em;
-  cursor: pointer;
+  cursor: default;
   text-align: center;
   align-items: center;
   transition: 0.3s ease background-color;
@@ -26,6 +26,15 @@
 
 .ToolbarItem:hover {
   background: rgba(0, 0, 0, 0.05);
+}
+
+.ToolbarItem:active {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.ToolbarItem.touch-disabled:hover,
+.ToolbarItem.touch-disabled:active {
+  background: none;
 }
 
 .ToolbarSeparator {

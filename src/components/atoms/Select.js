@@ -13,7 +13,8 @@ export default function Select(props) {
     const size = e.target.options.length
     const movement = e.deltaY > 0 ? 1 : -1
     const nextIndex = Math.max(0, Math.min(size - 1, index + movement))
-    props.onChange(e.target.options[nextIndex].value)
+    e.target.value = e.target.options[nextIndex].value
+    props.onChange(e)
   }
 
   return <div className="select-container">

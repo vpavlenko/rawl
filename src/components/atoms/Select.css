@@ -15,15 +15,18 @@
   height: 1.8em;
   display: inline-block;
   font-size: 90%;
+  -webkit-appearance: none;
+  outline: none;
 }
 
 .select-container option {
-  color: var(--text-color);
+  -webkit-appearance: none;
 }
 
 .select-container .arrow-down {
   position: absolute;
   right: 0;
+  top: -0.1em;
   font-size: 1.6em;
   pointer-events: none;
   color: var(--secondary-text-color);

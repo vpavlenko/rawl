@@ -11,9 +11,9 @@ export function Toolbar({ component, children, className }) {
   </div>
 }
 
-export function ToolbarItem({ component, children, className, selected }) {
+export function ToolbarItem({ component, children, className, selected, touchDisabled }) {
   return <div
-    className={f("ToolbarItem", className, selected && "selected")}>
+    className={f("ToolbarItem", className, selected && "selected", touchDisabled && "touch-disabled")}>
     {children}
   </div>
 }

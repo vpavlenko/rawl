@@ -14,3 +14,7 @@
   font-weight: bold;
   flex: 1;
 }
+
+.Section .content {
+  user-select: initial;
+}

@@ -58,7 +58,7 @@ export default class MainToolbar extends Component {
 
       <ToolbarItem onClick={props.onClickPencil} selected={props.mouseMode == 0}>✎</ToolbarItem>
       <ToolbarItem onClick={props.onClickSelection} selected={props.mouseMode == 1}>□</ToolbarItem>
-      <ToolbarItem><Select onChange={props.onSelectQuantize} options={props.quantizeOptions} value={props.quantize} /></ToolbarItem>
+      <ToolbarItem><Select onChange={props.onSelectQuantize} options={quantizeOptions} value={props.quantize} /></ToolbarItem>
 
       <ToolbarSeparator />
 

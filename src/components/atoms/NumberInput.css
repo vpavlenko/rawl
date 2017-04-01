@@ -5,3 +5,7 @@
   outline: none;
   border-radius: 0.2em;
 }
+
+.NumberInput:focus {
+  border-color: var(--theme-color);
+}

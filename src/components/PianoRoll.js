@@ -215,7 +215,7 @@ PianoRoll.propTypes = {
   onChangeTool: PropTypes.func.isRequired,
   onClickRuler: PropTypes.func.isRequired,
   onClickKey: PropTypes.func.isRequired,
-  noteMouseHandler: PropTypes.func.isRequired,
+  noteMouseHandler: PropTypes.object.isRequired,
 }
 
 PianoRoll.defaultProps = {

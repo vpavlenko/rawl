@@ -81,6 +81,10 @@ export default class RootView extends Component {
       props.onChangeFile(file)
     }
 
+    const onClickKey = () => {
+
+    }
+
     const onClickPencil = () => {
       this.setState({pianoRollMouseMode: 0})
     }
@@ -277,6 +281,7 @@ export default class RootView extends Component {
       autoScroll={state.pianoRollAutoScroll}
       onChangeTool={onChangeTool}
       onClickRuler={onClickRuler}
+      onClickKey={onClickKey}
       noteMouseHandler={this.noteMouseHandlers[state.pianoRollMouseMode]}
     />
 

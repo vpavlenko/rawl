@@ -1,5 +1,4 @@
 import React, { PropTypes } from "react"
-import Theme from "../model/Theme"
 import DrawCanvas from "./DrawCanvas"
 import withTheme from "../hocs/withTheme"
 import pureRender from "../hocs/pureRender"
@@ -58,7 +57,6 @@ function PianoRuler({ height, transform, endTick, scrollLeft, ticksPerBeat, them
 }
 
 PianoRuler.propTypes = {
-  pixelsPerTick: PropTypes.number.isRequired,
   ticksPerBeat: PropTypes.number.isRequired,
   scrollLeft: PropTypes.number.isRequired,
   endTick: PropTypes.number.isRequired,

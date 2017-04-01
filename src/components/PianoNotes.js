@@ -4,7 +4,7 @@ import DrawCanvas from "./DrawCanvas"
 import mouseablePianoNotes from "../hocs/mouseablePianoNotes"
 import logEq from "../helpers/logEq"
 
-function drawNote(ctx, rect, note, fillColor, strokeColor) {
+function drawNote(ctx, rect, note, fillColor) {
   const { x, y, width, height } = rect
 
   const alpha = note.velocity / 127

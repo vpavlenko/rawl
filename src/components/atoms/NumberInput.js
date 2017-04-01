@@ -3,7 +3,12 @@ import f from "../../helpers/flatJoin"
 
 import "./NumberInput.css"
 
-export default function NumberInput({ className, value, onChange, placeholder }) {
+export default function NumberInput({
+  className,
+  value,
+  onChange,
+  placeholder
+}) {
   function addValue(target, value) {
     target.value = (parseFloat(target.value) || 0) + value
     onChange(target)
@@ -39,9 +44,9 @@ export default function NumberInput({ className, value, onChange, placeholder })
     window.addEventListener("mouseup", onMouseUp)
   }
 
-  return <input 
+  return <input
     type="number"
-    className={f("NumberInput", className)} 
+    className={f("NumberInput", className)}
     value={value}
     onChange={onChange}
     placeholder={placeholder}

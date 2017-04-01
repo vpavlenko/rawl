@@ -1,8 +1,13 @@
 import React, { Component } from "react"
 import { getInstrumentName } from "../midi/GM"
 
-function TrackInfoContent(props) {
-  const track = props.track
+export default function TrackInfoContent({
+  track,
+  onChangeName,
+  onClickInstrument,
+  onChangeVolume,
+  onChangePan
+}) {
   const programChangeEvent = track && track.findProgramChangeEvents()[0]
   const volumeEvent = track && track.findVolumeEvents()[0]
   const panEvent = track && track.findPanEvents()[0]
@@ -15,31 +20,20 @@ function TrackInfoContent(props) {
   return <div className="track-info">
     <ul>
       <li className="name">
-        <input type="text" value={ fields.name } placeholder="Track Name" onChange={props.onChangeName} />
+        <input type="text" value={ fields.name } placeholder="Track Name" onChange={onChangeName} />
       </li>
       <li>
         <label>Instrument</label>
-        <input type="text" value={ fields.instrument } onClick={props.onClickInstrument} />
+        <input type="text" value={ fields.instrument } onClick={onClickInstrument} />
       </li>
       <li>
         <label>Volume</label>
-        <input type="text" value={ fields.volume } onChange={props.onChangeVolume} />
+        <input type="text" value={ fields.volume } onChange={onChangeVolume} />
       </li>
       <li>
         <label>Pan</label>
-        <input type="text" value={ fields.pan } onChange={props.onChangePan} />
+        <input type="text" value={ fields.pan } onChange={onChangePan} />
       </li>
     </ul>
   </div>
-}
-
-export default class TrackInfo extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {}
-  }
-
-  render() {
-    return <TrackInfoContent {...this.props} />
-  }
 }

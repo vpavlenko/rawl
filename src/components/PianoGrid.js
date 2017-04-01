@@ -23,9 +23,14 @@ function drawBeatLines(ctx, transform, startTick, endTick, ticksPerBeat, theme) 
   }
 }
 
-function PianoGrid(props) {
-  const { transform, width, endTick, scrollLeft, ticksPerBeat, theme } = props
-
+function PianoGrid({
+  transform,
+  width,
+  endTick,
+  scrollLeft,
+  ticksPerBeat,
+  theme
+}) {
   function draw(ctx) {
     const { width, height } = ctx.canvas
     ctx.clearRect(0, 0, width, height)

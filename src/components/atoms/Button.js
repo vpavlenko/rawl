@@ -4,7 +4,12 @@ import e from "../../helpers/getElementType"
 
 import "./Button.css"
 
-export default function Button({ component, children, onClick, className }) {
+export default function Button({
+  component,
+  children,
+  onClick,
+  className
+}) {
   const ElementType = e(component)
   return <ElementType
     className={f("Button", className)}

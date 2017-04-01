@@ -4,8 +4,10 @@ import Section from "./molecules/Section"
 
 import "./PropertyPane.css"
 
-function PropertyPaneContent(props) {
-  const s = props.sections
+function PropertyPaneContent({
+  sections
+}) {
+  const s = sections
   return <div className="property-pane">
     <Section title="Note Properties">
       <ul>

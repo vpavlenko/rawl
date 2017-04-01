@@ -1,12 +1,21 @@
 import React, { Component } from "react"
 import { GMMap } from "../midi/GM"
 
-function InstrumentBrowserContent(props) {
-  const categoryOptions = props.categories.map((name, i) => {
+function InstrumentBrowserContent({
+  categories,
+  instruments,
+  onChangeCategory,
+  selectedCategoryId,
+  onChangeInstrument,
+  selectedInstrumentId,
+  onClickOK,
+  onClickCancel
+}) {
+  const categoryOptions = categories.map((name, i) => {
     return <option key={i}>{name}</option>
   })
 
-  const instrumentOptions = props.instruments.map((name, i) => {
+  const instrumentOptions = instruments.map((name, i) => {
     return <option key={i}>{name}</option>
   })
 
@@ -14,19 +23,19 @@ function InstrumentBrowserContent(props) {
     <div className="container">
       <div className="left">
         <label>Categories</label>
-        <select size="12" onChange={props.onChangeCategory} value={props.selectedCategoryId}>
+        <select size="12" onChange={onChangeCategory} value={selectedCategoryId}>
           {categoryOptions}
         </select>
       </div>
       <div className="right">
         <label>Instruments</label>
-        <select size="12" onChange={props.onChangeInstrument} value={props.selectedInstrumentId}>
+        <select size="12" onChange={onChangeInstrument} value={selectedInstrumentId}>
           {instrumentOptions}
         </select>
       </div>
       <div className="footer">
-        <button className="ok" onClick={props.onClickOK}>OK</button>
-        <button className="cancel" onClick={props.onClickCancel}>Cancel</button>
+        <button className="ok" onClick={onClickOK}>OK</button>
+        <button className="cancel" onClick={onClickCancel}>Cancel</button>
       </div>
     </div>
   </div>
@@ -55,7 +64,7 @@ export default class InstrumentBrowser extends Component {
         selectedCategoryId: e.target.selectedIndex
       })
     }
-    
+
     const onChangeInstrument = e => {
       this.setState({
         selectedInstrumentId: e.target.selectedIndex

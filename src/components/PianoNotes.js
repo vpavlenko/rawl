@@ -31,7 +31,14 @@ function drawNote(ctx, rect, note, fillColor) {
   ノートイベントを描画するコンポーネント
   操作のために setEventBounds に描画結果のサイズを返す
 */
-function PianoNotes({ events, transform, width, style, mouseHandler, scrollLeft }) {
+function PianoNotes({
+  events,
+  transform,
+  width,
+  style,
+  mouseHandler,
+  scrollLeft
+}) {
   function draw(ctx) {
     const { width, height } = ctx.canvas
     ctx.clearRect(0, 0, width, height)

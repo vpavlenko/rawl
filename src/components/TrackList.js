@@ -3,30 +3,50 @@ import SharedService from "../services/SharedService"
 
 import "./TrackList.css"
 
-function TrackListItem(props) {
-  function onClickName() { props.onClickName(props.track.trackId) }
-  function onClickSolo() { props.onClickSolo(props.track.trackId) }
-  function onClickMute() { props.onClickMute(props.track.trackId) }
+function TrackListItem({
+  track,
+  onClickName,
+  onClickSolo,
+  onClickMute
+}) {
+  function _onClickName() { onClickName(track.trackId) }
+  function _onClickSolo() { onClickSolo(track.trackId) }
+  function _onClickMute() { onClickMute(track.trackId) }
 
-  return <li className={props.track.selected ? "selected" : ""}>
-    <p className="name" onClick={onClickName}>{props.track.name}</p>
-    <p className="solo" onClick={onClickSolo}>S</p>
-    <p className="mute" onClick={onClickMute}>{props.track.mute ? "\uE618" : "\uE617"}</p>
+  return <li className={track.selected ? "selected" : ""}>
+    <p className="name" onClick={_onClickName}>{track.name}</p>
+    <p className="solo" onClick={_onClickSolo}>S</p>
+    <p className="mute" onClick={_onClickMute}>{track.mute ? "\uE618" : "\uE617"}</p>
   </li>
 }
 
-function TrackListContent(props) {
-  const items = props.tracks.map(t => <TrackListItem
-    key={t.trackId}
-    track={t}
-    onClickName={props.onSelectTrack}
-    onClickSolo={props.onClickSolo}
-    onClickMute={props.onClickMute} />)
+function TrackListContent({
+  tracks,
+  channelMutes,
+  selectedTrackId,
+  onSelectTrack,
+  onClickSolo,
+  onClickMute,
+  onClickAddTrack
+}) {
+  const items = tracks
+    .map((t, i) => ({
+      name: `${t.channel + 1}. ${t.getName() || ""}`,
+      mute: channelMutes[t.channel],
+      selected: i == selectedTrackId,
+      trackId: i
+    }))
+    .map(t => <TrackListItem
+      key={t.trackId}
+      track={t}
+      onClickName={onSelectTrack}
+      onClickSolo={onClickSolo}
+      onClickMute={onClickMute} />)
 
   return <div className="track-list">
     <ul>
       {items}
-      <li className="add-track" onClick={props.onClickAddTrack}><span className="icon">{"\uE608"}</span> Add Track</li>
+      <li className="add-track" onClick={onClickAddTrack}><span className="icon">{"\uE608"}</span> Add Track</li>
     </ul>
   </div>
 }
@@ -48,15 +68,6 @@ export default class TrackList extends Component {
   }
 
   render() {
-    const tracks = this.props.tracks.map((t, i) => {
-      return {
-        name: `${t.channel + 1}. ${t.getName() || ""}`,
-        mute: this.state.channelMutes[t.channel],
-        selected: i == this.props.selectedTrackId,
-        trackId: i
-      }
-    })
-
-    return <TrackListContent {...this.props} tracks={tracks} />
+    return <TrackListContent {...this.props} channelMutes={this.state.channelMutes} />
   }
 }

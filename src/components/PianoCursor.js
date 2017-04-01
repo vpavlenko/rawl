@@ -15,22 +15,27 @@ function drawCursor(ctx, position, height) {
   ctx.restore()
 }
 
-function PianoCursor(props) {
+function PianoCursor({
+  position,
+  width,
+  height,
+  style
+}) {
   function draw(ctx) {
     const { width, height } = ctx.canvas
     ctx.clearRect(0, 0, width, height)
     ctx.save()
     ctx.translate(0.5, 0)
-    drawCursor(ctx, Math.floor(props.position), height)
+    drawCursor(ctx, Math.floor(position), height)
     ctx.restore()
   }
 
   return <DrawCanvas
     draw={draw}
     className="PianoCursor"
-    width={props.width}
-    height={props.height}
-    style={props.style}
+    width={width}
+    height={height}
+    style={style}
   />
 }
 

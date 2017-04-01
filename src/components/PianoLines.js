@@ -24,22 +24,28 @@ function drawHorizontalLines(ctx, numberOfKeys, keyHeight, width, theme) {
   }
 }
 
-function PianoLines(props) {
+function PianoLines({
+  numberOfKeys,
+  pixelsPerKey,
+  width,
+  theme,
+  style
+}) {
   function draw(ctx) {
     const { width, height } = ctx.canvas
     ctx.clearRect(0, 0, width, height)
     ctx.save()
     ctx.translate(0, 0.5)
-    drawHorizontalLines(ctx, props.numberOfKeys, props.pixelsPerKey, props.width, props.theme)
+    drawHorizontalLines(ctx, numberOfKeys, pixelsPerKey, width, theme)
     ctx.restore()
   }
 
   return <DrawCanvas
     draw={draw}
     className="PianoLines"
-    width={props.width}
-    height={props.pixelsPerKey * props.numberOfKeys}
-    style={props.style}
+    width={width}
+    height={pixelsPerKey * numberOfKeys}
+    style={style}
   />
 }
 

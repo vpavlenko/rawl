@@ -4,7 +4,12 @@ import Icon from "../atoms/Icon"
 
 import "./Section.css"
 
-function SectionContent({ hidden, onClickHeader, title, children}) {
+function SectionContent({
+  hidden,
+  onClickHeader,
+  title,
+  children
+}) {
   return <section className="Section">
     <Button component="header" onClick={onClickHeader}>
       <p className="title">{title}</p>

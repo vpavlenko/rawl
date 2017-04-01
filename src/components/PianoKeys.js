@@ -68,7 +68,13 @@ function drawKeys(ctx, width, keyHeight, numberOfKeys, theme) {
   ctx.restore()
 }
 
-function PianoKeys({ onClickKey, numberOfKeys, width, keyHeight, theme }) {
+function PianoKeys({
+  onClickKey,
+  numberOfKeys,
+  width,
+  keyHeight,
+  theme
+}) {
   function draw(ctx) {
     const { width, height } = ctx.canvas
     ctx.clearRect(0, 0, width, height)

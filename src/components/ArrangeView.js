@@ -19,9 +19,11 @@ function drawNote(ctx, rect) {
   ctx.stroke()
 }
 
-function ArrangeTrack(props) {
-  const t = transform
-  const endTick = Math.max(maxX(props.events), 5000)
+function ArrangeTrack({
+  events,
+  transform
+}) {
+  const endTick = Math.max(maxX(events), 5000)
 
   function draw(ctx) {
     const { width, height } = ctx.canvas
@@ -29,7 +31,7 @@ function ArrangeTrack(props) {
 
     ctx.save()
     ctx.translate(0, 0.5)
-    props.events.forEach(note => {
+    events.forEach(note => {
       if (note.subtype !== "note") { return }
       const rect = t.getRect(note)
       drawNote(ctx, rect)

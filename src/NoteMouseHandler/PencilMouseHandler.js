@@ -1,178 +1,112 @@
 import _ from "lodash"
 import SharedService from "../services/SharedService"
-import MouseHandler, { defaultActionFactory } from "./NoteMouseHandler"
-import { pointSub } from "../helpers/point"
+import NoteMouseHandler from "./NoteMouseHandler"
+import { pointSub, pointAdd } from "../helpers/point"
 import pencilImage from "../images/iconmonstr-pencil-14-16.png"
 
-const defaultCursor = `url(${pencilImage}) 0 16, default`
+export default class PencilMouseHandler extends NoteMouseHandler {
+  actionForMouseDown(e) {
+    const original = super.actionForMouseDown(e)
+    const n = this.noteController
+    if (!n) {
+      console.error("this.noteController をセットすること")
+    }
 
-export default class PencilMouseHandler extends MouseHandler {
-  constructor() {
-    super([defaultActionFactory, actionFactory], getCursor, defaultCursor)
-  }
-}
-
-function actionFactory(local, ctx, e) {
-  const rects = ctx.getEventsUnderPoint(local.x, local.y)
-
-  if (e.nativeEvent.button != 0) {
-    return null
-  }
-
-  if (rects.length > 0) {
-    const note = rects[0]
-    if (e.nativeEvent.detail == 2) {
-      return removeNoteAction(ctx, note)
-    } else {
-      const offset = pointSub(local, note)
-      const type = getDragPositionType(offset.x, note.width)
-      switch(type) {
-        case "center": return moveNoteAction(ctx, note)
-        case "left": return dragLeftNoteAction(ctx, note)
-        case "right": return dragRightNoteAction(ctx, note)
+    if (e.item) {
+      if (e.nativeEvent.detail == 2) {
+        return removeNoteAction(id => n.remove(id))
+      } else {
+        switch(e.position) {
+          case "center": return moveNoteAction((id, d) => n.moveCenter(id, d))
+          case "left": return dragLeftNoteAction((id, d) => n.resizeLeft(id, d))
+          case "right": return dragRightNoteAction((id, d) => n.resizeRight(id, d))
+        }
       }
-    }
-  } else if (!e.relatedTarget) {
-    return createNoteAction(ctx)
-  }
-  return null
-}
-
-function getCursor(local, ctx) {
-  const rects = ctx.getEventsUnderPoint(local.x, local.y)
-  if (rects.length > 0) {
-    const rect = rects[0]
-    const pos = pointSub(local, rect)
-    const type = getDragPositionType(pos.x, rect.width)
-    return cursorForPositionType(type)
-  }
-
-  return defaultCursor
-}
-
-function onNoteMouseMove(ctx, local, startPosition, note) {
-  const { track, transform, quantizer } = ctx
-
-  const movement = {
-    x: local.x - startPosition.x,
-    y: local.y - startPosition.y
-  }
-
-  // 移動
-  const dt = transform.getTicks(movement.x)
-  const tick = quantizer.round(note.tick + dt)
-  const dn = Math.round(transform.getDeltaNoteNumber(movement.y))
-  const noteNumber = note.noteNumber + dn
-
-  const pitchChanged = noteNumber != track.getEventById(note.id).noteNumber
-
-  const n = track.updateEvent(note.id, {
-    tick: tick,
-    noteNumber: noteNumber
-  })
-
-  if (pitchChanged) {
-    SharedService.player.playNote(n)
-  }
-}
-
-export const createNoteAction = ctx => (onMouseDown, onMouseMove) => {
-  const { track, transform, quantizer } = ctx
-  let startPosition
-  let startNote
-
-  onMouseDown(local => {
-    startPosition = local
-
-    const note = createNote(
-      quantizer.floor(transform.getTicks(local.x)),
-      Math.ceil(transform.getNoteNumber(local.y)),
-      quantizer.unit
-    )
-    track.addEvent(note)
-    SharedService.player.playNote(note)
-    startNote = _.clone(note)
-  })
-
-  onMouseMove(local => { onNoteMouseMove(ctx, local, startPosition, startNote) })
-}
-
-const removeNoteAction = (ctx, note) => (onMouseDown) => {
-  const { track, } = ctx
-  onMouseDown(() => { track.removeEvent(note.id) })
-}
-
-const moveNoteAction = (ctx, note) => (onMouseDown, onMouseMove) => {
-  let startPosition
-  let startNote = _.clone(note)
-  onMouseDown(local => { startPosition = local })
-  onMouseMove(local => { onNoteMouseMove(ctx, local, startPosition, startNote) })
-}
-
-const dragLeftNoteAction = (ctx, note) => (onMouseDown, onMouseMove) => {
-  const { track, transform, quantizer } = ctx
-  let startPosition
-
-  onMouseDown(local => { startPosition = local })
-
-  onMouseMove(local => {
-    const movement = pointSub(local, startPosition)
-
-    // 右端を固定して長さを変更
-    const dt = transform.getTicks(movement.x)
-    const tick = quantizer.round(note.tick + dt)
-    if (note.tick < tick) {
-      return
+    } else {
+      return createNoteAction(
+        l => n.createAt(l),
+        (id, d) => n.moveTo(id, d))
     }
 
-    track.updateEvent(note.id, {
-      tick: tick,
-      duration: note.duration + (note.tick - tick)
+    return original
+  }
+
+  getCursor(e) {
+    if (e.item) {
+      return cursorForPositionType(e.position)
+    }
+
+    return `url(${pencilImage}) 0 16, default`
+  }
+}
+
+export const createNoteAction = (createNote, moveNote) => (onMouseDown, onMouseMove) => {
+  let startPosition
+  let noteId
+
+  onMouseDown(e => {
+    startPosition = e.local
+    noteId = createNote(e.local)
+  })
+
+  onMouseMove(e => {
+    moveNote(noteId, {
+      x: e.local.x,
+      y: e.local.y
     })
   })
 }
 
-const dragRightNoteAction = (ctx, note) => (onMouseDown, onMouseMove) => {
-  const { track, transform, quantizer } = ctx
+const removeNoteAction = removeNote => (onMouseDown) => {
+  onMouseDown(e => { removeNote(e.item.id) })
+}
+
+const moveNoteAction = moveNoteCenter => (onMouseDown, onMouseMove) => {
   let startPosition
+  let notePosition
+  let noteId
 
-  onMouseDown(local => { startPosition = local })
-
-  onMouseMove(local => {
-    const movement = pointSub(local, startPosition)
-
-    // 長さを変更
-    const dt = transform.getTicks(movement.x)
-    const duration = Math.max(quantizer.unit,
-      quantizer.round(dt + note.duration))
-    if (note.duration == duration) {
-      return
+  onMouseDown(e => {
+    startPosition = e.local
+    noteId = e.item.id
+    notePosition = {
+      x: e.item.x,
+      y: e.item.y
     }
+  })
 
-    track.updateEvent(note.id, {duration: duration})
+  onMouseMove(e => {
+    const pos = pointAdd(notePosition, pointSub(e.local, startPosition))
+    moveNoteCenter(noteId, pos)
+  })
+}
+
+const dragLeftNoteAction = resizeLeft => (onMouseDown, onMouseMove) => {
+  let startPosition
+  let noteId
+
+  onMouseDown(e => {
+    noteId = e.item.id
+  })
+
+  onMouseMove(e => {
+    resizeLeft(noteId, e.local)
+  })
+}
+
+const dragRightNoteAction = resizeRight => (onMouseDown, onMouseMove) => {
+  let noteId
+
+  onMouseDown(e => {
+    noteId = e.item.id
+  })
+
+  onMouseMove(e => {
+    resizeRight(noteId, e.local)
   })
 }
 
 // helpers
-
-function createNote(tick = 0, noteNumber = 48, duration = 240, velocity = 127, channel) {
-  return {
-    type: "channel",
-    subtype: "note",
-    noteNumber: noteNumber || 48,
-    tick: tick || 0,
-    velocity: velocity || 127,
-    duration: duration || 240,
-    channel: channel
-  }
-}
-
-function getDragPositionType(localX, targetWidth) {
-  const edgeSize = Math.min(targetWidth / 3, 8)
-  if (localX <= edgeSize) { return "left" }
-  if (targetWidth - localX <= edgeSize) { return "right" }
-  return "center"
-}
 
 function cursorForPositionType(type) {
   switch(type) {

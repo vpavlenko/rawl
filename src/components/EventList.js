@@ -72,10 +72,10 @@ export default class EventList extends Component {
     super(props)
     this.state = {}
   }
-  
+
   render() {
     const events = this.props.track ? this.props.track.getEvents().map(e => {
-      return _.extend(e, { 
+      return _.extend(e, {
         status: statusForEvent(e)
       })
     }) : []

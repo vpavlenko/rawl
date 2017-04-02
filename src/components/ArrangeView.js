@@ -1,12 +1,9 @@
 import React, { Component } from "react"
-import _ from "lodash"
 import DrawCanvas from "./DrawCanvas"
 import NoteCoordTransform from "../model/NoteCoordTransform"
 import maxX from "../helpers/maxX"
 
 import "./ArrangeView.css"
-
-const transform = new NoteCoordTransform(0.05, 0.5, 127)
 
 function drawNote(ctx, rect) {
   const { x, y, width } = rect
@@ -23,6 +20,7 @@ function ArrangeTrack({
   events,
   transform
 }) {
+  const t = transform
   const endTick = Math.max(maxX(events), 5000)
 
   function draw(ctx) {

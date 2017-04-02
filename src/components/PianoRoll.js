@@ -13,6 +13,13 @@ import PianoVelocityControl from "./PianoVelocityControl"
 import PianoCursor from "./PianoCursor"
 import withTheme from "../hocs/withTheme"
 import maxX from "../helpers/maxX"
+import NoteController from "../helpers/NoteController"
+
+import pianoNotesPresentation from "../presentations/pianoNotes"
+import velocityControlPresentation from "../presentations/velocityControl"
+
+import SelectionMouseHandler from "../NoteMouseHandler/SelectionMouseHandler"
+import PencilMouseHandler from "../NoteMouseHandler/PencilMouseHandler"
 
 import "./PianoRoll.css"
 
@@ -44,6 +51,9 @@ class PianoRoll extends Component {
     this.state.selection.on("change", () => {
       this.setState({selection: this.state.selection})
     })
+
+    this.pencilMouseHandler = new PencilMouseHandler()
+    this.selectionMouseHandler = new SelectionMouseHandler()
   }
 
   forceScrollLeft(requiredScrollLeft) {
@@ -71,7 +81,7 @@ class PianoRoll extends Component {
       this.setState({ scrollLeft })
     })
 
-    const { player } = this.props
+    const { player, autoScroll } = this.props
     player.on("change-position", tick => {
       const x = this.getTransform().getX(tick)
       this.setState({
@@ -79,7 +89,7 @@ class PianoRoll extends Component {
       })
 
       // keep scroll position to cursor
-      if (this.props.autoScroll && player.isPlaying) {
+      if (autoScroll && player.isPlaying) {
         const screenX = x - this.state.scrollLeft
         if (screenX > this.alpha.clientWidth * 0.7 || screenX < 0) {
           this.forceScrollLeft(x)
@@ -102,27 +112,25 @@ class PianoRoll extends Component {
     const {
       theme,
       track,
-      noteMouseHandler,
       onChangeTool,
       onClickRuler,
       onClickKey,
       ticksPerBeat,
-      denominator
+      denominator,
+      endTick,
+      mouseMode,
+      player
     } = this.props
-
-    const props = this.props
 
     const { keyWidth, rulerHeight, controlHeight } = theme
 
     const quantizer = new Quantizer(ticksPerBeat, denominator)
     const transform = this.getTransform()
     const notesWidth = this.state.alphaWidth
-    const endTick = Math.max(props.endTick, transform.getTicks(notesWidth))
+    const widthTick = Math.max(endTick, transform.getTicks(notesWidth))
 
-    const contentWidth = endTick * transform.pixelsPerTick
+    const contentWidth = widthTick * transform.pixelsPerTick
     const contentHeight = transform.getMaxY()
-
-    const events = filterEventsWithScroll(track.getEvents(), transform, this.state.scrollLeft, notesWidth)
 
     const fixedLeftStyle = {left: this.state.scrollLeft}
     const fixedTopStyle = {top: this.state.scrollTop}
@@ -133,6 +141,14 @@ class PianoRoll extends Component {
       const tick = quantizer.round(transform.getTicks(e.nativeEvent.offsetX))
       onClickRuler(tick, e)
     }
+
+    const events = filterEventsWithScroll(track.getEvents(), transform, this.state.scrollLeft, this.state.alphaWidth)
+    const noteItems = pianoNotesPresentation(events, transform)
+    const velocityControlItems = velocityControlPresentation(events, transform)
+
+    this.pencilMouseHandler.noteController = new NoteController(track, quantizer, transform, player)
+    const noteMouseHandler = mouseMode === 0 ?
+      this.pencilMouseHandler : this.selectionMouseHandler
 
     return <div id="piano-roll-container">
       <div className="alpha" ref={c => this.alpha = c}>
@@ -146,20 +162,18 @@ class PianoRoll extends Component {
             pixelsPerKey={transform.pixelsPerKey}
             numberOfKeys={transform.numberOfKeys} />
           <PianoGrid
-            endTick={endTick}
+            endTick={widthTick}
             ticksPerBeat={ticksPerBeat}
             width={notesWidth}
             scrollLeft={this.state.scrollLeft}
             transform={transform} />
           <PianoNotes
-            events={events}
-            transform={transform}
+            items={noteItems}
+            height={transform.pixelsPerKey * transform.numberOfKeys}
             width={notesWidth}
-            quantizer={quantizer}
-            selection={selection}
-            track={track}
-            mouseHandler={noteMouseHandler}
-            onChangeTool={onChangeTool}
+            onMouseDown={e => noteMouseHandler.onMouseDown(e)}
+            onMouseMove={e => noteMouseHandler.onMouseMove(e)}
+            onMouseUp={e => noteMouseHandler.onMouseUp(e)}
             scrollLeft={this.state.scrollLeft} />
           <PianoSelection
             width={notesWidth}
@@ -180,7 +194,7 @@ class PianoRoll extends Component {
         <div className="fixed-left-top" style={{...fixedLeftStyle, ...fixedTopStyle}}>
           <PianoRuler
             height={rulerHeight}
-            endTick={endTick}
+            endTick={widthTick}
             ticksPerBeat={ticksPerBeat}
             onMouseDown={e => onMouseDownRuler(e)}
             scrollLeft={this.state.scrollLeft}
@@ -193,9 +207,9 @@ class PianoRoll extends Component {
           width: contentWidth
         }} />
         <PianoVelocityControl
-          events={events}
+          items={velocityControlItems}
           height={controlHeight}
-          endTick={endTick}
+          endTick={widthTick}
           transform={transform}
           setEventBounds={() => true} />
       </div>
@@ -215,7 +229,7 @@ PianoRoll.propTypes = {
   onChangeTool: PropTypes.func.isRequired,
   onClickRuler: PropTypes.func.isRequired,
   onClickKey: PropTypes.func.isRequired,
-  noteMouseHandler: PropTypes.object.isRequired,
+  mouseMode: PropTypes.number.isRequired
 }
 
 PianoRoll.defaultProps = {

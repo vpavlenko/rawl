@@ -1,14 +1,16 @@
+/**
+  ノートイベントを描画するコンポーネント
+  表示だけを行い、Transform や Quantizer, Track に依存しない
+*/
+
 import React, { Component, PropTypes } from "react"
 import _ from "lodash"
 import DrawCanvas from "./DrawCanvas"
-import mouseablePianoNotes from "../hocs/mouseablePianoNotes"
 import logEq from "../helpers/logEq"
 
-function drawNote(ctx, rect, note, fillColor) {
-  const { x, y, width, height } = rect
-
-  const alpha = note.velocity / 127
-  const color = note.selected ? "black" : `rgba(0, 0, 255, ${alpha})`
+function drawNote(ctx, { x, y, width, height, selected, velocity }) {
+  const alpha = velocity / 127
+  const color = selected ? "black" : `rgba(0, 0, 255, ${alpha})`
 
   ctx.beginPath()
   ctx.fillStyle = color
@@ -27,32 +29,79 @@ function drawNote(ctx, rect, note, fillColor) {
   ctx.stroke()
 }
 
-/**
-  ノートイベントを描画するコンポーネント
-  操作のために setEventBounds に描画結果のサイズを返す
-*/
 function PianoNotes({
-  events,
-  transform,
+  items,
   width,
-  style,
-  mouseHandler,
-  scrollLeft
+  height,
+  scrollLeft,
+  onMouseDown,
+  onMouseMove,
+  onMouseUp,
+  cursor
 }) {
+  // ローカル座標や、どの item の上でクリックされたかなどの追加情報を作成する
+  function eventOption(e) {
+    function getLocal(e) {
+      return {
+        x: e.nativeEvent.offsetX + scrollLeft,
+        y: e.nativeEvent.offsetY
+      }
+    }
+
+    function positionType(local, item) {
+      const localX = local.x - item.x
+      const edgeSize = Math.min(item.width / 3, 8)
+      if (localX <= edgeSize) { return "left" }
+      if (item.width - localX <= edgeSize) { return "right" }
+      return "center"
+    }
+
+    function itemUnderPoint({ x, y }) {
+      return items
+        .filter(b => {
+          return x >= b.x
+            && x <= b.x + b.width
+            && y >= b.y
+            && y <= b.y + b.height
+        })[0]
+    }
+
+    const local = getLocal(e)
+    const item = itemUnderPoint(local)
+    const position = item && positionType(local, item)
+    return {
+      local, item, position
+    }
+  }
+
+  function _onMouseDown(e) {
+    onMouseDown({
+      ...e,
+      ...eventOption(e)
+    })
+  }
+
+  function _onMouseMove(e) {
+    onMouseMove({
+      ...e,
+      ...eventOption(e)
+    })
+  }
+
+  function _onMouseUp(e) {
+    onMouseUp({
+      ...e,
+      ...eventOption(e)
+    })
+  }
+
   function draw(ctx) {
     const { width, height } = ctx.canvas
     ctx.clearRect(0, 0, width, height)
 
-    const notes = events.filter(e => e.subtype == "note")
-    console.log(`[PianoNotes] draw ${notes.length} notes`)
-
     ctx.save()
     ctx.translate(-scrollLeft, 0.5)
-    notes.forEach(note => {
-      const rect = transform.getRect(note)
-      drawNote(ctx, rect, note)
-      mouseHandler.setEventBounds(note.id, _.assign({}, rect, note)) // TODO 単に rect を渡すようにして、 MouseActionController 側で track から取得させる
-    })
+    items.forEach(item => drawNote(ctx, item))
     ctx.restore()
   }
 
@@ -60,29 +109,32 @@ function PianoNotes({
     draw={draw}
     className="PianoNotes"
     width={width}
-    height={transform.pixelsPerKey * transform.numberOfKeys}
-    style={style}
+    height={height}
     onContextMenu={e => e.preventDefault()}
-    {...mouseHandler}
+    onMouseDown={_onMouseDown}
+    onMouseMove={_onMouseMove}
+    onMouseUp={_onMouseUp}
+    style={{ cursor }}
   />
 }
 
 PianoNotes.propTypes = {
+  items: PropTypes.array.isRequired,
   width: PropTypes.number.isRequired,
-  events: PropTypes.array.isRequired,
-  transform: PropTypes.object.isRequired,
+  height: PropTypes.number.isRequired,
   scrollLeft: PropTypes.number.isRequired,
-  mouseHandler: PropTypes.object.isRequired
+  onMouseDown: PropTypes.func,
+  onMouseMove: PropTypes.func,
+  onMouseUp: PropTypes.func
 }
 
 class _PianoNotes extends Component {
   shouldComponentUpdate(nextProps) {
     const props = this.props
-    return !logEq(props, nextProps, "events", _.isEqual)
+    return !logEq(props, nextProps, "items", _.isEqual)
       || !logEq(props, nextProps, "scrollLeft", (x, y) => x === y)
       || !logEq(props, nextProps, "width", (x, y) => x === y)
-      || !logEq(props, nextProps, "transform", (x, y) => x && y && x.equals(y))
-      || !logEq(props, nextProps, "style", _.isEqual)
+      || !logEq(props, nextProps, "height", (x, y) => x === y)
   }
 
   render() {
@@ -90,4 +142,4 @@ class _PianoNotes extends Component {
   }
 }
 
-export default mouseablePianoNotes(_PianoNotes)
+export default _PianoNotes

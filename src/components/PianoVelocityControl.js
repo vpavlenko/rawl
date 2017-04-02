@@ -4,34 +4,14 @@ import pickMouseEvents from "../helpers/pickMouseEvents"
 import DrawCanvas from "./DrawCanvas"
 import logEq from "../helpers/logEq"
 
-function rectForNote(note, transform, viewHeight) {
-  const { x } = transform.getRect(note)
-
-  const width = 5
-  const height = note.velocity / 127 * viewHeight
-  return {
-    y: viewHeight - height,
-    x, width, height
-  }
-}
-
-/*
-
-    this.controlView.on("change", e => {
-      this._track.updateEvent(e.noteId, {velocity: e.velocity})
-    })
-    // this.controlView.notes = notes
-    // this.controlView.endTick = Math.max(100000, tickEnd)
-*/
-
-function drawEvent(ctx, rect, note, fillColor, strokeColor) {
-  const color = note.selected ? strokeColor : fillColor
+function drawEvent(ctx, fillColor, strokeColor, { x, y, width, height, selected }) {
+  const color = selected ? strokeColor : fillColor
 
   ctx.beginPath()
   ctx.fillStyle = color
   ctx.strokeStyle = strokeColor
   ctx.lineWidth = 1
-  ctx.rect(rect.x, rect.y, rect.width, rect.height)
+  ctx.rect(x, y, width, height)
   ctx.fill()
   ctx.stroke()
 }
@@ -51,13 +31,8 @@ class PianoVelocityControl extends Component {
       const fillColor = "blue"
       const strokeColor = "black"
 
-      const notes = props.events.filter(e => e.subtype == "note")
-      console.log(`[PianoVelocityControl] draw ${notes.length} notes`)
-
-      notes.forEach(note => {
-        const rect = rectForNote(note, props.transform, props.height)
-        drawEvent(ctx, rect, note, fillColor, strokeColor)
-        props.setEventBounds(note.id, rect)
+      props.items.forEach(item => {
+        drawEvent(ctx, fillColor, strokeColor, item)
       })
     }
 
@@ -72,7 +47,7 @@ class PianoVelocityControl extends Component {
 }
 
 PianoVelocityControl.propTypes = {
-  events: PropTypes.array.isRequired,
+  items: PropTypes.array.isRequired,
   endTick: PropTypes.number.isRequired,
   transform: PropTypes.object.isRequired,
   setEventBounds: PropTypes.func.isRequired
@@ -81,7 +56,7 @@ PianoVelocityControl.propTypes = {
 class _PianoVelocityControl extends Component {
   shouldComponentUpdate(nextProps) {
     const props = this.props
-    return !logEq(props, nextProps, "events", _.isEqual)
+    return !logEq(props, nextProps, "items", _.isEqual)
       || !logEq(props, nextProps, "endTick", (x, y) => x === y)
       || !logEq(props, nextProps, "transform", (x, y) => x && y && x.equals(y))
   }

@@ -10,7 +10,6 @@ import Config from "../Config"
 import TrackList from "./TrackList"
 import TrackInfo from "./TrackInfo"
 import Toolbar from "./MainToolbar"
-import EventList from "./EventList"
 import InstrumentBrowser from "./InstrumentBrowser"
 import PropertyPane from "./PropertyPane"
 import PianoRoll from "./PianoRoll"
@@ -18,9 +17,6 @@ import ArrangeView from "./ArrangeView"
 import Button from "./atoms/Button"
 import Icon from "./atoms/Icon"
 import { MenuBar, MenuItem, SubMenu } from "./molecules/MenuBar"
-
-import SelectionMouseHandler from "../NoteMouseHandler/SelectionMouseHandler"
-import PencilMouseHandler from "../NoteMouseHandler/PencilMouseHandler"
 
 import {
   getGMMapIndexes,
@@ -50,11 +46,6 @@ export default class RootView extends Component {
       showEventList: false,
       showPianoRoll: true
     }
-
-    this.noteMouseHandlers = [
-      new PencilMouseHandler(),
-      new SelectionMouseHandler()
-    ]
   }
 
   get selectedTrack() {
@@ -282,7 +273,7 @@ export default class RootView extends Component {
       onChangeTool={onChangeTool}
       onClickRuler={onClickRuler}
       onClickKey={onClickKey}
-      noteMouseHandler={this.noteMouseHandlers[state.pianoRollMouseMode]}
+      mouseMode={state.pianoRollMouseMode}
     />
 
     const leftHeader =

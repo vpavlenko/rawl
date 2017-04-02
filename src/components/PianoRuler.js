@@ -35,7 +35,15 @@ function drawRuler(ctx, height, pixelsPerTick, startTick, endTick, ticksPerBeat,
   ctx.stroke()
 }
 
-function PianoRuler({ height, transform, endTick, scrollLeft, ticksPerBeat, theme, onMouseDown }) {
+function PianoRuler({
+  height,
+  transform,
+  endTick,
+  scrollLeft,
+  ticksPerBeat,
+  theme,
+  onMouseDown
+}) {
 
   function draw(ctx) {
     const { width, height } = ctx.canvas

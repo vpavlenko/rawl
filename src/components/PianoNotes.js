@@ -123,6 +123,7 @@ PianoNotes.propTypes = {
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
   scrollLeft: PropTypes.number.isRequired,
+  cursor: PropTypes.string,
   onMouseDown: PropTypes.func,
   onMouseMove: PropTypes.func,
   onMouseUp: PropTypes.func
@@ -132,9 +133,10 @@ class _PianoNotes extends Component {
   shouldComponentUpdate(nextProps) {
     const props = this.props
     return !logEq(props, nextProps, "items", _.isEqual)
-      || !logEq(props, nextProps, "scrollLeft", (x, y) => x === y)
-      || !logEq(props, nextProps, "width", (x, y) => x === y)
-      || !logEq(props, nextProps, "height", (x, y) => x === y)
+      || !logEq(props, nextProps, "scrollLeft")
+      || !logEq(props, nextProps, "width")
+      || !logEq(props, nextProps, "height")
+      || !logEq(props, nextProps, "cursor")
   }
 
   render() {

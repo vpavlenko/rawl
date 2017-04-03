@@ -10,6 +10,10 @@ export default class PencilMouseHandler extends NoteMouseHandler {
     const n = this.noteController
     if (!n) {
       console.error("this.noteController をセットすること")
+      return original
+    }
+    if (e.nativeEvent.button !== 0) {
+      return original
     }
 
     if (e.item) {
@@ -27,8 +31,6 @@ export default class PencilMouseHandler extends NoteMouseHandler {
         l => n.createAt(l),
         (id, d) => n.moveTo(id, d))
     }
-
-    return original
   }
 
   getCursor(e) {

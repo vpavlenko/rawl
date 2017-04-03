@@ -274,6 +274,9 @@ export default class RootView extends Component {
       onClickRuler={onClickRuler}
       onClickKey={onClickKey}
       mouseMode={state.pianoRollMouseMode}
+      toggleMouseMode={() => this.setState({
+        pianoRollMouseMode: this.state.pianoRollMouseMode === 0 ? 1 : 0
+      })}
     />
 
     const leftHeader =

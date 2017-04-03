@@ -1,4 +1,9 @@
 export default class NoteMouseHandler {
+  constructor(changeCursor, toggleTool) {
+    this.changeCursor = changeCursor
+    this.toggleTool = toggleTool
+  }
+
   // mousedown 以降に行う MouseAction を返す
   actionForMouseDown(e) {
     // 共通の action
@@ -11,17 +16,11 @@ export default class NoteMouseHandler {
     }
 
     if (e.nativeEvent.button == 2 && e.nativeEvent.detail == 2) {
-      return changeToolAction(() => {
-        console.warn("TODO: ツールをトグルする")
-      })
+      return changeToolAction(this.toggleTool)
     }
 
     // サブクラスで残りを実装
     return null
-  }
-
-  changeCursor(cursor) {
-    // TODO: implement
   }
 
   getCursor(e) {
@@ -57,8 +56,7 @@ export default class NoteMouseHandler {
     if (this.action) {
       this.actionMouseMove(e)
     } else {
-      let cursor = this.getCursor(e)
-      this.changeCursor(cursor)
+      this.changeCursor(this.getCursor(e))
     }
   }
 
@@ -67,6 +65,7 @@ export default class NoteMouseHandler {
       this.actionMouseUp(e)
     }
     this.action = null
+    this.changeCursor(this.getCursor(e))
   }
 }
 

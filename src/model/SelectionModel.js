@@ -8,7 +8,7 @@ export default class SelectionModel {
     this.toTick = 0
     this.toNoteNumber = 0
     this.enabled = false
-    this.notes = []
+    this.noteIds = []
     observable(this)
   }
 
@@ -29,8 +29,8 @@ export default class SelectionModel {
     )
   }
 
-  setNotes(notes) {
-    this.notes = notes
+  setNoteIds(noteIds) {
+    this.noteIds = noteIds
     this.emitChanges()
   }
 
@@ -72,7 +72,7 @@ export default class SelectionModel {
   }
 
   reset() {
-    this.notes = []
+    this.noteIds = []
     this.enabled = false
   }
 }

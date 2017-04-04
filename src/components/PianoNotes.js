@@ -74,26 +74,23 @@ function PianoNotes({
     }
   }
 
-  function _onMouseDown(e) {
+  const _onMouseDown = e =>
     onMouseDown({
       ...e,
       ...eventOption(e)
     })
-  }
 
-  function _onMouseMove(e) {
+  const _onMouseMove = e =>
     onMouseMove({
       ...e,
       ...eventOption(e)
     })
-  }
 
-  function _onMouseUp(e) {
+  const _onMouseUp = e =>
     onMouseUp({
       ...e,
       ...eventOption(e)
     })
-  }
 
   function draw(ctx) {
     const { width, height } = ctx.canvas
@@ -137,6 +134,9 @@ class _PianoNotes extends Component {
       || !logEq(props, nextProps, "width")
       || !logEq(props, nextProps, "height")
       || !logEq(props, nextProps, "cursor")
+      || !logEq(props, nextProps, "onMouseDown")
+      || !logEq(props, nextProps, "onMouseMove")
+      || !logEq(props, nextProps, "onMouseUp")
   }
 
   render() {

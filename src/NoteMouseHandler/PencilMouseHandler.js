@@ -7,13 +7,18 @@ import pencilImage from "../images/iconmonstr-pencil-14-16.png"
 export default class PencilMouseHandler extends NoteMouseHandler {
   actionForMouseDown(e) {
     const original = super.actionForMouseDown(e)
+    if (original) {
+      return original
+    }
+
     const n = this.noteController
     if (!n) {
       console.error("this.noteController をセットすること")
-      return original
+      return null
     }
+
     if (e.nativeEvent.button !== 0) {
-      return original
+      return null
     }
 
     if (e.item) {

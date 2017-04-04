@@ -15,7 +15,11 @@ export default class NoteMouseHandler {
       })
     }
 
-    if (e.nativeEvent.button == 2 && e.nativeEvent.detail == 2) {
+    console.log("button", e.nativeEvent.button, e.nativeEvent.detail)
+
+    // 右ダブルクリック
+    if (e.nativeEvent.button == 2 && e.nativeEvent.detail % 2 == 0) {
+      console.log("toggle")
       return changeToolAction(this.toggleTool)
     }
 
@@ -66,6 +70,7 @@ export default class NoteMouseHandler {
     }
     this.action = null
     this.changeCursor(this.getCursor(e))
+    e.nativeEvent.preventDefault()
   }
 }
 

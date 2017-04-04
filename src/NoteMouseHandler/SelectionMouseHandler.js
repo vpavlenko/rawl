@@ -6,17 +6,22 @@ import { createNoteAction } from "./PencilMouseHandler"
 export default class SelectionMouseHandler extends MouseHandler {
   actionForMouseDown(e) {
     const original = super.actionForMouseDown(e)
-    if (e.nativeEvent.button !== 0) {
-      return original
-    }
-    const c = this.selectionController
-    if (!c) {
-      console.error("this.selectionController をセットすること")
+    if (original) {
       return original
     }
 
+    if (e.nativeEvent.button !== 0) {
+      return null
+    }
+
+    const c = this.selectionController
+    if (!c) {
+      console.error("this.selectionController をセットすること")
+      return null
+    }
+
     if (e.relatedTarget) {
-      return original
+      return null
     }
 
     const type = c.positionType(e.local)

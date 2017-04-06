@@ -1,0 +1,37 @@
+.Slider {
+  position: relative;
+  min-height: 1em;
+  min-width: 3em;
+  user-select: none;
+}
+
+.Slider .guide-left,
+.Slider .guide-right {
+  position: absolute;
+  top: calc((100% - 30%) / 2);
+  height: 30%;
+  background: var(--secondary-background-color);
+}
+
+.Slider .guide-left {
+  background: var(--theme-color);
+  opacity: 0.5;
+  left: 0;
+  border-radius: 1em 0 0  1em;
+}
+
+.Slider .guide-right {
+  border-radius: 0 1em 1em 0;
+}
+
+.Slider .handle {
+  background: var(--theme-color);
+  position: absolute;
+  height: 100%;
+  width: 1em;
+  border-radius: 1em;
+}
+
+.Slider:hover .handle {
+  box-shadow: 0 0 0 1px var(--theme-color);
+}

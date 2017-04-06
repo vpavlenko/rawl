@@ -1,4 +1,4 @@
-import React from "react"
+import React, { Component } from "react"
 import { storiesOf, action, linkTo } from "@kadira/storybook"
 import "../src/theme.css"
 
@@ -7,11 +7,27 @@ import Icon from "../src/components/atoms/Icon"
 import Select from "../src/components/atoms/Select"
 import TextInput from "../src/components/atoms/TextInput"
 import NumberInput from "../src/components/atoms/NumberInput"
+import Slider from "../src/components/atoms/Slider"
 import { MenuBar, MenuItem, SubMenu, MenuSeparator } from "../src/components/molecules/MenuBar"
 import Section from "../src/components/molecules/Section"
 import { Toolbar, ToolbarItem, ToolbarSeparator } from "../src/components/molecules/Toolbar"
 import PianoRoll from "../src/components/PianoRoll"
 import Track from "../src/model/Track"
+
+class SliderWrapper extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      value: 0
+    }
+  }
+  render() {
+    return <Slider
+      value={this.state.value}
+      onChange={e => this.setState({ value: e.target.value })}
+    />
+  }
+}
 
 storiesOf("atoms", module)
   .add("Button", () => (
@@ -35,6 +51,9 @@ storiesOf("atoms", module)
       { value: "b", name: "option 2" },
       { value: "c", name: "option 3" },
     ]} onChange={action("onChange")} />
+  ))
+  .add("Slider", () => (
+    <SliderWrapper />
   ))
 
 storiesOf("molecules", module)

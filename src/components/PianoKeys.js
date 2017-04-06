@@ -78,7 +78,6 @@ function PianoKeys({
   function draw(ctx) {
     const { width, height } = ctx.canvas
     ctx.clearRect(0, 0, width, height)
-    console.log(`[PianoKeys] draw ${numberOfKeys} keys`)
     drawKeys(ctx, width, keyHeight, numberOfKeys, theme)
   }
 

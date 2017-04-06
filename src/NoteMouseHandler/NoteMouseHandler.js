@@ -2,6 +2,10 @@ export default class NoteMouseHandler {
   constructor(changeCursor, toggleTool) {
     this.changeCursor = changeCursor
     this.toggleTool = toggleTool
+
+    this.onMouseDown = this.onMouseDown.bind(this)
+    this.onMouseMove = this.onMouseMove.bind(this)
+    this.onMouseUp = this.onMouseUp.bind(this)
   }
 
   // mousedown 以降に行う MouseAction を返す

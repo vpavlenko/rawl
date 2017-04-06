@@ -166,8 +166,6 @@ class PianoRoll extends Component {
     const noteMouseHandler = mouseMode === 0 ?
       this.pencilMouseHandler : this.selectionMouseHandler
 
-    console.log(noteMouseHandler)
-
     return <div id="piano-roll-container">
       <div className="alpha" ref={c => this.alpha = c}>
         <div className="pseudo-content" style={{
@@ -190,9 +188,9 @@ class PianoRoll extends Component {
             height={transform.pixelsPerKey * transform.numberOfKeys}
             width={notesWidth}
             cursor={notesCursor}
-            onMouseDown={e => noteMouseHandler.onMouseDown(e)}
-            onMouseMove={e => noteMouseHandler.onMouseMove(e)}
-            onMouseUp={e => noteMouseHandler.onMouseUp(e)}
+            onMouseDown={noteMouseHandler.onMouseDown}
+            onMouseMove={noteMouseHandler.onMouseMove}
+            onMouseUp={noteMouseHandler.onMouseUp}
             scrollLeft={scrollLeft} />
           <PianoSelection
             width={notesWidth}

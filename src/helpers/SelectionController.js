@@ -142,7 +142,7 @@ export default class SelectionController {
     if (dt === 0 && dn === 0) {
       return
     }
-    console.log(dt, dn)
+    
     selection.moveTo(tick, noteNumber)
 
     track.transaction(it => {

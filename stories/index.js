@@ -2,30 +2,50 @@ import React, { Component } from "react"
 import { storiesOf, action, linkTo } from "@kadira/storybook"
 import "../src/theme.css"
 
-import Button from "../src/components/atoms/Button"
+// atoms
+
 import Icon from "../src/components/atoms/Icon"
+import Knob from "../src/components/atoms/Knob"
+import Slider from "../src/components/atoms/Slider"
 import Select from "../src/components/atoms/Select"
+import Button from "../src/components/atoms/Button"
 import TextInput from "../src/components/atoms/TextInput"
 import NumberInput from "../src/components/atoms/NumberInput"
-import Slider from "../src/components/atoms/Slider"
-import { MenuBar, MenuItem, SubMenu, MenuSeparator } from "../src/components/molecules/MenuBar"
+
+// molecules
+
 import Section from "../src/components/molecules/Section"
+import { MenuBar, MenuItem, SubMenu, MenuSeparator } from "../src/components/molecules/MenuBar"
 import { Toolbar, ToolbarItem, ToolbarSeparator } from "../src/components/molecules/Toolbar"
+
+// organisms
+
 import PianoRoll from "../src/components/PianoRoll"
+
+// other
+
 import Track from "../src/model/Track"
 
-class SliderWrapper extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      value: 0
+/**
+
+  e.target.value と props.value で受け渡しするコンポーネントをラップする
+
+*/
+function wrapControl(BaseComponent) {
+  return class extends Component {
+    constructor(props) {
+      super(props)
+      this.state = {
+        value: 0
+      }
     }
-  }
-  render() {
-    return <Slider
-      value={this.state.value}
-      onChange={e => this.setState({ value: e.target.value })}
-    />
+    render() {
+      return <BaseComponent
+        {...this.props}
+        value={this.state.value}
+        onChange={e => this.setState({ value: e.target.value })}
+      />
+    }
   }
 }
 
@@ -52,9 +72,22 @@ storiesOf("atoms", module)
       { value: "c", name: "option 3" },
     ]} onChange={action("onChange")} />
   ))
-  .add("Slider", () => (
-    <SliderWrapper />
-  ))
+  .add("Slider", () => {
+    const SliderWrapper = wrapControl(Slider)
+    return <SliderWrapper />
+  })
+  .add("Knob", () => {
+    const KnobWrapper = wrapControl(Knob)
+    return <KnobWrapper />
+  })
+  .add("Knob pan", () => {
+    const KnobWrapper = wrapControl(Knob)
+    return <KnobWrapper
+      minValue={-100}
+      maxValue={100}
+      offsetDegree={0}
+      maxDegree={280} />
+  })
 
 storiesOf("molecules", module)
   .add("MenuBar", () => (

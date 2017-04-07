@@ -1,74 +1,72 @@
-.track-list {
-  display: block;
+.TrackList {
+  display: flex;
+  flex-direction: column;
   height: 100%;
   overflow-y: auto;
   background: var(--tertiary-background-color);
-}
-
-.track-list ul {
-  list-style-type: none;
   padding: 0;
-  margin: 1em;
 }
 
-.track-list li {
-  overflow: hidden;
-  margin: 1em 0;
+.TrackListItem {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  padding: 1em;
+  border-bottom: 1px solid var(--divider-color);
 }
 
-.track-list li.selected {
+.TrackListItem .controls {
+  display: flex;
+}
+
+.TrackListItem .controls .Slider {
+  flex-grow: 1;
+}
+
+.TrackListItem.selected {
   color: var(--theme-color);
+  background: rgba(0, 0, 0, 0.04);
 }
 
-.track-list .add-track {
+.TrackList .add-track {
   display: inline-block;
   color: var(--secondary-text-color);
   padding: 0.5em 1em;
-  margin: 0 auto;
+  margin: 1.5em auto;
   cursor: pointer;
   background: var(--secondary-background-color);
   border-radius: 99px;
 }
 
-.track-list .add-track:hover {
+.TrackList .add-track:hover {
   color: black;
 }
 
-.track-list .add-track .icon {
+.TrackList .add-track .icon {
   margin-right: 0.5em;
   font-size: 80%;
   font-family: "Flat-UI-Icons";
   font-weight: normal;
 }
 
-.track-list .name {
-  margin: 0;
-  float: left;
-  width: calc(100% - 5em);
-  box-sizing: border-box;
-  padding: 0.5em;
-  cursor: pointer;
-  overflow: hidden;
+.TrackListItem .name {
+  margin-bottom: 0.5em;
+  flex-grow: 1;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.track-list .mute, .solo {
-  display: inline-block;
-  float: left;
-  width: 2em;
-  height: 2em;
-  margin: 0 0 0 0.25em;
-  padding: 0.5em;
+.TrackListItem .button {
+  padding: 0.3em 0.5em;
   box-sizing: border-box;
   text-align: center;
   cursor: pointer;
   border-radius: 99px;
   background: var(--secondary-background-color);
+  font-size: 110%;
 }
 
-.track-list .mute {
-  font-family: "Flat-UI-Icons";
-  font-weight: normal;
-  font-size: 110%;
+.TrackListItem .button,
+.TrackListItem .Slider {
+  margin-right: 0.5em;
 }

@@ -307,7 +307,9 @@ export default class RootView extends Component {
 
     return <div id="vertical">
       <div className="flow-v">
-        <Pane split="vertical" minSize={200} maxSize={300}>
+        {menuBar}
+        {toolbar}
+        <Pane split="vertical" minSize={200} defaultSize={265} maxSize={400}>
           <div className="flow-v">
             {leftHeader}
             <TrackList
@@ -323,7 +325,6 @@ export default class RootView extends Component {
             </div>
           </div>
           <div className="flow-v">
-            {menuBar}
             <Pane split="vertical" minSize="70%">
               <div className="flow-v">
                 <TrackInfo
@@ -342,7 +343,6 @@ export default class RootView extends Component {
                 updateNotes={updateNotes}
               />
             </Pane>
-            {toolbar}
           </div>
         </Pane>
       </div>

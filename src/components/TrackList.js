@@ -1,23 +1,56 @@
 import React, { Component } from "react"
 import SharedService from "../services/SharedService"
+import Icon from "./atoms/Icon"
+import Slider from "./atoms/Slider"
+import Knob from "./atoms/Knob"
 
 import "./TrackList.css"
 
+const Nop = () => {}
+
 function TrackListItem({
   track,
-  onClickName,
-  onClickSolo,
-  onClickMute
+  onClick = Nop,
+  onDoubleClickName = Nop,
+  onClickSolo = Nop,
+  onClickMute = Nop
 }) {
-  function _onClickName() { onClickName(track.trackId) }
-  function _onClickSolo() { onClickSolo(track.trackId) }
-  function _onClickMute() { onClickMute(track.trackId) }
+  function _onClick(e) {
+    e.stopPropagation()
+    onClick(track.trackId)
+  }
+  function _onDoubleClickName(e) {
+    e.stopPropagation()
+    onDoubleClickName(track.trackId)
+  }
+  function _onClickSolo(e) {
+    e.stopPropagation()
+    onClickSolo(track.trackId)
+  }
+  function _onClickMute(e) {
+    e.stopPropagation()
+    onClickMute(track.trackId)
+  }
+  function _onClickInstrument(e) {
+    // TODO: open instrument browser
+  }
 
-  return <li className={track.selected ? "selected" : ""}>
-    <p className="name" onClick={_onClickName}>{track.name}</p>
-    <p className="solo" onClick={_onClickSolo}>S</p>
-    <p className="mute" onClick={_onClickMute}>{track.mute ? "\uE618" : "\uE617"}</p>
-  </li>
+  return <div
+    className={`TrackListItem ${track.selected ? "selected" : ""}`}
+    onClick={_onClick}>
+    <div className="name" onDoubleClick={_onDoubleClickName}>{track.name}</div>
+    <div className="controls">
+      <div className="button" onClick={_onClickInstrument}><Icon>piano</Icon></div>
+      <div className="button" onClick={_onClickSolo}><Icon>headphones</Icon></div>
+      <div className="button" onClick={_onClickMute}><Icon>{track.mute ? "volume-off" : "volume-high"}</Icon></div>
+      <Slider />
+      <Knob
+        minValue={-100}
+        maxValue={100}
+        offsetDegree={0}
+        maxDegree={280} />
+    </div>
+  </div>
 }
 
 function TrackListContent({
@@ -31,7 +64,7 @@ function TrackListContent({
 }) {
   const items = tracks
     .map((t, i) => ({
-      name: `${t.channel + 1}. ${t.getName() || ""}`,
+      name: t.getName() || `Track ${t.channel}`, // TODO: show instrument name by default
       mute: channelMutes[t.channel],
       selected: i == selectedTrackId,
       trackId: i
@@ -39,15 +72,13 @@ function TrackListContent({
     .map(t => <TrackListItem
       key={t.trackId}
       track={t}
-      onClickName={onSelectTrack}
+      onClick={onSelectTrack}
       onClickSolo={onClickSolo}
       onClickMute={onClickMute} />)
 
-  return <div className="track-list">
-    <ul>
-      {items}
-      <li className="add-track" onClick={onClickAddTrack}><span className="icon">{"\uE608"}</span> Add Track</li>
-    </ul>
+  return <div className="TrackList">
+    {items}
+    <div className="add-track" onClick={onClickAddTrack}><span className="icon">{"\uE608"}</span> Add Track</div>
   </div>
 }
 

@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { noteNumberString } from "../helpers/noteNumberString"
 import Section from "./molecules/Section"
+import Icon from "./atoms/Icon"
 
 import "./PropertyPane.css"
 
@@ -42,10 +43,10 @@ function PropertyPaneContent({
 
         <li>
           <label>Align</label>
-          <button onClick={ s.align.onClickLeft }>Left</button>
-          <button onClick={ s.align.onClickRight }>Right</button>
-          <button onClick={ s.align.onClickTop }>Top</button>
-          <button onClick={ s.align.onClickBottom }>Bottom</button>
+          <button onClick={ s.align.onClickLeft }><Icon>format-align-left</Icon></button>
+          <button onClick={ s.align.onClickRight }><Icon>format-align-right</Icon></button>
+          <button onClick={ s.align.onClickTop }><Icon>format-align-top</Icon></button>
+          <button onClick={ s.align.onClickBottom }><Icon>format-align-bottom</Icon></button>
         </li>
 
         <li>

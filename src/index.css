@@ -7,11 +7,14 @@ html, body {
 
 body {
   font-size: 80%;
-  -webkit-font-smoothing: antialiased;
-  -webkit-user-select: none;
-  -webkit-user-drag: none;
+  font-smoothing: antialiased;
   background: var(--background-color);
   color: var(--text-color);
+}
+
+div, label, button, canvas, section, a, p, header, footer, ul, li {
+  user-select: none;
+  user-drag: none;
 }
 
 /* avoid 3px margin */

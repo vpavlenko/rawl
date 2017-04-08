@@ -152,7 +152,7 @@ class PianoRoll extends Component {
     const fixedTopStyle = {top: scrollTop}
 
     const onMouseDownRuler = e => {
-      const tick = quantizer.round(transform.getTicks(e.nativeEvent.offsetX))
+      const tick = quantizer.round(transform.getTicks(e.nativeEvent.offsetX + scrollLeft))
       onClickRuler(tick, e)
     }
 

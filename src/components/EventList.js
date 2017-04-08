@@ -4,6 +4,8 @@ import Dimensions from "react-dimensions"
 import _ from "lodash"
 import { controllerTypeString } from "../helpers/noteNumberString"
 
+import "./EventList.css"
+
 const AutoSizingTable = Dimensions()(
   class extends Component {
     render() {

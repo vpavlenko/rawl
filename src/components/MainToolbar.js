@@ -42,7 +42,7 @@ export default class MainToolbar extends Component {
     const quantizeOptions = Config.QuantizeOptions
 
     return <Toolbar>
-      <ToolbarItem className="time-section section">
+      <ToolbarItem className="time-section">
         <p className="tempo">BPM {tempo}</p>
         <p className="time">{mbtTime}</p>
       </ToolbarItem>
@@ -63,13 +63,8 @@ export default class MainToolbar extends Component {
 
       <ToolbarSeparator />
 
-      <ToolbarItem onClick={props.onClickShowPianoRoll} selected={props.showPianoRoll}>Piano Roll</ToolbarItem>
-
       <ToolbarItem onClick={props.onClickScaleUp}><Icon>magnify-plus</Icon></ToolbarItem>
       <ToolbarItem onClick={props.onClickScaleDown}><Icon>magnify-minus</Icon></ToolbarItem>
-
-      <ToolbarItem onClick={props.onClickShowLeftPane} selected={props.showLeftPane}>←</ToolbarItem>
-      <ToolbarItem onClick={props.onClickShowRightPane} selected={props.showRightPane}>→</ToolbarItem>
     </Toolbar>
   }
 }

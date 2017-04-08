@@ -1,6 +1,8 @@
 import React, { Component } from "react"
 import { getInstrumentName } from "../midi/GM"
 
+import "./TrackInfo.css"
+
 export default function TrackInfoContent({
   track,
   onChangeName,
@@ -17,7 +19,7 @@ export default function TrackInfoContent({
     volume: volumeEvent ? volumeEvent.value : "",
     pan: panEvent ? panEvent.value : ""
   }
-  return <div className="track-info">
+  return <div className="TrackInfo">
     <ul>
       <li className="name">
         <input type="text" value={ fields.name } placeholder="Track Name" onChange={onChangeName} />

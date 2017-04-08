@@ -41,7 +41,7 @@ class PianoRoll extends Component {
       scrollLeft: 0,
       scrollTop: 0,
       cursorPosition: 0,
-      alphaWidth: 0,
+      width: 0,
       notesCursor: "auto",
 
       /* ノート配置部分のサイズ */
@@ -72,11 +72,15 @@ class PianoRoll extends Component {
     this.setState({ scrollLeft })
   }
 
+  fitWidthToParent() {
+    this.setState({ width: this.container.clientWidth })
+  }
+
   componentDidMount() {
-    this.setState({ alphaWidth: this.alpha.clientWidth })
+    this.fitWidthToParent()
 
     window.addEventListener("resize", () => {
-      this.setState({ alphaWidth: this.alpha.clientWidth })
+      this.fitWidthToParent()
     })
 
     this.alpha.addEventListener("scroll", e => {
@@ -131,7 +135,7 @@ class PianoRoll extends Component {
     } = this.props
 
     const {
-      alphaWidth,
+      width,
       scrollLeft,
       scrollTop,
       notesCursor,
@@ -143,8 +147,7 @@ class PianoRoll extends Component {
 
     const quantizer = new Quantizer(ticksPerBeat, denominator)
     const transform = this.getTransform()
-    const notesWidth = alphaWidth
-    const widthTick = Math.max(endTick, transform.getTicks(notesWidth))
+    const widthTick = Math.max(endTick, transform.getTicks(width))
 
     const contentWidth = widthTick * transform.pixelsPerTick
     const contentHeight = transform.getMaxY()
@@ -157,7 +160,7 @@ class PianoRoll extends Component {
       onClickRuler(tick, e)
     }
 
-    const events = filterEventsWithScroll(track.getEvents(), transform, scrollLeft, alphaWidth)
+    const events = filterEventsWithScroll(track.getEvents(), transform, scrollLeft, width)
     const noteItems = pianoNotesPresentation(events, transform)
     const velocityControlItems = velocityControlPresentation(events, transform)
 
@@ -166,40 +169,39 @@ class PianoRoll extends Component {
     const noteMouseHandler = mouseMode === 0 ?
       this.pencilMouseHandler : this.selectionMouseHandler
 
-    return <div id="piano-roll-container">
+    return <div id="piano-roll-container" ref={c => this.container = c}>
       <div className="alpha" ref={c => this.alpha = c}>
         <div className="pseudo-content" style={{
-          width: contentWidth,
           height: contentHeight
         }} />
         <div className="fixed-left" style={fixedLeftStyle}>
           <PianoLines
-            width={notesWidth}
+            width={width}
             pixelsPerKey={transform.pixelsPerKey}
             numberOfKeys={transform.numberOfKeys} />
           <PianoGrid
             endTick={widthTick}
             ticksPerBeat={ticksPerBeat}
-            width={notesWidth}
+            width={width}
             scrollLeft={scrollLeft}
             transform={transform} />
           <PianoNotes
             items={noteItems}
             height={transform.pixelsPerKey * transform.numberOfKeys}
-            width={notesWidth}
+            width={width}
             cursor={notesCursor}
             onMouseDown={noteMouseHandler.onMouseDown}
             onMouseMove={noteMouseHandler.onMouseMove}
             onMouseUp={noteMouseHandler.onMouseUp}
             scrollLeft={scrollLeft} />
           <PianoSelection
-            width={notesWidth}
+            width={width}
             height={contentHeight}
             transform={transform}
             selection={selection}
             scrollLeft={scrollLeft} />
           <PianoCursor
-            width={notesWidth}
+            width={width}
             height={contentHeight}
             position={cursorPosition - scrollLeft} />
           <PianoKeys

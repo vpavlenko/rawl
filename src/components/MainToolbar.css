@@ -1,9 +1,5 @@
-.Toolbar .section {
-  display: flex;
-  border-right: 1px solid var(--divider-color);
-  margin-right: 1em;
-  height: 100%;
-  padding-right: 1em;
+.Toolbar {
+  border-bottom: 1px solid var(--divider-color);
 }
 
 .Toolbar .song-name {

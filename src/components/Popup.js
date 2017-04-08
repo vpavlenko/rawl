@@ -1,6 +1,6 @@
-export default class PopupComponent {
+export default class Popup {
   constructor() {
-    this.elm = PopupComponent.renderElement()
+    this.elm = Popup.renderElement()
 
     this.elm.addEventListener("click", e => {
       if (e.target === this.elm) {
@@ -23,7 +23,7 @@ export default class PopupComponent {
 
   static render() {
     return `
-      <div class="popup-container">
+      <div class="Popup">
         <div class="content">
         </div>
       </div>

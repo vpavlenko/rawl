@@ -1,10 +1,11 @@
 import ReactDOM from "react-dom"
 import React, { Component } from "react"
 import SplitPane  from "react-split-pane"
+import fileDialog from "file-dialog"
 
 import SharedService from "../services/SharedService"
 import Track from "../model/Track"
-import PopupComponent from "./PopupComponent"
+import Popup from "./Popup"
 import Config from "../Config"
 
 import TrackList from "./TrackList"
@@ -17,6 +18,7 @@ import ArrangeView from "./ArrangeView"
 import Button from "./atoms/Button"
 import Icon from "./atoms/Icon"
 import { MenuBar, MenuItem, SubMenu } from "./molecules/MenuBar"
+import withSong from "../hocs/withSong"
 
 import {
   getGMMapIndexes,
@@ -24,6 +26,7 @@ import {
 } from "../midi/GM.js"
 
 import "./Resizer.css"
+import "./RootView.css"
 
 function Pane(props) {
   return <div style={{position: "relative", height: "100%"}}>
@@ -31,7 +34,7 @@ function Pane(props) {
   </div>
 }
 
-export default class RootView extends Component {
+class RootView extends Component {
   constructor(props) {
     super(props)
 
@@ -52,9 +55,33 @@ export default class RootView extends Component {
     return this.props.song && this.props.song.selectedTrack
   }
 
+  componentDidMount() {
+    this.initKeyboardShortcut()
+  }
+
+  initKeyboardShortcut() {
+    document.onkeydown = e => {
+      if (e.target != document.body) {
+        return
+      }
+      switch(e.keyCode) {
+        case 32: {
+          const { player } = this.props.app
+          if (player.isPlaying) {
+            player.stop()
+          } else {
+            player.play()
+          }
+          e.preventDefault()
+          break
+        }
+      }
+    }
+  }
+
   render() {
     const { props, state } = this
-    const { song } = props
+    const { song, app } = props
     const { selectedTrack, selectedTrackId } = song
     const { player, quantizer } = SharedService
 
@@ -64,12 +91,11 @@ export default class RootView extends Component {
       })
     }
 
-    const onChangeFile = (e) => {
-      const file = e.target.files[0]
+    const onChangeFile = (file) => {
       if (!file || (file.type != "audio/mid" && file.type != "audio/midi")) {
         return
       }
-      props.onChangeFile(file)
+      app.open(file)
     }
 
     const onClickKey = () => {
@@ -169,7 +195,7 @@ export default class RootView extends Component {
     }
 
     const onClickTrackInstrument = () => {
-      const popup = new PopupComponent()
+      const popup = new Popup()
       popup.show()
       const track = selectedTrack
       const events = track.findProgramChangeEvents()
@@ -246,7 +272,6 @@ export default class RootView extends Component {
       showLeftPane={state.showLeftPane}
       showRightPane={state.showRightPane}
       showPianoRoll={state.showPianoRoll}
-      onChangeFile={onChangeFile}
       onClickPencil={onClickPencil}
       onClickSelection={onClickSelection}
       onClickScaleUp={onClickScaleUp}
@@ -279,22 +304,19 @@ export default class RootView extends Component {
       })}
     />
 
-    const leftHeader =
-      <div className="left-header">
-        <label className="file">
-          <Icon>file</Icon>
-          <span className="song-name">{song && song.name}</span>
-          <input type="file" accept=".mid,.midi" onChange={onChangeFile} />
-        </label>
-        <Button onClick={props.onSaveFile}><span className="icon">&#xe63c;</span></Button>
-      </div>
-
     const menuBar =
       <MenuBar>
         <MenuItem title="File">
           <SubMenu>
-            <MenuItem title="Open" />
-            <MenuItem title="Save" />
+            <MenuItem title="Open" onClick={() => {
+              fileDialog({ accept: "audio/midi"})
+                .then(files => {
+                  onChangeFile(files[0])
+                })
+            }} />
+            <MenuItem title="Save" onClick={() => {
+              app.save()
+            }} />
           </SubMenu>
         </MenuItem>
         <MenuItem title="Edit">
@@ -303,49 +325,29 @@ export default class RootView extends Component {
             <MenuItem title="Redo" />
           </SubMenu>
         </MenuItem>
+        <MenuItem title={song && song.name} />
       </MenuBar>
 
-    return <div id="vertical">
-      <div className="flow-v">
-        {menuBar}
-        {toolbar}
-        <Pane split="vertical" minSize={200} defaultSize={265} maxSize={400}>
-          <div className="flow-v">
-            {leftHeader}
-            <TrackList
-              tracks={song && song.tracks || []}
-              selectedTrackId={selectedTrackId}
-              onSelectTrack={changeTrack}
-              onClickAddTrack={onClickAddTrack}
-              onClickMute={onClickMute}
-              onClickSolo={onClickSolo}
-            />
-            <div className="left-footer">
-
-            </div>
-          </div>
-          <div className="flow-v">
-            <Pane split="vertical" minSize="70%">
-              <div className="flow-v">
-                <TrackInfo
-                  track={selectedTrack}
-                  onChangeName={onChangeTrackName}
-                  onChangeVolume={onChangeTrackVolume}
-                  onChangePan={onChangeTrackPan}
-                  onClickInstrument={onClickTrackInstrument}
-                />
-                {state.showPianoRoll ? pianoRoll : <ArrangeView
-                  tracks={props.song && props.song.tracks || []}
-                 />}
-              </div>
-              <PropertyPane
-                notes={state.selectedEvents || []}
-                updateNotes={updateNotes}
-              />
-            </Pane>
-          </div>
-        </Pane>
-      </div>
+    return <div className="RootView">
+      {menuBar}
+      {toolbar}
+      <Pane split="vertical" minSize={200} defaultSize={265} maxSize={400}>
+        <TrackList
+          tracks={song && song.tracks || []}
+          selectedTrackId={selectedTrackId}
+          onSelectTrack={changeTrack}
+          onClickAddTrack={onClickAddTrack}
+          onClickMute={onClickMute}
+          onClickSolo={onClickSolo}
+          onChangeName={onChangeTrackName}
+          onChangeVolume={onChangeTrackVolume}
+          onChangePan={onChangeTrackPan}
+          onClickInstrument={onClickTrackInstrument}
+        />
+        {pianoRoll}
+      </Pane>
     </div>
   }
 }
+
+export default withSong(RootView)

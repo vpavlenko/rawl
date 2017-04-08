@@ -1,6 +1,8 @@
 import React, { Component } from "react"
 import { GMMap } from "../midi/GM"
 
+import "./InstrumentBrowser.css"
+
 function InstrumentBrowserContent({
   categories,
   instruments,
@@ -19,7 +21,7 @@ function InstrumentBrowserContent({
     return <option key={i}>{name}</option>
   })
 
-  return <div className="instrument-browser">
+  return <div className="InstrumentBrowser">
     <div className="container">
       <div className="left">
         <label>Categories</label>

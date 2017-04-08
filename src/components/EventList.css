@@ -1,0 +1,22 @@
+.EventList {
+  width: var(--side-width);
+  overflow: auto;
+  height: 100%;
+}
+
+.EventList table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.EventList th,
+.EventList td {
+  font-weight: normal;
+  border: 1px solid var(--divider-color);
+  border-right: none;
+  border-left: none;
+}
+
+.EventList td {
+  white-space: nowrap;
+}

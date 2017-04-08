@@ -42,7 +42,7 @@
 
 .Knob .dot {
   background: var(--theme-color);
-  width: 0.2em;
+  width: 0.1em;
   height: 0.4em;
   position: absolute;
   left: 50%;

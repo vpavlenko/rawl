@@ -3,17 +3,14 @@ import React, { Component } from "react"
 import SplitPane  from "react-split-pane"
 import fileDialog from "file-dialog"
 
-import SharedService from "../services/SharedService"
 import Track from "../model/Track"
 import Popup from "./Popup"
-import Config from "../Config"
 
 import TrackList from "./TrackList"
 import Toolbar from "./MainToolbar"
 import InstrumentBrowser from "./InstrumentBrowser"
 import PianoRoll from "./PianoRoll"
 import { MenuBar, MenuItem, SubMenu } from "./molecules/MenuBar"
-import withSong from "../hocs/withSong"
 
 import {
   getGMMapIndexes,
@@ -29,7 +26,7 @@ function Pane(props) {
   </div>
 }
 
-class RootView extends Component {
+export default class RootView extends Component {
   constructor(props) {
     super(props)
 
@@ -38,11 +35,7 @@ class RootView extends Component {
       pianoRollScaleX: 1,
       pianoRollScaleY: 1,
       pianoRollAutoScroll: true,
-      quantize: SharedService.quantizer.denominator,
-      showLeftPane: true,
-      showRightPane: true,
-      showEventList: false,
-      showPianoRoll: true
+      quantize: props.quantizer.denominator
     }
   }
 
@@ -61,7 +54,7 @@ class RootView extends Component {
       }
       switch(e.keyCode) {
         case 32: {
-          const { player } = this.props.app
+          const { player } = this.props
           if (player.isPlaying) {
             player.stop()
           } else {
@@ -76,15 +69,14 @@ class RootView extends Component {
 
   render() {
     const { props, state } = this
-    const { song, app } = props
+    const { song, player, quantizer, openFile, saveFile } = props
     const { selectedTrack, selectedTrackId } = song
-    const { player, quantizer } = SharedService
 
     const onChangeFile = (file) => {
       if (!file || (file.type != "audio/mid" && file.type != "audio/midi")) {
         return
       }
-      app.open(file)
+      openFile(file)
     }
 
     const onClickKey = () => {
@@ -130,27 +122,6 @@ class RootView extends Component {
       })
     }
 
-    const onClickPlay = () => {
-      player.play()
-    }
-
-    const onClickStop = () => {
-      if (player.isPlaying) {
-        player.stop()
-      } else {
-        player.stop()
-        player.position = 0
-      }
-    }
-
-    const onClickBackward = () => {
-      player.position -= Config.TIME_BASE * 4
-    }
-
-    const onClickForward = () => {
-      player.position += Config.TIME_BASE * 4
-    }
-
     const onClickAutoScroll = () => {
       this.setState({
         pianoRollAutoScroll: !state.pianoRollAutoScroll
@@ -171,10 +142,11 @@ class RootView extends Component {
       track.pan = value
     }
 
-    const onClickTrackInstrument = () => {
+    const onClickTrackInstrument = trackId => {
+      const track = song.getTrack(trackId)
       const popup = new Popup()
       popup.show()
-      const track = selectedTrack
+
       const programNumber = track.programNumber
       const ids = getGMMapIndexes(programNumber)
 
@@ -210,30 +182,13 @@ class RootView extends Component {
       })
     }
 
-    const onClickShowLeftPane = () => {
-      this.setState({
-        showLeftPane: !state.showLeftPane
-      })
-    }
-
-    const onClickShowRightPane = () => {
-      this.setState({
-        showRightPane: !state.showRightPane
-      })
-    }
-
-    const onClickShowPianoRoll = () => {
-      this.setState({
-        showPianoRoll: !state.showPianoRoll
-      })
-    }
-
     const changeTrack = (id) => {
       song.selectTrack(id)
     }
 
     const toolbar = <Toolbar
       song={props.song}
+      player={player}
       quantize={state.quantize}
       mouseMode={state.pianoRollMouseMode}
       autoScroll={state.pianoRollAutoScroll}
@@ -246,14 +201,7 @@ class RootView extends Component {
       onClickScaleUp={onClickScaleUp}
       onClickScaleDown={onClickScaleDown}
       onSelectQuantize={onSelectQuantize}
-      onClickPlay={onClickPlay}
-      onClickStop={onClickStop}
-      onClickBackward={onClickBackward}
-      onClickForward={onClickForward}
       onClickAutoScroll={onClickAutoScroll}
-      onClickShowLeftPane={onClickShowLeftPane}
-      onClickShowRightPane={onClickShowRightPane}
-      onClickShowPianoRoll={onClickShowPianoRoll}
     />
 
     const pianoRoll = <PianoRoll
@@ -284,7 +232,7 @@ class RootView extends Component {
                 })
             }} />
             <MenuItem title="Save" onClick={() => {
-              app.save()
+              saveFile()
             }} />
           </SubMenu>
         </MenuItem>
@@ -299,6 +247,7 @@ class RootView extends Component {
 
     const trackList =
       <TrackList
+        player={player}
         tracks={song && song.tracks || []}
         selectedTrackId={selectedTrackId}
         onSelectTrack={changeTrack}
@@ -321,5 +270,3 @@ class RootView extends Component {
     </div>
   }
 }
-
-export default withSong(RootView)

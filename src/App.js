@@ -1,7 +1,6 @@
 import observable from "riot-observable"
 import Player from "./services/Player"
 import Quantizer from "./services/Quantizer"
-import SharedService from "./services/SharedService"
 import Song from "./model/Song"
 import Config from "./Config"
 import Downloader from "./helpers/Downloader"
@@ -12,10 +11,7 @@ export default class App {
   constructor() {
     observable(this)
     this._player = new Player(Config.TIME_BASE)
-    SharedService.player = this._player
-
     this._quantizer = new Quantizer(Config.TIME_BASE)
-    SharedService.quantizer = this._quantizer
 
     this.newSong()
   }

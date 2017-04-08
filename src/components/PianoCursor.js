@@ -26,7 +26,7 @@ function PianoCursor({
     ctx.clearRect(0, 0, width, height)
     ctx.save()
     ctx.translate(0.5, 0)
-    drawCursor(ctx, Math.floor(position), height)
+    drawCursor(ctx, Math.round(position), height)
     ctx.restore()
   }
 

@@ -11,7 +11,7 @@ function drawRuler(ctx, height, pixelsPerTick, startTick, endTick, ticksPerBeat,
   const endBeat = Math.floor(endTick / ticksPerBeat)
 
   for (let beats = startBeat; beats < endBeat; beats++) {
-    const x = beats * ticksPerBeat * pixelsPerTick
+    const x = Math.round(beats * ticksPerBeat * pixelsPerTick)
     const isTop = beats % 4 == 0
 
     if (isTop) {

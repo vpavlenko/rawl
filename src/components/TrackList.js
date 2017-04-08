@@ -1,5 +1,4 @@
 import React, { Component } from "react"
-import SharedService from "../services/SharedService"
 import Icon from "./atoms/Icon"
 import Slider from "./atoms/Slider"
 import Knob from "./atoms/Knob"
@@ -19,51 +18,24 @@ function TrackListItem({
   onClickSolo = Nop,
   onClickMute = Nop,
   onChangePan = Nop,
-  onChangeVolume = Nop
+  onChangeVolume = Nop,
+  onClickInstrument = Nop
 }) {
-  function _onClick(e) {
-    e.stopPropagation()
-    onClick()
-  }
-  function _onDoubleClickName(e) {
-    e.stopPropagation()
-    onDoubleClickName()
-  }
-  function _onClickSolo(e) {
-    e.stopPropagation()
-    onClickSolo()
-  }
-  function _onClickMute(e) {
-    e.stopPropagation()
-    onClickMute()
-  }
-  function _onClickInstrument() {
-    // TODO: open instrument browser
-  }
-  function _onChangeVolume(e) {
-    e.stopPropagation()
-    onChangeVolume(e.target.value)
-  }
-  function _onChangePan(e) {
-    e.stopPropagation()
-    onChangePan(e.target.value)
-  }
-
   return <div
     className={`TrackListItem ${selected ? "selected" : ""}`}
-    onClick={_onClick}>
-    <div className="name" onDoubleClick={_onDoubleClickName}>{name}</div>
+    onClick={onClick}>
+    <div className="name" onDoubleClick={onDoubleClickName}>{name}</div>
     <div className="controls">
-      <div className="button" onClick={_onClickInstrument}><Icon>piano</Icon></div>
-      <div className="button" onClick={_onClickSolo}><Icon>headphones</Icon></div>
-      <div className="button" onClick={_onClickMute}><Icon>{mute ? "volume-off" : "volume-high"}</Icon></div>
+      <div className="button" onClick={onClickInstrument}><Icon>piano</Icon></div>
+      <div className="button" onClick={onClickSolo}><Icon>headphones</Icon></div>
+      <div className="button" onClick={onClickMute}><Icon>{mute ? "volume-off" : "volume-high"}</Icon></div>
       <Slider
-        onChange={_onChangeVolume}
+        onChange={e => onChangeVolume(e.target.value)}
         maxValue={127}
         value={volume} />
       <Knob
         value={pan}
-        onChange={_onChangePan}
+        onChange={e => onChangePan(e.target.value)}
         minValue={0}
         maxValue={127}
         offsetDegree={-140}
@@ -81,7 +53,8 @@ function TrackListContent({
   onClickMute,
   onClickAddTrack,
   onChangeVolume,
-  onChangePan
+  onChangePan,
+  onClickInstrument
 }) {
   const items = tracks
     .map((t, i) => {
@@ -97,7 +70,8 @@ function TrackListContent({
         onClickSolo={() => onClickSolo(i)}
         onClickMute={() => onClickMute(i)}
         onChangeVolume={v => onChangeVolume(i, v)}
-        onChangePan={v => onChangePan(i, v)} />
+        onChangePan={v => onChangePan(i, v)}
+        onClickInstrument={() => onClickInstrument(i)} />
     })
 
   return <div className="TrackList">
@@ -116,8 +90,9 @@ export default class TrackList extends Component {
   }
 
   componentDidMount() {
-    SharedService.player.on("change-mute", () => {
-      const channelMutes = this.props.tracks.map((t, i) => SharedService.player.isChannelMuted(i))
+    const { player, tracks } = this.props
+    player.on("change-mute", () => {
+      const channelMutes = tracks.map((t, i) => player.isChannelMuted(i))
       this.setState({ channelMutes })
     })
   }

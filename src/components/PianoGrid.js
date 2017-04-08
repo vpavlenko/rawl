@@ -12,7 +12,7 @@ function drawBeatLines(ctx, transform, startTick, endTick, ticksPerBeat, theme) 
   const endBeat = Math.floor(endTick / ticksPerBeat)
 
   for (let beats = startBeat; beats < endBeat; beats++) {
-    const x = beats * ticksPerBeat * pixelsPerTick
+    const x = Math.round(beats * ticksPerBeat * pixelsPerTick)
     const isBold = beats % 4 === 0
     ctx.beginPath()
     ctx.strokeStyle = isBold ? theme.secondaryTextColor : theme.dividerColor

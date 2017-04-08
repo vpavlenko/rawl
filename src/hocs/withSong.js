@@ -1,16 +1,16 @@
 import React, { Component } from "react"
 
-export default function withSong(WrappedComponent) {
+export default function withSong(app, WrappedComponent) {
   return class extends Component {
     constructor(props) {
       super(props)
 
-      const { song } = props.app
+      const { song } = app
       this.state = { song }
-      props.app.song.on("change", () => {
+      song.on("change", () => {
         this.setState({ song })
       })
-      props.app.on("change-song", song => {
+      app.on("change-song", song => {
         this.setSong(song)
       })
     }

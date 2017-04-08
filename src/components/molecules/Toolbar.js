@@ -17,10 +17,12 @@ export function ToolbarItem({
   children,
   className,
   selected,
+  onClick,
   touchDisabled
 }) {
   return <div
-    className={f("ToolbarItem", className, selected && "selected", touchDisabled && "touch-disabled")}>
+    className={f("ToolbarItem", className, selected && "selected", touchDisabled && "touch-disabled")}
+    onClick={onClick}>
     {children}
   </div>
 }

@@ -1,6 +1,5 @@
 import React, { Component } from "react"
 import Config from "../Config"
-import SharedService from "../services/SharedService"
 import Select from "./atoms/Select"
 import Icon from "./atoms/Icon"
 import { Toolbar, ToolbarItem, ToolbarSeparator } from "./molecules/Toolbar"
@@ -17,7 +16,7 @@ export default class MainToolbar extends Component {
   }
 
   componentDidMount() {
-    const player = SharedService.player
+    const { player } = this.props
     player.on("change-tempo", tempo => {
       this.setState({tempo: new Number(tempo).toFixed(3)})
     })
@@ -30,11 +29,31 @@ export default class MainToolbar extends Component {
 
   render() {
     const props = this.props
-    const { song, tempo } = this.props
+    const { song, tempo, player } = this.props
 
-    const player = SharedService.player
     const mbtTime = song && song.measureList.getMBTString(player.position, player.timebase)
     const quantizeOptions = Config.QuantizeOptions
+
+    const onClickPlay = () => {
+      player.play()
+    }
+
+    const onClickStop = () => {
+      if (player.isPlaying) {
+        player.stop()
+      } else {
+        player.stop()
+        player.position = 0
+      }
+    }
+
+    const onClickBackward = () => {
+      player.position -= Config.TIME_BASE * 4
+    }
+
+    const onClickForward = () => {
+      player.position += Config.TIME_BASE * 4
+    }
 
     return <Toolbar>
       <ToolbarItem className="time-section">
@@ -44,17 +63,22 @@ export default class MainToolbar extends Component {
 
       <ToolbarSeparator />
 
-      <ToolbarItem onClick={props.onClickBackward}><Icon>skip-backward</Icon></ToolbarItem>
-      <ToolbarItem onClick={props.onClickStop}><Icon>stop</Icon></ToolbarItem>
-      <ToolbarItem onClick={props.onClickPlay}><Icon>play</Icon></ToolbarItem>
-      <ToolbarItem onClick={props.onClickForward}><Icon>skip-forward</Icon></ToolbarItem>
+      <ToolbarItem onClick={onClickBackward}><Icon>skip-backward</Icon></ToolbarItem>
+      <ToolbarItem onClick={onClickStop}><Icon>stop</Icon></ToolbarItem>
+      <ToolbarItem onClick={onClickPlay}><Icon>play</Icon></ToolbarItem>
+      <ToolbarItem onClick={onClickForward}><Icon>skip-forward</Icon></ToolbarItem>
       <ToolbarItem onClick={props.onClickAutoScroll} selected={props.autoScroll}><Icon>pin</Icon></ToolbarItem>
 
       <ToolbarSeparator />
 
       <ToolbarItem onClick={props.onClickPencil} selected={props.mouseMode == 0}><Icon>pencil</Icon></ToolbarItem>
       <ToolbarItem onClick={props.onClickSelection} selected={props.mouseMode == 1}><Icon>select</Icon></ToolbarItem>
-      <ToolbarItem><Select onChange={props.onSelectQuantize} options={quantizeOptions} value={props.quantize} /></ToolbarItem>
+      <ToolbarItem>
+        <Select
+          options={quantizeOptions}
+          value={props.quantize}
+          onChange={v => props.onSelectQuantize(parseFloat(v))} />
+      </ToolbarItem>
 
       <ToolbarSeparator />
 

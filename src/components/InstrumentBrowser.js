@@ -68,6 +68,7 @@ export default class InstrumentBrowser extends Component {
     }
 
     const onChangeInstrument = e => {
+      // TODO: play note (一時的に program change する)
       this.setState({
         selectedInstrumentId: e.target.selectedIndex
       })

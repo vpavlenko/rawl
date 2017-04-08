@@ -125,10 +125,10 @@ class PianoRoll extends Component {
       onClickRuler,
       onClickKey,
       ticksPerBeat,
-      denominator,
       endTick,
       mouseMode,
-      player
+      player,
+      quantizer
     } = this.props
 
     const {
@@ -142,7 +142,6 @@ class PianoRoll extends Component {
 
     const { keyWidth, rulerHeight, controlHeight } = theme
 
-    const quantizer = new Quantizer(ticksPerBeat, denominator)
     const transform = this.getTransform()
     const widthTick = Math.max(endTick, transform.getTicks(width))
 
@@ -240,7 +239,6 @@ PianoRoll.propTypes = {
   scaleX: PropTypes.number.isRequired,
   scaleY: PropTypes.number.isRequired,
   ticksPerBeat: PropTypes.number.isRequired,
-  denominator: PropTypes.number.isRequired,
   autoScroll: PropTypes.bool.isRequired,
   onClickRuler: PropTypes.func.isRequired,
   onClickKey: PropTypes.func.isRequired,
@@ -252,8 +250,7 @@ PianoRoll.defaultProps = {
   scaleX: 1,
   scaleY: 1,
   autoScroll: false,
-  ticksPerBeat: 480,
-  denominator: 4
+  ticksPerBeat: 480
 }
 
 export default withTheme(PianoRoll)

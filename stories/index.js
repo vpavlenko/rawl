@@ -76,6 +76,10 @@ storiesOf("atoms", module)
     const SliderWrapper = wrapControl(Slider)
     return <SliderWrapper />
   })
+  .add("Slider with maxValue", () => {
+    const SliderWrapper = wrapControl(Slider)
+    return <SliderWrapper maxValue={280} />
+  })
   .add("Knob", () => {
     const KnobWrapper = wrapControl(Knob)
     return <KnobWrapper />

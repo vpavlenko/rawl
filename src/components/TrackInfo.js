@@ -14,10 +14,10 @@ export default function TrackInfoContent({
   const volumeEvent = track && track.findVolumeEvents()[0]
   const panEvent = track && track.findPanEvents()[0]
   const fields = {
-    name: track && track.getName(),
-    instrument: programChangeEvent ? getInstrumentName(programChangeEvent.value) : "",
-    volume: volumeEvent ? volumeEvent.value : "",
-    pan: panEvent ? panEvent.value : ""
+    name: track.getName(),
+    instrument: getInstrumentName(track.programNumber),
+    volume: track.volume,
+    pan: track.pan
   }
   return <div className="TrackInfo">
     <ul>

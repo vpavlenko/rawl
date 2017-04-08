@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import coarsify from "../../helpers/coarsify"
 
 import "./Knob.css"
 
@@ -9,13 +10,6 @@ const MAX_VALUE_MOVE_LENGTH = 150
 const WHEEL_SPEED = 0.1
 
 const Nop = () => {}
-
-// 100 段階になるように精度を落とす
-function coarsify(val, min = 0, max = 1) {
-  const range = max - min
-  const scale = 100 / range
-  return Math.min(max, Math.max(min, Math.round(val * scale) / scale))
-}
 
 function Knob_({
   value = 0,

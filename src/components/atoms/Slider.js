@@ -1,14 +1,21 @@
-import React from "react"
+import React, { Component } from "react"
+import coarsify from "../../helpers/coarsify"
 
 import "./Slider.css"
 
-export default function Slider({ value = 0, onChange = () => {} }) {
+function Slider_({
+  value = 0,
+  maxValue = 1,
+  onChange = () => {},
+  dragging = false,
+  setDragging = Nop
+}) {
   let rect
-  
+
   function calcValue(e) {
     const localX = e.clientX - rect.left
-    const val = localX / rect.width
-    return Math.min(1, Math.max(0, Math.round(val * 100) / 100)) // 100 段階になるように精度を落とす
+    const val = localX / rect.width * maxValue
+    return coarsify(val, 0, maxValue) // 100 段階になるように精度を落とす
   }
 
   function onMouseDown(e) {
@@ -19,6 +26,7 @@ export default function Slider({ value = 0, onChange = () => {} }) {
     // ドキュメント全体のイベントを取る
     document.addEventListener("mousemove", onMouseMove)
     document.addEventListener("mouseup", onMouseUp)
+    setDragging(true)
 
     function onMouseMove(e) {
       e.target.value = calcValue(e)
@@ -28,6 +36,7 @@ export default function Slider({ value = 0, onChange = () => {} }) {
     function onMouseUp(e) {
       document.removeEventListener("mousemove", onMouseMove)
       document.removeEventListener("mouseup", onMouseUp)
+      setDragging(false)
     }
   }
 
@@ -36,10 +45,36 @@ export default function Slider({ value = 0, onChange = () => {} }) {
   }
 
   const handleWidth = "1em"
-  return <div className="Slider"
+  return <div
+    className={`Slider ${dragging ? "dragging" : ""}`}
     onMouseDown={onMouseDown}>
-    <div className="guide-left" style={{ width: p(value) }}/>
-    <div className="guide-right" style={{ left: p(value), width: p(1 - value) }}/>
-    <div className="handle" style={{ left: `calc((100% - ${handleWidth}) * ${value})` }}/>
+    <div className="guide-left" style={{
+      width: p(value / maxValue)
+    }}/>
+    <div className="guide-right" style={{
+      left: p(value / maxValue),
+      width: p(1 - value / maxValue)
+    }}/>
+    <div className="handle" style={{
+      left: `calc((100% - ${handleWidth}) * ${value / maxValue})`
+    }}/>
+    <div className="value">{value}</div>
   </div>
+}
+
+export default class Slider extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      dragging: false
+    }
+  }
+
+  render() {
+    return <Slider_
+      {...this.props}
+      {...this.state}
+      setDragging={dragging => this.setState({ dragging })}
+    />
+  }
 }

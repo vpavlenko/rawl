@@ -33,7 +33,7 @@ export default class MainToolbar extends Component {
     const props = this.props
     const { song, tempo } = this.props
     const trackOptions = song ? song.tracks.map((t, i) => { return {
-      name: `${i}. ${t.getName() || ""}`,
+      name: `${i}. ${t.name || ""}`,
       value: i
     }}) : []
 

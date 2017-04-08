@@ -172,38 +172,21 @@ class RootView extends Component {
       selectedTrack.setName(e.target.value)
     }
 
-    const onChangeTrackVolume = (e) => {
-      const track = selectedTrack
-      const events = track.findVolumeEvents()
-      if (events.length == 0) {
-        return
-      }
-      track.updateEvent(events[0].id, {
-        value: e.target.value
-      })
+    const onChangeTrackVolume = (trackId, value) => {
+      const track = song.getTrack(trackId)
+      track.volume = value
     }
 
-    const onChangeTrackPan = (e) => {
-      const track = selectedTrack
-      const events = track.findPanEvents()
-      if (events.length == 0) {
-        return
-      }
-      track.updateEvent(events[0].id, {
-        value: e.target.value
-      })
+    const onChangeTrackPan = (trackId, value) => {
+      const track = song.getTrack(trackId)
+      track.pan = value
     }
 
     const onClickTrackInstrument = () => {
       const popup = new Popup()
       popup.show()
       const track = selectedTrack
-      const events = track.findProgramChangeEvents()
-      if (events.length == 0) {
-        return
-      }
-
-      const programNumber = events[0].value
+      const programNumber = track.programNumber
       const ids = getGMMapIndexes(programNumber)
 
       ReactDOM.render(<InstrumentBrowser
@@ -215,10 +198,7 @@ class RootView extends Component {
         }}
 
         onClickOK={(e) => {
-          const programNumber = getGMMapProgramNumber(e.categoryId, e.instrumentId)
-          track.updateEvent(events[0].id, {
-            value: programNumber
-          })
+          track.programNumber = getGMMapProgramNumber(e.categoryId, e.instrumentId)
           popup.close()
         }}
       />, popup.getContentElement())
@@ -328,22 +308,25 @@ class RootView extends Component {
         <MenuItem title={song && song.name} />
       </MenuBar>
 
+    const trackList =
+      <TrackList
+        tracks={song && song.tracks || []}
+        selectedTrackId={selectedTrackId}
+        onSelectTrack={changeTrack}
+        onClickAddTrack={onClickAddTrack}
+        onClickMute={onClickMute}
+        onClickSolo={onClickSolo}
+        onChangeName={onChangeTrackName}
+        onChangeVolume={onChangeTrackVolume}
+        onChangePan={onChangeTrackPan}
+        onClickInstrument={onClickTrackInstrument}
+      />
+
     return <div className="RootView">
       {menuBar}
       {toolbar}
       <Pane split="vertical" minSize={200} defaultSize={265} maxSize={400}>
-        <TrackList
-          tracks={song && song.tracks || []}
-          selectedTrackId={selectedTrackId}
-          onSelectTrack={changeTrack}
-          onClickAddTrack={onClickAddTrack}
-          onClickMute={onClickMute}
-          onClickSolo={onClickSolo}
-          onChangeName={onChangeTrackName}
-          onChangeVolume={onChangeTrackVolume}
-          onChangePan={onChangeTrackPan}
-          onClickInstrument={onClickTrackInstrument}
-        />
+        {trackList}
         {pianoRoll}
       </Pane>
     </div>

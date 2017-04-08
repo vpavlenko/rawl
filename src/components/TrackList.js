@@ -9,45 +9,64 @@ import "./TrackList.css"
 const Nop = () => {}
 
 function TrackListItem({
-  track,
+  name = "",
+  mute = false,
+  selected = false,
+  volume = 0,
+  pan = 0,
   onClick = Nop,
   onDoubleClickName = Nop,
   onClickSolo = Nop,
-  onClickMute = Nop
+  onClickMute = Nop,
+  onChangePan = Nop,
+  onChangeVolume = Nop
 }) {
   function _onClick(e) {
     e.stopPropagation()
-    onClick(track.trackId)
+    onClick()
   }
   function _onDoubleClickName(e) {
     e.stopPropagation()
-    onDoubleClickName(track.trackId)
+    onDoubleClickName()
   }
   function _onClickSolo(e) {
     e.stopPropagation()
-    onClickSolo(track.trackId)
+    onClickSolo()
   }
   function _onClickMute(e) {
     e.stopPropagation()
-    onClickMute(track.trackId)
+    onClickMute()
   }
   function _onClickInstrument(e) {
     // TODO: open instrument browser
   }
+  function _onChangeVolume(e) {
+    e.stopPropagation()
+    onChangeVolume(e.target.value)
+  }
+  function _onChangePan(e) {
+    e.stopPropagation()
+    onChangePan(e.target.value)
+  }
 
   return <div
-    className={`TrackListItem ${track.selected ? "selected" : ""}`}
+    className={`TrackListItem ${selected ? "selected" : ""}`}
     onClick={_onClick}>
-    <div className="name" onDoubleClick={_onDoubleClickName}>{track.name}</div>
+    <div className="name" onDoubleClick={_onDoubleClickName}>{name}</div>
     <div className="controls">
       <div className="button" onClick={_onClickInstrument}><Icon>piano</Icon></div>
       <div className="button" onClick={_onClickSolo}><Icon>headphones</Icon></div>
-      <div className="button" onClick={_onClickMute}><Icon>{track.mute ? "volume-off" : "volume-high"}</Icon></div>
-      <Slider />
+      <div className="button" onClick={_onClickMute}><Icon>{mute ? "volume-off" : "volume-high"}</Icon></div>
+      <Slider
+        onChange={_onChangeVolume}
+        maxValue={127}
+        value={volume} />
       <Knob
-        minValue={-100}
-        maxValue={100}
-        offsetDegree={0}
+        value={pan}
+        onChange={_onChangePan}
+        minValue={0}
+        maxValue={127}
+        offsetDegree={-140}
         maxDegree={280} />
     </div>
   </div>
@@ -60,21 +79,26 @@ function TrackListContent({
   onSelectTrack,
   onClickSolo,
   onClickMute,
-  onClickAddTrack
+  onClickAddTrack,
+  onChangeVolume,
+  onChangePan
 }) {
   const items = tracks
-    .map((t, i) => ({
-      name: t.getName() || `Track ${t.channel}`, // TODO: show instrument name by default
-      mute: channelMutes[t.channel],
-      selected: i == selectedTrackId,
-      trackId: i
-    }))
-    .map(t => <TrackListItem
-      key={t.trackId}
-      track={t}
-      onClick={onSelectTrack}
-      onClickSolo={onClickSolo}
-      onClickMute={onClickMute} />)
+    .map((t, i) => {
+      return <TrackListItem
+        key={i}
+        name={t.displayName || `Track ${t.channel}`}
+        mute={channelMutes[t.channel]}
+        selected={i === selectedTrackId}
+        trackId={i}
+        volume={t.volume}
+        pan={t.pan}
+        onClick={() => onSelectTrack(i)}
+        onClickSolo={() => onClickSolo(i)}
+        onClickMute={() => onClickMute(i)}
+        onChangeVolume={v => onChangeVolume(i, v)}
+        onChangePan={v => onChangePan(i, v)} />
+    })
 
   return <div className="TrackList">
     {items}

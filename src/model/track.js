@@ -6,24 +6,18 @@ import {
   PitchBendMidiEvent, VolumeMidiEvent,
   PanMidiEvent, ExpressionMidiEvent,
   ModulationMidiEvent, ProgramChangeMidiEvent } from "../midi/midievent"
+import { getInstrumentName } from "../midi/GM"
+
+function lastValue(arr, prop) {
+  const last = _.last(arr)
+  return last && last[prop]
+}
 
 export default class Track {
   constructor() {
     this.events = []
     this.lastEventId = 0
     observable(this)
-  }
-
-  setName(name) {
-    const e = this.findTrackNameEvent()
-    this.updateEvent(e.id, {
-      value: name
-    })
-  }
-
-  getName() {
-    const e = this.findTrackNameEvent()
-    return e && e.text || ""
   }
 
   getEvents() {
@@ -90,13 +84,10 @@ export default class Track {
   }
 
   updateEndOfTrack() {
-    const eot = this.findEndOfTrackEvent()
-    if (eot) {
-      eot.tick = _.chain(this.events)
-        .map(e => e.tick + (e.duration || 0))
-        .max()
-        .value()
-    }
+    this.endOfTrack = _.chain(this.events)
+      .map(e => e.tick + (e.duration || 0))
+      .max()
+      .value()
   }
 
   transaction(func) {
@@ -118,24 +109,82 @@ export default class Track {
 
   /* helper */
 
-  findTrackNameEvent() {
-    return _.head(this.events.filter(t => t.subtype == "trackName"))
+  _findTrackNameEvent() {
+    return this.events.filter(t => t.subtype == "trackName")
   }
 
-  findProgramChangeEvents() {
+  _findProgramChangeEvents() {
     return this.events.filter(t => t.subtype == "programChange")
   }
 
-  findEndOfTrackEvent() {
-    return _.head(this.events.filter(t => t.subtype == "endOfTrack"))
+  _findEndOfTrackEvents() {
+    return this.events.filter(t => t.subtype == "endOfTrack")
   }
 
-  findVolumeEvents() {
+  _findVolumeEvents() {
     return this.events.filter(t => t.subtype == "controller" && t.controllerType == 7)
   }
 
-  findPanEvents() {
+  _findPanEvents() {
     return this.events.filter(t => t.subtype == "controller" && t.controllerType == 10)
+  }
+
+  _updateLast(arr, obj) {
+    if (arr.length > 0) {
+      this.updateEvent(_.last(arr).id, obj)
+    }
+  }
+
+  // 表示用の名前 トラック名がなければ楽器名を表示する
+  get displayName() {
+    if (this.name && this.name.length > 0) {
+      return this.name
+    }
+    const program = this.programNumber
+    if (program !== undefined) {
+      return getInstrumentName(program)
+    }
+    return undefined
+  }
+
+  get name() {
+    return lastValue(this._findTrackNameEvent(), "text")
+  }
+
+  set name(value) {
+    this._updateLast(this._findTrackNameEvent(), { value })
+  }
+
+  get volume() {
+    return lastValue(this._findVolumeEvents(), "value")
+  }
+
+  set volume(value) {
+    this._updateLast(this._findVolumeEvents(), { value })
+  }
+
+  get pan() {
+    return lastValue(this._findPanEvents(), "value")
+  }
+
+  set pan(value) {
+    this._updateLast(this._findPanEvents(), { value })
+  }
+
+  get endOfTrack() {
+    return lastValue(this._findEndOfTrackEvents(), "tick")
+  }
+
+  set endOfTrack(tick) {
+    this._updateLast(this._findEndOfTrackEvents(), { tick })
+  }
+
+  get programNumber() {
+    return lastValue(this._findProgramChangeEvents(), "value")
+  }
+
+  set programNumber(value) {
+    this._updateLast(this._findProgramChangeEvents(), { value })
   }
 
   static conductorTrack(name = "Conductor Track") {

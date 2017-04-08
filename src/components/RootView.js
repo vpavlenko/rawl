@@ -9,14 +9,9 @@ import Popup from "./Popup"
 import Config from "../Config"
 
 import TrackList from "./TrackList"
-import TrackInfo from "./TrackInfo"
 import Toolbar from "./MainToolbar"
 import InstrumentBrowser from "./InstrumentBrowser"
-import PropertyPane from "./PropertyPane"
 import PianoRoll from "./PianoRoll"
-import ArrangeView from "./ArrangeView"
-import Button from "./atoms/Button"
-import Icon from "./atoms/Icon"
 import { MenuBar, MenuItem, SubMenu } from "./molecules/MenuBar"
 import withSong from "../hocs/withSong"
 
@@ -84,12 +79,6 @@ class RootView extends Component {
     const { song, app } = props
     const { selectedTrack, selectedTrackId } = song
     const { player, quantizer } = SharedService
-
-    const updateNotes = (changes) => {
-      selectedTrack.transaction(it => {
-        changes.forEach(c => it.updateEvent(c.id, c))
-      })
-    }
 
     const onChangeFile = (file) => {
       if (!file || (file.type != "audio/mid" && file.type != "audio/midi")) {

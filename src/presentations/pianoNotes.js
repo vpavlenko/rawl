@@ -1,5 +1,3 @@
-import _ from "lodash"
-
 /**
 
   [{ id, x, y, width, height, selected, velocity }, ...]

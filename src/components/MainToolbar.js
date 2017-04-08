@@ -2,7 +2,6 @@ import React, { Component } from "react"
 import Config from "../Config"
 import SharedService from "../services/SharedService"
 import Select from "./atoms/Select"
-import Button from "./atoms/Button"
 import Icon from "./atoms/Icon"
 import { Toolbar, ToolbarItem, ToolbarSeparator } from "./molecules/Toolbar"
 
@@ -32,10 +31,6 @@ export default class MainToolbar extends Component {
   render() {
     const props = this.props
     const { song, tempo } = this.props
-    const trackOptions = song ? song.tracks.map((t, i) => { return {
-      name: `${i}. ${t.name || ""}`,
-      value: i
-    }}) : []
 
     const player = SharedService.player
     const mbtTime = song && song.measureList.getMBTString(player.position, player.timebase)

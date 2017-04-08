@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React from "react"
 import { getInstrumentName } from "../midi/GM"
 
 import "./TrackInfo.css"
@@ -10,9 +10,6 @@ export default function TrackInfoContent({
   onChangeVolume,
   onChangePan
 }) {
-  const programChangeEvent = track && track.findProgramChangeEvents()[0]
-  const volumeEvent = track && track.findVolumeEvents()[0]
-  const panEvent = track && track.findPanEvents()[0]
   const fields = {
     name: track.getName(),
     instrument: getInstrumentName(track.programNumber),

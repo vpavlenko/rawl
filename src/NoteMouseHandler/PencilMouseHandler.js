@@ -1,5 +1,3 @@
-import _ from "lodash"
-import SharedService from "../services/SharedService"
 import NoteMouseHandler from "./NoteMouseHandler"
 import { pointSub, pointAdd } from "../helpers/point"
 import pencilImage from "../images/iconmonstr-pencil-14-16.png"
@@ -13,8 +11,7 @@ export default class PencilMouseHandler extends NoteMouseHandler {
 
     const n = this.noteController
     if (!n) {
-      console.error("this.noteController をセットすること")
-      return null
+      throw new Error("this.noteController をセットすること")
     }
 
     if (e.nativeEvent.button !== 0) {
@@ -48,11 +45,9 @@ export default class PencilMouseHandler extends NoteMouseHandler {
 }
 
 export const createNoteAction = (createNote, moveNote) => (onMouseDown, onMouseMove) => {
-  let startPosition
   let noteId
 
   onMouseDown(e => {
-    startPosition = e.local
     noteId = createNote(e.local)
   })
 
@@ -89,7 +84,6 @@ const moveNoteAction = moveNoteCenter => (onMouseDown, onMouseMove) => {
 }
 
 const dragLeftNoteAction = resizeLeft => (onMouseDown, onMouseMove) => {
-  let startPosition
   let noteId
 
   onMouseDown(e => {

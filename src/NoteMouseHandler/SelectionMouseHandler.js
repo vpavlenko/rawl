@@ -1,7 +1,5 @@
-import _ from "lodash"
-import MouseHandler, { defaultActionFactory } from "./NoteMouseHandler"
+import MouseHandler from "./NoteMouseHandler"
 import { pointSub, pointAdd } from "../helpers/point"
-import { createNoteAction } from "./PencilMouseHandler"
 
 export default class SelectionMouseHandler extends MouseHandler {
   actionForMouseDown(e) {
@@ -16,8 +14,7 @@ export default class SelectionMouseHandler extends MouseHandler {
 
     const c = this.selectionController
     if (!c) {
-      console.error("this.selectionController をセットすること")
-      return null
+      throw new Error("this.selectionController をセットすること")
     }
 
     if (e.relatedTarget) {
@@ -34,9 +31,6 @@ export default class SelectionMouseHandler extends MouseHandler {
       case "outside": break
     }
 
-    // if (e.nativeEvent.detail == 2) {
-    //   return createNoteAction(ctx)
-    // }
     return createSelectionAction(
       p => c.startAt(p),
       p => c.resize(p),
@@ -46,8 +40,7 @@ export default class SelectionMouseHandler extends MouseHandler {
   getCursor(e) {
     const c = this.selectionController
     if (!c) {
-      console.error("this.selectionController をセットすること")
-      return "auto"
+      throw new Error("this.selectionController をセットすること")
     }
 
     const type = c.positionType(e.local)

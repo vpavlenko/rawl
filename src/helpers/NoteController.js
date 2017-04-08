@@ -25,7 +25,7 @@ export default class NoteController {
 
   // 指定位置にノートを作成
   createAt(pos) {
-    const { track, player, quantizer, transform } = this
+    const { track, player, quantizer } = this
     function createNote(tick = 0, noteNumber = 48, duration = 240, velocity = 127, channel = 0) {
       return {
         type: "channel",
@@ -94,7 +94,6 @@ export default class NoteController {
 
   // 作成時のノート移動
   moveTo(id, pos) {
-    const { quantizer, transform } = this
     const loc = this._createdNoteLocation(pos)
     this._move(id, loc.tick, loc.noteNumber)
   }

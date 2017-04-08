@@ -1,11 +1,9 @@
-import React, { Component } from "react"
+import React from "react"
 import f from "../../helpers/flatJoin"
-import e from "../../helpers/getElementType"
 
 import "./Toolbar.css"
 
 export function Toolbar({
-  component,
   children,
   className
 }) {
@@ -16,7 +14,6 @@ export function Toolbar({
 }
 
 export function ToolbarItem({
-  component,
   children,
   className,
   selected,
@@ -29,7 +26,6 @@ export function ToolbarItem({
 }
 
 export function ToolbarSeparator({
-  component,
   className
 }) {
   return <div

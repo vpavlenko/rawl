@@ -15,15 +15,12 @@ export default class NoteMouseHandler {
     if (e.nativeEvent.button == 1) {
       // wheel drag to start scrolling
       return dragScrollAction(() => {
-          console.warn("TODO: PianoRoll をスクロールする")
+        // TODO: PianoRoll をスクロールする
       })
     }
 
-    console.log("button", e.nativeEvent.button, e.nativeEvent.detail)
-
     // 右ダブルクリック
     if (e.nativeEvent.button == 2 && e.nativeEvent.detail % 2 == 0) {
-      console.log("toggle")
       return changeToolAction(this.toggleTool)
     }
 
@@ -31,7 +28,7 @@ export default class NoteMouseHandler {
     return null
   }
 
-  getCursor(e) {
+  getCursor() {
     // サブクラスで実装
     return "auto"
   }

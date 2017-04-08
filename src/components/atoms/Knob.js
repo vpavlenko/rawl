@@ -44,7 +44,7 @@ function Knob_({
       onChange(e)
     }
 
-    function onMouseUp(e) {
+    function onMouseUp() {
       window.removeEventListener("mousemove", onMouseMove)
       window.removeEventListener("mouseup", onMouseUp)
       setDragging(false)

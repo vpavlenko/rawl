@@ -37,7 +37,7 @@ function TrackListItem({
     e.stopPropagation()
     onClickMute()
   }
-  function _onClickInstrument(e) {
+  function _onClickInstrument() {
     // TODO: open instrument browser
   }
   function _onChangeVolume(e) {

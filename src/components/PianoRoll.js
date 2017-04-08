@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from "react"
-import observable from "riot-observable"
 import SelectionModel from "../model/SelectionModel"
 import NoteCoordTransform from "../model/NoteCoordTransform"
 import Quantizer from "../services/Quantizer"
@@ -12,7 +11,6 @@ import PianoSelection from "./PianoSelection"
 import PianoVelocityControl from "./PianoVelocityControl"
 import PianoCursor from "./PianoCursor"
 import withTheme from "../hocs/withTheme"
-import maxX from "../helpers/maxX"
 import NoteController from "../helpers/NoteController"
 import SelectionController from "../helpers/SelectionController"
 
@@ -124,7 +122,6 @@ class PianoRoll extends Component {
     const {
       theme,
       track,
-      onChangeTool,
       onClickRuler,
       onClickKey,
       ticksPerBeat,
@@ -245,7 +242,6 @@ PianoRoll.propTypes = {
   ticksPerBeat: PropTypes.number.isRequired,
   denominator: PropTypes.number.isRequired,
   autoScroll: PropTypes.bool.isRequired,
-  onChangeTool: PropTypes.func.isRequired,
   onClickRuler: PropTypes.func.isRequired,
   onClickKey: PropTypes.func.isRequired,
   mouseMode: PropTypes.number.isRequired

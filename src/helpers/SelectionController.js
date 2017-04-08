@@ -1,6 +1,4 @@
-import _ from "lodash"
 import Rect from "../model/Rect"
-import { pointSub } from "../helpers/point"
 
 /**
  PianoRoll での選択範囲操作を行うクラス
@@ -36,7 +34,7 @@ export default class SelectionController {
 
   // 選択範囲の右上を pos にして、ノートの選択状を解除する
   startAt(pos) {
-    const { selection, quantizer, transform } = this
+    const { selection, transform } = this
     selection.reset()
     selection.fromTick = transform.getTicks(pos.x)
     selection.fromNoteNumber = transform.getNoteNumber(pos.y)
@@ -142,7 +140,7 @@ export default class SelectionController {
     if (dt === 0 && dn === 0) {
       return
     }
-    
+
     selection.moveTo(tick, noteNumber)
 
     track.transaction(it => {

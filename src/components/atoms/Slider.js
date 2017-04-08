@@ -8,7 +8,7 @@ function Slider_({
   maxValue = 1,
   onChange = () => {},
   dragging = false,
-  setDragging = Nop
+  setDragging = () => {}
 }) {
   let rect
 
@@ -33,7 +33,7 @@ function Slider_({
       onChange(e)
     }
 
-    function onMouseUp(e) {
+    function onMouseUp() {
       document.removeEventListener("mousemove", onMouseMove)
       document.removeEventListener("mouseup", onMouseUp)
       setDragging(false)

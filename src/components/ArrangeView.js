@@ -1,6 +1,5 @@
 import React, { Component } from "react"
 import DrawCanvas from "./DrawCanvas"
-import NoteCoordTransform from "../model/NoteCoordTransform"
 import maxX from "../helpers/maxX"
 
 import "./ArrangeView.css"

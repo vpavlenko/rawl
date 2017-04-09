@@ -157,7 +157,7 @@ class PianoRoll extends Component {
 
     const events = filterEventsWithScroll(track.getEvents(), transform, scrollLeft, width)
     const noteItems = pianoNotesPresentation(events, transform)
-    const velocityControlItems = velocityControlPresentation(events, transform)
+    const velocityControlItems = velocityControlPresentation(events, transform, controlHeight)
 
     this.pencilMouseHandler.noteController = new NoteController(track, quantizer, transform, player)
     this.selectionMouseHandler.selectionController = new SelectionController(selection, track, quantizer, transform, player)
@@ -166,7 +166,7 @@ class PianoRoll extends Component {
       this.pencilMouseHandler : this.selectionMouseHandler
 
     return <div
-      id="piano-roll-container"
+      className="PianoRoll"
       ref={c => this.container = c}>
 
       <div className="alpha" ref={c => this.alpha = c}>
@@ -222,14 +222,19 @@ class PianoRoll extends Component {
       </div>
       <div className="beta" ref={c => this.beta = c}>
         <div className="pseudo-content" style={{
-          width: contentWidth
+          width: contentWidth,
+          height: "100%"
         }} />
-        <PianoVelocityControl
-          items={velocityControlItems}
-          height={controlHeight}
-          endTick={widthTick}
-          transform={transform}
-          setEventBounds={() => true} />
+        <div className="fixed-left" style={fixedLeftStyle}>
+          <PianoVelocityControl
+            width={width}
+            height={controlHeight}
+            items={velocityControlItems}
+            scrollLeft={scrollLeft}
+            onMouseDown={e => console.log(e)}
+            onMouseMove={e => console.log(e)}
+            onMouseUp={e => console.log(e)} />
+        </div>
       </div>
     </div>
   }

@@ -1,32 +1,31 @@
-#piano-roll-container {
+.PianoRoll {
   position: relative;
   width: 100%;
   height: 100%;
   overflow: hidden;
 }
 
-#piano-roll-container .alpha .inner {
+.PianoRoll .alpha .inner {
   position: relative;
 }
 
-#piano-roll-container .alpha .fixed-left,
-#piano-roll-container .alpha .fixed-left-top {
+.PianoRoll .fixed-left,
+.PianoRoll .fixed-left-top {
   position: absolute;
   top: 0;
 }
 
-#piano-roll-container .alpha {
+.PianoRoll .alpha {
   overflow-y: scroll;
   overflow-x: hidden;
   position: relative;
   height: calc(100% - var(--control-height));
 }
 
-#piano-roll-container .beta {
+.PianoRoll .beta {
   overflow-y: hidden;
   overflow-x: scroll;
   position: relative;
-  padding-left: var(--key-width);
   height: var(--control-height);
   border-top: 1px solid var(--secondary-text-color);
   box-sizing: border-box;
@@ -76,4 +75,8 @@
 .PianoGrid,
 .PianoLines {
   pointer-events: none;
+}
+
+.PianoControl {
+  padding-left: var(--key-width);
 }

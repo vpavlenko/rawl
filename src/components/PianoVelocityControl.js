@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from "react"
 import _ from "lodash"
-import pickMouseEvents from "../helpers/pickMouseEvents"
 import DrawCanvas from "./DrawCanvas"
 import logEq from "../helpers/logEq"
 
@@ -16,49 +15,95 @@ function drawEvent(ctx, fillColor, strokeColor, { x, y, width, height, selected 
   ctx.stroke()
 }
 
-class PianoVelocityControl extends Component {
-  constructor(props) {
-    super(props)
-  }
-
-  render() {
-    const props = this.props
-
-    function draw(ctx) {
-      const { width, height } = ctx.canvas
-      ctx.clearRect(0, 0, width, height)
-
-      const fillColor = "blue"
-      const strokeColor = "black"
-
-      props.items.forEach(item => {
-        drawEvent(ctx, fillColor, strokeColor, item)
-      })
+function PianoVelocityControl({
+  width,
+  height,
+  items,
+  scrollLeft,
+  onMouseDown,
+  onMouseMove,
+  onMouseUp
+}) {
+  function eventOption(e) {
+    function getLocal(e) {
+      return {
+        x: e.nativeEvent.offsetX + scrollLeft,
+        y: e.nativeEvent.offsetY
+      }
     }
+    function itemUnderPoint({ x, y }) {
+      return items
+        .filter(b => {
+          return x >= b.x
+            && x <= b.x + b.width
+            && y >= b.y
+            && y <= b.y + b.height
+        })[0]
+    }
+    const local = getLocal(e)
+    const item = itemUnderPoint(local)
 
-    return <DrawCanvas
-      className="PianoControl"
-      draw={draw}
-      width={props.transform.getX(props.endTick)}
-      height={props.height}
-      {...pickMouseEvents(props)}
-    />
+    return {
+      local, item
+    }
   }
+
+  const _onMouseDown = e =>
+    onMouseDown({
+      ...e,
+      ...eventOption(e)
+    })
+
+  const _onMouseMove = e =>
+    onMouseMove({
+      ...e,
+      ...eventOption(e)
+    })
+
+  const _onMouseUp = e =>
+    onMouseUp({
+      ...e,
+      ...eventOption(e)
+    })
+
+  function draw(ctx) {
+    const { width, height } = ctx.canvas
+    ctx.clearRect(0, 0, width, height)
+
+    const fillColor = "blue"
+    const strokeColor = "black"
+
+    ctx.save()
+    ctx.translate(-scrollLeft, 0.5)
+    items.forEach(item => drawEvent(ctx, fillColor, strokeColor, item))
+    ctx.restore()
+  }
+
+  return <DrawCanvas
+    className="PianoControl"
+    draw={draw}
+    width={width}
+    height={height}
+    onMouseDown={_onMouseDown}
+    onMouseMove={_onMouseMove}
+    onMouseUp={_onMouseUp}
+  />
 }
 
 PianoVelocityControl.propTypes = {
-  items: PropTypes.array.isRequired,
-  endTick: PropTypes.number.isRequired,
-  transform: PropTypes.object.isRequired,
-  setEventBounds: PropTypes.func.isRequired
+  items: PropTypes.array.isRequired
 }
 
 class _PianoVelocityControl extends Component {
   shouldComponentUpdate(nextProps) {
     const props = this.props
     return !logEq(props, nextProps, "items", _.isEqual)
-      || !logEq(props, nextProps, "endTick", (x, y) => x === y)
-      || !logEq(props, nextProps, "transform", (x, y) => x && y && x.equals(y))
+      || !logEq(props, nextProps, "scrollLeft")
+      || !logEq(props, nextProps, "width")
+      || !logEq(props, nextProps, "height")
+      || !logEq(props, nextProps, "onMouseDown")
+      || !logEq(props, nextProps, "onMouseMove")
+      || !logEq(props, nextProps, "onMouseUp")
   }
 
   render() {

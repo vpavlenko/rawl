@@ -17,6 +17,7 @@ import NumberInput from "../src/components/atoms/NumberInput"
 import Section from "../src/components/molecules/Section"
 import { MenuBar, MenuItem, SubMenu, MenuSeparator } from "../src/components/molecules/MenuBar"
 import { Toolbar, ToolbarItem, ToolbarSeparator } from "../src/components/molecules/Toolbar"
+import { createContextMenu, ContextMenu, MenuItem as ContextMenuItem } from "../src/components/molecules/ContextMenu"
 
 // organisms
 
@@ -141,6 +142,21 @@ storiesOf("molecules", module)
         <ToolbarItem>share</ToolbarItem>
         <ToolbarItem touchDisabled={true}><TextInput placeholder="Search" onChange={action("onChange")} /></ToolbarItem>
       </Toolbar>
+    </Container>
+  ))
+  .add("ContextMenu", () => (
+    <Container>
+      <div onContextMenu={createContextMenu(close =>
+        <ContextMenu>
+          <ContextMenuItem onClick={() => {
+            action("onClick Menu 1")
+          }}>Keep Opened</ContextMenuItem>
+          <ContextMenuItem onClick={() => {
+            action("onClick Menu 2")
+            close()
+          }}>Close</ContextMenuItem>
+        </ContextMenu>
+      )}>right click to open ContextMenu</div>
     </Container>
   ))
 

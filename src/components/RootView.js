@@ -182,6 +182,10 @@ export default class RootView extends Component {
       })
     }
 
+    const onClickDeleteTrack = (trackId) => {
+      song.removeTrack(trackId)
+    }
+
     const changeTrack = (id) => {
       song.selectTrack(id)
     }
@@ -258,6 +262,7 @@ export default class RootView extends Component {
         onChangeVolume={onChangeTrackVolume}
         onChangePan={onChangeTrackPan}
         onClickInstrument={onClickTrackInstrument}
+        onClickDelete={onClickDeleteTrack}
       />
 
     return <div className="RootView">

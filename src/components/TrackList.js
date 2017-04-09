@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import Icon from "./atoms/Icon"
 import Slider from "./atoms/Slider"
 import Knob from "./atoms/Knob"
+import { ContextMenu, MenuItem, createContextMenu } from "./molecules/ContextMenu"
 
 import "./TrackList.css"
 
@@ -19,11 +20,20 @@ function TrackListItem({
   onClickMute = Nop,
   onChangePan = Nop,
   onChangeVolume = Nop,
-  onClickInstrument = Nop
+  onClickInstrument = Nop,
+  onClickDelete = Nop
 }) {
   return <div
     className={`TrackListItem ${selected ? "selected" : ""}`}
-    onClick={onClick}>
+    onClick={onClick}
+    onContextMenu={createContextMenu(close =>
+      <ContextMenu id="TrackListItem">
+        <MenuItem onClick={() => {
+          onClickDelete()
+          close()
+        }}>Delete Track</MenuItem>
+      </ContextMenu>
+    )}>
     <div className="name" onDoubleClick={onDoubleClickName}>{name}</div>
     <div className="controls">
       <div className="button" onClick={onClickInstrument}><Icon>piano</Icon></div>
@@ -54,7 +64,8 @@ function TrackListContent({
   onClickAddTrack,
   onChangeVolume,
   onChangePan,
-  onClickInstrument
+  onClickInstrument,
+  onClickDelete
 }) {
   const items = tracks
     .map((t, i) => {
@@ -71,7 +82,8 @@ function TrackListContent({
         onClickMute={() => onClickMute(i)}
         onChangeVolume={v => onChangeVolume(i, v)}
         onChangePan={v => onChangePan(i, v)}
-        onClickInstrument={() => onClickInstrument(i)} />
+        onClickInstrument={() => onClickInstrument(i)}
+        onClickDelete={() => onClickDelete(i)} />
     })
 
   return <div className="TrackList">

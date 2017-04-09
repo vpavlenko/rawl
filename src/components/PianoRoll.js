@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from "react"
 import SelectionModel from "../model/SelectionModel"
 import NoteCoordTransform from "../model/NoteCoordTransform"
-import Quantizer from "../services/Quantizer"
 import PianoKeys from "./PianoKeys"
 import PianoGrid from "./PianoGrid"
 import PianoLines from "./PianoLines"

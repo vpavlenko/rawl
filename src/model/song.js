@@ -25,6 +25,12 @@ export default class Song {
     this._emitChange()
   }
 
+  removeTrack(id) {
+    _.pullAt(this._tracks, id)
+    this._selectedTrackId = Math.min(id, this._tracks.length)
+    this._emitChange()
+  }
+
   selectTrack(id) {
     if (id === this.selectedTrackId) { return }
     this._selectedTrackId = id

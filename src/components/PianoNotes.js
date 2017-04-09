@@ -12,6 +12,11 @@ function drawNote(ctx, { x, y, width, height, selected, velocity }) {
   const alpha = velocity / 127
   const color = selected ? "black" : `rgba(0, 0, 255, ${alpha})`
 
+  x = Math.round(x)
+  y = Math.round(y)
+  width = Math.round(width)
+  height = Math.round(height)
+
   ctx.beginPath()
   ctx.fillStyle = color
   ctx.strokeStyle = "black"
@@ -97,7 +102,7 @@ function PianoNotes({
     ctx.clearRect(0, 0, width, height)
 
     ctx.save()
-    ctx.translate(-scrollLeft, 0.5)
+    ctx.translate(0.5 - Math.round(scrollLeft), 0.5)
     items.forEach(item => drawNote(ctx, item))
     ctx.restore()
   }

@@ -6,6 +6,11 @@ import logEq from "../helpers/logEq"
 function drawEvent(ctx, fillColor, strokeColor, { x, y, width, height, selected }) {
   const color = selected ? strokeColor : fillColor
 
+  x = Math.round(x)
+  y = Math.round(y)
+  width = Math.round(width)
+  height = Math.round(height)
+
   ctx.beginPath()
   ctx.fillStyle = color
   ctx.strokeStyle = strokeColor
@@ -74,7 +79,7 @@ function PianoVelocityControl({
     const strokeColor = "black"
 
     ctx.save()
-    ctx.translate(-scrollLeft, 0.5)
+    ctx.translate(0.5 - Math.round(scrollLeft), 0.5)
     items.forEach(item => drawEvent(ctx, fillColor, strokeColor, item))
     ctx.restore()
   }

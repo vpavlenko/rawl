@@ -3,12 +3,7 @@ import Rect from "./Rect"
 
 export default class SelectionModel {
   constructor() {
-    this.fromTick = 0
-    this.fromNoteNumber = 0
-    this.toTick = 0
-    this.toNoteNumber = 0
-    this.enabled = false
-    this.noteIds = []
+    this.reset()
     observable(this)
   }
 
@@ -74,5 +69,9 @@ export default class SelectionModel {
   reset() {
     this.noteIds = []
     this.enabled = false
+    this.fromTick = 0
+    this.fromNoteNumber = 0
+    this.toTick = 0
+    this.toNoteNumber = 0
   }
 }

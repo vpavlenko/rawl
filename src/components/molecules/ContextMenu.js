@@ -27,7 +27,10 @@ export const createContextMenu = (childrenProvider) => e => {
 }
 
 export function ContextMenuOverlay({ children, position, close }) {
-  return <div className={styles.overlay} onMouseDown={close}>
+  return <div
+    className={styles.overlay}
+    onMouseDown={close}
+    onContextMenu={e => e.preventDefault()}>
     <div style={{position: "absolute", left: position.x, top: position.y}}>
       {children}
     </div>
@@ -35,7 +38,10 @@ export function ContextMenuOverlay({ children, position, close }) {
 }
 
 export function ContextMenu({ children }) {
-  return <div className={styles.menu}>{children}</div>
+  return <div
+    className={styles.menu}
+    onContextMenu={e => e.preventDefault()}
+  >{children}</div>
 }
 
 export function MenuItem({ children, onClick = Nop, onMouseDown = Nop }) {
@@ -47,5 +53,10 @@ export function MenuItem({ children, onClick = Nop, onMouseDown = Nop }) {
     e.stopPropagation()
     onMouseDown(e)
   }
-  return <div className={styles.item} onClick={_onClick} onMouseDown={_onMouseDown}>{children}</div>
+  return <div
+    className={styles.item}
+    onClick={_onClick}
+    onMouseDown={_onMouseDown}
+    onContextMenu={e => e.preventDefault()}
+  >{children}</div>
 }

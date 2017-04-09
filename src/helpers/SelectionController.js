@@ -153,6 +153,17 @@ export default class SelectionController {
       })
     })
   }
+
+  // 選択範囲と選択されたノートを削除
+  deleteSelection() {
+    const { selection, track } = this
+    track.transaction(it =>
+      selection.noteIds.forEach(id =>
+        it.removeEvent(id)
+      )
+    )
+    selection.reset()
+  }
 }
 
 function eventsInSelection(events, selection) {

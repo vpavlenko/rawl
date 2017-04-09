@@ -161,10 +161,14 @@ class PianoRoll extends Component {
 
     this.pencilMouseHandler.noteController = new NoteController(track, quantizer, transform, player)
     this.selectionMouseHandler.selectionController = new SelectionController(selection, track, quantizer, transform)
+
     const noteMouseHandler = mouseMode === 0 ?
       this.pencilMouseHandler : this.selectionMouseHandler
 
-    return <div id="piano-roll-container" ref={c => this.container = c}>
+    return <div
+      id="piano-roll-container"
+      ref={c => this.container = c}>
+
       <div className="alpha" ref={c => this.alpha = c}>
         <div className="pseudo-content" style={{
           height: contentHeight

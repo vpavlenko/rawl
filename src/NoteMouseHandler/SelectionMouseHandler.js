@@ -1,15 +1,14 @@
+import React from "react"
 import MouseHandler from "./NoteMouseHandler"
 import { pointSub, pointAdd } from "../helpers/point"
+
+import { ContextMenu, MenuItem as ContextMenuItem, createContextMenu } from "../components/molecules/ContextMenu"
 
 export default class SelectionMouseHandler extends MouseHandler {
   actionForMouseDown(e) {
     const original = super.actionForMouseDown(e)
     if (original) {
       return original
-    }
-
-    if (e.nativeEvent.button !== 0) {
-      return null
     }
 
     const c = this.selectionController
@@ -22,19 +21,31 @@ export default class SelectionMouseHandler extends MouseHandler {
     }
 
     const type = c.positionType(e.local)
-    switch (type) {
-      case "center": return moveSelectionAction(
-        p => c.moveTo(p),
-        () => c.getRect())
-      case "right": return dragSelectionRightEdgeAction(p => c.resizeRight(p))
-      case "left": return dragSelectionLeftEdgeAction(p => c.resizeLeft(p))
-      case "outside": break
+
+    if (e.nativeEvent.button === 0) {
+      switch (type) {
+        case "center": return moveSelectionAction(
+          p => c.moveTo(p),
+          () => c.getRect())
+        case "right": return dragSelectionRightEdgeAction(p => c.resizeRight(p))
+        case "left": return dragSelectionLeftEdgeAction(p => c.resizeLeft(p))
+        case "outside": break
+      }
+
+      return createSelectionAction(
+        p => c.startAt(p),
+        p => c.resize(p),
+        () => c.selectNotes())
     }
 
-    return createSelectionAction(
-      p => c.startAt(p),
-      p => c.resize(p),
-      () => c.selectNotes())
+    if (e.nativeEvent.button === 2 && type === "center") {
+      // 右クリックメニュー
+      return contextMenuAction(() => {
+        c.deleteSelection()
+      })
+    }
+
+    return null
   }
 
   getCursor(e) {
@@ -51,6 +62,34 @@ export default class SelectionMouseHandler extends MouseHandler {
       default: return "crosshair"
     }
   }
+}
+
+const contextMenuAction = (deleteSelection) => (onMouseDown, onMouseMove, onMouseUp) => {
+  const contextMenu = close =>
+    <ContextMenu>
+      <ContextMenuItem onClick={() => {
+        // TODO: 実装
+        close()
+      }}>Cut</ContextMenuItem>
+      <ContextMenuItem onClick={() => {
+        // TODO: 実装
+        close()
+      }}>Copy</ContextMenuItem>
+      <ContextMenuItem onClick={() => {
+        // TODO: 実装
+        close()
+      }}>Paste</ContextMenuItem>
+      <ContextMenuItem onClick={() => {
+        deleteSelection()
+        close()
+      }}>Delete</ContextMenuItem>
+    </ContextMenu>
+
+  const menuCreator = createContextMenu(contextMenu)
+
+  onMouseUp(e => {
+    menuCreator(e.nativeEvent)
+  })
 }
 
 // 選択範囲外でクリックした場合は選択範囲をリセット

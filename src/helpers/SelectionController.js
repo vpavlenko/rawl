@@ -1,14 +1,16 @@
 import Rect from "../model/Rect"
+import clipboard from "../services/Clipboard"
 
 /**
  PianoRoll での選択範囲操作を行うクラス
  */
 export default class SelectionController {
-  constructor(selection, track, quantizer, transform) {
+  constructor(selection, track, quantizer, transform, player) {
     this.selection = selection
     this.track = track
     this.quantizer = quantizer
     this.transform = transform
+    this.player = player
   }
 
   positionType(pos) {
@@ -163,6 +165,46 @@ export default class SelectionController {
       )
     )
     selection.reset()
+  }
+
+  // 選択されたノートをコピー
+  copySelection() {
+    const { selection, track } = this
+    const notes = selection.noteIds
+      .map(id => {
+        const note = track.getEventById(id)
+        return {
+          ...note,
+          tick: note.tick - selection.fromTick // 選択範囲からの相対位置にする
+        }
+      })
+    clipboard.writeText(JSON.stringify({
+      type: "notes",
+      notes
+    }))
+  }
+
+  // 現在位置にコピーしたノートをペースト
+  pasteSelection() {
+    const { player, track } = this
+    const obj = JSON.parse(clipboard.readText())
+    if (obj.type !== "notes") {
+      return
+    }
+    const notes = obj.notes
+      .map(note => ({
+        ...note,
+        tick: note.tick + player.position
+      }))
+    track.transaction(it => {
+      notes.forEach(note => it.addEvent(note))
+    })
+  }
+
+  setPlayerCursor(pos) {
+    const { player, transform, quantizer } = this
+    const tick = quantizer.round(transform.getTicks(pos.x))
+    player.position = tick
   }
 }
 

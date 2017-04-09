@@ -35,14 +35,28 @@ export default class SelectionMouseHandler extends MouseHandler {
       return createSelectionAction(
         p => c.startAt(p),
         p => c.resize(p),
-        () => c.selectNotes())
+        () => c.selectNotes(),
+        p => c.setPlayerCursor(p)
+      )
     }
 
-    if (e.nativeEvent.button === 2 && type === "center") {
-      // 右クリックメニュー
-      return contextMenuAction(() => {
-        c.deleteSelection()
-      })
+    if (e.nativeEvent.button === 2) {
+      let selected
+      switch (type) {
+        case "center":
+        case "right":
+        case "left":
+          selected = true
+          break
+        case "outside":
+          selected = false
+          break
+      }
+      return contextMenuAction(selected,
+        () => c.copySelection(),
+        () => c.pasteSelection(),
+        () => c.deleteSelection()
+      )
     }
 
     return null
@@ -64,25 +78,26 @@ export default class SelectionMouseHandler extends MouseHandler {
   }
 }
 
-const contextMenuAction = (deleteSelection) => (onMouseDown, onMouseMove, onMouseUp) => {
+const contextMenuAction = (selected, copySelection, pasteSelection, deleteSelection) => (onMouseDown, onMouseMove, onMouseUp) => {
   const contextMenu = close =>
     <ContextMenu>
-      <ContextMenuItem onClick={() => {
-        // TODO: 実装
-        close()
-      }}>Cut</ContextMenuItem>
-      <ContextMenuItem onClick={() => {
-        // TODO: 実装
-        close()
-      }}>Copy</ContextMenuItem>
-      <ContextMenuItem onClick={() => {
-        // TODO: 実装
-        close()
-      }}>Paste</ContextMenuItem>
-      <ContextMenuItem onClick={() => {
+      {selected && <ContextMenuItem onClick={() => {
+        copySelection()
         deleteSelection()
         close()
-      }}>Delete</ContextMenuItem>
+      }}>Cut</ContextMenuItem>}
+      {selected && <ContextMenuItem onClick={() => {
+        copySelection()
+        close()
+      }}>Copy</ContextMenuItem>}
+      <ContextMenuItem onClick={() => {
+        pasteSelection()
+        close()
+      }}>Paste</ContextMenuItem>
+      {selected && <ContextMenuItem onClick={() => {
+        deleteSelection()
+        close()
+      }}>Delete</ContextMenuItem>}
     </ContextMenu>
 
   const menuCreator = createContextMenu(contextMenu)
@@ -93,8 +108,11 @@ const contextMenuAction = (deleteSelection) => (onMouseDown, onMouseMove, onMous
 }
 
 // 選択範囲外でクリックした場合は選択範囲をリセット
-const createSelectionAction = (startAt, resize, selectNotes) => (onMouseDown, onMouseMove, onMouseUp) => {
-  onMouseDown(e => startAt(e.local))
+const createSelectionAction = (startAt, resize, selectNotes, setPlayerCursor) => (onMouseDown, onMouseMove, onMouseUp) => {
+  onMouseDown(e => {
+    startAt(e.local)
+    setPlayerCursor(e.local)
+  })
   onMouseMove(e => resize(e.local))
   onMouseUp(() => selectNotes())
 }

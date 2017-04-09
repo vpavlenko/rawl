@@ -160,7 +160,7 @@ class PianoRoll extends Component {
     const velocityControlItems = velocityControlPresentation(events, transform)
 
     this.pencilMouseHandler.noteController = new NoteController(track, quantizer, transform, player)
-    this.selectionMouseHandler.selectionController = new SelectionController(selection, track, quantizer, transform)
+    this.selectionMouseHandler.selectionController = new SelectionController(selection, track, quantizer, transform, player)
 
     const noteMouseHandler = mouseMode === 0 ?
       this.pencilMouseHandler : this.selectionMouseHandler

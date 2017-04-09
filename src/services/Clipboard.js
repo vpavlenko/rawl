@@ -1,5 +1,5 @@
 // use Electron clipboard API in future
-export default class Clipboard {
+class Clipboard {
   constructor() {
     this.data = {}
   }
@@ -16,3 +16,6 @@ export default class Clipboard {
     this.data[type] = data
   }
 }
+
+// singleton
+export default new Clipboard()

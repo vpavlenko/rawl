@@ -8,18 +8,41 @@ import _ from "lodash"
 import DrawCanvas from "./DrawCanvas"
 import logEq from "../helpers/logEq"
 
-function drawNote(ctx, { x, y, width, height, selected, velocity }) {
+function colorStr({ r, g, b }, alpha = 1) {
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`
+}
+
+const Color = {
+  Black: {
+    r: 0, g: 0, b: 0
+  },
+  White: {
+    r: 255, g: 255, b: 255
+  },
+  Blue: {
+    r: 0, g: 0, b: 255
+  }
+}
+
+const Style = {
+  color: Color.Blue,
+  selectedColor: Color.Black,
+  borderColor: Color.Black,
+  highlightColor: Color.White
+}
+
+function drawNote(ctx, { x, y, width, height, selected, velocity }, { color, selectedColor, borderColor, highlightColor }) {
   const alpha = velocity / 127
-  const color = selected ? "black" : `rgba(0, 0, 255, ${alpha})`
+  const noteColor = selected ? colorStr(selectedColor) : colorStr(color, alpha)
 
   x = Math.round(x)
   y = Math.round(y)
-  width = Math.round(width)
+  width = Math.round(width - 1) // 次のノートと被らないように小さくする
   height = Math.round(height)
 
   ctx.beginPath()
-  ctx.fillStyle = color
-  ctx.strokeStyle = "black"
+  ctx.fillStyle = noteColor
+  ctx.strokeStyle = colorStr(borderColor)
   ctx.lineWidth = 1
   ctx.rect(x, y, width, height)
   ctx.fill()
@@ -27,7 +50,7 @@ function drawNote(ctx, { x, y, width, height, selected, velocity }) {
 
   // draw highlight
   ctx.beginPath()
-  ctx.strokeStyle = "rgba(255, 255, 255, 0.3)"
+  ctx.strokeStyle = colorStr(highlightColor, 0.3)
   ctx.moveTo(x + 1, y + 1)
   ctx.lineTo(x + width, y + 1)
   ctx.closePath()
@@ -103,7 +126,7 @@ function PianoNotes({
 
     ctx.save()
     ctx.translate(0.5 - Math.round(scrollLeft), 0.5)
-    items.forEach(item => drawNote(ctx, item))
+    items.forEach(item => drawNote(ctx, item, Style))
     ctx.restore()
   }
 

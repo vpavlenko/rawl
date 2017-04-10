@@ -9,7 +9,7 @@ export default function Select({
 }) {
   function handleChange(e) {
     e.target.blur()
-    onChange(e.target.value)
+    onChange(e)
   }
 
   function handleWheel(e) {

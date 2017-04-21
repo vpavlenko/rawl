@@ -1,5 +1,6 @@
 import React from "react"
 import f from "../../helpers/flatJoin"
+import coarsify from "../../helpers/coarsify"
 
 import "./NumberInput.css"
 
@@ -7,22 +8,23 @@ export default function NumberInput({
   className,
   value,
   onChange,
-  placeholder
+  placeholder,
+  minValue = 0,
+  maxValue = 100
 }) {
-  function addValue(target, value) {
-    target.value = (parseFloat(target.value) || 0) + value
-    onChange(target)
+  function addValue(e, value) {
+    setValue(e, (parseFloat(e.target.value) || 0) + value)
   }
 
-  function setValue(target, value) {
-    target.value = value
-    onChange(target)
+  function setValue(e, value) {
+    e.target.value = coarsify(value, minValue, maxValue)
+    onChange(e)
   }
 
   function handleWheel(e) {
     e.preventDefault()
     const movement = e.deltaY > 0 ? -1 : 1
-    addValue(e.target, movement)
+    addValue(e, movement)
   }
 
   function handleMouseDown(e) {
@@ -32,7 +34,7 @@ export default function NumberInput({
 
     function onMouseMove(e) {
       const delta = e.clientY - startY
-      setValue(target, startValue - Math.ceil(delta / 2))
+      setValue(e, startValue - Math.ceil(delta / 2))
     }
 
     function onMouseUp(e) {

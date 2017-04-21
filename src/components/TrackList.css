@@ -70,3 +70,25 @@
 .TrackListItem .Slider {
   margin-right: 0.5em;
 }
+
+.TempoTrackItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-shrink: 0;
+  padding: 1em;
+  border-bottom: 1px solid var(--divider-color);
+}
+
+.TempoTrackItem.selected {
+  color: var(--theme-color);
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.TempoTrackItem .NumberInput {
+  width: 6em;
+}
+
+.TempoTrackItem .name {
+  flex-grow: 1;
+}

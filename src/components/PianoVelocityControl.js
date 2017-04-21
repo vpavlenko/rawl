@@ -36,20 +36,18 @@ function PianoVelocityControl({
         y: e.nativeEvent.offsetY
       }
     }
-    function itemUnderPoint({ x, y }) {
+    function itemsUnderPoint({ x, y }) {
       return items
         .filter(b => {
           return x >= b.x
             && x <= b.x + b.width
-            && y >= b.y
-            && y <= b.y + b.height
-        })[0]
+        })
     }
     const local = getLocal(e)
-    const item = itemUnderPoint(local)
 
     return {
-      local, item
+      local,
+      items: itemsUnderPoint(local)
     }
   }
 

@@ -18,6 +18,7 @@ import velocityControlPresentation from "../presentations/velocityControl"
 
 import SelectionMouseHandler from "../NoteMouseHandler/SelectionMouseHandler"
 import PencilMouseHandler from "../NoteMouseHandler/PencilMouseHandler"
+import VelocityMouseHandler from "../NoteMouseHandler/VelocityMouseHandler"
 
 import "./PianoRoll.css"
 
@@ -37,13 +38,9 @@ class PianoRoll extends Component {
     this.state = {
       scrollLeft: 0,
       scrollTop: 0,
-      cursorPosition: 0,
       width: 0,
+      cursorPosition: 0,
       notesCursor: "auto",
-
-      /* ノート配置部分のサイズ */
-      contentWidth: 0,
-      contentHeight: 0,
       selection: new SelectionModel()
     }
 
@@ -59,6 +56,8 @@ class PianoRoll extends Component {
 
     this.pencilMouseHandler = new PencilMouseHandler(changeCursor, toggleTool)
     this.selectionMouseHandler = new SelectionMouseHandler(changeCursor, toggleTool)
+
+    this.controlMouseHandler = new VelocityMouseHandler(props.track)
   }
 
   forceScrollLeft(requiredScrollLeft) {
@@ -165,15 +164,40 @@ class PianoRoll extends Component {
     const noteMouseHandler = mouseMode === 0 ?
       this.pencilMouseHandler : this.selectionMouseHandler
 
+    const controlMouseHandler = this.controlMouseHandler
+
+    function FixedLeftContent({ children }) {
+      return <div className="fixed-left" style={fixedLeftStyle}>
+        {children}
+      </div>
+    }
+
+    function FixedTopLeftContent({ children }) {
+      return <div className="fixed-left-top" style={{...fixedLeftStyle, ...fixedTopStyle}}>
+        {children}
+      </div>
+    }
+
+    function PseudoHeightContent() {
+      return <div className="pseudo-content" style={{
+        height: contentHeight
+      }} />
+    }
+
+    function PseudoWidthContent() {
+      return <div className="pseudo-content" style={{
+        width: contentWidth,
+        height: "100%"
+      }} />
+    }
+
     return <div
       className="PianoRoll"
       ref={c => this.container = c}>
 
       <div className="alpha" ref={c => this.alpha = c}>
-        <div className="pseudo-content" style={{
-          height: contentHeight
-        }} />
-        <div className="fixed-left" style={fixedLeftStyle}>
+        <PseudoHeightContent />
+        <FixedLeftContent>
           <PianoLines
             width={width}
             pixelsPerKey={transform.pixelsPerKey}
@@ -208,8 +232,8 @@ class PianoRoll extends Component {
             keyHeight={transform.pixelsPerKey}
             numberOfKeys={transform.numberOfKeys}
             onClickKey={onClickKey} />
-        </div>
-        <div className="fixed-left-top" style={{...fixedLeftStyle, ...fixedTopStyle}}>
+        </FixedLeftContent>
+        <FixedTopLeftContent>
           <PianoRuler
             height={rulerHeight}
             endTick={widthTick}
@@ -218,23 +242,20 @@ class PianoRoll extends Component {
             scrollLeft={scrollLeft}
             transform={transform} />
           <div className="PianoRollLeftSpace" />
-        </div>
+        </FixedTopLeftContent>
       </div>
       <div className="beta" ref={c => this.beta = c}>
-        <div className="pseudo-content" style={{
-          width: contentWidth,
-          height: "100%"
-        }} />
-        <div className="fixed-left" style={fixedLeftStyle}>
+        <PseudoWidthContent />
+        <FixedLeftContent>
           <PianoVelocityControl
             width={width}
             height={controlHeight}
             items={velocityControlItems}
             scrollLeft={scrollLeft}
-            onMouseDown={e => console.log(e)}
-            onMouseMove={e => console.log(e)}
-            onMouseUp={e => console.log(e)} />
-        </div>
+            onMouseDown={controlMouseHandler.onMouseDown}
+            onMouseMove={controlMouseHandler.onMouseMove}
+            onMouseUp={controlMouseHandler.onMouseUp} />
+        </FixedLeftContent>
       </div>
     </div>
   }

@@ -11,6 +11,8 @@ export default function(events, transform, viewHeight) {
       const width = 5
       const height = note.velocity / 127 * viewHeight
       return {
+        id: note.id,
+        velocity: note.velocity,
         selected: note.selected,
         y: viewHeight - height,
         x, width, height

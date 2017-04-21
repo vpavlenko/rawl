@@ -129,6 +129,10 @@ export default class Track {
     return this.events.filter(t => t.subtype == "controller" && t.controllerType == 10)
   }
 
+  _findSetTempoEvents() {
+    return this.events.filter(t => t.subtype == "setTempo")
+  }
+
   _updateLast(arr, obj) {
     if (arr.length > 0) {
       this.updateEvent(_.last(arr).id, obj)
@@ -185,6 +189,15 @@ export default class Track {
 
   set programNumber(value) {
     this._updateLast(this._findProgramChangeEvents(), { value })
+  }
+
+  get tempo() {
+    return 60000000 / lastValue(this._findSetTempoEvents(), "microsecondsPerBeat")
+  }
+
+  set tempo(bpm) {
+    const microsecondsPerBeat = 60000000 / bpm
+    this._updateLast(this._findSetTempoEvents(), { microsecondsPerBeat })
   }
 
   static conductorTrack(name = "Conductor Track") {

@@ -11,27 +11,24 @@ export default class MainToolbar extends Component {
     super(props)
 
     this.state = {
-      tempo: 0
+      mbtTime: ""
     }
   }
 
   componentDidMount() {
     const { player } = this.props
-    player.on("change-tempo", tempo => {
-      this.setState({tempo: new Number(tempo).toFixed(3)})
-    })
     player.on("change-position", tick => {
       this.setState({
-        mbtTime: this.props.song.measureList.getMBTString(tick, player.timebase)
+        mbtTime: this.props.measureList.getMBTString(tick, player.timebase)
       })
     })
   }
 
   render() {
     const props = this.props
-    const { song, tempo, player } = this.props
+    const { player, measureList } = this.props
 
-    const mbtTime = song && song.measureList.getMBTString(player.position, player.timebase)
+    const mbtTime = measureList.getMBTString(player.position, player.timebase)
     const quantizeOptions = Config.QuantizeOptions
 
     const onClickPlay = () => {
@@ -57,7 +54,6 @@ export default class MainToolbar extends Component {
 
     return <Toolbar>
       <ToolbarItem className="time-section">
-        <p className="tempo">BPM {tempo}</p>
         <p className="time">{mbtTime}</p>
       </ToolbarItem>
 

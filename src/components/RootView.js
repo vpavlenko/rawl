@@ -190,8 +190,12 @@ export default class RootView extends Component {
       song.selectTrack(id)
     }
 
+    const onChangeTempo = e => {
+      song.getTrack(0).tempo = parseFloat(e.target.value)
+    }
+
     const toolbar = <Toolbar
-      song={props.song}
+      measureList={song.measureList}
       player={player}
       quantize={state.quantize}
       mouseMode={state.pianoRollMouseMode}
@@ -212,7 +216,7 @@ export default class RootView extends Component {
       track={selectedTrack}
       quantizer={quantizer}
       player={player}
-      endTick={props.song.endOfSong}
+      endTick={song.endOfSong}
       scaleX={state.pianoRollScaleX}
       scaleY={state.pianoRollScaleY}
       autoScroll={state.pianoRollAutoScroll}
@@ -253,6 +257,8 @@ export default class RootView extends Component {
       <TrackList
         player={player}
         tracks={song && song.tracks || []}
+        tempo={song.getTrack(0).tempo}
+        onChangeTempo={onChangeTempo}
         selectedTrackId={selectedTrackId}
         onSelectTrack={changeTrack}
         onClickAddTrack={onClickAddTrack}

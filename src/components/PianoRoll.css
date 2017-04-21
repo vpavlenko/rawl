@@ -78,5 +78,5 @@
 }
 
 .PianoControl {
-  padding-left: var(--key-width);
+  margin-left: var(--key-width);
 }

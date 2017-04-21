@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import Icon from "./atoms/Icon"
 import Slider from "./atoms/Slider"
 import Knob from "./atoms/Knob"
+import NumberInput from "./atoms/NumberInput"
 import { ContextMenu, MenuItem, createContextMenu } from "./molecules/ContextMenu"
 
 import "./TrackList.css"
@@ -54,8 +55,25 @@ function TrackListItem({
   </div>
 }
 
+function TempoTrackItem({
+  selected = false,
+  onClick = Nop,
+  onChangeTempo = Nop,
+  tempo = 0
+}) {
+  return  <div
+    className={`TempoTrackItem ${selected ? "selected" : ""}`}
+    onClick={onClick}
+    >
+    <div className="name">Tempo</div>
+    <NumberInput value={tempo} onChange={onChangeTempo} minValue={0} maxValue={300} />
+  </div>
+}
+
 function TrackListContent({
   tracks,
+  tempo,
+  onChangeTempo,
   channelMutes,
   selectedTrackId,
   onSelectTrack,
@@ -69,6 +87,16 @@ function TrackListContent({
 }) {
   const items = tracks
     .map((t, i) => {
+      if (t.channel === 0) {
+        return <TempoTrackItem
+          key={i}
+          onClick={() => onSelectTrack(i)}
+          selected={i === selectedTrackId}
+          tempo={tempo}
+          onChangeTempo={onChangeTempo}
+        />
+      }
+
       return <TrackListItem
         key={i}
         name={t.displayName || `Track ${t.channel}`}

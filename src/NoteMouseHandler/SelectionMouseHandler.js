@@ -108,13 +108,31 @@ const contextMenuAction = (selected, copySelection, pasteSelection, deleteSelect
 }
 
 // 選択範囲外でクリックした場合は選択範囲をリセット
-const createSelectionAction = (startAt, resize, selectNotes, setPlayerCursor) => (onMouseDown, onMouseMove, onMouseUp) => {
+const createSelectionAction = (startAt, resize, selectNotes, setPlayerCursor) => (onMouseDown) => {
+  let rect
   onMouseDown(e => {
+    document.addEventListener("mousemove", onMouseMove)
+    document.addEventListener("mouseup", onMouseUp)
+
+    rect =  e.currentTarget.getBoundingClientRect()
     startAt(e.local)
     setPlayerCursor(e.local)
   })
-  onMouseMove(e => resize(e.local))
-  onMouseUp(() => selectNotes())
+
+  function onMouseMove(e) {
+    const local = {
+      x: Math.round(e.clientX - rect.left),
+      y: Math.round(e.clientY - rect.top)
+    }
+    resize(local)
+  }
+
+  function onMouseUp() {
+    document.removeEventListener("mousemove", onMouseMove)
+    document.removeEventListener("mouseup", onMouseUp)
+
+    selectNotes()
+  }
 }
 
 const moveSelectionAction = (moveTo, getRect) => (onMouseDown, onMouseMove) => {

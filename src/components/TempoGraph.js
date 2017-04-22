@@ -8,10 +8,11 @@ import tempoGraphPresentation from "../presentations/tempoGraph"
 import withTheme from "../hocs/withTheme"
 import TempoCoordTransform from "../model/TempoCoordTransform"
 import { uSecPerBeatToBPM, bpmToUSecPerBeat } from "../helpers/bpm"
+import { SetTempoMidiEvent } from "../midi/MidiEvent"
 
 import "./TempoGraph.css"
 
-function Graph({ items, width, height, fillColor, strokeColor, onMouseDown, onWheel }) {
+function Graph({ items, width, height, fillColor, strokeColor, onMouseDown, onWheel, onDoubleClick }) {
   if (!width) {
     return null
   }
@@ -64,6 +65,7 @@ function Graph({ items, width, height, fillColor, strokeColor, onMouseDown, onWh
     onContextMenu={e => e.preventDefault()}
     style={{ position: "absolute", left: 0, top: 0 }}
     onMouseDown={_onMouseDown}
+    onDoubleClick={onDoubleClick}
     onWheel={_onWheel}
   />
 }
@@ -155,6 +157,14 @@ function Content({ track, containerWidth, containerHeight, theme }) {
     })
   }
 
+  function onDoubleClickGraph(e) {
+    const rect = e.currentTarget.getBoundingClientRect()
+    const tick = transform.getTicks(e.clientX - rect.left)
+    const bpm = transform.getBPM(e.clientY - rect.top)
+    const event = new SetTempoMidiEvent(tick, uSecPerBeatToBPM(bpm))
+    track.addEvent(event)
+  }
+
   return <div className="TempoGraph">
     <PianoGrid
       width={containerWidth}
@@ -178,6 +188,7 @@ function Content({ track, containerWidth, containerHeight, theme }) {
       strokeColor={theme.themeColor}
       fillColor={Color(theme.themeColor).alpha(0.1).string()}
       onMouseDown={onMouseDownGraph}
+      onDoubleClick={onDoubleClickGraph}
       onWheel={onWheelGraph}
     />
     <PianoRuler

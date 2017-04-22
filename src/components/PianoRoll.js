@@ -22,15 +22,6 @@ import VelocityMouseHandler from "../NoteMouseHandler/VelocityMouseHandler"
 
 import "./PianoRoll.css"
 
-function filterEventsWithScroll(events, transform, scrollLeft, width) {
-  const tickStart = transform.getTicks(scrollLeft)
-  const tickEnd = transform.getTicks(scrollLeft + width)
-  function test(tick) {
-    return tick >= tickStart && tick <= tickEnd
-  }
-  return events.filter(e => test(e.tick) || test(e.tick + e.duration))
-}
-
 class PianoRoll extends Component {
   constructor(props) {
     super(props)
@@ -159,9 +150,9 @@ class PianoRoll extends Component {
       onClickRuler(tick, e)
     }
 
-    const events = filterEventsWithScroll(track.getEvents(), transform, scrollLeft, width)
-    const noteItems = pianoNotesPresentation(events, transform)
-    const velocityControlItems = velocityControlPresentation(events, transform, controlHeight)
+    const events = track.getEvents()
+    const noteItems = pianoNotesPresentation(events, transform, scrollLeft, width)
+    const velocityControlItems = velocityControlPresentation(events, transform, scrollLeft, width, controlHeight)
 
     this.pencilMouseHandler.noteController = new NoteController(track, quantizer, transform, player)
     this.selectionMouseHandler.selectionController = new SelectionController(selection, track, quantizer, transform, player)

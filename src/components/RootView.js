@@ -20,6 +20,8 @@ import {
 import "./Resizer.css"
 import "./RootView.css"
 
+import TempoGraph from "./TempoGraph"
+
 function Pane(props) {
   return <div style={{position: "relative", height: "100%"}}>
     <SplitPane {...props} />
@@ -271,12 +273,14 @@ export default class RootView extends Component {
         onClickDelete={onClickDeleteTrack}
       />
 
+    const tempoGraph = <TempoGraph track={selectedTrack} />
+
     return <div className="RootView">
       {menuBar}
       {toolbar}
       <Pane split="vertical" minSize={200} defaultSize={265} maxSize={400}>
         {trackList}
-        {pianoRoll}
+        {selectedTrack.channel === 0 ? tempoGraph : pianoRoll}
       </Pane>
     </div>
   }

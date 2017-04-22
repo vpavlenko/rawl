@@ -39,6 +39,7 @@ class PianoRoll extends Component {
       scrollLeft: 0,
       scrollTop: 0,
       width: 0,
+      controlHeight: 0,
       cursorPosition: 0,
       notesCursor: "auto",
       selection: new SelectionModel()
@@ -69,7 +70,10 @@ class PianoRoll extends Component {
   }
 
   fitWidthToParent() {
-    this.setState({ width: this.container.clientWidth })
+    this.setState({
+      width: this.container.clientWidth,
+      controlHeight: this.betaPseudoContent.clientHeight
+    })
   }
 
   componentDidMount() {
@@ -135,10 +139,11 @@ class PianoRoll extends Component {
       scrollTop,
       notesCursor,
       selection,
-      cursorPosition
+      cursorPosition,
+      controlHeight
     } = this.state
 
-    const { keyWidth, rulerHeight, controlHeight } = theme
+    const { keyWidth, rulerHeight } = theme
 
     const transform = this.getTransform()
     const widthTick = Math.max(endTick, transform.getTicks(width))
@@ -184,8 +189,8 @@ class PianoRoll extends Component {
       }} />
     }
 
-    function PseudoWidthContent() {
-      return <div className="pseudo-content" style={{
+    function PseudoWidthContent({ onmount }) {
+      return <div className="pseudo-content" ref={onmount} style={{
         width: contentWidth,
         height: "100%"
       }} />
@@ -245,7 +250,7 @@ class PianoRoll extends Component {
         </FixedTopLeftContent>
       </div>
       <div className="beta" ref={c => this.beta = c}>
-        <PseudoWidthContent />
+        <PseudoWidthContent onmount={c => this.betaPseudoContent = c} />
         <FixedLeftContent>
           <PianoVelocityControl
             width={width}

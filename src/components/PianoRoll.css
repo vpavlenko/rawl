@@ -23,7 +23,6 @@
 }
 
 .PianoRoll .beta {
-  overflow-y: hidden;
   overflow-x: scroll;
   position: relative;
   height: var(--control-height);

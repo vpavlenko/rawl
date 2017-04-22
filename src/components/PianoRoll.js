@@ -10,6 +10,7 @@ import PianoSelection from "./PianoSelection"
 import PianoVelocityControl from "./PianoVelocityControl"
 import PianoCursor from "./PianoCursor"
 import withTheme from "../hocs/withTheme"
+import fitToContainer from "../hocs/fitToContainer"
 import NoteController from "../helpers/NoteController"
 import SelectionController from "../helpers/SelectionController"
 
@@ -60,18 +61,17 @@ class PianoRoll extends Component {
     this.setState({ scrollLeft })
   }
 
-  fitWidthToParent() {
+  fitBetaSize() {
     this.setState({
-      width: this.container.clientWidth,
       controlHeight: this.betaPseudoContent.clientHeight
     })
   }
 
   componentDidMount() {
-    this.fitWidthToParent()
+    this.fitBetaSize()
 
     window.addEventListener("resize", () => {
-      this.fitWidthToParent()
+      this.fitBetaSize()
     })
 
     this.alpha.addEventListener("scroll", e => {
@@ -94,7 +94,7 @@ class PianoRoll extends Component {
       // keep scroll position to cursor
       if (autoScroll && player.isPlaying) {
         const screenX = x - this.state.scrollLeft
-        if (screenX > this.alpha.clientWidth * 0.7 || screenX < 0) {
+        if (screenX > this.props.containerWidth * 0.7 || screenX < 0) {
           this.forceScrollLeft(x)
         }
       }
@@ -121,11 +121,11 @@ class PianoRoll extends Component {
       endTick,
       mouseMode,
       player,
-      quantizer
+      quantizer,
+      containerWidth
     } = this.props
 
     const {
-      width,
       scrollLeft,
       scrollTop,
       notesCursor,
@@ -135,6 +135,7 @@ class PianoRoll extends Component {
     } = this.state
 
     const { keyWidth, rulerHeight } = theme
+    const width = containerWidth
 
     const transform = this.getTransform()
     const widthTick = Math.max(endTick, transform.getTicks(width))
@@ -278,4 +279,7 @@ PianoRoll.defaultProps = {
   ticksPerBeat: 480
 }
 
-export default withTheme(PianoRoll)
+export default fitToContainer(withTheme(PianoRoll), {
+  width: "100%",
+  height: "100%"
+})

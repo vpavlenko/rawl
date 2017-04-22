@@ -4,6 +4,11 @@ export default function fitToContainer(WrappedComponent, style) {
   return class extends Component {
     constructor(props) {
       super(props)
+
+      this.state = {
+        containerWidth: 0,
+        containerHeight: 0
+      }
     }
 
     componentDidMount() {

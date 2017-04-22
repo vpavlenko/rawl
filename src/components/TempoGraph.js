@@ -1,8 +1,9 @@
-import React from "react"
+import React, { Component } from "react"
 import Color from "color"
 import DrawCanvas from "./DrawCanvas"
 import PianoRuler from "./PianoRuler"
 import PianoGrid from "./PianoGrid"
+import PianoCursor from "./PianoCursor"
 import fitToContainer from "../hocs/fitToContainer"
 import tempoGraphPresentation from "../presentations/tempoGraph"
 import withTheme from "../hocs/withTheme"
@@ -108,7 +109,7 @@ function HorizontalLines({ width, height, transform, borderColor }) {
   />
 }
 
-function Content({ track, containerWidth, containerHeight, theme }) {
+function Content({ track, containerWidth, containerHeight, theme, playerPosition }) {
   const { rulerHeight } = theme
 
   const pixelsPerTick = 0.1
@@ -191,6 +192,11 @@ function Content({ track, containerWidth, containerHeight, theme }) {
       onDoubleClick={onDoubleClickGraph}
       onWheel={onWheelGraph}
     />
+    <PianoCursor
+      width={containerWidth}
+      height={containerHeight}
+      position={transform.getX(playerPosition)}
+    />
     <PianoRuler
       height={rulerHeight}
       endTick={endTick}
@@ -202,7 +208,42 @@ function Content({ track, containerWidth, containerHeight, theme }) {
   </div>
 }
 
-export default withTheme(fitToContainer(Content, {
+function withCursor(WrappedComponent) {
+  return class extends Component {
+    constructor(props) {
+      super(props)
+
+      this.state = {
+        playerPosition: props.player.position
+      }
+
+      this.updatePosition = this.updatePosition.bind(this)
+    }
+
+    componentDidMount() {
+      this.props.player.on("change-position", this.updatePosition)
+    }
+
+    componentWillUnmount() {
+      this.props.player.off("change-position", this.updatePosition)
+    }
+
+    updatePosition(tick) {
+      this.setState({
+        playerPosition: tick
+      })
+    }
+
+    render() {
+      return <WrappedComponent
+        {...this.state}
+        {...this.props}
+      />
+    }
+  }
+}
+
+export default withCursor(withTheme(fitToContainer(Content, {
   width: "100%",
   height: "100%"
-}))
+})))

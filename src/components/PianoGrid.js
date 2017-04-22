@@ -26,6 +26,7 @@ function drawBeatLines(ctx, transform, startTick, endTick, ticksPerBeat, theme) 
 function PianoGrid({
   transform,
   width,
+  height,
   endTick,
   scrollLeft,
   ticksPerBeat,
@@ -45,12 +46,13 @@ function PianoGrid({
     draw={draw}
     className="PianoGrid"
     width={width}
-    height={transform.pixelsPerKey * transform.numberOfKeys}
+    height={height}
   />
 }
 
 PianoGrid.propTypes = {
   width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
   endTick: PropTypes.number.isRequired,
   scrollLeft: PropTypes.number.isRequired,
   ticksPerBeat: PropTypes.number.isRequired,
@@ -63,6 +65,7 @@ class _PianoGrid extends Component {
     const props = this.props
     return !logEq(props, nextProps, "theme", _.isEqual)
       || !logEq(props, nextProps, "width", (x, y) => x === y)
+      || !logEq(props, nextProps, "height", (x, y) => x === y)
       || !logEq(props, nextProps, "endTick", (x, y) => x === y)
       || !logEq(props, nextProps, "scrollLeft", (x, y) => x === y)
       || !logEq(props, nextProps, "ticksPerBeat", (x, y) => x === y)

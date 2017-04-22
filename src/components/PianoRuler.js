@@ -3,6 +3,8 @@ import DrawCanvas from "./DrawCanvas"
 import withTheme from "../hocs/withTheme"
 import pureRender from "../hocs/pureRender"
 
+import "./PianoRuler.css"
+
 function drawRuler(ctx, height, pixelsPerTick, startTick, endTick, ticksPerBeat, theme) {
   ctx.beginPath()
   ctx.strokeStyle = theme.secondaryTextColor
@@ -37,7 +39,7 @@ function drawRuler(ctx, height, pixelsPerTick, startTick, endTick, ticksPerBeat,
 
 function PianoRuler({
   height,
-  transform,
+  pixelsPerTick,
   endTick,
   scrollLeft,
   ticksPerBeat,
@@ -50,15 +52,15 @@ function PianoRuler({
     ctx.clearRect(0, 0, width, height)
     ctx.save()
     ctx.translate(-scrollLeft + 0.5, 0)
-    const startTick = transform.getTicks(scrollLeft)
-    drawRuler(ctx, height, transform.pixelsPerTick, startTick, endTick, ticksPerBeat, theme)
+    const startTick = scrollLeft / pixelsPerTick
+    drawRuler(ctx, height, pixelsPerTick, startTick, endTick, ticksPerBeat, theme)
     ctx.restore()
   }
 
   return <DrawCanvas
     draw={draw}
     className="PianoRuler"
-    width={transform.pixelsPerTick * endTick}
+    width={pixelsPerTick * endTick}
     height={height}
     onMouseDown={onMouseDown}
   />
@@ -69,7 +71,7 @@ PianoRuler.propTypes = {
   scrollLeft: PropTypes.number.isRequired,
   endTick: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
-  transform: PropTypes.object.isRequired,
+  pixelsPerTick: PropTypes.number.isRequired,
   theme: PropTypes.object.isRequired,
   onMouseDown: PropTypes.func
 }

@@ -37,7 +37,7 @@ export default function NumberInput({
       setValue(e, startValue - Math.ceil(delta / 2))
     }
 
-    function onMouseUp(e) {
+    function onMouseUp() {
       window.removeEventListener("mousemove", onMouseMove)
       window.removeEventListener("mouseup", onMouseUp)
     }

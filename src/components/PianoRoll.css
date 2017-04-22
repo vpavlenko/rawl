@@ -30,20 +30,17 @@
   box-sizing: border-box;
 }
 
-.PianoKeys {
+.PianoRoll .PianoKeys {
   position: absolute;
   top: var(--ruler-height);
   background: white;
   box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 4px;
 }
 
-.PianoRuler {
+.PianoRoll .PianoRuler {
   position: absolute;
   left: 0;
   margin-left: var(--key-width);
-  background: rgb(255, 255, 255);
-  border-bottom: 1px solid var(--secondary-text-color);
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 4px;
 }
 
 .PianoRollLeftSpace {
@@ -55,27 +52,27 @@
   border-bottom: 1px solid var(--secondary-text-color);
 }
 
-.PianoGrid {
+.PianoRoll .PianoGrid {
   left: 0;
 }
 
-.PianoNotes,
-.PianoSelection,
-.PianoCursor,
-.PianoGrid,
-.PianoLines {
+.PianoRoll .PianoNotes,
+.PianoRoll .PianoSelection,
+.PianoRoll .PianoCursor,
+.PianoRoll .PianoGrid,
+.PianoRoll .PianoLines {
   position: absolute;
   margin-left: var(--key-width);
   top: var(--ruler-height);
 }
 
-.PianoSelection,
-.PianoCursor,
-.PianoGrid,
-.PianoLines {
+.PianoRoll .PianoSelection,
+.PianoRoll .PianoCursor,
+.PianoRoll .PianoGrid,
+.PianoRoll .PianoLines {
   pointer-events: none;
 }
 
-.PianoControl {
+.PianoRoll .PianoControl {
   margin-left: var(--key-width);
 }

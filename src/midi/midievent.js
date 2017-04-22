@@ -65,14 +65,6 @@ export class SetTempoMidiEvent extends MetaMidiEvent {
     super(deltaTime, "setTempo", microsecondsPerBeat)
   }
 
-  get bpm() {
-    return 60 * 1000000 / this.value
-  }
-
-  set bpm(value) {
-    this.value = value / (60 * 1000000)
-  }
-
   get microsecondsPerBeat() {
     return this.value
   }

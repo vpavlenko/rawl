@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/ryohey/signal#readme",
   "dependencies": {
+    "color": "^1.0.3",
     "file-dialog": "0.0.4",
     "fixed-data-table": "^0.6.3",
     "lodash": "^4.11.1",

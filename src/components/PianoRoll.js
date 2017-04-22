@@ -27,10 +27,13 @@ class PianoRoll extends Component {
   constructor(props) {
     super(props)
 
+    this.fitBetaSize = this.fitBetaSize.bind(this)
+    this.alphaDidScroll = this.alphaDidScroll.bind(this)
+    this.betaDidScroll = this.betaDidScroll.bind(this)
+
     this.state = {
       scrollLeft: 0,
       scrollTop: 0,
-      width: 0,
       controlHeight: 0,
       cursorPosition: 0,
       notesCursor: "auto",
@@ -67,22 +70,23 @@ class PianoRoll extends Component {
     })
   }
 
+  alphaDidScroll(e) {
+    const { scrollTop } = e.target
+    this.setState({ scrollTop })
+  }
+
+  betaDidScroll(e) {
+    const { scrollLeft } = e.target
+    this.alpha.scrollLeft = scrollLeft
+    this.setState({ scrollLeft })
+  }
+
   componentDidMount() {
     this.fitBetaSize()
 
-    window.addEventListener("resize", () => {
-      this.fitBetaSize()
-    })
-
-    this.alpha.addEventListener("scroll", e => {
-      const { scrollTop } = e.target
-      this.setState({ scrollTop })
-    })
-    this.beta.addEventListener("scroll", e => {
-      const { scrollLeft } = e.target
-      this.alpha.scrollLeft = scrollLeft
-      this.setState({ scrollLeft })
-    })
+    window.addEventListener("resize", this.fitBetaSize)
+    this.alpha.addEventListener("scroll", this.alphaDidScroll)
+    this.beta.addEventListener("scroll", this.betaDidScroll)
 
     const { player, autoScroll } = this.props
     player.on("change-position", tick => {
@@ -99,6 +103,12 @@ class PianoRoll extends Component {
         }
       }
     })
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.fitBetaSize)
+    this.alpha.removeEventListener("scroll", this.alphaDidScroll)
+    this.beta.removeEventListener("scroll", this.betaDidScroll)
   }
 
   getTransform() {
@@ -203,6 +213,7 @@ class PianoRoll extends Component {
             endTick={widthTick}
             ticksPerBeat={ticksPerBeat}
             width={width}
+            height={contentHeight}
             scrollLeft={scrollLeft}
             transform={transform} />
           <PianoNotes
@@ -237,7 +248,7 @@ class PianoRoll extends Component {
             ticksPerBeat={ticksPerBeat}
             onMouseDown={e => onMouseDownRuler(e)}
             scrollLeft={scrollLeft}
-            transform={transform} />
+            pixelsPerTick={transform.pixelsPerTick} />
           <div className="PianoRollLeftSpace" />
         </FixedTopLeftContent>
       </div>

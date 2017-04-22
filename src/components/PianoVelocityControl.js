@@ -36,7 +36,7 @@ function PianoVelocityControl({
         y: e.nativeEvent.offsetY
       }
     }
-    function itemsUnderPoint({ x, y }) {
+    function itemsUnderPoint({ x }) {
       return items
         .filter(b => {
           return x >= b.x

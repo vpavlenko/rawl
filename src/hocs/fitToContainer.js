@@ -9,14 +9,17 @@ export default function fitToContainer(WrappedComponent, style) {
         containerWidth: 0,
         containerHeight: 0
       }
+
+      this.updateContainerSize = this.updateContainerSize.bind(this)
     }
 
     componentDidMount() {
       this.updateContainerSize()
+      window.addEventListener("resize", this.updateContainerSize)
+    }
 
-      window.addEventListener("resize", () => {
-        this.updateContainerSize()
-      })
+    componentWillUnmount() {
+      window.removeEventListener("resize", this.updateContainerSize)
     }
 
     updateContainerSize() {

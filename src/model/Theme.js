@@ -1,6 +1,11 @@
+// 文頭、文末のスペースを取り除く
+function trimSpace(str) {
+  return str.match(/^\s*(.+?)\s*$/)[1]
+}
+
 function getCSSVariable(name) {
   const s = window.getComputedStyle(document.body)
-  return s.getPropertyValue(name)
+  return trimSpace(s.getPropertyValue(name))
 }
 
 export function hslWithAlpha(hsl, alpha) {

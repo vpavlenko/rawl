@@ -15,7 +15,6 @@ export default class VelocityMouseHandler {
   }
 
   onMouseDown(e) {
-
     const items = e.items
     if (items.length === 0) {
       return
@@ -42,11 +41,9 @@ export default class VelocityMouseHandler {
     document.addEventListener("mouseup", onMouseUp)
   }
 
-  onMouseMove(e) {
-
+  onMouseMove() {
   }
 
-  onMouseUp(e) {
-
+  onMouseUp() {
   }
 }

@@ -25,6 +25,10 @@ export default class TempoCoordTransform {
     return (1 - pixels / this.height) * this.maxBPM
   }
 
+  getDeltaBPM(pixels) {
+    return -pixels / this.height * this.maxBPM
+  }
+
   equals(t) {
     return this.pixelsPerKey == t.pixelsPerKey
       && this.height == t.height

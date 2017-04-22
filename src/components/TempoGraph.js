@@ -37,12 +37,9 @@ function Graph({ items, width, height, fillColor, strokeColor, onMouseDown, onWh
   // ローカル座標や、どの item の上でクリックされたかなどの追加情報を作成する
   function itemUnderPoint(e) {
     const x = e.nativeEvent.offsetX
-    const y = e.nativeEvent.offsetY
     return items.filter(b =>
       x >= b.x &&
-      x <= b.x + b.width &&
-      y >= b.y &&
-      y <= b.y + b.height
+      x <= b.x + b.width
     )[0]
   }
 
@@ -120,7 +117,33 @@ function Content({ track, containerWidth, containerHeight, theme }) {
 
   const items = tempoGraphPresentation(track.getEvents(), transform, containerWidth)
 
-  function onWheel(e) {
+  function onMouseDownGraph(e) {
+    if (!e.item) {
+      return
+    }
+
+    const event = track.getEventById(e.item.id)
+    const bpm = uSecPerBeatToBPM(event.microsecondsPerBeat)
+    const startY = e.clientY
+
+    function onMouseMove(e) {
+      const delta = transform.getDeltaBPM(e.clientY - startY)
+
+      track.updateEvent(event.id, {
+        microsecondsPerBeat: bpmToUSecPerBeat(bpm + delta)
+      })
+    }
+
+    function onMouseUp() {
+      document.removeEventListener("mousemove", onMouseMove)
+      document.removeEventListener("mouseup", onMouseUp)
+    }
+
+    document.addEventListener("mousemove", onMouseMove)
+    document.addEventListener("mouseup", onMouseUp)
+  }
+
+  function onWheelGraph(e) {
     if (!e.item) {
       return
     }
@@ -154,8 +177,8 @@ function Content({ track, containerWidth, containerHeight, theme }) {
       height={containerHeight}
       strokeColor={theme.themeColor}
       fillColor={Color(theme.themeColor).alpha(0.1).string()}
-      onMouseDown={e => console.log(e.item)}
-      onWheel={onWheel}
+      onMouseDown={onMouseDownGraph}
+      onWheel={onWheelGraph}
     />
     <PianoRuler
       height={rulerHeight}

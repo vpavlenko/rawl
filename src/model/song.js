@@ -69,7 +69,7 @@ export default class Song {
   static emptySong() {
     const song = new Song()
     song.addTrack(Track.conductorTrack())
-    song.addTrack(Track.emptyTrack(0))
+    song.addTrack(Track.emptyTrack(1))
     song.name = "new song.mid"
     return song
   }

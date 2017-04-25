@@ -42,10 +42,16 @@ function varIntBytes(v) {
 }
 
 export function eventToBytes(e, includeDeltaTime = true) {
+  const subtypeCode = MIDIMetaEvents[e.subtype]
+  if (subtypeCode === undefined) {
+    return []
+  }
+
   const bytes = []
+
   function add(data) {
     if (data instanceof Array) {
-      add(...data)
+      data.forEach(add)
     } else {
       if (!Number.isInteger(data)) {
         throw `"${data}" is not integer`
@@ -61,7 +67,7 @@ export function eventToBytes(e, includeDeltaTime = true) {
   switch (e.type) {
     case "meta":
       add(0xff) // type
-      add(MIDIMetaEvents[e.subtype]) // subtype
+      add(subtypeCode) // subtype
       switch(e.subtype) {
         case "text":
         case "copyrightNotice":
@@ -69,8 +75,8 @@ export function eventToBytes(e, includeDeltaTime = true) {
         case "instrumentName":
         case "lyrics":
         case "cuePoint":
-          add(e.value.length)
-          add(strToCharCodes(e.value))
+          add(e.text.length)
+          add(strToCharCodes(e.text))
           break
         case "midiChannelPrefix":
         case "portPrefix":
@@ -98,9 +104,10 @@ export function eventToBytes(e, includeDeltaTime = true) {
           add(e.scale)
           break
         case "sequencerSpecific":
-        case "unknown":
           add(e.value.length)
           add(e.value)
+          break
+        case "unknown":
           break
       }
       break
@@ -115,7 +122,7 @@ export function eventToBytes(e, includeDeltaTime = true) {
       add(e.data)
       break
     case "channel":
-      add((MIDIChannelEvents[e.subtype] << 4) + e.channel) // subtype + channel
+      add((subtypeCode << 4) + e.channel) // subtype + channel
       switch(e.subtype) {
         case "noteOff":
         case "noteOn":

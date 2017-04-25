@@ -68,7 +68,7 @@ export default class Track {
       e.tick = e.deltaTime + (lastEvent ? lastEvent.tick : 0)
     }
     e.id = this.lastEventId
-    if (e.type == "channel" && e.channel === undefined) {
+    if (e.type == "channel") {
       e.channel = this.channel
     }
     this.events.push(e)
@@ -213,6 +213,9 @@ export default class Track {
   }
 
   static emptyTrack(channel) {
+    if (!Number.isInteger(channel)) {
+      throw new Error("channel is not integer")
+    }
     const track = new Track()
     track.channel = channel
     const events = [

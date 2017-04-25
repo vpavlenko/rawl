@@ -168,7 +168,7 @@ export default class RootView extends Component {
     }
 
     const onClickAddTrack = () => {
-      song.addTrack(Track.emptyTrack())
+      song.addTrack(Track.emptyTrack(song.tracks.length - 1))
     }
 
     const onClickMute = (trackId) => {

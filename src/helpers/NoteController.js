@@ -26,19 +26,16 @@ export default class NoteController {
   // 指定位置にノートを作成
   createAt(pos) {
     const { track, player, quantizer } = this
-    function createNote(tick = 0, noteNumber = 48, duration = 240, velocity = 127, channel = 0) {
-      return {
-        type: "channel",
-        subtype: "note",
-        noteNumber: noteNumber || 48,
-        tick: tick || 0,
-        velocity: velocity || 127,
-        duration: duration || 240,
-        channel: channel
-      }
-    }
     const loc = this._createdNoteLocation(pos)
-    const note = createNote(loc.tick, loc.noteNumber, quantizer.unit)
+    const note = {
+      type: "channel",
+      subtype: "note",
+      noteNumber: loc.noteNumber,
+      tick: loc.tick,
+      velocity: 127,
+      duration: quantizer.unit,
+      channel: track.channel
+    }
     track.addEvent(note)
     player.playNote(note)
     return note.id

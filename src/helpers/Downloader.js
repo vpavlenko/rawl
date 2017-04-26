@@ -1,9 +1,12 @@
 export default class Downloader {
-  static download(url, name){
+  static download(url, name = "noname"){
     var a = document.createElement("a")
     a.href = url
-    a.setAttribute("download", name || "noname")
-    a.dispatchEvent(new CustomEvent("click"))
+    a.setAttribute("download", name)
+    a.style = "display: none;"
+    document.body.appendChild(a)
+    a.click()
+    a.remove()
   }
 
   // http://stackoverflow.com/a/33622881/1567777

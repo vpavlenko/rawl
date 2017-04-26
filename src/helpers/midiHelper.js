@@ -42,11 +42,6 @@ function varIntBytes(v) {
 }
 
 export function eventToBytes(e, includeDeltaTime = true) {
-  const subtypeCode = MIDIMetaEvents[e.subtype]
-  if (subtypeCode === undefined) {
-    return []
-  }
-
   const bytes = []
 
   function add(data) {
@@ -65,7 +60,11 @@ export function eventToBytes(e, includeDeltaTime = true) {
   }
 
   switch (e.type) {
-    case "meta":
+    case "meta": {
+      const subtypeCode = MIDIMetaEvents[e.subtype]
+      if (subtypeCode === undefined) {
+        return []
+      }
       add(0xff) // type
       add(subtypeCode) // subtype
       switch(e.subtype) {
@@ -111,6 +110,7 @@ export function eventToBytes(e, includeDeltaTime = true) {
           break
       }
       break
+    }
     case "sysEx":
       add(0xf0)
       add(e.data.length)
@@ -121,7 +121,11 @@ export function eventToBytes(e, includeDeltaTime = true) {
       add(e.data.length)
       add(e.data)
       break
-    case "channel":
+    case "channel": {
+      const subtypeCode = MIDIChannelEvents[e.subtype]
+      if (subtypeCode === undefined) {
+        return []
+      }
       add((subtypeCode << 4) + e.channel) // subtype + channel
       switch(e.subtype) {
         case "noteOff":
@@ -152,6 +156,7 @@ export function eventToBytes(e, includeDeltaTime = true) {
           break
       }
       break
+    }
   }
 
   return bytes

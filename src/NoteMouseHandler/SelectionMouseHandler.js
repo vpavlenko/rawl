@@ -110,18 +110,20 @@ const contextMenuAction = (selected, copySelection, pasteSelection, deleteSelect
 // 選択範囲外でクリックした場合は選択範囲をリセット
 const createSelectionAction = (startAt, resize, selectNotes, setPlayerCursor) => (onMouseDown) => {
   let rect
+  let scrollLeft
   onMouseDown(e => {
     document.addEventListener("mousemove", onMouseMove)
     document.addEventListener("mouseup", onMouseUp)
 
     rect =  e.currentTarget.getBoundingClientRect()
+    scrollLeft = e.local.x - (e.clientX - rect.left)
     startAt(e.local)
     setPlayerCursor(e.local)
   })
 
   function onMouseMove(e) {
     const local = {
-      x: Math.round(e.clientX - rect.left),
+      x: Math.round(e.clientX - rect.left + scrollLeft),
       y: Math.round(e.clientY - rect.top)
     }
     resize(local)

@@ -280,7 +280,7 @@ export default class RootView extends Component {
       {toolbar}
       <Pane split="vertical" minSize={200} defaultSize={265} maxSize={400}>
         {trackList}
-        {selectedTrack.channel === 0 ? tempoGraph : pianoRoll}
+        {selectedTrack.isConductorTrack ? tempoGraph : pianoRoll}
       </Pane>
     </div>
   }

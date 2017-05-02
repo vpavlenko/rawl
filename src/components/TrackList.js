@@ -87,7 +87,7 @@ function TrackListContent({
 }) {
   const items = tracks
     .map((t, i) => {
-      if (t.channel === 0) {
+      if (t.isConductorTrack) {
         return <TempoTrackItem
           key={i}
           onClick={() => onSelectTrack(i)}

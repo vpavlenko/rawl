@@ -30,6 +30,8 @@ class PianoRoll extends Component {
     this.fitBetaSize = this.fitBetaSize.bind(this)
     this.alphaDidScroll = this.alphaDidScroll.bind(this)
     this.betaDidScroll = this.betaDidScroll.bind(this)
+    this.onCopy = this.onCopy.bind(this)
+    this.onPaste = this.onPaste.bind(this)
 
     this.state = {
       scrollLeft: 0,
@@ -103,12 +105,40 @@ class PianoRoll extends Component {
         }
       }
     })
+
+    document.addEventListener("copy", this.onCopy)
+    document.addEventListener("paste", this.onPaste)
   }
 
   componentWillUnmount() {
     window.removeEventListener("resize", this.fitBetaSize)
     this.alpha.removeEventListener("scroll", this.alphaDidScroll)
     this.beta.removeEventListener("scroll", this.betaDidScroll)
+    document.removeEventListener("copy", this.onCopy)
+    document.removeEventListener("paste", this.onPaste)
+  }
+
+  onCopy() {
+    if (this.props.mouseMode !== 1) {
+      // not selection mode
+      return
+    }
+
+    const selectionController = new SelectionController(
+        this.state.selection,
+        this.props.track,
+        this.props.quantizer,
+        this.getTransform(),
+        this.props.player).copySelection()
+  }
+
+  onPaste() {
+    const selectionController = new SelectionController(
+        this.state.selection,
+        this.props.track,
+        this.props.quantizer,
+        this.getTransform(),
+        this.props.player).pasteSelection()
   }
 
   getTransform() {

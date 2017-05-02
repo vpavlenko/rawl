@@ -18,7 +18,10 @@ export default class Song {
   }
 
   addTrack(t) {
-    t.channel = t.channel || this._tracks.length
+    // 最初のトラックは Conductor Track なので channel を設定しない
+    if (this._tracks.length > 0) {
+      t.channel = t.channel || this._tracks.length - 1
+    }
     t.on("change", () => this._emitChange())
     this._tracks.push(t)
     this.trigger("add-track", t)
@@ -69,7 +72,7 @@ export default class Song {
   static emptySong() {
     const song = new Song()
     song.addTrack(Track.conductorTrack())
-    song.addTrack(Track.emptyTrack(1))
+    song.addTrack(Track.emptyTrack(0))
     song.name = "new song.mid"
     return song
   }
@@ -78,14 +81,16 @@ export default class Song {
     const song = new Song
     midi.tracks.forEach(t => {
       const track = new Track
-      t.events.forEach(e => {
-        track.addEvent(e)
-      })
-      track.endOfTrack = t.end
+
       const chEvent = _.find(t.events, e => {
         return e.type == "channel"
       })
       track.channel = chEvent ? chEvent.channel : undefined
+
+      t.events.forEach(e => {
+        track.addEvent(e)
+      })
+
       song.addTrack(track)
     })
     return song

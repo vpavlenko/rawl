@@ -200,6 +200,10 @@ export default class Track {
     this._updateLast(this._findSetTempoEvents(), { microsecondsPerBeat })
   }
 
+  get isConductorTrack() {
+    return this.channel === undefined
+  }
+
   static conductorTrack(name = "Conductor Track") {
     const track = new Track()
     const events = [

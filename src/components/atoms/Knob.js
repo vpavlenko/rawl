@@ -61,7 +61,6 @@ function Knob_({
       </div>
     </div>
     <div className="value">{value}</div>
-    <div className="title">{name}</div>
   </div>
 }
 

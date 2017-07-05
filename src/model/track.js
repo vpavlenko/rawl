@@ -5,7 +5,7 @@ import {
   TimeSignatureMidiEvent, SetTempoMidiEvent,
   PitchBendMidiEvent, VolumeMidiEvent,
   PanMidiEvent, ExpressionMidiEvent,
-  ModulationMidiEvent, ProgramChangeMidiEvent } from "../midi/midievent"
+  ModulationMidiEvent, ProgramChangeMidiEvent } from "../midi/MidiEvent"
 import { getInstrumentName } from "../midi/GM"
 
 function lastValue(arr, prop) {

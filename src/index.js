@@ -10,9 +10,9 @@ window.onload = () => {
   const app = new App()
   document.app = app // for debug
 
-  const RootView_ = withSong(app, RootView)
+  const RootView2 = withSong(app, RootView)
 
-  ReactDOM.render(<RootView_
+  ReactDOM.render(<RootView2
     openFile={f => app.open(f)}
     saveFile={() => app.save()}
     song={app.song}

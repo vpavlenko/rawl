@@ -58,7 +58,7 @@ function PropertyPaneContent({
 }
 
 function equalValue(arr, prop, func = (v) => v, elseValue = "<multiple values>") {
-  if (!arr || arr.length == 0) {
+  if (!arr || arr.length === 0) {
     return ""
   }
   const first = arr[0][prop]

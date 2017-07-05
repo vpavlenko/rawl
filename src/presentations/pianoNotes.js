@@ -7,7 +7,7 @@ import filterEventsWithScroll from "../helpers/filterEventsWithScroll"
 */
 export default function(events, transform, scrollLeft, width) {
   return filterEventsWithScroll(events, transform, scrollLeft, width)
-    .filter(e => e.subtype == "note")
+    .filter(e => e.subtype === "note")
     .map(note => {
       const rect = transform.getRect(note)
       return {

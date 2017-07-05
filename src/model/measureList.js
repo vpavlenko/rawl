@@ -26,11 +26,11 @@ export default class MeasureList {
 }
 
 function getMeasuresFromConductorTrack(conductorTrack) {
-  if (conductorTrack.getEvents().length == 0) {
-    return [new Measure]
+  if (conductorTrack.getEvents().length === 0) {
+    return [new Measure()]
   } else {
     return conductorTrack.getEvents()
-      .filter(e => e.subtype == "timeSignature")
+      .filter(e => e.subtype === "timeSignature")
       .map((e, i) => {
         return new Measure(e.tick, i, e.numerator, e.denominator)
       })

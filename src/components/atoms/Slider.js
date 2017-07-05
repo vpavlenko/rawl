@@ -3,7 +3,7 @@ import coarsify from "../../helpers/coarsify"
 
 import "./Slider.css"
 
-function Slider_({
+function SliderBody({
   value = 0,
   maxValue = 1,
   onChange = () => {},
@@ -71,7 +71,7 @@ export default class Slider extends Component {
   }
 
   render() {
-    return <Slider_
+    return <SliderBody
       {...this.props}
       {...this.state}
       setDragging={dragging => this.setState({ dragging })}

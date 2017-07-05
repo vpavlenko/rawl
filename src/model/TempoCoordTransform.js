@@ -30,8 +30,8 @@ export default class TempoCoordTransform {
   }
 
   equals(t) {
-    return this.pixelsPerKey == t.pixelsPerKey
-      && this.height == t.height
-      && this.maxBPM == t.maxBPM
+    return this.pixelsPerKey === t.pixelsPerKey
+      && this.height === t.height
+      && this.maxBPM === t.maxBPM
   }
 }

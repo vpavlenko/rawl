@@ -1,4 +1,5 @@
-import React, { PropTypes } from "react"
+import React from "react"
+import PropTypes from "prop-types"
 import DrawCanvas from "./DrawCanvas"
 import withTheme from "../hocs/withTheme"
 import pureRender from "../hocs/pureRender"

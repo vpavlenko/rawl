@@ -13,6 +13,10 @@ export function hslWithAlpha(hsl, alpha) {
   return `hsla(${h}, ${s}%, ${l}%, ${alpha})`
 }
 
+function parseInt_(v) {
+  return parseInt(v, 10)
+}
+
 let instance
 
 export default class Theme {
@@ -33,10 +37,10 @@ export default class Theme {
       dividerColor: getCSSVariable("--divider-color"),
       textColor: getCSSVariable("--text-color"),
       secondaryTextColor: getCSSVariable("--secondary-text-color"),
-      keyWidth: parseInt(getCSSVariable("--key-width")),
-      keyHeight: parseInt(getCSSVariable("--key-height")),
-      rulerHeight: parseInt(getCSSVariable("--ruler-height")),
-      controlHeight: parseInt(getCSSVariable("--control-height"))
+      keyWidth: parseInt_(getCSSVariable("--key-width")),
+      keyHeight: parseInt_(getCSSVariable("--key-height")),
+      rulerHeight: parseInt_(getCSSVariable("--ruler-height")),
+      controlHeight: parseInt_(getCSSVariable("--control-height"))
     }
   }
 }

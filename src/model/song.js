@@ -78,12 +78,12 @@ export default class Song {
   }
 
   static fromMidi(midi) {
-    const song = new Song
+    const song = new Song()
     midi.tracks.forEach(t => {
-      const track = new Track
+      const track = new Track()
 
       const chEvent = _.find(t.events, e => {
-        return e.type == "channel"
+        return e.type === "channel"
       })
       track.channel = chEvent ? chEvent.channel : undefined
 

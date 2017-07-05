@@ -1,4 +1,5 @@
-import React, { PropTypes } from "react"
+import React from "react"
+import PropTypes from "prop-types"
 import DrawCanvas from "./DrawCanvas"
 import withTheme from "../hocs/withTheme"
 import pureRender from "../hocs/pureRender"
@@ -8,8 +9,8 @@ function drawHorizontalLines(ctx, numberOfKeys, keyHeight, width, theme) {
 
   for (let key = 0; key < numberOfKeys; key++) {
     const index = key % 12
-    const isBlack = index == 1 || index == 3 || index == 6 || index == 8 || index == 10
-    const isBold = index == 11
+    const isBlack = index === 1 || index === 3 || index === 6 || index === 8 || index === 10
+    const isBold = index === 11
     const y = (numberOfKeys - key - 1) * keyHeight
     if (isBlack) {
       ctx.fillStyle = theme.secondaryBackgroundColor

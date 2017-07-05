@@ -68,7 +68,7 @@ export default class NoteController {
     const duration = Math.max(quantizer.unit,
       quantizer.round(right - note.tick))
 
-    if (note.duration == duration) {
+    if (note.duration === duration) {
       return
     }
 
@@ -78,7 +78,7 @@ export default class NoteController {
   _move(id, tick, noteNumber) {
     const { track, player } = this
     const note = track.getEventById(id)
-    const pitchChanged = noteNumber != note.noteNumber
+    const pitchChanged = noteNumber !== note.noteNumber
     const n = track.updateEvent(note.id, {
       tick: tick,
       noteNumber: noteNumber

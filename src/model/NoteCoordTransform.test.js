@@ -5,7 +5,7 @@ describe("NoteCoordTransform", () => {
   const t = new NoteCoordTransform(100, 30, 127)
 
   it("constructor", () => {
-    assert(t != null)
+    assert(t !== null)
   })
 
   it("getX", () => {

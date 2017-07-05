@@ -81,8 +81,8 @@ export default class NoteCoordTransform {
   }
 
   equals(t) {
-    return this.pixelsPerKey == t.pixelsPerKey
-      && this.pixelsPerTick == t.pixelsPerTick
-      && this.maxNoteNumber == t.maxNoteNumber
+    return this.pixelsPerKey === t.pixelsPerKey
+      && this.pixelsPerTick === t.pixelsPerTick
+      && this.maxNoteNumber === t.maxNoteNumber
   }
 }

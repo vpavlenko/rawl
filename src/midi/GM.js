@@ -42,7 +42,7 @@ function getGMMapProgramNumber(catrgoryId, instrumentId) {
   let n = 0
   for (const key in GMMap) {
     const len = GMMap[key].length
-    if (i == catrgoryId) {
+    if (i === catrgoryId) {
       return n + instrumentId
     }
     i++

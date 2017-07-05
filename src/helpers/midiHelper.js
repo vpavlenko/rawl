@@ -3,7 +3,7 @@ import MIDIMetaEvents from "../constants/MIDIMetaEvents"
 
 // separate notes to noteOn + noteOff
 export function deassembleNoteEvents(e) {
-  if (e.subtype == "note") {
+  if (e.subtype === "note") {
     return [{
       type: "channel",
       subtype: "noteOn",
@@ -35,7 +35,11 @@ export function strToCharCodes(str) {
 
 function varIntBytes(v) {
   const r = [v & 0x7f]
-  while ((v >>= 7) > 0) {
+  while (true) {
+    v >>= 7
+    if (v > 0) {
+      break
+    }
     r.unshift(0x80 + (v & 0x7f))
   }
   return r
@@ -49,7 +53,7 @@ export function eventToBytes(e, includeDeltaTime = true) {
       data.forEach(add)
     } else {
       if (!Number.isInteger(data)) {
-        throw `"${data}" is not integer`
+        throw new Error(`"${data}" is not integer`)
       }
       bytes.push(data)
     }
@@ -107,6 +111,7 @@ export function eventToBytes(e, includeDeltaTime = true) {
           add(e.value)
           break
         case "unknown":
+        default:
           break
       }
       break
@@ -152,11 +157,13 @@ export function eventToBytes(e, includeDeltaTime = true) {
           add((e.value >> 7) & 0x7f)
           break
         case "unknown":
+        default:
           add(e.value)
           break
       }
       break
     }
+    default:
   }
 
   return bytes

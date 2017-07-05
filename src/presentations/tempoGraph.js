@@ -2,7 +2,7 @@ export default function(events, transform, width) {
 
   // まず位置だけ計算する
   const items = events
-    .filter(e => e.subtype == "setTempo")
+    .filter(e => e.subtype === "setTempo")
     .map(e => {
       const bpm = 60 * 1000000 / e.microsecondsPerBeat
       return {

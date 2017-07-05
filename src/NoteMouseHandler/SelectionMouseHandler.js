@@ -30,6 +30,7 @@ export default class SelectionMouseHandler extends MouseHandler {
         case "right": return dragSelectionRightEdgeAction(p => c.resizeRight(p))
         case "left": return dragSelectionLeftEdgeAction(p => c.resizeLeft(p))
         case "outside": break
+        default: break
       }
 
       return createSelectionAction(
@@ -51,6 +52,7 @@ export default class SelectionMouseHandler extends MouseHandler {
         case "outside":
           selected = false
           break
+        default: break
       }
       return contextMenuAction(selected,
         () => c.copySelection(),

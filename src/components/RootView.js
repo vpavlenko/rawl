@@ -51,7 +51,7 @@ export default class RootView extends Component {
 
   initKeyboardShortcut() {
     document.onkeydown = e => {
-      if (e.target != document.body) {
+      if (e.target !== document.body) {
         return
       }
       switch(e.keyCode) {
@@ -65,6 +65,7 @@ export default class RootView extends Component {
           e.preventDefault()
           break
         }
+        default: break
       }
     }
   }
@@ -75,7 +76,7 @@ export default class RootView extends Component {
     const { selectedTrack, selectedTrackId } = song
 
     const onChangeFile = (file) => {
-      if (!file || (file.type != "audio/mid" && file.type != "audio/midi")) {
+      if (!file || (file.type !== "audio/mid" && file.type !== "audio/midi")) {
         return
       }
       openFile(file)
@@ -101,7 +102,7 @@ export default class RootView extends Component {
 
     const onChangeTool = () => {
       this.setState({
-        pianoRollMouseMode: state.pianoRollMouseMode == 0 ? 1 : 0
+        pianoRollMouseMode: state.pianoRollMouseMode === 0 ? 1 : 0
       })
     }
 
@@ -180,7 +181,7 @@ export default class RootView extends Component {
     const onClickSolo = (trackId) => {
       const channel = song.getTrack(trackId).channel
       song.tracks.forEach((t, i) => {
-        player.muteChannel(t.channel, i != channel)
+        player.muteChannel(t.channel, i !== channel)
       })
     }
 
@@ -258,7 +259,7 @@ export default class RootView extends Component {
     const trackList =
       <TrackList
         player={player}
-        tracks={song && song.tracks || []}
+        tracks={(song && song.tracks) || []}
         tempo={song.getTrack(0).tempo}
         onChangeTempo={onChangeTempo}
         selectedTrackId={selectedTrackId}

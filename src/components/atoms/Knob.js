@@ -11,7 +11,7 @@ const WHEEL_SPEED = 0.1
 
 const Nop = () => {}
 
-function Knob_({
+function KnobBody({
   value = 0,
   onChange = Nop,
   offsetDegree = 0,
@@ -73,7 +73,7 @@ export default class Knob extends Component {
   }
 
   render() {
-    return <Knob_
+    return <KnobBody
       {...this.props}
       {...this.state}
       setDragging={dragging => this.setState({ dragging })}

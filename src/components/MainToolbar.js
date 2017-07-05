@@ -67,8 +67,8 @@ export default class MainToolbar extends Component {
 
       <ToolbarSeparator />
 
-      <ToolbarItem onClick={props.onClickPencil} selected={props.mouseMode == 0}><Icon>pencil</Icon></ToolbarItem>
-      <ToolbarItem onClick={props.onClickSelection} selected={props.mouseMode == 1}><Icon>select</Icon></ToolbarItem>
+      <ToolbarItem onClick={props.onClickPencil} selected={props.mouseMode === 0}><Icon>pencil</Icon></ToolbarItem>
+      <ToolbarItem onClick={props.onClickSelection} selected={props.mouseMode === 1}><Icon>select</Icon></ToolbarItem>
       <ToolbarItem touchDisabled={true}>
         <Select
           options={quantizeOptions}

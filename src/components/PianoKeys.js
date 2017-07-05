@@ -1,4 +1,5 @@
-import React, { PropTypes } from "react"
+import React from "react"
+import PropTypes from "prop-types"
 import { noteNameWithOctString } from "../helpers/noteNumberString"
 import DrawCanvas from "./DrawCanvas"
 import withTheme from "../hocs/withTheme"
@@ -48,8 +49,8 @@ function drawKeys(ctx, width, keyHeight, numberOfKeys, theme) {
   // 0: white, 1: black
   const colors = [0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0]
   for (let i = 0; i < numberOfKeys; i++) {
-    const isBlack = colors[i % colors.length] != 0
-    const bordered = (i % 12 == 4) || (i % 12 == 11)
+    const isBlack = colors[i % colors.length] !== 0
+    const bordered = (i % 12 === 4) || (i % 12 === 11)
     const y = (numberOfKeys - i - 1) * keyHeight
     ctx.save()
     ctx.translate(0, y)
@@ -58,7 +59,7 @@ function drawKeys(ctx, width, keyHeight, numberOfKeys, theme) {
     } else if (bordered) {
       drawBorder(ctx, width, theme)
     }
-    const isKeyC = i % 12 == 0
+    const isKeyC = i % 12 === 0
     if (isKeyC) {
       drawLabel(ctx, width, keyHeight, i, theme)
     }

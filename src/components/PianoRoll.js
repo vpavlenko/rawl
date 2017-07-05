@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from "react"
+import React, { Component } from "react"
+import PropTypes from "prop-types"
 import SelectionModel from "../model/SelectionModel"
 import NoteCoordTransform from "../model/NoteCoordTransform"
 import PianoKeys from "./PianoKeys"
@@ -124,21 +125,20 @@ class PianoRoll extends Component {
       return
     }
 
-    const selectionController = new SelectionController(
+    this.selectionController.copySelection()
+  }
+
+  get selectionController() {
+    return new SelectionController(
         this.state.selection,
         this.props.track,
         this.props.quantizer,
         this.getTransform(),
-        this.props.player).copySelection()
+        this.props.player)
   }
 
   onPaste() {
-    const selectionController = new SelectionController(
-        this.state.selection,
-        this.props.track,
-        this.props.quantizer,
-        this.getTransform(),
-        this.props.player).pasteSelection()
+    this.selectionController.pasteSelection()
   }
 
   getTransform() {

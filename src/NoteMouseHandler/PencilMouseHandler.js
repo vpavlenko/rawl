@@ -19,13 +19,14 @@ export default class PencilMouseHandler extends NoteMouseHandler {
     }
 
     if (e.item) {
-      if (e.nativeEvent.detail == 2) {
+      if (e.nativeEvent.detail === 2) {
         return removeNoteAction(id => n.remove(id))
       } else {
         switch(e.position) {
           case "center": return moveNoteAction((id, d) => n.moveCenter(id, d))
           case "left": return dragLeftNoteAction((id, d) => n.resizeLeft(id, d))
           case "right": return dragRightNoteAction((id, d) => n.resizeRight(id, d))
+          default: throw Error()
         }
       }
     } else {

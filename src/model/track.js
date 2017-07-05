@@ -26,7 +26,7 @@ export default class Track {
 
   getEventById(id) {
     for (const e of this.events) {
-      if (e.id == id) {
+      if (e.id === id) {
         return e
       }
     }
@@ -68,7 +68,7 @@ export default class Track {
       e.tick = e.deltaTime + (lastEvent ? lastEvent.tick : 0)
     }
     e.id = this.lastEventId
-    if (e.type == "channel") {
+    if (e.type === "channel") {
       e.channel = this.channel
     }
     this.events.push(e)
@@ -110,27 +110,27 @@ export default class Track {
   /* helper */
 
   _findTrackNameEvent() {
-    return this.events.filter(t => t.subtype == "trackName")
+    return this.events.filter(t => t.subtype === "trackName")
   }
 
   _findProgramChangeEvents() {
-    return this.events.filter(t => t.subtype == "programChange")
+    return this.events.filter(t => t.subtype === "programChange")
   }
 
   _findEndOfTrackEvents() {
-    return this.events.filter(t => t.subtype == "endOfTrack")
+    return this.events.filter(t => t.subtype === "endOfTrack")
   }
 
   _findVolumeEvents() {
-    return this.events.filter(t => t.subtype == "controller" && t.controllerType == 7)
+    return this.events.filter(t => t.subtype === "controller" && t.controllerType === 7)
   }
 
   _findPanEvents() {
-    return this.events.filter(t => t.subtype == "controller" && t.controllerType == 10)
+    return this.events.filter(t => t.subtype === "controller" && t.controllerType === 10)
   }
 
   _findSetTempoEvents() {
-    return this.events.filter(t => t.subtype == "setTempo")
+    return this.events.filter(t => t.subtype === "setTempo")
   }
 
   _updateLast(arr, obj) {

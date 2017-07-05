@@ -12,7 +12,7 @@ export default class NoteMouseHandler {
   actionForMouseDown(e) {
     // 共通の action
 
-    if (e.nativeEvent.button == 1) {
+    if (e.nativeEvent.button === 1) {
       // wheel drag to start scrolling
       return dragScrollAction(() => {
         // TODO: PianoRoll をスクロールする
@@ -20,7 +20,7 @@ export default class NoteMouseHandler {
     }
 
     // 右ダブルクリック
-    if (e.nativeEvent.button == 2 && e.nativeEvent.detail % 2 == 0) {
+    if (e.nativeEvent.button === 2 && e.nativeEvent.detail % 2 === 0) {
       return changeToolAction(this.toggleTool)
     }
 

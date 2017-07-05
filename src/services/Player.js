@@ -161,7 +161,7 @@ export default class Player {
 
     // channel イベントを MIDI Output に送信
     events
-      .filter(e => e.type == "channel" && !this._channelMutes[e.channel])
+      .filter(e => e.type === "channel" && !this._channelMutes[e.channel])
       .forEach(e => {
         const bytes = eventToBytes(e, false)
         const waitTick = e.tick - this._currentTick
@@ -170,7 +170,7 @@ export default class Player {
 
     // channel イベント以外を実行
     events
-      .filter(e => e.type != "channel")
+      .filter(e => e.type !== "channel")
       .forEach(e => {
         switch (e.subtype) {
           case "setTempo":
@@ -178,6 +178,8 @@ export default class Player {
             this.trigger("change-tempo", this._currentTempo)
             break
           case "endOfTrack":
+            break
+          default:
             break
         }
       })

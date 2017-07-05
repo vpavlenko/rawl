@@ -12,9 +12,9 @@ function assembleEvents(events) {
 
   function findNoteOn(noteOff) {
     const i = _.findIndex(noteOnEvents, e => {
-      return e.channel == noteOff.channel &&
-        e.noteNumber == noteOff.noteNumber &&
-        e.track == noteOff.track
+      return e.channel === noteOff.channel &&
+        e.noteNumber === noteOff.noteNumber &&
+        e.track === noteOff.track
     })
     if (i < 0) {
       return null

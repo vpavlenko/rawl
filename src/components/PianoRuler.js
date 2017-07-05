@@ -1,4 +1,5 @@
-import React, { PropTypes } from "react"
+import React from "react"
+import PropTypes from "prop-types"
 import DrawCanvas from "./DrawCanvas"
 import withTheme from "../hocs/withTheme"
 import pureRender from "../hocs/pureRender"
@@ -14,7 +15,7 @@ function drawRuler(ctx, height, pixelsPerTick, startTick, endTick, ticksPerBeat,
 
   for (let beats = startBeat; beats < endBeat; beats++) {
     const x = Math.round(beats * ticksPerBeat * pixelsPerTick)
-    const isTop = beats % 4 == 0
+    const isTop = beats % 4 === 0
 
     if (isTop) {
       ctx.moveTo(x, height / 2)

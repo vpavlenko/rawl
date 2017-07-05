@@ -1,5 +1,5 @@
 import assert from "assert"
-import NoteCoordTransform from "../src/model/note-coord-transform"
+import NoteCoordTransform from "./NoteCoordTransform"
 
 describe("NoteCoordTransform", () => {
   const t = new NoteCoordTransform(100, 30, 127)
@@ -7,7 +7,7 @@ describe("NoteCoordTransform", () => {
   it("constructor", () => {
     assert(t != null)
   })
- 
+
   it("getX", () => {
     assert.equal(t.getX(0), 0)
     assert.equal(t.getX(1), 100)

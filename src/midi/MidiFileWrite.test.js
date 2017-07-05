@@ -1,14 +1,13 @@
 import assert from "assert"
-import MidiFileWriter from "../src/midi-file-writer"
-import Track from "../src/model/track"
-import MidiFile from "../vendor/jasmid/midifile"
+import MidiFileWriter from "./MidiFileWriter"
+import Track from "../model/Track"
 import {
-  SetTempoMidiEvent, 
+  SetTempoMidiEvent,
   TimeSignatureMidiEvent,
   TrackNameMidiEvent,
   EndOfTrackMidiEvent,
   PortPrefixMidiEvent
-} from "../vendor/jasmid/midievent.js"
+} from "./MidiEvent"
 import fs from "fs"
 
 describe("MidiFileWriter", () => {

@@ -1,5 +1,5 @@
 import assert from "assert"
-import NoteTimeTransform from "../src/model/note-time-transform"
+import NoteTimeTransform from "./NoteTimeTransform"
 
 describe("NoteTimeTransform", () => {
   const t = new NoteTimeTransform([
@@ -11,7 +11,7 @@ describe("NoteTimeTransform", () => {
   it("constructor", () => {
     assert(t != null)
   })
- 
+
   it("getTempoAt", () => {
     assert.equal(t.getTempoAt(-999), 120)
     assert.equal(t.getTempoAt(0), 120)

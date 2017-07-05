@@ -5,6 +5,7 @@ import _ from "lodash"
 import { controllerTypeString } from "../helpers/noteNumberString"
 
 import "./EventList.css"
+import "fixed-data-table/dist/fixed-data-table.css"
 
 const AutoSizingTable = Dimensions()(
   class extends Component {

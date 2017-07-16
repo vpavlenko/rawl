@@ -118,21 +118,7 @@ class PianoRoll extends Component {
     this.alpha.addEventListener("scroll", this.alphaDidScroll)
     this.beta.addEventListener("scroll", this.betaDidScroll)
 
-    const { player, autoScroll } = this.props
-    player.on("change-position", tick => {
-      const x = this.getTransform().getX(tick)
-      this.setState({
-        cursorPosition: x
-      })
-
-      // keep scroll position to cursor
-      if (autoScroll && player.isPlaying) {
-        const screenX = x - this.state.scrollLeft
-        if (screenX > this.props.containerWidth * 0.7 || screenX < 0) {
-          this.forceScrollLeft(x)
-        }
-      }
-    })
+    this.props.player.on("change-position", this.onTick)
 
     document.addEventListener("copy", this.onCopy)
     document.addEventListener("paste", this.onPaste)
@@ -144,6 +130,23 @@ class PianoRoll extends Component {
     this.beta.removeEventListener("scroll", this.betaDidScroll)
     document.removeEventListener("copy", this.onCopy)
     document.removeEventListener("paste", this.onPaste)
+    this.props.player.off("change-position", this.onTick)
+  }
+
+  onTick = tick => {
+    const { player, autoScroll } = this.props
+    const x = this.getTransform().getX(tick)
+    this.setState({
+      cursorPosition: x
+    })
+
+    // keep scroll position to cursor
+    if (autoScroll && player.isPlaying) {
+      const screenX = x - this.state.scrollLeft
+      if (screenX > this.props.containerWidth * 0.7 || screenX < 0) {
+        this.forceScrollLeft(x)
+      }
+    }
   }
 
   onCopy() {
@@ -227,8 +230,6 @@ class PianoRoll extends Component {
 
     const controlMouseHandler = this.controlMouseHandler
 
-    console.log("theme", theme)
-
     return <div
       className="PianoRoll"
       ref={c => this.container = c}>
@@ -257,6 +258,7 @@ class PianoRoll extends Component {
             onMouseUp={noteMouseHandler.onMouseUp}
             scrollLeft={scrollLeft} />
           <PianoSelection
+            theme={theme}
             width={width}
             height={contentHeight}
             transform={transform}
@@ -273,7 +275,7 @@ class PianoRoll extends Component {
             numberOfKeys={transform.numberOfKeys}
             onClickKey={onClickKey} />
         </FixedLeftContent>
-        <FixedTopLeftContent top={scrollTop}>
+        <FixedTopLeftContent top={scrollTop} left={scrollLeft}>
           <PianoRuler
             theme={theme}
             height={rulerHeight}

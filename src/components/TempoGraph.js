@@ -228,7 +228,7 @@ function withCursor(WrappedComponent) {
       this.props.player.off("change-position", this.updatePosition)
     }
 
-    updatePosition(tick) {
+    updatePosition = (tick) => {
       this.setState({
         playerPosition: tick
       })

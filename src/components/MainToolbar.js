@@ -16,11 +16,16 @@ export default class MainToolbar extends Component {
   }
 
   componentDidMount() {
-    const { player } = this.props
-    player.on("change-position", tick => {
-      this.setState({
-        mbtTime: this.props.measureList.getMBTString(tick, player.timebase)
-      })
+    this.props.player.on("change-position", this.onTick)
+  }
+
+  componentWillUnmount() {
+    this.props.player.on("change-position", this.onTick)
+  }
+
+  onTick = tick => {
+    this.setState({
+      mbtTime: this.props.measureList.getMBTString(tick, this.props.player.timebase)
     })
   }
 

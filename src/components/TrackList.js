@@ -131,10 +131,17 @@ export default class TrackList extends Component {
 
   componentDidMount() {
     const { player, tracks } = this.props
-    player.on("change-mute", () => {
-      const channelMutes = tracks.map((t, i) => player.isChannelMuted(i))
-      this.setState({ channelMutes })
-    })
+    player.on("change-mute", this.onChangeMute)
+  }
+
+  componentWillUnmount() {
+    this.props.player.off("change-mute", this.onChangeMute)
+  }
+
+  onChangeMute = () => {
+    const { player, tracks } = this.props
+    const channelMutes = tracks.map((t, i) => player.isChannelMuted(i))
+    this.setState({ channelMutes })
   }
 
   render() {

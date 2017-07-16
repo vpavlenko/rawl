@@ -1,4 +1,4 @@
-import React from "react"
+import React, { Component } from "react"
 import PropTypes from "prop-types"
 import DrawCanvas from "./DrawCanvas"
 import withTheme from "../hocs/withTheme"
@@ -54,4 +54,4 @@ PianoSelection.propTypes = {
   height: PropTypes.number.isRequired
 }
 
-export default pureRender(withTheme(PianoSelection))
+export default pureRender(PianoSelection)

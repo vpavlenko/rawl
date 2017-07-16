@@ -50,7 +50,8 @@ class DisplayTask {
 const displayTask = new DisplayTask()
 
 export default class Player {
-  constructor(timebase) {
+  constructor(timebase, output) {
+    this._output = output
     this._timebase = timebase
     this._playing = false
     this._currentTempo = 120
@@ -58,9 +59,6 @@ export default class Player {
     this._channelMutes = {}
 
     observable(this)
-
-    const url = "./sf2.html"
-    this.synthWindow = window.open(url, "sy1", "width=900,height=670,scrollbars=yes,resizable=yes")
   }
 
   set song(song) {
@@ -128,14 +126,7 @@ export default class Player {
   }
 
   _sendMessage(msg, timestamp) {
-    const delay = timestamp - window.performance.now()
-
-    setTimeout(() => {
-      const aMsg = ["midi", ...msg.map(m => m.toString(16))].join(",")
-      if (this.synthWindow) {
-        this.synthWindow.postMessage(aMsg, "*")
-      }
-    }, delay)
+    this._output.send(msg)
   }
 
   playNote({channel, noteNumber, velocity, duration}) {

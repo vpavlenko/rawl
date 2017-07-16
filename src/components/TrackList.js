@@ -130,8 +130,7 @@ export default class TrackList extends Component {
   }
 
   componentDidMount() {
-    const { player, tracks } = this.props
-    player.on("change-mute", this.onChangeMute)
+    this.props.player.on("change-mute", this.onChangeMute)
   }
 
   componentWillUnmount() {

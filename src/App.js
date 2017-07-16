@@ -6,11 +6,12 @@ import Config from "./Config"
 import Downloader from "./helpers/Downloader"
 import MidiFileReader from "./midi/MidiFileReader"
 import MidiFileWriter from "./midi/MidiFileWriter"
+import MIDIOutput from "./services/MIDIOutput"
 
 export default class App {
   constructor() {
     observable(this)
-    this._player = new Player(Config.TIME_BASE)
+    this._player = new Player(Config.TIME_BASE, new MIDIOutput())
     this._quantizer = new Quantizer(Config.TIME_BASE)
 
     this.newSong()

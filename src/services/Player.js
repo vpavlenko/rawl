@@ -50,13 +50,14 @@ class DisplayTask {
 const displayTask = new DisplayTask()
 
 export default class Player {
+  _playing = false
+  _currentTempo = 120
+  _currentTick = 0
+  _channelMutes = {}
+
   constructor(timebase, output) {
     this._output = output
     this._timebase = timebase
-    this._playing = false
-    this._currentTempo = 120
-    this._currentTick = 0
-    this._channelMutes = {}
 
     observable(this)
   }

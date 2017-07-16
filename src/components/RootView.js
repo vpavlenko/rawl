@@ -2,6 +2,7 @@ import ReactDOM from "react-dom"
 import React, { Component } from "react"
 import SplitPane  from "react-split-pane"
 
+import Song from "../model/Song"
 import Track from "../model/Track"
 import Popup from "./Popup"
 
@@ -38,7 +39,7 @@ export default class RootView extends Component {
       pianoRollScaleX: 1,
       pianoRollScaleY: 1,
       pianoRollAutoScroll: true,
-      quantize: props.quantizer.denominator
+      quantize: props.app.quantizer.denominator
     }
   }
 
@@ -57,7 +58,7 @@ export default class RootView extends Component {
       }
       switch(e.keyCode) {
         case 32: {
-          const { player } = this.props
+          const { player } = this.props.app
           if (player.isPlaying) {
             player.stop()
           } else {
@@ -73,11 +74,12 @@ export default class RootView extends Component {
 
   render() {
     const { props, state } = this
-    const { song, player, quantizer, openFile, saveFile, createNewSong } = props
+    const { app } = props
+    const { song, player, quantizer } = app
     const { selectedTrack, selectedTrackId } = song
 
     const onChangeFile = (file) => {
-      openFile(file)
+      app.open(file)
     }
 
     const onClickKey = () => {
@@ -237,7 +239,7 @@ export default class RootView extends Component {
           {
             label: "New",
             click: () => {
-              createNewSong()
+              app.song = Song.emptySong()
             }
           },
           {

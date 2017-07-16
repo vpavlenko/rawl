@@ -11,8 +11,8 @@ import MIDIOutput from "./services/MIDIOutput"
 export default class App {
   constructor() {
     observable(this)
-    this._player = new Player(Config.TIME_BASE, new MIDIOutput())
-    this._quantizer = new Quantizer(Config.TIME_BASE)
+    this.player = new Player(Config.TIME_BASE, new MIDIOutput())
+    this.quantizer = new Quantizer(Config.TIME_BASE)
 
     this.newSong()
   }
@@ -43,13 +43,5 @@ export default class App {
 
   newSong() {
     this.song = Song.emptySong()
-  }
-
-  get player() {
-    return this._player
-  }
-
-  get quantizer() {
-    return this._quantizer
   }
 }

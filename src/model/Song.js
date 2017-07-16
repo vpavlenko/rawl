@@ -5,11 +5,12 @@ import Track from "./Track"
 import maxX from "../helpers/maxX"
 
 export default class Song {
+  _tracks = []
+  name = "Untitled Song"
+  _selectedTrackId = 0
+  _measureList = null
+  
   constructor() {
-    this._tracks = []
-    this.name = "Untitled Song"
-    this._selectedTrackId = 0
-    this._measureList = null
     observable(this)
   }
 

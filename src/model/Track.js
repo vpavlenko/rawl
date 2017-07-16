@@ -14,9 +14,10 @@ function lastValue(arr, prop) {
 }
 
 export default class Track {
+  events = []
+  lastEventId = 0
+
   constructor() {
-    this.events = []
-    this.lastEventId = 0
     observable(this)
   }
 

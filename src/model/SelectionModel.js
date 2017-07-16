@@ -1,4 +1,5 @@
 import observable from "riot-observable"
+import _ from "lodash"
 import Rect from "./Rect"
 
 export default class SelectionModel {
@@ -73,5 +74,14 @@ export default class SelectionModel {
     this.fromNoteNumber = 0
     this.toTick = 0
     this.toNoteNumber = 0
+  }
+
+  equals(s) {
+    return s.fromTick === this.fromTick
+      && s.toTick === this.toTick
+      && s.fromNoteNumber === this.fromNoteNumber
+      && s.toNoteNumber === this.toNoteNumber
+      && s.enabled === this.enabled
+      && _.isEqual(s.noteIds, this.noteIds)
   }
 }

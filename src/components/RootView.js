@@ -10,7 +10,7 @@ import TrackList from "./TrackList"
 import Toolbar from "./MainToolbar"
 import InstrumentBrowser from "./InstrumentBrowser"
 import PianoRoll from "./PianoRoll"
-import { MenuBar, MenuItem, SubMenu } from "./molecules/MenuBar"
+import { fromTemplate } from "./molecules/MenuBar"
 
 import {
   getGMMapIndexes,
@@ -232,29 +232,36 @@ export default class RootView extends Component {
       })}
     />
 
-    const menuBar =
-      <MenuBar>
-        <MenuItem title="File">
-          <SubMenu>
-            <MenuItem title="Open" onClick={() => {
+    const menuBar = fromTemplate([
+      {
+        label: "File",
+        submenu: [
+          {
+            label: "Open",
+            click: () => {
               fileDialog({ accept: "audio/midi"})
                 .then(files => {
                   onChangeFile(files[0])
                 })
-            }} />
-            <MenuItem title="Save" onClick={() => {
-              saveFile()
-            }} />
-          </SubMenu>
-        </MenuItem>
-        <MenuItem title="Edit">
-          <SubMenu>
-            <MenuItem title="Undo" />
-            <MenuItem title="Redo" />
-          </SubMenu>
-        </MenuItem>
-        <MenuItem title={song && song.name} />
-      </MenuBar>
+            }
+          }
+        ]
+      },
+      {
+        label: "Edit",
+        submenu: [
+          {
+            label: "Undo"
+          },
+          {
+            label: "Redo"
+          }
+        ]
+      },
+      {
+        label: song && song.name
+      }
+    ])
 
     const trackList =
       <TrackList

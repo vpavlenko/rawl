@@ -3,6 +3,19 @@ import f from "../../helpers/flatJoin"
 
 import "./MenuBar.css"
 
+export function fromTemplate(t) {
+  return <MenuBar>
+    {t.map(t=> <MenuItem title={t.label}>
+      {t.submenu && <SubMenu>
+        {t.submenu.map(t => <MenuItem
+          title={t.role || t.label}
+          onClick={t.click}
+          />)}
+      </SubMenu>}
+    </MenuItem>)}
+  </MenuBar>
+}
+
 export function MenuBar({
   children,
   className
@@ -16,7 +29,7 @@ export function MenuItem({
   children,
   className,
   title,
-  onClick 
+  onClick
 }) {
   return <div
     className={f("MenuItem", className)}

@@ -1,7 +1,6 @@
 import ReactDOM from "react-dom"
 import React, { Component } from "react"
 import SplitPane  from "react-split-pane"
-import fileDialog from "file-dialog"
 
 import Track from "../model/Track"
 import Popup from "./Popup"
@@ -10,7 +9,6 @@ import TrackList from "./TrackList"
 import Toolbar from "./MainToolbar"
 import InstrumentBrowser from "./InstrumentBrowser"
 import PianoRoll from "./PianoRoll"
-import { fromTemplate } from "./molecules/MenuBar"
 
 import {
   getGMMapIndexes,
@@ -21,6 +19,9 @@ import "./Resizer.css"
 import "./RootView.css"
 
 import TempoGraph from "./TempoGraph"
+
+const { remote } = window.require("electron")
+const { Menu, dialog } = remote
 
 function Pane(props) {
   return <div style={{position: "relative", height: "100%"}}>
@@ -232,17 +233,21 @@ export default class RootView extends Component {
       })}
     />
 
-    const menuBar = fromTemplate([
+    const menu = Menu.buildFromTemplate([
       {
         label: "File",
         submenu: [
           {
             label: "Open",
             click: () => {
-              fileDialog({ accept: "audio/midi"})
-                .then(files => {
+              dialog.showOpenDialog({filters: [{
+                name: "Standard MIDI File",
+                extensions: ["mid", "midi"]
+              }]}, files => {
+                if (files) {
                   onChangeFile(files[0])
-                })
+                }
+              })
             }
           }
         ]
@@ -262,6 +267,8 @@ export default class RootView extends Component {
         label: song && song.name
       }
     ])
+
+    Menu.setApplicationMenu(menu)
 
     const trackList =
       <TrackList
@@ -284,7 +291,6 @@ export default class RootView extends Component {
     const tempoGraph = <TempoGraph track={selectedTrack} player={player} />
 
     return <div className="RootView">
-      {menuBar}
       {toolbar}
       <Pane split="vertical" minSize={200} defaultSize={265} maxSize={400}>
         {trackList}

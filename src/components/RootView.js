@@ -77,9 +77,6 @@ export default class RootView extends Component {
     const { selectedTrack, selectedTrackId } = song
 
     const onChangeFile = (file) => {
-      if (!file || (file.type !== "audio/mid" && file.type !== "audio/midi")) {
-        return
-      }
       openFile(file)
     }
 

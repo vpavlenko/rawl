@@ -1,6 +1,9 @@
 import _ from "lodash"
 import MidiFile from "../submodules/jasmid/midifile"
 
+const { remote } = window.require("electron")
+const fs = remote.require("fs")
+
 /**
 
   append tick to each events
@@ -54,15 +57,13 @@ function assembleEvents(events) {
 
 export default class MidiFileReader {
   static read(file, callback) {
-    const reader = new FileReader()
-    reader.onload = (e) => {
-      const midi = MidiFile(e.target.result)
+    fs.readFile(file, (e, data) => {
+      const midi = MidiFile(data)
       callback({
         tracks: midi.tracks
           .map(assembleEvents)
           .map(events => ({ events }))
       })
-    }
-    reader.readAsBinaryString(file)
+    })
   }
 }

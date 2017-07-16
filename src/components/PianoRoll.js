@@ -1,5 +1,7 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
+import { pure } from "recompose"
+
 import SelectionModel from "../model/SelectionModel"
 import NoteCoordTransform from "../model/NoteCoordTransform"
 import PianoKeys from "./PianoKeys"
@@ -23,6 +25,31 @@ import PencilMouseHandler from "../NoteMouseHandler/PencilMouseHandler"
 import VelocityMouseHandler from "../NoteMouseHandler/VelocityMouseHandler"
 
 import "./PianoRoll.css"
+
+const PseudoHeightContent = pure(({ height }) => {
+  return <div className="pseudo-content" style={{
+    height
+  }} />
+})
+
+const PseudoWidthContent = pure(({ onmount, width }) => {
+  return <div className="pseudo-content" ref={onmount} style={{
+    width,
+    height: "100%"
+  }} />
+})
+
+const FixedLeftContent = pure(({ children, left }) => {
+  return <div className="fixed-left" style={{ left }}>
+    {children}
+  </div>
+})
+
+const FixedTopLeftContent = pure(({ children, left, top }) => {
+  return <div className="fixed-left-top" style={{ left, top }}>
+    {children}
+  </div>
+})
 
 class PianoRoll extends Component {
   constructor(props) {
@@ -183,9 +210,6 @@ class PianoRoll extends Component {
     const contentWidth = widthTick * transform.pixelsPerTick
     const contentHeight = transform.getMaxY()
 
-    const fixedLeftStyle = {left: scrollLeft}
-    const fixedTopStyle = {top: scrollTop}
-
     const onMouseDownRuler = e => {
       const tick = quantizer.round(transform.getTicks(e.nativeEvent.offsetX + scrollLeft))
       onClickRuler(tick, e)
@@ -203,38 +227,15 @@ class PianoRoll extends Component {
 
     const controlMouseHandler = this.controlMouseHandler
 
-    function FixedLeftContent({ children }) {
-      return <div className="fixed-left" style={fixedLeftStyle}>
-        {children}
-      </div>
-    }
-
-    function FixedTopLeftContent({ children }) {
-      return <div className="fixed-left-top" style={{...fixedLeftStyle, ...fixedTopStyle}}>
-        {children}
-      </div>
-    }
-
-    function PseudoHeightContent() {
-      return <div className="pseudo-content" style={{
-        height: contentHeight
-      }} />
-    }
-
-    function PseudoWidthContent({ onmount }) {
-      return <div className="pseudo-content" ref={onmount} style={{
-        width: contentWidth,
-        height: "100%"
-      }} />
-    }
+    console.log("theme", theme)
 
     return <div
       className="PianoRoll"
       ref={c => this.container = c}>
 
       <div className="alpha" ref={c => this.alpha = c}>
-        <PseudoHeightContent />
-        <FixedLeftContent>
+        <PseudoHeightContent height={contentHeight} />
+        <FixedLeftContent left={scrollLeft}>
           <PianoLines
             width={width}
             pixelsPerKey={transform.pixelsPerKey}
@@ -266,13 +267,15 @@ class PianoRoll extends Component {
             height={contentHeight}
             position={cursorPosition - scrollLeft} />
           <PianoKeys
+            theme={theme}
             width={keyWidth}
             keyHeight={transform.pixelsPerKey}
             numberOfKeys={transform.numberOfKeys}
             onClickKey={onClickKey} />
         </FixedLeftContent>
-        <FixedTopLeftContent>
+        <FixedTopLeftContent top={scrollTop}>
           <PianoRuler
+            theme={theme}
             height={rulerHeight}
             endTick={widthTick}
             ticksPerBeat={ticksPerBeat}
@@ -283,8 +286,8 @@ class PianoRoll extends Component {
         </FixedTopLeftContent>
       </div>
       <div className="beta" ref={c => this.beta = c}>
-        <PseudoWidthContent onmount={c => this.betaPseudoContent = c} />
-        <FixedLeftContent>
+        <PseudoWidthContent width={contentWidth} onmount={c => this.betaPseudoContent = c} />
+        <FixedLeftContent left={scrollLeft}>
           <PianoVelocityControl
             width={width}
             height={controlHeight}

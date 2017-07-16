@@ -1,9 +1,7 @@
-import React from "react"
+import React, { Component } from "react"
 import PropTypes from "prop-types"
 import { noteNameWithOctString } from "../helpers/noteNumberString"
 import DrawCanvas from "./DrawCanvas"
-import withTheme from "../hocs/withTheme"
-import pureRender from "../hocs/pureRender"
 
 function drawBorder(ctx, width, theme) {
   ctx.lineWidth = 1
@@ -106,4 +104,26 @@ PianoKeys.propTypes = {
   numberOfKeys: PropTypes.number.isRequired
 }
 
-export default pureRender(withTheme(PianoKeys))
+function equals(a, b, prop) {
+  return a[prop] === b[prop]
+}
+
+class PianoKeys_ extends Component {
+  shouldComponentUpdate(nextProps) {
+    const { props } = this
+    function eq(prop) {
+      return equals(props, nextProps, prop)
+    }
+
+    return !eq("eq")
+      || !eq("keyHeight")
+      || !eq("numberOfKeys")
+      || !eq("theme")
+  }
+
+  render() {
+    return <PianoKeys {...this.props} />
+  }
+}
+
+export default PianoKeys_

@@ -23,7 +23,6 @@ export default class App {
       song.name = file.name
       this.song = song
     })
-    this.player.reset()
   }
 
   save() {
@@ -35,6 +34,7 @@ export default class App {
     this._song = song
     this.player.song = song
     this.trigger("change-song", song)
+    this.player.reset()
   }
 
   get song() {

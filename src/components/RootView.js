@@ -73,7 +73,7 @@ export default class RootView extends Component {
 
   render() {
     const { props, state } = this
-    const { song, player, quantizer, openFile, saveFile } = props
+    const { song, player, quantizer, openFile, saveFile, createNewSong } = props
     const { selectedTrack, selectedTrackId } = song
 
     const onChangeFile = (file) => {
@@ -234,6 +234,12 @@ export default class RootView extends Component {
       {
         label: "File",
         submenu: [
+          {
+            label: "New",
+            click: () => {
+              createNewSong()
+            }
+          },
           {
             label: "Open",
             click: () => {

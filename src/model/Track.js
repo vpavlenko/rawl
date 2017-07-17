@@ -63,21 +63,36 @@ export default class Track {
     this.emitChange()
   }
 
-  addEvent(e) {
+  // ソート、通知を行わない内部用の addEvent
+  _addEvent = (e) => {
+    e.id = this.lastEventId
+    this.lastEventId++
+    this.events.push(e)
+
     if (e.tick === undefined) {
       const lastEvent = this.getEventById(this.lastEventId)
       e.tick = e.deltaTime + (lastEvent ? lastEvent.tick : 0)
     }
-    e.id = this.lastEventId
     if (e.type === "channel") {
       e.channel = this.channel
     }
-    this.events.push(e)
+  }
+
+  addEvent(e) {
+    this._addEvent(e)
+    this.didAddEvent()
+    return e
+  }
+
+  addEvents(events) {
+    events.forEach(this._addEvent)
+    this.didAddEvent()
+  }
+
+  didAddEvent(e) {
     this.updateEndOfTrack()
     this.sortByTick()
-    this.lastEventId++
     this.emitChange()
-    return e
   }
 
   sortByTick() {
@@ -207,13 +222,12 @@ export default class Track {
 
   static conductorTrack(name = "Conductor Track") {
     const track = new Track()
-    const events = [
+    track.addEvents([
       new TrackNameMidiEvent(0, name),
       new TimeSignatureMidiEvent(0, 4, 4, 24),
       new SetTempoMidiEvent(0, 60000000 / 120),
       new EndOfTrackMidiEvent(0)
-    ]
-    events.forEach(e => track.addEvent(e))
+    ])
     return track
   }
 
@@ -223,7 +237,7 @@ export default class Track {
     }
     const track = new Track()
     track.channel = channel
-    const events = [
+    track.addEvents([
       new TrackNameMidiEvent(0, ""),
       new PanMidiEvent(0, 64),
       new VolumeMidiEvent(0, 100),
@@ -232,8 +246,7 @@ export default class Track {
       new ModulationMidiEvent(0, 0),
       new ProgramChangeMidiEvent(0, 0),
       new EndOfTrackMidiEvent(0)
-    ]
-    events.forEach(e => track.addEvent(e))
+    ])
     return track
   }
 }

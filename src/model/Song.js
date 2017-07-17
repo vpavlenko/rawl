@@ -9,7 +9,7 @@ export default class Song {
   name = "Untitled Song"
   _selectedTrackId = 0
   _measureList = null
-  
+
   constructor() {
     observable(this)
   }
@@ -87,10 +87,7 @@ export default class Song {
         return e.type === "channel"
       })
       track.channel = chEvent ? chEvent.channel : undefined
-
-      t.events.forEach(e => {
-        track.addEvent(e)
-      })
+      track.addEvents(t.events)
 
       song.addTrack(track)
     })

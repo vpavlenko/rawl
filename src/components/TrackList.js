@@ -116,7 +116,7 @@ function TrackListContent({
 
   return <div className="TrackList">
     {items}
-    <div className="add-track" onClick={onClickAddTrack}><span className="icon">{"\uE608"}</span> Add Track</div>
+    <div className="add-track" onClick={onClickAddTrack}><Icon>plus</Icon> Add Track</div>
   </div>
 }
 

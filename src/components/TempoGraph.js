@@ -114,7 +114,7 @@ const GraphAxis = pure(({ width, height, transform, offset }) => {
   return <div className="GraphAxis" style={{ width }}>
     {_.range(60, transform.maxBPM, 30).map(t => {
       const top = Math.round(transform.getY(t)) + offset
-      return <div style={{ top }}>{t}</div>
+      return <div style={{ top }} key={t}>{t}</div>
     })}
   </div>
 })

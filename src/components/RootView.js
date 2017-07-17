@@ -1,6 +1,7 @@
 import ReactDOM from "react-dom"
 import React, { Component } from "react"
 import SplitPane  from "react-split-pane"
+import { Helmet } from "react-helmet"
 
 import Song from "../model/Song"
 import Track from "../model/Track"
@@ -181,7 +182,7 @@ export default class RootView extends Component {
     const onClickSolo = (trackId) => {
       const channel = song.getTrack(trackId).channel
       song.tracks.forEach((t, i) => {
-        player.muteChannel(t.channel, i !== channel)
+        player.muteChannel(t.channel, t.channel !== channel)
       })
     }
 
@@ -267,9 +268,6 @@ export default class RootView extends Component {
             label: "Redo"
           }
         ]
-      },
-      {
-        label: song && song.name
       }
     ])
 
@@ -294,11 +292,12 @@ export default class RootView extends Component {
       />
 
     const tempoGraph = <TempoGraph
-      track={selectedTrack} 
+      track={selectedTrack}
       player={player}
       endTick={song.endOfSong} />
 
     return <div className="RootView">
+      <Helmet><title>{song.name} ― signal</title></Helmet>
       {toolbar}
       <Pane split="vertical" minSize={200} defaultSize={265} maxSize={400}>
         {trackList}

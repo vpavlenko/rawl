@@ -1,4 +1,5 @@
 import observable from "riot-observable"
+import path from "path"
 import Player from "./services/Player"
 import Quantizer from "./services/Quantizer"
 import Song from "./model/Song"
@@ -20,7 +21,8 @@ export default class App {
   open(file) {
     MidiFileReader.read(file, midi => {
       const song = Song.fromMidi(midi)
-      song.name = file.name
+      song.filepath = file
+      song.name = path.basename(file.replace(/\\/g, "/"))
       this.song = song
     })
   }

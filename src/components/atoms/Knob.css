@@ -34,7 +34,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   background: rgb(255, 255, 255);
-  font-size: 50%;
+  font-size: 80%;
   padding: 0 0.3em;
   opacity: 0;
   pointer-events: none;

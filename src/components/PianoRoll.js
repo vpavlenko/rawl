@@ -26,6 +26,8 @@ import VelocityMouseHandler from "../NoteMouseHandler/VelocityMouseHandler"
 
 import "./PianoRoll.css"
 
+const SCROLL_KEY_SPEED = 4
+
 const PseudoHeightContent = pure(({ height }) => {
   return <div className="pseudo-content" style={{
     height
@@ -55,12 +57,6 @@ class PianoRoll extends Component {
   constructor(props) {
     super(props)
 
-    this.fitBetaSize = this.fitBetaSize.bind(this)
-    this.alphaDidScroll = this.alphaDidScroll.bind(this)
-    this.betaDidScroll = this.betaDidScroll.bind(this)
-    this.onCopy = this.onCopy.bind(this)
-    this.onPaste = this.onPaste.bind(this)
-
     this.state = {
       scrollLeft: 0,
       scrollTop: 0,
@@ -82,7 +78,6 @@ class PianoRoll extends Component {
 
     this.pencilMouseHandler = new PencilMouseHandler(changeCursor, toggleTool)
     this.selectionMouseHandler = new SelectionMouseHandler(changeCursor, toggleTool)
-
     this.controlMouseHandler = new VelocityMouseHandler(props.track)
   }
 
@@ -94,18 +89,18 @@ class PianoRoll extends Component {
     this.setState({ scrollLeft })
   }
 
-  fitBetaSize() {
+  fitBetaSize = () => {
     this.setState({
       controlHeight: this.betaPseudoContent.clientHeight
     })
   }
 
-  alphaDidScroll(e) {
+  alphaDidScroll = (e) => {
     const { scrollTop } = e.target
     this.setState({ scrollTop })
   }
 
-  betaDidScroll(e) {
+  betaDidScroll = (e) => {
     const { scrollLeft } = e.target
     this.alpha.scrollLeft = scrollLeft
     this.setState({ scrollLeft })
@@ -115,9 +110,6 @@ class PianoRoll extends Component {
     this.fitBetaSize()
 
     window.addEventListener("resize", this.fitBetaSize)
-    this.alpha.addEventListener("scroll", this.alphaDidScroll)
-    this.beta.addEventListener("scroll", this.betaDidScroll)
-
     this.props.player.on("change-position", this.onTick)
 
     document.addEventListener("copy", this.onCopy)
@@ -126,8 +118,6 @@ class PianoRoll extends Component {
 
   componentWillUnmount() {
     window.removeEventListener("resize", this.fitBetaSize)
-    this.alpha.removeEventListener("scroll", this.alphaDidScroll)
-    this.beta.removeEventListener("scroll", this.betaDidScroll)
     document.removeEventListener("copy", this.onCopy)
     document.removeEventListener("paste", this.onPaste)
     this.props.player.off("change-position", this.onTick)
@@ -149,7 +139,7 @@ class PianoRoll extends Component {
     }
   }
 
-  onCopy() {
+  onCopy = () => {
     if (this.props.mouseMode !== 1) {
       // not selection mode
       return
@@ -167,7 +157,7 @@ class PianoRoll extends Component {
         this.props.player)
   }
 
-  onPaste() {
+  onPaste = () => {
     this.selectionController.pasteSelection()
   }
 
@@ -234,7 +224,13 @@ class PianoRoll extends Component {
       className="PianoRoll"
       ref={c => this.container = c}>
 
-      <div className="alpha" ref={c => this.alpha = c}>
+      <div className="alpha" ref={c => this.alpha = c}
+        onScroll={this.alphaDidScroll}
+        onWheel={e => {
+          e.preventDefault()
+          const scrollLineHeight = transform.pixelsPerKey * SCROLL_KEY_SPEED
+          this.alpha.scrollTop += scrollLineHeight * (e.deltaY > 0 ? 1 : -1)
+        }}>
         <PseudoHeightContent height={contentHeight} />
         <FixedLeftContent left={scrollLeft}>
           <PianoLines
@@ -287,7 +283,10 @@ class PianoRoll extends Component {
           <div className="PianoRollLeftSpace" />
         </FixedTopLeftContent>
       </div>
-      <div className="beta" ref={c => this.beta = c}>
+      <div
+        className="beta"
+        ref={c => this.beta = c}
+        onScroll={this.betaDidScroll}>
         <PseudoWidthContent width={contentWidth} onmount={c => this.betaPseudoContent = c} />
         <FixedLeftContent left={scrollLeft}>
           <PianoVelocityControl

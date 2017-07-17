@@ -15,7 +15,7 @@ export function deassembleNoteEvents(e) {
     {
       type: "channel",
       subtype: "noteOff",
-      tick: e.tick + e.duration,
+      tick: e.tick + e.duration - 1, // -1 to prevent overlap
       channel: e.channel,
       noteNumber: e.noteNumber,
       velocity: 0

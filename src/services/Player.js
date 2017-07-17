@@ -7,15 +7,6 @@ import assert from "assert"
 
 const INTERVAL = 1 / 15 * 1000 // seconds
 
-// timebase: 1/4拍子ごとのtick数
-function secToTick(sec, bpm, timebase) {
-  return sec *  bpm / 60 * timebase
-}
-
-function tickToMillisec(tick, bpm, timebase) {
-  return tick / (timebase / 60) / bpm * 1000
-}
-
 function firstByte(eventType, channel) {
   return (MIDIChannelEvents[eventType] << 4) + channel
 }
@@ -53,6 +44,7 @@ export default class Player {
   _playing = false
   _currentTempo = 120
   _currentTick = 0
+  _prevTime = 0
   _channelMutes = {}
 
   constructor(timebase, output) {
@@ -71,6 +63,7 @@ export default class Player {
     this._playing = true
     clearInterval(this._intervalID)
     this._intervalID = setInterval(this._onTimer.bind(this), INTERVAL)
+    this._prevTime = window.performance.now()
   }
 
   set position(tick) {
@@ -127,7 +120,7 @@ export default class Player {
   }
 
   _sendMessage(msg, timestamp) {
-    this._output.send(msg)
+    this._output.send(msg, Math.round(timestamp))
   }
 
   playNote({channel, noteNumber, velocity, duration}) {
@@ -137,17 +130,19 @@ export default class Player {
   }
 
   secToTick(sec) {
-    return secToTick(sec, this._currentTempo, this._timebase)
+    // timebase: 1/4拍子ごとのtick数
+    return sec *  this._currentTempo / 60 * this._timebase
   }
 
   tickToMillisec(tick) {
-    return tickToMillisec(tick, this._currentTempo, this._timebase)
+    return tick / (this._timebase / 60) / this._currentTempo * 1000
   }
 
   _onTimer() {
-    const deltaTick = Math.ceil(this.secToTick(INTERVAL / 1000))
-    const endTick = this._currentTick + deltaTick
     const timestamp = window.performance.now()
+    const deltaTime = timestamp - this._prevTime
+    const deltaTick = this.secToTick(deltaTime / 1000)
+    const endTick = this._currentTick + deltaTick
 
     const events = getEventsToPlay(this._song, this._currentTick, endTick)
 
@@ -180,6 +175,7 @@ export default class Player {
       this.stop()
     }
 
+    this._prevTime = timestamp
     this._currentTick = endTick
     this.emitChangePosition()
   }

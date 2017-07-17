@@ -1,7 +1,56 @@
-.TempoGraph .PianoRuler,
-.TempoGraph .PianoCursor {
+.TempoGraph {
+  height: 100%;
+  width: 100%;
+  overflow-x: scroll;
+  overflow-y: hidden;
   position: absolute;
-  top: 0;
+  background: var(--background-color);
+  color: var(--secondary-text-color);
+}
+
+.TempoGraph .PianoRuler {
+  position: absolute;
   left: 0;
+  top: 0;
+}
+
+.TempoGraph .PianoGrid,
+.TempoGraph .PianoCursor,
+.TempoGraph .HorizontalLines,
+.TempoGraph .Graph {
+  position: absolute;
+  top: var(--ruler-height);
   pointer-events: none;
+}
+
+.TempoGraph .Graph {
+  pointer-events: all;
+}
+
+.TempoGraph .PianoGrid,
+.TempoGraph .PianoCursor,
+.TempoGraph .HorizontalLines,
+.TempoGraph .Graph,
+.TempoGraph .PianoRuler {
+  margin-left: var(--key-width);
+}
+
+.TempoGraph .GraphAxis {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background: white;
+  pointer-events: none;
+  border-right: 1px solid var(--divider-color);
+}
+
+.TempoGraph .GraphAxis>div {
+  position: absolute;
+  text-align: right;
+  width: 100%;
+  padding-right: 1em;
+  box-sizing: border-box;
+  font-size: 90%;
+  margin-top: -0.5em;
 }

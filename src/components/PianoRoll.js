@@ -29,13 +29,13 @@ import "./PianoRoll.css"
 const SCROLL_KEY_SPEED = 4
 
 const PseudoHeightContent = pure(({ height }) => {
-  return <div className="pseudo-content" style={{
+  return <div style={{
     height
   }} />
 })
 
 const PseudoWidthContent = pure(({ onmount, width }) => {
-  return <div className="pseudo-content" ref={onmount} style={{
+  return <div ref={onmount} style={{
     width,
     height: "100%"
   }} />

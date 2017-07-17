@@ -1,4 +1,4 @@
-export default function(events, transform, width) {
+export default function(events, transform, width, scrollLeft) {
 
   // まず位置だけ計算する
   const items = events
@@ -22,8 +22,10 @@ export default function(events, transform, width) {
 
       return {
         ...e,
+        x: e.x - scrollLeft,
         width: nextItem.x - e.x,
         height: transform.height - e.y
       }
     })
+    .filter(e => e.x + e.width >= 0)
 }

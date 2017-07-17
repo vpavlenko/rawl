@@ -293,7 +293,10 @@ export default class RootView extends Component {
         onClickDelete={onClickDeleteTrack}
       />
 
-    const tempoGraph = <TempoGraph track={selectedTrack} player={player} />
+    const tempoGraph = <TempoGraph
+      track={selectedTrack} 
+      player={player}
+      endTick={song.endOfSong} />
 
     return <div className="RootView">
       {toolbar}

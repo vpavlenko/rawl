@@ -1,5 +1,8 @@
 import React, { Component } from "react"
 import Color from "color"
+import { pure } from "recompose"
+import _ from "lodash"
+
 import DrawCanvas from "./DrawCanvas"
 import PianoRuler from "./PianoRuler"
 import PianoGrid from "./PianoGrid"
@@ -13,7 +16,7 @@ import { SetTempoMidiEvent } from "../midi/MidiEvent"
 
 import "./TempoGraph.css"
 
-function Graph({ items, width, height, fillColor, strokeColor, onMouseDown, onWheel, onDoubleClick }) {
+function Graph({ items, width, height, fillColor, strokeColor, onMouseDown, onWheel, onDoubleClick, scrollLeft }) {
   if (!width) {
     return null
   }
@@ -24,11 +27,11 @@ function Graph({ items, width, height, fillColor, strokeColor, onMouseDown, onWh
 
     ctx.save()
     ctx.translate(0.5, 0.5)
+    ctx.fillStyle = fillColor
+    ctx.strokeStyle = strokeColor
+    ctx.lineWidth = 1
     items.forEach(item => {
       ctx.beginPath()
-      ctx.fillStyle = fillColor
-      ctx.strokeStyle = strokeColor
-      ctx.lineWidth = 1
       ctx.rect(item.x, item.y, item.width, item.height)
       ctx.fill()
       ctx.stroke()
@@ -63,8 +66,8 @@ function Graph({ items, width, height, fillColor, strokeColor, onMouseDown, onWh
     draw={draw}
     width={width}
     height={height}
+    className="Graph"
     onContextMenu={e => e.preventDefault()}
-    style={{ position: "absolute", left: 0, top: 0 }}
     onMouseDown={_onMouseDown}
     onDoubleClick={onDoubleClick}
     onWheel={_onWheel}
@@ -87,16 +90,14 @@ function HorizontalLines({ width, height, transform, borderColor }) {
     ctx.lineWidth = 1
 
     // 30 -> 510 を 17 分割した線
+    ctx.beginPath()
     for (let i = 30; i < transform.maxBPM; i += 30) {
       const y = Math.round(transform.getY(i))
 
-      ctx.beginPath()
       ctx.moveTo(0, y)
       ctx.lineTo(width, y)
-      ctx.closePath()
-      ctx.stroke()
     }
-
+    ctx.stroke()
     ctx.restore()
   }
 
@@ -104,21 +105,57 @@ function HorizontalLines({ width, height, transform, borderColor }) {
     draw={draw}
     width={width}
     height={height}
+    className="HorizontalLines"
     onContextMenu={e => e.preventDefault()}
-    style={{ position: "absolute", left: 0, top: 0 }}
   />
 }
 
-function Content({ track, containerWidth, containerHeight, theme, playerPosition }) {
-  const { rulerHeight } = theme
+const GraphAxis = pure(({ width, height, transform, offset }) => {
+  return <div className="GraphAxis" style={{ width }}>
+    {_.range(60, transform.maxBPM, 30).map(t => {
+      const top = Math.round(transform.getY(t)) + offset
+      return <div style={{ top }}>{t}</div>
+    })}
+  </div>
+})
+
+const PseudoWidthContent = pure(({ onmount, width }) => {
+  return <div ref={onmount} style={{
+    width,
+    height: "100%"
+  }} />
+})
+
+const FixedLeftContent = pure(({ children, left }) => {
+  return <div className="fixed-left" style={{
+    left,
+    position: "absolute",
+    top: 0
+  }}>
+    {children}
+  </div>
+})
+
+function Content({
+  track,
+  containerWidth,
+  containerHeight,
+  theme,
+  playerPosition,
+  endTick,
+  onScroll,
+  scrollLeft
+}) {
+  const { keyWidth, rulerHeight } = theme
 
   const pixelsPerTick = 0.1
-  const endTick = 10000
   const ticksPerBeat = 480
-  const scrollLeft = 0
   const transform = new TempoCoordTransform(pixelsPerTick, containerHeight)
+  const widthTick = Math.max(endTick, transform.getTicks(containerWidth))
+  const contentWidth = widthTick * pixelsPerTick
+  const contentHeight = containerHeight - rulerHeight
 
-  const items = tempoGraphPresentation(track.getEvents(), transform, containerWidth)
+  const items = tempoGraphPresentation(track.getEvents(), transform, contentWidth, scrollLeft)
 
   function onMouseDownGraph(e) {
     if (!e.item) {
@@ -166,58 +203,67 @@ function Content({ track, containerWidth, containerHeight, theme, playerPosition
     track.addEvent(event)
   }
 
-  return <div className="TempoGraph">
-    <PianoGrid
-      width={containerWidth}
-      height={containerHeight}
-      scrollLeft={scrollLeft}
-      transform={transform}
-      endTick={endTick}
-      ticksPerBeat={ticksPerBeat}
-    />
-    <HorizontalLines
-      width={containerWidth}
-      height={containerHeight}
-      transform={transform}
-      borderColor={theme.dividerColor}
-    />
-    <Graph
-      items={items}
-      transform={transform}
-      width={containerWidth}
-      height={containerHeight}
-      strokeColor={theme.themeColor}
-      fillColor={Color(theme.themeColor).alpha(0.1).string()}
-      onMouseDown={onMouseDownGraph}
-      onDoubleClick={onDoubleClickGraph}
-      onWheel={onWheelGraph}
-    />
-    <PianoCursor
-      width={containerWidth}
-      height={containerHeight}
-      position={transform.getX(playerPosition)}
-    />
-    <PianoRuler
-      height={rulerHeight}
-      endTick={endTick}
-      ticksPerBeat={ticksPerBeat}
-      onMouseDown={() => {}}
-      scrollLeft={scrollLeft}
-      pixelsPerTick={pixelsPerTick}
-    />
+  return <div className="TempoGraph" onScroll={onScroll}>
+    <PseudoWidthContent width={contentWidth} />
+    <FixedLeftContent left={scrollLeft}>
+      <PianoGrid
+        width={containerWidth}
+        height={contentHeight}
+        scrollLeft={scrollLeft}
+        transform={transform}
+        endTick={widthTick}
+        ticksPerBeat={ticksPerBeat}
+      />
+      <HorizontalLines
+        width={containerWidth}
+        height={contentHeight}
+        transform={transform}
+        borderColor={theme.dividerColor}
+      />
+      <Graph
+        items={items}
+        transform={transform}
+        width={containerWidth}
+        height={contentHeight}
+        strokeColor={theme.themeColor}
+        fillColor={Color(theme.themeColor).alpha(0.1).string()}
+        onMouseDown={onMouseDownGraph}
+        onDoubleClick={onDoubleClickGraph}
+        onWheel={onWheelGraph}
+        scrollLeft={scrollLeft}
+      />
+      <PianoCursor
+        width={containerWidth}
+        height={contentHeight}
+        position={transform.getX(playerPosition)}
+      />
+      <PianoRuler
+        height={rulerHeight}
+        endTick={widthTick}
+        ticksPerBeat={ticksPerBeat}
+        onMouseDown={() => {}}
+        scrollLeft={scrollLeft}
+        pixelsPerTick={pixelsPerTick}
+      />
+      <GraphAxis
+        width={keyWidth}
+        height={contentHeight}
+        offset={rulerHeight}
+        transform={transform}
+      />
+    </FixedLeftContent>
   </div>
 }
 
-function withCursor(WrappedComponent) {
+function stateful(WrappedComponent) {
   return class extends Component {
     constructor(props) {
       super(props)
 
       this.state = {
-        playerPosition: props.player.position
+        playerPosition: props.player.position,
+        scrollLeft: 0
       }
-
-      this.updatePosition = this.updatePosition.bind(this)
     }
 
     componentDidMount() {
@@ -234,8 +280,15 @@ function withCursor(WrappedComponent) {
       })
     }
 
+    onScroll = e => {
+      this.setState({
+        scrollLeft: e.target.scrollLeft
+      })
+    }
+
     render() {
       return <WrappedComponent
+        onScroll={this.onScroll}
         {...this.state}
         {...this.props}
       />
@@ -243,7 +296,7 @@ function withCursor(WrappedComponent) {
   }
 }
 
-export default withCursor(withTheme(fitToContainer(Content, {
+export default stateful(withTheme(fitToContainer(Content, {
   width: "100%",
   height: "100%"
 })))

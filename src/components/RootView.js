@@ -5,6 +5,7 @@ import { Helmet } from "react-helmet"
 
 import Song from "../model/Song"
 import Track from "../model/Track"
+import Config from "../Config"
 import Popup from "./Popup"
 
 import TrackList from "./TrackList"
@@ -119,7 +120,8 @@ export default class RootView extends Component {
       })
     }
 
-    const onSelectQuantize = (value) => {
+    const onSelectQuantize = e => {
+      const value = parseFloat(e.target.value)
       quantizer.denominator = value
       this.setState({
         quantize: value
@@ -198,16 +200,37 @@ export default class RootView extends Component {
       song.getTrack(0).tempo = parseFloat(e.target.value)
     }
 
+    const onClickPlay = () => {
+      player.play()
+    }
+
+    const onClickStop = () => {
+      if (player.isPlaying) {
+        player.stop()
+      } else {
+        player.stop()
+        player.position = 0
+      }
+    }
+
+    const onClickBackward = () => {
+      player.position -= Config.TIME_BASE * 4
+    }
+
+    const onClickForward = () => {
+      player.position += Config.TIME_BASE * 4
+    }
+
     const toolbar = <Toolbar
-      measureList={song.measureList}
       player={player}
+      measureList={song.measureList}
       quantize={state.quantize}
       mouseMode={state.pianoRollMouseMode}
       autoScroll={state.pianoRollAutoScroll}
-      selectedTrackId={selectedTrackId}
-      showLeftPane={state.showLeftPane}
-      showRightPane={state.showRightPane}
-      showPianoRoll={state.showPianoRoll}
+      onClickPlay={onClickPlay}
+      onClickStop={onClickStop}
+      onClickBackward={onClickBackward}
+      onClickForward={onClickForward}
       onClickPencil={onClickPencil}
       onClickSelection={onClickSelection}
       onClickScaleUp={onClickScaleUp}

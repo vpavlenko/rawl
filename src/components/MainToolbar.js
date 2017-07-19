@@ -6,6 +6,55 @@ import { Toolbar, ToolbarItem, ToolbarSeparator } from "./molecules/Toolbar"
 
 import "./MainToolbar.css"
 
+const quantizeOptions = Config.QuantizeOptions
+
+function Content({
+  onClickPlay,
+  onClickStop,
+  onClickBackward,
+  onClickForward,
+  autoScroll,
+  onClickAutoScroll,
+  mouseMode,
+  onClickPencil,
+  onClickSelection,
+  quantize,
+  onSelectQuantize,
+  onClickScaleUp,
+  onClickScaleDown,
+  mbtTime }) {
+
+  return <Toolbar>
+    <ToolbarItem className="time-section">
+      <p className="time">{mbtTime}</p>
+    </ToolbarItem>
+
+    <ToolbarSeparator />
+
+    <ToolbarItem onClick={onClickBackward}><Icon>skip-backward</Icon></ToolbarItem>
+    <ToolbarItem onClick={onClickStop}><Icon>stop</Icon></ToolbarItem>
+    <ToolbarItem onClick={onClickPlay}><Icon>play</Icon></ToolbarItem>
+    <ToolbarItem onClick={onClickForward}><Icon>skip-forward</Icon></ToolbarItem>
+    <ToolbarItem onClick={onClickAutoScroll} selected={autoScroll}><Icon>pin</Icon></ToolbarItem>
+
+    <ToolbarSeparator />
+
+    <ToolbarItem onClick={onClickPencil} selected={mouseMode === 0}><Icon>pencil</Icon></ToolbarItem>
+    <ToolbarItem onClick={onClickSelection} selected={mouseMode === 1}><Icon>select</Icon></ToolbarItem>
+    <ToolbarItem touchDisabled={true}>
+      <Select
+        options={quantizeOptions}
+        value={quantize}
+        onChange={onSelectQuantize} />
+    </ToolbarItem>
+
+    <ToolbarSeparator />
+
+    <ToolbarItem onClick={onClickScaleUp}><Icon>magnify-plus</Icon></ToolbarItem>
+    <ToolbarItem onClick={onClickScaleDown}><Icon>magnify-minus</Icon></ToolbarItem>
+  </Toolbar>
+}
+
 export default class MainToolbar extends Component {
   constructor(props) {
     super(props)
@@ -30,61 +79,6 @@ export default class MainToolbar extends Component {
   }
 
   render() {
-    const props = this.props
-    const { player, measureList } = this.props
-
-    const mbtTime = measureList.getMBTString(player.position, player.timebase)
-    const quantizeOptions = Config.QuantizeOptions
-
-    const onClickPlay = () => {
-      player.play()
-    }
-
-    const onClickStop = () => {
-      if (player.isPlaying) {
-        player.stop()
-      } else {
-        player.stop()
-        player.position = 0
-      }
-    }
-
-    const onClickBackward = () => {
-      player.position -= Config.TIME_BASE * 4
-    }
-
-    const onClickForward = () => {
-      player.position += Config.TIME_BASE * 4
-    }
-
-    return <Toolbar>
-      <ToolbarItem className="time-section">
-        <p className="time">{mbtTime}</p>
-      </ToolbarItem>
-
-      <ToolbarSeparator />
-
-      <ToolbarItem onClick={onClickBackward}><Icon>skip-backward</Icon></ToolbarItem>
-      <ToolbarItem onClick={onClickStop}><Icon>stop</Icon></ToolbarItem>
-      <ToolbarItem onClick={onClickPlay}><Icon>play</Icon></ToolbarItem>
-      <ToolbarItem onClick={onClickForward}><Icon>skip-forward</Icon></ToolbarItem>
-      <ToolbarItem onClick={props.onClickAutoScroll} selected={props.autoScroll}><Icon>pin</Icon></ToolbarItem>
-
-      <ToolbarSeparator />
-
-      <ToolbarItem onClick={props.onClickPencil} selected={props.mouseMode === 0}><Icon>pencil</Icon></ToolbarItem>
-      <ToolbarItem onClick={props.onClickSelection} selected={props.mouseMode === 1}><Icon>select</Icon></ToolbarItem>
-      <ToolbarItem touchDisabled={true}>
-        <Select
-          options={quantizeOptions}
-          value={props.quantize}
-          onChange={e => props.onSelectQuantize(parseFloat(e.target.value))} />
-      </ToolbarItem>
-
-      <ToolbarSeparator />
-
-      <ToolbarItem onClick={props.onClickScaleUp}><Icon>magnify-plus</Icon></ToolbarItem>
-      <ToolbarItem onClick={props.onClickScaleDown}><Icon>magnify-minus</Icon></ToolbarItem>
-    </Toolbar>
+    return <Content {...this.props} {...this.state} />
   }
 }

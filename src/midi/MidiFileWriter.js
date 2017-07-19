@@ -6,6 +6,9 @@ import {
   strToCharCodes
 } from "../helpers/midiHelper"
 
+const { remote } = window.require("electron")
+const fs = remote.require("fs")
+
 //https://sites.google.com/site/yyagisite/material/smfspec#format
 
 class Buffer {
@@ -61,7 +64,7 @@ class Buffer {
 }
 
 export default class MidiFileWriter {
-  static write(tracks, ticksPerBeat = 480) {
+  static writeToBytes(tracks, ticksPerBeat = 480) {
     const buf = new Buffer()
 
     // header chunk
@@ -82,5 +85,10 @@ export default class MidiFileWriter {
     }
 
     return buf.toBytes()
+  }
+
+  static writeToFile({tracks}, filepath, callback) {
+    const bytes = this.writeToBytes(tracks)
+    fs.writeFile(filepath, bytes, callback)
   }
 }

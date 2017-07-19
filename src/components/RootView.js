@@ -80,10 +80,6 @@ export default class RootView extends Component {
     const { song, player, quantizer } = app
     const { selectedTrack, selectedTrackId } = song
 
-    const onChangeFile = (file) => {
-      app.open(file)
-    }
-
     const onClickKey = () => {
 
     }
@@ -274,8 +270,25 @@ export default class RootView extends Component {
                 extensions: ["mid", "midi"]
               }]}, files => {
                 if (files) {
-                  onChangeFile(files[0])
+                  app.open(files[0])
                 }
+              })
+            }
+          },
+          {
+            label: "Save",
+            click: () => {
+              app.saveSong(song.filepath)
+            }
+          },
+          {
+            label: "Save As",
+            click: () => {
+              dialog.showSaveDialog({filters: [{
+                name: "Standard MIDI File",
+                extensions: ["mid", "midi"]
+              }]}, filepath => {
+                app.saveSong(filepath)
               })
             }
           }

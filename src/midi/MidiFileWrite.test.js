@@ -38,6 +38,6 @@ describe("MidiFileWriter", () => {
     tracks.push(track)
   }
 
-  const bytes = MidiFileWriter.write(tracks, 480)
+  const bytes = MidiFileWriter.writeToBytes(tracks, 480)
   fs.writeFileSync("test.mid", new Buffer(bytes))
 })

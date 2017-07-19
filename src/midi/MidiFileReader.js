@@ -1,5 +1,7 @@
 import _ from "lodash"
+import path from "path"
 import MidiFile from "../submodules/jasmid/midifile"
+import Song from "../model/Song"
 
 const { remote } = window.require("electron")
 const fs = remote.require("fs")
@@ -56,14 +58,22 @@ function assembleEvents(events) {
 }
 
 export default class MidiFileReader {
-  static read(file, callback) {
+  static read(data) {
+    const midi = MidiFile(data)
+    return {
+      tracks: midi.tracks
+        .map(assembleEvents)
+        .map(events => ({ events }))
+    }
+  }
+
+  static readFile(file, callback) {
     fs.readFile(file, (e, data) => {
-      const midi = MidiFile(data)
-      callback({
-        tracks: midi.tracks
-          .map(assembleEvents)
-          .map(events => ({ events }))
-      })
+      const midi = this.read(data)
+      const song = Song.fromMidi(midi)
+      song.filepath = file
+      song.name = path.basename(file.replace(/\\/g, "/"))
+      callback(e, song)
     })
   }
 }

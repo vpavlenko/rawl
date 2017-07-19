@@ -1,5 +1,6 @@
 import MIDIChannelEvents from "../constants/MIDIChannelEvents"
 import MIDIMetaEvents from "../constants/MIDIMetaEvents"
+import { toVLQ } from "../helpers/vlq"
 
 // separate notes to noteOn + noteOff
 export function deassembleNoteEvents(e) {
@@ -33,23 +34,11 @@ export function strToCharCodes(str) {
   return bytes
 }
 
-function varIntBytes(v) {
-  const r = [v & 0x7f]
-  while (true) {
-    v >>= 7
-    if (v > 0) {
-      break
-    }
-    r.unshift(0x80 + (v & 0x7f))
-  }
-  return r
-}
-
 export function eventToBytes(e, includeDeltaTime = true) {
   const bytes = []
 
   function add(data) {
-    if (data instanceof Array) {
+    if (data.forEach !== undefined) {
       data.forEach(add)
     } else {
       if (!Number.isInteger(data)) {
@@ -60,7 +49,7 @@ export function eventToBytes(e, includeDeltaTime = true) {
   }
 
   if (includeDeltaTime) {
-    add(varIntBytes(e.deltaTime))
+    add(toVLQ(e.deltaTime))
   }
 
   switch (e.type) {
@@ -84,15 +73,16 @@ export function eventToBytes(e, includeDeltaTime = true) {
         case "midiChannelPrefix":
         case "portPrefix":
           add(1)
-          add(e.value)
+          add(e.port)
           break
         case "endOfTrack":
           break
         case "setTempo":
+          const t = e.microsecondsPerBeat
           add(3) // data length
-          add((e.value >> 16) & 0xff)
-          add((e.value >> 8) & 0xff)
-          add(e.value & 0xff)
+          add((t >> 16) & 0xff)
+          add((t >> 8) & 0xff)
+          add(t & 0xff)
           break
         case "timeSignature":
           add(4)

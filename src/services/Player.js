@@ -2,7 +2,8 @@ import _ from "lodash"
 import observable from "riot-observable"
 import MIDIControlEvents from "../constants/MIDIControlEvents"
 import MIDIChannelEvents from "../constants/MIDIChannelEvents"
-import { deassembleNoteEvents, eventToBytes } from "../helpers/midiHelper"
+import { eventToBytes } from "../helpers/midiHelper"
+import { deassemble } from "../helpers/noteAssembler"
 import assert from "assert"
 
 const INTERVAL = 1 / 15 * 1000 // seconds
@@ -15,7 +16,7 @@ function getEventsToPlay(song, startTick, endTick) {
   return _.chain(song.tracks)
     .map(t => t.getEvents())
     .flatten()
-    .map(deassembleNoteEvents)
+    .map(deassemble)
     .flatten()
     .filter(e => e && e.tick >= startTick && e.tick <= endTick)
     .value()

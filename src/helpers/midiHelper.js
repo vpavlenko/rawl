@@ -2,28 +2,14 @@ import MIDIChannelEvents from "../constants/MIDIChannelEvents"
 import MIDIMetaEvents from "../constants/MIDIMetaEvents"
 import { toVLQ } from "../helpers/vlq"
 
-// separate notes to noteOn + noteOff
-export function deassembleNoteEvents(e) {
-  if (e.subtype === "note") {
-    return [{
-      type: "channel",
-      subtype: "noteOn",
-      tick: e.tick,
-      channel: e.channel,
-      noteNumber: e.noteNumber,
-      velocity: e.velocity
-    },
-    {
-      type: "channel",
-      subtype: "noteOff",
-      tick: e.tick + e.duration - 1, // -1 to prevent overlap
-      channel: e.channel,
-      noteNumber: e.noteNumber,
-      velocity: 0
-    }]
-  } else {
-    return [e]
+export function addTick(events) {
+  let tick = 0
+  for (let e of events) {
+    tick += e.deltaTime
+    e.tick = tick
+    delete e.deltaTime
   }
+  return events
 }
 
 export function strToCharCodes(str) {

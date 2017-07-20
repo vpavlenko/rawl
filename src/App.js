@@ -4,7 +4,7 @@ import Quantizer from "./services/Quantizer"
 import Song from "./model/Song"
 import Config from "./Config"
 import Downloader from "./helpers/Downloader"
-import MidiFileReader from "./midi/MidiFileReader"
+import { read as readSong, write as writeSong } from "./midi/SongFile"
 import MidiFileWriter from "./midi/MidiFileWriter"
 import MIDIOutput from "./services/MIDIOutput"
 
@@ -18,7 +18,7 @@ export default class App {
   }
 
   open(file) {
-    MidiFileReader.readFile(file, (e, song) => {
+    readSong(file, (e, song) => {
       if (e) {
         console.error(e)
       }
@@ -27,7 +27,7 @@ export default class App {
   }
 
   saveSong(filepath) {
-    MidiFileWriter.writeToFile(this.song, filepath, e => {
+    writeSong(this.song, filepath, e => {
       if (e) {
         console.error(e)
       }

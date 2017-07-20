@@ -1,13 +1,10 @@
 import _ from "lodash"
 import {
-  deassembleNoteEvents,
   addDeltaTime,
   eventToBytes,
   strToCharCodes
 } from "../helpers/midiHelper"
-
-const { remote } = window.require("electron")
-const fs = remote.require("fs")
+import { deassemble } from "../helpers/noteAssembler"
 
 //https://sites.google.com/site/yyagisite/material/smfspec#format
 
@@ -63,32 +60,25 @@ class Buffer {
   }
 }
 
-export default class MidiFileWriter {
-  static writeToBytes(tracks, ticksPerBeat = 480) {
-    const buf = new Buffer()
+export function write(tracks, ticksPerBeat = 480) {
+  const buf = new Buffer()
 
-    // header chunk
-    buf.writeChunk("MThd", it => {
-      it.writeInt16(1) // formatType
-      it.writeInt16(tracks.length) // trackCount
-      it.writeInt16(ticksPerBeat) // timeDivision
+  // header chunk
+  buf.writeChunk("MThd", it => {
+    it.writeInt16(1) // formatType
+    it.writeInt16(tracks.length) // trackCount
+    it.writeInt16(ticksPerBeat) // timeDivision
+  })
+
+  // track chunk
+  for (const track of tracks) {
+    buf.writeChunk("MTrk", it => {
+      let events = addDeltaTime(_.flatten(track.getEvents().map(deassemble)))
+      for (const event of events) {
+        it.writeBytes(eventToBytes(event))
+      }
     })
-
-    // track chunk
-    for (const track of tracks) {
-      buf.writeChunk("MTrk", it => {
-        let events = addDeltaTime(_.flatten(track.getEvents().map(deassembleNoteEvents)))
-        for (const event of events) {
-          it.writeBytes(eventToBytes(event))
-        }
-      })
-    }
-
-    return buf.toBytes()
   }
 
-  static writeToFile({tracks}, filepath, callback) {
-    const bytes = this.writeToBytes(tracks)
-    fs.writeFile(filepath, bytes, callback)
-  }
+  return buf.toBytes()
 }

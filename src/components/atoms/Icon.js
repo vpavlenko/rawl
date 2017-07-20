@@ -1,4 +1,5 @@
 import React from "react"
+import { pure } from "recompose"
 
 import f from "../../helpers/flatJoin"
 import e from "../../helpers/getElementType"
@@ -6,7 +7,7 @@ import e from "../../helpers/getElementType"
 import "./Icon.css"
 import "mdi/css/materialdesignicons.css"
 
-export default function Icon({
+function Icon({
   component,
   children,
   className
@@ -16,3 +17,5 @@ export default function Icon({
     className={f("Icon", "mdi", `mdi-${children}`, className)}
   />
 }
+
+export default pure(Icon)

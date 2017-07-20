@@ -1,10 +1,11 @@
 import React from "react"
+import { pure } from "recompose"
 import f from "../../helpers/flatJoin"
 import coarsify from "../../helpers/coarsify"
 
 import "./NumberInput.css"
 
-export default function NumberInput({
+function NumberInput({
   className,
   value,
   onChange,
@@ -56,3 +57,5 @@ export default function NumberInput({
     onMouseDown={handleMouseDown}
   />
 }
+
+export default pure(NumberInput)

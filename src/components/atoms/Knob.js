@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import { pure } from "recompose"
 import coarsify from "../../helpers/coarsify"
 
 import "./Knob.css"
@@ -11,7 +12,7 @@ const WHEEL_SPEED = 0.1
 
 const Nop = () => {}
 
-function KnobBody({
+function Content({
   value = 0,
   onChange = Nop,
   offsetDegree = 0,
@@ -64,6 +65,8 @@ function KnobBody({
   </div>
 }
 
+const Contentp = pure(Content)
+
 export default class Knob extends Component {
   constructor(props) {
     super(props)
@@ -73,7 +76,7 @@ export default class Knob extends Component {
   }
 
   render() {
-    return <KnobBody
+    return <Contentp
       {...this.props}
       {...this.state}
       setDragging={dragging => this.setState({ dragging })}

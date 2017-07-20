@@ -1,10 +1,11 @@
 import React from "react"
 import f from "../../helpers/flatJoin"
 import e from "../../helpers/getElementType"
+import { pure } from "recompose"
 
 import "./Button.css"
 
-export default function Button({
+function Button({
   component,
   children,
   onClick,
@@ -17,3 +18,5 @@ export default function Button({
     {children}
   </ElementType>
 }
+
+export default pure(Button)

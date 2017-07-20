@@ -1,9 +1,10 @@
 import React from "react"
+import { pure } from "recompose"
 import f from "../../helpers/flatJoin"
 
 import "./TextInput.css"
 
-export default function TextInput({
+function TextInput({
   className,
   value,
   onChange,
@@ -17,3 +18,5 @@ export default function TextInput({
     placeholder={placeholder}
   />
 }
+
+export default pure(TextInput)

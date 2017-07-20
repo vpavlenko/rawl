@@ -1,8 +1,9 @@
 import React from "react"
+import { pure } from "recompose"
 import Icon from "./Icon"
 import "./Select.css"
 
-export default function Select({
+function Select({
   onChange,
   value,
   options
@@ -32,3 +33,5 @@ export default function Select({
     </select>
   </div>
 }
+
+export default pure(Select)

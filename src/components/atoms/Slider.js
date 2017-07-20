@@ -1,9 +1,10 @@
 import React, { Component } from "react"
+import { pure } from "recompose"
 import coarsify from "../../helpers/coarsify"
 
 import "./Slider.css"
 
-function SliderBody({
+function Content({
   value = 0,
   maxValue = 1,
   onChange = () => {},
@@ -62,6 +63,8 @@ function SliderBody({
   </div>
 }
 
+const Contentp = pure(Content)
+
 export default class Slider extends Component {
   constructor(props) {
     super(props)
@@ -71,7 +74,7 @@ export default class Slider extends Component {
   }
 
   render() {
-    return <SliderBody
+    return <Contentp
       {...this.props}
       {...this.state}
       setDragging={dragging => this.setState({ dragging })}

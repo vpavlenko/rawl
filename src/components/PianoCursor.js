@@ -1,7 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import DrawCanvas from "./DrawCanvas"
-import pureRender from "../hocs/pureRender"
+import { pure } from "recompose"
 
 function drawCursor(ctx, position, height) {
   ctx.save()
@@ -46,4 +46,4 @@ PianoCursor.propTypes = {
   position: PropTypes.number.isRequired
 }
 
-export default pureRender(PianoCursor)
+export default pure(PianoCursor)

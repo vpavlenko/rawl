@@ -150,3 +150,9 @@ export class ExpressionMidiEvent extends ControllerMidiEvent {
     super(deltaTime, 0x0b, value)
   }
 }
+
+export class ResetAllMidiEvent extends ControllerMidiEvent {
+  constructor(deltaTime) {
+    super(deltaTime, 121, 0)
+  }
+}

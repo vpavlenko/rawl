@@ -5,7 +5,8 @@ import {
   TimeSignatureMidiEvent, SetTempoMidiEvent,
   PitchBendMidiEvent, VolumeMidiEvent,
   PanMidiEvent, ExpressionMidiEvent,
-  ModulationMidiEvent, ProgramChangeMidiEvent } from "../midi/MidiEvent"
+  ModulationMidiEvent, ProgramChangeMidiEvent,
+  ResetAllMidiEvent } from "../midi/MidiEvent"
 import { getInstrumentName } from "../midi/GM"
 
 function lastValue(arr, prop) {
@@ -238,14 +239,15 @@ export default class Track {
     const track = new Track()
     track.channel = channel
     track.addEvents([
-      new TrackNameMidiEvent(0, ""),
-      new PanMidiEvent(0, 64),
-      new VolumeMidiEvent(0, 100),
-      new ExpressionMidiEvent(0, 127),
-      new PitchBendMidiEvent(0, 0x2000),
-      new ModulationMidiEvent(0, 0),
-      new ProgramChangeMidiEvent(0, 0),
-      new EndOfTrackMidiEvent(0)
+      new ResetAllMidiEvent(1),
+      new TrackNameMidiEvent(1, ""),
+      new PanMidiEvent(1, 64),
+      new VolumeMidiEvent(1, 100),
+      new ExpressionMidiEvent(1, 127),
+      new PitchBendMidiEvent(1, 0x2000),
+      new ModulationMidiEvent(1, 0),
+      new ProgramChangeMidiEvent(1, 0),
+      new EndOfTrackMidiEvent(1)
     ])
     return track
   }

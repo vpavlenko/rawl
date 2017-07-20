@@ -3,9 +3,7 @@ import Player from "./services/Player"
 import Quantizer from "./services/Quantizer"
 import Song from "./model/Song"
 import Config from "./Config"
-import Downloader from "./helpers/Downloader"
 import { read as readSong, write as writeSong } from "./midi/SongFile"
-import MidiFileWriter from "./midi/MidiFileWriter"
 import MIDIOutput from "./services/MIDIOutput"
 
 export default class App {

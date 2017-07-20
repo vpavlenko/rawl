@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
 import { pure } from "recompose"
+import SplitPane  from "react-split-pane"
 
 import SelectionModel from "../model/SelectionModel"
 import NoteCoordTransform from "../model/NoteCoordTransform"
@@ -35,7 +36,7 @@ const PseudoHeightContent = pure(({ height }) => {
 })
 
 const PseudoWidthContent = pure(({ onmount, width }) => {
-  return <div ref={onmount} style={{
+  return <div style={{
     width,
     height: "100%"
   }} />
@@ -91,7 +92,7 @@ class PianoRoll extends Component {
 
   fitBetaSize = () => {
     this.setState({
-      controlHeight: this.betaPseudoContent.clientHeight
+      controlHeight: this.beta.clientHeight - this.controlToolbar.clientHeight
     })
   }
 
@@ -224,6 +225,7 @@ class PianoRoll extends Component {
       className="PianoRoll"
       ref={c => this.container = c}>
 
+      <SplitPane split="horizontal" onChange={this.fitBetaSize} defaultSize={180} primary="second">
       <div className="alpha" ref={c => this.alpha = c}
         onScroll={this.alphaDidScroll}
         onWheel={e => {
@@ -287,8 +289,12 @@ class PianoRoll extends Component {
         className="beta"
         ref={c => this.beta = c}
         onScroll={this.betaDidScroll}>
-        <PseudoWidthContent width={contentWidth} onmount={c => this.betaPseudoContent = c} />
+        <PseudoWidthContent width={contentWidth} />
         <FixedLeftContent left={scrollLeft}>
+          <div className="control-toolbar" ref={c => this.controlToolbar = c}>
+            <button className="selected">velocity</button>
+            <button>pitchbend</button>
+          </div>
           <PianoVelocityControl
             width={width}
             height={controlHeight}
@@ -299,6 +305,7 @@ class PianoRoll extends Component {
             onMouseUp={controlMouseHandler.onMouseUp} />
         </FixedLeftContent>
       </div>
+      </SplitPane>
     </div>
   }
 }

@@ -39,8 +39,7 @@ export default class Theme {
       secondaryTextColor: getCSSVariable("--secondary-text-color"),
       keyWidth: parseInt_(getCSSVariable("--key-width")),
       keyHeight: parseInt_(getCSSVariable("--key-height")),
-      rulerHeight: parseInt_(getCSSVariable("--ruler-height")),
-      controlHeight: parseInt_(getCSSVariable("--control-height"))
+      rulerHeight: parseInt_(getCSSVariable("--ruler-height"))
     }
   }
 }

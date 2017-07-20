@@ -19,15 +19,17 @@
   overflow-y: scroll;
   overflow-x: hidden;
   position: relative;
-  height: calc(100% - var(--control-height));
+  width: 100%;
+  height: 100%;
 }
 
 .PianoRoll .beta {
   overflow-x: scroll;
+  overflow-y: hidden;
   position: relative;
-  height: var(--control-height);
   border-top: 1px solid var(--secondary-text-color);
   box-sizing: border-box;
+  height: 100%;
 }
 
 .PianoRoll .PianoKeys {
@@ -75,4 +77,31 @@
 
 .PianoRoll .PianoControl {
   margin-left: var(--key-width);
+  border-left: 1px solid var(--secondary-text-color);
+}
+
+.control-toolbar button {
+  background: transparent;
+  -webkit-appearance: none;
+  border: none;
+  padding: 0.5em 0.8em;
+  color: var(--secondary-text-color);
+  outline: none;
+}
+
+.control-toolbar {
+  border-bottom: 1px solid var(--divider-color);
+  box-sizing: border-box;
+  display: flex;
+  margin-left: var(--key-width);
+  border-left: 1px solid var(--secondary-text-color);
+}
+
+.control-toolbar button.selected {
+  color: var(--theme-color);
+  background: var(--secondary-background-color);
+}
+
+.control-toolbar button:hover {
+  background: var(--secondary-background-color);
 }

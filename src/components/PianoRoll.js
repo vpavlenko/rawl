@@ -12,6 +12,7 @@ import PianoRuler from "./PianoRuler"
 import PianoNotes from "./PianoNotes"
 import PianoSelection from "./PianoSelection"
 import PianoVelocityControl from "./PianoVelocityControl"
+import PitchGraph from "./PitchGraph"
 import PianoCursor from "./PianoCursor"
 import withTheme from "../hocs/withTheme"
 import fitToContainer from "../hocs/fitToContainer"
@@ -20,6 +21,7 @@ import SelectionController from "../helpers/SelectionController"
 
 import pianoNotesPresentation from "../presentations/pianoNotes"
 import velocityControlPresentation from "../presentations/velocityControl"
+import pitchGraphPresentation from "../presentations/pitchGraph"
 
 import SelectionMouseHandler from "../NoteMouseHandler/SelectionMouseHandler"
 import PencilMouseHandler from "../NoteMouseHandler/PencilMouseHandler"
@@ -29,6 +31,14 @@ import "./PianoRoll.css"
 
 const SCROLL_KEY_SPEED = 4
 
+const ControlToolbar = pure(({ onmount, buttons }) => {
+  return <div className="control-toolbar" ref={onmount}>
+    {buttons.map(({ label, selected, onClick }) =>
+      <button className={selected ? "selected" : ""} onClick={onClick}>{label}</button>
+    )}
+  </div>
+})
+
 const PseudoHeightContent = pure(({ height }) => {
   return <div style={{
     height
@@ -36,7 +46,7 @@ const PseudoHeightContent = pure(({ height }) => {
 })
 
 const PseudoWidthContent = pure(({ onmount, width }) => {
-  return <div style={{
+  return <div ref={onmount} style={{
     width,
     height: "100%"
   }} />
@@ -64,6 +74,7 @@ class PianoRoll extends Component {
       controlHeight: 0,
       cursorPosition: 0,
       notesCursor: "auto",
+      controlMode: "velocity",
       selection: new SelectionModel()
     }
 
@@ -92,7 +103,7 @@ class PianoRoll extends Component {
 
   fitBetaSize = () => {
     this.setState({
-      controlHeight: this.beta.clientHeight - this.controlToolbar.clientHeight
+      controlHeight: this.betaPseudoContent.clientHeight - this.controlToolbar.clientHeight
     })
   }
 
@@ -192,7 +203,8 @@ class PianoRoll extends Component {
       notesCursor,
       selection,
       cursorPosition,
-      controlHeight
+      controlHeight,
+      controlMode
     } = this.state
 
     const { keyWidth, rulerHeight } = theme
@@ -220,6 +232,21 @@ class PianoRoll extends Component {
       this.pencilMouseHandler : this.selectionMouseHandler
 
     const controlMouseHandler = this.controlMouseHandler
+
+    const controlToolbar = <ControlToolbar
+      onmount={c => this.controlToolbar = c}
+      buttons={[
+        {
+          label: "velocity",
+          selected: controlMode === "velocity",
+          onClick: () => this.setState({ controlMode: "velocity" })
+        },
+        {
+          label: "pitchBend",
+          selected: controlMode === "pitchBend",
+          onClick: () => this.setState({ controlMode: "pitchBend" })
+        }
+      ]} />
 
     return <div
       className="PianoRoll"
@@ -289,20 +316,31 @@ class PianoRoll extends Component {
         className="beta"
         ref={c => this.beta = c}
         onScroll={this.betaDidScroll}>
-        <PseudoWidthContent width={contentWidth} />
+        <PseudoWidthContent width={contentWidth} onmount={c => this.betaPseudoContent = c} />
         <FixedLeftContent left={scrollLeft}>
-          <div className="control-toolbar" ref={c => this.controlToolbar = c}>
-            <button className="selected">velocity</button>
-            <button>pitchbend</button>
+          {controlToolbar}
+          <div className="control-content">
+            {controlMode === "velocity" && <PianoVelocityControl
+              width={width}
+              height={controlHeight}
+              items={velocityControlItems}
+              scrollLeft={scrollLeft}
+              onMouseDown={controlMouseHandler.onMouseDown}
+              onMouseMove={controlMouseHandler.onMouseMove}
+              onMouseUp={controlMouseHandler.onMouseUp} />}
+            {controlMode === "pitchBend" && <PitchGraph
+              width={width}
+              height={controlHeight}
+              scrollLeft={scrollLeft}
+              items={pitchGraphPresentation(events, transform, controlHeight)} />}
+            <PianoGrid
+              endTick={widthTick}
+              ticksPerBeat={ticksPerBeat}
+              width={width}
+              height={controlHeight}
+              scrollLeft={scrollLeft}
+              transform={transform} />
           </div>
-          <PianoVelocityControl
-            width={width}
-            height={controlHeight}
-            items={velocityControlItems}
-            scrollLeft={scrollLeft}
-            onMouseDown={controlMouseHandler.onMouseDown}
-            onMouseMove={controlMouseHandler.onMouseMove}
-            onMouseUp={controlMouseHandler.onMouseUp} />
         </FixedLeftContent>
       </div>
       </SplitPane>

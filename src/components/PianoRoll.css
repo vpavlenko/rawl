@@ -105,3 +105,12 @@
 .control-toolbar button:hover {
   background: var(--secondary-background-color);
 }
+
+.control-content {
+  position: relative;
+}
+
+.beta .PianoGrid {
+  top: 0;
+  left: 0;
+}

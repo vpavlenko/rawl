@@ -84,7 +84,7 @@ function PianoVelocityControl({
   }
 
   return <DrawCanvas
-    className="PianoControl"
+    className="PianoControl VelocityControl"
     draw={draw}
     width={width}
     height={height}

@@ -103,23 +103,10 @@ function PianoNotes({
     }
   }
 
-  const _onMouseDown = e =>
-    onMouseDown({
-      ...e,
-      ...eventOption(e)
-    })
-
-  const _onMouseMove = e =>
-    onMouseMove({
-      ...e,
-      ...eventOption(e)
-    })
-
-  const _onMouseUp = e =>
-    onMouseUp({
-      ...e,
-      ...eventOption(e)
-    })
+  const extendEvent = func => e => func({
+    ...e,
+    ...eventOption(e)
+  })
 
   function draw(ctx) {
     const { width, height } = ctx.canvas
@@ -137,9 +124,9 @@ function PianoNotes({
     width={width}
     height={height}
     onContextMenu={e => e.preventDefault()}
-    onMouseDown={_onMouseDown}
-    onMouseMove={_onMouseMove}
-    onMouseUp={_onMouseUp}
+    onMouseDown={extendEvent(onMouseDown)}
+    onMouseMove={extendEvent(onMouseMove)}
+    onMouseUp={extendEvent(onMouseUp)}
     style={{ cursor }}
   />
 }

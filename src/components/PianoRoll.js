@@ -26,6 +26,7 @@ import pitchGraphPresentation from "../presentations/pitchGraph"
 import SelectionMouseHandler from "../NoteMouseHandler/SelectionMouseHandler"
 import PencilMouseHandler from "../NoteMouseHandler/PencilMouseHandler"
 import VelocityMouseHandler from "../NoteMouseHandler/VelocityMouseHandler"
+import PitchMouseHandler from "../NoteMouseHandler/PitchMouseHandler"
 
 import "./PianoRoll.css"
 
@@ -90,7 +91,8 @@ class PianoRoll extends Component {
 
     this.pencilMouseHandler = new PencilMouseHandler(changeCursor, toggleTool)
     this.selectionMouseHandler = new SelectionMouseHandler(changeCursor, toggleTool)
-    this.controlMouseHandler = new VelocityMouseHandler(props.track)
+    this.velocityMouseHandler = new VelocityMouseHandler(props.track)
+    this.pitchMouseHandler = new PitchMouseHandler(props.track)
   }
 
   forceScrollLeft(requiredScrollLeft) {
@@ -231,7 +233,10 @@ class PianoRoll extends Component {
     const noteMouseHandler = mouseMode === 0 ?
       this.pencilMouseHandler : this.selectionMouseHandler
 
-    const controlMouseHandler = this.controlMouseHandler
+    const {
+      velocityMouseHandler,
+      pitchMouseHandler
+    } = this
 
     const controlToolbar = <ControlToolbar
       onmount={c => this.controlToolbar = c}
@@ -325,14 +330,17 @@ class PianoRoll extends Component {
               height={controlHeight}
               items={velocityControlItems}
               scrollLeft={scrollLeft}
-              onMouseDown={controlMouseHandler.onMouseDown}
-              onMouseMove={controlMouseHandler.onMouseMove}
-              onMouseUp={controlMouseHandler.onMouseUp} />}
+              onMouseDown={velocityMouseHandler.onMouseDown}
+              onMouseMove={velocityMouseHandler.onMouseMove}
+              onMouseUp={velocityMouseHandler.onMouseUp} />}
             {controlMode === "pitchBend" && <PitchGraph
               width={width}
               height={controlHeight}
               scrollLeft={scrollLeft}
-              items={pitchGraphPresentation(events, transform, controlHeight)} />}
+              items={pitchGraphPresentation(events, transform, controlHeight)}
+              onMouseDown={pitchMouseHandler.onMouseDown}
+              onMouseMove={pitchMouseHandler.onMouseMove}
+              onMouseUp={pitchMouseHandler.onMouseUp} />}
             <PianoGrid
               endTick={widthTick}
               ticksPerBeat={ticksPerBeat}

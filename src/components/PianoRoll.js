@@ -74,12 +74,6 @@ class PianoRoll extends Component {
     this.state.selection.on("change", () => {
       this.setState({selection: this.state.selection})
     })
-
-    const changeCursor = cursor => {
-      this.setState({ notesCursor: cursor})
-    }
-
-    const toggleTool = this.props.toggleMouseMode
   }
 
   forceScrollLeft(requiredScrollLeft) {
@@ -290,6 +284,9 @@ class PianoRoll extends Component {
           const event = new PitchBendMidiEvent(0, params.value)
           event.tick = params.tick
           return track.addEvent(event)
+        default:
+          // TODO: 上の階層に投げる
+          break
       }
     }
 

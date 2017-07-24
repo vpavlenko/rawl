@@ -19,7 +19,6 @@ import fitToContainer from "../hocs/fitToContainer"
 import NoteController from "../helpers/NoteController"
 import SelectionController from "../helpers/SelectionController"
 
-import pianoNotesPresentation from "../presentations/pianoNotes"
 import velocityControlPresentation from "../presentations/velocityControl"
 import pitchGraphPresentation from "../presentations/pitchGraph"
 
@@ -224,7 +223,6 @@ class PianoRoll extends Component {
     }
 
     const events = track.getEvents()
-    const noteItems = pianoNotesPresentation(events, transform, scrollLeft, width)
     const velocityControlItems = velocityControlPresentation(events, transform, scrollLeft, width, controlHeight)
 
     this.pencilMouseHandler.noteController = new NoteController(track, quantizer, transform, player)
@@ -279,8 +277,8 @@ class PianoRoll extends Component {
             scrollLeft={scrollLeft}
             transform={transform} />
           <PianoNotes
-            items={noteItems}
-            height={transform.pixelsPerKey * transform.numberOfKeys}
+            events={events}
+            transform={transform}
             width={width}
             cursor={notesCursor}
             onMouseDown={noteMouseHandler.onMouseDown}

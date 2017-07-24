@@ -9,23 +9,16 @@ import PianoKeys from "./PianoKeys"
 import PianoGrid from "./PianoGrid"
 import PianoLines from "./PianoLines"
 import PianoRuler from "./PianoRuler"
-import PianoNotes from "./PianoNotes"
+import PianoNotes from "./PianoNotes/PianoNotes"
 import PianoSelection from "./PianoSelection"
-import PianoVelocityControl from "./PianoVelocityControl"
-import PitchGraph from "./PitchGraph"
+import PianoVelocityControl from "./PianoVelocityControl/PianoVelocityControl"
+import PitchGraph from "./PitchGraph/PitchGraph"
 import PianoCursor from "./PianoCursor"
 import withTheme from "../hocs/withTheme"
 import fitToContainer from "../hocs/fitToContainer"
 import NoteController from "../helpers/NoteController"
 import SelectionController from "../helpers/SelectionController"
-
-import velocityControlPresentation from "../presentations/velocityControl"
-import pitchGraphPresentation from "../presentations/pitchGraph"
-
-import SelectionMouseHandler from "../NoteMouseHandler/SelectionMouseHandler"
-import PencilMouseHandler from "../NoteMouseHandler/PencilMouseHandler"
-import VelocityMouseHandler from "../NoteMouseHandler/VelocityMouseHandler"
-import PitchMouseHandler from "../NoteMouseHandler/PitchMouseHandler"
+import { PitchBendMidiEvent } from "../midi/MidiEvent"
 
 import "./PianoRoll.css"
 
@@ -87,11 +80,6 @@ class PianoRoll extends Component {
     }
 
     const toggleTool = this.props.toggleMouseMode
-
-    this.pencilMouseHandler = new PencilMouseHandler(changeCursor, toggleTool)
-    this.selectionMouseHandler = new SelectionMouseHandler(changeCursor, toggleTool)
-    this.velocityMouseHandler = new VelocityMouseHandler(props.track)
-    this.pitchMouseHandler = new PitchMouseHandler(props.track)
   }
 
   forceScrollLeft(requiredScrollLeft) {
@@ -223,15 +211,6 @@ class PianoRoll extends Component {
     }
 
     const events = track.getEvents()
-    const velocityControlItems = velocityControlPresentation(events, transform, scrollLeft, width, controlHeight)
-
-    const noteMouseHandler = mouseMode === 0 ?
-      this.pencilMouseHandler : this.selectionMouseHandler
-
-    const {
-      velocityMouseHandler,
-      pitchMouseHandler
-    } = this
 
     const controlToolbar = <ControlToolbar
       onmount={c => this.controlToolbar = c}
@@ -251,6 +230,7 @@ class PianoRoll extends Component {
     const noteController = new NoteController(track, quantizer, transform, player)
     const selectionController = new SelectionController(selection, track, quantizer, transform, player)
 
+    // TODO: dispatch 内では音符座標系を扱い、position -> tick 変換等は component 内で行う
     const dispatch = (type, params) => {
       console.log(type, params)
       switch(type) {
@@ -299,10 +279,18 @@ class PianoRoll extends Component {
           return selectionController.deleteSelection()
         case "PASTE_SELECTION":
           return selectionController.pasteSelection()
+        case "CHANGE_NOTES_VELOCITY":
+          return track.transaction(it => {
+            params.notes.forEach(item => {
+              it.updateEvent(item.id, { velocity: params.velocity })
+            })
+          })
+        case "CREATE_PITCH_BEND":
+          const event = new PitchBendMidiEvent(0, params.value)
+          event.tick = params.tick
+          return track.addEvent(event)
       }
     }
-
-    noteMouseHandler.dispatch = dispatch
 
     return <div
       className="PianoRoll"
@@ -335,9 +323,7 @@ class PianoRoll extends Component {
             width={width}
             cursor={notesCursor}
             dispatch={dispatch}
-            onMouseDown={noteMouseHandler.onMouseDown}
-            onMouseMove={noteMouseHandler.onMouseMove}
-            onMouseUp={noteMouseHandler.onMouseUp}
+            mouseMode={mouseMode}
             scrollLeft={scrollLeft} />
           <PianoSelection
             theme={theme}
@@ -380,19 +366,17 @@ class PianoRoll extends Component {
             {controlMode === "velocity" && <PianoVelocityControl
               width={width}
               height={controlHeight}
-              items={velocityControlItems}
+              transform={transform}
+              events={events}
               scrollLeft={scrollLeft}
-              onMouseDown={velocityMouseHandler.onMouseDown}
-              onMouseMove={velocityMouseHandler.onMouseMove}
-              onMouseUp={velocityMouseHandler.onMouseUp} />}
+              dispatch={dispatch} />}
             {controlMode === "pitchBend" && <PitchGraph
               width={width}
               height={controlHeight}
               scrollLeft={scrollLeft}
-              items={pitchGraphPresentation(events, transform, controlHeight)}
-              onMouseDown={pitchMouseHandler.onMouseDown}
-              onMouseMove={pitchMouseHandler.onMouseMove}
-              onMouseUp={pitchMouseHandler.onMouseUp} />}
+              events={events}
+              transform={transform}
+              dispatch={dispatch} />}
             <PianoGrid
               endTick={widthTick}
               ticksPerBeat={ticksPerBeat}

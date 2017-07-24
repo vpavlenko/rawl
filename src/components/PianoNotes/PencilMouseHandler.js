@@ -1,6 +1,6 @@
 import NoteMouseHandler from "./NoteMouseHandler"
-import { pointSub, pointAdd } from "../helpers/point"
-import pencilImage from "../images/iconmonstr-pencil-14-16.png"
+import { pointSub, pointAdd } from "../../helpers/point"
+import pencilImage from "../../images/iconmonstr-pencil-14-16.png"
 
 export default class PencilMouseHandler extends NoteMouseHandler {
   actionForMouseDown(e) {

@@ -1,14 +1,15 @@
 /**
   ノートイベントを描画するコンポーネント
-  表示だけを行い、Transform や Quantizer, Track に依存しない
 */
 
 import React, { Component } from "react"
 import PropTypes from "prop-types"
 import _ from "lodash"
-import DrawCanvas from "./DrawCanvas"
-import logEq from "../helpers/logEq"
-import filterEventsWithScroll from "../helpers/filterEventsWithScroll"
+import DrawCanvas from "../DrawCanvas"
+import logEq from "../../helpers/logEq"
+import filterEventsWithScroll from "../../helpers/filterEventsWithScroll"
+import SelectionMouseHandler from "./SelectionMouseHandler"
+import PencilMouseHandler from "./PencilMouseHandler"
 
 /**
 
@@ -83,10 +84,11 @@ function PianoNotes({
   transform,
   width,
   scrollLeft,
-  onMouseDown,
-  onMouseMove,
-  onMouseUp,
-  cursor
+  mouseMode,
+  dispatch,
+  cursor,
+  pencilMouseHandler,
+  selectionMouseHandler
 }) {
   const items = filterEvents(events, transform, scrollLeft, width)
   const height = transform.pixelsPerKey * transform.numberOfKeys
@@ -141,15 +143,19 @@ function PianoNotes({
     ctx.restore()
   }
 
+  const noteMouseHandler = mouseMode === 0 ?
+    pencilMouseHandler : selectionMouseHandler
+  noteMouseHandler.dispatch = dispatch
+
   return <DrawCanvas
     draw={draw}
     className="PianoNotes"
     width={width}
     height={height}
     onContextMenu={e => e.preventDefault()}
-    onMouseDown={extendEvent(onMouseDown)}
-    onMouseMove={extendEvent(onMouseMove)}
-    onMouseUp={extendEvent(onMouseUp)}
+    onMouseDown={extendEvent(e => noteMouseHandler.onMouseDown(e))}
+    onMouseMove={extendEvent(e => noteMouseHandler.onMouseMove(e))}
+    onMouseUp={extendEvent(e => noteMouseHandler.onMouseUp(e))}
     style={{ cursor }}
   />
 }
@@ -158,13 +164,19 @@ PianoNotes.propTypes = {
   events: PropTypes.array.isRequired,
   width: PropTypes.number.isRequired,
   scrollLeft: PropTypes.number.isRequired,
-  cursor: PropTypes.string,
-  onMouseDown: PropTypes.func,
-  onMouseMove: PropTypes.func,
-  onMouseUp: PropTypes.func
+  cursor: PropTypes.string
 }
 
 class _PianoNotes extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      pencilMouseHandler: new PencilMouseHandler(),
+      selectionMouseHandler: new SelectionMouseHandler()
+    }
+  }
+
   shouldComponentUpdate(nextProps) {
     const props = this.props
     return !logEq(props, nextProps, "events", _.isEqual)
@@ -172,13 +184,10 @@ class _PianoNotes extends Component {
       || !logEq(props, nextProps, "scrollLeft")
       || !logEq(props, nextProps, "width")
       || !logEq(props, nextProps, "cursor")
-      || !logEq(props, nextProps, "onMouseDown")
-      || !logEq(props, nextProps, "onMouseMove")
-      || !logEq(props, nextProps, "onMouseUp")
   }
 
   render() {
-    return <PianoNotes {...this.props} />
+    return <PianoNotes {...this.props} {...this.state} />
   }
 }
 

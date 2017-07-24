@@ -1,3 +1,4 @@
+import Perf from "react-addons-perf"
 
 export default class NoteMouseHandler {
   constructor() {
@@ -30,6 +31,7 @@ export default class NoteMouseHandler {
   }
 
   onMouseDown(e) {
+    Perf.start()
     this.action = this.actionForMouseDown(e)
     if (!this.action) {
       return
@@ -66,6 +68,10 @@ export default class NoteMouseHandler {
   }
 
   onMouseUp(e) {
+    Perf.stop()
+    const m = Perf.getLastMeasurements()
+    Perf.printWasted(m)
+
     if (this.action) {
       this.actionMouseUp(e)
     }

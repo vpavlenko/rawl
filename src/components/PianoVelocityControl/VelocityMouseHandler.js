@@ -1,20 +1,9 @@
 export default class VelocityMouseHandler {
-  constructor(track) {
-    this.track = track
-    this.onMouseDown = this.onMouseDown.bind(this)
-    this.onMouseMove = this.onMouseMove.bind(this)
-    this.onMouseUp = this.onMouseUp.bind(this)
+  changeVelocity(notes, velocity) {
+    this.dispatch("CHANGE_NOTES_VELOCITY", { notes, velocity })
   }
 
-  changeVelocity(items, velocity) {
-    this.track.transaction(it => {
-      items.forEach(item => {
-        it.updateEvent(item.id, { velocity })
-      })
-    })
-  }
-
-  onMouseDown(e) {
+  onMouseDown = e => {
     const items = e.items
     if (items.length === 0) {
       return

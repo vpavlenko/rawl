@@ -9,10 +9,7 @@ export default class PencilMouseHandler extends NoteMouseHandler {
       return original
     }
 
-    const n = this.noteController
-    if (!n) {
-      throw new Error("this.noteController をセットすること")
-    }
+    const { dispatch } = this
 
     if (e.nativeEvent.button !== 0) {
       return null
@@ -20,19 +17,17 @@ export default class PencilMouseHandler extends NoteMouseHandler {
 
     if (e.item) {
       if (e.nativeEvent.detail === 2) {
-        return removeNoteAction(id => n.remove(id))
+        return removeNoteAction(dispatch)
       } else {
         switch(e.position) {
-          case "center": return moveNoteAction((id, d) => n.moveCenter(id, d))
-          case "left": return dragLeftNoteAction((id, d) => n.resizeLeft(id, d))
-          case "right": return dragRightNoteAction((id, d) => n.resizeRight(id, d))
+          case "center": return moveNoteAction(dispatch)
+          case "left": return dragLeftNoteAction(dispatch)
+          case "right": return dragRightNoteAction(dispatch)
           default: throw Error()
         }
       }
     } else {
-      return createNoteAction(
-        l => n.createAt(l),
-        (id, d) => n.moveTo(id, d))
+      return createNoteAction(dispatch)
     }
   }
 
@@ -45,26 +40,27 @@ export default class PencilMouseHandler extends NoteMouseHandler {
   }
 }
 
-export const createNoteAction = (createNote, moveNote) => (onMouseDown, onMouseMove) => {
+export const createNoteAction = dispatch => (onMouseDown, onMouseMove) => {
   let noteId
 
   onMouseDown(e => {
-    noteId = createNote(e.local)
+    noteId = dispatch("CREATE_NOTE", { position: e.local })
   })
 
   onMouseMove(e => {
-    moveNote(noteId, {
+    const position = {
       x: e.local.x,
       y: e.local.y
-    })
+    }
+    dispatch("MOVE_NOTE", { id: noteId, position })
   })
 }
 
-const removeNoteAction = removeNote => (onMouseDown) => {
-  onMouseDown(e => { removeNote(e.item.id) })
+const removeNoteAction = dispatch => (onMouseDown) => {
+  onMouseDown(e => dispatch("REMOVE_NOTE", { id: e.item.id }))
 }
 
-const moveNoteAction = moveNoteCenter => (onMouseDown, onMouseMove) => {
+const moveNoteAction = dispatch => (onMouseDown, onMouseMove) => {
   let startPosition
   let notePosition
   let noteId
@@ -79,12 +75,12 @@ const moveNoteAction = moveNoteCenter => (onMouseDown, onMouseMove) => {
   })
 
   onMouseMove(e => {
-    const pos = pointAdd(notePosition, pointSub(e.local, startPosition))
-    moveNoteCenter(noteId, pos)
+    const position = pointAdd(notePosition, pointSub(e.local, startPosition))
+    dispatch("MOVE_NOTE_CENTER", { id: noteId, position })
   })
 }
 
-const dragLeftNoteAction = resizeLeft => (onMouseDown, onMouseMove) => {
+const dragLeftNoteAction = dispatch => (onMouseDown, onMouseMove) => {
   let noteId
 
   onMouseDown(e => {
@@ -92,11 +88,11 @@ const dragLeftNoteAction = resizeLeft => (onMouseDown, onMouseMove) => {
   })
 
   onMouseMove(e => {
-    resizeLeft(noteId, e.local)
+    dispatch("RESIZE_NOTE_LEFT", { id: noteId, position: e.local })
   })
 }
 
-const dragRightNoteAction = resizeRight => (onMouseDown, onMouseMove) => {
+const dragRightNoteAction = dispatch => (onMouseDown, onMouseMove) => {
   let noteId
 
   onMouseDown(e => {
@@ -104,7 +100,7 @@ const dragRightNoteAction = resizeRight => (onMouseDown, onMouseMove) => {
   })
 
   onMouseMove(e => {
-    resizeRight(noteId, e.local)
+    dispatch("RESIZE_NOTE_RIGHT", { id: noteId, position: e.local })
   })
 }
 

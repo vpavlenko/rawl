@@ -53,8 +53,8 @@ export default class SelectionController {
     selection.resize(rect, quantizer, transform)
   }
 
-  // 選択範囲内のノートを選択状態にする
-  selectNotes() {
+  // 選択範囲を確定して選択範囲内のノートを選択状態にする
+  fix() {
     const { selection, track } = this
     const events = eventsInSelection(track.getEvents(), selection)
     selection.setNoteIds(events.map(e => e.id))

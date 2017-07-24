@@ -1,8 +1,6 @@
-export default class NoteMouseHandler {
-  constructor(changeCursor, toggleTool) {
-    this.changeCursor = changeCursor
-    this.toggleTool = toggleTool
 
+export default class NoteMouseHandler {
+  constructor() {
     this.onMouseDown = this.onMouseDown.bind(this)
     this.onMouseMove = this.onMouseMove.bind(this)
     this.onMouseUp = this.onMouseUp.bind(this)
@@ -14,14 +12,12 @@ export default class NoteMouseHandler {
 
     if (e.nativeEvent.button === 1) {
       // wheel drag to start scrolling
-      return dragScrollAction(() => {
-        // TODO: PianoRoll をスクロールする
-      })
+      return dragScrollAction(this.dispatch)
     }
 
     // 右ダブルクリック
     if (e.nativeEvent.button === 2 && e.nativeEvent.detail % 2 === 0) {
-      return changeToolAction(this.toggleTool)
+      return changeToolAction(this.dispatch)
     }
 
     // サブクラスで残りを実装
@@ -57,6 +53,10 @@ export default class NoteMouseHandler {
     actionMouseDown(e)
   }
 
+  changeCursor(cursor) {
+    this.dispatch("CHANGE_CURSOR", { cursor })
+  }
+
   onMouseMove(e) {
     if (this.action) {
       this.actionMouseMove(e)
@@ -75,10 +75,10 @@ export default class NoteMouseHandler {
   }
 }
 
-const dragScrollAction = (scrollBy) => (onMouseDown, onMouseMove) => {
-  onMouseMove((e) => scrollBy(e.nativeEvent.movementX, e.nativeEvent.movementY))
+const dragScrollAction = dispatch => (onMouseDown, onMouseMove) => {
+  onMouseMove((e) => dispatch("SCROLL_BY", {x: e.nativeEvent.movementX, y: e.nativeEvent.movementY}))
 }
 
-const changeToolAction = (toggleTool) => onMouseDown => {
-  onMouseDown(() => toggleTool())
+const changeToolAction = dispatch => onMouseDown => {
+  onMouseDown(() => dispatch("TOGGLE_TOOL"))
 }

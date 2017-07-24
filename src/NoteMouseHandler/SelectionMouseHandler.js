@@ -11,34 +11,24 @@ export default class SelectionMouseHandler extends MouseHandler {
       return original
     }
 
-    const c = this.selectionController
-    if (!c) {
-      throw new Error("this.selectionController をセットすること")
-    }
+    const { dispatch } = this
 
     if (e.relatedTarget) {
       return null
     }
 
-    const type = c.positionType(e.local)
+    const type = this.getPositionType(e.local)
 
     if (e.nativeEvent.button === 0) {
       switch (type) {
-        case "center": return moveSelectionAction(
-          p => c.moveTo(p),
-          () => c.getRect())
-        case "right": return dragSelectionRightEdgeAction(p => c.resizeRight(p))
-        case "left": return dragSelectionLeftEdgeAction(p => c.resizeLeft(p))
+        case "center": return moveSelectionAction(dispatch)
+        case "right": return dragSelectionRightEdgeAction(dispatch)
+        case "left": return dragSelectionLeftEdgeAction(dispatch)
         case "outside": break
         default: break
       }
 
-      return createSelectionAction(
-        p => c.startAt(p),
-        p => c.resize(p),
-        () => c.selectNotes(),
-        p => c.setPlayerCursor(p)
-      )
+      return createSelectionAction(dispatch)
     }
 
     if (e.nativeEvent.button === 2) {
@@ -54,23 +44,17 @@ export default class SelectionMouseHandler extends MouseHandler {
           break
         default: break
       }
-      return contextMenuAction(selected,
-        () => c.copySelection(),
-        () => c.pasteSelection(),
-        () => c.deleteSelection()
-      )
+      return contextMenuAction(selected,　dispatch)
     }
 
     return null
   }
 
-  getCursor(e) {
-    const c = this.selectionController
-    if (!c) {
-      throw new Error("this.selectionController をセットすること")
-    }
+  getPositionType = position =>
+    this.dispatch("GET_SELECTION_POSITION_TYPE", { position })
 
-    const type = c.positionType(e.local)
+  getCursor(e) {
+    const type = this.getPositionType(e.local)
     switch(type) {
       case "center" : return "move"
       case "left": return "w-resize"
@@ -80,24 +64,24 @@ export default class SelectionMouseHandler extends MouseHandler {
   }
 }
 
-const contextMenuAction = (selected, copySelection, pasteSelection, deleteSelection) => (onMouseDown, onMouseMove, onMouseUp) => {
+const contextMenuAction = (selected, dispatch) => (onMouseDown, onMouseMove, onMouseUp) => {
   const contextMenu = close =>
     <ContextMenu>
       {selected && <ContextMenuItem onClick={() => {
-        copySelection()
-        deleteSelection()
+        dispatch("COPY_SELECTION")
+        dispatch("DELETE_SELECTION")
         close()
       }}>Cut</ContextMenuItem>}
       {selected && <ContextMenuItem onClick={() => {
-        copySelection()
+        dispatch("COPY_SELECTION")
         close()
       }}>Copy</ContextMenuItem>}
       <ContextMenuItem onClick={() => {
-        pasteSelection()
+        dispatch("PASTE_SELECTION")
         close()
       }}>Paste</ContextMenuItem>
       {selected && <ContextMenuItem onClick={() => {
-        deleteSelection()
+        dispatch("DELETE_SELECTION")
         close()
       }}>Delete</ContextMenuItem>}
     </ContextMenu>
@@ -110,7 +94,7 @@ const contextMenuAction = (selected, copySelection, pasteSelection, deleteSelect
 }
 
 // 選択範囲外でクリックした場合は選択範囲をリセット
-const createSelectionAction = (startAt, resize, selectNotes, setPlayerCursor) => (onMouseDown) => {
+const createSelectionAction = dispatch => (onMouseDown) => {
   let rect
   let scrollLeft
   onMouseDown(e => {
@@ -119,53 +103,54 @@ const createSelectionAction = (startAt, resize, selectNotes, setPlayerCursor) =>
 
     rect =  e.currentTarget.getBoundingClientRect()
     scrollLeft = e.local.x - (e.clientX - rect.left)
-    startAt(e.local)
-    setPlayerCursor(e.local)
+
+    dispatch("START_SELECTION", { position: e.local })
+    dispatch("SET_PLAYER_CURSOR", { position: e.local })
   })
 
   function onMouseMove(e) {
-    const local = {
+    const position = {
       x: Math.round(e.clientX - rect.left + scrollLeft),
       y: Math.round(e.clientY - rect.top)
     }
-    resize(local)
+    dispatch("RESIZE_SELECTION", { position })
   }
 
   function onMouseUp() {
     document.removeEventListener("mousemove", onMouseMove)
     document.removeEventListener("mouseup", onMouseUp)
 
-    selectNotes()
+    dispatch("FIX_SELECTION")
   }
 }
 
-const moveSelectionAction = (moveTo, getRect) => (onMouseDown, onMouseMove) => {
+const moveSelectionAction = dispatch => (onMouseDown, onMouseMove) => {
   let startPos
   let selectionPos
 
   onMouseDown(e => {
     startPos = e.local
-    selectionPos = getRect()
+    selectionPos = dispatch("GET_SELECTION_RECT")
   })
 
   onMouseMove(e => {
-    const pos = pointAdd(selectionPos, pointSub(e.local, startPos))
-    moveTo(pos)
-  })
-}
-
-const dragSelectionLeftEdgeAction = resizeLeft => (onMouseDown, onMouseMove) => {
-  onMouseDown(() => {})
-
-  onMouseMove(e => {
-    resizeLeft(e.local)
+    const position = pointAdd(selectionPos, pointSub(e.local, startPos))
+    dispatch("MOVE_SELECTION", { position })
   })
 }
 
-const dragSelectionRightEdgeAction = resizeRight => (onMouseDown, onMouseMove) => {
+const dragSelectionLeftEdgeAction = dispatch => (onMouseDown, onMouseMove) => {
   onMouseDown(() => {})
 
   onMouseMove(e => {
-    resizeRight(e.local)
+    dispatch("RESIZE_SELECTION_LEFT", { position: e.local })
+  })
+}
+
+const dragSelectionRightEdgeAction = dispatch => (onMouseDown, onMouseMove) => {
+  onMouseDown(() => {})
+
+  onMouseMove(e => {
+    dispatch("RESIZE_SELECTION_RIGHT", { position: e.local })
   })
 }

@@ -225,9 +225,6 @@ class PianoRoll extends Component {
     const events = track.getEvents()
     const velocityControlItems = velocityControlPresentation(events, transform, scrollLeft, width, controlHeight)
 
-    this.pencilMouseHandler.noteController = new NoteController(track, quantizer, transform, player)
-    this.selectionMouseHandler.selectionController = new SelectionController(selection, track, quantizer, transform, player)
-
     const noteMouseHandler = mouseMode === 0 ?
       this.pencilMouseHandler : this.selectionMouseHandler
 
@@ -250,6 +247,62 @@ class PianoRoll extends Component {
           onClick: () => this.setState({ controlMode: "pitchBend" })
         }
       ]} />
+
+    const noteController = new NoteController(track, quantizer, transform, player)
+    const selectionController = new SelectionController(selection, track, quantizer, transform, player)
+
+    const dispatch = (type, params) => {
+      console.log(type, params)
+      switch(type) {
+        case "CREATE_NOTE":
+          return noteController.createAt(params.position)
+        case "REMOVE_NOTE":
+          return noteController.remove(params.id)
+        case "MOVE_NOTE":
+          return noteController.moveTo(params.id, params.position)
+        case "RESIZE_NOTE_LEFT":
+          return noteController.resizeLeft(params.id, params.position)
+        case "RESIZE_NOTE_RIGHT":
+          return noteController.resizeRight(params.id, params.position)
+        case "MOVE_NOTE_CENTER":
+          return noteController.moveCenter(params.id, params.position)
+        case "CHANGE_CURSOR":
+          this.setState({ notesCursor: params.cursor })
+          break
+        case "TOGGLE_TOOL":
+          this.props.toggleMouseMode()
+          break
+        case "SCROLL_BY":
+          // TODO: PianoRoll をスクロールする
+          break
+        case "RESIZE_SELECTION_LEFT":
+          return selectionController.resizeLeft(params.position)
+        case "RESIZE_SELECTION_RIGHT":
+          return selectionController.resizeRight(params.position)
+        case "MOVE_SELECTION":
+          return selectionController.moveTo(params.position)
+        case "GET_SELECTION_RECT": // FIXME: dispatch から値を取得しない
+          return selectionController.getRect()
+        case "GET_SELECTION_POSITION_TYPE": // FIXME: dispatch から値を取得しない
+          return selectionController.positionType(params.position)
+        case "START_SELECTION":
+          return selectionController.startAt(params.position)
+        case "RESIZE_SELECTION":
+          return selectionController.resize(params.position)
+        case "FIX_SELECTION":
+          return selectionController.fix()
+        case "SET_PLAYER_CURSOR":
+          return selectionController.setPlayerCursor(params.position)
+        case "COPY_SELECTION":
+          return selectionController.copySelection()
+        case "DELETE_SELECTION":
+          return selectionController.deleteSelection()
+        case "PASTE_SELECTION":
+          return selectionController.pasteSelection()
+      }
+    }
+
+    noteMouseHandler.dispatch = dispatch
 
     return <div
       className="PianoRoll"
@@ -281,6 +334,7 @@ class PianoRoll extends Component {
             transform={transform}
             width={width}
             cursor={notesCursor}
+            dispatch={dispatch}
             onMouseDown={noteMouseHandler.onMouseDown}
             onMouseMove={noteMouseHandler.onMouseMove}
             onMouseUp={noteMouseHandler.onMouseUp}

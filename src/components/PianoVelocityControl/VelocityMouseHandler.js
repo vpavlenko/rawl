@@ -29,10 +29,4 @@ export default class VelocityMouseHandler {
     document.addEventListener("mousemove", onMouseMove)
     document.addEventListener("mouseup", onMouseUp)
   }
-
-  onMouseMove() {
-  }
-
-  onMouseUp() {
-  }
 }

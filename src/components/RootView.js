@@ -21,7 +21,7 @@ import {
 import "./Resizer.css"
 import "./RootView.css"
 
-import TempoGraph from "./TempoGraph"
+import TempoGraph from "./TempoGraph/TempoGraph"
 
 const { remote } = window.require("electron")
 const { Menu, dialog } = remote

@@ -3,16 +3,16 @@ import Color from "color"
 import { pure } from "recompose"
 import _ from "lodash"
 
-import DrawCanvas from "./DrawCanvas"
-import PianoRuler from "./PianoRuler"
-import PianoGrid from "./PianoGrid"
-import PianoCursor from "./PianoCursor"
-import fitToContainer from "../hocs/fitToContainer"
-import tempoGraphPresentation from "../presentations/tempoGraph"
-import withTheme from "../hocs/withTheme"
-import TempoCoordTransform from "../model/TempoCoordTransform"
-import { uSecPerBeatToBPM, bpmToUSecPerBeat } from "../helpers/bpm"
-import { SetTempoMidiEvent } from "../midi/MidiEvent"
+import DrawCanvas from "../DrawCanvas"
+import PianoRuler from "../PianoRuler"
+import PianoGrid from "../PianoGrid"
+import PianoCursor from "../PianoCursor"
+import fitToContainer from "../../hocs/fitToContainer"
+import withTheme from "../../hocs/withTheme"
+import TempoCoordTransform from "../../model/TempoCoordTransform"
+import { uSecPerBeatToBPM, bpmToUSecPerBeat } from "../../helpers/bpm"
+import { SetTempoMidiEvent } from "../../midi/MidiEvent"
+import transformEvents from "./transformEvents"
 
 import "./TempoGraph.css"
 
@@ -155,7 +155,7 @@ function Content({
   const contentWidth = widthTick * pixelsPerTick
   const contentHeight = containerHeight - rulerHeight
 
-  const items = tempoGraphPresentation(track.getEvents(), transform, contentWidth, scrollLeft)
+  const items = transformEvents(track.getEvents(), transform, contentWidth, scrollLeft)
 
   function onMouseDownGraph(e) {
     if (!e.item) {

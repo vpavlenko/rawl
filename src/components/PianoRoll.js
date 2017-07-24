@@ -231,6 +231,7 @@ class PianoRoll extends Component {
     const selectionController = new SelectionController(selection, track, quantizer, transform, player)
 
     // TODO: dispatch 内では音符座標系を扱い、position -> tick 変換等は component 内で行う
+    // TODO: setState を使うもの以外は上の階層で実装する
     const dispatch = (type, params) => {
       console.log(type, params)
       switch(type) {

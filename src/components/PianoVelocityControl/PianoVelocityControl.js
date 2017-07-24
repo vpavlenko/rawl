@@ -28,7 +28,6 @@ function transformEvents(events, transform, scrollLeft, width, viewHeight) {
     })
 }
 
-
 function drawEvent(ctx, fillColor, strokeColor, { x, y, width, height, selected }) {
   const color = selected ? strokeColor : fillColor
 
@@ -105,8 +104,6 @@ function PianoVelocityControl({
     width={width}
     height={height}
     onMouseDown={extendEvent(e => velocityMouseHandler.onMouseDown(e))}
-    onMouseMove={extendEvent(e => velocityMouseHandler.onMouseMove(e))}
-    onMouseUp={extendEvent(e => velocityMouseHandler.onMouseUp(e))}
   />
 }
 

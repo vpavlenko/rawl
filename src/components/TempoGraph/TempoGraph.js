@@ -4,9 +4,9 @@ import { pure } from "recompose"
 import _ from "lodash"
 
 import DrawCanvas from "../DrawCanvas"
-import PianoRuler from "../PianoRuler"
-import PianoGrid from "../PianoGrid"
-import PianoCursor from "../PianoCursor"
+import PianoRuler from "../PianoRoll/PianoRuler"
+import PianoGrid from "../PianoRoll/PianoGrid"
+import PianoCursor from "../PianoRoll/PianoCursor"
 import fitToContainer from "../../hocs/fitToContainer"
 import withTheme from "../../hocs/withTheme"
 import TempoCoordTransform from "../../model/TempoCoordTransform"
@@ -238,6 +238,7 @@ function Content({
         position={transform.getX(playerPosition)}
       />
       <PianoRuler
+        theme={theme}
         height={rulerHeight}
         endTick={widthTick}
         ticksPerBeat={ticksPerBeat}

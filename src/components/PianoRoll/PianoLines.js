@@ -1,8 +1,8 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { pure } from "recompose"
-import DrawCanvas from "./DrawCanvas"
-import withTheme from "../hocs/withTheme"
+import DrawCanvas from "../DrawCanvas"
+import withTheme from "../../hocs/withTheme"
 
 function drawHorizontalLines(ctx, numberOfKeys, keyHeight, width, theme) {
   ctx.lineWidth = 1

@@ -1,7 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { pure } from "recompose"
-import DrawCanvas from "./DrawCanvas"
+import DrawCanvas from "../DrawCanvas"
 
 const LINE_WIDTH = 2
 

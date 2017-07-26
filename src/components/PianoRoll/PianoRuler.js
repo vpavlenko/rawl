@@ -1,8 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { pure } from "recompose"
-import DrawCanvas from "./DrawCanvas"
-import withTheme from "../hocs/withTheme"
+import DrawCanvas from "../DrawCanvas"
 
 import "./PianoRuler.css"
 
@@ -77,4 +76,4 @@ PianoRuler.propTypes = {
   onMouseDown: PropTypes.func
 }
 
-export default pure(withTheme(PianoRuler))
+export default pure(PianoRuler)

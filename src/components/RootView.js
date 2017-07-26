@@ -11,7 +11,7 @@ import Popup from "./Popup"
 import TrackList from "./TrackList"
 import Toolbar from "./MainToolbar"
 import InstrumentBrowser from "./InstrumentBrowser"
-import PianoRoll from "./PianoRoll"
+import PianoRoll from "./PianoRoll/PianoRoll"
 
 import {
   getGMMapIndexes,

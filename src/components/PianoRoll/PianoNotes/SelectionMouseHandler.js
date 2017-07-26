@@ -1,8 +1,8 @@
 import React from "react"
 import MouseHandler from "./NoteMouseHandler"
-import { pointSub, pointAdd } from "../../helpers/point"
+import { pointSub, pointAdd } from "../../../helpers/point"
 
-import { ContextMenu, MenuItem as ContextMenuItem, createContextMenu } from "../molecules/ContextMenu"
+import { ContextMenu, MenuItem as ContextMenuItem, createContextMenu } from "../../molecules/ContextMenu"
 
 export default class SelectionMouseHandler extends MouseHandler {
   actionForMouseDown(e) {

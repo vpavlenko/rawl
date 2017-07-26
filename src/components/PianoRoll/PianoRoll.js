@@ -3,8 +3,15 @@ import PropTypes from "prop-types"
 import { pure } from "recompose"
 import SplitPane  from "react-split-pane"
 
-import SelectionModel from "../model/SelectionModel"
-import NoteCoordTransform from "../model/NoteCoordTransform"
+import SelectionModel from "../../model/SelectionModel"
+import NoteCoordTransform from "../../model/NoteCoordTransform"
+import withTheme from "../../hocs/withTheme"
+import fitToContainer from "../../hocs/fitToContainer"
+import { PitchBendMidiEvent } from "../../midi/MidiEvent"
+
+import NoteController from "./controllers/NoteController"
+import SelectionController from "./controllers/SelectionController"
+
 import PianoKeys from "./PianoKeys"
 import PianoGrid from "./PianoGrid"
 import PianoLines from "./PianoLines"
@@ -14,11 +21,6 @@ import PianoSelection from "./PianoSelection"
 import PianoVelocityControl from "./PianoVelocityControl/PianoVelocityControl"
 import PitchGraph from "./PitchGraph/PitchGraph"
 import PianoCursor from "./PianoCursor"
-import withTheme from "../hocs/withTheme"
-import fitToContainer from "../hocs/fitToContainer"
-import NoteController from "../helpers/NoteController"
-import SelectionController from "../helpers/SelectionController"
-import { PitchBendMidiEvent } from "../midi/MidiEvent"
 
 import "./PianoRoll.css"
 
@@ -27,7 +29,7 @@ const SCROLL_KEY_SPEED = 4
 const ControlToolbar = pure(({ onmount, buttons }) => {
   return <div className="control-toolbar" ref={onmount}>
     {buttons.map(({ label, selected, onClick }) =>
-      <button className={selected ? "selected" : ""} onClick={onClick}>{label}</button>
+      <button className={selected ? "selected" : ""} onClick={onClick} key={label}>{label}</button>
     )}
   </div>
 })

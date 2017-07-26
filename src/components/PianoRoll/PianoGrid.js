@@ -1,9 +1,9 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
 import _ from "lodash"
-import DrawCanvas from "./DrawCanvas"
-import withTheme from "../hocs/withTheme"
-import logEq from "../helpers/logEq"
+import DrawCanvas from "../DrawCanvas"
+import withTheme from "../../hocs/withTheme"
+import logEq from "../../helpers/logEq"
 
 function drawBeatLines(ctx, transform, startTick, endTick, ticksPerBeat, theme) {
   const height = transform.getMaxY()

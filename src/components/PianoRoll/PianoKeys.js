@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
-import { noteNameWithOctString } from "../helpers/noteNumberString"
-import DrawCanvas from "./DrawCanvas"
+import { noteNameWithOctString } from "../../helpers/noteNumberString"
+import DrawCanvas from "../DrawCanvas"
 
 function drawBorder(ctx, width, theme) {
   ctx.lineWidth = 1

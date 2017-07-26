@@ -5,9 +5,9 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
 import _ from "lodash"
-import DrawCanvas from "../DrawCanvas"
-import logEq from "../../helpers/logEq"
-import filterEventsWithScroll from "../../helpers/filterEventsWithScroll"
+import DrawCanvas from "../../DrawCanvas"
+import logEq from "../../../helpers/logEq"
+import filterEventsWithScroll from "../../../helpers/filterEventsWithScroll"
 import SelectionMouseHandler from "./SelectionMouseHandler"
 import PencilMouseHandler from "./PencilMouseHandler"
 

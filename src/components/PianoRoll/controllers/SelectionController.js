@@ -1,5 +1,5 @@
-import Rect from "../model/Rect"
-import clipboard from "../services/Clipboard"
+import Rect from "../../../model/Rect"
+import clipboard from "../../../services/Clipboard"
 
 /**
  PianoRoll での選択範囲操作を行うクラス

@@ -23,6 +23,10 @@ export class PortPrefixMidiEvent extends MetaMidiEvent {
   constructor(deltaTime, value) {
     super(deltaTime, "portPrefix", value)
   }
+
+  get port() {
+    return this.value
+  }
 }
 
 export class TextMetaMidiEvent extends MetaMidiEvent {

@@ -25,15 +25,6 @@ describe("MidiFileWriter", () => {
       const track = new Track
       track.addEvent(new TrackNameMidiEvent(0, ""))
       track.addEvent(new PortPrefixMidiEvent(0, 0))
-      track.addEvent({
-        tick: 0,
-        type: "channel",
-        subtype: "note",
-        channel: 0,
-        noteNumber: 72,
-        velocity: 100,
-        duration: 480
-      })
       track.addEvent(new EndOfTrackMidiEvent(480))
       tracks.push(track)
     }

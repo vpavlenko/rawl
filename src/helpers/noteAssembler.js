@@ -2,7 +2,6 @@ import _ from "lodash"
 
 /**
 
-  append tick to each events
   assemble noteOn and noteOff to single note event to append duration
 
  */

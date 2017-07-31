@@ -152,8 +152,7 @@ export default class RootView extends Component {
           })
           break
         default:
-          this.props.dispatch(type, params)
-          break
+          return this.props.dispatch(type, params)
       }
     }
 

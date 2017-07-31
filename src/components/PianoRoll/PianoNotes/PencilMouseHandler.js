@@ -44,7 +44,7 @@ export const createNoteAction = dispatch => (onMouseDown, onMouseMove) => {
   let noteId
 
   onMouseDown(e => {
-    noteId = dispatch("CREATE_NOTE", { position: e.local })
+    noteId = dispatch("CREATE_NOTE_XY", { position: e.local })
   })
 
   onMouseMove(e => {
@@ -57,7 +57,7 @@ export const createNoteAction = dispatch => (onMouseDown, onMouseMove) => {
 }
 
 const removeNoteAction = dispatch => (onMouseDown) => {
-  onMouseDown(e => dispatch("REMOVE_NOTE", { id: e.item.id }))
+  onMouseDown(e => dispatch("REMOVE_EVENT", { eventId: e.item.id }))
 }
 
 const moveNoteAction = dispatch => (onMouseDown, onMouseMove) => {

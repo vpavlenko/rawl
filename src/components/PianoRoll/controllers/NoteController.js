@@ -10,10 +10,6 @@ export default class NoteController {
     this.player = player
   }
 
-  remove(id) {
-    this.track.removeEvent(id)
-  }
-
   // ノート作成時のマウス座標に対するノート位置
   _createdNoteLocation(pos) {
     const { quantizer, transform } = this
@@ -22,25 +18,7 @@ export default class NoteController {
       noteNumber: Math.ceil(transform.getNoteNumber(pos.y)),
     }
   }
-
-  // 指定位置にノートを作成
-  createAt(pos) {
-    const { track, player, quantizer } = this
-    const loc = this._createdNoteLocation(pos)
-    const note = {
-      type: "channel",
-      subtype: "note",
-      noteNumber: loc.noteNumber,
-      tick: loc.tick,
-      velocity: 127,
-      duration: quantizer.unit,
-      channel: track.channel
-    }
-    track.addEvent(note)
-    player.playNote(note)
-    return note.id
-  }
-
+  
   // 右端を固定して長さを変更
   resizeLeft(id, pos) {
     const { track, quantizer, transform } = this

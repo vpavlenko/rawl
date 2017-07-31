@@ -223,10 +223,11 @@ class PianoRoll extends Component {
     // TODO: setState を使うもの以外は上の階層で実装する
     const dispatch = (type, params) => {
       switch(type) {
-        case "CREATE_NOTE":
-          return noteController.createAt(params.position)
-        case "REMOVE_NOTE":
-          return noteController.remove(params.id)
+        case "CREATE_NOTE_XY":
+          return dispatch("CREATE_NOTE", {
+            tick: transform.getTicks(params.position.x),
+            noteNumber: Math.ceil(transform.getNoteNumber(params.position.y)),
+          })
         case "MOVE_NOTE":
           return noteController.moveTo(params.id, params.position)
         case "RESIZE_NOTE_LEFT":
@@ -268,14 +269,11 @@ class PianoRoll extends Component {
         case "PASTE_SELECTION":
           return selectionController.pasteSelection()
         default:
-          this.props.dispatch(type, params)
-          break
+          return this.props.dispatch(type, params)
       }
     }
 
-    const onMouseDownRuler = e => {
-      dispatch("SET_PLAYER_POSITION", { tick: e.tick })
-    }
+    noteController.dispatch = dispatch
 
     return <div
       className="PianoRoll"
@@ -334,7 +332,7 @@ class PianoRoll extends Component {
             height={rulerHeight}
             endTick={widthTick}
             ticksPerBeat={ticksPerBeat}
-            onMouseDown={e => onMouseDownRuler(e)}
+            onMouseDown={({ tick }) => dispatch("SET_PLAYER_POSITION", { tick })}
             scrollLeft={scrollLeft}
             pixelsPerTick={transform.pixelsPerTick} />
           <div className="PianoRollLeftSpace" />

@@ -75,6 +75,23 @@ export default (app) => (type, params) => {
     case "SET_TEMPO":
       song.getTrack(0).tempo = params.tempo
       break
+    case "REMOVE_EVENT":
+      selectedTrack.removeEvent(params.eventId)
+      break
+    case "CREATE_NOTE": {
+      const note = {
+        type: "channel",
+        subtype: "note",
+        noteNumber: params.noteNumber,
+        tick: quantizer.floor(params.tick),
+        velocity: 127,
+        duration: quantizer.unit,
+        channel: selectedTrack.channel
+      }
+      selectedTrack.addEvent(note)
+      player.playNote(note)
+      return note.id
+    }
     default:
       console.log(type, params)
       break

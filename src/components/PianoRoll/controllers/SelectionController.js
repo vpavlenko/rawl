@@ -200,12 +200,6 @@ export default class SelectionController {
       notes.forEach(note => it.addEvent(note))
     })
   }
-
-  setPlayerCursor(pos) {
-    const { player, transform, quantizer } = this
-    const tick = quantizer.round(transform.getTicks(pos.x))
-    player.position = tick
-  }
 }
 
 function eventsInSelection(events, selection) {

@@ -45,7 +45,7 @@ function Content({
       <Select
         options={quantizeOptions}
         value={quantize}
-        onChange={onSelectQuantize} />
+        onChange={e => onSelectQuantize({ ...e, denominator: parseFloat(e.target.value) })} />
     </ToolbarItem>
 
     <ToolbarSeparator />

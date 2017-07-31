@@ -57,12 +57,19 @@ function PianoRuler({
     ctx.restore()
   }
 
+  function _onMouseDown(e) {
+    onMouseDown({
+      ...e,
+      tick: (e.nativeEvent.offsetX + scrollLeft) / pixelsPerTick
+    })
+  }
+
   return <DrawCanvas
     draw={draw}
     className="PianoRuler"
     width={pixelsPerTick * endTick}
     height={height}
-    onMouseDown={onMouseDown}
+    onMouseDown={_onMouseDown}
   />
 }
 

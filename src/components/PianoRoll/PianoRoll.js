@@ -7,7 +7,6 @@ import SelectionModel from "../../model/SelectionModel"
 import NoteCoordTransform from "../../model/NoteCoordTransform"
 import withTheme from "../../hocs/withTheme"
 import fitToContainer from "../../hocs/fitToContainer"
-import { PitchBendMidiEvent } from "../../midi/MidiEvent"
 
 import NoteController from "./controllers/NoteController"
 import SelectionController from "./controllers/SelectionController"
@@ -172,7 +171,6 @@ class PianoRoll extends Component {
     const {
       theme,
       track,
-      onClickRuler,
       onClickKey,
       ticksPerBeat,
       endTick,
@@ -200,11 +198,6 @@ class PianoRoll extends Component {
 
     const contentWidth = widthTick * transform.pixelsPerTick
     const contentHeight = transform.getMaxY()
-
-    const onMouseDownRuler = e => {
-      const tick = quantizer.round(transform.getTicks(e.nativeEvent.offsetX + scrollLeft))
-      onClickRuler(tick, e)
-    }
 
     const events = track.getEvents()
 
@@ -245,9 +238,6 @@ class PianoRoll extends Component {
         case "CHANGE_CURSOR":
           this.setState({ notesCursor: params.cursor })
           break
-        case "TOGGLE_TOOL":
-          this.props.toggleMouseMode()
-          break
         case "SCROLL_BY":
           // TODO: PianoRoll をスクロールする
           break
@@ -267,28 +257,24 @@ class PianoRoll extends Component {
           return selectionController.resize(params.position)
         case "FIX_SELECTION":
           return selectionController.fix()
-        case "SET_PLAYER_CURSOR":
-          return selectionController.setPlayerCursor(params.position)
+        case "SET_PLAYER_POSITION_X":
+          return dispatch("SET_PLAYER_POSITION", { tick:
+            quantizer.round(transform.getTicks(params.x)) // FIXME: component 側で transform する
+          })
         case "COPY_SELECTION":
           return selectionController.copySelection()
         case "DELETE_SELECTION":
           return selectionController.deleteSelection()
         case "PASTE_SELECTION":
           return selectionController.pasteSelection()
-        case "CHANGE_NOTES_VELOCITY":
-          return track.transaction(it => {
-            params.notes.forEach(item => {
-              it.updateEvent(item.id, { velocity: params.velocity })
-            })
-          })
-        case "CREATE_PITCH_BEND":
-          const event = new PitchBendMidiEvent(0, params.value)
-          event.tick = params.tick
-          return track.addEvent(event)
         default:
-          // TODO: 上の階層に投げる
+          this.props.dispatch(type, params)
           break
       }
+    }
+
+    const onMouseDownRuler = e => {
+      dispatch("SET_PLAYER_POSITION", { tick: e.tick })
     }
 
     return <div
@@ -399,7 +385,6 @@ PianoRoll.propTypes = {
   scaleY: PropTypes.number.isRequired,
   ticksPerBeat: PropTypes.number.isRequired,
   autoScroll: PropTypes.bool.isRequired,
-  onClickRuler: PropTypes.func.isRequired,
   onClickKey: PropTypes.func.isRequired,
   mouseMode: PropTypes.number.isRequired
 }

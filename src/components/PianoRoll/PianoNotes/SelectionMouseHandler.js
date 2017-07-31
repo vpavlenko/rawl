@@ -105,7 +105,7 @@ const createSelectionAction = dispatch => (onMouseDown) => {
     scrollLeft = e.local.x - (e.clientX - rect.left)
 
     dispatch("START_SELECTION", { position: e.local })
-    dispatch("SET_PLAYER_CURSOR", { position: e.local })
+    dispatch("SET_PLAYER_POSITION_X", { x: e.local.x })
   })
 
   function onMouseMove(e) {

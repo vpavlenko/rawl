@@ -4,7 +4,6 @@ import SplitPane  from "react-split-pane"
 import { Helmet } from "react-helmet"
 
 import Song from "../model/Song"
-import Track from "../model/Track"
 import Config from "../Config"
 import Popup from "./Popup"
 
@@ -92,12 +91,6 @@ export default class RootView extends Component {
       this.setState({pianoRollMouseMode: 1})
     }
 
-    const onClickRuler = tick => {
-      if (!player.isPlaying) {
-        player.position = tick
-      }
-    }
-
     const onChangeTool = () => {
       this.setState({
         pianoRollMouseMode: state.pianoRollMouseMode === 0 ? 1 : 0
@@ -117,31 +110,14 @@ export default class RootView extends Component {
     }
 
     const onSelectQuantize = e => {
-      const value = parseFloat(e.target.value)
-      quantizer.denominator = value
-      this.setState({
-        quantize: value
-      })
+      dispatch("SET_QUANTIZE_DENOMINATOR", { denominator: e.denominator })
+      this.setState({ quantize: e.denominator })
     }
 
     const onClickAutoScroll = () => {
       this.setState({
         pianoRollAutoScroll: !state.pianoRollAutoScroll
       })
-    }
-
-    const onChangeTrackName = (e) => {
-      selectedTrack.setName(e.target.value)
-    }
-
-    const onChangeTrackVolume = (trackId, value) => {
-      const track = song.getTrack(trackId)
-      track.volume = value
-    }
-
-    const onChangeTrackPan = (trackId, value) => {
-      const track = song.getTrack(trackId)
-      track.pan = value
     }
 
     const onClickTrackInstrument = trackId => {
@@ -161,60 +137,24 @@ export default class RootView extends Component {
         }}
 
         onClickOK={(e) => {
-          track.programNumber = getGMMapProgramNumber(e.categoryId, e.instrumentId)
+          const programNumber = getGMMapProgramNumber(e.categoryId, e.instrumentId)
+          dispatch("SET_TRACK_INSTRUMENT", { trackId, programNumber })
           popup.close()
         }}
       />, popup.getContentElement())
     }
 
-    const onClickAddTrack = () => {
-      song.addTrack(Track.emptyTrack(song.tracks.length - 1))
-    }
-
-    const onClickMute = (trackId) => {
-      const channel = song.getTrack(trackId).channel
-      const muted = player.isChannelMuted(channel)
-      player.muteChannel(channel, !muted)
-    }
-
-    const onClickSolo = (trackId) => {
-      const channel = song.getTrack(trackId).channel
-      song.tracks.forEach((t, i) => {
-        player.muteChannel(t.channel, t.channel !== channel)
-      })
-    }
-
-    const onClickDeleteTrack = (trackId) => {
-      song.removeTrack(trackId)
-    }
-
-    const changeTrack = (id) => {
-      song.selectTrack(id)
-    }
-
-    const onChangeTempo = e => {
-      song.getTrack(0).tempo = parseFloat(e.target.value)
-    }
-
-    const onClickPlay = () => {
-      player.play()
-    }
-
-    const onClickStop = () => {
-      if (player.isPlaying) {
-        player.stop()
-      } else {
-        player.stop()
-        player.position = 0
+    const dispatch = (type, params) => {
+      switch(type) {
+        case "TOGGLE_TOOL":
+          this.setState({
+            pianoRollMouseMode: this.state.pianoRollMouseMode === 0 ? 1 : 0
+          })
+          break
+        default:
+          this.props.dispatch(type, params)
+          break
       }
-    }
-
-    const onClickBackward = () => {
-      player.position -= Config.TIME_BASE * 4
-    }
-
-    const onClickForward = () => {
-      player.position += Config.TIME_BASE * 4
     }
 
     const toolbar = <Toolbar
@@ -223,10 +163,10 @@ export default class RootView extends Component {
       quantize={state.quantize}
       mouseMode={state.pianoRollMouseMode}
       autoScroll={state.pianoRollAutoScroll}
-      onClickPlay={onClickPlay}
-      onClickStop={onClickStop}
-      onClickBackward={onClickBackward}
-      onClickForward={onClickForward}
+      onClickPlay={() => dispatch("PLAY")}
+      onClickStop={() => dispatch("STOP")}
+      onClickBackward={() => dispatch("MOVE_PLAYER_POSITION", { tick: -Config.TIME_BASE * 4 })}
+      onClickForward={() => dispatch("MOVE_PLAYER_POSITION", { tick: Config.TIME_BASE * 4 })}
       onClickPencil={onClickPencil}
       onClickSelection={onClickSelection}
       onClickScaleUp={onClickScaleUp}
@@ -244,12 +184,9 @@ export default class RootView extends Component {
       scaleY={state.pianoRollScaleY}
       autoScroll={state.pianoRollAutoScroll}
       onChangeTool={onChangeTool}
-      onClickRuler={onClickRuler}
       onClickKey={onClickKey}
       mouseMode={state.pianoRollMouseMode}
-      toggleMouseMode={() => this.setState({
-        pianoRollMouseMode: this.state.pianoRollMouseMode === 0 ? 1 : 0
-      })}
+      dispatch={dispatch}
     />
 
     const menu = Menu.buildFromTemplate([
@@ -314,17 +251,17 @@ export default class RootView extends Component {
         player={player}
         tracks={(song && song.tracks) || []}
         tempo={song.getTrack(0).tempo}
-        onChangeTempo={onChangeTempo}
         selectedTrackId={selectedTrackId}
-        onSelectTrack={changeTrack}
-        onClickAddTrack={onClickAddTrack}
-        onClickMute={onClickMute}
-        onClickSolo={onClickSolo}
-        onChangeName={onChangeTrackName}
-        onChangeVolume={onChangeTrackVolume}
-        onChangePan={onChangeTrackPan}
+        onClickMute={trackId => dispatch("MUTE_TRACK", { trackId })}
+        onClickSolo={trackId => dispatch("SOLO_TRACK", { trackId })}
+        onSelectTrack={trackId => dispatch("SELECT_TRACK", { trackId })}
+        onClickDelete={trackId => dispatch("REMOVE_TRACK", { trackId })}
+        onClickAddTrack={() => dispatch("ADD_TRACK")}
+        onChangeName={e => dispatch("SET_TRACK_NAME", { name: e.target.value })}
+        onChangeTempo={e => dispatch("SET_TEMPO", { tempo: parseFloat(e.target.value) })}
+        onChangeVolume={(trackId, value) => dispatch("SET_TRACK_VOLUME", { trackId, volume: value })}
+        onChangePan={(trackId, value) => dispatch("SET_TRACK_PAN", { trackId, pan: value })}
         onClickInstrument={onClickTrackInstrument}
-        onClickDelete={onClickDeleteTrack}
       />
 
     const tempoGraph = <TempoGraph

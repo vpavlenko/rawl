@@ -44,7 +44,9 @@ function PianoRuler({
   scrollLeft,
   ticksPerBeat,
   theme,
-  onMouseDown
+  onMouseDown,
+  onMouseMove,
+  onMouseUp
 }) {
 
   function draw(ctx) {
@@ -57,19 +59,19 @@ function PianoRuler({
     ctx.restore()
   }
 
-  function _onMouseDown(e) {
-    onMouseDown({
-      ...e,
-      tick: (e.nativeEvent.offsetX + scrollLeft) / pixelsPerTick
-    })
-  }
+  const extend = func => e => func && func({
+    ...e,
+    tick: (e.nativeEvent.offsetX + scrollLeft) / pixelsPerTick
+  })
 
   return <DrawCanvas
     draw={draw}
     className="PianoRuler"
     width={pixelsPerTick * endTick}
     height={height}
-    onMouseDown={_onMouseDown}
+    onMouseDown={extend(onMouseDown)}
+    onMouseMove={extend(onMouseMove)}
+    onMouseUp={extend(onMouseUp)}
   />
 }
 

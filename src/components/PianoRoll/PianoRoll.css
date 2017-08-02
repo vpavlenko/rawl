@@ -75,7 +75,7 @@
   pointer-events: none;
 }
 
-.PianoRoll .PianoControl {
+.PianoRoll .VelocityControl {
   margin-left: var(--key-width);
   border-left: 1px solid var(--secondary-text-color);
 }

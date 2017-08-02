@@ -1,8 +1,8 @@
-export default function filterEventsWithScroll(events, transform, scrollLeft, width) {
-  const tickStart = transform.getTicks(scrollLeft)
-  const tickEnd = transform.getTicks(scrollLeft + width)
+export default function filterEventsWithScroll(events, pixelsPerTick, scrollLeft, width) {
+  const tickStart = scrollLeft / pixelsPerTick
+  const tickEnd = (scrollLeft + width) / pixelsPerTick
   function test(tick) {
     return tick >= tickStart && tick <= tickEnd
   }
-  return events.filter(e => test(e.tick) || test(e.tick + e.duration))
+  return events.filter(e => test(e.tick) || test(e.tick + (e.duration || 0)))
 }

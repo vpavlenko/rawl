@@ -44,10 +44,22 @@ export default (app) => (type, params) => {
           it.updateEvent(item.id, { velocity: params.velocity })
         })
       })
-    case "CREATE_PITCH_BEND":
-      const event = new PitchBendMidiEvent(0, params.value)
-      event.tick = params.tick
-      return selectedTrack.addEvent(event)
+    case "CREATE_PITCH_BEND": {
+      const tick = quantizer.round(params.tick || player.position)
+      const events = selectedTrack.events.filter(e => e.subtype === "pitchBend" && e.tick === tick)
+      if (events.length > 0) {
+        selectedTrack.transaction(it => {
+          events.forEach(e => {
+            it.updateEvent(e.id, { value: params.value })
+          })
+        })
+        return events[0]
+      } else {
+        const event = new PitchBendMidiEvent(0, params.value)
+        event.tick = tick
+        return selectedTrack.addEvent(event)
+      }
+    }
     case "SET_QUANTIZE_DENOMINATOR":
       quantizer.denominator = params.denominator
       break

@@ -17,7 +17,7 @@ import PencilMouseHandler from "./PencilMouseHandler"
 
 */
 export function filterEvents(events, transform, scrollLeft, width) {
-  return filterEventsWithScroll(events, transform, scrollLeft, width)
+  return filterEventsWithScroll(events, transform.pixelsPerTick, scrollLeft, width)
     .filter(e => e.subtype === "note")
     .map(note => {
       const rect = transform.getRect(note)
@@ -190,7 +190,7 @@ class _PianoNotes extends Component {
 
   render() {
     this.state.pencilMouseHandler.transform = this.props.transform
-    
+
     return <PianoNotes {...this.props} {...this.state} />
   }
 }

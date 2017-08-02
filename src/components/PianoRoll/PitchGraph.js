@@ -1,6 +1,5 @@
 import React from "react"
-import _ from "lodash"
-import DrawCanvas from "../../DrawCanvas"
+import LineGraph from "./LineGraph"
 
 const LINE_WIDTH = 2
 
@@ -29,28 +28,6 @@ function transformFromPosition(position, transform, height) {
   }
 }
 
-function drawEvents(ctx, strokeColor, items, center, right) {
-  ctx.beginPath()
-  ctx.strokeStyle = strokeColor
-  ctx.lineWidth = LINE_WIDTH
-  let prevY = center
-
-  for (let item of items) {
-    const x = Math.round(item.x)
-    const y = Math.round(item.y)
-    ctx.lineTo(x, prevY)
-    ctx.lineTo(x, y)
-    prevY = y
-
-    // 最後は右端まで線を引く
-    if (item === _.last(items)) {
-      ctx.lineTo(right, y)
-    }
-  }
-
-  ctx.stroke()
-}
-
 function PitchGraph({
   width,
   height,
@@ -61,25 +38,6 @@ function PitchGraph({
 }) {
   const items = transformEvents(events, transform, height)
 
-  function draw(ctx) {
-    const { width, height } = ctx.canvas
-    ctx.clearRect(0, 0, width, height)
-
-    const strokeColor = "blue"
-
-    ctx.save()
-    ctx.translate(-Math.round(scrollLeft), 0)
-    drawEvents(ctx, strokeColor, items, height / 2, scrollLeft + width)
-    ctx.restore()
-  }
-
-  function getLocal(e) {
-    return {
-      x: Math.round(e.nativeEvent.offsetX + scrollLeft),
-      y: e.nativeEvent.offsetY
-    }
-  }
-
   function itemsUnderPoint({ x }) {
     return items
       .filter(b => {
@@ -88,23 +46,30 @@ function PitchGraph({
   }
 
   const onMouseDown = e => {
-    const local = getLocal(e)
-    const items = itemsUnderPoint(local)
+    const items = itemsUnderPoint(e.local)
 
     if (items.length === 0) {
       // insert new pitchbend event
-      const obj = transformFromPosition(local, transform, height)
+      const obj = transformFromPosition(e.local, transform, height)
       dispatch("CREATE_PITCH_BEND", obj)
       return
     }
   }
 
-  return <DrawCanvas
-    className="PianoControl PitchGraph"
-    draw={draw}
+  const onClickAxis = e => {
+    dispatch("CREATE_PITCH_BEND", { value: e.value + 0x2000 })
+  }
+
+  return <LineGraph
+    className="PitchGraph"
     width={width}
     height={height}
     onMouseDown={onMouseDown}
+    items={items}
+    scrollLeft={scrollLeft}
+    lineWidth={LINE_WIDTH}
+    axis={[-0x2000, -0x1000, 0, 0x1000, 0x2000 - 1]}
+    onClickAxis={onClickAxis}
   />
 }
 

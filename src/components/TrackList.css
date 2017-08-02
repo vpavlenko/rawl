@@ -23,11 +23,6 @@
   flex-grow: 1;
 }
 
-.TrackListItem.selected {
-  color: var(--theme-color);
-  background: rgba(0, 0, 0, 0.04);
-}
-
 .TrackList .add-track {
   display: inline-block;
   color: var(--secondary-text-color);
@@ -80,9 +75,11 @@
   border-bottom: 1px solid var(--divider-color);
 }
 
+
+.TrackListItem.selected,
 .TempoTrackItem.selected {
   color: var(--theme-color);
-  background: rgba(0, 0, 0, 0.04);
+  background: rgba(255, 255, 255, 1);
 }
 
 .TempoTrackItem .NumberInput {

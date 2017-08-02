@@ -11,7 +11,7 @@ import filterEventsWithScroll from "../../../helpers/filterEventsWithScroll"
 
 */
 function transformEvents(events, transform, scrollLeft, width, viewHeight) {
-  return filterEventsWithScroll(events, transform, scrollLeft, width)
+  return filterEventsWithScroll(events, transform.pixelsPerTick, scrollLeft, width)
     .filter(e => e.subtype === "note")
     .map(note => {
       const { x } = transform.getRect(note)

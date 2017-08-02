@@ -17,7 +17,7 @@ import PianoRuler from "./PianoRuler"
 import PianoNotes from "./PianoNotes/PianoNotes"
 import PianoSelection from "./PianoSelection"
 import PianoVelocityControl from "./PianoVelocityControl/PianoVelocityControl"
-import PitchGraph from "./PitchGraph/PitchGraph"
+import PitchGraph from "./PitchGraph"
 import PianoCursor from "./PianoCursor"
 
 import "./PianoRoll.css"

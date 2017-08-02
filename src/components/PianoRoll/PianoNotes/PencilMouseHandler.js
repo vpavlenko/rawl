@@ -9,7 +9,7 @@ export default class PencilMouseHandler extends NoteMouseHandler {
       return original
     }
 
-    const { dispatch } = this
+    const { dispatch, transform } = this
 
     if (e.nativeEvent.button !== 0) {
       return null
@@ -20,7 +20,7 @@ export default class PencilMouseHandler extends NoteMouseHandler {
         return removeNoteAction(dispatch)
       } else {
         switch(e.position) {
-          case "center": return moveNoteAction(dispatch)
+          case "center": return moveNoteAction(dispatch, transform)
           case "left": return dragLeftNoteAction(dispatch)
           case "right": return dragRightNoteAction(dispatch)
           default: throw Error()
@@ -44,15 +44,16 @@ export const createNoteAction = dispatch => (onMouseDown, onMouseMove) => {
   let noteId
 
   onMouseDown(e => {
-    noteId = dispatch("CREATE_NOTE_XY", { position: e.local })
+    noteId = dispatch("CREATE_NOTE", e)
   })
 
   onMouseMove(e => {
-    const position = {
-      x: e.local.x,
-      y: e.local.y
-    }
-    dispatch("MOVE_NOTE", { id: noteId, position })
+    dispatch("MOVE_NOTE", {
+      id: noteId,
+      tick: e.tick,
+      noteNumber: e.noteNumber,
+      quantize: "floor"
+    })
   })
 }
 
@@ -60,7 +61,7 @@ const removeNoteAction = dispatch => (onMouseDown) => {
   onMouseDown(e => dispatch("REMOVE_EVENT", { eventId: e.item.id }))
 }
 
-const moveNoteAction = dispatch => (onMouseDown, onMouseMove) => {
+const moveNoteAction = (dispatch, transform) => (onMouseDown, onMouseMove) => {
   let startPosition
   let notePosition
   let noteId
@@ -76,7 +77,12 @@ const moveNoteAction = dispatch => (onMouseDown, onMouseMove) => {
 
   onMouseMove(e => {
     const position = pointAdd(notePosition, pointSub(e.local, startPosition))
-    dispatch("MOVE_NOTE_CENTER", { id: noteId, position })
+    dispatch("MOVE_NOTE", {
+      id: noteId,
+      tick: transform.getTicks(position.x),
+      noteNumber: Math.round(transform.getNoteNumber(position.y)),
+      quantize: "round"
+    })
   })
 }
 
@@ -88,7 +94,7 @@ const dragLeftNoteAction = dispatch => (onMouseDown, onMouseMove) => {
   })
 
   onMouseMove(e => {
-    dispatch("RESIZE_NOTE_LEFT", { id: noteId, position: e.local })
+    dispatch("RESIZE_NOTE_LEFT", { id: noteId, tick: e.tick })
   })
 }
 
@@ -100,7 +106,7 @@ const dragRightNoteAction = dispatch => (onMouseDown, onMouseMove) => {
   })
 
   onMouseMove(e => {
-    dispatch("RESIZE_NOTE_RIGHT", { id: noteId, position: e.local })
+    dispatch("RESIZE_NOTE_RIGHT", { id: noteId, tick: e.tick })
   })
 }
 

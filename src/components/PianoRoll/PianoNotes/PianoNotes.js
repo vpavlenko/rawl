@@ -123,8 +123,10 @@ function PianoNotes({
     const local = getLocal(e)
     const item = itemUnderPoint(local)
     const position = item && positionType(local, item)
+    const tick = transform.getTicks(local.x)
+    const noteNumber = Math.round(transform.getNoteNumber(local.y))
     return {
-      local, item, position
+      local, item, position, tick, noteNumber
     }
   }
 
@@ -187,6 +189,8 @@ class _PianoNotes extends Component {
   }
 
   render() {
+    this.state.pencilMouseHandler.transform = this.props.transform
+    
     return <PianoNotes {...this.props} {...this.state} />
   }
 }

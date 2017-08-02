@@ -92,6 +92,37 @@ export default (app) => (type, params) => {
       player.playNote(note)
       return note.id
     }
+    case "MOVE_NOTE": {
+      const note = selectedTrack.getEventById(params.id)
+      const pitchChanged = params.noteNumber !== note.noteNumber
+      const n = selectedTrack.updateEvent(note.id, {
+        tick: quantizer[params.quantize || "floor"](params.tick),
+        noteNumber: params.noteNumber
+      })
+
+      if (pitchChanged) {
+        player.playNote(n)
+      }
+      break
+    }
+    case "RESIZE_NOTE_LEFT": { // 右端を固定して長さを変更
+      const tick = quantizer.round(params.tick)
+      const note = selectedTrack.getEventById(params.id)
+      const duration = note.duration + (note.tick - tick)
+      if (note.tick !== params.tick && duration >= quantizer.unit) {
+        selectedTrack.updateEvent(note.id, { tick, duration })
+      }
+      break
+    }
+    case "RESIZE_NOTE_RIGHT":
+      const note = selectedTrack.getEventById(params.id)
+      const right = params.tick
+      const duration = Math.max(quantizer.unit,
+        quantizer.round(right - note.tick))
+      if (note.duration !== duration) {
+        selectedTrack.updateEvent(note.id, { duration })
+      }
+      break
     default:
       console.log(type, params)
       break

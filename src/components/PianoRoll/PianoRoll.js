@@ -8,7 +8,6 @@ import NoteCoordTransform from "../../model/NoteCoordTransform"
 import withTheme from "../../hocs/withTheme"
 import fitToContainer from "../../hocs/fitToContainer"
 
-import NoteController from "./controllers/NoteController"
 import SelectionController from "./controllers/SelectionController"
 
 import PianoKeys from "./PianoKeys"
@@ -216,26 +215,12 @@ class PianoRoll extends Component {
         }
       ]} />
 
-    const noteController = new NoteController(track, quantizer, transform, player)
     const selectionController = new SelectionController(selection, track, quantizer, transform, player)
 
     // TODO: dispatch 内では音符座標系を扱い、position -> tick 変換等は component 内で行う
     // TODO: setState を使うもの以外は上の階層で実装する
     const dispatch = (type, params) => {
       switch(type) {
-        case "CREATE_NOTE_XY":
-          return dispatch("CREATE_NOTE", {
-            tick: transform.getTicks(params.position.x),
-            noteNumber: Math.ceil(transform.getNoteNumber(params.position.y)),
-          })
-        case "MOVE_NOTE":
-          return noteController.moveTo(params.id, params.position)
-        case "RESIZE_NOTE_LEFT":
-          return noteController.resizeLeft(params.id, params.position)
-        case "RESIZE_NOTE_RIGHT":
-          return noteController.resizeRight(params.id, params.position)
-        case "MOVE_NOTE_CENTER":
-          return noteController.moveCenter(params.id, params.position)
         case "CHANGE_CURSOR":
           this.setState({ notesCursor: params.cursor })
           break
@@ -272,8 +257,6 @@ class PianoRoll extends Component {
           return this.props.dispatch(type, params)
       }
     }
-
-    noteController.dispatch = dispatch
 
     return <div
       className="PianoRoll"

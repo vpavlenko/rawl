@@ -10,7 +10,7 @@ export default function PitchGraph({
   dispatch
 }) {
   return <LineGraphControl
-    className="PitchGraph"
+    className="PanGraph"
     width={width}
     height={height}
     scrollLeft={scrollLeft}

@@ -19,6 +19,7 @@ import PianoSelection from "./PianoSelection"
 import PianoVelocityControl from "./PianoVelocityControl/PianoVelocityControl"
 import PitchGraph from "./PitchGraph"
 import VolumeGraph from "./VolumeGraph"
+import ModulationGraph from "./ModulationGraph"
 import PanGraph from "./PanGraph"
 import PianoCursor from "./PianoCursor"
 
@@ -214,7 +215,8 @@ class PianoRoll extends Component {
         controlButton("Velocity", "velocity"),
         controlButton("Pitch Bend", "pitchBend"),
         controlButton("Volume", "volume"),
-        controlButton("Panpot", "pan")
+        controlButton("Panpot", "pan"),
+        controlButton("Modulation", "modulation"),
       ]} />
 
     const selectionController = new SelectionController(selection, track, quantizer, transform, player)
@@ -258,6 +260,11 @@ class PianoRoll extends Component {
         default:
           return this.props.dispatch(type, params)
       }
+    }
+
+    const controlProps = {
+      width, transform, events, scrollLeft, dispatch,
+      height: controlHeight
     }
 
     return <div
@@ -331,34 +338,11 @@ class PianoRoll extends Component {
         <FixedLeftContent left={scrollLeft}>
           {controlToolbar}
           <div className="control-content">
-            {controlMode === "velocity" && <PianoVelocityControl
-              width={width}
-              height={controlHeight}
-              transform={transform}
-              events={events}
-              scrollLeft={scrollLeft}
-              dispatch={dispatch} />}
-            {controlMode === "pitchBend" && <PitchGraph
-              width={width}
-              height={controlHeight}
-              scrollLeft={scrollLeft}
-              events={events}
-              transform={transform}
-              dispatch={dispatch} />}
-            {controlMode === "volume" && <VolumeGraph
-              width={width}
-              height={controlHeight}
-              scrollLeft={scrollLeft}
-              events={events}
-              transform={transform}
-              dispatch={dispatch} />}
-            {controlMode === "pan" && <PanGraph
-              width={width}
-              height={controlHeight}
-              scrollLeft={scrollLeft}
-              events={events}
-              transform={transform}
-              dispatch={dispatch} />}
+            {controlMode === "velocity" && <PianoVelocityControl {...controlProps} />}
+            {controlMode === "pitchBend" && <PitchGraph {...controlProps} />}
+            {controlMode === "volume" && <VolumeGraph {...controlProps} />}
+            {controlMode === "pan" && <PanGraph {...controlProps} />}
+            {controlMode === "modulation" && <ModulationGraph {...controlProps} />}
             <PianoGrid
               endTick={widthTick}
               ticksPerBeat={ticksPerBeat}

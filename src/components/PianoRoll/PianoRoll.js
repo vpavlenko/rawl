@@ -17,11 +17,13 @@ import PianoRuler from "./PianoRuler"
 import PianoNotes from "./PianoNotes/PianoNotes"
 import PianoSelection from "./PianoSelection"
 import PianoVelocityControl from "./PianoVelocityControl/PianoVelocityControl"
-import PitchGraph from "./PitchGraph"
-import VolumeGraph from "./VolumeGraph"
-import ModulationGraph from "./ModulationGraph"
-import PanGraph from "./PanGraph"
 import PianoCursor from "./PianoCursor"
+
+import PanGraph from "./Graph/PanGraph"
+import PitchGraph from "./Graph/PitchGraph"
+import VolumeGraph from "./Graph/VolumeGraph"
+import ExpressionGraph from "./Graph/ExpressionGraph"
+import ModulationGraph from "./Graph/ModulationGraph"
 
 import "./PianoRoll.css"
 
@@ -217,6 +219,7 @@ class PianoRoll extends Component {
         controlButton("Volume", "volume"),
         controlButton("Panpot", "pan"),
         controlButton("Modulation", "modulation"),
+        controlButton("Expression", "expression")
       ]} />
 
     const selectionController = new SelectionController(selection, track, quantizer, transform, player)
@@ -343,6 +346,7 @@ class PianoRoll extends Component {
             {controlMode === "volume" && <VolumeGraph {...controlProps} />}
             {controlMode === "pan" && <PanGraph {...controlProps} />}
             {controlMode === "modulation" && <ModulationGraph {...controlProps} />}
+            {controlMode === "expression" && <ExpressionGraph {...controlProps} />}
             <PianoGrid
               endTick={widthTick}
               ticksPerBeat={ticksPerBeat}

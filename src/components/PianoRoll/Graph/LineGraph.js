@@ -1,6 +1,6 @@
 import React from "react"
 import _ from "lodash"
-import DrawCanvas from "../DrawCanvas"
+import DrawCanvas from "../../DrawCanvas"
 
 import "./LineGraph.css"
 

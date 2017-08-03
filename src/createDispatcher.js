@@ -1,9 +1,11 @@
 import {
-  PitchBendMidiEvent,
-  VolumeMidiEvent,
   PanMidiEvent,
-  ModulationMidiEvent
+  VolumeMidiEvent,
+  PitchBendMidiEvent,
+  ModulationMidiEvent,
+  ExpressionMidiEvent
 } from "./midi/MidiEvent"
+
 import Track from "./model/Track"
 
 export default (app) => (type, params) => {
@@ -83,6 +85,10 @@ export default (app) => (type, params) => {
     case "CREATE_MODULATION":
       return createOrUpdate("controllerType", 0x01, params.tick, "value", params.value, () =>
         new ModulationMidiEvent()
+      )
+    case "CREATE_EXPRESSION":
+      return createOrUpdate("controllerType", 0x0b, params.tick, "value", params.value, () =>
+        new ExpressionMidiEvent()
       )
     case "SET_QUANTIZE_DENOMINATOR":
       quantizer.denominator = params.denominator

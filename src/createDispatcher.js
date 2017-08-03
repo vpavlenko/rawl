@@ -1,9 +1,28 @@
-import { PitchBendMidiEvent } from "./midi/MidiEvent"
+import { PitchBendMidiEvent, VolumeMidiEvent } from "./midi/MidiEvent"
 import Track from "./model/Track"
 
 export default (app) => (type, params) => {
   const { player, quantizer, song } = app
   const { tracks, selectedTrack } = song
+
+  const createOrUpdate = (typeProp, type, tick = player.position, valueProp, value, createEvent) => {
+    const value2 = Math.round(value)
+    const tick2 = quantizer.round(tick)
+    const events = selectedTrack.events.filter(e => e[typeProp] === type && e.tick === tick2)
+    if (events.length > 0) {
+      selectedTrack.transaction(it => {
+        events.forEach(e => {
+          it.updateEvent(e.id, { [valueProp]: value2 })
+        })
+      })
+      return events[0]
+    } else {
+      const e = createEvent()
+      e[valueProp] = value2
+      e.tick = tick2
+      return selectedTrack.addEvent(e)
+    }
+  }
 
   switch(type) {
     case "PLAY":
@@ -44,22 +63,14 @@ export default (app) => (type, params) => {
           it.updateEvent(item.id, { velocity: params.velocity })
         })
       })
-    case "CREATE_PITCH_BEND": {
-      const tick = quantizer.round(params.tick || player.position)
-      const events = selectedTrack.events.filter(e => e.subtype === "pitchBend" && e.tick === tick)
-      if (events.length > 0) {
-        selectedTrack.transaction(it => {
-          events.forEach(e => {
-            it.updateEvent(e.id, { value: params.value })
-          })
-        })
-        return events[0]
-      } else {
-        const event = new PitchBendMidiEvent(0, params.value)
-        event.tick = tick
-        return selectedTrack.addEvent(event)
-      }
-    }
+    case "CREATE_PITCH_BEND":
+      return createOrUpdate("subtype", "pitchBend", params.tick, "value", params.value, () =>
+        new PitchBendMidiEvent()
+      )
+    case "CREATE_VOLUME":
+      return createOrUpdate("controllerType", 0x07, params.tick, "value", params.value, () =>
+        new VolumeMidiEvent()
+      )
     case "SET_QUANTIZE_DENOMINATOR":
       quantizer.denominator = params.denominator
       break

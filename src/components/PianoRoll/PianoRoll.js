@@ -18,6 +18,7 @@ import PianoNotes from "./PianoNotes/PianoNotes"
 import PianoSelection from "./PianoSelection"
 import PianoVelocityControl from "./PianoVelocityControl/PianoVelocityControl"
 import PitchGraph from "./PitchGraph"
+import VolumeGraph from "./VolumeGraph"
 import PianoCursor from "./PianoCursor"
 
 import "./PianoRoll.css"
@@ -200,19 +201,18 @@ class PianoRoll extends Component {
 
     const events = track.getEvents()
 
+    const controlButton = (label, name) => ({
+      label,
+      selected: controlMode === name,
+      onClick: () => this.setState({ controlMode: name })
+    })
+
     const controlToolbar = <ControlToolbar
       onmount={c => this.controlToolbar = c}
       buttons={[
-        {
-          label: "velocity",
-          selected: controlMode === "velocity",
-          onClick: () => this.setState({ controlMode: "velocity" })
-        },
-        {
-          label: "pitchBend",
-          selected: controlMode === "pitchBend",
-          onClick: () => this.setState({ controlMode: "pitchBend" })
-        }
+        controlButton("Velocity", "velocity"),
+        controlButton("Pitch Bend", "pitchBend"),
+        controlButton("Volume", "volume")
       ]} />
 
     const selectionController = new SelectionController(selection, track, quantizer, transform, player)
@@ -337,6 +337,13 @@ class PianoRoll extends Component {
               scrollLeft={scrollLeft}
               dispatch={dispatch} />}
             {controlMode === "pitchBend" && <PitchGraph
+              width={width}
+              height={controlHeight}
+              scrollLeft={scrollLeft}
+              events={events}
+              transform={transform}
+              dispatch={dispatch} />}
+            {controlMode === "volume" && <VolumeGraph
               width={width}
               height={controlHeight}
               scrollLeft={scrollLeft}

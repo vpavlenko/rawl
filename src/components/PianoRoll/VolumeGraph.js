@@ -2,11 +2,11 @@ import React from "react"
 import LineGraph from "./LineGraph"
 
 const LINE_WIDTH = 2
-const MAX_VALUE = 0x4000
+const MAX_VALUE = 127
 
 function transformEvents(events, transform, height) {
   return events
-    .filter(e => e.subtype === "pitchBend")
+    .filter(e => e.controllerType === 0x07)
     .map(e => {
       return {
         id: e.id,
@@ -29,7 +29,7 @@ function transformFromPosition(position, transform, height) {
   }
 }
 
-function PitchGraph({
+function VolumeGraph({
   width,
   height,
   scrollLeft,
@@ -50,28 +50,27 @@ function PitchGraph({
     const items = itemsUnderPoint(e.local)
 
     if (items.length === 0) {
-      // insert new pitchbend event
       const obj = transformFromPosition(e.local, transform, height)
-      dispatch("CREATE_PITCH_BEND", obj)
+      dispatch("CREATE_VOLUME", obj)
       return
     }
   }
 
   const onClickAxis = e => {
-    dispatch("CREATE_PITCH_BEND", { value: e.value + 0x2000 })
+    dispatch("CREATE_VOLUME", { value: e.value })
   }
 
   return <LineGraph
-    className="PitchGraph"
+    className="VolumeGraph"
     width={width}
     height={height}
     onMouseDown={onMouseDown}
     items={items}
     scrollLeft={scrollLeft}
     lineWidth={LINE_WIDTH}
-    axis={[-0x2000, -0x1000, 0, 0x1000, 0x2000 - 1]}
+    axis={[0, 0x20, 0x40, 0x60, 0x80 - 1]}
     onClickAxis={onClickAxis}
   />
 }
 
-export default PitchGraph
+export default VolumeGraph

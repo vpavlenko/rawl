@@ -19,6 +19,7 @@ import PianoSelection from "./PianoSelection"
 import PianoVelocityControl from "./PianoVelocityControl/PianoVelocityControl"
 import PitchGraph from "./PitchGraph"
 import VolumeGraph from "./VolumeGraph"
+import PanGraph from "./PanGraph"
 import PianoCursor from "./PianoCursor"
 
 import "./PianoRoll.css"
@@ -212,7 +213,8 @@ class PianoRoll extends Component {
       buttons={[
         controlButton("Velocity", "velocity"),
         controlButton("Pitch Bend", "pitchBend"),
-        controlButton("Volume", "volume")
+        controlButton("Volume", "volume"),
+        controlButton("Panpot", "pan")
       ]} />
 
     const selectionController = new SelectionController(selection, track, quantizer, transform, player)
@@ -344,6 +346,13 @@ class PianoRoll extends Component {
               transform={transform}
               dispatch={dispatch} />}
             {controlMode === "volume" && <VolumeGraph
+              width={width}
+              height={controlHeight}
+              scrollLeft={scrollLeft}
+              events={events}
+              transform={transform}
+              dispatch={dispatch} />}
+            {controlMode === "pan" && <PanGraph
               width={width}
               height={controlHeight}
               scrollLeft={scrollLeft}

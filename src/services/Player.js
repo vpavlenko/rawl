@@ -1,10 +1,10 @@
 import _ from "lodash"
 import observable from "riot-observable"
+import assert from "assert"
 import MIDIControlEvents from "../constants/MIDIControlEvents"
 import MIDIChannelEvents from "../constants/MIDIChannelEvents"
 import { eventToBytes } from "../helpers/midiHelper"
 import { deassemble } from "../helpers/noteAssembler"
-import assert from "assert"
 
 const INTERVAL = 1 / 15 * 1000 // seconds
 
@@ -46,11 +46,11 @@ export default class Player {
   _currentTempo = 120
   _currentTick = 0
   _prevTime = 0
-  _channelMutes = {}
 
-  constructor(timebase, output) {
+  constructor(timebase, output, trackMute) {
     this._output = output
     this._timebase = timebase
+    this._trackMute = trackMute
 
     observable(this)
   }
@@ -111,15 +111,6 @@ export default class Player {
     return this._currentTempo
   }
 
-  muteChannel(channel, mute) {
-    this._channelMutes[channel] = mute
-    this.trigger("change-mute", channel)
-  }
-
-  isChannelMuted(channel) {
-    return this._channelMutes[channel]
-  }
-
   _sendMessage(msg, timestamp) {
     this._output.send(msg, Math.round(timestamp))
   }
@@ -139,6 +130,11 @@ export default class Player {
     return tick / (this._timebase / 60) / this._currentTempo * 1000
   }
 
+  _shouldPlayChannel(channel) {
+    const trackId = this._song.trackIdOfChannel(channel)
+    return trackId ? this._trackMute.shouldPlayTrack(trackId) : true
+  }
+
   _onTimer() {
     const timestamp = window.performance.now()
     const deltaTime = timestamp - this._prevTime
@@ -149,7 +145,7 @@ export default class Player {
 
     // channel イベントを MIDI Output に送信
     events
-      .filter(e => e.type === "channel" && !this._channelMutes[e.channel])
+      .filter(e => e.type === "channel" && this._shouldPlayChannel(e.channel))
       .forEach(e => {
         const bytes = eventToBytes(e, false)
         const waitTick = e.tick - this._currentTick

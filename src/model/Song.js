@@ -70,6 +70,15 @@ export default class Song {
     return maxX(_.flatten(this._tracks.map(t => t.getEvents())))
   }
 
+  trackIdOfChannel(channel) {
+    const tracks = this._tracks
+    const track = _.find(tracks, t => t.channel === channel)
+    if (track) {
+      return tracks.indexOf(track)
+    }
+    return undefined
+  }
+
   static emptySong() {
     const song = new Song()
     song.addTrack(Track.conductorTrack())

@@ -1,15 +1,19 @@
 import observable from "riot-observable"
+
 import Player from "./services/Player"
 import Quantizer from "./services/Quantizer"
+import MIDIOutput from "./services/MIDIOutput"
+import TrackMute from "./services/TrackMute"
+
 import Song from "./model/Song"
 import Config from "./Config"
 import { read as readSong, write as writeSong } from "./midi/SongFile"
-import MIDIOutput from "./services/MIDIOutput"
 
 export default class App {
   constructor() {
     observable(this)
-    this.player = new Player(Config.TIME_BASE, new MIDIOutput())
+    this.trackMute = new TrackMute()
+    this.player = new Player(Config.TIME_BASE, new MIDIOutput(), this.trackMute)
     this.quantizer = new Quantizer(Config.TIME_BASE)
 
     this.newSong()

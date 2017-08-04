@@ -76,7 +76,7 @@ export default class RootView extends Component {
   render() {
     const { props, state } = this
     const { app } = props
-    const { song, player, quantizer } = app
+    const { song, player, quantizer, trackMute } = app
     const { selectedTrack, selectedTrackId } = song
 
     const onClickKey = () => {
@@ -251,8 +251,9 @@ export default class RootView extends Component {
         tracks={(song && song.tracks) || []}
         tempo={song.getTrack(0).tempo}
         selectedTrackId={selectedTrackId}
-        onClickMute={trackId => dispatch("MUTE_TRACK", { trackId })}
-        onClickSolo={trackId => dispatch("SOLO_TRACK", { trackId })}
+        trackMute={trackMute}
+        onClickMute={trackId => dispatch("TOGGLE_MUTE_TRACK", { trackId })}
+        onClickSolo={trackId => dispatch("TOGGLE_SOLO_TRACK", { trackId })}
         onSelectTrack={trackId => dispatch("SELECT_TRACK", { trackId })}
         onClickDelete={trackId => dispatch("REMOVE_TRACK", { trackId })}
         onClickAddTrack={() => dispatch("ADD_TRACK")}

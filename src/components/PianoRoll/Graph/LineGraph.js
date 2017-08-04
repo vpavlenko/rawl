@@ -4,15 +4,18 @@ import DrawCanvas from "../../DrawCanvas"
 
 import "./LineGraph.css"
 
-function drawEvents(ctx, strokeColor, items, center, right, lineWidth) {
+function drawEvents(ctx, strokeColor, items, right, lineWidth) {
   ctx.beginPath()
   ctx.strokeStyle = strokeColor
   ctx.lineWidth = lineWidth
-  let prevY = center
+  let prevY
 
   for (let item of items) {
     const x = Math.round(item.x)
     const y = Math.round(item.y)
+    if (prevY === undefined) {
+      prevY = y
+    }
     ctx.lineTo(x, prevY)
     ctx.lineTo(x, y)
     prevY = y
@@ -47,7 +50,7 @@ export default function LineGraph({
 
     ctx.save()
     ctx.translate(-Math.round(scrollLeft), 0)
-    drawEvents(ctx, strokeColor, items, height / 2, scrollLeft + width, lineWidth)
+    drawEvents(ctx, strokeColor, items, scrollLeft + width, lineWidth)
     ctx.restore()
   }
 

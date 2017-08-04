@@ -12,6 +12,7 @@ const Nop = () => {}
 function TrackListItem({
   name = "",
   mute = false,
+  solo = false,
   selected = false,
   volume = 0,
   pan = 0,
@@ -37,9 +38,9 @@ function TrackListItem({
     )}>
     <div className="name" onDoubleClick={onDoubleClickName}>{name}</div>
     <div className="controls">
-      <div className="button" onClick={onClickInstrument}><Icon>piano</Icon></div>
-      <div className="button" onClick={onClickSolo}><Icon>headphones</Icon></div>
-      <div className="button" onClick={onClickMute}><Icon>{mute ? "volume-off" : "volume-high"}</Icon></div>
+      <div className="button instrument" onClick={onClickInstrument}><Icon>piano</Icon></div>
+      <div className={`button solo ${solo ? "active" : ""}`} onClick={onClickSolo}><Icon>headphones</Icon></div>
+      <div className={`button mute ${mute ? "active" : ""}`} onClick={onClickMute}><Icon>{mute ? "volume-off" : "volume-high"}</Icon></div>
       <Slider
         onChange={e => onChangeVolume(e.target.value)}
         maxValue={127}
@@ -74,7 +75,8 @@ function TrackListContent({
   tracks,
   tempo,
   onChangeTempo,
-  channelMutes,
+  trackMutes,
+  trackSolos,
   selectedTrackId,
   onSelectTrack,
   onClickSolo,
@@ -100,7 +102,8 @@ function TrackListContent({
       return <TrackListItem
         key={i}
         name={t.displayName || `Track ${t.channel}`}
-        mute={channelMutes[t.channel]}
+        mute={trackMutes[i]}
+        solo={trackSolos[i]}
         selected={i === selectedTrackId}
         trackId={i}
         volume={t.volume}
@@ -125,25 +128,27 @@ export default class TrackList extends Component {
     super(props)
 
     this.state = {
-      channelMutes: {}
+      trackMutes: [],
+      trackSolos: []
     }
   }
 
   componentDidMount() {
-    this.props.player.on("change-mute", this.onChangeMute)
+    this.props.trackMute.on("change-mute", this.onChangeMute)
   }
 
   componentWillUnmount() {
-    this.props.player.off("change-mute", this.onChangeMute)
+    this.props.trackMute.off("change-mute", this.onChangeMute)
   }
 
   onChangeMute = () => {
-    const { player, tracks } = this.props
-    const channelMutes = tracks.map((t, i) => player.isChannelMuted(i))
-    this.setState({ channelMutes })
+    const { player, tracks, trackMute } = this.props
+    const trackMutes = tracks.map((_, i) => trackMute.isMuted(i))
+    const trackSolos = tracks.map((_, i) => trackMute.isSolo(i))
+    this.setState({ trackMutes, trackSolos })
   }
 
   render() {
-    return <TrackListContent {...this.props} channelMutes={this.state.channelMutes} />
+    return <TrackListContent {...this.props} {...this.state} />
   }
 }

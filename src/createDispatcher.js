@@ -8,8 +8,8 @@ import {
 
 import Track from "./model/Track"
 
-export default (app) => (type, params) => {
-  const { player, quantizer, song } = app
+const dispatch = app => (type, params) => {
+  const { player, quantizer, song, trackMute } = app
   const { tracks, selectedTrack } = song
 
   const createOrUpdate = (typeProp, type, tick = player.position, valueProp, value, createEvent) => {
@@ -53,17 +53,20 @@ export default (app) => (type, params) => {
         player.position += params.tick
       }
       break
-    case "MUTE_TRACK": {
-      const channel = tracks[params.trackId].channel
-      const muted = player.isChannelMuted(channel)
-      player.muteChannel(channel, !muted)
-      break}
-    case "SOLO_TRACK":{
-      const channel = tracks[params.trackId].channel
-      song.tracks.forEach((t, i) => {
-        player.muteChannel(t.channel, t.channel !== channel)
-      })
-      break}
+    case "TOGGLE_MUTE_TRACK":
+      if (trackMute.isMuted(params.trackId)) {
+        trackMute.unmute(params.trackId)
+      } else {
+        trackMute.mute(params.trackId)
+      }
+      break
+    case "TOGGLE_SOLO_TRACK":
+      if (trackMute.isSolo(params.trackId)) {
+        trackMute.unsolo(params.trackId)
+      } else {
+        trackMute.solo(params.trackId)
+      }
+      break
     case "CHANGE_NOTES_VELOCITY":
       return selectedTrack.transaction(it => {
         params.notes.forEach(item => {
@@ -170,3 +173,5 @@ export default (app) => (type, params) => {
       break
   }
 }
+
+export default dispatch

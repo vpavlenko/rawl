@@ -7,7 +7,8 @@ export default function PitchGraph({
   scrollLeft,
   events,
   transform,
-  dispatch
+  dispatch,
+  color
 }) {
   return <LineGraphControl
     className="PanGraph"
@@ -21,5 +22,6 @@ export default function PitchGraph({
     axis={[-0x40, -0x20, 0, 0x20, 0x40 - 1]}
     createEvent={obj => dispatch("CREATE_PAN", obj)}
     onClickAxis={e => dispatch("CREATE_PAN", { value: e.value + 0x40 })}
+    color={color}
   />
 }

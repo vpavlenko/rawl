@@ -51,6 +51,7 @@ function PianoVelocityControl({
   transform,
   scrollLeft,
   dispatch,
+  color,
   velocityMouseHandler
 }) {
   const items = transformEvents(events, transform, scrollLeft, width, height)
@@ -86,7 +87,7 @@ function PianoVelocityControl({
     const { width, height } = ctx.canvas
     ctx.clearRect(0, 0, width, height)
 
-    const fillColor = "blue"
+    const fillColor = color
     const strokeColor = "black"
 
     ctx.save()

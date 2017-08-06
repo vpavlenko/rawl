@@ -7,7 +7,8 @@ export default function ModulationGraph({
   scrollLeft,
   events,
   transform,
-  dispatch
+  dispatch,
+  color
 }) {
   return <LineGraphControl
     className="ModulationGraph"
@@ -21,5 +22,6 @@ export default function ModulationGraph({
     axis={[0, 0x20, 0x40, 0x60, 0x80 - 1]}
     createEvent={obj => dispatch("CREATE_MODULATION", obj)}
     onClickAxis={e => dispatch("CREATE_MODULATION", { value: e.value })}
+    color={color}
   />
 }

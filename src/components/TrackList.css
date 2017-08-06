@@ -89,3 +89,13 @@
 .TempoTrackItem .name {
   flex-grow: 1;
 }
+
+.TrackListItem .button.solo.active {
+    background: var(--yellow-color);
+    color: white;
+}
+
+.TrackListItem .button.mute.active {
+    background: var(--red-color);
+    color: white;
+}

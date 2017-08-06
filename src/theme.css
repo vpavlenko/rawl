@@ -3,14 +3,16 @@
 :root {
   --font: Avenir, Lato;
   --canvas-font: Arial;
-  --theme-color: hsl(247, 84%, 59%);
-  --text-color: hsl(247, 10%, 32%);
+  --theme-color: hsl(230, 70%, 55%);
+  --red-color: hsl(10, 70%, 55%);
+  --yellow-color: hsl(50, 70%, 55%);
+  --text-color: hsl(220, 20%, 12%);
   --secondary-text-color: hsl(247, 10%, 62%);
   --tertiary-text-color: hsl(247, 10%, 80%);
   --divider-color: rgba(0, 0, 0, 0.07);
   --background-color: #fff;
-  --secondary-background-color: hsl(247, 14%, 98%);
-  --tertiary-background-color: hsl(247, 8%, 94%);
+  --secondary-background-color: hsl(220, 54%, 98%);
+  --tertiary-background-color: hsl(220, 18%, 94%);
   --note-color: hsl(247, 84%, 69%);
   --key-height: 12px;
   --key-width: 72px;

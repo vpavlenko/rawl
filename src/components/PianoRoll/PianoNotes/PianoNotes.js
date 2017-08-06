@@ -34,26 +34,7 @@ function colorStr({ r, g, b }, alpha = 1) {
   return `rgba(${r}, ${g}, ${b}, ${alpha})`
 }
 
-const Color = {
-  Black: {
-    r: 0, g: 0, b: 0
-  },
-  White: {
-    r: 255, g: 255, b: 255
-  },
-  Blue: {
-    r: 0, g: 0, b: 255
-  }
-}
-
-const Style = {
-  color: Color.Blue,
-  selectedColor: Color.Black,
-  borderColor: Color.Black,
-  highlightColor: Color.White
-}
-
-function drawNote(ctx, { x, y, width, height, selected, velocity }, { color, selectedColor, borderColor, highlightColor }) {
+function drawNote(ctx, { x, y, width, height, selected, velocity }, color, selectedColor) {
   const alpha = velocity / 127
   const noteColor = selected ? colorStr(selectedColor) : colorStr(color, alpha)
 
@@ -64,7 +45,7 @@ function drawNote(ctx, { x, y, width, height, selected, velocity }, { color, sel
 
   ctx.beginPath()
   ctx.fillStyle = noteColor
-  ctx.strokeStyle = colorStr(borderColor)
+  ctx.strokeStyle = "rgba(0, 0, 0, 1)"
   ctx.lineWidth = 1
   ctx.rect(x, y, width, height)
   ctx.fill()
@@ -72,7 +53,7 @@ function drawNote(ctx, { x, y, width, height, selected, velocity }, { color, sel
 
   // draw highlight
   ctx.beginPath()
-  ctx.strokeStyle = colorStr(highlightColor, 0.3)
+  ctx.strokeStyle = "rgba(255, 255, 255, 0.3)"
   ctx.moveTo(x + 1, y + 1)
   ctx.lineTo(x + width, y + 1)
   ctx.closePath()
@@ -135,13 +116,16 @@ function PianoNotes({
     ...eventOption(e)
   })
 
+  const color = { r: 60, g: 87, b: 221 }
+  const selectedColor = { r: 45, g: 57, b: 115 }
+
   function draw(ctx) {
     const { width, height } = ctx.canvas
     ctx.clearRect(0, 0, width, height)
 
     ctx.save()
     ctx.translate(0.5 - Math.round(scrollLeft), 0.5)
-    items.forEach(item => drawNote(ctx, item, Style))
+    items.forEach(item => drawNote(ctx, item, color, selectedColor))
     ctx.restore()
   }
 

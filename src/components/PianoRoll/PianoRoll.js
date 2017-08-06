@@ -267,7 +267,8 @@ class PianoRoll extends Component {
 
     const controlProps = {
       width, transform, events, scrollLeft, dispatch,
-      height: controlHeight
+      height: controlHeight,
+      color: theme.themeColor
     }
 
     return <div

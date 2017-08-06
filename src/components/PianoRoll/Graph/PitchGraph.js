@@ -7,7 +7,8 @@ export default function PitchGraph({
   scrollLeft,
   events,
   transform,
-  dispatch
+  dispatch,
+  color
 }) {
   return <LineGraphControl
     className="PitchGraph"
@@ -21,5 +22,6 @@ export default function PitchGraph({
     axis={[-0x2000, -0x1000, 0, 0x1000, 0x2000 - 1]}
     createEvent={obj => dispatch("CREATE_PITCH_BEND", obj)}
     onClickAxis={e => dispatch("CREATE_PITCH_BEND", { value: e.value + 0x2000 })}
+    color={color}
   />
 }

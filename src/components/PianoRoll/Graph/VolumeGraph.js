@@ -7,7 +7,8 @@ export default function VolumeGraph({
   scrollLeft,
   events,
   transform,
-  dispatch
+  dispatch,
+  color
 }) {
   return <LineGraphControl
     className="VolumeGraph"
@@ -21,5 +22,6 @@ export default function VolumeGraph({
     axis={[0, 0x20, 0x40, 0x60, 0x80 - 1]}
     createEvent={obj => dispatch("CREATE_VOLUME", obj)}
     onClickAxis={e => dispatch("CREATE_VOLUME", { value: e.value })}
+    color={color}
   />
 }

@@ -12,7 +12,8 @@ function LineGraphControl({
   maxValue,
   createEvent,
   axis,
-  onClickAxis
+  onClickAxis,
+  color
 }) {
   function transformEvents(events, transform, height) {
     return events
@@ -54,6 +55,7 @@ function LineGraphControl({
     lineWidth={lineWidth}
     axis={axis}
     onClickAxis={onClickAxis}
+    color={color}
   />
 }
 

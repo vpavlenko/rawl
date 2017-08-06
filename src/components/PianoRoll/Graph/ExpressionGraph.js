@@ -7,7 +7,8 @@ export default function ExpressionGraph({
   scrollLeft,
   events,
   transform,
-  dispatch
+  dispatch,
+  color
 }) {
   return <LineGraphControl
     className="ExpressionGraph"
@@ -21,5 +22,6 @@ export default function ExpressionGraph({
     axis={[0, 0x20, 0x40, 0x60, 0x80 - 1]}
     createEvent={obj => dispatch("CREATE_EXPRESSION", obj)}
     onClickAxis={e => dispatch("CREATE_EXPRESSION", { value: e.value })}
+    color={color}
   />
 }

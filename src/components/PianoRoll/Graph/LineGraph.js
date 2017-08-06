@@ -40,17 +40,16 @@ export default function LineGraph({
   onClickAxis = () => {},
   className,
   lineWidth,
-  axis
+  axis,
+  color
 }) {
   function draw(ctx) {
     const { width, height } = ctx.canvas
     ctx.clearRect(0, 0, width, height)
 
-    const strokeColor = "blue"
-
     ctx.save()
     ctx.translate(-Math.round(scrollLeft), 0)
-    drawEvents(ctx, strokeColor, items, scrollLeft + width, lineWidth)
+    drawEvents(ctx, color, items, scrollLeft + width, lineWidth)
     ctx.restore()
   }
 

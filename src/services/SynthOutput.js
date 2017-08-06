@@ -1,17 +1,20 @@
+const { remote, ipcRenderer } = window.require("electron")
+const { BrowserWindow } = remote
+
 export default class SynthOutput {
   constructor() {
-    const url = "./sf2.html"
-    this.window = window.open(url, "sy1", "width=900,height=670,scrollbars=yes,resizable=yes")
+    ipcRenderer.send("create-synth-window")
+  }
+
+  _send(msg) {
+    const message = ["midi", ...msg.map(m => m.toString(16))].join(",")
+    ipcRenderer.send("midi", message)
   }
 
   send(msg, timestamp) {
-    const aMsg = ["midi", ...msg.map(m => m.toString(16))].join(",")
     const delay = timestamp - window.performance.now()
-
     setTimeout(() => {
-      if (this.window) {
-        this.window.postMessage(aMsg, "*")
-      }
+      this._send(msg)
     }, delay)
   }
 }

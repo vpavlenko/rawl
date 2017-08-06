@@ -1,9 +1,5 @@
 const electron = require("electron")
-const app = electron.app
-const BrowserWindow = electron.BrowserWindow
-
-const path = require("path")
-const url = require("url")
+const { app, BrowserWindow, ipcMain } = electron
 
 let mainWindow
 
@@ -39,4 +35,43 @@ app.on("activate", function () {
   if (mainWindow === null) {
     createWindow()
   }
+})
+
+/**
+
+  メインウィンドウからシンセのウィンドウにメッセージを送るために
+  ipcMain を経由する
+
+*/
+let synthWindow
+
+app.on("browser-window-created", (e, win) => {
+  if (win.getTitle() === "synth") {
+    synthWindow = win
+  }
+})
+
+ipcMain.on("midi", (e, message) => {
+  if (!synthWindow) {
+    return
+  }
+  synthWindow.webContents.send("midi", message)
+})
+
+ipcMain.on("create-synth-window", () => {
+  // シンセのウィンドウを作成済みでなければ作る
+  if (synthWindow) {
+    return
+  }
+  const url = "http://localhost:3000/#synth"
+  const win = new BrowserWindow({
+    title: "synth"
+  })
+  win.loadURL(url)
+  win.webContents.openDevTools()
+
+  synthWindow = win
+  win.on("closed", function () {
+    synthWindow = null
+  })
 })

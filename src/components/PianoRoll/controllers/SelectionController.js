@@ -35,22 +35,11 @@ export default class SelectionController {
   }
 
   // 選択範囲の右上を pos にして、ノートの選択状を解除する
-  startAt(pos) {
+  startAt(tick, noteNumber) {
     const { selection, transform } = this
     selection.reset()
-    selection.fromTick = transform.getTicks(pos.x)
-    selection.fromNoteNumber = transform.getNoteNumber(pos.y)
-  }
-
-  // 選択範囲の右下を pos にする
-  resize(pos) {
-    const { selection, quantizer, transform } = this
-    const startPosition = {
-      x: transform.getX(selection.fromTick),
-      y: transform.getY(selection.fromNoteNumber)
-    }
-    const rect = Rect.fromPoints(startPosition, pos)
-    selection.resize(rect, quantizer, transform)
+    selection.fromTick = tick
+    selection.fromNoteNumber = noteNumber
   }
 
   // 選択範囲を確定して選択範囲内のノートを選択状態にする
@@ -187,7 +176,11 @@ export default class SelectionController {
   // 現在位置にコピーしたノートをペースト
   pasteSelection() {
     const { player, track } = this
-    const obj = JSON.parse(clipboard.readText())
+    const text = clipboard.readText()
+    if (!text || text.length === 0) {
+      return
+    }
+    const obj = JSON.parse(text)
     if (obj.type !== "notes") {
       return
     }
@@ -207,8 +200,8 @@ function eventsInSelection(events, selection) {
   return events
     .filter(b =>
       b.tick >= s.fromTick
-        && b.tick <= s.toTick // ノートの先頭だけ範囲にはいっていればよい
+        && b.tick < s.toTick // ノートの先頭だけ範囲にはいっていればよい
         && b.noteNumber <= s.fromNoteNumber
-        && b.noteNumber >= s.toNoteNumber
+        && b.noteNumber > s.toNoteNumber
     )
 }

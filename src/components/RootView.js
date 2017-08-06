@@ -195,7 +195,7 @@ export default class RootView extends Component {
           {
             label: "New",
             click: () => {
-              app.song = Song.emptySong()
+              dispatch("CREATE_SONG")
             }
           },
           {
@@ -206,7 +206,7 @@ export default class RootView extends Component {
                 extensions: ["mid", "midi"]
               }]}, files => {
                 if (files) {
-                  app.open(files[0])
+                  dispatch("OPEN_SONG", { filepath: files[0] })
                 }
               })
             }
@@ -214,7 +214,7 @@ export default class RootView extends Component {
           {
             label: "Save",
             click: () => {
-              app.saveSong(song.filepath)
+              dispatch("SAVE_SONG", { filepath: song.filepath })
             }
           },
           {
@@ -224,7 +224,7 @@ export default class RootView extends Component {
                 name: "Standard MIDI File",
                 extensions: ["mid", "midi"]
               }]}, filepath => {
-                app.saveSong(filepath)
+                dispatch("SAVE_SONG", { filepath  })
               })
             }
           }

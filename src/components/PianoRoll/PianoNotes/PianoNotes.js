@@ -24,7 +24,6 @@ export function filterEvents(events, transform, scrollLeft, width) {
       return {
         id: note.id,
         velocity: note.velocity,
-        selected: note.selected,
         ...rect,
       }
     })
@@ -34,7 +33,7 @@ function colorStr({ r, g, b }, alpha = 1) {
   return `rgba(${r}, ${g}, ${b}, ${alpha})`
 }
 
-function drawNote(ctx, { x, y, width, height, selected, velocity }, color, selectedColor) {
+function drawNote(ctx, { x, y, width, height, velocity }, selected, color, selectedColor) {
   const alpha = velocity / 127
   const noteColor = selected ? colorStr(selectedColor) : colorStr(color, alpha)
 
@@ -68,6 +67,7 @@ function PianoNotes({
   mouseMode,
   dispatch,
   cursor,
+  selectedEventIds,
   pencilMouseHandler,
   selectionMouseHandler
 }) {
@@ -111,7 +111,7 @@ function PianoNotes({
     }
   }
 
-  const extendEvent = func => e => func({
+  const extendEvent = func => e => func && func({
     ...e,
     ...eventOption(e)
   })
@@ -125,7 +125,10 @@ function PianoNotes({
 
     ctx.save()
     ctx.translate(0.5 - Math.round(scrollLeft), 0.5)
-    items.forEach(item => drawNote(ctx, item, color, selectedColor))
+    items.forEach(item => {
+      const selected = selectedEventIds.includes(item.id)
+      drawNote(ctx, item, selected, color, selectedColor)
+    })
     ctx.restore()
   }
 
@@ -164,12 +167,16 @@ class _PianoNotes extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    const props = this.props
-    return !logEq(props, nextProps, "events", _.isEqual)
-      || !logEq(props, nextProps, "transform")
-      || !logEq(props, nextProps, "scrollLeft")
-      || !logEq(props, nextProps, "width")
-      || !logEq(props, nextProps, "cursor")
+    const eq = (propName, compare = (a, b) => a === b) => {
+      return compare(this.props[propName], nextProps[propName])
+    }
+
+    return !eq("events", _.isEqual)
+      || !eq("transform")
+      || !eq("scrollLeft")
+      || !eq("width")
+      || !eq("cursor")
+      || !eq("selectedEventIds", _.isEqual)
   }
 
   render() {

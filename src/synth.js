@@ -21,7 +21,7 @@ export default class SynthApp {
     wml.setLoadCallback(() => {
       wml.synth.setMasterVolume(16384 * 0.5)
     })
-    wml.setup("/soundfonts/msgs.sf2", document.getElementById("root"), emitter)
+    wml.setup("/soundfonts/SGM-180 v1.5.sf2", document.getElementById("root"), emitter)
     document.body.classList.add("synth")
   }
 }

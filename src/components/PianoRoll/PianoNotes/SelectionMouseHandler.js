@@ -31,6 +31,7 @@ export default class SelectionMouseHandler extends MouseHandler {
       return createSelectionAction(dispatch)
     }
 
+    // 右クリックした場合はコンテキストメニューを表示
     if (e.nativeEvent.button === 2) {
       let selected
       switch (type) {
@@ -94,34 +95,25 @@ const contextMenuAction = (selected, dispatch) => (onMouseDown, onMouseMove, onM
 }
 
 // 選択範囲外でクリックした場合は選択範囲をリセット
-const createSelectionAction = dispatch => (onMouseDown) => {
+const createSelectionAction = dispatch => (onMouseDown, onMouseMove, onMouseUp) => {
   let rect
   let scrollLeft
+  let start
+
   onMouseDown(e => {
-    document.addEventListener("mousemove", onMouseMove)
-    document.addEventListener("mouseup", onMouseUp)
-
-    rect =  e.currentTarget.getBoundingClientRect()
-    scrollLeft = e.local.x - (e.clientX - rect.left)
-
-    dispatch("START_SELECTION", { position: e.local })
-    dispatch("SET_PLAYER_POSITION_X", { x: e.local.x })
+    start = { tick: e.tick, noteNumber: e.noteNumber }
+    dispatch("START_SELECTION", start)
+    dispatch("SET_PLAYER_POSITION", { tick: e.tick })
   })
 
-  function onMouseMove(e) {
-    const position = {
-      x: Math.round(e.clientX - rect.left + scrollLeft),
-      y: Math.round(e.clientY - rect.top)
-    }
-    dispatch("RESIZE_SELECTION", { position })
-  }
+  onMouseMove(e => {
+    const end = { tick: e.tick, noteNumber: e.noteNumber }
+    dispatch("RESIZE_SELECTION", { start, end })
+  })
 
-  function onMouseUp() {
-    document.removeEventListener("mousemove", onMouseMove)
-    document.removeEventListener("mouseup", onMouseUp)
-
+  onMouseUp(() => {
     dispatch("FIX_SELECTION")
-  }
+  })
 }
 
 const moveSelectionAction = dispatch => (onMouseDown, onMouseMove) => {

@@ -13,7 +13,6 @@ import TrackMute from "./services/TrackMute"
 
 import Song from "./model/Song"
 import Config from "./Config"
-import { read as readSong, write as writeSong } from "./midi/SongFile"
 
 import "./index.css"
 
@@ -23,36 +22,19 @@ export default class App {
     this.trackMute = new TrackMute()
     this.player = new Player(Config.TIME_BASE, new SynthOutput(), this.trackMute)
     this.quantizer = new Quantizer(Config.TIME_BASE)
-
-    this.newSong()
+    this.song = Song.emptySong()
   }
 
   init() {
     document.app = this // for debug
 
     const RootView2 = withSong(this, RootView)
+    const dispatch = createDispatcher(this)
 
     ReactDOM.render(<RootView2
       app={this}
-      dispatch={createDispatcher(this)}
+      dispatch={dispatch}
     />, document.querySelector("#root"))
-  }
-
-  open(file) {
-    readSong(file, (e, song) => {
-      if (e) {
-        console.error(e)
-      }
-      this.song = song
-    })
-  }
-
-  saveSong(filepath) {
-    writeSong(this.song, filepath, e => {
-      if (e) {
-        console.error(e)
-      }
-    })
   }
 
   set song(song) {
@@ -64,9 +46,5 @@ export default class App {
 
   get song() {
     return this._song
-  }
-
-  newSong() {
-    this.song = Song.emptySong()
   }
 }

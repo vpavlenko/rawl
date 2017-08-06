@@ -245,15 +245,15 @@ class PianoRoll extends Component {
         case "GET_SELECTION_POSITION_TYPE": // FIXME: dispatch から値を取得しない
           return selectionController.positionType(params.position)
         case "START_SELECTION":
-          return selectionController.startAt(params.position)
+          return selectionController.startAt(params.tick, params.noteNumber)
         case "RESIZE_SELECTION":
-          return selectionController.resize(params.position)
+          return selection.resize(
+            quantizer.round(params.start.tick),
+            params.start.noteNumber,
+            quantizer.round(params.end.tick),
+            params.end.noteNumber)
         case "FIX_SELECTION":
           return selectionController.fix()
-        case "SET_PLAYER_POSITION_X":
-          return dispatch("SET_PLAYER_POSITION", { tick:
-            quantizer.round(transform.getTicks(params.x)) // FIXME: component 側で transform する
-          })
         case "COPY_SELECTION":
           return selectionController.copySelection()
         case "DELETE_SELECTION":
@@ -298,6 +298,7 @@ class PianoRoll extends Component {
             transform={transform} />
           <PianoNotes
             events={events}
+            selectedEventIds={selection.noteIds}
             transform={transform}
             width={width}
             cursor={notesCursor}

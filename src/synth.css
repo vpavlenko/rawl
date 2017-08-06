@@ -6,23 +6,20 @@ body.synth {
   font-family: Consolas;
 }
 
-#root {
-}
-
-.keys>div {
+body.synth .keys>div {
   float: left;
 }
 
-.keys>.white, .keys>.black {
+body.synth .keys>.white, .keys>.black {
   position: relative;
 }
 
-.keys {
+body.synth .keys {
   overflow: hidden;
   background: black;
 }
 
-.keys>.white {
+body.synth .keys>.white {
   width: 5px;
   height: 20px;
   background: rgb(85, 85, 90);
@@ -30,7 +27,7 @@ body.synth {
   box-sizing: border-box;
 }
 
-.keys>.black {
+body.synth .keys>.black {
   width: 3px;
   background: rgb(0, 0, 0);
   height: 11px;
@@ -39,17 +36,17 @@ body.synth {
   z-index: 999;
 }
 
-.volume::before {content: "VOL:";}
+body.synth .volume::before {content: "VOL:";}
 
-.panpot::before {content: "PAN:";}
+body.synth .panpot::before {content: "PAN:";}
 
-.pitchBend::before {content: "BEND:";}
+body.synth .pitchBend::before {content: "BEND:";}
 
-.pitchBendSensitivity::before {
+body.synth .pitchBendSensitivity::before {
   content: "RANGE:";
 }
 
-select {
+body.synth select {
   background: transparent;
   color: currentColor;
   border: none;
@@ -57,40 +54,40 @@ select {
   font-family: Consolas;
 }
 
-option {
+body.synth option {
   background: black;
 }
 
-.program, .volume, .panpot, .pitchBend, .pitchBendSensitivity {
+body.synth .program, .volume, .panpot, .pitchBend, .pitchBendSensitivity {
   display: inline-block;
 }
 
-select {
+body.synth select {
   font-size: 100%;
 }
 
-.key.white.note-on {
+body.synth .key.white.note-on {
   background: rgb(255, 208, 29);
 }
 
-.key.black.note-on {
+body.synth .key.black.note-on {
   background: rgb(255, 208, 29);
 }
 
-h1 {
+body.synth h1 {
   float: left;
   font-size: 240%;
   margin: 0 7px 0px 0;
 }
 
-header p {
+body.synth header p {
   margin: 0;
 }
 
-header {
+body.synth header {
   overflow: hidden;
 }
 
-header .version {
+body.synth header .version {
   opacity: 0.7;
 }

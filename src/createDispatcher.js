@@ -6,7 +6,9 @@ import {
   ExpressionMidiEvent
 } from "./midi/MidiEvent"
 
+import Song from "./model/Song"
 import Track from "./model/Track"
+import { read as readSong, write as writeSong } from "./midi/SongFile"
 
 const dispatch = app => (type, params) => {
   const { player, quantizer, song, trackMute } = app
@@ -168,6 +170,23 @@ const dispatch = app => (type, params) => {
         selectedTrack.updateEvent(note.id, { duration })
       }
       break
+    case "CREATE_SONG":
+      app.song = Song.emptySong()
+      break
+    case "SAVE_SONG":
+      writeSong(song, params.filepath, e => {
+        if (e) {
+          console.error(e)
+        }
+      })
+      break
+    case "OPEN_SONG":
+      readSong(params.filepath, (e, song) => {
+        if (e) {
+          console.error(e)
+        }
+        app.song = song
+      })
     default:
       console.log(type, params)
       break

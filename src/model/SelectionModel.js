@@ -48,11 +48,13 @@ export default class SelectionModel {
     this.emitChanges()
   }
 
-  resize(rect, quantizer, transform) {
-    this.fromTick = quantizer.round(transform.getTicks(rect.x))
-    this.fromNoteNumber = Math.ceil(transform.getNoteNumber(rect.y))
-    this.toTick = quantizer.round(transform.getTicks(rect.x + rect.width))
-    this.toNoteNumber = Math.ceil(transform.getNoteNumber(rect.y + rect.height))
+  resize(fromTick, fromNoteNumber, toTick, toNoteNumber) {
+    // to が右下になるようにする
+    this.fromTick = Math.min(fromTick, toTick)
+    this.toTick = Math.max(fromTick, toTick)
+    this.fromNoteNumber = Math.max(fromNoteNumber, toNoteNumber)
+    this.toNoteNumber = Math.min(fromNoteNumber, toNoteNumber)
+
     this.enabled = true
     this.emitChanges()
   }

@@ -65,7 +65,10 @@ ipcMain.on("create-synth-window", () => {
   }
   const url = "http://localhost:3000/#synth"
   const win = new BrowserWindow({
-    title: "synth"
+    title: "synth",
+    width: 375,
+    height: 600,
+    frame: false
   })
   win.loadURL(url)
   win.webContents.openDevTools()

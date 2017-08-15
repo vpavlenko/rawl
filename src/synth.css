@@ -4,6 +4,9 @@ body.synth {
   background: rgb(0, 0, 0);
   color: rgb(159, 159, 253);
   font-family: Consolas;
+  overflow: hidden;
+  -webkit-app-region: drag;
+  padding-top: 2em;
 }
 
 body.synth .keys>div {
@@ -17,6 +20,7 @@ body.synth .keys>.white, .keys>.black {
 body.synth .keys {
   overflow: hidden;
   background: black;
+  -webkit-app-region: no-drag;
 }
 
 body.synth .keys>.white {
@@ -52,6 +56,7 @@ body.synth select {
   border: none;
   outline: none;
   font-family: Consolas;
+  -webkit-app-region: no-drag;
 }
 
 body.synth option {
@@ -66,12 +71,13 @@ body.synth select {
   font-size: 100%;
 }
 
-body.synth .key.white.note-on {
-  background: rgb(255, 208, 29);
+body.synth option {
+  color: rgb(159, 159, 253);
 }
 
+body.synth .key.white.note-on,
 body.synth .key.black.note-on {
-  background: rgb(255, 208, 29);
+  background: rgb(246, 196, 78);
 }
 
 body.synth h1 {

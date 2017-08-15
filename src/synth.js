@@ -1,27 +1,40 @@
-import WebMidiLink from "./submodules/sf2synth/src/wml.js"
+import Synthesizer from "./submodules/sf2synth/src/sound_font_synth.js"
+import MidiMessageHandler from "./submodules/sf2synth/src/midi_message_handler.js"
 import "./synth.css"
 
 const { ipcRenderer } = window.require("electron")
 
 export default class SynthApp {
   init() {
-    const emitter = new class {
-      emit = (type, data) => {
-        ipcRenderer.send(type, data)
-      }
-
-      on = (type, listener) => {
-        ipcRenderer.on("midi", (e, message) => {
-          listener(message)
-        })
-      }
-    }
-
-    const wml = new WebMidiLink()
-    wml.setLoadCallback(() => {
-      wml.synth.setMasterVolume(16384 * 0.5)
+    
+    const handler = new MidiMessageHandler()
+    ipcRenderer.on("midi", (e, message) => {
+      handler.processMidiMessage(message)
     })
-    wml.setup("/soundfonts/SGM-180 v1.5.sf2", document.getElementById("root"), emitter)
-    document.body.classList.add("synth")
+    
+    const url = "/soundfonts/SGM-180 v1.5.sf2"
+    loadSoundFont(url, input => {
+      const synth = new Synthesizer(input)
+      synth.init()
+      synth.start()
+      handler.synth = synth
+      document.body.classList.add("synth")
+      document.getElementById("root").appendChild(synth.drawSynth())
+    })
   }
+}
+
+function loadSoundFont(url, callback) {
+  const xhr = new XMLHttpRequest()
+  
+  xhr.open("GET", url, true)
+  xhr.responseType = "arraybuffer"
+
+  xhr.addEventListener("load", ev => {
+    /** @type {XMLHttpRequest} */
+    const xhr = ev.target
+    callback(new Uint8Array(xhr.response))
+  }, false)
+
+  xhr.send()
 }

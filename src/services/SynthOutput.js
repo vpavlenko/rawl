@@ -7,8 +7,7 @@ export default class SynthOutput {
   }
 
   _send(msg) {
-    const message = ["midi", ...msg.map(m => m.toString(16))].join(",")
-    ipcRenderer.send("midi", message)
+    ipcRenderer.send("midi", msg)
   }
 
   send(msg, timestamp) {

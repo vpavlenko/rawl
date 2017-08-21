@@ -1,5 +1,6 @@
-import Synthesizer from "./submodules/sf2synth/src/sound_font_synth.js"
-import MidiMessageHandler from "./submodules/sf2synth/src/midi_message_handler.js"
+import Synthesizer from "./submodules/sf2synth/src/sound_font_synth"
+import View from "./submodules/sf2synth/src/synth_view"
+import MidiMessageHandler from "./submodules/sf2synth/src/midi_message_handler"
 import "./synth.css"
 
 const { ipcRenderer } = window.require("electron")
@@ -12,14 +13,17 @@ export default class SynthApp {
       handler.processMidiMessage(message)
     })
     
-    const url = "/soundfonts/SGM-180 v1.5.sf2"
+    const url = "/soundfonts/CONCER~2.SF2"
     loadSoundFont(url, input => {
       const synth = new Synthesizer(input)
       synth.init()
       synth.start()
       handler.synth = synth
+      
+      const view = new View()
+      synth.view = view
       document.body.classList.add("synth")
-      document.getElementById("root").appendChild(synth.drawSynth())
+      document.getElementById("root").appendChild(view.draw(synth))
     })
   }
 }

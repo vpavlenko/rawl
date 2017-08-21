@@ -56,23 +56,18 @@ body.synth select {
   border: none;
   outline: none;
   font-family: Consolas;
+  width: 12em;
+  font-size: 100%;
   -webkit-app-region: no-drag;
 }
 
 body.synth option {
   background: black;
+  color: rgb(159, 159, 253);
 }
 
 body.synth .program, .volume, .panpot, .pitchBend, .pitchBendSensitivity {
   display: inline-block;
-}
-
-body.synth select {
-  font-size: 100%;
-}
-
-body.synth option {
-  color: rgb(159, 159, 253);
 }
 
 body.synth .key.white.note-on,

@@ -6,7 +6,8 @@ body.synth {
   font-family: Consolas;
   overflow: hidden;
   -webkit-app-region: drag;
-  padding-top: 2em;
+  border-top: 1.5em rgba(255, 255, 255, 0.13) solid;
+  padding-top: 0.25em;
 }
 
 body.synth .keys>div {

@@ -9,6 +9,7 @@ export default class Song {
   name = "Untitled Song"
   _selectedTrackId = 0
   _measureList = null
+  _endOfSong = 0
 
   constructor() {
     observable(this)
@@ -18,21 +19,30 @@ export default class Song {
     this.trigger("change")
   }
 
+  _updateEndOfSong() {
+    this._endOfSong = maxX(_.flatten(this._tracks.map(t => t.getEvents())))
+  }
+
   addTrack(t) {
     // 最初のトラックは Conductor Track なので channel を設定しない
     if (this._tracks.length > 0) {
       t.channel = t.channel || this._tracks.length - 1
     }
-    t.on("change", () => this._emitChange())
+    t.on("change", () => {
+      this._emitChange()
+      this._updateEndOfSong()
+    })
     this._tracks.push(t)
     this.trigger("add-track", t)
     this._emitChange()
+    this._updateEndOfSong()
   }
 
   removeTrack(id) {
     _.pullAt(this._tracks, id)
     this._selectedTrackId = Math.min(id, this._tracks.length)
     this._emitChange()
+    this._updateEndOfSong()
   }
 
   selectTrack(id) {
@@ -67,7 +77,7 @@ export default class Song {
   }
 
   get endOfSong() {
-    return maxX(_.flatten(this._tracks.map(t => t.getEvents())))
+    return this._endOfSong
   }
 
   trackIdOfChannel(channel) {

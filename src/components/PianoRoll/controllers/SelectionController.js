@@ -1,4 +1,3 @@
-import Rect from "../../../model/Rect"
 import clipboard from "../../../services/Clipboard"
 
 /**
@@ -36,7 +35,7 @@ export default class SelectionController {
 
   // 選択範囲の右上を pos にして、ノートの選択状を解除する
   startAt(tick, noteNumber) {
-    const { selection, transform } = this
+    const { selection } = this
     selection.reset()
     selection.fromTick = tick
     selection.fromNoteNumber = noteNumber

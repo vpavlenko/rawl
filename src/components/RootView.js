@@ -3,7 +3,6 @@ import React, { Component } from "react"
 import SplitPane  from "react-split-pane"
 import { Helmet } from "react-helmet"
 
-import Song from "../model/Song"
 import { TIME_BASE } from "../Constants"
 import Popup from "./Popup"
 

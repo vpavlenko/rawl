@@ -96,8 +96,6 @@ const contextMenuAction = (selected, dispatch) => (onMouseDown, onMouseMove, onM
 
 // 選択範囲外でクリックした場合は選択範囲をリセット
 const createSelectionAction = dispatch => (onMouseDown, onMouseMove, onMouseUp) => {
-  let rect
-  let scrollLeft
   let start
 
   onMouseDown(e => {

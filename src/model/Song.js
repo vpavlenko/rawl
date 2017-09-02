@@ -40,7 +40,7 @@ export default class Song {
 
   removeTrack(id) {
     _.pullAt(this._tracks, id)
-    this._selectedTrackId = Math.min(id, this._tracks.length)
+    this._selectedTrackId = Math.min(id, this._tracks.length - 1)
     this._emitChange()
     this._updateEndOfSong()
   }

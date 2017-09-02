@@ -59,17 +59,34 @@ function drawNote(ctx, { x, y, width, height, velocity }, selected, color, selec
   ctx.stroke()
 }
 
+function drawDrumNote(ctx, { x, y, height, velocity }, selected, color, selectedColor) {
+  const alpha = velocity / 127
+  const noteColor = selected ? colorStr(selectedColor) : colorStr(color, alpha)
+
+  x = Math.round(x)
+  y = Math.round(y)
+  height = Math.round(height)
+  const radius = height / 2
+
+  ctx.beginPath()
+  ctx.arc(x, y + radius, radius, 0, 2 * Math.PI)
+  ctx.fillStyle = noteColor
+  ctx.strokeStyle = "rgba(0, 0, 0, 1)"
+  ctx.lineWidth = 1
+  ctx.closePath()
+  ctx.fill()
+  ctx.stroke()
+}
+
 function PianoNotes({
   events,
   transform,
   width,
   scrollLeft,
-  mouseMode,
-  dispatch,
   cursor,
   selectedEventIds,
-  pencilMouseHandler,
-  selectionMouseHandler
+  mouseHandler,
+  isDrumMode
 }) {
   const items = filterEvents(events, transform, scrollLeft, width)
   const height = transform.pixelsPerKey * transform.numberOfKeys
@@ -84,6 +101,9 @@ function PianoNotes({
     }
 
     function positionType(local, item) {
+      if (isDrumMode) {
+        return "center"
+      }
       const localX = local.x - item.x
       const edgeSize = Math.min(item.width / 3, 8)
       if (localX <= edgeSize) { return "left" }
@@ -92,6 +112,16 @@ function PianoNotes({
     }
 
     function itemUnderPoint({ x, y }) {
+      if (isDrumMode) {
+        return items
+          .filter(b => {
+            const r = b.height / 2
+            return x >= b.x - r
+              && x <= b.x + r
+              && y >= b.y
+              && y <= b.y + b.height
+          })[0]
+      }
       return items
         .filter(b => {
           return x >= b.x
@@ -105,7 +135,7 @@ function PianoNotes({
     const item = itemUnderPoint(local)
     const position = item && positionType(local, item)
     const tick = transform.getTicks(local.x)
-    const noteNumber = Math.round(transform.getNoteNumber(local.y))
+    const noteNumber = Math.ceil(transform.getNoteNumber(local.y))
     return {
       local, item, position, tick, noteNumber
     }
@@ -127,14 +157,14 @@ function PianoNotes({
     ctx.translate(0.5 - Math.round(scrollLeft), 0.5)
     items.forEach(item => {
       const selected = selectedEventIds.includes(item.id)
-      drawNote(ctx, item, selected, color, selectedColor)
+      if (isDrumMode) {
+        drawDrumNote(ctx, item, selected, color, selectedColor)
+      } else {
+        drawNote(ctx, item, selected, color, selectedColor)
+      }
     })
     ctx.restore()
   }
-
-  const noteMouseHandler = mouseMode === 0 ?
-    pencilMouseHandler : selectionMouseHandler
-  noteMouseHandler.dispatch = dispatch
 
   return <DrawCanvas
     draw={draw}
@@ -142,9 +172,9 @@ function PianoNotes({
     width={width}
     height={height}
     onContextMenu={e => e.preventDefault()}
-    onMouseDown={extendEvent(e => noteMouseHandler.onMouseDown(e))}
-    onMouseMove={extendEvent(e => noteMouseHandler.onMouseMove(e))}
-    onMouseUp={extendEvent(e => noteMouseHandler.onMouseUp(e))}
+    onMouseDown={extendEvent(e => mouseHandler.onMouseDown(e))}
+    onMouseMove={extendEvent(e => mouseHandler.onMouseMove(e))}
+    onMouseUp={extendEvent(e => mouseHandler.onMouseUp(e))}
     style={{ cursor }}
   />
 }
@@ -182,7 +212,12 @@ class _PianoNotes extends Component {
   render() {
     this.state.pencilMouseHandler.transform = this.props.transform
 
-    return <PianoNotes {...this.props} {...this.state} />
+    const mouseHandler = this.props.mouseMode === 0 ?
+      this.state.pencilMouseHandler : this.state.selectionMouseHandler
+
+    mouseHandler.dispatch = this.props.dispatch
+
+    return <PianoNotes {...this.props} mouseHandler={mouseHandler} />
   }
 }
 

@@ -221,6 +221,10 @@ export default class Track {
     return this.channel === undefined
   }
 
+  get isRhythmTrack() {
+    return this.channel === 9
+  }
+
   static conductorTrack(name = "Conductor Track") {
     const track = new Track()
     track.addEvents([

@@ -12,7 +12,7 @@ import SynthOutput from "./services/SynthOutput"
 import TrackMute from "./services/TrackMute"
 
 import Song from "./model/Song"
-import Config from "./Config"
+import { TIME_BASE } from "./Constants"
 
 import "./index.css"
 
@@ -20,8 +20,8 @@ export default class App {
   constructor() {
     observable(this)
     this.trackMute = new TrackMute()
-    this.player = new Player(Config.TIME_BASE, new SynthOutput(), this.trackMute)
-    this.quantizer = new Quantizer(Config.TIME_BASE)
+    this.player = new Player(TIME_BASE, new SynthOutput(), this.trackMute)
+    this.quantizer = new Quantizer(TIME_BASE)
     this.song = Song.emptySong()
   }
 

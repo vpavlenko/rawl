@@ -4,7 +4,7 @@ import SplitPane  from "react-split-pane"
 import { Helmet } from "react-helmet"
 
 import Song from "../model/Song"
-import Config from "../Config"
+import { TIME_BASE } from "../Constants"
 import Popup from "./Popup"
 
 import TrackList from "./TrackList"
@@ -164,8 +164,8 @@ export default class RootView extends Component {
       autoScroll={state.pianoRollAutoScroll}
       onClickPlay={() => dispatch("PLAY")}
       onClickStop={() => dispatch("STOP")}
-      onClickBackward={() => dispatch("MOVE_PLAYER_POSITION", { tick: -Config.TIME_BASE * 4 })}
-      onClickForward={() => dispatch("MOVE_PLAYER_POSITION", { tick: Config.TIME_BASE * 4 })}
+      onClickBackward={() => dispatch("MOVE_PLAYER_POSITION", { tick: -TIME_BASE * 4 })}
+      onClickForward={() => dispatch("MOVE_PLAYER_POSITION", { tick: TIME_BASE * 4 })}
       onClickPencil={onClickPencil}
       onClickSelection={onClickSelection}
       onClickScaleUp={onClickScaleUp}

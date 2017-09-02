@@ -1,12 +1,10 @@
 import React, { Component } from "react"
-import Config from "../Config"
+import { QuantizeOptions } from "../Constants"
 import Select from "./atoms/Select"
 import Icon from "./atoms/Icon"
 import { Toolbar, ToolbarItem, ToolbarSeparator } from "./molecules/Toolbar"
 
 import "./MainToolbar.css"
-
-const quantizeOptions = Config.QuantizeOptions
 
 function Content({
   onClickPlay,
@@ -43,7 +41,7 @@ function Content({
     <ToolbarItem onClick={onClickSelection} selected={mouseMode === 1}><Icon>select</Icon></ToolbarItem>
     <ToolbarItem touchDisabled={true}>
       <Select
-        options={quantizeOptions}
+        options={QuantizeOptions}
         value={quantize}
         onChange={e => onSelectQuantize({ ...e, denominator: parseFloat(e.target.value) })} />
     </ToolbarItem>

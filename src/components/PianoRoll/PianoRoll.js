@@ -56,12 +56,6 @@ const FixedLeftContent = pure(({ children, left }) => {
   </div>
 })
 
-const FixedTopLeftContent = pure(({ children, left, top }) => {
-  return <div className="fixed-left-top" style={{ left, top }}>
-    {children}
-  </div>
-})
-
 class PianoRoll extends Component {
   constructor(props) {
     super(props)
@@ -97,12 +91,14 @@ class PianoRoll extends Component {
 
   alphaDidScroll = (e) => {
     const { scrollTop } = e.target
+    this.alpha.scrollLeft = 0
     this.setState({ scrollTop })
   }
 
   betaDidScroll = (e) => {
     const { scrollLeft } = e.target
-    this.alpha.scrollLeft = scrollLeft
+    this.alpha.scrollLeft = 0
+    this.beta.scrollTop = 0
     this.setState({ scrollLeft })
   }
 
@@ -284,7 +280,7 @@ class PianoRoll extends Component {
           this.alpha.scrollTop += scrollLineHeight * (e.deltaY > 0 ? 1 : -1)
         }}>
         <PseudoHeightContent height={contentHeight} />
-        <FixedLeftContent left={scrollLeft}>
+        <div className="alphaContent">
           <PianoLines
             width={width}
             pixelsPerKey={transform.pixelsPerKey}
@@ -323,8 +319,8 @@ class PianoRoll extends Component {
             keyHeight={transform.pixelsPerKey}
             numberOfKeys={transform.numberOfKeys}
             onClickKey={onClickKey} />
-        </FixedLeftContent>
-        <FixedTopLeftContent top={scrollTop} left={scrollLeft}>
+        </div>
+        <div className="alphaRuler" style={{ top: scrollTop }}>
           <PianoRuler
             theme={theme}
             height={rulerHeight}
@@ -334,7 +330,7 @@ class PianoRoll extends Component {
             scrollLeft={scrollLeft}
             pixelsPerTick={transform.pixelsPerTick} />
           <div className="PianoRollLeftSpace" />
-        </FixedTopLeftContent>
+        </div>
       </div>
       <div
         className="beta"

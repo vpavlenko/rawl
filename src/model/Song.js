@@ -51,6 +51,10 @@ export default class Song {
     this._emitChange()
   }
 
+  get conductorTrack() {
+    return _.find(this._tracks, t => t.isConductorTrack)
+  }
+
   get selectedTrack() {
     return this._tracks[this._selectedTrackId]
   }

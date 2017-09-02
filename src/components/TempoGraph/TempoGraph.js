@@ -11,7 +11,6 @@ import fitToContainer from "../../hocs/fitToContainer"
 import withTheme from "../../hocs/withTheme"
 import TempoCoordTransform from "../../model/TempoCoordTransform"
 import { uSecPerBeatToBPM, bpmToUSecPerBeat } from "../../helpers/bpm"
-import { SetTempoMidiEvent } from "../../midi/MidiEvent"
 import transformEvents from "./transformEvents"
 
 import "./TempoGraph.css"
@@ -144,7 +143,8 @@ function Content({
   playerPosition,
   endTick,
   onScroll,
-  scrollLeft
+  scrollLeft,
+  dispatch
 }) {
   const { keyWidth, rulerHeight } = theme
 
@@ -168,9 +168,9 @@ function Content({
 
     function onMouseMove(e) {
       const delta = transform.getDeltaBPM(e.clientY - startY)
-
-      track.updateEvent(event.id, {
-        microsecondsPerBeat: bpmToUSecPerBeat(bpm + delta)
+      dispatch("CHANGE_TEMPO", { 
+        id: event.id, 
+        microsecondsPerBeat: bpmToUSecPerBeat(bpm + delta) 
       })
     }
 
@@ -190,8 +190,9 @@ function Content({
     const event = track.getEventById(e.item.id)
     const movement = e.deltaY > 0 ? -1 : 1
     const bpm = uSecPerBeatToBPM(event.microsecondsPerBeat)
-    track.updateEvent(e.item.id, {
-      microsecondsPerBeat: bpmToUSecPerBeat(bpm + movement)
+    dispatch("CHANGE_TEMPO", { 
+      id: event.id, 
+      microsecondsPerBeat: bpmToUSecPerBeat(bpm + movement) 
     })
   }
 
@@ -199,8 +200,10 @@ function Content({
     const rect = e.currentTarget.getBoundingClientRect()
     const tick = transform.getTicks(e.clientX - rect.left)
     const bpm = transform.getBPM(e.clientY - rect.top)
-    const event = new SetTempoMidiEvent(tick, uSecPerBeatToBPM(bpm))
-    track.addEvent(event)
+    dispatch("CREATE_TEMPO", { 
+      tick,
+      microsecondsPerBeat: uSecPerBeatToBPM(bpm) 
+    })
   }
 
   return <div className="TempoGraph" onScroll={onScroll}>
@@ -242,7 +245,7 @@ function Content({
         height={rulerHeight}
         endTick={widthTick}
         ticksPerBeat={ticksPerBeat}
-        onMouseDown={() => {}}
+        onMouseDown={({ tick }) => dispatch("SET_PLAYER_POSITION", { tick })}
         scrollLeft={scrollLeft}
         pixelsPerTick={pixelsPerTick}
       />

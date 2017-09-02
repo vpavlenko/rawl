@@ -267,7 +267,8 @@ export default class RootView extends Component {
     const tempoGraph = <TempoGraph
       track={selectedTrack}
       player={player}
-      endTick={song.endOfSong} />
+      endTick={song.endOfSong}
+      dispatch={dispatch} />
 
     return <div className="RootView">
       <Helmet><title>{song.name} ― signal</title></Helmet>

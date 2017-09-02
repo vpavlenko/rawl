@@ -1,6 +1,7 @@
 import {
   PanMidiEvent,
   VolumeMidiEvent,
+  SetTempoMidiEvent,
   PitchBendMidiEvent,
   ModulationMidiEvent,
   ExpressionMidiEvent
@@ -52,7 +53,7 @@ const dispatch = app => (type, params) => {
       break
     case "MOVE_PLAYER_POSITION":
       if (!player.isPlaying) {
-        player.position += params.tick
+        player.position = quantizer.round(player.position + params.tick)
       }
       break
     case "TOGGLE_MUTE_TRACK":
@@ -122,6 +123,15 @@ const dispatch = app => (type, params) => {
     case "SET_TEMPO":
       song.getTrack(0).tempo = params.tempo
       break
+      case "CHANGE_TEMPO":
+        song.conductorTrack.updateEvent(params.id, {
+          microsecondsPerBeat: params.microsecondsPerBeat
+        })
+        break
+    case "CREATE_TEMPO": {
+      const event = new SetTempoMidiEvent(params.tick, params.microsecondsPerBeat)
+      song.conductorTrack.addEvent(event)
+      break}
     case "REMOVE_EVENT":
       selectedTrack.removeEvent(params.eventId)
       break
@@ -130,7 +140,7 @@ const dispatch = app => (type, params) => {
         type: "channel",
         subtype: "note",
         noteNumber: params.noteNumber,
-        tick: quantizer.floor(params.tick),
+        tick: quantizer.round(params.tick),
         velocity: 127,
         duration: quantizer.unit,
         channel: selectedTrack.channel

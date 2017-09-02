@@ -14,11 +14,11 @@ function InstrumentBrowserContent({
   onClickCancel
 }) {
   const categoryOptions = categories.map((name, i) => {
-    return <option key={i}>{name}</option>
+    return <option key={i} value={i}>{name}</option>
   })
 
   const instrumentOptions = instruments.map((name, i) => {
-    return <option key={i}>{name}</option>
+    return <option key={i} value={i}>{name}</option>
   })
 
   return <div className="InstrumentBrowser">
@@ -84,6 +84,7 @@ export default class InstrumentBrowser extends Component {
       onClickCancel={this.props.onClickCancel}
       onChangeCategory={onChangeCategory}
       onChangeInstrument={onChangeInstrument}
+      {...this.state}
     />
   }
 }

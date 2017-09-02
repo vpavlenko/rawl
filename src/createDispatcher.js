@@ -136,11 +136,13 @@ const dispatch = app => (type, params) => {
       selectedTrack.removeEvent(params.eventId)
       break
     case "CREATE_NOTE": {
+      const tick = selectedTrack.isRhythmTrack ? 
+        quantizer.round(params.tick) : quantizer.floor(params.tick)
       const note = {
         type: "channel",
         subtype: "note",
         noteNumber: params.noteNumber,
-        tick: quantizer.round(params.tick),
+        tick,
         velocity: 127,
         duration: quantizer.unit,
         channel: selectedTrack.channel

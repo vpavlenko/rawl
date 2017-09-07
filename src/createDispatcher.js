@@ -19,12 +19,12 @@ const dispatch = (app, history) => (type, params) => {
     history.push({ type, params }, song)
   }
 
-  const createOrUpdate = (typeProp, type, tick = player.position, valueProp, value, createEvent) => {
+  const createOrUpdate = (typeProp, type, tick = player.position, valueProp, value, createEvent, track = selectedTrack) => {
     const value2 = Math.round(value)
     const tick2 = quantizer.round(tick)
-    const events = selectedTrack.events.filter(e => e[typeProp] === type && e.tick === tick2)
+    const events = track.events.filter(e => e[typeProp] === type && e.tick === tick2)
     if (events.length > 0) {
-      selectedTrack.transaction(it => {
+      track.transaction(it => {
         events.forEach(e => {
           it.updateEvent(e.id, { [valueProp]: value2 })
         })
@@ -34,7 +34,7 @@ const dispatch = (app, history) => (type, params) => {
       const e = createEvent()
       e[valueProp] = value2
       e.tick = tick2
-      return selectedTrack.addEvent(e)
+      return track.addEvent(e)
     }
   }
 
@@ -146,11 +146,12 @@ const dispatch = (app, history) => (type, params) => {
         microsecondsPerBeat: params.microsecondsPerBeat
       })
       break
-    case "CREATE_TEMPO": {
+    case "CREATE_TEMPO":
       saveHistory()
-      const event = new SetTempoMidiEvent(params.tick, params.microsecondsPerBeat)
-      song.conductorTrack.addEvent(event)
-      break}
+      return createOrUpdate("subtype", "setTempo", params.tick, "value", 
+        params.microsecondsPerBeat, 
+        () => new SetTempoMidiEvent(), 
+        song.conductorTrack)
     case "REMOVE_EVENT":
       saveHistory()
       selectedTrack.removeEvent(params.eventId)

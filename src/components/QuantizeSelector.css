@@ -1,0 +1,62 @@
+.QuantizeSelector .buttons {
+  display: flex;
+}
+
+.QuantizeSelector {
+  display: flex;
+  color: var(--secondary-text-color);
+  border-right: 1px solid var(--divider-color);
+}
+
+.QuantizeSelector .buttons .button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2.5em;
+  font-size: 110%;
+}
+
+.QuantizeSelector .options>div {
+  display: flex;
+  padding: 0 0.5em;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  height: 100%;
+}
+
+.QuantizeSelector .options .dot {
+  font-size: 50%;
+}
+
+.QuantizeSelector .options {
+  border-left: 1px solid var(--divider-color);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ToolbarButton と同じ見た目 */
+
+.QuantizeSelector .button {
+  cursor: default;
+  user-select: none;
+  background: rgba(0, 0, 0, 0);
+  transition: 0.3s ease background-color;
+}
+
+.QuantizeSelector .button.selected {
+  background: rgba(0, 0, 0, 0.03);
+  border-bottom: 2px solid var(--theme-color);
+}
+
+.QuantizeSelector .button:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.QuantizeSelector .button:active {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.QuantizeSelector .button.dot.selected {
+  border-bottom: none;
+}

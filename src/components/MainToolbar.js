@@ -3,6 +3,7 @@ import { QuantizeOptions } from "../Constants"
 import Select from "./inputs/Select"
 import Icon from "./Icon"
 import { Toolbar, ToolbarItem, ToolbarSeparator } from "./groups/Toolbar"
+import QuantizeSelector from "./QuantizeSelector"
 
 import "./MainToolbar.css"
 
@@ -39,12 +40,13 @@ function Content({
 
     <ToolbarItem onClick={onClickPencil} selected={mouseMode === 0}><Icon>pencil</Icon></ToolbarItem>
     <ToolbarItem onClick={onClickSelection} selected={mouseMode === 1}><Icon>select</Icon></ToolbarItem>
-    <ToolbarItem touchDisabled={true}>
-      <Select
-        options={QuantizeOptions}
-        value={quantize}
-        onChange={e => onSelectQuantize({ ...e, denominator: parseFloat(e.target.value) })} />
-    </ToolbarItem>
+
+    <ToolbarSeparator />
+
+    <QuantizeSelector 
+      value={quantize}
+      onSelect={value => onSelectQuantize({ denominator: value })} 
+      />
 
     <ToolbarSeparator />
 

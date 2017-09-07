@@ -142,7 +142,7 @@ export default class TrackList extends Component {
   }
 
   onChangeMute = () => {
-    const { player, tracks, trackMute } = this.props
+    const { tracks, trackMute } = this.props
     const trackMutes = tracks.map((_, i) => trackMute.isMuted(i))
     const trackSolos = tracks.map((_, i) => trackMute.isSolo(i))
     this.setState({ trackMutes, trackSolos })

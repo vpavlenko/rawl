@@ -12,4 +12,5 @@ switch(document.location.hash) {
     app.init()
     break
   }
+  default: break
 }

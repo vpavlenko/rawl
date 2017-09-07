@@ -8,11 +8,19 @@ const fs = remote.require("fs")
 
 export function read(file, callback) {
   fs.readFile(file, (e, data) => {
-    const midi = readBytes(data)
+    if (e) {
+      return callback(e)
+    }
+    let midi
+    try {
+      midi = readBytes(data)
+    } catch (e) {
+      return callback(e)
+    }
     const song = Song.fromMidi(midi)
     song.filepath = file
     song.name = path.basename(file.replace(/\\/g, "/"))
-    callback(e, song)
+    callback(null, song)
   })
 }
 

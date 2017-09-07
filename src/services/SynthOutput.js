@@ -1,4 +1,4 @@
-const { remote, ipcRenderer } = window.require("electron")
+const { ipcRenderer } = window.require("electron")
 
 export default class SynthOutput {
   constructor() {

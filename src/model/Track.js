@@ -1,5 +1,6 @@
 import _ from "lodash"
-import observable from "riot-observable"
+import EventEmitter from "eventemitter3"
+
 import {
   TrackNameMidiEvent, EndOfTrackMidiEvent,
   TimeSignatureMidiEvent, SetTempoMidiEvent,
@@ -14,13 +15,9 @@ function lastValue(arr, prop) {
   return last && last[prop]
 }
 
-export default class Track {
+export default class Track extends EventEmitter {
   events = []
   lastEventId = 0
-
-  constructor() {
-    observable(this)
-  }
 
   getEvents() {
     return this.events
@@ -120,7 +117,7 @@ export default class Track {
   emitChange() {
     this._changed = true
     if (!this._paused) {
-      this.trigger("change")
+      this.emit("change")
     }
   }
 

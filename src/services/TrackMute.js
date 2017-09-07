@@ -1,5 +1,5 @@
 import _ from "lodash"
-import observable from "riot-observable"
+import EventEmitter from "eventemitter3"
 
 /**
 
@@ -21,13 +21,9 @@ import observable from "riot-observable"
   mute モードに遷移する
 
 */
-export default class TrackMute {
+export default class TrackMute extends EventEmitter {
   mutes = {}
   solos = {}
-
-  constructor() {
-    observable(this)
-  }
 
   _prepareMute(trackId) {
     if (this.mutes[trackId] === undefined) {
@@ -47,7 +43,7 @@ export default class TrackMute {
     }
     this._prepareMute(trackId)
     this.mutes[trackId] = isMute
-    this.trigger("change-mute")
+    this.emit("change-mute")
   }
 
   _getMute(trackId) {
@@ -58,7 +54,7 @@ export default class TrackMute {
   _setSolo(trackId, isSolo) {
     this._prepareSolo(trackId)
     this.solos[trackId] = isSolo
-    this.trigger("change-mute")
+    this.emit("change-mute")
   }
 
   _getSolo(trackId) {

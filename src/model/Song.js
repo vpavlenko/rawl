@@ -1,22 +1,18 @@
 import _ from "lodash"
-import observable from "riot-observable"
+import EventEmitter from "eventemitter3"
 import MeasureList from "./MeasureList"
 import Track from "./Track"
 import maxX from "../helpers/maxX"
 
-export default class Song {
+export default class Song extends EventEmitter {
   _tracks = []
   name = "Untitled Song"
   _selectedTrackId = 0
   _measureList = null
   _endOfSong = 0
 
-  constructor() {
-    observable(this)
-  }
-
   _emitChange() {
-    this.trigger("change")
+    this.emit("change")
   }
 
   _updateEndOfSong() {
@@ -33,7 +29,7 @@ export default class Song {
       this._updateEndOfSong()
     })
     this._tracks.push(t)
-    this.trigger("add-track", t)
+    this.emit("add-track", t)
     this._emitChange()
     this._updateEndOfSong()
   }

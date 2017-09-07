@@ -1,6 +1,6 @@
 import React from "react"
 import ReactDOM from "react-dom"
-import observable from "riot-observable"
+import EventEmitter from "eventemitter3"
 
 import RootView from "./components/RootView"
 import withSong from "./hocs/withSong"
@@ -16,9 +16,9 @@ import { TIME_BASE } from "./Constants"
 
 import "./index.css"
 
-export default class App {
+export default class App extends EventEmitter {
   constructor() {
-    observable(this)
+    super()
     this.trackMute = new TrackMute()
     this.player = new Player(TIME_BASE, new SynthOutput(), this.trackMute)
     this.quantizer = new Quantizer(TIME_BASE)
@@ -40,7 +40,7 @@ export default class App {
   set song(song) {
     this._song = song
     this.player.song = song
-    this.trigger("change-song", song)
+    this.emit("change-song", song)
     this.player.reset()
   }
 

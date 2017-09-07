@@ -1,15 +1,15 @@
-import observable from "riot-observable"
+import EventEmitter from "eventemitter3"
 import _ from "lodash"
 import Rect from "./Rect"
 
-export default class SelectionModel {
+export default class SelectionModel extends EventEmitter {
   constructor() {
+    super()
     this.reset()
-    observable(this)
   }
 
   emitChanges() {
-    this.trigger("change")
+    this.emit("change")
   }
 
   getBounds(transform) {

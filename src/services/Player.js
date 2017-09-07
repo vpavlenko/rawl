@@ -1,6 +1,7 @@
 import _ from "lodash"
-import observable from "riot-observable"
+import EventEmitter from "eventemitter3"
 import assert from "assert"
+
 import MIDIControlEvents from "../constants/MIDIControlEvents"
 import MIDIChannelEvents from "../constants/MIDIChannelEvents"
 import { eventToBytes } from "../helpers/midiHelper"
@@ -41,18 +42,18 @@ class DisplayTask {
 
 const displayTask = new DisplayTask()
 
-export default class Player {
+export default class Player extends EventEmitter {
   _playing = false
   _currentTempo = 120
   _currentTick = 0
   _prevTime = 0
 
   constructor(timebase, output, trackMute) {
+    super()
+
     this._output = output
     this._timebase = timebase
     this._trackMute = trackMute
-
-    observable(this)
   }
 
   set song(song) {
@@ -159,7 +160,7 @@ export default class Player {
         switch (e.subtype) {
           case "setTempo":
             this._currentTempo = 60000000 / e.microsecondsPerBeat
-            this.trigger("change-tempo", this._currentTempo)
+            this.emit("change-tempo", this._currentTempo)
             break
           case "endOfTrack":
             break
@@ -179,7 +180,7 @@ export default class Player {
 
   emitChangePosition() {
     displayTask.add("changePosition", () => {
-      this.trigger("change-position", this._currentTick)
+      this.emit("change-position", this._currentTick)
     })
   }
 }

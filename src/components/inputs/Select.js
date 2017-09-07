@@ -1,6 +1,6 @@
 import React from "react"
 import { pure } from "recompose"
-import Icon from "./Icon"
+import Icon from "../Icon"
 import "./Select.css"
 
 function Select({

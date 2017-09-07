@@ -4,7 +4,7 @@ import "../src/theme.css"
 
 // inputs
 
-import Icon from "../src/components/inputs/Icon"
+import Icon from "../src/components/Icon"
 import Knob from "../src/components/inputs/Knob"
 import Slider from "../src/components/inputs/Slider"
 import Select from "../src/components/inputs/Select"

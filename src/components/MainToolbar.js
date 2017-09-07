@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { QuantizeOptions } from "../Constants"
 import Select from "./inputs/Select"
-import Icon from "./inputs/Icon"
+import Icon from "./Icon"
 import { Toolbar, ToolbarItem, ToolbarSeparator } from "./groups/Toolbar"
 
 import "./MainToolbar.css"

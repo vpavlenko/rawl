@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import Icon from "./inputs/Icon"
+import Icon from "./Icon"
 import Slider from "./inputs/Slider"
 import Knob from "./inputs/Knob"
 import NumberInput from "./inputs/NumberInput"

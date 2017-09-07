@@ -24,6 +24,7 @@ export default class App extends EventEmitter {
     this.player = new Player(TIME_BASE, new SynthOutput(), this.trackMute)
     this.quantizer = new Quantizer(TIME_BASE)
     this.song = Song.emptySong()
+    this.state = {}
   }
 
   init() {

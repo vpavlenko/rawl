@@ -12,7 +12,7 @@ import Track from "./model/Track"
 import { read as readSong, write as writeSong } from "./midi/SongFile"
 
 const dispatch = (app, history) => (type, params) => {
-  const { player, quantizer, song, trackMute } = app
+  const { player, quantizer, song, trackMute, state } = app
   const { tracks, selectedTrack } = song
 
   const saveHistory = () => {
@@ -165,7 +165,7 @@ const dispatch = (app, history) => (type, params) => {
         noteNumber: params.noteNumber,
         tick,
         velocity: 127,
-        duration: quantizer.unit,
+        duration: state.lastNoteDuration || quantizer.unit,
         channel: selectedTrack.channel
       }
       selectedTrack.addEvent(note)
@@ -198,6 +198,7 @@ const dispatch = (app, history) => (type, params) => {
       const duration = note.duration + (note.tick - tick)
       if (note.tick !== params.tick && duration >= quantizer.unit) {
         saveHistory()
+        state.lastNoteDuration = duration
         selectedTrack.updateEvent(note.id, { tick, duration })
       }
       break
@@ -209,6 +210,7 @@ const dispatch = (app, history) => (type, params) => {
         quantizer.round(right - note.tick))
       if (note.duration !== duration) {
         saveHistory()
+        state.lastNoteDuration = duration
         selectedTrack.updateEvent(note.id, { duration })
       }
       break

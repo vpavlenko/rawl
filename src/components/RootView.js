@@ -56,8 +56,8 @@ export default class RootView extends Component {
       if (e.target !== document.body) {
         return
       }
-      switch(e.keyCode) {
-        case 32: {
+      switch(e.code) {
+        case "Space": {
           const { player } = this.props.app
           if (player.isPlaying) {
             player.stop()
@@ -65,6 +65,18 @@ export default class RootView extends Component {
             player.play()
           }
           e.preventDefault()
+          break
+        }
+        case "KeyZ": {
+          if (e.ctrlKey) {
+            this.props.dispatch("UNDO")
+          }
+          break
+        }
+        case "KeyY": {
+          if (e.ctrlKey) {
+            this.props.dispatch("REDO")
+          }
           break
         }
         default: break

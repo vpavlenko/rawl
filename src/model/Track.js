@@ -62,7 +62,7 @@ export default class Track extends EventEmitter {
   }
 
   // ソート、通知を行わない内部用の addEvent
-  _addEvent = (e) => {
+  _addEvent(e) {
     e.id = this.lastEventId
     this.lastEventId++
     this.events.push(e)
@@ -83,7 +83,7 @@ export default class Track extends EventEmitter {
   }
 
   addEvents(events) {
-    events.forEach(this._addEvent)
+    events.forEach(e => this._addEvent(e))
     this.didAddEvent()
   }
 

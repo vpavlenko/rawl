@@ -19,6 +19,22 @@ export default class Song extends EventEmitter {
     this._endOfSong = maxX(_.flatten(this._tracks.map(t => t.getEvents())))
   }
 
+  clone() {
+    const newSong = _.cloneDeep(this)
+    newSong.observeTracks()
+    return newSong
+  }
+
+  observeTracks() {
+    // track の監視状態がなくなっているのを復帰する
+    for (let t of this._tracks) {
+      t.on("change", () => {
+        this._emitChange()
+        this._updateEndOfSong()
+      })
+    }
+  }
+
   addTrack(t) {
     // 最初のトラックは Conductor Track なので channel を設定しない
     if (this._tracks.length > 0) {

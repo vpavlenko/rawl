@@ -10,6 +10,7 @@ import Player from "./services/Player"
 import Quantizer from "./services/Quantizer"
 import SynthOutput from "./services/SynthOutput"
 import TrackMute from "./services/TrackMute"
+import History from "./services/History"
 
 import Song from "./model/Song"
 import { TIME_BASE } from "./Constants"
@@ -29,7 +30,8 @@ export default class App extends EventEmitter {
     document.app = this // for debug
 
     const RootView2 = withSong(this, RootView)
-    const dispatch = createDispatcher(this)
+    const history = new History(this)
+    const dispatch = createDispatcher(this, history)
 
     ReactDOM.render(<RootView2
       app={this}

@@ -1,9 +1,9 @@
 import React, { Component } from "react"
-import Icon from "./atoms/Icon"
-import Slider from "./atoms/Slider"
-import Knob from "./atoms/Knob"
-import NumberInput from "./atoms/NumberInput"
-import { ContextMenu, MenuItem, createContextMenu } from "./molecules/ContextMenu"
+import Icon from "./inputs/Icon"
+import Slider from "./inputs/Slider"
+import Knob from "./inputs/Knob"
+import NumberInput from "./inputs/NumberInput"
+import { ContextMenu, MenuItem, createContextMenu } from "./groups/ContextMenu"
 
 import "./TrackList.css"
 

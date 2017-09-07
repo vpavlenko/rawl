@@ -1,6 +1,6 @@
 import React, { Component } from "react"
-import Button from "../atoms/Button"
-import Icon from "../atoms/Icon"
+import Button from "../inputs/Button"
+import Icon from "../inputs/Icon"
 
 import "./Section.css"
 

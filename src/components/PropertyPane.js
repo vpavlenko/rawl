@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { noteNumberString } from "../helpers/noteNumberString"
-import Section from "./molecules/Section"
-import Icon from "./atoms/Icon"
+import Section from "./groups/Section"
+import Icon from "./inputs/Icon"
 
 import "./PropertyPane.css"
 

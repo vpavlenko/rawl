@@ -1,8 +1,8 @@
 import React, { Component } from "react"
 import { QuantizeOptions } from "../Constants"
-import Select from "./atoms/Select"
-import Icon from "./atoms/Icon"
-import { Toolbar, ToolbarItem, ToolbarSeparator } from "./molecules/Toolbar"
+import Select from "./inputs/Select"
+import Icon from "./inputs/Icon"
+import { Toolbar, ToolbarItem, ToolbarSeparator } from "./groups/Toolbar"
 
 import "./MainToolbar.css"
 

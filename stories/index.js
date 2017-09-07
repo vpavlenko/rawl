@@ -2,22 +2,22 @@ import React, { Component } from "react"
 import { storiesOf, action, linkTo } from "@kadira/storybook"
 import "../src/theme.css"
 
-// atoms
+// inputs
 
-import Icon from "../src/components/atoms/Icon"
-import Knob from "../src/components/atoms/Knob"
-import Slider from "../src/components/atoms/Slider"
-import Select from "../src/components/atoms/Select"
-import Button from "../src/components/atoms/Button"
-import TextInput from "../src/components/atoms/TextInput"
-import NumberInput from "../src/components/atoms/NumberInput"
+import Icon from "../src/components/inputs/Icon"
+import Knob from "../src/components/inputs/Knob"
+import Slider from "../src/components/inputs/Slider"
+import Select from "../src/components/inputs/Select"
+import Button from "../src/components/inputs/Button"
+import TextInput from "../src/components/inputs/TextInput"
+import NumberInput from "../src/components/inputs/NumberInput"
 
-// molecules
+// groups
 
-import Section from "../src/components/molecules/Section"
-import { MenuBar, MenuItem, SubMenu, MenuSeparator } from "../src/components/molecules/MenuBar"
-import { Toolbar, ToolbarItem, ToolbarSeparator } from "../src/components/molecules/Toolbar"
-import { createContextMenu, ContextMenu, MenuItem as ContextMenuItem } from "../src/components/molecules/ContextMenu"
+import Section from "../src/components/groups/Section"
+import { MenuBar, MenuItem, SubMenu, MenuSeparator } from "../src/components/groups/MenuBar"
+import { Toolbar, ToolbarItem, ToolbarSeparator } from "../src/components/groups/Toolbar"
+import { createContextMenu, ContextMenu, MenuItem as ContextMenuItem } from "../src/components/groups/ContextMenu"
 
 // organisms
 
@@ -50,7 +50,7 @@ function wrapControl(BaseComponent) {
   }
 }
 
-storiesOf("atoms", module)
+storiesOf("inputs", module)
   .add("Button", () => (
     <Button>Hello</Button>
   ))
@@ -94,7 +94,7 @@ storiesOf("atoms", module)
       maxDegree={280} />
   })
 
-storiesOf("molecules", module)
+storiesOf("groups", module)
   .add("MenuBar", () => (
     <Container overflow="visible">
       <MenuBar>

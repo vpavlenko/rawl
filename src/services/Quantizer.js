@@ -1,5 +1,5 @@
 export default class Quantizer {
-  constructor(ticksPerBeat, denominator = 4) {
+  constructor(ticksPerBeat, denominator = 8) {
     this._ticksPerBeat = ticksPerBeat
 
     // N 分音符の N

@@ -153,11 +153,15 @@ export default class Track extends EventEmitter {
     }
   }
 
-  // 表示用の名前 トラック名がなければ楽器名を表示する
+  // 表示用の名前 トラック名がなければトラック番号を表示する
   get displayName() {
     if (this.name && this.name.length > 0) {
       return this.name
     }
+    return `Track ${this.channel}`
+  }
+
+  get instrumentName() {
     const program = this.programNumber
     if (program !== undefined) {
       return getInstrumentName(program)

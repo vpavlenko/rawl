@@ -44,11 +44,22 @@
   font-weight: normal;
 }
 
-.TrackListItem .name {
-  margin-bottom: 0.5em;
+.TrackListItem .label {
+  display: flex;
   flex-grow: 1;
+  padding-bottom: 0.5em;
+  align-items: baseline;
+}
+
+.TrackListItem .name {
+  padding-right: 0.5em;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.TrackListItem .instrument {
+  opacity: 0.5;
+  font-size: 90%;
 }
 
 .TrackListItem .button {

@@ -11,6 +11,7 @@ const Nop = () => {}
 
 function TrackListItem({
   name = "",
+  instrument = "",
   mute = false,
   solo = false,
   selected = false,
@@ -36,7 +37,10 @@ function TrackListItem({
         }}>Delete Track</MenuItem>
       </ContextMenu>
     )}>
-    <div className="name" onDoubleClick={onDoubleClickName}>{name}</div>
+    <div className="label">
+      <div className="name" onDoubleClick={onDoubleClickName}>{name}</div>
+      <div className="instrument">{instrument}</div>
+    </div>
     <div className="controls">
       <div className="button instrument" onClick={onClickInstrument}><Icon>piano</Icon></div>
       <div className={`button solo ${solo ? "active" : ""}`} onClick={onClickSolo}><Icon>headphones</Icon></div>
@@ -102,6 +106,7 @@ function TrackListContent({
       return <TrackListItem
         key={i}
         name={t.displayName || `Track ${t.channel}`}
+        instrument={t.instrumentName}
         mute={trackMutes[i]}
         solo={trackSolos[i]}
         selected={i === selectedTrackId}

@@ -4,19 +4,26 @@ import MeasureList from "./MeasureList"
 import Track from "./Track"
 import maxX from "../helpers/maxX"
 
+const END_MARGIN = 480 * 30
+
 export default class Song extends EventEmitter {
   _tracks = []
   name = "Untitled Song"
   _selectedTrackId = 0
   _measureList = null
-  _endOfSong = 0
+  _endOfSong = END_MARGIN
+
+  constructor() {
+    super()
+  }
 
   _emitChange() {
     this.emit("change")
   }
 
   _updateEndOfSong() {
-    this._endOfSong = maxX(_.flatten(this._tracks.map(t => t.getEvents())))
+    this._endOfSong = maxX(_.flatten(this._tracks.map(t => t.getEvents()))) + END_MARGIN
+    this._measureList = null
   }
 
   clone() {

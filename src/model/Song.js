@@ -88,7 +88,7 @@ export default class Song extends EventEmitter {
       return this._measureList
     }
 
-    this._measureList = new MeasureList(this.getTrack(0))
+    this._measureList = new MeasureList(this.conductorTrack, this.endOfSong)
     return this._measureList
   }
 

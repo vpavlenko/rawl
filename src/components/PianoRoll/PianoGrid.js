@@ -4,24 +4,20 @@ import _ from "lodash"
 import DrawCanvas from "../DrawCanvas"
 import withTheme from "../../hocs/withTheme"
 import logEq from "../../helpers/logEq"
+import drawBeats from "./drawBeats"
 
-function drawBeatLines(ctx, transform, startTick, endTick, ticksPerBeat, theme) {
-  const height = transform.getMaxY()
-  const pixelsPerTick = transform.pixelsPerTick
+function drawBeatLines(ctx, beats, height, pixelsPerTick, startTick, endTick, theme) {
   ctx.lineWidth = 1
-  const startBeat = Math.floor(startTick / ticksPerBeat)
-  const endBeat = Math.floor(endTick / ticksPerBeat)
 
-  for (let beats = startBeat; beats < endBeat; beats++) {
-    const x = Math.round(beats * ticksPerBeat * pixelsPerTick)
-    const isBold = beats % 4 === 0
+  drawBeats(beats, pixelsPerTick, startTick, endTick, (beat, x) => {
+    const isBold = beat.beat === 0
     ctx.beginPath()
     ctx.strokeStyle = isBold ? theme.secondaryTextColor : theme.dividerColor
     ctx.moveTo(x, 0)
     ctx.lineTo(x, height)
     ctx.closePath()
     ctx.stroke()
-  }
+  })
 }
 
 function PianoGrid({
@@ -30,7 +26,7 @@ function PianoGrid({
   height,
   endTick,
   scrollLeft,
-  ticksPerBeat,
+  beats,
   theme
 }) {
   function draw(ctx) {
@@ -39,7 +35,7 @@ function PianoGrid({
     ctx.save()
     ctx.translate(-scrollLeft + 0.5, 0)
     const startTick = transform.getTicks(scrollLeft)
-    drawBeatLines(ctx, transform, startTick, endTick, ticksPerBeat, theme)
+    drawBeatLines(ctx, beats, height, transform.pixelsPerTick, startTick, endTick, theme)
     ctx.restore()
   }
 
@@ -56,9 +52,9 @@ PianoGrid.propTypes = {
   height: PropTypes.number.isRequired,
   endTick: PropTypes.number.isRequired,
   scrollLeft: PropTypes.number.isRequired,
-  ticksPerBeat: PropTypes.number.isRequired,
   theme: PropTypes.object.isRequired,
-  transform: PropTypes.object.isRequired
+  transform: PropTypes.object.isRequired,
+  beats: PropTypes.array.isRequired
 }
 
 class _PianoGrid extends Component {
@@ -71,6 +67,7 @@ class _PianoGrid extends Component {
       || !logEq(props, nextProps, "scrollLeft", (x, y) => x === y)
       || !logEq(props, nextProps, "ticksPerBeat", (x, y) => x === y)
       || !logEq(props, nextProps, "transform", (x, y) => x && y && x.equals(y))
+      || !logEq(props, nextProps, "beats", (x, y) => x === y)
   }
 
   render() {

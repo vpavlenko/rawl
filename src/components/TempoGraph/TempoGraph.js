@@ -140,6 +140,7 @@ function Content({
   containerWidth,
   containerHeight,
   theme,
+  beats,
   playerPosition,
   endTick,
   onScroll,
@@ -149,7 +150,6 @@ function Content({
   const { keyWidth, rulerHeight } = theme
 
   const pixelsPerTick = 0.1
-  const ticksPerBeat = 480
   const transform = new TempoCoordTransform(pixelsPerTick, containerHeight)
   const widthTick = Math.max(endTick, transform.getTicks(containerWidth))
   const contentWidth = widthTick * pixelsPerTick
@@ -215,7 +215,7 @@ function Content({
         scrollLeft={scrollLeft}
         transform={transform}
         endTick={widthTick}
-        ticksPerBeat={ticksPerBeat}
+        beats={beats}
       />
       <HorizontalLines
         width={containerWidth}
@@ -242,9 +242,10 @@ function Content({
       />
       <PianoRuler
         theme={theme}
+        width={containerWidth}
         height={rulerHeight}
         endTick={widthTick}
-        ticksPerBeat={ticksPerBeat}
+        beats={beats}
         onMouseDown={({ tick }) => dispatch("SET_PLAYER_POSITION", { tick })}
         scrollLeft={scrollLeft}
         pixelsPerTick={pixelsPerTick}

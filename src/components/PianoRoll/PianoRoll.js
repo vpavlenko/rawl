@@ -172,7 +172,7 @@ class PianoRoll extends Component {
       theme,
       track,
       onClickKey,
-      ticksPerBeat,
+      beats,
       endTick,
       mouseMode,
       player,
@@ -287,11 +287,11 @@ class PianoRoll extends Component {
             numberOfKeys={transform.numberOfKeys} />
           <PianoGrid
             endTick={widthTick}
-            ticksPerBeat={ticksPerBeat}
             width={width}
             height={contentHeight}
             scrollLeft={scrollLeft}
-            transform={transform} />
+            transform={transform}
+            beats={beats} />
           <PianoNotes
             events={events}
             selectedEventIds={selection.noteIds}
@@ -322,10 +322,11 @@ class PianoRoll extends Component {
         </div>
         <div className="alphaRuler" style={{ top: scrollTop }}>
           <PianoRuler
+            width={width}
             theme={theme}
             height={rulerHeight}
             endTick={widthTick}
-            ticksPerBeat={ticksPerBeat}
+            beats={beats}
             onMouseDown={({ tick }) => dispatch("SET_PLAYER_POSITION", { tick })}
             scrollLeft={scrollLeft}
             pixelsPerTick={transform.pixelsPerTick} />
@@ -348,11 +349,11 @@ class PianoRoll extends Component {
             {controlMode === "expression" && <ExpressionGraph {...controlProps} />}
             <PianoGrid
               endTick={widthTick}
-              ticksPerBeat={ticksPerBeat}
               width={width}
               height={controlHeight}
               scrollLeft={scrollLeft}
-              transform={transform} />
+              transform={transform}
+              beats={beats} />
           </div>
         </FixedLeftContent>
       </div>
@@ -367,7 +368,6 @@ PianoRoll.propTypes = {
   endTick: PropTypes.number.isRequired,
   scaleX: PropTypes.number.isRequired,
   scaleY: PropTypes.number.isRequired,
-  ticksPerBeat: PropTypes.number.isRequired,
   autoScroll: PropTypes.bool.isRequired,
   onClickKey: PropTypes.func.isRequired,
   mouseMode: PropTypes.number.isRequired
@@ -377,8 +377,7 @@ PianoRoll.defaultProps = {
   endTick: 400,
   scaleX: 1,
   scaleY: 1,
-  autoScroll: false,
-  ticksPerBeat: 480
+  autoScroll: false
 }
 
 export default fitToContainer(withTheme(PianoRoll), {

@@ -2,19 +2,17 @@ import React from "react"
 import PropTypes from "prop-types"
 import { pure } from "recompose"
 import DrawCanvas from "../DrawCanvas"
+import drawBeats from "./drawBeats"
 
 import "./PianoRuler.css"
 
-function drawRuler(ctx, height, pixelsPerTick, startTick, endTick, ticksPerBeat, theme) {
+function drawRuler(ctx, height, pixelsPerTick, startTick, endTick, beats, theme) {
   ctx.beginPath()
   ctx.strokeStyle = theme.secondaryTextColor
   ctx.lineWidth = 1
-  const startBeat = Math.floor(startTick / ticksPerBeat)
-  const endBeat = Math.floor(endTick / ticksPerBeat)
 
-  for (let beats = startBeat; beats < endBeat; beats++) {
-    const x = Math.round(beats * ticksPerBeat * pixelsPerTick)
-    const isTop = beats % 4 === 0
+  drawBeats(beats, pixelsPerTick, startTick, endTick, (beat, x) => {
+    const isTop = beat.beat === 0
 
     if (isTop) {
       ctx.moveTo(x, height / 2)
@@ -25,24 +23,24 @@ function drawRuler(ctx, height, pixelsPerTick, startTick, endTick, ticksPerBeat,
     }
 
     if (isTop) {
-      const measure = beats / 4
       ctx.textBaseline = "top"
       ctx.font = `12px ${theme.canvasFont}`
       ctx.fillStyle = theme.secondaryTextColor
-      ctx.fillText(measure, x + 5, 2)
+      ctx.fillText(beat.measure, x + 5, 2)
     }
-  }
+  })
 
   ctx.closePath()
   ctx.stroke()
 }
 
 function PianoRuler({
+  width,
   height,
   pixelsPerTick,
   endTick,
   scrollLeft,
-  ticksPerBeat,
+  beats,
   theme,
   onMouseDown,
   onMouseMove,
@@ -55,7 +53,7 @@ function PianoRuler({
     ctx.save()
     ctx.translate(-scrollLeft + 0.5, 0)
     const startTick = scrollLeft / pixelsPerTick
-    drawRuler(ctx, height, pixelsPerTick, startTick, endTick, ticksPerBeat, theme)
+    drawRuler(ctx, height, pixelsPerTick, startTick, endTick, beats, theme)
     ctx.restore()
   }
 
@@ -67,7 +65,7 @@ function PianoRuler({
   return <DrawCanvas
     draw={draw}
     className="PianoRuler"
-    width={pixelsPerTick * endTick}
+    width={width}
     height={height}
     onMouseDown={extend(onMouseDown)}
     onMouseMove={extend(onMouseMove)}
@@ -76,12 +74,12 @@ function PianoRuler({
 }
 
 PianoRuler.propTypes = {
-  ticksPerBeat: PropTypes.number.isRequired,
   scrollLeft: PropTypes.number.isRequired,
   endTick: PropTypes.number.isRequired,
+  width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
   pixelsPerTick: PropTypes.number.isRequired,
-  theme: PropTypes.object.isRequired,
+  beats: PropTypes.array.isRequired,
   onMouseDown: PropTypes.func
 }
 

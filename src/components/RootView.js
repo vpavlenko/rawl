@@ -190,6 +190,7 @@ export default class RootView extends Component {
       quantizer={quantizer}
       player={player}
       endTick={song.endOfSong}
+      beats={song.measureList.beats}
       scaleX={state.pianoRollScaleX}
       scaleY={state.pianoRollScaleY}
       autoScroll={state.pianoRollAutoScroll}
@@ -276,9 +277,10 @@ export default class RootView extends Component {
       />
 
     const tempoGraph = <TempoGraph
-      track={selectedTrack}
+      track={song.conductorTrack}
       player={player}
       endTick={song.endOfSong}
+      beats={song.measureList.beats}
       dispatch={dispatch} />
 
     return <div className="RootView">

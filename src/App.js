@@ -45,6 +45,7 @@ export default class App extends EventEmitter {
     this.player.song = song
     this.emit("change-song", song)
     this.player.reset()
+    this.trackMute.reset()
   }
 
   get song() {

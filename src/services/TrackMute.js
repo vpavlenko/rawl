@@ -25,6 +25,12 @@ export default class TrackMute extends EventEmitter {
   mutes = {}
   solos = {}
 
+  reset() {
+    this.mutes = {}
+    this.solos = {}
+    this.emit("change-mute")
+  }
+
   _prepareMute(trackId) {
     if (this.mutes[trackId] === undefined) {
       this.mutes[trackId] = false

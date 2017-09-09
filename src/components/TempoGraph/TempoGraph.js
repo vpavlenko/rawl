@@ -139,6 +139,7 @@ function Content({
   track,
   containerWidth,
   containerHeight,
+  pixelsPerTick,
   theme,
   beats,
   playerPosition,
@@ -149,7 +150,6 @@ function Content({
 }) {
   const { keyWidth, rulerHeight } = theme
 
-  const pixelsPerTick = 0.1
   const transform = new TempoCoordTransform(pixelsPerTick, containerHeight)
   const widthTick = Math.max(endTick, transform.getTicks(containerWidth))
   const contentWidth = widthTick * pixelsPerTick
@@ -283,6 +283,18 @@ function stateful(WrappedComponent) {
       this.setState({
         playerPosition: tick
       })
+
+      const { player, autoScroll, pixelsPerTick, containerWidth, containerHeight } = this.props
+
+      // keep scroll position to cursor
+      if (autoScroll && player.isPlaying) {
+        const transform = new TempoCoordTransform(pixelsPerTick, containerHeight)
+        const x = transform.getX(tick)
+        const screenX = x - this.state.scrollLeft
+        if (screenX > containerWidth * 0.7 || screenX < 0) {
+          // TODO: force scroll 
+        }
+      }
     }
 
     onScroll = e => {
@@ -301,7 +313,7 @@ function stateful(WrappedComponent) {
   }
 }
 
-export default stateful(withTheme(fitToContainer(Content, {
+export default withTheme(fitToContainer(stateful(Content), {
   width: "100%",
   height: "100%"
-})))
+}))

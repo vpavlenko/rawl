@@ -279,11 +279,13 @@ export default class RootView extends Component {
       />
 
     const tempoGraph = <TempoGraph
+      pixelsPerTick={0.1}
       track={song.conductorTrack}
       player={player}
       endTick={song.endOfSong}
       beats={song.measureList.beats}
-      dispatch={dispatch} />
+      dispatch={dispatch}
+      autoScroll={state.pianoRollAutoScroll} />
 
     return <div className="RootView">
       <Helmet><title>{song.name} ― signal</title></Helmet>

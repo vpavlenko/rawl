@@ -7,8 +7,6 @@ import MIDIChannelEvents from "../constants/MIDIChannelEvents"
 import { eventToBytes } from "../helpers/midiHelper"
 import { deassemble } from "../helpers/noteAssembler"
 
-const INTERVAL = 1 / 15 * 1000 // seconds
-
 function firstByte(eventType, channel) {
   return (MIDIChannelEvents[eventType] << 4) + channel
 }
@@ -63,9 +61,15 @@ export default class Player extends EventEmitter {
   play() {
     assert(this._song, "you must set song before play")
     this._playing = true
-    clearInterval(this._intervalID)
-    this._intervalID = setInterval(this._onTimer.bind(this), INTERVAL)
     this._prevTime = window.performance.now()
+
+    const loop = () => {
+      if (this._playing) {
+        this._onTimer()
+      }
+      window.requestAnimationFrame(loop)
+    }
+    loop()
   }
 
   set position(tick) {
@@ -112,7 +116,6 @@ export default class Player extends EventEmitter {
   }
 
   stop() {
-    clearInterval(this._intervalID)
     this._playing = false
     this.allSoundsOff()
   }

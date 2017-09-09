@@ -9,7 +9,8 @@ export default class SynthApp {
   init() {
     
     const handler = new MidiMessageHandler()
-    ipcRenderer.on("midi", (e, message) => {
+    ipcRenderer.on("midi", (e, { message, timestamp }) => {
+      // timestamp を使うとリズムがよれるので無視して即座に再生する
       handler.processMidiMessage(message)
     })
     

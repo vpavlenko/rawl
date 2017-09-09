@@ -9,10 +9,7 @@ export default class SynthOutput {
     ipcRenderer.send("midi", msg)
   }
 
-  send(msg, timestamp) {
-    const delay = timestamp - window.performance.now()
-    setTimeout(() => {
-      this._send(msg)
-    }, delay)
+  send(message, timestamp) {
+    this._send({ message, timestamp })
   }
 }

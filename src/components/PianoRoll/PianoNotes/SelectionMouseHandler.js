@@ -101,7 +101,6 @@ const createSelectionAction = dispatch => (onMouseDown, onMouseMove, onMouseUp) 
   onMouseDown(e => {
     start = { tick: e.tick, noteNumber: e.noteNumber }
     dispatch("START_SELECTION", start)
-    dispatch("SET_PLAYER_POSITION", { tick: e.tick })
   })
 
   onMouseMove(e => {

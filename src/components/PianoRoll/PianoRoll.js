@@ -241,6 +241,9 @@ class PianoRoll extends Component {
         case "GET_SELECTION_POSITION_TYPE": // FIXME: dispatch から値を取得しない
           return selectionController.positionType(params.position)
         case "START_SELECTION":
+          if (!player.isPlaying) {
+            dispatch("SET_PLAYER_POSITION", { tick: params.tick })
+          }
           return selectionController.startAt(params.tick, params.noteNumber)
         case "RESIZE_SELECTION":
           return selection.resize(

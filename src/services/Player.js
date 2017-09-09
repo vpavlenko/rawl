@@ -71,7 +71,10 @@ export default class Player extends EventEmitter {
   set position(tick) {
     this._currentTick = Math.max(0, tick)
     this.emitChangePosition()
-    this.allSoundsOff()
+
+    if (this.isPlaying) {
+      this.allSoundsOff()
+    }
   }
 
   get position() {

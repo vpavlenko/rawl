@@ -19,6 +19,7 @@ body {
 div, label, button, canvas, section, a, p, header, footer, ul, li {
   user-select: none;
   user-drag: none;
+  cursor: default;
 }
 
 /* avoid 3px margin */

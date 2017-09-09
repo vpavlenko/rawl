@@ -51,14 +51,10 @@ const dispatch = (app, history) => (type, params) => {
       }
       break
     case "SET_PLAYER_POSITION":
-      if (!player.isPlaying) {
-        player.position = quantizer.round(params.tick)
-      }
+      player.position = quantizer.round(params.tick)
       break
     case "MOVE_PLAYER_POSITION":
-      if (!player.isPlaying) {
-        player.position = quantizer.round(player.position + params.tick)
-      }
+      player.position = quantizer.round(player.position + params.tick)
       break
     case "TOGGLE_MUTE_TRACK":
       if (trackMute.isMuted(params.trackId)) {

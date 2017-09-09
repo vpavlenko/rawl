@@ -246,10 +246,12 @@ export default class RootView extends Component {
         label: "Edit",
         submenu: [
           {
-            label: "Undo"
+            label: "Undo",
+            click: () => dispatch("UNDO")
           },
           {
-            label: "Redo"
+            label: "Redo",
+            click: () => dispatch("REDO")
           }
         ]
       }

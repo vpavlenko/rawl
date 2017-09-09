@@ -65,15 +65,20 @@ const dispatch = (app, history) => (type, params) => {
         trackMute.unmute(params.trackId)
       } else {
         trackMute.mute(params.trackId)
+        const channel = tracks[params.trackId].channel
+        player.allSoundsOffChannel(channel)
       }
       break
-    case "TOGGLE_SOLO_TRACK":
+    case "TOGGLE_SOLO_TRACK": {
+      const channel = tracks[params.trackId].channel
       if (trackMute.isSolo(params.trackId)) {
         trackMute.unsolo(params.trackId)
+        player.allSoundsOffChannel(channel)
       } else {
         trackMute.solo(params.trackId)
+        player.allSoundsOffExclude(channel)
       }
-      break
+      break }
     case "CHANGE_NOTES_VELOCITY":
       saveHistory()
       return selectedTrack.transaction(it => {

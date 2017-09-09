@@ -86,9 +86,25 @@ export default class Player extends EventEmitter {
     return this._timebase
   }
 
+  get numberOfChannels() {
+    return 0xf
+  }
+
+  allSoundsOffChannel(ch) {
+    this._sendMessage([0xb0 + ch, MIDIControlEvents.ALL_SOUNDS_OFF, 0], window.performance.now())
+  }
+
   allSoundsOff() {
-    for (const ch of _.range(0, 0xf)) {
-      this._sendMessage([0xb0 + ch, MIDIControlEvents.ALL_SOUNDS_OFF, 0], window.performance.now())
+    for (const ch of _.range(0, this.numberOfChannels)) {
+      this.allSoundsOffChannel(ch)
+    }
+  }
+
+  allSoundsOffExclude(channel) {
+    for (const ch of _.range(0, this.numberOfChannels)) {
+      if (ch !== channel) {
+        this.allSoundsOffChannel(ch)
+      }
     }
   }
 
@@ -100,7 +116,7 @@ export default class Player extends EventEmitter {
 
   reset() {
     const time = window.performance.now()
-    for (const ch of _.range(0, 0xf)) {
+    for (const ch of _.range(0, this.numberOfChannels)) {
       // reset controllers
       this._sendMessage([firstByte("controller", ch), MIDIControlEvents.RESET_CONTROLLERS, 0x7f], time)
     }

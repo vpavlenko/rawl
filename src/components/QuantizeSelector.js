@@ -34,8 +34,8 @@ export default function QuantizeSelector({ value, onSelect }) {
   // 整数ではなく 1.5 をかけると整数になるとき付点
   const dot = (value % 1 !== 0) && ((value * 1.5) % 1 === 0)
 
-  // 整数かつ 3 で割ると整数になるとき3連符
-  const triplet = (value % 1 === 0) && (value / 3) % 1 === 0
+  // 1.5 で割ると整数になるとき3連符
+  const triplet = (value / 1.5) % 1 === 0
 
   // 逆算するために triplet と dot を逆にする
   const denominator = calcQuantize(value, triplet, dot)
@@ -48,6 +48,9 @@ export default function QuantizeSelector({ value, onSelect }) {
     const index = Math.min(list.length - 1, Math.max(0, currentIndex + delta))
     onSelect(calcQuantize(list[index], dot, triplet))
   }}>
+    <div className="label">
+      <Icon>music-note</Icon>
+    </div>
     <div className="buttons">
       {list.map(num => 
         <Button 

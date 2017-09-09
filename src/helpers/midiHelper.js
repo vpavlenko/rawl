@@ -62,6 +62,7 @@ export function eventToBytes(e, includeDeltaTime = true) {
           add(e.port)
           break
         case "endOfTrack":
+          add(0)
           break
         case "setTempo":
           const t = e.microsecondsPerBeat

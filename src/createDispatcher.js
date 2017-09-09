@@ -223,6 +223,8 @@ const dispatch = (app, history) => (type, params) => {
       writeSong(song, params.filepath, e => {
         if (e) {
           console.error(e)
+        } else {
+          song.filepath = params.filepath
         }
       })
       break

@@ -116,7 +116,7 @@ export default class Song extends EventEmitter {
     const song = new Song()
     song.addTrack(Track.conductorTrack())
     song.addTrack(Track.emptyTrack(0))
-    song.name = "new song.mid"
+    song.filepath = "new song.mid"
     return song
   }
 

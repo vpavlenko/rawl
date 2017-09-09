@@ -1,4 +1,3 @@
-import path from "path"
 import { read as readBytes } from "./MidiFileReader"
 import { write as writeBytes } from "./MidiFileWriter"
 import Song from "../model/Song"
@@ -19,7 +18,6 @@ export function read(file, callback) {
     }
     const song = Song.fromMidi(midi)
     song.filepath = file
-    song.name = path.basename(file.replace(/\\/g, "/"))
     callback(null, song)
   })
 }

@@ -2,6 +2,7 @@ import ReactDOM from "react-dom"
 import React, { Component } from "react"
 import SplitPane  from "react-split-pane"
 import { Helmet } from "react-helmet"
+import path from "path"
 
 import { TIME_BASE } from "../Constants"
 import Popup from "./Popup"
@@ -232,11 +233,14 @@ export default class RootView extends Component {
           {
             label: "Save As",
             click: () => {
-              dialog.showSaveDialog({filters: [{
-                name: "Standard MIDI File",
-                extensions: ["mid", "midi"]
-              }]}, filepath => {
-                dispatch("SAVE_SONG", { filepath  })
+              dialog.showSaveDialog({
+                defaultPath: song.filepath,
+                filters: [{
+                  name: "Standard MIDI File",
+                  extensions: ["mid", "midi"]
+                }]
+              }, filepath => {
+                dispatch("SAVE_SONG", { filepath })
               })
             }
           }
@@ -287,8 +291,10 @@ export default class RootView extends Component {
       dispatch={dispatch}
       autoScroll={state.pianoRollAutoScroll} />
 
+    const fileName = path.basename(song.filepath.replace(/\\/g, "/"))
+
     return <div className="RootView">
-      <Helmet><title>{song.name} ― signal</title></Helmet>
+      <Helmet><title>{song.name} ({fileName}) ― signal</title></Helmet>
       {toolbar}
       <Pane split="vertical" minSize={200} defaultSize={265} maxSize={400}>
         {trackList}

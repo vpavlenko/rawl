@@ -10,11 +10,13 @@ export default class SynthApp {
     
     const handler = new MidiMessageHandler()
     ipcRenderer.on("midi", (e, { message, timestamp }) => {
-      // timestamp を使うとリズムがよれるので無視して即座に再生する
-      handler.processMidiMessage(message)
+      const delay = timestamp - window.performance.now()
+      setTimeout(() => {
+        handler.processMidiMessage(message)
+      }, delay)
     })
     
-    const url = "/soundfonts/CONCER~2.SF2"
+    const url = "/soundfonts/msgs.sf2"
     loadSoundFont(url, input => {
       const synth = new Synthesizer(input)
       synth.init()

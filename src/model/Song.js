@@ -13,10 +13,6 @@ export default class Song extends EventEmitter {
   _measureList = null
   _endOfSong = END_MARGIN
 
-  constructor() {
-    super()
-  }
-
   _emitChange() {
     this.emit("change")
   }

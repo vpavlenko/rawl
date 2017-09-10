@@ -12,6 +12,7 @@ import withTheme from "../../hocs/withTheme"
 import TempoCoordTransform from "../../model/TempoCoordTransform"
 import { uSecPerBeatToBPM, bpmToUSecPerBeat } from "../../helpers/bpm"
 import transformEvents from "./transformEvents"
+import mapBeats from "../../helpers/mapBeats"
 
 import "./TempoGraph.css"
 
@@ -206,6 +207,9 @@ function Content({
     })
   }
 
+  const startTick = scrollLeft / pixelsPerTick
+  const mappedBeats = mapBeats(beats, pixelsPerTick, startTick, widthTick)
+
   return <div className="TempoGraph" onScroll={onScroll}>
     <PseudoWidthContent width={contentWidth} />
     <FixedLeftContent left={scrollLeft}>
@@ -213,9 +217,7 @@ function Content({
         width={containerWidth}
         height={contentHeight}
         scrollLeft={scrollLeft}
-        transform={transform}
-        endTick={widthTick}
-        beats={beats}
+        beats={mappedBeats}
       />
       <HorizontalLines
         width={containerWidth}
@@ -244,8 +246,7 @@ function Content({
         theme={theme}
         width={containerWidth}
         height={rulerHeight}
-        endTick={widthTick}
-        beats={beats}
+        beats={mappedBeats}
         onMouseDown={({ tick }) => dispatch("SET_PLAYER_POSITION", { tick })}
         scrollLeft={scrollLeft}
         pixelsPerTick={pixelsPerTick}

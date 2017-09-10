@@ -4,13 +4,12 @@ import _ from "lodash"
 import DrawCanvas from "../DrawCanvas"
 import withTheme from "../../hocs/withTheme"
 import logEq from "../../helpers/logEq"
-import drawBeats from "./drawBeats"
 
-function drawBeatLines(ctx, beats, height, pixelsPerTick, startTick, endTick, theme) {
+function drawBeatLines(ctx, beats, height, theme) {
   ctx.lineWidth = 1
 
-  drawBeats(beats, pixelsPerTick, startTick, endTick, (beat, x) => {
-    const isBold = beat.beat === 0
+  beats.forEach(({ beat, x }) => {
+    const isBold = beat === 0
     ctx.beginPath()
     ctx.strokeStyle = isBold ? theme.secondaryTextColor : theme.dividerColor
     ctx.moveTo(x, 0)
@@ -21,10 +20,8 @@ function drawBeatLines(ctx, beats, height, pixelsPerTick, startTick, endTick, th
 }
 
 function PianoGrid({
-  transform,
   width,
   height,
-  endTick,
   scrollLeft,
   beats,
   theme
@@ -34,8 +31,7 @@ function PianoGrid({
     ctx.clearRect(0, 0, width, height)
     ctx.save()
     ctx.translate(-scrollLeft + 0.5, 0)
-    const startTick = transform.getTicks(scrollLeft)
-    drawBeatLines(ctx, beats, height, transform.pixelsPerTick, startTick, endTick, theme)
+    drawBeatLines(ctx, beats, height, theme)
     ctx.restore()
   }
 
@@ -50,10 +46,8 @@ function PianoGrid({
 PianoGrid.propTypes = {
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
-  endTick: PropTypes.number.isRequired,
   scrollLeft: PropTypes.number.isRequired,
   theme: PropTypes.object.isRequired,
-  transform: PropTypes.object.isRequired,
   beats: PropTypes.array.isRequired
 }
 

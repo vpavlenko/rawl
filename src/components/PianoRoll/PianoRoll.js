@@ -7,6 +7,7 @@ import SelectionModel from "../../model/SelectionModel"
 import NoteCoordTransform from "../../model/NoteCoordTransform"
 import withTheme from "../../hocs/withTheme"
 import fitToContainer from "../../hocs/fitToContainer"
+import mapBeats from "../../helpers/mapBeats"
 
 import SelectionController from "./controllers/SelectionController"
 
@@ -120,7 +121,7 @@ class PianoRoll extends Component {
   }
 
   onTick = tick => {
-    const { player, autoScroll } = this.props
+    const { autoScroll } = this.props
     const x = this.getTransform().getX(tick)
     this.setState({
       cursorPosition: x
@@ -200,6 +201,9 @@ class PianoRoll extends Component {
     const contentHeight = transform.getMaxY()
 
     const events = track.getEvents()
+    
+    const startTick = scrollLeft / transform.pixelsPerTick
+    const mappedBeats = mapBeats(beats, transform.pixelsPerTick, startTick, widthTick)
 
     const controlButton = (label, name) => ({
       label,
@@ -289,12 +293,10 @@ class PianoRoll extends Component {
             pixelsPerKey={transform.pixelsPerKey}
             numberOfKeys={transform.numberOfKeys} />
           <PianoGrid
-            endTick={widthTick}
             width={width}
             height={contentHeight}
             scrollLeft={scrollLeft}
-            transform={transform}
-            beats={beats} />
+            beats={mappedBeats} />
           <PianoNotes
             events={events}
             selectedEventIds={selection.noteIds}
@@ -329,7 +331,7 @@ class PianoRoll extends Component {
             theme={theme}
             height={rulerHeight}
             endTick={widthTick}
-            beats={beats}
+            beats={mappedBeats}
             onMouseDown={({ tick }) => dispatch("SET_PLAYER_POSITION", { tick })}
             scrollLeft={scrollLeft}
             pixelsPerTick={transform.pixelsPerTick} />
@@ -351,12 +353,10 @@ class PianoRoll extends Component {
             {controlMode === "modulation" && <ModulationGraph {...controlProps} />}
             {controlMode === "expression" && <ExpressionGraph {...controlProps} />}
             <PianoGrid
-              endTick={widthTick}
               width={width}
               height={controlHeight}
               scrollLeft={scrollLeft}
-              transform={transform}
-              beats={beats} />
+              beats={mappedBeats} />
           </div>
         </FixedLeftContent>
       </div>

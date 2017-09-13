@@ -65,6 +65,7 @@ export default function LineGraph({
   return <div className={`PianoControl LineGraph ${className}`}>
     <div className="GraphAxis">
       {axis.reverse().map(value => <div
+        key={value}
         className="AxisValue"
         onClick={e => onClickAxis({ ...e, value })}>
         {value}

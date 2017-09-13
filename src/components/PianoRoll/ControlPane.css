@@ -1,0 +1,35 @@
+.ControlPane .control-toolbar button {
+  background: transparent;
+  -webkit-appearance: none;
+  border: none;
+  padding: 0.5em 0.8em;
+  color: var(--secondary-text-color);
+  outline: none;
+}
+
+.ControlPane .control-toolbar {
+  border-bottom: 1px solid var(--divider-color);
+  box-sizing: border-box;
+  display: flex;
+  margin-left: var(--key-width);
+  border-left: 1px solid var(--secondary-text-color);
+  height: 30px;
+}
+
+.ControlPane .control-toolbar button.selected {
+  color: var(--theme-color);
+  background: var(--secondary-background-color);
+}
+
+.ControlPane .control-toolbar button:hover {
+  background: var(--secondary-background-color);
+}
+
+.ControlPane .control-content {
+  position: relative;
+}
+
+.PianoRoll .ControlPane .PianoGrid {
+  top: 0;
+  left: 0;
+}

@@ -17,26 +17,13 @@ import PianoLines from "./PianoLines"
 import PianoRuler from "./PianoRuler"
 import PianoNotes from "./PianoNotes/PianoNotes"
 import PianoSelection from "./PianoSelection"
-import PianoVelocityControl from "./PianoVelocityControl/PianoVelocityControl"
 import PianoCursor from "./PianoCursor"
-
-import PanGraph from "./Graph/PanGraph"
-import PitchGraph from "./Graph/PitchGraph"
-import VolumeGraph from "./Graph/VolumeGraph"
-import ExpressionGraph from "./Graph/ExpressionGraph"
-import ModulationGraph from "./Graph/ModulationGraph"
+import ControlPane from "./ControlPane"
+import { open as openContextMenu } from "./PianoContextMenu"
 
 import "./PianoRoll.css"
 
 const SCROLL_KEY_SPEED = 4
-
-const ControlToolbar = pure(({ onmount, buttons }) => {
-  return <div className="control-toolbar" ref={onmount}>
-    {buttons.map(({ label, selected, onClick }) =>
-      <button className={selected ? "selected" : ""} onClick={onClick} key={label}>{label}</button>
-    )}
-  </div>
-})
 
 const PseudoHeightContent = pure(({ height }) => {
   return <div style={{
@@ -84,12 +71,6 @@ class PianoRoll extends Component {
     this.setState({ scrollLeft })
   }
 
-  fitBetaSize = () => {
-    this.setState({
-      controlHeight: this.betaPseudoContent.clientHeight - this.controlToolbar.clientHeight
-    })
-  }
-
   alphaDidScroll = (e) => {
     const { scrollTop } = e.target
     this.alpha.scrollLeft = 0
@@ -104,9 +85,6 @@ class PianoRoll extends Component {
   }
 
   componentDidMount() {
-    this.fitBetaSize()
-
-    window.addEventListener("resize", this.fitBetaSize)
     this.props.player.on("change-position", this.onTick)
 
     document.addEventListener("copy", this.onCopy)
@@ -114,7 +92,6 @@ class PianoRoll extends Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener("resize", this.fitBetaSize)
     document.removeEventListener("copy", this.onCopy)
     document.removeEventListener("paste", this.onPaste)
     this.props.player.off("change-position", this.onTick)
@@ -187,7 +164,6 @@ class PianoRoll extends Component {
       notesCursor,
       selection,
       cursorPosition,
-      controlHeight,
       controlMode
     } = this.state
 
@@ -204,23 +180,6 @@ class PianoRoll extends Component {
     
     const startTick = scrollLeft / transform.pixelsPerTick
     const mappedBeats = mapBeats(beats, transform.pixelsPerTick, startTick, widthTick)
-
-    const controlButton = (label, name) => ({
-      label,
-      selected: controlMode === name,
-      onClick: () => this.setState({ controlMode: name })
-    })
-
-    const controlToolbar = <ControlToolbar
-      onmount={c => this.controlToolbar = c}
-      buttons={[
-        controlButton("Velocity", "velocity"),
-        controlButton("Pitch Bend", "pitchBend"),
-        controlButton("Volume", "volume"),
-        controlButton("Panpot", "pan"),
-        controlButton("Modulation", "modulation"),
-        controlButton("Expression", "expression")
-      ]} />
 
     const selectionController = new SelectionController(selection, track, quantizer, transform, player)
 
@@ -263,22 +222,18 @@ class PianoRoll extends Component {
           return selectionController.deleteSelection()
         case "PASTE_SELECTION":
           return selectionController.pasteSelection()
+        case "OPEN_CONTEXT_MENU":
+          return openContextMenu(dispatch, params)
+        case "SELECT_CONTROL_TAB":
+          this.setState({ controlMode: params.name })
+          break
         default:
           return this.props.dispatch(type, params)
       }
     }
 
-    const controlProps = {
-      width, transform, events, scrollLeft, dispatch,
-      height: controlHeight,
-      color: theme.themeColor
-    }
-
-    return <div
-      className="PianoRoll"
-      ref={c => this.container = c}>
-
-      <SplitPane split="horizontal" onChange={this.fitBetaSize} defaultSize={180} primary="second">
+    return <div className="PianoRoll">
+      <SplitPane split="horizontal" defaultSize={180} primary="second">
       <div className="alpha" ref={c => this.alpha = c}
         onScroll={this.alphaDidScroll}
         onWheel={e => {
@@ -344,20 +299,15 @@ class PianoRoll extends Component {
         onScroll={this.betaDidScroll}>
         <PseudoWidthContent width={contentWidth} onmount={c => this.betaPseudoContent = c} />
         <FixedLeftContent left={scrollLeft}>
-          {controlToolbar}
-          <div className="control-content">
-            {controlMode === "velocity" && <PianoVelocityControl {...controlProps} />}
-            {controlMode === "pitchBend" && <PitchGraph {...controlProps} />}
-            {controlMode === "volume" && <VolumeGraph {...controlProps} />}
-            {controlMode === "pan" && <PanGraph {...controlProps} />}
-            {controlMode === "modulation" && <ModulationGraph {...controlProps} />}
-            {controlMode === "expression" && <ExpressionGraph {...controlProps} />}
-            <PianoGrid
-              width={width}
-              height={controlHeight}
-              scrollLeft={scrollLeft}
-              beats={mappedBeats} />
-          </div>
+          <ControlPane
+            mode={controlMode}
+            theme={theme}
+            beats={mappedBeats}
+            events={events}
+            dispatch={dispatch}
+            transform={transform}
+            scrollLeft={scrollLeft}
+          />
         </FixedLeftContent>
       </div>
       </SplitPane>

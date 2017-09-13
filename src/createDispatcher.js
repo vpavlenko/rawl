@@ -159,8 +159,7 @@ const dispatch = (app, history) => (type, params) => {
       break
     case "CREATE_NOTE": {
       saveHistory()
-      const tick = selectedTrack.isRhythmTrack ? 
-        quantizer.round(params.tick) : quantizer.floor(params.tick)
+      const tick = quantizer.floor(params.tick)
       const note = {
         type: "channel",
         subtype: "note",

@@ -9,10 +9,11 @@
   position: relative;
 }
 
-.PianoRoll .fixed-left,
-.PianoRoll .fixed-left-top {
+.PianoRoll .fixed-left {
   position: absolute;
   top: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .PianoRoll .alphaContent {
@@ -89,39 +90,4 @@
 .PianoRoll .VelocityControl {
   margin-left: var(--key-width);
   border-left: 1px solid var(--secondary-text-color);
-}
-
-.control-toolbar button {
-  background: transparent;
-  -webkit-appearance: none;
-  border: none;
-  padding: 0.5em 0.8em;
-  color: var(--secondary-text-color);
-  outline: none;
-}
-
-.control-toolbar {
-  border-bottom: 1px solid var(--divider-color);
-  box-sizing: border-box;
-  display: flex;
-  margin-left: var(--key-width);
-  border-left: 1px solid var(--secondary-text-color);
-}
-
-.control-toolbar button.selected {
-  color: var(--theme-color);
-  background: var(--secondary-background-color);
-}
-
-.control-toolbar button:hover {
-  background: var(--secondary-background-color);
-}
-
-.control-content {
-  position: relative;
-}
-
-.beta .PianoGrid {
-  top: 0;
-  left: 0;
 }

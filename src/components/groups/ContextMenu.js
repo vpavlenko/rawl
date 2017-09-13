@@ -11,16 +11,14 @@ function renderElement(html) {
   return template.content.firstElementChild
 }
 
-export const createContextMenu = (childrenProvider) => e => {
-  e.preventDefault()
-
+export const createContextMenu = (childrenProvider) => position => {
   const elm = renderElement(`<div />`)
   document.querySelector("body").appendChild(elm)
 
   const close = () => elm.parentNode.removeChild(elm)
 
   ReactDOM.render(<ContextMenuOverlay
-    position={{x: e.pageX, y: e.pageY}}
+    position={position}
     close={close}>
     {childrenProvider(close)}
   </ContextMenuOverlay>, elm)

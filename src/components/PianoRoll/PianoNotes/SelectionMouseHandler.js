@@ -2,8 +2,6 @@ import React from "react"
 import MouseHandler from "./NoteMouseHandler"
 import { pointSub, pointAdd } from "../../../helpers/point"
 
-import { ContextMenu, MenuItem as ContextMenuItem, createContextMenu } from "../../groups/ContextMenu"
-
 export default class SelectionMouseHandler extends MouseHandler {
   actionForMouseDown(e) {
     const original = super.actionForMouseDown(e)
@@ -65,32 +63,14 @@ export default class SelectionMouseHandler extends MouseHandler {
   }
 }
 
-const contextMenuAction = (selected, dispatch) => (onMouseDown, onMouseMove, onMouseUp) => {
-  const contextMenu = close =>
-    <ContextMenu>
-      {selected && <ContextMenuItem onClick={() => {
-        dispatch("COPY_SELECTION")
-        dispatch("DELETE_SELECTION")
-        close()
-      }}>Cut</ContextMenuItem>}
-      {selected && <ContextMenuItem onClick={() => {
-        dispatch("COPY_SELECTION")
-        close()
-      }}>Copy</ContextMenuItem>}
-      <ContextMenuItem onClick={() => {
-        dispatch("PASTE_SELECTION")
-        close()
-      }}>Paste</ContextMenuItem>
-      {selected && <ContextMenuItem onClick={() => {
-        dispatch("DELETE_SELECTION")
-        close()
-      }}>Delete</ContextMenuItem>}
-    </ContextMenu>
-
-  const menuCreator = createContextMenu(contextMenu)
-
+const contextMenuAction = (isNoteSelected, dispatch) => (onMouseDown, onMouseMove, onMouseUp) => {
   onMouseUp(e => {
-    menuCreator(e.nativeEvent)
+    e = e.nativeEvent
+    e.preventDefault()
+    dispatch("OPEN_CONTEXT_MENU", {
+      position: { x: e.pageX, y: e.pageY },
+      isNoteSelected
+    })
   })
 }
 

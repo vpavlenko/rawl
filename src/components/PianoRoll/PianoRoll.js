@@ -1,6 +1,5 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
-import { pure } from "recompose"
 import SplitPane from "react-split-pane"
 
 import SelectionModel from "../../model/SelectionModel"
@@ -25,12 +24,6 @@ import "./PianoRoll.css"
 
 const SCROLL_KEY_SPEED = 4
 
-const PseudoHeightContent = pure(({ height }) => {
-  return <div style={{
-    height
-  }} />
-})
-
 class PianoRoll extends Component {
   constructor(props) {
     super(props)
@@ -48,16 +41,6 @@ class PianoRoll extends Component {
     this.state.selection.on("change", () => {
       this.setState({ selection: this.state.selection })
     })
-  }
-
-  forceScrollLeft(scrollLeft) {
-    this.setState({ scrollLeft })
-  }
-
-  alphaDidScroll = (e) => {
-    const { scrollTop } = e.target
-    this.alpha.scrollLeft = 0
-    this.setState({ scrollTop })
   }
 
   componentDidMount() {
@@ -84,9 +67,29 @@ class PianoRoll extends Component {
     if (autoScroll) {
       const screenX = x - this.state.scrollLeft
       if (screenX > this.props.containerWidth * 0.7 || screenX < 0) {
-        this.forceScrollLeft(x)
+        this.setScrollLeft(x)
       }
     }
+  }
+
+  getContentSize() {
+    const { endTick, containerWidth } = this.props
+    const transform = this.getTransform()
+    const widthTick = Math.max(endTick, transform.getTicks(containerWidth))
+    return {
+      width: widthTick * transform.pixelsPerTick,
+      height: transform.getMaxY()
+    }
+  }
+
+  setScrollLeft(scroll) {
+    const maxOffset = this.getContentSize().width - this.alpha.getBoundingClientRect().width
+    this.setState({ scrollLeft: Math.min(maxOffset, Math.max(0, scroll)) })
+  }
+
+  setScrollTop(scroll) {
+    const maxOffset = this.getContentSize().height - this.alpha.getBoundingClientRect().height
+    this.setState({ scrollTop: Math.min(maxOffset, Math.max(0, scroll)) })
   }
 
   onCopy = () => {
@@ -98,6 +101,10 @@ class PianoRoll extends Component {
     this.selectionController.copySelection()
   }
 
+  onPaste = () => {
+    this.selectionController.pasteSelection()
+  }
+
   get selectionController() {
     return new SelectionController(
       this.state.selection,
@@ -105,10 +112,6 @@ class PianoRoll extends Component {
       this.props.quantizer,
       this.getTransform(),
       this.props.player)
-  }
-
-  onPaste = () => {
-    this.selectionController.pasteSelection()
   }
 
   getTransform() {
@@ -149,8 +152,9 @@ class PianoRoll extends Component {
     const transform = this.getTransform()
     const widthTick = Math.max(endTick, transform.getTicks(width))
 
-    const contentWidth = widthTick * transform.pixelsPerTick
-    const contentHeight = transform.getMaxY()
+    const contentSize = this.getContentSize()
+    const contentWidth = contentSize.width
+    const contentHeight = contentSize.height
 
     const events = track.getEvents()
 
@@ -209,20 +213,25 @@ class PianoRoll extends Component {
     }
 
     const onScrollLeft = ({ scroll }) => {
-      this.forceScrollLeft(scroll)
+      this.setScrollLeft(scroll)
+    }
+
+    const onScrollTop = ({ scroll }) => {
+      this.setScrollTop(scroll)
     }
 
     return <div className="PianoRoll">
       <SplitPane split="horizontal" defaultSize={180} primary="second">
-        <div className="alpha" ref={c => this.alpha = c}
-          onScroll={this.alphaDidScroll}
+        <div
+          className="alpha"
+          ref={c => this.alpha = c}
           onWheel={e => {
             e.preventDefault()
             const scrollLineHeight = transform.pixelsPerKey * SCROLL_KEY_SPEED
-            this.alpha.scrollTop += scrollLineHeight * (e.deltaY > 0 ? 1 : -1)
+            const delta = scrollLineHeight * (e.deltaY > 0 ? 1 : -1)
+            this.setScrollTop(this.state.scrollTop + delta)
           }}>
-          <PseudoHeightContent height={contentHeight} />
-          <div className="alphaContent">
+          <div className="alphaContent" style={{ top: -scrollTop }}>
             <PianoLines
               width={width}
               pixelsPerKey={transform.pixelsPerKey}
@@ -260,7 +269,7 @@ class PianoRoll extends Component {
               numberOfKeys={transform.numberOfKeys}
               onClickKey={onClickKey} />
           </div>
-          <div className="alphaRuler" style={{ top: scrollTop }}>
+          <div className="alphaRuler">
             <PianoRuler
               width={width}
               theme={theme}
@@ -272,11 +281,15 @@ class PianoRoll extends Component {
               pixelsPerTick={transform.pixelsPerTick} />
             <div className="PianoRollLeftSpace" />
           </div>
+          <VerticalScrollBar
+            scrollOffset={scrollTop}
+            contentLength={contentHeight}
+            onScroll={onScrollTop}
+          />
         </div>
         <div
           className="beta"
-          ref={c => this.beta = c}
-          onScroll={this.betaDidScroll}>
+          ref={c => this.beta = c}>
           <ControlPane
             mode={controlMode}
             theme={theme}

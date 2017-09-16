@@ -1,8 +1,9 @@
 export default class History {
+  undoHistory = []
+  redoHistory = []
+
   constructor(app) {
     this.app = app
-    this.undoHistory = []
-    this.redoHistory = []
   }
 
   push(action, song) {
@@ -15,14 +16,19 @@ export default class History {
     if (song) {
       this.redoHistory.push(this.app.song.clone())
       this.app.song = song
-    } 
+    }
   }
-  
+
   redo() {
     const song = this.redoHistory.pop()
     if (song) {
       this.undoHistory.push(this.app.song.clone())
       this.app.song = song
-    } 
+    }
+  }
+
+  clear() {
+    this.undoHistory = []
+    this.redoHistory = []
   }
 }

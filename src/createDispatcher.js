@@ -38,7 +38,7 @@ const dispatch = (app, history) => (type, params) => {
     }
   }
 
-  switch(type) {
+  switch (type) {
     case "PLAY":
       player.play()
       break
@@ -74,7 +74,8 @@ const dispatch = (app, history) => (type, params) => {
         trackMute.solo(params.trackId)
         player.allSoundsOffExclude(channel)
       }
-      break }
+      break
+    }
     case "CHANGE_NOTES_VELOCITY":
       saveHistory()
       return selectedTrack.transaction(it => {
@@ -149,9 +150,9 @@ const dispatch = (app, history) => (type, params) => {
       break
     case "CREATE_TEMPO":
       saveHistory()
-      return createOrUpdate("subtype", "setTempo", params.tick, "value", 
-        params.microsecondsPerBeat, 
-        () => new SetTempoMidiEvent(), 
+      return createOrUpdate("subtype", "setTempo", params.tick, "value",
+        params.microsecondsPerBeat,
+        () => new SetTempoMidiEvent(),
         song.conductorTrack)
     case "REMOVE_EVENT":
       saveHistory()
@@ -181,7 +182,7 @@ const dispatch = (app, history) => (type, params) => {
 
       if (pitchChanged || tickChanged) {
         saveHistory()
-        
+
         const n = selectedTrack.updateEvent(note.id, {
           tick,
           noteNumber: params.noteNumber
@@ -231,8 +232,11 @@ const dispatch = (app, history) => (type, params) => {
       readSong(params.filepath, (e, song) => {
         if (e) {
           console.error(e)
+        } else {
+          app.song = song
+          history.clear()
+          history.push({ type, params }, song)
         }
-        app.song = song
       })
       break
     case "UNDO":

@@ -133,6 +133,8 @@ function Content({
   scrollLeft,
   dispatch
 }) {
+  scrollLeft = Math.floor(scrollLeft)
+
   const { keyWidth, rulerHeight } = theme
 
   const contentHeight = containerHeight - rulerHeight - BAR_WIDTH
@@ -282,12 +284,14 @@ function stateful(WrappedComponent) {
       const { player, autoScroll, pixelsPerTick, containerWidth, containerHeight } = this.props
 
       // keep scroll position to cursor
-      if (autoScroll && player.isPlaying) {
+      if (autoScroll) {
         const transform = new TempoCoordTransform(pixelsPerTick, containerHeight)
         const x = transform.getX(tick)
         const screenX = x - this.state.scrollLeft
         if (screenX > containerWidth * 0.7 || screenX < 0) {
-          // TODO: force scroll 
+          this.setState({
+            scrollLeft: x
+          })
         }
       }
     }

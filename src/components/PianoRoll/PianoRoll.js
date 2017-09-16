@@ -84,12 +84,12 @@ class PianoRoll extends Component {
 
   setScrollLeft(scroll) {
     const maxOffset = this.getContentSize().width - this.alpha.getBoundingClientRect().width
-    this.setState({ scrollLeft: Math.min(maxOffset, Math.max(0, scroll)) })
+    this.setState({ scrollLeft: Math.floor(Math.min(maxOffset, Math.max(0, scroll))) })
   }
 
   setScrollTop(scroll) {
     const maxOffset = this.getContentSize().height - this.alpha.getBoundingClientRect().height
-    this.setState({ scrollTop: Math.min(maxOffset, Math.max(0, scroll)) })
+    this.setState({ scrollTop: Math.floor(Math.min(maxOffset, Math.max(0, scroll))) })
   }
 
   onCopy = () => {

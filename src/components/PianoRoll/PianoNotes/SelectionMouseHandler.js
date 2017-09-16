@@ -1,4 +1,3 @@
-import React from "react"
 import MouseHandler from "./NoteMouseHandler"
 import { pointSub, pointAdd } from "../../../helpers/point"
 

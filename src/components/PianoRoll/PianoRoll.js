@@ -5,7 +5,6 @@ import SplitPane  from "react-split-pane"
 
 import SelectionModel from "../../model/SelectionModel"
 import NoteCoordTransform from "../../model/NoteCoordTransform"
-import withTheme from "../../hocs/withTheme"
 import fitToContainer from "../../hocs/fitToContainer"
 import mapBeats from "../../helpers/mapBeats"
 
@@ -333,7 +332,7 @@ PianoRoll.defaultProps = {
   autoScroll: false
 }
 
-export default fitToContainer(withTheme(PianoRoll), {
+export default fitToContainer(PianoRoll, {
   width: "100%",
   height: "100%"
 })

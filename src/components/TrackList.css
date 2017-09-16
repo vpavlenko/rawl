@@ -7,12 +7,23 @@
   padding: 0;
 }
 
-.TrackListItem {
+.TrackListItem,
+.TempoTrackItem,
+.ArrangeViewButton {
   display: flex;
-  flex-direction: column;
   flex-shrink: 0;
   padding: 1em;
   border-bottom: 1px solid var(--divider-color);
+}
+
+.TempoTrackItem,
+.ArrangeViewButton {
+  flex-direction: row;
+  align-items: center;
+}
+
+.TrackListItem {
+  flex-direction: column;
 }
 
 .TrackListItem .controls {
@@ -76,18 +87,9 @@
   margin-right: 0.5em;
 }
 
-.TempoTrackItem {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  flex-shrink: 0;
-  padding: 1em;
-  border-bottom: 1px solid var(--divider-color);
-}
-
-
 .TrackListItem.selected,
-.TempoTrackItem.selected {
+.TempoTrackItem.selected,
+.ArrangeViewButton.selected {
   color: var(--theme-color);
   background: rgba(255, 255, 255, 1);
 }
@@ -108,4 +110,13 @@
 .TrackListItem .button.mute.active {
     background: var(--red-color);
     color: white;
+}
+
+.ArrangeViewButton .Icon {
+  color: var(--secondary-text-color);
+  font-size: 120%;
+}
+
+.ArrangeViewButton .title {
+  padding-left: 0.5em;
 }

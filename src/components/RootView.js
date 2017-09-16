@@ -11,6 +11,7 @@ import TrackList from "./TrackList"
 import Toolbar from "./MainToolbar"
 import InstrumentBrowser from "./InstrumentBrowser"
 import PianoRoll from "./PianoRoll/PianoRoll"
+import ArrangeView from "./ArrangeView"
 
 import {
   getGMMapIndexes,
@@ -40,7 +41,8 @@ export default class RootView extends Component {
       pianoRollScaleX: 1,
       pianoRollScaleY: 1,
       pianoRollAutoScroll: true,
-      quantize: props.app.quantizer.denominator
+      quantize: props.app.quantizer.denominator,
+      isArrangeViewSelected: false
     }
   }
 
@@ -87,7 +89,7 @@ export default class RootView extends Component {
 
   render() {
     const { props, state } = this
-    const { app } = props
+    const { app, theme } = props
     const { song, player, quantizer, trackMute } = app
     const { selectedTrack, selectedTrackId } = song
 
@@ -199,6 +201,7 @@ export default class RootView extends Component {
       onClickKey={onClickKey}
       mouseMode={state.pianoRollMouseMode}
       dispatch={dispatch}
+      theme={theme}
     />
 
     const menu = Menu.buildFromTemplate([
@@ -269,10 +272,14 @@ export default class RootView extends Component {
         tracks={(song && song.tracks) || []}
         tempo={song.getTrack(0).tempo}
         selectedTrackId={selectedTrackId}
+        isArrangeViewSelected={state.isArrangeViewSelected}
         trackMute={trackMute}
         onClickMute={trackId => dispatch("TOGGLE_MUTE_TRACK", { trackId })}
         onClickSolo={trackId => dispatch("TOGGLE_SOLO_TRACK", { trackId })}
-        onSelectTrack={trackId => dispatch("SELECT_TRACK", { trackId })}
+        onSelectTrack={trackId => {
+          this.setState({ isArrangeViewSelected: false })
+          dispatch("SELECT_TRACK", { trackId })
+        }}
         onClickDelete={trackId => dispatch("REMOVE_TRACK", { trackId })}
         onClickAddTrack={() => dispatch("ADD_TRACK")}
         onChangeName={e => dispatch("SET_TRACK_NAME", { name: e.target.value })}
@@ -280,6 +287,7 @@ export default class RootView extends Component {
         onChangeVolume={(trackId, value) => dispatch("SET_TRACK_VOLUME", { trackId, volume: value })}
         onChangePan={(trackId, value) => dispatch("SET_TRACK_PAN", { trackId, pan: value })}
         onClickInstrument={onClickTrackInstrument}
+        onClickArrangeView={() => this.setState({ isArrangeViewSelected: true })}
       />
 
     const tempoGraph = <TempoGraph
@@ -293,12 +301,21 @@ export default class RootView extends Component {
 
     const fileName = path.basename(song.filepath.replace(/\\/g, "/"))
 
+    const arrangeView = <ArrangeView 
+      tracks={song.tracks}
+      theme={theme}
+      beats={song.measureList.beats}
+    />
+
+    const content = state.isArrangeViewSelected ? arrangeView : 
+      (selectedTrack.isConductorTrack ? tempoGraph : pianoRoll)
+
     return <div className="RootView">
       <Helmet><title>{song.name} ({fileName}) ― signal</title></Helmet>
       {toolbar}
       <Pane split="vertical" minSize={200} defaultSize={265} maxSize={400}>
         {trackList}
-        {selectedTrack.isConductorTrack ? tempoGraph : pianoRoll}
+        {content}
       </Pane>
     </div>
   }

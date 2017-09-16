@@ -75,6 +75,18 @@ function TempoTrackItem({
   </div>
 }
 
+function ArrangeViewButton({
+  selected = false,
+  onClick = Nop
+}) {
+  return <div
+    className={`ArrangeViewButton ${selected ? "selected" : ""}`}
+    onClick={onClick}>
+    <Icon>view-list</Icon>
+    <span className="title">Tracks</span>
+  </div>
+}
+
 function TrackListContent({
   tracks,
   tempo,
@@ -82,6 +94,7 @@ function TrackListContent({
   trackMutes,
   trackSolos,
   selectedTrackId,
+  isArrangeViewSelected = false,
   onSelectTrack,
   onClickSolo,
   onClickMute,
@@ -89,15 +102,18 @@ function TrackListContent({
   onChangeVolume,
   onChangePan,
   onClickInstrument,
-  onClickDelete
+  onClickDelete,
+  onClickArrangeView
 }) {
   const items = tracks
     .map((t, i) => {
+      const selected = !isArrangeViewSelected && i === selectedTrackId
+
       if (t.isConductorTrack) {
         return <TempoTrackItem
           key={i}
           onClick={() => onSelectTrack(i)}
-          selected={i === selectedTrackId}
+          selected={selected}
           tempo={tempo}
           onChangeTempo={onChangeTempo}
         />
@@ -109,7 +125,7 @@ function TrackListContent({
         instrument={t.instrumentName}
         mute={trackMutes[i]}
         solo={trackSolos[i]}
-        selected={i === selectedTrackId}
+        selected={selected}
         trackId={i}
         volume={t.volume}
         pan={t.pan}
@@ -123,6 +139,7 @@ function TrackListContent({
     })
 
   return <div className="TrackList">
+    <ArrangeViewButton selected={isArrangeViewSelected} onClick={onClickArrangeView} />
     {items}
     <div className="add-track" onClick={onClickAddTrack}><Icon>plus</Icon> Add Track</div>
   </div>

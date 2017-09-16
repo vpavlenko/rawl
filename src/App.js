@@ -4,6 +4,7 @@ import EventEmitter from "eventemitter3"
 
 import RootView from "./components/RootView"
 import withSong from "./hocs/withSong"
+import withTheme from "./hocs/withTheme"
 import createDispatcher from "./createDispatcher"
 
 import Player from "./services/Player"
@@ -30,7 +31,7 @@ export default class App extends EventEmitter {
   init() {
     document.app = this // for debug
 
-    const RootView2 = withSong(this, RootView)
+    const RootView2 = withTheme(withSong(this, RootView))
     const history = new History(this)
     const dispatch = createDispatcher(this, history)
 

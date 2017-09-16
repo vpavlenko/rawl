@@ -22,7 +22,7 @@ const TabBar = pure(({ onmount, buttons }) => {
   </div>
 })
 
-function ControlPane({ 
+function ControlPane({
   mode,
   theme,
   beats,
@@ -30,9 +30,11 @@ function ControlPane({
   dispatch,
   transform,
   scrollLeft,
+  paddingBottom,
   containerWidth,
   containerHeight
 }) {
+  console.log(containerWidth, containerHeight)
   const controlButton = (label, name) => ({
     label,
     selected: mode === name,
@@ -43,9 +45,9 @@ function ControlPane({
   const BORDER_WIDTH = 1
 
   const controlProps = {
-    events, transform, dispatch, scrollLeft, 
+    events, transform, dispatch, scrollLeft,
     width: containerWidth - theme.keyWidth - BORDER_WIDTH,
-    height: containerHeight - TAB_HEIGHT,
+    height: containerHeight - TAB_HEIGHT - paddingBottom,
     color: theme.themeColor
   }
 
@@ -58,7 +60,7 @@ function ControlPane({
         controlButton("Panpot", "pan"),
         controlButton("Modulation", "modulation"),
         controlButton("Expression", "expression")
-      ]} 
+      ]}
     />
     <div className="control-content">
       {mode === "velocity" && <PianoVelocityControl {...controlProps} />}

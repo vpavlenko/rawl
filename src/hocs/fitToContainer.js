@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import ResizeObserver from "resize-observer-polyfill"
 
 export default function fitToContainer(WrappedComponent, style) {
   return class extends Component {
@@ -16,6 +17,11 @@ export default function fitToContainer(WrappedComponent, style) {
     componentDidMount() {
       this.updateContainerSize()
       window.addEventListener("resize", this.updateContainerSize)
+
+      let ro = new ResizeObserver(() => {
+        this.updateContainerSize()
+      })
+      ro.observe(this.container)
     }
 
     componentWillUnmount() {

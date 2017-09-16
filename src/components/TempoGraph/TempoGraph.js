@@ -13,7 +13,7 @@ import TempoCoordTransform from "../../model/TempoCoordTransform"
 import { uSecPerBeatToBPM, bpmToUSecPerBeat } from "../../helpers/bpm"
 import transformEvents from "./transformEvents"
 import mapBeats from "../../helpers/mapBeats"
-import { VerticalScrollBar, HorizontalScrollBar, BAR_WIDTH } from "../inputs/ScrollBar"
+import { HorizontalScrollBar, BAR_WIDTH } from "../inputs/ScrollBar"
 
 import "./TempoGraph.css"
 
@@ -117,23 +117,6 @@ const GraphAxis = pure(({ width, height, transform, offset }) => {
       const top = Math.round(transform.getY(t)) + offset
       return <div style={{ top }} key={t}>{t}</div>
     })}
-  </div>
-})
-
-const PseudoWidthContent = pure(({ onmount, width }) => {
-  return <div ref={onmount} style={{
-    width,
-    height: "100%"
-  }} />
-})
-
-const FixedLeftContent = pure(({ children, left }) => {
-  return <div className="fixed-left" style={{
-    left,
-    position: "absolute",
-    top: 0
-  }}>
-    {children}
   </div>
 })
 
@@ -265,7 +248,10 @@ function Content({
       offset={rulerHeight}
       transform={transform}
     />
-    <HorizontalScrollBar scrollOffset={scrollLeft} contentLength={contentWidth} onScroll={onScrollLeft} />
+    <HorizontalScrollBar
+      scrollOffset={scrollLeft}
+      contentLength={contentWidth}
+      onScroll={onScrollLeft} />
   </div>
 }
 

@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom"
 import React, { Component } from "react"
-import SplitPane  from "react-split-pane"
+import SplitPane from "react-split-pane"
 import { Helmet } from "react-helmet"
 import path from "path"
 
@@ -27,7 +27,7 @@ const { remote } = window.require("electron")
 const { Menu, dialog } = remote
 
 function Pane(props) {
-  return <div style={{position: "relative", height: "100%"}}>
+  return <div style={{ position: "relative", height: "100%" }}>
     <SplitPane {...props} />
   </div>
 }
@@ -42,7 +42,7 @@ export default class RootView extends Component {
       pianoRollScaleY: 1,
       pianoRollAutoScroll: true,
       quantize: props.app.quantizer.denominator,
-      isArrangeViewSelected: false
+      isArrangeViewSelected: true
     }
   }
 
@@ -59,7 +59,7 @@ export default class RootView extends Component {
       if (e.target !== document.body) {
         return
       }
-      switch(e.code) {
+      switch (e.code) {
         case "Space": {
           const { player } = this.props.app
           if (player.isPlaying) {
@@ -93,33 +93,42 @@ export default class RootView extends Component {
     const { song, player, quantizer, trackMute } = app
     const { selectedTrack, selectedTrackId } = song
 
+    const {
+      pianoRollScaleX,
+      pianoRollScaleY,
+      pianoRollAutoScroll,
+      pianoRollMouseMode,
+      isArrangeViewSelected,
+      quantize
+    } = state
+
     const onClickKey = () => {
 
     }
 
     const onClickPencil = () => {
-      this.setState({pianoRollMouseMode: 0})
+      this.setState({ pianoRollMouseMode: 0 })
     }
 
     const onClickSelection = () => {
-      this.setState({pianoRollMouseMode: 1})
+      this.setState({ pianoRollMouseMode: 1 })
     }
 
     const onChangeTool = () => {
       this.setState({
-        pianoRollMouseMode: state.pianoRollMouseMode === 0 ? 1 : 0
+        pianoRollMouseMode: pianoRollMouseMode === 0 ? 1 : 0
       })
     }
 
     const onClickScaleUp = () => {
       this.setState({
-        pianoRollScaleX: state.pianoRollScaleX + 0.1
+        pianoRollScaleX: pianoRollScaleX + 0.1
       })
     }
 
     const onClickScaleDown = () => {
       this.setState({
-        pianoRollScaleX: Math.max(0.05, state.pianoRollScaleX - 0.1),
+        pianoRollScaleX: Math.max(0.05, pianoRollScaleX - 0.1),
       })
     }
 
@@ -130,7 +139,7 @@ export default class RootView extends Component {
 
     const onClickAutoScroll = () => {
       this.setState({
-        pianoRollAutoScroll: !state.pianoRollAutoScroll
+        pianoRollAutoScroll: !pianoRollAutoScroll
       })
     }
 
@@ -159,10 +168,10 @@ export default class RootView extends Component {
     }
 
     const dispatch = (type, params) => {
-      switch(type) {
+      switch (type) {
         case "TOGGLE_TOOL":
           this.setState({
-            pianoRollMouseMode: this.state.pianoRollMouseMode === 0 ? 1 : 0
+            pianoRollMouseMode: pianoRollMouseMode === 0 ? 1 : 0
           })
           break
         default:
@@ -173,9 +182,9 @@ export default class RootView extends Component {
     const toolbar = <Toolbar
       player={player}
       measureList={song.measureList}
-      quantize={state.quantize}
-      mouseMode={state.pianoRollMouseMode}
-      autoScroll={state.pianoRollAutoScroll}
+      quantize={quantize}
+      mouseMode={pianoRollMouseMode}
+      autoScroll={pianoRollAutoScroll}
       onClickPlay={() => dispatch("PLAY")}
       onClickStop={() => dispatch("STOP")}
       onClickBackward={() => dispatch("MOVE_PLAYER_POSITION", { tick: -TIME_BASE * 4 })}
@@ -194,12 +203,12 @@ export default class RootView extends Component {
       player={player}
       endTick={song.endOfSong}
       beats={song.measureList.beats}
-      scaleX={state.pianoRollScaleX}
-      scaleY={state.pianoRollScaleY}
-      autoScroll={state.pianoRollAutoScroll}
+      scaleX={pianoRollScaleX}
+      scaleY={pianoRollScaleY}
+      autoScroll={pianoRollAutoScroll}
       onChangeTool={onChangeTool}
       onClickKey={onClickKey}
-      mouseMode={state.pianoRollMouseMode}
+      mouseMode={pianoRollMouseMode}
       dispatch={dispatch}
       theme={theme}
     />
@@ -217,10 +226,12 @@ export default class RootView extends Component {
           {
             label: "Open",
             click: () => {
-              dialog.showOpenDialog({filters: [{
-                name: "Standard MIDI File",
-                extensions: ["mid", "midi"]
-              }]}, files => {
+              dialog.showOpenDialog({
+                filters: [{
+                  name: "Standard MIDI File",
+                  extensions: ["mid", "midi"]
+                }]
+              }, files => {
                 if (files) {
                   dispatch("OPEN_SONG", { filepath: files[0] })
                 }
@@ -272,7 +283,7 @@ export default class RootView extends Component {
         tracks={(song && song.tracks) || []}
         tempo={song.getTrack(0).tempo}
         selectedTrackId={selectedTrackId}
-        isArrangeViewSelected={state.isArrangeViewSelected}
+        isArrangeViewSelected={isArrangeViewSelected}
         trackMute={trackMute}
         onClickMute={trackId => dispatch("TOGGLE_MUTE_TRACK", { trackId })}
         onClickSolo={trackId => dispatch("TOGGLE_SOLO_TRACK", { trackId })}
@@ -291,23 +302,30 @@ export default class RootView extends Component {
       />
 
     const tempoGraph = <TempoGraph
-      pixelsPerTick={0.1}
+      pixelsPerTick={0.1 * pianoRollScaleX}
       track={song.conductorTrack}
       player={player}
       endTick={song.endOfSong}
       beats={song.measureList.beats}
       dispatch={dispatch}
-      autoScroll={state.pianoRollAutoScroll} />
+      autoScroll={pianoRollAutoScroll}
+    />
 
     const fileName = path.basename(song.filepath.replace(/\\/g, "/"))
 
-    const arrangeView = <ArrangeView 
+    const arrangeView = <ArrangeView
       tracks={song.tracks}
       theme={theme}
       beats={song.measureList.beats}
+      endTick={song.endOfSong}
+      keyHeight={0.3}
+      pixelsPerTick={0.1 * pianoRollScaleX}
+      player={player}
+      dispatch={dispatch}
+      autoScroll={pianoRollAutoScroll}
     />
 
-    const content = state.isArrangeViewSelected ? arrangeView : 
+    const content = isArrangeViewSelected ? arrangeView :
       (selectedTrack.isConductorTrack ? tempoGraph : pianoRoll)
 
     return <div className="RootView">

@@ -17,3 +17,22 @@
   width: 100%;
   height: 100%;
 }
+
+.ArrangeView .PianoRuler {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+
+.ArrangeView .content {
+  position: absolute;
+  top: var(--ruler-height);
+  width: 100%;
+  height: 100%;
+}
+
+
+.ArrangeView .ScrollBar {
+  z-index: 100;
+}

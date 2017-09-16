@@ -13,6 +13,7 @@ import TempoCoordTransform from "../../model/TempoCoordTransform"
 import { uSecPerBeatToBPM, bpmToUSecPerBeat } from "../../helpers/bpm"
 import transformEvents from "./transformEvents"
 import mapBeats from "../../helpers/mapBeats"
+import { VerticalScrollBar, HorizontalScrollBar, BAR_WIDTH } from "../inputs/ScrollBar"
 
 import "./TempoGraph.css"
 
@@ -112,7 +113,7 @@ function HorizontalLines({ width, height, transform, borderColor }) {
 
 const GraphAxis = pure(({ width, height, transform, offset }) => {
   return <div className="GraphAxis" style={{ width }}>
-    {_.range(60, transform.maxBPM, 30).map(t => {
+    {_.range(30, transform.maxBPM, 30).map(t => {
       const top = Math.round(transform.getY(t)) + offset
       return <div style={{ top }} key={t}>{t}</div>
     })}
@@ -151,10 +152,10 @@ function Content({
 }) {
   const { keyWidth, rulerHeight } = theme
 
-  const transform = new TempoCoordTransform(pixelsPerTick, containerHeight)
+  const contentHeight = containerHeight - rulerHeight - BAR_WIDTH
+  const transform = new TempoCoordTransform(pixelsPerTick, contentHeight)
   const widthTick = Math.max(endTick, transform.getTicks(containerWidth))
   const contentWidth = widthTick * pixelsPerTick
-  const contentHeight = containerHeight - rulerHeight
 
   const items = transformEvents(track.getEvents(), transform, contentWidth, scrollLeft)
 
@@ -169,9 +170,9 @@ function Content({
 
     function onMouseMove(e) {
       const delta = transform.getDeltaBPM(e.clientY - startY)
-      dispatch("CHANGE_TEMPO", { 
-        id: event.id, 
-        microsecondsPerBeat: bpmToUSecPerBeat(bpm + delta) 
+      dispatch("CHANGE_TEMPO", {
+        id: event.id,
+        microsecondsPerBeat: bpmToUSecPerBeat(bpm + delta)
       })
     }
 
@@ -191,9 +192,9 @@ function Content({
     const event = track.getEventById(e.item.id)
     const movement = e.deltaY > 0 ? -1 : 1
     const bpm = uSecPerBeatToBPM(event.microsecondsPerBeat)
-    dispatch("CHANGE_TEMPO", { 
-      id: event.id, 
-      microsecondsPerBeat: bpmToUSecPerBeat(bpm + movement) 
+    dispatch("CHANGE_TEMPO", {
+      id: event.id,
+      microsecondsPerBeat: bpmToUSecPerBeat(bpm + movement)
     })
   }
 
@@ -201,63 +202,70 @@ function Content({
     const rect = e.currentTarget.getBoundingClientRect()
     const tick = transform.getTicks(e.clientX - rect.left)
     const bpm = transform.getBPM(e.clientY - rect.top)
-    dispatch("CREATE_TEMPO", { 
+    dispatch("CREATE_TEMPO", {
       tick,
-      microsecondsPerBeat: uSecPerBeatToBPM(bpm) 
+      microsecondsPerBeat: uSecPerBeatToBPM(bpm)
     })
   }
 
   const startTick = scrollLeft / pixelsPerTick
   const mappedBeats = mapBeats(beats, pixelsPerTick, startTick, widthTick)
+  const width = containerWidth - keyWidth
+
+  function onScrollLeft(e) {
+    onScroll({
+      target: {
+        scrollLeft: e.scroll
+      }
+    })
+  }
 
   return <div className="TempoGraph" onScroll={onScroll}>
-    <PseudoWidthContent width={contentWidth} />
-    <FixedLeftContent left={scrollLeft}>
-      <PianoGrid
-        width={containerWidth}
-        height={contentHeight}
-        scrollLeft={scrollLeft}
-        beats={mappedBeats}
-      />
-      <HorizontalLines
-        width={containerWidth}
-        height={contentHeight}
-        transform={transform}
-        borderColor={theme.dividerColor}
-      />
-      <Graph
-        items={items}
-        transform={transform}
-        width={containerWidth}
-        height={contentHeight}
-        strokeColor={theme.themeColor}
-        fillColor={Color(theme.themeColor).alpha(0.1).string()}
-        onMouseDown={onMouseDownGraph}
-        onDoubleClick={onDoubleClickGraph}
-        onWheel={onWheelGraph}
-        scrollLeft={scrollLeft}
-      />
-      <PianoCursor
-        width={containerWidth}
-        height={contentHeight}
-        position={transform.getX(playerPosition)}
-      />
-      <PianoRuler
-        theme={theme}
-        width={containerWidth}
-        height={rulerHeight}
-        beats={mappedBeats}
-        onMouseDown={({ tick }) => dispatch("SET_PLAYER_POSITION", { tick })}
-        scrollLeft={scrollLeft}
-        pixelsPerTick={pixelsPerTick}
-      />
-      <GraphAxis
-        width={keyWidth}
-        height={contentHeight}
-        offset={rulerHeight}
-        transform={transform}
-      />
-    </FixedLeftContent>
+    <PianoGrid
+      width={width}
+      height={contentHeight}
+      scrollLeft={scrollLeft}
+      beats={mappedBeats}
+    />
+    <HorizontalLines
+      width={width}
+      height={contentHeight}
+      transform={transform}
+      borderColor={theme.dividerColor}
+    />
+    <Graph
+      items={items}
+      transform={transform}
+      width={width}
+      height={contentHeight}
+      strokeColor={theme.themeColor}
+      fillColor={Color(theme.themeColor).alpha(0.1).string()}
+      onMouseDown={onMouseDownGraph}
+      onDoubleClick={onDoubleClickGraph}
+      onWheel={onWheelGraph}
+      scrollLeft={scrollLeft}
+    />
+    <PianoCursor
+      width={width}
+      height={contentHeight}
+      position={transform.getX(playerPosition) - scrollLeft}
+    />
+    <PianoRuler
+      theme={theme}
+      width={width}
+      height={rulerHeight}
+      beats={mappedBeats}
+      onMouseDown={({ tick }) => dispatch("SET_PLAYER_POSITION", { tick })}
+      scrollLeft={scrollLeft}
+      pixelsPerTick={pixelsPerTick}
+    />
+    <GraphAxis
+      width={keyWidth}
+      height={contentHeight}
+      offset={rulerHeight}
+      transform={transform}
+    />
+    <HorizontalScrollBar scrollOffset={scrollLeft} contentLength={contentWidth} onScroll={onScrollLeft} />
   </div>
 }
 

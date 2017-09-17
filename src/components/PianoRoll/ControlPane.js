@@ -34,7 +34,6 @@ function ControlPane({
   containerWidth,
   containerHeight
 }) {
-  console.log(containerWidth, containerHeight)
   const controlButton = (label, name) => ({
     label,
     selected: mode === name,

@@ -116,16 +116,21 @@ function ArrangeView({
       height={containerHeight}
       position={transform.getX(playerPosition) - scrollLeft}
     />
-    <VerticalScrollBar
-      scrollOffset={scrollTop}
-      contentLength={contentHeight}
-      onScroll={onScrollTop}
-    />
-    <HorizontalScrollBar
-      scrollOffset={scrollLeft}
-      contentLength={contentWidth}
-      onScroll={onScrollLeft}
-    />
+    <div style={{ height: `calc(100% - ${BAR_WIDTH}px)`, position: "relative" }}>
+      <VerticalScrollBar
+        scrollOffset={scrollTop}
+        contentLength={contentHeight}
+        onScroll={onScrollTop}
+      />
+    </div>
+    <div style={{ width: `calc(100% - ${BAR_WIDTH}px)`, position: "absolute", bottom: 0 }}>
+      <HorizontalScrollBar
+        scrollOffset={scrollLeft}
+        contentLength={contentWidth}
+        onScroll={onScrollLeft}
+      />
+    </div>
+    <div className="scroll-corner" />
   </div>
 }
 

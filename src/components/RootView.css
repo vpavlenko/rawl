@@ -4,6 +4,7 @@
   flex-direction: column;
   flex-wrap: nowrap;
   position: relative;
+  overflow: hidden;
 }
 
 .Pane {

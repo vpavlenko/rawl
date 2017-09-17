@@ -2,7 +2,7 @@
   width: 100%;
   height: 100%;
   border-right: 1px solid var(--divider-color);
-  overflow: scroll;
+  overflow: hidden;
 }
 
 .ArrangeTrack {
@@ -35,4 +35,17 @@
 
 .ArrangeView .ScrollBar {
   z-index: 100;
+}
+
+.ArrangeView .PianoCursor {
+  position: absolute;
+}
+
+.ArrangeView .scroll-corner {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 17px;
+  width: 17px;
+  background: var(--secondary-background-color);
 }

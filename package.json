@@ -41,8 +41,9 @@
     "resize-observer-polyfill": "^1.4.2"
   },
   "devDependencies": {
-    "react-scripts": "1.0.10",
     "@kadira/storybook": "^2.21.0",
+    "electron-devtools-installer": "^2.2.0",
+    "react-scripts": "1.0.10",
     "webpack": "^2.2.0"
   }
 }

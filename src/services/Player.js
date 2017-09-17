@@ -11,14 +11,18 @@ function firstByte(eventType, channel) {
   return (MIDIChannelEvents[eventType] << 4) + channel
 }
 
-function getEventsToPlay(song, startTick, endTick) {
+function collectAllEvents(song) {
   return _.chain(song.tracks)
     .map(t => t.getEvents())
     .flatten()
     .map(deassemble)
     .flatten()
-    .filter(e => e && e.tick >= startTick && e.tick <= endTick)
     .value()
+}
+
+function filterEventsRange(events, startTick, endTick) {
+  return events
+    .filter(e => e && e.tick >= startTick && e.tick <= endTick)
 }
 
 // 同じ名前のタスクを描画タイマーごとに一度だけ実行する
@@ -45,6 +49,7 @@ export default class Player extends EventEmitter {
   _currentTempo = 120
   _currentTick = 0
   _prevTime = 0
+  _eventsToPlay = []
 
   constructor(timebase, output, trackMute) {
     super()
@@ -62,6 +67,7 @@ export default class Player extends EventEmitter {
     assert(this._song, "you must set song before play")
     this._playing = true
     this._prevTime = window.performance.now()
+    this._eventsToPlay = collectAllEvents(this._song)
 
     const loop = () => {
       if (this._playing) {
@@ -117,6 +123,7 @@ export default class Player extends EventEmitter {
 
   stop() {
     this._playing = false
+    this._eventsToPlay = []
     this.allSoundsOff()
   }
 
@@ -138,7 +145,7 @@ export default class Player extends EventEmitter {
     this._output.send(msg, Math.round(timestamp))
   }
 
-  playNote({channel, noteNumber, velocity, duration}) {
+  playNote({ channel, noteNumber, velocity, duration }) {
     const timestamp = window.performance.now()
     this._sendMessage([firstByte("noteOn", channel), noteNumber, velocity], timestamp)
     this._sendMessage([firstByte("noteOff", channel), noteNumber, 0], timestamp + this.tickToMillisec(duration))
@@ -146,7 +153,7 @@ export default class Player extends EventEmitter {
 
   secToTick(sec) {
     // timebase: 1/4拍子ごとのtick数
-    return sec *  this._currentTempo / 60 * this._timebase
+    return sec * this._currentTempo / 60 * this._timebase
   }
 
   tickToMillisec(tick) {
@@ -164,7 +171,7 @@ export default class Player extends EventEmitter {
     const deltaTick = this.secToTick(deltaTime / 1000)
     const endTick = this._currentTick + deltaTick
 
-    const events = getEventsToPlay(this._song, this._currentTick, endTick)
+    const events = filterEventsRange(this._eventsToPlay, this._currentTick, endTick)
 
     // channel イベントを MIDI Output に送信
     events

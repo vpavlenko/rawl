@@ -1,4 +1,5 @@
 import React from "react"
+import { pure } from "recompose"
 import LineGraph from "./LineGraph"
 
 function LineGraphControl({
@@ -59,4 +60,4 @@ function LineGraphControl({
   />
 }
 
-export default LineGraphControl
+export default pure(LineGraphControl)

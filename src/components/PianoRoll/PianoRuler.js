@@ -1,6 +1,8 @@
 import React from "react"
 import PropTypes from "prop-types"
-import { pure } from "recompose"
+import { shouldUpdate } from "recompose"
+import _ from "lodash"
+
 import DrawCanvas from "../DrawCanvas"
 
 import "./PianoRuler.css"
@@ -79,4 +81,13 @@ PianoRuler.propTypes = {
   onMouseDown: PropTypes.func
 }
 
-export default pure(PianoRuler)
+function test(props, nextProps) {
+  return props.width !== nextProps.width
+    || props.height !== nextProps.height
+    || props.pixelsPerTick !== nextProps.pixelsPerTick
+    || props.scrollLeft !== nextProps.scrollLeft
+    || !_.isEqual(props.beats, nextProps.beats)
+    || !_.isEqual(props.theme, nextProps.theme)
+}
+
+export default shouldUpdate(test)(PianoRuler)

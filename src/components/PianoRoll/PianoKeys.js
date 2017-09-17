@@ -1,5 +1,8 @@
-import React, { Component } from "react"
+import React from "react"
 import PropTypes from "prop-types"
+import { shouldUpdate } from "recompose"
+import _ from "lodash"
+
 import { noteNameWithOctString } from "../../helpers/noteNumberString"
 import DrawCanvas from "../DrawCanvas"
 
@@ -99,31 +102,16 @@ function PianoKeys({
 }
 
 PianoKeys.propTypes = {
+  theme: PropTypes.object.isRequired,
   width: PropTypes.number.isRequired,
   keyHeight: PropTypes.number.isRequired,
   numberOfKeys: PropTypes.number.isRequired
 }
 
-function equals(a, b, prop) {
-  return a[prop] === b[prop]
+function test(props, nextProps) {
+  return !_.isEqual(props.theme, nextProps.theme)
+    || props.keyHeight !== nextProps.keyHeight
+    || props.numberOfKeys !== nextProps.numberOfKeys
 }
 
-class PianoKeys_ extends Component {
-  shouldComponentUpdate(nextProps) {
-    const { props } = this
-    function eq(prop) {
-      return equals(props, nextProps, prop)
-    }
-
-    return !eq("eq")
-      || !eq("keyHeight")
-      || !eq("numberOfKeys")
-      || !eq("theme")
-  }
-
-  render() {
-    return <PianoKeys {...this.props} />
-  }
-}
-
-export default PianoKeys_
+export default shouldUpdate(test)(PianoKeys)

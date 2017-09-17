@@ -1,5 +1,6 @@
 import React from "react"
-import { pure } from "recompose"
+import { pure, shouldUpdate } from "recompose"
+import _ from "lodash"
 
 import fitToContainer from "../../hocs/fitToContainer"
 
@@ -77,7 +78,18 @@ function ControlPane({
   </div>
 }
 
-export default fitToContainer(ControlPane, {
+function test(props, nextProps) {
+  return props.mode !== nextProps.mode
+    || props.scrollLeft !== nextProps.scrollLeft
+    || props.paddingBottom !== nextProps.paddingBottom
+    || !_.isEqual(props.theme, nextProps.theme)
+    || !_.isEqual(props.beats, nextProps.beats)
+    || !_.isEqual(props.events, nextProps.events)
+    || !_.isEqual(props.dispatch, nextProps.dispatch)
+    || !_.isEqual(props.transform, nextProps.transform)
+}
+
+export default shouldUpdate(test)(fitToContainer(ControlPane, {
   width: "100%",
   height: "100%"
-})
+}))

@@ -1,5 +1,7 @@
 import React from "react"
 import _ from "lodash"
+import { pure } from "recompose"
+
 import DrawCanvas from "../../DrawCanvas"
 
 import "./LineGraph.css"
@@ -29,7 +31,7 @@ function drawEvents(ctx, strokeColor, items, right, lineWidth) {
   ctx.stroke()
 }
 
-export default function LineGraph({
+function LineGraph({
   width,
   height,
   scrollLeft,
@@ -37,7 +39,7 @@ export default function LineGraph({
   onMouseDown,
   onMouseMove,
   onMouseUp,
-  onClickAxis = () => {},
+  onClickAxis = () => { },
   className,
   lineWidth,
   axis,
@@ -82,3 +84,5 @@ export default function LineGraph({
     />
   </div>
 }
+
+export default pure(LineGraph)

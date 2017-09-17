@@ -1,6 +1,8 @@
 import React from "react"
 import PropTypes from "prop-types"
-import { pure } from "recompose"
+import { shouldUpdate } from "recompose"
+import _ from "lodash"
+
 import DrawCanvas from "../DrawCanvas"
 
 const LINE_WIDTH = 2
@@ -25,8 +27,7 @@ function PianoSelection({
   transform,
   theme,
   width,
-  height,
-  style
+  height
 }) {
   function draw(ctx) {
     const { width, height } = ctx.canvas
@@ -42,15 +43,25 @@ function PianoSelection({
     className="PianoSelection"
     width={width}
     height={height}
-    style={style}
   />
 }
 
 PianoSelection.propTypes = {
-  selection: PropTypes.object,
+  theme: PropTypes.object.isRequired,
+  selection: PropTypes.object.isRequired,
   transform: PropTypes.object.isRequired,
   width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired
+  height: PropTypes.number.isRequired,
+  scrollLeft: PropTypes.number.isRequired
 }
 
-export default pure(PianoSelection)
+function test(props, nextProps) {
+  return !_.isEqual(props.theme, nextProps.theme)
+    || !_.isEqual(props.selection, nextProps.selection)
+    || !_.isEqual(props.transform, nextProps.transform)
+    || props.width !== nextProps.width
+    || props.height !== nextProps.height
+    || props.scrollLeft !== nextProps.scrollLeft
+}
+
+export default shouldUpdate(test)(PianoSelection)

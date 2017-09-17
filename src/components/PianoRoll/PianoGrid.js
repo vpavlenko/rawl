@@ -1,9 +1,10 @@
-import React, { Component } from "react"
+import React from "react"
 import PropTypes from "prop-types"
 import _ from "lodash"
+import { shouldUpdate } from "recompose"
+
 import DrawCanvas from "../DrawCanvas"
 import withTheme from "../../hocs/withTheme"
-import logEq from "../../helpers/logEq"
 
 function drawBeatLines(ctx, beats, height, theme) {
   ctx.lineWidth = 1
@@ -51,22 +52,16 @@ PianoGrid.propTypes = {
   beats: PropTypes.array.isRequired
 }
 
-class _PianoGrid extends Component {
-  shouldComponentUpdate(nextProps) {
-    const props = this.props
-    return !logEq(props, nextProps, "theme", _.isEqual)
-      || !logEq(props, nextProps, "width", (x, y) => x === y)
-      || !logEq(props, nextProps, "height", (x, y) => x === y)
-      || !logEq(props, nextProps, "endTick", (x, y) => x === y)
-      || !logEq(props, nextProps, "scrollLeft", (x, y) => x === y)
-      || !logEq(props, nextProps, "ticksPerBeat", (x, y) => x === y)
-      || !logEq(props, nextProps, "transform", (x, y) => x && y && x.equals(y))
-      || !logEq(props, nextProps, "beats", (x, y) => x === y)
-  }
-
-  render() {
-    return <PianoGrid {...this.props} />
-  }
+function test(props, nextProps) {
+  return !_.isEqual(props.theme, nextProps.theme)
+    || props.width !== nextProps.width
+    || props.height !== nextProps.height
+    || props.endTick !== nextProps.endTick
+    || props.scrollLeft !== nextProps.scrollLeft
+    || props.ticksPerBeat !== nextProps.ticksPerBeat
+    || props.transform !== nextProps.transform
+    || !_.isEqual(props.transform, nextProps.transform)
+    || !_.isEqual(props.beats, nextProps.beats)
 }
 
-export default withTheme(_PianoGrid)
+export default shouldUpdate(test)(withTheme(PianoGrid))

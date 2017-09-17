@@ -1,7 +1,8 @@
 import React from "react"
+import { pure } from "recompose"
 import LineGraphControl from "./LineGraphControl"
 
-export default function ExpressionGraph({
+function ExpressionGraph({
   width,
   height,
   scrollLeft,
@@ -25,3 +26,5 @@ export default function ExpressionGraph({
     color={color}
   />
 }
+
+export default pure(ExpressionGraph)

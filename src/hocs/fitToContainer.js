@@ -18,14 +18,15 @@ export default function fitToContainer(WrappedComponent, style) {
       this.updateContainerSize()
       window.addEventListener("resize", this.updateContainerSize)
 
-      let ro = new ResizeObserver(() => {
+      this.ro = new ResizeObserver(() => {
         this.updateContainerSize()
       })
-      ro.observe(this.container)
+      this.ro.observe(this.container)
     }
 
     componentWillUnmount() {
       window.removeEventListener("resize", this.updateContainerSize)
+      this.ro.disconnect()
     }
 
     updateContainerSize() {

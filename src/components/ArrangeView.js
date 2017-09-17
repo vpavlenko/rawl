@@ -145,11 +145,11 @@ function stateful(WrappedComponent) {
     }
 
     componentDidMount() {
-      this.props.player.on("change-position", t => this.updatePosition(t))
+      this.props.player.on("change-position", this.updatePosition)
     }
 
     componentWillUnmount() {
-      this.props.player.off("change-position", t => this.updatePosition(t))
+      this.props.player.off("change-position", this.updatePosition)
     }
 
     get transform() {

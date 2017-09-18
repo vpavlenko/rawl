@@ -1,6 +1,5 @@
 import React, { Component } from "react"
 import DrawCanvas from "./DrawCanvas"
-import maxX from "../helpers/maxX"
 import NoteCoordTransform from "../model/NoteCoordTransform"
 import mapBeats from "../helpers/mapBeats"
 import filterEventsWithScroll from "../helpers/filterEventsWithScroll"
@@ -30,7 +29,6 @@ function ArrangeTrack({
   scrollLeft
 }) {
   const t = transform
-  const endTick = Math.max(maxX(events), 5000)
   const noteRects = events
     .filter(e => e.subtype === "note")
     .map(e => t.getRect(e))
@@ -87,7 +85,6 @@ function ArrangeView({
       height={theme.rulerHeight}
       endTick={widthTick}
       beats={mappedBeats}
-      onMouseDown={() => { }}
       scrollLeft={scrollLeft}
       pixelsPerTick={pixelsPerTick}
       onMouseDown={({ tick }) => dispatch("SET_PLAYER_POSITION", { tick })}

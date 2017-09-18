@@ -89,8 +89,8 @@ export default class RootView extends Component {
 
   render() {
     const { props, state } = this
-    const { app, theme } = props
-    const { song, player, quantizer, trackMute } = app
+    const { app, song, theme, pianoSelection } = props
+    const { player, quantizer, trackMute } = app
     const { selectedTrack, selectedTrackId } = song
 
     const {
@@ -211,6 +211,7 @@ export default class RootView extends Component {
       mouseMode={pianoRollMouseMode}
       dispatch={dispatch}
       theme={theme}
+      selection={pianoSelection}
     />
 
     const menu = Menu.buildFromTemplate([

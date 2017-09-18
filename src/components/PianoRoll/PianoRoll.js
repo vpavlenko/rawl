@@ -2,12 +2,9 @@ import React, { Component } from "react"
 import PropTypes from "prop-types"
 import SplitPane from "react-split-pane"
 
-import SelectionModel from "../../model/SelectionModel"
 import NoteCoordTransform from "../../model/NoteCoordTransform"
 import fitToContainer from "../../hocs/fitToContainer"
 import mapBeats from "../../helpers/mapBeats"
-
-import SelectionController from "./controllers/SelectionController"
 
 import PianoKeys from "./PianoKeys"
 import PianoGrid from "./PianoGrid"
@@ -24,6 +21,21 @@ import "./PianoRoll.css"
 
 const SCROLL_KEY_SPEED = 4
 
+function positionType(selection, transform, pos) {
+  const rect = selection.getBounds(transform)
+  const contains =
+    rect.x <= pos.x && rect.x + rect.width >= pos.x &&
+    rect.y <= pos.y && rect.y + rect.height >= pos.y
+  if (!contains) {
+    return "outside"
+  }
+  const localX = pos.x - rect.x
+  const edgeSize = Math.min(rect.width / 3, 8)
+  if (localX <= edgeSize) { return "left" }
+  if (rect.width - localX <= edgeSize) { return "right" }
+  return "center"
+}
+
 class PianoRoll extends Component {
   constructor(props) {
     super(props)
@@ -34,13 +46,8 @@ class PianoRoll extends Component {
       controlHeight: 0,
       cursorPosition: 0,
       notesCursor: "auto",
-      controlMode: "velocity",
-      selection: new SelectionModel()
+      controlMode: "velocity"
     }
-
-    this.state.selection.on("change", () => {
-      this.setState({ selection: this.state.selection })
-    })
   }
 
   componentDidMount() {
@@ -98,20 +105,15 @@ class PianoRoll extends Component {
       return
     }
 
-    this.selectionController.copySelection()
+    this.props.dispatch("COPY_SELECTION")
   }
 
   onPaste = () => {
-    this.selectionController.pasteSelection()
+    this.props.dispatch("PASTE_SELECTION")
   }
 
-  get selectionController() {
-    return new SelectionController(
-      this.state.selection,
-      this.props.track,
-      this.props.quantizer,
-      this.getTransform(),
-      this.props.player)
+  shouldComponentUpdate(nextProps, nextState) {
+    return true
   }
 
   getTransform() {
@@ -124,6 +126,54 @@ class PianoRoll extends Component {
       127)
   }
 
+  dispatch = (type, params) => {
+    const {
+      quantizer,
+      dispatch,
+      selection
+    } = this.props
+
+    const transform = this.getTransform()
+
+    // TODO: dispatch 内では音符座標系を扱い、position -> tick 変換等は component 内で行う
+    // TODO: setState を使うもの以外は上の階層で実装する
+    switch (type) {
+      case "CHANGE_CURSOR":
+        this.setState({ notesCursor: params.cursor })
+        break
+      case "SCROLL_BY":
+        // TODO: PianoRoll をスクロールする
+        break
+      case "GET_SELECTION_RECT": // FIXME: dispatch から値を取得しない
+        return selection.getBounds(transform)
+      case "GET_SELECTION_POSITION_TYPE": // FIXME: dispatch から値を取得しない
+        return positionType(selection, transform, params.position)
+      case "MOVE_SELECTION_XY": {
+        const tick = quantizer.round(transform.getTicks(params.position.x))
+        const noteNumber = Math.round(transform.getNoteNumber(params.position.y))
+        dispatch("MOVE_SELECTION", { tick, noteNumber })
+        break
+      }
+      case "RESIZE_SELECTION_LEFT_XY": {
+        const tick = quantizer.round(transform.getTicks(params.position.x))
+        dispatch("RESIZE_SELECTION_LEFT", { tick })
+        break
+      }
+      case "RESIZE_SELECTION_RIGHT_XY": {
+        const tick = quantizer.round(transform.getTicks(params.position.x))
+        dispatch("RESIZE_SELECTION_RIGHT", { tick })
+        break
+      }
+      case "OPEN_CONTEXT_MENU":
+        return openContextMenu(this.dispatch, params)
+      case "SELECT_CONTROL_TAB":
+        this.setState({ controlMode: params.name })
+        break
+      default:
+        return dispatch(type, params)
+    }
+  }
+
   render() {
     const {
       theme,
@@ -132,8 +182,7 @@ class PianoRoll extends Component {
       beats,
       endTick,
       mouseMode,
-      player,
-      quantizer,
+      selection,
       containerWidth
     } = this.props
 
@@ -141,7 +190,6 @@ class PianoRoll extends Component {
       scrollLeft,
       scrollTop,
       notesCursor,
-      selection,
       cursorPosition,
       controlMode
     } = this.state
@@ -161,56 +209,7 @@ class PianoRoll extends Component {
     const startTick = scrollLeft / transform.pixelsPerTick
     const mappedBeats = mapBeats(beats, transform.pixelsPerTick, startTick, widthTick)
 
-    const selectionController = new SelectionController(selection, track, quantizer, transform, player)
-
-    // TODO: dispatch 内では音符座標系を扱い、position -> tick 変換等は component 内で行う
-    // TODO: setState を使うもの以外は上の階層で実装する
-    const dispatch = (type, params) => {
-      switch (type) {
-        case "CHANGE_CURSOR":
-          this.setState({ notesCursor: params.cursor })
-          break
-        case "SCROLL_BY":
-          // TODO: PianoRoll をスクロールする
-          break
-        case "RESIZE_SELECTION_LEFT":
-          return selectionController.resizeLeft(params.position)
-        case "RESIZE_SELECTION_RIGHT":
-          return selectionController.resizeRight(params.position)
-        case "MOVE_SELECTION":
-          return selectionController.moveTo(params.position)
-        case "GET_SELECTION_RECT": // FIXME: dispatch から値を取得しない
-          return selectionController.getRect()
-        case "GET_SELECTION_POSITION_TYPE": // FIXME: dispatch から値を取得しない
-          return selectionController.positionType(params.position)
-        case "START_SELECTION":
-          if (!player.isPlaying) {
-            dispatch("SET_PLAYER_POSITION", { tick: params.tick })
-          }
-          return selectionController.startAt(params.tick, params.noteNumber)
-        case "RESIZE_SELECTION":
-          return selection.resize(
-            quantizer.round(params.start.tick),
-            params.start.noteNumber,
-            quantizer.round(params.end.tick),
-            params.end.noteNumber)
-        case "FIX_SELECTION":
-          return selectionController.fix()
-        case "COPY_SELECTION":
-          return selectionController.copySelection()
-        case "DELETE_SELECTION":
-          return selectionController.deleteSelection()
-        case "PASTE_SELECTION":
-          return selectionController.pasteSelection()
-        case "OPEN_CONTEXT_MENU":
-          return openContextMenu(dispatch, params)
-        case "SELECT_CONTROL_TAB":
-          this.setState({ controlMode: params.name })
-          break
-        default:
-          return this.props.dispatch(type, params)
-      }
-    }
+    const dispatch = this.dispatch
 
     const onScrollLeft = ({ scroll }) => {
       this.setScrollLeft(scroll)

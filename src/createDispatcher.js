@@ -3,15 +3,17 @@ import createTrackAction from "./actions/track"
 import createPlayerAction from "./actions/player"
 import createHistoryAction from "./actions/history"
 import creatQuantizerAction from "./actions/quantizer"
+import createSelectionAction from "./actions/selection"
 import createTrackMuteAction from "./actions/trackMute"
 
-const dispatch = (app, history) => (type, params) => {
+export default (app, history) => function dispatch(type, params) {
   const actions = {
     ...createSongAction(app, history),
     ...createTrackAction(app, history),
     ...createPlayerAction(app),
     ...createHistoryAction(history),
     ...creatQuantizerAction(app),
+    ...createSelectionAction(app, dispatch),
     ...createTrackMuteAction(app)
   }
 
@@ -22,5 +24,3 @@ const dispatch = (app, history) => (type, params) => {
 
   console.warn("unknown action", type, params)
 }
-
-export default dispatch

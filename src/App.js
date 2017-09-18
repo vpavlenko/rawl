@@ -14,18 +14,22 @@ import TrackMute from "./services/TrackMute"
 import History from "./services/History"
 
 import Song from "./model/Song"
+import SelectionModel from "./model/SelectionModel"
+
 import { TIME_BASE } from "./Constants"
 
 import "./index.css"
 
 export default class App extends EventEmitter {
+  state = {}
+
   constructor() {
     super()
     this.trackMute = new TrackMute()
     this.player = new Player(TIME_BASE, new SynthOutput(), this.trackMute)
     this.quantizer = new Quantizer(TIME_BASE)
     this.song = Song.emptySong()
-    this.state = {}
+    this.pianoSelection = new SelectionModel()
   }
 
   init() {
@@ -42,7 +46,7 @@ export default class App extends EventEmitter {
   }
 
   set song(song) {
-    this._song = song
+    this.setState({ song })
     this.player.song = song
     this.emit("change-song", song)
     this.player.reset()
@@ -50,6 +54,19 @@ export default class App extends EventEmitter {
   }
 
   get song() {
-    return this._song
+    return this.state.song
+  }
+
+  set pianoSelection(pianoSelection) {
+    this.setState({ pianoSelection })
+    this.emit("change-piano-selection", pianoSelection)
+  }
+
+  get pianoSelection() {
+    return this.state.pianoSelection
+  }
+
+  setState(state) {
+    this.state = { ...this.state, ...state }
   }
 }

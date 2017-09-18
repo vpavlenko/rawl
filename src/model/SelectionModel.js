@@ -1,16 +1,12 @@
-import EventEmitter from "eventemitter3"
-import _ from "lodash"
 import Rect from "./Rect"
 
-export default class SelectionModel extends EventEmitter {
-  constructor() {
-    super()
-    this.reset()
-  }
-
-  emitChanges() {
-    this.emit("change")
-  }
+export default class SelectionModel {
+  noteIds = []
+  fromTick = 0
+  toTick = 0
+  fromNoteNumber = 0
+  toNoteNumber = 0
+  enabled = false
 
   getBounds(transform) {
     const left = transform.getX(this.fromTick)
@@ -25,65 +21,51 @@ export default class SelectionModel extends EventEmitter {
     )
   }
 
-  setNoteIds(noteIds) {
-    this.noteIds = noteIds
-    this.emitChanges()
-  }
-
   moveTo(tick, number) {
+    const s = this.clone()
+
     const duration = this.toTick - this.fromTick
     const width = this.toNoteNumber - this.fromNoteNumber
-    this.fromTick = tick
-    this.toTick = tick + duration
-    this.fromNoteNumber = number
-    this.toNoteNumber = number + width
-    this.emitChanges()
+    s.fromTick = tick
+    s.toTick = tick + duration
+    s.fromNoteNumber = number
+    s.toNoteNumber = number + width
+
+    return s
   }
 
   move(dt, dn) {
-    this.fromTick += dt
-    this.toTick += dt
-    this.fromNoteNumber += dn
-    this.toNoteNumber += dn
-    this.emitChanges()
+    const s = this.clone()
+
+    s.fromTick += dt
+    s.toTick += dt
+    s.fromNoteNumber += dn
+    s.toNoteNumber += dn
+
+    return s
   }
 
   resize(fromTick, fromNoteNumber, toTick, toNoteNumber) {
+    const s = new SelectionModel()
+
     // to が右下になるようにする
-    this.fromTick = Math.min(fromTick, toTick)
-    this.toTick = Math.max(fromTick, toTick)
-    this.fromNoteNumber = Math.max(fromNoteNumber, toNoteNumber)
-    this.toNoteNumber = Math.min(fromNoteNumber, toNoteNumber)
+    s.fromTick = Math.min(fromTick, toTick)
+    s.toTick = Math.max(fromTick, toTick)
+    s.fromNoteNumber = Math.max(fromNoteNumber, toNoteNumber)
+    s.toNoteNumber = Math.min(fromNoteNumber, toNoteNumber)
+    s.enabled = true
 
-    this.enabled = true
-    this.emitChanges()
+    return s
   }
 
-  setFromTick(t) {
-    this.fromTick = t
-    this.emitChanges()
-  }
-
-  setToTick(t) {
-    this.toTick = t
-    this.emitChanges()
-  }
-
-  reset() {
-    this.noteIds = []
-    this.enabled = false
-    this.fromTick = 0
-    this.fromNoteNumber = 0
-    this.toTick = 0
-    this.toNoteNumber = 0
-  }
-
-  equals(s) {
-    return s.fromTick === this.fromTick
-      && s.toTick === this.toTick
-      && s.fromNoteNumber === this.fromNoteNumber
-      && s.toNoteNumber === this.toNoteNumber
-      && s.enabled === this.enabled
-      && _.isEqual(s.noteIds, this.noteIds)
+  clone() {
+    const s = new SelectionModel()
+    s.noteIds = this.noteIds
+    s.fromTick = this.fromTick
+    s.toTick = this.toTick
+    s.fromNoteNumber = this.fromNoteNumber
+    s.toNoteNumber = this.toNoteNumber
+    s.enabled = this.enabled
+    return s
   }
 }

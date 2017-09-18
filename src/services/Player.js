@@ -73,9 +73,8 @@ export default class Player extends EventEmitter {
       if (this._playing) {
         this._onTimer()
       }
-      window.requestAnimationFrame(loop)
     }
-    loop()
+    setInterval(loop, 33)
   }
 
   set position(tick) {

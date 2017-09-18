@@ -5,13 +5,16 @@ export default function withSong(app, WrappedComponent) {
     constructor(props) {
       super(props)
 
-      const { song } = app
-      this.state = { song }
+      const { song, pianoSelection } = app
+      this.state = { song, pianoSelection }
       song.on("change", () => {
         this.setState({ song })
       })
       app.on("change-song", song => {
         this.setSong(song)
+      })
+      app.on("change-piano-selection", pianoSelection => {
+        this.setState({ pianoSelection })
       })
     }
 
@@ -28,7 +31,7 @@ export default function withSong(app, WrappedComponent) {
     }
 
     render() {
-      return <WrappedComponent {...this.props} song={this.state.song} />
+      return <WrappedComponent {...this.props} {...this.state} />
     }
   }
 }

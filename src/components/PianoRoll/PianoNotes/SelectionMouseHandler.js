@@ -42,7 +42,7 @@ export default class SelectionMouseHandler extends MouseHandler {
           break
         default: break
       }
-      return contextMenuAction(selected,　dispatch)
+      return contextMenuAction(selected, dispatch)
     }
 
     return null
@@ -53,8 +53,8 @@ export default class SelectionMouseHandler extends MouseHandler {
 
   getCursor(e) {
     const type = this.getPositionType(e.local)
-    switch(type) {
-      case "center" : return "move"
+    switch (type) {
+      case "center": return "move"
       case "left": return "w-resize"
       case "right": return "w-resize"
       default: return "crosshair"
@@ -103,22 +103,22 @@ const moveSelectionAction = dispatch => (onMouseDown, onMouseMove) => {
 
   onMouseMove(e => {
     const position = pointAdd(selectionPos, pointSub(e.local, startPos))
-    dispatch("MOVE_SELECTION", { position })
+    dispatch("MOVE_SELECTION_XY", { position })
   })
 }
 
 const dragSelectionLeftEdgeAction = dispatch => (onMouseDown, onMouseMove) => {
-  onMouseDown(() => {})
+  onMouseDown(() => { })
 
   onMouseMove(e => {
-    dispatch("RESIZE_SELECTION_LEFT", { position: e.local })
+    dispatch("RESIZE_SELECTION_LEFT_XY", { position: e.local })
   })
 }
 
 const dragSelectionRightEdgeAction = dispatch => (onMouseDown, onMouseMove) => {
-  onMouseDown(() => {})
+  onMouseDown(() => { })
 
   onMouseMove(e => {
-    dispatch("RESIZE_SELECTION_RIGHT", { position: e.local })
+    dispatch("RESIZE_SELECTION_RIGHT_XY", { position: e.local })
   })
 }

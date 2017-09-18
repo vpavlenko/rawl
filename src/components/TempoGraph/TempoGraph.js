@@ -281,7 +281,7 @@ function stateful(WrappedComponent) {
         playerPosition: tick
       })
 
-      const { player, autoScroll, pixelsPerTick, containerWidth, containerHeight } = this.props
+      const { autoScroll, pixelsPerTick, containerWidth, containerHeight } = this.props
 
       // keep scroll position to cursor
       if (autoScroll) {

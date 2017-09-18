@@ -39,25 +39,20 @@ export default class Track extends EventEmitter {
     if (_.isEqual(newObj, anObj)) {
       return
     }
-    this.replaceEventById(id, newObj)
+    this.replaceEvent(newObj)
     this.updateEndOfTrack()
     this.sortByTick()
     this.emitChange()
     return newObj
   }
 
-  replaceEventById(id, event) {
-    for (let i = 0; i < this.events.length; i++) {
-      if (this.events[i].id === id) {
-        this.events[i] = event
-        break
-      }
-    }
+  replaceEvent(event) {
+    this.events = _.unionBy([event], this.events, "id")
   }
 
   removeEvent(id) {
     const obj = this.getEventById(id)
-    _.pull(this.events, obj)
+    this.events = _.without(this.events, obj)
     this.updateEndOfTrack()
     this.emitChange()
   }
@@ -66,7 +61,7 @@ export default class Track extends EventEmitter {
   _addEvent(e) {
     e.id = this.lastEventId
     this.lastEventId++
-    this.events.push(e)
+    this.events = [...this.events, e]
 
     if (e.tick === undefined) {
       const lastEvent = this.getEventById(this.lastEventId)
@@ -95,7 +90,7 @@ export default class Track extends EventEmitter {
   }
 
   sortByTick() {
-    this.events.sort((a, b) => a.tick - b.tick)
+    this.events = _.sortBy(this.events, "tick")
   }
 
   updateEndOfTrack() {

@@ -78,7 +78,7 @@ export default (app, dispatch) => {
 
       // 右端を固定して長さを変更
       const s = selection.clone()
-      s.fromTick = tick
+      s.fromTick = fromTick
       updateSelection(s)
 
       selectedTrack.transaction(it => {

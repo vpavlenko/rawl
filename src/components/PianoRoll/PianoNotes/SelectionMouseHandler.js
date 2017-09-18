@@ -8,19 +8,18 @@ export default class SelectionMouseHandler extends MouseHandler {
       return original
     }
 
-    const { dispatch } = this
-
     if (e.relatedTarget) {
       return null
     }
 
     const type = this.getPositionType(e.local)
+    const { dispatch, selection, transform } = this
 
     if (e.nativeEvent.button === 0) {
       switch (type) {
-        case "center": return moveSelectionAction(dispatch)
-        case "right": return dragSelectionRightEdgeAction(dispatch)
-        case "left": return dragSelectionLeftEdgeAction(dispatch)
+        case "center": return moveSelectionAction(dispatch, selection, transform)
+        case "right": return dragSelectionRightEdgeAction(dispatch, transform)
+        case "left": return dragSelectionLeftEdgeAction(dispatch, transform)
         case "outside": break
         default: break
       }
@@ -48,8 +47,9 @@ export default class SelectionMouseHandler extends MouseHandler {
     return null
   }
 
-  getPositionType = position =>
-    this.dispatch("GET_SELECTION_POSITION_TYPE", { position })
+  getPositionType(position) {
+    return positionType(this.selection, this.transform, position)
+  }
 
   getCursor(e) {
     const type = this.getPositionType(e.local)
@@ -60,6 +60,21 @@ export default class SelectionMouseHandler extends MouseHandler {
       default: return "crosshair"
     }
   }
+}
+
+function positionType(selection, transform, pos) {
+  const rect = selection.getBounds(transform)
+  const contains =
+    rect.x <= pos.x && rect.x + rect.width >= pos.x &&
+    rect.y <= pos.y && rect.y + rect.height >= pos.y
+  if (!contains) {
+    return "outside"
+  }
+  const localX = pos.x - rect.x
+  const edgeSize = Math.min(rect.width / 3, 8)
+  if (localX <= edgeSize) { return "left" }
+  if (rect.width - localX <= edgeSize) { return "right" }
+  return "center"
 }
 
 const contextMenuAction = (isNoteSelected, dispatch) => (onMouseDown, onMouseMove, onMouseUp) => {
@@ -92,33 +107,37 @@ const createSelectionAction = dispatch => (onMouseDown, onMouseMove, onMouseUp) 
   })
 }
 
-const moveSelectionAction = dispatch => (onMouseDown, onMouseMove) => {
+const moveSelectionAction = (dispatch, selection, transform) => (onMouseDown, onMouseMove) => {
   let startPos
   let selectionPos
 
   onMouseDown(e => {
     startPos = e.local
-    selectionPos = dispatch("GET_SELECTION_RECT")
+    selectionPos = selection.getBounds(transform)
   })
 
   onMouseMove(e => {
     const position = pointAdd(selectionPos, pointSub(e.local, startPos))
-    dispatch("MOVE_SELECTION_XY", { position })
+    const tick = transform.getTicks(position.x)
+    const noteNumber = Math.round(transform.getNoteNumber(position.y))
+    dispatch("MOVE_SELECTION", { tick, noteNumber })
   })
 }
 
-const dragSelectionLeftEdgeAction = dispatch => (onMouseDown, onMouseMove) => {
+const dragSelectionLeftEdgeAction = (dispatch, transform) => (onMouseDown, onMouseMove) => {
   onMouseDown(() => { })
 
   onMouseMove(e => {
-    dispatch("RESIZE_SELECTION_LEFT_XY", { position: e.local })
+    const tick = transform.getTicks(e.local.x)
+    dispatch("RESIZE_SELECTION_LEFT", { tick })
   })
 }
 
-const dragSelectionRightEdgeAction = dispatch => (onMouseDown, onMouseMove) => {
+const dragSelectionRightEdgeAction = (dispatch, transform) => (onMouseDown, onMouseMove) => {
   onMouseDown(() => { })
 
   onMouseMove(e => {
-    dispatch("RESIZE_SELECTION_RIGHT_XY", { position: e.local })
+    const tick = transform.getTicks(e.local.x)
+    dispatch("RESIZE_SELECTION_RIGHT", { tick })
   })
 }

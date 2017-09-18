@@ -2,13 +2,13 @@
   ノートイベントを描画するコンポーネント
 */
 
-import React, { Component } from "react"
+import React from "react"
 import PropTypes from "prop-types"
 import _ from "lodash"
+import { shouldUpdate } from "recompose"
+
 import DrawCanvas from "../../DrawCanvas"
 import filterEventsWithScroll from "../../../helpers/filterEventsWithScroll"
-import SelectionMouseHandler from "./SelectionMouseHandler"
-import PencilMouseHandler from "./PencilMouseHandler"
 
 /**
 
@@ -185,39 +185,17 @@ PianoNotes.propTypes = {
   cursor: PropTypes.string
 }
 
-class _PianoNotes extends Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      pencilMouseHandler: new PencilMouseHandler(),
-      selectionMouseHandler: new SelectionMouseHandler()
-    }
+function test(props, nextProps) {
+  const eq = (propName, compare = (a, b) => a === b) => {
+    return compare(props[propName], nextProps[propName])
   }
 
-  shouldComponentUpdate(nextProps) {
-    const eq = (propName, compare = (a, b) => a === b) => {
-      return compare(this.props[propName], nextProps[propName])
-    }
-
-    return !eq("events", _.isEqual)
-      || !eq("transform")
-      || !eq("scrollLeft")
-      || !eq("width")
-      || !eq("cursor")
-      || !eq("selectedEventIds", _.isEqual)
-  }
-
-  render() {
-    this.state.pencilMouseHandler.transform = this.props.transform
-
-    const mouseHandler = this.props.mouseMode === 0 ?
-      this.state.pencilMouseHandler : this.state.selectionMouseHandler
-
-    mouseHandler.dispatch = this.props.dispatch
-
-    return <PianoNotes {...this.props} mouseHandler={mouseHandler} />
-  }
+  return !eq("events", _.isEqual)
+    || !eq("transform")
+    || !eq("scrollLeft")
+    || !eq("width")
+    || !eq("cursor")
+    || !eq("selectedEventIds", _.isEqual)
 }
 
-export default _PianoNotes
+export default shouldUpdate(test)(PianoNotes)

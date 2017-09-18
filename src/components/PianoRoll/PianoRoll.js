@@ -6,11 +6,14 @@ import NoteCoordTransform from "../../model/NoteCoordTransform"
 import fitToContainer from "../../hocs/fitToContainer"
 import mapBeats from "../../helpers/mapBeats"
 
+import PianoNotes from "./PianoNotes/PianoNotes"
+import PencilMouseHandler from "./PianoNotes/PencilMouseHandler"
+import SelectionMouseHandler from "./PianoNotes/SelectionMouseHandler"
+
 import PianoKeys from "./PianoKeys"
 import PianoGrid from "./PianoGrid"
 import PianoLines from "./PianoLines"
 import PianoRuler from "./PianoRuler"
-import PianoNotes from "./PianoNotes/PianoNotes"
 import PianoSelection from "./PianoSelection"
 import PianoCursor from "./PianoCursor"
 import ControlPane from "./ControlPane"
@@ -20,21 +23,6 @@ import { open as openContextMenu } from "./PianoContextMenu"
 import "./PianoRoll.css"
 
 const SCROLL_KEY_SPEED = 4
-
-function positionType(selection, transform, pos) {
-  const rect = selection.getBounds(transform)
-  const contains =
-    rect.x <= pos.x && rect.x + rect.width >= pos.x &&
-    rect.y <= pos.y && rect.y + rect.height >= pos.y
-  if (!contains) {
-    return "outside"
-  }
-  const localX = pos.x - rect.x
-  const edgeSize = Math.min(rect.width / 3, 8)
-  if (localX <= edgeSize) { return "left" }
-  if (rect.width - localX <= edgeSize) { return "right" }
-  return "center"
-}
 
 class PianoRoll extends Component {
   constructor(props) {
@@ -48,6 +36,9 @@ class PianoRoll extends Component {
       notesCursor: "auto",
       controlMode: "velocity"
     }
+
+    this.pencilMouseHandler = new PencilMouseHandler()
+    this.selectionMouseHandler = new SelectionMouseHandler()
   }
 
   componentDidMount() {
@@ -127,16 +118,8 @@ class PianoRoll extends Component {
   }
 
   dispatch = (type, params) => {
-    const {
-      quantizer,
-      dispatch,
-      selection
-    } = this.props
+    const { dispatch } = this.props
 
-    const transform = this.getTransform()
-
-    // TODO: dispatch 内では音符座標系を扱い、position -> tick 変換等は component 内で行う
-    // TODO: setState を使うもの以外は上の階層で実装する
     switch (type) {
       case "CHANGE_CURSOR":
         this.setState({ notesCursor: params.cursor })
@@ -144,26 +127,6 @@ class PianoRoll extends Component {
       case "SCROLL_BY":
         // TODO: PianoRoll をスクロールする
         break
-      case "GET_SELECTION_RECT": // FIXME: dispatch から値を取得しない
-        return selection.getBounds(transform)
-      case "GET_SELECTION_POSITION_TYPE": // FIXME: dispatch から値を取得しない
-        return positionType(selection, transform, params.position)
-      case "MOVE_SELECTION_XY": {
-        const tick = quantizer.round(transform.getTicks(params.position.x))
-        const noteNumber = Math.round(transform.getNoteNumber(params.position.y))
-        dispatch("MOVE_SELECTION", { tick, noteNumber })
-        break
-      }
-      case "RESIZE_SELECTION_LEFT_XY": {
-        const tick = quantizer.round(transform.getTicks(params.position.x))
-        dispatch("RESIZE_SELECTION_LEFT", { tick })
-        break
-      }
-      case "RESIZE_SELECTION_RIGHT_XY": {
-        const tick = quantizer.round(transform.getTicks(params.position.x))
-        dispatch("RESIZE_SELECTION_RIGHT", { tick })
-        break
-      }
       case "OPEN_CONTEXT_MENU":
         return openContextMenu(this.dispatch, params)
       case "SELECT_CONTROL_TAB":
@@ -219,6 +182,15 @@ class PianoRoll extends Component {
       this.setScrollTop(scroll)
     }
 
+    this.pencilMouseHandler.dispatch = dispatch
+    this.pencilMouseHandler.transform = transform
+    this.selectionMouseHandler.dispatch = dispatch
+    this.selectionMouseHandler.transform = transform
+    this.selectionMouseHandler.selection = selection
+
+    const mouseHandler = this.props.mouseMode === 0 ?
+      this.pencilMouseHandler : this.selectionMouseHandler
+
     return <div className="PianoRoll">
       <SplitPane split="horizontal" defaultSize={180} primary="second">
         <div
@@ -249,7 +221,8 @@ class PianoRoll extends Component {
               dispatch={dispatch}
               mouseMode={mouseMode}
               scrollLeft={scrollLeft}
-              isDrumMode={track.isRhythmTrack} />
+              isDrumMode={track.isRhythmTrack}
+              mouseHandler={mouseHandler} />
             <PianoSelection
               theme={theme}
               width={width}

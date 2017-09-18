@@ -125,7 +125,8 @@ class PianoRoll extends Component {
         this.setState({ notesCursor: params.cursor })
         break
       case "SCROLL_BY":
-        // TODO: PianoRoll をスクロールする
+        this.setScrollLeft(this.state.scrollLeft - params.x)
+        this.setScrollTop(this.state.scrollTop - params.y)
         break
       case "OPEN_CONTEXT_MENU":
         return openContextMenu(this.dispatch, params)

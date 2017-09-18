@@ -36,9 +36,9 @@ export default class NoteMouseHandler {
     if (!this.action) {
       return
     }
-    let actionMouseDown = () => {}
-    this.actionMouseMove = () => {}
-    this.actionMouseUp = () => {}
+    let actionMouseDown = () => { }
+    this.actionMouseMove = () => { }
+    this.actionMouseUp = () => { }
     const registerMouseDown = f => {
       actionMouseDown = f
     }
@@ -82,7 +82,18 @@ export default class NoteMouseHandler {
 }
 
 const dragScrollAction = dispatch => (onMouseDown, onMouseMove) => {
-  onMouseMove((e) => dispatch("SCROLL_BY", {x: e.nativeEvent.movementX, y: e.nativeEvent.movementY}))
+
+  const onGlobalMouseMove = e => {
+    dispatch("SCROLL_BY", { x: e.movementX, y: e.movementY })
+  }
+
+  const onGlobalMouseUp = e => {
+    document.removeEventListener("mousemove", onGlobalMouseMove)
+    document.removeEventListener("mouseup", onGlobalMouseUp)
+  }
+
+  document.addEventListener("mousemove", onGlobalMouseMove)
+  document.addEventListener("mouseup", onGlobalMouseUp)
 }
 
 const changeToolAction = dispatch => onMouseDown => {

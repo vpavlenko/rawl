@@ -9,7 +9,15 @@ export class MetaMidiEvent extends MidiEvent {
   constructor(deltaTime, subtype, value) {
     super(deltaTime, "meta")
     this.subtype = subtype
-    this.value = value
+    this._value = value
+  }
+
+  get value() {
+    return this._value
+  }
+
+  set value(value) {
+    this._value = value
   }
 }
 
@@ -67,10 +75,16 @@ export class Int8MetaMidiEvent extends MetaMidiEvent {
 export class SetTempoMidiEvent extends MetaMidiEvent {
   constructor(deltaTime, microsecondsPerBeat) {
     super(deltaTime, "setTempo", microsecondsPerBeat)
+    this.microsecondsPerBeat = microsecondsPerBeat
   }
 
-  get microsecondsPerBeat() {
-    return this.value
+  get value() {
+    return this._value
+  }
+
+  set value(value) {
+    this._value = value
+    this.microsecondsPerBeat = value
   }
 
   static fromStream(deltaTime, stream) {

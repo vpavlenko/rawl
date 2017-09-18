@@ -7,7 +7,8 @@ import {
   PitchBendMidiEvent, VolumeMidiEvent,
   PanMidiEvent, ExpressionMidiEvent,
   ModulationMidiEvent, ProgramChangeMidiEvent,
-  ResetAllMidiEvent } from "../midi/MidiEvent"
+  ResetAllMidiEvent
+} from "../midi/MidiEvent"
 import { getInstrumentName } from "../midi/GM"
 
 function lastValue(arr, prop) {
@@ -150,6 +151,24 @@ export default class Track extends EventEmitter {
   _updateLast(arr, obj) {
     if (arr.length > 0) {
       this.updateEvent(_.last(arr).id, obj)
+    }
+  }
+
+  createOrUpdate(newEvent) {
+    const events = this.events.filter(e =>
+      e.type === newEvent.type &&
+      e.subtype === newEvent.subtype &&
+      e.tick === newEvent.tick)
+
+    if (events.length > 0) {
+      this.transaction(it => {
+        events.forEach(e => {
+          it.updateEvent(e.id, { ...newEvent, id: e.id })
+        })
+      })
+      return events[0]
+    } else {
+      return this.addEvent(newEvent)
     }
   }
 

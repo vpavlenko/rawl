@@ -90,8 +90,25 @@
 .TrackListItem.selected,
 .TempoTrackItem.selected,
 .ArrangeViewButton.selected {
-  color: var(--theme-color);
   background: rgba(255, 255, 255, 1);
+}
+
+.TrackListItem.selected:hover,
+.TempoTrackItem.selected:hover,
+.ArrangeViewButton.selected:hover {
+  background: rgba(255, 255, 255, 1);
+}
+
+.TrackListItem:hover, 
+.TempoTrackItem:hover,
+.ArrangeViewButton:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.TrackListItem:active, 
+.TempoTrackItem:active,
+.ArrangeViewButton:active {
+  background: rgba(255, 255, 255, 0.6);
 }
 
 .TempoTrackItem .NumberInput {

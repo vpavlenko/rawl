@@ -5,11 +5,11 @@ export default class SynthOutput {
     ipcRenderer.send("create-synth-window")
   }
 
-  _send(msg) {
-    ipcRenderer.send("midi", msg)
+  send(message, timestamp) {
+    this.sendEvents([{ message, timestamp }])
   }
 
-  send(message, timestamp) {
-    this._send({ message, timestamp })
+  sendEvents(events) {
+    ipcRenderer.send("midi", { events, timestamp: window.performance.now() })
   }
 }

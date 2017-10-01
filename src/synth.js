@@ -8,10 +8,14 @@ const { ipcRenderer } = window.require("electron")
 export default class SynthApp {
   eventsBuffer = []
 
+  // 送信元とのタイムスタンプの差
+  timestampOffset = 0
+
   init() {
     const handler = new MidiMessageHandler()
-    ipcRenderer.on("midi", (error, event) => {
-      this.eventsBuffer.push(event)
+    ipcRenderer.on("midi", (error, { events, timestamp }) => {
+      this.eventsBuffer = [...this.eventsBuffer, ...events]
+      this.timestampOffset = window.performance.now() - timestamp
     })
 
     const url = "/soundfonts/msgs.sf2"
@@ -30,7 +34,7 @@ export default class SynthApp {
     const onTimer = () => {
       // 再生時刻が現在より過去なら再生して削除
       this.eventsBuffer = this.eventsBuffer.filter(({ message, timestamp }) => {
-        const delay = timestamp - window.performance.now()
+        const delay = timestamp - window.performance.now() + this.timestampOffset
         const willPlay = delay <= 0
         if (willPlay) {
           handler.processMidiMessage(message)

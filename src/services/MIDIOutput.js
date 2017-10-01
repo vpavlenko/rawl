@@ -1,6 +1,6 @@
 export default class MIDIOutput {
   constructor() {
-    navigator.requestMIDIAccess({sysex : true}).then(midiAccess => {
+    navigator.requestMIDIAccess({ sysex: true }).then(midiAccess => {
       const outputs = Array.from(midiAccess.outputs.values())
       this.midiOutput = outputs[0]
     }, error => {
@@ -12,5 +12,9 @@ export default class MIDIOutput {
     if (this.midiOutput) {
       this.midiOutput.send(msg, timestamp)
     }
+  }
+
+  sendEvents(events) {
+    events.forEach(e => this.send(e.message, e.timestamp))
   }
 }

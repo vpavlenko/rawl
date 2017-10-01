@@ -6,6 +6,7 @@ import MIDIControlEvents from "../constants/MIDIControlEvents"
 import MIDIChannelEvents from "../constants/MIDIChannelEvents"
 import { eventToBytes } from "../helpers/midiHelper"
 import { deassemble } from "../helpers/noteAssembler"
+import EventScheduler from "./EventScheduler"
 
 function firstByte(eventType, channel) {
   return (MIDIChannelEvents[eventType] << 4) + channel
@@ -18,11 +19,6 @@ function collectAllEvents(song) {
     .map(deassemble)
     .flatten()
     .value()
-}
-
-function filterEventsRange(events, startTick, endTick) {
-  return events
-    .filter(e => e && e.tick >= startTick && e.tick <= endTick)
 }
 
 // 同じ名前のタスクを描画タイマーごとに一度だけ実行する
@@ -45,11 +41,9 @@ class DisplayTask {
 const displayTask = new DisplayTask()
 
 export default class Player extends EventEmitter {
-  _playing = false
   _currentTempo = 120
   _currentTick = 0
-  _prevTime = 0
-  _eventsToPlay = []
+  _scheduler = null
 
   constructor(timebase, output, trackMute) {
     super()
@@ -65,20 +59,16 @@ export default class Player extends EventEmitter {
 
   play() {
     assert(this._song, "you must set song before play")
-    this._playing = true
-    this._prevTime = window.performance.now()
-    this._eventsToPlay = collectAllEvents(this._song)
-
-    const loop = () => {
-      if (this._playing) {
-        this._onTimer()
-      }
-    }
-    setInterval(loop, 33)
+    const eventsToPlay = collectAllEvents(this._song)
+    this._scheduler = new EventScheduler(eventsToPlay, this._currentTick, this._timebase)
+    setInterval(() => this._onTimer(), 50)
   }
 
   set position(tick) {
-    this._currentTick = Math.max(0, tick)
+    if (this._scheduler) {
+      this._scheduler.seek(tick)
+    }
+    this._currentTick = tick
     this.emitChangePosition()
 
     if (this.isPlaying) {
@@ -91,7 +81,7 @@ export default class Player extends EventEmitter {
   }
 
   get isPlaying() {
-    return this._playing
+    return !!this._scheduler
   }
 
   get timebase() {
@@ -121,8 +111,7 @@ export default class Player extends EventEmitter {
   }
 
   stop() {
-    this._playing = false
-    this._eventsToPlay = []
+    this._scheduler = null
     this.allSoundsOff()
   }
 
@@ -141,18 +130,17 @@ export default class Player extends EventEmitter {
   }
 
   _sendMessage(msg, timestamp) {
-    this._output.send(msg, Math.round(timestamp))
+    this._output.send(msg, timestamp)
+  }
+
+  _sendMessages(msg) {
+    this._output.sendEvents(msg)
   }
 
   playNote({ channel, noteNumber, velocity, duration }) {
     const timestamp = window.performance.now() + 100
     this._sendMessage([firstByte("noteOn", channel), noteNumber, velocity], timestamp)
     this._sendMessage([firstByte("noteOff", channel), noteNumber, 0], timestamp + this.tickToMillisec(duration))
-  }
-
-  secToTick(sec) {
-    // timebase: 1/4拍子ごとのtick数
-    return sec * this._currentTempo / 60 * this._timebase
   }
 
   tickToMillisec(tick) {
@@ -165,44 +153,40 @@ export default class Player extends EventEmitter {
   }
 
   _onTimer() {
-    const timestamp = window.performance.now()
-    const deltaTime = timestamp - this._prevTime
-    const deltaTick = this.secToTick(deltaTime / 1000)
-    const endTick = this._currentTick + deltaTick
+    if (!this.isPlaying) {
+      return
+    }
 
-    const events = filterEventsRange(this._eventsToPlay, this._currentTick, endTick)
+    const timestamp = window.performance.now()
+    const events = this._scheduler.readNextEvents(this._currentTempo, timestamp)
 
     // channel イベントを MIDI Output に送信
-    events
-      .filter(e => e.type === "channel" && this._shouldPlayChannel(e.channel))
-      .forEach(e => {
-        const bytes = eventToBytes(e, false)
-        const waitTick = e.tick - this._currentTick
-        this._sendMessage(bytes, timestamp + this.tickToMillisec(waitTick))
-      })
+    const messages = events
+      .filter(({ event }) => event.type === "channel" && this._shouldPlayChannel(event.channel))
+      .map(({ event, timestamp }) => ({ message: eventToBytes(event, false), timestamp }))
+    this._sendMessages(messages)
 
     // channel イベント以外を実行
-    events
-      .filter(e => e.type !== "channel")
-      .forEach(e => {
+    events.forEach(({ event, timestamp }) => {
+      const e = event
+      if (e.type !== "channel") {
         switch (e.subtype) {
           case "setTempo":
             this._currentTempo = 60000000 / e.microsecondsPerBeat
-            this.emit("change-tempo", this._currentTempo)
             break
           case "endOfTrack":
             break
           default:
             break
         }
-      })
+      }
+    })
 
-    if (this._currentTick >= this._song.endOfSong) {
+    if (this._scheduler.currentTick >= this._song.endOfSong) {
       this.stop()
     }
 
-    this._prevTime = timestamp
-    this._currentTick = endTick
+    this._currentTick = this._scheduler.currentTick
     this.emitChangePosition()
   }
 

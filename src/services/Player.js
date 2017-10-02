@@ -138,7 +138,7 @@ export default class Player extends EventEmitter {
   }
 
   playNote({ channel, noteNumber, velocity, duration }) {
-    const timestamp = window.performance.now() + 100
+    const timestamp = window.performance.now()
     this._sendMessage([firstByte("noteOn", channel), noteNumber, velocity], timestamp)
     this._sendMessage([firstByte("noteOff", channel), noteNumber, 0], timestamp + this.tickToMillisec(duration))
   }

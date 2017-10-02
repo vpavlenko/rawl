@@ -100,6 +100,18 @@ export default class Track extends EventEmitter {
       .value()
   }
 
+  changeChannel(channel) {
+    this.channel = channel
+
+    for (let e of this.events) {
+      if (e.type === "channel") {
+        e.channel = channel
+      }
+    }
+
+    this.emitChange()
+  }
+
   transaction(func) {
     this._paused = true
     this._changed = false
@@ -176,6 +188,9 @@ export default class Track extends EventEmitter {
   }
 
   get instrumentName() {
+    if (this.isRhythmTrack) {
+      return "Standard Drum Kit"
+    }
     const program = this.programNumber
     if (program !== undefined) {
       return getInstrumentName(program)

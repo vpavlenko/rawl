@@ -4,7 +4,13 @@
   overflow: hidden;
 }
 
-.InstrumentBrowser label {
+.InstrumentBrowser .finder.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.InstrumentBrowser .left label,
+.InstrumentBrowser .right label {
   padding: 0.5em 1em;
   display: block;
 }
@@ -35,6 +41,7 @@
 
 .InstrumentBrowser .footer {
   text-align: right;
+  clear: both;
 }
 
 .InstrumentBrowser button {

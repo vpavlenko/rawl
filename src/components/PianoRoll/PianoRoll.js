@@ -225,11 +225,11 @@ class PianoRoll extends Component {
               isDrumMode={track.isRhythmTrack}
               mouseHandler={mouseHandler} />
             <PianoSelection
-              theme={theme}
+              color={theme.themeColor}
               width={width}
               height={contentHeight}
-              transform={transform}
-              selection={selection}
+              hidden={!selection.enabled}
+              selectionBounds={selection.getBounds(transform)}
               scrollLeft={scrollLeft} />
             <PianoCursor
               width={width}

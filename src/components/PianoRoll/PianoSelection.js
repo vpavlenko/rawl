@@ -7,11 +7,10 @@ import DrawCanvas from "../DrawCanvas"
 
 const LINE_WIDTH = 2
 
-function drawSelection(ctx, selection, transform, theme) {
-  if (!selection.enabled) return
-  const { x, y, width, height } = selection.getBounds(transform)
+function drawSelection(ctx, bounds, color) {
+  const { x, y, width, height } = bounds
   ctx.beginPath()
-  ctx.strokeStyle = theme.themeColor
+  ctx.strokeStyle = color
   ctx.lineWidth = LINE_WIDTH
   ctx.rect(
     x + LINE_WIDTH / 2,
@@ -23,10 +22,10 @@ function drawSelection(ctx, selection, transform, theme) {
 
 function PianoSelection({
   scrollLeft,
-  selection,
-  transform,
-  theme,
+  selectionBounds,
+  color,
   width,
+  hidden,
   height
 }) {
   function draw(ctx) {
@@ -34,7 +33,9 @@ function PianoSelection({
     ctx.save()
     ctx.clearRect(0, 0, width, height)
     ctx.translate(-scrollLeft, 0)
-    drawSelection(ctx, selection, transform, theme)
+    if (!hidden) {
+      drawSelection(ctx, selectionBounds, color)
+    }
     ctx.restore()
   }
 
@@ -47,21 +48,20 @@ function PianoSelection({
 }
 
 PianoSelection.propTypes = {
-  theme: PropTypes.object.isRequired,
-  selection: PropTypes.object.isRequired,
-  transform: PropTypes.object.isRequired,
+  color: PropTypes.string.isRequired,
+  selectionBounds: PropTypes.object.isRequired,
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
   scrollLeft: PropTypes.number.isRequired
 }
 
 function test(props, nextProps) {
-  return !_.isEqual(props.theme, nextProps.theme)
-    || !_.isEqual(props.selection, nextProps.selection)
-    || !_.isEqual(props.transform, nextProps.transform)
+  return props.color !== nextProps.color
+    || !_.isEqual(props.selectionBounds, nextProps.selectionBounds)
     || props.width !== nextProps.width
     || props.height !== nextProps.height
     || props.scrollLeft !== nextProps.scrollLeft
+    || props.hidden !== nextProps.hidden
 }
 
 export default shouldUpdate(test)(PianoSelection)

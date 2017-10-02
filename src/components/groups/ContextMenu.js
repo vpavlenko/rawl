@@ -3,7 +3,7 @@ import ReactDOM from "react-dom"
 
 import styles from "./ContextMenu.css"
 
-const Nop = () => {}
+const Nop = () => { }
 
 function renderElement(html) {
   const template = document.createElement("template")
@@ -11,7 +11,15 @@ function renderElement(html) {
   return template.content.firstElementChild
 }
 
-export const createContextMenu = (childrenProvider) => position => {
+export const createContextMenu = (childrenProvider) => e => {
+  let position = e
+  if (e.pageX !== undefined && e.pageY !== undefined) {
+    position = {
+      x: e.pageX,
+      y: e.pageY
+    }
+  }
+
   const elm = renderElement(`<div />`)
   document.querySelector("body").appendChild(elm)
 
@@ -29,7 +37,7 @@ export function ContextMenuOverlay({ children, position, close }) {
     className={styles.overlay}
     onMouseDown={close}
     onContextMenu={e => e.preventDefault()}>
-    <div style={{position: "absolute", left: position.x, top: position.y}}>
+    <div style={{ position: "absolute", left: position.x, top: position.y }}>
       {children}
     </div>
   </div>

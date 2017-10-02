@@ -3,6 +3,7 @@ import React, { Component } from "react"
 import SplitPane from "react-split-pane"
 import { Helmet } from "react-helmet"
 import path from "path"
+import _ from "lodash"
 
 import { TIME_BASE } from "../Constants"
 import Popup from "./Popup"
@@ -30,6 +31,70 @@ function Pane(props) {
   return <div style={{ position: "relative", height: "100%" }}>
     <SplitPane {...props} />
   </div>
+}
+
+function createMenu(song, dispatch) {
+  return Menu.buildFromTemplate([
+    {
+      label: "File",
+      submenu: [
+        {
+          label: "New",
+          click: () => {
+            dispatch("CREATE_SONG")
+          }
+        },
+        {
+          label: "Open",
+          click: () => {
+            dialog.showOpenDialog({
+              filters: [{
+                name: "Standard MIDI File",
+                extensions: ["mid", "midi"]
+              }]
+            }, files => {
+              if (files) {
+                dispatch("OPEN_SONG", { filepath: files[0] })
+              }
+            })
+          }
+        },
+        {
+          label: "Save",
+          click: () => {
+            dispatch("SAVE_SONG", { filepath: song.filepath })
+          }
+        },
+        {
+          label: "Save As",
+          click: () => {
+            dialog.showSaveDialog({
+              defaultPath: song.filepath,
+              filters: [{
+                name: "Standard MIDI File",
+                extensions: ["mid", "midi"]
+              }]
+            }, filepath => {
+              dispatch("SAVE_SONG", { filepath })
+            })
+          }
+        }
+      ]
+    },
+    {
+      label: "Edit",
+      submenu: [
+        {
+          label: "Undo",
+          click: () => dispatch("UNDO")
+        },
+        {
+          label: "Redo",
+          click: () => dispatch("REDO")
+        }
+      ]
+    }
+  ])
 }
 
 export default class RootView extends Component {
@@ -106,43 +171,6 @@ export default class RootView extends Component {
 
     }
 
-    const onClickPencil = () => {
-      this.setState({ pianoRollMouseMode: 0 })
-    }
-
-    const onClickSelection = () => {
-      this.setState({ pianoRollMouseMode: 1 })
-    }
-
-    const onChangeTool = () => {
-      this.setState({
-        pianoRollMouseMode: pianoRollMouseMode === 0 ? 1 : 0
-      })
-    }
-
-    const onClickScaleUp = () => {
-      this.setState({
-        pianoRollScaleX: pianoRollScaleX + 0.1
-      })
-    }
-
-    const onClickScaleDown = () => {
-      this.setState({
-        pianoRollScaleX: Math.max(0.05, pianoRollScaleX - 0.1),
-      })
-    }
-
-    const onSelectQuantize = e => {
-      dispatch("SET_QUANTIZE_DENOMINATOR", { denominator: e.denominator })
-      this.setState({ quantize: e.denominator })
-    }
-
-    const onClickAutoScroll = () => {
-      this.setState({
-        pianoRollAutoScroll: !pianoRollAutoScroll
-      })
-    }
-
     const onClickTrackInstrument = trackId => {
       const track = song.getTrack(trackId)
       const popup = new Popup()
@@ -152,6 +180,7 @@ export default class RootView extends Component {
       const ids = getGMMapIndexes(programNumber)
 
       ReactDOM.render(<InstrumentBrowser
+        isRhythmTrack={track.isRhythmTrack}
         selectedCategoryId={ids[0]}
         selectedInstrumentId={ids[1]}
 
@@ -159,9 +188,23 @@ export default class RootView extends Component {
           popup.close()
         }}
 
-        onClickOK={(e) => {
-          const programNumber = getGMMapProgramNumber(e.categoryId, e.instrumentId)
-          dispatch("SET_TRACK_INSTRUMENT", { trackId, programNumber })
+        onClickOK={({ isRhythmTrack, categoryId, instrumentId }) => {
+
+          if (isRhythmTrack) {
+            track.changeChannel(9)
+            dispatch("SET_TRACK_INSTRUMENT", { trackId, programNumber: 0 })
+          } else {
+            if (track.isRhythmTrack) {
+              // 適当なチャンネルに変える
+              const channels = _.range(16)
+              const usedChannels = song.tracks.filter(t => t !== track).map(t => t.channel)
+              const availableChannel = _.min(_.difference(channels, usedChannels)) || 0
+              track.changeChannel(availableChannel)
+            }
+            const programNumber = getGMMapProgramNumber(categoryId, instrumentId)
+            dispatch("SET_TRACK_INSTRUMENT", { trackId, programNumber })
+          }
+
           popup.close()
         }}
       />, popup.getContentElement())
@@ -189,12 +232,15 @@ export default class RootView extends Component {
       onClickStop={() => dispatch("STOP")}
       onClickBackward={() => dispatch("MOVE_PLAYER_POSITION", { tick: -TIME_BASE * 4 })}
       onClickForward={() => dispatch("MOVE_PLAYER_POSITION", { tick: TIME_BASE * 4 })}
-      onClickPencil={onClickPencil}
-      onClickSelection={onClickSelection}
-      onClickScaleUp={onClickScaleUp}
-      onClickScaleDown={onClickScaleDown}
-      onSelectQuantize={onSelectQuantize}
-      onClickAutoScroll={onClickAutoScroll}
+      onClickPencil={() => this.setState({ pianoRollMouseMode: 0 })}
+      onClickSelection={() => this.setState({ pianoRollMouseMode: 1 })}
+      onClickScaleUp={() => this.setState({ pianoRollScaleX: pianoRollScaleX + 0.1 })}
+      onClickScaleDown={() => this.setState({ pianoRollScaleX: Math.max(0.05, pianoRollScaleX - 0.1) })}
+      onClickAutoScroll={() => this.setState({ pianoRollAutoScroll: !pianoRollAutoScroll })}
+      onSelectQuantize={e => {
+        dispatch("SET_QUANTIZE_DENOMINATOR", { denominator: e.denominator })
+        this.setState({ quantize: e.denominator })
+      }}
     />
 
     const pianoRoll = <PianoRoll
@@ -206,76 +252,15 @@ export default class RootView extends Component {
       scaleX={pianoRollScaleX}
       scaleY={pianoRollScaleY}
       autoScroll={pianoRollAutoScroll}
-      onChangeTool={onChangeTool}
-      onClickKey={onClickKey}
+      onChangeTool={() => this.setState({ pianoRollMouseMode: pianoRollMouseMode === 0 ? 1 : 0 })}
+      onClickKey={() => { }}
       mouseMode={pianoRollMouseMode}
       dispatch={dispatch}
       theme={theme}
       selection={pianoSelection}
     />
 
-    const menu = Menu.buildFromTemplate([
-      {
-        label: "File",
-        submenu: [
-          {
-            label: "New",
-            click: () => {
-              dispatch("CREATE_SONG")
-            }
-          },
-          {
-            label: "Open",
-            click: () => {
-              dialog.showOpenDialog({
-                filters: [{
-                  name: "Standard MIDI File",
-                  extensions: ["mid", "midi"]
-                }]
-              }, files => {
-                if (files) {
-                  dispatch("OPEN_SONG", { filepath: files[0] })
-                }
-              })
-            }
-          },
-          {
-            label: "Save",
-            click: () => {
-              dispatch("SAVE_SONG", { filepath: song.filepath })
-            }
-          },
-          {
-            label: "Save As",
-            click: () => {
-              dialog.showSaveDialog({
-                defaultPath: song.filepath,
-                filters: [{
-                  name: "Standard MIDI File",
-                  extensions: ["mid", "midi"]
-                }]
-              }, filepath => {
-                dispatch("SAVE_SONG", { filepath })
-              })
-            }
-          }
-        ]
-      },
-      {
-        label: "Edit",
-        submenu: [
-          {
-            label: "Undo",
-            click: () => dispatch("UNDO")
-          },
-          {
-            label: "Redo",
-            click: () => dispatch("REDO")
-          }
-        ]
-      }
-    ])
-
+    const menu = createMenu(song, dispatch)
     Menu.setApplicationMenu(menu)
 
     const trackList =
@@ -288,16 +273,16 @@ export default class RootView extends Component {
         trackMute={trackMute}
         onClickMute={trackId => dispatch("TOGGLE_MUTE_TRACK", { trackId })}
         onClickSolo={trackId => dispatch("TOGGLE_SOLO_TRACK", { trackId })}
-        onSelectTrack={trackId => {
-          this.setState({ isArrangeViewSelected: false })
-          dispatch("SELECT_TRACK", { trackId })
-        }}
         onClickDelete={trackId => dispatch("REMOVE_TRACK", { trackId })}
         onClickAddTrack={() => dispatch("ADD_TRACK")}
         onChangeName={e => dispatch("SET_TRACK_NAME", { name: e.target.value })}
         onChangeTempo={e => dispatch("SET_TEMPO", { tempo: parseFloat(e.target.value) })}
         onChangeVolume={(trackId, value) => dispatch("SET_TRACK_VOLUME", { trackId, volume: value })}
         onChangePan={(trackId, value) => dispatch("SET_TRACK_PAN", { trackId, pan: value })}
+        onSelectTrack={trackId => {
+          this.setState({ isArrangeViewSelected: false })
+          dispatch("SELECT_TRACK", { trackId })
+        }}
         onClickInstrument={onClickTrackInstrument}
         onClickArrangeView={() => this.setState({ isArrangeViewSelected: true })}
       />

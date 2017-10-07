@@ -30,7 +30,7 @@ class PianoRoll extends Component {
 
     this.state = {
       scrollLeft: 0,
-      scrollTop: 0,
+      scrollTop: 700, // 中央くらいの音程にスクロールしておく
       controlHeight: 0,
       cursorPosition: 0,
       notesCursor: "auto",

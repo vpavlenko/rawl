@@ -113,6 +113,7 @@ export default class Song extends EventEmitter {
     song.addTrack(Track.conductorTrack())
     song.addTrack(Track.emptyTrack(0))
     song.filepath = "new song.mid"
+    song._selectedTrackId = 1
     return song
   }
 
@@ -129,6 +130,7 @@ export default class Song extends EventEmitter {
 
       song.addTrack(track)
     })
+    song._selectedTrackId = 1
     return song
   }
 }

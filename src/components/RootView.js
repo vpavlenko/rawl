@@ -107,7 +107,7 @@ export default class RootView extends Component {
       pianoRollScaleY: 1,
       pianoRollAutoScroll: true,
       quantize: props.app.quantizer.denominator,
-      isArrangeViewSelected: true
+      isArrangeViewSelected: false
     }
   }
 

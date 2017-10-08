@@ -32,8 +32,18 @@ function ScrollBar({
   const maxLength = barLength - buttonLength * 2
   const valueRatio = normalize(barLength / contentLength)
   const thumbLength = Math.max(MIN_THUMB_LENGTH, maxLength * valueRatio)
-  const pageForwardLength = (maxLength - thumbLength) * normalize(scrollOffset / maxOffset)
-  const pageBackwardLength = maxLength - thumbLength - pageForwardLength
+  const disabled = maxOffset <= 0
+
+  let pageForwardLength
+  let pageBackwardLength
+
+  if (disabled) {
+    pageForwardLength = 0
+    pageBackwardLength = maxLength
+  } else {
+    pageForwardLength = (maxLength - thumbLength) * normalize(scrollOffset / maxOffset)
+    pageBackwardLength = maxLength - thumbLength - pageForwardLength
+  }
 
   const className = isVertial ? "VerticalScrollBar" : "HorizontalScrollBar"
   const lengthProp = isVertial ? "height" : "width"
@@ -43,6 +53,12 @@ function ScrollBar({
   }
 
   const onMouseDown = e => {
+    e.stopPropagation()
+
+    if (disabled) {
+      return
+    }
+
     const { className } = e.target
     const startPos = getPoint(e)
 
@@ -131,7 +147,7 @@ function ScrollBar({
     onMouseDown={onMouseDown}>
     <div className="button-backward" style={{ [lengthProp]: buttonLength }}>{triangle}</div>
     <div className="page-backward" style={{ [lengthProp]: pageForwardLength }} />
-    <div className="thumb" style={{ [lengthProp]: thumbLength }} />
+    {!disabled && <div className="thumb" style={{ [lengthProp]: thumbLength }} />}
     <div className="page-forward" style={{ [lengthProp]: pageBackwardLength }} />
     <div className="button-forward" style={{ [lengthProp]: buttonLength }}>{triangle}</div>
   </div>

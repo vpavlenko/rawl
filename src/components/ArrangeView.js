@@ -1,13 +1,19 @@
 import React, { Component } from "react"
+
 import DrawCanvas from "./DrawCanvas"
-import NoteCoordTransform from "../model/NoteCoordTransform"
-import mapBeats from "../helpers/mapBeats"
-import filterEventsWithScroll from "../helpers/filterEventsWithScroll"
-import fitToContainer from "../hocs/fitToContainer"
 import PianoGrid from "./PianoRoll/PianoGrid"
 import PianoRuler from "./PianoRoll/PianoRuler"
 import PianoCursor from "./PianoRoll/PianoCursor"
+import PianoSelection from "./PianoRoll/PianoSelection"
 import { VerticalScrollBar, HorizontalScrollBar, BAR_WIDTH } from "./inputs/ScrollBar"
+
+import NoteCoordTransform from "../model/NoteCoordTransform"
+import Rect from "../model/Rect"
+
+import mapBeats from "../helpers/mapBeats"
+import { pointSub } from "../helpers/point"
+import filterEventsWithScroll from "../helpers/filterEventsWithScroll"
+import fitToContainer from "../hocs/fitToContainer"
 
 import "./ArrangeView.css"
 
@@ -47,7 +53,7 @@ function ArrangeTrack({
     draw={draw}
     className="ArrangeTrack"
     width={width}
-    height={t.pixelsPerKey * t.numberOfKeys}
+    height={Math.ceil(t.pixelsPerKey * t.numberOfKeys)}
   />
 }
 
@@ -60,6 +66,10 @@ function ArrangeView({
   endTick,
   playerPosition,
   transform,
+  selection,
+  startSelection,
+  resizeSelection,
+  endSelection,
   scrollLeft = 0,
   scrollTop = 0,
   onScrollLeft,
@@ -75,10 +85,98 @@ function ArrangeView({
   const contentWidth = widthTick * pixelsPerTick
   const mappedBeats = mapBeats(beats, pixelsPerTick, startTick, widthTick)
 
-  // FIXME
-  const contentHeight = 1000
+  const bottomBorderWidth = 1
+  const trackHeight = Math.ceil(transform.pixelsPerKey * transform.numberOfKeys) + bottomBorderWidth
+  const contentHeight = trackHeight * tracks.length
 
-  return <div className="ArrangeView">
+  const selectionRect = selection && {
+    x: transform.getX(selection.x) - scrollLeft,
+    width: transform.getX(selection.width),
+    y: selection.y * trackHeight - scrollTop,
+    height: selection.height * trackHeight
+  }
+
+  function setScrollLeft(scroll) {
+    const maxOffset = Math.max(0, contentWidth - containerWidth)
+    onScrollLeft({ scroll: Math.floor(Math.min(maxOffset, Math.max(0, scroll))) })
+  }
+
+  function setScrollTop(scroll) {
+    const maxOffset = Math.max(0, contentHeight - containerHeight)
+    onScrollTop({ scroll: Math.floor(Math.min(maxOffset, Math.max(0, scroll))) })
+  }
+
+  function handleLeftClick(e) {
+    function createPoint(x, y) {
+      return {
+        x: transform.getTicks(x + scrollLeft),
+        y: (y - theme.rulerHeight + scrollTop) / trackHeight
+      }
+    }
+
+    const { left, top } = e.target.getBoundingClientRect()
+    const startPos = createPoint(e.nativeEvent.offsetX, e.nativeEvent.offsetY)
+    startSelection(startPos)
+
+    function onMouseMove(e) {
+      resizeSelection(startPos, createPoint(e.clientX - left, e.clientY - top))
+    }
+
+    function onMouseUp(e) {
+      endSelection(startPos, createPoint(e.clientX - left, e.clientY - top))
+      document.removeEventListener("mousemove", onMouseMove)
+      document.removeEventListener("mouseup", onMouseUp)
+    }
+
+    document.addEventListener("mousemove", onMouseMove)
+    document.addEventListener("mouseup", onMouseUp)
+  }
+
+  function handleMiddleClick(e) {
+    function createPoint(e) {
+      return { x: e.clientX, y: e.clientY }
+    }
+    const startPos = createPoint(e.nativeEvent)
+
+    function onMouseMove(e) {
+      const pos = createPoint(e)
+      const delta = pointSub(pos, startPos)
+      setScrollLeft(Math.max(0, scrollLeft - delta.x))
+      setScrollTop(Math.max(0, scrollTop - delta.y))
+    }
+
+    function onMouseUp(e) {
+      document.removeEventListener("mousemove", onMouseMove)
+      document.removeEventListener("mouseup", onMouseUp)
+    }
+
+    document.addEventListener("mousemove", onMouseMove)
+    document.addEventListener("mouseup", onMouseUp)
+  }
+
+  function onMouseDown(e) {
+    switch (e.button) {
+      case 0:
+        handleLeftClick(e)
+        break
+      case 1:
+        handleMiddleClick(e)
+        break
+    }
+  }
+
+  function onWheel(e) {
+    e.preventDefault()
+    const scrollLineHeight = trackHeight
+    const delta = scrollLineHeight * (e.deltaY > 0 ? 1 : -1)
+    setScrollTop(scrollTop + delta)
+  }
+
+  return <div
+    className="ArrangeView"
+    onMouseDown={onMouseDown}
+    onWheel={onWheel}
+  >
     <PianoRuler
       width={containerWidth}
       theme={theme}
@@ -103,9 +201,16 @@ function ArrangeView({
       </div>
       <PianoGrid
         width={containerWidth}
-        height={containerHeight}
+        height={contentHeight}
         scrollLeft={scrollLeft}
         beats={mappedBeats}
+      />
+      <PianoSelection
+        width={containerWidth}
+        height={contentHeight}
+        color="black"
+        selectionBounds={selectionRect}
+        hidden={selection == null}
       />
     </div>
     <PianoCursor
@@ -137,7 +242,8 @@ function stateful(WrappedComponent) {
       super(props)
 
       this.state = {
-        scrollLeft: 0
+        scrollLeft: 0,
+        selection: null  // Rect を使うが、x は tick, y はトラック番号を表す
       }
     }
 
@@ -189,10 +295,48 @@ function stateful(WrappedComponent) {
         })
       }
 
+      const createRect = (from, to) => {
+        const rect = Rect.fromPoints(from, to)
+        rect.y = Math.floor(rect.y)
+        rect.height = Math.min(this.props.tracks.length - rect.y,
+          Math.ceil(Math.max(from.y, to.y)) - rect.y)
+
+        if (rect.y < 0) {
+          // Ruler をドラッグしている場合は全てのトラックを選択する
+          rect.y = 0
+          rect.height = this.props.tracks.length
+        }
+        if (rect.height <= 0 || rect.width < 3) {
+          return null
+        }
+        return rect
+      }
+
+      const startSelection = () => {
+        this.setState({
+          selection: null
+        })
+      }
+
+      const resizeSelection = (from, to) => {
+        this.setState({
+          selection: createRect(from, to)
+        })
+      }
+
+      const endSelection = (from, to) => {
+        this.setState({
+          selection: createRect(from, to)
+        })
+      }
+
       return <WrappedComponent
         onScrollLeft={onScrollLeft}
         onScrollTop={onScrollTop}
         transform={this.transform}
+        startSelection={startSelection}
+        resizeSelection={resizeSelection}
+        endSelection={endSelection}
         {...this.state}
         {...this.props}
       />

@@ -7,8 +7,7 @@ import DrawCanvas from "../DrawCanvas"
 
 const LINE_WIDTH = 2
 
-function drawSelection(ctx, bounds, color) {
-  const { x, y, width, height } = bounds
+function drawSelection(ctx, { x, y, width, height }, color) {
   ctx.beginPath()
   ctx.strokeStyle = color
   ctx.lineWidth = LINE_WIDTH
@@ -21,11 +20,10 @@ function drawSelection(ctx, bounds, color) {
 }
 
 function PianoSelection({
-  scrollLeft,
+  scrollLeft = 0,
   selectionBounds,
   color,
   width,
-  hidden,
   height
 }) {
   function draw(ctx) {
@@ -33,7 +31,7 @@ function PianoSelection({
     ctx.save()
     ctx.clearRect(0, 0, width, height)
     ctx.translate(-scrollLeft, 0)
-    if (!hidden) {
+    if (selectionBounds) {
       drawSelection(ctx, selectionBounds, color)
     }
     ctx.restore()
@@ -49,10 +47,10 @@ function PianoSelection({
 
 PianoSelection.propTypes = {
   color: PropTypes.string.isRequired,
-  selectionBounds: PropTypes.object.isRequired,
+  selectionBounds: PropTypes.object,
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
-  scrollLeft: PropTypes.number.isRequired
+  scrollLeft: PropTypes.number
 }
 
 function test(props, nextProps) {
@@ -61,7 +59,6 @@ function test(props, nextProps) {
     || props.width !== nextProps.width
     || props.height !== nextProps.height
     || props.scrollLeft !== nextProps.scrollLeft
-    || props.hidden !== nextProps.hidden
 }
 
 export default shouldUpdate(test)(PianoSelection)

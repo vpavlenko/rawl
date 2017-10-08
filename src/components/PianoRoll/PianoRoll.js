@@ -228,8 +228,7 @@ class PianoRoll extends Component {
               color={theme.themeColor}
               width={width}
               height={contentHeight}
-              hidden={!selection.enabled}
-              selectionBounds={selection.getBounds(transform)}
+              selectionBounds={selection.enabled ? selection.getBounds(transform) : null}
               scrollLeft={scrollLeft} />
             <PianoCursor
               width={width}

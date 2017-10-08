@@ -23,8 +23,19 @@ function drawNote(ctx, rect) {
   ctx.beginPath()
   ctx.strokeStyle = "blue"
   ctx.lineWidth = 1
-  ctx.moveTo(x, y)
-  ctx.lineTo(x + width, y)
+  ctx.moveTo(Math.round(x), Math.round(y))
+  ctx.lineTo(Math.round(x + width), Math.round(y))
+  ctx.stroke()
+}
+
+function drawDrumNote(ctx, rect) {
+  const { x, y } = rect
+
+  ctx.beginPath()
+  ctx.strokeStyle = "blue"
+  ctx.lineWidth = 2
+  ctx.moveTo(Math.round(x), Math.round(y))
+  ctx.lineTo(Math.round(x + 2), Math.round(y))
   ctx.stroke()
 }
 
@@ -32,6 +43,7 @@ function ArrangeTrack({
   events,
   transform,
   width,
+  isDrumMode,
   scrollLeft
 }) {
   const t = transform
@@ -45,7 +57,8 @@ function ArrangeTrack({
 
     ctx.save()
     ctx.translate(0.5 - Math.round(scrollLeft), 0.5)
-    noteRects.forEach(rect => drawNote(ctx, rect))
+    const draw = isDrumMode ? drawDrumNote : drawNote
+    noteRects.forEach(rect => draw(ctx, rect))
     ctx.restore()
   }
 
@@ -108,10 +121,11 @@ function ArrangeView({
 
   function handleLeftClick(e) {
     function createPoint(x, y) {
-      return {
-        x: transform.getTicks(x + scrollLeft),
-        y: (y - theme.rulerHeight + scrollTop) / trackHeight
+      const tick = transform.getTicks(x + scrollLeft)
+      if (y <= theme.rulerHeight) {
+        return { x: tick, y: -1 }
       }
+      return { x: tick, y: (y - theme.rulerHeight + scrollTop) / trackHeight }
     }
 
     const { left, top } = e.target.getBoundingClientRect()
@@ -196,6 +210,7 @@ function ArrangeView({
             transform={transform}
             key={i}
             scrollLeft={scrollLeft}
+            isDrumMode={t.isRhythmTrack}
           />
         )}
       </div>

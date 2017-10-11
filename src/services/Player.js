@@ -186,7 +186,9 @@ export default class Player extends EventEmitter {
       this.stop()
     }
 
-    this._currentTick = this._scheduler.currentTick
+    if (this._scheduler) {
+      this._currentTick = this._scheduler.currentTick
+    }
     this.emitChangePosition()
   }
 

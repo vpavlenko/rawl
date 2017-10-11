@@ -13,6 +13,9 @@ function renderElement(html) {
 
 export const createContextMenu = (childrenProvider) => e => {
   let position = e
+  if (e.preventDefault) {
+    e.preventDefault()
+  }
   if (e.pageX !== undefined && e.pageY !== undefined) {
     position = {
       x: e.pageX,

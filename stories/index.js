@@ -1,5 +1,6 @@
 import React, { Component } from "react"
-import { storiesOf, action, linkTo } from "@kadira/storybook"
+import { storiesOf } from "@storybook/react"
+import { action } from '@storybook/addon-actions';
 import "../src/theme.css"
 
 // inputs
@@ -19,13 +20,16 @@ import { MenuBar, MenuItem, SubMenu, MenuSeparator } from "../src/components/gro
 import { Toolbar, ToolbarItem, ToolbarSeparator } from "../src/components/groups/Toolbar"
 import { createContextMenu, ContextMenu, MenuItem as ContextMenuItem } from "../src/components/groups/ContextMenu"
 
-// organisms
+// containers
 
-import PianoRoll from "../src/components/PianoRoll"
+import PianoRoll from "../src/components/PianoRoll/PianoRoll"
 
 // other
 
 import Track from "../src/model/Track"
+import Rect from "../src/model/Rect"
+import Theme from "../src/model/Theme"
+import SelectionModel from "../src/model/SelectionModel"
 
 /**
 
@@ -169,7 +173,8 @@ function Container({ children, width, height, overflow }) {
     backgroundColor: "white",
     boxShadow: "0 1px 10px rgba(0, 0, 0, 0.1)",
     margin: "1em",
-    resize: "both" }}>
+    resize: "both"
+  }}>
     {children}
   </div>
 }
@@ -177,21 +182,27 @@ function Container({ children, width, height, overflow }) {
 storiesOf("PianoRoll", module)
   .add("empty", () => {
     const player = {
-      on: () => {}
+      on: () => { },
+      off: () => { }
     }
     const track = new Track()
     return <Container width={300} height={300}>
       <PianoRoll
         track={track}
+        dispatch={action}
         onChangeTool={action("onChangeTool")}
         onClickRuler={action("onClickRuler")}
         onClickKey={action("onClickKey")}
+        theme={Theme.load()}
+        beats={[]}
+        selection={new SelectionModel()}
         noteMouseHandler={{
           onMouseDown: action("noteMouseHandler#onMouseDown"),
           onMouseMove: action("noteMouseHandler#onMouseMove"),
           onMouseUp: action("noteMouseHandler#onMouseUp"),
           defaultCursor: "crosshair"
         }}
+        mouesMode={0}
         player={player} />
     </Container>
   })

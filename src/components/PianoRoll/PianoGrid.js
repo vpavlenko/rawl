@@ -9,10 +9,16 @@ import withTheme from "../../hocs/withTheme"
 function drawBeatLines(ctx, beats, height, theme) {
   ctx.lineWidth = 1
 
+  // 密過ぎる時は省略する
+  const shouldOmit = beats.length > 1 && (beats[1].x - beats[0].x <= 5)
+
   beats.forEach(({ beat, x }) => {
     const isBold = beat === 0
+    if (shouldOmit && !isBold) {
+      return
+    }
     ctx.beginPath()
-    ctx.strokeStyle = isBold ? theme.secondaryTextColor : theme.dividerColor
+    ctx.strokeStyle = isBold && !shouldOmit ? theme.secondaryTextColor : theme.dividerColor
     ctx.moveTo(x, 0)
     ctx.lineTo(x, height)
     ctx.closePath()

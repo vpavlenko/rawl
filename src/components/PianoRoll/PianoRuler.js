@@ -12,18 +12,23 @@ function drawRuler(ctx, height, beats, theme) {
   ctx.strokeStyle = theme.secondaryTextColor
   ctx.lineWidth = 1
 
+  // 密過ぎる時は省略する
+  const shouldOmit = beats.length > 1 && (beats[1].x - beats[0].x <= 5)
+
   beats.forEach(({ beat, measure, x }) => {
     const isTop = beat === 0
 
     if (isTop) {
       ctx.moveTo(x, height / 2)
       ctx.lineTo(x, height)
-    } else {
+    } else if (!shouldOmit) {
       ctx.moveTo(x, height * 0.8)
       ctx.lineTo(x, height)
     }
 
-    if (isTop) {
+    // 小節番号
+    // 省略時は2つに1つ描画
+    if (isTop && (!shouldOmit || measure % 2 === 0)) {
       ctx.textBaseline = "top"
       ctx.font = `12px ${theme.canvasFont}`
       ctx.fillStyle = theme.secondaryTextColor

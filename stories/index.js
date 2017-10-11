@@ -23,6 +23,7 @@ import { createContextMenu, ContextMenu, MenuItem as ContextMenuItem } from "../
 // containers
 
 import PianoRoll from "../src/components/PianoRoll/PianoRoll"
+import Stage from "../src/components/Stage/Stage"
 
 // other
 
@@ -205,4 +206,96 @@ storiesOf("PianoRoll", module)
         mouesMode={0}
         player={player} />
     </Container>
+  })
+
+function wrapStage(BaseComponent) {
+  return class extends Component {
+    constructor(props) {
+      super(props)
+      this.state = {
+        selection: null,
+        items: this.props.initialItems
+      }
+    }
+
+    onChangeSelection = selection => {
+      this.setState({ selection })
+    }
+
+    onMoveItems = items => {
+      // 差し替える
+      this.setState({
+        items: this.state.items.map(i => {
+          const items2 = items.filter(i2 => i2.id === i.id)
+          if (items2.length > 0) {
+            return items2[0]
+          }
+          return i
+        })
+      })
+    }
+
+    onContextMenu = e => {
+      createContextMenu(close =>
+        <ContextMenu>
+          <ContextMenuItem onClick={() => {
+            const itemIDs = e.items.map(i => i.id)
+            this.setState({
+              items: this.state.items.filter(i => !itemIDs.includes(i.id)),
+              selection: null
+            })
+            close()
+          }}>Delete</ContextMenuItem>
+        </ContextMenu>
+      )(e)
+    }
+
+    getSelectedItemIDs() {
+      const rect = new Rect(this.state.selection)
+      return this.state.selection ? this.state.items.filter(item => {
+        return rect.containsRect(item)
+      }).map(item => item.id) : []
+    }
+
+    render() {
+      const selectedItemIDs = this.getSelectedItemIDs()
+
+      return <BaseComponent
+        {...this.props}
+        items={this.state.items}
+        selection={this.state.selection}
+        onChangeSelection={this.onChangeSelection}
+        onMoveItems={this.onMoveItems}
+        onContextMenu={this.onContextMenu}
+        selectedItemIDs={selectedItemIDs}
+      />
+    }
+  }
+}
+
+storiesOf("Stage", module)
+  .add("select", () => {
+    const items = []
+    function addItem() {
+      items.push({ id: items.length, x: Math.random() * 300, y: Math.random() * 300, width: 20, height: 20 })
+    }
+    function drawItem(ctx, { x, y, width, height, selected }) {
+      ctx.beginPath()
+      ctx.fillStyle = selected ? "blue" : "gray"
+      ctx.strokeStyle = "black"
+      ctx.lineWidth = 1
+      ctx.rect(x, y, width, height)
+      ctx.fill()
+      ctx.stroke()
+    }
+    for (let i = 0; i < 30; i++) {
+      addItem()
+    }
+    const StageWrapper = wrapStage(Stage)
+    return <StageWrapper
+      width={300}
+      height={300}
+      initialItems={items}
+      drawItem={drawItem}
+    />
   })

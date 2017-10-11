@@ -22,6 +22,31 @@ export default class Rect {
       point.y >= this.y && point.y <= this.y + this.height
   }
 
+  intersects(rect) {
+    if (!(rect instanceof Rect)) {
+      rect = new Rect(rect)
+    }
+    return this.containsPoint(rect.tl()) || this.containsPoint(rect.br())
+  }
+
+  containsRect(rect) {
+    if (!(rect instanceof Rect)) {
+      rect = new Rect(rect)
+    }
+    return this.containsPoint(rect.tl()) && this.containsPoint(rect.br())
+  }
+
+  tl() {
+    return { x: this.x, y: this.y }
+  }
+
+  br() {
+    return {
+      x: this.x + this.width,
+      y: this.y + this.height
+    }
+  }
+
   static fromPoints(pointA, pointB) {
     const r = new Rect()
 

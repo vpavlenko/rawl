@@ -17,7 +17,7 @@ export default class SelectionMouseHandler extends MouseHandler {
 
     if (e.nativeEvent.button === 0) {
       switch (type) {
-        case "center": return moveSelectionAction(dispatch, selection, transform)
+        case "center": return moveSelectionAction(dispatch, selection, transform, e.nativeEvent.ctrlKey)
         case "right": return dragSelectionRightEdgeAction(dispatch, transform)
         case "left": return dragSelectionLeftEdgeAction(dispatch, transform)
         case "outside": break
@@ -107,13 +107,16 @@ const createSelectionAction = dispatch => (onMouseDown, onMouseMove, onMouseUp) 
   })
 }
 
-const moveSelectionAction = (dispatch, selection, transform) => (onMouseDown, onMouseMove) => {
+const moveSelectionAction = (dispatch, selection, transform, isCopy) => (onMouseDown, onMouseMove) => {
   let startPos
   let selectionPos
 
   onMouseDown(e => {
     startPos = e.local
     selectionPos = selection.getBounds(transform)
+    if (isCopy) {
+      dispatch("CLONE_SELECTION")
+    }
   })
 
   onMouseMove(e => {

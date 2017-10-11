@@ -137,8 +137,21 @@ export default (app, dispatch) => {
 
       // 選択範囲の右上を pos にして、ノートの選択状を解除する
       const s = new SelectionModel()
-      selection.fromTick = tick
-      selection.fromNoteNumber = noteNumber
+      s.fromTick = tick
+      s.fromNoteNumber = noteNumber
+      updateSelection(s)
+    },
+    "CLONE_SELECTION": () => {
+      // 選択範囲内のノートをコピーした選択範囲を作成
+      let notes
+      selectedTrack.transaction(it => {
+        notes = selection.noteIds.map(id => {
+          const note = selectedTrack.getEventById(id)
+          return it.addEvent({ ...note })
+        })
+      })
+      const s = selection.clone()
+      s.noteIds = notes.map(e => e.id)
       updateSelection(s)
     },
     "COPY_SELECTION": () => {

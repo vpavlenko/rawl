@@ -19,8 +19,8 @@ export default class PencilMouseHandler extends NoteMouseHandler {
       if (e.nativeEvent.detail === 2) {
         return removeNoteAction(dispatch)
       } else {
-        switch(e.position) {
-          case "center": return moveNoteAction(dispatch, transform)
+        switch (e.position) {
+          case "center": return moveNoteAction(dispatch, transform, e.nativeEvent.ctrlKey)
           case "left": return dragLeftNoteAction(dispatch)
           case "right": return dragRightNoteAction(dispatch)
           default: throw Error()
@@ -61,17 +61,21 @@ const removeNoteAction = dispatch => (onMouseDown) => {
   onMouseDown(e => dispatch("REMOVE_EVENT", { eventId: e.item.id }))
 }
 
-const moveNoteAction = (dispatch, transform) => (onMouseDown, onMouseMove) => {
+const moveNoteAction = (dispatch, transform, isCopy) => (onMouseDown, onMouseMove) => {
   let startPosition
   let notePosition
   let noteId
 
   onMouseDown(e => {
     startPosition = e.local
-    noteId = e.item.id
     notePosition = {
       x: e.item.x,
       y: e.item.y
+    }
+    if (isCopy) {
+      noteId = dispatch("CREATE_NOTE", e)
+    } else {
+      noteId = e.item.id
     }
   })
 
@@ -113,7 +117,7 @@ const dragRightNoteAction = dispatch => (onMouseDown, onMouseMove) => {
 // helpers
 
 function cursorForPositionType(type) {
-  switch(type) {
+  switch (type) {
     case "left":
     case "right":
       return "w-resize"

@@ -1,0 +1,73 @@
+.PianoRollEditor {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.PianoRollEditor nav {
+  display: flex;
+  padding: 0 1em;
+}
+
+.PianoRollEditor nav .controls {
+  display: flex;
+  padding: 1em;
+  margin-left: 2em;
+}
+
+.PianoRollEditor nav .title {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  font-size: 130%;
+}
+
+.PianoRollEditor nav .controls>div {
+  margin: 0 0.5em;
+  display: flex;
+  align-items: center;
+}
+
+.PianoRollEditor nav .controls>div .Icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.3em;
+  font-size: 130%;
+  width: 1.7em;
+  height: 1.7em;
+  text-align: center;
+  border-radius: 99px;
+  background: var(--secondary-background-color);
+  transition: 0.3s ease background-color;
+}
+
+.PianoRollEditor nav .controls>div .Icon:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.PianoRollEditor nav .controls>div .Icon:active {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.PianoRollEditor nav .controls .Slider {
+  width: 8em;
+}
+
+.PianoRollEditor .title .Icon {
+  font-size: 180%;
+  border-radius: 99px;
+  width: 1em;
+  height: 1em;
+  display: flex;
+  align-items: center;
+  transition: 0.3s ease background-color;
+}
+
+.PianoRollEditor .title .Icon:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.PianoRollEditor .title .Icon:active {
+  background: rgba(0, 0, 0, 0.1);
+}

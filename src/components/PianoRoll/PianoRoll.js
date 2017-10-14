@@ -19,23 +19,146 @@ import PianoCursor from "./PianoCursor"
 import ControlPane from "./ControlPane"
 import { VerticalScrollBar, HorizontalScrollBar, BAR_WIDTH } from "../inputs/ScrollBar"
 import { open as openContextMenu } from "./PianoContextMenu"
+import { observer, inject } from "mobx-react"
 
 import "./PianoRoll.css"
 
 const SCROLL_KEY_SPEED = 4
 
-class PianoRoll extends Component {
+function PianoRoll({
+  dispatch,
+  mouseHandler,
+  theme,
+  track,
+  transform,
+  onClickKey,
+  beats,
+  endTick,
+  mouseMode,
+  selection,
+  containerWidth,
+  containerHeight,
+  alphaHeight,
+  scrollLeft,
+  scrollTop,
+  setScrollLeft,
+  setScrollTop,
+  controlMode,
+  notesCursor,
+  cursorPosition,
+  onMountAlpha
+}) {
+  const { keyWidth, rulerHeight } = theme
+
+  const width = containerWidth
+  const widthTick = Math.max(endTick, transform.getTicks(containerWidth))
+  const startTick = scrollLeft / transform.pixelsPerTick
+  const mappedBeats = mapBeats(beats, transform.pixelsPerTick, startTick, widthTick)
+  const events = track.getEvents()
+
+  const contentWidth = widthTick * transform.pixelsPerTick
+  const contentHeight = transform.getMaxY()
+
+  const cursorPositionX = transform.getX(cursorPosition)
+
+  function clampScroll(maxOffset, scroll) {
+    return Math.floor(Math.min(maxOffset, Math.max(0, scroll)))
+  }
+
+  scrollLeft = clampScroll(contentWidth - containerWidth, scrollLeft)
+  scrollTop = clampScroll(contentHeight - alphaHeight, scrollTop)
+
+  return <div className="PianoRoll">
+    <SplitPane split="horizontal" defaultSize={180} primary="second">
+      <div
+        className="alpha"
+        ref={onMountAlpha}
+        onWheel={e => {
+          e.preventDefault()
+          const scrollLineHeight = transform.pixelsPerKey * SCROLL_KEY_SPEED
+          const delta = scrollLineHeight * (e.deltaY > 0 ? 1 : -1)
+          setScrollTop(scrollTop + delta)
+        }}>
+        <div className="alphaContent" style={{ top: -scrollTop }}>
+          <PianoLines
+            width={width}
+            pixelsPerKey={transform.pixelsPerKey}
+            numberOfKeys={transform.numberOfKeys} />
+          <PianoGrid
+            width={width}
+            height={contentHeight}
+            scrollLeft={scrollLeft}
+            beats={mappedBeats} />
+          <PianoNotes
+            events={events}
+            selectedEventIds={selection.noteIds}
+            transform={transform}
+            width={width}
+            cursor={notesCursor}
+            dispatch={dispatch}
+            mouseMode={mouseMode}
+            scrollLeft={scrollLeft}
+            isDrumMode={track.isRhythmTrack}
+            mouseHandler={mouseHandler} />
+          <PianoSelection
+            color={theme.themeColor}
+            width={width}
+            height={contentHeight}
+            selectionBounds={selection.enabled ? selection.getBounds(transform) : null}
+            scrollLeft={scrollLeft} />
+          <PianoCursor
+            width={width}
+            height={contentHeight}
+            position={cursorPositionX - scrollLeft} />
+          <PianoKeys
+            theme={theme}
+            width={keyWidth}
+            keyHeight={transform.pixelsPerKey}
+            numberOfKeys={transform.numberOfKeys}
+            onClickKey={onClickKey} />
+        </div>
+        <div className="alphaRuler">
+          <PianoRuler
+            width={width}
+            theme={theme}
+            height={rulerHeight}
+            endTick={widthTick}
+            beats={mappedBeats}
+            onMouseDown={({ tick }) => dispatch("SET_PLAYER_POSITION", { tick })}
+            scrollLeft={scrollLeft}
+            pixelsPerTick={transform.pixelsPerTick} />
+          <div className="PianoRollLeftSpace" />
+        </div>
+        <VerticalScrollBar
+          scrollOffset={scrollTop}
+          contentLength={contentHeight}
+          onScroll={({ scroll }) => setScrollTop(scroll)}
+        />
+      </div>
+      <div className="beta">
+        <ControlPane
+          mode={controlMode}
+          theme={theme}
+          beats={mappedBeats}
+          events={events}
+          dispatch={dispatch}
+          transform={transform}
+          scrollLeft={scrollLeft}
+          paddingBottom={BAR_WIDTH}
+        />
+        <HorizontalScrollBar
+          scrollOffset={scrollLeft}
+          contentLength={contentWidth}
+          onScroll={({ scroll }) => setScrollLeft(scroll)}
+        />
+      </div>
+    </SplitPane>
+  </div>
+}
+
+class stateful extends Component {
   constructor(props) {
     super(props)
-
-    this.state = {
-      scrollLeft: 0,
-      scrollTop: 700, // 中央くらいの音程にスクロールしておく
-      controlHeight: 0,
-      cursorPosition: 0,
-      notesCursor: "auto",
-      controlMode: "velocity"
-    }
 
     this.pencilMouseHandler = new PencilMouseHandler()
     this.selectionMouseHandler = new SelectionMouseHandler()
@@ -55,39 +178,18 @@ class PianoRoll extends Component {
   }
 
   onTick = tick => {
-    const { autoScroll } = this.props
+    const { autoScroll, scrollLeft, containerWidth, setCursorPosition, setScrollLeft } = this.props
     const x = this.getTransform().getX(tick)
-    this.setState({
-      cursorPosition: x
-    })
+
+    setCursorPosition(tick)
 
     // keep scroll position to cursor
     if (autoScroll) {
-      const screenX = x - this.state.scrollLeft
-      if (screenX > this.props.containerWidth * 0.7 || screenX < 0) {
-        this.setScrollLeft(x)
+      const screenX = x - scrollLeft
+      if (screenX > containerWidth * 0.7 || screenX < 0) {
+        setScrollLeft(x)
       }
     }
-  }
-
-  getContentSize() {
-    const { endTick, containerWidth } = this.props
-    const transform = this.getTransform()
-    const widthTick = Math.max(endTick, transform.getTicks(containerWidth))
-    return {
-      width: widthTick * transform.pixelsPerTick,
-      height: transform.getMaxY()
-    }
-  }
-
-  setScrollLeft(scroll) {
-    const maxOffset = this.getContentSize().width - this.alpha.getBoundingClientRect().width
-    this.setState({ scrollLeft: Math.floor(Math.min(maxOffset, Math.max(0, scroll))) })
-  }
-
-  setScrollTop(scroll) {
-    const maxOffset = this.getContentSize().height - this.alpha.getBoundingClientRect().height
-    this.setState({ scrollTop: Math.floor(Math.min(maxOffset, Math.max(0, scroll))) })
   }
 
   onCopy = () => {
@@ -118,20 +220,20 @@ class PianoRoll extends Component {
   }
 
   dispatch = (type, params) => {
-    const { dispatch } = this.props
+    const { dispatch, scrollLeft, scrollTop, setControlMode, setNotesCursor, setScrollLeft, setScrollTop } = this.props
 
     switch (type) {
       case "CHANGE_CURSOR":
-        this.setState({ notesCursor: params.cursor })
+        setNotesCursor(params.cursor)
         break
       case "SCROLL_BY":
-        this.setScrollLeft(this.state.scrollLeft - params.x)
-        this.setScrollTop(this.state.scrollTop - params.y)
+        setScrollLeft(scrollLeft - params.x)
+        setScrollTop(scrollTop - params.y)
         break
       case "OPEN_CONTEXT_MENU":
         return openContextMenu(this.dispatch, params)
       case "SELECT_CONTROL_TAB":
-        this.setState({ controlMode: params.name })
+        setControlMode(params.name)
         break
       default:
         return dispatch(type, params)
@@ -139,147 +241,26 @@ class PianoRoll extends Component {
   }
 
   render() {
-    const {
-      theme,
-      track,
-      onClickKey,
-      beats,
-      endTick,
-      mouseMode,
-      selection,
-      containerWidth
-    } = this.props
-
-    const {
-      scrollLeft,
-      scrollTop,
-      notesCursor,
-      cursorPosition,
-      controlMode
-    } = this.state
-
-    const { keyWidth, rulerHeight } = theme
-    const width = containerWidth
 
     const transform = this.getTransform()
-    const widthTick = Math.max(endTick, transform.getTicks(width))
-
-    const contentSize = this.getContentSize()
-    const contentWidth = contentSize.width
-    const contentHeight = contentSize.height
-
-    const events = track.getEvents()
-
-    const startTick = scrollLeft / transform.pixelsPerTick
-    const mappedBeats = mapBeats(beats, transform.pixelsPerTick, startTick, widthTick)
-
     const dispatch = this.dispatch
-
-    const onScrollLeft = ({ scroll }) => {
-      this.setScrollLeft(scroll)
-    }
-
-    const onScrollTop = ({ scroll }) => {
-      this.setScrollTop(scroll)
-    }
 
     this.pencilMouseHandler.dispatch = dispatch
     this.pencilMouseHandler.transform = transform
     this.selectionMouseHandler.dispatch = dispatch
     this.selectionMouseHandler.transform = transform
-    this.selectionMouseHandler.selection = selection
+    this.selectionMouseHandler.selection = this.props.selection
 
     const mouseHandler = this.props.mouseMode === 0 ?
       this.pencilMouseHandler : this.selectionMouseHandler
 
-    return <div className="PianoRoll">
-      <SplitPane split="horizontal" defaultSize={180} primary="second">
-        <div
-          className="alpha"
-          ref={c => this.alpha = c}
-          onWheel={e => {
-            e.preventDefault()
-            const scrollLineHeight = transform.pixelsPerKey * SCROLL_KEY_SPEED
-            const delta = scrollLineHeight * (e.deltaY > 0 ? 1 : -1)
-            this.setScrollTop(this.state.scrollTop + delta)
-          }}>
-          <div className="alphaContent" style={{ top: -scrollTop }}>
-            <PianoLines
-              width={width}
-              pixelsPerKey={transform.pixelsPerKey}
-              numberOfKeys={transform.numberOfKeys} />
-            <PianoGrid
-              width={width}
-              height={contentHeight}
-              scrollLeft={scrollLeft}
-              beats={mappedBeats} />
-            <PianoNotes
-              events={events}
-              selectedEventIds={selection.noteIds}
-              transform={transform}
-              width={width}
-              cursor={notesCursor}
-              dispatch={dispatch}
-              mouseMode={mouseMode}
-              scrollLeft={scrollLeft}
-              isDrumMode={track.isRhythmTrack}
-              mouseHandler={mouseHandler} />
-            <PianoSelection
-              color={theme.themeColor}
-              width={width}
-              height={contentHeight}
-              selectionBounds={selection.enabled ? selection.getBounds(transform) : null}
-              scrollLeft={scrollLeft} />
-            <PianoCursor
-              width={width}
-              height={contentHeight}
-              position={cursorPosition - scrollLeft} />
-            <PianoKeys
-              theme={theme}
-              width={keyWidth}
-              keyHeight={transform.pixelsPerKey}
-              numberOfKeys={transform.numberOfKeys}
-              onClickKey={onClickKey} />
-          </div>
-          <div className="alphaRuler">
-            <PianoRuler
-              width={width}
-              theme={theme}
-              height={rulerHeight}
-              endTick={widthTick}
-              beats={mappedBeats}
-              onMouseDown={({ tick }) => dispatch("SET_PLAYER_POSITION", { tick })}
-              scrollLeft={scrollLeft}
-              pixelsPerTick={transform.pixelsPerTick} />
-            <div className="PianoRollLeftSpace" />
-          </div>
-          <VerticalScrollBar
-            scrollOffset={scrollTop}
-            contentLength={contentHeight}
-            onScroll={onScrollTop}
-          />
-        </div>
-        <div
-          className="beta"
-          ref={c => this.beta = c}>
-          <ControlPane
-            mode={controlMode}
-            theme={theme}
-            beats={mappedBeats}
-            events={events}
-            dispatch={dispatch}
-            transform={transform}
-            scrollLeft={scrollLeft}
-            paddingBottom={BAR_WIDTH}
-          />
-          <HorizontalScrollBar
-            scrollOffset={scrollLeft}
-            contentLength={contentWidth}
-            onScroll={onScrollLeft}
-          />
-        </div>
-      </SplitPane>
-    </div>
+    return <PianoRoll {...this.props} {...this.state}
+      transform={transform}
+      dispatch={dispatch}
+      mouseHandler={mouseHandler}
+      onMountAlpha={c => this.alpha = c}
+      alphaHeight={this.alpha ? this.alpha.getBoundingClientRect().height : 0}
+    />
   }
 }
 
@@ -301,7 +282,19 @@ PianoRoll.defaultProps = {
   autoScroll: false
 }
 
-export default fitToContainer(PianoRoll, {
-  width: "100%",
-  height: "100%"
-})
+export default fitToContainer(inject(({ pianoRollStore: s }) => ({
+  scrollLeft: s.scrollLeft,
+  setScrollLeft: v => s.scrollLeft = v,
+  scrollTop: s.scrollTop,
+  setScrollTop: v => s.scrollTop = v,
+  controlMode: s.controlMode,
+  setControlMode: v => s.controlMode = v,
+  cursorPosition: s.cursorPosition,
+  setCursorPosition: v => s.cursorPosition = v,
+  notesCursor: s.notesCursor,
+  setNotesCursor: v => s.notesCursor = v,
+  mouseMode: s.mouseMode
+}))(observer(stateful)), {
+    width: "100%",
+    height: "100%"
+  })

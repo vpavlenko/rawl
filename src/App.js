@@ -1,6 +1,7 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import EventEmitter from "eventemitter3"
+import { Provider } from "mobx-react"
 
 import RootView from "./components/RootView"
 import withSong from "./hocs/withSong"
@@ -12,9 +13,13 @@ import Quantizer from "./services/Quantizer"
 import SynthOutput from "./services/SynthOutput"
 import TrackMute from "./services/TrackMute"
 import History from "./services/History"
+import { bindKeyboardShortcut } from "./services/KeyboardShortcut"
 
 import Song from "./model/Song"
 import SelectionModel from "./model/SelectionModel"
+
+import PianoRollStore from "./stores/PianoRollStore"
+import RootViewStore from "./stores/RootViewStore"
 
 import { TIME_BASE } from "./Constants"
 
@@ -38,11 +43,21 @@ export default class App extends EventEmitter {
     const RootView2 = withTheme(withSong(this, RootView))
     const history = new History(this)
     const dispatch = createDispatcher(this, history)
+    const pianoRollStore = new PianoRollStore()
+    const rootViewStore = new RootViewStore()
 
-    ReactDOM.render(<RootView2
-      app={this}
-      dispatch={dispatch}
-    />, document.querySelector("#root"))
+    bindKeyboardShortcut(dispatch, this.player)
+
+    ReactDOM.render(
+      <Provider
+        pianoRollStore={pianoRollStore}
+        rootViewStore={rootViewStore}>
+        <RootView2
+          app={this}
+          dispatch={dispatch}
+        />
+      </Provider>
+      , document.querySelector("#root"))
   }
 
   set song(song) {

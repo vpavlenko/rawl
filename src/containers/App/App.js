@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React from "react"
 import { Provider } from "mobx-react"
 
 import RootView from "../RootView/RootView"

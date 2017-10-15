@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React from "react"
 import { observer, inject } from "mobx-react"
 
 import Icon from "components/Icon"

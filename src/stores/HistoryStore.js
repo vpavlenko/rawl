@@ -1,8 +1,6 @@
-import { observable } from "mobx"
-
 export default class HistoryStore {
-  @observable undoHistory = []
-  @observable redoHistory = []
+  undoHistory = []
+  redoHistory = []
 
   push(currentState) {
     this.undoHistory.push(currentState)

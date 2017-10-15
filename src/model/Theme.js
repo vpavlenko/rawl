@@ -18,8 +18,6 @@ function parseInt_(v) {
   return parseInt(v, 10)
 }
 
-let instance
-
 export default class Theme {
   font = "Arial"
   canvasFont = "Arial"

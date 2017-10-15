@@ -2,13 +2,13 @@ import React, { Component } from "react"
 import Color from "color"
 import { pure } from "recompose"
 import _ from "lodash"
+import { observer, inject } from "mobx-react"
 
 import DrawCanvas from "../DrawCanvas"
 import PianoRuler from "../PianoRoll/PianoRuler"
 import PianoGrid from "../PianoRoll/PianoGrid"
 import PianoCursor from "../PianoRoll/PianoCursor"
 import fitToContainer from "../../hocs/fitToContainer"
-import withTheme from "../../hocs/withTheme"
 import TempoCoordTransform from "../../model/TempoCoordTransform"
 import { uSecPerBeatToBPM, bpmToUSecPerBeat } from "../../helpers/bpm"
 import transformEvents from "./transformEvents"
@@ -207,6 +207,7 @@ function Content({
 
   return <div className="TempoGraph" onScroll={onScroll}>
     <PianoGrid
+      theme={theme}
       width={width}
       height={contentHeight}
       scrollLeft={scrollLeft}
@@ -312,7 +313,23 @@ function stateful(WrappedComponent) {
   }
 }
 
-export default withTheme(fitToContainer(stateful(Content), {
-  width: "100%",
-  height: "100%"
-}))
+
+export default inject(({ rootStore: {
+  rootViewStore: { theme },
+  pianoRollStore: { scaleX, autoScroll },
+  services: { player },
+  song,
+  dispatch
+} }) => ({
+    theme,
+    player,
+    pixelsPerTick: 0.1 * scaleX,
+    track: song.conductorTrack,
+    endTick: song.endOfSong,
+    beats: song.measureList.beats,
+    dispatch,
+    autoScroll,
+  }))(observer(fitToContainer(stateful(Content), {
+    width: "100%",
+    height: "100%"
+  })))

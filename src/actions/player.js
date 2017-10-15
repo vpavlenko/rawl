@@ -1,6 +1,4 @@
-export default (app) => {
-  const { player, quantizer } = app
-
+export default ({ services: { player, quantizer } }) => {
   return {
     "PLAY": () => {
       player.play()

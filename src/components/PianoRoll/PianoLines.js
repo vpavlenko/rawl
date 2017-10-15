@@ -2,7 +2,6 @@ import React from "react"
 import PropTypes from "prop-types"
 import { pure } from "recompose"
 import DrawCanvas from "../DrawCanvas"
-import withTheme from "../../hocs/withTheme"
 
 function drawHorizontalLines(ctx, numberOfKeys, keyHeight, width, theme) {
   ctx.lineWidth = 1
@@ -55,4 +54,4 @@ PianoLines.propTypes = {
   numberOfKeys: PropTypes.number.isRequired
 }
 
-export default withTheme(pure(PianoLines))
+export default pure(PianoLines)

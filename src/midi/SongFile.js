@@ -1,6 +1,6 @@
 import { read as readBytes } from "./MidiFileReader"
 import { write as writeBytes } from "./MidiFileWriter"
-import Song from "../model/Song"
+import Song from "../stores/Song"
 
 const { remote } = window.require("electron")
 const fs = remote.require("fs")

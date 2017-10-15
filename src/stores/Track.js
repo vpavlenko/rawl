@@ -1,5 +1,6 @@
+import { observable } from "mobx"
+import { json } from "json-mobx"
 import _ from "lodash"
-import EventEmitter from "eventemitter3"
 
 import {
   TrackNameMidiEvent, EndOfTrackMidiEvent,
@@ -16,22 +17,15 @@ function lastValue(arr, prop) {
   return last && last[prop]
 }
 
-export default class Track extends EventEmitter {
-  events = []
-  lastEventId = 0
+export default class Track {
+  @json @observable events = []
+  @json @observable lastEventId = 0
+  @json @observable channel = undefined
+  @json @observable endOfTrack = 0
 
-  getEvents() {
-    return this.events
-  }
+  getEvents = () => this.events
 
-  getEventById(id) {
-    for (const e of this.events) {
-      if (e.id === id) {
-        return e
-      }
-    }
-    return null
-  }
+  getEventById = (id) => _.find(this.events, e => e.id === id)
 
   updateEvent(id, obj) {
     const anObj = this.getEventById(id)
@@ -42,7 +36,6 @@ export default class Track extends EventEmitter {
     this.replaceEvent(newObj)
     this.updateEndOfTrack()
     this.sortByTick()
-    this.emitChange()
     return newObj
   }
 
@@ -54,7 +47,6 @@ export default class Track extends EventEmitter {
     const obj = this.getEventById(id)
     this.events = _.without(this.events, obj)
     this.updateEndOfTrack()
-    this.emitChange()
   }
 
   // ソート、通知を行わない内部用の addEvent
@@ -86,7 +78,6 @@ export default class Track extends EventEmitter {
   didAddEvent(e) {
     this.updateEndOfTrack()
     this.sortByTick()
-    this.emitChange()
   }
 
   sortByTick() {
@@ -108,25 +99,10 @@ export default class Track extends EventEmitter {
         e.channel = channel
       }
     }
-
-    this.emitChange()
   }
 
   transaction(func) {
-    this._paused = true
-    this._changed = false
     func(this)
-    this._paused = false
-    if (this._changed) {
-      this.emitChange()
-    }
-  }
-
-  emitChange() {
-    this._changed = true
-    if (!this._paused) {
-      this.emit("change")
-    }
   }
 
   /* helper */
@@ -254,6 +230,7 @@ export default class Track extends EventEmitter {
   get isRhythmTrack() {
     return this.channel === 9
   }
+
 
   static conductorTrack(name = "Conductor Track") {
     const track = new Track()

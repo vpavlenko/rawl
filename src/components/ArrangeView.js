@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import { observer, inject } from "mobx-react"
 
 import DrawCanvas from "./DrawCanvas"
 import PianoGrid from "./PianoRoll/PianoGrid"
@@ -215,6 +216,7 @@ function ArrangeView({
         )}
       </div>
       <PianoGrid
+        theme={theme}
         width={containerWidth}
         height={contentHeight}
         scrollLeft={scrollLeft}
@@ -359,7 +361,25 @@ function stateful(WrappedComponent) {
   }
 }
 
-export default fitToContainer(stateful(ArrangeView), {
+const mapStoreToProps = ({ rootStore: {
+  rootViewStore: { theme },
+  song: { tracks, measureList, endOfSong },
+  pianoRollStore: { scaleX, autoScroll },
+  services: { player },
+  dispatch
+} }) => ({
+    theme,
+    tracks,
+    beats: measureList.beats,
+    endTick: endOfSong,
+    keyHeight: 0.3,
+    pixelsPerTick: 0.1 * scaleX,
+    autoScroll: autoScroll,
+    player,
+    dispatch
+  })
+
+export default fitToContainer(inject(mapStoreToProps)(observer(stateful(ArrangeView))), {
   width: "100%",
   height: "100%"
 })

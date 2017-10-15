@@ -81,10 +81,12 @@ function PianoRoll({
         }}>
         <div className="alphaContent" style={{ top: -scrollTop }}>
           <PianoLines
+            theme={theme}
             width={width}
             pixelsPerKey={transform.pixelsPerKey}
             numberOfKeys={transform.numberOfKeys} />
           <PianoGrid
+            theme={theme}
             width={width}
             height={contentHeight}
             scrollLeft={scrollLeft}
@@ -282,19 +284,38 @@ PianoRoll.defaultProps = {
   autoScroll: false
 }
 
-export default fitToContainer(inject(({ pianoRollStore: s }) => ({
-  scrollLeft: s.scrollLeft,
-  setScrollLeft: v => s.scrollLeft = v,
-  scrollTop: s.scrollTop,
-  setScrollTop: v => s.scrollTop = v,
-  controlMode: s.controlMode,
-  setControlMode: v => s.controlMode = v,
-  cursorPosition: s.cursorPosition,
-  setCursorPosition: v => s.cursorPosition = v,
-  notesCursor: s.notesCursor,
-  setNotesCursor: v => s.notesCursor = v,
-  mouseMode: s.mouseMode
-}))(observer(stateful)), {
+export default fitToContainer(inject(({ rootStore: {
+  song: { selectedTrack, endOfSong, measureList: { beats } },
+  pianoRollStore: s,
+  rootViewStore: { theme },
+  services: { player, quantizer },
+  dispatch
+} }) => ({
+    track: selectedTrack,
+    endTick: endOfSong,
+    beats,
+    theme,
+    scaleX: s.scaleX,
+    scaleY: s.scaleY,
+    autoScroll: s.autoScroll,
+    selection: s.selection,
+    scrollLeft: s.scrollLeft,
+    setScrollLeft: v => s.scrollLeft = v,
+    scrollTop: s.scrollTop,
+    setScrollTop: v => s.scrollTop = v,
+    controlMode: s.controlMode,
+    setControlMode: v => s.controlMode = v,
+    cursorPosition: s.cursorPosition,
+    setCursorPosition: v => s.cursorPosition = v,
+    notesCursor: s.notesCursor,
+    setNotesCursor: v => s.notesCursor = v,
+    mouseMode: s.mouseMode,
+    quantizer,
+    player,
+    dispatch,
+    onChangeTool: () => s.mouseMode = (s.mouseMode === 0 ? 1 : 0),
+    onClickKey: () => { }
+  }))(observer(stateful)), {
     width: "100%",
     height: "100%"
   })

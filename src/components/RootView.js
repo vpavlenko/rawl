@@ -5,8 +5,8 @@ import { Helmet } from "react-helmet"
 import path from "path"
 import _ from "lodash"
 import { observer, inject } from "mobx-react"
+import DevTools from "mobx-react-devtools"
 
-import { TIME_BASE } from "../Constants"
 import Popup from "./Popup"
 
 import TrackList from "./TrackList"
@@ -99,30 +99,12 @@ function createMenu(song, dispatch) {
 }
 
 function RootView({
-  app,
+  player,
   song,
-  theme,
-  dispatch: _dispatch,
-  pianoSelection,
-  pianoRollMouseMode,
-  setPianoRollMouseMode,
-  pianoRollScaleX,
-  setPianoRollScaleX,
-  pianoRollScaleY,
-  setPianoRollScaleY,
-  pianoRollAutoScroll,
-  setPianoRollAutoScroll,
-  quantize: _quantize,
-  setQuantize,
+  dispatch,
   isArrangeViewSelected,
-  setIsArrangeViewSelected
 }) {
-  const { player, quantizer, trackMute } = app
-  const { selectedTrack, selectedTrackId } = song
-  const quantize = _quantize === 0 ? quantizer.denominator : _quantize
-
-  const onClickKey = () => {
-  }
+  const { selectedTrack } = song
 
   const onClickTrackInstrument = trackId => {
     const track = song.getTrack(trackId)
@@ -163,128 +145,28 @@ function RootView({
     />, popup.getContentElement())
   }
 
-  const dispatch = (type, params) => {
-    switch (type) {
-      case "TOGGLE_TOOL":
-        setPianoRollMouseMode(pianoRollMouseMode === 0 ? 1 : 0)
-        break
-      default:
-        return _dispatch(type, params)
-    }
-  }
-
-  const toolbar = <Toolbar
-    player={player}
-    measureList={song.measureList}
-    quantize={quantize}
-    mouseMode={pianoRollMouseMode}
-    autoScroll={pianoRollAutoScroll}
-    onClickPlay={() => dispatch("PLAY")}
-    onClickStop={() => dispatch("STOP")}
-    onClickBackward={() => dispatch("MOVE_PLAYER_POSITION", { tick: -TIME_BASE * 4 })}
-    onClickForward={() => dispatch("MOVE_PLAYER_POSITION", { tick: TIME_BASE * 4 })}
-    onClickPencil={() => setPianoRollMouseMode(0)}
-    onClickSelection={() => setPianoRollMouseMode(1)}
-    onClickScaleUp={() => setPianoRollScaleX(pianoRollScaleX + 0.1)}
-    onClickScaleDown={() => setPianoRollScaleX(Math.max(0.05, pianoRollScaleX - 0.1))}
-    onClickAutoScroll={() => setPianoRollAutoScroll(!pianoRollAutoScroll)}
-    onSelectQuantize={e => {
-      dispatch("SET_QUANTIZE_DENOMINATOR", { denominator: e.denominator })
-      setQuantize(e.denominator)
-    }}
-  />
-
-  const pianoRoll = <PianoRoll
-    track={selectedTrack}
-    quantizer={quantizer}
-    player={player}
-    endTick={song.endOfSong}
-    beats={song.measureList.beats}
-    scaleX={pianoRollScaleX}
-    scaleY={pianoRollScaleY}
-    autoScroll={pianoRollAutoScroll}
-    onChangeTool={() => setPianoRollMouseMode(pianoRollMouseMode === 0 ? 1 : 0)}
-    onClickKey={() => { }}
-    dispatch={dispatch}
-    theme={theme}
-    selection={pianoSelection}
-  />
-
   const menu = createMenu(song, dispatch)
   Menu.setApplicationMenu(menu)
 
-  const trackList =
-    <TrackList
-      player={player}
-      tracks={(song && song.tracks) || []}
-      tempo={song.getTrack(0).tempo}
-      selectedTrackId={selectedTrackId}
-      isArrangeViewSelected={isArrangeViewSelected}
-      trackMute={trackMute}
-      onClickMute={trackId => dispatch("TOGGLE_MUTE_TRACK", { trackId })}
-      onClickSolo={trackId => dispatch("TOGGLE_SOLO_TRACK", { trackId })}
-      onClickDelete={trackId => dispatch("REMOVE_TRACK", { trackId })}
-      onClickAddTrack={() => dispatch("ADD_TRACK")}
-      onChangeName={e => dispatch("SET_TRACK_NAME", { name: e.target.value })}
-      onChangeTempo={e => dispatch("SET_TEMPO", { tempo: parseFloat(e.target.value) })}
-      onChangeVolume={(trackId, value) => dispatch("SET_TRACK_VOLUME", { trackId, volume: value })}
-      onChangePan={(trackId, value) => dispatch("SET_TRACK_PAN", { trackId, pan: value })}
-      onSelectTrack={trackId => {
-        setIsArrangeViewSelected(false)
-        dispatch("SELECT_TRACK", { trackId })
-      }}
-      onClickInstrument={onClickTrackInstrument}
-      onClickArrangeView={() => setIsArrangeViewSelected(true)}
-    />
-
-  const tempoGraph = <TempoGraph
-    pixelsPerTick={0.1 * pianoRollScaleX}
-    track={song.conductorTrack}
-    player={player}
-    endTick={song.endOfSong}
-    beats={song.measureList.beats}
-    dispatch={dispatch}
-    autoScroll={pianoRollAutoScroll}
-  />
-
   const fileName = path.basename(song.filepath.replace(/\\/g, "/"))
 
-  const arrangeView = <ArrangeView
-    tracks={song.tracks}
-    theme={theme}
-    beats={song.measureList.beats}
-    endTick={song.endOfSong}
-    keyHeight={0.3}
-    pixelsPerTick={0.1 * pianoRollScaleX}
-    player={player}
-    dispatch={dispatch}
-    autoScroll={pianoRollAutoScroll}
-  />
-
-  const content = isArrangeViewSelected ? arrangeView :
-    (selectedTrack.isConductorTrack ? tempoGraph : pianoRoll)
+  const content = isArrangeViewSelected ? <ArrangeView /> :
+    (selectedTrack.isConductorTrack ? <TempoGraph /> : <PianoRoll />)
 
   return <div className="RootView">
-    <Helmet><title>{song.name} ({fileName}) ― signal</title></Helmet>
-    {toolbar}
+    <Helmet><title>{`${song.name} (${fileName}) ― signal`}</title></Helmet>
+    <Toolbar />
     <Pane split="vertical" minSize={200} defaultSize={265} maxSize={400}>
-      {trackList}
+      <TrackList onClickInstrument={onClickTrackInstrument} />
       {content}
     </Pane>
+    <DevTools />
   </div>
 }
 
-export default inject(({ pianoRollStore, rootViewStore }) => ({
-  pianoRollMouseMode: pianoRollStore.mouseMode,
-  setPianoRollMouseMode: v => pianoRollStore.mouseMode = v,
-  pianoRollScaleX: pianoRollStore.scaleX,
-  setPianoRollScaleX: v => pianoRollStore.scaleX = v,
-  pianoRollScaleY: pianoRollStore.scaleY,
-  setPianoRollScaleY: v => pianoRollStore.scaleY = v,
-  pianoRollAutoScroll: pianoRollStore.autoScroll,
-  setPianoRollAutoScroll: v => pianoRollStore.autoScroll = v,
-  quantize: pianoRollStore.quantize,
-  setQuantize: v => pianoRollStore.quantize = v,
+export default inject(({ rootStore: { pianoRollStore, rootViewStore, song, services: { player }, dispatch } }) => ({
   isArrangeViewSelected: rootViewStore.isArrangeViewSelected,
-  setIsArrangeViewSelected: v => rootViewStore.isArrangeViewSelected = v
+  song,
+  player,
+  dispatch
 }))(observer(RootView))

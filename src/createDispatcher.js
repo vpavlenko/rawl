@@ -6,15 +6,15 @@ import creatQuantizerAction from "./actions/quantizer"
 import createSelectionAction from "./actions/selection"
 import createTrackMuteAction from "./actions/trackMute"
 
-export default (app, history) => function dispatch(type, params) {
+export default (rootStore) => function dispatch(type, params) {
   const actions = {
-    ...createSongAction(app, history),
-    ...createTrackAction(app, history),
-    ...createPlayerAction(app),
-    ...createHistoryAction(history),
-    ...creatQuantizerAction(app),
-    ...createSelectionAction(app, dispatch),
-    ...createTrackMuteAction(app)
+    ...createSongAction(rootStore),
+    ...createTrackAction(rootStore),
+    ...createPlayerAction(rootStore),
+    ...createHistoryAction(rootStore),
+    ...creatQuantizerAction(rootStore),
+    ...createSelectionAction(rootStore),
+    ...createTrackMuteAction(rootStore)
   }
 
   const action = actions[type]

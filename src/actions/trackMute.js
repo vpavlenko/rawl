@@ -1,6 +1,4 @@
-export default (app) => {
-  const { player, song, trackMute } = app
-  const { tracks } = song
+export default ({ trackMute, song: { tracks }, services: { player } }) => {
 
   return {
     "TOGGLE_MUTE_TRACK": ({ trackId }) => {

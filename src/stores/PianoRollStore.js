@@ -1,19 +1,19 @@
-import { extendObservable } from "mobx"
+import { observable } from "mobx"
+
+import SelectionModel from "../model/SelectionModel"
 
 export default class PianoRollStore {
-  constructor() {
-    extendObservable(this, {
-      scrollLeft: 0,
-      scrollTop: 700, // 中央くらいの音程にスクロールしておく
-      controlHeight: 0,
-      cursorPosition: 0,
-      notesCursor: "auto",
-      controlMode: "velocity",
-      mouseMode: 0,
-      scaleX: 1,
-      scaleY: 1,
-      autoScroll: true,
-      quantize: 0
-    })
-  }
+  @observable scrollLeft = 0
+  @observable scrollTop = 700 // 中央くらいの音程にスクロールしておく
+  @observable controlHeight = 0
+  @observable cursorPosition = 0
+  @observable notesCursor = "auto"
+  @observable controlMode = "velocity"
+  @observable mouseMode = 0
+  @observable scaleX = 1
+  @observable scaleY = 1
+  @observable autoScroll = true
+  @observable quantize = 0
+  @observable selection = new SelectionModel()
+  @observable lastNoteDuration = null
 }

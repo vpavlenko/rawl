@@ -4,7 +4,6 @@ import _ from "lodash"
 import { shouldUpdate } from "recompose"
 
 import DrawCanvas from "../DrawCanvas"
-import withTheme from "../../hocs/withTheme"
 
 function drawBeatLines(ctx, beats, height, theme) {
   ctx.lineWidth = 1
@@ -70,4 +69,4 @@ function test(props, nextProps) {
     || !_.isEqual(props.beats, nextProps.beats)
 }
 
-export default shouldUpdate(test)(withTheme(PianoGrid))
+export default shouldUpdate(test)(PianoGrid)

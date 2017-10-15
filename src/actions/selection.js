@@ -12,22 +12,21 @@ function eventsInSelection(events, selection) {
     )
 }
 
-export default (app, dispatch) => {
-  const { quantizer, song, pianoSelection, player } = app
+export default ({ song, pianoRollStore, services: { quantizer, player } }) => {
   const { selectedTrack } = song
-  const selection = pianoSelection
+  const { selection } = pianoRollStore
 
   function updateSelection(selection) {
-    app.pianoSelection = selection
+    pianoRollStore.selection = selection
   }
 
   return {
     "RESIZE_SELECTION": ({ start, end }) => {
-      app.pianoSelection = selection.resize(
+      updateSelection(selection.resize(
         quantizer.round(start.tick),
         start.noteNumber,
         quantizer.round(end.tick),
-        end.noteNumber)
+        end.noteNumber))
     },
     "FIX_SELECTION": () => {
       // 選択範囲を確定して選択範囲内のノートを選択状態にする
@@ -132,7 +131,7 @@ export default (app, dispatch) => {
     },
     "START_SELECTION": ({ tick, noteNumber }) => {
       if (!player.isPlaying) {
-        dispatch("SET_PLAYER_POSITION", { tick })
+        player.position = quantizer.round(tick)
       }
 
       // 選択範囲の右上を pos にして、ノートの選択状を解除する

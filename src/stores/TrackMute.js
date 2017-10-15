@@ -1,5 +1,9 @@
+import { observable } from "mobx"
 import _ from "lodash"
-import EventEmitter from "eventemitter3"
+
+function updated(obj, key, value) {
+  return { ...obj, [key]: value }
+}
 
 /**
 
@@ -21,51 +25,32 @@ import EventEmitter from "eventemitter3"
   mute モードに遷移する
 
 */
-export default class TrackMute extends EventEmitter {
-  mutes = {}
-  solos = {}
+export default class TrackMute {
+  @observable mutes = {}
+  @observable solos = {}
 
   reset() {
     this.mutes = {}
     this.solos = {}
-    this.emit("change-mute")
-  }
-
-  _prepareMute(trackId) {
-    if (this.mutes[trackId] === undefined) {
-      this.mutes[trackId] = false
-    }
-  }
-
-  _prepareSolo(trackId) {
-    if (this.solos[trackId] === undefined) {
-      this.solos[trackId] = false
-    }
   }
 
   _setMute(trackId, isMute) {
     if (this.isSoloMode()) {
       return
     }
-    this._prepareMute(trackId)
-    this.mutes[trackId] = isMute
-    this.emit("change-mute")
+    this.mutes = updated(this.mutes, trackId, isMute)
   }
 
   _getMute(trackId) {
-    this._prepareMute(trackId)
-    return this.mutes[trackId]
+    return this.mutes[trackId] || false
   }
 
   _setSolo(trackId, isSolo) {
-    this._prepareSolo(trackId)
-    this.solos[trackId] = isSolo
-    this.emit("change-mute")
+    this.solos = updated(this.solos, trackId, isSolo)
   }
 
   _getSolo(trackId) {
-    this._prepareSolo(trackId)
-    return this.solos[trackId]
+    return this.solos[trackId] || false
   }
 
   mute(trackId) {

@@ -7,12 +7,12 @@ import {
   ExpressionMidiEvent
 } from "../midi/MidiEvent"
 
-export default (app, history) => {
-  const { player, quantizer, song, state } = app
+export default (rootStore) => {
+  const { song, pianoRollStore, services: { player, quantizer } } = rootStore
   const { tracks, selectedTrack } = song
 
   const saveHistory = () => {
-    history.push({}, song)
+    rootStore.pushHistory()
   }
 
   const createOrUpdate = (typeProp, type, tick = player.position, valueProp, value, createEvent, track = selectedTrack) => {
@@ -96,7 +96,7 @@ export default (app, history) => {
         noteNumber: noteNumber,
         tick,
         velocity: 127,
-        duration: state.lastNoteDuration || quantizer.unit,
+        duration: pianoRollStore.lastNoteDuration || quantizer.unit,
         channel: selectedTrack.channel
       }
       selectedTrack.addEvent(note)
@@ -128,7 +128,7 @@ export default (app, history) => {
       const duration = note.duration + (note.tick - tick)
       if (note.tick !== tick && duration >= quantizer.unit) {
         saveHistory()
-        state.lastNoteDuration = duration
+        pianoRollStore.lastNoteDuration = duration
         selectedTrack.updateEvent(note.id, { tick, duration })
       }
     },
@@ -139,7 +139,7 @@ export default (app, history) => {
         quantizer.round(right - note.tick))
       if (note.duration !== duration) {
         saveHistory()
-        state.lastNoteDuration = duration
+        pianoRollStore.lastNoteDuration = duration
         selectedTrack.updateEvent(note.id, { duration })
       }
     },

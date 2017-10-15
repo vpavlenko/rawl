@@ -1,4 +1,6 @@
 import React, { Component } from "react"
+import { observer, inject } from "mobx-react"
+
 import Icon from "./Icon"
 import Slider from "./inputs/Slider"
 import Knob from "./inputs/Knob"
@@ -7,7 +9,7 @@ import { ContextMenu, MenuItem, createContextMenu } from "./groups/ContextMenu"
 
 import "./TrackList.css"
 
-const Nop = () => {}
+const Nop = () => { }
 
 function TrackListItem({
   name = "",
@@ -66,10 +68,10 @@ function TempoTrackItem({
   onChangeTempo = Nop,
   tempo = 0
 }) {
-  return  <div
+  return <div
     className={`TempoTrackItem ${selected ? "selected" : ""}`}
     onClick={onClick}
-    >
+  >
     <div className="name">Tempo</div>
     <NumberInput value={tempo} onChange={onChangeTempo} minValue={0} maxValue={300} />
   </div>
@@ -87,13 +89,10 @@ function ArrangeViewButton({
   </div>
 }
 
-function TrackListContent({
-  tracks,
-  tempo,
+function TrackList({
+  song,
+  trackMute,
   onChangeTempo,
-  trackMutes,
-  trackSolos,
-  selectedTrackId,
   isArrangeViewSelected = false,
   onSelectTrack,
   onClickSolo,
@@ -105,6 +104,11 @@ function TrackListContent({
   onClickDelete,
   onClickArrangeView
 }) {
+  const tempo = song.getTrack(0).tempo
+  const { tracks, selectedTrackId } = song
+  const trackMutes = tracks.map((_, i) => trackMute.isMuted(i))
+  const trackSolos = tracks.map((_, i) => trackMute.isSolo(i))
+
   const items = tracks
     .map((t, i) => {
       const selected = !isArrangeViewSelected && i === selectedTrackId
@@ -145,32 +149,22 @@ function TrackListContent({
   </div>
 }
 
-export default class TrackList extends Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      trackMutes: [],
-      trackSolos: []
-    }
-  }
-
-  componentDidMount() {
-    this.props.trackMute.on("change-mute", this.onChangeMute)
-  }
-
-  componentWillUnmount() {
-    this.props.trackMute.off("change-mute", this.onChangeMute)
-  }
-
-  onChangeMute = () => {
-    const { tracks, trackMute } = this.props
-    const trackMutes = tracks.map((_, i) => trackMute.isMuted(i))
-    const trackSolos = tracks.map((_, i) => trackMute.isSolo(i))
-    this.setState({ trackMutes, trackSolos })
-  }
-
-  render() {
-    return <TrackListContent {...this.props} {...this.state} />
-  }
-}
+export default inject(({ rootStore: { song, trackMute, rootViewStore, dispatch, services: { player } } }) => ({
+  trackMute,
+  song,
+  player: { player },
+  isArrangeViewSelected: rootViewStore.isArrangeViewSelected,
+  onClickMute: trackId => dispatch("TOGGLE_MUTE_TRACK", { trackId }),
+  onClickSolo: trackId => dispatch("TOGGLE_SOLO_TRACK", { trackId }),
+  onClickDelete: trackId => dispatch("REMOVE_TRACK", { trackId }),
+  onClickAddTrack: () => dispatch("ADD_TRACK"),
+  onChangeName: e => dispatch("SET_TRACK_NAME", { name: e.target.value }),
+  onChangeTempo: e => dispatch("SET_TEMPO", { tempo: parseFloat(e.target.value) }),
+  onChangeVolume: (trackId, value) => dispatch("SET_TRACK_VOLUME", { trackId, volume: value }),
+  onChangePan: (trackId, value) => dispatch("SET_TRACK_PAN", { trackId, pan: value }),
+  onSelectTrack: trackId => {
+    rootViewStore.isArrangeViewSelected = false
+    dispatch("SELECT_TRACK", { trackId })
+  },
+  onClickArrangeView: () => rootViewStore.isArrangeViewSelected = true
+}))(observer(TrackList))

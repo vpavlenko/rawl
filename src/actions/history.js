@@ -1,7 +1,12 @@
 
-export default (history) => {
+export default (rootStore) => {
   return {
-    "UNDO": () => history.undo(),
-    "REDO": () => history.redo()
+    "UNDO": () => {
+      rootStore.undo()
+    },
+
+    "REDO": () => {
+      rootStore.redo()
+    }
   }
 }

@@ -1,17 +1,24 @@
-import Song from "../model/Song"
-import Track from "../model/Track"
+import Song from "../stores/Song"
+import Track from "../stores/Track"
 import { read as readSong, write as writeSong } from "../midi/SongFile"
 
-export default (app, history) => {
-  const { song } = app
+export default (rootStore) => {
+  const { song, historyStore: history, services: { player } } = rootStore
 
   const saveHistory = () => {
-    history.push({}, song)
+    rootStore.pushHistory()
+  }
+
+  const setSong = song => {
+    rootStore.song = song
+    player.song = song
+    player.reset()
+    rootStore.trackMute.reset()
   }
 
   return {
     "CREATE_SONG": () => {
-      app.song = Song.emptySong()
+      setSong(Song.emptySong())
     },
     "SAVE_SONG": ({ filepath }) => {
       writeSong(song, filepath, e => {
@@ -27,9 +34,9 @@ export default (app, history) => {
         if (e) {
           console.error(e)
         } else {
-          app.song = song
+          setSong(song)
           history.clear()
-          history.push({}, song)
+          rootStore.pushHistory()
         }
       })
     },

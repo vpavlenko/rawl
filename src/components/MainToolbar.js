@@ -1,7 +1,10 @@
 import React, { Component } from "react"
+import { observer, inject } from "mobx-react"
+
 import Icon from "./Icon"
 import { Toolbar, ToolbarItem, ToolbarSeparator } from "./groups/Toolbar"
 import QuantizeSelector from "./QuantizeSelector"
+import { TIME_BASE } from "../Constants"
 
 import "./MainToolbar.css"
 
@@ -41,10 +44,10 @@ function Content({
 
     <ToolbarSeparator />
 
-    <QuantizeSelector 
+    <QuantizeSelector
       value={quantize}
-      onSelect={value => onSelectQuantize({ denominator: value })} 
-      />
+      onSelect={value => onSelectQuantize({ denominator: value })}
+    />
 
     <ToolbarSeparator />
 
@@ -53,7 +56,7 @@ function Content({
   </Toolbar>
 }
 
-export default class MainToolbar extends Component {
+class MainToolbar extends Component {
   constructor(props) {
     super(props)
 
@@ -80,3 +83,29 @@ export default class MainToolbar extends Component {
     return <Content {...this.props} {...this.state} />
   }
 }
+
+export default inject(({ rootStore: {
+  services: { player, quantizer },
+  song: { measureList },
+  pianoRollStore,
+  dispatch
+} }) => ({
+    player,
+    measureList,
+    quantize: pianoRollStore.quantize === 0 ? quantizer.denominator : pianoRollStore.quantize,
+    mouseMode: pianoRollStore.mouseMode,
+    autoScroll: pianoRollStore.autoScroll,
+    onClickPlay: () => dispatch("PLAY"),
+    onClickStop: () => dispatch("STOP"),
+    onClickBackward: () => dispatch("MOVE_PLAYER_POSITION", { tick: -TIME_BASE * 4 }),
+    onClickForward: () => dispatch("MOVE_PLAYER_POSITION", { tick: TIME_BASE * 4 }),
+    onClickPencil: () => pianoRollStore.mouseMode = 0,
+    onClickSelection: () => pianoRollStore.mouseMode = 1,
+    onClickScaleUp: () => pianoRollStore.scaleX = pianoRollStore.scaleX + 0.1,
+    onClickScaleDown: () => pianoRollStore.scaleX = Math.max(0.05, pianoRollStore.scaleX - 0.1),
+    onClickAutoScroll: () => pianoRollStore.autoScroll = !pianoRollStore.autoScroll,
+    onSelectQuantize: e => {
+      dispatch("SET_QUANTIZE_DENOMINATOR", { denominator: e.denominator })
+      pianoRollStore.quantize = e.denominator
+    }
+  }))(observer(MainToolbar))

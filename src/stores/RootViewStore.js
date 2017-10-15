@@ -1,9 +1,7 @@
-import { extendObservable } from "mobx"
+import { observable } from "mobx"
+import Theme from "../model/Theme"
 
 export default class RootViewStore {
-  constructor() {
-    extendObservable(this, {
-      isArrangeViewSelected: false
-    })
-  }
+  @observable theme = new Theme()
+  @observable isArrangeViewSelected = false
 }

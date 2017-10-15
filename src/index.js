@@ -1,10 +1,12 @@
+import React from "react"
+import ReactDOM from "react-dom"
+
 import App from "./App"
 import SynthApp from "./synth"
 
-switch(document.location.hash) {
+switch (document.location.hash) {
   case "": {
-    const app = new App()
-    app.init()
+    ReactDOM.render(<App />, document.querySelector("#root"))
     break
   }
   case "#synth": {

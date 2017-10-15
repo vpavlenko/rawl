@@ -194,7 +194,7 @@ storiesOf("PianoRoll", module)
         onChangeTool={action("onChangeTool")}
         onClickRuler={action("onClickRuler")}
         onClickKey={action("onClickKey")}
-        theme={Theme.load()}
+        theme={Theme.fromCSS()}
         beats={[]}
         selection={new SelectionModel()}
         noteMouseHandler={{

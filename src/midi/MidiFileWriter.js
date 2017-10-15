@@ -32,13 +32,13 @@ class Buffer {
   writeInt32(v, pos) {
     this.writeByte((v >> 24) & 0xff, pos)
     this.writeByte((v >> 16) & 0xff, pos + 1)
-    this.writeByte((v >>  8) & 0xff, pos + 2)
-    this.writeByte(v         & 0xff, pos + 3)
+    this.writeByte((v >> 8) & 0xff, pos + 2)
+    this.writeByte(v & 0xff, pos + 3)
   }
 
   writeInt16(v, pos) {
-    this.writeByte((v >>  8) & 0xff, pos)
-    this.writeByte(v         & 0xff, pos + 1)
+    this.writeByte((v >> 8) & 0xff, pos)
+    this.writeByte(v & 0xff, pos + 1)
   }
 
   writeBytes(arr) {
@@ -73,7 +73,7 @@ export function write(tracks, ticksPerBeat = 480) {
   // track chunk
   for (const track of tracks) {
     buf.writeChunk("MTrk", it => {
-      let events = addDeltaTime(_.flatten(track.getEvents().map(deassemble)))
+      let events = addDeltaTime(_.flatten(track.events.map(deassemble)))
       for (const event of events) {
         it.writeBytes(eventToBytes(event))
       }

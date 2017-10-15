@@ -27,7 +27,7 @@ function EventListContent(props) {
       headerHeight={24}>
       <Column
         header={<Cell>Tick</Cell>}
-        cell={({rowIndex, ...props}) => (
+        cell={({ rowIndex, ...props }) => (
           <Cell {...props}>
             {events[rowIndex].tick}
           </Cell>
@@ -37,7 +37,7 @@ function EventListContent(props) {
       />
       <Column
         header={<Cell>Status</Cell>}
-        cell={({rowIndex, ...props}) => (
+        cell={({ rowIndex, ...props }) => (
           <Cell {...props}>
             {events[rowIndex].status}
           </Cell>
@@ -47,7 +47,7 @@ function EventListContent(props) {
       />
       <Column
         header={<Cell>Value</Cell>}
-        cell={({rowIndex, ...props}) => (
+        cell={({ rowIndex, ...props }) => (
           <Cell {...props}>
             {events[rowIndex].value}
           </Cell>
@@ -60,7 +60,7 @@ function EventListContent(props) {
 }
 
 function statusForEvent(e) {
-  switch(e.subtype) {
+  switch (e.subtype) {
     case "controller":
       return controllerTypeString(e.controllerType)
     case "note":
@@ -77,7 +77,7 @@ export default class EventList extends Component {
   }
 
   render() {
-    const events = this.props.track ? this.props.track.getEvents().map(e => {
+    const events = this.props.track ? this.props.track.events.map(e => {
       return _.extend(e, {
         status: statusForEvent(e)
       })

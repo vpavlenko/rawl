@@ -41,7 +41,7 @@ export default class MeasureList {
  * @returns {Measure[]}
  */
 function getMeasuresFromConductorTrack(conductorTrack) {
-  const events = conductorTrack.getEvents()
+  const events = conductorTrack.events
     .filter(e => e.subtype === "timeSignature")
 
   if (events.length === 0) {

@@ -1,4 +1,4 @@
-import { observable } from "mobx"
+import { observable, action } from "mobx"
 import { json } from "json-mobx"
 import _ from "lodash"
 
@@ -23,11 +23,9 @@ export default class Track {
   @json @observable channel = undefined
   @json @observable endOfTrack = 0
 
-  getEvents = () => this.events
-
   getEventById = (id) => _.find(this.events, e => e.id === id)
 
-  updateEvent(id, obj) {
+  @action updateEvent(id, obj) {
     const anObj = this.getEventById(id)
     const newObj = Object.assign({}, anObj, obj)
     if (_.isEqual(newObj, anObj)) {
@@ -39,11 +37,12 @@ export default class Track {
     return newObj
   }
 
-  replaceEvent(event) {
+  @action replaceEvent(event) {
+    _.remove()
     this.events = _.unionBy([event], this.events, "id")
   }
 
-  removeEvent(id) {
+  @action removeEvent(id) {
     const obj = this.getEventById(id)
     this.events = _.without(this.events, obj)
     this.updateEndOfTrack()
@@ -64,13 +63,13 @@ export default class Track {
     }
   }
 
-  addEvent(e) {
+  @action addEvent(e) {
     this._addEvent(e)
     this.didAddEvent()
     return e
   }
 
-  addEvents(events) {
+  @action addEvents(events) {
     events.forEach(e => this._addEvent(e))
     this.didAddEvent()
   }
@@ -80,7 +79,7 @@ export default class Track {
     this.sortByTick()
   }
 
-  sortByTick() {
+  @action sortByTick() {
     this.events = _.sortBy(this.events, "tick")
   }
 
@@ -230,7 +229,6 @@ export default class Track {
   get isRhythmTrack() {
     return this.channel === 9
   }
-
 
   static conductorTrack(name = "Conductor Track") {
     const track = new Track()

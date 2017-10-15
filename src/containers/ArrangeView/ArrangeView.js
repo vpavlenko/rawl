@@ -178,6 +178,8 @@ function ArrangeView({
       case 1:
         handleMiddleClick(e)
         break
+      default:
+        break
     }
   }
 
@@ -208,7 +210,7 @@ function ArrangeView({
         {tracks.map((t, i) =>
           <ArrangeTrack
             width={containerWidth}
-            events={filterEventsWithScroll(t.getEvents(), pixelsPerTick, scrollLeft, containerWidth)}
+            events={filterEventsWithScroll(t.events, pixelsPerTick, scrollLeft, containerWidth)}
             transform={transform}
             key={i}
             scrollLeft={scrollLeft}

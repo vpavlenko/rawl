@@ -145,7 +145,7 @@ function Content({
   const widthTick = Math.max(endTick, transform.getTicks(containerWidth))
   const contentWidth = widthTick * pixelsPerTick
 
-  const items = transformEvents(track.getEvents(), transform, contentWidth, scrollLeft)
+  const items = transformEvents(track.events, transform, contentWidth, scrollLeft)
 
   function onMouseDownGraph(e) {
     if (!e.item) {

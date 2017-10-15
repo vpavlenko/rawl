@@ -1,7 +1,7 @@
-export default ({ services: { player, quantizer } }) => {
+export default ({ services: { player, quantizer }, song }) => {
   return {
     "PLAY": () => {
-      player.play()
+      player.play(song)
     },
     "STOP": () => {
       if (player.isPlaying) {

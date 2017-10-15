@@ -2,10 +2,11 @@ import _ from "lodash"
 import EventEmitter from "eventemitter3"
 import assert from "assert"
 
-import MIDIControlEvents from "../constants/MIDIControlEvents"
-import MIDIChannelEvents from "../constants/MIDIChannelEvents"
-import { eventToBytes } from "../helpers/midiHelper"
-import { deassemble } from "../helpers/noteAssembler"
+import MIDIControlEvents from "constants/MIDIControlEvents"
+import MIDIChannelEvents from "constants/MIDIChannelEvents"
+import { eventToBytes } from "helpers/midiHelper"
+import { deassemble } from "helpers/noteAssembler"
+
 import EventScheduler from "./EventScheduler"
 
 function firstByte(eventType, channel) {
@@ -14,7 +15,7 @@ function firstByte(eventType, channel) {
 
 function collectAllEvents(song) {
   return _.chain(song.tracks)
-    .map(t => t.getEvents())
+    .map(t => t.events.toJS())
     .flatten()
     .map(deassemble)
     .flatten()
@@ -53,13 +54,10 @@ export default class Player extends EventEmitter {
     this._trackMute = trackMute
   }
 
-  set song(song) {
+  play(song) {
+    assert(song, "you must provide song")
     this._song = song
-  }
-
-  play() {
-    assert(this._song, "you must set song before play")
-    const eventsToPlay = collectAllEvents(this._song)
+    const eventsToPlay = collectAllEvents(song)
     this._scheduler = new EventScheduler(eventsToPlay, this._currentTick, this._timebase)
     setInterval(() => this._onTimer(), 50)
   }

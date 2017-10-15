@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { GMMap } from "../midi/GM"
+import { GMMap } from "midi/GM"
 
 import "./InstrumentBrowser.css"
 

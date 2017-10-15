@@ -1,15 +1,15 @@
 import React, { Component } from "react"
 import { pure } from "recompose"
-import coarsify from "../../helpers/coarsify"
+import coarsify from "helpers/coarsify"
 
 import "./Slider.css"
 
 function Content({
   value = 0,
   maxValue = 1,
-  onChange = () => {},
+  onChange = () => { },
   dragging = false,
-  setDragging = () => {}
+  setDragging = () => { }
 }) {
   let rect
 
@@ -51,14 +51,14 @@ function Content({
     onMouseDown={onMouseDown}>
     <div className="guide-left" style={{
       width: p(value / maxValue)
-    }}/>
+    }} />
     <div className="guide-right" style={{
       left: p(value / maxValue),
       width: p(1 - value / maxValue)
-    }}/>
+    }} />
     <div className="handle" style={{
       left: `calc((100% - ${handleWidth}) * ${value / maxValue})`
-    }}/>
+    }} />
     <div className="value">{value}</div>
   </div>
 }

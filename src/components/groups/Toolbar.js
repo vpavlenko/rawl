@@ -1,5 +1,5 @@
 import React from "react"
-import f from "../../helpers/flatJoin"
+import f from "helpers/flatJoin"
 
 import "./Toolbar.css"
 

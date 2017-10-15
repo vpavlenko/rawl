@@ -1,6 +1,6 @@
 import React, { Component } from "react"
-import Button from "../inputs/Button"
-import Icon from "../Icon"
+import Button from "components/inputs/Button"
+import Icon from "components/Icon"
 
 import "./Section.css"
 
@@ -34,7 +34,7 @@ export default class Section extends Component {
 
   render() {
     const onClickHeader = () => {
-      this.setState({hidden: !this.state.hidden})
+      this.setState({ hidden: !this.state.hidden })
     }
     return <SectionContent {...this.props}
       hidden={this.state.hidden}

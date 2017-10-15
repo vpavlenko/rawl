@@ -2,7 +2,7 @@ import React from "react"
 import _ from "lodash"
 import { pure } from "recompose"
 
-import DrawCanvas from "../../DrawCanvas"
+import DrawCanvas from "components/DrawCanvas"
 
 import "./LineGraph.css"
 

@@ -1,7 +1,7 @@
 import React, { Component } from "react"
-import { noteNumberString } from "../helpers/noteNumberString"
-import Section from "./groups/Section"
-import Icon from "./Icon"
+import { noteNumberString } from "helpers/noteNumberString"
+import Section from "components/groups/Section"
+import Icon from "components/Icon"
 
 import "./PropertyPane.css"
 
@@ -14,43 +14,43 @@ function PropertyPaneContent({
       <ul>
         <li>
           <label>Pitch</label>
-          <input type="text" value={ s.pitch.value } onChange={ s.pitch.onChange } />
+          <input type="text" value={s.pitch.value} onChange={s.pitch.onChange} />
           <div>
-            <button onClick={ () => s.pitch.onAdd(1) }>+1</button>
-            <button onClick={ () => s.pitch.onAdd(-1) }>-1</button>
-            <button onClick={ () => s.pitch.onAdd(12) }>Oct +1</button>
-            <button onClick={ () => s.pitch.onAdd(-12) }>Oct -1</button>
+            <button onClick={() => s.pitch.onAdd(1)}>+1</button>
+            <button onClick={() => s.pitch.onAdd(-1)}>-1</button>
+            <button onClick={() => s.pitch.onAdd(12)}>Oct +1</button>
+            <button onClick={() => s.pitch.onAdd(-12)}>Oct -1</button>
           </div>
         </li>
 
         <li>
           <label>Start</label>
-          <input type="text" value={ s.start.value } onChange={ s.start.onChange } />
-          <button onClick={ s.start.onRandom }>R</button>
+          <input type="text" value={s.start.value} onChange={s.start.onChange} />
+          <button onClick={s.start.onRandom}>R</button>
         </li>
 
         <li>
           <label>Duration</label>
-          <input type="text" value={ s.duration.value } onChange={ s.duration.onChange } />
-          <button onClick={ s.duration.onRandom }>R</button>
+          <input type="text" value={s.duration.value} onChange={s.duration.onChange} />
+          <button onClick={s.duration.onRandom}>R</button>
         </li>
 
         <li>
           <label>Velocity</label>
-          <input type="text" value={ s.velocity.value } onChange={ s.velocity.onChange } />
-          <button onClick={ s.velocity.onRandom }>R</button>
+          <input type="text" value={s.velocity.value} onChange={s.velocity.onChange} />
+          <button onClick={s.velocity.onRandom}>R</button>
         </li>
 
         <li>
           <label>Align</label>
-          <button onClick={ s.align.onClickLeft }><Icon>format-align-left</Icon></button>
-          <button onClick={ s.align.onClickRight }><Icon>format-align-right</Icon></button>
-          <button onClick={ s.align.onClickTop }><Icon>format-align-top</Icon></button>
-          <button onClick={ s.align.onClickBottom }><Icon>format-align-bottom</Icon></button>
+          <button onClick={s.align.onClickLeft}><Icon>format-align-left</Icon></button>
+          <button onClick={s.align.onClickRight}><Icon>format-align-right</Icon></button>
+          <button onClick={s.align.onClickTop}><Icon>format-align-top</Icon></button>
+          <button onClick={s.align.onClickBottom}><Icon>format-align-bottom</Icon></button>
         </li>
 
         <li>
-          <button onClick={ s.quantize.onClick }>Quantize</button>
+          <button onClick={s.quantize.onClick}>Quantize</button>
         </li>
       </ul>
     </Section>
@@ -77,10 +77,12 @@ export default class PropertyPane extends Component {
     const sections = {}
 
     const emitNoteChanges = (propName, func) => {
-      const changes = notes.map(n => { return {
-        id: n.id,
-        [propName]: func(n[propName], n)
-      }})
+      const changes = notes.map(n => {
+        return {
+          id: n.id,
+          [propName]: func(n[propName], n)
+        }
+      })
       this.props.updateNotes(changes)
     }
 

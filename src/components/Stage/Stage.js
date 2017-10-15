@@ -1,9 +1,9 @@
 import React from "react"
 
-import DrawCanvas from "../DrawCanvas"
+import DrawCanvas from "components/DrawCanvas"
 
-import Rect from "../../model/Rect"
-import { pointSub } from "../../helpers/point"
+import Rect from "model/Rect"
+import { pointSub } from "helpers/point"
 
 import "./Stage.css"
 

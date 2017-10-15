@@ -1,10 +1,11 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
 import SplitPane from "react-split-pane"
+import { observer, inject } from "mobx-react"
 
-import NoteCoordTransform from "../../model/NoteCoordTransform"
-import fitToContainer from "../../hocs/fitToContainer"
-import mapBeats from "../../helpers/mapBeats"
+import mapBeats from "helpers/mapBeats"
+import fitToContainer from "hocs/fitToContainer"
+import NoteCoordTransform from "model/NoteCoordTransform"
 
 import PianoNotes from "./PianoNotes/PianoNotes"
 import PencilMouseHandler from "./PianoNotes/PencilMouseHandler"
@@ -17,9 +18,9 @@ import PianoRuler from "./PianoRuler"
 import PianoSelection from "./PianoSelection"
 import PianoCursor from "./PianoCursor"
 import ControlPane from "./ControlPane"
-import { VerticalScrollBar, HorizontalScrollBar, BAR_WIDTH } from "../inputs/ScrollBar"
 import { open as openContextMenu } from "./PianoContextMenu"
-import { observer, inject } from "mobx-react"
+
+import { VerticalScrollBar, HorizontalScrollBar, BAR_WIDTH } from "components/inputs/ScrollBar"
 
 import "./PianoRoll.css"
 

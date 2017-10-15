@@ -1,7 +1,7 @@
 import React from "react"
 import ReactDOM from "react-dom"
 
-import App from "./App"
+import App from "containers/App/App"
 import SynthApp from "./synth"
 
 switch (document.location.hash) {

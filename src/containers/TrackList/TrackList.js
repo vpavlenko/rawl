@@ -1,11 +1,11 @@
 import React, { Component } from "react"
 import { observer, inject } from "mobx-react"
 
-import Icon from "./Icon"
-import Slider from "./inputs/Slider"
-import Knob from "./inputs/Knob"
-import NumberInput from "./inputs/NumberInput"
-import { ContextMenu, MenuItem, createContextMenu } from "./groups/ContextMenu"
+import Icon from "components/Icon"
+import Knob from "components/inputs/Knob"
+import Slider from "components/inputs/Slider"
+import NumberInput from "components/inputs/NumberInput"
+import { ContextMenu, MenuItem, createContextMenu } from "components/groups/ContextMenu"
 
 import "./TrackList.css"
 

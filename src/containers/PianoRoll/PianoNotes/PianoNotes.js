@@ -7,8 +7,8 @@ import PropTypes from "prop-types"
 import _ from "lodash"
 import { shouldUpdate } from "recompose"
 
-import DrawCanvas from "../../DrawCanvas"
-import filterEventsWithScroll from "../../../helpers/filterEventsWithScroll"
+import DrawCanvas from "components/DrawCanvas"
+import filterEventsWithScroll from "helpers/filterEventsWithScroll"
 
 /**
 

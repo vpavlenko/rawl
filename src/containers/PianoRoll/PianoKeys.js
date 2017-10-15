@@ -3,8 +3,8 @@ import PropTypes from "prop-types"
 import { shouldUpdate } from "recompose"
 import _ from "lodash"
 
-import { noteNameWithOctString } from "../../helpers/noteNumberString"
-import DrawCanvas from "../DrawCanvas"
+import { noteNameWithOctString } from "helpers/noteNumberString"
+import DrawCanvas from "components/DrawCanvas"
 
 function drawBorder(ctx, width, theme) {
   ctx.lineWidth = 1

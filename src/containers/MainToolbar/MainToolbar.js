@@ -1,10 +1,11 @@
 import React, { Component } from "react"
 import { observer, inject } from "mobx-react"
 
-import Icon from "./Icon"
-import { Toolbar, ToolbarItem, ToolbarSeparator } from "./groups/Toolbar"
+import Icon from "components/Icon"
+import { Toolbar, ToolbarItem, ToolbarSeparator } from "components/groups/Toolbar"
+
 import QuantizeSelector from "./QuantizeSelector"
-import { TIME_BASE } from "../Constants"
+import { TIME_BASE } from "Constants"
 
 import "./MainToolbar.css"
 

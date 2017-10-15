@@ -1,5 +1,5 @@
 import React from "react"
-import { ContextMenu, MenuItem as ContextMenuItem, createContextMenu } from "../groups/ContextMenu"
+import { ContextMenu, MenuItem as ContextMenuItem, createContextMenu } from "components/groups/ContextMenu"
 
 export function PianoContextMenu({ dispatch, isNoteSelected, close }) {
   return <ContextMenu>

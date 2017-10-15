@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { pure } from "recompose"
-import coarsify from "../../helpers/coarsify"
+import coarsify from "helpers/coarsify"
 
 import "./Knob.css"
 
@@ -10,7 +10,7 @@ const MAX_VALUE_MOVE_LENGTH = 150
 // ホイール1行分の回転による変化量
 const WHEEL_SPEED = 0.1
 
-const Nop = () => {}
+const Nop = () => { }
 
 function Content({
   value = 0,
@@ -57,7 +57,7 @@ function Content({
     onWheel={handleWheel}
     onMouseDown={handleMouseDown}>
     <div className="body">
-      <div className="mark" style={{transform: `rotate(${value / range * maxDegree + offsetDegree}deg)`}}>
+      <div className="mark" style={{ transform: `rotate(${value / range * maxDegree + offsetDegree}deg)` }}>
         <div className="dot" />
       </div>
     </div>

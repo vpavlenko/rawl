@@ -1,20 +1,21 @@
 import React, { Component } from "react"
 import { observer, inject } from "mobx-react"
 
-import DrawCanvas from "./DrawCanvas"
-import PianoGrid from "./PianoRoll/PianoGrid"
-import PianoRuler from "./PianoRoll/PianoRuler"
-import PianoCursor from "./PianoRoll/PianoCursor"
-import PianoSelection from "./PianoRoll/PianoSelection"
-import { VerticalScrollBar, HorizontalScrollBar, BAR_WIDTH } from "./inputs/ScrollBar"
+import PianoGrid from "../PianoRoll/PianoGrid"
+import PianoRuler from "../PianoRoll/PianoRuler"
+import PianoCursor from "../PianoRoll/PianoCursor"
+import PianoSelection from "../PianoRoll/PianoSelection"
 
-import NoteCoordTransform from "../model/NoteCoordTransform"
-import Rect from "../model/Rect"
+import DrawCanvas from "components/DrawCanvas"
+import { VerticalScrollBar, HorizontalScrollBar, BAR_WIDTH } from "components/inputs/ScrollBar"
 
-import mapBeats from "../helpers/mapBeats"
-import { pointSub } from "../helpers/point"
-import filterEventsWithScroll from "../helpers/filterEventsWithScroll"
-import fitToContainer from "../hocs/fitToContainer"
+import Rect from "model/Rect"
+import NoteCoordTransform from "model/NoteCoordTransform"
+
+import mapBeats from "helpers/mapBeats"
+import { pointSub } from "helpers/point"
+import filterEventsWithScroll from "helpers/filterEventsWithScroll"
+import fitToContainer from "hocs/fitToContainer"
 
 import "./ArrangeView.css"
 

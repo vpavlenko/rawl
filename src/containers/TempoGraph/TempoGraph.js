@@ -1,19 +1,22 @@
 import React, { Component } from "react"
+import { observer, inject } from "mobx-react"
+import _ from "lodash"
 import Color from "color"
 import { pure } from "recompose"
-import _ from "lodash"
-import { observer, inject } from "mobx-react"
 
-import DrawCanvas from "../DrawCanvas"
-import PianoRuler from "../PianoRoll/PianoRuler"
 import PianoGrid from "../PianoRoll/PianoGrid"
+import PianoRuler from "../PianoRoll/PianoRuler"
 import PianoCursor from "../PianoRoll/PianoCursor"
-import fitToContainer from "../../hocs/fitToContainer"
-import TempoCoordTransform from "../../model/TempoCoordTransform"
-import { uSecPerBeatToBPM, bpmToUSecPerBeat } from "../../helpers/bpm"
+
+import fitToContainer from "hocs/fitToContainer"
+import TempoCoordTransform from "model/TempoCoordTransform"
+
+import mapBeats from "helpers/mapBeats"
+import { uSecPerBeatToBPM, bpmToUSecPerBeat } from "helpers/bpm"
 import transformEvents from "./transformEvents"
-import mapBeats from "../../helpers/mapBeats"
-import { HorizontalScrollBar, BAR_WIDTH } from "../inputs/ScrollBar"
+
+import DrawCanvas from "components/DrawCanvas"
+import { HorizontalScrollBar, BAR_WIDTH } from "components/inputs/ScrollBar"
 
 import "./TempoGraph.css"
 

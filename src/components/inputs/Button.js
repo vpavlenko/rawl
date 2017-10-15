@@ -1,7 +1,7 @@
 import React from "react"
-import f from "../../helpers/flatJoin"
-import e from "../../helpers/getElementType"
 import { pure } from "recompose"
+import f from "helpers/flatJoin"
+import e from "helpers/getElementType"
 
 import "./Button.css"
 

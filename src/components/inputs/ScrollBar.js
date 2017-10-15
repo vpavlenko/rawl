@@ -1,9 +1,8 @@
 import React from "react"
 
-import Icon from "../Icon"
-
-import fitToContainer from "../../hocs/fitToContainer"
-import { pointSub } from "../../helpers/point"
+import Icon from "components/Icon"
+import { pointSub } from "helpers/point"
+import fitToContainer from "hocs/fitToContainer"
 
 import "./ScrollBar.css"
 

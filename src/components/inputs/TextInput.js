@@ -1,6 +1,6 @@
 import React from "react"
 import { pure } from "recompose"
-import f from "../../helpers/flatJoin"
+import f from "helpers/flatJoin"
 
 import "./TextInput.css"
 

@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import _ from "lodash"
 import { shouldUpdate } from "recompose"
 
-import DrawCanvas from "../DrawCanvas"
+import DrawCanvas from "components/DrawCanvas"
 
 function drawBeatLines(ctx, beats, height, theme) {
   ctx.lineWidth = 1

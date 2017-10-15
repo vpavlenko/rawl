@@ -1,5 +1,5 @@
 import React from "react"
-import Icon from "./Icon"
+import Icon from "components/Icon"
 
 import "./QuantizeSelector.css"
 
@@ -52,11 +52,11 @@ export default function QuantizeSelector({ value, onSelect }) {
       <Icon>music-note</Icon>
     </div>
     <div className="buttons">
-      {list.map(num => 
-        <Button 
+      {list.map(num =>
+        <Button
           key={num}
-          title={num} 
-          selected={num === denominator} 
+          title={num}
+          selected={num === denominator}
           onClick={() => onSelect(calcQuantize(num, dot, triplet))} />
       )}
     </div>

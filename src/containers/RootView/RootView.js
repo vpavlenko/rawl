@@ -7,23 +7,22 @@ import _ from "lodash"
 import { observer, inject } from "mobx-react"
 import DevTools from "mobx-react-devtools"
 
-import Popup from "./Popup"
+import Popup from "components/Popup"
+import InstrumentBrowser from "components/InstrumentBrowser"
 
-import TrackList from "./TrackList"
-import Toolbar from "./MainToolbar"
-import InstrumentBrowser from "./InstrumentBrowser"
-import PianoRoll from "./PianoRoll/PianoRoll"
-import ArrangeView from "./ArrangeView"
+import Toolbar from "../MainToolbar/MainToolbar"
+import TrackList from "../TrackList/TrackList"
+import PianoRoll from "../PianoRoll/PianoRoll"
+import TempoGraph from "../TempoGraph/TempoGraph"
+import ArrangeView from "../ArrangeView/ArrangeView"
 
 import {
   getGMMapIndexes,
   getGMMapProgramNumber
-} from "../midi/GM.js"
+} from "../../midi/GM.js"
 
 import "./Resizer.css"
 import "./RootView.css"
-
-import TempoGraph from "./TempoGraph/TempoGraph"
 
 const { remote } = window.require("electron")
 const { Menu, dialog } = remote

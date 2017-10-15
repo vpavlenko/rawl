@@ -1,9 +1,9 @@
 import React, { Component } from "react"
 import _ from "lodash"
 import VelocityMouseHandler from "./VelocityMouseHandler"
-import DrawCanvas from "../../DrawCanvas"
-import logEq from "../../../helpers/logEq"
-import filterEventsWithScroll from "../../../helpers/filterEventsWithScroll"
+import DrawCanvas from "components/DrawCanvas"
+import logEq from "helpers/logEq"
+import filterEventsWithScroll from "helpers/filterEventsWithScroll"
 
 /**
 

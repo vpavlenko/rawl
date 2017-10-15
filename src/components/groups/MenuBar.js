@@ -1,16 +1,16 @@
 import React from "react"
-import f from "../../helpers/flatJoin"
+import f from "helpers/flatJoin"
 
 import "./MenuBar.css"
 
 export function fromTemplate(t) {
   return <MenuBar>
-    {t.map(t=> <MenuItem title={t.label}>
+    {t.map(t => <MenuItem title={t.label}>
       {t.submenu && <SubMenu>
         {t.submenu.map(t => <MenuItem
           title={t.role || t.label}
           onClick={t.click}
-          />)}
+        />)}
       </SubMenu>}
     </MenuItem>)}
   </MenuBar>

@@ -1,7 +1,7 @@
 import React from "react"
 import { pure } from "recompose"
-import f from "../../helpers/flatJoin"
-import coarsify from "../../helpers/coarsify"
+import f from "helpers/flatJoin"
+import coarsify from "helpers/coarsify"
 
 import "./NumberInput.css"
 

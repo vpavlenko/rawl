@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import { shouldUpdate } from "recompose"
 import _ from "lodash"
 
-import DrawCanvas from "../DrawCanvas"
+import DrawCanvas from "components/DrawCanvas"
 
 const LINE_WIDTH = 2
 

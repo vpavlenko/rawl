@@ -5,6 +5,7 @@ import createHistoryAction from "./actions/history"
 import creatQuantizerAction from "./actions/quantizer"
 import createSelectionAction from "./actions/selection"
 import createTrackMuteAction from "./actions/trackMute"
+import createPianoRollAction from "./actions/pianoRoll"
 
 export default (rootStore) => function dispatch(type, params) {
   const actions = {
@@ -14,7 +15,8 @@ export default (rootStore) => function dispatch(type, params) {
     ...createHistoryAction(rootStore),
     ...creatQuantizerAction(rootStore),
     ...createSelectionAction(rootStore),
-    ...createTrackMuteAction(rootStore)
+    ...createTrackMuteAction(rootStore),
+    ...createPianoRollAction(rootStore),
   }
 
   const action = actions[type]

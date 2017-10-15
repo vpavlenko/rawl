@@ -28,4 +28,12 @@ export function bindKeyboardShortcut(dispatch, player) {
       default: break
     }
   }
+
+  document.oncopy = () => {
+    dispatch("COPY_SELECTION")
+  }
+
+  document.onpaste = () => {
+    dispatch("PASTE_SELECTION")
+  }
 }

@@ -18,7 +18,6 @@ import PianoRuler from "./PianoRuler"
 import PianoSelection from "./PianoSelection"
 import PianoCursor from "./PianoCursor"
 import ControlPane from "./ControlPane"
-import { open as openContextMenu } from "./PianoContextMenu"
 
 import { VerticalScrollBar, HorizontalScrollBar, BAR_WIDTH } from "components/inputs/ScrollBar"
 
@@ -55,7 +54,7 @@ function PianoRoll({
   const widthTick = Math.max(endTick, transform.getTicks(containerWidth))
   const startTick = scrollLeft / transform.pixelsPerTick
   const mappedBeats = mapBeats(beats, transform.pixelsPerTick, startTick, widthTick)
-  const events = track.getEvents()
+  const events = track.events
 
   const contentWidth = widthTick * transform.pixelsPerTick
   const contentHeight = transform.getMaxY()
@@ -169,20 +168,16 @@ class stateful extends Component {
 
   componentDidMount() {
     this.props.player.on("change-position", this.onTick)
-
-    document.addEventListener("copy", this.onCopy)
-    document.addEventListener("paste", this.onPaste)
   }
 
   componentWillUnmount() {
-    document.removeEventListener("copy", this.onCopy)
-    document.removeEventListener("paste", this.onPaste)
     this.props.player.off("change-position", this.onTick)
   }
 
   onTick = tick => {
-    const { autoScroll, scrollLeft, containerWidth, setCursorPosition, setScrollLeft } = this.props
-    const x = this.getTransform().getX(tick)
+    const { autoScroll, scrollLeft, containerWidth, setCursorPosition, setScrollLeft, theme, scaleX } = this.props
+    const transform = createTransform(theme.keyHeight, scaleX)
+    const x = transform.getX(tick)
 
     setCursorPosition(tick)
 
@@ -195,76 +190,38 @@ class stateful extends Component {
     }
   }
 
-  onCopy = () => {
-    if (this.props.mouseMode !== 1) {
-      // not selection mode
-      return
-    }
-
-    this.props.dispatch("COPY_SELECTION")
-  }
-
-  onPaste = () => {
-    this.props.dispatch("PASTE_SELECTION")
-  }
-
   shouldComponentUpdate(nextProps, nextState) {
     return true
   }
 
-  getTransform() {
-    const { theme, scaleX } = this.props
-    const keyHeight = theme.keyHeight
-    const pixelsPerTick = 0.1 * scaleX
-    return new NoteCoordTransform(
-      pixelsPerTick,
-      keyHeight,
-      127)
-  }
-
-  dispatch = (type, params) => {
-    const { dispatch, scrollLeft, scrollTop, setControlMode, setNotesCursor, setScrollLeft, setScrollTop } = this.props
-
-    switch (type) {
-      case "CHANGE_CURSOR":
-        setNotesCursor(params.cursor)
-        break
-      case "SCROLL_BY":
-        setScrollLeft(scrollLeft - params.x)
-        setScrollTop(scrollTop - params.y)
-        break
-      case "OPEN_CONTEXT_MENU":
-        return openContextMenu(this.dispatch, params)
-      case "SELECT_CONTROL_TAB":
-        setControlMode(params.name)
-        break
-      default:
-        return dispatch(type, params)
-    }
-  }
-
   render() {
-
-    const transform = this.getTransform()
-    const dispatch = this.dispatch
+    const { dispatch, selection, theme, scaleX } = this.props
+    const transform = createTransform(theme.keyHeight, scaleX)
 
     this.pencilMouseHandler.dispatch = dispatch
     this.pencilMouseHandler.transform = transform
     this.selectionMouseHandler.dispatch = dispatch
     this.selectionMouseHandler.transform = transform
-    this.selectionMouseHandler.selection = this.props.selection
+    this.selectionMouseHandler.selection = selection
 
     const mouseHandler = this.props.mouseMode === 0 ?
       this.pencilMouseHandler : this.selectionMouseHandler
 
     return <PianoRoll {...this.props} {...this.state}
       transform={transform}
-      dispatch={dispatch}
       mouseHandler={mouseHandler}
       onMountAlpha={c => this.alpha = c}
       alphaHeight={this.alpha ? this.alpha.getBoundingClientRect().height : 0}
     />
   }
+}
+
+function createTransform(keyHeight, scaleX) {
+  const pixelsPerTick = 0.1 * scaleX
+  return new NoteCoordTransform(
+    pixelsPerTick,
+    keyHeight,
+    127)
 }
 
 PianoRoll.propTypes = {
@@ -286,14 +243,14 @@ PianoRoll.defaultProps = {
 }
 
 export default fitToContainer(inject(({ rootStore: {
-  song: { selectedTrack, endOfSong, measureList: { beats } },
+  song: { selectedTrack: track, endOfSong: endTick, measureList: { beats } },
   pianoRollStore: s,
   rootViewStore: { theme },
   services: { player, quantizer },
   dispatch
 } }) => ({
-    track: selectedTrack,
-    endTick: endOfSong,
+    track,
+    endTick,
     beats,
     theme,
     scaleX: s.scaleX,
@@ -315,7 +272,7 @@ export default fitToContainer(inject(({ rootStore: {
     player,
     dispatch,
     onChangeTool: () => s.mouseMode = (s.mouseMode === 0 ? 1 : 0),
-    onClickKey: () => { }
+    onClickKey: (noteNumber) => { console.log(noteNumber) }
   }))(observer(stateful)), {
     width: "100%",
     height: "100%"

@@ -14,7 +14,7 @@ function eventsInSelection(events, selection) {
 
 export default ({ song, pianoRollStore, services: { quantizer, player } }) => {
   const { selectedTrack } = song
-  const { selection } = pianoRollStore
+  const { selection, mouseMode } = pianoRollStore
 
   function updateSelection(selection) {
     pianoRollStore.selection = selection
@@ -31,7 +31,7 @@ export default ({ song, pianoRollStore, services: { quantizer, player } }) => {
     "FIX_SELECTION": () => {
       // 選択範囲を確定して選択範囲内のノートを選択状態にする
       const s = selection.clone()
-      s.noteIds = eventsInSelection(selectedTrack.getEvents(), selection).map(e => e.id)
+      s.noteIds = eventsInSelection(selectedTrack.events, selection).map(e => e.id)
       updateSelection(s)
     },
     "MOVE_SELECTION": ({ tick, noteNumber }) => {
@@ -154,6 +154,11 @@ export default ({ song, pianoRollStore, services: { quantizer, player } }) => {
       updateSelection(s)
     },
     "COPY_SELECTION": () => {
+      if (mouseMode !== 1) {
+        // not selection mode
+        return
+      }
+
       // 選択されたノートをコピー
       const notes = selection.noteIds
         .map(id => {

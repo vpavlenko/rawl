@@ -1,4 +1,4 @@
-import { observable, action } from "mobx"
+import { observable, action, transaction } from "mobx"
 import { json } from "json-mobx"
 import _ from "lodash"
 
@@ -37,14 +37,27 @@ export default class Track {
     return newObj
   }
 
+  @action updateEvents(events) {
+    events.forEach(event => {
+      Object.assign(this.getEventById(event.id), event)
+    })
+    this.updateEndOfTrack()
+    this.sortByTick()
+  }
+
   @action replaceEvent(event) {
-    _.remove()
     this.events = _.unionBy([event], this.events, "id")
   }
 
   @action removeEvent(id) {
     const obj = this.getEventById(id)
     this.events = _.without(this.events, obj)
+    this.updateEndOfTrack()
+  }
+
+  @action removeEvents(ids) {
+    const objs = ids.map(id => this.getEventById(id))
+    this.events = _.difference(this.events, objs)
     this.updateEndOfTrack()
   }
 
@@ -101,7 +114,7 @@ export default class Track {
   }
 
   transaction(func) {
-    func(this)
+    transaction(() => func(this))
   }
 
   /* helper */

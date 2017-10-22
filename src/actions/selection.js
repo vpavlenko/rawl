@@ -49,15 +49,14 @@ export default ({ song, pianoRollStore, services: { quantizer, player } }) => {
       const s = selection.moveTo(tick, noteNumber)
       updateSelection(s)
 
-      selectedTrack.transaction(it => {
-        s.noteIds.forEach(id => {
-          const n = it.getEventById(id)
-          it.updateEvent(id, {
-            tick: n.tick + dt,
-            noteNumber: n.noteNumber + dn
-          })
-        })
-      })
+      selectedTrack.updateEvents(s.noteIds.map(id => {
+        const n = selectedTrack.getEventById(id)
+        return {
+          id,
+          tick: n.tick + dt,
+          noteNumber: n.noteNumber + dn
+        }
+      }))
     },
 
     "RESIZE_SELECTION_LEFT": ({ tick }) => {
@@ -80,21 +79,21 @@ export default ({ song, pianoRollStore, services: { quantizer, player } }) => {
       s.fromTick = fromTick
       updateSelection(s)
 
-      selectedTrack.transaction(it => {
-        selection.noteIds.forEach(id => {
-          const n = it.getEventById(id)
-          const duration = n.duration - delta
-          if (duration <= 0) {
-            // 幅がゼロになる場合は変形しない
-            return
-          }
-          it.updateEvent(id, {
-            tick: n.tick + delta,
-            duration
-          })
-        })
-      })
+      selectedTrack.updateEvents(selection.noteIds.map(id => {
+        const n = selectedTrack.getEventById(id)
+        const duration = n.duration - delta
+        if (duration <= 0) {
+          // 幅がゼロになる場合は変形しない
+          return { id }
+        }
+        return {
+          id,
+          tick: n.tick + delta,
+          duration
+        }
+      }))
     },
+
     "RESIZE_SELECTION_RIGHT": ({ tick }) => {
       // 選択範囲とノートを右方向に伸長・縮小する
       const toTick = quantizer.round(tick)
@@ -115,19 +114,18 @@ export default ({ song, pianoRollStore, services: { quantizer, player } }) => {
       s.toTick = toTick
       updateSelection(s)
 
-      selectedTrack.transaction(it => {
-        selection.noteIds.forEach(id => {
-          const n = it.getEventById(id)
-          const duration = n.duration + delta
-          if (duration <= 0) {
-            // 幅がゼロになる場合は変形しない
-            return
-          }
-          it.updateEvent(id, {
-            duration
-          })
-        })
-      })
+      selectedTrack.updateEvents(selection.noteIds.forEach(id => {
+        const n = selectedTrack.getEventById(id)
+        const duration = n.duration + delta
+        if (duration <= 0) {
+          // 幅がゼロになる場合は変形しない
+          return { id }
+        }
+        return {
+          id,
+          duration
+        }
+      }))
     },
     "START_SELECTION": ({ tick, noteNumber }) => {
       if (!player.isPlaying) {
@@ -142,13 +140,8 @@ export default ({ song, pianoRollStore, services: { quantizer, player } }) => {
     },
     "CLONE_SELECTION": () => {
       // 選択範囲内のノートをコピーした選択範囲を作成
-      let notes
-      selectedTrack.transaction(it => {
-        notes = selection.noteIds.map(id => {
-          const note = selectedTrack.getEventById(id)
-          return it.addEvent({ ...note })
-        })
-      })
+      const notes = selection.noteIds.map(id => ({ ...selectedTrack.getEventById(id) }))
+      selectedTrack.addEvents(notes)
       const s = selection.clone()
       s.noteIds = notes.map(e => e.id)
       updateSelection(s)
@@ -175,11 +168,7 @@ export default ({ song, pianoRollStore, services: { quantizer, player } }) => {
     },
     "DELETE_SELECTION": () => {
       // 選択範囲と選択されたノートを削除
-      selectedTrack.transaction(it =>
-        selection.noteIds.forEach(id =>
-          it.removeEvent(id)
-        )
-      )
+      selectedTrack.removeEvents(selection.noteIds)
       updateSelection(new SelectionModel())
     },
     "PASTE_SELECTION": () => {
@@ -197,9 +186,7 @@ export default ({ song, pianoRollStore, services: { quantizer, player } }) => {
           ...note,
           tick: note.tick + player.position
         }))
-      selectedTrack.transaction(it => {
-        notes.forEach(note => it.addEvent(note))
-      })
+      selectedTrack.addEvents(notes)
     }
   }
 }

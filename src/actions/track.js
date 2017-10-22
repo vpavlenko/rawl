@@ -44,11 +44,7 @@ export default (rootStore) => {
 
     "CHANGE_NOTES_VELOCITY": ({ notes, velocity }) => {
       saveHistory()
-      return selectedTrack.transaction(it => {
-        notes.forEach(item => {
-          it.updateEvent(item.id, { velocity: velocity })
-        })
-      })
+      selectedTrack.updateEvents(notes.map(item => ({ id: item.id, velocity })))
     },
     "CREATE_PITCH_BEND": ({ tick, value }) => {
       saveHistory()

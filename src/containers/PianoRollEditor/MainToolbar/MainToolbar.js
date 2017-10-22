@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React from "react"
 import { observer, inject } from "mobx-react"
 
 import Icon from "components/Icon"
@@ -9,7 +9,7 @@ import { TIME_BASE } from "Constants"
 
 import "./MainToolbar.css"
 
-function Content({
+function MainToolbar({
   onClickPlay,
   onClickStop,
   onClickBackward,
@@ -26,20 +26,6 @@ function Content({
   mbtTime }) {
 
   return <Toolbar>
-    <ToolbarItem className="time-section">
-      <p className="time">{mbtTime}</p>
-    </ToolbarItem>
-
-    <ToolbarSeparator />
-
-    <ToolbarItem onClick={onClickBackward}><Icon>skip-backward</Icon></ToolbarItem>
-    <ToolbarItem onClick={onClickStop}><Icon>stop</Icon></ToolbarItem>
-    <ToolbarItem onClick={onClickPlay}><Icon>play</Icon></ToolbarItem>
-    <ToolbarItem onClick={onClickForward}><Icon>skip-forward</Icon></ToolbarItem>
-    <ToolbarItem onClick={onClickAutoScroll} selected={autoScroll}><Icon>pin</Icon></ToolbarItem>
-
-    <ToolbarSeparator />
-
     <ToolbarItem onClick={onClickPencil} selected={mouseMode === 0}><Icon>pencil</Icon></ToolbarItem>
     <ToolbarItem onClick={onClickSelection} selected={mouseMode === 1}><Icon>select</Icon></ToolbarItem>
 
@@ -52,47 +38,17 @@ function Content({
 
     <ToolbarSeparator />
 
+    <ToolbarItem onClick={onClickAutoScroll} selected={autoScroll}><Icon>pin</Icon></ToolbarItem>
     <ToolbarItem onClick={onClickScaleUp}><Icon>magnify-plus</Icon></ToolbarItem>
     <ToolbarItem onClick={onClickScaleDown}><Icon>magnify-minus</Icon></ToolbarItem>
   </Toolbar>
 }
 
-class MainToolbar extends Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      mbtTime: ""
-    }
-  }
-
-  componentDidMount() {
-    this.props.player.on("change-position", this.onTick)
-  }
-
-  componentWillUnmount() {
-    this.props.player.on("change-position", this.onTick)
-  }
-
-  onTick = tick => {
-    this.setState({
-      mbtTime: this.props.measureList.getMBTString(tick, this.props.player.timebase)
-    })
-  }
-
-  render() {
-    return <Content {...this.props} {...this.state} />
-  }
-}
-
 export default inject(({ rootStore: {
-  services: { player, quantizer },
-  song: { measureList },
+  services: { quantizer },
   pianoRollStore,
   dispatch
 } }) => ({
-    player,
-    measureList,
     quantize: pianoRollStore.quantize === 0 ? quantizer.denominator : pianoRollStore.quantize,
     mouseMode: pianoRollStore.mouseMode,
     autoScroll: pianoRollStore.autoScroll,

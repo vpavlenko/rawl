@@ -2,7 +2,7 @@ import React from "react"
 import { pure, shouldUpdate } from "recompose"
 import _ from "lodash"
 
-import fitToContainer from "../../hocs/fitToContainer"
+import fitToContainer from "hocs/fitToContainer"
 
 import PianoGrid from "./PianoGrid"
 

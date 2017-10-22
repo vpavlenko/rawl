@@ -177,18 +177,18 @@ export function HorizontalScrollBar_(props) {
   return <ScrollBar isVertial={false} {...props} barLength={props.containerWidth} />
 }
 
-export const VerticalScrollBar = fitToContainer(VerticalScrollBar_, {
+export const VerticalScrollBar = fitToContainer({
   width: BAR_WIDTH,
   height: "100%",
   position: "absolute",
   top: 0,
   right: 0
-})
+})(VerticalScrollBar_)
 
-export const HorizontalScrollBar = fitToContainer(HorizontalScrollBar_, {
+export const HorizontalScrollBar = fitToContainer({
   width: "100%",
   height: BAR_WIDTH,
   position: "absolute",
   bottom: 0,
   left: 0
-})
+})(HorizontalScrollBar_)

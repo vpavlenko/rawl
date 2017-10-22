@@ -317,7 +317,10 @@ function stateful(WrappedComponent) {
 }
 
 
-export default inject(({ rootStore: {
+export default fitToContainer({
+  width: "100%",
+  height: "100%"
+})(inject(({ rootStore: {
   rootViewStore: { theme },
   pianoRollStore: { scaleX, autoScroll },
   services: { player },
@@ -332,7 +335,4 @@ export default inject(({ rootStore: {
     beats: song.measureList.beats,
     dispatch,
     autoScroll,
-  }))(observer(fitToContainer(stateful(Content), {
-    width: "100%",
-    height: "100%"
-  })))
+  }))(observer(stateful(Content))))

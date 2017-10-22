@@ -382,7 +382,7 @@ const mapStoreToProps = ({ rootStore: {
     dispatch
   })
 
-export default fitToContainer(inject(mapStoreToProps)(observer(stateful(ArrangeView))), {
+export default fitToContainer({
   width: "100%",
   height: "100%"
-})
+})(inject(mapStoreToProps)(observer(stateful(ArrangeView))))

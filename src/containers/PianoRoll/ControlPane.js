@@ -90,7 +90,7 @@ function test(props, nextProps) {
     || !_.isEqual(props.transform, nextProps.transform)
 }
 
-export default shouldUpdate(test)(fitToContainer(ControlPane, {
+export default fitToContainer({
   width: "100%",
   height: "100%"
-}))
+})(shouldUpdate(test)(ControlPane))

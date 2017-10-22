@@ -242,7 +242,10 @@ PianoRoll.defaultProps = {
   autoScroll: false
 }
 
-export default fitToContainer(inject(({ rootStore: {
+export default fitToContainer({
+  width: "100%",
+  height: "100%"
+})(inject(({ rootStore: {
   song: { selectedTrack: track, endOfSong: endTick, measureList: { beats } },
   pianoRollStore: s,
   rootViewStore: { theme },
@@ -273,7 +276,4 @@ export default fitToContainer(inject(({ rootStore: {
     dispatch,
     onChangeTool: () => s.mouseMode = (s.mouseMode === 0 ? 1 : 0),
     onClickKey: (noteNumber) => { console.log(noteNumber) }
-  }))(observer(stateful)), {
-    width: "100%",
-    height: "100%"
-  })
+  }))(observer(stateful)))

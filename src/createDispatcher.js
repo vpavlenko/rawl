@@ -2,6 +2,7 @@ import createSongAction from "./actions/song"
 import createTrackAction from "./actions/track"
 import createPlayerAction from "./actions/player"
 import createHistoryAction from "./actions/history"
+import createRootViewAction from "./actions/rootView"
 import creatQuantizerAction from "./actions/quantizer"
 import createSelectionAction from "./actions/selection"
 import createTrackMuteAction from "./actions/trackMute"
@@ -13,6 +14,7 @@ export default (rootStore) => function dispatch(type, params) {
     ...createTrackAction(rootStore),
     ...createPlayerAction(rootStore),
     ...createHistoryAction(rootStore),
+    ...createRootViewAction(rootStore),
     ...creatQuantizerAction(rootStore),
     ...createSelectionAction(rootStore),
     ...createTrackMuteAction(rootStore),

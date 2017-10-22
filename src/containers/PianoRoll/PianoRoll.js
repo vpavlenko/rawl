@@ -30,6 +30,7 @@ function PianoRoll({
   mouseHandler,
   theme,
   track,
+  events,
   transform,
   onClickKey,
   beats,
@@ -54,7 +55,6 @@ function PianoRoll({
   const widthTick = Math.max(endTick, transform.getTicks(containerWidth))
   const startTick = scrollLeft / transform.pixelsPerTick
   const mappedBeats = mapBeats(beats, transform.pixelsPerTick, startTick, widthTick)
-  const events = track.events
 
   const contentWidth = widthTick * transform.pixelsPerTick
   const contentHeight = transform.getMaxY()
@@ -256,6 +256,7 @@ export default fitToContainer({
     endTick,
     beats,
     theme,
+    events: track.events.toJS(), // 変更が反映されるように toJS() する
     scaleX: s.scaleX,
     scaleY: s.scaleY,
     autoScroll: s.autoScroll,

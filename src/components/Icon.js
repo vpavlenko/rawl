@@ -10,11 +10,13 @@ import "mdi/css/materialdesignicons.css"
 function Icon({
   component,
   children,
-  className
+  className,
+  onClick
 }) {
   const ElementType = e(component)
   return <ElementType
     className={f("Icon", "mdi", `mdi-${children}`, className)}
+    onClick={onClick}
   />
 }
 

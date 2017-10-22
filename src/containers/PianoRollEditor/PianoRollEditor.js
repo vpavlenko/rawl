@@ -1,12 +1,18 @@
-import React, { Component } from "react"
+import React from "react"
+import { observer, inject } from "mobx-react"
 
-import Icon from "./Icon"
-import Slider from "./inputs/Slider"
-import Knob from "./inputs/Knob"
+import Icon from "components/Icon"
+import Knob from "components/inputs/Knob"
+import Slider from "components/inputs/Slider"
+import PianoRoll from "./PianoRoll/PianoRoll"
+import MainToolbar from "./MainToolbar/MainToolbar"
 
 import "./PianoRollEditor.css"
 
-export default function PianoRollEditor({ selectedTrack, pianoRoll }) {
+function PianoRollEditor({
+  track,
+  onClickNavBack
+ }) {
 
   const onClickInstrument = () => { }
   const onClickSolo = () => { }
@@ -20,9 +26,9 @@ export default function PianoRollEditor({ selectedTrack, pianoRoll }) {
 
   return <div className="PianoRollEditor">
     <nav>
-      <div className="title"><Icon>chevron-left</Icon>{selectedTrack.displayName}</div>
+      <div className="title"><Icon onClick={onClickNavBack}>chevron-left</Icon>{track.displayName}</div>
       <div className="controls">
-        <div className="button instrument" onClick={onClickInstrument}><Icon>piano</Icon>{selectedTrack.instrumentName}</div>
+        <div className="button instrument" onClick={onClickInstrument}><Icon>piano</Icon>{track.instrumentName}</div>
         <div className={`button solo ${solo ? "active" : ""}`} onClick={onClickSolo}><Icon>headphones</Icon><label>solo</label></div>
         <div className={`button mute ${mute ? "active" : ""}`} onClick={onClickMute}><Icon>{mute ? "volume-off" : "volume-high"}</Icon><label>mute</label></div>
         <Slider
@@ -38,6 +44,12 @@ export default function PianoRollEditor({ selectedTrack, pianoRoll }) {
           maxDegree={280} />
       </div>
     </nav>
-    {pianoRoll}
+    <MainToolbar />
+    <PianoRoll />
   </div>
 }
+
+export default inject(({ rootStore: { song, rootViewStore } }) => ({
+  track: song.selectedTrack,
+  onClickNavBack: () => rootViewStore.isArrangeViewSelected = true
+}))(observer(PianoRollEditor))

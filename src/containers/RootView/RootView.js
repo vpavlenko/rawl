@@ -10,9 +10,9 @@ import DevTools from "mobx-react-devtools"
 import Popup from "components/Popup"
 import InstrumentBrowser from "components/InstrumentBrowser"
 
-import Toolbar from "../MainToolbar/MainToolbar"
+import TransportPanel from "../TransportPanel/TransportPanel"
 import TrackList from "../TrackList/TrackList"
-import PianoRoll from "../PianoRoll/PianoRoll"
+import PianoRollEditor from "../PianoRollEditor/PianoRollEditor"
 import TempoGraph from "../TempoGraph/TempoGraph"
 import ArrangeView from "../ArrangeView/ArrangeView"
 
@@ -150,15 +150,15 @@ function RootView({
   const fileName = path.basename(song.filepath.replace(/\\/g, "/"))
 
   const content = isArrangeViewSelected ? <ArrangeView /> :
-    (selectedTrack.isConductorTrack ? <TempoGraph /> : <PianoRoll />)
+    (selectedTrack.isConductorTrack ? <TempoGraph /> : <PianoRollEditor />)
 
   return <div className="RootView">
     <Helmet><title>{`${song.name} (${fileName}) ― signal`}</title></Helmet>
-    <Toolbar />
     <Pane split="vertical" minSize={200} defaultSize={265} maxSize={400}>
       <TrackList onClickInstrument={onClickTrackInstrument} />
       {content}
     </Pane>
+    <TransportPanel />
     <DevTools />
   </div>
 }

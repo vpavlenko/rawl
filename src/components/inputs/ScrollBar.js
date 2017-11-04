@@ -1,8 +1,8 @@
 import React from "react"
+import sizeMe from "react-sizeme"
 
 import Icon from "components/Icon"
 import { pointSub } from "helpers/point"
-import fitToContainer from "hocs/fitToContainer"
 
 import "./ScrollBar.css"
 
@@ -24,7 +24,8 @@ function ScrollBar({
   barLength,
   scrollOffset = 50,
   contentLength = 1000,
-  onScroll
+  onScroll,
+  style
 }) {
   const buttonLength = BUTTON_SIZE
   const maxOffset = contentLength - barLength
@@ -142,6 +143,7 @@ function ScrollBar({
   const triangle = <Icon>triangle</Icon>
 
   return <div
+    style={style}
     className={`ScrollBar ${className}`}
     onMouseDown={onMouseDown}>
     <div className="button-backward" style={{ [lengthProp]: buttonLength }}>{triangle}</div>
@@ -170,25 +172,24 @@ function getPoint(e) {
 }
 
 function VerticalScrollBar_(props) {
-  return <ScrollBar isVertial={true} {...props} barLength={props.containerHeight} />
+  return <ScrollBar isVertial={true} {...props} barLength={props.size.height} style={{
+    width: BAR_WIDTH,
+    height: "100%",
+    position: "absolute",
+    top: 0,
+    right: 0
+  }} />
 }
 
 export function HorizontalScrollBar_(props) {
-  return <ScrollBar isVertial={false} {...props} barLength={props.containerWidth} />
+  return <ScrollBar isVertial={false} {...props} barLength={props.size.width} style={{
+    width: "100%",
+    height: BAR_WIDTH,
+    position: "absolute",
+    bottom: 0,
+    left: 0
+  }} />
 }
 
-export const VerticalScrollBar = fitToContainer({
-  width: BAR_WIDTH,
-  height: "100%",
-  position: "absolute",
-  top: 0,
-  right: 0
-})(VerticalScrollBar_)
-
-export const HorizontalScrollBar = fitToContainer({
-  width: "100%",
-  height: BAR_WIDTH,
-  position: "absolute",
-  bottom: 0,
-  left: 0
-})(HorizontalScrollBar_)
+export const VerticalScrollBar = sizeMe({ monitorHeight: true, monitorWidth: false })(VerticalScrollBar_)
+export const HorizontalScrollBar = sizeMe()(HorizontalScrollBar_)

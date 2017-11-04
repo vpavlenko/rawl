@@ -1,8 +1,5 @@
 .TempoGraph {
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
-  position: absolute;
+  flex-grow: 1;
   background: var(--background-color);
   color: var(--secondary-text-color);
 }
@@ -45,7 +42,11 @@
   box-shadow: 0px 0px 5px 0 rgba(0, 0, 0, 0.1);
 }
 
-.TempoGraph .GraphAxis>div {
+.TempoGraph .GraphAxis .values {
+  position: relative;
+}
+
+.TempoGraph .GraphAxis .values>div {
   position: absolute;
   text-align: right;
   width: 100%;

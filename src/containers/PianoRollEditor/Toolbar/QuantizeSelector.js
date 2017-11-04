@@ -1,12 +1,13 @@
 import React from "react"
 import Icon from "components/Icon"
+import { ToolbarItem } from "components/groups/Toolbar"
 
 import "./QuantizeSelector.css"
 
 function Button({ title, selected, onClick }) {
-  return <div className={`button ${selected ? "selected" : ""}`} onClick={onClick}>
+  return <ToolbarItem selected={selected} onClick={onClick}>
     <div className="title">{title}</div>
-  </div>
+  </ToolbarItem>
 }
 
 function calcQuantize(num, dot, triplet) {

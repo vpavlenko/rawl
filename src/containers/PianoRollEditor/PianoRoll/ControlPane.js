@@ -1,8 +1,7 @@
 import React from "react"
 import { pure, shouldUpdate } from "recompose"
 import _ from "lodash"
-
-import fitToContainer from "hocs/fitToContainer"
+import sizeMe from "react-sizeme"
 
 import PianoGrid from "./PianoGrid"
 
@@ -32,8 +31,7 @@ function ControlPane({
   transform,
   scrollLeft,
   paddingBottom,
-  containerWidth,
-  containerHeight
+  size
 }) {
   const controlButton = (label, name) => ({
     label,
@@ -43,6 +41,9 @@ function ControlPane({
 
   const TAB_HEIGHT = 30
   const BORDER_WIDTH = 1
+
+  const containerWidth = size.width
+  const containerHeight = size.height
 
   const controlProps = {
     events, transform, dispatch, scrollLeft,
@@ -90,7 +91,4 @@ function test(props, nextProps) {
     || !_.isEqual(props.transform, nextProps.transform)
 }
 
-export default fitToContainer({
-  width: "100%",
-  height: "100%"
-})(shouldUpdate(test)(ControlPane))
+export default shouldUpdate(test)(sizeMe({ monitorHeight: true })(ControlPane))

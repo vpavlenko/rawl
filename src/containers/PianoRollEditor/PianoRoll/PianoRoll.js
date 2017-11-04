@@ -2,9 +2,9 @@ import React, { Component } from "react"
 import PropTypes from "prop-types"
 import SplitPane from "react-split-pane"
 import { observer, inject } from "mobx-react"
+import sizeMe from "react-sizeme"
 
 import mapBeats from "helpers/mapBeats"
-import fitToContainer from "hocs/fitToContainer"
 import NoteCoordTransform from "model/NoteCoordTransform"
 
 import PianoNotes from "./PianoNotes/PianoNotes"
@@ -37,8 +37,6 @@ function PianoRoll({
   endTick,
   mouseMode,
   selection,
-  containerWidth,
-  containerHeight,
   alphaHeight,
   scrollLeft,
   scrollTop,
@@ -47,9 +45,12 @@ function PianoRoll({
   controlMode,
   notesCursor,
   cursorPosition,
-  onMountAlpha
+  onMountAlpha,
+  size
 }) {
   const { keyWidth, rulerHeight } = theme
+
+  const containerWidth = size.width
 
   const width = containerWidth
   const widthTick = Math.max(endTick, transform.getTicks(containerWidth))
@@ -148,13 +149,13 @@ function PianoRoll({
           scrollLeft={scrollLeft}
           paddingBottom={BAR_WIDTH}
         />
-        <HorizontalScrollBar
-          scrollOffset={scrollLeft}
-          contentLength={contentWidth}
-          onScroll={({ scroll }) => setScrollLeft(scroll)}
-        />
       </div>
     </SplitPane>
+    <HorizontalScrollBar
+      scrollOffset={scrollLeft}
+      contentLength={contentWidth}
+      onScroll={({ scroll }) => setScrollLeft(scroll)}
+    />
   </div>
 }
 
@@ -242,10 +243,7 @@ PianoRoll.defaultProps = {
   autoScroll: false
 }
 
-export default fitToContainer({
-  width: "100%",
-  height: "100%"
-})(inject(({ rootStore: {
+export default sizeMe()(inject(({ rootStore: {
   song: { selectedTrack: track, endOfSong: endTick, measureList: { beats } },
   pianoRollStore: s,
   rootViewStore: { theme },

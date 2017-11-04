@@ -8,12 +8,14 @@
   border-right: 1px solid var(--divider-color);
 }
 
-.QuantizeSelector .buttons .button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
+.QuantizeSelector .options .button.selected {
+  background-color: var(--theme-color);
+  color: white;
+}
+
+.QuantizeSelector .buttons .ToolbarItem {
   width: 2.5em;
-  font-size: 110%;
 }
 
 .QuantizeSelector .options>div {
@@ -41,30 +43,4 @@
   padding: 0 0.5em;
   color: var(--secondary-text-color);
   font-size: 120%;
-}
-
-/* ToolbarButton と同じ見た目 */
-
-.QuantizeSelector .button {
-  cursor: default;
-  user-select: none;
-  background: rgba(0, 0, 0, 0);
-  transition: 0.3s ease background-color;
-}
-
-.QuantizeSelector .button.selected {
-  background: rgba(0, 0, 0, 0.03);
-  border-bottom: 2px solid var(--theme-color);
-}
-
-.QuantizeSelector .button:hover {
-  background: rgba(0, 0, 0, 0.05);
-}
-
-.QuantizeSelector .button:active {
-  background: rgba(0, 0, 0, 0.08);
-}
-
-.QuantizeSelector .button.dot.selected {
-  border-bottom: none;
 }

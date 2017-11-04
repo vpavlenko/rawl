@@ -1,13 +1,15 @@
 import React, { Component } from "react"
 import { observer, inject } from "mobx-react"
+import sizeMe from "react-sizeme"
 
-import PianoGrid from "../PianoRoll/PianoGrid"
-import PianoRuler from "../PianoRoll/PianoRuler"
-import PianoCursor from "../PianoRoll/PianoCursor"
-import PianoSelection from "../PianoRoll/PianoSelection"
+import PianoGrid from "containers/PianoRollEditor/PianoRoll/PianoGrid"
+import PianoRuler from "containers/PianoRollEditor/PianoRoll/PianoRuler"
+import PianoCursor from "containers/PianoRollEditor/PianoRoll/PianoCursor"
+import PianoSelection from "containers/PianoRollEditor/PianoRoll/PianoSelection"
 
 import DrawCanvas from "components/DrawCanvas"
 import { VerticalScrollBar, HorizontalScrollBar, BAR_WIDTH } from "components/inputs/ScrollBar"
+import NavigationBar from "components/groups/NavigationBar"
 
 import Rect from "model/Rect"
 import NoteCoordTransform from "model/NoteCoordTransform"
@@ -15,7 +17,6 @@ import NoteCoordTransform from "model/NoteCoordTransform"
 import mapBeats from "helpers/mapBeats"
 import { pointSub } from "helpers/point"
 import filterEventsWithScroll from "helpers/filterEventsWithScroll"
-import fitToContainer from "hocs/fitToContainer"
 
 import "./ArrangeView.css"
 
@@ -72,11 +73,23 @@ function ArrangeTrack({
   />
 }
 
+function TrackHeader({
+  track: t,
+  height,
+  onClick
+}) {
+  const name = t.displayName || `Track ${t.channel}`
+  const instrument = t.instrumentName
+
+  return <div className="TrackHeader" style={{ height }} onClick={onClick}>
+    <div className="name">{name}</div>
+    <div className="instrument">{instrument}</div>
+  </div>
+}
+
 function ArrangeView({
   tracks,
   theme,
-  containerWidth,
-  containerHeight,
   beats,
   endTick,
   playerPosition,
@@ -89,11 +102,16 @@ function ArrangeView({
   scrollTop = 0,
   onScrollLeft,
   onScrollTop,
-  dispatch
+  onSelectTrack,
+  dispatch,
+  size
 }) {
   scrollLeft = Math.floor(scrollLeft)
 
   const { pixelsPerTick } = transform
+
+  const containerWidth = size.width
+  const containerHeight = size.height
 
   const startTick = scrollLeft / pixelsPerTick
   const widthTick = Math.max(endTick, transform.getTicks(containerWidth))
@@ -195,64 +213,82 @@ function ArrangeView({
     onMouseDown={onMouseDown}
     onWheel={onWheel}
   >
-    <PianoRuler
-      width={containerWidth}
-      theme={theme}
-      height={theme.rulerHeight}
-      endTick={widthTick}
-      beats={mappedBeats}
-      scrollLeft={scrollLeft}
-      pixelsPerTick={pixelsPerTick}
-      onMouseDown={({ tick }) => dispatch("SET_PLAYER_POSITION", { tick })}
-    />
-    <div className="content">
-      <div className="tracks" style={{ top: -scrollTop }}>
-        {tracks.map((t, i) =>
-          <ArrangeTrack
-            width={containerWidth}
-            events={filterEventsWithScroll(t.events, pixelsPerTick, scrollLeft, containerWidth)}
-            transform={transform}
-            key={i}
-            scrollLeft={scrollLeft}
-            isDrumMode={t.isRhythmTrack}
-          />
-        )}
+    <NavigationBar title="Arrange" />
+    <div className="alpha">
+      <div className="left">
+        <div className="left-top-space" />
+        <div className="headers" style={{ top: -scrollTop }}>
+          {tracks.map((t, i) =>
+            <TrackHeader track={t} height={trackHeight} key={i} onClick={() => onSelectTrack(i)} />
+          )}
+        </div>
       </div>
-      <PianoGrid
-        theme={theme}
-        width={containerWidth}
-        height={contentHeight}
-        scrollLeft={scrollLeft}
-        beats={mappedBeats}
-      />
-      <PianoSelection
-        width={containerWidth}
-        height={contentHeight}
-        color="black"
-        selectionBounds={selectionRect}
-        hidden={selection == null}
-      />
+      <div className="right">
+        <PianoRuler
+          width={containerWidth}
+          theme={theme}
+          height={theme.rulerHeight}
+          endTick={widthTick}
+          beats={mappedBeats}
+          scrollLeft={scrollLeft}
+          pixelsPerTick={pixelsPerTick}
+          onMouseDown={({ tick }) => dispatch("SET_PLAYER_POSITION", { tick })}
+        />
+        <div className="content">
+          <div className="tracks" style={{ top: -scrollTop }}>
+            {tracks.map((t, i) =>
+              <ArrangeTrack
+                width={containerWidth}
+                events={filterEventsWithScroll(t.events, pixelsPerTick, scrollLeft, containerWidth)}
+                transform={transform}
+                key={i}
+                scrollLeft={scrollLeft}
+                isDrumMode={t.isRhythmTrack}
+              />
+            )}
+          </div>
+          <PianoGrid
+            theme={theme}
+            width={containerWidth}
+            height={contentHeight}
+            scrollLeft={scrollLeft}
+            beats={mappedBeats}
+          />
+          <PianoSelection
+            width={containerWidth}
+            height={contentHeight}
+            color="black"
+            selectionBounds={selectionRect}
+            hidden={selection == null}
+          />
+          <PianoCursor
+            width={containerWidth}
+            height={contentHeight}
+            position={transform.getX(playerPosition) - scrollLeft}
+          />
+        </div>
+        <div style={{ width: `calc(100% - ${BAR_WIDTH}px)`, position: "absolute", bottom: 0 }}>
+          <HorizontalScrollBar
+            scrollOffset={scrollLeft}
+            contentLength={contentWidth}
+            onScroll={onScrollLeft}
+          />
+        </div>
+      </div>
+      <div style={{
+        height: `calc(100% - ${BAR_WIDTH}px)`,
+        position: "absolute",
+        top: 0,
+        right: 0
+      }}>
+        <VerticalScrollBar
+          scrollOffset={scrollTop}
+          contentLength={contentHeight}
+          onScroll={onScrollTop}
+        />
+      </div>
+      <div className="scroll-corner" />
     </div>
-    <PianoCursor
-      width={containerWidth}
-      height={containerHeight}
-      position={transform.getX(playerPosition) - scrollLeft}
-    />
-    <div style={{ height: `calc(100% - ${BAR_WIDTH}px)`, position: "relative" }}>
-      <VerticalScrollBar
-        scrollOffset={scrollTop}
-        contentLength={contentHeight}
-        onScroll={onScrollTop}
-      />
-    </div>
-    <div style={{ width: `calc(100% - ${BAR_WIDTH}px)`, position: "absolute", bottom: 0 }}>
-      <HorizontalScrollBar
-        scrollOffset={scrollLeft}
-        contentLength={contentWidth}
-        onScroll={onScrollLeft}
-      />
-    </div>
-    <div className="scroll-corner" />
   </div>
 }
 
@@ -365,13 +401,13 @@ function stateful(WrappedComponent) {
 }
 
 const mapStoreToProps = ({ rootStore: {
-  rootViewStore: { theme },
+  rootViewStore,
   song: { tracks, measureList, endOfSong },
   pianoRollStore: { scaleX, autoScroll },
   services: { player },
   dispatch
 } }) => ({
-    theme,
+    theme: rootViewStore.theme,
     tracks,
     beats: measureList.beats,
     endTick: endOfSong,
@@ -379,10 +415,11 @@ const mapStoreToProps = ({ rootStore: {
     pixelsPerTick: 0.1 * scaleX,
     autoScroll: autoScroll,
     player,
-    dispatch
+    dispatch,
+    onSelectTrack: trackId => {
+      rootViewStore.isArrangeViewSelected = false
+      dispatch("SELECT_TRACK", { trackId })
+    },
   })
 
-export default fitToContainer({
-  width: "100%",
-  height: "100%"
-})(inject(mapStoreToProps)(observer(stateful(ArrangeView))))
+export default sizeMe()(inject(mapStoreToProps)(observer(stateful(ArrangeView))))

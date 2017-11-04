@@ -7,9 +7,9 @@ import { Toolbar, ToolbarItem, ToolbarSeparator } from "components/groups/Toolba
 import QuantizeSelector from "./QuantizeSelector"
 import { TIME_BASE } from "Constants"
 
-import "./MainToolbar.css"
+import "./PianoRollToolbar.css"
 
-function MainToolbar({
+function PianoRollToolbar({
   onClickPlay,
   onClickStop,
   onClickBackward,
@@ -65,4 +65,4 @@ export default inject(({ rootStore: {
       dispatch("SET_QUANTIZE_DENOMINATOR", { denominator: e.denominator })
       pianoRollStore.quantize = e.denominator
     }
-  }))(observer(MainToolbar))
+  }))(observer(PianoRollToolbar))

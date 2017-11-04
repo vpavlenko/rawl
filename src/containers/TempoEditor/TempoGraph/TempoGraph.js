@@ -3,12 +3,12 @@ import { observer, inject } from "mobx-react"
 import _ from "lodash"
 import Color from "color"
 import { pure } from "recompose"
+import sizeMe from "react-sizeme"
 
-import PianoGrid from "../PianoRoll/PianoGrid"
-import PianoRuler from "../PianoRoll/PianoRuler"
-import PianoCursor from "../PianoRoll/PianoCursor"
+import PianoGrid from "containers/PianoRollEditor/PianoRoll/PianoGrid"
+import PianoRuler from "containers/PianoRollEditor/PianoRoll/PianoRuler"
+import PianoCursor from "containers/PianoRollEditor/PianoRoll/PianoCursor"
 
-import fitToContainer from "hocs/fitToContainer"
 import TempoCoordTransform from "model/TempoCoordTransform"
 
 import mapBeats from "helpers/mapBeats"
@@ -116,17 +116,18 @@ function HorizontalLines({ width, height, transform, borderColor }) {
 
 const GraphAxis = pure(({ width, height, transform, offset }) => {
   return <div className="GraphAxis" style={{ width }}>
-    {_.range(30, transform.maxBPM, 30).map(t => {
-      const top = Math.round(transform.getY(t)) + offset
-      return <div style={{ top }} key={t}>{t}</div>
-    })}
+    <div className="values">
+      {_.range(30, transform.maxBPM, 30).map(t => {
+        const top = Math.round(transform.getY(t)) + offset
+        return <div style={{ top }} key={t}>{t}</div>
+      })}
+    </div>
   </div>
 })
 
 function Content({
   track,
-  containerWidth,
-  containerHeight,
+  size,
   pixelsPerTick,
   theme,
   beats,
@@ -139,6 +140,9 @@ function Content({
   scrollLeft = Math.floor(scrollLeft)
 
   const { keyWidth, rulerHeight } = theme
+
+  const containerWidth = size.width
+  const containerHeight = size.height
 
   const contentHeight = containerHeight - rulerHeight - BAR_WIDTH
   const transform = new TempoCoordTransform(pixelsPerTick, contentHeight)
@@ -317,10 +321,7 @@ function stateful(WrappedComponent) {
 }
 
 
-export default fitToContainer({
-  width: "100%",
-  height: "100%"
-})(inject(({ rootStore: {
+export default sizeMe({ monitorHeight: true })(inject(({ rootStore: {
   rootViewStore: { theme },
   pianoRollStore: { scaleX, autoScroll },
   services: { player },

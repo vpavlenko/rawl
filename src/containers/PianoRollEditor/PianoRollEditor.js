@@ -4,8 +4,10 @@ import { observer, inject } from "mobx-react"
 import Icon from "components/Icon"
 import Knob from "components/inputs/Knob"
 import Slider from "components/inputs/Slider"
+import NavigationBar from "components/groups/NavigationBar"
+
 import PianoRoll from "./PianoRoll/PianoRoll"
-import MainToolbar from "./MainToolbar/MainToolbar"
+import PianoRollToolbar from "./Toolbar/PianoRollToolbar"
 
 import "./PianoRollEditor.css"
 
@@ -25,8 +27,7 @@ function PianoRollEditor({
   const pan = 64
 
   return <div className="PianoRollEditor">
-    <nav>
-      <div className="title"><Icon onClick={onClickNavBack}>chevron-left</Icon>{track.displayName}</div>
+    <NavigationBar title={track.displayName} onClickBack={onClickNavBack}>
       <div className="controls">
         <div className="button instrument" onClick={onClickInstrument}><Icon>piano</Icon>{track.instrumentName}</div>
         <div className={`button solo ${solo ? "active" : ""}`} onClick={onClickSolo}><Icon>headphones</Icon><label>solo</label></div>
@@ -43,8 +44,8 @@ function PianoRollEditor({
           offsetDegree={-140}
           maxDegree={280} />
       </div>
-    </nav>
-    <MainToolbar />
+    </NavigationBar>
+    <PianoRollToolbar />
     <PianoRoll />
   </div>
 }

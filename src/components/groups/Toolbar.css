@@ -20,8 +20,8 @@
 }
 
 .ToolbarItem.selected {
-  background: rgba(0, 0, 0, 0.03);
-  border-bottom: 2px solid var(--theme-color);
+  color: var(--theme-color);
+  background-color: var(--secondary-background-color);
 }
 
 .ToolbarItem:hover {

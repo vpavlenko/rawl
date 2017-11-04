@@ -1,4 +1,4 @@
-import { open as openContextMenu } from "containers/PianoRoll/PianoContextMenu"
+import { open as openContextMenu } from "containers/PianoRollEditor/PianoRoll/PianoContextMenu"
 
 export default ({ dispatch, pianoRollStore: s }) => {
   return {

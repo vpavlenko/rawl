@@ -1,6 +1,5 @@
 import ReactDOM from "react-dom"
 import React from "react"
-import SplitPane from "react-split-pane"
 import { Helmet } from "react-helmet"
 import path from "path"
 import _ from "lodash"
@@ -10,11 +9,12 @@ import DevTools from "mobx-react-devtools"
 import Popup from "components/Popup"
 import InstrumentBrowser from "components/InstrumentBrowser"
 
-import TransportPanel from "../TransportPanel/TransportPanel"
-import TrackList from "../TrackList/TrackList"
-import PianoRollEditor from "../PianoRollEditor/PianoRollEditor"
-import TempoGraph from "../TempoGraph/TempoGraph"
+import TempoEditor from "../TempoEditor/TempoEditor"
 import ArrangeView from "../ArrangeView/ArrangeView"
+import TransportPanel from "../TransportPanel/TransportPanel"
+import PianoRollEditor from "../PianoRollEditor/PianoRollEditor"
+
+import mainManu from "menus/mainMenu"
 
 import {
   getGMMapIndexes,
@@ -25,77 +25,7 @@ import "./Resizer.css"
 import "./RootView.css"
 
 const { remote } = window.require("electron")
-const { Menu, dialog } = remote
-
-function Pane(props) {
-  return <div style={{ position: "relative", height: "100%" }}>
-    <SplitPane {...props} />
-  </div>
-}
-
-function createMenu(song, dispatch) {
-  return Menu.buildFromTemplate([
-    {
-      label: "File",
-      submenu: [
-        {
-          label: "New",
-          click: () => {
-            dispatch("CREATE_SONG")
-          }
-        },
-        {
-          label: "Open",
-          click: () => {
-            dialog.showOpenDialog({
-              filters: [{
-                name: "Standard MIDI File",
-                extensions: ["mid", "midi"]
-              }]
-            }, files => {
-              if (files) {
-                dispatch("OPEN_SONG", { filepath: files[0] })
-              }
-            })
-          }
-        },
-        {
-          label: "Save",
-          click: () => {
-            dispatch("SAVE_SONG", { filepath: song.filepath })
-          }
-        },
-        {
-          label: "Save As",
-          click: () => {
-            dialog.showSaveDialog({
-              defaultPath: song.filepath,
-              filters: [{
-                name: "Standard MIDI File",
-                extensions: ["mid", "midi"]
-              }]
-            }, filepath => {
-              dispatch("SAVE_SONG", { filepath })
-            })
-          }
-        }
-      ]
-    },
-    {
-      label: "Edit",
-      submenu: [
-        {
-          label: "Undo",
-          click: () => dispatch("UNDO")
-        },
-        {
-          label: "Redo",
-          click: () => dispatch("REDO")
-        }
-      ]
-    }
-  ])
-}
+const { Menu } = remote
 
 function RootView({
   player,
@@ -144,20 +74,17 @@ function RootView({
     />, popup.getContentElement())
   }
 
-  const menu = createMenu(song, dispatch)
+  const menu = mainManu(song, dispatch)
   Menu.setApplicationMenu(menu)
 
   const fileName = path.basename(song.filepath.replace(/\\/g, "/"))
 
   const content = isArrangeViewSelected ? <ArrangeView /> :
-    (selectedTrack.isConductorTrack ? <TempoGraph /> : <PianoRollEditor />)
+    (selectedTrack.isConductorTrack ? <TempoEditor /> : <PianoRollEditor />)
 
   return <div className="RootView">
     <Helmet><title>{`${song.name} (${fileName}) ― signal`}</title></Helmet>
-    <Pane split="vertical" minSize={200} defaultSize={265} maxSize={400}>
-      <TrackList onClickInstrument={onClickTrackInstrument} />
-      {content}
-    </Pane>
+    {content}
     <TransportPanel />
     <DevTools />
   </div>

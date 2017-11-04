@@ -1,25 +1,12 @@
 .PianoRollEditor {
   display: flex;
   flex-direction: column;
-  height: 100%;
-}
-
-.PianoRollEditor nav {
-  display: flex;
-  padding: 0 1em;
+  flex-grow: 1;
 }
 
 .PianoRollEditor nav .controls {
   display: flex;
-  padding: 1em;
   margin-left: 2em;
-}
-
-.PianoRollEditor nav .title {
-  display: flex;
-  align-items: center;
-  font-weight: bold;
-  font-size: 130%;
 }
 
 .PianoRollEditor nav .controls>div {
@@ -52,22 +39,4 @@
 
 .PianoRollEditor nav .controls .Slider {
   width: 8em;
-}
-
-.PianoRollEditor .title .Icon {
-  font-size: 180%;
-  border-radius: 99px;
-  width: 1em;
-  height: 1em;
-  display: flex;
-  align-items: center;
-  transition: 0.3s ease background-color;
-}
-
-.PianoRollEditor .title .Icon:hover {
-  background: rgba(0, 0, 0, 0.05);
-}
-
-.PianoRollEditor .title .Icon:active {
-  background: rgba(0, 0, 0, 0.1);
 }

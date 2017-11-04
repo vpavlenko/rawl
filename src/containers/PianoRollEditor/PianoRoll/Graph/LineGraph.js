@@ -66,12 +66,14 @@ function LineGraph({
 
   return <div className={`PianoControl LineGraph ${className}`}>
     <div className="GraphAxis">
-      {axis.reverse().map(value => <div
-        key={value}
-        className="AxisValue"
-        onClick={e => onClickAxis({ ...e, value })}>
-        {value}
-      </div>)}
+      <div className="values">
+        {axis.reverse().map(value => <div
+          key={value}
+          className="AxisValue"
+          onClick={e => onClickAxis({ ...e, value })}>
+          {value}
+        </div>)}
+      </div>
     </div>
     <DrawCanvas
       className="Graph"

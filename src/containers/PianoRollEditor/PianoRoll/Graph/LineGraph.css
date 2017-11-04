@@ -6,6 +6,11 @@
   text-align: right;
   width: var(--key-width);
   border-right: 1px solid var(--secondary-text-color);
+}
+
+.LineGraph .GraphAxis .values {
+  position: relative;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

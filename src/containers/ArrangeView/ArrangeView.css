@@ -80,6 +80,11 @@
   background: var(--background-color);
 }
 
+.ArrangeView .TrackHeader:hover {
+  background: var(--secondary-background-color);
+}
+
+
 .ArrangeView .left-top-space {
   height: var(--ruler-height);
   border-bottom: 1px solid var(--divider-color);

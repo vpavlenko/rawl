@@ -38,7 +38,8 @@ export default function Stage({
   scrollLeft = 0,
   scrollTop = 0,
   scaleX = 1,
-  scaleY = 1
+  scaleY = 1,
+  className = ""
 }) {
   function draw(ctx) {
     const { width, height } = ctx.canvas
@@ -187,7 +188,7 @@ export default function Stage({
   }
 
   return <div
-    className="Stage"
+    className={`Stage ${className}`}
     onMouseDown={onMouseDown}
     onContextMenu={e => e.preventDefault()}
   >

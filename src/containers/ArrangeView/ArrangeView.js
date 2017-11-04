@@ -8,6 +8,7 @@ import PianoCursor from "containers/PianoRollEditor/PianoRoll/PianoCursor"
 import PianoSelection from "containers/PianoRollEditor/PianoRoll/PianoSelection"
 
 import DrawCanvas from "components/DrawCanvas"
+import Stage from "components/Stage/Stage"
 import { VerticalScrollBar, HorizontalScrollBar, BAR_WIDTH } from "components/inputs/ScrollBar"
 import NavigationBar from "components/groups/NavigationBar"
 
@@ -52,24 +53,18 @@ function ArrangeTrack({
   const t = transform
   const noteRects = events
     .filter(e => e.subtype === "note")
-    .map(e => t.getRect(e))
+    .map(e => ({
+      id: e.id,
+      ...t.getRect(e),
+    }))
 
-  function draw(ctx) {
-    const { width, height } = ctx.canvas
-    ctx.clearRect(0, 0, width, height)
-
-    ctx.save()
-    ctx.translate(0.5 - Math.round(scrollLeft), 0.5)
-    const draw = isDrumMode ? drawDrumNote : drawNote
-    noteRects.forEach(rect => draw(ctx, rect))
-    ctx.restore()
-  }
-
-  return <DrawCanvas
-    draw={draw}
+  return <Stage
+    items={noteRects}
+    drawItem={isDrumMode ? drawDrumNote : drawNote}
     className="ArrangeTrack"
     width={width}
     height={Math.ceil(t.pixelsPerKey * t.numberOfKeys)}
+    scrollLeft={scrollLeft}
   />
 }
 

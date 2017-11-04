@@ -176,7 +176,7 @@ class stateful extends Component {
   }
 
   onTick = tick => {
-    const { autoScroll, scrollLeft, containerWidth, setCursorPosition, setScrollLeft, theme, scaleX } = this.props
+    const { autoScroll, scrollLeft, size, setCursorPosition, setScrollLeft, theme, scaleX } = this.props
     const transform = createTransform(theme.keyHeight, scaleX)
     const x = transform.getX(tick)
 
@@ -185,7 +185,7 @@ class stateful extends Component {
     // keep scroll position to cursor
     if (autoScroll) {
       const screenX = x - scrollLeft
-      if (screenX > containerWidth * 0.7 || screenX < 0) {
+      if (screenX > size.width * 0.7 || screenX < 0) {
         setScrollLeft(x)
       }
     }

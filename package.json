@@ -8,6 +8,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
+    "dev": "nf start",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "electron": "electron .",
@@ -50,6 +51,7 @@
     "custom-react-scripts": "^0.2.0",
     "electron": "^1.7.8",
     "electron-devtools-installer": "^2.2.0",
+    "foreman": "^2.0.0",
     "mobx-react-devtools": "^4.2.15",
     "webpack": "^3.6.0"
   }

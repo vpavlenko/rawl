@@ -5,6 +5,8 @@ const { default: installExtension, REACT_DEVELOPER_TOOLS } = require("electron-d
 
 let mainWindow
 
+const baseUrl = process.env.ELECTRON_START_URL || "http://localhost:3000"
+
 function installDevTools() {
   installExtension(REACT_DEVELOPER_TOOLS)
     .then((name) => console.log(`Added Extension: ${name}`))
@@ -16,7 +18,7 @@ function createWindow() {
 
   mainWindow = new BrowserWindow({ width: 800, height: 600 })
 
-  mainWindow.loadURL("http://localhost:3000")
+  mainWindow.loadURL(baseUrl)
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools()
@@ -74,7 +76,7 @@ ipcMain.on("create-synth-window", () => {
   if (synthWindow) {
     return
   }
-  const url = "http://localhost:3000/#synth"
+  const url = `${baseUrl}#synth`
   const win = new BrowserWindow({
     title: "synth",
     width: 375,

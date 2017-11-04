@@ -61,6 +61,7 @@ export default inject(({ rootStore: { song, rootViewStore, trackMute, dispatch }
     mute: trackMute.isMuted(trackId),
     solo: trackMute.isSolo(trackId),
     volume: song.selectedTrack.volume,
+    pan: song.selectedTrack.pan,
     onClickInstrument: () => showInstrumentBrowser(song, trackId, dispatch)
   }
 })(observer(PianoRollEditor))

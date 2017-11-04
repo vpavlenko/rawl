@@ -12,7 +12,7 @@ import "./App.css"
 
 const rootStore = new RootStore()
 
-bindKeyboardShortcut(rootStore.dispatch, rootStore.services.player)
+bindKeyboardShortcut(rootStore.dispatch, rootStore.services.player, rootStore)
 
 window.addEventListener("load", () => {
   rootStore.rootViewStore.theme = Theme.fromCSS() // load after css has loaded

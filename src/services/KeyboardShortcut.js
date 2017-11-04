@@ -1,4 +1,4 @@
-export function bindKeyboardShortcut(dispatch, player) {
+export function bindKeyboardShortcut(dispatch, player, songStore) {
   document.onkeydown = e => {
     if (e.target !== document.body) {
       return
@@ -8,7 +8,7 @@ export function bindKeyboardShortcut(dispatch, player) {
         if (player.isPlaying) {
           player.stop()
         } else {
-          player.play()
+          player.play(songStore.song)
         }
         e.preventDefault()
         break

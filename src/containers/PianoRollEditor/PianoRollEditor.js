@@ -5,6 +5,7 @@ import Icon from "components/Icon"
 import Knob from "components/inputs/Knob"
 import Slider from "components/inputs/Slider"
 import NavigationBar from "components/groups/NavigationBar"
+import { show as showInstrumentBrowser } from "components/InstrumentBrowser"
 
 import PianoRoll from "./PianoRoll/PianoRoll"
 import PianoRollToolbar from "./Toolbar/PianoRollToolbar"
@@ -13,19 +14,17 @@ import "./PianoRollEditor.css"
 
 function PianoRollEditor({
   track,
+  mute,
+  onClickMute,
+  solo,
+  onClickSolo,
+  volume,
+  onChangeVolume,
+  pan,
+  onChangePan,
+  onClickInstrument,
   onClickNavBack
  }) {
-
-  const onClickInstrument = () => { }
-  const onClickSolo = () => { }
-  const onClickMute = () => { }
-  const onChangeVolume = () => { }
-  const onChangePan = () => { }
-  const mute = false
-  const solo = false
-  const volume = 80
-  const pan = 64
-
   return <div className="PianoRollEditor">
     <NavigationBar title={track.displayName} onClickBack={onClickNavBack}>
       <div className="controls">
@@ -50,7 +49,18 @@ function PianoRollEditor({
   </div>
 }
 
-export default inject(({ rootStore: { song, rootViewStore } }) => ({
-  track: song.selectedTrack,
-  onClickNavBack: () => rootViewStore.isArrangeViewSelected = true
-}))(observer(PianoRollEditor))
+export default inject(({ rootStore: { song, rootViewStore, trackMute, dispatch } }) => {
+  const trackId = song.selectedTrackId
+  return {
+    track: song.selectedTrack,
+    onClickMute: () => dispatch("TOGGLE_MUTE_TRACK", { trackId }),
+    onClickSolo: () => dispatch("TOGGLE_SOLO_TRACK", { trackId }),
+    onChangeVolume: value => dispatch("SET_TRACK_VOLUME", { trackId, volume: value }),
+    onChangePan: value => dispatch("SET_TRACK_PAN", { trackId, pan: value }),
+    onClickNavBack: () => rootViewStore.isArrangeViewSelected = true,
+    mute: trackMute.isMuted(trackId),
+    solo: trackMute.isSolo(trackId),
+    volume: song.selectedTrack.volume,
+    onClickInstrument: () => showInstrumentBrowser(song, trackId, dispatch)
+  }
+})(observer(PianoRollEditor))

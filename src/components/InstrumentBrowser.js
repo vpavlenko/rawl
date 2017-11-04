@@ -1,5 +1,10 @@
 import React, { Component } from "react"
-import { GMMap } from "midi/GM"
+import ReactDOM from "react-dom"
+import _ from "lodash"
+
+import { GMMap, getGMMapIndexes, getGMMapProgramNumber } from "midi/GM"
+
+import Popup from "components/Popup"
 
 import "./InstrumentBrowser.css"
 
@@ -100,4 +105,43 @@ export default class InstrumentBrowser extends Component {
       {...this.state}
     />
   }
+}
+
+export function show(song, trackId, dispatch) {
+  const track = song.getTrack(trackId)
+  const popup = new Popup()
+  popup.show()
+
+  const programNumber = track.programNumber
+  const ids = getGMMapIndexes(programNumber)
+
+  ReactDOM.render(<InstrumentBrowser
+    isRhythmTrack={track.isRhythmTrack}
+    selectedCategoryId={ids[0]}
+    selectedInstrumentId={ids[1]}
+
+    onClickCancel={() => {
+      popup.close()
+    }}
+
+    onClickOK={({ isRhythmTrack, categoryId, instrumentId }) => {
+
+      if (isRhythmTrack) {
+        track.changeChannel(9)
+        dispatch("SET_TRACK_INSTRUMENT", { trackId, programNumber: 0 })
+      } else {
+        if (track.isRhythmTrack) {
+          // 適当なチャンネルに変える
+          const channels = _.range(16)
+          const usedChannels = song.tracks.filter(t => t !== track).map(t => t.channel)
+          const availableChannel = _.min(_.difference(channels, usedChannels)) || 0
+          track.changeChannel(availableChannel)
+        }
+        const programNumber = getGMMapProgramNumber(categoryId, instrumentId)
+        dispatch("SET_TRACK_INSTRUMENT", { trackId, programNumber })
+      }
+
+      popup.close()
+    }}
+  />, popup.getContentElement())
 }

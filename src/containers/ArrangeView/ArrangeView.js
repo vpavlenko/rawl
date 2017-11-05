@@ -289,15 +289,6 @@ function ArrangeView({
 
 function stateful(WrappedComponent) {
   return class extends Component {
-    constructor(props) {
-      super(props)
-
-      this.state = {
-        scrollLeft: 0,
-        selection: null  // Rect を使うが、x は tick, y はトラック番号を表す
-      }
-    }
-
     componentDidMount() {
       this.props.player.on("change-position", this.updatePosition)
     }
@@ -318,34 +309,20 @@ function stateful(WrappedComponent) {
         playerPosition: tick
       })
 
-      const { autoScroll, containerWidth } = this.props
+      const { autoScroll, size } = this.props
 
       // keep scroll position to cursor
       if (autoScroll) {
         const transform = this.transform
         const x = transform.getX(tick)
-        const screenX = x - this.state.scrollLeft
-        if (screenX > containerWidth * 0.7 || screenX < 0) {
-          this.setState({
-            scrollLeft: x
-          })
+        const screenX = x - this.props.scrollLeft
+        if (screenX > size.width * 0.7 || screenX < 0) {
+          this.props.setScrollLeft(x)
         }
       }
     }
 
     render() {
-      const onScrollLeft = ({ scroll }) => {
-        this.setState({
-          scrollLeft: scroll
-        })
-      }
-
-      const onScrollTop = ({ scroll }) => {
-        this.setState({
-          scrollTop: scroll
-        })
-      }
-
       const createRect = (from, to) => {
         const rect = Rect.fromPoints(from, to)
         rect.y = Math.floor(rect.y)
@@ -382,8 +359,8 @@ function stateful(WrappedComponent) {
       }
 
       return <WrappedComponent
-        onScrollLeft={onScrollLeft}
-        onScrollTop={onScrollTop}
+        onScrollLeft={({ scroll }) => this.props.setScrollLeft(scroll)}
+        onScrollTop={({ scroll }) => this.props.setScrollTop(scroll)}
         transform={this.transform}
         startSelection={startSelection}
         resizeSelection={resizeSelection}
@@ -398,7 +375,7 @@ function stateful(WrappedComponent) {
 const mapStoreToProps = ({ rootStore: {
   rootViewStore,
   song: { tracks, measureList, endOfSong },
-  pianoRollStore: { scaleX, autoScroll },
+  arrangeViewStore: s,
   services: { player },
   dispatch
 } }) => ({
@@ -407,8 +384,12 @@ const mapStoreToProps = ({ rootStore: {
     beats: measureList.beats,
     endTick: endOfSong,
     keyHeight: 0.3,
-    pixelsPerTick: 0.1 * scaleX,
-    autoScroll: autoScroll,
+    pixelsPerTick: 0.1 * s.scaleX,
+    autoScroll: s.autoScroll,
+    scrollLeft: s.scrollLeft,
+    setScrollLeft: v => s.scrollLeft = v,
+    scrollTop: s.scrollTop,
+    setScrollTop: v => s.scrollTop = v,
     player,
     dispatch,
     onSelectTrack: trackId => {

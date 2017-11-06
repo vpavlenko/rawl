@@ -114,7 +114,7 @@ export default ({ song, pianoRollStore, services: { quantizer, player } }) => {
       s.toTick = toTick
       updateSelection(s)
 
-      selectedTrack.updateEvents(selection.noteIds.forEach(id => {
+      selectedTrack.updateEvents(selection.noteIds.map(id => {
         const n = selectedTrack.getEventById(id)
         const duration = n.duration + delta
         if (duration <= 0) {

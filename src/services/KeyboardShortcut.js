@@ -29,6 +29,11 @@ export function bindKeyboardShortcut(dispatch, player, songStore) {
     }
   }
 
+  document.oncut = () => {
+    dispatch("COPY_SELECTION")
+    dispatch("DELETE_SELECTION")
+  }
+
   document.oncopy = () => {
     dispatch("COPY_SELECTION")
   }

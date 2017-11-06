@@ -11,6 +11,8 @@ export default function Stage({
   onMouseDown: _onMouseDown = () => { },
   onMouseMove: _onMouseMove = () => { },
   onMouseUp: _onMouseUp = () => { },
+  onWheel: _onWheel = () => { },
+  onDoubleClick = () => { },
   onContextMenu = () => { },
   width,
   height,
@@ -32,7 +34,7 @@ export default function Stage({
   }
 
   function drawItems(ctx) {
-    const viewRect = new Rect(scrollLeft, scrollTop, width + scrollLeft, height + scrollTop)
+    const viewRect = new Rect(scrollLeft, scrollTop, width, height)
     const displayedItems = items.filter(item => viewRect.intersects(item.bounds))
     displayedItems.forEach(item => item.render(ctx))
   }
@@ -70,9 +72,20 @@ export default function Stage({
     _onMouseDown(Object.assign(e, { items: clickedItems, local: startPos }))
   }
 
+  function onWheel(e) {
+    const local = {
+      x: e.nativeEvent.offsetX + scrollLeft,
+      y: e.nativeEvent.offsetY + scrollTop
+    }
+    const hitItems = items.filter(item => item.bounds.containsPoint(local))
+    _onWheel(Object.assign(e, { items: hitItems, local }))
+  }
+
   return <DrawCanvas
     className={`Stage ${className}`}
     onMouseDown={onMouseDown}
+    onDoubleClick={onDoubleClick}
+    onWheel={onWheel}
     onContextMenu={onContextMenu}
     draw={draw}
     width={width}

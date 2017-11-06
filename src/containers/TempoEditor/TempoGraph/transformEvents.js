@@ -1,4 +1,6 @@
-export default function(events, transform, width, scrollLeft) {
+import TempoGraphItem from "./TempoGraphItem"
+
+export default (events, transform, width, strokeColor, fillColor) => {
 
   // まず位置だけ計算する
   const items = events
@@ -19,13 +21,13 @@ export default function(events, transform, width, scrollLeft) {
         x: width,
         y: 0
       }
-
-      return {
-        ...e,
-        x: e.x - scrollLeft,
-        width: nextItem.x - e.x,
-        height: transform.height - e.y
-      }
+      return new TempoGraphItem(
+        e.id,
+        e.x,
+        e.y,
+        nextItem.x - e.x,
+        transform.height,
+        fillColor, strokeColor
+      )
     })
-    .filter(e => e.x + e.width >= 0)
 }

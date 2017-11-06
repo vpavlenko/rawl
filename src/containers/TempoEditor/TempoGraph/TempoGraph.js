@@ -15,68 +15,11 @@ import mapBeats from "helpers/mapBeats"
 import { uSecPerBeatToBPM, bpmToUSecPerBeat } from "helpers/bpm"
 import transformEvents from "./transformEvents"
 
+import Stage from "components/Stage/Stage"
 import DrawCanvas from "components/DrawCanvas"
 import { HorizontalScrollBar, BAR_WIDTH } from "components/inputs/ScrollBar"
 
 import "./TempoGraph.css"
-
-function Graph({ items, width, height, fillColor, strokeColor, onMouseDown, onWheel, onDoubleClick, scrollLeft }) {
-  if (!width) {
-    return null
-  }
-
-  function draw(ctx) {
-    const { width, height } = ctx.canvas
-    ctx.clearRect(0, 0, width, height)
-
-    ctx.save()
-    ctx.translate(0.5, 0.5)
-    ctx.fillStyle = fillColor
-    ctx.strokeStyle = strokeColor
-    ctx.lineWidth = 1
-    items.forEach(item => {
-      ctx.beginPath()
-      ctx.rect(item.x, item.y, item.width, item.height)
-      ctx.fill()
-      ctx.stroke()
-    })
-    ctx.restore()
-  }
-
-  // ローカル座標や、どの item の上でクリックされたかなどの追加情報を作成する
-  function itemUnderPoint(e) {
-    const x = e.nativeEvent.offsetX
-    return items.filter(b =>
-      x >= b.x &&
-      x <= b.x + b.width
-    )[0]
-  }
-
-  function _onMouseDown(e) {
-    onMouseDown({
-      ...e,
-      item: itemUnderPoint(e)
-    })
-  }
-
-  function _onWheel(e) {
-    onWheel({
-      ...e,
-      item: itemUnderPoint(e)
-    })
-  }
-
-  return <DrawCanvas
-    draw={draw}
-    width={width}
-    height={height}
-    className="Graph"
-    onContextMenu={e => e.preventDefault()}
-    onMouseDown={_onMouseDown}
-    onDoubleClick={onDoubleClick}
-    onWheel={_onWheel}
-  />
-}
 
 function HorizontalLines({ width, height, transform, borderColor }) {
   if (!width) {
@@ -127,6 +70,7 @@ const GraphAxis = pure(({ width, height, transform, offset }) => {
 
 function Content({
   track,
+  events,
   size,
   pixelsPerTick,
   theme,
@@ -149,14 +93,17 @@ function Content({
   const widthTick = Math.max(endTick, transform.getTicks(containerWidth))
   const contentWidth = widthTick * pixelsPerTick
 
-  const items = transformEvents(track.events, transform, contentWidth, scrollLeft)
+  const items = transformEvents(events, transform, contentWidth,
+    theme.themeColor,
+    Color(theme.themeColor).alpha(0.1).string())
 
   function onMouseDownGraph(e) {
-    if (!e.item) {
+    const item = e.items[0]
+    if (!item) {
       return
     }
 
-    const event = track.getEventById(e.item.id)
+    const event = track.getEventById(item.id)
     const bpm = uSecPerBeatToBPM(event.microsecondsPerBeat)
     const startY = e.clientY
 
@@ -178,10 +125,11 @@ function Content({
   }
 
   function onWheelGraph(e) {
-    if (!e.item) {
+    const item = e.items[0]
+    if (!item) {
       return
     }
-    const event = track.getEventById(e.item.id)
+    const event = track.getEventById(item.id)
     const movement = e.deltaY > 0 ? -1 : 1
     const bpm = uSecPerBeatToBPM(event.microsecondsPerBeat)
     dispatch("CHANGE_TEMPO", {
@@ -191,9 +139,8 @@ function Content({
   }
 
   function onDoubleClickGraph(e) {
-    const rect = e.currentTarget.getBoundingClientRect()
-    const tick = transform.getTicks(e.clientX - rect.left)
-    const bpm = transform.getBPM(e.clientY - rect.top)
+    const tick = transform.getTicks(e.local.x)
+    const bpm = transform.getBPM(e.local.y)
     dispatch("CREATE_TEMPO", {
       tick,
       microsecondsPerBeat: uSecPerBeatToBPM(bpm)
@@ -226,13 +173,11 @@ function Content({
       transform={transform}
       borderColor={theme.dividerColor}
     />
-    <Graph
+    <Stage
+      className="Graph"
       items={items}
-      transform={transform}
       width={width}
       height={contentHeight}
-      strokeColor={theme.themeColor}
-      fillColor={Color(theme.themeColor).alpha(0.1).string()}
       onMouseDown={onMouseDownGraph}
       onDoubleClick={onDoubleClickGraph}
       onWheel={onWheelGraph}
@@ -332,6 +277,7 @@ export default sizeMe({ monitorHeight: true })(inject(({ rootStore: {
     player,
     pixelsPerTick: 0.1 * scaleX,
     track: song.conductorTrack,
+    events: song.conductorTrack.events.toJS(),
     endTick: song.endOfSong,
     beats: song.measureList.beats,
     dispatch,

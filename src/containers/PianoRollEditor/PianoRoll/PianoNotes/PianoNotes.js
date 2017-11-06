@@ -48,9 +48,7 @@ function PianoNotes({
     const position = item && positionType(local, item)
     const tick = transform.getTicks(local.x)
     const noteNumber = Math.ceil(transform.getNoteNumber(local.y))
-    return {
-      ...e, item, position, tick, noteNumber
-    }
+    return Object.assign(e, { item, position, tick, noteNumber })
   }
 
   return <Stage

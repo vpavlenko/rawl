@@ -9,13 +9,13 @@ export default class NoteMouseHandler {
   actionForMouseDown(e) {
     // 共通の action
 
-    if (e.nativeEvent.button === 1) {
+    if (e.button === 1) {
       // wheel drag to start scrolling
       return dragScrollAction(this.dispatch)
     }
 
     // 右ダブルクリック
-    if (e.nativeEvent.button === 2 && e.nativeEvent.detail % 2 === 0) {
+    if (e.button === 2 && e.detail % 2 === 0) {
       return changeToolAction(this.dispatch)
     }
 

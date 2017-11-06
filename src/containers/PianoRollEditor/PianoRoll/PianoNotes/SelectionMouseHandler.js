@@ -15,9 +15,9 @@ export default class SelectionMouseHandler extends MouseHandler {
     const type = this.getPositionType(e.local)
     const { dispatch, selection, transform } = this
 
-    if (e.nativeEvent.button === 0) {
+    if (e.button === 0) {
       switch (type) {
-        case "center": return moveSelectionAction(dispatch, selection, transform, e.nativeEvent.ctrlKey)
+        case "center": return moveSelectionAction(dispatch, selection, transform, e.ctrlKey)
         case "right": return dragSelectionRightEdgeAction(dispatch, transform)
         case "left": return dragSelectionLeftEdgeAction(dispatch, transform)
         case "outside": break
@@ -28,7 +28,7 @@ export default class SelectionMouseHandler extends MouseHandler {
     }
 
     // 右クリックした場合はコンテキストメニューを表示
-    if (e.nativeEvent.button === 2) {
+    if (e.button === 2) {
       let selected
       switch (type) {
         case "center":
@@ -79,8 +79,6 @@ function positionType(selection, transform, pos) {
 
 const contextMenuAction = (isNoteSelected, dispatch) => (onMouseDown, onMouseMove, onMouseUp) => {
   onMouseUp(e => {
-    e = e.nativeEvent
-    e.preventDefault()
     dispatch("OPEN_CONTEXT_MENU", {
       position: { x: e.pageX, y: e.pageY },
       isNoteSelected

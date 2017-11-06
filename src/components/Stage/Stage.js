@@ -1,12 +1,10 @@
 import React from "react"
 
 import DrawCanvas from "components/DrawCanvas"
-
 import Rect from "model/Rect"
-import { pointSub } from "helpers/point"
 
 /**
- * id を持つ複数のアイテムを描画、マウスイベントのハンドリングを実装した Canvas
+ * Item の描画、マウスイベントのハンドリングを実装した Canvas
  */
 export default function Stage({
   items = [],
@@ -40,9 +38,6 @@ export default function Stage({
   }
 
   function onMouseDown(e) {
-    if (e.button !== 0) {
-      return
-    }
     e.nativeEvent.preventDefault()
 
     let { left, top } = e.target.getBoundingClientRect()
@@ -57,7 +52,7 @@ export default function Stage({
     function onMouseMove(e) {
       e.preventDefault()
       const local = { x: e.clientX - left, y: e.clientY - top }
-      _onMouseMove({ ...e, items: clickedItems, local })
+      _onMouseMove(Object.assign(e, { items: clickedItems, local }))
     }
 
     function onMouseUp(e) {
@@ -66,19 +61,19 @@ export default function Stage({
       document.removeEventListener("mouseup", onMouseUp)
 
       const local = { x: e.clientX - left, y: e.clientY - top }
-      _onMouseUp({ ...e, items: clickedItems, local })
+      _onMouseUp(Object.assign(e, { items: clickedItems, local }))
     }
 
     document.addEventListener("mousemove", onMouseMove)
     document.addEventListener("mouseup", onMouseUp)
 
-    _onMouseDown({ ...e, items: clickedItems, local: startPos })
+    _onMouseDown(Object.assign(e, { items: clickedItems, local: startPos }))
   }
 
   return <DrawCanvas
     className={`Stage ${className}`}
     onMouseDown={onMouseDown}
-    onContextMenu={e => e.preventDefault()}
+    onContextMenu={onContextMenu}
     draw={draw}
     width={width}
     height={height}

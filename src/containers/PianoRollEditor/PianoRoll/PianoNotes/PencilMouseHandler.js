@@ -11,16 +11,16 @@ export default class PencilMouseHandler extends NoteMouseHandler {
 
     const { dispatch, transform } = this
 
-    if (e.nativeEvent.button !== 0) {
+    if (e.button !== 0) {
       return null
     }
 
     if (e.item) {
-      if (e.nativeEvent.detail === 2) {
+      if (e.detail === 2) {
         return removeNoteAction(dispatch)
       } else {
         switch (e.position) {
-          case "center": return moveNoteAction(dispatch, transform, e.nativeEvent.ctrlKey)
+          case "center": return moveNoteAction(dispatch, transform, e.ctrlKey)
           case "left": return dragLeftNoteAction(dispatch)
           case "right": return dragRightNoteAction(dispatch)
           default: throw Error()

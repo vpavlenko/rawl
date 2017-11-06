@@ -34,6 +34,7 @@ function PianoVelocityControl({
     items={items}
     width={width}
     height={height}
+    scrollLeft={scrollLeft}
     onMouseDown={e => mouseHandler.onMouseDown(e)}
   />
 }

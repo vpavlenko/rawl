@@ -18,7 +18,6 @@ function PitchGraph({
     scrollLeft={scrollLeft}
     transform={transform}
     maxValue={0x4000}
-    lineWidth={2}
     events={events.filter(e => e.subtype === "pitchBend")}
     axis={[-0x2000, -0x1000, 0, 0x1000, 0x2000 - 1]}
     createEvent={obj => dispatch("CREATE_PITCH_BEND", obj)}

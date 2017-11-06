@@ -36,6 +36,14 @@ export default class Rect {
     return this.containsPoint(rect.tl()) && this.containsPoint(rect.br())
   }
 
+  get right() {
+    return this.x + this.width
+  }
+
+  get bottom() {
+    return this.y + this.height
+  }
+
   tl() {
     return { x: this.x, y: this.y }
   }

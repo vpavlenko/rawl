@@ -18,7 +18,6 @@ function PanGraph({
     scrollLeft={scrollLeft}
     transform={transform}
     maxValue={127}
-    lineWidth={2}
     events={events.filter(e => e.controllerType === 0x0a)}
     axis={[-0x40, -0x20, 0, 0x20, 0x40 - 1]}
     createEvent={obj => dispatch("CREATE_PAN", obj)}

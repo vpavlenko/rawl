@@ -7,7 +7,6 @@ import PianoRuler from "containers/PianoRollEditor/PianoRoll/PianoRuler"
 import PianoCursor from "containers/PianoRollEditor/PianoRoll/PianoCursor"
 import PianoSelection from "containers/PianoRollEditor/PianoRoll/PianoSelection"
 
-import DrawCanvas from "components/DrawCanvas"
 import Stage from "components/Stage/Stage"
 import { VerticalScrollBar, HorizontalScrollBar, BAR_WIDTH } from "components/inputs/ScrollBar"
 import NavigationBar from "components/groups/NavigationBar"

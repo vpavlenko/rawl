@@ -9,7 +9,7 @@ function LineGraphControl({
   scrollLeft,
   events,
   transform,
-  lineWidth,
+  lineWidth = 1,
   maxValue,
   createEvent,
   axis,

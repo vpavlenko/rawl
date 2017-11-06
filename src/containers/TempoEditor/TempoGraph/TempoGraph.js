@@ -77,8 +77,8 @@ function Content({
   beats,
   playerPosition,
   endTick,
-  onScroll,
   scrollLeft,
+  setScrollLeft,
   dispatch
 }) {
   scrollLeft = Math.floor(scrollLeft)
@@ -152,14 +152,10 @@ function Content({
   const width = containerWidth - keyWidth
 
   function onScrollLeft(e) {
-    onScroll({
-      target: {
-        scrollLeft: e.scroll
-      }
-    })
+    setScrollLeft(e.scroll)
   }
 
-  return <div className="TempoGraph" onScroll={onScroll}>
+  return <div className="TempoGraph">
     <PianoGrid
       theme={theme}
       width={width}
@@ -216,8 +212,7 @@ function stateful(WrappedComponent) {
       super(props)
 
       this.state = {
-        playerPosition: props.player.position,
-        scrollLeft: 0
+        playerPosition: props.player.position
       }
     }
 
@@ -242,22 +237,13 @@ function stateful(WrappedComponent) {
         const x = transform.getX(tick)
         const screenX = x - this.state.scrollLeft
         if (screenX > size.width * 0.7 || screenX < 0) {
-          this.setState({
-            scrollLeft: x
-          })
+          this.props.setScrollLeft(x)
         }
       }
     }
 
-    onScroll = e => {
-      this.setState({
-        scrollLeft: e.target.scrollLeft
-      })
-    }
-
     render() {
       return <WrappedComponent
-        onScroll={this.onScroll}
         {...this.state}
         {...this.props}
       />
@@ -268,18 +254,20 @@ function stateful(WrappedComponent) {
 
 export default sizeMe({ monitorHeight: true })(inject(({ rootStore: {
   rootViewStore: { theme },
-  pianoRollStore: { scaleX, autoScroll },
+  tempoEditorStore: s,
   services: { player },
   song,
   dispatch
 } }) => ({
     theme,
     player,
-    pixelsPerTick: 0.1 * scaleX,
+    pixelsPerTick: 0.1 * s.scaleX,
     track: song.conductorTrack,
     events: song.conductorTrack.events.toJS(),
     endTick: song.endOfSong,
     beats: song.measureList.beats,
     dispatch,
-    autoScroll,
+    autoScroll: s.autoScroll,
+    scrollLeft: s.scrollLeft,
+    setScrollLeft: v => s.scrollLeft = v
   }))(observer(stateful(Content))))

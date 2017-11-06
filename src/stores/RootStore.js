@@ -7,6 +7,7 @@ import HistoryStore from "./HistoryStore"
 import RootViewStore from "./RootViewStore"
 import PianoRollStore from "./PianoRollStore"
 import ArrangeViewStore from "./ArrangeViewStore"
+import TempoEditorStore from "./TempoEditorStore"
 
 import Player from "../services/Player"
 import Quantizer from "../services/Quantizer"
@@ -22,6 +23,8 @@ export default class RootStore {
   @observable rootViewStore = new RootViewStore()
   @observable pianoRollStore = new PianoRollStore()
   @observable arrangeViewStore = new ArrangeViewStore()
+  @observable tempoEditorStore = new TempoEditorStore()
+
   services = {}
 
   constructor() {

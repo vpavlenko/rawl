@@ -1,5 +1,4 @@
 import React from "react"
-import _ from "lodash"
 import { pure } from "recompose"
 
 import Stage from "components/Stage/Stage"

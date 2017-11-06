@@ -27,6 +27,10 @@ export default class Track {
 
   @action updateEvent(id, obj) {
     const anObj = this.getEventById(id)
+    if (!anObj) {
+      console.warn(`unknown id: ${id}`)
+      return
+    }
     const newObj = Object.assign({}, anObj, obj)
     if (_.isEqual(newObj, anObj)) {
       return

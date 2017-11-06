@@ -1,48 +1,12 @@
 import React, { Component } from "react"
+import { shouldUpdate } from "recompose"
 import _ from "lodash"
+
+import Rect from "model/Rect"
+import Stage from "components/Stage/Stage"
+
+import VelocityItem from "./VelocityItem"
 import VelocityMouseHandler from "./VelocityMouseHandler"
-import DrawCanvas from "components/DrawCanvas"
-import logEq from "helpers/logEq"
-import filterEventsWithScroll from "helpers/filterEventsWithScroll"
-
-/**
-
- [{x, y, width, height, selected}, ...]
-
-*/
-function transformEvents(events, transform, scrollLeft, width, viewHeight) {
-  return filterEventsWithScroll(events, transform.pixelsPerTick, scrollLeft, width)
-    .filter(e => e.subtype === "note")
-    .map(note => {
-      const { x } = transform.getRect(note)
-      const width = 5
-      const height = note.velocity / 127 * viewHeight
-      return {
-        id: note.id,
-        velocity: note.velocity,
-        selected: note.selected,
-        y: viewHeight - height,
-        x, width, height
-      }
-    })
-}
-
-function drawEvent(ctx, fillColor, strokeColor, { x, y, width, height, selected }) {
-  const color = selected ? strokeColor : fillColor
-
-  x = Math.round(x)
-  y = Math.round(y)
-  width = Math.round(width)
-  height = Math.round(height)
-
-  ctx.beginPath()
-  ctx.fillStyle = color
-  ctx.strokeStyle = strokeColor
-  ctx.lineWidth = 1
-  ctx.rect(x, y, width, height)
-  ctx.fill()
-  ctx.stroke()
-}
 
 function PianoVelocityControl({
   width,
@@ -52,58 +16,25 @@ function PianoVelocityControl({
   scrollLeft,
   dispatch,
   color,
-  velocityMouseHandler
+  mouseHandler
 }) {
-  const items = transformEvents(events, transform, scrollLeft, width, height)
+  const items = events
+    .filter(e => e.subtype === "note")
+    .map(note => {
+      const { x } = transform.getRect(note)
+      const itemWidth = 5
+      const itemHeight = note.velocity / 127 * height
+      return new VelocityItem(note.id, new Rect(x, height - itemHeight, itemWidth, itemHeight), note.selected, color)
+    })
 
-  function eventOption(e) {
-    function getLocal(e) {
-      return {
-        x: e.nativeEvent.offsetX + scrollLeft,
-        y: e.nativeEvent.offsetY
-      }
-    }
-    function itemsUnderPoint({ x }) {
-      return items
-        .filter(b => {
-          return x >= b.x
-            && x <= b.x + b.width
-        })
-    }
-    const local = getLocal(e)
+  mouseHandler.dispatch = dispatch
 
-    return {
-      local,
-      items: itemsUnderPoint(local)
-    }
-  }
-
-  const extendEvent = func => e => func({
-    ...e,
-    ...eventOption(e)
-  })
-
-  function draw(ctx) {
-    const { width, height } = ctx.canvas
-    ctx.clearRect(0, 0, width, height)
-
-    const fillColor = color
-    const strokeColor = "black"
-
-    ctx.save()
-    ctx.translate(0.5 - Math.round(scrollLeft), 0.5)
-    items.forEach(item => drawEvent(ctx, fillColor, strokeColor, item))
-    ctx.restore()
-  }
-
-  velocityMouseHandler.dispatch = dispatch
-
-  return <DrawCanvas
+  return <Stage
     className="PianoControl VelocityControl"
-    draw={draw}
+    items={items}
     width={width}
     height={height}
-    onMouseDown={extendEvent(e => velocityMouseHandler.onMouseDown(e))}
+    onMouseDown={e => mouseHandler.onMouseDown(e)}
   />
 }
 
@@ -112,18 +43,8 @@ class _PianoVelocityControl extends Component {
     super(props)
 
     this.state = {
-      velocityMouseHandler: new VelocityMouseHandler()
+      mouseHandler: new VelocityMouseHandler()
     }
-  }
-
-  shouldComponentUpdate(nextProps) {
-    const props = this.props
-    return !logEq(props, nextProps, "items", _.isEqual)
-      || !logEq(props, nextProps, "scrollLeft")
-      || !logEq(props, nextProps, "width")
-      || !logEq(props, nextProps, "height")
-      || !logEq(props, nextProps, "events")
-      || !logEq(props, nextProps, "transform")
   }
 
   render() {
@@ -131,4 +52,13 @@ class _PianoVelocityControl extends Component {
   }
 }
 
-export default _PianoVelocityControl
+function test(props, nextProps) {
+  return _.isEqual(props.items, nextProps.items)
+    || props.scrollLeft !== nextProps.scrollLeft
+    || props.width !== nextProps.width
+    || props.height !== nextProps.height
+    || props.events !== nextProps.events
+    || props.transform !== nextProps.transform
+}
+
+export default shouldUpdate(test)(_PianoVelocityControl)

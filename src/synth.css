@@ -5,7 +5,7 @@ body.synth {
   color: rgb(159, 159, 253);
   font-family: Consolas;
   overflow: hidden;
-  -webkit-app-region: drag;
+  /* -webkit-app-region: drag; */
   border-top: 1.5em rgba(255, 255, 255, 0.13) solid;
   padding-top: 0.25em;
 }
@@ -92,4 +92,8 @@ body.synth header {
 
 body.synth header .version {
   opacity: 0.7;
+}
+
+body.synth button[disabled] {
+  opacity: 0.4;
 }

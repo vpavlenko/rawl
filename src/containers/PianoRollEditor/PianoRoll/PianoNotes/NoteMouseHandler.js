@@ -70,7 +70,6 @@ export default class NoteMouseHandler {
     }
     this.action = null
     this.changeCursor(this.getCursor(e))
-    e.nativeEvent.preventDefault()
   }
 }
 

@@ -68,10 +68,7 @@ const moveNoteAction = (dispatch, transform, isCopy) => (onMouseDown, onMouseMov
 
   onMouseDown(e => {
     startPosition = e.local
-    notePosition = {
-      x: e.item.x,
-      y: e.item.y
-    }
+    notePosition = e.item.bounds
     if (isCopy) {
       noteId = dispatch("CREATE_NOTE", e)
     } else {

@@ -19,29 +19,9 @@ import mapBeats from "helpers/mapBeats"
 import { pointSub } from "helpers/point"
 import filterEventsWithScroll from "helpers/filterEventsWithScroll"
 
+import ArrangeNoteItem from "./ArrangeNoteItem"
+
 import "./ArrangeView.css"
-
-function drawNote(ctx, rect) {
-  const { x, y, width } = rect
-
-  ctx.beginPath()
-  ctx.strokeStyle = "blue"
-  ctx.lineWidth = 1
-  ctx.moveTo(Math.round(x), Math.round(y))
-  ctx.lineTo(Math.round(x + width), Math.round(y))
-  ctx.stroke()
-}
-
-function drawDrumNote(ctx, rect) {
-  const { x, y } = rect
-
-  ctx.beginPath()
-  ctx.strokeStyle = "blue"
-  ctx.lineWidth = 2
-  ctx.moveTo(Math.round(x), Math.round(y))
-  ctx.lineTo(Math.round(x + 2), Math.round(y))
-  ctx.stroke()
-}
 
 function ArrangeTrack({
   events,
@@ -51,17 +31,13 @@ function ArrangeTrack({
   scrollLeft
 }) {
   const t = transform
-  const noteRects = events
+  const items = events
     .filter(e => e.subtype === "note")
-    .map(e => ({
-      id: e.id,
-      ...t.getRect(e),
-    }))
+    .map(e => new ArrangeNoteItem(e.id, t.getRect(e), isDrumMode))
 
   return <Stage
-    items={noteRects}
-    drawItem={isDrumMode ? drawDrumNote : drawNote}
     className="ArrangeTrack"
+    items={items}
     width={width}
     height={Math.ceil(t.pixelsPerKey * t.numberOfKeys)}
     scrollLeft={scrollLeft}

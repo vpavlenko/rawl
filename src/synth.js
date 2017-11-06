@@ -69,6 +69,7 @@ export default class SynthApp {
 
 function prepareRecorder(ctx, output) {
   const recorder = new Recorder(ctx, {
+    numberOfChannels: 2,
     encoderPath: "/libs/opus-recorder/waveWorker.min.js"
   })
   const init = document.querySelector("#init")

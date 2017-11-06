@@ -26,10 +26,10 @@ export default class Rect {
     if (!(rect instanceof Rect)) {
       rect = new Rect(rect)
     }
-    return this.containsPoint(rect.tl())
-      || this.containsPoint(rect.br())
-      || rect.containsPoint(this.tl())
-      || rect.containsPoint(this.br())
+    return !(this.right < rect.x
+      || rect.right < this.x
+      || this.bottom < rect.y
+      || rect.bottom < this.y)
   }
 
   containsRect(rect) {

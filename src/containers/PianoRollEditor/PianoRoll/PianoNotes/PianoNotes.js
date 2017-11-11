@@ -32,23 +32,11 @@ function PianoNotes({
 
   // ローカル座標や、どの item の上でクリックされたかなどの追加情報を作成する
   function extendEvent(e) {
-    function positionType(local, item) {
-      if (isDrumMode) {
-        return "center"
-      }
-      const localX = local.x - item.x
-      const edgeSize = Math.min(item.width / 3, 8)
-      if (localX <= edgeSize) { return "left" }
-      if (item.width - localX <= edgeSize) { return "right" }
-      return "center"
-    }
-
     const local = e.local
     const item = e.items[0]
-    const position = item && positionType(local, item)
     const tick = transform.getTicks(local.x)
     const noteNumber = Math.ceil(transform.getNoteNumber(local.y))
-    return Object.assign(e, { item, position, tick, noteNumber })
+    return Object.assign(e, { item, tick, noteNumber })
   }
 
   return <Stage

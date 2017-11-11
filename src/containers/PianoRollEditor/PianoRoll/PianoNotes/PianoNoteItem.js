@@ -57,10 +57,15 @@ export default class PianoNoteItem extends Item {
   constructor(id, x, y, width, height, velocity, isSelected, isDrum) {
     super()
     this.id = id
-    this.bounds = new Rect(x, y, width, height)
+    this.noteBounds = new Rect(x, y, width, height)
+    this.drumBounds = new Rect(x, y, height, height)
     this.velocity = velocity
     this.isSelected = isSelected
     this.isDrum = isDrum
+  }
+
+  get bounds() {
+    return this.isDrum ? this.drumBounds : this.noteBounds
   }
 
   render(ctx) {

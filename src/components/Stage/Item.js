@@ -1,8 +1,9 @@
 // Stage に描画される要素
 export default class Item {
-  id = undefined
-  bounds = undefined // Rect
+  // get id: Any
+  // get bounds: Rect
 
   render(ctx) {
+    throw new Error("subclass must implement")
   }
 }

@@ -50,15 +50,23 @@ export default class SynthApp {
     })
 
     const onTimer = () => {
+
       // 再生時刻が現在より過去なら再生して削除
-      this.eventsBuffer = this.eventsBuffer.filter(({ message, timestamp }) => {
+      const eventsToSend = this.eventsBuffer.filter(({ message, timestamp }) => {
         const delay = timestamp - window.performance.now() + this.timestampOffset
-        const willPlay = delay <= 0
-        if (willPlay) {
-          handler.processMidiMessage(message)
-        }
-        return !willPlay
+        return delay <= 0
       })
+
+      const allSoundOffChannels = eventsToSend
+        .filter(({ message }) => isMessageAllSoundOff(message))
+        .map(({ message }) => getMessageChannel(message))
+
+      // 再生するイベントと、all sound off を受信したチャンネルのイベントを削除する
+      this.eventsBuffer = this.eventsBuffer.filter(e => {
+        return !eventsToSend.includes(e) && !allSoundOffChannels.includes(getMessageChannel(e.message))
+      })
+
+      eventsToSend.forEach(({ message }) => handler.processMidiMessage(message))
 
       requestAnimationFrame(onTimer)
     }
@@ -149,4 +157,19 @@ function loadSoundFont(url, callback) {
   }, false)
 
   xhr.send()
+}
+
+/// メッセージがチャンネルイベントならチャンネルを、そうでなければ -1 を返す
+function getMessageChannel(message) {
+  const isChannelEvent = (message[0] & 0xf0) !== 0xf0
+  return isChannelEvent ? message[0] & 0x0f : -1
+}
+
+function isMessageAllSoundOff(message) {
+  const isControlChange = (message[0] & 0xf0) === 0xB0
+  if (isControlChange) {
+    const isAllSoundOff = message[1] === 0x78
+    return isAllSoundOff
+  }
+  return false
 }

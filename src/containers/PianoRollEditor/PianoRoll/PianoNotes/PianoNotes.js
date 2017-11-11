@@ -30,14 +30,12 @@ function PianoNotes({
     })
   const height = transform.pixelsPerKey * transform.numberOfKeys
 
-  // ローカル座標や、どの item の上でクリックされたかなどの追加情報を作成する
-  function extendEvent(e) {
-    const local = e.local
-    const item = e.items[0]
-    const tick = transform.getTicks(local.x)
-    const noteNumber = Math.ceil(transform.getNoteNumber(local.y))
-    return Object.assign(e, { item, tick, noteNumber })
-  }
+  // MouseHandler で利用する追加情報をイベントに付加する
+  const extendEvent = e => Object.assign(e, {
+    item: e.items[0],
+    tick: transform.getTicks(e.local.x),
+    noteNumber: Math.ceil(transform.getNoteNumber(e.local.y))
+  })
 
   return <Stage
     items={items}

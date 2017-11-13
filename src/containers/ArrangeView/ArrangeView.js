@@ -204,8 +204,8 @@ function ArrangeView({
           pixelsPerTick={pixelsPerTick}
           onMouseDown={({ tick }) => dispatch("SET_PLAYER_POSITION", { tick })}
         />
-        <div className="content">
-          <div className="tracks" style={{ top: -scrollTop }}>
+        <div className="content" style={{ top: -scrollTop }}>
+          <div className="tracks">
             {tracks.map((t, i) =>
               <ArrangeTrack
                 width={containerWidth}

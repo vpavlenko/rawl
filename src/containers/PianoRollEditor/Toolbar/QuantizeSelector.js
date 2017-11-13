@@ -49,17 +49,20 @@ export default function QuantizeSelector({ value, onSelect }) {
     const index = Math.min(list.length - 1, Math.max(0, currentIndex + delta))
     onSelect(calcQuantize(list[index], dot, triplet))
   }}>
-    <div className="label">
+    <label className="label">
       <Icon>music-note</Icon>
-    </div>
-    <div className="buttons">
+    </label>
+    <select
+      className="denominator-select"
+      value={value}
+      onChange={e => onSelect(calcQuantize(parseInt(e.target.value), dot, triplet))}>
       {list.map(num =>
-        <Button
-          key={num}
-          title={num}
-          selected={num === denominator}
-          onClick={() => onSelect(calcQuantize(num, dot, triplet))} />
+        <option key={num} value={num}>{num}</option>
       )}
+    </select>
+    <div className="updown-mark">
+      <Icon>chevron-up</Icon>
+      <Icon>chevron-down</Icon>
     </div>
     <div className="options">
       <DotButton selected={dot} onClick={() => onSelect(calcQuantize(denominator, !dot, false))} />

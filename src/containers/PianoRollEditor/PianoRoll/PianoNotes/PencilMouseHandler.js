@@ -2,17 +2,6 @@ import NoteMouseHandler from "./NoteMouseHandler"
 import { pointSub, pointAdd } from "helpers/point"
 import pencilImage from "images/iconmonstr-pencil-14-16.png"
 
-function getPositionType({ local, item }) {
-  if (item.isDrum) {
-    return "center"
-  }
-  const localX = local.x - item.bounds.x
-  const edgeSize = Math.min(item.bounds.width / 3, 8)
-  if (localX <= edgeSize) { return "left" }
-  if (item.bounds.width - localX <= edgeSize) { return "right" }
-  return "center"
-}
-
 export default class PencilMouseHandler extends NoteMouseHandler {
   actionForMouseDown(e) {
     const original = super.actionForMouseDown(e)
@@ -42,11 +31,10 @@ export default class PencilMouseHandler extends NoteMouseHandler {
     }
   }
 
-  getCursor(e) {
+  getCursorForMouseMove(e) {
     if (e.item) {
-      return cursorForPositionType(e.position)
+      return cursorForPositionType(getPositionType(e))
     }
-
     return `url(${pencilImage}) 0 16, default`
   }
 }
@@ -131,4 +119,15 @@ function cursorForPositionType(type) {
       return "w-resize"
     default: return "move"
   }
+}
+
+function getPositionType({ local, item }) {
+  if (item.isDrum) {
+    return "center"
+  }
+  const localX = local.x - item.bounds.x
+  const edgeSize = Math.min(item.bounds.width / 3, 8)
+  if (localX <= edgeSize) { return "left" }
+  if (item.bounds.width - localX <= edgeSize) { return "right" }
+  return "center"
 }

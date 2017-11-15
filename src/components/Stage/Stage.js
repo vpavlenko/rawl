@@ -39,8 +39,11 @@ export default function Stage({
     displayedItems.forEach(item => item.render(ctx))
   }
 
+  let isMouseDown = false
+
   function onMouseDown(e) {
     e.nativeEvent.preventDefault()
+    isMouseDown = true
 
     let { left, top } = e.target.getBoundingClientRect()
     left -= scrollLeft
@@ -64,6 +67,7 @@ export default function Stage({
 
       const local = { x: e.clientX - left, y: e.clientY - top }
       _onMouseUp(Object.assign(e, { items: clickedItems, local }))
+      isMouseDown = false
     }
 
     document.addEventListener("mousemove", onMouseMove)
@@ -73,17 +77,31 @@ export default function Stage({
   }
 
   function onWheel(e) {
+    _onWheel(extendEvent(e))
+  }
+
+  function onMouseMoveCanvas(e) {
+    // ドラッグ中はウィンドウ外も扱うため document の eventListener から呼ぶが、
+    // そうでないときはここから呼ぶ
+    if (!isMouseDown) {
+      _onMouseMove(extendEvent(e))
+    }
+  }
+
+  function extendEvent(e) {
     const local = {
       x: e.nativeEvent.offsetX + scrollLeft,
       y: e.nativeEvent.offsetY + scrollTop
     }
     const hitItems = items.filter(item => item.bounds.containsPoint(local))
-    _onWheel(Object.assign(e, { items: hitItems, local }))
+    Object.assign(e, { items: hitItems, local })
+    return e
   }
 
   return <DrawCanvas
     className={`Stage ${className}`}
     onMouseDown={onMouseDown}
+    onMouseMove={onMouseMoveCanvas}
     onDoubleClick={onDoubleClick}
     onWheel={onWheel}
     onContextMenu={onContextMenu}

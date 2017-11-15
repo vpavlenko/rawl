@@ -23,7 +23,7 @@ export default class NoteMouseHandler {
     return null
   }
 
-  getCursor() {
+  getCursorForMouseMove() {
     // サブクラスで実装
     return "auto"
   }
@@ -52,15 +52,12 @@ export default class NoteMouseHandler {
     actionMouseDown(e)
   }
 
-  changeCursor(cursor) {
-    this.dispatch("CHANGE_CURSOR", { cursor })
-  }
-
   onMouseMove(e) {
     if (this.action) {
       this.actionMouseMove(e)
     } else {
-      this.changeCursor(this.getCursor(e))
+      const cursor = this.getCursorForMouseMove(e)
+      this.dispatch("CHANGE_CURSOR", { cursor })
     }
   }
 
@@ -69,7 +66,6 @@ export default class NoteMouseHandler {
       this.actionMouseUp(e)
     }
     this.action = null
-    this.changeCursor(this.getCursor(e))
   }
 }
 
@@ -89,5 +85,8 @@ const dragScrollAction = dispatch => (onMouseDown, onMouseMove) => {
 }
 
 const changeToolAction = dispatch => onMouseDown => {
-  onMouseDown(() => dispatch("TOGGLE_TOOL"))
+  onMouseDown(() => {
+    dispatch("TOGGLE_TOOL")
+    dispatch("CHANGE_CURSOR", { cursor: "crosshair" })
+  })
 }

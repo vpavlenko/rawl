@@ -51,7 +51,7 @@ export default class SelectionMouseHandler extends MouseHandler {
     return positionType(this.selection, this.transform, position)
   }
 
-  getCursor(e) {
+  getCursorForMouseMove(e) {
     const type = this.getPositionType(e.local)
     switch (type) {
       case "center": return "move"

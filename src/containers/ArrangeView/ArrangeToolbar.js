@@ -6,9 +6,9 @@ import { Toolbar, ToolbarItem, ToolbarSeparator } from "components/groups/Toolba
 
 import QuantizeSelector from "components/QuantizeSelector"
 
-import "./PianoRollToolbar.css"
+import "./ArrangeToolbar.css"
 
-function PianoRollToolbar({
+function ArrangeToolbar({
   onClickPlay,
   onClickStop,
   onClickBackward,
@@ -25,11 +25,6 @@ function PianoRollToolbar({
   mbtTime }) {
 
   return <Toolbar>
-    <ToolbarItem onClick={onClickPencil} selected={mouseMode === 0}><Icon>pencil</Icon></ToolbarItem>
-    <ToolbarItem onClick={onClickSelection} selected={mouseMode === 1}><Icon>select</Icon></ToolbarItem>
-
-    <ToolbarSeparator />
-
     <QuantizeSelector
       value={quantize}
       onSelect={value => onSelectQuantize({ denominator: value })}
@@ -45,14 +40,11 @@ function PianoRollToolbar({
 
 export default inject(({ rootStore: {
   services: { quantizer },
-  pianoRollStore: s,
+  arrangeViewStore: s,
   dispatch
 } }) => ({
     quantize: s.quantize === 0 ? quantizer.denominator : s.quantize,
-    mouseMode: s.mouseMode,
     autoScroll: s.autoScroll,
-    onClickPencil: () => s.mouseMode = 0,
-    onClickSelection: () => s.mouseMode = 1,
     onClickScaleUp: () => s.scaleX = s.scaleX + 0.1,
     onClickScaleDown: () => s.scaleX = Math.max(0.05, s.scaleX - 0.1),
     onClickAutoScroll: () => s.autoScroll = !s.autoScroll,
@@ -60,4 +52,4 @@ export default inject(({ rootStore: {
       dispatch("SET_QUANTIZE_DENOMINATOR", { denominator: e.denominator })
       s.quantize = e.denominator
     }
-  }))(observer(PianoRollToolbar))
+  }))(observer(ArrangeToolbar))

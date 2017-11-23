@@ -7,4 +7,5 @@ export default class ArrangeViewStore {
   @observable scaleY = 1
   @observable selection = null // Rect を使うが、x は tick, y はトラック番号を表す
   @observable autoScroll = true
+  @observable quantize = 0
 }

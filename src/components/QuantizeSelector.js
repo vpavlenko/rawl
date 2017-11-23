@@ -1,14 +1,7 @@
 import React from "react"
 import Icon from "components/Icon"
-import { ToolbarItem } from "components/groups/Toolbar"
 
 import "./QuantizeSelector.css"
-
-function Button({ title, selected, onClick }) {
-  return <ToolbarItem selected={selected} onClick={onClick}>
-    <div className="title">{title}</div>
-  </ToolbarItem>
-}
 
 function calcQuantize(num, dot, triplet) {
   let val = num
@@ -55,7 +48,7 @@ export default function QuantizeSelector({ value, onSelect }) {
     <select
       className="denominator-select"
       value={value}
-      onChange={e => onSelect(calcQuantize(parseInt(e.target.value), dot, triplet))}>
+      onChange={e => onSelect(calcQuantize(parseInt(e.target.value, 10), dot, triplet))}>
       {list.map(num =>
         <option key={num} value={num}>{num}</option>
       )}

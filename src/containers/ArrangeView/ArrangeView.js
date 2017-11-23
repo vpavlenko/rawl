@@ -19,6 +19,7 @@ import { pointSub } from "helpers/point"
 import filterEventsWithScroll from "helpers/filterEventsWithScroll"
 
 import ArrangeNoteItem from "./ArrangeNoteItem"
+import ArrangeToolbar from "./ArrangeToolbar"
 
 import "./ArrangeView.css"
 
@@ -110,24 +111,24 @@ function ArrangeView({
   }
 
   function handleLeftClick(e) {
-    function createPoint(x, y) {
-      const tick = transform.getTicks(x + scrollLeft)
-      if (y <= theme.rulerHeight) {
-        return { x: tick, y: -1 }
-      }
-      return { x: tick, y: (y - theme.rulerHeight + scrollTop) / trackHeight }
+    const { left, top } = e.currentTarget.getBoundingClientRect()
+
+    function createPoint(e) {
+      const x = e.pageX - left + scrollLeft
+      const y = e.pageY - top - theme.rulerHeight + scrollTop
+      const tick = transform.getTicks(x)
+      return { x: tick, y: y / trackHeight }
     }
 
-    const { left, top } = e.target.getBoundingClientRect()
-    const startPos = createPoint(e.nativeEvent.offsetX, e.nativeEvent.offsetY)
+    const startPos = createPoint(e.nativeEvent)
     startSelection(startPos)
 
     function onMouseMove(e) {
-      resizeSelection(startPos, createPoint(e.clientX - left, e.clientY - top))
+      resizeSelection(startPos, createPoint(e))
     }
 
     function onMouseUp(e) {
-      endSelection(startPos, createPoint(e.clientX - left, e.clientY - top))
+      endSelection(startPos, createPoint(e))
       document.removeEventListener("mousemove", onMouseMove)
       document.removeEventListener("mouseup", onMouseUp)
     }
@@ -180,10 +181,9 @@ function ArrangeView({
 
   return <div
     className="ArrangeView"
-    onMouseDown={onMouseDown}
-    onWheel={onWheel}
   >
     <NavigationBar title="Arrange" />
+    <ArrangeToolbar />
     <div className="alpha">
       <div className="left">
         <div className="left-top-space" />
@@ -193,7 +193,10 @@ function ArrangeView({
           )}
         </div>
       </div>
-      <div className="right">
+      <div
+        className="right"
+        onMouseDown={onMouseDown}
+        onWheel={onWheel}>
         <PianoRuler
           width={containerWidth}
           theme={theme}
@@ -204,7 +207,9 @@ function ArrangeView({
           pixelsPerTick={pixelsPerTick}
           onMouseDown={({ tick }) => dispatch("SET_PLAYER_POSITION", { tick })}
         />
-        <div className="content" style={{ top: -scrollTop }}>
+        <div
+          className="content"
+          style={{ top: -scrollTop }}>
           <div className="tracks">
             {tracks.map((t, i) =>
               <ArrangeTrack
@@ -298,44 +303,41 @@ function stateful(WrappedComponent) {
     }
 
     render() {
+      const { tracks, quantizer, setSelection, setScrollLeft, setScrollTop } = this.props
       const createRect = (from, to) => {
         const rect = Rect.fromPoints(from, to)
         rect.y = Math.floor(rect.y)
-        rect.height = Math.min(this.props.tracks.length - rect.y,
+        rect.height = Math.min(tracks.length - rect.y,
           Math.ceil(Math.max(from.y, to.y)) - rect.y)
 
         if (rect.y < 0) {
           // Ruler をドラッグしている場合は全てのトラックを選択する
           rect.y = 0
-          rect.height = this.props.tracks.length
+          rect.height = tracks.length
         }
         if (rect.height <= 0 || rect.width < 3) {
           return null
         }
+        rect.x = quantizer.round(rect.x)
+        rect.width = quantizer.round(rect.width)
         return rect
       }
 
       const startSelection = () => {
-        this.setState({
-          selection: null
-        })
+        setSelection(null)
       }
 
       const resizeSelection = (from, to) => {
-        this.setState({
-          selection: createRect(from, to)
-        })
+        setSelection(createRect(from, to))
       }
 
       const endSelection = (from, to) => {
-        this.setState({
-          selection: createRect(from, to)
-        })
+        setSelection(createRect(from, to))
       }
 
       return <WrappedComponent
-        onScrollLeft={({ scroll }) => this.props.setScrollLeft(scroll)}
-        onScrollTop={({ scroll }) => this.props.setScrollTop(scroll)}
+        onScrollLeft={({ scroll }) => setScrollLeft(scroll)}
+        onScrollTop={({ scroll }) => setScrollTop(scroll)}
         transform={this.transform}
         startSelection={startSelection}
         resizeSelection={resizeSelection}
@@ -351,7 +353,7 @@ const mapStoreToProps = ({ rootStore: {
   rootViewStore,
   song: { tracks, measureList, endOfSong },
   arrangeViewStore: s,
-  services: { player },
+  services: { player, quantizer },
   dispatch
 } }) => ({
     theme: rootViewStore.theme,
@@ -366,6 +368,9 @@ const mapStoreToProps = ({ rootStore: {
     scrollTop: s.scrollTop,
     setScrollTop: v => s.scrollTop = v,
     player,
+    quantizer,
+    selection: s.selection,
+    setSelection: v => s.selection = v,
     dispatch,
     onSelectTrack: trackId => {
       rootViewStore.isArrangeViewSelected = false

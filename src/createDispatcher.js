@@ -7,6 +7,7 @@ import creatQuantizerAction from "./actions/quantizer"
 import createSelectionAction from "./actions/selection"
 import createTrackMuteAction from "./actions/trackMute"
 import createPianoRollAction from "./actions/pianoRoll"
+import createArrangeViewAction from "./actions/arrangeView"
 
 export default (rootStore) => function dispatch(type, params) {
   const actions = {
@@ -19,6 +20,7 @@ export default (rootStore) => function dispatch(type, params) {
     ...createSelectionAction(rootStore),
     ...createTrackMuteAction(rootStore),
     ...createPianoRollAction(rootStore),
+    ...createArrangeViewAction(rootStore),
   }
 
   const action = actions[type]

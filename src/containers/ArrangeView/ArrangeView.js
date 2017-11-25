@@ -11,11 +11,10 @@ import Stage from "components/Stage/Stage"
 import { VerticalScrollBar, HorizontalScrollBar, BAR_WIDTH } from "components/inputs/ScrollBar"
 import NavigationBar from "components/groups/NavigationBar"
 
-import Rect from "model/Rect"
 import NoteCoordTransform from "model/NoteCoordTransform"
 
 import mapBeats from "helpers/mapBeats"
-import { pointSub } from "helpers/point"
+import { pointSub, pointAdd } from "helpers/point"
 import filterEventsWithScroll from "helpers/filterEventsWithScroll"
 
 import ArrangeNoteItem from "./ArrangeNoteItem"
@@ -121,14 +120,47 @@ function ArrangeView({
     }
 
     const startPos = createPoint(e.nativeEvent)
-    startSelection(startPos)
+
+    const isSelectionSelected = selection && selection.containsPoint(startPos)
+
+    const createSelectionHandler = (e, mouseMove, mouseUp) => {
+      dispatch("ARRANGE_START_SELECTION", startPos)
+      mouseMove(e => {
+        dispatch("ARRANGE_RESIZE_SELECTION", { start: startPos, end: createPoint(e) })
+      })
+      mouseUp(e => {
+        dispatch("ARRANGE_END_SELECTION", { start: startPos, end: createPoint(e) })
+      })
+    }
+
+    const dragSelectionHandler = (e, mouseMove, mouseUp) => {
+      const startSelection = { ...selection }
+      mouseMove(e => {
+        const delta = pointSub(createPoint(e), startPos)
+        const pos = pointAdd(startSelection, delta)
+        dispatch("ARRANGE_MOVE_SELECTION", pos)
+      })
+      mouseUp(e => {
+      })
+    }
+
+    let handler
+
+    if (isSelectionSelected) {
+      handler = dragSelectionHandler
+    } else {
+      handler = createSelectionHandler
+    }
+
+    let mouseMove, mouseUp
+    handler(e, fn => mouseMove = fn, fn => mouseUp = fn)
 
     function onMouseMove(e) {
-      resizeSelection(startPos, createPoint(e))
+      mouseMove(e)
     }
 
     function onMouseUp(e) {
-      endSelection(startPos, createPoint(e))
+      mouseUp(e)
       document.removeEventListener("mousemove", onMouseMove)
       document.removeEventListener("mouseup", onMouseUp)
     }
@@ -303,45 +335,12 @@ function stateful(WrappedComponent) {
     }
 
     render() {
-      const { tracks, quantizer, setSelection, setScrollLeft, setScrollTop } = this.props
-      const createRect = (from, to) => {
-        const rect = Rect.fromPoints(from, to)
-        rect.y = Math.floor(rect.y)
-        rect.height = Math.min(tracks.length - rect.y,
-          Math.ceil(Math.max(from.y, to.y)) - rect.y)
-
-        if (rect.y < 0) {
-          // Ruler をドラッグしている場合は全てのトラックを選択する
-          rect.y = 0
-          rect.height = tracks.length
-        }
-        if (rect.height <= 0 || rect.width < 3) {
-          return null
-        }
-        rect.x = quantizer.round(rect.x)
-        rect.width = quantizer.round(rect.width)
-        return rect
-      }
-
-      const startSelection = () => {
-        setSelection(null)
-      }
-
-      const resizeSelection = (from, to) => {
-        setSelection(createRect(from, to))
-      }
-
-      const endSelection = (from, to) => {
-        setSelection(createRect(from, to))
-      }
+      const { setScrollLeft, setScrollTop } = this.props
 
       return <WrappedComponent
         onScrollLeft={({ scroll }) => setScrollLeft(scroll)}
         onScrollTop={({ scroll }) => setScrollTop(scroll)}
         transform={this.transform}
-        startSelection={startSelection}
-        resizeSelection={resizeSelection}
-        endSelection={endSelection}
         {...this.state}
         {...this.props}
       />
@@ -370,7 +369,6 @@ const mapStoreToProps = ({ rootStore: {
     player,
     quantizer,
     selection: s.selection,
-    setSelection: v => s.selection = v,
     dispatch,
     onSelectTrack: trackId => {
       rootViewStore.isArrangeViewSelected = false

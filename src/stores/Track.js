@@ -18,39 +18,44 @@ function lastValue(arr, prop) {
 }
 
 export default class Track {
-  @json @observable events = []
+  @json @observable.shallow events = []
   @json @observable lastEventId = 0
   @json @observable channel = undefined
   @json @observable endOfTrack = 0
 
   getEventById = (id) => _.find(this.events, e => e.id === id)
 
-  @action updateEvent(id, obj) {
+  _updateEvent(id, obj) {
     const anObj = this.getEventById(id)
     if (!anObj) {
       console.warn(`unknown id: ${id}`)
-      return
+      return null
     }
     const newObj = Object.assign({}, anObj, obj)
     if (_.isEqual(newObj, anObj)) {
-      return
+      return null
     }
-    this.replaceEvent(newObj)
-    this.updateEndOfTrack()
-    this.sortByTick()
-    return newObj
+    Object.assign(anObj, obj)
+    return anObj
+  }
+
+  @action updateEvent(id, obj) {
+    const result = this._updateEvent(id, obj)
+    if (result) {
+      this.updateEndOfTrack()
+      this.sortByTick()
+    }
+    return result
   }
 
   @action updateEvents(events) {
-    events.forEach(event => {
-      Object.assign(this.getEventById(event.id), event)
+    transaction(() => {
+      events.forEach(event => {
+        this._updateEvent(event.id, event)
+      })
     })
     this.updateEndOfTrack()
     this.sortByTick()
-  }
-
-  @action replaceEvent(event) {
-    this.events = _.unionBy([event], this.events, "id")
   }
 
   @action removeEvent(id) {
@@ -69,7 +74,7 @@ export default class Track {
   _addEvent(e) {
     e.id = this.lastEventId
     this.lastEventId++
-    this.events = [...this.events, e]
+    this.events.push(e)
 
     if (e.tick === undefined) {
       const lastEvent = this.getEventById(this.lastEventId)
@@ -78,6 +83,7 @@ export default class Track {
     if (e.type === "channel") {
       e.channel = this.channel
     }
+    return e
   }
 
   @action addEvent(e) {
@@ -87,8 +93,12 @@ export default class Track {
   }
 
   @action addEvents(events) {
-    events.forEach(e => this._addEvent(e))
+    let result
+    transaction(() => {
+      result = events.map(e => this._addEvent(e))
+    })
     this.didAddEvent()
+    return result
   }
 
   didAddEvent(e) {

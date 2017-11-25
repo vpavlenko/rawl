@@ -1,4 +1,4 @@
-import { observable, autorun, computed } from "mobx"
+import { observable, autorun, computed, action } from "mobx"
 import { json } from "json-mobx"
 import _ from "lodash"
 
@@ -8,7 +8,7 @@ import MeasureList from "../model/MeasureList"
 const END_MARGIN = 480 * 30
 
 export default class Song {
-  @json @observable tracks = json.arrayOf(Track)
+  @json @observable.shallow tracks = json.arrayOf(Track)
   @json @observable selectedTrackId = 0
   @json @observable filepath = ""
 
@@ -19,7 +19,7 @@ export default class Song {
 
   disposer = null
 
-  addTrack(t) {
+  @action addTrack(t) {
     // 最初のトラックは Conductor Track なので channel を設定しない
     if (this.tracks.length > 0) {
       t.channel = t.channel || this.tracks.length - 1
@@ -35,13 +35,13 @@ export default class Song {
     })
   }
 
-  removeTrack(id) {
+  @action removeTrack(id) {
     _.pullAt(this.tracks, id)
     this.selectedTrackId = Math.min(id, this.tracks.length - 1)
     this._updateEndOfSong()
   }
 
-  selectTrack(id) {
+  @action selectTrack(id) {
     if (id === this.selectedTrackId) { return }
     this.selectedTrackId = id
   }

@@ -17,6 +17,10 @@ export default ({ dispatch, pianoRollStore: s }) => {
 
     "SELECT_CONTROL_TAB": ({ name }) => {
       s.controlMode = name
+    },
+
+    "TOGGLE_TOOL": () => {
+      s.mouseMode = (s.mouseMode === 0 ? 1 : 0)
     }
   }
 }

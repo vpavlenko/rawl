@@ -40,14 +40,17 @@ function drawRuler(ctx, height, beats, theme) {
   ctx.stroke()
 }
 
-function drawLoopPoints(ctx, loopBegin, loopEnd, height, pixelsPerTick, theme) {
+function drawLoopPoints(ctx, loop, height, pixelsPerTick, theme) {
   const lineWidth = 1
   const flagSize = 8
-  ctx.fillStyle = theme.themeColor
+  ctx.fillStyle = loop.enabled ? theme.themeColor : theme.secondaryTextColor
   ctx.beginPath()
 
-  if (loopBegin !== null) {
-    const x = loopBegin * pixelsPerTick
+  const beginX = loop.begin * pixelsPerTick
+  const endX = loop.end * pixelsPerTick
+
+  if (loop.begin !== null) {
+    const x = beginX
     ctx.moveTo(x, 0)
     ctx.lineTo(x + lineWidth + flagSize, 0)
     ctx.lineTo(x + lineWidth, flagSize)
@@ -56,8 +59,8 @@ function drawLoopPoints(ctx, loopBegin, loopEnd, height, pixelsPerTick, theme) {
     ctx.lineTo(x, 0)
   }
 
-  if (loopEnd !== null) {
-    const x = loopEnd * pixelsPerTick
+  if (loop.end !== null) {
+    const x = endX
     ctx.moveTo(x, 0)
     ctx.lineTo(x - lineWidth - flagSize, 0)
     ctx.lineTo(x - lineWidth, flagSize)
@@ -69,9 +72,7 @@ function drawLoopPoints(ctx, loopBegin, loopEnd, height, pixelsPerTick, theme) {
   ctx.closePath()
   ctx.fill()
 
-  if (loopBegin !== null && loopEnd !== null) {
-    const beginX = loopBegin * pixelsPerTick
-    const endX = loopEnd * pixelsPerTick
+  if (loop.begin !== null && loop.end !== null) {
     ctx.rect(beginX, 0, endX - beginX, height)
     ctx.fillStyle = "rgba(0, 0, 0, 0.02)"
     ctx.fill()
@@ -88,8 +89,7 @@ function PianoRuler({
   onMouseDown,
   onMouseMove,
   onMouseUp,
-  loopBegin = null,
-  loopEnd = null
+  loop = { start: null, end: null, enabled: false },
 }) {
 
   function draw(ctx) {
@@ -98,7 +98,7 @@ function PianoRuler({
     ctx.save()
     ctx.translate(-scrollLeft + 0.5, 0)
     drawRuler(ctx, height, beats, theme)
-    drawLoopPoints(ctx, loopBegin, loopEnd, height, pixelsPerTick, theme)
+    drawLoopPoints(ctx, loop, height, pixelsPerTick, theme)
     ctx.restore()
   }
 
@@ -132,8 +132,7 @@ function test(props, nextProps) {
     || props.height !== nextProps.height
     || props.pixelsPerTick !== nextProps.pixelsPerTick
     || props.scrollLeft !== nextProps.scrollLeft
-    || props.loopBegin !== nextProps.loopBegin
-    || props.loopEnd !== nextProps.loopEnd
+    || !_.isEqual(props.loop, nextProps.loop)
     || !_.isEqual(props.beats, nextProps.beats)
     || !_.isEqual(props.theme, nextProps.theme)
 }

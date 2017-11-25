@@ -45,8 +45,7 @@ function PianoRoll({
   notesCursor,
   cursorPosition,
   onMountAlpha,
-  loopBegin,
-  loopEnd,
+  loop,
   size
 }) {
   const { keyWidth, rulerHeight } = theme
@@ -139,8 +138,7 @@ function PianoRoll({
             height={rulerHeight}
             endTick={widthTick}
             beats={mappedBeats}
-            loopBegin={loopBegin}
-            loopEnd={loopEnd}
+            loop={loop}
             onMouseDown={onMouseDownRuler}
             scrollLeft={scrollLeft}
             pixelsPerTick={transform.pixelsPerTick} />
@@ -285,8 +283,7 @@ export default sizeMe()(inject(({ rootStore: {
     setNotesCursor: v => s.notesCursor = v,
     mouseMode: s.mouseMode,
     onChangeTool: () => s.mouseMode = (s.mouseMode === 0 ? 1 : 0),
-    loopBegin: playerStore.loopBegin,
-    loopEnd: playerStore.loopEnd,
+    loop: playerStore.loop,
     quantizer,
     player,
     dispatch

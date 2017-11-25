@@ -54,7 +54,6 @@ export default function QuantizeSelector({ value, onSelect }) {
       )}
     </select>
     <div className="updown-mark">
-      <Icon>chevron-up</Icon>
       <Icon>chevron-down</Icon>
     </div>
     <div className="options">

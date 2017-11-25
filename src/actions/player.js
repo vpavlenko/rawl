@@ -22,19 +22,23 @@ export default ({ playerStore, services: { player, quantizer }, song }) => {
     },
     "SET_LOOP_BEGIN": ({ tick }) => {
       tick = quantizer.round(tick)
-      if (player.loopEnd !== null) {
-        tick = Math.min(player.loopEnd, tick)
+      if (player.loop.end !== null) {
+        tick = Math.min(player.loop.end, tick)
       }
-      player.loopBegin = tick
-      playerStore.loopBegin = tick
+      player.loop.begin = tick
+      playerStore.loop = { ...player.loop }
     },
     "SET_LOOP_END": ({ tick }) => {
       tick = quantizer.round(tick)
-      if (player.loopBegin !== null) {
-        tick = Math.max(player.loopBegin, tick)
+      if (player.loop.begin !== null) {
+        tick = Math.max(player.loop.begin, tick)
       }
-      player.loopEnd = tick
-      playerStore.loopEnd = tick
+      player.loop.end = tick
+      playerStore.loop = { ...player.loop }
+    },
+    "TOGGLE_ENABLE_LOOP": () => {
+      player.loop.enabled = !player.loop.enabled
+      playerStore.loop = { ...player.loop }
     }
   }
 }

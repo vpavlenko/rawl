@@ -6,17 +6,25 @@ import { Toolbar, ToolbarItem, ToolbarSeparator } from "components/groups/Toolba
 
 import { TIME_BASE } from "Constants"
 
+import "./TransportPanel.css"
+
 function TransportPanel({
   onClickPlay,
   onClickStop,
   onClickBackward,
   onClickForward,
-  mbtTime }) {
-  return <Toolbar>
+  mbtTime,
+  loopEnabled,
+  onClickEnableLoop
+ }) {
+  return <Toolbar className="TransportPanel">
+    <ToolbarSeparator />
+
     <ToolbarItem onClick={onClickBackward}><Icon>skip-backward</Icon></ToolbarItem>
     <ToolbarItem onClick={onClickStop}><Icon>stop</Icon></ToolbarItem>
     <ToolbarItem onClick={onClickPlay}><Icon>play</Icon></ToolbarItem>
     <ToolbarItem onClick={onClickForward}><Icon>skip-forward</Icon></ToolbarItem>
+    <ToolbarItem onClick={onClickEnableLoop} selected={loopEnabled}><Icon>loop</Icon></ToolbarItem>
 
     <ToolbarSeparator />
 
@@ -57,12 +65,15 @@ class stateful extends Component {
 export default inject(({ rootStore: {
   services: { player },
   song: { measureList },
+  playerStore: { loop },
   dispatch
 } }) => ({
     player,
     measureList,
+    loopEnabled: loop.enabled,
     onClickPlay: () => dispatch("PLAY"),
     onClickStop: () => dispatch("STOP"),
     onClickBackward: () => dispatch("MOVE_PLAYER_POSITION", { tick: -TIME_BASE * 4 }),
     onClickForward: () => dispatch("MOVE_PLAYER_POSITION", { tick: TIME_BASE * 4 }),
+    onClickEnableLoop: () => dispatch("TOGGLE_ENABLE_LOOP")
   }))(observer(stateful))

@@ -46,6 +46,7 @@ function PianoRollToolbar({
 export default inject(({ rootStore: {
   services: { quantizer },
   pianoRollStore: s,
+  playerStore: { loop },
   dispatch
 } }) => ({
     quantize: s.quantize === 0 ? quantizer.denominator : s.quantize,

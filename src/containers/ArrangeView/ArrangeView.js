@@ -74,7 +74,8 @@ function ArrangeView({
   onScrollTop,
   onSelectTrack,
   dispatch,
-  size
+  size,
+  loop
 }) {
   scrollLeft = Math.floor(scrollLeft)
 
@@ -249,6 +250,7 @@ function ArrangeView({
           scrollLeft={scrollLeft}
           pixelsPerTick={pixelsPerTick}
           onMouseDown={({ tick }) => dispatch("SET_PLAYER_POSITION", { tick })}
+          loop={loop}
         />
         <div
           className="content"
@@ -364,6 +366,7 @@ const mapStoreToProps = ({ rootStore: {
   song: { tracks, measureList, endOfSong },
   arrangeViewStore: s,
   services: { player, quantizer },
+  playerStore: { loop },
   dispatch
 } }) => ({
     theme: rootViewStore.theme,
@@ -385,6 +388,7 @@ const mapStoreToProps = ({ rootStore: {
       rootViewStore.isArrangeViewSelected = false
       dispatch("SELECT_TRACK", { trackId })
     },
+    loop
   })
 
 export default sizeMe()(inject(mapStoreToProps)(observer(stateful(ArrangeView))))

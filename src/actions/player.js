@@ -16,6 +16,9 @@ export default ({ services: { player, quantizer }, song }) => {
     },
     "MOVE_PLAYER_POSITION": ({ tick }) => {
       player.position = quantizer.round(player.position + tick)
+    },
+    "PREVIEW_NOTE": ({ noteNumber, channel }) => {
+      player.playNote({ channel, noteNumber, velocity: 100, duration: 128 })
     }
   }
 }

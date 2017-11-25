@@ -32,7 +32,6 @@ function PianoRoll({
   track,
   events,
   transform,
-  onClickKey,
   beats,
   endTick,
   mouseMode,
@@ -118,7 +117,7 @@ function PianoRoll({
             width={keyWidth}
             keyHeight={transform.pixelsPerKey}
             numberOfKeys={transform.numberOfKeys}
-            onClickKey={onClickKey} />
+            onClickKey={noteNumber => dispatch("PREVIEW_NOTE", { noteNumber, channel: track.channel })} />
         </div>
         <div className="alphaRuler">
           <PianoRuler
@@ -232,7 +231,6 @@ PianoRoll.propTypes = {
   scaleX: PropTypes.number.isRequired,
   scaleY: PropTypes.number.isRequired,
   autoScroll: PropTypes.bool.isRequired,
-  onClickKey: PropTypes.func.isRequired,
   mouseMode: PropTypes.number.isRequired
 }
 
@@ -273,6 +271,5 @@ export default sizeMe()(inject(({ rootStore: {
     quantizer,
     player,
     dispatch,
-    onChangeTool: () => s.mouseMode = (s.mouseMode === 0 ? 1 : 0),
-    onClickKey: (noteNumber) => { console.log(noteNumber) }
+    onChangeTool: () => s.mouseMode = (s.mouseMode === 0 ? 1 : 0)
   }))(observer(stateful)))

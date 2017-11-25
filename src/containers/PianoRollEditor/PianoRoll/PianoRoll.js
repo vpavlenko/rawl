@@ -45,6 +45,8 @@ function PianoRoll({
   notesCursor,
   cursorPosition,
   onMountAlpha,
+  loopBegin,
+  loopEnd,
   size
 }) {
   const { keyWidth, rulerHeight } = theme
@@ -67,6 +69,17 @@ function PianoRoll({
 
   scrollLeft = clampScroll(contentWidth - containerWidth, scrollLeft)
   scrollTop = clampScroll(contentHeight - alphaHeight, scrollTop)
+
+  const onMouseDownRuler = (e) => {
+    const tick = e.tick
+    if (e.ctrlKey) {
+      dispatch("SET_LOOP_BEGIN", { tick })
+    } else if (e.altKey) {
+      dispatch("SET_LOOP_END", { tick })
+    } else {
+      dispatch("SET_PLAYER_POSITION", { tick })
+    }
+  }
 
   return <div className="PianoRoll">
     <SplitPane split="horizontal" defaultSize={180} primary="second">
@@ -126,7 +139,9 @@ function PianoRoll({
             height={rulerHeight}
             endTick={widthTick}
             beats={mappedBeats}
-            onMouseDown={({ tick }) => dispatch("SET_PLAYER_POSITION", { tick })}
+            loopBegin={loopBegin}
+            loopEnd={loopEnd}
+            onMouseDown={onMouseDownRuler}
             scrollLeft={scrollLeft}
             pixelsPerTick={transform.pixelsPerTick} />
           <div className="PianoRollLeftSpace" />
@@ -245,6 +260,7 @@ export default sizeMe()(inject(({ rootStore: {
   song: { selectedTrack: track, endOfSong: endTick, measureList: { beats } },
   pianoRollStore: s,
   rootViewStore: { theme },
+  playerStore,
   services: { player, quantizer },
   dispatch
 } }) => ({
@@ -268,8 +284,10 @@ export default sizeMe()(inject(({ rootStore: {
     notesCursor: s.notesCursor,
     setNotesCursor: v => s.notesCursor = v,
     mouseMode: s.mouseMode,
+    onChangeTool: () => s.mouseMode = (s.mouseMode === 0 ? 1 : 0),
+    loopBegin: playerStore.loopBegin,
+    loopEnd: playerStore.loopEnd,
     quantizer,
     player,
-    dispatch,
-    onChangeTool: () => s.mouseMode = (s.mouseMode === 0 ? 1 : 0)
+    dispatch
   }))(observer(stateful)))

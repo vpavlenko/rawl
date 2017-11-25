@@ -3,6 +3,7 @@ import { json } from "json-mobx"
 
 import Song from "./Song"
 import TrackMute from "./TrackMute"
+import PlayerStore from "./PlayerStore"
 import HistoryStore from "./HistoryStore"
 import RootViewStore from "./RootViewStore"
 import PianoRollStore from "./PianoRollStore"
@@ -17,13 +18,14 @@ import { TIME_BASE } from "../Constants"
 import createDispatcher from "../createDispatcher"
 
 export default class RootStore {
-  @observable song = Song.emptySong()
-  @observable trackMute = new TrackMute()
-  @observable historyStore = new HistoryStore()
-  @observable rootViewStore = new RootViewStore()
-  @observable pianoRollStore = new PianoRollStore()
-  @observable arrangeViewStore = new ArrangeViewStore()
-  @observable tempoEditorStore = new TempoEditorStore()
+  song = Song.emptySong()
+  trackMute = new TrackMute()
+  playerStore = new PlayerStore()
+  historyStore = new HistoryStore()
+  rootViewStore = new RootViewStore()
+  pianoRollStore = new PianoRollStore()
+  arrangeViewStore = new ArrangeViewStore()
+  tempoEditorStore = new TempoEditorStore()
 
   services = {}
 

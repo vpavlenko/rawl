@@ -45,6 +45,8 @@ export default class Player extends EventEmitter {
   _currentTempo = 120
   _currentTick = 0
   _scheduler = null
+  loopBegin = null
+  loopEnd = null
 
   constructor(timebase, output, trackMute) {
     super()
@@ -186,6 +188,12 @@ export default class Player extends EventEmitter {
 
     if (this._scheduler) {
       this._currentTick = this._scheduler.currentTick
+
+      if (this.loopEnd !== null
+        && this.loopBegin !== null
+        && this._currentTick >= this.loopEnd) {
+        this.position = this.loopBegin
+      }
     }
     this.emitChangePosition()
   }

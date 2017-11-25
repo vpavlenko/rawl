@@ -8,9 +8,9 @@ import DrawCanvas from "components/DrawCanvas"
 import "./PianoRuler.css"
 
 function drawRuler(ctx, height, beats, theme) {
-  ctx.beginPath()
   ctx.strokeStyle = theme.secondaryTextColor
   ctx.lineWidth = 1
+  ctx.beginPath()
 
   // 密過ぎる時は省略する
   const shouldOmit = beats.length > 1 && (beats[1].x - beats[0].x <= 5)
@@ -40,6 +40,44 @@ function drawRuler(ctx, height, beats, theme) {
   ctx.stroke()
 }
 
+function drawLoopPoints(ctx, loopBegin, loopEnd, height, pixelsPerTick, theme) {
+  const lineWidth = 1
+  const flagSize = 8
+  ctx.fillStyle = theme.themeColor
+  ctx.beginPath()
+
+  if (loopBegin !== null) {
+    const x = loopBegin * pixelsPerTick
+    ctx.moveTo(x, 0)
+    ctx.lineTo(x + lineWidth + flagSize, 0)
+    ctx.lineTo(x + lineWidth, flagSize)
+    ctx.lineTo(x + lineWidth, height)
+    ctx.lineTo(x, height)
+    ctx.lineTo(x, 0)
+  }
+
+  if (loopEnd !== null) {
+    const x = loopEnd * pixelsPerTick
+    ctx.moveTo(x, 0)
+    ctx.lineTo(x - lineWidth - flagSize, 0)
+    ctx.lineTo(x - lineWidth, flagSize)
+    ctx.lineTo(x - lineWidth, height)
+    ctx.lineTo(x, height)
+    ctx.lineTo(x, 0)
+  }
+
+  ctx.closePath()
+  ctx.fill()
+
+  if (loopBegin !== null && loopEnd !== null) {
+    const beginX = loopBegin * pixelsPerTick
+    const endX = loopEnd * pixelsPerTick
+    ctx.rect(beginX, 0, endX - beginX, height)
+    ctx.fillStyle = "rgba(0, 0, 0, 0.02)"
+    ctx.fill()
+  }
+}
+
 function PianoRuler({
   width,
   height,
@@ -49,7 +87,9 @@ function PianoRuler({
   theme,
   onMouseDown,
   onMouseMove,
-  onMouseUp
+  onMouseUp,
+  loopBegin = null,
+  loopEnd = null
 }) {
 
   function draw(ctx) {
@@ -58,6 +98,7 @@ function PianoRuler({
     ctx.save()
     ctx.translate(-scrollLeft + 0.5, 0)
     drawRuler(ctx, height, beats, theme)
+    drawLoopPoints(ctx, loopBegin, loopEnd, height, pixelsPerTick, theme)
     ctx.restore()
   }
 
@@ -91,6 +132,8 @@ function test(props, nextProps) {
     || props.height !== nextProps.height
     || props.pixelsPerTick !== nextProps.pixelsPerTick
     || props.scrollLeft !== nextProps.scrollLeft
+    || props.loopBegin !== nextProps.loopBegin
+    || props.loopEnd !== nextProps.loopEnd
     || !_.isEqual(props.beats, nextProps.beats)
     || !_.isEqual(props.theme, nextProps.theme)
 }

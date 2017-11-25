@@ -3,6 +3,8 @@
   box-sizing: border-box;
   position: relative;
   padding: 0 0.5em;
+  z-index: 15;
+  background: var(--background-color);
 }
 
 .ToolbarItem {

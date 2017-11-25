@@ -109,19 +109,9 @@ function ArrangeView({
     onScrollTop({ scroll: Math.floor(Math.min(maxOffset, Math.max(0, scroll))) })
   }
 
-  function handleLeftClick(e) {
-    const { left, top } = e.currentTarget.getBoundingClientRect()
-
-    function createPoint(e) {
-      const x = e.pageX - left + scrollLeft
-      const y = e.pageY - top - theme.rulerHeight + scrollTop
-      const tick = transform.getTicks(x)
-      return { x: tick, y: y / trackHeight }
-    }
-
+  function handleLeftClick(e, createPoint) {
     const startPos = createPoint(e.nativeEvent)
-
-    const isSelectionSelected = selection && selection.containsPoint(startPos)
+    const isSelectionSelected = selection != null && selection.containsPoint(startPos)
 
     const createSelectionHandler = (e, mouseMove, mouseUp) => {
       dispatch("ARRANGE_START_SELECTION", startPos)
@@ -140,8 +130,7 @@ function ArrangeView({
         const pos = pointAdd(startSelection, delta)
         dispatch("ARRANGE_MOVE_SELECTION", pos)
       })
-      mouseUp(e => {
-      })
+      mouseUp(e => { })
     }
 
     let handler
@@ -191,13 +180,34 @@ function ArrangeView({
     document.addEventListener("mouseup", onMouseUp)
   }
 
+  function handleRightClick(e, createPoint) {
+    const startPos = createPoint(e.nativeEvent)
+    const isSelectionSelected = selection != null && selection.containsPoint(startPos)
+    dispatch("ARRANGE_OPEN_CONTEXT_MENU", {
+      position: { x: e.pageX, y: e.pageY },
+      isSelectionSelected
+    })
+  }
+
   function onMouseDown(e) {
+    const { left, top } = e.currentTarget.getBoundingClientRect()
+
+    function createPoint(e) {
+      const x = e.pageX - left + scrollLeft
+      const y = e.pageY - top - theme.rulerHeight + scrollTop
+      const tick = transform.getTicks(x)
+      return { x: tick, y: y / trackHeight }
+    }
+
     switch (e.button) {
       case 0:
-        handleLeftClick(e)
+        handleLeftClick(e, createPoint)
         break
       case 1:
         handleMiddleClick(e)
+        break
+      case 2:
+        handleRightClick(e, createPoint)
         break
       default:
         break
@@ -228,6 +238,7 @@ function ArrangeView({
       <div
         className="right"
         onMouseDown={onMouseDown}
+        onContextMenu={e => e.preventDefault()}
         onWheel={onWheel}>
         <PianoRuler
           width={containerWidth}

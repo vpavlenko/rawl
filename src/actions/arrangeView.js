@@ -1,6 +1,9 @@
 import Rect from "model/Rect"
+import _ from "lodash"
+import clipboard from "services/Clipboard"
+import { open as openContextMenu } from "containers/ArrangeView/ArrangeContextMenu"
 
-export default ({ dispatch, song: { tracks }, arrangeViewStore: s, services: { quantizer } }) => {
+export default ({ dispatch, song: { tracks }, arrangeViewStore: s, services: { quantizer, player } }) => {
   const createRect = (from, to) => {
     const rect = Rect.fromPoints(from, to)
     rect.height = Math.min(tracks.length - rect.y,
@@ -99,7 +102,55 @@ export default ({ dispatch, song: { tracks }, arrangeViewStore: s, services: { q
         }
         s.selectedEventIds = ids
       }
-    }
+    },
+
+    "ARRANGE_OPEN_CONTEXT_MENU": ({ position, isSelectionSelected }) => {
+      openContextMenu(dispatch, { position, isSelectionSelected })
+    },
+
+    "ARRANGE_COPY_SELECTION": () => {
+      // 選択されたノートをコピー
+      const notes = _.mapValues(s.selectedEventIds, (ids, trackId) => ids.map(id => {
+        const note = tracks[trackId].getEventById(id)
+        return {
+          ...note,
+          tick: note.tick - s.selection.x // 選択範囲からの相対位置にする
+        }
+      }))
+      clipboard.writeText(JSON.stringify({
+        type: "arrange_notes",
+        notes
+      }))
+    },
+
+    "ARRANGE_PASTE_SELECTION": () => {
+      // 現在位置にコピーしたノートをペースト
+      const text = clipboard.readText()
+      if (!text || text.length === 0) {
+        return
+      }
+      const obj = JSON.parse(text)
+      if (obj.type !== "arrange_notes") {
+        return
+      }
+      for (let trackId in obj.notes) {
+        const notes = obj.notes[trackId]
+          .map(note => ({
+            ...note,
+            tick: note.tick + player.position
+          }))
+        tracks[trackId].addEvents(notes)
+      }
+    },
+
+    "ARRANGE_DELETE_SELECTION": () => {
+      // 選択範囲と選択されたノートを削除
+      for (let trackId in s.selectedEventIds) {
+        tracks[trackId].removeEvents(s.selectedEventIds[trackId])
+      }
+      s.selection = null
+      s.selectedEventIds = []
+    },
   }
 }
 

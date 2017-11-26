@@ -6,6 +6,7 @@ import sizeMe from "react-sizeme"
 
 import mapBeats from "helpers/mapBeats"
 import NoteCoordTransform from "model/NoteCoordTransform"
+import { show as showEventEditor } from "components/EventEditor"
 
 import PianoNotes from "./PianoNotes/PianoNotes"
 import PencilMouseHandler from "./PianoNotes/PencilMouseHandler"
@@ -18,6 +19,7 @@ import PianoRuler from "./PianoRuler"
 import PianoSelection from "./PianoSelection"
 import PianoCursor from "./PianoCursor"
 import ControlPane from "./ControlPane"
+import PianoControlEvents from "./PianoControlEvents"
 
 import { VerticalScrollBar, HorizontalScrollBar, BAR_WIDTH } from "components/inputs/ScrollBar"
 
@@ -78,6 +80,10 @@ function PianoRoll({
     } else {
       dispatch("SET_PLAYER_POSITION", { tick })
     }
+  }
+
+  const onDoubleClickMark = (e, group) => {
+    showEventEditor(group)
   }
 
   return <div className="PianoRoll">
@@ -143,6 +149,13 @@ function PianoRoll({
             scrollLeft={scrollLeft}
             pixelsPerTick={transform.pixelsPerTick} />
           <div className="PianoRollLeftSpace" />
+          <PianoControlEvents
+            events={events}
+            width={width}
+            scrollLeft={scrollLeft}
+            pixelsPerTick={transform.pixelsPerTick}
+            onDoubleClickMark={onDoubleClickMark}
+          />
         </div>
         <VerticalScrollBar
           scrollOffset={scrollTop}
@@ -255,7 +268,7 @@ PianoRoll.defaultProps = {
 }
 
 export default sizeMe()(inject(({ rootStore: {
-  song: { selectedTrack: track, endOfSong: endTick, measureList: { beats } },
+      song: { selectedTrack: track, endOfSong: endTick, measureList: { beats } },
   pianoRollStore: s,
   rootViewStore: { theme },
   playerStore,

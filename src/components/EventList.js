@@ -1,61 +1,33 @@
 import React, { Component } from "react"
-import { Table, Column, Cell } from "fixed-data-table"
-import Dimensions from "react-dimensions"
-import _ from "lodash"
-import { controllerTypeString } from "../helpers/noteNumberString"
+import { controllerTypeString } from "helpers/noteNumberString"
 
 import "./EventList.css"
-import "fixed-data-table/dist/fixed-data-table.css"
 
-const AutoSizingTable = Dimensions()(
-  class extends Component {
-    render() {
-      const p = _.omit(this.props, ["containerWidth", "containerHeight"])
-      return <Table
-        {...p}
-        width={this.props.containerWidth}
-        height={this.props.containerHeight} />
-    }
-  })
+function Table({ items, headers, rowComponent }) {
+  const Row = rowComponent
+  return <table>
+    <thead>
+      <tr>
+        {headers.map((header, i) => <th key={i}>{header}</th>)}
+      </tr>
+    </thead>
+    <tbody>
+      {items.map((item, i) => <Row item={item} key={i} />)}
+    </tbody>
+  </table>
+}
 
-function EventListContent(props) {
-  const events = props.events
-  return <div className="event-list">
-    <AutoSizingTable
-      rowHeight={24}
-      rowsCount={events.length}
-      headerHeight={24}>
-      <Column
-        header={<Cell>Tick</Cell>}
-        cell={({ rowIndex, ...props }) => (
-          <Cell {...props}>
-            {events[rowIndex].tick}
-          </Cell>
-        )}
-        fixed={true}
-        width={40}
-      />
-      <Column
-        header={<Cell>Status</Cell>}
-        cell={({ rowIndex, ...props }) => (
-          <Cell {...props}>
-            {events[rowIndex].status}
-          </Cell>
-        )}
-        flexGrow={2}
-        width={40}
-      />
-      <Column
-        header={<Cell>Value</Cell>}
-        cell={({ rowIndex, ...props }) => (
-          <Cell {...props}>
-            {events[rowIndex].value}
-          </Cell>
-        )}
-        flexGrow={1}
-        width={40}
-      />
-    </AutoSizingTable>
+function EventRow({ item }) {
+  return <tr>
+    <td>{item.tick}</td>
+    <td>{statusForEvent(item)}</td>
+    <td>{item.value}</td>
+  </tr>
+}
+
+function EventListContent({ events }) {
+  return <div className="EventList">
+    <Table items={events} rowComponent={EventRow} headers={["Tick", "Status", "Value"]} />
   </div>
 }
 
@@ -77,11 +49,6 @@ export default class EventList extends Component {
   }
 
   render() {
-    const events = this.props.track ? this.props.track.events.map(e => {
-      return _.extend(e, {
-        status: statusForEvent(e)
-      })
-    }) : []
-    return <EventListContent {...this.props} events={events} />
+    return <EventListContent {...this.props} />
   }
 }

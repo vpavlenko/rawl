@@ -1,5 +1,19 @@
+
+.EventList table {
+  line-height: 2;
+}
+
+.EventList table th {
+  font-weight: bold;
+}
+
+.EventList table tr:nth-child(even), 
+.EventList table thead {
+  background: rgba(0, 0, 0, 0.02);
+}
+
 .EventList {
-  width: var(--side-width);
+  width: 30em;
   overflow: auto;
   height: 100%;
 }

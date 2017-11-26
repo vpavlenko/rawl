@@ -86,3 +86,15 @@
   top: 0;
   left: 0;
 }
+
+.PianoRoll .PianoKeys {
+  z-index: 6;
+}
+
+.PianoRoll .PianoRollLeftSpace {
+  z-index: 10;
+}
+
+.PianoRoll .PianoRuler {
+  z-index: 10;
+}

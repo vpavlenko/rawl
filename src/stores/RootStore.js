@@ -1,4 +1,3 @@
-import { observable } from "mobx"
 import { json } from "json-mobx"
 
 import Song from "./Song"

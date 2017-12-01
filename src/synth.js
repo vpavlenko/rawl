@@ -5,7 +5,9 @@ import Recorder from "./submodules/opus-recorder/src/recorder"
 
 import "./synth.css"
 
-const { ipcRenderer } = window.require("electron")
+const fs = window.require("fs")
+const { ipcRenderer, remote } = window.require("electron")
+const { dialog } = remote
 
 export default class SynthApp {
   eventsBuffer = []
@@ -36,17 +38,8 @@ export default class SynthApp {
       document.body.classList.add("synth")
       document.getElementById("root").appendChild(view.draw(synth))
 
-      document.getElementById("root").insertAdjacentHTML("beforeend", `
-      <h2>Commands</h2>
-      <button id="init">init</button>
-      <button id="start" disabled>start</button>
-      <button id="pause" disabled>pause</button>
-      <button id="resume" disabled>resume</button>
-      <button id="stopButton" disabled>stop</button>
-    
-      <h2>Recordings</h2>
-      <ul id="recordingslist"></ul>`)
-      prepareRecorder(ctx, output)
+      addSoundFontButton(synth)
+      addRecorder(ctx, output)
     })
 
     const onTimer = () => {
@@ -75,7 +68,42 @@ export default class SynthApp {
   }
 }
 
-function prepareRecorder(ctx, output) {
+function addSoundFontButton(synth) {
+  document.getElementById("root").insertAdjacentHTML("beforeend", `<button id="open-soundfont">Open SoundFont</button>`)
+
+  const button = document.querySelector("#open-soundfont")
+  button.addEventListener("click", () => {
+    dialog.showOpenDialog({
+      filters: [{
+        name: "Soundfont File",
+        extensions: ["sf2"]
+      }]
+    }, files => {
+      if (files) {
+        fs.readFile(files[0], (error, input) => {
+          if (!error) {
+            synth.refreshInstruments(input)
+          } else {
+            console.warn(error.message)
+          }
+        })
+      }
+    })
+  })
+}
+
+function addRecorder(ctx, output) {
+  document.getElementById("root").insertAdjacentHTML("beforeend", `
+  <h2>Commands</h2>
+  <button id="init">init</button>
+  <button id="start" disabled>start</button>
+  <button id="pause" disabled>pause</button>
+  <button id="resume" disabled>resume</button>
+  <button id="stopButton" disabled>stop</button>
+
+  <h2>Recordings</h2>
+  <ul id="recordingslist"></ul>`)
+
   const recorder = new Recorder(ctx, {
     numberOfChannels: 2,
     encoderPath: "/libs/opus-recorder/waveWorker.min.js"

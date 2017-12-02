@@ -6,6 +6,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import _ from "lodash"
 import { shouldUpdate } from "recompose"
+import Color from "color"
 
 import Stage from "components/Stage/Stage"
 
@@ -19,14 +20,19 @@ function PianoNotes({
   cursor,
   selectedEventIds,
   mouseHandler,
-  isDrumMode
+  isDrumMode,
+  theme
 }) {
+  const color = Color(theme.themeColor).rgb().object()
+  const borderColor = Color(theme.textColor).rgb().object()
+  const selectedColor = Color(theme.textColor).rgb().object()
+
   const items = events
     .filter(e => e.subtype === "note")
     .map(e => {
       const rect = transform.getRect(e)
       const selected = selectedEventIds.includes(e.id)
-      return new PianoNoteItem(e.id, rect.x, rect.y, rect.width, rect.height, e.velocity, selected, isDrumMode)
+      return new PianoNoteItem(e.id, rect.x, rect.y, rect.width, rect.height, e.velocity, selected, isDrumMode, color, borderColor, selectedColor)
     })
   const height = transform.pixelsPerKey * transform.numberOfKeys
 
@@ -55,7 +61,8 @@ PianoNotes.propTypes = {
   events: PropTypes.array.isRequired,
   width: PropTypes.number.isRequired,
   scrollLeft: PropTypes.number.isRequired,
-  cursor: PropTypes.string
+  cursor: PropTypes.string,
+  theme: PropTypes.object.isRequired
 }
 
 function test(props, nextProps) {
@@ -69,6 +76,7 @@ function test(props, nextProps) {
     || !eq("width")
     || !eq("cursor")
     || !eq("selectedEventIds", _.isEqual)
+    || !eq("theme", _.isEqual)
 }
 
 export default shouldUpdate(test)(PianoNotes)

@@ -1,60 +1,12 @@
 import Item from "components/Stage/Item"
 import Rect from "model/Rect"
 
-const COLOR = { r: 60, g: 87, b: 221 }
-const SELECTED_COLOR = { r: 45, g: 57, b: 115 }
-
 function colorStr({ r, g, b }, alpha = 1) {
-  return `rgba(${r}, ${g}, ${b}, ${alpha})`
-}
-
-function drawNote(ctx, { x, y, width, height }, velocity, selected, color, selectedColor) {
-  const alpha = velocity / 127
-  const noteColor = selected ? colorStr(selectedColor) : colorStr(color, alpha)
-
-  x = Math.round(x)
-  y = Math.round(y)
-  width = Math.round(width - 1) // 次のノートと被らないように小さくする
-  height = Math.round(height)
-
-  ctx.beginPath()
-  ctx.fillStyle = noteColor
-  ctx.strokeStyle = "rgba(0, 0, 0, 1)"
-  ctx.lineWidth = 1
-  ctx.rect(x, y, width, height)
-  ctx.fill()
-  ctx.stroke()
-
-  // draw highlight
-  ctx.beginPath()
-  ctx.strokeStyle = "rgba(255, 255, 255, 0.3)"
-  ctx.moveTo(x + 1, y + 1)
-  ctx.lineTo(x + width, y + 1)
-  ctx.closePath()
-  ctx.stroke()
-}
-
-function drawDrumNote(ctx, { x, y, height }, velocity, selected, color, selectedColor) {
-  const alpha = velocity / 127
-  const noteColor = selected ? colorStr(selectedColor) : colorStr(color, alpha)
-
-  x = Math.round(x)
-  y = Math.round(y)
-  height = Math.round(height)
-  const radius = Math.round(height / 2)
-
-  ctx.beginPath()
-  ctx.arc(x, y + radius, radius, 0, 2 * Math.PI)
-  ctx.fillStyle = noteColor
-  ctx.strokeStyle = "rgba(0, 0, 0, 1)"
-  ctx.lineWidth = 1
-  ctx.closePath()
-  ctx.fill()
-  ctx.stroke()
+  return `rgba(${Math.round(r)}, ${Math.round(g)}, ${Math.round(b)}, ${alpha})`
 }
 
 export default class PianoNoteItem extends Item {
-  constructor(id, x, y, width, height, velocity, isSelected, isDrum) {
+  constructor(id, x, y, width, height, velocity, isSelected, isDrum, color, borderColor, selectedColor) {
     super()
     this.id = id
     this.noteBounds = new Rect(x, y, width, height)
@@ -62,6 +14,9 @@ export default class PianoNoteItem extends Item {
     this.velocity = velocity
     this.isSelected = isSelected
     this.isDrum = isDrum
+    this.color = color
+    this.borderColor = colorStr(borderColor)
+    this.selectedColor = selectedColor
   }
 
   get bounds() {
@@ -70,9 +25,52 @@ export default class PianoNoteItem extends Item {
 
   render(ctx) {
     if (this.isDrum) {
-      drawDrumNote(ctx, this.bounds, this.velocity, this.isSelected, COLOR, SELECTED_COLOR)
+      this.drawDrumNote(ctx)
     } else {
-      drawNote(ctx, this.bounds, this.velocity, this.isSelected, COLOR, SELECTED_COLOR)
+      this.drawNote(ctx)
     }
+  }
+
+  drawNote(ctx) {
+    const alpha = this.velocity / 127
+    const noteColor = this.isSelected ? this.selectedColor : this.color
+    let { x, y, width, height } = this.bounds
+
+    x = Math.round(x)
+    y = Math.round(y)
+    width = Math.round(width - 1) // 次のノートと被らないように小さくする
+    height = Math.round(height)
+
+    const grad = ctx.createLinearGradient(x, y, x, y + height)
+    grad.addColorStop(0, colorStr(noteColor, alpha * 0.8))
+    grad.addColorStop(1, colorStr(noteColor, alpha))
+
+    ctx.fillStyle = grad
+    ctx.strokeStyle = this.borderColor
+    ctx.lineWidth = 1
+    ctx.beginPath()
+    ctx.rect(x, y, width, height, height / 5)
+    ctx.closePath()
+    ctx.fill()
+    ctx.stroke()
+  }
+
+  drawDrumNote(ctx) {
+    const alpha = this.velocity / 127
+    const noteColor = this.isSelected ? colorStr(this.selectedColor) : colorStr(this.color, alpha)
+    let { x, y, height } = this.bounds
+    x = Math.round(x)
+    y = Math.round(y)
+    height = Math.round(height)
+    const radius = Math.round(height / 2)
+
+    ctx.beginPath()
+    ctx.arc(x, y + radius, radius, 0, 2 * Math.PI)
+    ctx.fillStyle = noteColor
+    ctx.strokeStyle = this.borderColor
+    ctx.lineWidth = 1
+    ctx.closePath()
+    ctx.fill()
+    ctx.stroke()
   }
 }

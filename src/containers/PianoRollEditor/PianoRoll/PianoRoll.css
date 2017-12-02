@@ -98,3 +98,7 @@
 .PianoRoll .PianoRuler {
   z-index: 10;
 }
+
+.PianoRoll .ScrollBar.VerticalScrollBar {
+  z-index: 10;
+}

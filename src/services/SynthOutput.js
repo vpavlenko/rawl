@@ -2,7 +2,13 @@ const { ipcRenderer } = window.require("electron")
 
 export default class SynthOutput {
   constructor() {
-    ipcRenderer.send("create-synth-window")
+    ipcRenderer.send("create-synth")
+    ipcRenderer.on("did-create-synth-window", () => {
+      ipcRenderer.send("synth", {
+        type: "load_soundfont",
+        payload: { path: "U:\\SoundFont\\Banks\\msgs.sf2" }
+      })
+    })
   }
 
   send(message, timestamp) {
@@ -10,6 +16,9 @@ export default class SynthOutput {
   }
 
   sendEvents(events) {
-    ipcRenderer.send("midi", { events, timestamp: window.performance.now() })
+    ipcRenderer.send("synth", {
+      type: "midi",
+      payload: { events, timestamp: window.performance.now() }
+    })
   }
 }

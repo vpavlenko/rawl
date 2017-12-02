@@ -64,16 +64,25 @@ app.on("browser-window-created", (e, win) => {
   }
 })
 
-ipcMain.on("midi", (e, message) => {
+ipcMain.on("synth", (e, { type, payload }) => {
   if (!synthWindow) {
     return
   }
-  synthWindow.webContents.send("midi", message)
+  synthWindow.webContents.send(type, payload)
 })
 
-ipcMain.on("create-synth-window", () => {
+ipcMain.on("main", (e, { type, payload }) => {
+  if (!mainWindow) {
+    return
+  }
+  mainWindow.webContents.send(type, payload)
+})
+
+ipcMain.on("create-synth", () => {
   // シンセのウィンドウを作成済みでなければ作る
   if (synthWindow) {
+    // 作成済みなら終了時のメッセージをメインウィンドウに送る
+    mainWindow.webContents.send("did-create-synth-window")
     return
   }
   const url = `${baseUrl}#synth`
@@ -81,7 +90,8 @@ ipcMain.on("create-synth-window", () => {
     title: "synth",
     width: 375,
     height: 600,
-    frame: false
+    frame: false,
+    show: false
   })
   win.loadURL(url)
   win.webContents.openDevTools()

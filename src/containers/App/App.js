@@ -1,12 +1,11 @@
 import React from "react"
 import { Provider } from "mobx-react"
 
-import RootView from "../RootView/RootView"
+import RootView from "containers/RootView/RootView"
+import { bindKeyboardShortcut } from "services/KeyboardShortcut"
 
-import { bindKeyboardShortcut } from "../../services/KeyboardShortcut"
-
-import RootStore from "../../stores/RootStore"
-import Theme from "../../model/Theme"
+import RootStore from "stores/RootStore"
+import Theme from "model/Theme"
 
 import "./App.css"
 

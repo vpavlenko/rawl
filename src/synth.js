@@ -1,5 +1,4 @@
 import Synthesizer from "./submodules/sf2synth/src/sound_font_synth"
-import View from "./submodules/sf2synth/src/synth_view"
 import MidiMessageHandler from "./submodules/sf2synth/src/midi_message_handler"
 import Recorder from "./submodules/opus-recorder/src/recorder"
 
@@ -7,184 +6,137 @@ import "./synth.css"
 
 const fs = window.require("fs")
 const { ipcRenderer, remote } = window.require("electron")
-const { dialog } = remote
+const { app } = remote
 
-export default class SynthApp {
+class SynthController {
   eventsBuffer = []
-
   // 送信元とのタイムスタンプの差
   timestampOffset = 0
 
-  init() {
-    const handler = new MidiMessageHandler()
-    ipcRenderer.on("midi", (error, { events, timestamp }) => {
-      this.eventsBuffer = [...this.eventsBuffer, ...events]
-      this.timestampOffset = window.performance.now() - timestamp
-    })
+  handler = new MidiMessageHandler()
 
-    const url = "/soundfonts/msgs.sf2"
-    loadSoundFont(url, input => {
-      const ctx = new window.AudioContext()
-      const output = ctx.createGain()
-      output.connect(ctx.destination)
+  constructor() {
+    const ctx = new window.AudioContext()
+    const output = ctx.createGain()
+    output.connect(ctx.destination)
+    this.ctx = ctx
+    this.output = output
 
-      const synth = new Synthesizer(input, ctx)
-      synth.init()
-      synth.connect(output)
-      handler.synth = synth
+    this.synth = new Synthesizer(ctx)
+    this.synth.connect(output)
+    this.handler.synth = this.synth
 
-      const view = new View()
-      synth.view = view
-      document.body.classList.add("synth")
-      document.getElementById("root").appendChild(view.draw(synth))
-
-      addSoundFontButton(synth)
-      addRecorder(ctx, output)
-    })
-
-    const onTimer = () => {
-
-      // 再生時刻が現在より過去なら再生して削除
-      const eventsToSend = this.eventsBuffer.filter(({ message, timestamp }) => {
-        const delay = timestamp - window.performance.now() + this.timestampOffset
-        return delay <= 0
-      })
-
-      const allSoundOffChannels = eventsToSend
-        .filter(({ message }) => isMessageAllSoundOff(message))
-        .map(({ message }) => getMessageChannel(message))
-
-      // 再生するイベントと、all sound off を受信したチャンネルのイベントを削除する
-      this.eventsBuffer = this.eventsBuffer.filter(e => {
-        return !eventsToSend.includes(e) && !allSoundOffChannels.includes(getMessageChannel(e.message))
-      })
-
-      eventsToSend.forEach(({ message }) => handler.processMidiMessage(message))
-
-      requestAnimationFrame(onTimer)
-    }
-
-    onTimer()
+    this.setupRecorder()
+    this.startTimer()
   }
-}
 
-function addSoundFontButton(synth) {
-  document.getElementById("root").insertAdjacentHTML("beforeend", `<button id="open-soundfont">Open SoundFont</button>`)
+  setupRecorder() {
+    const recorder = new Recorder(this.ctx, {
+      numberOfChannels: 2,
+      encoderPath: "/libs/opus-recorder/waveWorker.min.js"
+    })
 
-  const button = document.querySelector("#open-soundfont")
-  button.addEventListener("click", () => {
-    dialog.showOpenDialog({
-      filters: [{
-        name: "Soundfont File",
-        extensions: ["sf2"]
-      }]
-    }, files => {
-      if (files) {
-        fs.readFile(files[0], (error, input) => {
-          if (!error) {
-            synth.refreshInstruments(input)
-          } else {
-            console.warn(error.message)
-          }
-        })
+    recorder.addEventListener("start", e => {
+      console.log('Recorder is started')
+    })
+    recorder.addEventListener("stop", e => {
+      console.log('Recorder is stopped')
+    })
+    recorder.addEventListener("pause", e => {
+      console.log('Recorder is paused')
+    })
+    recorder.addEventListener("resume", e => {
+      console.log('Recorder is resuming')
+    })
+    recorder.addEventListener("streamError", e => {
+      console.log('Error encountered: ' + e.error.name)
+    })
+    recorder.addEventListener("streamReady", e => {
+      console.log('Audio stream is ready.')
+    })
+    recorder.addEventListener("dataAvailable", e => {
+      const fileName = new Date().toISOString() + ".wav"
+      fs.writeFile(`${app.getAppPath()}/${fileName}`, e.detail, error => {
+        if (error) {
+          console.error(error)
+        }
+      })
+    })
+    this.recorder = recorder
+  }
+
+  startRecording() {
+    this.recorder.initStream(this.output)
+    this.recorder.start()
+  }
+
+  stopRecording() {
+    this.recorder.stop()
+  }
+
+  onMidi({ events, timestamp }) {
+    this.eventsBuffer = [...this.eventsBuffer, ...events]
+    this.timestampOffset = window.performance.now() - timestamp
+  }
+
+  loadSoundFont(path) {
+    fs.readFile(path, (error, input) => {
+      if (!error) {
+        this.synth.refreshInstruments(input)
+      } else {
+        console.warn(error.message)
       }
     })
-  })
-}
-
-function addRecorder(ctx, output) {
-  document.getElementById("root").insertAdjacentHTML("beforeend", `
-  <h2>Commands</h2>
-  <button id="init">init</button>
-  <button id="start" disabled>start</button>
-  <button id="pause" disabled>pause</button>
-  <button id="resume" disabled>resume</button>
-  <button id="stopButton" disabled>stop</button>
-
-  <h2>Recordings</h2>
-  <ul id="recordingslist"></ul>`)
-
-  const recorder = new Recorder(ctx, {
-    numberOfChannels: 2,
-    encoderPath: "/libs/opus-recorder/waveWorker.min.js"
-  })
-  const init = document.querySelector("#init")
-  const start = document.querySelector("#start")
-  const pause = document.querySelector("#pause")
-  const resume = document.querySelector("#resume")
-  const stopButton = document.querySelector("#stopButton")
-  const recordingslist = document.querySelector("#recordingslist")
-
-  init.addEventListener("click", () => initRecorder())
-  start.addEventListener("click", () => { recorder.start() })
-  pause.addEventListener("click", () => { recorder.pause() })
-  resume.addEventListener("click", () => { recorder.resume() })
-  stopButton.addEventListener("click", () => { recorder.stop() })
-
-  recorder.addEventListener("start", e => {
-    console.log('Recorder is started')
-    start.disabled = resume.disabled = true
-    pause.disabled = stopButton.disabled = false
-  })
-  recorder.addEventListener("stop", e => {
-    console.log('Recorder is stopped')
-    pause.disabled = resume.disabled = stopButton.disabled = start.disabled = true
-  })
-  recorder.addEventListener("pause", e => {
-    console.log('Recorder is paused')
-    pause.disabled = start.disabled = true
-    resume.disabled = stopButton.disabled = false
-  })
-  recorder.addEventListener("resume", e => {
-    console.log('Recorder is resuming')
-    start.disabled = resume.disabled = true
-    pause.disabled = stopButton.disabled = false
-  })
-  recorder.addEventListener("streamError", e => {
-    console.log('Error encountered: ' + e.error.name)
-  })
-  recorder.addEventListener("streamReady", e => {
-    pause.disabled = resume.disabled = stopButton.disabled = true
-    start.disabled = false
-    console.log('Audio stream is ready.')
-  })
-  recorder.addEventListener("dataAvailable", e => {
-    var dataBlob = new Blob([e.detail], { type: 'audio/wav' })
-    var fileName = new Date().toISOString() + ".wav"
-    var url = URL.createObjectURL(dataBlob)
-    var audio = document.createElement('audio')
-    audio.controls = true
-    audio.src = url
-    var link = document.createElement('a')
-    link.href = url
-    link.download = fileName
-    link.innerHTML = link.download
-    var li = document.createElement('li')
-    li.appendChild(link)
-    li.appendChild(audio)
-    recordingslist.appendChild(li)
-  })
-
-  function initRecorder() {
-    recorder.initStream(output)
   }
 
-  return recorder
+  startTimer() {
+    this.onTimer()
+  }
+
+  onTimer() {
+    // 再生時刻が現在より過去なら再生して削除
+    const eventsToSend = this.eventsBuffer.filter(({ message, timestamp }) => {
+      const delay = timestamp - window.performance.now() + this.timestampOffset
+      return delay <= 0
+    })
+
+    const allSoundOffChannels = eventsToSend
+      .filter(({ message }) => isMessageAllSoundOff(message))
+      .map(({ message }) => getMessageChannel(message))
+
+    // 再生するイベントと、all sound off を受信したチャンネルのイベントを削除する
+    this.eventsBuffer = this.eventsBuffer.filter(e => {
+      return !eventsToSend.includes(e) && !allSoundOffChannels.includes(getMessageChannel(e.message))
+    })
+
+    eventsToSend.forEach(({ message }) => this.handler.processMidiMessage(message))
+
+    requestAnimationFrame(() => this.onTimer())
+  }
 }
 
-function loadSoundFont(url, callback) {
-  const xhr = new XMLHttpRequest()
+export default class SynthApp {
+  init() {
+    const controller = new SynthController()
 
-  xhr.open("GET", url, true)
-  xhr.responseType = "arraybuffer"
+    ipcRenderer.on("midi", (sender, payload) => {
+      controller.onMidi(payload)
+    })
 
-  xhr.addEventListener("load", ev => {
-    /** @type {XMLHttpRequest} */
-    const xhr = ev.target
-    callback(new Uint8Array(xhr.response))
-  }, false)
+    ipcRenderer.on("load_soundfont", (sender, { path }) => {
+      controller.loadSoundFont(path)
+    })
 
-  xhr.send()
+    ipcRenderer.on("start_recording", () => {
+      controller.startRecording()
+    })
+
+    ipcRenderer.on("stop_recording", () => {
+      controller.stopRecording()
+    })
+
+    ipcRenderer.send("main", { type: "did-create-synth-window" })
+  }
 }
 
 /// メッセージがチャンネルイベントならチャンネルを、そうでなければ -1 を返す

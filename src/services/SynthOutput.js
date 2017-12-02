@@ -1,13 +1,31 @@
 const { ipcRenderer } = window.require("electron")
 
 export default class SynthOutput {
-  constructor() {
+  constructor(soundFontPath) {
     ipcRenderer.send("create-synth")
     ipcRenderer.on("did-create-synth-window", () => {
-      ipcRenderer.send("synth", {
-        type: "load_soundfont",
-        payload: { path: "U:\\SoundFont\\Banks\\msgs.sf2" }
-      })
+      if (soundFontPath) {
+        this.loadSoundFont(soundFontPath)
+      }
+    })
+  }
+
+  loadSoundFont(path) {
+    ipcRenderer.send("synth", {
+      type: "load_soundfont",
+      payload: { path }
+    })
+  }
+
+  startRecording() {
+    ipcRenderer.send("synth", {
+      type: "start_recording"
+    })
+  }
+
+  stopRecording() {
+    ipcRenderer.send("synth", {
+      type: "stop_recording"
     })
   }
 

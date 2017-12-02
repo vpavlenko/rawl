@@ -33,9 +33,10 @@ export default class RootStore {
   services = {}
 
   constructor() {
-    const player = new Player(TIME_BASE, new SynthOutput(), this.trackMute)
+    const synth = new SynthOutput(this.settingsStore.soundFontPath)
+    const player = new Player(TIME_BASE, synth, this.trackMute)
     const quantizer = new Quantizer(TIME_BASE)
-    this.services = { player, quantizer }
+    this.services = { player, quantizer, synth }
   }
 
   get dispatch() {

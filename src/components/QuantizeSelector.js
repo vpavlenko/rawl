@@ -47,7 +47,7 @@ export default function QuantizeSelector({ value, onSelect }) {
     </label>
     <select
       className="denominator-select"
-      value={value}
+      value={denominator}
       onChange={e => onSelect(calcQuantize(parseInt(e.target.value, 10), dot, triplet))}>
       {list.map(num =>
         <option key={num} value={num}>{num}</option>

@@ -22,6 +22,10 @@ import ArrangeToolbar from "./ArrangeToolbar"
 
 import "./ArrangeView.css"
 
+function NavItem({ title, onClick }) {
+  return <div className="NavItem" onClick={onClick}>{title}</div>
+}
+
 function ArrangeTrack({
   events,
   transform,
@@ -75,7 +79,8 @@ function ArrangeView({
   onSelectTrack,
   dispatch,
   size,
-  loop
+  loop,
+  pushSettings
 }) {
   scrollLeft = Math.floor(scrollLeft)
 
@@ -225,7 +230,11 @@ function ArrangeView({
   return <div
     className="ArrangeView"
   >
-    <NavigationBar title="Arrange" />
+    <NavigationBar title="Arrange">
+      <div className="menu">
+        <NavItem title="settings" onClick={pushSettings} />
+      </div>
+    </NavigationBar>
     <ArrangeToolbar />
     <div className="alpha">
       <div className="left">
@@ -362,14 +371,15 @@ function stateful(WrappedComponent) {
 }
 
 const mapStoreToProps = ({ rootStore: {
-  rootViewStore,
+  rootViewStore: { theme },
   song: { tracks, measureList, endOfSong },
   arrangeViewStore: s,
   services: { player, quantizer },
   playerStore: { loop },
+  router,
   dispatch
 } }) => ({
-    theme: rootViewStore.theme,
+    theme,
     tracks,
     beats: measureList.beats,
     endTick: endOfSong,
@@ -385,9 +395,10 @@ const mapStoreToProps = ({ rootStore: {
     selection: s.selection,
     dispatch,
     onSelectTrack: trackId => {
-      rootViewStore.isArrangeViewSelected = false
+      router.pushTrack()
       dispatch("SELECT_TRACK", { trackId })
     },
+    pushSettings: () => router.pushSettings(),
     loop
   })
 

@@ -4,10 +4,11 @@ import path from "path"
 import { observer, inject } from "mobx-react"
 import DevTools from "mobx-react-devtools"
 
-import TempoEditor from "../TempoEditor/TempoEditor"
-import ArrangeView from "../ArrangeView/ArrangeView"
-import TransportPanel from "../TransportPanel/TransportPanel"
-import PianoRollEditor from "../PianoRollEditor/PianoRollEditor"
+import TempoEditor from "containers/TempoEditor/TempoEditor"
+import ArrangeView from "containers/ArrangeView/ArrangeView"
+import TransportPanel from "containers/TransportPanel/TransportPanel"
+import PianoRollEditor from "containers/PianoRollEditor/PianoRollEditor"
+import SettingsView from "containers/SettingsView/SettingsView"
 
 import mainManu from "menus/mainMenu"
 
@@ -21,7 +22,7 @@ function RootView({
   player,
   song,
   dispatch,
-  isArrangeViewSelected,
+  routerPath,
 }) {
   const { selectedTrack } = song
 
@@ -30,19 +31,29 @@ function RootView({
 
   const fileName = path.basename(song.filepath.replace(/\\/g, "/"))
 
-  const content = isArrangeViewSelected ? <ArrangeView /> :
-    (selectedTrack.isConductorTrack ? <TempoEditor /> : <PianoRollEditor />)
+  function withTransporter(content) {
+    return [content, <TransportPanel />]
+  }
+
+  function router() {
+    switch (routerPath) {
+      case "/track": return selectedTrack.isConductorTrack ? withTransporter(<TempoEditor />) : withTransporter(<PianoRollEditor />)
+      case "/settings": return <SettingsView />
+      case "/arrange": /* fallthrough */
+      default:
+        return withTransporter(<ArrangeView />)
+    }
+  }
 
   return <div className="RootView">
     <Helmet><title>{`${song.name} (${fileName}) ― signal`}</title></Helmet>
-    {content}
-    <TransportPanel />
+    {router()}
     <DevTools />
   </div>
 }
 
-export default inject(({ rootStore: { pianoRollStore, rootViewStore, song, services: { player }, dispatch } }) => ({
-  isArrangeViewSelected: rootViewStore.isArrangeViewSelected,
+export default inject(({ rootStore: { pianoRollStore, router: { path }, song, services: { player }, dispatch } }) => ({
+  routerPath: path,
   song,
   player,
   dispatch

@@ -17,7 +17,7 @@ function TempoEditor({
   </div>
 }
 
-export default inject(({ rootStore: { song, rootViewStore } }) => ({
+export default inject(({ rootStore: { song, router } }) => ({
   track: song.conductorTrack,
-  onClickNavBack: () => rootViewStore.isArrangeViewSelected = true
+  onClickNavBack: () => router.pushArrange()
 }))(observer(TempoEditor))

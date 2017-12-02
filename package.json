@@ -26,6 +26,7 @@
   "homepage": "./",
   "dependencies": {
     "color": "^2.0.0",
+    "electron-json-storage": "^4.0.2",
     "eventemitter3": "^2.0.3",
     "file-dialog": "0.0.7",
     "flow-bin": "^0.59.0",

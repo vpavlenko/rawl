@@ -49,7 +49,7 @@ function PianoRollEditor({
   </div>
 }
 
-export default inject(({ rootStore: { song, rootViewStore, trackMute, dispatch } }) => {
+export default inject(({ rootStore: { song, router, trackMute, dispatch } }) => {
   const trackId = song.selectedTrackId
   return {
     track: song.selectedTrack,
@@ -57,7 +57,7 @@ export default inject(({ rootStore: { song, rootViewStore, trackMute, dispatch }
     onClickSolo: () => dispatch("TOGGLE_SOLO_TRACK", { trackId }),
     onChangeVolume: value => dispatch("SET_TRACK_VOLUME", { trackId, volume: value }),
     onChangePan: value => dispatch("SET_TRACK_PAN", { trackId, pan: value }),
-    onClickNavBack: () => rootViewStore.isArrangeViewSelected = true,
+    onClickNavBack: () => router.pushArrange(),
     mute: trackMute.isMuted(trackId),
     solo: trackMute.isSolo(trackId),
     volume: song.selectedTrack.volume,

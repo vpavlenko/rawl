@@ -1,9 +1,11 @@
 import { json } from "json-mobx"
 
 import Song from "./Song"
+import Router from "./Router"
 import TrackMute from "./TrackMute"
 import PlayerStore from "./PlayerStore"
 import HistoryStore from "./HistoryStore"
+import SettingsStore from "./SettingsStore"
 import RootViewStore from "./RootViewStore"
 import PianoRollStore from "./PianoRollStore"
 import ArrangeViewStore from "./ArrangeViewStore"
@@ -18,9 +20,11 @@ import createDispatcher from "../createDispatcher"
 
 export default class RootStore {
   song = Song.emptySong()
+  router = new Router()
   trackMute = new TrackMute()
   playerStore = new PlayerStore()
   historyStore = new HistoryStore()
+  settingsStore = new SettingsStore()
   rootViewStore = new RootViewStore()
   pianoRollStore = new PianoRollStore()
   arrangeViewStore = new ArrangeViewStore()

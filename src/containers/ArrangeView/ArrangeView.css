@@ -104,3 +104,21 @@
   left: 0;
   width: 100%;
 }
+
+.ArrangeView .NavigationBar .menu {
+  display: flex;
+  flex-grow: 1;
+}
+
+.ArrangeView .NavigationBar .NavItem {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  padding: 1em;
+  text-transform: uppercase;
+  font-size: 90%;
+}
+
+.ArrangeView .NavigationBar .NavItem:hover {
+  opacity: 0.5;
+}

@@ -84,6 +84,7 @@ export default class Song {
     const song = new Song()
     song.addTrack(Track.conductorTrack())
     song.addTrack(Track.emptyTrack(0))
+    song.name = "new song"
     song.filepath = "new song.mid"
     song.selectedTrackId = 1
     return song

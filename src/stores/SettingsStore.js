@@ -1,4 +1,4 @@
-import { observable, computed } from "mobx"
+import { observable, computed, action } from "mobx"
 const Store = window.require("electron-store")
 const storage = new Store()
 
@@ -14,5 +14,10 @@ export default class SettingsStore {
 
   @computed get soundFontPath() {
     return this._soundFontPath
+  }
+
+  @action clear() {
+    storage.clear()
+    this._soundFontPath = null
   }
 }

@@ -55,8 +55,9 @@ class SynthController {
       console.log('Audio stream is ready.')
     })
     recorder.addEventListener("dataAvailable", e => {
-      const fileName = new Date().toISOString() + ".wav"
-      fs.writeFile(`${app.getAppPath()}/${fileName}`, e.detail, error => {
+      const dateStr = (new Date().toISOString()).replace(/:/g, "-")
+      const filePath = `${app.getPath("desktop").replace(/\\/g, "/")}/${dateStr}.wav`
+      fs.writeFile(filePath, e.detail, error => {
         if (error) {
           console.error(error)
         }

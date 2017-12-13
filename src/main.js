@@ -101,3 +101,9 @@ ipcMain.on("create-synth", () => {
     synthWindow = null
   })
 })
+
+ipcMain.on("show-synth", () => {
+  if (synthWindow) {
+    synthWindow.show()
+  }
+})

@@ -33,7 +33,11 @@ export default class RootStore {
   services = {}
 
   constructor() {
-    const synth = new SynthOutput(this.settingsStore.soundFontPath)
+    const { soundFontPath } = this.settingsStore
+    if (!soundFontPath) {
+      alert("Please set SoundFont from setting screen")
+    }
+    const synth = new SynthOutput(soundFontPath)
     const player = new Player(TIME_BASE, synth, this.trackMute)
     const quantizer = new Quantizer(TIME_BASE)
     this.services = { player, quantizer, synth }

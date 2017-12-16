@@ -18,6 +18,8 @@ import "./RootView.css"
 const { remote } = window.require("electron")
 const { Menu } = remote
 
+const isDev = process.env.NODE_ENV !== "production"
+
 function RootView({
   player,
   song,
@@ -48,7 +50,7 @@ function RootView({
   return <div className="RootView">
     <Helmet><title>{`${song.name} (${fileName}) ― signal`}</title></Helmet>
     {router()}
-    <DevTools />
+    {isDev && <DevTools />}
   </div>
 }
 

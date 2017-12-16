@@ -35,3 +35,5 @@ jspm_packages
 
 static/bundle.js
 esdoc
+pkg
+build

@@ -1,20 +1,22 @@
-const electron = require("electron")
-const { app, BrowserWindow, ipcMain } = electron
+const { app, BrowserWindow, ipcMain } = require("electron")
 
-const { default: installExtension, REACT_DEVELOPER_TOOLS } = require("electron-devtools-installer")
+const isDev = /node_modules[\\/]electron[\\/]/.test(process.execPath)
+const baseUrl = process.env.ELECTRON_START_URL || `file://${__dirname}/index.html`
 
 let mainWindow
 
-const baseUrl = process.env.ELECTRON_START_URL || "http://localhost:3000"
-
 function installDevTools() {
+  const { default: installExtension, REACT_DEVELOPER_TOOLS } = require("electron-devtools-installer")
+
   installExtension(REACT_DEVELOPER_TOOLS)
     .then((name) => console.log(`Added Extension: ${name}`))
     .catch((err) => console.log('An error occurred: ', err));
 }
 
 function createWindow() {
-  installDevTools()
+  if (isDev) {
+    installDevTools()
+  }
 
   mainWindow = new BrowserWindow({ width: 800, height: 600 })
 

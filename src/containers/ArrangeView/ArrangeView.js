@@ -7,10 +7,11 @@ import PianoRuler from "containers/PianoRollEditor/PianoRoll/PianoRuler"
 import PianoCursor from "containers/PianoRollEditor/PianoRoll/PianoCursor"
 import PianoSelection from "containers/PianoRollEditor/PianoRoll/PianoSelection"
 
-import Stage from "components/Stage/Stage"
 import Icon from "components/Icon"
-import { VerticalScrollBar, HorizontalScrollBar, BAR_WIDTH } from "components/inputs/ScrollBar"
+import Stage from "components/Stage/Stage"
 import NavigationBar from "components/groups/NavigationBar"
+import { ContextMenu, MenuItem, createContextMenu } from "components/groups/ContextMenu"
+import { VerticalScrollBar, HorizontalScrollBar, BAR_WIDTH } from "components/inputs/ScrollBar"
 
 import NoteCoordTransform from "model/NoteCoordTransform"
 
@@ -18,8 +19,8 @@ import mapBeats from "helpers/mapBeats"
 import { pointSub, pointAdd } from "helpers/point"
 import filterEventsWithScroll from "helpers/filterEventsWithScroll"
 
-import ArrangeNoteItem from "./ArrangeNoteItem"
 import ArrangeToolbar from "./ArrangeToolbar"
+import ArrangeNoteItem from "./ArrangeNoteItem"
 
 import "./ArrangeView.css"
 
@@ -51,12 +52,24 @@ function ArrangeTrack({
 function TrackHeader({
   track: t,
   height,
-  onClick
+  onClick,
+  onClickDelete
 }) {
   const name = t.displayName || `Track ${t.channel}`
   const instrument = t.instrumentName
 
-  return <div className="TrackHeader" style={{ height }} onClick={onClick}>
+  return <div
+    className="TrackHeader"
+    style={{ height }}
+    onClick={onClick}
+    onContextMenu={!t.isConductorTrack && createContextMenu(close =>
+      <ContextMenu id="TrackListItem">
+        <MenuItem onClick={() => {
+          onClickDelete()
+          close()
+        }}>Delete Track</MenuItem>
+      </ContextMenu>
+    )}>
     <div className="name">{name}</div>
     <div className="instrument">{instrument}</div>
     <div className="mark"><Icon>chevron-right</Icon></div>
@@ -83,6 +96,7 @@ function ArrangeView({
   onScrollLeft,
   onScrollTop,
   onSelectTrack,
+  onClickDeleteTrack,
   onClickAddTrack,
   dispatch,
   size,
@@ -248,7 +262,12 @@ function ArrangeView({
         <div className="left-top-space" />
         <div className="headers" style={{ top: -scrollTop }}>
           {tracks.map((t, i) =>
-            <TrackHeader track={t} height={trackHeight} key={i} onClick={() => onSelectTrack(i)} />
+            <TrackHeader
+              track={t}
+              height={trackHeight}
+              key={i}
+              onClick={() => onSelectTrack(i)}
+              onClickDelete={() => onClickDeleteTrack(i)} />
           )}
         </div>
         <AddTrackButton onClick={onClickAddTrack} />
@@ -388,6 +407,10 @@ const mapStoreToProps = ({ rootStore: {
   dispatch
 } }) => ({
     theme,
+    player,
+    quantizer,
+    dispatch,
+    loop,
     tracks: tracks.toJS(),
     beats: measureList.beats,
     endTick: endOfSong,
@@ -395,13 +418,10 @@ const mapStoreToProps = ({ rootStore: {
     pixelsPerTick: 0.1 * s.scaleX,
     autoScroll: s.autoScroll,
     scrollLeft: s.scrollLeft,
-    setScrollLeft: v => s.scrollLeft = v,
     scrollTop: s.scrollTop,
-    setScrollTop: v => s.scrollTop = v,
-    player,
-    quantizer,
     selection: s.selection,
-    dispatch,
+    setScrollLeft: v => s.scrollLeft = v,
+    setScrollTop: v => s.scrollTop = v,
     onSelectTrack: trackId => {
       router.pushTrack()
       dispatch("SELECT_TRACK", { trackId })
@@ -409,8 +429,10 @@ const mapStoreToProps = ({ rootStore: {
     onClickAddTrack: () => {
       dispatch("ADD_TRACK")
     },
-    pushSettings: () => router.pushSettings(),
-    loop
+    onClickDeleteTrack: trackId => {
+      dispatch("REMOVE_TRACK", { trackId })
+    },
+    pushSettings: () => router.pushSettings()
   })
 
 export default sizeMe()(inject(mapStoreToProps)(observer(stateful(ArrangeView))))

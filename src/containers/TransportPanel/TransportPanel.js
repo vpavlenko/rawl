@@ -15,7 +15,9 @@ function TransportPanel({
   onClickForward,
   mbtTime,
   loopEnabled,
-  onClickEnableLoop
+  onClickEnableLoop,
+  tempo = 0,
+  onClickTempo
  }) {
   return <Toolbar className="TransportPanel">
     <ToolbarSeparator />
@@ -25,6 +27,12 @@ function TransportPanel({
     <ToolbarItem onClick={onClickPlay}><Icon>play</Icon></ToolbarItem>
     <ToolbarItem onClick={onClickForward}><Icon>skip-forward</Icon></ToolbarItem>
     <ToolbarItem onClick={onClickEnableLoop} selected={loopEnabled}><Icon>loop</Icon></ToolbarItem>
+
+    <ToolbarSeparator />
+
+    <ToolbarItem className="tempo-section" onClick={onClickTempo}>
+      <p className="tempo">{tempo.toFixed(2)}</p>
+    </ToolbarItem>
 
     <ToolbarSeparator />
 
@@ -52,8 +60,10 @@ class stateful extends Component {
   }
 
   onTick = tick => {
+    const { player, measureList } = this.props
     this.setState({
-      mbtTime: this.props.measureList.getMBTString(tick, this.props.player.timebase)
+      mbtTime: measureList.getMBTString(tick, player.timebase),
+      tempo: player.currentTempo,
     })
   }
 
@@ -66,6 +76,7 @@ export default inject(({ rootStore: {
   services: { player },
   song: { measureList },
   playerStore: { loop },
+  router,
   dispatch
 } }) => ({
     player,
@@ -75,5 +86,9 @@ export default inject(({ rootStore: {
     onClickStop: () => dispatch("STOP"),
     onClickBackward: () => dispatch("MOVE_PLAYER_POSITION", { tick: -TIME_BASE * 4 }),
     onClickForward: () => dispatch("MOVE_PLAYER_POSITION", { tick: TIME_BASE * 4 }),
-    onClickEnableLoop: () => dispatch("TOGGLE_ENABLE_LOOP")
+    onClickEnableLoop: () => dispatch("TOGGLE_ENABLE_LOOP"),
+    onClickTempo: () => {
+      dispatch("SELECT_TRACK", { trackId: 0 })
+      router.pushTrack()
+    },
   }))(observer(stateful))

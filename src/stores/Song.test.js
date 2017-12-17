@@ -1,9 +1,11 @@
 import assert from "assert"
 import fs from "fs"
 import path from "path"
+import { serialize, deserialize } from "serializr"
 
 import { read } from "../midi/MidiFileReader"
 import Song from "./Song"
+import Track from "./Track"
 
 describe("Song", () => {
   const midi = read(fs.readFileSync(path.join(__dirname, "../../testdata/tracks.mid")))
@@ -25,5 +27,15 @@ describe("Song", () => {
     assert.equal(tracks[2].volume, 100)
     assert.equal(tracks[2].pan, 1)
     assert.equal(tracks[2].programNumber, 29)
+  })
+
+  it("should be serializable", () => {
+    const song = new Song()
+    song.filepath = "abc"
+    song.addTrack(new Track())
+    const x = serialize(song)
+    const s = deserialize(Song, x)
+    assert.equal(s.filepath, "abc")
+    assert.equal(s.tracks.length, 1)
   })
 })

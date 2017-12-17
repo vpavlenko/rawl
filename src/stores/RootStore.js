@@ -1,5 +1,5 @@
 import { observable } from "mobx"
-import { json } from "json-mobx"
+import { serialize, deserialize } from "serializr"
 
 import Song from "./Song"
 import Router from "./Router"
@@ -49,17 +49,17 @@ export default class RootStore {
   }
 
   serializeUndoableState() {
-    return json.save(this.song)
+    return serialize(this.song)
   }
 
   restoreState(serializedState) {
-    console.log("load history", serializedState)
-    json.load(this.song, serializedState)
+    const song = deserialize(Song, serializedState)
+    song.onDeserialized()
+    this.song = song
   }
 
   pushHistory() {
     const state = this.serializeUndoableState()
-    console.log("add history", state)
     this.historyStore.push(state)
   }
 

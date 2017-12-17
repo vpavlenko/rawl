@@ -32,7 +32,6 @@
     "eventemitter3": "^2.0.3",
     "file-dialog": "0.0.7",
     "flow-bin": "^0.59.0",
-    "json-mobx": "^0.7.0",
     "lodash": "^4.11.1",
     "mdi": "^2.0.46",
     "mobx": "^3.3.1",
@@ -44,7 +43,8 @@
     "react-sizeme": "^2.3.6",
     "react-split-pane": "^0.1.66",
     "recompose": "^0.26.0",
-    "resize-observer-polyfill": "^1.4.2"
+    "resize-observer-polyfill": "^1.4.2",
+    "serializr": "^1.1.14"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^3.2.12",

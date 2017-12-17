@@ -1,5 +1,5 @@
 import { observable, autorun, computed, action } from "mobx"
-import { json } from "json-mobx"
+import { list, object, serializable } from "serializr"
 import _ from "lodash"
 
 import Track from "./Track"
@@ -8,13 +8,20 @@ import MeasureList from "../model/MeasureList"
 const END_MARGIN = 480 * 30
 
 export default class Song {
-  @json @observable.shallow tracks = json.arrayOf(Track)
-  @json @observable selectedTrackId = 0
-  @json @observable filepath = ""
+  @serializable(list(object(Track)))
+  @observable.shallow tracks = []
+
+  @serializable @observable selectedTrackId = 0
+  @serializable @observable filepath = ""
 
   _updateEndOfSong() {
     this._endOfSong = _.max(this.tracks.map(t => t.endOfTrack)) + END_MARGIN
     this._measureList = null
+  }
+
+  // デシリアライズ時に呼ぶこと
+  onDeserialized() {
+    this._updateEndOfSong()
   }
 
   disposer = null

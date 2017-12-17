@@ -1,5 +1,5 @@
 import { observable, action, transaction } from "mobx"
-import { json } from "json-mobx"
+import { list, map, primitive, serializable } from "serializr"
 import _ from "lodash"
 
 import {
@@ -18,10 +18,10 @@ function lastValue(arr, prop) {
 }
 
 export default class Track {
-  @json @observable.shallow events = []
-  @json @observable lastEventId = 0
-  @json @observable channel = undefined
-  @json @observable endOfTrack = 0
+  @serializable(list(map(primitive()))) @observable.shallow events = []
+  @serializable @observable lastEventId = 0
+  @serializable @observable channel = undefined
+  @serializable @observable endOfTrack = 0
 
   getEventById = (id) => _.find(this.events, e => e.id === id)
 

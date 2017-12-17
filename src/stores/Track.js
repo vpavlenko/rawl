@@ -260,10 +260,10 @@ export default class Track {
   static conductorTrack(name = "Conductor Track") {
     const track = new Track()
     track.addEvents([
-      new TrackNameMidiEvent(0, name),
-      new TimeSignatureMidiEvent(0, 4, 4, 24),
-      new SetTempoMidiEvent(0, 60000000 / 120),
-      new EndOfTrackMidiEvent(0)
+      TrackNameMidiEvent(0, name),
+      TimeSignatureMidiEvent(0, 4, 4, 24),
+      SetTempoMidiEvent(0, 60000000 / 120),
+      EndOfTrackMidiEvent(0)
     ])
     return track
   }
@@ -275,15 +275,15 @@ export default class Track {
     const track = new Track()
     track.channel = channel
     track.addEvents([
-      new ResetAllMidiEvent(1),
-      new TrackNameMidiEvent(1, ""),
-      new PanMidiEvent(1, 64),
-      new VolumeMidiEvent(1, 100),
-      new ExpressionMidiEvent(1, 127),
-      new PitchBendMidiEvent(1, 0x2000),
-      new ModulationMidiEvent(1, 0),
-      new ProgramChangeMidiEvent(1, 0),
-      new EndOfTrackMidiEvent(1)
+      ResetAllMidiEvent(1),
+      TrackNameMidiEvent(1, ""),
+      PanMidiEvent(1, 64),
+      VolumeMidiEvent(1, 100),
+      ExpressionMidiEvent(1, 127),
+      PitchBendMidiEvent(1, 0x2000),
+      ModulationMidiEvent(1, 0),
+      ProgramChangeMidiEvent(1, 0),
+      EndOfTrackMidiEvent(1)
     ])
     return track
   }

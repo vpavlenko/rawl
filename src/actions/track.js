@@ -34,8 +34,7 @@ export default (rootStore) => {
     },
     "CREATE_TEMPO": ({ tick, microsecondsPerBeat }) => {
       saveHistory()
-      const e = new SetTempoMidiEvent()
-      e.value = Math.round(microsecondsPerBeat)
+      const e = SetTempoMidiEvent(0, Math.round(microsecondsPerBeat))
       e.tick = quantizer.round(tick)
       song.conductorTrack.createOrUpdate(e)
     },
@@ -49,31 +48,31 @@ export default (rootStore) => {
     "CREATE_PITCH_BEND": ({ tick, value }) => {
       saveHistory()
       return createOrUpdate("subtype", "pitchBend", tick, "value", value, () =>
-        new PitchBendMidiEvent()
+        PitchBendMidiEvent()
       )
     },
     "CREATE_VOLUME": ({ tick, value }) => {
       saveHistory()
       return createOrUpdate("controllerType", 0x07, tick, "value", value, () =>
-        new VolumeMidiEvent()
+        VolumeMidiEvent()
       )
     },
     "CREATE_PAN": ({ tick, value }) => {
       saveHistory()
       return createOrUpdate("controllerType", 0x0a, tick, "value", value, () =>
-        new PanMidiEvent()
+        PanMidiEvent()
       )
     },
     "CREATE_MODULATION": ({ tick, value }) => {
       saveHistory()
       return createOrUpdate("controllerType", 0x01, tick, "value", value, () =>
-        new ModulationMidiEvent()
+        ModulationMidiEvent()
       )
     },
     "CREATE_EXPRESSION": ({ tick, value }) => {
       saveHistory()
       return createOrUpdate("controllerType", 0x0b, tick, "value", value, () =>
-        new ExpressionMidiEvent()
+        ExpressionMidiEvent()
       )
     },
     "REMOVE_EVENT": ({ eventId }) => {

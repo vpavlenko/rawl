@@ -1,6 +1,6 @@
 import assert from "assert"
 import { write } from "./MidiFileWriter"
-import Track from "../model/Track"
+import Track from "stores/Track"
 import {
   SetTempoMidiEvent,
   TimeSignatureMidiEvent,
@@ -14,18 +14,18 @@ describe("MidiFileWriter", () => {
     const tracks = []
     {
       const track = new Track
-      track.addEvent(new SetTempoMidiEvent(0, 60000000 / 120))
-      track.addEvent(new TrackNameMidiEvent(0, ""))
-      track.addEvent(new TimeSignatureMidiEvent(0, 4, 4, 24, 8))
-      track.addEvent(new EndOfTrackMidiEvent(0))
+      track.addEvent(SetTempoMidiEvent(0, 60000000 / 120))
+      track.addEvent(TrackNameMidiEvent(0, ""))
+      track.addEvent(TimeSignatureMidiEvent(0, 4, 4, 24, 8))
+      track.addEvent(EndOfTrackMidiEvent(0))
       tracks.push(track)
     }
 
     {
       const track = new Track
-      track.addEvent(new TrackNameMidiEvent(0, ""))
-      track.addEvent(new PortPrefixMidiEvent(0, 0))
-      track.addEvent(new EndOfTrackMidiEvent(480))
+      track.addEvent(TrackNameMidiEvent(0, ""))
+      track.addEvent(PortPrefixMidiEvent(0, 0))
+      track.addEvent(EndOfTrackMidiEvent(480))
       tracks.push(track)
     }
 

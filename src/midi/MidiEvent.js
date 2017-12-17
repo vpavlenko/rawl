@@ -1,176 +1,101 @@
-export class MidiEvent {
-  constructor(deltaTime, type) {
-    this.deltaTime = deltaTime
-    this.type = type
+export function MidiEvent(deltaTime, type) {
+  return {
+    deltaTime,
+    type
   }
 }
 
-export class MetaMidiEvent extends MidiEvent {
-  constructor(deltaTime, subtype, value) {
-    super(deltaTime, "meta")
-    this.subtype = subtype
-    this._value = value
-  }
-
-  get value() {
-    return this._value
-  }
-
-  set value(value) {
-    this._value = value
+export function MetaMidiEvent(deltaTime, subtype, value) {
+  return {
+    ...MidiEvent(deltaTime, "meta"),
+    subtype,
+    value
   }
 }
 
-export class EndOfTrackMidiEvent extends MetaMidiEvent {
-  constructor(deltaTime) {
-    super(deltaTime, "endOfTrack")
+export function EndOfTrackMidiEvent(deltaTime) {
+  return MetaMidiEvent(deltaTime, "endOfTrack")
+}
+
+export function PortPrefixMidiEvent(deltaTime, value) {
+  return {
+    ...MetaMidiEvent(deltaTime, "portPrefix", value),
+    port: value
   }
 }
 
-export class PortPrefixMidiEvent extends MetaMidiEvent {
-  constructor(deltaTime, value) {
-    super(deltaTime, "portPrefix", value)
-  }
-
-  get port() {
-    return this.value
+export function TextMetaMidiEvent(deltaTime, subtype, value) {
+  return {
+    ...MetaMidiEvent(deltaTime, subtype, value),
+    text: value
   }
 }
 
-export class TextMetaMidiEvent extends MetaMidiEvent {
-  static fromStream(deltaTime, subtype, stream, length) {
-    return new TextMetaMidiEvent(deltaTime, subtype, stream.read(length))
-  }
+export function TrackNameMidiEvent(deltaTime, text) {
+  return TextMetaMidiEvent(deltaTime, "trackName", text)
+}
 
-  get text() {
-    return this.value
+// from bpm: SetTempoMidiEvent(t, 60000000 / bpm)
+export function SetTempoMidiEvent(deltaTime, value) {
+  return {
+    ...MetaMidiEvent(deltaTime, "setTempo", value),
+    microsecondsPerBeat: value
   }
 }
 
-export class TrackNameMidiEvent extends TextMetaMidiEvent {
-  constructor(deltaTime, text) {
-    super(deltaTime, "trackName", text)
-  }
-}
-
-export class ByteMetaMidiEvent extends MetaMidiEvent {
-  static fromStream(deltaTime, subtype, stream, length) {
-    return new ByteMetaMidiEvent(deltaTime, subtype, stream.read(length))
-  }
-}
-
-export class Int16MetaMidiEvent extends MetaMidiEvent {
-  static fromStream(deltaTime, subtype, stream) {
-    return new Int16MetaMidiEvent(deltaTime, subtype, stream.readInt16())
-  }
-}
-
-export class Int8MetaMidiEvent extends MetaMidiEvent {
-  static fromStream(deltaTime, subtype, stream) {
-    return new Int8MetaMidiEvent(deltaTime, subtype, stream.readInt8())
-  }
-}
-
-// from bpm: new SetTempoMidiEvent(t, 60000000 / bpm)
-export class SetTempoMidiEvent extends MetaMidiEvent {
-  constructor(deltaTime, microsecondsPerBeat) {
-    super(deltaTime, "setTempo", microsecondsPerBeat)
-    this.microsecondsPerBeat = microsecondsPerBeat
-  }
-
-  get value() {
-    return this._value
-  }
-
-  set value(value) {
-    this._value = value
-    this.microsecondsPerBeat = value
-  }
-
-  static fromStream(deltaTime, stream) {
-    return new SetTempoMidiEvent(deltaTime,
-      (stream.readInt8() << 16) +
-      (stream.readInt8() << 8) +
-      stream.readInt8()
-    )
-  }
-}
-
-export class TimeSignatureMidiEvent extends MetaMidiEvent {
-  constructor(deltaTime, numerator, denominator, metronome, thirtyseconds = 8) {
-    super(deltaTime, "timeSignature", `${numerator}/${denominator}`)
-    this.numerator = numerator
-    this.denominator = denominator
-    this.metronome = metronome
-    this.thirtyseconds = thirtyseconds
-  }
-
-  static fromStream(deltaTime, stream) {
-    return new TimeSignatureMidiEvent(deltaTime,
-      stream.readInt8(),
-      Math.pow(2, stream.readInt8()),
-      stream.readInt8(),
-      stream.readInt8())
+export function TimeSignatureMidiEvent(deltaTime, numerator, denominator, metronome, thirtyseconds) {
+  return {
+    ...MetaMidiEvent(deltaTime, "timeSignature", `${numerator}/${denominator}`),
+    numerator,
+    denominator,
+    metronome,
+    thirtyseconds
   }
 }
 
 // channel events
 
-export class ChannelMidiEvent extends MidiEvent {
-  constructor(deltaTime, subtype, value) {
-    super(deltaTime, "channel")
-    this.subtype = subtype
-    this.value = value
+export function ChannelMidiEvent(deltaTime, subtype, value) {
+  return {
+    ...MidiEvent(deltaTime, "channel"),
+    subtype,
+    value
   }
 }
 
-export class PitchBendMidiEvent extends ChannelMidiEvent {
-  constructor(deltaTime, value) {
-    super(deltaTime, "pitchBend", value)
-  }
+export function PitchBendMidiEvent(deltaTime, value) {
+  return ChannelMidiEvent(deltaTime, "pitchBend", value)
 }
 
-export class ProgramChangeMidiEvent extends ChannelMidiEvent {
-  constructor(deltaTime, value) {
-    super(deltaTime, "programChange", value)
-  }
+export function ProgramChangeMidiEvent(deltaTime, value) {
+  return ChannelMidiEvent(deltaTime, "programChange", value)
 }
 
 // controller events
 
-export class ControllerMidiEvent extends ChannelMidiEvent {
-  constructor(deltaTime, controllerType, value) {
-    super(deltaTime, "controller", value)
-    this.controllerType = controllerType
+export function ControllerMidiEvent(deltaTime, controllerType) {
+  return {
+    ...ChannelMidiEvent(deltaTime, "controller", controllerType),
+    controllerType
   }
 }
 
-export class ModulationMidiEvent extends ControllerMidiEvent {
-  constructor(deltaTime, value) {
-    super(deltaTime, 0x01, value)
-  }
+export function ModulationMidiEvent(deltaTime, value) {
+  return ControllerMidiEvent(deltaTime, 0x01, value)
 }
 
-export class VolumeMidiEvent extends ControllerMidiEvent {
-  constructor(deltaTime, value) {
-    super(deltaTime, 0x07, value)
-  }
+export function VolumeMidiEvent(deltaTime, value) {
+  return ControllerMidiEvent(deltaTime, 0x07, value)
 }
 
-export class PanMidiEvent extends ControllerMidiEvent {
-  constructor(deltaTime, value) {
-    super(deltaTime, 0x0a, value)
-  }
+export function PanMidiEvent(deltaTime, value) {
+  return ControllerMidiEvent(deltaTime, 0x0a, value)
 }
 
-export class ExpressionMidiEvent extends ControllerMidiEvent {
-  constructor(deltaTime, value) {
-    super(deltaTime, 0x0b, value)
-  }
+export function ExpressionMidiEvent(deltaTime, value) {
+  return ControllerMidiEvent(deltaTime, 0x0b, value)
 }
 
-export class ResetAllMidiEvent extends ControllerMidiEvent {
-  constructor(deltaTime) {
-    super(deltaTime, 121, 0)
-  }
+export function ResetAllMidiEvent(deltaTime) {
+  return ControllerMidiEvent(deltaTime, 121, 0)
 }

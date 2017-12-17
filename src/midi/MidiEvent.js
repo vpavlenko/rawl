@@ -73,9 +73,9 @@ export function ProgramChangeMidiEvent(deltaTime, value) {
 
 // controller events
 
-export function ControllerMidiEvent(deltaTime, controllerType) {
+export function ControllerMidiEvent(deltaTime, controllerType, value) {
   return {
-    ...ChannelMidiEvent(deltaTime, "controller", controllerType),
+    ...ChannelMidiEvent(deltaTime, "controller", value),
     controllerType
   }
 }

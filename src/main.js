@@ -14,16 +14,8 @@ function installDevTools() {
 }
 
 function createWindow() {
-  if (isDev) {
-    installDevTools()
-  }
-
   mainWindow = new BrowserWindow({ width: 800, height: 600 })
-
   mainWindow.loadURL(baseUrl)
-
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools()
 
   mainWindow.on("closed", function () {
     // Dereference the window object, usually you would store windows
@@ -31,6 +23,11 @@ function createWindow() {
     // when you should delete the corresponding element.
     mainWindow = null
   })
+
+  if (isDev) {
+    installDevTools()
+    mainWindow.webContents.openDevTools()
+  }
 }
 
 app.commandLine.appendSwitch("disable-renderer-backgrounding")

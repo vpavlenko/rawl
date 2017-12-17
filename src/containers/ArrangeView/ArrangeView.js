@@ -8,6 +8,7 @@ import PianoCursor from "containers/PianoRollEditor/PianoRoll/PianoCursor"
 import PianoSelection from "containers/PianoRollEditor/PianoRoll/PianoSelection"
 
 import Stage from "components/Stage/Stage"
+import Icon from "components/Icon"
 import { VerticalScrollBar, HorizontalScrollBar, BAR_WIDTH } from "components/inputs/ScrollBar"
 import NavigationBar from "components/groups/NavigationBar"
 
@@ -58,7 +59,12 @@ function TrackHeader({
   return <div className="TrackHeader" style={{ height }} onClick={onClick}>
     <div className="name">{name}</div>
     <div className="instrument">{instrument}</div>
+    <div className="mark"><Icon>chevron-right</Icon></div>
   </div>
+}
+
+function AddTrackButton({ onClick }) {
+  return <div className="AddTrackButton" onClick={onClick}><Icon>plus</Icon>Add Track</div>
 }
 
 function ArrangeView({
@@ -77,6 +83,7 @@ function ArrangeView({
   onScrollLeft,
   onScrollTop,
   onSelectTrack,
+  onClickAddTrack,
   dispatch,
   size,
   loop,
@@ -244,6 +251,7 @@ function ArrangeView({
             <TrackHeader track={t} height={trackHeight} key={i} onClick={() => onSelectTrack(i)} />
           )}
         </div>
+        <AddTrackButton onClick={onClickAddTrack} />
       </div>
       <div
         className="right"
@@ -380,7 +388,7 @@ const mapStoreToProps = ({ rootStore: {
   dispatch
 } }) => ({
     theme,
-    tracks,
+    tracks: tracks.toJS(),
     beats: measureList.beats,
     endTick: endOfSong,
     keyHeight: 0.3,
@@ -397,6 +405,9 @@ const mapStoreToProps = ({ rootStore: {
     onSelectTrack: trackId => {
       router.pushTrack()
       dispatch("SELECT_TRACK", { trackId })
+    },
+    onClickAddTrack: () => {
+      dispatch("ADD_TRACK")
     },
     pushSettings: () => router.pushSettings(),
     loop

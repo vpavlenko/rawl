@@ -11,6 +11,7 @@
   display: flex;
   flex-direction: row;
   position: relative;
+  background: var(--secondary-background-color);
 }
 
 .ArrangeTrack {
@@ -52,7 +53,6 @@
 
 .ArrangeView .left {
   width: 14em;
-  background: var(--secondary-background-color);
   box-sizing: border-box;
   position: relative;
   z-index: 11;
@@ -64,7 +64,6 @@
   margin-top: var(--ruler-height);
   width: 100%;
   height: 100%;
-  background: var(--secondary-background-color);
 }
 
 .ArrangeView .headers {
@@ -78,6 +77,7 @@
   box-sizing: border-box;
   border-bottom: 1px solid var(--divider-color);
   background: var(--background-color);
+  position: relative;
 }
 
 .ArrangeView .TrackHeader:hover {
@@ -121,4 +121,38 @@
 
 .ArrangeView .NavigationBar .NavItem:hover {
   opacity: 0.5;
+}
+
+.ArrangeView .AddTrackButton {
+  padding: 0.5em 0.75em;
+  border-top: 1px solid var(--divider-color);
+  border-bottom: 1px solid var(--divider-color);
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  box-sizing: border-box;
+  background: var(--background-color);
+}
+
+.ArrangeView .AddTrackButton:hover {
+  background: var(--secondary-background-color);
+}
+
+.ArrangeView .AddTrackButton .Icon {
+  margin-right: 0.5em;
+}
+
+.ArrangeView .TrackHeader .mark {
+  position: absolute;
+  right: 1em;
+  top: 0.8em;
+  background: var(--secondary-background-color);
+  border-radius: 100px;
+  width: 1.25em;
+  height: 1.25em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--secondary-text-color);
+  font-size: 110%;
 }

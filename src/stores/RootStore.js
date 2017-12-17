@@ -52,21 +52,24 @@ export default class RootStore {
   }
 
   restoreState(serializedState) {
+    console.log("load history", serializedState)
     json.load(this.song, serializedState)
   }
 
   pushHistory() {
-    this.historyStore.push(this.serializeUndoableState())
+    const state = this.serializeUndoableState()
+    console.log("add history", state)
+    this.historyStore.push(state)
   }
 
   undo() {
-    const currentState = json.save(this.serializeUndoableState())
+    const currentState = this.serializeUndoableState()
     const nextState = this.historyStore.undo(currentState)
     this.restoreState(nextState)
   }
 
   redo() {
-    const currentState = json.save(this.serializeUndoableState())
+    const currentState = this.serializeUndoableState()
     const nextState = this.historyStore.redo(currentState)
     this.restoreState(nextState)
   }

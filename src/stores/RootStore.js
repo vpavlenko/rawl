@@ -1,3 +1,4 @@
+import { observable } from "mobx"
 import { json } from "json-mobx"
 
 import Song from "./Song"
@@ -19,7 +20,7 @@ import { TIME_BASE } from "../Constants"
 import createDispatcher from "../createDispatcher"
 
 export default class RootStore {
-  song = Song.emptySong()
+  @observable.ref song = Song.emptySong()
   router = new Router()
   trackMute = new TrackMute()
   playerStore = new PlayerStore()
@@ -65,7 +66,9 @@ export default class RootStore {
   undo() {
     const currentState = this.serializeUndoableState()
     const nextState = this.historyStore.undo(currentState)
-    this.restoreState(nextState)
+    if (nextState) {
+      this.restoreState(nextState)
+    }
   }
 
   redo() {

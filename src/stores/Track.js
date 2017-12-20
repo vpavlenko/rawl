@@ -12,13 +12,15 @@ import {
 } from "../midi/MidiEvent"
 import { getInstrumentName } from "../midi/GM"
 
+import orArrayOf from "helpers/orArrayOf"
+
 function lastValue(arr, prop) {
   const last = _.last(arr)
   return last && last[prop]
 }
 
 export default class Track {
-  @serializable(list(map(primitive()))) @observable.shallow events = []
+  @serializable(list(map(orArrayOf(primitive())))) @observable.shallow events = []
   @serializable @observable lastEventId = 0
   @serializable @observable channel = undefined
   @serializable @observable endOfTrack = 0

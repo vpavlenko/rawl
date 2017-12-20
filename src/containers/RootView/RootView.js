@@ -1,4 +1,4 @@
-import React from "react"
+import React, { Fragment } from "react"
 import { Helmet } from "react-helmet"
 import path from "path"
 import { observer, inject } from "mobx-react"
@@ -34,7 +34,7 @@ function RootView({
   const fileName = path.basename(song.filepath.replace(/\\/g, "/"))
 
   function withTransporter(content) {
-    return [content, <TransportPanel />]
+    return <Fragment>{content}<TransportPanel /></Fragment>
   }
 
   function router() {

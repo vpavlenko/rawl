@@ -62,14 +62,14 @@ function TrackHeader({
     className="TrackHeader"
     style={{ height }}
     onClick={onClick}
-    onContextMenu={!t.isConductorTrack && createContextMenu(close =>
+    onContextMenu={!t.isConductorTrack ? createContextMenu(close =>
       <ContextMenu id="TrackListItem">
         <MenuItem onClick={() => {
           onClickDelete()
           close()
         }}>Delete Track</MenuItem>
       </ContextMenu>
-    )}>
+    ) : undefined}>
     <div className="name">{name}</div>
     <div className="instrument">{instrument}</div>
     <div className="mark"><Icon>chevron-right</Icon></div>

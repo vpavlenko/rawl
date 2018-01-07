@@ -5,7 +5,7 @@ import assert from "assert"
 import MIDIControlEvents from "constants/MIDIControlEvents"
 import MIDIChannelEvents from "constants/MIDIChannelEvents"
 import { eventToBytes } from "helpers/midiHelper"
-import { deassemble } from "helpers/noteAssembler"
+import { toRawEvents } from "helpers/eventAssembler"
 
 import EventScheduler from "./EventScheduler"
 
@@ -17,7 +17,7 @@ function collectAllEvents(song) {
   return _.chain(song.tracks)
     .map(t => t.events.toJS())
     .flatten()
-    .map(deassemble)
+    .map(toRawEvents)
     .flatten()
     .value()
 }

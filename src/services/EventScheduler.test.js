@@ -28,9 +28,9 @@ describe("EventScheduler", () => {
       const result = s.readNextEvents(120, 120)
       assert.equal(result.length, 2)
       assert.equal(result[0].event, events[1])
-      assert.equal(result[0].timestamp, 0)
+      assert.equal(result[0].timestamp, 120)
       assert.equal(result[1].event, events[2])
-      assert.equal(result[1].timestamp, 0)
+      assert.equal(result[1].timestamp, 120)
     }
   })
 })

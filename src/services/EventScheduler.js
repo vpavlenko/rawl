@@ -12,7 +12,7 @@ export default class EventScheduler {
 
   _currentTick = 0
   _scheduledTick = 0
-  _prevTime = 0
+  _prevTime = undefined
 
   constructor(events = [], tick = 0, timebase = 480, lookAheadTime = 100) {
     this._events = events
@@ -38,7 +38,7 @@ export default class EventScheduler {
   }
 
   readNextEvents(bpm, timestamp) {
-    if (this._prevTime === 0) {
+    if (this._prevTime === undefined) {
       this._prevTime = timestamp
     }
     const delta = timestamp - this._prevTime
@@ -60,7 +60,7 @@ export default class EventScheduler {
       .filter(e => e && e.tick >= startTick && e.tick < endTick)
       .map(e => {
         const waitTick = e.tick - nowTick
-        const delayedTime = timestamp + this.tickToMillisec(waitTick, bpm)
+        const delayedTime = timestamp + Math.max(0, this.tickToMillisec(waitTick, bpm))
         return { event: e, timestamp: delayedTime }
       })
   }

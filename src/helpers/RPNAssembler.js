@@ -1,3 +1,5 @@
+import { ControlChangeEvents } from "midi/MidiEvent"
+
 /**
 
 RPN コントローラーイベントをひとつのイベントオブジェクトとしてまとめる
@@ -8,70 +10,58 @@ RPN は種類、値を表す2～4つのイベントからなるが、
 
 */
 export function assemble(events) {
-  let rpnMSB, rpnLSB, dataMSB, dataLSB
   const result = []
 
-  // 現在の RPN の種類を確かめる
-  function test(m, l) {
-    if (!rpnMSB || !rpnLSB) {
-      console.log("RPN indicator is not specified")
-      return false
-    }
-    return rpnMSB.value === m && rpnLSB.value === l
-  }
-
-  // ひとつにまとめた RPN イベントを作成し、状態をリセットする
-  function createRPN(type) {
-    result.push({
+  // ひとつにまとめた RPN イベントを作成する
+  function createCC(rpnMSB, rpnLSB, dataMSB, dataLSB) {
+    return {
       channel: rpnMSB.channel,
       type: "channel",
-      subtype: "RPN",
-      rpnType: type,
+      subtype: "rpn",
       tick: rpnMSB.tick,
-      rpnMSBValue: rpnMSB.value,
-      rpnLSBValue: rpnLSB.value,
-      dataMSBValue: dataMSB && dataMSB.value,
-      dataLSBValue: dataLSB && dataLSB.value
-    })
-    rpnMSB = rpnLSB = dataMSB = dataLSB = undefined
+      deltaTime: rpnMSB.deltaTime,
+      rpnMSB: rpnMSB.value,
+      rpnLSB: rpnLSB.value,
+      dataMSB: dataMSB ? dataMSB.value : undefined,
+      dataLSB: dataLSB ? dataLSB.value : undefined
+    }
   }
 
-  for (let e of events) {
-    if (e.subtype !== "controller") {
-      result.push(e)
-      continue
-    }
-    switch(e.controllerType) {
-      case 101: // RPN MSB
-      rpnMSB = e
-      break
-      case 100: // RPN LSB
-      rpnLSB = e
-      if (test(127, 127)) {
-        createRPN("null")
+  function isCC(e, type) { return e && e.subtype === "controller" && e.controllerType === type }
+  function isRPNMSB(e) { return isCC(e, 101) }
+  function isRPNLSB(e) { return isCC(e, 100) }
+  function isDataMSB(e) { return isCC(e, 6) }
+  function isDataLSB(e) { return isCC(e, 38) }
+
+  for (let i = 0; i < events.length; i++) {
+    const e = events[i]
+    if (isRPNMSB(e)) {
+      const j = i
+      const data = [e]
+      function add(event, test) {
+        if (test(event)) {
+          data.push(event)
+          i++ // skip this event
+        }
       }
-      break
-      case 6: // Data MSB
-      dataMSB = e
-      if (test(0, 0)) {
-        createRPN("pitchbend sensitivity")
-      } else if (test(0, 2)) {
-        createRPN("master coarse tuning")
-      }
-      break
-      case 38: // Data LSB
-      dataLSB = e
-      if (test(0, 1)) {
-        createRPN("master fine sensitivity")
-      }
-      break
-      default:
+      add(events[j + 1], isRPNLSB)
+      add(events[j + 2], isDataMSB)
+      add(events[j + 3], isDataLSB)
+      result.push(createCC(...data))
+    } else {
       result.push(e)
     }
   }
   return result
 }
 
-export function deassemble(events) {
-  // TODO: 実装
+export function deassemble(e) {
+  if (e.subtype === "rpn") {
+    return ControlChangeEvents(e.deltaTime, e.rpnMSB, e.rpnLSB, e.dataMSB, e.dataLSB).map(c => ({
+      ...c,
+      channel: e.channel,
+      tick: e.tick
+    }))
+  }
+  return [e]
 }

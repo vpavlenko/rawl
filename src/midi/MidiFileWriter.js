@@ -4,7 +4,7 @@ import {
   eventToBytes,
   strToCharCodes
 } from "../helpers/midiHelper"
-import { deassemble } from "../helpers/noteAssembler"
+import { toRawEvents } from "../helpers/eventAssembler"
 
 //https://sites.google.com/site/yyagisite/material/smfspec#format
 
@@ -73,7 +73,8 @@ export function write(tracks, ticksPerBeat = 480) {
   // track chunk
   for (const track of tracks) {
     buf.writeChunk("MTrk", it => {
-      let events = addDeltaTime(_.flatten(track.events.map(deassemble)))
+      const rawEvents = _.flatten(track.events.map(toRawEvents))
+      const events = addDeltaTime(rawEvents)
       for (const event of events) {
         it.writeBytes(eventToBytes(event))
       }

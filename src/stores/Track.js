@@ -2,13 +2,18 @@ import { observable, action, transaction } from "mobx"
 import { list, map, primitive, serializable } from "serializr"
 import _ from "lodash"
 
+import { toTrackEvents } from "../helpers/eventAssembler"
+
 import {
   TrackNameMidiEvent, EndOfTrackMidiEvent,
   TimeSignatureMidiEvent, SetTempoMidiEvent,
   PitchBendMidiEvent, VolumeMidiEvent,
   PanMidiEvent, ExpressionMidiEvent,
   ModulationMidiEvent, ProgramChangeMidiEvent,
-  ResetAllMidiEvent
+  ResetAllMidiEvent,
+  MasterCoarceTuningEvents,
+  MasterFineTuningEvents,
+  PitchbendSensitivityEvents,
 } from "../midi/MidiEvent"
 import { getInstrumentName } from "../midi/GM"
 
@@ -263,7 +268,7 @@ export default class Track {
     const track = new Track()
     track.addEvents([
       TrackNameMidiEvent(0, name),
-      TimeSignatureMidiEvent(0, 4, 4, 24),
+      TimeSignatureMidiEvent(0),
       SetTempoMidiEvent(0, 60000000 / 120),
       EndOfTrackMidiEvent(0)
     ])
@@ -276,17 +281,21 @@ export default class Track {
     }
     const track = new Track()
     track.channel = channel
-    track.addEvents([
+    const events = toTrackEvents([
       ResetAllMidiEvent(1),
       TrackNameMidiEvent(1, ""),
       PanMidiEvent(1, 64),
       VolumeMidiEvent(1, 100),
       ExpressionMidiEvent(1, 127),
+      ...MasterCoarceTuningEvents(1),
+      ...MasterFineTuningEvents(1),
+      ...PitchbendSensitivityEvents(1, 12),
       PitchBendMidiEvent(1, 0x2000),
       ModulationMidiEvent(1, 0),
       ProgramChangeMidiEvent(1, 0),
       EndOfTrackMidiEvent(1)
     ])
+    track.addEvents(events)
     return track
   }
 }

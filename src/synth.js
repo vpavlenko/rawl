@@ -1,5 +1,4 @@
-import Synthesizer from "./submodules/sf2synth/src/sound_font_synth"
-import MidiMessageHandler from "./submodules/sf2synth/src/midi_message_handler"
+import { Synthesizer, MidiMessageHandler } from "./submodules/sf2synth/bin/sf2.synth.esm.js"
 import Recorder from "./submodules/opus-recorder/src/recorder"
 
 import "./synth.css"
@@ -24,7 +23,7 @@ class SynthController {
 
     this.synth = new Synthesizer(ctx)
     this.synth.connect(output)
-    this.handler.synth = this.synth
+    this.handler.listener = this.synth
 
     this.setupRecorder()
     this.startTimer()
@@ -83,7 +82,7 @@ class SynthController {
   loadSoundFont(path) {
     fs.readFile(path, (error, input) => {
       if (!error) {
-        this.synth.refreshInstruments(input)
+        this.synth.loadSoundFont(input)
       } else {
         console.warn(error.message)
       }

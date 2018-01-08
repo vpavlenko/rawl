@@ -93,7 +93,9 @@ ipcMain.on("create-synth", () => {
     show: false
   })
   win.loadURL(url)
-  win.webContents.openDevTools()
+  if (isDev) {
+    win.webContents.openDevTools()
+  }
 
   synthWindow = win
   win.on("closed", function () {

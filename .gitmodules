@@ -1,15 +1,6 @@
-[submodule "src/submodules/EaselJS-ScrollContainer"]
-	path = src/submodules/EaselJS-ScrollContainer
-	url = https://github.com/ryohey/EaselJS-ScrollContainer
-[submodule ".\\src\\submodules\\shinjuku"]
-	path = .\\src\\submodules\\shinjuku
-	url = https://github.com/ryohey/shinjuku.git
 [submodule "src/submodules/jasmid"]
 	path = src/submodules/jasmid
 	url = https://github.com/ryohey/jasmid.git
-[submodule "src\\submodules\\sf2synth"]
-	path = src\\submodules\\sf2synth
+[submodule "src/submodules/sf2synth"]
+	path = src/submodules/sf2synth
 	url = https://github.com/ryohey/sf2synth.js.git
-[submodule "src/submodules/opus-recorder"]
-	path = src/submodules/opus-recorder
-	url = https://github.com/ryohey/Recorderjs.git

@@ -1,0 +1,8 @@
+.Sidebar {
+  width: 16em;
+}
+
+.TrafficLightsSpace {
+  height: 38px;
+  -webkit-app-region: drag;
+}

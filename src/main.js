@@ -14,7 +14,12 @@ function installDevTools() {
 }
 
 function createWindow() {
-  mainWindow = new BrowserWindow({ width: 800, height: 600 })
+  mainWindow = new BrowserWindow({ 
+    width: 800, 
+    height: 600,
+    vibrancy: "light",
+    titleBarStyle: "hiddenInset"
+  })
   mainWindow.loadURL(baseUrl)
 
   mainWindow.on("closed", function () {

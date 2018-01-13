@@ -37,16 +37,6 @@
   background: rgba(0, 0, 0, 0.1);
 }
 
-.PianoRollEditor nav .controls .button.solo.active .Icon {
-  background: var(--yellow-color);
-  color: white;
-}
-
-.PianoRollEditor nav .controls .button.mute.active .Icon {
-  background: var(--red-color);
-  color: white;
-}
-
 .PianoRollEditor nav .controls .Slider {
   width: 8em;
 }

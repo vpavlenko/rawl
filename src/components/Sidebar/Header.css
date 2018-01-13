@@ -1,0 +1,10 @@
+.Sidebar .Header .title {
+  text-transform: uppercase;
+  color: var(--secondary-text-color);
+  font-weight: bold;
+  font-size: 90%;
+}
+
+.Sidebar .Header {
+  padding: 0.5em 1em;
+}

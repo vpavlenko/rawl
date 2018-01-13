@@ -16,8 +16,6 @@ function PianoRollEditor({
   track,
   mute,
   onClickMute,
-  solo,
-  onClickSolo,
   volume,
   onChangeVolume,
   pan,
@@ -29,8 +27,6 @@ function PianoRollEditor({
     <NavigationBar title={track.displayName} onClickBack={onClickNavBack}>
       <div className="controls">
         <div className="button instrument" onClick={onClickInstrument}><Icon>piano</Icon>{track.instrumentName}</div>
-        <div className={`button solo ${solo ? "active" : ""}`} onClick={onClickSolo}><Icon>headphones</Icon><label>solo</label></div>
-        <div className={`button mute ${mute ? "active" : ""}`} onClick={onClickMute}><Icon>{mute ? "volume-off" : "volume-high"}</Icon><label>mute</label></div>
         <Slider
           onChange={e => onChangeVolume(e.target.value)}
           maxValue={127}
@@ -53,13 +49,9 @@ export default inject(({ rootStore: { song, router, trackMute, dispatch } }) => 
   const trackId = song.selectedTrackId
   return {
     track: song.selectedTrack,
-    onClickMute: () => dispatch("TOGGLE_MUTE_TRACK", { trackId }),
-    onClickSolo: () => dispatch("TOGGLE_SOLO_TRACK", { trackId }),
     onChangeVolume: value => dispatch("SET_TRACK_VOLUME", { trackId, volume: value }),
     onChangePan: value => dispatch("SET_TRACK_PAN", { trackId, pan: value }),
     onClickNavBack: () => router.pushArrange(),
-    mute: trackMute.isMuted(trackId),
-    solo: trackMute.isSolo(trackId),
     volume: song.selectedTrack.volume,
     pan: song.selectedTrack.pan,
     onClickInstrument: () => showInstrumentBrowser(song, trackId, dispatch)

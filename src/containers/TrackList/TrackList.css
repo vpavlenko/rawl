@@ -1,25 +1,15 @@
 .TrackList {
   display: flex;
   flex-direction: column;
-  height: 100%;
   overflow-y: auto;
-  background: var(--tertiary-background-color);
   padding: 0;
 }
 
-.TrackListItem,
-.TempoTrackItem,
-.ArrangeViewButton {
+.TrackListItem {
   display: flex;
   flex-shrink: 0;
-  padding: 1em;
-  border-bottom: 1px solid var(--divider-color);
-}
-
-.TempoTrackItem,
-.ArrangeViewButton {
-  flex-direction: row;
-  align-items: center;
+  padding: 0.5em 1em;
+  height: 40px;
 }
 
 .TrackListItem {
@@ -32,16 +22,6 @@
 
 .TrackListItem .controls .Slider {
   flex-grow: 1;
-}
-
-.TrackList .add-track {
-  display: inline-block;
-  color: var(--secondary-text-color);
-  padding: 0.5em 1em;
-  margin: 1.5em auto;
-  cursor: pointer;
-  background: var(--secondary-background-color);
-  border-radius: 99px;
 }
 
 .TrackList .add-track:hover {
@@ -57,8 +37,8 @@
 
 .TrackListItem .label {
   display: flex;
-  flex-grow: 1;
-  padding-bottom: 0.5em;
+  padding-bottom: 0.3em;
+  font-size: 105%;
   align-items: baseline;
 }
 
@@ -71,15 +51,15 @@
 .TrackListItem .label .instrument {
   opacity: 0.5;
   font-size: 90%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .TrackListItem .button {
-  padding: 0.3em 0.5em;
-  box-sizing: border-box;
-  text-align: center;
-  border-radius: 99px;
-  background: var(--secondary-background-color);
-  font-size: 110%;
+  font-size: 120%;
+  margin-right: 0.5em;
+  color: var(--secondary-text-color);
 }
 
 .TrackListItem .button,
@@ -87,53 +67,14 @@
   margin-right: 0.5em;
 }
 
-.TrackListItem.selected,
-.TempoTrackItem.selected,
-.ArrangeViewButton.selected {
-  background: rgba(255, 255, 255, 1);
+.TrackListItem.selected {
+  background: rgba(0, 0, 0, 0.03);
 }
 
-.TrackListItem.selected:hover,
-.TempoTrackItem.selected:hover,
-.ArrangeViewButton.selected:hover {
-  background: rgba(255, 255, 255, 1);
+.TrackListItem.selected .name {
+  font-weight: 600;
 }
 
-.TrackListItem:hover, 
-.TempoTrackItem:hover,
-.ArrangeViewButton:hover {
-  background: rgba(255, 255, 255, 0.28);
-}
-
-.TrackListItem:active, 
-.TempoTrackItem:active,
-.ArrangeViewButton:active {
-  background: rgba(255, 255, 255, 0.6);
-}
-
-.TempoTrackItem .NumberInput {
-  width: 6em;
-}
-
-.TempoTrackItem .name {
-  flex-grow: 1;
-}
-
-.TrackListItem .button.solo.active {
-    background: var(--yellow-color);
-    color: white;
-}
-
-.TrackListItem .button.mute.active {
-    background: var(--red-color);
-    color: white;
-}
-
-.ArrangeViewButton .Icon {
-  color: var(--secondary-text-color);
-  font-size: 120%;
-}
-
-.ArrangeViewButton .title {
-  padding-left: 0.5em;
+.TrackListItem .button.active {
+  color: var(--text-color);
 }

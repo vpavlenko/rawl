@@ -10,6 +10,8 @@ import TransportPanel from "containers/TransportPanel/TransportPanel"
 import PianoRollEditor from "containers/PianoRollEditor/PianoRollEditor"
 import SettingsView from "containers/SettingsView/SettingsView"
 
+import Sidebar from "components/Sidebar/Sidebar"
+
 import mainManu from "menus/mainMenu"
 
 import "./Resizer.css"
@@ -34,7 +36,13 @@ function RootView({
   const fileName = path.basename(song.filepath.replace(/\\/g, "/"))
 
   function withTransporter(content) {
-    return <Fragment>{content}<TransportPanel /></Fragment>
+    return <Fragment>
+      <Sidebar />
+      <div className="content">
+        {content}
+        <TransportPanel />
+      </div>
+    </Fragment>
   }
 
   function router() {

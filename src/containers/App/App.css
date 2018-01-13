@@ -7,8 +7,7 @@ html, body {
 
 body {
   font-size: 80%;
-  font-smoothing: antialiased;
-  background: var(--background-color);
+  -webkit-font-smoothing: antialiased;
   color: var(--text-color);
 }
 
@@ -18,7 +17,7 @@ body {
 
 div, label, button, canvas, section, a, p, header, footer, ul, li {
   user-select: none;
-  user-drag: none;
+  -webkit-user-drag: none;
   cursor: default;
 }
 

@@ -7,10 +7,8 @@ import PianoRuler from "containers/PianoRollEditor/PianoRoll/PianoRuler"
 import PianoCursor from "containers/PianoRollEditor/PianoRoll/PianoCursor"
 import PianoSelection from "containers/PianoRollEditor/PianoRoll/PianoSelection"
 
-import Icon from "components/Icon"
 import Stage from "components/Stage/Stage"
 import NavigationBar from "components/groups/NavigationBar"
-import { ContextMenu, MenuItem, createContextMenu } from "components/groups/ContextMenu"
 import { VerticalScrollBar, HorizontalScrollBar, BAR_WIDTH } from "components/inputs/ScrollBar"
 
 import NoteCoordTransform from "model/NoteCoordTransform"
@@ -49,37 +47,6 @@ function ArrangeTrack({
   />
 }
 
-function TrackHeader({
-  track: t,
-  height,
-  onClick,
-  onClickDelete
-}) {
-  const name = t.displayName || `Track ${t.channel}`
-  const instrument = t.instrumentName
-
-  return <div
-    className="TrackHeader"
-    style={{ height }}
-    onClick={onClick}
-    onContextMenu={!t.isConductorTrack ? createContextMenu(close =>
-      <ContextMenu id="TrackListItem">
-        <MenuItem onClick={() => {
-          onClickDelete()
-          close()
-        }}>Delete Track</MenuItem>
-      </ContextMenu>
-    ) : undefined}>
-    <div className="name">{name}</div>
-    <div className="instrument">{instrument}</div>
-    <div className="mark"><Icon>chevron-right</Icon></div>
-  </div>
-}
-
-function AddTrackButton({ onClick }) {
-  return <div className="AddTrackButton" onClick={onClick}><Icon>plus</Icon>Add Track</div>
-}
-
 function ArrangeView({
   tracks,
   theme,
@@ -88,16 +55,11 @@ function ArrangeView({
   playerPosition,
   transform,
   selection,
-  startSelection,
-  resizeSelection,
   endSelection,
   scrollLeft = 0,
   scrollTop = 0,
   onScrollLeft,
   onScrollTop,
-  onSelectTrack,
-  onClickDeleteTrack,
-  onClickAddTrack,
   dispatch,
   size,
   loop,
@@ -258,20 +220,6 @@ function ArrangeView({
     </NavigationBar>
     <ArrangeToolbar />
     <div className="alpha">
-      <div className="left">
-        <div className="left-top-space" />
-        <div className="headers" style={{ top: -scrollTop }}>
-          {tracks.map((t, i) =>
-            <TrackHeader
-              track={t}
-              height={trackHeight}
-              key={i}
-              onClick={() => onSelectTrack(i)}
-              onClickDelete={() => onClickDeleteTrack(i)} />
-          )}
-        </div>
-        <AddTrackButton onClick={onClickAddTrack} />
-      </div>
       <div
         className="right"
         onMouseDown={onMouseDown}
@@ -422,16 +370,6 @@ const mapStoreToProps = ({ rootStore: {
     selection: s.selection,
     setScrollLeft: v => s.scrollLeft = v,
     setScrollTop: v => s.scrollTop = v,
-    onSelectTrack: trackId => {
-      router.pushTrack()
-      dispatch("SELECT_TRACK", { trackId })
-    },
-    onClickAddTrack: () => {
-      dispatch("ADD_TRACK")
-    },
-    onClickDeleteTrack: trackId => {
-      dispatch("REMOVE_TRACK", { trackId })
-    },
     pushSettings: () => router.pushSettings()
   })
 

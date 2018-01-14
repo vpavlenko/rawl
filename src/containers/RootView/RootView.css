@@ -9,12 +9,3 @@
   flex-direction: row;
   flex-grow: 1;
 }
-
-.Pane {
-  overflow: hidden;
-}
-
-.Pane.vertical.Pane1 {
-  border-right: 3px solid var(--divider-color);
-  box-sizing: border-box;
-}

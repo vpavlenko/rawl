@@ -9,7 +9,7 @@ function TrafficLightsSpace() {
   </div>
 }
 
-export default function Sidebar({}) {
+export default function Sidebar() {
   return <div className="Sidebar">
     <TrafficLightsSpace />
     <TrackList />

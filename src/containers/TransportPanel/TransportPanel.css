@@ -1,5 +1,6 @@
 .TransportPanel {
   justify-content: center;
+  background: var(--secondary-background-color);
 }
 
 .ToolbarItem.tempo-section {

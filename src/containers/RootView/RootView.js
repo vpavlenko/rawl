@@ -37,11 +37,11 @@ function RootView({
 
   function withTransporter(content) {
     return <Fragment>
-      <Sidebar />
       <div className="content">
+        <Sidebar />
         {content}
-        <TransportPanel />
       </div>
+      <TransportPanel />
     </Fragment>
   }
 

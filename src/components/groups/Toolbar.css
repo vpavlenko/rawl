@@ -4,43 +4,27 @@
   position: relative;
   padding: 0 0.5em;
   z-index: 15;
+  height: 38px;
   background: var(--background-color);
 }
 
 .ToolbarItem {
-  background: rgba(0, 0, 0, 0);
-  padding: 0.75em 0.75em;
+  padding: 0.5em;
   cursor: default;
-  text-align: center;
   align-items: center;
-  transition: 0.3s ease background-color;
   box-sizing: border-box;
-  font-weight: bold;
   display: flex;
-  justify-content: center;
   user-select: none;
+  color: var(--secondary-text-color);
 }
 
-.ToolbarItem.selected {
-  color: var(--theme-color);
-  background-color: var(--secondary-background-color);
-}
-
-.ToolbarItem:hover {
-  background: rgba(0, 0, 0, 0.05);
-}
-
+.ToolbarItem.selected,
 .ToolbarItem:active {
-  background: rgba(0, 0, 0, 0.08);
-}
-
-.ToolbarItem.touch-disabled:hover,
-.ToolbarItem.touch-disabled:active {
-  background: none;
+  color: var(--text-color);
 }
 
 .ToolbarSeparator {
   background: var(--divider-color);
-  margin: 0 1em 0 1em;
+  margin: 0.4em 1em;
   width: 1px;
 }

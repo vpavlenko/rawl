@@ -1,9 +1,7 @@
 .NavigationBar {
   display: flex;
   padding: 0 1em;
-  height: 4em;
-  box-shadow: 0 0px 6px 0px rgba(0, 0, 0, 0.12);
-  z-index: 100;
+  height: 38px;
   background: var(--background-color);
   -webkit-app-region: drag;
 }
@@ -17,18 +15,8 @@
 
 .NavigationBar .title .Icon {
   font-size: 180%;
-  border-radius: 99px;
-  width: 1em;
-  height: 1em;
+  margin-left: -0.25em;
   display: flex;
   align-items: center;
-  transition: 0.3s ease background-color;
 }
 
-.NavigationBar .title .Icon:hover {
-  background: rgba(0, 0, 0, 0.05);
-}
-
-.NavigationBar .title .Icon:active {
-  background: rgba(0, 0, 0, 0.1);
-}

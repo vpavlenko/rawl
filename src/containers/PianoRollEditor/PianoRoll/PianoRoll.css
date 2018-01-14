@@ -1,5 +1,6 @@
 .PianoRoll {
   flex-grow: 1;
+  background: var(--background-color);
 }
 
 .PianoRoll .alpha .inner {

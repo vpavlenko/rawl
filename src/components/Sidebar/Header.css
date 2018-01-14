@@ -7,4 +7,8 @@
 
 .Sidebar .Header {
   padding: 0.5em 1em;
+  height: 38px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
 }

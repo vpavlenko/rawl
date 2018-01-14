@@ -6,6 +6,7 @@
 }
 
 .ControlPane .control-toolbar button {
+  min-width: 8em;
   background: transparent;
   -webkit-appearance: none;
   border: none;
@@ -24,12 +25,8 @@
 }
 
 .ControlPane .control-toolbar button.selected {
-  color: var(--theme-color);
-  background: var(--secondary-background-color);
-}
-
-.ControlPane .control-toolbar button:hover {
-  background: var(--secondary-background-color);
+  font-weight: 600;
+  color: var(--text-color);
 }
 
 .ControlPane .control-content {

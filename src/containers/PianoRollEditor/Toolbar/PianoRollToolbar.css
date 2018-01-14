@@ -1,8 +1,8 @@
-.Toolbar {
+.PianoRollToolbar {
   border-bottom: 1px solid var(--divider-color);
 }
 
-.Toolbar .song-name {
+.PianoRollToolbar .song-name {
   margin-right: 1em;
   max-width: 10em;
   text-overflow: ellipsis;
@@ -10,11 +10,11 @@
   overflow: hidden;
 }
 
-.Toolbar .tempo {
+.PianoRollToolbar .tempo {
   color: var(--secondary-text-color);
 }
 
-.Toolbar .time {
+.PianoRollToolbar .time {
   color: var(--secondary-text-color);
   font-family: "Consolas";
   font-size: 110%;
@@ -23,8 +23,4 @@
   margin: 0;
   display: flex;
   align-items: center;
-}
-
-.ToolbarItem .Icon {
-  font-size: 1.5em;
 }

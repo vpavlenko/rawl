@@ -24,7 +24,7 @@ function ArrangeToolbar({
   onClickScaleDown,
   mbtTime }) {
 
-  return <Toolbar>
+  return <Toolbar className="ArrangeToolbar">
     <QuantizeSelector
       value={quantize}
       onSelect={value => onSelectQuantize({ denominator: value })}

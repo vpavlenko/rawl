@@ -105,9 +105,14 @@
   width: 100%;
 }
 
+.ArrangeView .NavigationBar {
+  border-bottom: 1px solid var(--divider-color);
+}
+
 .ArrangeView .NavigationBar .menu {
   display: flex;
   flex-grow: 1;
+  -webkit-app-region: drag;
 }
 
 .ArrangeView .NavigationBar .NavItem {

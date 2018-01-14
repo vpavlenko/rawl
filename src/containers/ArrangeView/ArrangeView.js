@@ -213,12 +213,12 @@ function ArrangeView({
   return <div
     className="ArrangeView"
   >
-    <NavigationBar title="Arrange">
+    <NavigationBar>
+      <ArrangeToolbar />
       <div className="menu">
         <NavItem title="settings" onClick={pushSettings} />
       </div>
     </NavigationBar>
-    <ArrangeToolbar />
     <div className="alpha">
       <div
         className="right"

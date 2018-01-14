@@ -6,6 +6,10 @@
   -webkit-app-region: drag;
 }
 
+.NavigationBar>* {
+  -webkit-app-region: no-drag;
+}
+
 .NavigationBar .title {
   display: flex;
   align-items: center;

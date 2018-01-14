@@ -18,6 +18,10 @@
   color: var(--secondary-text-color);
 }
 
+.ToolbarItem .Icon {
+  font-size: 1.5em;
+}
+
 .ToolbarItem.selected,
 .ToolbarItem:active {
   color: var(--text-color);

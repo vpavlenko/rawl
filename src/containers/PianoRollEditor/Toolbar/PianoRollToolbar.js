@@ -24,7 +24,7 @@ function PianoRollToolbar({
   onClickScaleDown,
   mbtTime }) {
 
-  return <Toolbar>
+  return <Toolbar className="PianoRollToolbar">
     <ToolbarItem onClick={onClickPencil} selected={mouseMode === 0}><Icon>pencil</Icon></ToolbarItem>
     <ToolbarItem onClick={onClickSelection} selected={mouseMode === 1}><Icon>select</Icon></ToolbarItem>
 

@@ -9,7 +9,8 @@ import PianoSelection from "containers/PianoRollEditor/PianoRoll/PianoSelection"
 
 import Stage from "components/Stage/Stage"
 import NavigationBar from "components/groups/NavigationBar"
-import { VerticalScrollBar, HorizontalScrollBar, BAR_WIDTH } from "components/inputs/ScrollBar"
+import { VerticalScrollBar, BAR_WIDTH } from "components/inputs/ScrollBar"
+import { HorizontalScaleScrollBar } from "components/inputs/ScaleScrollBar"
 
 import NoteCoordTransform from "model/NoteCoordTransform"
 
@@ -63,7 +64,10 @@ function ArrangeView({
   dispatch,
   size,
   loop,
-  pushSettings
+  pushSettings,
+  onClickScaleUp,
+  onClickScaleDown,
+  onClickScaleReset
 }) {
   scrollLeft = Math.floor(scrollLeft)
 
@@ -272,10 +276,13 @@ function ArrangeView({
           />
         </div>
         <div style={{ width: `calc(100% - ${BAR_WIDTH}px)`, position: "absolute", bottom: 0 }}>
-          <HorizontalScrollBar
+          <HorizontalScaleScrollBar
             scrollOffset={scrollLeft}
             contentLength={contentWidth}
             onScroll={onScrollLeft}
+            onClickScaleUp={onClickScaleUp}
+            onClickScaleDown={onClickScaleDown}
+            onClickScaleReset={onClickScaleReset}
           />
         </div>
       </div>
@@ -370,7 +377,10 @@ const mapStoreToProps = ({ rootStore: {
     selection: s.selection,
     setScrollLeft: v => s.scrollLeft = v,
     setScrollTop: v => s.scrollTop = v,
-    pushSettings: () => router.pushSettings()
+    pushSettings: () => router.pushSettings(),
+    onClickScaleUp: () => s.scaleX = s.scaleX + 0.1,
+    onClickScaleDown: () => s.scaleX = Math.max(0.05, s.scaleX - 0.1),
+    onClickScaleReset: () => s.scaleX = 1,
   })
 
 export default sizeMe()(inject(mapStoreToProps)(observer(stateful(ArrangeView))))

@@ -19,13 +19,14 @@ function normalize(v) {
   return Math.max(0, Math.min(1, v))
 }
 
-function ScrollBar({
+export function ScrollBar({
   isVertial,
   barLength,
   scrollOffset = 50,
   contentLength = 1000,
   onScroll,
-  style
+  style,
+  children
 }) {
   const buttonLength = BUTTON_SIZE
   const maxOffset = contentLength - barLength
@@ -151,6 +152,7 @@ function ScrollBar({
     {!disabled && <div className="thumb" style={{ [lengthProp]: thumbLength }} />}
     <div className="page-forward" style={{ [lengthProp]: pageBackwardLength }} />
     <div className="button-forward" style={{ [lengthProp]: buttonLength }}>{triangle}</div>
+    {children}
   </div>
 }
 
@@ -181,7 +183,7 @@ function VerticalScrollBar_(props) {
   }} />
 }
 
-export function HorizontalScrollBar_(props) {
+function HorizontalScrollBar_(props) {
   return <ScrollBar isVertial={false} {...props} barLength={props.size.width} style={{
     width: "100%",
     height: BAR_WIDTH,

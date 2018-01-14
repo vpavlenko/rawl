@@ -22,6 +22,7 @@ import ControlPane from "./ControlPane"
 import PianoControlEvents from "./PianoControlEvents"
 
 import { VerticalScrollBar, HorizontalScrollBar, BAR_WIDTH } from "components/inputs/ScrollBar"
+import { HorizontalScaleScrollBar } from "components/inputs/ScaleScrollBar"
 
 import "./PianoRoll.css"
 
@@ -48,7 +49,10 @@ function PianoRoll({
   cursorPosition,
   onMountAlpha,
   loop,
-  size
+  size,
+  onClickScaleUp,
+  onClickScaleDown,
+  onClickScaleReset
 }) {
   const { keyWidth, rulerHeight } = theme
 
@@ -177,10 +181,13 @@ function PianoRoll({
         />
       </div>
     </SplitPane>
-    <HorizontalScrollBar
+    <HorizontalScaleScrollBar
       scrollOffset={scrollLeft}
       contentLength={contentWidth}
       onScroll={({ scroll }) => setScrollLeft(scroll)}
+      onClickScaleUp={onClickScaleUp}
+      onClickScaleDown={onClickScaleDown}
+      onClickScaleReset={onClickScaleReset}
     />
   </div>
 }
@@ -297,6 +304,9 @@ export default sizeMe()(inject(({ rootStore: {
     setNotesCursor: v => s.notesCursor = v,
     mouseMode: s.mouseMode,
     onChangeTool: () => s.mouseMode = (s.mouseMode === 0 ? 1 : 0),
+    onClickScaleUp: () => s.scaleX = s.scaleX + 0.1,
+    onClickScaleDown: () => s.scaleX = Math.max(0.05, s.scaleX - 0.1),
+    onClickScaleReset: () => s.scaleX = 1,
     loop: playerStore.loop,
     quantizer,
     player,

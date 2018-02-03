@@ -1,3 +1,5 @@
+import isDev from "helpers/isDev"
+
 const { remote } = window.require("electron")
 const { Menu, dialog, process, app } = remote
 
@@ -92,5 +94,21 @@ export default function mainMenu(song, dispatch) {
       ]
     })
   }
+  
+  if (isDev()) {
+    template.push({
+      label: "Debug",
+      submenu: [
+        {
+          label: 'Toggle Developer Tools',
+          accelerator: process.platform === 'darwin' ? 'Alt+Command+I' : 'Ctrl+Shift+I',
+          click (item, focusedWindow) {
+            if (focusedWindow) focusedWindow.webContents.toggleDevTools()
+          }
+        }
+      ]
+    })
+  }
+
   return Menu.buildFromTemplate(template)
 }

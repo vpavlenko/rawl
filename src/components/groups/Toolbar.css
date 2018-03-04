@@ -1,10 +1,9 @@
 .Toolbar {
   display: flex;
-  box-sizing: border-box;
+  box-sizing: content-box;
   position: relative;
   padding: 0 0.5em;
   z-index: 15;
-  height: 38px;
   background: var(--background-color);
 }
 

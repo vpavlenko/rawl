@@ -1,4 +1,6 @@
 .Sidebar {
+  display: flex;
+  flex-direction: column;
   width: 16em;
   border-right: 1px solid rgba(0, 0, 0, 0.05);
 }
@@ -6,4 +8,5 @@
 .TrafficLightsSpace {
   height: 38px;
   -webkit-app-region: drag;
+  flex-shrink: 0;
 }

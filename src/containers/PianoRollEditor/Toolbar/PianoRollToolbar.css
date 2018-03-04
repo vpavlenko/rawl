@@ -1,5 +1,6 @@
 .PianoRollToolbar {
   border-bottom: 1px solid var(--divider-color);
+  height: var(--ruler-height);
 }
 
 .PianoRollToolbar .song-name {

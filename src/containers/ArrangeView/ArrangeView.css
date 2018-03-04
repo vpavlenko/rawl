@@ -51,14 +51,6 @@
   flex-grow: 1;
 }
 
-.ArrangeView .left {
-  width: 14em;
-  box-sizing: border-box;
-  position: relative;
-  z-index: 11;
-  box-shadow: rgba(0, 0, 0, 0.1) 3px 0px 6px -2px;
-}
-
 .ArrangeView .right>.content {
   position: absolute;
   margin-top: var(--ruler-height);

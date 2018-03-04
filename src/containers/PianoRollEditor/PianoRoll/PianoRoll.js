@@ -181,7 +181,7 @@ function PianoRoll({
         />
       </div>
     </SplitPane>
-    <HorizontalScaleScrollBar
+    <HorizontalScaleScrollBar 
       scrollOffset={scrollLeft}
       contentLength={contentWidth}
       onScroll={({ scroll }) => setScrollLeft(scroll)}

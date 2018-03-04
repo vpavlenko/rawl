@@ -13,14 +13,13 @@ import SettingsView from "containers/SettingsView/SettingsView"
 import Sidebar from "components/Sidebar/Sidebar"
 
 import mainManu from "menus/mainMenu"
+import isDev from "helpers/isDev"
 
 import "./Resizer.css"
 import "./RootView.css"
 
 const { remote } = window.require("electron")
 const { Menu } = remote
-
-const isDev = process.env.NODE_ENV !== "production"
 
 function RootView({
   player,
@@ -58,7 +57,7 @@ function RootView({
   return <div className="RootView">
     <Helmet><title>{`${song.name} (${fileName}) ― signal`}</title></Helmet>
     {router()}
-    {isDev && <DevTools />}
+    {isDev() && <DevTools />}
   </div>
 }
 

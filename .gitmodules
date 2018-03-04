@@ -4,3 +4,6 @@
 [submodule "src/submodules/sf2synth"]
 	path = src/submodules/sf2synth
 	url = https://github.com/ryohey/sf2synth.js.git
+[submodule "src/submodules/opus-recorder"] 
+  path = src/submodules/opus-recorder 
+  url = https://github.com/ryohey/Recorderjs.git

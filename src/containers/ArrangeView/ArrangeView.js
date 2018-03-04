@@ -54,20 +54,24 @@ function ArrangeView({
   beats,
   endTick,
   playerPosition,
+  setPlayerPosition,
   transform,
   selection,
+  startSelection,
+  resizeSelection,
   endSelection,
+  moveSelection,
   scrollLeft = 0,
   scrollTop = 0,
   onScrollLeft,
   onScrollTop,
-  dispatch,
   size,
   loop,
   pushSettings,
   onClickScaleUp,
   onClickScaleDown,
-  onClickScaleReset
+  onClickScaleReset,
+  openContextMenu
 }) {
   scrollLeft = Math.floor(scrollLeft)
 
@@ -107,12 +111,12 @@ function ArrangeView({
     const isSelectionSelected = selection != null && selection.containsPoint(startPos)
 
     const createSelectionHandler = (e, mouseMove, mouseUp) => {
-      dispatch("ARRANGE_START_SELECTION", startPos)
+      startSelection(startPos)
       mouseMove(e => {
-        dispatch("ARRANGE_RESIZE_SELECTION", { start: startPos, end: createPoint(e) })
+        resizeSelection(startPos, createPoint(e))
       })
       mouseUp(e => {
-        dispatch("ARRANGE_END_SELECTION", { start: startPos, end: createPoint(e) })
+        endSelection(startPos, createPoint(e))
       })
     }
 
@@ -121,7 +125,7 @@ function ArrangeView({
       mouseMove(e => {
         const delta = pointSub(createPoint(e), startPos)
         const pos = pointAdd(startSelection, delta)
-        dispatch("ARRANGE_MOVE_SELECTION", pos)
+        moveSelection(pos)
       })
       mouseUp(e => { })
     }
@@ -176,10 +180,7 @@ function ArrangeView({
   function handleRightClick(e, createPoint) {
     const startPos = createPoint(e.nativeEvent)
     const isSelectionSelected = selection != null && selection.containsPoint(startPos)
-    dispatch("ARRANGE_OPEN_CONTEXT_MENU", {
-      position: { x: e.pageX, y: e.pageY },
-      isSelectionSelected
-    })
+    openContextMenu(e.pageX, e.pageY, isSelectionSelected)
   }
 
   function onMouseDown(e) {
@@ -237,7 +238,7 @@ function ArrangeView({
           beats={mappedBeats}
           scrollLeft={scrollLeft}
           pixelsPerTick={pixelsPerTick}
-          onMouseDown={({ tick }) => dispatch("SET_PLAYER_POSITION", { tick })}
+          onMouseDown={({ tick }) => setPlayerPosition(tick)}
           loop={loop}
         />
         <div
@@ -361,26 +362,31 @@ const mapStoreToProps = ({ rootStore: {
   router,
   dispatch
 } }) => ({
-    theme,
-    player,
-    quantizer,
-    dispatch,
-    loop,
-    tracks: tracks.toJS(),
-    beats: measureList.beats,
-    endTick: endOfSong,
-    keyHeight: 0.3,
-    pixelsPerTick: 0.1 * s.scaleX,
-    autoScroll: s.autoScroll,
-    scrollLeft: s.scrollLeft,
-    scrollTop: s.scrollTop,
-    selection: s.selection,
-    setScrollLeft: v => s.scrollLeft = v,
-    setScrollTop: v => s.scrollTop = v,
-    pushSettings: () => router.pushSettings(),
-    onClickScaleUp: () => s.scaleX = s.scaleX + 0.1,
-    onClickScaleDown: () => s.scaleX = Math.max(0.05, s.scaleX - 0.1),
-    onClickScaleReset: () => s.scaleX = 1,
-  })
+  theme,
+  player,
+  quantizer,
+  loop,
+  tracks: tracks.toJS(),
+  beats: measureList.beats,
+  endTick: endOfSong,
+  keyHeight: 0.3,
+  pixelsPerTick: 0.1 * s.scaleX,
+  autoScroll: s.autoScroll,
+  scrollLeft: s.scrollLeft,
+  scrollTop: s.scrollTop,
+  selection: s.selection,
+  setScrollLeft: v => s.scrollLeft = v,
+  setScrollTop: v => s.scrollTop = v,
+  pushSettings: () => router.pushSettings(),
+  onClickScaleUp: () => s.scaleX = s.scaleX + 0.1,
+  onClickScaleDown: () => s.scaleX = Math.max(0.05, s.scaleX - 0.1),
+  onClickScaleReset: () => s.scaleX = 1,
+  setPlayerPosition: tick => dispatch("SET_PLAYER_POSITION", { tick }),
+  startSelection: pos => dispatch("ARRANGE_START_SELECTION", pos),
+  endSelection: (start, end) => dispatch("ARRANGE_END_SELECTION", { start, end }),
+  resizeSelection: (start, end) => dispatch("ARRANGE_RESIZE_SELECTION", { start, end }),
+  moveSelection: pos => dispatch("ARRANGE_MOVE_SELECTION", pos),
+  openContextMenu: (x, y, isSelectionSelected) => dispatch("ARRANGE_OPEN_CONTEXT_MENU", { position: { x, y }, isSelectionSelected })
+})
 
 export default sizeMe()(inject(mapStoreToProps)(observer(stateful(ArrangeView))))

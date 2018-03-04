@@ -76,10 +76,12 @@ function Content({
   theme,
   beats,
   playerPosition,
+  setPlayerPosition,
   endTick,
   scrollLeft,
   setScrollLeft,
-  dispatch
+  changeTempo,
+  createTempo
 }) {
   scrollLeft = Math.floor(scrollLeft)
 
@@ -109,7 +111,7 @@ function Content({
 
     function onMouseMove(e) {
       const delta = transform.getDeltaBPM(e.clientY - startY)
-      dispatch("CHANGE_TEMPO", {
+      changeTempo({
         id: event.id,
         microsecondsPerBeat: bpmToUSecPerBeat(bpm + delta)
       })
@@ -132,7 +134,7 @@ function Content({
     const event = track.getEventById(item.id)
     const movement = e.deltaY > 0 ? -1 : 1
     const bpm = uSecPerBeatToBPM(event.microsecondsPerBeat)
-    dispatch("CHANGE_TEMPO", {
+    changeTempo({
       id: event.id,
       microsecondsPerBeat: bpmToUSecPerBeat(bpm + movement)
     })
@@ -141,7 +143,7 @@ function Content({
   function onDoubleClickGraph(e) {
     const tick = transform.getTicks(e.local.x)
     const bpm = transform.getBPM(e.local.y)
-    dispatch("CREATE_TEMPO", {
+    createTempo({
       tick,
       microsecondsPerBeat: uSecPerBeatToBPM(bpm)
     })
@@ -189,7 +191,7 @@ function Content({
       width={width}
       height={rulerHeight}
       beats={mappedBeats}
-      onMouseDown={({ tick }) => dispatch("SET_PLAYER_POSITION", { tick })}
+      onMouseDown={({ tick }) => setPlayerPosition(tick)}
       scrollLeft={scrollLeft}
       pixelsPerTick={pixelsPerTick}
     />
@@ -259,15 +261,17 @@ export default sizeMe({ monitorHeight: true })(inject(({ rootStore: {
   song,
   dispatch
 } }) => ({
-    theme,
-    player,
-    pixelsPerTick: 0.1 * s.scaleX,
-    track: song.conductorTrack,
-    events: song.conductorTrack.events.toJS(),
-    endTick: song.endOfSong,
-    beats: song.measureList.beats,
-    dispatch,
-    autoScroll: s.autoScroll,
-    scrollLeft: s.scrollLeft,
-    setScrollLeft: v => s.scrollLeft = v
-  }))(observer(stateful(Content))))
+  theme,
+  player,
+  pixelsPerTick: 0.1 * s.scaleX,
+  track: song.conductorTrack,
+  events: song.conductorTrack.events.toJS(),
+  endTick: song.endOfSong,
+  beats: song.measureList.beats,
+  autoScroll: s.autoScroll,
+  scrollLeft: s.scrollLeft,
+  setScrollLeft: v => s.scrollLeft = v,
+  changeTempo: p => dispatch("CHANGE_TEMPO", p),
+  createTempo: p => dispatch("CREATE_TEMPO", p),
+  setPlayerTempo: tick => dispatch("SET_PLAYER_POSITION", { tick })
+}))(observer(stateful(Content))))

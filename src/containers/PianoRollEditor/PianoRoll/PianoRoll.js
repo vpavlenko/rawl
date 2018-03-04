@@ -49,10 +49,14 @@ function PianoRoll({
   cursorPosition,
   onMountAlpha,
   loop,
+  setLoopBegin,
+  setLoopEnd,
   size,
   onClickScaleUp,
   onClickScaleDown,
-  onClickScaleReset
+  onClickScaleReset,
+  setPlayerPosition,
+  previewNote,
 }) {
   const { keyWidth, rulerHeight } = theme
 
@@ -78,11 +82,11 @@ function PianoRoll({
   const onMouseDownRuler = (e) => {
     const tick = e.tick
     if (e.ctrlKey) {
-      dispatch("SET_LOOP_BEGIN", { tick })
+      setLoopBegin(tick)
     } else if (e.altKey) {
-      dispatch("SET_LOOP_END", { tick })
+      setLoopEnd(tick)
     } else {
-      dispatch("SET_PLAYER_POSITION", { tick })
+      setPlayerPosition(tick)
     }
   }
 
@@ -119,7 +123,6 @@ function PianoRoll({
             transform={transform}
             width={width}
             cursor={notesCursor}
-            dispatch={dispatch}
             mouseMode={mouseMode}
             scrollLeft={scrollLeft}
             isDrumMode={track.isRhythmTrack}
@@ -140,7 +143,7 @@ function PianoRoll({
             width={keyWidth}
             keyHeight={transform.pixelsPerKey}
             numberOfKeys={transform.numberOfKeys}
-            onClickKey={noteNumber => dispatch("PREVIEW_NOTE", { noteNumber, channel: track.channel })} />
+            onClickKey={noteNumber => previewNote(noteNumber, track.channel)} />
         </div>
         <div className="alphaRuler">
           <PianoRuler
@@ -276,39 +279,43 @@ PianoRoll.defaultProps = {
 }
 
 export default sizeMe()(inject(({ rootStore: {
-      song: { selectedTrack: track, endOfSong: endTick, measureList: { beats } },
+  song: { selectedTrack: track, endOfSong: endTick, measureList: { beats } },
   pianoRollStore: s,
   rootViewStore: { theme },
   playerStore,
   services: { player, quantizer },
   dispatch
 } }) => ({
-    track,
-    endTick,
-    beats,
-    theme,
-    events: track.events.toJS(), // 変更が反映されるように toJS() する
-    scaleX: s.scaleX,
-    scaleY: s.scaleY,
-    autoScroll: s.autoScroll,
-    selection: s.selection,
-    scrollLeft: s.scrollLeft,
-    setScrollLeft: v => s.scrollLeft = v,
-    scrollTop: s.scrollTop,
-    setScrollTop: v => s.scrollTop = v,
-    controlMode: s.controlMode,
-    setControlMode: v => s.controlMode = v,
-    cursorPosition: s.cursorPosition,
-    setCursorPosition: v => s.cursorPosition = v,
-    notesCursor: s.notesCursor,
-    setNotesCursor: v => s.notesCursor = v,
-    mouseMode: s.mouseMode,
-    onChangeTool: () => s.mouseMode = (s.mouseMode === 0 ? 1 : 0),
-    onClickScaleUp: () => s.scaleX = s.scaleX + 0.1,
-    onClickScaleDown: () => s.scaleX = Math.max(0.05, s.scaleX - 0.1),
-    onClickScaleReset: () => s.scaleX = 1,
-    loop: playerStore.loop,
-    quantizer,
-    player,
-    dispatch
-  }))(observer(stateful)))
+  track,
+  endTick,
+  beats,
+  theme,
+  events: track.events.toJS(), // 変更が反映されるように toJS() する
+  scaleX: s.scaleX,
+  scaleY: s.scaleY,
+  autoScroll: s.autoScroll,
+  selection: s.selection,
+  scrollLeft: s.scrollLeft,
+  setScrollLeft: v => s.scrollLeft = v,
+  scrollTop: s.scrollTop,
+  setScrollTop: v => s.scrollTop = v,
+  controlMode: s.controlMode,
+  setControlMode: v => s.controlMode = v,
+  cursorPosition: s.cursorPosition,
+  setCursorPosition: v => s.cursorPosition = v,
+  notesCursor: s.notesCursor,
+  setNotesCursor: v => s.notesCursor = v,
+  mouseMode: s.mouseMode,
+  onChangeTool: () => s.mouseMode = (s.mouseMode === 0 ? 1 : 0),
+  onClickScaleUp: () => s.scaleX = s.scaleX + 0.1,
+  onClickScaleDown: () => s.scaleX = Math.max(0.05, s.scaleX - 0.1),
+  onClickScaleReset: () => s.scaleX = 1,
+  loop: playerStore.loop,
+  quantizer,
+  player,
+  setLoopBegin: tick => dispatch("SET_LOOP_BEGIN", { tick }),
+  setLoopEnd: tick => dispatch("SET_LOOP_END", { tick }),
+  setPlayerPosition: tick => dispatch("SET_PLAYER_POSITION", { tick }),
+  previewNote: (noteNumber, channel) => dispatch("PREVIEW_NOTE", { noteNumber, channel }),
+  dispatch
+}))(observer(stateful)))

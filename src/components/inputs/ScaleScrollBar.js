@@ -25,9 +25,9 @@ function HorizontalScaleScrollBar_(props) {
     bottom: 0,
     left: 0
   }}>
-    <ScaleButton style={buttonStyle} onClick={props.onClickScaleUp}><Icon>plus</Icon></ScaleButton>
-    <ScaleButton style={buttonStyle} onClick={props.onClickScaleReset}><Icon>circle</Icon></ScaleButton>
     <ScaleButton style={buttonStyle} onClick={props.onClickScaleDown}><Icon>minus</Icon></ScaleButton>
+    <ScaleButton style={buttonStyle} onClick={props.onClickScaleReset}><Icon>circle</Icon></ScaleButton>
+    <ScaleButton style={buttonStyle} onClick={props.onClickScaleUp}><Icon>plus</Icon></ScaleButton>
   </ScrollBar>
 }
 

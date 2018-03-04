@@ -1,66 +1,35 @@
-.QuantizeSelector .buttons {
-  display: flex;
-}
-
 .QuantizeSelector {
   display: flex;
   color: var(--secondary-text-color);
-  border-right: 1px solid var(--divider-color);
-}
-
-.QuantizeSelector .options .button.selected {
-  background-color: var(--theme-color);
-  color: white;
-}
-
-.QuantizeSelector .options>div {
-  display: flex;
-  padding: 0 0.5em;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
-}
-
-.QuantizeSelector .options .dot {
-  font-size: 50%;
-}
-
-.QuantizeSelector .options {
-  border-left: 1px solid var(--divider-color);
-  display: flex;
-  flex-direction: column;
-}
-
-.QuantizeSelector .label {
-  display: flex;
-  align-items: center;
-  color: var(--secondary-text-color);
-  font-size: 120%;
-}
-
-.QuantizeSelector .denominator-select {
-  border: none;
-  color: inherit;
-  -webkit-appearance: none;
-  transition: 0.3s ease background-color;
-}
-
-.QuantizeSelector .updown-mark {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   position: relative;
-  left: -1em;
-  width: 1em;
-  pointer-events: none;
+  font-size: 110%;
 }
 
-.QuantizeSelector .denominator-select {
-  padding-right: 1em;
-  padding-left: 1em;
-  outline: none;
+.QuantizeSelector .dot-label {
+  font-size: 20%;
+  top: -1em;
+  position: relative;
+  color: var(--secondary-text-color);
 }
 
-.QuantizeSelector .denominator-select:hover {
-  background: rgba(0, 0, 0, 0.05);
+.QuantizeSelector .triplet-label {
+  color: var(--secondary-text-color);
+  font-size: 70%;
+  border-radius: 1em;
+  padding: 0 0.24em;
+}
+
+.QuantizeSelector>.content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.QuantizeSelector>.content .value {
+  min-width: 2em;
+}
+
+.QuantizeSelector .QuantizePopup {
+  top: 3em;
+  left: -3em;
 }

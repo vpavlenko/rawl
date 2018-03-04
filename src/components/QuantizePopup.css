@@ -1,0 +1,63 @@
+.QuantizePopup {
+  display: inline-block;
+  position: absolute;
+  background: white;
+  padding: 0 1em;
+  z-index: 100;
+  border-radius: 0.4em;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.12));
+  color: var(--text-color);
+}
+
+.QuantizePopup::before {
+  content: "";
+  width: 1em;
+  height: 1em;
+  background: white;
+  position: absolute;
+  top: -0.5em;
+  left: calc(50% - 1em);
+  transform: rotate(45deg);
+}
+
+.QuantizePopup .content {
+  display: flex;
+}
+
+.QuantizePopup .left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.QuantizePopup .right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 0.5em;
+}
+
+.QuantizePopup .left .value {
+  font-size: 150%;
+  background: var(--background-color);
+  border: 1px solid var(--divider-color);
+  width: 1.6em;
+  text-align: center;
+}
+
+.QuantizePopup .left .Icon {
+  opacity: 0.3;
+  font-size: 170%;
+}
+
+.QuantizePopup .button-up {
+  margin-bottom: -0.4em;
+}
+
+.QuantizePopup .button-down {
+  margin-top: -0.4em;
+}
+
+.QuantizePopup .field {
+  white-space: nowrap;
+}

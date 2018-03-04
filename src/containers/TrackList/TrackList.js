@@ -4,6 +4,7 @@ import { observer, inject } from "mobx-react"
 import Icon from "components/Icon"
 import SideHeader from "components/Sidebar/Header"
 import TrackListItem from "./TrackListItem"
+import AddTrackButton from "./AddTrackButton"
 
 import "./TrackList.css"
 
@@ -45,9 +46,10 @@ function TrackList({
     })
 
   return <div className="TrackList">
-    <SideHeader title="Tracks" onClickTitle={onClickArrangeView} />
+    <SideHeader title="Tracks" onClickTitle={onClickArrangeView}>
+      <AddTrackButton onClick={onClickAddTrack} />
+    </SideHeader>
     {items}
-    <div className="add-track" onClick={onClickAddTrack}><Icon>plus</Icon> Add Track</div>
   </div>
 }
 

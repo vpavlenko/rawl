@@ -28,10 +28,10 @@
   },
   "homepage": "./",
   "dependencies": {
-    "color": "^2.0.0",
-    "eventemitter3": "^2.0.3",
+    "color": "^3.0.0",
+    "eventemitter3": "^3.0.1",
     "file-dialog": "0.0.7",
-    "flow-bin": "^0.59.0",
+    "flow-bin": "^0.66.0",
     "lodash": "^4.11.1",
     "mdi": "^2.0.46",
     "mobx": "^3.3.1",
@@ -55,10 +55,10 @@
     "custom-react-scripts": "^0.2.0",
     "electron": "^1.7.8",
     "electron-devtools-installer": "^2.2.0",
-    "electron-packager": "^10.1.0",
+    "electron-packager": "^11.0.1",
     "foreman": "^2.0.0",
     "mobx-react-devtools": "^4.2.15",
     "shx": "^0.2.2",
-    "webpack": "^3.6.0"
+    "webpack": "^4.0.1"
   }
 }

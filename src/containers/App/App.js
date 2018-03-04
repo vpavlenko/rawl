@@ -8,6 +8,7 @@ import RootStore from "stores/RootStore"
 import Theme from "model/Theme"
 
 import "./App.css"
+import "./theme.css"
 
 const rootStore = new RootStore()
 

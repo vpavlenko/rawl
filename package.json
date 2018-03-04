@@ -59,6 +59,8 @@
     "foreman": "^2.0.0",
     "mobx-react-devtools": "^4.2.15",
     "shx": "^0.2.2",
+    "ts-loader": "^4.0.1",
+    "typescript": "^2.7.2",
     "webpack": "^4.0.1"
   }
 }

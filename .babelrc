@@ -1,5 +1,8 @@
 {
   "presets": [
-    "react-app"
-  ] // create-react-app と合わせる
+    "react",
+    "es2015",
+    "stage-2"
+  ],
+  "plugins": ["transform-decorators-legacy"]
 }

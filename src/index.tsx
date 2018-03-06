@@ -1,8 +1,8 @@
 import React from "react"
 import ReactDOM from "react-dom"
 
-import App from "containers/App/App"
-import SynthApp from "./synth"
+import App from "containers/App/App.js"
+import SynthApp from "./synth.js"
 
 function renderApp() {
   ReactDOM.render(<App />, document.querySelector("#root"))

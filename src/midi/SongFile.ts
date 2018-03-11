@@ -1,6 +1,6 @@
-import { read as readBytes } from "./MidiFileReader.ts"
-import { write as writeBytes } from "./MidiFileWriter.ts"
-import { songFromMidi } from "../stores/SongFactory.ts"
+import { read as readBytes } from "./MidiFileReader"
+import { write as writeBytes } from "./MidiFileWriter"
+import { songFromMidi } from "stores/SongFactory"
 
 const { remote } = (window as any).require("electron")
 const fs = remote.require("fs")

@@ -7,9 +7,9 @@ import MIDIChannelEvents from "constants/MIDIChannelEvents"
 import { eventToBytes } from "helpers/midiHelper"
 import { toRawEvents } from "helpers/eventAssembler"
 
-import EventScheduler from "./EventScheduler.ts"
-import TrackMute from "stores/TrackMute.ts"
-import Song from "stores/Song.ts"
+import EventScheduler from "./EventScheduler"
+import TrackMute from "stores/TrackMute"
+import Song from "stores/Song"
 
 function firstByte(eventType, channel) {
   return (MIDIChannelEvents[eventType] << 4) + channel

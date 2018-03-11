@@ -1,6 +1,6 @@
-import MIDIChannelEvents from "../constants/MIDIChannelEvents"
-import MIDIMetaEvents from "../constants/MIDIMetaEvents"
-import { toVLQ } from "../helpers/vlq"
+import MIDIChannelEvents from "constants//MIDIChannelEvents"
+import MIDIMetaEvents from "constants//MIDIMetaEvents"
+import { toVLQ } from "helpers/vlq"
 
 export function addTick(events) {
   let tick = 0

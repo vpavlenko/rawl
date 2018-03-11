@@ -21,7 +21,7 @@ import PianoCursor from "./PianoCursor"
 import ControlPane from "./ControlPane"
 import PianoControlEvents from "./PianoControlEvents"
 
-import { VerticalScrollBar, HorizontalScrollBar, BAR_WIDTH } from "components/inputs/ScrollBar"
+import { VerticalScrollBar, BAR_WIDTH } from "components/inputs/ScrollBar"
 import { HorizontalScaleScrollBar } from "components/inputs/ScaleScrollBar"
 
 import "./PianoRoll.css"

@@ -51,6 +51,7 @@
   "devDependencies": {
     "@storybook/addon-actions": "^3.2.12",
     "@storybook/react": "^3.3.0-alpha.2",
+    "@types/jest": "^22.2.0",
     "@types/webpack-env": "^1.13.5",
     "babel-core": "^6.26.0",
     "babel-jest": "^22.4.1",
@@ -81,7 +82,10 @@
       "^.+\\.jsx?$": "babel-jest"
     },
     "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
-    "testPathIgnorePatterns":  ["/node_modules/", "/submodules/"],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/submodules/"
+    ],
     "moduleFileExtensions": [
       "ts",
       "js"

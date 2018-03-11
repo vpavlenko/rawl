@@ -1,8 +1,8 @@
-import Song from "../stores/Song.ts"
-import Track from "../stores/Track.ts"
-import { emptySong } from "../stores/SongFactory"
-import { emptyTrack } from "../stores/TrackFactory"
-import { read as readSong, write as writeSong } from "../midi/SongFile.ts"
+import Song from "stores/Song"
+import Track from "stores/Track"
+import { emptySong } from "stores/SongFactory"
+import { emptyTrack } from "stores/TrackFactory"
+import { read as readSong, write as writeSong } from "midi/SongFile"
 
 export default (rootStore) => {
   const { song, historyStore: history, services: { player } } = rootStore

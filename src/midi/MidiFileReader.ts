@@ -1,6 +1,6 @@
-import MidiFile from "../midifile/midifile.ts"
-import { addTick } from "../helpers/midiHelper.ts"
-import { toTrackEvents } from "../helpers/eventAssembler.ts"
+import MidiFile from "midifile/midifile"
+import { addTick } from "helpers/midiHelper"
+import { toTrackEvents } from "helpers/eventAssembler"
 
 export function read(data) {
   const midi = MidiFile(data)

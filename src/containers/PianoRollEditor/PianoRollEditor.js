@@ -14,15 +14,13 @@ import "./PianoRollEditor.css"
 
 function PianoRollEditor({
   track,
-  mute,
-  onClickMute,
   volume,
   onChangeVolume,
   pan,
   onChangePan,
   onClickInstrument,
   onClickNavBack
- }) {
+}) {
   return <div className="PianoRollEditor">
     <NavigationBar title={track.displayName} onClickBack={onClickNavBack}>
       <div className="controls">
@@ -45,7 +43,7 @@ function PianoRollEditor({
   </div>
 }
 
-export default inject(({ rootStore: { song, router, trackMute, dispatch } }) => {
+export default inject(({ rootStore: { song, router, dispatch } }) => {
   const trackId = song.selectedTrackId
   return {
     track: song.selectedTrack,

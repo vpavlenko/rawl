@@ -1,5 +1,5 @@
-import Track from "./Track.ts"
-import { toTrackEvents } from "../helpers/eventAssembler"
+import Track from "./Track"
+import { toTrackEvents } from "helpers/eventAssembler"
 
 import {
   trackNameMidiEvent, endOfTrackMidiEvent,
@@ -11,7 +11,7 @@ import {
   masterCoarceTuningEvents,
   masterFineTuningEvents,
   pitchbendSensitivityEvents,
-} from "../midi/MidiEvent"
+} from "midi/MidiEvent"
 
 export function conductorTrack(name = "Conductor Track") {
   const track = new Track()

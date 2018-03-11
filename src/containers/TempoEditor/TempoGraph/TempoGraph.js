@@ -57,7 +57,7 @@ function HorizontalLines({ width, height, transform, borderColor }) {
   />
 }
 
-const GraphAxis = pure(({ width, height, transform, offset }) => {
+const GraphAxis = pure(({ width, transform, offset }) => {
   return <div className="GraphAxis" style={{ width }}>
     <div className="values">
       {_.range(30, transform.maxBPM, 30).map(t => {

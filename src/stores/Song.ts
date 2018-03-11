@@ -2,8 +2,8 @@ import { observable, autorun, computed, action } from "mobx"
 import { list, object, serializable } from "serializr"
 import _ from "lodash"
 
-import Track from "./Track.ts"
-import MeasureList from "../model/MeasureList"
+import Track from "./Track"
+import MeasureList from "model/MeasureList"
 
 const END_MARGIN = 480 * 30
 

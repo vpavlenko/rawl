@@ -5,7 +5,7 @@ import {
   pitchBendMidiEvent,
   modulationMidiEvent,
   expressionMidiEvent
-} from "../midi/MidiEvent"
+} from "midi/MidiEvent"
 
 export default (rootStore) => {
   const { song, pianoRollStore, services: { player, quantizer } } = rootStore

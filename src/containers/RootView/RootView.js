@@ -22,7 +22,6 @@ const { remote } = window.require("electron")
 const { Menu } = remote
 
 function RootView({
-  player,
   song,
   dispatch,
   routerPath,
@@ -61,7 +60,7 @@ function RootView({
   </div>
 }
 
-export default inject(({ rootStore: { pianoRollStore, router: { path }, song, services: { player }, dispatch } }) => ({
+export default inject(({ rootStore: { router: { path }, song, services: { player }, dispatch } }) => ({
   routerPath: path,
   song,
   player,

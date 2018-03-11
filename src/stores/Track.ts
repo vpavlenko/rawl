@@ -2,10 +2,10 @@ import { observable, action, transaction, computed } from "mobx"
 import { list, map, primitive, serializable } from "serializr"
 import _ from "lodash"
 
-import { MidiEvent } from "../midi/MidiEvent"
-import { getInstrumentName } from "../midi/GM.ts"
+import { MidiEvent } from "midi/MidiEvent"
+import { getInstrumentName } from "midi/GM"
 
-import orArrayOf from "../helpers/orArrayOf.ts"
+import orArrayOf from "helpers/orArrayOf"
 
 function lastValue(arr, prop) {
   const last = _.last(arr)

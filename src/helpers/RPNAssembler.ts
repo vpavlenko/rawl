@@ -1,7 +1,7 @@
 import { 
   ControllerMidiEvent, 
   controlChangeEvents 
-} from "../midi/MidiEvent.ts"
+} from "midi/MidiEvent"
 
 /**
 

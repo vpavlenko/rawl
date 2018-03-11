@@ -3,8 +3,8 @@ import {
   addDeltaTime,
   eventToBytes,
   strToCharCodes
-} from "../helpers/midiHelper"
-import { toRawEvents } from "../helpers/eventAssembler"
+} from "helpers/midiHelper"
+import { toRawEvents } from "helpers/eventAssembler"
 
 //https://sites.google.com/site/yyagisite/material/smfspec#format
 

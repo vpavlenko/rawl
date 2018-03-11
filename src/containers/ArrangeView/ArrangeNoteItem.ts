@@ -1,12 +1,12 @@
-import StageItem from "components/Stage/Item"
+import Item from "components/Stage/Item"
+import { IRect } from "model/Rect"
 
-export default class ArrangeNoteItem extends StageItem {
+export default class ArrangeNoteItem implements Item {
   id: number
-  bounds: { x: number, y: number, width: number }
+  bounds: IRect
   isDrum: boolean
 
   constructor(id, bounds, isDrum) {
-    super()
     this.id = id
     this.bounds = bounds
     this.isDrum = isDrum

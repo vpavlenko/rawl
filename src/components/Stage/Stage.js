@@ -18,8 +18,6 @@ export default function Stage({
   height,
   scrollLeft = 0,
   scrollTop = 0,
-  scaleX = 1,
-  scaleY = 1,
   className = "",
   style
 }) {

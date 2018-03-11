@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { noteNumberString } from "helpers/noteNumberString"
 import Section from "components/groups/Section"
-import Icon from "components/Icon"
+import Icon from "components/Icon.tsx"
 
 import "./PropertyPane.css"
 

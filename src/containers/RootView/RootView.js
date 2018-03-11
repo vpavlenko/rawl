@@ -10,7 +10,7 @@ import TransportPanel from "containers/TransportPanel/TransportPanel"
 import PianoRollEditor from "containers/PianoRollEditor/PianoRollEditor"
 import SettingsView from "containers/SettingsView/SettingsView"
 
-import Sidebar from "components/Sidebar/Sidebar"
+import Sidebar from "components/Sidebar/Sidebar.tsx"
 
 import mainManu from "menus/mainMenu"
 import isDev from "helpers/isDev"

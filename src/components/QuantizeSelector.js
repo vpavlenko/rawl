@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import Icon from "components/Icon"
+import Icon from "components/Icon.tsx"
 import QuantizePopup from "components/QuantizePopup"
 
 import "./QuantizeSelector.css"

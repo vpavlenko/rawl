@@ -1,9 +1,9 @@
 import React from "react"
 import { observer, inject } from "mobx-react"
 
-import Icon from "components/Icon"
-import Knob from "components/inputs/Knob"
-import Slider from "components/inputs/Slider"
+import Icon from "components/Icon.tsx"
+import Knob from "components/inputs/Knob.tsx"
+import Slider from "components/inputs/Slider.tsx"
 import NavigationBar from "components/groups/NavigationBar"
 import { show as showInstrumentBrowser } from "components/InstrumentBrowser"
 

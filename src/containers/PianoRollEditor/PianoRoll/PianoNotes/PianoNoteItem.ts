@@ -5,9 +5,18 @@ function colorStr({ r, g, b }, alpha = 1) {
   return `rgba(${Math.round(r)}, ${Math.round(g)}, ${Math.round(b)}, ${alpha})`
 }
 
-export default class PianoNoteItem extends Item {
+export default class PianoNoteItem implements Item {
+  id: number
+  noteBounds: Rect
+  drumBounds: Rect
+  velocity: number
+  isSelected: boolean
+  isDrum: boolean
+  color: any
+  borderColor: any
+  selectedColor: any
+
   constructor(id, x, y, width, height, velocity, isSelected, isDrum, color, borderColor, selectedColor) {
-    super()
     this.id = id
     this.noteBounds = new Rect(x, y, width, height)
     this.drumBounds = new Rect(x, y, height, height)
@@ -19,7 +28,7 @@ export default class PianoNoteItem extends Item {
     this.selectedColor = selectedColor
   }
 
-  get bounds() {
+  get bounds(): Rect {
     return this.isDrum ? this.drumBounds : this.noteBounds
   }
 

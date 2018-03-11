@@ -1,8 +1,8 @@
 import React, { Component } from "react"
 import { observer, inject } from "mobx-react"
 
-import Icon from "components/Icon"
-import { Toolbar, ToolbarItem, ToolbarSeparator } from "components/groups/Toolbar"
+import Icon from "components/Icon.tsx"
+import { Toolbar, ToolbarItem, ToolbarSeparator } from "components/groups/Toolbar.tsx"
 
 import { TIME_BASE } from "Constants"
 

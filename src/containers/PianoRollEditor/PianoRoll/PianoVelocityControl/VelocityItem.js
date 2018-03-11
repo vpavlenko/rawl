@@ -1,4 +1,4 @@
-import StageItem from "components/Stage/Item"
+import StageItem from "components/Stage/Item.ts"
 
 function drawEvent(ctx, fillColor, strokeColor, { x, y, width, height }, selected) {
   const color = selected ? strokeColor : fillColor

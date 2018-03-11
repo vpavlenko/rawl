@@ -7,9 +7,9 @@ import "./Slider.css"
 function Content({
   value = 0,
   maxValue = 1,
-  onChange = () => { },
+  onChange = (e: Event) => { },
   dragging = false,
-  setDragging = () => { }
+  setDragging = (dragging: boolean) => { }
 }) {
   let rect
 

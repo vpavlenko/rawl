@@ -1,6 +1,5 @@
 import React, { Component } from "react"
-import Icon from "components/Icon"
-import NumberInput from "components/inputs/NumberInput"
+import Icon from "components/Icon.tsx"
 
 import "./QuantizePopup.css"
 

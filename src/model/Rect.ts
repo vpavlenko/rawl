@@ -1,4 +1,4 @@
-interface IRect {
+export interface IRect {
   x: number
   y: number
   width: number

@@ -1,6 +1,6 @@
 import React from "react"
 import sizeMe from "react-sizeme"
-import Icon from "components/Icon"
+import Icon from "components/Icon.tsx"
 import { ScrollBar, BAR_WIDTH } from "./ScrollBar"
 
 import "./ScaleScrollBar.css"

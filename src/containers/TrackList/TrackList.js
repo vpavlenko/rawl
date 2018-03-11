@@ -1,7 +1,7 @@
 import React from "react"
 import { observer, inject } from "mobx-react"
 
-import SideHeader from "components/Sidebar/Header"
+import SideHeader from "components/Sidebar/Header.tsx"
 import TrackListItem from "./TrackListItem.tsx"
 import AddTrackButton from "./AddTrackButton"
 

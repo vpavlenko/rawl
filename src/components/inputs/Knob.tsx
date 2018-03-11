@@ -10,17 +10,15 @@ const MAX_VALUE_MOVE_LENGTH = 150
 // ホイール1行分の回転による変化量
 const WHEEL_SPEED = 0.1
 
-const Nop = () => { }
-
 function Content({
   value = 0,
-  onChange = Nop,
+  onChange = (e: Event) => {},
   offsetDegree = 0,
   maxDegree = 360,
   maxValue = 1,
   minValue = 0,
   dragging = false,
-  setDragging = Nop
+  setDragging = (dragging: boolean) => {}
 }) {
   const range = maxValue - minValue
 

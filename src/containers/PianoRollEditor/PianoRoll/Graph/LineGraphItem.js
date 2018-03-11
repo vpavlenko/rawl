@@ -1,4 +1,4 @@
-import StageItem from "components/Stage/Item"
+import StageItem from "components/Stage/Item.ts"
 import Rect from "model/Rect"
 
 export default class LineGraphItem extends StageItem {

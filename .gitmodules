@@ -1,6 +1,3 @@
-[submodule "src/submodules/jasmid"]
-	path = src/submodules/jasmid
-	url = https://github.com/ryohey/jasmid.git
 [submodule "src/submodules/sf2synth"]
 	path = src/submodules/sf2synth
 	url = https://github.com/ryohey/sf2synth.js.git

@@ -1,4 +1,4 @@
-import { ControlChangeEvents } from "midi/MidiEvent"
+import { controlChangeEvents } from "../midi/MidiEvent.ts"
 
 /**
 
@@ -57,7 +57,7 @@ export function assemble(events) {
 
 export function deassemble(e) {
   if (e.subtype === "rpn") {
-    return ControlChangeEvents(e.deltaTime, e.rpnMSB, e.rpnLSB, e.dataMSB, e.dataLSB).map(c => ({
+    return controlChangeEvents(e.deltaTime, e.rpnMSB, e.rpnLSB, e.dataMSB, e.dataLSB).map(c => ({
       ...c,
       channel: e.channel,
       tick: e.tick

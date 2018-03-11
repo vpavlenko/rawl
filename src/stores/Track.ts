@@ -5,7 +5,7 @@ import _ from "lodash"
 import { MidiEvent } from "../midi/MidiEvent"
 import { getInstrumentName } from "../midi/GM.ts"
 
-import orArrayOf from "helpers/orArrayOf"
+import orArrayOf from "../helpers/orArrayOf.ts"
 
 function lastValue(arr, prop) {
   const last = _.last(arr)

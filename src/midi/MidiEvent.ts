@@ -9,6 +9,7 @@ export interface MetaMidiEvent<T> extends MidiEvent {
 }
 
 export interface ChannelMidiEvent extends MidiEvent {
+  channel: number
   subtype: string
   value: number
 }
@@ -45,33 +46,44 @@ export function endOfTrackMidiEvent(deltaTime: number) {
   return metaMidiEvent(deltaTime, "endOfTrack", null)
 }
 
-export function portPrefixMidiEvent(deltaTime: number, value: number) {
-  return metaMidiEvent(deltaTime, "portPrefix", value)
+export function portPrefixMidiEvent(deltaTime: number, port: number) {
+  return {
+    ...metaMidiEvent(deltaTime, "portPrefix", port),
+    port
+  } as MetaMidiEvent<number>
 }
 
 export function trackNameMidiEvent(deltaTime: number, text: string) {
-  return metaMidiEvent(deltaTime, "trackName", text)
+  return {
+    ...metaMidiEvent(deltaTime, "trackName", text),
+    text
+  } as MetaMidiEvent<string>
 }
 
 // from bpm: SetTempoMidiEvent(t, 60000000 / bpm)
 export function setTempoMidiEvent(deltaTime: number, value: number) {
-  return metaMidiEvent(deltaTime, "setTempo", value)
+  return {
+    ...metaMidiEvent(deltaTime, "setTempo", value),
+    microsecondsPerBeat: value
+  } as MetaMidiEvent<number>
 }
 
-export function timeSignatureMidiEvent(deltaTime: number, numerator = 4, denominator = 4, metronome = 24, thirtyseconds = 8): MetaMidiEvent<TimeSignature> {
-  return metaMidiEvent(deltaTime, "timeSignature", {
+export function timeSignatureMidiEvent(deltaTime: number, numerator = 4, denominator = 4, metronome = 24, thirtyseconds = 8): MetaMidiEvent<string> {
+  return {
+    ...metaMidiEvent(deltaTime, "timeSignature", `${numerator}/${denominator}`),
     numerator,
     denominator,
     metronome,
     thirtyseconds
-  })
+  } as MetaMidiEvent<string>
 }
 
 // channel events
 
-export function channelMidiEvent(deltaTime: number, subtype: string, value: number): ChannelMidiEvent {
+export function channelMidiEvent(deltaTime: number, subtype: string, value: number, channel: number = 0): ChannelMidiEvent {
   return {
     ...midiEvent(deltaTime, "channel"),
+    channel,
     subtype,
     value
   }

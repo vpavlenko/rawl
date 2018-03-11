@@ -1,6 +1,6 @@
 import assert from "assert"
 import { write } from "./MidiFileWriter"
-import Track from "stores/Track"
+import Track from "../stores/Track"
 import {
   setTempoMidiEvent,
   timeSignatureMidiEvent,

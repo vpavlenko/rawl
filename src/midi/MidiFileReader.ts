@@ -1,6 +1,6 @@
-import MidiFile from "../submodules/jasmid/midifile"
-import { addTick } from "../helpers/midiHelper"
-import { toTrackEvents } from "../helpers/eventAssembler"
+import MidiFile from "../midifile/midifile.ts"
+import { addTick } from "../helpers/midiHelper.ts"
+import { toTrackEvents } from "../helpers/eventAssembler.ts"
 
 export function read(data) {
   const midi = MidiFile(data)

@@ -1,6 +1,6 @@
 import React from "react"
 
-import DrawCanvas from "components/DrawCanvas"
+import DrawCanvas from "components/DrawCanvas.tsx"
 import Rect from "model/Rect"
 
 /**

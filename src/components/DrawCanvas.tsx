@@ -1,7 +1,14 @@
-import React, { Component } from "react"
+import React, { Component, CanvasHTMLAttributes } from "react"
 import _ from "lodash"
 
-export default class DrawCanvas extends Component {
+export interface DrawCanvasProps extends CanvasHTMLAttributes<HTMLCanvasElement> {
+  draw: (CanvasRenderingContext2D) => void
+}
+
+export default class DrawCanvas extends Component<DrawCanvasProps> {
+  canvas: HTMLCanvasElement
+  ctx: CanvasRenderingContext2D
+  
   componentDidMount() {
     this.ctx = this.canvas.getContext("2d")
     this.drawCanvas()

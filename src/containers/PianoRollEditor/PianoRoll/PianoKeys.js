@@ -4,7 +4,7 @@ import { shouldUpdate } from "recompose"
 import _ from "lodash"
 
 import { noteNameWithOctString } from "helpers/noteNumberString"
-import DrawCanvas from "components/DrawCanvas"
+import DrawCanvas from "components/DrawCanvas.tsx"
 
 function drawBorder(ctx, width, theme) {
   ctx.lineWidth = 1

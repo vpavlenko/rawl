@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import { shouldUpdate } from "recompose"
 import _ from "lodash"
 
-import DrawCanvas from "components/DrawCanvas"
+import DrawCanvas from "components/DrawCanvas.tsx"
 
 import "./PianoRuler.css"
 

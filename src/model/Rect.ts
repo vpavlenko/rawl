@@ -1,6 +1,6 @@
-export interface IRect {
-  x: number
-  y: number
+import { IPoint } from "model/Point"
+
+export interface IRect extends IPoint {
   width: number
   height: number
 }
@@ -30,12 +30,12 @@ export default class Rect implements IRect {
     return this.containsPoint({ x, y })
   }
 
-  containsPoint(point) {
+  containsPoint(point: IPoint) {
     return point.x >= this.x && point.x <= this.x + this.width &&
       point.y >= this.y && point.y <= this.y + this.height
   }
 
-  intersects(rect) {
+  intersects(rect: Rect) {
     if (!(rect instanceof Rect)) {
       rect = new Rect(rect)
     }
@@ -45,7 +45,7 @@ export default class Rect implements IRect {
       || rect.bottom < this.y)
   }
 
-  containsRect(rect) {
+  containsRect(rect: Rect) {
     if (!(rect instanceof Rect)) {
       rect = new Rect(rect)
     }
@@ -60,18 +60,18 @@ export default class Rect implements IRect {
     return this.y + this.height
   }
 
-  tl() {
+  tl(): IPoint {
     return { x: this.x, y: this.y }
   }
 
-  br() {
+  br(): IPoint {
     return {
       x: this.x + this.width,
       y: this.y + this.height
     }
   }
 
-  static fromPoints(pointA, pointB) {
+  static fromPoints(pointA: IPoint, pointB: IPoint) {
     const r = new Rect()
 
     const x1 = Math.min(pointA.x, pointB.x)
@@ -87,7 +87,7 @@ export default class Rect implements IRect {
     return r
   }
 
-  scale(scaleX, scaleY) {
+  scale(scaleX: number, scaleY: number) {
     const r = new Rect()
 
     r.x = this.x * scaleX

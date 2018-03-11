@@ -1,7 +1,13 @@
 import Item from "components/Stage/Item"
 import Rect from "model/Rect"
 
-function colorStr({ r, g, b }, alpha = 1) {
+interface RGB {
+  r: number
+  g: number
+  b: number
+}
+
+function colorStr({ r, g, b }: RGB, alpha = 1) {
   return `rgba(${Math.round(r)}, ${Math.round(g)}, ${Math.round(b)}, ${alpha})`
 }
 
@@ -16,7 +22,7 @@ export default class PianoNoteItem implements Item {
   borderColor: any
   selectedColor: any
 
-  constructor(id, x, y, width, height, velocity, isSelected, isDrum, color, borderColor, selectedColor) {
+  constructor(id: number, x: number, y: number, width: number, height: number, velocity: number, isSelected: boolean, isDrum: boolean, color: any, borderColor: RGB, selectedColor: any) {
     this.id = id
     this.noteBounds = new Rect(x, y, width, height)
     this.drumBounds = new Rect(x, y, height, height)
@@ -32,7 +38,7 @@ export default class PianoNoteItem implements Item {
     return this.isDrum ? this.drumBounds : this.noteBounds
   }
 
-  render(ctx) {
+  render(ctx: CanvasRenderingContext2D) {
     if (this.isDrum) {
       this.drawDrumNote(ctx)
     } else {
@@ -40,7 +46,7 @@ export default class PianoNoteItem implements Item {
     }
   }
 
-  drawNote(ctx) {
+  drawNote(ctx: CanvasRenderingContext2D) {
     const alpha = this.velocity / 127
     const noteColor = this.isSelected ? this.selectedColor : this.color
     let { x, y, width, height } = this.bounds
@@ -58,13 +64,13 @@ export default class PianoNoteItem implements Item {
     ctx.strokeStyle = this.borderColor
     ctx.lineWidth = 1
     ctx.beginPath()
-    ctx.rect(x, y, width, height, height / 5)
+    ctx.rect(x, y, width, height)
     ctx.closePath()
     ctx.fill()
     ctx.stroke()
   }
 
-  drawDrumNote(ctx) {
+  drawDrumNote(ctx: CanvasRenderingContext2D) {
     const alpha = this.velocity / 127
     const noteColor = this.isSelected ? colorStr(this.selectedColor) : colorStr(this.color, alpha)
     let { x, y, height } = this.bounds

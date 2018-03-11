@@ -10,12 +10,13 @@ import { toRawEvents } from "helpers/eventAssembler"
 import EventScheduler from "./EventScheduler"
 import TrackMute from "stores/TrackMute"
 import Song from "stores/Song"
+import { MidiEvent } from "midi/MidiEvent";
 
-function firstByte(eventType, channel) {
+function firstByte(eventType: string, channel: number): number {
   return (MIDIChannelEvents[eventType] << 4) + channel
 }
 
-function collectAllEvents(song) {
+function collectAllEvents(song: Song): MidiEvent[] {
   return _.chain(song.tracks)
     .map(t => t.events.toJS())
     .flatten()
@@ -26,13 +27,13 @@ function collectAllEvents(song) {
 
 // 同じ名前のタスクを描画タイマーごとに一度だけ実行する
 class DisplayTask {
-  tasks = {}
+  tasks: {[index: string]: () => void} = {}
   
   constructor() {
     setInterval(() => this.perform(), 50)
   }
 
-  add(name, func) {
+  add(name: string, func: () => void) {
     this.tasks[name] = func
   }
 
@@ -44,19 +45,26 @@ class DisplayTask {
 
 const displayTask = new DisplayTask()
 
+interface LoopSetting {
+  begin: number,
+  end: number,
+  enabled: boolean
+}
+
 export default class Player extends EventEmitter {
-  _currentTempo = 120
-  _currentTick = 0
-  _scheduler = null
-  loop = {
+  private _currentTempo = 120
+  private _currentTick = 0
+  private _scheduler = null
+  private _song: Song
+  private _output: any
+  private _timebase: number
+  private _trackMute: TrackMute
+  
+  loop: LoopSetting = {
     begin: null,
     end: null,
     enabled: false
   }
-  _song: Song
-  _output: any
-  _timebase: number
-  _trackMute: TrackMute
 
   constructor(timebase: number, output: any, trackMute: TrackMute) {
     super()
@@ -66,7 +74,7 @@ export default class Player extends EventEmitter {
     this._trackMute = trackMute
   }
 
-  play(song) {
+  play(song: Song) {
     assert(song, "you must provide song")
     this._song = song
     const eventsToPlay = collectAllEvents(song)
@@ -74,7 +82,7 @@ export default class Player extends EventEmitter {
     setInterval(() => this._onTimer(), 50)
   }
 
-  set position(tick) {
+  set position(tick: number) {
     if (this._scheduler) {
       this._scheduler.seek(tick)
     }
@@ -102,7 +110,7 @@ export default class Player extends EventEmitter {
     return 0xf
   }
 
-  allSoundsOffChannel(ch) {
+  allSoundsOffChannel(ch: number) {
     this._sendMessage([0xb0 + ch, MIDIControlEvents.ALL_SOUNDS_OFF, 0], window.performance.now())
   }
 
@@ -112,7 +120,7 @@ export default class Player extends EventEmitter {
     }
   }
 
-  allSoundsOffExclude(channel) {
+  allSoundsOffExclude(channel: number) {
     for (const ch of _.range(0, this.numberOfChannels)) {
       if (ch !== channel) {
         this.allSoundsOffChannel(ch)
@@ -139,7 +147,7 @@ export default class Player extends EventEmitter {
     return this._currentTempo
   }
 
-  _sendMessage(msg, timestamp) {
+  _sendMessage(msg, timestamp: number) {
     this._output.send(msg, timestamp)
   }
 
@@ -153,16 +161,16 @@ export default class Player extends EventEmitter {
     this._sendMessage([firstByte("noteOff", channel), noteNumber, 0], timestamp + this.tickToMillisec(duration))
   }
 
-  tickToMillisec(tick) {
+  tickToMillisec(tick: number) {
     return tick / (this._timebase / 60) / this._currentTempo * 1000
   }
 
-  _shouldPlayChannel(channel) {
+  private _shouldPlayChannel(channel: number) {
     const trackId = this._song.trackIdOfChannel(channel)
     return trackId ? this._trackMute.shouldPlayTrack(trackId) : true
   }
 
-  _onTimer() {
+  private _onTimer() {
     if (!this.isPlaying) {
       return
     }

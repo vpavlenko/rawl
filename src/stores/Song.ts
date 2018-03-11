@@ -9,10 +9,14 @@ const END_MARGIN = 480 * 30
 
 export default class Song {
   @serializable(list(object(Track)))
-  @observable.shallow tracks = []
+  @observable.shallow 
+  tracks: any[] = []
 
-  @serializable @observable selectedTrackId = 0
-  @serializable @observable filepath = ""
+  @serializable @observable 
+  selectedTrackId: number = 0
+
+  @serializable @observable 
+  filepath: string = ""
 
   name: string
 
@@ -66,7 +70,7 @@ export default class Song {
     return this.tracks[this.selectedTrackId]
   }
 
-  getTrack(id): Track {
+  getTrack(id: number): Track {
     return this.tracks[id]
   }
 

@@ -1,5 +1,6 @@
 import Measure from "./Measure"
 import { TIME_BASE } from "../Constants"
+import Track from "stores/Track"
 
 class Beat {
   measure: number
@@ -17,12 +18,12 @@ export default class MeasureList {
   measures: Measure[]
   beats: Beat[]
 
-  constructor(conductorTrack, endTick) {
+  constructor(conductorTrack: Track, endTick: number) {
     this.measures = getMeasuresFromConductorTrack(conductorTrack)
     this.beats = createBeats(this.measures, TIME_BASE, endTick)
   }
 
-  getMeasureAt(tick) {
+  getMeasureAt(tick: number) {
     let lastMeasure = new Measure()
     for (const m of this.measures) {
       if (m.startTick > tick) {
@@ -33,11 +34,11 @@ export default class MeasureList {
     return lastMeasure
   }
 
-  getMBTString(tick, ticksPerBeat, formatter = defaultMBTFormatter) {
+  getMBTString(tick: number, ticksPerBeat: number, formatter = defaultMBTFormatter) {
     return formatter(this.getMBT(tick, ticksPerBeat))
   }
 
-  getMBT(tick, ticksPerBeat) {
+  getMBT(tick: number, ticksPerBeat: number) {
     return this.getMeasureAt(tick).getMBT(tick, ticksPerBeat)
   }
 }

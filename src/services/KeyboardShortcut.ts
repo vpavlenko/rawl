@@ -1,4 +1,7 @@
-export function bindKeyboardShortcut(dispatch, player, songStore) {
+import Song from "stores/Song"
+import Player from "services/Player"
+
+export function bindKeyboardShortcut(dispatch, player: Player, songStore: { song: Song }) {
   document.onkeydown = e => {
     if (e.target !== document.body) {
       return

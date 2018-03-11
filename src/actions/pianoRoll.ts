@@ -1,4 +1,5 @@
 import { open as openContextMenu } from "containers/PianoRollEditor/PianoRoll/PianoContextMenu"
+import { IPoint } from "model/Point"
 
 export default ({ dispatch, pianoRollStore: s }) => {
   return {
@@ -6,7 +7,7 @@ export default ({ dispatch, pianoRollStore: s }) => {
       s.notesCursor = cursor
     },
 
-    "SCROLL_BY": ({ x, y }) => {
+    "SCROLL_BY": ({ x, y }: IPoint) => {
       s.scrollLeft = s.scrollLeft - x
       s.scrollTop = s.scrollTop - y
     },

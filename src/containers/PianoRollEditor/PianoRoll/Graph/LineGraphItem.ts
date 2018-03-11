@@ -1,10 +1,16 @@
-import StageItem from "components/Stage/Item.ts"
+import Item from "components/Stage/Item.ts"
 import Rect from "model/Rect"
 
-export default class LineGraphItem extends StageItem {
-  constructor(id, x, startY, endY, width, height, strokeColor, fillColor, lineWidth) {
-    super()
+export default class LineGraphItem implements Item {
+  id: any
+  bounds: Rect
+  startY: number
+  endY: number
+  strokeColor: any
+  fillColor: any
+  lineWidth: number
 
+  constructor(id: any, x: number, startY: number, endY: number, width: number, height: number, strokeColor: any, fillColor: any, lineWidth: number) {
     this.id = id
     this.bounds = new Rect(x, 0, width, height)
 
@@ -15,7 +21,7 @@ export default class LineGraphItem extends StageItem {
     this.lineWidth = lineWidth
   }
 
-  render(ctx) {
+  render(ctx: CanvasRenderingContext2D) {
     ctx.save()
     ctx.beginPath()
     ctx.strokeStyle = this.strokeColor

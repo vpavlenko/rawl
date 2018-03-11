@@ -1,4 +1,5 @@
 import Rect from "./Rect"
+import TempoCoordTransform from "model/TempoCoordTransform"
 
 export default class SelectionModel {
   noteIds = []
@@ -8,7 +9,7 @@ export default class SelectionModel {
   toNoteNumber = 0
   enabled = false
 
-  getBounds(transform) {
+  getBounds(transform: TempoCoordTransform) {
     const left = transform.getX(this.fromTick)
     const right = transform.getX(this.toTick)
     const top = transform.getY(this.fromNoteNumber)
@@ -21,7 +22,7 @@ export default class SelectionModel {
     )
   }
 
-  moveTo(tick, number) {
+  moveTo(tick: number, number: number) {
     const s = this.clone()
 
     const duration = this.toTick - this.fromTick
@@ -34,7 +35,7 @@ export default class SelectionModel {
     return s
   }
 
-  move(dt, dn) {
+  move(dt: number, dn: number) {
     const s = this.clone()
 
     s.fromTick += dt
@@ -45,7 +46,7 @@ export default class SelectionModel {
     return s
   }
 
-  resize(fromTick, fromNoteNumber, toTick, toNoteNumber) {
+  resize(fromTick: number, fromNoteNumber: number, toTick: number, toNoteNumber: number) {
     const s = new SelectionModel()
 
     // to が右下になるようにする

@@ -1,4 +1,5 @@
 import Item from "components/Stage/Item"
+import { IPoint } from "model/Point"
 import { IRect } from "model/Rect"
 
 export default class ArrangeNoteItem implements Item {
@@ -6,13 +7,13 @@ export default class ArrangeNoteItem implements Item {
   bounds: IRect
   isDrum: boolean
 
-  constructor(id, bounds, isDrum) {
+  constructor(id: number, bounds: IRect, isDrum: boolean) {
     this.id = id
     this.bounds = bounds
     this.isDrum = isDrum
   }
 
-  render(ctx) {
+  render(ctx: CanvasRenderingContext2D) {
     if (this.isDrum) {
       drawDrumNote(ctx, this.bounds)
     } else {
@@ -21,9 +22,7 @@ export default class ArrangeNoteItem implements Item {
   }
 }
 
-function drawNote(ctx, rect) {
-  const { x, y, width } = rect
-
+function drawNote(ctx: CanvasRenderingContext2D, { x, y, width }: IRect) {
   ctx.beginPath()
   ctx.strokeStyle = "blue"
   ctx.lineWidth = 1
@@ -32,9 +31,7 @@ function drawNote(ctx, rect) {
   ctx.stroke()
 }
 
-function drawDrumNote(ctx, rect) {
-  const { x, y } = rect
-
+function drawDrumNote(ctx: CanvasRenderingContext2D, { x, y }: IPoint) {
   ctx.beginPath()
   ctx.strokeStyle = "blue"
   ctx.lineWidth = 2

@@ -11,7 +11,7 @@ export default class Measure {
     this.denominator = denominator
   }
 
-  getMBT(tick, ticksPerBeatBase) {
+  getMBT(tick: number, ticksPerBeatBase: number) {
     const ticksPerBeat = ticksPerBeatBase * 4 / this.denominator
     const ticksPerMeasure = ticksPerBeat * this.numerator
 

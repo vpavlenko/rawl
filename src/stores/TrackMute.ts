@@ -5,6 +5,8 @@ function updated(obj, key, value) {
   return { ...obj, [key]: value }
 }
 
+type BoolMap = {[index: number]: boolean}
+
 /**
 
   操作によって二つのモードが切り替わる
@@ -26,55 +28,58 @@ function updated(obj, key, value) {
 
 */
 export default class TrackMute {
-  @observable mutes = {}
-  @observable solos = {}
+  @observable 
+  private mutes: BoolMap = {}
+  
+  @observable 
+  private solos: BoolMap = {}
 
   reset() {
     this.mutes = {}
     this.solos = {}
   }
 
-  _setMute(trackId, isMute) {
+  private _setMute(trackId: number, isMute: boolean) {
     if (this.isSoloMode()) {
       return
     }
     this.mutes = updated(this.mutes, trackId, isMute)
   }
 
-  _getMute(trackId) {
+  private _getMute(trackId: number) {
     return this.mutes[trackId] || false
   }
 
-  _setSolo(trackId, isSolo) {
+  private _setSolo(trackId: number, isSolo: boolean) {
     this.solos = updated(this.solos, trackId, isSolo)
   }
 
-  _getSolo(trackId) {
+  private _getSolo(trackId: number) {
     return this.solos[trackId] || false
   }
 
-  mute(trackId) {
+  mute(trackId: number) {
     this._setMute(trackId, true)
   }
 
-  unmute(trackId) {
+  unmute(trackId: number) {
     this._setMute(trackId, false)
   }
 
-  solo(trackId) {
+  solo(trackId: number) {
     this._setSolo(trackId, true)
   }
 
-  unsolo(trackId) {
+  unsolo(trackId: number) {
     this._setSolo(trackId, false)
   }
 
-  isSoloMode() {
+  isSoloMode(): boolean {
     // どれかひとつでも solo なら solo モード
     return _.some(this.solos)
   }
 
-  shouldPlayTrack(trackId) {
+  shouldPlayTrack(trackId: number) {
     if (this.isSoloMode()) {
       return this._getSolo(trackId)
     } else {
@@ -84,11 +89,11 @@ export default class TrackMute {
 
   // 表示用のメソッド
 
-  isSolo(trackId) {
+  isSolo(trackId: number) {
     return this.isSoloMode() && this.solos[trackId]
   }
 
-  isMuted(trackId) {
+  isMuted(trackId: number) {
     return !this.shouldPlayTrack(trackId)
   }
 }

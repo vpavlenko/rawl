@@ -1,20 +1,20 @@
 // 文頭、文末のスペースを取り除く
-function trimSpace(str) {
+function trimSpace(str: string) {
   const matched = str.match(/^\s*(.+?)\s*$/)
   return (matched && matched.length) > 0 ? matched[1] : str
 }
 
-function getCSSVariable(name) {
+function getCSSVariable(name: string) {
   const s = window.getComputedStyle(document.body)
   return trimSpace(s.getPropertyValue(name))
 }
 
-export function hslWithAlpha(hsl, alpha) {
+export function hslWithAlpha(hsl: string, alpha: number) {
   const [, h, s, l] = hsl.match(/hsl\((.+), (.+)%, (.+)%\)/)
   return `hsla(${h}, ${s}%, ${l}%, ${alpha})`
 }
 
-function parseInt_(v) {
+function parseInt_(v: string) {
   return parseInt(v, 10)
 }
 

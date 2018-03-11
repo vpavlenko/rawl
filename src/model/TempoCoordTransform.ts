@@ -4,17 +4,17 @@ export default class TempoCoordTransform {
   height: number
   maxBPM: number
 
-  constructor(pixelsPerTick, height, maxBPM = 320) {
+  constructor(pixelsPerTick: number, height: number, maxBPM = 320) {
     this.pixelsPerTick = pixelsPerTick
     this.height = height
     this.maxBPM = maxBPM
   }
 
-  getX(tick) {
+  getX(tick: number) {
     return tick * this.pixelsPerTick
   }
 
-  getY(bpm) {
+  getY(bpm: number) {
     return (1 - bpm / this.maxBPM) * this.height // 上下反転
   }
 
@@ -22,19 +22,19 @@ export default class TempoCoordTransform {
     return this.height
   }
 
-  getTicks(pixels) {
+  getTicks(pixels: number) {
     return pixels / this.pixelsPerTick
   }
 
-  getBPM(pixels) {
+  getBPM(pixels: number) {
     return (1 - pixels / this.height) * this.maxBPM
   }
 
-  getDeltaBPM(pixels) {
+  getDeltaBPM(pixels: number) {
     return -pixels / this.height * this.maxBPM
   }
 
-  equals(t) {
+  equals(t: TempoCoordTransform) {
     return this.pixelsPerTick === t.pixelsPerTick
       && this.height === t.height
       && this.maxBPM === t.maxBPM

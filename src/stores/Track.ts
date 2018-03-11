@@ -13,13 +13,18 @@ function lastValue(arr, prop) {
 }
 
 export default class Track {
-  @serializable(list(map(orArrayOf(primitive())))) @observable.shallow events = []
-  @serializable @observable lastEventId = 0
-  @serializable @observable channel = undefined
+  @serializable(list(map(orArrayOf(primitive())))) @observable.shallow 
+  events: any[] = []
+  
+  @serializable @observable 
+  lastEventId = 0
 
-  getEventById = (id) => _.find(this.events, e => e.id === id)
+  @serializable @observable 
+  channel: number|undefined = undefined
 
-  private _updateEvent(id, obj) {
+  getEventById = (id: number) => _.find(this.events, e => e.id === id)
+
+  private _updateEvent(id: number, obj: any) {
     const anObj = this.getEventById(id)
     if (!anObj) {
       console.warn(`unknown id: ${id}`)
@@ -33,7 +38,7 @@ export default class Track {
     return anObj
   }
 
-  @action updateEvent(id, obj) {
+  @action updateEvent(id: number, obj: any) {
     const result = this._updateEvent(id, obj)
     if (result) {
       this.updateEndOfTrack()
@@ -42,7 +47,7 @@ export default class Track {
     return result
   }
 
-  @action updateEvents(events) {
+  @action updateEvents(events: any[]) {
     transaction(() => {
       events.forEach(event => {
         this._updateEvent(event.id, event)
@@ -52,20 +57,20 @@ export default class Track {
     this.sortByTick()
   }
 
-  @action removeEvent(id) {
+  @action removeEvent(id: number) {
     const obj = this.getEventById(id)
     this.events = _.without(this.events, obj)
     this.updateEndOfTrack()
   }
 
-  @action removeEvents(ids) {
+  @action removeEvents(ids: number[]) {
     const objs = ids.map(id => this.getEventById(id))
     this.events = _.difference(this.events, objs)
     this.updateEndOfTrack()
   }
 
   // ソート、通知を行わない内部用の addEvent
-  _addEvent(e) {
+  _addEvent(e: any) {
     e.id = this.lastEventId
     this.lastEventId++
     this.events.push(e)
@@ -80,13 +85,13 @@ export default class Track {
     return e
   }
 
-  @action addEvent(e) {
+  @action addEvent(e: any) {
     this._addEvent(e)
     this.didAddEvent()
     return e
   }
 
-  @action addEvents(events) {
+  @action addEvents(events: any) {
     let result
     transaction(() => {
       result = events.map(e => this._addEvent(e))
@@ -111,7 +116,7 @@ export default class Track {
       .value()
   }
 
-  changeChannel(channel) {
+  changeChannel(channel: number) {
     this.channel = channel
 
     for (let e of this.events) {
@@ -194,52 +199,52 @@ export default class Track {
     return undefined
   }
 
-  get name() {
+  get name(): string {
     return lastValue(this._findTrackNameEvent(), "text")
   }
 
-  set name(value) {
+  set name(value: string) {
     this._updateLast(this._findTrackNameEvent(), { value })
   }
 
-  get volume() {
+  get volume(): number {
     return lastValue(this._findVolumeEvents(), "value")
   }
 
-  set volume(value) {
+  set volume(value: number) {
     this._updateLast(this._findVolumeEvents(), { value })
   }
 
-  get pan() {
+  get pan(): number {
     return lastValue(this._findPanEvents(), "value")
   }
 
-  set pan(value) {
+  set pan(value: number) {
     this._updateLast(this._findPanEvents(), { value })
   }
 
   @computed 
-  get endOfTrack() {
+  get endOfTrack(): number {
     return lastValue(this._findEndOfTrackEvents(), "tick")
   }
 
-  set endOfTrack(tick) {
+  set endOfTrack(tick: number) {
     this._updateLast(this._findEndOfTrackEvents(), { tick })
   }
 
-  get programNumber() {
+  get programNumber(): number {
     return lastValue(this._findProgramChangeEvents(), "value")
   }
 
-  set programNumber(value) {
+  set programNumber(value: number) {
     this._updateLast(this._findProgramChangeEvents(), { value })
   }
 
-  get tempo() {
+  get tempo(): number {
     return 60000000 / lastValue(this._findSetTempoEvents(), "microsecondsPerBeat")
   }
 
-  set tempo(bpm) {
+  set tempo(bpm: number) {
     const microsecondsPerBeat = 60000000 / bpm
     this._updateLast(this._findSetTempoEvents(), { microsecondsPerBeat })
   }

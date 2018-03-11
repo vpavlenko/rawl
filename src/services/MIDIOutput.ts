@@ -10,13 +10,13 @@ export default class MIDIOutput {
     })
   }
 
-  send(msg, timestamp) {
+  send(msg: any, timestamp: number) {
     if (this.midiOutput) {
       this.midiOutput.send(msg, timestamp)
     }
   }
 
-  sendEvents(events) {
+  sendEvents(events: any[]) {
     events.forEach(e => this.send(e.message, e.timestamp))
   }
 }

@@ -2,24 +2,24 @@ export default class Quantizer {
   _ticksPerBeat: number = 480
   denominator: number = 4
 
-  constructor(ticksPerBeat, denominator = 8) {
+  constructor(ticksPerBeat: number, denominator = 8) {
     this._ticksPerBeat = ticksPerBeat
 
     // N 分音符の N
     this.denominator = denominator
   }
 
-  round(tick) {
+  round(tick: number) {
     var u = this.unit
     return Math.round(tick / u) * u
   }
 
-  ceil(tick) {
+  ceil(tick: number) {
     var u = this.unit
     return Math.ceil(tick / u) * u
   }
 
-  floor(tick) {
+  floor(tick: number) {
     var u = this.unit
     return Math.floor(tick / u) * u
   }
@@ -27,5 +27,4 @@ export default class Quantizer {
   get unit() {
     return this._ticksPerBeat * 4 / this.denominator
   }
-
 }

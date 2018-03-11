@@ -1,11 +1,12 @@
 import _ from "lodash"
+import { IRect } from "model/Rect"
 
 export default class NoteCoordTransform {
   private _pixelsPerTick: number
   private _pixelsPerKey: number
   private _maxNoteNumber: number
 
-  constructor(pixelsPerTick, pixelsPerKey, maxNoteNumber) {
+  constructor(pixelsPerTick: number, pixelsPerKey: number, maxNoteNumber: number) {
     this._pixelsPerTick = pixelsPerTick
     this._pixelsPerKey = pixelsPerKey
     this._maxNoteNumber = maxNoteNumber
@@ -13,15 +14,15 @@ export default class NoteCoordTransform {
 
   // pixels
 
-  getX(tick) {
+  getX(tick: number) {
     return tick * this._pixelsPerTick
   }
 
-  getY(noteNumber) {
+  getY(noteNumber: number) {
     return (this._maxNoteNumber - noteNumber) * this._pixelsPerKey
   }
 
-  getDeltaY(deltaNoteNumber) {
+  getDeltaY(deltaNoteNumber: number) {
     return -deltaNoteNumber * this._pixelsPerKey
   }
 
@@ -31,15 +32,15 @@ export default class NoteCoordTransform {
 
   // ticks
 
-  getTicks(pixels) {
+  getTicks(pixels: number) {
     return pixels / this._pixelsPerTick
   }
 
-  getNoteNumber(pixels) {
+  getNoteNumber(pixels: number) {
     return this._maxNoteNumber - pixels / this._pixelsPerKey
   }
 
-  getDeltaNoteNumber(deltaPixels) {
+  getDeltaNoteNumber(deltaPixels: number) {
     return -deltaPixels / this._pixelsPerKey
   }
 
@@ -61,7 +62,7 @@ export default class NoteCoordTransform {
     return (this._maxNoteNumber + 1) * this._pixelsPerKey
   }
 
-  getRect(note) {
+  getRect(note: any) {
     return {
       x: this.getX(note.tick),
       y: this.getY(note.noteNumber),
@@ -70,7 +71,7 @@ export default class NoteCoordTransform {
     }
   }
 
-  getNoteForRect(rect) {
+  getNoteForRect(rect: IRect) {
     const obj = {}
     if (_.has(rect, "x")) {
       obj["tick"] = this.getTicks(rect.x)
@@ -84,7 +85,7 @@ export default class NoteCoordTransform {
     return obj
   }
 
-  equals(t) {
+  equals(t: NoteCoordTransform) {
     return this.pixelsPerKey === t.pixelsPerKey
       && this.pixelsPerTick === t.pixelsPerTick
       && this.maxNoteNumber === t.maxNoteNumber

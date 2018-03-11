@@ -2,7 +2,7 @@ import React from "react"
 import { pure } from "recompose"
 
 import Stage from "components/Stage/Stage"
-import LineGraphItem from "./LineGraphItem"
+import LineGraphItem from "./LineGraphItem.ts"
 
 import "./LineGraph.css"
 

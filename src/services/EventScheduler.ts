@@ -10,12 +10,12 @@ export default class EventScheduler {
   // 1/4 拍子ごとの tick 数
   timebase = 480
 
-  _currentTick = 0
-  _scheduledTick = 0
-  _prevTime = undefined
-  _events: any[]
+  private _currentTick = 0
+  private _scheduledTick = 0
+  private _prevTime: number|undefined = undefined
+  private _events: any[]
 
-  constructor(events = [], tick = 0, timebase = 480, lookAheadTime = 100) {
+  constructor(events: any[] = [], tick = 0, timebase = 480, lookAheadTime = 100) {
     this._events = events
     this._currentTick = tick
     this._scheduledTick = tick
@@ -26,19 +26,19 @@ export default class EventScheduler {
     return this._currentTick
   }
 
-  millisecToTick(ms, bpm) {
+  millisecToTick(ms: number, bpm: number) {
     return ms / 1000 * bpm / 60 * this.timebase
   }
 
-  tickToMillisec(tick, bpm) {
+  tickToMillisec(tick: number, bpm: number) {
     return tick / (this.timebase / 60) / bpm * 1000
   }
 
-  seek(tick) {
+  seek(tick: number) {
     this._currentTick = this._scheduledTick = Math.max(0, tick)
   }
 
-  readNextEvents(bpm, timestamp) {
+  readNextEvents(bpm: number, timestamp: number) {
     if (this._prevTime === undefined) {
       this._prevTime = timestamp
     }

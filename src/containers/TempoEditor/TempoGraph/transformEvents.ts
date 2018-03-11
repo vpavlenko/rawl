@@ -1,6 +1,6 @@
 import TempoGraphItem from "./TempoGraphItem"
 
-export default (events, transform, width, strokeColor, fillColor) => {
+export default (events, transform, width, strokeColor, fillColor): TempoGraphItem[] => {
 
   // まず位置だけ計算する
   const items = events

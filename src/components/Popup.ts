@@ -1,6 +1,8 @@
 import "./Popup.css"
 
 export default class Popup {
+  elm: Element
+  
   constructor() {
     this.elm = Popup.renderElement()
 

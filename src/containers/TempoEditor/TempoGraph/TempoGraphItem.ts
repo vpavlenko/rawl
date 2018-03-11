@@ -2,6 +2,11 @@ import StageItem from "components/Stage/Item"
 import Rect from "model/Rect"
 
 export default class TempoGraphItem extends StageItem {
+  id: number
+  bounds: Rect
+  fillColor: any
+  strokeColor: any
+  
   constructor(id, x, y, width, height, fillColor, strokeColor) {
     super()
     this.id = id

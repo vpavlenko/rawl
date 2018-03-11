@@ -6,6 +6,7 @@
   "scripts": {
     "start": "webpack-dev-server --hot",
     "build": "react-scripts build && npm run copy-electron-files",
+    "watch": "webpack --watch",
     "dev": "nf start",
     "test": "jest --watch",
     "storybook": "start-storybook -p 6006",

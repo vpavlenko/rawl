@@ -1,24 +1,30 @@
 import { observable } from "mobx"
 import { serialize, deserialize } from "serializr"
 
-import Song from "./Song.ts"
-import Router from "./Router.ts"
-import TrackMute from "./TrackMute.ts"
-import PlayerStore from "./PlayerStore.ts"
-import HistoryStore from "./HistoryStore.ts"
-import SettingsStore from "./SettingsStore.ts"
-import RootViewStore from "./RootViewStore.ts"
-import PianoRollStore from "./PianoRollStore.ts"
-import ArrangeViewStore from "./ArrangeViewStore.ts"
-import TempoEditorStore from "./TempoEditorStore.ts"
+import Song from "./Song"
+import Router from "./Router"
+import TrackMute from "./TrackMute"
+import PlayerStore from "./PlayerStore"
+import HistoryStore from "./HistoryStore"
+import SettingsStore from "./SettingsStore"
+import RootViewStore from "./RootViewStore"
+import PianoRollStore from "./PianoRollStore"
+import ArrangeViewStore from "./ArrangeViewStore"
+import TempoEditorStore from "./TempoEditorStore"
 
-import Player from "../services/Player.ts"
-import Quantizer from "../services/Quantizer.ts"
-import SynthOutput from "../services/SynthOutput.ts"
+import Player from "../services/Player"
+import Quantizer from "../services/Quantizer"
+import SynthOutput from "../services/SynthOutput"
 import { TIME_BASE } from "../Constants"
 
 import createDispatcher from "../createDispatcher"
-import { emptySong } from "./SongFactory.ts"
+import { emptySong } from "./SongFactory"
+
+interface Services {
+  player: Player
+  quantizer: Quantizer
+  synth: SynthOutput
+}
 
 export default class RootStore {
   @observable.ref song: Song = emptySong()
@@ -32,7 +38,7 @@ export default class RootStore {
   arrangeViewStore = new ArrangeViewStore()
   tempoEditorStore = new TempoEditorStore()
 
-  services = {}
+  services: Services
 
   constructor() {
     const { soundFontPath } = this.settingsStore

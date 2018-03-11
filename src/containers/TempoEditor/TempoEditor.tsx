@@ -7,7 +7,6 @@ import TempoGraph from "./TempoGraph/TempoGraph"
 import "./TempoEditor.css"
 
 function TempoEditor({
-  track,
   onClickNavBack
 }) {
   return <div className="TempoEditor">

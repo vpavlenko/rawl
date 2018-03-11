@@ -13,7 +13,7 @@ import TempoCoordTransform from "model/TempoCoordTransform"
 
 import mapBeats from "helpers/mapBeats"
 import { uSecPerBeatToBPM, bpmToUSecPerBeat } from "helpers/bpm"
-import transformEvents from "./transformEvents"
+import transformEvents from "./transformEvents.ts"
 
 import Stage from "components/Stage/Stage"
 import DrawCanvas from "components/DrawCanvas"

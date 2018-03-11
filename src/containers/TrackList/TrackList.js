@@ -3,7 +3,7 @@ import { observer, inject } from "mobx-react"
 
 import Icon from "components/Icon"
 import SideHeader from "components/Sidebar/Header"
-import TrackListItem from "./TrackListItem"
+import TrackListItem from "./TrackListItem.tsx"
 import AddTrackButton from "./AddTrackButton"
 
 import "./TrackList.css"

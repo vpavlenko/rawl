@@ -24,7 +24,7 @@ export default function TrackListItem({
     className={`TrackListItem ${selected ? "selected" : ""}`}
     onClick={onClick}
     onContextMenu={createContextMenu(close =>
-      <ContextMenu id="TrackListItem">
+      <ContextMenu>
         <MenuItem onClick={() => {
           onClickDelete()
           close()

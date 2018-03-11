@@ -4,7 +4,7 @@ import path from "path"
 import { observer, inject } from "mobx-react"
 import DevTools from "mobx-react-devtools"
 
-import TempoEditor from "containers/TempoEditor/TempoEditor"
+import TempoEditor from "containers/TempoEditor/TempoEditor.tsx"
 import ArrangeView from "containers/ArrangeView/ArrangeView"
 import TransportPanel from "containers/TransportPanel/TransportPanel"
 import PianoRollEditor from "containers/PianoRollEditor/PianoRollEditor"

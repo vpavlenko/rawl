@@ -1,6 +1,10 @@
 import StageItem from "components/Stage/Item"
 
 export default class ArrangeNoteItem extends StageItem {
+  id: number
+  bounds: { x: number, y: number, width: number }
+  isDrum: boolean
+
   constructor(id, bounds, isDrum) {
     super()
     this.id = id

@@ -1,5 +1,6 @@
 import Song from "../stores/Song.ts"
 import Track from "../stores/Track.ts"
+import { emptySong } from "../stores/SongFactory"
 import { emptyTrack } from "../stores/TrackFactory"
 import { read as readSong, write as writeSong } from "../midi/SongFile.ts"
 
@@ -19,7 +20,7 @@ export default (rootStore) => {
 
   return {
     "CREATE_SONG": () => {
-      setSong(Song.emptySong())
+      setSong(emptySong())
     },
     "SAVE_SONG": ({ filepath }) => {
       writeSong(song, filepath, e => {

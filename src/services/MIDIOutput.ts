@@ -1,6 +1,8 @@
 export default class MIDIOutput {
+  midiOutput: any
+
   constructor() {
-    navigator.requestMIDIAccess({ sysex: true }).then(midiAccess => {
+    (navigator as any).requestMIDIAccess({ sysex: true }).then(midiAccess => {
       const outputs = Array.from(midiAccess.outputs.values())
       this.midiOutput = outputs[0]
     }, error => {

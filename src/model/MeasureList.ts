@@ -2,6 +2,10 @@ import Measure from "./Measure"
 import { TIME_BASE } from "../Constants"
 
 class Beat {
+  measure: number
+  beat: number
+  tick: number
+  
   constructor(measure, beat, tick) {
     this.measure = measure
     this.beat = beat
@@ -10,6 +14,9 @@ class Beat {
 }
 
 export default class MeasureList {
+  measures: Measure[]
+  beats: Beat[]
+
   constructor(conductorTrack, endTick) {
     this.measures = getMeasuresFromConductorTrack(conductorTrack)
     this.beats = createBeats(this.measures, TIME_BASE, endTick)

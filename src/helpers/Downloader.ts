@@ -1,9 +1,9 @@
 export default class Downloader {
   static download(url, name = "noname"){
-    var a = document.createElement("a")
+    const a = document.createElement("a")
     a.href = url
-    a.setAttribute("download", name)
-    a.style = "display: none;"
+    a.download = name
+    a.style.display = "none"
     document.body.appendChild(a)
     a.click()
     a.remove()
@@ -16,7 +16,7 @@ export default class Downloader {
       type: mimeType
     })
     url = window.URL.createObjectURL(blob)
-    Downloader.download(url, fileName, mimeType)
+    Downloader.download(url, fileName)
     setTimeout(() => {
       return window.URL.revokeObjectURL(url)
     }, 1000)

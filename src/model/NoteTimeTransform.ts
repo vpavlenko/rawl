@@ -1,14 +1,13 @@
+interface TempoItem {
+  tempo: number
+  tick: number
+}
+
 export default class NoteTimeTransform {
-  /**
-    tempos = [
-      {
-        tempo: <Number>,
-        tick: <Number>
-      },
-      ...
-    ]
-  */
-  constructor(tempos, timebase) {
+  private _tempos: TempoItem[]
+  private _timebase: number
+
+  constructor(tempos: TempoItem[], timebase: number) {
     this._tempos = tempos
     this._timebase = timebase
   }

@@ -1,6 +1,10 @@
 import _ from "lodash"
 
 export default class NoteCoordTransform {
+  private _pixelsPerTick: number
+  private _pixelsPerKey: number
+  private _maxNoteNumber: number
+
   constructor(pixelsPerTick, pixelsPerKey, maxNoteNumber) {
     this._pixelsPerTick = pixelsPerTick
     this._pixelsPerKey = pixelsPerKey
@@ -69,13 +73,13 @@ export default class NoteCoordTransform {
   getNoteForRect(rect) {
     const obj = {}
     if (_.has(rect, "x")) {
-      obj["tick"] = this.getTicksForPixels(rect.x)
+      obj["tick"] = this.getTicks(rect.x)
     }
     if (_.has(rect, "y")) {
-      obj["noteNumber"] = this.getNoteNumberForPixels(rect.y)
+      obj["noteNumber"] = this.getNoteNumber(rect.y)
     }
     if (_.has(rect, "width")) {
-      obj["duration"] = this.getTicksForPixels(rect.width)
+      obj["duration"] = this.getTicks(rect.width)
     }
     return obj
   }

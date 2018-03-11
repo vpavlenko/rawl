@@ -74,7 +74,7 @@ export default ({ dispatch, song: { tracks }, arrangeViewStore: s, services: { q
       // ノートを移動
 
       const updates = []
-      for (let trackIndex in s.selectedEventIds) {
+      for (let trackIndex of s.selectedEventIds) {
         trackIndex = parseInt(trackIndex, 10)
         const track = tracks[trackIndex]
         const events = s.selectedEventIds[trackIndex].map(id => track.getEventById(id)).filter(e => e)

@@ -34,7 +34,7 @@ export default (rootStore) => {
     },
     "CREATE_TEMPO": ({ tick, microsecondsPerBeat }) => {
       saveHistory()
-      const e = setTempoMidiEvent(0, Math.round(microsecondsPerBeat))
+      const e = setTempoMidiEvent(0, Math.round(microsecondsPerBeat)) as any
       e.tick = quantizer.round(tick)
       song.conductorTrack.createOrUpdate(e)
     },
@@ -48,31 +48,31 @@ export default (rootStore) => {
     "CREATE_PITCH_BEND": ({ tick, value }) => {
       saveHistory()
       return createOrUpdate("subtype", "pitchBend", tick, "value", value, () =>
-        pitchBendMidiEvent()
+        pitchBendMidiEvent(0, 0)
       )
     },
     "CREATE_VOLUME": ({ tick, value }) => {
       saveHistory()
       return createOrUpdate("controllerType", 0x07, tick, "value", value, () =>
-        volumeMidiEvent()
+        volumeMidiEvent(0, 0)
       )
     },
     "CREATE_PAN": ({ tick, value }) => {
       saveHistory()
       return createOrUpdate("controllerType", 0x0a, tick, "value", value, () =>
-        panMidiEvent()
+        panMidiEvent(0, 0)
       )
     },
     "CREATE_MODULATION": ({ tick, value }) => {
       saveHistory()
       return createOrUpdate("controllerType", 0x01, tick, "value", value, () =>
-        modulationMidiEvent()
+        modulationMidiEvent(0, 0)
       )
     },
     "CREATE_EXPRESSION": ({ tick, value }) => {
       saveHistory()
       return createOrUpdate("controllerType", 0x0b, tick, "value", value, () =>
-        expressionMidiEvent()
+        expressionMidiEvent(0, 0)
       )
     },
     "REMOVE_EVENT": ({ eventId }) => {
@@ -94,9 +94,9 @@ export default (rootStore) => {
         duration: pianoRollStore.lastNoteDuration || quantizer.unit,
         channel: selectedTrack.channel
       }
-      selectedTrack.addEvent(note)
-      player.playNote(note)
-      return note.id
+      const added = selectedTrack.addEvent(note)
+      player.playNote(added)
+      return added.id
     },
     "MOVE_NOTE": ({ id, tick, noteNumber, quantize }) => {
       const note = selectedTrack.getEventById(id)

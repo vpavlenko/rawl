@@ -1,4 +1,7 @@
-import { controlChangeEvents } from "../midi/MidiEvent.ts"
+import { 
+  ControllerMidiEvent, 
+  controlChangeEvents 
+} from "../midi/MidiEvent.ts"
 
 /**
 
@@ -9,11 +12,11 @@ RPN は種類、値を表す2～4つのイベントからなるが、
 読み込み時にひとつにまとめ、再生・保存時に元に戻す
 
 */
-export function assemble(events) {
+export function assemble(events: ControllerMidiEvent[]) {
   const result = []
 
   // ひとつにまとめた RPN イベントを作成する
-  function createCC(rpnMSB, rpnLSB, dataMSB, dataLSB) {
+  function createCC(rpnMSB, rpnLSB, dataMSB?, dataLSB?) {
     return {
       channel: rpnMSB.channel,
       type: "channel",
@@ -37,17 +40,20 @@ export function assemble(events) {
     const e = events[i]
     if (isRPNMSB(e)) {
       const j = i
-      const data = [e]
-      function add(event, test) {
+      const data: ControllerMidiEvent[] = [e]
+      const getNextIf = (event, test) => {
         if (test(event)) {
-          data.push(event)
           i++ // skip this event
+          return event
         }
+        return null
       }
-      add(events[j + 1], isRPNLSB)
-      add(events[j + 2], isDataMSB)
-      add(events[j + 3], isDataLSB)
-      result.push(createCC(...data))
+      result.push(createCC(
+        e, 
+        getNextIf(events[j + 1], isRPNLSB), 
+        getNextIf(events[j + 2], isDataMSB), 
+        getNextIf(events[j + 3], isDataLSB)
+      ))
     } else {
       result.push(e)
     }

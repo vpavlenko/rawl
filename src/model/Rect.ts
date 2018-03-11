@@ -1,10 +1,23 @@
-export default class Rect {
-  constructor(x, y, width, height) {
+interface IRect {
+  x: number
+  y: number
+  width: number
+  height: number
+}
+
+export default class Rect implements IRect {
+  x: number
+  y: number
+  width: number
+  height: number
+
+  constructor(x: number|IRect = 0, y = 0, width = 0, height = 0) {
     if (x instanceof Object) {
-      this.x = x.x
-      this.y = x.y
-      this.width = x.width
-      this.height = x.height
+      const r = x as IRect
+      this.x = r.x
+      this.y = r.y
+      this.width = r.width
+      this.height = r.height
       return
     }
     this.x = x

@@ -1,9 +1,12 @@
 import path from "path"
 
-const { remote } = window.require("electron")
+const { remote } = (window as any).require("electron")
 const fs = remote.require("fs")
 
-export default class {
+export default class JsonStore {
+  path: string
+  cache: Object
+
   constructor() {
     this.path = path.join(remote.app.getPath("userData"), "config.json")
 

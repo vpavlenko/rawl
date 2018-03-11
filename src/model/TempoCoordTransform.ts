@@ -1,7 +1,12 @@
 export default class TempoCoordTransform {
+  pixelsPerTick: number
+  // グラフの描画領域の高さ
+  height: number
+  maxBPM: number
+
   constructor(pixelsPerTick, height, maxBPM = 320) {
     this.pixelsPerTick = pixelsPerTick
-    this.height = height  // グラフの描画領域の高さ
+    this.height = height
     this.maxBPM = maxBPM
   }
 
@@ -30,7 +35,7 @@ export default class TempoCoordTransform {
   }
 
   equals(t) {
-    return this.pixelsPerKey === t.pixelsPerKey
+    return this.pixelsPerTick === t.pixelsPerTick
       && this.height === t.height
       && this.maxBPM === t.maxBPM
   }

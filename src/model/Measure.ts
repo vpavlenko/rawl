@@ -1,4 +1,9 @@
 export default class Measure {
+  startTick: number
+  measure: number
+  numerator: number
+  denominator: number
+  
   constructor(startTick = 0, measure = 0, numerator = 4, denominator = 4) {
     this.startTick = startTick
     this.measure = measure

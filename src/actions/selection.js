@@ -1,4 +1,4 @@
-import clipboard from "services/Clipboard"
+import clipboard from "services/Clipboard.ts"
 import SelectionModel from "model/SelectionModel"
 
 function eventsInSelection(events, selection) {

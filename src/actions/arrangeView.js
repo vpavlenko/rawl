@@ -1,6 +1,6 @@
 import Rect from "model/Rect"
 import _ from "lodash"
-import clipboard from "services/Clipboard"
+import clipboard from "services/Clipboard.ts"
 import { open as openContextMenu } from "containers/ArrangeView/ArrangeContextMenu"
 
 export default ({ dispatch, song: { tracks }, arrangeViewStore: s, services: { quantizer, player } }) => {

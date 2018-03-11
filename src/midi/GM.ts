@@ -18,13 +18,13 @@ const GMMap = {
 }
 
 // programNumber は 0 から始まる数
-function getInstrumentName(programNumber) {
+function getInstrumentName(programNumber: number): string {
   const ids = getGMMapIndexes(programNumber)
   return GMMap[Object.keys(GMMap)[ids[0]]][ids[1]]
 }
 
 // category, instrument の index を返す
-function getGMMapIndexes(programNumber) {
+function getGMMapIndexes(programNumber: number): [number, number] {
   let i = programNumber
   let n = 0
   for (const key in GMMap) {
@@ -37,7 +37,7 @@ function getGMMapIndexes(programNumber) {
   }
 }
 
-function getGMMapProgramNumber(catrgoryId, instrumentId) {
+function getGMMapProgramNumber(catrgoryId: number, instrumentId: number): number {
   let i = 0
   let n = 0
   for (const key in GMMap) {

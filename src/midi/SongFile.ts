@@ -1,8 +1,8 @@
-import { read as readBytes } from "./MidiFileReader"
-import { write as writeBytes } from "./MidiFileWriter"
-import Song from "../stores/Song"
+import { read as readBytes } from "./MidiFileReader.ts"
+import { write as writeBytes } from "./MidiFileWriter.ts"
+import { songFromMidi } from "../stores/SongFactory.ts"
 
-const { remote } = window.require("electron")
+const { remote } = (window as any).require("electron")
 const fs = remote.require("fs")
 
 export function read(file, callback) {
@@ -16,7 +16,7 @@ export function read(file, callback) {
     } catch (e) {
       return callback(e)
     }
-    const song = Song.fromMidi(midi)
+    const song = songFromMidi(midi)
     song.filepath = file
     callback(null, song)
   })

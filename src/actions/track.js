@@ -1,10 +1,10 @@
 import {
-  PanMidiEvent,
-  VolumeMidiEvent,
-  SetTempoMidiEvent,
-  PitchBendMidiEvent,
-  ModulationMidiEvent,
-  ExpressionMidiEvent
+  panMidiEvent,
+  volumeMidiEvent,
+  setTempoMidiEvent,
+  pitchBendMidiEvent,
+  modulationMidiEvent,
+  expressionMidiEvent
 } from "../midi/MidiEvent"
 
 export default (rootStore) => {
@@ -34,7 +34,7 @@ export default (rootStore) => {
     },
     "CREATE_TEMPO": ({ tick, microsecondsPerBeat }) => {
       saveHistory()
-      const e = SetTempoMidiEvent(0, Math.round(microsecondsPerBeat))
+      const e = setTempoMidiEvent(0, Math.round(microsecondsPerBeat))
       e.tick = quantizer.round(tick)
       song.conductorTrack.createOrUpdate(e)
     },
@@ -48,31 +48,31 @@ export default (rootStore) => {
     "CREATE_PITCH_BEND": ({ tick, value }) => {
       saveHistory()
       return createOrUpdate("subtype", "pitchBend", tick, "value", value, () =>
-        PitchBendMidiEvent()
+        pitchBendMidiEvent()
       )
     },
     "CREATE_VOLUME": ({ tick, value }) => {
       saveHistory()
       return createOrUpdate("controllerType", 0x07, tick, "value", value, () =>
-        VolumeMidiEvent()
+        volumeMidiEvent()
       )
     },
     "CREATE_PAN": ({ tick, value }) => {
       saveHistory()
       return createOrUpdate("controllerType", 0x0a, tick, "value", value, () =>
-        PanMidiEvent()
+        panMidiEvent()
       )
     },
     "CREATE_MODULATION": ({ tick, value }) => {
       saveHistory()
       return createOrUpdate("controllerType", 0x01, tick, "value", value, () =>
-        ModulationMidiEvent()
+        modulationMidiEvent()
       )
     },
     "CREATE_EXPRESSION": ({ tick, value }) => {
       saveHistory()
       return createOrUpdate("controllerType", 0x0b, tick, "value", value, () =>
-        ExpressionMidiEvent()
+        expressionMidiEvent()
       )
     },
     "REMOVE_EVENT": ({ eventId }) => {

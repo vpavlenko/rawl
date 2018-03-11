@@ -1,21 +1,9 @@
-import { observable, action, transaction } from "mobx"
+import { observable, action, transaction, computed } from "mobx"
 import { list, map, primitive, serializable } from "serializr"
 import _ from "lodash"
 
-import { toTrackEvents } from "../helpers/eventAssembler"
-
-import {
-  TrackNameMidiEvent, EndOfTrackMidiEvent,
-  TimeSignatureMidiEvent, SetTempoMidiEvent,
-  PitchBendMidiEvent, VolumeMidiEvent,
-  PanMidiEvent, ExpressionMidiEvent,
-  ModulationMidiEvent, ProgramChangeMidiEvent,
-  ResetAllMidiEvent,
-  MasterCoarceTuningEvents,
-  MasterFineTuningEvents,
-  PitchbendSensitivityEvents,
-} from "../midi/MidiEvent"
-import { getInstrumentName } from "../midi/GM"
+import { MidiEvent } from "../midi/MidiEvent"
+import { getInstrumentName } from "../midi/GM.ts"
 
 import orArrayOf from "helpers/orArrayOf"
 
@@ -28,11 +16,10 @@ export default class Track {
   @serializable(list(map(orArrayOf(primitive())))) @observable.shallow events = []
   @serializable @observable lastEventId = 0
   @serializable @observable channel = undefined
-  @serializable @observable endOfTrack = 0
 
   getEventById = (id) => _.find(this.events, e => e.id === id)
 
-  _updateEvent(id, obj) {
+  private _updateEvent(id, obj) {
     const anObj = this.getEventById(id)
     if (!anObj) {
       console.warn(`unknown id: ${id}`)
@@ -108,7 +95,7 @@ export default class Track {
     return result
   }
 
-  didAddEvent(e) {
+  didAddEvent() {
     this.updateEndOfTrack()
     this.sortByTick()
   }
@@ -231,6 +218,7 @@ export default class Track {
     this._updateLast(this._findPanEvents(), { value })
   }
 
+  @computed 
   get endOfTrack() {
     return lastValue(this._findEndOfTrackEvents(), "tick")
   }
@@ -262,40 +250,5 @@ export default class Track {
 
   get isRhythmTrack() {
     return this.channel === 9
-  }
-
-  static conductorTrack(name = "Conductor Track") {
-    const track = new Track()
-    track.addEvents([
-      TrackNameMidiEvent(0, name),
-      TimeSignatureMidiEvent(0),
-      SetTempoMidiEvent(0, 60000000 / 120),
-      EndOfTrackMidiEvent(0)
-    ])
-    return track
-  }
-
-  static emptyTrack(channel) {
-    if (!Number.isInteger(channel)) {
-      throw new Error("channel is not integer")
-    }
-    const track = new Track()
-    track.channel = channel
-    const events = toTrackEvents([
-      ResetAllMidiEvent(1),
-      TrackNameMidiEvent(1, ""),
-      PanMidiEvent(1, 64),
-      VolumeMidiEvent(1, 100),
-      ExpressionMidiEvent(1, 127),
-      ...MasterCoarceTuningEvents(1),
-      ...MasterFineTuningEvents(1),
-      ...PitchbendSensitivityEvents(1, 12),
-      PitchBendMidiEvent(1, 0x2000),
-      ModulationMidiEvent(1, 0),
-      ProgramChangeMidiEvent(1, 0),
-      EndOfTrackMidiEvent(1)
-    ])
-    track.addEvents(events)
-    return track
   }
 }

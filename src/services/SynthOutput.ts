@@ -1,4 +1,4 @@
-const { ipcRenderer } = window.require("electron")
+const { ipcRenderer } = (window as any).require("electron")
 
 export default class SynthOutput {
   constructor(soundFontPath) {

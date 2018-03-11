@@ -1,8 +1,7 @@
 // use Electron clipboard API in future
 class Clipboard {
-  constructor() {
-    this.data = {}
-  }
+  data: any = {}
+
   writeText(text) {
     this.data.text = text
   }

@@ -3,9 +3,9 @@ import JsonStore from "helpers/electron-json-store"
 
 export default class SettingsStore {
   @observable _soundFontPath
+  storage = new JsonStore()
 
   constructor() {
-    this.storage = new JsonStore()
     this._soundFontPath = this.storage.get("soundFontPath")
     console.log(`Setting was restored from ${this.storage.path}`)
   }

@@ -9,15 +9,13 @@ import { toRawEvents } from "../helpers/eventAssembler"
 //https://sites.google.com/site/yyagisite/material/smfspec#format
 
 class Buffer {
-  constructor() {
-    this.data = []
-  }
+  data: number[] = []
 
   get length() {
     return this.data.length
   }
 
-  writeByte(v, pos) {
+  writeByte(v: number, pos?: number) {
     if (pos) {
       this.data[pos] = v
     } else {
@@ -25,27 +23,27 @@ class Buffer {
     }
   }
 
-  writeStr(str) {
+  writeStr(str: string) {
     this.writeBytes(strToCharCodes(str))
   }
 
-  writeInt32(v, pos) {
+  writeInt32(v: number, pos?: number) {
     this.writeByte((v >> 24) & 0xff, pos)
     this.writeByte((v >> 16) & 0xff, pos + 1)
     this.writeByte((v >> 8) & 0xff, pos + 2)
     this.writeByte(v & 0xff, pos + 3)
   }
 
-  writeInt16(v, pos) {
+  writeInt16(v: number, pos?: number) {
     this.writeByte((v >> 8) & 0xff, pos)
     this.writeByte(v & 0xff, pos + 1)
   }
 
-  writeBytes(arr) {
+  writeBytes(arr: number[]) {
     arr.forEach(v => this.writeByte(v))
   }
 
-  writeChunk(id, func) {
+  writeChunk(id: string, func: Function) {
     this.writeStr(id)
     const sizePos = this.length
     this.writeInt32(0) // dummy chunk size

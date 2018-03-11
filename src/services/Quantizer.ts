@@ -1,4 +1,7 @@
 export default class Quantizer {
+  _ticksPerBeat: number = 480
+  denominator: number = 4
+
   constructor(ticksPerBeat, denominator = 8) {
     this._ticksPerBeat = ticksPerBeat
 

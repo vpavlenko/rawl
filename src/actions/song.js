@@ -1,6 +1,7 @@
-import Song from "../stores/Song"
-import Track from "../stores/Track"
-import { read as readSong, write as writeSong } from "../midi/SongFile"
+import Song from "../stores/Song.ts"
+import Track from "../stores/Track.ts"
+import { emptyTrack } from "../stores/TrackFactory"
+import { read as readSong, write as writeSong } from "../midi/SongFile.ts"
 
 export default (rootStore) => {
   const { song, historyStore: history, services: { player } } = rootStore
@@ -42,7 +43,7 @@ export default (rootStore) => {
     },
     "ADD_TRACK": () => {
       saveHistory()
-      song.addTrack(Track.emptyTrack(song.tracks.length - 1))
+      song.addTrack(emptyTrack(song.tracks.length - 1))
     },
     "REMOVE_TRACK": ({ trackId }) => {
       saveHistory()

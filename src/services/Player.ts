@@ -7,7 +7,9 @@ import MIDIChannelEvents from "constants/MIDIChannelEvents"
 import { eventToBytes } from "helpers/midiHelper"
 import { toRawEvents } from "helpers/eventAssembler"
 
-import EventScheduler from "./EventScheduler"
+import EventScheduler from "./EventScheduler.ts"
+import TrackMute from "stores/TrackMute.ts"
+import Song from "stores/Song.ts"
 
 function firstByte(eventType, channel) {
   return (MIDIChannelEvents[eventType] << 4) + channel
@@ -24,8 +26,9 @@ function collectAllEvents(song) {
 
 // 同じ名前のタスクを描画タイマーごとに一度だけ実行する
 class DisplayTask {
+  tasks = {}
+  
   constructor() {
-    this.tasks = {}
     setInterval(() => this.perform(), 50)
   }
 
@@ -50,8 +53,12 @@ export default class Player extends EventEmitter {
     end: null,
     enabled: false
   }
+  _song: Song
+  _output: any
+  _timebase: number
+  _trackMute: TrackMute
 
-  constructor(timebase, output, trackMute) {
+  constructor(timebase: number, output: any, trackMute: TrackMute) {
     super()
 
     this._output = output

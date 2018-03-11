@@ -2,9 +2,9 @@ import React from "react"
 import { Provider } from "mobx-react"
 
 import RootView from "containers/RootView/RootView"
-import { bindKeyboardShortcut } from "services/KeyboardShortcut"
+import { bindKeyboardShortcut } from "services/KeyboardShortcut.ts"
 
-import RootStore from "stores/RootStore"
+import RootStore from "stores/RootStore.ts"
 import Theme from "model/Theme"
 
 import "./App.css"

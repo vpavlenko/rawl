@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import ReactDOM from "react-dom"
 import _ from "lodash"
 
-import { GMMap, getGMMapIndexes, getGMMapProgramNumber } from "midi/GM"
+import { GMMap, getGMMapIndexes, getGMMapProgramNumber } from "midi/GM.ts"
 
 import Popup from "components/Popup"
 

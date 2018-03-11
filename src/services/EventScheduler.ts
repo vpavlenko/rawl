@@ -8,11 +8,12 @@ export default class EventScheduler {
   lookAheadTime = 100
 
   // 1/4 拍子ごとの tick 数
-  timeBase = 480
+  timebase = 480
 
   _currentTick = 0
   _scheduledTick = 0
   _prevTime = undefined
+  _events: any[]
 
   constructor(events = [], tick = 0, timebase = 480, lookAheadTime = 100) {
     this._events = events

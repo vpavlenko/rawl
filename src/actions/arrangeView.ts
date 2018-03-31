@@ -1,11 +1,11 @@
-import Rect from "model/Rect"
+import { IRect, fromPoints as rectFromPoints } from "model/Rect"
 import _ from "lodash"
 import clipboard from "services/Clipboard.ts"
 import { open as openContextMenu } from "containers/ArrangeView/ArrangeContextMenu"
 
 export default ({ dispatch, song: { tracks }, arrangeViewStore: s, services: { quantizer, player } }) => {
   const createRect = (from, to) => {
-    const rect = Rect.fromPoints(from, to)
+    const rect = rectFromPoints(from, to)
     rect.height = Math.min(tracks.length - rect.y,
       Math.max(from.y, to.y) - rect.y)
 
@@ -24,12 +24,12 @@ export default ({ dispatch, song: { tracks }, arrangeViewStore: s, services: { q
     if (!rect) {
       return null
     }
-    return new Rect(
-      quantizer.round(rect.x),
-      Math.floor(rect.y),
-      quantizer.round(rect.width),
-      Math.ceil(rect.height)
-    )
+    return {
+      x: quantizer.round(rect.x),
+      y: Math.floor(rect.y),
+      width: quantizer.round(rect.width),
+      height: Math.ceil(rect.height)
+    }
   }
 
   return {
@@ -53,11 +53,12 @@ export default ({ dispatch, song: { tracks }, arrangeViewStore: s, services: { q
 
     "ARRANGE_MOVE_SELECTION": (pos) => {
       // 選択範囲を移動
-      const selection = quantizeRect(new Rect(
-        Math.max(pos.x, 0),
-        Math.min(Math.max(pos.y, 0), tracks.length - s.selection.height),
-        s.selection.width,
-        s.selection.height))
+      const selection = quantizeRect({
+        x: Math.max(pos.x, 0),
+        y: Math.min(Math.max(pos.y, 0), tracks.length - s.selection.height),
+        width: s.selection.width,
+        height: s.selection.height
+      })
 
       if (!selection) {
         return

@@ -5,96 +5,56 @@ export interface IRect extends IPoint {
   height: number
 }
 
-export default class Rect implements IRect {
-  x: number
-  y: number
-  width: number
-  height: number
+export function containsPoint(rect: IRect, point: IPoint) {
+  return point.x >= rect.x && point.x <= rect.x + rect.width &&
+    point.y >= rect.y && point.y <= rect.y + rect.height
+}
 
-  constructor(x: number|IRect = 0, y = 0, width = 0, height = 0) {
-    if (x instanceof Object) {
-      const r = x as IRect
-      this.x = r.x
-      this.y = r.y
-      this.width = r.width
-      this.height = r.height
-      return
-    }
-    this.x = x
-    this.y = y
-    this.width = width
-    this.height = height
+export function right(rect: IRect) {
+  return rect.x + rect.width
+}
+
+export function bottom(rect: IRect) {
+  return rect.y + rect.height
+}
+
+export function intersects(rectA: IRect, rectB: IRect) {
+  return !(right(rectA) < rectB.x
+    || right(rectB) < rectA.x
+    || bottom(rectA) < rectB.y
+    || bottom(rectB) < rectA.y)
+}
+
+export function containsRect(rectA: IRect, rectB: IRect) {
+  return containsPoint(rectA, rectB) && containsPoint(rectA, br(rectB))
+}
+
+export function br(rect: IRect): IPoint {
+  return {
+    x: right(rect),
+    y: bottom(rect)
   }
+}
 
-  contains(x, y) {
-    return this.containsPoint({ x, y })
+export function fromPoints(pointA: IPoint, pointB: IPoint): IRect {
+  const x1 = Math.min(pointA.x, pointB.x)
+  const x2 = Math.max(pointA.x, pointB.x)
+  const y1 = Math.min(pointA.y, pointB.y)
+  const y2 = Math.max(pointA.y, pointB.y)
+
+  return {
+    x: x1,
+    y: y1,
+    width: x2 - x1,
+    height: y2 - y1
   }
+}
 
-  containsPoint(point: IPoint) {
-    return point.x >= this.x && point.x <= this.x + this.width &&
-      point.y >= this.y && point.y <= this.y + this.height
-  }
-
-  intersects(rect: Rect) {
-    if (!(rect instanceof Rect)) {
-      rect = new Rect(rect)
-    }
-    return !(this.right < rect.x
-      || rect.right < this.x
-      || this.bottom < rect.y
-      || rect.bottom < this.y)
-  }
-
-  containsRect(rect: Rect) {
-    if (!(rect instanceof Rect)) {
-      rect = new Rect(rect)
-    }
-    return this.containsPoint(rect.tl()) && this.containsPoint(rect.br())
-  }
-
-  get right() {
-    return this.x + this.width
-  }
-
-  get bottom() {
-    return this.y + this.height
-  }
-
-  tl(): IPoint {
-    return { x: this.x, y: this.y }
-  }
-
-  br(): IPoint {
-    return {
-      x: this.x + this.width,
-      y: this.y + this.height
-    }
-  }
-
-  static fromPoints(pointA: IPoint, pointB: IPoint) {
-    const r = new Rect()
-
-    const x1 = Math.min(pointA.x, pointB.x)
-    const x2 = Math.max(pointA.x, pointB.x)
-    r.x = x1
-    r.width = x2 - x1
-
-    const y1 = Math.min(pointA.y, pointB.y)
-    const y2 = Math.max(pointA.y, pointB.y)
-    r.y = y1
-    r.height = y2 - y1
-
-    return r
-  }
-
-  scale(scaleX: number, scaleY: number) {
-    const r = new Rect()
-
-    r.x = this.x * scaleX
-    r.y = this.y * scaleY
-    r.width = this.width * scaleX
-    r.height = this.height * scaleY
-
-    return r
+export function scale(rect: IRect, scaleX: number, scaleY: number): IRect {
+  return {
+    x: rect.x * scaleX,
+    y: rect.y * scaleY,
+    width: rect.width * scaleX,
+    height: rect.height * scaleY
   }
 }

@@ -1,15 +1,15 @@
 import Item from "components/Stage/Item"
-import Rect from "model/Rect"
+import { IRect } from "model/Rect"
 
 export default class TempoGraphItem implements Item {
   id: number
-  bounds: Rect
+  bounds: IRect
   fillColor: any
   strokeColor: any
   
   constructor(id, x, y, width, height, fillColor, strokeColor) {
     this.id = id
-    this.bounds = new Rect(x, y, width, height)
+    this.bounds = { x, y, width, height }
     this.fillColor = fillColor
     this.strokeColor = strokeColor
   }

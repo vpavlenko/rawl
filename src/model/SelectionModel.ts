@@ -1,4 +1,4 @@
-import Rect from "./Rect"
+import { IRect } from "./Rect"
 import TempoCoordTransform from "model/TempoCoordTransform"
 
 export default class SelectionModel {
@@ -14,12 +14,12 @@ export default class SelectionModel {
     const right = transform.getX(this.toTick)
     const top = transform.getY(this.fromNoteNumber)
     const bottom = transform.getY(this.toNoteNumber)
-    return new Rect(
-      left,
-      top,
-      right - left,
-      bottom - top
-    )
+    return {
+      x: left,
+      y: top,
+      width: right - left,
+      height: bottom - top
+    }
   }
 
   moveTo(tick: number, number: number) {

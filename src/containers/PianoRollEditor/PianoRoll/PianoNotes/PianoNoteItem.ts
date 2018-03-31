@@ -1,5 +1,5 @@
 import Item from "components/Stage/Item"
-import Rect from "model/Rect"
+import { IRect } from "model/Rect"
 
 interface RGB {
   r: number
@@ -13,8 +13,8 @@ function colorStr({ r, g, b }: RGB, alpha = 1) {
 
 export default class PianoNoteItem implements Item {
   id: number
-  noteBounds: Rect
-  drumBounds: Rect
+  noteBounds: IRect
+  drumBounds: IRect
   velocity: number
   isSelected: boolean
   isDrum: boolean
@@ -24,8 +24,8 @@ export default class PianoNoteItem implements Item {
 
   constructor(id: number, x: number, y: number, width: number, height: number, velocity: number, isSelected: boolean, isDrum: boolean, color: any, borderColor: RGB, selectedColor: any) {
     this.id = id
-    this.noteBounds = new Rect(x, y, width, height)
-    this.drumBounds = new Rect(x, y, height, height)
+    this.noteBounds = { x, y, width, height }
+    this.drumBounds = { x, y, width: height, height }
     this.velocity = velocity
     this.isSelected = isSelected
     this.isDrum = isDrum
@@ -34,7 +34,7 @@ export default class PianoNoteItem implements Item {
     this.selectedColor = selectedColor
   }
 
-  get bounds(): Rect {
+  get bounds(): IRect {
     return this.isDrum ? this.drumBounds : this.noteBounds
   }
 

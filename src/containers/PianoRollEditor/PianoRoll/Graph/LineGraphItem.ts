@@ -1,9 +1,9 @@
 import Item from "components/Stage/Item.ts"
-import Rect from "model/Rect"
+import { IRect, right as rectRight, bottom as rectBottom } from "model/Rect"
 
 export default class LineGraphItem implements Item {
   id: any
-  bounds: Rect
+  bounds: IRect
   startY: number
   endY: number
   strokeColor: any
@@ -12,7 +12,7 @@ export default class LineGraphItem implements Item {
 
   constructor(id: any, x: number, startY: number, endY: number, width: number, height: number, strokeColor: any, fillColor: any, lineWidth: number) {
     this.id = id
-    this.bounds = new Rect(x, 0, width, height)
+    this.bounds = { x, y: 0, width, height }
 
     this.startY = startY
     this.endY = endY
@@ -29,14 +29,17 @@ export default class LineGraphItem implements Item {
     ctx.lineWidth = this.lineWidth
 
     ctx.moveTo(this.bounds.x, this.startY)
-    ctx.lineTo(this.bounds.right, this.endY)
+    ctx.lineTo(rectRight(this.bounds), this.endY)
 
     ctx.stroke()
 
+    const right = rectRight(this.bounds)
+    const bottom = rectBottom(this.bounds)
+
     ctx.moveTo(this.bounds.x, this.startY)
-    ctx.lineTo(this.bounds.right, this.endY)
-    ctx.lineTo(this.bounds.right, this.bounds.bottom)
-    ctx.lineTo(this.bounds.x, this.bounds.bottom)
+    ctx.lineTo(right, this.endY)
+    ctx.lineTo(right, bottom)
+    ctx.lineTo(this.bounds.x, bottom)
 
     ctx.globalAlpha = 0.1
     ctx.fill()

@@ -107,7 +107,7 @@ export default class InstrumentBrowser extends Component {
   }
 }
 
-export function show(song, trackId, dispatch) {
+export function show(song, trackId, setTrackInstrument) {
   const track = song.getTrack(trackId)
   const popup = new Popup()
   popup.show()
@@ -128,7 +128,7 @@ export function show(song, trackId, dispatch) {
 
       if (isRhythmTrack) {
         track.changeChannel(9)
-        dispatch("SET_TRACK_INSTRUMENT", { trackId, programNumber: 0 })
+        setTrackInstrument(trackId, 0)
       } else {
         if (track.isRhythmTrack) {
           // 適当なチャンネルに変える
@@ -138,7 +138,7 @@ export function show(song, trackId, dispatch) {
           track.changeChannel(availableChannel)
         }
         const programNumber = getGMMapProgramNumber(categoryId, instrumentId)
-        dispatch("SET_TRACK_INSTRUMENT", { trackId, programNumber })
+        setTrackInstrument(trackId, programNumber)
       }
 
       popup.close()

@@ -52,6 +52,6 @@ export default inject(({ rootStore: { song, router, dispatch } }) => {
     onClickNavBack: () => router.pushArrange(),
     volume: song.selectedTrack.volume,
     pan: song.selectedTrack.pan,
-    onClickInstrument: () => showInstrumentBrowser(song, trackId, dispatch)
+    onClickInstrument: () => showInstrumentBrowser(song, trackId, (trackId, programNumber) => dispatch("SET_TRACK_INSTRUMENT", { trackId, programNumber }))
   }
 })(observer(PianoRollEditor))

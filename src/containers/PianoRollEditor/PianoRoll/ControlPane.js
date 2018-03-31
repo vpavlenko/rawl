@@ -27,6 +27,7 @@ function ControlPane({
   theme,
   beats,
   events,
+  onSelectTab,
   dispatch,
   transform,
   scrollLeft,
@@ -36,7 +37,7 @@ function ControlPane({
   const controlButton = (label, name) => ({
     label,
     selected: mode === name,
-    onClick: () => dispatch("SELECT_CONTROL_TAB", { name })
+    onClick: () => onSelectTab(name)
   })
 
   const TAB_HEIGHT = 30
@@ -87,6 +88,7 @@ function test(props, nextProps) {
     || !_.isEqual(props.theme, nextProps.theme)
     || !_.isEqual(props.beats, nextProps.beats)
     || !_.isEqual(props.events, nextProps.events)
+    || !_.isEqual(props.onSelectTab, nextProps.onSelectTab)
     || !_.isEqual(props.dispatch, nextProps.dispatch)
     || !_.isEqual(props.transform, nextProps.transform)
 }

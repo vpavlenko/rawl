@@ -45,7 +45,7 @@ export default class EventEditor extends Component {
   }
 }
 
-export function show(events, dispatch) {
+export function show(events) {
   const popup = new Popup()
   popup.show()
 

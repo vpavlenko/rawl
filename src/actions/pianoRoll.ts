@@ -16,7 +16,7 @@ export default ({ dispatch, pianoRollStore: s }) => {
       openContextMenu(dispatch, params)
     },
 
-    "SELECT_CONTROL_TAB": ({ name }) => {
+    "SET_CONTROL_MODE": ({ name }) => {
       s.controlMode = name
     },
 

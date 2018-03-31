@@ -5,7 +5,7 @@ import _ from "lodash"
 import Rect from "model/Rect"
 import Stage from "components/Stage/Stage"
 
-import VelocityItem from "./VelocityItem"
+import VelocityItem from "./VelocityItem.ts"
 import VelocityMouseHandler from "./VelocityMouseHandler"
 
 function PianoVelocityControl({

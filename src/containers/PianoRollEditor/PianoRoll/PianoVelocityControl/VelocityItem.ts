@@ -1,4 +1,5 @@
-import StageItem from "components/Stage/Item.ts"
+import Item from "components/Stage/Item"
+import { IRect } from "model/rect"
 
 function drawEvent(ctx, fillColor, strokeColor, { x, y, width, height }, selected) {
   const color = selected ? strokeColor : fillColor
@@ -17,9 +18,13 @@ function drawEvent(ctx, fillColor, strokeColor, { x, y, width, height }, selecte
   ctx.stroke()
 }
 
-export default class VelocityItem extends StageItem {
-  constructor(id, bounds, selected, fillColor) {
-    super()
+export default class VelocityItem implements Item {
+  readonly id: number
+  readonly bounds: IRect
+  readonly selected: boolean
+  readonly fillColor: any
+
+  constructor(id: number, bounds: IRect, selected: boolean, fillColor: any) {
     this.id = id
     this.bounds = bounds
     this.selected = selected

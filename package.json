@@ -40,11 +40,9 @@
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-helmet": "^5.2.0",
-    "react-redux": "^5.0.7",
     "react-sizeme": "^2.3.6",
     "react-split-pane": "^0.1.66",
     "recompose": "^0.26.0",
-    "redux": "^3.7.2",
     "resize-observer-polyfill": "^1.4.2",
     "serializr": "^1.1.14"
   },

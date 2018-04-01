@@ -1,8 +1,8 @@
-import React, { MouseEvent } from "react"
+import React, { StatelessComponent, MouseEvent } from "react"
 
 import DrawCanvas from "components/DrawCanvas.tsx"
-import { IRect, containsPoint as rectContainsPoint, intersects as rectIntersects } from "model/Rect"
 import Item from "./Item"
+import { IRect, containsPoint as rectContainsPoint, intersects as rectIntersects } from "model/Rect"
 import { IPoint } from "model/Point"
 
 interface ItemEvent extends MouseEvent<HTMLElement> {
@@ -12,38 +12,38 @@ interface ItemEvent extends MouseEvent<HTMLElement> {
 
 export interface StageProps {
   items: Item[]
-  onMouseDown: (ItemEvent) => void
-  onMouseMove: (ItemEvent) => void
-  onMouseUp: (ItemEvent) => void
-  onWheel: (ItemEvent) => void
-  onDoubleClick: (ItemEvent) => void
-  onContextMenu: (ItemEvent) => void
+  onMouseDown?: (ItemEvent) => void
+  onMouseMove?: (ItemEvent) => void
+  onMouseUp?: (ItemEvent) => void
+  onWheel?: (ItemEvent) => void
+  onDoubleClick?: (ItemEvent) => void
+  onContextMenu?: (ItemEvent) => void
   width: number
   height: number
-  scrollLeft: number
-  scrollTop: number
-  className: string
-  style: any
+  scrollLeft?: number
+  scrollTop?: number
+  className?: string
+  style?: any
 }
 
 /**
  * Item の描画、マウスイベントのハンドリングを実装した Canvas
  */
-export default function Stage({
-  items = [],
-  onMouseDown: _onMouseDown = () => { },
-  onMouseMove: _onMouseMove = () => { },
-  onMouseUp: _onMouseUp = () => { },
-  onWheel: _onWheel = () => { },
-  onDoubleClick = () => { },
-  onContextMenu = () => { },
+const Stage: StatelessComponent<StageProps> = ({
+  items,
+  onMouseDown: _onMouseDown,
+  onMouseMove: _onMouseMove,
+  onMouseUp: _onMouseUp,
+  onWheel: _onWheel,
+  onDoubleClick,
+  onContextMenu,
   width,
   height,
-  scrollLeft = 0,
-  scrollTop = 0,
-  className = "",
+  scrollLeft,
+  scrollTop,
+  className,
   style
-}: StageProps) {
+}: StageProps) => {
   function draw(ctx) {
     const { width, height } = ctx.canvas
     ctx.clearRect(0, 0, width, height)
@@ -147,3 +147,18 @@ export default function Stage({
     style={style}
   />
 }
+
+Stage.defaultProps = {
+  onMouseDown: () => { },
+  onMouseMove: () => { },
+  onMouseUp: () => { },
+  onWheel: () => { },
+  onDoubleClick: () => { },
+  onContextMenu: () => { },
+  scrollLeft: 0,
+  scrollTop: 0,
+  className: "",
+  style: {}
+}
+
+export default Stage

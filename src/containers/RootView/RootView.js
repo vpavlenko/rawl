@@ -4,13 +4,13 @@ import path from "path"
 import { observer, inject } from "mobx-react"
 import DevTools from "mobx-react-devtools"
 
-import TempoEditor from "containers/TempoEditor/TempoEditor"
+import TempoEditor from "containers/TempoEditor/TempoEditor.tsx"
 import ArrangeView from "containers/ArrangeView/ArrangeView"
 import TransportPanel from "containers/TransportPanel/TransportPanel"
 import PianoRollEditor from "containers/PianoRollEditor/PianoRollEditor"
 import SettingsView from "containers/SettingsView/SettingsView"
 
-import Sidebar from "components/Sidebar/Sidebar"
+import Sidebar from "components/Sidebar/Sidebar.tsx"
 
 import mainManu from "menus/mainMenu"
 import isDev from "helpers/isDev"
@@ -22,7 +22,6 @@ const { remote } = window.require("electron")
 const { Menu } = remote
 
 function RootView({
-  player,
   song,
   dispatch,
   routerPath,
@@ -61,7 +60,7 @@ function RootView({
   </div>
 }
 
-export default inject(({ rootStore: { pianoRollStore, router: { path }, song, services: { player }, dispatch } }) => ({
+export default inject(({ rootStore: { router: { path }, song, services: { player }, dispatch } }) => ({
   routerPath: path,
   song,
   player,

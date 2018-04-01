@@ -35,23 +35,23 @@ class SynthController {
       encoderPath: "/libs/opus-recorder/waveWorker.min.js"
     })
 
-    recorder.addEventListener("start", e => {
-      console.log('Recorder is started')
+    recorder.addEventListener("start", () => {
+      console.log("Recorder is started")
     })
-    recorder.addEventListener("stop", e => {
-      console.log('Recorder is stopped')
+    recorder.addEventListener("stop", () => {
+      console.log("Recorder is stopped")
     })
-    recorder.addEventListener("pause", e => {
-      console.log('Recorder is paused')
+    recorder.addEventListener("pause", () => {
+      console.log("Recorder is paused")
     })
-    recorder.addEventListener("resume", e => {
-      console.log('Recorder is resuming')
+    recorder.addEventListener("resume", () => {
+      console.log("Recorder is resuming")
     })
     recorder.addEventListener("streamError", e => {
-      console.log('Error encountered: ' + e.error.name)
+      console.log("Error encountered: " + e.error.name)
     })
-    recorder.addEventListener("streamReady", e => {
-      console.log('Audio stream is ready.')
+    recorder.addEventListener("streamReady", () => {
+      console.log("Audio stream is ready.")
     })
     recorder.addEventListener("dataAvailable", e => {
       const dateStr = (new Date().toISOString()).replace(/:/g, "-")

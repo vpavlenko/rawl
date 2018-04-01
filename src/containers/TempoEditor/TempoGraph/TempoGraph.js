@@ -13,10 +13,10 @@ import TempoCoordTransform from "model/TempoCoordTransform"
 
 import mapBeats from "helpers/mapBeats"
 import { uSecPerBeatToBPM, bpmToUSecPerBeat } from "helpers/bpm"
-import transformEvents from "./transformEvents"
+import transformEvents from "./transformEvents.ts"
 
 import Stage from "components/Stage/Stage"
-import DrawCanvas from "components/DrawCanvas"
+import DrawCanvas from "components/DrawCanvas.tsx"
 import { HorizontalScrollBar, BAR_WIDTH } from "components/inputs/ScrollBar"
 
 import "./TempoGraph.css"
@@ -57,7 +57,7 @@ function HorizontalLines({ width, height, transform, borderColor }) {
   />
 }
 
-const GraphAxis = pure(({ width, height, transform, offset }) => {
+const GraphAxis = pure(({ width, transform, offset }) => {
   return <div className="GraphAxis" style={{ width }}>
     <div className="values">
       {_.range(30, transform.maxBPM, 30).map(t => {

@@ -1,9 +1,9 @@
 import React from "react"
 import { observer, inject } from "mobx-react"
 
-import Icon from "components/Icon"
-import Knob from "components/inputs/Knob"
-import Slider from "components/inputs/Slider"
+import Icon from "components/Icon.tsx"
+import Knob from "components/inputs/Knob.tsx"
+import Slider from "components/inputs/Slider.tsx"
 import NavigationBar from "components/groups/NavigationBar"
 import { show as showInstrumentBrowser } from "components/InstrumentBrowser"
 
@@ -14,15 +14,13 @@ import "./PianoRollEditor.css"
 
 function PianoRollEditor({
   track,
-  mute,
-  onClickMute,
   volume,
   onChangeVolume,
   pan,
   onChangePan,
   onClickInstrument,
   onClickNavBack
- }) {
+}) {
   return <div className="PianoRollEditor">
     <NavigationBar title={track.displayName} onClickBack={onClickNavBack}>
       <div className="controls">
@@ -45,7 +43,7 @@ function PianoRollEditor({
   </div>
 }
 
-export default inject(({ rootStore: { song, router, trackMute, dispatch } }) => {
+export default inject(({ rootStore: { song, router, dispatch } }) => {
   const trackId = song.selectedTrackId
   return {
     track: song.selectedTrack,
@@ -54,6 +52,6 @@ export default inject(({ rootStore: { song, router, trackMute, dispatch } }) => 
     onClickNavBack: () => router.pushArrange(),
     volume: song.selectedTrack.volume,
     pan: song.selectedTrack.pan,
-    onClickInstrument: () => showInstrumentBrowser(song, trackId, dispatch)
+    onClickInstrument: () => showInstrumentBrowser(song, trackId, (trackId, programNumber) => dispatch("SET_TRACK_INSTRUMENT", { trackId, programNumber }))
   }
 })(observer(PianoRollEditor))

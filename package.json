@@ -6,7 +6,9 @@
   "scripts": {
     "start": "webpack-dev-server --hot",
     "build": "react-scripts build && npm run copy-electron-files",
+    "watch": "webpack --watch",
     "dev": "nf start",
+    "test": "jest --watch",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "electron": "set ELECTRON_START_URL=http://localhost:3000 && node wait-server 3000 && electron .",
@@ -35,21 +37,22 @@
     "mobx": "^3.3.1",
     "mobx-react": "^4.3.3",
     "prop-types": "^15.6.0",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
+    "react": "^16.3.0",
+    "react-dom": "^16.3.0",
     "react-helmet": "^5.2.0",
-    "react-redux": "^5.0.7",
     "react-sizeme": "^2.3.6",
     "react-split-pane": "^0.1.66",
     "recompose": "^0.26.0",
-    "redux": "^3.7.2",
     "resize-observer-polyfill": "^1.4.2",
     "serializr": "^1.1.14"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^3.2.12",
     "@storybook/react": "^3.3.0-alpha.2",
+    "@types/jest": "^22.2.0",
     "@types/webpack-env": "^1.13.5",
+    "babel-core": "^6.26.0",
+    "babel-jest": "^22.4.1",
     "babel-loader": "^7.1.3",
     "cross-env": "^5.1.1",
     "css-loader": "^0.28.10",
@@ -59,14 +62,31 @@
     "electron-packager": "^11.0.1",
     "foreman": "^2.0.0",
     "html-webpack-plugin": "^3.0.6",
+    "jest": "^22.4.2",
     "mobx-react-devtools": "^4.2.15",
     "shx": "^0.2.2",
     "style-loader": "^0.20.2",
+    "ts-jest": "^22.4.1",
     "ts-loader": "^4.0.1",
     "typescript": "^2.7.2",
     "url-loader": "^1.0.1",
     "webpack": "^4.0.1",
     "webpack-cli": "^2.0.10",
     "webpack-dev-server": "^3.1.0"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest",
+      "^.+\\.jsx?$": "babel-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/submodules/"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ]
   }
 }

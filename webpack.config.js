@@ -22,7 +22,7 @@ module.exports = {
       {
         test: /\.jsx?$/,
         use: "babel-loader",
-        exclude: [/node_modules/, /submodules/],
+        exclude: [/node_modules/],
       },
       {
         test: /\.tsx?$/,
@@ -41,7 +41,7 @@ module.exports = {
   resolve: {
     modules: ["src", "node_modules"],
     extensions: [
-      ".ts", ".tsx", ".js", ".jsx"
+      ".js", ".jsx", ".ts", ".tsx"
     ],
   },
   plugins: [

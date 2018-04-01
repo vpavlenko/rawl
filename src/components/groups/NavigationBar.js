@@ -1,5 +1,5 @@
 import React from "react"
-import Icon from "components/Icon"
+import Icon from "components/Icon.tsx"
 import f from "helpers/flatJoin"
 
 import "./NavigationBar.css"

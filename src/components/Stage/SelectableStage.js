@@ -1,6 +1,6 @@
 import React from "react"
 
-import DrawCanvas from "components/DrawCanvas"
+import DrawCanvas from "components/DrawCanvas.tsx"
 
 import Rect from "model/Rect"
 import { pointSub } from "helpers/point"
@@ -39,9 +39,6 @@ export default function Stage({
   height,
   scrollLeft = 0,
   scrollTop = 0,
-  scaleX = 1,
-  scaleY = 1,
-  className = "",
   style
 }) {
   function draw(ctx) {

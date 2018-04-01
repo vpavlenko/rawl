@@ -21,7 +21,7 @@ import PianoCursor from "./PianoCursor"
 import ControlPane from "./ControlPane"
 import PianoControlEvents from "./PianoControlEvents"
 
-import { VerticalScrollBar, HorizontalScrollBar, BAR_WIDTH } from "components/inputs/ScrollBar"
+import { VerticalScrollBar, BAR_WIDTH } from "components/inputs/ScrollBar"
 import { HorizontalScaleScrollBar } from "components/inputs/ScaleScrollBar"
 
 import "./PianoRoll.css"
@@ -57,6 +57,7 @@ function PianoRoll({
   onClickScaleReset,
   setPlayerPosition,
   previewNote,
+  onSelectControlTab
 }) {
   const { keyWidth, rulerHeight } = theme
 
@@ -181,6 +182,7 @@ function PianoRoll({
           transform={transform}
           scrollLeft={scrollLeft}
           paddingBottom={BAR_WIDTH}
+          onSelectTab={onSelectControlTab}
         />
       </div>
     </SplitPane>
@@ -317,5 +319,6 @@ export default sizeMe()(inject(({ rootStore: {
   setLoopEnd: tick => dispatch("SET_LOOP_END", { tick }),
   setPlayerPosition: tick => dispatch("SET_PLAYER_POSITION", { tick }),
   previewNote: (noteNumber, channel) => dispatch("PREVIEW_NOTE", { noteNumber, channel }),
+  onSelectControlTab: name => dispatch("SELECT_CONTROL_TAB", { name }),
   dispatch
 }))(observer(stateful)))

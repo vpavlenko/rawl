@@ -19,7 +19,7 @@ import { pointSub, pointAdd } from "helpers/point"
 import filterEventsWithScroll from "helpers/filterEventsWithScroll"
 
 import ArrangeToolbar from "./ArrangeToolbar"
-import ArrangeNoteItem from "./ArrangeNoteItem"
+import ArrangeNoteItem from "./ArrangeNoteItem.ts"
 
 import "./ArrangeView.css"
 

@@ -1,7 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { pure } from "recompose"
-import DrawCanvas from "components/DrawCanvas"
+import DrawCanvas from "components/DrawCanvas.tsx"
 
 function drawCursor(ctx, position, height) {
   ctx.save()

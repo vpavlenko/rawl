@@ -1,8 +1,8 @@
 import React, { Component } from "react"
 import { observer, inject } from "mobx-react"
 
-import Icon from "components/Icon"
-import { Toolbar, ToolbarItem, ToolbarSeparator } from "components/groups/Toolbar"
+import Icon from "components/Icon.tsx"
+import { Toolbar, ToolbarItem, ToolbarSeparator } from "components/groups/Toolbar.tsx"
 
 import { TIME_BASE } from "Constants"
 
@@ -18,7 +18,7 @@ function TransportPanel({
   onClickEnableLoop,
   tempo = 0,
   onClickTempo
- }) {
+}) {
   return <Toolbar className="TransportPanel">
     <ToolbarSeparator />
 
@@ -79,16 +79,16 @@ export default inject(({ rootStore: {
   router,
   dispatch
 } }) => ({
-    player,
-    measureList,
-    loopEnabled: loop.enabled,
-    onClickPlay: () => dispatch("PLAY"),
-    onClickStop: () => dispatch("STOP"),
-    onClickBackward: () => dispatch("MOVE_PLAYER_POSITION", { tick: -TIME_BASE * 4 }),
-    onClickForward: () => dispatch("MOVE_PLAYER_POSITION", { tick: TIME_BASE * 4 }),
-    onClickEnableLoop: () => dispatch("TOGGLE_ENABLE_LOOP"),
-    onClickTempo: () => {
-      dispatch("SELECT_TRACK", { trackId: 0 })
-      router.pushTrack()
-    },
-  }))(observer(stateful))
+  player,
+  measureList,
+  loopEnabled: loop.enabled,
+  onClickPlay: () => dispatch("PLAY"),
+  onClickStop: () => dispatch("STOP"),
+  onClickBackward: () => dispatch("MOVE_PLAYER_POSITION", { tick: -TIME_BASE * 4 }),
+  onClickForward: () => dispatch("MOVE_PLAYER_POSITION", { tick: TIME_BASE * 4 }),
+  onClickEnableLoop: () => dispatch("TOGGLE_ENABLE_LOOP"),
+  onClickTempo: () => {
+    dispatch("SELECT_TRACK", { trackId: 0 })
+    router.pushTrack()
+  },
+}))(observer(stateful))

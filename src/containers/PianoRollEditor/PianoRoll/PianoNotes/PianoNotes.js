@@ -10,7 +10,7 @@ import Color from "color"
 
 import Stage from "components/Stage/Stage"
 
-import PianoNoteItem from "./PianoNoteItem"
+import PianoNoteItem from "./PianoNoteItem.ts"
 
 function PianoNotes({
   events,

@@ -1,27 +1,19 @@
 import React from "react"
 import { observer, inject } from "mobx-react"
 
-import Icon from "components/Icon"
-import { Toolbar, ToolbarItem, ToolbarSeparator } from "components/groups/Toolbar"
+import Icon from "components/Icon.tsx"
+import { Toolbar, ToolbarItem, ToolbarSeparator } from "components/groups/Toolbar.tsx"
 
 import QuantizeSelector from "components/QuantizeSelector"
 
 import "./ArrangeToolbar.css"
 
 function ArrangeToolbar({
-  onClickPlay,
-  onClickStop,
-  onClickBackward,
-  onClickForward,
   autoScroll,
   onClickAutoScroll,
-  mouseMode,
-  onClickPencil,
-  onClickSelection,
   quantize,
   onSelectQuantize,
-  mbtTime }) {
-
+}) {
   return <Toolbar className="ArrangeToolbar">
     <QuantizeSelector
       value={quantize}
@@ -39,11 +31,11 @@ export default inject(({ rootStore: {
   arrangeViewStore: s,
   dispatch
 } }) => ({
-    quantize: s.quantize === 0 ? quantizer.denominator : s.quantize,
-    autoScroll: s.autoScroll,
-    onClickAutoScroll: () => s.autoScroll = !s.autoScroll,
-    onSelectQuantize: e => {
-      dispatch("SET_QUANTIZE_DENOMINATOR", { denominator: e.denominator })
-      s.quantize = e.denominator
-    }
-  }))(observer(ArrangeToolbar))
+  quantize: s.quantize === 0 ? quantizer.denominator : s.quantize,
+  autoScroll: s.autoScroll,
+  onClickAutoScroll: () => s.autoScroll = !s.autoScroll,
+  onSelectQuantize: e => {
+    dispatch("SET_QUANTIZE_DENOMINATOR", { denominator: e.denominator })
+    s.quantize = e.denominator
+  }
+}))(observer(ArrangeToolbar))

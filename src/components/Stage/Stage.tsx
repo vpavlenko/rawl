@@ -1,11 +1,13 @@
-import React, { StatelessComponent, MouseEvent } from "react"
+import React, { StatelessComponent } from "react"
 
 import DrawCanvas from "components/DrawCanvas.tsx"
 import Item from "./Item"
 import { IRect, containsPoint as rectContainsPoint, intersects as rectIntersects } from "model/Rect"
 import { IPoint } from "model/Point"
 
-interface ItemEvent extends MouseEvent<HTMLElement> {
+type ReactMouseEvent = React.MouseEvent<HTMLElement>
+
+interface ItemEvent extends ReactMouseEvent {
   items: Item[]
   local: IPoint
 }
@@ -43,8 +45,8 @@ const Stage: StatelessComponent<StageProps> = ({
   scrollTop,
   className,
   style
-}: StageProps) => {
-  function draw(ctx) {
+}) => {
+  function draw(ctx: CanvasRenderingContext2D): void {
     const { width, height } = ctx.canvas
     ctx.clearRect(0, 0, width, height)
 
@@ -54,7 +56,7 @@ const Stage: StatelessComponent<StageProps> = ({
     ctx.restore()
   }
 
-  function drawItems(ctx) {
+  function drawItems(ctx: CanvasRenderingContext2D): void {
     const viewRect = { x: scrollLeft, y: scrollTop, width, height }
     const displayedItems = items.filter(item => rectIntersects(viewRect, item.bounds))
     displayedItems.forEach(item => item.render(ctx))
@@ -62,7 +64,7 @@ const Stage: StatelessComponent<StageProps> = ({
 
   let isMouseDown = false
 
-  function onMouseDown(e: MouseEvent<HTMLElement>) {
+  function onMouseDown(e: ReactMouseEvent): void {
     e.nativeEvent.preventDefault()
     isMouseDown = true
 
@@ -75,7 +77,7 @@ const Stage: StatelessComponent<StageProps> = ({
     }
     const clickedItems = items.filter(item => rectContainsPoint(item.bounds, startPos))
 
-    function onMouseMove(e) {
+    function onMouseMove(e: MouseEvent): void {
       e.preventDefault()
       const local = { x: e.clientX - left, y: e.clientY - top }
       _onMouseMove({
@@ -85,7 +87,7 @@ const Stage: StatelessComponent<StageProps> = ({
       })
     }
 
-    function onMouseUp(e) {
+    function onMouseUp(e: MouseEvent): void {
       e.preventDefault()
       document.removeEventListener("mousemove", onMouseMove)
       document.removeEventListener("mouseup", onMouseUp)
@@ -109,11 +111,11 @@ const Stage: StatelessComponent<StageProps> = ({
     })
   }
 
-  function onWheel(e) {
+  function onWheel(e: ReactMouseEvent) {
     _onWheel(extendEvent(e))
   }
 
-  function onMouseMoveCanvas(e: MouseEvent<HTMLElement>) {
+  function onMouseMoveCanvas(e: ReactMouseEvent) {
     // ドラッグ中はウィンドウ外も扱うため document の eventListener から呼ぶが、
     // そうでないときはここから呼ぶ
     if (!isMouseDown) {
@@ -121,7 +123,7 @@ const Stage: StatelessComponent<StageProps> = ({
     }
   }
 
-  function extendEvent(e: MouseEvent<HTMLElement>): ItemEvent {
+  function extendEvent(e: ReactMouseEvent): ItemEvent {
     const local = {
       x: e.nativeEvent.offsetX + scrollLeft,
       y: e.nativeEvent.offsetY + scrollTop

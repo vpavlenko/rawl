@@ -6,8 +6,8 @@ export interface DrawCanvasProps extends CanvasHTMLAttributes<HTMLCanvasElement>
 }
 
 export default class DrawCanvas extends Component<DrawCanvasProps> {
-  canvas: HTMLCanvasElement
-  ctx: CanvasRenderingContext2D
+  private canvas: HTMLCanvasElement
+  private ctx: CanvasRenderingContext2D
   
   componentDidMount() {
     this.ctx = this.canvas.getContext("2d")

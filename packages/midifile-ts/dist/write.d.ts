@@ -1,1 +1,2 @@
-export default function write(tracks: any, ticksPerBeat?: number): Uint8Array;
+import { Event } from "./event";
+export default function write(tracks: Event[][], ticksPerBeat?: number): Uint8Array;

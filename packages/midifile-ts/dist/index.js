@@ -678,8 +678,8 @@ function write(tracks, ticksPerBeat) {
     });
     var _loop_1 = function (track) {
         buf.writeChunk("MTrk", function (it) {
-            for (var _i = 0, _a = track.events; _i < _a.length; _i++) {
-                var event = _a[_i];
+            for (var _i = 0, track_1 = track; _i < track_1.length; _i++) {
+                var event = track_1[_i];
                 it.writeBytes(serialize(event));
             }
         });

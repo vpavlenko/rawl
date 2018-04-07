@@ -1,9 +1,9 @@
-import MidiFile from "midifile/midifile"
+import { read as readMidi } from "midifile-ts"
 import { addTick } from "helpers/midiHelper"
 import { toTrackEvents } from "helpers/eventAssembler"
 
 export function read(data) {
-  const midi = MidiFile(data)
+  const midi = readMidi(data)
   return {
     tracks: midi.tracks
       .map(addTick)

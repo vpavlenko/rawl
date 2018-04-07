@@ -1,10 +1,11 @@
 import _ from "lodash"
+import { Event } from "./event"
 import Buffer from "./buffer"
 import serialize from "./serialize"
 
 //https://sites.google.com/site/yyagisite/material/smfspec#format
 
-export default function write(tracks, ticksPerBeat = 480) {
+export default function write(tracks: Event[][], ticksPerBeat = 480) {
   const buf = new Buffer()
 
   // header chunk
@@ -17,7 +18,7 @@ export default function write(tracks, ticksPerBeat = 480) {
   // track chunk
   for (const track of tracks) {
     buf.writeChunk("MTrk", it => {
-      for (const event of track.events) {
+      for (const event of track) {
         it.writeBytes(serialize(event))
       }
     })
@@ -25,3 +26,4 @@ export default function write(tracks, ticksPerBeat = 480) {
 
   return buf.toBytes()
 }
+

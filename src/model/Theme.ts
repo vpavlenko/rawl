@@ -18,34 +18,49 @@ function parseInt_(v: string) {
   return parseInt(v, 10)
 }
 
-export default class Theme {
-  font = "Arial"
-  canvasFont = "Arial"
-  themeColor = "black"
-  noteColor = "black"
-  backgroundColor = "white"
-  secondaryBackgroundColor = "gray"
-  dividerColor = "gray"
-  textColor = "black"
-  secondaryTextColor = "black"
-  keyWidth = 120
-  keyHeight = 20
-  rulerHeight = 30
+export default interface Theme {
+  font: string
+  canvasFont: string
+  themeColor: string
+  noteColor: string
+  backgroundColor: string
+  secondaryBackgroundColor: string
+  dividerColor: string
+  textColor: string
+  secondaryTextColor: string
+  keyWidth: number
+  keyHeight: number
+  rulerHeight: number
+}
 
-  static fromCSS() {
-    const t = new Theme()
-    t.font = getCSSVariable("--font")
-    t.canvasFont = getCSSVariable("--canvas-font")
-    t.themeColor = getCSSVariable("--theme-color")
-    t.noteColor = getCSSVariable("--note-color")
-    t.backgroundColor = getCSSVariable("--background-color")
-    t.secondaryBackgroundColor = getCSSVariable("--secondary-background-color")
-    t.dividerColor = getCSSVariable("--divider-color")
-    t.textColor = getCSSVariable("--text-color")
-    t.secondaryTextColor = getCSSVariable("--secondary-text-color")
-    t.keyWidth = parseInt_(getCSSVariable("--key-width"))
-    t.keyHeight = parseInt_(getCSSVariable("--key-height"))
-    t.rulerHeight = parseInt_(getCSSVariable("--ruler-height"))
-    return t
+export const defaultTheme: Theme = {
+  font: "Arial",
+  canvasFont: "Arial",
+  themeColor: "black",
+  noteColor: "black",
+  backgroundColor: "white",
+  secondaryBackgroundColor: "gray",
+  dividerColor: "gray",
+  textColor: "black",
+  secondaryTextColor: "black",
+  keyWidth: 120,
+  keyHeight: 20,
+  rulerHeight: 30,
+}
+
+export function themeFromCSS() {
+  return {
+    font: getCSSVariable("--font"),
+    canvasFont: getCSSVariable("--canvas-font"),
+    themeColor: getCSSVariable("--theme-color"),
+    noteColor: getCSSVariable("--note-color"),
+    backgroundColor: getCSSVariable("--background-color"),
+    secondaryBackgroundColor: getCSSVariable("--secondary-background-color"),
+    dividerColor: getCSSVariable("--divider-color"),
+    textColor: getCSSVariable("--text-color"),
+    secondaryTextColor: getCSSVariable("--secondary-text-color"),
+    keyWidth: parseInt_(getCSSVariable("--key-width")),
+    keyHeight: parseInt_(getCSSVariable("--key-height")),
+    rulerHeight: parseInt_(getCSSVariable("--ruler-height"))
   }
 }

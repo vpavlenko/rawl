@@ -1,6 +1,6 @@
 import { observable } from "mobx"
-import Theme from "model/Theme"
+import Theme, { defaultTheme } from "model/Theme"
 
 export default class RootViewStore {
-  @observable theme = new Theme()
+  @observable theme: Theme = defaultTheme
 }

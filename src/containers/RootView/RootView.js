@@ -36,7 +36,6 @@ function RootView({
   function withTransporter(content) {
     return <Fragment>
       <div className="content">
-        <Sidebar />
         {content}
       </div>
       <TransportPanel />
@@ -49,7 +48,10 @@ function RootView({
       case "/settings": return <SettingsView />
       case "/arrange": /* fallthrough */
       default:
-        return withTransporter(<ArrangeView />)
+        return withTransporter(<Fragment>
+          <Sidebar />
+          <ArrangeView />
+        </Fragment>)
     }
   }
 

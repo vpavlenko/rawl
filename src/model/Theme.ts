@@ -28,6 +28,8 @@ export default interface Theme {
   dividerColor: string
   textColor: string
   secondaryTextColor: string
+  pianoKeyBlack: string
+  pianoKeyWhite: string
   keyWidth: number
   keyHeight: number
   rulerHeight: number
@@ -43,12 +45,14 @@ export const defaultTheme: Theme = {
   dividerColor: "gray",
   textColor: "black",
   secondaryTextColor: "black",
+  pianoKeyBlack: "black",
+  pianoKeyWhite: "white",
   keyWidth: 120,
   keyHeight: 20,
   rulerHeight: 30,
 }
 
-export function themeFromCSS() {
+export function themeFromCSS(): Theme {
   return {
     font: getCSSVariable("--font"),
     canvasFont: getCSSVariable("--canvas-font"),
@@ -59,6 +63,8 @@ export function themeFromCSS() {
     dividerColor: getCSSVariable("--divider-color"),
     textColor: getCSSVariable("--text-color"),
     secondaryTextColor: getCSSVariable("--secondary-text-color"),
+    pianoKeyBlack: getCSSVariable("--piano-key-black"),
+    pianoKeyWhite: getCSSVariable("--piano-key-white"),
     keyWidth: parseInt_(getCSSVariable("--key-width")),
     keyHeight: parseInt_(getCSSVariable("--key-height")),
     rulerHeight: parseInt_(getCSSVariable("--ruler-height"))

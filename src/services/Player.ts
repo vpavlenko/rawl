@@ -43,7 +43,7 @@ class DisplayTask {
 
 const displayTask = new DisplayTask()
 
-interface LoopSetting {
+export interface LoopSetting {
   begin: number,
   end: number,
   enabled: boolean

@@ -1,9 +1,9 @@
-import React from "react"
+import React, { StatelessComponent } from "react"
 import PropTypes from "prop-types"
 import { pure } from "recompose"
 import DrawCanvas from "components/DrawCanvas.tsx"
 
-function drawCursor(ctx, position, height) {
+function drawCursor(ctx: CanvasRenderingContext2D, position: number, height: number) {
   ctx.save()
   // ctx.translate(0, 0.5)
   ctx.strokeStyle = "red"
@@ -16,13 +16,20 @@ function drawCursor(ctx, position, height) {
   ctx.restore()
 }
 
-function PianoCursor({
+export interface PianoCursorProps {
+  position: number
+  width: number
+  height: number
+  style: any
+}
+
+const PianoCursor: StatelessComponent<PianoCursorProps> = ({
   position,
   width,
   height,
   style
-}) {
-  function draw(ctx) {
+}) => {
+  function draw(ctx: CanvasRenderingContext2D) {
     const { width, height } = ctx.canvas
     ctx.clearRect(0, 0, width, height)
     ctx.save()
@@ -38,12 +45,6 @@ function PianoCursor({
     height={height}
     style={style}
   />
-}
-
-PianoCursor.propTypes = {
-  width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired,
-  position: PropTypes.number.isRequired
 }
 
 export default pure(PianoCursor)

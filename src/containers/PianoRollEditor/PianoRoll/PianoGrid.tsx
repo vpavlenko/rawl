@@ -1,11 +1,13 @@
-import React from "react"
+import React, { StatelessComponent } from "react"
 import PropTypes from "prop-types"
 import _ from "lodash"
 import { shouldUpdate } from "recompose"
 
 import DrawCanvas from "components/DrawCanvas.tsx"
+import Theme from "model/Theme"
+import { BeatWithX } from "helpers/mapBeats"
 
-function drawBeatLines(ctx, beats, height, theme) {
+function drawBeatLines(ctx: CanvasRenderingContext2D, beats: BeatWithX[], height: number, theme: Theme) {
   ctx.lineWidth = 1
 
   // 密過ぎる時は省略する
@@ -25,14 +27,22 @@ function drawBeatLines(ctx, beats, height, theme) {
   })
 }
 
-function PianoGrid({
+export interface PianoGridProps {
+  width: number
+  height: number
+  scrollLeft: number
+  beats: BeatWithX[]
+  theme: Theme
+}
+
+const PianoGrid: StatelessComponent<PianoGridProps> = ({
   width,
   height,
   scrollLeft,
   beats,
   theme
-}) {
-  function draw(ctx) {
+}) => {
+  function draw(ctx: CanvasRenderingContext2D) {
     const { width, height } = ctx.canvas
     ctx.clearRect(0, 0, width, height)
     ctx.save()
@@ -49,23 +59,11 @@ function PianoGrid({
   />
 }
 
-PianoGrid.propTypes = {
-  width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired,
-  scrollLeft: PropTypes.number.isRequired,
-  theme: PropTypes.object.isRequired,
-  beats: PropTypes.array.isRequired
-}
-
-function test(props, nextProps) {
+function test(props: PianoGridProps, nextProps: PianoGridProps) {
   return !_.isEqual(props.theme, nextProps.theme)
     || props.width !== nextProps.width
     || props.height !== nextProps.height
-    || props.endTick !== nextProps.endTick
     || props.scrollLeft !== nextProps.scrollLeft
-    || props.ticksPerBeat !== nextProps.ticksPerBeat
-    || props.transform !== nextProps.transform
-    || !_.isEqual(props.transform, nextProps.transform)
     || !_.isEqual(props.beats, nextProps.beats)
 }
 

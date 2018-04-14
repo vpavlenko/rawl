@@ -1,9 +1,10 @@
-import React from "react"
+import React, { StatelessComponent } from "react"
 import PropTypes from "prop-types"
 import { pure } from "recompose"
-import DrawCanvas from "components/DrawCanvas.tsx"
+import DrawCanvas from "components/DrawCanvas"
+import Theme from "model/Theme"
 
-function drawHorizontalLines(ctx, numberOfKeys, keyHeight, width, theme) {
+function drawHorizontalLines(ctx: CanvasRenderingContext2D, numberOfKeys: number, keyHeight: number, width: number, theme: Theme) {
   ctx.lineWidth = 1
 
   for (let key = 0; key < numberOfKeys; key++) {
@@ -24,14 +25,22 @@ function drawHorizontalLines(ctx, numberOfKeys, keyHeight, width, theme) {
   }
 }
 
-function PianoLines({
+export interface PianoLinesProps {
+  numberOfKeys: number
+  pixelsPerKey: number
+  width: number
+  theme: Theme
+  style: any
+}
+
+const PianoLines: StatelessComponent<PianoLinesProps> = ({
   numberOfKeys,
   pixelsPerKey,
   width,
   theme,
   style
-}) {
-  function draw(ctx) {
+}) => {
+  function draw(ctx: CanvasRenderingContext2D) {
     const { width, height } = ctx.canvas
     ctx.clearRect(0, 0, width, height)
     ctx.save()
@@ -47,11 +56,6 @@ function PianoLines({
     height={pixelsPerKey * numberOfKeys}
     style={style}
   />
-}
-
-PianoLines.propTypes = {
-  pixelsPerKey: PropTypes.number.isRequired,
-  numberOfKeys: PropTypes.number.isRequired
 }
 
 export default pure(PianoLines)

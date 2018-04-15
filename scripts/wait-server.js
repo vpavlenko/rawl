@@ -9,6 +9,7 @@ const client = new Socket()
 console.log(`wating for port ${port}...`)
 
 const tryConnection = () => client.connect({ port }, () => {
+  console.log(`connection successful: ${port}`)
   client.end()
 })
 

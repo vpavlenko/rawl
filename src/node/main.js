@@ -1,7 +1,7 @@
 const { app, BrowserWindow, ipcMain } = require("electron")
 
 const isDev = /node_modules[\\/]electron[\\/]/.test(process.execPath)
-const baseUrl = process.env.ELECTRON_START_URL || `file://${__dirname}/index.html`
+const baseUrl = process.env.ELECTRON_START_URL || `file://${__dirname}/`
 
 let mainWindow
 
@@ -20,7 +20,7 @@ function createWindow() {
     vibrancy: "light",
     titleBarStyle: "hiddenInset"
   })
-  mainWindow.loadURL(baseUrl)
+  mainWindow.loadURL(`${baseUrl}/main.html`)
 
   mainWindow.on("closed", function () {
     // Dereference the window object, usually you would store windows
@@ -89,7 +89,7 @@ ipcMain.on("create-synth", () => {
     mainWindow.webContents.send("did-create-synth-window")
     return
   }
-  const url = `${baseUrl}#synth`
+  const url = `${baseUrl}/synth.html`
   const win = new BrowserWindow({
     title: "synth",
     width: 375,

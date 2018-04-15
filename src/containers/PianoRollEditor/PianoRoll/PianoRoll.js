@@ -127,7 +127,9 @@ function PianoRoll({
             mouseMode={mouseMode}
             scrollLeft={scrollLeft}
             isDrumMode={track.isRhythmTrack}
-            mouseHandler={mouseHandler}
+            onMouseDown={e => mouseHandler.onMouseDown(e)}
+            onMouseMove={e => mouseHandler.onMouseMove(e)}
+            onMouseUp={e => mouseHandler.onMouseUp(e)}
             theme={theme} />
           <PianoSelection
             color={theme.themeColor}

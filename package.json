@@ -50,6 +50,7 @@
     "@storybook/addon-actions": "^3.2.12",
     "@storybook/react": "^3.3.0-alpha.2",
     "@types/jest": "^22.2.0",
+    "@types/lodash": "^4.14.106",
     "@types/webpack-env": "^1.13.5",
     "babel-core": "^6.26.0",
     "babel-jest": "^22.4.1",
@@ -73,20 +74,5 @@
     "webpack": "^4.0.1",
     "webpack-cli": "^2.0.10",
     "webpack-dev-server": "^3.1.0"
-  },
-  "jest": {
-    "transform": {
-      "^.+\\.tsx?$": "ts-jest",
-      "^.+\\.jsx?$": "babel-jest"
-    },
-    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "/submodules/"
-    ],
-    "moduleFileExtensions": [
-      "ts",
-      "js"
-    ]
   }
 }

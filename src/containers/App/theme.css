@@ -6,20 +6,22 @@
   --theme-color: hsl(230, 70%, 55%);
   --red-color: hsl(10, 70%, 55%);
   --yellow-color: hsl(50, 70%, 55%);
-  --text-color: hsl(0, 0%, 0%);
-  --secondary-text-color: hsl(247, 10%, 62%);
-  --tertiary-text-color: hsl(247, 10%, 80%);
-  --divider-color: rgba(0, 0, 0, 0.07);
-  --background-color: #fff;
-  --secondary-background-color: hsl(220, 54%, 98%);
-  --tertiary-background-color: hsl(220, 18%, 94%);
-  --note-color: hsl(247, 84%, 69%);
+  --text-color: #fbfcff;
+  --secondary-text-color: #8e96ab;
+  --tertiary-text-color: #5a6173;
+  --divider-color: rgba(255, 255, 255, 0.05);
+  --background-color: #272a36;
+  --secondary-background-color: #454b60;
+  --tertiary-background-color: #535b72;
+  --note-color: hsl(230, 70%, 55%);
   --key-height: 12px;
   --key-width: 64px;
   --ruler-height: 30px;
   --header-height: 40px;
   --side-width: 16em;
   --track-info-height: 12em;
+  --piano-key-black: #272a36;
+  --piano-key-white: #fbfcff;
 }
 
 body, input, button, textarea, option {

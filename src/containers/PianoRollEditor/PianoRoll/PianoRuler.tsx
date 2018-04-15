@@ -1,13 +1,16 @@
-import React from "react"
+import React, { StatelessComponent } from "react"
 import PropTypes from "prop-types"
 import { shouldUpdate } from "recompose"
 import _ from "lodash"
 
-import DrawCanvas from "components/DrawCanvas.tsx"
+import { LoopSetting } from "services/Player"
+import DrawCanvas from "components/DrawCanvas"
 
 import "./PianoRuler.css"
+import Theme from "model/Theme"
+import { BeatWithX } from "helpers/mapBeats"
 
-function drawRuler(ctx, height, beats, theme) {
+function drawRuler(ctx: CanvasRenderingContext2D, height: number, beats: BeatWithX[], theme: Theme) {
   ctx.strokeStyle = theme.secondaryTextColor
   ctx.lineWidth = 1
   ctx.beginPath()
@@ -32,7 +35,7 @@ function drawRuler(ctx, height, beats, theme) {
       ctx.textBaseline = "top"
       ctx.font = `12px ${theme.canvasFont}`
       ctx.fillStyle = theme.secondaryTextColor
-      ctx.fillText(measure, x + 5, 2)
+      ctx.fillText(`${measure}`, x + 5, 2)
     }
   })
 
@@ -40,7 +43,7 @@ function drawRuler(ctx, height, beats, theme) {
   ctx.stroke()
 }
 
-function drawLoopPoints(ctx, loop, height, pixelsPerTick, theme) {
+function drawLoopPoints(ctx: CanvasRenderingContext2D, loop: LoopSetting, height: number, pixelsPerTick: number, theme: Theme) {
   const lineWidth = 1
   const flagSize = 8
   ctx.fillStyle = loop.enabled ? theme.themeColor : theme.secondaryTextColor
@@ -79,7 +82,20 @@ function drawLoopPoints(ctx, loop, height, pixelsPerTick, theme) {
   }
 }
 
-function PianoRuler({
+export interface PianoRulerProps {
+  width: number
+  height: number
+  pixelsPerTick: number
+  scrollLeft: number
+  beats: BeatWithX[]
+  theme: Theme
+  onMouseDown: (tick: number) => void
+  onMouseMove: (tick: number) => void
+  onMouseUp: (tick: number) => void
+  loop: LoopSetting
+}
+
+const PianoRuler: StatelessComponent<PianoRulerProps> = ({
   width,
   height,
   pixelsPerTick,
@@ -89,10 +105,10 @@ function PianoRuler({
   onMouseDown,
   onMouseMove,
   onMouseUp,
-  loop = { start: null, end: null, enabled: false },
-}) {
+  loop,
+}) => {
 
-  function draw(ctx) {
+  function draw(ctx: CanvasRenderingContext2D) {
     const { width, height } = ctx.canvas
     ctx.clearRect(0, 0, width, height)
     ctx.save()
@@ -102,8 +118,7 @@ function PianoRuler({
     ctx.restore()
   }
 
-  const extend = func => e => func && func({
-    ...e,
+  const passTick = func => e => func && func({
     tick: (e.nativeEvent.offsetX + scrollLeft) / pixelsPerTick
   })
 
@@ -112,22 +127,17 @@ function PianoRuler({
     className="PianoRuler"
     width={width}
     height={height}
-    onMouseDown={extend(onMouseDown)}
-    onMouseMove={extend(onMouseMove)}
-    onMouseUp={extend(onMouseUp)}
+    onMouseDown={passTick(onMouseDown)}
+    onMouseMove={passTick(onMouseMove)}
+    onMouseUp={passTick(onMouseUp)}
   />
 }
 
-PianoRuler.propTypes = {
-  scrollLeft: PropTypes.number.isRequired,
-  width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired,
-  beats: PropTypes.array.isRequired,
-  pixelsPerTick: PropTypes.number.isRequired,
-  onMouseDown: PropTypes.func
+PianoRuler.defaultProps = {
+  loop: { begin: 0, end: 0, enabled: false }
 }
 
-function test(props, nextProps) {
+function test(props: PianoRulerProps, nextProps: PianoRulerProps) {
   return props.width !== nextProps.width
     || props.height !== nextProps.height
     || props.pixelsPerTick !== nextProps.pixelsPerTick

@@ -7,6 +7,7 @@ body {
   font-size: 80%;
   -webkit-font-smoothing: antialiased;
   color: var(--text-color);
+  background-color: var(--background-color);
 }
 
 #root {
@@ -22,4 +23,27 @@ div, label, button, canvas, section, a, p, header, footer, ul, li {
 /* avoid 3px margin */
 canvas {
   vertical-align: middle;
+}
+
+/* ScrollBar */
+
+.ScrollBar {
+  background-color: var(--background-color);
+}
+
+.ScrollBar .thumb {
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  background: var(--secondary-background-color);
+}
+
+.ScrollBar .thumb:active,
+.ScrollBar .thumb:hover {
+  background: var(--tertiary-background-color);
+}
+
+.ScrollBar .button-backward:active,
+.ScrollBar .button-backward:hover,
+.ScrollBar .button-forward:active,
+.ScrollBar .button-forward:hover {
+  background: var(--tertiary-background-color);
 }

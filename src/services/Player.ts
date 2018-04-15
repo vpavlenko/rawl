@@ -2,9 +2,7 @@ import _ from "lodash"
 import EventEmitter from "eventemitter3"
 import assert from "assert"
 
-import MIDIControlEvents from "constants/MIDIControlEvents"
-import MIDIChannelEvents from "constants/MIDIChannelEvents"
-import { eventToBytes } from "helpers/midiHelper"
+import { serialize as serializeMidiEvent, MIDIControlEvents, MIDIChannelEvents } from "midifile-ts"
 import { toRawEvents } from "helpers/eventAssembler"
 
 import EventScheduler from "./EventScheduler"
@@ -45,7 +43,7 @@ class DisplayTask {
 
 const displayTask = new DisplayTask()
 
-interface LoopSetting {
+export interface LoopSetting {
   begin: number,
   end: number,
   enabled: boolean
@@ -181,7 +179,7 @@ export default class Player extends EventEmitter {
     // channel イベントを MIDI Output に送信
     const messages = events
       .filter(({ event }) => event.type === "channel" && this._shouldPlayChannel(event.channel))
-      .map(({ event, timestamp }) => ({ message: eventToBytes(event, false), timestamp }))
+      .map(({ event, timestamp }) => ({ message: serializeMidiEvent(event, false), timestamp }))
     this._sendMessages(messages)
 
     // channel イベント以外を実行

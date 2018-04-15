@@ -39,7 +39,7 @@ module.exports = {
     ]
   },
   resolve: {
-    modules: ["src", "node_modules"],
+    modules: ["src", "node_modules", "packages"],
     extensions: [
       ".js", ".jsx", ".ts", ".tsx"
     ],

@@ -1,6 +1,6 @@
 // variable-length quantity
 
-export function toVLQ(intNum) {
+export function toVLQ(intNum: number): number[] {
   let v = intNum
   const r = [v & 0x7f]
   while (true) {

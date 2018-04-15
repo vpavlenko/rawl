@@ -14,9 +14,7 @@ import "./PianoRollEditor.css"
 
 function PianoRollEditor({
   track,
-  volume,
   onChangeVolume,
-  pan,
   onChangePan,
   onClickInstrument,
   onClickNavBack
@@ -28,9 +26,9 @@ function PianoRollEditor({
         <Slider
           onChange={e => onChangeVolume(e.target.value)}
           maxValue={127}
-          value={volume} />
+          value={track.volume} />
         <Knob
-          value={pan}
+          value={track.pan}
           onChange={e => onChangePan(e.target.value)}
           minValue={0}
           maxValue={127}
@@ -44,14 +42,13 @@ function PianoRollEditor({
 }
 
 export default inject(({ rootStore: { song, router, dispatch } }) => {
+  const track = song.selectedTrack
   const trackId = song.selectedTrackId
   return {
-    track: song.selectedTrack,
+    track,
     onChangeVolume: value => dispatch("SET_TRACK_VOLUME", { trackId, volume: value }),
     onChangePan: value => dispatch("SET_TRACK_PAN", { trackId, pan: value }),
     onClickNavBack: () => router.pushArrange(),
-    volume: song.selectedTrack.volume,
-    pan: song.selectedTrack.pan,
     onClickInstrument: () => showInstrumentBrowser(song, trackId, (trackId, programNumber) => dispatch("SET_TRACK_INSTRUMENT", { trackId, programNumber }))
   }
 })(observer(PianoRollEditor))

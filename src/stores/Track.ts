@@ -158,7 +158,7 @@ export default class Track {
 
   _updateLast(arr, obj) {
     if (arr.length > 0) {
-      this.updateEvent(_.last(arr).id, obj)
+      this.updateEvent((_.last(arr) as any).id, obj)
     }
   }
 

@@ -2,16 +2,10 @@ import Measure from "./Measure"
 import { TIME_BASE } from "../Constants"
 import Track from "stores/Track"
 
-class Beat {
+export interface Beat {
   measure: number
   beat: number
   tick: number
-  
-  constructor(measure, beat, tick) {
-    this.measure = measure
-    this.beat = beat
-    this.tick = tick
-  }
 }
 
 export default class MeasureList {
@@ -85,7 +79,11 @@ function createBeats(measures, ticksPerBeatBase, endTick) {
 
     for (let beat = 0; beat < endBeat; beat++) {
       const tick = measure.startTick + ticksPerBeat * beat
-      beats.push(new Beat(m + Math.floor(beat / measure.numerator), beat % measure.numerator, tick))
+      beats.push({
+        measure: m + Math.floor(beat / measure.numerator), 
+        beat: beat % measure.numerator, 
+        tick
+      })
     }
     m++
   })

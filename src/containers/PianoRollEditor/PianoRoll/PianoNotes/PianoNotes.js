@@ -19,7 +19,9 @@ function PianoNotes({
   scrollLeft,
   cursor,
   selectedEventIds,
-  mouseHandler,
+  onMouseDown,
+  onMouseMove,
+  onMouseUp,
   isDrumMode,
   theme
 }) {
@@ -50,9 +52,9 @@ function PianoNotes({
     height={height}
     scrollLeft={scrollLeft}
     onContextMenu={e => e.preventDefault()}
-    onMouseDown={e => mouseHandler.onMouseDown(extendEvent(e))}
-    onMouseMove={e => mouseHandler.onMouseMove(extendEvent(e))}
-    onMouseUp={e => mouseHandler.onMouseUp(extendEvent(e))}
+    onMouseDown={e => onMouseDown(extendEvent(e))}
+    onMouseMove={e => onMouseMove(extendEvent(e))}
+    onMouseUp={e => onMouseUp(extendEvent(e))}
     style={{ cursor }}
   />
 }

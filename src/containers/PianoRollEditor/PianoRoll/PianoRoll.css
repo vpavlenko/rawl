@@ -37,7 +37,7 @@
 .PianoRoll .PianoKeys {
   position: absolute;
   top: var(--ruler-height);
-  background: white;
+  background: var(--background-color);
   box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 4px;
 }
 

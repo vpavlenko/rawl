@@ -1,13 +1,14 @@
-import React from "react"
+import React, { StatelessComponent } from "react"
 import PropTypes from "prop-types"
 import { shouldUpdate } from "recompose"
 import _ from "lodash"
 
 import DrawCanvas from "components/DrawCanvas.tsx"
+import { IRect } from "model/Rect"
 
 const LINE_WIDTH = 2
 
-function drawSelection(ctx, { x, y, width, height }, color) {
+function drawSelection(ctx: CanvasRenderingContext2D, { x, y, width, height }: IRect, color: string) {
   ctx.beginPath()
   ctx.strokeStyle = color
   ctx.lineWidth = LINE_WIDTH
@@ -19,14 +20,22 @@ function drawSelection(ctx, { x, y, width, height }, color) {
   ctx.stroke()
 }
 
-function PianoSelection({
-  scrollLeft = 0,
+export interface PianoSelectionProps {
+  scrollLeft: number
+  selectionBounds: IRect
+  color: string
+  width: number
+  height: number
+}
+
+const PianoSelection: StatelessComponent<PianoSelectionProps> = ({
+  scrollLeft,
   selectionBounds,
   color,
   width,
   height
-}) {
-  function draw(ctx) {
+}) => {
+  function draw(ctx: CanvasRenderingContext2D): void {
     const { width, height } = ctx.canvas
     ctx.save()
     ctx.clearRect(0, 0, width, height)
@@ -45,15 +54,11 @@ function PianoSelection({
   />
 }
 
-PianoSelection.propTypes = {
-  color: PropTypes.string.isRequired,
-  selectionBounds: PropTypes.object,
-  width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired,
-  scrollLeft: PropTypes.number
+PianoSelection.defaultProps = {
+  scrollLeft: 0
 }
 
-function test(props, nextProps) {
+function test(props: PianoSelectionProps, nextProps: PianoSelectionProps) {
   return props.color !== nextProps.color
     || !_.isEqual(props.selectionBounds, nextProps.selectionBounds)
     || props.width !== nextProps.width

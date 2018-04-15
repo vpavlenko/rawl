@@ -12,9 +12,9 @@ import PianoRollStore from "./PianoRollStore"
 import ArrangeViewStore from "./ArrangeViewStore"
 import TempoEditorStore from "./TempoEditorStore"
 
-import Player from "services//Player"
-import Quantizer from "services//Quantizer"
-import SynthOutput from "services//SynthOutput"
+import Player from "services/Player"
+import Quantizer from "services/Quantizer"
+import SynthOutput from "services/SynthOutput"
 import { TIME_BASE } from "../Constants"
 
 import createDispatcher from "../createDispatcher"

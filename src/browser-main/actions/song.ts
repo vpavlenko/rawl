@@ -1,7 +1,5 @@
-import Song from "stores/Song"
-import Track from "stores/Track"
-import { emptySong } from "stores/SongFactory"
-import { emptyTrack } from "stores/TrackFactory"
+import Song, { emptySong } from "common/song"
+import Track, { emptyTrack } from "common/track"
 import { read as readSong, write as writeSong } from "midi/SongFile"
 
 export default (rootStore) => {

@@ -1,7 +1,7 @@
 import { read as readBytes } from "./MidiFileReader"
 import { write as writeBytes } from "./MidiFileWriter"
-import { songFromMidi } from "stores/SongFactory"
-import Track from "stores/Track"
+import { songFromMidi } from "common/song"
+import Track from "common/track"
 
 const { remote } = (window as any).require("electron")
 const fs = remote.require("fs")

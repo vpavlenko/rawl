@@ -2,8 +2,7 @@ import React, { StatelessComponent } from "react"
 
 import DrawCanvas from "components/DrawCanvas.tsx"
 import Item from "./Item"
-import { IRect, containsPoint as rectContainsPoint, intersects as rectIntersects } from "model/Rect"
-import { IPoint } from "model/Point"
+import { IRect, IPoint, containsPoint as rectContainsPoint, intersects as rectIntersects } from "common/geometry"
 
 type ReactMouseEvent = React.MouseEvent<HTMLElement>
 

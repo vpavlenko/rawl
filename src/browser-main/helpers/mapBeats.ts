@@ -1,4 +1,4 @@
-import { Beat } from "model/MeasureList"
+import { Beat } from "common/measure"
 
 export interface BeatWithX extends Beat {
   x: number

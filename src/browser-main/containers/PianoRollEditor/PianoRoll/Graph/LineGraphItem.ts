@@ -1,5 +1,5 @@
 import Item from "components/Stage/Item.ts"
-import { IRect, right as rectRight, bottom as rectBottom } from "model/Rect"
+import { IRect, right as rectRight, bottom as rectBottom } from "common/geometry"
 
 export default class LineGraphItem implements Item {
   id: any

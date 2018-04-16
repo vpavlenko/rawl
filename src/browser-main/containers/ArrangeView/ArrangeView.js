@@ -12,10 +12,10 @@ import NavigationBar from "components/groups/NavigationBar"
 import { VerticalScrollBar, BAR_WIDTH } from "components/inputs/ScrollBar"
 import { HorizontalScaleScrollBar } from "components/inputs/ScaleScrollBar"
 
-import NoteCoordTransform from "model/NoteCoordTransform"
+import { NoteCoordTransform } from "common/transform"
 
 import mapBeats from "helpers/mapBeats"
-import { pointSub, pointAdd } from "helpers/point"
+import { pointSub, pointAdd } from "common/geometry"
 import filterEventsWithScroll from "helpers/filterEventsWithScroll"
 
 import ArrangeToolbar from "./ArrangeToolbar"

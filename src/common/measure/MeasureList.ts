@@ -1,6 +1,5 @@
 import Measure from "./Measure"
-import { TIME_BASE } from "../Constants"
-import Track from "stores/Track"
+import Track from "common/track"
 
 export interface Beat {
   measure: number
@@ -12,12 +11,12 @@ export default class MeasureList {
   measures: Measure[]
   beats: Beat[]
 
-  constructor(conductorTrack: Track, endTick: number) {
+  constructor(conductorTrack: Track, endTick: number, timeBase: number) {
     this.measures = getMeasuresFromConductorTrack(conductorTrack)
-    this.beats = createBeats(this.measures, TIME_BASE, endTick)
+    this.beats = createBeats(this.measures, timeBase, endTick)
   }
 
-  getMeasureAt(tick: number) {
+  getMeasureAt(tick: number): Measure {
     let lastMeasure = new Measure()
     for (const m of this.measures) {
       if (m.startTick > tick) {
@@ -28,21 +27,16 @@ export default class MeasureList {
     return lastMeasure
   }
 
-  getMBTString(tick: number, ticksPerBeat: number, formatter = defaultMBTFormatter) {
+  getMBTString(tick: number, ticksPerBeat: number, formatter = defaultMBTFormatter): string {
     return formatter(this.getMBT(tick, ticksPerBeat))
   }
 
-  getMBT(tick: number, ticksPerBeat: number) {
+  getMBT(tick: number, ticksPerBeat: number): Beat {
     return this.getMeasureAt(tick).getMBT(tick, ticksPerBeat)
   }
 }
 
-/**
- * 
- * @param {Track} conductorTrack 
- * @returns {Measure[]}
- */
-function getMeasuresFromConductorTrack(conductorTrack) {
+function getMeasuresFromConductorTrack(conductorTrack: Track): Measure[] {
   const events = conductorTrack.events
     .filter(e => e.subtype === "timeSignature")
 
@@ -55,18 +49,14 @@ function getMeasuresFromConductorTrack(conductorTrack) {
   }
 }
 
-function defaultMBTFormatter(mbt) {
+function defaultMBTFormatter(mbt: Beat): string {
   function format(v) {
     return ("   " + v).slice(-4)
   }
   return `${format(mbt.measure + 1)}:${format(mbt.beat + 1)}:${format(mbt.tick)}`
 }
 
-
-/**
- * @returns {Array.<Beat>}
- */
-function createBeats(measures, ticksPerBeatBase, endTick) {
+function createBeats(measures: Measure[], ticksPerBeatBase: number, endTick: number): Beat[] {
   const beats = []
   let m = 0
   measures.forEach((measure, i) => {

@@ -4,7 +4,7 @@ import { shouldUpdate } from "recompose"
 import _ from "lodash"
 
 import DrawCanvas from "components/DrawCanvas.tsx"
-import { IRect } from "model/Rect"
+import { IRect } from "common/geometry"
 
 const LINE_WIDTH = 2
 

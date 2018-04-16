@@ -2,7 +2,7 @@ import React, { StatelessComponent } from "react"
 import PropTypes from "prop-types"
 import { pure } from "recompose"
 import DrawCanvas from "components/DrawCanvas"
-import Theme from "model/Theme"
+import Theme from "common/theme"
 
 function drawHorizontalLines(ctx: CanvasRenderingContext2D, numberOfKeys: number, keyHeight: number, width: number, theme: Theme) {
   ctx.lineWidth = 1

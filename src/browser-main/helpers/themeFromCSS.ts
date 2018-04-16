@@ -1,4 +1,4 @@
-import Theme from "./Theme"
+import Theme from "common/theme"
 
 // 文頭、文末のスペースを取り除く
 function trimSpace(str: string) {

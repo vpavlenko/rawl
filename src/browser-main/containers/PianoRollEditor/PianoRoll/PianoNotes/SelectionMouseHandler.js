@@ -1,5 +1,5 @@
 import MouseHandler from "./NoteMouseHandler"
-import { pointSub, pointAdd } from "helpers/point"
+import { pointSub, pointAdd } from  "common/geometry"
 
 export default class SelectionMouseHandler extends MouseHandler {
   actionForMouseDown(e) {

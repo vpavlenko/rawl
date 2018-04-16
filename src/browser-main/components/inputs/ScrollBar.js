@@ -2,7 +2,7 @@ import React from "react"
 import sizeMe from "react-sizeme"
 
 import Icon from "components/Icon.tsx"
-import { pointSub } from "helpers/point"
+import { pointSub } from "common/geometry"
 
 import "./ScrollBar.css"
 

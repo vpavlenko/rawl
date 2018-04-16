@@ -4,7 +4,7 @@ import _ from "lodash"
 import { shouldUpdate } from "recompose"
 
 import DrawCanvas from "components/DrawCanvas.tsx"
-import Theme from "model/Theme"
+import Theme from "common/theme"
 import { BeatWithX } from "helpers/mapBeats"
 
 function drawBeatLines(ctx: CanvasRenderingContext2D, beats: BeatWithX[], height: number, theme: Theme) {

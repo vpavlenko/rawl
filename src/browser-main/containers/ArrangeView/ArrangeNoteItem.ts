@@ -1,6 +1,5 @@
 import Item from "components/Stage/Item"
-import { IPoint } from "model/Point"
-import { IRect } from "model/Rect"
+import { IRect, IPoint } from "common/geometry"
 
 export default class ArrangeNoteItem implements Item {
   id: number

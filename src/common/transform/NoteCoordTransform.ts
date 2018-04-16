@@ -1,5 +1,5 @@
 import _ from "lodash"
-import { IRect } from "model/Rect"
+import { IRect } from "common/geometry"
 
 export default class NoteCoordTransform {
   private _pixelsPerTick: number

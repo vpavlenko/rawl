@@ -2,12 +2,12 @@ import React, { Component } from "react"
 import { shouldUpdate } from "recompose"
 import _ from "lodash"
 
-import { IRect } from "model/Rect"
+import { IRect } from "common/geometry"
 import Stage from "components/Stage/Stage"
 
 import VelocityItem from "./VelocityItem"
 import VelocityMouseHandler from "./VelocityMouseHandler"
-import NoteCoordTransform from "model/NoteCoordTransform";
+import { NoteCoordTransform } from "common/transform"
 
 export interface PianoVelocityControlProps {
   width: number

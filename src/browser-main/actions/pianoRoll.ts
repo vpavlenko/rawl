@@ -1,5 +1,5 @@
 import { open as openContextMenu } from "containers/PianoRollEditor/PianoRoll/PianoContextMenu"
-import { IPoint } from "model/Point"
+import { IPoint } from "common/geometry"
 
 export default ({ dispatch, pianoRollStore: s }) => {
   return {

@@ -2,8 +2,9 @@ import { observable, autorun, computed, action } from "mobx"
 import { list, object, serializable } from "serializr"
 import _ from "lodash"
 
-import Track from "./Track"
-import MeasureList from "model/MeasureList"
+import Track from "common/track"
+import { MeasureList } from "common/measure"
+import { TIME_BASE } from "Constants"
 
 const END_MARGIN = 480 * 30
 
@@ -79,7 +80,7 @@ export default class Song {
       return this._measureList
     }
 
-    this._measureList = new MeasureList(this.conductorTrack, this.endOfSong)
+    this._measureList = new MeasureList(this.conductorTrack, this.endOfSong, TIME_BASE)
     return this._measureList
   }
 

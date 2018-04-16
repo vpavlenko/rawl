@@ -1,5 +1,5 @@
-import { IRect } from "./Rect"
-import TempoCoordTransform from "model/TempoCoordTransform"
+import { IRect } from "common/geometry"
+import TempoCoordTransform from "transform/TempoCoordTransform"
 
 export default class SelectionModel {
   noteIds = []

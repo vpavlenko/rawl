@@ -1,4 +1,4 @@
-import Track from "./Track"
+import Track from "common/track"
 import { toTrackEvents } from "helpers/eventAssembler"
 
 import {

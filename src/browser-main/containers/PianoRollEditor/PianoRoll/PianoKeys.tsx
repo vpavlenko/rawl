@@ -5,7 +5,7 @@ import _ from "lodash"
 
 import { noteNameWithOctString } from "helpers/noteNumberString"
 import DrawCanvas from "components/DrawCanvas.tsx"
-import Theme from "model/Theme"
+import Theme from "common/theme"
 import PianoNoteItem from "containers/PianoRollEditor/PianoRoll/PianoNotes/PianoNoteItem";
 
 function drawBorder(ctx: CanvasRenderingContext2D, width: number, dividerColor: string): void {

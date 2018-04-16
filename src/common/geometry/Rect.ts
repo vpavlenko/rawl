@@ -1,4 +1,4 @@
-import { IPoint } from "model/Point"
+import { IPoint } from "common/geometry"
 
 export interface IRect extends IPoint {
   width: number

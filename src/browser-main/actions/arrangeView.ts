@@ -1,4 +1,4 @@
-import { IRect, fromPoints as rectFromPoints } from "model/Rect"
+import { IRect, fromPoints as rectFromPoints } from "common/geometry"
 import _ from "lodash"
 import clipboard from "services/Clipboard.ts"
 import { open as openContextMenu } from "containers/ArrangeView/ArrangeContextMenu"

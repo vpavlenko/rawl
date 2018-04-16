@@ -1,5 +1,5 @@
 import clipboard from "services/Clipboard.ts"
-import SelectionModel from "model/SelectionModel"
+import SelectionModel from "common/selection"
 
 function eventsInSelection(events, selection) {
   const s = selection

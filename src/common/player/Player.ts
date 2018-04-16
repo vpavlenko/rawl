@@ -6,9 +6,9 @@ import { serialize as serializeMidiEvent, MIDIControlEvents, MIDIChannelEvents }
 import { toRawEvents } from "helpers/eventAssembler"
 
 import EventScheduler from "./EventScheduler"
-import TrackMute from "stores/TrackMute"
-import Song from "stores/Song"
-import { MidiEvent } from "midi/MidiEvent";
+import Song from "common/song"
+import TrackMute from "common/trackMute"
+import { MidiEvent } from "midi/MidiEvent"
 
 function firstByte(eventType: string, channel: number): number {
   return (MIDIChannelEvents[eventType] << 4) + channel

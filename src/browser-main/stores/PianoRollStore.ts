@@ -1,5 +1,5 @@
 import { observable } from "mobx"
-import SelectionModel from "model/SelectionModel"
+import SelectionModel from "common/selection"
 
 export default class PianoRollStore {
   @observable scrollLeft = 0

@@ -1,5 +1,5 @@
-import Song from "stores/Song"
-import Player from "services/Player"
+import Song from "common/song"
+import Player from "common/player"
 
 export function bindKeyboardShortcut(dispatch, player: Player, songStore: { song: Song }) {
   document.onkeydown = e => {

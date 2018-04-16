@@ -1,5 +1,5 @@
 import Item from "components/Stage/Item"
-import { IRect } from "model/rect"
+import { IRect } from "common/geometry"
 
 function drawEvent(ctx, fillColor, strokeColor, { x, y, width, height }, selected) {
   const color = selected ? strokeColor : fillColor

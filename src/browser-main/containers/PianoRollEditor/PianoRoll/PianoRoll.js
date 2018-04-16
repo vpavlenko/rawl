@@ -5,7 +5,7 @@ import { observer, inject } from "mobx-react"
 import sizeMe from "react-sizeme"
 
 import mapBeats from "helpers/mapBeats"
-import NoteCoordTransform from "model/NoteCoordTransform"
+import { NoteCoordTransform } from "common/transform"
 import { show as showEventEditor } from "components/EventEditor"
 
 import PianoNotes from "./PianoNotes/PianoNotes"

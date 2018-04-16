@@ -1,9 +1,10 @@
 import { observable } from "mobx"
 import { serialize, deserialize } from "serializr"
 
-import Song from "./Song"
+import Song, { emptySong } from "common/song"
+import TrackMute from "common/trackMute"
+
 import Router from "./Router"
-import TrackMute from "./TrackMute"
 import PlayerStore from "./PlayerStore"
 import HistoryStore from "./HistoryStore"
 import SettingsStore from "./SettingsStore"
@@ -12,13 +13,12 @@ import PianoRollStore from "./PianoRollStore"
 import ArrangeViewStore from "./ArrangeViewStore"
 import TempoEditorStore from "./TempoEditorStore"
 
-import Player from "services/Player"
-import Quantizer from "services/Quantizer"
+import Player from "common/player"
+import Quantizer from "common/quantizer"
 import SynthOutput from "services/SynthOutput"
 import { TIME_BASE } from "../Constants"
 
 import createDispatcher from "../createDispatcher"
-import { emptySong } from "./SongFactory"
 
 interface Services {
   player: Player

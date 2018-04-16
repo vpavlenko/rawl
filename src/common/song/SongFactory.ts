@@ -1,8 +1,7 @@
 import _ from "lodash"
 
-import Song from "./Song"
-import Track from "./Track"
-import { conductorTrack, emptyTrack } from "./TrackFactory"
+import Song from "common/song"
+import Track, { conductorTrack, emptyTrack } from "common/track"
 
 export function emptySong() {
   const song = new Song()

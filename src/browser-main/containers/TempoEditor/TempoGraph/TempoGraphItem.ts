@@ -1,5 +1,5 @@
 import Item from "components/Stage/Item"
-import { IRect } from "model/Rect"
+import { IRect } from "common/geometry"
 
 export default class TempoGraphItem implements Item {
   id: number

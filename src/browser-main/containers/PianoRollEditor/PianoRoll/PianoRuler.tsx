@@ -3,11 +3,11 @@ import PropTypes from "prop-types"
 import { shouldUpdate } from "recompose"
 import _ from "lodash"
 
-import { LoopSetting } from "services/Player"
+import { LoopSetting } from "common/player"
 import DrawCanvas from "components/DrawCanvas"
 
 import "./PianoRuler.css"
-import Theme from "model/Theme"
+import Theme from "common/theme"
 import { BeatWithX } from "helpers/mapBeats"
 
 function drawRuler(ctx: CanvasRenderingContext2D, height: number, beats: BeatWithX[], theme: Theme) {

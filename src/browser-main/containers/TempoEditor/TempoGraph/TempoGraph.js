@@ -9,7 +9,7 @@ import PianoGrid from "containers/PianoRollEditor/PianoRoll/PianoGrid"
 import PianoRuler from "containers/PianoRollEditor/PianoRoll/PianoRuler"
 import PianoCursor from "containers/PianoRollEditor/PianoRoll/PianoCursor"
 
-import TempoCoordTransform from "model/TempoCoordTransform"
+import { TempoCoordTransform } from "common/transform"
 
 import mapBeats from "helpers/mapBeats"
 import { uSecPerBeatToBPM, bpmToUSecPerBeat } from "helpers/bpm"

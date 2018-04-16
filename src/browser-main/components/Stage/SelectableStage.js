@@ -2,8 +2,8 @@ import React from "react"
 
 import DrawCanvas from "components/DrawCanvas.tsx"
 
-import Rect from "model/Rect"
-import { pointSub } from "helpers/point"
+import { IRect as Rect } from "common/geometry"
+import { pointSub } from  "common/geometry"
 
 import "./Stage.css"
 

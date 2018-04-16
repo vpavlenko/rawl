@@ -5,7 +5,7 @@ import RootView from "containers/RootView/RootView"
 import { bindKeyboardShortcut } from "services/KeyboardShortcut.ts"
 
 import RootStore from "stores/RootStore.ts"
-import { themeFromCSS } from "model/Theme"
+import themeFromCSS from "model/themeFromCSS"
 
 import "./App.css"
 import "./theme.css"

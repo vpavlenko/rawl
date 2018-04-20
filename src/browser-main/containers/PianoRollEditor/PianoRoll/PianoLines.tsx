@@ -1,4 +1,4 @@
-import React, { StatelessComponent } from "react"
+import React, { StatelessComponent, CSSProperties } from "react"
 import PropTypes from "prop-types"
 import { pure } from "recompose"
 import DrawCanvas from "components/DrawCanvas"
@@ -30,7 +30,7 @@ export interface PianoLinesProps {
   pixelsPerKey: number
   width: number
   theme: Theme
-  style: any
+  style?: CSSProperties
 }
 
 const PianoLines: StatelessComponent<PianoLinesProps> = ({

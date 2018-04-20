@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import _ from "lodash"
 import { shouldUpdate } from "recompose"
 
-import DrawCanvas from "components/DrawCanvas.tsx"
+import DrawCanvas from "components/DrawCanvas"
 import Theme from "common/theme"
 import { BeatWithX } from "helpers/mapBeats"
 

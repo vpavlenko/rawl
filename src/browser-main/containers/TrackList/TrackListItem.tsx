@@ -1,5 +1,5 @@
 import React from "react"
-import Icon from "components/Icon.tsx"
+import Icon from "components/Icon"
 import { ContextMenu, MenuItem, createContextMenu } from "components/groups/ContextMenu"
 
 import "./TrackListItem.css"

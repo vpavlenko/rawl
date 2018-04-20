@@ -4,7 +4,7 @@ import { shouldUpdate } from "recompose"
 import _ from "lodash"
 
 import { noteNameWithOctString } from "helpers/noteNumberString"
-import DrawCanvas from "components/DrawCanvas.tsx"
+import DrawCanvas from "components/DrawCanvas"
 import Theme from "common/theme"
 import PianoNoteItem from "containers/PianoRollEditor/PianoRoll/PianoNotes/PianoNoteItem";
 

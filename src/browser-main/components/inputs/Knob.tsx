@@ -1,5 +1,5 @@
-import React, { Component } from "react"
-import { pure } from "recompose"
+import React, { Component, StatelessComponent } from "react"
+import { pure, compose, withState, Omit } from "recompose"
 import coarsify from "helpers/coarsify"
 
 import "./Knob.css"
@@ -10,16 +10,27 @@ const MAX_VALUE_MOVE_LENGTH = 150
 // ホイール1行分の回転による変化量
 const WHEEL_SPEED = 0.1
 
-function Content({
+export interface KnobProps {
+  value: number
+  onChange: (e: any) => void
+  offsetDegree: number
+  maxDegree: number
+  maxValue: number
+  minValue: number
+  dragging: boolean
+  setDragging: (boolean) => void
+}
+
+const Knob: StatelessComponent<KnobProps> = ({
   value = 0,
-  onChange = (e: Event) => {},
+  onChange = () => {},
   offsetDegree = 0,
   maxDegree = 360,
   maxValue = 1,
   minValue = 0,
   dragging = false,
   setDragging = (dragging: boolean) => {}
-}) {
+}) => {
   const range = maxValue - minValue
 
   function handleWheel(e) {
@@ -63,21 +74,7 @@ function Content({
   </div>
 }
 
-const Contentp = pure(Content)
-
-export default class Knob extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      dragging: false
-    }
-  }
-
-  render() {
-    return <Contentp
-      {...this.props}
-      {...this.state}
-      setDragging={dragging => this.setState({ dragging })}
-    />
-  }
-}
+export default compose<KnobProps, Omit<KnobProps, "dragging" | "setDragging">>(
+  pure,
+  withState("dragging", "setDragging", false)
+)(Knob)

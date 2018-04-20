@@ -16,7 +16,7 @@ import { uSecPerBeatToBPM, bpmToUSecPerBeat } from "helpers/bpm"
 import transformEvents from "./transformEvents.ts"
 
 import Stage from "components/Stage/Stage"
-import DrawCanvas from "components/DrawCanvas.tsx"
+import DrawCanvas from "components/DrawCanvas"
 import { HorizontalScrollBar, BAR_WIDTH } from "components/inputs/ScrollBar"
 
 import "./TempoGraph.css"

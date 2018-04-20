@@ -9,7 +9,9 @@ import createTrackMuteAction from "./actions/trackMute"
 import createPianoRollAction from "./actions/pianoRoll"
 import createArrangeViewAction from "./actions/arrangeView"
 
-export default (rootStore) => function dispatch(type, params) {
+export type Dispatcher = (type: string, params?: any) => void
+
+const createDispatcher = rootStore => (type: string, params: any): Dispatcher => {
   const actions = {
     ...createSongAction(rootStore),
     ...createTrackAction(rootStore),
@@ -30,3 +32,5 @@ export default (rootStore) => function dispatch(type, params) {
 
   console.warn("unknown action", type, params)
 }
+
+export default createDispatcher

@@ -1,6 +1,6 @@
-import React, { StatelessComponent } from "react"
+import React, { StatelessComponent, CSSProperties } from "react"
 
-import DrawCanvas from "components/DrawCanvas.tsx"
+import DrawCanvas from "components/DrawCanvas"
 import Item from "./Item"
 import { IRect, IPoint, containsPoint as rectContainsPoint, intersects as rectIntersects } from "common/geometry"
 
@@ -24,7 +24,7 @@ export interface StageProps {
   scrollLeft?: number
   scrollTop?: number
   className?: string
-  style?: any
+  style?: CSSProperties
 }
 
 /**

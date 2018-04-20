@@ -1,5 +1,5 @@
 import { IRect } from "common/geometry"
-import TempoCoordTransform from "transform/TempoCoordTransform"
+import { NoteCoordTransform } from "common/transform"
 
 export default class SelectionModel {
   noteIds = []
@@ -9,7 +9,7 @@ export default class SelectionModel {
   toNoteNumber = 0
   enabled = false
 
-  getBounds(transform: TempoCoordTransform) {
+  getBounds(transform: NoteCoordTransform) {
     const left = transform.getX(this.fromTick)
     const right = transform.getX(this.toTick)
     const top = transform.getY(this.fromNoteNumber)

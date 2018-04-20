@@ -1,14 +1,19 @@
-import React from "react"
+import React, { StatelessComponent } from "react"
 import { observer, inject } from "mobx-react"
+import { compose } from "recompose"
 
 import NavigationBar from "components/groups/NavigationBar"
 import TempoGraph from "./TempoGraph/TempoGraph"
 
 import "./TempoEditor.css"
 
-function TempoEditor({
+interface TempoEditorProps {
+  onClickNavBack: (any) => void
+}
+
+const TempoEditor: StatelessComponent<TempoEditorProps> = ({
   onClickNavBack
-}) {
+}) => {
   return <div className="TempoEditor">
     <NavigationBar title="Tempo" onClickBack={onClickNavBack}>
     </NavigationBar>
@@ -16,7 +21,10 @@ function TempoEditor({
   </div>
 }
 
-export default inject(({ rootStore: { song, router } }) => ({
-  track: song.conductorTrack,
-  onClickNavBack: () => router.pushArrange()
-}))(observer(TempoEditor))
+export default compose(
+  inject(({ rootStore: { song, router } }) => ({
+    track: song.conductorTrack,
+    onClickNavBack: () => router.pushArrange()
+  })),
+  observer,
+)(TempoEditor)

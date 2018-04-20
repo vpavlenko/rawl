@@ -16,7 +16,7 @@ function firstByte(eventType: string, channel: number): number {
 
 function collectAllEvents(song: Song): MidiEvent[] {
   return _.chain(song.tracks)
-    .map(t => t.events.toJS())
+    .map(t =>(t.events as any).toJS())
     .flatten()
     .map(toRawEvents)
     .flatten()

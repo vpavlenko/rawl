@@ -1,16 +1,24 @@
-import React, { Component } from "react"
-import { pure } from "recompose"
+import React, { Component, StatelessComponent } from "react"
+import { pure, compose, withState, Omit } from "recompose"
 import coarsify from "helpers/coarsify"
 
 import "./Slider.css"
 
-function Content({
+export interface SliderProps {
+  value: number
+  maxValue: number
+  onChange: (Event) => void
+  dragging: boolean
+  setDragging: (boolean) => void
+}
+
+const Slider: StatelessComponent<SliderProps> = ({
   value = 0,
   maxValue = 1,
   onChange = (e: Event) => { },
   dragging = false,
   setDragging = (dragging: boolean) => { }
-}) {
+}) => {
   let rect
 
   function calcValue(e) {
@@ -63,21 +71,7 @@ function Content({
   </div>
 }
 
-const Contentp = pure(Content)
-
-export default class Slider extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      dragging: false
-    }
-  }
-
-  render() {
-    return <Contentp
-      {...this.props}
-      {...this.state}
-      setDragging={dragging => this.setState({ dragging })}
-    />
-  }
-}
+export default compose<SliderProps, Omit<SliderProps, "dragging" | "setDragging">>(
+  withState("dragging", "setDragging", false),
+  pure,
+)(Slider)

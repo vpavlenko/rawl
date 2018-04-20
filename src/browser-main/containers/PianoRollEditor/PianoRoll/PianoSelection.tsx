@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import { shouldUpdate } from "recompose"
 import _ from "lodash"
 
-import DrawCanvas from "components/DrawCanvas.tsx"
+import DrawCanvas from "components/DrawCanvas"
 import { IRect } from "common/geometry"
 
 const LINE_WIDTH = 2
@@ -21,7 +21,7 @@ function drawSelection(ctx: CanvasRenderingContext2D, { x, y, width, height }: I
 }
 
 export interface PianoSelectionProps {
-  scrollLeft: number
+  scrollLeft?: number
   selectionBounds: IRect
   color: string
   width: number

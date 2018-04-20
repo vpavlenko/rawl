@@ -82,6 +82,10 @@ function drawLoopPoints(ctx: CanvasRenderingContext2D, loop: LoopSetting, height
   }
 }
 
+interface TickEvent {
+  tick: number
+}
+
 export interface PianoRulerProps {
   width: number
   height: number
@@ -89,9 +93,9 @@ export interface PianoRulerProps {
   scrollLeft: number
   beats: BeatWithX[]
   theme: Theme
-  onMouseDown: (tick: number) => void
-  onMouseMove: (tick: number) => void
-  onMouseUp: (tick: number) => void
+  onMouseDown?: (TickEvent) => void
+  onMouseMove?: (TickEvent) => void
+  onMouseUp?: (TickEvent) => void
   loop: LoopSetting
 }
 

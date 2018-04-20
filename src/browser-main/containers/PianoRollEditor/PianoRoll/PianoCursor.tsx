@@ -1,7 +1,7 @@
-import React, { StatelessComponent } from "react"
+import React, { StatelessComponent, CSSProperties } from "react"
 import PropTypes from "prop-types"
 import { pure } from "recompose"
-import DrawCanvas from "components/DrawCanvas.tsx"
+import DrawCanvas from "components/DrawCanvas"
 
 function drawCursor(ctx: CanvasRenderingContext2D, position: number, height: number) {
   ctx.save()
@@ -20,7 +20,7 @@ export interface PianoCursorProps {
   position: number
   width: number
   height: number
-  style: any
+  style?: CSSProperties
 }
 
 const PianoCursor: StatelessComponent<PianoCursorProps> = ({

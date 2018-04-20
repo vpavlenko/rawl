@@ -8,6 +8,7 @@ import Stage from "components/Stage/Stage"
 import VelocityItem from "./VelocityItem"
 import VelocityMouseHandler from "./VelocityMouseHandler"
 import { NoteCoordTransform } from "common/transform"
+import { Dispatcher } from "browser-main/createDispatcher";
 
 export interface PianoVelocityControlProps {
   width: number
@@ -15,7 +16,7 @@ export interface PianoVelocityControlProps {
   events: any[]
   transform: NoteCoordTransform
   scrollLeft: number
-  dispatch: any
+  dispatch: Dispatcher
   color: any
   mouseHandler: any
 }

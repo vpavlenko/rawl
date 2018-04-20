@@ -1,4 +1,4 @@
-import SynthApp from "./synth.js"
+import SynthApp from "./synth"
 
 const app = new SynthApp()
 app.init()

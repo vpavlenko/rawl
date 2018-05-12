@@ -1,0 +1,46 @@
+import React, { Component } from "react"
+import ReactDOM from "react-dom"
+
+import Popup from "components/Popup"
+import EventList from "components/EventList"
+
+import "./EventEditor.css"
+
+function EventEditorContent({
+  events,
+  onClickOK,
+  onClickCancel,
+}) {
+  return <div className="EventEditor">
+    <div className="container">
+      <EventList events={events} />
+      <div className="footer">
+        <button className="ok" onClick={onClickOK}>OK</button>
+        <button className="cancel" onClick={onClickCancel}>Cancel</button>
+      </div>
+    </div>
+  </div>
+}
+
+export default function EventEditor({ onClickOK, onClickCancel, events }) {
+  return <EventEditorContent
+    onClickOK={onClickOK}
+    onClickCancel={onClickCancel}
+    events={events}
+  />
+}
+
+export function show(events) {
+  const popup = new Popup()
+  popup.show()
+
+  ReactDOM.render(<EventEditor
+    events={events}
+    onClickCancel={() => {
+      popup.close()
+    }}
+    onClickOK={() => {
+      popup.close()
+    }}
+  />, popup.getContentElement())
+}

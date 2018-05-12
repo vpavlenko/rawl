@@ -28,7 +28,7 @@ import Stage from "../src/components/Stage/Stage"
 // other
 
 import Track from "../src/model/Track"
-import Rect from "../src/model/Rect"
+import Rect from "../src/geometry/Rect"
 import Theme from "../src/model/Theme"
 import SelectionModel from "../src/model/SelectionModel"
 

@@ -3,9 +3,12 @@ const HtmlWebpackPlugin = require("html-webpack-plugin")
 
 module.exports = {
   mode: "development",
-  entry: "./src/index.tsx",
+  entry: {
+    browserMain: "./src/browser-main/index.tsx",
+    browserSynth: "./src/browser-synth/index.tsx"
+  },
   output: {
-    filename: "bundle.js"
+    filename: "[name].js"
   },
   devServer: {
     contentBase: path.join(__dirname, "public"),
@@ -39,7 +42,7 @@ module.exports = {
     ]
   },
   resolve: {
-    modules: ["src", "node_modules", "packages"],
+    modules: ["src", "node_modules", "packages", "src/browser-main", "src/common"],
     extensions: [
       ".js", ".jsx", ".ts", ".tsx"
     ],
@@ -47,7 +50,15 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       inject: true,
-      template: path.join(__dirname, "public", "index.html"),
+      filename: "main.html",
+      chunks: ["browserMain"],
+      template: path.join(__dirname, "public", "main.html"),
+    }),
+    new HtmlWebpackPlugin({
+      inject: true,
+      filename: "synth.html",
+      chunks: ["browserSynth"],
+      template: path.join(__dirname, "public", "synth.html"),
     })
   ]
 }

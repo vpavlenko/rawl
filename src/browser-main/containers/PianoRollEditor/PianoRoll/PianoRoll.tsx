@@ -33,6 +33,7 @@ import { HorizontalScaleScrollBar } from "components/inputs/ScaleScrollBar"
 import "./PianoRoll.css"
 import Player from "common/player/Player";
 import { Dispatcher } from "browser-main/createDispatcher";
+import { SET_LOOP_BEGIN, SET_LOOP_END, SET_PLAYER_POSITION, PREVIEW_NOTE } from "browser-main/actions";
 
 const SCROLL_KEY_SPEED = 4
 
@@ -53,6 +54,7 @@ export interface PianoRollProps {
   setScrollLeft: (scroll: number) => void
   setScrollTop: (scroll: number) => void
   controlMode: string
+  setControlMode: (string) => void
   notesCursor: string
   cursorPosition: number
   onMountAlpha: (ref: HTMLElement) => void
@@ -65,7 +67,6 @@ export interface PianoRollProps {
   onClickScaleReset: () => void
   setPlayerPosition: (tick: number) => void
   previewNote: (event: any, channel: number) => void
-  onSelectControlTab: () => void
 }
 
 const PianoRoll: StatelessComponent<PianoRollProps> = ({
@@ -85,6 +86,7 @@ const PianoRoll: StatelessComponent<PianoRollProps> = ({
   setScrollLeft,
   setScrollTop,
   controlMode,
+  setControlMode,
   notesCursor,
   cursorPosition,
   onMountAlpha,
@@ -96,8 +98,7 @@ const PianoRoll: StatelessComponent<PianoRollProps> = ({
   onClickScaleDown,
   onClickScaleReset,
   setPlayerPosition,
-  previewNote,
-  onSelectControlTab
+  previewNote
 }) => {
   const { keyWidth, rulerHeight } = theme
 
@@ -222,7 +223,7 @@ const PianoRoll: StatelessComponent<PianoRollProps> = ({
           transform={transform}
           scrollLeft={scrollLeft}
           paddingBottom={BAR_WIDTH}
-          onSelectTab={onSelectControlTab}
+          onSelectTab={setControlMode}
         />
       </div>
     </SplitPane>
@@ -352,10 +353,9 @@ export default sizeMe()(inject(({ rootStore: {
   loop: playerStore.loop,
   quantizer,
   player,
-  setLoopBegin: tick => dispatch("SET_LOOP_BEGIN", { tick }),
-  setLoopEnd: tick => dispatch("SET_LOOP_END", { tick }),
-  setPlayerPosition: tick => dispatch("SET_PLAYER_POSITION", { tick }),
-  previewNote: (noteNumber, channel) => dispatch("PREVIEW_NOTE", { noteNumber, channel }),
-  onSelectControlTab: name => dispatch("SELECT_CONTROL_TAB", { name }),
-  dispatch
+  setLoopBegin: tick => dispatch(SET_LOOP_BEGIN, { tick }),
+  setLoopEnd: tick => dispatch(SET_LOOP_END, { tick }),
+  setPlayerPosition: tick => dispatch(SET_PLAYER_POSITION, { tick }),
+  previewNote: (noteNumber, channel) => dispatch(PREVIEW_NOTE, { noteNumber, channel }),
+  dispatch,
 }))(observer(stateful)))

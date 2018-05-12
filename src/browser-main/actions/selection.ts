@@ -1,6 +1,17 @@
 import clipboard from "services/Clipboard.ts"
 import SelectionModel from "common/selection"
 
+export const RESIZE_SELECTION = Symbol()
+export const FIX_SELECTION = Symbol()
+export const MOVE_SELECTION = Symbol()
+export const RESIZE_SELECTION_LEFT = Symbol()
+export const RESIZE_SELECTION_RIGHT = Symbol()
+export const START_SELECTION = Symbol()
+export const CLONE_SELECTION = Symbol()
+export const COPY_SELECTION = Symbol()
+export const DELETE_SELECTION = Symbol()
+export const PASTE_SELECTION = Symbol()
+
 function eventsInSelection(events, selection) {
   const s = selection
   return events
@@ -21,20 +32,20 @@ export default ({ song, pianoRollStore, services: { quantizer, player } }) => {
   }
 
   return {
-    "RESIZE_SELECTION": ({ start, end }) => {
+    [RESIZE_SELECTION]: ({ start, end }) => {
       updateSelection(selection.resize(
         quantizer.round(start.tick),
         start.noteNumber,
         quantizer.round(end.tick),
         end.noteNumber))
     },
-    "FIX_SELECTION": () => {
+    [FIX_SELECTION]: () => {
       // 選択範囲を確定して選択範囲内のノートを選択状態にする
       const s = selection.clone()
       s.noteIds = eventsInSelection(selectedTrack.events, selection).map(e => e.id)
       updateSelection(s)
     },
-    "MOVE_SELECTION": ({ tick, noteNumber }) => {
+    [MOVE_SELECTION]: ({ tick, noteNumber }) => {
       // ノートと選択範囲を移動
       tick = quantizer.round(tick)
       noteNumber = Math.round(noteNumber)
@@ -59,7 +70,7 @@ export default ({ song, pianoRollStore, services: { quantizer, player } }) => {
       }))
     },
 
-    "RESIZE_SELECTION_LEFT": ({ tick }) => {
+    [RESIZE_SELECTION_LEFT]: ({ tick }) => {
       // 選択範囲とノートを左方向に伸長・縮小する
       const fromTick = quantizer.round(tick)
       const delta = fromTick - selection.fromTick
@@ -94,7 +105,7 @@ export default ({ song, pianoRollStore, services: { quantizer, player } }) => {
       }))
     },
 
-    "RESIZE_SELECTION_RIGHT": ({ tick }) => {
+    [RESIZE_SELECTION_RIGHT]: ({ tick }) => {
       // 選択範囲とノートを右方向に伸長・縮小する
       const toTick = quantizer.round(tick)
       const delta = toTick - selection.toTick
@@ -127,7 +138,7 @@ export default ({ song, pianoRollStore, services: { quantizer, player } }) => {
         }
       }))
     },
-    "START_SELECTION": ({ tick, noteNumber }) => {
+    [START_SELECTION]: ({ tick, noteNumber }) => {
       if (!player.isPlaying) {
         player.position = quantizer.round(tick)
       }
@@ -138,7 +149,7 @@ export default ({ song, pianoRollStore, services: { quantizer, player } }) => {
       s.fromNoteNumber = noteNumber
       updateSelection(s)
     },
-    "CLONE_SELECTION": () => {
+    [CLONE_SELECTION]: () => {
       // 選択範囲内のノートをコピーした選択範囲を作成
       const notes = selection.noteIds.map(id => ({ ...selectedTrack.getEventById(id) }))
       selectedTrack.addEvents(notes)
@@ -146,7 +157,7 @@ export default ({ song, pianoRollStore, services: { quantizer, player } }) => {
       s.noteIds = notes.map(e => e.id)
       updateSelection(s)
     },
-    "COPY_SELECTION": () => {
+    [COPY_SELECTION]: () => {
       if (mouseMode !== 1) {
         // not selection mode
         return
@@ -166,12 +177,12 @@ export default ({ song, pianoRollStore, services: { quantizer, player } }) => {
         notes
       }))
     },
-    "DELETE_SELECTION": () => {
+    [DELETE_SELECTION]: () => {
       // 選択範囲と選択されたノートを削除
       selectedTrack.removeEvents(selection.noteIds)
       updateSelection(new SelectionModel())
     },
-    "PASTE_SELECTION": () => {
+    [PASTE_SELECTION]: () => {
       // 現在位置にコピーしたノートをペースト
       const text = clipboard.readText()
       if (!text || text.length === 0) {

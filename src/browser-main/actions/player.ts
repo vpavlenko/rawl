@@ -1,9 +1,18 @@
+export const PLAY = Symbol()
+export const STOP = Symbol()
+export const SET_PLAYER_POSITION = Symbol()
+export const MOVE_PLAYER_POSITION = Symbol()
+export const PREVIEW_NOTE = Symbol()
+export const SET_LOOP_BEGIN = Symbol()
+export const SET_LOOP_END = Symbol()
+export const TOGGLE_ENABLE_LOOP = Symbol()
+
 export default ({ playerStore, services: { player, quantizer }, song }) => {
   return {
-    "PLAY": () => {
+    [PLAY]: () => {
       player.play(song)
     },
-    "STOP": () => {
+    [STOP]: () => {
       if (player.isPlaying) {
         player.stop()
       } else {
@@ -11,16 +20,16 @@ export default ({ playerStore, services: { player, quantizer }, song }) => {
         player.position = 0
       }
     },
-    "SET_PLAYER_POSITION": ({ tick }) => {
+    [SET_PLAYER_POSITION]: ({ tick }) => {
       player.position = quantizer.round(tick)
     },
-    "MOVE_PLAYER_POSITION": ({ tick }) => {
+    [MOVE_PLAYER_POSITION]: ({ tick }) => {
       player.position = quantizer.round(player.position + tick)
     },
-    "PREVIEW_NOTE": ({ noteNumber, channel }) => {
+    [PREVIEW_NOTE]: ({ noteNumber, channel }) => {
       player.playNote({ channel, noteNumber, velocity: 100, duration: 128 })
     },
-    "SET_LOOP_BEGIN": ({ tick }) => {
+    [SET_LOOP_BEGIN]: ({ tick }) => {
       tick = quantizer.round(tick)
       if (player.loop.end !== null) {
         tick = Math.min(player.loop.end, tick)
@@ -28,7 +37,7 @@ export default ({ playerStore, services: { player, quantizer }, song }) => {
       player.loop.begin = tick
       playerStore.loop = { ...player.loop }
     },
-    "SET_LOOP_END": ({ tick }) => {
+    [SET_LOOP_END]: ({ tick }) => {
       tick = quantizer.round(tick)
       if (player.loop.begin !== null) {
         tick = Math.max(player.loop.begin, tick)
@@ -36,7 +45,7 @@ export default ({ playerStore, services: { player, quantizer }, song }) => {
       player.loop.end = tick
       playerStore.loop = { ...player.loop }
     },
-    "TOGGLE_ENABLE_LOOP": () => {
+    [TOGGLE_ENABLE_LOOP]: () => {
       player.loop.enabled = !player.loop.enabled
       playerStore.loop = { ...player.loop }
     }

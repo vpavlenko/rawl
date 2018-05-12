@@ -9,9 +9,9 @@ import createTrackMuteAction from "./actions/trackMute"
 import createPianoRollAction from "./actions/pianoRoll"
 import createArrangeViewAction from "./actions/arrangeView"
 
-export type Dispatcher = (type: string, params?: any) => void
+export type Dispatcher = (type: symbol, params?: any) => void
 
-const createDispatcher = rootStore => (type: string, params: any): Dispatcher => {
+const createDispatcher = rootStore => (type: symbol, params?: any): Dispatcher => {
   const actions = {
     ...createSongAction(rootStore),
     ...createTrackAction(rootStore),

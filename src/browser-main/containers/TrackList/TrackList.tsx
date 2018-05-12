@@ -10,6 +10,7 @@ import TrackListItem from "./TrackListItem"
 import AddTrackButton from "./AddTrackButton"
 
 import "./TrackList.css"
+import { TOGGLE_MUTE_TRACK, TOGGLE_SOLO_TRACK, REMOVE_TRACK, ADD_TRACK, SET_TRACK_NAME, SELECT_TRACK } from "browser-main/actions";
 
 interface TrackListProps {
   song: Song
@@ -73,14 +74,14 @@ export default compose(
     song,
     player: { player },
     isArrangeViewSelected: rootViewStore.isArrangeViewSelected,
-    onClickMute: trackId => dispatch("TOGGLE_MUTE_TRACK", { trackId }),
-    onClickSolo: trackId => dispatch("TOGGLE_SOLO_TRACK", { trackId }),
-    onClickDelete: trackId => dispatch("REMOVE_TRACK", { trackId }),
-    onClickAddTrack: () => dispatch("ADD_TRACK"),
-    onChangeName: e => dispatch("SET_TRACK_NAME", { name: e.target.value }),
+    onClickMute: trackId => dispatch(TOGGLE_MUTE_TRACK, { trackId }),
+    onClickSolo: trackId => dispatch(TOGGLE_SOLO_TRACK, { trackId }),
+    onClickDelete: trackId => dispatch(REMOVE_TRACK, { trackId }),
+    onClickAddTrack: () => dispatch(ADD_TRACK),
+    onChangeName: e => dispatch(SET_TRACK_NAME, { name: e.target.value }),
     onSelectTrack: trackId => {
       router.pushTrack()
-      dispatch("SELECT_TRACK", { trackId })
+      dispatch(SELECT_TRACK, { trackId })
     },
     onClickArrangeView: () => {
       router.pushArrange()

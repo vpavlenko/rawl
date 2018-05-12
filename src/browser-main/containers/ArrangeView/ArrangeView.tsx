@@ -21,9 +21,18 @@ import filterEventsWithScroll from "helpers/filterEventsWithScroll"
 import ArrangeToolbar from "./ArrangeToolbar"
 import ArrangeNoteItem from "./ArrangeNoteItem"
 
+import Player from "common/player/Player"
+import quantizer from "browser-main/actions/quantizer"
+import { 
+  ARRANGE_START_SELECTION, 
+  ARRANGE_END_SELECTION, 
+  ARRANGE_RESIZE_SELECTION, 
+  ARRANGE_MOVE_SELECTION, 
+  ARRANGE_OPEN_CONTEXT_MENU,
+  SET_PLAYER_POSITION 
+} from "browser-main/actions"
+
 import "./ArrangeView.css"
-import Player from "common/player/Player";
-import quantizer from "browser-main/actions/quantizer";
 
 function NavItem({ title, onClick }) {
   return <div className="NavItem" onClick={onClick}>{title}</div>
@@ -393,12 +402,12 @@ const mapStoreToProps = ({ rootStore: {
   onClickScaleUp: () => s.scaleX = s.scaleX + 0.1,
   onClickScaleDown: () => s.scaleX = Math.max(0.05, s.scaleX - 0.1),
   onClickScaleReset: () => s.scaleX = 1,
-  setPlayerPosition: tick => dispatch("SET_PLAYER_POSITION", { tick }),
-  startSelection: pos => dispatch("ARRANGE_START_SELECTION", pos),
-  endSelection: (start, end) => dispatch("ARRANGE_END_SELECTION", { start, end }),
-  resizeSelection: (start, end) => dispatch("ARRANGE_RESIZE_SELECTION", { start, end }),
-  moveSelection: pos => dispatch("ARRANGE_MOVE_SELECTION", pos),
-  openContextMenu: (x, y, isSelectionSelected) => dispatch("ARRANGE_OPEN_CONTEXT_MENU", { position: { x, y }, isSelectionSelected })
+  setPlayerPosition: tick => dispatch(SET_PLAYER_POSITION, { tick }),
+  startSelection: pos => dispatch(ARRANGE_START_SELECTION, pos),
+  endSelection: (start, end) => dispatch(ARRANGE_END_SELECTION, { start, end }),
+  resizeSelection: (start, end) => dispatch(ARRANGE_RESIZE_SELECTION, { start, end }),
+  moveSelection: pos => dispatch(ARRANGE_MOVE_SELECTION, pos),
+  openContextMenu: (x, y, isSelectionSelected) => dispatch(ARRANGE_OPEN_CONTEXT_MENU, { position: { x, y }, isSelectionSelected })
 })
 
 export default sizeMe()(inject(mapStoreToProps)(observer(stateful(ArrangeView))))

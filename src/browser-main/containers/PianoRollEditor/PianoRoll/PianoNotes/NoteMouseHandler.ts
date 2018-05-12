@@ -1,4 +1,5 @@
 import { Dispatcher } from "browser-main/createDispatcher";
+import { CHANGE_CURSOR, SCROLL_BY, TOGGLE_TOOL } from "browser-main/actions";
 
 type MouseAction = (e: any) => void
 type MouseGesture = (onMouseDown: MouseAction, onMouseMove?: MouseAction, onMouseUp?: MouseAction) => void
@@ -67,7 +68,7 @@ export default class NoteMouseHandler {
       this.actionMouseMove(e)
     } else {
       const cursor = this.getCursorForMouseMove(e)
-      this.dispatch("CHANGE_CURSOR", { cursor })
+      this.dispatch(CHANGE_CURSOR, { cursor })
     }
   }
 
@@ -82,7 +83,7 @@ export default class NoteMouseHandler {
 const dragScrollAction = dispatch => (onMouseDown, onMouseMove) => {
 
   const onGlobalMouseMove = e => {
-    dispatch("SCROLL_BY", { x: e.movementX, y: e.movementY })
+    dispatch(SCROLL_BY, { x: e.movementX, y: e.movementY })
   }
 
   const onGlobalMouseUp = e => {
@@ -96,7 +97,7 @@ const dragScrollAction = dispatch => (onMouseDown, onMouseMove) => {
 
 const changeToolAction = dispatch => onMouseDown => {
   onMouseDown(() => {
-    dispatch("TOGGLE_TOOL")
-    dispatch("CHANGE_CURSOR", { cursor: "crosshair" })
+    dispatch(TOGGLE_TOOL)
+    dispatch(CHANGE_CURSOR, { cursor: "crosshair" })
   })
 }

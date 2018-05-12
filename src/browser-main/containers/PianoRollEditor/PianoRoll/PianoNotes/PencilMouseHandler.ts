@@ -2,6 +2,7 @@ import NoteMouseHandler from "./NoteMouseHandler"
 import { pointSub, pointAdd } from "common/geometry"
 import pencilImage from "images/iconmonstr-pencil-14-16.png"
 import { NoteCoordTransform } from "common/transform"
+import { CREATE_NOTE, MOVE_NOTE, REMOVE_EVENT, RESIZE_NOTE_LEFT, RESIZE_NOTE_RIGHT } from "browser-main/actions";
 
 export default class PencilMouseHandler extends NoteMouseHandler {
   transform: NoteCoordTransform
@@ -46,11 +47,11 @@ export const createNoteAction = dispatch => (onMouseDown, onMouseMove) => {
   let noteId
 
   onMouseDown(e => {
-    noteId = dispatch("CREATE_NOTE", e)
+    noteId = dispatch(CREATE_NOTE, e)
   })
 
   onMouseMove(e => {
-    dispatch("MOVE_NOTE", {
+    dispatch(MOVE_NOTE, {
       id: noteId,
       tick: e.tick,
       noteNumber: e.noteNumber,
@@ -60,7 +61,7 @@ export const createNoteAction = dispatch => (onMouseDown, onMouseMove) => {
 }
 
 const removeNoteAction = dispatch => (onMouseDown) => {
-  onMouseDown(e => dispatch("REMOVE_EVENT", { eventId: e.item.id }))
+  onMouseDown(e => dispatch(REMOVE_EVENT, { eventId: e.item.id }))
 }
 
 const moveNoteAction = (dispatch, transform, isCopy) => (onMouseDown, onMouseMove) => {
@@ -72,7 +73,7 @@ const moveNoteAction = (dispatch, transform, isCopy) => (onMouseDown, onMouseMov
     startPosition = e.local
     notePosition = e.item.bounds
     if (isCopy) {
-      noteId = dispatch("CREATE_NOTE", e)
+      noteId = dispatch(CREATE_NOTE, e)
     } else {
       noteId = e.item.id
     }
@@ -80,7 +81,7 @@ const moveNoteAction = (dispatch, transform, isCopy) => (onMouseDown, onMouseMov
 
   onMouseMove(e => {
     const position = pointAdd(notePosition, pointSub(e.local, startPosition))
-    dispatch("MOVE_NOTE", {
+    dispatch(MOVE_NOTE, {
       id: noteId,
       tick: transform.getTicks(position.x),
       noteNumber: Math.round(transform.getNoteNumber(position.y)),
@@ -97,7 +98,7 @@ const dragLeftNoteAction = dispatch => (onMouseDown, onMouseMove) => {
   })
 
   onMouseMove(e => {
-    dispatch("RESIZE_NOTE_LEFT", { id: noteId, tick: e.tick })
+    dispatch(RESIZE_NOTE_LEFT, { id: noteId, tick: e.tick })
   })
 }
 
@@ -109,7 +110,7 @@ const dragRightNoteAction = dispatch => (onMouseDown, onMouseMove) => {
   })
 
   onMouseMove(e => {
-    dispatch("RESIZE_NOTE_RIGHT", { id: noteId, tick: e.tick })
+    dispatch(RESIZE_NOTE_RIGHT, { id: noteId, tick: e.tick })
   })
 }
 

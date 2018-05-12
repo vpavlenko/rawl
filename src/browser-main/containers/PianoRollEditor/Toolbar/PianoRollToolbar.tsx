@@ -8,6 +8,7 @@ import QuantizeSelector from "components/QuantizeSelector"
 
 import "./PianoRollToolbar.css"
 import { compose } from "recompose";
+import { SET_QUANTIZE_DENOMINATOR } from "browser-main/actions";
 
 export interface PianoRollToolbarProps {
   autoScroll: boolean
@@ -59,7 +60,7 @@ export default compose(
     onClickSelection: () => s.mouseMode = 1,
     onClickAutoScroll: () => s.autoScroll = !s.autoScroll,
     onSelectQuantize: e => {
-      dispatch("SET_QUANTIZE_DENOMINATOR", { denominator: e.denominator })
+      dispatch(SET_QUANTIZE_DENOMINATOR, { denominator: e.denominator })
       s.quantize = e.denominator
     }
   })),

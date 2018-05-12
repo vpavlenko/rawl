@@ -2,6 +2,7 @@ import MouseHandler from "./NoteMouseHandler"
 import { pointSub, pointAdd } from  "common/geometry"
 import { NoteCoordTransform } from "common/transform"
 import SelectionModel from "common/selection/SelectionModel"
+import { OPEN_CONTEXT_MENU, START_SELECTION, RESIZE_SELECTION, FIX_SELECTION, CLONE_SELECTION, MOVE_SELECTION, RESIZE_SELECTION_LEFT, RESIZE_SELECTION_RIGHT } from "browser-main/actions";
 
 export default class SelectionMouseHandler extends MouseHandler {
   transform: NoteCoordTransform
@@ -84,7 +85,7 @@ function positionType(selection, transform, pos) {
 
 const contextMenuAction = (isNoteSelected, dispatch) => (onMouseDown, onMouseMove, onMouseUp) => {
   onMouseUp(e => {
-    dispatch("OPEN_CONTEXT_MENU", {
+    dispatch(OPEN_CONTEXT_MENU, {
       position: { x: e.pageX, y: e.pageY },
       isNoteSelected
     })
@@ -97,16 +98,16 @@ const createSelectionAction = dispatch => (onMouseDown, onMouseMove, onMouseUp) 
 
   onMouseDown(e => {
     start = { tick: e.tick, noteNumber: e.noteNumber }
-    dispatch("START_SELECTION", start)
+    dispatch(START_SELECTION, start)
   })
 
   onMouseMove(e => {
     const end = { tick: e.tick, noteNumber: e.noteNumber }
-    dispatch("RESIZE_SELECTION", { start, end })
+    dispatch(RESIZE_SELECTION, { start, end })
   })
 
   onMouseUp(() => {
-    dispatch("FIX_SELECTION")
+    dispatch(FIX_SELECTION)
   })
 }
 
@@ -118,7 +119,7 @@ const moveSelectionAction = (dispatch, selection, transform, isCopy) => (onMouse
     startPos = e.local
     selectionPos = selection.getBounds(transform)
     if (isCopy) {
-      dispatch("CLONE_SELECTION")
+      dispatch(CLONE_SELECTION)
     }
   })
 
@@ -126,7 +127,7 @@ const moveSelectionAction = (dispatch, selection, transform, isCopy) => (onMouse
     const position = pointAdd(selectionPos, pointSub(e.local, startPos))
     const tick = transform.getTicks(position.x)
     const noteNumber = Math.round(transform.getNoteNumber(position.y))
-    dispatch("MOVE_SELECTION", { tick, noteNumber })
+    dispatch(MOVE_SELECTION, { tick, noteNumber })
   })
 }
 
@@ -135,7 +136,7 @@ const dragSelectionLeftEdgeAction = (dispatch, transform) => (onMouseDown, onMou
 
   onMouseMove(e => {
     const tick = transform.getTicks(e.local.x)
-    dispatch("RESIZE_SELECTION_LEFT", { tick })
+    dispatch(RESIZE_SELECTION_LEFT, { tick })
   })
 }
 
@@ -144,6 +145,6 @@ const dragSelectionRightEdgeAction = (dispatch, transform) => (onMouseDown, onMo
 
   onMouseMove(e => {
     const tick = transform.getTicks(e.local.x)
-    dispatch("RESIZE_SELECTION_RIGHT", { tick })
+    dispatch(RESIZE_SELECTION_RIGHT, { tick })
   })
 }

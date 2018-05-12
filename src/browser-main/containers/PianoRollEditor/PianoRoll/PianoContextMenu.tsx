@@ -1,6 +1,7 @@
 import React, { StatelessComponent } from "react"
 import { ContextMenu, MenuItem as ContextMenuItem, createContextMenu } from "components/groups/ContextMenu"
-import { Dispatcher } from "browser-main/createDispatcher";
+import { Dispatcher } from "browser-main/createDispatcher"
+import { COPY_SELECTION, DELETE_SELECTION, PASTE_SELECTION } from "browser-main/actions"
 
 interface PianoContextMenuProps {
   dispatch: Dispatcher
@@ -15,20 +16,20 @@ const PianoContextMenu:StatelessComponent<PianoContextMenuProps> = ({
 }) => {
   return <ContextMenu>
     {isNoteSelected && <ContextMenuItem onClick={() => {
-      dispatch("COPY_SELECTION")
-      dispatch("DELETE_SELECTION")
+      dispatch(COPY_SELECTION)
+      dispatch(DELETE_SELECTION)
       close()
     }}>Cut</ContextMenuItem>}
     {isNoteSelected && <ContextMenuItem onClick={() => {
-      dispatch("COPY_SELECTION")
+      dispatch(COPY_SELECTION)
       close()
     }}>Copy</ContextMenuItem>}
     <ContextMenuItem onClick={() => {
-      dispatch("PASTE_SELECTION")
+      dispatch(PASTE_SELECTION)
       close()
     }}>Paste</ContextMenuItem>
     {isNoteSelected && <ContextMenuItem onClick={() => {
-      dispatch("DELETE_SELECTION")
+      dispatch(DELETE_SELECTION)
       close()
     }}>Delete</ContextMenuItem>}
   </ContextMenu>

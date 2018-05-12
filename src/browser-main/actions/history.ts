@@ -1,11 +1,13 @@
+export const UNDO = Symbol()
+export const REDO = Symbol()
 
 export default (rootStore) => {
   return {
-    "UNDO": () => {
+    [UNDO]: () => {
       rootStore.undo()
     },
 
-    "REDO": () => {
+    [REDO]: () => {
       rootStore.redo()
     }
   }

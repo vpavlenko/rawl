@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, { Component, StatelessComponent } from "react"
 import { observer, inject } from "mobx-react"
 import _ from "lodash"
 import Color from "color"
@@ -9,17 +9,20 @@ import PianoGrid from "containers/PianoRollEditor/PianoRoll/PianoGrid"
 import PianoRuler from "containers/PianoRollEditor/PianoRoll/PianoRuler"
 import PianoCursor from "containers/PianoRollEditor/PianoRoll/PianoCursor"
 
-import { TempoCoordTransform } from "common/transform"
+import { TempoCoordTransform, NoteCoordTransform } from "common/transform"
 
 import mapBeats from "helpers/mapBeats"
 import { uSecPerBeatToBPM, bpmToUSecPerBeat } from "helpers/bpm"
-import transformEvents from "./transformEvents.ts"
+import transformEvents from "./transformEvents"
 
 import Stage from "components/Stage/Stage"
 import DrawCanvas from "components/DrawCanvas"
 import { HorizontalScrollBar, BAR_WIDTH } from "components/inputs/ScrollBar"
 
 import "./TempoGraph.css"
+import { CHANGE_TEMPO, CREATE_TEMPO, SET_PLAYER_POSITION } from "browser-main/actions"
+import Player from "common/player/Player";
+import { ISize } from "common/geometry";
 
 function HorizontalLines({ width, height, transform, borderColor }) {
   if (!width) {
@@ -57,7 +60,13 @@ function HorizontalLines({ width, height, transform, borderColor }) {
   />
 }
 
-const GraphAxis = pure(({ width, transform, offset }) => {
+interface GraphAxisProps {
+  width: number
+  transform: TempoCoordTransform
+  offset: number
+}
+
+const GraphAxis: StatelessComponent<GraphAxisProps> = ({ width, transform, offset }) => {
   return <div className="GraphAxis" style={{ width }}>
     <div className="values">
       {_.range(30, transform.maxBPM, 30).map(t => {
@@ -66,7 +75,7 @@ const GraphAxis = pure(({ width, transform, offset }) => {
       })}
     </div>
   </div>
-})
+}
 
 function Content({
   track,
@@ -197,7 +206,6 @@ function Content({
     />
     <GraphAxis
       width={keyWidth}
-      height={contentHeight}
       offset={rulerHeight}
       transform={transform}
     />
@@ -208,13 +216,27 @@ function Content({
   </div>
 }
 
+interface Props {
+  player: Player
+  autoScroll: boolean
+  pixelsPerTick: number
+  size: ISize
+  setScrollLeft: (number) => void
+}
+
+interface State {
+  playerPosition: number
+  scrollLeft: number
+}
+
 function stateful(WrappedComponent) {
-  return class extends Component {
-    constructor(props) {
+  return class extends Component<Props, State> {
+    constructor(props: Props) {
       super(props)
 
       this.state = {
-        playerPosition: props.player.position
+        playerPosition: props.player.position,
+        scrollLeft: 0
       }
     }
 
@@ -271,7 +293,7 @@ export default sizeMe({ monitorHeight: true })(inject(({ rootStore: {
   autoScroll: s.autoScroll,
   scrollLeft: s.scrollLeft,
   setScrollLeft: v => s.scrollLeft = v,
-  changeTempo: p => dispatch("CHANGE_TEMPO", p),
-  createTempo: p => dispatch("CREATE_TEMPO", p),
-  setPlayerTempo: tick => dispatch("SET_PLAYER_POSITION", { tick })
+  changeTempo: p => dispatch(CHANGE_TEMPO, p),
+  createTempo: p => dispatch(CREATE_TEMPO, p),
+  setPlayerTempo: tick => dispatch(SET_PLAYER_POSITION, { tick })
 }))(observer(stateful(Content))))

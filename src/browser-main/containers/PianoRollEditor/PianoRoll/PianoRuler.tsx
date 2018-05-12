@@ -96,7 +96,7 @@ export interface PianoRulerProps {
   onMouseDown?: (TickEvent) => void
   onMouseMove?: (TickEvent) => void
   onMouseUp?: (TickEvent) => void
-  loop: LoopSetting
+  loop?: LoopSetting
 }
 
 const PianoRuler: StatelessComponent<PianoRulerProps> = ({

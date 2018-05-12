@@ -1,10 +1,11 @@
 import { Dispatcher } from "browser-main/createDispatcher";
+import { CHANGE_NOTES_VELOCITY } from "browser-main/actions";
 
 export default class VelocityMouseHandler {
   dispatch: Dispatcher
 
   changeVelocity(notes, velocity) {
-    this.dispatch("CHANGE_NOTES_VELOCITY", { notes, velocity })
+    this.dispatch(CHANGE_NOTES_VELOCITY, { notes, velocity })
   }
 
   onMouseDown = e => {

@@ -3,6 +3,15 @@ import _ from "lodash"
 import clipboard from "services/Clipboard.ts"
 import { open as openContextMenu } from "containers/ArrangeView/ArrangeContextMenu"
 
+export const ARRANGE_START_SELECTION = Symbol()
+export const ARRANGE_RESIZE_SELECTION = Symbol()
+export const ARRANGE_END_SELECTION = Symbol()
+export const ARRANGE_MOVE_SELECTION = Symbol()
+export const ARRANGE_OPEN_CONTEXT_MENU = Symbol()
+export const ARRANGE_COPY_SELECTION = Symbol()
+export const ARRANGE_PASTE_SELECTION = Symbol()
+export const ARRANGE_DELETE_SELECTION = Symbol()
+
 export default ({ dispatch, song: { tracks }, arrangeViewStore: s, services: { quantizer, player } }) => {
   const createRect = (from, to) => {
     const rect = rectFromPoints(from, to)
@@ -33,17 +42,17 @@ export default ({ dispatch, song: { tracks }, arrangeViewStore: s, services: { q
   }
 
   return {
-    "ARRANGE_START_SELECTION": (pos) => {
+    [ARRANGE_START_SELECTION]: (pos) => {
       s.selection = null
       s.selectedEventIds = {}
     },
 
-    "ARRANGE_RESIZE_SELECTION": ({ start, end }) => {
+    [ARRANGE_RESIZE_SELECTION]: ({ start, end }) => {
       // 選択範囲作成時 (確定前) のドラッグ中
       s.selection = quantizeRect(createRect(start, end))
     },
 
-    "ARRANGE_END_SELECTION": ({ start, end }) => {
+    [ARRANGE_END_SELECTION]: ({ start, end }) => {
       const selection = quantizeRect(createRect(start, end))
       if (selection) {
         s.selection = selection
@@ -51,7 +60,7 @@ export default ({ dispatch, song: { tracks }, arrangeViewStore: s, services: { q
       }
     },
 
-    "ARRANGE_MOVE_SELECTION": (pos) => {
+    [ARRANGE_MOVE_SELECTION]: (pos) => {
       // 選択範囲を移動
       const selection = quantizeRect({
         x: Math.max(pos.x, 0),
@@ -105,11 +114,11 @@ export default ({ dispatch, song: { tracks }, arrangeViewStore: s, services: { q
       }
     },
 
-    "ARRANGE_OPEN_CONTEXT_MENU": ({ position, isSelectionSelected }) => {
+    [ARRANGE_OPEN_CONTEXT_MENU]: ({ position, isSelectionSelected }) => {
       openContextMenu(dispatch, { position, isSelectionSelected })
     },
 
-    "ARRANGE_COPY_SELECTION": () => {
+    [ARRANGE_COPY_SELECTION]: () => {
       // 選択されたノートをコピー
       const notes = _.mapValues(s.selectedEventIds, (ids, trackId) => ids.map(id => {
         const note = tracks[trackId].getEventById(id)
@@ -124,7 +133,7 @@ export default ({ dispatch, song: { tracks }, arrangeViewStore: s, services: { q
       }))
     },
 
-    "ARRANGE_PASTE_SELECTION": () => {
+    [ARRANGE_PASTE_SELECTION]: () => {
       // 現在位置にコピーしたノートをペースト
       const text = clipboard.readText()
       if (!text || text.length === 0) {
@@ -144,7 +153,7 @@ export default ({ dispatch, song: { tracks }, arrangeViewStore: s, services: { q
       }
     },
 
-    "ARRANGE_DELETE_SELECTION": () => {
+    [ARRANGE_DELETE_SELECTION]: () => {
       // 選択範囲と選択されたノートを削除
       for (let trackId in s.selectedEventIds) {
         tracks[trackId].removeEvents(s.selectedEventIds[trackId])

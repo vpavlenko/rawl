@@ -9,6 +9,7 @@ import withMBTTime from "./withMBTTime"
 import { TIME_BASE } from "Constants"
 
 import "./TransportPanel.css"
+import { PLAY, MOVE_PLAYER_POSITION, STOP, TOGGLE_ENABLE_LOOP, SELECT_TRACK } from "browser-main/actions";
 
 export interface TransportPanelProps {
   onClickPlay: (any) => void
@@ -70,13 +71,13 @@ export default compose(
     tempo: player.currentTempo,
     measureList,
     loopEnabled: loop.enabled,
-    onClickPlay: () => dispatch("PLAY"),
-    onClickStop: () => dispatch("STOP"),
-    onClickBackward: () => dispatch("MOVE_PLAYER_POSITION", { tick: -TIME_BASE * 4 }),
-    onClickForward: () => dispatch("MOVE_PLAYER_POSITION", { tick: TIME_BASE * 4 }),
-    onClickEnableLoop: () => dispatch("TOGGLE_ENABLE_LOOP"),
+    onClickPlay: () => dispatch(PLAY),
+    onClickStop: () => dispatch(STOP),
+    onClickBackward: () => dispatch(MOVE_PLAYER_POSITION, { tick: -TIME_BASE * 4 }),
+    onClickForward: () => dispatch(MOVE_PLAYER_POSITION, { tick: TIME_BASE * 4 }),
+    onClickEnableLoop: () => dispatch(TOGGLE_ENABLE_LOOP),
     onClickTempo: () => {
-      dispatch("SELECT_TRACK", { trackId: 0 })
+      dispatch(SELECT_TRACK, { trackId: 0 })
       router.pushTrack()
     },
   })),

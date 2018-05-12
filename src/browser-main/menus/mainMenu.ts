@@ -1,4 +1,5 @@
 import isDev from "helpers/isDev"
+import { CREATE_SONG, OPEN_SONG, SAVE_SONG, UNDO, REDO } from "browser-main/actions";
 
 const { remote } = (window as any).require("electron")
 const { Menu, dialog, process, app } = remote
@@ -20,7 +21,7 @@ export default function mainMenu(song, dispatch) {
         {
           label: "New",
           click: () => {
-            dispatch("CREATE_SONG")
+            dispatch(CREATE_SONG)
           }
         },
         {
@@ -33,7 +34,7 @@ export default function mainMenu(song, dispatch) {
               }]
             }, files => {
               if (files) {
-                dispatch("OPEN_SONG", { filepath: files[0] })
+                dispatch(OPEN_SONG, { filepath: files[0] })
               }
             })
           }
@@ -41,7 +42,7 @@ export default function mainMenu(song, dispatch) {
         {
           label: "Save",
           click: () => {
-            dispatch("SAVE_SONG", { filepath: song.filepath })
+            dispatch(SAVE_SONG, { filepath: song.filepath })
           }
         },
         {
@@ -54,7 +55,7 @@ export default function mainMenu(song, dispatch) {
                 extensions: ["mid", "midi"]
               }]
             }, filepath => {
-              dispatch("SAVE_SONG", { filepath })
+              dispatch(SAVE_SONG, { filepath })
             })
           }
         }
@@ -65,11 +66,11 @@ export default function mainMenu(song, dispatch) {
       submenu: [
         {
           label: "Undo",
-          click: () => dispatch("UNDO")
+          click: () => dispatch(UNDO)
         },
         {
           label: "Redo",
-          click: () => dispatch("REDO")
+          click: () => dispatch(REDO)
         }
       ]
     }

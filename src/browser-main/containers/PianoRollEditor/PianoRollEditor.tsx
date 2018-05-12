@@ -13,6 +13,7 @@ import PianoRoll from "./PianoRoll/PianoRoll"
 import PianoRollToolbar from "./Toolbar/PianoRollToolbar"
 
 import "./PianoRollEditor.css"
+import { SET_TRACK_VOLUME, SET_TRACK_PAN, SET_TRACK_INSTRUMENT } from "browser-main/actions";
 
 interface PianoRollEditorProps {
   track: Track
@@ -57,10 +58,10 @@ export default compose(
     const trackId = song.selectedTrackId
     return {
       track,
-      onChangeVolume: value => dispatch("SET_TRACK_VOLUME", { trackId, volume: value }),
-      onChangePan: value => dispatch("SET_TRACK_PAN", { trackId, pan: value }),
+      onChangeVolume: value => dispatch(SET_TRACK_VOLUME, { trackId, volume: value }),
+      onChangePan: value => dispatch(SET_TRACK_PAN, { trackId, pan: value }),
       onClickNavBack: () => router.pushArrange(),
-      onClickInstrument: () => showInstrumentBrowser(song, trackId, (trackId, programNumber) => dispatch("SET_TRACK_INSTRUMENT", { trackId, programNumber }))
+      onClickInstrument: () => showInstrumentBrowser(song, trackId, (trackId, programNumber) => dispatch(SET_TRACK_INSTRUMENT, { trackId, programNumber }))
     }
   }),
   observer,

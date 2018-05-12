@@ -70,6 +70,7 @@
     "style-loader": "^0.21.0",
     "ts-jest": "^22.4.5",
     "ts-loader": "^4.3.0",
+    "tsconfig-paths-jest": "0.0.1",
     "typescript": "^2.8.3",
     "url-loader": "^1.0.1",
     "webpack": "^4.8.1",

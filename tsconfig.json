@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "*": ["*", "src/*", "packages/*", "src/browser-main/*", "src/common/*"]
+      "*": ["*", "src/*", "packages/*", "src/browser-main/*", "src/common/*", "src/node/*"]
     },
     "sourceMap": true,
     "target": "es5",

@@ -1,11 +1,19 @@
 import { observable, action, transaction, computed } from "mobx"
 import { list, map, primitive, serializable } from "serializr"
 import _ from "lodash"
+import { TrackNameEvent, SetTempoEvent, EndOfTrackEvent, ProgramChangeEvent, ControllerEvent, AnyEvent } from "midifile-ts"
 
-import { MidiEvent } from "midi/MidiEvent"
 import { getInstrumentName } from "midi/GM"
 
 import orArrayOf from "helpers/orArrayOf"
+
+interface TrackEventRequired {
+  id: number
+  tick: number
+  type: string
+}
+
+export type TrackEvent = TrackEventRequired & AnyEvent
 
 function lastValue(arr, prop) {
   const last = _.last(arr)
@@ -14,7 +22,7 @@ function lastValue(arr, prop) {
 
 export default class Track {
   @serializable(list(map(orArrayOf(primitive())))) @observable.shallow 
-  events: any[] = []
+  events: TrackEvent[] = []
   
   @serializable @observable 
   lastEventId = 0
@@ -24,7 +32,11 @@ export default class Track {
 
   getEventById = (id: number) => _.find(this.events, e => e.id === id)
 
-  private _updateEvent(id: number, obj: any) {
+  constructor(midiEvents: AnyEvent[] = []) {
+    midiEvents.forEach(e => this.addMidiEvent(e))
+  }
+
+  private _updateEvent(id: number, obj: Partial<TrackEvent>) {
     const anObj = this.getEventById(id)
     if (!anObj) {
       console.warn(`unknown id: ${id}`)
@@ -38,7 +50,7 @@ export default class Track {
     return anObj
   }
 
-  @action updateEvent(id: number, obj: any) {
+  @action updateEvent(id: number, obj: Partial<TrackEvent>) {
     const result = this._updateEvent(id, obj)
     if (result) {
       this.updateEndOfTrack()
@@ -47,7 +59,7 @@ export default class Track {
     return result
   }
 
-  @action updateEvents(events: any[]) {
+  @action updateEvents(events: Partial<TrackEvent>[]) {
     transaction(() => {
       events.forEach(event => {
         this._updateEvent(event.id, event)
@@ -69,29 +81,33 @@ export default class Track {
     this.updateEndOfTrack()
   }
 
+  private addMidiEvent(e: AnyEvent) {
+    const lastEvent = this.getEventById(this.lastEventId)
+    const tick = e.deltaTime + (lastEvent ? lastEvent.tick : 0)
+    const event = {
+      ...e,
+      id: -1,
+      tick
+    }
+
+    this._addEvent(event)
+  }
+
   // ソート、通知を行わない内部用の addEvent
-  _addEvent(e: any) {
+  private _addEvent(e: TrackEvent) {
     e.id = this.lastEventId
     this.lastEventId++
     this.events.push(e)
-
-    if (e.tick === undefined) {
-      const lastEvent = this.getEventById(this.lastEventId)
-      e.tick = e.deltaTime + (lastEvent ? lastEvent.tick : 0)
-    }
-    if (e.type === "channel") {
-      e.channel = this.channel
-    }
     return e
   }
 
-  @action addEvent(e: any) {
+  @action addEvent(e: TrackEvent) {
     this._addEvent(e)
     this.didAddEvent()
     return e
   }
 
-  @action addEvents(events: any) {
+  @action addEvents(events: TrackEvent[]) {
     let result
     transaction(() => {
       result = events.map(e => this._addEvent(e))
@@ -109,64 +125,63 @@ export default class Track {
     this.events = _.sortBy(this.events, "tick")
   }
 
-  updateEndOfTrack() {
+  @action updateEndOfTrack() {
     this.endOfTrack = _.chain(this.events)
-      .map(e => e.tick + (e.duration || 0))
+      .map(e => e.tick + ((e as any).duration || 0))
       .max()
       .value()
   }
 
-  changeChannel(channel: number) {
-    this.channel = channel
-
-    for (let e of this.events) {
-      if (e.type === "channel") {
-        e.channel = channel
-      }
-    }
-  }
-
-  transaction(func) {
+  transaction(func: (track: Track) => void) {
     transaction(() => func(this))
   }
 
   /* helper */
 
-  _findTrackNameEvent() {
-    return this.events.filter(t => t.subtype === "trackName")
+  findEventsWithSubtype<T extends AnyEvent>(subtype: string): (T & TrackEventRequired)[] {
+    return this.events.filter(t => (t as any).subtype === subtype) as (T & TrackEventRequired)[]
   }
 
-  _findProgramChangeEvents() {
-    return this.events.filter(t => t.subtype === "programChange")
+  private _findTrackNameEvent() {
+    return this.findEventsWithSubtype<TrackNameEvent>("trackName")
   }
 
-  _findEndOfTrackEvents() {
-    return this.events.filter(t => t.subtype === "endOfTrack")
+  private _findProgramChangeEvents() {
+    return this.findEventsWithSubtype<ProgramChangeEvent>("programChange")
   }
 
-  _findVolumeEvents() {
-    return this.events.filter(t => t.subtype === "controller" && t.controllerType === 7)
+  private _findEndOfTrackEvents() {
+    return this.findEventsWithSubtype<EndOfTrackEvent>("endOfTrack")
   }
 
-  _findPanEvents() {
-    return this.events.filter(t => t.subtype === "controller" && t.controllerType === 10)
+  private _findSetTempoEvents() {
+    return this.findEventsWithSubtype<SetTempoEvent>("setTempo")
   }
 
-  _findSetTempoEvents() {
-    return this.events.filter(t => t.subtype === "setTempo")
+  private _findControllerEvents(controllerType: number): (TrackEventRequired & ControllerEvent)[] {
+    return this.findEventsWithSubtype<ControllerEvent>("controller")
+      .filter(t => t.controllerType === controllerType)
   }
 
-  _updateLast(arr, obj) {
+  private _findVolumeEvents() {
+    return this._findControllerEvents(7)
+  }
+
+  private _findPanEvents() {
+    return this._findControllerEvents(10)
+  }
+
+  private _updateLast(arr: TrackEvent[], obj: Partial<TrackEvent>) {
     if (arr.length > 0) {
-      this.updateEvent((_.last(arr) as any).id, obj)
+      this.updateEvent(_.last(arr).id, obj)
     }
   }
 
-  createOrUpdate(newEvent) {
+  createOrUpdate(newEvent: Partial<TrackEvent>) {
     const events = this.events.filter(e =>
       e.type === newEvent.type &&
-      e.subtype === newEvent.subtype &&
-      e.tick === newEvent.tick)
+      e.tick === newEvent.tick && 
+      (e as any).subtype === (newEvent as any).subtype)
 
     if (events.length > 0) {
       this.transaction(it => {
@@ -176,7 +191,7 @@ export default class Track {
       })
       return events[0]
     } else {
-      return this.addEvent(newEvent)
+      return this.addEvent((newEvent as any))
     }
   }
 
@@ -203,8 +218,8 @@ export default class Track {
     return lastValue(this._findTrackNameEvent(), "text")
   }
 
-  set name(value: string) {
-    this._updateLast(this._findTrackNameEvent(), { value })
+  set name(text: string) {
+    this._updateLast(this._findTrackNameEvent(), { text })
   }
 
   get volume(): number {
@@ -223,7 +238,6 @@ export default class Track {
     this._updateLast(this._findPanEvents(), { value })
   }
 
-  @computed 
   get endOfTrack(): number {
     return lastValue(this._findEndOfTrackEvents(), "tick")
   }

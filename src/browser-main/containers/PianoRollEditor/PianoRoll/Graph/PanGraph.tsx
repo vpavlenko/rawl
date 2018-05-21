@@ -3,20 +3,18 @@ import { pure, Omit } from "recompose"
 import LineGraphControl, { LineGraphControlProps, LineGraphControlEvent } from "./LineGraphControl"
 import { Dispatcher } from "browser-main/createDispatcher";
 import { CREATE_PAN } from "browser-main/actions";
-
-interface Event extends LineGraphControlEvent {
-  controllerType?: number
-}
+import { ControllerEvent } from "midifile-ts"
+import { TrackEvent } from "common/track"
 
 export type PanGraphProps = Omit<LineGraphControlProps, 
   "createEvent" |
   "onClickAxis" |
   "maxValue" |
   "className" |
-  "axis" | 
+  "axis" |
   "events"
 > & {
-  events: Event[]
+  events: TrackEvent[]
   dispatch: Dispatcher
 }
 
@@ -29,6 +27,8 @@ const PanGraph: StatelessComponent<PanGraphProps> = ({
   dispatch,
   color
 }) => {
+  const filteredEvents = events.filter(e => (e as any).controllerType === 0x0a) as (LineGraphControlEvent & ControllerEvent)[]
+  
   return <LineGraphControl
     className="PanGraph"
     width={width}
@@ -36,7 +36,7 @@ const PanGraph: StatelessComponent<PanGraphProps> = ({
     scrollLeft={scrollLeft}
     transform={transform}
     maxValue={127}
-    events={events.filter(e => e.controllerType === 0x0a)}
+    events={filteredEvents}
     axis={[-0x40, -0x20, 0, 0x20, 0x40 - 1]}
     createEvent={obj => dispatch(CREATE_PAN, obj)}
     onClickAxis={value => dispatch(CREATE_PAN, { value: value + 0x40 })}

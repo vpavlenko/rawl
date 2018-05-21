@@ -1,5 +1,6 @@
 import Measure from "./Measure"
 import Track from "common/track"
+import { TimeSignatureEvent } from "midifile-ts"
 
 export interface Beat {
   measure: number
@@ -37,8 +38,7 @@ export default class MeasureList {
 }
 
 function getMeasuresFromConductorTrack(conductorTrack: Track): Measure[] {
-  const events = conductorTrack.events
-    .filter(e => e.subtype === "timeSignature")
+  const events = conductorTrack.findEventsWithSubtype<TimeSignatureEvent>("timeSignature")
 
   if (events.length === 0) {
     return [new Measure()]

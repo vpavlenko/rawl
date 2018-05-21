@@ -8,7 +8,7 @@ import mapBeats from "helpers/mapBeats"
 import { NoteCoordTransform } from "common/transform"
 import Theme from "common/theme/Theme"
 import { show as showEventEditor } from "components/EventEditor"
-import Track from "common/track/Track"
+import Track, { TrackEvent } from "common/track/Track"
 import { Beat } from "common/measure"
 import { LoopSetting } from "common/player"
 import { ISize } from "common/geometry"
@@ -42,7 +42,7 @@ export interface PianoRollProps {
   mouseHandler
   theme: Theme
   track: Track
-  events: any[]
+  events: TrackEvent[]
   transform: NoteCoordTransform
   beats: Beat[]
   endTick: number

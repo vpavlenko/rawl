@@ -66,31 +66,31 @@ export default (rootStore) => {
     [CREATE_PITCH_BEND]: ({ tick, value }) => {
       saveHistory()
       return createOrUpdate("subtype", "pitchBend", tick, "value", value, () =>
-        pitchBendMidiEvent(0, 0)
+        pitchBendMidiEvent(0, 0, 0)
       )
     },
     [CREATE_VOLUME]: ({ tick, value }) => {
       saveHistory()
       return createOrUpdate("controllerType", 0x07, tick, "value", value, () =>
-        volumeMidiEvent(0, 0)
+        volumeMidiEvent(0, 0, 0)
       )
     },
     [CREATE_PAN]: ({ tick, value }) => {
       saveHistory()
       return createOrUpdate("controllerType", 0x0a, tick, "value", value, () =>
-        panMidiEvent(0, 0)
+        panMidiEvent(0, 0, 0)
       )
     },
     [CREATE_MODULATION]: ({ tick, value }) => {
       saveHistory()
       return createOrUpdate("controllerType", 0x01, tick, "value", value, () =>
-        modulationMidiEvent(0, 0)
+        modulationMidiEvent(0, 0, 0)
       )
     },
     [CREATE_EXPRESSION]: ({ tick, value }) => {
       saveHistory()
       return createOrUpdate("controllerType", 0x0b, tick, "value", value, () =>
-        expressionMidiEvent(0, 0)
+        expressionMidiEvent(0, 0, 0)
       )
     },
     [REMOVE_EVENT]: ({ eventId }) => {

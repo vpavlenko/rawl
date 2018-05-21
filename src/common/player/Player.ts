@@ -2,19 +2,18 @@ import _ from "lodash"
 import EventEmitter from "eventemitter3"
 import assert from "assert"
 
-import { serialize as serializeMidiEvent, MIDIControlEvents, MIDIChannelEvents } from "midifile-ts"
+import { serialize as serializeMidiEvent, MIDIControlEvents, MIDIChannelEvents, AnyEvent } from "midifile-ts"
 import { toRawEvents } from "helpers/eventAssembler"
 
 import EventScheduler from "./EventScheduler"
 import Song from "common/song"
 import TrackMute from "common/trackMute"
-import { MidiEvent } from "midi/MidiEvent"
 
 function firstByte(eventType: string, channel: number): number {
   return (MIDIChannelEvents[eventType] << 4) + channel
 }
 
-function collectAllEvents(song: Song): MidiEvent[] {
+function collectAllEvents(song: Song): AnyEvent[] {
   return _.chain(song.tracks)
     .map(t =>(t.events as any).toJS())
     .flatten()

@@ -3,10 +3,8 @@ import { pure, Omit } from "recompose"
 import LineGraphControl, { LineGraphControlProps, LineGraphControlEvent } from "./LineGraphControl"
 import { Dispatcher } from "browser-main/createDispatcher";
 import { CREATE_EXPRESSION } from "browser-main/actions";
-
-interface Event extends LineGraphControlEvent {
-  controllerType?: number
-}
+import { ControllerEvent } from "midifile-ts"
+import { TrackEvent } from "common/track"
 
 export type ExpressionGraphProps = Omit<LineGraphControlProps, 
   "createEvent" |
@@ -16,7 +14,7 @@ export type ExpressionGraphProps = Omit<LineGraphControlProps,
   "axis" |
   "events"
 > & {
-  events: Event[]
+  events: TrackEvent[]
   dispatch: Dispatcher
 }
 
@@ -29,6 +27,8 @@ const ExpressionGraph: StatelessComponent<ExpressionGraphProps> = ({
   dispatch,
   color
 }) => {
+  const filteredEvents = events.filter(e => (e as any).controllerType === 0x0b) as (LineGraphControlEvent & ControllerEvent)[]
+  
   return <LineGraphControl
     className="ExpressionGraph"
     width={width}
@@ -36,7 +36,7 @@ const ExpressionGraph: StatelessComponent<ExpressionGraphProps> = ({
     scrollLeft={scrollLeft}
     transform={transform}
     maxValue={127}
-    events={events.filter(e => e.controllerType === 0x0b)}
+    events={filteredEvents}
     axis={[0, 0x20, 0x40, 0x60, 0x80 - 1]}
     createEvent={obj => dispatch(CREATE_EXPRESSION, obj)}
     onClickAxis={value => dispatch(CREATE_EXPRESSION, { value })}

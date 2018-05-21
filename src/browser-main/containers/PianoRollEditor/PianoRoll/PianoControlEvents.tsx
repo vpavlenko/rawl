@@ -1,17 +1,15 @@
 import React, { StatelessComponent } from "react"
 import { controllerTypeString as CCNames } from "helpers/noteNumberString"
+import { TrackEvent } from "common/track"
 import "./PianoControlEvents.css"
+import { ControllerEvent, ProgramChangeEvent } from "midifile-ts";
 
-interface Event {
-  tick: number
-  subtype: string
-  controllerType?: number
-}
+type DisplayEvent = TrackEvent & (ControllerEvent | ProgramChangeEvent)
 
-function displayControlName(e: Event): string {
+function displayControlName(e: DisplayEvent): string {
   switch (e.subtype) {
     case "controller": {
-      const name = CCNames[e.controllerType]
+      const name = CCNames[(e as ControllerEvent).controllerType]
       return name || "Control"
     }
     case "programChange": return "Program Change"
@@ -20,7 +18,7 @@ function displayControlName(e: Event): string {
 }
 
 interface ControlMarkProps {
-  group: Event[]
+  group: DisplayEvent[]
   pixelsPerTick: number
   onDoubleClick: (e: any) => void
 }
@@ -37,7 +35,7 @@ const ControlMark: StatelessComponent<ControlMarkProps> = ({
 }
 
 /// 重なって表示されないようにひとつのイベントとしてまとめる
-function groupControlEvents(events: Event[], tickWindow: number) {
+function groupControlEvents(events: DisplayEvent[], tickWindow: number): DisplayEvent[][] {
   const groups = []
   let group = []
   for (let e of events) {
@@ -61,10 +59,10 @@ function groupControlEvents(events: Event[], tickWindow: number) {
   return groups
 }
 
-function isDisplayControlEvent(e: Event): boolean {
-  switch (e.subtype) {
+function isDisplayControlEvent(e: TrackEvent): e is DisplayEvent {
+  switch ((e as any).subtype) {
     case "controller":
-      switch (e.controllerType) {
+      switch ((e as any).controllerType) {
         case 1: // modulation
         case 7: // volume
         case 10: // panpot
@@ -83,10 +81,10 @@ function isDisplayControlEvent(e: Event): boolean {
 
 export interface PianoControlEventsProps {
   width: number
-  events: Event[]
+  events: TrackEvent[]
   scrollLeft: number
   pixelsPerTick: number
-  onDoubleClickMark: (event: any, group: Event[]) => void
+  onDoubleClickMark: (event: any, group: DisplayEvent[]) => void
 }
 
 const PianoControlEvents: StatelessComponent<PianoControlEventsProps> = ({

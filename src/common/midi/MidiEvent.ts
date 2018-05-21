@@ -1,164 +1,173 @@
-export interface MidiEvent {
-  deltaTime: number
-  type: string
-}
-
-export interface MetaMidiEvent<T> extends MidiEvent {
-  subtype: string
-  value?: T
-}
-
-export interface ChannelMidiEvent extends MidiEvent {
-  channel: number
-  subtype: string
-  value: number
-}
-
-export interface ControllerMidiEvent extends ChannelMidiEvent {
-  controllerType: number
-}
-
-export interface TimeSignature {
-  numerator: number
-  denominator: number
-  metronome: number
-  thirtyseconds: number
-}
+import { ControllerEvent, Event, MetaEvent, ChannelEvent, EndOfTrackEvent, PortPrefixEvent, TrackNameEvent, TimeSignatureEvent, ProgramChangeEvent, NoteOffEvent } from "midifile-ts"
+import { SetTempoEvent, PitchBendEvent, NoteOnEvent } from "midifile-ts/src";
 
 /* factory */
 
-export function midiEvent(deltaTime: number, type: string): MidiEvent {
+export function midiEvent(deltaTime: number, type: string): Event {
   return {
     deltaTime,
     type
   }
 }
 
-export function metaMidiEvent<T>(deltaTime: number, subtype: string, value: T): MetaMidiEvent<T> {
+export function endOfTrackMidiEvent(deltaTime: number): EndOfTrackEvent {
   return {
-    ...midiEvent(deltaTime, "meta"),
-    subtype,
-    value
+    deltaTime,
+    type: "meta",
+    subtype: "endOfTrack",
   }
 }
 
-export function endOfTrackMidiEvent(deltaTime: number) {
-  return metaMidiEvent(deltaTime, "endOfTrack", null)
-}
-
-export function portPrefixMidiEvent(deltaTime: number, port: number) {
+export function portPrefixMidiEvent(deltaTime: number, port: number): PortPrefixEvent {
   return {
-    ...metaMidiEvent(deltaTime, "portPrefix", port),
+    deltaTime,
+    type: "meta",
+    subtype: "portPrefix",
     port
-  } as MetaMidiEvent<number>
+  }
 }
 
-export function trackNameMidiEvent(deltaTime: number, text: string) {
+export function trackNameMidiEvent(deltaTime: number, text: string): TrackNameEvent {
   return {
-    ...metaMidiEvent(deltaTime, "trackName", text),
+    deltaTime,
+    type: "meta",
+    subtype: "trackName",
     text
-  } as MetaMidiEvent<string>
+  }
 }
 
 // from bpm: SetTempoMidiEvent(t, 60000000 / bpm)
-export function setTempoMidiEvent(deltaTime: number, value: number) {
+export function setTempoMidiEvent(deltaTime: number, value: number): SetTempoEvent {
   return {
-    ...metaMidiEvent(deltaTime, "setTempo", value),
+    deltaTime,
+    type: "meta",
+    subtype: "setTempo",
     microsecondsPerBeat: value
-  } as MetaMidiEvent<number>
+  }
 }
 
-export function timeSignatureMidiEvent(deltaTime: number, numerator = 4, denominator = 4, metronome = 24, thirtyseconds = 8): MetaMidiEvent<string> {
+export function timeSignatureMidiEvent(deltaTime: number, numerator = 4, denominator = 4, metronome = 24, thirtyseconds = 8): TimeSignatureEvent {
   return {
-    ...metaMidiEvent(deltaTime, "timeSignature", `${numerator}/${denominator}`),
+    deltaTime,
+    type: "meta",
+    subtype: "timeSignature",
     numerator,
     denominator,
     metronome,
     thirtyseconds
-  } as MetaMidiEvent<string>
+  }
 }
 
 // channel events
 
-export function channelMidiEvent(deltaTime: number, subtype: string, value: number, channel: number = 0): ChannelMidiEvent {
+export function noteOnMidiEvent(deltaTime: number, channel: number, noteNumber: number, velocity: number): NoteOnEvent {
   return {
-    ...midiEvent(deltaTime, "channel"),
+    deltaTime,
+    type: "channel",
+    subtype: "noteOn",
     channel,
-    subtype,
+    noteNumber,
+    velocity
+  }
+}
+
+export function noteOffMidiEvent(deltaTime: number, channel: number, noteNumber: number, velocity: number = 0): NoteOffEvent {
+  return {
+    deltaTime,
+    type: "channel",
+    subtype: "noteOff",
+    channel,
+    noteNumber,
+    velocity
+  }
+}
+
+export function pitchBendMidiEvent(deltaTime: number, channel: number, value: number): PitchBendEvent {
+  return {
+    deltaTime,
+    type: "channel",
+    subtype: "pitchBend",
+    channel,
     value
   }
 }
 
-export function pitchBendMidiEvent(deltaTime, value) {
-  return channelMidiEvent(deltaTime, "pitchBend", value)
-}
-
-export function programChangeMidiEvent(deltaTime, value) {
-  return channelMidiEvent(deltaTime, "programChange", value)
+export function programChangeMidiEvent(deltaTime: number, channel: number, value: number): ProgramChangeEvent {
+  return {
+    deltaTime,
+    type: "channel",
+    subtype: "programChange",
+    channel,
+    value
+  }
 }
 
 // controller events
 
-export function controllerMidiEvent(deltaTime: number, controllerType: number, value: number): ControllerMidiEvent {
+export function controllerMidiEvent(deltaTime: number, channel: number, controllerType: number, value: number): ControllerEvent {
   return {
-    ...channelMidiEvent(deltaTime, "controller", value),
-    controllerType
+    deltaTime,
+    type: "channel",
+    subtype: "controller",
+    channel,
+    controllerType,
+    value
   }
 }
 
-export function modulationMidiEvent(deltaTime, value) {
-  return controllerMidiEvent(deltaTime, 0x01, value)
+export function modulationMidiEvent(deltaTime: number, channel: number, value: number) {
+  return controllerMidiEvent(deltaTime, channel, 0x01, value)
 }
 
-export function volumeMidiEvent(deltaTime, value) {
-  return controllerMidiEvent(deltaTime, 0x07, value)
+export function volumeMidiEvent(deltaTime: number, channel: number, value: number) {
+  return controllerMidiEvent(deltaTime, channel, 0x07, value)
 }
 
-export function panMidiEvent(deltaTime, value) {
-  return controllerMidiEvent(deltaTime, 0x0a, value)
+export function panMidiEvent(deltaTime: number, channel: number, value: number) {
+  return controllerMidiEvent(deltaTime, channel, 0x0a, value)
 }
 
-export function expressionMidiEvent(deltaTime, value) {
-  return controllerMidiEvent(deltaTime, 0x0b, value)
+export function expressionMidiEvent(deltaTime: number, channel: number, value: number) {
+  return controllerMidiEvent(deltaTime, channel, 0x0b, value)
 }
 
-export function resetAllMidiEvent(deltaTime) {
-  return controllerMidiEvent(deltaTime, 121, 0)
+export function resetAllMidiEvent(deltaTime: number, channel: number) {
+  return controllerMidiEvent(deltaTime, channel, 121, 0)
 }
 
 // Control Change
 
-export function controlChangeEvents(deltaTime: number, rpnMsb: number, rpnLsb: number, dataMsb?: number, dataLsb?: number) {
+export function controlChangeEvents(deltaTime: number, channel: number, rpnMsb: number, rpnLsb: number, dataMsb?: number, dataLsb?: number): ControllerEvent[] {
   const rpn = [
-    controllerMidiEvent(deltaTime, 101, rpnMsb),
-    controllerMidiEvent(0, 100, rpnLsb)
+    controllerMidiEvent(deltaTime, channel, 101, rpnMsb),
+    controllerMidiEvent(0, channel, 100, rpnLsb)
   ]
 
-  const data: ControllerMidiEvent[] = []
+  const data: ControllerEvent[] = []
   if (dataMsb !== undefined) {
-    data.push(controllerMidiEvent(0, 6, dataMsb))
+    data.push(controllerMidiEvent(0, channel, 6, dataMsb))
   }
   if (dataLsb !== undefined) {
-    data.push(controllerMidiEvent(0, 38, dataLsb))
+    data.push(controllerMidiEvent(0, channel, 38, dataLsb))
   }
 
   return [...rpn, ...data]
 }
 
 // value: 0 - 24 (半音)
-export function pitchbendSensitivityEvents(deltaTime, value = 2) {
-  return controlChangeEvents(deltaTime, 0, 0, value)
+export function pitchbendSensitivityEvents(deltaTime: number, channel: number, value = 2) {
+  return controlChangeEvents(deltaTime, channel, 0, 0, value)
 }
 
 // value: -8192 - 8191
-export function masterFineTuningEvents(deltaTime, value = 0) {
+export function masterFineTuningEvents(deltaTime: number, channel: number, value = 0) {
   const s = value + 0x2000
   const m = Math.floor(s / 0x80)
   const l = s - m * 0x80
-  return controlChangeEvents(deltaTime, 0, 1, m, l)
+  return controlChangeEvents(deltaTime, channel, 0, 1, m, l)
 }
 
 // value: -24 - 24
-export function masterCoarceTuningEvents(deltaTime, value = 0) {
-  return controlChangeEvents(deltaTime, 0, 2, value + 64)
+export function masterCoarceTuningEvents(deltaTime: number, channel: number, value = 0) {
+  return controlChangeEvents(deltaTime, channel, 0, 2, value + 64)
 }

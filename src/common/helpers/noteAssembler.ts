@@ -1,4 +1,13 @@
 import _ from "lodash"
+import { NoteOnEvent, NoteOffEvent } from "midifile-ts"
+import { TrackEvent } from "common/track"
+import { noteOnMidiEvent, noteOffMidiEvent } from "common/midi/MidiEvent";
+
+export interface NoteEvent {
+  subtype: "note"
+  tick: number
+  duration: number
+}
 
 /**
 
@@ -46,24 +55,14 @@ export function assemble(events) {
 }
 
 // separate note to noteOn + noteOff
-export function deassemble(e) {
+export function deassemble(e): TrackEvent[] {
   if (e.subtype === "note") {
-    return [{
-      type: "channel",
-      subtype: "noteOn",
-      tick: e.tick,
-      channel: e.channel,
-      noteNumber: e.noteNumber,
-      velocity: e.velocity
-    },
-    {
-      type: "channel",
-      subtype: "noteOff",
-      tick: e.tick + e.duration - 1, // -1 to prevent overlap
-      channel: e.channel,
-      noteNumber: e.noteNumber,
-      velocity: 0
-    }]
+    const noteOn = noteOnMidiEvent(0, e.channel, e.noteNumber, e.velocity)
+    const noteOff = noteOffMidiEvent(0, e.channel, e.noteNumber)
+    return [
+      { ...noteOn, id: -1, tick: e.tick },
+      { ...noteOff, id: -1, tick: e.tick + e.duration - 1 } // -1 to prevent overlap 
+    ]
   } else {
     return [e]
   }

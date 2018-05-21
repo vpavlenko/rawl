@@ -1,22 +1,20 @@
 import React, { StatelessComponent } from "react"
 import { pure, Omit } from "recompose"
+import { PitchBendEvent } from "midifile-ts"
 import LineGraphControl, { LineGraphControlProps, LineGraphControlEvent } from "./LineGraphControl"
 import { Dispatcher } from "browser-main/createDispatcher";
 import { CREATE_PITCH_BEND } from "browser-main/actions";
-
-interface Event extends LineGraphControlEvent {
-  subtype?: string
-}
+import { TrackEvent } from "common/track"
 
 export type PitchGraphProps = Omit<LineGraphControlProps, 
   "createEvent" |
   "onClickAxis" |
   "maxValue" |
   "className" |
-  "axis" | 
+  "axis" |
   "events"
 > & {
-  events: Event[]
+  events: TrackEvent[]
   dispatch: Dispatcher
 }
 
@@ -29,6 +27,8 @@ const PitchGraph: StatelessComponent<PitchGraphProps> = ({
   dispatch,
   color
 }) => {
+  const filteredEvents = events.filter(e => (e as any).subtype === "pitchBend") as (LineGraphControlEvent & PitchBendEvent)[]
+
   return <LineGraphControl
     className="PitchGraph"
     width={width}
@@ -36,7 +36,7 @@ const PitchGraph: StatelessComponent<PitchGraphProps> = ({
     scrollLeft={scrollLeft}
     transform={transform}
     maxValue={0x4000}
-    events={events.filter(e => e.subtype === "pitchBend")}
+    events={filteredEvents}
     axis={[-0x2000, -0x1000, 0, 0x1000, 0x2000 - 1]}
     createEvent={obj => dispatch(CREATE_PITCH_BEND, obj)}
     onClickAxis={value => dispatch(CREATE_PITCH_BEND, { value: value + 0x2000 })}

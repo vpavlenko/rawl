@@ -15,7 +15,7 @@ import mapBeats from "helpers/mapBeats"
 import { uSecPerBeatToBPM, bpmToUSecPerBeat } from "helpers/bpm"
 import transformEvents from "./transformEvents"
 
-import Stage from "components/Stage/Stage"
+import Stage, { ItemEvent } from "components/Stage/Stage"
 import DrawCanvas from "components/DrawCanvas"
 import { HorizontalScrollBar, BAR_WIDTH } from "components/inputs/ScrollBar"
 
@@ -23,6 +23,13 @@ import "./TempoGraph.css"
 import { CHANGE_TEMPO, CREATE_TEMPO, SET_PLAYER_POSITION } from "browser-main/actions"
 import Player from "common/player/Player";
 import { ISize } from "common/geometry";
+import Track, { TrackEvent } from "common/track"
+import Theme from "common/theme/Theme";
+import { Beat } from "common/measure";
+import { SetTempoEvent } from "midifile-ts/dist";
+import StageItem from "browser-main/components/Stage/Item"
+
+type DisplayEvent = TrackEvent & SetTempoEvent
 
 function HorizontalLines({ width, height, transform, borderColor }) {
   if (!width) {
@@ -77,9 +84,25 @@ const GraphAxis: StatelessComponent<GraphAxisProps> = ({ width, transform, offse
   </div>
 }
 
-function Content({
+interface ContentProps {
+  track: Track
+  events: TrackEvent[]
+  size: ISize
+  pixelsPerTick: number
+  theme: Theme
+  beats: Beat[]
+  playerPosition: number
+  setPlayerPosition: (tick: number) => void
+  endTick: number
+  scrollLeft: number
+  setScrollLeft: (scroll: number) => void
+  changeTempo: (e: Partial<DisplayEvent>) => void
+  createTempo: (e: Partial<DisplayEvent>) => void
+}
+
+const Content: StatelessComponent<ContentProps> = ({
   track,
-  events,
+  events: sourceEvents,
   size,
   pixelsPerTick,
   theme,
@@ -91,7 +114,8 @@ function Content({
   setScrollLeft,
   changeTempo,
   createTempo
-}) {
+}) => {
+  const events = sourceEvents.filter(e => (e as any).subtype === "setTempo") as DisplayEvent[]
   scrollLeft = Math.floor(scrollLeft)
 
   const { keyWidth, rulerHeight } = theme
@@ -108,13 +132,13 @@ function Content({
     theme.themeColor,
     Color(theme.themeColor).alpha(0.1).string())
 
-  function onMouseDownGraph(e) {
+  function onMouseDownGraph(e: ItemEvent & React.MouseEvent<HTMLCanvasElement>) {
     const item = e.items[0]
     if (!item) {
       return
     }
 
-    const event = track.getEventById(item.id)
+    const event = events.filter(ev => ev.id === item.id)[0]
     const bpm = uSecPerBeatToBPM(event.microsecondsPerBeat)
     const startY = e.clientY
 
@@ -135,12 +159,12 @@ function Content({
     document.addEventListener("mouseup", onMouseUp)
   }
 
-  function onWheelGraph(e) {
+  function onWheelGraph(e: ItemEvent & React.WheelEvent<HTMLCanvasElement>) {
     const item = e.items[0]
     if (!item) {
       return
     }
-    const event = track.getEventById(item.id)
+    const event = events.filter(ev => ev.id === item.id)[0]
     const movement = e.deltaY > 0 ? -1 : 1
     const bpm = uSecPerBeatToBPM(event.microsecondsPerBeat)
     changeTempo({
@@ -149,7 +173,7 @@ function Content({
     })
   }
 
-  function onDoubleClickGraph(e) {
+  function onDoubleClickGraph(e: ItemEvent) {
     const tick = transform.getTicks(e.local.x)
     const bpm = transform.getBPM(e.local.y)
     createTempo({

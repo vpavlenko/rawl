@@ -7,6 +7,7 @@ import Theme from "common/theme"
 import { Beat } from "common/measure"
 import { NoteCoordTransform } from "common/transform"
 import { ISize } from "common/geometry"
+import { TrackEvent } from "common/track"
 import { BeatWithX } from "helpers/mapBeats"
 
 import PianoGrid from "./PianoGrid"
@@ -51,7 +52,7 @@ interface ControlPaneProps {
   mode: string
   theme: Theme
   beats: BeatWithX[]
-  events: Event[]
+  events: TrackEvent[]
   onSelectTab: (mode: string) => void
   dispatch: Dispatcher
   transform: NoteCoordTransform

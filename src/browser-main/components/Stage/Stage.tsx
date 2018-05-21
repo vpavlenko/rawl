@@ -6,19 +6,19 @@ import { IRect, IPoint, containsPoint as rectContainsPoint, intersects as rectIn
 
 type ReactMouseEvent = React.MouseEvent<HTMLElement>
 
-interface ItemEvent extends ReactMouseEvent {
+export interface ItemEvent {
   items: Item[]
   local: IPoint
 }
 
 export interface StageProps {
   items: Item[]
-  onMouseDown?: (ItemEvent) => void
-  onMouseMove?: (ItemEvent) => void
-  onMouseUp?: (ItemEvent) => void
-  onWheel?: (ItemEvent) => void
-  onDoubleClick?: (ItemEvent) => void
-  onContextMenu?: (ItemEvent) => void
+  onMouseDown?: (e: ItemEvent & ReactMouseEvent) => void
+  onMouseMove?: (e: ItemEvent & (MouseEvent | ReactMouseEvent)) => void
+  onMouseUp?: (e: ItemEvent & MouseEvent) => void
+  onWheel?: (e: ItemEvent & React.WheelEvent<HTMLCanvasElement>) => void
+  onDoubleClick?: (e: ItemEvent & ReactMouseEvent) => void
+  onContextMenu?: (e: ItemEvent & ReactMouseEvent) => void
   width: number
   height: number
   scrollLeft?: number
@@ -36,8 +36,8 @@ const Stage: StatelessComponent<StageProps> = ({
   onMouseMove: _onMouseMove,
   onMouseUp: _onMouseUp,
   onWheel: _onWheel,
-  onDoubleClick,
-  onContextMenu,
+  onDoubleClick: _onDoubleClick,
+  onContextMenu: _onContextMenu,
   width,
   height,
   scrollLeft,
@@ -110,7 +110,7 @@ const Stage: StatelessComponent<StageProps> = ({
     })
   }
 
-  function onWheel(e: ReactMouseEvent) {
+  function onWheel(e: React.WheelEvent<HTMLCanvasElement>) {
     _onWheel(extendEvent(e))
   }
 
@@ -122,17 +122,24 @@ const Stage: StatelessComponent<StageProps> = ({
     }
   }
 
-  function extendEvent(e: ReactMouseEvent): ItemEvent {
+  function onDoubleClick(e: ReactMouseEvent) {
+    _onDoubleClick(extendEvent(e))
+  }
+
+  function onContextMenu(e: ReactMouseEvent) {
+    _onContextMenu(extendEvent(e))
+  }
+
+  function extendEvent<T extends ReactMouseEvent>(e: T): T & ItemEvent {
     const local = {
       x: e.nativeEvent.offsetX + scrollLeft,
       y: e.nativeEvent.offsetY + scrollTop
     }
     const hitItems = items.filter(item => rectContainsPoint(item.bounds, local))
-    return {
-      ...e,
+    return Object.assign({}, e, {
       items: hitItems, 
       local
-    }
+    })
   }
 
   return <DrawCanvas

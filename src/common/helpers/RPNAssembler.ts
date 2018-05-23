@@ -1,6 +1,6 @@
 import { controlChangeEvents } from "midi/MidiEvent"
-import { ControllerEvent, AnyEvent } from "midifile-ts"
-import { Event } from "midifile-ts/src";
+import { ControllerEvent, AnyEvent, Event } from "midifile-ts"
+import { TrackEvent } from "common/track"
 
 export interface RPNEvent {
   channel: number

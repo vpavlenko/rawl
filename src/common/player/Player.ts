@@ -19,7 +19,7 @@ function collectAllEvents(song: Song): AnyEvent[] {
     .flatten()
     .map(toRawEvents)
     .flatten()
-    .value()
+    .value() as AnyEvent[]
 }
 
 // 同じ名前のタスクを描画タイマーごとに一度だけ実行する

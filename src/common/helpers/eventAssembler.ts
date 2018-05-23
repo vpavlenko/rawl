@@ -8,8 +8,8 @@ export function toTrackEvents(events: AnyEvent[]): TrackEvent[] {
   return assembleNotes(assembleRPN(events))
 }
 
-export function toRawEvents(event: TrackEvent): AnyEvent[] {
-  const a = deassembleRPN(event)
+export function toRawEvents(event: TrackEvent): TrackEvent[] {
+  const a = deassembleRPN(event as AnyEvent)
   const b = a.map(deassembleNote)
-  return _.flatten(b)
+  return _.flatten(b) as TrackEvent[]
 }

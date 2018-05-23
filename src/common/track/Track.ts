@@ -7,13 +7,19 @@ import { getInstrumentName } from "midi/GM"
 
 import orArrayOf from "helpers/orArrayOf"
 
+export interface NoteEvent {
+  type: "channel",
+  subtype: "note"
+  duration: number
+}
+
 interface TrackEventRequired {
   id: number
   tick: number
   type: string
 }
 
-export type TrackEvent = TrackEventRequired & AnyEvent
+export type TrackEvent = TrackEventRequired & (AnyEvent | NoteEvent)
 
 function lastValue(arr, prop) {
   const last = _.last(arr)

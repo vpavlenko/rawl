@@ -1,23 +1,18 @@
 import _ from "lodash"
 import { NoteOnEvent, NoteOffEvent } from "midifile-ts"
-import { TrackEvent } from "common/track"
+import { TrackEvent, NoteEvent } from "common/track"
 import { noteOnMidiEvent, noteOffMidiEvent } from "common/midi/MidiEvent";
-
-export interface NoteEvent {
-  subtype: "note"
-  tick: number
-  duration: number
-}
+import { AnyEvent } from "midifile-ts/src";
 
 /**
 
   assemble noteOn and noteOff to single note event to append duration
 
  */
-export function assemble(events) {
+export function assemble(events: TrackEvent[]): TrackEvent[] {
   const noteOnEvents = []
 
-  function findNoteOn(noteOff) {
+  function findNoteOn(noteOff: (TrackEvent & NoteOffEvent)): (TrackEvent & NoteOnEvent)|null {
     const i = _.findIndex(noteOnEvents, e => {
       return e.channel === noteOff.channel &&
         e.noteNumber === noteOff.noteNumber
@@ -30,18 +25,24 @@ export function assemble(events) {
     return e
   }
 
-  const result = []
+  const result: TrackEvent[] = []
   events.forEach((e) => {
-    switch(e.subtype) {
+    switch((e as any).subtype) {
       case "noteOn":
         noteOnEvents.push(e)
         break
       case "noteOff": {
-        const noteOn = findNoteOn(e)
+        const ev = e as (TrackEvent & NoteOffEvent)
+        const noteOn = findNoteOn(ev)
         if (noteOn != null) {
-          noteOn.duration = e.tick - noteOn.tick
-          noteOn.subtype = "note"
-          result.push(noteOn)
+          const note: TrackEvent & NoteEvent = {
+            id: -1,
+            type: "channel",
+            subtype: "note",
+            tick: noteOn.tick,
+            duration: ev.tick - noteOn.tick
+          }
+          result.push(note)
         }
         break
       }

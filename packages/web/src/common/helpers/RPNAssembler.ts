@@ -75,7 +75,7 @@ export function assemble(events: AnyEvent[]) {
   return result
 }
 
-function isRPNEvent(e: AnyEvent): e is RPNEvent {
+function isRPNEvent(e: any): e is RPNEvent {
   return (e as any).subtype === "rpn"
 }
 

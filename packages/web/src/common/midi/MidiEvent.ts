@@ -3,7 +3,7 @@ SetTempoEvent, PitchBendEvent, NoteOnEvent } from "@signal-app/midifile-ts";
 
 /* factory */
 
-export function midiEvent(deltaTime: number, type: string): Event {
+export function midiEvent<T extends string>(deltaTime: number, type: T): Event<T> {
   return {
     deltaTime,
     type

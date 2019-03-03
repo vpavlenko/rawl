@@ -1,11 +1,11 @@
-import React, { StatelessComponent, ReactNode } from "react"
+import React from "react"
 import { pure } from "recompose"
 
 import f from "helpers/flatJoin"
 import e from "helpers/getElementType"
 
 import "./Icon.css"
-import "mdi/css/materialdesignicons.css"
+import "@mdi/font/css/materialdesignicons.css"
 
 export interface IconProps {
   component?: JSX.Element

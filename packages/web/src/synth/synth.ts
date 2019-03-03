@@ -1,5 +1,5 @@
-import { Synthesizer, MidiMessageHandler } from "../submodules/sf2synth/bin/sf2.synth.esm.js"
-import Recorder from "../submodules/opus-recorder/src/recorder"
+import { Synthesizer, MidiMessageHandler } from "sf2synth/bin/sf2.synth.js"
+import Recorder from "opus-recorder"
 
 import "./synth.css"
 

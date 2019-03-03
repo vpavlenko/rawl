@@ -1,5 +1,4 @@
 import React, { StatelessComponent, CSSProperties } from "react"
-import PropTypes from "prop-types"
 import { pure } from "recompose"
 import DrawCanvas from "components/DrawCanvas"
 import Theme from "common/theme"

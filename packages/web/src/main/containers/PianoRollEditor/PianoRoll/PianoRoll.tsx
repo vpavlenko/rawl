@@ -1,5 +1,4 @@
 import React, { Component, StatelessComponent, Ref, ReactElement } from "react"
-import PropTypes from "prop-types"
 import SplitPane from "react-split-pane"
 import { observer, inject } from "mobx-react"
 import sizeMe from "react-sizeme"

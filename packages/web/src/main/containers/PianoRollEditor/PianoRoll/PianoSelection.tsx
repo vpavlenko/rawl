@@ -1,5 +1,4 @@
 import React, { StatelessComponent } from "react"
-import PropTypes from "prop-types"
 import { shouldUpdate } from "recompose"
 import _ from "lodash"
 

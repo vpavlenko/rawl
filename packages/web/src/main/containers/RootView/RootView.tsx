@@ -2,7 +2,6 @@ import React, { Fragment, StatelessComponent } from "react"
 import { Helmet } from "react-helmet"
 import path from "path"
 import { observer, inject } from "mobx-react"
-import DevTools from "mobx-react-devtools"
 
 import TempoEditor from "containers/TempoEditor/TempoEditor"
 import ArrangeView from "containers/ArrangeView/ArrangeView"

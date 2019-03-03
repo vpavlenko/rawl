@@ -12,7 +12,6 @@ import SettingsView from "containers/SettingsView/SettingsView"
 
 import Sidebar from "components/Sidebar/Sidebar"
 
-import mainManu from "menus/mainMenu"
 import isDev from "helpers/isDev"
 
 import { compose } from "recompose"
@@ -21,9 +20,6 @@ import { Dispatcher } from "browser-main/createDispatcher"
 
 import "./Resizer.css"
 import "./RootView.css"
-
-const { remote } = (window as any).require("electron")
-const { Menu } = remote
 
 interface RootViewProps {
   song: Song
@@ -37,9 +33,6 @@ const RootView: StatelessComponent<RootViewProps> = ({
   routerPath,
 }) => {
   const { selectedTrack } = song
-
-  const menu = mainManu(song, dispatch)
-  Menu.setApplicationMenu(menu)
 
   const fileName = path.basename(song.filepath.replace(/\\/g, "/"))
 

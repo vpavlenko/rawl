@@ -38,15 +38,15 @@ export default (rootStore) => {
       })
     },
     [OPEN_SONG]: ({ filepath }) => {
-      readSong(filepath, (e, song) => {
-        if (e) {
-          console.error(e)
-        } else {
-          setSong(song)
-          history.clear()
-          rootStore.pushHistory()
-        }
-      })
+      // readSong(filepath, (e, song) => {
+      //   if (e) {
+      //     console.error(e)
+      //   } else {
+      //     setSong(song)
+      //     history.clear()
+      //     rootStore.pushHistory()
+      //   }
+      // })
     },
     [ADD_TRACK]: () => {
       saveHistory()

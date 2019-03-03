@@ -1,17 +1,14 @@
 import path from "path"
 
-const { remote } = (window as any).require("electron")
-const fs = remote.require("fs")
-
 export default class JsonStore {
   path: string
   cache: Object
 
   constructor() {
-    this.path = path.join(remote.app.getPath("userData"), "config.json")
+    // this.path = path.join(remote.app.getPath("userData"), "config.json")
 
     try {
-      const json = fs.readFileSync(this.path, "utf-8")
+      const json = "{}"//fs.readFileSync(this.path, "utf-8")
       this.cache = JSON.parse(json)
     } catch (e) {
       console.error(e)
@@ -20,7 +17,7 @@ export default class JsonStore {
   }
 
   _saveCache() {
-    fs.writeFileSync(this.path, JSON.stringify(this.cache))
+    // fs.writeFileSync(this.path, JSON.stringify(this.cache))
   }
 
   set(key, obj) {

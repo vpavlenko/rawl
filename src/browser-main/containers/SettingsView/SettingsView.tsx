@@ -5,9 +5,6 @@ import NavigationBar from "components/groups/NavigationBar"
 
 import "./SettingsView.css"
 
-const { remote, ipcRenderer } = (window as any).require("electron")
-const { dialog } = remote
-
 function SettingItem({
   label, children
 }) {
@@ -57,12 +54,12 @@ const SettingsView: StatelessComponent<SettingsViewProps> = ({
 }
 
 function openSoundFont(callback) {
-  dialog.showOpenDialog({
-    filters: [{
-      name: "SoundFont File",
-      extensions: ["sf2"]
-    }]
-  }, files => callback(files))
+  // dialog.showOpenDialog({
+  //   filters: [{
+  //     name: "SoundFont File",
+  //     extensions: ["sf2"]
+  //   }]
+  // }, files => callback(files))
 }
 
 export default compose(
@@ -80,7 +77,7 @@ export default compose(
     },
     clearSettings: () => s.clear(),
     onClickShowSynth: () => {
-      ipcRenderer.send("show-synth")
+      // ipcRenderer.send("show-synth")
     },
     onClickStartRecording: () => {
       synth.startRecording()

@@ -3,9 +3,7 @@ import Recorder from "../submodules/opus-recorder/src/recorder"
 
 import "./synth.css"
 
-const fs = (window as any).require("fs")
-const { ipcRenderer, remote } = (window as any).require("electron")
-const { app } = remote
+const ipcRenderer: any = {}
 
 class SynthController {
   eventsBuffer = []
@@ -60,12 +58,12 @@ class SynthController {
     })
     recorder.addEventListener("dataAvailable", e => {
       const dateStr = (new Date().toISOString()).replace(/:/g, "-")
-      const filePath = `${app.getPath("desktop").replace(/\\/g, "/")}/${dateStr}.wav`
-      fs.writeFile(filePath, e.detail, error => {
-        if (error) {
-          console.error(error)
-        }
-      })
+      // const filePath = `${app.getPath("desktop").replace(/\\/g, "/")}/${dateStr}.wav`
+      // fs.writeFile(filePath, e.detail, error => {
+      //   if (error) {
+      //     console.error(error)
+      //   }
+      // })
     })
     this.recorder = recorder
   }
@@ -85,13 +83,13 @@ class SynthController {
   }
 
   loadSoundFont(path) {
-    fs.readFile(path, (error, input) => {
-      if (!error) {
-        this.synth.loadSoundFont(input)
-      } else {
-        console.warn(error.message)
-      }
-    })
+    // fs.readFile(path, (error, input) => {
+    //   if (!error) {
+    //     this.synth.loadSoundFont(input)
+    //   } else {
+    //     console.warn(error.message)
+    //   }
+    // })
   }
 
   startTimer() {

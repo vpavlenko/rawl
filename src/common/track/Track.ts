@@ -27,7 +27,7 @@ function lastValue(arr, prop) {
 }
 
 export default class Track {
-  @serializable(list(map(orArrayOf(primitive())))) @observable.shallow 
+  @serializable @observable.shallow 
   events: TrackEvent[] = []
   
   @serializable @observable 

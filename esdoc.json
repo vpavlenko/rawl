@@ -1,8 +1,0 @@
-{
-  "source": "./src/model",
-  "destination": "./esdoc",
-  "excludes": ["node_modules"],
-  "plugins": [
-    {"name": "esdoc-es7-plugin"}
-  ]
-}

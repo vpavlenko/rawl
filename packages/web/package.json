@@ -5,17 +5,10 @@
   "main": "src/node/main.js",
   "scripts": {
     "start": "webpack-dev-server",
-    "build": "react-scripts build && npm run copy-electron-files",
-    "watch": "webpack --watch",
-    "dev": "nf start",
-    "test": "jest --watch",
+    "build": "webpack",
+    "test": "jest",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook",
-    "electron": "cross-env-shell ELECTRON_START_URL=http://localhost:3000 \"node ./scripts/wait-server 3000 && electron .\"",
-    "flow": "flow",
-    "copy-electron-files": "cp electron-package.json build/package.json && cp src/main.js build/",
-    "clean": "shx rm -rf build && shx rm -rf pkg",
-    "package": "npm run clean && npm run build && electron-packager ./build signal --electron-version=1.7.9 --platform=win32,darwin --arch=x64 --out=./pkg --overwrite"
+    "build-storybook": "build-storybook"
   },
   "repository": {
     "type": "git",
@@ -57,12 +50,9 @@
     "babel-core": "^6.26.3",
     "babel-jest": "^24.1.0",
     "babel-loader": "^8.0.5",
-    "cross-env": "^5.2.0",
     "css-loader": "^2.1.0",
-    "custom-react-scripts": "^0.2.2",
     "html-webpack-plugin": "^3.2.0",
     "jest": "^24.1.0",
-    "shx": "^0.3.2",
     "style-loader": "^0.23.1",
     "ts-jest": "^24.0.0",
     "ts-loader": "^5.3.3",

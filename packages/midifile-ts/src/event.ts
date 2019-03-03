@@ -1,76 +1,62 @@
-export interface Event {
+export interface Event<T extends string> {
   deltaTime: number
-  type: string
+  type: T
 }
 
-export interface MetaEvent extends Event {
-  type: "meta"
-  subtype: string
+export interface MetaEvent<T extends string> extends Event<"meta"> {
+  subtype: T
 }
 
 /* Meta */
 
-export interface SequenceNumberEvent extends MetaEvent {
-  subtype: "sequenceNumber"
+export interface SequenceNumberEvent extends MetaEvent<"sequenceNumber"> {
   number: number
 }
 
-export interface TextEvent extends MetaEvent {
-  subtype: "text"
+export interface TextEvent extends MetaEvent<"text"> {
   text: string
 }
 
-export interface CopyrightNoticeEvent extends MetaEvent {
-  subtype: "copyrightNotice"
+export interface CopyrightNoticeEvent extends MetaEvent<"copyrightNotice"> {
   text: string
 }
 
-export interface TrackNameEvent extends MetaEvent {
-  subtype: "trackName"
+export interface TrackNameEvent extends MetaEvent<"trackName"> {
   text: string
 }
 
-export interface InstrumentNameEvent extends MetaEvent {
-  subtype: "instrumentName"
+export interface InstrumentNameEvent extends MetaEvent<"instrumentName"> {
   text: string
 }
 
-export interface LyricsEvent extends MetaEvent {
-  subtype: "lyrics"
+export interface LyricsEvent extends MetaEvent<"lyrics"> {
   text: string
 }
 
-export interface MarkerEvent extends MetaEvent {
-  subtype: "marker"
+export interface MarkerEvent extends MetaEvent<"marker"> {
   text: string
 }
 
-export interface CuePointEvent extends MetaEvent {
-  subtype: "cuePoint"
+export interface CuePointEvent extends MetaEvent<"cuePoint"> {
   text: string
 }
 
-export interface ChannelPrefixEvent extends MetaEvent {
-  subtype: "midiChannelPrefix"
+export interface ChannelPrefixEvent extends MetaEvent<"midiChannelPrefix"> {
   channel: number
 }
 
-export interface PortPrefixEvent extends MetaEvent {
-  subtype: "portPrefix"
+export interface PortPrefixEvent extends MetaEvent<"portPrefix"> {
   port: number
 }
 
-export interface EndOfTrackEvent extends MetaEvent {
-  subtype: "endOfTrack"
+export interface EndOfTrackEvent extends MetaEvent<"endOfTrack"> {
 }
 
-export interface SetTempoEvent extends MetaEvent {
-  subtype: "setTempo"
+export interface SetTempoEvent extends MetaEvent<"setTempo"> {
   microsecondsPerBeat: number
 }
 
-export interface SmpteOffsetEvent extends MetaEvent {
-  subtype: "smpteOffset"
+export interface SmpteOffsetEvent extends MetaEvent<"smpteOffset"> {
   frameRate: number
   hour: number
   min: number
@@ -79,98 +65,82 @@ export interface SmpteOffsetEvent extends MetaEvent {
   subframe: number
 }
 
-export interface TimeSignatureEvent extends MetaEvent {
-  subtype: "timeSignature"
+export interface TimeSignatureEvent extends MetaEvent<"timeSignature"> {
   numerator: number
   denominator: number
   metronome: number
   thirtyseconds: number
 }
 
-export interface KeySignatureEvent extends MetaEvent {
-  subtype: "keySignature"
+export interface KeySignatureEvent extends MetaEvent<"keySignature"> {
   key: number
   scale: number
 }
 
-export interface SequencerSpecificEvent extends MetaEvent {
-  subtype: "sequencerSpecific"
+export interface SequencerSpecificEvent extends MetaEvent<"sequencerSpecific"> {
   data: number[]
 }
 
-export interface UnknownMetaEvent extends MetaEvent {
-  subtype: "unknown"
+export interface UnknownMetaEvent extends MetaEvent<"unknown"> {
   data: number[]
 }
 
 /* Channel */
 
-export interface ChannelEvent extends Event {
-  type: "channel"
+export interface ChannelEvent<T extends string> extends Event<"channel"> {
   channel: number
-  subtype: string
+  subtype: T
 }
 
-export interface NoteOffEvent extends ChannelEvent {
-  subtype: "noteOff",
+export interface NoteOffEvent extends ChannelEvent<"noteOff"> {
   noteNumber: number
   velocity: number
 }
 
-export interface NoteOnEvent extends ChannelEvent {
-  subtype: "noteOn",
+export interface NoteOnEvent extends ChannelEvent<"noteOn"> {
   noteNumber: number
   velocity: number
 }
 
-export interface NoteAftertouchEvent extends ChannelEvent {
-  subtype: "noteAftertouch"
+export interface NoteAftertouchEvent extends ChannelEvent<"noteAftertouch"> {
   noteNumber: number
   amount: number
 }
 
-export interface ProgramChangeEvent extends ChannelEvent {
-  subtype: "programChange"
+export interface ProgramChangeEvent extends ChannelEvent<"programChange"> {
   value: number
 }
 
-export interface ChannelAftertouchEvent extends ChannelEvent {
-  subtype: "channelAftertouch"
+export interface ChannelAftertouchEvent extends ChannelEvent<"channelAftertouch"> {
   amount: number
 }
 
-export interface PitchBendEvent extends ChannelEvent {
-  subtype: "pitchBend"
+export interface PitchBendEvent extends ChannelEvent<"pitchBend"> {
   value: number
 }
 
-export interface UnknownChannelEvent extends ChannelEvent {
-  subtype: "unknown"
+export interface UnknownChannelEvent extends ChannelEvent<"unknown"> {
   data: number[]
 }
 
 /* Controller */
 
-export interface ControllerEvent extends ChannelEvent {
-  subtype: "controller"
+export interface ControllerEvent extends ChannelEvent<"controller"> {
   controllerType: number
   value: number
 }
 
 /* Other */
 
-export interface SysExEvent extends Event {
-  type: "sysEx"
+export interface SysExEvent extends Event<"sysEx"> {
   data: number[]
 }
 
-export interface DividedSysExEvent extends Event {
-  type: "dividedSysEx"
+export interface DividedSysExEvent extends Event<"dividedSysEx"> {
   data: number[]
 }
 
-export type AnyEvent = Event
-  | MetaEvent
+export type AnyEvent = 
   | SequenceNumberEvent
   | TextEvent
   | CopyrightNoticeEvent
@@ -188,7 +158,6 @@ export type AnyEvent = Event
   | KeySignatureEvent
   | SequencerSpecificEvent
   | UnknownMetaEvent
-  | ChannelEvent
   | NoteOffEvent
   | NoteOnEvent
   | NoteAftertouchEvent

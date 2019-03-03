@@ -1,37 +1,12 @@
 import {
-  Event, 
-  MetaEvent, 
-  TextEvent, 
-  CopyrightNoticeEvent, 
-  TrackNameEvent, 
-  InstrumentNameEvent, 
-  LyricsEvent, 
-  CuePointEvent, 
-  PortPrefixEvent, 
-  SetTempoEvent, 
-  TimeSignatureEvent, 
-  KeySignatureEvent, 
-  SequencerSpecificEvent, 
-  SysExEvent, 
-  DividedSysExEvent, 
-  ChannelEvent, 
-  NoteOffEvent, 
-  NoteOnEvent, 
-  NoteAftertouchEvent, 
-  ControllerEvent, 
-  ProgramChangeEvent, 
-  ChannelAftertouchEvent,
-  PitchBendEvent, 
-  UnknownChannelEvent, 
-  UnknownMetaEvent, 
-  ChannelPrefixEvent 
+  AnyEvent
 } from "./event"
 import { toVLQ } from "./vlq"
 import toCharCodes from "./toCharCodes"
 import MIDIChannelEvents from "./constants/MIDIChannelEvents"
 import MIDIMetaEvents from "./constants/MIDIMetaEvents"
 
-export default function serialize(event: Event, includeDeltaTime = true) {
+export default function serialize(e: AnyEvent, includeDeltaTime = true) {
   const bytes: number[] = []
 
   function add(data) {
@@ -46,7 +21,7 @@ export default function serialize(event: Event, includeDeltaTime = true) {
   }
 
   if (includeDeltaTime) {
-    add(toVLQ(event.deltaTime))
+    add(toVLQ(e.deltaTime))
   }
 
   function addNumbers(list: number[]) {
@@ -59,9 +34,8 @@ export default function serialize(event: Event, includeDeltaTime = true) {
     add(toCharCodes(text))
   }
 
-  switch (event.type) {
+  switch (e.type) {
     case "meta": {
-      const e = event as MetaEvent
       const subtypeCode = MIDIMetaEvents[e.subtype]
       if (subtypeCode === undefined) {
         return []
@@ -70,34 +44,34 @@ export default function serialize(event: Event, includeDeltaTime = true) {
       add(subtypeCode) // subtype
       switch(e.subtype) {
         case "text":
-          addText((e as TextEvent).text)
+          addText(e.text)
           break
         case "copyrightNotice":
-          addText((e as CopyrightNoticeEvent).text)
+          addText(e.text)
           break
         case "trackName":
-          addText((e as TrackNameEvent).text)
+          addText(e.text)
           break
         case "instrumentName":
-          addText((e as InstrumentNameEvent).text)
+          addText(e.text)
           break
         case "lyrics":
-          addText((e as LyricsEvent).text)
+          addText(e.text)
           break
         case "cuePoint":
-          addText((e as CuePointEvent).text)
+          addText(e.text)
           break
         case "midiChannelPrefix":
-          addNumbers([(e as ChannelPrefixEvent).channel])
+          addNumbers([e.channel])
           break
         case "portPrefix":
-          addNumbers([(e as PortPrefixEvent).port])
+          addNumbers([e.port])
           break
         case "endOfTrack":
           add(0)
           break
         case "setTempo": {
-          const t = (e as SetTempoEvent).microsecondsPerBeat
+          const t = e.microsecondsPerBeat
           addNumbers([
             (t >> 16) & 0xff,
             (t >> 8) & 0xff,
@@ -106,28 +80,26 @@ export default function serialize(event: Event, includeDeltaTime = true) {
           break
         }
         case "timeSignature": {
-          const ev = e as TimeSignatureEvent
           addNumbers([
-            ev.numerator,
-            Math.log2(ev.denominator),
-            ev.metronome,
-            ev.thirtyseconds
+            e.numerator,
+            Math.log2(e.denominator),
+            e.metronome,
+            e.thirtyseconds
           ])
           break
         }
         case "keySignature": {
-          const ev = e as KeySignatureEvent
           addNumbers([
-            ev.key,
-            ev.scale
+            e.key,
+            e.scale
           ])
           break
         }
         case "sequencerSpecific":
-          addNumbers((e as SequencerSpecificEvent).data)
+          addNumbers(e.data)
           break
         case "unknown":
-          addNumbers((e as UnknownMetaEvent).data)
+          addNumbers(e.data)
           break
         default:
           break
@@ -136,14 +108,13 @@ export default function serialize(event: Event, includeDeltaTime = true) {
     }
     case "sysEx":
       add(0xf0)
-      addNumbers((event as SysExEvent).data)
+      addNumbers(e.data)
       break
     case "dividedSysEx":
       add(0xf7)
-      addNumbers((event as DividedSysExEvent).data)
+      addNumbers(e.data)
       break
     case "channel": {
-      const e = event as ChannelEvent
       const subtypeCode = MIDIChannelEvents[e.subtype]
       if (subtypeCode === undefined) {
         return []
@@ -151,43 +122,38 @@ export default function serialize(event: Event, includeDeltaTime = true) {
       add((subtypeCode << 4) + e.channel) // subtype + channel
       switch(e.subtype) {
         case "noteOff": {
-          const ev = e as NoteOffEvent
-          add(ev.noteNumber)
-          add(ev.velocity)
+          add(e.noteNumber)
+          add(e.velocity)
           break
         }
         case "noteOn": {
-          const ev = e as NoteOnEvent
-          add(ev.noteNumber)
-          add(ev.velocity)
+          add(e.noteNumber)
+          add(e.velocity)
           break
         }
         case "noteAftertouch": {
-          const ev = e as NoteAftertouchEvent
-          add(ev.noteNumber)
-          add(ev.amount)
+          add(e.noteNumber)
+          add(e.amount)
           break
         }
         case "controller": {
-          const ev = e as ControllerEvent
-          add(ev.controllerType)
-          add(ev.value)
+          add(e.controllerType)
+          add(e.value)
           break
         }
         case "programChange":
-          add((e as ProgramChangeEvent).value)
+          add(e.value)
           break
         case "channelAftertouch":
-          add((e as ChannelAftertouchEvent).amount)
+          add(e.amount)
           break
         case "pitchBend": {
-          const ev = e as PitchBendEvent
-          add(ev.value & 0x7f)
-          add((ev.value >> 7) & 0x7f)
+          add(e.value & 0x7f)
+          add((e.value >> 7) & 0x7f)
           break
         }
         case "unknown":
-          add((e as UnknownChannelEvent).data)
+          add(e.data)
           break
         default:
           break

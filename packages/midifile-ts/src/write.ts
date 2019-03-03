@@ -1,11 +1,11 @@
 import _ from "lodash"
-import { Event } from "./event"
+import { AnyEvent } from "./event"
 import Buffer from "./buffer"
 import serialize from "./serialize"
 
 //https://sites.google.com/site/yyagisite/material/smfspec#format
 
-export default function write(tracks: Event[][], ticksPerBeat = 480) {
+export default function write(tracks: AnyEvent[][], ticksPerBeat = 480) {
   const buf = new Buffer()
 
   // header chunk

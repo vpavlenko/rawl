@@ -1,6 +1,5 @@
 
 import {
-  Event, 
   SequenceNumberEvent,
   TextEvent, 
   CopyrightNoticeEvent, 
@@ -27,10 +26,11 @@ import {
   ProgramChangeEvent,
   ChannelAftertouchEvent,
   PitchBendEvent,
-  UnknownChannelEvent
+  UnknownChannelEvent,
+  AnyEvent
 } from "./event"
 
-export default function deserialize(stream, lastEventTypeByte: number, setLastEventTypeByte: (number) => void): Event {
+export default function deserialize(stream, lastEventTypeByte: number, setLastEventTypeByte: (eventType: number) => void): AnyEvent {
   const deltaTime = stream.readVarInt()
   let eventTypeByte = stream.readInt8()
   if ((eventTypeByte & 0xf0) === 0xf0) {

@@ -26,7 +26,7 @@ import { ISize } from "common/geometry";
 import Track, { TrackEvent } from "common/track"
 import Theme from "common/theme/Theme";
 import { Beat } from "common/measure";
-import { SetTempoEvent } from "midifile-ts/dist";
+import { SetTempoEvent } from "@signal-app/midifile-ts";
 import StageItem from "main/components/Stage/Item"
 
 type DisplayEvent = TrackEvent & SetTempoEvent

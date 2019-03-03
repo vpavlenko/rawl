@@ -2,7 +2,7 @@ import _ from "lodash"
 import EventEmitter from "eventemitter3"
 import assert from "assert"
 
-import { serialize as serializeMidiEvent, MIDIControlEvents, MIDIChannelEvents, AnyEvent } from "midifile-ts"
+import { serialize as serializeMidiEvent, MIDIControlEvents, MIDIChannelEvents, AnyEvent } from "@signal-app/midifile-ts"
 import { toRawEvents } from "helpers/eventAssembler"
 
 import EventScheduler from "./EventScheduler"

@@ -1,4 +1,4 @@
-import { read as readMidi } from "midifile-ts"
+import { read as readMidi } from "@signal-app/midifile-ts"
 import { addTick } from "helpers/midiHelper"
 import { toTrackEvents } from "helpers/eventAssembler"
 

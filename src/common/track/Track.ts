@@ -1,7 +1,7 @@
 import { observable, action, transaction, computed } from "mobx"
 import { list, map, primitive, serializable } from "serializr"
 import _ from "lodash"
-import { TrackNameEvent, SetTempoEvent, EndOfTrackEvent, ProgramChangeEvent, ControllerEvent, AnyEvent } from "midifile-ts"
+import { TrackNameEvent, SetTempoEvent, EndOfTrackEvent, ProgramChangeEvent, ControllerEvent, AnyEvent } from "@signal-app/midifile-ts"
 
 import { getInstrumentName } from "midi/GM"
 

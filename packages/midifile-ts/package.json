@@ -1,9 +1,9 @@
 {
-  "name": "midifile-ts",
+  "name": "@signal-app/midifile-ts",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
   "scripts": {
     "start": "run-p watch:**",
     "build": "rollup --config",

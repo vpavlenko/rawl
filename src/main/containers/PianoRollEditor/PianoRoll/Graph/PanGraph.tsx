@@ -3,7 +3,7 @@ import { pure, Omit } from "recompose"
 import LineGraphControl, { LineGraphControlProps, LineGraphControlEvent } from "./LineGraphControl"
 import { Dispatcher } from "main/createDispatcher";
 import { CREATE_PAN } from "main/actions";
-import { ControllerEvent } from "midifile-ts"
+import { ControllerEvent } from "@signal-app/midifile-ts"
 import { TrackEvent } from "common/track"
 
 export type PanGraphProps = Omit<LineGraphControlProps, 

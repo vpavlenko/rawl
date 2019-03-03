@@ -42,7 +42,7 @@ module.exports = {
     ]
   },
   resolve: {
-    modules: ["src", "node_modules", "packages", "src/main", "src/common"],
+    modules: ["src", "node_modules", "src/main", "src/common"],
     extensions: [
       ".js", ".jsx", ".ts", ".tsx"
     ],

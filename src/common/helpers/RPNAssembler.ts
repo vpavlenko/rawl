@@ -1,6 +1,5 @@
 import { controlChangeEvents } from "midi/MidiEvent"
-import { ControllerEvent, AnyEvent, Event } from "midifile-ts"
-import { TrackEvent } from "common/track"
+import { ControllerEvent, AnyEvent, Event } from "@signal-app/midifile-ts"
 
 export interface RPNEvent {
   channel: number

@@ -1,8 +1,7 @@
 import _ from "lodash"
-import { NoteOnEvent, NoteOffEvent } from "midifile-ts"
+import { NoteOnEvent, NoteOffEvent } from "@signal-app/midifile-ts"
 import { TrackEvent, NoteEvent } from "common/track"
 import { noteOnMidiEvent, noteOffMidiEvent } from "common/midi/MidiEvent";
-import { AnyEvent } from "midifile-ts/src";
 
 /**
 

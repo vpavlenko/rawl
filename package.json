@@ -26,8 +26,10 @@
   "bugs": {
     "url": "https://github.com/ryohey/signal/issues"
   },
-  "homepage": "./",
+  "homepage": "https://github.com/ryohey/signal/",
   "dependencies": {
+    "@signal-app/message-sequencer": "file:packages/message-sequencer",
+    "@signal-app/midifile-ts": "file:packages/midifile-ts",
     "color": "^3.0.0",
     "eventemitter3": "^3.1.0",
     "file-dialog": "0.0.7",

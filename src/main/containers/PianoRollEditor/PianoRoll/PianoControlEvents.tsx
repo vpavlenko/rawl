@@ -2,7 +2,7 @@ import React, { StatelessComponent } from "react"
 import { controllerTypeString as CCNames } from "helpers/noteNumberString"
 import { TrackEvent } from "common/track"
 import "./PianoControlEvents.css"
-import { ControllerEvent, ProgramChangeEvent } from "midifile-ts";
+import { ControllerEvent, ProgramChangeEvent } from "@signal-app/midifile-ts";
 
 type DisplayEvent = TrackEvent & (ControllerEvent | ProgramChangeEvent)
 

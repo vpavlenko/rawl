@@ -1,6 +1,6 @@
 import Measure from "./Measure"
 import Track from "common/track"
-import { TimeSignatureEvent } from "midifile-ts"
+import { TimeSignatureEvent } from "@signal-app/midifile-ts"
 
 export interface Beat {
   measure: number

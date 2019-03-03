@@ -1,5 +1,5 @@
 import _ from "lodash"
-import { write as writeMidiFile } from "midifile-ts"
+import { write as writeMidiFile } from "@signal-app/midifile-ts"
 import { addDeltaTime } from "helpers/midiHelper"
 import { toRawEvents } from "helpers/eventAssembler"
 import Track from "common/track"

@@ -1,5 +1,5 @@
-import { ControllerEvent, Event, MetaEvent, ChannelEvent, EndOfTrackEvent, PortPrefixEvent, TrackNameEvent, TimeSignatureEvent, ProgramChangeEvent, NoteOffEvent } from "midifile-ts"
-import { SetTempoEvent, PitchBendEvent, NoteOnEvent } from "midifile-ts/src";
+import { ControllerEvent, Event, MetaEvent, ChannelEvent, EndOfTrackEvent, PortPrefixEvent, TrackNameEvent, TimeSignatureEvent, ProgramChangeEvent, NoteOffEvent,
+SetTempoEvent, PitchBendEvent, NoteOnEvent } from "@signal-app/midifile-ts";
 
 /* factory */
 

@@ -7,7 +7,11 @@ import { IRect } from "common/geometry"
 
 const LINE_WIDTH = 2
 
-function drawSelection(ctx: CanvasRenderingContext2D, { x, y, width, height }: IRect, color: string) {
+function drawSelection(
+  ctx: CanvasRenderingContext2D,
+  { x, y, width, height }: IRect,
+  color: string
+) {
   ctx.beginPath()
   ctx.strokeStyle = color
   ctx.lineWidth = LINE_WIDTH
@@ -15,7 +19,8 @@ function drawSelection(ctx: CanvasRenderingContext2D, { x, y, width, height }: I
     x + LINE_WIDTH / 2,
     y + LINE_WIDTH / 2,
     width - LINE_WIDTH,
-    height - LINE_WIDTH)
+    height - LINE_WIDTH
+  )
   ctx.stroke()
 }
 
@@ -45,12 +50,14 @@ const PianoSelection: StatelessComponent<PianoSelectionProps> = ({
     ctx.restore()
   }
 
-  return <DrawCanvas
-    draw={draw}
-    className="PianoSelection"
-    width={width}
-    height={height}
-  />
+  return (
+    <DrawCanvas
+      draw={draw}
+      className="PianoSelection"
+      width={width}
+      height={height}
+    />
+  )
 }
 
 PianoSelection.defaultProps = {
@@ -58,11 +65,13 @@ PianoSelection.defaultProps = {
 }
 
 function test(props: PianoSelectionProps, nextProps: PianoSelectionProps) {
-  return props.color !== nextProps.color
-    || !_.isEqual(props.selectionBounds, nextProps.selectionBounds)
-    || props.width !== nextProps.width
-    || props.height !== nextProps.height
-    || props.scrollLeft !== nextProps.scrollLeft
+  return (
+    props.color !== nextProps.color ||
+    !_.isEqual(props.selectionBounds, nextProps.selectionBounds) ||
+    props.width !== nextProps.width ||
+    props.height !== nextProps.height ||
+    props.scrollLeft !== nextProps.scrollLeft
+  )
 }
 
 export default shouldUpdate(test)(PianoSelection)

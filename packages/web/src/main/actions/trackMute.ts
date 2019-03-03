@@ -2,7 +2,6 @@ export const TOGGLE_MUTE_TRACK = Symbol()
 export const TOGGLE_SOLO_TRACK = Symbol()
 
 export default ({ trackMute, song: { tracks }, services: { player } }) => {
-
   return {
     [TOGGLE_MUTE_TRACK]: ({ trackId }) => {
       if (trackMute.isMuted(trackId)) {

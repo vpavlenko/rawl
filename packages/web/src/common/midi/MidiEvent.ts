@@ -1,9 +1,23 @@
-import { ControllerEvent, Event, MetaEvent, ChannelEvent, EndOfTrackEvent, PortPrefixEvent, TrackNameEvent, TimeSignatureEvent, ProgramChangeEvent, NoteOffEvent,
-SetTempoEvent, PitchBendEvent, NoteOnEvent } from "@signal-app/midifile-ts";
+import {
+  ControllerEvent,
+  Event,
+  EndOfTrackEvent,
+  PortPrefixEvent,
+  TrackNameEvent,
+  TimeSignatureEvent,
+  ProgramChangeEvent,
+  NoteOffEvent,
+  SetTempoEvent,
+  PitchBendEvent,
+  NoteOnEvent
+} from "@signal-app/midifile-ts"
 
 /* factory */
 
-export function midiEvent<T extends string>(deltaTime: number, type: T): Event<T> {
+export function midiEvent<T extends string>(
+  deltaTime: number,
+  type: T
+): Event<T> {
   return {
     deltaTime,
     type
@@ -14,11 +28,14 @@ export function endOfTrackMidiEvent(deltaTime: number): EndOfTrackEvent {
   return {
     deltaTime,
     type: "meta",
-    subtype: "endOfTrack",
+    subtype: "endOfTrack"
   }
 }
 
-export function portPrefixMidiEvent(deltaTime: number, port: number): PortPrefixEvent {
+export function portPrefixMidiEvent(
+  deltaTime: number,
+  port: number
+): PortPrefixEvent {
   return {
     deltaTime,
     type: "meta",
@@ -27,7 +44,10 @@ export function portPrefixMidiEvent(deltaTime: number, port: number): PortPrefix
   }
 }
 
-export function trackNameMidiEvent(deltaTime: number, text: string): TrackNameEvent {
+export function trackNameMidiEvent(
+  deltaTime: number,
+  text: string
+): TrackNameEvent {
   return {
     deltaTime,
     type: "meta",
@@ -37,7 +57,10 @@ export function trackNameMidiEvent(deltaTime: number, text: string): TrackNameEv
 }
 
 // from bpm: SetTempoMidiEvent(t, 60000000 / bpm)
-export function setTempoMidiEvent(deltaTime: number, value: number): SetTempoEvent {
+export function setTempoMidiEvent(
+  deltaTime: number,
+  value: number
+): SetTempoEvent {
   return {
     deltaTime,
     type: "meta",
@@ -46,7 +69,13 @@ export function setTempoMidiEvent(deltaTime: number, value: number): SetTempoEve
   }
 }
 
-export function timeSignatureMidiEvent(deltaTime: number, numerator = 4, denominator = 4, metronome = 24, thirtyseconds = 8): TimeSignatureEvent {
+export function timeSignatureMidiEvent(
+  deltaTime: number,
+  numerator = 4,
+  denominator = 4,
+  metronome = 24,
+  thirtyseconds = 8
+): TimeSignatureEvent {
   return {
     deltaTime,
     type: "meta",
@@ -60,7 +89,12 @@ export function timeSignatureMidiEvent(deltaTime: number, numerator = 4, denomin
 
 // channel events
 
-export function noteOnMidiEvent(deltaTime: number, channel: number, noteNumber: number, velocity: number): NoteOnEvent {
+export function noteOnMidiEvent(
+  deltaTime: number,
+  channel: number,
+  noteNumber: number,
+  velocity: number
+): NoteOnEvent {
   return {
     deltaTime,
     type: "channel",
@@ -71,7 +105,12 @@ export function noteOnMidiEvent(deltaTime: number, channel: number, noteNumber: 
   }
 }
 
-export function noteOffMidiEvent(deltaTime: number, channel: number, noteNumber: number, velocity: number = 0): NoteOffEvent {
+export function noteOffMidiEvent(
+  deltaTime: number,
+  channel: number,
+  noteNumber: number,
+  velocity: number = 0
+): NoteOffEvent {
   return {
     deltaTime,
     type: "channel",
@@ -82,7 +121,11 @@ export function noteOffMidiEvent(deltaTime: number, channel: number, noteNumber:
   }
 }
 
-export function pitchBendMidiEvent(deltaTime: number, channel: number, value: number): PitchBendEvent {
+export function pitchBendMidiEvent(
+  deltaTime: number,
+  channel: number,
+  value: number
+): PitchBendEvent {
   return {
     deltaTime,
     type: "channel",
@@ -92,7 +135,11 @@ export function pitchBendMidiEvent(deltaTime: number, channel: number, value: nu
   }
 }
 
-export function programChangeMidiEvent(deltaTime: number, channel: number, value: number): ProgramChangeEvent {
+export function programChangeMidiEvent(
+  deltaTime: number,
+  channel: number,
+  value: number
+): ProgramChangeEvent {
   return {
     deltaTime,
     type: "channel",
@@ -104,7 +151,12 @@ export function programChangeMidiEvent(deltaTime: number, channel: number, value
 
 // controller events
 
-export function controllerMidiEvent(deltaTime: number, channel: number, controllerType: number, value: number): ControllerEvent {
+export function controllerMidiEvent(
+  deltaTime: number,
+  channel: number,
+  controllerType: number,
+  value: number
+): ControllerEvent {
   return {
     deltaTime,
     type: "channel",
@@ -115,19 +167,35 @@ export function controllerMidiEvent(deltaTime: number, channel: number, controll
   }
 }
 
-export function modulationMidiEvent(deltaTime: number, channel: number, value: number) {
+export function modulationMidiEvent(
+  deltaTime: number,
+  channel: number,
+  value: number
+) {
   return controllerMidiEvent(deltaTime, channel, 0x01, value)
 }
 
-export function volumeMidiEvent(deltaTime: number, channel: number, value: number) {
+export function volumeMidiEvent(
+  deltaTime: number,
+  channel: number,
+  value: number
+) {
   return controllerMidiEvent(deltaTime, channel, 0x07, value)
 }
 
-export function panMidiEvent(deltaTime: number, channel: number, value: number) {
+export function panMidiEvent(
+  deltaTime: number,
+  channel: number,
+  value: number
+) {
   return controllerMidiEvent(deltaTime, channel, 0x0a, value)
 }
 
-export function expressionMidiEvent(deltaTime: number, channel: number, value: number) {
+export function expressionMidiEvent(
+  deltaTime: number,
+  channel: number,
+  value: number
+) {
   return controllerMidiEvent(deltaTime, channel, 0x0b, value)
 }
 
@@ -137,7 +205,14 @@ export function resetAllMidiEvent(deltaTime: number, channel: number) {
 
 // Control Change
 
-export function controlChangeEvents(deltaTime: number, channel: number, rpnMsb: number, rpnLsb: number, dataMsb?: number, dataLsb?: number): ControllerEvent[] {
+export function controlChangeEvents(
+  deltaTime: number,
+  channel: number,
+  rpnMsb: number,
+  rpnLsb: number,
+  dataMsb?: number,
+  dataLsb?: number
+): ControllerEvent[] {
   const rpn = [
     controllerMidiEvent(deltaTime, channel, 101, rpnMsb),
     controllerMidiEvent(0, channel, 100, rpnLsb)
@@ -155,12 +230,20 @@ export function controlChangeEvents(deltaTime: number, channel: number, rpnMsb: 
 }
 
 // value: 0 - 24 (半音)
-export function pitchbendSensitivityEvents(deltaTime: number, channel: number, value = 2) {
+export function pitchbendSensitivityEvents(
+  deltaTime: number,
+  channel: number,
+  value = 2
+) {
   return controlChangeEvents(deltaTime, channel, 0, 0, value)
 }
 
 // value: -8192 - 8191
-export function masterFineTuningEvents(deltaTime: number, channel: number, value = 0) {
+export function masterFineTuningEvents(
+  deltaTime: number,
+  channel: number,
+  value = 0
+) {
   const s = value + 0x2000
   const m = Math.floor(s / 0x80)
   const l = s - m * 0x80
@@ -168,6 +251,10 @@ export function masterFineTuningEvents(deltaTime: number, channel: number, value
 }
 
 // value: -24 - 24
-export function masterCoarceTuningEvents(deltaTime: number, channel: number, value = 0) {
+export function masterCoarceTuningEvents(
+  deltaTime: number,
+  channel: number,
+  value = 0
+) {
   return controlChangeEvents(deltaTime, channel, 0, 2, value + 64)
 }

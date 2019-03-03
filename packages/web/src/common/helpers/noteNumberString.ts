@@ -1,7 +1,18 @@
 import { MIDIControlEventNames } from "@signal-app/midifile-ts"
 
 const NOTE_NAMES = [
-  "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"
+  "C",
+  "C#",
+  "D",
+  "D#",
+  "E",
+  "F",
+  "F#",
+  "G",
+  "G#",
+  "A",
+  "A#",
+  "B"
 ]
 
 function noteNameWithOctString(noteNumber: number): string {
@@ -18,8 +29,4 @@ function controllerTypeString(controllerType: number): string {
   return MIDIControlEventNames[controllerType]
 }
 
-export {
-  noteNameWithOctString,
-  noteNumberString,
-  controllerTypeString
-}
+export { noteNameWithOctString, noteNumberString, controllerTypeString }

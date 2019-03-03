@@ -5,7 +5,7 @@ import Icon from "components/Icon"
 import { pointSub, IPoint, ISize } from "common/geometry"
 
 import "./ScrollBar.css"
-import { Omit } from "recompose";
+import { Omit } from "recompose"
 
 export const BAR_WIDTH = 17
 const BUTTON_SIZE = 15
@@ -53,7 +53,8 @@ export const ScrollBar: StatelessComponent<ScrollBarProps> = ({
     pageForwardLength = 0
     pageBackwardLength = maxLength
   } else {
-    pageForwardLength = (maxLength - thumbLength) * normalize(scrollOffset / maxOffset)
+    pageForwardLength =
+      (maxLength - thumbLength) * normalize(scrollOffset / maxOffset)
     pageBackwardLength = maxLength - thumbLength - pageForwardLength
   }
 
@@ -92,17 +93,18 @@ export const ScrollBar: StatelessComponent<ScrollBarProps> = ({
 
       document.addEventListener("mousemove", onGlobalMouseMove)
       document.addEventListener("mouseup", onGlobalMouseUp)
-
     } else {
       const currentTarget = e.target
       const delta = scrollAmountOfElement(className, SCROLL_BASE_AMOUNT)
 
       let intervalId = 0
       let scroll = scrollOffset
-      onScroll2(scroll += delta)
+      onScroll2((scroll += delta))
 
       const isHoverOnTarget = () => {
-        return document.elementFromPoint(startPos.x, startPos.y) === currentTarget
+        return (
+          document.elementFromPoint(startPos.x, startPos.y) === currentTarget
+        )
       }
 
       const startLongPressTimer = delta => {
@@ -114,16 +116,15 @@ export const ScrollBar: StatelessComponent<ScrollBarProps> = ({
             return
           }
 
-          onScroll2(scroll += delta)
+          onScroll2((scroll += delta))
 
           // 二回目からは素早く繰り返す
           intervalId = window.setInterval(() => {
-            onScroll2(scroll += delta * LONG_PRESS_SPEED)
+            onScroll2((scroll += delta * LONG_PRESS_SPEED))
 
             if (!isHoverOnTarget()) {
               stopLongPressTimer()
             }
-
           }, LONG_PRESS_INTERVAL)
         }, LONG_PRESS_DELAY)
       }
@@ -154,26 +155,46 @@ export const ScrollBar: StatelessComponent<ScrollBarProps> = ({
 
   const triangle = <Icon>triangle</Icon>
 
-  return <div
-    style={style}
-    className={`ScrollBar ${className}`}
-    onMouseDown={onMouseDown}>
-    <div className="button-backward" style={{ [lengthProp]: buttonLength }}>{triangle}</div>
-    <div className="page-backward" style={{ [lengthProp]: pageForwardLength }} />
-    {!disabled && <div className="thumb" style={{ [lengthProp]: thumbLength }} />}
-    <div className="page-forward" style={{ [lengthProp]: pageBackwardLength }} />
-    <div className="button-forward" style={{ [lengthProp]: buttonLength }}>{triangle}</div>
-    {children}
-  </div>
+  return (
+    <div
+      style={style}
+      className={`ScrollBar ${className}`}
+      onMouseDown={onMouseDown}
+    >
+      <div className="button-backward" style={{ [lengthProp]: buttonLength }}>
+        {triangle}
+      </div>
+      <div
+        className="page-backward"
+        style={{ [lengthProp]: pageForwardLength }}
+      />
+      {!disabled && (
+        <div className="thumb" style={{ [lengthProp]: thumbLength }} />
+      )}
+      <div
+        className="page-forward"
+        style={{ [lengthProp]: pageBackwardLength }}
+      />
+      <div className="button-forward" style={{ [lengthProp]: buttonLength }}>
+        {triangle}
+      </div>
+      {children}
+    </div>
+  )
 }
 
 function scrollAmountOfElement(className, baseValue) {
   switch (className) {
-    case "button-backward": return -baseValue
-    case "button-forward": return baseValue
-    case "page-backward": return -baseValue * 4
-    case "page-forward": return baseValue * 4
-    default: return 0
+    case "button-backward":
+      return -baseValue
+    case "button-forward":
+      return baseValue
+    case "page-backward":
+      return -baseValue * 4
+    case "page-forward":
+      return baseValue * 4
+    default:
+      return 0
   }
 }
 
@@ -184,31 +205,51 @@ function getPoint(e: MouseEvent): IPoint {
   }
 }
 
-type VerticalScrollBar_Props = Omit<ScrollBarProps, "isVertical" | "barLength"> & { size: ISize }
+type VerticalScrollBar_Props = Omit<
+  ScrollBarProps,
+  "isVertical" | "barLength"
+> & { size: ISize }
 type HorizontalScrollBar_Props = VerticalScrollBar_Props
 
 function VerticalScrollBar_(props: VerticalScrollBar_Props) {
-  return <ScrollBar isVertical={true} {...props} barLength={props.size.height} style={{
-    width: BAR_WIDTH,
-    height: "100%",
-    position: "absolute",
-    top: 0,
-    right: 0
-  }} />
+  return (
+    <ScrollBar
+      isVertical={true}
+      {...props}
+      barLength={props.size.height}
+      style={{
+        width: BAR_WIDTH,
+        height: "100%",
+        position: "absolute",
+        top: 0,
+        right: 0
+      }}
+    />
+  )
 }
 
 function HorizontalScrollBar_(props: HorizontalScrollBar_Props) {
-  return <ScrollBar isVertical={false} {...props} barLength={props.size.width} style={{
-    width: "100%",
-    height: BAR_WIDTH,
-    position: "absolute",
-    bottom: 0,
-    left: 0
-  }} />
+  return (
+    <ScrollBar
+      isVertical={false}
+      {...props}
+      barLength={props.size.width}
+      style={{
+        width: "100%",
+        height: BAR_WIDTH,
+        position: "absolute",
+        bottom: 0,
+        left: 0
+      }}
+    />
+  )
 }
 
 export type VerticalScrollBarProps = Omit<VerticalScrollBar_Props, "size">
 export type HorizontalScrollBarProps = Omit<HorizontalScrollBar_Props, "size">
 
-export const VerticalScrollBar = sizeMe({ monitorHeight: true, monitorWidth: false })(VerticalScrollBar_)
+export const VerticalScrollBar = sizeMe({
+  monitorHeight: true,
+  monitorWidth: false
+})(VerticalScrollBar_)
 export const HorizontalScrollBar = sizeMe()(HorizontalScrollBar_)

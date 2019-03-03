@@ -1,6 +1,6 @@
-import Song, { emptySong } from "common/song"
-import Track, { emptyTrack } from "common/track"
-import { read as readSong, write as writeSong } from "midi/SongFile"
+import { emptySong } from "common/song"
+import { emptyTrack } from "common/track"
+import { write as writeSong } from "midi/SongFile"
 
 export const CREATE_SONG = Symbol()
 export const SAVE_SONG = Symbol()
@@ -10,8 +10,12 @@ export const REMOVE_TRACK = Symbol()
 export const SELECT_TRACK = Symbol()
 export const SET_TEMPO = Symbol()
 
-export default (rootStore) => {
-  const { song, historyStore: history, services: { player } } = rootStore
+export default rootStore => {
+  const {
+    song,
+    historyStore: history,
+    services: { player }
+  } = rootStore
 
   const saveHistory = () => {
     rootStore.pushHistory()

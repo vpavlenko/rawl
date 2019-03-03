@@ -1,5 +1,9 @@
 import Item from "components/Stage/Item.ts"
-import { IRect, right as rectRight, bottom as rectBottom } from "common/geometry"
+import {
+  IRect,
+  right as rectRight,
+  bottom as rectBottom
+} from "common/geometry"
 
 export default class LineGraphItem implements Item {
   id: any
@@ -10,7 +14,17 @@ export default class LineGraphItem implements Item {
   fillColor: any
   lineWidth: number
 
-  constructor(id: any, x: number, startY: number, endY: number, width: number, height: number, strokeColor: any, fillColor: any, lineWidth: number) {
+  constructor(
+    id: any,
+    x: number,
+    startY: number,
+    endY: number,
+    width: number,
+    height: number,
+    strokeColor: any,
+    fillColor: any,
+    lineWidth: number
+  ) {
     this.id = id
     this.bounds = { x, y: 0, width, height }
 

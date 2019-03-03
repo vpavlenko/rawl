@@ -31,12 +31,14 @@ export default class TempoCoordTransform {
   }
 
   getDeltaBPM(pixels: number) {
-    return -pixels / this.height * this.maxBPM
+    return (-pixels / this.height) * this.maxBPM
   }
 
   equals(t: TempoCoordTransform) {
-    return this.pixelsPerTick === t.pixelsPerTick
-      && this.height === t.height
-      && this.maxBPM === t.maxBPM
+    return (
+      this.pixelsPerTick === t.pixelsPerTick &&
+      this.height === t.height &&
+      this.maxBPM === t.maxBPM
+    )
   }
 }

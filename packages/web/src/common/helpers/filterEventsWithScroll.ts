@@ -1,4 +1,9 @@
-export default function filterEventsWithScroll(events, pixelsPerTick, scrollLeft, width) {
+export default function filterEventsWithScroll(
+  events,
+  pixelsPerTick,
+  scrollLeft,
+  width
+) {
   const tickStart = scrollLeft / pixelsPerTick
   const tickEnd = (scrollLeft + width) / pixelsPerTick
   function test(tick) {

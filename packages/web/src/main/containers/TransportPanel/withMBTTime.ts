@@ -18,7 +18,10 @@ interface Props extends Outer {
 export default compose<Inner, Outer>(
   withState("mbtTime", "updateMBTTime", 0),
   withHandlers<Inner & { updateMBTTime: (number) => void }, {}>({
-    onTick: props => tick => props.updateMBTTime(props.measureList.getMBTString(tick, props.player.timebase)),
+    onTick: props => tick =>
+      props.updateMBTTime(
+        props.measureList.getMBTString(tick, props.player.timebase)
+      )
   }),
   lifecycle<Props, {}>({
     componentDidMount() {

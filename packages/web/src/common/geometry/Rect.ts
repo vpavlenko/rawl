@@ -6,8 +6,12 @@ export interface IRect extends IPoint {
 }
 
 export function containsPoint(rect: IRect, point: IPoint) {
-  return point.x >= rect.x && point.x <= rect.x + rect.width &&
-    point.y >= rect.y && point.y <= rect.y + rect.height
+  return (
+    point.x >= rect.x &&
+    point.x <= rect.x + rect.width &&
+    point.y >= rect.y &&
+    point.y <= rect.y + rect.height
+  )
 }
 
 export function right(rect: IRect) {
@@ -19,10 +23,12 @@ export function bottom(rect: IRect) {
 }
 
 export function intersects(rectA: IRect, rectB: IRect) {
-  return !(right(rectA) < rectB.x
-    || right(rectB) < rectA.x
-    || bottom(rectA) < rectB.y
-    || bottom(rectB) < rectA.y)
+  return !(
+    right(rectA) < rectB.x ||
+    right(rectB) < rectA.x ||
+    bottom(rectA) < rectB.y ||
+    bottom(rectB) < rectA.y
+  )
 }
 
 export function containsRect(rectA: IRect, rectB: IRect) {

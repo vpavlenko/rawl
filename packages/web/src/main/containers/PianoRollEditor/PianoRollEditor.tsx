@@ -13,7 +13,11 @@ import PianoRoll from "./PianoRoll/PianoRoll"
 import PianoRollToolbar from "./Toolbar/PianoRollToolbar"
 
 import "./PianoRollEditor.css"
-import { SET_TRACK_VOLUME, SET_TRACK_PAN, SET_TRACK_INSTRUMENT } from "main/actions";
+import {
+  SET_TRACK_VOLUME,
+  SET_TRACK_PAN,
+  SET_TRACK_INSTRUMENT
+} from "main/actions"
 
 interface PianoRollEditorProps {
   track: Track
@@ -30,26 +34,33 @@ const PianoRollEditor: StatelessComponent<PianoRollEditorProps> = ({
   onClickInstrument,
   onClickNavBack
 }) => {
-  return <div className="PianoRollEditor">
-    <NavigationBar title={track.displayName} onClickBack={onClickNavBack}>
-      <div className="controls">
-        <div className="button instrument" onClick={onClickInstrument}><Icon>piano</Icon>{track.instrumentName}</div>
-        <Slider
-          onChange={e => onChangeVolume(e.target.value)}
-          maxValue={127}
-          value={track.volume} />
-        <Knob
-          value={track.pan}
-          onChange={e => onChangePan(e.target.value)}
-          minValue={0}
-          maxValue={127}
-          offsetDegree={-140}
-          maxDegree={280} />
-      </div>
-    </NavigationBar>
-    <PianoRollToolbar />
-    <PianoRoll />
-  </div>
+  return (
+    <div className="PianoRollEditor">
+      <NavigationBar title={track.displayName} onClickBack={onClickNavBack}>
+        <div className="controls">
+          <div className="button instrument" onClick={onClickInstrument}>
+            <Icon>piano</Icon>
+            {track.instrumentName}
+          </div>
+          <Slider
+            onChange={e => onChangeVolume(e.target.value)}
+            maxValue={127}
+            value={track.volume}
+          />
+          <Knob
+            value={track.pan}
+            onChange={e => onChangePan(e.target.value)}
+            minValue={0}
+            maxValue={127}
+            offsetDegree={-140}
+            maxDegree={280}
+          />
+        </div>
+      </NavigationBar>
+      <PianoRollToolbar />
+      <PianoRoll />
+    </div>
+  )
 }
 
 export default compose(
@@ -58,11 +69,15 @@ export default compose(
     const trackId = song.selectedTrackId
     return {
       track,
-      onChangeVolume: value => dispatch(SET_TRACK_VOLUME, { trackId, volume: value }),
+      onChangeVolume: value =>
+        dispatch(SET_TRACK_VOLUME, { trackId, volume: value }),
       onChangePan: value => dispatch(SET_TRACK_PAN, { trackId, pan: value }),
       onClickNavBack: () => router.pushArrange(),
-      onClickInstrument: () => showInstrumentBrowser(song, trackId, (trackId, programNumber) => dispatch(SET_TRACK_INSTRUMENT, { trackId, programNumber }))
+      onClickInstrument: () =>
+        showInstrumentBrowser(song, trackId, (trackId, programNumber) =>
+          dispatch(SET_TRACK_INSTRUMENT, { trackId, programNumber })
+        )
     }
   }),
-  observer,
+  observer
 )(PianoRollEditor)

@@ -1,4 +1,4 @@
-import React, { Component, StatelessComponent } from "react"
+import React, { StatelessComponent } from "react"
 import { pure, compose, withState, Omit } from "recompose"
 import coarsify from "helpers/coarsify"
 
@@ -36,7 +36,11 @@ const Knob: StatelessComponent<KnobProps> = ({
   function handleWheel(e) {
     e.preventDefault()
     const movement = e.deltaY > 0 ? -1 : 1
-    e.target.value = coarsify(value + movement * WHEEL_SPEED * range, minValue, maxValue)
+    e.target.value = coarsify(
+      value + movement * WHEEL_SPEED * range,
+      minValue,
+      maxValue
+    )
     onChange(e)
   }
 
@@ -49,7 +53,7 @@ const Knob: StatelessComponent<KnobProps> = ({
 
     function onMouseMove(e) {
       const delta = e.clientY - startY
-      const val = value - delta * range / MAX_VALUE_MOVE_LENGTH
+      const val = value - (delta * range) / MAX_VALUE_MOVE_LENGTH
       e.target.value = coarsify(val, minValue, maxValue)
       onChange(e)
     }
@@ -61,17 +65,26 @@ const Knob: StatelessComponent<KnobProps> = ({
     }
   }
 
-  return <div
-    className={`Knob ${dragging ? "dragging" : ""}`}
-    onWheel={handleWheel}
-    onMouseDown={handleMouseDown}>
-    <div className="body">
-      <div className="mark" style={{ transform: `rotate(${value / range * maxDegree + offsetDegree}deg)` }}>
-        <div className="dot" />
+  return (
+    <div
+      className={`Knob ${dragging ? "dragging" : ""}`}
+      onWheel={handleWheel}
+      onMouseDown={handleMouseDown}
+    >
+      <div className="body">
+        <div
+          className="mark"
+          style={{
+            transform: `rotate(${(value / range) * maxDegree +
+              offsetDegree}deg)`
+          }}
+        >
+          <div className="dot" />
+        </div>
       </div>
+      <div className="value">{value}</div>
     </div>
-    <div className="value">{value}</div>
-  </div>
+  )
 }
 
 export default compose<KnobProps, Omit<KnobProps, "dragging" | "setDragging">>(

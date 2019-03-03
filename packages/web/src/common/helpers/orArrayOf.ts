@@ -1,6 +1,6 @@
 import _ from "lodash"
 
-/// serializr の schema. 値が type もしくは type の配列であることを要求する 
+/// serializr の schema. 値が type もしくは type の配列であることを要求する
 export default function orArrayOf(base) {
   return {
     serializer: value => {

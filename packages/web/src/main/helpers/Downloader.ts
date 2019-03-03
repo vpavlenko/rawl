@@ -1,5 +1,5 @@
 export default class Downloader {
-  static download(url, name = "noname"){
+  static download(url, name = "noname") {
     const a = document.createElement("a")
     a.href = url
     a.download = name

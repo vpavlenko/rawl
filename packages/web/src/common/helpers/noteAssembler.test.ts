@@ -39,21 +39,24 @@ describe("deassemble", () => {
 
 describe("assemble", () => {
   it("should assemble to an note", () => {
-    const notes = [{
-      type: "channel",
-      subtype: "noteOn",
-      noteNumber: 14,
-      tick: 93,
-      velocity: 120,
-      channel: 5
-    }, {
-      type: "channel",
-      subtype: "noteOff",
-      noteNumber: 14,
-      tick: 193,
-      velocity: 0,
-      channel: 5
-    }]
+    const notes = [
+      {
+        type: "channel",
+        subtype: "noteOn",
+        noteNumber: 14,
+        tick: 93,
+        velocity: 120,
+        channel: 5
+      },
+      {
+        type: "channel",
+        subtype: "noteOff",
+        noteNumber: 14,
+        tick: 193,
+        velocity: 0,
+        channel: 5
+      }
+    ]
     const result = assemble(notes)
     assert.equal(result.length, 1)
     assert.deepEqual(result[0], {

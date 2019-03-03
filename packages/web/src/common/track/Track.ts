@@ -1,14 +1,21 @@
 import { observable, action, transaction, computed } from "mobx"
 import { list, map, primitive, serializable } from "serializr"
 import _ from "lodash"
-import { TrackNameEvent, SetTempoEvent, EndOfTrackEvent, ProgramChangeEvent, ControllerEvent, AnyEvent } from "@signal-app/midifile-ts"
+import {
+  TrackNameEvent,
+  SetTempoEvent,
+  EndOfTrackEvent,
+  ProgramChangeEvent,
+  ControllerEvent,
+  AnyEvent
+} from "@signal-app/midifile-ts"
 
 import { getInstrumentName } from "midi/GM"
 
 import orArrayOf from "helpers/orArrayOf"
 
 export interface NoteEvent {
-  type: "channel",
+  type: "channel"
   subtype: "note"
   duration: number
 }
@@ -27,14 +34,17 @@ function lastValue(arr, prop) {
 }
 
 export default class Track {
-  @serializable @observable.shallow 
+  @serializable
+  @observable.shallow
   events: TrackEvent[] = []
-  
-  @serializable @observable 
+
+  @serializable
+  @observable
   lastEventId = 0
 
-  @serializable @observable 
-  channel: number|undefined = undefined
+  @serializable
+  @observable
+  channel: number | undefined = undefined
 
   getEventById = (id: number) => _.find(this.events, e => e.id === id)
 
@@ -144,8 +154,11 @@ export default class Track {
 
   /* helper */
 
-  findEventsWithSubtype<T extends AnyEvent>(subtype: string): (T & TrackEventRequired)[] {
-    return this.events.filter(t => (t as any).subtype === subtype) as (T & TrackEventRequired)[]
+  findEventsWithSubtype<T extends AnyEvent>(
+    subtype: string
+  ): (T & TrackEventRequired)[] {
+    return this.events.filter(t => (t as any).subtype === subtype) as (T &
+      TrackEventRequired)[]
   }
 
   private _findTrackNameEvent() {
@@ -164,9 +177,12 @@ export default class Track {
     return this.findEventsWithSubtype<SetTempoEvent>("setTempo")
   }
 
-  private _findControllerEvents(controllerType: number): (TrackEventRequired & ControllerEvent)[] {
-    return this.findEventsWithSubtype<ControllerEvent>("controller")
-      .filter(t => t.controllerType === controllerType)
+  private _findControllerEvents(
+    controllerType: number
+  ): (TrackEventRequired & ControllerEvent)[] {
+    return this.findEventsWithSubtype<ControllerEvent>("controller").filter(
+      t => t.controllerType === controllerType
+    )
   }
 
   private _findVolumeEvents() {
@@ -184,10 +200,12 @@ export default class Track {
   }
 
   createOrUpdate(newEvent: Partial<TrackEvent>) {
-    const events = this.events.filter(e =>
-      e.type === newEvent.type &&
-      e.tick === newEvent.tick && 
-      (e as any).subtype === (newEvent as any).subtype)
+    const events = this.events.filter(
+      e =>
+        e.type === newEvent.type &&
+        e.tick === newEvent.tick &&
+        (e as any).subtype === (newEvent as any).subtype
+    )
 
     if (events.length > 0) {
       this.transaction(it => {
@@ -197,7 +215,7 @@ export default class Track {
       })
       return events[0]
     } else {
-      return this.addEvent((newEvent as any))
+      return this.addEvent(newEvent as any)
     }
   }
 
@@ -261,7 +279,9 @@ export default class Track {
   }
 
   get tempo(): number {
-    return 60000000 / lastValue(this._findSetTempoEvents(), "microsecondsPerBeat")
+    return (
+      60000000 / lastValue(this._findSetTempoEvents(), "microsecondsPerBeat")
+    )
   }
 
   set tempo(bpm: number) {

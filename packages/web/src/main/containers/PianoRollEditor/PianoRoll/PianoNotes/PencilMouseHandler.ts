@@ -2,7 +2,13 @@ import NoteMouseHandler from "./NoteMouseHandler"
 import { pointSub, pointAdd } from "common/geometry"
 import pencilImage from "images/iconmonstr-pencil-14-16.png"
 import { NoteCoordTransform } from "common/transform"
-import { CREATE_NOTE, MOVE_NOTE, REMOVE_EVENT, RESIZE_NOTE_LEFT, RESIZE_NOTE_RIGHT } from "main/actions";
+import {
+  CREATE_NOTE,
+  MOVE_NOTE,
+  REMOVE_EVENT,
+  RESIZE_NOTE_LEFT,
+  RESIZE_NOTE_RIGHT
+} from "main/actions"
 
 export default class PencilMouseHandler extends NoteMouseHandler {
   transform: NoteCoordTransform
@@ -24,10 +30,14 @@ export default class PencilMouseHandler extends NoteMouseHandler {
         return removeNoteAction(dispatch)
       } else {
         switch (getPositionType(e)) {
-          case "center": return moveNoteAction(dispatch, transform, e.ctrlKey)
-          case "left": return dragLeftNoteAction(dispatch)
-          case "right": return dragRightNoteAction(dispatch)
-          default: throw Error()
+          case "center":
+            return moveNoteAction(dispatch, transform, e.ctrlKey)
+          case "left":
+            return dragLeftNoteAction(dispatch)
+          case "right":
+            return dragRightNoteAction(dispatch)
+          default:
+            throw Error()
         }
       }
     } else {
@@ -60,11 +70,14 @@ export const createNoteAction = dispatch => (onMouseDown, onMouseMove) => {
   })
 }
 
-const removeNoteAction = dispatch => (onMouseDown) => {
+const removeNoteAction = dispatch => onMouseDown => {
   onMouseDown(e => dispatch(REMOVE_EVENT, { eventId: e.item.id }))
 }
 
-const moveNoteAction = (dispatch, transform, isCopy) => (onMouseDown, onMouseMove) => {
+const moveNoteAction = (dispatch, transform, isCopy) => (
+  onMouseDown,
+  onMouseMove
+) => {
   let startPosition
   let notePosition
   let noteId
@@ -121,7 +134,8 @@ function cursorForPositionType(type) {
     case "left":
     case "right":
       return "w-resize"
-    default: return "move"
+    default:
+      return "move"
   }
 }
 
@@ -131,7 +145,11 @@ function getPositionType({ local, item }) {
   }
   const localX = local.x - item.bounds.x
   const edgeSize = Math.min(item.bounds.width / 3, 8)
-  if (localX <= edgeSize) { return "left" }
-  if (item.bounds.width - localX <= edgeSize) { return "right" }
+  if (localX <= edgeSize) {
+    return "left"
+  }
+  if (item.bounds.width - localX <= edgeSize) {
+    return "right"
+  }
   return "center"
 }

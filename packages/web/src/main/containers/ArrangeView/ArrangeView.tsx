@@ -22,41 +22,41 @@ import ArrangeToolbar from "./ArrangeToolbar"
 import ArrangeNoteItem from "./ArrangeNoteItem"
 
 import Player from "common/player/Player"
-import quantizer from "main/actions/quantizer"
-import { 
-  ARRANGE_START_SELECTION, 
-  ARRANGE_END_SELECTION, 
-  ARRANGE_RESIZE_SELECTION, 
-  ARRANGE_MOVE_SELECTION, 
+
+import {
+  ARRANGE_START_SELECTION,
+  ARRANGE_END_SELECTION,
+  ARRANGE_RESIZE_SELECTION,
+  ARRANGE_MOVE_SELECTION,
   ARRANGE_OPEN_CONTEXT_MENU,
-  SET_PLAYER_POSITION 
+  SET_PLAYER_POSITION
 } from "main/actions"
 
 import "./ArrangeView.css"
 
 function NavItem({ title, onClick }) {
-  return <div className="NavItem" onClick={onClick}>{title}</div>
+  return (
+    <div className="NavItem" onClick={onClick}>
+      {title}
+    </div>
+  )
 }
 
-function ArrangeTrack({
-  events,
-  transform,
-  width,
-  isDrumMode,
-  scrollLeft
-}) {
+function ArrangeTrack({ events, transform, width, isDrumMode, scrollLeft }) {
   const t = transform
   const items = events
     .filter(e => e.subtype === "note")
     .map(e => new ArrangeNoteItem(e.id, t.getRect(e), isDrumMode))
 
-  return <Stage
-    className="ArrangeTrack"
-    items={items}
-    width={width}
-    height={Math.ceil(t.pixelsPerKey * t.numberOfKeys)}
-    scrollLeft={scrollLeft}
-  />
+  return (
+    <Stage
+      className="ArrangeTrack"
+      items={items}
+      width={width}
+      height={Math.ceil(t.pixelsPerKey * t.numberOfKeys)}
+      scrollLeft={scrollLeft}
+    />
+  )
 }
 
 function ArrangeView({
@@ -98,7 +98,9 @@ function ArrangeView({
   const mappedBeats = mapBeats(beats, pixelsPerTick, startTick, widthTick)
 
   const bottomBorderWidth = 1
-  const trackHeight = Math.ceil(transform.pixelsPerKey * transform.numberOfKeys) + bottomBorderWidth
+  const trackHeight =
+    Math.ceil(transform.pixelsPerKey * transform.numberOfKeys) +
+    bottomBorderWidth
   const contentHeight = trackHeight * tracks.length
 
   const selectionRect = selection && {
@@ -110,17 +112,22 @@ function ArrangeView({
 
   function setScrollLeft(scroll) {
     const maxOffset = Math.max(0, contentWidth - containerWidth)
-    onScrollLeft({ scroll: Math.floor(Math.min(maxOffset, Math.max(0, scroll))) })
+    onScrollLeft({
+      scroll: Math.floor(Math.min(maxOffset, Math.max(0, scroll)))
+    })
   }
 
   function setScrollTop(scroll) {
     const maxOffset = Math.max(0, contentHeight - containerHeight)
-    onScrollTop({ scroll: Math.floor(Math.min(maxOffset, Math.max(0, scroll))) })
+    onScrollTop({
+      scroll: Math.floor(Math.min(maxOffset, Math.max(0, scroll)))
+    })
   }
 
   function handleLeftClick(e, createPoint) {
     const startPos = createPoint(e.nativeEvent)
-    const isSelectionSelected = selection != null && selection.containsPoint(startPos)
+    const isSelectionSelected =
+      selection != null && selection.containsPoint(startPos)
 
     const createSelectionHandler = (e, mouseMove, mouseUp) => {
       startSelection(startPos)
@@ -139,7 +146,7 @@ function ArrangeView({
         const pos = pointAdd(startSelection, delta)
         moveSelection(pos)
       })
-      mouseUp(e => { })
+      mouseUp(e => {})
     }
 
     let handler
@@ -151,7 +158,7 @@ function ArrangeView({
     }
 
     let mouseMove, mouseUp
-    handler(e, fn => mouseMove = fn, fn => mouseUp = fn)
+    handler(e, fn => (mouseMove = fn), fn => (mouseUp = fn))
 
     function onMouseMove(e) {
       mouseMove(e)
@@ -191,7 +198,8 @@ function ArrangeView({
 
   function handleRightClick(e, createPoint) {
     const startPos = createPoint(e.nativeEvent)
-    const isSelectionSelected = selection != null && selection.containsPoint(startPos)
+    const isSelectionSelected =
+      selection != null && selection.containsPoint(startPos)
     openContextMenu(e.pageX, e.pageY, isSelectionSelected)
   }
 
@@ -227,91 +235,103 @@ function ArrangeView({
     setScrollTop(scrollTop + delta)
   }
 
-  return <div
-    className="ArrangeView"
-  >
-    <NavigationBar>
-      <ArrangeToolbar />
-      <div className="menu">
-        <NavItem title="settings" onClick={pushSettings} />
-      </div>
-    </NavigationBar>
-    <div className="alpha">
-      <div
-        className="right"
-        onMouseDown={onMouseDown}
-        onContextMenu={e => e.preventDefault()}
-        onWheel={onWheel}>
-        <PianoRuler
-          width={containerWidth}
-          theme={theme}
-          height={theme.rulerHeight}
-          beats={mappedBeats}
-          scrollLeft={scrollLeft}
-          pixelsPerTick={pixelsPerTick}
-          onMouseDown={({ tick }) => setPlayerPosition(tick)}
-          loop={loop}
-        />
+  return (
+    <div className="ArrangeView">
+      <NavigationBar>
+        <ArrangeToolbar />
+        <div className="menu">
+          <NavItem title="settings" onClick={pushSettings} />
+        </div>
+      </NavigationBar>
+      <div className="alpha">
         <div
-          className="content"
-          style={{ top: -scrollTop }}>
-          <div className="tracks">
-            {tracks.map((t, i) =>
-              <ArrangeTrack
-                width={containerWidth}
-                events={filterEventsWithScroll(t.events, pixelsPerTick, scrollLeft, containerWidth)}
-                transform={transform}
-                key={i}
-                scrollLeft={scrollLeft}
-                isDrumMode={t.isRhythmTrack}
-              />
-            )}
-          </div>
-          <PianoGrid
+          className="right"
+          onMouseDown={onMouseDown}
+          onContextMenu={e => e.preventDefault()}
+          onWheel={onWheel}
+        >
+          <PianoRuler
+            width={containerWidth}
             theme={theme}
-            width={containerWidth}
-            height={contentHeight}
-            scrollLeft={scrollLeft}
+            height={theme.rulerHeight}
             beats={mappedBeats}
+            scrollLeft={scrollLeft}
+            pixelsPerTick={pixelsPerTick}
+            onMouseDown={({ tick }) => setPlayerPosition(tick)}
+            loop={loop}
           />
-          <PianoSelection
-            width={containerWidth}
-            height={contentHeight}
-            color="black"
-            selectionBounds={selectionRect}
-          />
-          <PianoCursor
-            width={containerWidth}
-            height={contentHeight}
-            position={transform.getX(playerPosition) - scrollLeft}
+          <div className="content" style={{ top: -scrollTop }}>
+            <div className="tracks">
+              {tracks.map((t, i) => (
+                <ArrangeTrack
+                  width={containerWidth}
+                  events={filterEventsWithScroll(
+                    t.events,
+                    pixelsPerTick,
+                    scrollLeft,
+                    containerWidth
+                  )}
+                  transform={transform}
+                  key={i}
+                  scrollLeft={scrollLeft}
+                  isDrumMode={t.isRhythmTrack}
+                />
+              ))}
+            </div>
+            <PianoGrid
+              theme={theme}
+              width={containerWidth}
+              height={contentHeight}
+              scrollLeft={scrollLeft}
+              beats={mappedBeats}
+            />
+            <PianoSelection
+              width={containerWidth}
+              height={contentHeight}
+              color="black"
+              selectionBounds={selectionRect}
+            />
+            <PianoCursor
+              width={containerWidth}
+              height={contentHeight}
+              position={transform.getX(playerPosition) - scrollLeft}
+            />
+          </div>
+          <div
+            style={{
+              width: `calc(100% - ${BAR_WIDTH}px)`,
+              position: "absolute",
+              bottom: 0
+            }}
+          >
+            <HorizontalScaleScrollBar
+              scrollOffset={scrollLeft}
+              contentLength={contentWidth}
+              onScroll={onScrollLeft}
+              onClickScaleUp={onClickScaleUp}
+              onClickScaleDown={onClickScaleDown}
+              onClickScaleReset={onClickScaleReset}
+            />
+          </div>
+        </div>
+        <div
+          style={{
+            height: `calc(100% - ${BAR_WIDTH}px)`,
+            position: "absolute",
+            top: 0,
+            right: 0
+          }}
+        >
+          <VerticalScrollBar
+            scrollOffset={scrollTop}
+            contentLength={contentHeight}
+            onScroll={onScrollTop}
           />
         </div>
-        <div style={{ width: `calc(100% - ${BAR_WIDTH}px)`, position: "absolute", bottom: 0 }}>
-          <HorizontalScaleScrollBar
-            scrollOffset={scrollLeft}
-            contentLength={contentWidth}
-            onScroll={onScrollLeft}
-            onClickScaleUp={onClickScaleUp}
-            onClickScaleDown={onClickScaleDown}
-            onClickScaleReset={onClickScaleReset}
-          />
-        </div>
+        <div className="scroll-corner" />
       </div>
-      <div style={{
-        height: `calc(100% - ${BAR_WIDTH}px)`,
-        position: "absolute",
-        top: 0,
-        right: 0
-      }}>
-        <VerticalScrollBar
-          scrollOffset={scrollTop}
-          contentLength={contentHeight}
-          onScroll={onScrollTop}
-        />
-      </div>
-      <div className="scroll-corner" />
     </div>
-  </div>
+  )
 }
 
 interface Props {
@@ -339,10 +359,11 @@ function stateful(WrappedComponent) {
       return new NoteCoordTransform(
         this.props.pixelsPerTick,
         this.props.keyHeight,
-        127)
+        127
+      )
     }
 
-    updatePosition = (tick) => {
+    updatePosition = tick => {
       this.setState({
         playerPosition: tick
       })
@@ -363,26 +384,30 @@ function stateful(WrappedComponent) {
     render() {
       const { setScrollLeft, setScrollTop } = this.props
 
-      return <WrappedComponent
-        onScrollLeft={({ scroll }) => setScrollLeft(scroll)}
-        onScrollTop={({ scroll }) => setScrollTop(scroll)}
-        transform={this.transform}
-        {...this.state}
-        {...this.props}
-      />
+      return (
+        <WrappedComponent
+          onScrollLeft={({ scroll }) => setScrollLeft(scroll)}
+          onScrollTop={({ scroll }) => setScrollTop(scroll)}
+          transform={this.transform}
+          {...this.state}
+          {...this.props}
+        />
+      )
     }
   }
 }
 
-const mapStoreToProps = ({ rootStore: {
-  rootViewStore: { theme },
-  song: { tracks, measureList, endOfSong },
-  arrangeViewStore: s,
-  services: { player, quantizer },
-  playerStore: { loop },
-  router,
-  dispatch
-} }) => ({
+const mapStoreToProps = ({
+  rootStore: {
+    rootViewStore: { theme },
+    song: { tracks, measureList, endOfSong },
+    arrangeViewStore: s,
+    services: { player, quantizer },
+    playerStore: { loop },
+    router,
+    dispatch
+  }
+}) => ({
   theme,
   player,
   quantizer,
@@ -396,18 +421,25 @@ const mapStoreToProps = ({ rootStore: {
   scrollLeft: s.scrollLeft,
   scrollTop: s.scrollTop,
   selection: s.selection,
-  setScrollLeft: v => s.scrollLeft = v,
-  setScrollTop: v => s.scrollTop = v,
+  setScrollLeft: v => (s.scrollLeft = v),
+  setScrollTop: v => (s.scrollTop = v),
   pushSettings: () => router.pushSettings(),
-  onClickScaleUp: () => s.scaleX = s.scaleX + 0.1,
-  onClickScaleDown: () => s.scaleX = Math.max(0.05, s.scaleX - 0.1),
-  onClickScaleReset: () => s.scaleX = 1,
+  onClickScaleUp: () => (s.scaleX = s.scaleX + 0.1),
+  onClickScaleDown: () => (s.scaleX = Math.max(0.05, s.scaleX - 0.1)),
+  onClickScaleReset: () => (s.scaleX = 1),
   setPlayerPosition: tick => dispatch(SET_PLAYER_POSITION, { tick }),
   startSelection: pos => dispatch(ARRANGE_START_SELECTION, pos),
   endSelection: (start, end) => dispatch(ARRANGE_END_SELECTION, { start, end }),
-  resizeSelection: (start, end) => dispatch(ARRANGE_RESIZE_SELECTION, { start, end }),
+  resizeSelection: (start, end) =>
+    dispatch(ARRANGE_RESIZE_SELECTION, { start, end }),
   moveSelection: pos => dispatch(ARRANGE_MOVE_SELECTION, pos),
-  openContextMenu: (x, y, isSelectionSelected) => dispatch(ARRANGE_OPEN_CONTEXT_MENU, { position: { x, y }, isSelectionSelected })
+  openContextMenu: (x, y, isSelectionSelected) =>
+    dispatch(ARRANGE_OPEN_CONTEXT_MENU, {
+      position: { x, y },
+      isSelectionSelected
+    })
 })
 
-export default sizeMe()(inject(mapStoreToProps)(observer(stateful(ArrangeView))))
+export default sizeMe()(
+  inject(mapStoreToProps)(observer(stateful(ArrangeView)))
+)

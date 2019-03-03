@@ -12,10 +12,15 @@ export default class EventScheduler {
 
   private _currentTick = 0
   private _scheduledTick = 0
-  private _prevTime: number|undefined = undefined
+  private _prevTime: number | undefined = undefined
   private _events: any[]
 
-  constructor(events: any[] = [], tick = 0, timebase = 480, lookAheadTime = 100) {
+  constructor(
+    events: any[] = [],
+    tick = 0,
+    timebase = 480,
+    lookAheadTime = 100
+  ) {
     this._events = events
     this._currentTick = tick
     this._scheduledTick = tick
@@ -27,11 +32,11 @@ export default class EventScheduler {
   }
 
   millisecToTick(ms: number, bpm: number) {
-    return ms / 1000 * bpm / 60 * this.timebase
+    return (((ms / 1000) * bpm) / 60) * this.timebase
   }
 
   tickToMillisec(tick: number, bpm: number) {
-    return tick / (this.timebase / 60) / bpm * 1000
+    return (tick / (this.timebase / 60) / bpm) * 1000
   }
 
   seek(tick: number) {
@@ -43,10 +48,14 @@ export default class EventScheduler {
       this._prevTime = timestamp
     }
     const delta = timestamp - this._prevTime
-    const nowTick = Math.floor(this._currentTick + Math.max(0, this.millisecToTick(delta, bpm)))
+    const nowTick = Math.floor(
+      this._currentTick + Math.max(0, this.millisecToTick(delta, bpm))
+    )
 
     // 先読み時間
-    const lookAheadTick = Math.floor(this.millisecToTick(this.lookAheadTime, bpm))
+    const lookAheadTick = Math.floor(
+      this.millisecToTick(this.lookAheadTime, bpm)
+    )
 
     // 前回スケジュール済みの時点から、
     // 先読み時間までを処理の対象とする
@@ -61,7 +70,8 @@ export default class EventScheduler {
       .filter(e => e && e.tick >= startTick && e.tick < endTick)
       .map(e => {
         const waitTick = e.tick - nowTick
-        const delayedTime = timestamp + Math.max(0, this.tickToMillisec(waitTick, bpm))
+        const delayedTime =
+          timestamp + Math.max(0, this.tickToMillisec(waitTick, bpm))
         return { event: e, timestamp: delayedTime }
       })
   }

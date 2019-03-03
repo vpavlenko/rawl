@@ -11,9 +11,7 @@ export interface LineGraphItemData extends IPoint {
   id: number
 }
 
-export type LineGraphProps = Omit<StageProps, 
-  "items"
-> & {
+export type LineGraphProps = Omit<StageProps, "items"> & {
   items: LineGraphItemData[]
   onClickAxis: (value) => void
   className: string
@@ -41,33 +39,45 @@ const LineGraph: StatelessComponent<LineGraphProps> = ({
     const next = items[i + 1]
     const nextX = next ? next.x : right // 次がなければ右端まで描画する
     return new LineGraphItem(
-      id, x, y, y,
+      id,
+      x,
+      y,
+      y,
       nextX - x,
-      height, color, color, lineWidth)
+      height,
+      color,
+      color,
+      lineWidth
+    )
   })
 
-  return <div className={`PianoControl LineGraph ${className}`}>
-    <div className="GraphAxis">
-      <div className="values">
-        {axis.reverse().map(value => <div
-          key={value}
-          className="AxisValue"
-          onClick={e => onClickAxis(value)}>
-          {value}
-        </div>)}
+  return (
+    <div className={`PianoControl LineGraph ${className}`}>
+      <div className="GraphAxis">
+        <div className="values">
+          {axis.reverse().map(value => (
+            <div
+              key={value}
+              className="AxisValue"
+              onClick={e => onClickAxis(value)}
+            >
+              {value}
+            </div>
+          ))}
+        </div>
       </div>
+      <Stage
+        className="Graph"
+        items={items_}
+        width={width}
+        height={height}
+        scrollLeft={scrollLeft}
+        onMouseDown={onMouseDown}
+        onMouseMove={onMouseMove}
+        onMouseUp={onMouseUp}
+      />
     </div>
-    <Stage
-      className="Graph"
-      items={items_}
-      width={width}
-      height={height}
-      scrollLeft={scrollLeft}
-      onMouseDown={onMouseDown}
-      onMouseMove={onMouseMove}
-      onMouseUp={onMouseUp}
-    />
-  </div>
+  )
 }
 
 LineGraph.defaultProps = {

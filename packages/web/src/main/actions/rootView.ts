@@ -1,4 +1,3 @@
 export default ({ pianoRollStore }) => {
-  return {
-  }
+  return {}
 }

@@ -45,6 +45,7 @@
     "@storybook/react": "^4.1.13",
     "@types/jest": "^24.0.9",
     "@types/lodash": "^4.14.121",
+    "@types/node": "11.10.4",
     "@types/recompose": "^0.30.5",
     "@types/webpack-env": "^1.13.8",
     "babel-core": "^6.26.3",

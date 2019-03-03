@@ -11,7 +11,10 @@ import createArrangeViewAction from "./actions/arrangeView"
 
 export type Dispatcher = (type: symbol, params?: any) => void
 
-const createDispatcher = rootStore => (type: symbol, params?: any): Dispatcher => {
+const createDispatcher = rootStore => (
+  type: symbol,
+  params?: any
+): Dispatcher => {
   const actions = {
     ...createSongAction(rootStore),
     ...createTrackAction(rootStore),
@@ -22,7 +25,7 @@ const createDispatcher = rootStore => (type: symbol, params?: any): Dispatcher =
     ...createSelectionAction(rootStore),
     ...createTrackMuteAction(rootStore),
     ...createPianoRollAction(rootStore),
-    ...createArrangeViewAction(rootStore),
+    ...createArrangeViewAction(rootStore)
   }
 
   const action = actions[type]

@@ -1,8 +1,17 @@
 import MouseHandler from "./NoteMouseHandler"
-import { pointSub, pointAdd } from  "common/geometry"
+import { pointSub, pointAdd } from "common/geometry"
 import { NoteCoordTransform } from "common/transform"
 import SelectionModel from "common/selection/SelectionModel"
-import { OPEN_CONTEXT_MENU, START_SELECTION, RESIZE_SELECTION, FIX_SELECTION, CLONE_SELECTION, MOVE_SELECTION, RESIZE_SELECTION_LEFT, RESIZE_SELECTION_RIGHT } from "main/actions";
+import {
+  OPEN_CONTEXT_MENU,
+  START_SELECTION,
+  RESIZE_SELECTION,
+  FIX_SELECTION,
+  CLONE_SELECTION,
+  MOVE_SELECTION,
+  RESIZE_SELECTION_LEFT,
+  RESIZE_SELECTION_RIGHT
+} from "main/actions"
 
 export default class SelectionMouseHandler extends MouseHandler {
   transform: NoteCoordTransform
@@ -23,11 +32,16 @@ export default class SelectionMouseHandler extends MouseHandler {
 
     if (e.button === 0) {
       switch (type) {
-        case "center": return moveSelectionAction(dispatch, selection, transform, e.ctrlKey)
-        case "right": return dragSelectionRightEdgeAction(dispatch, transform)
-        case "left": return dragSelectionLeftEdgeAction(dispatch, transform)
-        case "outside": break
-        default: break
+        case "center":
+          return moveSelectionAction(dispatch, selection, transform, e.ctrlKey)
+        case "right":
+          return dragSelectionRightEdgeAction(dispatch, transform)
+        case "left":
+          return dragSelectionLeftEdgeAction(dispatch, transform)
+        case "outside":
+          break
+        default:
+          break
       }
 
       return createSelectionAction(dispatch)
@@ -45,7 +59,8 @@ export default class SelectionMouseHandler extends MouseHandler {
         case "outside":
           selected = false
           break
-        default: break
+        default:
+          break
       }
       return contextMenuAction(selected, dispatch)
     }
@@ -60,10 +75,14 @@ export default class SelectionMouseHandler extends MouseHandler {
   getCursorForMouseMove(e) {
     const type = this.getPositionType(e.local)
     switch (type) {
-      case "center": return "move"
-      case "left": return "w-resize"
-      case "right": return "w-resize"
-      default: return "crosshair"
+      case "center":
+        return "move"
+      case "left":
+        return "w-resize"
+      case "right":
+        return "w-resize"
+      default:
+        return "crosshair"
     }
   }
 }
@@ -71,19 +90,29 @@ export default class SelectionMouseHandler extends MouseHandler {
 function positionType(selection, transform, pos) {
   const rect = selection.getBounds(transform)
   const contains =
-    rect.x <= pos.x && rect.x + rect.width >= pos.x &&
-    rect.y <= pos.y && rect.y + rect.height >= pos.y
+    rect.x <= pos.x &&
+    rect.x + rect.width >= pos.x &&
+    rect.y <= pos.y &&
+    rect.y + rect.height >= pos.y
   if (!contains) {
     return "outside"
   }
   const localX = pos.x - rect.x
   const edgeSize = Math.min(rect.width / 3, 8)
-  if (localX <= edgeSize) { return "left" }
-  if (rect.width - localX <= edgeSize) { return "right" }
+  if (localX <= edgeSize) {
+    return "left"
+  }
+  if (rect.width - localX <= edgeSize) {
+    return "right"
+  }
   return "center"
 }
 
-const contextMenuAction = (isNoteSelected, dispatch) => (onMouseDown, onMouseMove, onMouseUp) => {
+const contextMenuAction = (isNoteSelected, dispatch) => (
+  onMouseDown,
+  onMouseMove,
+  onMouseUp
+) => {
   onMouseUp(e => {
     dispatch(OPEN_CONTEXT_MENU, {
       position: { x: e.pageX, y: e.pageY },
@@ -93,7 +122,11 @@ const contextMenuAction = (isNoteSelected, dispatch) => (onMouseDown, onMouseMov
 }
 
 // 選択範囲外でクリックした場合は選択範囲をリセット
-const createSelectionAction = dispatch => (onMouseDown, onMouseMove, onMouseUp) => {
+const createSelectionAction = dispatch => (
+  onMouseDown,
+  onMouseMove,
+  onMouseUp
+) => {
   let start
 
   onMouseDown(e => {
@@ -111,7 +144,10 @@ const createSelectionAction = dispatch => (onMouseDown, onMouseMove, onMouseUp) 
   })
 }
 
-const moveSelectionAction = (dispatch, selection, transform, isCopy) => (onMouseDown, onMouseMove) => {
+const moveSelectionAction = (dispatch, selection, transform, isCopy) => (
+  onMouseDown,
+  onMouseMove
+) => {
   let startPos
   let selectionPos
 
@@ -131,8 +167,11 @@ const moveSelectionAction = (dispatch, selection, transform, isCopy) => (onMouse
   })
 }
 
-const dragSelectionLeftEdgeAction = (dispatch, transform) => (onMouseDown, onMouseMove) => {
-  onMouseDown(() => { })
+const dragSelectionLeftEdgeAction = (dispatch, transform) => (
+  onMouseDown,
+  onMouseMove
+) => {
+  onMouseDown(() => {})
 
   onMouseMove(e => {
     const tick = transform.getTicks(e.local.x)
@@ -140,8 +179,11 @@ const dragSelectionLeftEdgeAction = (dispatch, transform) => (onMouseDown, onMou
   })
 }
 
-const dragSelectionRightEdgeAction = (dispatch, transform) => (onMouseDown, onMouseMove) => {
-  onMouseDown(() => { })
+const dragSelectionRightEdgeAction = (dispatch, transform) => (
+  onMouseDown,
+  onMouseMove
+) => {
+  onMouseDown(() => {})
 
   onMouseMove(e => {
     const tick = transform.getTicks(e.local.x)

@@ -1,33 +1,26 @@
-import React, { Component, StatelessComponent } from "react"
-import { observer, inject } from "mobx-react"
-import _ from "lodash"
+import { SetTempoEvent } from "@signal-app/midifile-ts"
 import Color from "color"
-import { pure } from "recompose"
-import sizeMe from "react-sizeme"
-
+import { ISize } from "common/geometry"
+import { Beat } from "common/measure"
+import Player from "common/player/Player"
+import Theme from "common/theme/Theme"
+import Track, { TrackEvent } from "common/track"
+import { TempoCoordTransform } from "common/transform"
+import DrawCanvas from "components/DrawCanvas"
+import { BAR_WIDTH, HorizontalScrollBar } from "components/inputs/ScrollBar"
+import Stage, { ItemEvent } from "components/Stage/Stage"
+import PianoCursor from "containers/PianoRollEditor/PianoRoll/PianoCursor"
 import PianoGrid from "containers/PianoRollEditor/PianoRoll/PianoGrid"
 import PianoRuler from "containers/PianoRollEditor/PianoRoll/PianoRuler"
-import PianoCursor from "containers/PianoRollEditor/PianoRoll/PianoCursor"
-
-import { TempoCoordTransform, NoteCoordTransform } from "common/transform"
-
+import { bpmToUSecPerBeat, uSecPerBeatToBPM } from "helpers/bpm"
 import mapBeats from "helpers/mapBeats"
-import { uSecPerBeatToBPM, bpmToUSecPerBeat } from "helpers/bpm"
-import transformEvents from "./transformEvents"
-
-import Stage, { ItemEvent } from "components/Stage/Stage"
-import DrawCanvas from "components/DrawCanvas"
-import { HorizontalScrollBar, BAR_WIDTH } from "components/inputs/ScrollBar"
-
-import "./TempoGraph.css"
+import _ from "lodash"
 import { CHANGE_TEMPO, CREATE_TEMPO, SET_PLAYER_POSITION } from "main/actions"
-import Player from "common/player/Player";
-import { ISize } from "common/geometry";
-import Track, { TrackEvent } from "common/track"
-import Theme from "common/theme/Theme";
-import { Beat } from "common/measure";
-import { SetTempoEvent } from "@signal-app/midifile-ts";
-import StageItem from "main/components/Stage/Item"
+import { inject, observer } from "mobx-react"
+import React, { Component, StatelessComponent } from "react"
+import sizeMe from "react-sizeme"
+import "./TempoGraph.css"
+import transformEvents from "./transformEvents"
 
 type DisplayEvent = TrackEvent & SetTempoEvent
 
@@ -58,13 +51,15 @@ function HorizontalLines({ width, height, transform, borderColor }) {
     ctx.restore()
   }
 
-  return <DrawCanvas
-    draw={draw}
-    width={width}
-    height={height}
-    className="HorizontalLines"
-    onContextMenu={e => e.preventDefault()}
-  />
+  return (
+    <DrawCanvas
+      draw={draw}
+      width={width}
+      height={height}
+      className="HorizontalLines"
+      onContextMenu={e => e.preventDefault()}
+    />
+  )
 }
 
 interface GraphAxisProps {
@@ -73,15 +68,25 @@ interface GraphAxisProps {
   offset: number
 }
 
-const GraphAxis: StatelessComponent<GraphAxisProps> = ({ width, transform, offset }) => {
-  return <div className="GraphAxis" style={{ width }}>
-    <div className="values">
-      {_.range(30, transform.maxBPM, 30).map(t => {
-        const top = Math.round(transform.getY(t)) + offset
-        return <div style={{ top }} key={t}>{t}</div>
-      })}
+const GraphAxis: StatelessComponent<GraphAxisProps> = ({
+  width,
+  transform,
+  offset
+}) => {
+  return (
+    <div className="GraphAxis" style={{ width }}>
+      <div className="values">
+        {_.range(30, transform.maxBPM, 30).map(t => {
+          const top = Math.round(transform.getY(t)) + offset
+          return (
+            <div style={{ top }} key={t}>
+              {t}
+            </div>
+          )
+        })}
+      </div>
     </div>
-  </div>
+  )
 }
 
 interface ContentProps {
@@ -115,7 +120,9 @@ const Content: StatelessComponent<ContentProps> = ({
   changeTempo,
   createTempo
 }) => {
-  const events = sourceEvents.filter(e => (e as any).subtype === "setTempo") as DisplayEvent[]
+  const events = sourceEvents.filter(
+    e => (e as any).subtype === "setTempo"
+  ) as DisplayEvent[]
   scrollLeft = Math.floor(scrollLeft)
 
   const { keyWidth, rulerHeight } = theme
@@ -128,11 +135,19 @@ const Content: StatelessComponent<ContentProps> = ({
   const widthTick = Math.max(endTick, transform.getTicks(containerWidth))
   const contentWidth = widthTick * pixelsPerTick
 
-  const items = transformEvents(events, transform, contentWidth,
+  const items = transformEvents(
+    events,
+    transform,
+    contentWidth,
     theme.themeColor,
-    Color(theme.themeColor).alpha(0.1).string())
+    Color(theme.themeColor)
+      .alpha(0.1)
+      .string()
+  )
 
-  function onMouseDownGraph(e: ItemEvent & React.MouseEvent<HTMLCanvasElement>) {
+  function onMouseDownGraph(
+    e: ItemEvent & React.MouseEvent<HTMLCanvasElement>
+  ) {
     const item = e.items[0]
     if (!item) {
       return
@@ -190,54 +205,53 @@ const Content: StatelessComponent<ContentProps> = ({
     setScrollLeft(e.scroll)
   }
 
-  return <div className="TempoGraph">
-    <PianoGrid
-      theme={theme}
-      width={width}
-      height={contentHeight}
-      scrollLeft={scrollLeft}
-      beats={mappedBeats}
-    />
-    <HorizontalLines
-      width={width}
-      height={contentHeight}
-      transform={transform}
-      borderColor={theme.dividerColor}
-    />
-    <Stage
-      className="Graph"
-      items={items}
-      width={width}
-      height={contentHeight}
-      onMouseDown={onMouseDownGraph}
-      onDoubleClick={onDoubleClickGraph}
-      onWheel={onWheelGraph}
-      scrollLeft={scrollLeft}
-    />
-    <PianoCursor
-      width={width}
-      height={contentHeight}
-      position={transform.getX(playerPosition) - scrollLeft}
-    />
-    <PianoRuler
-      theme={theme}
-      width={width}
-      height={rulerHeight}
-      beats={mappedBeats}
-      onMouseDown={({ tick }) => setPlayerPosition(tick)}
-      scrollLeft={scrollLeft}
-      pixelsPerTick={pixelsPerTick}
-    />
-    <GraphAxis
-      width={keyWidth}
-      offset={rulerHeight}
-      transform={transform}
-    />
-    <HorizontalScrollBar
-      scrollOffset={scrollLeft}
-      contentLength={contentWidth}
-      onScroll={onScrollLeft} />
-  </div>
+  return (
+    <div className="TempoGraph">
+      <PianoGrid
+        theme={theme}
+        width={width}
+        height={contentHeight}
+        scrollLeft={scrollLeft}
+        beats={mappedBeats}
+      />
+      <HorizontalLines
+        width={width}
+        height={contentHeight}
+        transform={transform}
+        borderColor={theme.dividerColor}
+      />
+      <Stage
+        className="Graph"
+        items={items}
+        width={width}
+        height={contentHeight}
+        onMouseDown={onMouseDownGraph}
+        onDoubleClick={onDoubleClickGraph}
+        onWheel={onWheelGraph}
+        scrollLeft={scrollLeft}
+      />
+      <PianoCursor
+        width={width}
+        height={contentHeight}
+        position={transform.getX(playerPosition) - scrollLeft}
+      />
+      <PianoRuler
+        theme={theme}
+        width={width}
+        height={rulerHeight}
+        beats={mappedBeats}
+        onMouseDown={({ tick }) => setPlayerPosition(tick)}
+        scrollLeft={scrollLeft}
+        pixelsPerTick={pixelsPerTick}
+      />
+      <GraphAxis width={keyWidth} offset={rulerHeight} transform={transform} />
+      <HorizontalScrollBar
+        scrollOffset={scrollLeft}
+        contentLength={contentWidth}
+        onScroll={onScrollLeft}
+      />
+    </div>
+  )
 }
 
 interface Props {
@@ -272,7 +286,7 @@ function stateful(WrappedComponent) {
       this.props.player.off("change-position", this.updatePosition)
     }
 
-    updatePosition = (tick) => {
+    updatePosition = tick => {
       this.setState({
         playerPosition: tick
       })
@@ -291,33 +305,35 @@ function stateful(WrappedComponent) {
     }
 
     render() {
-      return <WrappedComponent
-        {...this.state}
-        {...this.props}
-      />
+      return <WrappedComponent {...this.state} {...this.props} />
     }
   }
 }
 
-
-export default sizeMe({ monitorHeight: true })(inject(({ rootStore: {
-  rootViewStore: { theme },
-  tempoEditorStore: s,
-  services: { player },
-  song,
-  dispatch
-} }) => ({
-  theme,
-  player,
-  pixelsPerTick: 0.1 * s.scaleX,
-  track: song.conductorTrack,
-  events: song.conductorTrack.events.toJS(),
-  endTick: song.endOfSong,
-  beats: song.measureList.beats,
-  autoScroll: s.autoScroll,
-  scrollLeft: s.scrollLeft,
-  setScrollLeft: v => s.scrollLeft = v,
-  changeTempo: p => dispatch(CHANGE_TEMPO, p),
-  createTempo: p => dispatch(CREATE_TEMPO, p),
-  setPlayerTempo: tick => dispatch(SET_PLAYER_POSITION, { tick })
-}))(observer(stateful(Content))))
+export default sizeMe({ monitorHeight: true })(
+  inject(
+    ({
+      rootStore: {
+        rootViewStore: { theme },
+        tempoEditorStore: s,
+        services: { player },
+        song,
+        dispatch
+      }
+    }) => ({
+      theme,
+      player,
+      pixelsPerTick: 0.1 * s.scaleX,
+      track: song.conductorTrack,
+      events: song.conductorTrack.events.toJS(),
+      endTick: song.endOfSong,
+      beats: song.measureList.beats,
+      autoScroll: s.autoScroll,
+      scrollLeft: s.scrollLeft,
+      setScrollLeft: v => (s.scrollLeft = v),
+      changeTempo: p => dispatch(CHANGE_TEMPO, p),
+      createTempo: p => dispatch(CREATE_TEMPO, p),
+      setPlayerTempo: tick => dispatch(SET_PLAYER_POSITION, { tick })
+    })
+  )(observer(stateful(Content)))
+)

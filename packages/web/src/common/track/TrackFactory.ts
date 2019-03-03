@@ -2,15 +2,20 @@ import Track from "common/track"
 import { toTrackEvents } from "helpers/eventAssembler"
 
 import {
-  trackNameMidiEvent, endOfTrackMidiEvent,
-  timeSignatureMidiEvent, setTempoMidiEvent,
-  pitchBendMidiEvent, volumeMidiEvent,
-  panMidiEvent, expressionMidiEvent,
-  modulationMidiEvent, programChangeMidiEvent,
+  trackNameMidiEvent,
+  endOfTrackMidiEvent,
+  timeSignatureMidiEvent,
+  setTempoMidiEvent,
+  pitchBendMidiEvent,
+  volumeMidiEvent,
+  panMidiEvent,
+  expressionMidiEvent,
+  modulationMidiEvent,
+  programChangeMidiEvent,
   resetAllMidiEvent,
   masterCoarceTuningEvents,
   masterFineTuningEvents,
-  pitchbendSensitivityEvents,
+  pitchbendSensitivityEvents
 } from "midi/MidiEvent"
 
 export function conductorTrack(name = "Conductor Track") {

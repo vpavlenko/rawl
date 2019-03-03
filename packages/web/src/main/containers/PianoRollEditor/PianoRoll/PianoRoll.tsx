@@ -30,9 +30,14 @@ import { VerticalScrollBar, BAR_WIDTH } from "components/inputs/ScrollBar"
 import { HorizontalScaleScrollBar } from "components/inputs/ScaleScrollBar"
 
 import "./PianoRoll.css"
-import Player from "common/player/Player";
-import { Dispatcher } from "main/createDispatcher";
-import { SET_LOOP_BEGIN, SET_LOOP_END, SET_PLAYER_POSITION, PREVIEW_NOTE } from "main/actions";
+import Player from "common/player/Player"
+import { Dispatcher } from "main/createDispatcher"
+import {
+  SET_LOOP_BEGIN,
+  SET_LOOP_END,
+  SET_PLAYER_POSITION,
+  PREVIEW_NOTE
+} from "main/actions"
 
 const SCROLL_KEY_SPEED = 4
 
@@ -106,7 +111,12 @@ const PianoRoll: StatelessComponent<PianoRollProps> = ({
   const width = containerWidth
   const widthTick = Math.max(endTick, transform.getTicks(containerWidth))
   const startTick = scrollLeft / transform.pixelsPerTick
-  const mappedBeats = mapBeats(beats, transform.pixelsPerTick, startTick, widthTick)
+  const mappedBeats = mapBeats(
+    beats,
+    transform.pixelsPerTick,
+    startTick,
+    widthTick
+  )
 
   const contentWidth = widthTick * transform.pixelsPerTick
   const contentHeight = transform.getMaxY()
@@ -120,7 +130,7 @@ const PianoRoll: StatelessComponent<PianoRollProps> = ({
   scrollLeft = clampScroll(contentWidth - containerWidth, scrollLeft)
   scrollTop = clampScroll(contentHeight - alphaHeight, scrollTop)
 
-  const onMouseDownRuler = (e) => {
+  const onMouseDownRuler = e => {
     const tick = e.tick
     if (e.ctrlKey) {
       setLoopBegin(tick)
@@ -135,106 +145,118 @@ const PianoRoll: StatelessComponent<PianoRollProps> = ({
     showEventEditor(group)
   }
 
-  return <div className="PianoRoll">
-    <SplitPane split="horizontal" defaultSize={180} primary="second">
-      <div
-        className="alpha"
-        ref={onMountAlpha}
-        onWheel={e => {
-          e.preventDefault()
-          const scrollLineHeight = transform.pixelsPerKey * SCROLL_KEY_SPEED
-          const delta = scrollLineHeight * (e.deltaY > 0 ? 1 : -1)
-          setScrollTop(scrollTop + delta)
-        }}>
-        <div className="alphaContent" style={{ top: -scrollTop }}>
-          <PianoLines
-            theme={theme}
-            width={width}
-            pixelsPerKey={transform.pixelsPerKey}
-            numberOfKeys={transform.numberOfKeys} />
-          <PianoGrid
-            theme={theme}
-            width={width}
-            height={contentHeight}
-            scrollLeft={scrollLeft}
-            beats={mappedBeats} />
-          <PianoNotes
-            events={events}
-            selectedEventIds={selection.noteIds}
-            transform={transform}
-            width={width}
-            cursor={notesCursor}
-            scrollLeft={scrollLeft}
-            isDrumMode={track.isRhythmTrack}
-            onMouseDown={e => mouseHandler.onMouseDown(e)}
-            onMouseMove={e => mouseHandler.onMouseMove(e)}
-            onMouseUp={e => mouseHandler.onMouseUp(e)}
-            theme={theme} />
-          <PianoSelection
-            color={theme.themeColor}
-            width={width}
-            height={contentHeight}
-            selectionBounds={selection.enabled ? selection.getBounds(transform) : null}
-            scrollLeft={scrollLeft} />
-          <PianoCursor
-            width={width}
-            height={contentHeight}
-            position={cursorPositionX - scrollLeft} />
-          <PianoKeys
-            theme={theme}
-            width={keyWidth}
-            keyHeight={transform.pixelsPerKey}
-            numberOfKeys={transform.numberOfKeys}
-            onClickKey={noteNumber => previewNote(noteNumber, track.channel)} />
-        </div>
-        <div className="alphaRuler">
-          <PianoRuler
-            width={width}
-            theme={theme}
-            height={rulerHeight}
-            beats={mappedBeats}
-            loop={loop}
-            onMouseDown={onMouseDownRuler}
-            scrollLeft={scrollLeft}
-            pixelsPerTick={transform.pixelsPerTick} />
-          <div className="PianoRollLeftSpace" />
-          <PianoControlEvents
-            events={events}
-            width={width}
-            scrollLeft={scrollLeft}
-            pixelsPerTick={transform.pixelsPerTick}
-            onDoubleClickMark={onDoubleClickMark}
+  return (
+    <div className="PianoRoll">
+      <SplitPane split="horizontal" defaultSize={180} primary="second">
+        <div
+          className="alpha"
+          ref={onMountAlpha}
+          onWheel={e => {
+            e.preventDefault()
+            const scrollLineHeight = transform.pixelsPerKey * SCROLL_KEY_SPEED
+            const delta = scrollLineHeight * (e.deltaY > 0 ? 1 : -1)
+            setScrollTop(scrollTop + delta)
+          }}
+        >
+          <div className="alphaContent" style={{ top: -scrollTop }}>
+            <PianoLines
+              theme={theme}
+              width={width}
+              pixelsPerKey={transform.pixelsPerKey}
+              numberOfKeys={transform.numberOfKeys}
+            />
+            <PianoGrid
+              theme={theme}
+              width={width}
+              height={contentHeight}
+              scrollLeft={scrollLeft}
+              beats={mappedBeats}
+            />
+            <PianoNotes
+              events={events}
+              selectedEventIds={selection.noteIds}
+              transform={transform}
+              width={width}
+              cursor={notesCursor}
+              scrollLeft={scrollLeft}
+              isDrumMode={track.isRhythmTrack}
+              onMouseDown={e => mouseHandler.onMouseDown(e)}
+              onMouseMove={e => mouseHandler.onMouseMove(e)}
+              onMouseUp={e => mouseHandler.onMouseUp(e)}
+              theme={theme}
+            />
+            <PianoSelection
+              color={theme.themeColor}
+              width={width}
+              height={contentHeight}
+              selectionBounds={
+                selection.enabled ? selection.getBounds(transform) : null
+              }
+              scrollLeft={scrollLeft}
+            />
+            <PianoCursor
+              width={width}
+              height={contentHeight}
+              position={cursorPositionX - scrollLeft}
+            />
+            <PianoKeys
+              theme={theme}
+              width={keyWidth}
+              keyHeight={transform.pixelsPerKey}
+              numberOfKeys={transform.numberOfKeys}
+              onClickKey={noteNumber => previewNote(noteNumber, track.channel)}
+            />
+          </div>
+          <div className="alphaRuler">
+            <PianoRuler
+              width={width}
+              theme={theme}
+              height={rulerHeight}
+              beats={mappedBeats}
+              loop={loop}
+              onMouseDown={onMouseDownRuler}
+              scrollLeft={scrollLeft}
+              pixelsPerTick={transform.pixelsPerTick}
+            />
+            <div className="PianoRollLeftSpace" />
+            <PianoControlEvents
+              events={events}
+              width={width}
+              scrollLeft={scrollLeft}
+              pixelsPerTick={transform.pixelsPerTick}
+              onDoubleClickMark={onDoubleClickMark}
+            />
+          </div>
+          <VerticalScrollBar
+            scrollOffset={scrollTop}
+            contentLength={contentHeight}
+            onScroll={({ scroll }) => setScrollTop(scroll)}
           />
         </div>
-        <VerticalScrollBar
-          scrollOffset={scrollTop}
-          contentLength={contentHeight}
-          onScroll={({ scroll }) => setScrollTop(scroll)}
-        />
-      </div>
-      <div className="beta">
-        <ControlPane
-          mode={controlMode}
-          theme={theme}
-          beats={mappedBeats}
-          events={events}
-          dispatch={dispatch}
-          transform={transform}
-          scrollLeft={scrollLeft}
-          paddingBottom={BAR_WIDTH}
-          onSelectTab={setControlMode}
-        />
-      </div>
-    </SplitPane>
-    <HorizontalScaleScrollBar 
-      scrollOffset={scrollLeft}
-      contentLength={contentWidth}
-      onScroll={({ scroll }) => setScrollLeft(scroll)}
-      onClickScaleUp={onClickScaleUp}
-      onClickScaleDown={onClickScaleDown}
-      onClickScaleReset={onClickScaleReset}
-    />
-  </div>
+        <div className="beta">
+          <ControlPane
+            mode={controlMode}
+            theme={theme}
+            beats={mappedBeats}
+            events={events}
+            dispatch={dispatch}
+            transform={transform}
+            scrollLeft={scrollLeft}
+            paddingBottom={BAR_WIDTH}
+            onSelectTab={setControlMode}
+          />
+        </div>
+      </SplitPane>
+      <HorizontalScaleScrollBar
+        scrollOffset={scrollLeft}
+        contentLength={contentWidth}
+        onScroll={({ scroll }) => setScrollLeft(scroll)}
+        onClickScaleUp={onClickScaleUp}
+        onClickScaleDown={onClickScaleDown}
+        onClickScaleReset={onClickScaleReset}
+      />
+    </div>
+  )
 }
 
 export type SPianoRollProps = PianoRollProps & {
@@ -244,8 +266,7 @@ export type SPianoRollProps = PianoRollProps & {
   scaleX: number
 }
 
-export interface SPianoRollState {
-} 
+export interface SPianoRollState {}
 
 class stateful extends Component<SPianoRollProps, SPianoRollState> {
   private pencilMouseHandler = new PencilMouseHandler()
@@ -268,7 +289,15 @@ class stateful extends Component<SPianoRollProps, SPianoRollState> {
   }
 
   onTick = tick => {
-    const { autoScroll, scrollLeft, size, setCursorPosition, setScrollLeft, theme, scaleX } = this.props
+    const {
+      autoScroll,
+      scrollLeft,
+      size,
+      setCursorPosition,
+      setScrollLeft,
+      theme,
+      scaleX
+    } = this.props
     const transform = createTransform(theme.keyHeight, scaleX)
     const x = transform.getX(tick)
 
@@ -297,64 +326,78 @@ class stateful extends Component<SPianoRollProps, SPianoRollState> {
     this.selectionMouseHandler.transform = transform
     this.selectionMouseHandler.selection = selection
 
-    const mouseHandler = this.props.mouseMode === 0 ?
-      this.pencilMouseHandler : this.selectionMouseHandler
+    const mouseHandler =
+      this.props.mouseMode === 0
+        ? this.pencilMouseHandler
+        : this.selectionMouseHandler
 
-    return <PianoRoll {...this.props} {...this.state}
-      transform={transform}
-      mouseHandler={mouseHandler}
-      onMountAlpha={c => this.alpha = c}
-      alphaHeight={this.alpha ? this.alpha.getBoundingClientRect().height : 0}
-    />
+    return (
+      <PianoRoll
+        {...this.props}
+        {...this.state}
+        transform={transform}
+        mouseHandler={mouseHandler}
+        onMountAlpha={c => (this.alpha = c)}
+        alphaHeight={this.alpha ? this.alpha.getBoundingClientRect().height : 0}
+      />
+    )
   }
 }
 
 function createTransform(keyHeight, scaleX) {
   const pixelsPerTick = 0.1 * scaleX
-  return new NoteCoordTransform(
-    pixelsPerTick,
-    keyHeight,
-    127)
+  return new NoteCoordTransform(pixelsPerTick, keyHeight, 127)
 }
 
-export default sizeMe()(inject(({ rootStore: {
-  song: { selectedTrack: track, endOfSong: endTick, measureList: { beats } },
-  pianoRollStore: s,
-  rootViewStore: { theme },
-  playerStore,
-  services: { player, quantizer },
-  dispatch
-} }) => ({
-  track,
-  endTick,
-  beats,
-  theme,
-  events: track.events.toJS(), // 変更が反映されるように toJS() する
-  scaleX: s.scaleX,
-  scaleY: s.scaleY,
-  autoScroll: s.autoScroll,
-  selection: s.selection,
-  scrollLeft: s.scrollLeft,
-  setScrollLeft: v => s.scrollLeft = v,
-  scrollTop: s.scrollTop,
-  setScrollTop: v => s.scrollTop = v,
-  controlMode: s.controlMode,
-  setControlMode: v => s.controlMode = v,
-  cursorPosition: s.cursorPosition,
-  setCursorPosition: v => s.cursorPosition = v,
-  notesCursor: s.notesCursor,
-  setNotesCursor: v => s.notesCursor = v,
-  mouseMode: s.mouseMode,
-  onChangeTool: () => s.mouseMode = (s.mouseMode === 0 ? 1 : 0),
-  onClickScaleUp: () => s.scaleX = s.scaleX + 0.1,
-  onClickScaleDown: () => s.scaleX = Math.max(0.05, s.scaleX - 0.1),
-  onClickScaleReset: () => s.scaleX = 1,
-  loop: playerStore.loop,
-  quantizer,
-  player,
-  setLoopBegin: tick => dispatch(SET_LOOP_BEGIN, { tick }),
-  setLoopEnd: tick => dispatch(SET_LOOP_END, { tick }),
-  setPlayerPosition: tick => dispatch(SET_PLAYER_POSITION, { tick }),
-  previewNote: (noteNumber, channel) => dispatch(PREVIEW_NOTE, { noteNumber, channel }),
-  dispatch,
-}))(observer(stateful)))
+export default sizeMe()(
+  inject(
+    ({
+      rootStore: {
+        song: {
+          selectedTrack: track,
+          endOfSong: endTick,
+          measureList: { beats }
+        },
+        pianoRollStore: s,
+        rootViewStore: { theme },
+        playerStore,
+        services: { player, quantizer },
+        dispatch
+      }
+    }) => ({
+      track,
+      endTick,
+      beats,
+      theme,
+      events: track.events.toJS(), // 変更が反映されるように toJS() する
+      scaleX: s.scaleX,
+      scaleY: s.scaleY,
+      autoScroll: s.autoScroll,
+      selection: s.selection,
+      scrollLeft: s.scrollLeft,
+      setScrollLeft: v => (s.scrollLeft = v),
+      scrollTop: s.scrollTop,
+      setScrollTop: v => (s.scrollTop = v),
+      controlMode: s.controlMode,
+      setControlMode: v => (s.controlMode = v),
+      cursorPosition: s.cursorPosition,
+      setCursorPosition: v => (s.cursorPosition = v),
+      notesCursor: s.notesCursor,
+      setNotesCursor: v => (s.notesCursor = v),
+      mouseMode: s.mouseMode,
+      onChangeTool: () => (s.mouseMode = s.mouseMode === 0 ? 1 : 0),
+      onClickScaleUp: () => (s.scaleX = s.scaleX + 0.1),
+      onClickScaleDown: () => (s.scaleX = Math.max(0.05, s.scaleX - 0.1)),
+      onClickScaleReset: () => (s.scaleX = 1),
+      loop: playerStore.loop,
+      quantizer,
+      player,
+      setLoopBegin: tick => dispatch(SET_LOOP_BEGIN, { tick }),
+      setLoopEnd: tick => dispatch(SET_LOOP_END, { tick }),
+      setPlayerPosition: tick => dispatch(SET_PLAYER_POSITION, { tick }),
+      previewNote: (noteNumber, channel) =>
+        dispatch(PREVIEW_NOTE, { noteNumber, channel }),
+      dispatch
+    })
+  )(observer(stateful))
+)

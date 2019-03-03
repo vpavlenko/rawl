@@ -1,10 +1,14 @@
 import React from "react"
 import Icon from "components/Icon"
-import { ContextMenu, MenuItem, createContextMenu } from "components/groups/ContextMenu"
+import {
+  ContextMenu,
+  MenuItem,
+  createContextMenu
+} from "components/groups/ContextMenu"
 
 import "./TrackListItem.css"
 
-const Nop = () => { }
+const Nop = () => {}
 
 export default function TrackListItem({
   name = "",
@@ -20,24 +24,43 @@ export default function TrackListItem({
   onClickMute = Nop,
   onClickDelete = Nop
 }) {
-  return <div
-    className={`TrackListItem ${selected ? "selected" : ""}`}
-    onClick={onClick}
-    onContextMenu={createContextMenu(close =>
-      <ContextMenu>
-        <MenuItem onClick={() => {
-          onClickDelete()
-          close()
-        }}>Delete Track</MenuItem>
-      </ContextMenu>
-    )}>
-    <div className="label">
-      <div className="name" onDoubleClick={onDoubleClickName}>{name}</div>
-      <div className="instrument">{instrument}</div>
+  return (
+    <div
+      className={`TrackListItem ${selected ? "selected" : ""}`}
+      onClick={onClick}
+      onContextMenu={createContextMenu(close => (
+        <ContextMenu>
+          <MenuItem
+            onClick={() => {
+              onClickDelete()
+              close()
+            }}
+          >
+            Delete Track
+          </MenuItem>
+        </ContextMenu>
+      ))}
+    >
+      <div className="label">
+        <div className="name" onDoubleClick={onDoubleClickName}>
+          {name}
+        </div>
+        <div className="instrument">{instrument}</div>
+      </div>
+      <div className="controls">
+        <div
+          className={`button solo ${solo ? "active" : ""}`}
+          onClick={onClickSolo}
+        >
+          <Icon>headphones</Icon>
+        </div>
+        <div
+          className={`button mute ${mute ? "active" : ""}`}
+          onClick={onClickMute}
+        >
+          <Icon>{mute ? "volume-off" : "volume-high"}</Icon>
+        </div>
+      </div>
     </div>
-    <div className="controls">
-      <div className={`button solo ${solo ? "active" : ""}`} onClick={onClickSolo}><Icon>headphones</Icon></div>
-      <div className={`button mute ${mute ? "active" : ""}`} onClick={onClickMute}><Icon>{mute ? "volume-off" : "volume-high"}</Icon></div>
-    </div>
-  </div>
+  )
 }

@@ -6,7 +6,11 @@ export default class NoteCoordTransform {
   private _pixelsPerKey: number
   private _maxNoteNumber: number
 
-  constructor(pixelsPerTick: number, pixelsPerKey: number, maxNoteNumber: number) {
+  constructor(
+    pixelsPerTick: number,
+    pixelsPerKey: number,
+    maxNoteNumber: number
+  ) {
     this._pixelsPerTick = pixelsPerTick
     this._pixelsPerKey = pixelsPerKey
     this._maxNoteNumber = maxNoteNumber
@@ -86,8 +90,10 @@ export default class NoteCoordTransform {
   }
 
   equals(t: NoteCoordTransform) {
-    return this.pixelsPerKey === t.pixelsPerKey
-      && this.pixelsPerTick === t.pixelsPerTick
-      && this.maxNoteNumber === t.maxNoteNumber
+    return (
+      this.pixelsPerKey === t.pixelsPerKey &&
+      this.pixelsPerTick === t.pixelsPerTick &&
+      this.maxNoteNumber === t.maxNoteNumber
+    )
   }
 }

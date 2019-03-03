@@ -11,7 +11,7 @@ function renderElement(html: string) {
   return template.content.firstElementChild
 }
 
-export const createContextMenu = (childrenProvider) => e => {
+export const createContextMenu = childrenProvider => e => {
   let position = e
   if (e.preventDefault) {
     e.preventDefault()
@@ -28,11 +28,12 @@ export const createContextMenu = (childrenProvider) => e => {
 
   const close = () => elm.parentNode.removeChild(elm)
 
-  ReactDOM.render(<ContextMenuOverlay
-    position={position}
-    close={close}>
-    {childrenProvider(close)}
-  </ContextMenuOverlay>, elm)
+  ReactDOM.render(
+    <ContextMenuOverlay position={position} close={close}>
+      {childrenProvider(close)}
+    </ContextMenuOverlay>,
+    elm
+  )
 }
 
 export interface ContextMenuOverlayProps {
@@ -41,32 +42,34 @@ export interface ContextMenuOverlayProps {
   close: () => void
 }
 
-export const ContextMenuOverlay: StatelessComponent<ContextMenuOverlayProps> = ({ 
-  children,
-  position, 
-  close 
-}) => {
-  return <div
-    className={styles.overlay}
-    onMouseDown={close}
-    onContextMenu={e => e.preventDefault()}>
-    <div style={{ position: "absolute", left: position.x, top: position.y }}>
-      {children}
+export const ContextMenuOverlay: StatelessComponent<
+  ContextMenuOverlayProps
+> = ({ children, position, close }) => {
+  return (
+    <div
+      className={styles.overlay}
+      onMouseDown={close}
+      onContextMenu={e => e.preventDefault()}
+    >
+      <div style={{ position: "absolute", left: position.x, top: position.y }}>
+        {children}
+      </div>
     </div>
-  </div>
+  )
 }
 
 export interface ContextMenuProps {
   children?: ReactNode
 }
 
-export const ContextMenu: StatelessComponent<ContextMenuProps> = ({ 
-  children 
+export const ContextMenu: StatelessComponent<ContextMenuProps> = ({
+  children
 }) => {
-  return <div
-    className={styles.menu}
-    onContextMenu={e => e.preventDefault()}
-  >{children}</div>
+  return (
+    <div className={styles.menu} onContextMenu={e => e.preventDefault()}>
+      {children}
+    </div>
+  )
 }
 
 export interface MenuItemProps {
@@ -75,10 +78,10 @@ export interface MenuItemProps {
   onMouseDown?: (e: any) => void
 }
 
-export const MenuItem: StatelessComponent<MenuItemProps> = ({ 
-  children, 
-  onClick, 
-  onMouseDown 
+export const MenuItem: StatelessComponent<MenuItemProps> = ({
+  children,
+  onClick,
+  onMouseDown
 }) => {
   function _onClick(e) {
     e.stopPropagation()
@@ -88,10 +91,14 @@ export const MenuItem: StatelessComponent<MenuItemProps> = ({
     e.stopPropagation()
     onMouseDown(e)
   }
-  return <div
-    className={styles.item}
-    onClick={onClick && _onClick}
-    onMouseDown={onMouseDown && _onMouseDown}
-    onContextMenu={e => e.preventDefault()}
-  >{children}</div>
+  return (
+    <div
+      className={styles.item}
+      onClick={onClick && _onClick}
+      onMouseDown={onMouseDown && _onMouseDown}
+      onContextMenu={e => e.preventDefault()}
+    >
+      {children}
+    </div>
+  )
 }

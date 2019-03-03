@@ -3,19 +3,19 @@ export const TIME_BASE = 480
 export const QuantizeOptions = [
   {
     name: "全音符",
-    value: 1,
+    value: 1
   },
   {
     name: "付点2分音符",
-    value: 2 / 1.5,
+    value: 2 / 1.5
   },
   {
     name: "2分音符",
-    value: 2,
+    value: 2
   },
   {
     name: "3連2分音符",
-    value: 3,
+    value: 3
   },
   {
     name: "付点4分音符",
@@ -28,7 +28,7 @@ export const QuantizeOptions = [
   },
   {
     name: "3連4分音符",
-    value: 6,
+    value: 6
   },
   {
     name: "付点8分音符",
@@ -40,7 +40,7 @@ export const QuantizeOptions = [
   },
   {
     name: "3連8分音符",
-    value: 12,
+    value: 12
   },
   {
     name: "付点16分音符",
@@ -52,7 +52,7 @@ export const QuantizeOptions = [
   },
   {
     name: "3連16分音符",
-    value: 24,
+    value: 24
   },
   {
     name: "付点32分音符",
@@ -64,6 +64,6 @@ export const QuantizeOptions = [
   },
   {
     name: "3連16分音符",
-    value: 48,
-  },
+    value: 48
+  }
 ]

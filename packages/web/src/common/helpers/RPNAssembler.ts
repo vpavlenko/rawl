@@ -1,5 +1,5 @@
 import { controlChangeEvents } from "midi/MidiEvent"
-import { ControllerEvent, AnyEvent, Event } from "@signal-app/midifile-ts"
+import { ControllerEvent, AnyEvent } from "@signal-app/midifile-ts"
 
 export interface RPNEvent {
   channel: number
@@ -9,8 +9,8 @@ export interface RPNEvent {
   deltaTime: number
   rpnMSB: number
   rpnLSB: number
-  dataMSB: number|undefined
-  dataLSB: number|undefined
+  dataMSB: number | undefined
+  dataLSB: number | undefined
 }
 
 /**
@@ -40,15 +40,25 @@ export function assemble(events: AnyEvent[]) {
     }
   }
 
-  function isCC(e: AnyEvent, type: number): e is ControllerEvent { 
-    return e 
-      && (e as ControllerEvent).subtype === "controller" 
-      && (e as ControllerEvent).controllerType === type 
-    }
-  function isRPNMSB(e): e is ControllerEvent { return isCC(e, 101) }
-  function isRPNLSB(e): e is ControllerEvent { return isCC(e, 100) }
-  function isDataMSB(e): e is ControllerEvent { return isCC(e, 6) }
-  function isDataLSB(e): e is ControllerEvent { return isCC(e, 38) }
+  function isCC(e: AnyEvent, type: number): e is ControllerEvent {
+    return (
+      e &&
+      (e as ControllerEvent).subtype === "controller" &&
+      (e as ControllerEvent).controllerType === type
+    )
+  }
+  function isRPNMSB(e): e is ControllerEvent {
+    return isCC(e, 101)
+  }
+  function isRPNLSB(e): e is ControllerEvent {
+    return isCC(e, 100)
+  }
+  function isDataMSB(e): e is ControllerEvent {
+    return isCC(e, 6)
+  }
+  function isDataLSB(e): e is ControllerEvent {
+    return isCC(e, 38)
+  }
 
   for (let i = 0; i < events.length; i++) {
     const e = events[i]
@@ -62,12 +72,14 @@ export function assemble(events: AnyEvent[]) {
         }
         return null
       }
-      result.push(createCC(
-        e, 
-        getNextIf(events[j + 1], isRPNLSB), 
-        getNextIf(events[j + 2], isDataMSB), 
-        getNextIf(events[j + 3], isDataLSB)
-      ))
+      result.push(
+        createCC(
+          e,
+          getNextIf(events[j + 1], isRPNLSB),
+          getNextIf(events[j + 2], isDataMSB),
+          getNextIf(events[j + 3], isDataLSB)
+        )
+      )
     } else {
       result.push(e)
     }
@@ -81,7 +93,13 @@ function isRPNEvent(e: any): e is RPNEvent {
 
 export function deassemble(e: AnyEvent): AnyEvent[] {
   if (isRPNEvent(e)) {
-    return controlChangeEvents(e.deltaTime, e.rpnMSB, e.rpnLSB, e.dataMSB, e.dataLSB).map(c => ({
+    return controlChangeEvents(
+      e.deltaTime,
+      e.rpnMSB,
+      e.rpnLSB,
+      e.dataMSB,
+      e.dataLSB
+    ).map(c => ({
       ...c,
       channel: e.channel,
       tick: e.tick

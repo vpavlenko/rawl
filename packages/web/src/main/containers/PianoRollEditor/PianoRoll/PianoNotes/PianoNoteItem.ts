@@ -22,7 +22,19 @@ export default class PianoNoteItem implements Item {
   borderColor: any
   selectedColor: any
 
-  constructor(id: number, x: number, y: number, width: number, height: number, velocity: number, isSelected: boolean, isDrum: boolean, color: any, borderColor: RGB, selectedColor: any) {
+  constructor(
+    id: number,
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    velocity: number,
+    isSelected: boolean,
+    isDrum: boolean,
+    color: any,
+    borderColor: RGB,
+    selectedColor: any
+  ) {
     this.id = id
     this.noteBounds = { x, y, width, height }
     this.drumBounds = { x, y, width: height, height }
@@ -72,7 +84,9 @@ export default class PianoNoteItem implements Item {
 
   drawDrumNote(ctx: CanvasRenderingContext2D) {
     const alpha = this.velocity / 127
-    const noteColor = this.isSelected ? colorStr(this.selectedColor) : colorStr(this.color, alpha)
+    const noteColor = this.isSelected
+      ? colorStr(this.selectedColor)
+      : colorStr(this.color, alpha)
     let { x, y, height } = this.bounds
     x = Math.round(x)
     y = Math.round(y)

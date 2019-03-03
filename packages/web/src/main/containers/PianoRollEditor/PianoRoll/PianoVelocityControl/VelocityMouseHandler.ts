@@ -1,5 +1,5 @@
-import { Dispatcher } from "main/createDispatcher";
-import { CHANGE_NOTES_VELOCITY } from "main/actions";
+import { Dispatcher } from "main/createDispatcher"
+import { CHANGE_NOTES_VELOCITY } from "main/actions"
 
 export default class VelocityMouseHandler {
   dispatch: Dispatcher
@@ -17,7 +17,9 @@ export default class VelocityMouseHandler {
     const rect = e.currentTarget.getBoundingClientRect()
 
     function calcValue(e) {
-      return Math.round(Math.max(0, Math.min(1, (1 - (e.clientY - rect.top) / rect.height))) * 127)
+      return Math.round(
+        Math.max(0, Math.min(1, 1 - (e.clientY - rect.top) / rect.height)) * 127
+      )
     }
 
     this.changeVelocity(items, calcValue(e))

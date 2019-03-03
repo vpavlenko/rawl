@@ -5,13 +5,14 @@ import "./Sidebar.css"
 
 // mac では閉じるボタンなどが表示される空白
 function TrafficLightsSpace() {
-  return <div className="TrafficLightsSpace">
-  </div>
+  return <div className="TrafficLightsSpace" />
 }
 
 export default function Sidebar() {
-  return <div className="Sidebar">
-    <TrafficLightsSpace />
-    <TrackList />
-  </div>
+  return (
+    <div className="Sidebar">
+      <TrafficLightsSpace />
+      <TrackList />
+    </div>
+  )
 }

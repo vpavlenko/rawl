@@ -2,7 +2,11 @@ import React, { StatelessComponent, CSSProperties } from "react"
 import { pure } from "recompose"
 import DrawCanvas from "components/DrawCanvas"
 
-function drawCursor(ctx: CanvasRenderingContext2D, position: number, height: number) {
+function drawCursor(
+  ctx: CanvasRenderingContext2D,
+  position: number,
+  height: number
+) {
   ctx.save()
   // ctx.translate(0, 0.5)
   ctx.strokeStyle = "red"
@@ -37,13 +41,15 @@ const PianoCursor: StatelessComponent<PianoCursorProps> = ({
     ctx.restore()
   }
 
-  return <DrawCanvas
-    draw={draw}
-    className="PianoCursor"
-    width={width}
-    height={height}
-    style={style}
-  />
+  return (
+    <DrawCanvas
+      draw={draw}
+      className="PianoCursor"
+      width={width}
+      height={height}
+      style={style}
+    />
+  )
 }
 
 export default pure(PianoCursor)

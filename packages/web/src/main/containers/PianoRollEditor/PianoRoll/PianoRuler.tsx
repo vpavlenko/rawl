@@ -9,13 +9,18 @@ import "./PianoRuler.css"
 import Theme from "common/theme"
 import { BeatWithX } from "helpers/mapBeats"
 
-function drawRuler(ctx: CanvasRenderingContext2D, height: number, beats: BeatWithX[], theme: Theme) {
+function drawRuler(
+  ctx: CanvasRenderingContext2D,
+  height: number,
+  beats: BeatWithX[],
+  theme: Theme
+) {
   ctx.strokeStyle = theme.secondaryTextColor
   ctx.lineWidth = 1
   ctx.beginPath()
 
   // 密過ぎる時は省略する
-  const shouldOmit = beats.length > 1 && (beats[1].x - beats[0].x <= 5)
+  const shouldOmit = beats.length > 1 && beats[1].x - beats[0].x <= 5
 
   beats.forEach(({ beat, measure, x }) => {
     const isTop = beat === 0
@@ -42,7 +47,13 @@ function drawRuler(ctx: CanvasRenderingContext2D, height: number, beats: BeatWit
   ctx.stroke()
 }
 
-function drawLoopPoints(ctx: CanvasRenderingContext2D, loop: LoopSetting, height: number, pixelsPerTick: number, theme: Theme) {
+function drawLoopPoints(
+  ctx: CanvasRenderingContext2D,
+  loop: LoopSetting,
+  height: number,
+  pixelsPerTick: number,
+  theme: Theme
+) {
   const lineWidth = 1
   const flagSize = 8
   ctx.fillStyle = loop.enabled ? theme.themeColor : theme.secondaryTextColor
@@ -108,9 +119,8 @@ const PianoRuler: StatelessComponent<PianoRulerProps> = ({
   onMouseDown,
   onMouseMove,
   onMouseUp,
-  loop,
+  loop
 }) => {
-
   function draw(ctx: CanvasRenderingContext2D) {
     const { width, height } = ctx.canvas
     ctx.clearRect(0, 0, width, height)
@@ -121,19 +131,23 @@ const PianoRuler: StatelessComponent<PianoRulerProps> = ({
     ctx.restore()
   }
 
-  const passTick = func => e => func && func({
-    tick: (e.nativeEvent.offsetX + scrollLeft) / pixelsPerTick
-  })
+  const passTick = func => e =>
+    func &&
+    func({
+      tick: (e.nativeEvent.offsetX + scrollLeft) / pixelsPerTick
+    })
 
-  return <DrawCanvas
-    draw={draw}
-    className="PianoRuler"
-    width={width}
-    height={height}
-    onMouseDown={passTick(onMouseDown)}
-    onMouseMove={passTick(onMouseMove)}
-    onMouseUp={passTick(onMouseUp)}
-  />
+  return (
+    <DrawCanvas
+      draw={draw}
+      className="PianoRuler"
+      width={width}
+      height={height}
+      onMouseDown={passTick(onMouseDown)}
+      onMouseMove={passTick(onMouseMove)}
+      onMouseUp={passTick(onMouseUp)}
+    />
+  )
 }
 
 PianoRuler.defaultProps = {
@@ -141,13 +155,15 @@ PianoRuler.defaultProps = {
 }
 
 function test(props: PianoRulerProps, nextProps: PianoRulerProps) {
-  return props.width !== nextProps.width
-    || props.height !== nextProps.height
-    || props.pixelsPerTick !== nextProps.pixelsPerTick
-    || props.scrollLeft !== nextProps.scrollLeft
-    || !_.isEqual(props.loop, nextProps.loop)
-    || !_.isEqual(props.beats, nextProps.beats)
-    || !_.isEqual(props.theme, nextProps.theme)
+  return (
+    props.width !== nextProps.width ||
+    props.height !== nextProps.height ||
+    props.pixelsPerTick !== nextProps.pixelsPerTick ||
+    props.scrollLeft !== nextProps.scrollLeft ||
+    !_.isEqual(props.loop, nextProps.loop) ||
+    !_.isEqual(props.beats, nextProps.beats) ||
+    !_.isEqual(props.theme, nextProps.theme)
+  )
 }
 
 export default shouldUpdate(test)(PianoRuler)

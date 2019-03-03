@@ -14,17 +14,14 @@ export interface IconProps {
   onClick?: (e: any) => void
 }
 
-const Icon = ({
-  component,
-  children,
-  className,
-  onClick
-}: IconProps) => {
+const Icon = ({ component, children, className, onClick }: IconProps) => {
   const ElementType = e(component)
-  return <ElementType
-    className={f("Icon", "mdi", `mdi-${children}`, className)}
-    onClick={onClick}
-  />
+  return (
+    <ElementType
+      className={f("Icon", "mdi", `mdi-${children}`, className)}
+      onClick={onClick}
+    />
+  )
 }
 
 export default pure(Icon)

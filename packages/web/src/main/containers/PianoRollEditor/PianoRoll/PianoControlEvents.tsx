@@ -2,7 +2,7 @@ import React, { StatelessComponent } from "react"
 import { controllerTypeString as CCNames } from "helpers/noteNumberString"
 import { TrackEvent } from "common/track"
 import "./PianoControlEvents.css"
-import { ControllerEvent, ProgramChangeEvent } from "@signal-app/midifile-ts";
+import { ControllerEvent, ProgramChangeEvent } from "@signal-app/midifile-ts"
 
 type DisplayEvent = TrackEvent & (ControllerEvent | ProgramChangeEvent)
 
@@ -12,8 +12,10 @@ function displayControlName(e: DisplayEvent): string {
       const name = CCNames[(e as ControllerEvent).controllerType]
       return name || "Control"
     }
-    case "programChange": return "Program Change"
-    default: return "Control"
+    case "programChange":
+      return "Program Change"
+    default:
+      return "Control"
   }
 }
 
@@ -29,13 +31,23 @@ const ControlMark: StatelessComponent<ControlMarkProps> = ({
   onDoubleClick
 }) => {
   const event = group[0]
-  return <div className="ControlMark" style={{ left: event.tick * pixelsPerTick }} onDoubleClick={onDoubleClick}>
-    {displayControlName(event)}{group.length > 1 ? ` +${group.length}` : ""}
-  </div>
+  return (
+    <div
+      className="ControlMark"
+      style={{ left: event.tick * pixelsPerTick }}
+      onDoubleClick={onDoubleClick}
+    >
+      {displayControlName(event)}
+      {group.length > 1 ? ` +${group.length}` : ""}
+    </div>
+  )
 }
 
 /// 重なって表示されないようにひとつのイベントとしてまとめる
-function groupControlEvents(events: DisplayEvent[], tickWindow: number): DisplayEvent[][] {
+function groupControlEvents(
+  events: DisplayEvent[],
+  tickWindow: number
+): DisplayEvent[][] {
   const groups = []
   let group = []
   for (let e of events) {
@@ -43,7 +55,7 @@ function groupControlEvents(events: DisplayEvent[], tickWindow: number): Display
       group.push(e)
     } else {
       const startTick = events[0].tick
-      if ((e.tick - startTick) < tickWindow) {
+      if (e.tick - startTick < tickWindow) {
         /// 最初のイベントから範囲内ならまとめる
         group.push(e)
       } else {
@@ -94,15 +106,27 @@ const PianoControlEvents: StatelessComponent<PianoControlEventsProps> = ({
   pixelsPerTick,
   onDoubleClickMark
 }) => {
-  const eventGroups = groupControlEvents(events.filter(isDisplayControlEvent), 120)
+  const eventGroups = groupControlEvents(
+    events.filter(isDisplayControlEvent),
+    120
+  )
 
-  return <div className="PianoControlEvents" style={{ width }}>
-    <div className="inner">
-      <div className="content" style={{ left: -scrollLeft }}>
-        {eventGroups.map((g, i) => <ControlMark key={i} group={g} pixelsPerTick={pixelsPerTick} onDoubleClick={e => onDoubleClickMark(e, g)} />)}
+  return (
+    <div className="PianoControlEvents" style={{ width }}>
+      <div className="inner">
+        <div className="content" style={{ left: -scrollLeft }}>
+          {eventGroups.map((g, i) => (
+            <ControlMark
+              key={i}
+              group={g}
+              pixelsPerTick={pixelsPerTick}
+              onDoubleClick={e => onDoubleClickMark(e, g)}
+            />
+          ))}
+        </div>
       </div>
     </div>
-  </div>
+  )
 }
 
 export default PianoControlEvents

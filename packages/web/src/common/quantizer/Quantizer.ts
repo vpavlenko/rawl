@@ -25,6 +25,6 @@ export default class Quantizer {
   }
 
   get unit() {
-    return this._ticksPerBeat * 4 / this.denominator
+    return (this._ticksPerBeat * 4) / this.denominator
   }
 }

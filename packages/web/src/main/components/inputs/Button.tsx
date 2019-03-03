@@ -19,11 +19,11 @@ const Button: StatelessComponent<ButtonProps> = ({
   className
 }) => {
   const ElementType = e(component)
-  return <ElementType
-    className={f("Button", className)}
-    onClick={onClick}>
-    {children}
-  </ElementType>
+  return (
+    <ElementType className={f("Button", className)} onClick={onClick}>
+      {children}
+    </ElementType>
+  )
 }
 
 export default pure(Button)

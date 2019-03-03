@@ -11,16 +11,21 @@ export interface MenuTemplateItem {
 }
 
 export function fromTemplate(t: MenuTemplateItem[]) {
-  return <MenuBar>
-    {t.map(t => <MenuItem title={t.label}>
-      {t.submenu && <SubMenu>
-        {t.submenu.map(t => <MenuItem
-          title={t.role || t.label}
-          onClick={t.click}
-        />)}
-      </SubMenu>}
-    </MenuItem>)}
-  </MenuBar>
+  return (
+    <MenuBar>
+      {t.map(t => (
+        <MenuItem title={t.label}>
+          {t.submenu && (
+            <SubMenu>
+              {t.submenu.map(t => (
+                <MenuItem title={t.role || t.label} onClick={t.click} />
+              ))}
+            </SubMenu>
+          )}
+        </MenuItem>
+      ))}
+    </MenuBar>
+  )
 }
 
 export interface MenuBarProps {
@@ -32,9 +37,7 @@ export const MenuBar: StatelessComponent<MenuBarProps> = ({
   children,
   className
 }) => {
-  return <div className={f("MenuBar", className)}>
-    {children}
-  </div>
+  return <div className={f("MenuBar", className)}>{children}</div>
 }
 
 export interface MenuItemProps {
@@ -50,12 +53,12 @@ export const MenuItem: StatelessComponent<MenuItemProps> = ({
   title,
   onClick
 }) => {
-  return <div
-    className={f("MenuItem", className)}
-    onClick={onClick}>
-    <div className="title">{title}</div>
-    {children}
-  </div>
+  return (
+    <div className={f("MenuItem", className)} onClick={onClick}>
+      <div className="title">{title}</div>
+      {children}
+    </div>
+  )
 }
 
 export interface SubMenuProps {
@@ -67,18 +70,15 @@ export const SubMenu: StatelessComponent<SubMenuProps> = ({
   children,
   className
 }) => {
-  return <div
-    className={f("SubMenu", className)}>
-    {children}
-  </div>
+  return <div className={f("SubMenu", className)}>{children}</div>
 }
 
 export interface MenuSeparatorProps {
-  className?: string 
+  className?: string
 }
 
-export const MenuSeparator: StatelessComponent<MenuSeparatorProps> = ({ 
-  className 
+export const MenuSeparator: StatelessComponent<MenuSeparatorProps> = ({
+  className
 }) => {
   return <div className={f("MenuSeparator", className)} />
 }

@@ -8,14 +8,8 @@ export interface ToolbarProps {
   className?: string
 }
 
-export function Toolbar({
-  children,
-  className
-}: ToolbarProps) {
-  return <div
-    className={f("Toolbar", className)}>
-    {children}
-  </div>
+export function Toolbar({ children, className }: ToolbarProps) {
+  return <div className={f("Toolbar", className)}>{children}</div>
 }
 
 export interface ToolbarItemProps {
@@ -33,20 +27,25 @@ export function ToolbarItem({
   onClick,
   touchDisabled
 }: ToolbarItemProps) {
-  return <div
-    className={f("ToolbarItem", className, selected && "selected", touchDisabled && "touch-disabled")}
-    onClick={onClick}>
-    {children}
-  </div>
+  return (
+    <div
+      className={f(
+        "ToolbarItem",
+        className,
+        selected && "selected",
+        touchDisabled && "touch-disabled"
+      )}
+      onClick={onClick}
+    >
+      {children}
+    </div>
+  )
 }
 
 export interface ToolbarSeparatorProps {
   className?: string
 }
 
-export function ToolbarSeparator({
-  className
-}: ToolbarSeparatorProps) {
-  return <div
-    className={f("ToolbarSeparator", className)} />
+export function ToolbarSeparator({ className }: ToolbarSeparatorProps) {
+  return <div className={f("ToolbarSeparator", className)} />
 }

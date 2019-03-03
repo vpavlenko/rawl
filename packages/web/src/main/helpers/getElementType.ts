@@ -1,3 +1,6 @@
-export default function getElementType(preferredElement, defaultElement = "div") {
+export default function getElementType(
+  preferredElement,
+  defaultElement = "div"
+) {
   return preferredElement || defaultElement
 }

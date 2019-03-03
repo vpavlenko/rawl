@@ -8,7 +8,7 @@ export default class JsonStore {
     // this.path = path.join(remote.app.getPath("userData"), "config.json")
 
     try {
-      const json = "{}"//fs.readFileSync(this.path, "utf-8")
+      const json = "{}" //fs.readFileSync(this.path, "utf-8")
       this.cache = JSON.parse(json)
     } catch (e) {
       console.error(e)

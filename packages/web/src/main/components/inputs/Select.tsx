@@ -28,16 +28,18 @@ const Select: StatelessComponent<SelectProps<any>> = ({
     onChange(e)
   }
 
-  return <div className="select-container">
-    <Icon className="arrow-down">menu-down</Icon>
-    <select value={value} onChange={handleChange} onWheel={handleWheel}>
-      {options.map(o =>
-        <option key={o.value} value={o.value}>
-          {o.name}
-        </option>
-      )}
-    </select>
-  </div>
+  return (
+    <div className="select-container">
+      <Icon className="arrow-down">menu-down</Icon>
+      <select value={value} onChange={handleChange} onWheel={handleWheel}>
+        {options.map(o => (
+          <option key={o.value} value={o.value}>
+            {o.name}
+          </option>
+        ))}
+      </select>
+    </div>
+  )
 }
 
 export default pure(Select)

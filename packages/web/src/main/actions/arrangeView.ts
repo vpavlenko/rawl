@@ -1,4 +1,4 @@
-import { IRect, fromPoints as rectFromPoints } from "common/geometry"
+import { fromPoints as rectFromPoints } from "common/geometry"
 import _ from "lodash"
 import clipboard from "services/Clipboard.ts"
 import { open as openContextMenu } from "containers/ArrangeView/ArrangeContextMenu"
@@ -12,11 +12,18 @@ export const ARRANGE_COPY_SELECTION = Symbol()
 export const ARRANGE_PASTE_SELECTION = Symbol()
 export const ARRANGE_DELETE_SELECTION = Symbol()
 
-export default ({ dispatch, song: { tracks }, arrangeViewStore: s, services: { quantizer, player } }) => {
+export default ({
+  dispatch,
+  song: { tracks },
+  arrangeViewStore: s,
+  services: { quantizer, player }
+}) => {
   const createRect = (from, to) => {
     const rect = rectFromPoints(from, to)
-    rect.height = Math.min(tracks.length - rect.y,
-      Math.max(from.y, to.y) - rect.y)
+    rect.height = Math.min(
+      tracks.length - rect.y,
+      Math.max(from.y, to.y) - rect.y
+    )
 
     if (rect.y < 0) {
       // Ruler をドラッグしている場合は全てのトラックを選択する
@@ -42,7 +49,7 @@ export default ({ dispatch, song: { tracks }, arrangeViewStore: s, services: { q
   }
 
   return {
-    [ARRANGE_START_SELECTION]: (pos) => {
+    [ARRANGE_START_SELECTION]: pos => {
       s.selection = null
       s.selectedEventIds = {}
     },
@@ -60,7 +67,7 @@ export default ({ dispatch, song: { tracks }, arrangeViewStore: s, services: { q
       }
     },
 
-    [ARRANGE_MOVE_SELECTION]: (pos) => {
+    [ARRANGE_MOVE_SELECTION]: pos => {
       // 選択範囲を移動
       const selection = quantizeRect({
         x: Math.max(pos.x, 0),
@@ -87,18 +94,24 @@ export default ({ dispatch, song: { tracks }, arrangeViewStore: s, services: { q
       for (let trackIndex of s.selectedEventIds) {
         trackIndex = parseInt(trackIndex, 10)
         const track = tracks[trackIndex]
-        const events = s.selectedEventIds[trackIndex].map(id => track.getEventById(id)).filter(e => e)
+        const events = s.selectedEventIds[trackIndex]
+          .map(id => track.getEventById(id))
+          .filter(e => e)
 
         if (di === 0) {
-          track.updateEvents(events.map(e => ({
-            id: e.id, tick: e.tick + dt
-          })))
+          track.updateEvents(
+            events.map(e => ({
+              id: e.id,
+              tick: e.tick + dt
+            }))
+          )
         } else {
           updates.push({
             sourceTrackId: trackIndex,
             destinationTrackId: trackIndex + di,
             events: events.map(e => ({
-              ...e, tick: e.tick + dt
+              ...e,
+              tick: e.tick + dt
             }))
           })
         }
@@ -120,17 +133,21 @@ export default ({ dispatch, song: { tracks }, arrangeViewStore: s, services: { q
 
     [ARRANGE_COPY_SELECTION]: () => {
       // 選択されたノートをコピー
-      const notes = _.mapValues(s.selectedEventIds, (ids, trackId) => ids.map(id => {
-        const note = tracks[trackId].getEventById(id)
-        return {
-          ...note,
-          tick: note.tick - s.selection.x // 選択範囲からの相対位置にする
-        }
-      }))
-      clipboard.writeText(JSON.stringify({
-        type: "arrange_notes",
-        notes
-      }))
+      const notes = _.mapValues(s.selectedEventIds, (ids, trackId) =>
+        ids.map(id => {
+          const note = tracks[trackId].getEventById(id)
+          return {
+            ...note,
+            tick: note.tick - s.selection.x // 選択範囲からの相対位置にする
+          }
+        })
+      )
+      clipboard.writeText(
+        JSON.stringify({
+          type: "arrange_notes",
+          notes
+        })
+      )
     },
 
     [ARRANGE_PASTE_SELECTION]: () => {
@@ -144,11 +161,10 @@ export default ({ dispatch, song: { tracks }, arrangeViewStore: s, services: { q
         return
       }
       for (let trackId in obj.notes) {
-        const notes = obj.notes[trackId]
-          .map(note => ({
-            ...note,
-            tick: note.tick + player.position
-          }))
+        const notes = obj.notes[trackId].map(note => ({
+          ...note,
+          tick: note.tick + player.position
+        }))
         tracks[trackId].addEvents(notes)
       }
     },
@@ -160,7 +176,7 @@ export default ({ dispatch, song: { tracks }, arrangeViewStore: s, services: { q
       }
       s.selection = null
       s.selectedEventIds = []
-    },
+    }
   }
 }
 
@@ -169,9 +185,15 @@ function getNotesInSelection(tracks, selection) {
   const startTick = selection.x
   const endTick = selection.x + selection.width
   const ids = {}
-  for (let trackIndex = selection.y; trackIndex < selection.y + selection.height; trackIndex++) {
+  for (
+    let trackIndex = selection.y;
+    trackIndex < selection.y + selection.height;
+    trackIndex++
+  ) {
     const track = tracks[trackIndex]
-    const events = track.events.filter(e => e.subtype === "note" && e.tick >= startTick && e.tick <= endTick)
+    const events = track.events.filter(
+      e => e.subtype === "note" && e.tick >= startTick && e.tick <= endTick
+    )
     ids[trackIndex] = events.map(e => e.id)
   }
   return ids

@@ -14,11 +14,12 @@ interface TempoEditorProps {
 const TempoEditor: StatelessComponent<TempoEditorProps> = ({
   onClickNavBack
 }) => {
-  return <div className="TempoEditor">
-    <NavigationBar title="Tempo" onClickBack={onClickNavBack}>
-    </NavigationBar>
-    <TempoGraph />
-  </div>
+  return (
+    <div className="TempoEditor">
+      <NavigationBar title="Tempo" onClickBack={onClickNavBack} />
+      <TempoGraph />
+    </div>
+  )
 }
 
 export default compose(
@@ -26,5 +27,5 @@ export default compose(
     track: song.conductorTrack,
     onClickNavBack: () => router.pushArrange()
   })),
-  observer,
+  observer
 )(TempoEditor)

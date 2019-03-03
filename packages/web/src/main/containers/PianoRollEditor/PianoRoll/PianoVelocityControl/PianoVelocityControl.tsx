@@ -2,13 +2,12 @@ import React, { Component } from "react"
 import { shouldUpdate } from "recompose"
 import _ from "lodash"
 
-import { IRect } from "common/geometry"
 import Stage from "components/Stage/Stage"
 
 import VelocityItem from "./VelocityItem"
 import VelocityMouseHandler from "./VelocityMouseHandler"
 import { NoteCoordTransform } from "common/transform"
-import { Dispatcher } from "main/createDispatcher";
+import { Dispatcher } from "main/createDispatcher"
 
 export interface PianoVelocityControlProps {
   width: number
@@ -36,28 +35,38 @@ function PianoVelocityControl({
     .map(note => {
       const { x } = transform.getRect(note)
       const itemWidth = 5
-      const itemHeight = note.velocity / 127 * height
-      const bounds = { x, y: height - itemHeight, width: itemWidth, height: itemHeight }
+      const itemHeight = (note.velocity / 127) * height
+      const bounds = {
+        x,
+        y: height - itemHeight,
+        width: itemWidth,
+        height: itemHeight
+      }
       return new VelocityItem(note.id, bounds, note.selected, color)
     })
 
   mouseHandler.dispatch = dispatch
 
-  return <Stage
-    className="PianoControl VelocityControl"
-    items={items}
-    width={width}
-    height={height}
-    scrollLeft={scrollLeft}
-    onMouseDown={e => mouseHandler.onMouseDown(e)}
-  />
+  return (
+    <Stage
+      className="PianoControl VelocityControl"
+      items={items}
+      width={width}
+      height={height}
+      scrollLeft={scrollLeft}
+      onMouseDown={e => mouseHandler.onMouseDown(e)}
+    />
+  )
 }
 
 interface State {
-  mouseHandler: any  
+  mouseHandler: any
 }
 
-class _PianoVelocityControl extends Component<PianoVelocityControlProps, State> {
+class _PianoVelocityControl extends Component<
+  PianoVelocityControlProps,
+  State
+> {
   constructor(props) {
     super(props)
 
@@ -71,12 +80,17 @@ class _PianoVelocityControl extends Component<PianoVelocityControlProps, State> 
   }
 }
 
-function test(props: PianoVelocityControlProps, nextProps: PianoVelocityControlProps) {
-  return props.scrollLeft !== nextProps.scrollLeft
-    || props.width !== nextProps.width
-    || props.height !== nextProps.height
-    || props.events !== nextProps.events
-    || props.transform !== nextProps.transform
+function test(
+  props: PianoVelocityControlProps,
+  nextProps: PianoVelocityControlProps
+) {
+  return (
+    props.scrollLeft !== nextProps.scrollLeft ||
+    props.width !== nextProps.width ||
+    props.height !== nextProps.height ||
+    props.events !== nextProps.events ||
+    props.transform !== nextProps.transform
+  )
 }
 
 export default shouldUpdate(test)(_PianoVelocityControl)

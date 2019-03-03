@@ -6,7 +6,11 @@ import { noteNameWithOctString } from "helpers/noteNumberString"
 import DrawCanvas from "components/DrawCanvas"
 import Theme from "common/theme"
 
-function drawBorder(ctx: CanvasRenderingContext2D, width: number, dividerColor: string): void {
+function drawBorder(
+  ctx: CanvasRenderingContext2D,
+  width: number,
+  dividerColor: string
+): void {
   ctx.lineWidth = 1
   ctx.strokeStyle = dividerColor
   ctx.beginPath()
@@ -16,7 +20,13 @@ function drawBorder(ctx: CanvasRenderingContext2D, width: number, dividerColor: 
   ctx.stroke()
 }
 
-function drawBlackKey(ctx: CanvasRenderingContext2D, width: number, height: number, fillColor: string, dividerColor: string): void {
+function drawBlackKey(
+  ctx: CanvasRenderingContext2D,
+  width: number,
+  height: number,
+  fillColor: string,
+  dividerColor: string
+): void {
   const innerWidth = width * 0.64
   const middle = Math.round(height / 2)
 
@@ -32,7 +42,14 @@ function drawBlackKey(ctx: CanvasRenderingContext2D, width: number, height: numb
   ctx.stroke()
 }
 
-function drawLabel(ctx: CanvasRenderingContext2D, width: number, height: number, keyNum: number, font: string, color: string) {
+function drawLabel(
+  ctx: CanvasRenderingContext2D,
+  width: number,
+  height: number,
+  keyNum: number,
+  font: string,
+  color: string
+) {
   const x = width - 5
   ctx.textAlign = "right"
   ctx.textBaseline = "middle"
@@ -41,10 +58,16 @@ function drawLabel(ctx: CanvasRenderingContext2D, width: number, height: number,
   ctx.fillText(noteNameWithOctString(keyNum), x, height / 2)
 }
 
-function drawKeys(ctx: CanvasRenderingContext2D, width: number, keyHeight: number, numberOfKeys: number, theme: Theme) {
+function drawKeys(
+  ctx: CanvasRenderingContext2D,
+  width: number,
+  keyHeight: number,
+  numberOfKeys: number,
+  theme: Theme
+) {
   ctx.save()
   ctx.translate(0, 0.5)
-  
+
   ctx.fillStyle = theme.pianoKeyWhite
   ctx.fillRect(0, 0, width, keyHeight * numberOfKeys)
 
@@ -54,18 +77,31 @@ function drawKeys(ctx: CanvasRenderingContext2D, width: number, keyHeight: numbe
   const colors = [0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0]
   for (let i = 0; i < numberOfKeys; i++) {
     const isBlack = colors[i % colors.length] !== 0
-    const bordered = (i % 12 === 4) || (i % 12 === 11)
+    const bordered = i % 12 === 4 || i % 12 === 11
     const y = (numberOfKeys - i - 1) * keyHeight
     ctx.save()
     ctx.translate(0, y)
     if (isBlack) {
-      drawBlackKey(ctx, width, keyHeight, theme.pianoKeyBlack, theme.dividerColor)
+      drawBlackKey(
+        ctx,
+        width,
+        keyHeight,
+        theme.pianoKeyBlack,
+        theme.dividerColor
+      )
     } else if (bordered) {
       drawBorder(ctx, width, theme.dividerColor)
     }
     const isKeyC = i % 12 === 0
     if (isKeyC) {
-      drawLabel(ctx, width, keyHeight, i, theme.canvasFont, theme.secondaryTextColor)
+      drawLabel(
+        ctx,
+        width,
+        keyHeight,
+        i,
+        theme.canvasFont,
+        theme.secondaryTextColor
+      )
     }
     ctx.restore()
   }
@@ -103,19 +139,23 @@ const PianoKeys: StatelessComponent<PianoKeysProps> = ({
     onClickKey(noteNumber)
   }
 
-  return <DrawCanvas
-    draw={draw}
-    className="PianoKeys"
-    width={width}
-    height={keyHeight * numberOfKeys}
-    onMouseDown={onMouseDown}
-  />
+  return (
+    <DrawCanvas
+      draw={draw}
+      className="PianoKeys"
+      width={width}
+      height={keyHeight * numberOfKeys}
+      onMouseDown={onMouseDown}
+    />
+  )
 }
 
 function test(props: PianoKeysProps, nextProps: PianoKeysProps) {
-  return !_.isEqual(props.theme, nextProps.theme)
-    || props.keyHeight !== nextProps.keyHeight
-    || props.numberOfKeys !== nextProps.numberOfKeys
+  return (
+    !_.isEqual(props.theme, nextProps.theme) ||
+    props.keyHeight !== nextProps.keyHeight ||
+    props.numberOfKeys !== nextProps.numberOfKeys
+  )
 }
 
 export default shouldUpdate(test)(PianoKeys)

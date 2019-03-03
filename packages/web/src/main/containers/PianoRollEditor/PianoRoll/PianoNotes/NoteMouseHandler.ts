@@ -1,8 +1,12 @@
-import { Dispatcher } from "main/createDispatcher";
-import { CHANGE_CURSOR, SCROLL_BY, TOGGLE_TOOL } from "main/actions";
+import { Dispatcher } from "main/createDispatcher"
+import { CHANGE_CURSOR, SCROLL_BY, TOGGLE_TOOL } from "main/actions"
 
 type MouseAction = (e: any) => void
-type MouseGesture = (onMouseDown: MouseAction, onMouseMove?: MouseAction, onMouseUp?: MouseAction) => void
+type MouseGesture = (
+  onMouseDown: MouseAction,
+  onMouseMove?: MouseAction,
+  onMouseUp?: MouseAction
+) => void
 
 export default class NoteMouseHandler {
   dispatch: Dispatcher
@@ -44,9 +48,9 @@ export default class NoteMouseHandler {
     if (!this.action) {
       return
     }
-    let actionMouseDown = (_) => { }
-    this.actionMouseMove = () => { }
-    this.actionMouseUp = () => { }
+    let actionMouseDown = _ => {}
+    this.actionMouseMove = () => {}
+    this.actionMouseUp = () => {}
     const registerMouseDown = f => {
       actionMouseDown = f
     }
@@ -56,10 +60,7 @@ export default class NoteMouseHandler {
     const registerMouseUp = f => {
       this.actionMouseUp = f
     }
-    this.action(
-      registerMouseDown,
-      registerMouseMove,
-      registerMouseUp)
+    this.action(registerMouseDown, registerMouseMove, registerMouseUp)
     actionMouseDown(e)
   }
 
@@ -81,7 +82,6 @@ export default class NoteMouseHandler {
 }
 
 const dragScrollAction = dispatch => (onMouseDown, onMouseMove) => {
-
   const onGlobalMouseMove = e => {
     dispatch(SCROLL_BY, { x: e.movementX, y: e.movementY })
   }

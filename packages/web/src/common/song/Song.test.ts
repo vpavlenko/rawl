@@ -6,10 +6,12 @@ import { serialize, deserialize } from "serializr"
 import { read } from "../midi/MidiFileReader"
 import Song from "./Song"
 import { songFromMidi } from "./SongFactory"
-import Track from "./Track"
+import Track from "../track/Track"
 
 describe("Song", () => {
-  const midi = read(fs.readFileSync(path.join(__dirname, "../../testdata/tracks.mid")))
+  const midi = read(
+    fs.readFileSync(path.join(__dirname, "../../testdata/tracks.mid"))
+  )
   const song = songFromMidi(midi)
 
   it("fromMidi", () => {

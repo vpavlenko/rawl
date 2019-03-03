@@ -14,13 +14,13 @@ export const PASTE_SELECTION = Symbol()
 
 function eventsInSelection(events, selection) {
   const s = selection
-  return events
-    .filter(b =>
-      b.tick >= s.fromTick
-      && b.tick < s.toTick // ノートの先頭だけ範囲にはいっていればよい
-      && b.noteNumber <= s.fromNoteNumber
-      && b.noteNumber > s.toNoteNumber
-    )
+  return events.filter(
+    b =>
+      b.tick >= s.fromTick &&
+      b.tick < s.toTick && // ノートの先頭だけ範囲にはいっていればよい
+      b.noteNumber <= s.fromNoteNumber &&
+      b.noteNumber > s.toNoteNumber
+  )
 }
 
 export default ({ song, pianoRollStore, services: { quantizer, player } }) => {
@@ -33,16 +33,21 @@ export default ({ song, pianoRollStore, services: { quantizer, player } }) => {
 
   return {
     [RESIZE_SELECTION]: ({ start, end }) => {
-      updateSelection(selection.resize(
-        quantizer.round(start.tick),
-        start.noteNumber,
-        quantizer.round(end.tick),
-        end.noteNumber))
+      updateSelection(
+        selection.resize(
+          quantizer.round(start.tick),
+          start.noteNumber,
+          quantizer.round(end.tick),
+          end.noteNumber
+        )
+      )
     },
     [FIX_SELECTION]: () => {
       // 選択範囲を確定して選択範囲内のノートを選択状態にする
       const s = selection.clone()
-      s.noteIds = eventsInSelection(selectedTrack.events, selection).map(e => e.id)
+      s.noteIds = eventsInSelection(selectedTrack.events, selection).map(
+        e => e.id
+      )
       updateSelection(s)
     },
     [MOVE_SELECTION]: ({ tick, noteNumber }) => {
@@ -60,14 +65,16 @@ export default ({ song, pianoRollStore, services: { quantizer, player } }) => {
       const s = selection.moveTo(tick, noteNumber)
       updateSelection(s)
 
-      selectedTrack.updateEvents(s.noteIds.map(id => {
-        const n = selectedTrack.getEventById(id)
-        return {
-          id,
-          tick: n.tick + dt,
-          noteNumber: n.noteNumber + dn
-        }
-      }))
+      selectedTrack.updateEvents(
+        s.noteIds.map(id => {
+          const n = selectedTrack.getEventById(id)
+          return {
+            id,
+            tick: n.tick + dt,
+            noteNumber: n.noteNumber + dn
+          }
+        })
+      )
     },
 
     [RESIZE_SELECTION_LEFT]: ({ tick }) => {
@@ -90,19 +97,21 @@ export default ({ song, pianoRollStore, services: { quantizer, player } }) => {
       s.fromTick = fromTick
       updateSelection(s)
 
-      selectedTrack.updateEvents(selection.noteIds.map(id => {
-        const n = selectedTrack.getEventById(id)
-        const duration = n.duration - delta
-        if (duration <= 0) {
-          // 幅がゼロになる場合は変形しない
-          return { id }
-        }
-        return {
-          id,
-          tick: n.tick + delta,
-          duration
-        }
-      }))
+      selectedTrack.updateEvents(
+        selection.noteIds.map(id => {
+          const n = selectedTrack.getEventById(id)
+          const duration = n.duration - delta
+          if (duration <= 0) {
+            // 幅がゼロになる場合は変形しない
+            return { id }
+          }
+          return {
+            id,
+            tick: n.tick + delta,
+            duration
+          }
+        })
+      )
     },
 
     [RESIZE_SELECTION_RIGHT]: ({ tick }) => {
@@ -125,18 +134,20 @@ export default ({ song, pianoRollStore, services: { quantizer, player } }) => {
       s.toTick = toTick
       updateSelection(s)
 
-      selectedTrack.updateEvents(selection.noteIds.map(id => {
-        const n = selectedTrack.getEventById(id)
-        const duration = n.duration + delta
-        if (duration <= 0) {
-          // 幅がゼロになる場合は変形しない
-          return { id }
-        }
-        return {
-          id,
-          duration
-        }
-      }))
+      selectedTrack.updateEvents(
+        selection.noteIds.map(id => {
+          const n = selectedTrack.getEventById(id)
+          const duration = n.duration + delta
+          if (duration <= 0) {
+            // 幅がゼロになる場合は変形しない
+            return { id }
+          }
+          return {
+            id,
+            duration
+          }
+        })
+      )
     },
     [START_SELECTION]: ({ tick, noteNumber }) => {
       if (!player.isPlaying) {
@@ -151,7 +162,9 @@ export default ({ song, pianoRollStore, services: { quantizer, player } }) => {
     },
     [CLONE_SELECTION]: () => {
       // 選択範囲内のノートをコピーした選択範囲を作成
-      const notes = selection.noteIds.map(id => ({ ...selectedTrack.getEventById(id) }))
+      const notes = selection.noteIds.map(id => ({
+        ...selectedTrack.getEventById(id)
+      }))
       selectedTrack.addEvents(notes)
       const s = selection.clone()
       s.noteIds = notes.map(e => e.id)
@@ -164,18 +177,19 @@ export default ({ song, pianoRollStore, services: { quantizer, player } }) => {
       }
 
       // 選択されたノートをコピー
-      const notes = selection.noteIds
-        .map(id => {
-          const note = selectedTrack.getEventById(id)
-          return {
-            ...note,
-            tick: note.tick - selection.fromTick // 選択範囲からの相対位置にする
-          }
+      const notes = selection.noteIds.map(id => {
+        const note = selectedTrack.getEventById(id)
+        return {
+          ...note,
+          tick: note.tick - selection.fromTick // 選択範囲からの相対位置にする
+        }
+      })
+      clipboard.writeText(
+        JSON.stringify({
+          type: "notes",
+          notes
         })
-      clipboard.writeText(JSON.stringify({
-        type: "notes",
-        notes
-      }))
+      )
     },
     [DELETE_SELECTION]: () => {
       // 選択範囲と選択されたノートを削除
@@ -192,11 +206,10 @@ export default ({ song, pianoRollStore, services: { quantizer, player } }) => {
       if (obj.type !== "notes") {
         return
       }
-      const notes = obj.notes
-        .map(note => ({
-          ...note,
-          tick: note.tick + player.position
-        }))
+      const notes = obj.notes.map(note => ({
+        ...note,
+        tick: note.tick + player.position
+      }))
       selectedTrack.addEvents(notes)
     }
   }

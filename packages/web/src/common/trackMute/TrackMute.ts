@@ -5,7 +5,7 @@ function updated(obj, key, value) {
   return { ...obj, [key]: value }
 }
 
-type BoolMap = {[index: number]: boolean}
+type BoolMap = { [index: number]: boolean }
 
 /**
 
@@ -28,10 +28,10 @@ type BoolMap = {[index: number]: boolean}
 
 */
 export default class TrackMute {
-  @observable 
+  @observable
   private mutes: BoolMap = {}
-  
-  @observable 
+
+  @observable
   private solos: BoolMap = {}
 
   reset() {

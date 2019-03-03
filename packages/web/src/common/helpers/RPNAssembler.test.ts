@@ -106,7 +106,7 @@ describe("assemble", () => {
       rpnMSB: 1,
       rpnLSB: 2,
       dataMSB: 3,
-      dataLSB: 4,
+      dataLSB: 4
     })
   })
 })

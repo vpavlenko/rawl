@@ -27,46 +27,65 @@ interface RootViewProps {
 const RootView: StatelessComponent<RootViewProps> = ({
   song,
   dispatch,
-  routerPath,
+  routerPath
 }) => {
   const { selectedTrack } = song
 
   const fileName = path.basename(song.filepath.replace(/\\/g, "/"))
 
   function withTransporter(content) {
-    return <Fragment>
-      <div className="content">
-        {content}
-      </div>
-      <TransportPanel />
-    </Fragment>
+    return (
+      <Fragment>
+        <div className="content">{content}</div>
+        <TransportPanel />
+      </Fragment>
+    )
   }
 
   function router() {
     switch (routerPath) {
-      case "/track": return selectedTrack.isConductorTrack ? withTransporter(<TempoEditor />) : withTransporter(<PianoRollEditor />)
-      case "/settings": return <SettingsView />
+      case "/track":
+        return selectedTrack.isConductorTrack
+          ? withTransporter(<TempoEditor />)
+          : withTransporter(<PianoRollEditor />)
+      case "/settings":
+        return <SettingsView />
       case "/arrange": /* fallthrough */
       default:
-        return withTransporter(<Fragment>
-          <Sidebar />
-          <ArrangeView />
-        </Fragment>)
+        return withTransporter(
+          <Fragment>
+            <Sidebar />
+            <ArrangeView />
+          </Fragment>
+        )
     }
   }
 
-  return <div className="RootView">
-    <Helmet><title>{`${song.name} (${fileName}) ― signal`}</title></Helmet>
-    {router()}
-  </div>
+  return (
+    <div className="RootView">
+      <Helmet>
+        <title>{`${song.name} (${fileName}) ― signal`}</title>
+      </Helmet>
+      {router()}
+    </div>
+  )
 }
 
 export default compose(
-  inject(({ rootStore: { router: { path }, song, services: { player }, dispatch } }) => ({
-    routerPath: path,
-    song,
-    player,
-    dispatch
-  })),
-  observer,
+  inject(
+    ({
+      rootStore: {
+        router: { path },
+        song,
+        services: { player },
+        dispatch
+      }
+    }) => ({
+      routerPath: path,
+      song,
+      player,
+      dispatch
+    })
+  ),
+  observer
 )(RootView)

@@ -1,6 +1,6 @@
 const ipcRenderer = {
   send: (..._: any) => {},
-  on: (..._: any) => {},
+  on: (..._: any) => {}
 }
 
 export default class SynthOutput {

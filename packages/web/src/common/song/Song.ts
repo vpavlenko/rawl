@@ -10,19 +10,21 @@ const END_MARGIN = 480 * 30
 
 export default class Song {
   @serializable(list(object(Track)))
-  @observable.shallow 
+  @observable.shallow
   tracks: Track[] = []
 
-  @serializable @observable 
+  @serializable
+  @observable
   selectedTrackId: number = 0
 
-  @serializable @observable 
+  @serializable
+  @observable
   filepath: string = ""
 
   name: string
 
   private _endOfSong: number = 0
-  private _measureList: MeasureList|null = null
+  private _measureList: MeasureList | null = null
 
   private _updateEndOfSong() {
     this._endOfSong = _.max(this.tracks.map(t => t.endOfTrack)) + END_MARGIN
@@ -59,15 +61,17 @@ export default class Song {
   }
 
   @action selectTrack(id: number) {
-    if (id === this.selectedTrackId) { return }
+    if (id === this.selectedTrackId) {
+      return
+    }
     this.selectedTrackId = id
   }
 
-  @computed get conductorTrack(): Track|undefined {
+  @computed get conductorTrack(): Track | undefined {
     return _.find(this.tracks, t => t.isConductorTrack)
   }
 
-  @computed get selectedTrack(): Track|undefined {
+  @computed get selectedTrack(): Track | undefined {
     return this.tracks[this.selectedTrackId]
   }
 
@@ -80,7 +84,11 @@ export default class Song {
       return this._measureList
     }
 
-    this._measureList = new MeasureList(this.conductorTrack, this.endOfSong, TIME_BASE)
+    this._measureList = new MeasureList(
+      this.conductorTrack,
+      this.endOfSong,
+      TIME_BASE
+    )
     return this._measureList
   }
 

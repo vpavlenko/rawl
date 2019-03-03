@@ -47,15 +47,17 @@ function NumberInput({
     window.addEventListener("mouseup", onMouseUp)
   }
 
-  return <input
-    type="number"
-    className={f("NumberInput", className)}
-    value={value}
-    onChange={onChange}
-    placeholder={placeholder}
-    onWheel={handleWheel}
-    onMouseDown={handleMouseDown}
-  />
+  return (
+    <input
+      type="number"
+      className={f("NumberInput", className)}
+      value={value}
+      onChange={onChange}
+      placeholder={placeholder}
+      onWheel={handleWheel}
+      onMouseDown={handleMouseDown}
+    />
+  )
 }
 
 export default pure(NumberInput)

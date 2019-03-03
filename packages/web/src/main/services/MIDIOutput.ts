@@ -2,12 +2,15 @@ export default class MIDIOutput {
   midiOutput: any
 
   constructor() {
-    (navigator as any).requestMIDIAccess({ sysex: true }).then(midiAccess => {
-      const outputs = Array.from(midiAccess.outputs.values())
-      this.midiOutput = outputs[0]
-    }, error => {
-      console.error(error)
-    })
+    ;(navigator as any).requestMIDIAccess({ sysex: true }).then(
+      midiAccess => {
+        const outputs = Array.from(midiAccess.outputs.values())
+        this.midiOutput = outputs[0]
+      },
+      error => {
+        console.error(error)
+      }
+    )
   }
 
   send(msg: any, timestamp: number) {

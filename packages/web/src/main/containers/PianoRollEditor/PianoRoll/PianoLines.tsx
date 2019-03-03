@@ -3,12 +3,19 @@ import { pure } from "recompose"
 import DrawCanvas from "components/DrawCanvas"
 import Theme from "common/theme"
 
-function drawHorizontalLines(ctx: CanvasRenderingContext2D, numberOfKeys: number, keyHeight: number, width: number, theme: Theme) {
+function drawHorizontalLines(
+  ctx: CanvasRenderingContext2D,
+  numberOfKeys: number,
+  keyHeight: number,
+  width: number,
+  theme: Theme
+) {
   ctx.lineWidth = 1
 
   for (let key = 0; key < numberOfKeys; key++) {
     const index = key % 12
-    const isBlack = index === 1 || index === 3 || index === 6 || index === 8 || index === 10
+    const isBlack =
+      index === 1 || index === 3 || index === 6 || index === 8 || index === 10
     const isBold = index === 11
     const y = (numberOfKeys - key - 1) * keyHeight
     if (isBlack) {
@@ -48,13 +55,15 @@ const PianoLines: StatelessComponent<PianoLinesProps> = ({
     ctx.restore()
   }
 
-  return <DrawCanvas
-    draw={draw}
-    className="PianoLines"
-    width={width}
-    height={pixelsPerKey * numberOfKeys}
-    style={style}
-  />
+  return (
+    <DrawCanvas
+      draw={draw}
+      className="PianoLines"
+      width={width}
+      height={pixelsPerKey * numberOfKeys}
+      style={style}
+    />
+  )
 }
 
 export default pure(PianoLines)

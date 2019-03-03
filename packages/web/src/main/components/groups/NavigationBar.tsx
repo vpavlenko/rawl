@@ -17,13 +17,15 @@ const NavigationBar: StatelessComponent<NavigationBarProps> = ({
   className,
   onClickBack
 }) => {
-  return <nav className={f("NavigationBar", className)}>
-    <div className="title">
-      {onClickBack && <Icon onClick={onClickBack}>chevron-left</Icon>}
-      <span>{title}</span>
-    </div>
-    {children}
-  </nav>
+  return (
+    <nav className={f("NavigationBar", className)}>
+      <div className="title">
+        {onClickBack && <Icon onClick={onClickBack}>chevron-left</Icon>}
+        <span>{title}</span>
+      </div>
+      {children}
+    </nav>
+  )
 }
 
 NavigationBar.defaultProps = {

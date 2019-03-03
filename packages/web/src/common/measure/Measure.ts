@@ -3,7 +3,7 @@ export default class Measure {
   measure: number
   numerator: number
   denominator: number
-  
+
   constructor(startTick = 0, measure = 0, numerator = 4, denominator = 4) {
     this.startTick = startTick
     this.measure = measure
@@ -12,7 +12,7 @@ export default class Measure {
   }
 
   getMBT(tick: number, ticksPerBeatBase: number) {
-    const ticksPerBeat = ticksPerBeatBase * 4 / this.denominator
+    const ticksPerBeat = (ticksPerBeatBase * 4) / this.denominator
     const ticksPerMeasure = ticksPerBeat * this.numerator
 
     let aTick = tick - this.startTick

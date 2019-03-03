@@ -29,5 +29,5 @@ export const defaultTheme: Theme = {
   pianoKeyWhite: "white",
   keyWidth: 120,
   keyHeight: 20,
-  rulerHeight: 30,
+  rulerHeight: 30
 }

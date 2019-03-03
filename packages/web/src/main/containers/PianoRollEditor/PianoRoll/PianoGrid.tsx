@@ -6,11 +6,16 @@ import DrawCanvas from "components/DrawCanvas"
 import Theme from "common/theme"
 import { BeatWithX } from "helpers/mapBeats"
 
-function drawBeatLines(ctx: CanvasRenderingContext2D, beats: BeatWithX[], height: number, theme: Theme) {
+function drawBeatLines(
+  ctx: CanvasRenderingContext2D,
+  beats: BeatWithX[],
+  height: number,
+  theme: Theme
+) {
   ctx.lineWidth = 1
 
   // 密過ぎる時は省略する
-  const shouldOmit = beats.length > 1 && (beats[1].x - beats[0].x <= 5)
+  const shouldOmit = beats.length > 1 && beats[1].x - beats[0].x <= 5
 
   beats.forEach(({ beat, x }) => {
     const isBold = beat === 0
@@ -18,7 +23,8 @@ function drawBeatLines(ctx: CanvasRenderingContext2D, beats: BeatWithX[], height
       return
     }
     ctx.beginPath()
-    ctx.strokeStyle = isBold && !shouldOmit ? theme.secondaryTextColor : theme.dividerColor
+    ctx.strokeStyle =
+      isBold && !shouldOmit ? theme.secondaryTextColor : theme.dividerColor
     ctx.moveTo(x, 0)
     ctx.lineTo(x, height)
     ctx.closePath()
@@ -50,20 +56,24 @@ const PianoGrid: StatelessComponent<PianoGridProps> = ({
     ctx.restore()
   }
 
-  return <DrawCanvas
-    draw={draw}
-    className="PianoGrid"
-    width={width}
-    height={height}
-  />
+  return (
+    <DrawCanvas
+      draw={draw}
+      className="PianoGrid"
+      width={width}
+      height={height}
+    />
+  )
 }
 
 function test(props: PianoGridProps, nextProps: PianoGridProps) {
-  return !_.isEqual(props.theme, nextProps.theme)
-    || props.width !== nextProps.width
-    || props.height !== nextProps.height
-    || props.scrollLeft !== nextProps.scrollLeft
-    || !_.isEqual(props.beats, nextProps.beats)
+  return (
+    !_.isEqual(props.theme, nextProps.theme) ||
+    props.width !== nextProps.width ||
+    props.height !== nextProps.height ||
+    props.scrollLeft !== nextProps.scrollLeft ||
+    !_.isEqual(props.beats, nextProps.beats)
+  )
 }
 
 export default shouldUpdate(test)(PianoGrid)

@@ -2,7 +2,12 @@ import _ from "lodash"
 import EventEmitter from "eventemitter3"
 import assert from "assert"
 
-import { serialize as serializeMidiEvent, MIDIControlEvents, MIDIChannelEvents, AnyEvent } from "@signal-app/midifile-ts"
+import {
+  serialize as serializeMidiEvent,
+  MIDIControlEvents,
+  MIDIChannelEvents,
+  AnyEvent
+} from "@signal-app/midifile-ts"
 import { toRawEvents } from "helpers/eventAssembler"
 
 import EventScheduler from "./EventScheduler"
@@ -15,7 +20,7 @@ function firstByte(eventType: string, channel: number): number {
 
 function collectAllEvents(song: Song): AnyEvent[] {
   return _.chain(song.tracks)
-    .map(t =>(t.events as any).toJS())
+    .map(t => (t.events as any).toJS())
     .flatten()
     .map(toRawEvents)
     .flatten()
@@ -24,8 +29,8 @@ function collectAllEvents(song: Song): AnyEvent[] {
 
 // 同じ名前のタスクを描画タイマーごとに一度だけ実行する
 class DisplayTask {
-  tasks: {[index: string]: () => void} = {}
-  
+  tasks: { [index: string]: () => void } = {}
+
   constructor() {
     setInterval(() => this.perform(), 50)
   }
@@ -43,8 +48,8 @@ class DisplayTask {
 const displayTask = new DisplayTask()
 
 export interface LoopSetting {
-  begin: number,
-  end: number,
+  begin: number
+  end: number
   enabled: boolean
 }
 
@@ -56,7 +61,7 @@ export default class Player extends EventEmitter {
   private _output: any
   private _timebase: number
   private _trackMute: TrackMute
-  
+
   loop: LoopSetting = {
     begin: null,
     end: null,
@@ -75,7 +80,11 @@ export default class Player extends EventEmitter {
     assert(song, "you must provide song")
     this._song = song
     const eventsToPlay = collectAllEvents(song)
-    this._scheduler = new EventScheduler(eventsToPlay, this._currentTick, this._timebase)
+    this._scheduler = new EventScheduler(
+      eventsToPlay,
+      this._currentTick,
+      this._timebase
+    )
     setInterval(() => this._onTimer(), 50)
   }
 
@@ -108,7 +117,10 @@ export default class Player extends EventEmitter {
   }
 
   allSoundsOffChannel(ch: number) {
-    this._sendMessage([0xb0 + ch, MIDIControlEvents.ALL_SOUNDS_OFF, 0], window.performance.now())
+    this._sendMessage(
+      [0xb0 + ch, MIDIControlEvents.ALL_SOUNDS_OFF, 0],
+      window.performance.now()
+    )
   }
 
   allSoundsOff() {
@@ -134,7 +146,14 @@ export default class Player extends EventEmitter {
     const time = window.performance.now()
     for (const ch of _.range(0, this.numberOfChannels)) {
       // reset controllers
-      this._sendMessage([firstByte("controller", ch), MIDIControlEvents.RESET_CONTROLLERS, 0x7f], time)
+      this._sendMessage(
+        [
+          firstByte("controller", ch),
+          MIDIControlEvents.RESET_CONTROLLERS,
+          0x7f
+        ],
+        time
+      )
     }
     this.stop()
     this.position = 0
@@ -154,12 +173,18 @@ export default class Player extends EventEmitter {
 
   playNote({ channel, noteNumber, velocity, duration }) {
     const timestamp = window.performance.now()
-    this._sendMessage([firstByte("noteOn", channel), noteNumber, velocity], timestamp)
-    this._sendMessage([firstByte("noteOff", channel), noteNumber, 0], timestamp + this.tickToMillisec(duration))
+    this._sendMessage(
+      [firstByte("noteOn", channel), noteNumber, velocity],
+      timestamp
+    )
+    this._sendMessage(
+      [firstByte("noteOff", channel), noteNumber, 0],
+      timestamp + this.tickToMillisec(duration)
+    )
   }
 
   tickToMillisec(tick: number) {
-    return tick / (this._timebase / 60) / this._currentTempo * 1000
+    return (tick / (this._timebase / 60) / this._currentTempo) * 1000
   }
 
   private _shouldPlayChannel(channel: number) {
@@ -177,8 +202,14 @@ export default class Player extends EventEmitter {
 
     // channel イベントを MIDI Output に送信
     const messages = events
-      .filter(({ event }) => event.type === "channel" && this._shouldPlayChannel(event.channel))
-      .map(({ event, timestamp }) => ({ message: serializeMidiEvent(event, false), timestamp }))
+      .filter(
+        ({ event }) =>
+          event.type === "channel" && this._shouldPlayChannel(event.channel)
+      )
+      .map(({ event, timestamp }) => ({
+        message: serializeMidiEvent(event, false),
+        timestamp
+      }))
     this._sendMessages(messages)
 
     // channel イベント以外を実行
@@ -204,9 +235,11 @@ export default class Player extends EventEmitter {
     if (this._scheduler) {
       this._currentTick = this._scheduler.currentTick
 
-      if (this.loop.enabled
-        && this.loop.begin !== null
-        && this._currentTick >= this.loop.end) {
+      if (
+        this.loop.enabled &&
+        this.loop.begin !== null &&
+        this._currentTick >= this.loop.end
+      ) {
         this.position = this.loop.begin
       }
     }

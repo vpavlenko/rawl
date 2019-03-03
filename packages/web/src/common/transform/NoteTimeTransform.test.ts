@@ -2,11 +2,14 @@ import assert from "assert"
 import NoteTimeTransform from "./NoteTimeTransform"
 
 describe("NoteTimeTransform", () => {
-  const t = new NoteTimeTransform([
-    { tempo: 120, tick: 0 },
-    { tempo: 150, tick: 40 },
-    { tempo: 240, tick: 120 },
-  ], 480)
+  const t = new NoteTimeTransform(
+    [
+      { tempo: 120, tick: 0 },
+      { tempo: 150, tick: 40 },
+      { tempo: 240, tick: 120 }
+    ],
+    480
+  )
 
   it("constructor", () => {
     assert(t != null)

@@ -1,8 +1,18 @@
 import Song from "common/song"
 import Player from "common/player"
-import { UNDO, REDO, COPY_SELECTION, DELETE_SELECTION, PASTE_SELECTION } from "main/actions";
+import {
+  UNDO,
+  REDO,
+  COPY_SELECTION,
+  DELETE_SELECTION,
+  PASTE_SELECTION
+} from "main/actions"
 
-export function bindKeyboardShortcut(dispatch, player: Player, songStore: { song: Song }) {
+export function bindKeyboardShortcut(
+  dispatch,
+  player: Player,
+  songStore: { song: Song }
+) {
   document.onkeydown = e => {
     if (e.target !== document.body) {
       return
@@ -29,20 +39,21 @@ export function bindKeyboardShortcut(dispatch, player: Player, songStore: { song
         }
         break
       }
-      default: break
+      default:
+        break
     }
   }
 
-  (document as any).oncut = () => {
+  ;(document as any).oncut = () => {
     dispatch(COPY_SELECTION)
     dispatch(DELETE_SELECTION)
   }
 
-  (document as any).oncopy = () => {
+  ;(document as any).oncopy = () => {
     dispatch(COPY_SELECTION)
   }
 
-  (document as any).onpaste = () => {
+  ;(document as any).onpaste = () => {
     dispatch(PASTE_SELECTION)
   }
 }

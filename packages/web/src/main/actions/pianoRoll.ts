@@ -18,7 +18,7 @@ export default ({ dispatch, pianoRollStore: s }) => {
       s.scrollTop = s.scrollTop - y
     },
 
-    [OPEN_CONTEXT_MENU]: (params) => {
+    [OPEN_CONTEXT_MENU]: params => {
       openContextMenu(dispatch, params)
     },
 
@@ -27,7 +27,7 @@ export default ({ dispatch, pianoRollStore: s }) => {
     },
 
     [TOGGLE_TOOL]: () => {
-      s.mouseMode = (s.mouseMode === 0 ? 1 : 0)
+      s.mouseMode = s.mouseMode === 0 ? 1 : 0
     }
   }
 }

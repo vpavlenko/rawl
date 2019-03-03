@@ -19,7 +19,9 @@ window.addEventListener("load", () => {
 })
 
 export default function App() {
-  return <Provider rootStore={rootStore}>
-    <RootView />
-  </Provider>
+  return (
+    <Provider rootStore={rootStore}>
+      <RootView />
+    </Provider>
+  )
 }

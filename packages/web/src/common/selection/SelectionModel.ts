@@ -1,4 +1,3 @@
-import { IRect } from "common/geometry"
 import { NoteCoordTransform } from "common/transform"
 
 export default class SelectionModel {
@@ -46,7 +45,12 @@ export default class SelectionModel {
     return s
   }
 
-  resize(fromTick: number, fromNoteNumber: number, toTick: number, toNoteNumber: number) {
+  resize(
+    fromTick: number,
+    fromNoteNumber: number,
+    toTick: number,
+    toNoteNumber: number
+  ) {
     const s = new SelectionModel()
 
     // to が右下になるようにする

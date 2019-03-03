@@ -4,8 +4,8 @@ const HtmlWebpackPlugin = require("html-webpack-plugin")
 module.exports = {
   mode: "development",
   entry: {
-    browserMain: "./src/browser-main/index.tsx",
-    browserSynth: "./src/browser-synth/index.tsx"
+    browserMain: "./src/main/index.tsx",
+    browserSynth: "./src/synth/index.tsx"
   },
   output: {
     filename: "[name].js"
@@ -42,7 +42,7 @@ module.exports = {
     ]
   },
   resolve: {
-    modules: ["src", "node_modules", "packages", "src/browser-main", "src/common", "src/node"],
+    modules: ["src", "node_modules", "packages", "src/main", "src/common"],
     extensions: [
       ".js", ".jsx", ".ts", ".tsx"
     ],

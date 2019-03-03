@@ -1,4 +1,3 @@
-import _ from "lodash"
 import { AnyEvent } from "./event"
 import Buffer from "./buffer"
 import serialize from "./serialize"

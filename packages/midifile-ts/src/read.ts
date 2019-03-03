@@ -1,4 +1,4 @@
-import { Event } from "./event"
+import { AnyEvent } from "./event"
 import Stream, { Data } from "./stream"
 import deserialize from "./deserialize"
 
@@ -41,11 +41,11 @@ export default function read(data: Data<number>) {
   }
 
   let lastEventTypeByte: number
-  function readEvent(stream): Event {
+  function readEvent(stream): AnyEvent {
     return deserialize(stream, lastEventTypeByte, (byte) => lastEventTypeByte = byte)
   }
 
-  const tracks: Event[][] = []
+  const tracks: AnyEvent[][] = []
   for (let i = 0; i < header.trackCount; i++) {
     tracks[i] = []
     const trackChunk = readChunk(stream)

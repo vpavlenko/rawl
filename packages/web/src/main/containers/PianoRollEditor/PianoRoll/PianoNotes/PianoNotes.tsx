@@ -6,7 +6,7 @@ import Color from "color"
 import { NoteCoordTransform } from "common/transform"
 import Theme from "common/theme"
 
-import Stage from "components/Stage/Stage"
+import Stage, { ItemEvent } from "components/Stage/Stage"
 
 import PianoNoteItem from "./PianoNoteItem"
 
@@ -72,7 +72,7 @@ const PianoNotes: StatelessComponent<PianoNotesProps> = ({
   const height = transform.pixelsPerKey * transform.numberOfKeys
 
   // MouseHandler で利用する追加情報をイベントに付加する
-  const extendEvent = e =>
+  const extendEvent = (e: ItemEvent) =>
     Object.assign(e, {
       item: e.items[0],
       tick: transform.getTicks(e.local.x),
@@ -96,10 +96,6 @@ const PianoNotes: StatelessComponent<PianoNotesProps> = ({
 }
 
 function test(props: PianoNotesProps, nextProps: PianoNotesProps) {
-  const eq = (propName, compare = (a, b) => a === b) => {
-    return compare(props[propName], nextProps[propName])
-  }
-
   return (
     !_.isEqual(props.events, nextProps.events) ||
     props.transform !== nextProps.transform ||

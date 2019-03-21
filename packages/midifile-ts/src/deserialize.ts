@@ -1,18 +1,17 @@
-
 import {
   SequenceNumberEvent,
-  TextEvent, 
-  CopyrightNoticeEvent, 
-  TrackNameEvent, 
-  InstrumentNameEvent, 
-  LyricsEvent, 
-  MarkerEvent, 
-  CuePointEvent, 
-  ChannelPrefixEvent, 
+  TextEvent,
+  CopyrightNoticeEvent,
+  TrackNameEvent,
+  InstrumentNameEvent,
+  LyricsEvent,
+  MarkerEvent,
+  CuePointEvent,
+  ChannelPrefixEvent,
   PortPrefixEvent,
   EndOfTrackEvent,
-  SetTempoEvent, 
-  SmpteOffsetEvent, 
+  SetTempoEvent,
+  SmpteOffsetEvent,
   TimeSignatureEvent,
   KeySignatureEvent,
   SequencerSpecificEvent,
@@ -29,8 +28,13 @@ import {
   UnknownChannelEvent,
   AnyEvent
 } from "./event"
+import Stream from "./stream"
 
-export default function deserialize(stream, lastEventTypeByte: number, setLastEventTypeByte: (eventType: number) => void): AnyEvent {
+export default function deserialize(
+  stream: Stream,
+  lastEventTypeByte: number,
+  setLastEventTypeByte: (eventType: number) => void
+): AnyEvent {
   const deltaTime = stream.readVarInt()
   let eventTypeByte = stream.readInt8()
   if ((eventTypeByte & 0xf0) === 0xf0) {
@@ -40,9 +44,12 @@ export default function deserialize(stream, lastEventTypeByte: number, setLastEv
       const type = "meta"
       const subtypeByte = stream.readInt8()
       const length = stream.readVarInt()
-      switch(subtypeByte) {
+      switch (subtypeByte) {
         case 0x00:
-          if (length !== 2) throw new Error("Expected length for sequenceNumber event is 2, got " + length)
+          if (length !== 2)
+            throw new Error(
+              "Expected length for sequenceNumber event is 2, got " + length
+            )
           return <SequenceNumberEvent>{
             deltaTime,
             type,
@@ -78,28 +85,31 @@ export default function deserialize(stream, lastEventTypeByte: number, setLastEv
             text: stream.readStr(length)
           }
         case 0x05:
-        return <LyricsEvent>{
+          return <LyricsEvent>{
             deltaTime,
             type,
             subtype: "lyrics",
             text: stream.readStr(length)
           }
         case 0x06:
-        return <MarkerEvent>{
+          return <MarkerEvent>{
             deltaTime,
             type,
             subtype: "marker",
             text: stream.readStr(length)
           }
         case 0x07:
-        return <CuePointEvent>{
+          return <CuePointEvent>{
             deltaTime,
             type,
             subtype: "cuePoint",
             text: stream.readStr(length)
           }
         case 0x20:
-          if (length !== 1) throw new Error("Expected length for midiChannelPrefix event is 1, got " + length)
+          if (length !== 1)
+            throw new Error(
+              "Expected length for midiChannelPrefix event is 1, got " + length
+            )
           return <ChannelPrefixEvent>{
             deltaTime,
             type,
@@ -107,7 +117,10 @@ export default function deserialize(stream, lastEventTypeByte: number, setLastEv
             channel: stream.readInt8()
           }
         case 0x21:
-          if (length !== 1) throw new Error("Expected length for midiChannelPrefix event is 1, got " + length)
+          if (length !== 1)
+            throw new Error(
+              "Expected length for midiChannelPrefix event is 1, got " + length
+            )
           return <PortPrefixEvent>{
             deltaTime,
             type,
@@ -115,32 +128,46 @@ export default function deserialize(stream, lastEventTypeByte: number, setLastEv
             port: stream.readInt8()
           }
         case 0x2f:
-          if (length !== 0) throw new Error("Expected length for endOfTrack event is 0, got " + length)
+          if (length !== 0)
+            throw new Error(
+              "Expected length for endOfTrack event is 0, got " + length
+            )
           return <EndOfTrackEvent>{
             deltaTime,
             type,
             subtype: "endOfTrack"
           }
         case 0x51:
-          if (length !== 3) throw new Error("Expected length for setTempo event is 3, got " + length)
+          if (length !== 3)
+            throw new Error(
+              "Expected length for setTempo event is 3, got " + length
+            )
           return <SetTempoEvent>{
             deltaTime,
             type,
             subtype: "setTempo",
-            microsecondsPerBeat: (
-              (stream.readInt8() << 16)
-              + (stream.readInt8() << 8)
-              + stream.readInt8()
-            )
+            microsecondsPerBeat:
+              (stream.readInt8() << 16) +
+              (stream.readInt8() << 8) +
+              stream.readInt8()
           }
         case 0x54: {
-          if (length !== 5) throw new Error("Expected length for smpteOffset event is 5, got " + length)
+          if (length !== 5)
+            throw new Error(
+              "Expected length for smpteOffset event is 5, got " + length
+            )
           const hourByte = stream.readInt8()
+          const table: { [key: number]: number } = {
+            0x00: 24,
+            0x20: 25,
+            0x40: 29,
+            0x60: 30
+          }
           return <SmpteOffsetEvent>{
             deltaTime,
             type,
             subtype: "smpteOffset",
-            frameRate: {0x00: 24, 0x20: 25, 0x40: 29, 0x60: 30}[hourByte & 0x60],
+            frameRate: table[hourByte & 0x60],
             hour: hourByte & 0x1f,
             min: stream.readInt8(),
             sec: stream.readInt8(),
@@ -149,7 +176,10 @@ export default function deserialize(stream, lastEventTypeByte: number, setLastEv
           }
         }
         case 0x58:
-          if (length !== 4) throw new Error("Expected length for timeSignature event is 4, got " + length)
+          if (length !== 4)
+            throw new Error(
+              "Expected length for timeSignature event is 4, got " + length
+            )
           return <TimeSignatureEvent>{
             deltaTime,
             type,
@@ -160,7 +190,10 @@ export default function deserialize(stream, lastEventTypeByte: number, setLastEv
             thirtyseconds: stream.readInt8()
           }
         case 0x59:
-          if (length !== 2) throw new Error("Expected length for keySignature event is 2, got " + length)
+          if (length !== 2)
+            throw new Error(
+              "Expected length for keySignature event is 2, got " + length
+            )
           return <KeySignatureEvent>{
             deltaTime,
             type,

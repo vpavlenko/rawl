@@ -1,7 +1,8 @@
 import { Dispatcher } from "main/createDispatcher"
 import { CHANGE_CURSOR, SCROLL_BY, TOGGLE_TOOL } from "main/actions"
+import { ItemEvent } from "src/main/components/Stage/Stage"
 
-type MouseAction = (e: any) => void
+export type MouseAction = (e: any) => void
 type MouseGesture = (
   onMouseDown: MouseAction,
   onMouseMove?: MouseAction,
@@ -21,7 +22,7 @@ export default class NoteMouseHandler {
   }
 
   // mousedown 以降に行う MouseAction を返す
-  protected actionForMouseDown(e): MouseGesture {
+  protected actionForMouseDown(e: any): MouseGesture {
     // 共通の action
 
     if (e.button === 1) {
@@ -38,33 +39,33 @@ export default class NoteMouseHandler {
     return null
   }
 
-  protected getCursorForMouseMove(_) {
+  protected getCursorForMouseMove(_: ItemEvent): string {
     // サブクラスで実装
     return "auto"
   }
 
-  onMouseDown(e) {
+  onMouseDown(e: any) {
     this.action = this.actionForMouseDown(e)
     if (!this.action) {
       return
     }
-    let actionMouseDown = _ => {}
+    let actionMouseDown: MouseAction = () => {}
     this.actionMouseMove = () => {}
     this.actionMouseUp = () => {}
-    const registerMouseDown = f => {
+    const registerMouseDown = (f: MouseAction) => {
       actionMouseDown = f
     }
-    const registerMouseMove = f => {
+    const registerMouseMove = (f: MouseAction) => {
       this.actionMouseMove = f
     }
-    const registerMouseUp = f => {
+    const registerMouseUp = (f: MouseAction) => {
       this.actionMouseUp = f
     }
     this.action(registerMouseDown, registerMouseMove, registerMouseUp)
     actionMouseDown(e)
   }
 
-  onMouseMove(e) {
+  onMouseMove(e: MouseEvent & ItemEvent) {
     if (this.action) {
       this.actionMouseMove(e)
     } else {
@@ -73,7 +74,7 @@ export default class NoteMouseHandler {
     }
   }
 
-  onMouseUp(e) {
+  onMouseUp(e: MouseEvent) {
     if (this.action) {
       this.actionMouseUp(e)
     }
@@ -81,12 +82,12 @@ export default class NoteMouseHandler {
   }
 }
 
-const dragScrollAction = dispatch => (onMouseDown, onMouseMove) => {
-  const onGlobalMouseMove = e => {
+const dragScrollAction = (dispatch: Dispatcher) => () => {
+  const onGlobalMouseMove = (e: MouseEvent) => {
     dispatch(SCROLL_BY, { x: e.movementX, y: e.movementY })
   }
 
-  const onGlobalMouseUp = e => {
+  const onGlobalMouseUp = () => {
     document.removeEventListener("mousemove", onGlobalMouseMove)
     document.removeEventListener("mouseup", onGlobalMouseUp)
   }
@@ -95,7 +96,9 @@ const dragScrollAction = dispatch => (onMouseDown, onMouseMove) => {
   document.addEventListener("mouseup", onGlobalMouseUp)
 }
 
-const changeToolAction = dispatch => onMouseDown => {
+const changeToolAction = (dispatch: Dispatcher) => (
+  onMouseDown: MouseAction
+) => {
   onMouseDown(() => {
     dispatch(TOGGLE_TOOL)
     dispatch(CHANGE_CURSOR, "crosshair")

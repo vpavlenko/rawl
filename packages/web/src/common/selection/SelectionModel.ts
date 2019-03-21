@@ -1,7 +1,7 @@
 import { NoteCoordTransform } from "common/transform"
 
 export default class SelectionModel {
-  noteIds = []
+  noteIds: number[] = []
   fromTick = 0
   toTick = 0
   fromNoteNumber = 0

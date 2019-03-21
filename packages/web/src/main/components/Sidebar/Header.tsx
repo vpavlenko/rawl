@@ -1,20 +1,19 @@
-import React from "react"
+import React, { SFC } from "react"
 
 import "./Header.css"
 
 export interface HeaderProps {
   title: string
   onClickTitle: () => void
-  children: JSX.Element[]
 }
 
-export default function Header({ title, onClickTitle, children }: HeaderProps) {
-  return (
-    <div className="Header">
-      <span className="title" onClick={onClickTitle}>
-        {title}
-      </span>
-      {children}
-    </div>
-  )
-}
+const Header: SFC<HeaderProps> = ({ title, onClickTitle, children }) => (
+  <div className="Header">
+    <span className="title" onClick={onClickTitle}>
+      {title}
+    </span>
+    {children}
+  </div>
+)
+
+export default Header

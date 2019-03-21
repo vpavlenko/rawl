@@ -4,8 +4,16 @@ import { compose } from "recompose"
 import NavigationBar from "components/groups/NavigationBar"
 
 import "./SettingsView.css"
+import RootStore from "src/main/stores/RootStore"
 
-function SettingItem({ label, children }) {
+interface SettingItemProps {
+  label: string
+}
+
+const SettingItem: StatelessComponent<SettingItemProps> = ({
+  label,
+  children
+}) => {
   return (
     <div className="SettingItem">
       <div className="label">{label}</div>
@@ -54,7 +62,7 @@ const SettingsView: StatelessComponent<SettingsViewProps> = ({
   )
 }
 
-function openSoundFont(callback) {
+function openSoundFont(callback: (files: string[]) => void) {
   // dialog.showOpenDialog({
   //   filters: [{
   //     name: "SoundFont File",
@@ -71,11 +79,13 @@ export default compose(
         settingsStore: s,
         services: { synth }
       }
+    }: {
+      rootStore: RootStore
     }) => ({
       onClickNavBack: () => router.pushArrange(),
       soundFontPath: s.soundFontPath,
       onClickOpenSoundFont: () => {
-        openSoundFont(files => {
+        openSoundFont((files: string[]) => {
           if (files && files.length > 0) {
             const path = files[0]
             s.soundFontPath = path

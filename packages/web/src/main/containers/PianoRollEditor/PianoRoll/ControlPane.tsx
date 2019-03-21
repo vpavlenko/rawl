@@ -1,7 +1,7 @@
 import React, { StatelessComponent } from "react"
 import { pure, shouldUpdate, compose, Omit } from "recompose"
 import _ from "lodash"
-import sizeMe from "react-sizeme"
+import { withSize } from "react-sizeme"
 
 import Theme from "common/theme"
 import { NoteCoordTransform } from "common/transform"
@@ -149,5 +149,5 @@ function test(props: ControlPaneProps, nextProps: ControlPaneProps) {
 
 export default compose<ControlPaneProps, Omit<ControlPaneProps, "size">>(
   shouldUpdate(test),
-  sizeMe({ monitorHeight: true })
+  withSize({ monitorHeight: true })
 )(ControlPane)

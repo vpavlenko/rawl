@@ -8,7 +8,7 @@ const ipcRenderer: any = {}
 type Message = number[]
 
 class SynthController {
-  eventsBuffer = []
+  eventsBuffer: any[] = []
   // 送信元とのタイムスタンプの差
   timestampOffset = 0
 
@@ -52,13 +52,13 @@ class SynthController {
     recorder.addEventListener("resume", () => {
       console.log("Recorder is resuming")
     })
-    recorder.addEventListener("streamError", e => {
+    recorder.addEventListener("streamError", (e: any) => {
       console.log("Error encountered: " + e.error.name)
     })
     recorder.addEventListener("streamReady", () => {
       console.log("Audio stream is ready.")
     })
-    recorder.addEventListener("dataAvailable", e => {
+    recorder.addEventListener("dataAvailable", (e: any) => {
       const dateStr = new Date().toISOString().replace(/:/g, "-")
       // const filePath = `${app.getPath("desktop").replace(/\\/g, "/")}/${dateStr}.wav`
       // fs.writeFile(filePath, e.detail, error => {
@@ -79,12 +79,12 @@ class SynthController {
     this.recorder.stop()
   }
 
-  onMidi({ events, timestamp }) {
+  onMidi({ events, timestamp }: { events: any[]; timestamp: number }) {
     this.eventsBuffer = [...this.eventsBuffer, ...events]
     this.timestampOffset = window.performance.now() - timestamp
   }
 
-  loadSoundFont(path) {
+  loadSoundFont(path: string) {
     // fs.readFile(path, (error, input) => {
     //   if (!error) {
     //     this.synth.loadSoundFont(input)
@@ -129,13 +129,16 @@ export default class SynthApp {
   init() {
     const controller = new SynthController()
 
-    ipcRenderer.on("midi", (sender, payload) => {
+    ipcRenderer.on("midi", (sender: any, payload: any) => {
       controller.onMidi(payload)
     })
 
-    ipcRenderer.on("load_soundfont", (sender, { path }) => {
-      controller.loadSoundFont(path)
-    })
+    ipcRenderer.on(
+      "load_soundfont",
+      (sender: any, { path }: { path: string }) => {
+        controller.loadSoundFont(path)
+      }
+    )
 
     ipcRenderer.on("start_recording", () => {
       controller.startRecording()

@@ -4,7 +4,7 @@ import { TrackEvent } from "common/track"
 import "./PianoControlEvents.css"
 import { ControllerEvent, ProgramChangeEvent } from "@signal-app/midifile-ts"
 
-type DisplayEvent = TrackEvent & (ControllerEvent | ProgramChangeEvent)
+export type DisplayEvent = TrackEvent & (ControllerEvent | ProgramChangeEvent)
 
 function displayControlName(e: DisplayEvent): string {
   switch (e.subtype) {

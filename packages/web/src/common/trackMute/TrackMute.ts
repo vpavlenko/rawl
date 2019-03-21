@@ -1,7 +1,7 @@
 import { observable } from "mobx"
 import _ from "lodash"
 
-function updated(obj, key, value) {
+function updated<T>(obj: T, key: keyof T, value: any) {
   return { ...obj, [key]: value }
 }
 

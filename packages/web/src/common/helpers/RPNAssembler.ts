@@ -1,17 +1,6 @@
 import { controlChangeEvents } from "midi/MidiEvent"
 import { ControllerEvent, AnyEvent } from "@signal-app/midifile-ts"
-
-export interface RPNEvent {
-  channel: number
-  type: "channel"
-  subtype: "rpn"
-  tick: number
-  deltaTime: number
-  rpnMSB: number
-  rpnLSB: number
-  dataMSB: number | undefined
-  dataLSB: number | undefined
-}
+import Track, { TrackEventRequired, TrackEvent, RPNEvent } from "../track"
 
 /**
 
@@ -22,12 +11,18 @@ RPN は種類、値を表す2～4つのイベントからなるが、
 読み込み時にひとつにまとめ、再生・保存時に元に戻す
 
 */
-export function assemble(events: AnyEvent[]) {
-  const result = []
+export function assemble(events: any[]) {
+  const result: TrackEvent[] = []
 
   // ひとつにまとめた RPN イベントを作成する
-  function createCC(rpnMSB, rpnLSB, dataMSB?, dataLSB?): RPNEvent {
+  function createCC(
+    rpnMSB: TrackEventRequired & ControllerEvent,
+    rpnLSB: ControllerEvent,
+    dataMSB?: ControllerEvent,
+    dataLSB?: ControllerEvent
+  ): RPNEvent {
     return {
+      id: -1,
       channel: rpnMSB.channel,
       type: "channel",
       subtype: "rpn",
@@ -47,16 +42,16 @@ export function assemble(events: AnyEvent[]) {
       (e as ControllerEvent).controllerType === type
     )
   }
-  function isRPNMSB(e): e is ControllerEvent {
+  function isRPNMSB(e: AnyEvent): e is ControllerEvent & TrackEventRequired {
     return isCC(e, 101)
   }
-  function isRPNLSB(e): e is ControllerEvent {
+  function isRPNLSB(e: AnyEvent): e is ControllerEvent & TrackEventRequired {
     return isCC(e, 100)
   }
-  function isDataMSB(e): e is ControllerEvent {
+  function isDataMSB(e: AnyEvent): e is ControllerEvent & TrackEventRequired {
     return isCC(e, 6)
   }
-  function isDataLSB(e): e is ControllerEvent {
+  function isDataLSB(e: AnyEvent): e is ControllerEvent & TrackEventRequired {
     return isCC(e, 38)
   }
 
@@ -64,8 +59,7 @@ export function assemble(events: AnyEvent[]) {
     const e = events[i]
     if (isRPNMSB(e)) {
       const j = i
-      const data: ControllerEvent[] = [e]
-      const getNextIf = (event, test) => {
+      const getNextIf = (event: AnyEvent, test: (e: AnyEvent) => boolean) => {
         if (test(event)) {
           i++ // skip this event
           return event
@@ -74,10 +68,10 @@ export function assemble(events: AnyEvent[]) {
       }
       result.push(
         createCC(
-          e,
-          getNextIf(events[j + 1], isRPNLSB),
-          getNextIf(events[j + 2], isDataMSB),
-          getNextIf(events[j + 3], isDataLSB)
+          e as (TrackEventRequired & ControllerEvent),
+          getNextIf(events[j + 1], isRPNLSB) as ControllerEvent,
+          getNextIf(events[j + 2], isDataMSB) as ControllerEvent,
+          getNextIf(events[j + 3], isDataLSB) as ControllerEvent
         )
       )
     } else {
@@ -91,7 +85,7 @@ function isRPNEvent(e: any): e is RPNEvent {
   return (e as any).subtype === "rpn"
 }
 
-export function deassemble(e: AnyEvent): AnyEvent[] {
+export function deassemble(e: TrackEvent): TrackEvent[] {
   if (isRPNEvent(e)) {
     return controlChangeEvents(
       e.deltaTime,
@@ -101,6 +95,7 @@ export function deassemble(e: AnyEvent): AnyEvent[] {
       e.dataLSB
     ).map(c => ({
       ...c,
+      id: e.id,
       channel: e.channel,
       tick: e.tick
     }))

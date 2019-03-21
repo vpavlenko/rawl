@@ -29,7 +29,9 @@ export default function read(data: Data<number>) {
   let ticksPerBeat: number
 
   if (timeDivision & 0x8000) {
-    throw new Error("Expressing time division in SMTPE frames is not supported yet")
+    throw new Error(
+      "Expressing time division in SMTPE frames is not supported yet"
+    )
   } else {
     ticksPerBeat = timeDivision
   }
@@ -41,8 +43,12 @@ export default function read(data: Data<number>) {
   }
 
   let lastEventTypeByte: number
-  function readEvent(stream): AnyEvent {
-    return deserialize(stream, lastEventTypeByte, (byte) => lastEventTypeByte = byte)
+  function readEvent(stream: Stream): AnyEvent {
+    return deserialize(
+      stream,
+      lastEventTypeByte,
+      byte => (lastEventTypeByte = byte)
+    )
   }
 
   const tracks: AnyEvent[][] = []
@@ -50,7 +56,7 @@ export default function read(data: Data<number>) {
     tracks[i] = []
     const trackChunk = readChunk(stream)
     if (trackChunk.id !== "MTrk") {
-      throw new Error("Unexpected chunk - expected MTrk, got "+ trackChunk.id)
+      throw new Error("Unexpected chunk - expected MTrk, got " + trackChunk.id)
     }
     const trackStream = new Stream(trackChunk.data)
     while (!trackStream.eof()) {

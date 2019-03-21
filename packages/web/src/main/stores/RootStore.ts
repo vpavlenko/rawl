@@ -59,7 +59,7 @@ export default class RootStore {
     return serialize(this.song)
   }
 
-  restoreState(serializedState) {
+  restoreState(serializedState: any) {
     const song = deserialize(Song, serializedState)
     song.onDeserialized()
     this.song = song

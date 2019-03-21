@@ -19,15 +19,15 @@ import "./TransportPanel.css"
 import withMBTTime from "./withMBTTime"
 
 export interface TransportPanelProps {
-  onClickPlay: (any) => void
-  onClickStop: (any) => void
-  onClickBackward: (any) => void
-  onClickForward: (any) => void
+  onClickPlay: (e: any) => void
+  onClickStop: (e: any) => void
+  onClickBackward: (e: any) => void
+  onClickForward: (e: any) => void
   loopEnabled: boolean
-  onClickEnableLoop: (any) => void
+  onClickEnableLoop: (e: any) => void
   mbtTime: string
   tempo: number
-  onClickTempo: (any) => void
+  onClickTempo: (e: any) => void
 }
 
 const TransportPanel: StatelessComponent<TransportPanelProps> = ({

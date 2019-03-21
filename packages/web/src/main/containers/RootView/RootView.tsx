@@ -33,7 +33,7 @@ const RootView: StatelessComponent<RootViewProps> = ({
 
   const fileName = path.basename(song.filepath.replace(/\\/g, "/"))
 
-  function withTransporter(content) {
+  function withTransporter(content: any) {
     return (
       <Fragment>
         <div className="content">{content}</div>

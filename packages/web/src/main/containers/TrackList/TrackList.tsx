@@ -18,6 +18,7 @@ import {
   SET_TRACK_NAME,
   SELECT_TRACK
 } from "main/actions"
+import RootStore from "src/main/stores/RootStore"
 
 interface TrackListProps {
   song: Song
@@ -91,24 +92,27 @@ export default compose(
         router,
         services: { player }
       }
-    }) => ({
-      trackMute,
-      song,
-      player: { player },
-      isArrangeViewSelected: rootViewStore.isArrangeViewSelected,
-      onClickMute: (trackId: number) => dispatch(TOGGLE_MUTE_TRACK, trackId),
-      onClickSolo: (trackId: number) => dispatch(TOGGLE_SOLO_TRACK, trackId),
-      onClickDelete: (trackId: number) => dispatch(REMOVE_TRACK, trackId),
-      onClickAddTrack: () => dispatch(ADD_TRACK),
-      onChangeName: e => dispatch(SET_TRACK_NAME, { name: e.target.value }),
-      onSelectTrack: (trackId: number) => {
-        router.pushTrack()
-        dispatch(SELECT_TRACK, trackId)
-      },
-      onClickArrangeView: () => {
-        router.pushArrange()
-      }
-    })
+    }: {
+      rootStore: RootStore
+    }) =>
+      ({
+        trackMute,
+        song,
+        player: { player },
+        isArrangeViewSelected: rootViewStore.isArrangeViewSelected,
+        onClickMute: (trackId: number) => dispatch(TOGGLE_MUTE_TRACK, trackId),
+        onClickSolo: (trackId: number) => dispatch(TOGGLE_SOLO_TRACK, trackId),
+        onClickDelete: (trackId: number) => dispatch(REMOVE_TRACK, trackId),
+        onClickAddTrack: () => dispatch(ADD_TRACK),
+        // onChangeName: e => dispatch(SET_TRACK_NAME, { name: e.target.value }),
+        onSelectTrack: (trackId: number) => {
+          router.pushTrack()
+          dispatch(SELECT_TRACK, trackId)
+        },
+        onClickArrangeView: () => {
+          router.pushArrange()
+        }
+      } as TrackListProps)
   ),
   observer
 )(TrackList)

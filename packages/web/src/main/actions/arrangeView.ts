@@ -3,7 +3,7 @@ import _ from "lodash"
 import clipboard from "services/Clipboard.ts"
 import { open as openContextMenu } from "containers/ArrangeView/ArrangeContextMenu"
 import RootStore from "../stores/RootStore"
-import Track, { NoteEvent, isNoteEvent } from "src/common/track"
+import Track, { NoteEvent, isNoteEvent } from "common/track"
 
 export const ARRANGE_START_SELECTION = Symbol()
 export const ARRANGE_RESIZE_SELECTION = Symbol()
@@ -147,7 +147,7 @@ export default ({
       position,
       isSelectionSelected
     }: {
-      position: IPoint
+      position: React.MouseEvent
       isSelectionSelected: boolean
     }) => {
       openContextMenu(dispatch, { position, isSelectionSelected })

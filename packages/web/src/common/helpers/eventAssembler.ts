@@ -15,7 +15,7 @@ export function toTrackEvents(events: AnyEvent[]): TrackEvent[] {
 }
 
 export function toRawEvents(event: TrackEvent): TrackEvent[] {
-  const a = deassembleRPN(event as AnyEvent)
+  const a = deassembleRPN(event)
   const b = a.map(deassembleNote)
-  return _.flatten(b) as TrackEvent[]
+  return _.flatten(b)
 }

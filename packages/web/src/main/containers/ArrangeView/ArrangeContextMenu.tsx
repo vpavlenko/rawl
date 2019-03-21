@@ -73,7 +73,7 @@ export function open(
   {
     position,
     isSelectionSelected
-  }: { position: IPoint; isSelectionSelected: boolean }
+  }: { position: React.MouseEvent; isSelectionSelected: boolean }
 ) {
   const contextMenu = (close: () => void) =>
     ArrangeContextMenu({ dispatch, isSelectionSelected, close })

@@ -10,13 +10,13 @@ import createPianoRollAction from "./actions/pianoRoll"
 import createArrangeViewAction from "./actions/arrangeView"
 import RootStore from "./stores/RootStore"
 
-export type Dispatcher = (type: symbol, ...params: any) => void
+export type Dispatcher = (type: symbol, ...params: any) => any
 
 const createDispatcher = (rootStore: RootStore) => (
   type: symbol,
   ...params: any
 ): Dispatcher => {
-  const actions = {
+  const actions: any = {
     ...createSongAction(rootStore),
     ...createTrackAction(rootStore),
     ...createPlayerAction(rootStore),

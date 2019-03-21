@@ -35,7 +35,7 @@ export default class Buffer {
     arr.forEach(v => this.writeByte(v))
   }
 
-  writeChunk(id: string, func: Function) {
+  writeChunk(id: string, func: (buf: Buffer) => void) {
     this.writeStr(id)
     const sizePos = this.length
     this.writeInt32(0) // dummy chunk size

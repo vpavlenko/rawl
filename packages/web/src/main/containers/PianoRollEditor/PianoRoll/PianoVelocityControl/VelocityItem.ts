@@ -2,11 +2,11 @@ import Item from "components/Stage/Item"
 import { IRect } from "common/geometry"
 
 function drawEvent(
-  ctx,
-  fillColor,
-  strokeColor,
-  { x, y, width, height },
-  selected
+  ctx: CanvasRenderingContext2D,
+  fillColor: any,
+  strokeColor: any,
+  { x, y, width, height }: IRect,
+  selected: boolean
 ) {
   const color = selected ? strokeColor : fillColor
 
@@ -37,7 +37,7 @@ export default class VelocityItem implements Item {
     this.fillColor = fillColor
   }
 
-  render(ctx) {
+  render(ctx: CanvasRenderingContext2D) {
     drawEvent(ctx, this.fillColor, "black", this.bounds, this.selected)
   }
 }

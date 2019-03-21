@@ -2,6 +2,8 @@ import React, { StatelessComponent } from "react"
 import { pure, Omit } from "recompose"
 import LineGraph, { LineGraphProps } from "./LineGraph"
 import { NoteCoordTransform } from "common/transform"
+import { ItemEvent } from "src/main/components/Stage/Stage"
+import { IPoint } from "src/common/geometry"
 
 interface ItemValue {
   tick: number
@@ -26,7 +28,7 @@ const LineGraphControl: StatelessComponent<LineGraphControlProps> = ({
   createEvent,
   ...props
 }) => {
-  function transformToPosition(tick, value) {
+  function transformToPosition(tick: number, value: number) {
     return {
       x: Math.round(transform.getX(tick)),
       y:
@@ -36,7 +38,7 @@ const LineGraphControl: StatelessComponent<LineGraphControlProps> = ({
     }
   }
 
-  function transformFromPosition(position): ItemValue {
+  function transformFromPosition(position: IPoint): ItemValue {
     return {
       tick: transform.getTicks(position.x),
       value:
@@ -54,7 +56,7 @@ const LineGraphControl: StatelessComponent<LineGraphControlProps> = ({
     }
   })
 
-  const onMouseDown = e => {
+  const onMouseDown = (e: ItemEvent) => {
     createEvent(transformFromPosition(e.local))
   }
 

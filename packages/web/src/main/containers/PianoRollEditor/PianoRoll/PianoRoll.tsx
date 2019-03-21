@@ -1,7 +1,7 @@
 import React, { Component, StatelessComponent, Ref, ReactElement } from "react"
 import SplitPane from "react-split-pane"
 import { observer, inject } from "mobx-react"
-import sizeMe from "react-sizeme"
+import { withSize } from "react-sizeme"
 
 import mapBeats from "helpers/mapBeats"
 import { NoteCoordTransform } from "common/transform"
@@ -24,7 +24,7 @@ import PianoRuler from "./PianoRuler"
 import PianoSelection from "./PianoSelection"
 import PianoCursor from "./PianoCursor"
 import ControlPane from "./ControlPane"
-import PianoControlEvents from "./PianoControlEvents"
+import PianoControlEvents, { DisplayEvent } from "./PianoControlEvents"
 
 import { VerticalScrollBar, BAR_WIDTH } from "components/inputs/ScrollBar"
 import { HorizontalScaleScrollBar } from "components/inputs/ScaleScrollBar"
@@ -38,12 +38,14 @@ import {
   SET_PLAYER_POSITION,
   PREVIEW_NOTE
 } from "main/actions"
+import NoteMouseHandler from "./PianoNotes/NoteMouseHandler"
+import { compose } from "recompose"
 
 const SCROLL_KEY_SPEED = 4
 
 export interface PianoRollProps {
   dispatch: Dispatcher
-  mouseHandler
+  mouseHandler: NoteMouseHandler
   theme: Theme
   track: Track
   events: TrackEvent[]
@@ -58,7 +60,7 @@ export interface PianoRollProps {
   setScrollLeft: (scroll: number) => void
   setScrollTop: (scroll: number) => void
   controlMode: string
-  setControlMode: (string) => void
+  setControlMode: (mode: string) => void
   notesCursor: string
   cursorPosition: number
   onMountAlpha: (ref: HTMLElement) => void
@@ -123,14 +125,14 @@ const PianoRoll: StatelessComponent<PianoRollProps> = ({
 
   const cursorPositionX = transform.getX(cursorPosition)
 
-  function clampScroll(maxOffset, scroll) {
+  function clampScroll(maxOffset: number, scroll: number) {
     return Math.floor(Math.min(maxOffset, Math.max(0, scroll)))
   }
 
   scrollLeft = clampScroll(contentWidth - containerWidth, scrollLeft)
   scrollTop = clampScroll(contentHeight - alphaHeight, scrollTop)
 
-  const onMouseDownRuler = e => {
+  const onMouseDownRuler = (e: any) => {
     const tick = e.tick
     if (e.ctrlKey) {
       setLoopBegin(tick)
@@ -141,7 +143,7 @@ const PianoRoll: StatelessComponent<PianoRollProps> = ({
     }
   }
 
-  const onDoubleClickMark = (e, group) => {
+  const onDoubleClickMark = (event: any, group: DisplayEvent[]) => {
     showEventEditor(group)
   }
 
@@ -180,9 +182,9 @@ const PianoRoll: StatelessComponent<PianoRollProps> = ({
               cursor={notesCursor}
               scrollLeft={scrollLeft}
               isDrumMode={track.isRhythmTrack}
-              onMouseDown={e => mouseHandler.onMouseDown(e)}
-              onMouseMove={e => mouseHandler.onMouseMove(e)}
-              onMouseUp={e => mouseHandler.onMouseUp(e)}
+              onMouseDown={(e: any) => mouseHandler.onMouseDown(e)}
+              onMouseMove={(e: any) => mouseHandler.onMouseMove(e)}
+              onMouseUp={(e: any) => mouseHandler.onMouseUp(e)}
               theme={theme}
             />
             <PianoSelection
@@ -352,7 +354,8 @@ function createTransform(keyHeight: number, scaleX: number) {
   return new NoteCoordTransform(pixelsPerTick, keyHeight, 127)
 }
 
-export default sizeMe()(
+export default compose<{}, {}>(
+  withSize(),
   inject(
     ({
       rootStore: {
@@ -402,5 +405,6 @@ export default sizeMe()(
         dispatch(PREVIEW_NOTE, noteNumber, channel),
       dispatch
     })
-  )(observer(stateful))
-)
+  ),
+  observer
+)(stateful)

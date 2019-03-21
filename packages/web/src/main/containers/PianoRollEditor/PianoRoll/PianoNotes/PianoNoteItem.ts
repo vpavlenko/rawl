@@ -32,7 +32,7 @@ export default class PianoNoteItem implements Item {
     isSelected: boolean,
     isDrum: boolean,
     color: any,
-    borderColor: RGB,
+    borderColor: any,
     selectedColor: any
   ) {
     this.id = id

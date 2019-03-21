@@ -1,4 +1,5 @@
 export interface Data<T> extends Iterable<T> {
+  [key: number]: T
   slice(start?: T, end?: T): Data<T>
   readonly length: number
 }
@@ -31,18 +32,16 @@ export default class Stream {
   /* read a big-endian 32-bit integer */
   readInt32(): number {
     const result =
-      (this.readByte() << 24)
-      + (this.readByte() << 16)
-      + (this.readByte() << 8)
-      + this.readByte()
+      (this.readByte() << 24) +
+      (this.readByte() << 16) +
+      (this.readByte() << 8) +
+      this.readByte()
     return result
   }
 
   /* read a big-endian 16-bit integer */
   readInt16(): number {
-    var result =
-      (this.readByte() << 8)
-      + this.readByte()
+    var result = (this.readByte() << 8) + this.readByte()
     return result
   }
 
@@ -66,7 +65,7 @@ export default class Stream {
     for (;;) {
       const b = this.readInt8()
       if (b & 0x80) {
-        result += (b & 0x7f)
+        result += b & 0x7f
         result <<= 7
       } else {
         /* b is the last byte */

@@ -56,7 +56,7 @@ function getMeasuresFromConductorTrack(conductorTrack: Track): Measure[] {
 }
 
 function defaultMBTFormatter(mbt: Beat): string {
-  function format(v) {
+  function format(v: number) {
     return ("   " + v).slice(-4)
   }
   return `${format(mbt.measure + 1)}:${format(mbt.beat + 1)}:${format(
@@ -69,7 +69,7 @@ function createBeats(
   ticksPerBeatBase: number,
   endTick: number
 ): Beat[] {
-  const beats = []
+  const beats: Beat[] = []
   let m = 0
   measures.forEach((measure, i) => {
     const ticksPerBeat = (ticksPerBeatBase * 4) / measure.denominator

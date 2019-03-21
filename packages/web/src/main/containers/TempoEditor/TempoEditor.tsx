@@ -6,6 +6,7 @@ import NavigationBar from "components/groups/NavigationBar"
 import TempoGraph from "./TempoGraph/TempoGraph"
 
 import "./TempoEditor.css"
+import RootStore from "src/main/stores/RootStore"
 
 interface TempoEditorProps {
   onClickNavBack: () => void
@@ -23,7 +24,7 @@ const TempoEditor: StatelessComponent<TempoEditorProps> = ({
 }
 
 export default compose(
-  inject(({ rootStore: { song, router } }) => ({
+  inject(({ rootStore: { song, router } }: { rootStore: RootStore }) => ({
     track: song.conductorTrack,
     onClickNavBack: () => router.pushArrange()
   })),

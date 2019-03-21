@@ -49,8 +49,7 @@ export interface PortPrefixEvent extends MetaEvent<"portPrefix"> {
   port: number
 }
 
-export interface EndOfTrackEvent extends MetaEvent<"endOfTrack"> {
-}
+export interface EndOfTrackEvent extends MetaEvent<"endOfTrack"> {}
 
 export interface SetTempoEvent extends MetaEvent<"setTempo"> {
   microsecondsPerBeat: number
@@ -111,7 +110,8 @@ export interface ProgramChangeEvent extends ChannelEvent<"programChange"> {
   value: number
 }
 
-export interface ChannelAftertouchEvent extends ChannelEvent<"channelAftertouch"> {
+export interface ChannelAftertouchEvent
+  extends ChannelEvent<"channelAftertouch"> {
   amount: number
 }
 
@@ -120,7 +120,7 @@ export interface PitchBendEvent extends ChannelEvent<"pitchBend"> {
 }
 
 export interface UnknownChannelEvent extends ChannelEvent<"unknown"> {
-  data: number[]
+  data: number
 }
 
 /* Controller */
@@ -140,7 +140,7 @@ export interface DividedSysExEvent extends Event<"dividedSysEx"> {
   data: number[]
 }
 
-export type AnyEvent = 
+export type AnyEvent =
   | SequenceNumberEvent
   | TextEvent
   | CopyrightNoticeEvent

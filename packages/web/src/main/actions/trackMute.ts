@@ -1,7 +1,13 @@
+import RootStore from "../stores/RootStore"
+
 export const TOGGLE_MUTE_TRACK = Symbol()
 export const TOGGLE_SOLO_TRACK = Symbol()
 
-export default ({ trackMute, song: { tracks }, services: { player } }) => {
+export default ({
+  trackMute,
+  song: { tracks },
+  services: { player }
+}: RootStore) => {
   return {
     [TOGGLE_MUTE_TRACK]: (trackId: number) => {
       if (trackMute.isMuted(trackId)) {

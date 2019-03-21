@@ -13,18 +13,19 @@ import { toRawEvents } from "helpers/eventAssembler"
 import EventScheduler from "./EventScheduler"
 import Song from "common/song"
 import TrackMute from "common/trackMute"
+import { TrackEvent, TrackEventRequired, NoteEvent } from "../track"
 
 function firstByte(eventType: string, channel: number): number {
   return (MIDIChannelEvents[eventType] << 4) + channel
 }
 
-function collectAllEvents(song: Song): AnyEvent[] {
+function collectAllEvents(song: Song): TrackEvent[] {
   return _.chain(song.tracks)
     .map(t => (t.events as any).toJS())
     .flatten()
     .map(toRawEvents)
     .flatten()
-    .value() as AnyEvent[]
+    .value()
 }
 
 // 同じ名前のタスクを描画タイマーごとに一度だけ実行する
@@ -47,6 +48,11 @@ class DisplayTask {
 
 const displayTask = new DisplayTask()
 
+interface Message {
+  message: number[]
+  timestamp: number
+}
+
 export interface LoopSetting {
   begin: number
   end: number
@@ -56,7 +62,7 @@ export interface LoopSetting {
 export default class Player extends EventEmitter {
   private _currentTempo = 120
   private _currentTick = 0
-  private _scheduler = null
+  private _scheduler: EventScheduler<TrackEvent> = null
   private _song: Song
   private _output: any
   private _timebase: number
@@ -163,15 +169,20 @@ export default class Player extends EventEmitter {
     return this._currentTempo
   }
 
-  _sendMessage(msg, timestamp: number) {
+  _sendMessage(msg: number[], timestamp: number) {
     this._output.send(msg, timestamp)
   }
 
-  _sendMessages(msg) {
+  _sendMessages(msg: Message[]) {
     this._output.sendEvents(msg)
   }
 
-  playNote({ channel, noteNumber, velocity, duration }) {
+  playNote({
+    channel,
+    noteNumber,
+    velocity,
+    duration
+  }: Pick<NoteEvent, "channel" | "noteNumber" | "velocity" | "duration">) {
     const timestamp = window.performance.now()
     this._sendMessage(
       [firstByte("noteOn", channel), noteNumber, velocity],
@@ -207,7 +218,7 @@ export default class Player extends EventEmitter {
           event.type === "channel" && this._shouldPlayChannel(event.channel)
       )
       .map(({ event, timestamp }) => ({
-        message: serializeMidiEvent(event, false),
+        message: serializeMidiEvent(event as any, false),
         timestamp
       }))
     this._sendMessages(messages)
@@ -215,7 +226,7 @@ export default class Player extends EventEmitter {
     // channel イベント以外を実行
     events.forEach(({ event, timestamp }) => {
       const e = event
-      if (e.type !== "channel") {
+      if (e.type !== "channel" && "subtype" in e) {
         switch (e.subtype) {
           case "setTempo":
             this._currentTempo = 60000000 / e.microsecondsPerBeat

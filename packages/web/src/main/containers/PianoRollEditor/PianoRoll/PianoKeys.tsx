@@ -134,7 +134,7 @@ const PianoKeys: StatelessComponent<PianoKeysProps> = ({
     return numberOfKeys - y / keyHeight
   }
 
-  function onMouseDown(e) {
+  function onMouseDown(e: React.MouseEvent) {
     const noteNumber = Math.floor(pixelsToNoteNumber(e.nativeEvent.offsetY))
     onClickKey(noteNumber)
   }

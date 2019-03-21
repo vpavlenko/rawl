@@ -1,8 +1,8 @@
 import clipboard from "services/Clipboard.ts"
 import SelectionModel from "common/selection"
 import RootStore from "../stores/RootStore"
-import { TrackEvent, NoteEvent, isNoteEvent } from "src/common/track"
-import { NotePoint } from "src/common/transform/NotePoint"
+import { NotePoint } from "common/transform/NotePoint"
+import { isNoteEvent, NoteEvent, TrackEvent } from "common/track"
 
 export const RESIZE_SELECTION = Symbol()
 export const FIX_SELECTION = Symbol()

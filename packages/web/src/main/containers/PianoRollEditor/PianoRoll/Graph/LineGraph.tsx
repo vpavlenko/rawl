@@ -13,7 +13,7 @@ export interface LineGraphItemData extends IPoint {
 
 export type LineGraphProps = Omit<StageProps, "items"> & {
   items: LineGraphItemData[]
-  onClickAxis: (value) => void
+  onClickAxis: (value: number) => void
   className: string
   lineWidth?: number
   axis: number[]

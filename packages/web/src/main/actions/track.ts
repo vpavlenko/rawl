@@ -7,8 +7,7 @@ import {
   expressionMidiEvent
 } from "midi/MidiEvent"
 import RootStore from "../stores/RootStore"
-import { NoteEvent, TrackEvent } from "src/common/track"
-import Quantizer from "src/common/quantizer"
+import { NoteEvent } from "src/common/track"
 
 export const CHANGE_TEMPO = Symbol()
 export const CREATE_TEMPO = Symbol()

@@ -1,5 +1,6 @@
 import _ from "lodash"
 import { IRect } from "common/geometry"
+import { NoteEvent } from "../track"
 
 export default class NoteCoordTransform {
   private _pixelsPerTick: number
@@ -73,20 +74,6 @@ export default class NoteCoordTransform {
       width: this.getX(note.duration),
       height: this._pixelsPerKey
     }
-  }
-
-  getNoteForRect(rect: IRect) {
-    const obj = {}
-    if (_.has(rect, "x")) {
-      obj["tick"] = this.getTicks(rect.x)
-    }
-    if (_.has(rect, "y")) {
-      obj["noteNumber"] = this.getNoteNumber(rect.y)
-    }
-    if (_.has(rect, "width")) {
-      obj["duration"] = this.getTicks(rect.width)
-    }
-    return obj
   }
 
   equals(t: NoteCoordTransform) {

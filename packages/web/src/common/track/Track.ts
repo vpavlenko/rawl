@@ -25,15 +25,26 @@ export type NoteEvent = TrackEventRequired & {
   deltaTime: number
 }
 
+export type RPNEvent = TrackEventRequired & {
+  channel: number
+  type: "channel"
+  subtype: "rpn"
+  deltaTime: number
+  rpnMSB: number
+  rpnLSB: number
+  dataMSB: number | undefined
+  dataLSB: number | undefined
+}
+
 export interface TrackEventRequired {
   id: number
   tick: number
   type: string
 }
 
-export type TrackEvent = (TrackEventRequired & AnyEvent) | NoteEvent
+export type TrackEvent = (TrackEventRequired & AnyEvent) | NoteEvent | RPNEvent
 
-function lastValue(arr, prop) {
+function lastValue<T>(arr: T[], prop: keyof T) {
   const last = _.last(arr)
   return last && last[prop]
 }
@@ -244,7 +255,7 @@ export default class Track {
   }
 
   get name(): string {
-    return lastValue(this._findTrackNameEvent(), "text")
+    return lastValue(this._findTrackNameEvent(), "text") as string
   }
 
   set name(text: string) {
@@ -252,7 +263,7 @@ export default class Track {
   }
 
   get volume(): number {
-    return lastValue(this._findVolumeEvents(), "value")
+    return lastValue(this._findVolumeEvents(), "value") as number
   }
 
   set volume(value: number) {
@@ -260,7 +271,7 @@ export default class Track {
   }
 
   get pan(): number {
-    return lastValue(this._findPanEvents(), "value")
+    return lastValue(this._findPanEvents(), "value") as number
   }
 
   set pan(value: number) {
@@ -268,7 +279,7 @@ export default class Track {
   }
 
   get endOfTrack(): number {
-    return lastValue(this._findEndOfTrackEvents(), "tick")
+    return lastValue(this._findEndOfTrackEvents(), "tick") as number
   }
 
   set endOfTrack(tick: number) {
@@ -276,7 +287,7 @@ export default class Track {
   }
 
   get programNumber(): number {
-    return lastValue(this._findProgramChangeEvents(), "value")
+    return lastValue(this._findProgramChangeEvents(), "value") as number
   }
 
   set programNumber(value: number) {
@@ -285,7 +296,8 @@ export default class Track {
 
   get tempo(): number {
     return (
-      60000000 / lastValue(this._findSetTempoEvents(), "microsecondsPerBeat")
+      60000000 /
+      (lastValue(this._findSetTempoEvents(), "microsecondsPerBeat") as number)
     )
   }
 

@@ -1,5 +1,5 @@
-import NoteMouseHandler from "./NoteMouseHandler"
-import { pointSub, pointAdd } from "common/geometry"
+import NoteMouseHandler, { MouseAction } from "./NoteMouseHandler"
+import { pointSub, pointAdd, IPoint } from "common/geometry"
 import pencilImage from "images/iconmonstr-pencil-14-16.png"
 import { NoteCoordTransform } from "common/transform"
 import {
@@ -9,11 +9,12 @@ import {
   RESIZE_NOTE_LEFT,
   RESIZE_NOTE_RIGHT
 } from "main/actions"
+import { Dispatcher } from "src/main/createDispatcher"
 
 export default class PencilMouseHandler extends NoteMouseHandler {
   transform: NoteCoordTransform
 
-  protected actionForMouseDown(e) {
+  protected actionForMouseDown(e: any) {
     const original = super.actionForMouseDown(e)
     if (original) {
       return original
@@ -45,7 +46,7 @@ export default class PencilMouseHandler extends NoteMouseHandler {
     }
   }
 
-  getCursorForMouseMove(e) {
+  getCursorForMouseMove(e: any) {
     if (e.item) {
       return cursorForPositionType(getPositionType(e))
     }
@@ -53,14 +54,17 @@ export default class PencilMouseHandler extends NoteMouseHandler {
   }
 }
 
-export const createNoteAction = dispatch => (onMouseDown, onMouseMove) => {
-  let noteId
+export const createNoteAction = (dispatch: Dispatcher) => (
+  onMouseDown: MouseAction,
+  onMouseMove: MouseAction
+) => {
+  let noteId: number
 
-  onMouseDown(e => {
+  onMouseDown((e: any) => {
     noteId = dispatch(CREATE_NOTE, e)
   })
 
-  onMouseMove(e => {
+  onMouseMove((e: any) => {
     dispatch(MOVE_NOTE, {
       id: noteId,
       tick: e.tick,
@@ -70,19 +74,22 @@ export const createNoteAction = dispatch => (onMouseDown, onMouseMove) => {
   })
 }
 
-const removeNoteAction = dispatch => onMouseDown => {
-  onMouseDown(e => dispatch(REMOVE_EVENT, { eventId: e.item.id }))
+const removeNoteAction = (dispatch: Dispatcher) => (
+  onMouseDown: MouseAction
+) => {
+  onMouseDown((e: any) => dispatch(REMOVE_EVENT, { eventId: e.item.id }))
 }
 
-const moveNoteAction = (dispatch, transform, isCopy) => (
-  onMouseDown,
-  onMouseMove
-) => {
-  let startPosition
-  let notePosition
-  let noteId
+const moveNoteAction = (
+  dispatch: Dispatcher,
+  transform: NoteCoordTransform,
+  isCopy: boolean
+) => (onMouseDown: MouseAction, onMouseMove: MouseAction) => {
+  let startPosition: IPoint
+  let notePosition: IPoint
+  let noteId: number
 
-  onMouseDown(e => {
+  onMouseDown((e: any) => {
     startPosition = e.local
     notePosition = e.item.bounds
     if (isCopy) {
@@ -92,7 +99,7 @@ const moveNoteAction = (dispatch, transform, isCopy) => (
     }
   })
 
-  onMouseMove(e => {
+  onMouseMove((e: any) => {
     const position = pointAdd(notePosition, pointSub(e.local, startPosition))
     dispatch(MOVE_NOTE, {
       id: noteId,
@@ -103,33 +110,39 @@ const moveNoteAction = (dispatch, transform, isCopy) => (
   })
 }
 
-const dragLeftNoteAction = dispatch => (onMouseDown, onMouseMove) => {
-  let noteId
+const dragLeftNoteAction = (dispatch: Dispatcher) => (
+  onMouseDown: MouseAction,
+  onMouseMove: MouseAction
+) => {
+  let noteId: number
 
-  onMouseDown(e => {
+  onMouseDown((e: any) => {
     noteId = e.item.id
   })
 
-  onMouseMove(e => {
+  onMouseMove((e: any) => {
     dispatch(RESIZE_NOTE_LEFT, { id: noteId, tick: e.tick })
   })
 }
 
-const dragRightNoteAction = dispatch => (onMouseDown, onMouseMove) => {
-  let noteId
+const dragRightNoteAction = (dispatch: Dispatcher) => (
+  onMouseDown: MouseAction,
+  onMouseMove: MouseAction
+) => {
+  let noteId: number
 
-  onMouseDown(e => {
+  onMouseDown((e: any) => {
     noteId = e.item.id
   })
 
-  onMouseMove(e => {
+  onMouseMove((e: any) => {
     dispatch(RESIZE_NOTE_RIGHT, { id: noteId, tick: e.tick })
   })
 }
 
 // helpers
 
-function cursorForPositionType(type) {
+function cursorForPositionType(type: string) {
   switch (type) {
     case "left":
     case "right":
@@ -139,7 +152,7 @@ function cursorForPositionType(type) {
   }
 }
 
-function getPositionType({ local, item }) {
+function getPositionType({ local, item }: any) {
   if (item.isDrum) {
     return "center"
   }

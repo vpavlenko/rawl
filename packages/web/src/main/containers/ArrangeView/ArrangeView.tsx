@@ -1,6 +1,6 @@
-import React, { Component } from "react"
+import React, { Component, SFC } from "react"
 import { observer, inject } from "mobx-react"
-import sizeMe from "react-sizeme"
+import sizeMe, { withSize } from "react-sizeme"
 
 import PianoGrid from "containers/PianoRollEditor/PianoRoll/PianoGrid"
 import PianoRuler from "containers/PianoRollEditor/PianoRoll/PianoRuler"
@@ -15,7 +15,14 @@ import { HorizontalScaleScrollBar } from "components/inputs/ScaleScrollBar"
 import { NoteCoordTransform } from "common/transform"
 
 import mapBeats from "helpers/mapBeats"
-import { pointSub, pointAdd, ISize, IPoint, IRect } from "common/geometry"
+import {
+  pointSub,
+  pointAdd,
+  ISize,
+  IPoint,
+  IRect,
+  containsPoint
+} from "common/geometry"
 import filterEventsWithScroll from "helpers/filterEventsWithScroll"
 
 import ArrangeToolbar from "./ArrangeToolbar"
@@ -33,10 +40,12 @@ import {
 } from "main/actions"
 
 import "./ArrangeView.css"
-import Track, { TrackEvent, isNoteEvent } from "src/common/track"
-import Theme from "src/common/theme"
-import SelectionModel from "src/common/selection"
-import { Beat } from "src/common/measure"
+import Track, { TrackEvent, isNoteEvent } from "common/track"
+import Theme from "common/theme"
+import { Beat } from "common/measure"
+import RootStore from "src/main/stores/RootStore"
+import { NotePoint } from "common/transform/NotePoint"
+import { compose } from "recompose"
 
 interface NavItemProps {
   title: string
@@ -109,7 +118,7 @@ interface ArrangeViewProps {
   openContextMenu: (x: number, y: number, isSelectionSelected: boolean) => void
 }
 
-function ArrangeView({
+const ArrangeView: SFC<ArrangeViewProps> = ({
   tracks,
   theme,
   beats,
@@ -134,7 +143,7 @@ function ArrangeView({
   onClickScaleDown,
   onClickScaleReset,
   openContextMenu
-}: ArrangeViewProps) {
+}) => {
   scrollLeft = Math.floor(scrollLeft)
 
   const { pixelsPerTick } = transform
@@ -162,24 +171,27 @@ function ArrangeView({
 
   function setScrollLeft(scroll: number) {
     const maxOffset = Math.max(0, contentWidth - containerWidth)
-    onScrollLeft({
-      scroll: Math.floor(Math.min(maxOffset, Math.max(0, scroll)))
-    })
+    onScrollLeft(Math.floor(Math.min(maxOffset, Math.max(0, scroll))))
   }
 
   function setScrollTop(scroll: number) {
     const maxOffset = Math.max(0, contentHeight - containerHeight)
-    onScrollTop({
-      scroll: Math.floor(Math.min(maxOffset, Math.max(0, scroll)))
-    })
+    onScrollTop(Math.floor(Math.min(maxOffset, Math.max(0, scroll))))
   }
 
-  function handleLeftClick(e, createPoint) {
+  function handleLeftClick(
+    e: React.MouseEvent,
+    createPoint: (e: MouseEvent) => IPoint
+  ) {
     const startPos = createPoint(e.nativeEvent)
     const isSelectionSelected =
-      selection != null && selection.containsPoint(startPos)
+      selection != null && containsPoint(selection, startPos)
 
-    const createSelectionHandler = (e, mouseMove, mouseUp) => {
+    const createSelectionHandler = (
+      e: MouseEvent,
+      mouseMove: (handler: (e: MouseEvent) => void) => void,
+      mouseUp: (handler: (e: MouseEvent) => void) => void
+    ) => {
       startSelection(startPos)
       mouseMove(e => {
         resizeSelection(startPos, createPoint(e))
@@ -189,7 +201,11 @@ function ArrangeView({
       })
     }
 
-    const dragSelectionHandler = (e, mouseMove, mouseUp) => {
+    const dragSelectionHandler = (
+      e: MouseEvent,
+      mouseMove: (handler: (e: MouseEvent) => void) => void,
+      mouseUp: (handler: (e: MouseEvent) => void) => void
+    ) => {
       const startSelection = { ...selection }
       mouseMove(e => {
         const delta = pointSub(createPoint(e), startPos)
@@ -207,14 +223,15 @@ function ArrangeView({
       handler = createSelectionHandler
     }
 
-    let mouseMove, mouseUp
-    handler(e, fn => (mouseMove = fn), fn => (mouseUp = fn))
+    let mouseMove: (e: MouseEvent) => void
+    let mouseUp: (e: MouseEvent) => void
+    handler(e.nativeEvent, fn => (mouseMove = fn), fn => (mouseUp = fn))
 
-    function onMouseMove(e) {
+    function onMouseMove(e: MouseEvent) {
       mouseMove(e)
     }
 
-    function onMouseUp(e) {
+    function onMouseUp(e: MouseEvent) {
       mouseUp(e)
       document.removeEventListener("mousemove", onMouseMove)
       document.removeEventListener("mouseup", onMouseUp)
@@ -224,20 +241,20 @@ function ArrangeView({
     document.addEventListener("mouseup", onMouseUp)
   }
 
-  function handleMiddleClick(e) {
-    function createPoint(e) {
+  function handleMiddleClick(e: React.MouseEvent) {
+    function createPoint(e: MouseEvent) {
       return { x: e.clientX, y: e.clientY }
     }
     const startPos = createPoint(e.nativeEvent)
 
-    function onMouseMove(e) {
+    function onMouseMove(e: MouseEvent) {
       const pos = createPoint(e)
       const delta = pointSub(pos, startPos)
       setScrollLeft(Math.max(0, scrollLeft - delta.x))
       setScrollTop(Math.max(0, scrollTop - delta.y))
     }
 
-    function onMouseUp(e) {
+    function onMouseUp(e: MouseEvent) {
       document.removeEventListener("mousemove", onMouseMove)
       document.removeEventListener("mouseup", onMouseUp)
     }
@@ -246,17 +263,20 @@ function ArrangeView({
     document.addEventListener("mouseup", onMouseUp)
   }
 
-  function handleRightClick(e, createPoint) {
+  function handleRightClick(
+    e: React.MouseEvent,
+    createPoint: (e: MouseEvent) => IPoint
+  ) {
     const startPos = createPoint(e.nativeEvent)
     const isSelectionSelected =
-      selection != null && selection.containsPoint(startPos)
+      selection != null && containsPoint(selection, startPos)
     openContextMenu(e.pageX, e.pageY, isSelectionSelected)
   }
 
-  function onMouseDown(e) {
+  function onMouseDown(e: React.MouseEvent) {
     const { left, top } = e.currentTarget.getBoundingClientRect()
 
-    function createPoint(e) {
+    function createPoint(e: MouseEvent) {
       const x = e.pageX - left + scrollLeft
       const y = e.pageY - top - theme.rulerHeight + scrollTop
       const tick = transform.getTicks(x)
@@ -278,7 +298,7 @@ function ArrangeView({
     }
   }
 
-  function onWheel(e) {
+  function onWheel(e: React.WheelEvent) {
     e.preventDefault()
     const scrollLineHeight = trackHeight
     const delta = scrollLineHeight * (e.deltaY > 0 ? 1 : -1)
@@ -391,11 +411,11 @@ interface Props {
   autoScroll: boolean
   size: ISize
   scrollLeft: number
-  setScrollLeft: (number) => void
-  setScrollTop: (number) => void
+  setScrollLeft: (scroll: number) => void
+  setScrollTop: (scroll: number) => void
 }
 
-function stateful(WrappedComponent) {
+function stateful(WrappedComponent: any) {
   return class extends Component<Props> {
     componentDidMount() {
       this.props.player.on("change-position", this.updatePosition)
@@ -413,7 +433,7 @@ function stateful(WrappedComponent) {
       )
     }
 
-    updatePosition = tick => {
+    updatePosition = (tick: number) => {
       this.setState({
         playerPosition: tick
       })
@@ -436,8 +456,8 @@ function stateful(WrappedComponent) {
 
       return (
         <WrappedComponent
-          onScrollLeft={scroll => setScrollLeft(scroll)}
-          onScrollTop={scroll => setScrollTop(scroll)}
+          onScrollLeft={(scroll: number) => setScrollLeft(scroll)}
+          onScrollTop={(scroll: number) => setScrollTop(scroll)}
           transform={this.transform}
           {...this.state}
           {...this.props}
@@ -457,12 +477,14 @@ const mapStoreToProps = ({
     router,
     dispatch
   }
+}: {
+  rootStore: RootStore
 }) => ({
   theme,
   player,
   quantizer,
   loop,
-  tracks: tracks.toJS(),
+  tracks: (tracks as any).toJS(),
   beats: measureList.beats,
   endTick: endOfSong,
   keyHeight: 0.3,
@@ -471,25 +493,29 @@ const mapStoreToProps = ({
   scrollLeft: s.scrollLeft,
   scrollTop: s.scrollTop,
   selection: s.selection,
-  setScrollLeft: v => (s.scrollLeft = v),
-  setScrollTop: v => (s.scrollTop = v),
+  setScrollLeft: (v: number) => (s.scrollLeft = v),
+  setScrollTop: (v: number) => (s.scrollTop = v),
   pushSettings: () => router.pushSettings(),
   onClickScaleUp: () => (s.scaleX = s.scaleX + 0.1),
   onClickScaleDown: () => (s.scaleX = Math.max(0.05, s.scaleX - 0.1)),
   onClickScaleReset: () => (s.scaleX = 1),
-  setPlayerPosition: tick => dispatch(SET_PLAYER_POSITION, tick),
-  startSelection: pos => dispatch(ARRANGE_START_SELECTION, pos),
-  endSelection: (start, end) => dispatch(ARRANGE_END_SELECTION, { start, end }),
-  resizeSelection: (start, end) =>
+  setPlayerPosition: (tick: number) => dispatch(SET_PLAYER_POSITION, tick),
+  startSelection: (pos: IPoint) => dispatch(ARRANGE_START_SELECTION, pos),
+  endSelection: (start: IPoint, end: IPoint) =>
+    dispatch(ARRANGE_END_SELECTION, { start, end }),
+  resizeSelection: (start: NotePoint, end: NotePoint) =>
     dispatch(ARRANGE_RESIZE_SELECTION, { start, end }),
-  moveSelection: pos => dispatch(ARRANGE_MOVE_SELECTION, pos),
-  openContextMenu: (x, y, isSelectionSelected) =>
+  moveSelection: (pos: IPoint) => dispatch(ARRANGE_MOVE_SELECTION, pos),
+  openContextMenu: (x: number, y: number, isSelectionSelected: boolean) =>
     dispatch(ARRANGE_OPEN_CONTEXT_MENU, {
       position: { x, y },
       isSelectionSelected
     })
 })
 
-export default sizeMe()(
-  inject(mapStoreToProps)(observer(stateful(ArrangeView)))
-)
+export default compose(
+  withSize(),
+  inject(mapStoreToProps),
+  observer,
+  stateful
+)(ArrangeView)

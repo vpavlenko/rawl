@@ -1,7 +1,7 @@
 import React, { StatelessComponent, ReactNode, CSSProperties } from "react"
-import sizeMe from "react-sizeme"
+import sizeMe, { withSize } from "react-sizeme"
 import Icon from "components/Icon"
-import { ScrollBar, BAR_WIDTH } from "./ScrollBar"
+import { ScrollBar, BAR_WIDTH, ScrollBarProps } from "./ScrollBar"
 import { ISize } from "common/geometry"
 
 import "./ScaleScrollBar.css"
@@ -25,7 +25,10 @@ const ScaleButton: StatelessComponent<ScaleButtonProps> = ({
   )
 }
 
-interface HorizontalScaleScrollBar_Props {
+type HorizontalScaleScrollBar_Props = Omit<
+  ScrollBarProps,
+  "isVertical" | "barLength" | "style"
+> & {
   size: ISize
   onClickScaleDown?: (e: any) => void
   onClickScaleReset?: (e: any) => void
@@ -72,4 +75,4 @@ export type HorizontalScaleScrollBarProps = Omit<
   "size"
 >
 
-export const HorizontalScaleScrollBar = sizeMe()(HorizontalScaleScrollBar_)
+export const HorizontalScaleScrollBar = withSize()(HorizontalScaleScrollBar_)

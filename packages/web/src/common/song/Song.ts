@@ -36,7 +36,7 @@ export default class Song {
     this._updateEndOfSong()
   }
 
-  disposer = null
+  disposer: (() => void) | null = null
 
   @action addTrack(t: Track) {
     // 最初のトラックは Conductor Track なので channel を設定しない

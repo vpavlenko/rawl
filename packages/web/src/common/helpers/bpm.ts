@@ -1,9 +1,9 @@
 const MINUTE = 60 * 1000000
 
-export function uSecPerBeatToBPM(microsecondsPerBeat) {
+export function uSecPerBeatToBPM(microsecondsPerBeat: number) {
   return MINUTE / microsecondsPerBeat
 }
 
-export function bpmToUSecPerBeat(bpm) {
+export function bpmToUSecPerBeat(bpm: number) {
   return MINUTE / bpm
 }

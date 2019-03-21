@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { shouldUpdate } from "recompose"
+import { shouldUpdate, Omit } from "recompose"
 import _ from "lodash"
 
 import Stage from "components/Stage/Stage"
@@ -67,7 +67,7 @@ class _PianoVelocityControl extends Component<
   PianoVelocityControlProps,
   State
 > {
-  constructor(props) {
+  constructor(props: PianoVelocityControlProps) {
     super(props)
 
     this.state = {
@@ -80,10 +80,9 @@ class _PianoVelocityControl extends Component<
   }
 }
 
-function test(
-  props: PianoVelocityControlProps,
-  nextProps: PianoVelocityControlProps
-) {
+type Props = Omit<PianoVelocityControlProps, "mouseHandler">
+
+function test(props: Props, nextProps: Props) {
   return (
     props.scrollLeft !== nextProps.scrollLeft ||
     props.width !== nextProps.width ||
@@ -93,4 +92,4 @@ function test(
   )
 }
 
-export default shouldUpdate(test)(_PianoVelocityControl)
+export default shouldUpdate(test)<Props>(_PianoVelocityControl)

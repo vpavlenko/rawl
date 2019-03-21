@@ -1,9 +1,13 @@
+export interface SchedulableEvent {
+  tick: number
+}
+
 /**
  * Player でイベントを随時読み取るためのクラス
  * 精確にスケジューリングするために先読みを行う
  * https://www.html5rocks.com/ja/tutorials/audio/scheduling/
  */
-export default class EventScheduler {
+export default class EventScheduler<E extends SchedulableEvent> {
   // 先読み時間 (ms)
   lookAheadTime = 100
 
@@ -13,18 +17,14 @@ export default class EventScheduler {
   private _currentTick = 0
   private _scheduledTick = 0
   private _prevTime: number | undefined = undefined
-  private _events: any[]
+  private _events: E[]
 
-  constructor(
-    events: any[] = [],
-    tick = 0,
-    timebase = 480,
-    lookAheadTime = 100
-  ) {
+  constructor(events: E[] = [], tick = 0, timebase = 480, lookAheadTime = 100) {
     this._events = events
     this._currentTick = tick
     this._scheduledTick = tick
     this.timebase = timebase
+    this.lookAheadTime = lookAheadTime
   }
 
   get currentTick() {

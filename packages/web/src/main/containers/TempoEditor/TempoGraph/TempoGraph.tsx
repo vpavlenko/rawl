@@ -18,9 +18,11 @@ import _ from "lodash"
 import { CHANGE_TEMPO, CREATE_TEMPO, SET_PLAYER_POSITION } from "main/actions"
 import { inject, observer } from "mobx-react"
 import React, { Component, StatelessComponent } from "react"
-import sizeMe from "react-sizeme"
+import sizeMe, { withSize } from "react-sizeme"
 import "./TempoGraph.css"
 import transformEvents from "./transformEvents"
+import RootStore from "src/main/stores/RootStore"
+import { compose } from "recompose"
 
 type DisplayEvent = TrackEvent & SetTempoEvent
 
@@ -253,12 +255,22 @@ const Content: StatelessComponent<ContentProps> = ({
   )
 }
 
-interface Props {
+type Props = Pick<
+  ContentProps,
+  | "beats"
+  | "track"
+  | "theme"
+  | "events"
+  | "setPlayerPosition"
+  | "endTick"
+  | "changeTempo"
+  | "createTempo"
+  | "size"
+  | "setScrollLeft"
+  | "pixelsPerTick"
+> & {
   player: Player
   autoScroll: boolean
-  pixelsPerTick: number
-  size: ISize
-  setScrollLeft: (scroll: number) => void
 }
 
 interface State {
@@ -309,7 +321,8 @@ function stateful(WrappedComponent: React.StatelessComponent<ContentProps>) {
   }
 }
 
-export default sizeMe({ monitorHeight: true })(
+export default compose(
+  withSize({ monitorHeight: true }),
   inject(
     ({
       rootStore: {
@@ -319,12 +332,14 @@ export default sizeMe({ monitorHeight: true })(
         song,
         dispatch
       }
+    }: {
+      rootStore: RootStore
     }) => ({
       theme,
       player,
       pixelsPerTick: 0.1 * s.scaleX,
       track: song.conductorTrack,
-      events: song.conductorTrack.events.toJS(),
+      events: (song.conductorTrack.events as any).toJS(),
       endTick: song.endOfSong,
       beats: song.measureList.beats,
       autoScroll: s.autoScroll,
@@ -336,5 +351,7 @@ export default sizeMe({ monitorHeight: true })(
         dispatch(CREATE_TEMPO, tick, microsecondsPerBeat),
       setPlayerTempo: (tick: number) => dispatch(SET_PLAYER_POSITION, tick)
     })
-  )(observer(stateful(Content)))
-)
+  ),
+  observer,
+  stateful
+)(Content)

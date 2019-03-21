@@ -1,5 +1,5 @@
 // 100 段階になるように精度を落とす
-export default function coarsify(val, min = 0, max = 1) {
+export default function coarsify(val: number, min = 0, max = 1) {
   const range = max - min
   /**
     変化量

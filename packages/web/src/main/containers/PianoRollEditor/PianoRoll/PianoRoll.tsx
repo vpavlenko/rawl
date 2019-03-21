@@ -230,7 +230,7 @@ const PianoRoll: StatelessComponent<PianoRollProps> = ({
           <VerticalScrollBar
             scrollOffset={scrollTop}
             contentLength={contentHeight}
-            onScroll={({ scroll }) => setScrollTop(scroll)}
+            onScroll={(scroll: number) => setScrollTop(scroll)}
           />
         </div>
         <div className="beta">
@@ -250,7 +250,7 @@ const PianoRoll: StatelessComponent<PianoRollProps> = ({
       <HorizontalScaleScrollBar
         scrollOffset={scrollLeft}
         contentLength={contentWidth}
-        onScroll={({ scroll }) => setScrollLeft(scroll)}
+        onScroll={(scroll: number) => setScrollLeft(scroll)}
         onClickScaleUp={onClickScaleUp}
         onClickScaleDown={onClickScaleDown}
         onClickScaleReset={onClickScaleReset}
@@ -288,7 +288,7 @@ class stateful extends Component<SPianoRollProps, SPianoRollState> {
     this.props.player.off("change-position", this.onTick)
   }
 
-  onTick = tick => {
+  onTick = (tick: number) => {
     const {
       autoScroll,
       scrollLeft,
@@ -312,7 +312,10 @@ class stateful extends Component<SPianoRollProps, SPianoRollState> {
     }
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(
+    nextProps: SPianoRollState,
+    nextState: SPianoRollState
+  ) {
     return true
   }
 
@@ -344,7 +347,7 @@ class stateful extends Component<SPianoRollProps, SPianoRollState> {
   }
 }
 
-function createTransform(keyHeight, scaleX) {
+function createTransform(keyHeight: number, scaleX: number) {
   const pixelsPerTick = 0.1 * scaleX
   return new NoteCoordTransform(pixelsPerTick, keyHeight, 127)
 }
@@ -375,15 +378,15 @@ export default sizeMe()(
       autoScroll: s.autoScroll,
       selection: s.selection,
       scrollLeft: s.scrollLeft,
-      setScrollLeft: v => (s.scrollLeft = v),
+      setScrollLeft: (v: number) => (s.scrollLeft = v),
       scrollTop: s.scrollTop,
-      setScrollTop: v => (s.scrollTop = v),
+      setScrollTop: (v: number) => (s.scrollTop = v),
       controlMode: s.controlMode,
-      setControlMode: v => (s.controlMode = v),
+      setControlMode: (v: string) => (s.controlMode = v),
       cursorPosition: s.cursorPosition,
-      setCursorPosition: v => (s.cursorPosition = v),
+      setCursorPosition: (v: number) => (s.cursorPosition = v),
       notesCursor: s.notesCursor,
-      setNotesCursor: v => (s.notesCursor = v),
+      setNotesCursor: (v: string) => (s.notesCursor = v),
       mouseMode: s.mouseMode,
       onChangeTool: () => (s.mouseMode = s.mouseMode === 0 ? 1 : 0),
       onClickScaleUp: () => (s.scaleX = s.scaleX + 0.1),
@@ -392,11 +395,11 @@ export default sizeMe()(
       loop: playerStore.loop,
       quantizer,
       player,
-      setLoopBegin: tick => dispatch(SET_LOOP_BEGIN, { tick }),
-      setLoopEnd: tick => dispatch(SET_LOOP_END, { tick }),
-      setPlayerPosition: tick => dispatch(SET_PLAYER_POSITION, { tick }),
-      previewNote: (noteNumber, channel) =>
-        dispatch(PREVIEW_NOTE, { noteNumber, channel }),
+      setLoopBegin: (tick: number) => dispatch(SET_LOOP_BEGIN, tick),
+      setLoopEnd: (tick: number) => dispatch(SET_LOOP_END, tick),
+      setPlayerPosition: (tick: number) => dispatch(SET_PLAYER_POSITION, tick),
+      previewNote: (noteNumber: number, channel: number) =>
+        dispatch(PREVIEW_NOTE, noteNumber, channel),
       dispatch
     })
   )(observer(stateful))

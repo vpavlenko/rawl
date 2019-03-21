@@ -40,10 +40,8 @@ const PitchGraph: StatelessComponent<PitchGraphProps> = ({
       maxValue={0x4000}
       events={filteredEvents}
       axis={[-0x2000, -0x1000, 0, 0x1000, 0x2000 - 1]}
-      createEvent={obj => dispatch(CREATE_PITCH_BEND, obj)}
-      onClickAxis={value =>
-        dispatch(CREATE_PITCH_BEND, { value: value + 0x2000 })
-      }
+      createEvent={obj => dispatch(CREATE_PITCH_BEND, obj.value, obj.tick)}
+      onClickAxis={value => dispatch(CREATE_PITCH_BEND, value + 0x2000)}
       color={color}
     />
   )

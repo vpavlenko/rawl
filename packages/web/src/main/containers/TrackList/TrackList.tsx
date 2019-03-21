@@ -23,12 +23,12 @@ interface TrackListProps {
   song: Song
   trackMute: TrackMute
   isArrangeViewSelected: boolean
-  onSelectTrack: (number) => void
-  onClickSolo: (number) => void
-  onClickMute: (number) => void
-  onClickDelete: (number) => void
-  onClickAddTrack: (any) => void
-  onClickArrangeView: (any) => void
+  onSelectTrack: (trackId: number) => void
+  onClickSolo: (trackId: number) => void
+  onClickMute: (trackId: number) => void
+  onClickDelete: (trackId: number) => void
+  onClickAddTrack: () => void
+  onClickArrangeView: () => void
 }
 
 const TrackList: StatelessComponent<TrackListProps> = ({
@@ -96,14 +96,14 @@ export default compose(
       song,
       player: { player },
       isArrangeViewSelected: rootViewStore.isArrangeViewSelected,
-      onClickMute: trackId => dispatch(TOGGLE_MUTE_TRACK, { trackId }),
-      onClickSolo: trackId => dispatch(TOGGLE_SOLO_TRACK, { trackId }),
-      onClickDelete: trackId => dispatch(REMOVE_TRACK, { trackId }),
+      onClickMute: (trackId: number) => dispatch(TOGGLE_MUTE_TRACK, trackId),
+      onClickSolo: (trackId: number) => dispatch(TOGGLE_SOLO_TRACK, trackId),
+      onClickDelete: (trackId: number) => dispatch(REMOVE_TRACK, trackId),
       onClickAddTrack: () => dispatch(ADD_TRACK),
       onChangeName: e => dispatch(SET_TRACK_NAME, { name: e.target.value }),
-      onSelectTrack: trackId => {
+      onSelectTrack: (trackId: number) => {
         router.pushTrack()
-        dispatch(SELECT_TRACK, { trackId })
+        dispatch(SELECT_TRACK, trackId)
       },
       onClickArrangeView: () => {
         router.pushArrange()

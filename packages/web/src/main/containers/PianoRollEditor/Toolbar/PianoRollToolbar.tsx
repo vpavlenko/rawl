@@ -74,7 +74,7 @@ export default compose(
       onClickSelection: () => (s.mouseMode = 1),
       onClickAutoScroll: () => (s.autoScroll = !s.autoScroll),
       onSelectQuantize: e => {
-        dispatch(SET_QUANTIZE_DENOMINATOR, { denominator: e.denominator })
+        dispatch(SET_QUANTIZE_DENOMINATOR, e.denominator)
         s.quantize = e.denominator
       }
     })

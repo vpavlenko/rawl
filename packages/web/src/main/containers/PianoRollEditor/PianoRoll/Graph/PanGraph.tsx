@@ -40,8 +40,8 @@ const PanGraph: StatelessComponent<PanGraphProps> = ({
       maxValue={127}
       events={filteredEvents}
       axis={[-0x40, -0x20, 0, 0x20, 0x40 - 1]}
-      createEvent={obj => dispatch(CREATE_PAN, obj)}
-      onClickAxis={value => dispatch(CREATE_PAN, { value: value + 0x40 })}
+      createEvent={obj => dispatch(CREATE_PAN, obj.value, obj.tick)}
+      onClickAxis={value => dispatch(CREATE_PAN, value + 0x40)}
       color={color}
     />
   )

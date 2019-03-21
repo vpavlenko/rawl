@@ -8,12 +8,13 @@ import createSelectionAction from "./actions/selection"
 import createTrackMuteAction from "./actions/trackMute"
 import createPianoRollAction from "./actions/pianoRoll"
 import createArrangeViewAction from "./actions/arrangeView"
+import RootStore from "./stores/RootStore"
 
-export type Dispatcher = (type: symbol, params?: any) => void
+export type Dispatcher = (type: symbol, ...params: any) => void
 
-const createDispatcher = rootStore => (
+const createDispatcher = (rootStore: RootStore) => (
   type: symbol,
-  params?: any
+  ...params: any
 ): Dispatcher => {
   const actions = {
     ...createSongAction(rootStore),
@@ -30,7 +31,7 @@ const createDispatcher = rootStore => (
 
   const action = actions[type]
   if (action) {
-    return action(params)
+    return action(...params)
   }
 
   console.warn("unknown action", type, params)

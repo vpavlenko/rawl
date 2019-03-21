@@ -69,7 +69,7 @@ export default class NoteMouseHandler {
       this.actionMouseMove(e)
     } else {
       const cursor = this.getCursorForMouseMove(e)
-      this.dispatch(CHANGE_CURSOR, { cursor })
+      this.dispatch(CHANGE_CURSOR, cursor)
     }
   }
 
@@ -98,6 +98,6 @@ const dragScrollAction = dispatch => (onMouseDown, onMouseMove) => {
 const changeToolAction = dispatch => onMouseDown => {
   onMouseDown(() => {
     dispatch(TOGGLE_TOOL)
-    dispatch(CHANGE_CURSOR, { cursor: "crosshair" })
+    dispatch(CHANGE_CURSOR, "crosshair")
   })
 }

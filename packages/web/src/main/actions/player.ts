@@ -26,16 +26,16 @@ export default ({
         player.position = 0
       }
     },
-    [SET_PLAYER_POSITION]: ({ tick }) => {
+    [SET_PLAYER_POSITION]: (tick: number) => {
       player.position = quantizer.round(tick)
     },
-    [MOVE_PLAYER_POSITION]: ({ tick }) => {
+    [MOVE_PLAYER_POSITION]: (tick: number) => {
       player.position = quantizer.round(player.position + tick)
     },
-    [PREVIEW_NOTE]: ({ noteNumber, channel }) => {
+    [PREVIEW_NOTE]: (noteNumber: number, channel: number) => {
       player.playNote({ channel, noteNumber, velocity: 100, duration: 128 })
     },
-    [SET_LOOP_BEGIN]: ({ tick }) => {
+    [SET_LOOP_BEGIN]: (tick: number) => {
       tick = quantizer.round(tick)
       if (player.loop.end !== null) {
         tick = Math.min(player.loop.end, tick)
@@ -43,7 +43,7 @@ export default ({
       player.loop.begin = tick
       playerStore.loop = { ...player.loop }
     },
-    [SET_LOOP_END]: ({ tick }) => {
+    [SET_LOOP_END]: (tick: number) => {
       tick = quantizer.round(tick)
       if (player.loop.begin !== null) {
         tick = Math.max(player.loop.begin, tick)

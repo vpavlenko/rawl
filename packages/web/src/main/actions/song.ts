@@ -1,4 +1,4 @@
-import { emptySong } from "common/song"
+import Song, { emptySong } from "common/song"
 import { emptyTrack } from "common/track"
 import { write as writeSong } from "midi/SongFile"
 import RootStore from "../stores/RootStore"
@@ -14,7 +14,6 @@ export const SET_TEMPO = Symbol()
 export default (rootStore: RootStore) => {
   const {
     song,
-    historyStore: history,
     services: { player }
   } = rootStore
 
@@ -22,7 +21,7 @@ export default (rootStore: RootStore) => {
     rootStore.pushHistory()
   }
 
-  const setSong = song => {
+  const setSong = (song: Song) => {
     rootStore.song = song
     player.reset()
     rootStore.trackMute.reset()
@@ -32,7 +31,7 @@ export default (rootStore: RootStore) => {
     [CREATE_SONG]: () => {
       setSong(emptySong())
     },
-    [SAVE_SONG]: ({ filepath }) => {
+    [SAVE_SONG]: (filepath: string) => {
       writeSong(song, filepath, e => {
         if (e) {
           console.error(e)
@@ -41,7 +40,7 @@ export default (rootStore: RootStore) => {
         }
       })
     },
-    [OPEN_SONG]: ({ filepath }) => {
+    [OPEN_SONG]: (filepath: string) => {
       // readSong(filepath, (e, song) => {
       //   if (e) {
       //     console.error(e)
@@ -56,14 +55,14 @@ export default (rootStore: RootStore) => {
       saveHistory()
       song.addTrack(emptyTrack(song.tracks.length - 1))
     },
-    [REMOVE_TRACK]: ({ trackId }) => {
+    [REMOVE_TRACK]: (trackId: number) => {
       saveHistory()
       song.removeTrack(trackId)
     },
-    [SELECT_TRACK]: ({ trackId }) => {
+    [SELECT_TRACK]: (trackId: number) => {
       song.selectTrack(trackId)
     },
-    [SET_TEMPO]: ({ tempo }) => {
+    [SET_TEMPO]: (tempo: number) => {
       saveHistory()
       song.getTrack(0).tempo = tempo
     }

@@ -477,7 +477,7 @@ const mapStoreToProps = ({
   onClickScaleUp: () => (s.scaleX = s.scaleX + 0.1),
   onClickScaleDown: () => (s.scaleX = Math.max(0.05, s.scaleX - 0.1)),
   onClickScaleReset: () => (s.scaleX = 1),
-  setPlayerPosition: tick => dispatch(SET_PLAYER_POSITION, { tick }),
+  setPlayerPosition: tick => dispatch(SET_PLAYER_POSITION, tick),
   startSelection: pos => dispatch(ARRANGE_START_SELECTION, pos),
   endSelection: (start, end) => dispatch(ARRANGE_END_SELECTION, { start, end }),
   resizeSelection: (start, end) =>

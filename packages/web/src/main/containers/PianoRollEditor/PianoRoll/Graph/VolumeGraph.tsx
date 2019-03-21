@@ -40,8 +40,8 @@ const VolumeGraph: StatelessComponent<VolumeGraphProps> = ({
       maxValue={127}
       events={filteredEvents}
       axis={[0, 0x20, 0x40, 0x60, 0x80 - 1]}
-      createEvent={obj => dispatch(CREATE_VOLUME, obj)}
-      onClickAxis={value => dispatch(CREATE_VOLUME, { value })}
+      createEvent={obj => dispatch(CREATE_VOLUME, obj.value, obj.tick)}
+      onClickAxis={value => dispatch(CREATE_VOLUME, value)}
       color={color}
     />
   )

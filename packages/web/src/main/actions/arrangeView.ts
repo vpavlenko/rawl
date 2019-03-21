@@ -3,7 +3,7 @@ import _ from "lodash"
 import clipboard from "services/Clipboard.ts"
 import { open as openContextMenu } from "containers/ArrangeView/ArrangeContextMenu"
 import RootStore from "../stores/RootStore"
-import Track from "src/common/track"
+import Track, { NoteEvent, isNoteEvent } from "src/common/track"
 
 export const ARRANGE_START_SELECTION = Symbol()
 export const ARRANGE_RESIZE_SELECTION = Symbol()
@@ -105,10 +105,12 @@ export default ({
       // ノートを移動
 
       const updates = []
-      for (let trackIndex of s.selectedEventIds) {
-        trackIndex = parseInt(trackIndex, 10)
-        const track = tracks[trackIndex]
-        const events = s.selectedEventIds[trackIndex]
+      for (let [trackIndex, selectedEvents] of Object.entries(
+        s.selectedEventIds
+      )) {
+        const trackId = parseInt(trackIndex, 10)
+        const track = tracks[trackId]
+        const events = s.selectedEventIds[trackId]
           .map(id => track.getEventById(id))
           .filter(e => e)
 
@@ -121,8 +123,8 @@ export default ({
           )
         } else {
           updates.push({
-            sourceTrackId: trackIndex,
-            destinationTrackId: trackIndex + di,
+            sourceTrackId: trackId,
+            destinationTrackId: trackId + di,
             events: events.map(e => ({
               ...e,
               tick: e.tick + dt
@@ -131,7 +133,7 @@ export default ({
         }
       }
       if (di !== 0) {
-        const ids = {}
+        const ids: { [key: number]: number[] } = {}
         for (let u of updates) {
           tracks[u.sourceTrackId].removeEvents(u.events.map(e => e.id))
           const events = tracks[u.destinationTrackId].addEvents(u.events)
@@ -155,7 +157,7 @@ export default ({
       // 選択されたノートをコピー
       const notes = _.mapValues(s.selectedEventIds, (ids, trackId) =>
         ids.map(id => {
-          const note = tracks[trackId].getEventById(id)
+          const note = tracks[parseInt(trackId, 10)].getEventById(id)
           return {
             ...note,
             tick: note.tick - s.selection.x // 選択範囲からの相対位置にする
@@ -181,11 +183,11 @@ export default ({
         return
       }
       for (let trackId in obj.notes) {
-        const notes = obj.notes[trackId].map(note => ({
+        const notes = obj.notes[trackId].map((note: NoteEvent) => ({
           ...note,
           tick: note.tick + player.position
         }))
-        tracks[trackId].addEvents(notes)
+        tracks[parseInt(trackId)].addEvents(notes)
       }
     },
 
@@ -211,9 +213,9 @@ function getNotesInSelection(tracks: Track[], selection: IRect) {
     trackIndex++
   ) {
     const track = tracks[trackIndex]
-    const events = track.events.filter(
-      e => e.subtype === "note" && e.tick >= startTick && e.tick <= endTick
-    )
+    const events = track.events
+      .filter(isNoteEvent)
+      .filter(e => e.tick >= startTick && e.tick <= endTick)
     ids[trackIndex] = events.map(e => e.id)
   }
   return ids

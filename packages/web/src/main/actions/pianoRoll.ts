@@ -1,4 +1,7 @@
-import { open as openContextMenu } from "containers/PianoRollEditor/PianoRoll/PianoContextMenu"
+import {
+  open as openContextMenu,
+  PianoContextMenuParams
+} from "containers/PianoRollEditor/PianoRoll/PianoContextMenu"
 import { IPoint } from "common/geometry"
 import RootStore from "../stores/RootStore"
 
@@ -10,7 +13,7 @@ export const TOGGLE_TOOL = Symbol()
 
 export default ({ dispatch, pianoRollStore: s }: RootStore) => {
   return {
-    [CHANGE_CURSOR]: ({ cursor }) => {
+    [CHANGE_CURSOR]: (cursor: string) => {
       s.notesCursor = cursor
     },
 
@@ -19,11 +22,11 @@ export default ({ dispatch, pianoRollStore: s }: RootStore) => {
       s.scrollTop = s.scrollTop - y
     },
 
-    [OPEN_CONTEXT_MENU]: params => {
+    [OPEN_CONTEXT_MENU]: (params: PianoContextMenuParams) => {
       openContextMenu(dispatch, params)
     },
 
-    [SET_CONTROL_MODE]: ({ name }) => {
+    [SET_CONTROL_MODE]: (name: string) => {
       s.controlMode = name
     },
 

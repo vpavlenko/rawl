@@ -7,9 +7,10 @@ import {
   DELETE_SELECTION,
   PASTE_SELECTION
 } from "main/actions"
+import { Dispatcher } from "../createDispatcher"
 
 export function bindKeyboardShortcut(
-  dispatch,
+  dispatch: Dispatcher,
   player: Player,
   songStore: { song: Song }
 ) {
@@ -43,16 +44,13 @@ export function bindKeyboardShortcut(
         break
     }
   }
-
   ;(document as any).oncut = () => {
     dispatch(COPY_SELECTION)
     dispatch(DELETE_SELECTION)
   }
-
   ;(document as any).oncopy = () => {
     dispatch(COPY_SELECTION)
   }
-
   ;(document as any).onpaste = () => {
     dispatch(PASTE_SELECTION)
   }

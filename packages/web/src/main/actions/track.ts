@@ -7,7 +7,8 @@ import {
   expressionMidiEvent
 } from "midi/MidiEvent"
 import RootStore from "../stores/RootStore"
-import { NoteEvent } from "src/common/track"
+import { NoteEvent, TrackEvent } from "src/common/track"
+import Quantizer from "src/common/quantizer"
 
 export const CHANGE_TEMPO = Symbol()
 export const CREATE_TEMPO = Symbol()
@@ -39,31 +40,16 @@ export default (rootStore: RootStore) => {
     rootStore.pushHistory()
   }
 
-  const createOrUpdate = (
-    typeProp,
-    type,
-    tick = player.position,
-    valueProp,
-    value,
-    createEvent,
-    track = selectedTrack
-  ) => {
-    const e = createEvent()
-    e[valueProp] = Math.round(value)
-    e.tick = quantizer.round(tick)
-    track.createOrUpdate(e)
-  }
-
   return {
     /* conductor track */
 
-    [CHANGE_TEMPO]: ({ id, microsecondsPerBeat }) => {
+    [CHANGE_TEMPO]: (id: number, microsecondsPerBeat: number) => {
       saveHistory()
       song.conductorTrack.updateEvent(id, {
         microsecondsPerBeat: microsecondsPerBeat
       })
     },
-    [CREATE_TEMPO]: ({ tick, microsecondsPerBeat }) => {
+    [CREATE_TEMPO]: (tick: number, microsecondsPerBeat: number) => {
       saveHistory()
       const e = setTempoMidiEvent(0, Math.round(microsecondsPerBeat)) as any
       e.tick = quantizer.round(tick)
@@ -72,48 +58,46 @@ export default (rootStore: RootStore) => {
 
     /* events */
 
-    [CHANGE_NOTES_VELOCITY]: ({ notes, velocity }) => {
+    [CHANGE_NOTES_VELOCITY]: (notes: NoteEvent[], velocity: number) => {
       saveHistory()
       selectedTrack.updateEvents(notes.map(item => ({ id: item.id, velocity })))
     },
-    [CREATE_PITCH_BEND]: ({ tick, value }) => {
+    [CREATE_PITCH_BEND]: (value: number, tick: number = player.position) => {
       saveHistory()
-      return createOrUpdate("subtype", "pitchBend", tick, "value", value, () =>
-        pitchBendMidiEvent(0, 0, 0)
-      )
+      const e = pitchBendMidiEvent(0, 0, Math.round(value))
+      selectedTrack.createOrUpdate({ ...e, tick: quantizer.round(tick) })
     },
-    [CREATE_VOLUME]: ({ tick, value }) => {
+    [CREATE_VOLUME]: (value: number, tick: number = player.position) => {
       saveHistory()
-      return createOrUpdate("controllerType", 0x07, tick, "value", value, () =>
-        volumeMidiEvent(0, 0, 0)
-      )
+      const e = volumeMidiEvent(0, 0, Math.round(value))
+      selectedTrack.createOrUpdate({
+        ...e,
+        tick: quantizer.round(tick)
+      })
     },
-    [CREATE_PAN]: ({ tick, value }) => {
+    [CREATE_PAN]: (value: number, tick: number = player.position) => {
       saveHistory()
-      return createOrUpdate("controllerType", 0x0a, tick, "value", value, () =>
-        panMidiEvent(0, 0, 0)
-      )
+      const e = panMidiEvent(0, 0, Math.round(value))
+      selectedTrack.createOrUpdate({ ...e, tick: quantizer.round(tick) })
     },
-    [CREATE_MODULATION]: ({ tick, value }) => {
+    [CREATE_MODULATION]: (value: number, tick: number = player.position) => {
       saveHistory()
-      return createOrUpdate("controllerType", 0x01, tick, "value", value, () =>
-        modulationMidiEvent(0, 0, 0)
-      )
+      const e = modulationMidiEvent(0, 0, Math.round(value))
+      selectedTrack.createOrUpdate({ ...e, tick: quantizer.round(tick) })
     },
-    [CREATE_EXPRESSION]: ({ tick, value }) => {
+    [CREATE_EXPRESSION]: (value: number, tick: number = player.position) => {
       saveHistory()
-      return createOrUpdate("controllerType", 0x0b, tick, "value", value, () =>
-        expressionMidiEvent(0, 0, 0)
-      )
+      const e = expressionMidiEvent(0, 0, Math.round(value))
+      selectedTrack.createOrUpdate({ ...e, tick: quantizer.round(tick) })
     },
-    [REMOVE_EVENT]: ({ eventId }) => {
+    [REMOVE_EVENT]: (eventId: number) => {
       saveHistory()
       selectedTrack.removeEvent(eventId)
     },
 
     /* note */
 
-    [CREATE_NOTE]: ({ tick, noteNumber }) => {
+    [CREATE_NOTE]: (tick: number, noteNumber: number) => {
       saveHistory()
       tick = quantizer.floor(tick)
       const note: NoteEvent = {
@@ -121,6 +105,7 @@ export default (rootStore: RootStore) => {
         type: "channel",
         subtype: "note",
         noteNumber: noteNumber,
+        deltaTime: 0,
         tick,
         velocity: 127,
         duration: pianoRollStore.lastNoteDuration || quantizer.unit,
@@ -130,7 +115,14 @@ export default (rootStore: RootStore) => {
       player.playNote(added)
       return added.id
     },
-    [MOVE_NOTE]: ({ id, tick, noteNumber, quantize }) => {
+    [MOVE_NOTE]: ({
+      id,
+      tick,
+      noteNumber,
+      quantize
+    }: Pick<NoteEvent, "id" | "tick" | "noteNumber"> & {
+      quantize: "floor" | "round" | "ceil"
+    }) => {
       const note = selectedTrack.getEventById(id) as NoteEvent
       tick = quantizer[quantize || "floor"](tick)
       const tickChanged = tick !== note.tick
@@ -149,7 +141,7 @@ export default (rootStore: RootStore) => {
         }
       }
     },
-    [RESIZE_NOTE_LEFT]: ({ id, tick }) => {
+    [RESIZE_NOTE_LEFT]: (id: number, tick: number) => {
       // 右端を固定して長さを変更
       tick = quantizer.round(tick)
       const note = selectedTrack.getEventById(id) as NoteEvent
@@ -160,7 +152,7 @@ export default (rootStore: RootStore) => {
         selectedTrack.updateEvent(note.id, { tick, duration })
       }
     },
-    [RESIZE_NOTE_RIGHT]: ({ id, tick }) => {
+    [RESIZE_NOTE_RIGHT]: (id: number, tick: number) => {
       const note = selectedTrack.getEventById(id) as NoteEvent
       const right = tick
       const duration = Math.max(
@@ -176,19 +168,19 @@ export default (rootStore: RootStore) => {
 
     /* track meta */
 
-    [SET_TRACK_NAME]: ({ name }) => {
+    [SET_TRACK_NAME]: (name: string) => {
       saveHistory()
       selectedTrack.name = name
     },
-    [SET_TRACK_VOLUME]: ({ trackId, volume }) => {
+    [SET_TRACK_VOLUME]: (trackId: number, volume: number) => {
       saveHistory()
       tracks[trackId].volume = volume
     },
-    [SET_TRACK_PAN]: ({ trackId, pan }) => {
+    [SET_TRACK_PAN]: (trackId: number, pan: number) => {
       saveHistory()
       tracks[trackId].pan = pan
     },
-    [SET_TRACK_INSTRUMENT]: ({ trackId, programNumber }) => {
+    [SET_TRACK_INSTRUMENT]: (trackId: number, programNumber: number) => {
       saveHistory()
       tracks[trackId].programNumber = programNumber
     }

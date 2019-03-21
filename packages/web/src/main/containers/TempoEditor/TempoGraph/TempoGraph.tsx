@@ -113,8 +113,8 @@ interface ContentProps {
   endTick: number
   scrollLeft: number
   setScrollLeft: (scroll: number) => void
-  changeTempo: (e: Partial<DisplayEvent>) => void
-  createTempo: (e: Partial<DisplayEvent>) => void
+  changeTempo: (id: number, microsecondsPerBeat: number) => void
+  createTempo: (tick: number, microsecondsPerBeat: number) => void
 }
 
 const Content: StatelessComponent<ContentProps> = ({
@@ -171,10 +171,7 @@ const Content: StatelessComponent<ContentProps> = ({
 
     function onMouseMove(e: MouseEvent) {
       const delta = transform.getDeltaBPM(e.clientY - startY)
-      changeTempo({
-        id: event.id,
-        microsecondsPerBeat: bpmToUSecPerBeat(bpm + delta)
-      })
+      changeTempo(event.id, bpmToUSecPerBeat(bpm + delta))
     }
 
     function onMouseUp() {
@@ -194,19 +191,13 @@ const Content: StatelessComponent<ContentProps> = ({
     const event = events.filter(ev => ev.id === item.id)[0]
     const movement = e.deltaY > 0 ? -1 : 1
     const bpm = uSecPerBeatToBPM(event.microsecondsPerBeat)
-    changeTempo({
-      id: event.id,
-      microsecondsPerBeat: bpmToUSecPerBeat(bpm + movement)
-    })
+    changeTempo(event.id, bpmToUSecPerBeat(bpm + movement))
   }
 
   function onDoubleClickGraph(e: ItemEvent) {
     const tick = transform.getTicks(e.local.x)
     const bpm = transform.getBPM(e.local.y)
-    createTempo({
-      tick,
-      microsecondsPerBeat: uSecPerBeatToBPM(bpm)
-    })
+    createTempo(tick, uSecPerBeatToBPM(bpm))
   }
 
   const startTick = scrollLeft / pixelsPerTick
@@ -275,7 +266,7 @@ interface State {
   scrollLeft: number
 }
 
-function stateful(WrappedComponent: React.ComponentClass<Props, State>) {
+function stateful(WrappedComponent: React.StatelessComponent<ContentProps>) {
   return class extends Component<Props, State> {
     constructor(props: Props) {
       super(props)
@@ -328,21 +319,22 @@ export default sizeMe({ monitorHeight: true })(
         song,
         dispatch
       }
-    }) =>
-      ({
-        theme,
-        player,
-        pixelsPerTick: 0.1 * s.scaleX,
-        track: song.conductorTrack,
-        events: song.conductorTrack.events.toJS(),
-        endTick: song.endOfSong,
-        beats: song.measureList.beats,
-        autoScroll: s.autoScroll,
-        scrollLeft: s.scrollLeft,
-        setScrollLeft: v => (s.scrollLeft = v),
-        changeTempo: p => dispatch(CHANGE_TEMPO, p),
-        createTempo: p => dispatch(CREATE_TEMPO, p),
-        setPlayerTempo: tick => dispatch(SET_PLAYER_POSITION, { tick })
-      } as ContentProps)
+    }) => ({
+      theme,
+      player,
+      pixelsPerTick: 0.1 * s.scaleX,
+      track: song.conductorTrack,
+      events: song.conductorTrack.events.toJS(),
+      endTick: song.endOfSong,
+      beats: song.measureList.beats,
+      autoScroll: s.autoScroll,
+      scrollLeft: s.scrollLeft,
+      setScrollLeft: (v: number) => (s.scrollLeft = v),
+      changeTempo: (id: number, microsecondsPerBeat: number) =>
+        dispatch(CHANGE_TEMPO, id, microsecondsPerBeat),
+      createTempo: (tick: number, microsecondsPerBeat: number) =>
+        dispatch(CREATE_TEMPO, tick, microsecondsPerBeat),
+      setPlayerTempo: (tick: number) => dispatch(SET_PLAYER_POSITION, tick)
+    })
   )(observer(stateful(Content)))
 )

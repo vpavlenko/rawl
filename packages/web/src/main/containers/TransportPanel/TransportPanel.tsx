@@ -93,13 +93,11 @@ export default compose(
       loopEnabled: loop.enabled,
       onClickPlay: () => dispatch(PLAY),
       onClickStop: () => dispatch(STOP),
-      onClickBackward: () =>
-        dispatch(MOVE_PLAYER_POSITION, { tick: -TIME_BASE * 4 }),
-      onClickForward: () =>
-        dispatch(MOVE_PLAYER_POSITION, { tick: TIME_BASE * 4 }),
+      onClickBackward: () => dispatch(MOVE_PLAYER_POSITION, -TIME_BASE * 4),
+      onClickForward: () => dispatch(MOVE_PLAYER_POSITION, TIME_BASE * 4),
       onClickEnableLoop: () => dispatch(TOGGLE_ENABLE_LOOP),
       onClickTempo: () => {
-        dispatch(SELECT_TRACK, { trackId: 0 })
+        dispatch(SELECT_TRACK, 0)
         router.pushTrack()
       }
     })

@@ -59,7 +59,7 @@ export default compose(
       autoScroll: s.autoScroll,
       onClickAutoScroll: () => (s.autoScroll = !s.autoScroll),
       onSelectQuantize: (e: { denominator: number }) => {
-        dispatch(SET_QUANTIZE_DENOMINATOR, { denominator: e.denominator })
+        dispatch(SET_QUANTIZE_DENOMINATOR, e.denominator)
         s.quantize = e.denominator
       }
     })

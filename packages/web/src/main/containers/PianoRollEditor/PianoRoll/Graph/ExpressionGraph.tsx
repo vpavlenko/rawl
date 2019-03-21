@@ -40,8 +40,8 @@ const ExpressionGraph: StatelessComponent<ExpressionGraphProps> = ({
       maxValue={127}
       events={filteredEvents}
       axis={[0, 0x20, 0x40, 0x60, 0x80 - 1]}
-      createEvent={obj => dispatch(CREATE_EXPRESSION, obj)}
-      onClickAxis={value => dispatch(CREATE_EXPRESSION, { value })}
+      createEvent={obj => dispatch(CREATE_EXPRESSION, obj.value, obj.tick)}
+      onClickAxis={value => dispatch(CREATE_EXPRESSION, value)}
       color={color}
     />
   )

@@ -1,11 +1,12 @@
 import { Dispatcher } from "main/createDispatcher"
 import { CHANGE_NOTES_VELOCITY } from "main/actions"
+import { NoteEvent } from "src/common/track"
 
 export default class VelocityMouseHandler {
   dispatch: Dispatcher
 
-  changeVelocity(notes, velocity) {
-    this.dispatch(CHANGE_NOTES_VELOCITY, { notes, velocity })
+  changeVelocity(notes: NoteEvent[], velocity: number) {
+    this.dispatch(CHANGE_NOTES_VELOCITY, notes, velocity)
   }
 
   onMouseDown = e => {

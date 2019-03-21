@@ -40,8 +40,8 @@ const ModulationGraph: StatelessComponent<ModulationGraphProps> = ({
       maxValue={127}
       events={filteredEvents}
       axis={[0, 0x20, 0x40, 0x60, 0x80 - 1]}
-      createEvent={obj => dispatch(CREATE_MODULATION, obj)}
-      onClickAxis={value => dispatch(CREATE_MODULATION, { value })}
+      createEvent={obj => dispatch(CREATE_MODULATION, obj.value, obj.tick}
+      onClickAxis={value => dispatch(CREATE_MODULATION, value)}
       color={color}
     />
   )

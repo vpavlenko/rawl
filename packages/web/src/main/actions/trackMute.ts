@@ -3,7 +3,7 @@ export const TOGGLE_SOLO_TRACK = Symbol()
 
 export default ({ trackMute, song: { tracks }, services: { player } }) => {
   return {
-    [TOGGLE_MUTE_TRACK]: ({ trackId }) => {
+    [TOGGLE_MUTE_TRACK]: (trackId: number) => {
       if (trackMute.isMuted(trackId)) {
         trackMute.unmute(trackId)
       } else {
@@ -12,7 +12,7 @@ export default ({ trackMute, song: { tracks }, services: { player } }) => {
         player.allSoundsOffChannel(channel)
       }
     },
-    [TOGGLE_SOLO_TRACK]: ({ trackId }) => {
+    [TOGGLE_SOLO_TRACK]: (trackId: number) => {
       const channel = tracks[trackId].channel
       if (trackMute.isSolo(trackId)) {
         trackMute.unsolo(trackId)

@@ -57,7 +57,7 @@ export default class Track {
     midiEvents.forEach(e => this.addMidiEvent(e))
   }
 
-  private _updateEvent(id: number, obj: Partial<TrackEvent>) {
+  private _updateEvent(id: number, obj: Partial<TrackEvent>): TrackEvent {
     const anObj = this.getEventById(id)
     if (!anObj) {
       console.warn(`unknown id: ${id}`)
@@ -71,7 +71,7 @@ export default class Track {
     return anObj
   }
 
-  @action updateEvent(id: number, obj: Partial<TrackEvent>) {
+  @action updateEvent(id: number, obj: Partial<TrackEvent>): TrackEvent {
     const result = this._updateEvent(id, obj)
     if (result) {
       this.updateEndOfTrack()
@@ -115,21 +115,21 @@ export default class Track {
   }
 
   // ソート、通知を行わない内部用の addEvent
-  private _addEvent(e: TrackEvent) {
+  private _addEvent(e: TrackEvent): TrackEvent {
     e.id = this.lastEventId
     this.lastEventId++
     this.events.push(e)
     return e
   }
 
-  @action addEvent<T extends TrackEvent>(e: T) {
+  @action addEvent<T extends TrackEvent>(e: T): T {
     this._addEvent(e)
     this.didAddEvent()
     return e
   }
 
-  @action addEvents(events: TrackEvent[]) {
-    let result
+  @action addEvents(events: TrackEvent[]): TrackEvent[] {
+    let result: TrackEvent[]
     transaction(() => {
       result = events.map(e => this._addEvent(e))
     })

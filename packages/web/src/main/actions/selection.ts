@@ -2,6 +2,7 @@ import clipboard from "services/Clipboard.ts"
 import SelectionModel from "common/selection"
 import RootStore from "../stores/RootStore"
 import { TrackEvent, NoteEvent, isNoteEvent } from "src/common/track"
+import { NotePoint } from "src/common/transform/NotePoint"
 
 export const RESIZE_SELECTION = Symbol()
 export const FIX_SELECTION = Symbol()
@@ -33,12 +34,12 @@ export default ({
   const { selectedTrack } = song
   const { selection, mouseMode } = pianoRollStore
 
-  function updateSelection(selection) {
+  function updateSelection(selection: SelectionModel) {
     pianoRollStore.selection = selection
   }
 
   return {
-    [RESIZE_SELECTION]: ({ start, end }) => {
+    [RESIZE_SELECTION]: (start: NotePoint, end: NotePoint) => {
       updateSelection(
         selection.resize(
           quantizer.round(start.tick),
@@ -56,10 +57,10 @@ export default ({
       )
       updateSelection(s)
     },
-    [MOVE_SELECTION]: ({ tick, noteNumber }) => {
+    [MOVE_SELECTION]: (point: NotePoint) => {
       // ノートと選択範囲を移動
-      tick = quantizer.round(tick)
-      noteNumber = Math.round(noteNumber)
+      const tick = quantizer.round(point.tick)
+      const noteNumber = Math.round(point.noteNumber)
 
       const dt = tick - selection.fromTick
       const dn = noteNumber - selection.fromNoteNumber
@@ -83,7 +84,7 @@ export default ({
       )
     },
 
-    [RESIZE_SELECTION_LEFT]: ({ tick }) => {
+    [RESIZE_SELECTION_LEFT]: (tick: number) => {
       // 選択範囲とノートを左方向に伸長・縮小する
       const fromTick = quantizer.round(tick)
       const delta = fromTick - selection.fromTick
@@ -120,7 +121,7 @@ export default ({
       )
     },
 
-    [RESIZE_SELECTION_RIGHT]: ({ tick }) => {
+    [RESIZE_SELECTION_RIGHT]: (tick: number) => {
       // 選択範囲とノートを右方向に伸長・縮小する
       const toTick = quantizer.round(tick)
       const delta = toTick - selection.toTick
@@ -155,15 +156,15 @@ export default ({
         })
       )
     },
-    [START_SELECTION]: ({ tick, noteNumber }) => {
+    [START_SELECTION]: (point: NotePoint) => {
       if (!player.isPlaying) {
-        player.position = quantizer.round(tick)
+        player.position = quantizer.round(point.tick)
       }
 
       // 選択範囲の右上を pos にして、ノートの選択状を解除する
       const s = new SelectionModel()
-      s.fromTick = tick
-      s.fromNoteNumber = noteNumber
+      s.fromTick = point.tick
+      s.fromNoteNumber = point.noteNumber
       updateSelection(s)
     },
     [CLONE_SELECTION]: () => {
@@ -212,7 +213,7 @@ export default ({
       if (obj.type !== "notes") {
         return
       }
-      const notes = obj.notes.map(note => ({
+      const notes = (obj.notes as NoteEvent[]).map(note => ({
         ...note,
         tick: note.tick + player.position
       }))

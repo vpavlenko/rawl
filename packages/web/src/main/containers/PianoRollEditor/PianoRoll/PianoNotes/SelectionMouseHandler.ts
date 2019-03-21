@@ -12,6 +12,7 @@ import {
   RESIZE_SELECTION_LEFT,
   RESIZE_SELECTION_RIGHT
 } from "main/actions"
+import { NotePoint } from "src/common/transform/NotePoint"
 
 export default class SelectionMouseHandler extends MouseHandler {
   transform: NoteCoordTransform
@@ -127,7 +128,7 @@ const createSelectionAction = dispatch => (
   onMouseMove,
   onMouseUp
 ) => {
-  let start
+  let start: NotePoint
 
   onMouseDown(e => {
     start = { tick: e.tick, noteNumber: e.noteNumber }
@@ -136,7 +137,7 @@ const createSelectionAction = dispatch => (
 
   onMouseMove(e => {
     const end = { tick: e.tick, noteNumber: e.noteNumber }
-    dispatch(RESIZE_SELECTION, { start, end })
+    dispatch(RESIZE_SELECTION, start, end)
   })
 
   onMouseUp(() => {
@@ -175,7 +176,7 @@ const dragSelectionLeftEdgeAction = (dispatch, transform) => (
 
   onMouseMove(e => {
     const tick = transform.getTicks(e.local.x)
-    dispatch(RESIZE_SELECTION_LEFT, { tick })
+    dispatch(RESIZE_SELECTION_LEFT, tick)
   })
 }
 
@@ -187,6 +188,6 @@ const dragSelectionRightEdgeAction = (dispatch, transform) => (
 
   onMouseMove(e => {
     const tick = transform.getTicks(e.local.x)
-    dispatch(RESIZE_SELECTION_RIGHT, { tick })
+    dispatch(RESIZE_SELECTION_RIGHT, tick)
   })
 }

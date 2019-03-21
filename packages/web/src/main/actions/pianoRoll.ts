@@ -1,5 +1,6 @@
 import { open as openContextMenu } from "containers/PianoRollEditor/PianoRoll/PianoContextMenu"
 import { IPoint } from "common/geometry"
+import RootStore from "../stores/RootStore"
 
 export const CHANGE_CURSOR = Symbol()
 export const SCROLL_BY = Symbol()
@@ -7,7 +8,7 @@ export const OPEN_CONTEXT_MENU = Symbol()
 export const SET_CONTROL_MODE = Symbol()
 export const TOGGLE_TOOL = Symbol()
 
-export default ({ dispatch, pianoRollStore: s }) => {
+export default ({ dispatch, pianoRollStore: s }: RootStore) => {
   return {
     [CHANGE_CURSOR]: ({ cursor }) => {
       s.notesCursor = cursor

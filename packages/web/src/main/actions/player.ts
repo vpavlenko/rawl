@@ -1,3 +1,5 @@
+import RootStore from "../stores/RootStore"
+
 export const PLAY = Symbol()
 export const STOP = Symbol()
 export const SET_PLAYER_POSITION = Symbol()
@@ -7,7 +9,11 @@ export const SET_LOOP_BEGIN = Symbol()
 export const SET_LOOP_END = Symbol()
 export const TOGGLE_ENABLE_LOOP = Symbol()
 
-export default ({ playerStore, services: { player, quantizer }, song }) => {
+export default ({
+  playerStore,
+  services: { player, quantizer },
+  song
+}: RootStore) => {
   return {
     [PLAY]: () => {
       player.play(song)

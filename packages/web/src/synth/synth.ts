@@ -5,6 +5,8 @@ import "./synth.css"
 
 const ipcRenderer: any = {}
 
+type Message = number[]
+
 class SynthController {
   eventsBuffer = []
   // 送信元とのタイムスタンプの差
@@ -57,7 +59,7 @@ class SynthController {
       console.log("Audio stream is ready.")
     })
     recorder.addEventListener("dataAvailable", e => {
-      const dateStr = (new Date().toISOString()).replace(/:/g, "-")
+      const dateStr = new Date().toISOString().replace(/:/g, "-")
       // const filePath = `${app.getPath("desktop").replace(/\\/g, "/")}/${dateStr}.wav`
       // fs.writeFile(filePath, e.detail, error => {
       //   if (error) {
@@ -109,10 +111,15 @@ class SynthController {
 
     // 再生するイベントと、all sound off を受信したチャンネルのイベントを削除する
     this.eventsBuffer = this.eventsBuffer.filter(e => {
-      return !eventsToSend.includes(e) && !allSoundOffChannels.includes(getMessageChannel(e.message))
+      return (
+        !eventsToSend.includes(e) &&
+        !allSoundOffChannels.includes(getMessageChannel(e.message))
+      )
     })
 
-    eventsToSend.forEach(({ message }) => this.handler.processMidiMessage(message))
+    eventsToSend.forEach(({ message }) =>
+      this.handler.processMidiMessage(message)
+    )
 
     requestAnimationFrame(() => this.onTimer())
   }
@@ -143,13 +150,13 @@ export default class SynthApp {
 }
 
 /// メッセージがチャンネルイベントならチャンネルを、そうでなければ -1 を返す
-function getMessageChannel(message) {
+const getMessageChannel = (message: Message) => {
   const isChannelEvent = (message[0] & 0xf0) !== 0xf0
   return isChannelEvent ? message[0] & 0x0f : -1
 }
 
-function isMessageAllSoundOff(message) {
-  const isControlChange = (message[0] & 0xf0) === 0xB0
+const isMessageAllSoundOff = (message: Message) => {
+  const isControlChange = (message[0] & 0xf0) === 0xb0
   if (isControlChange) {
     const isAllSoundOff = message[1] === 0x78
     return isAllSoundOff

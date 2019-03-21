@@ -159,7 +159,7 @@ const GMMap = {
     "Applause",
     "Gunshot"
   ]
-}
+} as { [key: string]: string[] }
 
 // programNumber は 0 から始まる数
 function getInstrumentName(programNumber: number): string {

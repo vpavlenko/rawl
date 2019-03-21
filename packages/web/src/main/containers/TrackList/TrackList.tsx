@@ -7,7 +7,7 @@ import TrackMute from "common/trackMute/TrackMute"
 import Song from "common/song/Song"
 
 import TrackListItem from "./TrackListItem"
-import AddTrackButton from "./AddTrackButton"
+import { AddTrackButton } from "./AddTrackButton"
 
 import "./TrackList.css"
 import {

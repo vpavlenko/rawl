@@ -14,5 +14,5 @@ export default class PianoRollStore {
   @observable autoScroll = true
   @observable quantize = 0
   @observable selection = new SelectionModel()
-  @observable lastNoteDuration = null
+  @observable lastNoteDuration: number | null = null
 }

@@ -7,39 +7,37 @@ import "./Slider.css"
 export interface SliderProps {
   value: number
   maxValue: number
-  onChange: (Event) => void
+  onChange: (value: number) => void
   dragging: boolean
-  setDragging: (boolean) => void
+  setDragging: (dragging: boolean) => void
 }
 
 const Slider: StatelessComponent<SliderProps> = ({
   value = 0,
   maxValue = 1,
-  onChange = (e: Event) => {},
+  onChange = () => {},
   dragging = false,
-  setDragging = (dragging: boolean) => {}
+  setDragging = () => {}
 }) => {
-  let rect
+  let rect: ClientRect
 
-  function calcValue(e) {
+  function calcValue(e: React.MouseEvent | MouseEvent) {
     const localX = e.clientX - rect.left
     const val = (localX / rect.width) * maxValue
     return coarsify(val, 0, maxValue) // 100 段階になるように精度を落とす
   }
 
-  function onMouseDown(e) {
+  function onMouseDown(e: React.MouseEvent) {
     rect = e.currentTarget.getBoundingClientRect()
-    e.target.value = calcValue(e)
-    onChange(e)
+    onChange(calcValue(e))
 
     // ドキュメント全体のイベントを取る
     document.addEventListener("mousemove", onMouseMove)
     document.addEventListener("mouseup", onMouseUp)
     setDragging(true)
 
-    function onMouseMove(e) {
-      e.target.value = calcValue(e)
-      onChange(e)
+    function onMouseMove(e: MouseEvent) {
+      onChange(calcValue(e))
     }
 
     function onMouseUp() {
@@ -49,7 +47,7 @@ const Slider: StatelessComponent<SliderProps> = ({
     }
   }
 
-  function p(v) {
+  function p(v: number) {
     return `${v * 100}%`
   }
 

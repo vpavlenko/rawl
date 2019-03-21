@@ -25,7 +25,7 @@ export interface ScrollBarProps {
   barLength: number
   scrollOffset?: number
   contentLength?: number
-  onScroll?: ({ scroll: number }) => void
+  onScroll?: (scroll: number) => void
   style?: any
   children?: ReactNode
 }
@@ -46,8 +46,8 @@ export const ScrollBar: StatelessComponent<ScrollBarProps> = ({
   const thumbLength = Math.max(MIN_THUMB_LENGTH, maxLength * valueRatio)
   const disabled = maxOffset <= 0
 
-  let pageForwardLength
-  let pageBackwardLength
+  let pageForwardLength: number
+  let pageBackwardLength: number
 
   if (disabled) {
     pageForwardLength = 0
@@ -61,24 +61,24 @@ export const ScrollBar: StatelessComponent<ScrollBarProps> = ({
   const className = isVertical ? "VerticalScrollBar" : "HorizontalScrollBar"
   const lengthProp = isVertical ? "height" : "width"
 
-  const onScroll2 = scroll => {
-    onScroll({ scroll: Math.min(maxOffset, Math.max(0, scroll)) })
+  const onScroll2 = (scroll: number) => {
+    onScroll(Math.min(maxOffset, Math.max(0, scroll)))
   }
 
-  const onMouseDown = e => {
+  const onMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation()
 
     if (disabled) {
       return
     }
 
-    const { className } = e.target
+    const { className } = e.currentTarget
     const startPos = getPoint(e)
 
     if (className === "thumb") {
       const startValue = scrollOffset
 
-      const onGlobalMouseMove = e => {
+      const onGlobalMouseMove = (e: MouseEvent) => {
         const p = isVertical ? "y" : "x"
         const delta = pointSub(getPoint(e), startPos)[p]
         const scale = maxOffset / (maxLength - thumbLength) // 移動量とスクロール量の補正値
@@ -86,7 +86,7 @@ export const ScrollBar: StatelessComponent<ScrollBarProps> = ({
         onScroll2(value)
       }
 
-      const onGlobalMouseUp = e => {
+      const onGlobalMouseUp = () => {
         document.removeEventListener("mousemove", onGlobalMouseMove)
         document.removeEventListener("mouseup", onGlobalMouseUp)
       }
@@ -107,7 +107,7 @@ export const ScrollBar: StatelessComponent<ScrollBarProps> = ({
         )
       }
 
-      const startLongPressTimer = delta => {
+      const startLongPressTimer = (delta: number) => {
         // 初回は時間をかける
         intervalId = window.setInterval(() => {
           clearInterval(intervalId)
@@ -136,13 +136,13 @@ export const ScrollBar: StatelessComponent<ScrollBarProps> = ({
 
       startLongPressTimer(delta)
 
-      const onGlobalMouseMove = e => {
+      const onGlobalMouseMove = (e: MouseEvent) => {
         if (currentTarget !== e.target) {
           stopLongPressTimer()
         }
       }
 
-      const onGlobalMouseUp = e => {
+      const onGlobalMouseUp = (e: MouseEvent) => {
         stopLongPressTimer()
         document.removeEventListener("mousemove", onGlobalMouseMove)
         document.removeEventListener("mouseup", onGlobalMouseUp)
@@ -183,7 +183,7 @@ export const ScrollBar: StatelessComponent<ScrollBarProps> = ({
   )
 }
 
-function scrollAmountOfElement(className, baseValue) {
+function scrollAmountOfElement(className: string, baseValue: number) {
   switch (className) {
     case "button-backward":
       return -baseValue
@@ -198,7 +198,7 @@ function scrollAmountOfElement(className, baseValue) {
   }
 }
 
-function getPoint(e: MouseEvent): IPoint {
+function getPoint(e: MouseEvent | React.MouseEvent): IPoint {
   return {
     x: e.pageX,
     y: e.pageY

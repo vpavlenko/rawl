@@ -1,6 +1,7 @@
 import { emptySong } from "common/song"
 import { emptyTrack } from "common/track"
 import { write as writeSong } from "midi/SongFile"
+import RootStore from "../stores/RootStore"
 
 export const CREATE_SONG = Symbol()
 export const SAVE_SONG = Symbol()
@@ -10,7 +11,7 @@ export const REMOVE_TRACK = Symbol()
 export const SELECT_TRACK = Symbol()
 export const SET_TEMPO = Symbol()
 
-export default rootStore => {
+export default (rootStore: RootStore) => {
   const {
     song,
     historyStore: history,
@@ -23,7 +24,6 @@ export default rootStore => {
 
   const setSong = song => {
     rootStore.song = song
-    player.song = song
     player.reset()
     rootStore.trackMute.reset()
   }

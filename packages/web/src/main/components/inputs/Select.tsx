@@ -14,17 +14,17 @@ const Select: StatelessComponent<SelectProps<any>> = ({
   value,
   options
 }) => {
-  function handleChange(e) {
+  function handleChange(e: React.ChangeEvent<HTMLSelectElement>) {
     e.target.blur()
     onChange(e)
   }
 
-  function handleWheel(e) {
-    const index = e.target.selectedIndex
-    const size = e.target.options.length
+  function handleWheel(e: React.WheelEvent<HTMLSelectElement>) {
+    const index = e.currentTarget.selectedIndex
+    const size = e.currentTarget.options.length
     const movement = e.deltaY > 0 ? 1 : -1
     const nextIndex = Math.max(0, Math.min(size - 1, index + movement))
-    e.target.value = e.target.options[nextIndex].value
+    e.currentTarget.value = e.currentTarget.options[nextIndex].value
     onChange(e)
   }
 

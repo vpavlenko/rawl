@@ -8,7 +8,7 @@ import TempoGraph from "./TempoGraph/TempoGraph"
 import "./TempoEditor.css"
 
 interface TempoEditorProps {
-  onClickNavBack: (any) => void
+  onClickNavBack: () => void
 }
 
 const TempoEditor: StatelessComponent<TempoEditorProps> = ({

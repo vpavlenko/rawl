@@ -4,5 +4,5 @@ import { IRect } from "common/geometry"
 export default interface Item {
   id: any
   bounds: IRect
-  render: (CanvasRenderingContext2D) => void
+  render: (ctx: CanvasRenderingContext2D) => void
 }

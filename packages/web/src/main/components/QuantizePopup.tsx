@@ -1,10 +1,24 @@
-import React from "react"
+import React, { SFC } from "react"
 import Icon from "components/Icon"
 
 import "./QuantizePopup.css"
 
-function NumberPicker({ value, prevValue, nextValue, className, onChange }) {
-  function handleWheel(e) {
+interface NumberPickerProps {
+  value: number
+  prevValue: () => number
+  nextValue: () => number
+  className: string
+  onChange: (v: number) => void
+}
+
+const NumberPicker: SFC<NumberPickerProps> = ({
+  value,
+  prevValue,
+  nextValue,
+  className,
+  onChange
+}) => {
+  function handleWheel(e: React.WheelEvent) {
     e.preventDefault()
     onChange(e.deltaY < 0 ? prevValue() : nextValue())
   }
@@ -32,9 +46,9 @@ export interface QuantizePopupProps {
   left?: number
   top?: number
   hidden: boolean
-  onChangeValue: (number) => void
-  onChangeTriplet: (boolean) => void
-  onChangeDotted: (boolean) => void
+  onChangeValue: (value: number) => void
+  onChangeTriplet: (value: boolean) => void
+  onChangeDotted: (value: boolean) => void
 }
 
 export default function QuantizePopup({

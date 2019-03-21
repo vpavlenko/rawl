@@ -1,6 +1,8 @@
+import { createElement, createFactory } from "react"
+
 export default function getElementType(
-  preferredElement,
+  preferredElement: string,
   defaultElement = "div"
-) {
-  return preferredElement || defaultElement
+): React.Factory<any> {
+  return createFactory(preferredElement || defaultElement)
 }

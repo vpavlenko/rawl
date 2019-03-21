@@ -1,4 +1,4 @@
-import React, { StatelessComponent } from "react"
+import React, { StatelessComponent, MouseEvent } from "react"
 import { shouldUpdate } from "recompose"
 import _ from "lodash"
 
@@ -103,9 +103,9 @@ export interface PianoRulerProps {
   scrollLeft: number
   beats: BeatWithX[]
   theme: Theme
-  onMouseDown?: (TickEvent) => void
-  onMouseMove?: (TickEvent) => void
-  onMouseUp?: (TickEvent) => void
+  onMouseDown?: (e: TickEvent) => void
+  onMouseMove?: (e: TickEvent) => void
+  onMouseUp?: (e: TickEvent) => void
   loop?: LoopSetting
 }
 
@@ -131,7 +131,7 @@ const PianoRuler: StatelessComponent<PianoRulerProps> = ({
     ctx.restore()
   }
 
-  const passTick = func => e =>
+  const passTick = (func: (e: { tick: number }) => void) => (e: MouseEvent) =>
     func &&
     func({
       tick: (e.nativeEvent.offsetX + scrollLeft) / pixelsPerTick

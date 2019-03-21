@@ -4,7 +4,19 @@ import f from "helpers/flatJoin"
 
 import "./TextInput.css"
 
-function TextInput({ className, value, onChange, placeholder }) {
+export interface TextInputProps {
+  className: string
+  value: string
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  placeholder: string
+}
+
+function TextInput({
+  className,
+  value,
+  onChange,
+  placeholder
+}: TextInputProps) {
   return (
     <input
       type="text"

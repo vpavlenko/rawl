@@ -1,25 +1,32 @@
+type MidiMessage = number[]
+
+interface MidiEvent {
+  message: MidiMessage
+  timestamp: number
+}
+
 export default class MIDIOutput {
-  midiOutput: any
+  private midiOutput: WebMidi.MIDIOutput
 
   constructor() {
-    ;(navigator as any).requestMIDIAccess({ sysex: true }).then(
-      midiAccess => {
+    navigator
+      .requestMIDIAccess({ sysex: true })
+      .then(midiAccess => {
         const outputs = Array.from(midiAccess.outputs.values())
         this.midiOutput = outputs[0]
-      },
-      error => {
+      })
+      .catch((error: Error) => {
         console.error(error)
-      }
-    )
+      })
   }
 
-  send(msg: any, timestamp: number) {
+  send(msg: MidiMessage, timestamp: number) {
     if (this.midiOutput) {
       this.midiOutput.send(msg, timestamp)
     }
   }
 
-  sendEvents(events: any[]) {
+  sendEvents(events: MidiEvent[]) {
     events.forEach(e => this.send(e.message, e.timestamp))
   }
 }

@@ -8,7 +8,7 @@ import "./Button.css"
 export interface ButtonProps {
   component?: string
   children?: ReactNode
-  onClick?: (any) => void
+  onClick?: (e: React.MouseEvent) => void
   className?: string
 }
 

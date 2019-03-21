@@ -5,7 +5,7 @@ import { Beat } from "common/measure"
 import Player from "common/player/Player"
 import Theme from "common/theme/Theme"
 import Track, { TrackEvent } from "common/track"
-import { TempoCoordTransform } from "common/transform"
+import { TempoCoordTransform, NoteCoordTransform } from "common/transform"
 import DrawCanvas from "components/DrawCanvas"
 import { BAR_WIDTH, HorizontalScrollBar } from "components/inputs/ScrollBar"
 import Stage, { ItemEvent } from "components/Stage/Stage"
@@ -24,12 +24,24 @@ import transformEvents from "./transformEvents"
 
 type DisplayEvent = TrackEvent & SetTempoEvent
 
-function HorizontalLines({ width, height, transform, borderColor }) {
+interface HorizontalLinesProps {
+  width: number
+  height: number
+  transform: TempoCoordTransform
+  borderColor: any
+}
+
+function HorizontalLines({
+  width,
+  height,
+  transform,
+  borderColor
+}: HorizontalLinesProps) {
   if (!width) {
     return null
   }
 
-  function draw(ctx) {
+  function draw(ctx: CanvasRenderingContext2D) {
     const { width, height } = ctx.canvas
     ctx.clearRect(0, 0, width, height)
 
@@ -157,7 +169,7 @@ const Content: StatelessComponent<ContentProps> = ({
     const bpm = uSecPerBeatToBPM(event.microsecondsPerBeat)
     const startY = e.clientY
 
-    function onMouseMove(e) {
+    function onMouseMove(e: MouseEvent) {
       const delta = transform.getDeltaBPM(e.clientY - startY)
       changeTempo({
         id: event.id,
@@ -200,10 +212,6 @@ const Content: StatelessComponent<ContentProps> = ({
   const startTick = scrollLeft / pixelsPerTick
   const mappedBeats = mapBeats(beats, pixelsPerTick, startTick, widthTick)
   const width = containerWidth - keyWidth
-
-  function onScrollLeft(e) {
-    setScrollLeft(e.scroll)
-  }
 
   return (
     <div className="TempoGraph">
@@ -248,7 +256,7 @@ const Content: StatelessComponent<ContentProps> = ({
       <HorizontalScrollBar
         scrollOffset={scrollLeft}
         contentLength={contentWidth}
-        onScroll={onScrollLeft}
+        onScroll={setScrollLeft}
       />
     </div>
   )
@@ -259,7 +267,7 @@ interface Props {
   autoScroll: boolean
   pixelsPerTick: number
   size: ISize
-  setScrollLeft: (number) => void
+  setScrollLeft: (scroll: number) => void
 }
 
 interface State {
@@ -267,7 +275,7 @@ interface State {
   scrollLeft: number
 }
 
-function stateful(WrappedComponent) {
+function stateful(WrappedComponent: React.ComponentClass<Props, State>) {
   return class extends Component<Props, State> {
     constructor(props: Props) {
       super(props)
@@ -286,7 +294,7 @@ function stateful(WrappedComponent) {
       this.props.player.off("change-position", this.updatePosition)
     }
 
-    updatePosition = tick => {
+    updatePosition = (tick: number) => {
       this.setState({
         playerPosition: tick
       })
@@ -320,20 +328,21 @@ export default sizeMe({ monitorHeight: true })(
         song,
         dispatch
       }
-    }) => ({
-      theme,
-      player,
-      pixelsPerTick: 0.1 * s.scaleX,
-      track: song.conductorTrack,
-      events: song.conductorTrack.events.toJS(),
-      endTick: song.endOfSong,
-      beats: song.measureList.beats,
-      autoScroll: s.autoScroll,
-      scrollLeft: s.scrollLeft,
-      setScrollLeft: v => (s.scrollLeft = v),
-      changeTempo: p => dispatch(CHANGE_TEMPO, p),
-      createTempo: p => dispatch(CREATE_TEMPO, p),
-      setPlayerTempo: tick => dispatch(SET_PLAYER_POSITION, { tick })
-    })
+    }) =>
+      ({
+        theme,
+        player,
+        pixelsPerTick: 0.1 * s.scaleX,
+        track: song.conductorTrack,
+        events: song.conductorTrack.events.toJS(),
+        endTick: song.endOfSong,
+        beats: song.measureList.beats,
+        autoScroll: s.autoScroll,
+        scrollLeft: s.scrollLeft,
+        setScrollLeft: v => (s.scrollLeft = v),
+        changeTempo: p => dispatch(CHANGE_TEMPO, p),
+        createTempo: p => dispatch(CREATE_TEMPO, p),
+        setPlayerTempo: tick => dispatch(SET_PLAYER_POSITION, { tick })
+      } as ContentProps)
   )(observer(stateful(Content)))
 )

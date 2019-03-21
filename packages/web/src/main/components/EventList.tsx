@@ -1,10 +1,15 @@
-import React from "react"
+import React, { SFC } from "react"
 import { controllerTypeString } from "helpers/noteNumberString"
 
 import "./EventList.css"
+import { TrackEvent } from "src/common/track"
 
-function Table({ items, headers, rowComponent }) {
-  const Row = rowComponent
+interface TableProps {
+  items: TrackEvent[]
+  headers: string[]
+}
+
+const Table: SFC<TableProps> = ({ items, headers }) => {
   return (
     <table>
       <thead>
@@ -16,24 +21,31 @@ function Table({ items, headers, rowComponent }) {
       </thead>
       <tbody>
         {items.map((item, i) => (
-          <Row item={item} key={i} />
+          <EventRow item={item} key={i} />
         ))}
       </tbody>
     </table>
   )
 }
 
-function EventRow({ item }) {
+interface EventRowProps {
+  item: TrackEvent
+}
+
+const EventRow: SFC<EventRowProps> = ({ item }) => {
   return (
     <tr>
       <td>{item.tick}</td>
       <td>{statusForEvent(item)}</td>
-      <td>{item.value}</td>
+      <td>{"value" in item ? item.value : ""}</td>
     </tr>
   )
 }
 
-function statusForEvent(e) {
+function statusForEvent(e: TrackEvent) {
+  if (!("subtype" in e)) {
+    return
+  }
   switch (e.subtype) {
     case "controller":
       return controllerTypeString(e.controllerType)
@@ -44,14 +56,16 @@ function statusForEvent(e) {
   }
 }
 
-export default function EventList({ events }) {
+export interface EventListProps {
+  events: TrackEvent[]
+}
+
+const EventList: SFC<EventListProps> = ({ events }) => {
   return (
     <div className="EventList">
-      <Table
-        items={events}
-        rowComponent={EventRow}
-        headers={["Tick", "Status", "Value"]}
-      />
+      <Table items={events} headers={["Tick", "Status", "Value"]} />
     </div>
   )
 }
+
+export default EventList

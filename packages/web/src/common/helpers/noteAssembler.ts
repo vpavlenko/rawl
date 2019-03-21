@@ -9,7 +9,7 @@ import { noteOnMidiEvent, noteOffMidiEvent } from "common/midi/MidiEvent"
 
  */
 export function assemble(events: TrackEvent[]): TrackEvent[] {
-  const noteOnEvents = []
+  const noteOnEvents: NoteOnEvent[] = []
 
   function findNoteOn(
     noteOff: TrackEvent & NoteOffEvent
@@ -37,7 +37,7 @@ export function assemble(events: TrackEvent[]): TrackEvent[] {
         const ev = e as (TrackEvent & NoteOffEvent)
         const noteOn = findNoteOn(ev)
         if (noteOn != null) {
-          const note: TrackEvent & NoteEvent = {
+          const note: NoteEvent = {
             id: -1,
             type: "channel",
             subtype: "note",
@@ -58,7 +58,7 @@ export function assemble(events: TrackEvent[]): TrackEvent[] {
 }
 
 // separate note to noteOn + noteOff
-export function deassemble(e): TrackEvent[] {
+export function deassemble(e: NoteEvent): TrackEvent[] {
   if (e.subtype === "note") {
     const noteOn = noteOnMidiEvent(0, e.channel, e.noteNumber, e.velocity)
     const noteOff = noteOffMidiEvent(0, e.channel, e.noteNumber)

@@ -9,7 +9,7 @@ type DisplayEvent = TrackEvent & (ControllerEvent | ProgramChangeEvent)
 function displayControlName(e: DisplayEvent): string {
   switch (e.subtype) {
     case "controller": {
-      const name = CCNames[(e as ControllerEvent).controllerType]
+      const name = CCNames(e.controllerType)
       return name || "Control"
     }
     case "programChange":
@@ -48,8 +48,8 @@ function groupControlEvents(
   events: DisplayEvent[],
   tickWindow: number
 ): DisplayEvent[][] {
-  const groups = []
-  let group = []
+  const groups: DisplayEvent[][] = []
+  let group: DisplayEvent[] = []
   for (let e of events) {
     if (group.length === 0) {
       group.push(e)

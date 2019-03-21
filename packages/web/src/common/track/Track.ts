@@ -1,5 +1,5 @@
-import { observable, action, transaction, computed } from "mobx"
-import { list, map, primitive, serializable } from "serializr"
+import { observable, action, transaction } from "mobx"
+import { serializable } from "serializr"
 import _ from "lodash"
 import {
   TrackNameEvent,
@@ -12,21 +12,26 @@ import {
 
 import { getInstrumentName } from "midi/GM"
 
-import orArrayOf from "helpers/orArrayOf"
+export const isNoteEvent = (e: any): e is NoteEvent =>
+  "subtype" in e && e.subtype === "note"
 
-export interface NoteEvent {
+export type NoteEvent = TrackEventRequired & {
   type: "channel"
   subtype: "note"
   duration: number
+  noteNumber: number
+  velocity: number
+  channel: number
+  deltaTime: number
 }
 
-interface TrackEventRequired {
+export interface TrackEventRequired {
   id: number
   tick: number
   type: string
 }
 
-export type TrackEvent = TrackEventRequired & (AnyEvent | NoteEvent)
+export type TrackEvent = (TrackEventRequired & AnyEvent) | NoteEvent
 
 function lastValue(arr, prop) {
   const last = _.last(arr)
@@ -117,7 +122,7 @@ export default class Track {
     return e
   }
 
-  @action addEvent(e: TrackEvent) {
+  @action addEvent<T extends TrackEvent>(e: T) {
     this._addEvent(e)
     this.didAddEvent()
     return e

@@ -70,4 +70,4 @@ export default {
   "125": "Omni Mode On",
   "126": "Mono Operation",
   "127": "Poly Operation"
-}
+} as { [key: string]: string }

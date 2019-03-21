@@ -13,12 +13,12 @@ export function toVLQ(intNum: number): number[] {
   return r
 }
 
-export function fromVLQ(vlq) {
+export const fromVLQ = (vlq: number[]): number => {
   let result = 0
   for (;;) {
     const b = vlq.shift()
     if (b & 0x80) {
-      result += (b & 0x7f)
+      result += b & 0x7f
       result <<= 7
     } else {
       /* b is the last byte */

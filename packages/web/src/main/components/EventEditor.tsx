@@ -5,8 +5,19 @@ import Popup from "components/Popup"
 import EventList from "components/EventList"
 
 import "./EventEditor.css"
+import { TrackEvent } from "src/common/track"
 
-function EventEditorContent({ events, onClickOK, onClickCancel }) {
+interface EventEditorContentProps {
+  events: TrackEvent[]
+  onClickOK: () => void
+  onClickCancel: () => void
+}
+
+function EventEditorContent({
+  events,
+  onClickOK,
+  onClickCancel
+}: EventEditorContentProps) {
   return (
     <div className="EventEditor">
       <div className="container">
@@ -24,7 +35,13 @@ function EventEditorContent({ events, onClickOK, onClickCancel }) {
   )
 }
 
-export default function EventEditor({ onClickOK, onClickCancel, events }) {
+export type EventEditorProps = EventEditorContentProps
+
+export default function EventEditor({
+  onClickOK,
+  onClickCancel,
+  events
+}: EventEditorProps) {
   return (
     <EventEditorContent
       onClickOK={onClickOK}
@@ -34,7 +51,7 @@ export default function EventEditor({ onClickOK, onClickCancel, events }) {
   )
 }
 
-export function show(events) {
+export function show(events: TrackEvent[]) {
   const popup = new Popup()
   popup.show()
 

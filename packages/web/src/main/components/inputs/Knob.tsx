@@ -12,13 +12,13 @@ const WHEEL_SPEED = 0.1
 
 export interface KnobProps {
   value: number
-  onChange: (e: any) => void
+  onChange: (value: number) => void
   offsetDegree: number
   maxDegree: number
   maxValue: number
   minValue: number
   dragging: boolean
-  setDragging: (boolean) => void
+  setDragging: (dragging: boolean) => void
 }
 
 const Knob: StatelessComponent<KnobProps> = ({
@@ -29,33 +29,29 @@ const Knob: StatelessComponent<KnobProps> = ({
   maxValue = 1,
   minValue = 0,
   dragging = false,
-  setDragging = (dragging: boolean) => {}
+  setDragging = () => {}
 }) => {
   const range = maxValue - minValue
 
-  function handleWheel(e) {
+  function handleWheel(e: React.WheelEvent) {
     e.preventDefault()
     const movement = e.deltaY > 0 ? -1 : 1
-    e.target.value = coarsify(
-      value + movement * WHEEL_SPEED * range,
-      minValue,
-      maxValue
-    )
-    onChange(e)
+    value = coarsify(value + movement * WHEEL_SPEED * range, minValue, maxValue)
+    onChange(value)
   }
 
-  function handleMouseDown(e) {
+  function handleMouseDown(e: React.MouseEvent) {
     const startY = e.clientY
 
     window.addEventListener("mousemove", onMouseMove)
     window.addEventListener("mouseup", onMouseUp)
     setDragging(true)
 
-    function onMouseMove(e) {
+    function onMouseMove(e: MouseEvent) {
       const delta = e.clientY - startY
       const val = value - (delta * range) / MAX_VALUE_MOVE_LENGTH
-      e.target.value = coarsify(val, minValue, maxValue)
-      onChange(e)
+      value = coarsify(val, minValue, maxValue)
+      onChange(value)
     }
 
     function onMouseUp() {

@@ -1,23 +1,27 @@
 import TempoGraphItem from "./TempoGraphItem"
+import { SetTempoEvent } from "@signal-app/midifile-ts"
+import { TempoCoordTransform } from "src/common/transform"
+import { TrackEvent } from "src/common/track"
+
+const isSetTempoEvent = (e: any): e is TrackEvent & SetTempoEvent =>
+  e.subtype == "setTempo"
 
 export default (
-  events,
-  transform,
-  width,
-  strokeColor,
-  fillColor
+  events: TrackEvent[],
+  transform: TempoCoordTransform,
+  width: number,
+  strokeColor: any,
+  fillColor: any
 ): TempoGraphItem[] => {
   // まず位置だけ計算する
-  const items = events
-    .filter(e => e.subtype === "setTempo")
-    .map(e => {
-      const bpm = (60 * 1000000) / e.microsecondsPerBeat
-      return {
-        id: e.id,
-        x: Math.round(transform.getX(e.tick)),
-        y: Math.round(transform.getY(bpm))
-      }
-    })
+  const items = events.filter(isSetTempoEvent).map(e => {
+    const bpm = (60 * 1000000) / e.microsecondsPerBeat
+    return {
+      id: e.id,
+      x: Math.round(transform.getX(e.tick)),
+      y: Math.round(transform.getY(bpm))
+    }
+  })
 
   // 次のイベント位置まで延びるように大きさを設定する
   return items.map((e, i) => {

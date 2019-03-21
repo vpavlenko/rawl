@@ -16,7 +16,12 @@ function calcQuantize(num: number, dot: boolean, triplet: boolean): number {
   return val
 }
 
-function DotButton({ selected, onClick }) {
+interface DotButtonProps {
+  selected: boolean
+  onClick: () => void
+}
+
+function DotButton({ selected, onClick }: DotButtonProps) {
   return (
     <div
       className={`dot button ${selected ? "selected" : ""}`}
@@ -29,7 +34,12 @@ function DotButton({ selected, onClick }) {
   )
 }
 
-function TripletButton({ selected, onClick }) {
+interface TripletButtonProps {
+  selected: boolean
+  onClick: () => void
+}
+
+function TripletButton({ selected, onClick }: TripletButtonProps) {
   return (
     <div
       className={`triplet button ${selected ? "selected" : ""}`}
@@ -42,12 +52,17 @@ function TripletButton({ selected, onClick }) {
 
 export interface QuantizeSelectorProps {
   value: number
-  onSelect: (number) => void
+  onSelect: (value: number) => void
   popupHidden: boolean
   togglePopup: () => void
 }
 
-function QuantizeSelector({ value, onSelect, popupHidden, togglePopup }) {
+function QuantizeSelector({
+  value,
+  onSelect,
+  popupHidden,
+  togglePopup
+}: QuantizeSelectorProps) {
   // 整数ではなく 1.5 をかけると整数になるとき付点
   const dot = value % 1 !== 0 && (value * 1.5) % 1 === 0
 
@@ -100,6 +115,7 @@ export default compose<
 >(
   withState("popupHidden", "updatePopupHidden", true),
   withHandlers({
-    togglePopup: ({ updatePopupHidden }) => () => updatePopupHidden(v => !v)
+    togglePopup: ({ updatePopupHidden }) => () =>
+      updatePopupHidden((v: boolean) => !v)
   })
 )(QuantizeSelector)

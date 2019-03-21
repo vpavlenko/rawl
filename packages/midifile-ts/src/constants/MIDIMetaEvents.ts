@@ -15,4 +15,4 @@ export default {
   timeSignature: 0x58,
   keySignature: 0x59,
   sequencerSpecific: 0x7f
-}
+} as { [key: string]: number }

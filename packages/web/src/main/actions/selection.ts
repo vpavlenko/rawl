@@ -1,5 +1,7 @@
 import clipboard from "services/Clipboard.ts"
 import SelectionModel from "common/selection"
+import RootStore from "../stores/RootStore"
+import { TrackEvent, NoteEvent, isNoteEvent } from "src/common/track"
 
 export const RESIZE_SELECTION = Symbol()
 export const FIX_SELECTION = Symbol()
@@ -12,9 +14,9 @@ export const COPY_SELECTION = Symbol()
 export const DELETE_SELECTION = Symbol()
 export const PASTE_SELECTION = Symbol()
 
-function eventsInSelection(events, selection) {
+function eventsInSelection(events: TrackEvent[], selection: SelectionModel) {
   const s = selection
-  return events.filter(
+  return events.filter(isNoteEvent).filter(
     b =>
       b.tick >= s.fromTick &&
       b.tick < s.toTick && // ノートの先頭だけ範囲にはいっていればよい
@@ -23,7 +25,11 @@ function eventsInSelection(events, selection) {
   )
 }
 
-export default ({ song, pianoRollStore, services: { quantizer, player } }) => {
+export default ({
+  song,
+  pianoRollStore,
+  services: { quantizer, player }
+}: RootStore) => {
   const { selectedTrack } = song
   const { selection, mouseMode } = pianoRollStore
 
@@ -67,7 +73,7 @@ export default ({ song, pianoRollStore, services: { quantizer, player } }) => {
 
       selectedTrack.updateEvents(
         s.noteIds.map(id => {
-          const n = selectedTrack.getEventById(id)
+          const n = selectedTrack.getEventById(id) as NoteEvent
           return {
             id,
             tick: n.tick + dt,
@@ -99,7 +105,7 @@ export default ({ song, pianoRollStore, services: { quantizer, player } }) => {
 
       selectedTrack.updateEvents(
         selection.noteIds.map(id => {
-          const n = selectedTrack.getEventById(id)
+          const n = selectedTrack.getEventById(id) as NoteEvent
           const duration = n.duration - delta
           if (duration <= 0) {
             // 幅がゼロになる場合は変形しない
@@ -136,7 +142,7 @@ export default ({ song, pianoRollStore, services: { quantizer, player } }) => {
 
       selectedTrack.updateEvents(
         selection.noteIds.map(id => {
-          const n = selectedTrack.getEventById(id)
+          const n = selectedTrack.getEventById(id) as NoteEvent
           const duration = n.duration + delta
           if (duration <= 0) {
             // 幅がゼロになる場合は変形しない

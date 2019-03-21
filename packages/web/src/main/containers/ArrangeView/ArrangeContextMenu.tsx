@@ -9,8 +9,20 @@ import {
   ARRANGE_DELETE_SELECTION,
   ARRANGE_PASTE_SELECTION
 } from "main/actions/arrangeView"
+import { Dispatcher } from "src/main/createDispatcher"
+import { IPoint } from "src/common/geometry"
 
-function ArrangeContextMenu({ dispatch, isSelectionSelected, close }) {
+interface ArrangeContextMenuProps {
+  dispatch: Dispatcher
+  isSelectionSelected: boolean
+  close: () => void
+}
+
+function ArrangeContextMenu({
+  dispatch,
+  isSelectionSelected,
+  close
+}: ArrangeContextMenuProps) {
   return (
     <ContextMenu>
       {isSelectionSelected && (
@@ -56,8 +68,14 @@ function ArrangeContextMenu({ dispatch, isSelectionSelected, close }) {
   )
 }
 
-export function open(dispatch, { position, isSelectionSelected }) {
-  const contextMenu = close =>
+export function open(
+  dispatch: Dispatcher,
+  {
+    position,
+    isSelectionSelected
+  }: { position: IPoint; isSelectionSelected: boolean }
+) {
+  const contextMenu = (close: () => void) =>
     ArrangeContextMenu({ dispatch, isSelectionSelected, close })
   const menuCreator = createContextMenu(contextMenu)
   return menuCreator(position)

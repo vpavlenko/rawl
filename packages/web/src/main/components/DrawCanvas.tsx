@@ -3,7 +3,7 @@ import _ from "lodash"
 
 export interface DrawCanvasProps
   extends CanvasHTMLAttributes<HTMLCanvasElement> {
-  draw: (CanvasRenderingContext2D) => void
+  draw: (ctx: CanvasRenderingContext2D) => void
 }
 
 export default class DrawCanvas extends Component<DrawCanvasProps> {

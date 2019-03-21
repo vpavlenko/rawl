@@ -36,7 +36,7 @@ export interface SectionState {
 }
 
 export default class Section extends Component<SectionProps, SectionState> {
-  constructor(props) {
+  constructor(props: SectionProps) {
     super(props)
 
     this.state = {

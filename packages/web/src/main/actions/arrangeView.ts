@@ -1,7 +1,9 @@
-import { fromPoints as rectFromPoints } from "common/geometry"
+import { fromPoints as rectFromPoints, IPoint, IRect } from "common/geometry"
 import _ from "lodash"
 import clipboard from "services/Clipboard.ts"
 import { open as openContextMenu } from "containers/ArrangeView/ArrangeContextMenu"
+import RootStore from "../stores/RootStore"
+import Track from "src/common/track"
 
 export const ARRANGE_START_SELECTION = Symbol()
 export const ARRANGE_RESIZE_SELECTION = Symbol()
@@ -17,8 +19,8 @@ export default ({
   song: { tracks },
   arrangeViewStore: s,
   services: { quantizer, player }
-}) => {
-  const createRect = (from, to) => {
+}: RootStore) => {
+  const createRect = (from: IPoint, to: IPoint) => {
     const rect = rectFromPoints(from, to)
     rect.height = Math.min(
       tracks.length - rect.y,
@@ -36,7 +38,7 @@ export default ({
     return rect
   }
 
-  const quantizeRect = rect => {
+  const quantizeRect = (rect: IRect) => {
     if (!rect) {
       return null
     }
@@ -49,17 +51,29 @@ export default ({
   }
 
   return {
-    [ARRANGE_START_SELECTION]: pos => {
+    [ARRANGE_START_SELECTION]: (pos: IPoint) => {
       s.selection = null
       s.selectedEventIds = {}
     },
 
-    [ARRANGE_RESIZE_SELECTION]: ({ start, end }) => {
+    [ARRANGE_RESIZE_SELECTION]: ({
+      start,
+      end
+    }: {
+      start: IPoint
+      end: IPoint
+    }) => {
       // 選択範囲作成時 (確定前) のドラッグ中
       s.selection = quantizeRect(createRect(start, end))
     },
 
-    [ARRANGE_END_SELECTION]: ({ start, end }) => {
+    [ARRANGE_END_SELECTION]: ({
+      start,
+      end
+    }: {
+      start: IPoint
+      end: IPoint
+    }) => {
       const selection = quantizeRect(createRect(start, end))
       if (selection) {
         s.selection = selection
@@ -67,7 +81,7 @@ export default ({
       }
     },
 
-    [ARRANGE_MOVE_SELECTION]: pos => {
+    [ARRANGE_MOVE_SELECTION]: (pos: IPoint) => {
       // 選択範囲を移動
       const selection = quantizeRect({
         x: Math.max(pos.x, 0),
@@ -127,7 +141,13 @@ export default ({
       }
     },
 
-    [ARRANGE_OPEN_CONTEXT_MENU]: ({ position, isSelectionSelected }) => {
+    [ARRANGE_OPEN_CONTEXT_MENU]: ({
+      position,
+      isSelectionSelected
+    }: {
+      position: IPoint
+      isSelectionSelected: boolean
+    }) => {
       openContextMenu(dispatch, { position, isSelectionSelected })
     },
 
@@ -181,10 +201,10 @@ export default ({
 }
 
 // returns { trackId: [eventId] }
-function getNotesInSelection(tracks, selection) {
+function getNotesInSelection(tracks: Track[], selection: IRect) {
   const startTick = selection.x
   const endTick = selection.x + selection.width
-  const ids = {}
+  const ids: { [key: number]: number[] } = {}
   for (
     let trackIndex = selection.y;
     trackIndex < selection.y + selection.height;

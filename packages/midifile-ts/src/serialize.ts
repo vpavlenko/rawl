@@ -1,6 +1,4 @@
-import {
-  AnyEvent
-} from "./event"
+import { AnyEvent } from "./event"
 import { toVLQ } from "./vlq"
 import toCharCodes from "./toCharCodes"
 import MIDIChannelEvents from "./constants/MIDIChannelEvents"
@@ -9,8 +7,8 @@ import MIDIMetaEvents from "./constants/MIDIMetaEvents"
 export default function serialize(e: AnyEvent, includeDeltaTime = true) {
   const bytes: number[] = []
 
-  function add(data) {
-    if (data.forEach !== undefined) {
+  function add(data: number | number[]) {
+    if (Array.isArray(data)) {
       data.forEach(add)
     } else {
       if (!Number.isInteger(data)) {
@@ -42,7 +40,7 @@ export default function serialize(e: AnyEvent, includeDeltaTime = true) {
       }
       add(0xff) // type
       add(subtypeCode) // subtype
-      switch(e.subtype) {
+      switch (e.subtype) {
         case "text":
           addText(e.text)
           break
@@ -72,11 +70,7 @@ export default function serialize(e: AnyEvent, includeDeltaTime = true) {
           break
         case "setTempo": {
           const t = e.microsecondsPerBeat
-          addNumbers([
-            (t >> 16) & 0xff,
-            (t >> 8) & 0xff,
-            t & 0xff
-          ])
+          addNumbers([(t >> 16) & 0xff, (t >> 8) & 0xff, t & 0xff])
           break
         }
         case "timeSignature": {
@@ -89,10 +83,7 @@ export default function serialize(e: AnyEvent, includeDeltaTime = true) {
           break
         }
         case "keySignature": {
-          addNumbers([
-            e.key,
-            e.scale
-          ])
+          addNumbers([e.key, e.scale])
           break
         }
         case "sequencerSpecific":
@@ -120,7 +111,7 @@ export default function serialize(e: AnyEvent, includeDeltaTime = true) {
         return []
       }
       add((subtypeCode << 4) + e.channel) // subtype + channel
-      switch(e.subtype) {
+      switch (e.subtype) {
         case "noteOff": {
           add(e.noteNumber)
           add(e.velocity)

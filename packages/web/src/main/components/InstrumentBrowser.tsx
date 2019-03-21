@@ -7,80 +7,7 @@ import { GMMap, getGMMapIndexes, getGMMapProgramNumber } from "midi/GM.ts"
 import Popup from "components/Popup"
 
 import "./InstrumentBrowser.css"
-
-function InstrumentBrowserContent({
-  categories,
-  instruments,
-  onChangeCategory,
-  selectedCategoryId,
-  onChangeInstrument,
-  selectedInstrumentId,
-  isRhythmTrack,
-  onChangeRhythmTrack,
-  onClickOK,
-  onClickCancel
-}) {
-  const categoryOptions = categories.map((name, i) => {
-    return (
-      <option key={i} value={i}>
-        {name}
-      </option>
-    )
-  })
-
-  const instrumentOptions = instruments.map((name, i) => {
-    return (
-      <option key={i} value={i}>
-        {name}
-      </option>
-    )
-  })
-
-  return (
-    <div className="InstrumentBrowser">
-      <div className="container">
-        <div className={`finder ${isRhythmTrack ? "disabled" : ""}`}>
-          <div className="left">
-            <label>Categories</label>
-            <select
-              size={12}
-              onChange={onChangeCategory}
-              value={selectedCategoryId}
-            >
-              {categoryOptions}
-            </select>
-          </div>
-          <div className="right">
-            <label>Instruments</label>
-            <select
-              size={12}
-              onChange={onChangeInstrument}
-              value={selectedInstrumentId}
-            >
-              {instrumentOptions}
-            </select>
-          </div>
-        </div>
-        <div className="footer">
-          <label>
-            <input
-              type="checkbox"
-              checked={isRhythmTrack}
-              onChange={onChangeRhythmTrack}
-            />
-            Rhythm Track
-          </label>
-          <button className="ok" onClick={onClickOK}>
-            OK
-          </button>
-          <button className="cancel" onClick={onClickCancel}>
-            Cancel
-          </button>
-        </div>
-      </div>
-    </div>
-  )
-}
+import Song from "src/common/song"
 
 export interface Result {
   categoryId: number
@@ -92,7 +19,7 @@ export interface InstrumentBrowserProps {
   selectedCategoryId: number
   selectedInstrumentId: number
   isRhythmTrack: boolean
-  onClickOK: (Result) => void
+  onClickOK: (result: Result) => void
   onClickCancel: () => void
 }
 
@@ -106,7 +33,7 @@ export default class InstrumentBrowser extends Component<
   InstrumentBrowserProps,
   InstrumentBrowserState
 > {
-  constructor(props) {
+  constructor(props: InstrumentBrowserProps) {
     super(props)
 
     this.state = {
@@ -117,6 +44,13 @@ export default class InstrumentBrowser extends Component<
   }
 
   render() {
+    const {
+      isRhythmTrack,
+      selectedCategoryId,
+      selectedInstrumentId
+    } = this.state
+    const { onClickCancel } = this.props
+
     const onClickOK = () => {
       this.props.onClickOK({
         categoryId: this.state.selectedCategoryId,
@@ -125,43 +59,94 @@ export default class InstrumentBrowser extends Component<
       })
     }
 
-    const onChangeCategory = e => {
+    const onChangeCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
       this.setState({
         selectedCategoryId: e.target.selectedIndex
       })
     }
 
-    const onChangeInstrument = e => {
+    const onChangeInstrument = (e: React.ChangeEvent<HTMLSelectElement>) => {
       // TODO: play note (一時的に program change する)
       this.setState({
         selectedInstrumentId: e.target.selectedIndex
       })
     }
 
-    const onChangeRhythmTrack = e => {
+    const onChangeRhythmTrack = (e: React.ChangeEvent<HTMLInputElement>) => {
       this.setState({ isRhythmTrack: e.target.checked })
     }
 
     const categories = Object.keys(GMMap)
     const instruments = GMMap[Object.keys(GMMap)[this.state.selectedCategoryId]]
 
+    const categoryOptions = categories.map((name: string, i: number) => {
+      return (
+        <option key={i} value={i}>
+          {name}
+        </option>
+      )
+    })
+
+    const instrumentOptions = instruments.map((name: string, i: number) => {
+      return (
+        <option key={i} value={i}>
+          {name}
+        </option>
+      )
+    })
+
     return (
-      <InstrumentBrowserContent
-        categories={categories}
-        instruments={instruments}
-        isRhythmTrack={this.state.isRhythmTrack}
-        onClickOK={onClickOK}
-        onClickCancel={this.props.onClickCancel}
-        onChangeCategory={onChangeCategory}
-        onChangeInstrument={onChangeInstrument}
-        onChangeRhythmTrack={onChangeRhythmTrack}
-        {...this.state}
-      />
+      <div className="InstrumentBrowser">
+        <div className="container">
+          <div className={`finder ${isRhythmTrack ? "disabled" : ""}`}>
+            <div className="left">
+              <label>Categories</label>
+              <select
+                size={12}
+                onChange={onChangeCategory}
+                value={selectedCategoryId}
+              >
+                {categoryOptions}
+              </select>
+            </div>
+            <div className="right">
+              <label>Instruments</label>
+              <select
+                size={12}
+                onChange={onChangeInstrument}
+                value={selectedInstrumentId}
+              >
+                {instrumentOptions}
+              </select>
+            </div>
+          </div>
+          <div className="footer">
+            <label>
+              <input
+                type="checkbox"
+                checked={isRhythmTrack}
+                onChange={onChangeRhythmTrack}
+              />
+              Rhythm Track
+            </label>
+            <button className="ok" onClick={onClickOK}>
+              OK
+            </button>
+            <button className="cancel" onClick={onClickCancel}>
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
     )
   }
 }
 
-export function show(song, trackId, setTrackInstrument) {
+export function show(
+  song: Song,
+  trackId: number,
+  setTrackInstrument: (trackId: number, programNumber: number) => void
+) {
   const track = song.getTrack(trackId)
   const popup = new Popup()
   popup.show()
@@ -179,7 +164,7 @@ export function show(song, trackId, setTrackInstrument) {
       }}
       onClickOK={({ isRhythmTrack, categoryId, instrumentId }) => {
         if (isRhythmTrack) {
-          track.changeChannel(9)
+          track.channel = 9
           setTrackInstrument(trackId, 0)
         } else {
           if (track.isRhythmTrack) {
@@ -190,7 +175,7 @@ export function show(song, trackId, setTrackInstrument) {
               .map(t => t.channel)
             const availableChannel =
               _.min(_.difference(channels, usedChannels)) || 0
-            track.changeChannel(availableChannel)
+            track.channel = availableChannel
           }
           const programNumber = getGMMapProgramNumber(categoryId, instrumentId)
           setTrackInstrument(trackId, programNumber)

@@ -15,13 +15,13 @@ import { HorizontalScaleScrollBar } from "components/inputs/ScaleScrollBar"
 import { NoteCoordTransform } from "common/transform"
 
 import mapBeats from "helpers/mapBeats"
-import { pointSub, pointAdd, ISize } from "common/geometry"
+import { pointSub, pointAdd, ISize, IPoint, IRect } from "common/geometry"
 import filterEventsWithScroll from "helpers/filterEventsWithScroll"
 
 import ArrangeToolbar from "./ArrangeToolbar"
 import ArrangeNoteItem from "./ArrangeNoteItem"
 
-import Player from "common/player/Player"
+import Player, { LoopSetting } from "common/player/Player"
 
 import {
   ARRANGE_START_SELECTION,
@@ -33,8 +33,17 @@ import {
 } from "main/actions"
 
 import "./ArrangeView.css"
+import Track, { TrackEvent, isNoteEvent } from "src/common/track"
+import Theme from "src/common/theme"
+import SelectionModel from "src/common/selection"
+import { Beat } from "src/common/measure"
 
-function NavItem({ title, onClick }) {
+interface NavItemProps {
+  title: string
+  onClick: () => void
+}
+
+function NavItem({ title, onClick }: NavItemProps) {
   return (
     <div className="NavItem" onClick={onClick}>
       {title}
@@ -42,10 +51,24 @@ function NavItem({ title, onClick }) {
   )
 }
 
-function ArrangeTrack({ events, transform, width, isDrumMode, scrollLeft }) {
+interface ArrangeTrackProps {
+  events: TrackEvent[]
+  transform: NoteCoordTransform
+  width: number
+  isDrumMode: boolean
+  scrollLeft: number
+}
+
+function ArrangeTrack({
+  events,
+  transform,
+  width,
+  isDrumMode,
+  scrollLeft
+}: ArrangeTrackProps) {
   const t = transform
   const items = events
-    .filter(e => e.subtype === "note")
+    .filter(isNoteEvent)
     .map(e => new ArrangeNoteItem(e.id, t.getRect(e), isDrumMode))
 
   return (
@@ -57,6 +80,33 @@ function ArrangeTrack({ events, transform, width, isDrumMode, scrollLeft }) {
       scrollLeft={scrollLeft}
     />
   )
+}
+
+interface ArrangeViewProps {
+  tracks: Track[]
+  theme: Theme
+  beats: Beat[]
+  endTick: number
+  playerPosition: number
+  setPlayerPosition: (position: number) => void
+  transform: NoteCoordTransform
+  selection: IRect
+  startSelection: (position: IPoint) => void
+  resizeSelection: (start: IPoint, end: IPoint) => void
+  endSelection: (start: IPoint, end: IPoint) => void
+  moveSelection: (position: IPoint) => void
+  autoScroll: boolean
+  scrollLeft: number
+  scrollTop: number
+  onScrollLeft: (scroll: number) => void
+  onScrollTop: (scroll: number) => void
+  size: ISize
+  loop: LoopSetting
+  pushSettings: () => void
+  onClickScaleUp: () => void
+  onClickScaleDown: () => void
+  onClickScaleReset: () => void
+  openContextMenu: (x: number, y: number, isSelectionSelected: boolean) => void
 }
 
 function ArrangeView({
@@ -84,7 +134,7 @@ function ArrangeView({
   onClickScaleDown,
   onClickScaleReset,
   openContextMenu
-}) {
+}: ArrangeViewProps) {
   scrollLeft = Math.floor(scrollLeft)
 
   const { pixelsPerTick } = transform
@@ -110,14 +160,14 @@ function ArrangeView({
     height: selection.height * trackHeight
   }
 
-  function setScrollLeft(scroll) {
+  function setScrollLeft(scroll: number) {
     const maxOffset = Math.max(0, contentWidth - containerWidth)
     onScrollLeft({
       scroll: Math.floor(Math.min(maxOffset, Math.max(0, scroll)))
     })
   }
 
-  function setScrollTop(scroll) {
+  function setScrollTop(scroll: number) {
     const maxOffset = Math.max(0, contentHeight - containerHeight)
     onScrollTop({
       scroll: Math.floor(Math.min(maxOffset, Math.max(0, scroll)))
@@ -386,8 +436,8 @@ function stateful(WrappedComponent) {
 
       return (
         <WrappedComponent
-          onScrollLeft={({ scroll }) => setScrollLeft(scroll)}
-          onScrollTop={({ scroll }) => setScrollTop(scroll)}
+          onScrollLeft={scroll => setScrollLeft(scroll)}
+          onScrollTop={scroll => setScrollTop(scroll)}
           transform={this.transform}
           {...this.state}
           {...this.props}

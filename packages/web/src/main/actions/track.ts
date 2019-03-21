@@ -6,6 +6,8 @@ import {
   modulationMidiEvent,
   expressionMidiEvent
 } from "midi/MidiEvent"
+import RootStore from "../stores/RootStore"
+import { NoteEvent } from "src/common/track"
 
 export const CHANGE_TEMPO = Symbol()
 export const CREATE_TEMPO = Symbol()
@@ -25,7 +27,7 @@ export const SET_TRACK_VOLUME = Symbol()
 export const SET_TRACK_PAN = Symbol()
 export const SET_TRACK_INSTRUMENT = Symbol()
 
-export default rootStore => {
+export default (rootStore: RootStore) => {
   const {
     song,
     pianoRollStore,
@@ -114,7 +116,8 @@ export default rootStore => {
     [CREATE_NOTE]: ({ tick, noteNumber }) => {
       saveHistory()
       tick = quantizer.floor(tick)
-      const note = {
+      const note: NoteEvent = {
+        id: 0,
         type: "channel",
         subtype: "note",
         noteNumber: noteNumber,
@@ -128,7 +131,7 @@ export default rootStore => {
       return added.id
     },
     [MOVE_NOTE]: ({ id, tick, noteNumber, quantize }) => {
-      const note = selectedTrack.getEventById(id)
+      const note = selectedTrack.getEventById(id) as NoteEvent
       tick = quantizer[quantize || "floor"](tick)
       const tickChanged = tick !== note.tick
       const pitchChanged = noteNumber !== note.noteNumber
@@ -139,7 +142,7 @@ export default rootStore => {
         const n = selectedTrack.updateEvent(note.id, {
           tick,
           noteNumber: noteNumber
-        })
+        }) as NoteEvent
 
         if (pitchChanged) {
           player.playNote(n)
@@ -149,7 +152,7 @@ export default rootStore => {
     [RESIZE_NOTE_LEFT]: ({ id, tick }) => {
       // 右端を固定して長さを変更
       tick = quantizer.round(tick)
-      const note = selectedTrack.getEventById(id)
+      const note = selectedTrack.getEventById(id) as NoteEvent
       const duration = note.duration + (note.tick - tick)
       if (note.tick !== tick && duration >= quantizer.unit) {
         saveHistory()
@@ -158,7 +161,7 @@ export default rootStore => {
       }
     },
     [RESIZE_NOTE_RIGHT]: ({ id, tick }) => {
-      const note = selectedTrack.getEventById(id)
+      const note = selectedTrack.getEventById(id) as NoteEvent
       const right = tick
       const duration = Math.max(
         quantizer.unit,
@@ -173,9 +176,9 @@ export default rootStore => {
 
     /* track meta */
 
-    [SET_TRACK_NAME]: ({ trackId, name }) => {
+    [SET_TRACK_NAME]: ({ name }) => {
       saveHistory()
-      selectedTrack.setName(name)
+      selectedTrack.name = name
     },
     [SET_TRACK_VOLUME]: ({ trackId, volume }) => {
       saveHistory()

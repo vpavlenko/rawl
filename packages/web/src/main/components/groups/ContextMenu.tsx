@@ -11,8 +11,10 @@ function renderElement(html: string) {
   return template.content.firstElementChild
 }
 
-export const createContextMenu = childrenProvider => e => {
-  let position = e
+export const createContextMenu = (childrenProvider: React.Factory<any>) => (
+  e: React.MouseEvent
+) => {
+  let position: IPoint
   if (e.preventDefault) {
     e.preventDefault()
   }
@@ -83,11 +85,11 @@ export const MenuItem: StatelessComponent<MenuItemProps> = ({
   onClick,
   onMouseDown
 }) => {
-  function _onClick(e) {
+  function _onClick(e: React.MouseEvent) {
     e.stopPropagation()
     onClick(e)
   }
-  function _onMouseDown(e) {
+  function _onMouseDown(e: React.MouseEvent) {
     e.stopPropagation()
     onMouseDown(e)
   }

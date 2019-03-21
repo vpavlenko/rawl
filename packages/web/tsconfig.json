@@ -11,14 +11,8 @@
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "lib": [
-      "es2017",
-      "dom"
-    ]
+    "noImplicitAny": true,
+    "lib": ["es2017", "dom"]
   },
-  "exclude": [
-    "node_modules",
-    "src/submodules",
-    "**/*.test.ts"
-  ]
+  "exclude": ["node_modules", "src/submodules", "**/*.test.ts"]
 }

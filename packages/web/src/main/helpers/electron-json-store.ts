@@ -1,8 +1,6 @@
-import path from "path"
-
 export default class JsonStore {
   path: string
-  cache: Object
+  cache: any
 
   constructor() {
     // this.path = path.join(remote.app.getPath("userData"), "config.json")
@@ -20,12 +18,12 @@ export default class JsonStore {
     // fs.writeFileSync(this.path, JSON.stringify(this.cache))
   }
 
-  set(key, obj) {
+  set(key: string, obj: any) {
     this.cache[key] = obj
     this._saveCache()
   }
 
-  get(key) {
+  get(key: string) {
     return this.cache[key]
   }
 

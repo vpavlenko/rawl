@@ -13,6 +13,7 @@ import QuantizeSelector from "components/QuantizeSelector"
 import "./ArrangeToolbar.css"
 import { compose } from "recompose"
 import { SET_QUANTIZE_DENOMINATOR } from "main/actions"
+import RootStore from "src/main/stores/RootStore"
 
 export interface ArrangeToolbarProps {
   autoScroll: boolean
@@ -51,11 +52,13 @@ export default compose(
         arrangeViewStore: s,
         dispatch
       }
+    }: {
+      rootStore: RootStore
     }) => ({
       quantize: s.quantize === 0 ? quantizer.denominator : s.quantize,
       autoScroll: s.autoScroll,
       onClickAutoScroll: () => (s.autoScroll = !s.autoScroll),
-      onSelectQuantize: e => {
+      onSelectQuantize: (e: { denominator: number }) => {
         dispatch(SET_QUANTIZE_DENOMINATOR, { denominator: e.denominator })
         s.quantize = e.denominator
       }

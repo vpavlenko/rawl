@@ -15,13 +15,13 @@ function SettingItem({ label, children }) {
 }
 
 interface SettingsViewProps {
-  onClickNavBack: (any) => void
+  onClickNavBack: (e: any) => void
   soundFontPath: string
-  onClickOpenSoundFont: (any) => void
-  clearSettings: (any) => void
-  onClickShowSynth: (any) => void
-  onClickStartRecording: (any) => void
-  onClickStopRecording: (any) => void
+  onClickOpenSoundFont: (e: any) => void
+  clearSettings: (e: any) => void
+  onClickShowSynth: (e: any) => void
+  onClickStartRecording: (e: any) => void
+  onClickStopRecording: (e: any) => void
 }
 
 const SettingsView: StatelessComponent<SettingsViewProps> = ({

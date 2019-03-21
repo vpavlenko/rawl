@@ -8,7 +8,7 @@ import "./Icon.css"
 import "@mdi/font/css/materialdesignicons.css"
 
 export interface IconProps {
-  component?: JSX.Element
+  component?: string
   children: string
   className?: string
   onClick?: (e: any) => void

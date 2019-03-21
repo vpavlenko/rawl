@@ -1,13 +1,13 @@
-export default class HistoryStore {
-  undoHistory = []
-  redoHistory = []
+export default class HistoryStore<State> {
+  undoHistory: State[] = []
+  redoHistory: State[] = []
 
-  push(currentState) {
+  push(currentState: State) {
     this.undoHistory.push(currentState)
     this.redoHistory = []
   }
 
-  undo(currentState) {
+  undo(currentState: State) {
     const state = this.undoHistory.pop()
     if (state) {
       this.redoHistory.push(currentState)
@@ -15,7 +15,7 @@ export default class HistoryStore {
     return state
   }
 
-  redo(currentState) {
+  redo(currentState: State) {
     const state = this.redoHistory.pop()
     if (state) {
       this.undoHistory.push(currentState)

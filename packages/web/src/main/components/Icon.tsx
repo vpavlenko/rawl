@@ -1,4 +1,4 @@
-import React from "react"
+import React, { StatelessComponent } from "react"
 import { pure } from "recompose"
 
 import f from "helpers/flatJoin"
@@ -9,18 +9,24 @@ import "@mdi/font/css/materialdesignicons.css"
 
 export interface IconProps {
   component?: string
-  children: string
   className?: string
   onClick?: (e: any) => void
 }
 
-const Icon = ({ component, children, className, onClick }: IconProps) => {
+const Icon: StatelessComponent<IconProps> = ({
+  component,
+  children,
+  className,
+  onClick
+}) => {
   const ElementType = e(component)
   return (
     <ElementType
       className={f("Icon", "mdi", `mdi-${children}`, className)}
       onClick={onClick}
-    />
+    >
+      {children}
+    </ElementType>
   )
 }
 

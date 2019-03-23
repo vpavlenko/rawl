@@ -7,7 +7,6 @@ import "./Button.css"
 
 export interface ButtonProps {
   component?: string
-  children?: ReactNode
   onClick?: (e: React.MouseEvent) => void
   className?: string
 }

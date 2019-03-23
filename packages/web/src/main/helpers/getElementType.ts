@@ -1,8 +1,9 @@
-import { createElement, createFactory } from "react"
+import { createElement } from "react"
+import _ from "lodash"
 
 export default function getElementType(
-  preferredElement: string,
-  defaultElement = "div"
-): React.Factory<any> {
-  return createFactory(preferredElement || defaultElement)
+  preferredElement: string
+): React.FunctionComponent<any> {
+  return props =>
+    createElement(preferredElement || "div", _.omit(props, "children"))
 }

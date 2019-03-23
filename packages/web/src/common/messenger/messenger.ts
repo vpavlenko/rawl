@@ -4,15 +4,25 @@ export interface Messenger {
 }
 
 export class WindowMessenger implements Messenger {
-  send(type: string, payload: any) {
-    window.parent.postMessage({ type, payload }, "*")
+  private target: Window
+
+  constructor(target: Window) {
+    this.target = target
+  }
+
+  send(type: string, payload?: any) {
+    const json = JSON.stringify({ type, payload })
+    this.target.postMessage(json, "*")
   }
 
   on(type: string, handler: (e: any) => void) {
     window.addEventListener("message", e => {
-      if (e.data.type === type) {
-        handler(e.data.payload)
-      }
+      try {
+        const json = JSON.parse(e.data)
+        if (json.type === type) {
+          handler(json.payload)
+        }
+      } catch (_) {}
     })
   }
 }

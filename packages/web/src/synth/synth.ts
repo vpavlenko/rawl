@@ -1,6 +1,6 @@
 import { Synthesizer, MidiMessageHandler } from "sf2synth/bin/synth"
 import Recorder from "opus-recorder"
-import { WindowMessenger } from "common/messenger/messenger"
+import { WindowMessenger } from "common/messenger/Messenger"
 
 import "./synth.css"
 
@@ -35,13 +35,15 @@ export default class SynthController {
   }
 
   private bindMessenger() {
-    const messenger = new WindowMessenger()
-    messenger.on("midi", payload => this.onMidi(payload))
-    messenger.on("load_soundfont", ({ url }) => this.loadSoundFont(url))
+    const messenger = new WindowMessenger(window.parent)
+    messenger.on("midi", (payload: any) => this.onMidi(payload))
+    messenger.on("load_soundfont", (payload: any) =>
+      this.loadSoundFont(payload.url)
+    )
     messenger.on("start_recording", () => this.startRecording())
     messenger.on("stop_recording", () => this.stopRecording())
 
-    messenger.send("main", { type: "did-create-synth-window" })
+    messenger.send("did-create-synth-window")
   }
 
   private setupRecorder() {

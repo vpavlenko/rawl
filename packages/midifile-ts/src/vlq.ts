@@ -17,6 +17,9 @@ export const fromVLQ = (vlq: number[]): number => {
   let result = 0
   for (;;) {
     const b = vlq.shift()
+    if (b === undefined) {
+      throw new Error("invalid vlq bytes")
+    }
     if (b & 0x80) {
       result += b & 0x7f
       result <<= 7

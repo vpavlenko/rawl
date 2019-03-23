@@ -1,23 +1,22 @@
-import _ from "lodash"
-import { NoteOnEvent, NoteOffEvent, AnyEvent } from "@signal-app/midifile-ts"
-import { TrackEvent, NoteEvent, TrackEventRequired } from "common/track"
+import { NoteOnEvent, NoteOffEvent } from "@signal-app/midifile-ts"
+import { NoteEvent, TickProvider } from "common/track"
 import { noteOnMidiEvent, noteOffMidiEvent } from "common/midi/MidiEvent"
+import { Omit } from "recompose"
+import _ from "lodash"
 
 /**
 
   assemble noteOn and noteOff to single note event to append duration
 
  */
-export function assemble(events: TrackEvent[]): TrackEvent[] {
-  const noteOnEvents: (TrackEventRequired & NoteOnEvent)[] = []
+export function assemble<T>(
+  events: (T | TickNoteOffEvent | TickNoteOnEvent)[]
+): (T | NoteEvent)[] {
+  const noteOnEvents: TickNoteOnEvent[] = []
 
-  function findNoteOn(
-    noteOff: TrackEventRequired & NoteOffEvent
-  ): (TrackEventRequired & NoteOnEvent) | null {
+  function findNoteOn(noteOff: TickNoteOffEvent): TickNoteOnEvent | null {
     const i = _.findIndex(noteOnEvents, e => {
-      return (
-        e.channel === noteOff.channel && e.noteNumber === noteOff.noteNumber
-      )
+      return e.noteNumber === noteOff.noteNumber
     })
     if (i < 0) {
       return null
@@ -27,46 +26,53 @@ export function assemble(events: TrackEvent[]): TrackEvent[] {
     return e
   }
 
-  const result: TrackEvent[] = []
+  const result: (T | NoteEvent)[] = []
   events.forEach(e => {
-    switch ((e as any).subtype) {
-      case "noteOn":
-        noteOnEvents.push(e as (TrackEventRequired & NoteOnEvent))
-        break
-      case "noteOff": {
-        const ev = e as (TrackEventRequired & NoteOffEvent)
-        const noteOn = findNoteOn(ev)
-        if (noteOn != null) {
-          const note: NoteEvent = {
-            ...noteOn,
-            subtype: "note",
-            id: -1,
-            tick: noteOn.tick,
-            duration: ev.tick - noteOn.tick
+    if ("subtype" in e) {
+      switch (e.subtype) {
+        case "noteOn":
+          noteOnEvents.push(e)
+          break
+        case "noteOff": {
+          const noteOn = findNoteOn(e)
+          if (noteOn != null) {
+            const note: NoteEvent = {
+              ...noteOn,
+              subtype: "note",
+              id: -1,
+              tick: noteOn.tick,
+              duration: e.tick - noteOn.tick
+            }
+            result.push(note)
           }
-          result.push(note)
+          break
         }
-        break
       }
-      default:
-        result.push(e)
-        break
+    } else {
+      result.push(e)
     }
   })
 
   return result
 }
 
+export type TickNoteOnEvent = Omit<NoteOnEvent, "channel" | "deltaTime"> &
+  TickProvider
+export type TickNoteOffEvent = Omit<NoteOffEvent, "channel" | "deltaTime"> &
+  TickProvider
+
 // separate note to noteOn + noteOff
-export function deassemble(e: TrackEvent): TrackEvent[] {
+export function deassemble<T>(
+  e: T | NoteEvent
+): (T | TickNoteOnEvent | TickNoteOffEvent)[] {
   if ("subtype" in e && e.subtype === "note") {
-    const noteOn = noteOnMidiEvent(0, e.channel, e.noteNumber, e.velocity)
-    const noteOff = noteOffMidiEvent(0, e.channel, e.noteNumber)
+    const noteOn = noteOnMidiEvent(0, -1, e.noteNumber, e.velocity)
+    const noteOff = noteOffMidiEvent(0, -1, e.noteNumber)
     return [
-      { ...noteOn, id: -1, tick: e.tick },
-      { ...noteOff, id: -1, tick: e.tick + e.duration - 1 } // -1 to prevent overlap
+      { ...noteOn, tick: e.tick },
+      { ...noteOff, tick: e.tick + e.duration - 1 } // -1 to prevent overlap
     ]
   } else {
-    return [e]
+    return [e as T]
   }
 }

@@ -7,47 +7,26 @@ import {
   EndOfTrackEvent,
   ProgramChangeEvent,
   ControllerEvent,
-  AnyEvent
+  AnyEvent,
+  TextEvent,
+  ChannelEvent
 } from "@signal-app/midifile-ts"
 
 import { getInstrumentName } from "midi/GM"
-
-export const isNoteEvent = (e: any): e is NoteEvent =>
-  "subtype" in e && e.subtype === "note"
-
-export type NoteEvent = TrackEventRequired & {
-  type: "channel"
-  subtype: "note"
-  duration: number
-  noteNumber: number
-  velocity: number
-  channel: number
-  deltaTime: number
-}
-
-export type RPNEvent = TrackEventRequired & {
-  channel: number
-  type: "channel"
-  subtype: "rpn"
-  deltaTime: number
-  rpnMSB: number
-  rpnLSB: number
-  dataMSB: number | undefined
-  dataLSB: number | undefined
-}
-
-export interface TrackEventRequired {
-  id: number
-  tick: number
-  type: string
-}
-
-export type TrackEvent = (TrackEventRequired & AnyEvent) | NoteEvent | RPNEvent
+import { Omit } from "recompose"
+import {
+  TrackEvent,
+  TrackEventRequired,
+  TrackMidiEvent,
+  NoteEvent
+} from "./TrackEvent"
 
 function lastValue<T>(arr: T[], prop: keyof T) {
   const last = _.last(arr)
   return last && last[prop]
 }
+
+type EventBeforeAdded = TrackMidiEvent | Omit<NoteEvent, "id">
 
 export default class Track {
   @serializable
@@ -63,10 +42,6 @@ export default class Track {
   channel: number | undefined = undefined
 
   getEventById = (id: number) => _.find(this.events, e => e.id === id)
-
-  constructor(midiEvents: AnyEvent[] = []) {
-    midiEvents.forEach(e => this.addMidiEvent(e))
-  }
 
   private _updateEvent(id: number, obj: Partial<TrackEvent>): TrackEvent {
     const anObj = this.getEventById(id)
@@ -113,33 +88,26 @@ export default class Track {
     this.updateEndOfTrack()
   }
 
-  private addMidiEvent(e: AnyEvent) {
-    const lastEvent = this.getEventById(this.lastEventId)
-    const tick = e.deltaTime + (lastEvent ? lastEvent.tick : 0)
-    const event = {
-      ...e,
-      id: -1,
-      tick
-    }
-
-    this._addEvent(event)
-  }
-
   // ソート、通知を行わない内部用の addEvent
-  private _addEvent(e: TrackEvent): TrackEvent {
-    e.id = this.lastEventId
-    this.lastEventId++
-    this.events.push(e)
-    return e
+  private _addEvent(e: EventBeforeAdded): TrackEvent {
+    if (!("tick" in e)) {
+      throw new Error("invalid event is added")
+    }
+    const newEvent = {
+      ...e,
+      id: this.lastEventId++
+    } as TrackEvent
+    this.events.push(newEvent)
+    return newEvent
   }
 
-  @action addEvent<T extends TrackEvent>(e: T): T {
+  @action addEvent<T extends EventBeforeAdded>(e: T): T {
     this._addEvent(e)
     this.didAddEvent()
     return e
   }
 
-  @action addEvents(events: TrackEvent[]): TrackEvent[] {
+  @action addEvents(events: EventBeforeAdded[]): TrackEvent[] {
     let result: TrackEvent[]
     transaction(() => {
       result = events.map(e => this._addEvent(e))
@@ -209,7 +177,10 @@ export default class Track {
     return this._findControllerEvents(10)
   }
 
-  private _updateLast(arr: TrackEvent[], obj: Partial<TrackEvent>) {
+  private _updateLast<T extends AnyEvent | TrackEventRequired>(
+    arr: TrackEvent[],
+    obj: Partial<T>
+  ) {
     if (arr.length > 0) {
       this.updateEvent(_.last(arr).id, obj)
     }

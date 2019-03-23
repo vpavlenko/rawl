@@ -1,15 +1,9 @@
 import _ from "lodash"
-import { write as writeMidiFile, AnyEvent } from "@signal-app/midifile-ts"
-import { addDeltaTime } from "helpers/midiHelper"
-import { toRawEvents } from "helpers/eventAssembler"
+import { write as writeMidiFile } from "@signal-app/midifile-ts"
 import Track from "common/track"
+import { toRawEvents } from "common/helpers/toRawEvents"
 
 export function write(tracks: Track[], ticksPerBeat = 480) {
-  const rawTracks = tracks.map(t => {
-    const rawEvents = _.flatten(t.events.map(toRawEvents))
-    const events = addDeltaTime(rawEvents)
-    return events as AnyEvent[]
-  })
-
+  const rawTracks = tracks.map(t => toRawEvents(t.events))
   return writeMidiFile(rawTracks)
 }

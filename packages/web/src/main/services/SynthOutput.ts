@@ -1,33 +1,33 @@
-const ipcRenderer = {
-  send: (..._: any) => {},
-  on: (..._: any) => {}
-}
+import { Messenger, WindowMessenger } from "common/messenger/messenger"
 
 export default class SynthOutput {
+  private messenger: Messenger
+
   constructor(soundFontPath: string) {
-    ipcRenderer.send("create-synth")
-    ipcRenderer.on("did-create-synth-window", () => {
+    this.messenger = new WindowMessenger()
+    this.messenger.send("create-synth")
+    this.messenger.on("did-create-synth-window", () => {
       if (soundFontPath) {
         this.loadSoundFont(soundFontPath)
       }
     })
   }
 
-  loadSoundFont(path: string) {
-    ipcRenderer.send("synth", {
+  loadSoundFont(url: string) {
+    this.messenger.send("synth", {
       type: "load_soundfont",
-      payload: { path }
+      payload: { url }
     })
   }
 
   startRecording() {
-    ipcRenderer.send("synth", {
+    this.messenger.send("synth", {
       type: "start_recording"
     })
   }
 
   stopRecording() {
-    ipcRenderer.send("synth", {
+    this.messenger.send("synth", {
       type: "stop_recording"
     })
   }
@@ -37,7 +37,7 @@ export default class SynthOutput {
   }
 
   sendEvents(events: any[]) {
-    ipcRenderer.send("synth", {
+    this.messenger.send("synth", {
       type: "midi",
       payload: { events, timestamp: window.performance.now() }
     })

@@ -1,5 +1,5 @@
 import Track from "common/track"
-import { toTrackEvents } from "helpers/eventAssembler"
+import { toTrackEvents } from "common/helpers/toTrackEvents"
 
 import {
   trackNameMidiEvent,
@@ -19,12 +19,14 @@ import {
 } from "midi/MidiEvent"
 
 export function conductorTrack(name = "Conductor Track") {
-  const track = new Track([
+  const track = new Track()
+  const events = toTrackEvents([
     trackNameMidiEvent(0, name),
     timeSignatureMidiEvent(0),
     setTempoMidiEvent(0, 60000000 / 120),
     endOfTrackMidiEvent(0)
   ])
+  track.addEvents(events)
   return track
 }
 

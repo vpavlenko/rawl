@@ -2,7 +2,8 @@ import React, { SFC } from "react"
 import { controllerTypeString } from "helpers/noteNumberString"
 
 import "./EventList.css"
-import { TrackEvent } from "src/common/track"
+import { TrackEvent, TrackEventRequired } from "src/common/track"
+import { ControllerEvent } from "@signal-app/midifile-ts"
 
 interface TableProps {
   items: TrackEvent[]
@@ -42,10 +43,7 @@ const EventRow: SFC<EventRowProps> = ({ item }) => {
   )
 }
 
-function statusForEvent(e: TrackEvent) {
-  if (!("subtype" in e)) {
-    return
-  }
+function statusForEvent(e: any) {
   switch (e.subtype) {
     case "controller":
       return controllerTypeString(e.controllerType)

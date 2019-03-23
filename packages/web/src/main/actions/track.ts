@@ -97,21 +97,23 @@ export default (rootStore: RootStore) => {
     /* note */
 
     [CREATE_NOTE]: (tick: number, noteNumber: number) => {
-      // saveHistory()
+      saveHistory()
       tick = quantizer.floor(tick)
       const note: NoteEvent = {
         id: 0,
         type: "channel",
         subtype: "note",
         noteNumber: noteNumber,
-        deltaTime: 0,
         tick,
         velocity: 127,
-        duration: pianoRollStore.lastNoteDuration || quantizer.unit,
-        channel: selectedTrack.channel
+        duration: pianoRollStore.lastNoteDuration || quantizer.unit
       }
       const added = selectedTrack.addEvent(note)
-      player.playNote(added)
+
+      player.playNote({
+        ...note,
+        channel: selectedTrack.channel
+      })
       return added.id
     },
     [MOVE_NOTE]: ({
@@ -136,7 +138,10 @@ export default (rootStore: RootStore) => {
         }) as NoteEvent
 
         if (pitchChanged) {
-          player.playNote(n)
+          player.playNote({
+            ...n,
+            channel: selectedTrack.channel
+          })
         }
       }
     },

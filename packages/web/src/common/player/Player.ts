@@ -8,24 +8,31 @@ import {
   MIDIChannelEvents,
   AnyEvent
 } from "@signal-app/midifile-ts"
-import { toRawEvents } from "helpers/eventAssembler"
 
 import EventScheduler from "./EventScheduler"
 import Song from "common/song"
 import TrackMute from "common/trackMute"
-import { TrackEvent, TrackEventRequired, NoteEvent } from "../track"
+import { deassemble as deassembleNote } from "common/helpers/noteAssembler"
+import { deassemble as deassembleRPN } from "common/helpers/RPNAssembler"
+import { NoteEvent, TickProvider, DeltaTimeProvider } from "../track"
+import { PlayerEvent } from "./PlayerEvent"
 
 function firstByte(eventType: string, channel: number): number {
   return (MIDIChannelEvents[eventType] << 4) + channel
 }
 
-function collectAllEvents(song: Song): TrackEvent[] {
-  return _.chain(song.tracks)
-    .map(t => (t.events as any).toJS())
-    .flatten()
-    .map(toRawEvents)
-    .flatten()
-    .value()
+function collectAllEvents(song: Song): PlayerEvent[] {
+  return _.flatten(
+    song.tracks.map(t =>
+      _.chain(t.events)
+        .map(e => deassembleNote(e))
+        .flatten()
+        .map(e => deassembleRPN(e, x => ({ ...x, tick: e.tick })))
+        .flatten()
+        .map(e => ({ ...e, channel: t.channel }))
+        .value()
+    )
+  )
 }
 
 // 同じ名前のタスクを描画タイマーごとに一度だけ実行する
@@ -62,7 +69,7 @@ export interface LoopSetting {
 export default class Player extends EventEmitter {
   private _currentTempo = 120
   private _currentTick = 0
-  private _scheduler: EventScheduler<TrackEvent> = null
+  private _scheduler: EventScheduler<PlayerEvent> = null
   private _song: Song
   private _output: any
   private _timebase: number
@@ -182,7 +189,9 @@ export default class Player extends EventEmitter {
     noteNumber,
     velocity,
     duration
-  }: Pick<NoteEvent, "channel" | "noteNumber" | "velocity" | "duration">) {
+  }: Pick<NoteEvent, "noteNumber" | "velocity" | "duration"> & {
+    channel: number
+  }) {
     const timestamp = window.performance.now()
     this._sendMessage(
       [firstByte("noteOn", channel), noteNumber, velocity],

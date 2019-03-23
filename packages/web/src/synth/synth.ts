@@ -1,23 +1,22 @@
 import { Synthesizer, MidiMessageHandler } from "sf2synth/bin/synth"
 import Recorder from "opus-recorder"
+import { WindowMessenger } from "common/messenger/messenger"
 
 import "./synth.css"
 
-const ipcRenderer: any = {}
-
 type Message = number[]
 
-class SynthController {
-  eventsBuffer: any[] = []
+export default class SynthController {
+  private eventsBuffer: any[] = []
+
   // 送信元とのタイムスタンプの差
-  timestampOffset = 0
+  private timestampOffset = 0
 
-  handler = new MidiMessageHandler()
-
-  ctx: AudioContext
-  output: AudioNode
-  synth: Synthesizer
-  recorder: Recorder
+  private handler = new MidiMessageHandler()
+  private ctx: AudioContext
+  private output: AudioNode
+  private synth: Synthesizer
+  private recorder: Recorder
 
   constructor() {
     const ctx = new (window as any).AudioContext()
@@ -32,9 +31,20 @@ class SynthController {
 
     this.setupRecorder()
     this.startTimer()
+    this.bindMessenger()
   }
 
-  setupRecorder() {
+  private bindMessenger() {
+    const messenger = new WindowMessenger()
+    messenger.on("midi", payload => this.onMidi(payload))
+    messenger.on("load_soundfont", ({ url }) => this.loadSoundFont(url))
+    messenger.on("start_recording", () => this.startRecording())
+    messenger.on("stop_recording", () => this.stopRecording())
+
+    messenger.send("main", { type: "did-create-synth-window" })
+  }
+
+  private setupRecorder() {
     const recorder = new Recorder(this.ctx, {
       numberOfChannels: 2,
       encoderPath: "/libs/opus-recorder/waveWorker.min.js"
@@ -70,35 +80,32 @@ class SynthController {
     this.recorder = recorder
   }
 
-  startRecording() {
+  private startRecording() {
     this.recorder.initStream(this.output)
     this.recorder.start()
   }
 
-  stopRecording() {
+  private stopRecording() {
     this.recorder.stop()
   }
 
-  onMidi({ events, timestamp }: { events: any[]; timestamp: number }) {
+  private onMidi({ events, timestamp }: { events: any[]; timestamp: number }) {
     this.eventsBuffer = [...this.eventsBuffer, ...events]
     this.timestampOffset = window.performance.now() - timestamp
   }
 
-  loadSoundFont(path: string) {
-    // fs.readFile(path, (error, input) => {
-    //   if (!error) {
-    //     this.synth.loadSoundFont(input)
-    //   } else {
-    //     console.warn(error.message)
-    //   }
-    // })
+  private loadSoundFont(url: string) {
+    fetch(url)
+      .then(res => res.arrayBuffer())
+      .then(buf => this.synth.loadSoundFont(new Uint8Array(buf)))
+      .catch(e => console.warn(e.message))
   }
 
-  startTimer() {
+  private startTimer() {
     this.onTimer()
   }
 
-  onTimer() {
+  private onTimer() {
     // 再生時刻が現在より過去なら再生して削除
     const eventsToSend = this.eventsBuffer.filter(({ message, timestamp }) => {
       const delay = timestamp - window.performance.now() + this.timestampOffset
@@ -122,33 +129,6 @@ class SynthController {
     )
 
     requestAnimationFrame(() => this.onTimer())
-  }
-}
-
-export default class SynthApp {
-  init() {
-    const controller = new SynthController()
-
-    ipcRenderer.on("midi", (sender: any, payload: any) => {
-      controller.onMidi(payload)
-    })
-
-    ipcRenderer.on(
-      "load_soundfont",
-      (sender: any, { path }: { path: string }) => {
-        controller.loadSoundFont(path)
-      }
-    )
-
-    ipcRenderer.on("start_recording", () => {
-      controller.startRecording()
-    })
-
-    ipcRenderer.on("stop_recording", () => {
-      controller.stopRecording()
-    })
-
-    ipcRenderer.send("main", { type: "did-create-synth-window" })
   }
 }
 

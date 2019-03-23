@@ -17,7 +17,7 @@
   background: var(--theme-color);
   opacity: 0.5;
   left: 0;
-  border-radius: 1em 0 0  1em;
+  border-radius: 1em 0 0 1em;
 }
 
 .Slider .guide-right {
@@ -42,7 +42,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: rgb(255, 255, 255);
+  background: var(--background-color);
   font-size: 80%;
   padding: 0 0.3em;
   opacity: 0;

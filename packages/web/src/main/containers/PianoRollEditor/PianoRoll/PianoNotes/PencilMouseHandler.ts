@@ -61,7 +61,7 @@ export const createNoteAction = (dispatch: Dispatcher) => (
   let noteId: number
 
   onMouseDown((e: any) => {
-    noteId = dispatch(CREATE_NOTE, e)
+    noteId = dispatch(CREATE_NOTE, e.tick, e.noteNumber)
   })
 
   onMouseMove((e: any) => {
@@ -93,7 +93,7 @@ const moveNoteAction = (
     startPosition = e.local
     notePosition = e.item.bounds
     if (isCopy) {
-      noteId = dispatch(CREATE_NOTE, e)
+      noteId = dispatch(CREATE_NOTE, e.tick, e.noteNumber)
     } else {
       noteId = e.item.id
     }
@@ -121,7 +121,7 @@ const dragLeftNoteAction = (dispatch: Dispatcher) => (
   })
 
   onMouseMove((e: any) => {
-    dispatch(RESIZE_NOTE_LEFT, { id: noteId, tick: e.tick })
+    dispatch(RESIZE_NOTE_LEFT, noteId, e.tick)
   })
 }
 
@@ -136,7 +136,7 @@ const dragRightNoteAction = (dispatch: Dispatcher) => (
   })
 
   onMouseMove((e: any) => {
-    dispatch(RESIZE_NOTE_RIGHT, { id: noteId, tick: e.tick })
+    dispatch(RESIZE_NOTE_RIGHT, noteId, e.tick)
   })
 }
 

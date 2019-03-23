@@ -97,7 +97,7 @@ export default (rootStore: RootStore) => {
     /* note */
 
     [CREATE_NOTE]: (tick: number, noteNumber: number) => {
-      saveHistory()
+      // saveHistory()
       tick = quantizer.floor(tick)
       const note: NoteEvent = {
         id: 0,

@@ -60,12 +60,14 @@ export default class RootStore {
   }
 
   restoreState(serializedState: any) {
+    return
     const song = deserialize(Song, serializedState)
     song.onDeserialized()
     this.song = song
   }
 
   pushHistory() {
+    return
     const state = this.serializeUndoableState()
     this.historyStore.push(state)
   }

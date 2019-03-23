@@ -38,7 +38,7 @@
     "react-split-pane": "^0.1.85",
     "recompose": "^0.30.0",
     "serializr": "^1.5.0",
-    "sf2synth": "github:ryohey/sf2synth.js#b2d678d"
+    "sf2synth": "github:ryohey/sf2synth.js#73fea1f"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^4.1.13",

@@ -1,4 +1,4 @@
-import { Synthesizer, MidiMessageHandler } from "sf2synth/bin/sf2.synth.js"
+import { Synthesizer, MidiMessageHandler } from "sf2synth/bin/synth"
 import Recorder from "opus-recorder"
 
 import "./synth.css"

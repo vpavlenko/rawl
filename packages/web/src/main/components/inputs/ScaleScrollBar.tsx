@@ -1,5 +1,5 @@
 import React, { StatelessComponent, ReactNode, CSSProperties } from "react"
-import sizeMe, { withSize } from "react-sizeme"
+import { withSize } from "react-sizeme"
 import Icon from "components/Icon"
 import { ScrollBar, BAR_WIDTH, ScrollBarProps } from "./ScrollBar"
 import { ISize } from "common/geometry"

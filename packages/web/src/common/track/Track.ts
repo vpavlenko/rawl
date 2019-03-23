@@ -7,9 +7,7 @@ import {
   EndOfTrackEvent,
   ProgramChangeEvent,
   ControllerEvent,
-  AnyEvent,
-  TextEvent,
-  ChannelEvent
+  AnyEvent
 } from "@signal-app/midifile-ts"
 
 import { getInstrumentName } from "midi/GM"
@@ -20,11 +18,6 @@ import {
   TrackMidiEvent,
   NoteEvent
 } from "./TrackEvent"
-
-function lastValue<T>(arr: T[], prop: keyof T) {
-  const last = _.last(arr)
-  return last && last[prop]
-}
 
 type EventBeforeAdded = TrackMidiEvent | Omit<NoteEvent, "id">
 
@@ -90,7 +83,7 @@ export default class Track {
 
   // ソート、通知を行わない内部用の addEvent
   private _addEvent(e: EventBeforeAdded): TrackEvent {
-    if (!("tick" in e)) {
+    if (!("tick" in e) || isNaN(e.tick)) {
       throw new Error("invalid event is added")
     }
     const newEvent = {
@@ -127,7 +120,7 @@ export default class Track {
 
   @action updateEndOfTrack() {
     this.endOfTrack = _.chain(this.events)
-      .map(e => e.tick + ((e as any).duration || 0))
+      .map(e => e.tick + ("duration" in e ? e.duration : 0))
       .max()
       .value()
   }
@@ -141,8 +134,9 @@ export default class Track {
   findEventsWithSubtype<T extends AnyEvent>(
     subtype: string
   ): (T & TrackEventRequired)[] {
-    return this.events.filter(t => (t as any).subtype === subtype) as (T &
-      TrackEventRequired)[]
+    return this.events.filter(
+      t => "subtype" in t && t.subtype === subtype
+    ) as (T & TrackEventRequired)[]
   }
 
   private _findTrackNameEvent() {
@@ -191,7 +185,9 @@ export default class Track {
       e =>
         e.type === newEvent.type &&
         e.tick === newEvent.tick &&
-        (e as any).subtype === (newEvent as any).subtype
+        ("subtype" in e && "subtype" in newEvent
+          ? e.subtype === newEvent.subtype
+          : true)
     )
 
     if (events.length > 0) {
@@ -202,7 +198,7 @@ export default class Track {
       })
       return events[0]
     } else {
-      return this.addEvent(newEvent as any)
+      return this.addEvent(newEvent as EventBeforeAdded)
     }
   }
 
@@ -226,7 +222,7 @@ export default class Track {
   }
 
   get name(): string {
-    return lastValue(this._findTrackNameEvent(), "text") as string
+    return _.last(this._findTrackNameEvent()).text
   }
 
   set name(text: string) {
@@ -234,7 +230,7 @@ export default class Track {
   }
 
   get volume(): number {
-    return lastValue(this._findVolumeEvents(), "value") as number
+    return _.last(this._findVolumeEvents()).value
   }
 
   set volume(value: number) {
@@ -242,7 +238,7 @@ export default class Track {
   }
 
   get pan(): number {
-    return lastValue(this._findPanEvents(), "value") as number
+    return _.last(this._findPanEvents()).value
   }
 
   set pan(value: number) {
@@ -250,7 +246,7 @@ export default class Track {
   }
 
   get endOfTrack(): number {
-    return lastValue(this._findEndOfTrackEvents(), "tick") as number
+    return _.last(this._findEndOfTrackEvents()).tick
   }
 
   set endOfTrack(tick: number) {
@@ -258,7 +254,7 @@ export default class Track {
   }
 
   get programNumber(): number {
-    return lastValue(this._findProgramChangeEvents(), "value") as number
+    return _.last(this._findProgramChangeEvents()).value
   }
 
   set programNumber(value: number) {
@@ -266,10 +262,7 @@ export default class Track {
   }
 
   get tempo(): number {
-    return (
-      60000000 /
-      (lastValue(this._findSetTempoEvents(), "microsecondsPerBeat") as number)
-    )
+    return 60000000 / _.last(this._findSetTempoEvents()).microsecondsPerBeat
   }
 
   set tempo(bpm: number) {

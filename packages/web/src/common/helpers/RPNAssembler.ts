@@ -96,7 +96,7 @@ export function assemble<T>(events: (T | ControllerEvent)[]): (T | RPNEvent)[] {
 }
 
 function isRPNEvent(e: any): e is RPNEvent {
-  return (e as any).subtype === "rpn"
+  return "subtype" in e && e.subtype === "rpn"
 }
 
 export function deassemble<T, S extends ControllerEvent>(

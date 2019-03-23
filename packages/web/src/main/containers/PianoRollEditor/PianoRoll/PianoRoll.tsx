@@ -355,7 +355,7 @@ function createTransform(keyHeight: number, scaleX: number) {
 }
 
 export default compose<{}, {}>(
-  withSize(),
+  withSize({ monitorHeight: true }),
   inject(
     ({
       rootStore: {

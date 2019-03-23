@@ -1,6 +1,6 @@
 import React, { Component, SFC } from "react"
 import { observer, inject } from "mobx-react"
-import sizeMe, { withSize } from "react-sizeme"
+import { withSize } from "react-sizeme"
 
 import PianoGrid from "containers/PianoRollEditor/PianoRoll/PianoGrid"
 import PianoRuler from "containers/PianoRollEditor/PianoRoll/PianoRuler"
@@ -514,7 +514,7 @@ const mapStoreToProps = ({
 })
 
 export default compose(
-  withSize(),
+  withSize({ monitorHeight: true }),
   inject(mapStoreToProps),
   observer,
   stateful

@@ -1,5 +1,5 @@
 import React, { StatelessComponent, ReactNode } from "react"
-import sizeMe, { withSize } from "react-sizeme"
+import { withSize } from "react-sizeme"
 
 import Icon from "components/Icon"
 import { pointSub, IPoint, ISize } from "common/geometry"
@@ -249,7 +249,6 @@ export type VerticalScrollBarProps = Omit<VerticalScrollBar_Props, "size">
 export type HorizontalScrollBarProps = Omit<HorizontalScrollBar_Props, "size">
 
 export const VerticalScrollBar = withSize({
-  monitorHeight: true,
-  monitorWidth: false
+  monitorHeight: true
 })(VerticalScrollBar_)
 export const HorizontalScrollBar = withSize()(HorizontalScrollBar_)

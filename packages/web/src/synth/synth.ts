@@ -19,7 +19,7 @@ export default class SynthController {
   private recorder: Recorder
 
   constructor() {
-    const ctx = new (window as any).AudioContext()
+    const ctx = new AudioContext()
     const output = ctx.createGain()
     output.connect(ctx.destination)
     this.ctx = ctx

@@ -47,6 +47,9 @@ export function assemble<T>(
           }
           break
         }
+        default:
+          result.push(e)
+          break
       }
     } else {
       result.push(e)

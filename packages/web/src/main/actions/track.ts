@@ -50,8 +50,10 @@ export default (rootStore: RootStore) => {
     },
     [CREATE_TEMPO]: (tick: number, microsecondsPerBeat: number) => {
       saveHistory()
-      const e = setTempoMidiEvent(0, Math.round(microsecondsPerBeat)) as any
-      e.tick = quantizer.round(tick)
+      const e = {
+        ...setTempoMidiEvent(0, Math.round(microsecondsPerBeat)),
+        tick: quantizer.round(tick)
+      }
       song.conductorTrack.createOrUpdate(e)
     },
 

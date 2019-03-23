@@ -17,19 +17,20 @@ module.exports = {
     watchContentBase: true,
     overlay: {
       warnings: true,
-      errors: true,
-    },
+      errors: true
+    }
   },
+  devtool: "inline-source-map",
   module: {
     rules: [
       {
         test: /\.jsx?$/,
         use: "babel-loader",
-        exclude: [/node_modules/],
+        exclude: [/node_modules/]
       },
       {
         test: /\.tsx?$/,
-        use: "ts-loader",
+        use: "ts-loader"
       },
       {
         test: /\.css$/,
@@ -37,28 +38,26 @@ module.exports = {
       },
       {
         test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|eot|ttf)$/,
-        loader: "url-loader",
-      },
+        loader: "url-loader"
+      }
     ]
   },
   resolve: {
     modules: ["src", "node_modules", "src/main", "src/common"],
-    extensions: [
-      ".js", ".jsx", ".ts", ".tsx"
-    ],
+    extensions: [".js", ".jsx", ".ts", ".tsx"]
   },
   plugins: [
     new HtmlWebpackPlugin({
       inject: true,
       filename: "main.html",
       chunks: ["browserMain"],
-      template: path.join(__dirname, "public", "main.html"),
+      template: path.join(__dirname, "public", "main.html")
     }),
     new HtmlWebpackPlugin({
       inject: true,
       filename: "synth.html",
       chunks: ["browserSynth"],
-      template: path.join(__dirname, "public", "synth.html"),
+      template: path.join(__dirname, "public", "synth.html")
     })
   ]
 }

@@ -16,6 +16,17 @@ export default class PlayerStore {
     this.player.loop = loop
   }
 
+  @observable _position: number
+
+  @computed get position(): number {
+    return this._position
+  }
+
+  @action setPosition(position: number) {
+    this.player.position = position
+    this._position = position
+  }
+
   constructor(player: Player) {
     this.player = player
   }

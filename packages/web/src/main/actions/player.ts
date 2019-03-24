@@ -41,19 +41,20 @@ export default ({
         tick = Math.min(player.loop.end, tick)
       }
       player.loop.begin = tick
-      playerStore.loop = { ...player.loop }
+      playerStore.setLoop({ ...player.loop })
     },
     [SET_LOOP_END]: (tick: number) => {
       tick = quantizer.round(tick)
       if (player.loop.begin !== null) {
         tick = Math.max(player.loop.begin, tick)
       }
-      player.loop.end = tick
-      playerStore.loop = { ...player.loop }
+      playerStore.setLoop({
+        ...player.loop,
+        end: tick
+      })
     },
     [TOGGLE_ENABLE_LOOP]: () => {
-      player.loop.enabled = !player.loop.enabled
-      playerStore.loop = { ...player.loop }
+      playerStore.setLoop({ ...player.loop, enabled: !player.loop.enabled })
     }
   }
 }

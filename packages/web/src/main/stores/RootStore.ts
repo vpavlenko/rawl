@@ -30,7 +30,7 @@ export default class RootStore {
   @observable.ref song: Song = emptySong()
   router = new Router()
   trackMute = new TrackMute()
-  playerStore = new PlayerStore()
+  playerStore: PlayerStore
   historyStore = new HistoryStore()
   settingsStore = new SettingsStore()
   rootViewStore = new RootViewStore()
@@ -45,6 +45,7 @@ export default class RootStore {
     const player = new Player(TIME_BASE, synth, this.trackMute)
     const quantizer = new Quantizer(TIME_BASE)
     this.services = { player, quantizer, synth }
+    this.playerStore = new PlayerStore(player)
   }
 
   get dispatch() {

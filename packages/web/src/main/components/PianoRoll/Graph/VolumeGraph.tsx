@@ -5,7 +5,6 @@ import LineGraphControl, {
   LineGraphControlEvent
 } from "./LineGraphControl"
 import { Dispatcher } from "main/createDispatcher"
-import { CREATE_VOLUME } from "main/actions"
 import { ControllerEvent } from "@signal-app/midifile-ts"
 import { TrackEvent } from "common/track"
 
@@ -14,7 +13,7 @@ export type VolumeGraphProps = Omit<
   "createEvent" | "onClickAxis" | "maxValue" | "className" | "axis" | "events"
 > & {
   events: TrackEvent[]
-  dispatch: Dispatcher
+  createEvent: (value: number, tick?: number) => void
 }
 
 const VolumeGraph: StatelessComponent<VolumeGraphProps> = ({
@@ -23,7 +22,7 @@ const VolumeGraph: StatelessComponent<VolumeGraphProps> = ({
   scrollLeft,
   events,
   transform,
-  dispatch,
+  createEvent,
   color
 }) => {
   const filteredEvents = events.filter(
@@ -40,8 +39,8 @@ const VolumeGraph: StatelessComponent<VolumeGraphProps> = ({
       maxValue={127}
       events={filteredEvents}
       axis={[0, 0x20, 0x40, 0x60, 0x80 - 1]}
-      createEvent={obj => dispatch(CREATE_VOLUME, obj.value, obj.tick)}
-      onClickAxis={value => dispatch(CREATE_VOLUME, value)}
+      createEvent={obj => createEvent(obj.value, obj.tick)}
+      onClickAxis={value => createEvent(value)}
       color={color}
     />
   )

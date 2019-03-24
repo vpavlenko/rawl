@@ -1,13 +1,11 @@
-import { Dispatcher } from "main/createDispatcher"
-import { CHANGE_NOTES_VELOCITY } from "main/actions"
 import { StageMouseEvent } from "components/Stage/Stage"
 import Item from "components/Stage/Item"
 
 export default class VelocityMouseHandler {
-  dispatch: Dispatcher
+  private changeVelocity: (notes: Item[], velocity: number) => void
 
-  changeVelocity(notes: Item[], velocity: number) {
-    this.dispatch(CHANGE_NOTES_VELOCITY, notes, velocity)
+  constructor(changeVelocity: (notes: Item[], velocity: number) => void) {
+    this.changeVelocity = changeVelocity
   }
 
   onMouseDown = (e: StageMouseEvent<MouseEvent>) => {

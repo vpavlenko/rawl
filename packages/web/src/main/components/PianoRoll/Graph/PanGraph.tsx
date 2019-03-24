@@ -4,8 +4,6 @@ import LineGraphControl, {
   LineGraphControlProps,
   LineGraphControlEvent
 } from "./LineGraphControl"
-import { Dispatcher } from "main/createDispatcher"
-import { CREATE_PAN } from "main/actions"
 import { ControllerEvent } from "@signal-app/midifile-ts"
 import { TrackEvent } from "common/track"
 
@@ -14,7 +12,7 @@ export type PanGraphProps = Omit<
   "createEvent" | "onClickAxis" | "maxValue" | "className" | "axis" | "events"
 > & {
   events: TrackEvent[]
-  dispatch: Dispatcher
+  createEvent: (value: number, tick?: number) => void
 }
 
 const PanGraph: StatelessComponent<PanGraphProps> = ({
@@ -23,7 +21,7 @@ const PanGraph: StatelessComponent<PanGraphProps> = ({
   scrollLeft,
   events,
   transform,
-  dispatch,
+  createEvent,
   color
 }) => {
   const filteredEvents = events.filter(
@@ -40,8 +38,8 @@ const PanGraph: StatelessComponent<PanGraphProps> = ({
       maxValue={127}
       events={filteredEvents}
       axis={[-0x40, -0x20, 0, 0x20, 0x40 - 1]}
-      createEvent={obj => dispatch(CREATE_PAN, obj.value, obj.tick)}
-      onClickAxis={value => dispatch(CREATE_PAN, value + 0x40)}
+      createEvent={obj => createEvent(obj.value, obj.tick)}
+      onClickAxis={value => createEvent(value + 0x40)}
       color={color}
     />
   )

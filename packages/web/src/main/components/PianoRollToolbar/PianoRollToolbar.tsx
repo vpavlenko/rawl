@@ -10,11 +10,12 @@ import {
 import QuantizeSelector from "components/QuantizeSelector/QuantizeSelector"
 
 import "./PianoRollToolbar.css"
+import { PianoRollMouseMode } from "stores/PianoRollStore"
 
 export interface PianoRollToolbarProps {
   autoScroll: boolean
   onClickAutoScroll: (e: any) => void
-  mouseMode: number
+  mouseMode: PianoRollMouseMode
   onClickPencil: (e: any) => void
   onClickSelection: (e: any) => void
   quantize: number
@@ -32,10 +33,13 @@ export const PianoRollToolbar: StatelessComponent<PianoRollToolbarProps> = ({
 }) => {
   return (
     <Toolbar className="PianoRollToolbar">
-      <ToolbarItem onClick={onClickPencil} selected={mouseMode === 0}>
+      <ToolbarItem onClick={onClickPencil} selected={mouseMode === "pencil"}>
         <Icon>pencil</Icon>
       </ToolbarItem>
-      <ToolbarItem onClick={onClickSelection} selected={mouseMode === 1}>
+      <ToolbarItem
+        onClick={onClickSelection}
+        selected={mouseMode === "selection"}
+      >
         <Icon>select</Icon>
       </ToolbarItem>
 

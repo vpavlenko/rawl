@@ -2,12 +2,12 @@ import React, { Component } from "react"
 import { shouldUpdate, Omit } from "recompose"
 import _ from "lodash"
 
-import Stage from "components/Stage/Stage"
+import Stage, { StageMouseEvent } from "components/Stage/Stage"
 
 import VelocityItem from "./VelocityItem"
 import VelocityMouseHandler from "./VelocityMouseHandler"
 import { NoteCoordTransform } from "common/transform"
-import { Dispatcher } from "main/createDispatcher"
+import Item from "../../Stage/Item"
 
 export interface PianoVelocityControlProps {
   width: number
@@ -15,9 +15,8 @@ export interface PianoVelocityControlProps {
   events: any[]
   transform: NoteCoordTransform
   scrollLeft: number
-  dispatch: Dispatcher
   color: any
-  mouseHandler: any
+  onMouseDown: (e: StageMouseEvent<MouseEvent>) => void
 }
 
 function PianoVelocityControl({
@@ -26,9 +25,8 @@ function PianoVelocityControl({
   events,
   transform,
   scrollLeft,
-  dispatch,
   color,
-  mouseHandler
+  onMouseDown
 }: PianoVelocityControlProps) {
   const items = events
     .filter(e => e.subtype === "note")
@@ -45,8 +43,6 @@ function PianoVelocityControl({
       return new VelocityItem(note.id, bounds, note.selected, color)
     })
 
-  mouseHandler.dispatch = dispatch
-
   return (
     <Stage
       className="PianoControl VelocityControl"
@@ -54,33 +50,33 @@ function PianoVelocityControl({
       width={width}
       height={height}
       scrollLeft={scrollLeft}
-      onMouseDown={e => mouseHandler.onMouseDown(e)}
+      onMouseDown={onMouseDown}
     />
   )
 }
 
-interface State {
-  mouseHandler: any
+type Props = Omit<PianoVelocityControlProps, "onMouseDown"> & {
+  changeVelocity: (notes: Item[], velocity: number) => void
 }
 
-class _PianoVelocityControl extends Component<
-  PianoVelocityControlProps,
-  State
-> {
-  constructor(props: PianoVelocityControlProps) {
+class _PianoVelocityControl extends Component<Props> {
+  private mouseHandler: VelocityMouseHandler
+
+  constructor(props: Props) {
     super(props)
 
-    this.state = {
-      mouseHandler: new VelocityMouseHandler()
-    }
+    this.mouseHandler = new VelocityMouseHandler(props.changeVelocity)
   }
 
   render() {
-    return <PianoVelocityControl {...this.props} {...this.state} />
+    return (
+      <PianoVelocityControl
+        {...this.props}
+        onMouseDown={this.mouseHandler.onMouseDown}
+      />
+    )
   }
 }
-
-type Props = Omit<PianoVelocityControlProps, "mouseHandler">
 
 function test(props: Props, nextProps: Props) {
   return (

@@ -178,7 +178,7 @@ export default ({
       updateSelection(s)
     },
     [COPY_SELECTION]: () => {
-      if (mouseMode !== 1) {
+      if (mouseMode !== "selection") {
         // not selection mode
         return
       }

@@ -1,6 +1,8 @@
 import { observable } from "mobx"
 import SelectionModel from "common/selection"
 
+export type PianoRollMouseMode = "pencil" | "selection"
+
 export default class PianoRollStore {
   @observable scrollLeft = 0
   @observable scrollTop = 700 // 中央くらいの音程にスクロールしておく
@@ -8,7 +10,7 @@ export default class PianoRollStore {
   @observable cursorPosition = 0
   @observable notesCursor = "auto"
   @observable controlMode = "velocity"
-  @observable mouseMode = 0
+  @observable mouseMode: PianoRollMouseMode = "pencil"
   @observable scaleX = 1
   @observable scaleY = 1
   @observable autoScroll = true

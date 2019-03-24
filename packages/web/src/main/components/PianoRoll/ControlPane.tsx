@@ -19,7 +19,7 @@ import ModulationGraph from "./Graph/ModulationGraph"
 import PianoVelocityControl from "./PianoVelocityControl/PianoVelocityControl"
 
 import "./ControlPane.css"
-import { Dispatcher } from "main/createDispatcher"
+import Item from "../Stage/Item"
 
 interface ButtonItem {
   label: string
@@ -31,13 +31,13 @@ interface TabBarProps {
   buttons: ButtonItem[]
 }
 
-interface Event {
-  id: number
-  tick: number
-  subtype?: string
-  controllerType?: number
-  value: number
-}
+export type ControlMode =
+  | "velocity"
+  | "volume"
+  | "pitchBend"
+  | "expression"
+  | "modulation"
+  | "pan"
 
 const TabBar = pure(({ buttons }: TabBarProps) => {
   return (
@@ -55,17 +55,18 @@ const TabBar = pure(({ buttons }: TabBarProps) => {
   )
 })
 
-interface ControlPaneProps {
-  mode: string
+export interface ControlPaneProps {
+  mode: ControlMode
   theme: Theme
   beats: BeatWithX[]
   events: TrackEvent[]
   onSelectTab: (mode: string) => void
-  dispatch: Dispatcher
   transform: NoteCoordTransform
   scrollLeft: number
   paddingBottom: number
   size: ISize
+  changeVelocity: (notes: Item[], velocity: number) => void
+  createControlEvent: (mode: ControlMode, value: number, tick?: number) => void
 }
 
 const ControlPane: StatelessComponent<ControlPaneProps> = ({
@@ -74,13 +75,14 @@ const ControlPane: StatelessComponent<ControlPaneProps> = ({
   beats,
   events,
   onSelectTab,
-  dispatch,
   transform,
   scrollLeft,
   paddingBottom,
-  size
+  size,
+  changeVelocity,
+  createControlEvent
 }) => {
-  const controlButton = (label: string, name: string): ButtonItem => ({
+  const controlButton = (label: string, name: ControlMode): ButtonItem => ({
     label,
     selected: mode === name,
     onClick: () => onSelectTab(name)
@@ -95,11 +97,12 @@ const ControlPane: StatelessComponent<ControlPaneProps> = ({
   const controlProps = {
     events,
     transform,
-    dispatch,
     scrollLeft,
     width: containerWidth - theme.keyWidth - BORDER_WIDTH,
     height: containerHeight - TAB_HEIGHT - paddingBottom,
-    color: theme.themeColor
+    color: theme.themeColor,
+    createEvent: (value: number, tick?: number) =>
+      createControlEvent(mode, value, tick)
   }
 
   return (
@@ -115,7 +118,12 @@ const ControlPane: StatelessComponent<ControlPaneProps> = ({
         ]}
       />
       <div className="control-content">
-        {mode === "velocity" && <PianoVelocityControl {...controlProps} />}
+        {mode === "velocity" && (
+          <PianoVelocityControl
+            {...controlProps}
+            changeVelocity={changeVelocity}
+          />
+        )}
         {mode === "pitchBend" && <PitchGraph {...controlProps} />}
         {mode === "volume" && <VolumeGraph {...controlProps} />}
         {mode === "pan" && <PanGraph {...controlProps} />}
@@ -142,7 +150,6 @@ function test(props: ControlPaneProps, nextProps: ControlPaneProps) {
     !_.isEqual(props.beats, nextProps.beats) ||
     !_.isEqual(props.events, nextProps.events) ||
     !_.isEqual(props.onSelectTab, nextProps.onSelectTab) ||
-    !_.isEqual(props.dispatch, nextProps.dispatch) ||
     !_.isEqual(props.transform, nextProps.transform)
   )
 }

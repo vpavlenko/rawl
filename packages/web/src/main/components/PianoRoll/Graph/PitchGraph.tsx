@@ -5,8 +5,6 @@ import LineGraphControl, {
   LineGraphControlProps,
   LineGraphControlEvent
 } from "./LineGraphControl"
-import { Dispatcher } from "main/createDispatcher"
-import { CREATE_PITCH_BEND } from "main/actions"
 import { TrackEvent } from "common/track"
 
 export type PitchGraphProps = Omit<
@@ -14,7 +12,7 @@ export type PitchGraphProps = Omit<
   "createEvent" | "onClickAxis" | "maxValue" | "className" | "axis" | "events"
 > & {
   events: TrackEvent[]
-  dispatch: Dispatcher
+  createEvent: (value: number, tick?: number) => void
 }
 
 const PitchGraph: StatelessComponent<PitchGraphProps> = ({
@@ -23,7 +21,7 @@ const PitchGraph: StatelessComponent<PitchGraphProps> = ({
   scrollLeft,
   events,
   transform,
-  dispatch,
+  createEvent,
   color
 }) => {
   const filteredEvents = events.filter(
@@ -40,8 +38,8 @@ const PitchGraph: StatelessComponent<PitchGraphProps> = ({
       maxValue={0x4000}
       events={filteredEvents}
       axis={[-0x2000, -0x1000, 0, 0x1000, 0x2000 - 1]}
-      createEvent={obj => dispatch(CREATE_PITCH_BEND, obj.value, obj.tick)}
-      onClickAxis={value => dispatch(CREATE_PITCH_BEND, value + 0x2000)}
+      createEvent={obj => createEvent(obj.value, obj.tick)}
+      onClickAxis={value => createEvent(value + 0x2000)}
       color={color}
     />
   )

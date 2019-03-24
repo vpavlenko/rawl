@@ -4,8 +4,6 @@ import LineGraphControl, {
   LineGraphControlProps,
   LineGraphControlEvent
 } from "./LineGraphControl"
-import { Dispatcher } from "main/createDispatcher"
-import { CREATE_MODULATION } from "main/actions"
 import { ControllerEvent } from "@signal-app/midifile-ts"
 import { TrackEvent } from "common/track"
 
@@ -14,7 +12,7 @@ export type ModulationGraphProps = Omit<
   "createEvent" | "onClickAxis" | "maxValue" | "className" | "axis" | "events"
 > & {
   events: TrackEvent[]
-  dispatch: Dispatcher
+  createEvent: (value: number, tick?: number) => void
 }
 
 const ModulationGraph: StatelessComponent<ModulationGraphProps> = ({
@@ -23,7 +21,7 @@ const ModulationGraph: StatelessComponent<ModulationGraphProps> = ({
   scrollLeft,
   events,
   transform,
-  dispatch,
+  createEvent,
   color
 }) => {
   const filteredEvents = events.filter(
@@ -40,8 +38,8 @@ const ModulationGraph: StatelessComponent<ModulationGraphProps> = ({
       maxValue={127}
       events={filteredEvents}
       axis={[0, 0x20, 0x40, 0x60, 0x80 - 1]}
-      createEvent={obj => dispatch(CREATE_MODULATION, obj.value, obj.tick)}
-      onClickAxis={value => dispatch(CREATE_MODULATION, value)}
+      createEvent={obj => createEvent(obj.value, obj.tick)}
+      onClickAxis={value => createEvent(value)}
       color={color}
     />
   )

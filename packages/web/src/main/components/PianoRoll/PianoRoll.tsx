@@ -9,10 +9,9 @@ import { show as showEventEditor } from "components/EventEditor/EventEditor"
 import { HorizontalScaleScrollBar } from "components/inputs/ScaleScrollBar"
 import { BAR_WIDTH, VerticalScrollBar } from "components/inputs/ScrollBar"
 import mapBeats from "helpers/mapBeats"
-import { Dispatcher } from "main/createDispatcher"
 import React, { StatelessComponent } from "react"
 import SplitPane from "react-split-pane"
-import ControlPane from "./ControlPane"
+import ControlPane, { ControlMode, ControlPaneProps } from "./ControlPane"
 import PianoControlEvents, { DisplayEvent } from "./PianoControlEvents"
 import PianoCursor from "./PianoCursor"
 import PianoGrid from "./PianoGrid"
@@ -32,8 +31,10 @@ export interface PianoNotesMouseHandler {
   onMouseUp(e: PianoNotesMouseEvent<MouseEvent>): void
 }
 
-export interface PianoRollProps {
-  dispatch: Dispatcher
+export type PianoRollProps = Pick<
+  ControlPaneProps,
+  "createControlEvent" | "changeVelocity"
+> & {
   mouseHandler: PianoNotesMouseHandler
   theme: Theme
   track: Track
@@ -41,14 +42,13 @@ export interface PianoRollProps {
   transform: NoteCoordTransform
   beats: Beat[]
   endTick: number
-  mouseMode: number
   selection: SelectionModel
   alphaHeight: number
   scrollLeft: number
   scrollTop: number
   setScrollLeft: (scroll: number) => void
   setScrollTop: (scroll: number) => void
-  controlMode: string
+  controlMode: ControlMode
   setControlMode: (mode: string) => void
   notesCursor: string
   cursorPosition: number
@@ -65,7 +65,6 @@ export interface PianoRollProps {
 }
 
 export const PianoRoll: StatelessComponent<PianoRollProps> = ({
-  dispatch,
   mouseHandler,
   theme,
   track,
@@ -73,7 +72,6 @@ export const PianoRoll: StatelessComponent<PianoRollProps> = ({
   transform,
   beats,
   endTick,
-  mouseMode,
   selection,
   alphaHeight,
   scrollLeft,
@@ -93,7 +91,9 @@ export const PianoRoll: StatelessComponent<PianoRollProps> = ({
   onClickScaleDown,
   onClickScaleReset,
   setPlayerPosition,
-  previewNote
+  previewNote,
+  changeVelocity,
+  createControlEvent
 }) => {
   const { keyWidth, rulerHeight } = theme
 
@@ -230,11 +230,12 @@ export const PianoRoll: StatelessComponent<PianoRollProps> = ({
             theme={theme}
             beats={mappedBeats}
             events={events}
-            dispatch={dispatch}
             transform={transform}
             scrollLeft={scrollLeft}
             paddingBottom={BAR_WIDTH}
             onSelectTab={setControlMode}
+            changeVelocity={changeVelocity}
+            createControlEvent={createControlEvent}
           />
         </div>
       </SplitPane>

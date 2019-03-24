@@ -22,8 +22,8 @@ export default compose(
         quantize: s.quantize === 0 ? quantizer.denominator : s.quantize,
         mouseMode: s.mouseMode,
         autoScroll: s.autoScroll,
-        onClickPencil: () => (s.mouseMode = 0),
-        onClickSelection: () => (s.mouseMode = 1),
+        onClickPencil: () => (s.mouseMode = "pencil"),
+        onClickSelection: () => (s.mouseMode = "selection"),
         onClickAutoScroll: () => (s.autoScroll = !s.autoScroll),
         onSelectQuantize: e => {
           dispatch(SET_QUANTIZE_DENOMINATOR, e.denominator)

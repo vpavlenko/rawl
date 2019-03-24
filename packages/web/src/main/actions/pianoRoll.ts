@@ -29,7 +29,7 @@ export default ({ dispatch, pianoRollStore: s }: RootStore) => {
     },
 
     [TOGGLE_TOOL]: () => {
-      s.mouseMode = s.mouseMode === 0 ? 1 : 0
+      s.mouseMode = s.mouseMode === "pencil" ? "selection" : "pencil"
     }
   }
 }

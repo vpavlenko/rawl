@@ -1,7 +1,7 @@
 import React from "react"
-import TrackList from "containers/TrackList/TrackList"
 
 import "./Sidebar.css"
+import TrackList from "containers/TrackList/TrackList"
 
 // mac では閉じるボタンなどが表示される空白
 function TrafficLightsSpace() {

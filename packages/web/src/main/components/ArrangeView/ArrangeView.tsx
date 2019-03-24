@@ -275,7 +275,7 @@ export const ArrangeView: SFC<ArrangeViewProps> = ({
   }
 
   return (
-    <div className="alpha">
+    <div className="ArrangeView">
       <div
         className="right"
         onMouseDown={onMouseDown}

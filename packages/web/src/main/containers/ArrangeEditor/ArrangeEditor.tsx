@@ -4,6 +4,9 @@ import ArrangeToolbar from "./ArrangeToolbar"
 import RootStore from "stores/RootStore"
 import { compose } from "recompose"
 import { inject, observer } from "mobx-react"
+import ArrangeView from "./ArrangeView"
+
+import "./ArrangeEditor.css"
 
 interface ArrangeEditorProps {
   pushSettings: () => void
@@ -31,6 +34,7 @@ const ArrangeEditor: SFC<ArrangeEditorProps> = ({ pushSettings }) => {
           <NavItem title="settings" onClick={pushSettings} />
         </div>
       </NavigationBar>
+      <ArrangeView />
     </div>
   )
 }

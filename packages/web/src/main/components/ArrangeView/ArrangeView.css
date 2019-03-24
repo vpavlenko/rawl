@@ -1,12 +1,4 @@
 .ArrangeView {
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  position: relative;
-}
-
-.ArrangeView>.alpha {
   flex-grow: 1;
   display: flex;
   flex-direction: row;
@@ -51,7 +43,7 @@
   flex-grow: 1;
 }
 
-.ArrangeView .right>.content {
+.ArrangeView .right > .content {
   position: absolute;
   margin-top: var(--ruler-height);
   width: 100%;

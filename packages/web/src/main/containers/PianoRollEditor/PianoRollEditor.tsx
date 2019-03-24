@@ -22,10 +22,10 @@ import RootStore from "src/main/stores/RootStore"
 
 interface PianoRollEditorProps {
   track: Track
-  onChangeVolume: (e: any) => void
-  onChangePan: (e: any) => void
-  onClickInstrument: (e: any) => void
-  onClickNavBack: (e: any) => void
+  onChangeVolume: (value: number) => void
+  onChangePan: (value: number) => void
+  onClickInstrument: () => void
+  onClickNavBack: () => void
 }
 
 const PianoRollEditor: StatelessComponent<PianoRollEditorProps> = ({

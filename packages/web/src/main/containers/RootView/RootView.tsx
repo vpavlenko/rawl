@@ -26,11 +26,7 @@ interface RootViewProps {
   routerPath: string
 }
 
-const RootView: StatelessComponent<RootViewProps> = ({
-  song,
-  dispatch,
-  routerPath
-}) => {
+const RootView: StatelessComponent<RootViewProps> = ({ song, routerPath }) => {
   const { selectedTrack } = song
 
   const fileName = path.basename(song.filepath.replace(/\\/g, "/"))

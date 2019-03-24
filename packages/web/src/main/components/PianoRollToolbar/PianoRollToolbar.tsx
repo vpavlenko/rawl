@@ -14,10 +14,10 @@ import { PianoRollMouseMode } from "stores/PianoRollStore"
 
 export interface PianoRollToolbarProps {
   autoScroll: boolean
-  onClickAutoScroll: (e: any) => void
+  onClickAutoScroll: () => void
   mouseMode: PianoRollMouseMode
-  onClickPencil: (e: any) => void
-  onClickSelection: (e: any) => void
+  onClickPencil: () => void
+  onClickSelection: () => void
   quantize: number
   onSelectQuantize: (e: { denominator: number }) => void
 }

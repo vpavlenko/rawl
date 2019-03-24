@@ -10,7 +10,7 @@ import { Omit } from "recompose"
 interface ScaleButtonProps {
   style?: CSSProperties
   children?: ReactNode
-  onClick?: (e: any) => void
+  onClick?: () => void
 }
 
 const ScaleButton: StatelessComponent<ScaleButtonProps> = ({
@@ -30,9 +30,9 @@ type HorizontalScaleScrollBar_Props = Omit<
   "isVertical" | "barLength" | "style"
 > & {
   size: ISize
-  onClickScaleDown?: (e: any) => void
-  onClickScaleReset?: (e: any) => void
-  onClickScaleUp?: (e: any) => void
+  onClickScaleDown?: () => void
+  onClickScaleReset?: () => void
+  onClickScaleUp?: () => void
 }
 
 const HorizontalScaleScrollBar_: StatelessComponent<

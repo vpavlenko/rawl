@@ -18,10 +18,11 @@ import PianoGrid from "./PianoGrid"
 import PianoKeys from "./PianoKeys"
 import PianoLines from "./PianoLines"
 import PianoNotes, { PianoNotesMouseEvent } from "./PianoNotes/PianoNotes"
-import PianoRuler from "./PianoRuler"
+import PianoRuler, { TickEvent } from "./PianoRuler"
 import PianoSelection from "./PianoSelection"
 
 import "./PianoRoll.css"
+import { StageMouseEvent } from "../Stage/Stage"
 
 const SCROLL_KEY_SPEED = 4
 
@@ -121,18 +122,18 @@ export const PianoRoll: StatelessComponent<PianoRollProps> = ({
   scrollLeft = clampScroll(contentWidth - containerWidth, scrollLeft)
   scrollTop = clampScroll(contentHeight - alphaHeight, scrollTop)
 
-  const onMouseDownRuler = (e: any) => {
+  const onMouseDownRuler = (e: TickEvent<React.MouseEvent>) => {
     const tick = e.tick
-    if (e.ctrlKey) {
+    if (e.nativeEvent.ctrlKey) {
       setLoopBegin(tick)
-    } else if (e.altKey) {
+    } else if (e.nativeEvent.altKey) {
       setLoopEnd(tick)
     } else {
       setPlayerPosition(tick)
     }
   }
 
-  const onDoubleClickMark = (event: any, group: DisplayEvent[]) => {
+  const onDoubleClickMark = (group: DisplayEvent[]) => {
     showEventEditor(group)
   }
 
@@ -171,9 +172,9 @@ export const PianoRoll: StatelessComponent<PianoRollProps> = ({
               cursor={notesCursor}
               scrollLeft={scrollLeft}
               isDrumMode={track.isRhythmTrack}
-              onMouseDown={(e: any) => mouseHandler.onMouseDown(e)}
-              onMouseMove={(e: any) => mouseHandler.onMouseMove(e)}
-              onMouseUp={(e: any) => mouseHandler.onMouseUp(e)}
+              onMouseDown={e => mouseHandler.onMouseDown(e)}
+              onMouseMove={e => mouseHandler.onMouseMove(e)}
+              onMouseUp={e => mouseHandler.onMouseUp(e)}
               theme={theme}
             />
             <PianoSelection

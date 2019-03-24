@@ -15,7 +15,7 @@ export function Toolbar({ children, className }: ToolbarProps) {
 export interface ToolbarItemProps {
   children?: ReactNode
   selected?: boolean
-  onClick?: (e: any) => void
+  onClick?: () => void
   touchDisabled?: boolean
   className?: string
 }

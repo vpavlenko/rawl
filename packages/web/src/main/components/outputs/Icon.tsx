@@ -10,7 +10,7 @@ import "@mdi/font/css/materialdesignicons.css"
 export interface IconProps {
   component?: string
   className?: string
-  onClick?: (e: any) => void
+  onClick?: () => void
 }
 
 const Icon: StatelessComponent<IconProps> = ({

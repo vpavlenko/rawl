@@ -22,7 +22,7 @@ function displayControlName(e: DisplayEvent): string {
 interface ControlMarkProps {
   group: DisplayEvent[]
   pixelsPerTick: number
-  onDoubleClick: (e: any) => void
+  onDoubleClick: () => void
 }
 
 const ControlMark: StatelessComponent<ControlMarkProps> = ({
@@ -96,7 +96,7 @@ export interface PianoControlEventsProps {
   events: TrackEvent[]
   scrollLeft: number
   pixelsPerTick: number
-  onDoubleClickMark: (event: any, group: DisplayEvent[]) => void
+  onDoubleClickMark: (group: DisplayEvent[]) => void
 }
 
 const PianoControlEvents: StatelessComponent<PianoControlEventsProps> = ({
@@ -120,7 +120,7 @@ const PianoControlEvents: StatelessComponent<PianoControlEventsProps> = ({
               key={i}
               group={g}
               pixelsPerTick={pixelsPerTick}
-              onDoubleClick={e => onDoubleClickMark(e, g)}
+              onDoubleClick={() => onDoubleClickMark(g)}
             />
           ))}
         </div>

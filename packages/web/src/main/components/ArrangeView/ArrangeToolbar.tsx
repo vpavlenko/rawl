@@ -12,7 +12,7 @@ import "./ArrangeToolbar.css"
 
 export interface ArrangeToolbarProps {
   autoScroll: boolean
-  onClickAutoScroll: (e: any) => void
+  onClickAutoScroll: () => void
   quantize: number
   onSelectQuantize: (e: { denominator: number }) => void
 }

@@ -92,8 +92,9 @@ function drawLoopPoints(
   }
 }
 
-interface TickEvent {
+export interface TickEvent<E> {
   tick: number
+  nativeEvent: E
 }
 
 export interface PianoRulerProps {
@@ -103,9 +104,9 @@ export interface PianoRulerProps {
   scrollLeft: number
   beats: BeatWithX[]
   theme: Theme
-  onMouseDown?: (e: TickEvent) => void
-  onMouseMove?: (e: TickEvent) => void
-  onMouseUp?: (e: TickEvent) => void
+  onMouseDown?: (e: TickEvent<React.MouseEvent>) => void
+  onMouseMove?: (e: TickEvent<React.MouseEvent>) => void
+  onMouseUp?: (e: TickEvent<React.MouseEvent>) => void
   loop?: LoopSetting
 }
 
@@ -131,11 +132,10 @@ const PianoRuler: StatelessComponent<PianoRulerProps> = ({
     ctx.restore()
   }
 
-  const passTick = (func: (e: { tick: number }) => void) => (e: MouseEvent) =>
-    func &&
-    func({
-      tick: (e.nativeEvent.offsetX + scrollLeft) / pixelsPerTick
-    })
+  const extendEvent = (e: React.MouseEvent): TickEvent<React.MouseEvent> => ({
+    nativeEvent: e,
+    tick: (e.nativeEvent.offsetX + scrollLeft) / pixelsPerTick
+  })
 
   return (
     <DrawCanvas
@@ -143,9 +143,9 @@ const PianoRuler: StatelessComponent<PianoRulerProps> = ({
       className="PianoRuler"
       width={width}
       height={height}
-      onMouseDown={passTick(onMouseDown)}
-      onMouseMove={passTick(onMouseMove)}
-      onMouseUp={passTick(onMouseUp)}
+      onMouseDown={e => onMouseDown(extendEvent(e))}
+      onMouseMove={e => onMouseMove(extendEvent(e))}
+      onMouseUp={e => onMouseUp(extendEvent(e))}
     />
   )
 }

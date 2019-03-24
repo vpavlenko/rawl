@@ -8,15 +8,15 @@ import React, { StatelessComponent } from "react"
 import "./TransportPanel.css"
 
 export interface TransportPanelProps {
-  onClickPlay: (e: any) => void
-  onClickStop: (e: any) => void
-  onClickBackward: (e: any) => void
-  onClickForward: (e: any) => void
+  onClickPlay: () => void
+  onClickStop: () => void
+  onClickBackward: () => void
+  onClickForward: () => void
   loopEnabled: boolean
-  onClickEnableLoop: (e: any) => void
+  onClickEnableLoop: () => void
   mbtTime: string
   tempo: number
-  onClickTempo: (e: any) => void
+  onClickTempo: () => void
 }
 
 export const TransportPanel: StatelessComponent<TransportPanelProps> = ({

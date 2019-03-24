@@ -23,13 +23,13 @@ const SettingItem: StatelessComponent<SettingItemProps> = ({
 }
 
 interface SettingsViewProps {
-  onClickNavBack: (e: any) => void
+  onClickNavBack: () => void
   soundFontPath: string
-  onClickOpenSoundFont: (e: any) => void
-  clearSettings: (e: any) => void
-  onClickShowSynth: (e: any) => void
-  onClickStartRecording: (e: any) => void
-  onClickStopRecording: (e: any) => void
+  onClickOpenSoundFont: () => void
+  clearSettings: () => void
+  onClickShowSynth: () => void
+  onClickStartRecording: () => void
+  onClickStopRecording: () => void
 }
 
 const SettingsView: StatelessComponent<SettingsViewProps> = ({

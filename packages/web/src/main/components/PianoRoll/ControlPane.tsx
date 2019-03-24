@@ -24,7 +24,7 @@ import Item from "../Stage/Item"
 interface ButtonItem {
   label: string
   selected: boolean
-  onClick: (e: any) => void
+  onClick: () => void
 }
 
 interface TabBarProps {

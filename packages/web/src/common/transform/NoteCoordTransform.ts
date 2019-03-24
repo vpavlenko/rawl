@@ -1,4 +1,5 @@
 import _ from "lodash"
+import { NoteEvent } from "../track"
 
 export default class NoteCoordTransform {
   private _pixelsPerTick: number
@@ -65,7 +66,7 @@ export default class NoteCoordTransform {
     return (this._maxNoteNumber + 1) * this._pixelsPerKey
   }
 
-  getRect(note: any) {
+  getRect(note: NoteEvent) {
     return {
       x: this.getX(note.tick),
       y: this.getY(note.noteNumber),

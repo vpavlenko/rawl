@@ -8,7 +8,7 @@ export interface NavigationBarProps {
   title?: string
   children?: ReactNode
   className?: string
-  onClickBack?: (e: any) => void
+  onClickBack?: () => void
 }
 
 const NavigationBar: StatelessComponent<NavigationBarProps> = ({

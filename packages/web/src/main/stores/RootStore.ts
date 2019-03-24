@@ -34,7 +34,7 @@ export default class RootStore {
   historyStore = new HistoryStore()
   settingsStore = new SettingsStore()
   rootViewStore = new RootViewStore()
-  pianoRollStore = new PianoRollStore()
+  pianoRollStore: PianoRollStore
   arrangeViewStore = new ArrangeViewStore()
   tempoEditorStore = new TempoEditorStore()
 
@@ -45,6 +45,7 @@ export default class RootStore {
     const player = new Player(TIME_BASE, synth, this.trackMute)
     const quantizer = new Quantizer(TIME_BASE)
     this.services = { player, quantizer, synth }
+    this.pianoRollStore = new PianoRollStore(player)
     this.playerStore = new PlayerStore(player)
   }
 

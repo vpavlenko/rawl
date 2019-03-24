@@ -1,4 +1,3 @@
-import Player from "common/player/Player"
 import { NoteCoordTransform } from "common/transform"
 import {
   PREVIEW_NOTE,
@@ -13,7 +12,7 @@ import {
   CREATE_EXPRESSION
 } from "main/actions"
 import { inject, observer } from "mobx-react"
-import React, { Component } from "react"
+import React, { SFC, useState } from "react"
 import { withSize } from "react-sizeme"
 import { compose } from "recompose"
 import { PianoRollProps, PianoRoll } from "components/PianoRoll/PianoRoll"
@@ -24,102 +23,64 @@ import { Dispatcher } from "createDispatcher"
 import RootStore from "stores/RootStore"
 
 export type SPianoRollProps = PianoRollProps & {
-  player: Player
+  playerPosition: number
   autoScroll: boolean
-  setCursorPosition: (tick: number) => void
   scaleX: number
   mouseMode: PianoRollMouseMode
   dispatch: Dispatcher
 }
 
-export interface SPianoRollState {}
+const Wrapper: SFC<SPianoRollProps> = props => {
+  const {
+    dispatch,
+    selection,
+    theme,
+    size,
+    playerPosition,
+    mouseMode,
+    scrollLeft,
+    setScrollLeft,
+    scaleX = 1,
+    autoScroll = false
+  } = props
 
-class stateful extends Component<SPianoRollProps, SPianoRollState> {
-  private pencilMouseHandler = new PencilMouseHandler()
-  private selectionMouseHandler = new SelectionMouseHandler()
-  private alpha: HTMLElement
+  const [pencilMouseHandler] = useState(new PencilMouseHandler())
+  const [selectionMouseHandler] = useState(new SelectionMouseHandler())
+  const [alpha, setAlpha] = useState(null)
+  const transform = new NoteCoordTransform(0.1 * scaleX, theme.keyHeight, 127)
 
-  static defaultProps = {
-    endTick: 400,
-    scaleX: 1,
-    scaleY: 1,
-    autoScroll: false
-  }
+  pencilMouseHandler.dispatch = dispatch
+  pencilMouseHandler.transform = transform
+  selectionMouseHandler.dispatch = dispatch
+  selectionMouseHandler.transform = transform
+  selectionMouseHandler.selection = selection
 
-  componentDidMount() {
-    this.props.player.on("change-position", this.onTick)
-  }
+  const mouseHandler =
+    mouseMode === "pencil" ? pencilMouseHandler : selectionMouseHandler
 
-  componentWillUnmount() {
-    this.props.player.off("change-position", this.onTick)
-  }
-
-  onTick = (tick: number) => {
-    const {
-      autoScroll,
-      scrollLeft,
-      size,
-      setCursorPosition,
-      setScrollLeft,
-      theme,
-      scaleX
-    } = this.props
-    const transform = createTransform(theme.keyHeight, scaleX)
-    const x = transform.getX(tick)
-
-    setCursorPosition(tick)
-
-    // keep scroll position to cursor
-    if (autoScroll) {
-      const screenX = x - scrollLeft
-      if (screenX > size.width * 0.7 || screenX < 0) {
-        setScrollLeft(x)
-      }
+  // keep scroll position to cursor
+  if (autoScroll) {
+    const x = transform.getX(playerPosition)
+    const screenX = x - scrollLeft
+    if (screenX > size.width * 0.7 || screenX < 0) {
+      setScrollLeft(x)
     }
   }
 
-  shouldComponentUpdate(
-    nextProps: SPianoRollState,
-    nextState: SPianoRollState
-  ) {
-    return true
-  }
-
-  render() {
-    const { dispatch, selection, theme, scaleX } = this.props
-    const transform = createTransform(theme.keyHeight, scaleX)
-
-    this.pencilMouseHandler.dispatch = dispatch
-    this.pencilMouseHandler.transform = transform
-    this.selectionMouseHandler.dispatch = dispatch
-    this.selectionMouseHandler.transform = transform
-    this.selectionMouseHandler.selection = selection
-
-    const mouseHandler =
-      this.props.mouseMode === "pencil"
-        ? this.pencilMouseHandler
-        : this.selectionMouseHandler
-
-    return (
-      <PianoRoll
-        {...this.props}
-        {...this.state}
-        transform={transform}
-        mouseHandler={mouseHandler}
-        onMountAlpha={c => (this.alpha = c)}
-        alphaHeight={this.alpha ? this.alpha.getBoundingClientRect().height : 0}
-      />
-    )
-  }
-}
-
-function createTransform(keyHeight: number, scaleX: number) {
-  const pixelsPerTick = 0.1 * scaleX
-  return new NoteCoordTransform(pixelsPerTick, keyHeight, 127)
+  return (
+    <PianoRoll
+      {...props}
+      scrollLeft={scrollLeft}
+      setScrollLeft={setScrollLeft}
+      transform={transform}
+      mouseHandler={mouseHandler}
+      onMountAlpha={c => setAlpha(c)}
+      alphaHeight={alpha ? alpha.getBoundingClientRect().height : 0}
+    />
+  )
 }
 
 export default compose<{}, {}>(
-  withSize({ monitorHeight: true }),
   inject(
     ({
       rootStore: {
@@ -131,7 +92,7 @@ export default compose<{}, {}>(
         pianoRollStore: s,
         rootViewStore: { theme },
         playerStore,
-        services: { player, quantizer },
+        services: { quantizer },
         dispatch
       }
     }: {
@@ -154,7 +115,6 @@ export default compose<{}, {}>(
         controlMode: s.controlMode,
         setControlMode: v => (s.controlMode = v),
         cursorPosition: s.cursorPosition,
-        setCursorPosition: v => (s.cursorPosition = v),
         notesCursor: s.notesCursor,
         mouseMode: s.mouseMode,
         onChangeTool: () =>
@@ -164,7 +124,6 @@ export default compose<{}, {}>(
         onClickScaleReset: () => (s.scaleX = 1),
         loop: playerStore.loop,
         quantizer,
-        player,
         setLoopBegin: tick => dispatch(SET_LOOP_BEGIN, tick),
         setLoopEnd: tick => dispatch(SET_LOOP_END, tick),
         setPlayerPosition: tick => dispatch(SET_PLAYER_POSITION, tick),
@@ -191,8 +150,10 @@ export default compose<{}, {}>(
             }
           })()
           dispatch(type, value, tick)
-        }
+        },
+        playerPosition: playerStore.position
       } as Partial<SPianoRollProps>)
   ),
-  observer
-)(stateful)
+  observer,
+  withSize({ monitorHeight: true })
+)(Wrapper)

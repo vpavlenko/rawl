@@ -1,5 +1,6 @@
 import { observable } from "mobx"
 import SelectionModel from "common/selection"
+import Player from "src/common/player"
 
 export type PianoRollMouseMode = "pencil" | "selection"
 
@@ -17,4 +18,11 @@ export default class PianoRollStore {
   @observable quantize = 0
   @observable selection = new SelectionModel()
   @observable lastNoteDuration: number | null = null
+
+  constructor(player: Player) {
+    player.addListener(
+      "change-position",
+      position => (this.cursorPosition = position)
+    )
+  }
 }

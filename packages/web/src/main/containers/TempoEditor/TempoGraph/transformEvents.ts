@@ -1,7 +1,7 @@
 import TempoGraphItem from "./TempoGraphItem"
 import { SetTempoEvent } from "@signal-app/midifile-ts"
-import { TempoCoordTransform } from "src/common/transform"
-import { TrackEvent } from "src/common/track"
+import { TempoCoordTransform } from "common/transform"
+import { TrackEvent } from "common/track"
 
 const isSetTempoEvent = (e: any): e is TrackEvent & SetTempoEvent =>
   e.subtype == "setTempo"

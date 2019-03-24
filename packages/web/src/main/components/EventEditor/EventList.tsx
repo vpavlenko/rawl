@@ -2,7 +2,7 @@ import React, { SFC } from "react"
 import { controllerTypeString } from "helpers/noteNumberString"
 
 import "./EventList.css"
-import { TrackEvent, TrackEventRequired } from "src/common/track"
+import { TrackEvent, TrackEventRequired } from "common/track"
 import { ControllerEvent } from "@signal-app/midifile-ts"
 
 interface TableProps {

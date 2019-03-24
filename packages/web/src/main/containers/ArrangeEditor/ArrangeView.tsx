@@ -1,7 +1,7 @@
-import Player from "src/common/player"
-import { ISize, IPoint } from "src/common/geometry"
+import Player from "common/player"
+import { ISize, IPoint } from "common/geometry"
 import React, { Component } from "react"
-import { NoteCoordTransform } from "src/common/transform"
+import { NoteCoordTransform } from "common/transform"
 import RootStore from "stores/RootStore"
 import {
   SET_PLAYER_POSITION,
@@ -11,9 +11,9 @@ import {
   ARRANGE_MOVE_SELECTION,
   ARRANGE_OPEN_CONTEXT_MENU
 } from "actions"
-import { NotePoint } from "src/common/transform/NotePoint"
+import { NotePoint } from "common/transform/NotePoint"
 import { compose } from "recompose"
-import { withSize } from "src/react-sizeme"
+import { withSize } from "react-sizeme"
 import { inject, observer } from "mobx-react"
 import { ArrangeView } from "components/ArrangeView/ArrangeView"
 

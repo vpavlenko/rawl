@@ -1,5 +1,5 @@
 import { observable } from "mobx"
-import { LoopSetting } from "src/common/player"
+import { LoopSetting } from "common/player"
 
 export default class PlayerStore {
   // Player の状態と同期させるために必ず action 経由で変更すること

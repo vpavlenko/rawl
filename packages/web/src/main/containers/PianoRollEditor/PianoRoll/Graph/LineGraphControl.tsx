@@ -3,7 +3,7 @@ import { pure, Omit } from "recompose"
 import LineGraph, { LineGraphProps } from "./LineGraph"
 import { NoteCoordTransform } from "common/transform"
 import { StageMouseEvent } from "components/Stage/Stage"
-import { IPoint } from "src/common/geometry"
+import { IPoint } from "common/geometry"
 
 interface ItemValue {
   tick: number

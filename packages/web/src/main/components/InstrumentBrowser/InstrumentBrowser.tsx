@@ -7,7 +7,7 @@ import { GMMap, getGMMapIndexes, getGMMapProgramNumber } from "midi/GM.ts"
 import Popup from "components/Popup/Popup"
 
 import "./InstrumentBrowser.css"
-import Song from "src/common/song"
+import Song from "common/song"
 
 export interface Result {
   categoryId: number

@@ -5,7 +5,7 @@ import Popup from "components/Popup/Popup"
 import EventList from "./EventList"
 
 import "./EventEditor.css"
-import { TrackEvent } from "src/common/track"
+import { TrackEvent } from "common/track"
 
 interface EventEditorContentProps {
   events: TrackEvent[]

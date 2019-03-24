@@ -1,5 +1,5 @@
 import { observable } from "mobx"
-import { IRect } from "src/common/geometry"
+import { IRect } from "common/geometry"
 
 export default class ArrangeViewStore {
   @observable scrollLeft = 0

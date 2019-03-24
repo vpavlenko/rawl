@@ -3,7 +3,7 @@ import { observer, inject } from "mobx-react"
 import { compose } from "recompose"
 
 import NavigationBar from "components/groups/NavigationBar"
-import TempoGraph from "./TempoGraph/TempoGraph"
+import TempoGraph from "./TempoGraph"
 
 import "./TempoEditor.css"
 import RootStore from "stores/RootStore"

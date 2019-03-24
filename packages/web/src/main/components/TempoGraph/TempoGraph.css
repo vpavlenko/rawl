@@ -36,7 +36,7 @@
   left: 0;
   top: 0;
   height: 100%;
-  background: white;
+  background: var(--background-color);
   pointer-events: none;
   border-right: 1px solid var(--divider-color);
   box-shadow: 0px 0px 5px 0 rgba(0, 0, 0, 0.1);
@@ -46,7 +46,7 @@
   position: relative;
 }
 
-.TempoGraph .GraphAxis .values>div {
+.TempoGraph .GraphAxis .values > div {
   position: absolute;
   text-align: right;
   width: 100%;

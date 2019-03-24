@@ -104,3 +104,33 @@ export const MenuItem: StatelessComponent<MenuItemProps> = ({
     </div>
   )
 }
+
+export type ContextMenuBuilder = (close: () => void) => ContextMenuItemContent[]
+
+export function openContextMenu(
+  e: React.MouseEvent,
+  builder: ContextMenuBuilder
+) {
+  const contextMenu = (close: () => void) =>
+    createContextMenuComponent(builder(close))
+  const menuCreator = createContextMenu(contextMenu)
+  return menuCreator(e)
+}
+
+export interface ContextMenuItemContent {
+  isHidden?: boolean
+  label: string
+  onClick: () => void
+}
+
+export const createContextMenuComponent = (items: ContextMenuItemContent[]) => (
+  <ContextMenu>
+    {items
+      .filter(i => i.isHidden !== true)
+      .map((i, k) => (
+        <MenuItem key={k} onClick={i.onClick}>
+          {i.label}
+        </MenuItem>
+      ))}
+  </ContextMenu>
+)

@@ -1,6 +1,7 @@
-import { open as openContextMenu } from "components/PianoRoll/PianoContextMenu"
 import { IPoint } from "common/geometry"
 import RootStore from "../stores/RootStore"
+import { openContextMenu } from "../components/groups/ContextMenu"
+import { PianoContextMenu } from "../menus/PianoContextMenu"
 
 export const CHANGE_CURSOR = Symbol()
 export const SCROLL_BY = Symbol()
@@ -20,7 +21,7 @@ export default ({ dispatch, pianoRollStore: s }: RootStore) => {
     },
 
     [OPEN_CONTEXT_MENU]: (e: React.MouseEvent, isNoteSelected: boolean) => {
-      openContextMenu(dispatch, e, isNoteSelected)
+      openContextMenu(e, PianoContextMenu(dispatch, isNoteSelected))
     },
 
     [SET_CONTROL_MODE]: (name: string) => {

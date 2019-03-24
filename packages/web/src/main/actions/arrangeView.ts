@@ -1,9 +1,10 @@
 import { fromPoints as rectFromPoints, IPoint, IRect } from "common/geometry"
 import _ from "lodash"
 import clipboard from "services/Clipboard.ts"
-import { open as openContextMenu } from "components/ArrangeView/ArrangeContextMenu"
 import RootStore from "../stores/RootStore"
 import Track, { NoteEvent, isNoteEvent } from "common/track"
+import { openContextMenu } from "../components/groups/ContextMenu"
+import { ArrangeContextMenu } from "../menus/ArrangeContextMenu"
 
 export const ARRANGE_START_SELECTION = Symbol()
 export const ARRANGE_RESIZE_SELECTION = Symbol()
@@ -147,7 +148,7 @@ export default ({
       e: React.MouseEvent,
       isSelectionSelected: boolean
     ) => {
-      openContextMenu(dispatch, e, isSelectionSelected)
+      openContextMenu(e, ArrangeContextMenu(dispatch, isSelectionSelected))
     },
 
     [ARRANGE_COPY_SELECTION]: () => {

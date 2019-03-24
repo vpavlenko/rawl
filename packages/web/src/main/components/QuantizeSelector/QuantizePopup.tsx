@@ -1,5 +1,5 @@
 import React, { SFC } from "react"
-import Icon from "components/Icon"
+import Icon from "components/outputs/Icon"
 
 import "./QuantizePopup.css"
 

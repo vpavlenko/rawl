@@ -1,6 +1,6 @@
 import React, { StatelessComponent } from "react"
 import { pure } from "recompose"
-import Icon from "components/Icon"
+import Icon from "components/outputs/Icon"
 import "./Select.css"
 
 export interface SelectProps<ValueType> {

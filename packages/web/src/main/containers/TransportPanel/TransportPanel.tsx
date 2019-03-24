@@ -3,7 +3,7 @@ import {
   ToolbarItem,
   ToolbarSeparator
 } from "components/groups/Toolbar"
-import Icon from "components/Icon"
+import Icon from "components/outputs/Icon"
 import { TIME_BASE } from "Constants"
 import {
   MOVE_PLAYER_POSITION,

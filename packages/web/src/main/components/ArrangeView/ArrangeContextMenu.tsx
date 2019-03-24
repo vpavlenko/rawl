@@ -9,7 +9,7 @@ import {
   ARRANGE_DELETE_SELECTION,
   ARRANGE_PASTE_SELECTION
 } from "main/actions/arrangeView"
-import { Dispatcher } from "src/main/createDispatcher"
+import { Dispatcher } from "createDispatcher"
 
 interface ArrangeContextMenuProps {
   dispatch: Dispatcher

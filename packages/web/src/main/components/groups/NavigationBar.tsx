@@ -1,5 +1,5 @@
 import React, { StatelessComponent, ReactNode } from "react"
-import Icon from "components/Icon"
+import Icon from "components/outputs/Icon"
 import f from "helpers/flatJoin"
 
 import "./NavigationBar.css"

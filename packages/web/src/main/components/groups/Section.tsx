@@ -1,6 +1,6 @@
 import React, { Component, StatelessComponent, ReactNode } from "react"
 import Button from "components/inputs/Button"
-import Icon from "components/Icon"
+import Icon from "components/outputs/Icon"
 
 import "./Section.css"
 import { Omit } from "recompose"

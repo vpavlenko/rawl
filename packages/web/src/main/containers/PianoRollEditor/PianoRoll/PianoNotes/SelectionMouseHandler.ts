@@ -13,7 +13,7 @@ import {
   RESIZE_SELECTION_RIGHT
 } from "main/actions"
 import { NotePoint } from "src/common/transform/NotePoint"
-import { Dispatcher } from "src/main/createDispatcher"
+import { Dispatcher } from "createDispatcher"
 import { PianoNotesMouseEvent } from "./PianoNotes"
 
 export default class SelectionMouseHandler extends MouseHandler {

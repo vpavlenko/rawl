@@ -1,7 +1,7 @@
 import { Dispatcher } from "main/createDispatcher"
 import { CHANGE_NOTES_VELOCITY } from "main/actions"
-import { StageMouseEvent } from "src/main/components/Stage/Stage"
-import Item from "src/main/components/Stage/Item"
+import { StageMouseEvent } from "components/Stage/Stage"
+import Item from "components/Stage/Item"
 
 export default class VelocityMouseHandler {
   dispatch: Dispatcher

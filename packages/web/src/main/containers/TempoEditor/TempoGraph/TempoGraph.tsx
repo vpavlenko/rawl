@@ -21,7 +21,7 @@ import React, { Component, StatelessComponent } from "react"
 import { withSize } from "react-sizeme"
 import "./TempoGraph.css"
 import transformEvents from "./transformEvents"
-import RootStore from "src/main/stores/RootStore"
+import RootStore from "stores/RootStore"
 import { compose } from "recompose"
 
 type DisplayEvent = TrackEvent & SetTempoEvent

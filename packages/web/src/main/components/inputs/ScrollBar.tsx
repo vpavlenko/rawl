@@ -1,7 +1,7 @@
 import React, { StatelessComponent, ReactNode } from "react"
 import { withSize } from "react-sizeme"
 
-import Icon from "components/Icon"
+import Icon from "components/outputs/Icon"
 import { pointSub, IPoint, ISize } from "common/geometry"
 
 import "./ScrollBar.css"

@@ -4,7 +4,7 @@ import { compose } from "recompose"
 import NavigationBar from "components/groups/NavigationBar"
 
 import "./SettingsView.css"
-import RootStore from "src/main/stores/RootStore"
+import RootStore from "stores/RootStore"
 
 interface SettingItemProps {
   label: string

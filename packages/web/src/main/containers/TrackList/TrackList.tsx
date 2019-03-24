@@ -18,7 +18,7 @@ import {
   SET_TRACK_NAME,
   SELECT_TRACK
 } from "main/actions"
-import RootStore from "src/main/stores/RootStore"
+import RootStore from "stores/RootStore"
 
 interface TrackListProps {
   song: Song

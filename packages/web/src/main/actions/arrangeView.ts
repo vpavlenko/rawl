@@ -1,7 +1,7 @@
 import { fromPoints as rectFromPoints, IPoint, IRect } from "common/geometry"
 import _ from "lodash"
 import clipboard from "services/Clipboard.ts"
-import { open as openContextMenu } from "containers/ArrangeView/ArrangeContextMenu"
+import { open as openContextMenu } from "components/ArrangeView/ArrangeContextMenu"
 import RootStore from "../stores/RootStore"
 import Track, { NoteEvent, isNoteEvent } from "common/track"
 

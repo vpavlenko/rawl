@@ -4,7 +4,7 @@ import path from "path"
 import { observer, inject } from "mobx-react"
 
 import TempoEditor from "containers/TempoEditor/TempoEditor"
-import ArrangeView from "containers/ArrangeView/ArrangeView"
+import ArrangeEditor from "containers/ArrangeEditor/ArrangeEditor"
 import TransportPanel from "containers/TransportPanel/TransportPanel"
 import PianoRollEditor from "containers/PianoRollEditor/PianoRollEditor"
 import SettingsView from "containers/SettingsView/SettingsView"
@@ -55,7 +55,7 @@ const RootView: StatelessComponent<RootViewProps> = ({
         return withTransporter(
           <Fragment>
             <Sidebar />
-            <ArrangeView />
+            <ArrangeEditor />
           </Fragment>
         )
     }

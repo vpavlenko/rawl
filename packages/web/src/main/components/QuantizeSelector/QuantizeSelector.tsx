@@ -1,6 +1,6 @@
 import React from "react"
-import Icon from "components/Icon"
-import QuantizePopup from "components/QuantizePopup"
+import Icon from "components/outputs/Icon"
+import QuantizePopup from "components/QuantizeSelector/QuantizePopup"
 
 import "./QuantizeSelector.css"
 import { compose, withState, withHandlers, Omit } from "recompose"

@@ -2,7 +2,7 @@ import React, { StatelessComponent } from "react"
 import { pure, Omit } from "recompose"
 import LineGraph, { LineGraphProps } from "./LineGraph"
 import { NoteCoordTransform } from "common/transform"
-import { StageMouseEvent } from "src/main/components/Stage/Stage"
+import { StageMouseEvent } from "components/Stage/Stage"
 import { IPoint } from "src/common/geometry"
 
 interface ItemValue {

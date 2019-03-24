@@ -2,11 +2,11 @@ import React, { StatelessComponent } from "react"
 import { observer, inject } from "mobx-react"
 import { compose } from "recompose"
 
-import Icon from "components/Icon"
+import Icon from "components/outputs/Icon"
 import Knob from "components/inputs/Knob"
 import Slider from "components/inputs/Slider"
 import NavigationBar from "components/groups/NavigationBar"
-import { show as showInstrumentBrowser } from "components/InstrumentBrowser"
+import { show as showInstrumentBrowser } from "components/InstrumentBrowser/InstrumentBrowser"
 import Track from "common/track/Track"
 
 import PianoRoll from "./PianoRoll/PianoRoll"

@@ -6,7 +6,7 @@ import NavigationBar from "components/groups/NavigationBar"
 import TempoGraph from "./TempoGraph/TempoGraph"
 
 import "./TempoEditor.css"
-import RootStore from "src/main/stores/RootStore"
+import RootStore from "stores/RootStore"
 
 interface TempoEditorProps {
   onClickNavBack: () => void

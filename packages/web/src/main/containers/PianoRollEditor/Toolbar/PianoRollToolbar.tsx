@@ -1,19 +1,19 @@
 import React, { StatelessComponent } from "react"
 import { observer, inject } from "mobx-react"
 
-import Icon from "components/Icon"
+import Icon from "components/outputs/Icon"
 import {
   Toolbar,
   ToolbarItem,
   ToolbarSeparator
 } from "components/groups/Toolbar"
 
-import QuantizeSelector from "components/QuantizeSelector"
+import QuantizeSelector from "components/QuantizeSelector/QuantizeSelector"
 
 import "./PianoRollToolbar.css"
 import { compose } from "recompose"
 import { SET_QUANTIZE_DENOMINATOR } from "main/actions"
-import RootStore from "src/main/stores/RootStore"
+import RootStore from "stores/RootStore"
 
 export interface PianoRollToolbarProps {
   autoScroll: boolean

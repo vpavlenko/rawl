@@ -1,8 +1,8 @@
 import React from "react"
 import ReactDOM from "react-dom"
 
-import Popup from "components/Popup"
-import EventList from "components/EventList"
+import Popup from "components/Popup/Popup"
+import EventList from "./EventList"
 
 import "./EventEditor.css"
 import { TrackEvent } from "src/common/track"

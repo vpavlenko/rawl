@@ -2,6 +2,7 @@ import TempoGraphItem from "./TempoGraphItem"
 import { SetTempoEvent } from "@signal-app/midifile-ts"
 import { TempoCoordTransform } from "common/transform"
 import { TrackEvent } from "common/track"
+import { CanvasDrawStyle } from "main/style"
 
 const isSetTempoEvent = (e: any): e is TrackEvent & SetTempoEvent =>
   e.subtype == "setTempo"
@@ -10,8 +11,8 @@ export default (
   events: TrackEvent[],
   transform: TempoCoordTransform,
   width: number,
-  strokeColor: any,
-  fillColor: any
+  strokeColor: CanvasDrawStyle,
+  fillColor: CanvasDrawStyle
 ): TempoGraphItem[] => {
   // まず位置だけ計算する
   const items = events.filter(isSetTempoEvent).map(e => {

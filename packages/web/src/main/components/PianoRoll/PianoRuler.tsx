@@ -143,9 +143,9 @@ const PianoRuler: StatelessComponent<PianoRulerProps> = ({
       className="PianoRuler"
       width={width}
       height={height}
-      onMouseDown={e => onMouseDown(extendEvent(e))}
-      onMouseMove={e => onMouseMove(extendEvent(e))}
-      onMouseUp={e => onMouseUp(extendEvent(e))}
+      onMouseDown={e => onMouseDown && onMouseDown(extendEvent(e))}
+      onMouseMove={e => onMouseMove && onMouseMove(extendEvent(e))}
+      onMouseUp={e => onMouseUp && onMouseUp(extendEvent(e))}
     />
   )
 }

@@ -7,6 +7,7 @@ import _ from "lodash"
 import React, { StatelessComponent } from "react"
 import { shouldUpdate } from "recompose"
 import PianoNoteItem from "./PianoNoteItem"
+import { RGB, toRGB } from "common/color/rgb"
 
 export interface PianoNotesProps {
   events: TrackEvent[]
@@ -44,15 +45,9 @@ const PianoNotes: StatelessComponent<PianoNotesProps> = ({
   isDrumMode,
   theme
 }) => {
-  const color = Color(theme.themeColor)
-    .rgb()
-    .object()
-  const borderColor = Color(theme.textColor)
-    .rgb()
-    .object()
-  const selectedColor = Color(theme.textColor)
-    .rgb()
-    .object()
+  const color = toRGB(Color(theme.themeColor))
+  const borderColor = toRGB(Color(theme.textColor))
+  const selectedColor = toRGB(Color(theme.textColor))
 
   const items = events.filter(isNoteEvent).map(e => {
     const rect = transform.getRect(e)

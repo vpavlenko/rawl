@@ -4,6 +4,7 @@ import { pure, Omit } from "recompose"
 import Stage, { StageProps } from "components/Stage/Stage"
 import LineGraphItem from "./LineGraphItem"
 import { IPoint } from "common/geometry"
+import { CanvasDrawStyle } from "main/style"
 
 import "./LineGraph.css"
 
@@ -17,7 +18,7 @@ export type LineGraphProps = Omit<StageProps, "items"> & {
   className: string
   lineWidth?: number
   axis: number[]
-  color: any
+  color: CanvasDrawStyle
 }
 
 const LineGraph: StatelessComponent<LineGraphProps> = ({

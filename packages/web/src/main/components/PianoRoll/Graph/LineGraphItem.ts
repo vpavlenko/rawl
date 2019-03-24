@@ -4,14 +4,15 @@ import {
   right as rectRight,
   bottom as rectBottom
 } from "common/geometry"
+import { CanvasDrawStyle } from "src/main/style"
 
 export default class LineGraphItem implements Item {
   id: any
   bounds: IRect
   startY: number
   endY: number
-  strokeColor: any
-  fillColor: any
+  strokeColor: CanvasDrawStyle
+  fillColor: CanvasDrawStyle
   lineWidth: number
 
   constructor(
@@ -21,8 +22,8 @@ export default class LineGraphItem implements Item {
     endY: number,
     width: number,
     height: number,
-    strokeColor: any,
-    fillColor: any,
+    strokeColor: CanvasDrawStyle,
+    fillColor: CanvasDrawStyle,
     lineWidth: number
   ) {
     this.id = id

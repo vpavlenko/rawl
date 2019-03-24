@@ -8,6 +8,7 @@ import VelocityItem from "./VelocityItem"
 import { NoteCoordTransform } from "common/transform"
 import Item from "../../Stage/Item"
 import { TrackEvent, isNoteEvent } from "common/track"
+import { CanvasDrawStyle } from "main/style"
 
 export interface PianoVelocityControlProps {
   width: number
@@ -15,7 +16,7 @@ export interface PianoVelocityControlProps {
   events: TrackEvent[]
   transform: NoteCoordTransform
   scrollLeft: number
-  color: any
+  color: CanvasDrawStyle
   changeVelocity: (notes: Item[], velocity: number) => void
 }
 

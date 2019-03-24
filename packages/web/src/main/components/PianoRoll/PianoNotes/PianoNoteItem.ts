@@ -1,15 +1,7 @@
 import Item from "components/Stage/Item"
 import { IRect } from "common/geometry"
-
-interface RGB {
-  r: number
-  g: number
-  b: number
-}
-
-function colorStr({ r, g, b }: RGB, alpha = 1) {
-  return `rgba(${Math.round(r)}, ${Math.round(g)}, ${Math.round(b)}, ${alpha})`
-}
+import { CanvasDrawStyle } from "main/style"
+import { RGB, colorStr } from "common/color/rgb"
 
 export default class PianoNoteItem implements Item {
   id: number
@@ -18,9 +10,9 @@ export default class PianoNoteItem implements Item {
   velocity: number
   isSelected: boolean
   isDrum: boolean
-  color: any
-  borderColor: any
-  selectedColor: any
+  color: RGB
+  borderColor: CanvasDrawStyle
+  selectedColor: RGB
 
   constructor(
     id: number,
@@ -31,9 +23,9 @@ export default class PianoNoteItem implements Item {
     velocity: number,
     isSelected: boolean,
     isDrum: boolean,
-    color: any,
-    borderColor: any,
-    selectedColor: any
+    color: RGB,
+    borderColor: RGB,
+    selectedColor: RGB
   ) {
     this.id = id
     this.noteBounds = { x, y, width, height }

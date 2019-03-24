@@ -1,11 +1,12 @@
 import Item from "components/Stage/Item"
 import { IRect } from "common/geometry"
+import { CanvasDrawStyle } from "main/style"
 
 export default class TempoGraphItem implements Item {
   id: number
   bounds: IRect
-  fillColor: any
-  strokeColor: any
+  fillColor: CanvasDrawStyle
+  strokeColor: CanvasDrawStyle
 
   constructor(
     id: number,
@@ -13,8 +14,8 @@ export default class TempoGraphItem implements Item {
     y: number,
     width: number,
     height: number,
-    fillColor: any,
-    strokeColor: any
+    fillColor: CanvasDrawStyle,
+    strokeColor: CanvasDrawStyle
   ) {
     this.id = id
     this.bounds = { x, y, width, height }

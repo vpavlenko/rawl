@@ -5,7 +5,6 @@ import _ from "lodash"
 import Stage, { StageMouseEvent } from "components/Stage/Stage"
 
 import VelocityItem from "./VelocityItem"
-import VelocityMouseHandler from "./VelocityMouseHandler"
 import { NoteCoordTransform } from "common/transform"
 import Item from "../../Stage/Item"
 
@@ -60,21 +59,43 @@ type Props = Omit<PianoVelocityControlProps, "onMouseDown"> & {
 }
 
 class _PianoVelocityControl extends Component<Props> {
-  private mouseHandler: VelocityMouseHandler
-
   constructor(props: Props) {
     super(props)
-
-    this.mouseHandler = new VelocityMouseHandler(props.changeVelocity)
   }
 
   render() {
     return (
       <PianoVelocityControl
         {...this.props}
-        onMouseDown={this.mouseHandler.onMouseDown}
+        onMouseDown={e => this.onMouseDown(e)}
       />
     )
+  }
+
+  onMouseDown = (e: StageMouseEvent<MouseEvent>) => {
+    const items = e.items
+    if (items.length === 0) {
+      return
+    }
+
+    const { changeVelocity, height } = this.props
+
+    const calcValue = (e: MouseEvent) =>
+      Math.round(Math.max(0, Math.min(1, 1 - e.offsetY / height)) * 127)
+
+    changeVelocity(items, calcValue(e.nativeEvent))
+
+    const onMouseMove = (e: MouseEvent) => {
+      changeVelocity(items, calcValue(e))
+    }
+
+    const onMouseUp = () => {
+      document.removeEventListener("mousemove", onMouseMove)
+      document.removeEventListener("mouseup", onMouseUp)
+    }
+
+    document.addEventListener("mousemove", onMouseMove)
+    document.addEventListener("mouseup", onMouseUp)
   }
 }
 

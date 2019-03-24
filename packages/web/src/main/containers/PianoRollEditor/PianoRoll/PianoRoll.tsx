@@ -19,9 +19,9 @@ import { compose } from "recompose"
 import { PianoRollProps, PianoRoll } from "components/PianoRoll/PianoRoll"
 import PencilMouseHandler from "./MouseHandler/PencilMouseHandler"
 import SelectionMouseHandler from "./MouseHandler/SelectionMouseHandler"
-import { ControlMode } from "components/PianoRoll/ControlPane"
 import { PianoRollMouseMode } from "stores/PianoRollStore"
 import { Dispatcher } from "createDispatcher"
+import RootStore from "stores/RootStore"
 
 export type SPianoRollProps = PianoRollProps & {
   player: Player
@@ -134,61 +134,65 @@ export default compose<{}, {}>(
         services: { player, quantizer },
         dispatch
       }
-    }) => ({
-      track,
-      endTick,
-      beats,
-      theme,
-      events: track.events.toJS(), // 変更が反映されるように toJS() する
-      scaleX: s.scaleX,
-      scaleY: s.scaleY,
-      autoScroll: s.autoScroll,
-      selection: s.selection,
-      scrollLeft: s.scrollLeft,
-      setScrollLeft: (v: number) => (s.scrollLeft = v),
-      scrollTop: s.scrollTop,
-      setScrollTop: (v: number) => (s.scrollTop = v),
-      controlMode: s.controlMode,
-      setControlMode: (v: string) => (s.controlMode = v),
-      cursorPosition: s.cursorPosition,
-      setCursorPosition: (v: number) => (s.cursorPosition = v),
-      notesCursor: s.notesCursor,
-      setNotesCursor: (v: string) => (s.notesCursor = v),
-      mouseMode: s.mouseMode,
-      onChangeTool: () =>
-        (s.mouseMode = s.mouseMode === "pencil" ? "selection" : "pencil"),
-      onClickScaleUp: () => (s.scaleX = s.scaleX + 0.1),
-      onClickScaleDown: () => (s.scaleX = Math.max(0.05, s.scaleX - 0.1)),
-      onClickScaleReset: () => (s.scaleX = 1),
-      loop: playerStore.loop,
-      quantizer,
-      player,
-      setLoopBegin: (tick: number) => dispatch(SET_LOOP_BEGIN, tick),
-      setLoopEnd: (tick: number) => dispatch(SET_LOOP_END, tick),
-      setPlayerPosition: (tick: number) => dispatch(SET_PLAYER_POSITION, tick),
-      previewNote: (noteNumber: number, channel: number) =>
-        dispatch(PREVIEW_NOTE, noteNumber, channel),
-      dispatch,
-      createControlEvent: (mode: ControlMode, value: number, tick?: number) => {
-        const type = (() => {
-          switch (mode) {
-            case "volume":
-              return CREATE_VOLUME
-            case "pitchBend":
-              return CREATE_PITCH_BEND
-            case "pan":
-              return CREATE_PAN
-            case "modulation":
-              return CREATE_MODULATION
-            case "expression":
-              return CREATE_EXPRESSION
-            case "velocity":
-              throw new Error("invalid type")
-          }
-        })()
-        dispatch(type, value, tick)
-      }
-    })
+    }: {
+      rootStore: RootStore
+    }) =>
+      ({
+        track,
+        endTick,
+        beats,
+        theme,
+        events: (track.events as any).toJS(), // 変更が反映されるように toJS() する
+        scaleX: s.scaleX,
+        scaleY: s.scaleY,
+        autoScroll: s.autoScroll,
+        selection: s.selection,
+        scrollLeft: s.scrollLeft,
+        setScrollLeft: v => (s.scrollLeft = v),
+        scrollTop: s.scrollTop,
+        setScrollTop: v => (s.scrollTop = v),
+        controlMode: s.controlMode,
+        setControlMode: v => (s.controlMode = v),
+        cursorPosition: s.cursorPosition,
+        setCursorPosition: v => (s.cursorPosition = v),
+        notesCursor: s.notesCursor,
+        mouseMode: s.mouseMode,
+        onChangeTool: () =>
+          (s.mouseMode = s.mouseMode === "pencil" ? "selection" : "pencil"),
+        onClickScaleUp: () => (s.scaleX = s.scaleX + 0.1),
+        onClickScaleDown: () => (s.scaleX = Math.max(0.05, s.scaleX - 0.1)),
+        onClickScaleReset: () => (s.scaleX = 1),
+        loop: playerStore.loop,
+        quantizer,
+        player,
+        setLoopBegin: tick => dispatch(SET_LOOP_BEGIN, tick),
+        setLoopEnd: tick => dispatch(SET_LOOP_END, tick),
+        setPlayerPosition: tick => dispatch(SET_PLAYER_POSITION, tick),
+        previewNote: (noteNumber, channel) =>
+          dispatch(PREVIEW_NOTE, noteNumber, channel),
+        dispatch,
+        changeVelocity: (notes, velocity) =>
+          dispatch(CHANGE_NOTES_VELOCITY, notes, velocity),
+        createControlEvent: (mode, value, tick) => {
+          const type = (() => {
+            switch (mode) {
+              case "volume":
+                return CREATE_VOLUME
+              case "pitchBend":
+                return CREATE_PITCH_BEND
+              case "pan":
+                return CREATE_PAN
+              case "modulation":
+                return CREATE_MODULATION
+              case "expression":
+                return CREATE_EXPRESSION
+              case "velocity":
+                throw new Error("invalid type")
+            }
+          })()
+          dispatch(type, value, tick)
+        }
+      } as Partial<SPianoRollProps>)
   ),
   observer
 )(stateful)

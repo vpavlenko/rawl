@@ -28,8 +28,8 @@ export default class NoteMouseHandler {
   ): MouseGesture {
     // 共通の action
 
+    // wheel drag to start scrolling
     if (e.nativeEvent.button === 1) {
-      // wheel drag to start scrolling
       return dragScrollAction(this.dispatch)
     }
 
@@ -52,20 +52,13 @@ export default class NoteMouseHandler {
     if (!this.action) {
       return
     }
-    let actionMouseDown: MouseAction = () => {}
     this.actionMouseMove = () => {}
     this.actionMouseUp = () => {}
-    const registerMouseDown = (f: MouseAction) => {
-      actionMouseDown = f
-    }
-    const registerMouseMove = (f: MouseAction) => {
-      this.actionMouseMove = f
-    }
-    const registerMouseUp = (f: MouseAction) => {
-      this.actionMouseUp = f
-    }
-    this.action(registerMouseDown, registerMouseMove, registerMouseUp)
-    actionMouseDown(e)
+    this.action(
+      mouseDown => mouseDown(e),
+      f => (this.actionMouseMove = f),
+      f => (this.actionMouseUp = f)
+    )
   }
 
   onMouseMove(e: PianoNotesMouseEvent<MouseEvent>) {

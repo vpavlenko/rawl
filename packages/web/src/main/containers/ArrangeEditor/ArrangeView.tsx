@@ -1,6 +1,6 @@
 import Player from "common/player"
 import { ISize } from "common/geometry"
-import React, { SFC, useState } from "react"
+import React, { SFC, useState, useEffect } from "react"
 import { NoteCoordTransform } from "common/transform"
 import RootStore from "stores/RootStore"
 import {
@@ -53,14 +53,23 @@ const Wrapper: SFC<Props> = props => {
 
   const transform = new NoteCoordTransform(pixelsPerTick, keyHeight, 127)
 
-  // keep scroll position to cursor
-  if (autoScroll && isPlaying) {
-    const x = transform.getX(playerPosition)
-    const screenX = x - scrollLeft
-    if (screenX > size.width * 0.7 || screenX < 0) {
-      setScrollLeft(x)
+  useEffect(() => {
+    // keep scroll position to cursor
+    if (autoScroll && isPlaying) {
+      const x = transform.getX(playerPosition)
+      const screenX = x - scrollLeft
+      if (screenX > size.width * 0.7 || screenX < 0) {
+        setScrollLeft(x)
+      }
     }
-  }
+  }, [
+    autoScroll,
+    isPlaying,
+    scrollLeft,
+    playerPosition,
+    pixelsPerTick,
+    size.width
+  ])
 
   return (
     <ArrangeView

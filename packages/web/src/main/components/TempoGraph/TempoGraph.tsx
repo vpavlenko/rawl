@@ -115,7 +115,6 @@ export interface TempoGraphProps {
 }
 
 export const TempoGraph: StatelessComponent<TempoGraphProps> = ({
-  track,
   events: sourceEvents,
   size,
   pixelsPerTick,

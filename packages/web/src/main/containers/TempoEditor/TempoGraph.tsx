@@ -1,13 +1,11 @@
-import Player from "common/player/Player"
 import { TempoCoordTransform } from "common/transform"
 import { TempoGraph, TempoGraphProps } from "components/TempoGraph/TempoGraph"
 import { CHANGE_TEMPO, CREATE_TEMPO, SET_PLAYER_POSITION } from "main/actions"
 import { inject, observer } from "mobx-react"
-import React, { SFC, useState } from "react"
+import React, { SFC, useState, useEffect } from "react"
 import { withSize } from "react-sizeme"
-import { compose } from "recompose"
+import { compose, Omit } from "recompose"
 import RootStore from "stores/RootStore"
-import PlayerStore from "src/main/stores/PlayerStore"
 
 type Props = Pick<
   TempoGraphProps,
@@ -32,15 +30,25 @@ const Wrapper: SFC<Props> = props => {
   const { autoScroll, pixelsPerTick, size, playerPosition, isPlaying } = props
   const [scrollLeft, setScrollLeft] = useState(0)
 
-  // keep scroll position to cursor
-  if (autoScroll && isPlaying) {
-    const transform = new TempoCoordTransform(pixelsPerTick, size.height)
-    const x = transform.getX(playerPosition)
-    const screenX = x - scrollLeft
-    if (screenX > size.width * 0.7 || screenX < 0) {
-      setScrollLeft(x)
+  useEffect(() => {
+    // keep scroll position to cursor
+    if (autoScroll && isPlaying) {
+      const transform = new TempoCoordTransform(pixelsPerTick, size.height)
+      const x = transform.getX(playerPosition)
+      const screenX = x - scrollLeft
+      if (screenX > size.width * 0.7 || screenX < 0) {
+        setScrollLeft(x)
+      }
     }
-  }
+  }, [
+    autoScroll,
+    isPlaying,
+    scrollLeft,
+    size.width,
+    pixelsPerTick,
+    playerPosition
+  ])
+
   return (
     <TempoGraph
       {...props}
@@ -79,8 +87,9 @@ export default compose(
           dispatch(CHANGE_TEMPO, id, microsecondsPerBeat),
         createTempo: (tick, microsecondsPerBeat) =>
           dispatch(CREATE_TEMPO, tick, microsecondsPerBeat),
-        playerPosition: playerStore.position
-      } as Partial<Props>)
+        playerPosition: playerStore.position,
+        setPlayerPosition: tick => dispatch(SET_PLAYER_POSITION, tick)
+      } as Omit<Props, "size">)
   ),
   observer,
   withSize({ monitorHeight: true })

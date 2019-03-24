@@ -12,7 +12,7 @@ import {
   CREATE_EXPRESSION
 } from "main/actions"
 import { inject, observer } from "mobx-react"
-import React, { SFC, useState } from "react"
+import React, { SFC, useState, useEffect } from "react"
 import { withSize } from "react-sizeme"
 import { compose } from "recompose"
 import { PianoRollProps, PianoRoll } from "components/PianoRoll/PianoRoll"
@@ -60,14 +60,16 @@ const Wrapper: SFC<SPianoRollProps> = props => {
   const mouseHandler =
     mouseMode === "pencil" ? pencilMouseHandler : selectionMouseHandler
 
-  // keep scroll position to cursor
-  if (autoScroll && isPlaying) {
-    const x = transform.getX(playerPosition)
-    const screenX = x - scrollLeft
-    if (screenX > size.width * 0.7 || screenX < 0) {
-      setScrollLeft(x)
+  useEffect(() => {
+    // keep scroll position to cursor
+    if (autoScroll && isPlaying) {
+      const x = transform.getX(playerPosition)
+      const screenX = x - scrollLeft
+      if (screenX > size.width * 0.7 || screenX < 0) {
+        setScrollLeft(x)
+      }
     }
-  }
+  }, [autoScroll, isPlaying, scaleX, scrollLeft, playerPosition])
 
   return (
     <PianoRoll

@@ -76,8 +76,8 @@ export const ContextMenu: StatelessComponent<ContextMenuProps> = ({
 
 export interface MenuItemProps {
   children?: ReactNode
-  onClick: (e: any) => void
-  onMouseDown?: (e: any) => void
+  onClick: () => void
+  onMouseDown?: () => void
 }
 
 export const MenuItem: StatelessComponent<MenuItemProps> = ({
@@ -87,17 +87,17 @@ export const MenuItem: StatelessComponent<MenuItemProps> = ({
 }) => {
   function _onClick(e: React.MouseEvent) {
     e.stopPropagation()
-    onClick(e)
+    onClick()
   }
   function _onMouseDown(e: React.MouseEvent) {
     e.stopPropagation()
-    onMouseDown(e)
+    onMouseDown && onMouseDown()
   }
   return (
     <div
       className="item"
-      onClick={onClick && _onClick}
-      onMouseDown={onMouseDown && _onMouseDown}
+      onClick={_onClick}
+      onMouseDown={_onMouseDown}
       onContextMenu={e => e.preventDefault()}
     >
       {children}

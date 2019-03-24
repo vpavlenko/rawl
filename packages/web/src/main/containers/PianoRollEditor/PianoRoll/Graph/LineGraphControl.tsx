@@ -2,7 +2,7 @@ import React, { StatelessComponent } from "react"
 import { pure, Omit } from "recompose"
 import LineGraph, { LineGraphProps } from "./LineGraph"
 import { NoteCoordTransform } from "common/transform"
-import { ItemEvent } from "src/main/components/Stage/Stage"
+import { StageMouseEvent } from "src/main/components/Stage/Stage"
 import { IPoint } from "src/common/geometry"
 
 interface ItemValue {
@@ -56,7 +56,7 @@ const LineGraphControl: StatelessComponent<LineGraphControlProps> = ({
     }
   })
 
-  const onMouseDown = (e: ItemEvent) => {
+  const onMouseDown = (e: StageMouseEvent<MouseEvent>) => {
     createEvent(transformFromPosition(e.local))
   }
 

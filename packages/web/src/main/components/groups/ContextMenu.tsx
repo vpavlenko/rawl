@@ -3,7 +3,7 @@ import ReactDOM from "react-dom"
 
 import { IPoint } from "common/geometry"
 
-import styles from "./ContextMenu.css"
+import "./ContextMenu.css"
 
 function renderElement(html: string) {
   const template = document.createElement("template")
@@ -25,7 +25,7 @@ export const createContextMenu = (childrenProvider: React.Factory<any>) => (
     }
   }
 
-  const elm = renderElement(`<div />`)
+  const elm = renderElement(`<div class="ContextMenu" />`)
   document.querySelector("body").appendChild(elm)
 
   const close = () => elm.parentNode.removeChild(elm)
@@ -49,7 +49,7 @@ export const ContextMenuOverlay: StatelessComponent<
 > = ({ children, position, close }) => {
   return (
     <div
-      className={styles.overlay}
+      className="overlay"
       onMouseDown={close}
       onContextMenu={e => e.preventDefault()}
     >
@@ -68,7 +68,7 @@ export const ContextMenu: StatelessComponent<ContextMenuProps> = ({
   children
 }) => {
   return (
-    <div className={styles.menu} onContextMenu={e => e.preventDefault()}>
+    <div className="menu" onContextMenu={e => e.preventDefault()}>
       {children}
     </div>
   )
@@ -95,7 +95,7 @@ export const MenuItem: StatelessComponent<MenuItemProps> = ({
   }
   return (
     <div
-      className={styles.item}
+      className="item"
       onClick={onClick && _onClick}
       onMouseDown={onMouseDown && _onMouseDown}
       onContextMenu={e => e.preventDefault()}

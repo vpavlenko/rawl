@@ -8,21 +8,25 @@ import {
   intersects as rectIntersects
 } from "common/geometry"
 
-type ReactMouseEvent = React.MouseEvent<HTMLElement>
-
-export interface ItemEvent {
+export interface StageMouseEvent<E> {
+  nativeEvent: E
   items: Item[]
   local: IPoint
 }
 
+interface PointerEvent {
+  offsetX: number
+  offsetY: number
+}
+
 export interface StageProps {
   items: Item[]
-  onMouseDown?: (e: ItemEvent & ReactMouseEvent) => void
-  onMouseMove?: (e: ItemEvent & (MouseEvent | ReactMouseEvent)) => void
-  onMouseUp?: (e: ItemEvent & MouseEvent) => void
-  onWheel?: (e: ItemEvent & React.WheelEvent<HTMLCanvasElement>) => void
-  onDoubleClick?: (e: ItemEvent & ReactMouseEvent) => void
-  onContextMenu?: (e: ItemEvent & ReactMouseEvent) => void
+  onMouseDown?: (e: StageMouseEvent<MouseEvent>) => void
+  onMouseMove?: (e: StageMouseEvent<MouseEvent>) => void
+  onMouseUp?: (e: StageMouseEvent<MouseEvent>) => void
+  onWheel?: (e: StageMouseEvent<WheelEvent>) => void
+  onDoubleClick?: (e: StageMouseEvent<MouseEvent>) => void
+  onContextMenu?: (e: StageMouseEvent<MouseEvent>) => void
   width: number
   height: number
   scrollLeft?: number
@@ -36,20 +40,20 @@ export interface StageProps {
  */
 const Stage: StatelessComponent<StageProps> = ({
   items,
-  onMouseDown: _onMouseDown,
-  onMouseMove: _onMouseMove,
-  onMouseUp: _onMouseUp,
-  onWheel: _onWheel,
-  onDoubleClick: _onDoubleClick,
-  onContextMenu: _onContextMenu,
+  onMouseDown: _onMouseDown = () => {},
+  onMouseMove: _onMouseMove = () => {},
+  onMouseUp: _onMouseUp = () => {},
+  onWheel: _onWheel = () => {},
+  onDoubleClick: _onDoubleClick = () => {},
+  onContextMenu: _onContextMenu = () => {},
   width,
   height,
-  scrollLeft,
-  scrollTop,
-  className,
-  style
+  scrollLeft = 0,
+  scrollTop = 0,
+  className = "",
+  style = {}
 }) => {
-  function draw(ctx: CanvasRenderingContext2D): void {
+  const draw = (ctx: CanvasRenderingContext2D) => {
     const { width, height } = ctx.canvas
     ctx.clearRect(0, 0, width, height)
 
@@ -59,7 +63,7 @@ const Stage: StatelessComponent<StageProps> = ({
     ctx.restore()
   }
 
-  function drawItems(ctx: CanvasRenderingContext2D): void {
+  const drawItems = (ctx: CanvasRenderingContext2D) => {
     const viewRect = { x: scrollLeft, y: scrollTop, width, height }
     const displayedItems = items.filter(item =>
       rectIntersects(viewRect, item.bounds)
@@ -67,9 +71,22 @@ const Stage: StatelessComponent<StageProps> = ({
     displayedItems.forEach(item => item.render(ctx))
   }
 
+  const extendEvent = <T extends PointerEvent>(e: T): StageMouseEvent<T> => {
+    const local = {
+      x: e.offsetX + scrollLeft,
+      y: e.offsetY + scrollTop
+    }
+    const hitItems = items.filter(item => rectContainsPoint(item.bounds, local))
+    return {
+      nativeEvent: e,
+      items: hitItems,
+      local
+    }
+  }
+
   let isMouseDown = false
 
-  function onMouseDown(e: ReactMouseEvent): void {
+  const onMouseDown = (e: React.MouseEvent) => {
     e.nativeEvent.preventDefault()
     isMouseDown = true
 
@@ -84,24 +101,24 @@ const Stage: StatelessComponent<StageProps> = ({
       rectContainsPoint(item.bounds, startPos)
     )
 
-    function onMouseMove(e: MouseEvent): void {
+    const onMouseMove = (e: MouseEvent) => {
       e.preventDefault()
       const local = { x: e.clientX - left, y: e.clientY - top }
       _onMouseMove({
-        ...e,
+        nativeEvent: e,
         items: clickedItems,
         local
       })
     }
 
-    function onMouseUp(e: MouseEvent): void {
+    const onMouseUp = (e: MouseEvent) => {
       e.preventDefault()
       document.removeEventListener("mousemove", onMouseMove)
       document.removeEventListener("mouseup", onMouseUp)
 
       const local = { x: e.clientX - left, y: e.clientY - top }
       _onMouseUp({
-        ...e,
+        nativeEvent: e,
         items: clickedItems,
         local
       })
@@ -112,43 +129,28 @@ const Stage: StatelessComponent<StageProps> = ({
     document.addEventListener("mouseup", onMouseUp)
 
     _onMouseDown({
-      ...e,
+      nativeEvent: e.nativeEvent,
       items: clickedItems,
       local: startPos
     })
   }
 
-  function onWheel(e: React.WheelEvent<HTMLCanvasElement>) {
-    _onWheel(extendEvent(e))
-  }
+  const onWheel = (e: React.WheelEvent<HTMLCanvasElement>) =>
+    _onWheel(extendEvent(e.nativeEvent))
 
-  function onMouseMoveCanvas(e: ReactMouseEvent) {
+  const onMouseMoveCanvas = (e: React.MouseEvent) => {
     // ドラッグ中はウィンドウ外も扱うため document の eventListener から呼ぶが、
     // そうでないときはここから呼ぶ
     if (!isMouseDown) {
-      _onMouseMove(extendEvent(e))
+      _onMouseMove(extendEvent(e.nativeEvent))
     }
   }
 
-  function onDoubleClick(e: ReactMouseEvent) {
-    _onDoubleClick(extendEvent(e))
-  }
+  const onDoubleClick = (e: React.MouseEvent) =>
+    _onDoubleClick(extendEvent(e.nativeEvent))
 
-  function onContextMenu(e: ReactMouseEvent) {
-    _onContextMenu(extendEvent(e))
-  }
-
-  function extendEvent<T extends ReactMouseEvent>(e: T): T & ItemEvent {
-    const local = {
-      x: e.nativeEvent.offsetX + scrollLeft,
-      y: e.nativeEvent.offsetY + scrollTop
-    }
-    const hitItems = items.filter(item => rectContainsPoint(item.bounds, local))
-    return Object.assign({}, e, {
-      items: hitItems,
-      local
-    })
-  }
+  const onContextMenu = (e: React.MouseEvent) =>
+    _onContextMenu(extendEvent(e.nativeEvent))
 
   return (
     <DrawCanvas
@@ -164,19 +166,6 @@ const Stage: StatelessComponent<StageProps> = ({
       style={style}
     />
   )
-}
-
-Stage.defaultProps = {
-  onMouseDown: () => {},
-  onMouseMove: () => {},
-  onMouseUp: () => {},
-  onWheel: () => {},
-  onDoubleClick: () => {},
-  onContextMenu: () => {},
-  scrollLeft: 0,
-  scrollTop: 0,
-  className: "",
-  style: {}
 }
 
 export default Stage

@@ -115,7 +115,7 @@ interface ArrangeViewProps {
   onClickScaleUp: () => void
   onClickScaleDown: () => void
   onClickScaleReset: () => void
-  openContextMenu: (x: number, y: number, isSelectionSelected: boolean) => void
+  openContextMenu: (e: React.MouseEvent, isSelectionSelected: boolean) => void
 }
 
 const ArrangeView: SFC<ArrangeViewProps> = ({
@@ -270,7 +270,7 @@ const ArrangeView: SFC<ArrangeViewProps> = ({
     const startPos = createPoint(e.nativeEvent)
     const isSelectionSelected =
       selection != null && containsPoint(selection, startPos)
-    openContextMenu(e.pageX, e.pageY, isSelectionSelected)
+    openContextMenu(e, isSelectionSelected)
   }
 
   function onMouseDown(e: React.MouseEvent) {
@@ -358,7 +358,7 @@ const ArrangeView: SFC<ArrangeViewProps> = ({
             <PianoSelection
               width={containerWidth}
               height={contentHeight}
-              color="black"
+              color={theme.themeColor}
               selectionBounds={selectionRect}
             />
             <PianoCursor
@@ -506,11 +506,8 @@ const mapStoreToProps = ({
   resizeSelection: (start: NotePoint, end: NotePoint) =>
     dispatch(ARRANGE_RESIZE_SELECTION, { start, end }),
   moveSelection: (pos: IPoint) => dispatch(ARRANGE_MOVE_SELECTION, pos),
-  openContextMenu: (x: number, y: number, isSelectionSelected: boolean) =>
-    dispatch(ARRANGE_OPEN_CONTEXT_MENU, {
-      position: { x, y },
-      isSelectionSelected
-    })
+  openContextMenu: (e: React.MouseEvent, isSelectionSelected: boolean) =>
+    dispatch(ARRANGE_OPEN_CONTEXT_MENU, e, isSelectionSelected)
 })
 
 export default compose(

@@ -1,4 +1,4 @@
-import NoteMouseHandler, { MouseAction } from "./NoteMouseHandler"
+import NoteMouseHandler, { MouseGesture } from "./NoteMouseHandler"
 import { pointSub, pointAdd, IPoint } from "common/geometry"
 import pencilImage from "images/iconmonstr-pencil-14-16.png"
 import { NoteCoordTransform } from "common/transform"
@@ -10,11 +10,14 @@ import {
   RESIZE_NOTE_RIGHT
 } from "main/actions"
 import { Dispatcher } from "src/main/createDispatcher"
+import { PianoNotesMouseEvent } from "./PianoNotes"
 
 export default class PencilMouseHandler extends NoteMouseHandler {
   transform: NoteCoordTransform
 
-  protected actionForMouseDown(e: any) {
+  protected actionForMouseDown(
+    e: PianoNotesMouseEvent<MouseEvent>
+  ): MouseGesture {
     const original = super.actionForMouseDown(e)
     if (original) {
       return original
@@ -22,17 +25,17 @@ export default class PencilMouseHandler extends NoteMouseHandler {
 
     const { dispatch, transform } = this
 
-    if (e.button !== 0) {
+    if (e.nativeEvent.button !== 0) {
       return null
     }
 
     if (e.item) {
-      if (e.detail === 2) {
+      if (e.nativeEvent.detail === 2) {
         return removeNoteAction(dispatch)
       } else {
         switch (getPositionType(e)) {
           case "center":
-            return moveNoteAction(dispatch, transform, e.ctrlKey)
+            return moveNoteAction(dispatch, transform, e.nativeEvent.ctrlKey)
           case "left":
             return dragLeftNoteAction(dispatch)
           case "right":
@@ -46,7 +49,7 @@ export default class PencilMouseHandler extends NoteMouseHandler {
     }
   }
 
-  getCursorForMouseMove(e: any) {
+  getCursorForMouseMove(e: PianoNotesMouseEvent<MouseEvent>) {
     if (e.item) {
       return cursorForPositionType(getPositionType(e))
     }
@@ -54,17 +57,17 @@ export default class PencilMouseHandler extends NoteMouseHandler {
   }
 }
 
-export const createNoteAction = (dispatch: Dispatcher) => (
-  onMouseDown: MouseAction,
-  onMouseMove: MouseAction
+export const createNoteAction = (dispatch: Dispatcher): MouseGesture => (
+  onMouseDown,
+  onMouseMove
 ) => {
   let noteId: number
 
-  onMouseDown((e: any) => {
+  onMouseDown(e => {
     noteId = dispatch(CREATE_NOTE, e.tick, e.noteNumber)
   })
 
-  onMouseMove((e: any) => {
+  onMouseMove(e => {
     dispatch(MOVE_NOTE, {
       id: noteId,
       tick: e.tick,
@@ -74,22 +77,22 @@ export const createNoteAction = (dispatch: Dispatcher) => (
   })
 }
 
-const removeNoteAction = (dispatch: Dispatcher) => (
-  onMouseDown: MouseAction
-) => {
-  onMouseDown((e: any) => dispatch(REMOVE_EVENT, { eventId: e.item.id }))
+const removeNoteAction = (
+  dispatch: Dispatcher
+): MouseGesture => onMouseDown => {
+  onMouseDown(e => dispatch(REMOVE_EVENT, { eventId: e.item.id }))
 }
 
 const moveNoteAction = (
   dispatch: Dispatcher,
   transform: NoteCoordTransform,
   isCopy: boolean
-) => (onMouseDown: MouseAction, onMouseMove: MouseAction) => {
+): MouseGesture => (onMouseDown, onMouseMove) => {
   let startPosition: IPoint
   let notePosition: IPoint
   let noteId: number
 
-  onMouseDown((e: any) => {
+  onMouseDown(e => {
     startPosition = e.local
     notePosition = e.item.bounds
     if (isCopy) {
@@ -99,7 +102,7 @@ const moveNoteAction = (
     }
   })
 
-  onMouseMove((e: any) => {
+  onMouseMove(e => {
     const position = pointAdd(notePosition, pointSub(e.local, startPosition))
     dispatch(MOVE_NOTE, {
       id: noteId,
@@ -110,32 +113,32 @@ const moveNoteAction = (
   })
 }
 
-const dragLeftNoteAction = (dispatch: Dispatcher) => (
-  onMouseDown: MouseAction,
-  onMouseMove: MouseAction
+const dragLeftNoteAction = (dispatch: Dispatcher): MouseGesture => (
+  onMouseDown,
+  onMouseMove
 ) => {
   let noteId: number
 
-  onMouseDown((e: any) => {
+  onMouseDown(e => {
     noteId = e.item.id
   })
 
-  onMouseMove((e: any) => {
+  onMouseMove(e => {
     dispatch(RESIZE_NOTE_LEFT, noteId, e.tick)
   })
 }
 
-const dragRightNoteAction = (dispatch: Dispatcher) => (
-  onMouseDown: MouseAction,
-  onMouseMove: MouseAction
+const dragRightNoteAction = (dispatch: Dispatcher): MouseGesture => (
+  onMouseDown,
+  onMouseMove
 ) => {
   let noteId: number
 
-  onMouseDown((e: any) => {
+  onMouseDown(e => {
     noteId = e.item.id
   })
 
-  onMouseMove((e: any) => {
+  onMouseMove(e => {
     dispatch(RESIZE_NOTE_RIGHT, noteId, e.tick)
   })
 }
@@ -152,7 +155,7 @@ function cursorForPositionType(type: string) {
   }
 }
 
-function getPositionType({ local, item }: any) {
+function getPositionType({ local, item }: PianoNotesMouseEvent<MouseEvent>) {
   if (item.isDrum) {
     return "center"
   }

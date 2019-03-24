@@ -6,7 +6,7 @@ import Color from "color"
 import { NoteCoordTransform } from "common/transform"
 import Theme from "common/theme"
 
-import Stage, { ItemEvent } from "components/Stage/Stage"
+import Stage, { StageMouseEvent } from "components/Stage/Stage"
 
 import PianoNoteItem from "./PianoNoteItem"
 
@@ -22,6 +22,12 @@ export interface PianoNotesProps {
   onMouseUp: any
   isDrumMode: boolean
   theme: Theme
+}
+
+export interface PianoNotesMouseEvent<E> extends StageMouseEvent<E> {
+  tick: number
+  noteNumber: number
+  item: PianoNoteItem
 }
 
 /**
@@ -72,12 +78,14 @@ const PianoNotes: StatelessComponent<PianoNotesProps> = ({
   const height = transform.pixelsPerKey * transform.numberOfKeys
 
   // MouseHandler で利用する追加情報をイベントに付加する
-  const extendEvent = (e: ItemEvent) =>
-    Object.assign(e, {
-      item: e.items[0],
-      tick: transform.getTicks(e.local.x),
-      noteNumber: Math.ceil(transform.getNoteNumber(e.local.y))
-    })
+  const extendEvent = <S, T extends StageMouseEvent<S>>(
+    e: T
+  ): PianoNotesMouseEvent<S> => ({
+    ...e,
+    item: e.items[0] as PianoNoteItem,
+    tick: transform.getTicks(e.local.x),
+    noteNumber: Math.ceil(transform.getNoteNumber(e.local.y))
+  })
 
   return (
     <Stage
@@ -86,7 +94,7 @@ const PianoNotes: StatelessComponent<PianoNotesProps> = ({
       width={width}
       height={height}
       scrollLeft={scrollLeft}
-      onContextMenu={e => e.preventDefault()}
+      onContextMenu={e => e.nativeEvent.preventDefault()}
       onMouseDown={e => onMouseDown(extendEvent(e))}
       onMouseMove={e => onMouseMove(extendEvent(e))}
       onMouseUp={e => onMouseUp(extendEvent(e))}

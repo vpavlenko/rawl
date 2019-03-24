@@ -10,7 +10,6 @@ import {
   ARRANGE_PASTE_SELECTION
 } from "main/actions/arrangeView"
 import { Dispatcher } from "src/main/createDispatcher"
-import { IPoint } from "src/common/geometry"
 
 interface ArrangeContextMenuProps {
   dispatch: Dispatcher
@@ -70,13 +69,11 @@ function ArrangeContextMenu({
 
 export function open(
   dispatch: Dispatcher,
-  {
-    position,
-    isSelectionSelected
-  }: { position: React.MouseEvent; isSelectionSelected: boolean }
+  e: React.MouseEvent,
+  isSelectionSelected: boolean
 ) {
   const contextMenu = (close: () => void) =>
     ArrangeContextMenu({ dispatch, isSelectionSelected, close })
   const menuCreator = createContextMenu(contextMenu)
-  return menuCreator(position)
+  return menuCreator(e)
 }

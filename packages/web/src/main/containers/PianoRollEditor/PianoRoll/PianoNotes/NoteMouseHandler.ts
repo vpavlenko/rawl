@@ -1,12 +1,13 @@
 import { Dispatcher } from "main/createDispatcher"
 import { CHANGE_CURSOR, SCROLL_BY, TOGGLE_TOOL } from "main/actions"
-import { ItemEvent } from "src/main/components/Stage/Stage"
+import { PianoNotesMouseEvent } from "./PianoNotes"
 
-export type MouseAction = (e: any) => void
-type MouseGesture = (
-  onMouseDown: MouseAction,
-  onMouseMove?: MouseAction,
-  onMouseUp?: MouseAction
+export type MouseAction = (e: PianoNotesMouseEvent<MouseEvent>) => void
+
+export type MouseGesture = (
+  onMouseDown: (action: MouseAction) => void,
+  onMouseMove?: (action: MouseAction) => void,
+  onMouseUp?: (action: MouseAction) => void
 ) => void
 
 export default class NoteMouseHandler {
@@ -22,16 +23,18 @@ export default class NoteMouseHandler {
   }
 
   // mousedown 以降に行う MouseAction を返す
-  protected actionForMouseDown(e: any): MouseGesture {
+  protected actionForMouseDown(
+    e: PianoNotesMouseEvent<MouseEvent>
+  ): MouseGesture {
     // 共通の action
 
-    if (e.button === 1) {
+    if (e.nativeEvent.button === 1) {
       // wheel drag to start scrolling
       return dragScrollAction(this.dispatch)
     }
 
     // 右ダブルクリック
-    if (e.button === 2 && e.detail % 2 === 0) {
+    if (e.nativeEvent.button === 2 && e.nativeEvent.detail % 2 === 0) {
       return changeToolAction(this.dispatch)
     }
 
@@ -39,12 +42,12 @@ export default class NoteMouseHandler {
     return null
   }
 
-  protected getCursorForMouseMove(_: ItemEvent): string {
+  protected getCursorForMouseMove(_: PianoNotesMouseEvent<MouseEvent>): string {
     // サブクラスで実装
     return "auto"
   }
 
-  onMouseDown(e: any) {
+  onMouseDown(e: PianoNotesMouseEvent<MouseEvent>) {
     this.action = this.actionForMouseDown(e)
     if (!this.action) {
       return
@@ -65,7 +68,7 @@ export default class NoteMouseHandler {
     actionMouseDown(e)
   }
 
-  onMouseMove(e: MouseEvent & ItemEvent) {
+  onMouseMove(e: PianoNotesMouseEvent<MouseEvent>) {
     if (this.action) {
       this.actionMouseMove(e)
     } else {
@@ -74,7 +77,7 @@ export default class NoteMouseHandler {
     }
   }
 
-  onMouseUp(e: MouseEvent) {
+  onMouseUp(e: PianoNotesMouseEvent<MouseEvent>) {
     if (this.action) {
       this.actionMouseUp(e)
     }
@@ -82,23 +85,27 @@ export default class NoteMouseHandler {
   }
 }
 
-const dragScrollAction = (dispatch: Dispatcher) => () => {
-  const onGlobalMouseMove = (e: MouseEvent) => {
-    dispatch(SCROLL_BY, { x: e.movementX, y: e.movementY })
-  }
+const dragScrollAction = (
+  dispatch: Dispatcher
+): MouseGesture => onMouseDown => {
+  onMouseDown(() => {
+    const onGlobalMouseMove = (e: MouseEvent) => {
+      dispatch(SCROLL_BY, { x: e.movementX, y: e.movementY })
+    }
 
-  const onGlobalMouseUp = () => {
-    document.removeEventListener("mousemove", onGlobalMouseMove)
-    document.removeEventListener("mouseup", onGlobalMouseUp)
-  }
+    const onGlobalMouseUp = () => {
+      document.removeEventListener("mousemove", onGlobalMouseMove)
+      document.removeEventListener("mouseup", onGlobalMouseUp)
+    }
 
-  document.addEventListener("mousemove", onGlobalMouseMove)
-  document.addEventListener("mouseup", onGlobalMouseUp)
+    document.addEventListener("mousemove", onGlobalMouseMove)
+    document.addEventListener("mouseup", onGlobalMouseUp)
+  })
 }
 
-const changeToolAction = (dispatch: Dispatcher) => (
-  onMouseDown: MouseAction
-) => {
+const changeToolAction = (
+  dispatch: Dispatcher
+): MouseGesture => onMouseDown => {
   onMouseDown(() => {
     dispatch(TOGGLE_TOOL)
     dispatch(CHANGE_CURSOR, "crosshair")

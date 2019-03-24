@@ -143,14 +143,11 @@ export default ({
       }
     },
 
-    [ARRANGE_OPEN_CONTEXT_MENU]: ({
-      position,
-      isSelectionSelected
-    }: {
-      position: React.MouseEvent
+    [ARRANGE_OPEN_CONTEXT_MENU]: (
+      e: React.MouseEvent,
       isSelectionSelected: boolean
-    }) => {
-      openContextMenu(dispatch, { position, isSelectionSelected })
+    ) => {
+      openContextMenu(dispatch, e, isSelectionSelected)
     },
 
     [ARRANGE_COPY_SELECTION]: () => {

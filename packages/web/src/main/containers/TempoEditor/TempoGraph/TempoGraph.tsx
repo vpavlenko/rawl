@@ -8,7 +8,7 @@ import Track, { TrackEvent } from "common/track"
 import { TempoCoordTransform } from "common/transform"
 import DrawCanvas from "components/DrawCanvas"
 import { BAR_WIDTH, HorizontalScrollBar } from "components/inputs/ScrollBar"
-import Stage, { ItemEvent } from "components/Stage/Stage"
+import Stage, { StageMouseEvent } from "components/Stage/Stage"
 import PianoCursor from "containers/PianoRollEditor/PianoRoll/PianoCursor"
 import PianoGrid from "containers/PianoRollEditor/PianoRoll/PianoGrid"
 import PianoRuler from "containers/PianoRollEditor/PianoRoll/PianoRuler"
@@ -159,9 +159,7 @@ const Content: StatelessComponent<ContentProps> = ({
       .string()
   )
 
-  function onMouseDownGraph(
-    e: ItemEvent & React.MouseEvent<HTMLCanvasElement>
-  ) {
+  function onMouseDownGraph(e: StageMouseEvent<MouseEvent>) {
     const item = e.items[0]
     if (!item) {
       return
@@ -169,7 +167,7 @@ const Content: StatelessComponent<ContentProps> = ({
 
     const event = events.filter(ev => ev.id === item.id)[0]
     const bpm = uSecPerBeatToBPM(event.microsecondsPerBeat)
-    const startY = e.clientY
+    const startY = e.nativeEvent.clientY
 
     function onMouseMove(e: MouseEvent) {
       const delta = transform.getDeltaBPM(e.clientY - startY)
@@ -185,18 +183,18 @@ const Content: StatelessComponent<ContentProps> = ({
     document.addEventListener("mouseup", onMouseUp)
   }
 
-  function onWheelGraph(e: ItemEvent & React.WheelEvent<HTMLCanvasElement>) {
+  function onWheelGraph(e: StageMouseEvent<WheelEvent>) {
     const item = e.items[0]
     if (!item) {
       return
     }
     const event = events.filter(ev => ev.id === item.id)[0]
-    const movement = e.deltaY > 0 ? -1 : 1
+    const movement = e.nativeEvent.deltaY > 0 ? -1 : 1
     const bpm = uSecPerBeatToBPM(event.microsecondsPerBeat)
     changeTempo(event.id, bpmToUSecPerBeat(bpm + movement))
   }
 
-  function onDoubleClickGraph(e: ItemEvent) {
+  function onDoubleClickGraph(e: StageMouseEvent<MouseEvent>) {
     const tick = transform.getTicks(e.local.x)
     const bpm = transform.getBPM(e.local.y)
     createTempo(tick, uSecPerBeatToBPM(bpm))

@@ -1,7 +1,6 @@
 import { Dispatcher } from "main/createDispatcher"
 import { CHANGE_NOTES_VELOCITY } from "main/actions"
-import { NoteEvent } from "src/common/track"
-import { ItemEvent } from "src/main/components/Stage/Stage"
+import { StageMouseEvent } from "src/main/components/Stage/Stage"
 import Item from "src/main/components/Stage/Item"
 
 export default class VelocityMouseHandler {
@@ -11,13 +10,14 @@ export default class VelocityMouseHandler {
     this.dispatch(CHANGE_NOTES_VELOCITY, notes, velocity)
   }
 
-  onMouseDown = (e: MouseEvent & ItemEvent) => {
+  onMouseDown = (e: StageMouseEvent<MouseEvent>) => {
     const items = e.items
     if (items.length === 0) {
       return
     }
 
-    const rect = (e.currentTarget as HTMLElement).getBoundingClientRect()
+    const rect = (e.nativeEvent
+      .currentTarget as HTMLElement).getBoundingClientRect()
 
     function calcValue(e: MouseEvent) {
       return Math.round(
@@ -25,7 +25,7 @@ export default class VelocityMouseHandler {
       )
     }
 
-    this.changeVelocity(items, calcValue(e))
+    this.changeVelocity(items, calcValue(e.nativeEvent))
 
     const onMouseMove = (e: MouseEvent) => {
       this.changeVelocity(items, calcValue(e))

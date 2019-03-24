@@ -1,4 +1,4 @@
-:local .overlay {
+.ContextMenu .overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -7,7 +7,7 @@
   z-index: 9999;
 }
 
-:local .menu {
+.ContextMenu .menu {
   min-width: 5em;
   background: var(--background-color);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
@@ -18,7 +18,7 @@
   user-select: none;
 }
 
-:local .item {
+.ContextMenu .item {
   padding: 0.3em 0.5em;
   cursor: pointer;
   cursor: default;
@@ -26,10 +26,10 @@
   white-space: nowrap;
 }
 
-:local .item:hover {
-  background: rgba(0, 0, 0, 0.04);
+.ContextMenu .item:hover {
+  background: var(--secondary-background-color);
 }
 
-:local .item:active {
-  background: rgba(0, 0, 0, 0.1);
+.ContextMenu .item:active {
+  background: var(--secondary-background-color);
 }

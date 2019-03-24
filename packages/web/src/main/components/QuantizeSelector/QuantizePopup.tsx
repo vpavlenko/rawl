@@ -76,30 +76,32 @@ export default function QuantizePopup({
       className="QuantizePopup"
       style={{ left, top, visibility: hidden ? "hidden" : "visible" }}
     >
-      <div className="content">
-        <NumberPicker
-          className="left"
-          value={value}
-          prevValue={prevValue}
-          nextValue={nextValue}
-          onChange={onChangeValue}
-        />
-        <div className="right">
-          <div className="field">
-            <input
-              type="checkbox"
-              onChange={e => onChangeTriplet(e.target.checked)}
-              checked={triplet}
-            />
-            <label>Triplet</label>
-          </div>
-          <div className="field">
-            <input
-              type="checkbox"
-              onChange={e => onChangeDotted(e.target.checked)}
-              checked={dotted}
-            />
-            <label>Dotted</label>
+      <div className="inner">
+        <div className="content">
+          <NumberPicker
+            className="left"
+            value={value}
+            prevValue={prevValue}
+            nextValue={nextValue}
+            onChange={onChangeValue}
+          />
+          <div className="right">
+            <div className="field">
+              <input
+                type="checkbox"
+                onChange={e => onChangeTriplet(e.target.checked)}
+                checked={triplet}
+              />
+              <label>Triplet</label>
+            </div>
+            <div className="field">
+              <input
+                type="checkbox"
+                onChange={e => onChangeDotted(e.target.checked)}
+                checked={dotted}
+              />
+              <label>Dotted</label>
+            </div>
           </div>
         </div>
       </div>

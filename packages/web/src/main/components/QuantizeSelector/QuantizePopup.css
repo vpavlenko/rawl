@@ -1,7 +1,10 @@
 .QuantizePopup {
   display: inline-block;
   position: absolute;
-  background: white;
+}
+
+.QuantizePopup > .inner {
+  background: var(--background-color);
   padding: 0 1em;
   z-index: 100;
   border-radius: 0.4em;
@@ -9,11 +12,11 @@
   color: var(--text-color);
 }
 
-.QuantizePopup::before {
+.QuantizePopup > .inner::before {
   content: "";
   width: 1em;
   height: 1em;
-  background: white;
+  background: var(--background-color);
   position: absolute;
   top: -0.5em;
   left: calc(50% - 1em);

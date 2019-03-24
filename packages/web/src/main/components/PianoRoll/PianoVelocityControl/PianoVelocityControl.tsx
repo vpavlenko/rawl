@@ -1,5 +1,5 @@
-import React, { Component } from "react"
-import { shouldUpdate, Omit } from "recompose"
+import React, { useCallback, SFC } from "react"
+import { shouldUpdate } from "recompose"
 import _ from "lodash"
 
 import Stage, { StageMouseEvent } from "components/Stage/Stage"
@@ -7,81 +7,35 @@ import Stage, { StageMouseEvent } from "components/Stage/Stage"
 import VelocityItem from "./VelocityItem"
 import { NoteCoordTransform } from "common/transform"
 import Item from "../../Stage/Item"
+import { TrackEvent, isNoteEvent } from "common/track"
 
 export interface PianoVelocityControlProps {
   width: number
   height: number
-  events: any[]
+  events: TrackEvent[]
   transform: NoteCoordTransform
   scrollLeft: number
   color: any
-  onMouseDown: (e: StageMouseEvent<MouseEvent>) => void
+  changeVelocity: (notes: Item[], velocity: number) => void
 }
 
-function PianoVelocityControl({
+const PianoVelocityControl: SFC<PianoVelocityControlProps> = ({
   width,
   height,
   events,
   transform,
   scrollLeft,
   color,
-  onMouseDown
-}: PianoVelocityControlProps) {
-  const items = events
-    .filter(e => e.subtype === "note")
-    .map(note => {
-      const { x } = transform.getRect(note)
-      const itemWidth = 5
-      const itemHeight = (note.velocity / 127) * height
-      const bounds = {
-        x,
-        y: height - itemHeight,
-        width: itemWidth,
-        height: itemHeight
-      }
-      return new VelocityItem(note.id, bounds, note.selected, color)
-    })
+  changeVelocity
+}: PianoVelocityControlProps) => {
+  const calcValue = (e: MouseEvent) =>
+    Math.round(Math.max(0, Math.min(1, 1 - e.offsetY / height)) * 127)
 
-  return (
-    <Stage
-      className="PianoControl VelocityControl"
-      items={items}
-      width={width}
-      height={height}
-      scrollLeft={scrollLeft}
-      onMouseDown={onMouseDown}
-    />
-  )
-}
-
-type Props = Omit<PianoVelocityControlProps, "onMouseDown"> & {
-  changeVelocity: (notes: Item[], velocity: number) => void
-}
-
-class _PianoVelocityControl extends Component<Props> {
-  constructor(props: Props) {
-    super(props)
-  }
-
-  render() {
-    return (
-      <PianoVelocityControl
-        {...this.props}
-        onMouseDown={e => this.onMouseDown(e)}
-      />
-    )
-  }
-
-  onMouseDown = (e: StageMouseEvent<MouseEvent>) => {
+  const onMouseDown = useCallback((e: StageMouseEvent<MouseEvent>) => {
     const items = e.items
     if (items.length === 0) {
       return
     }
-
-    const { changeVelocity, height } = this.props
-
-    const calcValue = (e: MouseEvent) =>
-      Math.round(Math.max(0, Math.min(1, 1 - e.offsetY / height)) * 127)
 
     changeVelocity(items, calcValue(e.nativeEvent))
 
@@ -96,10 +50,37 @@ class _PianoVelocityControl extends Component<Props> {
 
     document.addEventListener("mousemove", onMouseMove)
     document.addEventListener("mouseup", onMouseUp)
-  }
+  }, [])
+
+  const items = events.filter(isNoteEvent).map(note => {
+    const { x } = transform.getRect(note)
+    const itemWidth = 5
+    const itemHeight = (note.velocity / 127) * height
+    const bounds = {
+      x,
+      y: height - itemHeight,
+      width: itemWidth,
+      height: itemHeight
+    }
+    return new VelocityItem(note.id, bounds, false, color)
+  })
+
+  return (
+    <Stage
+      className="PianoControl VelocityControl"
+      items={items}
+      width={width}
+      height={height}
+      scrollLeft={scrollLeft}
+      onMouseDown={onMouseDown}
+    />
+  )
 }
 
-function test(props: Props, nextProps: Props) {
+function test(
+  props: PianoVelocityControlProps,
+  nextProps: PianoVelocityControlProps
+) {
   return (
     props.scrollLeft !== nextProps.scrollLeft ||
     props.width !== nextProps.width ||
@@ -109,4 +90,4 @@ function test(props: Props, nextProps: Props) {
   )
 }
 
-export default shouldUpdate(test)<Props>(_PianoVelocityControl)
+export default shouldUpdate(test)(PianoVelocityControl)

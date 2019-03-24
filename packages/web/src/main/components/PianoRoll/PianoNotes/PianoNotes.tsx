@@ -1,25 +1,23 @@
-import React, { StatelessComponent } from "react"
-import _ from "lodash"
-import { shouldUpdate } from "recompose"
 import Color from "color"
-
-import { NoteCoordTransform } from "common/transform"
 import Theme from "common/theme"
-
+import { isNoteEvent, TrackEvent } from "common/track"
+import { NoteCoordTransform } from "common/transform"
 import Stage, { StageMouseEvent } from "components/Stage/Stage"
-
+import _ from "lodash"
+import React, { StatelessComponent } from "react"
+import { shouldUpdate } from "recompose"
 import PianoNoteItem from "./PianoNoteItem"
 
 export interface PianoNotesProps {
-  events: any[]
+  events: TrackEvent[]
   transform: NoteCoordTransform
   width: number
   scrollLeft: number
   cursor: string
   selectedEventIds: number[]
-  onMouseDown: any
-  onMouseMove: any
-  onMouseUp: any
+  onMouseDown: (e: PianoNotesMouseEvent<MouseEvent>) => void
+  onMouseMove: (e: PianoNotesMouseEvent<MouseEvent>) => void
+  onMouseUp: (e: PianoNotesMouseEvent<MouseEvent>) => void
   isDrumMode: boolean
   theme: Theme
 }
@@ -56,25 +54,23 @@ const PianoNotes: StatelessComponent<PianoNotesProps> = ({
     .rgb()
     .object()
 
-  const items = events
-    .filter(e => e.subtype === "note")
-    .map(e => {
-      const rect = transform.getRect(e)
-      const selected = selectedEventIds.includes(e.id)
-      return new PianoNoteItem(
-        e.id,
-        rect.x,
-        rect.y,
-        rect.width,
-        rect.height,
-        e.velocity,
-        selected,
-        isDrumMode,
-        color,
-        borderColor,
-        selectedColor
-      )
-    })
+  const items = events.filter(isNoteEvent).map(e => {
+    const rect = transform.getRect(e)
+    const selected = selectedEventIds.includes(e.id)
+    return new PianoNoteItem(
+      e.id,
+      rect.x,
+      rect.y,
+      rect.width,
+      rect.height,
+      e.velocity,
+      selected,
+      isDrumMode,
+      color,
+      borderColor,
+      selectedColor
+    )
+  })
   const height = transform.pixelsPerKey * transform.numberOfKeys
 
   // MouseHandler で利用する追加情報をイベントに付加する

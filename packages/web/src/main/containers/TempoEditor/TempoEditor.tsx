@@ -24,9 +24,11 @@ const TempoEditor: StatelessComponent<TempoEditorProps> = ({
 }
 
 export default compose(
-  inject(({ rootStore: { song, router } }: { rootStore: RootStore }) => ({
-    track: song.conductorTrack,
-    onClickNavBack: () => router.pushArrange()
-  })),
+  inject(
+    ({ rootStore: { router } }: { rootStore: RootStore }) =>
+      ({
+        onClickNavBack: () => router.pushArrange()
+      } as TempoEditorProps)
+  ),
   observer
 )(TempoEditor)

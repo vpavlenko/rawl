@@ -18,6 +18,7 @@ import {
   SET_TRACK_PAN,
   SET_TRACK_INSTRUMENT
 } from "main/actions"
+import RootStore from "src/main/stores/RootStore"
 
 interface PianoRollEditorProps {
   track: Track
@@ -64,20 +65,21 @@ const PianoRollEditor: StatelessComponent<PianoRollEditorProps> = ({
 }
 
 export default compose(
-  inject(({ rootStore: { song, router, dispatch } }) => {
-    const track = song.selectedTrack
-    const trackId = song.selectedTrackId
-    return {
-      track,
-      onChangeVolume: (value: number) =>
-        dispatch(SET_TRACK_VOLUME, trackId, value),
-      onChangePan: (value: number) => dispatch(SET_TRACK_PAN, trackId, value),
-      onClickNavBack: () => router.pushArrange(),
-      onClickInstrument: () =>
-        showInstrumentBrowser(song, trackId, (trackId, programNumber) =>
-          dispatch(SET_TRACK_INSTRUMENT, { trackId, programNumber })
-        )
+  inject(
+    ({ rootStore: { song, router, dispatch } }: { rootStore: RootStore }) => {
+      const track = song.selectedTrack
+      const trackId = song.selectedTrackId
+      return {
+        track,
+        onChangeVolume: value => dispatch(SET_TRACK_VOLUME, trackId, value),
+        onChangePan: value => dispatch(SET_TRACK_PAN, trackId, value),
+        onClickNavBack: () => router.pushArrange(),
+        onClickInstrument: () =>
+          showInstrumentBrowser(song, trackId, (trackId, programNumber) =>
+            dispatch(SET_TRACK_INSTRUMENT, { trackId, programNumber })
+          )
+      } as PianoRollEditorProps
     }
-  }),
+  ),
   observer
 )(PianoRollEditor)

@@ -13,6 +13,7 @@ import Sidebar from "components/Sidebar/Sidebar"
 import { compose } from "recompose"
 import Song from "common/song"
 import { Dispatcher } from "main/createDispatcher"
+import RootStore from "stores/RootStore"
 
 import TransportPanel from "../TransportPanel/TransportPanel"
 
@@ -81,12 +82,15 @@ export default compose(
         services: { player },
         dispatch
       }
-    }) => ({
-      routerPath: path,
-      song,
-      player,
-      dispatch
-    })
+    }: {
+      rootStore: RootStore
+    }) =>
+      ({
+        routerPath: path,
+        song,
+        player,
+        dispatch
+      } as RootViewProps)
   ),
   observer
 )(RootView)

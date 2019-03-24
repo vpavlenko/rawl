@@ -81,29 +81,30 @@ export default compose(
       }
     }: {
       rootStore: RootStore
-    }) => ({
-      onClickNavBack: () => router.pushArrange(),
-      soundFontPath: s.soundFontPath,
-      onClickOpenSoundFont: () => {
-        openSoundFont((files: string[]) => {
-          if (files && files.length > 0) {
-            const path = files[0]
-            s.soundFontPath = path
-            synth.loadSoundFont(path)
-          }
-        })
-      },
-      clearSettings: () => s.clear(),
-      onClickShowSynth: () => {
-        // ipcRenderer.send("show-synth")
-      },
-      onClickStartRecording: () => {
-        synth.startRecording()
-      },
-      onClickStopRecording: () => {
-        synth.stopRecording()
-      }
-    })
+    }) =>
+      ({
+        onClickNavBack: () => router.pushArrange(),
+        soundFontPath: s.soundFontPath,
+        onClickOpenSoundFont: () => {
+          openSoundFont((files: string[]) => {
+            if (files && files.length > 0) {
+              const path = files[0]
+              s.soundFontPath = path
+              synth.loadSoundFont(path)
+            }
+          })
+        },
+        clearSettings: () => s.clear(),
+        onClickShowSynth: () => {
+          // ipcRenderer.send("show-synth")
+        },
+        onClickStartRecording: () => {
+          synth.startRecording()
+        },
+        onClickStopRecording: () => {
+          synth.stopRecording()
+        }
+      } as SettingsViewProps)
   ),
   observer
 )(SettingsView)

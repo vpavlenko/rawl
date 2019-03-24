@@ -62,7 +62,7 @@ function ArrangeTrack({
   )
 }
 
-interface ArrangeViewProps {
+export interface ArrangeViewProps {
   tracks: Track[]
   theme: Theme
   beats: Beat[]

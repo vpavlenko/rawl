@@ -9,7 +9,11 @@ import {
 import { inject, observer } from "mobx-react"
 import { compose } from "recompose"
 import withMBTTime from "components/TransportPanel/withMBTTime"
-import { TransportPanel } from "components/TransportPanel/TransportPanel"
+import {
+  TransportPanel,
+  TransportPanelProps
+} from "components/TransportPanel/TransportPanel"
+import RootStore from "stores/RootStore"
 
 export default compose(
   inject(
@@ -21,21 +25,24 @@ export default compose(
         router,
         dispatch
       }
-    }) => ({
-      player,
-      tempo: player.currentTempo,
-      measureList,
-      loopEnabled: loop.enabled,
-      onClickPlay: () => dispatch(PLAY),
-      onClickStop: () => dispatch(STOP),
-      onClickBackward: () => dispatch(MOVE_PLAYER_POSITION, -TIME_BASE * 4),
-      onClickForward: () => dispatch(MOVE_PLAYER_POSITION, TIME_BASE * 4),
-      onClickEnableLoop: () => dispatch(TOGGLE_ENABLE_LOOP),
-      onClickTempo: () => {
-        dispatch(SELECT_TRACK, 0)
-        router.pushTrack()
-      }
-    })
+    }: {
+      rootStore: RootStore
+    }) =>
+      ({
+        player,
+        tempo: player.currentTempo,
+        measureList,
+        loopEnabled: loop.enabled,
+        onClickPlay: () => dispatch(PLAY),
+        onClickStop: () => dispatch(STOP),
+        onClickBackward: () => dispatch(MOVE_PLAYER_POSITION, -TIME_BASE * 4),
+        onClickForward: () => dispatch(MOVE_PLAYER_POSITION, TIME_BASE * 4),
+        onClickEnableLoop: () => dispatch(TOGGLE_ENABLE_LOOP),
+        onClickTempo: () => {
+          dispatch(SELECT_TRACK, 0)
+          router.pushTrack()
+        }
+      } as Partial<TransportPanelProps>)
   ),
   observer,
   withMBTTime

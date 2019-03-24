@@ -87,23 +87,23 @@ export default compose(
       }
     }: {
       rootStore: RootStore
-    }) => ({
-      theme,
-      player,
-      pixelsPerTick: 0.1 * s.scaleX,
-      track: song.conductorTrack,
-      events: (song.conductorTrack.events as any).toJS(),
-      endTick: song.endOfSong,
-      beats: song.measureList.beats,
-      autoScroll: s.autoScroll,
-      scrollLeft: s.scrollLeft,
-      setScrollLeft: (v: number) => (s.scrollLeft = v),
-      changeTempo: (id: number, microsecondsPerBeat: number) =>
-        dispatch(CHANGE_TEMPO, id, microsecondsPerBeat),
-      createTempo: (tick: number, microsecondsPerBeat: number) =>
-        dispatch(CREATE_TEMPO, tick, microsecondsPerBeat),
-      setPlayerTempo: (tick: number) => dispatch(SET_PLAYER_POSITION, tick)
-    })
+    }) =>
+      ({
+        theme,
+        player,
+        pixelsPerTick: 0.1 * s.scaleX,
+        track: song.conductorTrack,
+        events: (song.conductorTrack.events as any).toJS(),
+        endTick: song.endOfSong,
+        beats: song.measureList.beats,
+        autoScroll: s.autoScroll,
+        scrollLeft: s.scrollLeft,
+        setScrollLeft: v => (s.scrollLeft = v),
+        changeTempo: (id, microsecondsPerBeat) =>
+          dispatch(CHANGE_TEMPO, id, microsecondsPerBeat),
+        createTempo: (tick, microsecondsPerBeat) =>
+          dispatch(CREATE_TEMPO, tick, microsecondsPerBeat)
+      } as Partial<TempoGraphProps>)
   ),
   observer,
   stateful

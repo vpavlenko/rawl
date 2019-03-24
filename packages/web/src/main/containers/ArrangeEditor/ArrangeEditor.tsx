@@ -39,13 +39,10 @@ const ArrangeEditor: SFC<ArrangeEditorProps> = ({ pushSettings }) => {
   )
 }
 
-const mapStoreToProps = ({
-  rootStore: { router }
-}: {
-  rootStore: RootStore
-}) => ({
-  pushSettings: () => router.pushSettings()
-})
+const mapStoreToProps = ({ rootStore: { router } }: { rootStore: RootStore }) =>
+  ({
+    pushSettings: () => router.pushSettings()
+  } as ArrangeEditorProps)
 
 export default compose(
   inject(mapStoreToProps),

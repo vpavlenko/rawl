@@ -28,6 +28,7 @@ export type SPianoRollProps = PianoRollProps & {
   scaleX: number
   mouseMode: PianoRollMouseMode
   dispatch: Dispatcher
+  isPlaying: boolean
 }
 
 const Wrapper: SFC<SPianoRollProps> = props => {
@@ -41,7 +42,8 @@ const Wrapper: SFC<SPianoRollProps> = props => {
     scrollLeft,
     setScrollLeft,
     scaleX = 1,
-    autoScroll = false
+    autoScroll = false,
+    isPlaying
   } = props
 
   const [pencilMouseHandler] = useState(new PencilMouseHandler())
@@ -59,7 +61,7 @@ const Wrapper: SFC<SPianoRollProps> = props => {
     mouseMode === "pencil" ? pencilMouseHandler : selectionMouseHandler
 
   // keep scroll position to cursor
-  if (autoScroll) {
+  if (autoScroll && isPlaying) {
     const x = transform.getX(playerPosition)
     const screenX = x - scrollLeft
     if (screenX > size.width * 0.7 || screenX < 0) {
@@ -92,7 +94,7 @@ export default compose<{}, {}>(
         pianoRollStore: s,
         rootViewStore: { theme },
         playerStore,
-        services: { quantizer },
+        services: { quantizer, player },
         dispatch
       }
     }: {
@@ -123,6 +125,7 @@ export default compose<{}, {}>(
         onClickScaleDown: () => (s.scaleX = Math.max(0.05, s.scaleX - 0.1)),
         onClickScaleReset: () => (s.scaleX = 1),
         loop: playerStore.loop,
+        isPlaying: player.isPlaying,
         quantizer,
         setLoopBegin: tick => dispatch(SET_LOOP_BEGIN, tick),
         setLoopEnd: tick => dispatch(SET_LOOP_END, tick),

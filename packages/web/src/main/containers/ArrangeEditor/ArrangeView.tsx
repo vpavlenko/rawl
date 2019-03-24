@@ -30,16 +30,23 @@ type Props = Omit<
   | "onScrollLeft"
   | "onScrollTop"
 > & {
-  player: Player
   pixelsPerTick: number
   keyHeight: number
   autoScroll: boolean
   size: ISize
   playerPosition: number
+  isPlaying: boolean
 }
 
 const Wrapper: SFC<Props> = props => {
-  const { autoScroll, size, playerPosition, pixelsPerTick, keyHeight } = props
+  const {
+    autoScroll,
+    size,
+    playerPosition,
+    pixelsPerTick,
+    keyHeight,
+    isPlaying
+  } = props
 
   const [scrollLeft, setScrollLeft] = useState(0)
   const [scrollTop, setScrollTop] = useState(0)
@@ -47,7 +54,7 @@ const Wrapper: SFC<Props> = props => {
   const transform = new NoteCoordTransform(pixelsPerTick, keyHeight, 127)
 
   // keep scroll position to cursor
-  if (autoScroll) {
+  if (autoScroll && isPlaying) {
     const x = transform.getX(playerPosition)
     const screenX = x - scrollLeft
     if (screenX > size.width * 0.7 || screenX < 0) {
@@ -81,7 +88,7 @@ const mapStoreToProps = ({
 }) =>
   ({
     theme,
-    player,
+    isPlaying: player.isPlaying,
     quantizer,
     loop,
     tracks: (tracks as any).toJS(),

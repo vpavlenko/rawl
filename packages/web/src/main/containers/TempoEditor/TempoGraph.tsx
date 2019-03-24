@@ -23,17 +23,17 @@ type Props = Pick<
   | "setScrollLeft"
   | "pixelsPerTick"
 > & {
-  player: Player
+  isPlaying: boolean
   autoScroll: boolean
   playerPosition: number
 }
 
 const Wrapper: SFC<Props> = props => {
-  const { autoScroll, pixelsPerTick, size, playerPosition } = props
+  const { autoScroll, pixelsPerTick, size, playerPosition, isPlaying } = props
   const [scrollLeft, setScrollLeft] = useState(0)
 
   // keep scroll position to cursor
-  if (autoScroll) {
+  if (autoScroll && isPlaying) {
     const transform = new TempoCoordTransform(pixelsPerTick, size.height)
     const x = transform.getX(playerPosition)
     const screenX = x - scrollLeft
@@ -66,7 +66,7 @@ export default compose(
     }) =>
       ({
         theme,
-        player,
+        isPlaying: player.isPlaying,
         pixelsPerTick: 0.1 * s.scaleX,
         track: song.conductorTrack,
         events: (song.conductorTrack.events as any).toJS(),

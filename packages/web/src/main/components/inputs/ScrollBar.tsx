@@ -72,7 +72,7 @@ export const ScrollBar: StatelessComponent<ScrollBarProps> = ({
       return
     }
 
-    const { className } = e.currentTarget
+    const { className } = e.target as HTMLDivElement
     const startPos = getPoint(e)
 
     if (className === "thumb") {
@@ -101,11 +101,8 @@ export const ScrollBar: StatelessComponent<ScrollBarProps> = ({
       let scroll = scrollOffset
       onScroll2((scroll += delta))
 
-      const isHoverOnTarget = () => {
-        return (
-          document.elementFromPoint(startPos.x, startPos.y) === currentTarget
-        )
-      }
+      const isHoverOnTarget = () =>
+        document.elementFromPoint(startPos.x, startPos.y) === currentTarget
 
       const startLongPressTimer = (delta: number) => {
         // 初回は時間をかける

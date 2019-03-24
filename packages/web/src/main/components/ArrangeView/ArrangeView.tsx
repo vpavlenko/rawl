@@ -1,9 +1,9 @@
 import React, { SFC } from "react"
 
-import PianoGrid from "containers/PianoRollEditor/PianoRoll/PianoGrid"
-import PianoRuler from "containers/PianoRollEditor/PianoRoll/PianoRuler"
-import PianoCursor from "containers/PianoRollEditor/PianoRoll/PianoCursor"
-import PianoSelection from "containers/PianoRollEditor/PianoRoll/PianoSelection"
+import PianoGrid from "components/PianoRoll/PianoGrid"
+import PianoRuler from "components/PianoRoll/PianoRuler"
+import PianoCursor from "components/PianoRoll/PianoCursor"
+import PianoSelection from "components/PianoRoll/PianoSelection"
 
 import Stage from "components/Stage/Stage"
 import { VerticalScrollBar, BAR_WIDTH } from "components/inputs/ScrollBar"

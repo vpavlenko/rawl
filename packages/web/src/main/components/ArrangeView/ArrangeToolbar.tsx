@@ -1,5 +1,4 @@
 import React, { StatelessComponent } from "react"
-import { observer, inject } from "mobx-react"
 
 import Icon from "components/outputs/Icon"
 import {

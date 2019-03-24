@@ -10,7 +10,7 @@ import {
   RESIZE_NOTE_RIGHT
 } from "main/actions"
 import { Dispatcher } from "createDispatcher"
-import { PianoNotesMouseEvent } from "./PianoNotes"
+import { PianoNotesMouseEvent } from "components/PianoRoll/PianoNotes/PianoNotes"
 
 export default class PencilMouseHandler extends NoteMouseHandler {
   transform: NoteCoordTransform

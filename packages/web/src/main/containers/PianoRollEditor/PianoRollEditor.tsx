@@ -10,7 +10,7 @@ import { show as showInstrumentBrowser } from "components/InstrumentBrowser/Inst
 import Track from "common/track/Track"
 
 import PianoRoll from "./PianoRoll/PianoRoll"
-import PianoRollToolbar from "./Toolbar/PianoRollToolbar"
+import PianoRollToolbar from "./PianoRollToolbar"
 
 import "./PianoRollEditor.css"
 import {

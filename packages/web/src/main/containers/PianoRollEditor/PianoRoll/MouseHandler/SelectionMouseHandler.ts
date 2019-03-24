@@ -14,7 +14,7 @@ import {
 } from "main/actions"
 import { NotePoint } from "common/transform/NotePoint"
 import { Dispatcher } from "createDispatcher"
-import { PianoNotesMouseEvent } from "./PianoNotes"
+import { PianoNotesMouseEvent } from "components/PianoRoll/PianoNotes/PianoNotes"
 
 export default class SelectionMouseHandler extends MouseHandler {
   transform: NoteCoordTransform

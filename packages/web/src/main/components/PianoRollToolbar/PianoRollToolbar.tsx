@@ -1,5 +1,4 @@
 import React, { StatelessComponent } from "react"
-import { observer, inject } from "mobx-react"
 
 import Icon from "components/outputs/Icon"
 import {
@@ -11,9 +10,6 @@ import {
 import QuantizeSelector from "components/QuantizeSelector/QuantizeSelector"
 
 import "./PianoRollToolbar.css"
-import { compose } from "recompose"
-import { SET_QUANTIZE_DENOMINATOR } from "main/actions"
-import RootStore from "stores/RootStore"
 
 export interface PianoRollToolbarProps {
   autoScroll: boolean
@@ -25,7 +21,7 @@ export interface PianoRollToolbarProps {
   onSelectQuantize: (e: { denominator: number }) => void
 }
 
-const PianoRollToolbar: StatelessComponent<PianoRollToolbarProps> = ({
+export const PianoRollToolbar: StatelessComponent<PianoRollToolbarProps> = ({
   autoScroll,
   onClickAutoScroll,
   mouseMode,
@@ -58,30 +54,3 @@ const PianoRollToolbar: StatelessComponent<PianoRollToolbarProps> = ({
     </Toolbar>
   )
 }
-
-export default compose(
-  inject(
-    ({
-      rootStore: {
-        services: { quantizer },
-        pianoRollStore: s,
-        dispatch
-      }
-    }: {
-      rootStore: RootStore
-    }) =>
-      ({
-        quantize: s.quantize === 0 ? quantizer.denominator : s.quantize,
-        mouseMode: s.mouseMode,
-        autoScroll: s.autoScroll,
-        onClickPencil: () => (s.mouseMode = 0),
-        onClickSelection: () => (s.mouseMode = 1),
-        onClickAutoScroll: () => (s.autoScroll = !s.autoScroll),
-        onSelectQuantize: e => {
-          dispatch(SET_QUANTIZE_DENOMINATOR, e.denominator)
-          s.quantize = e.denominator
-        }
-      } as PianoRollToolbarProps)
-  ),
-  observer
-)(PianoRollToolbar)

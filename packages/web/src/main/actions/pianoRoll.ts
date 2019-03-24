@@ -1,4 +1,4 @@
-import { open as openContextMenu } from "containers/PianoRollEditor/PianoRoll/PianoContextMenu"
+import { open as openContextMenu } from "components/PianoRoll/PianoContextMenu"
 import { IPoint } from "common/geometry"
 import RootStore from "../stores/RootStore"
 

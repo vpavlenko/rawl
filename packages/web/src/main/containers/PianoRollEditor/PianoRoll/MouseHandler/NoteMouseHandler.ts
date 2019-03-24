@@ -1,6 +1,6 @@
 import { Dispatcher } from "main/createDispatcher"
 import { CHANGE_CURSOR, SCROLL_BY, TOGGLE_TOOL } from "main/actions"
-import { PianoNotesMouseEvent } from "./PianoNotes"
+import { PianoNotesMouseEvent } from "components/PianoRoll/PianoNotes/PianoNotes"
 
 export type MouseAction = (e: PianoNotesMouseEvent<MouseEvent>) => void
 

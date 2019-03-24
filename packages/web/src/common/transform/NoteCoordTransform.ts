@@ -1,6 +1,4 @@
 import _ from "lodash"
-import { IRect } from "common/geometry"
-import { NoteEvent } from "../track"
 
 export default class NoteCoordTransform {
   private _pixelsPerTick: number

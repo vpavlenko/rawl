@@ -5,7 +5,6 @@ import { observer, inject } from "mobx-react"
 
 import TempoEditor from "containers/TempoEditor/TempoEditor"
 import ArrangeEditor from "containers/ArrangeEditor/ArrangeEditor"
-import TransportPanel from "containers/TransportPanel/TransportPanel"
 import PianoRollEditor from "containers/PianoRollEditor/PianoRollEditor"
 import SettingsView from "containers/SettingsView/SettingsView"
 
@@ -14,6 +13,8 @@ import Sidebar from "components/Sidebar/Sidebar"
 import { compose } from "recompose"
 import Song from "common/song"
 import { Dispatcher } from "main/createDispatcher"
+
+import TransportPanel from "../TransportPanel/TransportPanel"
 
 import "./Resizer.css"
 import "./RootView.css"

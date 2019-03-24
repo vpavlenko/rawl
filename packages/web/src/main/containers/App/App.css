@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
 }
@@ -14,7 +15,17 @@ body {
   height: 100%;
 }
 
-div, label, button, canvas, section, a, p, header, footer, ul, li {
+div,
+label,
+button,
+canvas,
+section,
+a,
+p,
+header,
+footer,
+ul,
+li {
   user-select: none;
   -webkit-user-drag: none;
   cursor: default;
@@ -46,4 +57,11 @@ canvas {
 .ScrollBar .button-forward:active,
 .ScrollBar .button-forward:hover {
   background: var(--tertiary-background-color);
+}
+
+#synth {
+  width: 0;
+  height: 0;
+  display: block;
+  border: none;
 }

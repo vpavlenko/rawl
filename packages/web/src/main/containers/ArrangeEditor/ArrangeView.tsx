@@ -1,6 +1,6 @@
 import Player from "common/player"
 import { ISize } from "common/geometry"
-import React, { Component } from "react"
+import React, { SFC, useState } from "react"
 import { NoteCoordTransform } from "common/transform"
 import RootStore from "stores/RootStore"
 import {
@@ -21,68 +21,50 @@ import {
 
 type Props = Omit<
   ArrangeViewProps,
-  "onScrollLeft" | "onScrollTop" | "transform" | "playerPosition"
+  | "onScrollLeft"
+  | "onScrollTop"
+  | "transform"
+  | "playerPosition"
+  | "scrollLeft"
+  | "scrollTop"
+  | "onScrollLeft"
+  | "onScrollTop"
 > & {
   player: Player
   pixelsPerTick: number
   keyHeight: number
   autoScroll: boolean
   size: ISize
-  scrollLeft: number
-  setScrollLeft: (scroll: number) => void
-  setScrollTop: (scroll: number) => void
+  playerPosition: number
 }
 
-function stateful(WrappedComponent: any) {
-  return class extends Component<Props> {
-    componentDidMount() {
-      this.props.player.on("change-position", this.updatePosition)
-    }
+const Wrapper: SFC<Props> = props => {
+  const { autoScroll, size, playerPosition, pixelsPerTick, keyHeight } = props
 
-    componentWillUnmount() {
-      this.props.player.off("change-position", this.updatePosition)
-    }
+  const [scrollLeft, setScrollLeft] = useState(0)
+  const [scrollTop, setScrollTop] = useState(0)
 
-    get transform() {
-      return new NoteCoordTransform(
-        this.props.pixelsPerTick,
-        this.props.keyHeight,
-        127
-      )
-    }
+  const transform = new NoteCoordTransform(pixelsPerTick, keyHeight, 127)
 
-    updatePosition = (tick: number) => {
-      this.setState({
-        playerPosition: tick
-      })
-
-      const { autoScroll, size } = this.props
-
-      // keep scroll position to cursor
-      if (autoScroll) {
-        const transform = this.transform
-        const x = transform.getX(tick)
-        const screenX = x - this.props.scrollLeft
-        if (screenX > size.width * 0.7 || screenX < 0) {
-          this.props.setScrollLeft(x)
-        }
-      }
-    }
-
-    render() {
-      const { setScrollLeft, setScrollTop } = this.props
-
-      return (
-        <WrappedComponent
-          onScrollLeft={(scroll: number) => setScrollLeft(scroll)}
-          onScrollTop={(scroll: number) => setScrollTop(scroll)}
-          transform={this.transform}
-          {...this.state}
-          {...this.props}
-        />
-      )
+  // keep scroll position to cursor
+  if (autoScroll) {
+    const x = transform.getX(playerPosition)
+    const screenX = x - scrollLeft
+    if (screenX > size.width * 0.7 || screenX < 0) {
+      setScrollLeft(x)
     }
   }
+
+  return (
+    <ArrangeView
+      {...props}
+      scrollLeft={scrollLeft}
+      scrollTop={scrollTop}
+      onScrollLeft={(scroll: number) => setScrollLeft(scroll)}
+      onScrollTop={(scroll: number) => setScrollTop(scroll)}
+      transform={transform}
+    />
+  )
 }
 
 const mapStoreToProps = ({
@@ -91,7 +73,7 @@ const mapStoreToProps = ({
     song: { tracks, measureList, endOfSong },
     arrangeViewStore: s,
     services: { player, quantizer },
-    playerStore: { loop },
+    playerStore: { loop, position },
     dispatch
   }
 }: {
@@ -108,11 +90,7 @@ const mapStoreToProps = ({
     keyHeight: 0.3,
     pixelsPerTick: 0.1 * s.scaleX,
     autoScroll: s.autoScroll,
-    scrollLeft: s.scrollLeft,
-    scrollTop: s.scrollTop,
     selection: s.selection,
-    setScrollLeft: v => (s.scrollLeft = v),
-    setScrollTop: v => (s.scrollTop = v),
     onClickScaleUp: () => (s.scaleX = s.scaleX + 0.1),
     onClickScaleDown: () => (s.scaleX = Math.max(0.05, s.scaleX - 0.1)),
     onClickScaleReset: () => (s.scaleX = 1),
@@ -124,12 +102,12 @@ const mapStoreToProps = ({
       dispatch(ARRANGE_RESIZE_SELECTION, { start, end }),
     moveSelection: pos => dispatch(ARRANGE_MOVE_SELECTION, pos),
     openContextMenu: (e, isSelectionSelected) =>
-      dispatch(ARRANGE_OPEN_CONTEXT_MENU, e, isSelectionSelected)
+      dispatch(ARRANGE_OPEN_CONTEXT_MENU, e, isSelectionSelected),
+    playerPosition: position
   } as Partial<Props>)
 
 export default compose(
-  withSize({ monitorHeight: true }),
   inject(mapStoreToProps),
   observer,
-  stateful
-)(ArrangeView)
+  withSize({ monitorHeight: true })
+)(Wrapper)

@@ -29,5 +29,12 @@ export default class PlayerStore {
 
   constructor(player: Player) {
     this.player = player
+    this._loop = player.loop
+    this._position = player.position
+
+    player.addListener(
+      "change-position",
+      position => (this._position = position)
+    )
   }
 }

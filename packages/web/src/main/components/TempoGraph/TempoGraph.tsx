@@ -18,6 +18,7 @@ import React, { StatelessComponent } from "react"
 import transformEvents from "./transformEvents"
 
 import "./TempoGraph.css"
+import { CanvasDrawStyle } from "main/style"
 
 type DisplayEvent = TrackEvent & SetTempoEvent
 
@@ -25,7 +26,7 @@ interface HorizontalLinesProps {
   width: number
   height: number
   transform: TempoCoordTransform
-  borderColor: any
+  borderColor: CanvasDrawStyle
 }
 
 function HorizontalLines({

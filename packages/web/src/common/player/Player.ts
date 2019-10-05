@@ -66,12 +66,17 @@ export interface LoopSetting {
   enabled: boolean
 }
 
+interface PlayerOutput {
+  send(msg: number[], timestamp: DOMHighResTimeStamp): void
+  sendEvents(msg: Message[]): void
+}
+
 export default class Player extends EventEmitter {
   private _currentTempo = 120
   private _currentTick = 0
   private _scheduler: EventScheduler<PlayerEvent> = null
   private _song: Song
-  private _output: any
+  private _output: PlayerOutput
   private _timebase: number
   private _trackMute: TrackMute
 
@@ -81,7 +86,7 @@ export default class Player extends EventEmitter {
     enabled: false
   }
 
-  constructor(timebase: number, output: any, trackMute: TrackMute) {
+  constructor(timebase: number, output: PlayerOutput, trackMute: TrackMute) {
     super()
 
     this._output = output

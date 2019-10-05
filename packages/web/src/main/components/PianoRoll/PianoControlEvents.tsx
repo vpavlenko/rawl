@@ -1,10 +1,11 @@
 import React, { StatelessComponent } from "react"
 import { controllerTypeString as CCNames } from "helpers/noteNumberString"
-import { TrackEvent } from "common/track"
+import { TrackEvent, TrackEventRequired } from "common/track"
 import "./PianoControlEvents.css"
 import { ControllerEvent, ProgramChangeEvent } from "@signal-app/midifile-ts"
 
-export type DisplayEvent = TrackEvent & (ControllerEvent | ProgramChangeEvent)
+export type DisplayEvent = TrackEventRequired &
+  (ControllerEvent | ProgramChangeEvent)
 
 function displayControlName(e: DisplayEvent): string {
   switch (e.subtype) {

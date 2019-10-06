@@ -19,6 +19,7 @@ export default class PianoRollStore {
   @observable selection = new SelectionModel()
   @observable lastNoteDuration: number | null = null
   @observable openDrawer = false
+  @observable openInstrumentBrowser = false
 
   constructor(player: Player) {
     player.addListener(

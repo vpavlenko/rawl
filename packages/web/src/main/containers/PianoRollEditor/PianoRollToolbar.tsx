@@ -8,18 +8,14 @@ import {
 import {
   SET_TRACK_VOLUME,
   SET_TRACK_PAN,
-  SET_TRACK_INSTRUMENT,
   SET_QUANTIZE_DENOMINATOR
 } from "main/actions"
-
-import { show as showInstrumentBrowser } from "components/InstrumentBrowser/InstrumentBrowser"
 
 export default compose(
   inject(
     ({
       rootStore: {
         song,
-        router,
         dispatch,
         pianoRollStore: s,
         services: { quantizer }
@@ -44,10 +40,7 @@ export default compose(
         onChangeVolume: value => dispatch(SET_TRACK_VOLUME, trackId, value),
         onChangePan: value => dispatch(SET_TRACK_PAN, trackId, value),
         onClickNavBack: () => (s.openDrawer = true),
-        onClickInstrument: () =>
-          showInstrumentBrowser(song, trackId, (trackId, programNumber) =>
-            dispatch(SET_TRACK_INSTRUMENT, { trackId, programNumber })
-          )
+        onClickInstrument: () => (s.openInstrumentBrowser = true)
       } as PianoRollToolbarProps
     }
   ),

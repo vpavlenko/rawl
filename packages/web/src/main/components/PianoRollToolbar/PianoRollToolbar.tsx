@@ -19,6 +19,7 @@ import QuantizeSelector from "components/QuantizeSelector/QuantizeSelector"
 import "./PianoRollToolbar.css"
 import { PianoRollMouseMode } from "stores/PianoRollStore"
 import { makeStyles } from "@material-ui/styles"
+import InstrumentBrowser from "../InstrumentBrowser/InstrumentBrowser"
 
 const useStyles = makeStyles(theme => ({
   title: {
@@ -80,6 +81,8 @@ export const PianoRollToolbar: StatelessComponent<PianoRollToolbarProps> = ({
           <Icon>piano</Icon>
           {track.instrumentName}
         </Button>
+        <InstrumentBrowser />
+
         <Slider
           onChange={value => onChangeVolume(value)}
           maxValue={127}

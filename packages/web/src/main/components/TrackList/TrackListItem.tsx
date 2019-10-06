@@ -1,5 +1,4 @@
 import React from "react"
-import Icon from "components/outputs/Icon"
 import {
   ContextMenu,
   MenuItem,
@@ -7,6 +6,7 @@ import {
 } from "components/groups/ContextMenu"
 
 import "./TrackListItem.css"
+import { VolumeOff, VolumeUp, Headset } from "@material-ui/icons"
 
 const Nop = () => {}
 
@@ -52,13 +52,17 @@ export default function TrackListItem({
           className={`button solo ${solo ? "active" : ""}`}
           onClick={onClickSolo}
         >
-          <Icon>headphones</Icon>
+          <Headset fontSize="small" />
         </div>
         <div
           className={`button mute ${mute ? "active" : ""}`}
           onClick={onClickMute}
         >
-          <Icon>{mute ? "volume-off" : "volume-high"}</Icon>
+          {mute ? (
+            <VolumeOff fontSize="small" />
+          ) : (
+            <VolumeUp fontSize="small" />
+          )}
         </div>
       </div>
     </div>

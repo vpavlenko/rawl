@@ -6,11 +6,11 @@ import { bindKeyboardShortcut } from "services/KeyboardShortcut.ts"
 
 import RootStore from "stores/RootStore.ts"
 import themeFromCSS from "helpers/themeFromCSS"
+import { theme } from "helpers/muiTheme"
+import { ThemeProvider } from "@material-ui/styles"
 
 import "./App.css"
 import "./theme.css"
-import { theme } from "helpers/muiTheme"
-import { ThemeProvider } from "@material-ui/styles"
 
 const rootStore = new RootStore()
 

@@ -1,11 +1,31 @@
-import {
-  Toolbar,
-  ToolbarItem,
-  ToolbarSeparator
-} from "components/groups/Toolbar"
-import Icon from "components/outputs/Icon"
+import { ToolbarSeparator } from "components/groups/Toolbar"
 import React, { StatelessComponent } from "react"
-import "./TransportPanel.css"
+import { Toolbar, IconButton, makeStyles } from "@material-ui/core"
+import {
+  Stop,
+  FastRewind,
+  FastForward,
+  PlayArrow,
+  Loop
+} from "@material-ui/icons"
+import { ToggleButton } from "@material-ui/lab"
+
+const useStyles = makeStyles(theme => ({
+  toolbar: {
+    justifyContent: "center",
+    background: "var(--secondary-background-color)"
+  },
+  loop: {
+    marginLeft: "1rem",
+    height: "2rem"
+  },
+  tempo: {
+    minWidth: "5em"
+  },
+  time: {
+    minWidth: "10em"
+  }
+}))
 
 export interface TransportPanelProps {
   onClickPlay: () => void
@@ -30,37 +50,40 @@ export const TransportPanel: StatelessComponent<TransportPanelProps> = ({
   tempo = 0,
   onClickTempo
 }) => {
+  const classes = useStyles({})
   return (
-    <Toolbar className="TransportPanel">
+    <Toolbar variant="dense" className={classes.toolbar}>
+      <IconButton onClick={onClickBackward}>
+        <FastRewind />
+      </IconButton>
+      <IconButton onClick={onClickStop}>
+        <Stop />
+      </IconButton>
+      <IconButton onClick={onClickPlay}>
+        <PlayArrow />
+      </IconButton>
+      <IconButton onClick={onClickForward}>
+        <FastForward />
+      </IconButton>
+      <ToggleButton
+        onClick={onClickEnableLoop}
+        selected={loopEnabled}
+        className={classes.loop}
+      >
+        <Loop />
+      </ToggleButton>
+
       <ToolbarSeparator />
 
-      <ToolbarItem onClick={onClickBackward}>
-        <Icon>skip-backward</Icon>
-      </ToolbarItem>
-      <ToolbarItem onClick={onClickStop}>
-        <Icon>stop</Icon>
-      </ToolbarItem>
-      <ToolbarItem onClick={onClickPlay}>
-        <Icon>play</Icon>
-      </ToolbarItem>
-      <ToolbarItem onClick={onClickForward}>
-        <Icon>skip-forward</Icon>
-      </ToolbarItem>
-      <ToolbarItem onClick={onClickEnableLoop} selected={loopEnabled}>
-        <Icon>loop</Icon>
-      </ToolbarItem>
-
-      <ToolbarSeparator />
-
-      <ToolbarItem className="tempo-section" onClick={onClickTempo}>
+      <div className={classes.tempo} onClick={onClickTempo}>
         <p className="tempo">{tempo.toFixed(2)}</p>
-      </ToolbarItem>
+      </div>
 
       <ToolbarSeparator />
 
-      <ToolbarItem className="time-section">
+      <div className={classes.time}>
         <p className="time">{mbtTime}</p>
-      </ToolbarItem>
+      </div>
     </Toolbar>
   )
 }

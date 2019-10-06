@@ -139,7 +139,7 @@ export const PianoRoll: StatelessComponent<PianoRollProps> = ({
 
   return (
     <div className="PianoRoll">
-      <SplitPane split="horizontal" defaultSize={180} primary="second">
+      <div>
         <div
           className="alpha"
           ref={onMountAlpha}
@@ -239,7 +239,7 @@ export const PianoRoll: StatelessComponent<PianoRollProps> = ({
             createControlEvent={createControlEvent}
           />
         </div>
-      </SplitPane>
+      </div>
       <HorizontalScaleScrollBar
         scrollOffset={scrollLeft}
         contentLength={contentWidth}

@@ -43,7 +43,7 @@ export default compose(
         },
         onChangeVolume: value => dispatch(SET_TRACK_VOLUME, trackId, value),
         onChangePan: value => dispatch(SET_TRACK_PAN, trackId, value),
-        onClickNavBack: () => router.pushArrange(),
+        onClickNavBack: () => (s.openDrawer = true),
         onClickInstrument: () =>
           showInstrumentBrowser(song, trackId, (trackId, programNumber) =>
             dispatch(SET_TRACK_INSTRUMENT, { trackId, programNumber })

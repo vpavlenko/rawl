@@ -2,6 +2,15 @@ import React, { Fragment, StatelessComponent } from "react"
 import { Helmet } from "react-helmet"
 import path from "path"
 import { observer, inject } from "mobx-react"
+import {
+  AppBar,
+  Drawer,
+  Toolbar,
+  IconButton,
+  Typography,
+  Button
+} from "@material-ui/core"
+import { Menu as MenuIcon } from "@material-ui/icons"
 
 import TempoEditor from "containers/TempoEditor/TempoEditor"
 import ArrangeEditor from "containers/ArrangeEditor/ArrangeEditor"
@@ -50,11 +59,23 @@ const RootView: StatelessComponent<RootViewProps> = ({ song, routerPath }) => {
         return <SettingsView />
       case "/arrange": /* fallthrough */
       default:
-        return withTransporter(
-          <Fragment>
-            <Sidebar />
+        return (
+          <>
+            <AppBar position="static">
+              <Toolbar>
+                <IconButton edge="start" color="inherit" aria-label="menu">
+                  <MenuIcon />
+                </IconButton>
+                <Typography variant="h6">News</Typography>
+                <Button color="inherit">Login</Button>
+              </Toolbar>
+            </AppBar>
+            <Drawer open={true}>
+              <Sidebar />
+            </Drawer>
             <ArrangeEditor />
-          </Fragment>
+            <TransportPanel />
+          </>
         )
     }
   }

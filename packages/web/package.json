@@ -22,6 +22,7 @@
   "homepage": "https://github.com/ryohey/signal/",
   "dependencies": {
     "@material-ui/core": "4.5.0",
+    "@material-ui/icons": "4.4.3",
     "@mdi/font": "^4.4.95",
     "@signal-app/message-sequencer": "file:../message-sequencer",
     "@signal-app/midifile-ts": "file:../midifile-ts",
@@ -47,6 +48,7 @@
     "@types/color": "3.0.0",
     "@types/jest": "^24.0.18",
     "@types/lodash": "^4.14.141",
+    "@types/material-ui": "0.21.7",
     "@types/node": "12.7.11",
     "@types/react-dom": "16.9.1",
     "@types/react-helmet": "5.0.11",

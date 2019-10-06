@@ -6,10 +6,9 @@ import {
   Typography,
   Button
 } from "@material-ui/core"
-import { Menu as MenuIcon } from "@material-ui/icons"
+import { Menu as MenuIcon, KeyboardTab } from "@material-ui/icons"
+import { ToggleButton, ToggleButtonGroup } from "@material-ui/lab"
 import Track from "common/track/Track"
-
-import { ToolbarItem, ToolbarSeparator } from "components/groups/Toolbar"
 
 import Icon from "components/outputs/Icon"
 import Knob from "components/inputs/Knob"
@@ -19,6 +18,24 @@ import QuantizeSelector from "components/QuantizeSelector/QuantizeSelector"
 
 import "./PianoRollToolbar.css"
 import { PianoRollMouseMode } from "stores/PianoRollStore"
+import { makeStyles } from "@material-ui/styles"
+
+const useStyles = makeStyles(theme => ({
+  title: {
+    marginRight: "1rem"
+  },
+  toggleButtonGroup: {
+    backgroundColor: "transparent",
+    marginRight: "1rem"
+  },
+  toggleButton: {
+    height: "2rem",
+    color: "inherit",
+    ["&.Mui-selected"]: {
+      color: "rgba(255, 255, 255, 0.5)"
+    }
+  }
+}))
 
 export interface PianoRollToolbarProps {
   track: Track
@@ -49,14 +66,17 @@ export const PianoRollToolbar: StatelessComponent<PianoRollToolbarProps> = ({
   quantize,
   onSelectQuantize
 }) => {
+  const classes = useStyles({})
   return (
     <AppBar position="static">
       <Toolbar variant="dense">
-        <IconButton onClick={onClickNavBack}>
+        <IconButton onClick={onClickNavBack} color="inherit">
           <MenuIcon />
         </IconButton>
-        <Typography variant="h6">{track.displayName}</Typography>
-        <Button onClick={onClickInstrument}>
+        <Typography variant="h6" className={classes.title}>
+          {track.displayName}
+        </Typography>
+        <Button onClick={onClickInstrument} color="inherit">
           <Icon>piano</Icon>
           {track.instrumentName}
         </Button>
@@ -73,28 +93,41 @@ export const PianoRollToolbar: StatelessComponent<PianoRollToolbarProps> = ({
           offsetDegree={-140}
           maxDegree={280}
         />
-        <ToolbarItem onClick={onClickPencil} selected={mouseMode === "pencil"}>
-          <Icon>pencil</Icon>
-        </ToolbarItem>
-        <ToolbarItem
-          onClick={onClickSelection}
-          selected={mouseMode === "selection"}
+        <ToggleButtonGroup
+          value={mouseMode}
+          className={classes.toggleButtonGroup}
         >
-          <Icon>select</Icon>
-        </ToolbarItem>
-
-        <ToolbarSeparator />
+          <ToggleButton
+            color="inherit"
+            onClick={onClickPencil}
+            value="pencil"
+            className={classes.toggleButton}
+          >
+            <Icon>pencil</Icon>
+          </ToggleButton>
+          <ToggleButton
+            color="inherit"
+            onClick={onClickSelection}
+            value="selection"
+            className={classes.toggleButton}
+          >
+            <Icon>select</Icon>
+          </ToggleButton>
+        </ToggleButtonGroup>
 
         <QuantizeSelector
           value={quantize}
           onSelect={value => onSelectQuantize({ denominator: value })}
         />
 
-        <ToolbarSeparator />
-
-        <ToolbarItem onClick={onClickAutoScroll} selected={autoScroll}>
-          <Icon>pin</Icon>
-        </ToolbarItem>
+        <ToggleButton
+          color="inherit"
+          onClick={onClickAutoScroll}
+          selected={autoScroll}
+          className={classes.toggleButton}
+        >
+          <KeyboardTab />
+        </ToggleButton>
       </Toolbar>
     </AppBar>
   )

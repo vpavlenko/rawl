@@ -23,6 +23,7 @@
   "dependencies": {
     "@material-ui/core": "4.5.0",
     "@material-ui/icons": "4.4.3",
+    "@material-ui/lab": "4.0.0-alpha.28",
     "@mdi/font": "^4.4.95",
     "@signal-app/message-sequencer": "file:../message-sequencer",
     "@signal-app/midifile-ts": "file:../midifile-ts",

@@ -9,6 +9,8 @@ import themeFromCSS from "helpers/themeFromCSS"
 
 import "./App.css"
 import "./theme.css"
+import { theme } from "helpers/muiTheme"
+import { ThemeProvider } from "@material-ui/styles"
 
 const rootStore = new RootStore()
 
@@ -21,7 +23,9 @@ window.addEventListener("load", () => {
 export default function App() {
   return (
     <Provider rootStore={rootStore}>
-      <RootView />
+      <ThemeProvider theme={theme}>
+        <RootView />
+      </ThemeProvider>
     </Provider>
   )
 }

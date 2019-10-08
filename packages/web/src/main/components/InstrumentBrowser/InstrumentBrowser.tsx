@@ -4,7 +4,7 @@ import _ from "lodash"
 import { GMMap, getGMMapIndexes, getGMMapProgramNumber } from "midi/GM.ts"
 
 import "./InstrumentBrowser.css"
-import { Button } from "@material-ui/core"
+import { Button, Dialog, DialogActions } from "@material-ui/core"
 import { compose } from "recompose"
 import { inject, observer } from "mobx-react"
 import RootStore from "stores/RootStore"
@@ -98,52 +98,50 @@ class InstrumentBrowser extends Component<
     })
 
     return (
-      <div className="Popup" style={{ display: isOpen ? "inherit" : "none" }}>
-        <div className="content">
-          <div className="InstrumentBrowser">
-            <div className="container">
-              <div className={`finder ${isRhythmTrack ? "disabled" : ""}`}>
-                <div className="left">
-                  <label>Categories</label>
-                  <select
-                    size={12}
-                    onChange={onChangeCategory}
-                    value={selectedCategoryId}
-                  >
-                    {categoryOptions}
-                  </select>
-                </div>
-                <div className="right">
-                  <label>Instruments</label>
-                  <select
-                    size={12}
-                    onChange={onChangeInstrument}
-                    value={selectedInstrumentId}
-                  >
-                    {instrumentOptions}
-                  </select>
-                </div>
+      <Dialog open={isOpen} onClose={onClickCancel}>
+        <div className="InstrumentBrowser">
+          <div className="container">
+            <div className={`finder ${isRhythmTrack ? "disabled" : ""}`}>
+              <div className="left">
+                <label>Categories</label>
+                <select
+                  size={12}
+                  onChange={onChangeCategory}
+                  value={selectedCategoryId}
+                >
+                  {categoryOptions}
+                </select>
               </div>
-              <div className="footer">
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={isRhythmTrack}
-                    onChange={onChangeRhythmTrack}
-                  />
-                  Rhythm Track
-                </label>
-                <Button className="ok" onClick={onClickOK}>
-                  OK
-                </Button>
-                <Button className="cancel" onClick={onClickCancel}>
-                  Cancel
-                </Button>
+              <div className="right">
+                <label>Instruments</label>
+                <select
+                  size={12}
+                  onChange={onChangeInstrument}
+                  value={selectedInstrumentId}
+                >
+                  {instrumentOptions}
+                </select>
               </div>
+            </div>
+            <div className="footer">
+              <label>
+                <input
+                  type="checkbox"
+                  checked={isRhythmTrack}
+                  onChange={onChangeRhythmTrack}
+                />
+                Rhythm Track
+              </label>
             </div>
           </div>
         </div>
-      </div>
+        <DialogActions>
+          <Button color="primary" onClick={onClickOK}>
+            OK
+          </Button>
+          <Button onClick={onClickCancel}>Cancel</Button>
+        </DialogActions>
+      </Dialog>
     )
   }
 }

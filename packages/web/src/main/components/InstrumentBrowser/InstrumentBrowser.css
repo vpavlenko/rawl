@@ -37,25 +37,3 @@
 .InstrumentBrowser option {
   padding: 0.5em 1em;
 }
-
-.InstrumentBrowser .footer {
-  text-align: right;
-  clear: both;
-}
-
-.InstrumentBrowser button {
-  border: none;
-  margin-left: 1em;
-  margin-top: 1em;
-}
-
-.InstrumentBrowser .ok {
-  background: #3e4eee;
-  color: white;
-}
-
-.InstrumentBrowser .cancel {
-  background: transparent;
-  border: 1px solid currentColor;
-  color: rgb(183, 183, 183);
-}

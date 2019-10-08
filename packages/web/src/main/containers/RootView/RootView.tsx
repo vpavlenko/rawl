@@ -1,3 +1,4 @@
+import { hot } from "react-hot-loader/root"
 import React, { Fragment, StatelessComponent } from "react"
 import { Helmet } from "react-helmet"
 import path from "path"
@@ -54,5 +55,6 @@ export default compose(
         song
       } as RootViewProps)
   ),
-  observer
+  observer,
+  hot
 )(RootView)

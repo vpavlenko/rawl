@@ -1,12 +1,10 @@
 import _ from "lodash"
 import EventEmitter from "eventemitter3"
-import assert from "assert"
 
 import {
   serialize as serializeMidiEvent,
   MIDIControlEvents,
-  MIDIChannelEvents,
-  AnyEvent
+  MIDIChannelEvents
 } from "@signal-app/midifile-ts"
 
 import EventScheduler from "./EventScheduler"
@@ -14,7 +12,7 @@ import Song from "common/song"
 import TrackMute from "common/trackMute"
 import { deassemble as deassembleNote } from "common/helpers/noteAssembler"
 import { deassemble as deassembleRPN } from "common/helpers/RPNAssembler"
-import { NoteEvent, TickProvider, DeltaTimeProvider } from "../track"
+import { NoteEvent } from "../track"
 import { PlayerEvent } from "./PlayerEvent"
 
 function firstByte(eventType: string, channel: number): number {
@@ -95,7 +93,6 @@ export default class Player extends EventEmitter {
   }
 
   play(song: Song) {
-    assert(song, "you must provide song")
     this._song = song
     const eventsToPlay = collectAllEvents(song)
     this._scheduler = new EventScheduler(

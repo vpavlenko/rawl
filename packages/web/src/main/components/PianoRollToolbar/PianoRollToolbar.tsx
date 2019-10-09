@@ -11,15 +11,14 @@ import { ToggleButton, ToggleButtonGroup } from "@material-ui/lab"
 import Track from "common/track/Track"
 
 import Icon from "components/outputs/Icon"
-import Knob from "components/inputs/Knob"
-import Slider from "components/inputs/Slider"
 
 import QuantizeSelector from "components/QuantizeSelector/QuantizeSelector"
 
-import "./PianoRollToolbar.css"
 import { PianoRollMouseMode } from "stores/PianoRollStore"
 import { makeStyles } from "@material-ui/styles"
 import InstrumentBrowser from "../InstrumentBrowser/InstrumentBrowser"
+import { VolumeSlider } from "./VolumeSlider"
+import { PanSlider } from "./PanSlider"
 
 const useStyles = makeStyles(theme => ({
   title: {
@@ -83,18 +82,13 @@ export const PianoRollToolbar: StatelessComponent<PianoRollToolbarProps> = ({
         </Button>
         <InstrumentBrowser />
 
-        <Slider
-          onChange={value => onChangeVolume(value)}
-          maxValue={127}
+        <VolumeSlider
+          onChange={(_, value) => onChangeVolume(value as number)}
           value={track.volume}
         />
-        <Knob
+        <PanSlider
           value={track.pan}
-          onChange={value => onChangePan(value)}
-          minValue={0}
-          maxValue={127}
-          offsetDegree={-140}
-          maxDegree={280}
+          onChange={(_, value) => onChangePan(value as number)}
         />
         <ToggleButtonGroup
           value={mouseMode}

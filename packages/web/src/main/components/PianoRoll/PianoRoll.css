@@ -27,6 +27,7 @@
 }
 
 .PianoRoll .beta {
+  display: none;
   overflow: hidden;
   position: relative;
   border-top: 1px solid var(--secondary-text-color);
@@ -81,6 +82,10 @@
 .PianoRoll .VelocityControl {
   margin-left: var(--key-width);
   border-left: 1px solid var(--secondary-text-color);
+}
+
+.PianoRoll .PianoControlEvents {
+  display: none;
 }
 
 .PianoRoll .ControlPane .PianoGrid {

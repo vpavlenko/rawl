@@ -1,16 +1,16 @@
 import React, { StatelessComponent } from "react"
 import { Drawer } from "@material-ui/core"
-import Sidebar from "components/Sidebar/Sidebar"
 import { observer, inject } from "mobx-react"
 import RootStore from "stores/RootStore"
 import { compose } from "recompose"
+import TrackList from "containers/TrackList/TrackList"
 
 const PianoRollDrawer: StatelessComponent<{
   open: boolean
   onClose: () => void
 }> = ({ open, onClose }) => (
   <Drawer open={open} onClose={onClose}>
-    <Sidebar />
+    <TrackList />
   </Drawer>
 )
 

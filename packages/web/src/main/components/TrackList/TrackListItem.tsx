@@ -7,6 +7,7 @@ import {
 
 import "./TrackListItem.css"
 import { VolumeOff, VolumeUp, Headset } from "@material-ui/icons"
+import { ListItem } from "@material-ui/core"
 
 const Nop = () => {}
 
@@ -25,8 +26,9 @@ export default function TrackListItem({
   onClickDelete = Nop
 }) {
   return (
-    <div
-      className={`TrackListItem ${selected ? "selected" : ""}`}
+    <ListItem
+      button
+      selected={selected}
       onClick={onClick}
       onContextMenu={createContextMenu(close => (
         <ContextMenu>
@@ -41,30 +43,32 @@ export default function TrackListItem({
         </ContextMenu>
       ))}
     >
-      <div className="label">
-        <div className="name" onDoubleClick={onDoubleClickName}>
-          {name}
+      <div className="TrackListItem">
+        <div className="label">
+          <div className="name" onDoubleClick={onDoubleClickName}>
+            {name}
+          </div>
+          <div className="instrument">{instrument}</div>
         </div>
-        <div className="instrument">{instrument}</div>
+        <div className="controls">
+          <div
+            className={`button solo ${solo ? "active" : ""}`}
+            onClick={onClickSolo}
+          >
+            <Headset fontSize="small" />
+          </div>
+          <div
+            className={`button mute ${mute ? "active" : ""}`}
+            onClick={onClickMute}
+          >
+            {mute ? (
+              <VolumeOff fontSize="small" />
+            ) : (
+              <VolumeUp fontSize="small" />
+            )}
+          </div>
+        </div>
       </div>
-      <div className="controls">
-        <div
-          className={`button solo ${solo ? "active" : ""}`}
-          onClick={onClickSolo}
-        >
-          <Headset fontSize="small" />
-        </div>
-        <div
-          className={`button mute ${mute ? "active" : ""}`}
-          onClick={onClickMute}
-        >
-          {mute ? (
-            <VolumeOff fontSize="small" />
-          ) : (
-            <VolumeUp fontSize="small" />
-          )}
-        </div>
-      </div>
-    </div>
+    </ListItem>
   )
 }

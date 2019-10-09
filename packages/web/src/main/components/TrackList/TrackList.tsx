@@ -1,9 +1,15 @@
 import React, { StatelessComponent } from "react"
 
-import SideHeader from "components/Sidebar/Header"
 import TrackMute from "common/trackMute/TrackMute"
 import Song from "common/song/Song"
-import { Button } from "@material-ui/core"
+import {
+  Button,
+  List,
+  ListSubheader,
+  ListItem,
+  ListItemIcon,
+  ListItemText
+} from "@material-ui/core"
 
 import TrackListItem from "./TrackListItem"
 
@@ -62,13 +68,15 @@ export const TrackList: StatelessComponent<TrackListProps> = ({
     })
 
   return (
-    <div className="TrackList">
-      <SideHeader title="Tracks" onClickTitle={onClickArrangeView}></SideHeader>
+    <List>
+      <ListSubheader onClick={onClickArrangeView}>Tracks</ListSubheader>
       {items}
-
-      <Button onClick={onClickAddTrack}>
-        <Add />
-      </Button>
-    </div>
+      <ListItem button onClick={onClickAddTrack}>
+        <ListItemIcon>
+          <Add />
+        </ListItemIcon>
+        <ListItemText primary="New track" />
+      </ListItem>
+    </List>
   )
 }

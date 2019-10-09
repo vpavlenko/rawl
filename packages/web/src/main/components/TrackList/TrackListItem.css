@@ -1,7 +1,6 @@
 .TrackListItem {
   display: flex;
   flex-shrink: 0;
-  padding: 0.5em 1em;
   height: 40px;
   flex-direction: column;
 }

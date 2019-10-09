@@ -34,6 +34,9 @@ const useStyles = makeStyles(theme => ({
     ["&.Mui-selected"]: {
       color: "rgba(255, 255, 255, 0.5)"
     }
+  },
+  instrumentButton: {
+    padding: "0 1rem"
   }
 }))
 
@@ -73,13 +76,21 @@ export const PianoRollToolbar: StatelessComponent<PianoRollToolbarProps> = ({
         <IconButton onClick={onClickNavBack} color="inherit">
           <MenuIcon />
         </IconButton>
+
         <Typography variant="h6" className={classes.title}>
           {track.displayName}
         </Typography>
-        <Button onClick={onClickInstrument} color="inherit">
-          <Icon>piano</Icon>
+
+        <Button
+          className={classes.instrumentButton}
+          onClick={onClickInstrument}
+          color="inherit"
+          size="small"
+          startIcon={<Icon>piano</Icon>}
+        >
           {track.instrumentName}
         </Button>
+
         <InstrumentBrowser />
 
         <VolumeSlider

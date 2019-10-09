@@ -31,7 +31,7 @@ function drawBlackKey(
   const middle = Math.round(height / 2)
 
   ctx.fillStyle = fillColor
-  ctx.fillRect(0, 0, innerWidth, height)
+  ctx.fillRect(0, 0.5, innerWidth, height)
 
   ctx.lineWidth = 1
   ctx.strokeStyle = dividerColor

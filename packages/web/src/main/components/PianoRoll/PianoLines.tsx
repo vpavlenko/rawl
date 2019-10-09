@@ -19,15 +19,17 @@ function drawHorizontalLines(
     const isBold = index === 11
     const y = (numberOfKeys - key - 1) * keyHeight
     if (isBlack) {
-      ctx.fillStyle = theme.secondaryBackgroundColor
+      ctx.fillStyle = theme.pianoBlackKeyLaneColor
       ctx.fillRect(0, y, width, keyHeight)
     }
-    ctx.strokeStyle = isBold ? theme.secondaryTextColor : theme.dividerColor
-    ctx.beginPath()
-    ctx.moveTo(0, y)
-    ctx.lineTo(width, y)
-    ctx.closePath()
-    ctx.stroke()
+    if (isBold) {
+      ctx.strokeStyle = theme.dividerColor
+      ctx.beginPath()
+      ctx.moveTo(0, y)
+      ctx.lineTo(width, y)
+      ctx.closePath()
+      ctx.stroke()
+    }
   }
 }
 

@@ -9,7 +9,7 @@
   --text-color: #fbfcff;
   --secondary-text-color: #8e96ab;
   --tertiary-text-color: #5a6173;
-  --divider-color: rgba(255, 255, 255, 0.05);
+  --divider-color: #454a58;
   --background-color: #272a36;
   --secondary-background-color: #454b60;
   --tertiary-background-color: #535b72;
@@ -22,9 +22,14 @@
   --track-info-height: 12em;
   --piano-key-black: #272a36;
   --piano-key-white: #fbfcff;
+  --piano-black-key-lane-color: #1f2029;
 }
 
-body, input, button, textarea, option {
+body,
+input,
+button,
+textarea,
+option {
   font-family: var(--font);
   color: var(--text-color);
 }

@@ -10,6 +10,7 @@ export default interface Theme {
   secondaryTextColor: string
   pianoKeyBlack: string
   pianoKeyWhite: string
+  pianoBlackKeyLaneColor: string
   keyWidth: number
   keyHeight: number
   rulerHeight: number
@@ -27,6 +28,7 @@ export const defaultTheme: Theme = {
   secondaryTextColor: "black",
   pianoKeyBlack: "black",
   pianoKeyWhite: "white",
+  pianoBlackKeyLaneColor: "black",
   keyWidth: 120,
   keyHeight: 20,
   rulerHeight: 30

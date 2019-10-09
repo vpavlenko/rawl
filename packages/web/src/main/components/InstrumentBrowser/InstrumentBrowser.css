@@ -16,6 +16,7 @@
 
 .InstrumentBrowser select {
   overflow: auto;
+  background-color: var(--background-color);
 }
 
 .InstrumentBrowser .left {
@@ -36,4 +37,5 @@
 
 .InstrumentBrowser option {
   padding: 0.5em 1em;
+  font-size: 0.9rem;
 }

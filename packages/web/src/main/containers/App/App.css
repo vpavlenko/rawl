@@ -6,7 +6,7 @@ body {
 
 body {
   font-size: 80%;
-  -webkit-font-smoothing: antialiased;
+  -webkit-font-smoothing: subpixel-antialiased;
   color: var(--text-color);
   background-color: var(--background-color);
 }

@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Lato:400,700,300");
 
 :root {
-  --font: BlinkMacSystemFont, Avenir, Lato;
+  --font: -apple-system, BlinkMacSystemFont, Avenir, Lato;
   --canvas-font: Arial;
   --theme-color: hsl(230, 70%, 55%);
   --red-color: hsl(10, 70%, 55%);

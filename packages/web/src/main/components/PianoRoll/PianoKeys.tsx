@@ -20,23 +20,35 @@ function drawBorder(
   ctx.stroke()
 }
 
+function makeBlackKeyFillStyle(
+  ctx: CanvasRenderingContext2D,
+  width: number
+): CanvasFillStrokeStyles["fillStyle"] {
+  const grd = ctx.createLinearGradient(0, 0, width, 0)
+  grd.addColorStop(0.0, "rgba(33, 33, 33, 1.000)")
+  grd.addColorStop(0.895, "rgba(96, 93, 93, 1.000)")
+  grd.addColorStop(0.924, "rgba(48, 48, 48, 1.000)")
+  grd.addColorStop(1.0, "rgba(0, 0, 0, 1.000)")
+  return grd
+}
+
 function drawBlackKey(
   ctx: CanvasRenderingContext2D,
+  keyWidth: number,
   width: number,
   height: number,
-  fillColor: string,
+  fillStyle: CanvasFillStrokeStyles["fillStyle"],
   dividerColor: string
 ): void {
-  const innerWidth = width * 0.64
   const middle = Math.round(height / 2)
 
-  ctx.fillStyle = fillColor
-  ctx.fillRect(0, 0.5, innerWidth, height)
+  ctx.fillStyle = fillStyle
+  ctx.fillRect(0, 0.5, keyWidth, height)
 
   ctx.lineWidth = 1
   ctx.strokeStyle = dividerColor
   ctx.beginPath()
-  ctx.moveTo(innerWidth, middle)
+  ctx.moveTo(keyWidth, middle)
   ctx.lineTo(width, middle)
   ctx.closePath()
   ctx.stroke()
@@ -71,6 +83,9 @@ function drawKeys(
   ctx.fillStyle = theme.pianoKeyWhite
   ctx.fillRect(0, 0, width, keyHeight * numberOfKeys)
 
+  const blackKeyWidth = width * 0.64
+  const blackKeyFillStyle = makeBlackKeyFillStyle(ctx, blackKeyWidth)
+
   drawBorder(ctx, width, theme.dividerColor)
 
   // 0: white, 1: black
@@ -84,9 +99,10 @@ function drawKeys(
     if (isBlack) {
       drawBlackKey(
         ctx,
+        blackKeyWidth,
         width,
         keyHeight,
-        theme.pianoKeyBlack,
+        blackKeyFillStyle,
         theme.dividerColor
       )
     } else if (bordered) {

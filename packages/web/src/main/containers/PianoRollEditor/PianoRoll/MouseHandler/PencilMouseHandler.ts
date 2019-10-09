@@ -80,7 +80,7 @@ export const createNoteAction = (dispatch: Dispatcher): MouseGesture => (
 const removeNoteAction = (
   dispatch: Dispatcher
 ): MouseGesture => onMouseDown => {
-  onMouseDown(e => dispatch(REMOVE_EVENT, { eventId: e.item.id }))
+  onMouseDown(e => dispatch(REMOVE_EVENT, e.item.id))
 }
 
 const moveNoteAction = (

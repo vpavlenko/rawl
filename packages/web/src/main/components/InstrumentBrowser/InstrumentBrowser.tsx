@@ -4,7 +4,13 @@ import _ from "lodash"
 import { GMMap, getGMMapIndexes, getGMMapProgramNumber } from "midi/GM.ts"
 
 import "./InstrumentBrowser.css"
-import { Button, Dialog, DialogActions } from "@material-ui/core"
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  FormControlLabel,
+  Checkbox
+} from "@material-ui/core"
 import { compose } from "recompose"
 import { inject, observer } from "mobx-react"
 import RootStore from "stores/RootStore"
@@ -124,22 +130,24 @@ class InstrumentBrowser extends Component<
               </div>
             </div>
             <div className="footer">
-              <label>
-                <input
-                  type="checkbox"
-                  checked={isRhythmTrack}
-                  onChange={onChangeRhythmTrack}
-                />
-                Rhythm Track
-              </label>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={isRhythmTrack}
+                    onChange={onChangeRhythmTrack}
+                    color="primary"
+                  />
+                }
+                label="Rhythm Track"
+              />
             </div>
           </div>
         </div>
         <DialogActions>
+          <Button onClick={onClickCancel}>Cancel</Button>
           <Button color="primary" onClick={onClickOK}>
             OK
           </Button>
-          <Button onClick={onClickCancel}>Cancel</Button>
         </DialogActions>
       </Dialog>
     )

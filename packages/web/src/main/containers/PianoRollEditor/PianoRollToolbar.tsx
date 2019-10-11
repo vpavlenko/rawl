@@ -18,6 +18,7 @@ export default compose(
         song,
         dispatch,
         pianoRollStore: s,
+        rootViewStore,
         services: { quantizer }
       }
     }: {
@@ -39,7 +40,7 @@ export default compose(
         },
         onChangeVolume: value => dispatch(SET_TRACK_VOLUME, trackId, value),
         onChangePan: value => dispatch(SET_TRACK_PAN, trackId, value),
-        onClickNavBack: () => (s.openDrawer = true),
+        onClickNavBack: () => (rootViewStore.openDrawer = true),
         onClickInstrument: () => (s.openInstrumentBrowser = true)
       } as PianoRollToolbarProps
     }

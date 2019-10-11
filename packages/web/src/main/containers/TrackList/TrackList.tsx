@@ -37,6 +37,7 @@ export default compose(
         onSelectTrack: (trackId: number) => {
           router.pushTrack()
           dispatch(SELECT_TRACK, trackId)
+          rootViewStore.openDrawer = false
         },
         onClickArrangeView: () => {
           router.pushArrange()

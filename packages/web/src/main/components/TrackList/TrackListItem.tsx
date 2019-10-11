@@ -53,13 +53,19 @@ export default function TrackListItem({
         <div className="controls">
           <div
             className={`button solo ${solo ? "active" : ""}`}
-            onClick={onClickSolo}
+            onClick={e => {
+              e.stopPropagation()
+              onClickSolo()
+            }}
           >
             <Headset fontSize="small" />
           </div>
           <div
             className={`button mute ${mute ? "active" : ""}`}
-            onClick={onClickMute}
+            onClick={e => {
+              e.stopPropagation()
+              onClickMute()
+            }}
           >
             {mute ? (
               <VolumeOff fontSize="small" />

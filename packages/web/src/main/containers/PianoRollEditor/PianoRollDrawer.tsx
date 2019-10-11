@@ -15,7 +15,7 @@ const PianoRollDrawer: StatelessComponent<{
 )
 
 export default compose(
-  inject(({ rootStore: { pianoRollStore: s } }: { rootStore: RootStore }) => {
+  inject(({ rootStore: { rootViewStore: s } }: { rootStore: RootStore }) => {
     return {
       open: s.openDrawer,
       onClose: () => (s.openDrawer = false)

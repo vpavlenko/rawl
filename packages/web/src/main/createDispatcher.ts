@@ -28,13 +28,13 @@ const createDispatcher = (rootStore: RootStore) => (
     ...createPianoRollAction(rootStore),
     ...createArrangeViewAction(rootStore)
   }
-
   const action = actions[type]
   if (action) {
     return action(...params)
   }
 
   console.warn("unknown action", type, params)
+  return () => {}
 }
 
 export default createDispatcher

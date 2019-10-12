@@ -321,6 +321,7 @@ export const ArrangeView: SFC<ArrangeViewProps> = ({
             width={containerWidth}
             height={contentHeight}
             color={theme.themeColor}
+            scrollLeft={scrollLeft}
             selectionBounds={selectionRect}
           />
           <PianoCursor

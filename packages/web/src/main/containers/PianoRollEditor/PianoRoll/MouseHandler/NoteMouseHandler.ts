@@ -6,13 +6,13 @@ export type MouseAction = (e: PianoNotesMouseEvent<MouseEvent>) => void
 
 export type MouseGesture = (
   onMouseDown: (action: MouseAction) => void,
-  onMouseMove?: (action: MouseAction) => void,
-  onMouseUp?: (action: MouseAction) => void
+  onMouseMove: (action: MouseAction) => void,
+  onMouseUp: (action: MouseAction) => void
 ) => void
 
 export default class NoteMouseHandler {
   dispatch: Dispatcher
-  private action: MouseGesture
+  private action: MouseGesture | null
   private actionMouseMove: MouseAction
   private actionMouseUp: MouseAction
 
@@ -25,7 +25,7 @@ export default class NoteMouseHandler {
   // mousedown 以降に行う MouseAction を返す
   protected actionForMouseDown(
     e: PianoNotesMouseEvent<MouseEvent>
-  ): MouseGesture {
+  ): MouseGesture | null {
     // 共通の action
 
     // wheel drag to start scrolling

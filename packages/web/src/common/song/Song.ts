@@ -5,6 +5,7 @@ import _ from "lodash"
 import Track from "common/track"
 import { MeasureList } from "common/measure"
 import { TIME_BASE } from "Constants"
+import { isNotUndefined } from "../helpers/array"
 
 const END_MARGIN = 480 * 30
 
@@ -27,7 +28,8 @@ export default class Song {
   private _measureList: MeasureList | null = null
 
   private _updateEndOfSong() {
-    this._endOfSong = _.max(this.tracks.map(t => t.endOfTrack)) + END_MARGIN
+    const eos = _.max(this.tracks.map(t => t.endOfTrack).filter(isNotUndefined))
+    this._endOfSong = (eos !== undefined ? eos : 0) + END_MARGIN
     this._measureList = null
   }
 
@@ -84,6 +86,10 @@ export default class Song {
       return this._measureList
     }
 
+    if (this.conductorTrack === undefined) {
+      throw new Error("Conductor track is not exist")
+    }
+
     this._measureList = new MeasureList(
       this.conductorTrack,
       this.endOfSong,
@@ -96,7 +102,7 @@ export default class Song {
     return this._endOfSong
   }
 
-  trackIdOfChannel(channel: number): number {
+  trackIdOfChannel(channel: number): number | undefined {
     const tracks = this.tracks
     const track = _.find(tracks, t => t.channel === channel)
     if (track) {

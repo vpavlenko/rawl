@@ -17,28 +17,26 @@ function renderElement(html: string) {
 export const createContextMenu = (
   childrenProvider: (close: () => void) => JSX.Element[]
 ) => (e: React.MouseEvent) => {
-  let position: IPoint
-  if (e.preventDefault) {
-    e.preventDefault()
-  }
-  if (e.pageX !== undefined && e.pageY !== undefined) {
-    position = {
-      x: e.pageX,
-      y: e.pageY
-    }
-  }
+  e.preventDefault()
 
   const elm = renderElement(`<div class="ContextMenu" />`)
-  document.querySelector("body").appendChild(elm)
+  if (elm === null) {
+    throw new Error("failed to render elements")
+  }
 
-  const close = () => elm.parentNode.removeChild(elm)
+  const body = document.querySelector("body")
+  if (body === null) {
+    throw new Error("body is undefined")
+  }
+
+  body.appendChild(elm)
+
+  const close = () => body.removeChild(elm)
 
   ReactDOM.render(
     <ThemeProvider theme={theme}>
       <div className="overlay">
-        <div
-          style={{ position: "absolute", left: position.x, top: position.y }}
-        >
+        <div style={{ position: "absolute", left: e.pageX, top: e.pageY }}>
           <Paper>
             <ClickAwayListener onClickAway={close}>
               <MenuList>{childrenProvider(close)}</MenuList>

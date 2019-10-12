@@ -32,8 +32,8 @@ export function ToolbarItem({
       className={f(
         "ToolbarItem",
         className,
-        selected && "selected",
-        touchDisabled && "touch-disabled"
+        selected ? "selected" : undefined,
+        touchDisabled ? "touch-disabled" : undefined
       )}
       onClick={onClick}
     >

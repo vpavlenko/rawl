@@ -3,7 +3,7 @@ import Color from "color"
 import { ISize } from "common/geometry"
 import { Beat } from "common/measure"
 import Theme from "common/theme/Theme"
-import Track, { TrackEvent } from "common/track"
+import { TrackEvent } from "common/track"
 import { TempoCoordTransform } from "common/transform"
 import DrawCanvas from "components/DrawCanvas"
 import { BAR_WIDTH, HorizontalScrollBar } from "components/inputs/ScrollBar"
@@ -100,7 +100,6 @@ const GraphAxis: StatelessComponent<GraphAxisProps> = ({
 }
 
 export interface TempoGraphProps {
-  track: Track
   events: TrackEvent[]
   size: ISize
   pixelsPerTick: number

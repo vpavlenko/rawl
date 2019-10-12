@@ -35,7 +35,7 @@ export const ScrollBar: StatelessComponent<ScrollBarProps> = ({
   barLength,
   scrollOffset = 50,
   contentLength = 1000,
-  onScroll,
+  onScroll = () => {},
   style,
   children
 }) => {

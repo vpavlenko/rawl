@@ -33,42 +33,62 @@ export default (rootStore: RootStore) => {
     pianoRollStore,
     services: { player, quantizer }
   } = rootStore
-  const { tracks, selectedTrack } = song
-
   const saveHistory = () => {
     rootStore.pushHistory()
   }
+
+  const updateEvent = (id: number, obj: Partial<TrackEvent>) => {}
 
   return {
     /* conductor track */
 
     [CHANGE_TEMPO]: (id: number, microsecondsPerBeat: number) => {
+      const track = song.conductorTrack
+      if (track === undefined) {
+        return
+      }
       saveHistory()
-      song.conductorTrack.updateEvent(id, {
+      track.updateEvent(id, {
         microsecondsPerBeat: microsecondsPerBeat
       })
     },
     [CREATE_TEMPO]: (tick: number, microsecondsPerBeat: number) => {
+      const track = song.conductorTrack
+      if (track === undefined) {
+        return
+      }
       saveHistory()
       const e = {
         ...setTempoMidiEvent(0, Math.round(microsecondsPerBeat)),
         tick: quantizer.round(tick)
       }
-      song.conductorTrack.createOrUpdate(e)
+      track.createOrUpdate(e)
     },
 
     /* events */
 
     [CHANGE_NOTES_VELOCITY]: (notes: NoteEvent[], velocity: number) => {
+      const selectedTrack = song.selectedTrack
+      if (selectedTrack === undefined) {
+        return
+      }
       saveHistory()
       selectedTrack.updateEvents(notes.map(item => ({ id: item.id, velocity })))
     },
     [CREATE_PITCH_BEND]: (value: number, tick: number = player.position) => {
+      const selectedTrack = song.selectedTrack
+      if (selectedTrack === undefined) {
+        return
+      }
       saveHistory()
       const e = pitchBendMidiEvent(0, 0, Math.round(value))
       selectedTrack.createOrUpdate({ ...e, tick: quantizer.round(tick) })
     },
     [CREATE_VOLUME]: (value: number, tick: number = player.position) => {
+      const selectedTrack = song.selectedTrack
+      if (selectedTrack === undefined) {
+        return
+      }
       saveHistory()
       const e = volumeMidiEvent(0, 0, Math.round(value))
       selectedTrack.createOrUpdate({
@@ -77,21 +97,37 @@ export default (rootStore: RootStore) => {
       })
     },
     [CREATE_PAN]: (value: number, tick: number = player.position) => {
+      const selectedTrack = song.selectedTrack
+      if (selectedTrack === undefined) {
+        return
+      }
       saveHistory()
       const e = panMidiEvent(0, 0, Math.round(value))
       selectedTrack.createOrUpdate({ ...e, tick: quantizer.round(tick) })
     },
     [CREATE_MODULATION]: (value: number, tick: number = player.position) => {
+      const selectedTrack = song.selectedTrack
+      if (selectedTrack === undefined) {
+        return
+      }
       saveHistory()
       const e = modulationMidiEvent(0, 0, Math.round(value))
       selectedTrack.createOrUpdate({ ...e, tick: quantizer.round(tick) })
     },
     [CREATE_EXPRESSION]: (value: number, tick: number = player.position) => {
+      const selectedTrack = song.selectedTrack
+      if (selectedTrack === undefined) {
+        return
+      }
       saveHistory()
       const e = expressionMidiEvent(0, 0, Math.round(value))
       selectedTrack.createOrUpdate({ ...e, tick: quantizer.round(tick) })
     },
     [REMOVE_EVENT]: (eventId: number) => {
+      const selectedTrack = song.selectedTrack
+      if (selectedTrack === undefined) {
+        return
+      }
       saveHistory()
       selectedTrack.removeEvent(eventId)
     },
@@ -99,6 +135,10 @@ export default (rootStore: RootStore) => {
     /* note */
 
     [CREATE_NOTE]: (tick: number, noteNumber: number) => {
+      const selectedTrack = song.selectedTrack
+      if (selectedTrack === undefined || selectedTrack.channel == undefined) {
+        return
+      }
       saveHistory()
       tick = quantizer.floor(tick)
       const note: NoteEvent = {
@@ -126,6 +166,10 @@ export default (rootStore: RootStore) => {
     }: Pick<NoteEvent, "id" | "tick" | "noteNumber"> & {
       quantize: "floor" | "round" | "ceil"
     }) => {
+      const selectedTrack = song.selectedTrack
+      if (selectedTrack === undefined || selectedTrack.channel == undefined) {
+        return
+      }
       const note = selectedTrack.getEventById(id) as NoteEvent
       tick = quantizer[quantize || "floor"](tick)
       const tickChanged = tick !== note.tick
@@ -148,6 +192,10 @@ export default (rootStore: RootStore) => {
       }
     },
     [RESIZE_NOTE_LEFT]: (id: number, tick: number) => {
+      const selectedTrack = song.selectedTrack
+      if (selectedTrack === undefined) {
+        return
+      }
       // 右端を固定して長さを変更
       tick = quantizer.round(tick)
       const note = selectedTrack.getEventById(id) as NoteEvent
@@ -159,6 +207,10 @@ export default (rootStore: RootStore) => {
       }
     },
     [RESIZE_NOTE_RIGHT]: (id: number, tick: number) => {
+      const selectedTrack = song.selectedTrack
+      if (selectedTrack === undefined) {
+        return
+      }
       const note = selectedTrack.getEventById(id) as NoteEvent
       const right = tick
       const duration = Math.max(
@@ -175,20 +227,24 @@ export default (rootStore: RootStore) => {
     /* track meta */
 
     [SET_TRACK_NAME]: (name: string) => {
+      const selectedTrack = song.selectedTrack
+      if (selectedTrack === undefined) {
+        return
+      }
       saveHistory()
-      selectedTrack.name = name
+      selectedTrack.setName(name)
     },
     [SET_TRACK_VOLUME]: (trackId: number, volume: number) => {
       saveHistory()
-      tracks[trackId].volume = volume
+      song.tracks[trackId].setVolume(volume)
     },
     [SET_TRACK_PAN]: (trackId: number, pan: number) => {
       saveHistory()
-      tracks[trackId].pan = pan
+      song.tracks[trackId].setPan(pan)
     },
     [SET_TRACK_INSTRUMENT]: (trackId: number, programNumber: number) => {
       saveHistory()
-      tracks[trackId].programNumber = programNumber
+      song.tracks[trackId].setProgramNumber(programNumber)
     }
   }
 }

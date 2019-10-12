@@ -3,6 +3,9 @@ import Theme from "common/theme"
 // 文頭、文末のスペースを取り除く
 function trimSpace(str: string) {
   const matched = str.match(/^\s*(.+?)\s*$/)
+  if (matched === null) {
+    return str
+  }
   return (matched && matched.length) > 0 ? matched[1] : str
 }
 
@@ -12,7 +15,11 @@ function getCSSVariable(name: string) {
 }
 
 export function hslWithAlpha(hsl: string, alpha: number) {
-  const [, h, s, l] = hsl.match(/hsl\((.+), (.+)%, (.+)%\)/)
+  const matched = hsl.match(/hsl\((.+), (.+)%, (.+)%\)/)
+  if (matched === null) {
+    return hsl
+  }
+  const [, h, s, l] = matched
   return `hsla(${h}, ${s}%, ${l}%, ${alpha})`
 }
 

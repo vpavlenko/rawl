@@ -68,6 +68,7 @@ export default class SelectionMouseHandler extends MouseHandler {
           selected = false
           break
         default:
+          selected = false
           break
       }
       return contextMenuAction(selected, dispatch)

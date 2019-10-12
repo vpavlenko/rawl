@@ -4,9 +4,12 @@ export default class SynthOutput {
   private messenger: Messenger
 
   constructor(soundFontPath: string) {
-    this.messenger = new WindowMessenger(
-      (document.getElementById("synth") as HTMLIFrameElement).contentWindow
-    )
+    const iframe = document.getElementById("synth") as HTMLIFrameElement
+
+    if (iframe.contentWindow == null) {
+      return
+    }
+    this.messenger = new WindowMessenger(iframe.contentWindow)
     this.messenger.on("did-create-synth-window", () => {
       if (soundFontPath) {
         this.loadSoundFont(soundFontPath)

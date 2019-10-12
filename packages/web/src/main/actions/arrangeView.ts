@@ -5,6 +5,7 @@ import RootStore from "../stores/RootStore"
 import Track, { NoteEvent, isNoteEvent } from "common/track"
 import { openContextMenu } from "../components/groups/ContextMenu"
 import { ArrangeContextMenu } from "../menus/ArrangeContextMenu"
+import { isNotUndefined } from "common/helpers/array"
 
 export const ARRANGE_START_SELECTION = Symbol()
 export const ARRANGE_RESIZE_SELECTION = Symbol()
@@ -39,8 +40,8 @@ export default ({
     return rect
   }
 
-  const quantizeRect = (rect: IRect) => {
-    if (!rect) {
+  const quantizeRect = (rect: IRect | null) => {
+    if (rect === null) {
       return null
     }
     return {
@@ -83,6 +84,9 @@ export default ({
     },
 
     [ARRANGE_MOVE_SELECTION]: (pos: IPoint) => {
+      if (s.selection === null) {
+        return
+      }
       // 選択範囲を移動
       const selection = quantizeRect({
         x: Math.max(pos.x, 0),
@@ -113,7 +117,7 @@ export default ({
         const track = tracks[trackId]
         const events = s.selectedEventIds[trackId]
           .map(id => track.getEventById(id))
-          .filter(e => e)
+          .filter(isNotUndefined)
 
         if (di === 0) {
           track.updateEvents(
@@ -152,16 +156,21 @@ export default ({
     },
 
     [ARRANGE_COPY_SELECTION]: () => {
+      const selection = s.selection
+      if (selection === null) {
+        return
+      }
       // 選択されたノートをコピー
-      const notes = _.mapValues(s.selectedEventIds, (ids, trackId) =>
-        ids.map(id => {
-          const note = tracks[parseInt(trackId, 10)].getEventById(id)
-          return {
+      const notes = _.mapValues(s.selectedEventIds, (ids, trackId) => {
+        const track = tracks[parseInt(trackId, 10)]
+        return ids
+          .map(id => track.getEventById(id))
+          .filter(isNotUndefined)
+          .map(note => ({
             ...note,
-            tick: note.tick - s.selection.x // 選択範囲からの相対位置にする
-          }
-        })
-      )
+            tick: note.tick - selection.x // 選択範囲からの相対位置にする
+          }))
+      })
       clipboard.writeText(
         JSON.stringify({
           type: "arrange_notes",

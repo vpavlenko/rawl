@@ -17,7 +17,7 @@ export default class PencilMouseHandler extends NoteMouseHandler {
 
   protected actionForMouseDown(
     e: PianoNotesMouseEvent<MouseEvent>
-  ): MouseGesture {
+  ): MouseGesture | null {
     const original = super.actionForMouseDown(e)
     if (original) {
       return original

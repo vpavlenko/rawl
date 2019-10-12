@@ -3,6 +3,7 @@ import SelectionModel from "common/selection"
 import RootStore from "../stores/RootStore"
 import { NotePoint } from "common/transform/NotePoint"
 import { isNoteEvent, NoteEvent, TrackEvent } from "common/track"
+import { isNotUndefined } from "common/helpers/array"
 
 export const RESIZE_SELECTION = Symbol()
 export const FIX_SELECTION = Symbol()
@@ -31,15 +32,13 @@ export default ({
   pianoRollStore,
   services: { quantizer, player }
 }: RootStore) => {
-  const { selectedTrack } = song
-  const { selection, mouseMode } = pianoRollStore
-
   function updateSelection(selection: SelectionModel) {
     pianoRollStore.selection = selection
   }
 
   return {
     [RESIZE_SELECTION]: (start: NotePoint, end: NotePoint) => {
+      const { selection } = pianoRollStore
       updateSelection(
         selection.resize(
           quantizer.round(start.tick),
@@ -50,6 +49,11 @@ export default ({
       )
     },
     [FIX_SELECTION]: () => {
+      const selectedTrack = song.selectedTrack
+      if (selectedTrack === undefined) {
+        return
+      }
+      const { selection } = pianoRollStore
       // 選択範囲を確定して選択範囲内のノートを選択状態にする
       const s = selection.clone()
       s.noteIds = eventsInSelection(selectedTrack.events, selection).map(
@@ -58,6 +62,11 @@ export default ({
       updateSelection(s)
     },
     [MOVE_SELECTION]: (point: NotePoint) => {
+      const selectedTrack = song.selectedTrack
+      if (selectedTrack === undefined) {
+        return
+      }
+      const { selection } = pianoRollStore
       // ノートと選択範囲を移動
       const tick = quantizer.round(point.tick)
       const noteNumber = Math.round(point.noteNumber)
@@ -85,6 +94,11 @@ export default ({
     },
 
     [RESIZE_SELECTION_LEFT]: (tick: number) => {
+      const selectedTrack = song.selectedTrack
+      if (selectedTrack === undefined) {
+        return
+      }
+      const { selection } = pianoRollStore
       // 選択範囲とノートを左方向に伸長・縮小する
       const fromTick = quantizer.round(tick)
       const delta = fromTick - selection.fromTick
@@ -122,6 +136,11 @@ export default ({
     },
 
     [RESIZE_SELECTION_RIGHT]: (tick: number) => {
+      const selectedTrack = song.selectedTrack
+      if (selectedTrack === undefined) {
+        return
+      }
+      const { selection } = pianoRollStore
       // 選択範囲とノートを右方向に伸長・縮小する
       const toTick = quantizer.round(tick)
       const delta = toTick - selection.toTick
@@ -168,29 +187,44 @@ export default ({
       updateSelection(s)
     },
     [CLONE_SELECTION]: () => {
+      const selectedTrack = song.selectedTrack
+      if (selectedTrack === undefined) {
+        return
+      }
+      const { selection } = pianoRollStore
       // 選択範囲内のノートをコピーした選択範囲を作成
-      const notes = selection.noteIds.map(id => ({
-        ...selectedTrack.getEventById(id)
-      }))
+      const notes = selection.noteIds
+        .map(id => selectedTrack.getEventById(id))
+        .filter(isNotUndefined)
+        .map(note => ({
+          ...note // copy
+        }))
       selectedTrack.addEvents(notes)
       const s = selection.clone()
       s.noteIds = notes.map(e => e.id)
       updateSelection(s)
     },
     [COPY_SELECTION]: () => {
+      const selectedTrack = song.selectedTrack
+      if (selectedTrack === undefined) {
+        return
+      }
+      const { selection, mouseMode } = pianoRollStore
       if (mouseMode !== "selection") {
         // not selection mode
         return
       }
 
       // 選択されたノートをコピー
-      const notes = selection.noteIds.map(id => {
-        const note = selectedTrack.getEventById(id)
-        return {
-          ...note,
-          tick: note.tick - selection.fromTick // 選択範囲からの相対位置にする
-        }
-      })
+      const notes = selection.noteIds
+        .map(id => selectedTrack.getEventById(id))
+        .filter(isNotUndefined)
+        .map(note => {
+          return {
+            ...note,
+            tick: note.tick - selection.fromTick // 選択範囲からの相対位置にする
+          }
+        })
       clipboard.writeText(
         JSON.stringify({
           type: "notes",
@@ -199,11 +233,20 @@ export default ({
       )
     },
     [DELETE_SELECTION]: () => {
+      const selectedTrack = song.selectedTrack
+      if (selectedTrack === undefined) {
+        return
+      }
+      const { selection } = pianoRollStore
       // 選択範囲と選択されたノートを削除
       selectedTrack.removeEvents(selection.noteIds)
       updateSelection(new SelectionModel())
     },
     [PASTE_SELECTION]: () => {
+      const selectedTrack = song.selectedTrack
+      if (selectedTrack === undefined) {
+        return
+      }
       // 現在位置にコピーしたノートをペースト
       const text = clipboard.readText()
       if (!text || text.length === 0) {

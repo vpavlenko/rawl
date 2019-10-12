@@ -24,14 +24,14 @@ export type LineGraphProps = Omit<StageProps, "items"> & {
 const LineGraph: StatelessComponent<LineGraphProps> = ({
   width,
   height,
-  scrollLeft,
+  scrollLeft = 0,
   items,
   onMouseDown,
   onMouseMove,
   onMouseUp,
   onClickAxis,
   className,
-  lineWidth,
+  lineWidth = 1,
   axis,
   color
 }) => {
@@ -79,10 +79,6 @@ const LineGraph: StatelessComponent<LineGraphProps> = ({
       />
     </div>
   )
-}
-
-LineGraph.defaultProps = {
-  lineWidth: 1
 }
 
 export default pure(LineGraph)

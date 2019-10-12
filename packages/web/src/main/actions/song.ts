@@ -41,7 +41,7 @@ export default (rootStore: RootStore) => {
       })
     },
     [OPEN_SONG]: (input: HTMLInputElement) => {
-      if (input.files.length === 0) {
+      if (input.files === null || input.files.length === 0) {
         return
       }
 
@@ -49,6 +49,9 @@ export default (rootStore: RootStore) => {
       const reader = new FileReader()
 
       reader.onload = e => {
+        if (e.target == null) {
+          return
+        }
         const buf = e.target.result as ArrayBuffer
         const song = readSong(new Uint8Array(buf))
         setSong(song)
@@ -74,7 +77,7 @@ export default (rootStore: RootStore) => {
     },
     [SET_TEMPO]: (tempo: number) => {
       saveHistory()
-      song.getTrack(0).tempo = tempo
+      song.getTrack(0).setTempo(tempo)
     }
   }
 }

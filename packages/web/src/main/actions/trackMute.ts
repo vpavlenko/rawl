@@ -10,16 +10,24 @@ export default ({
 }: RootStore) => {
   return {
     [TOGGLE_MUTE_TRACK]: (trackId: number) => {
+      const channel = tracks[trackId].channel
+      if (channel === undefined) {
+        return
+      }
+
       if (trackMute.isMuted(trackId)) {
         trackMute.unmute(trackId)
       } else {
         trackMute.mute(trackId)
-        const channel = tracks[trackId].channel
         player.allSoundsOffChannel(channel)
       }
     },
     [TOGGLE_SOLO_TRACK]: (trackId: number) => {
       const channel = tracks[trackId].channel
+      if (channel === undefined) {
+        return
+      }
+
       if (trackMute.isSolo(trackId)) {
         trackMute.unsolo(trackId)
         player.allSoundsOffChannel(channel)

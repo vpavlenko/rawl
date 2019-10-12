@@ -48,7 +48,7 @@ const Wrapper: SFC<SPianoRollProps> = props => {
 
   const [pencilMouseHandler] = useState(new PencilMouseHandler())
   const [selectionMouseHandler] = useState(new SelectionMouseHandler())
-  const [alpha, setAlpha] = useState(null)
+  const [alpha, setAlpha] = useState<HTMLElement | null>(null)
   const transform = new NoteCoordTransform(0.1 * scaleX, theme.keyHeight, 127)
 
   pencilMouseHandler.dispatch = dispatch
@@ -79,7 +79,7 @@ const Wrapper: SFC<SPianoRollProps> = props => {
       transform={transform}
       mouseHandler={mouseHandler}
       onMountAlpha={c => setAlpha(c)}
-      alphaHeight={alpha ? alpha.getBoundingClientRect().height : 0}
+      alphaHeight={alpha !== null ? alpha.getBoundingClientRect().height : 0}
     />
   )
 }
@@ -107,7 +107,7 @@ export default compose<{}, {}>(
         endTick,
         beats,
         theme,
-        events: (track.events as any).toJS(), // 変更が反映されるように toJS() する
+        events: track !== undefined ? (track.events as any).toJS() : [], // 変更が反映されるように toJS() する
         scaleX: s.scaleX,
         scaleY: s.scaleY,
         autoScroll: s.autoScroll,

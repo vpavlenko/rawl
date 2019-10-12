@@ -1,3 +1,5 @@
-export default function flatJoin(...classes: string[]) {
-  return classes.filter(c => c).join(" ")
+import { isNotNullOrUndefined } from "./array"
+
+export default function flatJoin(...classes: (string | undefined | null)[]) {
+  return classes.filter(isNotNullOrUndefined).join(" ")
 }

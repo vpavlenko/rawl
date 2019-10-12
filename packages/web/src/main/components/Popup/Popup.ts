@@ -14,11 +14,13 @@ export default class Popup {
   }
 
   show() {
-    document.querySelector("body").appendChild(this.elm)
+    const body = document.querySelector("body")
+    body && body.appendChild(this.elm)
   }
 
   close() {
-    this.elm.parentNode.removeChild(this.elm)
+    const node = this.elm.parentNode
+    node && node.removeChild(this.elm)
   }
 
   getContentElement() {
@@ -37,6 +39,10 @@ export default class Popup {
   static renderElement() {
     const template = document.createElement("template")
     template.innerHTML = this.render()
-    return template.content.firstElementChild
+    const elm = template.content.firstElementChild
+    if (elm === null) {
+      throw new Error("Failed to render popup elements")
+    }
+    return elm
   }
 }

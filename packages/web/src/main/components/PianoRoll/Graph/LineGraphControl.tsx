@@ -28,13 +28,13 @@ const LineGraphControl: StatelessComponent<LineGraphControlProps> = ({
   createEvent,
   ...props
 }) => {
+  const lineWidth = props.lineWidth !== undefined ? props.lineWidth : 1
   function transformToPosition(tick: number, value: number) {
     return {
       x: Math.round(transform.getX(tick)),
       y:
-        Math.round(
-          (1 - value / maxValue) * (props.height - props.lineWidth * 2)
-        ) + props.lineWidth
+        Math.round((1 - value / maxValue) * (props.height - lineWidth * 2)) +
+        lineWidth
     }
   }
 
@@ -42,9 +42,7 @@ const LineGraphControl: StatelessComponent<LineGraphControlProps> = ({
     return {
       tick: transform.getTicks(position.x),
       value:
-        (1 -
-          (position.y - props.lineWidth) /
-            (props.height - props.lineWidth * 2)) *
+        (1 - (position.y - lineWidth) / (props.height - lineWidth * 2)) *
         maxValue
     }
   }

@@ -162,13 +162,16 @@ const GMMap = {
 } as { [key: string]: string[] }
 
 // programNumber は 0 から始まる数
-function getInstrumentName(programNumber: number): string {
+function getInstrumentName(programNumber: number): string | undefined {
   const ids = getGMMapIndexes(programNumber)
+  if (ids === undefined) {
+    return undefined
+  }
   return GMMap[Object.keys(GMMap)[ids[0]]][ids[1]]
 }
 
 // category, instrument の index を返す
-function getGMMapIndexes(programNumber: number): [number, number] {
+function getGMMapIndexes(programNumber: number): [number, number] | undefined {
   let i = programNumber
   let n = 0
   for (const key in GMMap) {
@@ -179,12 +182,13 @@ function getGMMapIndexes(programNumber: number): [number, number] {
     i -= len
     n++
   }
+  return undefined
 }
 
 function getGMMapProgramNumber(
   catrgoryId: number,
   instrumentId: number
-): number {
+): number | undefined {
   let i = 0
   let n = 0
   for (const key in GMMap) {
@@ -195,6 +199,7 @@ function getGMMapProgramNumber(
     i++
     n += len
   }
+  return undefined
 }
 
 const PercussionKeyMap = {

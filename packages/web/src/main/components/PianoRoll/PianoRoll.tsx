@@ -53,7 +53,7 @@ export type PianoRollProps = Pick<
   setControlMode: (mode: string) => void
   notesCursor: string
   cursorPosition: number
-  onMountAlpha: (ref: HTMLElement) => void
+  onMountAlpha: (ref: HTMLElement | null) => void
   loop: LoopSetting
   setLoopBegin: (tick: number) => void
   setLoopEnd: (tick: number) => void
@@ -196,7 +196,11 @@ export const PianoRoll: StatelessComponent<PianoRollProps> = ({
               width={keyWidth}
               keyHeight={transform.pixelsPerKey}
               numberOfKeys={transform.numberOfKeys}
-              onClickKey={noteNumber => previewNote(noteNumber, track.channel)}
+              onClickKey={noteNumber => {
+                if (track.channel !== undefined) {
+                  previewNote(noteNumber, track.channel)
+                }
+              }}
             />
           </div>
           <div className="alphaRuler">

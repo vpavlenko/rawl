@@ -27,7 +27,7 @@ function collectAllEvents(song: Song): PlayerEvent[] {
         .flatten()
         .map(e => deassembleRPN(e, x => ({ ...x, tick: e.tick })))
         .flatten()
-        .map(e => ({ ...e, channel: t.channel }))
+        .map(e => ({ ...e, channel: t.channel } as any))
         .value()
     )
   )
@@ -72,15 +72,15 @@ interface PlayerOutput {
 export default class Player extends EventEmitter {
   private _currentTempo = 120
   private _currentTick = 0
-  private _scheduler: EventScheduler<PlayerEvent> = null
+  private _scheduler: EventScheduler<PlayerEvent> | null = null
   private _song: Song
   private _output: PlayerOutput
   private _timebase: number
   private _trackMute: TrackMute
 
   loop: LoopSetting = {
-    begin: null,
-    end: null,
+    begin: 0,
+    end: 0,
     enabled: false
   }
 
@@ -215,7 +215,7 @@ export default class Player extends EventEmitter {
   }
 
   private _onTimer() {
-    if (!this.isPlaying) {
+    if (this._scheduler === null) {
       return
     }
 

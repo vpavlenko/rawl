@@ -106,6 +106,7 @@ export function deassemble<T, S extends ControllerEvent>(
   if (isRPNEvent(e)) {
     return controlChangeEvents(
       e.deltaTime,
+      e.channel,
       e.rpnMSB,
       e.rpnLSB,
       e.dataMSB,

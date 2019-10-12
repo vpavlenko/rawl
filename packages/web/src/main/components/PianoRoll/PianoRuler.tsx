@@ -128,7 +128,9 @@ const PianoRuler: StatelessComponent<PianoRulerProps> = ({
     ctx.save()
     ctx.translate(-scrollLeft + 0.5, 0)
     drawRuler(ctx, height, beats, theme)
-    drawLoopPoints(ctx, loop, height, pixelsPerTick, theme)
+    if (loop !== undefined) {
+      drawLoopPoints(ctx, loop, height, pixelsPerTick, theme)
+    }
     ctx.restore()
   }
 

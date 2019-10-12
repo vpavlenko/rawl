@@ -210,8 +210,8 @@ export function controlChangeEvents(
   channel: number,
   rpnMsb: number,
   rpnLsb: number,
-  dataMsb?: number,
-  dataLsb?: number
+  dataMsb?: number | undefined,
+  dataLsb?: number | undefined
 ): ControllerEvent[] {
   const rpn = [
     controllerMidiEvent(deltaTime, channel, 101, rpnMsb),

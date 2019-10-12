@@ -164,7 +164,12 @@ export default compose(
       const track = song.selectedTrack
       const trackId = song.selectedTrackId
 
-      const programNumber = track.programNumber
+      if (track === undefined) {
+        throw new Error("selectedTrack is undefined")
+      }
+
+      const programNumber =
+        track.programNumber !== undefined ? track.programNumber : 0
       const ids = getGMMapIndexes(programNumber)
       const close = () => (s.openInstrumentBrowser = false)
       const setTrackInstrument = (programNumber: number) =>
@@ -173,8 +178,8 @@ export default compose(
       return {
         isOpen: s.openInstrumentBrowser,
         isRhythmTrack: track.isRhythmTrack,
-        selectedCategoryId: ids[0],
-        selectedInstrumentId: ids[1],
+        selectedCategoryId: ids !== undefined ? ids[0] : 0,
+        selectedInstrumentId: ids !== undefined ? ids[1] : 0,
         onClickCancel: () => {
           close()
         },
@@ -197,7 +202,9 @@ export default compose(
               categoryId,
               instrumentId
             )
-            setTrackInstrument(programNumber)
+            if (programNumber !== undefined) {
+              setTrackInstrument(programNumber)
+            }
           }
 
           close()

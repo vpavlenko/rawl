@@ -25,8 +25,8 @@ function drawSelection(
 }
 
 export interface PianoSelectionProps {
-  scrollLeft?: number
-  selectionBounds: IRect
+  scrollLeft: number
+  selectionBounds: IRect | null
   color: string
   width: number
   height: number

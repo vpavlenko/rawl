@@ -18,6 +18,7 @@ import {
   TrackMidiEvent,
   NoteEvent
 } from "./TrackEvent"
+import { isNotUndefined } from "../helpers/array"
 
 type EventBeforeAdded = TrackMidiEvent | Omit<NoteEvent, "id">
 
@@ -36,7 +37,10 @@ export default class Track {
 
   getEventById = (id: number) => _.find(this.events, e => e.id === id)
 
-  private _updateEvent(id: number, obj: Partial<TrackEvent>): TrackEvent {
+  private _updateEvent(
+    id: number,
+    obj: Partial<TrackEvent>
+  ): TrackEvent | null {
     const anObj = this.getEventById(id)
     if (!anObj) {
       console.warn(`unknown id: ${id}`)
@@ -50,7 +54,7 @@ export default class Track {
     return anObj
   }
 
-  @action updateEvent(id: number, obj: Partial<TrackEvent>): TrackEvent {
+  @action updateEvent(id: number, obj: Partial<TrackEvent>): TrackEvent | null {
     const result = this._updateEvent(id, obj)
     if (result) {
       this.updateEndOfTrack()
@@ -62,6 +66,9 @@ export default class Track {
   @action updateEvents(events: Partial<TrackEvent>[]) {
     transaction(() => {
       events.forEach(event => {
+        if (event.id === undefined) {
+          return
+        }
         this._updateEvent(event.id, event)
       })
     })
@@ -71,12 +78,15 @@ export default class Track {
 
   @action removeEvent(id: number) {
     const obj = this.getEventById(id)
+    if (obj == undefined) {
+      return
+    }
     this.events = _.without(this.events, obj)
     this.updateEndOfTrack()
   }
 
   @action removeEvents(ids: number[]) {
-    const objs = ids.map(id => this.getEventById(id))
+    const objs = ids.map(id => this.getEventById(id)).filter(isNotUndefined)
     this.events = _.difference(this.events, objs)
     this.updateEndOfTrack()
   }
@@ -101,7 +111,7 @@ export default class Track {
   }
 
   @action addEvents(events: EventBeforeAdded[]): TrackEvent[] {
-    let result: TrackEvent[]
+    let result: TrackEvent[] = []
     transaction(() => {
       result = events.map(e => this._addEvent(e))
     })
@@ -119,10 +129,11 @@ export default class Track {
   }
 
   @action updateEndOfTrack() {
-    this.endOfTrack = _.chain(this.events)
+    const tick = _.chain(this.events)
       .map(e => e.tick + ("duration" in e ? e.duration : 0))
       .max()
       .value()
+    this.setEndOfTrack(tick)
   }
 
   transaction(func: (track: Track) => void) {
@@ -175,8 +186,9 @@ export default class Track {
     arr: TrackEvent[],
     obj: Partial<T>
   ) {
-    if (arr.length > 0) {
-      this.updateEvent(_.last(arr).id, obj)
+    const last = _.last(arr)
+    if (last !== undefined) {
+      this.updateEvent(last.id, obj)
     }
   }
 
@@ -221,51 +233,55 @@ export default class Track {
     return undefined
   }
 
-  get name(): string {
-    return _.last(this._findTrackNameEvent()).text
+  get name(): string | undefined {
+    return _.get(_.last(this._findTrackNameEvent()), "text")
   }
 
-  set name(text: string) {
+  setName(text: string) {
     this._updateLast(this._findTrackNameEvent(), { text })
   }
 
-  get volume(): number {
-    return _.last(this._findVolumeEvents()).value
+  get volume(): number | undefined {
+    return _.get(_.last(this._findVolumeEvents()), "value")
   }
 
-  set volume(value: number) {
+  setVolume(value: number) {
     this._updateLast(this._findVolumeEvents(), { value })
   }
 
-  get pan(): number {
-    return _.last(this._findPanEvents()).value
+  get pan(): number | undefined {
+    return _.get(_.last(this._findPanEvents()), "value")
   }
 
-  set pan(value: number) {
+  setPan(value: number) {
     this._updateLast(this._findPanEvents(), { value })
   }
 
-  get endOfTrack(): number {
-    return _.last(this._findEndOfTrackEvents()).tick
+  get endOfTrack(): number | undefined {
+    return _.get(_.last(this._findEndOfTrackEvents()), "tick")
   }
 
-  set endOfTrack(tick: number) {
+  setEndOfTrack(tick: number) {
     this._updateLast(this._findEndOfTrackEvents(), { tick })
   }
 
-  get programNumber(): number {
-    return _.last(this._findProgramChangeEvents()).value
+  get programNumber(): number | undefined {
+    return _.get(_.last(this._findProgramChangeEvents()), "value")
   }
 
-  set programNumber(value: number) {
+  setProgramNumber(value: number) {
     this._updateLast(this._findProgramChangeEvents(), { value })
   }
 
-  get tempo(): number {
-    return 60000000 / _.last(this._findSetTempoEvents()).microsecondsPerBeat
+  get tempo(): number | undefined {
+    const e = _.last(this._findSetTempoEvents())
+    if (e === undefined) {
+      return undefined
+    }
+    return 60000000 / e.microsecondsPerBeat
   }
 
-  set tempo(bpm: number) {
+  setTempo(bpm: number) {
     const microsecondsPerBeat = 60000000 / bpm
     this._updateLast(this._findSetTempoEvents(), { microsecondsPerBeat })
   }

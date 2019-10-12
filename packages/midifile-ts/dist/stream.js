@@ -10,7 +10,13 @@ var Stream = /** @class */ (function () {
         return result;
     };
     Stream.prototype.readStr = function (length) {
-        return this.read(length).toString();
+        var data = this.read(length);
+        var chars = [];
+        for (var index = 0; index < data.length; index++) {
+            var element = data[index];
+            chars.push(String.fromCharCode(element));
+        }
+        return chars.join("");
     };
     Stream.prototype.read = function (length) {
         var result = this.buf.slice(this.position, this.position + length);

@@ -20,7 +20,13 @@ export default class Stream {
   }
 
   readStr(length: number): string {
-    return this.read(length).toString()
+    const data = this.read(length)
+    const chars: String[] = []
+    for (let index = 0; index < data.length; index++) {
+      const element = data[index]
+      chars.push(String.fromCharCode(element))
+    }
+    return chars.join("")
   }
 
   read(length: number): Data<number> {

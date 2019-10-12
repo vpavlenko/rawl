@@ -56,6 +56,11 @@ export default (rootStore: RootStore) => {
       song.addTrack(emptyTrack(song.tracks.length - 1))
     },
     [REMOVE_TRACK]: (trackId: number) => {
+      if (song.tracks.length == 2) {
+        // conductor track を除き、最後のトラックの場合
+        // トラックがなくなるとエラーが出るので削除できなくする
+        return
+      }
       saveHistory()
       song.removeTrack(trackId)
     },

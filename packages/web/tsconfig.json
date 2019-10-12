@@ -12,7 +12,8 @@
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": true,
-    "lib": ["es2017", "dom"]
+    "lib": ["es2017", "dom"],
+    "strictNullChecks": true
   },
   "exclude": ["node_modules", "src/submodules", "**/*.test.ts"]
 }

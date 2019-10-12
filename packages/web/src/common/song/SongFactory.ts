@@ -21,7 +21,9 @@ const trackFromMidiEvents = (events: AnyEvent[]): Track => {
   const chEvent = events.find(e => {
     return e.type === "channel"
   })
-  track.channel = "channel" in chEvent ? chEvent.channel : undefined
+  if (chEvent !== undefined && "channel" in chEvent) {
+    track.channel = chEvent.channel
+  }
   track.addEvents(toTrackEvents(events))
 
   return track

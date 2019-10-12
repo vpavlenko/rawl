@@ -1,6 +1,6 @@
 import Song, { emptySong } from "common/song"
 import { emptyTrack } from "common/track"
-import { write as writeSong } from "midi/SongFile"
+import { write as writeSong, read as readSong } from "midi/SongFile"
 import RootStore from "../stores/RootStore"
 
 export const CREATE_SONG = Symbol()
@@ -40,16 +40,21 @@ export default (rootStore: RootStore) => {
         }
       })
     },
-    [OPEN_SONG]: (filepath: string) => {
-      // readSong(filepath, (e, song) => {
-      //   if (e) {
-      //     console.error(e)
-      //   } else {
-      //     setSong(song)
-      //     history.clear()
-      //     rootStore.pushHistory()
-      //   }
-      // })
+    [OPEN_SONG]: (input: HTMLInputElement) => {
+      if (input.files.length === 0) {
+        return
+      }
+
+      const file = input.files[0]
+      const reader = new FileReader()
+
+      reader.onload = e => {
+        const buf = e.target.result as ArrayBuffer
+        const song = readSong(new Uint8Array(buf))
+        setSong(song)
+      }
+
+      reader.readAsArrayBuffer(file)
     },
     [ADD_TRACK]: () => {
       saveHistory()

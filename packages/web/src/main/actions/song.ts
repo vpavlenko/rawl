@@ -11,6 +11,30 @@ export const REMOVE_TRACK = Symbol()
 export const SELECT_TRACK = Symbol()
 export const SET_TEMPO = Symbol()
 
+const openSong = (
+  input: HTMLInputElement,
+  callback: (song: Song | null) => void
+) => {
+  if (input.files === null || input.files.length === 0) {
+    return
+  }
+
+  const file = input.files[0]
+  const reader = new FileReader()
+
+  reader.onload = e => {
+    if (e.target == null) {
+      callback(null)
+      return
+    }
+    const buf = e.target.result as ArrayBuffer
+    const song = readSong(new Uint8Array(buf))
+    callback(song)
+  }
+
+  reader.readAsArrayBuffer(file)
+}
+
 export default (rootStore: RootStore) => {
   const {
     song,
@@ -25,6 +49,9 @@ export default (rootStore: RootStore) => {
     rootStore.song = song
     player.reset()
     rootStore.trackMute.reset()
+    rootStore.playerStore.setPosition(0)
+    rootStore.services.player.stop()
+    rootStore.pianoRollStore.scrollLeft = 0
   }
 
   return {
@@ -41,23 +68,12 @@ export default (rootStore: RootStore) => {
       })
     },
     [OPEN_SONG]: (input: HTMLInputElement) => {
-      if (input.files === null || input.files.length === 0) {
-        return
-      }
-
-      const file = input.files[0]
-      const reader = new FileReader()
-
-      reader.onload = e => {
-        if (e.target == null) {
+      openSong(input, song => {
+        if (song === null) {
           return
         }
-        const buf = e.target.result as ArrayBuffer
-        const song = readSong(new Uint8Array(buf))
         setSong(song)
-      }
-
-      reader.readAsArrayBuffer(file)
+      })
     },
     [ADD_TRACK]: () => {
       saveHistory()

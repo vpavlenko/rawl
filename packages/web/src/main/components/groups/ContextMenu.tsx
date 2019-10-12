@@ -4,6 +4,9 @@ import ReactDOM from "react-dom"
 import { IPoint } from "common/geometry"
 
 import "./ContextMenu.css"
+import { MenuList, MenuItem, Paper, ClickAwayListener } from "@material-ui/core"
+import { ThemeProvider } from "@material-ui/styles"
+import { theme } from "helpers/muiTheme"
 
 function renderElement(html: string) {
   const template = document.createElement("template")
@@ -11,9 +14,9 @@ function renderElement(html: string) {
   return template.content.firstElementChild
 }
 
-export const createContextMenu = (childrenProvider: React.Factory<any>) => (
-  e: React.MouseEvent
-) => {
+export const createContextMenu = (
+  childrenProvider: (close: () => void) => JSX.Element[]
+) => (e: React.MouseEvent) => {
   let position: IPoint
   if (e.preventDefault) {
     e.preventDefault()
@@ -31,77 +34,20 @@ export const createContextMenu = (childrenProvider: React.Factory<any>) => (
   const close = () => elm.parentNode.removeChild(elm)
 
   ReactDOM.render(
-    <ContextMenuOverlay position={position} close={close}>
-      {childrenProvider(close)}
-    </ContextMenuOverlay>,
-    elm
-  )
-}
-
-export interface ContextMenuOverlayProps {
-  children?: ReactNode
-  position: IPoint
-  close: () => void
-}
-
-export const ContextMenuOverlay: StatelessComponent<
-  ContextMenuOverlayProps
-> = ({ children, position, close }) => {
-  return (
-    <div
-      className="overlay"
-      onMouseDown={close}
-      onContextMenu={e => e.preventDefault()}
-    >
-      <div style={{ position: "absolute", left: position.x, top: position.y }}>
-        {children}
+    <ThemeProvider theme={theme}>
+      <div className="overlay">
+        <div
+          style={{ position: "absolute", left: position.x, top: position.y }}
+        >
+          <Paper>
+            <ClickAwayListener onClickAway={close}>
+              <MenuList>{childrenProvider(close)}</MenuList>
+            </ClickAwayListener>
+          </Paper>
+        </div>
       </div>
-    </div>
-  )
-}
-
-export interface ContextMenuProps {
-  children?: ReactNode
-}
-
-export const ContextMenu: StatelessComponent<ContextMenuProps> = ({
-  children
-}) => {
-  return (
-    <div className="menu" onContextMenu={e => e.preventDefault()}>
-      {children}
-    </div>
-  )
-}
-
-export interface MenuItemProps {
-  children?: ReactNode
-  onClick: () => void
-  onMouseDown?: () => void
-}
-
-export const MenuItem: StatelessComponent<MenuItemProps> = ({
-  children,
-  onClick,
-  onMouseDown
-}) => {
-  function _onClick(e: React.MouseEvent) {
-    e.stopPropagation()
-    onClick()
-  }
-  function _onMouseDown(e: React.MouseEvent) {
-    e.stopPropagation()
-    onMouseDown && onMouseDown()
-  }
-  return (
-    <div
-      className="item"
-      onClick={_onClick}
-      onMouseDown={_onMouseDown}
-      onContextMenu={e => e.preventDefault()}
-    >
-      {children}
-    </div>
+    </ThemeProvider>,
+    elm
   )
 }
 
@@ -123,14 +69,11 @@ export interface ContextMenuItemContent {
   onClick: () => void
 }
 
-export const createContextMenuComponent = (items: ContextMenuItemContent[]) => (
-  <ContextMenu>
-    {items
-      .filter(i => i.isHidden !== true)
-      .map((i, k) => (
-        <MenuItem key={k} onClick={i.onClick}>
-          {i.label}
-        </MenuItem>
-      ))}
-  </ContextMenu>
-)
+export const createContextMenuComponent = (items: ContextMenuItemContent[]) =>
+  items
+    .filter(i => i.isHidden !== true)
+    .map((i, k) => (
+      <MenuItem key={k} onClick={i.onClick}>
+        {i.label}
+      </MenuItem>
+    ))

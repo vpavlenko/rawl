@@ -1,13 +1,9 @@
 import React from "react"
-import {
-  ContextMenu,
-  MenuItem,
-  createContextMenu
-} from "components/groups/ContextMenu"
+import { createContextMenu } from "components/groups/ContextMenu"
 
 import "./TrackListItem.css"
 import { VolumeOff, VolumeUp, Headset } from "@material-ui/icons"
-import { ListItem } from "@material-ui/core"
+import { ListItem, MenuItem } from "@material-ui/core"
 
 const Nop = () => {}
 
@@ -30,18 +26,16 @@ export default function TrackListItem({
       button
       selected={selected}
       onClick={onClick}
-      onContextMenu={createContextMenu(close => (
-        <ContextMenu>
-          <MenuItem
-            onClick={() => {
-              onClickDelete()
-              close()
-            }}
-          >
-            Delete Track
-          </MenuItem>
-        </ContextMenu>
-      ))}
+      onContextMenu={createContextMenu(close => [
+        <MenuItem
+          onClick={() => {
+            onClickDelete()
+            close()
+          }}
+        >
+          Delete Track
+        </MenuItem>
+      ])}
     >
       <div className="TrackListItem">
         <div className="label">

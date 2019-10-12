@@ -13,6 +13,7 @@ export default class PianoNoteItem implements Item {
   color: RGB
   borderColor: CanvasDrawStyle
   selectedColor: RGB
+  selectedBorderColor: CanvasDrawStyle
 
   constructor(
     id: number,
@@ -25,7 +26,8 @@ export default class PianoNoteItem implements Item {
     isDrum: boolean,
     color: RGB,
     borderColor: RGB,
-    selectedColor: RGB
+    selectedColor: RGB,
+    selectedBorderColor: RGB
   ) {
     this.id = id
     this.noteBounds = { x, y, width, height }
@@ -36,6 +38,7 @@ export default class PianoNoteItem implements Item {
     this.color = color
     this.borderColor = colorStr(borderColor)
     this.selectedColor = selectedColor
+    this.selectedBorderColor = colorStr(selectedBorderColor)
   }
 
   get bounds(): IRect {
@@ -65,7 +68,9 @@ export default class PianoNoteItem implements Item {
     grad.addColorStop(1, colorStr(noteColor, alpha))
 
     ctx.fillStyle = grad
-    ctx.strokeStyle = this.borderColor
+    ctx.strokeStyle = this.isSelected
+      ? this.selectedBorderColor
+      : this.borderColor
     ctx.lineWidth = 1
     ctx.beginPath()
     ctx.rect(x, y, width, height)

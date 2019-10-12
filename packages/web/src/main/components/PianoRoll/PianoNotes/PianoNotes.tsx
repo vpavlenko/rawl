@@ -45,9 +45,11 @@ const PianoNotes: StatelessComponent<PianoNotesProps> = ({
   isDrumMode,
   theme
 }) => {
-  const color = toRGB(Color(theme.themeColor))
-  const borderColor = toRGB(Color(theme.textColor))
-  const selectedColor = toRGB(Color(theme.textColor))
+  const baseColor = Color(theme.themeColor)
+  const color = toRGB(baseColor)
+  const borderColor = toRGB(baseColor.lighten(0.3))
+  const selectedColor = toRGB(baseColor.lighten(0.7))
+  const selectedBorderColor = toRGB(baseColor.lighten(0.8))
 
   const items = events.filter(isNoteEvent).map(e => {
     const rect = transform.getRect(e)
@@ -63,7 +65,8 @@ const PianoNotes: StatelessComponent<PianoNotesProps> = ({
       isDrumMode,
       color,
       borderColor,
-      selectedColor
+      selectedColor,
+      selectedBorderColor
     )
   })
   const height = transform.pixelsPerKey * transform.numberOfKeys

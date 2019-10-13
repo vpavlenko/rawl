@@ -14,6 +14,7 @@ import { deassemble as deassembleNote } from "common/helpers/noteAssembler"
 import { deassemble as deassembleRPN } from "common/helpers/RPNAssembler"
 import { NoteEvent } from "../track"
 import { PlayerEvent } from "./PlayerEvent"
+import SynthOutput, { Message } from "src/main/services/SynthOutput"
 
 function firstByte(eventType: string, channel: number): number {
   return (MIDIChannelEvents[eventType] << 4) + channel
@@ -53,20 +54,10 @@ class DisplayTask {
 
 const displayTask = new DisplayTask()
 
-interface Message {
-  message: number[]
-  timestamp: number
-}
-
 export interface LoopSetting {
   begin: number
   end: number
   enabled: boolean
-}
-
-interface PlayerOutput {
-  send(msg: number[], timestamp: DOMHighResTimeStamp): void
-  sendEvents(msg: Message[]): void
 }
 
 export default class Player extends EventEmitter {
@@ -74,7 +65,7 @@ export default class Player extends EventEmitter {
   private _currentTick = 0
   private _scheduler: EventScheduler<PlayerEvent> | null = null
   private _song: Song
-  private _output: PlayerOutput
+  private _output: SynthOutput
   private _timebase: number
   private _trackMute: TrackMute
 
@@ -84,7 +75,7 @@ export default class Player extends EventEmitter {
     enabled: false
   }
 
-  constructor(timebase: number, output: PlayerOutput, trackMute: TrackMute) {
+  constructor(timebase: number, output: SynthOutput, trackMute: TrackMute) {
     super()
 
     this._output = output
@@ -100,6 +91,7 @@ export default class Player extends EventEmitter {
       this._currentTick,
       this._timebase
     )
+    this._output.activate()
     setInterval(() => this._onTimer(), 50)
   }
 
@@ -194,6 +186,7 @@ export default class Player extends EventEmitter {
   }: Pick<NoteEvent, "noteNumber" | "velocity" | "duration"> & {
     channel: number
   }) {
+    this._output.activate()
     const timestamp = window.performance.now()
     this._sendMessage(
       [firstByte("noteOn", channel), noteNumber, velocity],

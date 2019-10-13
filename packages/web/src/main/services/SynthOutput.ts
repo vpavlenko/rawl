@@ -1,5 +1,10 @@
 import { Messenger, WindowMessenger } from "common/messenger/Messenger"
 
+export interface Message {
+  message: number[]
+  timestamp: number
+}
+
 export default class SynthOutput {
   private messenger: Messenger
 
@@ -17,6 +22,10 @@ export default class SynthOutput {
     })
   }
 
+  activate() {
+    this.messenger.send("activate")
+  }
+
   loadSoundFont(url: string) {
     this.messenger.send("load_soundfont", { url })
   }
@@ -29,11 +38,11 @@ export default class SynthOutput {
     this.messenger.send("stop_recording")
   }
 
-  send(message: any, timestamp: number) {
+  send(message: number[], timestamp: DOMHighResTimeStamp) {
     this.sendEvents([{ message, timestamp }])
   }
 
-  sendEvents(events: any[]) {
+  sendEvents(events: Message[]) {
     this.messenger.send("midi", {
       events,
       timestamp: window.performance.now()

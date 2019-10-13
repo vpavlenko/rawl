@@ -36,6 +36,7 @@ export default class SynthController {
 
   private bindMessenger() {
     const messenger = new WindowMessenger(window.parent)
+    messenger.on("activate", () => this.activate())
     messenger.on("midi", (payload: any) => this.onMidi(payload))
     messenger.on("load_soundfont", (payload: any) =>
       this.loadSoundFont(payload.url)
@@ -101,6 +102,14 @@ export default class SynthController {
       .then(res => res.arrayBuffer())
       .then(buf => this.synth.loadSoundFont(new Uint8Array(buf)))
       .catch(e => console.warn(e.message))
+  }
+
+  private activate() {
+    if (this.ctx.state !== "running") {
+      this.ctx.resume().then(() => {
+        console.log(`AudioContext.state = ${this.ctx.state}`)
+      })
+    }
   }
 
   private startTimer() {

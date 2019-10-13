@@ -90,11 +90,7 @@ export default class Song {
       throw new Error("Conductor track is not exist")
     }
 
-    this._measureList = new MeasureList(
-      this.conductorTrack,
-      this.endOfSong,
-      TIME_BASE
-    )
+    this._measureList = new MeasureList(this.conductorTrack)
     return this._measureList
   }
 

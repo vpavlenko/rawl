@@ -11,7 +11,7 @@ import { HorizontalScaleScrollBar } from "components/inputs/ScaleScrollBar"
 
 import { NoteCoordTransform } from "common/transform"
 
-import mapBeats from "helpers/mapBeats"
+import { createBeatsInRange } from "helpers/mapBeats"
 import {
   pointSub,
   pointAdd,
@@ -29,7 +29,7 @@ import { LoopSetting } from "common/player/Player"
 import "./ArrangeView.css"
 import Track, { TrackEvent, isNoteEvent } from "common/track"
 import Theme from "common/theme"
-import { Beat } from "common/measure"
+import Measure, { Beat } from "common/measure"
 
 interface ArrangeTrackProps {
   events: TrackEvent[]
@@ -65,7 +65,8 @@ function ArrangeTrack({
 export interface ArrangeViewProps {
   tracks: Track[]
   theme: Theme
-  beats: Beat[]
+  measures: Measure[]
+  timebase: number
   endTick: number
   playerPosition: number
   setPlayerPosition: (position: number) => void
@@ -91,7 +92,8 @@ export interface ArrangeViewProps {
 export const ArrangeView: SFC<ArrangeViewProps> = ({
   tracks,
   theme,
-  beats,
+  measures,
+  timebase,
   endTick,
   playerPosition,
   setPlayerPosition,
@@ -123,7 +125,13 @@ export const ArrangeView: SFC<ArrangeViewProps> = ({
   const startTick = scrollLeft / pixelsPerTick
   const widthTick = Math.max(endTick, transform.getTicks(containerWidth))
   const contentWidth = widthTick * pixelsPerTick
-  const mappedBeats = mapBeats(beats, pixelsPerTick, startTick, widthTick)
+  const mappedBeats = createBeatsInRange(
+    measures,
+    pixelsPerTick,
+    timebase,
+    startTick,
+    widthTick
+  )
 
   const bottomBorderWidth = 1
   const trackHeight =

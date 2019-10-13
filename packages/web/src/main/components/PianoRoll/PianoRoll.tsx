@@ -1,5 +1,5 @@
 import { ISize } from "common/geometry"
-import { Beat } from "common/measure"
+import Measure, { Beat } from "common/measure"
 import { LoopSetting } from "common/player"
 import SelectionModel from "common/selection/SelectionModel"
 import Theme from "common/theme/Theme"
@@ -8,7 +8,7 @@ import { NoteCoordTransform } from "common/transform"
 import { show as showEventEditor } from "components/EventEditor/EventEditor"
 import { HorizontalScaleScrollBar } from "components/inputs/ScaleScrollBar"
 import { BAR_WIDTH, VerticalScrollBar } from "components/inputs/ScrollBar"
-import mapBeats from "helpers/mapBeats"
+import mapBeats, { createBeatsInRange } from "helpers/mapBeats"
 import React, { StatelessComponent } from "react"
 import SplitPane from "react-split-pane"
 import ControlPane, { ControlMode, ControlPaneProps } from "./ControlPane"
@@ -41,7 +41,8 @@ export type PianoRollProps = Pick<
   track: Track
   events: TrackEvent[]
   transform: NoteCoordTransform
-  beats: Beat[]
+  measures: Measure[]
+  timebase: number
   endTick: number
   selection: SelectionModel
   alphaHeight: number
@@ -71,7 +72,8 @@ export const PianoRoll: StatelessComponent<PianoRollProps> = ({
   track,
   events,
   transform,
-  beats,
+  measures,
+  timebase,
   endTick,
   selection,
   alphaHeight,
@@ -103,9 +105,10 @@ export const PianoRoll: StatelessComponent<PianoRollProps> = ({
   const width = containerWidth
   const widthTick = Math.max(endTick, transform.getTicks(containerWidth))
   const startTick = scrollLeft / transform.pixelsPerTick
-  const mappedBeats = mapBeats(
-    beats,
+  const mappedBeats = createBeatsInRange(
+    measures,
     transform.pixelsPerTick,
+    timebase,
     startTick,
     widthTick
   )

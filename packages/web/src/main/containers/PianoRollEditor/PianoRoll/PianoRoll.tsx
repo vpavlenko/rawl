@@ -91,7 +91,7 @@ export default compose<{}, {}>(
         song: {
           selectedTrack: track,
           endOfSong: endTick,
-          measureList: { beats }
+          measureList: { measures }
         },
         pianoRollStore: s,
         rootViewStore: { theme },
@@ -105,7 +105,8 @@ export default compose<{}, {}>(
       ({
         track,
         endTick,
-        beats,
+        measures,
+        timebase: player.timebase,
         theme,
         events: track !== undefined ? (track.events as any).toJS() : [], // 変更が反映されるように toJS() する
         scaleX: s.scaleX,

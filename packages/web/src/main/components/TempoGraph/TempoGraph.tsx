@@ -1,7 +1,7 @@
 import { SetTempoEvent } from "@signal-app/midifile-ts"
 import Color from "color"
 import { ISize } from "common/geometry"
-import { Beat } from "common/measure"
+import Measure, { Beat } from "common/measure"
 import Theme from "common/theme/Theme"
 import { TrackEvent } from "common/track"
 import { TempoCoordTransform } from "common/transform"
@@ -12,7 +12,7 @@ import PianoGrid from "components/PianoRoll/PianoGrid"
 import PianoRuler from "components/PianoRoll/PianoRuler"
 import Stage, { StageMouseEvent } from "components/Stage/Stage"
 import { bpmToUSecPerBeat, uSecPerBeatToBPM } from "helpers/bpm"
-import mapBeats from "helpers/mapBeats"
+import mapBeats, { createBeatsInRange } from "helpers/mapBeats"
 import _ from "lodash"
 import React, { StatelessComponent } from "react"
 import transformEvents from "./transformEvents"
@@ -104,7 +104,8 @@ export interface TempoGraphProps {
   size: ISize
   pixelsPerTick: number
   theme: Theme
-  beats: Beat[]
+  measures: Measure[]
+  timebase: number
   playerPosition: number
   setPlayerPosition: (tick: number) => void
   endTick: number
@@ -119,7 +120,8 @@ export const TempoGraph: StatelessComponent<TempoGraphProps> = ({
   size,
   pixelsPerTick,
   theme,
-  beats,
+  measures,
+  timebase,
   playerPosition,
   setPlayerPosition,
   endTick,
@@ -195,7 +197,13 @@ export const TempoGraph: StatelessComponent<TempoGraphProps> = ({
   }
 
   const startTick = scrollLeft / pixelsPerTick
-  const mappedBeats = mapBeats(beats, pixelsPerTick, startTick, widthTick)
+  const mappedBeats = createBeatsInRange(
+    measures,
+    timebase,
+    pixelsPerTick,
+    startTick,
+    widthTick
+  )
   const width = containerWidth - keyWidth
 
   return (

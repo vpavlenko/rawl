@@ -6,11 +6,11 @@ import React, { SFC, useState, useEffect } from "react"
 import { withSize } from "react-sizeme"
 import { compose, Omit } from "recompose"
 import RootStore from "stores/RootStore"
-import Song from "src/common/song"
 
 type Props = Pick<
   TempoGraphProps,
-  | "beats"
+  | "measures"
+  | "timebase"
   | "theme"
   | "events"
   | "setPlayerPosition"
@@ -81,7 +81,8 @@ export default compose(
             ? (song.conductorTrack.events as any).toJS()
             : [],
         endTick: song.endOfSong,
-        beats: song.measureList.beats,
+        measures: song.measureList.measures,
+        timebase: player.timebase,
         autoScroll: s.autoScroll,
         scrollLeft: s.scrollLeft,
         setScrollLeft: v => (s.scrollLeft = v),

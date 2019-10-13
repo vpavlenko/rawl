@@ -5,21 +5,32 @@ export interface Message {
   timestamp: number
 }
 
+function createElement(html: string) {
+  const elem = document.createElement("div")
+  elem.innerHTML = html
+  return elem.firstElementChild
+}
+
 export default class SynthOutput {
   private messenger: Messenger
 
   constructor(soundFontPath: string) {
-    const iframe = document.getElementById("synth") as HTMLIFrameElement
+    const iframe = createElement(
+      `<iframe src="./synth.html" id="synth"></iframe>`
+    ) as HTMLIFrameElement
+    document.body.appendChild(iframe)
 
     if (iframe.contentWindow == null) {
       return
     }
+
     this.messenger = new WindowMessenger(iframe.contentWindow)
-    this.messenger.on("did-create-synth-window", () => {
+
+    iframe.onload = () => {
       if (soundFontPath) {
         this.loadSoundFont(soundFontPath)
       }
-    })
+    }
   }
 
   activate() {

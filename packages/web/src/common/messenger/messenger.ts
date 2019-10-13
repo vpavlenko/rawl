@@ -11,14 +11,13 @@ export class WindowMessenger implements Messenger {
   }
 
   send(type: string, payload?: any) {
-    const json = JSON.stringify({ type, payload })
-    this.target.postMessage(json, "*")
+    this.target.postMessage({ type, payload }, "*")
   }
 
   on(type: string, handler: (e: any) => void) {
     window.addEventListener("message", e => {
       try {
-        const json = JSON.parse(e.data)
+        const json = e.data
         if (json.type === type) {
           handler(json.payload)
         }

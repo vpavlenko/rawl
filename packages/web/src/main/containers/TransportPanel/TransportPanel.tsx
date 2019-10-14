@@ -9,8 +9,7 @@ import {
 import { inject, observer } from "mobx-react"
 import { compose } from "recompose"
 import withMBTTime from "components/TransportPanel/withMBTTime"
-import {
-  TransportPanel,
+import TransportPanel, {
   TransportPanelProps
 } from "components/TransportPanel/TransportPanel"
 import RootStore from "stores/RootStore"

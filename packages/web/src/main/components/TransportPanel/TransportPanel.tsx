@@ -1,5 +1,6 @@
 import { ToolbarSeparator } from "components/groups/Toolbar"
 import React, { StatelessComponent } from "react"
+import { shouldUpdate } from "recompose"
 import { Toolbar, IconButton, makeStyles } from "@material-ui/core"
 import {
   Stop,
@@ -39,7 +40,7 @@ export interface TransportPanelProps {
   onClickTempo: () => void
 }
 
-export const TransportPanel: StatelessComponent<TransportPanelProps> = ({
+const TransportPanel: StatelessComponent<TransportPanelProps> = ({
   onClickPlay,
   onClickStop,
   onClickBackward,
@@ -87,3 +88,13 @@ export const TransportPanel: StatelessComponent<TransportPanelProps> = ({
     </Toolbar>
   )
 }
+
+function test(props: TransportPanelProps, nextProps: TransportPanelProps) {
+  return (
+    props.loopEnabled !== nextProps.loopEnabled ||
+    props.mbtTime !== nextProps.mbtTime ||
+    props.tempo !== nextProps.tempo
+  )
+}
+
+export default shouldUpdate(test)(TransportPanel)

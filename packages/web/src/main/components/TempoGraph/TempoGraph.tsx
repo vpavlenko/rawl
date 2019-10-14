@@ -124,7 +124,7 @@ export const TempoGraph: StatelessComponent<TempoGraphProps> = ({
   timebase,
   playerPosition,
   setPlayerPosition,
-  endTick,
+  endTick: trackEndTick,
   scrollLeft,
   setScrollLeft,
   changeTempo,
@@ -142,8 +142,10 @@ export const TempoGraph: StatelessComponent<TempoGraphProps> = ({
 
   const contentHeight = containerHeight - rulerHeight - BAR_WIDTH
   const transform = new TempoCoordTransform(pixelsPerTick, contentHeight)
-  const widthTick = Math.max(endTick, transform.getTicks(containerWidth))
-  const contentWidth = widthTick * pixelsPerTick
+  const startTick = scrollLeft / pixelsPerTick
+  const widthTick = transform.getTicks(containerWidth)
+  const endTick = startTick + widthTick
+  const contentWidth = Math.max(trackEndTick, endTick) * pixelsPerTick
 
   const items = transformEvents(
     events,
@@ -196,13 +198,12 @@ export const TempoGraph: StatelessComponent<TempoGraphProps> = ({
     createTempo(tick, uSecPerBeatToBPM(bpm))
   }
 
-  const startTick = scrollLeft / pixelsPerTick
   const mappedBeats = createBeatsInRange(
     measures,
     timebase,
     pixelsPerTick,
     startTick,
-    widthTick
+    endTick
   )
   const width = containerWidth - keyWidth
 

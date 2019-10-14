@@ -36,6 +36,8 @@ const getMeasuresInRange = (
     if (result.length !== 0) {
       if (measure.startTick <= endTick) {
         result.push(measure)
+      } else {
+        break
       }
     }
   }

@@ -72,7 +72,7 @@ export const PianoRoll: StatelessComponent<PianoRollProps> = ({
   transform,
   measures,
   timebase,
-  endTick,
+  endTick: trackEndTick,
   selection,
   alphaHeight,
   scrollLeft,
@@ -101,17 +101,18 @@ export const PianoRoll: StatelessComponent<PianoRollProps> = ({
   const containerWidth = size.width
 
   const width = containerWidth
-  const widthTick = Math.max(endTick, transform.getTicks(containerWidth))
   const startTick = scrollLeft / transform.pixelsPerTick
+  const widthTick = transform.getTicks(containerWidth)
+  const endTick = startTick + widthTick
   const mappedBeats = createBeatsInRange(
     measures,
     transform.pixelsPerTick,
     timebase,
     startTick,
-    widthTick
+    endTick
   )
 
-  const contentWidth = widthTick * transform.pixelsPerTick
+  const contentWidth = Math.max(trackEndTick, endTick) * transform.pixelsPerTick
   const contentHeight = transform.getMaxY()
 
   const cursorPositionX = transform.getX(cursorPosition)

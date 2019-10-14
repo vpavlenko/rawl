@@ -94,7 +94,7 @@ export const ArrangeView: SFC<ArrangeViewProps> = ({
   theme,
   measures,
   timebase,
-  endTick,
+  endTick: trackEndTick,
   playerPosition,
   setPlayerPosition,
   transform,
@@ -123,14 +123,15 @@ export const ArrangeView: SFC<ArrangeViewProps> = ({
   const containerHeight = size.height
 
   const startTick = scrollLeft / pixelsPerTick
-  const widthTick = Math.max(endTick, transform.getTicks(containerWidth))
-  const contentWidth = widthTick * pixelsPerTick
+  const widthTick = transform.getTicks(containerWidth)
+  const endTick = startTick + widthTick
+  const contentWidth = Math.max(trackEndTick, endTick) * pixelsPerTick
   const mappedBeats = createBeatsInRange(
     measures,
     pixelsPerTick,
     timebase,
     startTick,
-    widthTick
+    endTick
   )
 
   const bottomBorderWidth = 1

@@ -1,7 +1,6 @@
 import Item from "components/Stage/Item"
 import { IRect } from "common/geometry"
 import { CanvasDrawStyle } from "main/style"
-import { RGB, colorStr } from "common/color/rgb"
 
 export default class PianoNoteItem implements Item {
   id: number
@@ -10,9 +9,9 @@ export default class PianoNoteItem implements Item {
   velocity: number
   isSelected: boolean
   isDrum: boolean
-  color: RGB
+  color: CanvasDrawStyle
   borderColor: CanvasDrawStyle
-  selectedColor: RGB
+  selectedColor: CanvasDrawStyle
   selectedBorderColor: CanvasDrawStyle
 
   constructor(
@@ -24,10 +23,10 @@ export default class PianoNoteItem implements Item {
     velocity: number,
     isSelected: boolean,
     isDrum: boolean,
-    color: RGB,
-    borderColor: RGB,
-    selectedColor: RGB,
-    selectedBorderColor: RGB
+    color: CanvasDrawStyle,
+    borderColor: CanvasDrawStyle,
+    selectedColor: CanvasDrawStyle,
+    selectedBorderColor: CanvasDrawStyle
   ) {
     this.id = id
     this.noteBounds = { x, y, width, height }
@@ -36,9 +35,9 @@ export default class PianoNoteItem implements Item {
     this.isSelected = isSelected
     this.isDrum = isDrum
     this.color = color
-    this.borderColor = colorStr(borderColor)
+    this.borderColor = borderColor
     this.selectedColor = selectedColor
-    this.selectedBorderColor = colorStr(selectedBorderColor)
+    this.selectedBorderColor = selectedBorderColor
   }
 
   get bounds(): IRect {
@@ -63,11 +62,8 @@ export default class PianoNoteItem implements Item {
     width = Math.round(width - 1) // 次のノートと被らないように小さくする
     height = Math.round(height)
 
-    const grad = ctx.createLinearGradient(x, y, x, y + height)
-    grad.addColorStop(0, colorStr(noteColor, alpha * 0.8))
-    grad.addColorStop(1, colorStr(noteColor, alpha))
-
-    ctx.fillStyle = grad
+    ctx.globalAlpha = alpha
+    ctx.fillStyle = noteColor
     ctx.strokeStyle = this.isSelected
       ? this.selectedBorderColor
       : this.borderColor
@@ -77,13 +73,12 @@ export default class PianoNoteItem implements Item {
     ctx.closePath()
     ctx.fill()
     ctx.stroke()
+    ctx.globalAlpha = 1.0
   }
 
   drawDrumNote(ctx: CanvasRenderingContext2D) {
     const alpha = this.velocity / 127
-    const noteColor = this.isSelected
-      ? colorStr(this.selectedColor)
-      : colorStr(this.color, alpha)
+    const noteColor = this.isSelected ? this.selectedColor : this.color
     let { x, y, height } = this.bounds
     x = Math.round(x)
     y = Math.round(y)
@@ -91,6 +86,7 @@ export default class PianoNoteItem implements Item {
     const radius = Math.round(height / 2)
 
     ctx.beginPath()
+    ctx.globalAlpha = alpha
     ctx.arc(x, y + radius, radius, 0, 2 * Math.PI)
     ctx.fillStyle = noteColor
     ctx.strokeStyle = this.borderColor
@@ -98,5 +94,6 @@ export default class PianoNoteItem implements Item {
     ctx.closePath()
     ctx.fill()
     ctx.stroke()
+    ctx.globalAlpha = 1.0
   }
 }

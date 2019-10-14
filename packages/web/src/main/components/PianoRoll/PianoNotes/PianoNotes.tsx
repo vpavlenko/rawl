@@ -46,10 +46,10 @@ const PianoNotes: StatelessComponent<PianoNotesProps> = ({
   theme
 }) => {
   const baseColor = Color(theme.themeColor)
-  const color = toRGB(baseColor)
-  const borderColor = toRGB(baseColor.lighten(0.3))
-  const selectedColor = toRGB(baseColor.lighten(0.7))
-  const selectedBorderColor = toRGB(baseColor.lighten(0.8))
+  const color = baseColor.string()
+  const borderColor = baseColor.lighten(0.3).string()
+  const selectedColor = baseColor.lighten(0.7).string()
+  const selectedBorderColor = baseColor.lighten(0.8).string()
 
   const items = events.filter(isNoteEvent).map(e => {
     const rect = transform.getRect(e)

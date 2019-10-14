@@ -52,7 +52,7 @@ export const TrackList: StatelessComponent<TrackListProps> = ({
       return (
         <TrackListItem
           key={i}
-          name={t.displayName || `Track ${t.channel}`}
+          name={t.displayName}
           instrument={t.instrumentName}
           mute={trackMutes[i]}
           solo={trackSolos[i]}

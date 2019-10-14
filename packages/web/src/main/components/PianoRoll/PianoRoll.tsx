@@ -218,13 +218,6 @@ export const PianoRoll: StatelessComponent<PianoRollProps> = ({
               pixelsPerTick={transform.pixelsPerTick}
             />
             <div className="PianoRollLeftSpace" />
-            <PianoControlEvents
-              events={events}
-              width={width}
-              scrollLeft={scrollLeft}
-              pixelsPerTick={transform.pixelsPerTick}
-              onDoubleClickMark={onDoubleClickMark}
-            />
           </div>
           <VerticalScrollBar
             scrollOffset={scrollTop}

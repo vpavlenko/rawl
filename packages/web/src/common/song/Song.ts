@@ -45,7 +45,7 @@ export default class Song {
 
   @action addTrack(t: Track) {
     // 最初のトラックは Conductor Track なので channel を設定しない
-    if (this.tracks.length > 0) {
+    if (t.channel === undefined && this.tracks.length > 0) {
       t.channel = t.channel || this.tracks.length - 1
     }
     this.tracks.push(t)

@@ -3,7 +3,7 @@ import { list, object, serializable } from "serializr"
 import _ from "lodash"
 
 import Track from "common/track"
-import { MeasureList } from "common/measure"
+import Measure, { getMeasuresFromConductorTrack } from "common/measure"
 import { TIME_BASE } from "Constants"
 import { isNotUndefined } from "../helpers/array"
 
@@ -25,12 +25,15 @@ export default class Song {
   name: string
 
   private _endOfSong: number = 0
-  private _measureList: MeasureList | null = null
+  private _measures: Measure[] = []
 
   private _updateEndOfSong() {
     const eos = _.max(this.tracks.map(t => t.endOfTrack).filter(isNotUndefined))
     this._endOfSong = (eos !== undefined ? eos : 0) + END_MARGIN
-    this._measureList = null
+    this._measures =
+      this.conductorTrack !== undefined
+        ? getMeasuresFromConductorTrack(this.conductorTrack)
+        : []
   }
 
   // デシリアライズ時に呼ぶこと
@@ -81,17 +84,8 @@ export default class Song {
     return this.tracks[id]
   }
 
-  get measureList(): MeasureList {
-    if (this._measureList) {
-      return this._measureList
-    }
-
-    if (this.conductorTrack === undefined) {
-      throw new Error("Conductor track is not exist")
-    }
-
-    this._measureList = new MeasureList(this.conductorTrack)
-    return this._measureList
+  get measures(): Measure[] {
+    return this._measures
   }
 
   get endOfSong(): number {

@@ -1,32 +1,29 @@
-export default class Measure {
+export default interface Measure {
   startTick: number
   measure: number
   numerator: number
   denominator: number
+}
 
-  constructor(startTick = 0, measure = 0, numerator = 4, denominator = 4) {
-    this.startTick = startTick
-    this.measure = measure
-    this.numerator = numerator
-    this.denominator = denominator
-  }
+export const calculateMBT = (
+  measure: Measure,
+  tick: number,
+  ticksPerBeatBase: number
+) => {
+  const ticksPerBeat = (ticksPerBeatBase * 4) / measure.denominator
+  const ticksPerMeasure = ticksPerBeat * measure.numerator
 
-  getMBT(tick: number, ticksPerBeatBase: number) {
-    const ticksPerBeat = (ticksPerBeatBase * 4) / this.denominator
-    const ticksPerMeasure = ticksPerBeat * this.numerator
+  let aTick = tick - measure.startTick
 
-    let aTick = tick - this.startTick
+  const deltaMeasure = Math.floor(aTick / ticksPerMeasure)
+  aTick -= deltaMeasure * ticksPerMeasure
 
-    const measure = Math.floor(aTick / ticksPerMeasure)
-    aTick -= measure * ticksPerMeasure
+  const beat = Math.floor(aTick / ticksPerBeat)
+  aTick -= beat * ticksPerBeat
 
-    const beat = Math.floor(aTick / ticksPerBeat)
-    aTick -= beat * ticksPerBeat
-
-    return {
-      measure: this.measure + measure,
-      beat: beat,
-      tick: aTick
-    }
+  return {
+    measure: measure.measure + deltaMeasure,
+    beat: beat,
+    tick: aTick
   }
 }

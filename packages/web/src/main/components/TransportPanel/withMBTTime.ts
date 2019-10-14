@@ -1,10 +1,11 @@
 import { compose, withState, lifecycle, withHandlers } from "recompose"
 import Player from "common/player/Player"
-import { MeasureList } from "common/measure"
+import { getMBTString } from "common/measure/mbt"
+import Measure from "common/measure"
 
 interface Inner {
   player: Player
-  measureList: MeasureList
+  measures: Measure[]
 }
 
 interface Outer extends Inner {
@@ -20,7 +21,7 @@ export default compose<Inner, Outer>(
   withHandlers<Inner & { updateMBTTime: (time: string) => void }, {}>({
     onTick: props => (tick: number) =>
       props.updateMBTTime(
-        props.measureList.getMBTString(tick, props.player.timebase)
+        getMBTString(props.measures, tick, props.player.timebase)
       )
   }),
   lifecycle<Props, {}>({

@@ -86,7 +86,7 @@ const Wrapper: SFC<Props> = props => {
 const mapStoreToProps = ({
   rootStore: {
     rootViewStore: { theme },
-    song: { tracks, measureList, endOfSong },
+    song: { tracks, measures, endOfSong },
     arrangeViewStore: s,
     services: { player, quantizer },
     playerStore: { loop, position },
@@ -101,7 +101,7 @@ const mapStoreToProps = ({
     quantizer,
     loop,
     tracks: (tracks as any).toJS(),
-    measures: measureList.measures,
+    measures,
     timebase: player.timebase,
     endTick: endOfSong,
     keyHeight: 0.3,

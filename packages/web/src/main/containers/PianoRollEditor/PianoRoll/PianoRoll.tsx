@@ -88,11 +88,7 @@ export default compose<{}, {}>(
   inject(
     ({
       rootStore: {
-        song: {
-          selectedTrack: track,
-          endOfSong: endTick,
-          measureList: { measures }
-        },
+        song: { selectedTrack: track, endOfSong: endTick, measures },
         pianoRollStore: s,
         rootViewStore: { theme },
         playerStore,

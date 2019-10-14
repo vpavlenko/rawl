@@ -2,34 +2,13 @@ import Measure from "./Measure"
 import Track from "common/track"
 import { TimeSignatureEvent } from "@signal-app/midifile-ts"
 
-export interface Beat {
-  measure: number
-  beat: number
-  tick: number
-}
-
-export default class MeasureList {
-  measures: Measure[]
-
-  constructor(conductorTrack: Track) {
-    this.measures = getMeasuresFromConductorTrack(conductorTrack)
+export function getMeasureAt(tick: number, measures: Measure[]): Measure {
+  let lastMeasure: Measure = {
+    startTick: 0,
+    measure: 0,
+    denominator: 4,
+    numerator: 4
   }
-
-  getMBTString(
-    tick: number,
-    ticksPerBeat: number,
-    formatter = defaultMBTFormatter
-  ): string {
-    return formatter(this.getMBT(tick, ticksPerBeat))
-  }
-
-  getMBT(tick: number, ticksPerBeat: number): Beat {
-    return getMeasureAt(tick, this.measures).getMBT(tick, ticksPerBeat)
-  }
-}
-
-function getMeasureAt(tick: number, measures: Measure[]): Measure {
-  let lastMeasure = new Measure()
   for (const m of measures) {
     if (m.startTick > tick) {
       break
@@ -39,25 +18,28 @@ function getMeasureAt(tick: number, measures: Measure[]): Measure {
   return lastMeasure
 }
 
-function getMeasuresFromConductorTrack(conductorTrack: Track): Measure[] {
+export function getMeasuresFromConductorTrack(
+  conductorTrack: Track
+): Measure[] {
   const events = conductorTrack.findEventsWithSubtype<TimeSignatureEvent>(
     "timeSignature"
   )
 
   if (events.length === 0) {
-    return [new Measure()]
+    return [
+      {
+        startTick: 0,
+        measure: 0,
+        denominator: 4,
+        numerator: 4
+      }
+    ]
   } else {
-    return events.map(
-      (e, i) => new Measure(e.tick, i, e.numerator, e.denominator)
-    )
+    return events.map((e, i) => ({
+      startTick: e.tick,
+      measure: i,
+      numerator: e.numerator,
+      denominator: e.denominator
+    }))
   }
-}
-
-function defaultMBTFormatter(mbt: Beat): string {
-  function format(v: number) {
-    return ("   " + v).slice(-4)
-  }
-  return `${format(mbt.measure + 1)}:${format(mbt.beat + 1)}:${format(
-    mbt.tick
-  )}`
 }

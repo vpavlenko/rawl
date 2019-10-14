@@ -29,7 +29,7 @@ import { LoopSetting } from "common/player/Player"
 import "./ArrangeView.css"
 import Track, { TrackEvent, isNoteEvent } from "common/track"
 import Theme from "common/theme"
-import Measure, { Beat } from "common/measure"
+import Measure from "common/measure"
 
 interface ArrangeTrackProps {
   events: TrackEvent[]

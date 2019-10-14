@@ -81,7 +81,7 @@ export default compose(
             ? (song.conductorTrack.events as any).toJS()
             : [],
         endTick: song.endOfSong,
-        measures: song.measureList.measures,
+        measures: song.measures,
         timebase: player.timebase,
         autoScroll: s.autoScroll,
         scrollLeft: s.scrollLeft,

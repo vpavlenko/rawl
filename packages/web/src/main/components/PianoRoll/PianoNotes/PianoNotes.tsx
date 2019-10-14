@@ -7,7 +7,6 @@ import _ from "lodash"
 import React, { StatelessComponent } from "react"
 import { shouldUpdate } from "recompose"
 import PianoNoteItem from "./PianoNoteItem"
-import { RGB, toRGB } from "common/color/rgb"
 
 export interface PianoNotesProps {
   events: TrackEvent[]

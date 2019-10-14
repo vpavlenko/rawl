@@ -1,6 +1,8 @@
-import Measure, { Beat } from "common/measure"
+import Measure from "common/measure"
 
-export interface BeatWithX extends Beat {
+export interface BeatWithX {
+  measure: number
+  beat: number
   x: number
 }
 
@@ -24,7 +26,7 @@ const getMeasuresInRange = (
       }
       if (measure.startTick > startTick) {
         console.warn("There is no initial time signature. Use 4/4 by default")
-        result.push(new Measure())
+        result.push({ startTick: 0, measure: 0, numerator: 4, denominator: 4 })
       } else {
         result.push(measure)
       }
@@ -70,7 +72,6 @@ export const createBeatsInRange = (
       beats.push({
         measure: measure.measure + Math.floor(beat / measure.numerator),
         beat: beat % measure.numerator,
-        tick,
         x: Math.round(tick * pixelsPerTick)
       })
     }

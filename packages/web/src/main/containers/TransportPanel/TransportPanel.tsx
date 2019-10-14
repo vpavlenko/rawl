@@ -20,7 +20,7 @@ export default compose(
     ({
       rootStore: {
         services: { player },
-        song: { measureList },
+        song: { measures },
         playerStore: { loop },
         router,
         dispatch
@@ -31,7 +31,7 @@ export default compose(
       ({
         player,
         tempo: player.currentTempo,
-        measureList,
+        measures,
         loopEnabled: loop.enabled,
         onClickPlay: () => dispatch(PLAY),
         onClickStop: () => dispatch(STOP),

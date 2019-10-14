@@ -8,9 +8,8 @@ import { NoteCoordTransform } from "common/transform"
 import { show as showEventEditor } from "components/EventEditor/EventEditor"
 import { HorizontalScaleScrollBar } from "components/inputs/ScaleScrollBar"
 import { BAR_WIDTH, VerticalScrollBar } from "components/inputs/ScrollBar"
-import mapBeats, { createBeatsInRange } from "helpers/mapBeats"
+import { createBeatsInRange } from "helpers/mapBeats"
 import React, { StatelessComponent } from "react"
-import SplitPane from "react-split-pane"
 import ControlPane, { ControlMode, ControlPaneProps } from "./ControlPane"
 import PianoControlEvents, { DisplayEvent } from "./PianoControlEvents"
 import PianoCursor from "./PianoCursor"
@@ -225,20 +224,7 @@ export const PianoRoll: StatelessComponent<PianoRollProps> = ({
             onScroll={(scroll: number) => setScrollTop(scroll)}
           />
         </div>
-        <div className="beta">
-          <ControlPane
-            mode={controlMode}
-            theme={theme}
-            beats={mappedBeats}
-            events={events}
-            transform={transform}
-            scrollLeft={scrollLeft}
-            paddingBottom={BAR_WIDTH}
-            onSelectTab={setControlMode}
-            changeVelocity={changeVelocity}
-            createControlEvent={createControlEvent}
-          />
-        </div>
+        <div className="beta"></div>
       </div>
       <HorizontalScaleScrollBar
         scrollOffset={scrollLeft}

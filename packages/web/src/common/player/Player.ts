@@ -68,6 +68,7 @@ export default class Player extends EventEmitter {
   private _output: SynthOutput
   private _timebase: number
   private _trackMute: TrackMute
+  private _latency: number = 300
 
   loop: LoopSetting = {
     begin: 0,
@@ -89,7 +90,8 @@ export default class Player extends EventEmitter {
     this._scheduler = new EventScheduler(
       eventsToPlay,
       this._currentTick,
-      this._timebase
+      this._timebase,
+      500
     )
     this._output.activate()
     setInterval(() => this._onTimer(), 50)
@@ -212,7 +214,7 @@ export default class Player extends EventEmitter {
       return
     }
 
-    const timestamp = window.performance.now()
+    const timestamp = window.performance.now() + this._latency
     const events = this._scheduler.readNextEvents(this._currentTempo, timestamp)
 
     // channel イベントを MIDI Output に送信

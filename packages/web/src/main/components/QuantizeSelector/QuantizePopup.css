@@ -1,18 +1,10 @@
 .QuantizePopup {
-  display: inline-block;
-  position: absolute;
-}
-
-.QuantizePopup > .inner {
-  background: var(--background-color);
   padding: 0 1em;
-  z-index: 100;
   border-radius: 0.4em;
-  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.12));
-  color: var(--text-color);
+  display: flex;
 }
 
-.QuantizePopup > .inner::before {
+.QuantizePopup::before {
   content: "";
   width: 1em;
   height: 1em;
@@ -21,10 +13,6 @@
   top: -0.5em;
   left: calc(50% - 1em);
   transform: rotate(45deg);
-}
-
-.QuantizePopup .content {
-  display: flex;
 }
 
 .QuantizePopup .left {
@@ -44,7 +32,8 @@
   font-size: 150%;
   background: var(--background-color);
   border: 1px solid var(--divider-color);
-  width: 1.6em;
+  width: 2em;
+  padding: 0.25em;
   text-align: center;
 }
 

@@ -2,6 +2,7 @@ import React, { SFC } from "react"
 import Icon from "components/outputs/Icon"
 
 import "./QuantizePopup.css"
+import { Popover, makeStyles } from "@material-ui/core"
 
 interface NumberPickerProps {
   value: number
@@ -43,25 +44,34 @@ export interface QuantizePopupProps {
   values: number[]
   triplet: boolean
   dotted: boolean
-  left?: number
-  top?: number
-  hidden: boolean
+  isOpen: boolean
+  onClose: () => void
+  anchorEl: Element | null
   onChangeValue: (value: number) => void
   onChangeTriplet: (value: boolean) => void
   onChangeDotted: (value: boolean) => void
 }
+
+const useStyles = makeStyles(theme => ({
+  popover: {
+    "& .MuiPopover-paper": {
+      overflow: "visible",
+      marginTop: "1em"
+    }
+  }
+}))
 
 export default function QuantizePopup({
   value = 8,
   values,
   triplet,
   dotted,
-  left,
-  top,
-  hidden,
+  isOpen,
+  onClose,
   onChangeValue,
   onChangeTriplet,
-  onChangeDotted
+  onChangeDotted,
+  anchorEl
 }: QuantizePopupProps) {
   const prevValue = () => {
     const index = Math.max(values.indexOf(value) - 1, 0)
@@ -71,40 +81,49 @@ export default function QuantizePopup({
     const index = Math.min(values.indexOf(value) + 1, values.length - 1)
     return values[index]
   }
+  const classes = useStyles({})
   return (
-    <div
-      className="QuantizePopup"
-      style={{ left, top, visibility: hidden ? "hidden" : "visible" }}
+    <Popover
+      className={classes.popover}
+      open={isOpen}
+      onClose={onClose}
+      anchorEl={anchorEl}
+      anchorOrigin={{
+        vertical: "bottom",
+        horizontal: "center"
+      }}
+      transformOrigin={{
+        vertical: "top",
+        horizontal: "center"
+      }}
     >
-      <div className="inner">
-        <div className="content">
-          <NumberPicker
-            className="left"
-            value={value}
-            prevValue={prevValue}
-            nextValue={nextValue}
-            onChange={onChangeValue}
-          />
-          <div className="right">
-            <div className="field">
-              <input
-                type="checkbox"
-                onChange={e => onChangeTriplet(e.target.checked)}
-                checked={triplet}
-              />
-              <label>Triplet</label>
-            </div>
-            <div className="field">
-              <input
-                type="checkbox"
-                onChange={e => onChangeDotted(e.target.checked)}
-                checked={dotted}
-              />
-              <label>Dotted</label>
-            </div>
+      <div className="QuantizePopup">
+        <NumberPicker
+          className="left"
+          value={value}
+          prevValue={prevValue}
+          nextValue={nextValue}
+          onChange={onChangeValue}
+        />
+        <div className="right">
+          <div className="field">
+            <input
+              type="checkbox"
+              onChange={e => onChangeTriplet(e.target.checked)}
+              checked={triplet}
+            />
+            <label>Triplet</label>
+          </div>
+          <div className="field">
+            <input
+              type="checkbox"
+              onChange={e => onChangeDotted(e.target.checked)}
+              checked={dotted}
+            />
+            <label>Dotted</label>
           </div>
         </div>
       </div>
-    </div>
+    </Popover>
   )
 }

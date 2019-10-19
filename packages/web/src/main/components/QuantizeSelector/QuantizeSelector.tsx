@@ -3,7 +3,8 @@ import Icon from "components/outputs/Icon"
 import QuantizePopup from "components/QuantizeSelector/QuantizePopup"
 
 import "./QuantizeSelector.css"
-import { compose, withState, withHandlers, Omit } from "recompose"
+import { Button } from "@material-ui/core"
+import { MusicNote } from "@material-ui/icons"
 
 function calcQuantize(num: number, dot: boolean, triplet: boolean): number {
   let val = num
@@ -16,53 +17,12 @@ function calcQuantize(num: number, dot: boolean, triplet: boolean): number {
   return val
 }
 
-interface DotButtonProps {
-  selected: boolean
-  onClick: () => void
-}
-
-function DotButton({ selected, onClick }: DotButtonProps) {
-  return (
-    <div
-      className={`dot button ${selected ? "selected" : ""}`}
-      onClick={onClick}
-    >
-      <Icon>
-        {selected ? "checkbox-blank-circle" : "checkbox-blank-circle-outline"}
-      </Icon>
-    </div>
-  )
-}
-
-interface TripletButtonProps {
-  selected: boolean
-  onClick: () => void
-}
-
-function TripletButton({ selected, onClick }: TripletButtonProps) {
-  return (
-    <div
-      className={`triplet button ${selected ? "selected" : ""}`}
-      onClick={onClick}
-    >
-      3
-    </div>
-  )
-}
-
 export interface QuantizeSelectorProps {
   value: number
   onSelect: (value: number) => void
-  popupHidden: boolean
-  togglePopup: () => void
 }
 
-function QuantizeSelector({
-  value,
-  onSelect,
-  popupHidden,
-  togglePopup
-}: QuantizeSelectorProps) {
+function QuantizeSelector({ value, onSelect }: QuantizeSelectorProps) {
   // 整数ではなく 1.5 をかけると整数になるとき付点
   const dot = value % 1 !== 0 && (value * 1.5) % 1 === 0
 
@@ -73,6 +33,8 @@ function QuantizeSelector({
   const denominator = calcQuantize(value, triplet, dot)
 
   const list = [1, 2, 4, 8, 16, 32, 64, 128]
+
+  const [anchorEl, setAnchorEl] = React.useState<Element | null>(null)
 
   return (
     <div
@@ -87,16 +49,24 @@ function QuantizeSelector({
         onSelect(calcQuantize(list[index], dot, triplet))
       }}
     >
-      <div className="content" onClick={togglePopup}>
-        <Icon className="label">music-note</Icon>
+      <Button
+        size="small"
+        className="content"
+        onClick={e => {
+          setAnchorEl(e.currentTarget)
+        }}
+      >
+        <MusicNote />
         <div className="value">
           <span className="denominator">{denominator}</span>
           {triplet && <span className="triplet-label">3</span>}
           {dot && <Icon className="dot-label">circle</Icon>}
         </div>
-      </div>
+      </Button>
       <QuantizePopup
-        hidden={popupHidden}
+        anchorEl={anchorEl}
+        isOpen={anchorEl !== null}
+        onClose={() => setAnchorEl(null)}
         value={denominator}
         values={list}
         dotted={dot}
@@ -109,13 +79,4 @@ function QuantizeSelector({
   )
 }
 
-export default compose<
-  QuantizeSelectorProps,
-  Omit<QuantizeSelectorProps, "togglePopup" | "popupHidden">
->(
-  withState("popupHidden", "updatePopupHidden", true),
-  withHandlers({
-    togglePopup: ({ updatePopupHidden }) => () =>
-      updatePopupHidden((v: boolean) => !v)
-  })
-)(QuantizeSelector)
+export default QuantizeSelector

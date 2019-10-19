@@ -66,13 +66,6 @@ const TransportPanel: StatelessComponent<TransportPanelProps> = ({
       <IconButton onClick={onClickForward}>
         <FastForward />
       </IconButton>
-      <ToggleButton
-        onClick={onClickEnableLoop}
-        selected={loopEnabled}
-        className={classes.loop}
-      >
-        <Loop />
-      </ToggleButton>
 
       <ToolbarSeparator />
 

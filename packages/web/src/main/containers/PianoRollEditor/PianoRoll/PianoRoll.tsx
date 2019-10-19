@@ -126,8 +126,8 @@ export default compose<{}, {}>(
         loop: playerStore.loop,
         isPlaying: player.isPlaying,
         quantizer,
-        setLoopBegin: tick => dispatch(SET_LOOP_BEGIN, tick),
-        setLoopEnd: tick => dispatch(SET_LOOP_END, tick),
+        setLoopBegin: tick => {},
+        setLoopEnd: tick => {},
         setPlayerPosition: tick => dispatch(SET_PLAYER_POSITION, tick),
         previewNote: (noteNumber, channel) =>
           dispatch(PREVIEW_NOTE, noteNumber, channel),

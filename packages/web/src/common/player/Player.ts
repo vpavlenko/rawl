@@ -69,7 +69,7 @@ export default class Player extends EventEmitter {
   private _output: SynthOutput
   private _timebase: number
   private _trackMute: TrackMute
-  private _latency: number = 300
+  private _latency: number = 100
 
   loop: LoopSetting = {
     begin: 0,
@@ -221,7 +221,7 @@ export default class Player extends EventEmitter {
       return
     }
 
-    const timestamp = window.performance.now() + this._latency
+    const timestamp = window.performance.now()
     const events = this._scheduler.readNextEvents(this._currentTempo, timestamp)
 
     // channel イベントを MIDI Output に送信
@@ -232,12 +232,12 @@ export default class Player extends EventEmitter {
       )
       .map(({ event, timestamp }) => ({
         message: serializeMidiEvent(event as any, false),
-        timestamp
+        timestamp: timestamp + this._latency
       }))
     this._sendMessages(messages)
 
     // channel イベント以外を実行
-    events.forEach(({ event, timestamp }) => {
+    events.forEach(({ event }) => {
       const e = event
       if (e.type !== "channel" && "subtype" in e) {
         switch (e.subtype) {

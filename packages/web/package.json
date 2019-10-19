@@ -41,7 +41,7 @@
     "react-split-pane": "^0.1.87",
     "recompose": "^0.30.0",
     "serializr": "^1.5.2",
-    "sf2synth": "github:ryohey/sf2synth.js#73fea1f",
+    "sf2synth": "github:ryohey/sf2synth.js#2c9c6fe",
     "styled-components": "4.4.0"
   },
   "devDependencies": {

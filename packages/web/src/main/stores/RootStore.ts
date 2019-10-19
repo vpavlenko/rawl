@@ -41,7 +41,7 @@ export default class RootStore {
   services: Services
 
   constructor() {
-    const synth = new SynthOutput("TimGM6mb.sf2")
+    const synth = new SynthOutput("A320U.sf2")
     const player = new Player(TIME_BASE, synth, this.trackMute)
     const quantizer = new Quantizer(TIME_BASE)
     this.services = { player, quantizer, synth }

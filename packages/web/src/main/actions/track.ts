@@ -141,7 +141,11 @@ export default (rootStore: RootStore) => {
         return
       }
       saveHistory()
-      tick = quantizer.floor(tick)
+
+      tick = selectedTrack.isRhythmTrack
+        ? quantizer.round(tick)
+        : quantizer.floor(tick)
+
       const note: NoteEvent = {
         id: 0,
         type: "channel",

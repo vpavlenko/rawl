@@ -4,7 +4,8 @@ import EventEmitter from "eventemitter3"
 import {
   serialize as serializeMidiEvent,
   MIDIControlEvents,
-  MIDIChannelEvents
+  MIDIChannelEvents,
+  AnyEvent
 } from "@signal-app/midifile-ts"
 
 import EventScheduler from "./EventScheduler"
@@ -207,6 +208,12 @@ export default class Player extends EventEmitter {
   private _shouldPlayChannel(channel: number) {
     const trackId = this._song.trackIdOfChannel(channel)
     return trackId ? this._trackMute.shouldPlayTrack(trackId) : true
+  }
+
+  sendEvent(event: AnyEvent) {
+    const timestamp = window.performance.now() + this._latency
+    const message = serializeMidiEvent(event as any, false)
+    this._sendMessage(message, timestamp)
   }
 
   private _onTimer() {

@@ -4,7 +4,8 @@ import {
   setTempoMidiEvent,
   pitchBendMidiEvent,
   modulationMidiEvent,
-  expressionMidiEvent
+  expressionMidiEvent,
+  programChangeMidiEvent
 } from "midi/MidiEvent"
 import RootStore from "../stores/RootStore"
 import { NoteEvent } from "common/track"
@@ -236,15 +237,33 @@ export default (rootStore: RootStore) => {
     },
     [SET_TRACK_VOLUME]: (trackId: number, volume: number) => {
       saveHistory()
-      song.tracks[trackId].setVolume(volume)
+      const track = song.tracks[trackId]
+      track.setVolume(volume)
+
+      if (track.channel !== undefined) {
+        player.sendEvent(volumeMidiEvent(0, track.channel, volume))
+      }
     },
     [SET_TRACK_PAN]: (trackId: number, pan: number) => {
       saveHistory()
-      song.tracks[trackId].setPan(pan)
+      const track = song.tracks[trackId]
+      track.setPan(pan)
+
+      if (track.channel !== undefined) {
+        player.sendEvent(panMidiEvent(0, track.channel, pan))
+      }
     },
     [SET_TRACK_INSTRUMENT]: (trackId: number, programNumber: number) => {
       saveHistory()
-      song.tracks[trackId].setProgramNumber(programNumber)
+      const track = song.tracks[trackId]
+      track.setProgramNumber(programNumber)
+
+      // 即座に反映する
+      if (track.channel !== undefined) {
+        player.sendEvent(
+          programChangeMidiEvent(0, track.channel, programNumber)
+        )
+      }
     }
   }
 }

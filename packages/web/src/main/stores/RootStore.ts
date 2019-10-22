@@ -45,7 +45,7 @@ export default class RootStore {
     const player = new Player(TIME_BASE, synth, this.trackMute)
     const quantizer = new Quantizer(TIME_BASE)
     this.services = { player, quantizer, synth }
-    this.pianoRollStore = new PianoRollStore(player)
+    this.pianoRollStore = new PianoRollStore(player, synth)
     this.playerStore = new PlayerStore(player)
   }
 

@@ -1,6 +1,8 @@
 import { observable } from "mobx"
 import SelectionModel from "common/selection"
 import Player from "src/common/player"
+import SynthOutput from "../services/SynthOutput"
+import { LoadSoundFontEvent } from "src/synth/synth"
 
 export type PianoRollMouseMode = "pencil" | "selection"
 
@@ -19,11 +21,15 @@ export default class PianoRollStore {
   @observable selection = new SelectionModel()
   @observable lastNoteDuration: number | null = null
   @observable openInstrumentBrowser = false
+  @observable presetNames: LoadSoundFontEvent["presetNames"] = [[]]
 
-  constructor(player: Player) {
+  constructor(player: Player, synth: SynthOutput) {
     player.addListener(
       "change-position",
       position => (this.cursorPosition = position)
     )
+    synth.onLoadSoundFont = e => {
+      this.presetNames = e.presetNames
+    }
   }
 }

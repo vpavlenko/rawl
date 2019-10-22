@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import _ from "lodash"
 
-import { GMMap, getGMMapIndexes, getGMMapProgramNumber } from "midi/GM.ts"
+import { getGMCategory } from "midi/GM.ts"
 
 import "./InstrumentBrowser.css"
 import {
@@ -17,24 +17,32 @@ import RootStore from "stores/RootStore"
 import { SET_TRACK_INSTRUMENT } from "actions"
 
 export interface Result {
-  categoryId: number
-  instrumentId: number
+  programNumber: number
   isRhythmTrack: boolean
 }
 
 export interface InstrumentBrowserProps {
   isOpen: boolean
-  selectedCategoryId: number
-  selectedInstrumentId: number
+  programNumber: number
   isRhythmTrack: boolean
+  presetCategories: PresetCategory[]
   onClickOK: (result: Result) => void
   onClickCancel: () => void
 }
 
 export interface InstrumentBrowserState {
-  selectedCategoryId: number
-  selectedInstrumentId: number
+  programNumber: number
   isRhythmTrack: boolean
+}
+
+export interface PresetItem {
+  name: string
+  programNumber: number
+}
+
+export interface PresetCategory {
+  name: string
+  presets: PresetItem[]
 }
 
 class InstrumentBrowser extends Component<
@@ -45,38 +53,41 @@ class InstrumentBrowser extends Component<
     super(props)
 
     this.state = {
-      selectedCategoryId: props.selectedCategoryId || 0,
-      selectedInstrumentId: props.selectedInstrumentId || 0,
+      programNumber: props.programNumber,
       isRhythmTrack: props.isRhythmTrack
     }
   }
 
   render() {
+    const { isRhythmTrack, programNumber } = this.state
     const {
-      isRhythmTrack,
-      selectedCategoryId,
-      selectedInstrumentId
-    } = this.state
-    const { onClickCancel, onClickOK: _onClickOK, isOpen } = this.props
+      onClickCancel,
+      onClickOK: _onClickOK,
+      isOpen,
+      presetCategories
+    } = this.props
 
     const onClickOK = () => {
       _onClickOK({
-        categoryId: this.state.selectedCategoryId,
-        instrumentId: this.state.selectedInstrumentId,
+        programNumber: this.state.programNumber,
         isRhythmTrack: this.state.isRhythmTrack
       })
     }
 
+    const selectedCategoryId = Math.floor(programNumber / 8)
+
     const onChangeCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
-      this.setState({
-        selectedCategoryId: e.target.selectedIndex
-      })
+      if (selectedCategoryId !== e.target.selectedIndex) {
+        this.setState({
+          programNumber: e.target.selectedIndex * 8 // カテゴリの最初の楽器を選ぶ
+        })
+      }
     }
 
     const onChangeInstrument = (e: React.ChangeEvent<HTMLSelectElement>) => {
       // TODO: play note (一時的に program change する)
       this.setState({
-        selectedInstrumentId: e.target.selectedIndex
+        programNumber: parseInt(e.target.value)
       })
     }
 
@@ -84,21 +95,25 @@ class InstrumentBrowser extends Component<
       this.setState({ isRhythmTrack: e.target.checked })
     }
 
-    const categories = Object.keys(GMMap)
-    const instruments = GMMap[Object.keys(GMMap)[this.state.selectedCategoryId]]
+    const instruments =
+      presetCategories.length > selectedCategoryId
+        ? presetCategories[selectedCategoryId].presets
+        : []
 
-    const categoryOptions = categories.map((name: string, i: number) => {
-      return (
-        <option key={i} value={i}>
-          {name}
-        </option>
-      )
-    })
+    const categoryOptions = presetCategories.map(
+      (preset: PresetCategory, i: number) => {
+        return (
+          <option key={i} value={i}>
+            {preset.name}
+          </option>
+        )
+      }
+    )
 
-    const instrumentOptions = instruments.map((name: string, i: number) => {
+    const instrumentOptions = instruments.map((p: PresetItem, i: number) => {
       return (
-        <option key={i} value={i}>
-          {name}
+        <option key={i} value={p.programNumber}>
+          {p.name}
         </option>
       )
     })
@@ -123,7 +138,7 @@ class InstrumentBrowser extends Component<
                 <select
                   size={12}
                   onChange={onChangeInstrument}
-                  value={selectedInstrumentId}
+                  value={programNumber}
                 >
                   {instrumentOptions}
                 </select>
@@ -170,20 +185,30 @@ export default compose(
 
       const programNumber =
         track.programNumber !== undefined ? track.programNumber : 0
-      const ids = getGMMapIndexes(programNumber)
       const close = () => (s.openInstrumentBrowser = false)
       const setTrackInstrument = (programNumber: number) =>
         dispatch(SET_TRACK_INSTRUMENT, trackId, programNumber)
 
+      const presets: PresetItem[] = Object.keys(s.presetNames[0]).map(key => ({
+        programNumber: parseInt(key),
+        name: s.presetNames[0][parseInt(key)]
+      }))
+
+      const presetCategories = _.map(
+        _.groupBy(presets, p => getGMCategory(p.programNumber)),
+        (presets, name) => ({ name, presets })
+      )
+
+      // TODO: presets をカテゴライズする
+
       return {
         isOpen: s.openInstrumentBrowser,
         isRhythmTrack: track.isRhythmTrack,
-        selectedCategoryId: ids !== undefined ? ids[0] : 0,
-        selectedInstrumentId: ids !== undefined ? ids[1] : 0,
+        programNumber: programNumber,
         onClickCancel: () => {
           close()
         },
-        onClickOK: ({ isRhythmTrack, categoryId, instrumentId }) => {
+        onClickOK: ({ isRhythmTrack, programNumber }) => {
           if (isRhythmTrack) {
             track.channel = 9
             setTrackInstrument(0)
@@ -198,17 +223,12 @@ export default compose(
                 _.min(_.difference(channels, usedChannels)) || 0
               track.channel = availableChannel
             }
-            const programNumber = getGMMapProgramNumber(
-              categoryId,
-              instrumentId
-            )
-            if (programNumber !== undefined) {
-              setTrackInstrument(programNumber)
-            }
+            setTrackInstrument(programNumber)
           }
 
           close()
-        }
+        },
+        presetCategories
       } as InstrumentBrowserProps
     }
   ),

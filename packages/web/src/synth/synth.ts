@@ -12,7 +12,16 @@ export const SynthEvent = {
   loadSoundFont: "load_soundfont",
   startRecording: "start_recording",
   stopRecording: "stop_recording",
-  didCreateSynthWindow: "did-create-synth-window"
+  didCreateSynthWindow: "did-create-synth-window",
+  didLoadSoundFont: "did_load_soundfont"
+}
+
+export interface LoadSoundFontEvent {
+  presetNames: {
+    [index: number]: {
+      [index: number]: string
+    }
+  }
 }
 
 export default class SynthController {
@@ -26,6 +35,7 @@ export default class SynthController {
   private output: AudioNode
   private synth: Synthesizer
   private recorder: Recorder
+  private messenger: WindowMessenger
 
   constructor() {
     const ctx = new AudioContext()
@@ -54,6 +64,7 @@ export default class SynthController {
     messenger.on(SynthEvent.stopRecording, () => this.stopRecording())
 
     messenger.send(SynthEvent.didCreateSynthWindow)
+    this.messenger = messenger
   }
 
   private setupRecorder() {
@@ -110,6 +121,11 @@ export default class SynthController {
     fetch(url)
       .then(res => res.arrayBuffer())
       .then(buf => this.synth.loadSoundFont(new Uint8Array(buf)))
+      .then(() => {
+        this.messenger.send(SynthEvent.didLoadSoundFont, {
+          presetNames: this.synth.soundFont.getPresetNames()
+        } as LoadSoundFontEvent)
+      })
       .catch(e => console.warn(e.message))
   }
 

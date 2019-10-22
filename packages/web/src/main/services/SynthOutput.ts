@@ -1,5 +1,5 @@
 import { Messenger, WindowMessenger } from "common/messenger/Messenger"
-import { SynthEvent } from "synth/synth"
+import { SynthEvent, LoadSoundFontEvent } from "synth/synth"
 
 export interface Message {
   message: number[]
@@ -14,6 +14,7 @@ function createElement(html: string) {
 
 export default class SynthOutput {
   private messenger: Messenger
+  onLoadSoundFont: (e: LoadSoundFontEvent) => void = () => {}
 
   constructor(soundFontPath: string) {
     const iframe = createElement(
@@ -32,6 +33,8 @@ export default class SynthOutput {
         this.loadSoundFont(soundFontPath)
       }
     }
+
+    this.messenger.on(SynthEvent.didLoadSoundFont, e => this.onLoadSoundFont(e))
   }
 
   activate() {

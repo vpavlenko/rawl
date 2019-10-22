@@ -1,4 +1,5 @@
 import { Messenger, WindowMessenger } from "common/messenger/Messenger"
+import { SynthEvent } from "synth/synth"
 
 export interface Message {
   message: number[]
@@ -34,19 +35,19 @@ export default class SynthOutput {
   }
 
   activate() {
-    this.messenger.send("activate")
+    this.messenger.send(SynthEvent.activate)
   }
 
   loadSoundFont(url: string) {
-    this.messenger.send("load_soundfont", { url })
+    this.messenger.send(SynthEvent.loadSoundFont, { url })
   }
 
   startRecording() {
-    this.messenger.send("start_recording")
+    this.messenger.send(SynthEvent.startRecording)
   }
 
   stopRecording() {
-    this.messenger.send("stop_recording")
+    this.messenger.send(SynthEvent.stopRecording)
   }
 
   send(message: number[], timestamp: DOMHighResTimeStamp) {
@@ -54,7 +55,7 @@ export default class SynthOutput {
   }
 
   sendEvents(events: Message[]) {
-    this.messenger.send("midi", {
+    this.messenger.send(SynthEvent.midi, {
       events,
       timestamp: window.performance.now()
     })

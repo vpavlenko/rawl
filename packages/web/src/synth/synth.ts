@@ -6,6 +6,15 @@ import "./synth.css"
 
 type Message = number[]
 
+export const SynthEvent = {
+  activate: "activate",
+  midi: "midi",
+  loadSoundFont: "load_soundfont",
+  startRecording: "start_recording",
+  stopRecording: "stop_recording",
+  didCreateSynthWindow: "did-create-synth-window"
+}
+
 export default class SynthController {
   private eventsBuffer: any[] = []
 
@@ -36,15 +45,15 @@ export default class SynthController {
 
   private bindMessenger() {
     const messenger = new WindowMessenger(window.parent)
-    messenger.on("activate", () => this.activate())
-    messenger.on("midi", (payload: any) => this.onMidi(payload))
-    messenger.on("load_soundfont", (payload: any) =>
+    messenger.on(SynthEvent.activate, () => this.activate())
+    messenger.on(SynthEvent.midi, (payload: any) => this.onMidi(payload))
+    messenger.on(SynthEvent.loadSoundFont, (payload: any) =>
       this.loadSoundFont(payload.url)
     )
-    messenger.on("start_recording", () => this.startRecording())
-    messenger.on("stop_recording", () => this.stopRecording())
+    messenger.on(SynthEvent.startRecording, () => this.startRecording())
+    messenger.on(SynthEvent.stopRecording, () => this.stopRecording())
 
-    messenger.send("did-create-synth-window")
+    messenger.send(SynthEvent.didCreateSynthWindow)
   }
 
   private setupRecorder() {

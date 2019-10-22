@@ -190,7 +190,7 @@ export default class Player extends EventEmitter {
     channel: number
   }) {
     this._output.activate()
-    const timestamp = window.performance.now()
+    const timestamp = window.performance.now() + this._latency
     this._sendMessage(
       [firstByte("noteOn", channel), noteNumber, velocity],
       timestamp

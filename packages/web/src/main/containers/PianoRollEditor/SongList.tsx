@@ -3,9 +3,10 @@ import { List, ListSubheader, ListItem, ListItemText } from "@material-ui/core"
 import { compose } from "recompose"
 import { inject, observer } from "mobx-react"
 import RootStore from "stores/RootStore"
-import { OPEN_SONG, SAVE_SONG } from "actions"
+import { OPEN_SONG, SAVE_SONG, CREATE_SONG } from "actions"
 
 interface SongListProps {
+  onClickNew: () => void
   onClickOpen: (e: ChangeEvent<HTMLInputElement>) => void
   onClickSave: () => void
 }
@@ -27,9 +28,17 @@ const FileInput: SFC<{
   </>
 )
 
-const SongList: SFC<SongListProps> = ({ onClickOpen, onClickSave }) => (
+const SongList: SFC<SongListProps> = ({
+  onClickNew,
+  onClickOpen,
+  onClickSave
+}) => (
   <List>
     <ListSubheader>Song</ListSubheader>
+
+    <ListItem button onClick={onClickNew}>
+      <ListItemText primary="New" />
+    </ListItem>
 
     <FileInput onChange={onClickOpen}>
       <ListItem button>
@@ -46,6 +55,11 @@ const SongList: SFC<SongListProps> = ({ onClickOpen, onClickSave }) => (
 export default compose(
   inject(({ rootStore: { dispatch } }: { rootStore: RootStore }) => {
     return {
+      onClickNew: () => {
+        if (confirm("Are you sure you want to continue?")) {
+          dispatch(CREATE_SONG)
+        }
+      },
       onClickOpen: e => dispatch(OPEN_SONG, e.currentTarget),
       onClickSave: () => dispatch(SAVE_SONG)
     } as SongListProps

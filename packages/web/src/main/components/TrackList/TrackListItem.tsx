@@ -3,7 +3,7 @@ import { createContextMenu } from "components/groups/ContextMenu"
 
 import "./TrackListItem.css"
 import { VolumeOff, VolumeUp, Headset } from "@material-ui/icons"
-import { ListItem, MenuItem } from "@material-ui/core"
+import { ListItem, MenuItem, IconButton } from "@material-ui/core"
 
 const Nop = () => {}
 
@@ -45,7 +45,9 @@ export default function TrackListItem({
           <div className="instrument">{instrument}</div>
         </div>
         <div className="controls">
-          <div
+          <IconButton
+            color="default"
+            size="small"
             className={`button solo ${solo ? "active" : ""}`}
             onClick={e => {
               e.stopPropagation()
@@ -53,8 +55,10 @@ export default function TrackListItem({
             }}
           >
             <Headset fontSize="small" />
-          </div>
-          <div
+          </IconButton>
+          <IconButton
+            color="default"
+            size="small"
             className={`button mute ${mute ? "active" : ""}`}
             onClick={e => {
               e.stopPropagation()
@@ -66,7 +70,7 @@ export default function TrackListItem({
             ) : (
               <VolumeUp fontSize="small" />
             )}
-          </div>
+          </IconButton>
         </div>
       </div>
     </ListItem>

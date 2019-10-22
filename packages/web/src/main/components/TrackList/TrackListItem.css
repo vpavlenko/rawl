@@ -1,15 +1,4 @@
-.TrackListItem {
-  display: flex;
-  flex-shrink: 0;
-  height: 40px;
-  flex-direction: column;
-}
-
-.TrackListItem.selected {
-  background: rgba(0, 0, 0, 0.03);
-}
-
-.TrackListItem.selected .name {
+.Mui-selected .TrackListItem .name {
   font-weight: 600;
 }
 
@@ -39,10 +28,8 @@
 }
 
 .TrackListItem .button {
-  font-size: 120%;
   margin-right: 0.5em;
   color: var(--secondary-text-color);
-  margin-right: 0.5em;
 }
 
 .TrackListItem .button.active {

@@ -15,6 +15,7 @@ import { compose } from "recompose"
 import { inject, observer } from "mobx-react"
 import RootStore from "stores/RootStore"
 import { SET_TRACK_INSTRUMENT } from "actions"
+import { programChangeMidiEvent } from "common/midi/MidiEvent"
 
 export interface Result {
   programNumber: number
@@ -26,6 +27,7 @@ export interface InstrumentBrowserProps {
   programNumber: number
   isRhythmTrack: boolean
   presetCategories: PresetCategory[]
+  onChange: (programNumber: number) => void
   onClickOK: (result: Result) => void
   onClickCancel: () => void
 }
@@ -64,7 +66,8 @@ class InstrumentBrowser extends Component<
       onClickCancel,
       onClickOK: _onClickOK,
       isOpen,
-      presetCategories
+      presetCategories,
+      onChange
     } = this.props
 
     const onClickOK = () => {
@@ -77,18 +80,19 @@ class InstrumentBrowser extends Component<
     const selectedCategoryId = Math.floor(programNumber / 8)
 
     const onChangeCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
-      if (selectedCategoryId !== e.target.selectedIndex) {
-        this.setState({
-          programNumber: e.target.selectedIndex * 8 // カテゴリの最初の楽器を選ぶ
-        })
-      }
+      const programNumber = e.target.selectedIndex * 8 // カテゴリの最初の楽器を選ぶ
+      this.setState({
+        programNumber
+      })
+      onChange(programNumber)
     }
 
     const onChangeInstrument = (e: React.ChangeEvent<HTMLSelectElement>) => {
-      // TODO: play note (一時的に program change する)
+      const programNumber = parseInt(e.target.value)
       this.setState({
-        programNumber: parseInt(e.target.value)
+        programNumber
       })
+      onChange(programNumber)
     }
 
     const onChangeRhythmTrack = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -172,7 +176,12 @@ class InstrumentBrowser extends Component<
 export default compose(
   inject(
     ({
-      rootStore: { pianoRollStore: s, song, dispatch }
+      rootStore: {
+        pianoRollStore: s,
+        song,
+        dispatch,
+        services: { player }
+      }
     }: {
       rootStore: RootStore
     }) => {
@@ -204,7 +213,20 @@ export default compose(
       return {
         isOpen: s.openInstrumentBrowser,
         isRhythmTrack: track.isRhythmTrack,
-        programNumber: programNumber,
+        programNumber,
+        onChange: programNumber => {
+          const channel = track.channel
+          if (channel === undefined) {
+            return
+          }
+          player.sendEvent(programChangeMidiEvent(0, channel, programNumber))
+          player.playNote({
+            duration: 120,
+            noteNumber: 64,
+            velocity: 100,
+            channel
+          })
+        },
         onClickCancel: () => {
           close()
         },

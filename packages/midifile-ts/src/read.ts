@@ -1,12 +1,12 @@
 import { AnyEvent } from "./event"
-import Stream, { Data } from "./stream"
+import Stream, { StreamSource } from "./stream"
 import deserialize from "./deserialize"
 
 /*
 class to parse the .mid file format
 (depends on stream.js)
 */
-export default function read(data: Data<number>) {
+export default function read(data: StreamSource) {
   function readChunk(stream: Stream) {
     const id = stream.readStr(4)
     const length = stream.readInt32()

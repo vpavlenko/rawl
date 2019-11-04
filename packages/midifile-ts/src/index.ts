@@ -9,5 +9,5 @@ export {
 export { default as MIDIControlEvents } from "./constants/MIDIControlEvents"
 export { default as MIDIMetaEventNames } from "./constants/MIDIMetaEventNames"
 export { default as MIDIMetaEvents } from "./constants/MIDIMetaEvents"
-export { Data } from "./stream"
+export { StreamSource } from "./stream"
 export * from "./event"

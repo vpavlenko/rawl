@@ -1,4 +1,4 @@
-import { NoteOnEvent, NoteOffEvent } from "@signal-app/midifile-ts"
+import { NoteOnEvent, NoteOffEvent } from "midifile-ts"
 import { NoteEvent, TickProvider } from "common/track"
 import { noteOnMidiEvent, noteOffMidiEvent } from "common/midi/MidiEvent"
 import { Omit } from "recompose"

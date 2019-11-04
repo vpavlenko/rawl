@@ -2,7 +2,7 @@ import _ from "lodash"
 
 import Song from "common/song"
 import Track, { conductorTrack, emptyTrack } from "common/track"
-import { read as readMidi, Data, AnyEvent } from "@signal-app/midifile-ts"
+import { read as readMidi, Data, AnyEvent } from "midifile-ts"
 import { toTrackEvents } from "../helpers/toTrackEvents"
 
 export function emptySong() {

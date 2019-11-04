@@ -6,7 +6,7 @@ import {
   MIDIControlEvents,
   MIDIChannelEvents,
   AnyEvent
-} from "@signal-app/midifile-ts"
+} from "midifile-ts"
 
 import EventScheduler from "./EventScheduler"
 import Song from "common/song"

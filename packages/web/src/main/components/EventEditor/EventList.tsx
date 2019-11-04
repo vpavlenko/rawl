@@ -3,7 +3,7 @@ import { controllerTypeString } from "helpers/noteNumberString"
 
 import "./EventList.css"
 import { TrackEvent, TrackEventRequired } from "common/track"
-import { ControllerEvent } from "@signal-app/midifile-ts"
+import { ControllerEvent } from "midifile-ts"
 
 interface TableProps {
   items: TrackEvent[]

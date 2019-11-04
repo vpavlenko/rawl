@@ -5,7 +5,7 @@ import LineGraphControl, {
   LineGraphControlEvent
 } from "./LineGraphControl"
 import { Dispatcher } from "main/createDispatcher"
-import { ControllerEvent } from "@signal-app/midifile-ts"
+import { ControllerEvent } from "midifile-ts"
 import { TrackEvent } from "common/track"
 
 export type VolumeGraphProps = Omit<

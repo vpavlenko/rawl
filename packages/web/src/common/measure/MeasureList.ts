@@ -1,6 +1,6 @@
 import Measure from "./Measure"
 import Track from "common/track"
-import { TimeSignatureEvent } from "@signal-app/midifile-ts"
+import { TimeSignatureEvent } from "midifile-ts"
 
 export function getMeasureAt(tick: number, measures: Measure[]): Measure {
   let lastMeasure: Measure = {

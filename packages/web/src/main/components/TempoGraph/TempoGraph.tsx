@@ -1,4 +1,4 @@
-import { SetTempoEvent } from "@signal-app/midifile-ts"
+import { SetTempoEvent } from "midifile-ts"
 import Color from "color"
 import { ISize } from "common/geometry"
 import Measure from "common/measure"

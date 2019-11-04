@@ -1,7 +1,7 @@
 import _ from "lodash"
 import { assemble as assembleNotes } from "./noteAssembler"
 import { assemble as assembleRPN } from "./RPNAssembler"
-import { AnyEvent } from "@signal-app/midifile-ts"
+import { AnyEvent } from "midifile-ts"
 import { DeltaTimeProvider, TickProvider } from "common/track"
 
 function addTick<T extends DeltaTimeProvider>(

@@ -1,5 +1,5 @@
 import TempoGraphItem from "./TempoGraphItem"
-import { SetTempoEvent } from "@signal-app/midifile-ts"
+import { SetTempoEvent } from "midifile-ts"
 import { TempoCoordTransform } from "common/transform"
 import { TrackEvent } from "common/track"
 import { CanvasDrawStyle } from "main/style"

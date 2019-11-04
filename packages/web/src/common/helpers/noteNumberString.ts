@@ -1,4 +1,4 @@
-import { MIDIControlEventNames } from "@signal-app/midifile-ts"
+import { MIDIControlEventNames } from "midifile-ts"
 
 const NOTE_NAMES = [
   "C",

@@ -4,7 +4,7 @@ import LineGraphControl, {
   LineGraphControlProps,
   LineGraphControlEvent
 } from "./LineGraphControl"
-import { ControllerEvent } from "@signal-app/midifile-ts"
+import { ControllerEvent } from "midifile-ts"
 import { TrackEvent } from "common/track"
 
 export type PanGraphProps = Omit<

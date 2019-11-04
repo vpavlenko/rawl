@@ -26,7 +26,7 @@ import {
   ControllerEvent,
   SysExEvent,
   DividedSysExEvent
-} from "@signal-app/midifile-ts"
+} from "midifile-ts"
 import { Omit } from "recompose"
 import { RPNEvent } from "../helpers/RPNAssembler"
 

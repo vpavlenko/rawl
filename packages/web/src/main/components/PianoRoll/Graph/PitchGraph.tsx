@@ -1,6 +1,6 @@
 import React, { StatelessComponent } from "react"
 import { pure, Omit } from "recompose"
-import { PitchBendEvent } from "@signal-app/midifile-ts"
+import { PitchBendEvent } from "midifile-ts"
 import LineGraphControl, {
   LineGraphControlProps,
   LineGraphControlEvent

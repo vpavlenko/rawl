@@ -1,5 +1,5 @@
 import _ from "lodash"
-import { write as writeMidiFile } from "@signal-app/midifile-ts"
+import { write as writeMidiFile } from "midifile-ts"
 import Track from "common/track"
 import { toRawEvents } from "common/helpers/toRawEvents"
 

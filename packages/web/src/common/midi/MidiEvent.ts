@@ -10,7 +10,7 @@ import {
   SetTempoEvent,
   PitchBendEvent,
   NoteOnEvent
-} from "@signal-app/midifile-ts"
+} from "midifile-ts"
 
 /* factory */
 

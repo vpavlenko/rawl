@@ -1,4 +1,4 @@
-import { AnyEvent } from "@signal-app/midifile-ts"
+import { AnyEvent } from "midifile-ts"
 import { TrackEvent, TickProvider, DeltaTimeProvider } from "../track"
 import { deassemble as deassembleNote } from "./noteAssembler"
 import { deassemble as deassembleRPN } from "./RPNAssembler"

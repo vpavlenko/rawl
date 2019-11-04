@@ -8,7 +8,7 @@ import {
   ProgramChangeEvent,
   ControllerEvent,
   AnyEvent
-} from "@signal-app/midifile-ts"
+} from "midifile-ts"
 
 import { getInstrumentName } from "midi/GM"
 import { Omit } from "recompose"

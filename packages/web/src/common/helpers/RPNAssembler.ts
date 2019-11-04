@@ -3,7 +3,7 @@ import {
   ControllerEvent,
   AnyEvent,
   ChannelEvent
-} from "@signal-app/midifile-ts"
+} from "midifile-ts"
 
 export interface RPNEvent extends ChannelEvent<"rpn"> {
   rpnMSB: number

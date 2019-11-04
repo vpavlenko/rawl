@@ -1,5 +1,4 @@
-const tsconfig = require("./tsconfig.json")
-const moduleNameMapper = require("tsconfig-paths-jest")(tsconfig)
+const { pathsToModuleNameMapper } = require("ts-jest/utils")
 
 module.exports = {
   transform: {
@@ -7,13 +6,7 @@ module.exports = {
     "^.+\\.jsx?$": "babel-jest"
   },
   testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
-  testPathIgnorePatterns: [
-    "/node_modules/",
-    "/submodules/"
-  ],
-  moduleNameMapper,
-  moduleFileExtensions: [
-    "ts",
-    "js"
-  ]
+  testPathIgnorePatterns: ["/node_modules/", "/submodules/"],
+  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths),
+  moduleFileExtensions: ["ts", "js"]
 }

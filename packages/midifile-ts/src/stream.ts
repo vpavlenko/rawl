@@ -1,15 +1,15 @@
 export interface Data<T> extends Iterable<T> {
   [key: number]: T
-  slice(start?: T, end?: T): Data<T>
+  slice(start?: T, end?: T): this
   readonly length: number
 }
 
 /* Wrapper for accessing strings through sequential reads */
-export default class Stream {
-  private buf: Data<number>
+export default class Stream<T extends Data<number>> {
+  private buf: T
   private position = 0
 
-  constructor(buf: Data<number>) {
+  constructor(buf: T) {
     this.buf = buf
   }
 
@@ -29,7 +29,7 @@ export default class Stream {
     return chars.join("")
   }
 
-  read(length: number): Data<number> {
+  read(length: number): T {
     const result = this.buf.slice(this.position, this.position + length)
     this.position += length
     return result

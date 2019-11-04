@@ -54,7 +54,7 @@
     "@storybook/addon-actions": "^5.2.1",
     "@storybook/react": "^5.2.1",
     "@types/color": "3.0.0",
-    "@types/jest": "^24.0.18",
+    "@types/jest": "24.0.21",
     "@types/lodash": "^4.14.141",
     "@types/material-ui": "0.21.7",
     "@types/node": "12.7.11",

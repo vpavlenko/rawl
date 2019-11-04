@@ -10,7 +10,10 @@ describe("Stream", () => {
   })
   it("read", () => {
     const s = new Stream(data)
-    assert.deepEqual(s.read(4), "MThd".split("").map(s => s.charCodeAt(0)))
+    assert.deepEqual(
+      s.read(4).toJSON().data,
+      "MThd".split("").map(s => s.charCodeAt(0))
+    )
   })
   it("readInt8", () => {
     const s = new Stream(data)

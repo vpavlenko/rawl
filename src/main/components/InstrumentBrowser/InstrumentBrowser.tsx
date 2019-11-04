@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, { Component, SFC, useState } from "react"
 import _ from "lodash"
 
 import { getGMCategory } from "midi/GM.ts"
@@ -17,24 +17,18 @@ import RootStore from "stores/RootStore"
 import { SET_TRACK_INSTRUMENT } from "actions"
 import { programChangeMidiEvent } from "common/midi/MidiEvent"
 
-export interface Result {
+export interface InstrumentSetting {
   programNumber: number
   isRhythmTrack: boolean
 }
 
 export interface InstrumentBrowserProps {
   isOpen: boolean
-  programNumber: number
-  isRhythmTrack: boolean
+  setting: InstrumentSetting
   presetCategories: PresetCategory[]
-  onChange: (programNumber: number) => void
-  onClickOK: (result: Result) => void
+  onChange: (setting: InstrumentSetting) => void
+  onClickOK: () => void
   onClickCancel: () => void
-}
-
-export interface InstrumentBrowserState {
-  programNumber: number
-  isRhythmTrack: boolean
 }
 
 export interface PresetItem {
@@ -47,130 +41,105 @@ export interface PresetCategory {
   presets: PresetItem[]
 }
 
-class InstrumentBrowser extends Component<
-  InstrumentBrowserProps,
-  InstrumentBrowserState
-> {
-  constructor(props: InstrumentBrowserProps) {
-    super(props)
+const InstrumentBrowser: SFC<InstrumentBrowserProps> = ({
+  onClickCancel,
+  onClickOK,
+  isOpen,
+  presetCategories,
+  onChange,
+  setting: { programNumber, isRhythmTrack }
+}) => {
+  const selectedCategoryId = Math.floor(programNumber / 8)
 
-    this.state = {
-      programNumber: props.programNumber,
-      isRhythmTrack: props.isRhythmTrack
-    }
+  const onChangeCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    onChange({
+      programNumber: e.target.selectedIndex * 8, // カテゴリの最初の楽器を選ぶ
+      isRhythmTrack
+    })
   }
 
-  render() {
-    const { isRhythmTrack, programNumber } = this.state
-    const {
-      onClickCancel,
-      onClickOK: _onClickOK,
-      isOpen,
-      presetCategories,
-      onChange
-    } = this.props
+  const onChangeInstrument = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    onChange({
+      programNumber: parseInt(e.target.value),
+      isRhythmTrack
+    })
+  }
 
-    const onClickOK = () => {
-      _onClickOK({
-        programNumber: this.state.programNumber,
-        isRhythmTrack: this.state.isRhythmTrack
-      })
-    }
+  const onChangeRhythmTrack = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onChange({ programNumber, isRhythmTrack: e.target.checked })
+  }
 
-    const selectedCategoryId = Math.floor(programNumber / 8)
+  const instruments =
+    presetCategories.length > selectedCategoryId
+      ? presetCategories[selectedCategoryId].presets
+      : []
 
-    const onChangeCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
-      const programNumber = e.target.selectedIndex * 8 // カテゴリの最初の楽器を選ぶ
-      this.setState({
-        programNumber
-      })
-      onChange(programNumber)
-    }
-
-    const onChangeInstrument = (e: React.ChangeEvent<HTMLSelectElement>) => {
-      const programNumber = parseInt(e.target.value)
-      this.setState({
-        programNumber
-      })
-      onChange(programNumber)
-    }
-
-    const onChangeRhythmTrack = (e: React.ChangeEvent<HTMLInputElement>) => {
-      this.setState({ isRhythmTrack: e.target.checked })
-    }
-
-    const instruments =
-      presetCategories.length > selectedCategoryId
-        ? presetCategories[selectedCategoryId].presets
-        : []
-
-    const categoryOptions = presetCategories.map(
-      (preset: PresetCategory, i: number) => {
-        return (
-          <option key={i} value={i}>
-            {preset.name}
-          </option>
-        )
-      }
-    )
-
-    const instrumentOptions = instruments.map((p: PresetItem, i: number) => {
+  const categoryOptions = presetCategories.map(
+    (preset: PresetCategory, i: number) => {
       return (
-        <option key={i} value={p.programNumber}>
-          {p.name}
+        <option key={i} value={i}>
+          {preset.name}
         </option>
       )
-    })
+    }
+  )
 
+  const instrumentOptions = instruments.map((p: PresetItem, i: number) => {
     return (
-      <Dialog open={isOpen} onClose={onClickCancel}>
-        <div className="InstrumentBrowser">
-          <div className="container">
-            <div className={`finder ${isRhythmTrack ? "disabled" : ""}`}>
-              <div className="left">
-                <label>Categories</label>
-                <select
-                  size={12}
-                  onChange={onChangeCategory}
-                  value={selectedCategoryId}
-                >
-                  {categoryOptions}
-                </select>
-              </div>
-              <div className="right">
-                <label>Instruments</label>
-                <select
-                  size={12}
-                  onChange={onChangeInstrument}
-                  value={programNumber}
-                >
-                  {instrumentOptions}
-                </select>
-              </div>
+      <option key={i} value={p.programNumber}>
+        {p.name}
+      </option>
+    )
+  })
+
+  return (
+    <Dialog open={isOpen} onClose={onClickCancel}>
+      <div className="InstrumentBrowser">
+        <div className="container">
+          <div className={`finder ${isRhythmTrack ? "disabled" : ""}`}>
+            <div className="left">
+              <label>Categories</label>
+              <select
+                size={12}
+                onChange={onChangeCategory}
+                value={selectedCategoryId}
+              >
+                {categoryOptions}
+              </select>
             </div>
-            <div className="footer">
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={isRhythmTrack}
-                    onChange={onChangeRhythmTrack}
-                    color="primary"
-                  />
-                }
-                label="Rhythm Track"
-              />
+            <div className="right">
+              <label>Instruments</label>
+              <select
+                size={12}
+                onChange={onChangeInstrument}
+                value={programNumber}
+              >
+                {instrumentOptions}
+              </select>
             </div>
           </div>
+          <div className="footer">
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={isRhythmTrack}
+                  onChange={onChangeRhythmTrack}
+                  color="primary"
+                />
+              }
+              label="Rhythm Track"
+            />
+          </div>
         </div>
-        <DialogActions>
-          <Button onClick={onClickCancel}>Cancel</Button>
-          <Button color="primary" onClick={onClickOK}>
-            OK
-          </Button>
-        </DialogActions>
-      </Dialog>
-    )
-  }
+      </div>
+      <DialogActions>
+        <Button onClick={onClickCancel}>Cancel</Button>
+        <Button color="primary" onClick={onClickOK}>
+          OK
+        </Button>
+      </DialogActions>
+    </Dialog>
+  )
 }
 
 export default compose(
@@ -192,8 +161,6 @@ export default compose(
         throw new Error("selectedTrack is undefined")
       }
 
-      const programNumber =
-        track.programNumber !== undefined ? track.programNumber : 0
       const close = () => (s.openInstrumentBrowser = false)
       const setTrackInstrument = (programNumber: number) =>
         dispatch(SET_TRACK_INSTRUMENT, trackId, programNumber)
@@ -208,30 +175,32 @@ export default compose(
         (presets, name) => ({ name, presets })
       )
 
-      // TODO: presets をカテゴライズする
+      const onChange = (setting: InstrumentSetting) => {
+        const channel = track.channel
+        if (channel === undefined) {
+          return
+        }
+        player.sendEvent(
+          programChangeMidiEvent(0, channel, setting.programNumber)
+        )
+        player.playNote({
+          duration: 120,
+          noteNumber: 64,
+          velocity: 100,
+          channel
+        })
+        s.instrumentBrowserSetting = setting
+      }
 
       return {
         isOpen: s.openInstrumentBrowser,
-        isRhythmTrack: track.isRhythmTrack,
-        programNumber,
-        onChange: programNumber => {
-          const channel = track.channel
-          if (channel === undefined) {
-            return
-          }
-          player.sendEvent(programChangeMidiEvent(0, channel, programNumber))
-          player.playNote({
-            duration: 120,
-            noteNumber: 64,
-            velocity: 100,
-            channel
-          })
-        },
+        setting: s.instrumentBrowserSetting,
+        onChange,
         onClickCancel: () => {
           close()
         },
-        onClickOK: ({ isRhythmTrack, programNumber }) => {
-          if (isRhythmTrack) {
+        onClickOK: () => {
+          if (s.instrumentBrowserSetting.isRhythmTrack) {
             track.channel = 9
             setTrackInstrument(0)
           } else {
@@ -245,7 +214,7 @@ export default compose(
                 _.min(_.difference(channels, usedChannels)) || 0
               track.channel = availableChannel
             }
-            setTrackInstrument(programNumber)
+            setTrackInstrument(s.instrumentBrowserSetting.programNumber)
           }
 
           close()

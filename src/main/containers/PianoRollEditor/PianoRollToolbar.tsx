@@ -41,7 +41,17 @@ export default compose(
         onChangeVolume: value => dispatch(SET_TRACK_VOLUME, trackId, value),
         onChangePan: value => dispatch(SET_TRACK_PAN, trackId, value),
         onClickNavBack: () => (rootViewStore.openDrawer = true),
-        onClickInstrument: () => (s.openInstrumentBrowser = true)
+        onClickInstrument: () => {
+          if (track === undefined) {
+            return
+          }
+          const programNumber = track.programNumber
+          s.instrumentBrowserSetting = {
+            isRhythmTrack: track.isRhythmTrack,
+            programNumber: programNumber !== undefined ? programNumber : 0
+          }
+          s.openInstrumentBrowser = true
+        }
       } as PianoRollToolbarProps
     }
   ),

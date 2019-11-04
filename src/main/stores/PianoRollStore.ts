@@ -3,6 +3,7 @@ import SelectionModel from "common/selection"
 import Player from "src/common/player"
 import SynthOutput from "../services/SynthOutput"
 import { LoadSoundFontEvent } from "src/synth/synth"
+import { InstrumentSetting } from "../components/InstrumentBrowser/InstrumentBrowser"
 
 export type PianoRollMouseMode = "pencil" | "selection"
 
@@ -21,6 +22,10 @@ export default class PianoRollStore {
   @observable selection = new SelectionModel()
   @observable lastNoteDuration: number | null = null
   @observable openInstrumentBrowser = false
+  @observable instrumentBrowserSetting: InstrumentSetting = {
+    isRhythmTrack: false,
+    programNumber: 0
+  }
   @observable presetNames: LoadSoundFontEvent["presetNames"] = [[]]
 
   constructor(player: Player, synth: SynthOutput) {

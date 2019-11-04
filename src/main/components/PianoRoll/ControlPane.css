@@ -1,0 +1,35 @@
+.ControlPane {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.ControlPane .control-toolbar button {
+  min-width: 8em;
+  background: transparent;
+  -webkit-appearance: none;
+  border: none;
+  padding: 0.5em 0.8em;
+  color: var(--secondary-text-color);
+  outline: none;
+}
+
+.ControlPane .control-toolbar {
+  border-bottom: 1px solid var(--divider-color);
+  box-sizing: border-box;
+  display: flex;
+  margin-left: var(--key-width);
+  border-left: 1px solid var(--secondary-text-color);
+  height: 30px;
+}
+
+.ControlPane .control-toolbar button.selected {
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.ControlPane .control-content {
+  flex-grow: 1;
+  position: relative;
+}

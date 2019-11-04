@@ -1,0 +1,34 @@
+.QuantizeSelector {
+  display: flex;
+  color: var(--secondary-text-color);
+  position: relative;
+  margin-right: 1em;
+}
+
+.QuantizeSelector .dot-label {
+  font-size: 10%;
+  top: -1em;
+  position: relative;
+  opacity: 0.6;
+}
+
+.QuantizeSelector .triplet-label {
+  opacity: 0.6;
+  font-size: 70%;
+  padding: 0 0.24em;
+}
+
+.QuantizeSelector > .content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.QuantizeSelector > .content .value {
+  min-width: 2em;
+}
+
+.QuantizeSelector .QuantizePopup {
+  top: 3em;
+  left: -3em;
+}

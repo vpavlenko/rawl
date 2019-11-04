@@ -1,0 +1,18 @@
+.TrackList {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding: 0;
+}
+
+.TrackList .add-track:hover {
+  color: black;
+}
+
+.TrackList .add-track .icon {
+  margin-right: 0.5em;
+  font-size: 80%;
+  font-family: "Flat-UI-Icons";
+  font-weight: normal;
+}
+

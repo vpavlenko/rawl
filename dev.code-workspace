@@ -2,12 +2,6 @@
   "folders": [
     {
       "path": "."
-    },
-    {
-      "path": "packages/message-sequencer"
-    },
-    {
-      "path": "packages/web"
     }
   ],
   "settings": {

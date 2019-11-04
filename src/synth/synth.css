@@ -1,0 +1,99 @@
+body.synth {
+  font-size: 12px;
+  margin: 0;
+  background: rgb(0, 0, 0);
+  color: rgb(159, 159, 253);
+  font-family: Consolas;
+  overflow: hidden;
+  /* -webkit-app-region: drag; */
+  border-top: 1.5em rgba(255, 255, 255, 0.13) solid;
+  padding-top: 0.25em;
+}
+
+body.synth .keys>div {
+  float: left;
+}
+
+body.synth .keys>.white, .keys>.black {
+  position: relative;
+}
+
+body.synth .keys {
+  overflow: hidden;
+  background: black;
+  -webkit-app-region: no-drag;
+}
+
+body.synth .keys>.white {
+  width: 5px;
+  height: 20px;
+  background: rgb(85, 85, 90);
+  border-right: 1px solid black;
+  box-sizing: border-box;
+}
+
+body.synth .keys>.black {
+  width: 3px;
+  background: rgb(0, 0, 0);
+  height: 11px;
+  left: 1px;
+  margin-left: -3px;
+  z-index: 999;
+}
+
+body.synth .volume::before {content: "VOL:";}
+
+body.synth .panpot::before {content: "PAN:";}
+
+body.synth .pitchBend::before {content: "BEND:";}
+
+body.synth .pitchBendSensitivity::before {
+  content: "RANGE:";
+}
+
+body.synth select {
+  background: transparent;
+  color: currentColor;
+  border: none;
+  outline: none;
+  font-family: Consolas;
+  width: 12em;
+  font-size: 100%;
+  -webkit-app-region: no-drag;
+}
+
+body.synth option {
+  background: black;
+  color: rgb(159, 159, 253);
+}
+
+body.synth .program, .volume, .panpot, .pitchBend, .pitchBendSensitivity {
+  display: inline-block;
+}
+
+body.synth .key.white.note-on,
+body.synth .key.black.note-on {
+  background: rgb(246, 196, 78);
+}
+
+body.synth h1 {
+  float: left;
+  font-size: 240%;
+  margin: 0 7px 0px 0;
+}
+
+body.synth header p {
+  margin: 0;
+}
+
+body.synth header {
+  overflow: hidden;
+}
+
+body.synth header .version {
+  opacity: 0.7;
+}
+
+body.synth button[disabled] {
+  opacity: 0.4;
+}

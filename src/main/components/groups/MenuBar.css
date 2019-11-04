@@ -1,0 +1,61 @@
+.MenuBar {
+  display: flex;
+  align.MenuItems: center;
+  padding: 0 1.5em;
+  box-sizing: border-box;
+  font-size: 95%;
+  background: var(--secondary-background-color);
+  border-bottom: 1px solid var(--divider-color);
+  align-items: center;
+}
+
+.MenuBar .MenuItem {
+  user-select: none;
+  cursor: default;
+  transition: 0.3s ease background-color;
+}
+
+.MenuBar>.MenuItem {
+  background: none;
+  font-weight: bold;
+  border: none;
+  padding: 1em 1.5em;
+  position: relative;
+}
+
+.MenuItem:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.SubMenu>.MenuItem:active {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.MenuBar>.MenuItem>.SubMenu {
+  display: none;
+}
+
+.MenuBar>.MenuItem:hover>.SubMenu {
+  display: block;
+}
+
+.MenuBar .SubMenu {
+  position: absolute;
+  background: var(--background-color);
+  padding: 0.5em 0;
+  z-index: 999;
+  left: 0;
+  top: 2.5em;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.14);
+  min-width: 8em;
+}
+
+.MenuBar .SubMenu>.MenuItem {
+  padding: 0.5em 1em;
+}
+
+.MenuSeparator {
+  height: 1px;
+  background: var(--divider-color);
+  margin: 0.5em 0;
+}

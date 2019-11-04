@@ -1,0 +1,57 @@
+import Song from "common/song"
+import Player from "common/player"
+import {
+  UNDO,
+  REDO,
+  COPY_SELECTION,
+  DELETE_SELECTION,
+  PASTE_SELECTION
+} from "main/actions"
+import { Dispatcher } from "../createDispatcher"
+
+export function bindKeyboardShortcut(
+  dispatch: Dispatcher,
+  player: Player,
+  songStore: { song: Song }
+) {
+  document.onkeydown = e => {
+    if (e.target !== document.body) {
+      return
+    }
+    switch (e.code) {
+      case "Space": {
+        if (player.isPlaying) {
+          player.stop()
+        } else {
+          player.play(songStore.song)
+        }
+        e.preventDefault()
+        break
+      }
+      case "KeyZ": {
+        if (e.ctrlKey) {
+          dispatch(UNDO)
+        }
+        break
+      }
+      case "KeyY": {
+        if (e.ctrlKey) {
+          dispatch(REDO)
+        }
+        break
+      }
+      default:
+        break
+    }
+  }
+  ;(document as any).oncut = () => {
+    dispatch(COPY_SELECTION)
+    dispatch(DELETE_SELECTION)
+  }
+  ;(document as any).oncopy = () => {
+    dispatch(COPY_SELECTION)
+  }
+  ;(document as any).onpaste = () => {
+    dispatch(PASTE_SELECTION)
+  }
+}

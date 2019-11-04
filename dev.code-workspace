@@ -1,20 +1,17 @@
 {
-	"folders": [
-		{
-			"path": "."
-		},
-		{
-			"path": "packages/message-sequencer"
-		},
-		{
-			"path": "packages/midifile-ts"
-		},
-		{
-			"path": "packages/web"
-		}
-	],
-	"settings": {
-		"editor.tabSize": 2,
-		"editor.formatOnSave": true
-	}
+  "folders": [
+    {
+      "path": "."
+    },
+    {
+      "path": "packages/message-sequencer"
+    },
+    {
+      "path": "packages/web"
+    }
+  ],
+  "settings": {
+    "editor.tabSize": 2,
+    "editor.formatOnSave": true
+  }
 }

@@ -5,20 +5,20 @@ import RootView from "containers/RootView/RootView"
 import { bindKeyboardShortcut } from "services/KeyboardShortcut.ts"
 
 import RootStore from "stores/RootStore.ts"
-import themeFromCSS from "helpers/themeFromCSS"
-import { theme } from "helpers/muiTheme"
+import { theme } from "common/theme/muiTheme"
 import { ThemeProvider } from "@material-ui/styles"
+
+import { applyThemeToCSS } from "common/theme/applyThemeToCSS"
+import { defaultTheme } from "common/theme"
 
 import "./App.css"
 import "./theme.css"
 
 const rootStore = new RootStore()
 
-bindKeyboardShortcut(rootStore.dispatch, rootStore.services.player, rootStore)
+applyThemeToCSS(defaultTheme)
 
-window.addEventListener("load", () => {
-  rootStore.rootViewStore.theme = themeFromCSS() // load after css has loaded
-})
+bindKeyboardShortcut(rootStore.dispatch, rootStore.services.player, rootStore)
 
 export default function App() {
   return (

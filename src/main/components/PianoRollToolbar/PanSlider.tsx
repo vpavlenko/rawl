@@ -1,9 +1,8 @@
 import React, { StatelessComponent } from "react"
 import { withStyles } from "@material-ui/core"
-import { VolumeUp } from "@material-ui/icons"
 import Slider, { SliderProps } from "@material-ui/core/Slider"
 import styled from "styled-components"
-import { theme } from "helpers/muiTheme"
+import { theme } from "common/theme/muiTheme"
 
 const LightSlider = withStyles({
   root: {

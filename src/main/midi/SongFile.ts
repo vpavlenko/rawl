@@ -1,11 +1,11 @@
 import { write as writeBytes } from "./MidiFileWriter"
 import Song, { songFromMidi } from "common/song"
 import Track from "common/track"
-import { Data } from "midifile-ts"
+import { StreamSource } from "midifile-ts"
 import Downloader from "../helpers/Downloader"
 
 export function read(data: ArrayLike<number>): Song {
-  return songFromMidi(data as Data<number>)
+  return songFromMidi(data as StreamSource)
 }
 
 interface TracksProvider {

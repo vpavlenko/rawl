@@ -2,7 +2,7 @@ import _ from "lodash"
 
 import Song from "common/song"
 import Track, { conductorTrack, emptyTrack } from "common/track"
-import { read as readMidi, Data, AnyEvent } from "midifile-ts"
+import { read as readMidi, StreamSource, AnyEvent } from "midifile-ts"
 import { toTrackEvents } from "../helpers/toTrackEvents"
 
 export function emptySong() {
@@ -29,7 +29,7 @@ const trackFromMidiEvents = (events: AnyEvent[]): Track => {
   return track
 }
 
-export function songFromMidi(data: Data<number>) {
+export function songFromMidi(data: StreamSource) {
   const song = new Song()
   const midi = readMidi(data)
 

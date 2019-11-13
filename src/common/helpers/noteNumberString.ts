@@ -26,7 +26,7 @@ function noteNumberString(noteNumber: number): string {
 }
 
 function controllerTypeString(controllerType: number): string {
-  return MIDIControlEventNames[`${controllerType}`]
+  return MIDIControlEventNames[controllerType]
 }
 
 export { noteNameWithOctString, noteNumberString, controllerTypeString }

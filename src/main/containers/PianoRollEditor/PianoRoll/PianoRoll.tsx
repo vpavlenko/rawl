@@ -79,7 +79,7 @@ const Wrapper: SFC<SPianoRollProps> = props => {
       transform={transform}
       mouseHandler={mouseHandler}
       onMountAlpha={c => setAlpha(c)}
-      alphaHeight={alpha !== null ? alpha.getBoundingClientRect().height : 0}
+      alphaHeight={alpha?.getBoundingClientRect().height ?? 0}
     />
   )
 }

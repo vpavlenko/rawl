@@ -29,7 +29,7 @@ export default class Song {
 
   private _updateEndOfSong() {
     const eos = _.max(this.tracks.map(t => t.endOfTrack).filter(isNotUndefined))
-    this._endOfSong = (eos !== undefined ? eos : 0) + END_MARGIN
+    this._endOfSong = (eos ?? 0) + END_MARGIN
     this._measures =
       this.conductorTrack !== undefined
         ? getMeasuresFromConductorTrack(this.conductorTrack)

@@ -48,7 +48,7 @@ export default compose(
           const programNumber = track.programNumber
           s.instrumentBrowserSetting = {
             isRhythmTrack: track.isRhythmTrack,
-            programNumber: programNumber !== undefined ? programNumber : 0
+            programNumber: programNumber ?? 0
           }
           s.openInstrumentBrowser = true
         }

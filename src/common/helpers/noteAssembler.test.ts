@@ -17,6 +17,7 @@ describe("deassemble", () => {
       type: "channel",
       subtype: "noteOn",
       noteNumber: 32,
+      deltaTime: 0,
       tick: 100,
       velocity: 50,
       channel: 3
@@ -25,6 +26,7 @@ describe("deassemble", () => {
       type: "channel",
       subtype: "noteOff",
       noteNumber: 32,
+      deltaTime: 0,
       tick: 100 + 60 - 1,
       velocity: 0,
       channel: 3
@@ -55,6 +57,7 @@ describe("assemble", () => {
     const result = assemble(notes)
     expect(result.length).toBe(1)
     expect(result[0]).toStrictEqual({
+      id: -1,
       type: "channel",
       subtype: "note",
       noteNumber: 14,

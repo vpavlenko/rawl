@@ -1,4 +1,3 @@
-import assert from "assert"
 import { assemble, deassemble } from "./RPNAssembler"
 
 describe("deassemble", () => {
@@ -14,41 +13,37 @@ describe("deassemble", () => {
       dataMSB: 3,
       dataLSB: 4
     }
-    const result = deassemble(event)
-    assert.equal(result.length, 4)
-    assert.deepEqual(result[0], {
+    const result = deassemble(event, x => x)
+    expect(result.length).toBe(4)
+    expect(result[0]).toStrictEqual({
       type: "channel",
       subtype: "controller",
       controllerType: 101,
       deltaTime: 100,
-      tick: 200,
       channel: 1,
       value: 1
     })
-    assert.deepEqual(result[1], {
+    expect(result[1]).toStrictEqual({
       type: "channel",
       subtype: "controller",
       controllerType: 100,
       deltaTime: 0,
-      tick: 200,
       channel: 1,
       value: 2
     })
-    assert.deepEqual(result[2], {
+    expect(result[2]).toStrictEqual({
       type: "channel",
       subtype: "controller",
       controllerType: 6,
       deltaTime: 0,
-      tick: 200,
       channel: 1,
       value: 3
     })
-    assert.deepEqual(result[3], {
+    expect(result[3]).toStrictEqual({
       type: "channel",
       subtype: "controller",
       controllerType: 38,
       deltaTime: 0,
-      tick: 200,
       channel: 1,
       value: 4
     })
@@ -96,13 +91,12 @@ describe("assemble", () => {
       }
     ]
     const result = assemble(events)
-    assert.equal(result.length, 1)
-    assert.deepEqual(result[0], {
+    expect(result.length).toBe(1)
+    expect(result[0]).toStrictEqual({
       type: "channel",
       subtype: "rpn",
       channel: 1,
       deltaTime: 100,
-      tick: 200,
       rpnMSB: 1,
       rpnLSB: 2,
       dataMSB: 3,

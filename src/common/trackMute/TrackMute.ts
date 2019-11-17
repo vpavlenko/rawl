@@ -1,5 +1,5 @@
 import { observable } from "mobx"
-import _ from "lodash"
+import * as _ from "lodash"
 
 function updated<T>(obj: T, key: keyof T, value: any) {
   return { ...obj, [key]: value }

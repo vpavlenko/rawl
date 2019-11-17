@@ -1,9 +1,5 @@
 import { controlChangeEvents } from "midi/MidiEvent"
-import {
-  ControllerEvent,
-  AnyEvent,
-  ChannelEvent
-} from "midifile-ts"
+import { ControllerEvent, AnyEvent, ChannelEvent } from "midifile-ts"
 
 export interface RPNEvent extends ChannelEvent<"rpn"> {
   rpnMSB: number
@@ -32,7 +28,6 @@ export function assemble<T>(events: (T | ControllerEvent)[]): (T | RPNEvent)[] {
     dataLSB?: ControllerEvent
   ): RPNEvent {
     return {
-      ...rpnMSB,
       channel: rpnMSB.channel,
       type: "channel",
       subtype: "rpn",

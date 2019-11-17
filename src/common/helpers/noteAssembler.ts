@@ -2,7 +2,7 @@ import { NoteOnEvent, NoteOffEvent } from "midifile-ts"
 import { NoteEvent, TickProvider } from "common/track"
 import { noteOnMidiEvent, noteOffMidiEvent } from "common/midi/MidiEvent"
 import { Omit } from "recompose"
-import _ from "lodash"
+import * as _ from "lodash"
 
 /**
 
@@ -69,8 +69,9 @@ export function deassemble<T>(
   e: T | NoteEvent
 ): (T | TickNoteOnEvent | TickNoteOffEvent)[] {
   if ("subtype" in e && e.subtype === "note") {
-    const noteOn = noteOnMidiEvent(0, -1, e.noteNumber, e.velocity)
-    const noteOff = noteOffMidiEvent(0, -1, e.noteNumber)
+    const channel = (e as any)["channel"] ?? -1
+    const noteOn = noteOnMidiEvent(0, channel, e.noteNumber, e.velocity)
+    const noteOff = noteOffMidiEvent(0, channel, e.noteNumber)
     return [
       { ...noteOn, tick: e.tick },
       { ...noteOff, tick: e.tick + e.duration - 1 } // -1 to prevent overlap

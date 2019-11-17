@@ -1,6 +1,5 @@
-import assert from "assert"
-import fs from "fs"
-import path from "path"
+import * as fs from "fs"
+import * as path from "path"
 import { serialize, deserialize } from "serializr"
 
 import Song from "./Song"
@@ -9,18 +8,18 @@ import Track from "../track/Track"
 
 describe("Song", () => {
   const song = songFromMidi(
-    fs.readFileSync(path.join(__dirname, "../../testdata/tracks.mid"))
+    fs.readFileSync(path.join(__dirname, "../../../testdata/tracks.mid"))
   )
 
   it("fromMidi", () => {
-    assert(song != null)
+    expect(song).not.toBeNull()
     const { tracks } = song
     expect(tracks.length).toBe(18)
 
     expect(tracks[0].isConductorTrack).toBeTruthy()
     expect(!tracks[1].isConductorTrack).toBeTruthy()
     expect(tracks[1].channel).toBe(0)
-    expect(tracks[2].channel).toBe(1)
+    expect(tracks[2].channel).toBe(0)
     expect(tracks[3].channel).toBe(1)
     expect(tracks[17].channel).toBe(15)
 

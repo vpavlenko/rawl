@@ -1,6 +1,6 @@
 import { observable, action, transaction } from "mobx"
-import { serializable } from "serializr"
-import _ from "lodash"
+import { serializable, list, primitive } from "serializr"
+import * as _ from "lodash"
 import {
   TrackNameEvent,
   SetTempoEvent,
@@ -23,7 +23,7 @@ import { isNotUndefined } from "../helpers/array"
 type EventBeforeAdded = TrackMidiEvent | Omit<NoteEvent, "id">
 
 export default class Track {
-  @serializable
+  @serializable(list(primitive()))
   @observable.shallow
   events: TrackEvent[] = []
 

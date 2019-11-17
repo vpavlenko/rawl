@@ -1,4 +1,3 @@
-import assert from "assert"
 import { serialize, deserialize } from "serializr"
 
 import Track from "./Track"
@@ -8,13 +7,18 @@ describe("Track", () => {
     const track = new Track()
     track.channel = 5
     track.addEvent({
-      tick: 123
+      type: "channel",
+      subtype: "note",
+      duration: 120,
+      tick: 123,
+      velocity: 100,
+      noteNumber: 100
     })
     const s = serialize(track)
     const t = deserialize(Track, s)
-    assert.equal(t.channel, 5)
-    assert.equal(t.endOfTrack, track.endOfTrack)
-    assert.equal(t.events.length, 1)
-    assert.equal(t.events[0].tick, 123)
+    expect(t.channel).toBe(5)
+    expect(t.endOfTrack).toBe(track.endOfTrack)
+    expect(t.events.length).toBe(1)
+    expect(t.events[0].tick).toBe(123)
   })
 })

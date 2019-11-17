@@ -1,6 +1,4 @@
-import assert from "assert"
 import Sequencer, { Output, LiveMessage, DataSource, Message } from "./index"
-import now from "performance-now"
 
 class TestDataSource implements DataSource<string> {
   private data: Message<string>[]
@@ -38,7 +36,7 @@ describe("Sequencer", () => {
         messages: LiveMessage<string>[],
         timestamp: number
       ) => {
-        assert.deepEqual(messages, [
+        expect(messages).toStrictEqual([
           {
             body: "hello",
             time: 5,
@@ -55,7 +53,7 @@ describe("Sequencer", () => {
         messages: LiveMessage<string>[],
         timestamp: number
       ) => {
-        assert.equal(messages.length, 0)
+        expect(messages.length).toBe(0)
       }
       s.onTimer(0)
     }
@@ -66,7 +64,7 @@ describe("Sequencer", () => {
         messages: LiveMessage<string>[],
         timestamp: number
       ) => {
-        assert.deepEqual(messages, [
+        expect(messages).toStrictEqual([
           {
             body: "world",
             time: 120,
@@ -100,7 +98,7 @@ describe("Sequencer", () => {
         messages: LiveMessage<string>[],
         timestamp: number
       ) => {
-        assert.deepEqual(messages, [
+        expect(messages).toStrictEqual([
           {
             body: "world",
             time: 120,

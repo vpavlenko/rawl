@@ -1,24 +1,19 @@
-import assert from "assert"
 import { assemble, deassemble } from "./noteAssembler"
-
-function createNote(noteNumber, tick, duration, velocity, channel) {
-  return {
-    type: "channel",
-    subtype: "note",
-    noteNumber,
-    tick,
-    velocity,
-    duration,
-    channel
-  }
-}
 
 describe("deassemble", () => {
   it("should deassemble to two notes", () => {
-    const note = createNote(32, 100, 60, 50, 3)
+    const note = {
+      type: "channel",
+      subtype: "note",
+      noteNumber: 32,
+      tick: 100,
+      duration: 60,
+      velocity: 50,
+      channel: 3
+    }
     const result = deassemble(note)
-    assert.equal(result.length, 2)
-    assert.deepEqual(result[0], {
+    expect(result.length).toBe(2)
+    expect(result[0]).toStrictEqual({
       type: "channel",
       subtype: "noteOn",
       noteNumber: 32,
@@ -26,7 +21,7 @@ describe("deassemble", () => {
       velocity: 50,
       channel: 3
     })
-    assert.deepEqual(result[1], {
+    expect(result[1]).toStrictEqual({
       type: "channel",
       subtype: "noteOff",
       noteNumber: 32,
@@ -58,8 +53,8 @@ describe("assemble", () => {
       }
     ]
     const result = assemble(notes)
-    assert.equal(result.length, 1)
-    assert.deepEqual(result[0], {
+    expect(result.length).toBe(1)
+    expect(result[0]).toStrictEqual({
       type: "channel",
       subtype: "note",
       noteNumber: 14,

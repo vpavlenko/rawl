@@ -9,14 +9,7 @@ export function download(url: string, name = "noname") {
 }
 
 // http://stackoverflow.com/a/33622881/1567777
-export function downloadBlob(
-  data: BlobPart,
-  fileName: string,
-  mimeType: string
-) {
-  const blob = new Blob([data], {
-    type: mimeType
-  })
+export function downloadBlob(blob: Blob, fileName: string) {
   const url = window.URL.createObjectURL(blob)
   download(url, fileName)
   setTimeout(() => {

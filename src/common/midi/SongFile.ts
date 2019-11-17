@@ -8,17 +8,8 @@ export function read(data: ArrayLike<number>): Song {
   return songFromMidi(data as StreamSource)
 }
 
-interface TracksProvider {
-  tracks: Track[]
-}
-
-export function write(
-  { tracks }: TracksProvider,
-  filepath: string,
-  callback: (e: Error | null) => void
-) {
+export function write(tracks: Track[], filepath: string) {
   const bytes = writeBytes(tracks)
-  const blob = new Blob([bytes], { type: "application/octet-binary" })
-  downloadBlob(blob, filepath, "audio/midi")
-  callback(null)
+  const blob = new Blob([bytes], { type: "application/octet-stream" })
+  downloadBlob(blob, filepath ?? "no name.mid")
 }

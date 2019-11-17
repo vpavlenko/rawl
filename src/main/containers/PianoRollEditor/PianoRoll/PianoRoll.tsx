@@ -21,6 +21,7 @@ import SelectionMouseHandler from "./MouseHandler/SelectionMouseHandler"
 import { PianoRollMouseMode } from "stores/PianoRollStore"
 import { Dispatcher } from "createDispatcher"
 import RootStore from "stores/RootStore"
+import { toJS } from "mobx"
 
 export type SPianoRollProps = PianoRollProps & {
   playerPosition: number
@@ -104,7 +105,7 @@ export default compose<{}, {}>(
         measures,
         timebase: player.timebase,
         theme,
-        events: track !== undefined ? (track.events as any).toJS() : [], // 変更が反映されるように toJS() する
+        events: track !== undefined ? toJS(track.events) : [], // 変更が反映されるように toJS() する
         scaleX: s.scaleX,
         scaleY: s.scaleY,
         autoScroll: s.autoScroll,

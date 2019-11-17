@@ -18,6 +18,7 @@ import {
   ArrangeView,
   ArrangeViewProps
 } from "components/ArrangeView/ArrangeView"
+import { toJS } from "mobx"
 
 type Props = Omit<
   ArrangeViewProps,
@@ -100,7 +101,7 @@ const mapStoreToProps = ({
     isPlaying: player.isPlaying,
     quantizer,
     loop,
-    tracks: (tracks as any).toJS(),
+    tracks: toJS(tracks),
     measures,
     timebase: player.timebase,
     endTick: endOfSong,

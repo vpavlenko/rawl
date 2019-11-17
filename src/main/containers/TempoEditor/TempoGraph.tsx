@@ -6,6 +6,7 @@ import React, { SFC, useState, useEffect } from "react"
 import { withSize } from "react-sizeme"
 import { compose, Omit } from "recompose"
 import RootStore from "stores/RootStore"
+import { toJS } from "mobx"
 
 type Props = Pick<
   TempoGraphProps,
@@ -78,7 +79,7 @@ export default compose(
         pixelsPerTick: 0.1 * s.scaleX,
         events:
           song.conductorTrack !== undefined
-            ? (song.conductorTrack.events as any).toJS()
+            ? toJS(song.conductorTrack.events)
             : [],
         endTick: song.endOfSong,
         measures: song.measures,

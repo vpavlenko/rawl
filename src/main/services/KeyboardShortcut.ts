@@ -1,20 +1,19 @@
-import Song from "common/song"
-import Player from "common/player"
 import {
   UNDO,
   REDO,
-  COPY_SELECTION,
-  DELETE_SELECTION,
-  PASTE_SELECTION
+  copySelection,
+  pasteSelection,
+  deleteSelection,
 } from "main/actions"
-import { Dispatcher } from "../createDispatcher"
+import RootStore from "../stores/RootStore"
 
-export function bindKeyboardShortcut(
-  dispatch: Dispatcher,
-  player: Player,
-  songStore: { song: Song }
-) {
-  document.onkeydown = e => {
+export function bindKeyboardShortcut({
+  dispatch,
+  dispatch2,
+  services: { player },
+  song,
+}: RootStore) {
+  document.onkeydown = (e) => {
     if (e.target !== document.body) {
       return
     }
@@ -23,7 +22,7 @@ export function bindKeyboardShortcut(
         if (player.isPlaying) {
           player.stop()
         } else {
-          player.play(songStore.song)
+          player.play(song)
         }
         e.preventDefault()
         break
@@ -44,14 +43,14 @@ export function bindKeyboardShortcut(
         break
     }
   }
-  ;(document as any).oncut = () => {
-    dispatch(COPY_SELECTION)
-    dispatch(DELETE_SELECTION)
+  document.oncut = () => {
+    dispatch2(copySelection())
+    dispatch2(deleteSelection())
   }
-  ;(document as any).oncopy = () => {
-    dispatch(COPY_SELECTION)
+  document.oncopy = () => {
+    dispatch2(copySelection())
   }
-  ;(document as any).onpaste = () => {
-    dispatch(PASTE_SELECTION)
+  document.onpaste = () => {
+    dispatch2(pasteSelection())
   }
 }

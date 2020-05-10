@@ -3,17 +3,17 @@ import { pointSub, pointAdd, IPoint } from "common/geometry"
 import { NoteCoordTransform } from "common/transform"
 import SelectionModel from "common/selection/SelectionModel"
 import {
-  START_SELECTION,
-  RESIZE_SELECTION,
-  FIX_SELECTION,
-  CLONE_SELECTION,
-  MOVE_SELECTION,
-  RESIZE_SELECTION_LEFT,
-  RESIZE_SELECTION_RIGHT,
   openContextMenuAction,
+  resizeSelection,
+  fixSelection,
+  startSelection,
+  cloneSelection,
+  moveSelection,
+  resizeSelectionRight,
+  resizeSelectionLeft,
 } from "main/actions"
 import { NotePoint } from "common/transform/NotePoint"
-import { Dispatcher, Dispatcher2 } from "createDispatcher"
+import { Dispatcher2 } from "createDispatcher"
 import { PianoNotesMouseEvent } from "components/PianoRoll/PianoNotes/PianoNotes"
 
 export default class SelectionMouseHandler extends MouseHandler {
@@ -31,28 +31,28 @@ export default class SelectionMouseHandler extends MouseHandler {
     }
 
     const type = this.getPositionType(e.local)
-    const { dispatch, selection, transform } = this
+    const { dispatch2, selection, transform } = this
 
     if (e.nativeEvent.button === 0) {
       switch (type) {
         case "center":
           return moveSelectionAction(
-            dispatch,
+            dispatch2,
             selection,
             transform,
             e.nativeEvent.ctrlKey
           )
         case "right":
-          return dragSelectionRightEdgeAction(dispatch, transform)
+          return dragSelectionRightEdgeAction(dispatch2, transform)
         case "left":
-          return dragSelectionLeftEdgeAction(dispatch, transform)
+          return dragSelectionLeftEdgeAction(dispatch2, transform)
         case "outside":
           break
         default:
           break
       }
 
-      return createSelectionAction(dispatch)
+      return createSelectionAction(dispatch2)
     }
 
     // 右クリックした場合はコンテキストメニューを表示
@@ -71,7 +71,7 @@ export default class SelectionMouseHandler extends MouseHandler {
           selected = false
           break
       }
-      return contextMenuAction(selected, this.dispatch2)
+      return contextMenuAction(selected, dispatch2)
     }
 
     return null
@@ -131,7 +131,7 @@ const contextMenuAction = (
 }
 
 // 選択範囲外でクリックした場合は選択範囲をリセット
-const createSelectionAction = (dispatch: Dispatcher): MouseGesture => (
+const createSelectionAction = (dispatch: Dispatcher2): MouseGesture => (
   onMouseDown,
   onMouseMove,
   onMouseUp
@@ -140,21 +140,21 @@ const createSelectionAction = (dispatch: Dispatcher): MouseGesture => (
 
   onMouseDown((e) => {
     start = { tick: e.tick, noteNumber: e.noteNumber }
-    dispatch(START_SELECTION, start)
+    dispatch(startSelection(start))
   })
 
   onMouseMove((e) => {
     const end = { tick: e.tick, noteNumber: e.noteNumber }
-    dispatch(RESIZE_SELECTION, start, end)
+    dispatch(resizeSelection(start, end))
   })
 
   onMouseUp(() => {
-    dispatch(FIX_SELECTION)
+    dispatch(fixSelection())
   })
 }
 
 const moveSelectionAction = (
-  dispatch: Dispatcher,
+  dispatch: Dispatcher2,
   selection: SelectionModel,
   transform: NoteCoordTransform,
   isCopy: boolean
@@ -166,7 +166,7 @@ const moveSelectionAction = (
     startPos = e.local
     selectionPos = selection.getBounds(transform)
     if (isCopy) {
-      dispatch(CLONE_SELECTION)
+      dispatch(cloneSelection())
     }
   })
 
@@ -174,30 +174,30 @@ const moveSelectionAction = (
     const position = pointAdd(selectionPos, pointSub(e.local, startPos))
     const tick = transform.getTicks(position.x)
     const noteNumber = Math.round(transform.getNoteNumber(position.y))
-    dispatch(MOVE_SELECTION, { tick, noteNumber })
+    dispatch(moveSelection({ tick, noteNumber }))
   })
 }
 
 const dragSelectionLeftEdgeAction = (
-  dispatch: Dispatcher,
+  dispatch: Dispatcher2,
   transform: NoteCoordTransform
 ): MouseGesture => (onMouseDown, onMouseMove) => {
   onMouseDown(() => {})
 
   onMouseMove((e) => {
     const tick = transform.getTicks(e.local.x)
-    dispatch(RESIZE_SELECTION_LEFT, tick)
+    dispatch(resizeSelectionLeft(tick))
   })
 }
 
 const dragSelectionRightEdgeAction = (
-  dispatch: Dispatcher,
+  dispatch: Dispatcher2,
   transform: NoteCoordTransform
 ): MouseGesture => (onMouseDown, onMouseMove) => {
   onMouseDown(() => {})
 
   onMouseMove((e) => {
     const tick = transform.getTicks(e.local.x)
-    dispatch(RESIZE_SELECTION_RIGHT, tick)
+    dispatch(resizeSelectionRight(tick))
   })
 }

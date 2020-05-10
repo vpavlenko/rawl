@@ -18,7 +18,7 @@ const rootStore = new RootStore()
 
 applyThemeToCSS(defaultTheme)
 
-bindKeyboardShortcut(rootStore.dispatch, rootStore.services.player, rootStore)
+bindKeyboardShortcut(rootStore)
 
 export default function App() {
   return (

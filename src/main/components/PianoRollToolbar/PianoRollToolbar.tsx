@@ -4,7 +4,7 @@ import {
   Toolbar,
   IconButton,
   Typography,
-  Button
+  Button,
 } from "@material-ui/core"
 import { Menu as MenuIcon, KeyboardTab } from "@material-ui/icons"
 import { ToggleButton, ToggleButtonGroup } from "@material-ui/lab"
@@ -20,24 +20,24 @@ import InstrumentBrowser from "../InstrumentBrowser/InstrumentBrowser"
 import { VolumeSlider } from "./VolumeSlider"
 import { PanSlider } from "./PanSlider"
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   title: {
-    marginRight: "1rem"
+    marginRight: "1rem",
   },
   toggleButtonGroup: {
     backgroundColor: "transparent",
-    marginRight: "1rem"
+    marginRight: "1rem",
   },
   toggleButton: {
     height: "2rem",
     color: "inherit",
     ["&.Mui-selected"]: {
-      color: "rgba(255, 255, 255, 0.5)"
-    }
+      color: "rgba(255, 255, 255, 0.5)",
+    },
   },
   instrumentButton: {
-    padding: "0 1rem"
-  }
+    padding: "0 1rem",
+  },
 }))
 
 export interface PianoRollToolbarProps {
@@ -67,7 +67,7 @@ export const PianoRollToolbar: StatelessComponent<PianoRollToolbarProps> = ({
   onClickPencil,
   onClickSelection,
   quantize,
-  onSelectQuantize
+  onSelectQuantize,
 }) => {
   const classes = useStyles({})
   return (
@@ -93,14 +93,8 @@ export const PianoRollToolbar: StatelessComponent<PianoRollToolbarProps> = ({
 
         <InstrumentBrowser />
 
-        <VolumeSlider
-          onChange={(_, value) => onChangeVolume(value as number)}
-          value={track.volume}
-        />
-        <PanSlider
-          value={track.pan}
-          onChange={(_, value) => onChangePan(value as number)}
-        />
+        <VolumeSlider onChange={onChangeVolume} value={track.volume || 0} />
+        <PanSlider value={track.pan || 0} onChange={onChangePan} />
         <ToggleButtonGroup
           value={mouseMode}
           className={classes.toggleButtonGroup}
@@ -125,7 +119,7 @@ export const PianoRollToolbar: StatelessComponent<PianoRollToolbarProps> = ({
 
         <QuantizeSelector
           value={quantize}
-          onSelect={value => onSelectQuantize({ denominator: value })}
+          onSelect={(value) => onSelectQuantize({ denominator: value })}
         />
 
         <ToggleButton

@@ -1,6 +1,6 @@
 import { TempoCoordTransform } from "common/transform"
 import { TempoGraph, TempoGraphProps } from "components/TempoGraph/TempoGraph"
-import { CHANGE_TEMPO, CREATE_TEMPO, SET_PLAYER_POSITION } from "main/actions"
+import { CHANGE_TEMPO, CREATE_TEMPO, setPlayerPosition } from "main/actions"
 import { inject, observer } from "mobx-react"
 import React, { SFC, useState, useEffect } from "react"
 import { withSize } from "react-sizeme"
@@ -69,6 +69,7 @@ export default compose(
         services: { player },
         song,
         dispatch,
+        dispatch2,
       },
     }: {
       rootStore: RootStore
@@ -92,7 +93,7 @@ export default compose(
         createTempo: (tick, microsecondsPerBeat) =>
           dispatch(CREATE_TEMPO, tick, microsecondsPerBeat),
         playerPosition: playerStore.position,
-        setPlayerPosition: (tick) => dispatch(SET_PLAYER_POSITION, tick),
+        setPlayerPosition: (tick) => dispatch2(setPlayerPosition(tick)),
       } as Omit<Props, "size">)
   ),
   observer,

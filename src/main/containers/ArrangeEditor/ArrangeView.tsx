@@ -1,10 +1,8 @@
-import Player from "common/player"
 import { ISize } from "common/geometry"
 import React, { SFC, useState, useEffect } from "react"
 import { NoteCoordTransform } from "common/transform"
 import RootStore from "stores/RootStore"
 import {
-  SET_PLAYER_POSITION,
   ARRANGE_START_SELECTION,
   ARRANGE_END_SELECTION,
   ARRANGE_RESIZE_SELECTION,
@@ -19,6 +17,7 @@ import {
   ArrangeViewProps,
 } from "components/ArrangeView/ArrangeView"
 import { toJS } from "mobx"
+import { setPlayerPosition } from "src/main/actions"
 
 type Props = Omit<
   ArrangeViewProps,
@@ -92,6 +91,7 @@ const mapStoreToProps = ({
     services: { player, quantizer },
     playerStore: { loop, position },
     dispatch,
+    dispatch2,
   },
 }: {
   rootStore: RootStore
@@ -112,7 +112,7 @@ const mapStoreToProps = ({
     onClickScaleUp: () => (s.scaleX = s.scaleX + 0.1),
     onClickScaleDown: () => (s.scaleX = Math.max(0.05, s.scaleX - 0.1)),
     onClickScaleReset: () => (s.scaleX = 1),
-    setPlayerPosition: (tick) => dispatch(SET_PLAYER_POSITION, tick),
+    setPlayerPosition: (tick) => dispatch2(setPlayerPosition(tick)),
     startSelection: (pos) => dispatch(ARRANGE_START_SELECTION, pos),
     endSelection: (start, end) =>
       dispatch(ARRANGE_END_SELECTION, { start, end }),

@@ -1,6 +1,6 @@
 import createSongAction from "./actions/song"
 import createTrackAction from "./actions/track"
-import createPlayerAction from "./actions/player"
+import createPlayerAction, { PlayerAction } from "./actions/player"
 import createHistoryAction from "./actions/history"
 import createRootViewAction from "./actions/rootView"
 import creatQuantizerAction from "./actions/quantizer"
@@ -11,6 +11,7 @@ import createArrangeViewAction from "./actions/arrangeView"
 import RootStore from "./stores/RootStore"
 
 export type Dispatcher = (type: symbol, ...params: any) => any
+export type Mutator = (store: RootStore) => void
 
 const createDispatcher = (rootStore: RootStore) => (
   type: symbol,
@@ -19,14 +20,13 @@ const createDispatcher = (rootStore: RootStore) => (
   const actions: any = {
     ...createSongAction(rootStore),
     ...createTrackAction(rootStore),
-    ...createPlayerAction(rootStore),
     ...createHistoryAction(rootStore),
     ...createRootViewAction(rootStore),
     ...creatQuantizerAction(rootStore),
     ...createSelectionAction(rootStore),
     ...createTrackMuteAction(rootStore),
     ...createPianoRollAction(rootStore),
-    ...createArrangeViewAction(rootStore)
+    ...createArrangeViewAction(rootStore),
   }
   const action = actions[type]
   if (action) {
@@ -36,5 +36,9 @@ const createDispatcher = (rootStore: RootStore) => (
   console.warn("unknown action", type, params)
   return () => {}
 }
+
+export const createDispatcher2 = (rootStore: RootStore) => (
+  action: PlayerAction
+) => createPlayerAction(action)(rootStore)
 
 export default createDispatcher

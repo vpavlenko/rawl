@@ -1,15 +1,13 @@
 import { NoteCoordTransform } from "common/transform"
 import {
-  PREVIEW_NOTE,
-  SET_LOOP_BEGIN,
-  SET_LOOP_END,
-  SET_PLAYER_POSITION,
   CHANGE_NOTES_VELOCITY,
   CREATE_VOLUME,
   CREATE_PITCH_BEND,
   CREATE_PAN,
   CREATE_MODULATION,
-  CREATE_EXPRESSION
+  CREATE_EXPRESSION,
+  setPlayerPosition,
+  previewNote,
 } from "main/actions"
 import { inject, observer } from "mobx-react"
 import React, { SFC, useState, useEffect } from "react"
@@ -32,7 +30,7 @@ export type SPianoRollProps = PianoRollProps & {
   isPlaying: boolean
 }
 
-const Wrapper: SFC<SPianoRollProps> = props => {
+const Wrapper: SFC<SPianoRollProps> = (props) => {
   const {
     dispatch,
     selection,
@@ -44,7 +42,7 @@ const Wrapper: SFC<SPianoRollProps> = props => {
     setScrollLeft,
     scaleX = 1,
     autoScroll = false,
-    isPlaying
+    isPlaying,
   } = props
 
   const [pencilMouseHandler] = useState(new PencilMouseHandler())
@@ -79,7 +77,7 @@ const Wrapper: SFC<SPianoRollProps> = props => {
       setScrollLeft={setScrollLeft}
       transform={transform}
       mouseHandler={mouseHandler}
-      onMountAlpha={c => setAlpha(c)}
+      onMountAlpha={(c) => setAlpha(c)}
       alphaHeight={alpha?.getBoundingClientRect().height ?? 0}
     />
   )
@@ -94,8 +92,9 @@ export default compose<{}, {}>(
         rootViewStore: { theme },
         playerStore,
         services: { quantizer, player },
-        dispatch
-      }
+        dispatch,
+        dispatch2,
+      },
     }: {
       rootStore: RootStore
     }) =>
@@ -111,11 +110,11 @@ export default compose<{}, {}>(
         autoScroll: s.autoScroll,
         selection: s.selection,
         scrollLeft: s.scrollLeft,
-        setScrollLeft: v => (s.scrollLeft = v),
+        setScrollLeft: (v) => (s.scrollLeft = v),
         scrollTop: s.scrollTop,
-        setScrollTop: v => (s.scrollTop = v),
+        setScrollTop: (v) => (s.scrollTop = v),
         controlMode: s.controlMode,
-        setControlMode: v => (s.controlMode = v),
+        setControlMode: (v) => (s.controlMode = v),
         cursorPosition: s.cursorPosition,
         notesCursor: s.notesCursor,
         mouseMode: s.mouseMode,
@@ -127,11 +126,11 @@ export default compose<{}, {}>(
         loop: playerStore.loop,
         isPlaying: player.isPlaying,
         quantizer,
-        setLoopBegin: tick => {},
-        setLoopEnd: tick => {},
-        setPlayerPosition: tick => dispatch(SET_PLAYER_POSITION, tick),
+        setLoopBegin: (tick) => {},
+        setLoopEnd: (tick) => {},
+        setPlayerPosition: (tick) => dispatch2(setPlayerPosition(tick)),
         previewNote: (noteNumber, channel) =>
-          dispatch(PREVIEW_NOTE, noteNumber, channel),
+          dispatch2(previewNote(noteNumber, channel)),
         dispatch,
         changeVelocity: (notes, velocity) =>
           dispatch(CHANGE_NOTES_VELOCITY, notes, velocity),
@@ -154,7 +153,7 @@ export default compose<{}, {}>(
           })()
           dispatch(type, value, tick)
         },
-        playerPosition: playerStore.position
+        playerPosition: playerStore.position,
       } as Partial<SPianoRollProps>)
   ),
   observer,

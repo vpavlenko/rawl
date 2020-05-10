@@ -1,13 +1,13 @@
 import { NoteCoordTransform } from "common/transform"
 import {
-  CHANGE_NOTES_VELOCITY,
-  CREATE_VOLUME,
-  CREATE_PITCH_BEND,
-  CREATE_PAN,
-  CREATE_MODULATION,
-  CREATE_EXPRESSION,
   setPlayerPosition,
   previewNote,
+  changeNotesVelocity,
+  createVolume,
+  createPitchBend,
+  createPan,
+  createModulation,
+  createExpression,
 } from "main/actions"
 import { inject, observer } from "mobx-react"
 import React, { SFC, useState, useEffect } from "react"
@@ -138,25 +138,30 @@ export default compose<{}, {}>(
         dispatch,
         dispatch2,
         changeVelocity: (notes, velocity) =>
-          dispatch(CHANGE_NOTES_VELOCITY, notes, velocity),
+          dispatch2(
+            changeNotesVelocity(
+              notes.map((n) => n.id),
+              velocity
+            )
+          ),
         createControlEvent: (mode, value, tick) => {
-          const type = (() => {
+          const action = (() => {
             switch (mode) {
               case "volume":
-                return CREATE_VOLUME
+                return createVolume
               case "pitchBend":
-                return CREATE_PITCH_BEND
+                return createPitchBend
               case "pan":
-                return CREATE_PAN
+                return createPan
               case "modulation":
-                return CREATE_MODULATION
+                return createModulation
               case "expression":
-                return CREATE_EXPRESSION
+                return createExpression
               case "velocity":
                 throw new Error("invalid type")
             }
           })()
-          dispatch(type, value, tick)
+          dispatch2(action(value, tick || 0))
         },
         playerPosition: playerStore.position,
       } as Partial<SPianoRollProps>)

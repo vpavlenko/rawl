@@ -1,6 +1,6 @@
 import { TempoCoordTransform } from "common/transform"
 import { TempoGraph, TempoGraphProps } from "components/TempoGraph/TempoGraph"
-import { CHANGE_TEMPO, CREATE_TEMPO, setPlayerPosition } from "main/actions"
+import { setPlayerPosition, changeTempo, createTempo } from "main/actions"
 import { inject, observer } from "mobx-react"
 import React, { SFC, useState, useEffect } from "react"
 import { withSize } from "react-sizeme"
@@ -68,7 +68,6 @@ export default compose(
         tempoEditorStore: s,
         services: { player },
         song,
-        dispatch,
         dispatch2,
       },
     }: {
@@ -89,9 +88,9 @@ export default compose(
         scrollLeft: s.scrollLeft,
         setScrollLeft: (v) => (s.scrollLeft = v),
         changeTempo: (id, microsecondsPerBeat) =>
-          dispatch(CHANGE_TEMPO, id, microsecondsPerBeat),
+          dispatch2(changeTempo(id, microsecondsPerBeat)),
         createTempo: (tick, microsecondsPerBeat) =>
-          dispatch(CREATE_TEMPO, tick, microsecondsPerBeat),
+          dispatch2(createTempo(tick, microsecondsPerBeat)),
         playerPosition: playerStore.position,
         setPlayerPosition: (tick) => dispatch2(setPlayerPosition(tick)),
       } as Omit<Props, "size">)

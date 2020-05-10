@@ -9,12 +9,12 @@ import {
   Dialog,
   DialogActions,
   FormControlLabel,
-  Checkbox
+  Checkbox,
 } from "@material-ui/core"
 import { compose } from "recompose"
 import { inject, observer } from "mobx-react"
 import RootStore from "stores/RootStore"
-import { SET_TRACK_INSTRUMENT } from "actions"
+import { setTrackInstrument as setTrackInstrumentAction } from "actions"
 import { programChangeMidiEvent } from "common/midi/MidiEvent"
 
 export interface InstrumentSetting {
@@ -47,21 +47,21 @@ const InstrumentBrowser: SFC<InstrumentBrowserProps> = ({
   isOpen,
   presetCategories,
   onChange,
-  setting: { programNumber, isRhythmTrack }
+  setting: { programNumber, isRhythmTrack },
 }) => {
   const selectedCategoryId = Math.floor(programNumber / 8)
 
   const onChangeCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
     onChange({
       programNumber: e.target.selectedIndex * 8, // カテゴリの最初の楽器を選ぶ
-      isRhythmTrack
+      isRhythmTrack,
     })
   }
 
   const onChangeInstrument = (e: React.ChangeEvent<HTMLSelectElement>) => {
     onChange({
       programNumber: parseInt(e.target.value),
-      isRhythmTrack
+      isRhythmTrack,
     })
   }
 
@@ -148,9 +148,9 @@ export default compose(
       rootStore: {
         pianoRollStore: s,
         song,
-        dispatch,
-        services: { player }
-      }
+        dispatch2,
+        services: { player },
+      },
     }: {
       rootStore: RootStore
     }) => {
@@ -163,15 +163,17 @@ export default compose(
 
       const close = () => (s.openInstrumentBrowser = false)
       const setTrackInstrument = (programNumber: number) =>
-        dispatch(SET_TRACK_INSTRUMENT, trackId, programNumber)
+        dispatch2(setTrackInstrumentAction(trackId, programNumber))
 
-      const presets: PresetItem[] = Object.keys(s.presetNames[0]).map(key => ({
-        programNumber: parseInt(key),
-        name: s.presetNames[0][parseInt(key)]
-      }))
+      const presets: PresetItem[] = Object.keys(s.presetNames[0]).map(
+        (key) => ({
+          programNumber: parseInt(key),
+          name: s.presetNames[0][parseInt(key)],
+        })
+      )
 
       const presetCategories = _.map(
-        _.groupBy(presets, p => getGMCategory(p.programNumber)),
+        _.groupBy(presets, (p) => getGMCategory(p.programNumber)),
         (presets, name) => ({ name, presets })
       )
 
@@ -187,7 +189,7 @@ export default compose(
           duration: 120,
           noteNumber: 64,
           velocity: 100,
-          channel
+          channel,
         })
         s.instrumentBrowserSetting = setting
       }
@@ -208,8 +210,8 @@ export default compose(
               // 適当なチャンネルに変える
               const channels = _.range(16)
               const usedChannels = song.tracks
-                .filter(t => t !== track)
-                .map(t => t.channel)
+                .filter((t) => t !== track)
+                .map((t) => t.channel)
               const availableChannel =
                 _.min(_.difference(channels, usedChannels)) || 0
               track.channel = availableChannel
@@ -219,7 +221,7 @@ export default compose(
 
           close()
         },
-        presetCategories
+        presetCategories,
       } as InstrumentBrowserProps
     }
   ),

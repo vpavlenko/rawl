@@ -6,9 +6,9 @@ import {
   PianoRollToolbar,
 } from "components/PianoRollToolbar/PianoRollToolbar"
 import {
-  SET_TRACK_VOLUME,
-  SET_TRACK_PAN,
   setQuantizeDenominator,
+  setTrackVolume,
+  setTrackPan,
 } from "main/actions"
 
 export default compose(
@@ -16,7 +16,6 @@ export default compose(
     ({
       rootStore: {
         song,
-        dispatch,
         dispatch2,
         pianoRollStore: s,
         rootViewStore,
@@ -39,8 +38,8 @@ export default compose(
           dispatch2(setQuantizeDenominator(e.denominator))
           s.quantize = e.denominator
         },
-        onChangeVolume: (value) => dispatch(SET_TRACK_VOLUME, trackId, value),
-        onChangePan: (value) => dispatch(SET_TRACK_PAN, trackId, value),
+        onChangeVolume: (value) => dispatch2(setTrackVolume(trackId, value)),
+        onChangePan: (value) => dispatch2(setTrackPan(trackId, value)),
         onClickNavBack: () => (rootViewStore.openDrawer = true),
         onClickInstrument: () => {
           if (track === undefined) {

@@ -1,14 +1,13 @@
 import {
-  UNDO,
-  REDO,
   copySelection,
   pasteSelection,
   deleteSelection,
+  undo,
+  redo,
 } from "main/actions"
 import RootStore from "../stores/RootStore"
 
 export function bindKeyboardShortcut({
-  dispatch,
   dispatch2,
   services: { player },
   song,
@@ -29,13 +28,13 @@ export function bindKeyboardShortcut({
       }
       case "KeyZ": {
         if (e.ctrlKey) {
-          dispatch(UNDO)
+          dispatch2(undo())
         }
         break
       }
       case "KeyY": {
         if (e.ctrlKey) {
-          dispatch(REDO)
+          dispatch2(redo())
         }
         break
       }

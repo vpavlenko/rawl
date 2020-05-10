@@ -3,13 +3,13 @@ import { pointSub, pointAdd, IPoint } from "common/geometry"
 import pencilImage from "images/iconmonstr-pencil-14-16.png"
 import { NoteCoordTransform } from "common/transform"
 import {
-  CREATE_NOTE,
-  MOVE_NOTE,
-  REMOVE_EVENT,
-  RESIZE_NOTE_LEFT,
-  RESIZE_NOTE_RIGHT
+  createNote,
+  moveNote,
+  removeEvent,
+  resizeNoteLeft,
+  resizeNoteRight,
 } from "main/actions"
-import { Dispatcher } from "createDispatcher"
+import { Dispatcher2 } from "createDispatcher"
 import { PianoNotesMouseEvent } from "components/PianoRoll/PianoNotes/PianoNotes"
 
 export default class PencilMouseHandler extends NoteMouseHandler {
@@ -23,7 +23,7 @@ export default class PencilMouseHandler extends NoteMouseHandler {
       return original
     }
 
-    const { dispatch, transform } = this
+    const { dispatch2: dispatch, transform } = this
 
     if (e.nativeEvent.button !== 0) {
       return null
@@ -57,34 +57,36 @@ export default class PencilMouseHandler extends NoteMouseHandler {
   }
 }
 
-export const createNoteAction = (dispatch: Dispatcher): MouseGesture => (
+export const createNoteAction = (dispatch: Dispatcher2): MouseGesture => (
   onMouseDown,
   onMouseMove
 ) => {
   let noteId: number
 
-  onMouseDown(e => {
-    noteId = dispatch(CREATE_NOTE, e.tick, e.noteNumber)
+  onMouseDown((e) => {
+    noteId = dispatch(createNote(e.tick, e.noteNumber))
   })
 
-  onMouseMove(e => {
-    dispatch(MOVE_NOTE, {
-      id: noteId,
-      tick: e.tick,
-      noteNumber: e.noteNumber,
-      quantize: "floor"
-    })
+  onMouseMove((e) => {
+    dispatch(
+      moveNote({
+        id: noteId,
+        tick: e.tick,
+        noteNumber: e.noteNumber,
+        quantize: "floor",
+      })
+    )
   })
 }
 
-const removeNoteAction = (
-  dispatch: Dispatcher
-): MouseGesture => onMouseDown => {
-  onMouseDown(e => dispatch(REMOVE_EVENT, e.item.id))
+const removeNoteAction = (dispatch: Dispatcher2): MouseGesture => (
+  onMouseDown
+) => {
+  onMouseDown((e) => dispatch(removeEvent(e.item.id)))
 }
 
 const moveNoteAction = (
-  dispatch: Dispatcher,
+  dispatch: Dispatcher2,
   transform: NoteCoordTransform,
   isCopy: boolean
 ): MouseGesture => (onMouseDown, onMouseMove) => {
@@ -92,54 +94,56 @@ const moveNoteAction = (
   let notePosition: IPoint
   let noteId: number
 
-  onMouseDown(e => {
+  onMouseDown((e) => {
     startPosition = e.local
     notePosition = e.item.bounds
     if (isCopy) {
-      noteId = dispatch(CREATE_NOTE, e.tick, e.noteNumber)
+      noteId = dispatch(createNote(e.tick, e.noteNumber))
     } else {
       noteId = e.item.id
     }
   })
 
-  onMouseMove(e => {
+  onMouseMove((e) => {
     const position = pointAdd(notePosition, pointSub(e.local, startPosition))
-    dispatch(MOVE_NOTE, {
-      id: noteId,
-      tick: transform.getTicks(position.x),
-      noteNumber: Math.round(transform.getNoteNumber(position.y)),
-      quantize: "round"
-    })
+    dispatch(
+      moveNote({
+        id: noteId,
+        tick: transform.getTicks(position.x),
+        noteNumber: Math.round(transform.getNoteNumber(position.y)),
+        quantize: "round",
+      })
+    )
   })
 }
 
-const dragLeftNoteAction = (dispatch: Dispatcher): MouseGesture => (
+const dragLeftNoteAction = (dispatch: Dispatcher2): MouseGesture => (
   onMouseDown,
   onMouseMove
 ) => {
   let noteId: number
 
-  onMouseDown(e => {
+  onMouseDown((e) => {
     noteId = e.item.id
   })
 
-  onMouseMove(e => {
-    dispatch(RESIZE_NOTE_LEFT, noteId, e.tick)
+  onMouseMove((e) => {
+    dispatch(resizeNoteLeft(noteId, e.tick))
   })
 }
 
-const dragRightNoteAction = (dispatch: Dispatcher): MouseGesture => (
+const dragRightNoteAction = (dispatch: Dispatcher2): MouseGesture => (
   onMouseDown,
   onMouseMove
 ) => {
   let noteId: number
 
-  onMouseDown(e => {
+  onMouseDown((e) => {
     noteId = e.item.id
   })
 
-  onMouseMove(e => {
-    dispatch(RESIZE_NOTE_RIGHT, noteId, e.tick)
+  onMouseMove((e) => {
+    dispatch(resizeNoteRight(noteId, e.tick))
   })
 }
 

@@ -1,5 +1,4 @@
 import React, { StatelessComponent } from "react"
-import { Omit } from "recompose"
 import LineGraph, { LineGraphProps } from "./LineGraph"
 import { NoteCoordTransform } from "common/transform"
 import { StageMouseEvent } from "components/Stage/Stage"

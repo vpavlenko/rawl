@@ -1,5 +1,4 @@
 import React, { StatelessComponent } from "react"
-import { Omit } from "recompose"
 
 import Stage, { StageProps } from "components/Stage/Stage"
 import LineGraphItem from "./LineGraphItem"

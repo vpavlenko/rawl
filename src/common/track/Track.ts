@@ -1,22 +1,21 @@
 import { observable, action, transaction } from "mobx"
 import { serializable, list, primitive } from "serializr"
-import * as _ from "lodash"
+import _ from "lodash"
 import {
   TrackNameEvent,
   SetTempoEvent,
   EndOfTrackEvent,
   ProgramChangeEvent,
   ControllerEvent,
-  AnyEvent
+  AnyEvent,
 } from "midifile-ts"
 
 import { getInstrumentName } from "midi/GM"
-import { Omit } from "recompose"
 import {
   TrackEvent,
   TrackEventRequired,
   TrackMidiEvent,
-  NoteEvent
+  NoteEvent,
 } from "./TrackEvent"
 import { isNotUndefined } from "../helpers/array"
 
@@ -35,7 +34,7 @@ export default class Track {
   @observable
   channel: number | undefined = undefined
 
-  getEventById = (id: number) => _.find(this.events, e => e.id === id)
+  getEventById = (id: number) => _.find(this.events, (e) => e.id === id)
 
   private _updateEvent(
     id: number,
@@ -65,7 +64,7 @@ export default class Track {
 
   @action updateEvents(events: Partial<TrackEvent>[]) {
     transaction(() => {
-      events.forEach(event => {
+      events.forEach((event) => {
         if (event.id === undefined) {
           return
         }
@@ -86,7 +85,7 @@ export default class Track {
   }
 
   @action removeEvents(ids: number[]) {
-    const objs = ids.map(id => this.getEventById(id)).filter(isNotUndefined)
+    const objs = ids.map((id) => this.getEventById(id)).filter(isNotUndefined)
     this.events = _.difference(this.events, objs)
     this.updateEndOfTrack()
   }
@@ -98,7 +97,7 @@ export default class Track {
     }
     const newEvent = {
       ...e,
-      id: this.lastEventId++
+      id: this.lastEventId++,
     } as TrackEvent
     this.events.push(newEvent)
     return newEvent
@@ -113,7 +112,7 @@ export default class Track {
   @action addEvents(events: EventBeforeAdded[]): TrackEvent[] {
     let result: TrackEvent[] = []
     transaction(() => {
-      result = events.map(e => this._addEvent(e))
+      result = events.map((e) => this._addEvent(e))
     })
     this.didAddEvent()
     return result
@@ -130,7 +129,7 @@ export default class Track {
 
   @action updateEndOfTrack() {
     const tick = _.chain(this.events)
-      .map(e => e.tick + ("duration" in e ? e.duration : 0))
+      .map((e) => e.tick + ("duration" in e ? e.duration : 0))
       .max()
       .value()
     this.setEndOfTrack(tick)
@@ -146,7 +145,7 @@ export default class Track {
     subtype: string
   ): (T & TrackEventRequired)[] {
     return this.events.filter(
-      t => "subtype" in t && t.subtype === subtype
+      (t) => "subtype" in t && t.subtype === subtype
     ) as (T & TrackEventRequired)[]
   }
 
@@ -170,7 +169,7 @@ export default class Track {
     controllerType: number
   ): (TrackEventRequired & ControllerEvent)[] {
     return this.findEventsWithSubtype<ControllerEvent>("controller").filter(
-      t => t.controllerType === controllerType
+      (t) => t.controllerType === controllerType
     )
   }
 
@@ -194,7 +193,7 @@ export default class Track {
 
   createOrUpdate(newEvent: Partial<TrackEvent>) {
     const events = this.events.filter(
-      e =>
+      (e) =>
         e.type === newEvent.type &&
         e.tick === newEvent.tick &&
         ("subtype" in e && "subtype" in newEvent
@@ -203,8 +202,8 @@ export default class Track {
     )
 
     if (events.length > 0) {
-      this.transaction(it => {
-        events.forEach(e => {
+      this.transaction((it) => {
+        events.forEach((e) => {
           it.updateEvent(e.id, { ...newEvent, id: e.id })
         })
       })

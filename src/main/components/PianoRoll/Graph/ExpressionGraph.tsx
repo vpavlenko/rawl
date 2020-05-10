@@ -1,5 +1,4 @@
 import React, { StatelessComponent } from "react"
-import { Omit } from "recompose"
 import LineGraphControl, {
   LineGraphControlProps,
   LineGraphControlEvent,

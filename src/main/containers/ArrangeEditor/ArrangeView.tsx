@@ -9,14 +9,14 @@ import {
   ARRANGE_END_SELECTION,
   ARRANGE_RESIZE_SELECTION,
   ARRANGE_MOVE_SELECTION,
-  ARRANGE_OPEN_CONTEXT_MENU
+  ARRANGE_OPEN_CONTEXT_MENU,
 } from "actions"
-import { compose, Omit } from "recompose"
+import { compose } from "recompose"
 import { withSize } from "react-sizeme"
 import { inject, observer } from "mobx-react"
 import {
   ArrangeView,
-  ArrangeViewProps
+  ArrangeViewProps,
 } from "components/ArrangeView/ArrangeView"
 import { toJS } from "mobx"
 
@@ -39,14 +39,14 @@ type Props = Omit<
   isPlaying: boolean
 }
 
-const Wrapper: SFC<Props> = props => {
+const Wrapper: SFC<Props> = (props) => {
   const {
     autoScroll,
     size,
     playerPosition,
     pixelsPerTick,
     keyHeight,
-    isPlaying
+    isPlaying,
   } = props
 
   const [scrollLeft, setScrollLeft] = useState(0)
@@ -69,7 +69,7 @@ const Wrapper: SFC<Props> = props => {
     scrollLeft,
     playerPosition,
     pixelsPerTick,
-    size.width
+    size.width,
   ])
 
   return (
@@ -91,8 +91,8 @@ const mapStoreToProps = ({
     arrangeViewStore: s,
     services: { player, quantizer },
     playerStore: { loop, position },
-    dispatch
-  }
+    dispatch,
+  },
 }: {
   rootStore: RootStore
 }) =>
@@ -112,16 +112,16 @@ const mapStoreToProps = ({
     onClickScaleUp: () => (s.scaleX = s.scaleX + 0.1),
     onClickScaleDown: () => (s.scaleX = Math.max(0.05, s.scaleX - 0.1)),
     onClickScaleReset: () => (s.scaleX = 1),
-    setPlayerPosition: tick => dispatch(SET_PLAYER_POSITION, tick),
-    startSelection: pos => dispatch(ARRANGE_START_SELECTION, pos),
+    setPlayerPosition: (tick) => dispatch(SET_PLAYER_POSITION, tick),
+    startSelection: (pos) => dispatch(ARRANGE_START_SELECTION, pos),
     endSelection: (start, end) =>
       dispatch(ARRANGE_END_SELECTION, { start, end }),
     resizeSelection: (start, end) =>
       dispatch(ARRANGE_RESIZE_SELECTION, { start, end }),
-    moveSelection: pos => dispatch(ARRANGE_MOVE_SELECTION, pos),
+    moveSelection: (pos) => dispatch(ARRANGE_MOVE_SELECTION, pos),
     openContextMenu: (e, isSelectionSelected) =>
       dispatch(ARRANGE_OPEN_CONTEXT_MENU, e, isSelectionSelected),
-    playerPosition: position
+    playerPosition: position,
   } as Partial<Props>)
 
 export default compose(

@@ -1,5 +1,4 @@
 import React, { StatelessComponent } from "react"
-import { Omit } from "recompose"
 import { PitchBendEvent } from "midifile-ts"
 import LineGraphControl, {
   LineGraphControlProps,

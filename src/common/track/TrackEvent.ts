@@ -26,9 +26,8 @@ import {
   UnknownChannelEvent,
   ControllerEvent,
   SysExEvent,
-  DividedSysExEvent
+  DividedSysExEvent,
 } from "midifile-ts"
-import { Omit } from "recompose"
 import { RPNEvent } from "../helpers/RPNAssembler"
 
 export interface TickProvider {
@@ -83,4 +82,4 @@ export type TrackMidiEvent =
   | Omit<SysExEvent, "deltaTime">
   | Omit<DividedSysExEvent, "deltaTime">
 
-export type TrackEvent = NoteEvent | TrackEventRequired & TrackMidiEvent
+export type TrackEvent = NoteEvent | (TrackEventRequired & TrackMidiEvent)

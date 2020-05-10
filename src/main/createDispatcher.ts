@@ -12,17 +12,8 @@ import createArrangeViewAction, {
 } from "./actions/arrangeView"
 import RootStore from "./stores/RootStore"
 
-export type Dispatcher = (type: symbol, ...params: any) => any
 export type Dispatcher2 = (action: Action) => any
 export type Mutator = (store: RootStore) => void
-
-const createDispatcher = (rootStore: RootStore) => (
-  type: symbol,
-  ...params: any
-): Dispatcher => {
-  console.warn("unknown action", type, params)
-  return () => {}
-}
 
 export type Action =
   | PlayerAction
@@ -58,5 +49,3 @@ export const createDispatcher2 = (rootStore: RootStore): Dispatcher2 => (
   }
   return null
 }
-
-export default createDispatcher

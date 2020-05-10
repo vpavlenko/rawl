@@ -1,4 +1,4 @@
-import React, { Component, SFC, useState } from "react"
+import React, { SFC } from "react"
 import _ from "lodash"
 
 import { getGMCategory } from "midi/GM.ts"

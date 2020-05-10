@@ -18,7 +18,7 @@ import Quantizer from "common/quantizer"
 import SynthOutput from "services/SynthOutput"
 import { TIME_BASE } from "../Constants"
 
-import createDispatcher, { createDispatcher2 } from "../createDispatcher"
+import { createDispatcher2 } from "../createDispatcher"
 
 interface Services {
   player: Player
@@ -47,10 +47,6 @@ export default class RootStore {
     this.services = { player, quantizer, synth }
     this.pianoRollStore = new PianoRollStore(player, synth)
     this.playerStore = new PlayerStore(player)
-  }
-
-  get dispatch() {
-    return createDispatcher(this)
   }
 
   get dispatch2() {

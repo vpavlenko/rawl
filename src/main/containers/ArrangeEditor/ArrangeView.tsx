@@ -90,7 +90,6 @@ const mapStoreToProps = ({
     arrangeViewStore: s,
     services: { player, quantizer },
     playerStore: { loop, position },
-    dispatch,
     dispatch2,
   },
 }: {

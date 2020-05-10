@@ -1,4 +1,4 @@
-import { Dispatcher, Dispatcher2 } from "main/createDispatcher"
+import { Dispatcher2 } from "main/createDispatcher"
 import { PianoNotesMouseEvent } from "components/PianoRoll/PianoNotes/PianoNotes"
 import { changeCursor, scrollBy, toggleTool } from "actions"
 
@@ -11,14 +11,12 @@ export type MouseGesture = (
 ) => void
 
 export default class NoteMouseHandler {
-  protected readonly dispatch: Dispatcher
   protected readonly dispatch2: Dispatcher2
   private action: MouseGesture | null
   private actionMouseMove: MouseAction
   private actionMouseUp: MouseAction
 
-  constructor(dispatch: Dispatcher, dispatch2: Dispatcher2) {
-    this.dispatch = dispatch
+  constructor(dispatch2: Dispatcher2) {
     this.dispatch2 = dispatch2
     this.onMouseDown = this.onMouseDown.bind(this)
     this.onMouseMove = this.onMouseMove.bind(this)

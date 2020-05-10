@@ -17,7 +17,6 @@ export default compose(
         song,
         trackMute,
         rootViewStore,
-        dispatch,
         dispatch2,
         router,
         services: { player },

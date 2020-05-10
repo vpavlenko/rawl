@@ -17,7 +17,7 @@ import { PianoRollProps, PianoRoll } from "components/PianoRoll/PianoRoll"
 import PencilMouseHandler from "./MouseHandler/PencilMouseHandler"
 import SelectionMouseHandler from "./MouseHandler/SelectionMouseHandler"
 import { PianoRollMouseMode } from "stores/PianoRollStore"
-import { Dispatcher, Dispatcher2 } from "createDispatcher"
+import { Dispatcher2 } from "createDispatcher"
 import RootStore from "stores/RootStore"
 import { toJS } from "mobx"
 
@@ -26,14 +26,12 @@ export type SPianoRollProps = PianoRollProps & {
   autoScroll: boolean
   scaleX: number
   mouseMode: PianoRollMouseMode
-  dispatch: Dispatcher
   dispatch2: Dispatcher2
   isPlaying: boolean
 }
 
 const Wrapper: SFC<SPianoRollProps> = (props) => {
   const {
-    dispatch,
     dispatch2,
     selection,
     theme,
@@ -47,12 +45,8 @@ const Wrapper: SFC<SPianoRollProps> = (props) => {
     isPlaying,
   } = props
 
-  const [pencilMouseHandler] = useState(
-    new PencilMouseHandler(dispatch, dispatch2)
-  )
-  const [selectionMouseHandler] = useState(
-    new SelectionMouseHandler(dispatch, dispatch2)
-  )
+  const [pencilMouseHandler] = useState(new PencilMouseHandler(dispatch2))
+  const [selectionMouseHandler] = useState(new SelectionMouseHandler(dispatch2))
   const [alpha, setAlpha] = useState<HTMLElement | null>(null)
   const transform = new NoteCoordTransform(0.1 * scaleX, theme.keyHeight, 127)
 
@@ -96,7 +90,6 @@ export default compose<{}, {}>(
         rootViewStore: { theme },
         playerStore,
         services: { quantizer, player },
-        dispatch,
         dispatch2,
       },
     }: {
@@ -135,7 +128,6 @@ export default compose<{}, {}>(
         setPlayerPosition: (tick) => dispatch2(setPlayerPosition(tick)),
         previewNote: (noteNumber, channel) =>
           dispatch2(previewNote(noteNumber, channel)),
-        dispatch,
         dispatch2,
         changeVelocity: (notes, velocity) =>
           dispatch2(

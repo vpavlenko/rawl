@@ -2,6 +2,7 @@ import Song, { emptySong } from "common/song"
 import { emptyTrack } from "common/track"
 import { write as writeSong, read as readSong } from "midi/SongFile"
 import RootStore from "../stores/RootStore"
+import { toJS } from "mobx"
 
 export const CREATE_SONG = Symbol()
 export const SAVE_SONG = Symbol()
@@ -58,14 +59,8 @@ export default (rootStore: RootStore) => {
     [CREATE_SONG]: () => {
       setSong(emptySong())
     },
-    [SAVE_SONG]: (filepath: string) => {
-      writeSong(song, filepath, e => {
-        if (e) {
-          console.error(e)
-        } else {
-          song.filepath = filepath
-        }
-      })
+    [SAVE_SONG]: () => {
+      writeSong(toJS(song.tracks, { recurseEverything: true }), song.filepath)
     },
     [OPEN_SONG]: (input: HTMLInputElement) => {
       openSong(input, song => {

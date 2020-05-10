@@ -13,7 +13,7 @@ export default compose(
       rootStore: {
         services: { quantizer },
         arrangeViewStore: s,
-        dispatch2,
+        dispatch,
       },
     }: {
       rootStore: RootStore
@@ -23,7 +23,7 @@ export default compose(
         autoScroll: s.autoScroll,
         onClickAutoScroll: () => (s.autoScroll = !s.autoScroll),
         onSelectQuantize: (e) => {
-          dispatch2(setQuantizeDenominator(e.denominator))
+          dispatch(setQuantizeDenominator(e.denominator))
           s.quantize = e.denominator
         },
       } as ArrangeToolbarProps)

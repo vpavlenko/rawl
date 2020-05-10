@@ -1,5 +1,5 @@
 import { ContextMenuBuilder } from "components/groups/ContextMenu"
-import { Dispatcher2 } from "createDispatcher"
+import { Dispatcher } from "createDispatcher"
 import {
   arrangeCopySelection,
   arrangeDeleteSelection,
@@ -7,7 +7,7 @@ import {
 } from "main/actions/arrangeView"
 
 export const ArrangeContextMenu = (
-  dispatch: Dispatcher2,
+  dispatch: Dispatcher,
   isSelectionSelected: boolean
 ): ContextMenuBuilder => (close) => [
   {

@@ -90,7 +90,7 @@ const mapStoreToProps = ({
     arrangeViewStore: s,
     services: { player, quantizer },
     playerStore: { loop, position },
-    dispatch2,
+    dispatch,
   },
 }: {
   rootStore: RootStore
@@ -111,14 +111,14 @@ const mapStoreToProps = ({
     onClickScaleUp: () => (s.scaleX = s.scaleX + 0.1),
     onClickScaleDown: () => (s.scaleX = Math.max(0.05, s.scaleX - 0.1)),
     onClickScaleReset: () => (s.scaleX = 1),
-    setPlayerPosition: (tick) => dispatch2(setPlayerPosition(tick)),
-    startSelection: (pos) => dispatch2(arrangeStartSelection(pos)),
-    endSelection: (start, end) => dispatch2(arrangeEndSelection(start, end)),
+    setPlayerPosition: (tick) => dispatch(setPlayerPosition(tick)),
+    startSelection: (pos) => dispatch(arrangeStartSelection(pos)),
+    endSelection: (start, end) => dispatch(arrangeEndSelection(start, end)),
     resizeSelection: (start, end) =>
-      dispatch2(arrangeResizeSelection(start, end)),
-    moveSelection: (pos) => dispatch2(arrangeMoveSelection(pos)),
+      dispatch(arrangeResizeSelection(start, end)),
+    moveSelection: (pos) => dispatch(arrangeMoveSelection(pos)),
     openContextMenu: (e, isSelectionSelected) =>
-      dispatch2(arrangeOpenContextMenu(e, isSelectionSelected)),
+      dispatch(arrangeOpenContextMenu(e, isSelectionSelected)),
     playerPosition: position,
   } as Partial<Props>)
 

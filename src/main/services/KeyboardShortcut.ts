@@ -8,7 +8,7 @@ import {
 import RootStore from "../stores/RootStore"
 
 export function bindKeyboardShortcut({
-  dispatch2,
+  dispatch,
   services: { player },
   song,
 }: RootStore) {
@@ -28,13 +28,13 @@ export function bindKeyboardShortcut({
       }
       case "KeyZ": {
         if (e.ctrlKey) {
-          dispatch2(undo())
+          dispatch(undo())
         }
         break
       }
       case "KeyY": {
         if (e.ctrlKey) {
-          dispatch2(redo())
+          dispatch(redo())
         }
         break
       }
@@ -43,13 +43,13 @@ export function bindKeyboardShortcut({
     }
   }
   document.oncut = () => {
-    dispatch2(copySelection())
-    dispatch2(deleteSelection())
+    dispatch(copySelection())
+    dispatch(deleteSelection())
   }
   document.oncopy = () => {
-    dispatch2(copySelection())
+    dispatch(copySelection())
   }
   document.onpaste = () => {
-    dispatch2(pasteSelection())
+    dispatch(pasteSelection())
   }
 }

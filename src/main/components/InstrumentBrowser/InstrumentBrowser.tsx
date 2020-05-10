@@ -148,7 +148,7 @@ export default compose(
       rootStore: {
         pianoRollStore: s,
         song,
-        dispatch2,
+        dispatch,
         services: { player },
       },
     }: {
@@ -163,7 +163,7 @@ export default compose(
 
       const close = () => (s.openInstrumentBrowser = false)
       const setTrackInstrument = (programNumber: number) =>
-        dispatch2(setTrackInstrumentAction(trackId, programNumber))
+        dispatch(setTrackInstrumentAction(trackId, programNumber))
 
       const presets: PresetItem[] = Object.keys(s.presetNames[0]).map(
         (key) => ({

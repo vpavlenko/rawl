@@ -53,15 +53,15 @@ const SongList: SFC<SongListProps> = ({
 )
 
 export default compose(
-  inject(({ rootStore: { dispatch2 } }: { rootStore: RootStore }) => {
+  inject(({ rootStore: { dispatch } }: { rootStore: RootStore }) => {
     return {
       onClickNew: () => {
         if (confirm("Are you sure you want to continue?")) {
-          dispatch2(createSong())
+          dispatch(createSong())
         }
       },
-      onClickOpen: (e) => dispatch2(openSong(e.currentTarget)),
-      onClickSave: () => dispatch2(saveSong()),
+      onClickOpen: (e) => dispatch(openSong(e.currentTarget)),
+      onClickSave: () => dispatch(saveSong()),
     } as SongListProps
   }),
   observer

@@ -17,7 +17,7 @@ import { PianoRollProps, PianoRoll } from "components/PianoRoll/PianoRoll"
 import PencilMouseHandler from "./MouseHandler/PencilMouseHandler"
 import SelectionMouseHandler from "./MouseHandler/SelectionMouseHandler"
 import { PianoRollMouseMode } from "stores/PianoRollStore"
-import { Dispatcher2 } from "createDispatcher"
+import { Dispatcher } from "createDispatcher"
 import RootStore from "stores/RootStore"
 import { toJS } from "mobx"
 
@@ -26,13 +26,13 @@ export type SPianoRollProps = PianoRollProps & {
   autoScroll: boolean
   scaleX: number
   mouseMode: PianoRollMouseMode
-  dispatch2: Dispatcher2
+  dispatch: Dispatcher
   isPlaying: boolean
 }
 
 const Wrapper: SFC<SPianoRollProps> = (props) => {
   const {
-    dispatch2,
+    dispatch,
     selection,
     theme,
     size,
@@ -45,8 +45,8 @@ const Wrapper: SFC<SPianoRollProps> = (props) => {
     isPlaying,
   } = props
 
-  const [pencilMouseHandler] = useState(new PencilMouseHandler(dispatch2))
-  const [selectionMouseHandler] = useState(new SelectionMouseHandler(dispatch2))
+  const [pencilMouseHandler] = useState(new PencilMouseHandler(dispatch))
+  const [selectionMouseHandler] = useState(new SelectionMouseHandler(dispatch))
   const [alpha, setAlpha] = useState<HTMLElement | null>(null)
   const transform = new NoteCoordTransform(0.1 * scaleX, theme.keyHeight, 127)
 
@@ -90,7 +90,7 @@ export default compose<{}, {}>(
         rootViewStore: { theme },
         playerStore,
         services: { quantizer, player },
-        dispatch2,
+        dispatch,
       },
     }: {
       rootStore: RootStore
@@ -125,12 +125,12 @@ export default compose<{}, {}>(
         quantizer,
         setLoopBegin: (tick) => {},
         setLoopEnd: (tick) => {},
-        setPlayerPosition: (tick) => dispatch2(setPlayerPosition(tick)),
+        setPlayerPosition: (tick) => dispatch(setPlayerPosition(tick)),
         previewNote: (noteNumber, channel) =>
-          dispatch2(previewNote(noteNumber, channel)),
-        dispatch2,
+          dispatch(previewNote(noteNumber, channel)),
+        dispatch,
         changeVelocity: (notes, velocity) =>
-          dispatch2(
+          dispatch(
             changeNotesVelocity(
               notes.map((n) => n.id),
               velocity
@@ -153,7 +153,7 @@ export default compose<{}, {}>(
                 throw new Error("invalid type")
             }
           })()
-          dispatch2(action(value, tick || 0))
+          dispatch(action(value, tick || 0))
         },
         playerPosition: playerStore.position,
       } as Partial<SPianoRollProps>)

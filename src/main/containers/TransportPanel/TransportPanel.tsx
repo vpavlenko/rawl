@@ -22,7 +22,7 @@ export default compose(
         song: { measures },
         playerStore: { loop },
         router,
-        dispatch2,
+        dispatch,
       },
     }: {
       rootStore: RootStore
@@ -32,13 +32,13 @@ export default compose(
         tempo: player.currentTempo,
         measures,
         loopEnabled: loop.enabled,
-        onClickPlay: () => dispatch2(play()),
-        onClickStop: () => dispatch2(stop()),
-        onClickBackward: () => dispatch2(movePlayerPosition(-TIME_BASE * 4)),
-        onClickForward: () => dispatch2(movePlayerPosition(TIME_BASE * 4)),
-        onClickEnableLoop: () => dispatch2(toggleEnableLoop()),
+        onClickPlay: () => dispatch(play()),
+        onClickStop: () => dispatch(stop()),
+        onClickBackward: () => dispatch(movePlayerPosition(-TIME_BASE * 4)),
+        onClickForward: () => dispatch(movePlayerPosition(TIME_BASE * 4)),
+        onClickEnableLoop: () => dispatch(toggleEnableLoop()),
         onClickTempo: () => {
-          dispatch2(selectTrack(0))
+          dispatch(selectTrack(0))
           router.pushTrack()
         },
       } as Partial<TransportPanelProps>)

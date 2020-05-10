@@ -226,7 +226,7 @@ export default (action: Action): Mutator | null => {
       return (store) => {
         openContextMenu(
           action.e,
-          ArrangeContextMenu(store.dispatch2, action.isSelectionSelected)
+          ArrangeContextMenu(store.dispatch, action.isSelectionSelected)
         )
       }
     case "arrangeCopySelection":

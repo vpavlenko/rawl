@@ -1,9 +1,9 @@
-import { Dispatcher2 } from "main/createDispatcher"
+import { Dispatcher } from "main/createDispatcher"
 import { ContextMenuBuilder } from "../components/groups/ContextMenu"
 import { copySelection, pasteSelection, deleteSelection } from "actions"
 
 export const PianoContextMenu = (
-  dispatch: Dispatcher2,
+  dispatch: Dispatcher,
   isNoteSelected: boolean
 ): ContextMenuBuilder => (close) => [
   {

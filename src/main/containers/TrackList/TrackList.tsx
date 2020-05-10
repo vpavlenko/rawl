@@ -17,7 +17,7 @@ export default compose(
         song,
         trackMute,
         rootViewStore,
-        dispatch2,
+        dispatch,
         router,
         services: { player },
       },
@@ -29,14 +29,14 @@ export default compose(
         song,
         player: { player },
         isArrangeViewSelected: rootViewStore.isArrangeViewSelected,
-        onClickMute: (trackId: number) => dispatch2(toggleMuteTrack(trackId)),
-        onClickSolo: (trackId: number) => dispatch2(toggleSoloTrack(trackId)),
-        onClickDelete: (trackId: number) => dispatch2(removeTrack(trackId)),
-        onClickAddTrack: () => dispatch2(addTrack()),
+        onClickMute: (trackId: number) => dispatch(toggleMuteTrack(trackId)),
+        onClickSolo: (trackId: number) => dispatch(toggleSoloTrack(trackId)),
+        onClickDelete: (trackId: number) => dispatch(removeTrack(trackId)),
+        onClickAddTrack: () => dispatch(addTrack()),
         // onChangeName: e => dispatch(SET_TRACK_NAME, { name: e.target.value }),
         onSelectTrack: (trackId: number) => {
           router.pushTrack()
-          dispatch2(selectTrack(trackId))
+          dispatch(selectTrack(trackId))
           rootViewStore.openDrawer = false
         },
         onClickArrangeView: () => {

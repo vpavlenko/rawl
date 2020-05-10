@@ -68,7 +68,7 @@ export default compose(
         tempoEditorStore: s,
         services: { player },
         song,
-        dispatch2,
+        dispatch,
       },
     }: {
       rootStore: RootStore
@@ -88,11 +88,11 @@ export default compose(
         scrollLeft: s.scrollLeft,
         setScrollLeft: (v) => (s.scrollLeft = v),
         changeTempo: (id, microsecondsPerBeat) =>
-          dispatch2(changeTempo(id, microsecondsPerBeat)),
+          dispatch(changeTempo(id, microsecondsPerBeat)),
         createTempo: (tick, microsecondsPerBeat) =>
-          dispatch2(createTempo(tick, microsecondsPerBeat)),
+          dispatch(createTempo(tick, microsecondsPerBeat)),
         playerPosition: playerStore.position,
-        setPlayerPosition: (tick) => dispatch2(setPlayerPosition(tick)),
+        setPlayerPosition: (tick) => dispatch(setPlayerPosition(tick)),
       } as Omit<Props, "size">)
   ),
   observer,

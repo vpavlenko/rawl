@@ -13,7 +13,7 @@ import {
   resizeSelectionLeft,
 } from "main/actions"
 import { NotePoint } from "common/transform/NotePoint"
-import { Dispatcher2 } from "createDispatcher"
+import { Dispatcher } from "createDispatcher"
 import { PianoNotesMouseEvent } from "components/PianoRoll/PianoNotes/PianoNotes"
 
 export default class SelectionMouseHandler extends MouseHandler {
@@ -31,28 +31,28 @@ export default class SelectionMouseHandler extends MouseHandler {
     }
 
     const type = this.getPositionType(e.local)
-    const { dispatch2, selection, transform } = this
+    const { dispatch, selection, transform } = this
 
     if (e.nativeEvent.button === 0) {
       switch (type) {
         case "center":
           return moveSelectionAction(
-            dispatch2,
+            dispatch,
             selection,
             transform,
             e.nativeEvent.ctrlKey
           )
         case "right":
-          return dragSelectionRightEdgeAction(dispatch2, transform)
+          return dragSelectionRightEdgeAction(dispatch, transform)
         case "left":
-          return dragSelectionLeftEdgeAction(dispatch2, transform)
+          return dragSelectionLeftEdgeAction(dispatch, transform)
         case "outside":
           break
         default:
           break
       }
 
-      return createSelectionAction(dispatch2)
+      return createSelectionAction(dispatch)
     }
 
     // 右クリックした場合はコンテキストメニューを表示
@@ -71,7 +71,7 @@ export default class SelectionMouseHandler extends MouseHandler {
           selected = false
           break
       }
-      return contextMenuAction(selected, dispatch2)
+      return contextMenuAction(selected, dispatch)
     }
 
     return null
@@ -123,7 +123,7 @@ function positionType(
 
 const contextMenuAction = (
   isNoteSelected: boolean,
-  dispatch: Dispatcher2
+  dispatch: Dispatcher
 ): MouseGesture => (onMouseDown, onMouseMove, onMouseUp) => {
   onMouseUp((e) => {
     dispatch(openContextMenuAction(e.nativeEvent, isNoteSelected))
@@ -131,7 +131,7 @@ const contextMenuAction = (
 }
 
 // 選択範囲外でクリックした場合は選択範囲をリセット
-const createSelectionAction = (dispatch: Dispatcher2): MouseGesture => (
+const createSelectionAction = (dispatch: Dispatcher): MouseGesture => (
   onMouseDown,
   onMouseMove,
   onMouseUp
@@ -154,7 +154,7 @@ const createSelectionAction = (dispatch: Dispatcher2): MouseGesture => (
 }
 
 const moveSelectionAction = (
-  dispatch: Dispatcher2,
+  dispatch: Dispatcher,
   selection: SelectionModel,
   transform: NoteCoordTransform,
   isCopy: boolean
@@ -179,7 +179,7 @@ const moveSelectionAction = (
 }
 
 const dragSelectionLeftEdgeAction = (
-  dispatch: Dispatcher2,
+  dispatch: Dispatcher,
   transform: NoteCoordTransform
 ): MouseGesture => (onMouseDown, onMouseMove) => {
   onMouseDown(() => {})
@@ -191,7 +191,7 @@ const dragSelectionLeftEdgeAction = (
 }
 
 const dragSelectionRightEdgeAction = (
-  dispatch: Dispatcher2,
+  dispatch: Dispatcher,
   transform: NoteCoordTransform
 ): MouseGesture => (onMouseDown, onMouseMove) => {
   onMouseDown(() => {})

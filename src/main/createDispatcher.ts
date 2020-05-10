@@ -12,7 +12,7 @@ import createArrangeViewAction, {
 } from "./actions/arrangeView"
 import RootStore from "./stores/RootStore"
 
-export type Dispatcher2 = (action: Action) => any
+export type Dispatcher = (action: Action) => any
 export type Mutator = (store: RootStore) => void
 
 export type Action =
@@ -26,7 +26,7 @@ export type Action =
   | HistoryAction
   | TrackAction
 
-export const createDispatcher2 = (rootStore: RootStore): Dispatcher2 => (
+export const createDispatcher2 = (rootStore: RootStore): Dispatcher => (
   action
 ) => {
   const mutators = [

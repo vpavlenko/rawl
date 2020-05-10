@@ -16,7 +16,7 @@ export default compose(
     ({
       rootStore: {
         song,
-        dispatch2,
+        dispatch,
         pianoRollStore: s,
         rootViewStore,
         services: { quantizer },
@@ -35,11 +35,11 @@ export default compose(
         onClickSelection: () => (s.mouseMode = "selection"),
         onClickAutoScroll: () => (s.autoScroll = !s.autoScroll),
         onSelectQuantize: (e) => {
-          dispatch2(setQuantizeDenominator(e.denominator))
+          dispatch(setQuantizeDenominator(e.denominator))
           s.quantize = e.denominator
         },
-        onChangeVolume: (value) => dispatch2(setTrackVolume(trackId, value)),
-        onChangePan: (value) => dispatch2(setTrackPan(trackId, value)),
+        onChangeVolume: (value) => dispatch(setTrackVolume(trackId, value)),
+        onChangePan: (value) => dispatch(setTrackPan(trackId, value)),
         onClickNavBack: () => (rootViewStore.openDrawer = true),
         onClickInstrument: () => {
           if (track === undefined) {

@@ -67,7 +67,7 @@ export default (action: Action): Mutator | null => {
       return (store) => {
         openContextMenu(
           action.e,
-          PianoContextMenu(store.dispatch2, action.isNoteSelected)
+          PianoContextMenu(store.dispatch, action.isNoteSelected)
         )
       }
     case "setControlMode":

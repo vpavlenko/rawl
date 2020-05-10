@@ -1,4 +1,4 @@
-import { Dispatcher2 } from "main/createDispatcher"
+import { Dispatcher } from "main/createDispatcher"
 import { PianoNotesMouseEvent } from "components/PianoRoll/PianoNotes/PianoNotes"
 import { changeCursor, scrollBy, toggleTool } from "actions"
 
@@ -11,13 +11,13 @@ export type MouseGesture = (
 ) => void
 
 export default class NoteMouseHandler {
-  protected readonly dispatch2: Dispatcher2
+  protected readonly dispatch: Dispatcher
   private action: MouseGesture | null
   private actionMouseMove: MouseAction
   private actionMouseUp: MouseAction
 
-  constructor(dispatch2: Dispatcher2) {
-    this.dispatch2 = dispatch2
+  constructor(dispatch: Dispatcher) {
+    this.dispatch = dispatch
     this.onMouseDown = this.onMouseDown.bind(this)
     this.onMouseMove = this.onMouseMove.bind(this)
     this.onMouseUp = this.onMouseUp.bind(this)
@@ -31,12 +31,12 @@ export default class NoteMouseHandler {
 
     // wheel drag to start scrolling
     if (e.nativeEvent.button === 1) {
-      return dragScrollAction(this.dispatch2)
+      return dragScrollAction(this.dispatch)
     }
 
     // 右ダブルクリック
     if (e.nativeEvent.button === 2 && e.nativeEvent.detail % 2 === 0) {
-      return changeToolAction(this.dispatch2)
+      return changeToolAction(this.dispatch)
     }
 
     // サブクラスで残りを実装
@@ -67,7 +67,7 @@ export default class NoteMouseHandler {
       this.actionMouseMove(e)
     } else {
       const cursor = this.getCursorForMouseMove(e)
-      this.dispatch2(changeCursor(cursor))
+      this.dispatch(changeCursor(cursor))
     }
   }
 
@@ -79,7 +79,7 @@ export default class NoteMouseHandler {
   }
 }
 
-const dragScrollAction = (dispatch: Dispatcher2): MouseGesture => (
+const dragScrollAction = (dispatch: Dispatcher): MouseGesture => (
   onMouseDown
 ) => {
   onMouseDown(() => {
@@ -97,7 +97,7 @@ const dragScrollAction = (dispatch: Dispatcher2): MouseGesture => (
   })
 }
 
-const changeToolAction = (dispatch: Dispatcher2): MouseGesture => (
+const changeToolAction = (dispatch: Dispatcher): MouseGesture => (
   onMouseDown
 ) => {
   onMouseDown(() => {

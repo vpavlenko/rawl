@@ -49,7 +49,7 @@ export default class RootStore {
     this.playerStore = new PlayerStore(player)
   }
 
-  get dispatch2() {
+  get dispatch() {
     return createDispatcher2(this)
   }
 

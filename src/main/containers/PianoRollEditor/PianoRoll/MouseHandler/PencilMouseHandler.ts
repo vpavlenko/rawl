@@ -9,7 +9,7 @@ import {
   resizeNoteLeft,
   resizeNoteRight,
 } from "main/actions"
-import { Dispatcher2 } from "createDispatcher"
+import { Dispatcher } from "createDispatcher"
 import { PianoNotesMouseEvent } from "components/PianoRoll/PianoNotes/PianoNotes"
 
 export default class PencilMouseHandler extends NoteMouseHandler {
@@ -23,7 +23,7 @@ export default class PencilMouseHandler extends NoteMouseHandler {
       return original
     }
 
-    const { dispatch2: dispatch, transform } = this
+    const { dispatch, transform } = this
 
     if (e.nativeEvent.button !== 0) {
       return null
@@ -57,7 +57,7 @@ export default class PencilMouseHandler extends NoteMouseHandler {
   }
 }
 
-export const createNoteAction = (dispatch: Dispatcher2): MouseGesture => (
+export const createNoteAction = (dispatch: Dispatcher): MouseGesture => (
   onMouseDown,
   onMouseMove
 ) => {
@@ -79,14 +79,14 @@ export const createNoteAction = (dispatch: Dispatcher2): MouseGesture => (
   })
 }
 
-const removeNoteAction = (dispatch: Dispatcher2): MouseGesture => (
+const removeNoteAction = (dispatch: Dispatcher): MouseGesture => (
   onMouseDown
 ) => {
   onMouseDown((e) => dispatch(removeEvent(e.item.id)))
 }
 
 const moveNoteAction = (
-  dispatch: Dispatcher2,
+  dispatch: Dispatcher,
   transform: NoteCoordTransform,
   isCopy: boolean
 ): MouseGesture => (onMouseDown, onMouseMove) => {
@@ -117,7 +117,7 @@ const moveNoteAction = (
   })
 }
 
-const dragLeftNoteAction = (dispatch: Dispatcher2): MouseGesture => (
+const dragLeftNoteAction = (dispatch: Dispatcher): MouseGesture => (
   onMouseDown,
   onMouseMove
 ) => {
@@ -132,7 +132,7 @@ const dragLeftNoteAction = (dispatch: Dispatcher2): MouseGesture => (
   })
 }
 
-const dragRightNoteAction = (dispatch: Dispatcher2): MouseGesture => (
+const dragRightNoteAction = (dispatch: Dispatcher): MouseGesture => (
   onMouseDown,
   onMouseMove
 ) => {

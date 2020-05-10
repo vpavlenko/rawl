@@ -7,7 +7,9 @@ import creatQuantizerAction, { QuantizerAction } from "./actions/quantizer"
 import createSelectionAction, { SelectionAction } from "./actions/selection"
 import createTrackMuteAction, { TrackMuteAction } from "./actions/trackMute"
 import createPianoRollAction, { PianoRollAction } from "./actions/pianoRoll"
-import createArrangeViewAction from "./actions/arrangeView"
+import createArrangeViewAction, {
+  ArrangeViewAction,
+} from "./actions/arrangeView"
 import RootStore from "./stores/RootStore"
 
 export type Dispatcher = (type: symbol, ...params: any) => any
@@ -22,7 +24,6 @@ const createDispatcher = (rootStore: RootStore) => (
     ...createTrackAction(rootStore),
     ...createHistoryAction(rootStore),
     ...createRootViewAction(rootStore),
-    ...createArrangeViewAction(rootStore),
   }
   const action = actions[type]
   if (action) {
@@ -40,6 +41,7 @@ export type Action =
   | TrackMuteAction
   | PianoRollAction
   | SelectionAction
+  | ArrangeViewAction
 
 export const createDispatcher2 = (rootStore: RootStore): Dispatcher2 => (
   action
@@ -51,6 +53,7 @@ export const createDispatcher2 = (rootStore: RootStore): Dispatcher2 => (
     createTrackMuteAction,
     createPianoRollAction,
     createSelectionAction,
+    createArrangeViewAction,
   ]
   for (let m of mutators) {
     const mutator = m(action)

@@ -3,11 +3,11 @@ import React, { SFC, useState, useEffect } from "react"
 import { NoteCoordTransform } from "common/transform"
 import RootStore from "stores/RootStore"
 import {
-  ARRANGE_START_SELECTION,
-  ARRANGE_END_SELECTION,
-  ARRANGE_RESIZE_SELECTION,
-  ARRANGE_MOVE_SELECTION,
-  ARRANGE_OPEN_CONTEXT_MENU,
+  arrangeStartSelection,
+  arrangeEndSelection,
+  arrangeResizeSelection,
+  arrangeMoveSelection,
+  arrangeOpenContextMenu,
 } from "actions"
 import { compose } from "recompose"
 import { withSize } from "react-sizeme"
@@ -113,14 +113,13 @@ const mapStoreToProps = ({
     onClickScaleDown: () => (s.scaleX = Math.max(0.05, s.scaleX - 0.1)),
     onClickScaleReset: () => (s.scaleX = 1),
     setPlayerPosition: (tick) => dispatch2(setPlayerPosition(tick)),
-    startSelection: (pos) => dispatch(ARRANGE_START_SELECTION, pos),
-    endSelection: (start, end) =>
-      dispatch(ARRANGE_END_SELECTION, { start, end }),
+    startSelection: (pos) => dispatch2(arrangeStartSelection(pos)),
+    endSelection: (start, end) => dispatch2(arrangeEndSelection(start, end)),
     resizeSelection: (start, end) =>
-      dispatch(ARRANGE_RESIZE_SELECTION, { start, end }),
-    moveSelection: (pos) => dispatch(ARRANGE_MOVE_SELECTION, pos),
+      dispatch2(arrangeResizeSelection(start, end)),
+    moveSelection: (pos) => dispatch2(arrangeMoveSelection(pos)),
     openContextMenu: (e, isSelectionSelected) =>
-      dispatch(ARRANGE_OPEN_CONTEXT_MENU, e, isSelectionSelected),
+      dispatch2(arrangeOpenContextMenu(e, isSelectionSelected)),
     playerPosition: position,
   } as Partial<Props>)
 

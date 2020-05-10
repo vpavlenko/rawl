@@ -4,9 +4,9 @@ import RootStore from "stores/RootStore"
 import {
   TOGGLE_MUTE_TRACK,
   TOGGLE_SOLO_TRACK,
-  REMOVE_TRACK,
-  ADD_TRACK,
-  SELECT_TRACK
+  removeTrack,
+  addTrack,
+  selectTrack,
 } from "actions"
 import { TrackList, TrackListProps } from "components/TrackList/TrackList"
 
@@ -18,9 +18,10 @@ export default compose(
         trackMute,
         rootViewStore,
         dispatch,
+        dispatch2,
         router,
-        services: { player }
-      }
+        services: { player },
+      },
     }: {
       rootStore: RootStore
     }) =>
@@ -31,17 +32,17 @@ export default compose(
         isArrangeViewSelected: rootViewStore.isArrangeViewSelected,
         onClickMute: (trackId: number) => dispatch(TOGGLE_MUTE_TRACK, trackId),
         onClickSolo: (trackId: number) => dispatch(TOGGLE_SOLO_TRACK, trackId),
-        onClickDelete: (trackId: number) => dispatch(REMOVE_TRACK, trackId),
-        onClickAddTrack: () => dispatch(ADD_TRACK),
+        onClickDelete: (trackId: number) => dispatch2(removeTrack(trackId)),
+        onClickAddTrack: () => dispatch2(addTrack()),
         // onChangeName: e => dispatch(SET_TRACK_NAME, { name: e.target.value }),
         onSelectTrack: (trackId: number) => {
           router.pushTrack()
-          dispatch(SELECT_TRACK, trackId)
+          dispatch2(selectTrack(trackId))
           rootViewStore.openDrawer = false
         },
         onClickArrangeView: () => {
           router.pushArrange()
-        }
+        },
       } as TrackListProps)
   ),
   observer

@@ -1,10 +1,10 @@
 import { TIME_BASE } from "Constants"
 import {
-  SELECT_TRACK,
   play,
   stop,
   movePlayerPosition,
   toggleEnableLoop,
+  selectTrack,
 } from "main/actions"
 import { inject, observer } from "mobx-react"
 import { compose } from "recompose"
@@ -22,7 +22,6 @@ export default compose(
         song: { measures },
         playerStore: { loop },
         router,
-        dispatch,
         dispatch2,
       },
     }: {
@@ -39,7 +38,7 @@ export default compose(
         onClickForward: () => dispatch2(movePlayerPosition(TIME_BASE * 4)),
         onClickEnableLoop: () => dispatch2(toggleEnableLoop()),
         onClickTempo: () => {
-          dispatch(SELECT_TRACK, 0)
+          dispatch2(selectTrack(0))
           router.pushTrack()
         },
       } as Partial<TransportPanelProps>)

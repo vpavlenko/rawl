@@ -1,4 +1,4 @@
-import { Mutator } from "../createDispatcher"
+import { Mutator, Action } from "../createDispatcher"
 
 // Actions
 
@@ -73,11 +73,11 @@ export const toggleEnableLoop = (): ToggleEnableLoop => ({
 
 // Mutators
 
-export default (action: PlayerAction): Mutator => {
+export default (action: Action): Mutator | null => {
   switch (action.type) {
     case "play":
-      return (s) => {
-        s.services.player.play(s.song)
+      return ({ services: { player }, song }) => {
+        player.play(song)
       }
     case "stop":
       return ({ services: { player } }) => {
@@ -130,4 +130,5 @@ export default (action: PlayerAction): Mutator => {
         playerStore.setLoop({ ...player.loop, enabled: !player.loop.enabled })
       }
   }
+  return null
 }

@@ -1,11 +1,11 @@
 import {
   ArrangeToolbar,
-  ArrangeToolbarProps
+  ArrangeToolbarProps,
 } from "components/ArrangeView/ArrangeToolbar"
 import { compose } from "recompose"
 import { inject, observer } from "mobx-react"
 import RootStore from "stores/RootStore"
-import { SET_QUANTIZE_DENOMINATOR } from "actions"
+import { setQuantizeDenominator } from "src/main/actions"
 
 export default compose(
   inject(
@@ -13,8 +13,8 @@ export default compose(
       rootStore: {
         services: { quantizer },
         arrangeViewStore: s,
-        dispatch
-      }
+        dispatch2,
+      },
     }: {
       rootStore: RootStore
     }) =>
@@ -22,10 +22,10 @@ export default compose(
         quantize: s.quantize === 0 ? quantizer.denominator : s.quantize,
         autoScroll: s.autoScroll,
         onClickAutoScroll: () => (s.autoScroll = !s.autoScroll),
-        onSelectQuantize: e => {
-          dispatch(SET_QUANTIZE_DENOMINATOR, e.denominator)
+        onSelectQuantize: (e) => {
+          dispatch2(setQuantizeDenominator(e.denominator))
           s.quantize = e.denominator
-        }
+        },
       } as ArrangeToolbarProps)
   ),
   observer

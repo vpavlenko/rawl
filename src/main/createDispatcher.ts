@@ -5,12 +5,13 @@ import createHistoryAction from "./actions/history"
 import createRootViewAction from "./actions/rootView"
 import creatQuantizerAction, { QuantizerAction } from "./actions/quantizer"
 import createSelectionAction from "./actions/selection"
-import createTrackMuteAction from "./actions/trackMute"
-import createPianoRollAction from "./actions/pianoRoll"
+import createTrackMuteAction, { TrackMuteAction } from "./actions/trackMute"
+import createPianoRollAction, { PianoRollAction } from "./actions/pianoRoll"
 import createArrangeViewAction from "./actions/arrangeView"
 import RootStore from "./stores/RootStore"
 
 export type Dispatcher = (type: symbol, ...params: any) => any
+export type Dispatcher2 = (action: Action) => void
 export type Mutator = (store: RootStore) => void
 
 const createDispatcher = (rootStore: RootStore) => (
@@ -22,8 +23,6 @@ const createDispatcher = (rootStore: RootStore) => (
     ...createHistoryAction(rootStore),
     ...createRootViewAction(rootStore),
     ...createSelectionAction(rootStore),
-    ...createTrackMuteAction(rootStore),
-    ...createPianoRollAction(rootStore),
     ...createArrangeViewAction(rootStore),
   }
   const action = actions[type]
@@ -35,10 +34,23 @@ const createDispatcher = (rootStore: RootStore) => (
   return () => {}
 }
 
-export type Action = PlayerAction | QuantizerAction | SongAction
+export type Action =
+  | PlayerAction
+  | QuantizerAction
+  | SongAction
+  | TrackMuteAction
+  | PianoRollAction
 
-export const createDispatcher2 = (rootStore: RootStore) => (action: Action) => {
-  const mutators = [createPlayerAction, creatQuantizerAction, createSongAction]
+export const createDispatcher2 = (rootStore: RootStore): Dispatcher2 => (
+  action
+) => {
+  const mutators = [
+    createPlayerAction,
+    creatQuantizerAction,
+    createSongAction,
+    createTrackMuteAction,
+    createPianoRollAction,
+  ]
   for (let m of mutators) {
     const mutator = m(action)
     if (mutator !== null) {

@@ -17,7 +17,7 @@ import { PianoRollProps, PianoRoll } from "components/PianoRoll/PianoRoll"
 import PencilMouseHandler from "./MouseHandler/PencilMouseHandler"
 import SelectionMouseHandler from "./MouseHandler/SelectionMouseHandler"
 import { PianoRollMouseMode } from "stores/PianoRollStore"
-import { Dispatcher } from "createDispatcher"
+import { Dispatcher, Dispatcher2 } from "createDispatcher"
 import RootStore from "stores/RootStore"
 import { toJS } from "mobx"
 
@@ -27,12 +27,14 @@ export type SPianoRollProps = PianoRollProps & {
   scaleX: number
   mouseMode: PianoRollMouseMode
   dispatch: Dispatcher
+  dispatch2: Dispatcher2
   isPlaying: boolean
 }
 
 const Wrapper: SFC<SPianoRollProps> = (props) => {
   const {
     dispatch,
+    dispatch2,
     selection,
     theme,
     size,
@@ -45,14 +47,16 @@ const Wrapper: SFC<SPianoRollProps> = (props) => {
     isPlaying,
   } = props
 
-  const [pencilMouseHandler] = useState(new PencilMouseHandler())
-  const [selectionMouseHandler] = useState(new SelectionMouseHandler())
+  const [pencilMouseHandler] = useState(
+    new PencilMouseHandler(dispatch, dispatch2)
+  )
+  const [selectionMouseHandler] = useState(
+    new SelectionMouseHandler(dispatch, dispatch2)
+  )
   const [alpha, setAlpha] = useState<HTMLElement | null>(null)
   const transform = new NoteCoordTransform(0.1 * scaleX, theme.keyHeight, 127)
 
-  pencilMouseHandler.dispatch = dispatch
   pencilMouseHandler.transform = transform
-  selectionMouseHandler.dispatch = dispatch
   selectionMouseHandler.transform = transform
   selectionMouseHandler.selection = selection
 
@@ -132,6 +136,7 @@ export default compose<{}, {}>(
         previewNote: (noteNumber, channel) =>
           dispatch2(previewNote(noteNumber, channel)),
         dispatch,
+        dispatch2,
         changeVelocity: (notes, velocity) =>
           dispatch(CHANGE_NOTES_VELOCITY, notes, velocity),
         createControlEvent: (mode, value, tick) => {

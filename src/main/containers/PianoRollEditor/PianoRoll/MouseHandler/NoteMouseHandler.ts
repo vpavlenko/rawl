@@ -1,6 +1,6 @@
-import { Dispatcher } from "main/createDispatcher"
-import { CHANGE_CURSOR, SCROLL_BY, TOGGLE_TOOL } from "main/actions"
+import { Dispatcher, Dispatcher2 } from "main/createDispatcher"
 import { PianoNotesMouseEvent } from "components/PianoRoll/PianoNotes/PianoNotes"
+import { changeCursor, scrollBy, toggleTool } from "actions"
 
 export type MouseAction = (e: PianoNotesMouseEvent<MouseEvent>) => void
 
@@ -11,12 +11,15 @@ export type MouseGesture = (
 ) => void
 
 export default class NoteMouseHandler {
-  dispatch: Dispatcher
+  protected readonly dispatch: Dispatcher
+  protected readonly dispatch2: Dispatcher2
   private action: MouseGesture | null
   private actionMouseMove: MouseAction
   private actionMouseUp: MouseAction
 
-  constructor() {
+  constructor(dispatch: Dispatcher, dispatch2: Dispatcher2) {
+    this.dispatch = dispatch
+    this.dispatch2 = dispatch2
     this.onMouseDown = this.onMouseDown.bind(this)
     this.onMouseMove = this.onMouseMove.bind(this)
     this.onMouseUp = this.onMouseUp.bind(this)
@@ -30,12 +33,12 @@ export default class NoteMouseHandler {
 
     // wheel drag to start scrolling
     if (e.nativeEvent.button === 1) {
-      return dragScrollAction(this.dispatch)
+      return dragScrollAction(this.dispatch2)
     }
 
     // 右ダブルクリック
     if (e.nativeEvent.button === 2 && e.nativeEvent.detail % 2 === 0) {
-      return changeToolAction(this.dispatch)
+      return changeToolAction(this.dispatch2)
     }
 
     // サブクラスで残りを実装
@@ -55,9 +58,9 @@ export default class NoteMouseHandler {
     this.actionMouseMove = () => {}
     this.actionMouseUp = () => {}
     this.action(
-      mouseDown => mouseDown(e),
-      f => (this.actionMouseMove = f),
-      f => (this.actionMouseUp = f)
+      (mouseDown) => mouseDown(e),
+      (f) => (this.actionMouseMove = f),
+      (f) => (this.actionMouseUp = f)
     )
   }
 
@@ -66,7 +69,7 @@ export default class NoteMouseHandler {
       this.actionMouseMove(e)
     } else {
       const cursor = this.getCursorForMouseMove(e)
-      this.dispatch(CHANGE_CURSOR, cursor)
+      this.dispatch2(changeCursor(cursor))
     }
   }
 
@@ -78,12 +81,12 @@ export default class NoteMouseHandler {
   }
 }
 
-const dragScrollAction = (
-  dispatch: Dispatcher
-): MouseGesture => onMouseDown => {
+const dragScrollAction = (dispatch: Dispatcher2): MouseGesture => (
+  onMouseDown
+) => {
   onMouseDown(() => {
     const onGlobalMouseMove = (e: MouseEvent) => {
-      dispatch(SCROLL_BY, { x: e.movementX, y: e.movementY })
+      dispatch(scrollBy(e.movementX, e.movementY))
     }
 
     const onGlobalMouseUp = () => {
@@ -96,11 +99,11 @@ const dragScrollAction = (
   })
 }
 
-const changeToolAction = (
-  dispatch: Dispatcher
-): MouseGesture => onMouseDown => {
+const changeToolAction = (dispatch: Dispatcher2): MouseGesture => (
+  onMouseDown
+) => {
   onMouseDown(() => {
-    dispatch(TOGGLE_TOOL)
-    dispatch(CHANGE_CURSOR, "crosshair")
+    dispatch(toggleTool())
+    dispatch(changeCursor("crosshair"))
   })
 }

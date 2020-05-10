@@ -2,30 +2,23 @@ import { ToolbarSeparator } from "components/groups/Toolbar"
 import React, { StatelessComponent } from "react"
 import { shouldUpdate } from "recompose"
 import { Toolbar, IconButton, makeStyles } from "@material-ui/core"
-import {
-  Stop,
-  FastRewind,
-  FastForward,
-  PlayArrow,
-  Loop
-} from "@material-ui/icons"
-import { ToggleButton } from "@material-ui/lab"
+import { Stop, FastRewind, FastForward, PlayArrow } from "@material-ui/icons"
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   toolbar: {
     justifyContent: "center",
-    background: "var(--secondary-background-color)"
+    background: "var(--secondary-background-color)",
   },
   loop: {
     marginLeft: "1rem",
-    height: "2rem"
+    height: "2rem",
   },
   tempo: {
-    minWidth: "5em"
+    minWidth: "5em",
   },
   time: {
-    minWidth: "10em"
-  }
+    minWidth: "10em",
+  },
 }))
 
 export interface TransportPanelProps {
@@ -49,7 +42,7 @@ const TransportPanel: StatelessComponent<TransportPanelProps> = ({
   onClickEnableLoop,
   mbtTime,
   tempo = 0,
-  onClickTempo
+  onClickTempo,
 }) => {
   const classes = useStyles({})
   return (

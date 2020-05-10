@@ -1,6 +1,5 @@
 import React, { StatelessComponent } from "react"
 import _ from "lodash"
-import { shouldUpdate } from "recompose"
 
 import DrawCanvas from "components/DrawCanvas"
 import Theme from "common/theme"
@@ -45,7 +44,7 @@ const PianoGrid: StatelessComponent<PianoGridProps> = ({
   height,
   scrollLeft,
   beats,
-  theme
+  theme,
 }) => {
   function draw(ctx: CanvasRenderingContext2D) {
     const { width, height } = ctx.canvas
@@ -66,14 +65,14 @@ const PianoGrid: StatelessComponent<PianoGridProps> = ({
   )
 }
 
-function test(props: PianoGridProps, nextProps: PianoGridProps) {
+function areEqual(props: PianoGridProps, nextProps: PianoGridProps) {
   return (
-    !_.isEqual(props.theme, nextProps.theme) ||
-    props.width !== nextProps.width ||
-    props.height !== nextProps.height ||
-    props.scrollLeft !== nextProps.scrollLeft ||
-    !_.isEqual(props.beats, nextProps.beats)
+    _.isEqual(props.theme, nextProps.theme) &&
+    props.width === nextProps.width &&
+    props.height === nextProps.height &&
+    props.scrollLeft === nextProps.scrollLeft &&
+    _.isEqual(props.beats, nextProps.beats)
   )
 }
 
-export default shouldUpdate(test)(PianoGrid)
+export default React.memo(PianoGrid, areEqual)

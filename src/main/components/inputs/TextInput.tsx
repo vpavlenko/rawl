@@ -1,5 +1,4 @@
 import React from "react"
-import { pure } from "recompose"
 import f from "helpers/flatJoin"
 
 import "./TextInput.css"
@@ -15,7 +14,7 @@ function TextInput({
   className,
   value,
   onChange,
-  placeholder
+  placeholder,
 }: TextInputProps) {
   return (
     <input
@@ -28,4 +27,4 @@ function TextInput({
   )
 }
 
-export default pure(TextInput)
+export default React.memo(TextInput)

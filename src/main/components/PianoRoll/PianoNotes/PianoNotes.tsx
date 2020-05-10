@@ -5,7 +5,6 @@ import { NoteCoordTransform } from "common/transform"
 import Stage, { StageMouseEvent } from "components/Stage/Stage"
 import _ from "lodash"
 import React, { StatelessComponent } from "react"
-import { shouldUpdate } from "recompose"
 import PianoNoteItem from "./PianoNoteItem"
 
 export interface PianoNotesProps {
@@ -42,7 +41,7 @@ const PianoNotes: StatelessComponent<PianoNotesProps> = ({
   onMouseMove,
   onMouseUp,
   isDrumMode,
-  theme
+  theme,
 }) => {
   const baseColor = Color(theme.themeColor)
   const color = baseColor.string()
@@ -50,7 +49,7 @@ const PianoNotes: StatelessComponent<PianoNotesProps> = ({
   const selectedColor = baseColor.lighten(0.7).string()
   const selectedBorderColor = baseColor.lighten(0.8).string()
 
-  const items = events.filter(isNoteEvent).map(e => {
+  const items = events.filter(isNoteEvent).map((e) => {
     const rect = transform.getRect(e)
     const selected = selectedEventIds.includes(e.id)
     return new PianoNoteItem(
@@ -77,7 +76,7 @@ const PianoNotes: StatelessComponent<PianoNotesProps> = ({
     ...e,
     item: e.items[0] as PianoNoteItem,
     tick: transform.getTicks(e.local.x),
-    noteNumber: Math.ceil(transform.getNoteNumber(e.local.y))
+    noteNumber: Math.ceil(transform.getNoteNumber(e.local.y)),
   })
 
   return (
@@ -87,25 +86,25 @@ const PianoNotes: StatelessComponent<PianoNotesProps> = ({
       width={width}
       height={height}
       scrollLeft={scrollLeft}
-      onContextMenu={e => e.nativeEvent.preventDefault()}
-      onMouseDown={e => onMouseDown(extendEvent(e))}
-      onMouseMove={e => onMouseMove(extendEvent(e))}
-      onMouseUp={e => onMouseUp(extendEvent(e))}
+      onContextMenu={(e) => e.nativeEvent.preventDefault()}
+      onMouseDown={(e) => onMouseDown(extendEvent(e))}
+      onMouseMove={(e) => onMouseMove(extendEvent(e))}
+      onMouseUp={(e) => onMouseUp(extendEvent(e))}
       style={{ cursor }}
     />
   )
 }
 
-function test(props: PianoNotesProps, nextProps: PianoNotesProps) {
+function areEqual(props: PianoNotesProps, nextProps: PianoNotesProps) {
   return (
-    !_.isEqual(props.events, nextProps.events) ||
-    props.transform !== nextProps.transform ||
-    props.scrollLeft !== nextProps.scrollLeft ||
-    props.width !== nextProps.width ||
-    props.cursor !== nextProps.cursor ||
-    !_.isEqual(props.selectedEventIds, nextProps.selectedEventIds) ||
-    !_.isEqual(props.theme, nextProps.theme)
+    _.isEqual(props.events, nextProps.events) &&
+    props.transform === nextProps.transform &&
+    props.scrollLeft === nextProps.scrollLeft &&
+    props.width === nextProps.width &&
+    props.cursor === nextProps.cursor &&
+    _.isEqual(props.selectedEventIds, nextProps.selectedEventIds) &&
+    _.isEqual(props.theme, nextProps.theme)
   )
 }
 
-export default shouldUpdate(test)(PianoNotes)
+export default React.memo(PianoNotes, areEqual)

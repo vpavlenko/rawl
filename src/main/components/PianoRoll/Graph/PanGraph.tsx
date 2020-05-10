@@ -1,8 +1,8 @@
 import React, { StatelessComponent } from "react"
-import { pure, Omit } from "recompose"
+import { Omit } from "recompose"
 import LineGraphControl, {
   LineGraphControlProps,
-  LineGraphControlEvent
+  LineGraphControlEvent,
 } from "./LineGraphControl"
 import { ControllerEvent } from "midifile-ts"
 import { TrackEvent } from "common/track"
@@ -22,10 +22,10 @@ const PanGraph: StatelessComponent<PanGraphProps> = ({
   events,
   transform,
   createEvent,
-  color
+  color,
 }) => {
   const filteredEvents = events.filter(
-    e => (e as any).controllerType === 0x0a
+    (e) => (e as any).controllerType === 0x0a
   ) as (LineGraphControlEvent & ControllerEvent)[]
 
   return (
@@ -38,11 +38,11 @@ const PanGraph: StatelessComponent<PanGraphProps> = ({
       maxValue={127}
       events={filteredEvents}
       axis={[-0x40, -0x20, 0, 0x20, 0x40 - 1]}
-      createEvent={obj => createEvent(obj.value, obj.tick)}
-      onClickAxis={value => createEvent(value + 0x40)}
+      createEvent={(obj) => createEvent(obj.value, obj.tick)}
+      onClickAxis={(value) => createEvent(value + 0x40)}
       color={color}
     />
   )
 }
 
-export default pure(PanGraph)
+export default React.memo(PanGraph)

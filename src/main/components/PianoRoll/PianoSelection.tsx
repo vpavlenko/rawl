@@ -1,5 +1,4 @@
 import React, { StatelessComponent } from "react"
-import { shouldUpdate } from "recompose"
 import _ from "lodash"
 
 import DrawCanvas from "components/DrawCanvas"
@@ -37,7 +36,7 @@ const PianoSelection: StatelessComponent<PianoSelectionProps> = ({
   selectionBounds,
   color,
   width,
-  height
+  height,
 }) => {
   function draw(ctx: CanvasRenderingContext2D): void {
     const { width, height } = ctx.canvas
@@ -61,17 +60,17 @@ const PianoSelection: StatelessComponent<PianoSelectionProps> = ({
 }
 
 PianoSelection.defaultProps = {
-  scrollLeft: 0
+  scrollLeft: 0,
 }
 
-function test(props: PianoSelectionProps, nextProps: PianoSelectionProps) {
+function areEqual(props: PianoSelectionProps, nextProps: PianoSelectionProps) {
   return (
-    props.color !== nextProps.color ||
-    !_.isEqual(props.selectionBounds, nextProps.selectionBounds) ||
-    props.width !== nextProps.width ||
-    props.height !== nextProps.height ||
-    props.scrollLeft !== nextProps.scrollLeft
+    props.color === nextProps.color &&
+    _.isEqual(props.selectionBounds, nextProps.selectionBounds) &&
+    props.width === nextProps.width &&
+    props.height === nextProps.height &&
+    props.scrollLeft === nextProps.scrollLeft
   )
 }
 
-export default shouldUpdate(test)(PianoSelection)
+export default React.memo(PianoSelection, areEqual)

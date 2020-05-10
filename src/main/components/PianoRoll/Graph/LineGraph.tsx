@@ -1,5 +1,5 @@
 import React, { StatelessComponent } from "react"
-import { pure, Omit } from "recompose"
+import { Omit } from "recompose"
 
 import Stage, { StageProps } from "components/Stage/Stage"
 import LineGraphItem from "./LineGraphItem"
@@ -33,7 +33,7 @@ const LineGraph: StatelessComponent<LineGraphProps> = ({
   className,
   lineWidth = 1,
   axis,
-  color
+  color,
 }) => {
   const right = scrollLeft + width
   const items_ = items.map(({ id, x, y }, i) => {
@@ -56,11 +56,11 @@ const LineGraph: StatelessComponent<LineGraphProps> = ({
     <div className={`PianoControl LineGraph ${className}`}>
       <div className="GraphAxis">
         <div className="values">
-          {axis.reverse().map(value => (
+          {axis.reverse().map((value) => (
             <div
               key={value}
               className="AxisValue"
-              onClick={e => onClickAxis(value)}
+              onClick={(e) => onClickAxis(value)}
             >
               {value}
             </div>
@@ -81,4 +81,4 @@ const LineGraph: StatelessComponent<LineGraphProps> = ({
   )
 }
 
-export default pure(LineGraph)
+export default React.memo(LineGraph)

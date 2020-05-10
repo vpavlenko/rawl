@@ -1,5 +1,4 @@
 import React, { StatelessComponent, CSSProperties } from "react"
-import { pure } from "recompose"
 import DrawCanvas from "components/DrawCanvas"
 import Theme from "common/theme"
 
@@ -46,7 +45,7 @@ const PianoLines: StatelessComponent<PianoLinesProps> = ({
   pixelsPerKey,
   width,
   theme,
-  style
+  style,
 }) => {
   function draw(ctx: CanvasRenderingContext2D) {
     const { width, height } = ctx.canvas
@@ -68,4 +67,4 @@ const PianoLines: StatelessComponent<PianoLinesProps> = ({
   )
 }
 
-export default pure(PianoLines)
+export default React.memo(PianoLines)

@@ -1,5 +1,4 @@
 import React, { StatelessComponent } from "react"
-import { shouldUpdate } from "recompose"
 import _ from "lodash"
 
 import { noteNameWithOctString } from "helpers/noteNumberString"
@@ -138,7 +137,7 @@ const PianoKeys: StatelessComponent<PianoKeysProps> = ({
   numberOfKeys,
   width,
   keyHeight,
-  theme
+  theme,
 }) => {
   function draw(ctx: CanvasRenderingContext2D): void {
     const { width, height } = ctx.canvas
@@ -166,12 +165,12 @@ const PianoKeys: StatelessComponent<PianoKeysProps> = ({
   )
 }
 
-function test(props: PianoKeysProps, nextProps: PianoKeysProps) {
+function areEqual(props: PianoKeysProps, nextProps: PianoKeysProps) {
   return (
-    !_.isEqual(props.theme, nextProps.theme) ||
-    props.keyHeight !== nextProps.keyHeight ||
-    props.numberOfKeys !== nextProps.numberOfKeys
+    _.isEqual(props.theme, nextProps.theme) &&
+    props.keyHeight === nextProps.keyHeight &&
+    props.numberOfKeys === nextProps.numberOfKeys
   )
 }
 
-export default shouldUpdate(test)(PianoKeys)
+export default React.memo(PianoKeys, areEqual)

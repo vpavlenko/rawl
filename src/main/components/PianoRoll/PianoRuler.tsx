@@ -1,5 +1,4 @@
 import React, { StatelessComponent, MouseEvent } from "react"
-import { shouldUpdate } from "recompose"
 import _ from "lodash"
 
 import { LoopSetting } from "common/player"
@@ -120,7 +119,7 @@ const PianoRuler: StatelessComponent<PianoRulerProps> = ({
   onMouseDown,
   onMouseMove,
   onMouseUp,
-  loop
+  loop,
 }) => {
   function draw(ctx: CanvasRenderingContext2D) {
     const { width, height } = ctx.canvas
@@ -136,7 +135,7 @@ const PianoRuler: StatelessComponent<PianoRulerProps> = ({
 
   const extendEvent = (e: React.MouseEvent): TickEvent<React.MouseEvent> => ({
     nativeEvent: e,
-    tick: (e.nativeEvent.offsetX + scrollLeft) / pixelsPerTick
+    tick: (e.nativeEvent.offsetX + scrollLeft) / pixelsPerTick,
   })
 
   return (
@@ -145,27 +144,27 @@ const PianoRuler: StatelessComponent<PianoRulerProps> = ({
       className="PianoRuler"
       width={width}
       height={height}
-      onMouseDown={e => onMouseDown && onMouseDown(extendEvent(e))}
-      onMouseMove={e => onMouseMove && onMouseMove(extendEvent(e))}
-      onMouseUp={e => onMouseUp && onMouseUp(extendEvent(e))}
+      onMouseDown={(e) => onMouseDown && onMouseDown(extendEvent(e))}
+      onMouseMove={(e) => onMouseMove && onMouseMove(extendEvent(e))}
+      onMouseUp={(e) => onMouseUp && onMouseUp(extendEvent(e))}
     />
   )
 }
 
 PianoRuler.defaultProps = {
-  loop: { begin: 0, end: 0, enabled: false }
+  loop: { begin: 0, end: 0, enabled: false },
 }
 
-function test(props: PianoRulerProps, nextProps: PianoRulerProps) {
+function areEqual(props: PianoRulerProps, nextProps: PianoRulerProps) {
   return (
-    props.width !== nextProps.width ||
-    props.height !== nextProps.height ||
-    props.pixelsPerTick !== nextProps.pixelsPerTick ||
-    props.scrollLeft !== nextProps.scrollLeft ||
-    !_.isEqual(props.loop, nextProps.loop) ||
-    !_.isEqual(props.beats, nextProps.beats) ||
-    !_.isEqual(props.theme, nextProps.theme)
+    props.width === nextProps.width &&
+    props.height === nextProps.height &&
+    props.pixelsPerTick === nextProps.pixelsPerTick &&
+    props.scrollLeft === nextProps.scrollLeft &&
+    _.isEqual(props.loop, nextProps.loop) &&
+    _.isEqual(props.beats, nextProps.beats) &&
+    _.isEqual(props.theme, nextProps.theme)
   )
 }
 
-export default shouldUpdate(test)(PianoRuler)
+export default React.memo(PianoRuler, areEqual)

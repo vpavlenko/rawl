@@ -1,5 +1,4 @@
 import React, { StatelessComponent, CSSProperties } from "react"
-import { pure } from "recompose"
 import DrawCanvas from "components/DrawCanvas"
 
 function drawCursor(
@@ -30,7 +29,7 @@ const PianoCursor: StatelessComponent<PianoCursorProps> = ({
   position,
   width,
   height,
-  style
+  style,
 }) => {
   function draw(ctx: CanvasRenderingContext2D) {
     const { width, height } = ctx.canvas
@@ -52,4 +51,4 @@ const PianoCursor: StatelessComponent<PianoCursorProps> = ({
   )
 }
 
-export default pure(PianoCursor)
+export default React.memo(PianoCursor)

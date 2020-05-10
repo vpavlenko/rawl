@@ -1,5 +1,5 @@
 import React, { StatelessComponent } from "react"
-import { pure, Omit } from "recompose"
+import { Omit } from "recompose"
 import LineGraph, { LineGraphProps } from "./LineGraph"
 import { NoteCoordTransform } from "common/transform"
 import { StageMouseEvent } from "components/Stage/Stage"
@@ -34,7 +34,7 @@ const LineGraphControl: StatelessComponent<LineGraphControlProps> = ({
       x: Math.round(transform.getX(tick)),
       y:
         Math.round((1 - value / maxValue) * (props.height - lineWidth * 2)) +
-        lineWidth
+        lineWidth,
     }
   }
 
@@ -43,14 +43,14 @@ const LineGraphControl: StatelessComponent<LineGraphControlProps> = ({
       tick: transform.getTicks(position.x),
       value:
         (1 - (position.y - lineWidth) / (props.height - lineWidth * 2)) *
-        maxValue
+        maxValue,
     }
   }
 
-  const items = events.map(e => {
+  const items = events.map((e) => {
     return {
       id: e.id,
-      ...transformToPosition(e.tick, e.value)
+      ...transformToPosition(e.tick, e.value),
     }
   })
 
@@ -61,4 +61,4 @@ const LineGraphControl: StatelessComponent<LineGraphControlProps> = ({
   return <LineGraph onMouseDown={onMouseDown} items={items} {...props} />
 }
 
-export default pure(LineGraphControl)
+export default React.memo(LineGraphControl)

@@ -1,9 +1,9 @@
 import React, { StatelessComponent } from "react"
-import { pure, Omit } from "recompose"
+import { Omit } from "recompose"
 import { PitchBendEvent } from "midifile-ts"
 import LineGraphControl, {
   LineGraphControlProps,
-  LineGraphControlEvent
+  LineGraphControlEvent,
 } from "./LineGraphControl"
 import { TrackEvent } from "common/track"
 
@@ -22,10 +22,10 @@ const PitchGraph: StatelessComponent<PitchGraphProps> = ({
   events,
   transform,
   createEvent,
-  color
+  color,
 }) => {
   const filteredEvents = events.filter(
-    e => (e as any).subtype === "pitchBend"
+    (e) => (e as any).subtype === "pitchBend"
   ) as (LineGraphControlEvent & PitchBendEvent)[]
 
   return (
@@ -38,11 +38,11 @@ const PitchGraph: StatelessComponent<PitchGraphProps> = ({
       maxValue={0x4000}
       events={filteredEvents}
       axis={[-0x2000, -0x1000, 0, 0x1000, 0x2000 - 1]}
-      createEvent={obj => createEvent(obj.value, obj.tick)}
-      onClickAxis={value => createEvent(value + 0x2000)}
+      createEvent={(obj) => createEvent(obj.value, obj.tick)}
+      onClickAxis={(value) => createEvent(value + 0x2000)}
       color={color}
     />
   )
 }
 
-export default pure(PitchGraph)
+export default React.memo(PitchGraph)

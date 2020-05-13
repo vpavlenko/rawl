@@ -52,7 +52,6 @@ export type PianoRollProps = Pick<
   setControlMode: (mode: string) => void
   notesCursor: string
   cursorPosition: number
-  onMountAlpha: (ref: HTMLElement | null) => void
   loop: LoopSetting
   setLoopBegin: (tick: number) => void
   setLoopEnd: (tick: number) => void
@@ -83,7 +82,6 @@ export const PianoRoll: StatelessComponent<PianoRollProps> = ({
   setControlMode,
   notesCursor,
   cursorPosition,
-  onMountAlpha,
   loop,
   setLoopBegin,
   setLoopEnd,
@@ -94,7 +92,7 @@ export const PianoRoll: StatelessComponent<PianoRollProps> = ({
   setPlayerPosition,
   previewNote,
   changeVelocity,
-  createControlEvent
+  createControlEvent,
 }) => {
   const { keyWidth, rulerHeight } = theme
 
@@ -144,8 +142,7 @@ export const PianoRoll: StatelessComponent<PianoRollProps> = ({
       <div>
         <div
           className="alpha"
-          ref={onMountAlpha}
-          onWheel={e => {
+          onWheel={(e) => {
             e.preventDefault()
             const scrollLineHeight = transform.pixelsPerKey * SCROLL_KEY_SPEED
             const delta = scrollLineHeight * (e.deltaY > 0 ? 1 : -1)
@@ -174,9 +171,9 @@ export const PianoRoll: StatelessComponent<PianoRollProps> = ({
               cursor={notesCursor}
               scrollLeft={scrollLeft}
               isDrumMode={track.isRhythmTrack}
-              onMouseDown={e => mouseHandler.onMouseDown(e)}
-              onMouseMove={e => mouseHandler.onMouseMove(e)}
-              onMouseUp={e => mouseHandler.onMouseUp(e)}
+              onMouseDown={(e) => mouseHandler.onMouseDown(e)}
+              onMouseMove={(e) => mouseHandler.onMouseMove(e)}
+              onMouseUp={(e) => mouseHandler.onMouseUp(e)}
               theme={theme}
             />
             <PianoSelection
@@ -198,7 +195,7 @@ export const PianoRoll: StatelessComponent<PianoRollProps> = ({
               width={keyWidth}
               keyHeight={transform.pixelsPerKey}
               numberOfKeys={transform.numberOfKeys}
-              onClickKey={noteNumber => {
+              onClickKey={(noteNumber) => {
                 if (track.channel !== undefined) {
                   previewNote(noteNumber, track.channel)
                 }

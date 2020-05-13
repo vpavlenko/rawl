@@ -164,7 +164,6 @@ storiesOf("PianoRoll", module).add("empty", () => {
         setControlMode={action("setControlMode")}
         notesCursor={"default"}
         cursorPosition={100}
-        onMountAlpha={action("onMountAlpha")}
         loop={{ begin: 0, end: 200, enabled: true }}
         setLoopBegin={action("setLoopBegin")}
         setLoopEnd={action("setLoopEnd")}

@@ -47,7 +47,6 @@ const Wrapper: SFC<SPianoRollProps> = (props) => {
 
   const [pencilMouseHandler] = useState(new PencilMouseHandler(dispatch))
   const [selectionMouseHandler] = useState(new SelectionMouseHandler(dispatch))
-  const [alpha, setAlpha] = useState<HTMLElement | null>(null)
   const transform = new NoteCoordTransform(0.1 * scaleX, theme.keyHeight, 127)
 
   pencilMouseHandler.transform = transform
@@ -75,8 +74,7 @@ const Wrapper: SFC<SPianoRollProps> = (props) => {
       setScrollLeft={setScrollLeft}
       transform={transform}
       mouseHandler={mouseHandler}
-      onMountAlpha={(c) => setAlpha(c)}
-      alphaHeight={alpha?.getBoundingClientRect().height ?? 0}
+      alphaHeight={size.height}
     />
   )
 }

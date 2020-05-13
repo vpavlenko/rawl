@@ -11,7 +11,7 @@ export interface LineGraphItemData extends IPoint {
   id: number
 }
 
-export type LineGraphProps = Omit<StageProps, "items"> & {
+export type LineGraphProps = Omit<StageProps<LineGraphItem>, "items"> & {
   items: LineGraphItemData[]
   onClickAxis: (value: number) => void
   className: string

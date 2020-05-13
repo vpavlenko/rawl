@@ -21,10 +21,10 @@ export interface PianoNotesProps {
   theme: Theme
 }
 
-export interface PianoNotesMouseEvent<E> extends StageMouseEvent<E> {
+export interface PianoNotesMouseEvent<E>
+  extends StageMouseEvent<E, PianoNoteItem> {
   tick: number
   noteNumber: number
-  item: PianoNoteItem
 }
 
 /**
@@ -70,11 +70,10 @@ const PianoNotes: StatelessComponent<PianoNotesProps> = ({
   const height = transform.pixelsPerKey * transform.numberOfKeys
 
   // MouseHandler で利用する追加情報をイベントに付加する
-  const extendEvent = <S, T extends StageMouseEvent<S>>(
-    e: T
-  ): PianoNotesMouseEvent<S> => ({
+  const extendEvent = (
+    e: StageMouseEvent<MouseEvent, PianoNoteItem>
+  ): PianoNotesMouseEvent<MouseEvent> => ({
     ...e,
-    item: e.items[0] as PianoNoteItem,
     tick: transform.getTicks(e.local.x),
     noteNumber: Math.ceil(transform.getNoteNumber(e.local.y)),
   })

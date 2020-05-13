@@ -16,7 +16,7 @@ export interface PianoVelocityControlProps {
   transform: NoteCoordTransform
   scrollLeft: number
   color: CanvasDrawStyle
-  changeVelocity: (notes: Item[], velocity: number) => void
+  changeVelocity: (notes: VelocityItem[], velocity: number) => void
 }
 
 const PianoVelocityControl: SFC<PianoVelocityControlProps> = ({
@@ -28,29 +28,32 @@ const PianoVelocityControl: SFC<PianoVelocityControlProps> = ({
   color,
   changeVelocity,
 }: PianoVelocityControlProps) => {
-  const calcValue = (e: MouseEvent) =>
-    Math.round(Math.max(0, Math.min(1, 1 - e.offsetY / height)) * 127)
+  const onMouseDown = useCallback(
+    (e: StageMouseEvent<MouseEvent, VelocityItem>) => {
+      const calcValue = (e: MouseEvent) =>
+        Math.round(Math.max(0, Math.min(1, 1 - e.offsetY / height)) * 127)
 
-  const onMouseDown = useCallback((e: StageMouseEvent<MouseEvent>) => {
-    const items = e.items
-    if (items.length === 0) {
-      return
-    }
+      const items = e.items
+      if (items.length === 0) {
+        return
+      }
 
-    changeVelocity(items, calcValue(e.nativeEvent))
+      changeVelocity(items, calcValue(e.nativeEvent))
 
-    const onMouseMove = (e: MouseEvent) => {
-      changeVelocity(items, calcValue(e))
-    }
+      const onMouseMove = (e: MouseEvent) => {
+        changeVelocity(items, calcValue(e))
+      }
 
-    const onMouseUp = () => {
-      document.removeEventListener("mousemove", onMouseMove)
-      document.removeEventListener("mouseup", onMouseUp)
-    }
+      const onMouseUp = () => {
+        document.removeEventListener("mousemove", onMouseMove)
+        document.removeEventListener("mouseup", onMouseUp)
+      }
 
-    document.addEventListener("mousemove", onMouseMove)
-    document.addEventListener("mouseup", onMouseUp)
-  }, [])
+      document.addEventListener("mousemove", onMouseMove)
+      document.addEventListener("mouseup", onMouseUp)
+    },
+    [height]
+  )
 
   const items = events.filter(isNoteEvent).map((note) => {
     const { x } = transform.getRect(note)

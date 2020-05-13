@@ -19,6 +19,7 @@ import PianoVelocityControl from "./PianoVelocityControl/PianoVelocityControl"
 
 import "./ControlPane.css"
 import Item from "../Stage/Item"
+import VelocityItem from "./PianoVelocityControl/VelocityItem"
 
 interface ButtonItem {
   label: string
@@ -64,7 +65,7 @@ export interface ControlPaneProps {
   scrollLeft: number
   paddingBottom: number
   size: ISize
-  changeVelocity: (notes: Item[], velocity: number) => void
+  changeVelocity: (notes: VelocityItem[], velocity: number) => void
   createControlEvent: (mode: ControlMode, value: number, tick?: number) => void
 }
 

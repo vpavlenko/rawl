@@ -3,6 +3,7 @@ import LineGraph, { LineGraphProps } from "./LineGraph"
 import { NoteCoordTransform } from "common/transform"
 import { StageMouseEvent } from "components/Stage/Stage"
 import { IPoint } from "common/geometry"
+import LineGraphItem from "./LineGraphItem"
 
 interface ItemValue {
   tick: number
@@ -53,11 +54,13 @@ const LineGraphControl: StatelessComponent<LineGraphControlProps> = ({
     }
   })
 
-  const onMouseDown = (e: StageMouseEvent<MouseEvent>) => {
-    createEvent(transformFromPosition(e.local))
-  }
-
-  return <LineGraph onMouseDown={onMouseDown} items={items} {...props} />
+  return (
+    <LineGraph
+      onMouseDown={(e) => createEvent(transformFromPosition(e.local))}
+      items={items}
+      {...props}
+    />
+  )
 }
 
 export default React.memo(LineGraphControl)

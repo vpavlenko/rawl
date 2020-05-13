@@ -19,6 +19,7 @@ import transformEvents from "./transformEvents"
 
 import "./TempoGraph.css"
 import { CanvasDrawStyle } from "main/style"
+import TempoGraphItem from "./TempoGraphItem"
 
 type DisplayEvent = TrackEvent & SetTempoEvent
 
@@ -33,7 +34,7 @@ function HorizontalLines({
   width,
   height,
   transform,
-  borderColor
+  borderColor,
 }: HorizontalLinesProps) {
   if (!width) {
     return null
@@ -67,7 +68,7 @@ function HorizontalLines({
       width={width}
       height={height}
       className="HorizontalLines"
-      onContextMenu={e => e.preventDefault()}
+      onContextMenu={(e) => e.preventDefault()}
     />
   )
 }
@@ -81,12 +82,12 @@ interface GraphAxisProps {
 const GraphAxis: StatelessComponent<GraphAxisProps> = ({
   width,
   transform,
-  offset
+  offset,
 }) => {
   return (
     <div className="GraphAxis" style={{ width }}>
       <div className="values">
-        {_.range(30, transform.maxBPM, 30).map(t => {
+        {_.range(30, transform.maxBPM, 30).map((t) => {
           const top = Math.round(transform.getY(t)) + offset
           return (
             <div style={{ top }} key={t}>
@@ -128,10 +129,10 @@ export const TempoGraph: StatelessComponent<TempoGraphProps> = ({
   scrollLeft,
   setScrollLeft,
   changeTempo,
-  createTempo
+  createTempo,
 }) => {
   const events = sourceEvents.filter(
-    e => (e as any).subtype === "setTempo"
+    (e) => (e as any).subtype === "setTempo"
   ) as DisplayEvent[]
   scrollLeft = Math.floor(scrollLeft)
 
@@ -152,18 +153,16 @@ export const TempoGraph: StatelessComponent<TempoGraphProps> = ({
     transform,
     contentWidth,
     theme.themeColor,
-    Color(theme.themeColor)
-      .alpha(0.1)
-      .string()
+    Color(theme.themeColor).alpha(0.1).string()
   )
 
-  function onMouseDownGraph(e: StageMouseEvent<MouseEvent>) {
-    const item = e.items[0]
+  function onMouseDownGraph(e: StageMouseEvent<MouseEvent, TempoGraphItem>) {
+    const item = e.item
     if (!item) {
       return
     }
 
-    const event = events.filter(ev => ev.id === item.id)[0]
+    const event = events.filter((ev) => ev.id === item.id)[0]
     const bpm = uSecPerBeatToBPM(event.microsecondsPerBeat)
     const startY = e.nativeEvent.clientY
 
@@ -181,18 +180,18 @@ export const TempoGraph: StatelessComponent<TempoGraphProps> = ({
     document.addEventListener("mouseup", onMouseUp)
   }
 
-  function onWheelGraph(e: StageMouseEvent<WheelEvent>) {
-    const item = e.items[0]
+  function onWheelGraph(e: StageMouseEvent<WheelEvent, TempoGraphItem>) {
+    const item = e.item
     if (!item) {
       return
     }
-    const event = events.filter(ev => ev.id === item.id)[0]
+    const event = events.filter((ev) => ev.id === item.id)[0]
     const movement = e.nativeEvent.deltaY > 0 ? -1 : 1
     const bpm = uSecPerBeatToBPM(event.microsecondsPerBeat)
     changeTempo(event.id, bpmToUSecPerBeat(bpm + movement))
   }
 
-  function onDoubleClickGraph(e: StageMouseEvent<MouseEvent>) {
+  function onDoubleClickGraph(e: StageMouseEvent<MouseEvent, TempoGraphItem>) {
     const tick = transform.getTicks(e.local.x)
     const bpm = transform.getBPM(e.local.y)
     createTempo(tick, uSecPerBeatToBPM(bpm))

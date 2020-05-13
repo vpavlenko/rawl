@@ -165,13 +165,11 @@ storiesOf("PianoRoll", module).add("empty", () => {
         notesCursor={"default"}
         cursorPosition={100}
         loop={{ begin: 0, end: 200, enabled: true }}
-        setLoopBegin={action("setLoopBegin")}
-        setLoopEnd={action("setLoopEnd")}
+        onMouseDownRuler={action("onMouseDownRuler")}
         onClickScaleUp={action("onClickScaleUp")}
         onClickScaleDown={action("onClickScaleDown")}
         onClickScaleReset={action("onClickScaleReset")}
         size={{ width: 300, height: 300 }}
-        setPlayerPosition={action("setPlayerPosition")}
         mouseHandler={{
           onMouseDown: action("noteMouseHandler#onMouseDown"),
           onMouseMove: action("noteMouseHandler#onMouseMove"),

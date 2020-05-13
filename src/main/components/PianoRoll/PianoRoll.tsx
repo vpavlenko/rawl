@@ -53,14 +53,12 @@ export type PianoRollProps = Pick<
   notesCursor: string
   cursorPosition: number
   loop: LoopSetting
-  setLoopBegin: (tick: number) => void
-  setLoopEnd: (tick: number) => void
   size: ISize
   onClickScaleUp: () => void
   onClickScaleDown: () => void
   onClickScaleReset: () => void
-  setPlayerPosition: (tick: number) => void
   previewNote: (event: any, channel: number) => void
+  onMouseDownRuler: (e: TickEvent<React.MouseEvent>) => void
 }
 
 export const PianoRoll: StatelessComponent<PianoRollProps> = ({
@@ -83,13 +81,11 @@ export const PianoRoll: StatelessComponent<PianoRollProps> = ({
   notesCursor,
   cursorPosition,
   loop,
-  setLoopBegin,
-  setLoopEnd,
   size,
   onClickScaleUp,
   onClickScaleDown,
   onClickScaleReset,
-  setPlayerPosition,
+  onMouseDownRuler,
   previewNote,
   changeVelocity,
   createControlEvent,
@@ -121,17 +117,6 @@ export const PianoRoll: StatelessComponent<PianoRollProps> = ({
 
   scrollLeft = clampScroll(contentWidth - containerWidth, scrollLeft)
   scrollTop = clampScroll(contentHeight - alphaHeight, scrollTop)
-
-  const onMouseDownRuler = (e: TickEvent<React.MouseEvent>) => {
-    const tick = e.tick
-    if (e.nativeEvent.ctrlKey) {
-      setLoopBegin(tick)
-    } else if (e.nativeEvent.altKey) {
-      setLoopEnd(tick)
-    } else {
-      setPlayerPosition(tick)
-    }
-  }
 
   const onDoubleClickMark = (group: DisplayEvent[]) => {
     showEventEditor(group)

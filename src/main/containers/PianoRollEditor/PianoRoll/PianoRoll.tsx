@@ -121,9 +121,16 @@ export default compose<{}, {}>(
         loop: playerStore.loop,
         isPlaying: player.isPlaying,
         quantizer,
-        setLoopBegin: (tick) => {},
-        setLoopEnd: (tick) => {},
-        setPlayerPosition: (tick) => dispatch(setPlayerPosition(tick)),
+        onMouseDownRuler: (e) => {
+          const tick = e.tick
+          if (e.nativeEvent.ctrlKey) {
+            // setLoopBegin(tick)
+          } else if (e.nativeEvent.altKey) {
+            // setLoopEnd(tick)
+          } else {
+            dispatch(setPlayerPosition(tick))
+          }
+        },
         previewNote: (noteNumber, channel) =>
           dispatch(previewNote(noteNumber, channel)),
         dispatch,

@@ -128,7 +128,6 @@ export const PianoRoll: StatelessComponent<PianoRollProps> = ({
         <div
           className="alpha"
           onWheel={(e) => {
-            e.preventDefault()
             const scrollLineHeight = transform.pixelsPerKey * SCROLL_KEY_SPEED
             const delta = scrollLineHeight * (e.deltaY > 0 ? 1 : -1)
             setScrollTop(scrollTop + delta)

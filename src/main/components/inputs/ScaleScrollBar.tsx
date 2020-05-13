@@ -8,7 +8,6 @@ import "./ScaleScrollBar.css"
 
 interface ScaleButtonProps {
   style?: CSSProperties
-  children?: ReactNode
   onClick?: () => void
 }
 

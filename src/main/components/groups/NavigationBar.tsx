@@ -6,7 +6,6 @@ import "./NavigationBar.css"
 
 export interface NavigationBarProps {
   title?: string
-  children?: ReactNode
   className?: string
   onClickBack?: () => void
 }
@@ -15,7 +14,7 @@ const NavigationBar: StatelessComponent<NavigationBarProps> = ({
   title,
   children,
   className,
-  onClickBack
+  onClickBack,
 }) => {
   return (
     <nav className={f("NavigationBar", className)}>
@@ -29,7 +28,7 @@ const NavigationBar: StatelessComponent<NavigationBarProps> = ({
 }
 
 NavigationBar.defaultProps = {
-  title: ""
+  title: "",
 }
 
 export default NavigationBar

@@ -26,7 +26,6 @@ export interface ScrollBarProps {
   contentLength?: number
   onScroll?: (scroll: number) => void
   style?: any
-  children?: ReactNode
 }
 
 export const ScrollBar: StatelessComponent<ScrollBarProps> = ({

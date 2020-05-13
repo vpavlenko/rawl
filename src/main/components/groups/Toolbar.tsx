@@ -1,51 +1,48 @@
-import React, { ReactNode } from "react"
+import React, { ReactNode, StatelessComponent } from "react"
 import f from "helpers/flatJoin"
 
 import "./Toolbar.css"
 
 export interface ToolbarProps {
-  children?: ReactNode
   className?: string
 }
 
-export function Toolbar({ children, className }: ToolbarProps) {
-  return <div className={f("Toolbar", className)}>{children}</div>
-}
+export const Toolbar: StatelessComponent<ToolbarProps> = ({
+  children,
+  className,
+}) => <div className={f("Toolbar", className)}>{children}</div>
 
 export interface ToolbarItemProps {
-  children?: ReactNode
   selected?: boolean
   onClick?: () => void
   touchDisabled?: boolean
   className?: string
 }
 
-export function ToolbarItem({
+export const ToolbarItem: StatelessComponent<ToolbarItemProps> = ({
   children,
   className,
   selected,
   onClick,
-  touchDisabled
-}: ToolbarItemProps) {
-  return (
-    <div
-      className={f(
-        "ToolbarItem",
-        className,
-        selected ? "selected" : undefined,
-        touchDisabled ? "touch-disabled" : undefined
-      )}
-      onClick={onClick}
-    >
-      {children}
-    </div>
-  )
-}
+  touchDisabled,
+}) => (
+  <div
+    className={f(
+      "ToolbarItem",
+      className,
+      selected ? "selected" : undefined,
+      touchDisabled ? "touch-disabled" : undefined
+    )}
+    onClick={onClick}
+  >
+    {children}
+  </div>
+)
 
 export interface ToolbarSeparatorProps {
   className?: string
 }
 
-export function ToolbarSeparator({ className }: ToolbarSeparatorProps) {
-  return <div className={f("ToolbarSeparator", className)} />
-}
+export const ToolbarSeparator: StatelessComponent<ToolbarSeparatorProps> = ({
+  className,
+}) => <div className={f("ToolbarSeparator", className)} />

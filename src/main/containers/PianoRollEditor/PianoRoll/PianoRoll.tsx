@@ -131,8 +131,11 @@ export default compose<{}, {}>(
             dispatch(setPlayerPosition(tick))
           }
         },
-        previewNote: (noteNumber, channel) =>
-          dispatch(previewNote(noteNumber, channel)),
+        onClickKey: (noteNumber) => {
+          if (track !== undefined && track.channel !== undefined) {
+            dispatch(previewNote(track.channel, noteNumber))
+          }
+        },
         dispatch,
         changeVelocity: (notes, velocity) =>
           dispatch(

@@ -57,8 +57,8 @@ export type PianoRollProps = Pick<
   onClickScaleUp: () => void
   onClickScaleDown: () => void
   onClickScaleReset: () => void
-  previewNote: (event: any, channel: number) => void
   onMouseDownRuler: (e: TickEvent<React.MouseEvent>) => void
+  onClickKey: (noteNumber: number) => void
 }
 
 export const PianoRoll: StatelessComponent<PianoRollProps> = ({
@@ -86,9 +86,9 @@ export const PianoRoll: StatelessComponent<PianoRollProps> = ({
   onClickScaleDown,
   onClickScaleReset,
   onMouseDownRuler,
-  previewNote,
   changeVelocity,
   createControlEvent,
+  onClickKey,
 }) => {
   const { keyWidth, rulerHeight } = theme
 
@@ -180,11 +180,7 @@ export const PianoRoll: StatelessComponent<PianoRollProps> = ({
               width={keyWidth}
               keyHeight={transform.pixelsPerKey}
               numberOfKeys={transform.numberOfKeys}
-              onClickKey={(noteNumber) => {
-                if (track.channel !== undefined) {
-                  previewNote(noteNumber, track.channel)
-                }
-              }}
+              onClickKey={onClickKey}
             />
           </div>
           <div className="alphaRuler">

@@ -2,7 +2,7 @@ import { Dispatcher } from "main/createDispatcher"
 import { PianoNotesMouseEvent } from "components/PianoRoll/PianoNotes/PianoNotes"
 import { changeCursor, scrollBy, toggleTool } from "actions"
 
-export type MouseAction = (e: PianoNotesMouseEvent<MouseEvent>) => void
+export type MouseAction = (e: PianoNotesMouseEvent) => void
 
 export type MouseGesture = (
   onMouseDown: (action: MouseAction) => void,
@@ -24,9 +24,7 @@ export default class NoteMouseHandler {
   }
 
   // mousedown 以降に行う MouseAction を返す
-  protected actionForMouseDown(
-    e: PianoNotesMouseEvent<MouseEvent>
-  ): MouseGesture | null {
+  protected actionForMouseDown(e: PianoNotesMouseEvent): MouseGesture | null {
     // 共通の action
 
     // wheel drag to start scrolling
@@ -35,20 +33,20 @@ export default class NoteMouseHandler {
     }
 
     // 右ダブルクリック
-    if (e.nativeEvent.button === 2 && e.nativeEvent.detail % 2 === 0) {
+    /*if (e.nativeEvent.button === 2 && e.nativeEvent.detail % 2 === 0) {
       return changeToolAction(this.dispatch)
-    }
+    }*/
 
     // サブクラスで残りを実装
     return null
   }
 
-  protected getCursorForMouseMove(_: PianoNotesMouseEvent<MouseEvent>): string {
+  protected getCursorForMouseMove(_: PianoNotesMouseEvent): string {
     // サブクラスで実装
     return "auto"
   }
 
-  onMouseDown(e: PianoNotesMouseEvent<MouseEvent>) {
+  onMouseDown(e: PianoNotesMouseEvent) {
     this.action = this.actionForMouseDown(e)
     if (!this.action) {
       return
@@ -62,7 +60,7 @@ export default class NoteMouseHandler {
     )
   }
 
-  onMouseMove(e: PianoNotesMouseEvent<MouseEvent>) {
+  onMouseMove(e: PianoNotesMouseEvent) {
     if (this.action) {
       this.actionMouseMove(e)
     } else {
@@ -71,7 +69,7 @@ export default class NoteMouseHandler {
     }
   }
 
-  onMouseUp(e: PianoNotesMouseEvent<MouseEvent>) {
+  onMouseUp(e: PianoNotesMouseEvent) {
     if (this.action) {
       this.actionMouseUp(e)
     }

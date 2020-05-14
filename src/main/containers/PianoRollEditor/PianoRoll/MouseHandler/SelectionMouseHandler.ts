@@ -20,7 +20,7 @@ export default class SelectionMouseHandler extends MouseHandler {
   transform: NoteCoordTransform
   selection: SelectionModel
 
-  protected actionForMouseDown(e: PianoNotesMouseEvent<MouseEvent>) {
+  protected actionForMouseDown(e: PianoNotesMouseEvent) {
     const original = super.actionForMouseDown(e)
     if (original) {
       return original
@@ -81,7 +81,7 @@ export default class SelectionMouseHandler extends MouseHandler {
     return positionType(this.selection, this.transform, position)
   }
 
-  getCursorForMouseMove(e: PianoNotesMouseEvent<MouseEvent>) {
+  getCursorForMouseMove(e: PianoNotesMouseEvent) {
     const type = this.getPositionType(e.local)
     switch (type) {
       case "center":

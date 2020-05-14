@@ -8,6 +8,9 @@ import {
   createPan,
   createModulation,
   createExpression,
+  moveNote,
+  resizeNoteLeft,
+  resizeNoteRight,
 } from "main/actions"
 import { inject, observer } from "mobx-react"
 import React, { SFC, useState, useEffect } from "react"
@@ -20,6 +23,7 @@ import { PianoRollMouseMode } from "stores/PianoRollStore"
 import { Dispatcher } from "createDispatcher"
 import RootStore from "stores/RootStore"
 import { toJS } from "mobx"
+import { pointAdd, pointSub } from "common/geometry"
 
 export type SPianoRollProps = PianoRollProps & {
   playerPosition: number
@@ -75,6 +79,28 @@ const Wrapper: SFC<SPianoRollProps> = (props) => {
       transform={transform}
       mouseHandler={mouseHandler}
       alphaHeight={size.height}
+      onDragNote={(e) => {
+        console.log(e)
+        switch (e.position) {
+          case "center":
+            const position = pointAdd(e.item, pointSub(e.offset, e.dragStart))
+            dispatch(
+              moveNote({
+                id: e.note.id,
+                tick: transform.getTicks(position.x),
+                noteNumber: Math.round(transform.getNoteNumber(position.y)),
+                quantize: "round",
+              })
+            )
+            break
+          case "left":
+            dispatch(resizeNoteLeft(e.item.id, e.tick))
+            break
+          case "right":
+            dispatch(resizeNoteRight(e.item.id, e.tick))
+            break
+        }
+      }}
     />
   )
 }

@@ -16,7 +16,10 @@ import PianoCursor from "./PianoCursor"
 import PianoGrid from "./PianoGrid"
 import PianoKeys from "./PianoKeys"
 import PianoLines from "./PianoLines"
-import PianoNotes, { PianoNotesMouseEvent } from "./PianoNotes/PianoNotes"
+import PianoNotes, {
+  PianoNotesMouseEvent,
+  PianoNotesNoteMouseEvent,
+} from "./PianoNotes/PianoNotes"
 import PianoRuler, { TickEvent } from "./PianoRuler"
 import PianoSelection from "./PianoSelection"
 
@@ -25,9 +28,9 @@ import "./PianoRoll.css"
 const SCROLL_KEY_SPEED = 4
 
 export interface PianoNotesMouseHandler {
-  onMouseDown(e: PianoNotesMouseEvent<MouseEvent>): void
-  onMouseMove(e: PianoNotesMouseEvent<MouseEvent>): void
-  onMouseUp(e: PianoNotesMouseEvent<MouseEvent>): void
+  onMouseDown(e: PianoNotesMouseEvent): void
+  onMouseMove(e: PianoNotesMouseEvent): void
+  onMouseUp(e: PianoNotesMouseEvent): void
 }
 
 export type PianoRollProps = Pick<
@@ -35,6 +38,7 @@ export type PianoRollProps = Pick<
   "createControlEvent" | "changeVelocity"
 > & {
   mouseHandler: PianoNotesMouseHandler
+  onDragNote: (e: PianoNotesNoteMouseEvent) => void
   theme: Theme
   track: Track
   events: TrackEvent[]
@@ -63,6 +67,7 @@ export type PianoRollProps = Pick<
 
 export const PianoRoll: StatelessComponent<PianoRollProps> = ({
   mouseHandler,
+  onDragNote,
   theme,
   track,
   events,
@@ -155,9 +160,11 @@ export const PianoRoll: StatelessComponent<PianoRollProps> = ({
               cursor={notesCursor}
               scrollLeft={scrollLeft}
               isDrumMode={track.isRhythmTrack}
-              onMouseDown={(e) => mouseHandler.onMouseDown(e)}
-              onMouseMove={(e) => mouseHandler.onMouseMove(e)}
-              onMouseUp={(e) => mouseHandler.onMouseUp(e)}
+              onMouseDown={mouseHandler.onMouseDown}
+              onMouseMove={mouseHandler.onMouseMove}
+              onMouseUp={mouseHandler.onMouseUp}
+              onDragNote={onDragNote}
+              onHoverNote={() => {}}
               theme={theme}
             />
             <PianoSelection

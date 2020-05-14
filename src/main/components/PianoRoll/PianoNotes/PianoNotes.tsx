@@ -6,10 +6,15 @@ import { Stage, PixiComponent } from "@inlet/react-pixi"
 
 import _ from "lodash"
 import React, { StatelessComponent } from "react"
-import PianoNoteItem from "./PianoNoteItem"
 import { StageMouseEvent } from "../../Stage/Stage"
 import { Graphics as PIXIGraphics } from "pixi.js"
-import { PianoNoteProps, PianoNote } from "./PianoNote"
+import {
+  PianoNoteProps,
+  PianoNote,
+  PianoNoteMouseEvent,
+  PianoNoteItem,
+} from "./PianoNote"
+import { IPoint, IRect } from "src/common/geometry"
 
 export interface PianoNotesProps {
   events: TrackEvent[]
@@ -18,45 +23,27 @@ export interface PianoNotesProps {
   scrollLeft: number
   cursor: string
   selectedEventIds: number[]
-  onMouseDown: (e: PianoNotesMouseEvent<MouseEvent>) => void
-  onMouseMove: (e: PianoNotesMouseEvent<MouseEvent>) => void
-  onMouseUp: (e: PianoNotesMouseEvent<MouseEvent>) => void
+  onMouseDown: (e: PianoNotesMouseEvent) => void
+  onMouseMove: (e: PianoNotesMouseEvent) => void
+  onMouseUp: (e: PianoNotesMouseEvent) => void
+  onDragNote: (e: PianoNotesNoteMouseEvent) => void
+  onHoverNote: (e: PianoNotesNoteMouseEvent) => void
   isDrumMode: boolean
   theme: Theme
 }
 
-export interface PianoNotesMouseEvent<E>
-  extends StageMouseEvent<E, PianoNoteItem> {
+export interface PianoNotesMouseEvent {
+  nativeEvent: React.MouseEvent
+  tick: number
+  noteNumber: number
+  local: IPoint
+}
+
+export interface PianoNotesNoteMouseEvent extends PianoNoteMouseEvent {
+  note: TrackEvent
   tick: number
   noteNumber: number
 }
-
-interface RectangleProps {
-  fill?: number
-  x: number
-  y: number
-  width: number
-  height: number
-}
-
-const Rectangle = PixiComponent<RectangleProps, PIXIGraphics>("Rectangle", {
-  create: (props) => {
-    return new PIXIGraphics()
-  },
-  didMount: (instance, parent) => {
-    // apply custom logic on mount
-  },
-  willUnmount: (instance, parent) => {
-    // clean up before removal
-  },
-  applyProps: (instance, oldProps, newProps) => {
-    const { fill, x, y, width, height } = newProps
-    instance.clear()
-    instance.beginFill(fill)
-    instance.drawRect(x, y, width, height)
-    instance.endFill()
-  },
-})
 
 /**
   ノートイベントを描画するコンポーネント
@@ -71,6 +58,8 @@ const PianoNotes: StatelessComponent<PianoNotesProps> = ({
   onMouseDown,
   onMouseMove,
   onMouseUp,
+  onDragNote,
+  onHoverNote,
   isDrumMode,
   theme,
 }) => {
@@ -80,8 +69,8 @@ const PianoNotes: StatelessComponent<PianoNotesProps> = ({
   const selectedColor = baseColor.lighten(0.7).rgbNumber()
   const selectedBorderColor = baseColor.lighten(0.8).rgbNumber()
 
-  const items: PianoNoteProps[] = events.filter(isNoteEvent).map(
-    (e): PianoNoteProps => {
+  const items: PianoNoteItem[] = events.filter(isNoteEvent).map(
+    (e): PianoNoteItem => {
       const rect = transform.getRect(e)
       const isSelected = selectedEventIds.includes(e.id)
       return {
@@ -89,54 +78,49 @@ const PianoNotes: StatelessComponent<PianoNotesProps> = ({
         id: e.id,
         velocity: e.velocity,
         isSelected,
-        color,
-        borderColor,
-        selectedColor,
-        selectedBorderColor,
       }
     }
   )
   const height = transform.pixelsPerKey * transform.numberOfKeys
 
   // MouseHandler で利用する追加情報をイベントに付加する
-  // const extendEvent = (
-  //   e: MouseEvent
-  // ): PianoNotesMouseEvent<MouseEvent> => ({
-  //   ...e,
-  //   tick: transform.getTicks(e.local.x),
-  //   noteNumber: Math.ceil(transform.getNoteNumber(e.local.y)),
-  // })
+  const extendEvent = (e: React.MouseEvent): PianoNotesMouseEvent => ({
+    nativeEvent: e,
+    local: { x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY },
+    tick: transform.getTicks(e.nativeEvent.offsetX),
+    noteNumber: Math.ceil(transform.getNoteNumber(e.nativeEvent.offsetY)),
+  })
+
+  const extendNoteEvent = (
+    e: PianoNoteMouseEvent,
+    eventID: number
+  ): PianoNotesNoteMouseEvent => ({
+    ...e,
+    note: events.find((e) => e.id === eventID)!,
+    tick: transform.getTicks(e.offset.x),
+    noteNumber: Math.ceil(transform.getNoteNumber(e.offset.y)),
+  })
+
+  const handleMouseDown = (e: React.MouseEvent) => onMouseDown(extendEvent(e))
 
   return (
-    <Stage className="PianoNotes" width={width} height={height}>
+    <Stage
+      className="PianoNotes"
+      width={width}
+      height={height}
+      onMouseDown={handleMouseDown}
+    >
       {items.map((item) => (
         <PianoNote
           key={item.id}
-          {...item}
-          pointerdown={(e) => {
-            console.log(
-              "down",
-              item.id,
-              e.data.getLocalPosition(e.currentTarget.parent)
-            )
-          }}
-          pointerdrag={(e) => {
-            console.log(
-              "move",
-              item.id,
-              e.data.getLocalPosition(e.currentTarget.parent)
-            )
-          }}
-          pointerhover={(e) =>
-            console.log("hover", e.data.getLocalPosition(e.target))
-          }
-          pointerup={(e) => {
-            console.log(
-              "up",
-              item.id,
-              e.data.getLocalPosition(e.currentTarget.parent)
-            )
-          }}
+          item={item}
+          color={color}
+          borderColor={borderColor}
+          selectedColor={selectedColor}
+          selectedBorderColor={selectedBorderColor}
+          onMouseDrag={(e) => onDragNote(extendNoteEvent(e, item.id))}
+          onMouseHover={(e) => onHoverNote(extendNoteEvent(e, item.id))}
+          isDrum={isDrumMode}
         />
       ))}
     </Stage>

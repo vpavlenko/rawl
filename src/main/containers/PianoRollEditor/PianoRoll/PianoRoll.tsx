@@ -80,10 +80,11 @@ const Wrapper: SFC<SPianoRollProps> = (props) => {
       mouseHandler={mouseHandler}
       alphaHeight={size.height}
       onDragNote={(e) => {
-        console.log(e)
         switch (e.position) {
           case "center":
-            const position = pointAdd(e.item, pointSub(e.offset, e.dragStart))
+            const delta = pointSub(e.offset, e.dragStart)
+            console.log(delta)
+            const position = pointAdd(e.dragItem, delta)
             dispatch(
               moveNote({
                 id: e.note.id,
@@ -94,10 +95,10 @@ const Wrapper: SFC<SPianoRollProps> = (props) => {
             )
             break
           case "left":
-            dispatch(resizeNoteLeft(e.item.id, e.tick))
+            dispatch(resizeNoteLeft(e.dragItem.id, e.tick))
             break
           case "right":
-            dispatch(resizeNoteRight(e.item.id, e.tick))
+            dispatch(resizeNoteRight(e.dragItem.id, e.tick))
             break
         }
       }}

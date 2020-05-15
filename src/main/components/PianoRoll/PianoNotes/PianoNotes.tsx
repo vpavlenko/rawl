@@ -2,19 +2,13 @@ import Color from "color"
 import Theme from "common/theme"
 import { isNoteEvent, TrackEvent } from "common/track"
 import { NoteCoordTransform } from "common/transform"
-import { Stage, PixiComponent } from "@inlet/react-pixi"
+import { Stage, Container } from "@inlet/react-pixi"
 
 import _ from "lodash"
 import React, { StatelessComponent } from "react"
-import { StageMouseEvent } from "../../Stage/Stage"
-import { Graphics as PIXIGraphics } from "pixi.js"
-import {
-  PianoNoteProps,
-  PianoNote,
-  PianoNoteMouseEvent,
-  PianoNoteItem,
-} from "./PianoNote"
-import { IPoint, IRect } from "src/common/geometry"
+import { PianoNote, PianoNoteMouseEvent, PianoNoteItem } from "./PianoNote"
+import { IPoint } from "src/common/geometry"
+import { Rectangle } from "pixi.js"
 
 export interface PianoNotesProps {
   events: TrackEvent[]
@@ -33,7 +27,7 @@ export interface PianoNotesProps {
 }
 
 export interface PianoNotesMouseEvent {
-  nativeEvent: React.MouseEvent
+  nativeEvent: MouseEvent
   tick: number
   noteNumber: number
   local: IPoint
@@ -84,12 +78,17 @@ const PianoNotes: StatelessComponent<PianoNotesProps> = ({
   const height = transform.pixelsPerKey * transform.numberOfKeys
 
   // MouseHandler で利用する追加情報をイベントに付加する
-  const extendEvent = (e: React.MouseEvent): PianoNotesMouseEvent => ({
-    nativeEvent: e,
-    local: { x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY },
-    tick: transform.getTicks(e.nativeEvent.offsetX),
-    noteNumber: Math.ceil(transform.getNoteNumber(e.nativeEvent.offsetY)),
-  })
+  const extendEvent = (
+    e: PIXI.interaction.InteractionEvent
+  ): PianoNotesMouseEvent => {
+    const local = e.data.getLocalPosition(e.target)
+    return {
+      nativeEvent: e.data.originalEvent as MouseEvent,
+      local,
+      tick: transform.getTicks(local.x),
+      noteNumber: Math.ceil(transform.getNoteNumber(local.y)),
+    }
+  }
 
   const extendNoteEvent = (
     e: PianoNoteMouseEvent,
@@ -101,28 +100,31 @@ const PianoNotes: StatelessComponent<PianoNotesProps> = ({
     noteNumber: Math.ceil(transform.getNoteNumber(e.offset.y)),
   })
 
-  const handleMouseDown = (e: React.MouseEvent) => onMouseDown(extendEvent(e))
+  const handleMouseDown = (e: PIXI.interaction.InteractionEvent) =>
+    onMouseDown(extendEvent(e))
 
   return (
-    <Stage
-      className="PianoNotes"
-      width={width}
-      height={height}
-      onMouseDown={handleMouseDown}
-    >
-      {items.map((item) => (
-        <PianoNote
-          key={item.id}
-          item={item}
-          color={color}
-          borderColor={borderColor}
-          selectedColor={selectedColor}
-          selectedBorderColor={selectedBorderColor}
-          onMouseDrag={(e) => onDragNote(extendNoteEvent(e, item.id))}
-          onMouseHover={(e) => onHoverNote(extendNoteEvent(e, item.id))}
-          isDrum={isDrumMode}
-        />
-      ))}
+    <Stage className="PianoNotes" width={width} height={height}>
+      <Container
+        mousedown={handleMouseDown}
+        x={-scrollLeft}
+        interactive={true}
+        hitArea={new Rectangle(0, 0, 100000, 100000)} // catch all hits
+      >
+        {items.map((item) => (
+          <PianoNote
+            key={item.id}
+            item={item}
+            color={color}
+            borderColor={borderColor}
+            selectedColor={selectedColor}
+            selectedBorderColor={selectedBorderColor}
+            onMouseDrag={(e) => onDragNote(extendNoteEvent(e, item.id))}
+            onMouseHover={(e) => onHoverNote(extendNoteEvent(e, item.id))}
+            isDrum={isDrumMode}
+          />
+        ))}
+      </Container>
     </Stage>
   )
 }

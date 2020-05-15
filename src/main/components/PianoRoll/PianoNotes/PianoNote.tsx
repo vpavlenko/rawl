@@ -1,4 +1,4 @@
-import React, { useCallback } from "react"
+import React, { useCallback, useRef } from "react"
 import { Graphics as PIXIGraphics } from "pixi.js"
 import { IRect, IPoint } from "src/common/geometry"
 import { useState } from "react"
@@ -25,7 +25,8 @@ export type MousePositionType = "left" | "center" | "right"
 
 export interface PianoNoteMouseEvent {
   nativeEvent: PIXI.interaction.InteractionEvent
-  item: PianoNoteItem
+  // ドラッグ開始時の item
+  dragItem: PianoNoteItem
   position: MousePositionType
   offset: IPoint
   dragStart: IPoint
@@ -70,31 +71,39 @@ export const PianoNote = (props: PianoNoteProps) => {
   const [dragging, setDragging] = useState(false)
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 })
   const [dragPosition, setDragPosition] = useState<MousePositionType>("center")
+  const [dragItem, setDragItem] = useState<PianoNoteItem>(item)
 
   const beginHover = useCallback(() => setHover(true), [setHover])
   const endHover = useCallback(() => setHover(false), [setHover])
-  const beginDragging = useCallback(
-    (e: PIXI.interaction.InteractionEvent) => {
-      const offset = e.data.getLocalPosition(e.target.parent)
-      const local = {
-        x: offset.x - item.x,
-        y: offset.y - item.y,
-      }
-      setDragPosition(getPositionType(local.x, item.width))
-      setDragStart(offset)
-      setDragging(true)
-    },
-    [setDragging]
-  )
+  const beginDragging = (e: PIXI.interaction.InteractionEvent) => {
+    e.stopPropagation()
+    e.data.originalEvent.stopImmediatePropagation()
+
+    if (dragging) {
+      return
+    }
+
+    const offset = e.data.getLocalPosition(e.target.parent)
+    const local = {
+      x: offset.x - item.x,
+      y: offset.y - item.y,
+    }
+    setDragPosition(getPositionType(local.x, item.width))
+    setDragStart(offset)
+    setDragging(true)
+    setDragItem({ ...item })
+  }
   const endDragging = useCallback(() => setDragging(false), [setDragging])
+
+  const ref = useRef<PIXIGraphics>(null)
 
   const extendEvent = (
     e: PIXI.interaction.InteractionEvent
   ): PianoNoteMouseEvent => {
-    const offset = e.data.getLocalPosition(e.currentTarget.parent)
+    const offset = e.data.getLocalPosition(ref.current!.parent)
     return {
       nativeEvent: e,
-      item,
+      dragItem,
       dragStart,
       offset,
       position: dragPosition,
@@ -105,6 +114,8 @@ export const PianoNote = (props: PianoNoteProps) => {
     (e: PIXI.interaction.InteractionEvent) => {
       if (dragging) {
         props.onMouseDrag?.(extendEvent(e))
+        e.stopPropagation()
+        e.data.originalEvent.stopImmediatePropagation()
       } else if (hovering) {
         props.onMouseHover?.(extendEvent(e))
       }
@@ -114,6 +125,7 @@ export const PianoNote = (props: PianoNoteProps) => {
 
   return (
     <Graphics
+      ref={ref}
       draw={props.isDrum ? renderDrumNote : render}
       x={Math.round(item.x)}
       y={Math.round(item.y)}

@@ -13,31 +13,24 @@ import { Graphics, Text, Container } from "@inlet/react-pixi"
 import Color from "color"
 import { isBlackKey } from "common/helpers/noteNumber"
 
-function drawBorder(ctx: PIXIGraphics, width: number, dividerColor: number) {
-  ctx.lineStyle(1, dividerColor).moveTo(0, 0).lineTo(width, 0)
-}
-
 interface BlackKeyProps {
   width: number
   height: number
-  color: number
-  dividerColor: number
   position: Point
 }
 
-const BlackKey: SFC<BlackKeyProps> = ({
-  width,
-  height,
-  color,
-  dividerColor,
-  position,
-}) => {
+const BlackKey: SFC<BlackKeyProps> = ({ width, height, position }) => {
+  const theme = useTheme()
+  const color = Color(theme.pianoKeyBlack).rgbNumber()
+  const dividerColor = Color(theme.dividerColor).rgbNumber()
+
   const keyWidth = width * 0.64
   const draw = (ctx: PIXIGraphics) => {
+    ctx.clear().lineStyle().beginFill(color).drawRect(0, 0.5, keyWidth, height)
+
     const middle = Math.round(height / 2)
-    ctx.clear().beginFill(color).drawRect(0, 0.5, keyWidth, height)
     ctx
-      .lineStyle(1, dividerColor)
+      .lineStyle(1, dividerColor, 0.3)
       .moveTo(keyWidth, middle)
       .lineTo(width, middle)
   }
@@ -92,7 +85,10 @@ const PianoKeys: SFC<PianoKeysProps> = ({
       .beginFill(Color(theme.pianoKeyWhite).rgbNumber())
       .drawRect(0, 0, width, keyHeight * numberOfKeys)
 
-    drawBorder(ctx, width, Color(theme.dividerColor).rgbNumber())
+    ctx
+      .lineStyle(1, Color(theme.dividerColor).rgbNumber())
+      .moveTo(0, 0)
+      .lineTo(width, 0)
   }
 
   function pixelsToNoteNumber(y: number): number {
@@ -125,8 +121,6 @@ const PianoKeys: SFC<PianoKeysProps> = ({
         position={new Point(0, (numberOfKeys - i - 1) * keyHeight)}
         height={keyHeight}
         width={width}
-        color={Color(theme.pianoKeyBlack).rgbNumber()}
-        dividerColor={Color(theme.dividerColor).rgbNumber()}
       />
     ))
 
@@ -138,7 +132,10 @@ const PianoKeys: SFC<PianoKeysProps> = ({
         <Graphics
           key={i}
           draw={(g) =>
-            drawBorder(g, width, Color(theme.dividerColor).rgbNumber())
+            g
+              .lineStyle(1, Color(theme.dividerColor).rgbNumber(), 0.6)
+              .moveTo(0, 0)
+              .lineTo(width, 0)
           }
           position={new Point(0, y)}
         />

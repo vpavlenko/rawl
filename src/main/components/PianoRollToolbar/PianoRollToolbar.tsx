@@ -21,6 +21,10 @@ import { VolumeSlider } from "./VolumeSlider"
 import { PanSlider } from "./PanSlider"
 
 const useStyles = makeStyles((theme) => ({
+  appBar: {
+    background: "var(--background-color)",
+    borderBottom: "1px solid var(--divider-color)",
+  },
   title: {
     marginRight: "1rem",
   },
@@ -71,7 +75,7 @@ export const PianoRollToolbar: StatelessComponent<PianoRollToolbarProps> = ({
 }) => {
   const classes = useStyles({})
   return (
-    <AppBar position="static">
+    <AppBar position="static" elevation={0} className={classes.appBar}>
       <Toolbar variant="dense">
         <IconButton onClick={onClickNavBack} color="inherit">
           <MenuIcon />

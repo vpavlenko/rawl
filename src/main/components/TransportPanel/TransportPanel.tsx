@@ -7,7 +7,8 @@ import { Stop, FastRewind, FastForward, PlayArrow } from "@material-ui/icons"
 const useStyles = makeStyles((theme) => ({
   toolbar: {
     justifyContent: "center",
-    background: "var(--secondary-background-color)",
+    background: "var(--background-color)",
+    borderTop: "1px solid var(--divider-color)",
   },
   loop: {
     marginLeft: "1rem",

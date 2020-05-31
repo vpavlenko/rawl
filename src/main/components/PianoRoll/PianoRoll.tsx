@@ -234,6 +234,8 @@ export const PianoRoll: StatelessComponent<PianoRollProps> = ({
                   .beginFill(Color(theme.backgroundColor).rgbNumber())
                   .drawRect(0, 0, theme.keyWidth, theme.rulerHeight)
                 g.lineStyle(1, Color(theme.dividerColor).rgbNumber())
+                  .moveTo(theme.keyWidth, 0)
+                  .lineTo(theme.keyWidth, theme.rulerHeight)
                   .moveTo(0, theme.rulerHeight)
                   .lineTo(width, theme.rulerHeight)
               }}

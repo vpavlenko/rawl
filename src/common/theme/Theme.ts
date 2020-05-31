@@ -33,5 +33,5 @@ export const defaultTheme: Theme = {
   rulerHeight: 30,
   pianoKeyBlack: "#272a36",
   pianoKeyWhite: "#fbfcff",
-  pianoBlackKeyLaneColor: "#1f2029"
+  pianoBlackKeyLaneColor: "#1f2029",
 }

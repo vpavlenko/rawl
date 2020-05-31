@@ -4,7 +4,7 @@ import { NoteCoordTransform } from "common/transform"
 import { Stage, Container } from "@inlet/react-pixi"
 
 import _ from "lodash"
-import React, { StatelessComponent } from "react"
+import React, { StatelessComponent, useCallback } from "react"
 import { PianoNote, PianoNoteMouseEvent, PianoNoteItem } from "./PianoNote"
 import { IPoint } from "common/geometry"
 import { Rectangle } from "pixi.js"
@@ -97,6 +97,15 @@ const PianoNotes: StatelessComponent<PianoNotesProps> = ({
   const handleMouseDown = (e: PIXI.interaction.InteractionEvent) =>
     onMouseDown(extendEvent(e))
 
+  const _onDragNote = useCallback(
+    (e: PianoNoteMouseEvent) => onDragNote(extendNoteEvent(e, e.dragItem.id)),
+    []
+  )
+  const _onHoverNote = useCallback(
+    (e: PianoNoteMouseEvent) => onHoverNote(extendNoteEvent(e, e.dragItem.id)),
+    []
+  )
+
   return (
     <Container
       mousedown={handleMouseDown}
@@ -111,8 +120,8 @@ const PianoNotes: StatelessComponent<PianoNotesProps> = ({
           borderColor={borderColor}
           selectedColor={selectedColor}
           selectedBorderColor={selectedBorderColor}
-          onMouseDrag={(e) => onDragNote(extendNoteEvent(e, item.id))}
-          onMouseHover={(e) => onHoverNote(extendNoteEvent(e, item.id))}
+          onMouseDrag={_onDragNote}
+          onMouseHover={_onHoverNote}
           isDrum={isDrumMode}
         />
       ))}

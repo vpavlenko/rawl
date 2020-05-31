@@ -1,8 +1,9 @@
-import React, { useCallback, useRef } from "react"
+import React, { useCallback, useRef, SFC } from "react"
 import { Graphics as PIXIGraphics } from "pixi.js"
 import { IRect, IPoint } from "src/common/geometry"
 import { useState } from "react"
 import { Graphics } from "@inlet/react-pixi"
+import _ from "lodash"
 
 export type PianoNoteItem = IRect & {
   id: number
@@ -32,7 +33,7 @@ export interface PianoNoteMouseEvent {
   dragStart: IPoint
 }
 
-export const PianoNote = (props: PianoNoteProps) => {
+const _PianoNote: SFC<PianoNoteProps> = (props) => {
   const { item } = props
   const render = (g: PIXIGraphics) => {
     const alpha = item.velocity / 127
@@ -123,6 +124,8 @@ export const PianoNote = (props: PianoNoteProps) => {
     [dragging, hovering]
   )
 
+  console.log(`render ${item.id}`)
+
   return (
     <Graphics
       ref={ref}
@@ -150,3 +153,5 @@ function getPositionType(localX: number, width: number): MousePositionType {
   }
   return "center"
 }
+
+export const PianoNote = React.memo(_PianoNote, _.isEqual)

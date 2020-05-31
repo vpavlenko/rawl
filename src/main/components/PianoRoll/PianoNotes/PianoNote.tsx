@@ -42,15 +42,15 @@ const _PianoNote: SFC<PianoNoteProps> = (props) => {
 
     width = Math.round(width - 1) // 次のノートと被らないように小さくする
     height = Math.round(height)
+    const lineColor = item.isSelected
+      ? props.selectedBorderColor
+      : props.borderColor
 
-    g.alpha = alpha
-    g.lineStyle(
-      1,
-      item.isSelected ? props.selectedBorderColor : props.borderColor
-    )
-    g.beginFill(noteColor)
-    g.drawRect(0, 0, width, height)
-    g.endFill()
+    g.clear()
+      .lineStyle(1, lineColor, alpha)
+      .beginFill(noteColor, alpha)
+      .drawRect(0, 0, width, height)
+      .endFill()
   }
 
   const renderDrumNote = (g: PIXIGraphics) => {
@@ -62,10 +62,11 @@ const _PianoNote: SFC<PianoNoteProps> = (props) => {
     height = Math.round(height)
     const radius = Math.round(height / 2)
 
-    g.beginFill(noteColor, alpha)
-    g.arc(x, y + radius, radius, 0, 2 * Math.PI)
-    g.lineStyle(1, props.borderColor, 1)
-    g.endFill()
+    g.clear()
+      .lineStyle(1, props.borderColor, 1)
+      .beginFill(noteColor, alpha)
+      .arc(x, y + radius, radius, 0, 2 * Math.PI)
+      .endFill()
   }
 
   const [hovering, setHover] = useState(false)

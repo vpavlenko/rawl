@@ -25,9 +25,10 @@ import PianoSelection from "./PianoSelection"
 
 import "./PianoRoll.css"
 import { useTheme } from "main/hooks/useTheme"
-import { Stage, Container } from "@inlet/react-pixi"
+import { Stage, Container, Graphics } from "@inlet/react-pixi"
 import { Point, interaction, Rectangle } from "pixi.js"
 import { theme } from "src/common/theme/muiTheme"
+import Color from "color"
 
 const SCROLL_KEY_SPEED = 4
 
@@ -226,6 +227,17 @@ export const PianoRoll: StatelessComponent<PianoRollProps> = ({
                 onClickKey={onClickKey}
               />
             </Container>
+            <Graphics
+              draw={(g) => {
+                g.clear()
+                  .lineStyle()
+                  .beginFill(Color(theme.backgroundColor).rgbNumber())
+                  .drawRect(0, 0, theme.keyWidth, theme.rulerHeight)
+                g.lineStyle(1, Color(theme.dividerColor).rgbNumber())
+                  .moveTo(0, theme.rulerHeight)
+                  .lineTo(width, theme.rulerHeight)
+              }}
+            />
           </Stage>
           <VerticalScrollBar
             scrollOffset={scrollTop}

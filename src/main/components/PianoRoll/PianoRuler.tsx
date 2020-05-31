@@ -143,7 +143,9 @@ const PianoRuler: SFC<PianoRulerProps> = ({
   }
 
   const drawBackground = (g: PIXIGraphics) => {
-    g.beginFill(Color(theme.backgroundColor).rgbNumber())
+    g.clear()
+    g.lineStyle()
+      .beginFill(Color(theme.backgroundColor).rgbNumber())
       .drawRect(0, 0, width, height)
       .endFill()
     g.lineStyle(1, Color(theme.dividerColor).rgbNumber())

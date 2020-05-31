@@ -191,7 +191,7 @@ export const PianoRoll: StatelessComponent<PianoRollProps> = ({
               />
             </Container>
             <PianoKeys
-              position={new Point(0, -scrollTop)}
+              position={new Point(0, -scrollTop + theme.rulerHeight)}
               keyHeight={transform.pixelsPerKey}
               numberOfKeys={transform.numberOfKeys}
               onClickKey={onClickKey}

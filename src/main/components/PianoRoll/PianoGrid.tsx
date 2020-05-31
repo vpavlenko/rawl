@@ -16,6 +16,7 @@ function drawBeatLines(
 ) {
   // 密過ぎる時は省略する
   const shouldOmit = beats.length > 1 && beats[1].x - beats[0].x <= 5
+  ctx.clear()
 
   beats.forEach(({ beat, x }) => {
     const isBold = beat === 0

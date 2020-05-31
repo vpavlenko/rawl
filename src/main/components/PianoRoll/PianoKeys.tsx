@@ -8,10 +8,10 @@ import {
 import _ from "lodash"
 
 import { noteNameWithOctString } from "helpers/noteNumberString"
-import Theme from "common/theme"
 import { useTheme } from "main/hooks/useTheme"
 import { Graphics, Text, Container } from "@inlet/react-pixi"
 import Color from "color"
+import { isBlackKey } from "common/helpers/noteNumber"
 
 function drawBorder(ctx: PIXIGraphics, width: number, dividerColor: number) {
   ctx.lineStyle(1, dividerColor).moveTo(0, 0).lineTo(width, 0)
@@ -46,21 +46,13 @@ const BlackKey: SFC<BlackKeyProps> = ({
 
 interface LabelProps {
   width: number
-  height: number
   y: number
   keyNum: number
   font: string
   color: number
 }
 
-const KeyLabel: SFC<LabelProps> = ({
-  width,
-  height,
-  keyNum,
-  font,
-  color,
-  y,
-}) => {
+const KeyLabel: SFC<LabelProps> = ({ width, keyNum, font, color, y }) => {
   const x = width - 20
   const style = new TextStyle({
     fontFamily: font,
@@ -70,15 +62,13 @@ const KeyLabel: SFC<LabelProps> = ({
   })
   return (
     <Text
-      position={new Point(x, height / 2 + y - 5)}
+      position={new Point(x, y - 3)}
       style={style}
       text={noteNameWithOctString(keyNum)}
     />
   )
 }
 
-const colors = [0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0]
-const isBlackKey = (key: number) => colors[key % colors.length]
 const isBordered = (key: number) => key % 12 === 4 || key % 12 === 11
 
 export interface PianoKeysProps {
@@ -123,7 +113,7 @@ const PianoKeys: SFC<PianoKeysProps> = ({
       height={keyHeight}
       keyNum={i}
       key={i}
-      y={i * keyHeight}
+      y={(numberOfKeys - i - 1) * keyHeight}
       font={theme.canvasFont}
       color={Color(theme.secondaryTextColor).rgbNumber()}
     />

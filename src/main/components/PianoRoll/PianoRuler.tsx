@@ -1,28 +1,37 @@
-import React, { StatelessComponent, MouseEvent } from "react"
+import React, { SFC } from "react"
+import {
+  Graphics as PIXIGraphics,
+  interaction,
+  TextStyle,
+  Point,
+} from "pixi.js"
 import _ from "lodash"
 
 import { LoopSetting } from "common/player"
-import DrawCanvas from "components/DrawCanvas"
 
-import "./PianoRuler.css"
 import Theme from "common/theme"
 import { BeatWithX } from "helpers/mapBeats"
+import { useTheme } from "main/hooks/useTheme"
+import { Graphics, Text, Container } from "@inlet/react-pixi"
+import Color from "color"
 
-function drawRuler(
-  ctx: CanvasRenderingContext2D,
-  height: number,
-  beats: BeatWithX[],
+interface BeatProps {
+  height: number
+  beat: BeatWithX
+  shouldOmit: boolean
   theme: Theme
-) {
-  ctx.strokeStyle = theme.secondaryTextColor
-  ctx.lineWidth = 1
-  ctx.beginPath()
+}
 
-  // 密過ぎる時は省略する
-  const shouldOmit = beats.length > 1 && beats[1].x - beats[0].x <= 5
+const Beat: SFC<BeatProps> = ({
+  beat: { beat, measure, x },
+  shouldOmit,
+  height,
+  theme,
+}) => {
+  const isTop = beat === 0
 
-  beats.forEach(({ beat, measure, x }) => {
-    const isTop = beat === 0
+  const draw = (ctx: PIXIGraphics) => {
+    ctx.clear().lineStyle(1, Color(theme.secondaryTextColor).rgbNumber())
 
     if (isTop) {
       ctx.moveTo(x, height / 2)
@@ -31,64 +40,88 @@ function drawRuler(
       ctx.moveTo(x, height * 0.8)
       ctx.lineTo(x, height)
     }
+  }
 
-    // 小節番号
-    // 省略時は2つに1つ描画
-    if (isTop && (!shouldOmit || measure % 2 === 0)) {
-      ctx.textBaseline = "top"
-      ctx.font = `12px ${theme.canvasFont}`
-      ctx.fillStyle = theme.secondaryTextColor
-      ctx.fillText(`${measure}`, x + 5, 2)
-    }
+  // 小節番号
+  // 省略時は2つに1つ描画
+  const shouldDrawText = isTop && (!shouldOmit || measure % 2 === 0)
+
+  const textStyle = new TextStyle({
+    fontSize: 12,
+    fontFamily: theme.canvasFont,
+    fill: Color(theme.secondaryTextColor).rgbNumber(),
   })
-
-  ctx.closePath()
-  ctx.stroke()
+  return (
+    <>
+      <Graphics draw={draw} />
+      {shouldDrawText && (
+        <Text
+          position={new Point(x + 5, 2)}
+          text={`${measure}`}
+          style={textStyle}
+        />
+      )}
+    </>
+  )
 }
 
-function drawLoopPoints(
-  ctx: CanvasRenderingContext2D,
-  loop: LoopSetting,
-  height: number,
-  pixelsPerTick: number,
+interface LoopPointsProps {
+  loop: LoopSetting
+  height: number
+  pixelsPerTick: number
   theme: Theme
-) {
+}
+
+// LoopPoints: SFC に書き換える
+const LoopPoints: SFC<LoopPointsProps> = ({
+  loop,
+  height,
+  pixelsPerTick,
+  theme,
+}) => {
   const lineWidth = 1
   const flagSize = 8
-  ctx.fillStyle = loop.enabled ? theme.themeColor : theme.secondaryTextColor
-  ctx.beginPath()
 
-  const beginX = loop.begin * pixelsPerTick
-  const endX = loop.end * pixelsPerTick
+  const draw = (ctx: PIXIGraphics) => {
+    const color = loop.enabled ? theme.themeColor : theme.secondaryTextColor
+    ctx.clear().beginFill(Color(color).rgbNumber())
 
-  if (loop.begin !== null) {
-    const x = beginX
-    ctx.moveTo(x, 0)
-    ctx.lineTo(x + lineWidth + flagSize, 0)
-    ctx.lineTo(x + lineWidth, flagSize)
-    ctx.lineTo(x + lineWidth, height)
-    ctx.lineTo(x, height)
-    ctx.lineTo(x, 0)
+    const beginX = loop.begin * pixelsPerTick
+    const endX = loop.end * pixelsPerTick
+
+    if (loop.begin !== null) {
+      const x = beginX
+      ctx
+        .moveTo(x, 0)
+        .lineTo(x + lineWidth + flagSize, 0)
+        .lineTo(x + lineWidth, flagSize)
+        .lineTo(x + lineWidth, height)
+        .lineTo(x, height)
+        .lineTo(x, 0)
+    }
+
+    if (loop.end !== null) {
+      const x = endX
+      ctx
+        .moveTo(x, 0)
+        .lineTo(x - lineWidth - flagSize, 0)
+        .lineTo(x - lineWidth, flagSize)
+        .lineTo(x - lineWidth, height)
+        .lineTo(x, height)
+        .lineTo(x, 0)
+    }
+
+    ctx.endFill()
+
+    if (loop.begin !== null && loop.end !== null) {
+      ctx
+        .beginFill(Color("rgba(0, 0, 0, 0.02)").rgbNumber())
+        .drawRect(beginX, 0, endX - beginX, height)
+        .endFill()
+    }
   }
 
-  if (loop.end !== null) {
-    const x = endX
-    ctx.moveTo(x, 0)
-    ctx.lineTo(x - lineWidth - flagSize, 0)
-    ctx.lineTo(x - lineWidth, flagSize)
-    ctx.lineTo(x - lineWidth, height)
-    ctx.lineTo(x, height)
-    ctx.lineTo(x, 0)
-  }
-
-  ctx.closePath()
-  ctx.fill()
-
-  if (loop.begin !== null && loop.end !== null) {
-    ctx.rect(beginX, 0, endX - beginX, height)
-    ctx.fillStyle = "rgba(0, 0, 0, 0.02)"
-    ctx.fill()
-  }
+  return <Graphics draw={draw} />
 }
 
 export interface TickEvent<E> {
@@ -98,56 +131,73 @@ export interface TickEvent<E> {
 
 export interface PianoRulerProps {
   width: number
-  height: number
   pixelsPerTick: number
   scrollLeft: number
   beats: BeatWithX[]
-  theme: Theme
-  onMouseDown?: (e: TickEvent<React.MouseEvent>) => void
-  onMouseMove?: (e: TickEvent<React.MouseEvent>) => void
-  onMouseUp?: (e: TickEvent<React.MouseEvent>) => void
+  onMouseDown?: (e: TickEvent<MouseEvent>) => void
+  onMouseMove?: (e: TickEvent<MouseEvent>) => void
+  onMouseUp?: (e: TickEvent<MouseEvent>) => void
   loop?: LoopSetting
 }
 
-const PianoRuler: StatelessComponent<PianoRulerProps> = ({
+const PianoRuler: SFC<PianoRulerProps> = ({
   width,
-  height,
   pixelsPerTick,
   scrollLeft,
   beats,
-  theme,
   onMouseDown,
   onMouseMove,
   onMouseUp,
   loop,
 }) => {
-  function draw(ctx: CanvasRenderingContext2D) {
-    const { width, height } = ctx.canvas
-    ctx.clearRect(0, 0, width, height)
-    ctx.save()
-    ctx.translate(-scrollLeft + 0.5, 0)
-    drawRuler(ctx, height, beats, theme)
-    if (loop !== undefined) {
-      drawLoopPoints(ctx, loop, height, pixelsPerTick, theme)
+  const theme = useTheme()
+  const height = theme.rulerHeight
+
+  const extendEvent = (
+    e: interaction.InteractionEvent
+  ): TickEvent<MouseEvent> => {
+    const local = e.data.getLocalPosition(e.target)
+    return {
+      nativeEvent: e.data.originalEvent as MouseEvent,
+      tick: (local.x + scrollLeft) / pixelsPerTick,
     }
-    ctx.restore()
   }
 
-  const extendEvent = (e: React.MouseEvent): TickEvent<React.MouseEvent> => ({
-    nativeEvent: e,
-    tick: (e.nativeEvent.offsetX + scrollLeft) / pixelsPerTick,
-  })
+  const drawBackground = (g: PIXIGraphics) => {
+    g.beginFill(Color(theme.backgroundColor).rgbNumber())
+      .drawRect(0, 0, width, height)
+      .endFill()
+  }
+
+  // 密過ぎる時は省略する
+  const shouldOmit = beats.length > 1 && beats[1].x - beats[0].x <= 5
 
   return (
-    <DrawCanvas
-      draw={draw}
-      className="PianoRuler"
-      width={width}
-      height={height}
-      onMouseDown={(e) => onMouseDown && onMouseDown(extendEvent(e))}
-      onMouseMove={(e) => onMouseMove && onMouseMove(extendEvent(e))}
-      onMouseUp={(e) => onMouseUp && onMouseUp(extendEvent(e))}
-    />
+    <Graphics
+      draw={drawBackground}
+      mousedown={(e) => onMouseDown && onMouseDown(extendEvent(e))}
+      mousemove={(e) => onMouseMove && onMouseMove(extendEvent(e))}
+      mouseup={(e) => onMouseUp && onMouseUp(extendEvent(e))}
+    >
+      <Container position={new Point(-scrollLeft, 0)}>
+        {beats.map((beat) => (
+          <Beat
+            beat={beat}
+            height={height}
+            shouldOmit={shouldOmit}
+            theme={theme}
+          />
+        ))}
+        {loop && (
+          <LoopPoints
+            loop={loop}
+            pixelsPerTick={pixelsPerTick}
+            height={height}
+            theme={theme}
+          />
+        )}
+      </Container>
+    </Graphics>
   )
 }
 
@@ -158,12 +208,10 @@ PianoRuler.defaultProps = {
 function areEqual(props: PianoRulerProps, nextProps: PianoRulerProps) {
   return (
     props.width === nextProps.width &&
-    props.height === nextProps.height &&
     props.pixelsPerTick === nextProps.pixelsPerTick &&
     props.scrollLeft === nextProps.scrollLeft &&
     _.isEqual(props.loop, nextProps.loop) &&
-    _.isEqual(props.beats, nextProps.beats) &&
-    _.isEqual(props.theme, nextProps.theme)
+    _.isEqual(props.beats, nextProps.beats)
   )
 }
 

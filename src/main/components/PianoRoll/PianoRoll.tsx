@@ -24,6 +24,10 @@ import PianoRuler, { TickEvent } from "./PianoRuler"
 import PianoSelection from "./PianoSelection"
 
 import "./PianoRoll.css"
+import { useTheme } from "main/hooks/useTheme"
+import { Stage, Container } from "@inlet/react-pixi"
+import { Point, interaction } from "pixi.js"
+import { theme } from "src/common/theme/muiTheme"
 
 const SCROLL_KEY_SPEED = 4
 
@@ -39,7 +43,6 @@ export type PianoRollProps = Pick<
 > & {
   mouseHandler: PianoNotesMouseHandler
   onDragNote: (e: PianoNotesNoteMouseEvent) => void
-  theme: Theme
   track: Track
   events: TrackEvent[]
   transform: NoteCoordTransform
@@ -61,14 +64,13 @@ export type PianoRollProps = Pick<
   onClickScaleUp: () => void
   onClickScaleDown: () => void
   onClickScaleReset: () => void
-  onMouseDownRuler: (e: TickEvent<React.MouseEvent>) => void
+  onMouseDownRuler: (e: TickEvent<MouseEvent>) => void
   onClickKey: (noteNumber: number) => void
 }
 
 export const PianoRoll: StatelessComponent<PianoRollProps> = ({
   mouseHandler,
   onDragNote,
-  theme,
   track,
   events,
   transform,
@@ -95,8 +97,6 @@ export const PianoRoll: StatelessComponent<PianoRollProps> = ({
   createControlEvent,
   onClickKey,
 }) => {
-  const { keyWidth, rulerHeight } = theme
-
   const containerWidth = size.width
 
   const width = containerWidth
@@ -127,6 +127,9 @@ export const PianoRoll: StatelessComponent<PianoRollProps> = ({
     showEventEditor(group)
   }
 
+  const stageHeight = transform.pixelsPerKey * transform.numberOfKeys
+  const theme = useTheme()
+
   return (
     <div className="PianoRoll">
       <div>
@@ -138,70 +141,62 @@ export const PianoRoll: StatelessComponent<PianoRollProps> = ({
             setScrollTop(scrollTop + delta)
           }}
         >
-          <div className="alphaContent" style={{ top: -scrollTop }}>
-            <PianoLines
-              theme={theme}
-              width={width}
-              pixelsPerKey={transform.pixelsPerKey}
-              numberOfKeys={transform.numberOfKeys}
-            />
-            <PianoGrid
-              theme={theme}
-              width={width}
-              height={contentHeight}
-              scrollLeft={scrollLeft}
-              beats={mappedBeats}
-            />
-            <PianoNotes
-              events={events}
-              selectedEventIds={selection.noteIds}
-              transform={transform}
-              width={width}
-              cursor={notesCursor}
-              scrollLeft={scrollLeft}
-              isDrumMode={track.isRhythmTrack}
-              onMouseDown={mouseHandler.onMouseDown}
-              onMouseMove={mouseHandler.onMouseMove}
-              onMouseUp={mouseHandler.onMouseUp}
-              onDragNote={onDragNote}
-              onHoverNote={() => {}}
-              theme={theme}
-            />
-            <PianoSelection
-              color={theme.themeColor}
-              width={width}
-              height={contentHeight}
-              selectionBounds={
-                selection.enabled ? selection.getBounds(transform) : null
-              }
-              scrollLeft={scrollLeft}
-            />
-            <PianoCursor
-              width={width}
-              height={contentHeight}
-              position={cursorPositionX - scrollLeft}
-            />
+          <Stage
+            className="alphaContent"
+            width={width}
+            height={stageHeight}
+            options={{ transparent: true }}
+          >
+            <Container position={new Point(theme.keyWidth, 0)}>
+              <Container
+                position={new Point(0, -scrollTop + theme.rulerHeight)}
+              >
+                <PianoLines
+                  width={width}
+                  pixelsPerKey={transform.pixelsPerKey}
+                  numberOfKeys={transform.numberOfKeys}
+                />
+                <Container position={new Point(-scrollLeft, 0)}>
+                  <PianoGrid height={contentHeight} beats={mappedBeats} />
+                  <PianoNotes
+                    events={events}
+                    selectedEventIds={selection.noteIds}
+                    transform={transform}
+                    cursor={notesCursor}
+                    isDrumMode={track.isRhythmTrack}
+                    onMouseDown={mouseHandler.onMouseDown}
+                    onMouseMove={mouseHandler.onMouseMove}
+                    onMouseUp={mouseHandler.onMouseUp}
+                    onDragNote={onDragNote}
+                    onHoverNote={() => {}}
+                  />
+                  <PianoSelection
+                    selectionBounds={
+                      selection.enabled ? selection.getBounds(transform) : null
+                    }
+                  />
+                  <PianoCursor
+                    height={contentHeight}
+                    position={cursorPositionX}
+                  />
+                </Container>
+              </Container>
+              <PianoRuler
+                width={width}
+                beats={mappedBeats}
+                loop={loop}
+                onMouseDown={onMouseDownRuler}
+                scrollLeft={scrollLeft}
+                pixelsPerTick={transform.pixelsPerTick}
+              />
+            </Container>
             <PianoKeys
-              theme={theme}
-              width={keyWidth}
+              position={new Point(0, -scrollTop)}
               keyHeight={transform.pixelsPerKey}
               numberOfKeys={transform.numberOfKeys}
               onClickKey={onClickKey}
             />
-          </div>
-          <div className="alphaRuler">
-            <PianoRuler
-              width={width}
-              theme={theme}
-              height={rulerHeight}
-              beats={mappedBeats}
-              loop={loop}
-              onMouseDown={onMouseDownRuler}
-              scrollLeft={scrollLeft}
-              pixelsPerTick={transform.pixelsPerTick}
-            />
-            <div className="PianoRollLeftSpace" />
-          </div>
+          </Stage>
           <VerticalScrollBar
             scrollOffset={scrollTop}
             contentLength={contentHeight}

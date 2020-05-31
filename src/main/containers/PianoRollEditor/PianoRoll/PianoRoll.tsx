@@ -24,6 +24,7 @@ import { Dispatcher } from "createDispatcher"
 import RootStore from "stores/RootStore"
 import { toJS } from "mobx"
 import { pointAdd, pointSub } from "common/geometry"
+import { useTheme } from "main/hooks/useTheme"
 
 export type SPianoRollProps = PianoRollProps & {
   playerPosition: number
@@ -38,7 +39,6 @@ const Wrapper: SFC<SPianoRollProps> = (props) => {
   const {
     dispatch,
     selection,
-    theme,
     size,
     playerPosition,
     mouseMode,
@@ -48,6 +48,8 @@ const Wrapper: SFC<SPianoRollProps> = (props) => {
     autoScroll = false,
     isPlaying,
   } = props
+
+  const theme = useTheme()
 
   const [pencilMouseHandler] = useState(new PencilMouseHandler(dispatch))
   const [selectionMouseHandler] = useState(new SelectionMouseHandler(dispatch))
@@ -112,7 +114,6 @@ export default compose<{}, {}>(
       rootStore: {
         song: { selectedTrack: track, endOfSong: endTick, measures },
         pianoRollStore: s,
-        rootViewStore: { theme },
         playerStore,
         services: { quantizer, player },
         dispatch,
@@ -125,7 +126,6 @@ export default compose<{}, {}>(
         endTick,
         measures,
         timebase: player.timebase,
-        theme,
         events: track !== undefined ? toJS(track.events) : [], // 変更が反映されるように toJS() する
         scaleX: s.scaleX,
         scaleY: s.scaleY,

@@ -1,16 +1,17 @@
 import React, { StatelessComponent, CSSProperties } from "react"
-import DrawCanvas from "components/DrawCanvas"
+import { Graphics as PIXIGraphics } from "pixi.js"
 import Theme from "common/theme"
+import { useTheme } from "main/hooks/useTheme"
+import { Graphics } from "@inlet/react-pixi"
+import Color from "color"
 
 function drawHorizontalLines(
-  ctx: CanvasRenderingContext2D,
+  ctx: PIXIGraphics,
   numberOfKeys: number,
   keyHeight: number,
   width: number,
   theme: Theme
 ) {
-  ctx.lineWidth = 1
-
   for (let key = 0; key < numberOfKeys; key++) {
     const index = key % 12
     const isBlack =
@@ -18,16 +19,16 @@ function drawHorizontalLines(
     const isBold = index === 11
     const y = (numberOfKeys - key - 1) * keyHeight
     if (isBlack) {
-      ctx.fillStyle = theme.pianoBlackKeyLaneColor
-      ctx.fillRect(0, y, width, keyHeight)
+      ctx
+        .beginFill(Color(theme.pianoBlackKeyLaneColor).rgbNumber())
+        .drawRect(0, y, width, keyHeight)
+        .endFill()
     }
     if (isBold) {
-      ctx.strokeStyle = theme.dividerColor
-      ctx.beginPath()
-      ctx.moveTo(0, y)
-      ctx.lineTo(width, y)
-      ctx.closePath()
-      ctx.stroke()
+      ctx
+        .lineStyle(1, Color(theme.dividerColor).rgbNumber())
+        .moveTo(0, y)
+        .lineTo(width, y)
     }
   }
 }
@@ -36,7 +37,6 @@ export interface PianoLinesProps {
   numberOfKeys: number
   pixelsPerKey: number
   width: number
-  theme: Theme
   style?: CSSProperties
 }
 
@@ -44,26 +44,16 @@ const PianoLines: StatelessComponent<PianoLinesProps> = ({
   numberOfKeys,
   pixelsPerKey,
   width,
-  theme,
   style,
 }) => {
-  function draw(ctx: CanvasRenderingContext2D) {
-    const { width, height } = ctx.canvas
-    ctx.clearRect(0, 0, width, height)
-    ctx.save()
-    ctx.translate(0, 0.5)
+  const theme = useTheme()
+
+  function draw(ctx: PIXIGraphics) {
     drawHorizontalLines(ctx, numberOfKeys, pixelsPerKey, width, theme)
-    ctx.restore()
   }
 
   return (
-    <DrawCanvas
-      draw={draw}
-      className="PianoLines"
-      width={width}
-      height={pixelsPerKey * numberOfKeys}
-      style={style}
-    />
+    <Graphics draw={draw} width={width} height={pixelsPerKey * numberOfKeys} />
   )
 }
 

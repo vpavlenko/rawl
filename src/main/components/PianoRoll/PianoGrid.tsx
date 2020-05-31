@@ -1,18 +1,19 @@
 import React, { StatelessComponent } from "react"
+import { Graphics as PIXIGraphics } from "pixi.js"
 import _ from "lodash"
 
-import DrawCanvas from "components/DrawCanvas"
 import Theme from "common/theme"
 import { BeatWithX } from "helpers/mapBeats"
+import { useTheme } from "main/hooks/useTheme"
+import { Graphics } from "@inlet/react-pixi"
+import Color from "color"
 
 function drawBeatLines(
-  ctx: CanvasRenderingContext2D,
+  ctx: PIXIGraphics,
   beats: BeatWithX[],
   height: number,
   theme: Theme
 ) {
-  ctx.lineWidth = 1
-
   // 密過ぎる時は省略する
   const shouldOmit = beats.length > 1 && beats[1].x - beats[0].x <= 5
 
@@ -21,57 +22,35 @@ function drawBeatLines(
     if (shouldOmit && !isBold) {
       return
     }
-    ctx.beginPath()
-    ctx.strokeStyle =
+    const color =
       isBold && !shouldOmit ? theme.secondaryTextColor : theme.dividerColor
-    ctx.moveTo(x, 0)
-    ctx.lineTo(x, height)
-    ctx.closePath()
-    ctx.stroke()
+    ctx
+      .beginFill()
+      .lineStyle(1, Color(color).rgbNumber())
+      .moveTo(x, 0)
+      .lineTo(x, height)
+      .endFill()
   })
 }
 
 export interface PianoGridProps {
-  width: number
   height: number
-  scrollLeft: number
   beats: BeatWithX[]
-  theme: Theme
 }
 
-const PianoGrid: StatelessComponent<PianoGridProps> = ({
-  width,
-  height,
-  scrollLeft,
-  beats,
-  theme,
-}) => {
-  function draw(ctx: CanvasRenderingContext2D) {
-    const { width, height } = ctx.canvas
-    ctx.clearRect(0, 0, width, height)
-    ctx.save()
-    ctx.translate(-scrollLeft + 0.5, 0)
-    drawBeatLines(ctx, beats, height, theme)
-    ctx.restore()
+const PianoGrid: StatelessComponent<PianoGridProps> = ({ height, beats }) => {
+  const theme = useTheme()
+
+  function draw(g: PIXIGraphics) {
+    drawBeatLines(g, beats, height, theme)
   }
 
-  return (
-    <DrawCanvas
-      draw={draw}
-      className="PianoGrid"
-      width={width}
-      height={height}
-    />
-  )
+  return <Graphics draw={draw} />
 }
 
 function areEqual(props: PianoGridProps, nextProps: PianoGridProps) {
   return (
-    _.isEqual(props.theme, nextProps.theme) &&
-    props.width === nextProps.width &&
-    props.height === nextProps.height &&
-    props.scrollLeft === nextProps.scrollLeft &&
-    _.isEqual(props.beats, nextProps.beats)
+    props.height === nextProps.height && _.isEqual(props.beats, nextProps.beats)
   )
 }
 

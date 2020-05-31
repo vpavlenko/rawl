@@ -208,13 +208,7 @@ export const TempoGraph: StatelessComponent<TempoGraphProps> = ({
 
   return (
     <div className="TempoGraph">
-      <PianoGrid
-        theme={theme}
-        width={width}
-        height={contentHeight}
-        scrollLeft={scrollLeft}
-        beats={mappedBeats}
-      />
+      <PianoGrid height={contentHeight} beats={mappedBeats} />
       <HorizontalLines
         width={width}
         height={contentHeight}
@@ -232,14 +226,11 @@ export const TempoGraph: StatelessComponent<TempoGraphProps> = ({
         scrollLeft={scrollLeft}
       />
       <PianoCursor
-        width={width}
         height={contentHeight}
         position={transform.getX(playerPosition) - scrollLeft}
       />
       <PianoRuler
-        theme={theme}
         width={width}
-        height={rulerHeight}
         beats={mappedBeats}
         onMouseDown={({ tick }) => setPlayerPosition(tick)}
         scrollLeft={scrollLeft}

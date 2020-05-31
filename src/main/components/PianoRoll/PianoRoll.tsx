@@ -26,7 +26,7 @@ import PianoSelection from "./PianoSelection"
 import "./PianoRoll.css"
 import { useTheme } from "main/hooks/useTheme"
 import { Stage, Container } from "@inlet/react-pixi"
-import { Point, interaction } from "pixi.js"
+import { Point, interaction, Rectangle } from "pixi.js"
 import { theme } from "src/common/theme/muiTheme"
 
 const SCROLL_KEY_SPEED = 4
@@ -130,6 +130,31 @@ export const PianoRoll: StatelessComponent<PianoRollProps> = ({
   const stageHeight = transform.pixelsPerKey * transform.numberOfKeys
   const theme = useTheme()
 
+  // MouseHandler で利用する追加情報をイベントに付加する
+  const extendEvent = (
+    e: PIXI.interaction.InteractionEvent
+  ): PianoNotesMouseEvent => {
+    const local = {
+      x: e.data.global.x - theme.keyWidth + scrollLeft,
+      y: e.data.global.y - theme.rulerHeight + scrollTop,
+    }
+    return {
+      nativeEvent: e.data.originalEvent as MouseEvent,
+      local,
+      tick: transform.getTicks(local.x),
+      noteNumber: Math.ceil(transform.getNoteNumber(local.y)),
+    }
+  }
+
+  const handleMouseDown = (e: PIXI.interaction.InteractionEvent) =>
+    mouseHandler.onMouseDown(extendEvent(e))
+
+  const handleMouseMove = (e: PIXI.interaction.InteractionEvent) =>
+    mouseHandler.onMouseMove(extendEvent(e))
+
+  const handleMouseUp = (e: PIXI.interaction.InteractionEvent) =>
+    mouseHandler.onMouseUp(extendEvent(e))
+
   return (
     <div className="PianoRoll">
       <div>
@@ -156,7 +181,14 @@ export const PianoRoll: StatelessComponent<PianoRollProps> = ({
                   pixelsPerKey={transform.pixelsPerKey}
                   numberOfKeys={transform.numberOfKeys}
                 />
-                <Container position={new Point(-scrollLeft, 0)}>
+                <Container
+                  position={new Point(-scrollLeft, 0)}
+                  interactive={true}
+                  hitArea={new Rectangle(0, 0, 100000, 100000)} // catch all hits
+                  mousedown={handleMouseDown}
+                  mousemove={handleMouseMove}
+                  mouseup={handleMouseUp}
+                >
                   <PianoGrid height={contentHeight} beats={mappedBeats} />
                   <PianoNotes
                     events={events}
@@ -164,9 +196,6 @@ export const PianoRoll: StatelessComponent<PianoRollProps> = ({
                     transform={transform}
                     cursor={notesCursor}
                     isDrumMode={track.isRhythmTrack}
-                    onMouseDown={mouseHandler.onMouseDown}
-                    onMouseMove={mouseHandler.onMouseMove}
-                    onMouseUp={mouseHandler.onMouseUp}
                     onDragNote={onDragNote}
                     onHoverNote={() => {}}
                   />
@@ -190,12 +219,13 @@ export const PianoRoll: StatelessComponent<PianoRollProps> = ({
                 pixelsPerTick={transform.pixelsPerTick}
               />
             </Container>
-            <PianoKeys
-              position={new Point(0, -scrollTop + theme.rulerHeight)}
-              keyHeight={transform.pixelsPerKey}
-              numberOfKeys={transform.numberOfKeys}
-              onClickKey={onClickKey}
-            />
+            <Container position={new Point(0, -scrollTop + theme.rulerHeight)}>
+              <PianoKeys
+                keyHeight={transform.pixelsPerKey}
+                numberOfKeys={transform.numberOfKeys}
+                onClickKey={onClickKey}
+              />
+            </Container>
           </Stage>
           <VerticalScrollBar
             scrollOffset={scrollTop}

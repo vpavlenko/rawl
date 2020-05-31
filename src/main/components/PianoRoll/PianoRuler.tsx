@@ -17,53 +17,34 @@ import Color from "color"
 
 interface BeatProps {
   height: number
-  beat: BeatWithX
+  beats: BeatWithX[]
   shouldOmit: boolean
   theme: Theme
 }
 
-const Beat: SFC<BeatProps> = ({
-  beat: { beat, measure, x },
-  shouldOmit,
-  height,
-  theme,
-}) => {
-  const isTop = beat === 0
+const Beats: SFC<BeatProps> = React.memo(
+  ({ beats, shouldOmit, height, theme }) => {
+    const draw = (ctx: PIXIGraphics) => {
+      console.log(`render Beat ${beats.length}`)
+      ctx.clear().lineStyle(1, Color(theme.secondaryTextColor).rgbNumber())
 
-  const draw = (ctx: PIXIGraphics) => {
-    ctx.clear().lineStyle(1, Color(theme.secondaryTextColor).rgbNumber())
+      for (let { x, beat } of beats) {
+        const isTop = beat === 0
 
-    if (isTop) {
-      ctx.moveTo(x, height / 2)
-      ctx.lineTo(x, height)
-    } else if (!shouldOmit) {
-      ctx.moveTo(x, height * 0.8)
-      ctx.lineTo(x, height)
+        if (isTop) {
+          ctx.moveTo(x, height / 2)
+          ctx.lineTo(x, height)
+        } else if (!shouldOmit) {
+          ctx.moveTo(x, height * 0.8)
+          ctx.lineTo(x, height)
+        }
+      }
     }
-  }
 
-  // 小節番号
-  // 省略時は2つに1つ描画
-  const shouldDrawText = isTop && (!shouldOmit || measure % 2 === 0)
-
-  const textStyle = new TextStyle({
-    fontSize: 12,
-    fontFamily: theme.canvasFont,
-    fill: Color(theme.secondaryTextColor).rgbNumber(),
-  })
-  return (
-    <>
-      <Graphics draw={draw} />
-      {shouldDrawText && (
-        <Text
-          position={new Point(x + 5, 2)}
-          text={`${measure}`}
-          style={textStyle}
-        />
-      )}
-    </>
-  )
-}
+    return <Graphics draw={draw} />
+  },
+  _.isEqual
+)
 
 interface LoopPointsProps {
   loop: LoopSetting
@@ -73,56 +54,54 @@ interface LoopPointsProps {
 }
 
 // LoopPoints: SFC に書き換える
-const LoopPoints: SFC<LoopPointsProps> = ({
-  loop,
-  height,
-  pixelsPerTick,
-  theme,
-}) => {
-  const lineWidth = 1
-  const flagSize = 8
+const LoopPoints: SFC<LoopPointsProps> = React.memo(
+  ({ loop, height, pixelsPerTick, theme }) => {
+    const lineWidth = 1
+    const flagSize = 8
 
-  const draw = (ctx: PIXIGraphics) => {
-    const color = loop.enabled ? theme.themeColor : theme.secondaryTextColor
-    ctx.clear().beginFill(Color(color).rgbNumber())
+    const draw = (ctx: PIXIGraphics) => {
+      const color = loop.enabled ? theme.themeColor : theme.secondaryTextColor
+      ctx.clear().beginFill(Color(color).rgbNumber())
 
-    const beginX = loop.begin * pixelsPerTick
-    const endX = loop.end * pixelsPerTick
+      const beginX = loop.begin * pixelsPerTick
+      const endX = loop.end * pixelsPerTick
 
-    if (loop.begin !== null) {
-      const x = beginX
-      ctx
-        .moveTo(x, 0)
-        .lineTo(x + lineWidth + flagSize, 0)
-        .lineTo(x + lineWidth, flagSize)
-        .lineTo(x + lineWidth, height)
-        .lineTo(x, height)
-        .lineTo(x, 0)
+      if (loop.begin !== null) {
+        const x = beginX
+        ctx
+          .moveTo(x, 0)
+          .lineTo(x + lineWidth + flagSize, 0)
+          .lineTo(x + lineWidth, flagSize)
+          .lineTo(x + lineWidth, height)
+          .lineTo(x, height)
+          .lineTo(x, 0)
+      }
+
+      if (loop.end !== null) {
+        const x = endX
+        ctx
+          .moveTo(x, 0)
+          .lineTo(x - lineWidth - flagSize, 0)
+          .lineTo(x - lineWidth, flagSize)
+          .lineTo(x - lineWidth, height)
+          .lineTo(x, height)
+          .lineTo(x, 0)
+      }
+
+      ctx.endFill()
+
+      if (loop.begin !== null && loop.end !== null) {
+        ctx
+          .beginFill(Color("rgba(0, 0, 0, 0.02)").rgbNumber())
+          .drawRect(beginX, 0, endX - beginX, height)
+          .endFill()
+      }
     }
 
-    if (loop.end !== null) {
-      const x = endX
-      ctx
-        .moveTo(x, 0)
-        .lineTo(x - lineWidth - flagSize, 0)
-        .lineTo(x - lineWidth, flagSize)
-        .lineTo(x - lineWidth, height)
-        .lineTo(x, height)
-        .lineTo(x, 0)
-    }
-
-    ctx.endFill()
-
-    if (loop.begin !== null && loop.end !== null) {
-      ctx
-        .beginFill(Color("rgba(0, 0, 0, 0.02)").rgbNumber())
-        .drawRect(beginX, 0, endX - beginX, height)
-        .endFill()
-    }
-  }
-
-  return <Graphics draw={draw} />
-}
+    return <Graphics draw={draw} />
+  },
+  _.isEqual
+)
 
 export interface TickEvent<E> {
   tick: number
@@ -167,27 +146,52 @@ const PianoRuler: SFC<PianoRulerProps> = ({
     g.beginFill(Color(theme.backgroundColor).rgbNumber())
       .drawRect(0, 0, width, height)
       .endFill()
+    g.lineStyle(1, Color(theme.dividerColor).rgbNumber())
+      .moveTo(0, height)
+      .lineTo(width, height)
   }
 
   // 密過ぎる時は省略する
   const shouldOmit = beats.length > 1 && beats[1].x - beats[0].x <= 5
 
+  const textStyle = new TextStyle({
+    fontSize: 12,
+    fontFamily: theme.canvasFont,
+    fill: Color(theme.secondaryTextColor).rgbNumber(),
+  })
+
+  // 小節番号
+  // 省略時は2つに1つ描画
+  const labels = beats
+    .filter((b) => b.beat === 0 && (!shouldOmit || b.measure % 2 === 0))
+    .map((b) => (
+      <Text
+        key={b.measure * (b.beat + 1)}
+        position={new Point(b.x + 5, 2)}
+        text={`${b.measure}`}
+        style={textStyle}
+      />
+    ))
+
   return (
-    <Graphics
-      draw={drawBackground}
-      mousedown={(e) => onMouseDown && onMouseDown(extendEvent(e))}
-      mousemove={(e) => onMouseMove && onMouseMove(extendEvent(e))}
-      mouseup={(e) => onMouseUp && onMouseUp(extendEvent(e))}
-    >
+    <Container>
+      <Graphics
+        draw={drawBackground}
+        width={width}
+        height={height}
+        interactive={true}
+        mousedown={(e) => onMouseDown && onMouseDown(extendEvent(e))}
+        mousemove={(e) => onMouseMove && onMouseMove(extendEvent(e))}
+        mouseup={(e) => onMouseUp && onMouseUp(extendEvent(e))}
+      />
       <Container position={new Point(-scrollLeft, 0)}>
-        {beats.map((beat) => (
-          <Beat
-            beat={beat}
-            height={height}
-            shouldOmit={shouldOmit}
-            theme={theme}
-          />
-        ))}
+        <Beats
+          beats={beats}
+          height={height}
+          shouldOmit={shouldOmit}
+          theme={theme}
+        />
+        {labels}
         {loop && (
           <LoopPoints
             loop={loop}
@@ -197,7 +201,7 @@ const PianoRuler: SFC<PianoRulerProps> = ({
           />
         )}
       </Container>
-    </Graphics>
+    </Container>
   )
 }
 

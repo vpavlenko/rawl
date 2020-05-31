@@ -15,9 +15,6 @@ export interface PianoNotesProps {
   transform: NoteCoordTransform
   cursor: string
   selectedEventIds: number[]
-  onMouseDown: (e: PianoNotesMouseEvent) => void
-  onMouseMove: (e: PianoNotesMouseEvent) => void
-  onMouseUp: (e: PianoNotesMouseEvent) => void
   onDragNote: (e: PianoNotesNoteMouseEvent) => void
   onHoverNote: (e: PianoNotesNoteMouseEvent) => void
   isDrumMode: boolean
@@ -44,9 +41,6 @@ const PianoNotes: StatelessComponent<PianoNotesProps> = ({
   transform,
   cursor,
   selectedEventIds,
-  onMouseDown,
-  onMouseMove,
-  onMouseUp,
   onDragNote,
   onHoverNote,
   isDrumMode,
@@ -71,19 +65,6 @@ const PianoNotes: StatelessComponent<PianoNotesProps> = ({
     }
   )
 
-  // MouseHandler で利用する追加情報をイベントに付加する
-  const extendEvent = (
-    e: PIXI.interaction.InteractionEvent
-  ): PianoNotesMouseEvent => {
-    const local = e.data.getLocalPosition(e.target)
-    return {
-      nativeEvent: e.data.originalEvent as MouseEvent,
-      local,
-      tick: transform.getTicks(local.x),
-      noteNumber: Math.ceil(transform.getNoteNumber(local.y)),
-    }
-  }
-
   const extendNoteEvent = (
     e: PianoNoteMouseEvent,
     eventID: number
@@ -93,9 +74,6 @@ const PianoNotes: StatelessComponent<PianoNotesProps> = ({
     tick: transform.getTicks(e.offset.x),
     noteNumber: Math.ceil(transform.getNoteNumber(e.offset.y)),
   })
-
-  const handleMouseDown = (e: PIXI.interaction.InteractionEvent) =>
-    onMouseDown(extendEvent(e))
 
   const _onDragNote = useCallback(
     (e: PianoNoteMouseEvent) => onDragNote(extendNoteEvent(e, e.dragItem.id)),
@@ -107,11 +85,7 @@ const PianoNotes: StatelessComponent<PianoNotesProps> = ({
   )
 
   return (
-    <Container
-      mousedown={handleMouseDown}
-      interactive={true}
-      hitArea={new Rectangle(0, 0, 100000, 100000)} // catch all hits
-    >
+    <Container>
       {items.map((item) => (
         <PianoNote
           key={item.id}

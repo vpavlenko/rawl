@@ -9,21 +9,6 @@ import Color from "color"
 
 const LINE_WIDTH = 2
 
-function drawSelection(
-  ctx: PIXIGraphics,
-  { x, y, width, height }: IRect,
-  color: number
-) {
-  ctx
-    .drawRect(
-      x + LINE_WIDTH / 2,
-      y + LINE_WIDTH / 2,
-      width - LINE_WIDTH,
-      height - LINE_WIDTH
-    )
-    .lineStyle(LINE_WIDTH, color)
-}
-
 export interface PianoSelectionProps {
   selectionBounds: IRect | null
 }
@@ -32,11 +17,21 @@ const PianoSelection: StatelessComponent<PianoSelectionProps> = ({
   selectionBounds,
 }) => {
   const theme = useTheme()
-  const color = theme.themeColor
+  const color = Color(theme.themeColor).rgbNumber()
 
   function draw(ctx: PIXIGraphics): void {
+    console.log("render PianoSelection")
+    ctx.clear()
     if (selectionBounds) {
-      drawSelection(ctx, selectionBounds, Color(color).rgbNumber())
+      const { x, y, width, height } = selectionBounds
+      ctx
+        .lineStyle(LINE_WIDTH, color)
+        .drawRect(
+          x + LINE_WIDTH / 2,
+          y + LINE_WIDTH / 2,
+          width - LINE_WIDTH,
+          height - LINE_WIDTH
+        )
     }
   }
 

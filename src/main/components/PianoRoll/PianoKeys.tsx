@@ -75,19 +75,18 @@ export interface PianoKeysProps {
   onClickKey: (noteNumber: number) => void
   numberOfKeys: number
   keyHeight: number
-  position: Point
 }
 
 const PianoKeys: SFC<PianoKeysProps> = ({
   onClickKey,
   numberOfKeys,
   keyHeight,
-  position,
 }) => {
   const theme = useTheme()
   const width = theme.keyWidth
 
   function draw(ctx: PIXIGraphics): void {
+    console.log("render PianoKeys")
     ctx
       .clear()
       .beginFill(Color(theme.pianoKeyWhite).rgbNumber())
@@ -110,7 +109,6 @@ const PianoKeys: SFC<PianoKeysProps> = ({
   const labels = _.range(0, numberOfKeys, 12).map((i) => (
     <KeyLabel
       width={width}
-      height={keyHeight}
       keyNum={i}
       key={i}
       y={(numberOfKeys - i - 1) * keyHeight}
@@ -149,7 +147,6 @@ const PianoKeys: SFC<PianoKeysProps> = ({
 
   return (
     <Container
-      position={position}
       width={width}
       height={keyHeight * numberOfKeys}
       mousedown={onMouseDown}
@@ -164,7 +161,6 @@ const PianoKeys: SFC<PianoKeysProps> = ({
 
 function areEqual(props: PianoKeysProps, nextProps: PianoKeysProps) {
   return (
-    props.position.equals(nextProps.position) &&
     props.keyHeight === nextProps.keyHeight &&
     props.numberOfKeys === nextProps.numberOfKeys
   )

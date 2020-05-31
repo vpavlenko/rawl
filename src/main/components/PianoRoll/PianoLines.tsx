@@ -9,7 +9,6 @@ export interface PianoLinesProps {
   numberOfKeys: number
   pixelsPerKey: number
   width: number
-  style?: CSSProperties
 }
 
 const PianoLines: StatelessComponent<PianoLinesProps> = ({
@@ -20,6 +19,7 @@ const PianoLines: StatelessComponent<PianoLinesProps> = ({
   const theme = useTheme()
 
   function draw(ctx: PIXIGraphics) {
+    console.log("render PianoLines")
     const keyHeight = pixelsPerKey
     ctx.clear()
     for (let key = 0; key < numberOfKeys; key++) {

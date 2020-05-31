@@ -13,6 +13,7 @@ const PianoCursor: StatelessComponent<PianoCursorProps> = ({
   height,
 }) => {
   function draw(ctx: PIXIGraphics) {
+    console.log("render PianoCursor")
     const x = Math.round(position)
     const color = Color("red").rgbNumber()
     ctx.clear().lineStyle(1, color).moveTo(x, 0).lineTo(x, height)

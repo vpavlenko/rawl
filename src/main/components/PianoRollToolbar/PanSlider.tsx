@@ -6,8 +6,8 @@ import { theme } from "common/theme/muiTheme"
 
 const LightSlider = withStyles({
   root: {
-    color: theme.palette.primary.contrastText
-  }
+    color: theme.palette.primary.contrastText,
+  },
 })(Slider)
 
 const Container = styled.div`
@@ -23,11 +23,20 @@ const Label = styled.div`
   margin-right: 1rem;
 `
 
-export const PanSlider: StatelessComponent<SliderProps> = props => (
+export interface PanSliderProps {
+  onChange: (value: number) => void
+  value: number
+}
+
+export const PanSlider: StatelessComponent<PanSliderProps> = ({
+  onChange,
+  value,
+}) => (
   <Container>
     <Label>Pan</Label>
     <LightSlider
-      {...props}
+      value={value}
+      onChange={(_, value) => onChange(value as number)}
       min={0}
       max={127}
       defaultValue={64}

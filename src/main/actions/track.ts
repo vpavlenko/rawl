@@ -5,269 +5,497 @@ import {
   pitchBendMidiEvent,
   modulationMidiEvent,
   expressionMidiEvent,
-  programChangeMidiEvent
+  programChangeMidiEvent,
 } from "midi/MidiEvent"
-import RootStore from "../stores/RootStore"
 import { NoteEvent } from "common/track"
+import { Action, Mutator } from "../createDispatcher"
 
-export const CHANGE_TEMPO = Symbol()
-export const CREATE_TEMPO = Symbol()
-export const CHANGE_NOTES_VELOCITY = Symbol()
-export const CREATE_PITCH_BEND = Symbol()
-export const CREATE_VOLUME = Symbol()
-export const CREATE_PAN = Symbol()
-export const CREATE_MODULATION = Symbol()
-export const CREATE_EXPRESSION = Symbol()
-export const REMOVE_EVENT = Symbol()
-export const CREATE_NOTE = Symbol()
-export const MOVE_NOTE = Symbol()
-export const RESIZE_NOTE_LEFT = Symbol()
-export const RESIZE_NOTE_RIGHT = Symbol()
-export const SET_TRACK_NAME = Symbol()
-export const SET_TRACK_VOLUME = Symbol()
-export const SET_TRACK_PAN = Symbol()
-export const SET_TRACK_INSTRUMENT = Symbol()
+export interface ChangeTempo {
+  type: "changeTempo"
+  id: number
+  microsecondsPerBeat: number
+}
+export const changeTempo = (
+  id: number,
+  microsecondsPerBeat: number
+): ChangeTempo => ({ type: "changeTempo", id, microsecondsPerBeat })
 
-export default (rootStore: RootStore) => {
-  const {
-    song,
-    pianoRollStore,
-    services: { player, quantizer }
-  } = rootStore
-  const saveHistory = () => {
-    rootStore.pushHistory()
-  }
+export interface CreateTempo {
+  type: "createTempo"
+  tick: number
+  microsecondsPerBeat: number
+}
+export const createTempo = (
+  tick: number,
+  microsecondsPerBeat: number
+): CreateTempo => ({ type: "createTempo", tick, microsecondsPerBeat })
 
+export interface ChangeNotesVelocity {
+  type: "changeNotesVelocity"
+  noteIds: number[]
+  velocity: number
+}
+export const changeNotesVelocity = (
+  noteIds: number[],
+  velocity: number
+): ChangeNotesVelocity => ({
+  type: "changeNotesVelocity",
+  noteIds,
+  velocity,
+})
+
+export interface CreatePitchBend {
+  type: "createPitchBend"
+  value: number
+  tick: number
+}
+export const createPitchBend = (
+  value: number,
+  tick: number
+): CreatePitchBend => ({
+  type: "createPitchBend",
+  value,
+  tick,
+})
+
+export interface CreateVolume {
+  type: "createVolume"
+  value: number
+  tick: number
+}
+export const createVolume = (value: number, tick: number): CreateVolume => ({
+  type: "createVolume",
+  value,
+  tick,
+})
+
+export interface CreatePan {
+  type: "createPan"
+  value: number
+  tick: number
+}
+export const createPan = (value: number, tick: number): CreatePan => ({
+  type: "createPan",
+  value,
+  tick,
+})
+
+export interface CreateModulation {
+  type: "createModulation"
+  value: number
+  tick: number
+}
+export const createModulation = (
+  value: number,
+  tick: number
+): CreateModulation => ({
+  type: "createModulation",
+  value,
+  tick,
+})
+
+export interface CreateExpression {
+  type: "createExpression"
+  value: number
+  tick: number
+}
+export const createExpression = (
+  value: number,
+  tick: number
+): CreateExpression => ({
+  type: "createExpression",
+  value,
+  tick,
+})
+
+export interface RemoveEvent {
+  type: "removeEvent"
+  eventId: number
+}
+export const removeEvent = (eventId: number): RemoveEvent => ({
+  type: "removeEvent",
+  eventId,
+})
+
+export interface CreateNote {
+  type: "createNote"
+  tick: number
+  noteNumber: number
+}
+export const createNote = (tick: number, noteNumber: number): CreateNote => ({
+  type: "createNote",
+  tick,
+  noteNumber,
+})
+
+export type MoveNote = {
+  type: "moveNote"
+  quantize: "floor" | "round" | "ceil"
+} & Pick<NoteEvent, "id" | "tick" | "noteNumber">
+export const moveNote = (params: Omit<MoveNote, "type">): MoveNote => ({
+  type: "moveNote",
+  ...params,
+})
+
+export interface ResizeNoteLeft {
+  type: "resizeNoteLeft"
+  id: number
+  tick: number
+}
+export const resizeNoteLeft = (id: number, tick: number): ResizeNoteLeft => ({
+  type: "resizeNoteLeft",
+  id,
+  tick,
+})
+
+export interface ResizeNoteRight {
+  type: "resizeNoteRight"
+  id: number
+  tick: number
+}
+export const resizeNoteRight = (id: number, tick: number): ResizeNoteRight => ({
+  type: "resizeNoteRight",
+  id,
+  tick,
+})
+
+export interface SetTrackName {
+  type: "setTrackName"
+  name: string
+}
+export const setTrackName = (name: string): SetTrackName => ({
+  type: "setTrackName",
+  name,
+})
+
+export interface SetTrackVolume {
+  type: "setTrackVolume"
+  trackId: number
+  volume: number
+}
+export const setTrackVolume = (
+  trackId: number,
+  volume: number
+): SetTrackVolume => ({ type: "setTrackVolume", trackId, volume })
+
+export interface SetTrackPan {
+  type: "setTrackPan"
+  trackId: number
+  pan: number
+}
+export const setTrackPan = (trackId: number, pan: number): SetTrackPan => ({
+  type: "setTrackPan",
+  trackId,
+  pan,
+})
+
+export interface SetTrackInstrument {
+  type: "setTrackInstrument"
+  trackId: number
+  programNumber: number
+}
+export const setTrackInstrument = (
+  trackId: number,
+  programNumber: number
+): SetTrackInstrument => ({
+  type: "setTrackInstrument",
+  trackId,
+  programNumber,
+})
+
+export type TrackAction =
+  | ChangeTempo
+  | CreateTempo
+  | ChangeNotesVelocity
+  | CreatePitchBend
+  | CreateVolume
+  | CreatePan
+  | CreateModulation
+  | CreateExpression
+  | RemoveEvent
+  | CreateNote
+  | MoveNote
+  | ResizeNoteLeft
+  | ResizeNoteRight
+  | SetTrackName
+  | SetTrackVolume
+  | SetTrackPan
+  | SetTrackInstrument
+
+export default (action: Action): Mutator | null => {
   const updateEvent = (id: number, obj: Partial<TrackEvent>) => {}
 
-  return {
+  switch (action.type) {
     /* conductor track */
 
-    [CHANGE_TEMPO]: (id: number, microsecondsPerBeat: number) => {
-      const track = song.conductorTrack
-      if (track === undefined) {
-        return
+    case "changeTempo":
+      return ({ song, pushHistory }) => {
+        const track = song.conductorTrack
+        if (track === undefined) {
+          return
+        }
+        pushHistory()
+        track.updateEvent(action.id, {
+          microsecondsPerBeat: action.microsecondsPerBeat,
+        })
       }
-      saveHistory()
-      track.updateEvent(id, {
-        microsecondsPerBeat: microsecondsPerBeat
-      })
-    },
-    [CREATE_TEMPO]: (tick: number, microsecondsPerBeat: number) => {
-      const track = song.conductorTrack
-      if (track === undefined) {
-        return
+    case "createTempo":
+      return ({ song, services: { quantizer }, pushHistory }) => {
+        const track = song.conductorTrack
+        if (track === undefined) {
+          return
+        }
+        pushHistory()
+        const e = {
+          ...setTempoMidiEvent(0, Math.round(action.microsecondsPerBeat)),
+          tick: quantizer.round(action.tick),
+        }
+        track.createOrUpdate(e)
       }
-      saveHistory()
-      const e = {
-        ...setTempoMidiEvent(0, Math.round(microsecondsPerBeat)),
-        tick: quantizer.round(tick)
-      }
-      track.createOrUpdate(e)
-    },
 
     /* events */
 
-    [CHANGE_NOTES_VELOCITY]: (notes: NoteEvent[], velocity: number) => {
-      const selectedTrack = song.selectedTrack
-      if (selectedTrack === undefined) {
-        return
+    case "changeNotesVelocity":
+      return ({ song, pushHistory }) => {
+        const selectedTrack = song.selectedTrack
+        if (selectedTrack === undefined) {
+          return
+        }
+        pushHistory()
+        selectedTrack.updateEvents(
+          action.noteIds.map((id) => ({
+            id,
+            velocity: action.velocity,
+          }))
+        )
       }
-      saveHistory()
-      selectedTrack.updateEvents(notes.map(item => ({ id: item.id, velocity })))
-    },
-    [CREATE_PITCH_BEND]: (value: number, tick: number = player.position) => {
-      const selectedTrack = song.selectedTrack
-      if (selectedTrack === undefined) {
-        return
+    case "createPitchBend":
+      return ({ song, pushHistory, services: { quantizer } }) => {
+        const selectedTrack = song.selectedTrack
+        if (selectedTrack === undefined) {
+          return
+        }
+        pushHistory()
+        const e = pitchBendMidiEvent(0, 0, Math.round(action.value))
+        selectedTrack.createOrUpdate({
+          ...e,
+          tick: quantizer.round(action.tick),
+        })
       }
-      saveHistory()
-      const e = pitchBendMidiEvent(0, 0, Math.round(value))
-      selectedTrack.createOrUpdate({ ...e, tick: quantizer.round(tick) })
-    },
-    [CREATE_VOLUME]: (value: number, tick: number = player.position) => {
-      const selectedTrack = song.selectedTrack
-      if (selectedTrack === undefined) {
-        return
+    case "createVolume":
+      return ({ song, pushHistory, services: { quantizer } }) => {
+        const selectedTrack = song.selectedTrack
+        if (selectedTrack === undefined) {
+          return
+        }
+        pushHistory()
+        const e = volumeMidiEvent(0, 0, Math.round(action.value))
+        selectedTrack.createOrUpdate({
+          ...e,
+          tick: quantizer.round(action.tick),
+        })
       }
-      saveHistory()
-      const e = volumeMidiEvent(0, 0, Math.round(value))
-      selectedTrack.createOrUpdate({
-        ...e,
-        tick: quantizer.round(tick)
-      })
-    },
-    [CREATE_PAN]: (value: number, tick: number = player.position) => {
-      const selectedTrack = song.selectedTrack
-      if (selectedTrack === undefined) {
-        return
+    case "createPan":
+      return ({ song, pushHistory, services: { quantizer } }) => {
+        const selectedTrack = song.selectedTrack
+        if (selectedTrack === undefined) {
+          return
+        }
+        pushHistory()
+        const e = panMidiEvent(0, 0, Math.round(action.value))
+        selectedTrack.createOrUpdate({
+          ...e,
+          tick: quantizer.round(action.tick),
+        })
       }
-      saveHistory()
-      const e = panMidiEvent(0, 0, Math.round(value))
-      selectedTrack.createOrUpdate({ ...e, tick: quantizer.round(tick) })
-    },
-    [CREATE_MODULATION]: (value: number, tick: number = player.position) => {
-      const selectedTrack = song.selectedTrack
-      if (selectedTrack === undefined) {
-        return
+    case "createModulation":
+      return ({ song, pushHistory, services: { quantizer } }) => {
+        const selectedTrack = song.selectedTrack
+        if (selectedTrack === undefined) {
+          return
+        }
+        pushHistory()
+        const e = modulationMidiEvent(0, 0, Math.round(action.value))
+        selectedTrack.createOrUpdate({
+          ...e,
+          tick: quantizer.round(action.tick),
+        })
       }
-      saveHistory()
-      const e = modulationMidiEvent(0, 0, Math.round(value))
-      selectedTrack.createOrUpdate({ ...e, tick: quantizer.round(tick) })
-    },
-    [CREATE_EXPRESSION]: (value: number, tick: number = player.position) => {
-      const selectedTrack = song.selectedTrack
-      if (selectedTrack === undefined) {
-        return
+    case "createExpression":
+      return ({ song, pushHistory, services: { quantizer } }) => {
+        const selectedTrack = song.selectedTrack
+        if (selectedTrack === undefined) {
+          return
+        }
+        pushHistory()
+        const e = expressionMidiEvent(0, 0, Math.round(action.value))
+        selectedTrack.createOrUpdate({
+          ...e,
+          tick: quantizer.round(action.tick),
+        })
       }
-      saveHistory()
-      const e = expressionMidiEvent(0, 0, Math.round(value))
-      selectedTrack.createOrUpdate({ ...e, tick: quantizer.round(tick) })
-    },
-    [REMOVE_EVENT]: (eventId: number) => {
-      const selectedTrack = song.selectedTrack
-      if (selectedTrack === undefined) {
-        return
+    case "removeEvent":
+      return ({ song, pushHistory }) => {
+        const selectedTrack = song.selectedTrack
+        if (selectedTrack === undefined) {
+          return
+        }
+        pushHistory()
+        selectedTrack.removeEvent(action.eventId)
       }
-      saveHistory()
-      selectedTrack.removeEvent(eventId)
-    },
 
     /* note */
 
-    [CREATE_NOTE]: (tick: number, noteNumber: number) => {
-      const selectedTrack = song.selectedTrack
-      if (selectedTrack === undefined || selectedTrack.channel == undefined) {
-        return
-      }
-      saveHistory()
+    case "createNote":
+      return ({
+        song,
+        pianoRollStore,
+        services: { player, quantizer },
+        pushHistory,
+      }) => {
+        const selectedTrack = song.selectedTrack
+        if (selectedTrack === undefined || selectedTrack.channel == undefined) {
+          return
+        }
+        pushHistory()
 
-      tick = selectedTrack.isRhythmTrack
-        ? quantizer.round(tick)
-        : quantizer.floor(tick)
+        const tick = selectedTrack.isRhythmTrack
+          ? quantizer.round(action.tick)
+          : quantizer.floor(action.tick)
 
-      const note: NoteEvent = {
-        id: 0,
-        type: "channel",
-        subtype: "note",
-        noteNumber: noteNumber,
-        tick,
-        velocity: 127,
-        duration: pianoRollStore.lastNoteDuration || quantizer.unit
-      }
-      const added = selectedTrack.addEvent(note)
-
-      player.playNote({
-        ...note,
-        channel: selectedTrack.channel
-      })
-      return added.id
-    },
-    [MOVE_NOTE]: ({
-      id,
-      tick,
-      noteNumber,
-      quantize
-    }: Pick<NoteEvent, "id" | "tick" | "noteNumber"> & {
-      quantize: "floor" | "round" | "ceil"
-    }) => {
-      const selectedTrack = song.selectedTrack
-      if (selectedTrack === undefined || selectedTrack.channel == undefined) {
-        return
-      }
-      const note = selectedTrack.getEventById(id) as NoteEvent
-      tick = quantizer[quantize || "floor"](tick)
-      const tickChanged = tick !== note.tick
-      const pitchChanged = noteNumber !== note.noteNumber
-
-      if (pitchChanged || tickChanged) {
-        saveHistory()
-
-        const n = selectedTrack.updateEvent(note.id, {
+        const note: NoteEvent = {
+          id: 0,
+          type: "channel",
+          subtype: "note",
+          noteNumber: action.noteNumber,
           tick,
-          noteNumber: noteNumber
-        }) as NoteEvent
+          velocity: 127,
+          duration: pianoRollStore.lastNoteDuration || quantizer.unit,
+        }
+        const added = selectedTrack.addEvent(note)
 
-        if (pitchChanged) {
-          player.playNote({
-            ...n,
-            channel: selectedTrack.channel
-          })
+        player.playNote({
+          ...note,
+          channel: selectedTrack.channel,
+        })
+        return added.id
+      }
+    case "moveNote":
+      return ({ song, pushHistory, services: { player, quantizer } }) => {
+        const selectedTrack = song.selectedTrack
+        if (selectedTrack === undefined || selectedTrack.channel == undefined) {
+          return
+        }
+        const note = selectedTrack.getEventById(action.id) as NoteEvent
+        const tick = quantizer[action.quantize || "floor"](action.tick)
+        const tickChanged = tick !== note.tick
+        const pitchChanged = action.noteNumber !== note.noteNumber
+
+        if (pitchChanged || tickChanged) {
+          pushHistory()
+
+          const n = selectedTrack.updateEvent(note.id, {
+            tick,
+            noteNumber: action.noteNumber,
+          }) as NoteEvent
+
+          if (pitchChanged) {
+            player.playNote({
+              ...n,
+              channel: selectedTrack.channel,
+            })
+          }
         }
       }
-    },
-    [RESIZE_NOTE_LEFT]: (id: number, tick: number) => {
-      const selectedTrack = song.selectedTrack
-      if (selectedTrack === undefined) {
-        return
+    case "resizeNoteLeft":
+      return ({
+        song,
+        pianoRollStore,
+        services: { quantizer },
+        pushHistory,
+      }) => {
+        const selectedTrack = song.selectedTrack
+        if (selectedTrack === undefined) {
+          return
+        }
+        // 右端を固定して長さを変更
+        const tick = quantizer.round(action.tick)
+        const note = selectedTrack.getEventById(action.id) as NoteEvent
+        const duration = note.duration + (note.tick - tick)
+        if (note.tick !== tick && duration >= quantizer.unit) {
+          pushHistory()
+          pianoRollStore.lastNoteDuration = duration
+          selectedTrack.updateEvent(note.id, { tick, duration })
+        }
       }
-      // 右端を固定して長さを変更
-      tick = quantizer.round(tick)
-      const note = selectedTrack.getEventById(id) as NoteEvent
-      const duration = note.duration + (note.tick - tick)
-      if (note.tick !== tick && duration >= quantizer.unit) {
-        saveHistory()
-        pianoRollStore.lastNoteDuration = duration
-        selectedTrack.updateEvent(note.id, { tick, duration })
+    case "resizeNoteRight":
+      return ({
+        song,
+        pianoRollStore,
+        services: { quantizer },
+        pushHistory,
+      }) => {
+        const selectedTrack = song.selectedTrack
+        if (selectedTrack === undefined) {
+          return
+        }
+        const note = selectedTrack.getEventById(action.id) as NoteEvent
+        const right = action.tick
+        const duration = Math.max(
+          quantizer.unit,
+          quantizer.round(right - note.tick)
+        )
+        if (note.duration !== duration) {
+          pushHistory()
+          pianoRollStore.lastNoteDuration = duration
+          selectedTrack.updateEvent(note.id, { duration })
+        }
       }
-    },
-    [RESIZE_NOTE_RIGHT]: (id: number, tick: number) => {
-      const selectedTrack = song.selectedTrack
-      if (selectedTrack === undefined) {
-        return
-      }
-      const note = selectedTrack.getEventById(id) as NoteEvent
-      const right = tick
-      const duration = Math.max(
-        quantizer.unit,
-        quantizer.round(right - note.tick)
-      )
-      if (note.duration !== duration) {
-        saveHistory()
-        pianoRollStore.lastNoteDuration = duration
-        selectedTrack.updateEvent(note.id, { duration })
-      }
-    },
 
     /* track meta */
 
-    [SET_TRACK_NAME]: (name: string) => {
-      const selectedTrack = song.selectedTrack
-      if (selectedTrack === undefined) {
-        return
+    case "setTrackName":
+      return ({ song, pushHistory }) => {
+        const selectedTrack = song.selectedTrack
+        if (selectedTrack === undefined) {
+          return
+        }
+        pushHistory()
+        selectedTrack.setName(name)
       }
-      saveHistory()
-      selectedTrack.setName(name)
-    },
-    [SET_TRACK_VOLUME]: (trackId: number, volume: number) => {
-      saveHistory()
-      const track = song.tracks[trackId]
-      track.setVolume(volume)
+    case "setTrackVolume":
+      return ({ song, pushHistory, services: { player } }) => {
+        pushHistory()
+        const track = song.tracks[action.trackId]
+        track.setVolume(action.volume)
 
-      if (track.channel !== undefined) {
-        player.sendEvent(volumeMidiEvent(0, track.channel, volume))
+        if (track.channel !== undefined) {
+          player.sendEvent(volumeMidiEvent(0, track.channel, action.volume))
+        }
       }
-    },
-    [SET_TRACK_PAN]: (trackId: number, pan: number) => {
-      saveHistory()
-      const track = song.tracks[trackId]
-      track.setPan(pan)
+    case "setTrackPan":
+      return ({ song, pushHistory, services: { player } }) => {
+        pushHistory()
+        const track = song.tracks[action.trackId]
+        track.setPan(action.pan)
 
-      if (track.channel !== undefined) {
-        player.sendEvent(panMidiEvent(0, track.channel, pan))
+        if (track.channel !== undefined) {
+          player.sendEvent(panMidiEvent(0, track.channel, action.pan))
+        }
       }
-    },
-    [SET_TRACK_INSTRUMENT]: (trackId: number, programNumber: number) => {
-      saveHistory()
-      const track = song.tracks[trackId]
-      track.setProgramNumber(programNumber)
+    case "setTrackInstrument":
+      return ({ song, pushHistory, services: { player } }) => {
+        pushHistory()
+        const track = song.tracks[action.trackId]
+        track.setProgramNumber(action.programNumber)
 
-      // 即座に反映する
-      if (track.channel !== undefined) {
-        player.sendEvent(
-          programChangeMidiEvent(0, track.channel, programNumber)
-        )
+        // 即座に反映する
+        if (track.channel !== undefined) {
+          player.sendEvent(
+            programChangeMidiEvent(0, track.channel, action.programNumber)
+          )
+        }
       }
-    }
   }
+  return null
 }

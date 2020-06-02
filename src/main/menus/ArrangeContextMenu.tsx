@@ -1,45 +1,45 @@
 import { ContextMenuBuilder } from "components/groups/ContextMenu"
 import { Dispatcher } from "createDispatcher"
 import {
-  ARRANGE_COPY_SELECTION,
-  ARRANGE_DELETE_SELECTION,
-  ARRANGE_PASTE_SELECTION
+  arrangeCopySelection,
+  arrangeDeleteSelection,
+  arrangePasteSelection,
 } from "main/actions/arrangeView"
 
 export const ArrangeContextMenu = (
   dispatch: Dispatcher,
   isSelectionSelected: boolean
-): ContextMenuBuilder => close => [
+): ContextMenuBuilder => (close) => [
   {
     isHidden: !isSelectionSelected,
     onClick() {
-      dispatch(ARRANGE_COPY_SELECTION)
-      dispatch(ARRANGE_DELETE_SELECTION)
+      dispatch(arrangeCopySelection())
+      dispatch(arrangeDeleteSelection())
       close()
     },
-    label: "Cut"
+    label: "Cut",
   },
   {
     isHidden: !isSelectionSelected,
     onClick() {
-      dispatch(ARRANGE_COPY_SELECTION)
+      dispatch(arrangeCopySelection())
       close()
     },
-    label: "Copy"
+    label: "Copy",
   },
   {
     onClick() {
-      dispatch(ARRANGE_PASTE_SELECTION)
+      dispatch(arrangePasteSelection())
       close()
     },
-    label: "Paste"
+    label: "Paste",
   },
   {
     isHidden: !isSelectionSelected,
     onClick() {
-      dispatch(ARRANGE_DELETE_SELECTION)
+      dispatch(arrangeDeleteSelection())
       close()
     },
-    label: "Delete"
-  }
+    label: "Delete",
+  },
 ]

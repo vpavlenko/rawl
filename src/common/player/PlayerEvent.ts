@@ -25,9 +25,8 @@ import {
   UnknownChannelEvent,
   ControllerEvent,
   SysExEvent,
-  DividedSysExEvent
+  DividedSysExEvent,
 } from "midifile-ts"
-import { Omit } from "recompose"
 import { RPNEvent } from "../helpers/RPNAssembler"
 
 interface PlayerRequired {
@@ -35,31 +34,31 @@ interface PlayerRequired {
 }
 
 export type PlayerEvent =
-  | PlayerRequired & Omit<RPNEvent, "deltaTime">
-  | PlayerRequired & Omit<SequenceNumberEvent, "deltaTime">
-  | PlayerRequired & Omit<TextEvent, "deltaTime">
-  | PlayerRequired & Omit<CopyrightNoticeEvent, "deltaTime">
-  | PlayerRequired & Omit<TrackNameEvent, "deltaTime">
-  | PlayerRequired & Omit<InstrumentNameEvent, "deltaTime">
-  | PlayerRequired & Omit<LyricsEvent, "deltaTime">
-  | PlayerRequired & Omit<MarkerEvent, "deltaTime">
-  | PlayerRequired & Omit<CuePointEvent, "deltaTime">
-  | PlayerRequired & Omit<ChannelPrefixEvent, "deltaTime">
-  | PlayerRequired & Omit<PortPrefixEvent, "deltaTime">
-  | PlayerRequired & Omit<EndOfTrackEvent, "deltaTime">
-  | PlayerRequired & Omit<SetTempoEvent, "deltaTime">
-  | PlayerRequired & Omit<SmpteOffsetEvent, "deltaTime">
-  | PlayerRequired & Omit<TimeSignatureEvent, "deltaTime">
-  | PlayerRequired & Omit<KeySignatureEvent, "deltaTime">
-  | PlayerRequired & Omit<SequencerSpecificEvent, "deltaTime">
-  | PlayerRequired & Omit<UnknownMetaEvent, "deltaTime">
-  | PlayerRequired & Omit<NoteOffEvent, "deltaTime">
-  | PlayerRequired & Omit<NoteOnEvent, "deltaTime">
-  | PlayerRequired & Omit<NoteAftertouchEvent, "deltaTime">
-  | PlayerRequired & Omit<ProgramChangeEvent, "deltaTime">
-  | PlayerRequired & Omit<ChannelAftertouchEvent, "deltaTime">
-  | PlayerRequired & Omit<PitchBendEvent, "deltaTime">
-  | PlayerRequired & Omit<UnknownChannelEvent, "deltaTime">
-  | PlayerRequired & Omit<ControllerEvent, "deltaTime">
-  | PlayerRequired & Omit<SysExEvent, "deltaTime">
-  | PlayerRequired & Omit<DividedSysExEvent, "deltaTime">
+  | (PlayerRequired & Omit<RPNEvent, "deltaTime">)
+  | (PlayerRequired & Omit<SequenceNumberEvent, "deltaTime">)
+  | (PlayerRequired & Omit<TextEvent, "deltaTime">)
+  | (PlayerRequired & Omit<CopyrightNoticeEvent, "deltaTime">)
+  | (PlayerRequired & Omit<TrackNameEvent, "deltaTime">)
+  | (PlayerRequired & Omit<InstrumentNameEvent, "deltaTime">)
+  | (PlayerRequired & Omit<LyricsEvent, "deltaTime">)
+  | (PlayerRequired & Omit<MarkerEvent, "deltaTime">)
+  | (PlayerRequired & Omit<CuePointEvent, "deltaTime">)
+  | (PlayerRequired & Omit<ChannelPrefixEvent, "deltaTime">)
+  | (PlayerRequired & Omit<PortPrefixEvent, "deltaTime">)
+  | (PlayerRequired & Omit<EndOfTrackEvent, "deltaTime">)
+  | (PlayerRequired & Omit<SetTempoEvent, "deltaTime">)
+  | (PlayerRequired & Omit<SmpteOffsetEvent, "deltaTime">)
+  | (PlayerRequired & Omit<TimeSignatureEvent, "deltaTime">)
+  | (PlayerRequired & Omit<KeySignatureEvent, "deltaTime">)
+  | (PlayerRequired & Omit<SequencerSpecificEvent, "deltaTime">)
+  | (PlayerRequired & Omit<UnknownMetaEvent, "deltaTime">)
+  | (PlayerRequired & Omit<NoteOffEvent, "deltaTime">)
+  | (PlayerRequired & Omit<NoteOnEvent, "deltaTime">)
+  | (PlayerRequired & Omit<NoteAftertouchEvent, "deltaTime">)
+  | (PlayerRequired & Omit<ProgramChangeEvent, "deltaTime">)
+  | (PlayerRequired & Omit<ChannelAftertouchEvent, "deltaTime">)
+  | (PlayerRequired & Omit<PitchBendEvent, "deltaTime">)
+  | (PlayerRequired & Omit<UnknownChannelEvent, "deltaTime">)
+  | (PlayerRequired & Omit<ControllerEvent, "deltaTime">)
+  | (PlayerRequired & Omit<SysExEvent, "deltaTime">)
+  | (PlayerRequired & Omit<DividedSysExEvent, "deltaTime">)

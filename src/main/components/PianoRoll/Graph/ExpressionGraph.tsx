@@ -1,8 +1,7 @@
 import React, { StatelessComponent } from "react"
-import { pure, Omit } from "recompose"
 import LineGraphControl, {
   LineGraphControlProps,
-  LineGraphControlEvent
+  LineGraphControlEvent,
 } from "./LineGraphControl"
 import { ControllerEvent } from "midifile-ts"
 import { TrackEvent } from "common/track"
@@ -22,10 +21,10 @@ const ExpressionGraph: StatelessComponent<ExpressionGraphProps> = ({
   events,
   transform,
   createEvent,
-  color
+  color,
 }) => {
   const filteredEvents = events.filter(
-    e => (e as any).controllerType === 0x0b
+    (e) => (e as any).controllerType === 0x0b
   ) as (LineGraphControlEvent & ControllerEvent)[]
 
   return (
@@ -38,11 +37,11 @@ const ExpressionGraph: StatelessComponent<ExpressionGraphProps> = ({
       maxValue={127}
       events={filteredEvents}
       axis={[0, 0x20, 0x40, 0x60, 0x80 - 1]}
-      createEvent={obj => createEvent(obj.value, obj.tick)}
-      onClickAxis={value => createEvent(value)}
+      createEvent={(obj) => createEvent(obj.value, obj.tick)}
+      onClickAxis={(value) => createEvent(value)}
       color={color}
     />
   )
 }
 
-export default pure(ExpressionGraph)
+export default React.memo(ExpressionGraph)

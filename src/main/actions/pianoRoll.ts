@@ -1,35 +1,83 @@
-import { IPoint } from "common/geometry"
-import RootStore from "../stores/RootStore"
-import { openContextMenu } from "../components/groups/ContextMenu"
+import {
+  openContextMenu,
+  ContextMenuMouseEvent,
+} from "../components/groups/ContextMenu"
 import { PianoContextMenu } from "../menus/PianoContextMenu"
+import { Action, Mutator } from "../createDispatcher"
 
-export const CHANGE_CURSOR = Symbol()
-export const SCROLL_BY = Symbol()
-export const OPEN_CONTEXT_MENU = Symbol()
-export const SET_CONTROL_MODE = Symbol()
-export const TOGGLE_TOOL = Symbol()
+export interface ChangeCursor {
+  type: "changeCursor"
+  cursor: string
+}
+export const changeCursor = (cursor: string): ChangeCursor => ({
+  type: "changeCursor",
+  cursor,
+})
+export interface ScrollBy {
+  type: "scrollBy"
+  x: number
+  y: number
+}
+export const scrollBy = (x: number, y: number): ScrollBy => ({
+  type: "scrollBy",
+  x,
+  y,
+})
+export interface OpenContextMenu {
+  type: "openContextMenu"
+  e: ContextMenuMouseEvent
+  isNoteSelected: boolean
+}
+export const openContextMenuAction = (
+  e: ContextMenuMouseEvent,
+  isNoteSelected: boolean
+): OpenContextMenu => ({ type: "openContextMenu", e, isNoteSelected })
+export interface SetControlMode {
+  type: "setControlMode"
+  name: string
+}
+export const setControlMode = (name: string): SetControlMode => ({
+  type: "setControlMode",
+  name,
+})
+export interface ToggleTool {
+  type: "toggleTool"
+}
+export const toggleTool = (): ToggleTool => ({ type: "toggleTool" })
 
-export default ({ dispatch, pianoRollStore: s }: RootStore) => {
-  return {
-    [CHANGE_CURSOR]: (cursor: string) => {
-      s.notesCursor = cursor
-    },
+export type PianoRollAction =
+  | ChangeCursor
+  | ScrollBy
+  | OpenContextMenu
+  | SetControlMode
+  | ToggleTool
 
-    [SCROLL_BY]: ({ x, y }: IPoint) => {
-      s.scrollLeft = s.scrollLeft - x
-      s.scrollTop = s.scrollTop - y
-    },
-
-    [OPEN_CONTEXT_MENU]: (e: React.MouseEvent, isNoteSelected: boolean) => {
-      openContextMenu(e, PianoContextMenu(dispatch, isNoteSelected))
-    },
-
-    [SET_CONTROL_MODE]: (name: string) => {
-      s.controlMode = name
-    },
-
-    [TOGGLE_TOOL]: () => {
-      s.mouseMode = s.mouseMode === "pencil" ? "selection" : "pencil"
-    }
+export default (action: Action): Mutator | null => {
+  switch (action.type) {
+    case "changeCursor":
+      return ({ pianoRollStore: s }) => {
+        s.notesCursor = action.cursor
+      }
+    case "scrollBy":
+      return ({ pianoRollStore: s }) => {
+        s.scrollLeft = s.scrollLeft - action.x
+        s.scrollTop = s.scrollTop - action.y
+      }
+    case "openContextMenu":
+      return (store) => {
+        openContextMenu(
+          action.e,
+          PianoContextMenu(store.dispatch, action.isNoteSelected)
+        )
+      }
+    case "setControlMode":
+      return ({ pianoRollStore: s }) => {
+        s.controlMode = name
+      }
+    case "toggleTool":
+      return ({ pianoRollStore: s }) => {
+        s.mouseMode === "pencil" ? "selection" : "pencil"
+      }
   }
+  return null
 }

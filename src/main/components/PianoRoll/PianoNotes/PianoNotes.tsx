@@ -1,31 +1,36 @@
 import Color from "color"
-import Theme from "common/theme"
 import { isNoteEvent, TrackEvent } from "common/track"
 import { NoteCoordTransform } from "common/transform"
-import Stage, { StageMouseEvent } from "components/Stage/Stage"
+import { Stage, Container } from "@inlet/react-pixi"
+
 import _ from "lodash"
-import React, { StatelessComponent } from "react"
-import { shouldUpdate } from "recompose"
-import PianoNoteItem from "./PianoNoteItem"
+import React, { StatelessComponent, useCallback } from "react"
+import { PianoNote, PianoNoteMouseEvent, PianoNoteItem } from "./PianoNote"
+import { IPoint } from "common/geometry"
+import { Rectangle } from "pixi.js"
+import { useTheme } from "main/hooks/useTheme"
 
 export interface PianoNotesProps {
   events: TrackEvent[]
   transform: NoteCoordTransform
-  width: number
-  scrollLeft: number
   cursor: string
   selectedEventIds: number[]
-  onMouseDown: (e: PianoNotesMouseEvent<MouseEvent>) => void
-  onMouseMove: (e: PianoNotesMouseEvent<MouseEvent>) => void
-  onMouseUp: (e: PianoNotesMouseEvent<MouseEvent>) => void
+  onDragNote: (e: PianoNotesNoteMouseEvent) => void
+  onHoverNote: (e: PianoNotesNoteMouseEvent) => void
   isDrumMode: boolean
-  theme: Theme
 }
 
-export interface PianoNotesMouseEvent<E> extends StageMouseEvent<E> {
+export interface PianoNotesMouseEvent {
+  nativeEvent: MouseEvent
   tick: number
   noteNumber: number
-  item: PianoNoteItem
+  local: IPoint
+}
+
+export interface PianoNotesNoteMouseEvent extends PianoNoteMouseEvent {
+  note: TrackEvent
+  tick: number
+  noteNumber: number
 }
 
 /**
@@ -34,78 +39,77 @@ export interface PianoNotesMouseEvent<E> extends StageMouseEvent<E> {
 const PianoNotes: StatelessComponent<PianoNotesProps> = ({
   events,
   transform,
-  width,
-  scrollLeft,
   cursor,
   selectedEventIds,
-  onMouseDown,
-  onMouseMove,
-  onMouseUp,
+  onDragNote,
+  onHoverNote,
   isDrumMode,
-  theme
 }) => {
+  const theme = useTheme()
   const baseColor = Color(theme.themeColor)
-  const color = baseColor.string()
-  const borderColor = baseColor.lighten(0.3).string()
-  const selectedColor = baseColor.lighten(0.7).string()
-  const selectedBorderColor = baseColor.lighten(0.8).string()
+  const color = baseColor.rgbNumber()
+  const borderColor = baseColor.lighten(0.3).rgbNumber()
+  const selectedColor = baseColor.lighten(0.7).rgbNumber()
+  const selectedBorderColor = baseColor.lighten(0.8).rgbNumber()
 
-  const items = events.filter(isNoteEvent).map(e => {
-    const rect = transform.getRect(e)
-    const selected = selectedEventIds.includes(e.id)
-    return new PianoNoteItem(
-      e.id,
-      rect.x,
-      rect.y,
-      rect.width,
-      rect.height,
-      e.velocity,
-      selected,
-      isDrumMode,
-      color,
-      borderColor,
-      selectedColor,
-      selectedBorderColor
-    )
-  })
-  const height = transform.pixelsPerKey * transform.numberOfKeys
+  const items: PianoNoteItem[] = events.filter(isNoteEvent).map(
+    (e): PianoNoteItem => {
+      const rect = transform.getRect(e)
+      const isSelected = selectedEventIds.includes(e.id)
+      return {
+        ...rect,
+        id: e.id,
+        velocity: e.velocity,
+        isSelected,
+      }
+    }
+  )
 
-  // MouseHandler で利用する追加情報をイベントに付加する
-  const extendEvent = <S, T extends StageMouseEvent<S>>(
-    e: T
-  ): PianoNotesMouseEvent<S> => ({
+  const extendNoteEvent = (
+    e: PianoNoteMouseEvent,
+    eventID: number
+  ): PianoNotesNoteMouseEvent => ({
     ...e,
-    item: e.items[0] as PianoNoteItem,
-    tick: transform.getTicks(e.local.x),
-    noteNumber: Math.ceil(transform.getNoteNumber(e.local.y))
+    note: events.find((e) => e.id === eventID)!,
+    tick: transform.getTicks(e.offset.x),
+    noteNumber: Math.ceil(transform.getNoteNumber(e.offset.y)),
   })
 
+  const _onDragNote = useCallback(
+    (e: PianoNoteMouseEvent) => onDragNote(extendNoteEvent(e, e.dragItem.id)),
+    []
+  )
+  const _onHoverNote = useCallback(
+    (e: PianoNoteMouseEvent) => onHoverNote(extendNoteEvent(e, e.dragItem.id)),
+    []
+  )
+
   return (
-    <Stage
-      items={items}
-      className="PianoNotes"
-      width={width}
-      height={height}
-      scrollLeft={scrollLeft}
-      onContextMenu={e => e.nativeEvent.preventDefault()}
-      onMouseDown={e => onMouseDown(extendEvent(e))}
-      onMouseMove={e => onMouseMove(extendEvent(e))}
-      onMouseUp={e => onMouseUp(extendEvent(e))}
-      style={{ cursor }}
-    />
+    <Container>
+      {items.map((item) => (
+        <PianoNote
+          key={item.id}
+          item={item}
+          color={color}
+          borderColor={borderColor}
+          selectedColor={selectedColor}
+          selectedBorderColor={selectedBorderColor}
+          onMouseDrag={_onDragNote}
+          onMouseHover={_onHoverNote}
+          isDrum={isDrumMode}
+        />
+      ))}
+    </Container>
   )
 }
 
-function test(props: PianoNotesProps, nextProps: PianoNotesProps) {
+function areEqual(props: PianoNotesProps, nextProps: PianoNotesProps) {
   return (
-    !_.isEqual(props.events, nextProps.events) ||
-    props.transform !== nextProps.transform ||
-    props.scrollLeft !== nextProps.scrollLeft ||
-    props.width !== nextProps.width ||
-    props.cursor !== nextProps.cursor ||
-    !_.isEqual(props.selectedEventIds, nextProps.selectedEventIds) ||
-    !_.isEqual(props.theme, nextProps.theme)
+    _.isEqual(props.events, nextProps.events) &&
+    props.transform === nextProps.transform &&
+    props.cursor === nextProps.cursor &&
+    _.isEqual(props.selectedEventIds, nextProps.selectedEventIds)
   )
 }
 
-export default shouldUpdate(test)(PianoNotes)
+export default React.memo(PianoNotes, areEqual)

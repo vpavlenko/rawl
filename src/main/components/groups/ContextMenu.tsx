@@ -12,9 +12,15 @@ function renderElement(html: string) {
   return template.content.firstElementChild
 }
 
+export interface ContextMenuMouseEvent {
+  preventDefault(): void
+  pageX: number
+  pageY: number
+}
+
 export const createContextMenu = (
   childrenProvider: (close: () => void) => JSX.Element[]
-) => (e: React.MouseEvent) => {
+) => (e: ContextMenuMouseEvent) => {
   e.preventDefault()
 
   const elm = renderElement(`<div class="ContextMenu" />`)
@@ -50,7 +56,7 @@ export const createContextMenu = (
 export type ContextMenuBuilder = (close: () => void) => ContextMenuItemContent[]
 
 export function openContextMenu(
-  e: React.MouseEvent,
+  e: ContextMenuMouseEvent,
   builder: ContextMenuBuilder
 ) {
   const contextMenu = (close: () => void) =>
@@ -67,7 +73,7 @@ export interface ContextMenuItemContent {
 
 export const createContextMenuComponent = (items: ContextMenuItemContent[]) =>
   items
-    .filter(i => i.isHidden !== true)
+    .filter((i) => i.isHidden !== true)
     .map((i, k) => (
       <MenuItem key={k} onClick={i.onClick}>
         {i.label}

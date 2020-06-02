@@ -1,77 +1,45 @@
 import React, { StatelessComponent } from "react"
-import { shouldUpdate } from "recompose"
+import { Graphics as PIXIGraphics, Point } from "pixi.js"
 import _ from "lodash"
 
-import DrawCanvas from "components/DrawCanvas"
 import { IRect } from "common/geometry"
+import { useTheme } from "main/hooks/useTheme"
+import { Graphics } from "@inlet/react-pixi"
+import Color from "color"
 
 const LINE_WIDTH = 2
 
-function drawSelection(
-  ctx: CanvasRenderingContext2D,
-  { x, y, width, height }: IRect,
-  color: string
-) {
-  ctx.beginPath()
-  ctx.strokeStyle = color
-  ctx.lineWidth = LINE_WIDTH
-  ctx.rect(
-    x + LINE_WIDTH / 2,
-    y + LINE_WIDTH / 2,
-    width - LINE_WIDTH,
-    height - LINE_WIDTH
-  )
-  ctx.stroke()
-}
-
 export interface PianoSelectionProps {
-  scrollLeft: number
   selectionBounds: IRect | null
-  color: string
-  width: number
-  height: number
 }
 
 const PianoSelection: StatelessComponent<PianoSelectionProps> = ({
-  scrollLeft,
   selectionBounds,
-  color,
-  width,
-  height
 }) => {
-  function draw(ctx: CanvasRenderingContext2D): void {
-    const { width, height } = ctx.canvas
-    ctx.save()
-    ctx.clearRect(0, 0, width, height)
-    ctx.translate(-scrollLeft, 0)
+  const theme = useTheme()
+  const color = Color(theme.themeColor).rgbNumber()
+
+  function draw(ctx: PIXIGraphics): void {
+    console.log("render PianoSelection")
+    ctx.clear()
     if (selectionBounds) {
-      drawSelection(ctx, selectionBounds, color)
+      const { x, y, width, height } = selectionBounds
+      ctx
+        .lineStyle(LINE_WIDTH, color)
+        .drawRect(
+          x + LINE_WIDTH / 2,
+          y + LINE_WIDTH / 2,
+          width - LINE_WIDTH,
+          height - LINE_WIDTH
+        )
     }
-    ctx.restore()
   }
 
-  return (
-    <DrawCanvas
-      draw={draw}
-      className="PianoSelection"
-      width={width}
-      height={height}
-    />
-  )
+  return <Graphics draw={draw} />
 }
 
-PianoSelection.defaultProps = {
-  scrollLeft: 0
+function areEqual(props: PianoSelectionProps, nextProps: PianoSelectionProps) {
+  return _.isEqual(props.selectionBounds, nextProps.selectionBounds)
 }
 
-function test(props: PianoSelectionProps, nextProps: PianoSelectionProps) {
-  return (
-    props.color !== nextProps.color ||
-    !_.isEqual(props.selectionBounds, nextProps.selectionBounds) ||
-    props.width !== nextProps.width ||
-    props.height !== nextProps.height ||
-    props.scrollLeft !== nextProps.scrollLeft
-  )
-}
-
-export default shouldUpdate(test)(PianoSelection)
+export default React.memo(PianoSelection, areEqual)

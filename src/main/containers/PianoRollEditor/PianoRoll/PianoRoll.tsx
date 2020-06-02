@@ -1,15 +1,16 @@
 import { NoteCoordTransform } from "common/transform"
 import {
-  PREVIEW_NOTE,
-  SET_LOOP_BEGIN,
-  SET_LOOP_END,
-  SET_PLAYER_POSITION,
-  CHANGE_NOTES_VELOCITY,
-  CREATE_VOLUME,
-  CREATE_PITCH_BEND,
-  CREATE_PAN,
-  CREATE_MODULATION,
-  CREATE_EXPRESSION
+  setPlayerPosition,
+  previewNote,
+  changeNotesVelocity,
+  createVolume,
+  createPitchBend,
+  createPan,
+  createModulation,
+  createExpression,
+  moveNote,
+  resizeNoteLeft,
+  resizeNoteRight,
 } from "main/actions"
 import { inject, observer } from "mobx-react"
 import React, { SFC, useState, useEffect } from "react"
@@ -21,6 +22,9 @@ import SelectionMouseHandler from "./MouseHandler/SelectionMouseHandler"
 import { PianoRollMouseMode } from "stores/PianoRollStore"
 import { Dispatcher } from "createDispatcher"
 import RootStore from "stores/RootStore"
+import { toJS } from "mobx"
+import { pointAdd, pointSub } from "common/geometry"
+import { useTheme } from "main/hooks/useTheme"
 
 export type SPianoRollProps = PianoRollProps & {
   playerPosition: number
@@ -31,11 +35,10 @@ export type SPianoRollProps = PianoRollProps & {
   isPlaying: boolean
 }
 
-const Wrapper: SFC<SPianoRollProps> = props => {
+const Wrapper: SFC<SPianoRollProps> = (props) => {
   const {
     dispatch,
     selection,
-    theme,
     size,
     playerPosition,
     mouseMode,
@@ -43,17 +46,16 @@ const Wrapper: SFC<SPianoRollProps> = props => {
     setScrollLeft,
     scaleX = 1,
     autoScroll = false,
-    isPlaying
+    isPlaying,
   } = props
 
-  const [pencilMouseHandler] = useState(new PencilMouseHandler())
-  const [selectionMouseHandler] = useState(new SelectionMouseHandler())
-  const [alpha, setAlpha] = useState<HTMLElement | null>(null)
+  const theme = useTheme()
+
+  const [pencilMouseHandler] = useState(new PencilMouseHandler(dispatch))
+  const [selectionMouseHandler] = useState(new SelectionMouseHandler(dispatch))
   const transform = new NoteCoordTransform(0.1 * scaleX, theme.keyHeight, 127)
 
-  pencilMouseHandler.dispatch = dispatch
   pencilMouseHandler.transform = transform
-  selectionMouseHandler.dispatch = dispatch
   selectionMouseHandler.transform = transform
   selectionMouseHandler.selection = selection
 
@@ -78,8 +80,30 @@ const Wrapper: SFC<SPianoRollProps> = props => {
       setScrollLeft={setScrollLeft}
       transform={transform}
       mouseHandler={mouseHandler}
-      onMountAlpha={c => setAlpha(c)}
-      alphaHeight={alpha?.getBoundingClientRect().height ?? 0}
+      alphaHeight={size.height}
+      onDragNote={(e) => {
+        switch (e.position) {
+          case "center":
+            const delta = pointSub(e.offset, e.dragStart)
+            console.log(delta)
+            const position = pointAdd(e.dragItem, delta)
+            dispatch(
+              moveNote({
+                id: e.note.id,
+                tick: transform.getTicks(position.x),
+                noteNumber: Math.round(transform.getNoteNumber(position.y)),
+                quantize: "round",
+              })
+            )
+            break
+          case "left":
+            dispatch(resizeNoteLeft(e.dragItem.id, e.tick))
+            break
+          case "right":
+            dispatch(resizeNoteRight(e.dragItem.id, e.tick))
+            break
+        }
+      }}
     />
   )
 }
@@ -90,11 +114,10 @@ export default compose<{}, {}>(
       rootStore: {
         song: { selectedTrack: track, endOfSong: endTick, measures },
         pianoRollStore: s,
-        rootViewStore: { theme },
         playerStore,
         services: { quantizer, player },
-        dispatch
-      }
+        dispatch,
+      },
     }: {
       rootStore: RootStore
     }) =>
@@ -103,18 +126,17 @@ export default compose<{}, {}>(
         endTick,
         measures,
         timebase: player.timebase,
-        theme,
-        events: track !== undefined ? (track.events as any).toJS() : [], // 変更が反映されるように toJS() する
+        events: track !== undefined ? toJS(track.events) : [], // 変更が反映されるように toJS() する
         scaleX: s.scaleX,
         scaleY: s.scaleY,
         autoScroll: s.autoScroll,
         selection: s.selection,
         scrollLeft: s.scrollLeft,
-        setScrollLeft: v => (s.scrollLeft = v),
+        setScrollLeft: (v) => (s.scrollLeft = v),
         scrollTop: s.scrollTop,
-        setScrollTop: v => (s.scrollTop = v),
+        setScrollTop: (v) => (s.scrollTop = v),
         controlMode: s.controlMode,
-        setControlMode: v => (s.controlMode = v),
+        setControlMode: (v) => (s.controlMode = v),
         cursorPosition: s.cursorPosition,
         notesCursor: s.notesCursor,
         mouseMode: s.mouseMode,
@@ -126,34 +148,49 @@ export default compose<{}, {}>(
         loop: playerStore.loop,
         isPlaying: player.isPlaying,
         quantizer,
-        setLoopBegin: tick => {},
-        setLoopEnd: tick => {},
-        setPlayerPosition: tick => dispatch(SET_PLAYER_POSITION, tick),
-        previewNote: (noteNumber, channel) =>
-          dispatch(PREVIEW_NOTE, noteNumber, channel),
+        onMouseDownRuler: (e) => {
+          const tick = e.tick
+          if (e.nativeEvent.ctrlKey) {
+            // setLoopBegin(tick)
+          } else if (e.nativeEvent.altKey) {
+            // setLoopEnd(tick)
+          } else {
+            dispatch(setPlayerPosition(tick))
+          }
+        },
+        onClickKey: (noteNumber) => {
+          if (track !== undefined && track.channel !== undefined) {
+            dispatch(previewNote(track.channel, noteNumber))
+          }
+        },
         dispatch,
         changeVelocity: (notes, velocity) =>
-          dispatch(CHANGE_NOTES_VELOCITY, notes, velocity),
+          dispatch(
+            changeNotesVelocity(
+              notes.map((n) => n.id),
+              velocity
+            )
+          ),
         createControlEvent: (mode, value, tick) => {
-          const type = (() => {
+          const action = (() => {
             switch (mode) {
               case "volume":
-                return CREATE_VOLUME
+                return createVolume
               case "pitchBend":
-                return CREATE_PITCH_BEND
+                return createPitchBend
               case "pan":
-                return CREATE_PAN
+                return createPan
               case "modulation":
-                return CREATE_MODULATION
+                return createModulation
               case "expression":
-                return CREATE_EXPRESSION
+                return createExpression
               case "velocity":
                 throw new Error("invalid type")
             }
           })()
-          dispatch(type, value, tick)
+          dispatch(action(value, tick || 0))
         },
-        playerPosition: playerStore.position
+        playerPosition: playerStore.position,
       } as Partial<SPianoRollProps>)
   ),
   observer,

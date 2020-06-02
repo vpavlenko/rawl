@@ -1,10 +1,9 @@
 import { observable, autorun, computed, action } from "mobx"
 import { list, object, serializable } from "serializr"
-import _ from "lodash"
+import * as _ from "lodash"
 
 import Track from "common/track"
 import Measure, { getMeasuresFromConductorTrack } from "common/measure"
-import { TIME_BASE } from "Constants"
 import { isNotUndefined } from "../helpers/array"
 
 const END_MARGIN = 480 * 30

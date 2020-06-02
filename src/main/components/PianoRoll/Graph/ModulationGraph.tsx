@@ -1,8 +1,7 @@
 import React, { StatelessComponent } from "react"
-import { pure, Omit } from "recompose"
 import LineGraphControl, {
   LineGraphControlProps,
-  LineGraphControlEvent
+  LineGraphControlEvent,
 } from "./LineGraphControl"
 import { ControllerEvent } from "midifile-ts"
 import { TrackEvent } from "common/track"
@@ -22,10 +21,10 @@ const ModulationGraph: StatelessComponent<ModulationGraphProps> = ({
   events,
   transform,
   createEvent,
-  color
+  color,
 }) => {
   const filteredEvents = events.filter(
-    e => (e as any).controllerType === 0x01
+    (e) => (e as any).controllerType === 0x01
   ) as (LineGraphControlEvent & ControllerEvent)[]
 
   return (
@@ -38,11 +37,11 @@ const ModulationGraph: StatelessComponent<ModulationGraphProps> = ({
       maxValue={127}
       events={filteredEvents}
       axis={[0, 0x20, 0x40, 0x60, 0x80 - 1]}
-      createEvent={obj => createEvent(obj.value, obj.tick)}
-      onClickAxis={value => createEvent(value)}
+      createEvent={(obj) => createEvent(obj.value, obj.tick)}
+      onClickAxis={(value) => createEvent(value)}
       color={color}
     />
   )
 }
 
-export default pure(ModulationGraph)
+export default React.memo(ModulationGraph)

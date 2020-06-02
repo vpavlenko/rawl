@@ -18,7 +18,7 @@ import Quantizer from "common/quantizer"
 import SynthOutput from "services/SynthOutput"
 import { TIME_BASE } from "../Constants"
 
-import createDispatcher from "../createDispatcher"
+import { createDispatcher2 } from "../createDispatcher"
 
 interface Services {
   player: Player
@@ -50,7 +50,7 @@ export default class RootStore {
   }
 
   get dispatch() {
-    return createDispatcher(this)
+    return createDispatcher2(this)
   }
 
   serializeUndoableState() {

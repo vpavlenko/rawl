@@ -1,5 +1,4 @@
 import React, { StatelessComponent } from "react"
-import { pure, shouldUpdate, compose, Omit } from "recompose"
 import _ from "lodash"
 import { withSize } from "react-sizeme"
 
@@ -20,6 +19,7 @@ import PianoVelocityControl from "./PianoVelocityControl/PianoVelocityControl"
 
 import "./ControlPane.css"
 import Item from "../Stage/Item"
+import VelocityItem from "./PianoVelocityControl/VelocityItem"
 
 interface ButtonItem {
   label: string
@@ -39,7 +39,7 @@ export type ControlMode =
   | "modulation"
   | "pan"
 
-const TabBar = pure(({ buttons }: TabBarProps) => {
+const TabBar = React.memo(({ buttons }: TabBarProps) => {
   return (
     <div className="control-toolbar">
       {buttons.map(({ label, selected, onClick }) => (
@@ -65,7 +65,7 @@ export interface ControlPaneProps {
   scrollLeft: number
   paddingBottom: number
   size: ISize
-  changeVelocity: (notes: Item[], velocity: number) => void
+  changeVelocity: (notes: VelocityItem[], velocity: number) => void
   createControlEvent: (mode: ControlMode, value: number, tick?: number) => void
 }
 
@@ -80,12 +80,12 @@ const ControlPane: StatelessComponent<ControlPaneProps> = ({
   paddingBottom,
   size,
   changeVelocity,
-  createControlEvent
+  createControlEvent,
 }) => {
   const controlButton = (label: string, name: ControlMode): ButtonItem => ({
     label,
     selected: mode === name,
-    onClick: () => onSelectTab(name)
+    onClick: () => onSelectTab(name),
   })
 
   const TAB_HEIGHT = 30
@@ -102,7 +102,7 @@ const ControlPane: StatelessComponent<ControlPaneProps> = ({
     height: containerHeight - TAB_HEIGHT - paddingBottom,
     color: theme.themeColor,
     createEvent: (value: number, tick?: number) =>
-      createControlEvent(mode, value, tick)
+      createControlEvent(mode, value, tick),
   }
 
   return (
@@ -114,7 +114,7 @@ const ControlPane: StatelessComponent<ControlPaneProps> = ({
           controlButton("Volume", "volume"),
           controlButton("Panpot", "pan"),
           controlButton("Modulation", "modulation"),
-          controlButton("Expression", "expression")
+          controlButton("Expression", "expression"),
         ]}
       />
       <div className="control-content">
@@ -130,7 +130,6 @@ const ControlPane: StatelessComponent<ControlPaneProps> = ({
         {mode === "modulation" && <ModulationGraph {...controlProps} />}
         {mode === "expression" && <ExpressionGraph {...controlProps} />}
         <PianoGrid
-          theme={theme}
           width={controlProps.width}
           height={controlProps.height}
           scrollLeft={scrollLeft}
@@ -141,20 +140,19 @@ const ControlPane: StatelessComponent<ControlPaneProps> = ({
   )
 }
 
-function test(props: ControlPaneProps, nextProps: ControlPaneProps) {
+function areEqual(props: ControlPaneProps, nextProps: ControlPaneProps) {
   return (
-    props.mode !== nextProps.mode ||
-    props.scrollLeft !== nextProps.scrollLeft ||
-    props.paddingBottom !== nextProps.paddingBottom ||
-    !_.isEqual(props.theme, nextProps.theme) ||
-    !_.isEqual(props.beats, nextProps.beats) ||
-    !_.isEqual(props.events, nextProps.events) ||
-    !_.isEqual(props.onSelectTab, nextProps.onSelectTab) ||
-    !_.isEqual(props.transform, nextProps.transform)
+    props.mode === nextProps.mode &&
+    props.scrollLeft === nextProps.scrollLeft &&
+    props.paddingBottom === nextProps.paddingBottom &&
+    _.isEqual(props.theme, nextProps.theme) &&
+    _.isEqual(props.beats, nextProps.beats) &&
+    _.isEqual(props.events, nextProps.events) &&
+    _.isEqual(props.onSelectTab, nextProps.onSelectTab) &&
+    _.isEqual(props.transform, nextProps.transform)
   )
 }
 
-export default compose<ControlPaneProps, Omit<ControlPaneProps, "size">>(
-  shouldUpdate(test),
-  withSize({ monitorHeight: true })
-)(ControlPane)
+export default withSize({ monitorHeight: true })(
+  React.memo(ControlPane, areEqual)
+)

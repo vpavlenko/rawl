@@ -2,11 +2,11 @@ import { compose } from "recompose"
 import { inject, observer } from "mobx-react"
 import RootStore from "stores/RootStore"
 import {
-  TOGGLE_MUTE_TRACK,
-  TOGGLE_SOLO_TRACK,
-  REMOVE_TRACK,
-  ADD_TRACK,
-  SELECT_TRACK
+  removeTrack,
+  addTrack,
+  selectTrack,
+  toggleMuteTrack,
+  toggleSoloTrack,
 } from "actions"
 import { TrackList, TrackListProps } from "components/TrackList/TrackList"
 
@@ -19,8 +19,8 @@ export default compose(
         rootViewStore,
         dispatch,
         router,
-        services: { player }
-      }
+        services: { player },
+      },
     }: {
       rootStore: RootStore
     }) =>
@@ -29,19 +29,19 @@ export default compose(
         song,
         player: { player },
         isArrangeViewSelected: rootViewStore.isArrangeViewSelected,
-        onClickMute: (trackId: number) => dispatch(TOGGLE_MUTE_TRACK, trackId),
-        onClickSolo: (trackId: number) => dispatch(TOGGLE_SOLO_TRACK, trackId),
-        onClickDelete: (trackId: number) => dispatch(REMOVE_TRACK, trackId),
-        onClickAddTrack: () => dispatch(ADD_TRACK),
+        onClickMute: (trackId: number) => dispatch(toggleMuteTrack(trackId)),
+        onClickSolo: (trackId: number) => dispatch(toggleSoloTrack(trackId)),
+        onClickDelete: (trackId: number) => dispatch(removeTrack(trackId)),
+        onClickAddTrack: () => dispatch(addTrack()),
         // onChangeName: e => dispatch(SET_TRACK_NAME, { name: e.target.value }),
         onSelectTrack: (trackId: number) => {
           router.pushTrack()
-          dispatch(SELECT_TRACK, trackId)
+          dispatch(selectTrack(trackId))
           rootViewStore.openDrawer = false
         },
         onClickArrangeView: () => {
           router.pushArrange()
-        }
+        },
       } as TrackListProps)
   ),
   observer

@@ -18,7 +18,7 @@ import {
   ISize,
   IPoint,
   IRect,
-  containsPoint
+  containsPoint,
 } from "common/geometry"
 import filterEventsWithScroll from "helpers/filterEventsWithScroll"
 
@@ -44,12 +44,12 @@ function ArrangeTrack({
   transform,
   width,
   isDrumMode,
-  scrollLeft
+  scrollLeft,
 }: ArrangeTrackProps) {
   const t = transform
   const items = events
     .filter(isNoteEvent)
-    .map(e => new ArrangeNoteItem(e.id, t.getRect(e), isDrumMode))
+    .map((e) => new ArrangeNoteItem(e.id, t.getRect(e), isDrumMode))
 
   return (
     <Stage
@@ -113,7 +113,7 @@ export const ArrangeView: SFC<ArrangeViewProps> = ({
   onClickScaleUp,
   onClickScaleDown,
   onClickScaleReset,
-  openContextMenu
+  openContextMenu,
 }) => {
   scrollLeft = Math.floor(scrollLeft)
 
@@ -144,7 +144,7 @@ export const ArrangeView: SFC<ArrangeViewProps> = ({
     x: transform.getX(selection.x) - scrollLeft,
     width: transform.getX(selection.width),
     y: selection.y * trackHeight - scrollTop,
-    height: selection.height * trackHeight
+    height: selection.height * trackHeight,
   }
 
   function setScrollLeft(scroll: number) {
@@ -171,10 +171,10 @@ export const ArrangeView: SFC<ArrangeViewProps> = ({
       mouseUp: (handler: (e: MouseEvent) => void) => void
     ) => {
       startSelection(startPos)
-      mouseMove(e => {
+      mouseMove((e) => {
         resizeSelection(startPos, createPoint(e))
       })
-      mouseUp(e => {
+      mouseUp((e) => {
         endSelection(startPos, createPoint(e))
       })
     }
@@ -185,12 +185,12 @@ export const ArrangeView: SFC<ArrangeViewProps> = ({
       mouseUp: (handler: (e: MouseEvent) => void) => void
     ) => {
       const startSelection = { ...selection }
-      mouseMove(e => {
+      mouseMove((e) => {
         const delta = pointSub(createPoint(e), startPos)
         const pos = pointAdd(startSelection, delta)
         moveSelection(pos)
       })
-      mouseUp(e => {})
+      mouseUp((e) => {})
     }
 
     let handler
@@ -203,7 +203,11 @@ export const ArrangeView: SFC<ArrangeViewProps> = ({
 
     let mouseMove: (e: MouseEvent) => void
     let mouseUp: (e: MouseEvent) => void
-    handler(e.nativeEvent, fn => (mouseMove = fn), fn => (mouseUp = fn))
+    handler(
+      e.nativeEvent,
+      (fn) => (mouseMove = fn),
+      (fn) => (mouseUp = fn)
+    )
 
     function onMouseMove(e: MouseEvent) {
       mouseMove(e)
@@ -288,13 +292,11 @@ export const ArrangeView: SFC<ArrangeViewProps> = ({
       <div
         className="right"
         onMouseDown={onMouseDown}
-        onContextMenu={e => e.preventDefault()}
+        onContextMenu={(e) => e.preventDefault()}
         onWheel={onWheel}
       >
         <PianoRuler
           width={containerWidth}
-          theme={theme}
-          height={theme.rulerHeight}
           beats={mappedBeats}
           scrollLeft={scrollLeft}
           pixelsPerTick={pixelsPerTick}
@@ -320,7 +322,6 @@ export const ArrangeView: SFC<ArrangeViewProps> = ({
             ))}
           </div>
           <PianoGrid
-            theme={theme}
             width={containerWidth}
             height={contentHeight}
             scrollLeft={scrollLeft}
@@ -329,7 +330,6 @@ export const ArrangeView: SFC<ArrangeViewProps> = ({
           <PianoSelection
             width={containerWidth}
             height={contentHeight}
-            color={theme.themeColor}
             scrollLeft={scrollLeft}
             selectionBounds={selectionRect}
           />
@@ -343,7 +343,7 @@ export const ArrangeView: SFC<ArrangeViewProps> = ({
           style={{
             width: `calc(100% - ${BAR_WIDTH}px)`,
             position: "absolute",
-            bottom: 0
+            bottom: 0,
           }}
         >
           <HorizontalScaleScrollBar
@@ -361,7 +361,7 @@ export const ArrangeView: SFC<ArrangeViewProps> = ({
           height: `calc(100% - ${BAR_WIDTH}px)`,
           position: "absolute",
           top: 0,
-          right: 0
+          right: 0,
         }}
       >
         <VerticalScrollBar

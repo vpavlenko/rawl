@@ -1,5 +1,5 @@
-import RootStore from "../stores/RootStore"
+import { Action, Mutator } from "../createDispatcher"
 
-export default ({ pianoRollStore }: RootStore) => {
-  return {}
+export default (action: Action): Mutator | null => {
+  return null
 }

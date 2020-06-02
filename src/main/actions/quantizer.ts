@@ -1,11 +1,31 @@
-import RootStore from "../stores/RootStore"
+import { Mutator, Action } from "../createDispatcher"
 
-export const SET_QUANTIZE_DENOMINATOR = Symbol()
+// Actions
 
-export default ({ services: { quantizer } }: RootStore) => {
-  return {
-    [SET_QUANTIZE_DENOMINATOR]: (denominator: number) => {
-      quantizer.denominator = denominator
-    }
+export interface SetQuantizeDenominator {
+  type: "setQuantizeDenominator"
+  denominator: number
+}
+
+export type QuantizerAction = SetQuantizeDenominator
+
+// Action Creators
+
+export const setQuantizeDenominator = (
+  denominator: number
+): SetQuantizeDenominator => ({
+  type: "setQuantizeDenominator",
+  denominator,
+})
+
+// Mutators
+
+export default (action: Action): Mutator | null => {
+  switch (action.type) {
+    case "setQuantizeDenominator":
+      return ({ services: { quantizer } }) => {
+        quantizer.denominator = action.denominator
+      }
   }
+  return null
 }

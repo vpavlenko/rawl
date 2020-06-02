@@ -5,18 +5,16 @@ import { ScrollBar, BAR_WIDTH, ScrollBarProps } from "./ScrollBar"
 import { ISize } from "common/geometry"
 
 import "./ScaleScrollBar.css"
-import { Omit } from "recompose"
 
 interface ScaleButtonProps {
   style?: CSSProperties
-  children?: ReactNode
   onClick?: () => void
 }
 
 const ScaleButton: StatelessComponent<ScaleButtonProps> = ({
   style,
   children,
-  onClick
+  onClick,
 }) => {
   return (
     <div className="ScaleButton" style={style} onClick={onClick}>
@@ -35,14 +33,14 @@ type HorizontalScaleScrollBar_Props = Omit<
   onClickScaleUp?: () => void
 }
 
-const HorizontalScaleScrollBar_: StatelessComponent<
-  HorizontalScaleScrollBar_Props
-> = props => {
+const HorizontalScaleScrollBar_: StatelessComponent<HorizontalScaleScrollBar_Props> = (
+  props
+) => {
   const buttonSize = BAR_WIDTH
   const barLength = props.size.width - buttonSize * 3
   const buttonStyle = {
     width: buttonSize,
-    height: buttonSize
+    height: buttonSize,
   }
   return (
     <ScrollBar
@@ -54,7 +52,7 @@ const HorizontalScaleScrollBar_: StatelessComponent<
         height: BAR_WIDTH,
         position: "absolute",
         bottom: 0,
-        left: 0
+        left: 0,
       }}
     >
       <ScaleButton style={buttonStyle} onClick={props.onClickScaleDown}>

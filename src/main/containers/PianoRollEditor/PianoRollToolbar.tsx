@@ -3,12 +3,12 @@ import { inject, observer } from "mobx-react"
 import RootStore from "stores/RootStore"
 import {
   PianoRollToolbarProps,
-  PianoRollToolbar
+  PianoRollToolbar,
 } from "components/PianoRollToolbar/PianoRollToolbar"
 import {
-  SET_TRACK_VOLUME,
-  SET_TRACK_PAN,
-  SET_QUANTIZE_DENOMINATOR
+  setQuantizeDenominator,
+  setTrackVolume,
+  setTrackPan,
 } from "main/actions"
 
 export default compose(
@@ -19,8 +19,8 @@ export default compose(
         dispatch,
         pianoRollStore: s,
         rootViewStore,
-        services: { quantizer }
-      }
+        services: { quantizer },
+      },
     }: {
       rootStore: RootStore
     }) => {
@@ -34,12 +34,12 @@ export default compose(
         onClickPencil: () => (s.mouseMode = "pencil"),
         onClickSelection: () => (s.mouseMode = "selection"),
         onClickAutoScroll: () => (s.autoScroll = !s.autoScroll),
-        onSelectQuantize: e => {
-          dispatch(SET_QUANTIZE_DENOMINATOR, e.denominator)
+        onSelectQuantize: (e) => {
+          dispatch(setQuantizeDenominator(e.denominator))
           s.quantize = e.denominator
         },
-        onChangeVolume: value => dispatch(SET_TRACK_VOLUME, trackId, value),
-        onChangePan: value => dispatch(SET_TRACK_PAN, trackId, value),
+        onChangeVolume: (value) => dispatch(setTrackVolume(trackId, value)),
+        onChangePan: (value) => dispatch(setTrackPan(trackId, value)),
         onClickNavBack: () => (rootViewStore.openDrawer = true),
         onClickInstrument: () => {
           if (track === undefined) {
@@ -48,10 +48,10 @@ export default compose(
           const programNumber = track.programNumber
           s.instrumentBrowserSetting = {
             isRhythmTrack: track.isRhythmTrack,
-            programNumber: programNumber ?? 0
+            programNumber: programNumber ?? 0,
           }
           s.openInstrumentBrowser = true
-        }
+        },
       } as PianoRollToolbarProps
     }
   ),

@@ -8,8 +8,8 @@ import { theme } from "common/theme/muiTheme"
 const LightSlider = withStyles({
   root: {
     color: theme.palette.primary.contrastText,
-    marginLeft: "1rem"
-  }
+    marginLeft: "1rem",
+  },
 })(Slider)
 
 const Container = styled.div`
@@ -19,9 +19,21 @@ const Container = styled.div`
   margin-right: 1rem;
 `
 
-export const VolumeSlider: StatelessComponent<SliderProps> = props => (
+export interface VolumeSliderProps {
+  onChange: (value: number) => void
+  value: number
+}
+
+export const VolumeSlider: StatelessComponent<VolumeSliderProps> = ({
+  onChange,
+  value,
+}) => (
   <Container>
     <VolumeUp />
-    <LightSlider {...props} max={127} />
+    <LightSlider
+      value={value}
+      onChange={(_, value) => onChange(value as number)}
+      max={127}
+    />
   </Container>
 )

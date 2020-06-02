@@ -1,5 +1,4 @@
 import React, { useCallback, SFC } from "react"
-import { shouldUpdate } from "recompose"
 import _ from "lodash"
 
 import Stage, { StageMouseEvent } from "components/Stage/Stage"
@@ -17,7 +16,7 @@ export interface PianoVelocityControlProps {
   transform: NoteCoordTransform
   scrollLeft: number
   color: CanvasDrawStyle
-  changeVelocity: (notes: Item[], velocity: number) => void
+  changeVelocity: (notes: VelocityItem[], velocity: number) => void
 }
 
 const PianoVelocityControl: SFC<PianoVelocityControlProps> = ({
@@ -27,33 +26,36 @@ const PianoVelocityControl: SFC<PianoVelocityControlProps> = ({
   transform,
   scrollLeft,
   color,
-  changeVelocity
+  changeVelocity,
 }: PianoVelocityControlProps) => {
-  const calcValue = (e: MouseEvent) =>
-    Math.round(Math.max(0, Math.min(1, 1 - e.offsetY / height)) * 127)
+  const onMouseDown = useCallback(
+    (e: StageMouseEvent<MouseEvent, VelocityItem>) => {
+      const calcValue = (e: MouseEvent) =>
+        Math.round(Math.max(0, Math.min(1, 1 - e.offsetY / height)) * 127)
 
-  const onMouseDown = useCallback((e: StageMouseEvent<MouseEvent>) => {
-    const items = e.items
-    if (items.length === 0) {
-      return
-    }
+      const items = e.items
+      if (items.length === 0) {
+        return
+      }
 
-    changeVelocity(items, calcValue(e.nativeEvent))
+      changeVelocity(items, calcValue(e.nativeEvent))
 
-    const onMouseMove = (e: MouseEvent) => {
-      changeVelocity(items, calcValue(e))
-    }
+      const onMouseMove = (e: MouseEvent) => {
+        changeVelocity(items, calcValue(e))
+      }
 
-    const onMouseUp = () => {
-      document.removeEventListener("mousemove", onMouseMove)
-      document.removeEventListener("mouseup", onMouseUp)
-    }
+      const onMouseUp = () => {
+        document.removeEventListener("mousemove", onMouseMove)
+        document.removeEventListener("mouseup", onMouseUp)
+      }
 
-    document.addEventListener("mousemove", onMouseMove)
-    document.addEventListener("mouseup", onMouseUp)
-  }, [])
+      document.addEventListener("mousemove", onMouseMove)
+      document.addEventListener("mouseup", onMouseUp)
+    },
+    [height]
+  )
 
-  const items = events.filter(isNoteEvent).map(note => {
+  const items = events.filter(isNoteEvent).map((note) => {
     const { x } = transform.getRect(note)
     const itemWidth = 5
     const itemHeight = (note.velocity / 127) * height
@@ -61,7 +63,7 @@ const PianoVelocityControl: SFC<PianoVelocityControlProps> = ({
       x,
       y: height - itemHeight,
       width: itemWidth,
-      height: itemHeight
+      height: itemHeight,
     }
     return new VelocityItem(note.id, bounds, false, color)
   })
@@ -78,17 +80,17 @@ const PianoVelocityControl: SFC<PianoVelocityControlProps> = ({
   )
 }
 
-function test(
+function areEqual(
   props: PianoVelocityControlProps,
   nextProps: PianoVelocityControlProps
 ) {
   return (
-    props.scrollLeft !== nextProps.scrollLeft ||
-    props.width !== nextProps.width ||
-    props.height !== nextProps.height ||
-    props.events !== nextProps.events ||
-    props.transform !== nextProps.transform
+    props.scrollLeft === nextProps.scrollLeft &&
+    props.width === nextProps.width &&
+    props.height === nextProps.height &&
+    props.events === nextProps.events &&
+    props.transform === nextProps.transform
   )
 }
 
-export default shouldUpdate(test)(PianoVelocityControl)
+export default React.memo(PianoVelocityControl, areEqual)

@@ -1,10 +1,8 @@
 import React, { StatelessComponent } from "react"
-import { pure, Omit } from "recompose"
 import LineGraphControl, {
   LineGraphControlProps,
-  LineGraphControlEvent
+  LineGraphControlEvent,
 } from "./LineGraphControl"
-import { Dispatcher } from "main/createDispatcher"
 import { ControllerEvent } from "midifile-ts"
 import { TrackEvent } from "common/track"
 
@@ -23,10 +21,10 @@ const VolumeGraph: StatelessComponent<VolumeGraphProps> = ({
   events,
   transform,
   createEvent,
-  color
+  color,
 }) => {
   const filteredEvents = events.filter(
-    e => (e as any).controllerType === 0x07
+    (e) => (e as any).controllerType === 0x07
   ) as (LineGraphControlEvent & ControllerEvent)[]
 
   return (
@@ -39,11 +37,11 @@ const VolumeGraph: StatelessComponent<VolumeGraphProps> = ({
       maxValue={127}
       events={filteredEvents}
       axis={[0, 0x20, 0x40, 0x60, 0x80 - 1]}
-      createEvent={obj => createEvent(obj.value, obj.tick)}
-      onClickAxis={value => createEvent(value)}
+      createEvent={(obj) => createEvent(obj.value, obj.tick)}
+      onClickAxis={(value) => createEvent(value)}
       color={color}
     />
   )
 }
 
-export default pure(VolumeGraph)
+export default React.memo(VolumeGraph)

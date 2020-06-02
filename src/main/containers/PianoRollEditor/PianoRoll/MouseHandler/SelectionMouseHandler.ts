@@ -3,14 +3,14 @@ import { pointSub, pointAdd, IPoint } from "common/geometry"
 import { NoteCoordTransform } from "common/transform"
 import SelectionModel from "common/selection/SelectionModel"
 import {
-  OPEN_CONTEXT_MENU,
-  START_SELECTION,
-  RESIZE_SELECTION,
-  FIX_SELECTION,
-  CLONE_SELECTION,
-  MOVE_SELECTION,
-  RESIZE_SELECTION_LEFT,
-  RESIZE_SELECTION_RIGHT
+  openContextMenuAction,
+  resizeSelection,
+  fixSelection,
+  startSelection,
+  cloneSelection,
+  moveSelection,
+  resizeSelectionRight,
+  resizeSelectionLeft,
 } from "main/actions"
 import { NotePoint } from "common/transform/NotePoint"
 import { Dispatcher } from "createDispatcher"
@@ -20,7 +20,7 @@ export default class SelectionMouseHandler extends MouseHandler {
   transform: NoteCoordTransform
   selection: SelectionModel
 
-  protected actionForMouseDown(e: PianoNotesMouseEvent<MouseEvent>) {
+  protected actionForMouseDown(e: PianoNotesMouseEvent) {
     const original = super.actionForMouseDown(e)
     if (original) {
       return original
@@ -81,7 +81,7 @@ export default class SelectionMouseHandler extends MouseHandler {
     return positionType(this.selection, this.transform, position)
   }
 
-  getCursorForMouseMove(e: PianoNotesMouseEvent<MouseEvent>) {
+  getCursorForMouseMove(e: PianoNotesMouseEvent) {
     const type = this.getPositionType(e.local)
     switch (type) {
       case "center":
@@ -125,8 +125,8 @@ const contextMenuAction = (
   isNoteSelected: boolean,
   dispatch: Dispatcher
 ): MouseGesture => (onMouseDown, onMouseMove, onMouseUp) => {
-  onMouseUp(e => {
-    dispatch(OPEN_CONTEXT_MENU, e.nativeEvent, isNoteSelected)
+  onMouseUp((e) => {
+    dispatch(openContextMenuAction(e.nativeEvent, isNoteSelected))
   })
 }
 
@@ -138,18 +138,18 @@ const createSelectionAction = (dispatch: Dispatcher): MouseGesture => (
 ) => {
   let start: NotePoint
 
-  onMouseDown(e => {
+  onMouseDown((e) => {
     start = { tick: e.tick, noteNumber: e.noteNumber }
-    dispatch(START_SELECTION, start)
+    dispatch(startSelection(start))
   })
 
-  onMouseMove(e => {
+  onMouseMove((e) => {
     const end = { tick: e.tick, noteNumber: e.noteNumber }
-    dispatch(RESIZE_SELECTION, start, end)
+    dispatch(resizeSelection(start, end))
   })
 
   onMouseUp(() => {
-    dispatch(FIX_SELECTION)
+    dispatch(fixSelection())
   })
 }
 
@@ -162,19 +162,19 @@ const moveSelectionAction = (
   let startPos: IPoint
   let selectionPos: IPoint
 
-  onMouseDown(e => {
+  onMouseDown((e) => {
     startPos = e.local
     selectionPos = selection.getBounds(transform)
     if (isCopy) {
-      dispatch(CLONE_SELECTION)
+      dispatch(cloneSelection())
     }
   })
 
-  onMouseMove(e => {
+  onMouseMove((e) => {
     const position = pointAdd(selectionPos, pointSub(e.local, startPos))
     const tick = transform.getTicks(position.x)
     const noteNumber = Math.round(transform.getNoteNumber(position.y))
-    dispatch(MOVE_SELECTION, { tick, noteNumber })
+    dispatch(moveSelection({ tick, noteNumber }))
   })
 }
 
@@ -184,9 +184,9 @@ const dragSelectionLeftEdgeAction = (
 ): MouseGesture => (onMouseDown, onMouseMove) => {
   onMouseDown(() => {})
 
-  onMouseMove(e => {
+  onMouseMove((e) => {
     const tick = transform.getTicks(e.local.x)
-    dispatch(RESIZE_SELECTION_LEFT, tick)
+    dispatch(resizeSelectionLeft(tick))
   })
 }
 
@@ -196,8 +196,8 @@ const dragSelectionRightEdgeAction = (
 ): MouseGesture => (onMouseDown, onMouseMove) => {
   onMouseDown(() => {})
 
-  onMouseMove(e => {
+  onMouseMove((e) => {
     const tick = transform.getTicks(e.local.x)
-    dispatch(RESIZE_SELECTION_RIGHT, tick)
+    dispatch(resizeSelectionRight(tick))
   })
 }

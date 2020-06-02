@@ -1,4 +1,3 @@
-import assert from "assert"
 import NoteTimeTransform from "./NoteTimeTransform"
 
 describe("NoteTimeTransform", () => {
@@ -12,20 +11,20 @@ describe("NoteTimeTransform", () => {
   )
 
   it("constructor", () => {
-    assert(t != null)
+    expect(t).not.toBeNull()
   })
 
   it("getTempoAt", () => {
-    assert.equal(t.getTempoAt(-999), 120)
-    assert.equal(t.getTempoAt(0), 120)
-    assert.equal(t.getTempoAt(10), 120)
-    assert.equal(t.getTempoAt(40), 150)
-    assert.equal(t.getTempoAt(60), 150)
-    assert.equal(t.getTempoAt(999), 240)
+    expect(t.getTempoAt(-999)).toBe(120)
+    expect(t.getTempoAt(0)).toBe(120)
+    expect(t.getTempoAt(10)).toBe(120)
+    expect(t.getTempoAt(40)).toBe(150)
+    expect(t.getTempoAt(60)).toBe(150)
+    expect(t.getTempoAt(999)).toBe(240)
   })
 
   it("getSeconds", () => {
-    assert.equal(t.getSeconds(0), 0)
-    assert.equal(t.getSeconds(0), 0)
+    expect(t.getSeconds(0)).toBe(0)
+    expect(t.getSeconds(0)).toBe(0)
   })
 })

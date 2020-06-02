@@ -1,41 +1,41 @@
-import { COPY_SELECTION, DELETE_SELECTION, PASTE_SELECTION } from "main/actions"
 import { Dispatcher } from "main/createDispatcher"
 import { ContextMenuBuilder } from "../components/groups/ContextMenu"
+import { copySelection, pasteSelection, deleteSelection } from "actions"
 
 export const PianoContextMenu = (
   dispatch: Dispatcher,
   isNoteSelected: boolean
-): ContextMenuBuilder => close => [
+): ContextMenuBuilder => (close) => [
   {
     isHidden: !isNoteSelected,
     onClick() {
-      dispatch(COPY_SELECTION)
-      dispatch(DELETE_SELECTION)
+      dispatch(copySelection())
+      dispatch(deleteSelection())
       close()
     },
-    label: "Cut"
+    label: "Cut",
   },
   {
     isHidden: !isNoteSelected,
     onClick() {
-      dispatch(COPY_SELECTION)
+      dispatch(copySelection())
       close()
     },
-    label: "Copy"
+    label: "Copy",
   },
   {
     onClick() {
-      dispatch(PASTE_SELECTION)
+      dispatch(pasteSelection())
       close()
     },
-    label: "Paste"
+    label: "Paste",
   },
   {
     isHidden: !isNoteSelected,
     onClick() {
-      dispatch(DELETE_SELECTION)
+      dispatch(deleteSelection())
       close()
     },
-    label: "Delete"
-  }
+    label: "Delete",
+  },
 ]

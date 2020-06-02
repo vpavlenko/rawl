@@ -16,18 +16,26 @@ import PianoCursor from "./PianoCursor"
 import PianoGrid from "./PianoGrid"
 import PianoKeys from "./PianoKeys"
 import PianoLines from "./PianoLines"
-import PianoNotes, { PianoNotesMouseEvent } from "./PianoNotes/PianoNotes"
+import PianoNotes, {
+  PianoNotesMouseEvent,
+  PianoNotesNoteMouseEvent,
+} from "./PianoNotes/PianoNotes"
 import PianoRuler, { TickEvent } from "./PianoRuler"
 import PianoSelection from "./PianoSelection"
 
 import "./PianoRoll.css"
+import { useTheme } from "main/hooks/useTheme"
+import { Stage, Container, Graphics } from "@inlet/react-pixi"
+import { Point, interaction, Rectangle } from "pixi.js"
+import { theme } from "src/common/theme/muiTheme"
+import Color from "color"
 
 const SCROLL_KEY_SPEED = 4
 
 export interface PianoNotesMouseHandler {
-  onMouseDown(e: PianoNotesMouseEvent<MouseEvent>): void
-  onMouseMove(e: PianoNotesMouseEvent<MouseEvent>): void
-  onMouseUp(e: PianoNotesMouseEvent<MouseEvent>): void
+  onMouseDown(e: PianoNotesMouseEvent): void
+  onMouseMove(e: PianoNotesMouseEvent): void
+  onMouseUp(e: PianoNotesMouseEvent): void
 }
 
 export type PianoRollProps = Pick<
@@ -35,7 +43,7 @@ export type PianoRollProps = Pick<
   "createControlEvent" | "changeVelocity"
 > & {
   mouseHandler: PianoNotesMouseHandler
-  theme: Theme
+  onDragNote: (e: PianoNotesNoteMouseEvent) => void
   track: Track
   events: TrackEvent[]
   transform: NoteCoordTransform
@@ -52,21 +60,18 @@ export type PianoRollProps = Pick<
   setControlMode: (mode: string) => void
   notesCursor: string
   cursorPosition: number
-  onMountAlpha: (ref: HTMLElement | null) => void
   loop: LoopSetting
-  setLoopBegin: (tick: number) => void
-  setLoopEnd: (tick: number) => void
   size: ISize
   onClickScaleUp: () => void
   onClickScaleDown: () => void
   onClickScaleReset: () => void
-  setPlayerPosition: (tick: number) => void
-  previewNote: (event: any, channel: number) => void
+  onMouseDownRuler: (e: TickEvent<MouseEvent>) => void
+  onClickKey: (noteNumber: number) => void
 }
 
 export const PianoRoll: StatelessComponent<PianoRollProps> = ({
   mouseHandler,
-  theme,
+  onDragNote,
   track,
   events,
   transform,
@@ -83,21 +88,16 @@ export const PianoRoll: StatelessComponent<PianoRollProps> = ({
   setControlMode,
   notesCursor,
   cursorPosition,
-  onMountAlpha,
   loop,
-  setLoopBegin,
-  setLoopEnd,
   size,
   onClickScaleUp,
   onClickScaleDown,
   onClickScaleReset,
-  setPlayerPosition,
-  previewNote,
+  onMouseDownRuler,
   changeVelocity,
-  createControlEvent
+  createControlEvent,
+  onClickKey,
 }) => {
-  const { keyWidth, rulerHeight } = theme
-
   const containerWidth = size.width
 
   const width = containerWidth
@@ -124,100 +124,123 @@ export const PianoRoll: StatelessComponent<PianoRollProps> = ({
   scrollLeft = clampScroll(contentWidth - containerWidth, scrollLeft)
   scrollTop = clampScroll(contentHeight - alphaHeight, scrollTop)
 
-  const onMouseDownRuler = (e: TickEvent<React.MouseEvent>) => {
-    const tick = e.tick
-    if (e.nativeEvent.ctrlKey) {
-      setLoopBegin(tick)
-    } else if (e.nativeEvent.altKey) {
-      setLoopEnd(tick)
-    } else {
-      setPlayerPosition(tick)
-    }
-  }
-
   const onDoubleClickMark = (group: DisplayEvent[]) => {
     showEventEditor(group)
   }
+
+  const stageHeight = transform.pixelsPerKey * transform.numberOfKeys
+  const theme = useTheme()
+
+  // MouseHandler で利用する追加情報をイベントに付加する
+  const extendEvent = (
+    e: PIXI.interaction.InteractionEvent
+  ): PianoNotesMouseEvent => {
+    const local = {
+      x: e.data.global.x - theme.keyWidth + scrollLeft,
+      y: e.data.global.y - theme.rulerHeight + scrollTop,
+    }
+    return {
+      nativeEvent: e.data.originalEvent as MouseEvent,
+      local,
+      tick: transform.getTicks(local.x),
+      noteNumber: Math.ceil(transform.getNoteNumber(local.y)),
+    }
+  }
+
+  const handleMouseDown = (e: PIXI.interaction.InteractionEvent) =>
+    mouseHandler.onMouseDown(extendEvent(e))
+
+  const handleMouseMove = (e: PIXI.interaction.InteractionEvent) =>
+    mouseHandler.onMouseMove(extendEvent(e))
+
+  const handleMouseUp = (e: PIXI.interaction.InteractionEvent) =>
+    mouseHandler.onMouseUp(extendEvent(e))
 
   return (
     <div className="PianoRoll">
       <div>
         <div
           className="alpha"
-          ref={onMountAlpha}
-          onWheel={e => {
-            e.preventDefault()
+          onWheel={(e) => {
             const scrollLineHeight = transform.pixelsPerKey * SCROLL_KEY_SPEED
             const delta = scrollLineHeight * (e.deltaY > 0 ? 1 : -1)
             setScrollTop(scrollTop + delta)
           }}
         >
-          <div className="alphaContent" style={{ top: -scrollTop }}>
-            <PianoLines
-              theme={theme}
-              width={width}
-              pixelsPerKey={transform.pixelsPerKey}
-              numberOfKeys={transform.numberOfKeys}
-            />
-            <PianoGrid
-              theme={theme}
-              width={width}
-              height={contentHeight}
-              scrollLeft={scrollLeft}
-              beats={mappedBeats}
-            />
-            <PianoNotes
-              events={events}
-              selectedEventIds={selection.noteIds}
-              transform={transform}
-              width={width}
-              cursor={notesCursor}
-              scrollLeft={scrollLeft}
-              isDrumMode={track.isRhythmTrack}
-              onMouseDown={e => mouseHandler.onMouseDown(e)}
-              onMouseMove={e => mouseHandler.onMouseMove(e)}
-              onMouseUp={e => mouseHandler.onMouseUp(e)}
-              theme={theme}
-            />
-            <PianoSelection
-              color={theme.themeColor}
-              width={width}
-              height={contentHeight}
-              selectionBounds={
-                selection.enabled ? selection.getBounds(transform) : null
-              }
-              scrollLeft={scrollLeft}
-            />
-            <PianoCursor
-              width={width}
-              height={contentHeight}
-              position={cursorPositionX - scrollLeft}
-            />
-            <PianoKeys
-              theme={theme}
-              width={keyWidth}
-              keyHeight={transform.pixelsPerKey}
-              numberOfKeys={transform.numberOfKeys}
-              onClickKey={noteNumber => {
-                if (track.channel !== undefined) {
-                  previewNote(noteNumber, track.channel)
-                }
+          <Stage
+            className="alphaContent"
+            width={width}
+            height={stageHeight}
+            options={{ transparent: true }}
+          >
+            <Container position={new Point(theme.keyWidth, 0)}>
+              <Container
+                position={new Point(0, -scrollTop + theme.rulerHeight)}
+              >
+                <PianoLines
+                  width={width}
+                  pixelsPerKey={transform.pixelsPerKey}
+                  numberOfKeys={transform.numberOfKeys}
+                />
+                <Container
+                  position={new Point(-scrollLeft, 0)}
+                  interactive={true}
+                  hitArea={new Rectangle(0, 0, 100000, 100000)} // catch all hits
+                  mousedown={handleMouseDown}
+                  mousemove={handleMouseMove}
+                  mouseup={handleMouseUp}
+                >
+                  <PianoGrid height={contentHeight} beats={mappedBeats} />
+                  <PianoNotes
+                    events={events}
+                    selectedEventIds={selection.noteIds}
+                    transform={transform}
+                    cursor={notesCursor}
+                    isDrumMode={track.isRhythmTrack}
+                    onDragNote={onDragNote}
+                    onHoverNote={() => {}}
+                  />
+                  <PianoSelection
+                    selectionBounds={
+                      selection.enabled ? selection.getBounds(transform) : null
+                    }
+                  />
+                  <PianoCursor
+                    height={contentHeight}
+                    position={cursorPositionX}
+                  />
+                </Container>
+              </Container>
+              <PianoRuler
+                width={width}
+                beats={mappedBeats}
+                loop={loop}
+                onMouseDown={onMouseDownRuler}
+                scrollLeft={scrollLeft}
+                pixelsPerTick={transform.pixelsPerTick}
+              />
+            </Container>
+            <Container position={new Point(0, -scrollTop + theme.rulerHeight)}>
+              <PianoKeys
+                keyHeight={transform.pixelsPerKey}
+                numberOfKeys={transform.numberOfKeys}
+                onClickKey={onClickKey}
+              />
+            </Container>
+            <Graphics
+              draw={(g) => {
+                g.clear()
+                  .lineStyle()
+                  .beginFill(Color(theme.backgroundColor).rgbNumber())
+                  .drawRect(0, 0, theme.keyWidth, theme.rulerHeight)
+                g.lineStyle(1, Color(theme.dividerColor).rgbNumber())
+                  .moveTo(theme.keyWidth, 0)
+                  .lineTo(theme.keyWidth, theme.rulerHeight)
+                  .moveTo(0, theme.rulerHeight)
+                  .lineTo(width, theme.rulerHeight)
               }}
             />
-          </div>
-          <div className="alphaRuler">
-            <PianoRuler
-              width={width}
-              theme={theme}
-              height={rulerHeight}
-              beats={mappedBeats}
-              loop={loop}
-              onMouseDown={onMouseDownRuler}
-              scrollLeft={scrollLeft}
-              pixelsPerTick={transform.pixelsPerTick}
-            />
-            <div className="PianoRollLeftSpace" />
-          </div>
+          </Stage>
           <VerticalScrollBar
             scrollOffset={scrollTop}
             contentLength={contentHeight}

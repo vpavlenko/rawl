@@ -1,9 +1,9 @@
 import React, { StatelessComponent } from "react"
-import { pure, Omit } from "recompose"
 import LineGraph, { LineGraphProps } from "./LineGraph"
 import { NoteCoordTransform } from "common/transform"
 import { StageMouseEvent } from "components/Stage/Stage"
 import { IPoint } from "common/geometry"
+import LineGraphItem from "./LineGraphItem"
 
 interface ItemValue {
   tick: number
@@ -34,7 +34,7 @@ const LineGraphControl: StatelessComponent<LineGraphControlProps> = ({
       x: Math.round(transform.getX(tick)),
       y:
         Math.round((1 - value / maxValue) * (props.height - lineWidth * 2)) +
-        lineWidth
+        lineWidth,
     }
   }
 
@@ -43,22 +43,24 @@ const LineGraphControl: StatelessComponent<LineGraphControlProps> = ({
       tick: transform.getTicks(position.x),
       value:
         (1 - (position.y - lineWidth) / (props.height - lineWidth * 2)) *
-        maxValue
+        maxValue,
     }
   }
 
-  const items = events.map(e => {
+  const items = events.map((e) => {
     return {
       id: e.id,
-      ...transformToPosition(e.tick, e.value)
+      ...transformToPosition(e.tick, e.value),
     }
   })
 
-  const onMouseDown = (e: StageMouseEvent<MouseEvent>) => {
-    createEvent(transformFromPosition(e.local))
-  }
-
-  return <LineGraph onMouseDown={onMouseDown} items={items} {...props} />
+  return (
+    <LineGraph
+      onMouseDown={(e) => createEvent(transformFromPosition(e.local))}
+      items={items}
+      {...props}
+    />
+  )
 }
 
-export default pure(LineGraphControl)
+export default React.memo(LineGraphControl)

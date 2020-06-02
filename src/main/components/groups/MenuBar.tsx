@@ -13,11 +13,11 @@ export interface MenuTemplateItem {
 export function fromTemplate(t: MenuTemplateItem[]) {
   return (
     <MenuBar>
-      {t.map(t => (
+      {t.map((t) => (
         <MenuItem title={t.label}>
           {t.submenu && (
             <SubMenu>
-              {t.submenu.map(t => (
+              {t.submenu.map((t) => (
                 <MenuItem title={t.role || t.label} onClick={t.click} />
               ))}
             </SubMenu>
@@ -29,21 +29,19 @@ export function fromTemplate(t: MenuTemplateItem[]) {
 }
 
 export interface MenuBarProps {
-  children?: ReactNode
   className?: string
 }
 
 export const MenuBar: StatelessComponent<MenuBarProps> = ({
   children,
-  className
+  className,
 }) => {
   return <div className={f("MenuBar", className)}>{children}</div>
 }
 
 export interface MenuItemProps {
-  children?: ReactNode
   className?: string
-  title: string
+  title: ReactNode
   onClick?: (e: any) => void
 }
 
@@ -51,7 +49,7 @@ export const MenuItem: StatelessComponent<MenuItemProps> = ({
   children,
   className,
   title,
-  onClick
+  onClick,
 }) => {
   return (
     <div className={f("MenuItem", className)} onClick={onClick}>
@@ -62,13 +60,12 @@ export const MenuItem: StatelessComponent<MenuItemProps> = ({
 }
 
 export interface SubMenuProps {
-  children?: ReactNode
   className?: string
 }
 
 export const SubMenu: StatelessComponent<SubMenuProps> = ({
   children,
-  className
+  className,
 }) => {
   return <div className={f("SubMenu", className)}>{children}</div>
 }
@@ -78,7 +75,7 @@ export interface MenuSeparatorProps {
 }
 
 export const MenuSeparator: StatelessComponent<MenuSeparatorProps> = ({
-  className
+  className,
 }) => {
   return <div className={f("MenuSeparator", className)} />
 }

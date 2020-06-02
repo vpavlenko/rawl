@@ -5,6 +5,7 @@
     "paths": {
       "*": ["*", "src/*", "src/main/*", "src/common/*"]
     },
+    "rootDirs": ["src", "stories"],
     "sourceMap": true,
     "target": "es5",
     "module": "es2015",

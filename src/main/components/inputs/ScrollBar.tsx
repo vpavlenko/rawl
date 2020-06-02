@@ -5,7 +5,6 @@ import Icon from "components/outputs/Icon"
 import { pointSub, IPoint, ISize } from "common/geometry"
 
 import "./ScrollBar.css"
-import { Omit } from "recompose"
 
 export const BAR_WIDTH = 17
 const BUTTON_SIZE = 15
@@ -27,7 +26,6 @@ export interface ScrollBarProps {
   contentLength?: number
   onScroll?: (scroll: number) => void
   style?: any
-  children?: ReactNode
 }
 
 export const ScrollBar: StatelessComponent<ScrollBarProps> = ({
@@ -37,7 +35,7 @@ export const ScrollBar: StatelessComponent<ScrollBarProps> = ({
   contentLength = 1000,
   onScroll = () => {},
   style,
-  children
+  children,
 }) => {
   const buttonLength = BUTTON_SIZE
   const maxOffset = contentLength - barLength
@@ -198,7 +196,7 @@ function scrollAmountOfElement(className: string, baseValue: number) {
 function getPoint(e: MouseEvent | React.MouseEvent): IPoint {
   return {
     x: e.pageX,
-    y: e.pageY
+    y: e.pageY,
   }
 }
 
@@ -219,7 +217,7 @@ function VerticalScrollBar_(props: VerticalScrollBar_Props) {
         height: "100%",
         position: "absolute",
         top: 0,
-        right: 0
+        right: 0,
       }}
     />
   )
@@ -236,7 +234,7 @@ function HorizontalScrollBar_(props: HorizontalScrollBar_Props) {
         height: BAR_WIDTH,
         position: "absolute",
         bottom: 0,
-        left: 0
+        left: 0,
       }}
     />
   )
@@ -246,6 +244,6 @@ export type VerticalScrollBarProps = Omit<VerticalScrollBar_Props, "size">
 export type HorizontalScrollBarProps = Omit<HorizontalScrollBar_Props, "size">
 
 export const VerticalScrollBar = withSize({
-  monitorHeight: true
+  monitorHeight: true,
 })(VerticalScrollBar_)
 export const HorizontalScrollBar = withSize()(HorizontalScrollBar_)

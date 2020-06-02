@@ -1,11 +1,12 @@
 import { TempoCoordTransform } from "common/transform"
 import { TempoGraph, TempoGraphProps } from "components/TempoGraph/TempoGraph"
-import { CHANGE_TEMPO, CREATE_TEMPO, SET_PLAYER_POSITION } from "main/actions"
+import { setPlayerPosition, changeTempo, createTempo } from "main/actions"
 import { inject, observer } from "mobx-react"
 import React, { SFC, useState, useEffect } from "react"
 import { withSize } from "react-sizeme"
-import { compose, Omit } from "recompose"
+import { compose } from "recompose"
 import RootStore from "stores/RootStore"
+import { toJS } from "mobx"
 
 type Props = Pick<
   TempoGraphProps,
@@ -26,7 +27,7 @@ type Props = Pick<
   playerPosition: number
 }
 
-const Wrapper: SFC<Props> = props => {
+const Wrapper: SFC<Props> = (props) => {
   const { autoScroll, pixelsPerTick, size, playerPosition, isPlaying } = props
   const [scrollLeft, setScrollLeft] = useState(0)
 
@@ -46,7 +47,7 @@ const Wrapper: SFC<Props> = props => {
     scrollLeft,
     size.width,
     pixelsPerTick,
-    playerPosition
+    playerPosition,
   ])
 
   return (
@@ -67,8 +68,8 @@ export default compose(
         tempoEditorStore: s,
         services: { player },
         song,
-        dispatch
-      }
+        dispatch,
+      },
     }: {
       rootStore: RootStore
     }) =>
@@ -78,20 +79,20 @@ export default compose(
         pixelsPerTick: 0.1 * s.scaleX,
         events:
           song.conductorTrack !== undefined
-            ? (song.conductorTrack.events as any).toJS()
+            ? toJS(song.conductorTrack.events)
             : [],
         endTick: song.endOfSong,
         measures: song.measures,
         timebase: player.timebase,
         autoScroll: s.autoScroll,
         scrollLeft: s.scrollLeft,
-        setScrollLeft: v => (s.scrollLeft = v),
+        setScrollLeft: (v) => (s.scrollLeft = v),
         changeTempo: (id, microsecondsPerBeat) =>
-          dispatch(CHANGE_TEMPO, id, microsecondsPerBeat),
+          dispatch(changeTempo(id, microsecondsPerBeat)),
         createTempo: (tick, microsecondsPerBeat) =>
-          dispatch(CREATE_TEMPO, tick, microsecondsPerBeat),
+          dispatch(createTempo(tick, microsecondsPerBeat)),
         playerPosition: playerStore.position,
-        setPlayerPosition: tick => dispatch(SET_PLAYER_POSITION, tick)
+        setPlayerPosition: (tick) => dispatch(setPlayerPosition(tick)),
       } as Omit<Props, "size">)
   ),
   observer,

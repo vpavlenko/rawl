@@ -13,19 +13,22 @@ import { defaultTheme } from "common/theme"
 
 import "./App.css"
 import "./theme.css"
+import { ThemeContext } from "main/hooks/useTheme"
 
 const rootStore = new RootStore()
 
 applyThemeToCSS(defaultTheme)
 
-bindKeyboardShortcut(rootStore.dispatch, rootStore.services.player, rootStore)
+bindKeyboardShortcut(rootStore)
 
 export default function App() {
   return (
     <Provider rootStore={rootStore}>
-      <ThemeProvider theme={theme}>
-        <RootView />
-      </ThemeProvider>
+      <ThemeContext.Provider value={defaultTheme}>
+        <ThemeProvider theme={theme}>
+          <RootView />
+        </ThemeProvider>
+      </ThemeContext.Provider>
     </Provider>
   )
 }

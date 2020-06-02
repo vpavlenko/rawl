@@ -2,14 +2,13 @@ import { ISize } from "common/geometry"
 import Measure from "common/measure"
 import { LoopSetting } from "common/player"
 import SelectionModel from "common/selection/SelectionModel"
-import Theme from "common/theme/Theme"
 import Track, { TrackEvent } from "common/track"
 import { NoteCoordTransform } from "common/transform"
 import { show as showEventEditor } from "components/EventEditor/EventEditor"
 import { HorizontalScaleScrollBar } from "components/inputs/ScaleScrollBar"
 import { VerticalScrollBar } from "components/inputs/ScrollBar"
 import { createBeatsInRange } from "helpers/mapBeats"
-import React, { StatelessComponent } from "react"
+import React, { StatelessComponent, SFC, useCallback } from "react"
 import { ControlMode, ControlPaneProps } from "./ControlPane"
 import { DisplayEvent } from "./PianoControlEvents"
 import PianoCursor from "./PianoCursor"
@@ -26,9 +25,9 @@ import PianoSelection from "./PianoSelection"
 import "./PianoRoll.css"
 import { useTheme } from "main/hooks/useTheme"
 import { Stage, Container, Graphics } from "@inlet/react-pixi"
-import { Point, interaction, Rectangle } from "pixi.js"
-import { theme } from "src/common/theme/muiTheme"
+import { Point, Rectangle } from "pixi.js"
 import Color from "color"
+import filterEventsWithScroll from "common/helpers/filterEventsWithScroll"
 
 const SCROLL_KEY_SPEED = 4
 
@@ -36,6 +35,25 @@ export interface PianoNotesMouseHandler {
   onMouseDown(e: PianoNotesMouseEvent): void
   onMouseMove(e: PianoNotesMouseEvent): void
   onMouseUp(e: PianoNotesMouseEvent): void
+}
+
+const LeftTopSpace: SFC<{ width: number }> = ({ width }) => {
+  const theme = useTheme()
+  return (
+    <Graphics
+      draw={(g) => {
+        g.clear()
+          .lineStyle()
+          .beginFill(Color(theme.backgroundColor).rgbNumber())
+          .drawRect(0, 0, theme.keyWidth, theme.rulerHeight)
+        g.lineStyle(1, Color(theme.dividerColor).rgbNumber())
+          .moveTo(theme.keyWidth, 0)
+          .lineTo(theme.keyWidth, theme.rulerHeight)
+          .moveTo(0, theme.rulerHeight)
+          .lineTo(width, theme.rulerHeight)
+      }}
+    />
+  )
 }
 
 export type PianoRollProps = Pick<
@@ -144,6 +162,7 @@ export const PianoRoll: StatelessComponent<PianoRollProps> = ({
       local,
       tick: transform.getTicks(local.x),
       noteNumber: Math.ceil(transform.getNoteNumber(local.y)),
+      transform,
     }
   }
 
@@ -155,6 +174,15 @@ export const PianoRoll: StatelessComponent<PianoRollProps> = ({
 
   const handleMouseUp = (e: PIXI.interaction.InteractionEvent) =>
     mouseHandler.onMouseUp(extendEvent(e))
+
+  const onHoverNote = useCallback(() => {}, [])
+
+  const notes = filterEventsWithScroll(
+    events,
+    transform.pixelsPerTick,
+    scrollLeft,
+    containerWidth
+  )
 
   return (
     <div className="PianoRoll">
@@ -192,13 +220,13 @@ export const PianoRoll: StatelessComponent<PianoRollProps> = ({
                 >
                   <PianoGrid height={contentHeight} beats={mappedBeats} />
                   <PianoNotes
-                    events={events}
+                    events={notes}
                     selectedEventIds={selection.noteIds}
                     transform={transform}
                     cursor={notesCursor}
                     isDrumMode={track.isRhythmTrack}
                     onDragNote={onDragNote}
-                    onHoverNote={() => {}}
+                    onHoverNote={onHoverNote}
                   />
                   <PianoSelection
                     selectionBounds={
@@ -227,24 +255,12 @@ export const PianoRoll: StatelessComponent<PianoRollProps> = ({
                 onClickKey={onClickKey}
               />
             </Container>
-            <Graphics
-              draw={(g) => {
-                g.clear()
-                  .lineStyle()
-                  .beginFill(Color(theme.backgroundColor).rgbNumber())
-                  .drawRect(0, 0, theme.keyWidth, theme.rulerHeight)
-                g.lineStyle(1, Color(theme.dividerColor).rgbNumber())
-                  .moveTo(theme.keyWidth, 0)
-                  .lineTo(theme.keyWidth, theme.rulerHeight)
-                  .moveTo(0, theme.rulerHeight)
-                  .lineTo(width, theme.rulerHeight)
-              }}
-            />
+            <LeftTopSpace width={width} />
           </Stage>
           <VerticalScrollBar
             scrollOffset={scrollTop}
             contentLength={contentHeight}
-            onScroll={(scroll: number) => setScrollTop(scroll)}
+            onScroll={setScrollTop}
           />
         </div>
         <div className="beta"></div>
@@ -252,7 +268,7 @@ export const PianoRoll: StatelessComponent<PianoRollProps> = ({
       <HorizontalScaleScrollBar
         scrollOffset={scrollLeft}
         contentLength={contentWidth}
-        onScroll={(scroll: number) => setScrollLeft(scroll)}
+        onScroll={setScrollLeft}
         onClickScaleUp={onClickScaleUp}
         onClickScaleDown={onClickScaleDown}
         onClickScaleReset={onClickScaleReset}

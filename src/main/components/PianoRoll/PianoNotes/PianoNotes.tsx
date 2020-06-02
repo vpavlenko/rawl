@@ -1,13 +1,12 @@
 import Color from "color"
 import { isNoteEvent, TrackEvent } from "common/track"
 import { NoteCoordTransform } from "common/transform"
-import { Stage, Container } from "@inlet/react-pixi"
+import { Container } from "@inlet/react-pixi"
 
 import _ from "lodash"
 import React, { StatelessComponent, useCallback } from "react"
 import { PianoNote, PianoNoteMouseEvent, PianoNoteItem } from "./PianoNote"
 import { IPoint } from "common/geometry"
-import { Rectangle } from "pixi.js"
 import { useTheme } from "main/hooks/useTheme"
 
 export interface PianoNotesProps {
@@ -25,12 +24,14 @@ export interface PianoNotesMouseEvent {
   tick: number
   noteNumber: number
   local: IPoint
+  transform: NoteCoordTransform
 }
 
 export interface PianoNotesNoteMouseEvent extends PianoNoteMouseEvent {
   note: TrackEvent
   tick: number
   noteNumber: number
+  transform: NoteCoordTransform
 }
 
 /**
@@ -73,6 +74,7 @@ const PianoNotes: StatelessComponent<PianoNotesProps> = ({
     note: events.find((e) => e.id === eventID)!,
     tick: transform.getTicks(e.offset.x),
     noteNumber: Math.ceil(transform.getNoteNumber(e.offset.y)),
+    transform,
   })
 
   const _onDragNote = useCallback(
@@ -106,7 +108,7 @@ const PianoNotes: StatelessComponent<PianoNotesProps> = ({
 function areEqual(props: PianoNotesProps, nextProps: PianoNotesProps) {
   return (
     _.isEqual(props.events, nextProps.events) &&
-    props.transform === nextProps.transform &&
+    _.isEqual(props.transform, nextProps.transform) &&
     props.cursor === nextProps.cursor &&
     _.isEqual(props.selectedEventIds, nextProps.selectedEventIds)
   )

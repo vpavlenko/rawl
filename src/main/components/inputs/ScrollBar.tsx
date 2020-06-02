@@ -1,4 +1,4 @@
-import React, { StatelessComponent, ReactNode } from "react"
+import React, { StatelessComponent, ReactNode, SFC } from "react"
 import { withSize } from "react-sizeme"
 
 import Icon from "components/outputs/Icon"
@@ -19,13 +19,28 @@ function normalize(v: number): number {
   return Math.max(0, Math.min(1, v))
 }
 
+const vStyle: React.CSSProperties = {
+  width: BAR_WIDTH,
+  height: "100%",
+  position: "absolute",
+  top: 0,
+  right: 0,
+}
+
+const hStyle: React.CSSProperties = {
+  width: "100%",
+  height: BAR_WIDTH,
+  position: "absolute",
+  bottom: 0,
+  left: 0,
+}
+
 export interface ScrollBarProps {
   isVertical: boolean
   barLength: number
   scrollOffset?: number
   contentLength?: number
   onScroll?: (scroll: number) => void
-  style?: any
 }
 
 export const ScrollBar: StatelessComponent<ScrollBarProps> = ({
@@ -34,7 +49,6 @@ export const ScrollBar: StatelessComponent<ScrollBarProps> = ({
   scrollOffset = 50,
   contentLength = 1000,
   onScroll = () => {},
-  style,
   children,
 }) => {
   const buttonLength = BUTTON_SIZE
@@ -43,6 +57,7 @@ export const ScrollBar: StatelessComponent<ScrollBarProps> = ({
   const valueRatio = normalize(barLength / contentLength)
   const thumbLength = Math.max(MIN_THUMB_LENGTH, maxLength * valueRatio)
   const disabled = maxOffset <= 0
+  const style = isVertical ? vStyle : hStyle
 
   let pageForwardLength: number
   let pageBackwardLength: number
@@ -206,44 +221,34 @@ type VerticalScrollBar_Props = Omit<
 > & { size: ISize }
 type HorizontalScrollBar_Props = VerticalScrollBar_Props
 
-function VerticalScrollBar_(props: VerticalScrollBar_Props) {
-  return (
-    <ScrollBar
-      isVertical={true}
-      {...props}
-      barLength={props.size.height}
-      style={{
-        width: BAR_WIDTH,
-        height: "100%",
-        position: "absolute",
-        top: 0,
-        right: 0,
-      }}
-    />
-  )
-}
+const VerticalScrollBar_: SFC<VerticalScrollBar_Props> = (props) => (
+  <ScrollBar isVertical={true} {...props} barLength={props.size.height} />
+)
 
-function HorizontalScrollBar_(props: HorizontalScrollBar_Props) {
-  return (
-    <ScrollBar
-      isVertical={false}
-      {...props}
-      barLength={props.size.width}
-      style={{
-        width: "100%",
-        height: BAR_WIDTH,
-        position: "absolute",
-        bottom: 0,
-        left: 0,
-      }}
-    />
-  )
-}
+const HorizontalScrollBar_: SFC<HorizontalScrollBar_Props> = (props) => (
+  <ScrollBar isVertical={false} {...props} barLength={props.size.width} />
+)
 
 export type VerticalScrollBarProps = Omit<VerticalScrollBar_Props, "size">
 export type HorizontalScrollBarProps = Omit<HorizontalScrollBar_Props, "size">
 
+const areEqual = (
+  props: VerticalScrollBar_Props,
+  nextProps: VerticalScrollBar_Props
+) =>
+  props.scrollOffset === nextProps.scrollOffset &&
+  props.contentLength === nextProps.contentLength &&
+  props.onScroll === nextProps.onScroll &&
+  props.size.width == nextProps.size.width &&
+  props.size.height == nextProps.size.height
+
 export const VerticalScrollBar = withSize({
   monitorHeight: true,
-})(VerticalScrollBar_)
-export const HorizontalScrollBar = withSize()(HorizontalScrollBar_)
+  monitorPosition: false,
+})(React.memo(VerticalScrollBar_, areEqual))
+
+export const HorizontalScrollBar = withSize({
+  monitorHeight: false,
+  monitorWidth: true,
+  monitorPosition: false,
+})(React.memo(HorizontalScrollBar_, areEqual))

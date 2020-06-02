@@ -47,6 +47,7 @@ const Wrapper: SFC<SPianoRollProps> = (props) => {
     scaleX = 1,
     autoScroll = false,
     isPlaying,
+    onDragNote,
   } = props
 
   const theme = useTheme()
@@ -55,8 +56,6 @@ const Wrapper: SFC<SPianoRollProps> = (props) => {
   const [selectionMouseHandler] = useState(new SelectionMouseHandler(dispatch))
   const transform = new NoteCoordTransform(0.1 * scaleX, theme.keyHeight, 127)
 
-  pencilMouseHandler.transform = transform
-  selectionMouseHandler.transform = transform
   selectionMouseHandler.selection = selection
 
   const mouseHandler =
@@ -81,29 +80,7 @@ const Wrapper: SFC<SPianoRollProps> = (props) => {
       transform={transform}
       mouseHandler={mouseHandler}
       alphaHeight={size.height}
-      onDragNote={(e) => {
-        switch (e.position) {
-          case "center":
-            const delta = pointSub(e.offset, e.dragStart)
-            console.log(delta)
-            const position = pointAdd(e.dragItem, delta)
-            dispatch(
-              moveNote({
-                id: e.note.id,
-                tick: transform.getTicks(position.x),
-                noteNumber: Math.round(transform.getNoteNumber(position.y)),
-                quantize: "round",
-              })
-            )
-            break
-          case "left":
-            dispatch(resizeNoteLeft(e.dragItem.id, e.tick))
-            break
-          case "right":
-            dispatch(resizeNoteRight(e.dragItem.id, e.tick))
-            break
-        }
-      }}
+      onDragNote={onDragNote}
     />
   )
 }
@@ -161,6 +138,29 @@ export default compose<{}, {}>(
         onClickKey: (noteNumber) => {
           if (track !== undefined && track.channel !== undefined) {
             dispatch(previewNote(track.channel, noteNumber))
+          }
+        },
+        onDragNote: (e) => {
+          switch (e.position) {
+            case "center":
+              const delta = pointSub(e.offset, e.dragStart)
+              console.log(delta)
+              const position = pointAdd(e.dragItem, delta)
+              dispatch(
+                moveNote({
+                  id: e.note.id,
+                  tick: e.transform.getTicks(position.x),
+                  noteNumber: Math.round(e.transform.getNoteNumber(position.y)),
+                  quantize: "round",
+                })
+              )
+              break
+            case "left":
+              dispatch(resizeNoteLeft(e.dragItem.id, e.tick))
+              break
+            case "right":
+              dispatch(resizeNoteRight(e.dragItem.id, e.tick))
+              break
           }
         },
         dispatch,

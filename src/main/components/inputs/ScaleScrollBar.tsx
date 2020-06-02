@@ -43,18 +43,7 @@ const HorizontalScaleScrollBar_: StatelessComponent<HorizontalScaleScrollBar_Pro
     height: buttonSize,
   }
   return (
-    <ScrollBar
-      isVertical={false}
-      {...props}
-      barLength={barLength}
-      style={{
-        width: "100%",
-        height: BAR_WIDTH,
-        position: "absolute",
-        bottom: 0,
-        left: 0,
-      }}
-    >
+    <ScrollBar isVertical={false} {...props} barLength={barLength}>
       <ScaleButton style={buttonStyle} onClick={props.onClickScaleDown}>
         <Icon>minus</Icon>
       </ScaleButton>
@@ -73,4 +62,8 @@ export type HorizontalScaleScrollBarProps = Omit<
   "size"
 >
 
-export const HorizontalScaleScrollBar = withSize()(HorizontalScaleScrollBar_)
+export const HorizontalScaleScrollBar = withSize({
+  monitorWidth: true,
+  monitorHeight: false,
+  monitorPosition: false,
+})(HorizontalScaleScrollBar_)

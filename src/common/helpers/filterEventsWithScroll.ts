@@ -1,4 +1,4 @@
-import { NoteEvent, TrackEvent } from "../track"
+import { NoteEvent, TrackEvent, isNoteEvent } from "../track"
 
 export default function filterEventsWithScroll(
   events: TrackEvent[],
@@ -11,7 +11,8 @@ export default function filterEventsWithScroll(
   function test(tick: number) {
     return tick >= tickStart && tick <= tickEnd
   }
-  return events.filter(e =>
-    "duration" in e ? test(e.tick + (e.duration || 0)) : test(e.tick)
+
+  return events.filter((e) =>
+    isNoteEvent(e) ? test(e.tick + (e.duration || 0)) : test(e.tick)
   )
 }

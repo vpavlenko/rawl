@@ -5,15 +5,13 @@ import { Dispatcher } from "createDispatcher"
 import { PianoNotesMouseEvent } from "components/PianoRoll/PianoNotes/PianoNotes"
 
 export default class PencilMouseHandler extends NoteMouseHandler {
-  transform: NoteCoordTransform
-
   protected actionForMouseDown(e: PianoNotesMouseEvent): MouseGesture | null {
     const original = super.actionForMouseDown(e)
     if (original) {
       return original
     }
 
-    const { dispatch, transform } = this
+    const { dispatch } = this
 
     if (e.nativeEvent.button !== 0) {
       return null

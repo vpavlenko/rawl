@@ -11,11 +11,10 @@ import {
   FormControlLabel,
   Checkbox,
 } from "@material-ui/core"
-import { compose } from "recompose"
-import { inject, observer } from "mobx-react"
-import RootStore from "stores/RootStore"
+import { observer, useObserver } from "mobx-react"
 import { setTrackInstrument as setTrackInstrumentAction } from "actions"
 import { programChangeMidiEvent } from "common/midi/MidiEvent"
+import { useStores } from "main/hooks/useStores"
 
 export interface InstrumentSetting {
   programNumber: number
@@ -142,88 +141,94 @@ const InstrumentBrowser: SFC<InstrumentBrowserProps> = ({
   )
 }
 
-export default compose(
-  inject(
-    ({
-      rootStore: {
-        pianoRollStore: s,
-        song,
-        dispatch,
-        services: { player },
-      },
-    }: {
-      rootStore: RootStore
-    }) => {
-      const track = song.selectedTrack
-      const trackId = song.selectedTrackId
+const InstrumentBrowserWrapper: SFC<{}> = () => {
+  const { rootStore: stores } = useStores()
+  const {
+    track,
+    trackId,
+    dispatch,
+    presetNames,
+    s,
+    player,
+    song,
+    instrumentBrowserSetting,
+    openInstrumentBrowser,
+  } = useObserver(() => ({
+    track: stores.song.selectedTrack,
+    trackId: stores.song.selectedTrackId,
+    dispatch: stores.dispatch,
+    presetNames: stores.pianoRollStore.presetNames,
+    s: stores.pianoRollStore,
+    player: stores.services.player,
+    song: stores.song,
+    instrumentBrowserSetting: stores.pianoRollStore.instrumentBrowserSetting,
+    openInstrumentBrowser: stores.pianoRollStore.openInstrumentBrowser,
+  }))
 
-      if (track === undefined) {
-        throw new Error("selectedTrack is undefined")
-      }
+  if (track === undefined) {
+    throw new Error("selectedTrack is undefined")
+  }
 
-      const close = () => (s.openInstrumentBrowser = false)
-      const setTrackInstrument = (programNumber: number) =>
-        dispatch(setTrackInstrumentAction(trackId, programNumber))
+  const close = () => (s.openInstrumentBrowser = false)
+  const setTrackInstrument = (programNumber: number) =>
+    dispatch(setTrackInstrumentAction(trackId, programNumber))
 
-      const presets: PresetItem[] = Object.keys(s.presetNames[0]).map(
-        (key) => ({
-          programNumber: parseInt(key),
-          name: s.presetNames[0][parseInt(key)],
-        })
-      )
+  const presets: PresetItem[] = Object.keys(presetNames[0]).map((key) => ({
+    programNumber: parseInt(key),
+    name: presetNames[0][parseInt(key)],
+  }))
 
-      const presetCategories = _.map(
-        _.groupBy(presets, (p) => getGMCategory(p.programNumber)),
-        (presets, name) => ({ name, presets })
-      )
+  const presetCategories = _.map(
+    _.groupBy(presets, (p) => getGMCategory(p.programNumber)),
+    (presets, name) => ({ name, presets })
+  )
 
-      const onChange = (setting: InstrumentSetting) => {
-        const channel = track.channel
-        if (channel === undefined) {
-          return
-        }
-        player.sendEvent(
-          programChangeMidiEvent(0, channel, setting.programNumber)
-        )
-        player.playNote({
-          duration: 120,
-          noteNumber: 64,
-          velocity: 100,
-          channel,
-        })
-        s.instrumentBrowserSetting = setting
-      }
-
-      return {
-        isOpen: s.openInstrumentBrowser,
-        setting: s.instrumentBrowserSetting,
-        onChange,
-        onClickCancel: () => {
-          close()
-        },
-        onClickOK: () => {
-          if (s.instrumentBrowserSetting.isRhythmTrack) {
-            track.channel = 9
-            setTrackInstrument(0)
-          } else {
-            if (track.isRhythmTrack) {
-              // 適当なチャンネルに変える
-              const channels = _.range(16)
-              const usedChannels = song.tracks
-                .filter((t) => t !== track)
-                .map((t) => t.channel)
-              const availableChannel =
-                _.min(_.difference(channels, usedChannels)) || 0
-              track.channel = availableChannel
-            }
-            setTrackInstrument(s.instrumentBrowserSetting.programNumber)
-          }
-
-          close()
-        },
-        presetCategories,
-      } as InstrumentBrowserProps
+  const onChange = (setting: InstrumentSetting) => {
+    const channel = track.channel
+    if (channel === undefined) {
+      return
     }
-  ),
-  observer
-)(InstrumentBrowser)
+    player.sendEvent(programChangeMidiEvent(0, channel, setting.programNumber))
+    player.playNote({
+      duration: 120,
+      noteNumber: 64,
+      velocity: 100,
+      channel,
+    })
+    s.instrumentBrowserSetting = setting
+  }
+
+  return (
+    <InstrumentBrowser
+      isOpen={openInstrumentBrowser}
+      setting={instrumentBrowserSetting}
+      onChange={onChange}
+      onClickCancel={() => {
+        close()
+      }}
+      onClickOK={() => {
+        if (instrumentBrowserSetting.isRhythmTrack) {
+          track.channel = 9
+          setTrackInstrument(0)
+        } else {
+          if (track.isRhythmTrack) {
+            // 適当なチャンネルに変える
+            const channels = _.range(16)
+            const usedChannels = song.tracks
+              .filter((t) => t !== track)
+              .map((t) => t.channel)
+            const availableChannel =
+              _.min(_.difference(channels, usedChannels)) || 0
+            track.channel = availableChannel
+          }
+          setTrackInstrument(instrumentBrowserSetting.programNumber)
+        }
+
+        close()
+      }}
+      presetCategories={presetCategories}
+    />
+  )
+}
+
+export default observer(InstrumentBrowserWrapper)

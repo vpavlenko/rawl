@@ -51,9 +51,9 @@ const PianoRollWrapper: SFC<PianoRollWrapperProps> = ({ size }) => {
     loop,
     s,
   } = useObserver(() => ({
-    events: rootStore.song.selectedTrack!.events,
-    isRhythmTrack: rootStore.song.selectedTrack!.isRhythmTrack,
-    channel: rootStore.song.selectedTrack!.channel!,
+    events: rootStore.song.selectedTrack?.events ?? [],
+    isRhythmTrack: rootStore.song.selectedTrack?.isRhythmTrack ?? false,
+    channel: rootStore.song.selectedTrack?.channel ?? 0,
     endTick: rootStore.song.endOfSong,
     measures: rootStore.song.measures,
     isPlaying: rootStore.services.player.isPlaying,

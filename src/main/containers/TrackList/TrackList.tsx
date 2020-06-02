@@ -1,6 +1,5 @@
-import { compose } from "recompose"
-import { inject, observer } from "mobx-react"
-import RootStore from "stores/RootStore"
+import React, { SFC } from "react"
+import { observer, useObserver } from "mobx-react"
 import {
   removeTrack,
   addTrack,
@@ -8,41 +7,65 @@ import {
   toggleMuteTrack,
   toggleSoloTrack,
 } from "actions"
-import { TrackList, TrackListProps } from "components/TrackList/TrackList"
+import { TrackList } from "components/TrackList/TrackList"
+import { useStores } from "main/hooks/useStores"
+import { get, toJS } from "mobx"
+import { TrackListItemData } from "src/main/components/TrackList/TrackListItem"
 
-export default compose(
-  inject(
-    ({
-      rootStore: {
-        song,
-        trackMute,
-        rootViewStore,
-        dispatch,
-        router,
-        services: { player },
-      },
-    }: {
-      rootStore: RootStore
-    }) =>
-      ({
-        trackMute,
-        song,
-        player: { player },
-        isArrangeViewSelected: rootViewStore.isArrangeViewSelected,
-        onClickMute: (trackId: number) => dispatch(toggleMuteTrack(trackId)),
-        onClickSolo: (trackId: number) => dispatch(toggleSoloTrack(trackId)),
-        onClickDelete: (trackId: number) => dispatch(removeTrack(trackId)),
-        onClickAddTrack: () => dispatch(addTrack()),
-        // onChangeName: e => dispatch(SET_TRACK_NAME, { name: e.target.value }),
-        onSelectTrack: (trackId: number) => {
-          router.pushTrack()
-          dispatch(selectTrack(trackId))
-          rootViewStore.openDrawer = false
-        },
-        onClickArrangeView: () => {
-          router.pushArrange()
-        },
-      } as TrackListProps)
-  ),
-  observer
-)(TrackList)
+const TrackListWrapper: SFC<{}> = () => {
+  const { rootStore: stores } = useStores()
+  const { dispatch, router } = stores
+  const { tracks } = useObserver(() => {
+    const selectedTrackId = stores.song.selectedTrackId
+    const trackMutes = stores.song.tracks.map((_, i) =>
+      stores.trackMute.isMuted(i)
+    )
+    const trackSolos = stores.song.tracks.map((_, i) =>
+      stores.trackMute.isSolo(i)
+    )
+    const tracks = stores.song.tracks
+      .filter((t) => !t.isConductorTrack)
+      .map(
+        (t): TrackListItemData => {
+          const index = stores.song.tracks.indexOf(t)
+          const selected =
+            !stores.rootViewStore.isArrangeViewSelected &&
+            index === selectedTrackId
+          return {
+            index,
+            name: t.displayName,
+            instrument: t.instrumentName ?? "",
+            mute: trackMutes[index],
+            solo: trackSolos[index],
+            selected,
+            volume: t.volume ?? 0,
+            pan: t.pan ?? 0,
+          }
+        }
+      )
+    return {
+      tracks,
+    }
+  })
+
+  return (
+    <TrackList
+      tracks={tracks}
+      onClickMute={(trackId) => dispatch(toggleMuteTrack(trackId))}
+      onClickSolo={(trackId) => dispatch(toggleSoloTrack(trackId))}
+      onClickDelete={(trackId) => dispatch(removeTrack(trackId))}
+      onClickAddTrack={() => dispatch(addTrack())}
+      // onChangeName={e => dispatch(SET_TRACK_NAME, { name: e.target.value })},
+      onSelectTrack={(trackId) => {
+        router.pushTrack()
+        dispatch(selectTrack(trackId))
+        stores.rootViewStore.openDrawer = false
+      }}
+      onClickArrangeView={() => {
+        router.pushArrange()
+      }}
+    />
+  )
+}
+
+export default observer(TrackListWrapper)

@@ -1,47 +1,86 @@
-import React from "react"
-import { createContextMenu } from "components/groups/ContextMenu"
+import React, { SFC } from "react"
+
+import { VolumeOff, VolumeUp, Headset } from "@material-ui/icons"
+import { ListItem, MenuItem, IconButton, Menu } from "@material-ui/core"
 
 import "./TrackListItem.css"
-import { VolumeOff, VolumeUp, Headset } from "@material-ui/icons"
-import { ListItem, MenuItem, IconButton } from "@material-ui/core"
 
-const Nop = () => {}
+export interface TrackListItemData {
+  index: number
+  name: string
+  instrument: string
+  mute: boolean
+  solo: boolean
+  selected: boolean
+  volume: number
+  pan: number
+}
 
-export default function TrackListItem({
-  name = "",
-  instrument = "",
-  mute = false,
-  solo = false,
-  selected = false,
-  volume = 0,
-  pan = 0,
-  onClick = Nop,
-  onDoubleClickName = Nop,
-  onClickSolo = Nop,
-  onClickMute = Nop,
-  onClickDelete = Nop
-}) {
+export type TrackListItemProps = TrackListItemData & {
+  onClick: () => void
+  onClickSolo: () => void
+  onClickMute: () => void
+  onClickDelete: () => void
+}
+
+const TrackListItem: SFC<TrackListItemProps> = ({
+  name,
+  instrument,
+  mute,
+  solo,
+  selected,
+  volume,
+  pan,
+  onClick,
+  onClickDelete,
+  onClickSolo,
+  onClickMute,
+}) => {
+  const [state, setState] = React.useState({
+    mouseX: 0,
+    mouseY: 0,
+    isContextMenuOpen: false,
+  })
+
+  const onContextMenu = (e: React.MouseEvent) => {
+    e.preventDefault()
+    setState({
+      mouseX: e.clientX - 2,
+      mouseY: e.clientY - 4,
+      isContextMenuOpen: true,
+    })
+  }
+
+  const handleClose = () => {
+    setState({ ...state, isContextMenuOpen: false })
+  }
+
   return (
     <ListItem
       button
       selected={selected}
       onClick={onClick}
-      onContextMenu={createContextMenu(close => [
+      onContextMenu={onContextMenu}
+    >
+      <Menu
+        keepMounted
+        open={state.isContextMenuOpen}
+        onClose={handleClose}
+        anchorReference="anchorPosition"
+        anchorPosition={{ top: state.mouseY, left: state.mouseX }}
+      >
         <MenuItem
           onClick={() => {
             onClickDelete()
-            close()
+            handleClose()
           }}
         >
           Delete Track
         </MenuItem>
-      ])}
-    >
+      </Menu>
       <div className="TrackListItem">
         <div className="label">
-          <div className="name" onDoubleClick={onDoubleClickName}>
-            {name}
-          </div>
+          <div className="name">{name}</div>
           <div className="instrument">{instrument}</div>
         </div>
         <div className="controls">
@@ -49,7 +88,7 @@ export default function TrackListItem({
             color="default"
             size="small"
             className={`button solo ${solo ? "active" : ""}`}
-            onClick={e => {
+            onClick={(e) => {
               e.stopPropagation()
               onClickSolo()
             }}
@@ -60,7 +99,7 @@ export default function TrackListItem({
             color="default"
             size="small"
             className={`button mute ${mute ? "active" : ""}`}
-            onClick={e => {
+            onClick={(e) => {
               e.stopPropagation()
               onClickMute()
             }}
@@ -76,3 +115,5 @@ export default function TrackListItem({
     </ListItem>
   )
 }
+
+export default TrackListItem

@@ -7,7 +7,7 @@ import {
   toggleEnableLoop,
   selectTrack,
 } from "main/actions"
-import { observer, useObserver } from "mobx-react"
+import { useObserver } from "mobx-react"
 import TransportPanel from "components/TransportPanel/TransportPanel"
 import { useStores } from "main/hooks/useStores"
 import { getMBTString } from "common/measure/mbt"
@@ -44,4 +44,4 @@ const TransportPanelWrapper: SFC<{}> = () => {
   )
 }
 
-export default observer(TransportPanelWrapper)
+export default TransportPanelWrapper

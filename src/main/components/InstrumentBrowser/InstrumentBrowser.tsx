@@ -11,7 +11,7 @@ import {
   FormControlLabel,
   Checkbox,
 } from "@material-ui/core"
-import { observer, useObserver } from "mobx-react"
+import { useObserver } from "mobx-react"
 import { setTrackInstrument as setTrackInstrumentAction } from "actions"
 import { programChangeMidiEvent } from "common/midi/MidiEvent"
 import { useStores } from "main/hooks/useStores"
@@ -231,4 +231,4 @@ const InstrumentBrowserWrapper: SFC<{}> = () => {
   )
 }
 
-export default observer(InstrumentBrowserWrapper)
+export default InstrumentBrowserWrapper

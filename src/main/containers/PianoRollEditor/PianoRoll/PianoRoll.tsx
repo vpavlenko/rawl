@@ -12,10 +12,9 @@ import {
   resizeNoteLeft,
   resizeNoteRight,
 } from "main/actions"
-import { observer, useObserver } from "mobx-react"
+import { useObserver } from "mobx-react"
 import React, { SFC, useState, useEffect } from "react"
 import { withSize } from "react-sizeme"
-import { compose } from "recompose"
 import { PianoRoll } from "components/PianoRoll/PianoRoll"
 import PencilMouseHandler from "./MouseHandler/PencilMouseHandler"
 import { pointAdd, pointSub, ISize } from "common/geometry"
@@ -187,7 +186,4 @@ const PianoRollWrapper: SFC<PianoRollWrapperProps> = ({ size }) => {
   )
 }
 
-export default compose<{}, {}>(
-  observer,
-  withSize({ monitorHeight: true })
-)(PianoRollWrapper)
+export default withSize({ monitorHeight: true })(PianoRollWrapper)

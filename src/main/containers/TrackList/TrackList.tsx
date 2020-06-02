@@ -1,5 +1,5 @@
 import React, { SFC } from "react"
-import { observer, useObserver } from "mobx-react"
+import { useObserver } from "mobx-react"
 import {
   removeTrack,
   addTrack,
@@ -68,4 +68,4 @@ const TrackListWrapper: SFC<{}> = () => {
   )
 }
 
-export default observer(TrackListWrapper)
+export default TrackListWrapper

@@ -1,12 +1,11 @@
-import React, { StatelessComponent } from "react"
+import React, { SFC } from "react"
 import { Drawer, Divider } from "@material-ui/core"
-import { observer, inject } from "mobx-react"
-import RootStore from "stores/RootStore"
-import { compose } from "recompose"
+import { observer, useObserver } from "mobx-react"
 import TrackList from "containers/TrackList/TrackList"
 import SongList from "./SongList"
+import { useStores } from "main/hooks/useStores"
 
-const PianoRollDrawer: StatelessComponent<{
+const PianoRollDrawer: SFC<{
   open: boolean
   onClose: () => void
 }> = ({ open, onClose }) => (
@@ -17,12 +16,13 @@ const PianoRollDrawer: StatelessComponent<{
   </Drawer>
 )
 
-export default compose(
-  inject(({ rootStore: { rootViewStore: s } }: { rootStore: RootStore }) => {
-    return {
-      open: s.openDrawer,
-      onClose: () => (s.openDrawer = false)
-    }
-  }),
-  observer
-)(PianoRollDrawer)
+const PianoRollDrawerWrapper: SFC<{}> = () => {
+  const { rootStore } = useStores()
+  const { openDrawer, onClose } = useObserver(() => ({
+    openDrawer: rootStore.rootViewStore.openDrawer,
+    onClose: () => (rootStore.rootViewStore.openDrawer = false),
+  }))
+  return <PianoRollDrawer open={openDrawer} onClose={onClose} />
+}
+
+export default observer(PianoRollDrawerWrapper)

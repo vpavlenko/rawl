@@ -12,43 +12,65 @@ import {
   resizeNoteLeft,
   resizeNoteRight,
 } from "main/actions"
-import { inject, observer } from "mobx-react"
+import { observer, useObserver } from "mobx-react"
 import React, { SFC, useState, useEffect } from "react"
 import { withSize } from "react-sizeme"
 import { compose } from "recompose"
-import { PianoRollProps, PianoRoll } from "components/PianoRoll/PianoRoll"
+import { PianoRoll } from "components/PianoRoll/PianoRoll"
 import PencilMouseHandler from "./MouseHandler/PencilMouseHandler"
-import SelectionMouseHandler from "./MouseHandler/SelectionMouseHandler"
-import { PianoRollMouseMode } from "stores/PianoRollStore"
-import { Dispatcher } from "createDispatcher"
-import RootStore from "stores/RootStore"
-import { toJS } from "mobx"
-import { pointAdd, pointSub } from "common/geometry"
+import { pointAdd, pointSub, ISize } from "common/geometry"
 import { useTheme } from "main/hooks/useTheme"
+import { useStores } from "main/hooks/useStores"
+import { PianoNotesNoteMouseEvent } from "main/components/PianoRoll/PianoNotes/PianoNotes"
+import SelectionMouseHandler from "./MouseHandler/SelectionMouseHandler"
 
-export type SPianoRollProps = PianoRollProps & {
-  playerPosition: number
-  autoScroll: boolean
-  scaleX: number
-  mouseMode: PianoRollMouseMode
-  dispatch: Dispatcher
-  isPlaying: boolean
+export interface PianoRollWrapperProps {
+  size: ISize
 }
 
-const Wrapper: SFC<SPianoRollProps> = (props) => {
+const PianoRollWrapper: SFC<PianoRollWrapperProps> = ({ size }) => {
+  const { rootStore } = useStores()
   const {
-    dispatch,
-    selection,
-    size,
-    playerPosition,
-    mouseMode,
-    scrollLeft,
-    setScrollLeft,
-    scaleX = 1,
-    autoScroll = false,
+    events,
+    isRhythmTrack,
+    channel,
+    endTick,
+    measures,
     isPlaying,
-    onDragNote,
-  } = props
+    playerPosition,
+    timebase,
+    dispatch,
+    mouseMode,
+    scaleX,
+    scrollLeft,
+    scrollTop,
+    autoScroll,
+    controlMode,
+    notesCursor,
+    selection,
+    loop,
+    s,
+  } = useObserver(() => ({
+    events: rootStore.song.selectedTrack!.events,
+    isRhythmTrack: rootStore.song.selectedTrack!.isRhythmTrack,
+    channel: rootStore.song.selectedTrack!.channel!,
+    endTick: rootStore.song.endOfSong,
+    measures: rootStore.song.measures,
+    isPlaying: rootStore.services.player.isPlaying,
+    playerPosition: rootStore.playerStore.position,
+    timebase: rootStore.services.player.timebase,
+    dispatch: rootStore.dispatch,
+    s: rootStore.pianoRollStore,
+    mouseMode: rootStore.pianoRollStore.mouseMode,
+    scaleX: rootStore.pianoRollStore.scaleX,
+    scrollLeft: rootStore.pianoRollStore.scrollLeft,
+    scrollTop: rootStore.pianoRollStore.scrollTop,
+    autoScroll: rootStore.pianoRollStore.autoScroll,
+    controlMode: rootStore.pianoRollStore.controlMode,
+    notesCursor: rootStore.pianoRollStore.notesCursor,
+    selection: rootStore.pianoRollStore.selection,
+    loop: rootStore.playerStore.loop,
+  }))
 
   const theme = useTheme()
 
@@ -67,132 +89,105 @@ const Wrapper: SFC<SPianoRollProps> = (props) => {
       const x = transform.getX(playerPosition)
       const screenX = x - scrollLeft
       if (screenX > size.width * 0.7 || screenX < 0) {
-        setScrollLeft(x)
+        s.scrollLeft = x
       }
     }
   }, [autoScroll, isPlaying, scaleX, scrollLeft, playerPosition])
 
+  const onDragNote = (e: PianoNotesNoteMouseEvent) => {
+    switch (e.position) {
+      case "center":
+        const delta = pointSub(e.offset, e.dragStart)
+        console.log(delta)
+        const position = pointAdd(e.dragItem, delta)
+        dispatch(
+          moveNote({
+            id: e.note.id,
+            tick: e.transform.getTicks(position.x),
+            noteNumber: Math.round(e.transform.getNoteNumber(position.y)),
+            quantize: "round",
+          })
+        )
+        break
+      case "left":
+        dispatch(resizeNoteLeft(e.dragItem.id, e.tick))
+        break
+      case "right":
+        dispatch(resizeNoteRight(e.dragItem.id, e.tick))
+        break
+    }
+  }
+
   return (
     <PianoRoll
-      {...props}
+      width={size.width}
+      isRhythmTrack={isRhythmTrack}
+      measures={measures}
+      endTick={endTick}
       scrollLeft={scrollLeft}
-      setScrollLeft={setScrollLeft}
+      setScrollLeft={(v) => (s.scrollLeft = v)}
       transform={transform}
       mouseHandler={mouseHandler}
       alphaHeight={size.height}
       onDragNote={onDragNote}
+      timebase={timebase}
+      events={events}
+      selection={s.selection}
+      scrollTop={scrollTop}
+      setScrollTop={(v) => (s.scrollTop = v)}
+      controlMode={controlMode}
+      setControlMode={(v) => (s.controlMode = v)}
+      cursorPosition={playerPosition}
+      notesCursor={notesCursor}
+      onClickScaleUp={() => (s.scaleX = scaleX + 0.1)}
+      onClickScaleDown={() => (s.scaleX = Math.max(0.05, scaleX - 0.1))}
+      onClickScaleReset={() => (s.scaleX = 1)}
+      loop={loop}
+      onMouseDownRuler={(e) => {
+        const tick = e.tick
+        if (e.nativeEvent.ctrlKey) {
+          // setLoopBegin(tick)
+        } else if (e.nativeEvent.altKey) {
+          // setLoopEnd(tick)
+        } else {
+          dispatch(setPlayerPosition(tick))
+        }
+      }}
+      onClickKey={(noteNumber) => {
+        dispatch(previewNote(channel, noteNumber))
+      }}
+      changeVelocity={(notes, velocity) =>
+        dispatch(
+          changeNotesVelocity(
+            notes.map((n) => n.id),
+            velocity
+          )
+        )
+      }
+      createControlEvent={(mode, value, tick) => {
+        const action = (() => {
+          switch (mode) {
+            case "volume":
+              return createVolume
+            case "pitchBend":
+              return createPitchBend
+            case "pan":
+              return createPan
+            case "modulation":
+              return createModulation
+            case "expression":
+              return createExpression
+            case "velocity":
+              throw new Error("invalid type")
+          }
+        })()
+        dispatch(action(value, tick || 0))
+      }}
     />
   )
 }
 
 export default compose<{}, {}>(
-  inject(
-    ({
-      rootStore: {
-        song: { selectedTrack: track, endOfSong: endTick, measures },
-        pianoRollStore: s,
-        playerStore,
-        services: { quantizer, player },
-        dispatch,
-      },
-    }: {
-      rootStore: RootStore
-    }) =>
-      ({
-        track,
-        endTick,
-        measures,
-        timebase: player.timebase,
-        events: track !== undefined ? toJS(track.events) : [], // 変更が反映されるように toJS() する
-        scaleX: s.scaleX,
-        scaleY: s.scaleY,
-        autoScroll: s.autoScroll,
-        selection: s.selection,
-        scrollLeft: s.scrollLeft,
-        setScrollLeft: (v) => (s.scrollLeft = v),
-        scrollTop: s.scrollTop,
-        setScrollTop: (v) => (s.scrollTop = v),
-        controlMode: s.controlMode,
-        setControlMode: (v) => (s.controlMode = v),
-        cursorPosition: s.cursorPosition,
-        notesCursor: s.notesCursor,
-        mouseMode: s.mouseMode,
-        onChangeTool: () =>
-          (s.mouseMode = s.mouseMode === "pencil" ? "selection" : "pencil"),
-        onClickScaleUp: () => (s.scaleX = s.scaleX + 0.1),
-        onClickScaleDown: () => (s.scaleX = Math.max(0.05, s.scaleX - 0.1)),
-        onClickScaleReset: () => (s.scaleX = 1),
-        loop: playerStore.loop,
-        isPlaying: player.isPlaying,
-        quantizer,
-        onMouseDownRuler: (e) => {
-          const tick = e.tick
-          if (e.nativeEvent.ctrlKey) {
-            // setLoopBegin(tick)
-          } else if (e.nativeEvent.altKey) {
-            // setLoopEnd(tick)
-          } else {
-            dispatch(setPlayerPosition(tick))
-          }
-        },
-        onClickKey: (noteNumber) => {
-          if (track !== undefined && track.channel !== undefined) {
-            dispatch(previewNote(track.channel, noteNumber))
-          }
-        },
-        onDragNote: (e) => {
-          switch (e.position) {
-            case "center":
-              const delta = pointSub(e.offset, e.dragStart)
-              console.log(delta)
-              const position = pointAdd(e.dragItem, delta)
-              dispatch(
-                moveNote({
-                  id: e.note.id,
-                  tick: e.transform.getTicks(position.x),
-                  noteNumber: Math.round(e.transform.getNoteNumber(position.y)),
-                  quantize: "round",
-                })
-              )
-              break
-            case "left":
-              dispatch(resizeNoteLeft(e.dragItem.id, e.tick))
-              break
-            case "right":
-              dispatch(resizeNoteRight(e.dragItem.id, e.tick))
-              break
-          }
-        },
-        dispatch,
-        changeVelocity: (notes, velocity) =>
-          dispatch(
-            changeNotesVelocity(
-              notes.map((n) => n.id),
-              velocity
-            )
-          ),
-        createControlEvent: (mode, value, tick) => {
-          const action = (() => {
-            switch (mode) {
-              case "volume":
-                return createVolume
-              case "pitchBend":
-                return createPitchBend
-              case "pan":
-                return createPan
-              case "modulation":
-                return createModulation
-              case "expression":
-                return createExpression
-              case "velocity":
-                throw new Error("invalid type")
-            }
-          })()
-          dispatch(action(value, tick || 0))
-        },
-        playerPosition: playerStore.position,
-      } as Partial<SPianoRollProps>)
-  ),
   observer,
   withSize({ monitorHeight: true })
-)(Wrapper)
+)(PianoRollWrapper)

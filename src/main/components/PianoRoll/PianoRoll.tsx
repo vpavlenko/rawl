@@ -62,7 +62,7 @@ export type PianoRollProps = Pick<
 > & {
   mouseHandler: PianoNotesMouseHandler
   onDragNote: (e: PianoNotesNoteMouseEvent) => void
-  track: Track
+  isRhythmTrack: boolean
   events: TrackEvent[]
   transform: NoteCoordTransform
   measures: Measure[]
@@ -75,11 +75,11 @@ export type PianoRollProps = Pick<
   setScrollLeft: (scroll: number) => void
   setScrollTop: (scroll: number) => void
   controlMode: ControlMode
-  setControlMode: (mode: string) => void
+  setControlMode: (mode: ControlMode) => void
   notesCursor: string
   cursorPosition: number
   loop: LoopSetting
-  size: ISize
+  width: number
   onClickScaleUp: () => void
   onClickScaleDown: () => void
   onClickScaleReset: () => void
@@ -90,7 +90,7 @@ export type PianoRollProps = Pick<
 export const PianoRoll: StatelessComponent<PianoRollProps> = ({
   mouseHandler,
   onDragNote,
-  track,
+  isRhythmTrack,
   events,
   transform,
   measures,
@@ -107,7 +107,7 @@ export const PianoRoll: StatelessComponent<PianoRollProps> = ({
   notesCursor,
   cursorPosition,
   loop,
-  size,
+  width,
   onClickScaleUp,
   onClickScaleDown,
   onClickScaleReset,
@@ -116,11 +116,8 @@ export const PianoRoll: StatelessComponent<PianoRollProps> = ({
   createControlEvent,
   onClickKey,
 }) => {
-  const containerWidth = size.width
-
-  const width = containerWidth
   const startTick = scrollLeft / transform.pixelsPerTick
-  const widthTick = transform.getTicks(containerWidth)
+  const widthTick = transform.getTicks(width)
   const endTick = startTick + widthTick
   const mappedBeats = createBeatsInRange(
     measures,
@@ -139,7 +136,7 @@ export const PianoRoll: StatelessComponent<PianoRollProps> = ({
     return Math.floor(Math.min(maxOffset, Math.max(0, scroll)))
   }
 
-  scrollLeft = clampScroll(contentWidth - containerWidth, scrollLeft)
+  scrollLeft = clampScroll(contentWidth - width, scrollLeft)
   scrollTop = clampScroll(contentHeight - alphaHeight, scrollTop)
 
   const onDoubleClickMark = (group: DisplayEvent[]) => {
@@ -181,7 +178,7 @@ export const PianoRoll: StatelessComponent<PianoRollProps> = ({
     events,
     transform.pixelsPerTick,
     scrollLeft,
-    containerWidth
+    width
   )
 
   return (
@@ -224,7 +221,7 @@ export const PianoRoll: StatelessComponent<PianoRollProps> = ({
                     selectedEventIds={selection.noteIds}
                     transform={transform}
                     cursor={notesCursor}
-                    isDrumMode={track.isRhythmTrack}
+                    isDrumMode={isRhythmTrack}
                     onDragNote={onDragNote}
                     onHoverNote={onHoverNote}
                   />

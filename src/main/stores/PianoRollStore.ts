@@ -1,9 +1,9 @@
 import { observable } from "mobx"
 import SelectionModel from "common/selection"
-import Player from "src/common/player"
 import SynthOutput from "../services/SynthOutput"
 import { LoadSoundFontEvent } from "src/synth/synth"
 import { InstrumentSetting } from "../components/InstrumentBrowser/InstrumentBrowser"
+import { ControlMode } from "../components/PianoRoll/ControlPane"
 
 export type PianoRollMouseMode = "pencil" | "selection"
 
@@ -11,9 +11,8 @@ export default class PianoRollStore {
   @observable scrollLeft = 0
   @observable scrollTop = 700 // 中央くらいの音程にスクロールしておく
   @observable controlHeight = 0
-  @observable cursorPosition = 0
   @observable notesCursor = "auto"
-  @observable controlMode = "velocity"
+  @observable controlMode: ControlMode = "velocity"
   @observable mouseMode: PianoRollMouseMode = "pencil"
   @observable scaleX = 1
   @observable scaleY = 1
@@ -24,16 +23,12 @@ export default class PianoRollStore {
   @observable openInstrumentBrowser = false
   @observable instrumentBrowserSetting: InstrumentSetting = {
     isRhythmTrack: false,
-    programNumber: 0
+    programNumber: 0,
   }
   @observable presetNames: LoadSoundFontEvent["presetNames"] = [[]]
 
-  constructor(player: Player, synth: SynthOutput) {
-    player.addListener(
-      "change-position",
-      position => (this.cursorPosition = position)
-    )
-    synth.onLoadSoundFont = e => {
+  constructor(synth: SynthOutput) {
+    synth.onLoadSoundFont = (e) => {
       this.presetNames = e.presetNames
     }
   }

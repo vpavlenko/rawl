@@ -56,17 +56,12 @@ const _PianoNote: SFC<PianoNoteProps> = (props) => {
   const renderDrumNote = (g: PIXIGraphics) => {
     const alpha = item.velocity / 127
     const noteColor = item.isSelected ? props.selectedColor : props.color
-    let { x, y, height } = item
-    x = Math.round(x)
-    y = Math.round(y)
-    height = Math.round(height)
-    const radius = Math.round(height / 2)
+    const radius = Math.round(item.height / 2)
 
     g.clear()
       .lineStyle(1, props.borderColor, 1)
       .beginFill(noteColor, alpha)
-      .arc(x, y + radius, radius, 0, 2 * Math.PI)
-      .endFill()
+      .drawCircle(0, radius / 2, radius)
   }
 
   const [hovering, setHover] = useState(false)

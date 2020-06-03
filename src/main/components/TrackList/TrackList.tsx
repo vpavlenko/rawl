@@ -1,6 +1,5 @@
 import React, { StatelessComponent } from "react"
 
-import TrackMute from "common/trackMute/TrackMute"
 import {
   List,
   ListSubheader,
@@ -10,9 +9,9 @@ import {
 } from "@material-ui/core"
 
 import TrackListItem, { TrackListItemData } from "./TrackListItem"
+import { Add } from "@material-ui/icons"
 
 import "./TrackList.css"
-import { Add } from "@material-ui/icons"
 
 export interface TrackListProps {
   tracks: TrackListItemData[]

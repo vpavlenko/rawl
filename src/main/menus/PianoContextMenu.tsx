@@ -1,16 +1,16 @@
-import { Dispatcher } from "main/createDispatcher"
 import { ContextMenuBuilder } from "../components/groups/ContextMenu"
 import { copySelection, pasteSelection, deleteSelection } from "actions"
+import RootStore from "../stores/RootStore"
 
 export const PianoContextMenu = (
-  dispatch: Dispatcher,
+  rootStore: RootStore,
   isNoteSelected: boolean
 ): ContextMenuBuilder => (close) => [
   {
     isHidden: !isNoteSelected,
     onClick() {
-      dispatch(copySelection())
-      dispatch(deleteSelection())
+      copySelection(rootStore)()
+      deleteSelection(rootStore)()
       close()
     },
     label: "Cut",
@@ -18,14 +18,14 @@ export const PianoContextMenu = (
   {
     isHidden: !isNoteSelected,
     onClick() {
-      dispatch(copySelection())
+      copySelection(rootStore)()
       close()
     },
     label: "Copy",
   },
   {
     onClick() {
-      dispatch(pasteSelection())
+      pasteSelection(rootStore)()
       close()
     },
     label: "Paste",
@@ -33,7 +33,7 @@ export const PianoContextMenu = (
   {
     isHidden: !isNoteSelected,
     onClick() {
-      dispatch(deleteSelection())
+      deleteSelection(rootStore)()
       close()
     },
     label: "Delete",

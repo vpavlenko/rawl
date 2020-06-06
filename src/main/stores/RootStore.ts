@@ -90,6 +90,6 @@ export default class RootStore {
   }
 
   openContextMenuAction(e: ContextMenuMouseEvent, isNoteSelected: boolean) {
-    openContextMenu(e, PianoContextMenu(this.dispatch, isNoteSelected))
+    openContextMenu(e, PianoContextMenu(this, isNoteSelected))
   }
 }

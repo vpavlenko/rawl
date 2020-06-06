@@ -3,7 +3,6 @@ import RootStore from "../stores/RootStore"
 
 export function bindKeyboardShortcut(rootStore: RootStore) {
   const {
-    dispatch,
     services: { player },
     song,
   } = rootStore
@@ -39,13 +38,13 @@ export function bindKeyboardShortcut(rootStore: RootStore) {
     }
   }
   document.oncut = () => {
-    dispatch(copySelection())
-    dispatch(deleteSelection())
+    copySelection(rootStore)()
+    deleteSelection(rootStore)()
   }
   document.oncopy = () => {
-    dispatch(copySelection())
+    copySelection(rootStore)()
   }
   document.onpaste = () => {
-    dispatch(pasteSelection())
+    pasteSelection(rootStore)()
   }
 }

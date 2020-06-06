@@ -1,9 +1,7 @@
 import React, { SFC, ChangeEvent } from "react"
 import { List, ListSubheader, ListItem, ListItemText } from "@material-ui/core"
-import { compose } from "recompose"
-import { inject, observer } from "mobx-react"
-import RootStore from "stores/RootStore"
 import { createSong, openSong, saveSong } from "actions"
+import { useStores } from "main/hooks/useStores"
 
 interface SongListProps {
   onClickNew: () => void
@@ -52,17 +50,17 @@ const SongList: SFC<SongListProps> = ({
   </List>
 )
 
-export default compose(
-  inject(({ rootStore: { dispatch } }: { rootStore: RootStore }) => {
-    return {
-      onClickNew: () => {
+const SongListWrapper: SFC<{}> = () => {
+  const { rootStore } = useStores()
+  return (
+    <SongList
+      onClickNew={() => {
         if (confirm("Are you sure you want to continue?")) {
-          dispatch(createSong())
+          createSong(rootStore)()
         }
-      },
-      onClickOpen: (e) => dispatch(openSong(e.currentTarget)),
-      onClickSave: () => dispatch(saveSong()),
-    } as SongListProps
-  }),
-  observer
-)(SongList)
+      }}
+      onClickOpen={(e) => openSong(rootStore)(e.currentTarget)}
+      onClickSave={() => saveSong(rootStore)()}
+    />
+  )
+}

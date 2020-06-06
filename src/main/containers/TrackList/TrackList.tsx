@@ -13,7 +13,7 @@ import { TrackListItemData } from "src/main/components/TrackList/TrackListItem"
 
 const TrackListWrapper: SFC<{}> = () => {
   const { rootStore: stores } = useStores()
-  const { dispatch, router } = stores
+  const { router } = stores
   const { tracks } = useObserver(() => {
     const selectedTrackId = stores.song.selectedTrackId
     const trackMutes = stores.song.tracks.map((_, i) =>
@@ -52,12 +52,12 @@ const TrackListWrapper: SFC<{}> = () => {
       tracks={tracks}
       onClickMute={(trackId) => toggleMuteTrack(stores)(trackId)}
       onClickSolo={(trackId) => toggleSoloTrack(stores)(trackId)}
-      onClickDelete={(trackId) => dispatch(removeTrack(trackId))}
-      onClickAddTrack={() => dispatch(addTrack())}
+      onClickDelete={(trackId) => removeTrack(stores)(trackId)}
+      onClickAddTrack={() => addTrack(stores)()}
       // onChangeName={e => dispatch(SET_TRACK_NAME, { name: e.target.value })},
       onSelectTrack={(trackId) => {
         router.pushTrack()
-        dispatch(selectTrack(trackId))
+        selectTrack(stores)(trackId)
         stores.rootViewStore.openDrawer = false
       }}
       onClickArrangeView={() => {

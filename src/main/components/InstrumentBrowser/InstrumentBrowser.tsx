@@ -146,7 +146,6 @@ const InstrumentBrowserWrapper: SFC<{}> = () => {
   const {
     track,
     trackId,
-    dispatch,
     presetNames,
     s,
     player,
@@ -171,7 +170,7 @@ const InstrumentBrowserWrapper: SFC<{}> = () => {
 
   const close = () => (s.openInstrumentBrowser = false)
   const setTrackInstrument = (programNumber: number) =>
-    dispatch(setTrackInstrumentAction(trackId, programNumber))
+    setTrackInstrumentAction(stores)(trackId, programNumber)
 
   const presets: PresetItem[] = Object.keys(presetNames[0]).map((key) => ({
     programNumber: parseInt(key),

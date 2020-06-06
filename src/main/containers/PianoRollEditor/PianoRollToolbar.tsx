@@ -18,7 +18,7 @@ const PianoRollToolbarWrapper = () => {
       mouseMode: stores.pianoRollStore.mouseMode,
     })
   )
-  const { dispatch, rootViewStore, pianoRollStore: s } = stores
+  const { rootViewStore, pianoRollStore: s } = stores
 
   if (track === undefined) {
     return <></>
@@ -37,8 +37,8 @@ const PianoRollToolbarWrapper = () => {
         stores.services.quantizer.denominator = e.denominator
         s.quantize = e.denominator
       }}
-      onChangeVolume={(value) => dispatch(setTrackVolume(trackId, value))}
-      onChangePan={(value) => dispatch(setTrackPan(trackId, value))}
+      onChangeVolume={(value) => setTrackVolume(stores)(trackId, value)}
+      onChangePan={(value) => setTrackPan(stores)(trackId, value)}
       onClickNavBack={() => (rootViewStore.openDrawer = true)}
       onClickInstrument={() => {
         if (track === undefined) {

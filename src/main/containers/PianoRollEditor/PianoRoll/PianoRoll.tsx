@@ -99,20 +99,18 @@ const PianoRollWrapper: SFC<PianoRollWrapperProps> = ({ size }) => {
         const delta = pointSub(e.offset, e.dragStart)
         console.log(delta)
         const position = pointAdd(e.dragItem, delta)
-        dispatch(
-          moveNote({
-            id: e.note.id,
-            tick: e.transform.getTicks(position.x),
-            noteNumber: Math.round(e.transform.getNoteNumber(position.y)),
-            quantize: "round",
-          })
-        )
+        moveNote(rootStore)({
+          id: e.note.id,
+          tick: e.transform.getTicks(position.x),
+          noteNumber: Math.round(e.transform.getNoteNumber(position.y)),
+          quantize: "round",
+        })
         break
       case "left":
-        dispatch(resizeNoteLeft(e.dragItem.id, e.tick))
+        resizeNoteLeft(rootStore)(e.dragItem.id, e.tick)
         break
       case "right":
-        dispatch(resizeNoteRight(e.dragItem.id, e.tick))
+        resizeNoteRight(rootStore)(e.dragItem.id, e.tick)
         break
     }
   }
@@ -156,11 +154,9 @@ const PianoRollWrapper: SFC<PianoRollWrapperProps> = ({ size }) => {
         previewNote(rootStore)(channel, noteNumber)
       }}
       changeVelocity={(notes, velocity) =>
-        dispatch(
-          changeNotesVelocity(
-            notes.map((n) => n.id),
-            velocity
-          )
+        changeNotesVelocity(rootStore)(
+          notes.map((n) => n.id),
+          velocity
         )
       }
       createControlEvent={(mode, value, tick) => {
@@ -180,7 +176,7 @@ const PianoRollWrapper: SFC<PianoRollWrapperProps> = ({ size }) => {
               throw new Error("invalid type")
           }
         })()
-        dispatch(action(value, tick || 0))
+        action(rootStore)(value, tick || 0)
       }}
     />
   )

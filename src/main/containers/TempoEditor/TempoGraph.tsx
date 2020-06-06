@@ -15,7 +15,6 @@ interface TempoGraphWrapperProps {
 
 const TempoGraphWrapper: SFC<TempoGraphWrapperProps> = (props) => {
   const { rootStore } = useStores()
-  const { dispatch } = rootStore
 
   const {
     isPlaying,
@@ -75,11 +74,11 @@ const TempoGraphWrapper: SFC<TempoGraphWrapperProps> = (props) => {
       timebase={timebase}
       playerPosition={playerPosition}
       changeTempo={(id, microsecondsPerBeat) =>
-        dispatch(changeTempo(id, microsecondsPerBeat))
+        changeTempo(rootStore)(id, microsecondsPerBeat)
       }
       setScrollLeft={(v) => (rootStore.tempoEditorStore.scrollLeft = v)}
       createTempo={(tick, microsecondsPerBeat) =>
-        dispatch(createTempo(tick, microsecondsPerBeat))
+        createTempo(rootStore)(tick, microsecondsPerBeat)
       }
       setPlayerPosition={(tick) => setPlayerPosition(rootStore)(tick)}
       theme={theme}

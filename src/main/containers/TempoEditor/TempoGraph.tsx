@@ -1,34 +1,47 @@
-import { TempoCoordTransform } from "common/transform"
-import { TempoGraph, TempoGraphProps } from "components/TempoGraph/TempoGraph"
-import { setPlayerPosition, changeTempo, createTempo } from "main/actions"
-import { inject, observer } from "mobx-react"
 import React, { SFC, useState, useEffect } from "react"
+import { TempoCoordTransform } from "common/transform"
+import { TempoGraph } from "components/TempoGraph/TempoGraph"
+import { setPlayerPosition, changeTempo, createTempo } from "main/actions"
+import { useObserver } from "mobx-react"
 import { withSize } from "react-sizeme"
-import { compose } from "recompose"
-import RootStore from "stores/RootStore"
 import { toJS } from "mobx"
 import { useTheme } from "main/hooks/useTheme"
+import { useStores } from "src/main/hooks/useStores"
+import { ISize } from "pixi.js"
 
-type Props = Pick<
-  TempoGraphProps,
-  | "measures"
-  | "timebase"
-  | "events"
-  | "setPlayerPosition"
-  | "endTick"
-  | "changeTempo"
-  | "createTempo"
-  | "size"
-  | "setScrollLeft"
-  | "pixelsPerTick"
-> & {
-  isPlaying: boolean
-  autoScroll: boolean
-  playerPosition: number
+interface TempoGraphWrapperProps {
+  size: ISize
 }
 
-const Wrapper: SFC<Props> = (props) => {
-  const { autoScroll, pixelsPerTick, size, playerPosition, isPlaying } = props
+const TempoGraphWrapper: SFC<TempoGraphWrapperProps> = (props) => {
+  const { rootStore } = useStores()
+  const { dispatch } = rootStore
+
+  const {
+    isPlaying,
+    pixelsPerTick,
+    events,
+    endTick,
+    measures,
+    timebase,
+    autoScroll,
+    playerPosition,
+  } = useObserver(() => ({
+    isPlaying: rootStore.services.player.isPlaying,
+    pixelsPerTick: 0.1 * rootStore.tempoEditorStore.scaleX,
+    events:
+      rootStore.song.conductorTrack !== undefined
+        ? toJS(rootStore.song.conductorTrack.events)
+        : [],
+    endTick: rootStore.song.endOfSong,
+    measures: rootStore.song.measures,
+    timebase: rootStore.services.player.timebase,
+    autoScroll: rootStore.tempoEditorStore.autoScroll,
+    scrollLeft: rootStore.tempoEditorStore.scrollLeft,
+    playerPosition: rootStore.playerStore.position,
+  }))
+
+  const { size } = props
   const [scrollLeft, setScrollLeft] = useState(0)
 
   useEffect(() => {
@@ -54,48 +67,25 @@ const Wrapper: SFC<Props> = (props) => {
 
   return (
     <TempoGraph
-      {...props}
+      size={size}
+      pixelsPerTick={pixelsPerTick}
+      events={events}
+      endTick={endTick}
+      measures={measures}
+      timebase={timebase}
+      playerPosition={playerPosition}
+      changeTempo={(id, microsecondsPerBeat) =>
+        dispatch(changeTempo(id, microsecondsPerBeat))
+      }
+      setScrollLeft={(v) => (rootStore.tempoEditorStore.scrollLeft = v)}
+      createTempo={(tick, microsecondsPerBeat) =>
+        dispatch(createTempo(tick, microsecondsPerBeat))
+      }
+      setPlayerPosition={(tick) => setPlayerPosition(rootStore)(tick)}
       theme={theme}
       scrollLeft={scrollLeft}
-      setScrollLeft={setScrollLeft}
     />
   )
 }
 
-export default compose(
-  inject(
-    ({
-      rootStore: {
-        playerStore,
-        tempoEditorStore: s,
-        services: { player },
-        song,
-        dispatch,
-      },
-    }: {
-      rootStore: RootStore
-    }) =>
-      ({
-        isPlaying: player.isPlaying,
-        pixelsPerTick: 0.1 * s.scaleX,
-        events:
-          song.conductorTrack !== undefined
-            ? toJS(song.conductorTrack.events)
-            : [],
-        endTick: song.endOfSong,
-        measures: song.measures,
-        timebase: player.timebase,
-        autoScroll: s.autoScroll,
-        scrollLeft: s.scrollLeft,
-        setScrollLeft: (v) => (s.scrollLeft = v),
-        changeTempo: (id, microsecondsPerBeat) =>
-          dispatch(changeTempo(id, microsecondsPerBeat)),
-        createTempo: (tick, microsecondsPerBeat) =>
-          dispatch(createTempo(tick, microsecondsPerBeat)),
-        playerPosition: playerStore.position,
-        setPlayerPosition: (tick) => dispatch(setPlayerPosition(tick)),
-      } as Omit<Props, "size">)
-  ),
-  observer,
-  withSize({ monitorHeight: true })
-)(Wrapper)
+export default withSize({ monitorHeight: true })(TempoGraphWrapper)

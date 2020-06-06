@@ -71,7 +71,7 @@ export interface ArrangeViewProps {
   playerPosition: number
   setPlayerPosition: (position: number) => void
   transform: NoteCoordTransform
-  selection: IRect
+  selection: IRect | null
   startSelection: (position: IPoint) => void
   resizeSelection: (start: IPoint, end: IPoint) => void
   endSelection: (start: IPoint, end: IPoint) => void
@@ -184,6 +184,9 @@ export const ArrangeView: SFC<ArrangeViewProps> = ({
       mouseMove: (handler: (e: MouseEvent) => void) => void,
       mouseUp: (handler: (e: MouseEvent) => void) => void
     ) => {
+      if (selection === null) {
+        return
+      }
       const startSelection = { ...selection }
       mouseMove((e) => {
         const delta = pointSub(createPoint(e), startPos)
@@ -321,20 +324,9 @@ export const ArrangeView: SFC<ArrangeViewProps> = ({
               />
             ))}
           </div>
-          <PianoGrid
-            width={containerWidth}
-            height={contentHeight}
-            scrollLeft={scrollLeft}
-            beats={mappedBeats}
-          />
-          <PianoSelection
-            width={containerWidth}
-            height={contentHeight}
-            scrollLeft={scrollLeft}
-            selectionBounds={selectionRect}
-          />
+          <PianoGrid height={contentHeight} beats={mappedBeats} />
+          <PianoSelection selectionBounds={selectionRect} />
           <PianoCursor
-            width={containerWidth}
             height={contentHeight}
             position={transform.getX(playerPosition) - scrollLeft}
           />

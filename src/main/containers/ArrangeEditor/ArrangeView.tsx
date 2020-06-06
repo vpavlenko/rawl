@@ -1,7 +1,6 @@
-import { ISize } from "common/geometry"
 import React, { SFC, useState, useEffect } from "react"
+import { ISize } from "common/geometry"
 import { NoteCoordTransform } from "common/transform"
-import RootStore from "stores/RootStore"
 import {
   arrangeStartSelection,
   arrangeEndSelection,
@@ -9,45 +8,47 @@ import {
   arrangeMoveSelection,
   arrangeOpenContextMenu,
 } from "actions"
-import { compose } from "recompose"
 import { withSize } from "react-sizeme"
-import { inject, observer } from "mobx-react"
-import {
-  ArrangeView,
-  ArrangeViewProps,
-} from "components/ArrangeView/ArrangeView"
+import { useObserver } from "mobx-react"
+import { ArrangeView } from "components/ArrangeView/ArrangeView"
 import { toJS } from "mobx"
 import { setPlayerPosition } from "main/actions"
 import { useTheme } from "main/hooks/useTheme"
+import { useStores } from "src/main/hooks/useStores"
 
-type Props = Omit<
-  ArrangeViewProps,
-  | "onScrollLeft"
-  | "onScrollTop"
-  | "transform"
-  | "playerPosition"
-  | "scrollLeft"
-  | "scrollTop"
-  | "onScrollLeft"
-  | "onScrollTop"
-> & {
-  pixelsPerTick: number
-  keyHeight: number
-  autoScroll: boolean
+interface ArrangeViewWrapperProps {
   size: ISize
-  playerPosition: number
-  isPlaying: boolean
 }
 
-const Wrapper: SFC<Props> = (props) => {
+const ArrangeViewWrapper: SFC<ArrangeViewWrapperProps> = ({ size }) => {
+  const { rootStore } = useStores()
+
   const {
     autoScroll,
-    size,
     playerPosition,
     pixelsPerTick,
-    keyHeight,
     isPlaying,
-  } = props
+    tracks,
+    measures,
+    timebase,
+    endTick,
+    loop,
+    selection,
+  } = useObserver(() => ({
+    autoScroll: rootStore.arrangeViewStore.autoScroll,
+    playerPosition: rootStore.playerStore.position,
+    pixelsPerTick: 0.1 * rootStore.arrangeViewStore.scaleX,
+    isPlaying: rootStore.services.player.isPlaying,
+    tracks: toJS(rootStore.song.tracks),
+    measures: rootStore.song.measures,
+    timebase: rootStore.services.player.timebase,
+    endTick: rootStore.song.endOfSong,
+    loop: rootStore.playerStore.loop,
+    selection: rootStore.arrangeViewStore.selection,
+  }))
+  const { dispatch, arrangeViewStore: s } = rootStore
+
+  const keyHeight = 0.3
 
   const [scrollLeft, setScrollLeft] = useState(0)
   const [scrollTop, setScrollTop] = useState(0)
@@ -76,56 +77,36 @@ const Wrapper: SFC<Props> = (props) => {
 
   return (
     <ArrangeView
-      {...props}
+      tracks={tracks}
+      measures={measures}
+      timebase={timebase}
+      endTick={endTick}
+      size={size}
       theme={theme}
       scrollLeft={scrollLeft}
       scrollTop={scrollTop}
+      transform={transform}
+      playerPosition={playerPosition}
+      selection={selection}
+      autoScroll={autoScroll}
+      loop={loop}
       onScrollLeft={(scroll: number) => setScrollLeft(scroll)}
       onScrollTop={(scroll: number) => setScrollTop(scroll)}
-      transform={transform}
+      onClickScaleUp={() => (s.scaleX = s.scaleX + 0.1)}
+      onClickScaleDown={() => (s.scaleX = Math.max(0.05, s.scaleX - 0.1))}
+      onClickScaleReset={() => (s.scaleX = 1)}
+      setPlayerPosition={(tick) => setPlayerPosition(rootStore)(tick)}
+      startSelection={(pos) => dispatch(arrangeStartSelection(pos))}
+      endSelection={(start, end) => dispatch(arrangeEndSelection(start, end))}
+      resizeSelection={(start, end) =>
+        dispatch(arrangeResizeSelection(start, end))
+      }
+      moveSelection={(pos) => dispatch(arrangeMoveSelection(pos))}
+      openContextMenu={(e, isSelectionSelected) =>
+        dispatch(arrangeOpenContextMenu(e, isSelectionSelected))
+      }
     />
   )
 }
 
-const mapStoreToProps = ({
-  rootStore: {
-    song: { tracks, measures, endOfSong },
-    arrangeViewStore: s,
-    services: { player, quantizer },
-    playerStore: { loop, position },
-    dispatch,
-  },
-}: {
-  rootStore: RootStore
-}) =>
-  ({
-    isPlaying: player.isPlaying,
-    quantizer,
-    loop,
-    tracks: toJS(tracks),
-    measures,
-    timebase: player.timebase,
-    endTick: endOfSong,
-    keyHeight: 0.3,
-    pixelsPerTick: 0.1 * s.scaleX,
-    autoScroll: s.autoScroll,
-    selection: s.selection,
-    onClickScaleUp: () => (s.scaleX = s.scaleX + 0.1),
-    onClickScaleDown: () => (s.scaleX = Math.max(0.05, s.scaleX - 0.1)),
-    onClickScaleReset: () => (s.scaleX = 1),
-    setPlayerPosition: (tick) => dispatch(setPlayerPosition(tick)),
-    startSelection: (pos) => dispatch(arrangeStartSelection(pos)),
-    endSelection: (start, end) => dispatch(arrangeEndSelection(start, end)),
-    resizeSelection: (start, end) =>
-      dispatch(arrangeResizeSelection(start, end)),
-    moveSelection: (pos) => dispatch(arrangeMoveSelection(pos)),
-    openContextMenu: (e, isSelectionSelected) =>
-      dispatch(arrangeOpenContextMenu(e, isSelectionSelected)),
-    playerPosition: position,
-  } as Partial<Props>)
-
-export default compose(
-  inject(mapStoreToProps),
-  observer,
-  withSize({ monitorHeight: true })
-)(Wrapper)
+export default withSize({ monitorHeight: true })(ArrangeViewWrapper)

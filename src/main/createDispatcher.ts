@@ -1,6 +1,5 @@
 import createSongAction, { SongAction } from "./actions/song"
 import createTrackAction, { TrackAction } from "./actions/track"
-import createPlayerAction, { PlayerAction } from "./actions/player"
 import createRootViewAction from "./actions/rootView"
 import creatQuantizerAction, { QuantizerAction } from "./actions/quantizer"
 import createSelectionAction, { SelectionAction } from "./actions/selection"
@@ -13,7 +12,6 @@ export type Dispatcher = (action: Action) => any
 export type Mutator = (store: RootStore) => void
 
 export type Action =
-  | PlayerAction
   | QuantizerAction
   | SongAction
   | SelectionAction
@@ -24,7 +22,6 @@ export const createDispatcher2 = (rootStore: RootStore): Dispatcher => (
   action
 ) => {
   const mutators = [
-    createPlayerAction,
     creatQuantizerAction,
     createSongAction,
     createSelectionAction,

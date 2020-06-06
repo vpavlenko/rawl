@@ -31,11 +31,11 @@ const TransportPanelWrapper: SFC<{}> = () => {
       mbtTime={mbtTime}
       tempo={tempo}
       loopEnabled={loop.enabled}
-      onClickPlay={() => dispatch(play())}
-      onClickStop={() => dispatch(stop())}
-      onClickBackward={() => dispatch(movePlayerPosition(-TIME_BASE * 4))}
-      onClickForward={() => dispatch(movePlayerPosition(TIME_BASE * 4))}
-      onClickEnableLoop={() => dispatch(toggleEnableLoop())}
+      onClickPlay={() => play(stores)()}
+      onClickStop={() => stop(stores)()}
+      onClickBackward={() => movePlayerPosition(stores)(-TIME_BASE * 4)}
+      onClickForward={() => movePlayerPosition(stores)(TIME_BASE * 4)}
+      onClickEnableLoop={() => toggleEnableLoop(stores)()}
       onClickTempo={() => {
         dispatch(selectTrack(0))
         router.pushTrack()

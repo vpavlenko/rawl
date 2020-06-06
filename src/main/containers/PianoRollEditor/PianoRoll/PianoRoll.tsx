@@ -149,11 +149,11 @@ const PianoRollWrapper: SFC<PianoRollWrapperProps> = ({ size }) => {
         } else if (e.nativeEvent.altKey) {
           // setLoopEnd(tick)
         } else {
-          dispatch(setPlayerPosition(tick))
+          setPlayerPosition(rootStore)(tick)
         }
       }}
       onClickKey={(noteNumber) => {
-        dispatch(previewNote(channel, noteNumber))
+        previewNote(rootStore)(channel, noteNumber)
       }}
       changeVelocity={(notes, velocity) =>
         dispatch(

@@ -1,17 +1,13 @@
-import {
-  copySelection,
-  pasteSelection,
-  deleteSelection,
-  undo,
-  redo,
-} from "main/actions"
+import { copySelection, pasteSelection, deleteSelection } from "main/actions"
 import RootStore from "../stores/RootStore"
 
-export function bindKeyboardShortcut({
-  dispatch,
-  services: { player },
-  song,
-}: RootStore) {
+export function bindKeyboardShortcut(rootStore: RootStore) {
+  const {
+    dispatch,
+    services: { player },
+    song,
+  } = rootStore
+
   document.onkeydown = (e) => {
     if (e.target !== document.body) {
       return
@@ -28,13 +24,13 @@ export function bindKeyboardShortcut({
       }
       case "KeyZ": {
         if (e.ctrlKey) {
-          dispatch(undo())
+          rootStore.undo()
         }
         break
       }
       case "KeyY": {
         if (e.ctrlKey) {
-          dispatch(redo())
+          rootStore.redo()
         }
         break
       }

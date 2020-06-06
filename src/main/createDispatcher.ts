@@ -1,6 +1,5 @@
 import createSongAction, { SongAction } from "./actions/song"
 import createTrackAction, { TrackAction } from "./actions/track"
-import createRootViewAction from "./actions/rootView"
 import createSelectionAction, { SelectionAction } from "./actions/selection"
 import createArrangeViewAction, {
   ArrangeViewAction,
@@ -23,7 +22,6 @@ export const createDispatcher2 = (rootStore: RootStore): Dispatcher => (
     createSongAction,
     createSelectionAction,
     createArrangeViewAction,
-    createRootViewAction,
     createTrackAction,
   ]
   for (let m of mutators) {

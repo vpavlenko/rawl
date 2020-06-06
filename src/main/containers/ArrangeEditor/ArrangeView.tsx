@@ -17,7 +17,8 @@ import {
   ArrangeViewProps,
 } from "components/ArrangeView/ArrangeView"
 import { toJS } from "mobx"
-import { setPlayerPosition } from "src/main/actions"
+import { setPlayerPosition } from "main/actions"
+import { useTheme } from "main/hooks/useTheme"
 
 type Props = Omit<
   ArrangeViewProps,
@@ -71,9 +72,12 @@ const Wrapper: SFC<Props> = (props) => {
     size.width,
   ])
 
+  const theme = useTheme()
+
   return (
     <ArrangeView
       {...props}
+      theme={theme}
       scrollLeft={scrollLeft}
       scrollTop={scrollTop}
       onScrollLeft={(scroll: number) => setScrollLeft(scroll)}
@@ -85,7 +89,6 @@ const Wrapper: SFC<Props> = (props) => {
 
 const mapStoreToProps = ({
   rootStore: {
-    rootViewStore: { theme },
     song: { tracks, measures, endOfSong },
     arrangeViewStore: s,
     services: { player, quantizer },
@@ -96,7 +99,6 @@ const mapStoreToProps = ({
   rootStore: RootStore
 }) =>
   ({
-    theme,
     isPlaying: player.isPlaying,
     quantizer,
     loop,

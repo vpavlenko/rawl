@@ -7,12 +7,12 @@ import { withSize } from "react-sizeme"
 import { compose } from "recompose"
 import RootStore from "stores/RootStore"
 import { toJS } from "mobx"
+import { useTheme } from "main/hooks/useTheme"
 
 type Props = Pick<
   TempoGraphProps,
   | "measures"
   | "timebase"
-  | "theme"
   | "events"
   | "setPlayerPosition"
   | "endTick"
@@ -50,9 +50,12 @@ const Wrapper: SFC<Props> = (props) => {
     playerPosition,
   ])
 
+  const theme = useTheme()
+
   return (
     <TempoGraph
       {...props}
+      theme={theme}
       scrollLeft={scrollLeft}
       setScrollLeft={setScrollLeft}
     />
@@ -63,7 +66,6 @@ export default compose(
   inject(
     ({
       rootStore: {
-        rootViewStore: { theme },
         playerStore,
         tempoEditorStore: s,
         services: { player },
@@ -74,7 +76,6 @@ export default compose(
       rootStore: RootStore
     }) =>
       ({
-        theme,
         isPlaying: player.isPlaying,
         pixelsPerTick: 0.1 * s.scaleX,
         events:

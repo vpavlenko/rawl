@@ -1,4 +1,4 @@
-import { observable } from "mobx"
+import { observable, action } from "mobx"
 import { serialize, deserialize } from "serializr"
 
 import Song, { emptySong } from "common/song"
@@ -19,6 +19,11 @@ import SynthOutput from "services/SynthOutput"
 import { TIME_BASE } from "../Constants"
 
 import { createDispatcher2 } from "../createDispatcher"
+import { PianoContextMenu } from "../menus/PianoContextMenu"
+import {
+  openContextMenu,
+  ContextMenuMouseEvent,
+} from "../components/groups/ContextMenu"
 
 interface Services {
   player: Player
@@ -82,5 +87,9 @@ export default class RootStore {
     const currentState = this.serializeUndoableState()
     const nextState = this.historyStore.redo(currentState)
     this.restoreState(nextState)
+  }
+
+  openContextMenuAction(e: ContextMenuMouseEvent, isNoteSelected: boolean) {
+    openContextMenu(e, PianoContextMenu(this.dispatch, isNoteSelected))
   }
 }

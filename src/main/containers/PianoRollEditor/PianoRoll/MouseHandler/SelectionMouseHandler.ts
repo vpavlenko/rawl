@@ -3,7 +3,6 @@ import { pointSub, pointAdd, IPoint } from "common/geometry"
 import { NoteCoordTransform } from "common/transform"
 import SelectionModel from "common/selection/SelectionModel"
 import {
-  openContextMenuAction,
   resizeSelection,
   fixSelection,
   startSelection,
@@ -15,6 +14,7 @@ import {
 import { NotePoint } from "common/transform/NotePoint"
 import { Dispatcher } from "createDispatcher"
 import { PianoNotesMouseEvent } from "components/PianoRoll/PianoNotes/PianoNotes"
+import RootStore from "src/main/stores/RootStore"
 
 export default class SelectionMouseHandler extends MouseHandler {
   selection: SelectionModel
@@ -30,7 +30,8 @@ export default class SelectionMouseHandler extends MouseHandler {
     }
 
     const type = positionType(this.selection, e.transform, e.local)
-    const { dispatch, selection } = this
+    const { dispatch } = this.rootStore
+    const { selection } = this.rootStore.pianoRollStore
 
     if (e.nativeEvent.button === 0) {
       switch (type) {
@@ -65,7 +66,7 @@ export default class SelectionMouseHandler extends MouseHandler {
           selected = false
           break
       }
-      return contextMenuAction(selected, dispatch)
+      return contextMenuAction(selected, this.rootStore)
     }
 
     return null
@@ -113,10 +114,10 @@ function positionType(
 
 const contextMenuAction = (
   isNoteSelected: boolean,
-  dispatch: Dispatcher
+  rootStore: RootStore
 ): MouseGesture => (onMouseDown, onMouseMove, onMouseUp) => {
   onMouseUp((e) => {
-    dispatch(openContextMenuAction(e.nativeEvent, isNoteSelected))
+    rootStore.openContextMenuAction(e.nativeEvent, isNoteSelected)
   })
 }
 

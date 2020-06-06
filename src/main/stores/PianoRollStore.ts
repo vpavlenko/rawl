@@ -1,4 +1,4 @@
-import { observable } from "mobx"
+import { observable, action } from "mobx"
 import SelectionModel from "common/selection"
 import SynthOutput from "../services/SynthOutput"
 import { LoadSoundFontEvent } from "src/synth/synth"
@@ -31,5 +31,14 @@ export default class PianoRollStore {
     synth.onLoadSoundFont = (e) => {
       this.presetNames = e.presetNames
     }
+  }
+
+  @action scrollBy(x: number, y: number) {
+    this.scrollLeft -= x
+    this.scrollTop -= y
+  }
+
+  @action toggleTool() {
+    this.mouseMode === "pencil" ? "selection" : "pencil"
   }
 }

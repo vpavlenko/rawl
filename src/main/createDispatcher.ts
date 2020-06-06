@@ -6,7 +6,6 @@ import createRootViewAction from "./actions/rootView"
 import creatQuantizerAction, { QuantizerAction } from "./actions/quantizer"
 import createSelectionAction, { SelectionAction } from "./actions/selection"
 import createTrackMuteAction, { TrackMuteAction } from "./actions/trackMute"
-import createPianoRollAction, { PianoRollAction } from "./actions/pianoRoll"
 import createArrangeViewAction, {
   ArrangeViewAction,
 } from "./actions/arrangeView"
@@ -20,7 +19,6 @@ export type Action =
   | QuantizerAction
   | SongAction
   | TrackMuteAction
-  | PianoRollAction
   | SelectionAction
   | ArrangeViewAction
   | HistoryAction
@@ -34,7 +32,6 @@ export const createDispatcher2 = (rootStore: RootStore): Dispatcher => (
     creatQuantizerAction,
     createSongAction,
     createTrackMuteAction,
-    createPianoRollAction,
     createSelectionAction,
     createArrangeViewAction,
     createHistoryAction,

@@ -129,12 +129,7 @@ const ControlPane: StatelessComponent<ControlPaneProps> = ({
         {mode === "pan" && <PanGraph {...controlProps} />}
         {mode === "modulation" && <ModulationGraph {...controlProps} />}
         {mode === "expression" && <ExpressionGraph {...controlProps} />}
-        <PianoGrid
-          width={controlProps.width}
-          height={controlProps.height}
-          scrollLeft={scrollLeft}
-          beats={beats}
-        />
+        <PianoGrid height={controlProps.height} beats={beats} />
       </div>
     </div>
   )

@@ -73,8 +73,8 @@ const PianoRollWrapper: SFC<PianoRollWrapperProps> = ({ size }) => {
 
   const theme = useTheme()
 
-  const [pencilMouseHandler] = useState(new PencilMouseHandler(dispatch))
-  const [selectionMouseHandler] = useState(new SelectionMouseHandler(dispatch))
+  const [pencilMouseHandler] = useState(new PencilMouseHandler(rootStore))
+  const [selectionMouseHandler] = useState(new SelectionMouseHandler(rootStore))
   const transform = new NoteCoordTransform(0.1 * scaleX, theme.keyHeight, 127)
 
   selectionMouseHandler.selection = selection

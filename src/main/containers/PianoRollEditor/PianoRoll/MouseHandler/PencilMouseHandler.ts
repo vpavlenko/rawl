@@ -11,7 +11,7 @@ export default class PencilMouseHandler extends NoteMouseHandler {
       return original
     }
 
-    const { dispatch } = this
+    const { dispatch } = this.rootStore
 
     if (e.nativeEvent.button !== 0) {
       return null

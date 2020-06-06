@@ -18,7 +18,6 @@ import Quantizer from "common/quantizer"
 import SynthOutput from "services/SynthOutput"
 import { TIME_BASE } from "../Constants"
 
-import { createDispatcher2 } from "../createDispatcher"
 import { PianoContextMenu } from "../menus/PianoContextMenu"
 import {
   openContextMenu,
@@ -52,10 +51,6 @@ export default class RootStore {
     this.services = { player, quantizer, synth }
     this.pianoRollStore = new PianoRollStore(synth)
     this.playerStore = new PlayerStore(player)
-  }
-
-  get dispatch() {
-    return createDispatcher2(this)
   }
 
   serializeUndoableState() {

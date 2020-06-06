@@ -1,20 +1,20 @@
 import { ContextMenuBuilder } from "components/groups/ContextMenu"
-import { Dispatcher } from "createDispatcher"
 import {
   arrangeCopySelection,
   arrangeDeleteSelection,
   arrangePasteSelection,
 } from "main/actions/arrangeView"
+import RootStore from "../stores/RootStore"
 
 export const ArrangeContextMenu = (
-  dispatch: Dispatcher,
+  rootStore: RootStore,
   isSelectionSelected: boolean
 ): ContextMenuBuilder => (close) => [
   {
     isHidden: !isSelectionSelected,
     onClick() {
-      dispatch(arrangeCopySelection())
-      dispatch(arrangeDeleteSelection())
+      arrangeCopySelection(rootStore)()
+      arrangeDeleteSelection(rootStore)()
       close()
     },
     label: "Cut",
@@ -22,14 +22,14 @@ export const ArrangeContextMenu = (
   {
     isHidden: !isSelectionSelected,
     onClick() {
-      dispatch(arrangeCopySelection())
+      arrangeCopySelection(rootStore)()
       close()
     },
     label: "Copy",
   },
   {
     onClick() {
-      dispatch(arrangePasteSelection())
+      arrangePasteSelection(rootStore)()
       close()
     },
     label: "Paste",
@@ -37,7 +37,7 @@ export const ArrangeContextMenu = (
   {
     isHidden: !isSelectionSelected,
     onClick() {
-      dispatch(arrangeDeleteSelection())
+      arrangeDeleteSelection(rootStore)()
       close()
     },
     label: "Delete",

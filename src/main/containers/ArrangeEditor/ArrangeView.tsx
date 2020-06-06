@@ -46,7 +46,7 @@ const ArrangeViewWrapper: SFC<ArrangeViewWrapperProps> = ({ size }) => {
     loop: rootStore.playerStore.loop,
     selection: rootStore.arrangeViewStore.selection,
   }))
-  const { dispatch, arrangeViewStore: s } = rootStore
+  const { arrangeViewStore: s } = rootStore
 
   const keyHeight = 0.3
 
@@ -96,14 +96,14 @@ const ArrangeViewWrapper: SFC<ArrangeViewWrapperProps> = ({ size }) => {
       onClickScaleDown={() => (s.scaleX = Math.max(0.05, s.scaleX - 0.1))}
       onClickScaleReset={() => (s.scaleX = 1)}
       setPlayerPosition={(tick) => setPlayerPosition(rootStore)(tick)}
-      startSelection={(pos) => dispatch(arrangeStartSelection(pos))}
-      endSelection={(start, end) => dispatch(arrangeEndSelection(start, end))}
+      startSelection={(pos) => arrangeStartSelection(rootStore)(pos)}
+      endSelection={(start, end) => arrangeEndSelection(rootStore)(start, end)}
       resizeSelection={(start, end) =>
-        dispatch(arrangeResizeSelection(start, end))
+        arrangeResizeSelection(rootStore)(start, end)
       }
-      moveSelection={(pos) => dispatch(arrangeMoveSelection(pos))}
+      moveSelection={(pos) => arrangeMoveSelection(rootStore)(pos)}
       openContextMenu={(e, isSelectionSelected) =>
-        dispatch(arrangeOpenContextMenu(e, isSelectionSelected))
+        arrangeOpenContextMenu(rootStore)(e, isSelectionSelected)
       }
     />
   )

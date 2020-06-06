@@ -12,7 +12,6 @@ export default compose(
       rootStore: {
         services: { quantizer },
         arrangeViewStore: s,
-        dispatch,
       },
     }: {
       rootStore: RootStore

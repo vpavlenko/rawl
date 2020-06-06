@@ -155,7 +155,6 @@ const InstrumentBrowserWrapper: SFC<{}> = () => {
   } = useObserver(() => ({
     track: stores.song.selectedTrack,
     trackId: stores.song.selectedTrackId,
-    dispatch: stores.dispatch,
     presetNames: stores.pianoRollStore.presetNames,
     s: stores.pianoRollStore,
     player: stores.services.player,

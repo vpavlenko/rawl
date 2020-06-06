@@ -1,7 +1,5 @@
 import NoteMouseHandler, { MouseGesture } from "./NoteMouseHandler"
-import { NoteCoordTransform } from "common/transform"
 import { createNote, moveNote } from "main/actions"
-import { Dispatcher } from "createDispatcher"
 import { PianoNotesMouseEvent } from "components/PianoRoll/PianoNotes/PianoNotes"
 import RootStore from "src/main/stores/RootStore"
 

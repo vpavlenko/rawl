@@ -1,4 +1,3 @@
-import { Dispatcher } from "main/createDispatcher"
 import { PianoNotesMouseEvent } from "components/PianoRoll/PianoNotes/PianoNotes"
 import PianoRollStore from "src/main/stores/PianoRollStore"
 import RootStore from "src/main/stores/RootStore"

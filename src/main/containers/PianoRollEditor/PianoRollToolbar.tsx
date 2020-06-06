@@ -1,11 +1,7 @@
 import React from "react"
 import { useObserver } from "mobx-react"
 import { PianoRollToolbar } from "components/PianoRollToolbar/PianoRollToolbar"
-import {
-  setQuantizeDenominator,
-  setTrackVolume,
-  setTrackPan,
-} from "main/actions"
+import { setTrackVolume, setTrackPan } from "main/actions"
 import { useStores } from "main/hooks/useStores"
 
 const PianoRollToolbarWrapper = () => {
@@ -38,7 +34,7 @@ const PianoRollToolbarWrapper = () => {
       onClickSelection={() => (s.mouseMode = "selection")}
       onClickAutoScroll={() => (s.autoScroll = !s.autoScroll)}
       onSelectQuantize={(e) => {
-        dispatch(setQuantizeDenominator(e.denominator))
+        stores.services.quantizer.denominator = e.denominator
         s.quantize = e.denominator
       }}
       onChangeVolume={(value) => dispatch(setTrackVolume(trackId, value))}

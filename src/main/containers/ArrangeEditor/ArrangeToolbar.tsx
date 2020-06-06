@@ -5,7 +5,6 @@ import {
 import { compose } from "recompose"
 import { inject, observer } from "mobx-react"
 import RootStore from "stores/RootStore"
-import { setQuantizeDenominator } from "src/main/actions"
 
 export default compose(
   inject(
@@ -23,7 +22,7 @@ export default compose(
         autoScroll: s.autoScroll,
         onClickAutoScroll: () => (s.autoScroll = !s.autoScroll),
         onSelectQuantize: (e) => {
-          dispatch(setQuantizeDenominator(e.denominator))
+          quantizer.denominator = e.denominator
           s.quantize = e.denominator
         },
       } as ArrangeToolbarProps)

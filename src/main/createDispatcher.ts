@@ -5,7 +5,6 @@ import createHistoryAction, { HistoryAction } from "./actions/history"
 import createRootViewAction from "./actions/rootView"
 import creatQuantizerAction, { QuantizerAction } from "./actions/quantizer"
 import createSelectionAction, { SelectionAction } from "./actions/selection"
-import createTrackMuteAction, { TrackMuteAction } from "./actions/trackMute"
 import createArrangeViewAction, {
   ArrangeViewAction,
 } from "./actions/arrangeView"
@@ -18,7 +17,6 @@ export type Action =
   | PlayerAction
   | QuantizerAction
   | SongAction
-  | TrackMuteAction
   | SelectionAction
   | ArrangeViewAction
   | HistoryAction
@@ -31,7 +29,6 @@ export const createDispatcher2 = (rootStore: RootStore): Dispatcher => (
     createPlayerAction,
     creatQuantizerAction,
     createSongAction,
-    createTrackMuteAction,
     createSelectionAction,
     createArrangeViewAction,
     createHistoryAction,

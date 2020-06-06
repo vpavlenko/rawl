@@ -50,8 +50,8 @@ const TrackListWrapper: SFC<{}> = () => {
   return (
     <TrackList
       tracks={tracks}
-      onClickMute={(trackId) => dispatch(toggleMuteTrack(trackId))}
-      onClickSolo={(trackId) => dispatch(toggleSoloTrack(trackId))}
+      onClickMute={(trackId) => toggleMuteTrack(stores)(trackId)}
+      onClickSolo={(trackId) => toggleSoloTrack(stores)(trackId)}
       onClickDelete={(trackId) => dispatch(removeTrack(trackId))}
       onClickAddTrack={() => dispatch(addTrack())}
       // onChangeName={e => dispatch(SET_TRACK_NAME, { name: e.target.value })},

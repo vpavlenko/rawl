@@ -50,7 +50,7 @@ const SongList: SFC<SongListProps> = ({
   </List>
 )
 
-const SongListWrapper: SFC<{}> = () => {
+export const SongListWrapper: SFC<{}> = () => {
   const { rootStore } = useStores()
   return (
     <SongList

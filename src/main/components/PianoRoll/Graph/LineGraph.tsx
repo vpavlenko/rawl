@@ -6,6 +6,7 @@ import { IPoint } from "common/geometry"
 import { CanvasDrawStyle } from "main/style"
 
 import "./LineGraph.css"
+import { GraphAxis } from "./GraphAxis"
 
 export interface LineGraphItemData extends IPoint {
   id: number
@@ -53,19 +54,7 @@ const LineGraph: StatelessComponent<LineGraphProps> = ({
 
   return (
     <div className={`PianoControl LineGraph ${className}`}>
-      <div className="GraphAxis">
-        <div className="values">
-          {axis.reverse().map((value) => (
-            <div
-              key={value}
-              className="AxisValue"
-              onClick={(e) => onClickAxis(value)}
-            >
-              {value}
-            </div>
-          ))}
-        </div>
-      </div>
+      <GraphAxis axis={axis} onClick={onClickAxis} />
       <Stage
         className="Graph"
         items={items_}

@@ -8,6 +8,8 @@ import { NoteCoordTransform } from "common/transform"
 import Item from "../../Stage/Item"
 import { TrackEvent, isNoteEvent } from "common/track"
 import { CanvasDrawStyle } from "main/style"
+import { GraphAxis } from "../Graph/GraphAxis"
+import styled from "styled-components"
 
 export interface PianoVelocityControlProps {
   width: number
@@ -18,6 +20,13 @@ export interface PianoVelocityControlProps {
   color: CanvasDrawStyle
   changeVelocity: (notes: VelocityItem[], velocity: number) => void
 }
+
+const Parent = styled.div`
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+`
 
 const PianoVelocityControl: SFC<PianoVelocityControlProps> = ({
   width,
@@ -68,15 +77,20 @@ const PianoVelocityControl: SFC<PianoVelocityControlProps> = ({
     return new VelocityItem(note.id, bounds, false, color)
   })
 
+  const axis = [0, 128]
+
   return (
-    <Stage
-      className="PianoControl VelocityControl"
-      items={items}
-      width={width}
-      height={height}
-      scrollLeft={scrollLeft}
-      onMouseDown={onMouseDown}
-    />
+    <Parent>
+      <GraphAxis axis={axis} onClick={() => {}} />
+      <Stage
+        className="PianoControl VelocityControl"
+        items={items}
+        width={width}
+        height={height}
+        scrollLeft={scrollLeft}
+        onMouseDown={onMouseDown}
+      />
+    </Parent>
   )
 }
 

@@ -1,4 +1,4 @@
-import React, { StatelessComponent } from "react"
+import React, { StatelessComponent, SFC } from "react"
 import _ from "lodash"
 import { withSize } from "react-sizeme"
 
@@ -17,9 +17,9 @@ import ExpressionGraph from "./Graph/ExpressionGraph"
 import ModulationGraph from "./Graph/ModulationGraph"
 import PianoVelocityControl from "./PianoVelocityControl/PianoVelocityControl"
 
-import "./ControlPane.css"
-import Item from "../Stage/Item"
 import VelocityItem from "./PianoVelocityControl/VelocityItem"
+import { Stage, Container } from "@inlet/react-pixi"
+import styled from "styled-components"
 
 interface ButtonItem {
   label: string
@@ -28,7 +28,8 @@ interface ButtonItem {
 }
 
 interface TabBarProps {
-  buttons: ButtonItem[]
+  onClick: (mode: ControlMode) => void
+  selectedMode: ControlMode
 }
 
 export type ControlMode =
@@ -39,28 +40,88 @@ export type ControlMode =
   | "modulation"
   | "pan"
 
-const TabBar = React.memo(({ buttons }: TabBarProps) => {
+const TabButton = styled.div`
+  min-width: 8em;
+  background: transparent;
+  -webkit-appearance: none;
+  border: none;
+  padding: 0.5em 0.8em;
+  color: var(--secondary-text-color);
+  outline: none;
+  text-align: center;
+
+  &.selected {
+    font-weight: 600;
+    color: var(--text-color);
+  }
+`
+
+const Toolbar = styled.div`
+  border-bottom: 1px solid var(--divider-color);
+  box-sizing: border-box;
+  display: flex;
+  margin-left: var(--key-width);
+  border-left: 1px solid var(--secondary-text-color);
+  height: 30px;
+`
+
+const TabBar: SFC<TabBarProps> = React.memo(({ onClick, selectedMode }) => {
+  const controlButton = (label: string, name: ControlMode): ButtonItem => ({
+    label,
+    selected: selectedMode === name,
+    onClick: () => onClick(name),
+  })
+
+  const buttons = [
+    controlButton("Velocity", "velocity"),
+    controlButton("Pitch Bend", "pitchBend"),
+    controlButton("Volume", "volume"),
+    controlButton("Panpot", "pan"),
+    controlButton("Modulation", "modulation"),
+    controlButton("Expression", "expression"),
+  ]
+
   return (
-    <div className="control-toolbar">
+    <Toolbar>
       {buttons.map(({ label, selected, onClick }) => (
-        <button
+        <TabButton
           className={selected ? "selected" : ""}
           onClick={onClick}
           key={label}
         >
           {label}
-        </button>
+        </TabButton>
       ))}
-    </div>
+    </Toolbar>
   )
 })
+
+const Parent = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--background-color);
+
+  .control-content {
+    flex-grow: 1;
+    position: relative;
+
+    > canvas,
+    > .LineGraph {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  }
+`
 
 export interface ControlPaneProps {
   mode: ControlMode
   theme: Theme
   beats: BeatWithX[]
   events: TrackEvent[]
-  onSelectTab: (mode: string) => void
+  onSelectTab: (mode: ControlMode) => void
   transform: NoteCoordTransform
   scrollLeft: number
   paddingBottom: number
@@ -82,12 +143,6 @@ const ControlPane: StatelessComponent<ControlPaneProps> = ({
   changeVelocity,
   createControlEvent,
 }) => {
-  const controlButton = (label: string, name: ControlMode): ButtonItem => ({
-    label,
-    selected: mode === name,
-    onClick: () => onSelectTab(name),
-  })
-
   const TAB_HEIGHT = 30
   const BORDER_WIDTH = 1
 
@@ -105,33 +160,47 @@ const ControlPane: StatelessComponent<ControlPaneProps> = ({
       createControlEvent(mode, value, tick),
   }
 
-  return (
-    <div className="ControlPane">
-      <TabBar
-        buttons={[
-          controlButton("Velocity", "velocity"),
-          controlButton("Pitch Bend", "pitchBend"),
-          controlButton("Volume", "volume"),
-          controlButton("Panpot", "pan"),
-          controlButton("Modulation", "modulation"),
-          controlButton("Expression", "expression"),
-        ]}
-      />
-      <div className="control-content">
-        {mode === "velocity" && (
+  const control = (() => {
+    switch (mode) {
+      case "velocity":
+        return (
           <PianoVelocityControl
             {...controlProps}
             changeVelocity={changeVelocity}
           />
-        )}
-        {mode === "pitchBend" && <PitchGraph {...controlProps} />}
-        {mode === "volume" && <VolumeGraph {...controlProps} />}
-        {mode === "pan" && <PanGraph {...controlProps} />}
-        {mode === "modulation" && <ModulationGraph {...controlProps} />}
-        {mode === "expression" && <ExpressionGraph {...controlProps} />}
-        <PianoGrid height={controlProps.height} beats={beats} />
+        )
+      case "pitchBend":
+        return <PitchGraph {...controlProps} />
+      case "volume":
+        return <VolumeGraph {...controlProps} />
+      case "pan":
+        return <PanGraph {...controlProps} />
+      case "modulation":
+        return <ModulationGraph {...controlProps} />
+      case "expression":
+        return <ExpressionGraph {...controlProps} />
+    }
+  })()
+
+  return (
+    <Parent>
+      <TabBar onClick={onSelectTab} selectedMode={mode} />
+      <div className="control-content">
+        {control}
+        <Stage
+          style={{
+            marginLeft: theme.keyWidth,
+          }}
+          width={controlProps.width}
+          height={controlProps.height}
+          options={{ transparent: true }}
+        >
+          <Container x={-scrollLeft}>
+            <PianoGrid height={controlProps.height} beats={beats} />
+          </Container>
+        </Stage>
       </div>
-    </div>
+    </Parent>
   )
 }
 

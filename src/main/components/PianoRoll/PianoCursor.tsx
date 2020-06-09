@@ -4,19 +4,14 @@ import { Graphics } from "@inlet/react-pixi"
 import Color from "color"
 
 export interface PianoCursorProps {
-  position: number
   height: number
 }
 
-const PianoCursor: StatelessComponent<PianoCursorProps> = ({
-  position,
-  height,
-}) => {
+const PianoCursor: StatelessComponent<PianoCursorProps> = ({ height }) => {
   function draw(ctx: PIXIGraphics) {
     console.log("render PianoCursor")
-    const x = Math.round(position)
     const color = Color("red").rgbNumber()
-    ctx.clear().lineStyle(1, color).moveTo(x, 0).lineTo(x, height)
+    ctx.clear().lineStyle(1, color).moveTo(0, 0).lineTo(0, height)
   }
 
   return <Graphics draw={draw} />

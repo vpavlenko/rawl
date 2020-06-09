@@ -20,6 +20,7 @@ import PianoVelocityControl from "./PianoVelocityControl/PianoVelocityControl"
 import VelocityItem from "./PianoVelocityControl/VelocityItem"
 import { Stage, Container } from "@inlet/react-pixi"
 import styled from "styled-components"
+import { filterEventsWithScroll } from "common/helpers/filterEventsWithScroll"
 
 interface ButtonItem {
   label: string
@@ -149,8 +150,15 @@ const ControlPane: StatelessComponent<ControlPaneProps> = ({
   const containerWidth = size.width
   const containerHeight = size.height
 
-  const controlProps = {
+  const controlEvents = filterEventsWithScroll(
     events,
+    transform.pixelsPerTick,
+    scrollLeft,
+    size.width
+  )
+
+  const controlProps = {
+    events: controlEvents,
     transform,
     scrollLeft,
     width: containerWidth - theme.keyWidth - BORDER_WIDTH,

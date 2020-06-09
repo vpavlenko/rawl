@@ -77,7 +77,7 @@ const PianoVelocityControl: SFC<PianoVelocityControlProps> = ({
     return new VelocityItem(note.id, bounds, false, color)
   })
 
-  const axis = [0, 128]
+  const axis = [0, 32, 64, 96, 128]
 
   return (
     <Parent>

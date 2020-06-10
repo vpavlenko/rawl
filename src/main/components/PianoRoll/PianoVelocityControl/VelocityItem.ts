@@ -1,6 +1,6 @@
 import Item from "components/Stage/Item"
 import { IRect } from "common/geometry"
-import { CanvasDrawStyle } from "main/style";
+import { CanvasDrawStyle } from "main/style"
 
 function drawEvent(
   ctx: CanvasRenderingContext2D,
@@ -30,15 +30,30 @@ export default class VelocityItem implements Item {
   readonly bounds: IRect
   readonly selected: boolean
   readonly fillColor: CanvasDrawStyle
+  readonly itemHeight: number
 
-  constructor(id: number, bounds: IRect, selected: boolean, fillColor: CanvasDrawStyle) {
+  constructor(
+    id: number,
+    bounds: IRect,
+    itemHeight: number,
+    selected: boolean,
+    fillColor: CanvasDrawStyle
+  ) {
     this.id = id
     this.bounds = bounds
+    this.itemHeight = itemHeight
     this.selected = selected
     this.fillColor = fillColor
   }
 
   render(ctx: CanvasRenderingContext2D) {
-    drawEvent(ctx, this.fillColor, "black", this.bounds, this.selected)
+    const bounds = {
+      x: this.bounds.x,
+      y: this.bounds.height - this.itemHeight,
+      height: this.itemHeight,
+      width: this.bounds.width,
+    }
+
+    drawEvent(ctx, this.fillColor, "black", bounds, this.selected)
   }
 }

@@ -39,8 +39,12 @@ const PianoVelocityControl: SFC<PianoVelocityControlProps> = ({
 }: PianoVelocityControlProps) => {
   const onMouseDown = useCallback(
     (e: StageMouseEvent<MouseEvent, VelocityItem>) => {
-      const calcValue = (e: MouseEvent) =>
-        Math.round(Math.max(0, Math.min(1, 1 - e.offsetY / height)) * 127)
+      const startY = e.nativeEvent.clientY - e.nativeEvent.offsetY
+
+      const calcValue = (e: MouseEvent) => {
+        const offsetY = e.clientY - startY
+        return Math.round(Math.max(0, Math.min(1, 1 - offsetY / height)) * 127)
+      }
 
       const items = e.items
       if (items.length === 0) {
@@ -70,11 +74,11 @@ const PianoVelocityControl: SFC<PianoVelocityControlProps> = ({
     const itemHeight = (note.velocity / 127) * height
     const bounds = {
       x,
-      y: height - itemHeight,
+      y: 0,
       width: itemWidth,
-      height: itemHeight,
+      height,
     }
-    return new VelocityItem(note.id, bounds, false, color)
+    return new VelocityItem(note.id, bounds, itemHeight, false, color)
   })
 
   const axis = [0, 32, 64, 96, 128]

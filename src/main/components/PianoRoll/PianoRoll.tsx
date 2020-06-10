@@ -6,6 +6,7 @@ import { VerticalScrollBar } from "components/inputs/ScrollBar"
 import { PianoNotesMouseEvent } from "./PianoNotes/PianoNotes"
 import { ControlPaneWrapper } from "main/containers/PianoRollEditor/PianoRoll/ControlPane"
 import { PianoRollStage } from "main/containers/PianoRollEditor/PianoRoll/PianoRollStage"
+import SplitPane from "react-split-pane"
 
 import "./PianoRoll.css"
 
@@ -45,8 +46,8 @@ const Alpha = styled.div`
 `
 
 const Beta = styled.div`
-  flex-grow: 1;
   border-top: 1px solid var(--secondary-text-color);
+  height: 100%;
 `
 
 export interface PianoRollProps {
@@ -93,23 +94,25 @@ export const PianoRoll: StatelessComponent<PianoRollProps> = ({
   return (
     <Parent>
       <Content>
-        <Alpha
-          onWheel={(e) => {
-            const scrollLineHeight = transform.pixelsPerKey * SCROLL_KEY_SPEED
-            const delta = scrollLineHeight * (e.deltaY > 0 ? 1 : -1)
-            setScrollTop(scrollTop + delta)
-          }}
-        >
-          <PianoRollStage width={width} />
-          <VerticalScrollBar
-            scrollOffset={scrollTop}
-            contentLength={contentHeight}
-            onScroll={setScrollTop}
-          />
-        </Alpha>
-        <Beta>
-          <ControlPaneWrapper />
-        </Beta>
+        <SplitPane split="horizontal" minSize={50} defaultSize={"60%"}>
+          <Alpha
+            onWheel={(e) => {
+              const scrollLineHeight = transform.pixelsPerKey * SCROLL_KEY_SPEED
+              const delta = scrollLineHeight * (e.deltaY > 0 ? 1 : -1)
+              setScrollTop(scrollTop + delta)
+            }}
+          >
+            <PianoRollStage width={width} />
+            <VerticalScrollBar
+              scrollOffset={scrollTop}
+              contentLength={contentHeight}
+              onScroll={setScrollTop}
+            />
+          </Alpha>
+          <Beta>
+            <ControlPaneWrapper />
+          </Beta>
+        </SplitPane>
       </Content>
       <HorizontalScaleScrollBar
         scrollOffset={scrollLeft}

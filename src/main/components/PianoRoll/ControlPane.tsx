@@ -214,6 +214,8 @@ const ControlPane: StatelessComponent<ControlPaneProps> = ({
 
 function areEqual(props: ControlPaneProps, nextProps: ControlPaneProps) {
   return (
+    props.size.width === nextProps.size.width &&
+    props.size.height === nextProps.size.height &&
     props.mode === nextProps.mode &&
     props.scrollLeft === nextProps.scrollLeft &&
     props.paddingBottom === nextProps.paddingBottom &&

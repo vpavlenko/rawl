@@ -56,7 +56,7 @@ const PianoRollWrapper: SFC<PianoRollWrapperProps> = ({ size }) => {
       transform={transform}
       alphaHeight={size.height}
       scrollTop={scrollTop}
-      setScrollTop={(v) => (s.scrollTop = v)}
+      setScrollTop={(v) => (s.scrollTop = Math.max(0, v))}
       onClickScaleUp={() => (s.scaleX = scaleX + 0.1)}
       onClickScaleDown={() => (s.scaleX = Math.max(0.05, scaleX - 0.1))}
       onClickScaleReset={() => (s.scaleX = 1)}

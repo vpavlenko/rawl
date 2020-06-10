@@ -6,18 +6,30 @@ import { useStores } from "main/hooks/useStores"
 
 const PianoRollToolbarWrapper = () => {
   const { rootStore: stores } = useStores()
-  const { mouseMode, autoScroll, track, trackId, quantize } = useObserver(
-    () => ({
-      track: stores.song.selectedTrack,
-      trackId: stores.song.selectedTrackId,
-      quantize:
-        stores.pianoRollStore.quantize === 0
-          ? stores.services.quantizer.denominator
-          : stores.pianoRollStore.quantize,
-      autoScroll: stores.pianoRollStore.autoScroll,
-      mouseMode: stores.pianoRollStore.mouseMode,
-    })
-  )
+  const {
+    mouseMode,
+    autoScroll,
+    trackName,
+    instrumentName,
+    pan,
+    volume,
+    track,
+    trackId,
+    quantize,
+  } = useObserver(() => ({
+    trackName: stores.song.selectedTrack?.displayName ?? "",
+    instrumentName: stores.song.selectedTrack?.instrumentName ?? "",
+    pan: stores.song.selectedTrack?.pan ?? 0,
+    volume: stores.song.selectedTrack?.volume ?? 0,
+    track: stores.song.selectedTrack,
+    trackId: stores.song.selectedTrackId,
+    quantize:
+      stores.pianoRollStore.quantize === 0
+        ? stores.services.quantizer.denominator
+        : stores.pianoRollStore.quantize,
+    autoScroll: stores.pianoRollStore.autoScroll,
+    mouseMode: stores.pianoRollStore.mouseMode,
+  }))
   const { rootViewStore, pianoRollStore: s } = stores
 
   if (track === undefined) {
@@ -26,7 +38,10 @@ const PianoRollToolbarWrapper = () => {
 
   return (
     <PianoRollToolbar
-      track={track}
+      trackName={trackName}
+      instrumentName={instrumentName}
+      pan={pan}
+      volume={volume}
       quantize={quantize}
       mouseMode={mouseMode}
       autoScroll={autoScroll}

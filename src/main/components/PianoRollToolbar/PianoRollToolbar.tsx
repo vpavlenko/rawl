@@ -8,7 +8,6 @@ import {
 } from "@material-ui/core"
 import { Menu as MenuIcon, KeyboardTab } from "@material-ui/icons"
 import { ToggleButton, ToggleButtonGroup } from "@material-ui/lab"
-import Track from "common/track/Track"
 
 import Icon from "components/outputs/Icon"
 
@@ -45,7 +44,10 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 export interface PianoRollToolbarProps {
-  track: Track
+  trackName: string
+  instrumentName: string
+  pan: number
+  volume: number
   autoScroll: boolean
   onClickAutoScroll: () => void
   mouseMode: PianoRollMouseMode
@@ -60,7 +62,10 @@ export interface PianoRollToolbarProps {
 }
 
 export const PianoRollToolbar: StatelessComponent<PianoRollToolbarProps> = ({
-  track,
+  trackName,
+  instrumentName,
+  pan,
+  volume,
   onChangeVolume,
   onChangePan,
   onClickInstrument,
@@ -82,7 +87,7 @@ export const PianoRollToolbar: StatelessComponent<PianoRollToolbarProps> = ({
         </IconButton>
 
         <Typography variant="h6" className={classes.title}>
-          {track.displayName}
+          {trackName}
         </Typography>
 
         <Button
@@ -92,13 +97,13 @@ export const PianoRollToolbar: StatelessComponent<PianoRollToolbarProps> = ({
           size="small"
           startIcon={<Icon>piano</Icon>}
         >
-          {track.instrumentName}
+          {instrumentName}
         </Button>
 
         <InstrumentBrowser />
 
-        <VolumeSlider onChange={onChangeVolume} value={track.volume || 0} />
-        <PanSlider value={track.pan || 0} onChange={onChangePan} />
+        <VolumeSlider onChange={onChangeVolume} value={volume} />
+        <PanSlider value={pan} onChange={onChangePan} />
         <ToggleButtonGroup
           value={mouseMode}
           className={classes.toggleButtonGroup}

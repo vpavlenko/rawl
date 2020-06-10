@@ -188,7 +188,7 @@ const InstrumentBrowserWrapper: SFC<{}> = () => {
     }
     player.sendEvent(programChangeMidiEvent(0, channel, setting.programNumber))
     player.playNote({
-      duration: 120,
+      duration: 240,
       noteNumber: 64,
       velocity: 100,
       channel,

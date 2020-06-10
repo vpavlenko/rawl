@@ -198,6 +198,7 @@ const ControlPane: StatelessComponent<ControlPaneProps> = ({
         <Stage
           style={{
             marginLeft: theme.keyWidth,
+            pointerEvents: "none",
           }}
           width={controlProps.width}
           height={controlProps.height}

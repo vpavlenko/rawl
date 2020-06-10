@@ -77,7 +77,7 @@ export const ControlPaneWrapper: SFC<{}> = () => {
               throw new Error("invalid type")
           }
         })()
-        action(rootStore)(value, tick || 0)
+        action(rootStore)(value, tick)
       }}
       paddingBottom={0}
       beats={mappedBeats}

@@ -9,6 +9,7 @@ import {
 } from "midi/MidiEvent"
 import { NoteEvent } from "common/track"
 import RootStore from "../stores/RootStore"
+import { ControllerEvent } from "midifile-ts"
 
 export const changeTempo = (rootStore: RootStore) => (
   id: number,
@@ -69,114 +70,65 @@ export const changeNotesVelocity = (rootStore: RootStore) => (
   )
 }
 
+const createEvent = (rootStore: RootStore) => <T extends Partial<TrackEvent>>(
+  e: T,
+  tick?: number
+) => {
+  const {
+    song,
+    pushHistory,
+    services: { quantizer, player },
+  } = rootStore
+
+  const selectedTrack = song.selectedTrack
+  if (selectedTrack === undefined) {
+    return
+  }
+  pushHistory()
+  selectedTrack.createOrUpdate({
+    ...e,
+    tick: quantizer.round(tick ?? player.position),
+  })
+}
+
 export const createPitchBend = (rootStore: RootStore) => (
   value: number,
   tick: number
 ) => {
-  const {
-    song,
-    pushHistory,
-    services: { quantizer },
-  } = rootStore
-
-  const selectedTrack = song.selectedTrack
-  if (selectedTrack === undefined) {
-    return
-  }
-  pushHistory()
   const e = pitchBendMidiEvent(0, 0, Math.round(value))
-  selectedTrack.createOrUpdate({
-    ...e,
-    tick: quantizer.round(tick),
-  })
+  createEvent(rootStore)(e, tick)
 }
 
 export const createVolume = (rootStore: RootStore) => (
   value: number,
-  tick: number
+  tick?: number
 ) => {
-  const {
-    song,
-    pushHistory,
-    services: { quantizer },
-  } = rootStore
-
-  const selectedTrack = song.selectedTrack
-  if (selectedTrack === undefined) {
-    return
-  }
-  pushHistory()
   const e = volumeMidiEvent(0, 0, Math.round(value))
-  selectedTrack.createOrUpdate({
-    ...e,
-    tick: quantizer.round(tick),
-  })
+  createEvent(rootStore)(e, tick)
 }
 
 export const createPan = (rootStore: RootStore) => (
   value: number,
-  tick: number
+  tick?: number
 ) => {
-  const {
-    song,
-    pushHistory,
-    services: { quantizer },
-  } = rootStore
-
-  const selectedTrack = song.selectedTrack
-  if (selectedTrack === undefined) {
-    return
-  }
-  pushHistory()
   const e = panMidiEvent(0, 0, Math.round(value))
-  selectedTrack.createOrUpdate({
-    ...e,
-    tick: quantizer.round(tick),
-  })
+  createEvent(rootStore)(e, tick)
 }
 
 export const createModulation = (rootStore: RootStore) => (
   value: number,
-  tick: number
+  tick?: number
 ) => {
-  const {
-    song,
-    pushHistory,
-    services: { quantizer },
-  } = rootStore
-
-  const selectedTrack = song.selectedTrack
-  if (selectedTrack === undefined) {
-    return
-  }
-  pushHistory()
   const e = modulationMidiEvent(0, 0, Math.round(value))
-  selectedTrack.createOrUpdate({
-    ...e,
-    tick: quantizer.round(tick),
-  })
+  createEvent(rootStore)(e, tick)
 }
 
 export const createExpression = (rootStore: RootStore) => (
   value: number,
-  tick: number
+  tick?: number
 ) => {
-  const {
-    song,
-    pushHistory,
-    services: { quantizer },
-  } = rootStore
-
-  const selectedTrack = song.selectedTrack
-  if (selectedTrack === undefined) {
-    return
-  }
-  pushHistory()
   const e = expressionMidiEvent(0, 0, Math.round(value))
-  selectedTrack.createOrUpdate({
-    ...e,
-    tick: quantizer.round(tick),
-  })
+  createEvent(rootStore)(e, tick)
 }
 
 export const removeEvent = (rootStore: RootStore) => (eventId: number) => {

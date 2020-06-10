@@ -17,7 +17,7 @@ const NumberPicker: SFC<NumberPickerProps> = ({
   prevValue,
   nextValue,
   className,
-  onChange
+  onChange,
 }) => {
   function handleWheel(e: React.WheelEvent) {
     e.preventDefault()
@@ -52,13 +52,13 @@ export interface QuantizePopupProps {
   onChangeDotted: (value: boolean) => void
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   popover: {
     "& .MuiPopover-paper": {
       overflow: "visible",
-      marginTop: "1em"
-    }
-  }
+      marginTop: "1em",
+    },
+  },
 }))
 
 export default function QuantizePopup({
@@ -71,7 +71,7 @@ export default function QuantizePopup({
   onChangeValue,
   onChangeTriplet,
   onChangeDotted,
-  anchorEl
+  anchorEl,
 }: QuantizePopupProps) {
   const prevValue = () => {
     const index = Math.max(values.indexOf(value) - 1, 0)
@@ -90,11 +90,11 @@ export default function QuantizePopup({
       anchorEl={anchorEl}
       anchorOrigin={{
         vertical: "bottom",
-        horizontal: "center"
+        horizontal: "center",
       }}
       transformOrigin={{
         vertical: "top",
-        horizontal: "center"
+        horizontal: "center",
       }}
     >
       <div className="QuantizePopup">
@@ -109,18 +109,20 @@ export default function QuantizePopup({
           <div className="field">
             <input
               type="checkbox"
-              onChange={e => onChangeTriplet(e.target.checked)}
+              onChange={(e) => onChangeTriplet(e.target.checked)}
               checked={triplet}
+              id="QuantizePopupInputTriplet"
             />
-            <label>Triplet</label>
+            <label htmlFor="QuantizePopupInputTriplet">Triplet</label>
           </div>
           <div className="field">
             <input
               type="checkbox"
-              onChange={e => onChangeDotted(e.target.checked)}
+              onChange={(e) => onChangeDotted(e.target.checked)}
               checked={dotted}
+              id="QuantizePopupInputDotted"
             />
-            <label>Dotted</label>
+            <label htmlFor="QuantizePopupInputDotted">Dotted</label>
           </div>
         </div>
       </div>

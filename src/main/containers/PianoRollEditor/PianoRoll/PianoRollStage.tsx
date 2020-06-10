@@ -18,7 +18,6 @@ import PianoCursor from "main/components/PianoRoll/PianoCursor"
 import PianoRuler, { TickEvent } from "main/components/PianoRoll/PianoRuler"
 import PianoKeys from "main/components/PianoRoll/PianoKeys"
 import Color from "color"
-import filterNoteEventsWithScroll from "common/helpers/filterEventsWithScroll"
 import { DisplayEvent } from "main/components/PianoRoll/PianoControlEvents"
 import { show as showEventEditor } from "components/EventEditor/EventEditor"
 import { createBeatsInRange } from "common/helpers/mapBeats"
@@ -30,6 +29,8 @@ import {
   setPlayerPosition,
   previewNote,
 } from "main/actions"
+import { filterEventsWithScroll } from "common/helpers/filterEventsWithScroll"
+import { isNoteEvent } from "common/track"
 
 export interface PianoRollStageProps {
   width: number
@@ -110,8 +111,8 @@ export const PianoRollStage: SFC<PianoRollStageProps> = ({ width }) => {
 
   const onHoverNote = useCallback(() => {}, [])
 
-  const notes = filterNoteEventsWithScroll(
-    events,
+  const notes = filterEventsWithScroll(
+    events.filter(isNoteEvent),
     transform.pixelsPerTick,
     scrollLeft,
     width

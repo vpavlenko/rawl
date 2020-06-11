@@ -7,7 +7,7 @@ import {
   expressionMidiEvent,
   programChangeMidiEvent,
 } from "midi/MidiEvent"
-import { NoteEvent } from "common/track"
+import Track, { NoteEvent, TrackMidiEvent } from "common/track"
 import RootStore from "../stores/RootStore"
 import { ControllerEvent } from "midifile-ts"
 
@@ -70,7 +70,7 @@ export const changeNotesVelocity = (rootStore: RootStore) => (
   )
 }
 
-const createEvent = (rootStore: RootStore) => <T extends Partial<TrackEvent>>(
+const createEvent = (rootStore: RootStore) => <T extends TrackMidiEvent>(
   e: T,
   tick?: number
 ) => {
@@ -93,7 +93,7 @@ const createEvent = (rootStore: RootStore) => <T extends Partial<TrackEvent>>(
 
 export const createPitchBend = (rootStore: RootStore) => (
   value: number,
-  tick: number
+  tick?: number
 ) => {
   const e = pitchBendMidiEvent(0, 0, Math.round(value))
   createEvent(rootStore)(e, tick)

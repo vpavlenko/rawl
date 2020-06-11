@@ -1,5 +1,5 @@
 import Measure from "./Measure"
-import Track from "common/track"
+import Track, { isTimeSignatureEvent } from "common/track"
 import { TimeSignatureEvent } from "midifile-ts"
 
 export function getMeasureAt(tick: number, measures: Measure[]): Measure {
@@ -7,7 +7,7 @@ export function getMeasureAt(tick: number, measures: Measure[]): Measure {
     startTick: 0,
     measure: 0,
     denominator: 4,
-    numerator: 4
+    numerator: 4,
   }
   for (const m of measures) {
     if (m.startTick > tick) {
@@ -21,9 +21,7 @@ export function getMeasureAt(tick: number, measures: Measure[]): Measure {
 export function getMeasuresFromConductorTrack(
   conductorTrack: Track
 ): Measure[] {
-  const events = conductorTrack.findEventsWithSubtype<TimeSignatureEvent>(
-    "timeSignature"
-  )
+  const events = conductorTrack.events.filter(isTimeSignatureEvent)
 
   if (events.length === 0) {
     return [
@@ -31,15 +29,15 @@ export function getMeasuresFromConductorTrack(
         startTick: 0,
         measure: 0,
         denominator: 4,
-        numerator: 4
-      }
+        numerator: 4,
+      },
     ]
   } else {
     return events.map((e, i) => ({
       startTick: e.tick,
       measure: i,
       numerator: e.numerator,
-      denominator: e.denominator
+      denominator: e.denominator,
     }))
   }
 }

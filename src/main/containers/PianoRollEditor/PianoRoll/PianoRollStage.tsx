@@ -31,6 +31,7 @@ import {
 } from "main/actions"
 import { filterEventsWithScroll } from "common/helpers/filterEventsWithScroll"
 import { isNoteEvent } from "common/track"
+import { LeftTopSpace } from "./LeftTopSpace"
 
 export interface PianoRollStageProps {
   width: number
@@ -230,24 +231,5 @@ export const PianoRollStage: SFC<PianoRollStageProps> = ({ width }) => {
       </Container>
       <LeftTopSpace width={width} />
     </Stage>
-  )
-}
-
-const LeftTopSpace: SFC<{ width: number }> = ({ width }) => {
-  const theme = useTheme()
-  return (
-    <Graphics
-      draw={(g) => {
-        g.clear()
-          .lineStyle()
-          .beginFill(Color(theme.backgroundColor).rgbNumber())
-          .drawRect(0, 0, theme.keyWidth, theme.rulerHeight)
-        g.lineStyle(1, Color(theme.dividerColor).rgbNumber())
-          .moveTo(theme.keyWidth, 0)
-          .lineTo(theme.keyWidth, theme.rulerHeight)
-          .moveTo(0, theme.rulerHeight)
-          .lineTo(width, theme.rulerHeight)
-      }}
-    />
   )
 }

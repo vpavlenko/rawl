@@ -5,6 +5,7 @@
   "main": "src/node/main.js",
   "scripts": {
     "start": "webpack-dev-server",
+    "start:prod": "webpack-dev-server --mode=production",
     "build": "webpack",
     "test": "jest",
     "storybook": "start-storybook -p 6006",
@@ -84,6 +85,7 @@
     "typescript": "^3.9.5",
     "url-loader": "^4.1.0",
     "webpack": "^4.43.0",
+    "webpack-bundle-analyzer": "3.8.0",
     "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.11.0"
   }

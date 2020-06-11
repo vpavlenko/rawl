@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useCallback } from "react"
 import { useObserver } from "mobx-react"
 import { PianoRollToolbar } from "components/PianoRollToolbar/PianoRollToolbar"
 import { setTrackVolume, setTrackPan } from "main/actions"
@@ -32,6 +32,15 @@ const PianoRollToolbarWrapper = () => {
   }))
   const { rootViewStore, pianoRollStore: s } = stores
 
+  const onChangeVolume = useCallback(
+    (value: number) => setTrackVolume(stores)(trackId, value),
+    [stores, trackId]
+  )
+  const onChangePan = useCallback(
+    (value: number) => setTrackPan(stores)(trackId, value),
+    [stores, trackId]
+  )
+
   if (track === undefined) {
     return <></>
   }
@@ -52,8 +61,8 @@ const PianoRollToolbarWrapper = () => {
         stores.services.quantizer.denominator = e.denominator
         s.quantize = e.denominator
       }}
-      onChangeVolume={(value) => setTrackVolume(stores)(trackId, value)}
-      onChangePan={(value) => setTrackPan(stores)(trackId, value)}
+      onChangeVolume={onChangeVolume}
+      onChangePan={onChangePan}
       onClickNavBack={() => (rootViewStore.openDrawer = true)}
       onClickInstrument={() => {
         if (track === undefined) {

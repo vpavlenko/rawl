@@ -1,7 +1,7 @@
 import React, { StatelessComponent } from "react"
 import { withStyles } from "@material-ui/core"
 import { VolumeUp } from "@material-ui/icons"
-import Slider, { SliderProps } from "@material-ui/core/Slider"
+import Slider from "@material-ui/core/Slider"
 import styled from "styled-components"
 import { theme } from "common/theme/muiTheme"
 
@@ -24,16 +24,15 @@ export interface VolumeSliderProps {
   value: number
 }
 
-export const VolumeSlider: StatelessComponent<VolumeSliderProps> = ({
-  onChange,
-  value,
-}) => (
-  <Container>
-    <VolumeUp />
-    <LightSlider
-      value={value}
-      onChange={(_, value) => onChange(value as number)}
-      max={127}
-    />
-  </Container>
+export const VolumeSlider: StatelessComponent<VolumeSliderProps> = React.memo(
+  ({ onChange, value }) => (
+    <Container>
+      <VolumeUp />
+      <LightSlider
+        value={value}
+        onChange={(_, value) => onChange(value as number)}
+        max={127}
+      />
+    </Container>
+  )
 )

@@ -28,19 +28,18 @@ export interface PanSliderProps {
   value: number
 }
 
-export const PanSlider: StatelessComponent<PanSliderProps> = ({
-  onChange,
-  value,
-}) => (
-  <Container>
-    <Label>Pan</Label>
-    <LightSlider
-      value={value}
-      onChange={(_, value) => onChange(value as number)}
-      min={0}
-      max={127}
-      defaultValue={64}
-      marks={[{ value: 64 }]}
-    />
-  </Container>
+export const PanSlider: StatelessComponent<PanSliderProps> = React.memo(
+  ({ onChange, value }) => (
+    <Container>
+      <Label>Pan</Label>
+      <LightSlider
+        value={value}
+        onChange={(_, value) => onChange(value as number)}
+        min={0}
+        max={127}
+        defaultValue={64}
+        marks={[{ value: 64 }]}
+      />
+    </Container>
+  )
 )

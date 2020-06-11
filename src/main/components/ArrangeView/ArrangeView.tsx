@@ -30,6 +30,7 @@ import "./ArrangeView.css"
 import Track, { TrackEvent, isNoteEvent } from "common/track"
 import Theme from "common/theme"
 import Measure from "common/measure"
+import { Container } from "@inlet/react-pixi"
 
 interface ArrangeTrackProps {
   events: TrackEvent[]
@@ -326,10 +327,9 @@ export const ArrangeView: SFC<ArrangeViewProps> = ({
           </div>
           <PianoGrid height={contentHeight} beats={mappedBeats} />
           <PianoSelection selectionBounds={selectionRect} />
-          <PianoCursor
-            height={contentHeight}
-            position={transform.getX(playerPosition) - scrollLeft}
-          />
+          <Container x={transform.getX(playerPosition) - scrollLeft}>
+            <PianoCursor height={contentHeight} />
+          </Container>
         </div>
         <div
           style={{

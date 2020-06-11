@@ -20,6 +20,7 @@ import transformEvents from "./transformEvents"
 import "./TempoGraph.css"
 import { CanvasDrawStyle } from "main/style"
 import TempoGraphItem from "./TempoGraphItem"
+import { Container } from "@inlet/react-pixi"
 
 type DisplayEvent = TrackEvent & SetTempoEvent
 
@@ -225,10 +226,9 @@ export const TempoGraph: StatelessComponent<TempoGraphProps> = ({
         onWheel={onWheelGraph}
         scrollLeft={scrollLeft}
       />
-      <PianoCursor
-        height={contentHeight}
-        position={transform.getX(playerPosition) - scrollLeft}
-      />
+      <Container x={transform.getX(playerPosition) - scrollLeft}>
+        <PianoCursor height={contentHeight} />
+      </Container>
       <PianoRuler
         width={width}
         beats={mappedBeats}

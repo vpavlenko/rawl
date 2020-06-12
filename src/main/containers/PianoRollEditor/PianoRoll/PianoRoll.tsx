@@ -49,14 +49,13 @@ const PianoRollWrapper: SFC<PianoRollWrapperProps> = ({ size }) => {
 
   return (
     <PianoRoll
-      width={size.width}
+      size={size}
       endTick={endTick}
       scrollLeft={scrollLeft}
       setScrollLeft={(v) => (s.scrollLeft = v)}
       transform={transform}
-      alphaHeight={size.height}
       scrollTop={scrollTop}
-      setScrollTop={(v) => (s.scrollTop = Math.max(0, v))}
+      setScrollTop={(v) => (s.scrollTop = v)}
       onClickScaleUp={() => (s.scaleX = scaleX + 0.1)}
       onClickScaleDown={() => (s.scaleX = Math.max(0.05, scaleX - 0.1))}
       onClickScaleReset={() => (s.scaleX = 1)}

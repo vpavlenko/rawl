@@ -124,7 +124,7 @@ export const PianoRollStage: SFC<PianoRollStageProps> = ({ width }) => {
     transform.pixelsPerTick,
     timebase,
     startTick,
-    endTick
+    width
   )
 
   const cursorPositionX = transform.getX(playerPosition)

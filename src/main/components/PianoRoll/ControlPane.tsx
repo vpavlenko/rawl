@@ -228,6 +228,4 @@ function areEqual(props: ControlPaneProps, nextProps: ControlPaneProps) {
   )
 }
 
-export default withSize({ monitorHeight: true })(
-  React.memo(ControlPane, areEqual)
-)
+export default React.memo(ControlPane, areEqual)

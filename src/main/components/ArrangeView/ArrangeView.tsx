@@ -132,7 +132,7 @@ export const ArrangeView: SFC<ArrangeViewProps> = ({
     pixelsPerTick,
     timebase,
     startTick,
-    endTick
+    containerWidth
   )
 
   const bottomBorderWidth = 1

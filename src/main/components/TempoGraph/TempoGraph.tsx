@@ -198,14 +198,15 @@ export const TempoGraph: StatelessComponent<TempoGraphProps> = ({
     createTempo(tick, uSecPerBeatToBPM(bpm))
   }
 
+  const width = containerWidth - keyWidth
+
   const mappedBeats = createBeatsInRange(
     measures,
     timebase,
     pixelsPerTick,
     startTick,
-    endTick
+    width
   )
-  const width = containerWidth - keyWidth
 
   return (
     <div className="TempoGraph">

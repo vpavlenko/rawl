@@ -1,7 +1,8 @@
-import React, { SFC, useState, useEffect } from "react"
+import React, { SFC } from "react"
+import { withSize } from "react-sizeme"
+import { useObserver } from "mobx-react"
 import ControlPane from "main/components/PianoRoll/ControlPane"
 import { useStores } from "main/hooks/useStores"
-import { useObserver } from "mobx-react"
 import { useTheme } from "main/hooks/useTheme"
 import { NoteCoordTransform } from "common/transform"
 import {
@@ -13,8 +14,9 @@ import {
   createExpression,
 } from "main/actions"
 import { createBeatsInRange } from "common/helpers/mapBeats"
+import { ISize } from "common/geometry"
 
-export const ControlPaneWrapper: SFC<{}> = () => {
+const ControlPaneWrapper_: SFC<{ size: ISize }> = ({ size }) => {
   const { rootStore } = useStores()
   const {
     events,
@@ -43,11 +45,12 @@ export const ControlPaneWrapper: SFC<{}> = () => {
     transform.pixelsPerTick,
     timebase,
     startTick,
-    endTick
+    size.width
   )
 
   return (
     <ControlPane
+      size={size}
       transform={transform}
       events={events}
       scrollLeft={scrollLeft}
@@ -84,3 +87,7 @@ export const ControlPaneWrapper: SFC<{}> = () => {
     />
   )
 }
+
+export const ControlPaneWrapper = withSize({ monitorHeight: true })(
+  ControlPaneWrapper_
+)

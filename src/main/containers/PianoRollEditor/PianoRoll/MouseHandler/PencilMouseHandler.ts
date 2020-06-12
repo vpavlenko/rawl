@@ -1,7 +1,7 @@
 import NoteMouseHandler, { MouseGesture } from "./NoteMouseHandler"
 import { createNote, moveNote } from "main/actions"
-import { PianoNotesMouseEvent } from "components/PianoRoll/PianoNotes/PianoNotes"
 import RootStore from "src/main/stores/RootStore"
+import { PianoNotesMouseEvent } from "../PianoRollStage"
 
 export default class PencilMouseHandler extends NoteMouseHandler {
   protected actionForMouseDown(e: PianoNotesMouseEvent): MouseGesture | null {

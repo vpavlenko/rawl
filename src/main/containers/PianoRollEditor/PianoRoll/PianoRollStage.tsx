@@ -1,5 +1,5 @@
-import React, { SFC, useState, useCallback } from "react"
-import { Stage, Container, Graphics } from "@inlet/react-pixi"
+import React, { SFC, useState, useCallback, useMemo } from "react"
+import { Stage, Container } from "@inlet/react-pixi"
 import { Point, Rectangle } from "pixi.js"
 import { useTheme } from "main/hooks/useTheme"
 import PencilMouseHandler from "./MouseHandler/PencilMouseHandler"
@@ -9,19 +9,15 @@ import { useObserver } from "mobx-react"
 import { useStores } from "main/hooks/useStores"
 import PianoLines from "main/components/PianoRoll/PianoLines"
 import PianoGrid from "main/components/PianoRoll/PianoGrid"
-import PianoNotes, {
-  PianoNotesMouseEvent,
-  PianoNotesNoteMouseEvent,
-} from "main/components/PianoRoll/PianoNotes/PianoNotes"
+import PianoNotes from "main/components/PianoRoll/PianoNotes/PianoNotes"
 import PianoSelection from "main/components/PianoRoll/PianoSelection"
 import PianoCursor from "main/components/PianoRoll/PianoCursor"
 import PianoRuler, { TickEvent } from "main/components/PianoRoll/PianoRuler"
 import PianoKeys from "main/components/PianoRoll/PianoKeys"
-import Color from "color"
 import { DisplayEvent } from "main/components/PianoRoll/PianoControlEvents"
 import { show as showEventEditor } from "components/EventEditor/EventEditor"
 import { createBeatsInRange } from "common/helpers/mapBeats"
-import { pointSub, pointAdd } from "common/geometry"
+import { pointSub, pointAdd, IPoint } from "common/geometry"
 import {
   moveNote,
   resizeNoteLeft,
@@ -32,9 +28,21 @@ import {
 import { filterEventsWithScroll } from "common/helpers/filterEventsWithScroll"
 import { isNoteEvent } from "common/track"
 import { LeftTopSpace } from "./LeftTopSpace"
+import {
+  PianoNoteMouseEvent,
+  PianoNoteItem,
+} from "src/main/components/PianoRoll/PianoNotes/PianoNote"
 
 export interface PianoRollStageProps {
   width: number
+}
+
+export interface PianoNotesMouseEvent {
+  nativeEvent: MouseEvent
+  tick: number
+  noteNumber: number
+  local: IPoint
+  transform: NoteCoordTransform
 }
 
 export const PianoRollStage: SFC<PianoRollStageProps> = ({ width }) => {
@@ -43,7 +51,6 @@ export const PianoRollStage: SFC<PianoRollStageProps> = ({ width }) => {
     events,
     isRhythmTrack,
     channel,
-    endTick,
     measures,
     playerPosition,
     timebase,
@@ -58,7 +65,6 @@ export const PianoRollStage: SFC<PianoRollStageProps> = ({ width }) => {
     events: rootStore.song.selectedTrack?.events ?? [],
     isRhythmTrack: rootStore.song.selectedTrack?.isRhythmTrack ?? false,
     channel: rootStore.song.selectedTrack?.channel ?? 0,
-    endTick: rootStore.song.endOfSong,
     measures: rootStore.song.measures,
     playerPosition: rootStore.playerStore.position,
     timebase: rootStore.services.player.timebase,
@@ -74,7 +80,10 @@ export const PianoRollStage: SFC<PianoRollStageProps> = ({ width }) => {
 
   const [pencilMouseHandler] = useState(new PencilMouseHandler(rootStore))
   const [selectionMouseHandler] = useState(new SelectionMouseHandler(rootStore))
-  const transform = new NoteCoordTransform(0.1 * scaleX, theme.keyHeight, 127)
+  const transform = useMemo(
+    () => new NoteCoordTransform(0.1 * scaleX, theme.keyHeight, 127),
+    [scaleX, theme]
+  )
 
   selectionMouseHandler.selection = selection
 
@@ -117,6 +126,21 @@ export const PianoRollStage: SFC<PianoRollStageProps> = ({ width }) => {
     transform.pixelsPerTick,
     scrollLeft,
     width
+  ).map(
+    (e): PianoNoteItem => {
+      const rect = transform.getRect(e)
+      const isSelected = selection.noteIds.includes(e.id)
+      return {
+        ...rect,
+        id: e.id,
+        velocity: e.velocity,
+        isSelected,
+        mouseData: {
+          note: e,
+          transform,
+        },
+      }
+    }
   )
 
   const mappedBeats = createBeatsInRange(
@@ -134,27 +158,30 @@ export const PianoRollStage: SFC<PianoRollStageProps> = ({ width }) => {
     showEventEditor(group)
   }
 
-  const onDragNote = (e: PianoNotesNoteMouseEvent) => {
+  const onDragNote = useCallback((e: PianoNoteMouseEvent) => {
+    const { note, transform } = e.dragItem.mouseData
+    const tick = transform.getTicks(e.offset.x)
+
     switch (e.position) {
       case "center":
         const delta = pointSub(e.offset, e.dragStart)
         console.log(delta)
         const position = pointAdd(e.dragItem, delta)
         moveNote(rootStore)({
-          id: e.note.id,
-          tick: e.transform.getTicks(position.x),
-          noteNumber: Math.round(e.transform.getNoteNumber(position.y)),
+          id: note.id,
+          tick: transform.getTicks(position.x),
+          noteNumber: Math.round(transform.getNoteNumber(position.y)),
           quantize: "round",
         })
         break
       case "left":
-        resizeNoteLeft(rootStore)(e.dragItem.id, e.tick)
+        resizeNoteLeft(rootStore)(e.dragItem.id, tick)
         break
       case "right":
-        resizeNoteRight(rootStore)(e.dragItem.id, e.tick)
+        resizeNoteRight(rootStore)(e.dragItem.id, tick)
         break
     }
-  }
+  }, [])
 
   const onMouseDownRuler = (e: TickEvent<MouseEvent>) => {
     const tick = e.tick
@@ -195,9 +222,7 @@ export const PianoRollStage: SFC<PianoRollStageProps> = ({ width }) => {
           >
             <PianoGrid height={contentHeight} beats={mappedBeats} />
             <PianoNotes
-              events={notes}
-              selectedEventIds={selection.noteIds}
-              transform={transform}
+              notes={notes}
               cursor={notesCursor}
               isDrumMode={isRhythmTrack}
               onDragNote={onDragNote}

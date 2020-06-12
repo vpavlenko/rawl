@@ -12,8 +12,8 @@ import {
   resizeSelectionLeft,
 } from "main/actions"
 import { NotePoint } from "common/transform/NotePoint"
-import { PianoNotesMouseEvent } from "components/PianoRoll/PianoNotes/PianoNotes"
 import RootStore from "src/main/stores/RootStore"
+import { PianoNotesMouseEvent } from "../PianoRollStage"
 
 export default class SelectionMouseHandler extends MouseHandler {
   selection: SelectionModel

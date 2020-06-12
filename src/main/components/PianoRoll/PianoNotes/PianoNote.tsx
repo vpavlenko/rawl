@@ -4,11 +4,21 @@ import { IRect, IPoint } from "src/common/geometry"
 import { useState } from "react"
 import { Graphics } from "@inlet/react-pixi"
 import _ from "lodash"
+import { NoteEvent } from "src/common/track"
+import { NoteCoordTransform } from "src/common/transform"
+
+export interface PianoNoteMouseData {
+  note: NoteEvent
+  transform: NoteCoordTransform
+}
 
 export type PianoNoteItem = IRect & {
   id: number
   velocity: number
   isSelected: boolean
+
+  // マウスイベントに必要な情報
+  mouseData: PianoNoteMouseData
 }
 
 export interface PianoNoteProps {
@@ -35,6 +45,7 @@ export interface PianoNoteMouseEvent {
 
 const _PianoNote: SFC<PianoNoteProps> = (props) => {
   const { item } = props
+
   const render = (g: PIXIGraphics) => {
     const alpha = item.velocity / 127
     const noteColor = item.isSelected ? props.selectedColor : props.color
@@ -150,14 +161,23 @@ function getPositionType(localX: number, width: number): MousePositionType {
   return "center"
 }
 
-const areEqual = (props: PianoNoteProps, nextProps: PianoNoteProps) =>
-  _.isEqual(props.item, nextProps.item) &&
-  props.isDrum === nextProps.isDrum &&
-  props.color === nextProps.color &&
-  props.borderColor === nextProps.borderColor &&
-  props.selectedColor === nextProps.selectedColor &&
-  props.selectedBorderColor === nextProps.selectedBorderColor &&
-  props.onMouseDrag === nextProps.onMouseDrag &&
-  props.onMouseHover === nextProps.onMouseHover
+const diff = (before: any, after: any) =>
+  _.omitBy(before, (v, k) => after[k] === v)
+
+const areEqual = (props: PianoNoteProps, nextProps: PianoNoteProps) => {
+  const equal =
+    _.isEqual(props.item, nextProps.item) &&
+    props.isDrum === nextProps.isDrum &&
+    props.color === nextProps.color &&
+    props.borderColor === nextProps.borderColor &&
+    props.selectedColor === nextProps.selectedColor &&
+    props.selectedBorderColor === nextProps.selectedBorderColor &&
+    props.onMouseDrag === nextProps.onMouseDrag &&
+    props.onMouseHover === nextProps.onMouseHover
+  if (!equal) {
+    console.dir(props.item.id, diff(props, nextProps))
+  }
+  return equal
+}
 
 export const PianoNote = React.memo(_PianoNote, areEqual)

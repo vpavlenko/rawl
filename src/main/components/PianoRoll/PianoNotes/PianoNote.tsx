@@ -150,4 +150,14 @@ function getPositionType(localX: number, width: number): MousePositionType {
   return "center"
 }
 
-export const PianoNote = React.memo(_PianoNote, _.isEqual)
+const areEqual = (props: PianoNoteProps, nextProps: PianoNoteProps) =>
+  _.isEqual(props.item, nextProps.item) &&
+  props.isDrum === nextProps.isDrum &&
+  props.color === nextProps.color &&
+  props.borderColor === nextProps.borderColor &&
+  props.selectedColor === nextProps.selectedColor &&
+  props.selectedBorderColor === nextProps.selectedBorderColor &&
+  props.onMouseDrag === nextProps.onMouseDrag &&
+  props.onMouseHover === nextProps.onMouseHover
+
+export const PianoNote = React.memo(_PianoNote, areEqual)

@@ -7,9 +7,10 @@ import _ from "lodash"
 import React, { StatelessComponent } from "react"
 import { PianoNote, PianoNoteMouseEvent, PianoNoteItem } from "./PianoNote"
 import { useTheme } from "main/hooks/useTheme"
+import { KeyedValue } from "main/hooks/recycleKeys"
 
 export interface PianoNotesProps {
-  notes: PianoNoteItem[]
+  notes: KeyedValue<PianoNoteItem>[]
   cursor: string
   onDragNote: (e: PianoNoteMouseEvent) => void
   onHoverNote: (e: PianoNoteMouseEvent) => void
@@ -42,8 +43,8 @@ const PianoNotes: StatelessComponent<PianoNotesProps> = ({
 
   const items = notes.map((item) => (
     <PianoNote
-      key={item.id}
-      item={item}
+      key={item.key}
+      item={item.value}
       color={color}
       borderColor={borderColor}
       selectedColor={selectedColor}

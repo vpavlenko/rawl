@@ -163,20 +163,14 @@ function getPositionType(localX: number, width: number): MousePositionType {
 const diff = (before: any, after: any) =>
   _.omitBy(before, (v, k) => after[k] === v)
 
-const areEqual = (props: PianoNoteProps, nextProps: PianoNoteProps) => {
-  const equal =
-    _.isEqual(props.item, nextProps.item) &&
-    props.isDrum === nextProps.isDrum &&
-    props.color === nextProps.color &&
-    props.borderColor === nextProps.borderColor &&
-    props.selectedColor === nextProps.selectedColor &&
-    props.selectedBorderColor === nextProps.selectedBorderColor &&
-    props.onMouseDrag === nextProps.onMouseDrag &&
-    props.onMouseHover === nextProps.onMouseHover
-  if (!equal) {
-    console.dir(props.item.id, diff(props, nextProps))
-  }
-  return equal
-}
+const areEqual = (props: PianoNoteProps, nextProps: PianoNoteProps) =>
+  _.isEqual(props.item, nextProps.item) &&
+  props.isDrum === nextProps.isDrum &&
+  props.color === nextProps.color &&
+  props.borderColor === nextProps.borderColor &&
+  props.selectedColor === nextProps.selectedColor &&
+  props.selectedBorderColor === nextProps.selectedBorderColor &&
+  props.onMouseDrag === nextProps.onMouseDrag &&
+  props.onMouseHover === nextProps.onMouseHover
 
 export const PianoNote = React.memo(_PianoNote, areEqual)

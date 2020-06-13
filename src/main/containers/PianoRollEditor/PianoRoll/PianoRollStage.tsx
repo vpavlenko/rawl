@@ -31,7 +31,8 @@ import { LeftTopSpace } from "./LeftTopSpace"
 import {
   PianoNoteMouseEvent,
   PianoNoteItem,
-} from "src/main/components/PianoRoll/PianoNotes/PianoNote"
+} from "main/components/PianoRoll/PianoNotes/PianoNote"
+import { useRecycle } from "main/hooks/useRecycle"
 
 export interface PianoRollStageProps {
   width: number
@@ -143,6 +144,8 @@ export const PianoRollStage: SFC<PianoRollStageProps> = ({ width }) => {
     }
   )
 
+  const keyedNotes = useRecycle(notes)
+
   const mappedBeats = createBeatsInRange(
     measures,
     transform.pixelsPerTick,
@@ -222,7 +225,7 @@ export const PianoRollStage: SFC<PianoRollStageProps> = ({ width }) => {
           >
             <PianoGrid height={contentHeight} beats={mappedBeats} />
             <PianoNotes
-              notes={notes}
+              notes={keyedNotes}
               cursor={notesCursor}
               isDrumMode={isRhythmTrack}
               onDragNote={onDragNote}

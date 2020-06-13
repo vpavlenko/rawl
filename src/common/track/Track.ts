@@ -104,9 +104,9 @@ export default class Track {
   }
 
   @action addEvent<T extends EventBeforeAdded>(e: T): T {
-    this._addEvent(e)
+    const ev = this._addEvent(e)
     this.didAddEvent()
-    return e
+    return ev
   }
 
   @action addEvents(events: EventBeforeAdded[]): TrackEvent[] {

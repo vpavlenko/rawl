@@ -44,12 +44,8 @@ export default class SelectionMouseHandler extends MouseHandler {
         case "left":
           return dragSelectionLeftEdgeAction(this.rootStore)
         case "outside":
-          break
-        default:
-          break
+          return createSelectionAction(this.rootStore)
       }
-
-      return createSelectionAction(this.rootStore)
     }
 
     // 右クリックした場合はコンテキストメニューを表示
@@ -62,9 +58,6 @@ export default class SelectionMouseHandler extends MouseHandler {
           selected = true
           break
         case "outside":
-          selected = false
-          break
-        default:
           selected = false
           break
       }

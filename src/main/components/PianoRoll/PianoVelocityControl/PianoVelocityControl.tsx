@@ -113,8 +113,8 @@ function areEqual(
     props.scrollLeft === nextProps.scrollLeft &&
     props.width === nextProps.width &&
     props.height === nextProps.height &&
-    props.events === nextProps.events &&
-    props.transform === nextProps.transform
+    _.isEqual(props.events, nextProps.events) &&
+    _.isEqual(props.transform, nextProps.transform)
   )
 }
 

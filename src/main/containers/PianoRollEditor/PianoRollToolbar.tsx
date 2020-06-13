@@ -40,6 +40,31 @@ const PianoRollToolbarWrapper = () => {
     (value: number) => setTrackPan(stores)(trackId, value),
     [stores, trackId]
   )
+  const onClickPencil = useCallback(() => (s.mouseMode = "pencil"), [])
+  const onClickSelection = useCallback(() => (s.mouseMode = "selection"), [])
+  const onClickAutoScroll = useCallback(
+    () => (s.autoScroll = !s.autoScroll),
+    []
+  )
+  const onSelectQuantize = useCallback((denominator: number) => {
+    stores.services.quantizer.denominator = denominator
+    s.quantize = denominator
+  }, [])
+  const onClickNavBack = useCallback(
+    () => (rootViewStore.openDrawer = true),
+    []
+  )
+  const onClickInstrument = useCallback(() => {
+    if (track === undefined) {
+      return
+    }
+    const programNumber = track.programNumber
+    s.instrumentBrowserSetting = {
+      isRhythmTrack: track.isRhythmTrack,
+      programNumber: programNumber ?? 0,
+    }
+    s.openInstrumentBrowser = true
+  }, [])
 
   if (track === undefined) {
     return <></>
@@ -54,27 +79,14 @@ const PianoRollToolbarWrapper = () => {
       quantize={quantize}
       mouseMode={mouseMode}
       autoScroll={autoScroll}
-      onClickPencil={() => (s.mouseMode = "pencil")}
-      onClickSelection={() => (s.mouseMode = "selection")}
-      onClickAutoScroll={() => (s.autoScroll = !s.autoScroll)}
-      onSelectQuantize={(e) => {
-        stores.services.quantizer.denominator = e.denominator
-        s.quantize = e.denominator
-      }}
+      onClickPencil={onClickPencil}
+      onClickSelection={onClickSelection}
+      onClickAutoScroll={onClickAutoScroll}
+      onSelectQuantize={onSelectQuantize}
       onChangeVolume={onChangeVolume}
       onChangePan={onChangePan}
-      onClickNavBack={() => (rootViewStore.openDrawer = true)}
-      onClickInstrument={() => {
-        if (track === undefined) {
-          return
-        }
-        const programNumber = track.programNumber
-        s.instrumentBrowserSetting = {
-          isRhythmTrack: track.isRhythmTrack,
-          programNumber: programNumber ?? 0,
-        }
-        s.openInstrumentBrowser = true
-      }}
+      onClickNavBack={onClickNavBack}
+      onClickInstrument={onClickInstrument}
     />
   )
 }

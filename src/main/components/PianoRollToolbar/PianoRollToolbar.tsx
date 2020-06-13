@@ -54,7 +54,7 @@ export interface PianoRollToolbarProps {
   onClickPencil: () => void
   onClickSelection: () => void
   quantize: number
-  onSelectQuantize: (e: { denominator: number }) => void
+  onSelectQuantize: (denominator: number) => void
   onChangeVolume: (value: number) => void
   onChangePan: (value: number) => void
   onClickInstrument: () => void
@@ -126,10 +126,7 @@ export const PianoRollToolbar: StatelessComponent<PianoRollToolbarProps> = ({
           </ToggleButton>
         </ToggleButtonGroup>
 
-        <QuantizeSelector
-          value={quantize}
-          onSelect={(value) => onSelectQuantize({ denominator: value })}
-        />
+        <QuantizeSelector value={quantize} onSelect={onSelectQuantize} />
 
         <ToggleButton
           color="inherit"

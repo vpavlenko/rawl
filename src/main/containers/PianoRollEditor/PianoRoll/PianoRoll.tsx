@@ -1,4 +1,4 @@
-import React, { SFC, useEffect } from "react"
+import React, { SFC, useEffect, useCallback } from "react"
 import { NoteCoordTransform } from "common/transform"
 import { useObserver } from "mobx-react"
 import { withSize } from "react-sizeme"
@@ -47,18 +47,27 @@ const PianoRollWrapper: SFC<PianoRollWrapperProps> = ({ size }) => {
     }
   }, [autoScroll, isPlaying, scaleX, scrollLeft, playerPosition])
 
+  const setScrollLeft = useCallback((v) => (s.scrollLeft = v), [scrollLeft])
+  const setScrollTop = useCallback((v) => (s.scrollTop = v), [scrollTop])
+  const onClickScaleUp = useCallback(() => (s.scaleX = scaleX + 0.1), [scaleX])
+  const onClickScaleDown = useCallback(
+    () => (s.scaleX = Math.max(0.05, scaleX - 0.1)),
+    [scaleX]
+  )
+  const onClickScaleReset = useCallback(() => (s.scaleX = 1), [scaleX])
+
   return (
     <PianoRoll
       size={size}
       endTick={endTick}
       scrollLeft={scrollLeft}
-      setScrollLeft={(v) => (s.scrollLeft = v)}
+      setScrollLeft={setScrollLeft}
       transform={transform}
       scrollTop={scrollTop}
-      setScrollTop={(v) => (s.scrollTop = v)}
-      onClickScaleUp={() => (s.scaleX = scaleX + 0.1)}
-      onClickScaleDown={() => (s.scaleX = Math.max(0.05, scaleX - 0.1))}
-      onClickScaleReset={() => (s.scaleX = 1)}
+      setScrollTop={setScrollTop}
+      onClickScaleUp={onClickScaleUp}
+      onClickScaleDown={onClickScaleDown}
+      onClickScaleReset={onClickScaleReset}
     />
   )
 }

@@ -39,7 +39,7 @@ function QuantizeSelector({ value, onSelect }: QuantizeSelectorProps) {
   return (
     <div
       className="QuantizeSelector"
-      onWheel={e => {
+      onWheel={(e) => {
         const currentIndex = list.indexOf(denominator)
         const delta = e.deltaY < 0 ? 1 : -1
         const index = Math.min(
@@ -52,7 +52,7 @@ function QuantizeSelector({ value, onSelect }: QuantizeSelectorProps) {
       <Button
         size="small"
         className="content"
-        onClick={e => {
+        onClick={(e) => {
           setAnchorEl(e.currentTarget)
         }}
       >
@@ -71,12 +71,12 @@ function QuantizeSelector({ value, onSelect }: QuantizeSelectorProps) {
         values={list}
         dotted={dot}
         triplet={triplet}
-        onChangeValue={d => onSelect(calcQuantize(d, dot, triplet))}
-        onChangeDotted={d => onSelect(calcQuantize(denominator, d, false))}
-        onChangeTriplet={t => onSelect(calcQuantize(denominator, false, t))}
+        onChangeValue={(d) => onSelect(calcQuantize(d, dot, triplet))}
+        onChangeDotted={(d) => onSelect(calcQuantize(denominator, d, false))}
+        onChangeTriplet={(t) => onSelect(calcQuantize(denominator, false, t))}
       />
     </div>
   )
 }
 
-export default QuantizeSelector
+export default React.memo(QuantizeSelector)

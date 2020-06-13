@@ -62,8 +62,21 @@ export type HorizontalScaleScrollBarProps = Omit<
   "size"
 >
 
+const areEqual = (
+  props: HorizontalScaleScrollBar_Props,
+  nextProps: HorizontalScaleScrollBar_Props
+) =>
+  props.scrollOffset === nextProps.scrollOffset &&
+  props.contentLength === nextProps.contentLength &&
+  props.onScroll === nextProps.onScroll &&
+  props.size.width === nextProps.size.width &&
+  props.size.height === nextProps.size.height &&
+  props.onClickScaleDown === nextProps.onClickScaleDown &&
+  props.onClickScaleReset === nextProps.onClickScaleReset &&
+  props.onClickScaleUp === nextProps.onClickScaleUp
+
 export const HorizontalScaleScrollBar = withSize({
   monitorWidth: true,
   monitorHeight: false,
   monitorPosition: false,
-})(HorizontalScaleScrollBar_)
+})(React.memo(HorizontalScaleScrollBar_, areEqual))

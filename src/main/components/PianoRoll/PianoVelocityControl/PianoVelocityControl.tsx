@@ -1,15 +1,14 @@
 import React, { useCallback, SFC } from "react"
 import _ from "lodash"
 
-import Stage, { StageMouseEvent } from "components/Stage/Stage"
-
-import VelocityItem from "./VelocityItem"
+import VelocityItem, { VelocityItemEvent } from "./VelocityItem"
 import { NoteCoordTransform } from "common/transform"
-import Item from "../../Stage/Item"
 import { TrackEvent, isNoteEvent } from "common/track"
 import { CanvasDrawStyle } from "main/style"
 import { GraphAxis } from "../Graph/GraphAxis"
 import styled from "styled-components"
+import { Stage, Container } from "@inlet/react-pixi"
+import Color from "color"
 
 export interface PianoVelocityControlProps {
   width: number
@@ -18,7 +17,7 @@ export interface PianoVelocityControlProps {
   transform: NoteCoordTransform
   scrollLeft: number
   color: CanvasDrawStyle
-  changeVelocity: (notes: VelocityItem[], velocity: number) => void
+  changeVelocity: (noteIds: number[], velocity: number) => void
 }
 
 const Parent = styled.div`
@@ -38,23 +37,21 @@ const PianoVelocityControl: SFC<PianoVelocityControlProps> = ({
   changeVelocity,
 }: PianoVelocityControlProps) => {
   const onMouseDown = useCallback(
-    (e: StageMouseEvent<MouseEvent, VelocityItem>) => {
-      const startY = e.nativeEvent.clientY - e.nativeEvent.offsetY
+    (ev: VelocityItemEvent) => {
+      const e = ev.originalEvent.data.originalEvent as MouseEvent
+      const startY = e.clientY - e.offsetY
 
       const calcValue = (e: MouseEvent) => {
         const offsetY = e.clientY - startY
         return Math.round(Math.max(0, Math.min(1, 1 - offsetY / height)) * 127)
       }
 
-      const items = e.items
-      if (items.length === 0) {
-        return
-      }
+      const noteIds = [ev.item.id]
 
-      changeVelocity(items, calcValue(e.nativeEvent))
+      changeVelocity(noteIds, calcValue(e))
 
       const onMouseMove = (e: MouseEvent) => {
-        changeVelocity(items, calcValue(e))
+        changeVelocity(noteIds, calcValue(e))
       }
 
       const onMouseUp = () => {
@@ -78,7 +75,17 @@ const PianoVelocityControl: SFC<PianoVelocityControlProps> = ({
       width: itemWidth,
       height,
     }
-    return new VelocityItem(note.id, bounds, itemHeight, false, color)
+    return (
+      <VelocityItem
+        key={note.id}
+        id={note.id}
+        bounds={bounds}
+        itemHeight={itemHeight}
+        selected={false}
+        fillColor={Color(color).rgbNumber()}
+        onMouseDown={onMouseDown}
+      />
+    )
   })
 
   const axis = [0, 32, 64, 96, 128]
@@ -88,12 +95,12 @@ const PianoVelocityControl: SFC<PianoVelocityControlProps> = ({
       <GraphAxis axis={axis} onClick={() => {}} />
       <Stage
         className="PianoControl VelocityControl"
-        items={items}
+        options={{ transparent: true }}
         width={width}
         height={height}
-        scrollLeft={scrollLeft}
-        onMouseDown={onMouseDown}
-      />
+      >
+        <Container x={-scrollLeft}>{items}</Container>
+      </Stage>
     </Parent>
   )
 }

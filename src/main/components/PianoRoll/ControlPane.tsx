@@ -127,7 +127,7 @@ export interface ControlPaneProps {
   scrollLeft: number
   paddingBottom: number
   size: ISize
-  changeVelocity: (notes: VelocityItem[], velocity: number) => void
+  changeVelocity: (noteIds: number[], velocity: number) => void
   createControlEvent: (mode: ControlMode, value: number, tick?: number) => void
 }
 

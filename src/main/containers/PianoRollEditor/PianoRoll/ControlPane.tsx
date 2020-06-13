@@ -57,11 +57,8 @@ const ControlPaneWrapper_: SFC<{ size: ISize }> = ({ size }) => {
       mode={controlMode}
       theme={theme}
       onSelectTab={(m) => (rootStore.pianoRollStore.controlMode = m)}
-      changeVelocity={(notes, velocity) =>
-        changeNotesVelocity(rootStore)(
-          notes.map((n) => n.id),
-          velocity
-        )
+      changeVelocity={(noteIds, velocity) =>
+        changeNotesVelocity(rootStore)(noteIds, velocity)
       }
       createControlEvent={(mode, value, tick) => {
         const action = (() => {

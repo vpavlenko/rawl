@@ -5,9 +5,11 @@ import useComponentSize from "@rehooks/component-size"
 import { NoteCoordTransform } from "common/transform"
 import { HorizontalScaleScrollBar } from "components/inputs/ScaleScrollBar"
 import { VerticalScrollBar } from "components/inputs/ScrollBar"
-import { PianoNotesMouseEvent } from "./PianoNotes/PianoNotes"
 import { ControlPaneWrapper } from "main/containers/PianoRollEditor/PianoRoll/ControlPane"
-import { PianoRollStage } from "main/containers/PianoRollEditor/PianoRoll/PianoRollStage"
+import {
+  PianoRollStage,
+  PianoNotesMouseEvent,
+} from "main/containers/PianoRollEditor/PianoRoll/PianoRollStage"
 import { ISize } from "common/geometry"
 
 import "./PianoRoll.css"

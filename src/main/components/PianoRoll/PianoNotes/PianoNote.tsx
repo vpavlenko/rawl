@@ -1,5 +1,5 @@
 import React, { useCallback, useRef, SFC } from "react"
-import { Graphics as PIXIGraphics } from "pixi.js"
+import { Graphics as PIXIGraphics, Rectangle } from "pixi.js"
 import { IRect, IPoint } from "src/common/geometry"
 import { useState } from "react"
 import { Graphics } from "@inlet/react-pixi"
@@ -131,8 +131,6 @@ const _PianoNote: SFC<PianoNoteProps> = (props) => {
     [dragging, hovering]
   )
 
-  console.log(`render ${item.id}`)
-
   return (
     <Graphics
       ref={ref}
@@ -140,6 +138,7 @@ const _PianoNote: SFC<PianoNoteProps> = (props) => {
       x={Math.round(item.x)}
       y={Math.round(item.y)}
       interactive={true}
+      hitArea={new Rectangle(0, 0, item.width, item.height)}
       mouseover={beginHover}
       mouseout={endHover}
       mousedown={beginDragging}

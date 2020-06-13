@@ -3,6 +3,7 @@ import { Graphics as PIXIGraphics, interaction, Rectangle } from "pixi.js"
 import Item from "components/Stage/Item"
 import { IRect } from "common/geometry"
 import { Graphics } from "@inlet/react-pixi"
+import _ from "lodash"
 
 export interface VelocityItemProps {
   id: number
@@ -45,4 +46,15 @@ const VelocityItem: SFC<VelocityItemProps> = (props) => {
   )
 }
 
-export default VelocityItem
+const areEqual = (props: VelocityItemProps, nextProps: VelocityItemProps) => {
+  return (
+    props.id === nextProps.id &&
+    _.isEqual(props.bounds, nextProps.bounds) &&
+    props.fillColor === nextProps.fillColor &&
+    props.itemHeight === nextProps.itemHeight &&
+    props.selected === nextProps.selected &&
+    props.onMouseDown === nextProps.onMouseDown
+  )
+}
+
+export default React.memo(VelocityItem, areEqual)

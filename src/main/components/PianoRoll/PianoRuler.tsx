@@ -25,7 +25,6 @@ interface BeatProps {
 const Beats: SFC<BeatProps> = React.memo(
   ({ beats, shouldOmit, height, theme }) => {
     const draw = (ctx: PIXIGraphics) => {
-      console.log(`render Beat ${beats.length}`)
       ctx.clear().lineStyle(1, Color(theme.secondaryTextColor).rgbNumber())
 
       for (let { x, beat } of beats) {

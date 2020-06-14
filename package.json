@@ -4,9 +4,8 @@
   "description": "A friendly music sequencer application for OS X and Windows.",
   "main": "src/node/main.js",
   "scripts": {
-    "start": "webpack-dev-server",
-    "start:prod": "webpack-dev-server --mode=production",
-    "build": "webpack",
+    "start": "webpack-dev-server --open --config webpack.dev.js",
+    "build": "webpack --config webpack.dev.js",
     "test": "jest",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
@@ -88,6 +87,7 @@
     "webpack": "^4.43.0",
     "webpack-bundle-analyzer": "3.8.0",
     "webpack-cli": "^3.3.11",
-    "webpack-dev-server": "^3.11.0"
+    "webpack-dev-server": "^3.11.0",
+    "webpack-merge": "4.2.2"
   }
 }

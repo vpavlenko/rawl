@@ -1,8 +1,9 @@
 import { ToolbarSeparator } from "components/groups/Toolbar"
-import React, { StatelessComponent } from "react"
+import React, { StatelessComponent, useCallback } from "react"
 import { shouldUpdate } from "recompose"
 import { Toolbar, IconButton, makeStyles } from "@material-ui/core"
 import { Stop, FastRewind, FastForward, PlayArrow } from "@material-ui/icons"
+import styled from "styled-components"
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -14,13 +15,27 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "1rem",
     height: "2rem",
   },
-  tempo: {
-    minWidth: "5em",
-  },
   time: {
     minWidth: "10em",
   },
 }))
+
+const TempoInput = styled.input`
+  background: transparent;
+  -webkit-appearance: none;
+  border: none;
+  color: inherit;
+  font-size: inherit;
+  font-family: inherit;
+  width: 5em;
+  text-align: center;
+  outline: none;
+
+  &:focus {
+    border: 1px solid var(--divider-color);
+    background: var(--secondary-background-color);
+  }
+`
 
 export interface TransportPanelProps {
   onClickPlay: () => void
@@ -31,7 +46,7 @@ export interface TransportPanelProps {
   onClickEnableLoop: () => void
   mbtTime: string
   tempo: number
-  onClickTempo: () => void
+  onChangeTempo: (tempo: number) => void
 }
 
 const TransportPanel: StatelessComponent<TransportPanelProps> = ({
@@ -43,9 +58,20 @@ const TransportPanel: StatelessComponent<TransportPanelProps> = ({
   onClickEnableLoop,
   mbtTime,
   tempo = 0,
-  onClickTempo,
+  onChangeTempo,
 }) => {
   const classes = useStyles({})
+  const onChangeTempo_ = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) =>
+      onChangeTempo(parseFloat(e.target.value)),
+    []
+  )
+  const onKeyPressTempo = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault()
+      e.currentTarget.blur()
+    }
+  }
   return (
     <Toolbar variant="dense" className={classes.toolbar}>
       <IconButton onClick={onClickBackward}>
@@ -63,9 +89,12 @@ const TransportPanel: StatelessComponent<TransportPanelProps> = ({
 
       <ToolbarSeparator />
 
-      <div className={classes.tempo} onClick={onClickTempo}>
-        <p className="tempo">{tempo.toFixed(2)}</p>
-      </div>
+      <TempoInput
+        type="number"
+        value={Math.floor(tempo * 100) / 100}
+        onChange={onChangeTempo_}
+        onKeyPress={onKeyPressTempo}
+      />
 
       <ToolbarSeparator />
 

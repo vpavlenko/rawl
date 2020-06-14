@@ -15,7 +15,7 @@ import { getMBTString } from "common/measure/mbt"
 const TransportPanelWrapper: SFC<{}> = () => {
   const { rootStore: stores } = useStores()
   const { tempo, router, loop, mbtTime } = useObserver(() => ({
-    tempo: stores.services.player.currentTempo,
+    tempo: stores.song.conductorTrack?.tempo ?? 0,
     router: stores.router,
     player: stores.services.player,
     loop: stores.playerStore.loop,
@@ -35,9 +35,8 @@ const TransportPanelWrapper: SFC<{}> = () => {
       onClickBackward={() => movePlayerPosition(stores)(-TIME_BASE * 4)}
       onClickForward={() => movePlayerPosition(stores)(TIME_BASE * 4)}
       onClickEnableLoop={() => toggleEnableLoop(stores)()}
-      onClickTempo={() => {
-        selectTrack(stores)(0)
-        router.pushTrack()
+      onChangeTempo={(tempo) => {
+        stores.song.conductorTrack?.setTempo(tempo)
       }}
     />
   )

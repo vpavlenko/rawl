@@ -49,11 +49,11 @@ export interface PianoRollToolbarProps {
   pan: number
   volume: number
   autoScroll: boolean
-  onClickAutoScroll: () => void
   mouseMode: PianoRollMouseMode
+  quantize: number
+  onClickAutoScroll: () => void
   onClickPencil: () => void
   onClickSelection: () => void
-  quantize: number
   onSelectQuantize: (denominator: number) => void
   onChangeVolume: (value: number) => void
   onChangePan: (value: number) => void
@@ -61,82 +61,84 @@ export interface PianoRollToolbarProps {
   onClickNavBack: () => void
 }
 
-export const PianoRollToolbar: StatelessComponent<PianoRollToolbarProps> = ({
-  trackName,
-  instrumentName,
-  pan,
-  volume,
-  onChangeVolume,
-  onChangePan,
-  onClickInstrument,
-  onClickNavBack,
-  autoScroll,
-  onClickAutoScroll,
-  mouseMode,
-  onClickPencil,
-  onClickSelection,
-  quantize,
-  onSelectQuantize,
-}) => {
-  const classes = useStyles({})
-  return (
-    <AppBar position="static" elevation={0} className={classes.appBar}>
-      <Toolbar variant="dense">
-        <IconButton onClick={onClickNavBack} color="inherit">
-          <MenuIcon />
-        </IconButton>
+export const PianoRollToolbar: StatelessComponent<PianoRollToolbarProps> = React.memo(
+  ({
+    trackName,
+    instrumentName,
+    pan,
+    volume,
+    onChangeVolume,
+    onChangePan,
+    onClickInstrument,
+    onClickNavBack,
+    autoScroll,
+    onClickAutoScroll,
+    mouseMode,
+    onClickPencil,
+    onClickSelection,
+    quantize,
+    onSelectQuantize,
+  }) => {
+    const classes = useStyles({})
+    return (
+      <AppBar position="static" elevation={0} className={classes.appBar}>
+        <Toolbar variant="dense">
+          <IconButton onClick={onClickNavBack} color="inherit">
+            <MenuIcon />
+          </IconButton>
 
-        <Typography variant="h6" className={classes.title}>
-          {trackName}
-        </Typography>
+          <Typography variant="h6" className={classes.title}>
+            {trackName}
+          </Typography>
 
-        <Button
-          className={classes.instrumentButton}
-          onClick={onClickInstrument}
-          color="inherit"
-          size="small"
-          startIcon={<Icon>piano</Icon>}
-        >
-          {instrumentName}
-        </Button>
+          <Button
+            className={classes.instrumentButton}
+            onClick={onClickInstrument}
+            color="inherit"
+            size="small"
+            startIcon={<Icon>piano</Icon>}
+          >
+            {instrumentName}
+          </Button>
 
-        <InstrumentBrowser />
+          <InstrumentBrowser />
 
-        <VolumeSlider onChange={onChangeVolume} value={volume} />
-        <PanSlider value={pan} onChange={onChangePan} />
-        <ToggleButtonGroup
-          value={mouseMode}
-          className={classes.toggleButtonGroup}
-        >
+          <VolumeSlider onChange={onChangeVolume} value={volume} />
+          <PanSlider value={pan} onChange={onChangePan} />
+          <ToggleButtonGroup
+            value={mouseMode}
+            className={classes.toggleButtonGroup}
+          >
+            <ToggleButton
+              color="inherit"
+              onClick={onClickPencil}
+              value="pencil"
+              className={classes.toggleButton}
+            >
+              <Icon>pencil</Icon>
+            </ToggleButton>
+            <ToggleButton
+              color="inherit"
+              onClick={onClickSelection}
+              value="selection"
+              className={classes.toggleButton}
+            >
+              <Icon>select</Icon>
+            </ToggleButton>
+          </ToggleButtonGroup>
+
+          <QuantizeSelector value={quantize} onSelect={onSelectQuantize} />
+
           <ToggleButton
             color="inherit"
-            onClick={onClickPencil}
-            value="pencil"
+            onClick={onClickAutoScroll}
+            selected={autoScroll}
             className={classes.toggleButton}
           >
-            <Icon>pencil</Icon>
+            <KeyboardTab />
           </ToggleButton>
-          <ToggleButton
-            color="inherit"
-            onClick={onClickSelection}
-            value="selection"
-            className={classes.toggleButton}
-          >
-            <Icon>select</Icon>
-          </ToggleButton>
-        </ToggleButtonGroup>
-
-        <QuantizeSelector value={quantize} onSelect={onSelectQuantize} />
-
-        <ToggleButton
-          color="inherit"
-          onClick={onClickAutoScroll}
-          selected={autoScroll}
-          className={classes.toggleButton}
-        >
-          <KeyboardTab />
-        </ToggleButton>
-      </Toolbar>
-    </AppBar>
-  )
-}
+        </Toolbar>
+      </AppBar>
+    )
+  }
+)

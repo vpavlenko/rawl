@@ -28,11 +28,9 @@ const PianoGrid: StatelessComponent<PianoGridProps> = ({ height, beats }) => {
       }
       const alpha = isBold && !shouldOmit ? 1 : 0.5
       ctx
-        .beginFill()
         .lineStyle(1, Color(theme.dividerColor).rgbNumber(), alpha)
         .moveTo(x, 0)
         .lineTo(x, height)
-        .endFill()
     })
   }
 

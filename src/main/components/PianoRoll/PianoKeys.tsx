@@ -79,7 +79,6 @@ const PianoKeys: SFC<PianoKeysProps> = ({
   const width = theme.keyWidth
 
   function draw(ctx: PIXIGraphics): void {
-    console.log("render PianoKeys")
     ctx
       .clear()
       .beginFill(Color(theme.pianoKeyWhite).rgbNumber())

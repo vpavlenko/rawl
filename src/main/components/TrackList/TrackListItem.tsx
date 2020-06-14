@@ -1,7 +1,8 @@
 import React, { SFC } from "react"
 
 import { VolumeOff, VolumeUp, Headset } from "@material-ui/icons"
-import { ListItem, MenuItem, IconButton, Menu } from "@material-ui/core"
+import { ListItem, IconButton } from "@material-ui/core"
+import { TrackListContextMenu, useContextMenu } from "./TrackListContextMenu"
 
 import "./TrackListItem.css"
 
@@ -36,24 +37,7 @@ const TrackListItem: SFC<TrackListItemProps> = ({
   onClickSolo,
   onClickMute,
 }) => {
-  const [state, setState] = React.useState({
-    mouseX: 0,
-    mouseY: 0,
-    isContextMenuOpen: false,
-  })
-
-  const onContextMenu = (e: React.MouseEvent) => {
-    e.preventDefault()
-    setState({
-      mouseX: e.clientX - 2,
-      mouseY: e.clientY - 4,
-      isContextMenuOpen: true,
-    })
-  }
-
-  const handleClose = () => {
-    setState({ ...state, isContextMenuOpen: false })
-  }
+  const { onContextMenu, menuProps } = useContextMenu()
 
   return (
     <ListItem
@@ -62,22 +46,7 @@ const TrackListItem: SFC<TrackListItemProps> = ({
       onClick={onClick}
       onContextMenu={onContextMenu}
     >
-      <Menu
-        keepMounted
-        open={state.isContextMenuOpen}
-        onClose={handleClose}
-        anchorReference="anchorPosition"
-        anchorPosition={{ top: state.mouseY, left: state.mouseX }}
-      >
-        <MenuItem
-          onClick={() => {
-            onClickDelete()
-            handleClose()
-          }}
-        >
-          Delete Track
-        </MenuItem>
-      </Menu>
+      <TrackListContextMenu onClickDelete={onClickDelete} {...menuProps} />
       <div className="TrackListItem">
         <div className="label">
           <div className="name">{name}</div>

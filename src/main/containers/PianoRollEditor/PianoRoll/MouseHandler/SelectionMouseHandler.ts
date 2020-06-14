@@ -48,22 +48,6 @@ export default class SelectionMouseHandler extends MouseHandler {
       }
     }
 
-    // 右クリックした場合はコンテキストメニューを表示
-    if (e.nativeEvent.button === 2) {
-      let selected
-      switch (type) {
-        case "center":
-        case "right":
-        case "left":
-          selected = true
-          break
-        case "outside":
-          selected = false
-          break
-      }
-      return contextMenuAction(selected, this.rootStore)
-    }
-
     return null
   }
 
@@ -105,15 +89,6 @@ function positionType(
     return "right"
   }
   return "center"
-}
-
-const contextMenuAction = (
-  isNoteSelected: boolean,
-  rootStore: RootStore
-): MouseGesture => (onMouseDown, onMouseMove, onMouseUp) => {
-  onMouseUp((e) => {
-    rootStore.openContextMenuAction(e.nativeEvent, isNoteSelected)
-  })
 }
 
 // 選択範囲外でクリックした場合は選択範囲をリセット

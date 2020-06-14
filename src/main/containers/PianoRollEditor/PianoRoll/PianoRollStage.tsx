@@ -1,6 +1,6 @@
 import React, { SFC, useState, useCallback, useMemo } from "react"
 import { Stage, Container } from "@inlet/react-pixi"
-import { Point, Rectangle } from "pixi.js"
+import { Point, Rectangle, interaction } from "pixi.js"
 import { useTheme } from "main/hooks/useTheme"
 import PencilMouseHandler from "./MouseHandler/PencilMouseHandler"
 import SelectionMouseHandler from "./MouseHandler/SelectionMouseHandler"
@@ -33,6 +33,10 @@ import {
   PianoNoteItem,
 } from "main/components/PianoRoll/PianoNotes/PianoNote"
 import { useRecycle } from "main/hooks/useRecycle"
+import {
+  useContextMenu,
+  PianoSelectionContextMenu,
+} from "main/components/PianoRoll/PianoSelectionContextMenu"
 
 export interface PianoRollStageProps {
   width: number
@@ -186,7 +190,7 @@ export const PianoRollStage: SFC<PianoRollStageProps> = ({ width }) => {
     }
   }, [])
 
-  const onMouseDownRuler = (e: TickEvent<MouseEvent>) => {
+  const onMouseDownRuler = useCallback((e: TickEvent<MouseEvent>) => {
     const tick = e.tick
     if (e.nativeEvent.ctrlKey) {
       // setLoopBegin(tick)
@@ -195,69 +199,95 @@ export const PianoRollStage: SFC<PianoRollStageProps> = ({ width }) => {
     } else {
       setPlayerPosition(rootStore)(tick)
     }
-  }
+  }, [])
 
-  const onClickKey = (noteNumber: number) => {
-    previewNote(rootStore)(channel, noteNumber)
-  }
+  const onClickKey = useCallback(
+    (noteNumber: number) => {
+      previewNote(rootStore)(channel, noteNumber)
+    },
+    [channel]
+  )
+
+  const { onContextMenu, menuProps } = useContextMenu()
+
+  const onRightClickSelection = useCallback(
+    (ev: interaction.InteractionEvent) => {
+      const e = ev.data.originalEvent as MouseEvent
+      onContextMenu(e)
+    },
+    []
+  )
+
+  const handleRightClick = useCallback((ev: interaction.InteractionEvent) => {
+    if (rootStore.pianoRollStore.mouseMode === "selection") {
+      const e = ev.data.originalEvent as MouseEvent
+      onContextMenu(e)
+    }
+  }, [])
 
   return (
-    <Stage
-      className="alphaContent"
-      width={width}
-      height={stageHeight}
-      options={{ transparent: true }}
-    >
-      <Container position={new Point(theme.keyWidth, 0)}>
-        <Container position={new Point(0, -scrollTop + theme.rulerHeight)}>
-          <PianoLines
-            width={width}
-            pixelsPerKey={transform.pixelsPerKey}
-            numberOfKeys={transform.numberOfKeys}
-          />
-          <Container
-            position={new Point(-scrollLeft, 0)}
-            interactive={true}
-            hitArea={new Rectangle(0, 0, 100000, 100000)} // catch all hits
-            mousedown={handleMouseDown}
-            mousemove={handleMouseMove}
-            mouseup={handleMouseUp}
-          >
-            <PianoGrid height={contentHeight} beats={mappedBeats} />
-            <PianoNotes
-              notes={keyedNotes}
-              cursor={notesCursor}
-              isDrumMode={isRhythmTrack}
-              onDragNote={onDragNote}
-              onHoverNote={onHoverNote}
+    <>
+      <Stage
+        className="alphaContent"
+        width={width}
+        height={stageHeight}
+        options={{ transparent: true }}
+        onContextMenu={useCallback((e) => e.preventDefault(), [])}
+      >
+        <Container position={new Point(theme.keyWidth, 0)}>
+          <Container position={new Point(0, -scrollTop + theme.rulerHeight)}>
+            <PianoLines
+              width={width}
+              pixelsPerKey={transform.pixelsPerKey}
+              numberOfKeys={transform.numberOfKeys}
             />
-            <PianoSelection
-              selectionBounds={
-                selection.enabled ? selection.getBounds(transform) : null
-              }
-            />
-            <Container x={cursorPositionX}>
-              <PianoCursor height={contentHeight} />
+            <Container
+              position={new Point(-scrollLeft, 0)}
+              interactive={true}
+              hitArea={new Rectangle(0, 0, 100000, 100000)} // catch all hits
+              mousedown={handleMouseDown}
+              mousemove={handleMouseMove}
+              mouseup={handleMouseUp}
+              rightclick={handleRightClick}
+            >
+              <PianoGrid height={contentHeight} beats={mappedBeats} />
+              <PianoNotes
+                notes={keyedNotes}
+                cursor={notesCursor}
+                isDrumMode={isRhythmTrack}
+                onDragNote={onDragNote}
+                onHoverNote={onHoverNote}
+              />
+              {selection.enabled && (
+                <PianoSelection
+                  bounds={selection.getBounds(transform)}
+                  onRightClick={onRightClickSelection}
+                />
+              )}
+              <Container x={cursorPositionX}>
+                <PianoCursor height={contentHeight} />
+              </Container>
             </Container>
           </Container>
+          <PianoRuler
+            width={width}
+            beats={mappedBeats}
+            loop={loop}
+            onMouseDown={onMouseDownRuler}
+            scrollLeft={scrollLeft}
+            pixelsPerTick={transform.pixelsPerTick}
+          />
         </Container>
-        <PianoRuler
-          width={width}
-          beats={mappedBeats}
-          loop={loop}
-          onMouseDown={onMouseDownRuler}
-          scrollLeft={scrollLeft}
-          pixelsPerTick={transform.pixelsPerTick}
-        />
-      </Container>
-      <Container position={new Point(0, -scrollTop + theme.rulerHeight)}>
-        <PianoKeys
-          keyHeight={transform.pixelsPerKey}
-          numberOfKeys={transform.numberOfKeys}
-          onClickKey={onClickKey}
-        />
-      </Container>
-      <LeftTopSpace width={width} />
-    </Stage>
+        <Container position={new Point(0, -scrollTop + theme.rulerHeight)}>
+          <PianoKeys
+            keyHeight={transform.pixelsPerKey}
+            numberOfKeys={transform.numberOfKeys}
+            onClickKey={onClickKey}
+          />
+        </Container>
+        <LeftTopSpace width={width} />
+      </Stage>
+      <PianoSelectionContextMenu {...menuProps} />
+    </>
   )
 }

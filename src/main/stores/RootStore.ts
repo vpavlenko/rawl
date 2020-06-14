@@ -18,13 +18,7 @@ import Quantizer from "common/quantizer"
 import SynthOutput from "services/SynthOutput"
 import { TIME_BASE } from "../Constants"
 
-import { PianoContextMenu } from "../menus/PianoContextMenu"
-import {
-  openContextMenu,
-  ContextMenuMouseEvent,
-} from "../components/groups/ContextMenu"
-
-interface Services {
+export interface Services {
   player: Player
   quantizer: Quantizer
   synth: SynthOutput
@@ -82,9 +76,5 @@ export default class RootStore {
     const currentState = this.serializeUndoableState()
     const nextState = this.historyStore.redo(currentState)
     this.restoreState(nextState)
-  }
-
-  openContextMenuAction(e: ContextMenuMouseEvent, isNoteSelected: boolean) {
-    openContextMenu(e, PianoContextMenu(this, isNoteSelected))
   }
 }

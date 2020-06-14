@@ -326,7 +326,9 @@ export const ArrangeView: SFC<ArrangeViewProps> = ({
             ))}
           </div>
           <PianoGrid height={contentHeight} beats={mappedBeats} />
-          <PianoSelection selectionBounds={selectionRect} />
+          {selectionRect && (
+            <PianoSelection bounds={selectionRect} onRightClick={() => {}} />
+          )}
           <Container x={transform.getX(playerPosition) - scrollLeft}>
             <PianoCursor height={contentHeight} />
           </Container>

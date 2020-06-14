@@ -15,7 +15,8 @@
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": true,
     "lib": ["es2017", "dom"],
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "alwaysStrict": true
   },
   "exclude": ["node_modules", "src/submodules", "**/*.test.ts"]
 }

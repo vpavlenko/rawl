@@ -44,9 +44,13 @@ export const fixSelection = (rootStore: RootStore) => () => {
   const { selection } = pianoRollStore
   // 選択範囲を確定して選択範囲内のノートを選択状態にする
   const s = selection.clone()
-  s.noteIds = eventsInSelection(selectedTrack.events, selection).map(
-    (e) => e.id
-  )
+  if (s.fromNoteNumber - s.toNoteNumber === 0 || s.fromTick - s.toTick === 0) {
+    s.enabled = false
+  } else {
+    s.noteIds = eventsInSelection(selectedTrack.events, selection).map(
+      (e) => e.id
+    )
+  }
   pianoRollStore.selection = s
 }
 

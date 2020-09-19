@@ -39,14 +39,13 @@ const useGestures = (
   onMouseDrag: (e: PianoNoteMouseEvent) => void,
   onMouseHover: (e: PianoNoteMouseEvent) => void
 ) => {
-  const [hovering, setHover] = useState(false)
+  const [entered, setEntered] = useState(false)
   const [dragging, setDragging] = useState(false)
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 })
   const [dragPosition, setDragPosition] = useState<MousePositionType>("center")
   const [dragItem, setDragItem] = useState<PianoNoteItem>(item)
+  const [cursor, setCursor] = useState("default")
 
-  const beginHover = useCallback(() => setHover(true), [setHover])
-  const endHover = useCallback(() => setHover(false), [setHover])
   const beginDragging = (e: PIXI.InteractionEvent) => {
     e.stopPropagation()
     e.data.originalEvent.stopImmediatePropagation()
@@ -60,7 +59,8 @@ const useGestures = (
       x: offset.x - item.x,
       y: offset.y - item.y,
     }
-    setDragPosition(getPositionType(local.x, item.width))
+    const position = getPositionType(local.x, item.width)
+    setDragPosition(position)
     setDragStart(offset)
     setDragging(true)
     setDragItem({ ...item })
@@ -83,25 +83,73 @@ const useGestures = (
 
   const mousemove = useCallback(
     (e: PIXI.InteractionEvent) => {
+      if (!entered && !dragging) {
+        return
+      }
+
+      // update cursor
+      if (e.target !== null) {
+        const offset = e.data.getLocalPosition(e.target.parent)
+        const local = {
+          x: offset.x - item.x,
+          y: offset.y - item.y,
+        }
+        const position = getPositionType(local.x, item.width)
+        const newCursor = mousePositionToCursor(position)
+        if (newCursor !== cursor) {
+          setCursor(newCursor)
+        }
+      }
+
+      const ev = extendEvent(e)
       if (dragging) {
-        onMouseDrag(extendEvent(e))
+        onMouseDrag(ev)
         e.stopPropagation()
         e.data.originalEvent.stopImmediatePropagation()
-      } else if (hovering) {
-        onMouseHover(extendEvent(e))
+      } else {
+        onMouseHover(ev)
       }
     },
-    [dragging, hovering]
+    [
+      dragging,
+      entered,
+      cursor,
+      setCursor,
+      onMouseDrag,
+      onMouseHover,
+      extendEvent,
+    ]
   )
+
+  const mouseover = useCallback(() => {
+    setEntered(true)
+    console.log("enter")
+  }, [setEntered])
+  const mouseout = useCallback(() => {
+    setEntered(false)
+    console.log("exit")
+  }, [setEntered])
 
   return {
     ref,
-    mouseover: beginHover,
-    mouseout: endHover,
+    mouseover,
+    mouseout,
     mousedown: beginDragging,
     mousemove: mousemove,
     mouseup: endDragging,
     mouseupoutside: endDragging,
+    cursor,
+  }
+}
+
+const mousePositionToCursor = (position: MousePositionType) => {
+  switch (position) {
+    case "center":
+      return "move"
+    case "left":
+      return "w-resize"
+    case "right":
+      return "e-resize"
   }
 }
 

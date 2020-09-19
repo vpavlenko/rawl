@@ -49,6 +49,10 @@ const TabButton = styled.div`
   outline: none;
   text-align: center;
 
+  &:hover {
+    background: #ffffff14;
+  }
+
   &.selected {
     font-weight: 600;
     color: var(--text-color);

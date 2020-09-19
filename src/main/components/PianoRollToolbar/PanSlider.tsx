@@ -21,6 +21,7 @@ const Label = styled.div`
   display: flex;
   align-items: center;
   margin-right: 1rem;
+  color: var(--secondary-text-color);
 `
 
 export interface PanSliderProps {

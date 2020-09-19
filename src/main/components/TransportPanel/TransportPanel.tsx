@@ -30,12 +30,82 @@ const TempoInput = styled.input`
   width: 5em;
   text-align: center;
   outline: none;
+  font-family: monospace;
+  font-size: 1rem;
+  padding: 0.3rem 0;
+  width: 4em;
 
-  &:focus {
-    border: 1px solid var(--divider-color);
-    background: var(--secondary-background-color);
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
   }
 `
+
+const Button = styled(IconButton)`
+  background: #ffffff0d;
+  border-radius: 30%;
+  margin: 0.25rem;
+  padding: 0.5rem;
+
+  &:hover {
+    background: #ffffff1f;
+  }
+
+  svg {
+    font-size: 1rem;
+  }
+`
+
+const TempoWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  border: 1px solid transparent;
+  padding-left: 0.7rem;
+  border-radius: 0.25rem;
+
+  label {
+    font-size: 0.6rem;
+    color: var(--secondary-text-color);
+  }
+
+  &:focus-within {
+    border: 1px solid var(--divider-color);
+    background: #ffffff14;
+  }
+`
+
+interface TempoFormProps {
+  tempo: number
+  onChangeTempo: (tempo: number) => void
+}
+
+const TempoForm: FC<TempoFormProps> = ({ tempo, onChangeTempo }) => {
+  const onKeyPressTempo = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault()
+      e.currentTarget.blur()
+    }
+  }
+
+  const onChangeTempo_ = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) =>
+      onChangeTempo(parseFloat(e.target.value)),
+    []
+  )
+
+  return (
+    <TempoWrapper>
+      <label htmlFor="tempo-input">BPM</label>
+      <TempoInput
+        type="number"
+        id="tempo-input"
+        value={Math.floor(tempo * 100) / 100}
+        onChange={onChangeTempo_}
+        onKeyPress={onKeyPressTempo}
+      />
+    </TempoWrapper>
+  )
+}
 
 export interface TransportPanelProps {
   onClickPlay: () => void
@@ -61,40 +131,24 @@ const TransportPanel: FC<TransportPanelProps> = ({
   onChangeTempo,
 }) => {
   const classes = useStyles({})
-  const onChangeTempo_ = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) =>
-      onChangeTempo(parseFloat(e.target.value)),
-    []
-  )
-  const onKeyPressTempo = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      e.preventDefault()
-      e.currentTarget.blur()
-    }
-  }
   return (
     <Toolbar variant="dense" className={classes.toolbar}>
-      <IconButton onClick={onClickBackward}>
+      <Button onClick={onClickBackward}>
         <FastRewind />
-      </IconButton>
-      <IconButton onClick={onClickStop}>
+      </Button>
+      <Button onClick={onClickStop}>
         <Stop />
-      </IconButton>
-      <IconButton onClick={onClickPlay}>
+      </Button>
+      <Button onClick={onClickPlay}>
         <PlayArrow />
-      </IconButton>
-      <IconButton onClick={onClickForward}>
+      </Button>
+      <Button onClick={onClickForward}>
         <FastForward />
-      </IconButton>
+      </Button>
 
       <ToolbarSeparator />
 
-      <TempoInput
-        type="number"
-        value={Math.floor(tempo * 100) / 100}
-        onChange={onChangeTempo_}
-        onKeyPress={onKeyPressTempo}
-      />
+      <TempoForm tempo={tempo} onChangeTempo={onChangeTempo} />
 
       <ToolbarSeparator />
 

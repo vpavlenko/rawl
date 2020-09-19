@@ -17,6 +17,7 @@ const Container = styled.div`
   width: 8rem;
   margin-left: 1rem;
   margin-right: 1rem;
+  align-items: center;
 `
 
 export interface VolumeSliderProps {
@@ -27,7 +28,7 @@ export interface VolumeSliderProps {
 export const VolumeSlider: FC<VolumeSliderProps> = React.memo(
   ({ onChange, value }) => (
     <Container>
-      <VolumeUp />
+      <VolumeUp color="disabled" />
       <LightSlider
         value={value}
         onChange={(_, value) => onChange(value as number)}

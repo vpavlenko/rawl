@@ -25,9 +25,3 @@
 .ToolbarItem:active {
   color: var(--text-color);
 }
-
-.ToolbarSeparator {
-  background: var(--divider-color);
-  margin: 0.4em 1em;
-  width: 1px;
-}

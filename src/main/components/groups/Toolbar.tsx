@@ -1,7 +1,8 @@
-import React, { ReactNode, FC } from "react"
+import React, { FC } from "react"
 import f from "helpers/flatJoin"
 
 import "./Toolbar.css"
+import styled from "styled-components"
 
 export interface ToolbarProps {
   className?: string
@@ -42,6 +43,9 @@ export interface ToolbarSeparatorProps {
   className?: string
 }
 
-export const ToolbarSeparator: FC<ToolbarSeparatorProps> = ({ className }) => (
-  <div className={f("ToolbarSeparator", className)} />
-)
+export const ToolbarSeparator = styled.div`
+  background: var(--divider-color);
+  margin: 0.4em 1em;
+  width: 1px;
+  height: 1rem;
+`

@@ -15,7 +15,7 @@ const getMeasuresInRange = (
   let i = 0
   const result: Measure[] = []
 
-  for (let measure of measures) {
+  for (const measure of measures) {
     const nextMeasure = measures[i + 1]
     i++
 

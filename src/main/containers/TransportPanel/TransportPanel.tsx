@@ -1,22 +1,15 @@
 import React, { FC } from "react"
 import { TIME_BASE } from "Constants"
-import {
-  play,
-  stop,
-  movePlayerPosition,
-  toggleEnableLoop,
-  selectTrack,
-} from "main/actions"
+import { play, stop, movePlayerPosition, toggleEnableLoop } from "main/actions"
 import { useObserver } from "mobx-react"
 import TransportPanel from "components/TransportPanel/TransportPanel"
 import { useStores } from "main/hooks/useStores"
 import { getMBTString } from "common/measure/mbt"
 
-const TransportPanelWrapper: FC<{}> = () => {
+const TransportPanelWrapper: FC = () => {
   const { rootStore: stores } = useStores()
-  const { tempo, router, loop, mbtTime } = useObserver(() => ({
+  const { tempo, loop, mbtTime } = useObserver(() => ({
     tempo: stores.song.conductorTrack?.tempo ?? 0,
-    router: stores.router,
     player: stores.services.player,
     loop: stores.playerStore.loop,
     mbtTime: getMBTString(

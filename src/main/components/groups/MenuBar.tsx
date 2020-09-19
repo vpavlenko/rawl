@@ -13,12 +13,12 @@ export interface MenuTemplateItem {
 export function fromTemplate(t: MenuTemplateItem[]) {
   return (
     <MenuBar>
-      {t.map((t) => (
-        <MenuItem title={t.label}>
+      {t.map((t, i) => (
+        <MenuItem key={i} title={t.label}>
           {t.submenu && (
             <SubMenu>
-              {t.submenu.map((t) => (
-                <MenuItem title={t.role || t.label} onClick={t.click} />
+              {t.submenu.map((t, i) => (
+                <MenuItem key={i} title={t.role || t.label} onClick={t.click} />
               ))}
             </SubMenu>
           )}

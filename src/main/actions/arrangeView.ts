@@ -111,7 +111,7 @@ export const arrangeMoveSelection = (rootStore: RootStore) => (pos: IPoint) => {
   // ノートを移動
 
   const updates = []
-  for (let [trackIndex, selectedEvents] of Object.entries(s.selectedEventIds)) {
+  for (const [trackIndex, selectedEvents] of Object.entries(s.selectedEventIds)) {
     const trackId = parseInt(trackIndex, 10)
     const track = tracks[trackId]
     const events = s.selectedEventIds[trackId]
@@ -138,7 +138,7 @@ export const arrangeMoveSelection = (rootStore: RootStore) => (pos: IPoint) => {
   }
   if (di !== 0) {
     const ids: { [key: number]: number[] } = {}
-    for (let u of updates) {
+    for (const u of updates) {
       tracks[u.sourceTrackId].removeEvents(u.events.map((e) => e.id))
       const events = tracks[u.destinationTrackId].addEvents(u.events)
       ids[u.destinationTrackId] = events.map((e) => e.id)
@@ -200,7 +200,7 @@ export const arrangePasteSelection = (rootStore: RootStore) => () => {
   if (obj.type !== "arrange_notes") {
     return
   }
-  for (let trackId in obj.notes) {
+  for (const trackId in obj.notes) {
     const notes = obj.notes[trackId].map((note: NoteEvent) => ({
       ...note,
       tick: note.tick + player.position,
@@ -216,7 +216,7 @@ export const arrangeDeleteSelection = (rootStore: RootStore) => () => {
   } = rootStore
 
   // 選択範囲と選択されたノートを削除
-  for (let trackId in s.selectedEventIds) {
+  for (const trackId in s.selectedEventIds) {
     tracks[trackId].removeEvents(s.selectedEventIds[trackId])
   }
   s.selection = null

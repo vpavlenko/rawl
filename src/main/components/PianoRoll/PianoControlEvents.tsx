@@ -51,7 +51,7 @@ function groupControlEvents(
 ): DisplayEvent[][] {
   const groups: DisplayEvent[][] = []
   let group: DisplayEvent[] = []
-  for (let e of events) {
+  for (const e of events) {
     if (group.length === 0) {
       group.push(e)
     } else {

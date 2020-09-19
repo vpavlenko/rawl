@@ -50,7 +50,7 @@ const SongList: FC<SongListProps> = ({
   </List>
 )
 
-export const SongListWrapper: FC<{}> = () => {
+export const SongListWrapper: FC = () => {
   const { rootStore } = useStores()
   return (
     <SongList

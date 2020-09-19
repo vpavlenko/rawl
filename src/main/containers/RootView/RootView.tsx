@@ -8,7 +8,7 @@ import { BuildInfo } from "main/components/BuildInfo"
 import "./Resizer.css"
 import "./RootView.css"
 
-const RootView: FC<{}> = ({}) => (
+const RootView: FC = () => (
   <div className="RootView">
     <PianoRollEditor />
     <TransportPanel />

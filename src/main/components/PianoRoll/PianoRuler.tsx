@@ -22,7 +22,7 @@ const Beats: FC<BeatProps> = React.memo(
     const draw = (ctx: PIXIGraphics) => {
       ctx.clear().lineStyle(1, Color(theme.secondaryTextColor).rgbNumber())
 
-      for (let { x, beat } of beats) {
+      for (const { x, beat } of beats) {
         const isTop = beat === 0
 
         if (isTop) {

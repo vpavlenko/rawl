@@ -6,7 +6,7 @@ import PianoRollDrawer from "./PianoRollDrawer"
 
 import "./PianoRollEditor.css"
 
-const PianoRollEditor: FC<{}> = ({}) => {
+const PianoRollEditor: FC = () => {
   return (
     <div className="PianoRollEditor">
       <PianoRollToolbar />

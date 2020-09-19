@@ -1,4 +1,4 @@
-import React, { FC, ReactNode, FC } from "react"
+import React, { FC } from "react"
 import { withSize } from "react-sizeme"
 
 import Icon from "components/outputs/Icon"
@@ -48,7 +48,7 @@ export const ScrollBar: FC<ScrollBarProps> = ({
   barLength,
   scrollOffset = 50,
   contentLength = 1000,
-  onScroll = () => {},
+  onScroll,
   children,
 }) => {
   const buttonLength = BUTTON_SIZE
@@ -74,9 +74,8 @@ export const ScrollBar: FC<ScrollBarProps> = ({
   const className = isVertical ? "VerticalScrollBar" : "HorizontalScrollBar"
   const lengthProp = isVertical ? "height" : "width"
 
-  const onScroll2 = (scroll: number) => {
-    onScroll(Math.min(maxOffset, Math.max(0, scroll)))
-  }
+  const onScroll2 = (scroll: number) =>
+    onScroll?.(Math.min(maxOffset, Math.max(0, scroll)))
 
   const onMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation()

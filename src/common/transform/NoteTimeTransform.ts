@@ -15,8 +15,8 @@ export default class NoteTimeTransform {
   // seconds
 
   getSeconds(tick: number) {
-    var prev = this._tempos[0]
-    var total = 0
+    let prev = this._tempos[0]
+    let total = 0
     const timebase = this._timebase / 60 // in seconds
     for (const tempo of this._tempos) {
       if (tempo.tick > tick) break

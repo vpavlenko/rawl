@@ -27,6 +27,7 @@ export const recycleKeys = <T extends IDValue>(
       key = existingItem.key
     } else if (reusableKeys.length > 0) {
       // reuse ye key
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       key = reusableKeys.pop()!
     } else if (!usedKeys.includes(i.id)) {
       // use id as key

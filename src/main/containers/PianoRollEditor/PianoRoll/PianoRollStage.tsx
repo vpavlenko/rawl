@@ -168,7 +168,7 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
     const tick = transform.getTicks(e.offset.x)
 
     switch (e.position) {
-      case "center":
+      case "center": {
         const delta = pointSub(e.offset, e.dragStart)
         console.log(delta)
         const position = pointAdd(e.dragItem, delta)
@@ -179,6 +179,7 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
           quantize: "round",
         })
         break
+      }
       case "left":
         resizeNoteLeft(rootStore)(e.dragItem.id, tick)
         break

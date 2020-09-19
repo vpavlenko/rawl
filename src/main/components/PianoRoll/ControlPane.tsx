@@ -1,6 +1,5 @@
-import React, { FC, FC } from "react"
+import React, { FC } from "react"
 import _ from "lodash"
-import { withSize } from "react-sizeme"
 
 import Theme from "common/theme"
 import { NoteCoordTransform } from "common/transform"
@@ -17,7 +16,6 @@ import ExpressionGraph from "./Graph/ExpressionGraph"
 import ModulationGraph from "./Graph/ModulationGraph"
 import PianoVelocityControl from "./PianoVelocityControl/PianoVelocityControl"
 
-import VelocityItem from "./PianoVelocityControl/VelocityItem"
 import { Stage, Container } from "@inlet/react-pixi"
 import styled from "styled-components"
 import { filterEventsWithScroll } from "common/helpers/filterEventsWithScroll"

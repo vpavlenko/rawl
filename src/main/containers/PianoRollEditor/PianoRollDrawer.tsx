@@ -16,7 +16,7 @@ const PianoRollDrawer: FC<{
   </Drawer>
 )
 
-const PianoRollDrawerWrapper: FC<{}> = () => {
+const PianoRollDrawerWrapper: FC = () => {
   const { rootStore } = useStores()
   const { openDrawer, onClose } = useObserver(() => ({
     openDrawer: rootStore.rootViewStore.openDrawer,

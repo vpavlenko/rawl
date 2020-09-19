@@ -141,7 +141,7 @@ const InstrumentBrowser: FC<InstrumentBrowserProps> = ({
   )
 }
 
-const InstrumentBrowserWrapper: FC<{}> = () => {
+const InstrumentBrowserWrapper: FC = () => {
   const { rootStore: stores } = useStores()
   const {
     track,

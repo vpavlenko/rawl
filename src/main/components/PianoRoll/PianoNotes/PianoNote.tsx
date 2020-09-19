@@ -70,6 +70,7 @@ const useGestures = (
   const ref = useRef<PIXIGraphics>(null)
 
   const extendEvent = (e: PIXI.InteractionEvent): PianoNoteMouseEvent => {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const offset = e.data.getLocalPosition(ref.current!.parent)
     return {
       nativeEvent: e,

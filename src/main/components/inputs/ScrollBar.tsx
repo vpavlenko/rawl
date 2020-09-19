@@ -1,4 +1,4 @@
-import React, { StatelessComponent, ReactNode, SFC } from "react"
+import React, { FC, ReactNode, FC } from "react"
 import { withSize } from "react-sizeme"
 
 import Icon from "components/outputs/Icon"
@@ -43,7 +43,7 @@ export interface ScrollBarProps {
   onScroll?: (scroll: number) => void
 }
 
-export const ScrollBar: StatelessComponent<ScrollBarProps> = ({
+export const ScrollBar: FC<ScrollBarProps> = ({
   isVertical,
   barLength,
   scrollOffset = 50,
@@ -221,11 +221,11 @@ type VerticalScrollBar_Props = Omit<
 > & { size: ISize }
 type HorizontalScrollBar_Props = VerticalScrollBar_Props
 
-const VerticalScrollBar_: SFC<VerticalScrollBar_Props> = (props) => (
+const VerticalScrollBar_: FC<VerticalScrollBar_Props> = (props) => (
   <ScrollBar isVertical={true} {...props} barLength={props.size.height} />
 )
 
-const HorizontalScrollBar_: SFC<HorizontalScrollBar_Props> = (props) => (
+const HorizontalScrollBar_: FC<HorizontalScrollBar_Props> = (props) => (
   <ScrollBar isVertical={false} {...props} barLength={props.size.width} />
 )
 

@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, SFC } from "react"
+import React, { useCallback, useRef, FC } from "react"
 import { Graphics as PIXIGraphics, Rectangle } from "pixi.js"
 import { IRect, IPoint } from "src/common/geometry"
 import { useState } from "react"
@@ -47,7 +47,7 @@ const useGestures = (
 
   const beginHover = useCallback(() => setHover(true), [setHover])
   const endHover = useCallback(() => setHover(false), [setHover])
-  const beginDragging = (e: PIXI.interaction.InteractionEvent) => {
+  const beginDragging = (e: PIXI.InteractionEvent) => {
     e.stopPropagation()
     e.data.originalEvent.stopImmediatePropagation()
 
@@ -69,9 +69,7 @@ const useGestures = (
 
   const ref = useRef<PIXIGraphics>(null)
 
-  const extendEvent = (
-    e: PIXI.interaction.InteractionEvent
-  ): PianoNoteMouseEvent => {
+  const extendEvent = (e: PIXI.InteractionEvent): PianoNoteMouseEvent => {
     const offset = e.data.getLocalPosition(ref.current!.parent)
     return {
       nativeEvent: e,
@@ -83,7 +81,7 @@ const useGestures = (
   }
 
   const mousemove = useCallback(
-    (e: PIXI.interaction.InteractionEvent) => {
+    (e: PIXI.InteractionEvent) => {
       if (dragging) {
         onMouseDrag(extendEvent(e))
         e.stopPropagation()
@@ -107,7 +105,7 @@ const useGestures = (
 }
 
 export interface PianoNoteMouseEvent {
-  nativeEvent: PIXI.interaction.InteractionEvent
+  nativeEvent: PIXI.InteractionEvent
   // ドラッグ開始時の item
   dragItem: PianoNoteItem
   position: MousePositionType
@@ -115,7 +113,7 @@ export interface PianoNoteMouseEvent {
   dragStart: IPoint
 }
 
-const _PianoNote: SFC<PianoNoteProps> = (props) => {
+const _PianoNote: FC<PianoNoteProps> = (props) => {
   const { item } = props
 
   const render = (g: PIXIGraphics) => {

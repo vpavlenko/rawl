@@ -14,7 +14,6 @@ function addTick<T extends DeltaTimeProvider>(
       ...e,
       tick
     }
-    delete newEvent.deltaTime
     return newEvent
   })
 }

@@ -1,4 +1,4 @@
-import React, { SFC, useCallback } from "react"
+import React, { FC, useCallback } from "react"
 import { useStores } from "main/hooks/useStores"
 import { IPoint } from "common/geometry"
 import { Menu, MenuItem } from "@material-ui/core"
@@ -46,7 +46,7 @@ export interface PianoSelectionContextMenuProps {
   handleClose: () => void
 }
 
-export const PianoSelectionContextMenu: SFC<PianoSelectionContextMenuProps> = React.memo(
+export const PianoSelectionContextMenu: FC<PianoSelectionContextMenuProps> = React.memo(
   ({ isOpen, position, handleClose }) => {
     const { rootStore } = useStores()
     const isNoteSelected = rootStore.pianoRollStore.selection.noteIds.length > 0

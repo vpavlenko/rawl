@@ -1,4 +1,4 @@
-import React, { StatelessComponent } from "react"
+import React, { FC } from "react"
 
 import PianoRoll from "./PianoRoll/PianoRoll"
 import PianoRollToolbar from "./PianoRollToolbar"
@@ -6,7 +6,7 @@ import PianoRollDrawer from "./PianoRollDrawer"
 
 import "./PianoRollEditor.css"
 
-const PianoRollEditor: StatelessComponent<{}> = ({}) => {
+const PianoRollEditor: FC<{}> = ({}) => {
   return (
     <div className="PianoRollEditor">
       <PianoRollToolbar />

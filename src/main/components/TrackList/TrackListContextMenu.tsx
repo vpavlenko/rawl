@@ -1,4 +1,4 @@
-import React, { SFC } from "react"
+import React, { FC } from "react"
 import { Menu, MenuItem } from "@material-ui/core"
 import { IPoint } from "common/geometry"
 
@@ -39,7 +39,7 @@ export interface TrackListContextMenuProps {
   handleClose: () => void
 }
 
-export const TrackListContextMenu: SFC<TrackListContextMenuProps> = ({
+export const TrackListContextMenu: FC<TrackListContextMenuProps> = ({
   isOpen,
   position,
   onClickDelete,

@@ -1,4 +1,4 @@
-import React, { SFC } from "react"
+import React, { FC } from "react"
 import { useTheme } from "main/hooks/useTheme"
 import { Graphics } from "@inlet/react-pixi"
 import Color from "color"
@@ -10,7 +10,7 @@ export interface LeftTopSpaceProps {
   width: number
 }
 
-export const LeftTopSpace: SFC<LeftTopSpaceProps> = React.memo(({ width }) => {
+export const LeftTopSpace: FC<LeftTopSpaceProps> = React.memo(({ width }) => {
   const theme = useTheme()
   return (
     <Graphics

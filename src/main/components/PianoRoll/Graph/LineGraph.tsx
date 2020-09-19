@@ -1,4 +1,4 @@
-import React, { StatelessComponent } from "react"
+import React, { FC } from "react"
 
 import Stage, { StageProps } from "components/Stage/Stage"
 import LineGraphItem from "./LineGraphItem"
@@ -21,7 +21,7 @@ export type LineGraphProps = Omit<StageProps<LineGraphItem>, "items"> & {
   color: CanvasDrawStyle
 }
 
-const LineGraph: StatelessComponent<LineGraphProps> = ({
+const LineGraph: FC<LineGraphProps> = ({
   width,
   height,
   scrollLeft = 0,

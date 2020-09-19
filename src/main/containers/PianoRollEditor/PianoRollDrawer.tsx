@@ -1,11 +1,11 @@
-import React, { SFC } from "react"
+import React, { FC } from "react"
 import { Drawer, Divider } from "@material-ui/core"
 import { useObserver } from "mobx-react"
 import TrackList from "containers/TrackList/TrackList"
 import { SongListWrapper } from "./SongList"
 import { useStores } from "main/hooks/useStores"
 
-const PianoRollDrawer: SFC<{
+const PianoRollDrawer: FC<{
   open: boolean
   onClose: () => void
 }> = ({ open, onClose }) => (
@@ -16,7 +16,7 @@ const PianoRollDrawer: SFC<{
   </Drawer>
 )
 
-const PianoRollDrawerWrapper: SFC<{}> = () => {
+const PianoRollDrawerWrapper: FC<{}> = () => {
   const { rootStore } = useStores()
   const { openDrawer, onClose } = useObserver(() => ({
     openDrawer: rootStore.rootViewStore.openDrawer,

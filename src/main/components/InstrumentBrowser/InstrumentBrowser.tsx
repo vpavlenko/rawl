@@ -1,4 +1,4 @@
-import React, { SFC } from "react"
+import React, { FC } from "react"
 import _ from "lodash"
 
 import { getGMCategory } from "midi/GM.ts"
@@ -40,7 +40,7 @@ export interface PresetCategory {
   presets: PresetItem[]
 }
 
-const InstrumentBrowser: SFC<InstrumentBrowserProps> = ({
+const InstrumentBrowser: FC<InstrumentBrowserProps> = ({
   onClickCancel,
   onClickOK,
   isOpen,
@@ -141,7 +141,7 @@ const InstrumentBrowser: SFC<InstrumentBrowserProps> = ({
   )
 }
 
-const InstrumentBrowserWrapper: SFC<{}> = () => {
+const InstrumentBrowserWrapper: FC<{}> = () => {
   const { rootStore: stores } = useStores()
   const {
     track,

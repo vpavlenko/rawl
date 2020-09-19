@@ -1,4 +1,4 @@
-import React, { StatelessComponent, useState, useCallback, useRef } from "react"
+import React, { FC, useState, useCallback, useRef } from "react"
 import styled from "styled-components"
 import SplitPane from "react-split-pane"
 import useComponentSize from "@rehooks/component-size"
@@ -70,7 +70,7 @@ export interface PianoRollProps {
 const clamp = (value: number, min: number, max: number) =>
   Math.min(max, Math.max(min, value))
 
-export const PianoRoll: StatelessComponent<PianoRollProps> = ({
+export const PianoRoll: FC<PianoRollProps> = ({
   transform,
   endTick: trackEndTick,
   scrollLeft,

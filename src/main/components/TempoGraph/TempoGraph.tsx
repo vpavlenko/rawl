@@ -14,7 +14,7 @@ import Stage, { StageMouseEvent } from "components/Stage/Stage"
 import { bpmToUSecPerBeat, uSecPerBeatToBPM } from "helpers/bpm"
 import { createBeatsInRange } from "helpers/mapBeats"
 import _ from "lodash"
-import React, { StatelessComponent } from "react"
+import React, { FC } from "react"
 import transformEvents from "./transformEvents"
 
 import "./TempoGraph.css"
@@ -80,11 +80,7 @@ interface GraphAxisProps {
   offset: number
 }
 
-const GraphAxis: StatelessComponent<GraphAxisProps> = ({
-  width,
-  transform,
-  offset,
-}) => {
+const GraphAxis: FC<GraphAxisProps> = ({ width, transform, offset }) => {
   return (
     <div className="GraphAxis" style={{ width }}>
       <div className="values">
@@ -117,7 +113,7 @@ export interface TempoGraphProps {
   createTempo: (tick: number, microsecondsPerBeat: number) => void
 }
 
-export const TempoGraph: StatelessComponent<TempoGraphProps> = ({
+export const TempoGraph: FC<TempoGraphProps> = ({
   events: sourceEvents,
   size,
   pixelsPerTick,

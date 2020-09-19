@@ -1,4 +1,4 @@
-import React, { StatelessComponent, SFC } from "react"
+import React, { FC, FC } from "react"
 import _ from "lodash"
 import { withSize } from "react-sizeme"
 
@@ -66,7 +66,7 @@ const Toolbar = styled.div`
   height: 30px;
 `
 
-const TabBar: SFC<TabBarProps> = React.memo(({ onClick, selectedMode }) => {
+const TabBar: FC<TabBarProps> = React.memo(({ onClick, selectedMode }) => {
   const controlButton = (label: string, name: ControlMode): ButtonItem => ({
     label,
     selected: selectedMode === name,
@@ -131,7 +131,7 @@ export interface ControlPaneProps {
   createControlEvent: (mode: ControlMode, value: number, tick?: number) => void
 }
 
-const ControlPane: StatelessComponent<ControlPaneProps> = ({
+const ControlPane: FC<ControlPaneProps> = ({
   mode,
   theme,
   beats,

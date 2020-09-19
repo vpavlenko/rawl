@@ -1,4 +1,4 @@
-import React, { StatelessComponent } from "react"
+import React, { FC } from "react"
 import LineGraphControl, {
   LineGraphControlProps,
   LineGraphControlEvent,
@@ -14,7 +14,7 @@ export type ExpressionGraphProps = Omit<
   createEvent: (value: number, tick?: number) => void
 }
 
-const ExpressionGraph: StatelessComponent<ExpressionGraphProps> = ({
+const ExpressionGraph: FC<ExpressionGraphProps> = ({
   width,
   height,
   scrollLeft,

@@ -1,4 +1,4 @@
-import React, { StatelessComponent } from "react"
+import React, { FC } from "react"
 import { Graphics as PIXIGraphics } from "pixi.js"
 import _ from "lodash"
 
@@ -13,7 +13,7 @@ export interface PianoGridProps {
   beats: BeatWithX[]
 }
 
-const PianoGrid: StatelessComponent<PianoGridProps> = ({ height, beats }) => {
+const PianoGrid: FC<PianoGridProps> = ({ height, beats }) => {
   const theme = useTheme()
 
   function draw(ctx: PIXIGraphics) {

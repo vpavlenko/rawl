@@ -1,5 +1,5 @@
 import { ToolbarSeparator } from "components/groups/Toolbar"
-import React, { StatelessComponent, useCallback } from "react"
+import React, { FC, useCallback } from "react"
 import { shouldUpdate } from "recompose"
 import { Toolbar, IconButton, makeStyles } from "@material-ui/core"
 import { Stop, FastRewind, FastForward, PlayArrow } from "@material-ui/icons"
@@ -49,7 +49,7 @@ export interface TransportPanelProps {
   onChangeTempo: (tempo: number) => void
 }
 
-const TransportPanel: StatelessComponent<TransportPanelProps> = ({
+const TransportPanel: FC<TransportPanelProps> = ({
   onClickPlay,
   onClickStop,
   onClickBackward,

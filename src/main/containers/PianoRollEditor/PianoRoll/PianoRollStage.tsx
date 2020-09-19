@@ -1,6 +1,6 @@
-import React, { SFC, useState, useCallback, useMemo } from "react"
+import React, { FC, useState, useCallback, useMemo } from "react"
 import { Stage, Container } from "@inlet/react-pixi"
-import { Point, Rectangle, interaction } from "pixi.js"
+import { Point, Rectangle } from "pixi.js"
 import { useTheme } from "main/hooks/useTheme"
 import PencilMouseHandler from "./MouseHandler/PencilMouseHandler"
 import SelectionMouseHandler from "./MouseHandler/SelectionMouseHandler"
@@ -50,7 +50,7 @@ export interface PianoNotesMouseEvent {
   transform: NoteCoordTransform
 }
 
-export const PianoRollStage: SFC<PianoRollStageProps> = ({ width }) => {
+export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
   const { rootStore } = useStores()
   const {
     events,
@@ -99,9 +99,7 @@ export const PianoRollStage: SFC<PianoRollStageProps> = ({ width }) => {
     mouseMode === "pencil" ? pencilMouseHandler : selectionMouseHandler
 
   // MouseHandler で利用する追加情報をイベントに付加する
-  const extendEvent = (
-    e: PIXI.interaction.InteractionEvent
-  ): PianoNotesMouseEvent => {
+  const extendEvent = (e: PIXI.InteractionEvent): PianoNotesMouseEvent => {
     const local = {
       x: e.data.global.x - theme.keyWidth + scrollLeft,
       y: e.data.global.y - theme.rulerHeight + scrollTop,
@@ -115,13 +113,13 @@ export const PianoRollStage: SFC<PianoRollStageProps> = ({ width }) => {
     }
   }
 
-  const handleMouseDown = (e: PIXI.interaction.InteractionEvent) =>
+  const handleMouseDown = (e: PIXI.InteractionEvent) =>
     mouseHandler.onMouseDown(extendEvent(e))
 
-  const handleMouseMove = (e: PIXI.interaction.InteractionEvent) =>
+  const handleMouseMove = (e: PIXI.InteractionEvent) =>
     mouseHandler.onMouseMove(extendEvent(e))
 
-  const handleMouseUp = (e: PIXI.interaction.InteractionEvent) =>
+  const handleMouseUp = (e: PIXI.InteractionEvent) =>
     mouseHandler.onMouseUp(extendEvent(e))
 
   const onHoverNote = useCallback(() => {}, [])
@@ -210,15 +208,12 @@ export const PianoRollStage: SFC<PianoRollStageProps> = ({ width }) => {
 
   const { onContextMenu, menuProps } = useContextMenu()
 
-  const onRightClickSelection = useCallback(
-    (ev: interaction.InteractionEvent) => {
-      const e = ev.data.originalEvent as MouseEvent
-      onContextMenu(e)
-    },
-    []
-  )
+  const onRightClickSelection = useCallback((ev: PIXI.InteractionEvent) => {
+    const e = ev.data.originalEvent as MouseEvent
+    onContextMenu(e)
+  }, [])
 
-  const handleRightClick = useCallback((ev: interaction.InteractionEvent) => {
+  const handleRightClick = useCallback((ev: PIXI.InteractionEvent) => {
     if (rootStore.pianoRollStore.mouseMode === "selection") {
       const e = ev.data.originalEvent as MouseEvent
       onContextMenu(e)

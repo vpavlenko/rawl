@@ -1,4 +1,4 @@
-import React, { StatelessComponent } from "react"
+import React, { FC } from "react"
 import { withStyles } from "@material-ui/core"
 import { VolumeUp } from "@material-ui/icons"
 import Slider from "@material-ui/core/Slider"
@@ -24,7 +24,7 @@ export interface VolumeSliderProps {
   value: number
 }
 
-export const VolumeSlider: StatelessComponent<VolumeSliderProps> = React.memo(
+export const VolumeSlider: FC<VolumeSliderProps> = React.memo(
   ({ onChange, value }) => (
     <Container>
       <VolumeUp />

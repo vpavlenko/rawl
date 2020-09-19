@@ -1,4 +1,4 @@
-import React, { SFC, useState, useEffect } from "react"
+import React, { FC, useState, useEffect } from "react"
 import { TempoCoordTransform } from "common/transform"
 import { TempoGraph } from "components/TempoGraph/TempoGraph"
 import { setPlayerPosition, changeTempo, createTempo } from "main/actions"
@@ -13,7 +13,7 @@ interface TempoGraphWrapperProps {
   size: ISize
 }
 
-const TempoGraphWrapper: SFC<TempoGraphWrapperProps> = (props) => {
+const TempoGraphWrapper: FC<TempoGraphWrapperProps> = (props) => {
   const { rootStore } = useStores()
 
   const {

@@ -1,4 +1,4 @@
-import React, { StatelessComponent } from "react"
+import React, { FC } from "react"
 
 import {
   List,
@@ -23,7 +23,7 @@ export interface TrackListProps {
   onClickArrangeView: () => void
 }
 
-export const TrackList: StatelessComponent<TrackListProps> = ({
+export const TrackList: FC<TrackListProps> = ({
   tracks,
   onSelectTrack,
   onClickSolo,

@@ -1,10 +1,5 @@
-import React, { StatelessComponent } from "react"
-import {
-  Graphics as PIXIGraphics,
-  Point,
-  interaction,
-  Rectangle,
-} from "pixi.js"
+import React, { FC } from "react"
+import { Graphics as PIXIGraphics, Rectangle } from "pixi.js"
 import _ from "lodash"
 
 import { IRect } from "common/geometry"
@@ -16,13 +11,10 @@ const LINE_WIDTH = 2
 
 export interface PianoSelectionProps {
   bounds: IRect
-  onRightClick: (e: interaction.InteractionEvent) => void
+  onRightClick: (e: PIXI.InteractionEvent) => void
 }
 
-const PianoSelection: StatelessComponent<PianoSelectionProps> = ({
-  bounds,
-  onRightClick,
-}) => {
+const PianoSelection: FC<PianoSelectionProps> = ({ bounds, onRightClick }) => {
   const theme = useTheme()
   const color = Color(theme.themeColor).rgbNumber()
 

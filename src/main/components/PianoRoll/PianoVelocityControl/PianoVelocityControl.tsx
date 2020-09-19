@@ -1,4 +1,4 @@
-import React, { useCallback, SFC } from "react"
+import React, { useCallback, FC } from "react"
 import _ from "lodash"
 
 import VelocityItem, { VelocityItemEvent } from "./VelocityItem"
@@ -27,7 +27,7 @@ const Parent = styled.div`
   left: 0;
 `
 
-const PianoVelocityControl: SFC<PianoVelocityControlProps> = ({
+const PianoVelocityControl: FC<PianoVelocityControlProps> = ({
   width,
   height,
   events,

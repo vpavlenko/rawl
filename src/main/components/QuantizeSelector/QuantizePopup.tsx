@@ -1,4 +1,4 @@
-import React, { SFC } from "react"
+import React, { FC } from "react"
 import Icon from "components/outputs/Icon"
 
 import "./QuantizePopup.css"
@@ -12,7 +12,7 @@ interface NumberPickerProps {
   onChange: (v: number) => void
 }
 
-const NumberPicker: SFC<NumberPickerProps> = ({
+const NumberPicker: FC<NumberPickerProps> = ({
   value,
   prevValue,
   nextValue,

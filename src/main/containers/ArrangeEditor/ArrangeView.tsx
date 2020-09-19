@@ -1,4 +1,4 @@
-import React, { SFC, useState, useEffect } from "react"
+import React, { FC, useState, useEffect } from "react"
 import { ISize } from "common/geometry"
 import { NoteCoordTransform } from "common/transform"
 import {
@@ -20,7 +20,7 @@ interface ArrangeViewWrapperProps {
   size: ISize
 }
 
-const ArrangeViewWrapper: SFC<ArrangeViewWrapperProps> = ({ size }) => {
+const ArrangeViewWrapper: FC<ArrangeViewWrapperProps> = ({ size }) => {
   const { rootStore } = useStores()
 
   const {

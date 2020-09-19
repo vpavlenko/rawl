@@ -1,4 +1,4 @@
-import React, { StatelessComponent } from "react"
+import React, { FC } from "react"
 import LineGraphControl, {
   LineGraphControlProps,
   LineGraphControlEvent,
@@ -14,7 +14,7 @@ export type PanGraphProps = Omit<
   createEvent: (value: number, tick?: number) => void
 }
 
-const PanGraph: StatelessComponent<PanGraphProps> = ({
+const PanGraph: FC<PanGraphProps> = ({
   width,
   height,
   scrollLeft,

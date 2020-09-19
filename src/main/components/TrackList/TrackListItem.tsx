@@ -1,4 +1,4 @@
-import React, { SFC } from "react"
+import React, { FC } from "react"
 
 import { VolumeOff, VolumeUp, Headset } from "@material-ui/icons"
 import { ListItem, IconButton } from "@material-ui/core"
@@ -24,7 +24,7 @@ export type TrackListItemProps = TrackListItemData & {
   onClickDelete: () => void
 }
 
-const TrackListItem: SFC<TrackListItemProps> = ({
+const TrackListItem: FC<TrackListItemProps> = ({
   name,
   instrument,
   mute,

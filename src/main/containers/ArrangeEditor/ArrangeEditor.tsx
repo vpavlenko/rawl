@@ -1,4 +1,4 @@
-import React, { SFC } from "react"
+import React, { FC } from "react"
 import NavigationBar from "main/components/groups/NavigationBar"
 import ArrangeToolbar from "./ArrangeToolbar"
 import RootStore from "stores/RootStore"
@@ -25,7 +25,7 @@ function NavItem({ title, onClick }: NavItemProps) {
   )
 }
 
-const ArrangeEditor: SFC<ArrangeEditorProps> = ({ pushSettings }) => {
+const ArrangeEditor: FC<ArrangeEditorProps> = ({ pushSettings }) => {
   return (
     <div className="ArrangeEditor">
       <NavigationBar>
@@ -41,10 +41,7 @@ const ArrangeEditor: SFC<ArrangeEditorProps> = ({ pushSettings }) => {
 
 const mapStoreToProps = ({ rootStore: { router } }: { rootStore: RootStore }) =>
   ({
-    pushSettings: () => router.pushSettings()
+    pushSettings: () => router.pushSettings(),
   } as ArrangeEditorProps)
 
-export default compose(
-  inject(mapStoreToProps),
-  observer
-)(ArrangeEditor)
+export default compose(inject(mapStoreToProps), observer)(ArrangeEditor)

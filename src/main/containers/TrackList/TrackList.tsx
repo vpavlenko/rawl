@@ -1,4 +1,4 @@
-import React, { SFC } from "react"
+import React, { FC } from "react"
 import { useObserver } from "mobx-react"
 import {
   removeTrack,
@@ -11,7 +11,7 @@ import { TrackList } from "components/TrackList/TrackList"
 import { useStores } from "main/hooks/useStores"
 import { TrackListItemData } from "src/main/components/TrackList/TrackListItem"
 
-const TrackListWrapper: SFC<{}> = () => {
+const TrackListWrapper: FC<{}> = () => {
   const { rootStore: stores } = useStores()
   const { router } = stores
   const { tracks } = useObserver(() => {

@@ -1,4 +1,4 @@
-import React, { SFC } from "react"
+import React, { FC } from "react"
 
 import PianoGrid from "components/PianoRoll/PianoGrid"
 import PianoRuler from "components/PianoRoll/PianoRuler"
@@ -90,7 +90,7 @@ export interface ArrangeViewProps {
   openContextMenu: (e: React.MouseEvent, isSelectionSelected: boolean) => void
 }
 
-export const ArrangeView: SFC<ArrangeViewProps> = ({
+export const ArrangeView: FC<ArrangeViewProps> = ({
   tracks,
   theme,
   measures,

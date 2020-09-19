@@ -17,7 +17,6 @@ export function addDeltaTime<T extends TickProvider>(
         ...e,
         deltaTime: e.tick - prevTick
       }
-      delete newEvent.tick
       return newEvent
     })
 }

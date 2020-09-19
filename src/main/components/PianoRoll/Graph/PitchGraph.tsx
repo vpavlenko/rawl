@@ -1,4 +1,4 @@
-import React, { StatelessComponent } from "react"
+import React, { FC } from "react"
 import { PitchBendEvent } from "midifile-ts"
 import LineGraphControl, {
   LineGraphControlProps,
@@ -14,7 +14,7 @@ export type PitchGraphProps = Omit<
   createEvent: (value: number, tick?: number) => void
 }
 
-const PitchGraph: StatelessComponent<PitchGraphProps> = ({
+const PitchGraph: FC<PitchGraphProps> = ({
   width,
   height,
   scrollLeft,

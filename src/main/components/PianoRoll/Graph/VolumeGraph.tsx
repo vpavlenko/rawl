@@ -1,4 +1,4 @@
-import React, { StatelessComponent } from "react"
+import React, { FC } from "react"
 import LineGraphControl, {
   LineGraphControlProps,
   LineGraphControlEvent,
@@ -14,7 +14,7 @@ export type VolumeGraphProps = Omit<
   createEvent: (value: number, tick?: number) => void
 }
 
-const VolumeGraph: StatelessComponent<VolumeGraphProps> = ({
+const VolumeGraph: FC<VolumeGraphProps> = ({
   width,
   height,
   scrollLeft,

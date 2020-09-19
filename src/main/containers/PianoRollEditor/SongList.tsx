@@ -1,4 +1,4 @@
-import React, { SFC, ChangeEvent } from "react"
+import React, { FC, ChangeEvent } from "react"
 import { List, ListSubheader, ListItem, ListItemText } from "@material-ui/core"
 import { createSong, openSong, saveSong } from "actions"
 import { useStores } from "main/hooks/useStores"
@@ -11,7 +11,7 @@ interface SongListProps {
 
 const fileInputID = "OpenButtonInputFile"
 
-const FileInput: SFC<{
+const FileInput: FC<{
   onChange: (e: ChangeEvent<HTMLInputElement>) => void
 }> = ({ onChange, children }) => (
   <>
@@ -26,7 +26,7 @@ const FileInput: SFC<{
   </>
 )
 
-const SongList: SFC<SongListProps> = ({
+const SongList: FC<SongListProps> = ({
   onClickNew,
   onClickOpen,
   onClickSave,
@@ -50,7 +50,7 @@ const SongList: SFC<SongListProps> = ({
   </List>
 )
 
-export const SongListWrapper: SFC<{}> = () => {
+export const SongListWrapper: FC<{}> = () => {
   const { rootStore } = useStores()
   return (
     <SongList

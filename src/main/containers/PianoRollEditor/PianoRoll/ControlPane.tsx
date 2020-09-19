@@ -1,4 +1,4 @@
-import React, { SFC, useCallback } from "react"
+import React, { FC, useCallback } from "react"
 import { withSize } from "react-sizeme"
 import { useObserver } from "mobx-react"
 import ControlPane, { ControlMode } from "main/components/PianoRoll/ControlPane"
@@ -10,7 +10,7 @@ import { createBeatsInRange } from "common/helpers/mapBeats"
 import { ISize } from "common/geometry"
 import { toJS } from "mobx"
 
-const ControlPaneWrapper_: SFC<{ size: ISize }> = ({ size }) => {
+const ControlPaneWrapper_: FC<{ size: ISize }> = ({ size }) => {
   const { rootStore } = useStores()
   const {
     events,

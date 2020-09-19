@@ -1,4 +1,4 @@
-import React, { SFC, useEffect, useCallback } from "react"
+import React, { FC, useEffect, useCallback } from "react"
 import { NoteCoordTransform } from "common/transform"
 import { useObserver } from "mobx-react"
 import { withSize } from "react-sizeme"
@@ -11,7 +11,7 @@ export interface PianoRollWrapperProps {
   size: ISize
 }
 
-const PianoRollWrapper: SFC<PianoRollWrapperProps> = ({ size }) => {
+const PianoRollWrapper: FC<PianoRollWrapperProps> = ({ size }) => {
   const { rootStore } = useStores()
   const {
     endTick,

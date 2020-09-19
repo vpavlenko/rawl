@@ -1,6 +1,5 @@
-import React, { SFC } from "react"
-import { Graphics as PIXIGraphics, interaction, Rectangle } from "pixi.js"
-import Item from "components/Stage/Item"
+import React, { FC } from "react"
+import { Graphics as PIXIGraphics, Rectangle } from "pixi.js"
 import { IRect } from "common/geometry"
 import { Graphics } from "@inlet/react-pixi"
 import _ from "lodash"
@@ -15,11 +14,11 @@ export interface VelocityItemProps {
 }
 
 export interface VelocityItemEvent {
-  originalEvent: interaction.InteractionEvent
+  originalEvent: PIXI.InteractionEvent
   item: VelocityItemProps
 }
 
-const VelocityItem: SFC<VelocityItemProps> = (props) => {
+const VelocityItem: FC<VelocityItemProps> = (props) => {
   const { bounds, selected, fillColor, itemHeight, onMouseDown } = props
 
   const draw = (g: PIXIGraphics) => {

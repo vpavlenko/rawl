@@ -4,7 +4,7 @@ import { NoteCoordTransform } from "common/transform"
 import { Container } from "@inlet/react-pixi"
 
 import _ from "lodash"
-import React, { StatelessComponent } from "react"
+import React, { FC } from "react"
 import { PianoNote, PianoNoteMouseEvent, PianoNoteItem } from "./PianoNote"
 import { useTheme } from "main/hooks/useTheme"
 import { KeyedValue } from "main/hooks/recycleKeys"
@@ -27,7 +27,7 @@ export interface PianoNotesNoteMouseEvent extends PianoNoteMouseEvent {
 /**
   ノートイベントを描画するコンポーネント
 */
-const PianoNotes: StatelessComponent<PianoNotesProps> = ({
+const PianoNotes: FC<PianoNotesProps> = ({
   notes,
   cursor,
   onDragNote,

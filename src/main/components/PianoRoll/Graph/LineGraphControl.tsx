@@ -1,4 +1,4 @@
-import React, { StatelessComponent } from "react"
+import React, { FC } from "react"
 import LineGraph, { LineGraphProps } from "./LineGraph"
 import { NoteCoordTransform } from "common/transform"
 import { StageMouseEvent } from "components/Stage/Stage"
@@ -21,7 +21,7 @@ export type LineGraphControlProps = Omit<LineGraphProps, "items"> & {
   createEvent: (value: ItemValue) => void
 }
 
-const LineGraphControl: StatelessComponent<LineGraphControlProps> = ({
+const LineGraphControl: FC<LineGraphControlProps> = ({
   events,
   transform,
   maxValue,

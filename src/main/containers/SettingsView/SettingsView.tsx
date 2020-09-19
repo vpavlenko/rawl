@@ -1,4 +1,4 @@
-import React, { StatelessComponent } from "react"
+import React, { FC } from "react"
 import { observer, inject } from "mobx-react"
 import { compose } from "recompose"
 import NavigationBar from "components/groups/NavigationBar"
@@ -10,10 +10,7 @@ interface SettingItemProps {
   label: string
 }
 
-const SettingItem: StatelessComponent<SettingItemProps> = ({
-  label,
-  children
-}) => {
+const SettingItem: FC<SettingItemProps> = ({ label, children }) => {
   return (
     <div className="SettingItem">
       <div className="label">{label}</div>
@@ -32,14 +29,14 @@ interface SettingsViewProps {
   onClickStopRecording: () => void
 }
 
-const SettingsView: StatelessComponent<SettingsViewProps> = ({
+const SettingsView: FC<SettingsViewProps> = ({
   onClickNavBack,
   soundFontPath,
   onClickOpenSoundFont,
   clearSettings,
   onClickShowSynth,
   onClickStartRecording,
-  onClickStopRecording
+  onClickStopRecording,
 }) => {
   return (
     <div className="SettingsView">
@@ -77,8 +74,8 @@ export default compose(
       rootStore: {
         router,
         settingsStore: s,
-        services: { synth }
-      }
+        services: { synth },
+      },
     }: {
       rootStore: RootStore
     }) =>
@@ -103,7 +100,7 @@ export default compose(
         },
         onClickStopRecording: () => {
           synth.stopRecording()
-        }
+        },
       } as SettingsViewProps)
   ),
   observer

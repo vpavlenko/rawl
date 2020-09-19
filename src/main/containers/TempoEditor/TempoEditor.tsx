@@ -1,4 +1,4 @@
-import React, { StatelessComponent } from "react"
+import React, { FC } from "react"
 import { observer, inject } from "mobx-react"
 import { compose } from "recompose"
 
@@ -12,9 +12,7 @@ interface TempoEditorProps {
   onClickNavBack: () => void
 }
 
-const TempoEditor: StatelessComponent<TempoEditorProps> = ({
-  onClickNavBack
-}) => {
+const TempoEditor: FC<TempoEditorProps> = ({ onClickNavBack }) => {
   return (
     <div className="TempoEditor">
       <NavigationBar title="Tempo" onClickBack={onClickNavBack} />
@@ -27,7 +25,7 @@ export default compose(
   inject(
     ({ rootStore: { router } }: { rootStore: RootStore }) =>
       ({
-        onClickNavBack: () => router.pushArrange()
+        onClickNavBack: () => router.pushArrange(),
       } as TempoEditorProps)
   ),
   observer

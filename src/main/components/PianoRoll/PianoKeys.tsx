@@ -1,10 +1,5 @@
-import React, { SFC } from "react"
-import {
-  Graphics as PIXIGraphics,
-  interaction,
-  Point,
-  TextStyle,
-} from "pixi.js"
+import React, { FC } from "react"
+import { Graphics as PIXIGraphics, Point, TextStyle } from "pixi.js"
 import _ from "lodash"
 
 import { noteNameWithOctString } from "helpers/noteNumberString"
@@ -19,7 +14,7 @@ interface BlackKeyProps {
   position: Point
 }
 
-const BlackKey: SFC<BlackKeyProps> = ({ width, height, position }) => {
+const BlackKey: FC<BlackKeyProps> = ({ width, height, position }) => {
   const theme = useTheme()
   const color = Color(theme.pianoKeyBlack).rgbNumber()
   const dividerColor = Color(theme.dividerColor).rgbNumber()
@@ -45,7 +40,7 @@ interface LabelProps {
   color: number
 }
 
-const KeyLabel: SFC<LabelProps> = ({ width, keyNum, font, color, y }) => {
+const KeyLabel: FC<LabelProps> = ({ width, keyNum, font, color, y }) => {
   const x = width - 20
   const style = new TextStyle({
     fontFamily: font,
@@ -70,7 +65,7 @@ export interface PianoKeysProps {
   keyHeight: number
 }
 
-const PianoKeys: SFC<PianoKeysProps> = ({
+const PianoKeys: FC<PianoKeysProps> = ({
   onClickKey,
   numberOfKeys,
   keyHeight,
@@ -94,7 +89,7 @@ const PianoKeys: SFC<PianoKeysProps> = ({
     return numberOfKeys - y / keyHeight
   }
 
-  function onMouseDown(e: interaction.InteractionEvent) {
+  function onMouseDown(e: PIXI.InteractionEvent) {
     const ev = e.data.originalEvent as MouseEvent
     const noteNumber = Math.floor(pixelsToNoteNumber(ev.offsetY))
     onClickKey(noteNumber)

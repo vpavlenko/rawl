@@ -1,4 +1,4 @@
-import React, { StatelessComponent } from "react"
+import React, { FC } from "react"
 import { pure } from "recompose"
 
 import f from "helpers/flatJoin"
@@ -13,12 +13,7 @@ export interface IconProps {
   onClick?: () => void
 }
 
-const Icon: StatelessComponent<IconProps> = ({
-  component,
-  children,
-  className,
-  onClick
-}) => {
+const Icon: FC<IconProps> = ({ component, children, className, onClick }) => {
   const ElementType = e(component)
   return (
     <ElementType

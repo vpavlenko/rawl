@@ -1,4 +1,4 @@
-import React, { StatelessComponent } from "react"
+import React, { FC } from "react"
 import { Graphics as PIXIGraphics } from "pixi.js"
 import { Graphics } from "@inlet/react-pixi"
 import Color from "color"
@@ -7,7 +7,7 @@ export interface PianoCursorProps {
   height: number
 }
 
-const PianoCursor: StatelessComponent<PianoCursorProps> = ({ height }) => {
+const PianoCursor: FC<PianoCursorProps> = ({ height }) => {
   function draw(ctx: PIXIGraphics) {
     console.log("render PianoCursor")
     const color = Color("red").rgbNumber()

@@ -1,4 +1,4 @@
-import React, { StatelessComponent, ReactNode, CSSProperties } from "react"
+import React, { FC, ReactNode, CSSProperties } from "react"
 import { withSize } from "react-sizeme"
 import Icon from "components/outputs/Icon"
 import { ScrollBar, BAR_WIDTH, ScrollBarProps } from "./ScrollBar"
@@ -11,11 +11,7 @@ interface ScaleButtonProps {
   onClick?: () => void
 }
 
-const ScaleButton: StatelessComponent<ScaleButtonProps> = ({
-  style,
-  children,
-  onClick,
-}) => {
+const ScaleButton: FC<ScaleButtonProps> = ({ style, children, onClick }) => {
   return (
     <div className="ScaleButton" style={style} onClick={onClick}>
       {children}
@@ -33,7 +29,7 @@ type HorizontalScaleScrollBar_Props = Omit<
   onClickScaleUp?: () => void
 }
 
-const HorizontalScaleScrollBar_: StatelessComponent<HorizontalScaleScrollBar_Props> = (
+const HorizontalScaleScrollBar_: FC<HorizontalScaleScrollBar_Props> = (
   props
 ) => {
   const buttonSize = BAR_WIDTH

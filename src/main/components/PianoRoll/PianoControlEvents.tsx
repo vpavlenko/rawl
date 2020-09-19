@@ -1,4 +1,4 @@
-import React, { StatelessComponent } from "react"
+import React, { FC } from "react"
 import { controllerTypeString as CCNames } from "helpers/noteNumberString"
 import { TrackEvent, TrackEventRequired } from "common/track"
 import "./PianoControlEvents.css"
@@ -26,10 +26,10 @@ interface ControlMarkProps {
   onDoubleClick: () => void
 }
 
-const ControlMark: StatelessComponent<ControlMarkProps> = ({
+const ControlMark: FC<ControlMarkProps> = ({
   group,
   pixelsPerTick,
-  onDoubleClick
+  onDoubleClick,
 }) => {
   const event = group[0]
   return (
@@ -100,12 +100,12 @@ export interface PianoControlEventsProps {
   onDoubleClickMark: (group: DisplayEvent[]) => void
 }
 
-const PianoControlEvents: StatelessComponent<PianoControlEventsProps> = ({
+const PianoControlEvents: FC<PianoControlEventsProps> = ({
   width,
   events,
   scrollLeft,
   pixelsPerTick,
-  onDoubleClickMark
+  onDoubleClickMark,
 }) => {
   const eventGroups = groupControlEvents(
     events.filter(isDisplayControlEvent),

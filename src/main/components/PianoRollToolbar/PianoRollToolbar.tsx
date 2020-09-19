@@ -1,4 +1,4 @@
-import React, { StatelessComponent } from "react"
+import React, { FC } from "react"
 import {
   AppBar,
   Toolbar,
@@ -61,7 +61,7 @@ export interface PianoRollToolbarProps {
   onClickNavBack: () => void
 }
 
-export const PianoRollToolbar: StatelessComponent<PianoRollToolbarProps> = React.memo(
+export const PianoRollToolbar: FC<PianoRollToolbarProps> = React.memo(
   ({
     trackName,
     instrumentName,

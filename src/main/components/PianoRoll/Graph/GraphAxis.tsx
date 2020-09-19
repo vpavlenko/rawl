@@ -1,4 +1,4 @@
-import React, { SFC } from "react"
+import React, { FC } from "react"
 import styled from "styled-components"
 
 const Parent = styled.div`
@@ -31,22 +31,20 @@ export interface GraphAxisProps {
   onClick: (value: number) => void
 }
 
-export const GraphAxis: SFC<GraphAxisProps> = React.memo(
-  ({ axis, onClick }) => {
-    return (
-      <Parent>
-        <Values>
-          {axis.reverse().map((value) => (
-            <Value
-              key={value}
-              className="AxisValue"
-              onClick={() => onClick(value)}
-            >
-              {value}
-            </Value>
-          ))}
-        </Values>
-      </Parent>
-    )
-  }
-)
+export const GraphAxis: FC<GraphAxisProps> = React.memo(({ axis, onClick }) => {
+  return (
+    <Parent>
+      <Values>
+        {axis.reverse().map((value) => (
+          <Value
+            key={value}
+            className="AxisValue"
+            onClick={() => onClick(value)}
+          >
+            {value}
+          </Value>
+        ))}
+      </Values>
+    </Parent>
+  )
+})

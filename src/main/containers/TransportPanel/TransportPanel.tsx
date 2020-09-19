@@ -1,4 +1,4 @@
-import React, { SFC } from "react"
+import React, { FC } from "react"
 import { TIME_BASE } from "Constants"
 import {
   play,
@@ -12,7 +12,7 @@ import TransportPanel from "components/TransportPanel/TransportPanel"
 import { useStores } from "main/hooks/useStores"
 import { getMBTString } from "common/measure/mbt"
 
-const TransportPanelWrapper: SFC<{}> = () => {
+const TransportPanelWrapper: FC<{}> = () => {
   const { rootStore: stores } = useStores()
   const { tempo, router, loop, mbtTime } = useObserver(() => ({
     tempo: stores.song.conductorTrack?.tempo ?? 0,

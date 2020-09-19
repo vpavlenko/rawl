@@ -1,4 +1,4 @@
-import React, { StatelessComponent } from "react"
+import React, { FC } from "react"
 import { withStyles } from "@material-ui/core"
 import Slider, { SliderProps } from "@material-ui/core/Slider"
 import styled from "styled-components"
@@ -28,7 +28,7 @@ export interface PanSliderProps {
   value: number
 }
 
-export const PanSlider: StatelessComponent<PanSliderProps> = React.memo(
+export const PanSlider: FC<PanSliderProps> = React.memo(
   ({ onChange, value }) => (
     <Container>
       <Label>Pan</Label>

@@ -1,4 +1,10 @@
-import { copySelection, pasteSelection, deleteSelection } from "main/actions"
+import {
+  copySelection,
+  pasteSelection,
+  deleteSelection,
+  play,
+  stop,
+} from "main/actions"
 import RootStore from "../stores/RootStore"
 
 export function bindKeyboardShortcut(rootStore: RootStore) {
@@ -14,21 +20,21 @@ export function bindKeyboardShortcut(rootStore: RootStore) {
     switch (e.code) {
       case "Space": {
         if (player.isPlaying) {
-          player.stop()
+          stop(rootStore)()
         } else {
-          player.play(song)
+          play(rootStore)()
         }
         e.preventDefault()
         break
       }
       case "KeyZ": {
-        if (e.ctrlKey) {
+        if (e.ctrlKey || e.metaKey) {
           rootStore.undo()
         }
         break
       }
       case "KeyY": {
-        if (e.ctrlKey) {
+        if (e.ctrlKey || e.metaKey) {
           rootStore.redo()
         }
         break

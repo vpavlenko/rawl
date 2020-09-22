@@ -47,6 +47,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
+const TrackName = styled.span`
+  font-weight: bold;
+  margin-right: 2em;
+  font-size: 1rem;
+`
+
 const AutoScrollIcon = styled(KeyboardTab)`
   font-size: 1.3rem;
 `
@@ -95,9 +101,7 @@ export const PianoRollToolbar: FC<PianoRollToolbarProps> = React.memo(
             <MenuIcon />
           </IconButton>
 
-          <Typography variant="h6" className={classes.title}>
-            {trackName}
-          </Typography>
+          <TrackName>{trackName}</TrackName>
 
           <Button
             className={classes.instrumentButton}

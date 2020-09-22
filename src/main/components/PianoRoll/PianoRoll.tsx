@@ -34,7 +34,8 @@ const Parent = styled.div`
 const Content = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100%;
+  position: relative;
+  height: calc(100% - 17px);
 `
 
 const Alpha = styled.div`

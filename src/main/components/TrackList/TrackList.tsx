@@ -1,17 +1,10 @@
 import React, { FC } from "react"
 
-import {
-  List,
-  ListSubheader,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-} from "@material-ui/core"
+import { List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core"
 
 import TrackListItem, { TrackListItemData } from "./TrackListItem"
 import { Add } from "@material-ui/icons"
-
-import "./TrackList.css"
+import { ListHeader } from "main/containers/PianoRollEditor/PianoRollDrawer"
 
 export interface TrackListProps {
   tracks: TrackListItemData[]
@@ -45,7 +38,7 @@ export const TrackList: FC<TrackListProps> = ({
 
   return (
     <List>
-      <ListSubheader onClick={onClickArrangeView}>Tracks</ListSubheader>
+      <ListHeader onClick={onClickArrangeView}>Tracks</ListHeader>
       {items}
       <ListItem button onClick={onClickAddTrack}>
         <ListItemIcon>

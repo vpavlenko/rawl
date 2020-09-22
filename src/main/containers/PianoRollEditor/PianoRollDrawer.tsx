@@ -1,9 +1,10 @@
 import React, { FC } from "react"
-import { Drawer, Divider } from "@material-ui/core"
+import { Drawer, Divider, ListSubheader } from "@material-ui/core"
 import { useObserver } from "mobx-react"
 import TrackList from "containers/TrackList/TrackList"
 import { SongListWrapper } from "./SongList"
 import { useStores } from "main/hooks/useStores"
+import styled from "styled-components"
 
 const PianoRollDrawer: FC<{
   open: boolean
@@ -24,5 +25,9 @@ const PianoRollDrawerWrapper: FC = () => {
   }))
   return <PianoRollDrawer open={openDrawer} onClose={onClose} />
 }
+
+export const ListHeader = styled(ListSubheader)`
+  background: var(--background-color);
+`
 
 export default PianoRollDrawerWrapper

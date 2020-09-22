@@ -1,7 +1,8 @@
 import React, { FC, ChangeEvent } from "react"
-import { List, ListSubheader, ListItem, ListItemText } from "@material-ui/core"
+import { List, ListItem, ListItemText } from "@material-ui/core"
 import { createSong, openSong, saveSong } from "actions"
 import { useStores } from "main/hooks/useStores"
+import { ListHeader } from "./PianoRollDrawer"
 
 interface SongListProps {
   onClickNew: () => void
@@ -32,7 +33,7 @@ const SongList: FC<SongListProps> = ({
   onClickSave,
 }) => (
   <List>
-    <ListSubheader>Song</ListSubheader>
+    <ListHeader>Song</ListHeader>
 
     <ListItem button onClick={onClickNew}>
       <ListItemText primary="New" />

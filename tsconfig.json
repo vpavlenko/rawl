@@ -9,6 +9,7 @@
     "sourceMap": true,
     "target": "es5",
     "module": "es2015",
+    "esModuleInterop": true,
     "jsx": "react",
     "moduleResolution": "node",
     "experimentalDecorators": true,

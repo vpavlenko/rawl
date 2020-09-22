@@ -17,7 +17,7 @@ const PianoRollDrawer: FC<{
   </Drawer>
 )
 
-const PianoRollDrawerWrapper: FC = () => {
+export const PianoRollDrawerWrapper: FC = () => {
   const { rootStore } = useStores()
   const { openDrawer, onClose } = useObserver(() => ({
     openDrawer: rootStore.rootViewStore.openDrawer,
@@ -29,5 +29,3 @@ const PianoRollDrawerWrapper: FC = () => {
 export const ListHeader = styled(ListSubheader)`
   background: var(--background-color);
 `
-
-export default PianoRollDrawerWrapper

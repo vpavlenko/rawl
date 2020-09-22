@@ -5,10 +5,10 @@ import {
   ListSubheader,
 } from "@material-ui/core"
 import { useObserver } from "mobx-react"
-import TrackList from "containers/TrackList/TrackList"
-import { SongListWrapper } from "../../containers/PianoRollEditor/SongList"
+import { SongList } from "./SongList"
 import { useStores } from "main/hooks/useStores"
 import styled from "styled-components"
+import { TrackList } from "./TrackList/TrackList"
 
 export const Drawer: FC = () => {
   const { rootStore } = useStores()
@@ -18,7 +18,7 @@ export const Drawer: FC = () => {
   }))
   return (
     <MaterialDrawer open={open} onClose={onClose}>
-      <SongListWrapper />
+      <SongList />
       <Divider />
       <TrackList />
     </MaterialDrawer>

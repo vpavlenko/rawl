@@ -4,14 +4,14 @@ import { compose } from "recompose"
 import PianoRollEditor from "containers/PianoRollEditor/PianoRollEditor"
 import TransportPanel from "../TransportPanel/TransportPanel"
 import { BuildInfo } from "main/components/BuildInfo"
-import { PianoRollDrawerWrapper } from "../PianoRollEditor/PianoRollDrawer"
+import { Drawer } from "../../components/Drawer/Drawer"
 
 import "./Resizer.css"
 import "./RootView.css"
 
 const RootView: FC = () => (
   <div className="RootView">
-    <PianoRollDrawerWrapper />
+    <Drawer />
     <PianoRollEditor />
     <TransportPanel />
     <BuildInfo />

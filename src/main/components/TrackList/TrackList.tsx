@@ -4,7 +4,7 @@ import { List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core"
 
 import TrackListItem, { TrackListItemData } from "./TrackListItem"
 import { Add } from "@material-ui/icons"
-import { ListHeader } from "main/containers/PianoRollEditor/PianoRollDrawer"
+import { ListHeader } from "main/components/Drawer/Drawer"
 
 export interface TrackListProps {
   tracks: TrackListItemData[]

@@ -2,7 +2,7 @@ import React, { FC, ChangeEvent } from "react"
 import { List, ListItem, ListItemText } from "@material-ui/core"
 import { createSong, openSong, saveSong } from "actions"
 import { useStores } from "main/hooks/useStores"
-import { ListHeader } from "./PianoRollDrawer"
+import { ListHeader } from "../../components/Drawer/Drawer"
 
 interface SongListProps {
   onClickNew: () => void

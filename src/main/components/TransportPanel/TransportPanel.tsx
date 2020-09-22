@@ -54,6 +54,10 @@ const Button = styled(IconButton)`
   svg {
     font-size: 1rem;
   }
+
+  &.playing {
+    background: var(--theme-color);
+  }
 `
 
 const TempoWrapper = styled.div`
@@ -117,6 +121,7 @@ export interface TransportPanelProps {
   mbtTime: string
   tempo: number
   onChangeTempo: (tempo: number) => void
+  isPlaying: boolean
 }
 
 const TransportPanel: FC<TransportPanelProps> = ({
@@ -129,6 +134,7 @@ const TransportPanel: FC<TransportPanelProps> = ({
   mbtTime,
   tempo = 0,
   onChangeTempo,
+  isPlaying,
 }) => {
   const classes = useStyles({})
   return (
@@ -139,7 +145,10 @@ const TransportPanel: FC<TransportPanelProps> = ({
       <Button onClick={onClickStop}>
         <Stop />
       </Button>
-      <Button onClick={onClickPlay}>
+      <Button
+        onClick={onClickPlay}
+        className={isPlaying ? "playing" : undefined}
+      >
         <PlayArrow />
       </Button>
       <Button onClick={onClickForward}>
@@ -163,7 +172,8 @@ function test(props: TransportPanelProps, nextProps: TransportPanelProps) {
   return (
     props.loopEnabled !== nextProps.loopEnabled ||
     props.mbtTime !== nextProps.mbtTime ||
-    props.tempo !== nextProps.tempo
+    props.tempo !== nextProps.tempo ||
+    props.isPlaying !== nextProps.isPlaying
   )
 }
 

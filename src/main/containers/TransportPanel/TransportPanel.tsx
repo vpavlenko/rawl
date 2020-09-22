@@ -8,7 +8,7 @@ import { getMBTString } from "common/measure/mbt"
 
 const TransportPanelWrapper: FC = () => {
   const { rootStore: stores } = useStores()
-  const { tempo, loop, mbtTime } = useObserver(() => ({
+  const { tempo, loop, mbtTime, isPlaying } = useObserver(() => ({
     tempo: stores.song.conductorTrack?.tempo ?? 0,
     player: stores.services.player,
     loop: stores.playerStore.loop,
@@ -17,6 +17,7 @@ const TransportPanelWrapper: FC = () => {
       stores.playerStore.position,
       stores.services.player.timebase
     ),
+    isPlaying: stores.services.player.isPlaying,
   }))
   return (
     <TransportPanel
@@ -31,6 +32,7 @@ const TransportPanelWrapper: FC = () => {
       onChangeTempo={(tempo) => {
         stores.song.conductorTrack?.setTempo(tempo)
       }}
+      isPlaying={isPlaying}
     />
   )
 }

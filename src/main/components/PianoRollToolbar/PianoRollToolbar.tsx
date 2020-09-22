@@ -18,6 +18,7 @@ import { makeStyles } from "@material-ui/styles"
 import InstrumentBrowser from "../InstrumentBrowser/InstrumentBrowser"
 import { VolumeSlider } from "./VolumeSlider"
 import { PanSlider } from "./PanSlider"
+import styled from "styled-components"
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -33,15 +34,22 @@ const useStyles = makeStyles((theme) => ({
   },
   toggleButton: {
     height: "2rem",
-    color: "inherit",
+    color: "var(--text-color)",
+    fontSize: "1rem",
     ["&.Mui-selected"]: {
-      color: "rgba(255, 255, 255, 0.5)",
+      background: "var(--theme-color)",
     },
   },
   instrumentButton: {
     padding: "0 1rem",
+    border: "1px solid var(--divider-color)",
+    textTransform: "none",
   },
 }))
+
+const AutoScrollIcon = styled(KeyboardTab)`
+  font-size: 1.3rem;
+`
 
 export interface PianoRollToolbarProps {
   trackName: string
@@ -135,7 +143,7 @@ export const PianoRollToolbar: FC<PianoRollToolbarProps> = React.memo(
             selected={autoScroll}
             className={classes.toggleButton}
           >
-            <KeyboardTab />
+            <AutoScrollIcon />
           </ToggleButton>
         </Toolbar>
       </AppBar>

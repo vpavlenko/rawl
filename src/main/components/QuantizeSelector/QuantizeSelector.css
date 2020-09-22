@@ -22,9 +22,13 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  border: 1px solid #ffffff29;
-  padding: 3px;
+  border: 1px solid var(--divider-color);
+  padding: 4px;
   cursor: pointer;
+}
+
+.QuantizeSelector .MuiSvgIcon-root {
+  font-size: 1.1rem;
 }
 
 .QuantizeSelector > .content .value {

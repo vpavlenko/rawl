@@ -20,6 +20,10 @@ const Container = styled.div`
   align-items: center;
 `
 
+const VolumeIcon = styled(VolumeUp)`
+  color: var(--secondary-text-color);
+`
+
 export interface VolumeSliderProps {
   onChange: (value: number) => void
   value: number
@@ -28,7 +32,7 @@ export interface VolumeSliderProps {
 export const VolumeSlider: FC<VolumeSliderProps> = React.memo(
   ({ onChange, value }) => (
     <Container>
-      <VolumeUp color="disabled" />
+      <VolumeIcon />
       <LightSlider
         value={value}
         onChange={(_, value) => onChange(value as number)}

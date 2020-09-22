@@ -1,5 +1,5 @@
 import { observable, action, transaction } from "mobx"
-import { serializable, list, primitive } from "serializr"
+import { serializable, list, primitive, custom } from "serializr"
 import _ from "lodash"
 import { AnyEvent } from "midifile-ts"
 
@@ -18,11 +18,12 @@ import {
   isSetTempoEvent,
   isControllerEvent,
 } from "./identify"
+import { pojo } from "../helpers/pojo"
 
 type EventBeforeAdded = TrackMidiEvent | Omit<NoteEvent, "id">
 
 export default class Track {
-  @serializable(list(primitive()))
+  @serializable(list(pojo))
   @observable.shallow
   events: TrackEvent[] = []
 

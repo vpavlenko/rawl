@@ -3,14 +3,20 @@ import React, { FC } from "react"
 import PianoRoll from "./PianoRoll/PianoRoll"
 import PianoRollToolbar from "./PianoRollToolbar"
 
-import "./PianoRollEditor.css"
+import styled from "styled-components"
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+`
 
 const PianoRollEditor: FC = () => {
   return (
-    <div className="PianoRollEditor">
+    <Container>
       <PianoRollToolbar />
       <PianoRoll />
-    </div>
+    </Container>
   )
 }
 

@@ -50,7 +50,7 @@ const Alpha = styled.div`
 `
 
 const Beta = styled.div`
-  border-top: 1px solid var(--secondary-text-color);
+  border-top: 1px solid var(--divider-color);
   height: 100%;
 `
 

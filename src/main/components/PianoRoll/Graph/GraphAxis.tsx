@@ -4,7 +4,9 @@ import styled from "styled-components"
 const Parent = styled.div`
   text-align: right;
   width: var(--key-width);
-  border-right: 1px solid var(--secondary-text-color);
+  border-right: 1px solid var(--divider-color);
+  padding-right: 0.3em;
+  box-sizing: border-box;
 `
 
 const Values = styled.div`

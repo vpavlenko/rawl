@@ -28,7 +28,6 @@ ul,
 li {
   user-select: none;
   -webkit-user-drag: none;
-  cursor: default;
 }
 
 /* avoid 3px margin */

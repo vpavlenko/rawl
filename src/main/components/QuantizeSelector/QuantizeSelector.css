@@ -22,10 +22,14 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  border: 1px solid #ffffff29;
+  padding: 3px;
+  cursor: pointer;
 }
 
 .QuantizeSelector > .content .value {
   min-width: 2em;
+  pointer-events: none;
 }
 
 .QuantizeSelector .QuantizePopup {

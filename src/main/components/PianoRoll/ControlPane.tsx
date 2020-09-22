@@ -48,14 +48,15 @@ const TabButton = styled.div`
   color: var(--secondary-text-color);
   outline: none;
   text-align: center;
+  font-size: 0.7rem;
 
   &:hover {
     background: #ffffff14;
   }
 
   &.selected {
-    font-weight: 600;
     color: var(--text-color);
+    background: var(--secondary-background-color);
   }
 `
 
@@ -64,7 +65,7 @@ const Toolbar = styled.div`
   box-sizing: border-box;
   display: flex;
   margin-left: var(--key-width);
-  border-left: 1px solid var(--secondary-text-color);
+  border-left: 1px solid var(--divider-color);
   height: 30px;
 `
 

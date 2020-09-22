@@ -1,11 +1,5 @@
-import React, { FC } from "react"
-import {
-  AppBar,
-  Toolbar,
-  IconButton,
-  Typography,
-  Button,
-} from "@material-ui/core"
+import React, { FC, useCallback } from "react"
+import { AppBar, Toolbar, IconButton, Button } from "@material-ui/core"
 import { Menu as MenuIcon, KeyboardTab } from "@material-ui/icons"
 import { ToggleButton, ToggleButtonGroup } from "@material-ui/lab"
 
@@ -13,11 +7,13 @@ import Icon from "components/outputs/Icon"
 
 import QuantizeSelector from "components/QuantizeSelector/QuantizeSelector"
 
-import { PianoRollMouseMode } from "stores/PianoRollStore"
 import { makeStyles } from "@material-ui/styles"
 import InstrumentBrowser from "../InstrumentBrowser/InstrumentBrowser"
 import { VolumeSlider } from "./VolumeSlider"
 import { PanSlider } from "./PanSlider"
+import { useObserver } from "mobx-react"
+import { setTrackVolume, setTrackPan } from "main/actions"
+import { useStores } from "main/hooks/useStores"
 import styled from "styled-components"
 
 const useStyles = makeStyles((theme) => ({
@@ -57,100 +53,130 @@ const AutoScrollIcon = styled(KeyboardTab)`
   font-size: 1.3rem;
 `
 
-export interface PianoRollToolbarProps {
-  trackName: string
-  instrumentName: string
-  pan: number
-  volume: number
-  autoScroll: boolean
-  mouseMode: PianoRollMouseMode
-  quantize: number
-  onClickAutoScroll: () => void
-  onClickPencil: () => void
-  onClickSelection: () => void
-  onSelectQuantize: (denominator: number) => void
-  onChangeVolume: (value: number) => void
-  onChangePan: (value: number) => void
-  onClickInstrument: () => void
-  onClickNavBack: () => void
-}
-
-export const PianoRollToolbar: FC<PianoRollToolbarProps> = React.memo(
-  ({
+export const PianoRollToolbar: FC = () => {
+  const { rootStore: stores } = useStores()
+  const {
+    mouseMode,
+    autoScroll,
     trackName,
     instrumentName,
     pan,
     volume,
-    onChangeVolume,
-    onChangePan,
-    onClickInstrument,
-    onClickNavBack,
-    autoScroll,
-    onClickAutoScroll,
-    mouseMode,
-    onClickPencil,
-    onClickSelection,
+    track,
+    trackId,
     quantize,
-    onSelectQuantize,
-  }) => {
-    const classes = useStyles({})
-    return (
-      <AppBar position="static" elevation={0} className={classes.appBar}>
-        <Toolbar variant="dense">
-          <IconButton onClick={onClickNavBack} color="inherit">
-            <MenuIcon />
-          </IconButton>
+  } = useObserver(() => ({
+    trackName: stores.song.selectedTrack?.displayName ?? "",
+    instrumentName: stores.song.selectedTrack?.instrumentName ?? "",
+    pan: stores.song.selectedTrack?.pan ?? 0,
+    volume: stores.song.selectedTrack?.volume ?? 0,
+    track: stores.song.selectedTrack,
+    trackId: stores.song.selectedTrackId,
+    quantize:
+      stores.pianoRollStore.quantize === 0
+        ? stores.services.quantizer.denominator
+        : stores.pianoRollStore.quantize,
+    autoScroll: stores.pianoRollStore.autoScroll,
+    mouseMode: stores.pianoRollStore.mouseMode,
+  }))
+  const { rootViewStore, pianoRollStore: s } = stores
 
-          <TrackName>{trackName}</TrackName>
+  const onChangeVolume = useCallback(
+    (value: number) => setTrackVolume(stores)(trackId, value),
+    [stores, trackId]
+  )
+  const onChangePan = useCallback(
+    (value: number) => setTrackPan(stores)(trackId, value),
+    [stores, trackId]
+  )
+  const onClickPencil = useCallback(() => (s.mouseMode = "pencil"), [])
+  const onClickSelection = useCallback(() => (s.mouseMode = "selection"), [])
+  const onClickAutoScroll = useCallback(
+    () => (s.autoScroll = !s.autoScroll),
+    []
+  )
+  const onSelectQuantize = useCallback((denominator: number) => {
+    stores.services.quantizer.denominator = denominator
+    s.quantize = denominator
+  }, [])
+  const onClickNavBack = useCallback(
+    () => (rootViewStore.openDrawer = true),
+    []
+  )
+  const onClickInstrument = useCallback(() => {
+    if (track === undefined) {
+      return
+    }
+    const programNumber = track.programNumber
+    s.instrumentBrowserSetting = {
+      isRhythmTrack: track.isRhythmTrack,
+      programNumber: programNumber ?? 0,
+    }
+    s.openInstrumentBrowser = true
+  }, [])
 
-          <Button
-            className={classes.instrumentButton}
-            onClick={onClickInstrument}
-            color="inherit"
-            size="small"
-            startIcon={<Icon>piano</Icon>}
-          >
-            {instrumentName}
-          </Button>
+  const classes = useStyles({})
 
-          <InstrumentBrowser />
+  if (track === undefined) {
+    return <></>
+  }
 
-          <VolumeSlider onChange={onChangeVolume} value={volume} />
-          <PanSlider value={pan} onChange={onChangePan} />
-          <ToggleButtonGroup
-            value={mouseMode}
-            className={classes.toggleButtonGroup}
-          >
-            <ToggleButton
-              color="inherit"
-              onClick={onClickPencil}
-              value="pencil"
-              className={classes.toggleButton}
-            >
-              <Icon>pencil</Icon>
-            </ToggleButton>
-            <ToggleButton
-              color="inherit"
-              onClick={onClickSelection}
-              value="selection"
-              className={classes.toggleButton}
-            >
-              <Icon>select</Icon>
-            </ToggleButton>
-          </ToggleButtonGroup>
+  return (
+    <AppBar position="static" elevation={0} className={classes.appBar}>
+      <Toolbar variant="dense">
+        <IconButton onClick={onClickNavBack} color="inherit">
+          <MenuIcon />
+        </IconButton>
 
-          <QuantizeSelector value={quantize} onSelect={onSelectQuantize} />
+        <TrackName>{trackName}</TrackName>
 
+        <Button
+          className={classes.instrumentButton}
+          onClick={onClickInstrument}
+          color="inherit"
+          size="small"
+          startIcon={<Icon>piano</Icon>}
+        >
+          {instrumentName}
+        </Button>
+
+        <InstrumentBrowser />
+
+        <VolumeSlider onChange={onChangeVolume} value={volume} />
+        <PanSlider value={pan} onChange={onChangePan} />
+        <ToggleButtonGroup
+          value={mouseMode}
+          className={classes.toggleButtonGroup}
+        >
           <ToggleButton
             color="inherit"
-            onClick={onClickAutoScroll}
-            selected={autoScroll}
+            onClick={onClickPencil}
+            value="pencil"
             className={classes.toggleButton}
           >
-            <AutoScrollIcon />
+            <Icon>pencil</Icon>
           </ToggleButton>
-        </Toolbar>
-      </AppBar>
-    )
-  }
-)
+          <ToggleButton
+            color="inherit"
+            onClick={onClickSelection}
+            value="selection"
+            className={classes.toggleButton}
+          >
+            <Icon>select</Icon>
+          </ToggleButton>
+        </ToggleButtonGroup>
+
+        <QuantizeSelector value={quantize} onSelect={onSelectQuantize} />
+
+        <ToggleButton
+          color="inherit"
+          onClick={onClickAutoScroll}
+          selected={autoScroll}
+          className={classes.toggleButton}
+        >
+          <AutoScrollIcon />
+        </ToggleButton>
+      </Toolbar>
+    </AppBar>
+  )
+}

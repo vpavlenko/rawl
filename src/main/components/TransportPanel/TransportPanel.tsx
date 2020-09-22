@@ -1,9 +1,13 @@
 import { ToolbarSeparator } from "components/groups/Toolbar"
 import React, { FC, useCallback } from "react"
-import { shouldUpdate } from "recompose"
 import { Toolbar, IconButton, makeStyles } from "@material-ui/core"
 import { Stop, FastRewind, FastForward, PlayArrow } from "@material-ui/icons"
 import styled from "styled-components"
+import { TIME_BASE } from "Constants"
+import { play, stop, movePlayerPosition } from "main/actions"
+import { useObserver } from "mobx-react"
+import { useStores } from "main/hooks/useStores"
+import { getMBTString } from "common/measure/mbt"
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -111,31 +115,26 @@ const TempoForm: FC<TempoFormProps> = ({ tempo, onChangeTempo }) => {
   )
 }
 
-export interface TransportPanelProps {
-  onClickPlay: () => void
-  onClickStop: () => void
-  onClickBackward: () => void
-  onClickForward: () => void
-  loopEnabled: boolean
-  onClickEnableLoop: () => void
-  mbtTime: string
-  tempo: number
-  onChangeTempo: (tempo: number) => void
-  isPlaying: boolean
-}
+export const TransportPanel: FC = () => {
+  const { rootStore: stores } = useStores()
+  const { tempo, mbtTime, isPlaying } = useObserver(() => ({
+    tempo: stores.song.conductorTrack?.tempo ?? 0,
+    player: stores.services.player,
+    mbtTime: getMBTString(
+      stores.song.measures,
+      stores.playerStore.position,
+      stores.services.player.timebase
+    ),
+    isPlaying: stores.services.player.isPlaying,
+  }))
+  const onClickPlay = () => play(stores)()
+  const onClickStop = () => stop(stores)()
+  const onClickBackward = () => movePlayerPosition(stores)(-TIME_BASE * 4)
+  const onClickForward = () => movePlayerPosition(stores)(TIME_BASE * 4)
+  const onChangeTempo = (tempo: number) => {
+    stores.song.conductorTrack?.setTempo(tempo)
+  }
 
-const TransportPanel: FC<TransportPanelProps> = ({
-  onClickPlay,
-  onClickStop,
-  onClickBackward,
-  onClickForward,
-  loopEnabled,
-  onClickEnableLoop,
-  mbtTime,
-  tempo = 0,
-  onChangeTempo,
-  isPlaying,
-}) => {
   const classes = useStyles({})
   return (
     <Toolbar variant="dense" className={classes.toolbar}>
@@ -167,14 +166,3 @@ const TransportPanel: FC<TransportPanelProps> = ({
     </Toolbar>
   )
 }
-
-function test(props: TransportPanelProps, nextProps: TransportPanelProps) {
-  return (
-    props.loopEnabled !== nextProps.loopEnabled ||
-    props.mbtTime !== nextProps.mbtTime ||
-    props.tempo !== nextProps.tempo ||
-    props.isPlaying !== nextProps.isPlaying
-  )
-}
-
-export default shouldUpdate(test)(TransportPanel)

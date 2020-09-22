@@ -34,7 +34,7 @@ export default class Track {
   @observable
   channel: number | undefined = undefined
 
-  getEventById = (id: number) => _.find(this.events, (e) => e.id === id)
+  getEventById = (id: number) => this.events.find((e) => e.id === id)
 
   private _updateEvent(
     id: number,
@@ -128,10 +128,9 @@ export default class Track {
   }
 
   @action updateEndOfTrack() {
-    const tick = _.chain(this.events)
-      .map((e) => e.tick + ("duration" in e ? e.duration : 0))
-      .max()
-      .value()
+    const tick = Math.max(
+      ...this.events.map((e) => e.tick + ("duration" in e ? e.duration : 0))
+    )
     this.setEndOfTrack(tick)
   }
 

@@ -1,4 +1,4 @@
-import { observable, autorun, computed, action } from "mobx"
+import { observable, autorun, computed, action, transaction } from "mobx"
 import { list, object, serializable } from "serializr"
 import * as _ from "lodash"
 
@@ -27,7 +27,9 @@ export default class Song {
   private _measures: Measure[] = []
 
   private _updateEndOfSong() {
-    const eos = _.max(this.tracks.map(t => t.endOfTrack).filter(isNotUndefined))
+    const eos = _.max(
+      this.tracks.map((t) => t.endOfTrack).filter(isNotUndefined)
+    )
     this._endOfSong = (eos ?? 0) + END_MARGIN
     this._measures =
       this.conductorTrack !== undefined
@@ -59,9 +61,11 @@ export default class Song {
   }
 
   @action removeTrack(id: number) {
-    _.pullAt(this.tracks, id)
-    this.selectedTrackId = Math.min(id, this.tracks.length - 1)
-    this._updateEndOfSong()
+    transaction(() => {
+      _.pullAt(this.tracks, id)
+      this.selectTrack(Math.min(id, this.tracks.length - 1))
+      this._updateEndOfSong()
+    })
   }
 
   @action selectTrack(id: number) {
@@ -72,7 +76,7 @@ export default class Song {
   }
 
   @computed get conductorTrack(): Track | undefined {
-    return _.find(this.tracks, t => t.isConductorTrack)
+    return _.find(this.tracks, (t) => t.isConductorTrack)
   }
 
   @computed get selectedTrack(): Track | undefined {
@@ -93,7 +97,7 @@ export default class Song {
 
   trackIdOfChannel(channel: number): number | undefined {
     const tracks = this.tracks
-    const track = _.find(tracks, t => t.channel === channel)
+    const track = _.find(tracks, (t) => t.channel === channel)
     if (track) {
       return tracks.indexOf(track)
     }

@@ -54,7 +54,8 @@ export const TrackListContextMenu: FC<TrackListContextMenuProps> = ({
       anchorPosition={{ top: position.y, left: position.x }}
     >
       <MenuItem
-        onClick={() => {
+        onClick={(e) => {
+          e.stopPropagation()
           onClickDelete()
           handleClose()
         }}

@@ -70,7 +70,7 @@ export const addTrack = (rootStore: RootStore) => () => {
 export const removeTrack = (rootStore: RootStore) => (trackId: number) => {
   const store = rootStore
 
-  if (store.song.tracks.length == 2) {
+  if (store.song.tracks.filter((t) => !t.isConductorTrack).length <= 1) {
     // conductor track を除き、最後のトラックの場合
     // トラックがなくなるとエラーが出るので削除できなくする
     return

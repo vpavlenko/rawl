@@ -1,4 +1,8 @@
-import React, { FC, useState, useCallback, useRef } from "react"
+import React, { FC, useCallback, useRef, useEffect } from "react"
+import { useObserver } from "mobx-react"
+import { withSize } from "react-sizeme"
+import { useTheme } from "main/hooks/useTheme"
+import { useStores } from "main/hooks/useStores"
 import styled from "styled-components"
 import SplitPane from "react-split-pane"
 import useComponentSize from "@rehooks/component-size"
@@ -11,8 +15,6 @@ import {
   PianoNotesMouseEvent,
 } from "main/containers/PianoRollEditor/PianoRoll/PianoRollStage"
 import { ISize } from "common/geometry"
-
-import "./PianoRoll.css"
 
 const SCROLL_KEY_SPEED = 4
 
@@ -55,34 +57,58 @@ const Beta = styled.div`
   height: 100%;
 `
 
-export interface PianoRollProps {
-  transform: NoteCoordTransform
-  endTick: number
-  scrollLeft: number
-  scrollTop: number
-  size: ISize
-  setScrollLeft: (scroll: number) => void
-  setScrollTop: (scroll: number) => void
-  onClickScaleUp: () => void
-  onClickScaleDown: () => void
-  onClickScaleReset: () => void
-}
-
 const clamp = (value: number, min: number, max: number) =>
   Math.min(max, Math.max(min, value))
 
-export const PianoRoll: FC<PianoRollProps> = ({
-  transform,
-  endTick: trackEndTick,
-  scrollLeft,
-  scrollTop,
-  size,
-  setScrollLeft,
-  setScrollTop,
-  onClickScaleUp,
-  onClickScaleDown,
-  onClickScaleReset,
-}) => {
+export interface PianoRollWrapperProps {
+  size: ISize
+}
+
+const PianoRollWrapper: FC<PianoRollWrapperProps> = ({ size }) => {
+  const { rootStore } = useStores()
+  const {
+    trackEndTick,
+    isPlaying,
+    playerPosition,
+    scaleX,
+    scrollLeft,
+    scrollTop,
+    autoScroll,
+    s,
+  } = useObserver(() => ({
+    trackEndTick: rootStore.song.endOfSong,
+    isPlaying: rootStore.services.player.isPlaying,
+    playerPosition: rootStore.playerStore.position,
+    s: rootStore.pianoRollStore,
+    scaleX: rootStore.pianoRollStore.scaleX,
+    scrollLeft: rootStore.pianoRollStore.scrollLeft,
+    scrollTop: rootStore.pianoRollStore.scrollTop,
+    autoScroll: rootStore.pianoRollStore.autoScroll,
+  }))
+
+  const theme = useTheme()
+  const transform = new NoteCoordTransform(0.1 * scaleX, theme.keyHeight, 127)
+
+  useEffect(() => {
+    // keep scroll position to cursor
+    if (autoScroll && isPlaying) {
+      const x = transform.getX(playerPosition)
+      const screenX = x - scrollLeft
+      if (screenX > size.width * 0.7 || screenX < 0) {
+        s.scrollLeft = x
+      }
+    }
+  }, [autoScroll, isPlaying, scaleX, scrollLeft, playerPosition, size])
+
+  const setScrollLeft = useCallback((v) => (s.scrollLeft = v), [scrollLeft])
+  const setScrollTop = useCallback((v) => (s.scrollTop = v), [scrollTop])
+  const onClickScaleUp = useCallback(() => (s.scaleX = scaleX + 0.1), [scaleX])
+  const onClickScaleDown = useCallback(
+    () => (s.scaleX = Math.max(0.05, scaleX - 0.1)),
+    [scaleX]
+  )
+  const onClickScaleReset = useCallback(() => (s.scaleX = 1), [scaleX])
+
   const startTick = scrollLeft / transform.pixelsPerTick
   const widthTick = transform.getTicks(size.width)
   const endTick = startTick + widthTick
@@ -109,8 +135,8 @@ export const PianoRoll: FC<PianoRollProps> = ({
     [scrollTop, setScrollTop, transform]
   )
 
-  scrollLeft = clampScrollLeft(scrollLeft)
-  scrollTop = clampScrollTop(scrollTop)
+  const _scrollLeft = clampScrollLeft(scrollLeft)
+  const _scrollTop = clampScrollTop(scrollTop)
 
   return (
     <Parent>
@@ -119,7 +145,7 @@ export const PianoRoll: FC<PianoRollProps> = ({
           <Alpha onWheel={onWheel} ref={alphaRef}>
             <PianoRollStage width={size.width} />
             <VerticalScrollBar
-              scrollOffset={scrollTop}
+              scrollOffset={_scrollTop}
               contentLength={contentHeight}
               onScroll={setScrollTop}
             />
@@ -130,7 +156,7 @@ export const PianoRoll: FC<PianoRollProps> = ({
         </SplitPane>
       </Content>
       <HorizontalScaleScrollBar
-        scrollOffset={scrollLeft}
+        scrollOffset={_scrollLeft}
         contentLength={contentWidth}
         onScroll={setScrollLeft}
         onClickScaleUp={onClickScaleUp}
@@ -140,3 +166,5 @@ export const PianoRoll: FC<PianoRollProps> = ({
     </Parent>
   )
 }
+
+export default withSize({ monitorHeight: true })(PianoRollWrapper)

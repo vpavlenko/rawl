@@ -1,9 +1,8 @@
 import React, { FC } from "react"
 
-import PianoRoll from "./PianoRoll/PianoRoll"
-
 import styled from "styled-components"
 import { PianoRollToolbar } from "main/components/PianoRollToolbar/PianoRollToolbar"
+import PianoRoll from "main/components/PianoRoll/PianoRoll"
 
 const Container = styled.div`
   display: flex;
@@ -11,7 +10,7 @@ const Container = styled.div`
   flex-grow: 1;
 `
 
-const PianoRollEditor: FC = () => {
+export const PianoRollEditor: FC = () => {
   return (
     <Container>
       <PianoRollToolbar />
@@ -19,5 +18,3 @@ const PianoRollEditor: FC = () => {
     </Container>
   )
 }
-
-export default PianoRollEditor

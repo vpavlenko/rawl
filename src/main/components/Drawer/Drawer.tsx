@@ -3,6 +3,8 @@ import {
   Drawer as MaterialDrawer,
   Divider,
   ListSubheader,
+  ListItem,
+  ListItemText,
 } from "@material-ui/core"
 import { useObserver } from "mobx-react"
 import { SongList } from "./SongList"
@@ -21,6 +23,10 @@ export const Drawer: FC = () => {
       <SongList />
       <Divider />
       <TrackList />
+      <Divider />
+      <ListItem button onClick={() => (rootStore.router.path = "/tempo")}>
+        <ListItemText primary="Tempo" />
+      </ListItem>
     </MaterialDrawer>
   )
 }

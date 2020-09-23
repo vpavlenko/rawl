@@ -8,6 +8,11 @@ import { TransportPanel } from "main/components/TransportPanel/TransportPanel"
 import styled from "styled-components"
 
 import "./Resizer.css"
+import { useStores } from "../../hooks/useStores"
+import { useObserver } from "mobx-react"
+import TempoEditor from "../TempoEditor/TempoEditor"
+import ArrangeEditor from "../ArrangeEditor/ArrangeEditor"
+import SettingsView from "../SettingsView/SettingsView"
 
 const Container = styled.div`
   height: 100%;
@@ -15,10 +20,23 @@ const Container = styled.div`
   flex-direction: column;
 `
 
+const Routes: FC = () => {
+  const stores = useStores()
+  const { path } = useObserver(() => ({ path: stores.rootStore.router.path }))
+  return (
+    <>
+      {path === "/track" && <PianoRollEditor />}
+      {path === "/tempo" && <TempoEditor />}
+      {path === "/arrange" && <ArrangeEditor />}
+      {path === "/settings" && <SettingsView />}
+    </>
+  )
+}
+
 const RootView: FC = () => (
   <Container>
     <Drawer />
-    <PianoRollEditor />
+    <Routes />
     <TransportPanel />
     <BuildInfo />
   </Container>

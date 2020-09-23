@@ -1,4 +1,4 @@
-import { NoteEvent, TrackEvent, isNoteEvent } from "../track"
+import { TrackEvent } from "../track"
 
 export function filterEventsWithScroll<T extends TrackEvent>(
   events: T[],

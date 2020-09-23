@@ -20,7 +20,7 @@ import {
   IRect,
   containsPoint,
 } from "common/geometry"
-import filterNoteEventsWithScroll from "helpers/filterEventsWithScroll"
+import { filterEventsWithScroll } from "helpers/filterEventsWithScroll"
 
 import ArrangeNoteItem from "../../components/ArrangeView/ArrangeNoteItem"
 
@@ -312,7 +312,7 @@ export const ArrangeView: FC<ArrangeViewProps> = ({
             {tracks.map((t, i) => (
               <ArrangeTrack
                 width={containerWidth}
-                events={filterNoteEventsWithScroll(
+                events={filterEventsWithScroll(
                   t.events,
                   pixelsPerTick,
                   scrollLeft,

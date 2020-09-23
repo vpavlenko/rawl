@@ -171,7 +171,7 @@ const ControlPane: FC<ControlPaneProps> = ({ size }) => {
     transform.pixelsPerTick,
     scrollLeft,
     size.width
-  )
+  ).map((e) => ({ ...e })) // deep copy to react changes
 
   const controlProps = {
     events: controlEvents,

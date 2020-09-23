@@ -1,11 +1,9 @@
-import React, { FC } from "react"
+import React, { FC, useCallback } from "react"
 import _ from "lodash"
 
-import Theme from "common/theme"
 import { NoteCoordTransform } from "common/transform"
 import { ISize } from "common/geometry"
-import { TrackEvent } from "common/track"
-import { BeatWithX } from "helpers/mapBeats"
+import { createBeatsInRange } from "helpers/mapBeats"
 
 import PianoGrid from "./PianoGrid"
 
@@ -19,6 +17,12 @@ import PianoVelocityControl from "./PianoVelocityControl/PianoVelocityControl"
 import { Stage, Container } from "@inlet/react-pixi"
 import styled from "styled-components"
 import { filterEventsWithScroll } from "common/helpers/filterEventsWithScroll"
+import { toJS } from "mobx"
+import { useObserver } from "mobx-react"
+import { changeNotesVelocity, createControlEvent } from "main/actions"
+import { useStores } from "main/hooks/useStores"
+import { useTheme } from "main/hooks/useTheme"
+import { withSize } from "react-sizeme"
 
 interface ButtonItem {
   label: string
@@ -121,37 +125,46 @@ const Parent = styled.div`
 `
 
 export interface ControlPaneProps {
-  mode: ControlMode
-  theme: Theme
-  beats: BeatWithX[]
-  events: TrackEvent[]
-  onSelectTab: (mode: ControlMode) => void
-  transform: NoteCoordTransform
-  scrollLeft: number
-  paddingBottom: number
   size: ISize
-  changeVelocity: (noteIds: number[], velocity: number) => void
-  createControlEvent: (mode: ControlMode, value: number, tick?: number) => void
 }
 
-const ControlPane: FC<ControlPaneProps> = ({
-  mode,
-  theme,
-  beats,
-  events,
-  onSelectTab,
-  transform,
-  scrollLeft,
-  paddingBottom,
-  size,
-  changeVelocity,
-  createControlEvent,
-}) => {
+const ControlPane: FC<ControlPaneProps> = ({ size }) => {
   const TAB_HEIGHT = 30
   const BORDER_WIDTH = 1
 
   const containerWidth = size.width
   const containerHeight = size.height
+
+  const { rootStore } = useStores()
+  const { events, measures, timebase, scaleX, scrollLeft, mode } = useObserver(
+    () => ({
+      events: toJS(rootStore.song.selectedTrack?.events ?? []),
+      measures: rootStore.song.measures,
+      timebase: rootStore.services.player.timebase,
+      scaleX: rootStore.pianoRollStore.scaleX,
+      scrollLeft: rootStore.pianoRollStore.scrollLeft,
+      mode: rootStore.pianoRollStore.controlMode,
+    })
+  )
+
+  const theme = useTheme()
+  const transform = new NoteCoordTransform(0.1 * scaleX, theme.keyHeight, 127)
+  const startTick = scrollLeft / transform.pixelsPerTick
+
+  const mappedBeats = createBeatsInRange(
+    measures,
+    transform.pixelsPerTick,
+    timebase,
+    startTick,
+    size.width
+  )
+
+  const onSelectTab = useCallback(
+    (m: ControlMode) => (rootStore.pianoRollStore.controlMode = m),
+    []
+  )
+  const changeVelocity = useCallback(changeNotesVelocity(rootStore), [])
+  const onCreateControlEvent = useCallback(createControlEvent(rootStore), [])
 
   const controlEvents = filterEventsWithScroll(
     events,
@@ -165,10 +178,10 @@ const ControlPane: FC<ControlPaneProps> = ({
     transform,
     scrollLeft,
     width: containerWidth - theme.keyWidth - BORDER_WIDTH,
-    height: containerHeight - TAB_HEIGHT - paddingBottom,
+    height: containerHeight - TAB_HEIGHT,
     color: theme.themeColor,
     createEvent: (value: number, tick?: number) =>
-      createControlEvent(mode, value, tick),
+      onCreateControlEvent(mode, value, tick),
   }
 
   const control = (() => {
@@ -208,7 +221,7 @@ const ControlPane: FC<ControlPaneProps> = ({
           options={{ transparent: true }}
         >
           <Container x={-scrollLeft}>
-            <PianoGrid height={controlProps.height} beats={beats} />
+            <PianoGrid height={controlProps.height} beats={mappedBeats} />
           </Container>
         </Stage>
       </div>
@@ -216,19 +229,4 @@ const ControlPane: FC<ControlPaneProps> = ({
   )
 }
 
-function areEqual(props: ControlPaneProps, nextProps: ControlPaneProps) {
-  return (
-    props.size.width === nextProps.size.width &&
-    props.size.height === nextProps.size.height &&
-    props.mode === nextProps.mode &&
-    props.scrollLeft === nextProps.scrollLeft &&
-    props.paddingBottom === nextProps.paddingBottom &&
-    _.isEqual(props.theme, nextProps.theme) &&
-    _.isEqual(props.beats, nextProps.beats) &&
-    _.isEqual(props.events, nextProps.events) &&
-    _.isEqual(props.onSelectTab, nextProps.onSelectTab) &&
-    _.isEqual(props.transform, nextProps.transform)
-  )
-}
-
-export default React.memo(ControlPane, areEqual)
+export default withSize({ monitorHeight: true })(ControlPane)

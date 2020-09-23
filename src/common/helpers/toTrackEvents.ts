@@ -8,12 +8,13 @@ function addTick<T extends DeltaTimeProvider>(
   events: T[]
 ): (T & TickProvider)[] {
   let tick = 0
-  return events.map(e => {
+  return events.map((e) => {
     tick += e.deltaTime
     const newEvent = {
       ...e,
-      tick
+      tick,
     }
+    delete (newEvent as any).deltaTime
     return newEvent
   })
 }

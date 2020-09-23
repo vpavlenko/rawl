@@ -11,12 +11,13 @@ export function addDeltaTime<T extends TickProvider>(
   let prevTick = 0
   return events
     .sort((a, b) => a.tick - b.tick)
-    .map(e => {
-      prevTick = e.tick
+    .map((e) => {
       const newEvent = {
         ...e,
-        deltaTime: e.tick - prevTick
+        deltaTime: e.tick - prevTick,
       }
+      delete (newEvent as any).tick
+      prevTick = e.tick
       return newEvent
     })
 }
@@ -24,7 +25,7 @@ export function addDeltaTime<T extends TickProvider>(
 export function toRawEvents(events: TrackEvent[]): AnyEvent[] {
   const a = _.flatten(events.map(deassembleNote))
   const b = _.flatten(
-    a.map(e => deassembleRPN(e, x => ({ ...x, tick: e.tick })))
+    a.map((e) => deassembleRPN(e, (x) => ({ ...x, tick: e.tick })))
   )
   const c = addDeltaTime(b)
   return c as AnyEvent[]

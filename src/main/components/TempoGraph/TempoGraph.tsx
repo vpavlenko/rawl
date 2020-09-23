@@ -185,7 +185,7 @@ const _TempoGraph: FC<TempoGraphProps> = ({ size }) => {
     width
   )
 
-  const canvasHeight = containerHeight - rulerHeight
+  const canvasHeight = containerHeight - BAR_WIDTH
 
   return (
     <Wrapper>
@@ -196,7 +196,7 @@ const _TempoGraph: FC<TempoGraphProps> = ({ size }) => {
         options={{ transparent: true }}
       >
         <Container x={keyWidth}>
-          <Container x={-scrollLeft}>
+          <Container x={-scrollLeft} y={rulerHeight}>
             <PianoGrid height={canvasHeight} beats={mappedBeats} />
             <Container x={transform.getX(playerPosition)}>
               <PianoCursor height={canvasHeight} />

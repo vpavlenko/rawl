@@ -147,14 +147,6 @@ export default class Track {
       .filter((t) => t.controllerType === controllerType)
   }
 
-  private _findVolumeEvents() {
-    return this._findControllerEvents(7)
-  }
-
-  private _findPanEvents() {
-    return this._findControllerEvents(10)
-  }
-
   private _updateLast<T extends AnyEvent | TrackEventRequired>(
     arr: TrackEvent[],
     obj: Partial<T>
@@ -214,21 +206,41 @@ export default class Track {
     this._updateLast(this.events.filter(isTrackNameEvent), { text })
   }
 
-  get volume(): number | undefined {
-    return _.get(_.last(this._findVolumeEvents()), "value")
+  private getControllerValue = (controllerType: number, tick: number) =>
+    getLastEventBefore(this._findControllerEvents(controllerType), tick)?.value
+
+  private setControllerValue = (
+    controllerType: number,
+    tick: number,
+    value: number
+  ) => {
+    const e = getLastEventBefore(
+      this._findControllerEvents(controllerType),
+      tick
+    )
+    if (e !== undefined) {
+      this.updateEvent(e.id, {
+        value,
+      })
+    } else {
+      // If there are no controller events, we insert new event at the head of the track
+      this.addEvent({
+        type: "channel",
+        subtype: "controller",
+        controllerType,
+        tick: 0,
+        value,
+      })
+    }
   }
 
-  setVolume(value: number) {
-    this._updateLast(this._findVolumeEvents(), { value })
-  }
+  getVolume = (tick: number) => this.getControllerValue(7, tick)
+  setVolume = (value: number, tick: number) =>
+    this.setControllerValue(7, tick, value)
 
-  get pan(): number | undefined {
-    return _.get(_.last(this._findPanEvents()), "value")
-  }
-
-  setPan(value: number) {
-    this._updateLast(this._findPanEvents(), { value })
-  }
+  getPan = (tick: number) => this.getControllerValue(10, tick)
+  setPan = (value: number, tick: number) =>
+    this.setControllerValue(10, tick, value)
 
   get endOfTrack(): number | undefined {
     return _.get(_.last(this.events.filter(isEndOfTrackEvent)), "tick")
@@ -242,13 +254,11 @@ export default class Track {
     return _.get(_.last(this.events.filter(isProgramChangeEvent)), "value")
   }
 
-  setProgramNumber(value: number) {
+  setProgramNumber = (value: number) =>
     this._updateLast(this.events.filter(isProgramChangeEvent), { value })
-  }
 
-  getTempoEvent(tick: number) {
-    return getLastEventBefore(this.events.filter(isSetTempoEvent), tick)
-  }
+  getTempoEvent = (tick: number) =>
+    getLastEventBefore(this.events.filter(isSetTempoEvent), tick)
 
   getTempo(tick: number): number | undefined {
     const e = this.getTempoEvent(tick)

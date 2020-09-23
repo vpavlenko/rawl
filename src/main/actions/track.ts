@@ -320,7 +320,7 @@ export const setTrackVolume = (rootStore: RootStore) => (
 
   pushHistory()
   const track = song.tracks[trackId]
-  track.setVolume(volume)
+  track.setVolume(volume, player.position)
 
   if (track.channel !== undefined) {
     player.sendEvent(volumeMidiEvent(0, track.channel, volume))
@@ -339,7 +339,7 @@ export const setTrackPan = (rootStore: RootStore) => (
 
   pushHistory()
   const track = song.tracks[trackId]
-  track.setPan(pan)
+  track.setPan(pan, player.position)
 
   if (track.channel !== undefined) {
     player.sendEvent(panMidiEvent(0, track.channel, pan))

@@ -19,6 +19,7 @@ export const TrackList: FC = () => {
   const { rootStore: stores } = useStores()
   const { router } = stores
   const { tracks } = useObserver(() => {
+    const { position } = stores.playerStore
     const selectedTrackId = stores.song.selectedTrackId
     const trackMutes = stores.song.tracks.map((_, i) =>
       stores.trackMute.isMuted(i)
@@ -41,8 +42,8 @@ export const TrackList: FC = () => {
             mute: trackMutes[index],
             solo: trackSolos[index],
             selected,
-            volume: t.volume ?? 0,
-            pan: t.pan ?? 0,
+            volume: t.getVolume(position) ?? 0,
+            pan: t.getPan(position) ?? 0,
           }
         }
       )

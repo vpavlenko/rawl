@@ -160,9 +160,9 @@ const PianoRuler: FC<PianoRulerProps> = ({
     .filter((b) => b.beat === 0 && (!shouldOmit || b.measure % 2 === 0))
     .map((b) => (
       <Text
-        key={b.measure * (b.beat + 1)}
+        key={b.measure}
         position={new Point(b.x + 5, 2)}
-        text={`${b.measure}`}
+        text={`${b.measure + 1}`}
         style={textStyle}
       />
     ))

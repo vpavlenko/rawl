@@ -1,6 +1,8 @@
 import Measure from "./Measure"
-import Track, { isTimeSignatureEvent } from "common/track"
-import { TimeSignatureEvent } from "midifile-ts"
+import Track, {
+  isTimeSignatureEvent,
+  TrackTimeSignatureEvent,
+} from "common/track"
 
 export function getMeasureAt(tick: number, measures: Measure[]): Measure {
   let lastMeasure: Measure = {
@@ -19,9 +21,13 @@ export function getMeasureAt(tick: number, measures: Measure[]): Measure {
 }
 
 export function getMeasuresFromConductorTrack(
-  conductorTrack: Track
+  conductorTrack: Track,
+  timebase: number
 ): Measure[] {
-  const events = conductorTrack.events.filter(isTimeSignatureEvent)
+  const events = conductorTrack.events
+    .filter(isTimeSignatureEvent)
+    .slice()
+    .sort((e) => e.tick)
 
   if (events.length === 0) {
     return [
@@ -33,11 +39,24 @@ export function getMeasuresFromConductorTrack(
       },
     ]
   } else {
-    return events.map((e, i) => ({
-      startTick: e.tick,
-      measure: i,
-      numerator: e.numerator,
-      denominator: e.denominator,
-    }))
+    let lastMeasure = 0
+    return events.map((e, i) => {
+      let measure = 0
+      if (i > 0) {
+        const lastEvent = events[i - 1]
+        const ticksPerBeat = (timebase * 4) / lastEvent.denominator
+        const measureDelta = Math.floor(
+          (e.tick - lastEvent.tick) / ticksPerBeat / lastEvent.numerator
+        )
+        measure = lastMeasure + measureDelta
+        lastMeasure = measure
+      }
+      return {
+        startTick: e.tick,
+        measure,
+        numerator: e.numerator,
+        denominator: e.denominator,
+      }
+    })
   }
 }

@@ -24,17 +24,12 @@ export default class Song {
   name: string
 
   private _endOfSong: number = 0
-  private _measures: Measure[] = []
 
   private _updateEndOfSong() {
     const eos = _.max(
       this.tracks.map((t) => t.endOfTrack).filter(isNotUndefined)
     )
     this._endOfSong = (eos ?? 0) + END_MARGIN
-    this._measures =
-      this.conductorTrack !== undefined
-        ? getMeasuresFromConductorTrack(this.conductorTrack)
-        : []
   }
 
   // デシリアライズ時に呼ぶこと
@@ -88,7 +83,15 @@ export default class Song {
   }
 
   get measures(): Measure[] {
-    return this._measures
+    return this.getMeasures(480) // FIXME
+  }
+
+  private getMeasures(timebase: number): Measure[] {
+    const { conductorTrack } = this
+    if (conductorTrack === undefined) {
+      return []
+    }
+    return getMeasuresFromConductorTrack(conductorTrack, timebase)
   }
 
   get endOfSong(): number {

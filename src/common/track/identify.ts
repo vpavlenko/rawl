@@ -31,9 +31,12 @@ export const isSetTempoEvent = (
 ): e is TrackEventRequired & Omit<SetTempoEvent, "deltaTime"> =>
   "subtype" in e && e.subtype === "setTempo"
 
+export type TrackTimeSignatureEvent = TrackEventRequired &
+  Omit<TimeSignatureEvent, "deltaTime">
+
 export const isTimeSignatureEvent = (
   e: TrackEvent
-): e is TrackEventRequired & Omit<TimeSignatureEvent, "deltaTime"> =>
+): e is TrackTimeSignatureEvent =>
   "subtype" in e && e.subtype === "timeSignature"
 
 export const isControllerEvent = (

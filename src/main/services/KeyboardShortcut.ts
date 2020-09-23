@@ -39,6 +39,10 @@ export function bindKeyboardShortcut(rootStore: RootStore) {
         }
         break
       }
+      case "Backspace": {
+        deleteSelection(rootStore)()
+        break
+      }
       default:
         break
     }

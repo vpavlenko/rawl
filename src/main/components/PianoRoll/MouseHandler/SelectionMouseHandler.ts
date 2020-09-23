@@ -16,8 +16,6 @@ import RootStore from "../../../stores/RootStore"
 import { PianoNotesMouseEvent } from "../PianoRollStage"
 
 export default class SelectionMouseHandler extends MouseHandler {
-  selection: SelectionModel
-
   protected actionForMouseDown(e: PianoNotesMouseEvent) {
     const original = super.actionForMouseDown(e)
     if (original) {
@@ -28,8 +26,8 @@ export default class SelectionMouseHandler extends MouseHandler {
       return null
     }
 
-    const type = positionType(this.selection, e.transform, e.local)
     const { selection } = this.rootStore.pianoRollStore
+    const type = positionType(selection, e.transform, e.local)
 
     if (e.nativeEvent.button === 0) {
       switch (type) {
@@ -52,7 +50,8 @@ export default class SelectionMouseHandler extends MouseHandler {
   }
 
   getCursorForMouseMove(e: PianoNotesMouseEvent) {
-    const type = positionType(this.selection, e.transform, e.local)
+    const { selection } = this.rootStore.pianoRollStore
+    const type = positionType(selection, e.transform, e.local)
     switch (type) {
       case "center":
         return "move"

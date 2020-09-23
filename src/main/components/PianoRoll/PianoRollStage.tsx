@@ -90,8 +90,6 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
     [scaleX, theme]
   )
 
-  selectionMouseHandler.selection = selection
-
   const stageHeight = transform.pixelsPerKey * transform.numberOfKeys
   const startTick = scrollLeft / transform.pixelsPerTick
 

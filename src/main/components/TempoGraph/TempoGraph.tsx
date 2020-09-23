@@ -1,8 +1,6 @@
 import { SetTempoEvent } from "midifile-ts"
 import Color from "color"
 import { ISize } from "common/geometry"
-import Measure from "common/measure"
-import Theme from "common/theme/Theme"
 import { TrackEvent } from "common/track"
 import { TempoCoordTransform } from "common/transform"
 import DrawCanvas from "components/DrawCanvas"
@@ -14,13 +12,24 @@ import Stage, { StageMouseEvent } from "components/Stage/Stage"
 import { bpmToUSecPerBeat, uSecPerBeatToBPM } from "helpers/bpm"
 import { createBeatsInRange } from "helpers/mapBeats"
 import _ from "lodash"
-import React, { FC } from "react"
+import React, { FC, useEffect, useState } from "react"
 import transformEvents from "./transformEvents"
+import { Stage as PixiStage } from "@inlet/react-pixi"
 
 import "./TempoGraph.css"
 import { CanvasDrawStyle } from "main/style"
 import TempoGraphItem from "./TempoGraphItem"
 import { Container } from "@inlet/react-pixi"
+import { toJS } from "mobx"
+import { useObserver } from "mobx-react"
+import {
+  changeTempo as _changeTempo,
+  setPlayerPosition as _setPlayerPosition,
+  createTempo as _createTempo,
+} from "../../actions"
+import { useStores } from "../../hooks/useStores"
+import { useTheme } from "../../hooks/useTheme"
+import { withSize } from "react-sizeme"
 
 type DisplayEvent = TrackEvent & SetTempoEvent
 
@@ -97,41 +106,68 @@ const GraphAxis: FC<GraphAxisProps> = ({ width, transform, offset }) => {
   )
 }
 
-export interface TempoGraphProps {
-  events: TrackEvent[]
+interface TempoGraphProps {
   size: ISize
-  pixelsPerTick: number
-  theme: Theme
-  measures: Measure[]
-  timebase: number
-  playerPosition: number
-  setPlayerPosition: (tick: number) => void
-  endTick: number
-  scrollLeft: number
-  setScrollLeft: (scroll: number) => void
-  changeTempo: (id: number, microsecondsPerBeat: number) => void
-  createTempo: (tick: number, microsecondsPerBeat: number) => void
 }
 
-export const TempoGraph: FC<TempoGraphProps> = ({
-  events: sourceEvents,
-  size,
-  pixelsPerTick,
-  theme,
-  measures,
-  timebase,
-  playerPosition,
-  setPlayerPosition,
-  endTick: trackEndTick,
-  scrollLeft,
-  setScrollLeft,
-  changeTempo,
-  createTempo,
-}) => {
+const _TempoGraph: FC<TempoGraphProps> = ({ size }) => {
+  const { rootStore } = useStores()
+
+  const {
+    isPlaying,
+    pixelsPerTick,
+    events: sourceEvents,
+    endTick: trackEndTick,
+    measures,
+    timebase,
+    autoScroll,
+    playerPosition,
+  } = useObserver(() => ({
+    isPlaying: rootStore.services.player.isPlaying,
+    pixelsPerTick: 0.1 * rootStore.tempoEditorStore.scaleX,
+    events:
+      rootStore.song.conductorTrack !== undefined
+        ? toJS(rootStore.song.conductorTrack.events)
+        : [],
+    endTick: rootStore.song.endOfSong,
+    measures: rootStore.song.measures,
+    timebase: rootStore.services.player.timebase,
+    autoScroll: rootStore.tempoEditorStore.autoScroll,
+    scrollLeft: rootStore.tempoEditorStore.scrollLeft,
+    playerPosition: rootStore.playerStore.position,
+  }))
+
+  const [_scrollLeft, setScrollLeft] = useState(0)
+
+  useEffect(() => {
+    // keep scroll position to cursor
+    if (autoScroll && isPlaying) {
+      const transform = new TempoCoordTransform(pixelsPerTick, size.height)
+      const x = transform.getX(playerPosition)
+      const screenX = x - _scrollLeft
+      if (screenX > size.width * 0.7 || screenX < 0) {
+        setScrollLeft(x)
+      }
+    }
+  }, [
+    autoScroll,
+    isPlaying,
+    _scrollLeft,
+    size.width,
+    pixelsPerTick,
+    playerPosition,
+  ])
+
+  const theme = useTheme()
+
+  const changeTempo = _changeTempo(rootStore)
+  const createTempo = _createTempo(rootStore)
+  const setPlayerPosition = _setPlayerPosition(rootStore)
+
   const events = sourceEvents.filter(
     (e) => (e as any).subtype === "setTempo"
   ) as DisplayEvent[]
-  scrollLeft = Math.floor(scrollLeft)
+  const scrollLeft = Math.floor(_scrollLeft)
 
   const { keyWidth, rulerHeight } = theme
 
@@ -194,19 +230,42 @@ export const TempoGraph: FC<TempoGraphProps> = ({
     createTempo(tick, uSecPerBeatToBPM(bpm))
   }
 
-  const width = containerWidth - keyWidth
+  const width = containerWidth
 
   const mappedBeats = createBeatsInRange(
     measures,
-    timebase,
     pixelsPerTick,
+    timebase,
     startTick,
     width
   )
 
+  const canvasHeight = containerHeight - rulerHeight
+
   return (
     <div className="TempoGraph">
-      <PianoGrid height={contentHeight} beats={mappedBeats} />
+      <PixiStage
+        width={containerWidth}
+        height={canvasHeight}
+        style={{ position: "absolute" }}
+        options={{ transparent: true }}
+      >
+        <Container x={keyWidth}>
+          <Container x={-scrollLeft}>
+            <PianoGrid height={canvasHeight} beats={mappedBeats} />
+            <Container x={transform.getX(playerPosition)}>
+              <PianoCursor height={canvasHeight} />
+            </Container>
+          </Container>
+          <PianoRuler
+            width={width}
+            beats={mappedBeats}
+            onMouseDown={({ tick }) => setPlayerPosition(tick)}
+            scrollLeft={scrollLeft}
+            pixelsPerTick={pixelsPerTick}
+          />
+        </Container>
+      </PixiStage>
       <HorizontalLines
         width={width}
         height={contentHeight}
@@ -223,16 +282,6 @@ export const TempoGraph: FC<TempoGraphProps> = ({
         onWheel={onWheelGraph}
         scrollLeft={scrollLeft}
       />
-      <Container x={transform.getX(playerPosition) - scrollLeft}>
-        <PianoCursor height={contentHeight} />
-      </Container>
-      <PianoRuler
-        width={width}
-        beats={mappedBeats}
-        onMouseDown={({ tick }) => setPlayerPosition(tick)}
-        scrollLeft={scrollLeft}
-        pixelsPerTick={pixelsPerTick}
-      />
       <GraphAxis width={keyWidth} offset={rulerHeight} transform={transform} />
       <HorizontalScrollBar
         scrollOffset={scrollLeft}
@@ -242,3 +291,5 @@ export const TempoGraph: FC<TempoGraphProps> = ({
     </div>
   )
 }
+
+export const TempoGraph = withSize({ monitorHeight: true })(_TempoGraph)

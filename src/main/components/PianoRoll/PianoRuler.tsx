@@ -186,7 +186,7 @@ const PianoRuler: FC<PianoRulerProps> = ({
           theme={theme}
         />
         {labels}
-        {loop && (
+        {loop?.enabled && (
           <LoopPoints
             loop={loop}
             pixelsPerTick={pixelsPerTick}

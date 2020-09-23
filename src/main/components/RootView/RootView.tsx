@@ -10,7 +10,7 @@ import styled from "styled-components"
 import "./Resizer.css"
 import { useStores } from "../../hooks/useStores"
 import { useObserver } from "mobx-react"
-import TempoEditor from "../TempoEditor/TempoEditor"
+import { TempoEditor } from "../TempoGraph/TempoEditor"
 import ArrangeEditor from "../ArrangeEditor/ArrangeEditor"
 import SettingsView from "../SettingsView/SettingsView"
 

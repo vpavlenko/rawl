@@ -1,5 +1,5 @@
-import PianoRollStore from "src/main/stores/PianoRollStore"
-import RootStore from "src/main/stores/RootStore"
+import PianoRollStore from "main/stores/PianoRollStore"
+import RootStore from "main/stores/RootStore"
 import { PianoNotesMouseEvent } from "../PianoRollStage"
 
 export type MouseAction = (e: PianoNotesMouseEvent) => void

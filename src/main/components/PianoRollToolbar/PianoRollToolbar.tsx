@@ -5,7 +5,7 @@ import { ToggleButton, ToggleButtonGroup } from "@material-ui/lab"
 
 import Icon from "components/outputs/Icon"
 
-import QuantizeSelector from "components/QuantizeSelector/QuantizeSelector"
+import QuantizeSelector from "main/components/PianoRollToolbar/QuantizeSelector/QuantizeSelector"
 
 import { makeStyles } from "@material-ui/styles"
 import InstrumentBrowser from "../InstrumentBrowser/InstrumentBrowser"

@@ -15,7 +15,7 @@ import { deassemble as deassembleNote } from "common/helpers/noteAssembler"
 import { deassemble as deassembleRPN } from "common/helpers/RPNAssembler"
 import { NoteEvent } from "../track"
 import { PlayerEvent } from "./PlayerEvent"
-import SynthOutput, { Message } from "src/main/services/SynthOutput"
+import SynthOutput, { Message } from "../../main/services/SynthOutput"
 
 function firstByte(eventType: string, channel: number): number {
   return (MIDIChannelEvents[eventType] << 4) + channel

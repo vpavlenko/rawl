@@ -3,7 +3,7 @@ import React, { FC } from "react"
 import Stage, { StageProps } from "components/Stage/Stage"
 import LineGraphItem from "./LineGraphItem"
 import { IPoint } from "common/geometry"
-import { CanvasDrawStyle } from "main/style"
+import { CanvasDrawStyle } from "../../../style"
 
 import "./LineGraph.css"
 import { GraphAxis } from "./GraphAxis"

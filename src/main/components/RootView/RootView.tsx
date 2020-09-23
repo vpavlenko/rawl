@@ -1,7 +1,7 @@
 import { hot } from "react-hot-loader/root"
 import React, { FC } from "react"
 import { compose } from "recompose"
-import { PianoRollEditor } from "containers/PianoRollEditor/PianoRollEditor"
+import { PianoRollEditor } from "components/PianoRoll/PianoRollEditor"
 import { BuildInfo } from "main/components/BuildInfo"
 import { Drawer } from "../../components/Drawer/Drawer"
 import { TransportPanel } from "main/components/TransportPanel/TransportPanel"

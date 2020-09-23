@@ -13,8 +13,8 @@ import { useObserver } from "mobx-react"
 import { ArrangeView } from "components/ArrangeView/ArrangeView"
 import { toJS } from "mobx"
 import { setPlayerPosition } from "main/actions"
-import { useTheme } from "main/hooks/useTheme"
-import { useStores } from "src/main/hooks/useStores"
+import { useTheme } from "../../hooks/useTheme"
+import { useStores } from "../../hooks/useStores"
 
 interface ArrangeViewWrapperProps {
   size: ISize

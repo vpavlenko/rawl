@@ -12,7 +12,7 @@ import {
   resizeSelectionLeft,
 } from "main/actions"
 import { NotePoint } from "common/transform/NotePoint"
-import RootStore from "src/main/stores/RootStore"
+import RootStore from "../../../stores/RootStore"
 import { PianoNotesMouseEvent } from "../PianoRollStage"
 
 export default class SelectionMouseHandler extends MouseHandler {

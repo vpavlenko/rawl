@@ -12,9 +12,9 @@ import { VerticalScrollBar } from "components/inputs/ScrollBar"
 import {
   PianoRollStage,
   PianoNotesMouseEvent,
-} from "main/containers/PianoRollEditor/PianoRoll/PianoRollStage"
+} from "main/components/PianoRoll/PianoRollStage"
 import { ISize } from "common/geometry"
-import ControlPane from "./ControlPane"
+import ControlPane from "../ControlPane/ControlPane"
 
 const SCROLL_KEY_SPEED = 4
 

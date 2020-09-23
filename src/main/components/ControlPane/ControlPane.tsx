@@ -5,7 +5,7 @@ import { NoteCoordTransform } from "common/transform"
 import { ISize } from "common/geometry"
 import { createBeatsInRange } from "helpers/mapBeats"
 
-import PianoGrid from "./PianoGrid"
+import PianoGrid from "../PianoRoll/PianoGrid"
 
 import PanGraph from "./Graph/PanGraph"
 import PitchGraph from "./Graph/PitchGraph"

@@ -6,7 +6,7 @@ import {
   ToolbarItem,
   ToolbarSeparator,
 } from "components/groups/Toolbar"
-import QuantizeSelector from "components/QuantizeSelector/QuantizeSelector"
+import QuantizeSelector from "../PianoRollToolbar/QuantizeSelector/QuantizeSelector"
 
 import "./ArrangeToolbar.css"
 

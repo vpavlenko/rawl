@@ -2,9 +2,9 @@ import Item from "components/Stage/Item.ts"
 import {
   IRect,
   right as rectRight,
-  bottom as rectBottom
+  bottom as rectBottom,
 } from "common/geometry"
-import { CanvasDrawStyle } from "src/main/style"
+import { CanvasDrawStyle } from "../../../style"
 
 export default class LineGraphItem implements Item {
   id: any

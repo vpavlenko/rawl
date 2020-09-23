@@ -3,7 +3,7 @@ import SelectionModel from "common/selection"
 import SynthOutput from "../services/SynthOutput"
 import { LoadSoundFontEvent } from "src/synth/synth"
 import { InstrumentSetting } from "../components/InstrumentBrowser/InstrumentBrowser"
-import { ControlMode } from "../components/PianoRoll/ControlPane"
+import { ControlMode } from "../components/ControlPane/ControlPane"
 
 export type PianoRollMouseMode = "pencil" | "selection"
 

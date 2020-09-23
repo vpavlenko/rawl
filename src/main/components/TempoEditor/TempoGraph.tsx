@@ -5,8 +5,8 @@ import { setPlayerPosition, changeTempo, createTempo } from "main/actions"
 import { useObserver } from "mobx-react"
 import { withSize } from "react-sizeme"
 import { toJS } from "mobx"
-import { useTheme } from "main/hooks/useTheme"
-import { useStores } from "src/main/hooks/useStores"
+import { useTheme } from "../../hooks/useTheme"
+import { useStores } from "../../hooks/useStores"
 import { ISize } from "pixi.js"
 
 interface TempoGraphWrapperProps {

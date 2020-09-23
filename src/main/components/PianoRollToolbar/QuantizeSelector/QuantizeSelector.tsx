@@ -1,6 +1,6 @@
 import React from "react"
 import Icon from "components/outputs/Icon"
-import QuantizePopup from "components/QuantizeSelector/QuantizePopup"
+import QuantizePopup from "./QuantizePopup"
 
 import "./QuantizeSelector.css"
 import { Button } from "@material-ui/core"

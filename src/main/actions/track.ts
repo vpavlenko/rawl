@@ -10,7 +10,7 @@ import {
 import Track, { NoteEvent, TrackMidiEvent } from "common/track"
 import RootStore from "../stores/RootStore"
 import { ControllerEvent } from "midifile-ts"
-import { ControlMode } from "../components/PianoRoll/ControlPane"
+import { ControlMode } from "../components/ControlPane/ControlPane"
 
 export const changeTempo = (rootStore: RootStore) => (
   id: number,

@@ -1,7 +1,7 @@
 import React from "react"
 import ReactDOM from "react-dom"
 
-import App from "containers/App/App"
+import App from "main/components/App/App"
 
 function renderApp() {
   ReactDOM.render(<App />, document.querySelector("#root"))
@@ -10,7 +10,7 @@ function renderApp() {
 renderApp()
 
 if (module.hot) {
-  module.hot.accept("containers/App/App", () => {
+  module.hot.accept("components/App/App", () => {
     renderApp()
   })
 }

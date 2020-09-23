@@ -72,7 +72,7 @@ export function deassemble<T>(
     const noteOff = noteOffMidiEvent(0, channel, e.noteNumber)
     return [
       { ...noteOn, tick: e.tick },
-      { ...noteOff, tick: e.tick + e.duration - 1 }, // -1 to prevent overlap
+      { ...noteOff, tick: e.tick + e.duration },
     ]
   } else {
     return [e as T]

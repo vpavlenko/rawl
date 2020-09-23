@@ -19,6 +19,11 @@ function addTick<T extends DeltaTimeProvider>(
   })
 }
 
+const removeUnnecessaryProps = <T>(e: T): T => {
+  const { channel, ...ev } = e as any
+  return ev
+}
+
 export function toTrackEvents(events: AnyEvent[]) {
-  return assembleNotes(addTick(assembleRPN(events)))
+  return assembleNotes(addTick(assembleRPN(events))).map(removeUnnecessaryProps)
 }

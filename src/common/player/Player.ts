@@ -157,6 +157,7 @@ export default class Player extends EventEmitter {
   stop() {
     this._scheduler = null
     this.allSoundsOff()
+    this.prevTimestamp = null
 
     if (this._timer) {
       clearInterval(this._timer)
@@ -227,7 +228,7 @@ export default class Player extends EventEmitter {
     this._sendMessage(message, timestamp)
   }
 
-  private prevTimestamp = 0
+  private prevTimestamp: number | null = null
 
   private _onTimer() {
     if (this._scheduler === null) {
@@ -237,7 +238,12 @@ export default class Player extends EventEmitter {
     const timestamp = window.performance.now()
     const events = this._scheduler.readNextEvents(this._currentTempo, timestamp)
 
-    console.log(timestamp - this.prevTimestamp - TIMER_INTERVAL)
+    if (this.prevTimestamp !== null) {
+      const jitter = timestamp - this.prevTimestamp - TIMER_INTERVAL
+      if (jitter / TIMER_INTERVAL > 2) {
+        console.warn(`timer have big jitter: ${jitter}`)
+      }
+    }
 
     // channel イベントを MIDI Output に送信
     const messages = events

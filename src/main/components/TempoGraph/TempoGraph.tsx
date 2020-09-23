@@ -3,7 +3,6 @@ import Color from "color"
 import { ISize } from "common/geometry"
 import { TrackEvent } from "common/track"
 import { TempoCoordTransform } from "common/transform"
-import DrawCanvas from "components/DrawCanvas"
 import { BAR_WIDTH, HorizontalScrollBar } from "components/inputs/ScrollBar"
 import PianoCursor from "components/PianoRoll/PianoCursor"
 import PianoGrid from "components/PianoRoll/PianoGrid"
@@ -16,8 +15,6 @@ import React, { FC, useEffect, useState } from "react"
 import transformEvents from "./transformEvents"
 import { Stage as PixiStage } from "@inlet/react-pixi"
 
-import "./TempoGraph.css"
-import { CanvasDrawStyle } from "main/style"
 import TempoGraphItem from "./TempoGraphItem"
 import { Container } from "@inlet/react-pixi"
 import { toJS } from "mobx"
@@ -30,85 +27,33 @@ import {
 import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
 import { withSize } from "react-sizeme"
+import { HorizontalLines } from "./HorizontalLines"
+import { TempoGraphAxis } from "./TempoGraphAxis"
+import styled from "styled-components"
 
 type DisplayEvent = TrackEvent & SetTempoEvent
-
-interface HorizontalLinesProps {
-  width: number
-  height: number
-  transform: TempoCoordTransform
-  borderColor: CanvasDrawStyle
-}
-
-function HorizontalLines({
-  width,
-  height,
-  transform,
-  borderColor,
-}: HorizontalLinesProps) {
-  if (!width) {
-    return null
-  }
-
-  function draw(ctx: CanvasRenderingContext2D) {
-    const { width, height } = ctx.canvas
-    ctx.clearRect(0, 0, width, height)
-
-    ctx.save()
-    ctx.translate(0.5, 0.5)
-
-    ctx.strokeStyle = borderColor
-    ctx.lineWidth = 1
-
-    // 30 -> 510 を 17 分割した線
-    ctx.beginPath()
-    for (let i = 30; i < transform.maxBPM; i += 30) {
-      const y = Math.round(transform.getY(i))
-
-      ctx.moveTo(0, y)
-      ctx.lineTo(width, y)
-    }
-    ctx.stroke()
-    ctx.restore()
-  }
-
-  return (
-    <DrawCanvas
-      draw={draw}
-      width={width}
-      height={height}
-      className="HorizontalLines"
-      onContextMenu={(e) => e.preventDefault()}
-    />
-  )
-}
-
-interface GraphAxisProps {
-  width: number
-  transform: TempoCoordTransform
-  offset: number
-}
-
-const GraphAxis: FC<GraphAxisProps> = ({ width, transform, offset }) => {
-  return (
-    <div className="GraphAxis" style={{ width }}>
-      <div className="values">
-        {_.range(30, transform.maxBPM, 30).map((t) => {
-          const top = Math.round(transform.getY(t)) + offset
-          return (
-            <div style={{ top }} key={t}>
-              {t}
-            </div>
-          )
-        })}
-      </div>
-    </div>
-  )
-}
 
 interface TempoGraphProps {
   size: ISize
 }
+
+const Wrapper = styled.div`
+  flex-grow: 1;
+  background: var(--background-color);
+  color: var(--secondary-text-color);
+
+  .HorizontalLines,
+  .Graph {
+    position: absolute;
+    top: var(--ruler-height);
+    pointer-events: none;
+    margin-left: var(--key-width);
+  }
+
+  .Graph {
+    pointer-events: all;
+  }
+`
 
 const _TempoGraph: FC<TempoGraphProps> = ({ size }) => {
   const { rootStore } = useStores()
@@ -243,7 +188,7 @@ const _TempoGraph: FC<TempoGraphProps> = ({ size }) => {
   const canvasHeight = containerHeight - rulerHeight
 
   return (
-    <div className="TempoGraph">
+    <Wrapper>
       <PixiStage
         width={containerWidth}
         height={canvasHeight}
@@ -282,13 +227,17 @@ const _TempoGraph: FC<TempoGraphProps> = ({ size }) => {
         onWheel={onWheelGraph}
         scrollLeft={scrollLeft}
       />
-      <GraphAxis width={keyWidth} offset={rulerHeight} transform={transform} />
+      <TempoGraphAxis
+        width={keyWidth}
+        offset={rulerHeight}
+        transform={transform}
+      />
       <HorizontalScrollBar
         scrollOffset={scrollLeft}
         contentLength={contentWidth}
         onScroll={setScrollLeft}
       />
-    </div>
+    </Wrapper>
   )
 }
 

@@ -32,5 +32,7 @@ export const Drawer: FC = () => {
 }
 
 export const ListHeader = styled(ListSubheader)`
-  background: var(--background-color);
+  &.MuiListSubheader-root {
+    background: var(--background-color);
+  }
 `

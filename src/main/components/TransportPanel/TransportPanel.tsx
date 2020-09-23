@@ -37,7 +37,6 @@ const TempoInput = styled.input`
   font-family: monospace;
   font-size: 1rem;
   padding: 0.3rem 0;
-  width: 4em;
 
   &::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -45,11 +44,17 @@ const TempoInput = styled.input`
   }
 `
 
-const Button = styled(IconButton)`
+const Button = styled.button`
+  --webkit-appearance: none;
+  outline: none;
+  border: none;
   background: #ffffff0d;
   border-radius: 30%;
   margin: 0.25rem;
   padding: 0.5rem;
+  color: var(--text-color);
+  display: flex;
+  cursor: pointer;
 
   &:hover {
     background: #ffffff1f;

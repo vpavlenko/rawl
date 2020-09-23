@@ -43,6 +43,14 @@ export function bindKeyboardShortcut(rootStore: RootStore) {
         deleteSelection(rootStore)()
         break
       }
+      case "Digit1": {
+        rootStore.pianoRollStore.mouseMode = "pencil"
+        break
+      }
+      case "Digit2": {
+        rootStore.pianoRollStore.mouseMode = "selection"
+        break
+      }
       default:
         break
     }

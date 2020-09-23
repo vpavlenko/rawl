@@ -12,7 +12,7 @@ import PitchGraph from "./Graph/PitchGraph"
 import VolumeGraph from "./Graph/VolumeGraph"
 import ExpressionGraph from "./Graph/ExpressionGraph"
 import ModulationGraph from "./Graph/ModulationGraph"
-import PianoVelocityControl from "./PianoVelocityControl/PianoVelocityControl"
+import PianoVelocityControl from "./VelocityControl/VelocityControl"
 
 import { Stage, Container } from "@inlet/react-pixi"
 import styled from "styled-components"

@@ -109,10 +109,6 @@ function areEqual(
   props: PianoVelocityControlProps,
   nextProps: PianoVelocityControlProps
 ) {
-  console.log(
-    props.events.filter(isNoteEvent)[0]?.velocity,
-    nextProps.events.filter(isNoteEvent)[0]?.velocity
-  )
   return (
     props.scrollLeft === nextProps.scrollLeft &&
     props.width === nextProps.width &&

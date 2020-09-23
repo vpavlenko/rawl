@@ -121,14 +121,8 @@ const useGestures = (
     ]
   )
 
-  const mouseover = useCallback(() => {
-    setEntered(true)
-    console.log("enter")
-  }, [setEntered])
-  const mouseout = useCallback(() => {
-    setEntered(false)
-    console.log("exit")
-  }, [setEntered])
+  const mouseover = useCallback(() => setEntered(true), [setEntered])
+  const mouseout = useCallback(() => setEntered(false), [setEntered])
 
   return {
     ref,

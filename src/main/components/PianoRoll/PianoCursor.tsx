@@ -9,7 +9,6 @@ export interface PianoCursorProps {
 
 const PianoCursor: FC<PianoCursorProps> = ({ height }) => {
   function draw(ctx: PIXIGraphics) {
-    console.log("render PianoCursor")
     const color = Color("red").rgbNumber()
     ctx.clear().lineStyle(1, color).moveTo(0, 0).lineTo(0, height)
   }

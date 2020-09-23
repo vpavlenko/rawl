@@ -19,7 +19,6 @@ const PianoSelection: FC<PianoSelectionProps> = ({ bounds, onRightClick }) => {
   const color = Color(theme.themeColor).rgbNumber()
 
   function draw(ctx: PIXIGraphics): void {
-    console.log("render PianoSelection")
     ctx.clear()
     const { width, height } = bounds
     ctx

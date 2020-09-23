@@ -170,7 +170,6 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
     switch (e.position) {
       case "center": {
         const delta = pointSub(e.offset, e.dragStart)
-        console.log(delta)
         const position = pointAdd(e.dragItem, delta)
         moveNote(rootStore)({
           id: note.id,

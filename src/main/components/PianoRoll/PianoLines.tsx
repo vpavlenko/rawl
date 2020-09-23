@@ -19,7 +19,6 @@ const PianoLines: FC<PianoLinesProps> = ({
   const theme = useTheme()
 
   function draw(ctx: PIXIGraphics) {
-    console.log("render PianoLines")
     const keyHeight = pixelsPerKey
     ctx.clear()
     for (let key = 0; key < numberOfKeys; key++) {

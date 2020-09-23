@@ -123,13 +123,13 @@ const TempoForm: FC<TempoFormProps> = ({ tempo, onChangeTempo }) => {
 export const TransportPanel: FC = () => {
   const { rootStore: stores } = useStores()
   const { tempo, mbtTime, isPlaying } = useObserver(() => ({
-    tempo: stores.song.conductorTrack?.tempo ?? 0,
-    player: stores.services.player,
     mbtTime: getMBTString(
       stores.song.measures,
       stores.playerStore.position,
       stores.services.player.timebase
     ),
+    tempo:
+      stores.song.conductorTrack?.getTempo(stores.playerStore.position) ?? 0,
     isPlaying: stores.services.player.isPlaying,
   }))
   const onClickPlay = () => play(stores)()
@@ -137,7 +137,7 @@ export const TransportPanel: FC = () => {
   const onClickBackward = () => movePlayerPosition(stores)(-TIME_BASE * 4)
   const onClickForward = () => movePlayerPosition(stores)(TIME_BASE * 4)
   const onChangeTempo = (tempo: number) => {
-    stores.song.conductorTrack?.setTempo(tempo)
+    stores.song.conductorTrack?.setTempo(tempo, stores.playerStore.position)
   }
 
   const classes = useStyles({})

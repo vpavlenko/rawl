@@ -1,7 +1,7 @@
 import { observable, action, transaction } from "mobx"
 import { serializable, list, primitive, custom } from "serializr"
 import _ from "lodash"
-import { AnyEvent } from "midifile-ts"
+import { AnyEvent, SetTempoEvent } from "midifile-ts"
 
 import { getInstrumentName } from "midi/GM"
 import {
@@ -246,19 +246,26 @@ export default class Track {
     this._updateLast(this.events.filter(isProgramChangeEvent), { value })
   }
 
-  get tempo(): number | undefined {
-    const e = _.last(this.events.filter(isSetTempoEvent))
+  getTempoEvent(tick: number) {
+    return getLastEventBefore(this.events.filter(isSetTempoEvent), tick)
+  }
+
+  getTempo(tick: number): number | undefined {
+    const e = this.getTempoEvent(tick)
     if (e === undefined) {
       return undefined
     }
     return 60000000 / e.microsecondsPerBeat
   }
 
-  setTempo(bpm: number) {
+  setTempo(bpm: number, tick: number) {
     const microsecondsPerBeat = 60000000 / bpm
-    this._updateLast(this.events.filter(isSetTempoEvent), {
-      microsecondsPerBeat,
-    })
+    const e = this.getTempoEvent(tick)
+    if (e !== undefined) {
+      this.updateEvent(e.id, {
+        microsecondsPerBeat,
+      })
+    }
   }
 
   get isConductorTrack() {
@@ -268,4 +275,16 @@ export default class Track {
   get isRhythmTrack() {
     return this.channel === 9
   }
+}
+
+const getLastEventBefore = <T extends TrackEvent>(
+  events: T[],
+  tick: number
+): T | undefined => {
+  return _.last(
+    events
+      .slice()
+      .filter((e) => e.tick <= tick)
+      .sort((e) => e.tick)
+  )
 }

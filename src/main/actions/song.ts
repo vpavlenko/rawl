@@ -84,10 +84,3 @@ export const selectTrack = (rootStore: RootStore) => (trackId: number) => {
 
   song.selectTrack(trackId)
 }
-
-export const setTempo = (rootStore: RootStore) => (tempo: number) => {
-  const store = rootStore
-
-  store.pushHistory()
-  store.song.getTrack(0).setTempo(tempo)
-}

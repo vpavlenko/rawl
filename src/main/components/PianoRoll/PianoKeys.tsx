@@ -90,8 +90,8 @@ const PianoKeys: FC<PianoKeysProps> = ({
   }
 
   function onMouseDown(e: PIXI.InteractionEvent) {
-    const ev = e.data.originalEvent as MouseEvent
-    const noteNumber = Math.floor(pixelsToNoteNumber(ev.offsetY))
+    const local = e.data.getLocalPosition(e.target)
+    const noteNumber = Math.floor(pixelsToNoteNumber(local.y))
     onClickKey(noteNumber)
   }
 
@@ -140,6 +140,7 @@ const PianoKeys: FC<PianoKeysProps> = ({
     <Container
       width={width}
       height={keyHeight * numberOfKeys}
+      interactive={true}
       mousedown={onMouseDown}
     >
       <Graphics draw={draw} />

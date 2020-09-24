@@ -14,7 +14,7 @@ export default class JsonStore {
     }
   }
 
-  _saveCache() {
+  private _saveCache() {
     // fs.writeFileSync(this.path, JSON.stringify(this.cache))
   }
 

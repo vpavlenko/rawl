@@ -184,11 +184,11 @@ export default class Player extends EventEmitter {
     return this._currentTempo
   }
 
-  _sendMessage(msg: number[], timestamp: number) {
+  private _sendMessage(msg: number[], timestamp: number) {
     this._output.send(msg, timestamp)
   }
 
-  _sendMessages(msg: Message[]) {
+  private _sendMessages(msg: Message[]) {
     this._output.sendEvents(msg)
   }
 

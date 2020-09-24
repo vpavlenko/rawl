@@ -2,7 +2,7 @@ import { observable, computed, action } from "mobx"
 import JsonStore from "helpers/electron-json-store"
 
 export default class SettingsStore {
-  @observable _soundFontPath: string | null
+  @observable private _soundFontPath: string | null
   storage = new JsonStore()
 
   constructor() {

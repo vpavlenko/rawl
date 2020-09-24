@@ -4,7 +4,7 @@ import Player, { LoopSetting } from "common/player"
 export default class PlayerStore {
   private player: Player
 
-  @observable _loop: LoopSetting
+  @observable private _loop: LoopSetting
 
   @computed get loop(): LoopSetting {
     return this._loop
@@ -16,7 +16,7 @@ export default class PlayerStore {
     this.player.loop = loop
   }
 
-  @observable _position: number
+  @observable private _position: number
 
   @computed get position(): number {
     return this._position
@@ -34,7 +34,7 @@ export default class PlayerStore {
 
     player.addListener(
       "change-position",
-      position => (this._position = position)
+      (position) => (this._position = position)
     )
   }
 }

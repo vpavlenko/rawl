@@ -17,6 +17,7 @@ import { deassemble as deassembleRPN } from "common/helpers/RPNAssembler"
 import { NoteEvent } from "../track"
 import { PlayerEvent } from "./PlayerEvent"
 import SynthOutput, { Message } from "../../main/services/SynthOutput"
+import { computed, observable } from "mobx"
 
 function firstByte(eventType: string, channel: number): number {
   return (MIDIChannelEvents[eventType] << 4) + channel
@@ -72,6 +73,7 @@ export default class Player extends EventEmitter {
   private _trackMute: TrackMute
   private _latency: number = 100
   private _timer?: NodeJS.Timeout
+  @observable private _isPlaying = false
 
   loop: LoopSetting = {
     begin: 0,
@@ -96,6 +98,7 @@ export default class Player extends EventEmitter {
       this._timebase,
       500
     )
+    this._isPlaying = true
     this._output.activate()
 
     if (this._timer) {
@@ -120,8 +123,8 @@ export default class Player extends EventEmitter {
     return this._currentTick
   }
 
-  get isPlaying() {
-    return !!this._scheduler
+  @computed get isPlaying() {
+    return this._isPlaying
   }
 
   get timebase() {
@@ -157,6 +160,7 @@ export default class Player extends EventEmitter {
     this._scheduler = null
     this.allSoundsOff()
     this.prevTimestamp = null
+    this._isPlaying = false
 
     if (this._timer) {
       clearInterval(this._timer)

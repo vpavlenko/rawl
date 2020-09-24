@@ -8,7 +8,7 @@
     "rootDirs": ["src", "stories"],
     "sourceMap": true,
     "target": "es5",
-    "module": "es2015",
+    "module": "esnext",
     "esModuleInterop": true,
     "jsx": "react",
     "moduleResolution": "node",

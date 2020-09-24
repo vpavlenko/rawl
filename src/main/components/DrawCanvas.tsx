@@ -1,5 +1,4 @@
 import React, { Component, CanvasHTMLAttributes } from "react"
-import _ from "lodash"
 
 export interface DrawCanvasProps
   extends CanvasHTMLAttributes<HTMLCanvasElement> {
@@ -30,11 +29,7 @@ export default class DrawCanvas extends Component<DrawCanvasProps> {
   }
 
   render() {
-    return (
-      <canvas
-        ref={c => c && (this.canvas = c)}
-        {..._.omit(this.props, "draw")}
-      />
-    )
+    const { draw, ...props } = this.props
+    return <canvas ref={(c) => c && (this.canvas = c)} {...props} />
   }
 }

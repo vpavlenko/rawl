@@ -1,6 +1,6 @@
 import React, { FC } from "react"
 import { Graphics as PIXIGraphics } from "pixi.js"
-import _ from "lodash"
+import isEqual from "lodash/isEqual"
 
 import Theme from "common/theme"
 import { BeatWithX } from "helpers/mapBeats"
@@ -39,7 +39,7 @@ const PianoGrid: FC<PianoGridProps> = ({ height, beats }) => {
 
 function areEqual(props: PianoGridProps, nextProps: PianoGridProps) {
   return (
-    props.height === nextProps.height && _.isEqual(props.beats, nextProps.beats)
+    props.height === nextProps.height && isEqual(props.beats, nextProps.beats)
   )
 }
 

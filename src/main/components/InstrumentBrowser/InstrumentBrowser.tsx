@@ -1,5 +1,8 @@
 import React, { FC } from "react"
-import _ from "lodash"
+import groupBy from "lodash/groupBy"
+import range from "lodash/range"
+import difference from "lodash/difference"
+import map from "lodash/map"
 
 import { getGMCategory } from "midi/GM.ts"
 
@@ -14,7 +17,8 @@ import {
 import { useObserver } from "mobx-react"
 import { setTrackInstrument as setTrackInstrumentAction } from "actions"
 import { programChangeMidiEvent } from "common/midi/MidiEvent"
-import { useStores } from "main/hooks/useStores"
+import { useStores } from "../../hooks/useStores"
+import { isNotUndefined } from "../../../common/helpers/array"
 
 export interface InstrumentSetting {
   programNumber: number
@@ -176,8 +180,8 @@ const InstrumentBrowserWrapper: FC = () => {
     name: presetNames[0][parseInt(key)],
   }))
 
-  const presetCategories = _.map(
-    _.groupBy(presets, (p) => getGMCategory(p.programNumber)),
+  const presetCategories = map(
+    groupBy(presets, (p) => getGMCategory(p.programNumber)),
     (presets, name) => ({ name, presets })
   )
 
@@ -211,12 +215,14 @@ const InstrumentBrowserWrapper: FC = () => {
         } else {
           if (track.isRhythmTrack) {
             // 適当なチャンネルに変える
-            const channels = _.range(16)
+            const channels = range(16)
             const usedChannels = song.tracks
               .filter((t) => t !== track)
               .map((t) => t.channel)
             const availableChannel =
-              _.min(_.difference(channels, usedChannels)) || 0
+              Math.min(
+                ...difference(channels, usedChannels).filter(isNotUndefined)
+              ) || 0
             track.channel = availableChannel
           }
           setTrackInstrument(instrumentBrowserSetting.programNumber)

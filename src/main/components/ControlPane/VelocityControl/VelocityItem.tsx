@@ -2,7 +2,7 @@ import React, { FC } from "react"
 import { Graphics as PIXIGraphics, Rectangle } from "pixi.js"
 import { IRect } from "common/geometry"
 import { Graphics } from "@inlet/react-pixi"
-import _ from "lodash"
+import isEqual from "lodash/isEqual"
 
 export interface VelocityItemProps {
   id: number
@@ -48,7 +48,7 @@ const VelocityItem: FC<VelocityItemProps> = (props) => {
 const areEqual = (props: VelocityItemProps, nextProps: VelocityItemProps) => {
   return (
     props.id === nextProps.id &&
-    _.isEqual(props.bounds, nextProps.bounds) &&
+    isEqual(props.bounds, nextProps.bounds) &&
     props.fillColor === nextProps.fillColor &&
     props.itemHeight === nextProps.itemHeight &&
     props.selected === nextProps.selected &&

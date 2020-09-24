@@ -3,7 +3,7 @@ import { Graphics as PIXIGraphics, Rectangle } from "pixi.js"
 import { IRect, IPoint } from "src/common/geometry"
 import { useState } from "react"
 import { Graphics } from "@inlet/react-pixi"
-import _ from "lodash"
+import isEqual from "lodash/isEqual"
 import { NoteEvent } from "src/common/track"
 import { NoteCoordTransform } from "src/common/transform"
 
@@ -213,11 +213,8 @@ function getPositionType(localX: number, width: number): MousePositionType {
   return "center"
 }
 
-const diff = (before: any, after: any) =>
-  _.omitBy(before, (v, k) => after[k] === v)
-
 const areEqual = (props: PianoNoteProps, nextProps: PianoNoteProps) =>
-  _.isEqual(props.item, nextProps.item) &&
+  isEqual(props.item, nextProps.item) &&
   props.isDrum === nextProps.isDrum &&
   props.color === nextProps.color &&
   props.borderColor === nextProps.borderColor &&

@@ -1,5 +1,5 @@
 import { fromPoints as rectFromPoints, IPoint, IRect } from "common/geometry"
-import _ from "lodash"
+import mapValues from "lodash/mapValues"
 import clipboard from "services/Clipboard.ts"
 import RootStore from "../stores/RootStore"
 import Track, { NoteEvent, isNoteEvent } from "common/track"
@@ -111,7 +111,9 @@ export const arrangeMoveSelection = (rootStore: RootStore) => (pos: IPoint) => {
   // ノートを移動
 
   const updates = []
-  for (const [trackIndex, selectedEvents] of Object.entries(s.selectedEventIds)) {
+  for (const [trackIndex, selectedEvents] of Object.entries(
+    s.selectedEventIds
+  )) {
     const trackId = parseInt(trackIndex, 10)
     const track = tracks[trackId]
     const events = s.selectedEventIds[trackId]
@@ -167,7 +169,7 @@ export const arrangeCopySelection = (rootStore: RootStore) => () => {
     return
   }
   // 選択されたノートをコピー
-  const notes = _.mapValues(s.selectedEventIds, (ids, trackId) => {
+  const notes = mapValues(s.selectedEventIds, (ids, trackId) => {
     const track = tracks[parseInt(trackId, 10)]
     return ids
       .map((id) => track.getEventById(id))

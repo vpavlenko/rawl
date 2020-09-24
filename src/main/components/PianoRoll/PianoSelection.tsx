@@ -1,6 +1,6 @@
 import React, { FC } from "react"
 import { Graphics as PIXIGraphics, Rectangle } from "pixi.js"
-import _ from "lodash"
+import isEqual from "lodash/isEqual"
 
 import { IRect } from "common/geometry"
 import { useTheme } from "main/hooks/useTheme"
@@ -44,7 +44,7 @@ const PianoSelection: FC<PianoSelectionProps> = ({ bounds, onRightClick }) => {
 }
 
 function areEqual(props: PianoSelectionProps, nextProps: PianoSelectionProps) {
-  return _.isEqual(props.bounds, nextProps.bounds)
+  return isEqual(props.bounds, nextProps.bounds)
 }
 
 export default React.memo(PianoSelection, areEqual)

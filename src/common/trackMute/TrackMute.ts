@@ -1,5 +1,4 @@
 import { observable } from "mobx"
-import * as _ from "lodash"
 
 function updated<T>(obj: T, key: keyof T, value: any) {
   return { ...obj, [key]: value }
@@ -76,7 +75,7 @@ export default class TrackMute {
 
   isSoloMode(): boolean {
     // どれかひとつでも solo なら solo モード
-    return _.some(this.solos)
+    return Object.values(this.solos).some((s) => s)
   }
 
   shouldPlayTrack(trackId: number) {

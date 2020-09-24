@@ -1,4 +1,4 @@
-import _ from "lodash"
+import range from "lodash/range"
 import React, { FC } from "react"
 import styled from "styled-components"
 import { TempoCoordTransform } from "../../../common/transform"
@@ -42,7 +42,7 @@ export const TempoGraphAxis: FC<TempoGraphAxisProps> = ({
   return (
     <Container style={{ width }}>
       <Values>
-        {_.range(30, transform.maxBPM, 30).map((t) => {
+        {range(30, transform.maxBPM, 30).map((t) => {
           const top = Math.round(transform.getY(t)) + offset
           return (
             <div style={{ top }} key={t}>

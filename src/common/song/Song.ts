@@ -1,6 +1,6 @@
 import { observable, autorun, computed, action, transaction } from "mobx"
 import { list, object, serializable } from "serializr"
-import * as _ from "lodash"
+import pullAt from "lodash/pullAt"
 
 import Track from "common/track"
 import Measure, { getMeasuresFromConductorTrack } from "common/measure"
@@ -26,8 +26,8 @@ export default class Song {
   private _endOfSong: number = 0
 
   private _updateEndOfSong() {
-    const eos = _.max(
-      this.tracks.map((t) => t.endOfTrack).filter(isNotUndefined)
+    const eos = Math.max(
+      ...this.tracks.map((t) => t.endOfTrack).filter(isNotUndefined)
     )
     this._endOfSong = (eos ?? 0) + END_MARGIN
   }
@@ -57,7 +57,7 @@ export default class Song {
 
   @action removeTrack(id: number) {
     transaction(() => {
-      _.pullAt(this.tracks, id)
+      pullAt(this.tracks, id)
       this.selectTrack(Math.min(id, this.tracks.length - 1))
       this._updateEndOfSong()
     })
@@ -71,7 +71,7 @@ export default class Song {
   }
 
   @computed get conductorTrack(): Track | undefined {
-    return _.find(this.tracks, (t) => t.isConductorTrack)
+    return this.tracks.find((t) => t.isConductorTrack)
   }
 
   @computed get selectedTrack(): Track | undefined {
@@ -100,7 +100,7 @@ export default class Song {
 
   trackIdOfChannel(channel: number): number | undefined {
     const tracks = this.tracks
-    const track = _.find(tracks, (t) => t.channel === channel)
+    const track = tracks.find((t) => t.channel === channel)
     if (track) {
       return tracks.indexOf(track)
     }

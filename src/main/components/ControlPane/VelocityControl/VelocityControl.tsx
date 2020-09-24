@@ -1,5 +1,5 @@
 import React, { useCallback, FC } from "react"
-import _ from "lodash"
+import isEqual from "lodash/isEqual"
 
 import VelocityItem, { VelocityItemEvent } from "./VelocityItem"
 import { NoteCoordTransform } from "common/transform"
@@ -114,9 +114,9 @@ function areEqual(
     props.width === nextProps.width &&
     props.height === nextProps.height &&
     props.changeVelocity === nextProps.changeVelocity &&
-    _.isEqual(props.events, nextProps.events) &&
-    _.isEqual(props.transform, nextProps.transform) &&
-    _.isEqual(props.color, nextProps.color)
+    isEqual(props.events, nextProps.events) &&
+    isEqual(props.transform, nextProps.transform) &&
+    isEqual(props.color, nextProps.color)
   )
 }
 

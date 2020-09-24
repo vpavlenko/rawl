@@ -1,6 +1,6 @@
 import React, { FC } from "react"
 import { Graphics as PIXIGraphics, Point, TextStyle } from "pixi.js"
-import _ from "lodash"
+import range from "lodash/range"
 
 import { noteNameWithOctString } from "helpers/noteNumberString"
 import { useTheme } from "main/hooks/useTheme"
@@ -96,7 +96,7 @@ const PianoKeys: FC<PianoKeysProps> = ({
   }
 
   // 1オクターブごとにラベルを配置
-  const labels = _.range(0, numberOfKeys, 12).map((i) => (
+  const labels = range(0, numberOfKeys, 12).map((i) => (
     <KeyLabel
       width={width}
       keyNum={i}
@@ -107,7 +107,7 @@ const PianoKeys: FC<PianoKeysProps> = ({
     />
   ))
 
-  const blackKeys = _.range(0, numberOfKeys)
+  const blackKeys = range(0, numberOfKeys)
     .filter(isBlackKey)
     .map((i) => (
       <BlackKey
@@ -118,7 +118,7 @@ const PianoKeys: FC<PianoKeysProps> = ({
       />
     ))
 
-  const dividers = _.range(0, numberOfKeys)
+  const dividers = range(0, numberOfKeys)
     .filter(isBordered)
     .map((i) => {
       const y = (numberOfKeys - i - 1) * keyHeight

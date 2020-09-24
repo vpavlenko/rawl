@@ -1,9 +1,9 @@
 import { createElement } from "react"
-import _ from "lodash"
+import omit from "lodash/omit"
 
 export default function getElementType(
   preferredElement: string | undefined
 ): React.FunctionComponent<any> {
-  return props =>
-    createElement(preferredElement || "div", _.omit(props, "children"))
+  return (props) =>
+    createElement(preferredElement || "div", omit(props, "children"))
 }

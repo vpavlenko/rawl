@@ -1,4 +1,5 @@
-import _ from "lodash"
+import flatten from "lodash/flatten"
+import range from "lodash/range"
 import EventEmitter from "eventemitter3"
 
 import {
@@ -22,16 +23,14 @@ function firstByte(eventType: string, channel: number): number {
 }
 
 function collectAllEvents(song: Song): PlayerEvent[] {
-  return _.flatten(
-    song.tracks.map((t) =>
-      _.chain(t.events)
-        .map((e) => deassembleNote(e))
-        .flatten()
-        .map((e) => deassembleRPN(e, (x) => ({ ...x, tick: e.tick })))
-        .flatten()
-        .map((e) => ({ ...e, channel: t.channel } as any))
-        .value()
-    )
+  return flatten(
+    song.tracks.map((t) => {
+      const a = flatten(t.events.map((e) => deassembleNote(e)))
+      const b = flatten(
+        a.map((e) => deassembleRPN(e, (x) => ({ ...x, tick: e.tick })))
+      )
+      return b.map((e) => ({ ...e, channel: t.channel } as any))
+    })
   )
 }
 
@@ -48,7 +47,7 @@ class DisplayTask {
   }
 
   perform() {
-    _.values(this.tasks).forEach((t) => t())
+    Object.values(this.tasks).forEach((t) => t())
     this.tasks = {}
   }
 }
@@ -141,13 +140,13 @@ export default class Player extends EventEmitter {
   }
 
   allSoundsOff() {
-    for (const ch of _.range(0, this.numberOfChannels)) {
+    for (const ch of range(0, this.numberOfChannels)) {
       this.allSoundsOffChannel(ch)
     }
   }
 
   allSoundsOffExclude(channel: number) {
-    for (const ch of _.range(0, this.numberOfChannels)) {
+    for (const ch of range(0, this.numberOfChannels)) {
       if (ch !== channel) {
         this.allSoundsOffChannel(ch)
       }
@@ -166,7 +165,7 @@ export default class Player extends EventEmitter {
 
   reset() {
     const time = window.performance.now()
-    for (const ch of _.range(0, this.numberOfChannels)) {
+    for (const ch of range(0, this.numberOfChannels)) {
       // reset controllers
       this._sendMessage(
         [

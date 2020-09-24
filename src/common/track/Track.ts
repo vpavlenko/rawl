@@ -1,7 +1,11 @@
 import { observable, action, transaction } from "mobx"
-import { serializable, list, primitive, custom } from "serializr"
-import _ from "lodash"
-import { AnyEvent, SetTempoEvent } from "midifile-ts"
+import { serializable, list } from "serializr"
+import isEqual from "lodash/isEqual"
+import without from "lodash/without"
+import difference from "lodash/difference"
+import sortBy from "lodash/sortBy"
+import last from "lodash/last"
+import { AnyEvent } from "midifile-ts"
 
 import { getInstrumentName } from "midi/GM"
 import {
@@ -47,7 +51,7 @@ export default class Track {
       return null
     }
     const newObj = Object.assign({}, anObj, obj)
-    if (_.isEqual(newObj, anObj)) {
+    if (isEqual(newObj, anObj)) {
       return null
     }
     Object.assign(anObj, obj)
@@ -81,13 +85,13 @@ export default class Track {
     if (obj == undefined) {
       return
     }
-    this.events = _.without(this.events, obj)
+    this.events = without(this.events, obj)
     this.updateEndOfTrack()
   }
 
   @action removeEvents(ids: number[]) {
     const objs = ids.map((id) => this.getEventById(id)).filter(isNotUndefined)
-    this.events = _.difference(this.events, objs)
+    this.events = difference(this.events, objs)
     this.updateEndOfTrack()
   }
 
@@ -125,7 +129,7 @@ export default class Track {
   }
 
   @action sortByTick() {
-    this.events = _.sortBy(this.events, "tick")
+    this.events = sortBy(this.events, "tick")
   }
 
   @action updateEndOfTrack() {
@@ -151,9 +155,9 @@ export default class Track {
     arr: TrackEvent[],
     obj: Partial<T>
   ) {
-    const last = _.last(arr)
-    if (last !== undefined) {
-      this.updateEvent(last.id, obj)
+    const lastEvent = last(arr)
+    if (lastEvent !== undefined) {
+      this.updateEvent(lastEvent.id, obj)
     }
   }
 
@@ -199,7 +203,7 @@ export default class Track {
   }
 
   get name(): string | undefined {
-    return _.get(_.last(this.events.filter(isTrackNameEvent)), "text")
+    return last(this.events.filter(isTrackNameEvent))?.text
   }
 
   setName(text: string) {
@@ -243,7 +247,7 @@ export default class Track {
     this.setControllerValue(10, tick, value)
 
   get endOfTrack(): number | undefined {
-    return _.get(_.last(this.events.filter(isEndOfTrackEvent)), "tick")
+    return last(this.events.filter(isEndOfTrackEvent))?.tick
   }
 
   setEndOfTrack(tick: number) {
@@ -251,7 +255,7 @@ export default class Track {
   }
 
   get programNumber(): number | undefined {
-    return _.get(_.last(this.events.filter(isProgramChangeEvent)), "value")
+    return last(this.events.filter(isProgramChangeEvent))?.value
   }
 
   setProgramNumber = (value: number) =>
@@ -291,7 +295,7 @@ const getLastEventBefore = <T extends TrackEvent>(
   events: T[],
   tick: number
 ): T | undefined => {
-  return _.last(
+  return last(
     events
       .slice()
       .filter((e) => e.tick <= tick)

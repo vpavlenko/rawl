@@ -1,6 +1,6 @@
 import React, { FC } from "react"
 import { Graphics as PIXIGraphics, TextStyle, Point } from "pixi.js"
-import _ from "lodash"
+import isEqual from "lodash/isEqual"
 
 import { LoopSetting } from "common/player"
 
@@ -37,7 +37,7 @@ const Beats: FC<BeatProps> = React.memo(
 
     return <Graphics draw={draw} />
   },
-  _.isEqual
+  isEqual
 )
 
 interface LoopPointsProps {
@@ -94,7 +94,7 @@ const LoopPoints: FC<LoopPointsProps> = React.memo(
 
     return <Graphics draw={draw} />
   },
-  _.isEqual
+  isEqual
 )
 
 export interface TickEvent<E> {
@@ -208,8 +208,8 @@ function areEqual(props: PianoRulerProps, nextProps: PianoRulerProps) {
     props.width === nextProps.width &&
     props.pixelsPerTick === nextProps.pixelsPerTick &&
     props.scrollLeft === nextProps.scrollLeft &&
-    _.isEqual(props.loop, nextProps.loop) &&
-    _.isEqual(props.beats, nextProps.beats)
+    isEqual(props.loop, nextProps.loop) &&
+    isEqual(props.beats, nextProps.beats)
   )
 }
 

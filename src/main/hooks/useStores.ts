@@ -1,7 +1,7 @@
-import React from "react"
-import { MobXProviderContext } from "mobx-react"
+import React, { createContext, useContext } from "react"
 import RootStore from "../stores/RootStore"
 
-// https://mobx-react.js.org/recipes-migration
-export const useStores = () =>
-  React.useContext(MobXProviderContext) as { rootStore: RootStore }
+export const StoreContext = createContext<{ rootStore: RootStore }>({
+  rootStore: (null as unknown) as RootStore, // never use default value
+})
+export const useStores = () => useContext(StoreContext)

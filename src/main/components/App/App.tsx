@@ -1,5 +1,4 @@
 import React from "react"
-import { Provider } from "mobx-react"
 
 import { bindKeyboardShortcut } from "main/services/KeyboardShortcut.ts"
 
@@ -10,6 +9,7 @@ import { ThemeProvider } from "@material-ui/styles"
 import { applyThemeToCSS } from "common/theme/applyThemeToCSS"
 import { defaultTheme } from "common/theme"
 import { ThemeContext } from "main/hooks/useTheme"
+import { StoreContext } from "main/hooks/useStores"
 import RootView from "../RootView/RootView"
 
 import "./App.css"
@@ -22,12 +22,12 @@ bindKeyboardShortcut(rootStore)
 
 export default function App() {
   return (
-    <Provider rootStore={rootStore}>
+    <StoreContext.Provider value={{ rootStore: new RootStore() }}>
       <ThemeContext.Provider value={defaultTheme}>
         <ThemeProvider theme={theme}>
           <RootView />
         </ThemeProvider>
       </ThemeContext.Provider>
-    </Provider>
+    </StoreContext.Provider>
   )
 }

@@ -9,7 +9,7 @@ import {
   arrangeOpenContextMenu,
 } from "actions"
 import { withSize } from "react-sizeme"
-import { useObserver } from "mobx-react"
+import { useObserver } from "mobx-react-lite"
 import { ArrangeView } from "components/ArrangeView/ArrangeView"
 import { toJS } from "mobx"
 import { setPlayerPosition } from "main/actions"

@@ -18,7 +18,7 @@ import { Stage as PixiStage } from "@inlet/react-pixi"
 import TempoGraphItem from "./TempoGraphItem"
 import { Container } from "@inlet/react-pixi"
 import { toJS } from "mobx"
-import { useObserver } from "mobx-react"
+import { useObserver } from "mobx-react-lite"
 import {
   changeTempo as _changeTempo,
   setPlayerPosition as _setPlayerPosition,

@@ -5,7 +5,7 @@ import { Stop, FastRewind, FastForward, PlayArrow } from "@material-ui/icons"
 import styled from "styled-components"
 import { TIME_BASE } from "Constants"
 import { play, stop, movePlayerPosition } from "main/actions"
-import { useObserver } from "mobx-react"
+import { useObserver } from "mobx-react-lite"
 import { useStores } from "main/hooks/useStores"
 import { getMBTString } from "common/measure/mbt"
 

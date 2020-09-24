@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useRef, useEffect } from "react"
-import { useObserver } from "mobx-react"
+import { useObserver } from "mobx-react-lite"
 import { withSize } from "react-sizeme"
 import { useTheme } from "main/hooks/useTheme"
 import { useStores } from "main/hooks/useStores"

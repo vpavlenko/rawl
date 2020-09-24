@@ -6,7 +6,7 @@ import {
   ListItem,
   ListItemText,
 } from "@material-ui/core"
-import { useObserver } from "mobx-react"
+import { useObserver } from "mobx-react-lite"
 import { SongList } from "./SongList"
 import { useStores } from "main/hooks/useStores"
 import styled from "styled-components"

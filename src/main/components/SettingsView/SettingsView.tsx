@@ -3,7 +3,7 @@ import NavigationBar from "components/groups/NavigationBar"
 
 import "./SettingsView.css"
 import { useStores } from "../../hooks/useStores"
-import { useObserver } from "mobx-react"
+import { useObserver } from "mobx-react-lite"
 
 interface SettingItemProps {
   label: string

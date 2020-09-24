@@ -6,7 +6,7 @@ import TrackListItem, { TrackListItemData } from "./TrackListItem"
 import { Add } from "@material-ui/icons"
 import { ListHeader } from "main/components/Drawer/Drawer"
 import { useStores } from "main/hooks/useStores"
-import { useObserver } from "mobx-react"
+import { useObserver } from "mobx-react-lite"
 import {
   addTrack,
   removeTrack,

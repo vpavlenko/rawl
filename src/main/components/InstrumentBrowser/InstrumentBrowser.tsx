@@ -14,7 +14,7 @@ import {
   FormControlLabel,
   Checkbox,
 } from "@material-ui/core"
-import { useObserver } from "mobx-react"
+import { useObserver } from "mobx-react-lite"
 import { setTrackInstrument as setTrackInstrumentAction } from "actions"
 import { programChangeMidiEvent } from "common/midi/MidiEvent"
 import { useStores } from "../../hooks/useStores"

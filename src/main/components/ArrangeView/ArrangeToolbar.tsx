@@ -10,7 +10,7 @@ import QuantizeSelector from "../PianoRollToolbar/QuantizeSelector/QuantizeSelec
 import "./ArrangeToolbar.css"
 import { KeyboardTab } from "@material-ui/icons"
 import { useStores } from "../../hooks/useStores"
-import { useObserver } from "mobx-react"
+import { useObserver } from "mobx-react-lite"
 
 export const ArrangeToolbar: FC = () => {
   const { rootStore } = useStores()

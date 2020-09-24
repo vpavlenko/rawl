@@ -33,7 +33,7 @@
     "lodash": "^4.17.20",
     "midifile-ts": "1.1.2",
     "mobx": "^5.15.6",
-    "mobx-react": "^6.3.0",
+    "mobx-react-lite": "2.2.2",
     "opus-recorder": "github:ryohey/Recorderjs#83c0d95",
     "pixi.js": "5.3.3",
     "react": "^16.13.1",

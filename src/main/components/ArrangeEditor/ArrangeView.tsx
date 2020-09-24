@@ -43,7 +43,7 @@ const ArrangeViewWrapper: FC<ArrangeViewWrapperProps> = ({ size }) => {
     measures: rootStore.song.measures,
     timebase: rootStore.services.player.timebase,
     endTick: rootStore.song.endOfSong,
-    loop: rootStore.playerStore.loop,
+    loop: rootStore.services.player.loop,
     selection: rootStore.arrangeViewStore.selection,
   }))
   const { arrangeViewStore: s } = rootStore

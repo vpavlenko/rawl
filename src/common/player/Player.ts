@@ -75,7 +75,7 @@ export default class Player extends EventEmitter {
   private _timer?: NodeJS.Timeout
   @observable private _isPlaying = false
 
-  loop: LoopSetting = {
+  @observable loop: LoopSetting = {
     begin: 0,
     end: 0,
     enabled: false,

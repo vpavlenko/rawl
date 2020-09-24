@@ -79,7 +79,7 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
     scrollTop: rootStore.pianoRollStore.scrollTop,
     notesCursor: rootStore.pianoRollStore.notesCursor,
     selection: rootStore.pianoRollStore.selection,
-    loop: rootStore.playerStore.loop,
+    loop: rootStore.services.player.loop,
   }))
   const theme = useTheme()
 

@@ -52,35 +52,28 @@ export const previewNote = (rootStore: RootStore) => (
 export const setLoopBegin = (rootStore: RootStore) => (tick: number) => {
   const {
     services: { player, quantizer },
-    playerStore,
   } = rootStore
   tick = quantizer.round(tick)
   if (player.loop.end !== null) {
     tick = Math.min(player.loop.end, tick)
   }
-  player.loop.begin = tick
-  playerStore.setLoop({ ...player.loop })
+  player.loop = { ...player.loop, begin: tick }
 }
 
 export const setLoopEnd = (rootStore: RootStore) => (tick: number) => {
   const {
     services: { player, quantizer },
-    playerStore,
   } = rootStore
   tick = quantizer.round(tick)
   if (player.loop.begin !== null) {
     tick = Math.max(player.loop.begin, tick)
   }
-  playerStore.setLoop({
-    ...player.loop,
-    end: tick,
-  })
+  player.loop = { ...player.loop, end: tick }
 }
 
 export const toggleEnableLoop = (rootStore: RootStore) => () => {
   const {
     services: { player },
-    playerStore,
   } = rootStore
-  playerStore.setLoop({ ...player.loop, enabled: !player.loop.enabled })
+  player.loop = { ...player.loop, enabled: !player.loop.enabled }
 }

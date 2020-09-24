@@ -4,7 +4,6 @@ import { action } from "@storybook/addon-actions"
 
 // inputs
 
-import Icon from "../src/main/components/outputs/Icon"
 import TextInput from "../src/main/components/inputs/TextInput"
 
 // groups
@@ -60,7 +59,6 @@ function wrapControl(BaseComponent: any) {
 }
 
 storiesOf("inputs", module)
-  .add("Icon", () => <Icon>earth</Icon>)
   .add("TextInput", () => (
     <TextInput value="hello" onChange={action("onChange")} />
   ))
@@ -72,7 +70,6 @@ storiesOf("groups", module)
   .add("MenuBar", () => (
     <Container overflow="visible">
       <MenuBar>
-        <MenuItem title={<Icon>apple</Icon>} />
         <MenuItem title="File">
           <SubMenu>
             <MenuItem title="Open" />
@@ -96,23 +93,6 @@ storiesOf("groups", module)
   .add("Toolbar", () => (
     <Container>
       <Toolbar>
-        <ToolbarItem>
-          <Icon>eraser</Icon>
-        </ToolbarItem>
-        <ToolbarItem>
-          <Icon>pencil</Icon>
-        </ToolbarItem>
-        <ToolbarItem selected={true}>
-          <Icon>pen</Icon>
-        </ToolbarItem>
-        <ToolbarSeparator />
-        <ToolbarItem>
-          <Icon>undo</Icon>
-        </ToolbarItem>
-        <ToolbarItem>
-          <Icon>redo</Icon>
-        </ToolbarItem>
-        <ToolbarSeparator />
         <ToolbarItem>share</ToolbarItem>
         <ToolbarItem touchDisabled={true}>
           <TextInput placeholder="Search" onChange={action("onChange")} />

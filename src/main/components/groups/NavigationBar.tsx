@@ -1,8 +1,8 @@
 import React, { FC, ReactNode } from "react"
-import Icon from "components/outputs/Icon"
 import f from "helpers/flatJoin"
 
 import "./NavigationBar.css"
+import { ChevronLeft } from "@material-ui/icons"
 
 export interface NavigationBarProps {
   title?: string
@@ -19,7 +19,7 @@ const NavigationBar: FC<NavigationBarProps> = ({
   return (
     <nav className={f("NavigationBar", className)}>
       <div className="title">
-        {onClickBack && <Icon onClick={onClickBack}>chevron-left</Icon>}
+        {onClickBack && <ChevronLeft onClick={onClickBack} />}
         <span>{title}</span>
       </div>
       {children}

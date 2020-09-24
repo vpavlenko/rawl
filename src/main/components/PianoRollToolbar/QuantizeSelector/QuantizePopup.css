@@ -37,9 +37,12 @@
   text-align: center;
 }
 
-.QuantizePopup .left .Icon {
-  opacity: 0.3;
-  font-size: 170%;
+.QuantizePopup .left svg {
+  color: var(--secondary-text-color);
+}
+
+.QuantizePopup .left svg:hover {
+  color: var(--text-color);
 }
 
 .QuantizePopup .button-up {
@@ -47,7 +50,7 @@
 }
 
 .QuantizePopup .button-down {
-  margin-top: -0.4em;
+  margin-top: -0.1em;
 }
 
 .QuantizePopup .field {

@@ -1,8 +1,8 @@
 import React, { FC } from "react"
-import Icon from "components/outputs/Icon"
 
 import "./QuantizePopup.css"
 import { Popover, makeStyles } from "@material-ui/core"
+import { KeyboardArrowUp, KeyboardArrowDown } from "@material-ui/icons"
 
 interface NumberPickerProps {
   value: number
@@ -27,13 +27,13 @@ const NumberPicker: FC<NumberPickerProps> = ({
   return (
     <div className={`NumberPicker ${className}`}>
       <div className="button-up" onClick={() => onChange(nextValue())}>
-        <Icon>chevron-up</Icon>
+        <KeyboardArrowUp />
       </div>
       <div className="value" onWheel={handleWheel}>
         {value}
       </div>
       <div className="button-down" onClick={() => onChange(prevValue())}>
-        <Icon>chevron-down</Icon>
+        <KeyboardArrowDown />
       </div>
     </div>
   )

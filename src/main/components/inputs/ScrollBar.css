@@ -5,21 +5,21 @@
   position: absolute;
 }
 
-.HorizontalScrollBar>div {
+.HorizontalScrollBar > div {
   height: 100%;
   float: left;
 }
 
 .ScrollBar .button-backward:hover,
 .ScrollBar .button-forward:hover {
-  background: #DDDDDD;
+  background: #dddddd;
   color: black;
 }
 
 .ScrollBar .button-backward:active,
 .ScrollBar .button-forward:active {
   background: #666666;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .ScrollBar .thumb {
@@ -33,12 +33,14 @@
 }
 
 .ScrollBar .thumb:active {
-  background: #8D8D8D;
+  background: #8d8d8d;
 }
 
-.ScrollBar .mdi-triangle {
+.ScrollBar .triangle {
   flex-grow: 1;
   pointer-events: none;
+  width: 15px;
+  height: 15px;
 }
 
 .ScrollBar .button-backward,
@@ -48,19 +50,18 @@
   display: flex;
 }
 
-.HorizontalScrollBar .button-backward .mdi-triangle {
-  transform: rotate(-90deg) scale(0.5);
+.HorizontalScrollBar .button-backward .triangle {
+  transform: rotate(-90deg) scale(1.1);
 }
 
-.HorizontalScrollBar .button-forward .mdi-triangle {
-  transform: rotate(90deg) scale(0.5);
+.HorizontalScrollBar .button-forward .triangle {
+  transform: rotate(90deg) scale(1.1);
 }
 
-
-.VerticalScrollBar .button-backward .mdi-triangle {
-  transform: rotate(0deg) scale(0.5);
+.VerticalScrollBar .button-backward .triangle {
+  transform: rotate(0deg) scale(1.1);
 }
 
-.VerticalScrollBar .button-forward .mdi-triangle {
-  transform: rotate(180deg) scale(0.5);
+.VerticalScrollBar .button-forward .triangle {
+  transform: rotate(180deg) scale(1.1);
 }

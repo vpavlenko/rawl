@@ -1,10 +1,10 @@
 import React, { FC } from "react"
 import { withSize } from "react-sizeme"
 
-import Icon from "components/outputs/Icon"
 import { pointSub, IPoint, ISize } from "common/geometry"
 
 import "./ScrollBar.css"
+import { ArrowDropUp } from "@material-ui/icons"
 
 export const BAR_WIDTH = 17
 const BUTTON_SIZE = 15
@@ -162,7 +162,7 @@ export const ScrollBar: FC<ScrollBarProps> = ({
     }
   }
 
-  const triangle = <Icon>triangle</Icon>
+  const triangle = <ArrowDropUp className="triangle" />
 
   return (
     <div

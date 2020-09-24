@@ -1,10 +1,10 @@
 import React, { FC, ReactNode, CSSProperties } from "react"
 import { withSize } from "react-sizeme"
-import Icon from "components/outputs/Icon"
 import { ScrollBar, BAR_WIDTH, ScrollBarProps } from "./ScrollBar"
 import { ISize } from "common/geometry"
 
 import "./ScaleScrollBar.css"
+import { Remove, FiberManualRecord, Add } from "@material-ui/icons"
 
 interface ScaleButtonProps {
   style?: CSSProperties
@@ -41,13 +41,13 @@ const HorizontalScaleScrollBar_: FC<HorizontalScaleScrollBar_Props> = (
   return (
     <ScrollBar isVertical={false} {...props} barLength={barLength}>
       <ScaleButton style={buttonStyle} onClick={props.onClickScaleDown}>
-        <Icon>minus</Icon>
+        <Remove />
       </ScaleButton>
       <ScaleButton style={buttonStyle} onClick={props.onClickScaleReset}>
-        <Icon>circle</Icon>
+        <FiberManualRecord />
       </ScaleButton>
       <ScaleButton style={buttonStyle} onClick={props.onClickScaleUp}>
-        <Icon>plus</Icon>
+        <Add />
       </ScaleButton>
     </ScrollBar>
   )

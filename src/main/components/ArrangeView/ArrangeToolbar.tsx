@@ -1,6 +1,5 @@
 import React, { FC } from "react"
 
-import Icon from "components/outputs/Icon"
 import {
   Toolbar,
   ToolbarItem,
@@ -9,6 +8,7 @@ import {
 import QuantizeSelector from "../PianoRollToolbar/QuantizeSelector/QuantizeSelector"
 
 import "./ArrangeToolbar.css"
+import { KeyboardTab } from "@material-ui/icons"
 
 export interface ArrangeToolbarProps {
   autoScroll: boolean
@@ -33,7 +33,7 @@ export const ArrangeToolbar: FC<ArrangeToolbarProps> = ({
       <ToolbarSeparator />
 
       <ToolbarItem onClick={onClickAutoScroll} selected={autoScroll}>
-        <Icon>pin</Icon>
+        <KeyboardTab />
       </ToolbarItem>
     </Toolbar>
   )

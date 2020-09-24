@@ -1,9 +1,10 @@
 import React, { FC, useCallback } from "react"
 import { AppBar, Toolbar, IconButton, Button } from "@material-ui/core"
-import { Menu as MenuIcon, KeyboardTab } from "@material-ui/icons"
+import { Menu as MenuIcon, KeyboardTab, Create } from "@material-ui/icons"
 import { ToggleButton, ToggleButtonGroup } from "@material-ui/lab"
 
-import Icon from "components/outputs/Icon"
+import PianoIcon from "../../images/piano.svg"
+import SelectIcon from "../../images/select.svg"
 
 import QuantizeSelector from "main/components/PianoRollToolbar/QuantizeSelector/QuantizeSelector"
 
@@ -40,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
     padding: "0 1rem",
     border: "1px solid var(--divider-color)",
     textTransform: "none",
+    height: "2rem",
   },
 }))
 
@@ -50,7 +52,18 @@ const TrackName = styled.span`
 `
 
 const AutoScrollIcon = styled(KeyboardTab)`
+  height: 2rem;
   font-size: 1.3rem;
+`
+
+const InstrumentIcon = styled(PianoIcon)`
+  width: 1.3rem;
+  fill: currentColor;
+`
+
+const SelectionToolIcon = styled(SelectIcon)`
+  width: 1rem;
+  fill: currentColor;
 `
 
 export const PianoRollToolbar: FC = () => {
@@ -136,7 +149,7 @@ export const PianoRollToolbar: FC = () => {
           onClick={onClickInstrument}
           color="inherit"
           size="small"
-          startIcon={<Icon>piano</Icon>}
+          startIcon={<InstrumentIcon viewBox="0 0 24 24" />}
         >
           {instrumentName}
         </Button>
@@ -155,7 +168,11 @@ export const PianoRollToolbar: FC = () => {
             value="pencil"
             className={classes.toggleButton}
           >
-            <Icon>pencil</Icon>
+            <Create
+              style={{
+                width: "1rem",
+              }}
+            />
           </ToggleButton>
           <ToggleButton
             color="inherit"
@@ -163,7 +180,7 @@ export const PianoRollToolbar: FC = () => {
             value="selection"
             className={classes.toggleButton}
           >
-            <Icon>select</Icon>
+            <SelectionToolIcon viewBox="0 0 24 24" />
           </ToggleButton>
         </ToggleButtonGroup>
 

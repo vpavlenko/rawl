@@ -1,5 +1,7 @@
-.ScaleButton .mdi-circle {
-  font-size: 60%;
+.ScaleButton > svg {
+  width: 15px;
+  height: 15px;
+  transform: scale(0.8);
 }
 
 .ScaleButton {
@@ -9,6 +11,6 @@
 }
 
 .ScaleButton:hover {
-  background: #DDDDDD;
+  background: #dddddd;
   color: black;
 }

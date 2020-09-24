@@ -1,10 +1,9 @@
 import React from "react"
-import Icon from "components/outputs/Icon"
 import QuantizePopup from "./QuantizePopup"
 
 import "./QuantizeSelector.css"
 import { Button } from "@material-ui/core"
-import { MusicNote } from "@material-ui/icons"
+import { FiberManualRecord, MusicNote } from "@material-ui/icons"
 
 function calcQuantize(num: number, dot: boolean, triplet: boolean): number {
   let val = num
@@ -60,7 +59,7 @@ function QuantizeSelector({ value, onSelect }: QuantizeSelectorProps) {
         <div className="value">
           <span className="denominator">{denominator}</span>
           {triplet && <span className="triplet-label">3</span>}
-          {dot && <Icon className="dot-label">circle</Icon>}
+          {dot && <FiberManualRecord className="dot-label" />}
         </div>
       </Button>
       <QuantizePopup

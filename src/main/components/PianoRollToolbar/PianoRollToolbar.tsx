@@ -1,24 +1,20 @@
-import React, { StatelessComponent } from "react"
-import {
-  AppBar,
-  Toolbar,
-  IconButton,
-  Typography,
-  Button,
-} from "@material-ui/core"
+import React, { FC, useCallback } from "react"
+import { AppBar, Toolbar, IconButton, Button } from "@material-ui/core"
 import { Menu as MenuIcon, KeyboardTab } from "@material-ui/icons"
 import { ToggleButton, ToggleButtonGroup } from "@material-ui/lab"
-import Track from "common/track/Track"
 
 import Icon from "components/outputs/Icon"
 
-import QuantizeSelector from "components/QuantizeSelector/QuantizeSelector"
+import QuantizeSelector from "main/components/PianoRollToolbar/QuantizeSelector/QuantizeSelector"
 
-import { PianoRollMouseMode } from "stores/PianoRollStore"
 import { makeStyles } from "@material-ui/styles"
 import InstrumentBrowser from "../InstrumentBrowser/InstrumentBrowser"
 import { VolumeSlider } from "./VolumeSlider"
 import { PanSlider } from "./PanSlider"
+import { useObserver } from "mobx-react"
+import { setTrackVolume, setTrackPan } from "main/actions"
+import { useStores } from "main/hooks/useStores"
+import styled from "styled-components"
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -34,46 +30,98 @@ const useStyles = makeStyles((theme) => ({
   },
   toggleButton: {
     height: "2rem",
-    color: "inherit",
+    color: "var(--text-color)",
+    fontSize: "1rem",
     ["&.Mui-selected"]: {
-      color: "rgba(255, 255, 255, 0.5)",
+      background: "var(--theme-color)",
     },
   },
   instrumentButton: {
     padding: "0 1rem",
+    border: "1px solid var(--divider-color)",
+    textTransform: "none",
   },
 }))
 
-export interface PianoRollToolbarProps {
-  track: Track
-  autoScroll: boolean
-  onClickAutoScroll: () => void
-  mouseMode: PianoRollMouseMode
-  onClickPencil: () => void
-  onClickSelection: () => void
-  quantize: number
-  onSelectQuantize: (e: { denominator: number }) => void
-  onChangeVolume: (value: number) => void
-  onChangePan: (value: number) => void
-  onClickInstrument: () => void
-  onClickNavBack: () => void
-}
+const TrackName = styled.span`
+  font-weight: bold;
+  margin-right: 2em;
+  font-size: 1rem;
+`
 
-export const PianoRollToolbar: StatelessComponent<PianoRollToolbarProps> = ({
-  track,
-  onChangeVolume,
-  onChangePan,
-  onClickInstrument,
-  onClickNavBack,
-  autoScroll,
-  onClickAutoScroll,
-  mouseMode,
-  onClickPencil,
-  onClickSelection,
-  quantize,
-  onSelectQuantize,
-}) => {
+const AutoScrollIcon = styled(KeyboardTab)`
+  font-size: 1.3rem;
+`
+
+export const PianoRollToolbar: FC = () => {
+  const { rootStore: stores } = useStores()
+  const {
+    mouseMode,
+    autoScroll,
+    trackName,
+    instrumentName,
+    pan,
+    volume,
+    track,
+    trackId,
+    quantize,
+  } = useObserver(() => ({
+    trackName: stores.song.selectedTrack?.displayName ?? "",
+    instrumentName: stores.song.selectedTrack?.instrumentName ?? "",
+    pan: stores.song.selectedTrack?.getPan(stores.playerStore.position) ?? 0,
+    volume:
+      stores.song.selectedTrack?.getVolume(stores.playerStore.position) ?? 0,
+    track: stores.song.selectedTrack,
+    trackId: stores.song.selectedTrackId,
+    quantize:
+      stores.pianoRollStore.quantize === 0
+        ? stores.services.quantizer.denominator
+        : stores.pianoRollStore.quantize,
+    autoScroll: stores.pianoRollStore.autoScroll,
+    mouseMode: stores.pianoRollStore.mouseMode,
+  }))
+  const { rootViewStore, pianoRollStore: s } = stores
+
+  const onChangeVolume = useCallback(
+    (value: number) => setTrackVolume(stores)(trackId, value),
+    [stores, trackId]
+  )
+  const onChangePan = useCallback(
+    (value: number) => setTrackPan(stores)(trackId, value),
+    [stores, trackId]
+  )
+  const onClickPencil = useCallback(() => (s.mouseMode = "pencil"), [])
+  const onClickSelection = useCallback(() => (s.mouseMode = "selection"), [])
+  const onClickAutoScroll = useCallback(
+    () => (s.autoScroll = !s.autoScroll),
+    []
+  )
+  const onSelectQuantize = useCallback((denominator: number) => {
+    stores.services.quantizer.denominator = denominator
+    s.quantize = denominator
+  }, [])
+  const onClickNavBack = useCallback(
+    () => (rootViewStore.openDrawer = true),
+    []
+  )
+  const onClickInstrument = useCallback(() => {
+    if (track === undefined) {
+      return
+    }
+    const programNumber = track.programNumber
+    s.instrumentBrowserSetting = {
+      isRhythmTrack: track.isRhythmTrack,
+      programNumber: programNumber ?? 0,
+    }
+    s.openInstrumentBrowser = true
+  }, [])
+
   const classes = useStyles({})
+
+  if (track === undefined) {
+    return <></>
+  }
+
   return (
     <AppBar position="static" elevation={0} className={classes.appBar}>
       <Toolbar variant="dense">
@@ -81,9 +129,7 @@ export const PianoRollToolbar: StatelessComponent<PianoRollToolbarProps> = ({
           <MenuIcon />
         </IconButton>
 
-        <Typography variant="h6" className={classes.title}>
-          {track.displayName}
-        </Typography>
+        <TrackName>{trackName}</TrackName>
 
         <Button
           className={classes.instrumentButton}
@@ -92,13 +138,13 @@ export const PianoRollToolbar: StatelessComponent<PianoRollToolbarProps> = ({
           size="small"
           startIcon={<Icon>piano</Icon>}
         >
-          {track.instrumentName}
+          {instrumentName}
         </Button>
 
         <InstrumentBrowser />
 
-        <VolumeSlider onChange={onChangeVolume} value={track.volume || 0} />
-        <PanSlider value={track.pan || 0} onChange={onChangePan} />
+        <VolumeSlider onChange={onChangeVolume} value={volume} />
+        <PanSlider value={pan} onChange={onChangePan} />
         <ToggleButtonGroup
           value={mouseMode}
           className={classes.toggleButtonGroup}
@@ -121,10 +167,7 @@ export const PianoRollToolbar: StatelessComponent<PianoRollToolbarProps> = ({
           </ToggleButton>
         </ToggleButtonGroup>
 
-        <QuantizeSelector
-          value={quantize}
-          onSelect={(value) => onSelectQuantize({ denominator: value })}
-        />
+        <QuantizeSelector value={quantize} onSelect={onSelectQuantize} />
 
         <ToggleButton
           color="inherit"
@@ -132,7 +175,7 @@ export const PianoRollToolbar: StatelessComponent<PianoRollToolbarProps> = ({
           selected={autoScroll}
           className={classes.toggleButton}
         >
-          <KeyboardTab />
+          <AutoScrollIcon />
         </ToggleButton>
       </Toolbar>
     </AppBar>

@@ -1,4 +1,4 @@
-import React, { ReactNode, StatelessComponent } from "react"
+import React, { ReactNode, FC } from "react"
 import f from "helpers/flatJoin"
 
 import "./MenuBar.css"
@@ -13,12 +13,12 @@ export interface MenuTemplateItem {
 export function fromTemplate(t: MenuTemplateItem[]) {
   return (
     <MenuBar>
-      {t.map((t) => (
-        <MenuItem title={t.label}>
+      {t.map((t, i) => (
+        <MenuItem key={i} title={t.label}>
           {t.submenu && (
             <SubMenu>
-              {t.submenu.map((t) => (
-                <MenuItem title={t.role || t.label} onClick={t.click} />
+              {t.submenu.map((t, i) => (
+                <MenuItem key={i} title={t.role || t.label} onClick={t.click} />
               ))}
             </SubMenu>
           )}
@@ -32,10 +32,7 @@ export interface MenuBarProps {
   className?: string
 }
 
-export const MenuBar: StatelessComponent<MenuBarProps> = ({
-  children,
-  className,
-}) => {
+export const MenuBar: FC<MenuBarProps> = ({ children, className }) => {
   return <div className={f("MenuBar", className)}>{children}</div>
 }
 
@@ -45,7 +42,7 @@ export interface MenuItemProps {
   onClick?: (e: any) => void
 }
 
-export const MenuItem: StatelessComponent<MenuItemProps> = ({
+export const MenuItem: FC<MenuItemProps> = ({
   children,
   className,
   title,
@@ -63,10 +60,7 @@ export interface SubMenuProps {
   className?: string
 }
 
-export const SubMenu: StatelessComponent<SubMenuProps> = ({
-  children,
-  className,
-}) => {
+export const SubMenu: FC<SubMenuProps> = ({ children, className }) => {
   return <div className={f("SubMenu", className)}>{children}</div>
 }
 
@@ -74,8 +68,6 @@ export interface MenuSeparatorProps {
   className?: string
 }
 
-export const MenuSeparator: StatelessComponent<MenuSeparatorProps> = ({
-  className,
-}) => {
+export const MenuSeparator: FC<MenuSeparatorProps> = ({ className }) => {
   return <div className={f("MenuSeparator", className)} />
 }

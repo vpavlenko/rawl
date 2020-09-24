@@ -1,11 +1,8 @@
 import { SetTempoEvent } from "midifile-ts"
 import Color from "color"
 import { ISize } from "common/geometry"
-import Measure from "common/measure"
-import Theme from "common/theme/Theme"
 import { TrackEvent } from "common/track"
 import { TempoCoordTransform } from "common/transform"
-import DrawCanvas from "components/DrawCanvas"
 import { BAR_WIDTH, HorizontalScrollBar } from "components/inputs/ScrollBar"
 import PianoCursor from "components/PianoRoll/PianoCursor"
 import PianoGrid from "components/PianoRoll/PianoGrid"
@@ -14,127 +11,108 @@ import Stage, { StageMouseEvent } from "components/Stage/Stage"
 import { bpmToUSecPerBeat, uSecPerBeatToBPM } from "helpers/bpm"
 import { createBeatsInRange } from "helpers/mapBeats"
 import _ from "lodash"
-import React, { StatelessComponent } from "react"
+import React, { FC, useEffect, useState } from "react"
 import transformEvents from "./transformEvents"
+import { Stage as PixiStage } from "@inlet/react-pixi"
 
-import "./TempoGraph.css"
-import { CanvasDrawStyle } from "main/style"
 import TempoGraphItem from "./TempoGraphItem"
+import { Container } from "@inlet/react-pixi"
+import { toJS } from "mobx"
+import { useObserver } from "mobx-react"
+import {
+  changeTempo as _changeTempo,
+  setPlayerPosition as _setPlayerPosition,
+  createTempo as _createTempo,
+} from "../../actions"
+import { useStores } from "../../hooks/useStores"
+import { useTheme } from "../../hooks/useTheme"
+import { withSize } from "react-sizeme"
+import { HorizontalLines } from "./HorizontalLines"
+import { TempoGraphAxis } from "./TempoGraphAxis"
+import styled from "styled-components"
 
 type DisplayEvent = TrackEvent & SetTempoEvent
 
-interface HorizontalLinesProps {
-  width: number
-  height: number
-  transform: TempoCoordTransform
-  borderColor: CanvasDrawStyle
-}
-
-function HorizontalLines({
-  width,
-  height,
-  transform,
-  borderColor,
-}: HorizontalLinesProps) {
-  if (!width) {
-    return null
-  }
-
-  function draw(ctx: CanvasRenderingContext2D) {
-    const { width, height } = ctx.canvas
-    ctx.clearRect(0, 0, width, height)
-
-    ctx.save()
-    ctx.translate(0.5, 0.5)
-
-    ctx.strokeStyle = borderColor
-    ctx.lineWidth = 1
-
-    // 30 -> 510 を 17 分割した線
-    ctx.beginPath()
-    for (let i = 30; i < transform.maxBPM; i += 30) {
-      const y = Math.round(transform.getY(i))
-
-      ctx.moveTo(0, y)
-      ctx.lineTo(width, y)
-    }
-    ctx.stroke()
-    ctx.restore()
-  }
-
-  return (
-    <DrawCanvas
-      draw={draw}
-      width={width}
-      height={height}
-      className="HorizontalLines"
-      onContextMenu={(e) => e.preventDefault()}
-    />
-  )
-}
-
-interface GraphAxisProps {
-  width: number
-  transform: TempoCoordTransform
-  offset: number
-}
-
-const GraphAxis: StatelessComponent<GraphAxisProps> = ({
-  width,
-  transform,
-  offset,
-}) => {
-  return (
-    <div className="GraphAxis" style={{ width }}>
-      <div className="values">
-        {_.range(30, transform.maxBPM, 30).map((t) => {
-          const top = Math.round(transform.getY(t)) + offset
-          return (
-            <div style={{ top }} key={t}>
-              {t}
-            </div>
-          )
-        })}
-      </div>
-    </div>
-  )
-}
-
-export interface TempoGraphProps {
-  events: TrackEvent[]
+interface TempoGraphProps {
   size: ISize
-  pixelsPerTick: number
-  theme: Theme
-  measures: Measure[]
-  timebase: number
-  playerPosition: number
-  setPlayerPosition: (tick: number) => void
-  endTick: number
-  scrollLeft: number
-  setScrollLeft: (scroll: number) => void
-  changeTempo: (id: number, microsecondsPerBeat: number) => void
-  createTempo: (tick: number, microsecondsPerBeat: number) => void
 }
 
-export const TempoGraph: StatelessComponent<TempoGraphProps> = ({
-  events: sourceEvents,
-  size,
-  pixelsPerTick,
-  theme,
-  measures,
-  timebase,
-  playerPosition,
-  setPlayerPosition,
-  endTick: trackEndTick,
-  scrollLeft,
-  setScrollLeft,
-  changeTempo,
-  createTempo,
-}) => {
+const Wrapper = styled.div`
+  flex-grow: 1;
+  background: var(--background-color);
+  color: var(--secondary-text-color);
+
+  .HorizontalLines,
+  .Graph {
+    position: absolute;
+    top: var(--ruler-height);
+    pointer-events: none;
+    margin-left: var(--key-width);
+  }
+
+  .Graph {
+    pointer-events: all;
+  }
+`
+
+const _TempoGraph: FC<TempoGraphProps> = ({ size }) => {
+  const { rootStore } = useStores()
+
+  const {
+    isPlaying,
+    pixelsPerTick,
+    events: sourceEvents,
+    endTick: trackEndTick,
+    measures,
+    timebase,
+    autoScroll,
+    playerPosition,
+  } = useObserver(() => ({
+    isPlaying: rootStore.services.player.isPlaying,
+    pixelsPerTick: 0.1 * rootStore.tempoEditorStore.scaleX,
+    events:
+      rootStore.song.conductorTrack !== undefined
+        ? toJS(rootStore.song.conductorTrack.events)
+        : [],
+    endTick: rootStore.song.endOfSong,
+    measures: rootStore.song.measures,
+    timebase: rootStore.services.player.timebase,
+    autoScroll: rootStore.tempoEditorStore.autoScroll,
+    scrollLeft: rootStore.tempoEditorStore.scrollLeft,
+    playerPosition: rootStore.playerStore.position,
+  }))
+
+  const [_scrollLeft, setScrollLeft] = useState(0)
+
+  useEffect(() => {
+    // keep scroll position to cursor
+    if (autoScroll && isPlaying) {
+      const transform = new TempoCoordTransform(pixelsPerTick, size.height)
+      const x = transform.getX(playerPosition)
+      const screenX = x - _scrollLeft
+      if (screenX > size.width * 0.7 || screenX < 0) {
+        setScrollLeft(x)
+      }
+    }
+  }, [
+    autoScroll,
+    isPlaying,
+    _scrollLeft,
+    size.width,
+    pixelsPerTick,
+    playerPosition,
+  ])
+
+  const theme = useTheme()
+
+  const changeTempo = _changeTempo(rootStore)
+  const createTempo = _createTempo(rootStore)
+  const setPlayerPosition = _setPlayerPosition(rootStore)
+
   const events = sourceEvents.filter(
     (e) => (e as any).subtype === "setTempo"
   ) as DisplayEvent[]
-  scrollLeft = Math.floor(scrollLeft)
+  const scrollLeft = Math.floor(_scrollLeft)
 
   const { keyWidth, rulerHeight } = theme
 
@@ -197,18 +175,42 @@ export const TempoGraph: StatelessComponent<TempoGraphProps> = ({
     createTempo(tick, uSecPerBeatToBPM(bpm))
   }
 
+  const width = containerWidth
+
   const mappedBeats = createBeatsInRange(
     measures,
-    timebase,
     pixelsPerTick,
+    timebase,
     startTick,
-    endTick
+    width
   )
-  const width = containerWidth - keyWidth
+
+  const canvasHeight = containerHeight - BAR_WIDTH
 
   return (
-    <div className="TempoGraph">
-      <PianoGrid height={contentHeight} beats={mappedBeats} />
+    <Wrapper>
+      <PixiStage
+        width={containerWidth}
+        height={canvasHeight}
+        style={{ position: "absolute" }}
+        options={{ transparent: true }}
+      >
+        <Container x={keyWidth}>
+          <Container x={-scrollLeft} y={rulerHeight}>
+            <PianoGrid height={canvasHeight} beats={mappedBeats} />
+            <Container x={transform.getX(playerPosition)}>
+              <PianoCursor height={canvasHeight} />
+            </Container>
+          </Container>
+          <PianoRuler
+            width={width}
+            beats={mappedBeats}
+            onMouseDown={({ tick }) => setPlayerPosition(tick)}
+            scrollLeft={scrollLeft}
+            pixelsPerTick={pixelsPerTick}
+          />
+        </Container>
+      </PixiStage>
       <HorizontalLines
         width={width}
         height={contentHeight}
@@ -225,23 +227,18 @@ export const TempoGraph: StatelessComponent<TempoGraphProps> = ({
         onWheel={onWheelGraph}
         scrollLeft={scrollLeft}
       />
-      <PianoCursor
-        height={contentHeight}
-        position={transform.getX(playerPosition) - scrollLeft}
+      <TempoGraphAxis
+        width={keyWidth}
+        offset={rulerHeight}
+        transform={transform}
       />
-      <PianoRuler
-        width={width}
-        beats={mappedBeats}
-        onMouseDown={({ tick }) => setPlayerPosition(tick)}
-        scrollLeft={scrollLeft}
-        pixelsPerTick={pixelsPerTick}
-      />
-      <GraphAxis width={keyWidth} offset={rulerHeight} transform={transform} />
       <HorizontalScrollBar
         scrollOffset={scrollLeft}
         contentLength={contentWidth}
         onScroll={setScrollLeft}
       />
-    </div>
+    </Wrapper>
   )
 }
+
+export const TempoGraph = withSize({ monitorHeight: true })(_TempoGraph)

@@ -1,4 +1,4 @@
-import React, { StatelessComponent, CSSProperties } from "react"
+import React, { FC, CSSProperties } from "react"
 import { Graphics as PIXIGraphics } from "pixi.js"
 import { useTheme } from "main/hooks/useTheme"
 import { Graphics } from "@inlet/react-pixi"
@@ -11,7 +11,7 @@ export interface PianoLinesProps {
   width: number
 }
 
-const PianoLines: StatelessComponent<PianoLinesProps> = ({
+const PianoLines: FC<PianoLinesProps> = ({
   numberOfKeys,
   pixelsPerKey,
   width,
@@ -19,7 +19,6 @@ const PianoLines: StatelessComponent<PianoLinesProps> = ({
   const theme = useTheme()
 
   function draw(ctx: PIXIGraphics) {
-    console.log("render PianoLines")
     const keyHeight = pixelsPerKey
     ctx.clear()
     for (let key = 0; key < numberOfKeys; key++) {

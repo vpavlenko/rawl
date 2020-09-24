@@ -1,10 +1,5 @@
-import React, { SFC } from "react"
-import {
-  Graphics as PIXIGraphics,
-  interaction,
-  Point,
-  TextStyle,
-} from "pixi.js"
+import React, { FC } from "react"
+import { Graphics as PIXIGraphics, Point, TextStyle } from "pixi.js"
 import _ from "lodash"
 
 import { noteNameWithOctString } from "helpers/noteNumberString"
@@ -19,7 +14,7 @@ interface BlackKeyProps {
   position: Point
 }
 
-const BlackKey: SFC<BlackKeyProps> = ({ width, height, position }) => {
+const BlackKey: FC<BlackKeyProps> = ({ width, height, position }) => {
   const theme = useTheme()
   const color = Color(theme.pianoKeyBlack).rgbNumber()
   const dividerColor = Color(theme.dividerColor).rgbNumber()
@@ -45,7 +40,7 @@ interface LabelProps {
   color: number
 }
 
-const KeyLabel: SFC<LabelProps> = ({ width, keyNum, font, color, y }) => {
+const KeyLabel: FC<LabelProps> = ({ width, keyNum, font, color, y }) => {
   const x = width - 20
   const style = new TextStyle({
     fontFamily: font,
@@ -70,7 +65,7 @@ export interface PianoKeysProps {
   keyHeight: number
 }
 
-const PianoKeys: SFC<PianoKeysProps> = ({
+const PianoKeys: FC<PianoKeysProps> = ({
   onClickKey,
   numberOfKeys,
   keyHeight,
@@ -79,7 +74,6 @@ const PianoKeys: SFC<PianoKeysProps> = ({
   const width = theme.keyWidth
 
   function draw(ctx: PIXIGraphics): void {
-    console.log("render PianoKeys")
     ctx
       .clear()
       .beginFill(Color(theme.pianoKeyWhite).rgbNumber())
@@ -95,9 +89,9 @@ const PianoKeys: SFC<PianoKeysProps> = ({
     return numberOfKeys - y / keyHeight
   }
 
-  function onMouseDown(e: interaction.InteractionEvent) {
-    const ev = e.data.originalEvent as MouseEvent
-    const noteNumber = Math.floor(pixelsToNoteNumber(ev.offsetY))
+  function onMouseDown(e: PIXI.InteractionEvent) {
+    const local = e.data.getLocalPosition(e.target)
+    const noteNumber = Math.floor(pixelsToNoteNumber(local.y))
     onClickKey(noteNumber)
   }
 
@@ -146,6 +140,7 @@ const PianoKeys: SFC<PianoKeysProps> = ({
     <Container
       width={width}
       height={keyHeight * numberOfKeys}
+      interactive={true}
       mousedown={onMouseDown}
     >
       <Graphics draw={draw} />

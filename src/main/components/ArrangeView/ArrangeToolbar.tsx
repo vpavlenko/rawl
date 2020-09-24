@@ -1,12 +1,12 @@
-import React, { StatelessComponent } from "react"
+import React, { FC } from "react"
 
 import Icon from "components/outputs/Icon"
 import {
   Toolbar,
   ToolbarItem,
-  ToolbarSeparator
+  ToolbarSeparator,
 } from "components/groups/Toolbar"
-import QuantizeSelector from "components/QuantizeSelector/QuantizeSelector"
+import QuantizeSelector from "../PianoRollToolbar/QuantizeSelector/QuantizeSelector"
 
 import "./ArrangeToolbar.css"
 
@@ -17,17 +17,17 @@ export interface ArrangeToolbarProps {
   onSelectQuantize: (e: { denominator: number }) => void
 }
 
-export const ArrangeToolbar: StatelessComponent<ArrangeToolbarProps> = ({
+export const ArrangeToolbar: FC<ArrangeToolbarProps> = ({
   autoScroll,
   onClickAutoScroll,
   quantize,
-  onSelectQuantize
+  onSelectQuantize,
 }) => {
   return (
     <Toolbar className="ArrangeToolbar">
       <QuantizeSelector
         value={quantize}
-        onSelect={value => onSelectQuantize({ denominator: value })}
+        onSelect={(value) => onSelectQuantize({ denominator: value })}
       />
 
       <ToolbarSeparator />

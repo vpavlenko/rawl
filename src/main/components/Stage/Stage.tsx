@@ -1,4 +1,4 @@
-import React, { StatelessComponent, CSSProperties } from "react"
+import React, { FC, CSSProperties } from "react"
 
 import DrawCanvas from "components/DrawCanvas"
 import Item from "./Item"

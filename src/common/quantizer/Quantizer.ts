@@ -10,17 +10,17 @@ export default class Quantizer {
   }
 
   round(tick: number) {
-    var u = this.unit
+    const u = this.unit
     return Math.round(tick / u) * u
   }
 
   ceil(tick: number) {
-    var u = this.unit
+    const u = this.unit
     return Math.ceil(tick / u) * u
   }
 
   floor(tick: number) {
-    var u = this.unit
+    const u = this.unit
     return Math.floor(tick / u) * u
   }
 

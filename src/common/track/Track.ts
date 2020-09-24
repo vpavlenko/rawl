@@ -1,14 +1,7 @@
 import { observable, action, transaction } from "mobx"
-import { serializable, list, primitive } from "serializr"
+import { serializable, list, primitive, custom } from "serializr"
 import _ from "lodash"
-import {
-  TrackNameEvent,
-  SetTempoEvent,
-  EndOfTrackEvent,
-  ProgramChangeEvent,
-  ControllerEvent,
-  AnyEvent,
-} from "midifile-ts"
+import { AnyEvent, SetTempoEvent } from "midifile-ts"
 
 import { getInstrumentName } from "midi/GM"
 import {
@@ -18,11 +11,19 @@ import {
   NoteEvent,
 } from "./TrackEvent"
 import { isNotUndefined } from "../helpers/array"
+import {
+  isTrackNameEvent,
+  isProgramChangeEvent,
+  isEndOfTrackEvent,
+  isSetTempoEvent,
+  isControllerEvent,
+} from "./identify"
+import { pojo } from "../helpers/pojo"
 
 type EventBeforeAdded = TrackMidiEvent | Omit<NoteEvent, "id">
 
 export default class Track {
-  @serializable(list(primitive()))
+  @serializable(list(pojo))
   @observable.shallow
   events: TrackEvent[] = []
 
@@ -34,7 +35,7 @@ export default class Track {
   @observable
   channel: number | undefined = undefined
 
-  getEventById = (id: number) => _.find(this.events, (e) => e.id === id)
+  getEventById = (id: number) => this.events.find((e) => e.id === id)
 
   private _updateEvent(
     id: number,
@@ -103,10 +104,10 @@ export default class Track {
     return newEvent
   }
 
-  @action addEvent<T extends EventBeforeAdded>(e: T): T {
-    this._addEvent(e)
+  @action addEvent<T extends EventBeforeAdded>(e: T): TrackEvent {
+    const ev = this._addEvent(e)
     this.didAddEvent()
-    return e
+    return ev
   }
 
   @action addEvents(events: EventBeforeAdded[]): TrackEvent[] {
@@ -128,10 +129,9 @@ export default class Track {
   }
 
   @action updateEndOfTrack() {
-    const tick = _.chain(this.events)
-      .map((e) => e.tick + ("duration" in e ? e.duration : 0))
-      .max()
-      .value()
+    const tick = Math.max(
+      ...this.events.map((e) => e.tick + ("duration" in e ? e.duration : 0))
+    )
     this.setEndOfTrack(tick)
   }
 
@@ -141,44 +141,10 @@ export default class Track {
 
   /* helper */
 
-  findEventsWithSubtype<T extends AnyEvent>(
-    subtype: string
-  ): (T & TrackEventRequired)[] {
-    return this.events.filter(
-      (t) => "subtype" in t && t.subtype === subtype
-    ) as (T & TrackEventRequired)[]
-  }
-
-  private _findTrackNameEvent() {
-    return this.findEventsWithSubtype<TrackNameEvent>("trackName")
-  }
-
-  private _findProgramChangeEvents() {
-    return this.findEventsWithSubtype<ProgramChangeEvent>("programChange")
-  }
-
-  private _findEndOfTrackEvents() {
-    return this.findEventsWithSubtype<EndOfTrackEvent>("endOfTrack")
-  }
-
-  private _findSetTempoEvents() {
-    return this.findEventsWithSubtype<SetTempoEvent>("setTempo")
-  }
-
-  private _findControllerEvents(
-    controllerType: number
-  ): (TrackEventRequired & ControllerEvent)[] {
-    return this.findEventsWithSubtype<ControllerEvent>("controller").filter(
-      (t) => t.controllerType === controllerType
-    )
-  }
-
-  private _findVolumeEvents() {
-    return this._findControllerEvents(7)
-  }
-
-  private _findPanEvents() {
-    return this._findControllerEvents(10)
+  private _findControllerEvents(controllerType: number) {
+    return this.events
+      .filter(isControllerEvent)
+      .filter((t) => t.controllerType === controllerType)
   }
 
   private _updateLast<T extends AnyEvent | TrackEventRequired>(
@@ -233,56 +199,83 @@ export default class Track {
   }
 
   get name(): string | undefined {
-    return _.get(_.last(this._findTrackNameEvent()), "text")
+    return _.get(_.last(this.events.filter(isTrackNameEvent)), "text")
   }
 
   setName(text: string) {
-    this._updateLast(this._findTrackNameEvent(), { text })
+    this._updateLast(this.events.filter(isTrackNameEvent), { text })
   }
 
-  get volume(): number | undefined {
-    return _.get(_.last(this._findVolumeEvents()), "value")
+  private getControllerValue = (controllerType: number, tick: number) =>
+    getLastEventBefore(this._findControllerEvents(controllerType), tick)?.value
+
+  private setControllerValue = (
+    controllerType: number,
+    tick: number,
+    value: number
+  ) => {
+    const e = getLastEventBefore(
+      this._findControllerEvents(controllerType),
+      tick
+    )
+    if (e !== undefined) {
+      this.updateEvent(e.id, {
+        value,
+      })
+    } else {
+      // If there are no controller events, we insert new event at the head of the track
+      this.addEvent({
+        type: "channel",
+        subtype: "controller",
+        controllerType,
+        tick: 0,
+        value,
+      })
+    }
   }
 
-  setVolume(value: number) {
-    this._updateLast(this._findVolumeEvents(), { value })
-  }
+  getVolume = (tick: number) => this.getControllerValue(7, tick)
+  setVolume = (value: number, tick: number) =>
+    this.setControllerValue(7, tick, value)
 
-  get pan(): number | undefined {
-    return _.get(_.last(this._findPanEvents()), "value")
-  }
-
-  setPan(value: number) {
-    this._updateLast(this._findPanEvents(), { value })
-  }
+  getPan = (tick: number) => this.getControllerValue(10, tick)
+  setPan = (value: number, tick: number) =>
+    this.setControllerValue(10, tick, value)
 
   get endOfTrack(): number | undefined {
-    return _.get(_.last(this._findEndOfTrackEvents()), "tick")
+    return _.get(_.last(this.events.filter(isEndOfTrackEvent)), "tick")
   }
 
   setEndOfTrack(tick: number) {
-    this._updateLast(this._findEndOfTrackEvents(), { tick })
+    this._updateLast(this.events.filter(isEndOfTrackEvent), { tick })
   }
 
   get programNumber(): number | undefined {
-    return _.get(_.last(this._findProgramChangeEvents()), "value")
+    return _.get(_.last(this.events.filter(isProgramChangeEvent)), "value")
   }
 
-  setProgramNumber(value: number) {
-    this._updateLast(this._findProgramChangeEvents(), { value })
-  }
+  setProgramNumber = (value: number) =>
+    this._updateLast(this.events.filter(isProgramChangeEvent), { value })
 
-  get tempo(): number | undefined {
-    const e = _.last(this._findSetTempoEvents())
+  getTempoEvent = (tick: number) =>
+    getLastEventBefore(this.events.filter(isSetTempoEvent), tick)
+
+  getTempo(tick: number): number | undefined {
+    const e = this.getTempoEvent(tick)
     if (e === undefined) {
       return undefined
     }
     return 60000000 / e.microsecondsPerBeat
   }
 
-  setTempo(bpm: number) {
+  setTempo(bpm: number, tick: number) {
     const microsecondsPerBeat = 60000000 / bpm
-    this._updateLast(this._findSetTempoEvents(), { microsecondsPerBeat })
+    const e = this.getTempoEvent(tick)
+    if (e !== undefined) {
+      this.updateEvent(e.id, {
+        microsecondsPerBeat,
+      })
+    }
   }
 
   get isConductorTrack() {
@@ -292,4 +285,16 @@ export default class Track {
   get isRhythmTrack() {
     return this.channel === 9
   }
+}
+
+const getLastEventBefore = <T extends TrackEvent>(
+  events: T[],
+  tick: number
+): T | undefined => {
+  return _.last(
+    events
+      .slice()
+      .filter((e) => e.tick <= tick)
+      .sort((e) => e.tick)
+  )
 }

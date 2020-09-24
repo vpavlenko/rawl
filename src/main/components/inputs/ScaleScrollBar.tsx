@@ -1,4 +1,4 @@
-import React, { StatelessComponent, ReactNode, CSSProperties } from "react"
+import React, { FC, ReactNode, CSSProperties } from "react"
 import { withSize } from "react-sizeme"
 import Icon from "components/outputs/Icon"
 import { ScrollBar, BAR_WIDTH, ScrollBarProps } from "./ScrollBar"
@@ -11,11 +11,7 @@ interface ScaleButtonProps {
   onClick?: () => void
 }
 
-const ScaleButton: StatelessComponent<ScaleButtonProps> = ({
-  style,
-  children,
-  onClick,
-}) => {
+const ScaleButton: FC<ScaleButtonProps> = ({ style, children, onClick }) => {
   return (
     <div className="ScaleButton" style={style} onClick={onClick}>
       {children}
@@ -33,7 +29,7 @@ type HorizontalScaleScrollBar_Props = Omit<
   onClickScaleUp?: () => void
 }
 
-const HorizontalScaleScrollBar_: StatelessComponent<HorizontalScaleScrollBar_Props> = (
+const HorizontalScaleScrollBar_: FC<HorizontalScaleScrollBar_Props> = (
   props
 ) => {
   const buttonSize = BAR_WIDTH
@@ -43,18 +39,7 @@ const HorizontalScaleScrollBar_: StatelessComponent<HorizontalScaleScrollBar_Pro
     height: buttonSize,
   }
   return (
-    <ScrollBar
-      isVertical={false}
-      {...props}
-      barLength={barLength}
-      style={{
-        width: "100%",
-        height: BAR_WIDTH,
-        position: "absolute",
-        bottom: 0,
-        left: 0,
-      }}
-    >
+    <ScrollBar isVertical={false} {...props} barLength={barLength}>
       <ScaleButton style={buttonStyle} onClick={props.onClickScaleDown}>
         <Icon>minus</Icon>
       </ScaleButton>
@@ -73,4 +58,21 @@ export type HorizontalScaleScrollBarProps = Omit<
   "size"
 >
 
-export const HorizontalScaleScrollBar = withSize()(HorizontalScaleScrollBar_)
+const areEqual = (
+  props: HorizontalScaleScrollBar_Props,
+  nextProps: HorizontalScaleScrollBar_Props
+) =>
+  props.scrollOffset === nextProps.scrollOffset &&
+  props.contentLength === nextProps.contentLength &&
+  props.onScroll === nextProps.onScroll &&
+  props.size.width === nextProps.size.width &&
+  props.size.height === nextProps.size.height &&
+  props.onClickScaleDown === nextProps.onClickScaleDown &&
+  props.onClickScaleReset === nextProps.onClickScaleReset &&
+  props.onClickScaleUp === nextProps.onClickScaleUp
+
+export const HorizontalScaleScrollBar = withSize({
+  monitorWidth: true,
+  monitorHeight: false,
+  monitorPosition: false,
+})(React.memo(HorizontalScaleScrollBar_, areEqual))

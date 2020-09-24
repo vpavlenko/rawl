@@ -15,7 +15,7 @@ const getMeasuresInRange = (
   let i = 0
   const result: Measure[] = []
 
-  for (let measure of measures) {
+  for (const measure of measures) {
     const nextMeasure = measures[i + 1]
     i++
 
@@ -50,9 +50,10 @@ export const createBeatsInRange = (
   pixelsPerTick: number,
   timeBase: number,
   startTick: number,
-  endTick: number
+  width: number
 ): BeatWithX[] => {
   const beats: BeatWithX[] = []
+  const endTick = startTick + width / pixelsPerTick
   const measures = getMeasuresInRange(allMeasures, startTick, endTick)
 
   measures.forEach((measure, i) => {
@@ -74,7 +75,7 @@ export const createBeatsInRange = (
       beats.push({
         measure: measure.measure + Math.floor(beat / measure.numerator),
         beat: beat % measure.numerator,
-        x: Math.round(tick * pixelsPerTick)
+        x: Math.round(tick * pixelsPerTick),
       })
     }
   })

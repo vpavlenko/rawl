@@ -5,7 +5,7 @@ import {
   serialize as serializeMidiEvent,
   MIDIControlEvents,
   MIDIChannelEvents,
-  AnyEvent
+  AnyEvent,
 } from "midifile-ts"
 
 import EventScheduler from "./EventScheduler"
@@ -15,7 +15,7 @@ import { deassemble as deassembleNote } from "common/helpers/noteAssembler"
 import { deassemble as deassembleRPN } from "common/helpers/RPNAssembler"
 import { NoteEvent } from "../track"
 import { PlayerEvent } from "./PlayerEvent"
-import SynthOutput, { Message } from "src/main/services/SynthOutput"
+import SynthOutput, { Message } from "../../main/services/SynthOutput"
 
 function firstByte(eventType: string, channel: number): number {
   return (MIDIChannelEvents[eventType] << 4) + channel
@@ -23,13 +23,13 @@ function firstByte(eventType: string, channel: number): number {
 
 function collectAllEvents(song: Song): PlayerEvent[] {
   return _.flatten(
-    song.tracks.map(t =>
+    song.tracks.map((t) =>
       _.chain(t.events)
-        .map(e => deassembleNote(e))
+        .map((e) => deassembleNote(e))
         .flatten()
-        .map(e => deassembleRPN(e, x => ({ ...x, tick: e.tick })))
+        .map((e) => deassembleRPN(e, (x) => ({ ...x, tick: e.tick })))
         .flatten()
-        .map(e => ({ ...e, channel: t.channel } as any))
+        .map((e) => ({ ...e, channel: t.channel } as any))
         .value()
     )
   )
@@ -48,7 +48,7 @@ class DisplayTask {
   }
 
   perform() {
-    _.values(this.tasks).forEach(t => t())
+    _.values(this.tasks).forEach((t) => t())
     this.tasks = {}
   }
 }
@@ -61,6 +61,8 @@ export interface LoopSetting {
   enabled: boolean
 }
 
+const TIMER_INTERVAL = 50
+
 export default class Player extends EventEmitter {
   private _currentTempo = 120
   private _currentTick = 0
@@ -70,11 +72,12 @@ export default class Player extends EventEmitter {
   private _timebase: number
   private _trackMute: TrackMute
   private _latency: number = 100
+  private _timer?: NodeJS.Timeout
 
   loop: LoopSetting = {
     begin: 0,
     end: 0,
-    enabled: false
+    enabled: false,
   }
 
   constructor(timebase: number, output: SynthOutput, trackMute: TrackMute) {
@@ -95,7 +98,11 @@ export default class Player extends EventEmitter {
       500
     )
     this._output.activate()
-    setInterval(() => this._onTimer(), 50)
+
+    if (this._timer) {
+      clearInterval(this._timer)
+    }
+    this._timer = setInterval(() => this._onTimer(), TIMER_INTERVAL)
   }
 
   set position(tick: number) {
@@ -150,6 +157,11 @@ export default class Player extends EventEmitter {
   stop() {
     this._scheduler = null
     this.allSoundsOff()
+    this.prevTimestamp = null
+
+    if (this._timer) {
+      clearInterval(this._timer)
+    }
   }
 
   reset() {
@@ -160,7 +172,7 @@ export default class Player extends EventEmitter {
         [
           firstByte("controller", ch),
           MIDIControlEvents.RESET_CONTROLLERS,
-          0x7f
+          0x7f,
         ],
         time
       )
@@ -185,7 +197,7 @@ export default class Player extends EventEmitter {
     channel,
     noteNumber,
     velocity,
-    duration
+    duration,
   }: Pick<NoteEvent, "noteNumber" | "velocity" | "duration"> & {
     channel: number
   }) {
@@ -216,6 +228,8 @@ export default class Player extends EventEmitter {
     this._sendMessage(message, timestamp)
   }
 
+  private prevTimestamp: number | null = null
+
   private _onTimer() {
     if (this._scheduler === null) {
       return
@@ -223,6 +237,13 @@ export default class Player extends EventEmitter {
 
     const timestamp = window.performance.now()
     const events = this._scheduler.readNextEvents(this._currentTempo, timestamp)
+
+    if (this.prevTimestamp !== null) {
+      const jitter = timestamp - this.prevTimestamp - TIMER_INTERVAL
+      if (jitter / TIMER_INTERVAL > 2) {
+        console.warn(`timer have big jitter: ${jitter}`)
+      }
+    }
 
     // channel イベントを MIDI Output に送信
     const messages = events
@@ -232,7 +253,7 @@ export default class Player extends EventEmitter {
       )
       .map(({ event, timestamp }) => ({
         message: serializeMidiEvent(event as any, false),
-        timestamp: timestamp + this._latency
+        timestamp: timestamp + this._latency,
       }))
     this._sendMessages(messages)
 
@@ -268,6 +289,8 @@ export default class Player extends EventEmitter {
       }
     }
     this.emitChangePosition()
+
+    this.prevTimestamp = timestamp
   }
 
   emitChangePosition() {

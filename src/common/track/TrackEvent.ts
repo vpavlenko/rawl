@@ -42,9 +42,6 @@ export type TrackEventRequired = TickProvider & {
   id: number
 }
 
-export const isNoteEvent = (e: any): e is NoteEvent =>
-  "subtype" in e && e.subtype === "note"
-
 export type NoteEvent = TrackEventRequired &
   Omit<ChannelEvent<"note">, "deltaTime" | "channel"> & {
     duration: number

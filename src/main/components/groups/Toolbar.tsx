@@ -1,16 +1,16 @@
-import React, { ReactNode, StatelessComponent } from "react"
+import React, { FC } from "react"
 import f from "helpers/flatJoin"
 
 import "./Toolbar.css"
+import styled from "styled-components"
 
 export interface ToolbarProps {
   className?: string
 }
 
-export const Toolbar: StatelessComponent<ToolbarProps> = ({
-  children,
-  className,
-}) => <div className={f("Toolbar", className)}>{children}</div>
+export const Toolbar: FC<ToolbarProps> = ({ children, className }) => (
+  <div className={f("Toolbar", className)}>{children}</div>
+)
 
 export interface ToolbarItemProps {
   selected?: boolean
@@ -19,7 +19,7 @@ export interface ToolbarItemProps {
   className?: string
 }
 
-export const ToolbarItem: StatelessComponent<ToolbarItemProps> = ({
+export const ToolbarItem: FC<ToolbarItemProps> = ({
   children,
   className,
   selected,
@@ -43,6 +43,9 @@ export interface ToolbarSeparatorProps {
   className?: string
 }
 
-export const ToolbarSeparator: StatelessComponent<ToolbarSeparatorProps> = ({
-  className,
-}) => <div className={f("ToolbarSeparator", className)} />
+export const ToolbarSeparator = styled.div`
+  background: var(--divider-color);
+  margin: 0.4em 1em;
+  width: 1px;
+  height: 1rem;
+`

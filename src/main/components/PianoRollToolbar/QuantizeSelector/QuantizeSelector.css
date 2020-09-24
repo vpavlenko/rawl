@@ -1,0 +1,42 @@
+.QuantizeSelector {
+  display: flex;
+  color: var(--secondary-text-color);
+  position: relative;
+  margin-right: 1em;
+}
+
+.QuantizeSelector .dot-label {
+  font-size: 10%;
+  top: -1em;
+  position: relative;
+  opacity: 0.6;
+}
+
+.QuantizeSelector .triplet-label {
+  opacity: 0.6;
+  font-size: 70%;
+  padding: 0 0.24em;
+}
+
+.QuantizeSelector > .content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border: 1px solid var(--divider-color);
+  padding: 4px;
+  cursor: pointer;
+}
+
+.QuantizeSelector .MuiSvgIcon-root {
+  font-size: 1.1rem;
+}
+
+.QuantizeSelector > .content .value {
+  min-width: 2em;
+  pointer-events: none;
+}
+
+.QuantizeSelector .QuantizePopup {
+  top: 3em;
+  left: -3em;
+}

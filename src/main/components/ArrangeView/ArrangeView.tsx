@@ -1,4 +1,4 @@
-import React, { SFC } from "react"
+import React, { FC } from "react"
 
 import PianoGrid from "components/PianoRoll/PianoGrid"
 import PianoRuler from "components/PianoRoll/PianoRuler"
@@ -20,7 +20,7 @@ import {
   IRect,
   containsPoint,
 } from "common/geometry"
-import filterEventsWithScroll from "helpers/filterEventsWithScroll"
+import { filterEventsWithScroll } from "helpers/filterEventsWithScroll"
 
 import ArrangeNoteItem from "../../components/ArrangeView/ArrangeNoteItem"
 
@@ -30,6 +30,7 @@ import "./ArrangeView.css"
 import Track, { TrackEvent, isNoteEvent } from "common/track"
 import Theme from "common/theme"
 import Measure from "common/measure"
+import { Container } from "@inlet/react-pixi"
 
 interface ArrangeTrackProps {
   events: TrackEvent[]
@@ -71,7 +72,7 @@ export interface ArrangeViewProps {
   playerPosition: number
   setPlayerPosition: (position: number) => void
   transform: NoteCoordTransform
-  selection: IRect
+  selection: IRect | null
   startSelection: (position: IPoint) => void
   resizeSelection: (start: IPoint, end: IPoint) => void
   endSelection: (start: IPoint, end: IPoint) => void
@@ -89,7 +90,7 @@ export interface ArrangeViewProps {
   openContextMenu: (e: React.MouseEvent, isSelectionSelected: boolean) => void
 }
 
-export const ArrangeView: SFC<ArrangeViewProps> = ({
+export const ArrangeView: FC<ArrangeViewProps> = ({
   tracks,
   theme,
   measures,
@@ -131,7 +132,7 @@ export const ArrangeView: SFC<ArrangeViewProps> = ({
     pixelsPerTick,
     timebase,
     startTick,
-    endTick
+    containerWidth
   )
 
   const bottomBorderWidth = 1
@@ -184,6 +185,9 @@ export const ArrangeView: SFC<ArrangeViewProps> = ({
       mouseMove: (handler: (e: MouseEvent) => void) => void,
       mouseUp: (handler: (e: MouseEvent) => void) => void
     ) => {
+      if (selection === null) {
+        return
+      }
       const startSelection = { ...selection }
       mouseMove((e) => {
         const delta = pointSub(createPoint(e), startPos)
@@ -321,23 +325,13 @@ export const ArrangeView: SFC<ArrangeViewProps> = ({
               />
             ))}
           </div>
-          <PianoGrid
-            width={containerWidth}
-            height={contentHeight}
-            scrollLeft={scrollLeft}
-            beats={mappedBeats}
-          />
-          <PianoSelection
-            width={containerWidth}
-            height={contentHeight}
-            scrollLeft={scrollLeft}
-            selectionBounds={selectionRect}
-          />
-          <PianoCursor
-            width={containerWidth}
-            height={contentHeight}
-            position={transform.getX(playerPosition) - scrollLeft}
-          />
+          <PianoGrid height={contentHeight} beats={mappedBeats} />
+          {selectionRect && (
+            <PianoSelection bounds={selectionRect} onRightClick={() => {}} />
+          )}
+          <Container x={transform.getX(playerPosition) - scrollLeft}>
+            <PianoCursor height={contentHeight} />
+          </Container>
         </div>
         <div
           style={{

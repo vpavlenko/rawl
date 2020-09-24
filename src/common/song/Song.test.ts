@@ -3,8 +3,7 @@ import * as path from "path"
 import { serialize, deserialize } from "serializr"
 
 import Song from "./Song"
-import { songFromMidi } from "./SongFactory"
-import Track from "../track/Track"
+import { emptySong, songFromMidi } from "./SongFactory"
 
 describe("Song", () => {
   const song = songFromMidi(
@@ -30,12 +29,11 @@ describe("Song", () => {
   })
 
   it("should be serializable", () => {
-    const song = new Song()
+    const song = emptySong()
     song.filepath = "abc"
-    song.addTrack(new Track())
     const x = serialize(song)
     const s = deserialize(Song, x)
     expect(s.filepath).toBe("abc")
-    expect(s.tracks.length).toBe(1)
+    expect(s.tracks.length).toBe(song.tracks.length)
   })
 })

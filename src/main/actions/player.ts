@@ -1,134 +1,86 @@
-import { Mutator, Action } from "../createDispatcher"
+import RootStore from "../stores/RootStore"
 
-// Actions
-
-export interface Play {
-  type: "play"
-}
-export interface Stop {
-  type: "stop"
-}
-export interface SetPlayerPosition {
-  type: "setPlayerPosition"
-  tick: number
-}
-export interface MovePlayerPosition {
-  type: "movePlayerPosition"
-  tick: number
-}
-export interface PreviewNote {
-  type: "previewNote"
-  channel: number
-  noteNumber: number
-}
-export interface SetLoopBegin {
-  type: "setLoopBegin"
-  tick: number
-}
-export interface SetLoopEnd {
-  type: "setLoopEnd"
-  tick: number
-}
-export interface ToggleEnableLoop {
-  type: "toggleEnableLoop"
+export const play = (rootStore: RootStore) => () => {
+  const {
+    services: { player },
+    song,
+  } = rootStore
+  player.play(song)
 }
 
-export type PlayerAction =
-  | Play
-  | Stop
-  | SetPlayerPosition
-  | MovePlayerPosition
-  | PreviewNote
-  | SetLoopBegin
-  | SetLoopEnd
-  | ToggleEnableLoop
+export const stop = (rootStore: RootStore) => () => {
+  const {
+    services: { player },
+  } = rootStore
+  if (player.isPlaying) {
+    player.stop()
+  } else {
+    player.stop()
+    player.position = 0
+  }
+}
 
-// Action Creators
+export const setPlayerPosition = (rootStore: RootStore) => (tick: number) => {
+  const {
+    services: { player, quantizer },
+  } = rootStore
+  player.position = quantizer.round(tick)
+}
 
-export const play = (): Play => ({ type: "play" })
-export const stop = (): Stop => ({ type: "stop" })
-export const setPlayerPosition = (tick: number): SetPlayerPosition => ({
-  type: "setPlayerPosition",
-  tick,
-})
-export const movePlayerPosition = (tick: number): MovePlayerPosition => ({
-  type: "movePlayerPosition",
-  tick,
-})
-export const previewNote = (
+export const movePlayerPosition = (rootStore: RootStore) => (tick: number) => {
+  const {
+    services: { player, quantizer },
+  } = rootStore
+  player.position = quantizer.round(player.position + tick)
+}
+
+export const previewNote = (rootStore: RootStore) => (
   channel: number,
   noteNumber: number
-): PreviewNote => ({ type: "previewNote", channel, noteNumber })
-export const setLoopBegin = (tick: number): SetLoopBegin => ({
-  type: "setLoopBegin",
-  tick,
-})
-export const setLoopEnd = (tick: number): SetLoopEnd => ({
-  type: "setLoopEnd",
-  tick,
-})
-export const toggleEnableLoop = (): ToggleEnableLoop => ({
-  type: "toggleEnableLoop",
-})
+) => {
+  const {
+    services: { player },
+  } = rootStore
+  player.playNote({
+    channel: channel,
+    noteNumber: noteNumber,
+    velocity: 100,
+    duration: 128,
+  })
+}
 
-// Mutators
-
-export default (action: Action): Mutator | null => {
-  switch (action.type) {
-    case "play":
-      return ({ services: { player }, song }) => {
-        player.play(song)
-      }
-    case "stop":
-      return ({ services: { player } }) => {
-        if (player.isPlaying) {
-          player.stop()
-        } else {
-          player.stop()
-          player.position = 0
-        }
-      }
-    case "setPlayerPosition":
-      return ({ services: { player, quantizer } }) => {
-        player.position = quantizer.round(action.tick)
-      }
-    case "movePlayerPosition":
-      return ({ services: { player, quantizer } }) => {
-        player.position = quantizer.round(player.position + action.tick)
-      }
-    case "previewNote":
-      return ({ services: { player } }) => {
-        player.playNote({
-          channel: action.channel,
-          noteNumber: action.noteNumber,
-          velocity: 100,
-          duration: 128,
-        })
-      }
-    case "setLoopBegin":
-      return ({ services: { player, quantizer }, playerStore }) => {
-        let tick = quantizer.round(action.tick)
-        if (player.loop.end !== null) {
-          tick = Math.min(player.loop.end, tick)
-        }
-        player.loop.begin = tick
-        playerStore.setLoop({ ...player.loop })
-      }
-    case "setLoopEnd":
-      return ({ services: { player, quantizer }, playerStore }) => {
-        let tick = quantizer.round(action.tick)
-        if (player.loop.begin !== null) {
-          tick = Math.max(player.loop.begin, tick)
-        }
-        playerStore.setLoop({
-          ...player.loop,
-          end: tick,
-        })
-      }
-    case "toggleEnableLoop":
-      return ({ services: { player }, playerStore }) => {
-        playerStore.setLoop({ ...player.loop, enabled: !player.loop.enabled })
-      }
+export const setLoopBegin = (rootStore: RootStore) => (tick: number) => {
+  const {
+    services: { player, quantizer },
+    playerStore,
+  } = rootStore
+  tick = quantizer.round(tick)
+  if (player.loop.end !== null) {
+    tick = Math.min(player.loop.end, tick)
   }
-  return null
+  player.loop.begin = tick
+  playerStore.setLoop({ ...player.loop })
+}
+
+export const setLoopEnd = (rootStore: RootStore) => (tick: number) => {
+  const {
+    services: { player, quantizer },
+    playerStore,
+  } = rootStore
+  tick = quantizer.round(tick)
+  if (player.loop.begin !== null) {
+    tick = Math.max(player.loop.begin, tick)
+  }
+  playerStore.setLoop({
+    ...player.loop,
+    end: tick,
+  })
+}
+
+export const toggleEnableLoop = (rootStore: RootStore) => () => {
+  const {
+    services: { player },
+    playerStore,
+  } = rootStore
+  playerStore.setLoop({ ...player.loop, enabled: !player.loop.enabled })
 }

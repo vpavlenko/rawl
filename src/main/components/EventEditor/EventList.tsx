@@ -1,4 +1,4 @@
-import React, { SFC } from "react"
+import React, { FC } from "react"
 import { controllerTypeString } from "helpers/noteNumberString"
 
 import "./EventList.css"
@@ -10,7 +10,7 @@ interface TableProps {
   headers: string[]
 }
 
-const Table: SFC<TableProps> = ({ items, headers }) => {
+const Table: FC<TableProps> = ({ items, headers }) => {
   return (
     <table>
       <thead>
@@ -33,7 +33,7 @@ interface EventRowProps {
   item: TrackEvent
 }
 
-const EventRow: SFC<EventRowProps> = ({ item }) => {
+const EventRow: FC<EventRowProps> = ({ item }) => {
   return (
     <tr>
       <td>{item.tick}</td>
@@ -58,7 +58,7 @@ export interface EventListProps {
   events: TrackEvent[]
 }
 
-const EventList: SFC<EventListProps> = ({ events }) => {
+const EventList: FC<EventListProps> = ({ events }) => {
   return (
     <div className="EventList">
       <Table items={events} headers={["Tick", "Status", "Value"]} />

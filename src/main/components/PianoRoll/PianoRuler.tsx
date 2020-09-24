@@ -1,10 +1,5 @@
-import React, { SFC } from "react"
-import {
-  Graphics as PIXIGraphics,
-  interaction,
-  TextStyle,
-  Point,
-} from "pixi.js"
+import React, { FC } from "react"
+import { Graphics as PIXIGraphics, TextStyle, Point } from "pixi.js"
 import _ from "lodash"
 
 import { LoopSetting } from "common/player"
@@ -22,13 +17,12 @@ interface BeatProps {
   theme: Theme
 }
 
-const Beats: SFC<BeatProps> = React.memo(
+const Beats: FC<BeatProps> = React.memo(
   ({ beats, shouldOmit, height, theme }) => {
     const draw = (ctx: PIXIGraphics) => {
-      console.log(`render Beat ${beats.length}`)
       ctx.clear().lineStyle(1, Color(theme.secondaryTextColor).rgbNumber())
 
-      for (let { x, beat } of beats) {
+      for (const { x, beat } of beats) {
         const isTop = beat === 0
 
         if (isTop) {
@@ -53,8 +47,8 @@ interface LoopPointsProps {
   theme: Theme
 }
 
-// LoopPoints: SFC に書き換える
-const LoopPoints: SFC<LoopPointsProps> = React.memo(
+// LoopPoints: FC に書き換える
+const LoopPoints: FC<LoopPointsProps> = React.memo(
   ({ loop, height, pixelsPerTick, theme }) => {
     const lineWidth = 1
     const flagSize = 8
@@ -119,7 +113,7 @@ export interface PianoRulerProps {
   loop?: LoopSetting
 }
 
-const PianoRuler: SFC<PianoRulerProps> = ({
+const PianoRuler: FC<PianoRulerProps> = ({
   width,
   pixelsPerTick,
   scrollLeft,
@@ -132,9 +126,7 @@ const PianoRuler: SFC<PianoRulerProps> = ({
   const theme = useTheme()
   const height = theme.rulerHeight
 
-  const extendEvent = (
-    e: interaction.InteractionEvent
-  ): TickEvent<MouseEvent> => {
+  const extendEvent = (e: PIXI.InteractionEvent): TickEvent<MouseEvent> => {
     const local = e.data.getLocalPosition(e.target)
     return {
       nativeEvent: e.data.originalEvent as MouseEvent,
@@ -168,9 +160,9 @@ const PianoRuler: SFC<PianoRulerProps> = ({
     .filter((b) => b.beat === 0 && (!shouldOmit || b.measure % 2 === 0))
     .map((b) => (
       <Text
-        key={b.measure * (b.beat + 1)}
+        key={b.measure}
         position={new Point(b.x + 5, 2)}
-        text={`${b.measure}`}
+        text={`${b.measure + 1}`}
         style={textStyle}
       />
     ))
@@ -194,7 +186,7 @@ const PianoRuler: SFC<PianoRulerProps> = ({
           theme={theme}
         />
         {labels}
-        {loop && (
+        {loop?.enabled && (
           <LoopPoints
             loop={loop}
             pixelsPerTick={pixelsPerTick}

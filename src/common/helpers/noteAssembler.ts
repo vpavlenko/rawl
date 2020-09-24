@@ -1,7 +1,6 @@
 import { NoteOnEvent, NoteOffEvent } from "midifile-ts"
 import { NoteEvent, TickProvider } from "common/track"
 import { noteOnMidiEvent, noteOffMidiEvent } from "common/midi/MidiEvent"
-import _ from "lodash"
 
 /**
 
@@ -14,7 +13,7 @@ export function assemble<T>(
   const noteOnEvents: TickNoteOnEvent[] = []
 
   function findNoteOn(noteOff: TickNoteOffEvent): TickNoteOnEvent | null {
-    const i = _.findIndex(noteOnEvents, (e) => {
+    const i = noteOnEvents.findIndex((e) => {
       return e.noteNumber === noteOff.noteNumber
     })
     if (i < 0) {
@@ -73,7 +72,7 @@ export function deassemble<T>(
     const noteOff = noteOffMidiEvent(0, channel, e.noteNumber)
     return [
       { ...noteOn, tick: e.tick },
-      { ...noteOff, tick: e.tick + e.duration - 1 }, // -1 to prevent overlap
+      { ...noteOff, tick: e.tick + e.duration },
     ]
   } else {
     return [e as T]

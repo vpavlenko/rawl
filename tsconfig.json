@@ -9,13 +9,15 @@
     "sourceMap": true,
     "target": "es5",
     "module": "es2015",
+    "esModuleInterop": true,
     "jsx": "react",
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": true,
     "lib": ["es2017", "dom"],
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "alwaysStrict": true
   },
   "exclude": ["node_modules", "src/submodules", "**/*.test.ts"]
 }

@@ -1,4 +1,4 @@
-import { observable } from "mobx"
+import { observable, action } from "mobx"
 import { serialize, deserialize } from "serializr"
 
 import Song, { emptySong } from "common/song"
@@ -18,9 +18,7 @@ import Quantizer from "common/quantizer"
 import SynthOutput from "services/SynthOutput"
 import { TIME_BASE } from "../Constants"
 
-import { createDispatcher2 } from "../createDispatcher"
-
-interface Services {
+export interface Services {
   player: Player
   quantizer: Quantizer
   synth: SynthOutput
@@ -45,12 +43,8 @@ export default class RootStore {
     const player = new Player(TIME_BASE, synth, this.trackMute)
     const quantizer = new Quantizer(TIME_BASE)
     this.services = { player, quantizer, synth }
-    this.pianoRollStore = new PianoRollStore(player, synth)
+    this.pianoRollStore = new PianoRollStore(synth)
     this.playerStore = new PlayerStore(player)
-  }
-
-  get dispatch() {
-    return createDispatcher2(this)
   }
 
   serializeUndoableState() {

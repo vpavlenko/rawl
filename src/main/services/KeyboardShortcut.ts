@@ -2,16 +2,17 @@ import {
   copySelection,
   pasteSelection,
   deleteSelection,
-  undo,
-  redo,
+  play,
+  stop,
 } from "main/actions"
 import RootStore from "../stores/RootStore"
 
-export function bindKeyboardShortcut({
-  dispatch,
-  services: { player },
-  song,
-}: RootStore) {
+export function bindKeyboardShortcut(rootStore: RootStore) {
+  const {
+    services: { player },
+    song,
+  } = rootStore
+
   document.onkeydown = (e) => {
     if (e.target !== document.body) {
       return
@@ -19,23 +20,35 @@ export function bindKeyboardShortcut({
     switch (e.code) {
       case "Space": {
         if (player.isPlaying) {
-          player.stop()
+          stop(rootStore)()
         } else {
-          player.play(song)
+          play(rootStore)()
         }
         e.preventDefault()
         break
       }
       case "KeyZ": {
-        if (e.ctrlKey) {
-          dispatch(undo())
+        if (e.ctrlKey || e.metaKey) {
+          rootStore.undo()
         }
         break
       }
       case "KeyY": {
-        if (e.ctrlKey) {
-          dispatch(redo())
+        if (e.ctrlKey || e.metaKey) {
+          rootStore.redo()
         }
+        break
+      }
+      case "Backspace": {
+        deleteSelection(rootStore)()
+        break
+      }
+      case "Digit1": {
+        rootStore.pianoRollStore.mouseMode = "pencil"
+        break
+      }
+      case "Digit2": {
+        rootStore.pianoRollStore.mouseMode = "selection"
         break
       }
       default:
@@ -43,13 +56,13 @@ export function bindKeyboardShortcut({
     }
   }
   document.oncut = () => {
-    dispatch(copySelection())
-    dispatch(deleteSelection())
+    copySelection(rootStore)()
+    deleteSelection(rootStore)()
   }
   document.oncopy = () => {
-    dispatch(copySelection())
+    copySelection(rootStore)()
   }
   document.onpaste = () => {
-    dispatch(pasteSelection())
+    pasteSelection(rootStore)()
   }
 }

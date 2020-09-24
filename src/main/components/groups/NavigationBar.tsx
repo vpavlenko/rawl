@@ -1,4 +1,4 @@
-import React, { StatelessComponent, ReactNode } from "react"
+import React, { FC, ReactNode } from "react"
 import Icon from "components/outputs/Icon"
 import f from "helpers/flatJoin"
 
@@ -10,7 +10,7 @@ export interface NavigationBarProps {
   onClickBack?: () => void
 }
 
-const NavigationBar: StatelessComponent<NavigationBarProps> = ({
+const NavigationBar: FC<NavigationBarProps> = ({
   title,
   children,
   className,

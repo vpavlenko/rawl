@@ -1,3 +1,4 @@
+import { toJS } from "mobx"
 import { serialize, deserialize } from "serializr"
 
 import Track from "./Track"
@@ -12,7 +13,7 @@ describe("Track", () => {
       duration: 120,
       tick: 123,
       velocity: 100,
-      noteNumber: 100
+      noteNumber: 100,
     })
     const s = serialize(track)
     const t = deserialize(Track, s)

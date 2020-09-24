@@ -1,4 +1,4 @@
-import React, { StatelessComponent } from "react"
+import React, { FC } from "react"
 import { withStyles } from "@material-ui/core"
 import Slider, { SliderProps } from "@material-ui/core/Slider"
 import styled from "styled-components"
@@ -21,6 +21,7 @@ const Label = styled.div`
   display: flex;
   align-items: center;
   margin-right: 1rem;
+  color: var(--secondary-text-color);
 `
 
 export interface PanSliderProps {
@@ -28,19 +29,18 @@ export interface PanSliderProps {
   value: number
 }
 
-export const PanSlider: StatelessComponent<PanSliderProps> = ({
-  onChange,
-  value,
-}) => (
-  <Container>
-    <Label>Pan</Label>
-    <LightSlider
-      value={value}
-      onChange={(_, value) => onChange(value as number)}
-      min={0}
-      max={127}
-      defaultValue={64}
-      marks={[{ value: 64 }]}
-    />
-  </Container>
+export const PanSlider: FC<PanSliderProps> = React.memo(
+  ({ onChange, value }) => (
+    <Container>
+      <Label>Pan</Label>
+      <LightSlider
+        value={value}
+        onChange={(_, value) => onChange(value as number)}
+        min={0}
+        max={127}
+        defaultValue={64}
+        marks={[{ value: 64 }]}
+      />
+    </Container>
+  )
 )

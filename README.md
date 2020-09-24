@@ -1,31 +1,22 @@
 # Signal
 
-A friendly music sequencer application for macOS and Windows.
+A friendly music sequencer application built with web technology.
 
-![signal](https://user-images.githubusercontent.com/5355966/29995998-41fde864-9031-11e7-8a11-47509f19b224.png)
+## Goals
 
-## 目的
+- Cross-platform
+- NOT complicated UI
+- MIDI format compatible
 
-- 多人数で作曲を行うためのシーケンサーアプリを開発する
+## Concepts
 
-## ゴール
+Recording and finishing is the role of the DAW, making it an app that can be used quickly at the composition and sketching stages.
+The following restrictions are given so that you can concentrate on composing without being distracted by the selection of sound sources and adjustment of effects.
 
-1. macOS と Windows 両方で動作する
-2. 直感的に使える UI
-3. インターネットを通じて共同作業による作曲を行うことができる
+- No high-quality sound
+- No Fx
+- Make it as lightweight as possible
 
-## コンセプト
+## Contribution
 
-録音や仕上げは市販の DAW の役割として、作曲やスケッチ段階にさっと使えるアプリにする。
-音源選びやエフェクトの調整に気を取られずに作曲に集中できるように、次のような制約を持たせる。
-
-- 高音質な楽曲を完成させるアプリにしない
-- リアルな音源を搭載しない
-- 多様なエフェクトを搭載しない
-- 録音機能を搭載しない
-
-## コラボレーションのための機能
-
-- git のような共同作業の機能を搭載する
-- コンフリクトしづらい (マージしやすい) ファイルフォーマットの実装
-- プラットフォームによらず統一感のあるインターフェース、音色を提供する
+Any kind of contribution is welcome.

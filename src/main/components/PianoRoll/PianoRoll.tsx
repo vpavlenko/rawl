@@ -78,7 +78,7 @@ const PianoRollWrapper: FC<PianoRollWrapperProps> = ({ size }) => {
   } = useObserver(() => ({
     trackEndTick: rootStore.song.endOfSong,
     isPlaying: rootStore.services.player.isPlaying,
-    playerPosition: rootStore.playerStore.position,
+    playerPosition: rootStore.services.player.position,
     s: rootStore.pianoRollStore,
     scaleX: rootStore.pianoRollStore.scaleX,
     scrollLeft: rootStore.pianoRollStore.scrollLeft,

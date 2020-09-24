@@ -79,7 +79,7 @@ const _TempoGraph: FC<TempoGraphProps> = ({ size }) => {
     timebase: rootStore.services.player.timebase,
     autoScroll: rootStore.tempoEditorStore.autoScroll,
     scrollLeft: rootStore.tempoEditorStore.scrollLeft,
-    playerPosition: rootStore.playerStore.position,
+    playerPosition: rootStore.services.player.position,
   }))
 
   const [_scrollLeft, setScrollLeft] = useState(0)

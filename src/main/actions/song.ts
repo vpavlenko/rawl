@@ -32,7 +32,7 @@ export const setSong = (rootStore: RootStore, song: Song) => {
   rootStore.song = song
   rootStore.services.player.reset()
   rootStore.trackMute.reset()
-  rootStore.playerStore.setPosition(0)
+  rootStore.services.player.position = 0
   rootStore.services.player.stop()
   rootStore.pianoRollStore.scrollLeft = 0
 }

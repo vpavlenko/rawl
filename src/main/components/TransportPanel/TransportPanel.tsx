@@ -125,11 +125,12 @@ export const TransportPanel: FC = () => {
   const { tempo, mbtTime, isPlaying } = useObserver(() => ({
     mbtTime: getMBTString(
       stores.song.measures,
-      stores.playerStore.position,
+      stores.services.player.position,
       stores.services.player.timebase
     ),
     tempo:
-      stores.song.conductorTrack?.getTempo(stores.playerStore.position) ?? 0,
+      stores.song.conductorTrack?.getTempo(stores.services.player.position) ??
+      0,
     isPlaying: stores.services.player.isPlaying,
   }))
   const onClickPlay = () => play(stores)()
@@ -137,7 +138,7 @@ export const TransportPanel: FC = () => {
   const onClickBackward = () => movePlayerPosition(stores)(-TIME_BASE * 4)
   const onClickForward = () => movePlayerPosition(stores)(TIME_BASE * 4)
   const onChangeTempo = (tempo: number) => {
-    stores.song.conductorTrack?.setTempo(tempo, stores.playerStore.position)
+    stores.song.conductorTrack?.setTempo(tempo, stores.services.player.position)
   }
 
   const classes = useStyles({})

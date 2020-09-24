@@ -5,7 +5,6 @@ import Song, { emptySong } from "common/song"
 import TrackMute from "common/trackMute"
 
 import Router from "./Router"
-import PlayerStore from "./PlayerStore"
 import HistoryStore from "./HistoryStore"
 import SettingsStore from "./SettingsStore"
 import RootViewStore from "./RootViewStore"
@@ -28,7 +27,6 @@ export default class RootStore {
   @observable.ref song: Song = emptySong()
   router = new Router()
   trackMute = new TrackMute()
-  playerStore: PlayerStore
   historyStore = new HistoryStore()
   settingsStore = new SettingsStore()
   rootViewStore = new RootViewStore()
@@ -44,7 +42,6 @@ export default class RootStore {
     const quantizer = new Quantizer(TIME_BASE)
     this.services = { player, quantizer, synth }
     this.pianoRollStore = new PianoRollStore(synth)
-    this.playerStore = new PlayerStore(player)
   }
 
   serializeUndoableState() {

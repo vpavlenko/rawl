@@ -36,7 +36,7 @@ const ArrangeViewWrapper: FC<ArrangeViewWrapperProps> = ({ size }) => {
     selection,
   } = useObserver(() => ({
     autoScroll: rootStore.arrangeViewStore.autoScroll,
-    playerPosition: rootStore.playerStore.position,
+    playerPosition: rootStore.services.player.position,
     pixelsPerTick: 0.1 * rootStore.arrangeViewStore.scaleX,
     isPlaying: rootStore.services.player.isPlaying,
     tracks: toJS(rootStore.song.tracks),

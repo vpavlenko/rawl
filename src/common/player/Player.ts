@@ -1,6 +1,5 @@
 import flatten from "lodash/flatten"
 import range from "lodash/range"
-import EventEmitter from "eventemitter3"
 
 import {
   serialize as serializeMidiEvent,
@@ -18,6 +17,7 @@ import { NoteEvent } from "../track"
 import { PlayerEvent } from "./PlayerEvent"
 import SynthOutput, { Message } from "../../main/services/SynthOutput"
 import { computed, observable } from "mobx"
+import throttle from "lodash/throttle"
 
 function firstByte(eventType: string, channel: number): number {
   return (MIDIChannelEvents[eventType] << 4) + channel
@@ -35,26 +35,6 @@ function collectAllEvents(song: Song): PlayerEvent[] {
   )
 }
 
-// 同じ名前のタスクを描画タイマーごとに一度だけ実行する
-class DisplayTask {
-  tasks: { [index: string]: () => void } = {}
-
-  constructor() {
-    setInterval(() => this.perform(), 50)
-  }
-
-  add(name: string, func: () => void) {
-    this.tasks[name] = func
-  }
-
-  perform() {
-    Object.values(this.tasks).forEach((t) => t())
-    this.tasks = {}
-  }
-}
-
-const displayTask = new DisplayTask()
-
 export interface LoopSetting {
   begin: number
   end: number
@@ -63,9 +43,8 @@ export interface LoopSetting {
 
 const TIMER_INTERVAL = 50
 
-export default class Player extends EventEmitter {
+export default class Player {
   private _currentTempo = 120
-  private _currentTick = 0
   private _scheduler: EventScheduler<PlayerEvent> | null = null
   private _song: Song
   private _output: SynthOutput
@@ -73,6 +52,7 @@ export default class Player extends EventEmitter {
   private _trackMute: TrackMute
   private _latency: number = 100
   private _timer?: NodeJS.Timeout
+  @observable private _currentTick = 0
   @observable private _isPlaying = false
 
   @observable loop: LoopSetting = {
@@ -82,8 +62,6 @@ export default class Player extends EventEmitter {
   }
 
   constructor(timebase: number, output: SynthOutput, trackMute: TrackMute) {
-    super()
-
     this._output = output
     this._timebase = timebase
     this._trackMute = trackMute
@@ -112,14 +90,13 @@ export default class Player extends EventEmitter {
       this._scheduler.seek(tick)
     }
     this._currentTick = tick
-    this.emitChangePosition()
 
     if (this.isPlaying) {
       this.allSoundsOff()
     }
   }
 
-  get position() {
+  @computed get position() {
     return this._currentTick
   }
 
@@ -231,6 +208,12 @@ export default class Player extends EventEmitter {
     this._sendMessage(message, timestamp)
   }
 
+  private syncPosition = throttle(() => {
+    if (this._scheduler !== null) {
+      this._currentTick = this._scheduler.currentTick
+    }
+  }, 50)
+
   private prevTimestamp: number | null = null
 
   private _onTimer() {
@@ -280,25 +263,18 @@ export default class Player extends EventEmitter {
       this.stop()
     }
 
-    if (this._scheduler) {
-      this._currentTick = this._scheduler.currentTick
+    const currentTick = this._scheduler.currentTick
 
-      if (
-        this.loop.enabled &&
-        this.loop.begin !== null &&
-        this._currentTick >= this.loop.end
-      ) {
-        this.position = this.loop.begin
-      }
+    if (
+      this.loop.enabled &&
+      this.loop.begin !== null &&
+      currentTick >= this.loop.end
+    ) {
+      this.position = this.loop.begin
     }
-    this.emitChangePosition()
+
+    this.syncPosition()
 
     this.prevTimestamp = timestamp
-  }
-
-  emitChangePosition() {
-    displayTask.add("changePosition", () => {
-      this.emit("change-position", this._currentTick)
-    })
   }
 }

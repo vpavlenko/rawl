@@ -28,7 +28,6 @@
     "@material-ui/lab": "4.0.0-alpha.56",
     "@rehooks/component-size": "1.0.3",
     "color": "^3.1.2",
-    "eventemitter3": "^4.0.7",
     "file-dialog": "0.0.8",
     "lodash": "^4.17.20",
     "midifile-ts": "1.1.2",

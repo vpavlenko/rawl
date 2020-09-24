@@ -81,9 +81,11 @@ export const PianoRollToolbar: FC = () => {
   } = useObserver(() => ({
     trackName: stores.song.selectedTrack?.displayName ?? "",
     instrumentName: stores.song.selectedTrack?.instrumentName ?? "",
-    pan: stores.song.selectedTrack?.getPan(stores.playerStore.position) ?? 0,
+    pan:
+      stores.song.selectedTrack?.getPan(stores.services.player.position) ?? 0,
     volume:
-      stores.song.selectedTrack?.getVolume(stores.playerStore.position) ?? 0,
+      stores.song.selectedTrack?.getVolume(stores.services.player.position) ??
+      0,
     track: stores.song.selectedTrack,
     trackId: stores.song.selectedTrackId,
     quantize:

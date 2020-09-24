@@ -71,7 +71,7 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
     isRhythmTrack: rootStore.song.selectedTrack?.isRhythmTrack ?? false,
     channel: rootStore.song.selectedTrack?.channel ?? 0,
     measures: rootStore.song.measures,
-    playerPosition: rootStore.playerStore.position,
+    playerPosition: rootStore.services.player.position,
     timebase: rootStore.services.player.timebase,
     mouseMode: rootStore.pianoRollStore.mouseMode,
     scaleX: rootStore.pianoRollStore.scaleX,

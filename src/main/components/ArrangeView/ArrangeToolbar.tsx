@@ -1,4 +1,4 @@
-import React, { FC } from "react"
+import React, { FC, useCallback } from "react"
 
 import {
   Toolbar,
@@ -9,20 +9,31 @@ import QuantizeSelector from "../PianoRollToolbar/QuantizeSelector/QuantizeSelec
 
 import "./ArrangeToolbar.css"
 import { KeyboardTab } from "@material-ui/icons"
+import { useStores } from "../../hooks/useStores"
+import { useObserver } from "mobx-react"
 
-export interface ArrangeToolbarProps {
-  autoScroll: boolean
-  onClickAutoScroll: () => void
-  quantize: number
-  onSelectQuantize: (e: { denominator: number }) => void
-}
+export const ArrangeToolbar: FC = () => {
+  const { rootStore } = useStores()
+  const { quantize, autoScroll } = useObserver(() => ({
+    quantize:
+      rootStore.arrangeViewStore.quantize === 0
+        ? rootStore.services.quantizer.denominator
+        : rootStore.arrangeViewStore.quantize,
+    autoScroll: rootStore.arrangeViewStore.autoScroll,
+  }))
 
-export const ArrangeToolbar: FC<ArrangeToolbarProps> = ({
-  autoScroll,
-  onClickAutoScroll,
-  quantize,
-  onSelectQuantize,
-}) => {
+  const onClickAutoScroll = useCallback(
+    () =>
+      (rootStore.arrangeViewStore.autoScroll = !rootStore.arrangeViewStore
+        .autoScroll),
+    []
+  )
+
+  const onSelectQuantize = useCallback((e) => {
+    rootStore.services.quantizer.denominator = e.denominator
+    rootStore.arrangeViewStore.quantize = e.denominator
+  }, [])
+
   return (
     <Toolbar className="ArrangeToolbar">
       <QuantizeSelector

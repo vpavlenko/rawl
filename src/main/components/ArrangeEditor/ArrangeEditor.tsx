@@ -1,16 +1,10 @@
 import React, { FC } from "react"
 import NavigationBar from "main/components/groups/NavigationBar"
-import ArrangeToolbar from "./ArrangeToolbar"
-import RootStore from "stores/RootStore"
-import { compose } from "recompose"
-import { inject, observer } from "mobx-react"
+import { ArrangeToolbar } from "../ArrangeView/ArrangeToolbar"
 import ArrangeView from "./ArrangeView"
+import { useStores } from "../../hooks/useStores"
 
 import "./ArrangeEditor.css"
-
-interface ArrangeEditorProps {
-  pushSettings: () => void
-}
 
 interface NavItemProps {
   title: string
@@ -25,23 +19,21 @@ function NavItem({ title, onClick }: NavItemProps) {
   )
 }
 
-const ArrangeEditor: FC<ArrangeEditorProps> = ({ pushSettings }) => {
+export const ArrangeEditor: FC = () => {
+  const stores = useStores()
+
   return (
     <div className="ArrangeEditor">
       <NavigationBar>
         <ArrangeToolbar />
         <div className="menu">
-          <NavItem title="settings" onClick={pushSettings} />
+          <NavItem
+            title="settings"
+            onClick={() => stores.rootStore.router.pushSettings()}
+          />
         </div>
       </NavigationBar>
       <ArrangeView />
     </div>
   )
 }
-
-const mapStoreToProps = ({ rootStore: { router } }: { rootStore: RootStore }) =>
-  ({
-    pushSettings: () => router.pushSettings(),
-  } as ArrangeEditorProps)
-
-export default compose(inject(mapStoreToProps), observer)(ArrangeEditor)

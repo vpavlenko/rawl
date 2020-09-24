@@ -1,6 +1,5 @@
 import { hot } from "react-hot-loader/root"
 import React, { FC } from "react"
-import { compose } from "recompose"
 import { PianoRollEditor } from "components/PianoRoll/PianoRollEditor"
 import { BuildInfo } from "main/components/BuildInfo"
 import { Drawer } from "../../components/Drawer/Drawer"
@@ -11,8 +10,8 @@ import "./Resizer.css"
 import { useStores } from "../../hooks/useStores"
 import { useObserver } from "mobx-react"
 import { TempoEditor } from "../TempoGraph/TempoEditor"
-import ArrangeEditor from "../ArrangeEditor/ArrangeEditor"
-import SettingsView from "../SettingsView/SettingsView"
+import { ArrangeEditor } from "../ArrangeEditor/ArrangeEditor"
+import { SettingsView } from "../SettingsView/SettingsView"
 
 const Container = styled.div`
   height: 100%;
@@ -42,4 +41,4 @@ const RootView: FC = () => (
   </Container>
 )
 
-export default compose(hot)(RootView)
+export default hot(RootView)

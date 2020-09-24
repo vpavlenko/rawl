@@ -1,10 +1,9 @@
 import React, { FC } from "react"
-import { observer, inject } from "mobx-react"
-import { compose } from "recompose"
 import NavigationBar from "components/groups/NavigationBar"
 
 import "./SettingsView.css"
-import RootStore from "stores/RootStore"
+import { useStores } from "../../hooks/useStores"
+import { useObserver } from "mobx-react"
 
 interface SettingItemProps {
   label: string
@@ -19,25 +18,38 @@ const SettingItem: FC<SettingItemProps> = ({ label, children }) => {
   )
 }
 
-interface SettingsViewProps {
-  onClickNavBack: () => void
-  soundFontPath: string
-  onClickOpenSoundFont: () => void
-  clearSettings: () => void
-  onClickShowSynth: () => void
-  onClickStartRecording: () => void
-  onClickStopRecording: () => void
-}
+export const SettingsView: FC = () => {
+  const { rootStore } = useStores()
 
-const SettingsView: FC<SettingsViewProps> = ({
-  onClickNavBack,
-  soundFontPath,
-  onClickOpenSoundFont,
-  clearSettings,
-  onClickShowSynth,
-  onClickStartRecording,
-  onClickStopRecording,
-}) => {
+  const { soundFontPath } = useObserver(() => ({
+    soundFontPath: rootStore.settingsStore.soundFontPath,
+  }))
+
+  const {
+    router,
+    services: { synth },
+  } = rootStore
+
+  const clearSettings = () => rootStore.settingsStore.clear()
+  const onClickNavBack = () => router.pushArrange()
+  const onClickOpenSoundFont = () => {
+    openSoundFont((files: string[]) => {
+      if (files && files.length > 0) {
+        const path = files[0]
+        rootStore.settingsStore.soundFontPath = path
+        synth.loadSoundFont(path)
+      }
+    })
+  }
+  const onClickShowSynth = () => {
+    // ipcRenderer.send("show-synth")
+  }
+  const onClickStartRecording = () => {
+    synth.startRecording()
+  }
+  const onClickStopRecording = () => {
+    synth.stopRecording()
+  }
   return (
     <div className="SettingsView">
       <NavigationBar title="Settings" onClickBack={onClickNavBack} />
@@ -67,41 +79,3 @@ function openSoundFont(callback: (files: string[]) => void) {
   //   }]
   // }, files => callback(files))
 }
-
-export default compose(
-  inject(
-    ({
-      rootStore: {
-        router,
-        settingsStore: s,
-        services: { synth },
-      },
-    }: {
-      rootStore: RootStore
-    }) =>
-      ({
-        onClickNavBack: () => router.pushArrange(),
-        soundFontPath: s.soundFontPath,
-        onClickOpenSoundFont: () => {
-          openSoundFont((files: string[]) => {
-            if (files && files.length > 0) {
-              const path = files[0]
-              s.soundFontPath = path
-              synth.loadSoundFont(path)
-            }
-          })
-        },
-        clearSettings: () => s.clear(),
-        onClickShowSynth: () => {
-          // ipcRenderer.send("show-synth")
-        },
-        onClickStartRecording: () => {
-          synth.startRecording()
-        },
-        onClickStopRecording: () => {
-          synth.stopRecording()
-        },
-      } as SettingsViewProps)
-  ),
-  observer
-)(SettingsView)

@@ -15,6 +15,12 @@ import {
   toggleSoloTrack,
 } from "main/actions"
 import { localized } from "../../../../common/localize/localizedString"
+import styled from "styled-components"
+
+const AddTrackListIcon = styled(ListItemIcon)`
+  min-width: auto;
+  margin-right: 0.6em;
+`
 
 export const TrackList: FC = () => {
   const { rootStore: stores } = useStores()
@@ -85,9 +91,9 @@ export const TrackList: FC = () => {
       </ListHeader>
       {items}
       <ListItem button onClick={onClickAddTrack}>
-        <ListItemIcon>
+        <AddTrackListIcon>
           <Add />
-        </ListItemIcon>
+        </AddTrackListIcon>
         <ListItemText primary={localized("new-track", "New track")} />
       </ListItem>
     </List>

@@ -5,6 +5,7 @@ import { ListItem, IconButton } from "@material-ui/core"
 import { TrackListContextMenu, useContextMenu } from "./TrackListContextMenu"
 
 import "./TrackListItem.css"
+import styled from "styled-components"
 
 export interface TrackListItemData {
   index: number
@@ -24,6 +25,13 @@ export type TrackListItemProps = TrackListItemData & {
   onClickDelete: () => void
 }
 
+const Container = styled(ListItem)`
+  &.Mui-selected {
+    background-color: rgb(255 255 255 / 5%);
+    border-right: 5px solid var(--theme-color);
+  }
+`
+
 const TrackListItem: FC<TrackListItemProps> = ({
   name,
   instrument,
@@ -40,7 +48,7 @@ const TrackListItem: FC<TrackListItemProps> = ({
   const { onContextMenu, menuProps } = useContextMenu()
 
   return (
-    <ListItem
+    <Container
       button
       selected={selected}
       onClick={onClick}
@@ -81,7 +89,7 @@ const TrackListItem: FC<TrackListItemProps> = ({
           </IconButton>
         </div>
       </div>
-    </ListItem>
+    </Container>
   )
 }
 

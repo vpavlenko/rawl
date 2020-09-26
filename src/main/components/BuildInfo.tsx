@@ -16,5 +16,9 @@ const Container = styled.div`
 `
 
 export const BuildInfo = () => {
-  return <Container>{process.env.NODE_ENV}</Container>
+  const env = process.env.NODE_ENV
+  if (env === "production") {
+    return <></>
+  }
+  return <Container>{env}</Container>
 }

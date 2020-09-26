@@ -14,6 +14,7 @@ import {
   toggleMuteTrack,
   toggleSoloTrack,
 } from "main/actions"
+import { localized } from "../../../../common/localize/localizedString"
 
 export const TrackList: FC = () => {
   const { rootStore: stores } = useStores()
@@ -79,13 +80,15 @@ export const TrackList: FC = () => {
 
   return (
     <List>
-      <ListHeader onClick={onClickArrangeView}>Tracks</ListHeader>
+      <ListHeader onClick={onClickArrangeView}>
+        {localized("tracks", "Tracks")}
+      </ListHeader>
       {items}
       <ListItem button onClick={onClickAddTrack}>
         <ListItemIcon>
           <Add />
         </ListItemIcon>
-        <ListItemText primary="New track" />
+        <ListItemText primary={localized("new-track", "New track")} />
       </ListItem>
     </List>
   )

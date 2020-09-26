@@ -19,6 +19,7 @@ import { setTrackInstrument as setTrackInstrumentAction } from "actions"
 import { programChangeMidiEvent } from "common/midi/MidiEvent"
 import { useStores } from "../../hooks/useStores"
 import { isNotUndefined } from "../../../common/helpers/array"
+import { localized } from "../../../common/localize/localizedString"
 
 export interface InstrumentSetting {
   programNumber: number
@@ -101,7 +102,7 @@ const InstrumentBrowser: FC<InstrumentBrowserProps> = ({
         <div className="container">
           <div className={`finder ${isRhythmTrack ? "disabled" : ""}`}>
             <div className="left">
-              <label>Categories</label>
+              <label>{localized("categories", "Categories")}</label>
               <select
                 size={12}
                 onChange={onChangeCategory}
@@ -111,7 +112,7 @@ const InstrumentBrowser: FC<InstrumentBrowserProps> = ({
               </select>
             </div>
             <div className="right">
-              <label>Instruments</label>
+              <label>{localized("instruments", "Instruments")}</label>
               <select
                 size={12}
                 onChange={onChangeInstrument}
@@ -130,15 +131,15 @@ const InstrumentBrowser: FC<InstrumentBrowserProps> = ({
                   color="primary"
                 />
               }
-              label="Rhythm Track"
+              label={localized("rhythm-track", "Rhythm Track")}
             />
           </div>
         </div>
       </div>
       <DialogActions>
-        <Button onClick={onClickCancel}>Cancel</Button>
+        <Button onClick={onClickCancel}>{localized("cancel", "Cancel")}</Button>
         <Button color="primary" onClick={onClickOK}>
-          OK
+          {localized("ok", "OK")}
         </Button>
       </DialogActions>
     </Dialog>

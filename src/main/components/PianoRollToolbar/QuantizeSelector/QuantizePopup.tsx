@@ -3,6 +3,7 @@ import React, { FC } from "react"
 import "./QuantizePopup.css"
 import { Popover, makeStyles } from "@material-ui/core"
 import { KeyboardArrowUp, KeyboardArrowDown } from "@material-ui/icons"
+import { localized } from "../../../../common/localize/localizedString"
 
 interface NumberPickerProps {
   value: number
@@ -113,7 +114,9 @@ export default function QuantizePopup({
               checked={triplet}
               id="QuantizePopupInputTriplet"
             />
-            <label htmlFor="QuantizePopupInputTriplet">Triplet</label>
+            <label htmlFor="QuantizePopupInputTriplet">
+              {localized("triplet", "Triplet")}
+            </label>
           </div>
           <div className="field">
             <input
@@ -122,7 +125,9 @@ export default function QuantizePopup({
               checked={dotted}
               id="QuantizePopupInputDotted"
             />
-            <label htmlFor="QuantizePopupInputDotted">Dotted</label>
+            <label htmlFor="QuantizePopupInputDotted">
+              {localized("dotted", "Dotted")}
+            </label>
           </div>
         </div>
       </div>

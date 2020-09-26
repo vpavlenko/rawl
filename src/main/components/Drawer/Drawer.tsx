@@ -11,6 +11,7 @@ import { SongList } from "./SongList"
 import { useStores } from "main/hooks/useStores"
 import styled from "styled-components"
 import { TrackList } from "./TrackList/TrackList"
+import { localized } from "../../../common/localize/localizedString"
 
 export const Drawer: FC = () => {
   const { rootStore } = useStores()
@@ -25,7 +26,7 @@ export const Drawer: FC = () => {
       <TrackList />
       <Divider />
       <ListItem button onClick={() => (rootStore.router.path = "/tempo")}>
-        <ListItemText primary="Tempo" />
+        <ListItemText primary={localized("tempo-track", "Tempo Track")} />
       </ListItem>
     </MaterialDrawer>
   )

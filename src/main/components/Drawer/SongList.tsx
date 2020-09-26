@@ -3,6 +3,7 @@ import { List, ListItem, ListItemText } from "@material-ui/core"
 import { createSong, openSong, saveSong } from "actions"
 import { useStores } from "main/hooks/useStores"
 import { ListHeader } from "./Drawer"
+import { localized } from "../../../common/localize/localizedString"
 
 const fileInputID = "OpenButtonInputFile"
 
@@ -24,7 +25,9 @@ const FileInput: FC<{
 export const SongList: FC = () => {
   const { rootStore } = useStores()
   const onClickNew = () => {
-    if (confirm("Are you sure you want to continue?")) {
+    if (
+      confirm(localized("confirm-new", "Are you sure you want to continue?"))
+    ) {
       createSong(rootStore)()
     }
   }
@@ -33,20 +36,20 @@ export const SongList: FC = () => {
   const onClickSave = () => saveSong(rootStore)()
   return (
     <List>
-      <ListHeader>Song</ListHeader>
+      <ListHeader>{localized("file", "File")}</ListHeader>
 
       <ListItem button onClick={onClickNew}>
-        <ListItemText primary="New" />
+        <ListItemText primary={localized("new-song", "New")} />
       </ListItem>
 
       <FileInput onChange={onClickOpen}>
         <ListItem button>
-          <ListItemText primary="Open" />
+          <ListItemText primary={localized("open-song", "Open")} />
         </ListItem>
       </FileInput>
 
       <ListItem button onClick={onClickSave}>
-        <ListItemText primary="Save" />
+        <ListItemText primary={localized("save-song", "Save")} />
       </ListItem>
     </List>
   )

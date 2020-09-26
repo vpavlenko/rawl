@@ -1,15 +1,14 @@
-import localization from "./localization"
+import localization from "../common/localize/localization"
+import { localized } from "../common/localize/localizedString"
 
 const localize = () => {
   document.querySelectorAll("*[data-i18n]").forEach((e) => {
     const key = e.getAttribute("data-i18n")
-    const locale = navigator.language
-    if (
-      key !== null &&
-      localization[locale] !== undefined &&
-      localization[locale][key] !== undefined
-    ) {
-      e.textContent = localization[locale][key]
+    if (key !== null) {
+      const text = localized(key)
+      if (text !== undefined) {
+        e.textContent = text
+      }
     }
   })
 }

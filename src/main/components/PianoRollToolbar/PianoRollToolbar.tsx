@@ -16,6 +16,7 @@ import { useObserver } from "mobx-react-lite"
 import { setTrackVolume, setTrackPan } from "main/actions"
 import { useStores } from "main/hooks/useStores"
 import styled from "styled-components"
+import { localized } from "../../../common/localize/localizedString"
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -150,7 +151,6 @@ export const PianoRollToolbar: FC = () => {
           className={classes.instrumentButton}
           onClick={onClickInstrument}
           color="inherit"
-          size="small"
           startIcon={<InstrumentIcon viewBox="0 0 24 24" />}
         >
           {instrumentName}
@@ -193,6 +193,7 @@ export const PianoRollToolbar: FC = () => {
           onClick={onClickAutoScroll}
           selected={autoScroll}
           className={classes.toggleButton}
+          title={localized("auto-scroll", "Auto-Scroll")}
         >
           <AutoScrollIcon />
         </ToggleButton>

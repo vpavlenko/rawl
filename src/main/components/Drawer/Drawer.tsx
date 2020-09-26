@@ -22,7 +22,9 @@ const BannerContainer = styled.div`
 const Banner: FC = () => {
   return (
     <BannerContainer>
-      <Logo viewBox="0 0 449 120" height="1.5rem" width={undefined} />
+      <a href="/">
+        <Logo viewBox="0 0 449 120" height="1.5rem" width={undefined} />
+      </a>
     </BannerContainer>
   )
 }

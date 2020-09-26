@@ -34,5 +34,6 @@ export default {
     dotted: "付点",
     "confirm-new": "編集中の楽曲が破棄されます。本当に新規作成しますか？",
     "confirm-close": "編集中の楽曲が破棄されます。本当にページを閉じますか？",
+    "auto-scroll": "自動でスクロール",
   },
 } as { [key: string]: { [key: string]: string } }

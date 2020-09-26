@@ -1,4 +1,4 @@
-import Theme from "./Theme"
+import { Theme } from "./Theme"
 
 export const applyThemeToCSS = (theme: Theme) => {
   const css = `

@@ -4,7 +4,7 @@ import isEqual from "lodash/isEqual"
 
 import { LoopSetting } from "common/player"
 
-import Theme from "common/theme"
+import { Theme } from "common/theme/Theme"
 import { BeatWithX } from "helpers/mapBeats"
 import { useTheme } from "main/hooks/useTheme"
 import { Graphics, Text, Container } from "@inlet/react-pixi"

@@ -1,4 +1,4 @@
-import Measure from "common/measure"
+import { Measure } from "common/measure/Measure"
 
 export interface BeatWithX {
   measure: number

@@ -7,7 +7,7 @@ import { theme } from "common/theme/muiTheme"
 import { ThemeProvider } from "@material-ui/styles"
 
 import { applyThemeToCSS } from "common/theme/applyThemeToCSS"
-import { defaultTheme } from "common/theme"
+import { defaultTheme } from "common/theme/Theme"
 import { ThemeContext } from "main/hooks/useTheme"
 import { StoreContext } from "main/hooks/useStores"
 import RootView from "../RootView/RootView"

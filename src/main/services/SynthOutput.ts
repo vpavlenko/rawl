@@ -1,4 +1,4 @@
-import { Messenger, WindowMessenger } from "common/messenger/Messenger"
+import { Messenger, WindowMessenger } from "common/messenger/messenger"
 import { SynthEvent, LoadSoundFontEvent } from "synth/synth"
 
 export interface Message {
@@ -34,7 +34,9 @@ export default class SynthOutput {
       }
     }
 
-    this.messenger.on(SynthEvent.didLoadSoundFont, e => this.onLoadSoundFont(e))
+    this.messenger.on(SynthEvent.didLoadSoundFont, (e) =>
+      this.onLoadSoundFont(e)
+    )
   }
 
   activate() {
@@ -60,7 +62,7 @@ export default class SynthOutput {
   sendEvents(events: Message[]) {
     this.messenger.send(SynthEvent.midi, {
       events,
-      timestamp: window.performance.now()
+      timestamp: window.performance.now(),
     })
   }
 }

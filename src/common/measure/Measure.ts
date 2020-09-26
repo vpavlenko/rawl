@@ -1,4 +1,4 @@
-export default interface Measure {
+export interface Measure {
   startTick: number
   measure: number
   numerator: number
@@ -24,6 +24,6 @@ export const calculateMBT = (
   return {
     measure: measure.measure + deltaMeasure,
     beat: beat,
-    tick: aTick
+    tick: aTick,
   }
 }

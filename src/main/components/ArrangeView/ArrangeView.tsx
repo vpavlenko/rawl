@@ -28,8 +28,8 @@ import { LoopSetting } from "common/player/Player"
 
 import "./ArrangeView.css"
 import Track, { TrackEvent, isNoteEvent } from "common/track"
-import Theme from "common/theme"
-import Measure from "common/measure"
+import { Theme } from "common/theme/Theme"
+import { Measure } from "common/measure/Measure"
 import { Container } from "@inlet/react-pixi"
 
 interface ArrangeTrackProps {

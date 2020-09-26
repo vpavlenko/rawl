@@ -1,5 +1,5 @@
 import { Synthesizer, MidiMessageHandler } from "sf2synth/bin/synth"
-import { WindowMessenger } from "common/messenger/Messenger"
+import { WindowMessenger } from "common/messenger/messenger"
 
 import "./synth.css"
 

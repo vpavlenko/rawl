@@ -2,9 +2,10 @@ import { observable, autorun, computed, action, transaction } from "mobx"
 import { list, object, serializable } from "serializr"
 import pullAt from "lodash/pullAt"
 
-import Track from "common/track"
-import Measure, { getMeasuresFromConductorTrack } from "common/measure"
+import Track from "../track"
+import { Measure } from "../measure/Measure"
 import { isNotUndefined } from "../helpers/array"
+import { getMeasuresFromConductorTrack } from "../measure/MeasureList"
 
 const END_MARGIN = 480 * 30
 

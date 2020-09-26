@@ -9,7 +9,11 @@ export interface Message {
 function createElement(html: string) {
   const elem = document.createElement("div")
   elem.innerHTML = html
-  return elem.firstElementChild
+  const child = elem.firstElementChild
+  if (child !== null) {
+    document.body.appendChild(child)
+  }
+  return child
 }
 
 export default class SynthOutput {
@@ -17,12 +21,14 @@ export default class SynthOutput {
   onLoadSoundFont: (e: LoadSoundFontEvent) => void = () => {}
 
   constructor(soundFontPath: string) {
-    const iframe = createElement(
-      `<iframe src="./synth.html" id="synth"></iframe>`
-    ) as HTMLIFrameElement
-    document.body.appendChild(iframe)
+    const iframe =
+      (document.getElementById("synth") as HTMLIFrameElement) ??
+      (createElement(
+        `<iframe src="./synth.html" id="synth"></iframe>`
+      ) as HTMLIFrameElement)
 
     if (iframe.contentWindow == null) {
+      console.error("Failed create iframe for synth.html")
       return
     }
 

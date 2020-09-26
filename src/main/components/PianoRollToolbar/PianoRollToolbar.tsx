@@ -67,6 +67,13 @@ const SelectionToolIcon = styled(SelectIcon)`
   fill: currentColor;
 `
 
+const NavBackButton = styled(IconButton)`
+  &:hover {
+    background: none;
+    color: var(--secondary-text-color);
+  }
+`
+
 export const PianoRollToolbar: FC = () => {
   const { rootStore: stores } = useStores()
   const {
@@ -141,9 +148,9 @@ export const PianoRollToolbar: FC = () => {
   return (
     <AppBar position="static" elevation={0} className={classes.appBar}>
       <Toolbar variant="dense">
-        <IconButton onClick={onClickNavBack} color="inherit">
+        <NavBackButton onClick={onClickNavBack} color="inherit">
           <MenuIcon />
-        </IconButton>
+        </NavBackButton>
 
         <TrackName>{trackName}</TrackName>
 

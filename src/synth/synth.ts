@@ -1,5 +1,4 @@
 import { Synthesizer, MidiMessageHandler } from "sf2synth/bin/synth"
-import Recorder from "opus-recorder"
 import { WindowMessenger } from "common/messenger/Messenger"
 
 import "./synth.css"
@@ -13,7 +12,7 @@ export const SynthEvent = {
   startRecording: "start_recording",
   stopRecording: "stop_recording",
   didCreateSynthWindow: "did-create-synth-window",
-  didLoadSoundFont: "did_load_soundfont"
+  didLoadSoundFont: "did_load_soundfont",
 }
 
 export interface LoadSoundFontEvent {
@@ -34,7 +33,6 @@ export default class SynthController {
   private ctx: AudioContext
   private output: AudioNode
   private synth: Synthesizer
-  private recorder: Recorder
   private messenger: WindowMessenger
 
   constructor() {
@@ -67,50 +65,11 @@ export default class SynthController {
     this.messenger = messenger
   }
 
-  private setupRecorder() {
-    const recorder = new Recorder(this.ctx, {
-      numberOfChannels: 2,
-      encoderPath: "/libs/opus-recorder/waveWorker.min.js"
-    })
+  private setupRecorder() {}
 
-    recorder.addEventListener("start", () => {
-      console.log("Recorder is started")
-    })
-    recorder.addEventListener("stop", () => {
-      console.log("Recorder is stopped")
-    })
-    recorder.addEventListener("pause", () => {
-      console.log("Recorder is paused")
-    })
-    recorder.addEventListener("resume", () => {
-      console.log("Recorder is resuming")
-    })
-    recorder.addEventListener("streamError", (e: any) => {
-      console.log("Error encountered: " + e.error.name)
-    })
-    recorder.addEventListener("streamReady", () => {
-      console.log("Audio stream is ready.")
-    })
-    recorder.addEventListener("dataAvailable", (e: any) => {
-      const dateStr = new Date().toISOString().replace(/:/g, "-")
-      // const filePath = `${app.getPath("desktop").replace(/\\/g, "/")}/${dateStr}.wav`
-      // fs.writeFile(filePath, e.detail, error => {
-      //   if (error) {
-      //     console.error(error)
-      //   }
-      // })
-    })
-    this.recorder = recorder
-  }
+  private startRecording() {}
 
-  private startRecording() {
-    this.recorder.initStream(this.output)
-    this.recorder.start()
-  }
-
-  private stopRecording() {
-    this.recorder.stop()
-  }
+  private stopRecording() {}
 
   private onMidi({ events, timestamp }: { events: any[]; timestamp: number }) {
     this.eventsBuffer = [...this.eventsBuffer, ...events]
@@ -119,14 +78,14 @@ export default class SynthController {
 
   private loadSoundFont(url: string) {
     fetch(url)
-      .then(res => res.arrayBuffer())
-      .then(buf => this.synth.loadSoundFont(new Uint8Array(buf)))
+      .then((res) => res.arrayBuffer())
+      .then((buf) => this.synth.loadSoundFont(new Uint8Array(buf)))
       .then(() => {
         this.messenger.send(SynthEvent.didLoadSoundFont, {
-          presetNames: this.synth.soundFont.getPresetNames()
+          presetNames: this.synth.soundFont.getPresetNames(),
         } as LoadSoundFontEvent)
       })
-      .catch(e => console.warn(e.message))
+      .catch((e) => console.warn(e.message))
   }
 
   private activate() {
@@ -153,7 +112,7 @@ export default class SynthController {
       .map(({ message }) => getMessageChannel(message))
 
     // 再生するイベントと、all sound off を受信したチャンネルのイベントを削除する
-    this.eventsBuffer = this.eventsBuffer.filter(e => {
+    this.eventsBuffer = this.eventsBuffer.filter((e) => {
       return (
         !eventsToSend.includes(e) &&
         !allSoundOffChannels.includes(getMessageChannel(e.message))

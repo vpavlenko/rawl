@@ -12,6 +12,20 @@ import { useStores } from "main/hooks/useStores"
 import styled from "styled-components"
 import { TrackList } from "./TrackList/TrackList"
 import { localized } from "../../../common/localize/localizedString"
+import Logo from "../../images/logo-white.svg"
+
+const BannerContainer = styled.div`
+  background: var(--theme-color);
+  padding: 1rem 16px 0.9rem 16px;
+`
+
+const Banner: FC = () => {
+  return (
+    <BannerContainer>
+      <Logo viewBox="0 0 449 120" height="1.5rem" width={undefined} />
+    </BannerContainer>
+  )
+}
 
 export const Drawer: FC = () => {
   const { rootStore } = useStores()
@@ -21,6 +35,7 @@ export const Drawer: FC = () => {
   }))
   return (
     <MaterialDrawer open={open} onClose={onClose}>
+      <Banner />
       <SongList />
       <Divider />
       <TrackList />

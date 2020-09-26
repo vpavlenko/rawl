@@ -1,4 +1,3 @@
-import localization from "../common/localize/localization"
 import { localized } from "../common/localize/localizedString"
 
 const localize = () => {

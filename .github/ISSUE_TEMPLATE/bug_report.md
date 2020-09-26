@@ -7,6 +7,11 @@ assignees: ''
 
 ---
 
+<!---
+  日本語で OK 
+  バグの詳細、再現方法などを書いてください。
+-->
+
 **Describe the bug**
 A clear and concise description of what the bug is.
 

@@ -3,7 +3,7 @@ import localization from "./localization"
 const localize = () => {
   document.querySelectorAll("*[data-i18n]").forEach((e) => {
     const key = e.getAttribute("data-i18n")
-    const locale = "ja"
+    const locale = navigator.language
     if (
       key !== null &&
       localization[locale] !== undefined &&

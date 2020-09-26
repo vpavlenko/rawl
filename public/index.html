@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>signal - Online MIDI Editor</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --themeColor: #5a4edf;
+        --themeColor2: #4c41cc;
+      }
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue,
+          sans-serif;
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+      }
+      a {
+        color: var(--themeColor);
+      }
+      .content {
+        max-width: 60rem;
+        width: 100%;
+        margin: 0 auto;
+      }
+      header {
+        background: var(--themeColor2);
+      }
+      header .content {
+        padding: 1rem 0;
+      }
+      section .content {
+        padding: 5rem 0;
+      }
+      #title {
+        color: white;
+        font-family: "Open Sans", sans-serif;
+        font-weight: 800;
+        text-decoration: none;
+        font-size: 1.3rem;
+      }
+      #title img {
+        height: 1.7rem;
+      }
+      #title:hover {
+        opacity: 0.7;
+      }
+      #hero {
+        background: var(--themeColor);
+        color: white;
+      }
+      #hero .content {
+        display: flex;
+      }
+      #hero .text h1 {
+        font-family: "Open Sans", sans-serif;
+        font-weight: 800;
+        font-size: 3.2rem;
+        line-height: 1;
+        margin: 0 0 1rem 0;
+      }
+      #hero .image {
+        width: 40%;
+        padding-left: 2rem;
+      }
+      #hero .image img {
+        width: 34rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 1rem 8rem #0000004f;
+      }
+      #hero .text .description {
+        font-size: 1.4rem;
+        line-height: 1;
+      }
+      #launch-button {
+        background: white;
+        padding: 0.8rem 2rem;
+        border-radius: 9999px;
+        text-decoration: none;
+        color: var(--themeColor);
+        font-weight: bold;
+        display: inline-block;
+        margin: 2rem 0 0 0;
+        font-size: 1.2rem;
+        border: 2px solid transparent;
+        transition: 0.2s ease;
+        box-shadow: 0 1rem 7rem #0000004f;
+      }
+      #launch-button:hover {
+        border-color: white;
+        background: transparent;
+        color: white;
+      }
+      p.platform {
+        opacity: 0.8;
+        font-size: 0.9rem;
+      }
+      h3 {
+        font-size: 1.5rem;
+      }
+      .support-intro {
+        width: 30em;
+        line-height: 1.9;
+        margin-bottom: 1.5em;
+      }
+      section#features ul {
+        line-height: 2;
+        list-style-type: circle;
+      }
+      section#support {
+        background: #eaeaea;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="content">
+        <a href="/" id="title"><img src="logo-white.svg" /></a>
+      </div>
+    </header>
+
+    <section id="hero">
+      <div class="content">
+        <div class="text">
+          <h1 data-i18n="app-intro">Fully Open-sourced Online MIDI Editor</h1>
+          <p class="description" data-i18n="app-desc">
+            Start making music without installing anything
+          </p>
+          <a href="app" id="launch-button" data-i18n="launch">Launch</a>
+          <p class="platform" data-i18n="platform">
+            Currently only works on the desktop version of Google Chrome
+          </p>
+        </div>
+        <div class="image">
+          <img src="screenshot.png" alt="" />
+        </div>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="content">
+        <h3 data-i18n="features">Features</h3>
+        <ul>
+          <li data-i18n="midi-file">Open/Save MIDI Files</li>
+          <li data-i18n="gm-module">
+            Built-in GM compatible virtual sound module
+          </li>
+          <li data-i18n="piano-roll">Piano Roll Editor</li>
+          <li data-i18n="multi-track">Multi track editing</li>
+          <li data-i18n="control-editing">Velocity, pitchbend editing</li>
+          <li data-i18n="tempo-track">Tempo Track</li>
+          <li data-i18n="time-signature">
+            Non 4/4 Time Signature (display only)
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="support">
+      <div class="content">
+        <h3 data-i18n="support">Support</h3>
+        <p class="support-intro" data-i18n="support-intro">
+          signal is an app that I personally make as a hobby. Please forgive all
+          kinds of bugs. If you agree with the concept of lightweight composer
+          software that runs in a browser, please support me. I would be
+          grateful if you could report bugs, recommend to others, and
+          sponsorship.
+        </p>
+        <p>
+          <a
+            href="https://github.com/ryohey/signal/issues/new?assignees=&labels=&template=bug_report.md&title="
+            data-i18n="report-bugs"
+            >Report bugs on GitHub</a
+          >
+        </p>
+        <p>
+          <a
+            href="https://github.com/ryohey/signal/issues/new?assignees=&labels=&template=feature_request.md&title="
+            data-i18n="request-features"
+            >Request features on GitHub</a
+          >
+        </p>
+        <p>
+          <a href="https://github.com/sponsors/ryohey" data-i18n="sponsor"
+            >Become a sponsor</a
+          >
+        </p>
+      </div>
+    </section>
+  </body>
+</html>

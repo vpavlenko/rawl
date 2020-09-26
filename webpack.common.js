@@ -6,6 +6,7 @@ module.exports = {
   entry: {
     browserMain: "./src/main/index.tsx",
     browserSynth: "./src/synth/index.tsx",
+    browserLanding: "./src/landing/index.ts",
   },
   output: {
     filename: "[name].js",
@@ -54,6 +55,12 @@ module.exports = {
       filename: "synth.html",
       chunks: ["browserSynth"],
       template: path.join(__dirname, "public", "synth.html"),
+    }),
+    new HtmlWebpackPlugin({
+      inject: true,
+      filename: "index.html",
+      chunks: ["browserLanding"],
+      template: path.join(__dirname, "public", "index.html"),
     }),
   ],
 }

@@ -2,10 +2,6 @@ import React, { Component } from "react"
 import { storiesOf } from "@storybook/react"
 import { action } from "@storybook/addon-actions"
 
-// inputs
-
-import TextInput from "../src/main/components/inputs/TextInput"
-
 // groups
 
 import {
@@ -51,14 +47,6 @@ function wrapControl(BaseComponent: any) {
     }
   }
 }
-
-storiesOf("inputs", module)
-  .add("TextInput", () => (
-    <TextInput value="hello" onChange={action("onChange")} />
-  ))
-  .add("TextInput with placeholder", () => (
-    <TextInput placeholder="type here..." onChange={action("onChange")} />
-  ))
 
 storiesOf("groups", module).add("Toolbar", () => (
   <Container>

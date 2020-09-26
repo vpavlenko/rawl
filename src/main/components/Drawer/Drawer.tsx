@@ -16,14 +16,21 @@ import Logo from "../../images/logo-white.svg"
 
 const BannerContainer = styled.div`
   background: var(--theme-color);
-  padding: 1rem 16px 0.9rem 16px;
+  padding: 0 16px;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+
+  a {
+    display: flex;
+  }
 `
 
 const Banner: FC = () => {
   return (
     <BannerContainer>
       <a href="/">
-        <Logo viewBox="0 0 449 120" height="1.5rem" width={undefined} />
+        <Logo viewBox="0 0 449 120" height="1.4rem" width={undefined} />
       </a>
     </BannerContainer>
   )

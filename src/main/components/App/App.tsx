@@ -13,6 +13,7 @@ import { StoreContext } from "main/hooks/useStores"
 import RootView from "../RootView/RootView"
 
 import "./App.css"
+import { StylesProvider } from "@material-ui/core"
 
 const rootStore = new RootStore()
 
@@ -25,7 +26,9 @@ export default function App() {
     <StoreContext.Provider value={{ rootStore: new RootStore() }}>
       <ThemeContext.Provider value={defaultTheme}>
         <ThemeProvider theme={theme}>
-          <RootView />
+          <StylesProvider injectFirst>
+            <RootView />
+          </StylesProvider>
         </ThemeProvider>
       </ThemeContext.Provider>
     </StoreContext.Provider>

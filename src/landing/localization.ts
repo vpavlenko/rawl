@@ -18,5 +18,6 @@ export default {
     "report-bugs": "GitHubで不具合を報告",
     "request-features": "GitHubで機能要望を送る",
     sponsor: "スポンサーになって支援する",
+    "google-forms": "Google Formsで不具合報告・機能要望を送る",
   },
 } as { [key: string]: { [key: string]: string } }

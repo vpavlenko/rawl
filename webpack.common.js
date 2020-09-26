@@ -46,9 +46,9 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       inject: true,
-      filename: "main.html",
+      filename: "app.html",
       chunks: ["browserMain"],
-      template: path.join(__dirname, "public", "main.html"),
+      template: path.join(__dirname, "public", "app.html"),
     }),
     new HtmlWebpackPlugin({
       inject: true,

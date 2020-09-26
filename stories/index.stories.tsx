@@ -9,12 +9,6 @@ import TextInput from "../src/main/components/inputs/TextInput"
 // groups
 
 import {
-  MenuBar,
-  MenuItem,
-  SubMenu,
-  MenuSeparator,
-} from "../src/main/components/groups/MenuBar"
-import {
   Toolbar,
   ToolbarItem,
   ToolbarSeparator,
@@ -66,40 +60,16 @@ storiesOf("inputs", module)
     <TextInput placeholder="type here..." onChange={action("onChange")} />
   ))
 
-storiesOf("groups", module)
-  .add("MenuBar", () => (
-    <Container overflow="visible">
-      <MenuBar>
-        <MenuItem title="File">
-          <SubMenu>
-            <MenuItem title="Open" />
-            <MenuItem title="Exit" />
-          </SubMenu>
-        </MenuItem>
-        <MenuItem title="Edit">
-          <SubMenu>
-            <MenuItem title="Undo" />
-            <MenuItem title="Redo" />
-            <MenuSeparator />
-            <MenuItem title="Cut" />
-            <MenuItem title="Copy" />
-          </SubMenu>
-        </MenuItem>
-        <MenuItem title="Window" />
-        <MenuItem title="Settings" />
-      </MenuBar>
-    </Container>
-  ))
-  .add("Toolbar", () => (
-    <Container>
-      <Toolbar>
-        <ToolbarItem>share</ToolbarItem>
-        <ToolbarItem touchDisabled={true}>
-          <TextInput placeholder="Search" onChange={action("onChange")} />
-        </ToolbarItem>
-      </Toolbar>
-    </Container>
-  ))
+storiesOf("groups", module).add("Toolbar", () => (
+  <Container>
+    <Toolbar>
+      <ToolbarItem>share</ToolbarItem>
+      <ToolbarItem touchDisabled={true}>
+        <TextInput placeholder="Search" onChange={action("onChange")} />
+      </ToolbarItem>
+    </Toolbar>
+  </Container>
+))
 
 function Container({ children, width, height, overflow }: any) {
   return (

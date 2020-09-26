@@ -9,7 +9,7 @@ module.exports = {
     browserLanding: "./src/landing/index.ts",
   },
   output: {
-    filename: "[name].js",
+    filename: "[name]-[hash].js",
   },
   module: {
     rules: [

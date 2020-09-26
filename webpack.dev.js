@@ -16,6 +16,9 @@ module.exports = merge(common, {
       warnings: false,
       errors: true,
     },
+    historyApiFallback: {
+      rewrites: [{ from: /^\/app$/, to: "/app.html" }],
+    },
   },
   plugins: [new ForkTsCheckerWebpackPlugin()],
 })

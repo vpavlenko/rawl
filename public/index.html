@@ -132,6 +132,7 @@
         width: 30em;
         line-height: 1.9;
         margin-bottom: 1.5em;
+        max-width: 100%;
       }
       section#features ul {
         line-height: 2;
@@ -145,6 +146,30 @@
       }
       #github-link svg {
         fill: white;
+      }
+
+      @media screen and (max-width: 896px) {
+        .content {
+          width: 90%;
+        }
+
+        #hero .content {
+          flex-direction: column;
+        }
+
+        #hero .text h1 {
+          font-size: 2.5rem;
+        }
+
+        #hero .image {
+          padding: 0;
+          width: 100%;
+        }
+
+        #hero .image img {
+          margin-top: 3rem;
+          width: 100%;
+        }
       }
     </style>
   </head>

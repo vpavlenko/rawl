@@ -5,7 +5,11 @@ export const play = (rootStore: RootStore) => () => {
     services: { player },
     song,
   } = rootStore
-  player.play(song)
+  if (player.isPlaying) {
+    player.stop()
+  } else {
+    player.play(song)
+  }
 }
 
 export const stop = (rootStore: RootStore) => () => {

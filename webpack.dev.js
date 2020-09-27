@@ -26,4 +26,9 @@ module.exports = merge(common, {
     },
   },
   plugins: [new ForkTsCheckerWebpackPlugin()],
+  resolve: {
+    alias: {
+      "react-dom": "@hot-loader/react-dom",
+    },
+  },
 })

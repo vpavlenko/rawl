@@ -1,4 +1,3 @@
-import { hot } from "react-hot-loader/root"
 import React, { FC } from "react"
 import { PianoRollEditor } from "components/PianoRoll/PianoRollEditor"
 import { BuildInfo } from "main/components/BuildInfo"
@@ -32,7 +31,7 @@ const Routes: FC = () => {
   )
 }
 
-const RootView: FC = () => (
+export const RootView: FC = () => (
   <Container>
     <Drawer />
     <Routes />
@@ -40,5 +39,3 @@ const RootView: FC = () => (
     <BuildInfo />
   </Container>
 )
-
-export default hot(RootView)

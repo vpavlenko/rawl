@@ -195,6 +195,7 @@ export const PianoRollToolbar: FC = () => {
         <ToggleButton
           onClick={onClickAutoScroll}
           selected={autoScroll}
+          value="autoScroll"
           className={classes.toggleButton}
           title={localized("auto-scroll", "Auto-Scroll")}
         >

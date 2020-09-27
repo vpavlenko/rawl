@@ -227,4 +227,9 @@ const ControlPane: FC<ControlPaneProps> = ({ size }) => {
   )
 }
 
-export default withSize({ monitorHeight: true })(ControlPane)
+export default withSize({ monitorHeight: true })(
+  React.memo(ControlPane, (props, nextProps) => {
+    // ignore rendering when zero size
+    return nextProps.size.width === 0 && nextProps.size.height === 0
+  })
+)

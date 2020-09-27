@@ -7,6 +7,15 @@ import {
 } from "main/actions"
 import RootStore from "../stores/RootStore"
 
+const isFocusable = (e: EventTarget) =>
+  e instanceof HTMLAnchorElement ||
+  e instanceof HTMLAreaElement ||
+  e instanceof HTMLInputElement ||
+  e instanceof HTMLSelectElement ||
+  e instanceof HTMLTextAreaElement ||
+  e instanceof HTMLButtonElement ||
+  e instanceof HTMLIFrameElement
+
 export function bindKeyboardShortcut(rootStore: RootStore) {
   const {
     services: { player },
@@ -14,7 +23,7 @@ export function bindKeyboardShortcut(rootStore: RootStore) {
   } = rootStore
 
   document.onkeydown = (e) => {
-    if (e.target !== document.body) {
+    if (e.target !== null && isFocusable(e.target)) {
       return
     }
     switch (e.code) {

@@ -29,28 +29,45 @@ export interface PianoNoteProps {
   selectedColor: number
   selectedBorderColor: number
   onMouseDrag: (e: PianoNoteMouseEvent) => void
-  onMouseHover: (e: PianoNoteMouseEvent) => void
+  onDoubleClick: (e: PianoNoteClickEvent) => void
 }
 
 export type MousePositionType = "left" | "center" | "right"
 
+interface DragInfo {
+  start: IPoint
+  position: MousePositionType
+  item: PianoNoteItem
+}
+
+const DOUBLE_CLICK_INTERVAL = 500
+
 const useGestures = (
   item: PianoNoteItem,
   onMouseDrag: (e: PianoNoteMouseEvent) => void,
-  onMouseHover: (e: PianoNoteMouseEvent) => void
+  onDoubleClick: (e: PianoNoteClickEvent) => void
 ) => {
   const [entered, setEntered] = useState(false)
-  const [dragging, setDragging] = useState(false)
-  const [dragStart, setDragStart] = useState({ x: 0, y: 0 })
-  const [dragPosition, setDragPosition] = useState<MousePositionType>("center")
-  const [dragItem, setDragItem] = useState<PianoNoteItem>(item)
+  const [dragInfo, setDragInfo] = useState<DragInfo | null>(null)
+  const [lastMouseDownTime, setLastMouseDownTime] = useState(0)
   const [cursor, setCursor] = useState("default")
 
-  const beginDragging = (e: PIXI.InteractionEvent) => {
+  const mousedown = (e: PIXI.InteractionEvent) => {
     e.stopPropagation()
     e.data.originalEvent.stopImmediatePropagation()
 
-    if (dragging) {
+    if (dragInfo !== null) {
+      return
+    }
+
+    if (
+      e.data.originalEvent.timeStamp - lastMouseDownTime <
+      DOUBLE_CLICK_INTERVAL
+    ) {
+      onDoubleClick({
+        nativeEvent: e,
+        item,
+      })
       return
     }
 
@@ -60,32 +77,40 @@ const useGestures = (
       y: offset.y - item.y,
     }
     const position = getPositionType(local.x, item.width)
-    setDragPosition(position)
-    setDragStart(offset)
-    setDragging(true)
-    setDragItem({ ...item })
+    setDragInfo({
+      start: offset,
+      position,
+      item,
+    })
+    setLastMouseDownTime(e.data.originalEvent.timeStamp)
   }
-  const endDragging = useCallback(() => setDragging(false), [setDragging])
+  const endDragging = useCallback(() => setDragInfo(null), [setDragInfo])
 
   const ref = useRef<PIXIGraphics>(null)
 
-  const extendEvent = (e: PIXI.InteractionEvent): PianoNoteMouseEvent => {
+  const extendEvent = (
+    e: PIXI.InteractionEvent,
+    dragInfo: DragInfo
+  ): PianoNoteMouseEvent => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const offset = e.data.getLocalPosition(ref.current!.parent)
     return {
       nativeEvent: e,
-      dragItem,
-      dragStart,
+      dragItem: dragInfo.item,
+      dragStart: dragInfo.start,
       offset,
-      position: dragPosition,
+      position: dragInfo.position,
     }
   }
 
   const mousemove = useCallback(
     (e: PIXI.InteractionEvent) => {
-      if (!entered && !dragging) {
+      if (!entered && dragInfo === null) {
         return
       }
+
+      // prevent double-click
+      setLastMouseDownTime(0)
 
       // update cursor
       if (e.target !== null) {
@@ -101,24 +126,14 @@ const useGestures = (
         }
       }
 
-      const ev = extendEvent(e)
-      if (dragging) {
+      if (dragInfo !== null) {
+        const ev = extendEvent(e, dragInfo)
         onMouseDrag(ev)
         e.stopPropagation()
         e.data.originalEvent.stopImmediatePropagation()
-      } else {
-        onMouseHover(ev)
       }
     },
-    [
-      dragging,
-      entered,
-      cursor,
-      setCursor,
-      onMouseDrag,
-      onMouseHover,
-      extendEvent,
-    ]
+    [dragInfo, entered, cursor, setCursor, onMouseDrag, extendEvent]
   )
 
   const mouseover = useCallback(() => setEntered(true), [setEntered])
@@ -128,7 +143,7 @@ const useGestures = (
     ref,
     mouseover,
     mouseout,
-    mousedown: beginDragging,
+    mousedown: mousedown,
     mousemove: mousemove,
     mouseup: endDragging,
     mouseupoutside: endDragging,
@@ -154,6 +169,11 @@ export interface PianoNoteMouseEvent {
   position: MousePositionType
   offset: IPoint
   dragStart: IPoint
+}
+
+export interface PianoNoteClickEvent {
+  nativeEvent: PIXI.InteractionEvent
+  item: PianoNoteItem
 }
 
 const _PianoNote: FC<PianoNoteProps> = (props) => {
@@ -188,7 +208,7 @@ const _PianoNote: FC<PianoNoteProps> = (props) => {
       .drawCircle(0, radius / 2, radius)
   }
 
-  const handleMouse = useGestures(item, props.onMouseDrag, props.onMouseHover)
+  const handleMouse = useGestures(item, props.onMouseDrag, props.onDoubleClick)
 
   return (
     <Graphics
@@ -220,7 +240,6 @@ const areEqual = (props: PianoNoteProps, nextProps: PianoNoteProps) =>
   props.borderColor === nextProps.borderColor &&
   props.selectedColor === nextProps.selectedColor &&
   props.selectedBorderColor === nextProps.selectedBorderColor &&
-  props.onMouseDrag === nextProps.onMouseDrag &&
-  props.onMouseHover === nextProps.onMouseHover
+  props.onMouseDrag === nextProps.onMouseDrag
 
 export const PianoNote = React.memo(_PianoNote, areEqual)

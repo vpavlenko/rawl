@@ -5,7 +5,12 @@ import { Container } from "@inlet/react-pixi"
 
 import _ from "lodash"
 import React, { FC } from "react"
-import { PianoNote, PianoNoteMouseEvent, PianoNoteItem } from "./PianoNote"
+import {
+  PianoNote,
+  PianoNoteMouseEvent,
+  PianoNoteItem,
+  PianoNoteClickEvent,
+} from "./PianoNote"
 import { useTheme } from "main/hooks/useTheme"
 import { KeyedValue } from "main/hooks/recycleKeys"
 
@@ -13,7 +18,7 @@ export interface PianoNotesProps {
   notes: KeyedValue<PianoNoteItem>[]
   cursor: string
   onDragNote: (e: PianoNoteMouseEvent) => void
-  onHoverNote: (e: PianoNoteMouseEvent) => void
+  onDoubleClickNote: (e: PianoNoteClickEvent) => void
   isDrumMode: boolean
 }
 
@@ -31,7 +36,7 @@ const PianoNotes: FC<PianoNotesProps> = ({
   notes,
   cursor,
   onDragNote,
-  onHoverNote,
+  onDoubleClickNote,
   isDrumMode,
 }) => {
   const theme = useTheme()
@@ -50,7 +55,7 @@ const PianoNotes: FC<PianoNotesProps> = ({
       selectedColor={selectedColor}
       selectedBorderColor={selectedBorderColor}
       onMouseDrag={onDragNote}
-      onMouseHover={onHoverNote}
+      onDoubleClick={onDoubleClickNote}
       isDrum={isDrumMode}
     />
   ))
@@ -64,7 +69,7 @@ function areEqual(props: PianoNotesProps, nextProps: PianoNotesProps) {
     props.cursor === nextProps.cursor &&
     props.isDrumMode === nextProps.isDrumMode &&
     props.onDragNote === nextProps.onDragNote &&
-    props.onHoverNote === nextProps.onHoverNote
+    props.onDoubleClickNote === nextProps.onDoubleClickNote
   )
 }
 

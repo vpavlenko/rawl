@@ -24,6 +24,7 @@ import {
   resizeNoteRight,
   setPlayerPosition,
   previewNote,
+  removeEvent,
 } from "main/actions"
 import { filterEventsWithScroll } from "common/helpers/filterEventsWithScroll"
 import { isNoteEvent } from "common/track"
@@ -31,6 +32,7 @@ import { LeftTopSpace } from "./LeftTopSpace"
 import {
   PianoNoteMouseEvent,
   PianoNoteItem,
+  PianoNoteClickEvent,
 } from "main/components/PianoRoll/PianoNotes/PianoNote"
 import { useRecycle } from "main/hooks/useRecycle"
 import {
@@ -120,8 +122,6 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
   const handleMouseUp = (e: PIXI.InteractionEvent) =>
     mouseHandler.onMouseUp(extendEvent(e))
 
-  const onHoverNote = useCallback(() => {}, [])
-
   const notes = filterEventsWithScroll(
     events.filter(isNoteEvent),
     transform.pixelsPerTick,
@@ -184,6 +184,10 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
         resizeNoteRight(rootStore)(e.dragItem.id, tick)
         break
     }
+  }, [])
+
+  const onDoubleClickNote = useCallback((e: PianoNoteClickEvent) => {
+    removeEvent(rootStore)(e.item.id)
   }, [])
 
   const onMouseDownRuler = useCallback((e: TickEvent<MouseEvent>) => {
@@ -251,7 +255,7 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
                 cursor={notesCursor}
                 isDrumMode={isRhythmTrack}
                 onDragNote={onDragNote}
-                onHoverNote={onHoverNote}
+                onDoubleClickNote={onDoubleClickNote}
               />
               {selection.enabled && (
                 <PianoSelection

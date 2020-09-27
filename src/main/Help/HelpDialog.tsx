@@ -83,6 +83,10 @@ export const HelpDialog: FC = () => {
           text={localized("copy-selection", "Copy Selection")}
         />
         <HotKey
+          hotKeys={["Delete (Backspace)"]}
+          text={localized("delete-selection", "Delete Selection")}
+        />
+        <HotKey
           hotKeys={["Cmd", "X"]}
           text={localized("cut-selection", "Cut Selection")}
         />

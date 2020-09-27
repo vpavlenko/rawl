@@ -19,7 +19,6 @@ const isFocusable = (e: EventTarget) =>
 export function bindKeyboardShortcut(rootStore: RootStore) {
   const {
     services: { player },
-    song,
   } = rootStore
 
   document.onkeydown = (e) => {
@@ -48,6 +47,7 @@ export function bindKeyboardShortcut(rootStore: RootStore) {
         }
         break
       }
+      case "Delete":
       case "Backspace": {
         deleteSelection(rootStore)()
         break

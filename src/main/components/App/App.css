@@ -60,8 +60,8 @@ canvas {
 }
 
 #synth {
-  width: 0;
-  height: 0;
+  width: 1px;
+  height: 1px;
   display: block;
   border: none;
   position: absolute;

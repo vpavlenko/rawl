@@ -1,3 +1,4 @@
+import { NoteEvent } from "../../common/track"
 import RootStore from "../stores/RootStore"
 
 export const play = (rootStore: RootStore) => () => {
@@ -90,6 +91,19 @@ export const previewNote = (rootStore: RootStore) => (
     velocity: 100,
     duration: 128,
   })
+}
+
+export const previewNoteById = (rootStore: RootStore) => (noteId: number) => {
+  const {
+    song,
+    services: { quantizer, player },
+  } = rootStore
+  const selectedTrack = song.selectedTrack
+  if (selectedTrack === undefined) {
+    return
+  }
+  const note = selectedTrack.getEventById(noteId) as NoteEvent
+  player.playNote({ ...note, channel: selectedTrack.channel ?? 0 })
 }
 
 export const setLoopBegin = (rootStore: RootStore) => (tick: number) => {

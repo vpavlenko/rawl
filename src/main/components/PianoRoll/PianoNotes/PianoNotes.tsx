@@ -17,6 +17,7 @@ import { KeyedValue } from "main/hooks/recycleKeys"
 export interface PianoNotesProps {
   notes: KeyedValue<PianoNoteItem>[]
   cursor: string
+  onClickNote: (e: PianoNoteClickEvent) => void
   onDragNote: (e: PianoNoteMouseEvent) => void
   onDoubleClickNote: (e: PianoNoteClickEvent) => void
   isDrumMode: boolean
@@ -35,6 +36,7 @@ export interface PianoNotesNoteMouseEvent extends PianoNoteMouseEvent {
 const PianoNotes: FC<PianoNotesProps> = ({
   notes,
   cursor,
+  onClickNote,
   onDragNote,
   onDoubleClickNote,
   isDrumMode,
@@ -54,6 +56,7 @@ const PianoNotes: FC<PianoNotesProps> = ({
       borderColor={borderColor}
       selectedColor={selectedColor}
       selectedBorderColor={selectedBorderColor}
+      onClick={onClickNote}
       onMouseDrag={onDragNote}
       onDoubleClick={onDoubleClickNote}
       isDrum={isDrumMode}
@@ -68,6 +71,7 @@ function areEqual(props: PianoNotesProps, nextProps: PianoNotesProps) {
     props.notes === nextProps.notes &&
     props.cursor === nextProps.cursor &&
     props.isDrumMode === nextProps.isDrumMode &&
+    props.onClickNote === nextProps.onClickNote &&
     props.onDragNote === nextProps.onDragNote &&
     props.onDoubleClickNote === nextProps.onDoubleClickNote
   )

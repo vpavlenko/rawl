@@ -28,6 +28,7 @@ export interface PianoNoteProps {
   borderColor: number
   selectedColor: number
   selectedBorderColor: number
+  onClick: (e: PianoNoteClickEvent) => void
   onMouseDrag: (e: PianoNoteMouseEvent) => void
   onDoubleClick: (e: PianoNoteClickEvent) => void
 }
@@ -44,6 +45,7 @@ const DOUBLE_CLICK_INTERVAL = 500
 
 const useGestures = (
   item: PianoNoteItem,
+  onClick: (e: PianoNoteClickEvent) => void,
   onMouseDrag: (e: PianoNoteMouseEvent) => void,
   onDoubleClick: (e: PianoNoteClickEvent) => void
 ) => {
@@ -84,6 +86,15 @@ const useGestures = (
     })
     setLastMouseDownTime(e.data.originalEvent.timeStamp)
   }
+  const mouseup = useCallback(
+    (e: PIXI.InteractionEvent) => {
+      if (dragInfo !== null && lastMouseDownTime !== 0) {
+        onClick({ nativeEvent: e, item })
+      }
+      setDragInfo(null)
+    },
+    [dragInfo, setDragInfo, lastMouseDownTime]
+  )
   const endDragging = useCallback(() => setDragInfo(null), [setDragInfo])
 
   const ref = useRef<PIXIGraphics>(null)
@@ -109,7 +120,7 @@ const useGestures = (
         return
       }
 
-      // prevent double-click
+      // prevent click and double-click
       setLastMouseDownTime(0)
 
       // update cursor
@@ -143,9 +154,9 @@ const useGestures = (
     ref,
     mouseover,
     mouseout,
-    mousedown: mousedown,
-    mousemove: mousemove,
-    mouseup: endDragging,
+    mousedown,
+    mousemove,
+    mouseup,
     mouseupoutside: endDragging,
     cursor,
   }
@@ -208,7 +219,12 @@ const _PianoNote: FC<PianoNoteProps> = (props) => {
       .drawCircle(0, radius / 2, radius)
   }
 
-  const handleMouse = useGestures(item, props.onMouseDrag, props.onDoubleClick)
+  const handleMouse = useGestures(
+    item,
+    props.onClick,
+    props.onMouseDrag,
+    props.onDoubleClick
+  )
 
   return (
     <Graphics
@@ -240,6 +256,8 @@ const areEqual = (props: PianoNoteProps, nextProps: PianoNoteProps) =>
   props.borderColor === nextProps.borderColor &&
   props.selectedColor === nextProps.selectedColor &&
   props.selectedBorderColor === nextProps.selectedBorderColor &&
-  props.onMouseDrag === nextProps.onMouseDrag
+  props.onClick === nextProps.onClick &&
+  props.onMouseDrag === nextProps.onMouseDrag &&
+  props.onDoubleClick === nextProps.onDoubleClick
 
 export const PianoNote = React.memo(_PianoNote, areEqual)

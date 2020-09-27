@@ -25,6 +25,7 @@ import {
   setPlayerPosition,
   previewNote,
   removeEvent,
+  previewNoteById,
 } from "main/actions"
 import { filterEventsWithScroll } from "common/helpers/filterEventsWithScroll"
 import { isNoteEvent } from "common/track"
@@ -186,6 +187,10 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
     }
   }, [])
 
+  const onClickNote = useCallback((e: PianoNoteClickEvent) => {
+    previewNoteById(rootStore)(e.item.id)
+  }, [])
+
   const onDoubleClickNote = useCallback((e: PianoNoteClickEvent) => {
     removeEvent(rootStore)(e.item.id)
   }, [])
@@ -254,6 +259,7 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
                 notes={keyedNotes}
                 cursor={notesCursor}
                 isDrumMode={isRhythmTrack}
+                onClickNote={onClickNote}
                 onDragNote={onDragNote}
                 onDoubleClickNote={onDoubleClickNote}
               />

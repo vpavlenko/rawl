@@ -9,6 +9,7 @@ body {
   -webkit-font-smoothing: subpixel-antialiased;
   color: var(--text-color);
   background-color: var(--background-color);
+  overscroll-behavior: none;
 }
 
 #root {

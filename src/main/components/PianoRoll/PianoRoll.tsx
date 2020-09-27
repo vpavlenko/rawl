@@ -15,8 +15,9 @@ import {
 } from "main/components/PianoRoll/PianoRollStage"
 import { ISize } from "common/geometry"
 import ControlPane from "../ControlPane/ControlPane"
+import { isTouchPadEvent } from "../../helpers/touchpad"
 
-const SCROLL_KEY_SPEED = 4
+const WHEEL_SCROLL_RATE = 1 / 120
 
 export interface PianoNotesMouseHandler {
   onMouseDown(e: PianoNotesMouseEvent): void
@@ -127,10 +128,16 @@ const PianoRollWrapper: FC<PianoRollWrapperProps> = ({ size }) => {
 
   const onWheel = useCallback(
     (e: React.WheelEvent) => {
-      const scrollLineHeight = transform.pixelsPerKey * SCROLL_KEY_SPEED
-      const delta = scrollLineHeight * (e.deltaY > 0 ? 1 : -1)
-      const scroll = scrollTop + delta
-      setScrollTop(clampScrollTop(scroll))
+      let deltaY = e.deltaY
+      if (!isTouchPadEvent(e.nativeEvent)) {
+        deltaY = e.deltaY * transform.pixelsPerKey * WHEEL_SCROLL_RATE
+      }
+      const scrollY = scrollTop + deltaY
+      setScrollTop(clampScrollTop(scrollY))
+
+      const deltaX = e.deltaX
+      const scrollX = scrollLeft + deltaX
+      setScrollLeft(clampScrollLeft(scrollX))
     },
     [scrollTop, setScrollTop, transform]
   )

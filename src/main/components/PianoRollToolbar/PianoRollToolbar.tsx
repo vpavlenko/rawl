@@ -148,7 +148,7 @@ export const PianoRollToolbar: FC = () => {
   return (
     <AppBar position="static" elevation={0} className={classes.appBar}>
       <Toolbar variant="dense">
-        <NavBackButton onClick={onClickNavBack} color="inherit">
+        <NavBackButton onClick={onClickNavBack}>
           <MenuIcon />
         </NavBackButton>
 
@@ -157,7 +157,6 @@ export const PianoRollToolbar: FC = () => {
         <Button
           className={classes.instrumentButton}
           onClick={onClickInstrument}
-          color="inherit"
           startIcon={<InstrumentIcon viewBox="0 0 24 24" />}
         >
           {instrumentName}
@@ -172,7 +171,6 @@ export const PianoRollToolbar: FC = () => {
           className={classes.toggleButtonGroup}
         >
           <ToggleButton
-            color="inherit"
             onClick={onClickPencil}
             value="pencil"
             className={classes.toggleButton}
@@ -184,7 +182,6 @@ export const PianoRollToolbar: FC = () => {
             />
           </ToggleButton>
           <ToggleButton
-            color="inherit"
             onClick={onClickSelection}
             value="selection"
             className={classes.toggleButton}
@@ -196,7 +193,6 @@ export const PianoRollToolbar: FC = () => {
         <QuantizeSelector value={quantize} onSelect={onSelectQuantize} />
 
         <ToggleButton
-          color="inherit"
           onClick={onClickAutoScroll}
           selected={autoScroll}
           className={classes.toggleButton}

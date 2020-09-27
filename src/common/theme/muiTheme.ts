@@ -5,6 +5,11 @@ export const theme = createMuiTheme({
   props: {
     MuiButtonBase: {
       disableRipple: true,
+      color: "inherit",
+
+      /* disable focus */
+      tabIndex: -1,
+      onMouseDown: (e) => e.preventDefault(),
     },
   },
   palette: {

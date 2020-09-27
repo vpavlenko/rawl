@@ -44,7 +44,7 @@ const TempoInput = styled.input`
   }
 `
 
-const Button = styled.button`
+const Button = styled.div`
   --webkit-appearance: none;
   outline: none;
   border: none;

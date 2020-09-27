@@ -45,14 +45,13 @@ export const TempoGraphToolbar: FC = () => {
   return (
     <AppBar position="static" elevation={0} className={classes.appBar}>
       <Toolbar variant="dense">
-        <IconButton onClick={onClickNavBack} color="inherit">
+        <IconButton onClick={onClickNavBack}>
           <MenuIcon />
         </IconButton>
 
         <Title>Tempo</Title>
 
         <AutoScrollButton
-          color="inherit"
           onClick={() => (stores.tempoEditorStore.autoScroll = !autoScroll)}
           selected={autoScroll}
         >

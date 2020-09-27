@@ -52,6 +52,7 @@ export const TempoGraphToolbar: FC = () => {
         <Title>Tempo</Title>
 
         <AutoScrollButton
+          value="autoScroll"
           onClick={() => (stores.tempoEditorStore.autoScroll = !autoScroll)}
           selected={autoScroll}
         >

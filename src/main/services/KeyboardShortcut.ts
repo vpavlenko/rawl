@@ -4,6 +4,7 @@ import {
   deleteSelection,
   play,
   stop,
+  transposeSelection,
 } from "main/actions"
 import RootStore from "../stores/RootStore"
 
@@ -58,6 +59,14 @@ export function bindKeyboardShortcut(rootStore: RootStore) {
       }
       case "Digit2": {
         rootStore.pianoRollStore.mouseMode = "selection"
+        break
+      }
+      case "ArrowUp": {
+        transposeSelection(rootStore)(1)
+        break
+      }
+      case "ArrowDown": {
+        transposeSelection(rootStore)(-1)
         break
       }
       default:

@@ -54,6 +54,30 @@ export const fixSelection = (rootStore: RootStore) => () => {
   pianoRollStore.selection = s
 }
 
+export const transposeSelection = (rootStore: RootStore) => (
+  deltaPitch: number
+) => {
+  const { song, pianoRollStore } = rootStore
+
+  const selectedTrack = song.selectedTrack
+  if (selectedTrack === undefined) {
+    return
+  }
+  const { selection } = pianoRollStore
+  const s = selection.move(0, deltaPitch)
+  pianoRollStore.selection = s
+
+  selectedTrack.updateEvents(
+    s.noteIds.map((id) => {
+      const n = selectedTrack.getEventById(id) as NoteEvent
+      return {
+        id,
+        noteNumber: n.noteNumber + deltaPitch,
+      }
+    })
+  )
+}
+
 export const moveSelection = (rootStore: RootStore) => (point: NotePoint) => {
   const {
     song,

@@ -13,7 +13,7 @@ import { localized } from "../../common/localize/localizedString"
 import styled from "styled-components"
 
 interface HotKeyProps {
-  hotKeys: string[]
+  hotKeys: string[][]
   text: string
 }
 
@@ -45,8 +45,12 @@ const HotKey: FC<HotKeyProps> = ({ hotKeys, text }) => {
   return (
     <HotKeyContainer>
       {hotKeys
-        .map<ReactNode>((k, i) => <Key key={i}>{k}</Key>)
-        .reduce((prev, curr) => [prev, <span key={999}>+</span>, curr])}
+        .map((c) =>
+          c
+            .map<ReactNode>((k, i) => <Key key={i}>{k}</Key>)
+            .reduce((a, b) => [a, <span key={999}>+</span>, b])
+        )
+        .reduce((a, b) => [a, <span key={999}>/</span>, b])}
       <HotKeyText>{text}</HotKeyText>
     </HotKeyContainer>
   )
@@ -67,31 +71,35 @@ export const HelpDialog: FC = () => {
           {localized("keyboard-shortcut", "Keyboard Shortcut")}
         </DialogContentText>
         <HotKey
-          hotKeys={["Space"]}
+          hotKeys={[["Space"]]}
           text={localized("play-stop", "Play/Stop")}
         />
         <HotKey
-          hotKeys={["1"]}
+          hotKeys={[["1"]]}
           text={localized("pencil-tool", "Pencil Tool")}
         />
         <HotKey
-          hotKeys={["2"]}
+          hotKeys={[["2"]]}
           text={localized("selection-tool", "Selection Tool")}
         />
         <HotKey
-          hotKeys={["Cmd", "C"]}
+          hotKeys={[["↑"], ["↓"]]}
+          text={localized("move-selection", "Move selection")}
+        />
+        <HotKey
+          hotKeys={[["Cmd", "C"]]}
           text={localized("copy-selection", "Copy Selection")}
         />
         <HotKey
-          hotKeys={["Delete (Backspace)"]}
+          hotKeys={[["Delete"], ["Backspace"]]}
           text={localized("delete-selection", "Delete Selection")}
         />
         <HotKey
-          hotKeys={["Cmd", "X"]}
+          hotKeys={[["Cmd", "X"]]}
           text={localized("cut-selection", "Cut Selection")}
         />
         <HotKey
-          hotKeys={["Cmd", "V"]}
+          hotKeys={[["Cmd", "V"]]}
           text={localized(
             "paste-selection",
             "Paste Copied Selection to Current Position"

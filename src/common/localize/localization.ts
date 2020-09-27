@@ -45,5 +45,6 @@ export default {
     "cut-selection": "選択範囲を切り取り",
     "paste-selection": "コピーした選択範囲を現在位置に貼り付け",
     "delete-selection": "選択範囲を削除",
+    "move-selection": "選択範囲を移動",
   },
 } as { [key: string]: { [key: string]: string } }

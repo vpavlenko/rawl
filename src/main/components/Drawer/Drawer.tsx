@@ -20,6 +20,7 @@ const BannerContainer = styled.div`
   height: 3rem;
   display: flex;
   align-items: center;
+  flex-shrink: 0;
 
   a {
     display: flex;

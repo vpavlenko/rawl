@@ -3,6 +3,10 @@
   overflow: hidden;
 }
 
+.InstrumentBrowser .finder {
+  display: flex;
+}
+
 .InstrumentBrowser .finder.disabled {
   opacity: 0.5;
   pointer-events: none;
@@ -16,7 +20,8 @@
 
 .InstrumentBrowser select {
   overflow: auto;
-  background-color: var(--background-color);
+  background-color: #00000024;
+  border: 1px solid var(--divider-color);
 }
 
 .InstrumentBrowser option:checked {
@@ -31,18 +36,9 @@
   outline: var(--theme-color) 1px solid;
 }
 
-.InstrumentBrowser .left {
-  float: left;
-}
-
 .InstrumentBrowser .left select {
   width: 17em;
 }
-
-.InstrumentBrowser .right {
-  float: left;
-}
-
 .InstrumentBrowser .right select {
   width: 17em;
 }

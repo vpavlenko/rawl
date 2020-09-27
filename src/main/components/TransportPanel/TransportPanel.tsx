@@ -1,10 +1,9 @@
 import { ToolbarSeparator } from "components/groups/Toolbar"
 import React, { FC, useCallback } from "react"
-import { Toolbar, IconButton, makeStyles } from "@material-ui/core"
+import { Toolbar, makeStyles } from "@material-ui/core"
 import { Stop, FastRewind, FastForward, PlayArrow } from "@material-ui/icons"
 import styled from "styled-components"
-import { TIME_BASE } from "Constants"
-import { play, stop, movePlayerPosition } from "main/actions"
+import { play, stop, rewindOneBar, fastForwardOneBar } from "main/actions"
 import { useObserver } from "mobx-react-lite"
 import { useStores } from "main/hooks/useStores"
 import { getMBTString } from "common/measure/mbt"
@@ -135,8 +134,8 @@ export const TransportPanel: FC = () => {
   }))
   const onClickPlay = () => play(stores)()
   const onClickStop = () => stop(stores)()
-  const onClickBackward = () => movePlayerPosition(stores)(-TIME_BASE * 4)
-  const onClickForward = () => movePlayerPosition(stores)(TIME_BASE * 4)
+  const onClickBackward = () => rewindOneBar(stores)()
+  const onClickForward = () => fastForwardOneBar(stores)()
   const onChangeTempo = (tempo: number) => {
     stores.song.conductorTrack?.setTempo(tempo, stores.services.player.position)
   }

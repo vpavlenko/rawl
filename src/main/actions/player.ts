@@ -31,11 +31,50 @@ export const setPlayerPosition = (rootStore: RootStore) => (tick: number) => {
   player.position = quantizer.round(tick)
 }
 
-export const movePlayerPosition = (rootStore: RootStore) => (tick: number) => {
+export const rewindOneBar = (rootStore: RootStore) => () => {
   const {
+    song,
     services: { player, quantizer },
   } = rootStore
-  player.position = quantizer.round(player.position + tick)
+  const e = song.conductorTrack?.getTimeSignatureEvent(player.position)
+  if (e === undefined) {
+    return
+  }
+  const ticksPerMeasure = ((player.timebase * 4) / e.denominator) * e.numerator
+  const measures = (player.position - e.tick) / ticksPerMeasure
+  const fixedMeasures = Math.floor(measures)
+
+  // move to the beginning of current measure
+  // or if already there (smaller than 1 beat) we further rewind
+  const beginMeasureTick = e.tick + ticksPerMeasure * fixedMeasures
+  if (measures - fixedMeasures > 1 / e.denominator) {
+    player.position = beginMeasureTick
+  } else if (beginMeasureTick !== e.tick) {
+    // same time signature
+    player.position = beginMeasureTick - ticksPerMeasure
+  } else {
+    // another time signature
+    const e2 = song.conductorTrack?.getTimeSignatureEvent(beginMeasureTick - 1)
+    if (e2 !== undefined) {
+      const ticksPerMeasure2 =
+        ((player.timebase * 4) / e2.denominator) * e2.numerator
+      player.position = beginMeasureTick - ticksPerMeasure2
+    }
+  }
+}
+
+export const fastForwardOneBar = (rootStore: RootStore) => () => {
+  const {
+    song,
+    services: { player, quantizer },
+  } = rootStore
+  const e = song.conductorTrack?.getTimeSignatureEvent(player.position)
+  if (e === undefined) {
+    return
+  }
+  const ticksPerBeat = (player.timebase * 4) / e.denominator
+  const ticksPerMeasure = ticksPerBeat * e.numerator
+  player.position = quantizer.round(player.position + ticksPerMeasure)
 }
 
 export const previewNote = (rootStore: RootStore) => (

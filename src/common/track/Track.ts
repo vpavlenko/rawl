@@ -21,6 +21,7 @@ import {
   isEndOfTrackEvent,
   isSetTempoEvent,
   isControllerEvent,
+  isTimeSignatureEvent,
 } from "./identify"
 import { pojo } from "../helpers/pojo"
 
@@ -263,6 +264,9 @@ export default class Track {
 
   getTempoEvent = (tick: number) =>
     getLastEventBefore(this.events.filter(isSetTempoEvent), tick)
+
+  getTimeSignatureEvent = (tick: number) =>
+    getLastEventBefore(this.events.filter(isTimeSignatureEvent), tick)
 
   getTempo(tick: number): number | undefined {
     const e = this.getTempoEvent(tick)

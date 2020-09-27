@@ -13,6 +13,7 @@ import styled from "styled-components"
 import { TrackList } from "./TrackList/TrackList"
 import { localized } from "../../../common/localize/localizedString"
 import Logo from "../../images/logo-white.svg"
+import { Help } from "@material-ui/icons"
 
 const BannerContainer = styled.div`
   background: var(--theme-color);
@@ -37,6 +38,11 @@ const Banner: FC = () => {
   )
 }
 
+const HelpIcon = styled(Help)`
+  min-width: auto;
+  margin-right: 0.6em;
+`
+
 export const Drawer: FC = () => {
   const { rootStore } = useStores()
   const { open, onClose } = useObserver(() => ({
@@ -52,6 +58,14 @@ export const Drawer: FC = () => {
       <Divider />
       <ListItem button onClick={() => (rootStore.router.path = "/tempo")}>
         <ListItemText primary={localized("tempo-track", "Tempo Track")} />
+      </ListItem>
+      <Divider />
+      <ListItem
+        button
+        onClick={() => (rootStore.rootViewStore.openHelp = true)}
+      >
+        <HelpIcon />
+        <ListItemText primary={localized("help", "Help")} />
       </ListItem>
     </MaterialDrawer>
   )

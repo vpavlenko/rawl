@@ -11,6 +11,7 @@ import { useObserver } from "mobx-react-lite"
 import { TempoEditor } from "../TempoGraph/TempoEditor"
 import { ArrangeEditor } from "../ArrangeEditor/ArrangeEditor"
 import { SettingsView } from "../SettingsView/SettingsView"
+import { HelpDialog } from "../../Help/HelpDialog"
 
 const Container = styled.div`
   height: 100%;
@@ -37,5 +38,6 @@ export const RootView: FC = () => (
     <Routes />
     <TransportPanel />
     <BuildInfo />
+    <HelpDialog />
   </Container>
 )

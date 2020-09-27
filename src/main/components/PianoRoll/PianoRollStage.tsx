@@ -224,7 +224,7 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
         className="alphaContent"
         width={width}
         height={stageHeight}
-        options={{ transparent: true }}
+        options={{ transparent: true, autoDensity: true }}
         onContextMenu={useCallback((e) => e.preventDefault(), [])}
       >
         <Container position={new Point(theme.keyWidth, 0)}>

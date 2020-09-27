@@ -23,7 +23,7 @@ bindKeyboardShortcut(rootStore)
 
 export default function App() {
   return (
-    <StoreContext.Provider value={{ rootStore: new RootStore() }}>
+    <StoreContext.Provider value={{ rootStore }}>
       <ThemeContext.Provider value={defaultTheme}>
         <ThemeProvider theme={theme}>
           <StylesProvider injectFirst>

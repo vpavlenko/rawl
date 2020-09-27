@@ -207,6 +207,7 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
   const { onContextMenu, menuProps } = useContextMenu()
 
   const onRightClickSelection = useCallback((ev: PIXI.InteractionEvent) => {
+    ev.stopPropagation()
     const e = ev.data.originalEvent as MouseEvent
     onContextMenu(e)
   }, [])
@@ -214,6 +215,7 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
   const handleRightClick = useCallback((ev: PIXI.InteractionEvent) => {
     if (rootStore.pianoRollStore.mouseMode === "selection") {
       const e = ev.data.originalEvent as MouseEvent
+      ev.stopPropagation()
       onContextMenu(e)
     }
   }, [])

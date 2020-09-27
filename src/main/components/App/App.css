@@ -64,4 +64,8 @@ canvas {
   height: 0;
   display: block;
   border: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 999;
 }

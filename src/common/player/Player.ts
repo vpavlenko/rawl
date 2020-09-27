@@ -68,6 +68,10 @@ export default class Player {
   }
 
   play(song: Song) {
+    if (this.isPlaying) {
+      console.warn("called play() while playing. aborted.")
+      return
+    }
     this._song = song
     const eventsToPlay = collectAllEvents(song)
     this._scheduler = new EventScheduler(
@@ -79,7 +83,7 @@ export default class Player {
     this._isPlaying = true
     this._output.activate()
 
-    if (this._timer) {
+    if (this._timer !== undefined) {
       clearInterval(this._timer)
     }
     this._timer = setInterval(() => this._onTimer(), TIMER_INTERVAL)
@@ -261,16 +265,16 @@ export default class Player {
 
     if (this._scheduler.currentTick >= this._song.endOfSong) {
       this.stop()
-    }
+    } else {
+      const currentTick = this._scheduler.currentTick
 
-    const currentTick = this._scheduler.currentTick
-
-    if (
-      this.loop.enabled &&
-      this.loop.begin !== null &&
-      currentTick >= this.loop.end
-    ) {
-      this.position = this.loop.begin
+      if (
+        this.loop.enabled &&
+        this.loop.begin !== null &&
+        currentTick >= this.loop.end
+      ) {
+        this.position = this.loop.begin
+      }
     }
 
     this.syncPosition()

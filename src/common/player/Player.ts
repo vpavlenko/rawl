@@ -46,7 +46,7 @@ const TIMER_INTERVAL = 50
 export default class Player {
   private _currentTempo = 120
   private _scheduler: EventScheduler<PlayerEvent> | null = null
-  private _song: Song
+  private _song: Song | null = null
   private _output: SynthOutput
   private _timebase: number
   private _trackMute: TrackMute
@@ -90,6 +90,10 @@ export default class Player {
   }
 
   set position(tick: number) {
+    tick = Math.min(
+      Math.max(tick, 0),
+      this._song?.endOfSong ?? Number.MAX_VALUE
+    )
     if (this._scheduler) {
       this._scheduler.seek(tick)
     }
@@ -202,7 +206,7 @@ export default class Player {
   }
 
   private _shouldPlayChannel(channel: number) {
-    const trackId = this._song.trackIdOfChannel(channel)
+    const trackId = this._song?.trackIdOfChannel(channel)
     return trackId ? this._trackMute.shouldPlayTrack(trackId) : true
   }
 
@@ -221,7 +225,7 @@ export default class Player {
   private prevTimestamp: number | null = null
 
   private _onTimer() {
-    if (this._scheduler === null) {
+    if (this._scheduler === null || this._song === null) {
       return
     }
 

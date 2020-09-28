@@ -41,7 +41,12 @@ export default class RootStore {
     const player = new Player(TIME_BASE, synth, this.trackMute)
     const quantizer = new Quantizer(TIME_BASE)
     this.services = { player, quantizer, synth }
-    this.pianoRollStore = new PianoRollStore(synth)
+    this.pianoRollStore = new PianoRollStore()
+
+    synth.onLoadSoundFont = (e) => {
+      this.pianoRollStore.presetNames = e.presetNames
+      player.reset()
+    }
   }
 
   serializeUndoableState() {

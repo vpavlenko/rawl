@@ -13,11 +13,12 @@ import Song from "common/song"
 import TrackMute from "common/trackMute"
 import { deassemble as deassembleNote } from "common/helpers/noteAssembler"
 import { deassemble as deassembleRPN } from "common/helpers/RPNAssembler"
-import { NoteEvent } from "../track"
+import { NoteEvent, resetTrackMIDIEvents } from "../track"
 import { PlayerEvent } from "./PlayerEvent"
 import SynthOutput, { Message } from "../../main/services/SynthOutput"
 import { computed, observable } from "mobx"
 import throttle from "lodash/throttle"
+import { pitchBendMidiEvent } from "../midi/MidiEvent"
 
 function firstByte(eventType: string, channel: number): number {
   return (MIDIChannelEvents[eventType] << 4) + channel
@@ -153,17 +154,22 @@ export default class Player {
   }
 
   reset() {
-    const time = window.performance.now()
+    const timestamp = window.performance.now()
     for (const ch of range(0, this.numberOfChannels)) {
       // reset controllers
-      this._sendMessage(
-        [
+      const resetControllers = {
+        message: [
           firstByte("controller", ch),
           MIDIControlEvents.RESET_CONTROLLERS,
           0x7f,
         ],
-        time
-      )
+        timestamp,
+      }
+      const resetMessages = resetTrackMIDIEvents(ch)
+        .map((e) => serializeMidiEvent(e, false))
+        .map((message) => ({ message, timestamp }))
+      const messages = [resetControllers, ...resetMessages]
+      this._sendMessages(messages)
     }
     this.stop()
     this.position = 0

@@ -27,12 +27,6 @@ export default class PianoRollStore {
   }
   @observable presetNames: LoadSoundFontEvent["presetNames"] = [[]]
 
-  constructor(synth: SynthOutput) {
-    synth.onLoadSoundFont = (e) => {
-      this.presetNames = e.presetNames
-    }
-  }
-
   @action scrollBy(x: number, y: number) {
     this.scrollLeft -= x
     this.scrollTop -= y

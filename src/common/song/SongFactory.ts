@@ -18,7 +18,7 @@ export function emptySong() {
 const trackFromMidiEvents = (events: AnyEvent[]): Track => {
   const track = new Track()
 
-  const chEvent = events.find(e => {
+  const chEvent = events.find((e) => {
     return e.type === "channel"
   })
   if (chEvent !== undefined && "channel" in chEvent) {
@@ -33,8 +33,9 @@ export function songFromMidi(data: StreamSource) {
   const song = new Song()
   const midi = readMidi(data)
 
-  midi.tracks.map(trackFromMidiEvents).map(track => song.addTrack(track))
+  midi.tracks.map(trackFromMidiEvents).map((track) => song.addTrack(track))
   song.selectedTrackId = 1
+  song.timebase = midi.header.ticksPerBeat
 
   return song
 }

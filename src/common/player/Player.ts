@@ -117,6 +117,10 @@ export default class Player {
     return this._timebase
   }
 
+  set timebase(value: number) {
+    this._timebase = value
+  }
+
   get numberOfChannels() {
     return 0xf
   }

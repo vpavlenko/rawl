@@ -9,6 +9,10 @@ export default class Quantizer {
     this.denominator = denominator
   }
 
+  set ticksPerBeat(value: number) {
+    this._ticksPerBeat = value
+  }
+
   round(tick: number) {
     const u = this.unit
     return Math.round(tick / u) * u

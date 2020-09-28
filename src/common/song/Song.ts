@@ -6,6 +6,7 @@ import Track from "../track"
 import { Measure } from "../measure/Measure"
 import { isNotUndefined } from "../helpers/array"
 import { getMeasuresFromConductorTrack } from "../measure/MeasureList"
+import { TIME_BASE } from "../../main/Constants"
 
 const END_MARGIN = 480 * 30
 
@@ -21,6 +22,10 @@ export default class Song {
   @serializable
   @observable
   filepath: string = ""
+
+  @serializable
+  @observable
+  timebase: number = TIME_BASE
 
   name: string
 

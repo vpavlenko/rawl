@@ -22,9 +22,9 @@ describe("Song", () => {
     expect(tracks[3].channel).toBe(1)
     expect(tracks[17].channel).toBe(15)
 
-    expect(tracks[0].tempo).toBe(128)
-    expect(tracks[2].volume).toBe(100)
-    expect(tracks[2].pan).toBe(1)
+    expect(tracks[0].getTempo(240)).toBe(128)
+    expect(tracks[2].getVolume(193)).toBe(100)
+    expect(tracks[2].getPan(192)).toBe(1)
     expect(tracks[2].programNumber).toBe(29)
   })
 

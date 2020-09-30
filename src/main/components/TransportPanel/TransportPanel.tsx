@@ -88,7 +88,17 @@ interface TempoFormProps {
   onChangeTempo: (tempo: number) => void
 }
 
-const TempoForm: FC<TempoFormProps> = ({ tempo, onChangeTempo }) => {
+const TempoForm: FC = () => {
+  const { rootStore: stores } = useStores()
+  const { tempo } = useObserver(() => ({
+    tempo:
+      stores.song.conductorTrack?.getTempo(stores.services.player.position) ??
+      1,
+  }))
+
+  const changeTempo = (tempo: number) =>
+    stores.song.conductorTrack?.setTempo(tempo, stores.services.player.position)
+
   const onKeyPressTempo = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       e.preventDefault()
@@ -96,11 +106,8 @@ const TempoForm: FC<TempoFormProps> = ({ tempo, onChangeTempo }) => {
     }
   }
 
-  const onChangeTempo_ = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) =>
-      onChangeTempo(parseFloat(e.target.value)),
-    []
-  )
+  const onChangeTempo = (e: React.ChangeEvent<HTMLInputElement>) =>
+    changeTempo(parseFloat(e.target.value))
 
   return (
     <TempoWrapper>
@@ -108,8 +115,11 @@ const TempoForm: FC<TempoFormProps> = ({ tempo, onChangeTempo }) => {
       <TempoInput
         type="number"
         id="tempo-input"
-        value={Math.floor(tempo * 100) / 100}
-        onChange={onChangeTempo_}
+        min={1}
+        max={1000}
+        value={Math.round(tempo * 100) / 100}
+        step={1}
+        onChange={onChangeTempo}
         onKeyPress={onKeyPressTempo}
       />
     </TempoWrapper>
@@ -124,24 +134,18 @@ const Timestamp = styled.div`
 
 export const TransportPanel: FC = () => {
   const { rootStore: stores } = useStores()
-  const { tempo, mbtTime, isPlaying } = useObserver(() => ({
+  const { mbtTime, isPlaying } = useObserver(() => ({
     mbtTime: getMBTString(
       stores.song.measures,
       stores.services.player.position,
       stores.services.player.timebase
     ),
-    tempo:
-      stores.song.conductorTrack?.getTempo(stores.services.player.position) ??
-      0,
     isPlaying: stores.services.player.isPlaying,
   }))
   const onClickPlay = () => play(stores)()
   const onClickStop = () => stop(stores)()
   const onClickBackward = () => rewindOneBar(stores)()
   const onClickForward = () => fastForwardOneBar(stores)()
-  const onChangeTempo = (tempo: number) => {
-    stores.song.conductorTrack?.setTempo(tempo, stores.services.player.position)
-  }
 
   const classes = useStyles({})
   return (
@@ -164,7 +168,7 @@ export const TransportPanel: FC = () => {
 
       <ToolbarSeparator />
 
-      <TempoForm tempo={tempo} onChangeTempo={onChangeTempo} />
+      <TempoForm />
 
       <ToolbarSeparator />
 

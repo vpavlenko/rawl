@@ -29,11 +29,15 @@ const BannerContainer = styled.div`
   }
 `
 
+const LogoIcon = styled(Logo)`
+  height: 1.4rem;
+`
+
 const Banner: FC = () => {
   return (
     <BannerContainer>
       <a href="/">
-        <Logo viewBox="0 0 449 120" height="1.4rem" width={undefined} />
+        <LogoIcon viewBox="0 0 449 120" width={undefined} height={undefined} />
       </a>
     </BannerContainer>
   )

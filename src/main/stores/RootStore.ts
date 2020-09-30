@@ -23,11 +23,14 @@ export interface Services {
   synth: SynthOutput
 }
 
+// we use any for now. related: https://github.com/Microsoft/TypeScript/issues/1897
+type Json = any
+
 export default class RootStore {
   @observable.ref song: Song = emptySong()
   router = new Router()
   trackMute = new TrackMute()
-  historyStore = new HistoryStore()
+  historyStore = new HistoryStore<Song>()
   settingsStore = new SettingsStore()
   rootViewStore = new RootViewStore()
   pianoRollStore: PianoRollStore
@@ -49,34 +52,34 @@ export default class RootStore {
     }
   }
 
-  serializeUndoableState() {
+  private serializeUndoableState = (): Json => {
     return serialize(this.song)
   }
 
-  restoreState(serializedState: any) {
-    return
+  private restoreState = (serializedState: Json) => {
     const song = deserialize(Song, serializedState)
     song.onDeserialized()
     this.song = song
   }
 
-  pushHistory() {
-    return
+  pushHistory = () => {
     const state = this.serializeUndoableState()
     this.historyStore.push(state)
   }
 
-  undo() {
+  undo = () => {
     const currentState = this.serializeUndoableState()
     const nextState = this.historyStore.undo(currentState)
-    if (nextState) {
+    if (nextState !== undefined) {
       this.restoreState(nextState)
     }
   }
 
-  redo() {
+  redo = () => {
     const currentState = this.serializeUndoableState()
     const nextState = this.historyStore.redo(currentState)
-    this.restoreState(nextState)
+    if (nextState !== undefined) {
+      this.restoreState(nextState)
+    }
   }
 }

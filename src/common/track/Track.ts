@@ -46,16 +46,17 @@ export default class Track {
     id: number,
     obj: Partial<TrackEvent>
   ): TrackEvent | null {
-    const anObj = this.getEventById(id)
-    if (!anObj) {
+    const index = this.events.findIndex((e) => e.id === id)
+    if (index < 0) {
       console.warn(`unknown id: ${id}`)
       return null
     }
-    const newObj = Object.assign({}, anObj, obj)
+    const anObj = this.events[index]
+    const newObj = { ...anObj, ...obj }
     if (isEqual(newObj, anObj)) {
       return null
     }
-    Object.assign(anObj, obj)
+    this.events[index] = newObj as TrackEvent
     return anObj
   }
 

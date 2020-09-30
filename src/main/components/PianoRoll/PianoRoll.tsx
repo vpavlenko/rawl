@@ -34,13 +34,6 @@ const Parent = styled.div`
   }
 `
 
-const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  height: calc(100% - 17px);
-`
-
 const Alpha = styled.div`
   flex-grow: 1;
   position: relative;
@@ -55,7 +48,7 @@ const Alpha = styled.div`
 
 const Beta = styled.div`
   border-top: 1px solid var(--divider-color);
-  height: 100%;
+  height: calc(100% - 17px);
 `
 
 const clamp = (value: number, min: number, max: number) =>
@@ -147,21 +140,19 @@ const PianoRollWrapper: FC<PianoRollWrapperProps> = ({ size }) => {
 
   return (
     <Parent>
-      <Content>
-        <SplitPane split="horizontal" minSize={50} defaultSize={"60%"}>
-          <Alpha onWheel={onWheel} ref={alphaRef}>
-            <PianoRollStage width={size.width} />
-            <VerticalScrollBar
-              scrollOffset={_scrollTop}
-              contentLength={contentHeight}
-              onScroll={setScrollTop}
-            />
-          </Alpha>
-          <Beta>
-            <ControlPane />
-          </Beta>
-        </SplitPane>
-      </Content>
+      <SplitPane split="horizontal" minSize={50} defaultSize={"60%"}>
+        <Alpha onWheel={onWheel} ref={alphaRef}>
+          <PianoRollStage width={size.width} />
+          <VerticalScrollBar
+            scrollOffset={_scrollTop}
+            contentLength={contentHeight}
+            onScroll={setScrollTop}
+          />
+        </Alpha>
+        <Beta>
+          <ControlPane />
+        </Beta>
+      </SplitPane>
       <HorizontalScaleScrollBar
         scrollOffset={_scrollLeft}
         contentLength={contentWidth}

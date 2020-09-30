@@ -94,7 +94,7 @@ export const TrackList: FC = () => {
         <AddTrackListIcon>
           <Add />
         </AddTrackListIcon>
-        <ListItemText primary={localized("new-track", "New track")} />
+        <ListItemText primary={localized("add-track", "Add track")} />
       </ListItem>
     </List>
   )

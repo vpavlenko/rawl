@@ -1,5 +1,5 @@
 import React, { FC, ReactNode } from "react"
-import { useStores } from "../hooks/useStores"
+import { useStores } from "../../hooks/useStores"
 import { useObserver } from "mobx-react-lite"
 import {
   Button,
@@ -9,7 +9,7 @@ import {
   DialogContentText,
   DialogTitle,
 } from "@material-ui/core"
-import { localized } from "../../common/localize/localizedString"
+import { localized } from "../../../common/localize/localizedString"
 import styled from "styled-components"
 
 interface HotKeyProps {

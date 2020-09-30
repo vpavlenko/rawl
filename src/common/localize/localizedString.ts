@@ -6,7 +6,9 @@ export function localized(
   key: string,
   defaultValue?: string
 ): string | undefined {
-  const locale = navigator.language
+  // ja-JP or ja -> ja
+  const locale = navigator.language.split("-")[0]
+
   if (
     key !== null &&
     localization[locale] !== undefined &&

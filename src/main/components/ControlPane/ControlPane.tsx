@@ -53,6 +53,7 @@ const TabButton = styled.div`
   outline: none;
   text-align: center;
   font-size: 0.7rem;
+  cursor: default;
 
   &:hover {
     background: #ffffff14;

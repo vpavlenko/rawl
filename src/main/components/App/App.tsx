@@ -1,4 +1,3 @@
-import { hot } from "react-hot-loader/root"
 import React from "react"
 
 import { bindKeyboardShortcut } from "main/services/KeyboardShortcut.ts"
@@ -20,7 +19,7 @@ const rootStore = new RootStore()
 
 bindKeyboardShortcut(rootStore)
 
-function App() {
+export function App() {
   return (
     <StoreContext.Provider value={{ rootStore }}>
       <ThemeContext.Provider value={defaultTheme}>
@@ -34,5 +33,3 @@ function App() {
     </StoreContext.Provider>
   )
 }
-
-export default hot(App)

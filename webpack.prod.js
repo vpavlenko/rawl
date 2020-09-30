@@ -6,6 +6,17 @@ const CopyPlugin = require("copy-webpack-plugin")
 
 module.exports = merge(common, {
   mode: "production",
+  module: {
+    rules: [
+      {
+        test: /\.(j|t)sx?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+        },
+      },
+    ],
+  },
   plugins: [
     new CopyPlugin({
       patterns: [

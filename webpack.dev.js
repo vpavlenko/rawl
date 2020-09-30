@@ -2,6 +2,7 @@ const { merge } = require("webpack-merge")
 const common = require("./webpack.common.js")
 const path = require("path")
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin")
+const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin")
 
 module.exports = merge(common, {
   mode: "development",
@@ -25,10 +26,19 @@ module.exports = merge(common, {
       ],
     },
   },
-  plugins: [new ForkTsCheckerWebpackPlugin()],
-  resolve: {
-    alias: {
-      "react-dom": "@hot-loader/react-dom",
-    },
+  module: {
+    rules: [
+      {
+        test: /\.(j|t)sx?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            plugins: [require.resolve("react-refresh/babel")],
+          },
+        },
+      },
+    ],
   },
+  plugins: [new ForkTsCheckerWebpackPlugin(), new ReactRefreshWebpackPlugin()],
 })

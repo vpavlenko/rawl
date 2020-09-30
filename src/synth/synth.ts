@@ -5,6 +5,8 @@ import "./synth.css"
 
 type Message = number[]
 
+const AudioContext = window.AudioContext || window.webkitAudioContext
+
 export const SynthEvent = {
   activate: "activate",
   midi: "midi",

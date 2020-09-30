@@ -48,9 +48,9 @@ const HotKey: FC<HotKeyProps> = ({ hotKeys, text }) => {
         .map((c) =>
           c
             .map<ReactNode>((k, i) => <Key key={i}>{k}</Key>)
-            .reduce((a, b) => [a, <span key={999}>+</span>, b])
+            .reduce((a, b) => [a, <span key={"plus"}>+</span>, b])
         )
-        .reduce((a, b) => [a, <span key={999}>/</span>, b])}
+        .reduce((a, b) => [a, <span key={"slash"}>/</span>, b])}
       <HotKeyText>{text}</HotKeyText>
     </HotKeyContainer>
   )

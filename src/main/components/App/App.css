@@ -10,6 +10,7 @@ body {
   color: var(--text-color);
   background-color: var(--background-color);
   overscroll-behavior: none;
+  font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue, sans-serif;
 }
 
 #root {

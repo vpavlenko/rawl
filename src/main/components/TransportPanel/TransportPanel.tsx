@@ -18,9 +18,6 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "1rem",
     height: "2rem",
   },
-  time: {
-    minWidth: "10em",
-  },
 }))
 
 const TempoInput = styled.input`
@@ -33,7 +30,7 @@ const TempoInput = styled.input`
   width: 5em;
   text-align: center;
   outline: none;
-  font-family: monospace;
+  font-family: "Roboto Mono", monospace;
   font-size: 1rem;
   padding: 0.3rem 0;
 
@@ -119,6 +116,12 @@ const TempoForm: FC<TempoFormProps> = ({ tempo, onChangeTempo }) => {
   )
 }
 
+const Timestamp = styled.div`
+  font-family: "Roboto Mono", monospace;
+  font-size: 0.9rem;
+  color: var(--secondary-text-color);
+`
+
 export const TransportPanel: FC = () => {
   const { rootStore: stores } = useStores()
   const { tempo, mbtTime, isPlaying } = useObserver(() => ({
@@ -165,9 +168,7 @@ export const TransportPanel: FC = () => {
 
       <ToolbarSeparator />
 
-      <div className={classes.time}>
-        <p className="time">{mbtTime}</p>
-      </div>
+      <Timestamp>{mbtTime}</Timestamp>
     </Toolbar>
   )
 }

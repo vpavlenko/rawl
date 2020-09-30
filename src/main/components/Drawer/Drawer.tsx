@@ -5,6 +5,7 @@ import {
   ListSubheader,
   ListItem,
   ListItemText,
+  List,
 } from "@material-ui/core"
 import { useObserver } from "mobx-react-lite"
 import { SongList } from "./SongList"
@@ -56,17 +57,21 @@ export const Drawer: FC = () => {
       <Divider />
       <TrackList />
       <Divider />
-      <ListItem button onClick={() => (rootStore.router.path = "/tempo")}>
-        <ListItemText primary={localized("tempo-track", "Tempo Track")} />
-      </ListItem>
+      <List>
+        <ListItem button onClick={() => (rootStore.router.path = "/tempo")}>
+          <ListItemText primary={localized("tempo-track", "Tempo Track")} />
+        </ListItem>
+      </List>
       <Divider />
-      <ListItem
-        button
-        onClick={() => (rootStore.rootViewStore.openHelp = true)}
-      >
-        <HelpIcon />
-        <ListItemText primary={localized("help", "Help")} />
-      </ListItem>
+      <List>
+        <ListItem
+          button
+          onClick={() => (rootStore.rootViewStore.openHelp = true)}
+        >
+          <HelpIcon />
+          <ListItemText primary={localized("help", "Help")} />
+        </ListItem>
+      </List>
     </MaterialDrawer>
   )
 }

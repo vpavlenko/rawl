@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
     height: "2rem",
     color: "var(--text-color)",
     fontSize: "1rem",
+    padding: "0 0.7rem",
     ["&.Mui-selected"]: {
       background: "var(--theme-color)",
     },

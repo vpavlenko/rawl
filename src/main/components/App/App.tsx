@@ -1,6 +1,6 @@
 import React from "react"
 
-import { bindKeyboardShortcut } from "main/services/KeyboardShortcut.ts"
+import { KeyboardShortcut } from "../../services/KeyboardShortcut"
 
 import RootStore from "stores/RootStore.ts"
 import { theme } from "common/theme/muiTheme"
@@ -15,16 +15,13 @@ import { RootView } from "../RootView/RootView"
 import "./App.css"
 import { StylesProvider } from "@material-ui/core"
 
-const rootStore = new RootStore()
-
-bindKeyboardShortcut(rootStore)
-
 export function App() {
   return (
-    <StoreContext.Provider value={{ rootStore }}>
+    <StoreContext.Provider value={{ rootStore: new RootStore() }}>
       <ThemeContext.Provider value={defaultTheme}>
         <ThemeProvider theme={theme}>
           <StylesProvider injectFirst>
+            <KeyboardShortcut />
             <GlobalCSS />
             <RootView />
           </StylesProvider>

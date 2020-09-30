@@ -31,17 +31,17 @@ export function conductorTrack(name = "Conductor Track") {
 }
 
 export const resetTrackMIDIEvents = (channel: number) => [
-  resetAllMidiEvent(1, channel),
-  trackNameMidiEvent(1, ""),
-  panMidiEvent(1, channel, 64),
-  volumeMidiEvent(1, channel, 100),
-  expressionMidiEvent(1, channel, 127),
-  ...masterCoarceTuningEvents(1, channel),
-  ...masterFineTuningEvents(1, channel),
-  ...pitchbendSensitivityEvents(1, channel, 12),
-  pitchBendMidiEvent(1, channel, 0x2000),
-  modulationMidiEvent(1, channel, 0),
-  programChangeMidiEvent(1, channel, 0),
+  resetAllMidiEvent(0, channel),
+  trackNameMidiEvent(0, ""),
+  panMidiEvent(0, channel, 64),
+  volumeMidiEvent(0, channel, 100),
+  expressionMidiEvent(0, channel, 127),
+  ...masterCoarceTuningEvents(0, channel),
+  ...masterFineTuningEvents(0, channel),
+  ...pitchbendSensitivityEvents(0, channel, 12),
+  pitchBendMidiEvent(0, channel, 0x2000),
+  modulationMidiEvent(0, channel, 0),
+  programChangeMidiEvent(0, channel, 0),
 ]
 
 export function emptyTrack(channel: number) {

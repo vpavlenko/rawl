@@ -162,72 +162,90 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
     showEventEditor(group)
   }
 
-  const onDragNote = useCallback((e: PianoNoteMouseEvent) => {
-    const { note, transform } = e.dragItem.mouseData
-    const tick = transform.getTicks(e.offset.x)
+  const onDragNote = useCallback(
+    (e: PianoNoteMouseEvent) => {
+      const { note, transform } = e.dragItem.mouseData
+      const tick = transform.getTicks(e.offset.x)
 
-    switch (e.position) {
-      case "center": {
-        const delta = pointSub(e.offset, e.dragStart)
-        const position = pointAdd(e.dragItem, delta)
-        moveNote(rootStore)({
-          id: note.id,
-          tick: transform.getTicks(position.x),
-          noteNumber: Math.round(transform.getNoteNumber(position.y)),
-          quantize: "round",
-        })
-        break
+      switch (e.position) {
+        case "center": {
+          const delta = pointSub(e.offset, e.dragStart)
+          const position = pointAdd(e.dragItem, delta)
+          moveNote(rootStore)({
+            id: note.id,
+            tick: transform.getTicks(position.x),
+            noteNumber: Math.round(transform.getNoteNumber(position.y)),
+            quantize: "round",
+          })
+          break
+        }
+        case "left":
+          resizeNoteLeft(rootStore)(e.dragItem.id, tick)
+          break
+        case "right":
+          resizeNoteRight(rootStore)(e.dragItem.id, tick)
+          break
       }
-      case "left":
-        resizeNoteLeft(rootStore)(e.dragItem.id, tick)
-        break
-      case "right":
-        resizeNoteRight(rootStore)(e.dragItem.id, tick)
-        break
-    }
-  }, [])
+    },
+    [rootStore]
+  )
 
-  const onClickNote = useCallback((e: PianoNoteClickEvent) => {
-    previewNoteById(rootStore)(e.item.id)
-  }, [])
+  const onClickNote = useCallback(
+    (e: PianoNoteClickEvent) => {
+      previewNoteById(rootStore)(e.item.id)
+    },
+    [rootStore]
+  )
 
-  const onDoubleClickNote = useCallback((e: PianoNoteClickEvent) => {
-    removeEvent(rootStore)(e.item.id)
-  }, [])
+  const onDoubleClickNote = useCallback(
+    (e: PianoNoteClickEvent) => {
+      removeEvent(rootStore)(e.item.id)
+    },
+    [rootStore]
+  )
 
-  const onMouseDownRuler = useCallback((e: TickEvent<MouseEvent>) => {
-    const tick = e.tick
-    if (e.nativeEvent.ctrlKey) {
-      // setLoopBegin(tick)
-    } else if (e.nativeEvent.altKey) {
-      // setLoopEnd(tick)
-    } else {
-      setPlayerPosition(rootStore)(tick)
-    }
-  }, [])
+  const onMouseDownRuler = useCallback(
+    (e: TickEvent<MouseEvent>) => {
+      const tick = e.tick
+      if (e.nativeEvent.ctrlKey) {
+        // setLoopBegin(tick)
+      } else if (e.nativeEvent.altKey) {
+        // setLoopEnd(tick)
+      } else {
+        setPlayerPosition(rootStore)(tick)
+      }
+    },
+    [rootStore]
+  )
 
   const onClickKey = useCallback(
     (noteNumber: number) => {
       previewNote(rootStore)(channel, noteNumber)
     },
-    [channel]
+    [channel, rootStore]
   )
 
   const { onContextMenu, menuProps } = useContextMenu()
 
-  const onRightClickSelection = useCallback((ev: PIXI.InteractionEvent) => {
-    ev.stopPropagation()
-    const e = ev.data.originalEvent as MouseEvent
-    onContextMenu(e)
-  }, [])
-
-  const handleRightClick = useCallback((ev: PIXI.InteractionEvent) => {
-    if (rootStore.pianoRollStore.mouseMode === "selection") {
-      const e = ev.data.originalEvent as MouseEvent
+  const onRightClickSelection = useCallback(
+    (ev: PIXI.InteractionEvent) => {
       ev.stopPropagation()
+      const e = ev.data.originalEvent as MouseEvent
       onContextMenu(e)
-    }
-  }, [])
+    },
+    [onContextMenu]
+  )
+
+  const handleRightClick = useCallback(
+    (ev: PIXI.InteractionEvent) => {
+      if (rootStore.pianoRollStore.mouseMode === "selection") {
+        const e = ev.data.originalEvent as MouseEvent
+        ev.stopPropagation()
+        onContextMenu(e)
+      }
+    },
+    [rootStore, onContextMenu]
+  )
 
   return (
     <>

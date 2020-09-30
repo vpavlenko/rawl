@@ -114,20 +114,21 @@ export const PianoRollToolbar: FC = () => {
     (value: number) => setTrackPan(stores)(trackId, value),
     [stores, trackId]
   )
-  const onClickPencil = useCallback(() => (s.mouseMode = "pencil"), [])
-  const onClickSelection = useCallback(() => (s.mouseMode = "selection"), [])
-  const onClickAutoScroll = useCallback(
-    () => (s.autoScroll = !s.autoScroll),
-    []
+  const onClickPencil = useCallback(() => (s.mouseMode = "pencil"), [s])
+  const onClickSelection = useCallback(() => (s.mouseMode = "selection"), [s])
+  const onClickAutoScroll = useCallback(() => (s.autoScroll = !s.autoScroll), [
+    s,
+  ])
+  const onSelectQuantize = useCallback(
+    (denominator: number) => {
+      stores.services.quantizer.denominator = denominator
+      s.quantize = denominator
+    },
+    [stores, s]
   )
-  const onSelectQuantize = useCallback((denominator: number) => {
-    stores.services.quantizer.denominator = denominator
-    s.quantize = denominator
-  }, [])
-  const onClickNavBack = useCallback(
-    () => (rootViewStore.openDrawer = true),
-    []
-  )
+  const onClickNavBack = useCallback(() => (rootViewStore.openDrawer = true), [
+    rootViewStore,
+  ])
   const onClickInstrument = useCallback(() => {
     if (track === undefined) {
       return
@@ -138,7 +139,7 @@ export const PianoRollToolbar: FC = () => {
       programNumber: programNumber ?? 0,
     }
     s.openInstrumentBrowser = true
-  }, [])
+  }, [track, s])
 
   const classes = useStyles({})
 

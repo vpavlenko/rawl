@@ -92,16 +92,28 @@ const PianoRollWrapper: FC<PianoRollWrapperProps> = ({ size }) => {
         s.scrollLeft = x
       }
     }
-  }, [autoScroll, isPlaying, scaleX, scrollLeft, playerPosition, size])
+  }, [
+    autoScroll,
+    isPlaying,
+    scaleX,
+    scrollLeft,
+    playerPosition,
+    size,
+    transform,
+    s,
+  ])
 
-  const setScrollLeft = useCallback((v) => (s.scrollLeft = v), [scrollLeft])
-  const setScrollTop = useCallback((v) => (s.scrollTop = v), [scrollTop])
-  const onClickScaleUp = useCallback(() => (s.scaleX = scaleX + 0.1), [scaleX])
+  const setScrollLeft = useCallback((v) => (s.scrollLeft = v), [s])
+  const setScrollTop = useCallback((v) => (s.scrollTop = v), [s])
+  const onClickScaleUp = useCallback(() => (s.scaleX = scaleX + 0.1), [
+    scaleX,
+    s,
+  ])
   const onClickScaleDown = useCallback(
     () => (s.scaleX = Math.max(0.05, scaleX - 0.1)),
-    [scaleX]
+    [scaleX, s]
   )
-  const onClickScaleReset = useCallback(() => (s.scaleX = 1), [scaleX])
+  const onClickScaleReset = useCallback(() => (s.scaleX = 1), [s])
 
   const startTick = scrollLeft / transform.pixelsPerTick
   const widthTick = transform.getTicks(size.width)

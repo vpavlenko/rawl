@@ -86,6 +86,14 @@ export const HelpDialog: FC = () => {
           hotKeys={[["↑"], ["↓"]]}
           text={localized("move-selection", "Move selection")}
         />
+        <HotKey hotKeys={[["Cmd", "Z"]]} text={localized("undo", "Undo")} />
+        <HotKey
+          hotKeys={[
+            ["Cmd", "Y"],
+            ["Cmd", "Shift", "Z"],
+          ]}
+          text={localized("redo", "Redo")}
+        />
         <HotKey
           hotKeys={[["Cmd", "C"]]}
           text={localized("copy-selection", "Copy Selection")}

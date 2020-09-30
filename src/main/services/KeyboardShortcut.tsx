@@ -40,7 +40,11 @@ export const KeyboardShortcut: FC = () => {
         }
         case "KeyZ": {
           if (e.ctrlKey || e.metaKey) {
-            rootStore.undo()
+            if (e.shiftKey) {
+              rootStore.redo()
+            } else {
+              rootStore.undo()
+            }
           }
           break
         }

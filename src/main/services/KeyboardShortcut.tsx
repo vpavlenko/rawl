@@ -91,11 +91,13 @@ export const KeyboardShortcut: FC = () => {
     document.onpaste = () => {
       pasteSelection(rootStore)()
     }
+    document.oncontextmenu = (e) => e.preventDefault()
     return () => {
       document.onkeydown = null
       document.oncut = null
       document.oncopy = null
       document.onpaste = null
+      document.oncontextmenu = null
     }
   })
 

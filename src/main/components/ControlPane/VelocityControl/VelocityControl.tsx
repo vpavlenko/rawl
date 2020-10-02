@@ -9,6 +9,7 @@ import { GraphAxis } from "../Graph/GraphAxis"
 import styled from "styled-components"
 import { Stage, Container } from "@inlet/react-pixi"
 import Color from "color"
+import { observeDrag } from "../../PianoRoll/MouseHandler/observeDrag"
 
 export interface PianoVelocityControlProps {
   width: number
@@ -50,17 +51,9 @@ const PianoVelocityControl: FC<PianoVelocityControlProps> = ({
 
       changeVelocity(noteIds, calcValue(e))
 
-      const onMouseMove = (e: MouseEvent) => {
-        changeVelocity(noteIds, calcValue(e))
-      }
-
-      const onMouseUp = () => {
-        document.removeEventListener("mousemove", onMouseMove)
-        document.removeEventListener("mouseup", onMouseUp)
-      }
-
-      document.addEventListener("mousemove", onMouseMove)
-      document.addEventListener("mouseup", onMouseUp)
+      observeDrag({
+        onMouseMove: (e) => changeVelocity(noteIds, calcValue(e)),
+      })
     },
     [height]
   )

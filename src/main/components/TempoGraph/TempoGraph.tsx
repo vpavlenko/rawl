@@ -30,6 +30,7 @@ import { withSize } from "react-sizeme"
 import { HorizontalLines } from "./HorizontalLines"
 import { TempoGraphAxis } from "./TempoGraphAxis"
 import styled from "styled-components"
+import { observeDrag } from "../PianoRoll/MouseHandler/observeDrag"
 
 type DisplayEvent = TrackEvent & SetTempoEvent
 
@@ -144,18 +145,12 @@ const _TempoGraph: FC<TempoGraphProps> = ({ size }) => {
     const bpm = uSecPerBeatToBPM(event.microsecondsPerBeat)
     const startY = e.nativeEvent.clientY
 
-    function onMouseMove(e: MouseEvent) {
-      const delta = transform.getDeltaBPM(e.clientY - startY)
-      changeTempo(event.id, bpmToUSecPerBeat(bpm + delta))
-    }
-
-    function onMouseUp() {
-      document.removeEventListener("mousemove", onMouseMove)
-      document.removeEventListener("mouseup", onMouseUp)
-    }
-
-    document.addEventListener("mousemove", onMouseMove)
-    document.addEventListener("mouseup", onMouseUp)
+    observeDrag({
+      onMouseMove: (e) => {
+        const delta = transform.getDeltaBPM(e.clientY - startY)
+        changeTempo(event.id, bpmToUSecPerBeat(bpm + delta))
+      },
+    })
   }
 
   function onWheelGraph(e: StageMouseEvent<WheelEvent, TempoGraphItem>) {

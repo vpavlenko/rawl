@@ -15,15 +15,19 @@ export class WindowMessenger implements Messenger {
   }
 
   on(type: string, handler: (e: any) => void) {
-    window.addEventListener("message", (e) => {
-      try {
-        const json = e.data
-        if (json.type === type) {
-          handler(json.payload)
+    window.addEventListener(
+      "message",
+      (e) => {
+        try {
+          const json = e.data
+          if (json.type === type) {
+            handler(json.payload)
+          }
+        } catch (e) {
+          console.error(e.message)
         }
-      } catch (e) {
-        console.error(e.message)
-      }
-    })
+      },
+      false
+    )
   }
 }

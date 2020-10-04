@@ -31,6 +31,7 @@ import Track, { TrackEvent, isNoteEvent } from "common/track"
 import { Theme } from "common/theme/Theme"
 import { Measure } from "common/measure/Measure"
 import { Container } from "@inlet/react-pixi"
+import { observeDrag } from "../PianoRoll/MouseHandler/observeDrag"
 
 interface ArrangeTrackProps {
   events: TrackEvent[]
@@ -213,18 +214,10 @@ export const ArrangeView: FC<ArrangeViewProps> = ({
       (fn) => (mouseUp = fn)
     )
 
-    function onMouseMove(e: MouseEvent) {
-      mouseMove(e)
-    }
-
-    function onMouseUp(e: MouseEvent) {
-      mouseUp(e)
-      document.removeEventListener("mousemove", onMouseMove)
-      document.removeEventListener("mouseup", onMouseUp)
-    }
-
-    document.addEventListener("mousemove", onMouseMove)
-    document.addEventListener("mouseup", onMouseUp)
+    observeDrag({
+      onMouseMove: (e) => mouseMove(e),
+      onMouseUp: (e) => mouseUp(e),
+    })
   }
 
   function handleMiddleClick(e: React.MouseEvent) {
@@ -233,20 +226,14 @@ export const ArrangeView: FC<ArrangeViewProps> = ({
     }
     const startPos = createPoint(e.nativeEvent)
 
-    function onMouseMove(e: MouseEvent) {
-      const pos = createPoint(e)
-      const delta = pointSub(pos, startPos)
-      setScrollLeft(Math.max(0, scrollLeft - delta.x))
-      setScrollTop(Math.max(0, scrollTop - delta.y))
-    }
-
-    function onMouseUp(e: MouseEvent) {
-      document.removeEventListener("mousemove", onMouseMove)
-      document.removeEventListener("mouseup", onMouseUp)
-    }
-
-    document.addEventListener("mousemove", onMouseMove)
-    document.addEventListener("mouseup", onMouseUp)
+    observeDrag({
+      onMouseMove(e) {
+        const pos = createPoint(e)
+        const delta = pointSub(pos, startPos)
+        setScrollLeft(Math.max(0, scrollLeft - delta.x))
+        setScrollTop(Math.max(0, scrollTop - delta.y))
+      },
+    })
   }
 
   function handleRightClick(

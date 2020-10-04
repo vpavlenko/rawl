@@ -19,6 +19,7 @@ import SynthOutput, { Message } from "../../main/services/SynthOutput"
 import { computed, observable } from "mobx"
 import throttle from "lodash/throttle"
 import { pitchBendMidiEvent } from "../midi/MidiEvent"
+import { AdaptiveTimer } from "./AdaptiveTimer"
 
 function firstByte(eventType: string, channel: number): number {
   return (MIDIChannelEvents[eventType] << 4) + channel
@@ -52,7 +53,10 @@ export default class Player {
   private _timebase: number
   private _trackMute: TrackMute
   private _latency: number = 100
-  private _timer?: NodeJS.Timeout
+  private _timer = new AdaptiveTimer(
+    (timestamp) => this._onTimer(timestamp),
+    TIMER_INTERVAL
+  )
   @observable private _currentTick = 0
   @observable private _isPlaying = false
 
@@ -83,11 +87,7 @@ export default class Player {
     )
     this._isPlaying = true
     this._output.activate()
-
-    if (this._timer !== undefined) {
-      clearInterval(this._timer)
-    }
-    this._timer = setInterval(() => this._onTimer(), TIMER_INTERVAL)
+    this._timer.start()
   }
 
   set position(tick: number) {
@@ -149,12 +149,8 @@ export default class Player {
   stop() {
     this._scheduler = null
     this.allSoundsOff()
-    this.prevTimestamp = null
     this._isPlaying = false
-
-    if (this._timer) {
-      clearInterval(this._timer)
-    }
+    this._timer.stop()
   }
 
   reset() {
@@ -232,22 +228,12 @@ export default class Player {
     }
   }, 50)
 
-  private prevTimestamp: number | null = null
-
-  private _onTimer() {
+  private _onTimer(timestamp: number) {
     if (this._scheduler === null || this._song === null) {
       return
     }
 
-    const timestamp = window.performance.now()
     const events = this._scheduler.readNextEvents(this._currentTempo, timestamp)
-
-    if (this.prevTimestamp !== null) {
-      const jitter = timestamp - this.prevTimestamp - TIMER_INTERVAL
-      if (jitter / TIMER_INTERVAL > 2) {
-        console.warn(`timer have big jitter: ${jitter}`)
-      }
-    }
 
     // channel イベントを MIDI Output に送信
     const messages = events
@@ -292,7 +278,5 @@ export default class Player {
     }
 
     this.syncPosition()
-
-    this.prevTimestamp = timestamp
   }
 }

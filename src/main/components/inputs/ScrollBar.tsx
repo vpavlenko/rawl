@@ -5,6 +5,7 @@ import { pointSub, IPoint, ISize } from "common/geometry"
 
 import "./ScrollBar.css"
 import { ArrowDropUp } from "@material-ui/icons"
+import { observeDrag } from "../PianoRoll/MouseHandler/observeDrag"
 
 export const BAR_WIDTH = 17
 const BUTTON_SIZE = 15
@@ -90,21 +91,15 @@ export const ScrollBar: FC<ScrollBarProps> = ({
     if (className === "thumb") {
       const startValue = scrollOffset
 
-      const onGlobalMouseMove = (e: MouseEvent) => {
-        const p = isVertical ? "y" : "x"
-        const delta = pointSub(getPoint(e), startPos)[p]
-        const scale = maxOffset / (maxLength - thumbLength) // 移動量とスクロール量の補正値
-        const value = startValue + delta * scale
-        onScroll2(value)
-      }
-
-      const onGlobalMouseUp = () => {
-        document.removeEventListener("mousemove", onGlobalMouseMove)
-        document.removeEventListener("mouseup", onGlobalMouseUp)
-      }
-
-      document.addEventListener("mousemove", onGlobalMouseMove)
-      document.addEventListener("mouseup", onGlobalMouseUp)
+      observeDrag({
+        onMouseMove: (e) => {
+          const p = isVertical ? "y" : "x"
+          const delta = pointSub(getPoint(e), startPos)[p]
+          const scale = maxOffset / (maxLength - thumbLength) // 移動量とスクロール量の補正値
+          const value = startValue + delta * scale
+          onScroll2(value)
+        },
+      })
     } else {
       const currentTarget = e.target
       const delta = scrollAmountOfElement(className, SCROLL_BASE_AMOUNT)
@@ -145,20 +140,16 @@ export const ScrollBar: FC<ScrollBarProps> = ({
 
       startLongPressTimer(delta)
 
-      const onGlobalMouseMove = (e: MouseEvent) => {
-        if (currentTarget !== e.target) {
+      observeDrag({
+        onMouseMove: (e) => {
+          if (currentTarget !== e.target) {
+            stopLongPressTimer()
+          }
+        },
+        onMouseUp: () => {
           stopLongPressTimer()
-        }
-      }
-
-      const onGlobalMouseUp = (e: MouseEvent) => {
-        stopLongPressTimer()
-        document.removeEventListener("mousemove", onGlobalMouseMove)
-        document.removeEventListener("mouseup", onGlobalMouseUp)
-      }
-
-      document.addEventListener("mousemove", onGlobalMouseMove)
-      document.addEventListener("mouseup", onGlobalMouseUp)
+        },
+      })
     }
   }
 

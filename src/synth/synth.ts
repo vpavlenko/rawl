@@ -1,9 +1,9 @@
 import { Synthesizer, MidiMessageHandler } from "sf2synth/bin/synth"
 import { WindowMessenger } from "common/messenger/messenger"
+import { AdaptiveTimer } from "common/player/AdaptiveTimer"
+import { Message } from "main/services/SynthOutput"
 
-import "./synth.css"
-
-type Message = number[]
+type MIDIMessage = number[]
 
 const AudioContext = window.AudioContext || window.webkitAudioContext
 
@@ -25,8 +25,10 @@ export interface LoadSoundFontEvent {
   }
 }
 
+const TIMER_INTERVAL = 1 / 50
+
 export default class SynthController {
-  private eventsBuffer: any[] = []
+  private eventsBuffer: Message[] = []
 
   // 送信元とのタイムスタンプの差
   private timestampOffset = 0
@@ -36,6 +38,7 @@ export default class SynthController {
   private output: AudioNode
   private synth: Synthesizer
   private messenger: WindowMessenger
+  private timer = new AdaptiveTimer(() => this.onTimer(), TIMER_INTERVAL)
 
   constructor() {
     const ctx = new AudioContext()
@@ -49,7 +52,7 @@ export default class SynthController {
     this.handler.listener = this.synth
 
     this.setupRecorder()
-    this.startTimer()
+    this.timer.start()
     this.bindMessenger()
   }
 
@@ -73,7 +76,13 @@ export default class SynthController {
 
   private stopRecording() {}
 
-  private onMidi({ events, timestamp }: { events: any[]; timestamp: number }) {
+  private onMidi({
+    events,
+    timestamp,
+  }: {
+    events: Message[]
+    timestamp: number
+  }) {
     this.eventsBuffer = [...this.eventsBuffer, ...events]
     this.timestampOffset = window.performance.now() - timestamp
   }
@@ -98,14 +107,12 @@ export default class SynthController {
     }
   }
 
-  private startTimer() {
-    this.onTimer()
-  }
-
   private onTimer() {
+    const now = window.performance.now()
+
     // 再生時刻が現在より過去なら再生して削除
     const eventsToSend = this.eventsBuffer.filter(({ message, timestamp }) => {
-      const delay = timestamp - window.performance.now() + this.timestampOffset
+      const delay = timestamp - now + this.timestampOffset
       return delay <= 0
     })
 
@@ -124,18 +131,16 @@ export default class SynthController {
     eventsToSend.forEach(({ message }) =>
       this.handler.processMidiMessage(message)
     )
-
-    requestAnimationFrame(() => this.onTimer())
   }
 }
 
 /// メッセージがチャンネルイベントならチャンネルを、そうでなければ -1 を返す
-const getMessageChannel = (message: Message) => {
+const getMessageChannel = (message: MIDIMessage) => {
   const isChannelEvent = (message[0] & 0xf0) !== 0xf0
   return isChannelEvent ? message[0] & 0x0f : -1
 }
 
-const isMessageAllSoundOff = (message: Message) => {
+const isMessageAllSoundOff = (message: MIDIMessage) => {
   const isControlChange = (message[0] & 0xf0) === 0xb0
   if (isControlChange) {
     const isAllSoundOff = message[1] === 0x78

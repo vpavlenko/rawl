@@ -7,6 +7,7 @@ import {
   containsPoint as rectContainsPoint,
   intersects as rectIntersects,
 } from "common/geometry"
+import { observeDrag } from "../PianoRoll/MouseHandler/observeDrag"
 
 export interface StageMouseEvent<E, ItemType> {
   nativeEvent: E
@@ -107,34 +108,30 @@ function Stage<ItemType extends Item>({
       rectContainsPoint(item.bounds, startPos)
     )
 
-    const onMouseMove = (e: MouseEvent) => {
-      e.preventDefault()
-      const local = { x: e.clientX - left, y: e.clientY - top }
-      _onMouseMove({
-        nativeEvent: e,
-        item: clickedItems[0],
-        items: clickedItems,
-        local,
-      })
-    }
+    observeDrag({
+      onMouseMove: (e) => {
+        e.preventDefault()
+        const local = { x: e.clientX - left, y: e.clientY - top }
+        _onMouseMove({
+          nativeEvent: e,
+          item: clickedItems[0],
+          items: clickedItems,
+          local,
+        })
+      },
+      onMouseUp: (e) => {
+        e.preventDefault()
 
-    const onMouseUp = (e: MouseEvent) => {
-      e.preventDefault()
-      document.removeEventListener("mousemove", onMouseMove)
-      document.removeEventListener("mouseup", onMouseUp)
-
-      const local = { x: e.clientX - left, y: e.clientY - top }
-      _onMouseUp({
-        nativeEvent: e,
-        item: clickedItems[0],
-        items: clickedItems,
-        local,
-      })
-      isMouseDown = false
-    }
-
-    document.addEventListener("mousemove", onMouseMove)
-    document.addEventListener("mouseup", onMouseUp)
+        const local = { x: e.clientX - left, y: e.clientY - top }
+        _onMouseUp({
+          nativeEvent: e,
+          item: clickedItems[0],
+          items: clickedItems,
+          local,
+        })
+        isMouseDown = false
+      },
+    })
 
     _onMouseDown({
       nativeEvent: e.nativeEvent,

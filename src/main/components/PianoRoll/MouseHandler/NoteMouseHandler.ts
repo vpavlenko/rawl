@@ -1,6 +1,7 @@
 import PianoRollStore from "main/stores/PianoRollStore"
 import RootStore from "main/stores/RootStore"
 import { PianoNotesMouseEvent } from "../PianoRollStage"
+import { observeDrag } from "./observeDrag"
 
 export type MouseAction = (e: PianoNotesMouseEvent) => void
 
@@ -81,17 +82,11 @@ const dragScrollAction = (pianoRollStore: PianoRollStore): MouseGesture => (
   onMouseDown
 ) => {
   onMouseDown(() => {
-    const onGlobalMouseMove = (e: MouseEvent) => {
-      pianoRollStore.scrollBy(e.movementX, e.movementY)
-    }
-
-    const onGlobalMouseUp = () => {
-      document.removeEventListener("mousemove", onGlobalMouseMove)
-      document.removeEventListener("mouseup", onGlobalMouseUp)
-    }
-
-    document.addEventListener("mousemove", onGlobalMouseMove)
-    document.addEventListener("mouseup", onGlobalMouseUp)
+    observeDrag({
+      onMouseMove: (e: MouseEvent) => {
+        pianoRollStore.scrollBy(e.movementX, e.movementY)
+      },
+    })
   })
 }
 

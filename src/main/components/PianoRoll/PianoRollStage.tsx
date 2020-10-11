@@ -6,7 +6,7 @@ import PencilMouseHandler from "./MouseHandler/PencilMouseHandler"
 import SelectionMouseHandler from "./MouseHandler/SelectionMouseHandler"
 import { NoteCoordTransform } from "common/transform"
 import { useObserver } from "mobx-react-lite"
-import { useStores } from "main/hooks/useStores"
+import { StoreContext, useStores } from "main/hooks/useStores"
 import PianoLines from "main/components/PianoRoll/PianoLines"
 import PianoGrid from "main/components/PianoRoll/PianoGrid"
 import PianoNotes from "main/components/PianoRoll/PianoNotes/PianoNotes"
@@ -256,59 +256,61 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
         options={{ transparent: true, autoDensity: true }}
         onContextMenu={useCallback((e) => e.preventDefault(), [])}
       >
-        <Container position={new Point(theme.keyWidth, 0)}>
-          <Container position={new Point(0, -scrollTop + theme.rulerHeight)}>
-            <PianoLines
-              width={width}
-              pixelsPerKey={transform.pixelsPerKey}
-              numberOfKeys={transform.numberOfKeys}
-            />
-            <Container
-              position={new Point(-scrollLeft, 0)}
-              interactive={true}
-              hitArea={new Rectangle(0, 0, 100000, 100000)} // catch all hits
-              mousedown={handleMouseDown}
-              mousemove={handleMouseMove}
-              mouseup={handleMouseUp}
-              rightclick={handleRightClick}
-            >
-              <PianoGrid height={contentHeight} beats={mappedBeats} />
-              <PianoNotes
-                notes={keyedNotes}
-                cursor={notesCursor}
-                isDrumMode={isRhythmTrack}
-                onClickNote={onClickNote}
-                onDragNote={onDragNote}
-                onDoubleClickNote={onDoubleClickNote}
+        <StoreContext.Provider value={{ rootStore }}>
+          <Container position={new Point(theme.keyWidth, 0)}>
+            <Container position={new Point(0, -scrollTop + theme.rulerHeight)}>
+              <PianoLines
+                width={width}
+                pixelsPerKey={transform.pixelsPerKey}
+                numberOfKeys={transform.numberOfKeys}
               />
-              {selection.enabled && (
-                <PianoSelection
-                  bounds={selection.getBounds(transform)}
-                  onRightClick={onRightClickSelection}
+              <Container
+                position={new Point(-scrollLeft, 0)}
+                interactive={true}
+                hitArea={new Rectangle(0, 0, 100000, 100000)} // catch all hits
+                mousedown={handleMouseDown}
+                mousemove={handleMouseMove}
+                mouseup={handleMouseUp}
+                rightclick={handleRightClick}
+              >
+                <PianoGrid height={contentHeight} beats={mappedBeats} />
+                <PianoNotes
+                  notes={keyedNotes}
+                  cursor={notesCursor}
+                  isDrumMode={isRhythmTrack}
+                  onClickNote={onClickNote}
+                  onDragNote={onDragNote}
+                  onDoubleClickNote={onDoubleClickNote}
                 />
-              )}
-              <Container x={cursorPositionX}>
-                <PianoCursor height={contentHeight} />
+                {selection.enabled && (
+                  <PianoSelection
+                    bounds={selection.getBounds(transform)}
+                    onRightClick={onRightClickSelection}
+                  />
+                )}
+                <Container x={cursorPositionX}>
+                  <PianoCursor height={contentHeight} />
+                </Container>
               </Container>
             </Container>
+            <PianoRuler
+              width={width}
+              beats={mappedBeats}
+              loop={loop}
+              onMouseDown={onMouseDownRuler}
+              scrollLeft={scrollLeft}
+              pixelsPerTick={transform.pixelsPerTick}
+            />
           </Container>
-          <PianoRuler
-            width={width}
-            beats={mappedBeats}
-            loop={loop}
-            onMouseDown={onMouseDownRuler}
-            scrollLeft={scrollLeft}
-            pixelsPerTick={transform.pixelsPerTick}
-          />
-        </Container>
-        <Container position={new Point(0, -scrollTop + theme.rulerHeight)}>
-          <PianoKeys
-            keyHeight={transform.pixelsPerKey}
-            numberOfKeys={transform.numberOfKeys}
-            onClickKey={onClickKey}
-          />
-        </Container>
-        <LeftTopSpace width={width} />
+          <Container position={new Point(0, -scrollTop + theme.rulerHeight)}>
+            <PianoKeys
+              keyHeight={transform.pixelsPerKey}
+              numberOfKeys={transform.numberOfKeys}
+              onClickKey={onClickKey}
+            />
+          </Container>
+          <LeftTopSpace width={width} />
+        </StoreContext.Provider>
       </Stage>
       <PianoSelectionContextMenu {...menuProps} />
     </>

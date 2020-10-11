@@ -6,6 +6,8 @@ import { Graphics } from "@inlet/react-pixi"
 import isEqual from "lodash/isEqual"
 import { NoteEvent } from "src/common/track"
 import { NoteCoordTransform } from "src/common/transform"
+import { useStores } from "main/hooks/useStores"
+import { removeEvent } from "main/actions"
 
 export interface PianoNoteMouseData {
   note: NoteEvent
@@ -189,6 +191,7 @@ export interface PianoNoteClickEvent {
 
 const _PianoNote: FC<PianoNoteProps> = (props) => {
   const { item } = props
+  const { rootStore } = useStores()
 
   const render = (g: PIXIGraphics) => {
     const alpha = item.velocity / 127
@@ -226,6 +229,12 @@ const _PianoNote: FC<PianoNoteProps> = (props) => {
     props.onDoubleClick
   )
 
+  const rightclick = useCallback((e: PIXI.InteractionEvent) => {
+    if (rootStore.pianoRollStore.mouseMode == "pencil") {
+      removeEvent(rootStore)(item.id)
+    }
+  }, [rootStore, item.id]) 
+
   return (
     <Graphics
       draw={props.isDrum ? renderDrumNote : render}
@@ -234,6 +243,7 @@ const _PianoNote: FC<PianoNoteProps> = (props) => {
       interactive={true}
       hitArea={new Rectangle(0, 0, item.width, item.height)}
       {...handleMouse}
+      rightclick={rightclick}
     />
   )
 }

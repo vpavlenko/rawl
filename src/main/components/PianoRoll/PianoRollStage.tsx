@@ -34,6 +34,7 @@ import {
   PianoNoteMouseEvent,
   PianoNoteItem,
   PianoNoteClickEvent,
+  isPianoNote,
 } from "main/components/PianoRoll/PianoNotes/PianoNote"
 import { useRecycle } from "main/hooks/useRecycle"
 import {
@@ -114,11 +115,20 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
     }
   }
 
-  const handleMouseDown = (e: PIXI.InteractionEvent) =>
+  const handleMouseDown = (e: PIXI.InteractionEvent) => {
     mouseHandler.onMouseDown(extendEvent(e))
+  }
 
-  const handleMouseMove = (e: PIXI.InteractionEvent) =>
+  const handleMouseMove = (e: PIXI.InteractionEvent) => {
+    if (
+      mouseMode === "pencil" &&
+      e.data.buttons === 2 &&
+      isPianoNote(e.target)
+    ) {
+      removeEvent(rootStore)(e.target.item.id)
+    }
     mouseHandler.onMouseMove(extendEvent(e))
+  }
 
   const handleMouseUp = (e: PIXI.InteractionEvent) =>
     mouseHandler.onMouseUp(extendEvent(e))

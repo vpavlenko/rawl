@@ -1,11 +1,12 @@
-import React, { useCallback, useRef, FC } from "react"
+import React, { useCallback, FC } from "react"
 import { Graphics as PIXIGraphics, Rectangle } from "pixi.js"
-import { IRect, IPoint } from "src/common/geometry"
+import { IRect, IPoint, pointSub, pointAdd } from "../../../../common/geometry"
 import { useState } from "react"
 import { Graphics } from "@inlet/react-pixi"
 import isEqual from "lodash/isEqual"
 import { NoteEvent } from "src/common/track"
 import { NoteCoordTransform } from "src/common/transform"
+import { observeDrag } from "../MouseHandler/observeDrag"
 
 export interface PianoNoteMouseData {
   note: NoteEvent
@@ -48,7 +49,7 @@ const useGestures = (
   onDoubleClick: (e: PIXI.InteractionEvent) => void
 ) => {
   const [entered, setEntered] = useState(false)
-  const [dragInfo, setDragInfo] = useState<DragInfo | null>(null)
+  const [dragging, setDragging] = useState<boolean>(false)
   const [lastMouseDownTime, setLastMouseDownTime] = useState(0)
   const [cursor, setCursor] = useState("default")
 
@@ -56,7 +57,7 @@ const useGestures = (
     e.stopPropagation()
     e.data.originalEvent.stopImmediatePropagation()
 
-    if (dragInfo !== null) {
+    if (dragging) {
       return
     }
 
@@ -74,38 +75,41 @@ const useGestures = (
       y: offset.y - item.y,
     }
     const position = getPositionType(local.x, item.width)
-    setDragInfo({
-      start: offset,
-      position,
-      item,
-    })
+    setDragging(true)
     setLastMouseDownTime(e.data.originalEvent.timeStamp)
-  }
-  const mouseup = useCallback(() => {
-    setDragInfo(null)
-  }, [setDragInfo])
-  const endDragging = useCallback(() => setDragInfo(null), [setDragInfo])
 
-  const ref = useRef<PIXIGraphics>(null)
-
-  const extendEvent = (
-    e: PIXI.InteractionEvent,
-    dragInfo: DragInfo
-  ): PianoNoteMouseEvent => {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const offset = e.data.getLocalPosition(ref.current!.parent)
-    return {
-      nativeEvent: e,
-      dragItem: dragInfo.item,
-      dragStart: dragInfo.start,
-      offset,
-      position: dragInfo.position,
+    if (!(e.data.originalEvent instanceof MouseEvent)) {
+      return
     }
+    const startClientPos = {
+      x: e.data.originalEvent.clientX,
+      y: e.data.originalEvent.clientY,
+    }
+
+    observeDrag({
+      onMouseMove: (e) => {
+        const clientPos = { x: e.clientX, y: e.clientY }
+        const delta = pointSub(clientPos, startClientPos)
+        const newOffset = pointAdd(delta, offset)
+        const ev = {
+          nativeEvent: e,
+          dragItem: item,
+          dragStart: offset,
+          offset: newOffset,
+          position: position,
+        }
+        onMouseDrag(ev)
+        e.stopPropagation()
+      },
+      onMouseUp: () => {
+        setDragging(false)
+      },
+    })
   }
 
   const mousemove = useCallback(
     (e: PIXI.InteractionEvent) => {
-      if (!entered && dragInfo === null) {
+      if (!entered && dragging === null) {
         return
       }
 
@@ -125,28 +129,18 @@ const useGestures = (
           setCursor(newCursor)
         }
       }
-
-      if (dragInfo !== null) {
-        const ev = extendEvent(e, dragInfo)
-        onMouseDrag(ev)
-        e.stopPropagation()
-        e.data.originalEvent.stopImmediatePropagation()
-      }
     },
-    [dragInfo, entered, cursor, setCursor, onMouseDrag, extendEvent]
+    [dragging, entered, cursor, setCursor, onMouseDrag]
   )
 
   const mouseover = useCallback(() => setEntered(true), [setEntered])
   const mouseout = useCallback(() => setEntered(false), [setEntered])
 
   return {
-    ref,
     mouseover,
     mouseout,
     mousedown,
     mousemove,
-    mouseup,
-    mouseupoutside: endDragging,
     cursor,
   }
 }
@@ -163,7 +157,7 @@ const mousePositionToCursor = (position: MousePositionType) => {
 }
 
 export interface PianoNoteMouseEvent {
-  nativeEvent: PIXI.InteractionEvent
+  nativeEvent: MouseEvent
   // ドラッグ開始時の item
   dragItem: PianoNoteItem
   position: MousePositionType

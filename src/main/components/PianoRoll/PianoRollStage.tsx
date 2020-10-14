@@ -147,10 +147,6 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
         id: e.id,
         velocity: e.velocity,
         isSelected,
-        mouseData: {
-          note: e,
-          transform,
-        },
       }
     }
   )
@@ -174,15 +170,13 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
 
   const onDragNote = useCallback(
     (e: PianoNoteMouseEvent) => {
-      const { note, transform } = e.dragItem.mouseData
       const tick = transform.getTicks(e.offset.x)
 
       switch (e.position) {
         case "center": {
-          const delta = pointSub(e.offset, e.dragStart)
-          const position = pointAdd(e.dragItem, delta)
+          const position = pointAdd(e.dragItem, e.delta)
           moveNote(rootStore)({
-            id: note.id,
+            id: e.dragItem.id,
             tick: transform.getTicks(position.x),
             noteNumber: Math.round(transform.getNoteNumber(position.y)),
             quantize: "round",
@@ -197,7 +191,7 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
           break
       }
     },
-    [rootStore]
+    [rootStore, transform]
   )
 
   const handleClick = useCallback(

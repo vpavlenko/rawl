@@ -8,18 +8,10 @@ import { NoteEvent } from "src/common/track"
 import { NoteCoordTransform } from "src/common/transform"
 import { observeDrag } from "../MouseHandler/observeDrag"
 
-export interface PianoNoteMouseData {
-  note: NoteEvent
-  transform: NoteCoordTransform
-}
-
 export type PianoNoteItem = IRect & {
   id: number
   velocity: number
   isSelected: boolean
-
-  // マウスイベントに必要な情報
-  mouseData: PianoNoteMouseData
 }
 
 export interface PianoNoteProps {
@@ -34,12 +26,6 @@ export interface PianoNoteProps {
 }
 
 export type MousePositionType = "left" | "center" | "right"
-
-interface DragInfo {
-  start: IPoint
-  position: MousePositionType
-  item: PianoNoteItem
-}
 
 const DOUBLE_CLICK_INTERVAL = 500
 
@@ -94,7 +80,7 @@ const useGestures = (
         const ev = {
           nativeEvent: e,
           dragItem: item,
-          dragStart: offset,
+          delta,
           offset: newOffset,
           position: position,
         }
@@ -162,7 +148,7 @@ export interface PianoNoteMouseEvent {
   dragItem: PianoNoteItem
   position: MousePositionType
   offset: IPoint
-  dragStart: IPoint
+  delta: IPoint
 }
 
 export interface PianoNoteClickEvent {

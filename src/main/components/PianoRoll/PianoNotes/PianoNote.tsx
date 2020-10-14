@@ -28,7 +28,6 @@ export interface PianoNoteProps {
   borderColor: number
   selectedColor: number
   selectedBorderColor: number
-  onClick: (e: PIXI.InteractionEvent) => void
   onMouseDrag: (e: PianoNoteMouseEvent) => void
   onDoubleClick: (e: PIXI.InteractionEvent) => void
 }
@@ -45,7 +44,6 @@ const DOUBLE_CLICK_INTERVAL = 500
 
 const useGestures = (
   item: PianoNoteItem,
-  onClick: (e: PIXI.InteractionEvent) => void,
   onMouseDrag: (e: PianoNoteMouseEvent) => void,
   onDoubleClick: (e: PIXI.InteractionEvent) => void
 ) => {
@@ -83,15 +81,9 @@ const useGestures = (
     })
     setLastMouseDownTime(e.data.originalEvent.timeStamp)
   }
-  const mouseup = useCallback(
-    (e: PIXI.InteractionEvent) => {
-      if (dragInfo !== null && lastMouseDownTime !== 0) {
-        onClick(e)
-      }
-      setDragInfo(null)
-    },
-    [dragInfo, setDragInfo, lastMouseDownTime]
-  )
+  const mouseup = useCallback(() => {
+    setDragInfo(null)
+  }, [setDragInfo])
   const endDragging = useCallback(() => setDragInfo(null), [setDragInfo])
 
   const ref = useRef<PIXIGraphics>(null)
@@ -224,12 +216,7 @@ const _PianoNote: FC<PianoNoteProps> = (props) => {
       .drawCircle(0, radius / 2, radius)
   }
 
-  const handleMouse = useGestures(
-    item,
-    props.onClick,
-    props.onMouseDrag,
-    props.onDoubleClick
-  )
+  const handleMouse = useGestures(item, props.onMouseDrag, props.onDoubleClick)
 
   const data = {
     item,
@@ -267,7 +254,6 @@ const areEqual = (props: PianoNoteProps, nextProps: PianoNoteProps) =>
   props.borderColor === nextProps.borderColor &&
   props.selectedColor === nextProps.selectedColor &&
   props.selectedBorderColor === nextProps.selectedBorderColor &&
-  props.onClick === nextProps.onClick &&
   props.onMouseDrag === nextProps.onMouseDrag &&
   props.onDoubleClick === nextProps.onDoubleClick
 

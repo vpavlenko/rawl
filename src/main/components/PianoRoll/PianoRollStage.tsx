@@ -200,7 +200,7 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
     [rootStore]
   )
 
-  const onClickNote = useCallback(
+  const handleClick = useCallback(
     (e: PIXI.InteractionEvent) => {
       if (isPianoNote(e.target)) {
         const { item } = e.target
@@ -293,6 +293,7 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
                 mousedown={handleMouseDown}
                 mousemove={handleMouseMove}
                 mouseup={handleMouseUp}
+                click={handleClick}
                 rightclick={handleRightClick}
               >
                 <PianoGrid height={contentHeight} beats={mappedBeats} />
@@ -300,7 +301,6 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
                   notes={keyedNotes}
                   cursor={notesCursor}
                   isDrumMode={isRhythmTrack}
-                  onClickNote={onClickNote}
                   onDragNote={onDragNote}
                   onDoubleClickNote={onDoubleClickNote}
                 />

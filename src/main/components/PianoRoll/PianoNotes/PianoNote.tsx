@@ -1,12 +1,9 @@
 import React, { useCallback, FC } from "react"
 import { Graphics as PIXIGraphics, Rectangle } from "pixi.js"
-import { IRect, IPoint, pointSub, pointAdd } from "../../../../common/geometry"
+import { IRect } from "../../../../common/geometry"
 import { useState } from "react"
 import { Graphics } from "@inlet/react-pixi"
 import isEqual from "lodash/isEqual"
-import { NoteEvent } from "src/common/track"
-import { NoteCoordTransform } from "src/common/transform"
-import { observeDrag } from "../MouseHandler/observeDrag"
 
 export type PianoNoteItem = IRect & {
   id: number
@@ -21,7 +18,6 @@ export interface PianoNoteProps {
   borderColor: number
   selectedColor: number
   selectedBorderColor: number
-  onMouseDrag: (e: PianoNoteMouseEvent) => void
   onDoubleClick: (e: PIXI.InteractionEvent) => void
 }
 
@@ -31,7 +27,6 @@ const DOUBLE_CLICK_INTERVAL = 500
 
 const useGestures = (
   item: PianoNoteItem,
-  onMouseDrag: (e: PianoNoteMouseEvent) => void,
   onDoubleClick: (e: PIXI.InteractionEvent) => void
 ) => {
   const [entered, setEntered] = useState(false)
@@ -40,9 +35,6 @@ const useGestures = (
   const [cursor, setCursor] = useState("default")
 
   const mousedown = (e: PIXI.InteractionEvent) => {
-    e.stopPropagation()
-    e.data.originalEvent.stopImmediatePropagation()
-
     if (dragging) {
       return
     }
@@ -52,45 +44,13 @@ const useGestures = (
       DOUBLE_CLICK_INTERVAL
     ) {
       onDoubleClick(e)
+      e.stopPropagation()
+      e.data.originalEvent.stopImmediatePropagation()
       return
     }
 
-    const offset = e.data.getLocalPosition(e.target.parent)
-    const local = {
-      x: offset.x - item.x,
-      y: offset.y - item.y,
-    }
-    const position = getPositionType(local.x, item.width)
     setDragging(true)
     setLastMouseDownTime(e.data.originalEvent.timeStamp)
-
-    if (!(e.data.originalEvent instanceof MouseEvent)) {
-      return
-    }
-    const startClientPos = {
-      x: e.data.originalEvent.clientX,
-      y: e.data.originalEvent.clientY,
-    }
-
-    observeDrag({
-      onMouseMove: (e) => {
-        const clientPos = { x: e.clientX, y: e.clientY }
-        const delta = pointSub(clientPos, startClientPos)
-        const newOffset = pointAdd(delta, offset)
-        const ev = {
-          nativeEvent: e,
-          dragItem: item,
-          delta,
-          offset: newOffset,
-          position: position,
-        }
-        onMouseDrag(ev)
-        e.stopPropagation()
-      },
-      onMouseUp: () => {
-        setDragging(false)
-      },
-    })
   }
 
   const mousemove = useCallback(
@@ -116,7 +76,7 @@ const useGestures = (
         }
       }
     },
-    [dragging, entered, cursor, setCursor, onMouseDrag]
+    [dragging, entered, cursor, setCursor]
   )
 
   const mouseover = useCallback(() => setEntered(true), [setEntered])
@@ -140,20 +100,6 @@ const mousePositionToCursor = (position: MousePositionType) => {
     case "right":
       return "e-resize"
   }
-}
-
-export interface PianoNoteMouseEvent {
-  nativeEvent: MouseEvent
-  // ドラッグ開始時の item
-  dragItem: PianoNoteItem
-  position: MousePositionType
-  offset: IPoint
-  delta: IPoint
-}
-
-export interface PianoNoteClickEvent {
-  nativeEvent: PIXI.InteractionEvent
-  item: PianoNoteItem
 }
 
 // fake class that is only used to refer additional property information for Graphics
@@ -196,7 +142,7 @@ const _PianoNote: FC<PianoNoteProps> = (props) => {
       .drawCircle(0, radius / 2, radius)
   }
 
-  const handleMouse = useGestures(item, props.onMouseDrag, props.onDoubleClick)
+  const handleMouse = useGestures(item, props.onDoubleClick)
 
   const data = {
     item,
@@ -216,7 +162,10 @@ const _PianoNote: FC<PianoNoteProps> = (props) => {
   )
 }
 
-function getPositionType(localX: number, width: number): MousePositionType {
+export const getPositionType = (
+  localX: number,
+  width: number
+): MousePositionType => {
   const edgeSize = Math.min(width / 3, 8)
   if (localX <= edgeSize) {
     return "left"
@@ -234,7 +183,6 @@ const areEqual = (props: PianoNoteProps, nextProps: PianoNoteProps) =>
   props.borderColor === nextProps.borderColor &&
   props.selectedColor === nextProps.selectedColor &&
   props.selectedBorderColor === nextProps.selectedBorderColor &&
-  props.onMouseDrag === nextProps.onMouseDrag &&
   props.onDoubleClick === nextProps.onDoubleClick
 
 export const PianoNote = React.memo(_PianoNote, areEqual)

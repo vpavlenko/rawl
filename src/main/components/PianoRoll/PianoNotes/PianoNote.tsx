@@ -6,8 +6,6 @@ import { Graphics } from "@inlet/react-pixi"
 import isEqual from "lodash/isEqual"
 import { NoteEvent } from "src/common/track"
 import { NoteCoordTransform } from "src/common/transform"
-import { useStores } from "main/hooks/useStores"
-import { removeEvent } from "main/actions"
 
 export interface PianoNoteMouseData {
   note: NoteEvent
@@ -30,9 +28,9 @@ export interface PianoNoteProps {
   borderColor: number
   selectedColor: number
   selectedBorderColor: number
-  onClick: (e: PianoNoteClickEvent) => void
+  onClick: (e: PIXI.InteractionEvent) => void
   onMouseDrag: (e: PianoNoteMouseEvent) => void
-  onDoubleClick: (e: PianoNoteClickEvent) => void
+  onDoubleClick: (e: PIXI.InteractionEvent) => void
 }
 
 export type MousePositionType = "left" | "center" | "right"
@@ -47,9 +45,9 @@ const DOUBLE_CLICK_INTERVAL = 500
 
 const useGestures = (
   item: PianoNoteItem,
-  onClick: (e: PianoNoteClickEvent) => void,
+  onClick: (e: PIXI.InteractionEvent) => void,
   onMouseDrag: (e: PianoNoteMouseEvent) => void,
-  onDoubleClick: (e: PianoNoteClickEvent) => void
+  onDoubleClick: (e: PIXI.InteractionEvent) => void
 ) => {
   const [entered, setEntered] = useState(false)
   const [dragInfo, setDragInfo] = useState<DragInfo | null>(null)
@@ -68,10 +66,7 @@ const useGestures = (
       e.data.originalEvent.timeStamp - lastMouseDownTime <
       DOUBLE_CLICK_INTERVAL
     ) {
-      onDoubleClick({
-        nativeEvent: e,
-        item,
-      })
+      onDoubleClick(e)
       return
     }
 
@@ -91,7 +86,7 @@ const useGestures = (
   const mouseup = useCallback(
     (e: PIXI.InteractionEvent) => {
       if (dragInfo !== null && lastMouseDownTime !== 0) {
-        onClick({ nativeEvent: e, item })
+        onClick(e)
       }
       setDragInfo(null)
     },
@@ -199,7 +194,6 @@ export const isPianoNote = (x: PIXI.DisplayObject): x is PianoGraphics =>
 
 const _PianoNote: FC<PianoNoteProps> = (props) => {
   const { item } = props
-  const { rootStore } = useStores()
 
   const render = (g: PIXIGraphics) => {
     const alpha = item.velocity / 127
@@ -237,15 +231,6 @@ const _PianoNote: FC<PianoNoteProps> = (props) => {
     props.onDoubleClick
   )
 
-  const rightclick = useCallback(
-    (e: PIXI.InteractionEvent) => {
-      if (rootStore.pianoRollStore.mouseMode == "pencil") {
-        removeEvent(rootStore)(item.id)
-      }
-    },
-    [rootStore, item.id]
-  )
-
   const data = {
     item,
   }
@@ -259,7 +244,6 @@ const _PianoNote: FC<PianoNoteProps> = (props) => {
       interactive={true}
       hitArea={new Rectangle(0, 0, item.width, item.height)}
       {...handleMouse}
-      rightclick={rightclick}
       {...data}
     />
   )

@@ -17,17 +17,10 @@ import { KeyedValue } from "main/hooks/recycleKeys"
 export interface PianoNotesProps {
   notes: KeyedValue<PianoNoteItem>[]
   cursor: string
-  onClickNote: (e: PianoNoteClickEvent) => void
+  onClickNote: (e: PIXI.InteractionEvent) => void
   onDragNote: (e: PianoNoteMouseEvent) => void
-  onDoubleClickNote: (e: PianoNoteClickEvent) => void
+  onDoubleClickNote: (e: PIXI.InteractionEvent) => void
   isDrumMode: boolean
-}
-
-export interface PianoNotesNoteMouseEvent extends PianoNoteMouseEvent {
-  note: NoteEvent
-  tick: number
-  noteNumber: number
-  transform: NoteCoordTransform
 }
 
 /**

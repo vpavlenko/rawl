@@ -201,15 +201,21 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
   )
 
   const onClickNote = useCallback(
-    (e: PianoNoteClickEvent) => {
-      previewNoteById(rootStore)(e.item.id)
+    (e: PIXI.InteractionEvent) => {
+      if (isPianoNote(e.target)) {
+        const { item } = e.target
+        previewNoteById(rootStore)(item.id)
+      }
     },
     [rootStore]
   )
 
   const onDoubleClickNote = useCallback(
-    (e: PianoNoteClickEvent) => {
-      removeEvent(rootStore)(e.item.id)
+    (e: PIXI.InteractionEvent) => {
+      if (isPianoNote(e.target)) {
+        const { item } = e.target
+        removeEvent(rootStore)(item.id)
+      }
     },
     [rootStore]
   )
@@ -248,6 +254,12 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
 
   const handleRightClick = useCallback(
     (ev: PIXI.InteractionEvent) => {
+      if (
+        isPianoNote(ev.target) &&
+        rootStore.pianoRollStore.mouseMode == "pencil"
+      ) {
+        removeEvent(rootStore)(ev.target.item.id)
+      }
       if (rootStore.pianoRollStore.mouseMode === "selection") {
         const e = ev.data.originalEvent as MouseEvent
         ev.stopPropagation()

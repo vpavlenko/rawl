@@ -17,11 +17,8 @@ import PianoKeys from "main/components/PianoRoll/PianoKeys"
 import { DisplayEvent } from "main/components/PianoRoll/PianoControlEvents"
 import { show as showEventEditor } from "components/EventEditor/EventEditor"
 import { createBeatsInRange } from "common/helpers/mapBeats"
-import { pointSub, pointAdd, IPoint } from "common/geometry"
+import { IPoint } from "common/geometry"
 import {
-  moveNote,
-  resizeNoteLeft,
-  resizeNoteRight,
   setPlayerPosition,
   previewNote,
   removeEvent,
@@ -31,9 +28,7 @@ import { filterEventsWithScroll } from "common/helpers/filterEventsWithScroll"
 import { isNoteEvent } from "common/track"
 import { LeftTopSpace } from "./LeftTopSpace"
 import {
-  PianoNoteMouseEvent,
   PianoNoteItem,
-  PianoNoteClickEvent,
   isPianoNote,
 } from "main/components/PianoRoll/PianoNotes/PianoNote"
 import { useRecycle } from "main/hooks/useRecycle"
@@ -41,12 +36,14 @@ import {
   useContextMenu,
   PianoSelectionContextMenu,
 } from "main/components/PianoRoll/PianoSelectionContextMenu"
+import { observeDoubleClick } from "./MouseHandler/observeDoubleClick"
 
 export interface PianoRollStageProps {
   width: number
 }
 
 export interface PianoNotesMouseEvent {
+  pixiEvent: PIXI.InteractionEvent
   nativeEvent: MouseEvent
   tick: number
   noteNumber: number
@@ -107,6 +104,7 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
       y: e.data.global.y - theme.rulerHeight + scrollTop,
     }
     return {
+      pixiEvent: e,
       nativeEvent: e.data.originalEvent as MouseEvent,
       local,
       tick: transform.getTicks(local.x),
@@ -116,6 +114,13 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
   }
 
   const handleMouseDown = (e: PIXI.InteractionEvent) => {
+    if (isPianoNote(e.target)) {
+      const { item } = e.target
+      observeDoubleClick(() => {
+        removeEvent(rootStore)(item.id)
+      })
+    }
+
     mouseHandler.onMouseDown(extendEvent(e))
   }
 
@@ -147,10 +152,6 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
         id: e.id,
         velocity: e.velocity,
         isSelected,
-        mouseData: {
-          note: e,
-          transform,
-        },
       }
     }
   )
@@ -167,52 +168,6 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
 
   const cursorPositionX = transform.getX(playerPosition)
   const contentHeight = transform.getMaxY()
-
-  const onDoubleClickMark = (group: DisplayEvent[]) => {
-    showEventEditor(group)
-  }
-
-  const onDragNote = useCallback(
-    (e: PianoNoteMouseEvent) => {
-      const { note, transform } = e.dragItem.mouseData
-      const tick = transform.getTicks(e.offset.x)
-
-      switch (e.position) {
-        case "center": {
-          const delta = pointSub(e.offset, e.dragStart)
-          const position = pointAdd(e.dragItem, delta)
-          moveNote(rootStore)({
-            id: note.id,
-            tick: transform.getTicks(position.x),
-            noteNumber: Math.round(transform.getNoteNumber(position.y)),
-            quantize: "round",
-          })
-          break
-        }
-        case "left":
-          resizeNoteLeft(rootStore)(e.dragItem.id, tick)
-          break
-        case "right":
-          resizeNoteRight(rootStore)(e.dragItem.id, tick)
-          break
-      }
-    },
-    [rootStore]
-  )
-
-  const onClickNote = useCallback(
-    (e: PianoNoteClickEvent) => {
-      previewNoteById(rootStore)(e.item.id)
-    },
-    [rootStore]
-  )
-
-  const onDoubleClickNote = useCallback(
-    (e: PianoNoteClickEvent) => {
-      removeEvent(rootStore)(e.item.id)
-    },
-    [rootStore]
-  )
 
   const onMouseDownRuler = useCallback(
     (e: TickEvent<MouseEvent>) => {
@@ -248,6 +203,12 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
 
   const handleRightClick = useCallback(
     (ev: PIXI.InteractionEvent) => {
+      if (
+        isPianoNote(ev.target) &&
+        rootStore.pianoRollStore.mouseMode == "pencil"
+      ) {
+        removeEvent(rootStore)(ev.target.item.id)
+      }
       if (rootStore.pianoRollStore.mouseMode === "selection") {
         const e = ev.data.originalEvent as MouseEvent
         ev.stopPropagation()
@@ -282,15 +243,12 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
                 mousemove={handleMouseMove}
                 mouseup={handleMouseUp}
                 rightclick={handleRightClick}
+                cursor={notesCursor}
               >
                 <PianoGrid height={contentHeight} beats={mappedBeats} />
                 <PianoNotes
                   notes={keyedNotes}
-                  cursor={notesCursor}
                   isDrumMode={isRhythmTrack}
-                  onClickNote={onClickNote}
-                  onDragNote={onDragNote}
-                  onDoubleClickNote={onDoubleClickNote}
                 />
                 {selection.enabled && (
                   <PianoSelection

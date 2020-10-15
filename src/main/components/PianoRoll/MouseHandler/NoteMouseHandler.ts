@@ -111,17 +111,17 @@ const dragNoteAction = (rootStore: RootStore): MouseGesture => (
     const { transform } = ev
     const { item } = e.target
     const offset = e.data.getLocalPosition(e.target.parent)
-    const startClientPos = {
+    const startOffsetPos = {
       x: e.data.originalEvent.offsetX,
       y: e.data.originalEvent.offsetY,
     }
-    const local = e.target.toLocal(startClientPos)
+    const local = e.target.toLocal(startOffsetPos)
     const position = getPositionType(local.x, item.width)
 
     observeDrag({
       onMouseMove: (e) => {
-        const clientPos = { x: e.offsetX, y: e.offsetY }
-        const delta = pointSub(clientPos, startClientPos)
+        const offsetPos = { x: e.offsetX, y: e.offsetY }
+        const delta = pointSub(offsetPos, startOffsetPos)
         const newOffset = pointAdd(delta, offset)
         const tick = transform.getTicks(newOffset.x)
 

@@ -32,7 +32,6 @@ const useGestures = (
   const [entered, setEntered] = useState(false)
   const [dragging, setDragging] = useState<boolean>(false)
   const [lastMouseDownTime, setLastMouseDownTime] = useState(0)
-  const [cursor, setCursor] = useState("default")
 
   const mousedown = (e: PIXI.InteractionEvent) => {
     if (dragging) {
@@ -61,22 +60,8 @@ const useGestures = (
 
       // prevent click and double-click
       setLastMouseDownTime(0)
-
-      // update cursor
-      if (e.target !== null) {
-        const offset = e.data.getLocalPosition(e.target.parent)
-        const local = {
-          x: offset.x - item.x,
-          y: offset.y - item.y,
-        }
-        const position = getPositionType(local.x, item.width)
-        const newCursor = mousePositionToCursor(position)
-        if (newCursor !== cursor) {
-          setCursor(newCursor)
-        }
-      }
     },
-    [dragging, entered, cursor, setCursor]
+    [dragging, entered]
   )
 
   const mouseover = useCallback(() => setEntered(true), [setEntered])
@@ -87,11 +72,10 @@ const useGestures = (
     mouseout,
     mousedown,
     mousemove,
-    cursor,
   }
 }
 
-const mousePositionToCursor = (position: MousePositionType) => {
+export const mousePositionToCursor = (position: MousePositionType) => {
   switch (position) {
     case "center":
       return "move"

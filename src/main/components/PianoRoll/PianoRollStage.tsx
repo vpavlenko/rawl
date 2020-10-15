@@ -256,11 +256,11 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
                 mouseup={handleMouseUp}
                 click={handleClick}
                 rightclick={handleRightClick}
+                cursor={notesCursor}
               >
                 <PianoGrid height={contentHeight} beats={mappedBeats} />
                 <PianoNotes
                   notes={keyedNotes}
-                  cursor={notesCursor}
                   isDrumMode={isRhythmTrack}
                   onDoubleClickNote={onDoubleClickNote}
                 />

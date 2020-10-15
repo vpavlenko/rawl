@@ -2,7 +2,7 @@ import PianoRollStore from "main/stores/PianoRollStore"
 import RootStore from "main/stores/RootStore"
 import { pointSub, pointAdd } from "../../../../common/geometry"
 import { moveNote, resizeNoteLeft, resizeNoteRight } from "../../../actions"
-import { getPositionType, isPianoNote } from "../PianoNotes/PianoNote"
+import { getPositionType, isPianoNote, mousePositionToCursor } from "../PianoNotes/PianoNote"
 import { PianoNotesMouseEvent } from "../PianoRollStage"
 import { observeDrag } from "./observeDrag"
 
@@ -49,7 +49,19 @@ export default class NoteMouseHandler {
     return null
   }
 
-  protected getCursorForMouseMove(_: PianoNotesMouseEvent): string {
+  protected getCursorForMouseMove(ev: PianoNotesMouseEvent): string {
+    const e = ev.pixiEvent
+    if (isPianoNote(e.target)) {
+      const offset = e.data.getLocalPosition(e.target.parent)
+      const { item } = e.target
+      const local = {
+        x: offset.x - item.x,
+        y: offset.y - item.y,
+      }
+      const position = getPositionType(local.x, item.width)
+      return mousePositionToCursor(position)
+    }
+
     // サブクラスで実装
     return "auto"
   }

@@ -51,13 +51,13 @@ export default class NoteMouseHandler {
 
   protected getCursorForMouseMove(ev: PianoNotesMouseEvent): string {
     const e = ev.pixiEvent
-    if (isPianoNote(e.target)) {
-      const offset = e.data.getLocalPosition(e.target.parent)
-      const { item } = e.target
-      const local = {
-        x: offset.x - item.x,
-        y: offset.y - item.y,
+    if (isPianoNote(e.target) && e.target.parent !== null) {
+      const offsetPos = {
+        x: ev.nativeEvent.offsetX,
+        y: ev.nativeEvent.offsetY,
       }
+      const local = e.target.toLocal(offsetPos)
+      const { item } = e.target
       const position = getPositionType(local.x, item.width)
       return mousePositionToCursor(position)
     }

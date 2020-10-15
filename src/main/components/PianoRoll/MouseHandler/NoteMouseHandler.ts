@@ -1,7 +1,7 @@
 import PianoRollStore from "main/stores/PianoRollStore"
 import RootStore from "main/stores/RootStore"
 import { pointSub, pointAdd } from "../../../../common/geometry"
-import { moveNote, resizeNoteLeft, resizeNoteRight } from "../../../actions"
+import { moveNote, previewNoteById, resizeNoteLeft, resizeNoteRight } from "../../../actions"
 import { getPositionType, isPianoNote, mousePositionToCursor } from "../PianoNotes/PianoNote"
 import { PianoNotesMouseEvent } from "../PianoRollStage"
 import { observeDrag } from "./observeDrag"
@@ -42,6 +42,7 @@ export default class NoteMouseHandler {
     }
 
     if (isPianoNote(e.pixiEvent.target)) {
+      previewNoteById(this.rootStore)(e.pixiEvent.target.item.id)
       return dragNoteAction(this.rootStore)
     }
 

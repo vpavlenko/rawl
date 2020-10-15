@@ -169,16 +169,6 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
   const cursorPositionX = transform.getX(playerPosition)
   const contentHeight = transform.getMaxY()
 
-  const handleClick = useCallback(
-    (e: PIXI.InteractionEvent) => {
-      if (isPianoNote(e.target)) {
-        const { item } = e.target
-        previewNoteById(rootStore)(item.id)
-      }
-    },
-    [rootStore]
-  )
-
   const onMouseDownRuler = useCallback(
     (e: TickEvent<MouseEvent>) => {
       const tick = e.tick
@@ -252,7 +242,6 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
                 mousedown={handleMouseDown}
                 mousemove={handleMouseMove}
                 mouseup={handleMouseUp}
-                click={handleClick}
                 rightclick={handleRightClick}
                 cursor={notesCursor}
               >

@@ -1,7 +1,6 @@
-import React, { useCallback, FC } from "react"
+import React, { FC } from "react"
 import { Graphics as PIXIGraphics, Rectangle } from "pixi.js"
 import { IRect } from "../../../../common/geometry"
-import { useState } from "react"
 import { Graphics } from "@inlet/react-pixi"
 import isEqual from "lodash/isEqual"
 
@@ -18,62 +17,9 @@ export interface PianoNoteProps {
   borderColor: number
   selectedColor: number
   selectedBorderColor: number
-  onDoubleClick: (e: PIXI.InteractionEvent) => void
 }
 
 export type MousePositionType = "left" | "center" | "right"
-
-const DOUBLE_CLICK_INTERVAL = 500
-
-const useGestures = (
-  item: PianoNoteItem,
-  onDoubleClick: (e: PIXI.InteractionEvent) => void
-) => {
-  const [entered, setEntered] = useState(false)
-  const [dragging, setDragging] = useState<boolean>(false)
-  const [lastMouseDownTime, setLastMouseDownTime] = useState(0)
-
-  const mousedown = (e: PIXI.InteractionEvent) => {
-    if (dragging) {
-      return
-    }
-
-    if (
-      e.data.originalEvent.timeStamp - lastMouseDownTime <
-      DOUBLE_CLICK_INTERVAL
-    ) {
-      onDoubleClick(e)
-      e.stopPropagation()
-      e.data.originalEvent.stopImmediatePropagation()
-      return
-    }
-
-    setDragging(true)
-    setLastMouseDownTime(e.data.originalEvent.timeStamp)
-  }
-
-  const mousemove = useCallback(
-    (e: PIXI.InteractionEvent) => {
-      if (!entered && dragging === null) {
-        return
-      }
-
-      // prevent click and double-click
-      setLastMouseDownTime(0)
-    },
-    [dragging, entered]
-  )
-
-  const mouseover = useCallback(() => setEntered(true), [setEntered])
-  const mouseout = useCallback(() => setEntered(false), [setEntered])
-
-  return {
-    mouseover,
-    mouseout,
-    mousedown,
-    mousemove,
-  }
-}
 
 export const mousePositionToCursor = (position: MousePositionType) => {
   switch (position) {
@@ -126,8 +72,6 @@ const _PianoNote: FC<PianoNoteProps> = (props) => {
       .drawCircle(0, radius / 2, radius)
   }
 
-  const handleMouse = useGestures(item, props.onDoubleClick)
-
   const data = {
     item,
   }
@@ -140,7 +84,6 @@ const _PianoNote: FC<PianoNoteProps> = (props) => {
       y={Math.round(item.y)}
       interactive={true}
       hitArea={new Rectangle(0, 0, item.width, item.height)}
-      {...handleMouse}
       {...data}
     />
   )
@@ -166,7 +109,6 @@ const areEqual = (props: PianoNoteProps, nextProps: PianoNoteProps) =>
   props.color === nextProps.color &&
   props.borderColor === nextProps.borderColor &&
   props.selectedColor === nextProps.selectedColor &&
-  props.selectedBorderColor === nextProps.selectedBorderColor &&
-  props.onDoubleClick === nextProps.onDoubleClick
+  props.selectedBorderColor === nextProps.selectedBorderColor 
 
 export const PianoNote = React.memo(_PianoNote, areEqual)

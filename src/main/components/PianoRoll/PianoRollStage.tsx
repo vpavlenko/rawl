@@ -36,6 +36,7 @@ import {
   useContextMenu,
   PianoSelectionContextMenu,
 } from "main/components/PianoRoll/PianoSelectionContextMenu"
+import { observeDoubleClick } from "./MouseHandler/observeDoubleClick"
 
 export interface PianoRollStageProps {
   width: number
@@ -113,6 +114,13 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
   }
 
   const handleMouseDown = (e: PIXI.InteractionEvent) => {
+    if (isPianoNote(e.target)) {
+      const { item } = e.target
+      observeDoubleClick(() => {
+        removeEvent(rootStore)(item.id)
+      })
+    }
+
     mouseHandler.onMouseDown(extendEvent(e))
   }
 
@@ -166,16 +174,6 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
       if (isPianoNote(e.target)) {
         const { item } = e.target
         previewNoteById(rootStore)(item.id)
-      }
-    },
-    [rootStore]
-  )
-
-  const onDoubleClickNote = useCallback(
-    (e: PIXI.InteractionEvent) => {
-      if (isPianoNote(e.target)) {
-        const { item } = e.target
-        removeEvent(rootStore)(item.id)
       }
     },
     [rootStore]
@@ -262,7 +260,6 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
                 <PianoNotes
                   notes={keyedNotes}
                   isDrumMode={isRhythmTrack}
-                  onDoubleClickNote={onDoubleClickNote}
                 />
                 {selection.enabled && (
                   <PianoSelection

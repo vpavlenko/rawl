@@ -9,7 +9,6 @@ import { KeyedValue } from "main/hooks/recycleKeys"
 
 export interface PianoNotesProps {
   notes: KeyedValue<PianoNoteItem>[]
-  onDoubleClickNote: (e: PIXI.InteractionEvent) => void
   isDrumMode: boolean
 }
 
@@ -18,7 +17,6 @@ export interface PianoNotesProps {
 */
 const PianoNotes: FC<PianoNotesProps> = ({
   notes,
-  onDoubleClickNote,
   isDrumMode,
 }) => {
   const theme = useTheme()
@@ -36,7 +34,6 @@ const PianoNotes: FC<PianoNotesProps> = ({
       borderColor={borderColor}
       selectedColor={selectedColor}
       selectedBorderColor={selectedBorderColor}
-      onDoubleClick={onDoubleClickNote}
       isDrum={isDrumMode}
     />
   ))
@@ -47,8 +44,7 @@ const PianoNotes: FC<PianoNotesProps> = ({
 function areEqual(props: PianoNotesProps, nextProps: PianoNotesProps) {
   return (
     props.notes === nextProps.notes &&
-    props.isDrumMode === nextProps.isDrumMode &&
-    props.onDoubleClickNote === nextProps.onDoubleClickNote
+    props.isDrumMode === nextProps.isDrumMode 
   )
 }
 

@@ -58,8 +58,8 @@ export default class SelectionMouseHandler extends MouseHandler {
       case "left":
         return "w-resize"
       case "right":
-        return "w-resize"
-      default:
+        return "e-resize"
+      case "outside":
         return "crosshair"
     }
   }

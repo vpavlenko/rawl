@@ -1,21 +1,19 @@
-import { observable, action } from "mobx"
-import { serialize, deserialize } from "serializr"
-
-import Song, { emptySong } from "common/song"
-import TrackMute from "common/trackMute"
-
-import Router from "./Router"
-import HistoryStore from "./HistoryStore"
-import SettingsStore from "./SettingsStore"
-import RootViewStore from "./RootViewStore"
-import PianoRollStore from "./PianoRollStore"
-import ArrangeViewStore from "./ArrangeViewStore"
-import TempoEditorStore from "./TempoEditorStore"
-
 import Player from "common/player"
 import Quantizer from "common/quantizer"
+import Song, { emptySong } from "common/song"
+import TrackMute from "common/trackMute"
+import { observable } from "mobx"
+import { deserialize, serialize } from "serializr"
 import SynthOutput from "services/SynthOutput"
 import { TIME_BASE } from "../Constants"
+import ArrangeViewStore from "./ArrangeViewStore"
+import HistoryStore from "./HistoryStore"
+import PianoRollStore from "./PianoRollStore"
+import { registerReactions } from "./reactions"
+import RootViewStore from "./RootViewStore"
+import Router from "./Router"
+import SettingsStore from "./SettingsStore"
+import TempoEditorStore from "./TempoEditorStore"
 
 export interface Services {
   player: Player
@@ -50,6 +48,8 @@ export default class RootStore {
       this.pianoRollStore.presetNames = e.presetNames
       player.reset()
     }
+
+    registerReactions(this)
   }
 
   private serializeUndoableState = (): Json => {

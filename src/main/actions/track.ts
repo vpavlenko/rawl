@@ -1,16 +1,20 @@
+import { NoteEvent, TrackMidiEvent } from "common/track"
 import {
-  panMidiEvent,
-  volumeMidiEvent,
-  setTempoMidiEvent,
-  pitchBendMidiEvent,
-  modulationMidiEvent,
   expressionMidiEvent,
+  modulationMidiEvent,
+  panMidiEvent,
+  pitchBendMidiEvent,
   programChangeMidiEvent,
+  setTempoMidiEvent,
+  volumeMidiEvent,
 } from "midi/MidiEvent"
-import Track, { NoteEvent, TrackMidiEvent } from "common/track"
-import RootStore from "../stores/RootStore"
-import { ControllerEvent } from "midifile-ts"
 import { ControlMode } from "../components/ControlPane/ControlPane"
+import RootStore from "../stores/RootStore"
+import {
+  moveSelectionBy,
+  resizeNotesInSelectionLeftBy,
+  resizeNotesInSelectionRightBy,
+} from "./selection"
 
 export const changeTempo = (rootStore: RootStore) => (
   id: number,
@@ -217,7 +221,6 @@ export const moveNote = (rootStore: RootStore) => (
 ) => {
   const {
     song,
-    pushHistory,
     services: { player, quantizer },
   } = rootStore
 
@@ -231,16 +234,15 @@ export const moveNote = (rootStore: RootStore) => (
   const pitchChanged = params.noteNumber !== note.noteNumber
 
   if (pitchChanged || tickChanged) {
-    rootStore.pushHistory()
-
-    const n = selectedTrack.updateEvent(note.id, {
-      tick,
-      noteNumber: params.noteNumber,
-    }) as NoteEvent
+    moveSelectionBy(rootStore)({
+      tick: tick - note.tick,
+      noteNumber: params.noteNumber - note.noteNumber,
+    })
 
     if (pitchChanged) {
       player.playNote({
-        ...n,
+        ...note,
+        noteNumber: params.noteNumber,
         channel: selectedTrack.channel,
       })
     }
@@ -254,7 +256,6 @@ export const resizeNoteLeft = (rootStore: RootStore) => (
     song,
     pianoRollStore,
     services: { quantizer },
-    pushHistory,
   } = rootStore
   const selectedTrack = song.selectedTrack
   if (selectedTrack === undefined) {
@@ -267,7 +268,7 @@ export const resizeNoteLeft = (rootStore: RootStore) => (
   if (note.tick !== tick && duration >= quantizer.unit) {
     rootStore.pushHistory()
     pianoRollStore.lastNoteDuration = duration
-    selectedTrack.updateEvent(note.id, { tick, duration })
+    resizeNotesInSelectionLeftBy(rootStore)(tick - note.tick)
   }
 }
 
@@ -279,7 +280,6 @@ export const resizeNoteRight = (rootStore: RootStore) => (
     song,
     pianoRollStore,
     services: { quantizer },
-    pushHistory,
   } = rootStore
   const selectedTrack = song.selectedTrack
   if (selectedTrack === undefined) {
@@ -291,7 +291,7 @@ export const resizeNoteRight = (rootStore: RootStore) => (
   if (note.duration !== duration) {
     rootStore.pushHistory()
     pianoRollStore.lastNoteDuration = duration
-    selectedTrack.updateEvent(note.id, { duration })
+    resizeNotesInSelectionRightBy(rootStore)(duration - note.duration)
   }
 }
 

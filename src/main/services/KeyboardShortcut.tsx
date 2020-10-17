@@ -1,12 +1,14 @@
-import React, { FC, useEffect } from "react"
 import {
   copySelection,
-  pasteSelection,
   deleteSelection,
+  pasteSelection,
   play,
+  selectNextNote,
+  selectPreviousNote,
   stop,
   transposeSelection,
 } from "main/actions"
+import React, { FC, useEffect } from "react"
 import { useStores } from "../hooks/useStores"
 
 const isFocusable = (e: EventTarget) =>
@@ -75,6 +77,16 @@ export const KeyboardShortcut: FC = () => {
           transposeSelection(rootStore)(-1)
           break
         }
+        case "ArrowRight":
+          if (rootStore.pianoRollStore.mouseMode == "pencil") {
+            selectNextNote(rootStore)()
+          }
+          break
+        case "ArrowLeft":
+          if (rootStore.pianoRollStore.mouseMode == "pencil") {
+            selectPreviousNote(rootStore)()
+          }
+          break
         default:
           // do not call preventDefault
           return

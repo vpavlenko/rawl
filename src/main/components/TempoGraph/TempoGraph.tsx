@@ -1,4 +1,4 @@
-import { SetTempoEvent } from "midifile-ts"
+import { Container, Stage as PixiStage } from "@inlet/react-pixi"
 import Color from "color"
 import { ISize } from "common/geometry"
 import { TrackEvent } from "common/track"
@@ -10,27 +10,24 @@ import PianoRuler from "components/PianoRoll/PianoRuler"
 import Stage, { StageMouseEvent } from "components/Stage/Stage"
 import { bpmToUSecPerBeat, uSecPerBeatToBPM } from "helpers/bpm"
 import { createBeatsInRange } from "helpers/mapBeats"
-import _ from "lodash"
-import React, { FC, useEffect, useState } from "react"
-import transformEvents from "./transformEvents"
-import { Stage as PixiStage } from "@inlet/react-pixi"
-
-import TempoGraphItem from "./TempoGraphItem"
-import { Container } from "@inlet/react-pixi"
+import { SetTempoEvent } from "midifile-ts"
 import { toJS } from "mobx"
 import { useObserver } from "mobx-react-lite"
+import React, { FC, useEffect, useState } from "react"
+import { withSize } from "react-sizeme"
+import styled from "styled-components"
 import {
   changeTempo as _changeTempo,
-  setPlayerPosition as _setPlayerPosition,
   createTempo as _createTempo,
+  setPlayerPosition as _setPlayerPosition,
 } from "../../actions"
 import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
-import { withSize } from "react-sizeme"
+import { observeDrag } from "../PianoRoll/MouseHandler/observeDrag"
 import { HorizontalLines } from "./HorizontalLines"
 import { TempoGraphAxis } from "./TempoGraphAxis"
-import styled from "styled-components"
-import { observeDrag } from "../PianoRoll/MouseHandler/observeDrag"
+import TempoGraphItem from "./TempoGraphItem"
+import transformEvents from "./transformEvents"
 
 type DisplayEvent = TrackEvent & SetTempoEvent
 
@@ -200,7 +197,6 @@ const _TempoGraph: FC<TempoGraphProps> = ({ size }) => {
           <PianoRuler
             width={width}
             beats={mappedBeats}
-            onMouseDown={({ tick }) => setPlayerPosition(tick)}
             scrollLeft={scrollLeft}
             pixelsPerTick={pixelsPerTick}
           />

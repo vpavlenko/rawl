@@ -1,12 +1,13 @@
-import React, { FC } from "react"
-import { Graphics as PIXIGraphics, Point, TextStyle } from "pixi.js"
-import range from "lodash/range"
-
-import { noteNameWithOctString } from "helpers/noteNumberString"
-import { useTheme } from "main/hooks/useTheme"
-import { Graphics, Text, Container } from "@inlet/react-pixi"
+import { Container, Graphics, Text } from "@inlet/react-pixi"
 import Color from "color"
 import { isBlackKey } from "common/helpers/noteNumber"
+import { noteNameWithOctString } from "helpers/noteNumberString"
+import range from "lodash/range"
+import { previewNote } from "main/actions"
+import { useStores } from "main/hooks/useStores"
+import { useTheme } from "main/hooks/useTheme"
+import { Graphics as PIXIGraphics, Point, TextStyle } from "pixi.js"
+import React, { FC, useCallback } from "react"
 
 interface BlackKeyProps {
   width: number
@@ -60,16 +61,11 @@ const KeyLabel: FC<LabelProps> = ({ width, keyNum, font, color, y }) => {
 const isBordered = (key: number) => key % 12 === 4 || key % 12 === 11
 
 export interface PianoKeysProps {
-  onClickKey: (noteNumber: number) => void
   numberOfKeys: number
   keyHeight: number
 }
 
-const PianoKeys: FC<PianoKeysProps> = ({
-  onClickKey,
-  numberOfKeys,
-  keyHeight,
-}) => {
+const PianoKeys: FC<PianoKeysProps> = ({ numberOfKeys, keyHeight }) => {
   const theme = useTheme()
   const width = theme.keyWidth
 
@@ -135,6 +131,18 @@ const PianoKeys: FC<PianoKeysProps> = ({
         />
       )
     })
+
+  const { rootStore } = useStores()
+
+  const onClickKey = useCallback(
+    (noteNumber: number) => {
+      previewNote(rootStore)(
+        rootStore.song.selectedTrack?.channel ?? 0,
+        noteNumber
+      )
+    },
+    [rootStore]
+  )
 
   return (
     <Container

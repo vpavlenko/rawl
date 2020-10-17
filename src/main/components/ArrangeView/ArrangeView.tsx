@@ -1,37 +1,30 @@
-import React, { FC } from "react"
-
-import PianoGrid from "components/PianoRoll/PianoGrid"
-import PianoRuler from "components/PianoRoll/PianoRuler"
-import PianoCursor from "components/PianoRoll/PianoCursor"
-import PianoSelection from "components/PianoRoll/PianoSelection"
-
-import Stage from "components/Stage/Stage"
-import { VerticalScrollBar, BAR_WIDTH } from "components/inputs/ScrollBar"
-import { HorizontalScaleScrollBar } from "components/inputs/ScaleScrollBar"
-
-import { NoteCoordTransform } from "common/transform"
-
-import { createBeatsInRange } from "helpers/mapBeats"
+import { Container } from "@inlet/react-pixi"
 import {
-  pointSub,
-  pointAdd,
-  ISize,
+  containsPoint,
   IPoint,
   IRect,
-  containsPoint,
+  ISize,
+  pointAdd,
+  pointSub,
 } from "common/geometry"
-import { filterEventsWithScroll } from "helpers/filterEventsWithScroll"
-
-import ArrangeNoteItem from "../../components/ArrangeView/ArrangeNoteItem"
-
-import { LoopSetting } from "common/player/Player"
-
-import "./ArrangeView.css"
-import Track, { TrackEvent, isNoteEvent } from "common/track"
-import { Theme } from "common/theme/Theme"
 import { Measure } from "common/measure/Measure"
-import { Container } from "@inlet/react-pixi"
+import { LoopSetting } from "common/player/Player"
+import { Theme } from "common/theme/Theme"
+import Track, { isNoteEvent, TrackEvent } from "common/track"
+import { NoteCoordTransform } from "common/transform"
+import { HorizontalScaleScrollBar } from "components/inputs/ScaleScrollBar"
+import { BAR_WIDTH, VerticalScrollBar } from "components/inputs/ScrollBar"
+import PianoCursor from "components/PianoRoll/PianoCursor"
+import PianoGrid from "components/PianoRoll/PianoGrid"
+import PianoRuler from "components/PianoRoll/PianoRuler"
+import PianoSelection from "components/PianoRoll/PianoSelection"
+import Stage from "components/Stage/Stage"
+import { filterEventsWithScroll } from "helpers/filterEventsWithScroll"
+import { createBeatsInRange } from "helpers/mapBeats"
+import React, { FC } from "react"
+import ArrangeNoteItem from "../../components/ArrangeView/ArrangeNoteItem"
 import { observeDrag } from "../PianoRoll/MouseHandler/observeDrag"
+import "./ArrangeView.css"
 
 interface ArrangeTrackProps {
   events: TrackEvent[]
@@ -291,7 +284,6 @@ export const ArrangeView: FC<ArrangeViewProps> = ({
           beats={mappedBeats}
           scrollLeft={scrollLeft}
           pixelsPerTick={pixelsPerTick}
-          onMouseDown={({ tick }) => setPlayerPosition(tick)}
           loop={loop}
         />
         <div className="content" style={{ top: -scrollTop }}>

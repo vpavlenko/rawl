@@ -1,42 +1,35 @@
-import React, { FC, useState, useCallback, useMemo } from "react"
-import { Stage, Container } from "@inlet/react-pixi"
-import { Point, Rectangle } from "pixi.js"
+import { Container, Stage } from "@inlet/react-pixi"
+import { IPoint } from "common/geometry"
+import { filterEventsWithScroll } from "common/helpers/filterEventsWithScroll"
+import { createBeatsInRange } from "common/helpers/mapBeats"
+import { isNoteEvent } from "common/track"
+import { NoteCoordTransform } from "common/transform"
+import { removeEvent } from "main/actions"
+import PianoCursor from "main/components/PianoRoll/PianoCursor"
+import PianoGrid from "main/components/PianoRoll/PianoGrid"
+import PianoKeys from "main/components/PianoRoll/PianoKeys"
+import PianoLines from "main/components/PianoRoll/PianoLines"
+import {
+  isPianoNote,
+  PianoNoteItem,
+} from "main/components/PianoRoll/PianoNotes/PianoNote"
+import PianoNotes from "main/components/PianoRoll/PianoNotes/PianoNotes"
+import PianoRuler from "main/components/PianoRoll/PianoRuler"
+import PianoSelection from "main/components/PianoRoll/PianoSelection"
+import {
+  PianoSelectionContextMenu,
+  useContextMenu,
+} from "main/components/PianoRoll/PianoSelectionContextMenu"
+import { useRecycle } from "main/hooks/useRecycle"
+import { StoreContext, useStores } from "main/hooks/useStores"
 import { useTheme } from "main/hooks/useTheme"
+import { useObserver } from "mobx-react-lite"
+import { Point, Rectangle } from "pixi.js"
+import React, { FC, useCallback, useMemo, useState } from "react"
+import { LeftTopSpace } from "./LeftTopSpace"
+import { observeDoubleClick } from "./MouseHandler/observeDoubleClick"
 import PencilMouseHandler from "./MouseHandler/PencilMouseHandler"
 import SelectionMouseHandler from "./MouseHandler/SelectionMouseHandler"
-import { NoteCoordTransform } from "common/transform"
-import { useObserver } from "mobx-react-lite"
-import { StoreContext, useStores } from "main/hooks/useStores"
-import PianoLines from "main/components/PianoRoll/PianoLines"
-import PianoGrid from "main/components/PianoRoll/PianoGrid"
-import PianoNotes from "main/components/PianoRoll/PianoNotes/PianoNotes"
-import PianoSelection from "main/components/PianoRoll/PianoSelection"
-import PianoCursor from "main/components/PianoRoll/PianoCursor"
-import PianoRuler, { TickEvent } from "main/components/PianoRoll/PianoRuler"
-import PianoKeys from "main/components/PianoRoll/PianoKeys"
-import { DisplayEvent } from "main/components/PianoRoll/PianoControlEvents"
-import { show as showEventEditor } from "components/EventEditor/EventEditor"
-import { createBeatsInRange } from "common/helpers/mapBeats"
-import { IPoint } from "common/geometry"
-import {
-  setPlayerPosition,
-  previewNote,
-  removeEvent,
-  previewNoteById,
-} from "main/actions"
-import { filterEventsWithScroll } from "common/helpers/filterEventsWithScroll"
-import { isNoteEvent } from "common/track"
-import { LeftTopSpace } from "./LeftTopSpace"
-import {
-  PianoNoteItem,
-  isPianoNote,
-} from "main/components/PianoRoll/PianoNotes/PianoNote"
-import { useRecycle } from "main/hooks/useRecycle"
-import {
-  useContextMenu,
-  PianoSelectionContextMenu,
-} from "main/components/PianoRoll/PianoSelectionContextMenu"
-import { observeDoubleClick } from "./MouseHandler/observeDoubleClick"
 
 export interface PianoRollStageProps {
   width: number
@@ -169,27 +162,6 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
   const cursorPositionX = transform.getX(playerPosition)
   const contentHeight = transform.getMaxY()
 
-  const onMouseDownRuler = useCallback(
-    (e: TickEvent<MouseEvent>) => {
-      const tick = e.tick
-      if (e.nativeEvent.ctrlKey) {
-        // setLoopBegin(tick)
-      } else if (e.nativeEvent.altKey) {
-        // setLoopEnd(tick)
-      } else {
-        setPlayerPosition(rootStore)(tick)
-      }
-    },
-    [rootStore]
-  )
-
-  const onClickKey = useCallback(
-    (noteNumber: number) => {
-      previewNote(rootStore)(channel, noteNumber)
-    },
-    [channel, rootStore]
-  )
-
   const { onContextMenu, menuProps } = useContextMenu()
 
   const onRightClickSelection = useCallback(
@@ -246,10 +218,7 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
                 cursor={notesCursor}
               >
                 <PianoGrid height={contentHeight} beats={mappedBeats} />
-                <PianoNotes
-                  notes={keyedNotes}
-                  isDrumMode={isRhythmTrack}
-                />
+                <PianoNotes notes={keyedNotes} isDrumMode={isRhythmTrack} />
                 {selection.enabled && (
                   <PianoSelection
                     bounds={selection.getBounds(transform)}
@@ -265,7 +234,6 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
               width={width}
               beats={mappedBeats}
               loop={loop}
-              onMouseDown={onMouseDownRuler}
               scrollLeft={scrollLeft}
               pixelsPerTick={transform.pixelsPerTick}
             />
@@ -274,7 +242,6 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
             <PianoKeys
               keyHeight={transform.pixelsPerKey}
               numberOfKeys={transform.numberOfKeys}
-              onClickKey={onClickKey}
             />
           </Container>
           <LeftTopSpace width={width} />

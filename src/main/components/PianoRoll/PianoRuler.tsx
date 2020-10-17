@@ -1,14 +1,14 @@
-import React, { FC } from "react"
-import { Graphics as PIXIGraphics, TextStyle, Point } from "pixi.js"
-import isEqual from "lodash/isEqual"
-
+import { Container, Graphics, Text } from "@inlet/react-pixi"
+import Color from "color"
 import { LoopSetting } from "common/player"
-
 import { Theme } from "common/theme/Theme"
 import { BeatWithX } from "helpers/mapBeats"
+import isEqual from "lodash/isEqual"
+import { setPlayerPosition } from "main/actions"
+import { useStores } from "main/hooks/useStores"
 import { useTheme } from "main/hooks/useTheme"
-import { Graphics, Text, Container } from "@inlet/react-pixi"
-import Color from "color"
+import { Graphics as PIXIGraphics, Point, TextStyle } from "pixi.js"
+import React, { FC, useCallback } from "react"
 
 interface BeatProps {
   height: number
@@ -107,9 +107,6 @@ export interface PianoRulerProps {
   pixelsPerTick: number
   scrollLeft: number
   beats: BeatWithX[]
-  onMouseDown?: (e: TickEvent<MouseEvent>) => void
-  onMouseMove?: (e: TickEvent<MouseEvent>) => void
-  onMouseUp?: (e: TickEvent<MouseEvent>) => void
   loop?: LoopSetting
 }
 
@@ -118,21 +115,10 @@ const PianoRuler: FC<PianoRulerProps> = ({
   pixelsPerTick,
   scrollLeft,
   beats,
-  onMouseDown,
-  onMouseMove,
-  onMouseUp,
   loop,
 }) => {
   const theme = useTheme()
   const height = theme.rulerHeight
-
-  const extendEvent = (e: PIXI.InteractionEvent): TickEvent<MouseEvent> => {
-    const local = e.data.getLocalPosition(e.target)
-    return {
-      nativeEvent: e.data.originalEvent as MouseEvent,
-      tick: (local.x + scrollLeft) / pixelsPerTick,
-    }
-  }
 
   const drawBackground = (g: PIXIGraphics) => {
     g.clear()
@@ -167,6 +153,23 @@ const PianoRuler: FC<PianoRulerProps> = ({
       />
     ))
 
+  const { rootStore } = useStores()
+
+  const onMouseDown = useCallback(
+    (ev: PIXI.InteractionEvent) => {
+      const local = ev.data.getLocalPosition(ev.target)
+      const tick = (local.x + scrollLeft) / pixelsPerTick
+      if (ev.data.originalEvent.ctrlKey) {
+        // setLoopBegin(tick)
+      } else if (ev.data.originalEvent.altKey) {
+        // setLoopEnd(tick)
+      } else {
+        setPlayerPosition(rootStore)(tick)
+      }
+    },
+    [rootStore, scrollLeft, pixelsPerTick]
+  )
+
   return (
     <Container>
       <Graphics
@@ -174,9 +177,7 @@ const PianoRuler: FC<PianoRulerProps> = ({
         width={width}
         height={height}
         interactive={true}
-        mousedown={(e) => onMouseDown && onMouseDown(extendEvent(e))}
-        mousemove={(e) => onMouseMove && onMouseMove(extendEvent(e))}
-        mouseup={(e) => onMouseUp && onMouseUp(extendEvent(e))}
+        mousedown={onMouseDown}
       />
       <Container position={new Point(-scrollLeft, 0)}>
         <Beats

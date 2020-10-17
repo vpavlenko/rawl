@@ -1,24 +1,18 @@
-import Color from "color"
 import { Container } from "@inlet/react-pixi"
-
-import _ from "lodash"
+import Color from "color"
+import { KeyedValue } from "main/hooks/recycleKeys"
+import { useTheme } from "main/hooks/useTheme"
 import React, { FC } from "react"
 import { PianoNote, PianoNoteItem } from "./PianoNote"
-import { useTheme } from "main/hooks/useTheme"
-import { KeyedValue } from "main/hooks/recycleKeys"
 
 export interface PianoNotesProps {
   notes: KeyedValue<PianoNoteItem>[]
-  isDrumMode: boolean
 }
 
 /**
   ノートイベントを描画するコンポーネント
 */
-const PianoNotes: FC<PianoNotesProps> = ({
-  notes,
-  isDrumMode,
-}) => {
+const PianoNotes: FC<PianoNotesProps> = ({ notes }) => {
   const theme = useTheme()
   const baseColor = Color(theme.themeColor)
   const color = baseColor.rgbNumber()
@@ -34,7 +28,6 @@ const PianoNotes: FC<PianoNotesProps> = ({
       borderColor={borderColor}
       selectedColor={selectedColor}
       selectedBorderColor={selectedBorderColor}
-      isDrum={isDrumMode}
     />
   ))
 
@@ -42,10 +35,7 @@ const PianoNotes: FC<PianoNotesProps> = ({
 }
 
 function areEqual(props: PianoNotesProps, nextProps: PianoNotesProps) {
-  return (
-    props.notes === nextProps.notes &&
-    props.isDrumMode === nextProps.isDrumMode 
-  )
+  return props.notes === nextProps.notes
 }
 
 export default React.memo(PianoNotes, areEqual)

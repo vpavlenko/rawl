@@ -8,11 +8,11 @@ export type PianoNoteItem = IRect & {
   id: number
   velocity: number
   isSelected: boolean
+  isDrum: boolean
 }
 
 export interface PianoNoteProps {
   item: PianoNoteItem
-  isDrum: boolean
   color: number
   borderColor: number
   selectedColor: number
@@ -79,7 +79,7 @@ const _PianoNote: FC<PianoNoteProps> = (props) => {
   return (
     <Graphics
       name="PianoNote"
-      draw={props.isDrum ? renderDrumNote : render}
+      draw={item.isDrum ? renderDrumNote : render}
       x={Math.round(item.x)}
       y={Math.round(item.y)}
       interactive={true}
@@ -105,7 +105,6 @@ export const getPositionType = (
 
 const areEqual = (props: PianoNoteProps, nextProps: PianoNoteProps) =>
   isEqual(props.item, nextProps.item) &&
-  props.isDrum === nextProps.isDrum &&
   props.color === nextProps.color &&
   props.borderColor === nextProps.borderColor &&
   props.selectedColor === nextProps.selectedColor &&

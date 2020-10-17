@@ -1,11 +1,13 @@
-import { observable, action } from "mobx"
 import SelectionModel from "common/selection"
-import SynthOutput from "../services/SynthOutput"
+import { action, observable } from "mobx"
 import { LoadSoundFontEvent } from "src/synth/synth"
-import { InstrumentSetting } from "../components/InstrumentBrowser/InstrumentBrowser"
 import { ControlMode } from "../components/ControlPane/ControlPane"
+import { InstrumentSetting } from "../components/InstrumentBrowser/InstrumentBrowser"
 
 export type PianoRollMouseMode = "pencil" | "selection"
+
+// trackId to trackId[] (not contains itself)
+type VisibleTracks = { [index: number]: number[] }
 
 export default class PianoRollStore {
   @observable scrollLeft = 0
@@ -26,6 +28,7 @@ export default class PianoRollStore {
     programNumber: 0,
   }
   @observable presetNames: LoadSoundFontEvent["presetNames"] = [[]]
+  @observable visibleTracks: VisibleTracks = {}
 
   @action scrollBy(x: number, y: number) {
     this.scrollLeft -= x

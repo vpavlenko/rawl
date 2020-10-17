@@ -2,7 +2,7 @@ import { Container, Stage } from "@inlet/react-pixi"
 import { IPoint } from "common/geometry"
 import { filterEventsWithScroll } from "common/helpers/filterEventsWithScroll"
 import { createBeatsInRange } from "common/helpers/mapBeats"
-import { isNoteEvent } from "common/track"
+import { isNoteEvent, NoteEvent } from "common/track"
 import { NoteCoordTransform } from "common/transform"
 import { removeEvent } from "main/actions"
 import PianoCursor from "main/components/PianoRoll/PianoCursor"
@@ -49,7 +49,6 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
   const {
     events,
     isRhythmTrack,
-    channel,
     measures,
     playerPosition,
     timebase,
@@ -61,7 +60,7 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
     selection,
     loop,
   } = useObserver(() => ({
-    events: rootStore.song.selectedTrack?.events ?? [],
+    events: rootStore.song.selectedTrack?.events.filter(isNoteEvent) ?? [],
     isRhythmTrack: rootStore.song.selectedTrack?.isRhythmTrack ?? false,
     channel: rootStore.song.selectedTrack?.channel ?? 0,
     measures: rootStore.song.measures,
@@ -131,12 +130,10 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
   const handleMouseUp = (e: PIXI.InteractionEvent) =>
     mouseHandler.onMouseUp(extendEvent(e))
 
-  const notes = filterEventsWithScroll(
-    events.filter(isNoteEvent),
-    transform.pixelsPerTick,
-    scrollLeft,
-    width
-  ).map(
+  const windowNotes = (notes: NoteEvent[]): NoteEvent[] =>
+    filterEventsWithScroll(notes, transform.pixelsPerTick, scrollLeft, width)
+
+  const notes = windowNotes(events).map(
     (e): PianoNoteItem => {
       const rect = transform.getRect(e)
       const isSelected = selection.noteIds.includes(e.id)
@@ -145,6 +142,7 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
         id: e.id,
         velocity: e.velocity,
         isSelected,
+        isDrum: isRhythmTrack,
       }
     }
   )
@@ -218,7 +216,7 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
                 cursor={notesCursor}
               >
                 <PianoGrid height={contentHeight} beats={mappedBeats} />
-                <PianoNotes notes={keyedNotes} isDrumMode={isRhythmTrack} />
+                <PianoNotes notes={keyedNotes} />
                 {selection.enabled && (
                   <PianoSelection
                     bounds={selection.getBounds(transform)}

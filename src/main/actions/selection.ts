@@ -396,3 +396,46 @@ export const selectNote = (rootStore: RootStore) => (noteId: number) => {
   s.noteIds = [noteId]
   pianoRollStore.selection = s
 }
+
+const sortedNotes = (notes: NoteEvent[]): NoteEvent[] =>
+  notes.filter(isNoteEvent).sort((a, b) => {
+    if (a.tick < b.tick) return -1
+    if (a.tick > b.tick) return 1
+    if (a.noteNumber < b.noteNumber) return -1
+    if (a.noteNumber > b.noteNumber) return 1
+    return 0
+  })
+
+const selectNeighborNote = (rootStore: RootStore) => (deltaIndex: number) => {
+  const { song, pianoRollStore } = rootStore
+
+  const selectedTrack = song.selectedTrack
+  if (selectedTrack === undefined) {
+    return
+  }
+
+  const allNotes = selectedTrack.events.filter(isNoteEvent)
+  const selectedNotes = sortedNotes(
+    pianoRollStore.selection.noteIds
+      .map((id) => allNotes.find((n) => n.id === id))
+      .filter(isNotUndefined)
+  )
+  if (selectedNotes.length === 0) {
+    return
+  }
+  const firstNote = sortedNotes(selectedNotes)[0]
+  const notes = sortedNotes(allNotes)
+  const currentIndex = notes.findIndex((n) => n.id === firstNote.id)
+  const nextNote = notes[currentIndex + deltaIndex]
+  if (nextNote === undefined) {
+    return
+  }
+
+  selectNote(rootStore)(nextNote.id)
+}
+
+export const selectNextNote = (rootStore: RootStore) => () =>
+  selectNeighborNote(rootStore)(1)
+
+export const selectPreviousNote = (rootStore: RootStore) => () =>
+  selectNeighborNote(rootStore)(-1)

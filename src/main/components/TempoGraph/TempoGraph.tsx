@@ -21,7 +21,7 @@ import {
   createTempo as _createTempo,
   setPlayerPosition as _setPlayerPosition,
 } from "../../actions"
-import { useStores } from "../../hooks/useStores"
+import { StoreContext, useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
 import { observeDrag } from "../PianoRoll/MouseHandler/observeDrag"
 import { HorizontalLines } from "./HorizontalLines"
@@ -187,20 +187,22 @@ const _TempoGraph: FC<TempoGraphProps> = ({ size }) => {
         style={{ position: "absolute" }}
         options={{ transparent: true }}
       >
-        <Container x={keyWidth}>
-          <Container x={-scrollLeft} y={rulerHeight}>
-            <PianoGrid height={canvasHeight} beats={mappedBeats} />
-            <Container x={transform.getX(playerPosition)}>
-              <PianoCursor height={canvasHeight} />
+        <StoreContext.Provider value={{ rootStore }}>
+          <Container x={keyWidth}>
+            <Container x={-scrollLeft} y={rulerHeight}>
+              <PianoGrid height={canvasHeight} beats={mappedBeats} />
+              <Container x={transform.getX(playerPosition)}>
+                <PianoCursor height={canvasHeight} />
+              </Container>
             </Container>
+            <PianoRuler
+              width={width}
+              beats={mappedBeats}
+              scrollLeft={scrollLeft}
+              pixelsPerTick={pixelsPerTick}
+            />
           </Container>
-          <PianoRuler
-            width={width}
-            beats={mappedBeats}
-            scrollLeft={scrollLeft}
-            pixelsPerTick={pixelsPerTick}
-          />
-        </Container>
+        </StoreContext.Provider>
       </PixiStage>
       <HorizontalLines
         width={width}

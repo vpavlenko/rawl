@@ -7,7 +7,7 @@ import { InstrumentSetting } from "../components/InstrumentBrowser/InstrumentBro
 export type PianoRollMouseMode = "pencil" | "selection"
 
 // trackId to trackId[] (not contains itself)
-type VisibleTracks = { [index: number]: number[] }
+type GhostTrackIdMap = { [index: number]: number[] }
 
 export default class PianoRollStore {
   @observable scrollLeft = 0
@@ -28,7 +28,7 @@ export default class PianoRollStore {
     programNumber: 0,
   }
   @observable presetNames: LoadSoundFontEvent["presetNames"] = [[]]
-  @observable visibleTracks: VisibleTracks = {}
+  @observable ghostTracks: GhostTrackIdMap = {}
 
   @action scrollBy(x: number, y: number) {
     this.scrollLeft -= x

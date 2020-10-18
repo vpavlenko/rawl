@@ -1,18 +1,13 @@
 import { Container, Stage } from "@inlet/react-pixi"
 import { IPoint } from "common/geometry"
-import { filterEventsWithScroll } from "common/helpers/filterEventsWithScroll"
 import { createBeatsInRange } from "common/helpers/mapBeats"
-import { isNoteEvent, NoteEvent } from "common/track"
 import { NoteCoordTransform } from "common/transform"
 import { removeEvent } from "main/actions"
 import PianoCursor from "main/components/PianoRoll/PianoCursor"
 import PianoGrid from "main/components/PianoRoll/PianoGrid"
 import PianoKeys from "main/components/PianoRoll/PianoKeys"
 import PianoLines from "main/components/PianoRoll/PianoLines"
-import {
-  isPianoNote,
-  PianoNoteItem,
-} from "main/components/PianoRoll/PianoNotes/PianoNote"
+import { isPianoNote } from "main/components/PianoRoll/PianoNotes/PianoNote"
 import PianoNotes from "main/components/PianoRoll/PianoNotes/PianoNotes"
 import PianoRuler from "main/components/PianoRoll/PianoRuler"
 import PianoSelection from "main/components/PianoRoll/PianoSelection"
@@ -20,12 +15,12 @@ import {
   PianoSelectionContextMenu,
   useContextMenu,
 } from "main/components/PianoRoll/PianoSelectionContextMenu"
-import { useRecycle } from "main/hooks/useRecycle"
+import { useNoteTransform } from "main/hooks/useNoteTransform"
 import { StoreContext, useStores } from "main/hooks/useStores"
 import { useTheme } from "main/hooks/useTheme"
 import { useObserver } from "mobx-react-lite"
 import { Point, Rectangle } from "pixi.js"
-import React, { FC, useCallback, useMemo, useState } from "react"
+import React, { FC, useCallback, useState } from "react"
 import { LeftTopSpace } from "./LeftTopSpace"
 import { observeDoubleClick } from "./MouseHandler/observeDoubleClick"
 import PencilMouseHandler from "./MouseHandler/PencilMouseHandler"
@@ -47,41 +42,38 @@ export interface PianoNotesMouseEvent {
 export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
   const { rootStore } = useStores()
   const {
-    events,
-    isRhythmTrack,
+    trackId,
+    ghostTrackIds,
     measures,
     playerPosition,
     timebase,
     mouseMode,
-    scaleX,
     scrollLeft,
     scrollTop,
     notesCursor,
     selection,
-    loop,
-  } = useObserver(() => ({
-    events: rootStore.song.selectedTrack?.events.filter(isNoteEvent) ?? [],
-    isRhythmTrack: rootStore.song.selectedTrack?.isRhythmTrack ?? false,
-    channel: rootStore.song.selectedTrack?.channel ?? 0,
-    measures: rootStore.song.measures,
-    playerPosition: rootStore.services.player.position,
-    timebase: rootStore.services.player.timebase,
-    mouseMode: rootStore.pianoRollStore.mouseMode,
-    scaleX: rootStore.pianoRollStore.scaleX,
-    scrollLeft: rootStore.pianoRollStore.scrollLeft,
-    scrollTop: rootStore.pianoRollStore.scrollTop,
-    notesCursor: rootStore.pianoRollStore.notesCursor,
-    selection: rootStore.pianoRollStore.selection,
-    loop: rootStore.services.player.loop,
-  }))
+  } = useObserver(() => {
+    const ghostTrackIds =
+      rootStore.pianoRollStore.ghostTracks[rootStore.song.selectedTrackId] ?? []
+
+    return {
+      trackId: rootStore.song.selectedTrackId,
+      ghostTrackIds,
+      measures: rootStore.song.measures,
+      playerPosition: rootStore.services.player.position,
+      timebase: rootStore.services.player.timebase,
+      mouseMode: rootStore.pianoRollStore.mouseMode,
+      scrollLeft: rootStore.pianoRollStore.scrollLeft,
+      scrollTop: rootStore.pianoRollStore.scrollTop,
+      notesCursor: rootStore.pianoRollStore.notesCursor,
+      selection: rootStore.pianoRollStore.selection,
+    }
+  })
+  const transform = useNoteTransform()
   const theme = useTheme()
 
   const [pencilMouseHandler] = useState(new PencilMouseHandler(rootStore))
   const [selectionMouseHandler] = useState(new SelectionMouseHandler(rootStore))
-  const transform = useMemo(
-    () => new NoteCoordTransform(0.1 * scaleX, theme.keyHeight, 127),
-    [scaleX, theme]
-  )
 
   const stageHeight = transform.pixelsPerKey * transform.numberOfKeys
   const startTick = scrollLeft / transform.pixelsPerTick
@@ -129,25 +121,6 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
 
   const handleMouseUp = (e: PIXI.InteractionEvent) =>
     mouseHandler.onMouseUp(extendEvent(e))
-
-  const windowNotes = (notes: NoteEvent[]): NoteEvent[] =>
-    filterEventsWithScroll(notes, transform.pixelsPerTick, scrollLeft, width)
-
-  const notes = windowNotes(events).map(
-    (e): PianoNoteItem => {
-      const rect = transform.getRect(e)
-      const isSelected = selection.noteIds.includes(e.id)
-      return {
-        ...rect,
-        id: e.id,
-        velocity: e.velocity,
-        isSelected,
-        isDrum: isRhythmTrack,
-      }
-    }
-  )
-
-  const keyedNotes = useRecycle(notes)
 
   const mappedBeats = createBeatsInRange(
     measures,
@@ -205,33 +178,43 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
                 pixelsPerKey={transform.pixelsPerKey}
                 numberOfKeys={transform.numberOfKeys}
               />
-              <Container
-                position={new Point(-scrollLeft, 0)}
-                interactive={true}
-                hitArea={new Rectangle(0, 0, 100000, 100000)} // catch all hits
-                mousedown={handleMouseDown}
-                mousemove={handleMouseMove}
-                mouseup={handleMouseUp}
-                rightclick={handleRightClick}
-                cursor={notesCursor}
-              >
-                <PianoGrid height={contentHeight} beats={mappedBeats} />
-                <PianoNotes notes={keyedNotes} />
-                {selection.enabled && (
-                  <PianoSelection
-                    bounds={selection.getBounds(transform)}
-                    onRightClick={onRightClickSelection}
-                  />
-                )}
-                <Container x={cursorPositionX}>
-                  <PianoCursor height={contentHeight} />
+              <Container position={new Point(-scrollLeft, 0)}>
+                <Container interactive={false} hitArea={Rectangle.EMPTY}>
+                  <PianoGrid height={contentHeight} beats={mappedBeats} />
+                  {ghostTrackIds.map((id) => (
+                    <PianoNotes
+                      key={id}
+                      trackId={id}
+                      width={width}
+                      isGhost={true}
+                    />
+                  ))}
+                </Container>
+                <Container
+                  interactive={true}
+                  hitArea={new Rectangle(0, 0, 100000, 100000)} // catch all hits
+                  mousedown={handleMouseDown}
+                  mousemove={handleMouseMove}
+                  mouseup={handleMouseUp}
+                  rightclick={handleRightClick}
+                  cursor={notesCursor}
+                >
+                  <PianoNotes trackId={trackId} width={width} isGhost={false} />
+                  {selection.enabled && (
+                    <PianoSelection
+                      bounds={selection.getBounds(transform)}
+                      onRightClick={onRightClickSelection}
+                    />
+                  )}
+                  <Container x={cursorPositionX}>
+                    <PianoCursor height={contentHeight} />
+                  </Container>
                 </Container>
               </Container>
             </Container>
             <PianoRuler
               width={width}
               beats={mappedBeats}
-              loop={loop}
               scrollLeft={scrollLeft}
               pixelsPerTick={transform.pixelsPerTick}
             />

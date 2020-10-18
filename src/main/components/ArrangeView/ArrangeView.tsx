@@ -8,7 +8,6 @@ import {
   pointSub,
 } from "common/geometry"
 import { Measure } from "common/measure/Measure"
-import { LoopSetting } from "common/player/Player"
 import { Theme } from "common/theme/Theme"
 import Track, { isNoteEvent, TrackEvent } from "common/track"
 import { NoteCoordTransform } from "common/transform"
@@ -77,7 +76,6 @@ export interface ArrangeViewProps {
   onScrollLeft: (scroll: number) => void
   onScrollTop: (scroll: number) => void
   size: ISize
-  loop: LoopSetting
   onClickScaleUp: () => void
   onClickScaleDown: () => void
   onClickScaleReset: () => void
@@ -104,7 +102,6 @@ export const ArrangeView: FC<ArrangeViewProps> = ({
   onScrollLeft,
   onScrollTop,
   size,
-  loop,
   onClickScaleUp,
   onClickScaleDown,
   onClickScaleReset,
@@ -284,7 +281,6 @@ export const ArrangeView: FC<ArrangeViewProps> = ({
           beats={mappedBeats}
           scrollLeft={scrollLeft}
           pixelsPerTick={pixelsPerTick}
-          loop={loop}
         />
         <div className="content" style={{ top: -scrollTop }}>
           <div className="tracks">

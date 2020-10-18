@@ -7,6 +7,7 @@ import isEqual from "lodash/isEqual"
 import { setPlayerPosition } from "main/actions"
 import { useStores } from "main/hooks/useStores"
 import { useTheme } from "main/hooks/useTheme"
+import { useObserver } from "mobx-react-lite"
 import { Graphics as PIXIGraphics, Point, TextStyle } from "pixi.js"
 import React, { FC, useCallback } from "react"
 
@@ -107,7 +108,6 @@ export interface PianoRulerProps {
   pixelsPerTick: number
   scrollLeft: number
   beats: BeatWithX[]
-  loop?: LoopSetting
 }
 
 const PianoRuler: FC<PianoRulerProps> = ({
@@ -115,7 +115,6 @@ const PianoRuler: FC<PianoRulerProps> = ({
   pixelsPerTick,
   scrollLeft,
   beats,
-  loop,
 }) => {
   const theme = useTheme()
   const height = theme.rulerHeight
@@ -154,6 +153,10 @@ const PianoRuler: FC<PianoRulerProps> = ({
     ))
 
   const { rootStore } = useStores()
+
+  const { loop } = useObserver(() => ({
+    loop: rootStore.services.player.loop,
+  }))
 
   const onMouseDown = useCallback(
     (ev: PIXI.InteractionEvent) => {
@@ -200,16 +203,11 @@ const PianoRuler: FC<PianoRulerProps> = ({
   )
 }
 
-PianoRuler.defaultProps = {
-  loop: { begin: 0, end: 0, enabled: false },
-}
-
 function areEqual(props: PianoRulerProps, nextProps: PianoRulerProps) {
   return (
     props.width === nextProps.width &&
     props.pixelsPerTick === nextProps.pixelsPerTick &&
     props.scrollLeft === nextProps.scrollLeft &&
-    isEqual(props.loop, nextProps.loop) &&
     isEqual(props.beats, nextProps.beats)
   )
 }

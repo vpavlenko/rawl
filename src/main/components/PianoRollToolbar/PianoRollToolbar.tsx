@@ -1,22 +1,20 @@
-import React, { FC, useCallback } from "react"
-import { AppBar, Toolbar, IconButton, Button } from "@material-ui/core"
-import { Menu as MenuIcon, KeyboardTab, Create } from "@material-ui/icons"
+import { AppBar, Button, IconButton, Toolbar } from "@material-ui/core"
+import { Create, KeyboardTab, Menu as MenuIcon } from "@material-ui/icons"
 import { ToggleButton, ToggleButtonGroup } from "@material-ui/lab"
-
-import PianoIcon from "../../images/piano.svg"
-import SelectIcon from "../../images/select.svg"
-
-import QuantizeSelector from "main/components/PianoRollToolbar/QuantizeSelector/QuantizeSelector"
-
 import { makeStyles } from "@material-ui/styles"
-import InstrumentBrowser from "../InstrumentBrowser/InstrumentBrowser"
-import { VolumeSlider } from "./VolumeSlider"
-import { PanSlider } from "./PanSlider"
-import { useObserver } from "mobx-react-lite"
-import { setTrackVolume, setTrackPan } from "main/actions"
+import { setTrackPan, setTrackVolume } from "main/actions"
+import QuantizeSelector from "main/components/PianoRollToolbar/QuantizeSelector/QuantizeSelector"
 import { useStores } from "main/hooks/useStores"
+import { useObserver } from "mobx-react-lite"
+import React, { FC, useCallback } from "react"
 import styled from "styled-components"
 import { localized } from "../../../common/localize/localizedString"
+import PianoIcon from "../../images/piano.svg"
+import SelectIcon from "../../images/select.svg"
+import InstrumentBrowser from "../InstrumentBrowser/InstrumentBrowser"
+import { GhostTrackSelector } from "./GhostTrackSelector"
+import { PanSlider } from "./PanSlider"
+import { VolumeSlider } from "./VolumeSlider"
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -203,6 +201,8 @@ export const PianoRollToolbar: FC = () => {
         >
           <AutoScrollIcon />
         </ToggleButton>
+
+        <GhostTrackSelector />
       </Toolbar>
     </AppBar>
   )

@@ -15,6 +15,7 @@ export interface Theme {
   keyWidth: number
   keyHeight: number
   rulerHeight: number
+  ghostNoteColor: string
 }
 
 export const defaultTheme: Theme = {
@@ -34,4 +35,5 @@ export const defaultTheme: Theme = {
   pianoKeyBlack: "#272a36",
   pianoKeyWhite: "#fbfcff",
   pianoBlackKeyLaneColor: "#1f2029",
+  ghostNoteColor: "#444444",
 }

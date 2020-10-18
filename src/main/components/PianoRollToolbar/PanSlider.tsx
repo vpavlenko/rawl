@@ -2,8 +2,8 @@ import { withStyles } from "@material-ui/core"
 import Slider from "@material-ui/core/Slider"
 import { theme } from "common/theme/muiTheme"
 import { setTrackPan } from "main/actions"
+import { useMemoObserver } from "main/hooks/useMemoObserver"
 import { useStores } from "main/hooks/useStores"
-import { useObserver } from "mobx-react-lite"
 import React, { FC, useCallback } from "react"
 import styled from "styled-components"
 
@@ -37,7 +37,7 @@ const _PanSlider: FC<PanSliderProps> = ({ trackId }) => {
     (value: number) => setTrackPan(stores)(trackId, value),
     [stores, trackId]
   )
-  const pan = useObserver(
+  const pan = useMemoObserver(
     () =>
       stores.song.selectedTrack?.getPan(stores.services.player.position) ?? 0
   )

@@ -40,7 +40,8 @@ export interface PianoNotesMouseEvent {
 }
 
 export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
-  const { rootStore } = useStores()
+  const stores = useStores()
+  const { rootStore } = stores
   const {
     trackId,
     ghostTrackIds,
@@ -170,7 +171,7 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
         options={{ transparent: true, autoDensity: true }}
         onContextMenu={useCallback((e) => e.preventDefault(), [])}
       >
-        <StoreContext.Provider value={{ rootStore }}>
+        <StoreContext.Provider value={stores}>
           <Container position={new Point(theme.keyWidth, 0)}>
             <Container position={new Point(0, -scrollTop + theme.rulerHeight)}>
               <PianoLines

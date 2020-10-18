@@ -2,6 +2,7 @@ import { Container } from "@inlet/react-pixi"
 import Color from "color"
 import { filterEventsWithScroll } from "common/helpers/filterEventsWithScroll"
 import { isNoteEvent, NoteEvent } from "common/track"
+import { useMemoObserver } from "main/hooks/useMemoObserver"
 import { useNoteTransform } from "main/hooks/useNoteTransform"
 import { useRecycle } from "main/hooks/useRecycle"
 import { useStores } from "main/hooks/useStores"
@@ -21,15 +22,18 @@ export interface PianoNotesProps {
 */
 const PianoNotes: FC<PianoNotesProps> = ({ trackId, width, isGhost }) => {
   const { rootStore } = useStores()
-  const { events, isRhythmTrack, scrollLeft, selection } = useObserver(() => {
+
+  const { events, isRhythmTrack } = useObserver(() => {
     const track = rootStore.song.tracks[trackId]
     return {
       events: track?.events ?? [],
       isRhythmTrack: track?.isRhythmTrack ?? false,
-      scrollLeft: rootStore.pianoRollStore.scrollLeft,
-      selection: rootStore.pianoRollStore.selection,
     }
   })
+
+  const scrollLeft = useMemoObserver(() => rootStore.pianoRollStore.scrollLeft)
+  const selection = useObserver(() => rootStore.pianoRollStore.selection)
+
   const transform = useNoteTransform()
   const theme = useTheme()
 
@@ -74,12 +78,9 @@ const PianoNotes: FC<PianoNotesProps> = ({ trackId, width, isGhost }) => {
   return <Container>{items}</Container>
 }
 
-function areEqual(props: PianoNotesProps, nextProps: PianoNotesProps) {
-  return (
-    props.trackId === nextProps.trackId &&
-    props.width === nextProps.width &&
-    props.isGhost === nextProps.isGhost
-  )
-}
+const areEqual = (props: PianoNotesProps, nextProps: PianoNotesProps) =>
+  props.trackId === nextProps.trackId &&
+  props.width === nextProps.width &&
+  props.isGhost === nextProps.isGhost
 
 export default React.memo(PianoNotes, areEqual)

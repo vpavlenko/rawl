@@ -54,8 +54,8 @@ const Wrapper = styled.div`
 `
 
 const _TempoGraph: FC<TempoGraphProps> = ({ size }) => {
-  const { rootStore } = useStores()
-
+  const stores = useStores()
+  const { rootStore } = stores
   const {
     isPlaying,
     pixelsPerTick,
@@ -187,7 +187,7 @@ const _TempoGraph: FC<TempoGraphProps> = ({ size }) => {
         style={{ position: "absolute" }}
         options={{ transparent: true }}
       >
-        <StoreContext.Provider value={{ rootStore }}>
+        <StoreContext.Provider value={stores}>
           <Container x={keyWidth}>
             <Container x={-scrollLeft} y={rulerHeight}>
               <PianoGrid height={canvasHeight} beats={mappedBeats} />

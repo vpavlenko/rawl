@@ -3,8 +3,8 @@ import Slider from "@material-ui/core/Slider"
 import { VolumeUp } from "@material-ui/icons"
 import { theme } from "common/theme/muiTheme"
 import { setTrackVolume } from "main/actions"
+import { useMemoObserver } from "main/hooks/useMemoObserver"
 import { useStores } from "main/hooks/useStores"
-import { useObserver } from "mobx-react-lite"
 import React, { FC, useCallback } from "react"
 import styled from "styled-components"
 
@@ -33,7 +33,7 @@ export interface VolumeSliderProps {
 
 const _VolumeSlider: FC<VolumeSliderProps> = ({ trackId }) => {
   const { rootStore: stores } = useStores()
-  const volume = useObserver(
+  const volume = useMemoObserver(
     () =>
       stores.song.selectedTrack?.getVolume(stores.services.player.position) ?? 0
   )

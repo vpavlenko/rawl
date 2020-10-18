@@ -1,29 +1,28 @@
-import { observable, action, transaction } from "mobx"
-import { serializable, list } from "serializr"
-import isEqual from "lodash/isEqual"
-import without from "lodash/without"
 import difference from "lodash/difference"
-import sortBy from "lodash/sortBy"
+import isEqual from "lodash/isEqual"
 import last from "lodash/last"
-import { AnyEvent } from "midifile-ts"
-
+import sortBy from "lodash/sortBy"
+import without from "lodash/without"
 import { getInstrumentName } from "midi/GM"
+import { AnyEvent } from "midifile-ts"
+import { action, computed, observable, transaction } from "mobx"
+import { list, serializable } from "serializr"
+import { isNotUndefined } from "../helpers/array"
+import { pojo } from "../helpers/pojo"
 import {
+  isControllerEvent,
+  isEndOfTrackEvent,
+  isProgramChangeEvent,
+  isSetTempoEvent,
+  isTimeSignatureEvent,
+  isTrackNameEvent,
+} from "./identify"
+import {
+  NoteEvent,
   TrackEvent,
   TrackEventRequired,
   TrackMidiEvent,
-  NoteEvent,
 } from "./TrackEvent"
-import { isNotUndefined } from "../helpers/array"
-import {
-  isTrackNameEvent,
-  isProgramChangeEvent,
-  isEndOfTrackEvent,
-  isSetTempoEvent,
-  isControllerEvent,
-  isTimeSignatureEvent,
-} from "./identify"
-import { pojo } from "../helpers/pojo"
 
 type EventBeforeAdded = TrackMidiEvent | Omit<NoteEvent, "id">
 
@@ -186,14 +185,14 @@ export default class Track {
   }
 
   // 表示用の名前 トラック名がなければトラック番号を表示する
-  get displayName() {
+  @computed get displayName() {
     if (this.name && this.name.length > 0) {
       return this.name
     }
     return `Track ${this.channel}`
   }
 
-  get instrumentName() {
+  @computed get instrumentName() {
     if (this.isRhythmTrack) {
       return "Standard Drum Kit"
     }
@@ -204,7 +203,7 @@ export default class Track {
     return undefined
   }
 
-  get name(): string | undefined {
+  @computed get name(): string | undefined {
     return last(this.events.filter(isTrackNameEvent))?.text
   }
 
@@ -248,7 +247,7 @@ export default class Track {
   setPan = (value: number, tick: number) =>
     this.setControllerValue(10, tick, value)
 
-  get endOfTrack(): number | undefined {
+  @computed get endOfTrack(): number | undefined {
     return last(this.events.filter(isEndOfTrackEvent))?.tick
   }
 
@@ -256,7 +255,7 @@ export default class Track {
     this._updateLast(this.events.filter(isEndOfTrackEvent), { tick })
   }
 
-  get programNumber(): number | undefined {
+  @computed get programNumber(): number | undefined {
     return last(this.events.filter(isProgramChangeEvent))?.value
   }
 
@@ -287,11 +286,11 @@ export default class Track {
     }
   }
 
-  get isConductorTrack() {
+  @computed get isConductorTrack() {
     return this.channel === undefined
   }
 
-  get isRhythmTrack() {
+  @computed get isRhythmTrack() {
     return this.channel === 9
   }
 }

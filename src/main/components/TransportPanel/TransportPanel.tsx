@@ -84,11 +84,6 @@ const TempoWrapper = styled.div`
   }
 `
 
-interface TempoFormProps {
-  tempo: number
-  onChangeTempo: (tempo: number) => void
-}
-
 const TempoForm: FC = () => {
   const { rootStore: stores } = useStores()
   const tempo = useMemoObserver(

@@ -22,11 +22,12 @@ const isFocusable = (e: EventTarget) =>
 
 export const KeyboardShortcut: FC = () => {
   const { rootStore } = useStores()
-  const {
-    services: { player },
-  } = rootStore
 
   useEffect(() => {
+    const {
+      services: { player },
+    } = rootStore
+
     document.onkeydown = (e) => {
       if (e.target !== null && isFocusable(e.target)) {
         return
@@ -111,7 +112,7 @@ export const KeyboardShortcut: FC = () => {
       document.onpaste = null
       document.oncontextmenu = null
     }
-  })
+  }, [rootStore])
 
   return <></>
 }

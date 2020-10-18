@@ -1,20 +1,20 @@
-import React, { FC, useState, useEffect } from "react"
-import { ISize } from "common/geometry"
-import { NoteCoordTransform } from "common/transform"
 import {
-  arrangeStartSelection,
   arrangeEndSelection,
-  arrangeResizeSelection,
   arrangeMoveSelection,
   arrangeOpenContextMenu,
+  arrangeResizeSelection,
+  arrangeStartSelection,
 } from "actions"
-import { withSize } from "react-sizeme"
-import { useObserver } from "mobx-react-lite"
+import { ISize } from "common/geometry"
+import { NoteCoordTransform } from "common/transform"
 import { ArrangeView } from "components/ArrangeView/ArrangeView"
-import { toJS } from "mobx"
 import { setPlayerPosition } from "main/actions"
-import { useTheme } from "../../hooks/useTheme"
+import { toJS } from "mobx"
+import { useObserver } from "mobx-react-lite"
+import React, { FC, useEffect, useState } from "react"
+import { withSize } from "react-sizeme"
 import { useStores } from "../../hooks/useStores"
+import { useTheme } from "../../hooks/useTheme"
 
 interface ArrangeViewWrapperProps {
   size: ISize
@@ -32,7 +32,6 @@ const ArrangeViewWrapper: FC<ArrangeViewWrapperProps> = ({ size }) => {
     measures,
     timebase,
     endTick,
-    loop,
     selection,
   } = useObserver(() => ({
     autoScroll: rootStore.arrangeViewStore.autoScroll,
@@ -43,7 +42,6 @@ const ArrangeViewWrapper: FC<ArrangeViewWrapperProps> = ({ size }) => {
     measures: rootStore.song.measures,
     timebase: rootStore.services.player.timebase,
     endTick: rootStore.song.endOfSong,
-    loop: rootStore.services.player.loop,
     selection: rootStore.arrangeViewStore.selection,
   }))
   const { arrangeViewStore: s } = rootStore
@@ -89,7 +87,6 @@ const ArrangeViewWrapper: FC<ArrangeViewWrapperProps> = ({ size }) => {
       playerPosition={playerPosition}
       selection={selection}
       autoScroll={autoScroll}
-      loop={loop}
       onScrollLeft={(scroll: number) => setScrollLeft(scroll)}
       onScrollTop={(scroll: number) => setScrollTop(scroll)}
       onClickScaleUp={() => (s.scaleX = s.scaleX + 0.1)}

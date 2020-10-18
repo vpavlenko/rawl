@@ -1,18 +1,18 @@
-import React, { FC } from "react"
-import { Graphics as PIXIGraphics, Rectangle } from "pixi.js"
-import { IRect } from "../../../../common/geometry"
 import { Graphics } from "@inlet/react-pixi"
 import isEqual from "lodash/isEqual"
+import { Graphics as PIXIGraphics, Rectangle } from "pixi.js"
+import React, { FC } from "react"
+import { IRect } from "../../../../common/geometry"
 
 export type PianoNoteItem = IRect & {
   id: number
   velocity: number
   isSelected: boolean
+  isDrum: boolean
 }
 
 export interface PianoNoteProps {
   item: PianoNoteItem
-  isDrum: boolean
   color: number
   borderColor: number
   selectedColor: number
@@ -37,8 +37,8 @@ class PianoGraphics extends PIXIGraphics {
   item: PianoNoteItem
 }
 
-export const isPianoNote = (x: PIXI.DisplayObject): x is PianoGraphics =>
-  x.name === "PianoNote"
+export const isPianoNote = (x: PIXI.DisplayObject | null): x is PianoGraphics =>
+  x?.name === "PianoNote"
 
 const _PianoNote: FC<PianoNoteProps> = (props) => {
   const { item } = props
@@ -79,7 +79,7 @@ const _PianoNote: FC<PianoNoteProps> = (props) => {
   return (
     <Graphics
       name="PianoNote"
-      draw={props.isDrum ? renderDrumNote : render}
+      draw={item.isDrum ? renderDrumNote : render}
       x={Math.round(item.x)}
       y={Math.round(item.y)}
       interactive={true}
@@ -105,10 +105,9 @@ export const getPositionType = (
 
 const areEqual = (props: PianoNoteProps, nextProps: PianoNoteProps) =>
   isEqual(props.item, nextProps.item) &&
-  props.isDrum === nextProps.isDrum &&
   props.color === nextProps.color &&
   props.borderColor === nextProps.borderColor &&
   props.selectedColor === nextProps.selectedColor &&
-  props.selectedBorderColor === nextProps.selectedBorderColor 
+  props.selectedBorderColor === nextProps.selectedBorderColor
 
 export const PianoNote = React.memo(_PianoNote, areEqual)

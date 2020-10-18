@@ -1,8 +1,11 @@
-import React, { FC } from "react"
 import { withStyles } from "@material-ui/core"
-import Slider, { SliderProps } from "@material-ui/core/Slider"
-import styled from "styled-components"
+import Slider from "@material-ui/core/Slider"
 import { theme } from "common/theme/muiTheme"
+import { setTrackPan } from "main/actions"
+import { useMemoObserver } from "main/hooks/useMemoObserver"
+import { useStores } from "main/hooks/useStores"
+import React, { FC, useCallback } from "react"
+import styled from "styled-components"
 
 const LightSlider = withStyles({
   root: {
@@ -25,16 +28,24 @@ const Label = styled.div`
 `
 
 export interface PanSliderProps {
-  onChange: (value: number) => void
-  value: number
+  trackId: number
 }
 
-export const PanSlider: FC<PanSliderProps> = React.memo(
-  ({ onChange, value }) => (
+const _PanSlider: FC<PanSliderProps> = ({ trackId }) => {
+  const { rootStore: stores } = useStores()
+  const onChange = useCallback(
+    (value: number) => setTrackPan(stores)(trackId, value),
+    [stores, trackId]
+  )
+  const pan = useMemoObserver(
+    () =>
+      stores.song.selectedTrack?.getPan(stores.services.player.position) ?? 0
+  )
+  return (
     <Container>
       <Label>Pan</Label>
       <LightSlider
-        value={value}
+        value={pan}
         onChange={(_, value) => onChange(value as number)}
         min={0}
         max={127}
@@ -43,4 +54,6 @@ export const PanSlider: FC<PanSliderProps> = React.memo(
       />
     </Container>
   )
-)
+}
+
+export const PanSlider = React.memo(_PanSlider)

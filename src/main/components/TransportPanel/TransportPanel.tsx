@@ -1,12 +1,13 @@
-import { ToolbarSeparator } from "components/groups/Toolbar"
-import React, { FC, useCallback } from "react"
-import { Toolbar, makeStyles } from "@material-ui/core"
-import { Stop, FastRewind, FastForward, PlayArrow } from "@material-ui/icons"
-import styled from "styled-components"
-import { play, stop, rewindOneBar, fastForwardOneBar } from "main/actions"
-import { useObserver } from "mobx-react-lite"
-import { useStores } from "main/hooks/useStores"
+import { makeStyles, Toolbar } from "@material-ui/core"
+import { FastForward, FastRewind, PlayArrow, Stop } from "@material-ui/icons"
 import { getMBTString } from "common/measure/mbt"
+import { ToolbarSeparator } from "components/groups/Toolbar"
+import { fastForwardOneBar, play, rewindOneBar, stop } from "main/actions"
+import { useMemoObserver } from "main/hooks/useMemoObserver"
+import { useStores } from "main/hooks/useStores"
+import { useObserver } from "mobx-react-lite"
+import React, { FC } from "react"
+import styled from "styled-components"
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -83,18 +84,12 @@ const TempoWrapper = styled.div`
   }
 `
 
-interface TempoFormProps {
-  tempo: number
-  onChangeTempo: (tempo: number) => void
-}
-
 const TempoForm: FC = () => {
   const { rootStore: stores } = useStores()
-  const { tempo } = useObserver(() => ({
-    tempo:
-      stores.song.conductorTrack?.getTempo(stores.services.player.position) ??
-      1,
-  }))
+  const tempo = useMemoObserver(
+    () =>
+      stores.song.conductorTrack?.getTempo(stores.services.player.position) ?? 1
+  )
 
   const changeTempo = (tempo: number) =>
     stores.song.conductorTrack?.setTempo(tempo, stores.services.player.position)
@@ -126,20 +121,27 @@ const TempoForm: FC = () => {
   )
 }
 
-const Timestamp = styled.div`
+const TimestampText = styled.div`
   font-family: "Roboto Mono", monospace;
   font-size: 0.9rem;
   color: var(--secondary-text-color);
 `
 
-export const TransportPanel: FC = () => {
+const Timestamp: FC = () => {
   const { rootStore: stores } = useStores()
-  const { mbtTime, isPlaying } = useObserver(() => ({
-    mbtTime: getMBTString(
+  const mbtTime = useMemoObserver(() =>
+    getMBTString(
       stores.song.measures,
       stores.services.player.position,
       stores.services.player.timebase
-    ),
+    )
+  )
+  return <TimestampText>{mbtTime}</TimestampText>
+}
+
+export const TransportPanel: FC = () => {
+  const { rootStore: stores } = useStores()
+  const { isPlaying } = useObserver(() => ({
     isPlaying: stores.services.player.isPlaying,
   }))
   const onClickPlay = () => play(stores)()
@@ -172,7 +174,7 @@ export const TransportPanel: FC = () => {
 
       <ToolbarSeparator />
 
-      <Timestamp>{mbtTime}</Timestamp>
+      <Timestamp />
     </Toolbar>
   )
 }

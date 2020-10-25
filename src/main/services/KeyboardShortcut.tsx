@@ -20,6 +20,8 @@ const isFocusable = (e: EventTarget) =>
   e instanceof HTMLButtonElement ||
   e instanceof HTMLIFrameElement
 
+const SCROLL_DELTA = 24
+
 export const KeyboardShortcut: FC = () => {
   const { rootStore } = useStores()
 
@@ -71,20 +73,32 @@ export const KeyboardShortcut: FC = () => {
           break
         }
         case "ArrowUp": {
-          transposeSelection(rootStore)(1)
+          if (e.ctrlKey || e.metaKey) {
+            rootStore.pianoRollStore.scrollBy(0, SCROLL_DELTA)
+          } else {
+            transposeSelection(rootStore)(1)
+          }
           break
         }
         case "ArrowDown": {
-          transposeSelection(rootStore)(-1)
+          if (e.ctrlKey || e.metaKey) {
+            rootStore.pianoRollStore.scrollBy(0, -SCROLL_DELTA)
+          } else {
+            transposeSelection(rootStore)(-1)
+          }
           break
         }
         case "ArrowRight":
-          if (rootStore.pianoRollStore.mouseMode == "pencil") {
+          if (e.ctrlKey || e.metaKey) {
+            rootStore.pianoRollStore.scrollBy(-SCROLL_DELTA, 0)
+          } else if (rootStore.pianoRollStore.mouseMode == "pencil") {
             selectNextNote(rootStore)()
           }
           break
         case "ArrowLeft":
-          if (rootStore.pianoRollStore.mouseMode == "pencil") {
+          if (e.ctrlKey || e.metaKey) {
+            rootStore.pianoRollStore.scrollBy(SCROLL_DELTA, 0)
+          } else if (rootStore.pianoRollStore.mouseMode == "pencil") {
             selectPreviousNote(rootStore)()
           }
           break

@@ -20,7 +20,7 @@ import PianoSelection from "components/PianoRoll/PianoSelection"
 import Stage from "components/Stage/Stage"
 import { filterEventsWithScroll } from "helpers/filterEventsWithScroll"
 import { createBeatsInRange } from "helpers/mapBeats"
-import React, { FC } from "react"
+import React, { RefObject } from "react"
 import ArrangeNoteItem from "../../components/ArrangeView/ArrangeNoteItem"
 import { observeDrag } from "../PianoRoll/MouseHandler/observeDrag"
 import "./ArrangeView.css"
@@ -82,31 +82,34 @@ export interface ArrangeViewProps {
   openContextMenu: (e: React.MouseEvent, isSelectionSelected: boolean) => void
 }
 
-export const ArrangeView: FC<ArrangeViewProps> = ({
-  tracks,
-  theme,
-  measures,
-  timebase,
-  endTick: trackEndTick,
-  playerPosition,
-  setPlayerPosition,
-  transform,
-  selection,
-  startSelection,
-  resizeSelection,
-  endSelection,
-  moveSelection,
-  autoScroll,
-  scrollLeft = 0,
-  scrollTop = 0,
-  onScrollLeft,
-  onScrollTop,
-  size,
-  onClickScaleUp,
-  onClickScaleDown,
-  onClickScaleReset,
-  openContextMenu,
-}) => {
+const _ArrangeView = (
+  {
+    tracks,
+    theme,
+    measures,
+    timebase,
+    endTick: trackEndTick,
+    playerPosition,
+    setPlayerPosition,
+    transform,
+    selection,
+    startSelection,
+    resizeSelection,
+    endSelection,
+    moveSelection,
+    autoScroll,
+    scrollLeft = 0,
+    scrollTop = 0,
+    onScrollLeft,
+    onScrollTop,
+    size,
+    onClickScaleUp,
+    onClickScaleDown,
+    onClickScaleReset,
+    openContextMenu,
+  }: ArrangeViewProps,
+  ref: RefObject<HTMLDivElement>
+) => {
   scrollLeft = Math.floor(scrollLeft)
 
   const { pixelsPerTick } = transform
@@ -269,7 +272,7 @@ export const ArrangeView: FC<ArrangeViewProps> = ({
   }
 
   return (
-    <div className="ArrangeView">
+    <div className="ArrangeView" ref={ref}>
       <div
         className="right"
         onMouseDown={onMouseDown}
@@ -343,3 +346,7 @@ export const ArrangeView: FC<ArrangeViewProps> = ({
     </div>
   )
 }
+
+export const ArrangeView = React.forwardRef<HTMLDivElement, ArrangeViewProps>(
+  _ArrangeView
+)

@@ -35,7 +35,6 @@
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-helmet": "^6.1.0",
-    "react-sizeme": "github:OrgVue/react-sizeme#master",
     "react-split-pane": "^0.1.92",
     "serializr": "^2.0.3",
     "sf2synth": "github:ryohey/sf2synth.js#2c9c6fe",

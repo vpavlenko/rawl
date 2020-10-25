@@ -1,28 +1,22 @@
-import React, { FC, useCallback } from "react"
-import _ from "lodash"
-
-import { NoteCoordTransform } from "common/transform"
-import { ISize } from "common/geometry"
-import { createBeatsInRange } from "helpers/mapBeats"
-
-import PianoGrid from "../PianoRoll/PianoGrid"
-
-import PanGraph from "./Graph/PanGraph"
-import PitchGraph from "./Graph/PitchGraph"
-import VolumeGraph from "./Graph/VolumeGraph"
-import ExpressionGraph from "./Graph/ExpressionGraph"
-import ModulationGraph from "./Graph/ModulationGraph"
-import PianoVelocityControl from "./VelocityControl/VelocityControl"
-
-import { Stage, Container } from "@inlet/react-pixi"
-import styled from "styled-components"
+import { Container, Stage } from "@inlet/react-pixi"
+import useComponentSize from "@rehooks/component-size"
 import { filterEventsWithScroll } from "common/helpers/filterEventsWithScroll"
-import { toJS } from "mobx"
-import { useObserver } from "mobx-react-lite"
+import { NoteCoordTransform } from "common/transform"
+import { createBeatsInRange } from "helpers/mapBeats"
 import { changeNotesVelocity, createControlEvent } from "main/actions"
 import { useStores } from "main/hooks/useStores"
 import { useTheme } from "main/hooks/useTheme"
-import { withSize } from "react-sizeme"
+import { toJS } from "mobx"
+import { useObserver } from "mobx-react-lite"
+import React, { FC, useCallback, useRef } from "react"
+import styled from "styled-components"
+import PianoGrid from "../PianoRoll/PianoGrid"
+import ExpressionGraph from "./Graph/ExpressionGraph"
+import ModulationGraph from "./Graph/ModulationGraph"
+import PanGraph from "./Graph/PanGraph"
+import PitchGraph from "./Graph/PitchGraph"
+import VolumeGraph from "./Graph/VolumeGraph"
+import PianoVelocityControl from "./VelocityControl/VelocityControl"
 
 interface ButtonItem {
   label: string
@@ -123,13 +117,12 @@ const Parent = styled.div`
   }
 `
 
-export interface ControlPaneProps {
-  size: ISize
-}
-
-const ControlPane: FC<ControlPaneProps> = ({ size }) => {
+const ControlPane: FC = () => {
   const TAB_HEIGHT = 30
   const BORDER_WIDTH = 1
+
+  const ref = useRef(null)
+  const size = useComponentSize(ref)
 
   const containerWidth = size.width
   const containerHeight = size.height
@@ -206,7 +199,7 @@ const ControlPane: FC<ControlPaneProps> = ({ size }) => {
   })()
 
   return (
-    <Parent>
+    <Parent ref={ref}>
       <TabBar onClick={onSelectTab} selectedMode={mode} />
       <div className="control-content">
         {control}
@@ -228,9 +221,4 @@ const ControlPane: FC<ControlPaneProps> = ({ size }) => {
   )
 }
 
-export default withSize({ monitorHeight: true })(
-  React.memo(ControlPane, (props, nextProps) => {
-    // ignore rendering when zero size
-    return nextProps.size.width === 0 && nextProps.size.height === 0
-  })
-)
+export default ControlPane

@@ -1,6 +1,6 @@
 import { Container, Stage as PixiStage } from "@inlet/react-pixi"
+import useComponentSize from "@rehooks/component-size"
 import Color from "color"
-import { ISize } from "common/geometry"
 import { TrackEvent } from "common/track"
 import { TempoCoordTransform } from "common/transform"
 import { BAR_WIDTH, HorizontalScrollBar } from "components/inputs/ScrollBar"
@@ -13,8 +13,7 @@ import { createBeatsInRange } from "helpers/mapBeats"
 import { SetTempoEvent } from "midifile-ts"
 import { toJS } from "mobx"
 import { useObserver } from "mobx-react-lite"
-import React, { FC, useEffect, useState } from "react"
-import { withSize } from "react-sizeme"
+import React, { FC, useEffect, useRef, useState } from "react"
 import styled from "styled-components"
 import {
   changeTempo as _changeTempo,
@@ -31,11 +30,8 @@ import transformEvents from "./transformEvents"
 
 type DisplayEvent = TrackEvent & SetTempoEvent
 
-interface TempoGraphProps {
-  size: ISize
-}
-
 const Wrapper = styled.div`
+  position: relative;
   flex-grow: 1;
   background: var(--background-color);
   color: var(--secondary-text-color);
@@ -53,7 +49,7 @@ const Wrapper = styled.div`
   }
 `
 
-const _TempoGraph: FC<TempoGraphProps> = ({ size }) => {
+export const TempoGraph: FC = () => {
   const stores = useStores()
   const { rootStore } = stores
   const {
@@ -79,6 +75,9 @@ const _TempoGraph: FC<TempoGraphProps> = ({ size }) => {
     scrollLeft: rootStore.tempoEditorStore.scrollLeft,
     playerPosition: rootStore.services.player.position,
   }))
+
+  const ref = useRef(null)
+  const size = useComponentSize(ref)
 
   const [_scrollLeft, setScrollLeft] = useState(0)
 
@@ -180,7 +179,7 @@ const _TempoGraph: FC<TempoGraphProps> = ({ size }) => {
   const canvasHeight = containerHeight - BAR_WIDTH
 
   return (
-    <Wrapper>
+    <Wrapper ref={ref}>
       <PixiStage
         width={containerWidth}
         height={canvasHeight}
@@ -233,5 +232,3 @@ const _TempoGraph: FC<TempoGraphProps> = ({ size }) => {
     </Wrapper>
   )
 }
-
-export const TempoGraph = withSize({ monitorHeight: true })(_TempoGraph)

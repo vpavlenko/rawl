@@ -49,5 +49,8 @@ export default {
     "move-selection": "選択範囲を移動",
     undo: "元に戻す",
     redo: "やり直し",
+    "select-note": "ノートを選択",
+    "scroll-horizontally": "左右にスクロール",
+    "scroll-vertically": "上下にスクロール",
   },
 } as { [key: string]: { [key: string]: string } }

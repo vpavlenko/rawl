@@ -1,6 +1,3 @@
-import React, { FC, ReactNode } from "react"
-import { useStores } from "../../hooks/useStores"
-import { useObserver } from "mobx-react-lite"
 import {
   Button,
   Dialog,
@@ -9,8 +6,11 @@ import {
   DialogContentText,
   DialogTitle,
 } from "@material-ui/core"
-import { localized } from "../../../common/localize/localizedString"
+import { useObserver } from "mobx-react-lite"
+import React, { FC, ReactNode } from "react"
 import styled from "styled-components"
+import { localized } from "../../../common/localize/localizedString"
+import { useStores } from "../../hooks/useStores"
 
 interface HotKeyProps {
   hotKeys: string[][]
@@ -85,6 +85,24 @@ export const HelpDialog: FC = () => {
         <HotKey
           hotKeys={[["↑"], ["↓"]]}
           text={localized("move-selection", "Move selection")}
+        />
+        <HotKey
+          hotKeys={[["←"], ["→"]]}
+          text={localized("select-note", "Select note")}
+        />
+        <HotKey
+          hotKeys={[
+            ["Cmd", "↑"],
+            ["Cmd", "↓"],
+          ]}
+          text={localized("scroll-vertically", "Scroll Vertically")}
+        />
+        <HotKey
+          hotKeys={[
+            ["Cmd", "←"],
+            ["Cmd", "→"],
+          ]}
+          text={localized("scroll-horizontally", "Scroll Horizontally")}
         />
         <HotKey hotKeys={[["Cmd", "Z"]]} text={localized("undo", "Undo")} />
         <HotKey

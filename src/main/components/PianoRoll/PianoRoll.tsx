@@ -1,21 +1,19 @@
-import React, { FC, useCallback, useRef, useEffect } from "react"
-import { useObserver } from "mobx-react-lite"
-import { withSize } from "react-sizeme"
-import { useTheme } from "main/hooks/useTheme"
-import { useStores } from "main/hooks/useStores"
-import styled from "styled-components"
-import SplitPane from "react-split-pane"
 import useComponentSize from "@rehooks/component-size"
 import { NoteCoordTransform } from "common/transform"
 import { HorizontalScaleScrollBar } from "components/inputs/ScaleScrollBar"
 import { VerticalScrollBar } from "components/inputs/ScrollBar"
 import {
-  PianoRollStage,
   PianoNotesMouseEvent,
+  PianoRollStage,
 } from "main/components/PianoRoll/PianoRollStage"
-import { ISize } from "common/geometry"
-import ControlPane from "../ControlPane/ControlPane"
+import { useStores } from "main/hooks/useStores"
+import { useTheme } from "main/hooks/useTheme"
+import { useObserver } from "mobx-react-lite"
+import React, { FC, useCallback, useEffect, useRef } from "react"
+import SplitPane from "react-split-pane"
+import styled from "styled-components"
 import { isTouchPadEvent } from "../../helpers/touchpad"
+import ControlPane from "../ControlPane/ControlPane"
 
 const WHEEL_SCROLL_RATE = 1 / 120
 
@@ -28,6 +26,7 @@ export interface PianoNotesMouseHandler {
 const Parent = styled.div`
   flex-grow: 1;
   background: var(--background-color);
+  position: relative;
 
   .ScrollBar {
     z-index: 10;
@@ -54,11 +53,7 @@ const Beta = styled.div`
 const clamp = (value: number, min: number, max: number) =>
   Math.min(max, Math.max(min, value))
 
-export interface PianoRollWrapperProps {
-  size: ISize
-}
-
-const PianoRollWrapper: FC<PianoRollWrapperProps> = ({ size }) => {
+const PianoRollWrapper: FC = () => {
   const { rootStore } = useStores()
   const {
     trackEndTick,
@@ -79,6 +74,9 @@ const PianoRollWrapper: FC<PianoRollWrapperProps> = ({ size }) => {
     scrollTop: rootStore.pianoRollStore.scrollTop,
     autoScroll: rootStore.pianoRollStore.autoScroll,
   }))
+
+  const ref = useRef(null)
+  const size = useComponentSize(ref)
 
   const theme = useTheme()
   const transform = new NoteCoordTransform(0.1 * scaleX, theme.keyHeight, 127)
@@ -151,7 +149,7 @@ const PianoRollWrapper: FC<PianoRollWrapperProps> = ({ size }) => {
   const _scrollTop = clampScrollTop(scrollTop)
 
   return (
-    <Parent>
+    <Parent ref={ref}>
       <SplitPane split="horizontal" minSize={50} defaultSize={"60%"}>
         <Alpha onWheel={onWheel} ref={alphaRef}>
           <PianoRollStage width={size.width} />
@@ -177,4 +175,4 @@ const PianoRollWrapper: FC<PianoRollWrapperProps> = ({ size }) => {
   )
 }
 
-export default withSize({ monitorHeight: true })(PianoRollWrapper)
+export default PianoRollWrapper

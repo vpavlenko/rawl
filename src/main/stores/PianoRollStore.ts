@@ -31,8 +31,8 @@ export default class PianoRollStore {
   @observable ghostTracks: GhostTrackIdMap = {}
 
   @action scrollBy(x: number, y: number) {
-    this.scrollLeft -= x
-    this.scrollTop -= y
+    this.scrollLeft = Math.max(0, this.scrollLeft - x)
+    this.scrollTop = Math.max(0, this.scrollTop - y)
   }
 
   @action toggleTool() {

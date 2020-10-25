@@ -1,3 +1,4 @@
+import useComponentSize from "@rehooks/component-size"
 import {
   arrangeEndSelection,
   arrangeMoveSelection,
@@ -5,22 +6,16 @@ import {
   arrangeResizeSelection,
   arrangeStartSelection,
 } from "actions"
-import { ISize } from "common/geometry"
 import { NoteCoordTransform } from "common/transform"
 import { ArrangeView } from "components/ArrangeView/ArrangeView"
 import { setPlayerPosition } from "main/actions"
 import { toJS } from "mobx"
 import { useObserver } from "mobx-react-lite"
-import React, { FC, useEffect, useState } from "react"
-import { withSize } from "react-sizeme"
+import React, { FC, useEffect, useRef, useState } from "react"
 import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
 
-interface ArrangeViewWrapperProps {
-  size: ISize
-}
-
-const ArrangeViewWrapper: FC<ArrangeViewWrapperProps> = ({ size }) => {
+const ArrangeViewWrapper: FC = () => {
   const { rootStore } = useStores()
 
   const {
@@ -45,6 +40,9 @@ const ArrangeViewWrapper: FC<ArrangeViewWrapperProps> = ({ size }) => {
     selection: rootStore.arrangeViewStore.selection,
   }))
   const { arrangeViewStore: s } = rootStore
+
+  const ref = useRef(null)
+  const size = useComponentSize(ref)
 
   const keyHeight = 0.3
 
@@ -106,4 +104,4 @@ const ArrangeViewWrapper: FC<ArrangeViewWrapperProps> = ({ size }) => {
   )
 }
 
-export default withSize({ monitorHeight: true })(ArrangeViewWrapper)
+export default ArrangeViewWrapper

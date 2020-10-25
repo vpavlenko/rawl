@@ -1,11 +1,9 @@
-import React, { FC } from "react"
-import { withSize } from "react-sizeme"
-
-import { pointSub, IPoint, ISize } from "common/geometry"
-
-import "./ScrollBar.css"
 import { ArrowDropUp } from "@material-ui/icons"
+import useComponentSize from "@rehooks/component-size"
+import { IPoint, pointSub } from "common/geometry"
+import React, { FC, useRef } from "react"
 import { observeDrag } from "../PianoRoll/MouseHandler/observeDrag"
+import "./ScrollBar.css"
 
 export const BAR_WIDTH = 17
 const BUTTON_SIZE = 15
@@ -37,6 +35,7 @@ const hStyle: React.CSSProperties = {
 }
 
 export interface ScrollBarProps {
+  children?: React.ReactNode
   isVertical: boolean
   barLength: number
   scrollOffset?: number
@@ -44,14 +43,20 @@ export interface ScrollBarProps {
   onScroll?: (scroll: number) => void
 }
 
-export const ScrollBar: FC<ScrollBarProps> = ({
-  isVertical,
-  barLength,
-  scrollOffset = 50,
-  contentLength = 1000,
-  onScroll,
-  children,
-}) => {
+const _ScrollBar: React.RefForwardingComponent<
+  HTMLDivElement,
+  ScrollBarProps
+> = (
+  {
+    isVertical,
+    barLength,
+    scrollOffset = 50,
+    contentLength = 1000,
+    onScroll,
+    children,
+  },
+  ref
+) => {
   const buttonLength = BUTTON_SIZE
   const maxOffset = contentLength - barLength
   const maxLength = barLength - buttonLength * 2
@@ -157,6 +162,7 @@ export const ScrollBar: FC<ScrollBarProps> = ({
 
   return (
     <div
+      ref={ref}
       style={style}
       className={`ScrollBar ${className}`}
       onMouseDown={onMouseDown}
@@ -183,6 +189,8 @@ export const ScrollBar: FC<ScrollBarProps> = ({
   )
 }
 
+export const ScrollBar = React.forwardRef(_ScrollBar)
+
 function scrollAmountOfElement(className: string, baseValue: number) {
   switch (className) {
     case "button-backward":
@@ -205,19 +213,24 @@ function getPoint(e: MouseEvent | React.MouseEvent): IPoint {
   }
 }
 
-type VerticalScrollBar_Props = Omit<
-  ScrollBarProps,
-  "isVertical" | "barLength"
-> & { size: ISize }
+type VerticalScrollBar_Props = Omit<ScrollBarProps, "isVertical" | "barLength">
 type HorizontalScrollBar_Props = VerticalScrollBar_Props
 
-const VerticalScrollBar_: FC<VerticalScrollBar_Props> = (props) => (
-  <ScrollBar isVertical={true} {...props} barLength={props.size.height} />
-)
+const VerticalScrollBar_: FC<VerticalScrollBar_Props> = (props) => {
+  const ref = useRef<HTMLDivElement>(null)
+  const size = useComponentSize(ref)
+  return (
+    <ScrollBar ref={ref} isVertical={true} {...props} barLength={size.height} />
+  )
+}
 
-const HorizontalScrollBar_: FC<HorizontalScrollBar_Props> = (props) => (
-  <ScrollBar isVertical={false} {...props} barLength={props.size.width} />
-)
+const HorizontalScrollBar_: FC<HorizontalScrollBar_Props> = (props) => {
+  const ref = useRef<HTMLDivElement>(null)
+  const size = useComponentSize(ref)
+  return (
+    <ScrollBar ref={ref} isVertical={false} {...props} barLength={size.width} />
+  )
+}
 
 export type VerticalScrollBarProps = Omit<VerticalScrollBar_Props, "size">
 export type HorizontalScrollBarProps = Omit<HorizontalScrollBar_Props, "size">
@@ -228,17 +241,7 @@ const areEqual = (
 ) =>
   props.scrollOffset === nextProps.scrollOffset &&
   props.contentLength === nextProps.contentLength &&
-  props.onScroll === nextProps.onScroll &&
-  props.size.width == nextProps.size.width &&
-  props.size.height == nextProps.size.height
+  props.onScroll === nextProps.onScroll
 
-export const VerticalScrollBar = withSize({
-  monitorHeight: true,
-  monitorPosition: false,
-})(React.memo(VerticalScrollBar_, areEqual))
-
-export const HorizontalScrollBar = withSize({
-  monitorHeight: false,
-  monitorWidth: true,
-  monitorPosition: false,
-})(React.memo(HorizontalScrollBar_, areEqual))
+export const VerticalScrollBar = React.memo(VerticalScrollBar_, areEqual)
+export const HorizontalScrollBar = React.memo(HorizontalScrollBar_, areEqual)

@@ -1,12 +1,16 @@
-import { fromPoints as rectFromPoints, IPoint, IRect } from "common/geometry"
 import mapValues from "lodash/mapValues"
-import clipboard from "services/Clipboard.ts"
-import RootStore from "../stores/RootStore"
-import Track, { NoteEvent, isNoteEvent } from "common/track"
+import {
+  fromPoints as rectFromPoints,
+  IPoint,
+  IRect,
+} from "../../common/geometry"
+import { isNotUndefined } from "../../common/helpers/array"
+import Quantizer from "../../common/quantizer"
+import Track, { isNoteEvent, NoteEvent } from "../../common/track"
 import { openContextMenu } from "../components/groups/ContextMenu"
 import { ArrangeContextMenu } from "../menus/ArrangeContextMenu"
-import { isNotUndefined } from "common/helpers/array"
-import Quantizer from "common/quantizer"
+import clipboard from "../services/Clipboard"
+import RootStore from "../stores/RootStore"
 
 const createRect = (tracks: Track[], from: IPoint, to: IPoint) => {
   const rect = rectFromPoints(from, to)

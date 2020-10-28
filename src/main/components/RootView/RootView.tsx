@@ -1,17 +1,16 @@
-import React, { FC } from "react"
-import { PianoRollEditor } from "components/PianoRoll/PianoRollEditor"
-import { BuildInfo } from "main/components/BuildInfo"
-import { Drawer } from "../../components/Drawer/Drawer"
-import { TransportPanel } from "main/components/TransportPanel/TransportPanel"
-import styled from "styled-components"
-
-import "./Resizer.css"
-import { useStores } from "../../hooks/useStores"
 import { useObserver } from "mobx-react-lite"
-import { TempoEditor } from "../TempoGraph/TempoEditor"
+import React, { FC } from "react"
+import styled from "styled-components"
+import { Drawer } from "../../components/Drawer/Drawer"
+import { useStores } from "../../hooks/useStores"
 import { ArrangeEditor } from "../ArrangeEditor/ArrangeEditor"
-import { SettingsView } from "../SettingsView/SettingsView"
+import { BuildInfo } from "../BuildInfo"
 import { HelpDialog } from "../Help/HelpDialog"
+import { PianoRollEditor } from "../PianoRoll/PianoRollEditor"
+import { SettingsView } from "../SettingsView/SettingsView"
+import { TempoEditor } from "../TempoGraph/TempoEditor"
+import { TransportPanel } from "../TransportPanel/TransportPanel"
+import "./Resizer.css"
 
 const Container = styled.div`
   height: 100%;

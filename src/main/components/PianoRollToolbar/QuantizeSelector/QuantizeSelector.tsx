@@ -1,9 +1,8 @@
-import React from "react"
-import QuantizePopup from "./QuantizePopup"
-
-import "./QuantizeSelector.css"
 import { Button } from "@material-ui/core"
 import { FiberManualRecord, MusicNote } from "@material-ui/icons"
+import React from "react"
+import QuantizePopup from "./QuantizePopup"
+import "./QuantizeSelector.css"
 
 function calcQuantize(num: number, dot: boolean, triplet: boolean): number {
   let val = num

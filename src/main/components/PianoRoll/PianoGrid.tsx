@@ -1,12 +1,10 @@
-import React, { FC } from "react"
-import { Graphics as PIXIGraphics } from "pixi.js"
-import isEqual from "lodash/isEqual"
-
-import { Theme } from "common/theme/Theme"
-import { BeatWithX } from "helpers/mapBeats"
-import { useTheme } from "main/hooks/useTheme"
 import { Graphics } from "@inlet/react-pixi"
 import Color from "color"
+import isEqual from "lodash/isEqual"
+import { Graphics as PIXIGraphics } from "pixi.js"
+import React, { FC } from "react"
+import { BeatWithX } from "../../../common/helpers/mapBeats"
+import { useTheme } from "../../hooks/useTheme"
 
 export interface PianoGridProps {
   height: number

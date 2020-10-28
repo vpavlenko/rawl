@@ -1,8 +1,8 @@
-import { write as writeBytes } from "./MidiFileWriter"
-import Song, { songFromMidi } from "common/song"
-import Track from "common/track"
 import { StreamSource } from "midifile-ts"
 import { downloadBlob } from "../helpers/Downloader"
+import Song, { songFromMidi } from "../song"
+import Track from "../track"
+import { write as writeBytes } from "./MidiFileWriter"
 
 export function read(data: ArrayLike<number>): Song {
   return songFromMidi(data as StreamSource)

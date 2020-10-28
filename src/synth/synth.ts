@@ -1,7 +1,7 @@
-import { Synthesizer, MidiMessageHandler } from "sf2synth/bin/synth"
-import { WindowMessenger } from "common/messenger/messenger"
-import { AdaptiveTimer } from "common/player/AdaptiveTimer"
-import { Message } from "main/services/SynthOutput"
+import { MidiMessageHandler, Synthesizer } from "sf2synth/bin/synth"
+import { WindowMessenger } from "../common/messenger/messenger"
+import { AdaptiveTimer } from "../common/player/AdaptiveTimer"
+import { Message } from "../main/services/SynthOutput"
 
 type MIDIMessage = number[]
 

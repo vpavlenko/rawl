@@ -1,19 +1,19 @@
 import useComponentSize from "@rehooks/component-size"
+import { toJS } from "mobx"
+import { useObserver } from "mobx-react-lite"
+import React, { FC, useEffect, useRef, useState } from "react"
+import { NoteCoordTransform } from "../../../common/transform"
 import {
   arrangeEndSelection,
   arrangeMoveSelection,
   arrangeOpenContextMenu,
   arrangeResizeSelection,
   arrangeStartSelection,
-} from "actions"
-import { NoteCoordTransform } from "common/transform"
-import { ArrangeView } from "components/ArrangeView/ArrangeView"
-import { setPlayerPosition } from "main/actions"
-import { toJS } from "mobx"
-import { useObserver } from "mobx-react-lite"
-import React, { FC, useEffect, useRef, useState } from "react"
+  setPlayerPosition,
+} from "../../actions"
 import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
+import { ArrangeView } from "../ArrangeView/ArrangeView"
 
 const ArrangeViewWrapper: FC = () => {
   const { rootStore } = useStores()

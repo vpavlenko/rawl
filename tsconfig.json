@@ -2,9 +2,6 @@
   "compilerOptions": {
     "types": ["node", "jest", "webpack-env", "webmidi"],
     "baseUrl": ".",
-    "paths": {
-      "*": ["*", "src/*", "src/main/*", "src/common/*"]
-    },
     "rootDirs": ["src", "stories"],
     "sourceMap": true,
     "target": "es5",

@@ -1,10 +1,10 @@
-import React, { FC } from "react"
 import { PitchBendEvent } from "midifile-ts"
+import React, { FC } from "react"
+import { TrackEvent } from "../../../../common/track"
 import LineGraphControl, {
-  LineGraphControlProps,
   LineGraphControlEvent,
+  LineGraphControlProps,
 } from "./LineGraphControl"
-import { TrackEvent } from "common/track"
 
 export type PitchGraphProps = Omit<
   LineGraphControlProps,

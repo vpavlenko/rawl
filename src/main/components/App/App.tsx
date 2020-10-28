@@ -1,19 +1,15 @@
-import React from "react"
-
-import { KeyboardShortcut } from "../../services/KeyboardShortcut"
-
-import RootStore from "stores/RootStore.ts"
-import { theme } from "common/theme/muiTheme"
-import { ThemeProvider } from "@material-ui/styles"
-
-import { GlobalCSS } from "common/theme/GlobalCSS"
-import { defaultTheme } from "common/theme/Theme"
-import { ThemeContext } from "main/hooks/useTheme"
-import { StoreContext } from "main/hooks/useStores"
-import { RootView } from "../RootView/RootView"
-
-import "./App.css"
 import { StylesProvider } from "@material-ui/core"
+import { ThemeProvider } from "@material-ui/styles"
+import React from "react"
+import { GlobalCSS } from "../../../common/theme/GlobalCSS"
+import { theme } from "../../../common/theme/muiTheme"
+import { defaultTheme } from "../../../common/theme/Theme"
+import { StoreContext } from "../../hooks/useStores"
+import { ThemeContext } from "../../hooks/useTheme"
+import { KeyboardShortcut } from "../../services/KeyboardShortcut"
+import RootStore from "../../stores/RootStore"
+import { RootView } from "../RootView/RootView"
+import "./App.css"
 
 export function App() {
   return (

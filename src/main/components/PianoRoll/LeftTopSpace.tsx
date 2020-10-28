@@ -1,7 +1,7 @@
-import React, { FC } from "react"
-import { useTheme } from "main/hooks/useTheme"
 import { Graphics } from "@inlet/react-pixi"
 import Color from "color"
+import React, { FC } from "react"
+import { useTheme } from "../../hooks/useTheme"
 
 const areEquals = (props: LeftTopSpaceProps, nextProps: LeftTopSpaceProps) =>
   props.width === nextProps.width

@@ -1,20 +1,20 @@
-import React, { FC } from "react"
 import {
-  Drawer as MaterialDrawer,
   Divider,
-  ListSubheader,
+  Drawer as MaterialDrawer,
+  List,
   ListItem,
   ListItemText,
-  List,
+  ListSubheader,
 } from "@material-ui/core"
-import { useObserver } from "mobx-react-lite"
-import { SongList } from "./SongList"
-import { useStores } from "main/hooks/useStores"
-import styled from "styled-components"
-import { TrackList } from "./TrackList/TrackList"
-import { localized } from "../../../common/localize/localizedString"
-import Logo from "../../images/logo-white.svg"
 import { Help } from "@material-ui/icons"
+import { useObserver } from "mobx-react-lite"
+import React, { FC } from "react"
+import styled from "styled-components"
+import { localized } from "../../../common/localize/localizedString"
+import { useStores } from "../../hooks/useStores"
+import Logo from "../../images/logo-white.svg"
+import { SongList } from "./SongList"
+import { TrackList } from "./TrackList/TrackList"
 
 const BannerContainer = styled.div`
   background: var(--theme-color);

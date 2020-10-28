@@ -1,4 +1,4 @@
-import { pointAdd, pointSub } from "common/geometry"
+import { pointAdd, pointSub } from "../../../../common/geometry"
 import {
   addNoteToSelection,
   createNote,
@@ -9,7 +9,7 @@ import {
   resizeNoteLeft,
   resizeNoteRight,
   selectNote,
-} from "main/actions"
+} from "../../../actions"
 import RootStore from "../../../stores/RootStore"
 import {
   getPositionType,

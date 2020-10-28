@@ -1,4 +1,4 @@
-import { NoteCoordTransform } from "common/transform"
+import { NoteCoordTransform } from "../transform"
 
 export default class SelectionModel {
   noteIds: number[] = []
@@ -17,7 +17,7 @@ export default class SelectionModel {
       x: left,
       y: top,
       width: right - left,
-      height: bottom - top
+      height: bottom - top,
     }
   }
 

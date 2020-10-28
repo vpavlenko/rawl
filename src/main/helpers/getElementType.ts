@@ -1,5 +1,5 @@
-import { createElement } from "react"
 import omit from "lodash/omit"
+import { createElement } from "react"
 
 export default function getElementType(
   preferredElement: string | undefined

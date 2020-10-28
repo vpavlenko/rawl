@@ -1,10 +1,9 @@
 import React, { FC } from "react"
-import NavigationBar from "main/components/groups/NavigationBar"
-import { ArrangeToolbar } from "../ArrangeView/ArrangeToolbar"
-import ArrangeView from "./ArrangeView"
 import { useStores } from "../../hooks/useStores"
-
+import { ArrangeToolbar } from "../ArrangeView/ArrangeToolbar"
+import NavigationBar from "../groups/NavigationBar"
 import "./ArrangeEditor.css"
+import ArrangeView from "./ArrangeView"
 
 interface NavItemProps {
   title: string

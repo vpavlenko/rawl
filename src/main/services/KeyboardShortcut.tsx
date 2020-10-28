@@ -1,3 +1,4 @@
+import React, { FC, useEffect } from "react"
 import {
   copySelection,
   deleteSelection,
@@ -7,8 +8,7 @@ import {
   selectPreviousNote,
   stop,
   transposeSelection,
-} from "main/actions"
-import React, { FC, useEffect } from "react"
+} from "../actions"
 import { useStores } from "../hooks/useStores"
 
 const isFocusable = (e: EventTarget) =>

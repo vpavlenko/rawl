@@ -1,7 +1,7 @@
-import { useStores } from "main/hooks/useStores"
 import { useObserver } from "mobx-react-lite"
 import React, { FC, useState } from "react"
 import styled from "styled-components"
+import { useStores } from "../../hooks/useStores"
 
 const TrackName = styled.span`
   font-weight: bold;

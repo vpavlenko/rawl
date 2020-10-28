@@ -1,4 +1,4 @@
-import { NoteCoordTransform } from "common/transform"
+import { NoteCoordTransform } from "../../common/transform"
 import { useMemoObserver } from "./useMemoObserver"
 import { useStores } from "./useStores"
 import { useTheme } from "./useTheme"

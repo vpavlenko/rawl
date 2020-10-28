@@ -1,9 +1,8 @@
-import React, { FC } from "react"
-import NavigationBar from "components/groups/NavigationBar"
-
-import "./SettingsView.css"
-import { useStores } from "../../hooks/useStores"
 import { useObserver } from "mobx-react-lite"
+import React, { FC } from "react"
+import { useStores } from "../../hooks/useStores"
+import NavigationBar from "../groups/NavigationBar"
+import "./SettingsView.css"
 
 interface SettingItemProps {
   label: string

@@ -1,9 +1,9 @@
-import React, { FC, CSSProperties } from "react"
-import { Graphics as PIXIGraphics } from "pixi.js"
-import { useTheme } from "main/hooks/useTheme"
 import { Graphics } from "@inlet/react-pixi"
 import Color from "color"
-import { isBlackKey } from "common/helpers/noteNumber"
+import { Graphics as PIXIGraphics } from "pixi.js"
+import React, { FC } from "react"
+import { isBlackKey } from "../../../common/helpers/noteNumber"
+import { useTheme } from "../../hooks/useTheme"
 
 export interface PianoLinesProps {
   numberOfKeys: number

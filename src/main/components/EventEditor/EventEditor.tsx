@@ -1,11 +1,9 @@
 import React from "react"
 import ReactDOM from "react-dom"
-
-import Popup from "components/Popup/Popup"
-import EventList from "./EventList"
-
+import { TrackEvent } from "../../../common/track"
+import Popup from "../Popup/Popup"
 import "./EventEditor.css"
-import { TrackEvent } from "common/track"
+import EventList from "./EventList"
 
 interface EventEditorContentProps {
   events: TrackEvent[]
@@ -16,7 +14,7 @@ interface EventEditorContentProps {
 function EventEditorContent({
   events,
   onClickOK,
-  onClickCancel
+  onClickCancel,
 }: EventEditorContentProps) {
   return (
     <div className="EventEditor">
@@ -40,7 +38,7 @@ export type EventEditorProps = EventEditorContentProps
 export default function EventEditor({
   onClickOK,
   onClickCancel,
-  events
+  events,
 }: EventEditorProps) {
   return (
     <EventEditorContent

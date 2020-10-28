@@ -1,12 +1,12 @@
-import { NoteEvent, TrackEvent, TrackEventRequired } from "./TrackEvent"
 import {
-  TrackNameEvent,
-  ProgramChangeEvent,
-  EndOfTrackEvent,
-  SetTempoEvent,
   ControllerEvent,
+  EndOfTrackEvent,
+  ProgramChangeEvent,
+  SetTempoEvent,
   TimeSignatureEvent,
+  TrackNameEvent,
 } from "midifile-ts"
+import { NoteEvent, TrackEvent, TrackEventRequired } from "./TrackEvent"
 
 export const isNoteEvent = (e: TrackEvent): e is NoteEvent =>
   "subtype" in e && e.subtype === "note"

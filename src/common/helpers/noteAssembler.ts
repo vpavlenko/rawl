@@ -1,6 +1,6 @@
-import { NoteOnEvent, NoteOffEvent } from "midifile-ts"
-import { NoteEvent, TickProvider } from "common/track"
-import { noteOnMidiEvent, noteOffMidiEvent } from "common/midi/MidiEvent"
+import { NoteOffEvent, NoteOnEvent } from "midifile-ts"
+import { noteOffMidiEvent, noteOnMidiEvent } from "../midi/MidiEvent"
+import { NoteEvent, TickProvider } from "../track"
 
 /**
 

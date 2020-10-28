@@ -1,7 +1,7 @@
-import React, { FC } from "react"
-import { Graphics as PIXIGraphics } from "pixi.js"
 import { Graphics } from "@inlet/react-pixi"
 import Color from "color"
+import { Graphics as PIXIGraphics } from "pixi.js"
+import React, { FC } from "react"
 
 export interface PianoCursorProps {
   height: number

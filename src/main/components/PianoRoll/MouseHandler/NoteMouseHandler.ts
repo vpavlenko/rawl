@@ -1,5 +1,5 @@
-import PianoRollStore from "main/stores/PianoRollStore"
-import RootStore from "main/stores/RootStore"
+import PianoRollStore from "../../../stores/PianoRollStore"
+import RootStore from "../../../stores/RootStore"
 import { PianoNotesMouseEvent } from "../PianoRollStage"
 import { observeDrag } from "./observeDrag"
 

@@ -1,19 +1,16 @@
 import useComponentSize from "@rehooks/component-size"
-import { NoteCoordTransform } from "common/transform"
-import { HorizontalScaleScrollBar } from "components/inputs/ScaleScrollBar"
-import { VerticalScrollBar } from "components/inputs/ScrollBar"
-import {
-  PianoNotesMouseEvent,
-  PianoRollStage,
-} from "main/components/PianoRoll/PianoRollStage"
-import { useStores } from "main/hooks/useStores"
-import { useTheme } from "main/hooks/useTheme"
 import { useObserver } from "mobx-react-lite"
 import React, { FC, useCallback, useEffect, useRef } from "react"
 import SplitPane from "react-split-pane"
 import styled from "styled-components"
+import { NoteCoordTransform } from "../../../common/transform"
 import { isTouchPadEvent } from "../../helpers/touchpad"
+import { useStores } from "../../hooks/useStores"
+import { useTheme } from "../../hooks/useTheme"
 import ControlPane from "../ControlPane/ControlPane"
+import { HorizontalScaleScrollBar } from "../inputs/ScaleScrollBar"
+import { VerticalScrollBar } from "../inputs/ScrollBar"
+import { PianoNotesMouseEvent, PianoRollStage } from "./PianoRollStage"
 
 const WHEEL_SCROLL_RATE = 1 / 120
 

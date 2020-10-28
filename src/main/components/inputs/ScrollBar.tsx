@@ -1,7 +1,7 @@
 import { ArrowDropUp } from "@material-ui/icons"
 import useComponentSize from "@rehooks/component-size"
-import { IPoint, pointSub } from "common/geometry"
 import React, { FC, useRef } from "react"
+import { IPoint, pointSub } from "../../../common/geometry"
 import { observeDrag } from "../PianoRoll/MouseHandler/observeDrag"
 import "./ScrollBar.css"
 

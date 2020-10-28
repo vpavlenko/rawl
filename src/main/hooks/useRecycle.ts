@@ -1,5 +1,5 @@
-import { useRef, useEffect } from "react"
-import { IDValue, recycleKeys, KeyedValue } from "./recycleKeys"
+import { useEffect, useRef } from "react"
+import { IDValue, KeyedValue, recycleKeys } from "./recycleKeys"
 
 export const useRecycle = <T extends IDValue>(items: T[]): KeyedValue<T>[] => {
   const ref = useRef<KeyedValue<T>[]>()

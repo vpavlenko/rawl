@@ -1,25 +1,22 @@
 import flatten from "lodash/flatten"
 import range from "lodash/range"
-
-import {
-  serialize as serializeMidiEvent,
-  MIDIControlEvents,
-  MIDIChannelEvents,
-  AnyEvent,
-} from "midifile-ts"
-
-import EventScheduler from "./EventScheduler"
-import Song from "common/song"
-import TrackMute from "common/trackMute"
-import { deassemble as deassembleNote } from "common/helpers/noteAssembler"
-import { deassemble as deassembleRPN } from "common/helpers/RPNAssembler"
-import { NoteEvent, resetTrackMIDIEvents } from "../track"
-import { PlayerEvent } from "./PlayerEvent"
-import SynthOutput, { Message } from "../../main/services/SynthOutput"
-import { computed, observable } from "mobx"
 import throttle from "lodash/throttle"
-import { pitchBendMidiEvent } from "../midi/MidiEvent"
+import {
+  AnyEvent,
+  MIDIChannelEvents,
+  MIDIControlEvents,
+  serialize as serializeMidiEvent,
+} from "midifile-ts"
+import { computed, observable } from "mobx"
+import SynthOutput, { Message } from "../../main/services/SynthOutput"
+import { deassemble as deassembleNote } from "../helpers/noteAssembler"
+import { deassemble as deassembleRPN } from "../helpers/RPNAssembler"
+import Song from "../song"
+import { NoteEvent, resetTrackMIDIEvents } from "../track"
+import TrackMute from "../trackMute"
 import { AdaptiveTimer } from "./AdaptiveTimer"
+import EventScheduler from "./EventScheduler"
+import { PlayerEvent } from "./PlayerEvent"
 
 function firstByte(eventType: string, channel: number): number {
   return (MIDIChannelEvents[eventType] << 4) + channel

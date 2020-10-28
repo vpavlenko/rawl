@@ -1,15 +1,15 @@
 import { Container, Graphics, Text } from "@inlet/react-pixi"
 import Color from "color"
-import { LoopSetting } from "common/player"
-import { Theme } from "common/theme/Theme"
-import { BeatWithX } from "helpers/mapBeats"
 import isEqual from "lodash/isEqual"
-import { setPlayerPosition } from "main/actions"
-import { useStores } from "main/hooks/useStores"
-import { useTheme } from "main/hooks/useTheme"
 import { useObserver } from "mobx-react-lite"
 import { Graphics as PIXIGraphics, Point, TextStyle } from "pixi.js"
 import React, { FC, useCallback } from "react"
+import { BeatWithX } from "../../../common/helpers/mapBeats"
+import { LoopSetting } from "../../../common/player"
+import { Theme } from "../../../common/theme/Theme"
+import { setPlayerPosition } from "../../actions"
+import { useStores } from "../../hooks/useStores"
+import { useTheme } from "../../hooks/useTheme"
 
 interface BeatProps {
   height: number

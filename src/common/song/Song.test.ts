@@ -1,7 +1,6 @@
 import * as fs from "fs"
 import * as path from "path"
-import { serialize, deserialize } from "serializr"
-
+import { deserialize, serialize } from "serializr"
 import Song from "./Song"
 import { emptySong, songFromMidi } from "./SongFactory"
 

@@ -1,4 +1,4 @@
-import React, { Component, CanvasHTMLAttributes } from "react"
+import React, { CanvasHTMLAttributes, Component } from "react"
 
 export interface DrawCanvasProps
   extends CanvasHTMLAttributes<HTMLCanvasElement> {

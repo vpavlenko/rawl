@@ -1,10 +1,10 @@
-import Item from "components/Stage/Item.ts"
 import {
+  bottom as rectBottom,
   IRect,
   right as rectRight,
-  bottom as rectBottom,
-} from "common/geometry"
+} from "../../../../common/geometry"
 import { CanvasDrawStyle } from "../../../style"
+import Item from "../../Stage/Item"
 
 export default class LineGraphItem implements Item {
   id: any

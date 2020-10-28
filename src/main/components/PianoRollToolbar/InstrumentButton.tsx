@@ -1,8 +1,8 @@
 import { Button } from "@material-ui/core"
-import { useStores } from "main/hooks/useStores"
 import { useObserver } from "mobx-react-lite"
 import React, { FC, useCallback } from "react"
 import styled from "styled-components"
+import { useStores } from "../../hooks/useStores"
 import PianoIcon from "../../images/piano.svg"
 
 const StyledInstrumentButton = styled(Button)`

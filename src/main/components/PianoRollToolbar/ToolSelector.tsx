@@ -1,10 +1,10 @@
 import { makeStyles } from "@material-ui/core"
 import { Create } from "@material-ui/icons"
 import { ToggleButton, ToggleButtonGroup } from "@material-ui/lab"
-import { useStores } from "main/hooks/useStores"
 import { useObserver } from "mobx-react-lite"
 import React, { useCallback } from "react"
 import styled from "styled-components"
+import { useStores } from "../../hooks/useStores"
 import SelectIcon from "../../images/select.svg"
 
 const useStyles = makeStyles((theme) => ({

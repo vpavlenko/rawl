@@ -1,8 +1,8 @@
-import { isNotUndefined } from "common/helpers/array"
-import SelectionModel from "common/selection"
-import { isNoteEvent, NoteEvent, TrackEvent } from "common/track"
-import { NotePoint } from "common/transform/NotePoint"
-import clipboard from "services/Clipboard.ts"
+import { isNotUndefined } from "../../common/helpers/array"
+import SelectionModel from "../../common/selection"
+import { isNoteEvent, NoteEvent, TrackEvent } from "../../common/track"
+import { NotePoint } from "../../common/transform/NotePoint"
+import clipboard from "../services/Clipboard"
 import RootStore from "../stores/RootStore"
 
 function eventsInSelection(events: TrackEvent[], selection: SelectionModel) {

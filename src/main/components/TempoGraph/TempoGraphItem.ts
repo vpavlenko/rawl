@@ -1,6 +1,6 @@
-import Item from "components/Stage/Item"
-import { IRect } from "common/geometry"
-import { CanvasDrawStyle } from "main/style"
+import { IRect } from "../../../common/geometry"
+import { CanvasDrawStyle } from "../../style"
+import Item from "../Stage/Item"
 
 export default class TempoGraphItem implements Item {
   id: number

@@ -1,13 +1,13 @@
 import { makeStyles, Toolbar } from "@material-ui/core"
 import { FastForward, FastRewind, PlayArrow, Stop } from "@material-ui/icons"
-import { getMBTString } from "common/measure/mbt"
-import { ToolbarSeparator } from "components/groups/Toolbar"
-import { fastForwardOneBar, play, rewindOneBar, stop } from "main/actions"
-import { useMemoObserver } from "main/hooks/useMemoObserver"
-import { useStores } from "main/hooks/useStores"
 import { useObserver } from "mobx-react-lite"
 import React, { FC } from "react"
 import styled from "styled-components"
+import { getMBTString } from "../../../common/measure/mbt"
+import { fastForwardOneBar, play, rewindOneBar, stop } from "../../actions"
+import { useMemoObserver } from "../../hooks/useMemoObserver"
+import { useStores } from "../../hooks/useStores"
+import { ToolbarSeparator } from "../groups/Toolbar"
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {

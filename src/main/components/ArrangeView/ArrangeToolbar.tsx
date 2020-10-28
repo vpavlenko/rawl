@@ -1,16 +1,10 @@
-import React, { FC, useCallback } from "react"
-
-import {
-  Toolbar,
-  ToolbarItem,
-  ToolbarSeparator,
-} from "components/groups/Toolbar"
-import QuantizeSelector from "../PianoRollToolbar/QuantizeSelector/QuantizeSelector"
-
-import "./ArrangeToolbar.css"
 import { KeyboardTab } from "@material-ui/icons"
-import { useStores } from "../../hooks/useStores"
 import { useObserver } from "mobx-react-lite"
+import React, { FC, useCallback } from "react"
+import { useStores } from "../../hooks/useStores"
+import { Toolbar, ToolbarItem, ToolbarSeparator } from "../groups/Toolbar"
+import QuantizeSelector from "../PianoRollToolbar/QuantizeSelector/QuantizeSelector"
+import "./ArrangeToolbar.css"
 
 export const ArrangeToolbar: FC = () => {
   const { rootStore } = useStores()

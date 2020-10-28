@@ -1,15 +1,14 @@
-import React, { useCallback, FC } from "react"
-import isEqual from "lodash/isEqual"
-
-import VelocityItem, { VelocityItemEvent } from "./VelocityItem"
-import { NoteCoordTransform } from "common/transform"
-import { TrackEvent, isNoteEvent } from "common/track"
-import { CanvasDrawStyle } from "main/style"
-import { GraphAxis } from "../Graph/GraphAxis"
-import styled from "styled-components"
-import { Stage, Container } from "@inlet/react-pixi"
+import { Container, Stage } from "@inlet/react-pixi"
 import Color from "color"
+import isEqual from "lodash/isEqual"
+import React, { FC, useCallback } from "react"
+import styled from "styled-components"
+import { isNoteEvent, TrackEvent } from "../../../../common/track"
+import { NoteCoordTransform } from "../../../../common/transform"
+import { CanvasDrawStyle } from "../../../style"
 import { observeDrag } from "../../PianoRoll/MouseHandler/observeDrag"
+import { GraphAxis } from "../Graph/GraphAxis"
+import VelocityItem, { VelocityItemEvent } from "./VelocityItem"
 
 export interface PianoVelocityControlProps {
   width: number

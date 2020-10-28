@@ -1,8 +1,8 @@
-import React, { FC } from "react"
-import { Graphics as PIXIGraphics, Rectangle } from "pixi.js"
-import { IRect } from "common/geometry"
 import { Graphics } from "@inlet/react-pixi"
 import isEqual from "lodash/isEqual"
+import { Graphics as PIXIGraphics, Rectangle } from "pixi.js"
+import React, { FC } from "react"
+import { IRect } from "../../../../common/geometry"
 
 export interface VelocityItemProps {
   id: number

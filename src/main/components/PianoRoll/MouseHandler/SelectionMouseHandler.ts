@@ -1,7 +1,7 @@
-import { IPoint, pointAdd, pointSub } from "common/geometry"
-import SelectionModel from "common/selection/SelectionModel"
-import { NoteCoordTransform } from "common/transform"
-import { NotePoint } from "common/transform/NotePoint"
+import { IPoint, pointAdd, pointSub } from "../../../../common/geometry"
+import SelectionModel from "../../../../common/selection/SelectionModel"
+import { NoteCoordTransform } from "../../../../common/transform"
+import { NotePoint } from "../../../../common/transform/NotePoint"
 import {
   cloneSelection,
   fixSelection,
@@ -10,7 +10,7 @@ import {
   resizeSelectionLeft,
   resizeSelectionRight,
   startSelection,
-} from "main/actions"
+} from "../../../actions"
 import RootStore from "../../../stores/RootStore"
 import { PianoNotesMouseEvent } from "../PianoRollStage"
 import MouseHandler, { MouseGesture } from "./NoteMouseHandler"

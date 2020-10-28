@@ -1,4 +1,4 @@
-import { IPoint } from "common/geometry"
+import { IPoint } from "../geometry"
 
 export interface IRect extends IPoint {
   width: number
@@ -38,7 +38,7 @@ export function containsRect(rectA: IRect, rectB: IRect) {
 export function br(rect: IRect): IPoint {
   return {
     x: right(rect),
-    y: bottom(rect)
+    y: bottom(rect),
   }
 }
 
@@ -52,7 +52,7 @@ export function fromPoints(pointA: IPoint, pointB: IPoint): IRect {
     x: x1,
     y: y1,
     width: x2 - x1,
-    height: y2 - y1
+    height: y2 - y1,
   }
 }
 
@@ -61,6 +61,6 @@ export function scale(rect: IRect, scaleX: number, scaleY: number): IRect {
     x: rect.x * scaleX,
     y: rect.y * scaleY,
     width: rect.width * scaleX,
-    height: rect.height * scaleY
+    height: rect.height * scaleY,
   }
 }

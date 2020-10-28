@@ -1,11 +1,11 @@
 import { withStyles } from "@material-ui/core"
 import Slider from "@material-ui/core/Slider"
-import { theme } from "common/theme/muiTheme"
-import { setTrackPan } from "main/actions"
-import { useMemoObserver } from "main/hooks/useMemoObserver"
-import { useStores } from "main/hooks/useStores"
 import React, { FC, useCallback } from "react"
 import styled from "styled-components"
+import { theme } from "../../../common/theme/muiTheme"
+import { setTrackPan } from "../../actions"
+import { useMemoObserver } from "../../hooks/useMemoObserver"
+import { useStores } from "../../hooks/useStores"
 
 const LightSlider = withStyles({
   root: {

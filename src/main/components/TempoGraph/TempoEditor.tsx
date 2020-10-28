@@ -1,7 +1,6 @@
 import React, { FC } from "react"
-
-import { TempoGraph } from "./TempoGraph"
 import styled from "styled-components"
+import { TempoGraph } from "./TempoGraph"
 import { TempoGraphToolbar } from "./TempoGraphToolbar"
 
 const Container = styled.div`

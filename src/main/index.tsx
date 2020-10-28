@@ -1,8 +1,7 @@
 import React from "react"
 import ReactDOM from "react-dom"
-
-import { App } from "main/components/App/App"
 import { localized } from "../common/localize/localizedString"
+import { App } from "./components/App/App"
 
 function renderApp() {
   ReactDOM.render(<App />, document.querySelector("#root"))

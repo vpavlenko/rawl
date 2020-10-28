@@ -1,30 +1,30 @@
 import { Container, Stage } from "@inlet/react-pixi"
-import { IPoint } from "common/geometry"
-import { createBeatsInRange } from "common/helpers/mapBeats"
-import { NoteCoordTransform } from "common/transform"
-import { removeEvent } from "main/actions"
-import PianoCursor from "main/components/PianoRoll/PianoCursor"
-import PianoGrid from "main/components/PianoRoll/PianoGrid"
-import PianoKeys from "main/components/PianoRoll/PianoKeys"
-import PianoLines from "main/components/PianoRoll/PianoLines"
-import { isPianoNote } from "main/components/PianoRoll/PianoNotes/PianoNote"
-import PianoNotes from "main/components/PianoRoll/PianoNotes/PianoNotes"
-import PianoRuler from "main/components/PianoRoll/PianoRuler"
-import PianoSelection from "main/components/PianoRoll/PianoSelection"
-import {
-  PianoSelectionContextMenu,
-  useContextMenu,
-} from "main/components/PianoRoll/PianoSelectionContextMenu"
-import { useNoteTransform } from "main/hooks/useNoteTransform"
-import { StoreContext, useStores } from "main/hooks/useStores"
-import { useTheme } from "main/hooks/useTheme"
 import { useObserver } from "mobx-react-lite"
 import { Point, Rectangle } from "pixi.js"
 import React, { FC, useCallback, useState } from "react"
+import { IPoint } from "../../../common/geometry"
+import { createBeatsInRange } from "../../../common/helpers/mapBeats"
+import { NoteCoordTransform } from "../../../common/transform"
+import { removeEvent } from "../../actions"
+import { useNoteTransform } from "../../hooks/useNoteTransform"
+import { StoreContext, useStores } from "../../hooks/useStores"
+import { useTheme } from "../../hooks/useTheme"
 import { LeftTopSpace } from "./LeftTopSpace"
 import { observeDoubleClick } from "./MouseHandler/observeDoubleClick"
 import PencilMouseHandler from "./MouseHandler/PencilMouseHandler"
 import SelectionMouseHandler from "./MouseHandler/SelectionMouseHandler"
+import PianoCursor from "./PianoCursor"
+import PianoGrid from "./PianoGrid"
+import PianoKeys from "./PianoKeys"
+import PianoLines from "./PianoLines"
+import { isPianoNote } from "./PianoNotes/PianoNote"
+import PianoNotes from "./PianoNotes/PianoNotes"
+import PianoRuler from "./PianoRuler"
+import PianoSelection from "./PianoSelection"
+import {
+  PianoSelectionContextMenu,
+  useContextMenu,
+} from "./PianoSelectionContextMenu"
 
 export interface PianoRollStageProps {
   width: number

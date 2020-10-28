@@ -6,10 +6,10 @@ export const useMemoObserver = <T>(selector: () => T, deps: any[] = []): T => {
 
   useEffect(
     () =>
-      autorun(() =>
-        // setState prevent re-rendering when selector returns same value (primitives)
-        setState(selector)
-      ),
+      autorun(() => {
+        const v = selector()
+        setState(v)
+      }),
     deps
   )
 

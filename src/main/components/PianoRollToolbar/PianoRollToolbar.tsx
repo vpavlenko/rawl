@@ -12,6 +12,7 @@ import { GhostTrackSelector } from "./GhostTrackSelector"
 import { InstrumentButton } from "./InstrumentButton"
 import { PanSlider } from "./PanSlider"
 import { StyledToggleButton, ToolSelector } from "./ToolSelector"
+import { TrackNameInput } from "./TrackNameInput"
 import { VolumeSlider } from "./VolumeSlider"
 
 const useStyles = makeStyles((theme) => ({
@@ -23,12 +24,6 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "1rem",
   },
 }))
-
-const TrackName = styled.span`
-  font-weight: bold;
-  margin-right: 2em;
-  font-size: 1rem;
-`
 
 const AutoScrollIcon = styled(KeyboardTab)`
   height: 2rem;
@@ -86,7 +81,7 @@ export const PianoRollToolbar: FC = () => {
           <MenuIcon />
         </NavBackButton>
 
-        <TrackName>{trackName}</TrackName>
+        <TrackNameInput />
 
         <InstrumentButton />
         <InstrumentBrowser />

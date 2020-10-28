@@ -3,19 +3,15 @@ import RootStore from "main/stores/RootStore"
 import { PianoNotesMouseEvent } from "../PianoRollStage"
 import { observeDrag } from "./observeDrag"
 
-export type MouseAction = (e: PianoNotesMouseEvent) => void
-
-export type MouseGesture = (
-  onMouseDown: (action: MouseAction) => void,
-  onMouseMove: (action: MouseAction) => void,
-  onMouseUp: (action: MouseAction) => void
-) => void
+export interface MouseGesture {
+  onMouseDown: (e: PianoNotesMouseEvent) => void
+  onMouseMove?: (e: PianoNotesMouseEvent) => void
+  onMouseUp?: (e: PianoNotesMouseEvent) => void
+}
 
 export default class NoteMouseHandler {
   protected readonly rootStore: RootStore
   private action: MouseGesture | null
-  private actionMouseMove: MouseAction
-  private actionMouseUp: MouseAction
 
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore
@@ -49,21 +45,12 @@ export default class NoteMouseHandler {
 
   onMouseDown(e: PianoNotesMouseEvent) {
     this.action = this.actionForMouseDown(e)
-    if (!this.action) {
-      return
-    }
-    this.actionMouseMove = () => {}
-    this.actionMouseUp = () => {}
-    this.action(
-      (mouseDown) => mouseDown(e),
-      (f) => (this.actionMouseMove = f),
-      (f) => (this.actionMouseUp = f)
-    )
+    this.action?.onMouseDown(e)
   }
 
   onMouseMove(e: PianoNotesMouseEvent) {
     if (this.action) {
-      this.actionMouseMove(e)
+      this.action?.onMouseMove?.(e)
     } else {
       const cursor = this.getCursorForMouseMove(e)
       this.rootStore.pianoRollStore.notesCursor = cursor
@@ -71,30 +58,24 @@ export default class NoteMouseHandler {
   }
 
   onMouseUp(e: PianoNotesMouseEvent) {
-    if (this.action) {
-      this.actionMouseUp(e)
-    }
+    this.action?.onMouseUp?.(e)
     this.action = null
   }
 }
 
-const dragScrollAction = (pianoRollStore: PianoRollStore): MouseGesture => (
-  onMouseDown
-) => {
-  onMouseDown(() => {
+const dragScrollAction = (pianoRollStore: PianoRollStore): MouseGesture => ({
+  onMouseDown: () => {
     observeDrag({
       onMouseMove: (e: MouseEvent) => {
         pianoRollStore.scrollBy(e.movementX, e.movementY)
       },
     })
-  })
-}
+  },
+})
 
-const changeToolAction = (pianoRollStore: PianoRollStore): MouseGesture => (
-  onMouseDown
-) => {
-  onMouseDown(() => {
+const changeToolAction = (pianoRollStore: PianoRollStore): MouseGesture => ({
+  onMouseDown: () => {
     pianoRollStore.toggleTool()
     pianoRollStore.notesCursor = "crosshair"
-  })
-}
+  },
+})

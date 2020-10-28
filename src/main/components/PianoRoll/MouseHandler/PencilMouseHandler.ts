@@ -71,10 +71,8 @@ export default class PencilMouseHandler extends NoteMouseHandler {
   }
 }
 
-const dragNoteAction = (rootStore: RootStore): MouseGesture => (
-  onMouseDown
-) => {
-  onMouseDown((ev) => {
+const dragNoteAction = (rootStore: RootStore): MouseGesture => ({
+  onMouseDown: (ev) => {
     const e = ev.pixiEvent
     if (!(e.data.originalEvent instanceof MouseEvent)) {
       return
@@ -125,40 +123,39 @@ const dragNoteAction = (rootStore: RootStore): MouseGesture => (
         }
       },
     })
-  })
-}
+  },
+})
 
-const createNoteAction = (rootStore: RootStore): MouseGesture => (
-  onMouseDown,
-  onMouseMove
-) => {
+const createNoteAction = (rootStore: RootStore): MouseGesture => {
   let noteId: number | undefined
 
-  onMouseDown((e) => {
-    if (e.nativeEvent.shiftKey) {
-      return
-    }
+  return {
+    onMouseDown: (e) => {
+      if (e.nativeEvent.shiftKey) {
+        return
+      }
 
-    if (rootStore.pianoRollStore.selection.noteIds.length > 1) {
-      resetSelection(rootStore)()
-      return
-    }
+      if (rootStore.pianoRollStore.selection.noteIds.length > 1) {
+        resetSelection(rootStore)()
+        return
+      }
 
-    noteId = createNote(rootStore)(e.tick, e.noteNumber)
-    if (noteId !== undefined) {
-      selectNote(rootStore)(noteId)
-    }
-  })
+      noteId = createNote(rootStore)(e.tick, e.noteNumber)
+      if (noteId !== undefined) {
+        selectNote(rootStore)(noteId)
+      }
+    },
 
-  onMouseMove((e) => {
-    if (noteId === undefined) {
-      return
-    }
-    moveNote(rootStore)({
-      id: noteId,
-      tick: e.tick,
-      noteNumber: e.noteNumber,
-      quantize: "floor",
-    })
-  })
+    onMouseMove: (e) => {
+      if (noteId === undefined) {
+        return
+      }
+      moveNote(rootStore)({
+        id: noteId,
+        tick: e.tick,
+        noteNumber: e.noteNumber,
+        quantize: "floor",
+      })
+    },
+  }
 }

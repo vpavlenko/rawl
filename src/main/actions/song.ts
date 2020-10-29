@@ -41,6 +41,7 @@ export const setSong = (rootStore: RootStore, song: Song) => {
   rootStore.services.quantizer.ticksPerBeat = song.timebase
   rootStore.pianoRollStore.scrollLeft = 0
   rootStore.pianoRollStore.ghostTracks = {}
+  rootStore.historyStore.clear()
 }
 
 export const createSong = (rootStore: RootStore) => () => {

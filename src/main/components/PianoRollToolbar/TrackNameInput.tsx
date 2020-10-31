@@ -47,6 +47,7 @@ export const TrackNameInput: FC = () => {
               setEditing(false)
             }
           }}
+          onBlur={() => setEditing(false)}
         />
       ) : (
         <TrackName onDoubleClick={() => setEditing(true)}>

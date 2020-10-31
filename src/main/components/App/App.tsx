@@ -13,16 +13,18 @@ import "./App.css"
 
 export function App() {
   return (
-    <StoreContext.Provider value={{ rootStore: new RootStore() }}>
-      <ThemeContext.Provider value={defaultTheme}>
-        <ThemeProvider theme={theme}>
-          <StylesProvider injectFirst>
-            <KeyboardShortcut />
-            <GlobalCSS />
-            <RootView />
-          </StylesProvider>
-        </ThemeProvider>
-      </ThemeContext.Provider>
-    </StoreContext.Provider>
+    <React.StrictMode>
+      <StoreContext.Provider value={{ rootStore: new RootStore() }}>
+        <ThemeContext.Provider value={defaultTheme}>
+          <ThemeProvider theme={theme}>
+            <StylesProvider injectFirst>
+              <KeyboardShortcut />
+              <GlobalCSS />
+              <RootView />
+            </StylesProvider>
+          </ThemeProvider>
+        </ThemeContext.Provider>
+      </StoreContext.Provider>
+    </React.StrictMode>
   )
 }

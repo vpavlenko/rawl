@@ -23,8 +23,8 @@ export interface DataSource<T> {
 }
 
 export interface LoopSetting {
-  begin: number,
-  end: number,
+  begin: number
+  end: number
   enabled: boolean
 }
 
@@ -32,9 +32,9 @@ export interface LoopSetting {
  * Player でイベントを随時読み取るためのクラス
  * 精確にスケジューリングするために先読みを行う
  * https://www.html5rocks.com/ja/tutorials/audio/scheduling/
- * 
+ *
  * これ自体はタイミングを指示するだけで、具体的な midi のメッセージ等を知らない
- * 
+ *
  * Message[] @ DataSource -> LiveMessage[] @ Sequencer -> Output
  */
 export default class Sequencer<T> {
@@ -43,25 +43,25 @@ export default class Sequencer<T> {
 
   // タイマーの間隔
   private readonly interval: number
-  
+
   // 先読み時間
   private readonly lookAhead: number
 
   // 再生開始時刻
-  private startTime: number|null
+  private startTime: number | null
 
   // 再生開始時の相対時間
-  private startTimeRelative: number|null
+  private startTimeRelative: number | null
 
   // スケジュール済みの相対時間
   private scheduledTime: number
 
   private intervalId: any // Timer (node) or number (browser)
-  
+
   loop: LoopSetting = {
     begin: 0,
     end: 0,
-    enabled: false
+    enabled: false,
   }
 
   /**
@@ -70,7 +70,12 @@ export default class Sequencer<T> {
    * @param interval milliseconds
    * @param lookAhead milliseconds
    */
-  constructor(dataSource: DataSource<T>, output: Output<T>, interval: number, lookAhead: number) {
+  constructor(
+    dataSource: DataSource<T>,
+    output: Output<T>,
+    interval: number,
+    lookAhead: number
+  ) {
     this.dataSource = dataSource
     this.output = output
     this.interval = interval
@@ -103,12 +108,12 @@ export default class Sequencer<T> {
 
   get isPlaying(): boolean {
     return this.intervalId >= 0
-  } 
+  }
 
   /**
    * 一定間隔で呼ばれ、先読みしながらメッセージを output に送信する
    *  テスト用に公開
-   */ 
+   */
   onTimer(timestamp: number = now()): void {
     if (this.startTime === null) {
       this.startTime = timestamp
@@ -125,15 +130,15 @@ export default class Sequencer<T> {
 
     const msgs: LiveMessage<T>[] = this.dataSource
       .getMessages(fromTime, toTime)
-      .map(message => ({
+      .map((message) => ({
         ...message,
-        timestamp: timestamp + message.time - nowTime
+        timestamp: timestamp + message.time - nowTime,
       }))
 
     this.output.sendMessages(msgs, nowTime)
 
     this.scheduledTime = toTime
-    
+
     if (this.loop.enabled && toTime >= this.loop.end) {
       this.seek(this.loop.begin)
     }

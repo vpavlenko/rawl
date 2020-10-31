@@ -1,5 +1,5 @@
 import { observable } from "mobx"
-import { IRect } from "common/geometry"
+import { IRect } from "../../common/geometry"
 
 export default class ArrangeViewStore {
   @observable scaleX = 1

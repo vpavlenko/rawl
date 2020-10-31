@@ -1,15 +1,15 @@
 import {
   ControllerEvent,
-  Event,
   EndOfTrackEvent,
-  PortPrefixEvent,
-  TrackNameEvent,
-  TimeSignatureEvent,
-  ProgramChangeEvent,
+  Event,
   NoteOffEvent,
-  SetTempoEvent,
+  NoteOnEvent,
   PitchBendEvent,
-  NoteOnEvent
+  PortPrefixEvent,
+  ProgramChangeEvent,
+  SetTempoEvent,
+  TimeSignatureEvent,
+  TrackNameEvent,
 } from "midifile-ts"
 
 /* factory */
@@ -20,7 +20,7 @@ export function midiEvent<T extends string>(
 ): Event<T> {
   return {
     deltaTime,
-    type
+    type,
   }
 }
 
@@ -28,7 +28,7 @@ export function endOfTrackMidiEvent(deltaTime: number): EndOfTrackEvent {
   return {
     deltaTime,
     type: "meta",
-    subtype: "endOfTrack"
+    subtype: "endOfTrack",
   }
 }
 
@@ -40,7 +40,7 @@ export function portPrefixMidiEvent(
     deltaTime,
     type: "meta",
     subtype: "portPrefix",
-    port
+    port,
   }
 }
 
@@ -52,7 +52,7 @@ export function trackNameMidiEvent(
     deltaTime,
     type: "meta",
     subtype: "trackName",
-    text
+    text,
   }
 }
 
@@ -65,7 +65,7 @@ export function setTempoMidiEvent(
     deltaTime,
     type: "meta",
     subtype: "setTempo",
-    microsecondsPerBeat: value
+    microsecondsPerBeat: value,
   }
 }
 
@@ -83,7 +83,7 @@ export function timeSignatureMidiEvent(
     numerator,
     denominator,
     metronome,
-    thirtyseconds
+    thirtyseconds,
   }
 }
 
@@ -101,7 +101,7 @@ export function noteOnMidiEvent(
     subtype: "noteOn",
     channel,
     noteNumber,
-    velocity
+    velocity,
   }
 }
 
@@ -117,7 +117,7 @@ export function noteOffMidiEvent(
     subtype: "noteOff",
     channel,
     noteNumber,
-    velocity
+    velocity,
   }
 }
 
@@ -131,7 +131,7 @@ export function pitchBendMidiEvent(
     type: "channel",
     subtype: "pitchBend",
     channel,
-    value
+    value,
   }
 }
 
@@ -145,7 +145,7 @@ export function programChangeMidiEvent(
     type: "channel",
     subtype: "programChange",
     channel,
-    value
+    value,
   }
 }
 
@@ -163,7 +163,7 @@ export function controllerMidiEvent(
     subtype: "controller",
     channel,
     controllerType,
-    value
+    value,
   }
 }
 
@@ -215,7 +215,7 @@ export function controlChangeEvents(
 ): ControllerEvent[] {
   const rpn = [
     controllerMidiEvent(deltaTime, channel, 101, rpnMsb),
-    controllerMidiEvent(0, channel, 100, rpnLsb)
+    controllerMidiEvent(0, channel, 100, rpnLsb),
   ]
 
   const data: ControllerEvent[] = []

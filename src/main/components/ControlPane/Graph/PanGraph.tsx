@@ -1,10 +1,10 @@
-import React, { FC } from "react"
-import LineGraphControl, {
-  LineGraphControlProps,
-  LineGraphControlEvent,
-} from "./LineGraphControl"
 import { ControllerEvent } from "midifile-ts"
-import { TrackEvent } from "common/track"
+import React, { FC } from "react"
+import { TrackEvent } from "../../../../common/track"
+import LineGraphControl, {
+  LineGraphControlEvent,
+  LineGraphControlProps,
+} from "./LineGraphControl"
 
 export type PanGraphProps = Omit<
   LineGraphControlProps,

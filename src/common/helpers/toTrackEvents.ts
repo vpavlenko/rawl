@@ -1,8 +1,7 @@
-import _ from "lodash"
+import { AnyEvent } from "midifile-ts"
+import { DeltaTimeProvider, TickProvider } from "../track"
 import { assemble as assembleNotes } from "./noteAssembler"
 import { assemble as assembleRPN } from "./RPNAssembler"
-import { AnyEvent } from "midifile-ts"
-import { DeltaTimeProvider, TickProvider } from "common/track"
 
 function addTick<T extends DeltaTimeProvider>(
   events: T[]

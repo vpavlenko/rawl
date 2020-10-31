@@ -1,8 +1,7 @@
 import React, { FC } from "react"
-
 import styled from "styled-components"
-import { PianoRollToolbar } from "main/components/PianoRollToolbar/PianoRollToolbar"
-import PianoRoll from "main/components/PianoRoll/PianoRoll"
+import { PianoRollToolbar } from "../PianoRollToolbar/PianoRollToolbar"
+import PianoRoll from "./PianoRoll"
 
 const Container = styled.div`
   display: flex;

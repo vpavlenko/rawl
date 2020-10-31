@@ -1,5 +1,5 @@
-import { observable, computed, action } from "mobx"
-import JsonStore from "helpers/electron-json-store"
+import { action, computed, observable } from "mobx"
+import JsonStore from "../helpers/electron-json-store"
 
 export default class SettingsStore {
   @observable private _soundFontPath: string | null

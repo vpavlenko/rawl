@@ -1,4 +1,4 @@
-import Sequencer, { Output, LiveMessage, DataSource, Message } from "./index"
+import Sequencer, { DataSource, LiveMessage, Message, Output } from "./index"
 
 class TestDataSource implements DataSource<string> {
   private data: Message<string>[]
@@ -8,7 +8,7 @@ class TestDataSource implements DataSource<string> {
   }
 
   getMessages(from: number, to: number): Message<string>[] {
-    return this.data.filter(msg => msg.time >= from && msg.time < to)
+    return this.data.filter((msg) => msg.time >= from && msg.time < to)
   }
 }
 
@@ -17,15 +17,15 @@ describe("Sequencer", () => {
     const dataSource = new TestDataSource([
       {
         body: "hello",
-        time: 5
+        time: 5,
       },
       {
         body: "world",
-        time: 120
-      }
+        time: 120,
+      },
     ])
     const output: Output<string> = {
-      sendMessages(messages: LiveMessage<string>[], timestamp: number) {}
+      sendMessages(messages: LiveMessage<string>[], timestamp: number) {},
     }
     const s = new Sequencer(dataSource, output, 100, 50)
     s.seek(0)
@@ -40,8 +40,8 @@ describe("Sequencer", () => {
           {
             body: "hello",
             time: 5,
-            timestamp: 5
-          }
+            timestamp: 5,
+          },
         ])
       }
       s.onTimer(0)
@@ -68,8 +68,8 @@ describe("Sequencer", () => {
           {
             body: "world",
             time: 120,
-            timestamp: 120
-          }
+            timestamp: 120,
+          },
         ])
       }
       s.onTimer(100)
@@ -79,15 +79,15 @@ describe("Sequencer", () => {
     const dataSource = new TestDataSource([
       {
         body: "hello",
-        time: 5
+        time: 5,
       },
       {
         body: "world",
-        time: 120
-      }
+        time: 120,
+      },
     ])
     const output: Output<string> = {
-      sendMessages(messages: LiveMessage<string>[], timestamp: number) {}
+      sendMessages(messages: LiveMessage<string>[], timestamp: number) {},
     }
     const s = new Sequencer(dataSource, output, 100, 50)
     s.seek(100)
@@ -102,8 +102,8 @@ describe("Sequencer", () => {
           {
             body: "world",
             time: 120,
-            timestamp: 20
-          }
+            timestamp: 20,
+          },
         ])
       }
       s.onTimer(0)

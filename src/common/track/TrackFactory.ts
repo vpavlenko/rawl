@@ -1,22 +1,21 @@
-import Track from "common/track"
-import { toTrackEvents } from "common/helpers/toTrackEvents"
-
+import { toTrackEvents } from "../helpers/toTrackEvents"
 import {
-  trackNameMidiEvent,
   endOfTrackMidiEvent,
-  timeSignatureMidiEvent,
-  setTempoMidiEvent,
-  pitchBendMidiEvent,
-  volumeMidiEvent,
-  panMidiEvent,
   expressionMidiEvent,
-  modulationMidiEvent,
-  programChangeMidiEvent,
-  resetAllMidiEvent,
   masterCoarceTuningEvents,
   masterFineTuningEvents,
+  modulationMidiEvent,
+  panMidiEvent,
+  pitchBendMidiEvent,
   pitchbendSensitivityEvents,
-} from "midi/MidiEvent"
+  programChangeMidiEvent,
+  resetAllMidiEvent,
+  setTempoMidiEvent,
+  timeSignatureMidiEvent,
+  trackNameMidiEvent,
+  volumeMidiEvent,
+} from "../midi/MidiEvent"
+import Track from "./Track"
 
 export function conductorTrack(name = "Conductor Track") {
   const track = new Track()

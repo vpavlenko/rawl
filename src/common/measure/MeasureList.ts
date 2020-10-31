@@ -1,5 +1,5 @@
+import Track, { isTimeSignatureEvent } from "../track"
 import { Measure } from "./Measure"
-import Track, { isTimeSignatureEvent } from "common/track"
 
 export function getMeasureAt(tick: number, measures: Measure[]): Measure {
   let lastMeasure: Measure = {

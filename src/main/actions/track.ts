@@ -1,4 +1,3 @@
-import { NoteEvent, TrackMidiEvent } from "common/track"
 import {
   expressionMidiEvent,
   modulationMidiEvent,
@@ -7,7 +6,8 @@ import {
   programChangeMidiEvent,
   setTempoMidiEvent,
   volumeMidiEvent,
-} from "midi/MidiEvent"
+} from "../../common/midi/MidiEvent"
+import { NoteEvent, TrackMidiEvent } from "../../common/track"
 import { ControlMode } from "../components/ControlPane/ControlPane"
 import RootStore from "../stores/RootStore"
 import {

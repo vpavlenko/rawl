@@ -1,6 +1,6 @@
 import React from "react"
-import { TempoCoordTransform } from "src/common/transform"
-import { CanvasDrawStyle } from "src/main/style"
+import { TempoCoordTransform } from "../../../common/transform"
+import { CanvasDrawStyle } from "../../style"
 import DrawCanvas from "../DrawCanvas"
 
 export interface HorizontalLinesProps {

@@ -1,9 +1,7 @@
 import React, { FC } from "react"
-import { controllerTypeString } from "helpers/noteNumberString"
-
+import { controllerTypeString } from "../../../common/helpers/noteNumberString"
+import { TrackEvent } from "../../../common/track"
 import "./EventList.css"
-import { TrackEvent, TrackEventRequired } from "common/track"
-import { ControllerEvent } from "midifile-ts"
 
 interface TableProps {
   items: TrackEvent[]

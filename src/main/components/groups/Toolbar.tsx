@@ -1,8 +1,7 @@
 import React, { FC } from "react"
-import f from "helpers/flatJoin"
-
-import "./Toolbar.css"
 import styled from "styled-components"
+import f from "../../../common/helpers/flatJoin"
+import "./Toolbar.css"
 
 export interface ToolbarProps {
   className?: string

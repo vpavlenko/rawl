@@ -1,12 +1,12 @@
 import { withStyles } from "@material-ui/core"
 import Slider from "@material-ui/core/Slider"
 import { VolumeUp } from "@material-ui/icons"
-import { theme } from "common/theme/muiTheme"
-import { setTrackVolume } from "main/actions"
-import { useMemoObserver } from "main/hooks/useMemoObserver"
-import { useStores } from "main/hooks/useStores"
 import React, { FC, useCallback } from "react"
 import styled from "styled-components"
+import { theme } from "../../../common/theme/muiTheme"
+import { setTrackVolume } from "../../actions"
+import { useMemoObserver } from "../../hooks/useMemoObserver"
+import { useStores } from "../../hooks/useStores"
 
 const LightSlider = withStyles({
   root: {

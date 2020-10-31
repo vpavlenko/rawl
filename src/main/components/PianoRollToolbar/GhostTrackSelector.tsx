@@ -1,9 +1,9 @@
 import { Checkbox, ListItemText, MenuItem, Select } from "@material-ui/core"
 import { Layers } from "@material-ui/icons"
-import { useStores } from "main/hooks/useStores"
 import { useObserver } from "mobx-react-lite"
 import React, { useMemo } from "react"
 import styled from "styled-components"
+import { useStores } from "../../hooks/useStores"
 
 const Selector = styled(Select)`
   border: 1px solid var(--divider-color);

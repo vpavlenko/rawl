@@ -1,4 +1,3 @@
-import _ from "lodash"
 import { NoteEvent } from "../track"
 
 export default class NoteCoordTransform {
@@ -71,7 +70,7 @@ export default class NoteCoordTransform {
       x: this.getX(note.tick),
       y: this.getY(note.noteNumber),
       width: this.getX(note.duration),
-      height: this._pixelsPerKey
+      height: this._pixelsPerKey,
     }
   }
 

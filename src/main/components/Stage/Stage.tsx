@@ -1,13 +1,12 @@
-import React, { FC, CSSProperties } from "react"
-
-import DrawCanvas from "components/DrawCanvas"
-import Item from "./Item"
+import React, { CSSProperties } from "react"
 import {
-  IPoint,
   containsPoint as rectContainsPoint,
   intersects as rectIntersects,
-} from "common/geometry"
+  IPoint,
+} from "../../../common/geometry"
+import DrawCanvas from "../DrawCanvas"
 import { observeDrag } from "../PianoRoll/MouseHandler/observeDrag"
+import Item from "./Item"
 
 export interface StageMouseEvent<E, ItemType> {
   nativeEvent: E

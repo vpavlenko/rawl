@@ -1,6 +1,6 @@
 import React from "react"
-import { useTheme } from "main/hooks/useTheme"
 import { createGlobalStyle } from "styled-components"
+import { useTheme } from "../../main/hooks/useTheme"
 import { Theme } from "./Theme"
 
 interface ThemeStyleProps {

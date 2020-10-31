@@ -1,25 +1,23 @@
-import React, { FC } from "react"
-import groupBy from "lodash/groupBy"
-import range from "lodash/range"
-import difference from "lodash/difference"
-import map from "lodash/map"
-
-import { getGMCategory } from "midi/GM.ts"
-
-import "./InstrumentBrowser.css"
 import {
   Button,
+  Checkbox,
   Dialog,
   DialogActions,
   FormControlLabel,
-  Checkbox,
 } from "@material-ui/core"
+import difference from "lodash/difference"
+import groupBy from "lodash/groupBy"
+import map from "lodash/map"
+import range from "lodash/range"
 import { useObserver } from "mobx-react-lite"
-import { setTrackInstrument as setTrackInstrumentAction } from "actions"
-import { programChangeMidiEvent } from "common/midi/MidiEvent"
-import { useStores } from "../../hooks/useStores"
+import React, { FC } from "react"
 import { isNotUndefined } from "../../../common/helpers/array"
 import { localized } from "../../../common/localize/localizedString"
+import { getGMCategory } from "../../../common/midi/GM"
+import { programChangeMidiEvent } from "../../../common/midi/MidiEvent"
+import { setTrackInstrument as setTrackInstrumentAction } from "../../actions"
+import { useStores } from "../../hooks/useStores"
+import "./InstrumentBrowser.css"
 
 export interface InstrumentSetting {
   programNumber: number

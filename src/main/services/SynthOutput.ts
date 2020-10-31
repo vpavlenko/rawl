@@ -1,5 +1,5 @@
-import { Messenger, WindowMessenger } from "common/messenger/messenger"
-import { SynthEvent, LoadSoundFontEvent } from "synth/synth"
+import { Messenger, WindowMessenger } from "../../common/messenger/messenger"
+import { LoadSoundFontEvent, SynthEvent } from "../../synth/synth"
 
 export interface Message {
   message: number[]

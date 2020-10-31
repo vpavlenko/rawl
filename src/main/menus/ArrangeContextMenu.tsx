@@ -1,9 +1,9 @@
-import { ContextMenuBuilder } from "components/groups/ContextMenu"
 import {
   arrangeCopySelection,
   arrangeDeleteSelection,
   arrangePasteSelection,
-} from "main/actions/arrangeView"
+} from "../actions/arrangeView"
+import { ContextMenuBuilder } from "../components/groups/ContextMenu"
 import RootStore from "../stores/RootStore"
 
 export const ArrangeContextMenu = (

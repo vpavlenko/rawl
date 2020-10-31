@@ -1,8 +1,8 @@
-import { isNotUndefined } from "common/helpers/array"
-import SelectionModel from "common/selection"
-import { isNoteEvent, NoteEvent, TrackEvent } from "common/track"
-import { NotePoint } from "common/transform/NotePoint"
-import clipboard from "services/Clipboard.ts"
+import { isNotUndefined } from "../../common/helpers/array"
+import SelectionModel from "../../common/selection"
+import { isNoteEvent, NoteEvent, TrackEvent } from "../../common/track"
+import { NotePoint } from "../../common/transform/NotePoint"
+import clipboard from "../services/Clipboard"
 import RootStore from "../stores/RootStore"
 
 function eventsInSelection(events: TrackEvent[], selection: SelectionModel) {
@@ -169,6 +169,8 @@ export const resizeNotesInSelectionLeftBy = (rootStore: RootStore) => (
     return
   }
 
+  rootStore.pushHistory()
+
   selectedTrack.updateEvents(
     pianoRollStore.selection.noteIds.map((id) => {
       const n = selectedTrack.getEventById(id) as NoteEvent
@@ -216,6 +218,7 @@ export const resizeSelectionRight = (rootStore: RootStore) => (
 
   resizeNotesInSelectionRightBy(rootStore)(delta)
 }
+
 export const resizeNotesInSelectionRightBy = (rootStore: RootStore) => (
   deltaDuration: number
 ) => {
@@ -225,6 +228,8 @@ export const resizeNotesInSelectionRightBy = (rootStore: RootStore) => (
   if (selectedTrack === undefined) {
     return
   }
+
+  rootStore.pushHistory()
 
   selectedTrack.updateEvents(
     pianoRollStore.selection.noteIds.map((id) => {
@@ -322,6 +327,9 @@ export const deleteSelection = (rootStore: RootStore) => () => {
   if (selectedTrack === undefined) {
     return
   }
+
+  rootStore.pushHistory()
+
   const { selection } = pianoRollStore
   // 選択範囲と選択されたノートを削除
   selectedTrack.removeEvents(selection.noteIds)
@@ -347,6 +355,9 @@ export const pasteSelection = (rootStore: RootStore) => () => {
   if (obj.type !== "notes") {
     return
   }
+
+  rootStore.pushHistory()
+
   const notes = (obj.notes as NoteEvent[]).map((note) => ({
     ...note,
     tick: note.tick + player.position,

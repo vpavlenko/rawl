@@ -1,8 +1,8 @@
-import React, { FC, useCallback } from "react"
-import { useStores } from "main/hooks/useStores"
-import { IPoint } from "common/geometry"
 import { Menu, MenuItem } from "@material-ui/core"
-import { pasteSelection, copySelection, deleteSelection } from "main/actions"
+import React, { FC, useCallback } from "react"
+import { IPoint } from "../../../common/geometry"
+import { copySelection, deleteSelection, pasteSelection } from "../../actions"
+import { useStores } from "../../hooks/useStores"
 
 interface AbstractMouseEvent {
   preventDefault: () => void

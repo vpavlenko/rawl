@@ -1,4 +1,5 @@
 import { Container } from "@inlet/react-pixi"
+import React, { RefObject } from "react"
 import {
   containsPoint,
   IPoint,
@@ -6,23 +7,22 @@ import {
   ISize,
   pointAdd,
   pointSub,
-} from "common/geometry"
-import { Measure } from "common/measure/Measure"
-import { Theme } from "common/theme/Theme"
-import Track, { isNoteEvent, TrackEvent } from "common/track"
-import { NoteCoordTransform } from "common/transform"
-import { HorizontalScaleScrollBar } from "components/inputs/ScaleScrollBar"
-import { BAR_WIDTH, VerticalScrollBar } from "components/inputs/ScrollBar"
-import PianoCursor from "components/PianoRoll/PianoCursor"
-import PianoGrid from "components/PianoRoll/PianoGrid"
-import PianoRuler from "components/PianoRoll/PianoRuler"
-import PianoSelection from "components/PianoRoll/PianoSelection"
-import Stage from "components/Stage/Stage"
-import { filterEventsWithScroll } from "helpers/filterEventsWithScroll"
-import { createBeatsInRange } from "helpers/mapBeats"
-import React, { RefObject } from "react"
+} from "../../../common/geometry"
+import { filterEventsWithScroll } from "../../../common/helpers/filterEventsWithScroll"
+import { createBeatsInRange } from "../../../common/helpers/mapBeats"
+import { Measure } from "../../../common/measure/Measure"
+import { Theme } from "../../../common/theme/Theme"
+import Track, { isNoteEvent, TrackEvent } from "../../../common/track"
+import { NoteCoordTransform } from "../../../common/transform"
 import ArrangeNoteItem from "../../components/ArrangeView/ArrangeNoteItem"
+import { HorizontalScaleScrollBar } from "../inputs/ScaleScrollBar"
+import { BAR_WIDTH, VerticalScrollBar } from "../inputs/ScrollBar"
 import { observeDrag } from "../PianoRoll/MouseHandler/observeDrag"
+import PianoCursor from "../PianoRoll/PianoCursor"
+import PianoGrid from "../PianoRoll/PianoGrid"
+import PianoRuler from "../PianoRoll/PianoRuler"
+import PianoSelection from "../PianoRoll/PianoSelection"
+import Stage from "../Stage/Stage"
 import "./ArrangeView.css"
 
 interface ArrangeTrackProps {

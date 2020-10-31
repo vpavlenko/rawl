@@ -3,12 +3,12 @@ import isEqual from "lodash/isEqual"
 import last from "lodash/last"
 import sortBy from "lodash/sortBy"
 import without from "lodash/without"
-import { getInstrumentName } from "midi/GM"
 import { AnyEvent } from "midifile-ts"
 import { action, computed, observable, transaction } from "mobx"
 import { list, serializable } from "serializr"
 import { isNotUndefined } from "../helpers/array"
 import { pojo } from "../helpers/pojo"
+import { getInstrumentName } from "../midi/GM"
 import {
   isControllerEvent,
   isEndOfTrackEvent,

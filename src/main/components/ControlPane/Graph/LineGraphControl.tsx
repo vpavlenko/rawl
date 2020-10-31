@@ -1,9 +1,7 @@
 import React, { FC } from "react"
+import { IPoint } from "../../../../common/geometry"
+import { NoteCoordTransform } from "../../../../common/transform"
 import LineGraph, { LineGraphProps } from "./LineGraph"
-import { NoteCoordTransform } from "common/transform"
-import { StageMouseEvent } from "components/Stage/Stage"
-import { IPoint } from "common/geometry"
-import LineGraphItem from "./LineGraphItem"
 
 interface ItemValue {
   tick: number

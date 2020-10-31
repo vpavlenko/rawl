@@ -1,11 +1,10 @@
-import React, { FC } from "react"
-import { Graphics as PIXIGraphics, Rectangle } from "pixi.js"
-import isEqual from "lodash/isEqual"
-
-import { IRect } from "common/geometry"
-import { useTheme } from "main/hooks/useTheme"
 import { Graphics } from "@inlet/react-pixi"
 import Color from "color"
+import isEqual from "lodash/isEqual"
+import { Graphics as PIXIGraphics, Rectangle } from "pixi.js"
+import React, { FC } from "react"
+import { IRect } from "../../../common/geometry"
+import { useTheme } from "../../hooks/useTheme"
 
 const LINE_WIDTH = 2
 

@@ -1,19 +1,19 @@
-import MouseHandler, { MouseGesture } from "./NoteMouseHandler"
-import { pointSub, pointAdd, IPoint } from "common/geometry"
-import { NoteCoordTransform } from "common/transform"
-import SelectionModel from "common/selection/SelectionModel"
+import { IPoint, pointAdd, pointSub } from "../../../../common/geometry"
+import SelectionModel from "../../../../common/selection/SelectionModel"
+import { NoteCoordTransform } from "../../../../common/transform"
+import { NotePoint } from "../../../../common/transform/NotePoint"
 import {
-  resizeSelection,
-  fixSelection,
-  startSelection,
   cloneSelection,
+  fixSelection,
   moveSelection,
-  resizeSelectionRight,
+  resizeSelection,
   resizeSelectionLeft,
-} from "main/actions"
-import { NotePoint } from "common/transform/NotePoint"
+  resizeSelectionRight,
+  startSelection,
+} from "../../../actions"
 import RootStore from "../../../stores/RootStore"
 import { PianoNotesMouseEvent } from "../PianoRollStage"
+import MouseHandler, { MouseGesture } from "./NoteMouseHandler"
 
 export default class SelectionMouseHandler extends MouseHandler {
   protected actionForMouseDown(e: PianoNotesMouseEvent) {
@@ -91,72 +91,66 @@ function positionType(
 }
 
 // 選択範囲外でクリックした場合は選択範囲をリセット
-const createSelectionAction = (rootStore: RootStore): MouseGesture => (
-  onMouseDown,
-  onMouseMove,
-  onMouseUp
-) => {
+const createSelectionAction = (rootStore: RootStore): MouseGesture => {
   let start: NotePoint
 
-  onMouseDown((e) => {
-    start = { tick: e.tick, noteNumber: e.noteNumber }
-    startSelection(rootStore)(start)
-  })
+  return {
+    onMouseDown: (e) => {
+      start = { tick: e.tick, noteNumber: e.noteNumber }
+      startSelection(rootStore)(start)
+    },
 
-  onMouseMove((e) => {
-    const end = { tick: e.tick, noteNumber: e.noteNumber }
-    resizeSelection(rootStore)(start, end)
-  })
+    onMouseMove: (e) => {
+      const end = { tick: e.tick, noteNumber: e.noteNumber }
+      resizeSelection(rootStore)(start, end)
+    },
 
-  onMouseUp(() => {
-    fixSelection(rootStore)()
-  })
+    onMouseUp: () => {
+      fixSelection(rootStore)()
+    },
+  }
 }
 
 const moveSelectionAction = (
   rootStore: RootStore,
   selection: SelectionModel,
   isCopy: boolean
-): MouseGesture => (onMouseDown, onMouseMove) => {
+): MouseGesture => {
   let startPos: IPoint
   let selectionPos: IPoint
 
-  onMouseDown((e) => {
-    startPos = e.local
-    selectionPos = selection.getBounds(e.transform)
-    if (isCopy) {
-      cloneSelection(rootStore)()
-    }
-  })
+  return {
+    onMouseDown: (e) => {
+      startPos = e.local
+      selectionPos = selection.getBounds(e.transform)
+      if (isCopy) {
+        cloneSelection(rootStore)()
+      }
+    },
 
-  onMouseMove((e) => {
-    const position = pointAdd(selectionPos, pointSub(e.local, startPos))
-    const tick = e.transform.getTicks(position.x)
-    const noteNumber = Math.round(e.transform.getNoteNumber(position.y))
-    moveSelection(rootStore)({ tick, noteNumber })
-  })
+    onMouseMove: (e) => {
+      const position = pointAdd(selectionPos, pointSub(e.local, startPos))
+      const tick = e.transform.getTicks(position.x)
+      const noteNumber = Math.round(e.transform.getNoteNumber(position.y))
+      moveSelection(rootStore)({ tick, noteNumber })
+    },
+  }
 }
 
-const dragSelectionLeftEdgeAction = (rootStore: RootStore): MouseGesture => (
-  onMouseDown,
-  onMouseMove
-) => {
-  onMouseDown(() => {})
+const dragSelectionLeftEdgeAction = (rootStore: RootStore): MouseGesture => ({
+  onMouseDown: () => {},
 
-  onMouseMove((e) => {
+  onMouseMove: (e) => {
     const tick = e.transform.getTicks(e.local.x)
     resizeSelectionLeft(rootStore)(tick)
-  })
-}
+  },
+})
 
-const dragSelectionRightEdgeAction = (rootStore: RootStore): MouseGesture => (
-  onMouseDown,
-  onMouseMove
-) => {
-  onMouseDown(() => {})
+const dragSelectionRightEdgeAction = (rootStore: RootStore): MouseGesture => ({
+  onMouseDown: () => {},
 
-  onMouseMove((e) => {
+  onMouseMove: (e) => {
     const tick = e.transform.getTicks(e.local.x)
     resizeSelectionRight(rootStore)(tick)
-  })
-}
+  },
+})

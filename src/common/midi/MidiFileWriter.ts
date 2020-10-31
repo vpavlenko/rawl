@@ -1,7 +1,6 @@
-import * as _ from "lodash"
 import { AnyEvent, write as writeMidiFile } from "midifile-ts"
-import Track from "common/track"
-import { toRawEvents } from "common/helpers/toRawEvents"
+import { toRawEvents } from "../helpers/toRawEvents"
+import Track from "../track"
 
 const setChannel = (channel: number) => (e: AnyEvent): AnyEvent => {
   if (e.type === "channel") {

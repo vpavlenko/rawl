@@ -1,9 +1,8 @@
+import { makeStyles, Popover } from "@material-ui/core"
+import { KeyboardArrowDown, KeyboardArrowUp } from "@material-ui/icons"
 import React, { FC } from "react"
-
-import "./QuantizePopup.css"
-import { Popover, makeStyles } from "@material-ui/core"
-import { KeyboardArrowUp, KeyboardArrowDown } from "@material-ui/icons"
 import { localized } from "../../../../common/localize/localizedString"
+import "./QuantizePopup.css"
 
 interface NumberPickerProps {
   value: number
@@ -21,7 +20,6 @@ const NumberPicker: FC<NumberPickerProps> = ({
   onChange,
 }) => {
   function handleWheel(e: React.WheelEvent) {
-    e.preventDefault()
     onChange(e.deltaY < 0 ? prevValue() : nextValue())
   }
 

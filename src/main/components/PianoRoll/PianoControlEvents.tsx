@@ -1,8 +1,8 @@
-import React, { FC } from "react"
-import { controllerTypeString as CCNames } from "helpers/noteNumberString"
-import { TrackEvent, TrackEventRequired } from "common/track"
-import "./PianoControlEvents.css"
 import { ControllerEvent, ProgramChangeEvent } from "midifile-ts"
+import React, { FC } from "react"
+import { controllerTypeString as CCNames } from "../../../common/helpers/noteNumberString"
+import { TrackEvent, TrackEventRequired } from "../../../common/track"
+import "./PianoControlEvents.css"
 
 export type DisplayEvent = TrackEventRequired &
   (ControllerEvent | ProgramChangeEvent)

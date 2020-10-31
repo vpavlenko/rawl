@@ -1,9 +1,7 @@
-import _ from "lodash"
-
-import Song from "common/song"
-import Track, { conductorTrack, emptyTrack } from "common/track"
-import { read as readMidi, StreamSource, AnyEvent } from "midifile-ts"
+import { AnyEvent, read as readMidi, StreamSource } from "midifile-ts"
 import { toTrackEvents } from "../helpers/toTrackEvents"
+import Track, { conductorTrack, emptyTrack } from "../track"
+import Song from "./Song"
 
 export function emptySong() {
   const song = new Song()

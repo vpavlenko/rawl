@@ -1,6 +1,6 @@
-import SelectionModel from "common/selection"
 import { action, observable } from "mobx"
-import { LoadSoundFontEvent } from "src/synth/synth"
+import SelectionModel from "../../common/selection"
+import { LoadSoundFontEvent } from "../../synth/synth"
 import { ControlMode } from "../components/ControlPane/ControlPane"
 import { InstrumentSetting } from "../components/InstrumentBrowser/InstrumentBrowser"
 

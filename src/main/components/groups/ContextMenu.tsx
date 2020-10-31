@@ -1,10 +1,9 @@
+import { ClickAwayListener, MenuItem, MenuList, Paper } from "@material-ui/core"
+import { ThemeProvider } from "@material-ui/styles"
 import React from "react"
 import ReactDOM from "react-dom"
-
+import { theme } from "../../../common/theme/muiTheme"
 import "./ContextMenu.css"
-import { MenuList, MenuItem, Paper, ClickAwayListener } from "@material-ui/core"
-import { ThemeProvider } from "@material-ui/styles"
-import { theme } from "common/theme/muiTheme"
 
 function renderElement(html: string) {
   const template = document.createElement("template")

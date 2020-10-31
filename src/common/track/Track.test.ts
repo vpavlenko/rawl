@@ -1,6 +1,4 @@
-import { toJS } from "mobx"
-import { serialize, deserialize } from "serializr"
-
+import { deserialize, serialize } from "serializr"
 import Track from "./Track"
 
 describe("Track", () => {

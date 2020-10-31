@@ -1,7 +1,10 @@
-import Song, { emptySong } from "common/song"
-import { emptyTrack } from "common/track"
-import { read as readSong, write as writeSong } from "midi/SongFile"
 import { toJS } from "mobx"
+import {
+  read as readSong,
+  write as writeSong,
+} from "../../common/midi/SongFile"
+import Song, { emptySong } from "../../common/song"
+import { emptyTrack } from "../../common/track"
 import RootStore from "../stores/RootStore"
 
 const openSongFile = (
@@ -38,6 +41,7 @@ export const setSong = (rootStore: RootStore, song: Song) => {
   rootStore.services.quantizer.ticksPerBeat = song.timebase
   rootStore.pianoRollStore.scrollLeft = 0
   rootStore.pianoRollStore.ghostTracks = {}
+  rootStore.historyStore.clear()
 }
 
 export const createSong = (rootStore: RootStore) => () => {

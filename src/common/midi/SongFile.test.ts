@@ -1,7 +1,7 @@
-import { write } from "./MidiFileWriter"
+import { serialize } from "serializr"
 import { emptySong, songFromMidi } from "../song/SongFactory"
 import Track from "../track/Track"
-import { serialize } from "serializr"
+import { write } from "./MidiFileWriter"
 
 // id for each event will not be serialized in midi file
 // we change ids sorted by order in events array

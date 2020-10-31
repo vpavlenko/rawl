@@ -1,5 +1,5 @@
+import { calculateMBT, Measure } from "./Measure"
 import { getMeasureAt } from "./MeasureList"
-import { Measure, calculateMBT } from "./Measure"
 
 export const getMBTString = (
   measures: Measure[],

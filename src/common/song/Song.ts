@@ -1,12 +1,11 @@
-import { observable, autorun, computed, action, transaction } from "mobx"
-import { list, object, serializable } from "serializr"
 import pullAt from "lodash/pullAt"
-
-import Track from "../track"
-import { Measure } from "../measure/Measure"
-import { isNotUndefined } from "../helpers/array"
-import { getMeasuresFromConductorTrack } from "../measure/MeasureList"
+import { action, autorun, computed, observable, transaction } from "mobx"
+import { list, object, serializable } from "serializr"
 import { TIME_BASE } from "../../main/Constants"
+import { isNotUndefined } from "../helpers/array"
+import { Measure } from "../measure/Measure"
+import { getMeasuresFromConductorTrack } from "../measure/MeasureList"
+import Track from "../track"
 
 const END_MARGIN = 480 * 30
 

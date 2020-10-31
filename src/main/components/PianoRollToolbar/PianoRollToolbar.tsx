@@ -1,17 +1,18 @@
 import { AppBar, IconButton, Toolbar } from "@material-ui/core"
 import { KeyboardTab, Menu as MenuIcon } from "@material-ui/icons"
 import { makeStyles } from "@material-ui/styles"
-import QuantizeSelector from "main/components/PianoRollToolbar/QuantizeSelector/QuantizeSelector"
-import { useStores } from "main/hooks/useStores"
 import { useObserver } from "mobx-react-lite"
 import React, { FC, useCallback } from "react"
 import styled from "styled-components"
 import { localized } from "../../../common/localize/localizedString"
+import { useStores } from "../../hooks/useStores"
 import InstrumentBrowser from "../InstrumentBrowser/InstrumentBrowser"
 import { GhostTrackSelector } from "./GhostTrackSelector"
 import { InstrumentButton } from "./InstrumentButton"
 import { PanSlider } from "./PanSlider"
+import QuantizeSelector from "./QuantizeSelector/QuantizeSelector"
 import { StyledToggleButton, ToolSelector } from "./ToolSelector"
+import { TrackNameInput } from "./TrackNameInput"
 import { VolumeSlider } from "./VolumeSlider"
 
 const useStyles = makeStyles((theme) => ({
@@ -23,12 +24,6 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "1rem",
   },
 }))
-
-const TrackName = styled.span`
-  font-weight: bold;
-  margin-right: 2em;
-  font-size: 1rem;
-`
 
 const AutoScrollIcon = styled(KeyboardTab)`
   height: 2rem;
@@ -86,7 +81,7 @@ export const PianoRollToolbar: FC = () => {
           <MenuIcon />
         </NavBackButton>
 
-        <TrackName>{trackName}</TrackName>
+        <TrackNameInput />
 
         <InstrumentButton />
         <InstrumentBrowser />

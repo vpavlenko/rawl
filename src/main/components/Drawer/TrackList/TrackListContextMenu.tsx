@@ -1,6 +1,6 @@
-import React, { FC } from "react"
 import { Menu, MenuItem } from "@material-ui/core"
-import { IPoint } from "common/geometry"
+import React, { FC } from "react"
+import { IPoint } from "../../../../common/geometry"
 
 export const useContextMenu = () => {
   const [state, setState] = React.useState({

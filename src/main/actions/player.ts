@@ -1,5 +1,3 @@
-import { TimeSignatureEvent } from "midifile-ts"
-import Song from "../../common/song"
 import { NoteEvent } from "../../common/track"
 import RootStore from "../stores/RootStore"
 
@@ -37,7 +35,7 @@ export const setPlayerPosition = (rootStore: RootStore) => (tick: number) => {
 const defaultTimeSignature = {
   numerator: 4,
   denominator: 4,
-  tick: 0
+  tick: 0,
 }
 
 export const rewindOneBar = (rootStore: RootStore) => () => {
@@ -45,7 +43,9 @@ export const rewindOneBar = (rootStore: RootStore) => () => {
     song,
     services: { player },
   } = rootStore
-  const e = song.conductorTrack?.getTimeSignatureEvent(player.position) ?? defaultTimeSignature
+  const e =
+    song.conductorTrack?.getTimeSignatureEvent(player.position) ??
+    defaultTimeSignature
   const ticksPerMeasure = ((player.timebase * 4) / e.denominator) * e.numerator
   const measures = (player.position - e.tick) / ticksPerMeasure
   const fixedMeasures = Math.floor(measures)
@@ -74,7 +74,9 @@ export const fastForwardOneBar = (rootStore: RootStore) => () => {
     song,
     services: { player, quantizer },
   } = rootStore
-  const e = song.conductorTrack?.getTimeSignatureEvent(player.position) ?? defaultTimeSignature
+  const e =
+    song.conductorTrack?.getTimeSignatureEvent(player.position) ??
+    defaultTimeSignature
   const ticksPerBeat = (player.timebase * 4) / e.denominator
   const ticksPerMeasure = ticksPerBeat * e.numerator
   player.position = quantizer.round(player.position + ticksPerMeasure)

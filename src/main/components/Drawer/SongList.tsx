@@ -1,9 +1,9 @@
-import React, { FC, ChangeEvent } from "react"
 import { List, ListItem, ListItemText } from "@material-ui/core"
-import { createSong, openSong, saveSong } from "actions"
-import { useStores } from "main/hooks/useStores"
-import { ListHeader } from "./Drawer"
+import React, { ChangeEvent, FC } from "react"
 import { localized } from "../../../common/localize/localizedString"
+import { createSong, openSong, saveSong } from "../../actions"
+import { useStores } from "../../hooks/useStores"
+import { ListHeader } from "./Drawer"
 
 const fileInputID = "OpenButtonInputFile"
 

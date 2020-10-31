@@ -1,8 +1,7 @@
-import React, { FC, ReactNode } from "react"
-import f from "helpers/flatJoin"
-
-import "./NavigationBar.css"
 import { ChevronLeft } from "@material-ui/icons"
+import React, { FC } from "react"
+import f from "../../../common/helpers/flatJoin"
+import "./NavigationBar.css"
 
 export interface NavigationBarProps {
   title?: string

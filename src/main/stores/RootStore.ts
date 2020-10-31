@@ -5,9 +5,11 @@ import Quantizer from "../../common/quantizer"
 import Song, { emptySong } from "../../common/song"
 import TrackMute from "../../common/trackMute"
 import { TIME_BASE } from "../Constants"
-import SynthOutput from "../services/SynthOutput"
+import { GroupOutput } from "../services/GroupOutput"
+import IFrameSynth from "../services/IFrameSynth"
 import ArrangeViewStore from "./ArrangeViewStore"
 import HistoryStore from "./HistoryStore"
+import { MIDIDeviceStore } from "./MIDIDeviceStore"
 import PianoRollStore from "./PianoRollStore"
 import { registerReactions } from "./reactions"
 import RootViewStore from "./RootViewStore"
@@ -18,7 +20,8 @@ import TempoEditorStore from "./TempoEditorStore"
 export interface Services {
   player: Player
   quantizer: Quantizer
-  synth: SynthOutput
+  synth: IFrameSynth
+  synthGroup: GroupOutput
 }
 
 // we use any for now. related: https://github.com/Microsoft/TypeScript/issues/1897
@@ -34,14 +37,18 @@ export default class RootStore {
   pianoRollStore: PianoRollStore
   arrangeViewStore = new ArrangeViewStore()
   tempoEditorStore = new TempoEditorStore()
+  midiDeviceStore = new MIDIDeviceStore()
 
   services: Services
 
   constructor() {
-    const synth = new SynthOutput("A320U.sf2")
-    const player = new Player(TIME_BASE, synth, this.trackMute)
+    const synth = new IFrameSynth("A320U.sf2")
+    const synthGroup = new GroupOutput()
+    synthGroup.outputs.push({ synth, isEnabled: true })
+
+    const player = new Player(TIME_BASE, synthGroup, this.trackMute)
     const quantizer = new Quantizer(TIME_BASE)
-    this.services = { player, quantizer, synth }
+    this.services = { player, quantizer, synth, synthGroup }
     this.pianoRollStore = new PianoRollStore()
 
     synth.onLoadSoundFont = (e) => {

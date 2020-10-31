@@ -52,5 +52,8 @@ export default {
     "select-note": "ノートを選択",
     "scroll-horizontally": "左右にスクロール",
     "scroll-vertically": "上下にスクロール",
+    "midi-settings": "MIDI設定",
+    inputs: "入力",
+    outputs: "出力",
   },
 } as { [key: string]: { [key: string]: string } }

@@ -8,7 +8,7 @@ import {
   serialize as serializeMidiEvent,
 } from "midifile-ts"
 import { computed, observable } from "mobx"
-import SynthOutput, { Message } from "../../main/services/SynthOutput"
+import { Message, SynthOutput } from "../../main/services/SynthOutput"
 import { deassemble as deassembleNote } from "../helpers/noteAssembler"
 import { deassemble as deassembleRPN } from "../helpers/RPNAssembler"
 import Song from "../song"
@@ -176,8 +176,8 @@ export default class Player {
     return this._currentTempo
   }
 
-  private _sendMessage(msg: number[], timestamp: number) {
-    this._output.send(msg, timestamp)
+  private _sendMessage(message: number[], timestamp: number) {
+    this._sendMessages([{ message, timestamp }])
   }
 
   private _sendMessages(msg: Message[]) {

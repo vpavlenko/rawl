@@ -50,12 +50,13 @@ const HelpIcon = styled(Help)`
 
 export const Drawer: FC = () => {
   const { rootStore } = useStores()
-  const { open, onClose } = useObserver(() => ({
+  const { open } = useObserver(() => ({
     open: rootStore.rootViewStore.openDrawer,
-    onClose: () => (rootStore.rootViewStore.openDrawer = false),
   }))
+  const close = () => (rootStore.rootViewStore.openDrawer = false)
+
   return (
-    <MaterialDrawer open={open} onClose={onClose}>
+    <MaterialDrawer open={open} onClose={close}>
       <Banner />
       <SongList />
       <Divider />
@@ -64,6 +65,18 @@ export const Drawer: FC = () => {
       <List>
         <ListItem button onClick={() => (rootStore.router.path = "/tempo")}>
           <ListItemText primary={localized("tempo-track", "Tempo Track")} />
+        </ListItem>
+      </List>
+      <Divider />
+      <List>
+        <ListItem
+          button
+          onClick={() => {
+            close()
+            rootStore.rootViewStore.openDeviceDialog = true
+          }}
+        >
+          <ListItemText primary={localized("midi-settings", "MIDI Settings")} />
         </ListItem>
       </List>
       <Divider />

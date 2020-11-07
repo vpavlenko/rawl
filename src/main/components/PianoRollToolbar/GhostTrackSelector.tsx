@@ -54,7 +54,7 @@ const StyledCheckbox = styled(Checkbox)`
 `
 
 export const GhostTrackSelector = () => {
-  const { rootStore } = useStores()
+  const rootStore = useStores()
   const { ghostTrackIds, tracks, selectedTrackId } = useObserver(() => ({
     ghostTrackIds:
       rootStore.pianoRollStore.ghostTracks[rootStore.song.selectedTrackId] ??

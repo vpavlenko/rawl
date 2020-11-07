@@ -132,7 +132,7 @@ const PianoKeys: FC<PianoKeysProps> = ({ numberOfKeys, keyHeight }) => {
       )
     })
 
-  const { rootStore } = useStores()
+  const rootStore = useStores()
 
   const onClickKey = useCallback(
     (noteNumber: number) => {

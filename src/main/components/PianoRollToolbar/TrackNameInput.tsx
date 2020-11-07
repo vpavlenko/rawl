@@ -24,7 +24,7 @@ const Input = styled.input`
 `
 
 export const TrackNameInput: FC = () => {
-  const { rootStore } = useStores()
+  const rootStore = useStores()
   const { trackName } = useObserver(() => ({
     trackName: rootStore.song.selectedTrack?.displayName ?? "",
   }))

@@ -23,7 +23,7 @@ const FileInput: FC<{
 )
 
 export const SongList: FC = () => {
-  const { rootStore } = useStores()
+  const rootStore = useStores()
   const onClickNew = () => {
     if (
       confirm(localized("confirm-new", "Are you sure you want to continue?"))

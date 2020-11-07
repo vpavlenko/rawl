@@ -48,7 +48,7 @@ export interface PianoSelectionContextMenuProps {
 
 export const PianoSelectionContextMenu: FC<PianoSelectionContextMenuProps> = React.memo(
   ({ isOpen, position, handleClose }) => {
-    const { rootStore } = useStores()
+    const rootStore = useStores()
     const isNoteSelected = rootStore.pianoRollStore.selection.noteIds.length > 0
 
     const onClickCut = useCallback(() => {

@@ -57,7 +57,7 @@ const HotKey: FC<HotKeyProps> = ({ hotKeys, text }) => {
 }
 
 export const HelpDialog: FC = () => {
-  const { rootStore } = useStores()
+  const rootStore = useStores()
   const { isOpen } = useObserver(() => ({
     isOpen: rootStore.rootViewStore.openHelp,
   }))

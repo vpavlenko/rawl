@@ -14,7 +14,7 @@ import "./App.css"
 export function App() {
   return (
     <React.StrictMode>
-      <StoreContext.Provider value={{ rootStore: new RootStore() }}>
+      <StoreContext.Provider value={new RootStore()}>
         <ThemeContext.Provider value={defaultTheme}>
           <ThemeProvider theme={theme}>
             <StylesProvider injectFirst>

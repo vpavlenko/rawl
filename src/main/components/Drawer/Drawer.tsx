@@ -49,7 +49,7 @@ const HelpIcon = styled(Help)`
 `
 
 export const Drawer: FC = () => {
-  const { rootStore } = useStores()
+  const rootStore = useStores()
   const { open } = useObserver(() => ({
     open: rootStore.rootViewStore.openDrawer,
   }))

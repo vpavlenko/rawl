@@ -18,7 +18,7 @@ const SettingItem: FC<SettingItemProps> = ({ label, children }) => {
 }
 
 export const SettingsView: FC = () => {
-  const { rootStore } = useStores()
+  const rootStore = useStores()
 
   const { soundFontPath } = useObserver(() => ({
     soundFontPath: rootStore.settingsStore.soundFontPath,

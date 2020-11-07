@@ -23,7 +23,7 @@ const isFocusable = (e: EventTarget) =>
 const SCROLL_DELTA = 24
 
 export const KeyboardShortcut: FC = () => {
-  const { rootStore } = useStores()
+  const rootStore = useStores()
 
   useEffect(() => {
     const {

@@ -7,7 +7,7 @@ import QuantizeSelector from "../PianoRollToolbar/QuantizeSelector/QuantizeSelec
 import "./ArrangeToolbar.css"
 
 export const ArrangeToolbar: FC = () => {
-  const { rootStore } = useStores()
+  const rootStore = useStores()
   const { quantize, autoScroll } = useObserver(() => ({
     quantize:
       rootStore.arrangeViewStore.quantize === 0

@@ -57,7 +57,7 @@ const Invisible = styled.div`
 `
 
 export const MIDIDeviceDialog: FC = () => {
-  const { rootStore } = useStores()
+  const rootStore = useStores()
 
   const {
     inputs,

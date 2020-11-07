@@ -32,14 +32,16 @@ export interface VolumeSliderProps {
 }
 
 const _VolumeSlider: FC<VolumeSliderProps> = ({ trackId }) => {
-  const { rootStore: stores } = useStores()
+  const rootStore = useStores()
   const volume = useMemoObserver(
     () =>
-      stores.song.selectedTrack?.getVolume(stores.services.player.position) ?? 0
+      rootStore.song.selectedTrack?.getVolume(
+        rootStore.services.player.position
+      ) ?? 0
   )
   const onChange = useCallback(
-    (value: number) => setTrackVolume(stores)(trackId, value),
-    [stores, trackId]
+    (value: number) => setTrackVolume(rootStore)(trackId, value),
+    [rootStore, trackId]
   )
   return (
     <Container>

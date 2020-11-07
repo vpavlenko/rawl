@@ -30,11 +30,11 @@ export const StyledToggleButton = styled(ToggleButton)`
 `
 
 export const ToolSelector = () => {
-  const { rootStore: stores } = useStores()
-  const { pianoRollStore: s } = stores
+  const rootStore = useStores()
+  const { pianoRollStore: s } = rootStore
 
   const { mouseMode } = useObserver(() => ({
-    mouseMode: stores.pianoRollStore.mouseMode,
+    mouseMode: rootStore.pianoRollStore.mouseMode,
   }))
 
   const onClickPencil = useCallback(() => (s.mouseMode = "pencil"), [s])

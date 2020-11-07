@@ -18,7 +18,7 @@ const InstrumentIcon = styled(PianoIcon)`
 `
 
 export const InstrumentButton: FC = () => {
-  const { rootStore } = useStores()
+  const rootStore = useStores()
 
   const instrumentName = useObserver(
     () => rootStore.song.selectedTrack?.instrumentName ?? ""

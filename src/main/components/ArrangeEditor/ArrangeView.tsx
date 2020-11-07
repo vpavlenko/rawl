@@ -16,7 +16,7 @@ import { useTheme } from "../../hooks/useTheme"
 import { ArrangeView } from "../ArrangeView/ArrangeView"
 
 const ArrangeViewWrapper: FC = () => {
-  const { rootStore } = useStores()
+  const rootStore = useStores()
 
   const {
     autoScroll,

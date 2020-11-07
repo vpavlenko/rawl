@@ -57,7 +57,7 @@ const Invisible = styled.div`
 `
 
 export const MIDIDeviceDialog: FC = () => {
-  const rootStore = useStores()
+  const { midiDeviceStore, rootViewStore } = useStores()
 
   const {
     inputs,
@@ -68,16 +68,16 @@ export const MIDIDeviceDialog: FC = () => {
     enabledOutputIds,
     isFactorySoundEnabled,
   } = useObserver(() => ({
-    inputs: rootStore.midiDeviceStore.inputs,
-    outputs: rootStore.midiDeviceStore.outputs,
-    isLoading: rootStore.midiDeviceStore.isLoading,
-    enabledInputIds: rootStore.midiDeviceStore.enabledInputIds,
-    enabledOutputIds: rootStore.midiDeviceStore.enabledOutputIds,
-    isFactorySoundEnabled: rootStore.midiDeviceStore.isFactorySoundEnabled,
-    isOpen: rootStore.rootViewStore.openDeviceDialog,
+    inputs: midiDeviceStore.inputs,
+    outputs: midiDeviceStore.outputs,
+    isLoading: midiDeviceStore.isLoading,
+    enabledInputIds: midiDeviceStore.enabledInputIds,
+    enabledOutputIds: midiDeviceStore.enabledOutputIds,
+    isFactorySoundEnabled: midiDeviceStore.isFactorySoundEnabled,
+    isOpen: rootViewStore.openDeviceDialog,
   }))
 
-  const close = () => (rootStore.rootViewStore.openDeviceDialog = false)
+  const close = () => (rootViewStore.openDeviceDialog = false)
 
   const formatName = (device: WebMidi.MIDIPort) =>
     (device?.name ?? "") +
@@ -122,10 +122,7 @@ export const MIDIDeviceDialog: FC = () => {
                     device={device}
                     isSelected={isSelected}
                     onCheck={(checked) =>
-                      rootStore.midiDeviceStore.setInputEnable(
-                        device.id,
-                        checked
-                      )
+                      midiDeviceStore.setInputEnable(device.id, checked)
                     }
                   />
                 ))}
@@ -140,7 +137,7 @@ export const MIDIDeviceDialog: FC = () => {
                 device={factorySound}
                 isSelected={isFactorySoundEnabled}
                 onCheck={(checked) =>
-                  (rootStore.midiDeviceStore.isFactorySoundEnabled = checked)
+                  (midiDeviceStore.isFactorySoundEnabled = checked)
                 }
               />
               {outputDevices.map(({ device, isSelected }) => (
@@ -148,10 +145,7 @@ export const MIDIDeviceDialog: FC = () => {
                   device={device}
                   isSelected={isSelected}
                   onCheck={(checked) =>
-                    rootStore.midiDeviceStore.setOutputEnable(
-                      device.id,
-                      checked
-                    )
+                    midiDeviceStore.setOutputEnable(device.id, checked)
                   }
                 />
               ))}

@@ -35,11 +35,11 @@ const AutoScrollButton = styled(ToggleButton)`
 `
 
 export const TempoGraphToolbar: FC = () => {
-  const rootStore = useStores()
+  const { tempoEditorStore, rootViewStore } = useStores()
   const { autoScroll } = useObserver(() => ({
-    autoScroll: rootStore.tempoEditorStore.autoScroll,
+    autoScroll: tempoEditorStore.autoScroll,
   }))
-  const onClickNavBack = () => (rootStore.rootViewStore.openDrawer = true)
+  const onClickNavBack = () => (rootViewStore.openDrawer = true)
   const classes = useStyles({})
 
   return (
@@ -53,7 +53,7 @@ export const TempoGraphToolbar: FC = () => {
 
         <AutoScrollButton
           value="autoScroll"
-          onClick={() => (rootStore.tempoEditorStore.autoScroll = !autoScroll)}
+          onClick={() => (tempoEditorStore.autoScroll = !autoScroll)}
           selected={autoScroll}
         >
           <KeyboardTab />

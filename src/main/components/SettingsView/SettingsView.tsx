@@ -18,24 +18,23 @@ const SettingItem: FC<SettingItemProps> = ({ label, children }) => {
 }
 
 export const SettingsView: FC = () => {
-  const rootStore = useStores()
-
-  const { soundFontPath } = useObserver(() => ({
-    soundFontPath: rootStore.settingsStore.soundFontPath,
-  }))
-
   const {
+    settingsStore,
     router,
     services: { synth },
-  } = rootStore
+  } = useStores()
 
-  const clearSettings = () => rootStore.settingsStore.clear()
+  const { soundFontPath } = useObserver(() => ({
+    soundFontPath: settingsStore.soundFontPath,
+  }))
+
+  const clearSettings = () => settingsStore.clear()
   const onClickNavBack = () => router.pushArrange()
   const onClickOpenSoundFont = () => {
     openSoundFont((files: string[]) => {
       if (files && files.length > 0) {
         const path = files[0]
-        rootStore.settingsStore.soundFontPath = path
+        settingsStore.soundFontPath = path
         synth.loadSoundFont(path)
       }
     })

@@ -10,15 +10,9 @@ import { useTheme } from "../../hooks/useTheme"
 import ControlPane from "../ControlPane/ControlPane"
 import { HorizontalScaleScrollBar } from "../inputs/ScaleScrollBar"
 import { VerticalScrollBar } from "../inputs/ScrollBar"
-import { PianoNotesMouseEvent, PianoRollStage } from "./PianoRollStage"
+import { PianoRollStage } from "./PianoRollStage"
 
 const WHEEL_SCROLL_RATE = 1 / 120
-
-export interface PianoNotesMouseHandler {
-  onMouseDown(e: PianoNotesMouseEvent): void
-  onMouseMove(e: PianoNotesMouseEvent): void
-  onMouseUp(e: PianoNotesMouseEvent): void
-}
 
 const Parent = styled.div`
   flex-grow: 1;

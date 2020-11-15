@@ -196,6 +196,7 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
                   mousedown={handleMouseDown}
                   mousemove={handleMouseMove}
                   mouseup={handleMouseUp}
+                  mouseupoutside={handleMouseUp}
                   rightclick={handleRightClick}
                   cursor={notesCursor}
                 >

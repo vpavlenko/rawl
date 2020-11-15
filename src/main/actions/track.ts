@@ -1,3 +1,4 @@
+import { AnyEvent } from "midifile-ts"
 import {
   expressionMidiEvent,
   modulationMidiEvent,
@@ -7,7 +8,7 @@ import {
   setTempoMidiEvent,
   volumeMidiEvent,
 } from "../../common/midi/MidiEvent"
-import { NoteEvent, TrackMidiEvent } from "../../common/track"
+import { NoteEvent } from "../../common/track"
 import { ControlMode } from "../components/ControlPane/ControlPane"
 import RootStore from "../stores/RootStore"
 import { pushHistory } from "./history"
@@ -75,7 +76,7 @@ export const changeNotesVelocity = (rootStore: RootStore) => (
   )
 }
 
-const createEvent = (rootStore: RootStore) => <T extends TrackMidiEvent>(
+const createEvent = (rootStore: RootStore) => <T extends AnyEvent>(
   e: T,
   tick?: number
 ) => {
@@ -93,6 +94,11 @@ const createEvent = (rootStore: RootStore) => <T extends TrackMidiEvent>(
     ...e,
     tick: quantizer.round(tick ?? player.position),
   })
+
+  // 即座に反映する
+  if (tick !== undefined) {
+    rootStore.services.player.sendEvent(e)
+  }
 }
 
 export const createPitchBend = (rootStore: RootStore) => (

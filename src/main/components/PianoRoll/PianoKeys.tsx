@@ -20,17 +20,17 @@ const BlackKey: FC<BlackKeyProps> = ({ width, height, position }) => {
   const color = Color(theme.pianoKeyBlack).rgbNumber()
   const dividerColor = Color(theme.dividerColor).rgbNumber()
 
-  const keyWidth = width * 0.64
+  const keyWidth = Math.floor(width * 0.64)
   const draw = (ctx: PIXIGraphics) => {
     ctx
       .clear()
       .lineStyle()
       .beginFill(color)
-      .drawRect(0, 0, keyWidth, Math.floor(height))
+      .drawRect(-0.5, -0.5, keyWidth, Math.floor(height))
 
-    const middle = Math.round(height / 2) + 0.5
+    const middle = Math.round(height / 2)
     ctx
-      .lineStyle(1, dividerColor, 0.3)
+      .lineStyle(1, dividerColor, 0.3, 0.5)
       .moveTo(keyWidth, middle)
       .lineTo(width, middle)
   }
@@ -89,6 +89,10 @@ const PianoKeys: FC<PianoKeysProps> = ({ numberOfKeys, keyHeight }) => {
     return numberOfKeys - y / keyHeight
   }
 
+  function noteNumberToPixels(noteNumber: number): number {
+    return Math.floor((numberOfKeys - noteNumber - 1) * keyHeight)
+  }
+
   function onMouseDown(e: PIXI.InteractionEvent) {
     const local = e.data.getLocalPosition(e.target)
     const noteNumber = Math.floor(pixelsToNoteNumber(local.y))
@@ -101,7 +105,7 @@ const PianoKeys: FC<PianoKeysProps> = ({ numberOfKeys, keyHeight }) => {
       width={width}
       keyNum={i}
       key={i}
-      y={(numberOfKeys - i - 1) * keyHeight}
+      y={noteNumberToPixels(i)}
       font={theme.canvasFont}
       color={Color(theme.secondaryTextColor).rgbNumber()}
     />
@@ -112,7 +116,7 @@ const PianoKeys: FC<PianoKeysProps> = ({ numberOfKeys, keyHeight }) => {
     .map((i) => (
       <BlackKey
         key={i}
-        position={new Point(0, (numberOfKeys - i - 1) * keyHeight)}
+        position={new Point(0, noteNumberToPixels(i))}
         height={keyHeight}
         width={width}
       />
@@ -121,12 +125,13 @@ const PianoKeys: FC<PianoKeysProps> = ({ numberOfKeys, keyHeight }) => {
   const dividers = range(0, numberOfKeys)
     .filter(isBordered)
     .map((i) => {
-      const y = Math.round((numberOfKeys - i - 1) * keyHeight) + 0.5
+      const y = noteNumberToPixels(i)
       return (
         <Graphics
           key={i}
           draw={(g) =>
             g
+              .clear()
               .lineStyle(1, Color(theme.dividerColor).rgbNumber(), 0.6, 0.5)
               .moveTo(0, 0)
               .lineTo(width, 0)

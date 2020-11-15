@@ -176,6 +176,10 @@ export default class Player {
     return this._currentTempo
   }
 
+  set currentTempo(value: number) {
+    this._currentTempo = value
+  }
+
   private _sendMessage(message: number[], timestamp: number) {
     this._sendMessages([{ message, timestamp }])
   }

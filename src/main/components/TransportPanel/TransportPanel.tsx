@@ -93,11 +93,14 @@ const TempoForm: FC = () => {
       ) ?? 1
   )
 
-  const changeTempo = (tempo: number) =>
+  const changeTempo = (tempo: number) => {
+    const fixedTempo = Math.max(1, Math.min(512, tempo))
     rootStore.song.conductorTrack?.setTempo(
-      tempo,
+      fixedTempo,
       rootStore.services.player.position
     )
+    rootStore.services.player.currentTempo = fixedTempo
+  }
 
   const onKeyPressTempo = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {

@@ -1,9 +1,9 @@
 import { observable } from "mobx"
-import { deserialize, serialize } from "serializr"
 import Player from "../../common/player"
 import Quantizer from "../../common/quantizer"
 import Song, { emptySong } from "../../common/song"
 import TrackMute from "../../common/trackMute"
+import { SerializedState } from "../actions/history"
 import { TIME_BASE } from "../Constants"
 import { GroupOutput } from "../services/GroupOutput"
 import IFrameSynth from "../services/IFrameSynth"
@@ -24,14 +24,11 @@ export interface Services {
   synthGroup: GroupOutput
 }
 
-// we use any for now. related: https://github.com/Microsoft/TypeScript/issues/1897
-type Json = any
-
 export default class RootStore {
   @observable.ref song: Song = emptySong()
   router = new Router()
   trackMute = new TrackMute()
-  historyStore = new HistoryStore<Song>()
+  historyStore = new HistoryStore<SerializedState>()
   settingsStore = new SettingsStore()
   rootViewStore = new RootViewStore()
   pianoRollStore: PianoRollStore
@@ -57,36 +54,5 @@ export default class RootStore {
     }
 
     registerReactions(this)
-  }
-
-  private serializeUndoableState = (): Json => {
-    return serialize(this.song)
-  }
-
-  private restoreState = (serializedState: Json) => {
-    const song = deserialize(Song, serializedState)
-    song.onDeserialized()
-    this.song = song
-  }
-
-  pushHistory = () => {
-    const state = this.serializeUndoableState()
-    this.historyStore.push(state)
-  }
-
-  undo = () => {
-    const currentState = this.serializeUndoableState()
-    const nextState = this.historyStore.undo(currentState)
-    if (nextState !== undefined) {
-      this.restoreState(nextState)
-    }
-  }
-
-  redo = () => {
-    const currentState = this.serializeUndoableState()
-    const nextState = this.historyStore.redo(currentState)
-    if (nextState !== undefined) {
-      this.restoreState(nextState)
-    }
   }
 }

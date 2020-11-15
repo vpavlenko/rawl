@@ -48,8 +48,8 @@ const _PianoNote: FC<PianoNoteProps> = (props) => {
     const noteColor = item.isSelected ? props.selectedColor : props.color
     let { width, height } = item
 
-    width = Math.round(width - 1) // 次のノートと被らないように小さくする
-    height = Math.round(height)
+    width = Math.round(width) - 1
+    height = Math.round(height) - 1
     const lineColor = item.isSelected
       ? props.selectedBorderColor
       : props.borderColor
@@ -69,7 +69,7 @@ const _PianoNote: FC<PianoNoteProps> = (props) => {
     g.clear()
       .lineStyle(1, props.borderColor, 1)
       .beginFill(noteColor, alpha)
-      .drawCircle(0, radius / 2, radius)
+      .drawCircle(0, Math.round(radius / 2) + 1, radius)
   }
 
   const data = {
@@ -83,7 +83,16 @@ const _PianoNote: FC<PianoNoteProps> = (props) => {
       x={Math.round(item.x)}
       y={Math.round(item.y)}
       interactive={true}
-      hitArea={new Rectangle(0, 0, item.width, item.height)}
+      hitArea={
+        item.isDrum
+          ? new Rectangle(
+              -item.height / 2,
+              -item.height / 2,
+              item.height,
+              item.height
+            )
+          : new Rectangle(0, 0, item.width, item.height)
+      }
       {...data}
     />
   )
@@ -91,8 +100,12 @@ const _PianoNote: FC<PianoNoteProps> = (props) => {
 
 export const getPositionType = (
   localX: number,
-  width: number
+  width: number,
+  isDrum: boolean
 ): MousePositionType => {
+  if (isDrum) {
+    return "center"
+  }
   const edgeSize = Math.min(width / 3, 8)
   if (localX <= edgeSize) {
     return "left"

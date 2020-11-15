@@ -145,7 +145,7 @@ const InstrumentBrowser: FC<InstrumentBrowserProps> = ({
 }
 
 const InstrumentBrowserWrapper: FC = () => {
-  const { rootStore: stores } = useStores()
+  const rootStore = useStores()
   const {
     track,
     trackId,
@@ -156,14 +156,14 @@ const InstrumentBrowserWrapper: FC = () => {
     instrumentBrowserSetting,
     openInstrumentBrowser,
   } = useObserver(() => ({
-    track: stores.song.selectedTrack,
-    trackId: stores.song.selectedTrackId,
-    presetNames: stores.pianoRollStore.presetNames,
-    s: stores.pianoRollStore,
-    player: stores.services.player,
-    song: stores.song,
-    instrumentBrowserSetting: stores.pianoRollStore.instrumentBrowserSetting,
-    openInstrumentBrowser: stores.pianoRollStore.openInstrumentBrowser,
+    track: rootStore.song.selectedTrack,
+    trackId: rootStore.song.selectedTrackId,
+    presetNames: rootStore.pianoRollStore.presetNames,
+    s: rootStore.pianoRollStore,
+    player: rootStore.services.player,
+    song: rootStore.song,
+    instrumentBrowserSetting: rootStore.pianoRollStore.instrumentBrowserSetting,
+    openInstrumentBrowser: rootStore.pianoRollStore.openInstrumentBrowser,
   }))
 
   if (track === undefined) {
@@ -172,7 +172,7 @@ const InstrumentBrowserWrapper: FC = () => {
 
   const close = () => (s.openInstrumentBrowser = false)
   const setTrackInstrument = (programNumber: number) =>
-    setTrackInstrumentAction(stores)(trackId, programNumber)
+    setTrackInstrumentAction(rootStore)(trackId, programNumber)
 
   const presets: PresetItem[] = Object.keys(presetNames[0]).map((key) => ({
     programNumber: parseInt(key),

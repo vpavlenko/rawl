@@ -20,14 +20,7 @@ const PianoSelection: FC<PianoSelectionProps> = ({ bounds, onRightClick }) => {
   function draw(ctx: PIXIGraphics): void {
     ctx.clear()
     const { width, height } = bounds
-    ctx
-      .lineStyle(LINE_WIDTH, color)
-      .drawRect(
-        LINE_WIDTH / 2,
-        LINE_WIDTH / 2,
-        width - LINE_WIDTH,
-        height - LINE_WIDTH
-      )
+    ctx.lineStyle(LINE_WIDTH, color, 1, 0).drawRect(-0.5, -0.5, width, height)
   }
 
   return (

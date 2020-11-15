@@ -152,7 +152,7 @@ const PianoRuler: FC<PianoRulerProps> = ({
       />
     ))
 
-  const { rootStore } = useStores()
+  const rootStore = useStores()
 
   const { loop } = useObserver(() => ({
     loop: rootStore.services.player.loop,

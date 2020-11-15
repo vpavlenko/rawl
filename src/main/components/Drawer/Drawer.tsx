@@ -49,11 +49,11 @@ const HelpIcon = styled(Help)`
 `
 
 export const Drawer: FC = () => {
-  const { rootStore } = useStores()
+  const { rootViewStore, router } = useStores()
   const { open } = useObserver(() => ({
-    open: rootStore.rootViewStore.openDrawer,
+    open: rootViewStore.openDrawer,
   }))
-  const close = () => (rootStore.rootViewStore.openDrawer = false)
+  const close = () => (rootViewStore.openDrawer = false)
 
   return (
     <MaterialDrawer open={open} onClose={close}>
@@ -63,7 +63,7 @@ export const Drawer: FC = () => {
       <TrackList />
       <Divider />
       <List>
-        <ListItem button onClick={() => (rootStore.router.path = "/tempo")}>
+        <ListItem button onClick={() => (router.path = "/tempo")}>
           <ListItemText primary={localized("tempo-track", "Tempo Track")} />
         </ListItem>
       </List>
@@ -73,7 +73,7 @@ export const Drawer: FC = () => {
           button
           onClick={() => {
             close()
-            rootStore.rootViewStore.openDeviceDialog = true
+            rootViewStore.openDeviceDialog = true
           }}
         >
           <ListItemText primary={localized("midi-settings", "MIDI Settings")} />
@@ -81,10 +81,7 @@ export const Drawer: FC = () => {
       </List>
       <Divider />
       <List>
-        <ListItem
-          button
-          onClick={() => (rootStore.rootViewStore.openHelp = true)}
-        >
+        <ListItem button onClick={() => (rootViewStore.openHelp = true)}>
           <HelpIcon />
           <ListItemText primary={localized("help", "Help")} />
         </ListItem>

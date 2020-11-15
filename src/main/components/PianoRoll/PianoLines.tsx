@@ -25,12 +25,12 @@ const PianoLines: FC<PianoLinesProps> = ({
       const index = key % 12
       const isBlack = isBlackKey(key)
       const isBold = index === 4 || index === 11
-      const y = (numberOfKeys - key - 1) * keyHeight
+      const y = Math.floor((numberOfKeys - key - 1) * keyHeight)
       if (isBlack) {
         ctx
           .lineStyle()
           .beginFill(Color(theme.pianoBlackKeyLaneColor).rgbNumber())
-          .drawRect(0, y, width, keyHeight)
+          .drawRect(-0.5, y - 0.5, width, keyHeight)
       }
       if (isBold) {
         ctx

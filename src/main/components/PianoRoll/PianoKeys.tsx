@@ -22,9 +22,13 @@ const BlackKey: FC<BlackKeyProps> = ({ width, height, position }) => {
 
   const keyWidth = width * 0.64
   const draw = (ctx: PIXIGraphics) => {
-    ctx.clear().lineStyle().beginFill(color).drawRect(0, 0.5, keyWidth, height)
+    ctx
+      .clear()
+      .lineStyle()
+      .beginFill(color)
+      .drawRect(0, 0, keyWidth, Math.floor(height))
 
-    const middle = Math.round(height / 2)
+    const middle = Math.round(height / 2) + 0.5
     ctx
       .lineStyle(1, dividerColor, 0.3)
       .moveTo(keyWidth, middle)
@@ -117,13 +121,13 @@ const PianoKeys: FC<PianoKeysProps> = ({ numberOfKeys, keyHeight }) => {
   const dividers = range(0, numberOfKeys)
     .filter(isBordered)
     .map((i) => {
-      const y = (numberOfKeys - i - 1) * keyHeight
+      const y = Math.round((numberOfKeys - i - 1) * keyHeight) + 0.5
       return (
         <Graphics
           key={i}
           draw={(g) =>
             g
-              .lineStyle(1, Color(theme.dividerColor).rgbNumber(), 0.6)
+              .lineStyle(1, Color(theme.dividerColor).rgbNumber(), 0.6, 0.5)
               .moveTo(0, 0)
               .lineTo(width, 0)
           }
@@ -132,7 +136,7 @@ const PianoKeys: FC<PianoKeysProps> = ({ numberOfKeys, keyHeight }) => {
       )
     })
 
-  const { rootStore } = useStores()
+  const rootStore = useStores()
 
   const onClickKey = useCallback(
     (noteNumber: number) => {

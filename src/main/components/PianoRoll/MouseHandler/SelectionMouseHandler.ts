@@ -1,5 +1,8 @@
 import { IPoint, pointAdd, pointSub } from "../../../../common/geometry"
-import SelectionModel from "../../../../common/selection/SelectionModel"
+import {
+  getSelectionBounds,
+  Selection,
+} from "../../../../common/selection/Selection"
 import { NoteCoordTransform } from "../../../../common/transform"
 import { NotePoint } from "../../../../common/transform/NotePoint"
 import {
@@ -66,11 +69,11 @@ export default class SelectionMouseHandler extends MouseHandler {
 }
 
 function positionType(
-  selection: SelectionModel,
+  selection: Selection,
   transform: NoteCoordTransform,
   pos: IPoint
 ) {
-  const rect = selection.getBounds(transform)
+  const rect = getSelectionBounds(selection, transform)
   const contains =
     rect.x <= pos.x &&
     rect.x + rect.width >= pos.x &&
@@ -113,7 +116,7 @@ const createSelectionAction = (rootStore: RootStore): MouseGesture => {
 
 const moveSelectionAction = (
   rootStore: RootStore,
-  selection: SelectionModel,
+  selection: Selection,
   isCopy: boolean
 ): MouseGesture => {
   let startPos: IPoint
@@ -122,7 +125,7 @@ const moveSelectionAction = (
   return {
     onMouseDown: (e) => {
       startPos = e.local
-      selectionPos = selection.getBounds(e.transform)
+      selectionPos = getSelectionBounds(selection, e.transform)
       if (isCopy) {
         cloneSelection(rootStore)()
       }

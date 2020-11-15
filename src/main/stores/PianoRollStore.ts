@@ -1,5 +1,5 @@
 import { action, observable } from "mobx"
-import SelectionModel from "../../common/selection"
+import { emptySelection } from "../../common/selection/Selection"
 import { LoadSoundFontEvent } from "../../synth/synth"
 import { ControlMode } from "../components/ControlPane/ControlPane"
 import { InstrumentSetting } from "../components/InstrumentBrowser/InstrumentBrowser"
@@ -20,7 +20,7 @@ export default class PianoRollStore {
   @observable scaleY = 1
   @observable autoScroll = true
   @observable quantize = 0
-  @observable selection = new SelectionModel()
+  @observable selection = emptySelection
   @observable lastNoteDuration: number | null = null
   @observable openInstrumentBrowser = false
   @observable instrumentBrowserSetting: InstrumentSetting = {

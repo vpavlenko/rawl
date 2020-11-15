@@ -85,14 +85,22 @@ const TempoWrapper = styled.div`
 `
 
 const TempoForm: FC = () => {
-  const { rootStore: stores } = useStores()
+  const rootStore = useStores()
   const tempo = useMemoObserver(
     () =>
-      stores.song.conductorTrack?.getTempo(stores.services.player.position) ?? 1
+      rootStore.song.conductorTrack?.getTempo(
+        rootStore.services.player.position
+      ) ?? 1
   )
 
-  const changeTempo = (tempo: number) =>
-    stores.song.conductorTrack?.setTempo(tempo, stores.services.player.position)
+  const changeTempo = (tempo: number) => {
+    const fixedTempo = Math.max(1, Math.min(512, tempo))
+    rootStore.song.conductorTrack?.setTempo(
+      fixedTempo,
+      rootStore.services.player.position
+    )
+    rootStore.services.player.currentTempo = fixedTempo
+  }
 
   const onKeyPressTempo = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -128,26 +136,26 @@ const TimestampText = styled.div`
 `
 
 const Timestamp: FC = () => {
-  const { rootStore: stores } = useStores()
+  const rootStore = useStores()
   const mbtTime = useMemoObserver(() =>
     getMBTString(
-      stores.song.measures,
-      stores.services.player.position,
-      stores.services.player.timebase
+      rootStore.song.measures,
+      rootStore.services.player.position,
+      rootStore.services.player.timebase
     )
   )
   return <TimestampText>{mbtTime}</TimestampText>
 }
 
 export const TransportPanel: FC = () => {
-  const { rootStore: stores } = useStores()
+  const rootStore = useStores()
   const { isPlaying } = useObserver(() => ({
-    isPlaying: stores.services.player.isPlaying,
+    isPlaying: rootStore.services.player.isPlaying,
   }))
-  const onClickPlay = () => play(stores)()
-  const onClickStop = () => stop(stores)()
-  const onClickBackward = () => rewindOneBar(stores)()
-  const onClickForward = () => fastForwardOneBar(stores)()
+  const onClickPlay = () => play(rootStore)()
+  const onClickStop = () => stop(rootStore)()
+  const onClickBackward = () => rewindOneBar(rootStore)()
+  const onClickForward = () => fastForwardOneBar(rootStore)()
 
   const classes = useStyles({})
   return (

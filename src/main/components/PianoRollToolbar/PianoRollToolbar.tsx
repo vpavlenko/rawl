@@ -38,31 +38,31 @@ const NavBackButton = styled(IconButton)`
 `
 
 export const PianoRollToolbar: FC = () => {
-  const { rootStore: stores } = useStores()
+  const rootStore = useStores()
 
   const { trackName, autoScroll, track, trackId, quantize } = useObserver(
     () => ({
-      trackName: stores.song.selectedTrack?.displayName ?? "",
-      track: stores.song.selectedTrack,
-      trackId: stores.song.selectedTrackId,
+      trackName: rootStore.song.selectedTrack?.displayName ?? "",
+      track: rootStore.song.selectedTrack,
+      trackId: rootStore.song.selectedTrackId,
       quantize:
-        stores.pianoRollStore.quantize === 0
-          ? stores.services.quantizer.denominator
-          : stores.pianoRollStore.quantize,
-      autoScroll: stores.pianoRollStore.autoScroll,
+        rootStore.pianoRollStore.quantize === 0
+          ? rootStore.services.quantizer.denominator
+          : rootStore.pianoRollStore.quantize,
+      autoScroll: rootStore.pianoRollStore.autoScroll,
     })
   )
-  const { rootViewStore, pianoRollStore: s } = stores
+  const { rootViewStore, pianoRollStore: s } = rootStore
 
   const onClickAutoScroll = useCallback(() => (s.autoScroll = !s.autoScroll), [
     s,
   ])
   const onSelectQuantize = useCallback(
     (denominator: number) => {
-      stores.services.quantizer.denominator = denominator
+      rootStore.services.quantizer.denominator = denominator
       s.quantize = denominator
     },
-    [stores, s]
+    [rootStore, s]
   )
   const onClickNavBack = useCallback(() => (rootViewStore.openDrawer = true), [
     rootViewStore,

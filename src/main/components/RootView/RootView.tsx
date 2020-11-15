@@ -20,8 +20,8 @@ const Container = styled.div`
 `
 
 const Routes: FC = () => {
-  const stores = useStores()
-  const { path } = useObserver(() => ({ path: stores.rootStore.router.path }))
+  const { router } = useStores()
+  const { path } = useObserver(() => ({ path: router.path }))
   return (
     <>
       {path === "/track" && <PianoRollEditor />}

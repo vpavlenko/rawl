@@ -21,24 +21,24 @@ const AddTrackListIcon = styled(ListItemIcon)`
 `
 
 export const TrackList: FC = () => {
-  const { rootStore: stores } = useStores()
-  const { router } = stores
+  const rootStore = useStores()
+  const { router } = rootStore
   const { tracks } = useObserver(() => {
-    const position = stores.services.player.position
-    const selectedTrackId = stores.song.selectedTrackId
-    const trackMutes = stores.song.tracks.map((_, i) =>
-      stores.trackMute.isMuted(i)
+    const position = rootStore.services.player.position
+    const selectedTrackId = rootStore.song.selectedTrackId
+    const trackMutes = rootStore.song.tracks.map((_, i) =>
+      rootStore.trackMute.isMuted(i)
     )
-    const trackSolos = stores.song.tracks.map((_, i) =>
-      stores.trackMute.isSolo(i)
+    const trackSolos = rootStore.song.tracks.map((_, i) =>
+      rootStore.trackMute.isSolo(i)
     )
-    const tracks = stores.song.tracks
+    const tracks = rootStore.song.tracks
       .filter((t) => !t.isConductorTrack)
       .map(
         (t): TrackListItemData => {
-          const index = stores.song.tracks.indexOf(t)
+          const index = rootStore.song.tracks.indexOf(t)
           const selected =
-            !stores.rootViewStore.isArrangeViewSelected &&
+            !rootStore.rootViewStore.isArrangeViewSelected &&
             index === selectedTrackId
           return {
             index,
@@ -57,15 +57,15 @@ export const TrackList: FC = () => {
     }
   })
 
-  const onClickMute = (trackId: number) => toggleMuteTrack(stores)(trackId)
-  const onClickSolo = (trackId: number) => toggleSoloTrack(stores)(trackId)
-  const onClickDelete = (trackId: number) => removeTrack(stores)(trackId)
-  const onClickAddTrack = () => addTrack(stores)()
+  const onClickMute = (trackId: number) => toggleMuteTrack(rootStore)(trackId)
+  const onClickSolo = (trackId: number) => toggleSoloTrack(rootStore)(trackId)
+  const onClickDelete = (trackId: number) => removeTrack(rootStore)(trackId)
+  const onClickAddTrack = () => addTrack(rootStore)()
   // onChangeName={e => dispatch(SET_TRACK_NAME, { name: e.target.value })},
   const onSelectTrack = (trackId: number) => {
     router.pushTrack()
-    selectTrack(stores)(trackId)
-    stores.rootViewStore.openDrawer = false
+    selectTrack(rootStore)(trackId)
+    rootStore.rootViewStore.openDrawer = false
   }
   const onClickArrangeView = () => {
     router.pushArrange()

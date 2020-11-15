@@ -21,7 +21,7 @@ export interface PianoNotesProps {
   ノートイベントを描画するコンポーネント
 */
 const PianoNotes: FC<PianoNotesProps> = ({ trackId, width, isGhost }) => {
-  const { rootStore } = useStores()
+  const rootStore = useStores()
 
   const { events, isRhythmTrack } = useObserver(() => {
     const track = rootStore.song.tracks[trackId]

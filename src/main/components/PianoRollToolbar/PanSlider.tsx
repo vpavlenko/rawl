@@ -32,14 +32,16 @@ export interface PanSliderProps {
 }
 
 const _PanSlider: FC<PanSliderProps> = ({ trackId }) => {
-  const { rootStore: stores } = useStores()
+  const rootStore = useStores()
   const onChange = useCallback(
-    (value: number) => setTrackPan(stores)(trackId, value),
-    [stores, trackId]
+    (value: number) => setTrackPan(rootStore)(trackId, value),
+    [rootStore, trackId]
   )
   const pan = useMemoObserver(
     () =>
-      stores.song.selectedTrack?.getPan(stores.services.player.position) ?? 0
+      rootStore.song.selectedTrack?.getPan(
+        rootStore.services.player.position
+      ) ?? 0
   )
   return (
     <Container>

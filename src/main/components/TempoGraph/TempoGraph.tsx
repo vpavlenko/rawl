@@ -50,8 +50,7 @@ const Wrapper = styled.div`
 `
 
 export const TempoGraph: FC = () => {
-  const stores = useStores()
-  const { rootStore } = stores
+  const rootStore = useStores()
   const {
     isPlaying,
     pixelsPerTick,
@@ -186,7 +185,7 @@ export const TempoGraph: FC = () => {
         style={{ position: "absolute" }}
         options={{ transparent: true }}
       >
-        <StoreContext.Provider value={stores}>
+        <StoreContext.Provider value={rootStore}>
           <Container x={keyWidth}>
             <Container x={-scrollLeft} y={rulerHeight}>
               <PianoGrid height={canvasHeight} beats={mappedBeats} />

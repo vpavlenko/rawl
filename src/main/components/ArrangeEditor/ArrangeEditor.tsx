@@ -19,17 +19,14 @@ function NavItem({ title, onClick }: NavItemProps) {
 }
 
 export const ArrangeEditor: FC = () => {
-  const stores = useStores()
+  const { router } = useStores()
 
   return (
     <div className="ArrangeEditor">
       <NavigationBar>
         <ArrangeToolbar />
         <div className="menu">
-          <NavItem
-            title="settings"
-            onClick={() => stores.rootStore.router.pushSettings()}
-          />
+          <NavItem title="settings" onClick={() => router.pushSettings()} />
         </div>
       </NavigationBar>
       <ArrangeView />

@@ -63,7 +63,7 @@ export default class PencilMouseHandler extends NoteMouseHandler {
       }
       const local = e.target.toLocal(offsetPos)
       const { item } = e.target
-      const position = getPositionType(local.x, item.width)
+      const position = getPositionType(local.x, item.width, item.isDrum)
       return mousePositionToCursor(position)
     }
 
@@ -88,7 +88,7 @@ const dragNoteAction = (rootStore: RootStore): MouseGesture => ({
       y: e.data.originalEvent.offsetY,
     }
     const local = e.target.toLocal(startOffsetPos)
-    const position = getPositionType(local.x, item.width)
+    const position = getPositionType(local.x, item.width, item.isDrum)
 
     observeDrag({
       onMouseMove: (e) => {

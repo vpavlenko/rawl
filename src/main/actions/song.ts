@@ -6,6 +6,7 @@ import {
 import Song, { emptySong } from "../../common/song"
 import { emptyTrack } from "../../common/track"
 import RootStore from "../stores/RootStore"
+import { pushHistory } from "./history"
 
 const openSongFile = (
   input: HTMLInputElement,
@@ -31,7 +32,7 @@ const openSongFile = (
   reader.readAsArrayBuffer(file)
 }
 
-export const setSong = (rootStore: RootStore, song: Song) => {
+const setSong = (rootStore: RootStore) => (song: Song) => {
   rootStore.song = song
   rootStore.services.player.reset()
   rootStore.trackMute.reset()
@@ -47,7 +48,7 @@ export const setSong = (rootStore: RootStore, song: Song) => {
 export const createSong = (rootStore: RootStore) => () => {
   const store = rootStore
 
-  setSong(store, emptySong())
+  setSong(store)(emptySong())
 }
 
 export const saveSong = (rootStore: RootStore) => () => {
@@ -57,33 +58,27 @@ export const saveSong = (rootStore: RootStore) => () => {
 }
 
 export const openSong = (rootStore: RootStore) => (input: HTMLInputElement) => {
-  const store = rootStore
-
   openSongFile(input, (song) => {
     if (song === null) {
       return
     }
-    setSong(store, song)
+    setSong(rootStore)(song)
   })
 }
 
 export const addTrack = (rootStore: RootStore) => () => {
-  const store = rootStore
-
-  store.pushHistory()
-  store.song.addTrack(emptyTrack(store.song.tracks.length - 1))
+  pushHistory(rootStore)
+  rootStore.song.addTrack(emptyTrack(rootStore.song.tracks.length - 1))
 }
 
 export const removeTrack = (rootStore: RootStore) => (trackId: number) => {
-  const store = rootStore
-
-  if (store.song.tracks.filter((t) => !t.isConductorTrack).length <= 1) {
+  if (rootStore.song.tracks.filter((t) => !t.isConductorTrack).length <= 1) {
     // conductor track を除き、最後のトラックの場合
     // トラックがなくなるとエラーが出るので削除できなくする
     return
   }
-  store.pushHistory()
-  store.song.removeTrack(trackId)
+  pushHistory(rootStore)
+  rootStore.song.removeTrack(trackId)
 }
 
 export const selectTrack = (rootStore: RootStore) => (trackId: number) => {

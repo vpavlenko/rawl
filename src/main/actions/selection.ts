@@ -1,18 +1,25 @@
+import { cloneDeep } from "lodash"
 import { isNotUndefined } from "../../common/helpers/array"
-import SelectionModel from "../../common/selection"
+import {
+  emptySelection,
+  movedSelection,
+  regularizedSelection,
+  Selection,
+} from "../../common/selection/Selection"
 import { isNoteEvent, NoteEvent, TrackEvent } from "../../common/track"
 import { NotePoint } from "../../common/transform/NotePoint"
 import clipboard from "../services/Clipboard"
 import RootStore from "../stores/RootStore"
+import { pushHistory } from "./history"
 
-function eventsInSelection(events: TrackEvent[], selection: SelectionModel) {
+function eventsInSelection(events: TrackEvent[], selection: Selection) {
   const s = selection
   return events.filter(isNoteEvent).filter(
     (b) =>
-      b.tick >= s.fromTick &&
-      b.tick < s.toTick && // ノートの先頭だけ範囲にはいっていればよい
-      b.noteNumber <= s.fromNoteNumber &&
-      b.noteNumber > s.toNoteNumber
+      b.tick >= s.from.tick &&
+      b.tick < s.to.tick && // ノートの先頭だけ範囲にはいっていればよい
+      b.noteNumber <= s.from.noteNumber &&
+      b.noteNumber > s.to.noteNumber
   )
 }
 
@@ -25,8 +32,7 @@ export const resizeSelection = (rootStore: RootStore) => (
     services: { quantizer },
   } = rootStore
 
-  const { selection } = pianoRollStore
-  pianoRollStore.selection = selection.resize(
+  pianoRollStore.selection = regularizedSelection(
     quantizer.round(start.tick),
     start.noteNumber,
     quantizer.round(end.tick),
@@ -43,8 +49,11 @@ export const fixSelection = (rootStore: RootStore) => () => {
   }
   const { selection } = pianoRollStore
   // 選択範囲を確定して選択範囲内のノートを選択状態にする
-  const s = selection.clone()
-  if (s.fromNoteNumber - s.toNoteNumber === 0 || s.fromTick - s.toTick === 0) {
+  const s = cloneDeep(selection)
+  if (
+    s.from.noteNumber - s.to.noteNumber === 0 ||
+    s.from.tick - s.to.tick === 0
+  ) {
     s.enabled = false
   } else {
     s.noteIds = eventsInSelection(selectedTrack.events, selection).map(
@@ -64,7 +73,7 @@ export const transposeSelection = (rootStore: RootStore) => (
     return
   }
   const { selection } = pianoRollStore
-  const s = selection.move(0, deltaPitch)
+  const s = movedSelection(selection, 0, deltaPitch)
   pianoRollStore.selection = s
 
   selectedTrack.updateEvents(
@@ -94,8 +103,8 @@ export const moveSelection = (rootStore: RootStore) => (point: NotePoint) => {
   const tick = quantizer.round(point.tick)
   const noteNumber = Math.round(point.noteNumber)
 
-  const dt = tick - selection.fromTick
-  const dn = noteNumber - selection.fromNoteNumber
+  const dt = tick - selection.from.tick
+  const dn = noteNumber - selection.from.noteNumber
 
   moveSelectionBy(rootStore)({ tick: dt, noteNumber: dn })
 }
@@ -113,10 +122,10 @@ export const moveSelectionBy = (rootStore: RootStore) => (delta: NotePoint) => {
   }
   const { selection } = pianoRollStore
 
-  const s = selection.move(delta.tick, delta.noteNumber)
+  const s = movedSelection(selection, delta.tick, delta.noteNumber)
   pianoRollStore.selection = s
 
-  rootStore.pushHistory()
+  pushHistory(rootStore)()
 
   selectedTrack.updateEvents(
     s.noteIds.map((id) => {
@@ -139,7 +148,7 @@ export const resizeSelectionLeft = (rootStore: RootStore) => (tick: number) => {
   const { selection } = pianoRollStore
   // 選択範囲とノートを左方向に伸長・縮小する
   const fromTick = quantizer.round(tick)
-  const delta = fromTick - selection.fromTick
+  const delta = fromTick - selection.from.tick
 
   // 変形していないときは終了
   if (delta === 0) {
@@ -147,13 +156,13 @@ export const resizeSelectionLeft = (rootStore: RootStore) => (tick: number) => {
   }
 
   // 選択領域のサイズがゼロになるときは終了
-  if (selection.toTick - fromTick <= 0) {
+  if (selection.to.tick - fromTick <= 0) {
     return
   }
 
   // 右端を固定して長さを変更
-  const s = selection.clone()
-  s.fromTick = fromTick
+  const s = cloneDeep(selection)
+  s.from.tick = fromTick
   pianoRollStore.selection = s
 
   resizeNotesInSelectionLeftBy(rootStore)(delta)
@@ -169,7 +178,7 @@ export const resizeNotesInSelectionLeftBy = (rootStore: RootStore) => (
     return
   }
 
-  rootStore.pushHistory()
+  pushHistory(rootStore)()
 
   selectedTrack.updateEvents(
     pianoRollStore.selection.noteIds.map((id) => {
@@ -199,7 +208,7 @@ export const resizeSelectionRight = (rootStore: RootStore) => (
   const { selection } = pianoRollStore
   // 選択範囲とノートを右方向に伸長・縮小する
   const toTick = quantizer.round(tick)
-  const delta = toTick - selection.toTick
+  const delta = toTick - selection.to.tick
 
   // 変形していないときは終了
   if (delta === 0) {
@@ -207,13 +216,13 @@ export const resizeSelectionRight = (rootStore: RootStore) => (
   }
 
   // 選択領域のサイズがゼロになるときは終了
-  if (toTick - selection.fromTick <= 0) {
+  if (toTick - selection.from.tick <= 0) {
     return
   }
 
   // 右端を固定して長さを変更
-  const s = selection.clone()
-  s.toTick = toTick
+  const s = cloneDeep(selection)
+  s.to.tick = toTick
   pianoRollStore.selection = s
 
   resizeNotesInSelectionRightBy(rootStore)(delta)
@@ -229,7 +238,7 @@ export const resizeNotesInSelectionRightBy = (rootStore: RootStore) => (
     return
   }
 
-  rootStore.pushHistory()
+  pushHistory(rootStore)()
 
   selectedTrack.updateEvents(
     pianoRollStore.selection.noteIds.map((id) => {
@@ -258,14 +267,17 @@ export const startSelection = (rootStore: RootStore) => (point: NotePoint) => {
   }
 
   // 選択範囲の右上を pos にして、ノートの選択状を解除する
-  const s = new SelectionModel()
-  s.fromTick = point.tick
-  s.fromNoteNumber = point.noteNumber
+  const s: Selection = {
+    noteIds: [],
+    from: point,
+    to: point,
+    enabled: true,
+  }
   pianoRollStore.selection = s
 }
 
 export const resetSelection = (rootStore: RootStore) => () => {
-  rootStore.pianoRollStore.selection = new SelectionModel()
+  rootStore.pianoRollStore.selection = emptySelection
 }
 
 export const cloneSelection = (rootStore: RootStore) => () => {
@@ -284,7 +296,7 @@ export const cloneSelection = (rootStore: RootStore) => () => {
       ...note, // copy
     }))
   selectedTrack.addEvents(notes)
-  const s = selection.clone()
+  const s = cloneDeep(selection)
   s.noteIds = notes.map((e) => e.id)
   pianoRollStore.selection = s
 }
@@ -306,12 +318,10 @@ export const copySelection = (rootStore: RootStore) => () => {
   const notes = selection.noteIds
     .map((id) => selectedTrack.getEventById(id))
     .filter(isNotUndefined)
-    .map((note) => {
-      return {
-        ...note,
-        tick: note.tick - selection.fromTick, // 選択範囲からの相対位置にする
-      }
-    })
+    .map((note) => ({
+      ...note,
+      tick: note.tick - selection.from.tick, // 選択範囲からの相対位置にする
+    }))
   clipboard.writeText(
     JSON.stringify({
       type: "notes",
@@ -328,12 +338,12 @@ export const deleteSelection = (rootStore: RootStore) => () => {
     return
   }
 
-  rootStore.pushHistory()
+  pushHistory(rootStore)()
 
   const { selection } = pianoRollStore
   // 選択範囲と選択されたノートを削除
   selectedTrack.removeEvents(selection.noteIds)
-  pianoRollStore.selection = new SelectionModel()
+  pianoRollStore.selection = emptySelection
 }
 
 export const pasteSelection = (rootStore: RootStore) => () => {
@@ -356,13 +366,51 @@ export const pasteSelection = (rootStore: RootStore) => () => {
     return
   }
 
-  rootStore.pushHistory()
+  pushHistory(rootStore)()
 
   const notes = (obj.notes as NoteEvent[]).map((note) => ({
     ...note,
     tick: note.tick + player.position,
   }))
   selectedTrack.addEvents(notes)
+}
+
+export const duplicateSelection = (rootStore: RootStore) => () => {
+  const {
+    song: { selectedTrack },
+    pianoRollStore,
+  } = rootStore
+
+  if (selectedTrack === undefined) {
+    return
+  }
+
+  const { selection } = pianoRollStore
+
+  if (selection.noteIds.length === 0) {
+    return
+  }
+
+  pushHistory(rootStore)()
+
+  // move to the end of selection
+  const deltaTick = selection.to.tick - selection.from.tick
+
+  const notes = selection.noteIds
+    .map((id) => selectedTrack.getEventById(id))
+    .filter(isNotUndefined)
+    .map((note) => ({
+      ...note,
+      tick: note.tick + deltaTick,
+    }))
+
+  // select the created notes
+  const addedNotes = selectedTrack.addEvents(notes)
+  const s = cloneDeep(selection)
+  s.noteIds = addedNotes.map((n) => n.id)
+  s.from.tick += deltaTick
+  s.to.tick += deltaTick
+  pianoRollStore.selection = s
 }
 
 export const addNoteToSelection = (rootStore: RootStore) => (
@@ -375,7 +423,7 @@ export const addNoteToSelection = (rootStore: RootStore) => (
     return
   }
   const { selection } = pianoRollStore
-  const s = selection.clone()
+  const s = cloneDeep(selection)
   s.noteIds.push(noteId)
   pianoRollStore.selection = s
 }
@@ -390,7 +438,7 @@ export const removeNoteToSelection = (rootStore: RootStore) => (
     return
   }
   const { selection } = pianoRollStore
-  const s = selection.clone()
+  const s = cloneDeep(selection)
   s.noteIds = s.noteIds.filter((id) => id !== noteId)
   pianoRollStore.selection = s
 }
@@ -403,7 +451,7 @@ export const selectNote = (rootStore: RootStore) => (noteId: number) => {
     return
   }
   const { selection } = pianoRollStore
-  const s = selection.clone()
+  const s = cloneDeep(selection)
   s.noteIds = [noteId]
   pianoRollStore.selection = s
 }

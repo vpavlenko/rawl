@@ -1,7 +1,14 @@
 import { Menu, MenuItem } from "@material-ui/core"
 import React, { FC, useCallback } from "react"
+import styled from "styled-components"
 import { IPoint } from "../../../common/geometry"
-import { copySelection, deleteSelection, pasteSelection } from "../../actions"
+import { localized } from "../../../common/localize/localizedString"
+import {
+  copySelection,
+  deleteSelection,
+  duplicateSelection,
+  pasteSelection,
+} from "../../actions"
 import { useStores } from "../../hooks/useStores"
 
 interface AbstractMouseEvent {
@@ -46,9 +53,17 @@ export interface PianoSelectionContextMenuProps {
   handleClose: () => void
 }
 
+const HotKey = styled.div`
+  font-size: 0.9em;
+  flex-grow: 1;
+  text-align: right;
+  color: var(--secondary-text-color);
+  margin-left: 2em;
+`
+
 export const PianoSelectionContextMenu: FC<PianoSelectionContextMenuProps> = React.memo(
   ({ isOpen, position, handleClose }) => {
-    const { rootStore } = useStores()
+    const rootStore = useStores()
     const isNoteSelected = rootStore.pianoRollStore.selection.noteIds.length > 0
 
     const onClickCut = useCallback(() => {
@@ -67,6 +82,11 @@ export const PianoSelectionContextMenu: FC<PianoSelectionContextMenuProps> = Rea
       handleClose()
     }, [])
 
+    const onClickDuplicate = useCallback(() => {
+      duplicateSelection(rootStore)()
+      handleClose()
+    }, [])
+
     const onClickDelete = useCallback(() => {
       deleteSelection(rootStore)()
       handleClose()
@@ -80,10 +100,26 @@ export const PianoSelectionContextMenu: FC<PianoSelectionContextMenuProps> = Rea
         anchorReference="anchorPosition"
         anchorPosition={{ top: position.y, left: position.x }}
       >
-        {isNoteSelected && <MenuItem onClick={onClickCut}>Cut</MenuItem>}
-        {isNoteSelected && <MenuItem onClick={onClickCopy}>Copy</MenuItem>}
-        <MenuItem onClick={onClickPaste}>Paste</MenuItem>
-        {isNoteSelected && <MenuItem onClick={onClickDelete}>Delete</MenuItem>}
+        <MenuItem onClick={onClickCut} disabled={!isNoteSelected}>
+          {localized("cut", "Cut")}
+          <HotKey>Ctrl+X</HotKey>
+        </MenuItem>
+        <MenuItem onClick={onClickCopy} disabled={!isNoteSelected}>
+          {localized("copy", "Copy")}
+          <HotKey>Ctrl+C</HotKey>
+        </MenuItem>
+        <MenuItem onClick={onClickPaste}>
+          {localized("paste", "Paste")}
+          <HotKey>Ctrl+P</HotKey>
+        </MenuItem>
+        <MenuItem onClick={onClickDuplicate} disabled={!isNoteSelected}>
+          {localized("duplicate", "Duplicate")}
+          <HotKey>Ctrl+D</HotKey>
+        </MenuItem>
+        <MenuItem onClick={onClickDelete} disabled={!isNoteSelected}>
+          {localized("delete", "Delete")}
+          <HotKey>Del</HotKey>
+        </MenuItem>
       </Menu>
     )
   }

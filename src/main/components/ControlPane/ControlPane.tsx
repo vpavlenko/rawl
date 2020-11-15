@@ -127,7 +127,7 @@ const ControlPane: FC = () => {
   const containerWidth = size.width
   const containerHeight = size.height
 
-  const { rootStore } = useStores()
+  const rootStore = useStores()
   const { events, measures, timebase, scaleX, scrollLeft, mode } = useObserver(
     () => ({
       events: toJS(rootStore.song.selectedTrack?.events ?? []),

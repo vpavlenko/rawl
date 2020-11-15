@@ -10,6 +10,7 @@ import { isNoteEvent, NoteEvent, TrackEvent } from "../../common/track"
 import { NotePoint } from "../../common/transform/NotePoint"
 import clipboard from "../services/Clipboard"
 import RootStore from "../stores/RootStore"
+import { pushHistory } from "./history"
 
 function eventsInSelection(events: TrackEvent[], selection: Selection) {
   const s = selection
@@ -124,7 +125,7 @@ export const moveSelectionBy = (rootStore: RootStore) => (delta: NotePoint) => {
   const s = movedSelection(selection, delta.tick, delta.noteNumber)
   pianoRollStore.selection = s
 
-  rootStore.pushHistory()
+  pushHistory(rootStore)()
 
   selectedTrack.updateEvents(
     s.noteIds.map((id) => {
@@ -177,7 +178,7 @@ export const resizeNotesInSelectionLeftBy = (rootStore: RootStore) => (
     return
   }
 
-  rootStore.pushHistory()
+  pushHistory(rootStore)()
 
   selectedTrack.updateEvents(
     pianoRollStore.selection.noteIds.map((id) => {
@@ -237,7 +238,7 @@ export const resizeNotesInSelectionRightBy = (rootStore: RootStore) => (
     return
   }
 
-  rootStore.pushHistory()
+  pushHistory(rootStore)()
 
   selectedTrack.updateEvents(
     pianoRollStore.selection.noteIds.map((id) => {
@@ -337,7 +338,7 @@ export const deleteSelection = (rootStore: RootStore) => () => {
     return
   }
 
-  rootStore.pushHistory()
+  pushHistory(rootStore)()
 
   const { selection } = pianoRollStore
   // 選択範囲と選択されたノートを削除
@@ -365,7 +366,7 @@ export const pasteSelection = (rootStore: RootStore) => () => {
     return
   }
 
-  rootStore.pushHistory()
+  pushHistory(rootStore)()
 
   const notes = (obj.notes as NoteEvent[]).map((note) => ({
     ...note,
@@ -390,7 +391,7 @@ export const duplicateSelection = (rootStore: RootStore) => () => {
     return
   }
 
-  rootStore.pushHistory()
+  pushHistory(rootStore)()
 
   // move to the end of selection
   const deltaTick = selection.to.tick - selection.from.tick

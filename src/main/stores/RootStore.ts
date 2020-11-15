@@ -1,11 +1,9 @@
-import { cloneDeep } from "lodash"
 import { observable } from "mobx"
-import { deserialize, serialize } from "serializr"
 import Player from "../../common/player"
 import Quantizer from "../../common/quantizer"
-import { Selection } from "../../common/selection/Selection"
 import Song, { emptySong } from "../../common/song"
 import TrackMute from "../../common/trackMute"
+import { SerializedState } from "../actions/history"
 import { TIME_BASE } from "../Constants"
 import { GroupOutput } from "../services/GroupOutput"
 import IFrameSynth from "../services/IFrameSynth"
@@ -24,14 +22,6 @@ export interface Services {
   quantizer: Quantizer
   synth: IFrameSynth
   synthGroup: GroupOutput
-}
-
-// we use any for now. related: https://github.com/Microsoft/TypeScript/issues/1897
-type Json = any
-
-interface SerializedState {
-  song: Json
-  selection: Selection
 }
 
 export default class RootStore {
@@ -64,40 +54,5 @@ export default class RootStore {
     }
 
     registerReactions(this)
-  }
-
-  private serializeUndoableState = (): SerializedState => {
-    return {
-      song: serialize(this.song),
-      selection: cloneDeep(this.pianoRollStore.selection),
-    }
-  }
-
-  private restoreState = (serializedState: SerializedState) => {
-    const song = deserialize(Song, serializedState.song)
-    song.onDeserialized()
-    this.song = song
-    this.pianoRollStore.selection = serializedState.selection
-  }
-
-  pushHistory = () => {
-    const state = this.serializeUndoableState()
-    this.historyStore.push(state)
-  }
-
-  undo = () => {
-    const currentState = this.serializeUndoableState()
-    const nextState = this.historyStore.undo(currentState)
-    if (nextState !== undefined) {
-      this.restoreState(nextState)
-    }
-  }
-
-  redo = () => {
-    const currentState = this.serializeUndoableState()
-    const nextState = this.historyStore.redo(currentState)
-    if (nextState !== undefined) {
-      this.restoreState(nextState)
-    }
   }
 }

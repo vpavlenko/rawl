@@ -10,6 +10,7 @@ import {
   stop,
   transposeSelection,
 } from "../actions"
+import { redo, undo } from "../actions/history"
 import { useStores } from "../hooks/useStores"
 
 const isFocusable = (e: EventTarget) =>
@@ -53,16 +54,16 @@ export const KeyboardShortcut: FC = () => {
         case "KeyZ": {
           if (e.ctrlKey || e.metaKey) {
             if (e.shiftKey) {
-              rootStore.redo()
+              redo(rootStore)()
             } else {
-              rootStore.undo()
+              undo(rootStore)()
             }
           }
           break
         }
         case "KeyY": {
           if (e.ctrlKey || e.metaKey) {
-            rootStore.redo()
+            redo(rootStore)()
           }
           break
         }

@@ -306,12 +306,10 @@ export const copySelection = (rootStore: RootStore) => () => {
   const notes = selection.noteIds
     .map((id) => selectedTrack.getEventById(id))
     .filter(isNotUndefined)
-    .map((note) => {
-      return {
-        ...note,
-        tick: note.tick - selection.fromTick, // 選択範囲からの相対位置にする
-      }
-    })
+    .map((note) => ({
+      ...note,
+      tick: note.tick - selection.fromTick, // 選択範囲からの相対位置にする
+    }))
   clipboard.writeText(
     JSON.stringify({
       type: "notes",
@@ -363,6 +361,40 @@ export const pasteSelection = (rootStore: RootStore) => () => {
     tick: note.tick + player.position,
   }))
   selectedTrack.addEvents(notes)
+}
+
+export const duplicateSelection = (rootStore: RootStore) => () => {
+  const {
+    song: { selectedTrack },
+    pianoRollStore,
+  } = rootStore
+
+  if (selectedTrack === undefined) {
+    return
+  }
+
+  rootStore.pushHistory()
+
+  const { selection } = pianoRollStore
+
+  // move to the end of selection
+  const deltaTick = selection.toTick - selection.fromTick
+
+  const notes = selection.noteIds
+    .map((id) => selectedTrack.getEventById(id))
+    .filter(isNotUndefined)
+    .map((note) => ({
+      ...note,
+      tick: note.tick + deltaTick,
+    }))
+
+  // select the created notes
+  const addedNotes = selectedTrack.addEvents(notes)
+  const s = selection.clone()
+  s.noteIds = addedNotes.map((n) => n.id)
+  s.fromTick += deltaTick
+  s.toTick += deltaTick
+  pianoRollStore.selection = s
 }
 
 export const addNoteToSelection = (rootStore: RootStore) => (

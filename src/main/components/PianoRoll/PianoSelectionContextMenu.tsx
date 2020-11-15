@@ -1,7 +1,13 @@
 import { Menu, MenuItem } from "@material-ui/core"
 import React, { FC, useCallback } from "react"
 import { IPoint } from "../../../common/geometry"
-import { copySelection, deleteSelection, pasteSelection } from "../../actions"
+import { localized } from "../../../common/localize/localizedString"
+import {
+  copySelection,
+  deleteSelection,
+  duplicateSelection,
+  pasteSelection,
+} from "../../actions"
 import { useStores } from "../../hooks/useStores"
 
 interface AbstractMouseEvent {
@@ -67,6 +73,11 @@ export const PianoSelectionContextMenu: FC<PianoSelectionContextMenuProps> = Rea
       handleClose()
     }, [])
 
+    const onClickDuplicate = useCallback(() => {
+      duplicateSelection(rootStore)()
+      handleClose()
+    }, [])
+
     const onClickDelete = useCallback(() => {
       deleteSelection(rootStore)()
       handleClose()
@@ -80,10 +91,25 @@ export const PianoSelectionContextMenu: FC<PianoSelectionContextMenuProps> = Rea
         anchorReference="anchorPosition"
         anchorPosition={{ top: position.y, left: position.x }}
       >
-        {isNoteSelected && <MenuItem onClick={onClickCut}>Cut</MenuItem>}
-        {isNoteSelected && <MenuItem onClick={onClickCopy}>Copy</MenuItem>}
-        <MenuItem onClick={onClickPaste}>Paste</MenuItem>
-        {isNoteSelected && <MenuItem onClick={onClickDelete}>Delete</MenuItem>}
+        {isNoteSelected && (
+          <MenuItem onClick={onClickCut}>{localized("cut", "Cut")}</MenuItem>
+        )}
+        {isNoteSelected && (
+          <MenuItem onClick={onClickCopy}>{localized("copy", "Copy")}</MenuItem>
+        )}
+        <MenuItem onClick={onClickPaste}>
+          {localized("paste", "Paste")}
+        </MenuItem>
+        {isNoteSelected && (
+          <MenuItem onClick={onClickDuplicate}>
+            {localized("duplicate", "Duplicate")}
+          </MenuItem>
+        )}
+        {isNoteSelected && (
+          <MenuItem onClick={onClickDelete}>
+            {localized("delete", "Delete")}
+          </MenuItem>
+        )}
       </Menu>
     )
   }

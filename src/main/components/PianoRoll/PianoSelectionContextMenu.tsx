@@ -91,25 +91,21 @@ export const PianoSelectionContextMenu: FC<PianoSelectionContextMenuProps> = Rea
         anchorReference="anchorPosition"
         anchorPosition={{ top: position.y, left: position.x }}
       >
-        {isNoteSelected && (
-          <MenuItem onClick={onClickCut}>{localized("cut", "Cut")}</MenuItem>
-        )}
-        {isNoteSelected && (
-          <MenuItem onClick={onClickCopy}>{localized("copy", "Copy")}</MenuItem>
-        )}
+        <MenuItem onClick={onClickCut} disabled={!isNoteSelected}>
+          {localized("cut", "Cut")}
+        </MenuItem>
+        <MenuItem onClick={onClickCopy} disabled={!isNoteSelected}>
+          {localized("copy", "Copy")}
+        </MenuItem>
         <MenuItem onClick={onClickPaste}>
           {localized("paste", "Paste")}
         </MenuItem>
-        {isNoteSelected && (
-          <MenuItem onClick={onClickDuplicate}>
-            {localized("duplicate", "Duplicate")}
-          </MenuItem>
-        )}
-        {isNoteSelected && (
-          <MenuItem onClick={onClickDelete}>
-            {localized("delete", "Delete")}
-          </MenuItem>
-        )}
+        <MenuItem onClick={onClickDuplicate} disabled={!isNoteSelected}>
+          {localized("duplicate", "Duplicate")}
+        </MenuItem>
+        <MenuItem onClick={onClickDelete} disabled={!isNoteSelected}>
+          {localized("delete", "Delete")}
+        </MenuItem>
       </Menu>
     )
   }

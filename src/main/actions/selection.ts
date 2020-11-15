@@ -377,6 +377,10 @@ export const duplicateSelection = (rootStore: RootStore) => () => {
 
   const { selection } = pianoRollStore
 
+  if (selection.noteIds.length === 0) {
+    return
+  }
+
   // move to the end of selection
   const deltaTick = selection.toTick - selection.fromTick
 

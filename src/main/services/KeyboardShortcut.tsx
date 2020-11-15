@@ -2,6 +2,7 @@ import React, { FC, useEffect } from "react"
 import {
   copySelection,
   deleteSelection,
+  duplicateSelection,
   pasteSelection,
   play,
   selectNextNote,
@@ -40,6 +41,12 @@ export const KeyboardShortcut: FC = () => {
             stop(rootStore)()
           } else {
             play(rootStore)()
+          }
+          break
+        }
+        case "KeyD": {
+          if (e.ctrlKey || e.metaKey) {
+            duplicateSelection(rootStore)()
           }
           break
         }

@@ -1,4 +1,5 @@
 import { Container } from "@inlet/react-pixi"
+import { cloneDeep } from "lodash"
 import React, { RefObject } from "react"
 import {
   containsPoint,
@@ -182,7 +183,7 @@ const _ArrangeView = (
       if (selection === null) {
         return
       }
-      const startSelection = { ...selection }
+      const startSelection = cloneDeep(selection)
       mouseMove((e) => {
         const delta = pointSub(createPoint(e), startPos)
         const pos = pointAdd(startSelection, delta)

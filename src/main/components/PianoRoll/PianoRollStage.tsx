@@ -4,6 +4,7 @@ import { Point, Rectangle } from "pixi.js"
 import React, { FC, useCallback, useState } from "react"
 import { IPoint } from "../../../common/geometry"
 import { createBeatsInRange } from "../../../common/helpers/mapBeats"
+import { getSelectionBounds } from "../../../common/selection/Selection"
 import { NoteCoordTransform } from "../../../common/transform"
 import { removeEvent } from "../../actions"
 import { useNoteTransform } from "../../hooks/useNoteTransform"
@@ -203,7 +204,7 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
                   <PianoNotes trackId={trackId} width={width} isGhost={false} />
                   {selection.enabled && (
                     <PianoSelection
-                      bounds={selection.getBounds(transform)}
+                      bounds={getSelectionBounds(selection, transform)}
                       onRightClick={onRightClickSelection}
                     />
                   )}

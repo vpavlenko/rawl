@@ -1,7 +1,9 @@
+import { cloneDeep } from "lodash"
 import { observable } from "mobx"
 import { deserialize, serialize } from "serializr"
 import Player from "../../common/player"
 import Quantizer from "../../common/quantizer"
+import { Selection } from "../../common/selection/Selection"
 import Song, { emptySong } from "../../common/song"
 import TrackMute from "../../common/trackMute"
 import { TIME_BASE } from "../Constants"
@@ -27,11 +29,16 @@ export interface Services {
 // we use any for now. related: https://github.com/Microsoft/TypeScript/issues/1897
 type Json = any
 
+interface SerializedState {
+  song: Json
+  selection: Selection
+}
+
 export default class RootStore {
   @observable.ref song: Song = emptySong()
   router = new Router()
   trackMute = new TrackMute()
-  historyStore = new HistoryStore<Song>()
+  historyStore = new HistoryStore<SerializedState>()
   settingsStore = new SettingsStore()
   rootViewStore = new RootViewStore()
   pianoRollStore: PianoRollStore
@@ -59,14 +66,18 @@ export default class RootStore {
     registerReactions(this)
   }
 
-  private serializeUndoableState = (): Json => {
-    return serialize(this.song)
+  private serializeUndoableState = (): SerializedState => {
+    return {
+      song: serialize(this.song),
+      selection: cloneDeep(this.pianoRollStore.selection),
+    }
   }
 
-  private restoreState = (serializedState: Json) => {
-    const song = deserialize(Song, serializedState)
+  private restoreState = (serializedState: SerializedState) => {
+    const song = deserialize(Song, serializedState.song)
     song.onDeserialized()
     this.song = song
+    this.pianoRollStore.selection = serializedState.selection
   }
 
   pushHistory = () => {

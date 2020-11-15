@@ -1,5 +1,6 @@
 import { Menu, MenuItem } from "@material-ui/core"
 import React, { FC, useCallback } from "react"
+import styled from "styled-components"
 import { IPoint } from "../../../common/geometry"
 import { localized } from "../../../common/localize/localizedString"
 import {
@@ -52,6 +53,14 @@ export interface PianoSelectionContextMenuProps {
   handleClose: () => void
 }
 
+const HotKey = styled.div`
+  font-size: 0.9em;
+  flex-grow: 1;
+  text-align: right;
+  color: var(--secondary-text-color);
+  margin-left: 2em;
+`
+
 export const PianoSelectionContextMenu: FC<PianoSelectionContextMenuProps> = React.memo(
   ({ isOpen, position, handleClose }) => {
     const rootStore = useStores()
@@ -93,18 +102,23 @@ export const PianoSelectionContextMenu: FC<PianoSelectionContextMenuProps> = Rea
       >
         <MenuItem onClick={onClickCut} disabled={!isNoteSelected}>
           {localized("cut", "Cut")}
+          <HotKey>Ctrl+X</HotKey>
         </MenuItem>
         <MenuItem onClick={onClickCopy} disabled={!isNoteSelected}>
           {localized("copy", "Copy")}
+          <HotKey>Ctrl+C</HotKey>
         </MenuItem>
         <MenuItem onClick={onClickPaste}>
           {localized("paste", "Paste")}
+          <HotKey>Ctrl+P</HotKey>
         </MenuItem>
         <MenuItem onClick={onClickDuplicate} disabled={!isNoteSelected}>
           {localized("duplicate", "Duplicate")}
+          <HotKey>Ctrl+D</HotKey>
         </MenuItem>
         <MenuItem onClick={onClickDelete} disabled={!isNoteSelected}>
           {localized("delete", "Delete")}
+          <HotKey>Del</HotKey>
         </MenuItem>
       </Menu>
     )

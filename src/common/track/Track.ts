@@ -4,7 +4,7 @@ import last from "lodash/last"
 import sortBy from "lodash/sortBy"
 import without from "lodash/without"
 import { AnyEvent } from "midifile-ts"
-import { action, computed, makeObservable, transaction } from "mobx"
+import { action, computed, makeObservable, observable, transaction } from "mobx"
 import { createModelSchema, list, primitive } from "serializr"
 import { isNotUndefined } from "../helpers/array"
 import { pojo } from "../helpers/pojo"
@@ -50,6 +50,9 @@ export default class Track {
       programNumber: computed,
       isConductorTrack: computed,
       isRhythmTrack: computed,
+      events: observable,
+      lastEventId: observable,
+      channel: observable,
     })
   }
 

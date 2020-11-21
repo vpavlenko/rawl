@@ -1,9 +1,15 @@
-import { observable } from "mobx"
+import { makeObservable, observable } from "mobx"
 
 export type RoutePath = "/track" | "/arrange" | "/settings" | "/tempo"
 
 export default class Router {
-  @observable path: RoutePath = "/track"
+  path: RoutePath = "/track"
+
+  constructor() {
+    makeObservable(this, {
+      path: observable,
+    })
+  }
 
   pushArrange() {
     this.path = "/arrange"

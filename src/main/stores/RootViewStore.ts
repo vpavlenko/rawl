@@ -1,8 +1,17 @@
-import { observable } from "mobx"
+import { makeObservable, observable } from "mobx"
 
 export default class RootViewStore {
-  @observable isArrangeViewSelected: boolean = false
-  @observable openDrawer = false
-  @observable openHelp = false
-  @observable openDeviceDialog = false
+  isArrangeViewSelected: boolean = false
+  openDrawer = false
+  openHelp = false
+  openDeviceDialog = false
+
+  constructor() {
+    makeObservable(this, {
+      isArrangeViewSelected: observable,
+      openDrawer: observable,
+      openHelp: observable,
+      openDeviceDialog: observable,
+    })
+  }
 }

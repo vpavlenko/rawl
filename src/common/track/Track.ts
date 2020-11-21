@@ -50,7 +50,7 @@ export default class Track {
       programNumber: computed,
       isConductorTrack: computed,
       isRhythmTrack: computed,
-      events: observable,
+      events: observable.shallow,
       lastEventId: observable,
       channel: observable,
     })

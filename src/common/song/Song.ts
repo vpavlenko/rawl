@@ -32,7 +32,7 @@ export default class Song {
       selectTrack: action,
       conductorTrack: computed,
       selectedTrack: computed,
-      tracks: observable,
+      tracks: observable.shallow,
       selectedTrackId: observable,
       filepath: observable,
       timebase: observable,

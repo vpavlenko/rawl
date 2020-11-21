@@ -1,15 +1,15 @@
 import { StreamSource } from "midifile-ts"
+import { toJS } from "mobx"
 import { downloadBlob } from "../helpers/Downloader"
 import Song, { songFromMidi } from "../song"
-import Track from "../track"
 import { write as writeBytes } from "./MidiFileWriter"
 
 export function read(data: ArrayLike<number>): Song {
   return songFromMidi(data as StreamSource)
 }
 
-export function write(tracks: Track[], filepath: string) {
-  const bytes = writeBytes(tracks)
+export function write(song: Song, filepath: string) {
+  const bytes = writeBytes(toJS(song.tracks), song.timebase)
   const blob = new Blob([bytes], { type: "application/octet-stream" })
   downloadBlob(blob, filepath ?? "no name.mid")
 }

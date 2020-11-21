@@ -9,7 +9,7 @@ const setChannel = (channel: number) => (e: AnyEvent): AnyEvent => {
   return e
 }
 
-export function write(tracks: Track[]) {
+export function write(tracks: Track[], timebase: number) {
   const rawTracks = tracks.map((t) => {
     const rawEvents = toRawEvents(t.events)
     if (t.channel !== undefined) {
@@ -17,5 +17,5 @@ export function write(tracks: Track[]) {
     }
     return rawEvents
   })
-  return writeMidiFile(rawTracks)
+  return writeMidiFile(rawTracks, timebase)
 }

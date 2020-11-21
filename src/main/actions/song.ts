@@ -1,4 +1,3 @@
-import { toJS } from "mobx"
 import {
   read as readSong,
   write as writeSong,
@@ -55,7 +54,7 @@ export const createSong = (rootStore: RootStore) => () => {
 export const saveSong = (rootStore: RootStore) => () => {
   const { song } = rootStore
 
-  writeSong(toJS(song.tracks), song.filepath)
+  writeSong(song, song.filepath)
 }
 
 export const openSong = (rootStore: RootStore) => (input: HTMLInputElement) => {

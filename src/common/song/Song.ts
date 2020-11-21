@@ -1,6 +1,13 @@
 import pullAt from "lodash/pullAt"
-import { action, autorun, computed, observable, transaction } from "mobx"
-import { list, object, serializable } from "serializr"
+import {
+  action,
+  autorun,
+  computed,
+  makeObservable,
+  observable,
+  transaction,
+} from "mobx"
+import { createModelSchema, list, object, primitive } from "serializr"
 import { TIME_BASE } from "../../main/Constants"
 import { isNotUndefined } from "../helpers/array"
 import { Measure } from "../measure/Measure"
@@ -10,25 +17,27 @@ import Track from "../track"
 const END_MARGIN = 480 * 30
 
 export default class Song {
-  @serializable(list(object(Track)))
-  @observable.shallow
   tracks: Track[] = []
-
-  @serializable
-  @observable
   selectedTrackId: number = 0
-
-  @serializable
-  @observable
   filepath: string = ""
-
-  @serializable
-  @observable
   timebase: number = TIME_BASE
-
   name: string
 
   private _endOfSong: number = 0
+
+  constructor() {
+    makeObservable(this, {
+      addTrack: action,
+      removeTrack: action,
+      selectTrack: action,
+      conductorTrack: computed,
+      selectedTrack: computed,
+      tracks: observable.shallow,
+      selectedTrackId: observable,
+      filepath: observable,
+      timebase: observable,
+    })
+  }
 
   private _updateEndOfSong() {
     const eos = Math.max(
@@ -44,7 +53,7 @@ export default class Song {
 
   disposer: (() => void) | null = null
 
-  @action addTrack(t: Track) {
+  addTrack(t: Track) {
     // 最初のトラックは Conductor Track なので channel を設定しない
     if (t.channel === undefined && this.tracks.length > 0) {
       t.channel = t.channel || this.tracks.length - 1
@@ -60,7 +69,7 @@ export default class Song {
     })
   }
 
-  @action removeTrack(id: number) {
+  removeTrack(id: number) {
     transaction(() => {
       pullAt(this.tracks, id)
       this.selectTrack(Math.min(id, this.tracks.length - 1))
@@ -68,18 +77,18 @@ export default class Song {
     })
   }
 
-  @action selectTrack(id: number) {
+  selectTrack(id: number) {
     if (id === this.selectedTrackId) {
       return
     }
     this.selectedTrackId = id
   }
 
-  @computed get conductorTrack(): Track | undefined {
+  get conductorTrack(): Track | undefined {
     return this.tracks.find((t) => t.isConductorTrack)
   }
 
-  @computed get selectedTrack(): Track | undefined {
+  get selectedTrack(): Track | undefined {
     return this.tracks[this.selectedTrackId]
   }
 
@@ -112,3 +121,10 @@ export default class Song {
     return undefined
   }
 }
+
+createModelSchema(Song, {
+  tracks: list(object(Track)),
+  selectedTrackId: primitive(),
+  filepath: primitive(),
+  timebase: primitive(),
+})

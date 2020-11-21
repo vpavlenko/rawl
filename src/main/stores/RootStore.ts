@@ -1,4 +1,4 @@
-import { observable } from "mobx"
+import { makeObservable, observable } from "mobx"
 import Player from "../../common/player"
 import Quantizer from "../../common/quantizer"
 import Song, { emptySong } from "../../common/song"
@@ -25,7 +25,7 @@ export interface Services {
 }
 
 export default class RootStore {
-  @observable.ref song: Song = emptySong()
+  song: Song = emptySong()
   router = new Router()
   trackMute = new TrackMute()
   historyStore = new HistoryStore<SerializedState>()
@@ -39,6 +39,10 @@ export default class RootStore {
   services: Services
 
   constructor() {
+    makeObservable(this, {
+      song: observable.ref,
+    })
+
     const synth = new IFrameSynth("A320U.sf2")
     const synthGroup = new GroupOutput()
     synthGroup.outputs.push({ synth, isEnabled: true })

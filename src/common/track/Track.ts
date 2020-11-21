@@ -4,8 +4,8 @@ import last from "lodash/last"
 import sortBy from "lodash/sortBy"
 import without from "lodash/without"
 import { AnyEvent } from "midifile-ts"
-import { action, computed, observable, transaction } from "mobx"
-import { list, serializable } from "serializr"
+import { action, computed, makeObservable, observable, transaction } from "mobx"
+import { createModelSchema, list, primitive } from "serializr"
 import { isNotUndefined } from "../helpers/array"
 import { pojo } from "../helpers/pojo"
 import { getInstrumentName } from "../midi/GM"
@@ -27,19 +27,34 @@ import {
 type EventBeforeAdded = TrackMidiEvent | Omit<NoteEvent, "id">
 
 export default class Track {
-  @serializable(list(pojo))
-  @observable.shallow
   events: TrackEvent[] = []
-
-  @serializable
-  @observable
   lastEventId = 0
-
-  @serializable
-  @observable
   channel: number | undefined = undefined
 
   getEventById = (id: number) => this.events.find((e) => e.id === id)
+
+  constructor() {
+    makeObservable(this, {
+      updateEvent: action,
+      updateEvents: action,
+      removeEvent: action,
+      removeEvents: action,
+      addEvent: action,
+      addEvents: action,
+      sortByTick: action,
+      updateEndOfTrack: action,
+      displayName: computed,
+      instrumentName: computed,
+      name: computed,
+      endOfTrack: computed,
+      programNumber: computed,
+      isConductorTrack: computed,
+      isRhythmTrack: computed,
+      events: observable.shallow,
+      lastEventId: observable,
+      channel: observable,
+    })
+  }
 
   private _updateEvent(
     id: number,
@@ -59,7 +74,7 @@ export default class Track {
     return anObj
   }
 
-  @action updateEvent(id: number, obj: Partial<TrackEvent>): TrackEvent | null {
+  updateEvent(id: number, obj: Partial<TrackEvent>): TrackEvent | null {
     const result = this._updateEvent(id, obj)
     if (result) {
       this.updateEndOfTrack()
@@ -68,7 +83,7 @@ export default class Track {
     return result
   }
 
-  @action updateEvents(events: Partial<TrackEvent>[]) {
+  updateEvents(events: Partial<TrackEvent>[]) {
     transaction(() => {
       events.forEach((event) => {
         if (event.id === undefined) {
@@ -81,7 +96,7 @@ export default class Track {
     this.sortByTick()
   }
 
-  @action removeEvent(id: number) {
+  removeEvent(id: number) {
     const obj = this.getEventById(id)
     if (obj == undefined) {
       return
@@ -90,7 +105,7 @@ export default class Track {
     this.updateEndOfTrack()
   }
 
-  @action removeEvents(ids: number[]) {
+  removeEvents(ids: number[]) {
     const objs = ids.map((id) => this.getEventById(id)).filter(isNotUndefined)
     this.events = difference(this.events, objs)
     this.updateEndOfTrack()
@@ -109,13 +124,13 @@ export default class Track {
     return newEvent
   }
 
-  @action addEvent<T extends EventBeforeAdded>(e: T): TrackEvent {
+  addEvent<T extends EventBeforeAdded>(e: T): TrackEvent {
     const ev = this._addEvent(e)
     this.didAddEvent()
     return ev
   }
 
-  @action addEvents(events: EventBeforeAdded[]): TrackEvent[] {
+  addEvents(events: EventBeforeAdded[]): TrackEvent[] {
     let result: TrackEvent[] = []
     transaction(() => {
       result = events.map((e) => this._addEvent(e))
@@ -129,11 +144,11 @@ export default class Track {
     this.sortByTick()
   }
 
-  @action sortByTick() {
+  sortByTick() {
     this.events = sortBy(this.events, "tick")
   }
 
-  @action updateEndOfTrack() {
+  updateEndOfTrack() {
     const tick = Math.max(
       ...this.events.map((e) => e.tick + ("duration" in e ? e.duration : 0))
     )
@@ -185,14 +200,14 @@ export default class Track {
   }
 
   // 表示用の名前 トラック名がなければトラック番号を表示する
-  @computed get displayName() {
+  get displayName() {
     if (this.name && this.name.length > 0) {
       return this.name
     }
     return `Track ${this.channel}`
   }
 
-  @computed get instrumentName() {
+  get instrumentName() {
     if (this.isRhythmTrack) {
       return "Standard Drum Kit"
     }
@@ -203,7 +218,7 @@ export default class Track {
     return undefined
   }
 
-  @computed get name(): string | undefined {
+  get name(): string | undefined {
     return last(this.events.filter(isTrackNameEvent))?.text
   }
 
@@ -247,7 +262,7 @@ export default class Track {
   setPan = (value: number, tick: number) =>
     this.setControllerValue(10, tick, value)
 
-  @computed get endOfTrack(): number | undefined {
+  get endOfTrack(): number | undefined {
     return last(this.events.filter(isEndOfTrackEvent))?.tick
   }
 
@@ -255,7 +270,7 @@ export default class Track {
     this._updateLast(this.events.filter(isEndOfTrackEvent), { tick })
   }
 
-  @computed get programNumber(): number | undefined {
+  get programNumber(): number | undefined {
     return last(this.events.filter(isProgramChangeEvent))?.value
   }
 
@@ -286,11 +301,11 @@ export default class Track {
     }
   }
 
-  @computed get isConductorTrack() {
+  get isConductorTrack() {
     return this.channel === undefined
   }
 
-  @computed get isRhythmTrack() {
+  get isRhythmTrack() {
     return this.channel === 9
   }
 }
@@ -306,3 +321,9 @@ const getLastEventBefore = <T extends TrackEvent>(
       .sort((e) => e.tick)
   )
 }
+
+createModelSchema(Track, {
+  events: list(pojo),
+  lastEventId: primitive(),
+  channel: primitive(),
+})

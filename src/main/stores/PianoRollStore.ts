@@ -1,4 +1,4 @@
-import { action, observable } from "mobx"
+import { action, makeObservable, observable } from "mobx"
 import { emptySelection } from "../../common/selection/Selection"
 import { LoadSoundFontEvent } from "../../synth/synth"
 import { ControlMode } from "../components/ControlPane/ControlPane"
@@ -10,32 +10,55 @@ export type PianoRollMouseMode = "pencil" | "selection"
 type GhostTrackIdMap = { [index: number]: number[] }
 
 export default class PianoRollStore {
-  @observable scrollLeft = 0
-  @observable scrollTop = 700 // 中央くらいの音程にスクロールしておく
-  @observable controlHeight = 0
-  @observable notesCursor = "auto"
-  @observable controlMode: ControlMode = "velocity"
-  @observable mouseMode: PianoRollMouseMode = "pencil"
-  @observable scaleX = 1
-  @observable scaleY = 1
-  @observable autoScroll = true
-  @observable quantize = 0
-  @observable selection = emptySelection
-  @observable lastNoteDuration: number | null = null
-  @observable openInstrumentBrowser = false
-  @observable instrumentBrowserSetting: InstrumentSetting = {
+  scrollLeft = 0
+  scrollTop = 700 // 中央くらいの音程にスクロールしておく
+  controlHeight = 0
+  notesCursor = "auto"
+  controlMode: ControlMode = "velocity"
+  mouseMode: PianoRollMouseMode = "pencil"
+  scaleX = 1
+  scaleY = 1
+  autoScroll = true
+  quantize = 0
+  selection = emptySelection
+  lastNoteDuration: number | null = null
+  openInstrumentBrowser = false
+  instrumentBrowserSetting: InstrumentSetting = {
     isRhythmTrack: false,
     programNumber: 0,
   }
-  @observable presetNames: LoadSoundFontEvent["presetNames"] = [[]]
-  @observable ghostTracks: GhostTrackIdMap = {}
+  presetNames: LoadSoundFontEvent["presetNames"] = [[]]
+  ghostTracks: GhostTrackIdMap = {}
 
-  @action scrollBy(x: number, y: number) {
+  constructor() {
+    makeObservable(this, {
+      scrollLeft: observable,
+      scrollTop: observable,
+      controlHeight: observable,
+      notesCursor: observable,
+      controlMode: observable,
+      mouseMode: observable,
+      scaleX: observable,
+      scaleY: observable,
+      autoScroll: observable,
+      quantize: observable,
+      selection: observable,
+      lastNoteDuration: observable,
+      openInstrumentBrowser: observable,
+      instrumentBrowserSetting: observable,
+      presetNames: observable,
+      ghostTracks: observable,
+      scrollBy: action,
+      toggleTool: action,
+    })
+  }
+
+  scrollBy(x: number, y: number) {
     this.scrollLeft = Math.max(0, this.scrollLeft - x)
     this.scrollTop = Math.max(0, this.scrollTop - y)
   }
 
-  @action toggleTool() {
+  toggleTool() {
     this.mouseMode === "pencil" ? "selection" : "pencil"
   }
 }

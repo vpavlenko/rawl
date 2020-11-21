@@ -7,7 +7,7 @@ import {
   MIDIControlEvents,
   serialize as serializeMidiEvent,
 } from "midifile-ts"
-import { computed, observable } from "mobx"
+import { computed, makeObservable, observable } from "mobx"
 import { Message, SynthOutput } from "../../main/services/SynthOutput"
 import { deassemble as deassembleNote } from "../helpers/noteAssembler"
 import { deassemble as deassembleRPN } from "../helpers/RPNAssembler"
@@ -54,16 +54,24 @@ export default class Player {
     (timestamp) => this._onTimer(timestamp),
     TIMER_INTERVAL
   )
-  @observable private _currentTick = 0
-  @observable private _isPlaying = false
+  private _currentTick = 0
+  private _isPlaying = false
 
-  @observable loop: LoopSetting = {
+  loop: LoopSetting = {
     begin: 0,
     end: 0,
     enabled: false,
   }
 
   constructor(timebase: number, output: SynthOutput, trackMute: TrackMute) {
+    makeObservable<Player, "_currentTick" | "_isPlaying">(this, {
+      _currentTick: observable,
+      _isPlaying: observable,
+      loop: observable,
+      position: computed,
+      isPlaying: computed,
+    })
+
     this._output = output
     this._timebase = timebase
     this._trackMute = trackMute
@@ -102,11 +110,11 @@ export default class Player {
     }
   }
 
-  @computed get position() {
+  get position() {
     return this._currentTick
   }
 
-  @computed get isPlaying() {
+  get isPlaying() {
     return this._isPlaying
   }
 

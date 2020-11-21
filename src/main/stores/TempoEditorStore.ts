@@ -1,7 +1,15 @@
-import { observable } from "mobx"
+import { makeObservable, observable } from "mobx"
 
 export default class TempoEditorStore {
-  @observable scrollLeft: number = 0
-  @observable scaleX: number = 1
-  @observable autoScroll: boolean = true
+  scrollLeft: number = 0
+  scaleX: number = 1
+  autoScroll: boolean = true
+
+  constructor() {
+    makeObservable(this, {
+      scrollLeft: observable,
+      scaleX: observable,
+      autoScroll: observable,
+    })
+  }
 }

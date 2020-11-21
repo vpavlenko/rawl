@@ -1,8 +1,7 @@
-import { toJS } from "mobx"
 import {
-  read as readSong,
-  write as writeSong,
-} from "../../common/midi/SongFile"
+  downloadSongAsMidi,
+  songFromMidi,
+} from "../../common/midi/midiConversion"
 import Song, { emptySong } from "../../common/song"
 import { emptyTrack } from "../../common/track"
 import RootStore from "../stores/RootStore"
@@ -25,7 +24,8 @@ const openSongFile = (
       return
     }
     const buf = e.target.result as ArrayBuffer
-    const song = readSong(new Uint8Array(buf))
+    const song = songFromMidi(new Uint8Array(buf))
+    song.filepath = file.name
     callback(song)
   }
 
@@ -47,14 +47,12 @@ const setSong = (rootStore: RootStore) => (song: Song) => {
 
 export const createSong = (rootStore: RootStore) => () => {
   const store = rootStore
-
   setSong(store)(emptySong())
 }
 
 export const saveSong = (rootStore: RootStore) => () => {
   const { song } = rootStore
-
-  writeSong(toJS(song.tracks, { recurseEverything: true }), song.filepath)
+  downloadSongAsMidi(song)
 }
 
 export const openSong = (rootStore: RootStore) => (input: HTMLInputElement) => {
@@ -83,6 +81,5 @@ export const removeTrack = (rootStore: RootStore) => (trackId: number) => {
 
 export const selectTrack = (rootStore: RootStore) => (trackId: number) => {
   const { song } = rootStore
-
   song.selectTrack(trackId)
 }

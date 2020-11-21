@@ -1,5 +1,11 @@
 import { makeStyles, Toolbar } from "@material-ui/core"
-import { FastForward, FastRewind, PlayArrow, Stop } from "@material-ui/icons"
+import {
+  FastForward,
+  FastRewind,
+  Pause,
+  PlayArrow,
+  Stop,
+} from "@material-ui/icons"
 import { useObserver } from "mobx-react-lite"
 import React, { FC } from "react"
 import styled from "styled-components"
@@ -45,20 +51,28 @@ const Button = styled.div`
   --webkit-appearance: none;
   outline: none;
   border: none;
-  background: #ffffff0d;
-  border-radius: 30%;
+  border-radius: 100%;
   margin: 0.25rem;
-  padding: 0.5rem;
+  padding: 0.4rem;
   color: var(--text-color);
   display: flex;
   cursor: pointer;
 
   &:hover {
-    background: #ffffff1f;
+    background: #ffffff0d;
   }
 
   svg {
-    font-size: 1rem;
+    font-size: 1.2rem;
+  }
+`
+
+const PlayButton = styled(Button)`
+  background: var(--theme-color);
+
+  &:hover {
+    background: var(--theme-color);
+    opacity: 0.8;
   }
 
   &.playing {
@@ -166,12 +180,14 @@ export const TransportPanel: FC = () => {
       <Button onClick={onClickStop}>
         <Stop />
       </Button>
-      <Button
+
+      <PlayButton
         onClick={onClickPlay}
         className={isPlaying ? "playing" : undefined}
       >
-        <PlayArrow />
-      </Button>
+        {isPlaying ? <Pause /> : <PlayArrow />}
+      </PlayButton>
+
       <Button onClick={onClickForward}>
         <FastForward />
       </Button>

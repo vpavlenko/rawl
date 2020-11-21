@@ -1,4 +1,4 @@
-import { observable } from "mobx"
+import { makeObservable, observable } from "mobx"
 
 function updated<T>(obj: T, key: keyof T, value: any) {
   return { ...obj, [key]: value }
@@ -27,11 +27,16 @@ type BoolMap = { [index: number]: boolean }
 
 */
 export default class TrackMute {
-  @observable
   private mutes: BoolMap = {}
 
-  @observable
   private solos: BoolMap = {}
+
+  constructor() {
+    makeObservable<TrackMute, "mutes" | "solos">(this, {
+      mutes: observable,
+      solos: observable,
+    })
+  }
 
   reset() {
     this.mutes = {}

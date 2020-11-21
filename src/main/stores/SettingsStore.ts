@@ -1,11 +1,17 @@
-import { action, computed, observable } from "mobx"
+import { action, computed, makeObservable, observable } from "mobx"
 import JsonStore from "../helpers/electron-json-store"
 
 export default class SettingsStore {
-  @observable private _soundFontPath: string | null
+  private _soundFontPath: string | null
   storage = new JsonStore()
 
   constructor() {
+    makeObservable<SettingsStore, "_soundFontPath">(this, {
+      _soundFontPath: observable,
+      soundFontPath: computed,
+      clear: action,
+    })
+
     this._soundFontPath = this.storage.get("soundFontPath")
     console.log(`Setting was restored from ${this.storage.path}`)
   }
@@ -15,11 +21,11 @@ export default class SettingsStore {
     this.storage.set("soundFontPath", path)
   }
 
-  @computed get soundFontPath() {
+  get soundFontPath() {
     return this._soundFontPath
   }
 
-  @action clear() {
+  clear() {
     this.storage.clear()
     this._soundFontPath = null
   }

@@ -1,8 +1,9 @@
 import * as fs from "fs"
 import * as path from "path"
 import { deserialize, serialize } from "serializr"
+import { songFromMidi } from "../midi/midiConversion"
 import Song from "./Song"
-import { emptySong, songFromMidi } from "./SongFactory"
+import { emptySong } from "./SongFactory"
 
 describe("Song", () => {
   const song = songFromMidi(

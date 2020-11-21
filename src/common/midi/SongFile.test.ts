@@ -1,7 +1,7 @@
 import { serialize } from "serializr"
 import { emptySong, songFromMidi } from "../song/SongFactory"
 import Track from "../track/Track"
-import { write } from "./MidiFileWriter"
+import { songToMidi } from "./SongFile"
 
 // id for each event will not be serialized in midi file
 // we change ids sorted by order in events array
@@ -23,7 +23,7 @@ describe("SongFile", () => {
       duration: 240,
     })
     song.tracks.forEach(reassignIDs)
-    const bytes = write(song.tracks)
+    const bytes = songToMidi(song)
     const song2 = songFromMidi(bytes)
     song2.filepath = song.filepath // filepath will not be serialized
     expect(serialize(song2)).toStrictEqual(serialize(song))

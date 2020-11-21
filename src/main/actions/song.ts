@@ -54,7 +54,7 @@ export const createSong = (rootStore: RootStore) => () => {
 export const saveSong = (rootStore: RootStore) => () => {
   const { song } = rootStore
 
-  writeSong(song, song.filepath)
+  writeSong(song)
 }
 
 export const openSong = (rootStore: RootStore) => (input: HTMLInputElement) => {

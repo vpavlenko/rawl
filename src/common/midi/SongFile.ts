@@ -8,8 +8,12 @@ export function read(data: ArrayLike<number>): Song {
   return songFromMidi(data as StreamSource)
 }
 
-export function write(song: Song, filepath: string) {
-  const bytes = writeBytes(toJS(song.tracks), song.timebase)
+export function songToMidi(song: Song) {
+  return writeBytes(toJS(song.tracks), song.timebase)
+}
+
+export function write(song: Song) {
+  const bytes = songToMidi(song)
   const blob = new Blob([bytes], { type: "application/octet-stream" })
-  downloadBlob(blob, filepath ?? "no name.mid")
+  downloadBlob(blob, song.filepath ?? "no name.mid")
 }

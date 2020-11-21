@@ -26,6 +26,7 @@ const openSongFile = (
     }
     const buf = e.target.result as ArrayBuffer
     const song = readSong(new Uint8Array(buf))
+    song.filepath = file.name
     callback(song)
   }
 
@@ -54,7 +55,7 @@ export const createSong = (rootStore: RootStore) => () => {
 export const saveSong = (rootStore: RootStore) => () => {
   const { song } = rootStore
 
-  writeSong(toJS(song.tracks, { recurseEverything: true }), song.filepath)
+  writeSong(toJS(song.tracks), song.filepath)
 }
 
 export const openSong = (rootStore: RootStore) => (input: HTMLInputElement) => {

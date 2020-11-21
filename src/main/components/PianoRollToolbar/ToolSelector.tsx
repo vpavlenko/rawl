@@ -24,7 +24,7 @@ export const StyledToggleButton = styled(ToggleButton)`
   color: var(--text-color);
   font-size: 1rem;
   padding: 0 0.7rem;
-  &.mui-selected {
+  &.Mui-selected {
     background: var(--theme-color);
   }
 `

@@ -6,7 +6,7 @@ import { emptySong, songFromMidi } from "./SongFactory"
 
 describe("Song", () => {
   const song = songFromMidi(
-    fs.readFileSync(path.join(__dirname, "../../../testdata/tracks.mid"))
+    fs.readFileSync(path.join(__dirname, "../../../testdata/tracks.mid")).buffer
   )
 
   it("fromMidi", () => {

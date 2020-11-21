@@ -4,8 +4,8 @@ import last from "lodash/last"
 import sortBy from "lodash/sortBy"
 import without from "lodash/without"
 import { AnyEvent } from "midifile-ts"
-import { action, computed, makeObservable, observable, transaction } from "mobx"
-import { list, serializable } from "serializr"
+import { action, computed, makeObservable, transaction } from "mobx"
+import { createModelSchema, list, primitive } from "serializr"
 import { isNotUndefined } from "../helpers/array"
 import { pojo } from "../helpers/pojo"
 import { getInstrumentName } from "../midi/GM"
@@ -27,16 +27,8 @@ import {
 type EventBeforeAdded = TrackMidiEvent | Omit<NoteEvent, "id">
 
 export default class Track {
-  @serializable(list(pojo))
-  @observable.shallow
   events: TrackEvent[] = []
-
-  @serializable
-  @observable
   lastEventId = 0
-
-  @serializable
-  @observable
   channel: number | undefined = undefined
 
   getEventById = (id: number) => this.events.find((e) => e.id === id)
@@ -326,3 +318,9 @@ const getLastEventBefore = <T extends TrackEvent>(
       .sort((e) => e.tick)
   )
 }
+
+createModelSchema(Track, {
+  events: list(pojo),
+  lastEventId: primitive(),
+  channel: primitive(),
+})

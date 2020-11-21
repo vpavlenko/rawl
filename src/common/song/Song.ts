@@ -7,7 +7,7 @@ import {
   observable,
   transaction,
 } from "mobx"
-import { list, object, serializable } from "serializr"
+import { createModelSchema, list, object, primitive } from "serializr"
 import { TIME_BASE } from "../../main/Constants"
 import { isNotUndefined } from "../helpers/array"
 import { Measure } from "../measure/Measure"
@@ -17,22 +17,10 @@ import Track from "../track"
 const END_MARGIN = 480 * 30
 
 export default class Song {
-  @serializable(list(object(Track)))
-  @observable.shallow
   tracks: Track[] = []
-
-  @serializable
-  @observable
   selectedTrackId: number = 0
-
-  @serializable
-  @observable
   filepath: string = ""
-
-  @serializable
-  @observable
   timebase: number = TIME_BASE
-
   name: string
 
   private _endOfSong: number = 0
@@ -44,6 +32,10 @@ export default class Song {
       selectTrack: action,
       conductorTrack: computed,
       selectedTrack: computed,
+      tracks: observable,
+      selectedTrackId: observable,
+      filepath: observable,
+      timebase: observable,
     })
   }
 
@@ -129,3 +121,10 @@ export default class Song {
     return undefined
   }
 }
+
+createModelSchema(Song, {
+  tracks: list(object(Track)),
+  selectedTrackId: primitive(),
+  filepath: primitive(),
+  timebase: primitive(),
+})

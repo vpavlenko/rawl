@@ -1,5 +1,5 @@
 import { cloneDeep } from "lodash"
-import { isNotUndefined } from "../../common/helpers/array"
+import { isNotNull, isNotUndefined } from "../../common/helpers/array"
 import {
   emptySelection,
   movedSelection,
@@ -77,13 +77,18 @@ export const transposeSelection = (rootStore: RootStore) => (
   pianoRollStore.selection = s
 
   selectedTrack.updateEvents(
-    s.noteIds.map((id) => {
-      const n = selectedTrack.getEventById(id) as NoteEvent
-      return {
-        id,
-        noteNumber: n.noteNumber + deltaPitch,
-      }
-    })
+    s.noteIds
+      .map((id) => {
+        const n = selectedTrack.getEventById(id)
+        if (n == undefined || !isNoteEvent(n)) {
+          return null
+        }
+        return {
+          id,
+          noteNumber: n.noteNumber + deltaPitch,
+        }
+      })
+      .filter(isNotNull)
   )
 }
 
@@ -128,14 +133,19 @@ export const moveSelectionBy = (rootStore: RootStore) => (delta: NotePoint) => {
   pushHistory(rootStore)()
 
   selectedTrack.updateEvents(
-    s.noteIds.map((id) => {
-      const n = selectedTrack.getEventById(id) as NoteEvent
-      return {
-        id,
-        tick: n.tick + delta.tick,
-        noteNumber: n.noteNumber + delta.noteNumber,
-      }
-    })
+    s.noteIds
+      .map((id) => {
+        const n = selectedTrack.getEventById(id)
+        if (n == undefined || !isNoteEvent(n)) {
+          return null
+        }
+        return {
+          id,
+          tick: n.tick + delta.tick,
+          noteNumber: n.noteNumber + delta.noteNumber,
+        }
+      })
+      .filter(isNotNull)
   )
 }
 
@@ -181,19 +191,24 @@ export const resizeNotesInSelectionLeftBy = (rootStore: RootStore) => (
   pushHistory(rootStore)()
 
   selectedTrack.updateEvents(
-    pianoRollStore.selection.noteIds.map((id) => {
-      const n = selectedTrack.getEventById(id) as NoteEvent
-      const duration = n.duration - deltaTick
-      if (duration <= 0) {
-        // 幅がゼロになる場合は変形しない
-        return { id }
-      }
-      return {
-        id,
-        tick: n.tick + deltaTick,
-        duration,
-      }
-    })
+    pianoRollStore.selection.noteIds
+      .map((id) => {
+        const n = selectedTrack.getEventById(id)
+        if (n == undefined || !isNoteEvent(n)) {
+          return null
+        }
+        const duration = n.duration - deltaTick
+        if (duration <= 0) {
+          // 幅がゼロになる場合は変形しない
+          return { id }
+        }
+        return {
+          id,
+          tick: n.tick + deltaTick,
+          duration,
+        }
+      })
+      .filter(isNotNull)
   )
 }
 
@@ -241,18 +256,23 @@ export const resizeNotesInSelectionRightBy = (rootStore: RootStore) => (
   pushHistory(rootStore)()
 
   selectedTrack.updateEvents(
-    pianoRollStore.selection.noteIds.map((id) => {
-      const n = selectedTrack.getEventById(id) as NoteEvent
-      const duration = n.duration + deltaDuration
-      if (duration <= 0) {
-        // 幅がゼロになる場合は変形しない
-        return { id }
-      }
-      return {
-        id,
-        duration,
-      }
-    })
+    pianoRollStore.selection.noteIds
+      .map((id) => {
+        const n = selectedTrack.getEventById(id)
+        if (n == undefined || !isNoteEvent(n)) {
+          return null
+        }
+        const duration = n.duration + deltaDuration
+        if (duration <= 0) {
+          // 幅がゼロになる場合は変形しない
+          return { id }
+        }
+        return {
+          id,
+          duration,
+        }
+      })
+      .filter(isNotNull)
   )
 }
 

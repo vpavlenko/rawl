@@ -8,7 +8,7 @@ import {
   setTempoMidiEvent,
   volumeMidiEvent,
 } from "../../common/midi/MidiEvent"
-import { NoteEvent } from "../../common/track"
+import { isNoteEvent, NoteEvent } from "../../common/track"
 import { ControlMode } from "../components/ControlPane/ControlPane"
 import RootStore from "../stores/RootStore"
 import { pushHistory } from "./history"
@@ -232,7 +232,10 @@ export const moveNote = (rootStore: RootStore) => (
   if (selectedTrack === undefined || selectedTrack.channel == undefined) {
     return
   }
-  const note = selectedTrack.getEventById(params.id) as NoteEvent
+  const note = selectedTrack.getEventById(params.id)
+  if (note == undefined || !isNoteEvent(note)) {
+    return null
+  }
   const tick = quantizer[params.quantize || "floor"](params.tick)
   const tickChanged = tick !== note.tick
   const pitchChanged = params.noteNumber !== note.noteNumber
@@ -267,7 +270,10 @@ export const resizeNoteLeft = (rootStore: RootStore) => (
   }
   // 右端を固定して長さを変更
   tick = quantizer.round(tick)
-  const note = selectedTrack.getEventById(id) as NoteEvent
+  const note = selectedTrack.getEventById(id)
+  if (note == undefined || !isNoteEvent(note)) {
+    return null
+  }
   const duration = note.duration + (note.tick - tick)
   if (note.tick !== tick && duration >= quantizer.unit) {
     pushHistory(rootStore)()
@@ -289,7 +295,10 @@ export const resizeNoteRight = (rootStore: RootStore) => (
   if (selectedTrack === undefined) {
     return
   }
-  const note = selectedTrack.getEventById(id) as NoteEvent
+  const note = selectedTrack.getEventById(id)
+  if (note == undefined || !isNoteEvent(note)) {
+    return null
+  }
   const right = tick
   const duration = Math.max(quantizer.unit, quantizer.round(right - note.tick))
   if (note.duration !== duration) {

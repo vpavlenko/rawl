@@ -1,28 +1,26 @@
 import difference from "lodash/difference"
 import isEqual from "lodash/isEqual"
-import last from "lodash/last"
 import sortBy from "lodash/sortBy"
 import without from "lodash/without"
-import { AnyEvent } from "midifile-ts"
 import { action, computed, makeObservable, observable, transaction } from "mobx"
 import { createModelSchema, list, primitive } from "serializr"
 import { isNotUndefined } from "../helpers/array"
 import { pojo } from "../helpers/pojo"
 import { getInstrumentName } from "../midi/GM"
+import { isControllerEventWithType } from "./identify"
 import {
-  isControllerEvent,
-  isEndOfTrackEvent,
-  isProgramChangeEvent,
-  isSetTempoEvent,
-  isTimeSignatureEvent,
-  isTrackNameEvent,
-} from "./identify"
-import {
-  NoteEvent,
-  TrackEvent,
-  TrackEventRequired,
-  TrackMidiEvent,
-} from "./TrackEvent"
+  getEndOfTrackEvent,
+  getLast,
+  getPan,
+  getProgramNumberEvent,
+  getTempo,
+  getTempoEvent,
+  getTimeSignatureEvent,
+  getTrackNameEvent,
+  getVolume,
+  isTickBefore,
+} from "./selector"
+import { NoteEvent, TrackEvent, TrackMidiEvent } from "./TrackEvent"
 
 type EventBeforeAdded = TrackMidiEvent | Omit<NoteEvent, "id">
 
@@ -161,22 +159,6 @@ export default class Track {
 
   /* helper */
 
-  private _findControllerEvents(controllerType: number) {
-    return this.events
-      .filter(isControllerEvent)
-      .filter((t) => t.controllerType === controllerType)
-  }
-
-  private _updateLast<T extends AnyEvent | TrackEventRequired>(
-    arr: TrackEvent[],
-    obj: Partial<T>
-  ) {
-    const lastEvent = last(arr)
-    if (lastEvent !== undefined) {
-      this.updateEvent(lastEvent.id, obj)
-    }
-  }
-
   createOrUpdate(newEvent: Partial<TrackEvent>) {
     const events = this.events.filter(
       (e) =>
@@ -218,25 +200,15 @@ export default class Track {
     return undefined
   }
 
-  get name(): string | undefined {
-    return last(this.events.filter(isTrackNameEvent))?.text
-  }
-
-  setName(text: string) {
-    this._updateLast(this.events.filter(isTrackNameEvent), { text })
-  }
-
-  private getControllerValue = (controllerType: number, tick: number) =>
-    getLastEventBefore(this._findControllerEvents(controllerType), tick)?.value
-
   private setControllerValue = (
     controllerType: number,
     tick: number,
     value: number
   ) => {
-    const e = getLastEventBefore(
-      this._findControllerEvents(controllerType),
-      tick
+    const e = getLast(
+      this.events
+        .filter(isControllerEventWithType(controllerType))
+        .filter(isTickBefore(tick))
     )
     if (e !== undefined) {
       this.updateEvent(e.id, {
@@ -254,50 +226,55 @@ export default class Track {
     }
   }
 
-  getVolume = (tick: number) => this.getControllerValue(7, tick)
+  get name() {
+    return getTrackNameEvent(this.events)?.text
+  }
+  get programNumber() {
+    return getProgramNumberEvent(this.events)?.value
+  }
+  get endOfTrack() {
+    return getEndOfTrackEvent(this.events)?.tick
+  }
+
+  getPan = (tick: number) => getPan(this.events, tick)
+  getVolume = (tick: number) => getVolume(this.events, tick)
+  getTempo = (tick: number) => getTempo(this.events, tick)
+  getTimeSignatureEvent = (tick: number) =>
+    getTimeSignatureEvent(this.events, tick)
+
   setVolume = (value: number, tick: number) =>
     this.setControllerValue(7, tick, value)
 
-  getPan = (tick: number) => this.getControllerValue(10, tick)
   setPan = (value: number, tick: number) =>
     this.setControllerValue(10, tick, value)
 
-  get endOfTrack(): number | undefined {
-    return last(this.events.filter(isEndOfTrackEvent))?.tick
-  }
-
   setEndOfTrack(tick: number) {
-    this._updateLast(this.events.filter(isEndOfTrackEvent), { tick })
-  }
-
-  get programNumber(): number | undefined {
-    return last(this.events.filter(isProgramChangeEvent))?.value
-  }
-
-  setProgramNumber = (value: number) =>
-    this._updateLast(this.events.filter(isProgramChangeEvent), { value })
-
-  getTempoEvent = (tick: number) =>
-    getLastEventBefore(this.events.filter(isSetTempoEvent), tick)
-
-  getTimeSignatureEvent = (tick: number) =>
-    getLastEventBefore(this.events.filter(isTimeSignatureEvent), tick)
-
-  getTempo(tick: number): number | undefined {
-    const e = this.getTempoEvent(tick)
-    if (e === undefined) {
-      return undefined
+    const e = getEndOfTrackEvent(this.events)
+    if (e !== undefined) {
+      this.updateEvent(e.id, { tick })
     }
-    return 60000000 / e.microsecondsPerBeat
+  }
+
+  setProgramNumber(value: number) {
+    const e = getProgramNumberEvent(this.events)
+    if (e !== undefined) {
+      this.updateEvent(e.id, { value })
+    }
   }
 
   setTempo(bpm: number, tick: number) {
-    const microsecondsPerBeat = 60000000 / bpm
-    const e = this.getTempoEvent(tick)
+    const e = getTempoEvent(this.events, tick)
     if (e !== undefined) {
       this.updateEvent(e.id, {
-        microsecondsPerBeat,
+        microsecondsPerBeat: 60000000 / bpm,
       })
+    }
+  }
+
+  setName(text: string) {
+    const e = getTrackNameEvent(this.events)
+    if (e !== undefined) {
+      this.updateEvent(e.id, { text })
     }
   }
 
@@ -308,18 +285,6 @@ export default class Track {
   get isRhythmTrack() {
     return this.channel === 9
   }
-}
-
-const getLastEventBefore = <T extends TrackEvent>(
-  events: T[],
-  tick: number
-): T | undefined => {
-  return last(
-    events
-      .slice()
-      .filter((e) => e.tick <= tick)
-      .sort((e) => e.tick)
-  )
 }
 
 createModelSchema(Track, {

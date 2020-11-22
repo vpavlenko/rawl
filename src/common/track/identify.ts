@@ -43,3 +43,11 @@ export const isControllerEvent = (
   e: TrackEvent
 ): e is TrackEventRequired & Omit<ControllerEvent, "deltaTime"> =>
   "subtype" in e && e.subtype === "controller"
+
+export const isControllerEventWithType = (controllerType: number) => (
+  e: TrackEvent
+): e is TrackEventRequired & Omit<ControllerEvent, "deltaTime"> =>
+  isControllerEvent(e) && e.controllerType === controllerType
+
+export const isVolumeEvent = isControllerEventWithType(7)
+export const isPanEvent = isControllerEventWithType(10)

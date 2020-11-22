@@ -34,15 +34,18 @@ const openSongFile = (
 
 const setSong = (rootStore: RootStore) => (song: Song) => {
   rootStore.song = song
-  rootStore.services.player.reset()
   rootStore.trackMute.reset()
-  rootStore.services.player.timebase = song.timebase
-  rootStore.services.player.position = 0
-  rootStore.services.player.stop()
   rootStore.services.quantizer.ticksPerBeat = song.timebase
   rootStore.pianoRollStore.scrollLeft = 0
   rootStore.pianoRollStore.ghostTracks = {}
   rootStore.historyStore.clear()
+
+  const { player } = rootStore.services
+  player.stop()
+  player.reset()
+  player.song = song
+  player.timebase = song.timebase
+  player.position = 0
 }
 
 export const createSong = (rootStore: RootStore) => () => {

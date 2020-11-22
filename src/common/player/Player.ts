@@ -12,7 +12,8 @@ import { Message, SynthOutput } from "../../main/services/SynthOutput"
 import { deassemble as deassembleNote } from "../helpers/noteAssembler"
 import { deassemble as deassembleRPN } from "../helpers/RPNAssembler"
 import Song from "../song"
-import { NoteEvent, resetTrackMIDIEvents } from "../track"
+import { NoteEvent, resetTrackMIDIEvents, TrackEvent } from "../track"
+import { getStatusEvents } from "../track/selector"
 import TrackMute from "../trackMute"
 import { AdaptiveTimer } from "./AdaptiveTimer"
 import EventScheduler from "./EventScheduler"
@@ -22,15 +23,17 @@ function firstByte(eventType: string, channel: number): number {
   return (MIDIChannelEvents[eventType] << 4) + channel
 }
 
+function convertTrackEvents(events: TrackEvent[], channel: number | undefined) {
+  const a = flatten(events.map((e) => deassembleNote(e)))
+  const b = flatten(
+    a.map((e) => deassembleRPN(e, (x) => ({ ...x, tick: e.tick })))
+  )
+  return b.map((e) => ({ ...e, channel: channel } as PlayerEvent))
+}
+
 function collectAllEvents(song: Song): PlayerEvent[] {
   return flatten(
-    song.tracks.map((t) => {
-      const a = flatten(t.events.map((e) => deassembleNote(e)))
-      const b = flatten(
-        a.map((e) => deassembleRPN(e, (x) => ({ ...x, tick: e.tick })))
-      )
-      return b.map((e) => ({ ...e, channel: t.channel } as any))
-    })
+    song.tracks.map((t) => convertTrackEvents(t.events, t.channel))
   )
 }
 
@@ -77,13 +80,19 @@ export default class Player {
     this._trackMute = trackMute
   }
 
-  play(song: Song) {
+  set song(song: Song) {
+    this._song = song
+  }
+
+  play() {
     if (this.isPlaying) {
       console.warn("called play() while playing. aborted.")
       return
     }
-    this._song = song
-    const eventsToPlay = collectAllEvents(song)
+    if (this._song === null) {
+      throw new Error("must set song before play")
+    }
+    const eventsToPlay = collectAllEvents(this._song)
     this._scheduler = new EventScheduler(
       eventsToPlay,
       this._currentTick,
@@ -108,6 +117,8 @@ export default class Player {
     if (this.isPlaying) {
       this.allSoundsOff()
     }
+
+    this.sendCurrentStateEvents()
   }
 
   get position() {
@@ -180,6 +191,26 @@ export default class Player {
     this.position = 0
   }
 
+  /*
+   to restore synthesizer state (e.g. pitch bend)
+   collect all previous state events
+   and send them to the synthesizer
+  */
+  sendCurrentStateEvents() {
+    const timestamp = window.performance.now()
+    const messages = flatten(
+      this._song?.tracks.map((t) => {
+        const statusEvents = getStatusEvents(t.events, this._currentTick)
+        this.applyPlayerEvents(statusEvents)
+        return convertTrackEvents(statusEvents, t.channel).map((e) => ({
+          message: serializeMidiEvent(e as any, false),
+          timestamp,
+        }))
+      })
+    )
+    this._sendMessages(messages)
+  }
+
   get currentTempo() {
     return this._currentTempo
   }
@@ -227,7 +258,7 @@ export default class Player {
 
   sendEvent(event: AnyEvent) {
     const timestamp = window.performance.now() + this._latency
-    const message = serializeMidiEvent(event as any, false)
+    const message = serializeMidiEvent(event, false)
     this._sendMessage(message, timestamp)
   }
 
@@ -236,6 +267,20 @@ export default class Player {
       this._currentTick = this._scheduler.currentTick
     }
   }, 50)
+
+  private applyPlayerEvents(events: PlayerEvent[]) {
+    events.forEach((e) => {
+      if (e.type !== "channel" && "subtype" in e) {
+        switch (e.subtype) {
+          case "setTempo":
+            this._currentTempo = 60000000 / e.microsecondsPerBeat
+            break
+          default:
+            break
+        }
+      }
+    })
+  }
 
   private _onTimer(timestamp: number) {
     if (this._scheduler === null || this._song === null) {
@@ -257,20 +302,7 @@ export default class Player {
     this._sendMessages(messages)
 
     // channel イベント以外を実行
-    events.forEach(({ event }) => {
-      const e = event
-      if (e.type !== "channel" && "subtype" in e) {
-        switch (e.subtype) {
-          case "setTempo":
-            this._currentTempo = 60000000 / e.microsecondsPerBeat
-            break
-          case "endOfTrack":
-            break
-          default:
-            break
-        }
-      }
-    })
+    this.applyPlayerEvents(events.map(({ event }) => event))
 
     if (this._scheduler.currentTick >= this._song.endOfSong) {
       this.stop()

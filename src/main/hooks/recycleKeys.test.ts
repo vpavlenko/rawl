@@ -66,4 +66,21 @@ describe("recycleKeys", () => {
       { key: 4, value: { id: 3 } },
     ])
   })
+
+  it("remove keys when items removed", () => {
+    const result = recycleKeys(
+      [
+        { key: 0, value: { id: 1 } },
+        { key: 1, value: { id: 2 } },
+        { key: 2, value: { id: 3 } },
+        { key: 3, value: { id: 4 } },
+        { key: 4, value: { id: 5 } },
+      ],
+      [{ id: 1 }, { id: 3 }]
+    )
+    expect(result).toStrictEqual([
+      { key: 0, value: { id: 1 } },
+      { key: 2, value: { id: 3 } },
+    ])
+  })
 })

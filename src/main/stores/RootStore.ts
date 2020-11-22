@@ -48,6 +48,7 @@ export default class RootStore {
     synthGroup.outputs.push({ synth, isEnabled: true })
 
     const player = new Player(TIME_BASE, synthGroup, this.trackMute)
+    player.song = this.song
     const quantizer = new Quantizer(TIME_BASE)
     this.services = { player, quantizer, synth, synthGroup }
     this.pianoRollStore = new PianoRollStore()

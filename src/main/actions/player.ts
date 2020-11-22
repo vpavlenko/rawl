@@ -1,4 +1,4 @@
-import { NoteEvent } from "../../common/track"
+import { isNoteEvent } from "../../common/track/identify"
 import RootStore from "../stores/RootStore"
 
 export const play = (rootStore: RootStore) => () => {
@@ -106,7 +106,10 @@ export const previewNoteById = (rootStore: RootStore) => (noteId: number) => {
   if (selectedTrack === undefined) {
     return
   }
-  const note = selectedTrack.getEventById(noteId) as NoteEvent
+  const note = selectedTrack.getEventById(noteId)
+  if (note == undefined || !isNoteEvent(note)) {
+    return
+  }
   player.playNote({ ...note, channel: selectedTrack.channel ?? 0 })
 }
 

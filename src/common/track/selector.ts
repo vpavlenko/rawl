@@ -1,7 +1,12 @@
+import { uniq } from "lodash"
 import last from "lodash/last"
+import { isNotUndefined } from "../helpers/array"
 import {
+  isControllerEvent,
+  isControllerEventWithType,
   isEndOfTrackEvent,
   isPanEvent,
+  isPitchBendEvent,
   isProgramChangeEvent,
   isSetTempoEvent,
   isTimeSignatureEvent,
@@ -46,4 +51,33 @@ export const getTempo = (
     return undefined
   }
   return 60000000 / e.microsecondsPerBeat
+}
+
+// collect events which will be retained in the synthesizer
+export const getStatusEvents = (events: TrackEvent[], tick: number) => {
+  const controlEvents = events
+    .filter(isControllerEvent)
+    .filter(isTickBefore(tick))
+  // remove duplicated control types
+  const recentControlEvents = uniq(controlEvents.map((e) => e.controllerType))
+    .map((type) =>
+      getLast(controlEvents.filter(isControllerEventWithType(type)))
+    )
+    .filter(isNotUndefined)
+
+  const setTempo = getLast(
+    events.filter(isSetTempoEvent).filter(isTickBefore(tick))
+  )
+
+  const programChange = getLast(
+    events.filter(isProgramChangeEvent).filter(isTickBefore(tick))
+  )
+
+  const pitchBend = getLast(
+    events.filter(isPitchBendEvent).filter(isTickBefore(tick))
+  )
+
+  return [...recentControlEvents, setTempo, programChange, pitchBend].filter(
+    isNotUndefined
+  )
 }

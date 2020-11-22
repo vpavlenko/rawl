@@ -1,6 +1,7 @@
 import {
   ControllerEvent,
   EndOfTrackEvent,
+  PitchBendEvent,
   ProgramChangeEvent,
   SetTempoEvent,
   TimeSignatureEvent,
@@ -20,6 +21,11 @@ export const isProgramChangeEvent = (
   e: TrackEvent
 ): e is TrackEventRequired & Omit<ProgramChangeEvent, "deltaTime"> =>
   "subtype" in e && e.subtype === "programChange"
+
+export const isPitchBendEvent = (
+  e: TrackEvent
+): e is TrackEventRequired & Omit<PitchBendEvent, "deltaTime"> =>
+  "subtype" in e && e.subtype === "pitchBend"
 
 export const isEndOfTrackEvent = (
   e: TrackEvent

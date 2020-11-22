@@ -77,13 +77,19 @@ export default class Player {
     this._trackMute = trackMute
   }
 
-  play(song: Song) {
+  set song(song: Song) {
+    this._song = song
+  }
+
+  play() {
     if (this.isPlaying) {
       console.warn("called play() while playing. aborted.")
       return
     }
-    this._song = song
-    const eventsToPlay = collectAllEvents(song)
+    if (this._song === null) {
+      throw new Error("must set song before play")
+    }
+    const eventsToPlay = collectAllEvents(this._song)
     this._scheduler = new EventScheduler(
       eventsToPlay,
       this._currentTick,

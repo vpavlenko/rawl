@@ -9,7 +9,7 @@ export const play = (rootStore: RootStore) => () => {
   if (player.isPlaying) {
     player.stop()
   } else {
-    player.play(song)
+    player.play()
   }
 }
 

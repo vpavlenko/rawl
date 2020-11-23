@@ -1,4 +1,4 @@
-import { Menu, MenuItem } from "@material-ui/core"
+import { Divider, Menu, MenuItem } from "@material-ui/core"
 import React, { FC, useCallback } from "react"
 import styled from "styled-components"
 import { IPoint } from "../../../common/geometry"
@@ -8,6 +8,7 @@ import {
   deleteSelection,
   duplicateSelection,
   pasteSelection,
+  transposeSelection,
 } from "../../actions"
 import { useStores } from "../../hooks/useStores"
 
@@ -53,6 +54,10 @@ export interface PianoSelectionContextMenuProps {
   handleClose: () => void
 }
 
+const Item = styled(MenuItem)`
+  font-size: 0.8rem;
+`
+
 const HotKey = styled.div`
   font-size: 0.9em;
   flex-grow: 1;
@@ -92,6 +97,16 @@ export const PianoSelectionContextMenu: FC<PianoSelectionContextMenuProps> = Rea
       handleClose()
     }, [])
 
+    const onClickOctaveUp = useCallback(() => {
+      transposeSelection(rootStore)(12)
+      handleClose()
+    }, [])
+
+    const onClickOctaveDown = useCallback(() => {
+      transposeSelection(rootStore)(-12)
+      handleClose()
+    }, [])
+
     return (
       <Menu
         keepMounted
@@ -99,27 +114,38 @@ export const PianoSelectionContextMenu: FC<PianoSelectionContextMenuProps> = Rea
         onClose={handleClose}
         anchorReference="anchorPosition"
         anchorPosition={{ top: position.y, left: position.x }}
+        disableAutoFocusItem={true}
+        transitionDuration={50}
       >
-        <MenuItem onClick={onClickCut} disabled={!isNoteSelected}>
+        <Item onClick={onClickCut} disabled={!isNoteSelected}>
           {localized("cut", "Cut")}
           <HotKey>Ctrl+X</HotKey>
-        </MenuItem>
-        <MenuItem onClick={onClickCopy} disabled={!isNoteSelected}>
+        </Item>
+        <Item onClick={onClickCopy} disabled={!isNoteSelected}>
           {localized("copy", "Copy")}
           <HotKey>Ctrl+C</HotKey>
-        </MenuItem>
-        <MenuItem onClick={onClickPaste}>
+        </Item>
+        <Item onClick={onClickPaste}>
           {localized("paste", "Paste")}
           <HotKey>Ctrl+P</HotKey>
-        </MenuItem>
-        <MenuItem onClick={onClickDuplicate} disabled={!isNoteSelected}>
+        </Item>
+        <Item onClick={onClickDuplicate} disabled={!isNoteSelected}>
           {localized("duplicate", "Duplicate")}
           <HotKey>Ctrl+D</HotKey>
-        </MenuItem>
-        <MenuItem onClick={onClickDelete} disabled={!isNoteSelected}>
+        </Item>
+        <Item onClick={onClickDelete} disabled={!isNoteSelected}>
           {localized("delete", "Delete")}
           <HotKey>Del</HotKey>
-        </MenuItem>
+        </Item>
+        <Divider />
+        <Item onClick={onClickOctaveUp} disabled={!isNoteSelected}>
+          {localized("+1 Oct", "+1 Oct")}
+          <HotKey>Shift+↑</HotKey>
+        </Item>
+        <Item onClick={onClickOctaveDown} disabled={!isNoteSelected}>
+          {localized("-1 Oct", "-1 Oct")}
+          <HotKey>Shift+↓</HotKey>
+        </Item>
       </Menu>
     )
   }

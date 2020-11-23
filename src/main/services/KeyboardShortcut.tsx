@@ -84,7 +84,7 @@ export const KeyboardShortcut: FC = () => {
           if (e.ctrlKey || e.metaKey) {
             rootStore.pianoRollStore.scrollBy(0, SCROLL_DELTA)
           } else {
-            transposeSelection(rootStore)(1)
+            transposeSelection(rootStore)(e.shiftKey ? 12 : 1)
           }
           break
         }
@@ -92,7 +92,7 @@ export const KeyboardShortcut: FC = () => {
           if (e.ctrlKey || e.metaKey) {
             rootStore.pianoRollStore.scrollBy(0, -SCROLL_DELTA)
           } else {
-            transposeSelection(rootStore)(-1)
+            transposeSelection(rootStore)(e.shiftKey ? -12 : -1)
           }
           break
         }

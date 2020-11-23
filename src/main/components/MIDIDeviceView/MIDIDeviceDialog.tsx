@@ -119,6 +119,7 @@ export const MIDIDeviceDialog: FC = () => {
               <DeviceList>
                 {inputDevices.map(({ device, isSelected }) => (
                   <DeviceRow
+                    key={device.id}
                     device={device}
                     isSelected={isSelected}
                     onCheck={(checked) =>
@@ -142,6 +143,7 @@ export const MIDIDeviceDialog: FC = () => {
               />
               {outputDevices.map(({ device, isSelected }) => (
                 <DeviceRow
+                  key={device.id}
                   device={device}
                   isSelected={isSelected}
                   onCheck={(checked) =>

@@ -6,6 +6,6 @@ export const isTouchPadEvent = (e: WheelEvent) => {
   return (
     Number.isInteger(e.deltaX) &&
     Number.isInteger(e.deltaY) &&
-    (wheelDeltaY % 120 !== 0 || wheelDeltaY < 120)
+    Math.abs(wheelDeltaY) % 120 !== 0
   )
 }

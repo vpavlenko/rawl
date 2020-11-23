@@ -13,7 +13,8 @@
     "lib": ["es2017", "dom"],
     "strictNullChecks": true,
     "alwaysStrict": true,
-    "useDefineForClassFields": true
+    "useDefineForClassFields": true,
+    "resolveJsonModule": true
   },
   "exclude": ["node_modules", "src/submodules", "**/*.test.ts"]
 }

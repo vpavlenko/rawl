@@ -1,5 +1,6 @@
-import { observe } from "mobx"
+import { autorun, observe } from "mobx"
 import { isNotNull } from "../../common/helpers/array"
+import { emptySelection } from "../../common/selection/Selection"
 import { resetSelection } from "../actions"
 import MIDIOutput from "../services/MIDIOutput"
 import RootStore from "./RootStore"
@@ -41,4 +42,11 @@ export const registerReactions = (rootStore: RootStore) => {
     "isFactorySoundEnabled",
     updateOutputDevices
   )
+
+  // reset selection when change track
+  autorun(() => {
+    // deep observe
+    const _ = rootStore.song.selectedTrackId
+    rootStore.pianoRollStore.selection = emptySelection
+  })
 }

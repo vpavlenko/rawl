@@ -13,7 +13,11 @@ export default class MIDIOutput implements SynthOutput {
 
   send(msg: number[], timestamp: number) {
     if (this.midiOutput.state === "connected") {
-      this.midiOutput.send(msg, timestamp)
+      try {
+        this.midiOutput.send(msg, timestamp)
+      } catch (e) {
+        console.warn(e)
+      }
     }
   }
 

@@ -2,31 +2,55 @@ import { Container, Graphics, Text } from "@inlet/react-pixi"
 import Color from "color"
 import range from "lodash/range"
 import { Graphics as PIXIGraphics, Point, TextStyle } from "pixi.js"
-import React, { FC, useCallback } from "react"
+import React, { FC, useState } from "react"
+import { pointAdd, pointSub } from "../../../common/geometry"
 import { isBlackKey } from "../../../common/helpers/noteNumber"
 import { noteNameWithOctString } from "../../../common/helpers/noteNumberString"
-import { previewNote } from "../../actions"
 import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
+import { Rectangle } from "../Graphics/Rectangle"
+import { observeDrag } from "./MouseHandler/observeDrag"
 
 interface BlackKeyProps {
   width: number
   height: number
   position: Point
+  isSelected: boolean
 }
 
-const BlackKey: FC<BlackKeyProps> = ({ width, height, position }) => {
+const BlackKey: FC<BlackKeyProps> = ({
+  width,
+  height,
+  position,
+  isSelected,
+}) => {
   const theme = useTheme()
-  const color = Color(theme.pianoKeyBlack).rgbNumber()
+  const color = isSelected
+    ? Color(theme.themeColor).rgbNumber()
+    : Color(theme.pianoKeyBlack).rgbNumber()
+  const lightenColor = Color(theme.pianoKeyBlack).lighten(1).rgbNumber()
   const dividerColor = Color(theme.dividerColor).rgbNumber()
 
   const keyWidth = Math.floor(width * 0.64)
+  const highlightWidth = Math.floor(keyWidth * 0.13)
+  const highlightHeight = Math.floor(height * 0.9)
+
   const draw = (ctx: PIXIGraphics) => {
     ctx
       .clear()
       .lineStyle()
       .beginFill(color)
       .drawRect(-0.5, -0.5, keyWidth, Math.floor(height))
+
+    ctx
+      .lineStyle()
+      .beginFill(lightenColor)
+      .drawRect(
+        keyWidth - highlightWidth - 0.5,
+        Math.floor((height - highlightHeight) / 2) - 0.5,
+        highlightWidth,
+        highlightHeight
+      )
 
     const middle = Math.round(height / 2)
     ctx
@@ -72,6 +96,7 @@ export interface PianoKeysProps {
 const PianoKeys: FC<PianoKeysProps> = ({ numberOfKeys, keyHeight }) => {
   const theme = useTheme()
   const width = theme.keyWidth
+  const [touchingKeys, setTouchingKeys] = useState<number[]>([])
 
   function draw(ctx: PIXIGraphics): void {
     ctx
@@ -95,8 +120,34 @@ const PianoKeys: FC<PianoKeysProps> = ({ numberOfKeys, keyHeight }) => {
 
   function onMouseDown(e: PIXI.InteractionEvent) {
     const local = e.data.getLocalPosition(e.target)
-    const noteNumber = Math.floor(pixelsToNoteNumber(local.y))
-    onClickKey(noteNumber)
+    const ev = e.data.originalEvent as MouseEvent
+    const startPosition = { x: ev.clientX, y: ev.clientY }
+    const { player } = rootStore.services
+    const channel = rootStore.song.selectedTrack?.channel ?? 0
+
+    let prevNoteNumber = Math.floor(pixelsToNoteNumber(local.y))
+    player.sendNoteOn(channel, prevNoteNumber, 127)
+
+    setTouchingKeys([prevNoteNumber])
+
+    observeDrag({
+      onMouseMove(e) {
+        const pos = { x: e.clientX, y: e.clientY }
+        const delta = pointSub(pos, startPosition)
+        const local2 = pointAdd(local, delta)
+        const noteNumber = Math.floor(pixelsToNoteNumber(local2.y))
+        if (noteNumber !== prevNoteNumber) {
+          player.sendNoteOff(channel, prevNoteNumber, 0)
+          player.sendNoteOn(channel, noteNumber, 127)
+          prevNoteNumber = noteNumber
+          setTouchingKeys([noteNumber])
+        }
+      },
+      onMouseUp(_) {
+        player.sendNoteOff(channel, prevNoteNumber, 0)
+        setTouchingKeys([])
+      },
+    })
   }
 
   // 1オクターブごとにラベルを配置
@@ -119,6 +170,20 @@ const PianoKeys: FC<PianoKeysProps> = ({ numberOfKeys, keyHeight }) => {
         position={new Point(0, noteNumberToPixels(i))}
         height={keyHeight}
         width={width}
+        isSelected={touchingKeys.includes(i)}
+      />
+    ))
+
+  const whiteKeyHightlights = touchingKeys
+    .filter((i) => !isBlackKey(i))
+    .map((i) => (
+      <Rectangle
+        key={i}
+        x={0}
+        y={noteNumberToPixels(i)}
+        width={width}
+        height={keyHeight}
+        fill={Color(theme.themeColor).rgbNumber()}
       />
     ))
 
@@ -143,16 +208,6 @@ const PianoKeys: FC<PianoKeysProps> = ({ numberOfKeys, keyHeight }) => {
 
   const rootStore = useStores()
 
-  const onClickKey = useCallback(
-    (noteNumber: number) => {
-      previewNote(rootStore)(
-        rootStore.song.selectedTrack?.channel ?? 0,
-        noteNumber
-      )
-    },
-    [rootStore]
-  )
-
   return (
     <Container
       width={width}
@@ -161,6 +216,7 @@ const PianoKeys: FC<PianoKeysProps> = ({ numberOfKeys, keyHeight }) => {
       mousedown={onMouseDown}
     >
       <Graphics draw={draw} />
+      {whiteKeyHightlights}
       {blackKeys}
       {labels}
       {dividers}

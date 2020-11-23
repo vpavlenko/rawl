@@ -235,15 +235,24 @@ export default class Player {
   }: Pick<NoteEvent, "noteNumber" | "velocity" | "duration"> & {
     channel: number
   }) {
+    this.sendNoteOn(channel, noteNumber, velocity)
+    this.sendNoteOff(channel, noteNumber, duration)
+  }
+
+  sendNoteOn(channel: number, noteNumber: number, velocity: number) {
     this._output.activate()
-    const timestamp = window.performance.now() + this._latency
+    const timestamp = window.performance.now()
     this._sendMessage(
       [firstByte("noteOn", channel), noteNumber, velocity],
       timestamp
     )
+  }
+
+  sendNoteOff(channel: number, noteNumber: number, delay: number) {
+    const timestamp = window.performance.now()
     this._sendMessage(
       [firstByte("noteOff", channel), noteNumber, 0],
-      timestamp + this.tickToMillisec(duration)
+      timestamp + this.tickToMillisec(delay)
     )
   }
 

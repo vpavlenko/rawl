@@ -7,6 +7,11 @@ const TrackName = styled.span`
   font-weight: bold;
   margin-right: 2em;
   font-size: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 14rem;
+  min-width: 3em;
 `
 
 const Input = styled.input`

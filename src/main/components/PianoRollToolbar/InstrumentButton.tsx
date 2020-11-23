@@ -10,11 +10,19 @@ const StyledInstrumentButton = styled(Button)`
   border: 1px solid var(--divider-color);
   text-transform: none;
   height: 2rem;
+  overflow: hidden;
 `
 
 const InstrumentIcon = styled(PianoIcon)`
   width: 1.3rem;
   fill: currentColor;
+`
+
+const Label = styled.span`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 3em;
 `
 
 export const InstrumentButton: FC = () => {
@@ -42,7 +50,7 @@ export const InstrumentButton: FC = () => {
       onClick={onClickInstrument}
       startIcon={<InstrumentIcon viewBox="0 0 24 24" />}
     >
-      {instrumentName}
+      <Label>{instrumentName}</Label>
     </StyledInstrumentButton>
   )
 }

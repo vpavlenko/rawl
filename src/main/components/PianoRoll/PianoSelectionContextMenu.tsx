@@ -139,11 +139,11 @@ export const PianoSelectionContextMenu: FC<PianoSelectionContextMenuProps> = Rea
         </Item>
         <Divider />
         <Item onClick={onClickOctaveUp} disabled={!isNoteSelected}>
-          {localized("+1 Oct", "+1 Oct")}
+          {localized("one-octave-up", "+1 Oct")}
           <HotKey>Shift+↑</HotKey>
         </Item>
         <Item onClick={onClickOctaveDown} disabled={!isNoteSelected}>
-          {localized("-1 Oct", "-1 Oct")}
+          {localized("one-octave-down", "-1 Oct")}
           <HotKey>Shift+↓</HotKey>
         </Item>
       </Menu>

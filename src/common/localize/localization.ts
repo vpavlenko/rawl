@@ -60,5 +60,7 @@ export default {
     "midi-settings": "MIDI設定",
     inputs: "入力",
     outputs: "出力",
+    "one-octave-up": "+1オクターブ",
+    "one-octave-down": "-1オクターブ",
   },
 } as { [key: string]: { [key: string]: string } }

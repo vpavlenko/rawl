@@ -11,38 +11,47 @@ export const recycleKeys = <T extends IDValue>(
   items: KeyedValue<T>[],
   nextItems: T[]
 ): KeyedValue<T>[] => {
-  const deletedItems = items.filter(
-    (i) => nextItems.find((i2) => i.value.id === i2.id) === undefined
-  )
-  const reusableKeys = deletedItems.map((i) => i.key)
-  const usedKeys: number[] = []
-  let maxKey = 0
+  const reusable = [...items]
+  const addedItems = [...nextItems]
+  const result: KeyedValue<T>[] = []
 
-  return nextItems.map((i) => {
-    const existingItem = items.find((i2) => i.id === i2.value.id)
-    let key: number
+  // first: reuse keys with same item
+  for (let i = addedItems.length - 1; i >= 0; i--) {
+    const item = addedItems[i]
+    const index = reusable.findIndex((i2) => item.id === i2.value.id)
+    if (index >= 0) {
+      result.unshift({ key: reusable[index].key, value: item })
+      reusable.splice(index, 1)
+      addedItems.splice(i, 1)
+    }
+  }
 
-    if (existingItem !== undefined) {
-      // keep the key
-      key = existingItem.key
-    } else if (reusableKeys.length > 0) {
-      // reuse ye key
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      key = reusableKeys.pop()!
-    } else if (!usedKeys.includes(i.id)) {
+  // second: reuse keys with new items
+  for (let i = addedItems.length - 1; i >= 0; i--) {
+    const item = addedItems[i]
+    const index = reusable.findIndex((i2) => item.id === i2.value.id)
+    if (index >= 0) {
       // use id as key
-      key = i.id
-    } else {
-      // create new key
-      key = maxKey + 1
+      result.push({
+        key: item.id,
+        value: item,
+      })
+      reusable.splice(index, 1)
+      addedItems.splice(i, 1)
     }
+  }
 
-    usedKeys.push(key)
-    maxKey = Math.max(maxKey, key)
+  // third: reuse rest keys or create new one
+  let maxKey =
+    items.length === 0
+      ? -1
+      : items.map((e) => e.key).reduce((a, b) => Math.max(a, b), 0)
+  result.push(
+    ...addedItems.map((item) => ({
+      key: reusable.pop()?.key ?? ++maxKey,
+      value: item,
+    }))
+  )
 
-    return {
-      key,
-      value: i,
-    }
-  })
+  return result
 }

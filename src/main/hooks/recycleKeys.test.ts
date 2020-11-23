@@ -1,3 +1,5 @@
+import { uniq } from "lodash"
+import testData from "../../../testdata/recycleKeyInput.json"
 import { recycleKeys } from "./recycleKeys"
 
 describe("recycleKeys", () => {
@@ -48,7 +50,7 @@ describe("recycleKeys", () => {
     expect(result).toStrictEqual([
       { key: 1, value: { id: 1 } },
       { key: 0, value: { id: 2 } },
-      { key: 3, value: { id: 3 } },
+      { key: 2, value: { id: 3 } },
     ])
   })
 
@@ -82,5 +84,14 @@ describe("recycleKeys", () => {
       { key: 0, value: { id: 1 } },
       { key: 2, value: { id: 3 } },
     ])
+  })
+
+  it("wont produce same keys", () => {
+    const { prevItems, items } = testData
+    const ids = items.map((e) => e.id)
+    expect(ids).toStrictEqual(uniq(ids))
+    const keyedValue = recycleKeys(prevItems, items)
+    const keys = keyedValue.map((e) => e.key)
+    expect(keys).toStrictEqual(uniq(keys))
   })
 })

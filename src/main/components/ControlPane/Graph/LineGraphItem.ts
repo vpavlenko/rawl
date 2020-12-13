@@ -38,6 +38,15 @@ export default class LineGraphItem implements Item {
 
   render(ctx: CanvasRenderingContext2D) {
     ctx.save()
+
+    // draw starting dot
+    {
+      ctx.beginPath()
+      ctx.fillStyle = this.strokeColor
+      ctx.arc(this.bounds.x, this.startY, 3, 0, 2 * Math.PI)
+      ctx.fill()
+    }
+
     ctx.beginPath()
     ctx.strokeStyle = this.strokeColor
     ctx.fillStyle = this.fillColor

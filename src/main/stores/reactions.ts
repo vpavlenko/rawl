@@ -66,5 +66,6 @@ const updateInputDevices: Reaction = (rootStore) => () => {
     .map((deviceId) => midiDeviceStore.inputs.find((d) => d.id === deviceId))
     .filter(isNotUndefined)
 
-  rootStore.services.midiInputGroup.devices = devices
+  rootStore.services.midiInput.removeAllDevices()
+  devices.forEach(rootStore.services.midiInput.addDevice)
 }

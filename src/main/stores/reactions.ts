@@ -1,5 +1,5 @@
 import { autorun, observe } from "mobx"
-import { isNotNull } from "../../common/helpers/array"
+import { isNotNull, isNotUndefined } from "../../common/helpers/array"
 import { emptySelection } from "../../common/selection/Selection"
 import { resetSelection } from "../actions"
 import MIDIOutput from "../services/MIDIOutput"
@@ -42,6 +42,18 @@ export const registerReactions = (rootStore: RootStore) => {
     "isFactorySoundEnabled",
     updateOutputDevices
   )
+
+  const updateInputDevices = () => {
+    const { midiDeviceStore } = rootStore
+
+    const devices = Array.from(midiDeviceStore.enabledInputIds.values())
+      .map((deviceId) => midiDeviceStore.inputs.find((d) => d.id === deviceId))
+      .filter(isNotUndefined)
+
+    rootStore.services.midiInputGroup.devices = devices
+  }
+
+  observe(rootStore.midiDeviceStore, "enabledInputIds", updateInputDevices)
 
   // reset selection when change track
   autorun(() => {

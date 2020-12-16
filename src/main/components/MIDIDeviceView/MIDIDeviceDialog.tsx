@@ -51,11 +51,6 @@ const Spacer = styled.div`
   height: 2rem;
 `
 
-// to hide incomplete feature
-const Invisible = styled.div`
-  display: none;
-`
-
 export const MIDIDeviceDialog: FC = () => {
   const { midiDeviceStore, rootViewStore } = useStores()
 
@@ -112,24 +107,22 @@ export const MIDIDeviceDialog: FC = () => {
         {isLoading && <CircularProgress />}
         {!isLoading && (
           <>
-            <Invisible>
-              <DialogContentText>
-                {localized("inputs", "Inputs")}
-              </DialogContentText>
-              <DeviceList>
-                {inputDevices.map(({ device, isSelected }) => (
-                  <DeviceRow
-                    key={device.id}
-                    device={device}
-                    isSelected={isSelected}
-                    onCheck={(checked) =>
-                      midiDeviceStore.setInputEnable(device.id, checked)
-                    }
-                  />
-                ))}
-              </DeviceList>
-              <Spacer />
-            </Invisible>
+            <DialogContentText>
+              {localized("inputs", "Inputs")}
+            </DialogContentText>
+            <DeviceList>
+              {inputDevices.map(({ device, isSelected }) => (
+                <DeviceRow
+                  key={device.id}
+                  device={device}
+                  isSelected={isSelected}
+                  onCheck={(checked) =>
+                    midiDeviceStore.setInputEnable(device.id, checked)
+                  }
+                />
+              ))}
+            </DeviceList>
+            <Spacer />
             <DialogContentText>
               {localized("outputs", "Outputs")}
             </DialogContentText>

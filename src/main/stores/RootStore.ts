@@ -7,6 +7,7 @@ import { SerializedState } from "../actions/history"
 import { TIME_BASE } from "../Constants"
 import { GroupOutput } from "../services/GroupOutput"
 import IFrameSynth from "../services/IFrameSynth"
+import { MIDIInputGroup } from "../services/MIDIInput"
 import ArrangeViewStore from "./ArrangeViewStore"
 import HistoryStore from "./HistoryStore"
 import { MIDIDeviceStore } from "./MIDIDeviceStore"
@@ -22,6 +23,7 @@ export interface Services {
   quantizer: Quantizer
   synth: IFrameSynth
   synthGroup: GroupOutput
+  midiInputGroup: MIDIInputGroup
 }
 
 export default class RootStore {
@@ -50,7 +52,8 @@ export default class RootStore {
     const player = new Player(TIME_BASE, synthGroup, this.trackMute)
     player.song = this.song
     const quantizer = new Quantizer(TIME_BASE)
-    this.services = { player, quantizer, synth, synthGroup }
+    const midiInputGroup = new MIDIInputGroup()
+    this.services = { player, quantizer, synth, synthGroup, midiInputGroup }
     this.pianoRollStore = new PianoRollStore()
 
     synth.onLoadSoundFont = (e) => {

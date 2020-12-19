@@ -28,15 +28,18 @@ export const registerReactions = (rootStore: RootStore) => {
 
   // reset selection when change track
   observe(rootStore.song, "selectedTrackId", resetSelection(rootStore))
+
+  observe(rootStore.song, "selectedTrackId", updateMIDIInputChannel(rootStore))
 }
 
 type Reaction = (rootStore: RootStore) => () => void
 
 // sync synthGroup.output to enabledOutputIds/isFactorySoundEnabled
-const updateOutputDevices: Reaction = (rootStore) => () => {
-  const { midiDeviceStore } = rootStore
-
-  rootStore.services.player.allSoundsOff()
+const updateOutputDevices: Reaction = ({
+  midiDeviceStore,
+  services: { player, synth, synthGroup },
+}) => () => {
+  player.allSoundsOff()
 
   const getMIDIDeviceEntries = () =>
     Array.from(midiDeviceStore.enabledOutputIds.values())
@@ -50,22 +53,31 @@ const updateOutputDevices: Reaction = (rootStore) => () => {
       })
       .filter(isNotNull)
 
-  rootStore.services.synthGroup.outputs = [
+  synthGroup.outputs = [
     {
-      synth: rootStore.services.synth,
+      synth: synth,
       isEnabled: midiDeviceStore.isFactorySoundEnabled,
     },
     ...getMIDIDeviceEntries(),
   ]
 }
 
-const updateInputDevices: Reaction = (rootStore) => () => {
-  const { midiDeviceStore } = rootStore
-
+const updateInputDevices: Reaction = ({
+  midiDeviceStore,
+  services: { midiInput },
+}) => () => {
   const devices = Array.from(midiDeviceStore.enabledInputIds.values())
     .map((deviceId) => midiDeviceStore.inputs.find((d) => d.id === deviceId))
     .filter(isNotUndefined)
 
-  rootStore.services.midiInput.removeAllDevices()
-  devices.forEach(rootStore.services.midiInput.addDevice)
+  midiInput.removeAllDevices()
+  devices.forEach(midiInput.addDevice)
+}
+
+const updateMIDIInputChannel: Reaction = ({
+  services: { midiInput },
+  song,
+}) => () => {
+  const channel = song.selectedTrack?.channel
+  midiInput.channel = channel ?? 0
 }

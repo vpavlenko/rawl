@@ -7,7 +7,11 @@ import { SerializedState } from "../actions/history"
 import { TIME_BASE } from "../Constants"
 import { GroupOutput } from "../services/GroupOutput"
 import IFrameSynth from "../services/IFrameSynth"
-import { MIDIInput, midiInputPreview } from "../services/MIDIInput"
+import {
+  MIDIInput,
+  previewMidiInput,
+  recordMidiInput,
+} from "../services/MIDIInput"
 import ArrangeViewStore from "./ArrangeViewStore"
 import HistoryStore from "./HistoryStore"
 import { MIDIDeviceStore } from "./MIDIDeviceStore"
@@ -61,7 +65,13 @@ export default class RootStore {
       player.reset()
     }
 
-    midiInput.onMidiMessage = midiInputPreview(this)
+    const preview = previewMidiInput(this)
+    const record = recordMidiInput(this)
+
+    midiInput.onMidiMessage = (e) => {
+      preview(e)
+      record(e)
+    }
 
     registerReactions(this)
   }

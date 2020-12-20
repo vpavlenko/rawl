@@ -1,5 +1,7 @@
+import { observe } from "mobx"
 import { parseMessage } from "../../common/midi/parseMessage"
 import { serializeMessage } from "../../common/midi/serializeMessage"
+import { NoteEvent } from "../../common/track"
 import RootStore from "../stores/RootStore"
 
 export class MIDIInput {
@@ -48,4 +50,53 @@ export const previewMidiInput = (rootStore: RootStore) => (
       timestamp: window.performance.now(),
     },
   ])
+}
+
+export const recordMidiInput = (rootStore: RootStore) => {
+  let recordedNotes: NoteEvent[] = []
+
+  // extend duration while key press
+  observe(rootStore.services.player, "position", (change) => {
+    const track = rootStore.song.selectedTrack
+    if (track === undefined) {
+      return
+    }
+
+    const tick = rootStore.services.player.position
+
+    recordedNotes.forEach((n) => {
+      track.updateEvent<NoteEvent>(n.id, {
+        duration: tick - n.tick,
+      })
+    })
+  })
+
+  return (e: WebMidi.MIDIMessageEvent) => {
+    const track = rootStore.song.selectedTrack
+    if (track === undefined) {
+      return
+    }
+
+    const tick = rootStore.services.player.position
+
+    const message = parseMessage(e.data)
+
+    if (message.subtype === "noteOn") {
+      const note = track.addEvent<NoteEvent>({
+        type: "channel",
+        subtype: "note",
+        noteNumber: message.noteNumber,
+        tick,
+        velocity: message.velocity,
+        duration: 0,
+      })
+      recordedNotes.push(note)
+    }
+
+    if (message.subtype === "noteOff") {
+      recordedNotes = recordedNotes.filter(
+        (n) => n.noteNumber !== message.noteNumber
+      )
+    }
+  }
 }

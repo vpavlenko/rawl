@@ -4,7 +4,6 @@ import RootStore from "../stores/RootStore"
 export const play = (rootStore: RootStore) => () => {
   const {
     services: { player },
-    song,
   } = rootStore
   if (player.isPlaying) {
     player.stop()

@@ -30,6 +30,18 @@ export const registerReactions = (rootStore: RootStore) => {
   observe(rootStore.song, "selectedTrackId", resetSelection(rootStore))
 
   observe(rootStore, "song", updateMIDIRecorderSong(rootStore))
+
+  observe(
+    rootStore.services.midiRecorder,
+    "isRecording",
+    disableSeekWhileRecording(rootStore)
+  )
+
+  observe(
+    rootStore.services.player,
+    "isPlaying",
+    stopRecordingWhenStopPlayer(rootStore)
+  )
 }
 
 type Reaction = (rootStore: RootStore) => () => void
@@ -78,3 +90,15 @@ const updateMIDIRecorderSong: Reaction = ({
   song,
   services: { midiRecorder },
 }) => () => (midiRecorder.song = song)
+
+const disableSeekWhileRecording: Reaction = ({
+  services: { player, midiRecorder },
+}) => () => (player.disableSeek = midiRecorder.isRecording)
+
+const stopRecordingWhenStopPlayer: Reaction = ({
+  services: { player, midiRecorder },
+}) => () => {
+  if (!player.isPlaying) {
+    midiRecorder.isRecording = false
+  }
+}

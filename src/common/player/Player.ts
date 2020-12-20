@@ -59,6 +59,7 @@ export default class Player {
   )
   private _currentTick = 0
   private _isPlaying = false
+  disableSeek: boolean = false
 
   loop: LoopSetting = {
     begin: 0,
@@ -105,6 +106,9 @@ export default class Player {
   }
 
   set position(tick: number) {
+    if (this.disableSeek) {
+      return
+    }
     tick = Math.min(
       Math.max(tick, 0),
       this._song?.endOfSong ?? Number.MAX_VALUE

@@ -28,8 +28,6 @@ export const registerReactions = (rootStore: RootStore) => {
 
   // reset selection when change track
   observe(rootStore.song, "selectedTrackId", resetSelection(rootStore))
-
-  observe(rootStore.song, "selectedTrackId", updateMIDIInputChannel(rootStore))
 }
 
 type Reaction = (rootStore: RootStore) => () => void
@@ -72,12 +70,4 @@ const updateInputDevices: Reaction = ({
 
   midiInput.removeAllDevices()
   devices.forEach(midiInput.addDevice)
-}
-
-const updateMIDIInputChannel: Reaction = ({
-  services: { midiInput },
-  song,
-}) => () => {
-  const channel = song.selectedTrack?.channel
-  midiInput.channel = channel ?? 0
 }

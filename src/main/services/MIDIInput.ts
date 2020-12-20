@@ -1,15 +1,10 @@
 import { parseMessage } from "../../common/midi/parseMessage"
 import { serializeMessage } from "../../common/midi/serializeMessage"
-import { SynthOutput } from "./SynthOutput"
+import RootStore from "../stores/RootStore"
 
 export class MIDIInput {
   private devices: WebMidi.MIDIInput[] = []
-  private output: SynthOutput
-  channel: number = 0
-
-  constructor(output: SynthOutput) {
-    this.output = output
-  }
+  onMessage: ((e: WebMidi.MIDIMessageEvent) => void) | null
 
   removeAllDevices = () => {
     this.devices.forEach(this.removeDevice)
@@ -26,18 +21,31 @@ export class MIDIInput {
   }
 
   onMidiMessage = (e: WebMidi.MIDIMessageEvent) => {
-    const event = parseMessage(e.data)
-
-    // modify channel to the selected track channel
-    event.channel = this.channel
-
-    const data = serializeMessage(event)
-
-    this.output.sendEvents([
-      {
-        message: data,
-        timestamp: window.performance.now(),
-      },
-    ])
+    this.onMessage?.(e)
   }
+}
+
+export const previewMidiInput = (rootStore: RootStore) => (
+  e: WebMidi.MIDIMessageEvent
+) => {
+  if (rootStore.song.selectedTrack === undefined) {
+    return
+  }
+  const channel = rootStore.song.selectedTrack.channel
+  if (channel === undefined) {
+    return
+  }
+  const event = parseMessage(e.data)
+
+  // modify channel to the selected track channel
+  event.channel = channel
+
+  const data = serializeMessage(event)
+
+  rootStore.services.synthGroup.sendEvents([
+    {
+      message: data,
+      timestamp: window.performance.now(),
+    },
+  ])
 }

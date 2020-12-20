@@ -7,7 +7,7 @@ import { SerializedState } from "../actions/history"
 import { TIME_BASE } from "../Constants"
 import { GroupOutput } from "../services/GroupOutput"
 import IFrameSynth from "../services/IFrameSynth"
-import { MIDIInput } from "../services/MIDIInput"
+import { MIDIInput, midiInputPreview } from "../services/MIDIInput"
 import ArrangeViewStore from "./ArrangeViewStore"
 import HistoryStore from "./HistoryStore"
 import { MIDIDeviceStore } from "./MIDIDeviceStore"
@@ -52,7 +52,7 @@ export default class RootStore {
     const player = new Player(TIME_BASE, synthGroup, this.trackMute)
     player.song = this.song
     const quantizer = new Quantizer(TIME_BASE)
-    const midiInput = new MIDIInput(synthGroup)
+    const midiInput = new MIDIInput()
     this.services = { player, quantizer, synth, synthGroup, midiInput }
     this.pianoRollStore = new PianoRollStore()
 
@@ -60,6 +60,8 @@ export default class RootStore {
       this.pianoRollStore.presetNames = e.presetNames
       player.reset()
     }
+
+    midiInput.onMidiMessage = midiInputPreview(this)
 
     registerReactions(this)
   }

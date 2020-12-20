@@ -56,6 +56,7 @@ export default class RootStore {
     const quantizer = new Quantizer(TIME_BASE)
     const midiInput = new MIDIInput()
     const midiRecorder = new MIDIRecorder(player)
+    midiRecorder.song = this.song
     this.services = {
       player,
       quantizer,

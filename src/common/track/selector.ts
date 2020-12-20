@@ -1,5 +1,5 @@
-import { uniq } from "lodash"
 import last from "lodash/last"
+import uniq from "lodash/uniq"
 import { isNotUndefined } from "../helpers/array"
 import {
   isControllerEvent,

@@ -2,6 +2,7 @@ import { makeStyles, Toolbar } from "@material-ui/core"
 import {
   FastForward,
   FastRewind,
+  FiberManualRecord,
   Pause,
   PlayArrow,
   Stop,
@@ -11,6 +12,7 @@ import React, { FC } from "react"
 import styled from "styled-components"
 import { getMBTString } from "../../../common/measure/mbt"
 import { fastForwardOneBar, play, rewindOneBar, stop } from "../../actions"
+import { toggleRecording } from "../../actions/recording"
 import { useMemoObserver } from "../../hooks/useMemoObserver"
 import { useStores } from "../../hooks/useStores"
 import { ToolbarSeparator } from "../groups/Toolbar"
@@ -75,8 +77,14 @@ const PlayButton = styled(Button)`
     opacity: 0.8;
   }
 
-  &.playing {
+  &.active {
     background: var(--theme-color);
+  }
+`
+
+const RecordButton = styled(Button)`
+  &.active {
+    color: ${({ theme }) => theme.recordColor};
   }
 `
 
@@ -163,13 +171,16 @@ const Timestamp: FC = () => {
 
 export const TransportPanel: FC = () => {
   const rootStore = useStores()
-  const { isPlaying } = useObserver(() => ({
+  const { isPlaying, isRecording, canRecording } = useObserver(() => ({
     isPlaying: rootStore.services.player.isPlaying,
+    isRecording: rootStore.services.midiRecorder.isRecording,
+    canRecording: rootStore.midiDeviceStore.enabledInputIds.size > 0,
   }))
-  const onClickPlay = () => play(rootStore)()
-  const onClickStop = () => stop(rootStore)()
-  const onClickBackward = () => rewindOneBar(rootStore)()
-  const onClickForward = () => fastForwardOneBar(rootStore)()
+  const onClickPlay = play(rootStore)
+  const onClickStop = stop(rootStore)
+  const onClickBackward = rewindOneBar(rootStore)
+  const onClickForward = fastForwardOneBar(rootStore)
+  const onClickRecord = toggleRecording(rootStore)
 
   const classes = useStyles({})
   return (
@@ -183,10 +194,19 @@ export const TransportPanel: FC = () => {
 
       <PlayButton
         onClick={onClickPlay}
-        className={isPlaying ? "playing" : undefined}
+        className={isPlaying ? "active" : undefined}
       >
         {isPlaying ? <Pause /> : <PlayArrow />}
       </PlayButton>
+
+      {canRecording && (
+        <RecordButton
+          onClick={onClickRecord}
+          className={isRecording ? "active" : undefined}
+        >
+          <FiberManualRecord />
+        </RecordButton>
+      )}
 
       <Button onClick={onClickForward}>
         <FastForward />

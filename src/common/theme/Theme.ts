@@ -16,6 +16,7 @@ export interface Theme {
   keyHeight: number
   rulerHeight: number
   ghostNoteColor: string
+  recordColor: string
 }
 
 export const defaultTheme: Theme = {
@@ -36,7 +37,7 @@ export const defaultTheme: Theme = {
   pianoKeyWhite: "#fbfcff",
   pianoBlackKeyLaneColor: "#1f2029",
   ghostNoteColor: "#444444",
-  recordColor: "#FF0000",
+  recordColor: "#dd3c3c",
 }
 
 declare module "styled-components" {

@@ -2,12 +2,18 @@ import difference from "lodash/difference"
 import isEqual from "lodash/isEqual"
 import sortBy from "lodash/sortBy"
 import without from "lodash/without"
+import {
+  ControllerEvent,
+  ProgramChangeEvent,
+  SetTempoEvent,
+  TrackNameEvent,
+} from "midifile-ts"
 import { action, computed, makeObservable, observable, transaction } from "mobx"
 import { createModelSchema, list, primitive } from "serializr"
 import { isNotUndefined } from "../helpers/array"
 import { pojo } from "../helpers/pojo"
 import { getInstrumentName } from "../midi/GM"
-import { isControllerEventWithType } from "./identify"
+import { isControllerEventWithType, isNoteEvent } from "./identify"
 import {
   getEndOfTrackEvent,
   getLast,
@@ -20,9 +26,7 @@ import {
   getVolume,
   isTickBefore,
 } from "./selector"
-import { NoteEvent, TrackEvent, TrackMidiEvent } from "./TrackEvent"
-
-type EventBeforeAdded = TrackMidiEvent | Omit<NoteEvent, "id">
+import { TrackEvent, TrackEventOf } from "./TrackEvent"
 
 export default class Track {
   events: TrackEvent[] = []
@@ -54,25 +58,25 @@ export default class Track {
     })
   }
 
-  private _updateEvent(
+  private _updateEvent<T extends TrackEvent>(
     id: number,
-    obj: Partial<TrackEvent>
-  ): TrackEvent | null {
+    obj: Partial<T>
+  ): T | null {
     const index = this.events.findIndex((e) => e.id === id)
     if (index < 0) {
       console.warn(`unknown id: ${id}`)
       return null
     }
-    const anObj = this.events[index]
+    const anObj = this.events[index] as T
     const newObj = { ...anObj, ...obj }
     if (isEqual(newObj, anObj)) {
       return null
     }
-    this.events[index] = newObj as TrackEvent
+    this.events[index] = newObj
     return anObj
   }
 
-  updateEvent(id: number, obj: Partial<TrackEvent>): TrackEvent | null {
+  updateEvent<T extends TrackEvent>(id: number, obj: Partial<T>): T | null {
     const result = this._updateEvent(id, obj)
     if (result) {
       this.updateEndOfTrack()
@@ -81,7 +85,7 @@ export default class Track {
     return result
   }
 
-  updateEvents(events: Partial<TrackEvent>[]) {
+  updateEvents<T extends TrackEvent>(events: Partial<T>[]) {
     transaction(() => {
       events.forEach((event) => {
         if (event.id === undefined) {
@@ -110,26 +114,26 @@ export default class Track {
   }
 
   // ソート、通知を行わない内部用の addEvent
-  private _addEvent(e: EventBeforeAdded): TrackEvent {
+  private _addEvent<T extends TrackEvent>(e: Omit<T, "id">): T {
     if (!("tick" in e) || isNaN(e.tick)) {
       throw new Error("invalid event is added")
     }
     const newEvent = {
       ...e,
       id: this.lastEventId++,
-    } as TrackEvent
+    } as T
     this.events.push(newEvent)
     return newEvent
   }
 
-  addEvent<T extends EventBeforeAdded>(e: T): TrackEvent {
+  addEvent<T extends TrackEvent>(e: Omit<T, "id">): T {
     const ev = this._addEvent(e)
     this.didAddEvent()
     return ev
   }
 
-  addEvents(events: EventBeforeAdded[]): TrackEvent[] {
-    let result: TrackEvent[] = []
+  addEvents<T extends TrackEvent>(events: Omit<T, "id">[]): T[] {
+    let result: T[] = []
     transaction(() => {
       result = events.map((e) => this._addEvent(e))
     })
@@ -148,7 +152,12 @@ export default class Track {
 
   updateEndOfTrack() {
     const tick = Math.max(
-      ...this.events.map((e) => e.tick + ("duration" in e ? e.duration : 0))
+      ...this.events.map((e) => {
+        if (isNoteEvent(e)) {
+          return e.tick + e.duration
+        }
+        return e.tick
+      })
     )
     this.setEndOfTrack(tick)
   }
@@ -159,7 +168,9 @@ export default class Track {
 
   /* helper */
 
-  createOrUpdate(newEvent: Partial<TrackEvent>) {
+  createOrUpdate<T extends TrackEvent>(
+    newEvent: Omit<T, "id"> & { subtype?: string }
+  ): T {
     const events = this.events.filter(
       (e) =>
         e.type === newEvent.type &&
@@ -172,12 +183,12 @@ export default class Track {
     if (events.length > 0) {
       this.transaction((it) => {
         events.forEach((e) => {
-          it.updateEvent(e.id, { ...newEvent, id: e.id })
+          it.updateEvent(e.id, { ...newEvent, id: e.id } as Partial<T>)
         })
       })
-      return events[0]
+      return events[0] as T
     } else {
-      return this.addEvent(newEvent as EventBeforeAdded)
+      return this.addEvent(newEvent)
     }
   }
 
@@ -211,12 +222,12 @@ export default class Track {
         .filter(isTickBefore(tick))
     )
     if (e !== undefined) {
-      this.updateEvent(e.id, {
+      this.updateEvent<TrackEventOf<ControllerEvent>>(e.id, {
         value,
       })
     } else {
       // If there are no controller events, we insert new event at the head of the track
-      this.addEvent({
+      this.addEvent<TrackEventOf<ControllerEvent>>({
         type: "channel",
         subtype: "controller",
         controllerType,
@@ -258,14 +269,14 @@ export default class Track {
   setProgramNumber(value: number) {
     const e = getProgramNumberEvent(this.events)
     if (e !== undefined) {
-      this.updateEvent(e.id, { value })
+      this.updateEvent<TrackEventOf<ProgramChangeEvent>>(e.id, { value })
     }
   }
 
   setTempo(bpm: number, tick: number) {
     const e = getTempoEvent(this.events, tick)
     if (e !== undefined) {
-      this.updateEvent(e.id, {
+      this.updateEvent<TrackEventOf<SetTempoEvent>>(e.id, {
         microsecondsPerBeat: 60000000 / bpm,
       })
     }
@@ -274,7 +285,7 @@ export default class Track {
   setName(text: string) {
     const e = getTrackNameEvent(this.events)
     if (e !== undefined) {
-      this.updateEvent(e.id, { text })
+      this.updateEvent<TrackEventOf<TrackNameEvent>>(e.id, { text })
     }
   }
 

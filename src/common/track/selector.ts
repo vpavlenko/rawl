@@ -54,7 +54,10 @@ export const getTempo = (
 }
 
 // collect events which will be retained in the synthesizer
-export const getStatusEvents = (events: TrackEvent[], tick: number) => {
+export const getStatusEvents = (
+  events: TrackEvent[],
+  tick: number
+): TrackEvent[] => {
   const controlEvents = events
     .filter(isControllerEvent)
     .filter(isTickBefore(tick))

@@ -25,9 +25,6 @@ export const ArrangeEditor: FC = () => {
     <div className="ArrangeEditor">
       <NavigationBar>
         <ArrangeToolbar />
-        <div className="menu">
-          <NavItem title="settings" onClick={() => router.pushSettings()} />
-        </div>
       </NavigationBar>
       <ArrangeView />
     </div>

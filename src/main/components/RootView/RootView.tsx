@@ -8,7 +8,6 @@ import { BuildInfo } from "../BuildInfo"
 import { HelpDialog } from "../Help/HelpDialog"
 import { MIDIDeviceDialog } from "../MIDIDeviceView/MIDIDeviceDialog"
 import { PianoRollEditor } from "../PianoRoll/PianoRollEditor"
-import { SettingsView } from "../SettingsView/SettingsView"
 import { TempoEditor } from "../TempoGraph/TempoEditor"
 import { TransportPanel } from "../TransportPanel/TransportPanel"
 import "./Resizer.css"
@@ -27,7 +26,6 @@ const Routes: FC = () => {
       {path === "/track" && <PianoRollEditor />}
       {path === "/tempo" && <TempoEditor />}
       {path === "/arrange" && <ArrangeEditor />}
-      {path === "/settings" && <SettingsView />}
     </>
   )
 }

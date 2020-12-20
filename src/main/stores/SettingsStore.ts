@@ -45,16 +45,13 @@ export default class SettingsStore {
     try {
       this.db = await openDatabase("db", 1)
       const settings = fromKeyValue(await getAll(this.db, storeName))
+      const mergedSettings = { ...defaultSettings, ...settings }
       console.log("settings have been loaded", settings)
-      await putValues(
-        this.db,
-        storeName,
-        toKeyValue({ ...defaultSettings, ...settings })
-      )
-      this.settings = settings as Settings
+      await putValues(this.db, storeName, toKeyValue(mergedSettings))
+      this.settings = mergedSettings as Settings
       this.initialized = true
       this.onInitalized(this.settings)
-      console.log("default settings have been saved", settings)
+      console.log("default settings have been saved", mergedSettings)
     } catch (e) {
       console.error(e)
     }

@@ -33,7 +33,7 @@ export default class RootStore {
   router = new Router()
   trackMute = new TrackMute()
   historyStore = new HistoryStore<SerializedState>()
-  settingsStore = new SettingsStore()
+  settingsStore: SettingsStore
   rootViewStore = new RootViewStore()
   pianoRollStore: PianoRollStore
   arrangeViewStore = new ArrangeViewStore()
@@ -78,6 +78,9 @@ export default class RootStore {
       preview(e)
       midiRecorder.onMessage(e)
     }
+
+    this.settingsStore = new SettingsStore((settings) => {
+    })
 
     registerReactions(this)
   }

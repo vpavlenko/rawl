@@ -20,9 +20,9 @@ module.exports = merge(common, {
   plugins: [
     new CopyPlugin({
       patterns: [
-        { from: "public/*.sf2", flatten: true },
-        { from: "public/*.svg", flatten: true },
-        { from: "public/*.png", flatten: true },
+        { from: "public/*.sf2", to: "dist/[name].[ext]" },
+        { from: "public/*.svg", to: "dist/[name].[ext]" },
+        { from: "public/*.png", to: "dist/[name].[ext]" },
       ],
     }),
     new BundleAnalyzerPlugin({

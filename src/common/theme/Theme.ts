@@ -36,4 +36,9 @@ export const defaultTheme: Theme = {
   pianoKeyWhite: "#fbfcff",
   pianoBlackKeyLaneColor: "#1f2029",
   ghostNoteColor: "#444444",
+  recordColor: "#FF0000",
+}
+
+declare module "styled-components" {
+  interface DefaultTheme extends Theme {}
 }

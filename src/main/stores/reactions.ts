@@ -1,4 +1,4 @@
-import { observe } from "mobx"
+import { observe, reaction } from "mobx"
 import { isNotNull, isNotUndefined } from "../../common/helpers/array"
 import { resetSelection } from "../actions"
 import MIDIOutput from "../services/MIDIOutput"
@@ -41,6 +41,14 @@ export const registerReactions = (rootStore: RootStore) => {
     rootStore.services.player,
     "isPlaying",
     stopRecordingWhenStopPlayer(rootStore)
+  )
+
+  reaction(
+    () => rootStore.midiDeviceStore.enabledInputIds,
+    (enabledInputIds) =>
+      rootStore.settingsStore.update({
+        midiInputIds: Array.from(enabledInputIds),
+      })
   )
 }
 

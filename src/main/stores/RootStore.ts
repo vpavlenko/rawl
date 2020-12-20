@@ -80,6 +80,8 @@ export default class RootStore {
     }
 
     this.settingsStore = new SettingsStore((settings) => {
+      this.midiDeviceStore.enabledInputIds = new Set(settings.midiInputIds)
+      this.midiDeviceStore.enabledOutputIds = new Set(settings.midiOutputIds)
     })
 
     registerReactions(this)

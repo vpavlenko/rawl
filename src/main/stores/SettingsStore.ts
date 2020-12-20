@@ -1,9 +1,13 @@
 import { makeObservable, observable, reaction } from "mobx"
 
 export interface Settings {
+  midiInputIds: string[]
+  midiOutputIds: string[]
 }
 
 const defaultSettings: Settings = {
+  midiInputIds: [],
+  midiOutputIds: [],
 }
 
 const storeName = "settings"

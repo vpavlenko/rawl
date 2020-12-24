@@ -2,7 +2,6 @@ import React, { FC } from "react"
 import styled from "styled-components"
 import { TrackEvent } from "../../../common/track"
 import { ControlMark, DisplayEvent } from "./ControlMark"
-import "./PianoControlEvents.css"
 
 /// 重なって表示されないようにひとつのイベントとしてまとめる
 function groupControlEvents(

@@ -1,8 +1,49 @@
 import { Button } from "@material-ui/core"
 import { FiberManualRecord, MusicNote } from "@material-ui/icons"
 import React from "react"
+import styled from "styled-components"
 import QuantizePopup from "./QuantizePopup"
-import "./QuantizeSelector.css"
+
+const Container = styled.div`
+  display: flex;
+  color: var(--secondary-text-color);
+  position: relative;
+  margin-right: 1em;
+  height: 2rem;
+`
+
+const DotLabel = styled(FiberManualRecord)`
+  top: -0.2rem;
+  left: 0.1rem;
+  position: relative;
+  width: 0.6rem;
+  font-size: 1.1rem;
+`
+
+const TripletLabel = styled.span`
+  opacity: 0.6;
+  font-size: 70%;
+  padding: 0 0.24em;
+`
+
+const Content = styled(Button)`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border: 1px solid var(--divider-color);
+  padding: 4px;
+  cursor: pointer;
+`
+
+const Value = styled.div`
+  min-width: 2em;
+  pointer-events: none;
+  font-size: 0.9rem;
+`
+
+const Note = styled(MusicNote)`
+  font-size: 1.1rem;
+`
 
 function calcQuantize(num: number, dot: boolean, triplet: boolean): number {
   let val = num
@@ -35,8 +76,7 @@ function QuantizeSelector({ value, onSelect }: QuantizeSelectorProps) {
   const [anchorEl, setAnchorEl] = React.useState<Element | null>(null)
 
   return (
-    <div
-      className="QuantizeSelector"
+    <Container
       onWheel={(e) => {
         const currentIndex = list.indexOf(denominator)
         const delta = e.deltaY < 0 ? 1 : -1
@@ -47,20 +87,19 @@ function QuantizeSelector({ value, onSelect }: QuantizeSelectorProps) {
         onSelect(calcQuantize(list[index], dot, triplet))
       }}
     >
-      <Button
+      <Content
         size="small"
-        className="content"
         onClick={(e) => {
           setAnchorEl(e.currentTarget)
         }}
       >
-        <MusicNote />
-        <div className="value">
+        <Note />
+        <Value>
           <span className="denominator">{denominator}</span>
-          {triplet && <span className="triplet-label">3</span>}
-          {dot && <FiberManualRecord className="dot-label" />}
-        </div>
-      </Button>
+          {triplet && <TripletLabel>3</TripletLabel>}
+          {dot && <DotLabel />}
+        </Value>
+      </Content>
       <QuantizePopup
         anchorEl={anchorEl}
         isOpen={anchorEl !== null}
@@ -73,7 +112,7 @@ function QuantizeSelector({ value, onSelect }: QuantizeSelectorProps) {
         onChangeDotted={(d) => onSelect(calcQuantize(denominator, d, false))}
         onChangeTriplet={(t) => onSelect(calcQuantize(denominator, false, t))}
       />
-    </div>
+    </Container>
   )
 }
 

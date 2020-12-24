@@ -10,7 +10,6 @@ import { ThemeContext } from "../../hooks/useTheme"
 import { KeyboardShortcut } from "../../services/KeyboardShortcut"
 import RootStore from "../../stores/RootStore"
 import { RootView } from "../RootView/RootView"
-import "./App.css"
 
 export function App() {
   return (

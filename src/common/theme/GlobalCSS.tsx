@@ -22,6 +22,75 @@ const GlobalStyle = createGlobalStyle<ThemeStyleProps>`
   --key-width: ${({ theme }) => theme.keyWidth}px;
   --ruler-height: ${({ theme }) => theme.rulerHeight}px;
 }
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-size: 80%;
+  -webkit-font-smoothing: subpixel-antialiased;
+  color: var(--text-color);
+  background-color: var(--background-color);
+  overscroll-behavior: none;
+  font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue, sans-serif;
+}
+
+#root {
+  height: 100%;
+}
+
+div,
+label,
+button,
+canvas,
+section,
+a,
+p,
+header,
+footer,
+ul,
+li {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+}
+
+#synth {
+  width: 1px;
+  height: 1px;
+  display: block;
+  border: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 999;
+}
+
+/* ScrollBar */
+
+.ScrollBar {
+  background-color: var(--background-color);
+}
+
+.ScrollBar .thumb {
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  background: var(--secondary-background-color);
+}
+
+.ScrollBar .thumb:active,
+.ScrollBar .thumb:hover {
+  background: var(--tertiary-background-color);
+}
+
+.ScrollBar .button-backward:active,
+.ScrollBar .button-backward:hover,
+.ScrollBar .button-forward:active,
+.ScrollBar .button-forward:hover {
+  background: var(--tertiary-background-color);
+}
 `
 
 export const GlobalCSS = () => {

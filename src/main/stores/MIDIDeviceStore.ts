@@ -34,8 +34,10 @@ export class MIDIDeviceStore {
     navigator
       .requestMIDIAccess({ sysex: true })
       .then((midiAccess) => {
-        this.inputs = Array.from(midiAccess.inputs.values())
-        this.outputs = Array.from(midiAccess.outputs.values())
+        this.updatePorts(midiAccess)
+        midiAccess.onstatechange = () => {
+          this.updatePorts(midiAccess)
+        }
       })
       .catch((error: Error) => {
         this.requestError = error
@@ -43,6 +45,11 @@ export class MIDIDeviceStore {
       .finally(() => {
         this.isLoading = false
       })
+  }
+
+  private updatePorts(midiAccess: WebMidi.MIDIAccess) {
+    this.inputs = Array.from(midiAccess.inputs.values())
+    this.outputs = Array.from(midiAccess.outputs.values())
   }
 
   setInputEnable(deviceId: string, enabled: boolean) {

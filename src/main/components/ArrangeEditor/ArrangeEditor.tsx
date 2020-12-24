@@ -2,7 +2,6 @@ import React, { FC } from "react"
 import styled from "styled-components"
 import { useStores } from "../../hooks/useStores"
 import { ArrangeToolbar } from "../ArrangeView/ArrangeToolbar"
-import NavigationBar from "../groups/NavigationBar"
 import ArrangeView from "./ArrangeView"
 
 interface NavItemProps {
@@ -31,9 +30,7 @@ export const ArrangeEditor: FC = () => {
 
   return (
     <Container>
-      <NavigationBar>
-        <ArrangeToolbar />
-      </NavigationBar>
+      <ArrangeToolbar />
       <ArrangeView />
     </Container>
   )

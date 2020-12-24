@@ -1,9 +1,26 @@
-import { KeyboardTab } from "@material-ui/icons"
+import {
+  AppBar,
+  Divider,
+  IconButton,
+  makeStyles,
+  Toolbar,
+} from "@material-ui/core"
+import { ChevronLeft, KeyboardTab } from "@material-ui/icons"
 import { useObserver } from "mobx-react-lite"
 import React, { FC, useCallback } from "react"
 import { useStores } from "../../hooks/useStores"
-import { Toolbar, ToolbarItem, ToolbarSeparator } from "../groups/Toolbar"
 import QuantizeSelector from "../PianoRollToolbar/QuantizeSelector/QuantizeSelector"
+import { StyledToggleButton } from "../PianoRollToolbar/ToolSelector"
+
+const useStyles = makeStyles((theme) => ({
+  appBar: {
+    background: "var(--background-color)",
+    borderBottom: "1px solid var(--divider-color)",
+  },
+  title: {
+    marginRight: "1rem",
+  },
+}))
 
 export const ArrangeToolbar: FC = () => {
   const rootStore = useStores()
@@ -27,18 +44,26 @@ export const ArrangeToolbar: FC = () => {
     rootStore.arrangeViewStore.quantize = e.denominator
   }, [])
 
+  const classes = useStyles({})
+
   return (
-    <Toolbar className="ArrangeToolbar">
-      <QuantizeSelector
-        value={quantize}
-        onSelect={(value) => onSelectQuantize({ denominator: value })}
-      />
+    <AppBar position="static" elevation={0} className={classes.appBar}>
+      <Toolbar variant="dense">
+        <IconButton>
+          <ChevronLeft />
+        </IconButton>
 
-      <ToolbarSeparator />
+        <QuantizeSelector
+          value={quantize}
+          onSelect={(value) => onSelectQuantize({ denominator: value })}
+        />
 
-      <ToolbarItem onClick={onClickAutoScroll} selected={autoScroll}>
-        <KeyboardTab />
-      </ToolbarItem>
-    </Toolbar>
+        <Divider orientation="vertical" />
+
+        <StyledToggleButton onClick={onClickAutoScroll} selected={autoScroll}>
+          <KeyboardTab />
+        </StyledToggleButton>
+      </Toolbar>
+    </AppBar>
   )
 }

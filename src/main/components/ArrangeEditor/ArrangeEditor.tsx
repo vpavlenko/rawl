@@ -1,8 +1,7 @@
 import React, { FC } from "react"
+import styled from "styled-components"
 import { useStores } from "../../hooks/useStores"
 import { ArrangeToolbar } from "../ArrangeView/ArrangeToolbar"
-import NavigationBar from "../groups/NavigationBar"
-import "./ArrangeEditor.css"
 import ArrangeView from "./ArrangeView"
 
 interface NavItemProps {
@@ -18,15 +17,21 @@ function NavItem({ title, onClick }: NavItemProps) {
   )
 }
 
+const Container = styled.div`
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  position: relative;
+`
+
 export const ArrangeEditor: FC = () => {
   const { router } = useStores()
 
   return (
-    <div className="ArrangeEditor">
-      <NavigationBar>
-        <ArrangeToolbar />
-      </NavigationBar>
+    <Container>
+      <ArrangeToolbar />
       <ArrangeView />
-    </div>
+    </Container>
   )
 }

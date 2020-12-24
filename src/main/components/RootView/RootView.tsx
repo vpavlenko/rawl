@@ -5,12 +5,12 @@ import { Drawer } from "../../components/Drawer/Drawer"
 import { useStores } from "../../hooks/useStores"
 import { ArrangeEditor } from "../ArrangeEditor/ArrangeEditor"
 import { BuildInfo } from "../BuildInfo"
+import { EventEditor } from "../EventEditor/EventEditor"
 import { HelpDialog } from "../Help/HelpDialog"
 import { MIDIDeviceDialog } from "../MIDIDeviceView/MIDIDeviceDialog"
 import { PianoRollEditor } from "../PianoRoll/PianoRollEditor"
 import { TempoEditor } from "../TempoGraph/TempoEditor"
 import { TransportPanel } from "../TransportPanel/TransportPanel"
-import "./Resizer.css"
 
 const Container = styled.div`
   height: 100%;
@@ -38,5 +38,6 @@ export const RootView: FC = () => (
     <BuildInfo />
     <HelpDialog />
     <MIDIDeviceDialog />
+    <EventEditor />
   </Container>
 )

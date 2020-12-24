@@ -2,8 +2,8 @@ import { IconButton, ListItem } from "@material-ui/core"
 import { Headset, VolumeOff, VolumeUp } from "@material-ui/icons"
 import React, { FC } from "react"
 import styled from "styled-components"
-import { TrackListContextMenu, useContextMenu } from "./TrackListContextMenu"
-import "./TrackListItem.css"
+import { useContextMenu } from "../../../hooks/useContextMenu"
+import { TrackListContextMenu } from "./TrackListContextMenu"
 
 export interface TrackListItemData {
   index: number
@@ -27,6 +27,44 @@ const Container = styled(ListItem)`
   &.Mui-selected {
     background-color: rgb(255 255 255 / 5%);
     border-right: 5px solid var(--theme-color);
+
+    .name {
+      font-weight: 600;
+    }
+  }
+
+  .controls {
+    display: flex;
+  }
+
+  .label {
+    display: flex;
+    padding-bottom: 0.3em;
+    font-size: 105%;
+    align-items: baseline;
+  }
+
+  .name {
+    padding-right: 0.5em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .label .instrument {
+    opacity: 0.5;
+    font-size: 90%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .button {
+    margin-right: 0.5em;
+    color: var(--secondary-text-color);
+  }
+
+  .button.active {
+    color: var(--text-color);
   }
 `
 

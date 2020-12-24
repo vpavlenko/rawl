@@ -1,42 +1,8 @@
 import { makeStyles, Popover } from "@material-ui/core"
-import { KeyboardArrowDown, KeyboardArrowUp } from "@material-ui/icons"
-import React, { FC } from "react"
+import React from "react"
+import styled from "styled-components"
 import { localized } from "../../../../common/localize/localizedString"
-import "./QuantizePopup.css"
-
-interface NumberPickerProps {
-  value: number
-  prevValue: () => number
-  nextValue: () => number
-  className: string
-  onChange: (v: number) => void
-}
-
-const NumberPicker: FC<NumberPickerProps> = ({
-  value,
-  prevValue,
-  nextValue,
-  className,
-  onChange,
-}) => {
-  function handleWheel(e: React.WheelEvent) {
-    onChange(e.deltaY < 0 ? prevValue() : nextValue())
-  }
-
-  return (
-    <div className={`NumberPicker ${className}`}>
-      <div className="button-up" onClick={() => onChange(nextValue())}>
-        <KeyboardArrowUp />
-      </div>
-      <div className="value" onWheel={handleWheel}>
-        {value}
-      </div>
-      <div className="button-down" onClick={() => onChange(prevValue())}>
-        <KeyboardArrowDown />
-      </div>
-    </div>
-  )
-}
+import { NumberPicker } from "./NumberPicker"
 
 export interface QuantizePopupProps {
   value: number
@@ -59,6 +25,44 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }))
+
+const Container = styled.div`
+  padding: 0 1em;
+  border-radius: 0.4em;
+  display: flex;
+  top: 3em;
+  left: -3em;
+
+  &::before {
+    content: "";
+    width: 1em;
+    height: 1em;
+    background: var(--background-color);
+    position: absolute;
+    top: -0.5em;
+    left: calc(50% - 1em);
+    transform: rotate(45deg);
+  }
+
+  .button-up {
+    margin-bottom: -0.4em;
+  }
+
+  .button-down {
+    margin-top: -0.1em;
+  }
+
+  .field {
+    white-space: nowrap;
+  }
+`
+
+const Right = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 0.5em;
+`
 
 export default function QuantizePopup({
   value = 8,
@@ -96,15 +100,14 @@ export default function QuantizePopup({
         horizontal: "center",
       }}
     >
-      <div className="QuantizePopup">
+      <Container>
         <NumberPicker
-          className="left"
           value={value}
           prevValue={prevValue}
           nextValue={nextValue}
           onChange={onChangeValue}
         />
-        <div className="right">
+        <Right>
           <div className="field">
             <input
               type="checkbox"
@@ -127,8 +130,8 @@ export default function QuantizePopup({
               {localized("dotted", "Dotted")}
             </label>
           </div>
-        </div>
-      </div>
+        </Right>
+      </Container>
     </Popover>
   )
 }

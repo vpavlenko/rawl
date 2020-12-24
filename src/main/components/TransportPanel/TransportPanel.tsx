@@ -15,7 +15,6 @@ import { fastForwardOneBar, play, rewindOneBar, stop } from "../../actions"
 import { toggleRecording } from "../../actions/recording"
 import { useMemoObserver } from "../../hooks/useMemoObserver"
 import { useStores } from "../../hooks/useStores"
-import { ToolbarSeparator } from "../groups/Toolbar"
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -168,6 +167,13 @@ const Timestamp: FC = () => {
   )
   return <TimestampText>{mbtTime}</TimestampText>
 }
+
+export const ToolbarSeparator = styled.div`
+  background: var(--divider-color);
+  margin: 0.4em 1em;
+  width: 1px;
+  height: 1rem;
+`
 
 export const TransportPanel: FC = () => {
   const rootStore = useStores()

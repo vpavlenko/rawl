@@ -1,21 +1,25 @@
 import { Add, FiberManualRecord, Remove } from "@material-ui/icons"
 import useComponentSize from "@rehooks/component-size"
-import React, { CSSProperties, FC, useRef } from "react"
-import "./ScaleScrollBar.css"
+import React, { FC, useRef } from "react"
+import styled from "styled-components"
 import { BAR_WIDTH, ScrollBar, ScrollBarProps } from "./ScrollBar"
 
-interface ScaleButtonProps {
-  style?: CSSProperties
-  onClick?: () => void
-}
+const ScaleButton = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-const ScaleButton: FC<ScaleButtonProps> = ({ style, children, onClick }) => {
-  return (
-    <div className="ScaleButton" style={style} onClick={onClick}>
-      {children}
-    </div>
-  )
-}
+  &:hover {
+    background: #dddddd;
+    color: black;
+  }
+
+  > svg {
+    width: 15px;
+    height: 15px;
+    transform: scale(0.8);
+  }
+`
 
 type HorizontalScaleScrollBarProps = Omit<
   ScrollBarProps,

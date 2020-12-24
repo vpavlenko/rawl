@@ -1,29 +1,35 @@
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+} from "@material-ui/core"
 import React, { FC } from "react"
 import { controllerTypeString } from "../../../common/helpers/noteNumberString"
 import { TrackEvent } from "../../../common/track"
-import "./EventList.css"
 
-interface TableProps {
+interface EventTableProps {
   items: TrackEvent[]
   headers: string[]
 }
 
-const Table: FC<TableProps> = ({ items, headers }) => {
+const EventTable: FC<EventTableProps> = ({ items, headers }) => {
   return (
-    <table>
-      <thead>
-        <tr>
+    <Table>
+      <TableHead>
+        <TableRow>
           {headers.map((header, i) => (
-            <th key={i}>{header}</th>
+            <TableCell key={i}>{header}</TableCell>
           ))}
-        </tr>
-      </thead>
-      <tbody>
+        </TableRow>
+      </TableHead>
+      <TableBody>
         {items.map((item, i) => (
           <EventRow item={item} key={i} />
         ))}
-      </tbody>
-    </table>
+      </TableBody>
+    </Table>
   )
 }
 
@@ -33,11 +39,11 @@ interface EventRowProps {
 
 const EventRow: FC<EventRowProps> = ({ item }) => {
   return (
-    <tr>
-      <td>{item.tick}</td>
-      <td>{statusForEvent(item)}</td>
-      <td>{"value" in item ? item.value : ""}</td>
-    </tr>
+    <TableRow>
+      <TableCell>{item.tick}</TableCell>
+      <TableCell>{statusForEvent(item)}</TableCell>
+      <TableCell>{"value" in item ? item.value : ""}</TableCell>
+    </TableRow>
   )
 }
 
@@ -59,7 +65,7 @@ export interface EventListProps {
 const EventList: FC<EventListProps> = ({ events }) => {
   return (
     <div className="EventList">
-      <Table items={events} headers={["Tick", "Status", "Value"]} />
+      <EventTable items={events} headers={["Tick", "Status", "Value"]} />
     </div>
   )
 }

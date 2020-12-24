@@ -1,4 +1,4 @@
-import { cloneDeep } from "lodash"
+import cloneDeep from "lodash/cloneDeep"
 import { deserialize, serialize } from "serializr"
 import { Selection } from "../../common/selection/Selection"
 import Song from "../../common/song/Song"

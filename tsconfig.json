@@ -10,7 +10,7 @@
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": true,
-    "lib": ["es2017", "dom"],
+    "lib": ["es2019", "dom"],
     "strictNullChecks": true,
     "alwaysStrict": true,
     "useDefineForClassFields": true,

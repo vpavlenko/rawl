@@ -7,6 +7,8 @@ import { SerializedState } from "../actions/history"
 import { TIME_BASE } from "../Constants"
 import { GroupOutput } from "../services/GroupOutput"
 import IFrameSynth from "../services/IFrameSynth"
+import { MIDIInput, previewMidiInput } from "../services/MIDIInput"
+import { MIDIRecorder } from "../services/MIDIRecorder"
 import ArrangeViewStore from "./ArrangeViewStore"
 import HistoryStore from "./HistoryStore"
 import { MIDIDeviceStore } from "./MIDIDeviceStore"
@@ -22,6 +24,8 @@ export interface Services {
   quantizer: Quantizer
   synth: IFrameSynth
   synthGroup: GroupOutput
+  midiInput: MIDIInput
+  midiRecorder: MIDIRecorder
 }
 
 export default class RootStore {
@@ -29,7 +33,7 @@ export default class RootStore {
   router = new Router()
   trackMute = new TrackMute()
   historyStore = new HistoryStore<SerializedState>()
-  settingsStore = new SettingsStore()
+  settingsStore: SettingsStore
   rootViewStore = new RootViewStore()
   pianoRollStore: PianoRollStore
   arrangeViewStore = new ArrangeViewStore()
@@ -50,13 +54,35 @@ export default class RootStore {
     const player = new Player(TIME_BASE, synthGroup, this.trackMute)
     player.song = this.song
     const quantizer = new Quantizer(TIME_BASE)
-    this.services = { player, quantizer, synth, synthGroup }
+    const midiInput = new MIDIInput()
+    const midiRecorder = new MIDIRecorder(player)
+    midiRecorder.song = this.song
+    this.services = {
+      player,
+      quantizer,
+      synth,
+      synthGroup,
+      midiInput,
+      midiRecorder,
+    }
     this.pianoRollStore = new PianoRollStore()
 
     synth.onLoadSoundFont = (e) => {
       this.pianoRollStore.presetNames = e.presetNames
       player.reset()
     }
+
+    const preview = previewMidiInput(this)
+
+    midiInput.onMidiMessage = (e) => {
+      preview(e)
+      midiRecorder.onMessage(e)
+    }
+
+    this.settingsStore = new SettingsStore((settings) => {
+      this.midiDeviceStore.enabledInputIds = new Set(settings.midiInputIds)
+      this.midiDeviceStore.enabledOutputIds = new Set(settings.midiOutputIds)
+    })
 
     registerReactions(this)
   }

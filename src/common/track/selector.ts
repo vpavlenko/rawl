@@ -1,5 +1,5 @@
-import { uniq } from "lodash"
 import last from "lodash/last"
+import uniq from "lodash/uniq"
 import { isNotUndefined } from "../helpers/array"
 import {
   isControllerEvent,
@@ -54,7 +54,10 @@ export const getTempo = (
 }
 
 // collect events which will be retained in the synthesizer
-export const getStatusEvents = (events: TrackEvent[], tick: number) => {
+export const getStatusEvents = (
+  events: TrackEvent[],
+  tick: number
+): TrackEvent[] => {
   const controlEvents = events
     .filter(isControllerEvent)
     .filter(isTickBefore(tick))

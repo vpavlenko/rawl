@@ -1,5 +1,6 @@
 import { serialize } from "serializr"
 import { emptySong } from "../song/SongFactory"
+import { NoteEvent } from "../track"
 import Track from "../track/Track"
 import { songFromMidi, songToMidi } from "./midiConversion"
 
@@ -14,7 +15,7 @@ const reassignIDs = (track: Track) => {
 describe("SongFile", () => {
   it("write and read", () => {
     const song = emptySong()
-    const note = song.tracks[1].addEvent({
+    const note = song.tracks[1].addEvent<NoteEvent>({
       type: "channel",
       subtype: "note",
       noteNumber: 57,

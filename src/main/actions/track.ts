@@ -1,4 +1,4 @@
-import { AnyEvent } from "midifile-ts"
+import { AnyEvent, SetTempoEvent } from "midifile-ts"
 import {
   expressionMidiEvent,
   modulationMidiEvent,
@@ -8,7 +8,7 @@ import {
   setTempoMidiEvent,
   volumeMidiEvent,
 } from "../../common/midi/MidiEvent"
-import { isNoteEvent, NoteEvent } from "../../common/track"
+import { isNoteEvent, NoteEvent, TrackEventOf } from "../../common/track"
 import { ControlMode } from "../components/ControlPane/ControlPane"
 import RootStore from "../stores/RootStore"
 import { pushHistory } from "./history"
@@ -29,7 +29,7 @@ export const changeTempo = (rootStore: RootStore) => (
     return
   }
   pushHistory(rootStore)()
-  track.updateEvent(id, {
+  track.updateEvent<TrackEventOf<SetTempoEvent>>(id, {
     microsecondsPerBeat: microsecondsPerBeat,
   })
 }
@@ -52,7 +52,7 @@ export const createTempo = (rootStore: RootStore) => (
     ...setTempoMidiEvent(0, Math.round(microsecondsPerBeat)),
     tick: quantizer.round(tick),
   }
-  track.createOrUpdate(e)
+  track.createOrUpdate<TrackEventOf<SetTempoEvent>>(e)
 }
 
 /* events */
@@ -76,10 +76,7 @@ export const changeNotesVelocity = (rootStore: RootStore) => (
   )
 }
 
-const createEvent = (rootStore: RootStore) => <T extends AnyEvent>(
-  e: T,
-  tick?: number
-) => {
+const createEvent = (rootStore: RootStore) => (e: AnyEvent, tick?: number) => {
   const {
     song,
     services: { quantizer, player },
@@ -197,8 +194,7 @@ export const createNote = (rootStore: RootStore) => (
     ? quantizer.round(tick)
     : quantizer.floor(tick)
 
-  const note: NoteEvent = {
-    id: 0,
+  const note = <Omit<NoteEvent, "id">>{
     type: "channel",
     subtype: "note",
     noteNumber: noteNumber,

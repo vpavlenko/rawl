@@ -1,5 +1,5 @@
 import { Container } from "@inlet/react-pixi"
-import { cloneDeep } from "lodash"
+import cloneDeep from "lodash/cloneDeep"
 import React, { RefObject } from "react"
 import {
   containsPoint,

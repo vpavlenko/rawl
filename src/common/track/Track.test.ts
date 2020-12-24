@@ -1,11 +1,12 @@
 import { deserialize, serialize } from "serializr"
 import Track from "./Track"
+import { NoteEvent } from "./TrackEvent"
 
 describe("Track", () => {
   it("should be serializable", () => {
     const track = new Track()
     track.channel = 5
-    track.addEvent({
+    track.addEvent<NoteEvent>({
       type: "channel",
       subtype: "note",
       duration: 120,

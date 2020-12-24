@@ -1,4 +1,4 @@
-import { cloneDeep } from "lodash"
+import cloneDeep from "lodash/cloneDeep"
 import { IRect } from "../geometry"
 import { NoteCoordTransform } from "../transform"
 import { NotePoint, zeroNotePoint } from "../transform/NotePoint"

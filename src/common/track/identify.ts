@@ -7,52 +7,49 @@ import {
   TimeSignatureEvent,
   TrackNameEvent,
 } from "midifile-ts"
-import { NoteEvent, TrackEvent, TrackEventRequired } from "./TrackEvent"
+import { NoteEvent, TrackEvent, TrackEventOf } from "./TrackEvent"
 
 export const isNoteEvent = (e: TrackEvent): e is NoteEvent =>
   "subtype" in e && e.subtype === "note"
 
 export const isTrackNameEvent = (
   e: TrackEvent
-): e is TrackEventRequired & Omit<TrackNameEvent, "deltaTime"> =>
+): e is TrackEventOf<TrackNameEvent> =>
   "subtype" in e && e.subtype === "trackName"
 
 export const isProgramChangeEvent = (
   e: TrackEvent
-): e is TrackEventRequired & Omit<ProgramChangeEvent, "deltaTime"> =>
+): e is TrackEventOf<ProgramChangeEvent> =>
   "subtype" in e && e.subtype === "programChange"
 
 export const isPitchBendEvent = (
   e: TrackEvent
-): e is TrackEventRequired & Omit<PitchBendEvent, "deltaTime"> =>
+): e is TrackEventOf<PitchBendEvent> =>
   "subtype" in e && e.subtype === "pitchBend"
 
 export const isEndOfTrackEvent = (
   e: TrackEvent
-): e is TrackEventRequired & Omit<EndOfTrackEvent, "deltaTime"> =>
+): e is TrackEventOf<EndOfTrackEvent> =>
   "subtype" in e && e.subtype === "endOfTrack"
 
 export const isSetTempoEvent = (
   e: TrackEvent
-): e is TrackEventRequired & Omit<SetTempoEvent, "deltaTime"> =>
+): e is TrackEventOf<SetTempoEvent> =>
   "subtype" in e && e.subtype === "setTempo"
-
-export type TrackTimeSignatureEvent = TrackEventRequired &
-  Omit<TimeSignatureEvent, "deltaTime">
 
 export const isTimeSignatureEvent = (
   e: TrackEvent
-): e is TrackTimeSignatureEvent =>
+): e is TrackEventOf<TimeSignatureEvent> =>
   "subtype" in e && e.subtype === "timeSignature"
 
 export const isControllerEvent = (
   e: TrackEvent
-): e is TrackEventRequired & Omit<ControllerEvent, "deltaTime"> =>
+): e is TrackEventOf<ControllerEvent> =>
   "subtype" in e && e.subtype === "controller"
 
 export const isControllerEventWithType = (controllerType: number) => (
   e: TrackEvent
-): e is TrackEventRequired & Omit<ControllerEvent, "deltaTime"> =>
+): e is TrackEventOf<ControllerEvent> =>
   isControllerEvent(e) && e.controllerType === controllerType
 
 export const isVolumeEvent = isControllerEventWithType(7)

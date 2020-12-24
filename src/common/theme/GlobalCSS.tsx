@@ -72,7 +72,7 @@ li {
 /* ScrollBar */
 
 .ScrollBar {
-  background-color: var(--background-color);
+  background-color: var(--background-color) !important;
 }
 
 .ScrollBar .thumb {

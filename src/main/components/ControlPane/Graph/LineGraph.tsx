@@ -3,7 +3,6 @@ import { IPoint } from "../../../../common/geometry"
 import { CanvasDrawStyle } from "../../../style"
 import Stage, { StageProps } from "../../Stage/Stage"
 import { GraphAxis } from "./GraphAxis"
-import "./LineGraph.css"
 import LineGraphItem from "./LineGraphItem"
 
 export interface LineGraphItemData extends IPoint {
@@ -51,7 +50,12 @@ const LineGraph: FC<LineGraphProps> = ({
   })
 
   return (
-    <div className={`PianoControl LineGraph ${className}`}>
+    <div
+      className={`PianoControl LineGraph ${className}`}
+      style={{
+        display: "flex",
+      }}
+    >
       <GraphAxis axis={axis} onClick={onClickAxis} />
       <Stage
         className="Graph"

@@ -1,48 +1,8 @@
-import { ControllerEvent, ProgramChangeEvent } from "midifile-ts"
 import React, { FC } from "react"
-import { controllerTypeString as CCNames } from "../../../common/helpers/noteNumberString"
-import { TrackEvent, TrackEventRequired } from "../../../common/track"
+import styled from "styled-components"
+import { TrackEvent } from "../../../common/track"
+import { ControlMark, DisplayEvent } from "./ControlMark"
 import "./PianoControlEvents.css"
-
-export type DisplayEvent = TrackEventRequired &
-  (ControllerEvent | ProgramChangeEvent)
-
-function displayControlName(e: DisplayEvent): string {
-  switch (e.subtype) {
-    case "controller": {
-      const name = CCNames(e.controllerType)
-      return name || "Control"
-    }
-    case "programChange":
-      return "Program Change"
-    default:
-      return "Control"
-  }
-}
-
-interface ControlMarkProps {
-  group: DisplayEvent[]
-  pixelsPerTick: number
-  onDoubleClick: () => void
-}
-
-const ControlMark: FC<ControlMarkProps> = ({
-  group,
-  pixelsPerTick,
-  onDoubleClick,
-}) => {
-  const event = group[0]
-  return (
-    <div
-      className="ControlMark"
-      style={{ left: event.tick * pixelsPerTick }}
-      onDoubleClick={onDoubleClick}
-    >
-      {displayControlName(event)}
-      {group.length > 1 ? ` +${group.length}` : ""}
-    </div>
-  )
-}
 
 /// 重なって表示されないようにひとつのイベントとしてまとめる
 function groupControlEvents(
@@ -100,6 +60,19 @@ export interface PianoControlEventsProps {
   onDoubleClickMark: (group: DisplayEvent[]) => void
 }
 
+const Container = styled.div`
+  margin-left: var(--key-width);
+  margin-top: var(--ruler-height);
+  position: absolute;
+
+  .content {
+    position: absolute;
+  }
+  .innter {
+    position: relative;
+  }
+`
+
 const PianoControlEvents: FC<PianoControlEventsProps> = ({
   width,
   events,
@@ -113,7 +86,7 @@ const PianoControlEvents: FC<PianoControlEventsProps> = ({
   )
 
   return (
-    <div className="PianoControlEvents" style={{ width }}>
+    <Container style={{ width }}>
       <div className="inner">
         <div className="content" style={{ left: -scrollLeft }}>
           {eventGroups.map((g, i) => (
@@ -126,7 +99,7 @@ const PianoControlEvents: FC<PianoControlEventsProps> = ({
           ))}
         </div>
       </div>
-    </div>
+    </Container>
   )
 }
 

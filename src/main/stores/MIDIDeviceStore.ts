@@ -31,6 +31,10 @@ export class MIDIDeviceStore {
     this.inputs = []
     this.outputs = []
 
+    if (navigator.requestMIDIAccess === undefined) {
+      return
+    }
+
     navigator
       .requestMIDIAccess({ sysex: true })
       .then((midiAccess) => {

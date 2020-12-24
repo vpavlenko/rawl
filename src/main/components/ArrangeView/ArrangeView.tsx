@@ -1,6 +1,6 @@
 import { Container } from "@inlet/react-pixi"
 import cloneDeep from "lodash/cloneDeep"
-import React, { RefObject } from "react"
+import React, { RefObject, useState } from "react"
 import styled from "styled-components"
 import {
   containsPoint,
@@ -17,6 +17,7 @@ import { Theme } from "../../../common/theme/Theme"
 import Track, { isNoteEvent, TrackEvent } from "../../../common/track"
 import { NoteCoordTransform } from "../../../common/transform"
 import ArrangeNoteItem from "../../components/ArrangeView/ArrangeNoteItem"
+import { useContextMenu } from "../../hooks/useContextMenu"
 import { HorizontalScaleScrollBar } from "../inputs/ScaleScrollBar"
 import { BAR_WIDTH, VerticalScrollBar } from "../inputs/ScrollBar"
 import { observeDrag } from "../PianoRoll/MouseHandler/observeDrag"
@@ -25,6 +26,7 @@ import PianoGrid from "../PianoRoll/PianoGrid"
 import PianoRuler from "../PianoRoll/PianoRuler"
 import PianoSelection from "../PianoRoll/PianoSelection"
 import Stage from "../Stage/Stage"
+import { ArrangeContextMenu } from "./ArrangeContextMenu"
 
 interface ArrangeTrackProps {
   events: TrackEvent[]
@@ -228,7 +230,6 @@ export interface ArrangeViewProps {
   onClickScaleUp: () => void
   onClickScaleDown: () => void
   onClickScaleReset: () => void
-  openContextMenu: (e: React.MouseEvent, isSelectionSelected: boolean) => void
 }
 
 const _ArrangeView = (
@@ -255,7 +256,6 @@ const _ArrangeView = (
     onClickScaleUp,
     onClickScaleDown,
     onClickScaleReset,
-    openContextMenu,
   }: ArrangeViewProps,
   ref: RefObject<HTMLDivElement>
 ) => {
@@ -301,6 +301,8 @@ const _ArrangeView = (
     onScrollTop(Math.floor(Math.min(maxOffset, Math.max(0, scroll))))
   }
 
+  const [isSelectionSelected, setSelectionSelected] = useState(false)
+
   function handleLeftClick(
     e: React.MouseEvent,
     createPoint: (e: MouseEvent) => IPoint
@@ -308,6 +310,9 @@ const _ArrangeView = (
     const startPos = createPoint(e.nativeEvent)
     const isSelectionSelected =
       selection != null && containsPoint(selection, startPos)
+
+    // save state to pass to ArrangeContextMenu
+    setSelectionSelected(isSelectionSelected)
 
     const createSelectionHandler = (
       e: MouseEvent,
@@ -378,15 +383,7 @@ const _ArrangeView = (
     })
   }
 
-  function handleRightClick(
-    e: React.MouseEvent,
-    createPoint: (e: MouseEvent) => IPoint
-  ) {
-    const startPos = createPoint(e.nativeEvent)
-    const isSelectionSelected =
-      selection != null && containsPoint(selection, startPos)
-    openContextMenu(e, isSelectionSelected)
-  }
+  const { onContextMenu, menuProps } = useContextMenu()
 
   function onMouseDown(e: React.MouseEvent) {
     const { left, top } = e.currentTarget.getBoundingClientRect()
@@ -406,7 +403,7 @@ const _ArrangeView = (
         handleMiddleClick(e)
         break
       case 2:
-        handleRightClick(e, createPoint)
+        onContextMenu(e)
         break
       default:
         break
@@ -492,6 +489,10 @@ const _ArrangeView = (
         />
       </div>
       <div className="scroll-corner" />
+      <ArrangeContextMenu
+        {...menuProps}
+        isSelectionSelected={isSelectionSelected}
+      />
     </Wrapper>
   )
 }

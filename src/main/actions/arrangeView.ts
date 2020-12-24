@@ -7,8 +7,6 @@ import {
 import { isNotUndefined } from "../../common/helpers/array"
 import Quantizer from "../../common/quantizer"
 import Track, { isNoteEvent, NoteEvent } from "../../common/track"
-import { openContextMenu } from "../components/groups/ContextMenu"
-import { ArrangeContextMenu } from "../menus/ArrangeContextMenu"
 import clipboard from "../services/Clipboard"
 import RootStore from "../stores/RootStore"
 
@@ -151,15 +149,6 @@ export const arrangeMoveSelection = (rootStore: RootStore) => (pos: IPoint) => {
     }
     s.selectedEventIds = ids
   }
-}
-
-export const arrangeOpenContextMenu = (rootStore: RootStore) => (
-  e: React.MouseEvent,
-  isSelectionSelected: boolean
-) => {
-  const store = rootStore
-
-  openContextMenu(e, ArrangeContextMenu(store, isSelectionSelected))
 }
 
 export const arrangeCopySelection = (rootStore: RootStore) => () => {

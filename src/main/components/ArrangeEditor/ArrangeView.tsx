@@ -6,7 +6,6 @@ import { NoteCoordTransform } from "../../../common/transform"
 import {
   arrangeEndSelection,
   arrangeMoveSelection,
-  arrangeOpenContextMenu,
   arrangeResizeSelection,
   arrangeStartSelection,
   setPlayerPosition,
@@ -97,9 +96,6 @@ const ArrangeViewWrapper: FC = () => {
         arrangeResizeSelection(rootStore)(start, end)
       }
       moveSelection={(pos) => arrangeMoveSelection(rootStore)(pos)}
-      openContextMenu={(e, isSelectionSelected) =>
-        arrangeOpenContextMenu(rootStore)(e, isSelectionSelected)
-      }
     />
   )
 }

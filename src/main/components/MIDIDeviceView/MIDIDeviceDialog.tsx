@@ -8,6 +8,7 @@ import {
   DialogContentText,
   DialogTitle,
 } from "@material-ui/core"
+import { Alert } from "@material-ui/lab"
 import { useObserver } from "mobx-react-lite"
 import React, { FC } from "react"
 import styled from "styled-components"
@@ -58,6 +59,7 @@ export const MIDIDeviceDialog: FC = () => {
     inputs,
     outputs,
     isLoading,
+    requestError,
     isOpen,
     enabledInputIds,
     enabledOutputIds,
@@ -66,6 +68,7 @@ export const MIDIDeviceDialog: FC = () => {
     inputs: midiDeviceStore.inputs,
     outputs: midiDeviceStore.outputs,
     isLoading: midiDeviceStore.isLoading,
+    requestError: midiDeviceStore.requestError,
     enabledInputIds: midiDeviceStore.enabledInputIds,
     enabledOutputIds: midiDeviceStore.enabledOutputIds,
     isFactorySoundEnabled: midiDeviceStore.isFactorySoundEnabled,
@@ -105,6 +108,12 @@ export const MIDIDeviceDialog: FC = () => {
       <DialogTitle>{localized("midi-settings", "MIDI Settings")}</DialogTitle>
       <DialogContent>
         {isLoading && <CircularProgress />}
+        {requestError && (
+          <>
+            <Alert severity="warning">{requestError.message}</Alert>
+            <Spacer />
+          </>
+        )}
         {!isLoading && (
           <>
             <DialogContentText>

@@ -4,7 +4,6 @@ import React, { FC, useCallback } from "react"
 import { useStores } from "../../hooks/useStores"
 import { Toolbar, ToolbarItem, ToolbarSeparator } from "../groups/Toolbar"
 import QuantizeSelector from "../PianoRollToolbar/QuantizeSelector/QuantizeSelector"
-import "./ArrangeToolbar.css"
 
 export const ArrangeToolbar: FC = () => {
   const rootStore = useStores()

@@ -1,6 +1,7 @@
 import { Container } from "@inlet/react-pixi"
 import cloneDeep from "lodash/cloneDeep"
 import React, { RefObject } from "react"
+import styled from "styled-components"
 import {
   containsPoint,
   IPoint,
@@ -24,7 +25,6 @@ import PianoGrid from "../PianoRoll/PianoGrid"
 import PianoRuler from "../PianoRoll/PianoRuler"
 import PianoSelection from "../PianoRoll/PianoSelection"
 import Stage from "../Stage/Stage"
-import "./ArrangeView.css"
 
 interface ArrangeTrackProps {
   events: TrackEvent[]
@@ -56,6 +56,154 @@ function ArrangeTrack({
     />
   )
 }
+
+const Wrapper = styled.div`
+  flex-grow: 1;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  background: var(--secondary-background-color);
+
+  .ArrangeTrack {
+    background: var(--background-color);
+    border-bottom: 1px solid var(--divider-color);
+  }
+
+  .tracks,
+  .PianoGrid,
+  .PianoRuler,
+  .PianoCursor,
+  .PianoSelection {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .PianoRuler {
+    z-index: 9;
+  }
+
+  .ScrollBar {
+    z-index: 100;
+  }
+
+  .scroll-corner {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 17px;
+    width: 17px;
+    background: var(--secondary-background-color);
+  }
+
+  .right {
+    position: relative;
+    flex-grow: 1;
+  }
+
+  .right > .content {
+    position: absolute;
+    margin-top: var(--ruler-height);
+    width: 100%;
+    height: 100%;
+  }
+
+  .headers {
+    position: absolute;
+    margin-top: var(--ruler-height);
+    width: 100%;
+  }
+
+  .TrackHeader {
+    padding: 0.2em 1em;
+    box-sizing: border-box;
+    border-bottom: 1px solid var(--divider-color);
+    background: var(--background-color);
+    position: relative;
+  }
+
+  .TrackHeader:hover {
+    background: var(--secondary-background-color);
+  }
+
+  .TrackHeader .name {
+    font-weight: bold;
+    font-size: 110%;
+  }
+
+  .TrackHeader .instrument {
+    font-size: 90%;
+    color: var(--secondary-text-color);
+  }
+
+  .left-top-space {
+    height: var(--ruler-height);
+    border-bottom: 1px solid var(--divider-color);
+    background: var(--background-color);
+    position: absolute;
+    top: 0;
+    z-index: 11;
+    left: 0;
+    width: 100%;
+  }
+
+  .NavigationBar {
+    border-bottom: 1px solid var(--divider-color);
+  }
+
+  .NavigationBar .menu {
+    display: flex;
+    flex-grow: 1;
+    -webkit-app-region: drag;
+  }
+
+  .NavigationBar .NavItem {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    padding: 1em;
+    text-transform: uppercase;
+    font-size: 90%;
+  }
+
+  .NavigationBar .NavItem:hover {
+    opacity: 0.5;
+  }
+
+  .AddTrackButton {
+    padding: 0.5em 0.75em;
+    border-top: 1px solid var(--divider-color);
+    border-bottom: 1px solid var(--divider-color);
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    box-sizing: border-box;
+    background: var(--background-color);
+  }
+
+  .AddTrackButton:hover {
+    background: var(--secondary-background-color);
+  }
+
+  .AddTrackButton .Icon {
+    margin-right: 0.5em;
+  }
+
+  .TrackHeader .mark {
+    position: absolute;
+    right: 1em;
+    top: 0.8em;
+    background: var(--secondary-background-color);
+    border-radius: 100px;
+    width: 1.25em;
+    height: 1.25em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--secondary-text-color);
+    font-size: 110%;
+  }
+`
 
 export interface ArrangeViewProps {
   tracks: Track[]
@@ -273,7 +421,7 @@ const _ArrangeView = (
   }
 
   return (
-    <div className="ArrangeView" ref={ref}>
+    <Wrapper ref={ref}>
       <div
         className="right"
         onMouseDown={onMouseDown}
@@ -344,7 +492,7 @@ const _ArrangeView = (
         />
       </div>
       <div className="scroll-corner" />
-    </div>
+    </Wrapper>
   )
 }
 

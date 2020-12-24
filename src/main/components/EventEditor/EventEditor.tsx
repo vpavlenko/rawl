@@ -1,68 +1,36 @@
-import React from "react"
-import ReactDOM from "react-dom"
-import { TrackEvent } from "../../../common/track"
-import Popup from "../Popup/Popup"
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from "@material-ui/core"
+import { useObserver } from "mobx-react-lite"
+import React, { FC } from "react"
+import { localized } from "../../../common/localize/localizedString"
+import { useStores } from "../../hooks/useStores"
 import "./EventEditor.css"
 import EventList from "./EventList"
 
-interface EventEditorContentProps {
-  events: TrackEvent[]
-  onClickOK: () => void
-  onClickCancel: () => void
-}
-
-function EventEditorContent({
-  events,
-  onClickOK,
-  onClickCancel,
-}: EventEditorContentProps) {
+export const EventEditor: FC = () => {
+  const { rootViewStore } = useStores()
+  const { isOpen, events } = useObserver(() => ({
+    isOpen: rootViewStore.openEventEditor,
+    events: rootViewStore.eventEditorEvents,
+  }))
+  const close = () => (rootViewStore.openEventEditor = false)
+  const onClickOK = close
+  const onClickCancel = close
   return (
-    <div className="EventEditor">
-      <div className="container">
+    <Dialog open={isOpen} onClose={close} className="EventEditor">
+      <DialogTitle>{localized("midi-settings", "MIDI Settings")}</DialogTitle>
+      <DialogContent>
         <EventList events={events} />
-        <div className="footer">
-          <button className="ok" onClick={onClickOK}>
-            OK
-          </button>
-          <button className="cancel" onClick={onClickCancel}>
-            Cancel
-          </button>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-export type EventEditorProps = EventEditorContentProps
-
-export default function EventEditor({
-  onClickOK,
-  onClickCancel,
-  events,
-}: EventEditorProps) {
-  return (
-    <EventEditorContent
-      onClickOK={onClickOK}
-      onClickCancel={onClickCancel}
-      events={events}
-    />
-  )
-}
-
-export function show(events: TrackEvent[]) {
-  const popup = new Popup()
-  popup.show()
-
-  ReactDOM.render(
-    <EventEditor
-      events={events}
-      onClickCancel={() => {
-        popup.close()
-      }}
-      onClickOK={() => {
-        popup.close()
-      }}
-    />,
-    popup.getContentElement()
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={onClickOK}>{localized("ok", "OK")}</Button>
+        <Button onClick={onClickCancel}>{localized("cancel", "Cancel")}</Button>
+      </DialogActions>
+    </Dialog>
   )
 }

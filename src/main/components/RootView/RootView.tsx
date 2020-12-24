@@ -5,6 +5,7 @@ import { Drawer } from "../../components/Drawer/Drawer"
 import { useStores } from "../../hooks/useStores"
 import { ArrangeEditor } from "../ArrangeEditor/ArrangeEditor"
 import { BuildInfo } from "../BuildInfo"
+import { EventEditor } from "../EventEditor/EventEditor"
 import { HelpDialog } from "../Help/HelpDialog"
 import { MIDIDeviceDialog } from "../MIDIDeviceView/MIDIDeviceDialog"
 import { PianoRollEditor } from "../PianoRoll/PianoRollEditor"
@@ -37,5 +38,6 @@ export const RootView: FC = () => (
     <BuildInfo />
     <HelpDialog />
     <MIDIDeviceDialog />
+    <EventEditor />
   </Container>
 )

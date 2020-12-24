@@ -3,6 +3,7 @@ import {
   Checkbox,
   Dialog,
   DialogActions,
+  DialogContent,
   FormControlLabel,
 } from "@material-ui/core"
 import difference from "lodash/difference"
@@ -11,13 +12,13 @@ import map from "lodash/map"
 import range from "lodash/range"
 import { useObserver } from "mobx-react-lite"
 import React, { FC } from "react"
+import styled from "styled-components"
 import { isNotUndefined } from "../../../common/helpers/array"
 import { localized } from "../../../common/localize/localizedString"
 import { getGMCategory } from "../../../common/midi/GM"
 import { programChangeMidiEvent } from "../../../common/midi/MidiEvent"
 import { setTrackInstrument as setTrackInstrumentAction } from "../../actions"
 import { useStores } from "../../hooks/useStores"
-import "./InstrumentBrowser.css"
 
 export interface InstrumentSetting {
   programNumber: number
@@ -42,6 +43,52 @@ export interface PresetCategory {
   name: string
   presets: PresetItem[]
 }
+
+const Finder = styled.div`
+  display: flex;
+
+  &.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .left label,
+  .right label {
+    padding: 0.5em 1em;
+    display: block;
+  }
+
+  select {
+    overflow: auto;
+    background-color: #00000024;
+    border: 1px solid var(--divider-color);
+  }
+
+  option:checked {
+    box-shadow: none;
+  }
+
+  select:focus option:checked {
+    box-shadow: 0 0 10px 100px var(--theme-color) inset;
+  }
+
+  select:focus {
+    outline: var(--theme-color) 1px solid;
+  }
+
+  .left select {
+    width: 17em;
+  }
+  .right select {
+    width: 17em;
+  }
+
+  option {
+    padding: 0.5em 1em;
+    font-size: 0.9rem;
+    color: var(--text-color);
+  }
+`
 
 const InstrumentBrowser: FC<InstrumentBrowserProps> = ({
   onClickCancel,
@@ -96,44 +143,42 @@ const InstrumentBrowser: FC<InstrumentBrowserProps> = ({
 
   return (
     <Dialog open={isOpen} onClose={onClickCancel}>
-      <div className="InstrumentBrowser">
-        <div className="container">
-          <div className={`finder ${isRhythmTrack ? "disabled" : ""}`}>
-            <div className="left">
-              <label>{localized("categories", "Categories")}</label>
-              <select
-                size={12}
-                onChange={onChangeCategory}
-                value={selectedCategoryId}
-              >
-                {categoryOptions}
-              </select>
-            </div>
-            <div className="right">
-              <label>{localized("instruments", "Instruments")}</label>
-              <select
-                size={12}
-                onChange={onChangeInstrument}
-                value={programNumber}
-              >
-                {instrumentOptions}
-              </select>
-            </div>
+      <DialogContent className="InstrumentBrowser">
+        <Finder className={isRhythmTrack ? "disabled" : ""}>
+          <div className="left">
+            <label>{localized("categories", "Categories")}</label>
+            <select
+              size={12}
+              onChange={onChangeCategory}
+              value={selectedCategoryId}
+            >
+              {categoryOptions}
+            </select>
           </div>
-          <div className="footer">
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={isRhythmTrack}
-                  onChange={onChangeRhythmTrack}
-                  color="primary"
-                />
-              }
-              label={localized("rhythm-track", "Rhythm Track")}
-            />
+          <div className="right">
+            <label>{localized("instruments", "Instruments")}</label>
+            <select
+              size={12}
+              onChange={onChangeInstrument}
+              value={programNumber}
+            >
+              {instrumentOptions}
+            </select>
           </div>
+        </Finder>
+        <div className="footer">
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={isRhythmTrack}
+                onChange={onChangeRhythmTrack}
+                color="primary"
+              />
+            }
+            label={localized("rhythm-track", "Rhythm Track")}
+          />
         </div>
-      </div>
+      </DialogContent>
       <DialogActions>
         <Button onClick={onClickCancel}>{localized("cancel", "Cancel")}</Button>
         <Button color="primary" onClick={onClickOK}>

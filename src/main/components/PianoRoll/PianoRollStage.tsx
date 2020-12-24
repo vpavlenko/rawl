@@ -7,6 +7,7 @@ import { createBeatsInRange } from "../../../common/helpers/mapBeats"
 import { getSelectionBounds } from "../../../common/selection/Selection"
 import { NoteCoordTransform } from "../../../common/transform"
 import { removeEvent } from "../../actions"
+import { useContextMenu } from "../../hooks/useContextMenu"
 import { useNoteTransform } from "../../hooks/useNoteTransform"
 import { StoreContext, useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
@@ -22,10 +23,7 @@ import { isPianoNote } from "./PianoNotes/PianoNote"
 import PianoNotes from "./PianoNotes/PianoNotes"
 import PianoRuler from "./PianoRuler"
 import PianoSelection from "./PianoSelection"
-import {
-  PianoSelectionContextMenu,
-  useContextMenu,
-} from "./PianoSelectionContextMenu"
+import { PianoSelectionContextMenu } from "./PianoSelectionContextMenu"
 
 export interface PianoRollStageProps {
   width: number

@@ -2,7 +2,8 @@ import { IconButton, ListItem } from "@material-ui/core"
 import { Headset, VolumeOff, VolumeUp } from "@material-ui/icons"
 import React, { FC } from "react"
 import styled from "styled-components"
-import { TrackListContextMenu, useContextMenu } from "./TrackListContextMenu"
+import { useContextMenu } from "../../../hooks/useContextMenu"
+import { TrackListContextMenu } from "./TrackListContextMenu"
 import "./TrackListItem.css"
 
 export interface TrackListItemData {

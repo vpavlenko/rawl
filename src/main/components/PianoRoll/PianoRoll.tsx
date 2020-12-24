@@ -44,6 +44,59 @@ const Beta = styled.div`
 const clamp = (value: number, min: number, max: number) =>
   Math.min(max, Math.max(min, value))
 
+const StyledSplitPane = styled(SplitPane)`
+  .Resizer {
+    background: #000;
+    opacity: 0.2;
+    z-index: 1;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding;
+    background-clip: padding-box;
+  }
+
+  .Resizer:hover {
+    transition: all 0.2s ease;
+  }
+
+  .Resizer.horizontal {
+    height: 11px;
+    margin: -5px 0;
+    border-top: 5px solid rgba(255, 255, 255, 0);
+    border-bottom: 5px solid rgba(255, 255, 255, 0);
+    cursor: row-resize;
+    width: 100%;
+  }
+
+  .Resizer.horizontal:hover {
+    border-top: 5px solid rgba(255, 255, 255, 0.5);
+    border-bottom: 5px solid rgba(255, 255, 255, 0.5);
+  }
+
+  .Resizer.vertical {
+    width: 11px;
+    margin: 0 -5px;
+    border-left: 5px solid rgba(255, 255, 255, 0);
+    border-right: 5px solid rgba(255, 255, 255, 0);
+    cursor: col-resize;
+  }
+
+  .Resizer.vertical:hover {
+    border-left: 5px solid rgba(255, 255, 255, 0.5);
+    border-right: 5px solid rgba(255, 255, 255, 0.5);
+  }
+
+  .Resizer.disabled {
+    cursor: not-allowed;
+  }
+
+  .Resizer.disabled:hover {
+    border-color: transparent;
+  }
+`
+
 const PianoRollWrapper: FC = () => {
   const rootStore = useStores()
   const {
@@ -141,7 +194,7 @@ const PianoRollWrapper: FC = () => {
 
   return (
     <Parent ref={ref}>
-      <SplitPane split="horizontal" minSize={50} defaultSize={"60%"}>
+      <StyledSplitPane split="horizontal" minSize={50} defaultSize={"60%"}>
         <Alpha onWheel={onWheel} ref={alphaRef}>
           <PianoRollStage width={size.width} />
           <VerticalScrollBar
@@ -153,7 +206,7 @@ const PianoRollWrapper: FC = () => {
         <Beta>
           <ControlPane />
         </Beta>
-      </SplitPane>
+      </StyledSplitPane>
       <HorizontalScaleScrollBar
         scrollOffset={_scrollLeft}
         contentLength={contentWidth}

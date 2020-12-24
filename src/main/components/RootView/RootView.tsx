@@ -10,7 +10,6 @@ import { MIDIDeviceDialog } from "../MIDIDeviceView/MIDIDeviceDialog"
 import { PianoRollEditor } from "../PianoRoll/PianoRollEditor"
 import { TempoEditor } from "../TempoGraph/TempoEditor"
 import { TransportPanel } from "../TransportPanel/TransportPanel"
-import "./Resizer.css"
 
 const Container = styled.div`
   height: 100%;

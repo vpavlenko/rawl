@@ -207,8 +207,6 @@ const ControlPane: FC = () => {
           }}
           width={controlProps.width}
           height={controlProps.height}
-          raf={false}
-          renderOnComponentChange={true}
           options={{ transparent: true, autoDensity: true, antialias: true }}
         >
           <Container x={-scrollLeft}>

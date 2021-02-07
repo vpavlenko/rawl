@@ -168,8 +168,6 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
         className="alphaContent"
         width={width}
         height={stageHeight}
-        raf={false}
-        renderOnComponentChange={true}
         options={{ transparent: true, autoDensity: true, antialias: true }}
         onContextMenu={useCallback((e) => e.preventDefault(), [])}
       >

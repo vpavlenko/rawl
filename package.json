@@ -35,7 +35,7 @@
     "react-split-pane": "^0.1.92",
     "react-spring": "9.0.0-rc.3",
     "serializr": "^2.0.5",
-    "sf2synth": "github:ryohey/sf2synth.js#2c9c6fe",
+    "sf2synth": "github:ryohey/sf2synth.js#b5e9335",
     "styled-components": "5.2.1"
   },
   "devDependencies": {

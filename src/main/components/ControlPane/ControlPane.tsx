@@ -6,8 +6,8 @@ import React, { FC, useCallback, useRef } from "react"
 import styled from "styled-components"
 import { filterEventsWithScroll } from "../../../common/helpers/filterEventsWithScroll"
 import { createBeatsInRange } from "../../../common/helpers/mapBeats"
-import { NoteCoordTransform } from "../../../common/transform"
 import { changeNotesVelocity, createControlEvent } from "../../actions"
+import { useNoteTransform } from "../../hooks/useNoteTransform"
 import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
 import PianoGrid from "../PianoRoll/PianoGrid"
@@ -128,19 +128,16 @@ const ControlPane: FC = () => {
   const containerHeight = size.height
 
   const rootStore = useStores()
-  const { events, measures, timebase, scaleX, scrollLeft, mode } = useObserver(
-    () => ({
-      events: toJS(rootStore.song.selectedTrack?.events ?? []),
-      measures: rootStore.song.measures,
-      timebase: rootStore.services.player.timebase,
-      scaleX: rootStore.pianoRollStore.scaleX,
-      scrollLeft: rootStore.pianoRollStore.scrollLeft,
-      mode: rootStore.pianoRollStore.controlMode,
-    })
-  )
+  const { events, measures, timebase, scrollLeft, mode } = useObserver(() => ({
+    events: toJS(rootStore.song.selectedTrack?.events ?? []),
+    measures: rootStore.song.measures,
+    timebase: rootStore.services.player.timebase,
+    scrollLeft: rootStore.pianoRollStore.scrollLeft,
+    mode: rootStore.pianoRollStore.controlMode,
+  }))
 
   const theme = useTheme()
-  const transform = new NoteCoordTransform(0.1 * scaleX, theme.keyHeight, 127)
+  const transform = useNoteTransform()
   const startTick = scrollLeft / transform.pixelsPerTick
 
   const mappedBeats = createBeatsInRange(
@@ -210,7 +207,7 @@ const ControlPane: FC = () => {
           }}
           width={controlProps.width}
           height={controlProps.height}
-          options={{ transparent: true }}
+          options={{ transparent: true, autoDensity: true, antialias: true }}
         >
           <Container x={-scrollLeft}>
             <PianoGrid height={controlProps.height} beats={mappedBeats} />

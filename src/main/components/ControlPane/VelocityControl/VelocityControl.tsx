@@ -87,7 +87,7 @@ const PianoVelocityControl: FC<PianoVelocityControlProps> = ({
       <GraphAxis axis={axis} onClick={() => {}} />
       <Stage
         className="PianoControl VelocityControl"
-        options={{ transparent: true }}
+        options={{ transparent: true, autoDensity: true, antialias: true }}
         width={width}
         height={height}
       >

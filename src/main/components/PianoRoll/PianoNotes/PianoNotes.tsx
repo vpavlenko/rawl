@@ -1,21 +1,55 @@
 import { Container } from "@inlet/react-pixi"
 import Color from "color"
 import { useObserver } from "mobx-react-lite"
-import React, { FC, useMemo } from "react"
+import { DisplayObject, Graphics, Rectangle } from "pixi.js"
+import React, { FC, useEffect, useMemo, useRef } from "react"
 import { filterEventsWithScroll } from "../../../../common/helpers/filterEventsWithScroll"
 import { isNoteEvent, NoteEvent } from "../../../../common/track"
 import { useMemoObserver } from "../../../hooks/useMemoObserver"
 import { useNoteTransform } from "../../../hooks/useNoteTransform"
-import { useRecycle } from "../../../hooks/useRecycle"
 import { useStores } from "../../../hooks/useStores"
 import { useTheme } from "../../../hooks/useTheme"
-import { PianoNote, PianoNoteItem } from "./PianoNote"
+import { PianoNoteItem, PianoNoteProps, renderPianoNote } from "./PianoNote"
 
 export interface PianoNotesProps {
   trackId: number
   width: number
   isGhost: boolean
 }
+
+class NoteGraphics extends Graphics {
+  private _item: PianoNoteItem | null
+
+  constructor() {
+    super()
+    this.interactive = true
+    this.name = "PianoNote"
+  }
+
+  get item(): PianoNoteItem | null {
+    return this._item
+  }
+
+  update(props: PianoNoteProps) {
+    const { item } = props
+    this._item = item
+    this.x = Math.round(item.x)
+    this.y = Math.round(item.y)
+    this.hitArea = item.isDrum
+      ? new Rectangle(
+          -item.height / 2,
+          -item.height / 2,
+          item.height,
+          item.height
+        )
+      : new Rectangle(0, 0, item.width, item.height)
+
+    renderPianoNote(this, props)
+  }
+}
+
+export const isNoteGraphics = (x: DisplayObject | null): x is NoteGraphics =>
+  x instanceof NoteGraphics
 
 /**
   ノートイベントを描画するコンポーネント
@@ -64,18 +98,38 @@ const PianoNotes: FC<PianoNotesProps> = ({ trackId, width, isGhost }) => {
     [events, transform, scrollLeft, width, selection, isGhost, isRhythmTrack]
   )
 
-  const items = useRecycle(notes).map((item) => (
-    <PianoNote
-      key={item.key}
-      item={item.value}
-      color={color}
-      borderColor={borderColor}
-      selectedColor={selectedColor}
-      selectedBorderColor={selectedBorderColor}
-    />
-  ))
+  const ref = useRef<PIXI.Container>(null)
 
-  return <Container>{items}</Container>
+  useEffect(() => {
+    const container = ref.current
+    if (container === null) {
+      return
+    }
+    let existingNotes = container.children.filter(isNoteGraphics)
+    for (let item of notes) {
+      const g =
+        existingNotes.find((g) => g.item?.id === item.id) ??
+        (() => {
+          const g = new NoteGraphics()
+          container.addChild(g)
+          g.update({
+            item,
+            color,
+            borderColor,
+            selectedBorderColor,
+            selectedColor,
+          })
+          return g
+        })()
+
+      existingNotes = existingNotes.filter((g) => g.item?.id !== item.id)
+    }
+    for (let g of existingNotes) {
+      container.removeChild(g)
+    }
+  }, [notes])
+
+  return <Container ref={ref}></Container>
 }
 
 const areEqual = (props: PianoNotesProps, nextProps: PianoNotesProps) =>

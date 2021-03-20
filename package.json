@@ -28,6 +28,7 @@
     "midifile-ts": "1.1.4",
     "mobx": "^6.1.5",
     "mobx-react-lite": "3.2.0",
+    "pixi-fps": "^2.0.1",
     "pixi.js": "5.3.7",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",

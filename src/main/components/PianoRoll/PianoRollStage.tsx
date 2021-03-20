@@ -1,7 +1,8 @@
 import { Container, Stage } from "@inlet/react-pixi"
 import { useObserver } from "mobx-react-lite"
+import PixiFps from "pixi-fps"
 import { Point, Rectangle, settings } from "pixi.js"
-import React, { FC, useCallback, useState } from "react"
+import React, { FC, useCallback, useEffect, useState } from "react"
 import { IPoint } from "../../../common/geometry"
 import { createBeatsInRange } from "../../../common/helpers/mapBeats"
 import { getSelectionBounds } from "../../../common/selection/Selection"
@@ -11,17 +12,11 @@ import { useContextMenu } from "../../hooks/useContextMenu"
 import { useNoteTransform } from "../../hooks/useNoteTransform"
 import { StoreContext, useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
-import { LeftTopSpace } from "./LeftTopSpace"
 import { observeDoubleClick } from "./MouseHandler/observeDoubleClick"
 import PencilMouseHandler from "./MouseHandler/PencilMouseHandler"
 import SelectionMouseHandler from "./MouseHandler/SelectionMouseHandler"
-import PianoCursor from "./PianoCursor"
-import PianoGrid from "./PianoGrid"
-import PianoKeys from "./PianoKeys"
-import PianoLines from "./PianoLines"
 import { isPianoNote } from "./PianoNotes/PianoNote"
 import PianoNotes from "./PianoNotes/PianoNotes"
-import PianoRuler from "./PianoRuler"
 import PianoSelection from "./PianoSelection"
 import { PianoSelectionContextMenu } from "./PianoSelectionContextMenu"
 
@@ -160,6 +155,15 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
     [rootStore, onContextMenu]
   )
 
+  const [app, setApp] = useState<PIXI.Application | null>(null)
+
+  useEffect(() => {
+    if (app === null) {
+      return
+    }
+    app.stage.addChild(new PixiFps())
+  }, [app])
+
   settings.ROUND_PIXELS = true
 
   return (
@@ -170,6 +174,9 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
         height={stageHeight}
         options={{ transparent: true, autoDensity: true, antialias: true }}
         onContextMenu={useCallback((e) => e.preventDefault(), [])}
+        onMount={setApp}
+        raf={false}
+        renderOnComponentChange={true}
       >
         <StoreContext.Provider value={rootStore}>
           <Container position={new Point(-0.5, -0.5) /* prevent line blur */}>
@@ -177,13 +184,13 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
               <Container
                 position={new Point(0, -scrollTop + theme.rulerHeight)}
               >
-                <PianoLines
+                {/* <PianoLines
                   width={width}
                   pixelsPerKey={transform.pixelsPerKey}
                   numberOfKeys={transform.numberOfKeys}
-                />
+                /> */}
                 <Container position={new Point(-scrollLeft, 0)}>
-                  <Container interactive={false} hitArea={Rectangle.EMPTY}>
+                  {/* <Container interactive={false} hitArea={Rectangle.EMPTY}>
                     <PianoGrid height={contentHeight} beats={mappedBeats} />
                     {ghostTrackIds.map((id) => (
                       <PianoNotes
@@ -193,7 +200,7 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
                         isGhost={true}
                       />
                     ))}
-                  </Container>
+                  </Container> */}
                   <Container
                     interactive={true}
                     hitArea={new Rectangle(0, 0, 100000, 100000)} // catch all hits
@@ -215,26 +222,26 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
                         onRightClick={onRightClickSelection}
                       />
                     )}
-                    <Container x={cursorPositionX}>
+                    {/* <Container x={cursorPositionX}>
                       <PianoCursor height={contentHeight} />
-                    </Container>
+                    </Container> */}
                   </Container>
                 </Container>
               </Container>
-              <PianoRuler
+              {/* <PianoRuler
                 width={width}
                 beats={mappedBeats}
                 scrollLeft={scrollLeft}
                 pixelsPerTick={transform.pixelsPerTick}
-              />
+              /> */}
             </Container>
-            <Container position={new Point(0, -scrollTop + theme.rulerHeight)}>
+            {/* <Container position={new Point(0, -scrollTop + theme.rulerHeight)}>
               <PianoKeys
                 keyHeight={transform.pixelsPerKey}
                 numberOfKeys={transform.numberOfKeys}
               />
             </Container>
-            <LeftTopSpace width={width} />
+            <LeftTopSpace width={width} /> */}
           </Container>
         </StoreContext.Provider>
       </Stage>

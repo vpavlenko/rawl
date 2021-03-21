@@ -171,7 +171,15 @@ function drawScene(
 
   // note: glmatrix.js always has the first argument
   // as the destination to receive the result.
-  mat4.ortho(projectionMatrix, -1, 1, 1, -1, zNear, zFar)
+  mat4.ortho(
+    projectionMatrix,
+    0,
+    canvas.clientWidth,
+    canvas.clientHeight,
+    0,
+    zNear,
+    zFar
+  )
 
   // Set the drawing position to the "identity" point, which is
   // the center of the scene.
@@ -406,7 +414,10 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
         ),
       },
     }
-    const buffers = initBuffers(gl, [{ x: 0, y: 0, width: 0.5, height: 0.5 }])
+    const buffers = initBuffers(gl, [
+      { x: 0, y: 0, width: 150, height: 20 },
+      { x: -0.3, y: -1, width: 0.5, height: 0.25 },
+    ])
 
     drawScene(gl, programInfo, buffers)
   }, [])

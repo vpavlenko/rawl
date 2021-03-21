@@ -117,7 +117,7 @@ interface ProgramInfo {
 
 function drawScene(
   gl: WebGLRenderingContext,
-  programInfo: ProgramInfo,
+  shader: RectangleShader,
   buffers: ReturnType<typeof initBuffers>
 ) {
   gl.clearColor(0.0, 0.0, 0.0, 1.0) // Clear to black, fully opaque
@@ -179,53 +179,42 @@ function drawScene(
     const offset = 0 // how many bytes inside the buffer to start from
     gl.bindBuffer(gl.ARRAY_BUFFER, buffers.position)
     gl.vertexAttribPointer(
-      programInfo.attribLocations.vertexPosition,
+      shader.vertexPosition,
       numComponents,
       type,
       normalize,
       stride,
       offset
     )
-    gl.enableVertexAttribArray(programInfo.attribLocations.vertexPosition)
+    gl.enableVertexAttribArray(shader.vertexPosition)
   }
 
   // Tell WebGL to use our program when drawing
 
-  gl.useProgram(programInfo.program)
+  gl.useProgram(shader.program)
 
   // Set the shader uniforms
 
-  gl.uniformMatrix4fv(
-    programInfo.uniformLocations.projectionMatrix,
-    false,
-    projectionMatrix
-  )
-  gl.uniformMatrix4fv(
-    programInfo.uniformLocations.modelViewMatrix,
-    false,
-    modelViewMatrix
-  )
+  shader.setProjectionMatrix(gl, projectionMatrix)
+  shader.setModelViewMatrix(gl, modelViewMatrix)
 
   {
     const offset = 0
     gl.drawArrays(gl.TRIANGLES, offset, buffers.count)
   }
 }
-export class PianoRollRenderer {
-  private gl: WebGLRenderingContext
+
+class RectangleShader {
+  readonly program: WebGLProgram
+
+  // attribLocations
+  readonly vertexPosition: number
+
+  // uniformLocations
+  private projectionMatrix: WebGLUniformLocation | null
+  private modelViewMatrix: WebGLUniformLocation | null
 
   constructor(gl: WebGLRenderingContext) {
-    this.gl = gl
-    this.setup()
-  }
-
-  private setup() {
-    const { gl } = this
-
-    // クリアカラーを黒に設定し、完全に不透明にします
-    gl.clearColor(0.0, 0.0, 0.0, 1.0)
-    // 指定されたクリアカラーでカラーバッファをクリアします
-    gl.clear(gl.COLOR_BUFFER_BIT)
     const vsSource = `
       attribute vec4 aVertexPosition;
 
@@ -242,29 +231,55 @@ export class PianoRollRenderer {
       }
     `
     const shaderProgram = initShaderProgram(gl, vsSource, fsSource)!
-    const programInfo = {
-      program: shaderProgram,
-      attribLocations: {
-        vertexPosition: gl.getAttribLocation(shaderProgram, "aVertexPosition"),
-      },
-      uniformLocations: {
-        projectionMatrix: gl.getUniformLocation(
-          shaderProgram,
-          "uProjectionMatrix"
-        ),
-        modelViewMatrix: gl.getUniformLocation(
-          shaderProgram,
-          "uModelViewMatrix"
-        ),
-      },
-    }
-    const buffers = initBuffers(gl, [
-      { x: 0, y: 0, width: 150, height: 20 },
-      { x: -0.3, y: -1, width: 0.5, height: 0.25 },
-    ])
 
-    drawScene(gl, programInfo, buffers)
+    this.program = shaderProgram
+
+    this.vertexPosition = gl.getAttribLocation(shaderProgram, "aVertexPosition")
+
+    this.projectionMatrix = gl.getUniformLocation(
+      shaderProgram,
+      "uProjectionMatrix"
+    )
+    this.modelViewMatrix = gl.getUniformLocation(
+      shaderProgram,
+      "uModelViewMatrix"
+    )
   }
 
-  render() {}
+  setProjectionMatrix(gl: WebGLRenderingContext, mat: mat4) {
+    gl.uniformMatrix4fv(this.projectionMatrix, false, mat)
+  }
+
+  setModelViewMatrix(gl: WebGLRenderingContext, mat: mat4) {
+    gl.uniformMatrix4fv(this.modelViewMatrix, false, mat)
+  }
+}
+
+export class PianoRollRenderer {
+  private gl: WebGLRenderingContext
+  private shader: RectangleShader
+
+  constructor(gl: WebGLRenderingContext) {
+    this.gl = gl
+    this.setup()
+  }
+
+  private setup() {
+    const { gl } = this
+
+    this.shader = new RectangleShader(gl)
+  }
+
+  render(rects: IRect[]) {
+    const { gl } = this
+
+    // クリアカラーを黒に設定し、完全に不透明にします
+    gl.clearColor(0.0, 0.0, 0.0, 1.0)
+    // 指定されたクリアカラーでカラーバッファをクリアします
+    gl.clear(gl.COLOR_BUFFER_BIT)
+
+    const buffers = initBuffers(gl, rects)
+
+    drawScene(gl, this.shader, buffers)
+  }
 }

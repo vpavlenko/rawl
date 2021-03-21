@@ -152,6 +152,7 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
   )
 
   const ref = useRef<HTMLCanvasElement>(null)
+  const [renderer, setRenderer] = useState<PianoRollRenderer | null>(null)
 
   useEffect(() => {
     const canvas = ref.current
@@ -169,9 +170,18 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
       return
     }
 
-    const renderer = new PianoRollRenderer(gl)
-    renderer.render()
+    setRenderer(new PianoRollRenderer(gl))
   }, [])
+
+  useEffect(() => {
+    if (renderer === null) {
+      return
+    }
+    renderer.render([
+      { x: 0, y: 0, width: 150, height: 20 },
+      { x: -0.3, y: -1, width: 0.5, height: 0.25 },
+    ])
+  }, [renderer])
 
   settings.ROUND_PIXELS = true
 

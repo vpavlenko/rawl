@@ -105,6 +105,7 @@ const PianoNotes: FC<PianoNotesProps> = ({ trackId, width, isGhost }) => {
     if (container === null) {
       return
     }
+    container.parent
     let existingNotes = container.children.filter(isNoteGraphics)
     for (let item of notes) {
       const g =

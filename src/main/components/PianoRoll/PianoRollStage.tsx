@@ -1,23 +1,19 @@
-import { Container, Stage } from "@inlet/react-pixi"
+import { mat4 } from "gl-matrix"
 import { useObserver } from "mobx-react-lite"
-import PixiFps from "pixi-fps"
-import { Point, Rectangle, settings } from "pixi.js"
-import React, { FC, useCallback, useEffect, useState } from "react"
-import { IPoint } from "../../../common/geometry"
+import { settings } from "pixi.js"
+import React, { FC, useCallback, useEffect, useRef, useState } from "react"
+import { IPoint, IRect } from "../../../common/geometry"
 import { createBeatsInRange } from "../../../common/helpers/mapBeats"
-import { getSelectionBounds } from "../../../common/selection/Selection"
 import { NoteCoordTransform } from "../../../common/transform"
 import { removeEvent } from "../../actions"
 import { useContextMenu } from "../../hooks/useContextMenu"
 import { useNoteTransform } from "../../hooks/useNoteTransform"
-import { StoreContext, useStores } from "../../hooks/useStores"
+import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
 import { observeDoubleClick } from "./MouseHandler/observeDoubleClick"
 import PencilMouseHandler from "./MouseHandler/PencilMouseHandler"
 import SelectionMouseHandler from "./MouseHandler/SelectionMouseHandler"
 import { isPianoNote } from "./PianoNotes/PianoNote"
-import PianoNotes from "./PianoNotes/PianoNotes"
-import PianoSelection from "./PianoSelection"
 import { PianoSelectionContextMenu } from "./PianoSelectionContextMenu"
 
 export interface PianoRollStageProps {
@@ -31,6 +27,207 @@ export interface PianoNotesMouseEvent {
   noteNumber: number
   local: IPoint
   transform: NoteCoordTransform
+}
+//
+// Initialize a shader program, so WebGL knows how to draw our data
+//
+function initShaderProgram(
+  gl: WebGLRenderingContext,
+  vsSource: string,
+  fsSource: string
+) {
+  const vertexShader = loadShader(gl, gl.VERTEX_SHADER, vsSource)!
+  const fragmentShader = loadShader(gl, gl.FRAGMENT_SHADER, fsSource)!
+
+  // Create the shader program
+
+  const shaderProgram = gl.createProgram()!
+  gl.attachShader(shaderProgram, vertexShader)
+  gl.attachShader(shaderProgram, fragmentShader)
+  gl.linkProgram(shaderProgram)
+
+  // If creating the shader program failed, alert
+
+  if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
+    alert(
+      "Unable to initialize the shader program: " +
+        gl.getProgramInfoLog(shaderProgram)
+    )
+    return null
+  }
+
+  return shaderProgram
+}
+
+//
+// creates a shader of the given type, uploads the source and
+// compiles it.
+//
+function loadShader(gl: WebGLRenderingContext, type: number, source: string) {
+  const shader = gl.createShader(type)!
+
+  // Send the source to the shader object
+
+  gl.shaderSource(shader, source)
+
+  // Compile the shader program
+
+  gl.compileShader(shader)
+
+  // See if it compiled successfully
+
+  if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+    alert(
+      "An error occurred compiling the shaders: " + gl.getShaderInfoLog(shader)
+    )
+    gl.deleteShader(shader)
+    return null
+  }
+
+  return shader
+}
+
+function rectToTriangles(rect: IRect): number[] {
+  return [
+    rect.x,
+    rect.y,
+    rect.x + rect.width,
+    rect.y,
+    rect.x,
+    rect.y + rect.height,
+    rect.x + rect.width,
+    rect.y,
+    rect.x + rect.width,
+    rect.y + rect.height,
+    rect.x,
+    rect.y + rect.height,
+  ]
+}
+
+function initBuffers(gl: WebGLRenderingContext, rects: IRect[]) {
+  // Create a buffer for the square's positions.
+
+  const positionBuffer = gl.createBuffer()
+
+  // Select the positionBuffer as the one to apply buffer
+  // operations to from here out.
+
+  gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer)
+
+  // Now create an array of positions for the square.
+
+  const positions = rects.flatMap(rectToTriangles)
+
+  // Now pass the list of positions into WebGL to build the
+  // shape. We do this by creating a Float32Array from the
+  // JavaScript array, then use it to fill the current buffer.
+
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW)
+
+  return {
+    position: positionBuffer,
+    count: rects.length * 6,
+  }
+}
+
+interface ProgramInfo {
+  program: WebGLProgram
+  attribLocations: {
+    vertexPosition: number
+  }
+  uniformLocations: {
+    projectionMatrix: WebGLUniformLocation | null
+    modelViewMatrix: WebGLUniformLocation | null
+  }
+}
+
+function drawScene(
+  gl: WebGLRenderingContext,
+  programInfo: ProgramInfo,
+  buffers: ReturnType<typeof initBuffers>
+) {
+  gl.clearColor(0.0, 0.0, 0.0, 1.0) // Clear to black, fully opaque
+  gl.clearDepth(1.0) // Clear everything
+  gl.enable(gl.DEPTH_TEST) // Enable depth testing
+  gl.depthFunc(gl.LEQUAL) // Near things obscure far things
+
+  // Clear the canvas before we start drawing on it.
+
+  gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
+
+  // Create a perspective matrix, a special matrix that is
+  // used to simulate the distortion of perspective in a camera.
+  // Our field of view is 45 degrees, with a width/height
+  // ratio that matches the display size of the canvas
+  // and we only want to see objects between 0.1 units
+  // and 100 units away from the camera.
+
+  const fieldOfView = (45 * Math.PI) / 180 // in radians
+  const canvas = gl.canvas as HTMLCanvasElement
+  const aspect = canvas.clientWidth / canvas.clientHeight
+  const zNear = 0
+  const zFar = 100.0
+  const projectionMatrix = mat4.create()
+
+  // note: glmatrix.js always has the first argument
+  // as the destination to receive the result.
+  mat4.ortho(projectionMatrix, -1, 1, 1, -1, zNear, zFar)
+
+  // Set the drawing position to the "identity" point, which is
+  // the center of the scene.
+  const modelViewMatrix = mat4.create()
+
+  // Now move the drawing position a bit to where we want to
+  // start drawing the square.
+
+  // mat4.translate(
+  //   modelViewMatrix, // destination matrix
+  //   modelViewMatrix, // matrix to translate
+  //   [-0.0, 0.0, -6.0]
+  // ) // amount to translate
+
+  // Tell WebGL how to pull out the positions from the position
+  // buffer into the vertexPosition attribute.
+  {
+    const numComponents = 2 // pull out 2 values per iteration
+    const type = gl.FLOAT // the data in the buffer is 32bit floats
+    const normalize = false // don't normalize
+    const stride = 0 // how many bytes to get from one set of values to the next
+    // 0 = use type and numComponents above
+    const offset = 0 // how many bytes inside the buffer to start from
+    gl.bindBuffer(gl.ARRAY_BUFFER, buffers.position)
+    gl.vertexAttribPointer(
+      programInfo.attribLocations.vertexPosition,
+      numComponents,
+      type,
+      normalize,
+      stride,
+      offset
+    )
+    gl.enableVertexAttribArray(programInfo.attribLocations.vertexPosition)
+  }
+
+  // Tell WebGL to use our program when drawing
+
+  gl.useProgram(programInfo.program)
+
+  // Set the shader uniforms
+
+  gl.uniformMatrix4fv(
+    programInfo.uniformLocations.projectionMatrix,
+    false,
+    projectionMatrix
+  )
+  gl.uniformMatrix4fv(
+    programInfo.uniformLocations.modelViewMatrix,
+    false,
+    modelViewMatrix
+  )
+
+  {
+    const offset = 0
+    gl.drawArrays(gl.TRIANGLES, offset, buffers.count)
+  }
 }
 
 export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
@@ -155,96 +352,76 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
     [rootStore, onContextMenu]
   )
 
-  const [app, setApp] = useState<PIXI.Application | null>(null)
+  const ref = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
-    if (app === null) {
+    const canvas = ref.current
+    if (canvas === null) {
+      throw new Error("canvas is not mounted")
+    }
+    // GL コンテキストを初期化する
+    const gl = canvas.getContext("webgl")
+
+    // WebGL が使用可能で動作している場合にのみ続行します
+    if (gl === null) {
+      alert(
+        "WebGL を初期化できません。ブラウザーまたはマシンがサポートしていない可能性があります。"
+      )
       return
     }
-    app.stage.addChild(new PixiFps())
-  }, [app])
+
+    // クリアカラーを黒に設定し、完全に不透明にします
+    gl.clearColor(0.0, 0.0, 0.0, 1.0)
+    // 指定されたクリアカラーでカラーバッファをクリアします
+    gl.clear(gl.COLOR_BUFFER_BIT)
+    const vsSource = `
+      attribute vec4 aVertexPosition;
+
+      uniform mat4 uModelViewMatrix;
+      uniform mat4 uProjectionMatrix;
+
+      void main() {
+        gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition;
+      }
+    `
+    const fsSource = `
+      void main() {
+        gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+      }
+    `
+    const shaderProgram = initShaderProgram(gl, vsSource, fsSource)!
+    const programInfo = {
+      program: shaderProgram,
+      attribLocations: {
+        vertexPosition: gl.getAttribLocation(shaderProgram, "aVertexPosition"),
+      },
+      uniformLocations: {
+        projectionMatrix: gl.getUniformLocation(
+          shaderProgram,
+          "uProjectionMatrix"
+        ),
+        modelViewMatrix: gl.getUniformLocation(
+          shaderProgram,
+          "uModelViewMatrix"
+        ),
+      },
+    }
+    const buffers = initBuffers(gl, [{ x: 0, y: 0, width: 0.5, height: 0.5 }])
+
+    drawScene(gl, programInfo, buffers)
+  }, [])
 
   settings.ROUND_PIXELS = true
 
   return (
     <>
-      <Stage
+      <canvas
         className="alphaContent"
-        width={width}
-        height={stageHeight}
-        options={{ transparent: true, autoDensity: true, antialias: true }}
+        width={300}
+        height={300}
         onContextMenu={useCallback((e) => e.preventDefault(), [])}
-        onMount={setApp}
-        raf={false}
-        renderOnComponentChange={true}
-      >
-        <StoreContext.Provider value={rootStore}>
-          <Container position={new Point(-0.5, -0.5) /* prevent line blur */}>
-            <Container position={new Point(theme.keyWidth, 0)}>
-              <Container
-                position={new Point(0, -scrollTop + theme.rulerHeight)}
-              >
-                {/* <PianoLines
-                  width={width}
-                  pixelsPerKey={transform.pixelsPerKey}
-                  numberOfKeys={transform.numberOfKeys}
-                /> */}
-                <Container position={new Point(-scrollLeft, 0)}>
-                  {/* <Container interactive={false} hitArea={Rectangle.EMPTY}>
-                    <PianoGrid height={contentHeight} beats={mappedBeats} />
-                    {ghostTrackIds.map((id) => (
-                      <PianoNotes
-                        key={id}
-                        trackId={id}
-                        width={width}
-                        isGhost={true}
-                      />
-                    ))}
-                  </Container> */}
-                  <Container
-                    interactive={true}
-                    hitArea={new Rectangle(0, 0, 100000, 100000)} // catch all hits
-                    mousedown={handleMouseDown}
-                    mousemove={handleMouseMove}
-                    mouseup={handleMouseUp}
-                    mouseupoutside={handleMouseUp}
-                    rightclick={handleRightClick}
-                    cursor={notesCursor}
-                  >
-                    <PianoNotes
-                      trackId={trackId}
-                      width={width}
-                      isGhost={false}
-                    />
-                    {selection.enabled && (
-                      <PianoSelection
-                        bounds={getSelectionBounds(selection, transform)}
-                        onRightClick={onRightClickSelection}
-                      />
-                    )}
-                    {/* <Container x={cursorPositionX}>
-                      <PianoCursor height={contentHeight} />
-                    </Container> */}
-                  </Container>
-                </Container>
-              </Container>
-              {/* <PianoRuler
-                width={width}
-                beats={mappedBeats}
-                scrollLeft={scrollLeft}
-                pixelsPerTick={transform.pixelsPerTick}
-              /> */}
-            </Container>
-            {/* <Container position={new Point(0, -scrollTop + theme.rulerHeight)}>
-              <PianoKeys
-                keyHeight={transform.pixelsPerKey}
-                numberOfKeys={transform.numberOfKeys}
-              />
-            </Container>
-            <LeftTopSpace width={width} /> */}
-          </Container>
-        </StoreContext.Provider>
-      </Stage>
+        ref={ref}
+      ></canvas>
       <PianoSelectionContextMenu {...menuProps} />
     </>
   )

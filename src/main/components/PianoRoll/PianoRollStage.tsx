@@ -3,16 +3,17 @@ import { settings } from "pixi.js"
 import React, { FC, useCallback, useEffect, useRef, useState } from "react"
 import { IPoint } from "../../../common/geometry"
 import { createBeatsInRange } from "../../../common/helpers/mapBeats"
+import { getSelectionBounds } from "../../../common/selection/Selection"
 import { NoteCoordTransform } from "../../../common/transform"
 import { removeEvent } from "../../actions"
 import { useContextMenu } from "../../hooks/useContextMenu"
 import { useNoteTransform } from "../../hooks/useNoteTransform"
 import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
-import { observeDoubleClick } from "./MouseHandler/observeDoubleClick"
 import PencilMouseHandler from "./MouseHandler/PencilMouseHandler"
 import SelectionMouseHandler from "./MouseHandler/SelectionMouseHandler"
-import { isPianoNote } from "./PianoNotes/PianoNote"
+import { isPianoNote, PianoNoteItem } from "./PianoNotes/PianoNote"
+import { useNotes } from "./PianoNotes/PianoNotes"
 import { PianoRollRenderer } from "./PianoRollRenderer"
 import { PianoSelectionContextMenu } from "./PianoSelectionContextMenu"
 
@@ -21,12 +22,12 @@ export interface PianoRollStageProps {
 }
 
 export interface PianoNotesMouseEvent {
-  pixiEvent: PIXI.InteractionEvent
   nativeEvent: MouseEvent
   tick: number
   noteNumber: number
   local: IPoint
   transform: NoteCoordTransform
+  item: PianoNoteItem | null
 }
 
 export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
@@ -72,44 +73,44 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
     mouseMode === "pencil" ? pencilMouseHandler : selectionMouseHandler
 
   // MouseHandler で利用する追加情報をイベントに付加する
-  const extendEvent = (e: PIXI.InteractionEvent): PianoNotesMouseEvent => {
+  const extendEvent = (e: MouseEvent): PianoNotesMouseEvent => {
     const local = {
-      x: e.data.global.x - theme.keyWidth + scrollLeft,
-      y: e.data.global.y - theme.rulerHeight + scrollTop,
+      x: e.pageX,
+      y: e.pageY,
     }
     return {
-      pixiEvent: e,
-      nativeEvent: e.data.originalEvent as MouseEvent,
+      nativeEvent: e,
       local,
       tick: transform.getTicks(local.x),
       noteNumber: Math.ceil(transform.getNoteNumber(local.y)),
       transform,
+      item: null,
     }
   }
 
-  const handleMouseDown = (e: PIXI.InteractionEvent) => {
-    if (isPianoNote(e.target)) {
-      const { item } = e.target
-      observeDoubleClick(() => {
-        removeEvent(rootStore)(item.id)
-      })
-    }
+  const handleMouseDown = (e: MouseEvent) => {
+    // if (isPianoNote(e.target)) {
+    //   const { item } = e.target
+    //   observeDoubleClick(() => {
+    //     removeEvent(rootStore)(item.id)
+    //   })
+    // }
 
     mouseHandler.onMouseDown(extendEvent(e))
   }
 
-  const handleMouseMove = (e: PIXI.InteractionEvent) => {
-    if (
-      mouseMode === "pencil" &&
-      e.data.buttons === 2 &&
-      isPianoNote(e.target)
-    ) {
-      removeEvent(rootStore)(e.target.item.id)
-    }
+  const handleMouseMove = (e: MouseEvent) => {
+    // if (
+    //   mouseMode === "pencil" &&
+    //   e.buttons === 2 &&
+    //   isPianoNote(e.target)
+    // ) {
+    //   removeEvent(rootStore)(e.target.item.id)
+    // }
     mouseHandler.onMouseMove(extendEvent(e))
   }
 
-  const handleMouseUp = (e: PIXI.InteractionEvent) =>
+  const handleMouseUp = (e: MouseEvent) =>
     mouseHandler.onMouseUp(extendEvent(e))
 
   const mappedBeats = createBeatsInRange(
@@ -153,6 +154,7 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
 
   const ref = useRef<HTMLCanvasElement>(null)
   const [renderer, setRenderer] = useState<PianoRollRenderer | null>(null)
+  const notes = useNotes(trackId, width, false)
 
   useEffect(() => {
     const canvas = ref.current
@@ -173,15 +175,14 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
     setRenderer(new PianoRollRenderer(gl))
   }, [])
 
+  const selectionBounds = getSelectionBounds(selection, transform)
+
   useEffect(() => {
     if (renderer === null) {
       return
     }
-    renderer.render([
-      { x: 0, y: 0, width: 150, height: 20 },
-      { x: -0.3, y: -1, width: 0.5, height: 0.25 },
-    ])
-  }, [renderer])
+    renderer.render([selectionBounds, ...notes])
+  }, [renderer, selectionBounds, notes])
 
   settings.ROUND_PIXELS = true
 
@@ -193,6 +194,9 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
         height={300}
         onContextMenu={useCallback((e) => e.preventDefault(), [])}
         ref={ref}
+        onMouseDown={(e) => handleMouseDown(e.nativeEvent)}
+        onMouseMove={(e) => handleMouseMove(e.nativeEvent)}
+        onMouseUp={(e) => handleMouseUp(e.nativeEvent)}
       ></canvas>
       <PianoSelectionContextMenu {...menuProps} />
     </>

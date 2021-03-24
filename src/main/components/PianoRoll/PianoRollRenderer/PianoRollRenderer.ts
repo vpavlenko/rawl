@@ -72,9 +72,9 @@ export class PianoRollRenderer {
 
     this.preDraw()
     this.gridShader.draw(gl, this.gridBuffer)
-    this.selectionShader.draw(gl, this.selectionBuffer)
     this.beatShader.draw(gl, this.beatBuffer)
     this.noteShader.draw(gl, this.noteBuffer)
+    this.selectionShader.draw(gl, this.selectionBuffer)
   }
 
   private preDraw() {

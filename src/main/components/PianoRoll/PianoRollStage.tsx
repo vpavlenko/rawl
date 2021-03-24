@@ -21,7 +21,7 @@ import PencilMouseHandler from "./MouseHandler/PencilMouseHandler"
 import SelectionMouseHandler from "./MouseHandler/SelectionMouseHandler"
 import { isPianoNote, PianoNoteItem } from "./PianoNotes/PianoNote"
 import { useNotes } from "./PianoNotes/PianoNotes"
-import { PianoRollRenderer } from "./PianoRollRenderer"
+import { PianoRollRenderer } from "./PianoRollRenderer/PianoRollRenderer"
 import { PianoSelectionContextMenu } from "./PianoSelectionContextMenu"
 
 export interface PianoRollStageProps {

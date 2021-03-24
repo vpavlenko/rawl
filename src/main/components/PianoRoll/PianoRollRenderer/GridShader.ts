@@ -1,4 +1,4 @@
-import { mat4 } from "gl-matrix"
+import { mat4, vec4 } from "gl-matrix"
 import { ISize } from "pixi.js"
 import { rectToTriangles } from "../../../helpers/polygon"
 import { initShaderProgram } from "../../../helpers/webgl"
@@ -30,10 +30,16 @@ export class GridShader {
 
   // uniformLocations
   private uProjectionMatrix: WebGLUniformLocation
+  private uColor: WebGLUniformLocation
 
   readonly projectionMatrix: RenderProperty<mat4> = new RenderProperty<mat4>(
     mat4.create(),
     mat4.equals
+  )
+
+  readonly color: RenderProperty<vec4> = new RenderProperty<vec4>(
+    vec4.create(),
+    vec4.equals
   )
 
   constructor(gl: WebGLRenderingContext) {
@@ -50,10 +56,13 @@ export class GridShader {
 
     const fsSource = `
       precision highp float;
+      uniform vec4 uColor;
       
       void main() {
         vec2 st = gl_FragCoord.xy;
-        gl_FragColor = step(fract(st.y / 10.0), 0.2) * vec4(1.0, 0.0, 0.0, 1.0);
+        float height = 12.0;
+        float border = 1.0;
+        gl_FragColor = step(fract(st.y / height), border / height) * uColor;
       }
     `
     const program = initShaderProgram(gl, vsSource, fsSource)!
@@ -66,10 +75,16 @@ export class GridShader {
       program,
       "uProjectionMatrix"
     )!
+
+    this.uColor = gl.getUniformLocation(program, "uColor")!
   }
 
   private setProjectionMatrix(gl: WebGLRenderingContext, mat: mat4) {
     gl.uniformMatrix4fv(this.uProjectionMatrix, false, mat)
+  }
+
+  private setColor(gl: WebGLRenderingContext, color: vec4) {
+    gl.uniform4fv(this.uColor, color)
   }
 
   draw(gl: WebGLRenderingContext, buffer: PianoGridBuffer) {
@@ -83,6 +98,10 @@ export class GridShader {
 
     if (this.projectionMatrix.isDirty) {
       this.setProjectionMatrix(gl, this.projectionMatrix.value)
+    }
+
+    if (this.color.isDirty) {
+      this.setColor(gl, this.color.value)
     }
 
     gl.drawArrays(gl.TRIANGLES, 0, buffer.vertexCount)

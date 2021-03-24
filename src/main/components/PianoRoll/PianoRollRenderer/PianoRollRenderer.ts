@@ -1,7 +1,7 @@
 //
 // Initialize a shader program, so WebGL knows how to draw our data
 
-import { mat4 } from "gl-matrix"
+import { mat4, vec4 } from "gl-matrix"
 import { ISize } from "pixi.js"
 import { IRect } from "../../../../common/geometry"
 import { GridShader, PianoGridBuffer } from "./GridShader"
@@ -89,5 +89,7 @@ export class PianoRollRenderer {
       this.gridShader.projectionMatrix.value = projectionMatrix
       this.shader.projectionMatrix.value = projectionMatrix
     }
+
+    this.gridShader.color.value = vec4.fromValues(0.5, 0.5, 0.5, 1)
   }
 }

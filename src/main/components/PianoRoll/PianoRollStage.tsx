@@ -190,7 +190,7 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
     }
 
     setRenderer(new PianoRollRenderer(gl))
-  }, [width])
+  }, [])
 
   const selectionBounds = getSelectionBounds(selection, transform)
 

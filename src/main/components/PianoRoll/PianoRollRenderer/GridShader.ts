@@ -2,7 +2,7 @@ import { mat4, vec4 } from "gl-matrix"
 import { ISize } from "pixi.js"
 import { rectToTriangles } from "../../../helpers/polygon"
 import { initShaderProgram } from "../../../helpers/webgl"
-import { Uniform, uniformMat4, uniformVec4 } from "./Uniform"
+import { Uniform, uniformFloat, uniformMat4, uniformVec4 } from "./Uniform"
 
 export class PianoGridBuffer {
   readonly positionBuffer: WebGLBuffer
@@ -31,6 +31,7 @@ export class GridShader {
   // uniformLocations
   readonly uProjectionMatrix: Uniform<mat4>
   readonly uColor: Uniform<vec4>
+  readonly uHeight: Uniform<number>
 
   constructor(gl: WebGLRenderingContext) {
     const vsSource = `
@@ -47,12 +48,12 @@ export class GridShader {
     const fsSource = `
       precision highp float;
       uniform vec4 uColor;
+      uniform float uHeight;
       
       void main() {
         vec2 st = gl_FragCoord.xy;
-        float height = 12.0;
         float border = 1.0;
-        gl_FragColor = step(fract(st.y / height), border / height) * uColor;
+        gl_FragColor = step(fract(st.y / uHeight), border / uHeight) * uColor;
       }
     `
     const program = initShaderProgram(gl, vsSource, fsSource)!
@@ -62,6 +63,7 @@ export class GridShader {
     this.vertexPosition = gl.getAttribLocation(program, "aVertexPosition")
     this.uProjectionMatrix = uniformMat4(gl, program, "uProjectionMatrix")
     this.uColor = uniformVec4(gl, program, "uColor")!
+    this.uHeight = uniformFloat(gl, program, "uHeight")!
   }
 
   draw(gl: WebGLRenderingContext, buffer: PianoGridBuffer) {
@@ -75,6 +77,7 @@ export class GridShader {
 
     this.uProjectionMatrix.upload(gl)
     this.uColor.upload(gl)
+    this.uHeight.upload(gl)
 
     gl.drawArrays(gl.TRIANGLES, 0, buffer.vertexCount)
   }

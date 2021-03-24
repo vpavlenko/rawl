@@ -63,3 +63,17 @@ export const uniformVec4 = (
     new RenderProperty<vec4>(initialValue, vec4.equals),
     (gl, location, value) => gl.uniform4fv(location, value)
   )
+
+export const uniformFloat = (
+  gl: WebGLRenderingContext,
+  program: WebGLProgram,
+  name: string,
+  initialValue: number = 0
+) =>
+  new Uniform<number>(
+    gl,
+    program,
+    name,
+    new RenderProperty<number>(initialValue),
+    (gl, location, value) => gl.uniform1f(location, value)
+  )

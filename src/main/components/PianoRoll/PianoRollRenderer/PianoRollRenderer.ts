@@ -4,6 +4,7 @@
 import { mat4, vec4 } from "gl-matrix"
 import { ISize } from "pixi.js"
 import { IRect } from "../../../../common/geometry"
+import { defaultTheme } from "../../../../common/theme/Theme"
 import { GridShader, PianoGridBuffer } from "./GridShader"
 import { PianoNotesBuffer, RectangleShader } from "./RectangleShader"
 import { RenderProperty } from "./RenderProperty"
@@ -91,5 +92,6 @@ export class PianoRollRenderer {
     }
 
     this.gridShader.uColor.value = vec4.fromValues(0.5, 0.5, 0.5, 1)
+    this.gridShader.uHeight.value = defaultTheme.keyHeight
   }
 }

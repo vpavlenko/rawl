@@ -86,10 +86,10 @@ export class PianoRollRenderer {
         zFar
       )
 
-      this.gridShader.projectionMatrix.value = projectionMatrix
-      this.shader.projectionMatrix.value = projectionMatrix
+      this.gridShader.uProjectionMatrix.value = projectionMatrix
+      this.shader.uProjectionMatrix.value = projectionMatrix
     }
 
-    this.gridShader.color.value = vec4.fromValues(0.5, 0.5, 0.5, 1)
+    this.gridShader.uColor.value = vec4.fromValues(0.5, 0.5, 0.5, 1)
   }
 }

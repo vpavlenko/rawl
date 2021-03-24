@@ -2,7 +2,7 @@ import { mat4 } from "gl-matrix"
 import { IRect } from "../../../../common/geometry"
 import { rectToTriangleBounds, rectToTriangles } from "../../../helpers/polygon"
 import { initShaderProgram } from "../../../helpers/webgl"
-import { RenderProperty } from "./RenderProperty"
+import { Uniform, uniformMat4 } from "./Uniform"
 
 export class PianoNotesBuffer {
   readonly positionBuffer: WebGLBuffer
@@ -39,12 +39,7 @@ export class RectangleShader {
   private bounds: number
 
   // uniformLocations
-  private uProjectionMatrix: WebGLUniformLocation
-
-  readonly projectionMatrix: RenderProperty<mat4> = new RenderProperty<mat4>(
-    mat4.create(),
-    mat4.equals
-  )
+  readonly uProjectionMatrix: Uniform<mat4>
 
   constructor(gl: WebGLRenderingContext) {
     const vsSource = `
@@ -89,15 +84,7 @@ export class RectangleShader {
 
     this.vertexPosition = gl.getAttribLocation(program, "aVertexPosition")
     this.bounds = gl.getAttribLocation(program, "aBounds")
-
-    this.uProjectionMatrix = gl.getUniformLocation(
-      program,
-      "uProjectionMatrix"
-    )!
-  }
-
-  private setProjectionMatrix(gl: WebGLRenderingContext, mat: mat4) {
-    gl.uniformMatrix4fv(this.uProjectionMatrix, false, mat)
+    this.uProjectionMatrix = uniformMat4(gl, program, "uProjectionMatrix")
   }
 
   draw(gl: WebGLRenderingContext, buffer: PianoNotesBuffer) {
@@ -115,9 +102,7 @@ export class RectangleShader {
 
     gl.useProgram(this.program)
 
-    if (this.projectionMatrix.isDirty) {
-      this.setProjectionMatrix(gl, this.projectionMatrix.value)
-    }
+    this.uProjectionMatrix.upload(gl)
 
     gl.drawArrays(gl.TRIANGLES, 0, buffer.vertexCount)
   }

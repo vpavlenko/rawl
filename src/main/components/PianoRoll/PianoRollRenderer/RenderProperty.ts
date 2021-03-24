@@ -23,4 +23,8 @@ export class RenderProperty<T> {
   get value() {
     return this._value
   }
+
+  mark() {
+    this._isDirty = false
+  }
 }

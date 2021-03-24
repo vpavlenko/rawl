@@ -45,7 +45,6 @@ class RectangleShader {
 
   // uniformLocations
   private projectionMatrix: WebGLUniformLocation
-  private modelViewMatrix: WebGLUniformLocation
   private resolution: WebGLUniformLocation
 
   constructor(gl: WebGLRenderingContext) {
@@ -57,7 +56,6 @@ class RectangleShader {
       // XYZW -> X, Y, Width, Height
       attribute vec4 aBounds;
 
-      uniform mat4 uModelViewMatrix;
       uniform mat4 uProjectionMatrix;
       uniform vec2 uResolution;
       varying vec2 vTexCoord;
@@ -65,7 +63,7 @@ class RectangleShader {
       varying vec2 vPosition;
 
       void main() {
-        gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition;
+        gl_Position = uProjectionMatrix * aVertexPosition;
         vTexCoord = aTexCoord;
         vBounds = aBounds;
         vPosition = aVertexPosition.xy;
@@ -104,19 +102,11 @@ class RectangleShader {
       shaderProgram,
       "uProjectionMatrix"
     )!
-    this.modelViewMatrix = gl.getUniformLocation(
-      shaderProgram,
-      "uModelViewMatrix"
-    )!
     this.resolution = gl.getUniformLocation(shaderProgram, "uResolution")!
   }
 
   setProjectionMatrix(gl: WebGLRenderingContext, mat: mat4) {
     gl.uniformMatrix4fv(this.projectionMatrix, false, mat)
-  }
-
-  setModelViewMatrix(gl: WebGLRenderingContext, mat: mat4) {
-    gl.uniformMatrix4fv(this.modelViewMatrix, false, mat)
   }
 
   setResolution(gl: WebGLRenderingContext, vec: vec2) {
@@ -225,48 +215,41 @@ export class PianoRollRenderer {
       gl.enableVertexAttribArray(shader.bounds)
     }
 
-    gl.useProgram(shader.program)
-
-    // Set the shader uniforms
-
     {
-      const zNear = 0
-      const zFar = 100.0
-      const projectionMatrix = mat4.create()
+      gl.useProgram(shader.program)
 
-      // note: glmatrix.js always has the first argument
-      // as the destination to receive the result.
-      mat4.ortho(
-        projectionMatrix,
-        0,
-        gl.canvas.width,
-        gl.canvas.height,
-        0,
-        zNear,
-        zFar
+      {
+        const zNear = 0
+        const zFar = 100.0
+        const projectionMatrix = mat4.create()
+
+        mat4.ortho(
+          projectionMatrix,
+          0,
+          gl.canvas.width,
+          gl.canvas.height,
+          0,
+          zNear,
+          zFar
+        )
+
+        this.projectionMatrix.value = projectionMatrix
+      }
+
+      if (this.projectionMatrix.isDirty) {
+        shader.setProjectionMatrix(gl, this.projectionMatrix.value)
+      }
+
+      this.resolution.value = vec2.fromValues(
+        this.viewSize.value.width,
+        this.viewSize.value.height
       )
 
-      this.projectionMatrix.value = projectionMatrix
+      if (this.resolution.isDirty) {
+        shader.setResolution(gl, this.resolution.value)
+      }
+
+      gl.drawArrays(gl.TRIANGLES, 0, buffers.count)
     }
-
-    if (this.projectionMatrix.isDirty) {
-      shader.setProjectionMatrix(gl, this.projectionMatrix.value)
-    }
-
-    this.resolution.value = vec2.fromValues(
-      this.viewSize.value.width,
-      this.viewSize.value.height
-    )
-
-    if (this.resolution.isDirty) {
-      shader.setResolution(gl, this.resolution.value)
-    }
-
-    {
-      const modelViewMatrix = mat4.create()
-      shader.setModelViewMatrix(gl, modelViewMatrix)
-    }
-
-    gl.drawArrays(gl.TRIANGLES, 0, buffers.count)
   }
 }

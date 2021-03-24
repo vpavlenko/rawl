@@ -3,7 +3,7 @@
 
 import { mat4, vec4 } from "gl-matrix"
 import { ISize } from "pixi.js"
-import { IRect } from "../../../../common/geometry"
+import { IRect, zeroRect } from "../../../../common/geometry"
 import { defaultTheme } from "../../../../common/theme/Theme"
 import { GridShader, PianoGridBuffer } from "./GridShader"
 import { RectangleBuffer, RectangleShader } from "./RectangleShader"
@@ -20,6 +20,9 @@ export class PianoRollRenderer {
   private noteShader: RectangleShader
   private noteBuffer: RectangleBuffer
 
+  private selectionShader: RectangleShader
+  private selectionBuffer: RectangleBuffer
+
   private gridShader: GridShader
   private gridBuffer: PianoGridBuffer
 
@@ -34,20 +37,25 @@ export class PianoRollRenderer {
     this.noteShader = new RectangleShader(gl)
     this.noteBuffer = new RectangleBuffer(gl)
 
+    this.selectionShader = new RectangleShader(gl)
+    this.selectionBuffer = new RectangleBuffer(gl)
+
     this.gridShader = new GridShader(gl)
     this.gridBuffer = new PianoGridBuffer(gl)
 
-    this.render([])
+    this.render([], zeroRect)
   }
 
-  render(notes: IRect[]) {
+  render(notes: IRect[], selection: IRect) {
     const { gl } = this
 
     this.noteBuffer.update(gl, notes)
+    this.selectionBuffer.update(gl, [selection])
     this.gridBuffer.update(gl, this.viewSize.value)
 
     this.preDraw()
     this.gridShader.draw(gl, this.gridBuffer)
+    this.selectionShader.draw(gl, this.selectionBuffer)
     this.noteShader.draw(gl, this.noteBuffer)
   }
 
@@ -65,8 +73,12 @@ export class PianoRollRenderer {
 
     gl.clearColor(0.0, 0.0, 0.0, 1.0) // Clear to black, fully opaque
     gl.clearDepth(1.0) // Clear everything
+
     gl.disable(gl.DEPTH_TEST) // Enable depth testing
     gl.depthFunc(gl.LEQUAL) // Near things obscure far things
+
+    gl.enable(gl.BLEND)
+    gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA)
 
     // Clear the canvas before we start drawing on it.
 
@@ -88,11 +100,15 @@ export class PianoRollRenderer {
       )
 
       this.gridShader.uProjectionMatrix.value = projectionMatrix
+      this.selectionShader.uProjectionMatrix.value = projectionMatrix
       this.noteShader.uProjectionMatrix.value = projectionMatrix
     }
 
     this.noteShader.uStrokeColor.value = vec4.fromValues(1.0, 0.0, 0.0, 1.0)
     this.noteShader.uFillColor.value = vec4.fromValues(1.0, 1.0, 1.0, 1.0)
+
+    this.selectionShader.uStrokeColor.value = vec4.fromValues(1, 0, 0, 1)
+    this.selectionShader.uFillColor.value = vec4.fromValues(0, 0, 0, 0)
 
     this.gridShader.uColor.value = vec4.fromValues(0.5, 0.5, 0.5, 1)
     this.gridShader.uHeight.value = defaultTheme.keyHeight

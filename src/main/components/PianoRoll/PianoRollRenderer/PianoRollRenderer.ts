@@ -6,7 +6,7 @@ import { ISize } from "pixi.js"
 import { IRect } from "../../../../common/geometry"
 import { defaultTheme } from "../../../../common/theme/Theme"
 import { GridShader, PianoGridBuffer } from "./GridShader"
-import { PianoNotesBuffer, RectangleShader } from "./RectangleShader"
+import { RectangleBuffer, RectangleShader } from "./RectangleShader"
 import { RenderProperty } from "./RenderProperty"
 
 export class PianoRollRenderer {
@@ -17,8 +17,8 @@ export class PianoRollRenderer {
     (a, b) => a.width === b.width && a.height === b.height
   )
 
-  private shader: RectangleShader
-  private buffer: PianoNotesBuffer
+  private noteShader: RectangleShader
+  private noteBuffer: RectangleBuffer
 
   private gridShader: GridShader
   private gridBuffer: PianoGridBuffer
@@ -31,8 +31,8 @@ export class PianoRollRenderer {
   private setup() {
     const { gl } = this
 
-    this.shader = new RectangleShader(gl)
-    this.buffer = new PianoNotesBuffer(gl)
+    this.noteShader = new RectangleShader(gl)
+    this.noteBuffer = new RectangleBuffer(gl)
 
     this.gridShader = new GridShader(gl)
     this.gridBuffer = new PianoGridBuffer(gl)
@@ -40,15 +40,15 @@ export class PianoRollRenderer {
     this.render([])
   }
 
-  render(rects: IRect[]) {
+  render(notes: IRect[]) {
     const { gl } = this
 
-    this.buffer.update(gl, rects)
+    this.noteBuffer.update(gl, notes)
     this.gridBuffer.update(gl, this.viewSize.value)
 
     this.preDraw()
     this.gridShader.draw(gl, this.gridBuffer)
-    this.shader.draw(gl, this.buffer)
+    this.noteShader.draw(gl, this.noteBuffer)
   }
 
   private preDraw() {
@@ -88,8 +88,11 @@ export class PianoRollRenderer {
       )
 
       this.gridShader.uProjectionMatrix.value = projectionMatrix
-      this.shader.uProjectionMatrix.value = projectionMatrix
+      this.noteShader.uProjectionMatrix.value = projectionMatrix
     }
+
+    this.noteShader.uStrokeColor.value = vec4.fromValues(1.0, 0.0, 0.0, 1.0)
+    this.noteShader.uFillColor.value = vec4.fromValues(1.0, 1.0, 1.0, 1.0)
 
     this.gridShader.uColor.value = vec4.fromValues(0.5, 0.5, 0.5, 1)
     this.gridShader.uHeight.value = defaultTheme.keyHeight

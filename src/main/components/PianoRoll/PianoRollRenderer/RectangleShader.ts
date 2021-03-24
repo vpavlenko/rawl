@@ -1,10 +1,10 @@
-import { mat4 } from "gl-matrix"
+import { mat4, vec4 } from "gl-matrix"
 import { IRect } from "../../../../common/geometry"
 import { rectToTriangleBounds, rectToTriangles } from "../../../helpers/polygon"
 import { initShaderProgram } from "../../../helpers/webgl"
-import { Uniform, uniformMat4 } from "./Uniform"
+import { Uniform, uniformMat4, uniformVec4 } from "./Uniform"
 
-export class PianoNotesBuffer {
+export class RectangleBuffer {
   readonly positionBuffer: WebGLBuffer
   readonly boundsBuffer: WebGLBuffer
   private _vertexCount: number
@@ -40,6 +40,8 @@ export class RectangleShader {
 
   // uniformLocations
   readonly uProjectionMatrix: Uniform<mat4>
+  readonly uFillColor: Uniform<vec4>
+  readonly uStrokeColor: Uniform<vec4>
 
   constructor(gl: WebGLRenderingContext) {
     const vsSource = `
@@ -62,6 +64,10 @@ export class RectangleShader {
 
     const fsSource = `
       precision highp float;
+
+      uniform vec4 uFillColor;
+      uniform vec4 uStrokeColor;
+
       varying vec4 vBounds;
       varying vec2 vPosition;
 
@@ -72,9 +78,9 @@ export class RectangleShader {
 
         if ((localX < border) || (localX >= (vBounds.z - border)) || (localY < border) || (localY > (vBounds.w - border))) {
           // draw outline
-          gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+          gl_FragColor = uStrokeColor;
         } else {
-          gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+          gl_FragColor = uFillColor;
         }
       }
     `
@@ -85,9 +91,11 @@ export class RectangleShader {
     this.vertexPosition = gl.getAttribLocation(program, "aVertexPosition")
     this.bounds = gl.getAttribLocation(program, "aBounds")
     this.uProjectionMatrix = uniformMat4(gl, program, "uProjectionMatrix")
+    this.uFillColor = uniformVec4(gl, program, "uFillColor")
+    this.uStrokeColor = uniformVec4(gl, program, "uStrokeColor")
   }
 
-  draw(gl: WebGLRenderingContext, buffer: PianoNotesBuffer) {
+  draw(gl: WebGLRenderingContext, buffer: RectangleBuffer) {
     {
       gl.bindBuffer(gl.ARRAY_BUFFER, buffer.positionBuffer)
       gl.vertexAttribPointer(this.vertexPosition, 2, gl.FLOAT, false, 0, 0)
@@ -103,6 +111,8 @@ export class RectangleShader {
     gl.useProgram(this.program)
 
     this.uProjectionMatrix.upload(gl)
+    this.uFillColor.upload(gl)
+    this.uStrokeColor.upload(gl)
 
     gl.drawArrays(gl.TRIANGLES, 0, buffer.vertexCount)
   }

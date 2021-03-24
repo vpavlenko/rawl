@@ -1,22 +1,16 @@
-import { mat4, vec2 } from "gl-matrix"
+import { mat4 } from "gl-matrix"
 import { IRect } from "../../../../common/geometry"
-import {
-  rectToTriangleBounds,
-  rectToTriangles,
-  rectToTriangleTexCoords,
-} from "../../../helpers/polygon"
+import { rectToTriangleBounds, rectToTriangles } from "../../../helpers/polygon"
 import { initShaderProgram } from "../../../helpers/webgl"
 import { RenderProperty } from "./RenderProperty"
 
 export class PianoNotesBuffer {
   readonly positionBuffer: WebGLBuffer
-  readonly texCoordsBuffer: WebGLBuffer
   readonly boundsBuffer: WebGLBuffer
   private _vertexCount: number
 
   constructor(gl: WebGLRenderingContext) {
     this.positionBuffer = gl.createBuffer()!
-    this.texCoordsBuffer = gl.createBuffer()!
     this.boundsBuffer = gl.createBuffer()!
   }
 
@@ -24,10 +18,6 @@ export class PianoNotesBuffer {
     const positions = rects.flatMap(rectToTriangles)
     gl.bindBuffer(gl.ARRAY_BUFFER, this.positionBuffer)
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW)
-
-    const texCoords = rects.flatMap(rectToTriangleTexCoords)
-    gl.bindBuffer(gl.ARRAY_BUFFER, this.texCoordsBuffer)
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(texCoords), gl.STATIC_DRAW)
 
     const bounds = rects.flatMap(rectToTriangleBounds)
     gl.bindBuffer(gl.ARRAY_BUFFER, this.boundsBuffer)
@@ -46,40 +36,30 @@ export class RectangleShader {
 
   // attribLocations
   private vertexPosition: number
-  private texCoord: number
   private bounds: number
 
   // uniformLocations
   private uProjectionMatrix: WebGLUniformLocation
-  private uResolution: WebGLUniformLocation
 
   readonly projectionMatrix: RenderProperty<mat4> = new RenderProperty<mat4>(
     mat4.create(),
     mat4.equals
-  )
-  readonly resolution: RenderProperty<vec2> = new RenderProperty<vec2>(
-    vec2.create(),
-    vec2.equals
   )
 
   constructor(gl: WebGLRenderingContext) {
     const vsSource = `
       precision highp float;
       attribute vec4 aVertexPosition;
-      attribute vec2 aTexCoord;
 
       // XYZW -> X, Y, Width, Height
       attribute vec4 aBounds;
 
       uniform mat4 uProjectionMatrix;
-      uniform vec2 uResolution;
-      varying vec2 vTexCoord;
       varying vec4 vBounds;
       varying vec2 vPosition;
 
       void main() {
         gl_Position = uProjectionMatrix * aVertexPosition;
-        vTexCoord = aTexCoord;
         vBounds = aBounds;
         vPosition = aVertexPosition.xy;
       }
@@ -87,8 +67,6 @@ export class RectangleShader {
 
     const fsSource = `
       precision highp float;
-      varying vec2 vTexCoord;
-      uniform vec2 uResolution;
       varying vec4 vBounds;
       varying vec2 vPosition;
 
@@ -105,27 +83,21 @@ export class RectangleShader {
         }
       }
     `
-    const shaderProgram = initShaderProgram(gl, vsSource, fsSource)!
+    const program = initShaderProgram(gl, vsSource, fsSource)!
 
-    this.program = shaderProgram
+    this.program = program
 
-    this.vertexPosition = gl.getAttribLocation(shaderProgram, "aVertexPosition")
-    this.texCoord = gl.getAttribLocation(shaderProgram, "aTexCoord")
-    this.bounds = gl.getAttribLocation(shaderProgram, "aBounds")
+    this.vertexPosition = gl.getAttribLocation(program, "aVertexPosition")
+    this.bounds = gl.getAttribLocation(program, "aBounds")
 
     this.uProjectionMatrix = gl.getUniformLocation(
-      shaderProgram,
+      program,
       "uProjectionMatrix"
     )!
-    this.uResolution = gl.getUniformLocation(shaderProgram, "uResolution")!
   }
 
   private setProjectionMatrix(gl: WebGLRenderingContext, mat: mat4) {
     gl.uniformMatrix4fv(this.uProjectionMatrix, false, mat)
-  }
-
-  private setResolution(gl: WebGLRenderingContext, vec: vec2) {
-    gl.uniform2fv(this.uResolution, vec)
   }
 
   draw(gl: WebGLRenderingContext, buffer: PianoNotesBuffer) {
@@ -133,12 +105,6 @@ export class RectangleShader {
       gl.bindBuffer(gl.ARRAY_BUFFER, buffer.positionBuffer)
       gl.vertexAttribPointer(this.vertexPosition, 2, gl.FLOAT, false, 0, 0)
       gl.enableVertexAttribArray(this.vertexPosition)
-    }
-
-    {
-      gl.bindBuffer(gl.ARRAY_BUFFER, buffer.texCoordsBuffer)
-      gl.vertexAttribPointer(this.texCoord, 2, gl.FLOAT, false, 0, 0)
-      gl.enableVertexAttribArray(this.texCoord)
     }
 
     {
@@ -151,10 +117,6 @@ export class RectangleShader {
 
     if (this.projectionMatrix.isDirty) {
       this.setProjectionMatrix(gl, this.projectionMatrix.value)
-    }
-
-    if (this.resolution.isDirty) {
-      this.setResolution(gl, this.resolution.value)
     }
 
     gl.drawArrays(gl.TRIANGLES, 0, buffer.vertexCount)

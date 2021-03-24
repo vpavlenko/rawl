@@ -5,7 +5,10 @@ import { mat4, vec4 } from "gl-matrix"
 import { ISize } from "pixi.js"
 import { IRect, zeroRect } from "../../../../common/geometry"
 import { defaultTheme } from "../../../../common/theme/Theme"
-import { GridShader, PianoGridBuffer } from "./GridShader"
+import {
+  GridShader as HorizontalGridShader,
+  PianoGridBuffer,
+} from "./HorizontalGridShader"
 import { RectangleBuffer, RectangleShader } from "./RectangleShader"
 import { RenderProperty } from "./RenderProperty"
 
@@ -23,7 +26,10 @@ export class PianoRollRenderer {
   private selectionShader: RectangleShader
   private selectionBuffer: RectangleBuffer
 
-  private gridShader: GridShader
+  private beatShader: RectangleShader
+  private beatBuffer: RectangleBuffer
+
+  private gridShader: HorizontalGridShader
   private gridBuffer: PianoGridBuffer
 
   constructor(gl: WebGLRenderingContext) {
@@ -40,22 +46,34 @@ export class PianoRollRenderer {
     this.selectionShader = new RectangleShader(gl)
     this.selectionBuffer = new RectangleBuffer(gl)
 
-    this.gridShader = new GridShader(gl)
+    this.beatShader = new RectangleShader(gl)
+    this.beatBuffer = new RectangleBuffer(gl)
+
+    this.gridShader = new HorizontalGridShader(gl)
     this.gridBuffer = new PianoGridBuffer(gl)
 
-    this.render([], zeroRect)
+    this.render([], zeroRect, [])
   }
 
-  render(notes: IRect[], selection: IRect) {
+  private vline = (x: number): IRect => ({
+    x,
+    y: 0,
+    width: 1,
+    height: this.viewSize.value.height,
+  })
+
+  render(notes: IRect[], selection: IRect, beats: number[]) {
     const { gl } = this
 
     this.noteBuffer.update(gl, notes)
     this.selectionBuffer.update(gl, [selection])
+    this.beatBuffer.update(gl, beats.map(this.vline))
     this.gridBuffer.update(gl, this.viewSize.value)
 
     this.preDraw()
     this.gridShader.draw(gl, this.gridBuffer)
     this.selectionShader.draw(gl, this.selectionBuffer)
+    this.beatShader.draw(gl, this.beatBuffer)
     this.noteShader.draw(gl, this.noteBuffer)
   }
 
@@ -101,6 +119,7 @@ export class PianoRollRenderer {
 
       this.gridShader.uProjectionMatrix.value = projectionMatrix
       this.selectionShader.uProjectionMatrix.value = projectionMatrix
+      this.beatShader.uProjectionMatrix.value = projectionMatrix
       this.noteShader.uProjectionMatrix.value = projectionMatrix
     }
 
@@ -112,5 +131,8 @@ export class PianoRollRenderer {
 
     this.gridShader.uColor.value = vec4.fromValues(0.5, 0.5, 0.5, 1)
     this.gridShader.uHeight.value = defaultTheme.keyHeight
+
+    this.beatShader.uStrokeColor.value = vec4.fromValues(0.5, 0.5, 0.5, 1)
+    this.beatShader.uFillColor.value = vec4.fromValues(0, 0, 0, 0)
   }
 }

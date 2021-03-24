@@ -1,6 +1,13 @@
 import { useObserver } from "mobx-react-lite"
 import { settings } from "pixi.js"
-import React, { FC, useCallback, useEffect, useRef, useState } from "react"
+import React, {
+  FC,
+  MouseEventHandler,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react"
 import { IPoint } from "../../../common/geometry"
 import { createBeatsInRange } from "../../../common/helpers/mapBeats"
 import { getSelectionBounds } from "../../../common/selection/Selection"
@@ -88,30 +95,40 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
     }
   }
 
-  const handleMouseDown = (e: MouseEvent) => {
-    // if (isPianoNote(e.target)) {
-    //   const { item } = e.target
-    //   observeDoubleClick(() => {
-    //     removeEvent(rootStore)(item.id)
-    //   })
-    // }
+  const handleMouseDown: MouseEventHandler<HTMLCanvasElement> = useCallback(
+    (e) => {
+      // if (isPianoNote(e.target)) {
+      //   const { item } = e.target
+      //   observeDoubleClick(() => {
+      //     removeEvent(rootStore)(item.id)
+      //   })
+      // }
 
-    mouseHandler.onMouseDown(extendEvent(e))
-  }
+      mouseHandler.onMouseDown(extendEvent(e.nativeEvent))
+    },
+    [mouseHandler, transform]
+  )
 
-  const handleMouseMove = (e: MouseEvent) => {
-    // if (
-    //   mouseMode === "pencil" &&
-    //   e.buttons === 2 &&
-    //   isPianoNote(e.target)
-    // ) {
-    //   removeEvent(rootStore)(e.target.item.id)
-    // }
-    mouseHandler.onMouseMove(extendEvent(e))
-  }
+  const handleMouseMove: MouseEventHandler<HTMLCanvasElement> = useCallback(
+    (e) => {
+      // if (
+      //   mouseMode === "pencil" &&
+      //   e.buttons === 2 &&
+      //   isPianoNote(e.target)
+      // ) {
+      //   removeEvent(rootStore)(e.target.item.id)
+      // }
+      mouseHandler.onMouseMove(extendEvent(e.nativeEvent))
+    },
+    [mouseHandler, transform]
+  )
 
-  const handleMouseUp = (e: MouseEvent) =>
-    mouseHandler.onMouseUp(extendEvent(e))
+  const handleMouseUp: MouseEventHandler<HTMLCanvasElement> = useCallback(
+    (e) => {
+      mouseHandler.onMouseUp(extendEvent(e.nativeEvent))
+    },
+    [mouseHandler, transform]
+  )
 
   const mappedBeats = createBeatsInRange(
     measures,
@@ -173,7 +190,7 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
     }
 
     setRenderer(new PianoRollRenderer(gl))
-  }, [])
+  }, [width])
 
   const selectionBounds = getSelectionBounds(selection, transform)
 
@@ -181,7 +198,20 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
     if (renderer === null) {
       return
     }
-    renderer.render([selectionBounds, ...notes])
+    const canvas = ref.current
+    if (canvas === null) {
+      throw new Error("canvas is not mounted")
+    }
+    renderer.render([
+      { x: 0, y: 0, width: 1, height: canvas.height },
+      { x: canvas.width / 2, y: 0, width: 1, height: canvas.height },
+      { x: canvas.width, y: 0, width: 1, height: canvas.height },
+      { x: 0, y: 0, width: canvas.width, height: 1 },
+      { x: 0, y: canvas.height / 2, width: canvas.width, height: 1 },
+      { x: 0, y: canvas.height, width: canvas.width, height: 1 },
+      selectionBounds,
+      ...notes,
+    ])
   }, [renderer, selectionBounds, notes])
 
   settings.ROUND_PIXELS = true
@@ -190,13 +220,13 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
     <>
       <canvas
         className="alphaContent"
-        width={300}
-        height={300}
+        width={width}
+        height={1000}
         onContextMenu={useCallback((e) => e.preventDefault(), [])}
         ref={ref}
-        onMouseDown={(e) => handleMouseDown(e.nativeEvent)}
-        onMouseMove={(e) => handleMouseMove(e.nativeEvent)}
-        onMouseUp={(e) => handleMouseUp(e.nativeEvent)}
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
       ></canvas>
       <PianoSelectionContextMenu {...menuProps} />
     </>

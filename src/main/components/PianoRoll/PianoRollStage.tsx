@@ -221,7 +221,7 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
       <canvas
         className="alphaContent"
         width={width}
-        height={1000}
+        height={300}
         onContextMenu={useCallback((e) => e.preventDefault(), [])}
         ref={ref}
         onMouseDown={handleMouseDown}

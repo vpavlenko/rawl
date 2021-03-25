@@ -21,6 +21,7 @@ export class PianoRollRenderer {
   private selectionRenderer: RectangleObject
   private beatRenderer: RectangleObject
   private gridRenderer: HorizontalGridObject
+  private cursorRenderer: RectangleObject
 
   constructor(gl: WebGLRenderingContext) {
     this.gl = gl
@@ -34,8 +35,9 @@ export class PianoRollRenderer {
     this.selectionRenderer = new RectangleObject(gl)
     this.beatRenderer = new RectangleObject(gl)
     this.gridRenderer = new HorizontalGridObject(gl)
+    this.cursorRenderer = new RectangleObject(gl)
 
-    this.render([], zeroRect, [])
+    this.render([], zeroRect, [], 0)
   }
 
   private vline = (x: number): IRect => ({
@@ -45,19 +47,17 @@ export class PianoRollRenderer {
     height: this.viewSize.value.height,
   })
 
-  render(notes: IRect[], selection: IRect, beats: number[]) {
+  render(notes: IRect[], selection: IRect, beats: number[], cursorX: number) {
     const { gl } = this
 
     this.noteRenderer.update(gl, notes)
     this.selectionRenderer.update(gl, [selection])
     this.beatRenderer.update(gl, beats.map(this.vline))
     this.gridRenderer.update(gl, this.viewSize.value)
+    this.cursorRenderer.update(gl, [this.vline(cursorX)])
 
     this.preDraw()
-    this.gridRenderer.draw(gl)
-    this.beatRenderer.draw(gl)
-    this.noteRenderer.draw(gl)
-    this.selectionRenderer.draw(gl)
+    this.draw()
   }
 
   private preDraw() {
@@ -104,6 +104,7 @@ export class PianoRollRenderer {
       this.selectionRenderer.projectionMatrix = projectionMatrix
       this.beatRenderer.projectionMatrix = projectionMatrix
       this.noteRenderer.projectionMatrix = projectionMatrix
+      this.cursorRenderer.projectionMatrix = projectionMatrix
     }
 
     this.noteRenderer.strokeColor = vec4.fromValues(1.0, 0.0, 0.0, 1.0)
@@ -117,5 +118,18 @@ export class PianoRollRenderer {
 
     this.beatRenderer.strokeColor = vec4.fromValues(0.5, 0.5, 0.5, 1)
     this.beatRenderer.fillColor = vec4.fromValues(0, 0, 0, 0)
+
+    this.cursorRenderer.strokeColor = vec4.fromValues(1, 0, 0, 1)
+    this.cursorRenderer.fillColor = vec4.fromValues(0, 0, 0, 0)
+  }
+
+  private draw() {
+    const { gl } = this
+
+    this.gridRenderer.draw(gl)
+    this.beatRenderer.draw(gl)
+    this.noteRenderer.draw(gl)
+    this.selectionRenderer.draw(gl)
+    this.cursorRenderer.draw(gl)
   }
 }

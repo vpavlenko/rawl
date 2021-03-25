@@ -203,8 +203,8 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
       throw new Error("canvas is not mounted")
     }
     const beats = mappedBeats.map((b) => b.x)
-    renderer.render(notes, selectionBounds, beats)
-  }, [renderer, selectionBounds, notes, mappedBeats])
+    renderer.render(notes, selectionBounds, beats, cursorPositionX)
+  }, [renderer, selectionBounds, notes, mappedBeats, cursorPositionX])
 
   settings.ROUND_PIXELS = true
 

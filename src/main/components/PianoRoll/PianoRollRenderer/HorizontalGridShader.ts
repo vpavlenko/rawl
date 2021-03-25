@@ -2,9 +2,10 @@ import { mat4, vec4 } from "gl-matrix"
 import { ISize } from "pixi.js"
 import { rectToTriangles } from "../../../helpers/polygon"
 import { initShaderProgram } from "../../../helpers/webgl"
+import { RenderObject } from "./RenderObject"
 import { Uniform, uniformFloat, uniformMat4, uniformVec4 } from "./Uniform"
 
-export class PianoGridBuffer {
+export class HorizontalGridBuffer {
   readonly positionBuffer: WebGLBuffer
 
   constructor(gl: WebGLRenderingContext) {
@@ -22,7 +23,7 @@ export class PianoGridBuffer {
   }
 }
 
-export class GridShader {
+export class HorizontalGridShader {
   private program: WebGLProgram
 
   // attribLocations
@@ -66,7 +67,7 @@ export class GridShader {
     this.uHeight = uniformFloat(gl, program, "uHeight")!
   }
 
-  draw(gl: WebGLRenderingContext, buffer: PianoGridBuffer) {
+  draw(gl: WebGLRenderingContext, buffer: HorizontalGridBuffer) {
     {
       gl.bindBuffer(gl.ARRAY_BUFFER, buffer.positionBuffer)
       gl.vertexAttribPointer(this.vertexPosition, 2, gl.FLOAT, false, 0, 0)
@@ -80,5 +81,27 @@ export class GridShader {
     this.uHeight.upload(gl)
 
     gl.drawArrays(gl.TRIANGLES, 0, buffer.vertexCount)
+  }
+}
+
+export class HorizontalGridObject extends RenderObject<
+  ISize,
+  HorizontalGridBuffer,
+  HorizontalGridShader
+> {
+  constructor(gl: WebGLRenderingContext) {
+    super(new HorizontalGridShader(gl), new HorizontalGridBuffer(gl))
+  }
+
+  set projectionMatrix(value: mat4) {
+    this.shader.uProjectionMatrix.value = value
+  }
+
+  set color(value: vec4) {
+    this.shader.uColor.value = value
+  }
+
+  set height(value: number) {
+    this.shader.uHeight.value = value
   }
 }

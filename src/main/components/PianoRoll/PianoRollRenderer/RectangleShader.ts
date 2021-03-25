@@ -2,6 +2,7 @@ import { mat4, vec4 } from "gl-matrix"
 import { IRect } from "../../../../common/geometry"
 import { rectToTriangleBounds, rectToTriangles } from "../../../helpers/polygon"
 import { initShaderProgram } from "../../../helpers/webgl"
+import { RenderObject } from "./RenderObject"
 import { Uniform, uniformMat4, uniformVec4 } from "./Uniform"
 
 export class RectangleBuffer {
@@ -115,5 +116,27 @@ export class RectangleShader {
     this.uStrokeColor.upload(gl)
 
     gl.drawArrays(gl.TRIANGLES, 0, buffer.vertexCount)
+  }
+}
+
+export class RectangleObject extends RenderObject<
+  IRect[],
+  RectangleBuffer,
+  RectangleShader
+> {
+  constructor(gl: WebGLRenderingContext) {
+    super(new RectangleShader(gl), new RectangleBuffer(gl))
+  }
+
+  set projectionMatrix(value: mat4) {
+    this.shader.uProjectionMatrix.value = value
+  }
+
+  set fillColor(value: vec4) {
+    this.shader.uFillColor.value = value
+  }
+
+  set strokeColor(value: vec4) {
+    this.shader.uStrokeColor.value = value
   }
 }

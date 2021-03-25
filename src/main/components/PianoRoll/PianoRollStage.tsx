@@ -8,7 +8,7 @@ import React, {
   useRef,
   useState,
 } from "react"
-import { IPoint } from "../../../common/geometry"
+import { containsPoint, IPoint } from "../../../common/geometry"
 import { createBeatsInRange } from "../../../common/helpers/mapBeats"
 import { getSelectionBounds } from "../../../common/selection/Selection"
 import { NoteCoordTransform } from "../../../common/transform"
@@ -79,6 +79,8 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
   const mouseHandler =
     mouseMode === "pencil" ? pencilMouseHandler : selectionMouseHandler
 
+  const notes = useNotes(trackId, width, false)
+
   // MouseHandler で利用する追加情報をイベントに付加する
   const extendEvent = (e: MouseEvent): PianoNotesMouseEvent => {
     const local = {
@@ -91,7 +93,7 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
       tick: transform.getTicks(local.x),
       noteNumber: Math.ceil(transform.getNoteNumber(local.y)),
       transform,
-      item: null,
+      item: notes.find((n) => containsPoint(n, local)) ?? null,
     }
   }
 
@@ -171,7 +173,6 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
 
   const ref = useRef<HTMLCanvasElement>(null)
   const [renderer, setRenderer] = useState<PianoRollRenderer | null>(null)
-  const notes = useNotes(trackId, width, false)
 
   useEffect(() => {
     const canvas = ref.current

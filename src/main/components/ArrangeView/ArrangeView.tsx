@@ -17,6 +17,7 @@ import { Theme } from "../../../common/theme/Theme"
 import Track, { isNoteEvent, TrackEvent } from "../../../common/track"
 import { NoteCoordTransform } from "../../../common/transform"
 import ArrangeNoteItem from "../../components/ArrangeView/ArrangeNoteItem"
+import { Layout } from "../../Constants"
 import { useContextMenu } from "../../hooks/useContextMenu"
 import { HorizontalScaleScrollBar } from "../inputs/ScaleScrollBar"
 import { BAR_WIDTH, VerticalScrollBar } from "../inputs/ScrollBar"
@@ -390,7 +391,7 @@ const _ArrangeView = (
 
     function createPoint(e: MouseEvent) {
       const x = e.pageX - left + scrollLeft
-      const y = e.pageY - top - theme.rulerHeight + scrollTop
+      const y = e.pageY - top - Layout.rulerHeight + scrollTop
       const tick = transform.getTicks(x)
       return { x: tick, y: y / trackHeight }
     }

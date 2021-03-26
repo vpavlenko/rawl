@@ -7,6 +7,7 @@ import styled from "styled-components"
 import { filterEventsWithScroll } from "../../../common/helpers/filterEventsWithScroll"
 import { createBeatsInRange } from "../../../common/helpers/mapBeats"
 import { changeNotesVelocity, createControlEvent } from "../../actions"
+import { Layout } from "../../Constants"
 import { useNoteTransform } from "../../hooks/useNoteTransform"
 import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
@@ -166,7 +167,7 @@ const ControlPane: FC = () => {
     events: controlEvents,
     transform,
     scrollLeft,
-    width: containerWidth - theme.keyWidth - BORDER_WIDTH,
+    width: containerWidth - Layout.keyWidth - BORDER_WIDTH,
     height: containerHeight - TAB_HEIGHT,
     color: theme.themeColor,
     createEvent: (value: number, tick?: number) =>
@@ -202,7 +203,7 @@ const ControlPane: FC = () => {
         {control}
         <Stage
           style={{
-            marginLeft: theme.keyWidth,
+            marginLeft: Layout.keyWidth,
             pointerEvents: "none",
           }}
           width={controlProps.width}

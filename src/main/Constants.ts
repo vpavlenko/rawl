@@ -67,3 +67,10 @@ export const QuantizeOptions = [
     value: 48,
   },
 ]
+
+export const Layout = {
+  pixelsPerTick: 0.1,
+  keyHeight: 12,
+  keyWidth: 64,
+  rulerHeight: 30,
+}

@@ -6,6 +6,7 @@ import React, { FC, useState } from "react"
 import { pointAdd, pointSub } from "../../../common/geometry"
 import { isBlackKey } from "../../../common/helpers/noteNumber"
 import { noteNameWithOctString } from "../../../common/helpers/noteNumberString"
+import { Layout } from "../../Constants"
 import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
 import { Rectangle } from "../Graphics/Rectangle"
@@ -95,7 +96,7 @@ export interface PianoKeysProps {
 
 const PianoKeys: FC<PianoKeysProps> = ({ numberOfKeys, keyHeight }) => {
   const theme = useTheme()
-  const width = theme.keyWidth
+  const width = Layout.keyWidth
   const [touchingKeys, setTouchingKeys] = useState<number[]>([])
 
   function draw(ctx: PIXIGraphics): void {

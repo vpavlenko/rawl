@@ -4,7 +4,7 @@
 import { mat4, vec4 } from "gl-matrix"
 import { ISize } from "pixi.js"
 import { IRect, zeroRect } from "../../../../common/geometry"
-import { defaultTheme } from "../../../../common/theme/Theme"
+import { Layout } from "../../../Constants"
 import { HorizontalGridObject } from "./HorizontalGridShader"
 import { RectangleObject } from "./RectangleShader"
 import { RenderProperty } from "./RenderProperty"
@@ -114,7 +114,7 @@ export class PianoRollRenderer {
     this.selectionRenderer.fillColor = vec4.fromValues(0, 0, 0, 0)
 
     this.gridRenderer.color = vec4.fromValues(0.5, 0.5, 0.5, 1)
-    this.gridRenderer.height = defaultTheme.keyHeight
+    this.gridRenderer.height = Layout.keyHeight
 
     this.beatRenderer.strokeColor = vec4.fromValues(0.5, 0.5, 0.5, 1)
     this.beatRenderer.fillColor = vec4.fromValues(0, 0, 0, 0)

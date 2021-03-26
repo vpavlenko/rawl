@@ -15,6 +15,7 @@ import {
   createTempo as _createTempo,
   setPlayerPosition as _setPlayerPosition,
 } from "../../actions"
+import { Layout } from "../../Constants"
 import { StoreContext, useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
 import { BAR_WIDTH, HorizontalScrollBar } from "../inputs/ScrollBar"
@@ -62,7 +63,7 @@ export const TempoGraph: FC = () => {
     playerPosition,
   } = useObserver(() => ({
     isPlaying: rootStore.services.player.isPlaying,
-    pixelsPerTick: 0.1 * rootStore.tempoEditorStore.scaleX,
+    pixelsPerTick: Layout.pixelsPerTick * rootStore.tempoEditorStore.scaleX,
     events:
       rootStore.song.conductorTrack !== undefined
         ? toJS(rootStore.song.conductorTrack.events)
@@ -110,12 +111,10 @@ export const TempoGraph: FC = () => {
   ) as DisplayEvent[]
   const scrollLeft = Math.floor(_scrollLeft)
 
-  const { keyWidth, rulerHeight } = theme
-
   const containerWidth = size.width
   const containerHeight = size.height
 
-  const contentHeight = containerHeight - rulerHeight - BAR_WIDTH
+  const contentHeight = containerHeight - Layout.rulerHeight - BAR_WIDTH
   const transform = new TempoCoordTransform(pixelsPerTick, contentHeight)
   const startTick = scrollLeft / pixelsPerTick
   const widthTick = transform.getTicks(containerWidth)
@@ -186,8 +185,8 @@ export const TempoGraph: FC = () => {
         options={{ transparent: true, autoDensity: true, antialias: true }}
       >
         <StoreContext.Provider value={rootStore}>
-          <Container x={keyWidth}>
-            <Container x={-scrollLeft} y={rulerHeight}>
+          <Container x={Layout.keyWidth}>
+            <Container x={-scrollLeft} y={Layout.rulerHeight}>
               <PianoGrid height={canvasHeight} beats={mappedBeats} />
               <Container x={transform.getX(playerPosition)}>
                 <PianoCursor height={canvasHeight} />
@@ -219,8 +218,8 @@ export const TempoGraph: FC = () => {
         scrollLeft={scrollLeft}
       />
       <TempoGraphAxis
-        width={keyWidth}
-        offset={rulerHeight}
+        width={Layout.keyWidth}
+        offset={Layout.rulerHeight}
         transform={transform}
       />
       <HorizontalScrollBar

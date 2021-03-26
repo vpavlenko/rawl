@@ -28,19 +28,21 @@ const mousePositionToCursor = (position: MousePositionType) => {
   }
 }
 
-const getPositionType = (
-  localX: number,
-  width: number,
-  isDrum: boolean
-): MousePositionType => {
-  if (isDrum) {
+const getPositionType = (e: PianoNotesMouseEvent): MousePositionType => {
+  if (e.item === null) {
+    console.warn("no item")
     return "center"
   }
-  const edgeSize = Math.min(width / 3, 8)
+  const localX = e.local.x - e.item.x
+
+  if (e.item.isDrum) {
+    return "center"
+  }
+  const edgeSize = Math.min(e.item.width / 3, 8)
   if (localX <= edgeSize) {
     return "left"
   }
-  if (width - localX <= edgeSize) {
+  if (e.item.width - localX <= edgeSize) {
     return "right"
   }
   return "center"
@@ -80,13 +82,7 @@ export default class PencilMouseHandler extends NoteMouseHandler {
 
   protected getCursorForMouseMove(e: PianoNotesMouseEvent): string {
     if (e.item !== null) {
-      const offsetPos = {
-        x: e.nativeEvent.offsetX,
-        y: e.nativeEvent.offsetY,
-      }
-      const { item } = e
-      const local = pointSub(item, offsetPos)
-      const position = getPositionType(local.x, item.width, item.isDrum)
+      const position = getPositionType(e)
       return mousePositionToCursor(position)
     }
 
@@ -108,8 +104,7 @@ const dragNoteAction = (rootStore: RootStore): MouseGesture => ({
       x: e.nativeEvent.offsetX,
       y: e.nativeEvent.offsetY,
     }
-    const local = pointSub(item, startOffsetPos)
-    const position = getPositionType(local.x, item.width, item.isDrum)
+    const position = getPositionType(e)
 
     observeDrag({
       onMouseMove: (e) => {

@@ -18,6 +18,7 @@ import { PianoNoteItem, useNotes } from "../../hooks/useNotes"
 import { useNoteTransform } from "../../hooks/useNoteTransform"
 import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
+import { observeDoubleClick } from "./MouseHandler/observeDoubleClick"
 import PencilMouseHandler from "./MouseHandler/PencilMouseHandler"
 import SelectionMouseHandler from "./MouseHandler/SelectionMouseHandler"
 import { PianoRollRenderer } from "./PianoRollRenderer/PianoRollRenderer"
@@ -81,54 +82,55 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
   const notes = useNotes(trackId, width, false)
 
   // MouseHandler で利用する追加情報をイベントに付加する
-  const extendEvent = (e: MouseEvent): PianoNotesMouseEvent => {
-    const local = {
-      x: e.pageX,
-      y: e.pageY,
-    }
-    return {
-      nativeEvent: e,
-      local,
-      tick: transform.getTicks(local.x),
-      noteNumber: Math.ceil(transform.getNoteNumber(local.y)),
-      transform,
-      item: notes.find((n) => containsPoint(n, local)) ?? null,
-    }
-  }
+  const extendEvent = useCallback(
+    (e: MouseEvent): PianoNotesMouseEvent => {
+      const local = {
+        x: e.offsetX,
+        y: e.offsetY,
+      }
+      return {
+        nativeEvent: e,
+        local,
+        tick: transform.getTicks(local.x),
+        noteNumber: Math.ceil(transform.getNoteNumber(local.y)),
+        transform,
+        item: notes.find((n) => containsPoint(n, local)) ?? null,
+      }
+    },
+    [transform, notes]
+  )
 
   const handleMouseDown: MouseEventHandler<HTMLCanvasElement> = useCallback(
     (e) => {
-      // if (isPianoNote(e.target)) {
-      //   const { item } = e.target
-      //   observeDoubleClick(() => {
-      //     removeEvent(rootStore)(item.id)
-      //   })
-      // }
+      const ev = extendEvent(e.nativeEvent)
+      if (ev.item !== null) {
+        const { item } = ev
+        observeDoubleClick(() => {
+          removeEvent(rootStore)(item.id)
+        })
+      }
 
-      mouseHandler.onMouseDown(extendEvent(e.nativeEvent))
+      mouseHandler.onMouseDown(ev)
     },
-    [mouseHandler, transform]
+    [mouseHandler, extendEvent]
   )
 
   const handleMouseMove: MouseEventHandler<HTMLCanvasElement> = useCallback(
     (e) => {
-      // if (
-      //   mouseMode === "pencil" &&
-      //   e.buttons === 2 &&
-      //   isPianoNote(e.target)
-      // ) {
-      //   removeEvent(rootStore)(e.target.item.id)
-      // }
+      const ev = extendEvent(e.nativeEvent)
+      if (mouseMode === "pencil" && e.buttons === 2 && ev.item !== null) {
+        removeEvent(rootStore)(ev.item.id)
+      }
       mouseHandler.onMouseMove(extendEvent(e.nativeEvent))
     },
-    [mouseHandler, transform]
+    [mouseHandler, extendEvent]
   )
 
   const handleMouseUp: MouseEventHandler<HTMLCanvasElement> = useCallback(
     (e) => {
       mouseHandler.onMouseUp(extendEvent(e.nativeEvent))
     },
-    [mouseHandler, transform]
+    [mouseHandler, extendEvent]
   )
 
   const mappedBeats = createBeatsInRange(
@@ -163,7 +165,7 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
         onContextMenu(e)
       }
     },
-    [rootStore, onContextMenu]
+    [rootStore, onContextMenu, extendEvent]
   )
 
   const ref = useRef<HTMLCanvasElement>(null)

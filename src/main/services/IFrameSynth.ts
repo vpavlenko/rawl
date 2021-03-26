@@ -1,5 +1,5 @@
-import { Messenger } from "../../common/messenger/messenger"
-import { LoadSoundFontEvent } from "../../synth/synth"
+import { Messenger, WindowMessenger } from "../../common/messenger/messenger"
+import { LoadSoundFontEvent, SynthEvent } from "../../synth/synth"
 import { Message, SynthOutput } from "./SynthOutput"
 
 function createElement(html: string) {
@@ -17,46 +17,50 @@ export default class IFrameSynth implements SynthOutput {
   onLoadSoundFont: (e: LoadSoundFontEvent) => void = () => {}
 
   constructor(soundFontPath: string) {
-    // const iframe =
-    //   (document.getElementById("synth") as HTMLIFrameElement) ??
-    //   (createElement(
-    //     `<iframe src="./synth.html" id="synth"></iframe>`
-    //   ) as HTMLIFrameElement)
-    // if (iframe.contentWindow == null) {
-    //   console.error("Failed create iframe for synth.html")
-    //   return
-    // }
-    // this.messenger = new WindowMessenger(iframe.contentWindow)
-    // iframe.onload = () => {
-    //   if (soundFontPath) {
-    //     this.loadSoundFont(soundFontPath)
-    //   }
-    // }
-    // this.messenger.on(SynthEvent.didLoadSoundFont, (e) =>
-    //   this.onLoadSoundFont(e)
-    // )
+    const iframe =
+      (document.getElementById("synth") as HTMLIFrameElement) ??
+      (createElement(
+        `<iframe src="./synth.html" id="synth"></iframe>`
+      ) as HTMLIFrameElement)
+
+    if (iframe.contentWindow == null) {
+      console.error("Failed create iframe for synth.html")
+      return
+    }
+
+    this.messenger = new WindowMessenger(iframe.contentWindow)
+
+    iframe.onload = () => {
+      if (soundFontPath) {
+        this.loadSoundFont(soundFontPath)
+      }
+    }
+
+    this.messenger.on(SynthEvent.didLoadSoundFont, (e) =>
+      this.onLoadSoundFont(e)
+    )
   }
 
   activate() {
-    // this.messenger.send(SynthEvent.activate)
+    this.messenger.send(SynthEvent.activate)
   }
 
   loadSoundFont(url: string) {
-    // this.messenger.send(SynthEvent.loadSoundFont, { url })
+    this.messenger.send(SynthEvent.loadSoundFont, { url })
   }
 
   startRecording() {
-    // this.messenger.send(SynthEvent.startRecording)
+    this.messenger.send(SynthEvent.startRecording)
   }
 
   stopRecording() {
-    // this.messenger.send(SynthEvent.stopRecording)
+    this.messenger.send(SynthEvent.stopRecording)
   }
 
   sendEvents(events: Message[]) {
-    // this.messenger.send(SynthEvent.midi, {
-    //   events,
-    //   timestamp: window.performance.now(),
-    // })
+    this.messenger.send(SynthEvent.midi, {
+      events,
+      timestamp: window.performance.now(),
+    })
   }
 }

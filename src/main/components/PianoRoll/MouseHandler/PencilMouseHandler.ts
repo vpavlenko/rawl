@@ -11,10 +11,40 @@ import {
   selectNote,
 } from "../../../actions"
 import RootStore from "../../../stores/RootStore"
-import { getPositionType, mousePositionToCursor } from "../PianoNotes/PianoNote"
 import { PianoNotesMouseEvent } from "../PianoRollStage"
 import NoteMouseHandler, { MouseGesture } from "./NoteMouseHandler"
 import { observeDrag } from "./observeDrag"
+
+type MousePositionType = "left" | "center" | "right"
+
+const mousePositionToCursor = (position: MousePositionType) => {
+  switch (position) {
+    case "center":
+      return "move"
+    case "left":
+      return "w-resize"
+    case "right":
+      return "e-resize"
+  }
+}
+
+const getPositionType = (
+  localX: number,
+  width: number,
+  isDrum: boolean
+): MousePositionType => {
+  if (isDrum) {
+    return "center"
+  }
+  const edgeSize = Math.min(width / 3, 8)
+  if (localX <= edgeSize) {
+    return "left"
+  }
+  if (width - localX <= edgeSize) {
+    return "right"
+  }
+  return "center"
+}
 
 export default class PencilMouseHandler extends NoteMouseHandler {
   protected actionForMouseDown(e: PianoNotesMouseEvent): MouseGesture | null {

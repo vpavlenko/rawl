@@ -14,13 +14,12 @@ import { getSelectionBounds } from "../../../common/selection/Selection"
 import { NoteCoordTransform } from "../../../common/transform"
 import { removeEvent } from "../../actions"
 import { useContextMenu } from "../../hooks/useContextMenu"
-import { useNotes } from "../../hooks/useNotes"
+import { PianoNoteItem, useNotes } from "../../hooks/useNotes"
 import { useNoteTransform } from "../../hooks/useNoteTransform"
 import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
 import PencilMouseHandler from "./MouseHandler/PencilMouseHandler"
 import SelectionMouseHandler from "./MouseHandler/SelectionMouseHandler"
-import { isPianoNote, PianoNoteItem } from "./PianoNotes/PianoNote"
 import { PianoRollRenderer } from "./PianoRollRenderer/PianoRollRenderer"
 import { PianoSelectionContextMenu } from "./PianoSelectionContextMenu"
 
@@ -145,26 +144,22 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
 
   const { onContextMenu, menuProps } = useContextMenu()
 
-  const onRightClickSelection = useCallback(
-    (ev: PIXI.InteractionEvent) => {
-      ev.stopPropagation()
-      const e = ev.data.originalEvent as MouseEvent
+  const onRightClickSelection: MouseEventHandler<HTMLCanvasElement> = useCallback(
+    (e) => {
+      e.stopPropagation()
       onContextMenu(e)
     },
     [onContextMenu]
   )
 
-  const handleRightClick = useCallback(
-    (ev: PIXI.InteractionEvent) => {
-      if (
-        isPianoNote(ev.target) &&
-        rootStore.pianoRollStore.mouseMode == "pencil"
-      ) {
-        removeEvent(rootStore)(ev.target.item.id)
+  const handleRightClick: MouseEventHandler<HTMLCanvasElement> = useCallback(
+    (e) => {
+      const ev = extendEvent(e.nativeEvent)
+      if (ev.item !== null && rootStore.pianoRollStore.mouseMode == "pencil") {
+        removeEvent(rootStore)(ev.item.id)
       }
       if (rootStore.pianoRollStore.mouseMode === "selection") {
-        const e = ev.data.originalEvent as MouseEvent
-        ev.stopPropagation()
+        e.stopPropagation()
         onContextMenu(e)
       }
     },

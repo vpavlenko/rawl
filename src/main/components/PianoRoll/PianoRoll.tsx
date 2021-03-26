@@ -7,6 +7,9 @@ import { NoteCoordTransform } from "../../../common/transform"
 import { Layout } from "../../Constants"
 import { isTouchPadEvent } from "../../helpers/touchpad"
 import { useStores } from "../../hooks/useStores"
+import ControlPane from "../ControlPane/ControlPane"
+import { HorizontalScaleScrollBar } from "../inputs/ScaleScrollBar"
+import { VerticalScrollBar } from "../inputs/ScrollBar"
 import { PianoRollStage } from "./PianoRollStage"
 
 const WHEEL_SCROLL_RATE = 1 / 120
@@ -194,20 +197,19 @@ const PianoRollWrapper: FC = () => {
 
   return (
     <Parent ref={ref}>
-      {/* <StyledSplitPane split="horizontal" minSize={50} defaultSize={"60%"}> */}
-      {/* <Alpha onWheel={onWheel} ref={alphaRef}> */}
-      <PianoRollStage width={size.width} />
-      {/* <VerticalScrollBar
+      <StyledSplitPane split="horizontal" minSize={50} defaultSize={"60%"}>
+        <Alpha onWheel={onWheel} ref={alphaRef}>
+          <PianoRollStage width={size.width} />
+          <VerticalScrollBar
             scrollOffset={_scrollTop}
             contentLength={contentHeight}
             onScroll={setScrollTop}
-          /> */}
-      {/* </Alpha> */}
-      {/* <Beta>
-        // <ControlPane />
-        //{" "}
-      </Beta> */}
-      {/* </StyledSplitPane>
+          />
+        </Alpha>
+        <Beta>
+          <ControlPane />
+        </Beta>
+      </StyledSplitPane>
       <HorizontalScaleScrollBar
         scrollOffset={_scrollLeft}
         contentLength={contentWidth}
@@ -215,7 +217,7 @@ const PianoRollWrapper: FC = () => {
         onClickScaleUp={onClickScaleUp}
         onClickScaleDown={onClickScaleDown}
         onClickScaleReset={onClickScaleReset}
-      /> */}
+      />
     </Parent>
   )
 }

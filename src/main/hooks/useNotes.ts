@@ -1,11 +1,18 @@
 import { useObserver } from "mobx-react-lite"
 import { useMemo } from "react"
+import { IRect } from "../../common/geometry/Rect"
 import { filterEventsWithScroll } from "../../common/helpers/filterEventsWithScroll"
 import { isNoteEvent, NoteEvent } from "../../common/track"
-import { PianoNoteItem } from "../components/PianoRoll/PianoNotes/PianoNote"
 import { useMemoObserver } from "./useMemoObserver"
 import { useNoteTransform } from "./useNoteTransform"
 import { useStores } from "./useStores"
+
+export type PianoNoteItem = IRect & {
+  id: number
+  velocity: number
+  isSelected: boolean
+  isDrum: boolean
+}
 
 export const useNotes = (trackId: number, width: number, isGhost: boolean) => {
   const rootStore = useStores()

@@ -27,6 +27,7 @@ export class PianoRollRenderer {
 
   private noteRenderer: BorderedRectangleObject
   private selectedNoteRenderer: BorderedRectangleObject
+  private ghostNoteRenderer: BorderedRectangleObject
   private selectionRenderer: BorderedRectangleObject
   private beatRenderer: SolidRectangleObject
   private highlightedBeatRenderer: SolidRectangleObject
@@ -45,13 +46,14 @@ export class PianoRollRenderer {
 
     this.noteRenderer = new BorderedRectangleObject(gl)
     this.selectedNoteRenderer = new BorderedRectangleObject(gl)
+    this.ghostNoteRenderer = new BorderedRectangleObject(gl)
     this.selectionRenderer = new BorderedRectangleObject(gl)
     this.beatRenderer = new SolidRectangleObject(gl)
     this.highlightedBeatRenderer = new SolidRectangleObject(gl)
     this.gridRenderer = new HorizontalGridObject(gl)
     this.cursorRenderer = new SolidRectangleObject(gl)
 
-    this.render([], [], zeroRect, [], [], 0, 0)
+    this.render([], [], [], zeroRect, [], [], 0, 0)
   }
 
   private vline = (x: number): IRect => ({
@@ -64,6 +66,7 @@ export class PianoRollRenderer {
   render(
     notes: IRect[],
     selectedNotes: IRect[],
+    ghostNotes: IRect[],
     selection: IRect,
     beats: number[],
     highlightedBeats: number[],
@@ -74,6 +77,7 @@ export class PianoRollRenderer {
 
     this.noteRenderer.update(gl, notes)
     this.selectedNoteRenderer.update(gl, selectedNotes)
+    this.ghostNoteRenderer.update(gl, ghostNotes)
     this.selectionRenderer.update(gl, [selection])
     this.beatRenderer.update(gl, beats.map(this.vline))
     this.highlightedBeatRenderer.update(gl, highlightedBeats.map(this.vline))
@@ -136,6 +140,7 @@ export class PianoRollRenderer {
       this.highlightedBeatRenderer.projectionMatrix = projectionMatrix
       this.noteRenderer.projectionMatrix = projectionMatrix
       this.selectedNoteRenderer.projectionMatrix = projectionMatrix
+      this.ghostNoteRenderer.projectionMatrix = projectionMatrix
       this.cursorRenderer.projectionMatrix = projectionMatrix
     }
 
@@ -148,8 +153,16 @@ export class PianoRollRenderer {
       this.noteRenderer.strokeColor = colorToVec4(borderColor)
       this.noteRenderer.fillColor = colorToVec4(baseColor)
 
-      this.selectedNoteRenderer.strokeColor = colorToVec4(selectedColor)
-      this.selectedNoteRenderer.fillColor = colorToVec4(selectedBorderColor)
+      this.selectedNoteRenderer.strokeColor = colorToVec4(selectedBorderColor)
+      this.selectedNoteRenderer.fillColor = colorToVec4(selectedColor)
+    }
+
+    {
+      const baseColor = Color(this.theme.ghostNoteColor)
+      const borderColor = baseColor.lighten(0.3)
+
+      this.ghostNoteRenderer.strokeColor = colorToVec4(borderColor)
+      this.ghostNoteRenderer.fillColor = colorToVec4(baseColor)
     }
 
     this.selectionRenderer.strokeColor = vec4.fromValues(1, 0, 0, 1)
@@ -175,6 +188,7 @@ export class PianoRollRenderer {
     // this.gridRenderer.draw(gl)
     this.beatRenderer.draw(gl)
     this.highlightedBeatRenderer.draw(gl)
+    this.ghostNoteRenderer.draw(gl)
     this.noteRenderer.draw(gl)
     this.selectedNoteRenderer.draw(gl)
     this.selectionRenderer.draw(gl)

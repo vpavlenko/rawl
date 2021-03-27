@@ -110,7 +110,7 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width, height }) => {
   const mouseHandler =
     mouseMode === "pencil" ? pencilMouseHandler : selectionMouseHandler
 
-  const notes = useNotes(trackId, width, false)
+  const [notes, ghostNotes] = useNotes(trackId, width, false)
 
   // MouseHandler で利用する追加情報をイベントに付加する
   const extendEvent = useCallback(
@@ -246,6 +246,7 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width, height }) => {
     renderer.render(
       nonSelectedNotes,
       selectedNotes,
+      ghostNotes,
       selectionBounds,
       nonHighlightedBeats.map((b) => b.x),
       highlightedBeats.map((b) => b.x),
@@ -257,6 +258,7 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width, height }) => {
     selection,
     transform,
     notes,
+    ghostNotes,
     mappedBeats,
     cursorPositionX,
     theme,
@@ -276,7 +278,6 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width, height }) => {
       </ContentPosition>
       <ContentPosition style={{ top: -scrollTop + Layout.rulerHeight }}>
         <canvas
-          className="alphaContent"
           width={width}
           height={contentHeight}
           onContextMenu={useCallback((e) => e.preventDefault(), [])}

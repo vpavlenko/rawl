@@ -3,6 +3,7 @@ import { emptySelection } from "../../common/selection/Selection"
 import { LoadSoundFontEvent } from "../../synth/synth"
 import { ControlMode } from "../components/ControlPane/ControlPane"
 import { InstrumentSetting } from "../components/InstrumentBrowser/InstrumentBrowser"
+import { PianoNoteItem } from "../hooks/useNotes"
 
 export type PianoRollMouseMode = "pencil" | "selection"
 
@@ -29,6 +30,8 @@ export default class PianoRollStore {
   }
   presetNames: LoadSoundFontEvent["presetNames"] = [[]]
   ghostTracks: GhostTrackIdMap = {}
+  notes: PianoNoteItem[]
+  canvasWidth: number
 
   constructor() {
     makeObservable(this, {
@@ -48,6 +51,7 @@ export default class PianoRollStore {
       instrumentBrowserSetting: observable,
       presetNames: observable,
       ghostTracks: observable,
+      canvasWidth: observable,
       scrollBy: action,
       toggleTool: action,
     })

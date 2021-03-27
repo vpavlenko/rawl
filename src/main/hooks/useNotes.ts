@@ -1,3 +1,4 @@
+import { flatten } from "lodash"
 import { useObserver } from "mobx-react-lite"
 import { useMemo } from "react"
 import { IRect } from "../../common/geometry/Rect"
@@ -14,14 +15,22 @@ export type PianoNoteItem = IRect & {
   isDrum: boolean
 }
 
-export const useNotes = (trackId: number, width: number, isGhost: boolean) => {
+export const useNotes = (
+  trackId: number,
+  width: number,
+  isGhost: boolean
+): [PianoNoteItem[], PianoNoteItem[]] => {
   const rootStore = useStores()
 
-  const { events, isRhythmTrack } = useObserver(() => {
+  const { events, isRhythmTrack, ghostTrackIds } = useObserver(() => {
     const track = rootStore.song.tracks[trackId]
+    const ghostTrackIds =
+      rootStore.pianoRollStore.ghostTracks[rootStore.song.selectedTrackId] ?? []
+
     return {
       events: [...(track?.events ?? [])], // create new object to fire useMemo update
       isRhythmTrack: track?.isRhythmTrack ?? false,
+      ghostTrackIds,
     }
   })
 
@@ -33,8 +42,27 @@ export const useNotes = (trackId: number, width: number, isGhost: boolean) => {
   const windowNotes = (notes: NoteEvent[]): NoteEvent[] =>
     filterEventsWithScroll(notes, transform.pixelsPerTick, scrollLeft, width)
 
+  const getGhostNotes = () =>
+    flatten(
+      ghostTrackIds.map((id) => {
+        const track = rootStore.song.getTrack(id)
+        return windowNotes(track.events.filter(isNoteEvent)).map(
+          (e): PianoNoteItem => {
+            const rect = transform.getRect(e)
+            return {
+              ...rect,
+              id: e.id,
+              velocity: 127, // draw opaque when ghost
+              isSelected: false,
+              isDrum: track.isRhythmTrack,
+            }
+          }
+        )
+      })
+    )
+
   return useMemo(
-    () =>
+    () => [
       windowNotes(events.filter(isNoteEvent)).map(
         (e): PianoNoteItem => {
           const rect = transform.getRect(e)
@@ -48,6 +76,8 @@ export const useNotes = (trackId: number, width: number, isGhost: boolean) => {
           }
         }
       ),
+      getGhostNotes(),
+    ],
     [events, transform, scrollLeft, width, selection, isGhost, isRhythmTrack]
   )
 }

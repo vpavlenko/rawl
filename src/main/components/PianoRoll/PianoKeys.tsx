@@ -1,3 +1,4 @@
+import Color from "color"
 import React, { FC, useState } from "react"
 import { noteNameWithOctString } from "../../../common/helpers/noteNumberString"
 import { Theme } from "../../../common/theme/Theme"
@@ -87,6 +88,7 @@ function drawKeys(
 
   const blackKeyWidth = width * 0.64
   const blackKeyFillStyle = makeBlackKeyFillStyle(ctx, blackKeyWidth)
+  const grayDividerColor = Color(theme.dividerColor).alpha(0.3).string()
 
   drawBorder(ctx, width, theme.dividerColor)
 
@@ -108,7 +110,7 @@ function drawKeys(
         width,
         keyHeight,
         isSelected ? theme.themeColor : blackKeyFillStyle,
-        theme.dividerColor
+        grayDividerColor
       )
     } else {
       if (isSelected) {

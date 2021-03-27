@@ -117,7 +117,7 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width, height }) => {
   const extendEvent = useCallback(
     (e: MouseEvent): PianoNotesMouseEvent => {
       const local = {
-        x: e.offsetX,
+        x: e.offsetX + scrollLeft,
         y: e.offsetY,
       }
       return {
@@ -129,7 +129,7 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width, height }) => {
         item: notes.find((n) => containsPoint(n, local)) ?? null,
       }
     },
-    [transform, notes]
+    [transform, notes, scrollLeft]
   )
 
   const handleMouseDown: MouseEventHandler<HTMLCanvasElement> = useCallback(

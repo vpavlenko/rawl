@@ -28,6 +28,10 @@ export class Uniform<T> {
     this.prop.value = value
   }
 
+  get value() {
+    return this.prop.value
+  }
+
   upload(gl: WebGLRenderingContext) {
     if (this.prop.isDirty) {
       this.uploadFunc(gl, this.location, this.prop.value)

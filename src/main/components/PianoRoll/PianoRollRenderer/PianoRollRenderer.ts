@@ -109,7 +109,7 @@ export class PianoRollRenderer {
     gl.depthFunc(gl.LEQUAL) // Near things obscure far things
 
     gl.enable(gl.BLEND)
-    gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA)
+    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA)
 
     // Clear the canvas before we start drawing on it.
 
@@ -183,11 +183,10 @@ export class PianoRollRenderer {
     this.gridRenderer.height = Layout.keyHeight
 
     this.beatRenderer.color = colorToVec4(
-      Color(this.theme.dividerColor).alpha(0.5)
+      Color(this.theme.dividerColor).alpha(0.2)
     )
-
     this.highlightedBeatRenderer.color = colorToVec4(
-      Color(this.theme.dividerColor).alpha(1.0)
+      Color(this.theme.dividerColor).alpha(0.5)
     )
 
     this.cursorRenderer.color = vec4.fromValues(1, 0, 0, 1)

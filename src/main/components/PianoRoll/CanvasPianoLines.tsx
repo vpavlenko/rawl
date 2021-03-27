@@ -1,3 +1,4 @@
+import Color from "color"
 import React, { CSSProperties, FC } from "react"
 import { Theme } from "../../../common/theme/Theme"
 import DrawCanvas from "../DrawCanvas"
@@ -7,7 +8,8 @@ function drawHorizontalLines(
   numberOfKeys: number,
   keyHeight: number,
   width: number,
-  theme: Theme
+  blackLaneColor: string,
+  dividerColor: string
 ) {
   ctx.lineWidth = 1
 
@@ -15,14 +17,14 @@ function drawHorizontalLines(
     const index = key % 12
     const isBlack =
       index === 1 || index === 3 || index === 6 || index === 8 || index === 10
-    const isBold = index === 11
+    const isBold = index === 11 || index === 4
     const y = (numberOfKeys - key - 1) * keyHeight
     if (isBlack) {
-      ctx.fillStyle = theme.pianoBlackKeyLaneColor
+      ctx.fillStyle = blackLaneColor
       ctx.fillRect(0, y, width, keyHeight)
     }
     if (isBold) {
-      ctx.strokeStyle = theme.dividerColor
+      ctx.strokeStyle = dividerColor
       ctx.beginPath()
       ctx.moveTo(0, y)
       ctx.lineTo(width, y)
@@ -52,7 +54,14 @@ const PianoLines: FC<PianoLinesProps> = ({
     ctx.clearRect(0, 0, width, height)
     ctx.save()
     ctx.translate(0, 0.5)
-    drawHorizontalLines(ctx, numberOfKeys, pixelsPerKey, width, theme)
+    drawHorizontalLines(
+      ctx,
+      numberOfKeys,
+      pixelsPerKey,
+      width,
+      theme.pianoBlackKeyLaneColor,
+      Color(theme.dividerColor).alpha(0.7).string()
+    )
     ctx.restore()
   }
 

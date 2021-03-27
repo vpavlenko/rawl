@@ -230,7 +230,7 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width, height }) => {
     )
     const [highlightedBeats, nonHighlightedBeats] = partition(
       mappedBeats,
-      (b) => b.beat !== 0
+      (b) => b.beat === 0
     )
     renderer.theme = theme
     renderer.render(

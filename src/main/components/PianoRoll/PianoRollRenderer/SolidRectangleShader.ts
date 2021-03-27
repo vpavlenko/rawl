@@ -97,4 +97,8 @@ export class SolidRectangleObject extends RenderObject<
   set color(value: vec4) {
     this.shader.uColor.value = value
   }
+
+  get color() {
+    return this.shader.uColor.value
+  }
 }

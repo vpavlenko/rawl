@@ -1,93 +1,130 @@
-import { Container, Graphics, Text } from "@inlet/react-pixi"
-import Color from "color"
-import range from "lodash/range"
-import { Graphics as PIXIGraphics, Point, TextStyle } from "pixi.js"
 import React, { FC, useState } from "react"
-import { pointAdd, pointSub } from "../../../common/geometry"
-import { isBlackKey } from "../../../common/helpers/noteNumber"
 import { noteNameWithOctString } from "../../../common/helpers/noteNumberString"
+import { Theme } from "../../../common/theme/Theme"
 import { Layout } from "../../Constants"
 import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
-import { Rectangle } from "../Graphics/Rectangle"
+import DrawCanvas from "../DrawCanvas"
 import { observeDrag } from "./MouseHandler/observeDrag"
 
-interface BlackKeyProps {
-  width: number
-  height: number
-  position: Point
-  isSelected: boolean
+function drawBorder(
+  ctx: CanvasRenderingContext2D,
+  width: number,
+  dividerColor: string
+): void {
+  ctx.lineWidth = 1
+  ctx.strokeStyle = dividerColor
+  ctx.beginPath()
+  ctx.moveTo(0, 0)
+  ctx.lineTo(width, 0)
+  ctx.closePath()
+  ctx.stroke()
 }
 
-const BlackKey: FC<BlackKeyProps> = ({
-  width,
-  height,
-  position,
-  isSelected,
-}) => {
-  const theme = useTheme()
-  const color = isSelected
-    ? Color(theme.themeColor).rgbNumber()
-    : Color(theme.pianoKeyBlack).rgbNumber()
-  const lightenColor = Color(theme.pianoKeyBlack).lighten(1).rgbNumber()
-  const dividerColor = Color(theme.dividerColor).rgbNumber()
+function makeBlackKeyFillStyle(
+  ctx: CanvasRenderingContext2D,
+  width: number
+): CanvasFillStrokeStyles["fillStyle"] {
+  const grd = ctx.createLinearGradient(0, 0, width, 0)
+  grd.addColorStop(0.0, "rgba(33, 33, 33, 1.000)")
+  grd.addColorStop(0.895, "rgba(96, 93, 93, 1.000)")
+  grd.addColorStop(0.924, "rgba(48, 48, 48, 1.000)")
+  grd.addColorStop(1.0, "rgba(0, 0, 0, 1.000)")
+  return grd
+}
 
-  const keyWidth = Math.floor(width * 0.64)
-  const highlightWidth = Math.floor(keyWidth * 0.13)
-  const highlightHeight = Math.floor(height * 0.9)
+function drawBlackKey(
+  ctx: CanvasRenderingContext2D,
+  keyWidth: number,
+  width: number,
+  height: number,
+  fillStyle: CanvasFillStrokeStyles["fillStyle"],
+  dividerColor: string
+): void {
+  const middle = Math.round(height / 2)
 
-  const draw = (ctx: PIXIGraphics) => {
-    ctx
-      .clear()
-      .lineStyle()
-      .beginFill(color)
-      .drawRect(-0.5, -0.5, keyWidth, Math.floor(height))
+  ctx.fillStyle = fillStyle
+  ctx.fillRect(0, 0.5, keyWidth, height)
 
-    ctx
-      .lineStyle()
-      .beginFill(lightenColor)
-      .drawRect(
-        keyWidth - highlightWidth - 0.5,
-        Math.floor((height - highlightHeight) / 2) - 0.5,
-        highlightWidth,
-        highlightHeight
+  ctx.lineWidth = 1
+  ctx.strokeStyle = dividerColor
+  ctx.beginPath()
+  ctx.moveTo(keyWidth, middle)
+  ctx.lineTo(width, middle)
+  ctx.closePath()
+  ctx.stroke()
+}
+
+function drawLabel(
+  ctx: CanvasRenderingContext2D,
+  width: number,
+  height: number,
+  keyNum: number,
+  font: string,
+  color: string
+) {
+  const x = width - 5
+  ctx.textAlign = "right"
+  ctx.textBaseline = "middle"
+  ctx.font = `12px ${font}`
+  ctx.fillStyle = color
+  ctx.fillText(noteNameWithOctString(keyNum), x, height / 2)
+}
+
+function drawKeys(
+  ctx: CanvasRenderingContext2D,
+  width: number,
+  keyHeight: number,
+  numberOfKeys: number,
+  theme: Theme
+) {
+  ctx.save()
+  ctx.translate(0, 0.5)
+
+  ctx.fillStyle = theme.pianoKeyWhite
+  ctx.fillRect(0, 0, width, keyHeight * numberOfKeys)
+
+  const blackKeyWidth = width * 0.64
+  const blackKeyFillStyle = makeBlackKeyFillStyle(ctx, blackKeyWidth)
+
+  drawBorder(ctx, width, theme.dividerColor)
+
+  // 0: white, 1: black
+  const colors = [0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0]
+  for (let i = 0; i < numberOfKeys; i++) {
+    const isBlack = colors[i % colors.length] !== 0
+    const bordered = i % 12 === 4 || i % 12 === 11
+    const y = (numberOfKeys - i - 1) * keyHeight
+    ctx.save()
+    ctx.translate(0, y)
+    if (isBlack) {
+      drawBlackKey(
+        ctx,
+        blackKeyWidth,
+        width,
+        keyHeight,
+        blackKeyFillStyle,
+        theme.dividerColor
       )
-
-    const middle = Math.round(height / 2)
-    ctx
-      .lineStyle(1, dividerColor, 0.3, 0.5)
-      .moveTo(keyWidth, middle)
-      .lineTo(width, middle)
+    } else if (bordered) {
+      drawBorder(ctx, width, theme.dividerColor)
+    }
+    const isKeyC = i % 12 === 0
+    if (isKeyC) {
+      drawLabel(
+        ctx,
+        width,
+        keyHeight,
+        i,
+        theme.canvasFont,
+        theme.secondaryTextColor
+      )
+    }
+    ctx.restore()
   }
-  return <Graphics draw={draw} position={position} />
-}
 
-interface LabelProps {
-  width: number
-  y: number
-  keyNum: number
-  font: string
-  color: number
+  ctx.restore()
 }
-
-const KeyLabel: FC<LabelProps> = ({ width, keyNum, font, color, y }) => {
-  const x = width - 20
-  const style = new TextStyle({
-    fontFamily: font,
-    fontSize: 12,
-    fill: color,
-    align: "right",
-  })
-  return (
-    <Text
-      position={new Point(x, y - 3)}
-      style={style}
-      text={noteNameWithOctString(keyNum)}
-    />
-  )
-}
-
-const isBordered = (key: number) => key % 12 === 4 || key % 12 === 11
 
 export interface PianoKeysProps {
   numberOfKeys: number
@@ -96,19 +133,14 @@ export interface PianoKeysProps {
 
 const PianoKeys: FC<PianoKeysProps> = ({ numberOfKeys, keyHeight }) => {
   const theme = useTheme()
+  const rootStore = useStores()
   const width = Layout.keyWidth
   const [touchingKeys, setTouchingKeys] = useState<number[]>([])
 
-  function draw(ctx: PIXIGraphics): void {
-    ctx
-      .clear()
-      .beginFill(Color(theme.pianoKeyWhite).rgbNumber())
-      .drawRect(0, 0, width, keyHeight * numberOfKeys)
-
-    ctx
-      .lineStyle(1, Color(theme.dividerColor).rgbNumber())
-      .moveTo(0, 0)
-      .lineTo(width, 0)
+  function draw(ctx: CanvasRenderingContext2D): void {
+    const { width, height } = ctx.canvas
+    ctx.clearRect(0, 0, width, height)
+    drawKeys(ctx, width, keyHeight, numberOfKeys, theme)
   }
 
   function pixelsToNoteNumber(y: number): number {
@@ -119,24 +151,26 @@ const PianoKeys: FC<PianoKeysProps> = ({ numberOfKeys, keyHeight }) => {
     return Math.floor((numberOfKeys - noteNumber - 1) * keyHeight)
   }
 
-  function onMouseDown(e: PIXI.InteractionEvent) {
-    const local = e.data.getLocalPosition(e.target)
-    const ev = e.data.originalEvent as MouseEvent
-    const startPosition = { x: ev.clientX, y: ev.clientY }
+  function onMouseDown(e: React.MouseEvent) {
+    const startPosition = {
+      x: e.nativeEvent.offsetX,
+      y: e.nativeEvent.offsetY,
+    }
     const { player } = rootStore.services
     const channel = rootStore.song.selectedTrack?.channel ?? 0
 
-    let prevNoteNumber = Math.floor(pixelsToNoteNumber(local.y))
+    let prevNoteNumber = Math.floor(pixelsToNoteNumber(startPosition.y))
     player.sendNoteOn(channel, prevNoteNumber, 127)
 
     setTouchingKeys([prevNoteNumber])
 
     observeDrag({
       onMouseMove(e) {
-        const pos = { x: e.clientX, y: e.clientY }
-        const delta = pointSub(pos, startPosition)
-        const local2 = pointAdd(local, delta)
-        const noteNumber = Math.floor(pixelsToNoteNumber(local2.y))
+        const pos = {
+          x: e.offsetX,
+          y: e.offsetY,
+        }
+        const noteNumber = Math.floor(pixelsToNoteNumber(pos.y))
         if (noteNumber !== prevNoteNumber) {
           player.sendNoteOff(channel, prevNoteNumber, 0)
           player.sendNoteOn(channel, noteNumber, 127)
@@ -151,85 +185,22 @@ const PianoKeys: FC<PianoKeysProps> = ({ numberOfKeys, keyHeight }) => {
     })
   }
 
-  // 1オクターブごとにラベルを配置
-  const labels = range(0, numberOfKeys, 12).map((i) => (
-    <KeyLabel
-      width={width}
-      keyNum={i}
-      key={i}
-      y={noteNumberToPixels(i)}
-      font={theme.canvasFont}
-      color={Color(theme.secondaryTextColor).rgbNumber()}
-    />
-  ))
-
-  const blackKeys = range(0, numberOfKeys)
-    .filter(isBlackKey)
-    .map((i) => (
-      <BlackKey
-        key={i}
-        position={new Point(0, noteNumberToPixels(i))}
-        height={keyHeight}
-        width={width}
-        isSelected={touchingKeys.includes(i)}
-      />
-    ))
-
-  const whiteKeyHightlights = touchingKeys
-    .filter((i) => !isBlackKey(i))
-    .map((i) => (
-      <Rectangle
-        key={i}
-        x={0}
-        y={noteNumberToPixels(i)}
-        width={width}
-        height={keyHeight}
-        fill={Color(theme.themeColor).rgbNumber()}
-      />
-    ))
-
-  const dividers = range(0, numberOfKeys)
-    .filter(isBordered)
-    .map((i) => {
-      const y = noteNumberToPixels(i)
-      return (
-        <Graphics
-          key={i}
-          draw={(g) =>
-            g
-              .clear()
-              .lineStyle(1, Color(theme.dividerColor).rgbNumber(), 0.6, 0.5)
-              .moveTo(0, 0)
-              .lineTo(width, 0)
-          }
-          position={new Point(0, y)}
-        />
-      )
-    })
-
-  const rootStore = useStores()
-
   return (
-    <Container
+    <DrawCanvas
+      draw={draw}
+      className="PianoKeys"
       width={width}
       height={keyHeight * numberOfKeys}
-      interactive={true}
-      mousedown={onMouseDown}
-    >
-      <Graphics draw={draw} />
-      {whiteKeyHightlights}
-      {blackKeys}
-      {labels}
-      {dividers}
-    </Container>
+      onMouseDown={onMouseDown}
+    />
   )
 }
 
-function areEqual(props: PianoKeysProps, nextProps: PianoKeysProps) {
+function equals(props: PianoKeysProps, nextProps: PianoKeysProps) {
   return (
     props.keyHeight === nextProps.keyHeight &&
     props.numberOfKeys === nextProps.numberOfKeys
   )
 }
 
-export default React.memo(PianoKeys, areEqual)
+export default React.memo(PianoKeys, equals)

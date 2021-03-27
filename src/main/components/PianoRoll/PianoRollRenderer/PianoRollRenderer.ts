@@ -155,7 +155,7 @@ export class PianoRollRenderer {
   private draw() {
     const { gl } = this
 
-    this.gridRenderer.draw(gl)
+    // this.gridRenderer.draw(gl)
     this.beatRenderer.draw(gl)
     this.noteRenderer.draw(gl)
     this.selectedNoteRenderer.draw(gl)

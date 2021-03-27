@@ -1,3 +1,4 @@
+import { partition } from "lodash"
 import { useObserver } from "mobx-react-lite"
 import { settings } from "pixi.js"
 import React, {
@@ -201,7 +202,17 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
       throw new Error("canvas is not mounted")
     }
     const beats = mappedBeats.map((b) => b.x)
-    renderer.render(notes, selectionBounds, beats, cursorPositionX)
+    const [nonSelectedNotes, selectedNotes] = partition(
+      notes,
+      (n) => n.isSelected
+    )
+    renderer.render(
+      nonSelectedNotes,
+      selectedNotes,
+      selectionBounds,
+      beats,
+      cursorPositionX
+    )
   }, [renderer, selectionBounds, notes, mappedBeats, cursorPositionX])
 
   settings.ROUND_PIXELS = true

@@ -32,7 +32,7 @@ export class RectangleBuffer {
   }
 }
 
-export class RectangleShader {
+export class BorderedRectangleShader {
   private program: WebGLProgram
 
   // attribLocations
@@ -119,13 +119,13 @@ export class RectangleShader {
   }
 }
 
-export class RectangleObject extends RenderObject<
+export class BorderedRectangleObject extends RenderObject<
   IRect[],
   RectangleBuffer,
-  RectangleShader
+  BorderedRectangleShader
 > {
   constructor(gl: WebGLRenderingContext) {
-    super(new RectangleShader(gl), new RectangleBuffer(gl))
+    super(new BorderedRectangleShader(gl), new RectangleBuffer(gl))
   }
 
   set projectionMatrix(value: mat4) {

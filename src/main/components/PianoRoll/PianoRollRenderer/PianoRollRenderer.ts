@@ -2,14 +2,15 @@
 // Initialize a shader program, so WebGL knows how to draw our data
 
 import Color from "color"
-import { mat4, vec4 } from "gl-matrix"
+import { mat4, vec3, vec4 } from "gl-matrix"
 import { ISize } from "pixi.js"
 import { IRect, zeroRect } from "../../../../common/geometry"
 import { defaultTheme, Theme } from "../../../../common/theme/Theme"
 import { Layout } from "../../../Constants"
+import { BorderedRectangleObject } from "./BorderedRectangleShader"
 import { HorizontalGridObject } from "./HorizontalGridShader"
-import { RectangleObject } from "./RectangleShader"
 import { RenderProperty } from "./RenderProperty"
+import { SolidRectangleObject } from "./SolidRectangleShader"
 
 const colorToVec4 = (color: Color): vec4 => {
   const rgb = color.rgb().array()
@@ -24,12 +25,13 @@ export class PianoRollRenderer {
     (a, b) => a.width === b.width && a.height === b.height
   )
 
-  private noteRenderer: RectangleObject
-  private selectedNoteRenderer: RectangleObject
-  private selectionRenderer: RectangleObject
-  private beatRenderer: RectangleObject
+  private noteRenderer: BorderedRectangleObject
+  private selectedNoteRenderer: BorderedRectangleObject
+  private selectionRenderer: BorderedRectangleObject
+  private beatRenderer: SolidRectangleObject
+  private highlightedBeatRenderer: SolidRectangleObject
   private gridRenderer: HorizontalGridObject
-  private cursorRenderer: RectangleObject
+  private cursorRenderer: SolidRectangleObject
 
   theme: Theme = defaultTheme
 
@@ -41,14 +43,15 @@ export class PianoRollRenderer {
   private setup() {
     const { gl } = this
 
-    this.noteRenderer = new RectangleObject(gl)
-    this.selectedNoteRenderer = new RectangleObject(gl)
-    this.selectionRenderer = new RectangleObject(gl)
-    this.beatRenderer = new RectangleObject(gl)
+    this.noteRenderer = new BorderedRectangleObject(gl)
+    this.selectedNoteRenderer = new BorderedRectangleObject(gl)
+    this.selectionRenderer = new BorderedRectangleObject(gl)
+    this.beatRenderer = new SolidRectangleObject(gl)
+    this.highlightedBeatRenderer = new SolidRectangleObject(gl)
     this.gridRenderer = new HorizontalGridObject(gl)
-    this.cursorRenderer = new RectangleObject(gl)
+    this.cursorRenderer = new SolidRectangleObject(gl)
 
-    this.render([], [], zeroRect, [], 0)
+    this.render([], [], zeroRect, [], [], 0, 0)
   }
 
   private vline = (x: number): IRect => ({
@@ -63,7 +66,9 @@ export class PianoRollRenderer {
     selectedNotes: IRect[],
     selection: IRect,
     beats: number[],
-    cursorX: number
+    highlightedBeats: number[],
+    cursorX: number,
+    scrollLeft: number
   ) {
     const { gl } = this
 
@@ -71,14 +76,15 @@ export class PianoRollRenderer {
     this.selectedNoteRenderer.update(gl, selectedNotes)
     this.selectionRenderer.update(gl, [selection])
     this.beatRenderer.update(gl, beats.map(this.vline))
+    this.highlightedBeatRenderer.update(gl, highlightedBeats.map(this.vline))
     this.gridRenderer.update(gl, this.viewSize.value)
     this.cursorRenderer.update(gl, [this.vline(cursorX)])
 
-    this.preDraw()
+    this.preDraw(scrollLeft)
     this.draw()
   }
 
-  private preDraw() {
+  private preDraw(scrollLeft: number) {
     const { gl } = this
 
     this.viewSize.value = {
@@ -118,9 +124,16 @@ export class PianoRollRenderer {
         zFar
       )
 
+      mat4.translate(
+        projectionMatrix,
+        projectionMatrix,
+        vec3.fromValues(-scrollLeft, 0, 0)
+      )
+
       this.gridRenderer.projectionMatrix = projectionMatrix
       this.selectionRenderer.projectionMatrix = projectionMatrix
       this.beatRenderer.projectionMatrix = projectionMatrix
+      this.highlightedBeatRenderer.projectionMatrix = projectionMatrix
       this.noteRenderer.projectionMatrix = projectionMatrix
       this.selectedNoteRenderer.projectionMatrix = projectionMatrix
       this.cursorRenderer.projectionMatrix = projectionMatrix
@@ -145,11 +158,15 @@ export class PianoRollRenderer {
     this.gridRenderer.color = vec4.fromValues(0.5, 0.5, 0.5, 1)
     this.gridRenderer.height = Layout.keyHeight
 
-    this.beatRenderer.strokeColor = vec4.fromValues(0.5, 0.5, 0.5, 1)
-    this.beatRenderer.fillColor = vec4.fromValues(0, 0, 0, 0)
+    this.beatRenderer.color = colorToVec4(
+      Color(this.theme.dividerColor).alpha(0.5)
+    )
 
-    this.cursorRenderer.strokeColor = vec4.fromValues(1, 0, 0, 1)
-    this.cursorRenderer.fillColor = vec4.fromValues(0, 0, 0, 0)
+    this.highlightedBeatRenderer.color = colorToVec4(
+      Color(this.theme.dividerColor).alpha(1.0)
+    )
+
+    this.cursorRenderer.color = vec4.fromValues(1, 0, 0, 1)
   }
 
   private draw() {
@@ -157,6 +174,7 @@ export class PianoRollRenderer {
 
     // this.gridRenderer.draw(gl)
     this.beatRenderer.draw(gl)
+    this.highlightedBeatRenderer.draw(gl)
     this.noteRenderer.draw(gl)
     this.selectedNoteRenderer.draw(gl)
     this.selectionRenderer.draw(gl)

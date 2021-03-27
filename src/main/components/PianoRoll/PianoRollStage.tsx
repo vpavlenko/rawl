@@ -22,7 +22,6 @@ import { PianoNoteItem, useNotes } from "../../hooks/useNotes"
 import { useNoteTransform } from "../../hooks/useNoteTransform"
 import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
-import PianoGrid from "./CanvasPianoGrid"
 import PianoLines from "./CanvasPianoLines"
 import CanvasPianoRuler from "./CanvasPianoRuler"
 import { observeDoubleClick } from "./MouseHandler/observeDoubleClick"
@@ -34,6 +33,7 @@ import { PianoSelectionContextMenu } from "./PianoSelectionContextMenu"
 
 export interface PianoRollStageProps {
   width: number
+  height: number
 }
 
 export interface PianoNotesMouseEvent {
@@ -47,8 +47,9 @@ export interface PianoNotesMouseEvent {
 
 const Container = styled.div``
 
-const Content = styled.div`
+const ContentPosition = styled.div`
   position: absolute;
+  left: ${Layout.keyWidth}px;
 `
 
 const RulerPosition = styled.div`
@@ -59,7 +60,13 @@ const RulerPosition = styled.div`
   height: ${Layout.rulerHeight}px;
 `
 
-export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
+const PianoKeyPosition = styled.div`
+  position: absolute;
+  left: 0;
+  top: 0;
+`
+
+export const PianoRollStage: FC<PianoRollStageProps> = ({ width, height }) => {
   const rootStore = useStores()
   const {
     trackId,
@@ -227,18 +234,23 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
       throw new Error("canvas is not mounted")
     }
     const selectionBounds = getSelectionBounds(selection, transform)
-    const beats = mappedBeats.map((b) => b.x)
     const [selectedNotes, nonSelectedNotes] = partition(
       notes,
       (n) => n.isSelected
+    )
+    const [highlightedBeats, nonHighlightedBeats] = partition(
+      mappedBeats,
+      (b) => b.beat !== 0
     )
     renderer.theme = theme
     renderer.render(
       nonSelectedNotes,
       selectedNotes,
       selectionBounds,
-      beats,
-      cursorPositionX
+      nonHighlightedBeats.map((b) => b.x),
+      highlightedBeats.map((b) => b.x),
+      cursorPositionX,
+      scrollLeft
     )
   }, [
     renderer,
@@ -254,20 +266,15 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
 
   return (
     <Container>
-      <Content style={{ top: -scrollTop + Layout.rulerHeight }}>
+      <ContentPosition style={{ top: -scrollTop + Layout.rulerHeight }}>
         <PianoLines
           theme={theme}
           width={width}
           pixelsPerKey={transform.pixelsPerKey}
           numberOfKeys={transform.numberOfKeys}
         />
-        <PianoGrid
-          theme={theme}
-          width={width}
-          height={contentHeight}
-          scrollLeft={scrollLeft}
-          beats={mappedBeats}
-        />
+      </ContentPosition>
+      <ContentPosition style={{ top: -scrollTop + Layout.rulerHeight }}>
         <canvas
           className="alphaContent"
           width={width}
@@ -277,13 +284,14 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
           onMouseDown={handleMouseDown}
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUp}
-          style={{ left: Layout.keyWidth }}
         ></canvas>
+      </ContentPosition>
+      <PianoKeyPosition>
         <PianoKeys
           keyHeight={transform.pixelsPerKey}
           numberOfKeys={transform.numberOfKeys}
         />
-      </Content>
+      </PianoKeyPosition>
       <RulerPosition
         style={{
           background: theme.backgroundColor,

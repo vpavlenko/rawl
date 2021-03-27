@@ -104,13 +104,14 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width, height }) => {
   const [pencilMouseHandler] = useState(new PencilMouseHandler(rootStore))
   const [selectionMouseHandler] = useState(new SelectionMouseHandler(rootStore))
 
-  const stageHeight = transform.pixelsPerKey * transform.numberOfKeys
   const startTick = scrollLeft / transform.pixelsPerTick
 
   const mouseHandler =
     mouseMode === "pencil" ? pencilMouseHandler : selectionMouseHandler
 
   const [notes, ghostNotes] = useNotes(trackId, width, false)
+
+  const { onContextMenu, menuProps } = useContextMenu()
 
   // MouseHandler で利用する追加情報をイベントに付加する
   const extendEvent = useCallback(
@@ -134,6 +135,19 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width, height }) => {
   const handleMouseDown: MouseEventHandler<HTMLCanvasElement> = useCallback(
     (e) => {
       const ev = extendEvent(e.nativeEvent)
+      if (e.buttons === 2) {
+        if (
+          ev.item !== null &&
+          rootStore.pianoRollStore.mouseMode == "pencil"
+        ) {
+          removeEvent(rootStore)(ev.item.id)
+        }
+        if (rootStore.pianoRollStore.mouseMode === "selection") {
+          e.stopPropagation()
+          onContextMenu(e)
+        }
+        return
+      }
       if (ev.item !== null) {
         const { item } = ev
         observeDoubleClick(() => {
@@ -143,7 +157,7 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width, height }) => {
 
       mouseHandler.onMouseDown(ev)
     },
-    [mouseHandler, extendEvent]
+    [mouseHandler, extendEvent, onContextMenu]
   )
 
   const handleMouseMove: MouseEventHandler<HTMLCanvasElement> = useCallback(
@@ -178,30 +192,6 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width, height }) => {
 
   const cursorPositionX = transform.getX(playerPosition)
   const contentHeight = transform.getMaxY()
-
-  const { onContextMenu, menuProps } = useContextMenu()
-
-  const onRightClickSelection: MouseEventHandler<HTMLCanvasElement> = useCallback(
-    (e) => {
-      e.stopPropagation()
-      onContextMenu(e)
-    },
-    [onContextMenu]
-  )
-
-  const handleRightClick: MouseEventHandler<HTMLCanvasElement> = useCallback(
-    (e) => {
-      const ev = extendEvent(e.nativeEvent)
-      if (ev.item !== null && rootStore.pianoRollStore.mouseMode == "pencil") {
-        removeEvent(rootStore)(ev.item.id)
-      }
-      if (rootStore.pianoRollStore.mouseMode === "selection") {
-        e.stopPropagation()
-        onContextMenu(e)
-      }
-    },
-    [rootStore, onContextMenu, extendEvent]
-  )
 
   const ref = useRef<HTMLCanvasElement>(null)
   const [renderer, setRenderer] = useState<PianoRollRenderer | null>(null)

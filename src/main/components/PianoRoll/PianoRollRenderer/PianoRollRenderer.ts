@@ -165,7 +165,9 @@ export class PianoRollRenderer {
       this.ghostNoteRenderer.fillColor = colorToVec4(baseColor)
     }
 
-    this.selectionRenderer.strokeColor = vec4.fromValues(1, 0, 0, 1)
+    this.selectionRenderer.strokeColor = colorToVec4(
+      Color(this.theme.themeColor)
+    )
     this.selectionRenderer.fillColor = vec4.fromValues(0, 0, 0, 0)
 
     this.gridRenderer.color = vec4.fromValues(0.5, 0.5, 0.5, 1)

@@ -286,7 +286,7 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width, height }) => {
           onMouseUp={handleMouseUp}
         ></canvas>
       </ContentPosition>
-      <PianoKeyPosition>
+      <PianoKeyPosition style={{ top: -scrollTop + Layout.rulerHeight }}>
         <PianoKeys
           keyHeight={transform.pixelsPerKey}
           numberOfKeys={transform.numberOfKeys}

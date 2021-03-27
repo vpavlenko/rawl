@@ -202,10 +202,11 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
       throw new Error("canvas is not mounted")
     }
     const beats = mappedBeats.map((b) => b.x)
-    const [nonSelectedNotes, selectedNotes] = partition(
+    const [selectedNotes, nonSelectedNotes] = partition(
       notes,
       (n) => n.isSelected
     )
+    renderer.theme = theme
     renderer.render(
       nonSelectedNotes,
       selectedNotes,
@@ -213,7 +214,7 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
       beats,
       cursorPositionX
     )
-  }, [renderer, selectionBounds, notes, mappedBeats, cursorPositionX])
+  }, [renderer, selectionBounds, notes, mappedBeats, cursorPositionX, theme])
 
   settings.ROUND_PIXELS = true
 
@@ -222,12 +223,13 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width }) => {
       <canvas
         className="alphaContent"
         width={width}
-        height={stageHeight}
+        height={contentHeight}
         onContextMenu={useCallback((e) => e.preventDefault(), [])}
         ref={ref}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
+        style={{ top: -scrollTop }}
       ></canvas>
       <PianoSelectionContextMenu {...menuProps} />
     </>

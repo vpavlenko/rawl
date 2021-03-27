@@ -38,11 +38,12 @@ export class HorizontalGridShader {
     const vsSource = `
       precision highp float;
       attribute vec4 aVertexPosition;
-
       uniform mat4 uProjectionMatrix;
+      varying vec4 vPosition;
 
       void main() {
         gl_Position = uProjectionMatrix * aVertexPosition;
+        vPosition = aVertexPosition;
       }
     `
 
@@ -50,11 +51,16 @@ export class HorizontalGridShader {
       precision highp float;
       uniform vec4 uColor;
       uniform float uHeight;
+      varying vec4 vPosition;
       
       void main() {
-        vec2 st = gl_FragCoord.xy;
+        float y = vPosition.y;
         float border = 1.0;
-        gl_FragColor = step(fract(st.y / uHeight), border / uHeight) * uColor;
+        float index = y / uHeight;
+        float key = mod(index, 12.0);
+        bool highlight = key < 0.1;
+        vec4 color = highlight ? uColor : vec4(0.0, 0.0, 0.5, 1.0);
+        gl_FragColor = step(fract(index), border / uHeight) * color;
       }
     `
     const program = initShaderProgram(gl, vsSource, fsSource)!

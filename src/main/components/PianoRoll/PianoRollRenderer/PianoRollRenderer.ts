@@ -1,13 +1,20 @@
 //
 // Initialize a shader program, so WebGL knows how to draw our data
 
+import Color from "color"
 import { mat4, vec4 } from "gl-matrix"
 import { ISize } from "pixi.js"
 import { IRect, zeroRect } from "../../../../common/geometry"
+import { defaultTheme, Theme } from "../../../../common/theme/Theme"
 import { Layout } from "../../../Constants"
 import { HorizontalGridObject } from "./HorizontalGridShader"
 import { RectangleObject } from "./RectangleShader"
 import { RenderProperty } from "./RenderProperty"
+
+const colorToVec4 = (color: Color): vec4 => {
+  const rgb = color.rgb().array()
+  return [rgb[0] / 255, rgb[1] / 255, rgb[2] / 255, color.alpha()]
+}
 
 export class PianoRollRenderer {
   private gl: WebGLRenderingContext
@@ -23,6 +30,8 @@ export class PianoRollRenderer {
   private beatRenderer: RectangleObject
   private gridRenderer: HorizontalGridObject
   private cursorRenderer: RectangleObject
+
+  theme: Theme = defaultTheme
 
   constructor(gl: WebGLRenderingContext) {
     this.gl = gl
@@ -81,7 +90,7 @@ export class PianoRollRenderer {
       gl.viewport(0, 0, this.viewSize.value.width, this.viewSize.value.height)
     }
 
-    gl.clearColor(0.0, 0.0, 0.0, 1.0) // Clear to black, fully opaque
+    gl.clearColor(0.0, 0.0, 0.0, 0.0)
     gl.clearDepth(1.0) // Clear everything
 
     gl.disable(gl.DEPTH_TEST) // Enable depth testing
@@ -117,11 +126,18 @@ export class PianoRollRenderer {
       this.cursorRenderer.projectionMatrix = projectionMatrix
     }
 
-    this.noteRenderer.strokeColor = vec4.fromValues(1.0, 0.0, 0.0, 1.0)
-    this.noteRenderer.fillColor = vec4.fromValues(1.0, 1.0, 1.0, 1.0)
+    {
+      const baseColor = Color(this.theme.themeColor)
+      const borderColor = baseColor.lighten(0.3)
+      const selectedColor = baseColor.lighten(0.7)
+      const selectedBorderColor = baseColor.lighten(0.8)
 
-    this.selectedNoteRenderer.strokeColor = vec4.fromValues(1.0, 0.0, 0.0, 1.0)
-    this.selectedNoteRenderer.fillColor = vec4.fromValues(0.0, 1.0, 1.0, 1.0)
+      this.noteRenderer.strokeColor = colorToVec4(borderColor)
+      this.noteRenderer.fillColor = colorToVec4(baseColor)
+
+      this.selectedNoteRenderer.strokeColor = colorToVec4(selectedColor)
+      this.selectedNoteRenderer.fillColor = colorToVec4(selectedBorderColor)
+    }
 
     this.selectionRenderer.strokeColor = vec4.fromValues(1, 0, 0, 1)
     this.selectionRenderer.fillColor = vec4.fromValues(0, 0, 0, 0)

@@ -76,7 +76,8 @@ function drawKeys(
   width: number,
   keyHeight: number,
   numberOfKeys: number,
-  theme: Theme
+  theme: Theme,
+  touchingKeys: number[]
 ) {
   ctx.save()
   ctx.translate(0, 0.5)
@@ -97,17 +98,27 @@ function drawKeys(
     const y = (numberOfKeys - i - 1) * keyHeight
     ctx.save()
     ctx.translate(0, y)
+
+    const isSelected = touchingKeys.includes(i)
+
     if (isBlack) {
       drawBlackKey(
         ctx,
         blackKeyWidth,
         width,
         keyHeight,
-        blackKeyFillStyle,
+        isSelected ? theme.themeColor : blackKeyFillStyle,
         theme.dividerColor
       )
-    } else if (bordered) {
-      drawBorder(ctx, width, theme.dividerColor)
+    } else {
+      if (isSelected) {
+        ctx.fillStyle = theme.themeColor
+        ctx.fillRect(0, 0.5, width, keyHeight)
+      }
+
+      if (bordered) {
+        drawBorder(ctx, width, theme.dividerColor)
+      }
     }
     const isKeyC = i % 12 === 0
     if (isKeyC) {
@@ -138,7 +149,7 @@ const PianoKeys: FC<PianoKeysProps> = ({ numberOfKeys, keyHeight }) => {
   const [touchingKeys, setTouchingKeys] = useState<number[]>([])
 
   function draw(ctx: CanvasRenderingContext2D): void {
-    drawKeys(ctx, width, keyHeight, numberOfKeys, theme)
+    drawKeys(ctx, width, keyHeight, numberOfKeys, theme, touchingKeys)
   }
 
   function pixelsToNoteNumber(y: number): number {

@@ -1,3 +1,4 @@
+import { isNumber } from "lodash"
 import React, { CanvasHTMLAttributes, Component } from "react"
 
 export interface DrawCanvasProps
@@ -24,12 +25,23 @@ export default class DrawCanvas extends Component<DrawCanvasProps> {
 
   drawCanvas() {
     if (this.props.draw) {
+      this.ctx.save()
+      this.ctx.scale(window.devicePixelRatio, window.devicePixelRatio)
       this.props.draw(this.ctx)
+      this.ctx.restore()
     }
   }
 
   render() {
-    const { draw, ...props } = this.props
-    return <canvas ref={(c) => c && (this.canvas = c)} {...props} />
+    const { width, height, draw, ...props } = this.props
+    return (
+      <canvas
+        ref={(c) => c && (this.canvas = c)}
+        {...props}
+        width={isNumber(width) ? width * window.devicePixelRatio : undefined}
+        height={isNumber(height) ? height * window.devicePixelRatio : undefined}
+        style={{ width, height }}
+      />
+    )
   }
 }

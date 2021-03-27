@@ -91,13 +91,15 @@ export class PianoRollRenderer {
   private preDraw(scrollLeft: number) {
     const { gl } = this
 
+    const canvas = gl.canvas as HTMLCanvasElement
+
     this.viewSize.value = {
       width: gl.canvas.width,
       height: gl.canvas.height,
     }
 
     if (this.viewSize.isDirty) {
-      gl.viewport(0, 0, this.viewSize.value.width, this.viewSize.value.height)
+      gl.viewport(0, 0, gl.canvas.width, gl.canvas.height)
     }
 
     gl.clearColor(0.0, 0.0, 0.0, 0.0)
@@ -118,11 +120,18 @@ export class PianoRollRenderer {
       const zFar = 100.0
       const projectionMatrix = mat4.create()
 
+      const scale = window.devicePixelRatio
+      mat4.scale(
+        projectionMatrix,
+        projectionMatrix,
+        vec3.fromValues(scale, scale, scale)
+      )
+
       mat4.ortho(
         projectionMatrix,
         0,
-        gl.canvas.width,
-        gl.canvas.height,
+        canvas.clientWidth,
+        canvas.clientHeight,
         0,
         zNear,
         zFar

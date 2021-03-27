@@ -268,8 +268,9 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width, height }) => {
       </ContentPosition>
       <ContentPosition style={{ top: -scrollTop + Layout.rulerHeight }}>
         <canvas
-          width={width}
-          height={contentHeight}
+          width={width * window.devicePixelRatio}
+          height={contentHeight * window.devicePixelRatio}
+          style={{ width, height: contentHeight }}
           onContextMenu={useCallback((e) => e.preventDefault(), [])}
           ref={ref}
           onMouseDown={handleMouseDown}

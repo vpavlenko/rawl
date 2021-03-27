@@ -138,7 +138,6 @@ const PianoRuler: FC<PianoRulerProps> = ({
   )
 
   function draw(ctx: CanvasRenderingContext2D) {
-    const { width, height } = ctx.canvas
     ctx.clearRect(0, 0, width, height)
     ctx.save()
     ctx.translate(-scrollLeft + 0.5, 0)

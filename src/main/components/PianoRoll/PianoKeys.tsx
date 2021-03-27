@@ -138,8 +138,6 @@ const PianoKeys: FC<PianoKeysProps> = ({ numberOfKeys, keyHeight }) => {
   const [touchingKeys, setTouchingKeys] = useState<number[]>([])
 
   function draw(ctx: CanvasRenderingContext2D): void {
-    const { width, height } = ctx.canvas
-    ctx.clearRect(0, 0, width, height)
     drawKeys(ctx, width, keyHeight, numberOfKeys, theme)
   }
 

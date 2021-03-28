@@ -28,7 +28,7 @@ export const useNotes = (
       rootStore.pianoRollStore.ghostTracks[rootStore.song.selectedTrackId] ?? []
 
     return {
-      events: [...(track?.events ?? [])], // create new object to fire useMemo update
+      events: track?.events ?? [],
       isRhythmTrack: track?.isRhythmTrack ?? false,
       ghostTrackIds,
     }

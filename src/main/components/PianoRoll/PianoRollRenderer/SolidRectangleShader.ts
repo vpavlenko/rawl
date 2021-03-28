@@ -2,7 +2,6 @@ import { mat4, vec4 } from "gl-matrix"
 import { IRect } from "../../../../common/geometry"
 import { rectToTriangles } from "../../../helpers/polygon"
 import { initShaderProgram } from "../../../helpers/webgl"
-import { RenderObject } from "./RenderObject"
 import { Uniform, uniformMat4, uniformVec4 } from "./Uniform"
 
 export class SolidRectangleBuffer {
@@ -82,27 +81,5 @@ export class SolidRectangleShader {
     this.uColor.upload(gl)
 
     gl.drawArrays(gl.TRIANGLES, 0, buffer.vertexCount)
-  }
-}
-
-export class SolidRectangleObject extends RenderObject<
-  IRect[],
-  SolidRectangleBuffer,
-  SolidRectangleShader
-> {
-  constructor(gl: WebGLRenderingContext) {
-    super(new SolidRectangleShader(gl), new SolidRectangleBuffer(gl))
-  }
-
-  set projectionMatrix(value: mat4) {
-    this.shader.uProjectionMatrix.value = value
-  }
-
-  set color(value: vec4) {
-    this.shader.uColor.value = value
-  }
-
-  get color() {
-    return this.shader.uColor.value
   }
 }

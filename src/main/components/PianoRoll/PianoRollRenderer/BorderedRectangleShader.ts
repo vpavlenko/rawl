@@ -2,10 +2,9 @@ import { mat4, vec4 } from "gl-matrix"
 import { IRect } from "../../../../common/geometry"
 import { rectToTriangleBounds, rectToTriangles } from "../../../helpers/polygon"
 import { initShaderProgram } from "../../../helpers/webgl"
-import { RenderObject } from "./RenderObject"
 import { Uniform, uniformMat4, uniformVec4 } from "./Uniform"
 
-export class RectangleBuffer {
+export class BorderedRectangleBuffer {
   readonly positionBuffer: WebGLBuffer
   readonly boundsBuffer: WebGLBuffer
   private _vertexCount: number
@@ -96,7 +95,7 @@ export class BorderedRectangleShader {
     this.uStrokeColor = uniformVec4(gl, program, "uStrokeColor")
   }
 
-  draw(gl: WebGLRenderingContext, buffer: RectangleBuffer) {
+  draw(gl: WebGLRenderingContext, buffer: BorderedRectangleBuffer) {
     if (buffer.vertexCount === 0) {
       return
     }
@@ -120,27 +119,5 @@ export class BorderedRectangleShader {
     this.uStrokeColor.upload(gl)
 
     gl.drawArrays(gl.TRIANGLES, 0, buffer.vertexCount)
-  }
-}
-
-export class BorderedRectangleObject extends RenderObject<
-  IRect[],
-  RectangleBuffer,
-  BorderedRectangleShader
-> {
-  constructor(gl: WebGLRenderingContext) {
-    super(new BorderedRectangleShader(gl), new RectangleBuffer(gl))
-  }
-
-  set projectionMatrix(value: mat4) {
-    this.shader.uProjectionMatrix.value = value
-  }
-
-  set fillColor(value: vec4) {
-    this.shader.uFillColor.value = value
-  }
-
-  set strokeColor(value: vec4) {
-    this.shader.uStrokeColor.value = value
   }
 }

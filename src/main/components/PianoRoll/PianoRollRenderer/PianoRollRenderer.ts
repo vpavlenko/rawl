@@ -7,10 +7,19 @@ import { ISize } from "pixi.js"
 import { IPoint, IRect, zeroPoint, zeroRect } from "../../../../common/geometry"
 import { defaultTheme, Theme } from "../../../../common/theme/Theme"
 import { Layout } from "../../../Constants"
-import { BorderedRectangleObject } from "./BorderedRectangleShader"
-import { HorizontalGridObject } from "./HorizontalGridShader"
+import {
+  BorderedRectangleBuffer,
+  BorderedRectangleShader,
+} from "./BorderedRectangleShader"
+import {
+  HorizontalGridBuffer,
+  HorizontalGridShader,
+} from "./HorizontalGridShader"
 import { RenderProperty } from "./RenderProperty"
-import { SolidRectangleObject } from "./SolidRectangleShader"
+import {
+  SolidRectangleBuffer,
+  SolidRectangleShader,
+} from "./SolidRectangleShader"
 
 const colorToVec4 = (color: Color): vec4 => {
   const rgb = color.rgb().array()
@@ -25,14 +34,18 @@ export class PianoRollRenderer {
     (a, b) => a.width === b.width && a.height === b.height
   )
 
-  private noteRenderer: BorderedRectangleObject
-  private selectedNoteRenderer: BorderedRectangleObject
-  private ghostNoteRenderer: BorderedRectangleObject
-  private selectionRenderer: BorderedRectangleObject
-  private beatRenderer: SolidRectangleObject
-  private highlightedBeatRenderer: SolidRectangleObject
-  private gridRenderer: HorizontalGridObject
-  private cursorRenderer: SolidRectangleObject
+  private borderedRectangleShader: BorderedRectangleShader
+  private solidRectangleShader: SolidRectangleShader
+  private horizontalGridShader: HorizontalGridShader
+
+  private noteBuffer: BorderedRectangleBuffer
+  private selectedNoteBuffer: BorderedRectangleBuffer
+  private ghostNoteBuffer: BorderedRectangleBuffer
+  private selectionBuffer: BorderedRectangleBuffer
+  private beatBuffer: SolidRectangleBuffer
+  private highlightedBeatBuffer: SolidRectangleBuffer
+  private gridBuffer: HorizontalGridBuffer
+  private cursorBuffer: SolidRectangleBuffer
 
   theme: Theme = defaultTheme
 
@@ -44,14 +57,18 @@ export class PianoRollRenderer {
   private setup() {
     const { gl } = this
 
-    this.noteRenderer = new BorderedRectangleObject(gl)
-    this.selectedNoteRenderer = new BorderedRectangleObject(gl)
-    this.ghostNoteRenderer = new BorderedRectangleObject(gl)
-    this.selectionRenderer = new BorderedRectangleObject(gl)
-    this.beatRenderer = new SolidRectangleObject(gl)
-    this.highlightedBeatRenderer = new SolidRectangleObject(gl)
-    this.gridRenderer = new HorizontalGridObject(gl)
-    this.cursorRenderer = new SolidRectangleObject(gl)
+    this.borderedRectangleShader = new BorderedRectangleShader(gl)
+    this.solidRectangleShader = new SolidRectangleShader(gl)
+    this.horizontalGridShader = new HorizontalGridShader(gl)
+
+    this.noteBuffer = new BorderedRectangleBuffer(gl)
+    this.selectedNoteBuffer = new BorderedRectangleBuffer(gl)
+    this.ghostNoteBuffer = new BorderedRectangleBuffer(gl)
+    this.selectionBuffer = new BorderedRectangleBuffer(gl)
+    this.beatBuffer = new SolidRectangleBuffer(gl)
+    this.highlightedBeatBuffer = new SolidRectangleBuffer(gl)
+    this.gridBuffer = new HorizontalGridBuffer(gl)
+    this.cursorBuffer = new SolidRectangleBuffer(gl)
 
     this.render([], [], [], zeroRect, [], [], 0, zeroPoint)
   }
@@ -75,17 +92,16 @@ export class PianoRollRenderer {
   ) {
     const { gl } = this
 
-    this.noteRenderer.update(gl, notes)
-    this.selectedNoteRenderer.update(gl, selectedNotes)
-    this.ghostNoteRenderer.update(gl, ghostNotes)
-    this.selectionRenderer.update(gl, [selection])
-    this.beatRenderer.update(gl, beats.map(this.vline))
-    this.highlightedBeatRenderer.update(gl, highlightedBeats.map(this.vline))
-    this.gridRenderer.update(gl, this.viewSize.value)
-    this.cursorRenderer.update(gl, [this.vline(cursorX)])
+    this.noteBuffer.update(gl, notes)
+    this.selectedNoteBuffer.update(gl, selectedNotes)
+    this.ghostNoteBuffer.update(gl, ghostNotes)
+    this.selectionBuffer.update(gl, [selection])
+    this.beatBuffer.update(gl, beats.map(this.vline))
+    this.highlightedBeatBuffer.update(gl, highlightedBeats.map(this.vline))
+    this.gridBuffer.update(gl, this.viewSize.value)
+    this.cursorBuffer.update(gl, [this.vline(cursorX)])
 
-    this.preDraw(scroll)
-    this.draw()
+    this.draw(scroll)
   }
 
   private clear() {
@@ -95,7 +111,7 @@ export class PianoRollRenderer {
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
   }
 
-  private preDraw(scroll: IPoint) {
+  private draw(scroll: IPoint) {
     const { gl } = this
 
     const canvas = gl.canvas as HTMLCanvasElement
@@ -123,101 +139,115 @@ export class PianoRollRenderer {
 
     this.clear()
 
+    const zNear = 0
+    const zFar = 100.0
+    const projectionMatrix = mat4.create()
+
+    const scale = canvas.clientWidth / canvas.width
+    mat4.scale(
+      projectionMatrix,
+      projectionMatrix,
+      vec3.fromValues(scale, scale, scale)
+    )
+
+    mat4.ortho(
+      projectionMatrix,
+      0,
+      canvas.clientWidth,
+      canvas.clientHeight,
+      0,
+      zNear,
+      zFar
+    )
+
+    const projectionMatrixScrollX = mat4.create()
+    mat4.translate(
+      projectionMatrixScrollX,
+      projectionMatrix,
+      vec3.fromValues(-scroll.x, 0, 0)
+    )
+
+    const projectionMatrixScrollXY = mat4.create()
+    mat4.translate(
+      projectionMatrixScrollXY,
+      projectionMatrix,
+      vec3.fromValues(-scroll.x, -scroll.y, 0)
+    )
+
     {
-      const zNear = 0
-      const zFar = 100.0
-      const projectionMatrix = mat4.create()
-
-      const scale = canvas.clientWidth / canvas.width
-      mat4.scale(
-        projectionMatrix,
-        projectionMatrix,
-        vec3.fromValues(scale, scale, scale)
-      )
-
-      mat4.ortho(
-        projectionMatrix,
-        0,
-        canvas.clientWidth,
-        canvas.clientHeight,
-        0,
-        zNear,
-        zFar
-      )
-
-      const projectionMatrixScrollX = mat4.create()
-      mat4.translate(
-        projectionMatrixScrollX,
-        projectionMatrix,
-        vec3.fromValues(-scroll.x, 0, 0)
-      )
-
-      const projectionMatrixScrollXY = mat4.create()
-      mat4.translate(
-        projectionMatrixScrollXY,
-        projectionMatrix,
-        vec3.fromValues(-scroll.x, -scroll.y, 0)
-      )
-
-      this.gridRenderer.projectionMatrix = projectionMatrixScrollX
-      this.selectionRenderer.projectionMatrix = projectionMatrixScrollXY
-      this.beatRenderer.projectionMatrix = projectionMatrixScrollX
-      this.highlightedBeatRenderer.projectionMatrix = projectionMatrixScrollX
-      this.noteRenderer.projectionMatrix = projectionMatrixScrollXY
-      this.selectedNoteRenderer.projectionMatrix = projectionMatrixScrollXY
-      this.ghostNoteRenderer.projectionMatrix = projectionMatrixScrollXY
-      this.cursorRenderer.projectionMatrix = projectionMatrixScrollX
+      this.horizontalGridShader.uProjectionMatrix.value = projectionMatrixScrollX
+      this.horizontalGridShader.uColor.value = vec4.fromValues(0.5, 0.5, 0.5, 1)
+      this.horizontalGridShader.uHeight.value = Layout.keyHeight
+      // this.horizontalGridShader.draw(gl, this.gridBuffer)
     }
 
     {
-      const baseColor = Color(this.theme.themeColor)
-      const borderColor = baseColor.lighten(0.3)
-      const selectedColor = baseColor.lighten(0.7)
-      const selectedBorderColor = baseColor.lighten(0.8)
+      this.solidRectangleShader.uProjectionMatrix.value = projectionMatrixScrollX
+      this.solidRectangleShader.uColor.value = colorToVec4(
+        Color(this.theme.dividerColor).alpha(0.2)
+      )
+      this.solidRectangleShader.draw(gl, this.beatBuffer)
+    }
 
-      this.noteRenderer.strokeColor = colorToVec4(borderColor)
-      this.noteRenderer.fillColor = colorToVec4(baseColor)
-
-      this.selectedNoteRenderer.strokeColor = colorToVec4(selectedBorderColor)
-      this.selectedNoteRenderer.fillColor = colorToVec4(selectedColor)
+    {
+      this.solidRectangleShader.uProjectionMatrix.value = projectionMatrixScrollX
+      this.solidRectangleShader.uColor.value = colorToVec4(
+        Color(this.theme.dividerColor).alpha(0.5)
+      )
+      this.solidRectangleShader.draw(gl, this.highlightedBeatBuffer)
     }
 
     {
       const baseColor = Color(this.theme.ghostNoteColor)
       const borderColor = baseColor.lighten(0.3)
 
-      this.ghostNoteRenderer.strokeColor = colorToVec4(borderColor)
-      this.ghostNoteRenderer.fillColor = colorToVec4(baseColor)
+      this.borderedRectangleShader.uProjectionMatrix.value = projectionMatrixScrollXY
+      this.borderedRectangleShader.uStrokeColor.value = colorToVec4(borderColor)
+      this.borderedRectangleShader.uFillColor.value = colorToVec4(baseColor)
+      this.borderedRectangleShader.draw(gl, this.ghostNoteBuffer)
     }
 
-    this.selectionRenderer.strokeColor = colorToVec4(
-      Color(this.theme.themeColor)
-    )
-    this.selectionRenderer.fillColor = vec4.fromValues(0, 0, 0, 0)
+    {
+      const baseColor = Color(this.theme.themeColor)
+      const borderColor = baseColor.lighten(0.3)
 
-    this.gridRenderer.color = vec4.fromValues(0.5, 0.5, 0.5, 1)
-    this.gridRenderer.height = Layout.keyHeight
+      this.borderedRectangleShader.uProjectionMatrix.value = projectionMatrixScrollXY
+      this.borderedRectangleShader.uStrokeColor.value = colorToVec4(borderColor)
+      this.borderedRectangleShader.uFillColor.value = colorToVec4(baseColor)
+      this.borderedRectangleShader.draw(gl, this.noteBuffer)
+    }
 
-    this.beatRenderer.color = colorToVec4(
-      Color(this.theme.dividerColor).alpha(0.2)
-    )
-    this.highlightedBeatRenderer.color = colorToVec4(
-      Color(this.theme.dividerColor).alpha(0.5)
-    )
+    {
+      const baseColor = Color(this.theme.themeColor)
+      const selectedColor = baseColor.lighten(0.7)
+      const selectedBorderColor = baseColor.lighten(0.8)
 
-    this.cursorRenderer.color = vec4.fromValues(1, 0, 0, 1)
-  }
+      this.borderedRectangleShader.uProjectionMatrix.value = projectionMatrixScrollXY
+      this.borderedRectangleShader.uStrokeColor.value = colorToVec4(
+        selectedBorderColor
+      )
+      this.borderedRectangleShader.uFillColor.value = colorToVec4(selectedColor)
+      this.borderedRectangleShader.draw(gl, this.selectedNoteBuffer)
+    }
 
-  private draw() {
-    const { gl } = this
+    {
+      this.borderedRectangleShader.uProjectionMatrix.value = projectionMatrixScrollXY
+      this.borderedRectangleShader.uStrokeColor.value = colorToVec4(
+        Color(this.theme.themeColor)
+      )
+      this.borderedRectangleShader.uFillColor.value = vec4.fromValues(
+        0,
+        0,
+        0,
+        0
+      )
+      this.borderedRectangleShader.draw(gl, this.selectionBuffer)
+    }
 
-    // this.gridRenderer.draw(gl)
-    this.beatRenderer.draw(gl)
-    this.highlightedBeatRenderer.draw(gl)
-    this.ghostNoteRenderer.draw(gl)
-    this.noteRenderer.draw(gl)
-    this.selectedNoteRenderer.draw(gl)
-    this.selectionRenderer.draw(gl)
-    this.cursorRenderer.draw(gl)
+    {
+      this.solidRectangleShader.uProjectionMatrix.value = projectionMatrixScrollX
+      this.solidRectangleShader.uColor.value = vec4.fromValues(1, 0, 0, 1)
+      this.solidRectangleShader.draw(gl, this.cursorBuffer)
+    }
   }
 }

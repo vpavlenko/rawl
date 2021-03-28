@@ -231,19 +231,34 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width, height }) => {
       throw new Error("canvas is not mounted")
     }
     const selectionBounds = getSelectionBounds(selection, transform)
-    const [selectedNotes, nonSelectedNotes] = partition(
+
+    const [_selectedNotes, _nonSelectedNotes] = partition(
       notes,
       (n) => n.isSelected
     )
+    const [drumNotes, nonSelectedNotes] = partition(
+      _nonSelectedNotes,
+      (n) => n.isDrum
+    )
+    const [selectedDrumNotes, selectedNotes] = partition(
+      _selectedNotes,
+      (n) => n.isDrum
+    )
+    const [ghostDrumNotes, _ghostNotes] = partition(ghostNotes, (n) => n.isDrum)
+
     const [highlightedBeats, nonHighlightedBeats] = partition(
       mappedBeats,
       (b) => b.beat === 0
     )
+
     renderer.theme = theme
     renderer.render(
       nonSelectedNotes,
       selectedNotes,
-      ghostNotes,
+      _ghostNotes,
+      drumNotes,
+      selectedDrumNotes,
+      ghostDrumNotes,
       selectionBounds,
       nonHighlightedBeats.map((b) => b.x),
       highlightedBeats.map((b) => b.x),

@@ -48,7 +48,9 @@ export const useNotes = (
         const track = rootStore.song.getTrack(id)
         return windowNotes(track.events.filter(isNoteEvent)).map(
           (e): PianoNoteItem => {
-            const rect = transform.getRect(e)
+            const rect = track.isRhythmTrack
+              ? transform.getDrumRect(e)
+              : transform.getRect(e)
             return {
               ...rect,
               id: e.id,
@@ -65,7 +67,9 @@ export const useNotes = (
     () => [
       windowNotes(events.filter(isNoteEvent)).map(
         (e): PianoNoteItem => {
-          const rect = transform.getRect(e)
+          const rect = isRhythmTrack
+            ? transform.getDrumRect(e)
+            : transform.getRect(e)
           const isSelected = !isGhost && selection.noteIds.includes(e.id)
           return {
             ...rect,

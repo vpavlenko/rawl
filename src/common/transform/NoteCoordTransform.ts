@@ -74,6 +74,15 @@ export default class NoteCoordTransform {
     }
   }
 
+  getDrumRect(note: NoteEvent) {
+    return {
+      x: this.getX(note.tick) - this._pixelsPerKey / 2,
+      y: this.getY(note.noteNumber),
+      width: this._pixelsPerKey,
+      height: this._pixelsPerKey,
+    }
+  }
+
   equals(t: NoteCoordTransform) {
     return (
       this.pixelsPerKey === t.pixelsPerKey &&

@@ -202,7 +202,15 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width, height }) => {
       throw new Error("canvas is not mounted")
     }
     // GL コンテキストを初期化する
-    const gl = canvas.getContext("webgl")
+    const gl = canvas.getContext("webgl", {
+      alpha: true,
+      antialias: false,
+      depth: false,
+      desynchronized: true,
+      powerPreference: "high-performance",
+      premultipliedAlpha: true,
+      preserveDrawingBuffer: false,
+    })
 
     // WebGL が使用可能で動作している場合にのみ続行します
     if (gl === null) {

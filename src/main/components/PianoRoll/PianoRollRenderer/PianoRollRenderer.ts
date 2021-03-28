@@ -34,9 +34,9 @@ export class PianoRollRenderer {
     (a, b) => a.width === b.width && a.height === b.height
   )
 
-  private borderedRectangleShader: BorderedRectangleShader
-  private solidRectangleShader: SolidRectangleShader
-  private horizontalGridShader: HorizontalGridShader
+  private rectShader: BorderedRectangleShader
+  private solidRectShader: SolidRectangleShader
+  private hGridShader: HorizontalGridShader
 
   private noteBuffer: BorderedRectangleBuffer
   private selectedNoteBuffer: BorderedRectangleBuffer
@@ -57,9 +57,9 @@ export class PianoRollRenderer {
   private setup() {
     const { gl } = this
 
-    this.borderedRectangleShader = new BorderedRectangleShader(gl)
-    this.solidRectangleShader = new SolidRectangleShader(gl)
-    this.horizontalGridShader = new HorizontalGridShader(gl)
+    this.rectShader = new BorderedRectangleShader(gl)
+    this.solidRectShader = new SolidRectangleShader(gl)
+    this.hGridShader = new HorizontalGridShader(gl)
 
     this.noteBuffer = new BorderedRectangleBuffer(gl)
     this.selectedNoteBuffer = new BorderedRectangleBuffer(gl)
@@ -175,46 +175,46 @@ export class PianoRollRenderer {
     )
 
     {
-      this.horizontalGridShader.uProjectionMatrix.value = projectionMatrixScrollX
-      this.horizontalGridShader.uColor.value = vec4.fromValues(0.5, 0.5, 0.5, 1)
-      this.horizontalGridShader.uHeight.value = Layout.keyHeight
-      // this.horizontalGridShader.draw(gl, this.gridBuffer)
+      this.hGridShader.uProjectionMatrix.value = projectionMatrixScrollX
+      this.hGridShader.uColor.value = vec4.fromValues(0.5, 0.5, 0.5, 1)
+      this.hGridShader.uHeight.value = Layout.keyHeight
+      // this.hGridShader.draw(gl, this.gridBuffer)
     }
 
     {
-      this.solidRectangleShader.uProjectionMatrix.value = projectionMatrixScrollX
-      this.solidRectangleShader.uColor.value = colorToVec4(
+      this.solidRectShader.uProjectionMatrix.value = projectionMatrixScrollX
+      this.solidRectShader.uColor.value = colorToVec4(
         Color(this.theme.dividerColor).alpha(0.2)
       )
-      this.solidRectangleShader.draw(gl, this.beatBuffer)
+      this.solidRectShader.draw(gl, this.beatBuffer)
     }
 
     {
-      this.solidRectangleShader.uProjectionMatrix.value = projectionMatrixScrollX
-      this.solidRectangleShader.uColor.value = colorToVec4(
+      this.solidRectShader.uProjectionMatrix.value = projectionMatrixScrollX
+      this.solidRectShader.uColor.value = colorToVec4(
         Color(this.theme.dividerColor).alpha(0.5)
       )
-      this.solidRectangleShader.draw(gl, this.highlightedBeatBuffer)
+      this.solidRectShader.draw(gl, this.highlightedBeatBuffer)
     }
 
     {
       const baseColor = Color(this.theme.ghostNoteColor)
       const borderColor = baseColor.lighten(0.3)
 
-      this.borderedRectangleShader.uProjectionMatrix.value = projectionMatrixScrollXY
-      this.borderedRectangleShader.uStrokeColor.value = colorToVec4(borderColor)
-      this.borderedRectangleShader.uFillColor.value = colorToVec4(baseColor)
-      this.borderedRectangleShader.draw(gl, this.ghostNoteBuffer)
+      this.rectShader.uProjectionMatrix.value = projectionMatrixScrollXY
+      this.rectShader.uStrokeColor.value = colorToVec4(borderColor)
+      this.rectShader.uFillColor.value = colorToVec4(baseColor)
+      this.rectShader.draw(gl, this.ghostNoteBuffer)
     }
 
     {
       const baseColor = Color(this.theme.themeColor)
       const borderColor = baseColor.lighten(0.3)
 
-      this.borderedRectangleShader.uProjectionMatrix.value = projectionMatrixScrollXY
-      this.borderedRectangleShader.uStrokeColor.value = colorToVec4(borderColor)
-      this.borderedRectangleShader.uFillColor.value = colorToVec4(baseColor)
-      this.borderedRectangleShader.draw(gl, this.noteBuffer)
+      this.rectShader.uProjectionMatrix.value = projectionMatrixScrollXY
+      this.rectShader.uStrokeColor.value = colorToVec4(borderColor)
+      this.rectShader.uFillColor.value = colorToVec4(baseColor)
+      this.rectShader.draw(gl, this.noteBuffer)
     }
 
     {
@@ -222,32 +222,25 @@ export class PianoRollRenderer {
       const selectedColor = baseColor.lighten(0.7)
       const selectedBorderColor = baseColor.lighten(0.8)
 
-      this.borderedRectangleShader.uProjectionMatrix.value = projectionMatrixScrollXY
-      this.borderedRectangleShader.uStrokeColor.value = colorToVec4(
-        selectedBorderColor
-      )
-      this.borderedRectangleShader.uFillColor.value = colorToVec4(selectedColor)
-      this.borderedRectangleShader.draw(gl, this.selectedNoteBuffer)
+      this.rectShader.uProjectionMatrix.value = projectionMatrixScrollXY
+      this.rectShader.uStrokeColor.value = colorToVec4(selectedBorderColor)
+      this.rectShader.uFillColor.value = colorToVec4(selectedColor)
+      this.rectShader.draw(gl, this.selectedNoteBuffer)
     }
 
     {
-      this.borderedRectangleShader.uProjectionMatrix.value = projectionMatrixScrollXY
-      this.borderedRectangleShader.uStrokeColor.value = colorToVec4(
+      this.rectShader.uProjectionMatrix.value = projectionMatrixScrollXY
+      this.rectShader.uStrokeColor.value = colorToVec4(
         Color(this.theme.themeColor)
       )
-      this.borderedRectangleShader.uFillColor.value = vec4.fromValues(
-        0,
-        0,
-        0,
-        0
-      )
-      this.borderedRectangleShader.draw(gl, this.selectionBuffer)
+      this.rectShader.uFillColor.value = vec4.create()
+      this.rectShader.draw(gl, this.selectionBuffer)
     }
 
     {
-      this.solidRectangleShader.uProjectionMatrix.value = projectionMatrixScrollX
-      this.solidRectangleShader.uColor.value = vec4.fromValues(1, 0, 0, 1)
-      this.solidRectangleShader.draw(gl, this.cursorBuffer)
+      this.solidRectShader.uProjectionMatrix.value = projectionMatrixScrollX
+      this.solidRectShader.uColor.value = vec4.fromValues(1, 0, 0, 1)
+      this.solidRectShader.draw(gl, this.cursorBuffer)
     }
   }
 }

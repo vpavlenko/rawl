@@ -118,7 +118,7 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width, height }) => {
     (e: MouseEvent): PianoNotesMouseEvent => {
       const local = {
         x: e.offsetX + scrollLeft,
-        y: e.offsetY,
+        y: e.offsetY + scrollTop,
       }
       return {
         nativeEvent: e,
@@ -129,7 +129,7 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width, height }) => {
         item: notes.find((n) => containsPoint(n, local)) ?? null,
       }
     },
-    [transform, notes, scrollLeft]
+    [transform, notes, scrollLeft, scrollTop]
   )
 
   const handleMouseDown: MouseEventHandler<HTMLCanvasElement> = useCallback(
@@ -249,7 +249,7 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width, height }) => {
       nonHighlightedBeats.map((b) => b.x),
       highlightedBeats.map((b) => b.x),
       cursorPositionX,
-      scrollLeft
+      { x: scrollLeft, y: scrollTop }
     )
   }, [
     renderer,
@@ -260,9 +260,17 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width, height }) => {
     mappedBeats,
     cursorPositionX,
     theme,
+    scrollLeft,
+    scrollTop,
   ])
 
   settings.ROUND_PIXELS = true
+
+  // const canvasScale =
+  //   window.devicePixelRatio > 1 && width * window.devicePixelRatio > 4096
+  //     ? 1
+  //     : window.devicePixelRatio
+  const canvasScale = window.devicePixelRatio
 
   return (
     <Container>
@@ -274,11 +282,11 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width, height }) => {
           numberOfKeys={transform.numberOfKeys}
         />
       </ContentPosition>
-      <ContentPosition style={{ top: -scrollTop + Layout.rulerHeight }}>
+      <ContentPosition style={{ top: Layout.rulerHeight }}>
         <canvas
-          width={width * window.devicePixelRatio}
-          height={contentHeight * window.devicePixelRatio}
-          style={{ width, height: contentHeight }}
+          width={width * canvasScale}
+          height={height * canvasScale}
+          style={{ width, height }}
           onContextMenu={useCallback((e) => e.preventDefault(), [])}
           ref={ref}
           onMouseDown={handleMouseDown}

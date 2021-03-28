@@ -4,7 +4,7 @@
 import Color from "color"
 import { mat4, vec3, vec4 } from "gl-matrix"
 import { ISize } from "pixi.js"
-import { IRect, zeroRect } from "../../../../common/geometry"
+import { IPoint, IRect, zeroPoint, zeroRect } from "../../../../common/geometry"
 import { defaultTheme, Theme } from "../../../../common/theme/Theme"
 import { Layout } from "../../../Constants"
 import { BorderedRectangleObject } from "./BorderedRectangleShader"
@@ -53,7 +53,7 @@ export class PianoRollRenderer {
     this.gridRenderer = new HorizontalGridObject(gl)
     this.cursorRenderer = new SolidRectangleObject(gl)
 
-    this.render([], [], [], zeroRect, [], [], 0, 0)
+    this.render([], [], [], zeroRect, [], [], 0, zeroPoint)
   }
 
   private vline = (x: number): IRect => ({
@@ -71,7 +71,7 @@ export class PianoRollRenderer {
     beats: number[],
     highlightedBeats: number[],
     cursorX: number,
-    scrollLeft: number
+    scroll: IPoint
   ) {
     const { gl } = this
 
@@ -84,11 +84,18 @@ export class PianoRollRenderer {
     this.gridRenderer.update(gl, this.viewSize.value)
     this.cursorRenderer.update(gl, [this.vline(cursorX)])
 
-    this.preDraw(scrollLeft)
+    this.preDraw(scroll)
     this.draw()
   }
 
-  private preDraw(scrollLeft: number) {
+  private clear() {
+    const { gl } = this
+    gl.clearColor(0.0, 0.0, 0.0, 0.0)
+    gl.clearDepth(1.0)
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
+  }
+
+  private preDraw(scroll: IPoint) {
     const { gl } = this
 
     const canvas = gl.canvas as HTMLCanvasElement
@@ -102,25 +109,26 @@ export class PianoRollRenderer {
       gl.viewport(0, 0, gl.canvas.width, gl.canvas.height)
     }
 
-    gl.clearColor(0.0, 0.0, 0.0, 0.0)
-    gl.clearDepth(1.0) // Clear everything
-
-    gl.disable(gl.DEPTH_TEST) // Enable depth testing
-    gl.depthFunc(gl.LEQUAL) // Near things obscure far things
+    gl.disable(gl.CULL_FACE)
+    gl.disable(gl.DEPTH_TEST)
+    gl.disable(gl.DITHER)
+    gl.disable(gl.POLYGON_OFFSET_FILL)
+    gl.disable(gl.SAMPLE_ALPHA_TO_COVERAGE)
+    gl.disable(gl.SAMPLE_COVERAGE)
+    gl.disable(gl.SCISSOR_TEST)
+    gl.disable(gl.STENCIL_TEST)
 
     gl.enable(gl.BLEND)
     gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA)
 
-    // Clear the canvas before we start drawing on it.
-
-    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
+    this.clear()
 
     {
       const zNear = 0
       const zFar = 100.0
       const projectionMatrix = mat4.create()
 
-      const scale = window.devicePixelRatio
+      const scale = canvas.clientWidth / canvas.width
       mat4.scale(
         projectionMatrix,
         projectionMatrix,
@@ -137,20 +145,28 @@ export class PianoRollRenderer {
         zFar
       )
 
+      const projectionMatrixScrollX = mat4.create()
       mat4.translate(
+        projectionMatrixScrollX,
         projectionMatrix,
-        projectionMatrix,
-        vec3.fromValues(-scrollLeft, 0, 0)
+        vec3.fromValues(-scroll.x, 0, 0)
       )
 
-      this.gridRenderer.projectionMatrix = projectionMatrix
-      this.selectionRenderer.projectionMatrix = projectionMatrix
-      this.beatRenderer.projectionMatrix = projectionMatrix
-      this.highlightedBeatRenderer.projectionMatrix = projectionMatrix
-      this.noteRenderer.projectionMatrix = projectionMatrix
-      this.selectedNoteRenderer.projectionMatrix = projectionMatrix
-      this.ghostNoteRenderer.projectionMatrix = projectionMatrix
-      this.cursorRenderer.projectionMatrix = projectionMatrix
+      const projectionMatrixScrollXY = mat4.create()
+      mat4.translate(
+        projectionMatrixScrollXY,
+        projectionMatrix,
+        vec3.fromValues(-scroll.x, -scroll.y, 0)
+      )
+
+      this.gridRenderer.projectionMatrix = projectionMatrixScrollX
+      this.selectionRenderer.projectionMatrix = projectionMatrixScrollXY
+      this.beatRenderer.projectionMatrix = projectionMatrixScrollX
+      this.highlightedBeatRenderer.projectionMatrix = projectionMatrixScrollX
+      this.noteRenderer.projectionMatrix = projectionMatrixScrollXY
+      this.selectedNoteRenderer.projectionMatrix = projectionMatrixScrollXY
+      this.ghostNoteRenderer.projectionMatrix = projectionMatrixScrollXY
+      this.cursorRenderer.projectionMatrix = projectionMatrixScrollX
     }
 
     {

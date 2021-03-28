@@ -191,7 +191,6 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width, height }) => {
   )
 
   const cursorPositionX = transform.getX(playerPosition)
-  const contentHeight = transform.getMaxY()
 
   const ref = useRef<HTMLCanvasElement>(null)
   const [renderer, setRenderer] = useState<PianoRollRenderer | null>(null)
@@ -266,10 +265,6 @@ export const PianoRollStage: FC<PianoRollStageProps> = ({ width, height }) => {
 
   settings.ROUND_PIXELS = true
 
-  // const canvasScale =
-  //   window.devicePixelRatio > 1 && width * window.devicePixelRatio > 4096
-  //     ? 1
-  //     : window.devicePixelRatio
   const canvasScale = window.devicePixelRatio
 
   return (

@@ -36,7 +36,7 @@ export class HorizontalGridShader {
 
   constructor(gl: WebGLRenderingContext) {
     const vsSource = `
-      precision highp float;
+      precision lowp float;
       attribute vec4 aVertexPosition;
       uniform mat4 uProjectionMatrix;
       varying vec4 vPosition;
@@ -48,7 +48,7 @@ export class HorizontalGridShader {
     `
 
     const fsSource = `
-      precision highp float;
+      precision lowp float;
       uniform vec4 uColor;
       uniform float uHeight;
       varying vec4 vPosition;

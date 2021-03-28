@@ -38,7 +38,7 @@ export class SolidRectangleShader {
 
   constructor(gl: WebGLRenderingContext) {
     const vsSource = `
-      precision highp float;
+      precision lowp float;
       attribute vec4 aVertexPosition;
       uniform mat4 uProjectionMatrix;
 
@@ -48,7 +48,7 @@ export class SolidRectangleShader {
     `
 
     const fsSource = `
-      precision highp float;
+      precision lowp float;
 
       uniform vec4 uColor;
 

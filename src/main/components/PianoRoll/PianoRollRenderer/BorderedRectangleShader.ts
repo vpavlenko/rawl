@@ -46,7 +46,7 @@ export class BorderedRectangleShader {
 
   constructor(gl: WebGLRenderingContext) {
     const vsSource = `
-      precision highp float;
+      precision lowp float;
       attribute vec4 aVertexPosition;
 
       // XYZW -> X, Y, Width, Height
@@ -64,7 +64,7 @@ export class BorderedRectangleShader {
     `
 
     const fsSource = `
-      precision highp float;
+      precision lowp float;
 
       uniform vec4 uFillColor;
       uniform vec4 uStrokeColor;

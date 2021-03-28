@@ -74,6 +74,10 @@ export class HorizontalGridShader {
   }
 
   draw(gl: WebGLRenderingContext, buffer: HorizontalGridBuffer) {
+    if (buffer.vertexCount === 0) {
+      return
+    }
+
     {
       gl.bindBuffer(gl.ARRAY_BUFFER, buffer.positionBuffer)
       gl.vertexAttribPointer(this.vertexPosition, 2, gl.FLOAT, false, 0, 0)

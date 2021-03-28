@@ -97,6 +97,10 @@ export class BorderedRectangleShader {
   }
 
   draw(gl: WebGLRenderingContext, buffer: RectangleBuffer) {
+    if (buffer.vertexCount === 0) {
+      return
+    }
+
     {
       gl.bindBuffer(gl.ARRAY_BUFFER, buffer.positionBuffer)
       gl.vertexAttribPointer(this.vertexPosition, 2, gl.FLOAT, false, 0, 0)

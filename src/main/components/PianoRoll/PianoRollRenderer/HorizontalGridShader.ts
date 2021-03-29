@@ -14,7 +14,7 @@ export class HorizontalGridBuffer {
   update(gl: WebGLRenderingContext, viewSize: ISize) {
     const positions = rectToTriangles({ x: 0, y: 0, ...viewSize })
     gl.bindBuffer(gl.ARRAY_BUFFER, this.positionBuffer)
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW)
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.DYNAMIC_DRAW)
   }
 
   get vertexCount() {

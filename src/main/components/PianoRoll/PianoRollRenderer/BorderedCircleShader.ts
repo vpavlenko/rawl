@@ -17,11 +17,11 @@ export class BorderedCircleBuffer {
   update(gl: WebGLRenderingContext, rects: IRect[]) {
     const positions = rects.flatMap(rectToTriangles)
     gl.bindBuffer(gl.ARRAY_BUFFER, this.positionBuffer)
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW)
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.DYNAMIC_DRAW)
 
     const bounds = rects.flatMap(rectToTriangleBounds)
     gl.bindBuffer(gl.ARRAY_BUFFER, this.boundsBuffer)
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(bounds), gl.STATIC_DRAW)
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(bounds), gl.DYNAMIC_DRAW)
 
     this._vertexCount = rects.length * 6
   }

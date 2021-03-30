@@ -5,7 +5,6 @@ import { IRect } from "../../common/geometry/Rect"
 import { filterEventsWithScroll } from "../../common/helpers/filterEventsWithScroll"
 import { isNoteEvent, NoteEvent } from "../../common/track"
 import { useMemoObserver } from "./useMemoObserver"
-import { useNoteTransform } from "./useNoteTransform"
 import { useStores } from "./useStores"
 
 export type PianoNoteItem = IRect & {
@@ -22,22 +21,24 @@ export const useNotes = (
 ): [PianoNoteItem[], PianoNoteItem[]] => {
   const rootStore = useStores()
 
-  const { events, isRhythmTrack, ghostTrackIds } = useObserver(() => {
-    const track = rootStore.song.tracks[trackId]
-    const ghostTrackIds =
-      rootStore.pianoRollStore.ghostTracks[rootStore.song.selectedTrackId] ?? []
+  const { events, isRhythmTrack, ghostTrackIds, transform } = useObserver(
+    () => {
+      const track = rootStore.song.tracks[trackId]
+      const ghostTrackIds =
+        rootStore.pianoRollStore.ghostTracks[rootStore.song.selectedTrackId] ??
+        []
 
-    return {
-      events: track?.events ?? [],
-      isRhythmTrack: track?.isRhythmTrack ?? false,
-      ghostTrackIds,
+      return {
+        events: track?.events ?? [],
+        isRhythmTrack: track?.isRhythmTrack ?? false,
+        ghostTrackIds,
+        transform: rootStore.pianoRollStore.transform,
+      }
     }
-  })
+  )
 
   const scrollLeft = useMemoObserver(() => rootStore.pianoRollStore.scrollLeft)
   const selection = useObserver(() => rootStore.pianoRollStore.selection)
-
-  const transform = useNoteTransform()
 
   const windowNotes = (notes: NoteEvent[]): NoteEvent[] =>
     filterEventsWithScroll(notes, transform.pixelsPerTick, scrollLeft, width)

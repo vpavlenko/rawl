@@ -8,7 +8,6 @@ import { filterEventsWithScroll } from "../../../common/helpers/filterEventsWith
 import { createBeatsInRange } from "../../../common/helpers/mapBeats"
 import { changeNotesVelocity, createControlEvent } from "../../actions"
 import { Layout } from "../../Constants"
-import { useNoteTransform } from "../../hooks/useNoteTransform"
 import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
 import PianoGrid from "../PianoRoll/PianoGrid"
@@ -129,16 +128,23 @@ const ControlPane: FC = () => {
   const containerHeight = size.height
 
   const rootStore = useStores()
-  const { events, measures, timebase, scrollLeft, mode } = useObserver(() => ({
+  const {
+    events,
+    measures,
+    timebase,
+    scrollLeft,
+    mode,
+    transform,
+  } = useObserver(() => ({
     events: toJS(rootStore.song.selectedTrack?.events ?? []),
     measures: rootStore.song.measures,
     timebase: rootStore.services.player.timebase,
     scrollLeft: rootStore.pianoRollStore.scrollLeft,
     mode: rootStore.pianoRollStore.controlMode,
+    transform: rootStore.pianoRollStore.transform,
   }))
 
   const theme = useTheme()
-  const transform = useNoteTransform()
   const startTick = scrollLeft / transform.pixelsPerTick
 
   const mappedBeats = createBeatsInRange(

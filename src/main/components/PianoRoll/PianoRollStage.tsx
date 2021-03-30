@@ -6,7 +6,6 @@ import { createBeatsInRange } from "../../../common/helpers/mapBeats"
 import { NoteCoordTransform } from "../../../common/transform"
 import { Layout } from "../../Constants"
 import { PianoNoteItem } from "../../hooks/useNotes"
-import { useNoteTransform } from "../../hooks/useNoteTransform"
 import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
 import PianoLines from "./CanvasPianoLines"
@@ -51,15 +50,17 @@ const PianoKeyPosition = styled.div`
 
 export const PianoRollStage: FC<PianoRollStageProps> = ({ width, height }) => {
   const rootStore = useStores()
-  const { measures, timebase, scrollLeft, scrollTop } = useObserver(() => {
-    return {
-      measures: rootStore.song.measures,
-      timebase: rootStore.services.player.timebase,
-      scrollLeft: rootStore.pianoRollStore.scrollLeft,
-      scrollTop: rootStore.pianoRollStore.scrollTop,
+  const { measures, timebase, scrollLeft, scrollTop, transform } = useObserver(
+    () => {
+      return {
+        measures: rootStore.song.measures,
+        timebase: rootStore.services.player.timebase,
+        scrollLeft: rootStore.pianoRollStore.scrollLeft,
+        scrollTop: rootStore.pianoRollStore.scrollTop,
+        transform: rootStore.pianoRollStore.transform,
+      }
     }
-  })
-  const transform = useNoteTransform()
+  )
   const theme = useTheme()
 
   const startTick = scrollLeft / transform.pixelsPerTick

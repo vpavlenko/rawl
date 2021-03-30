@@ -16,7 +16,6 @@ import { getSelectionBounds } from "../../../common/selection/Selection"
 import { removeEvent } from "../../actions"
 import { useContextMenu } from "../../hooks/useContextMenu"
 import { useNotes } from "../../hooks/useNotes"
-import { useNoteTransform } from "../../hooks/useNoteTransform"
 import { useStores } from "../../hooks/useStores"
 import { observeDoubleClick } from "./MouseHandler/observeDoubleClick"
 import PencilMouseHandler from "./MouseHandler/PencilMouseHandler"
@@ -37,6 +36,7 @@ export const PianoNotes: FC<PianoRollStageProps> = ({ width, height }) => {
     scrollTop,
     notesCursor,
     selection,
+    transform,
   } = useObserver(() => {
     return {
       trackId: rootStore.song.selectedTrackId,
@@ -48,9 +48,9 @@ export const PianoNotes: FC<PianoRollStageProps> = ({ width, height }) => {
       scrollTop: rootStore.pianoRollStore.scrollTop,
       notesCursor: rootStore.pianoRollStore.notesCursor,
       selection: rootStore.pianoRollStore.selection,
+      transform: rootStore.pianoRollStore.transform,
     }
   })
-  const transform = useNoteTransform()
   const theme = useTheme()
 
   const [pencilMouseHandler] = useState(new PencilMouseHandler(rootStore))

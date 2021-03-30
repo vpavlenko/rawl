@@ -2,6 +2,7 @@ import { mat4, vec4 } from "gl-matrix"
 import { IRect } from "../../../../common/geometry"
 import { rectToTriangles } from "../../../helpers/polygon"
 import { initShaderProgram } from "../../../helpers/webgl"
+import { Attrib } from "./Attrib"
 import { Uniform, uniformMat4, uniformVec4 } from "./Uniform"
 
 export class SolidRectangleBuffer {
@@ -28,10 +29,8 @@ export class SolidRectangleBuffer {
 export class SolidRectangleShader {
   private program: WebGLProgram
 
-  // attribLocations
-  private vertexPosition: number
+  private aVertex: Attrib
 
-  // uniformLocations
   readonly uProjectionMatrix: Uniform<mat4>
   readonly uColor: Uniform<vec4>
 
@@ -59,7 +58,7 @@ export class SolidRectangleShader {
 
     this.program = program
 
-    this.vertexPosition = gl.getAttribLocation(program, "aVertexPosition")
+    this.aVertex = new Attrib(gl, program, "aVertexPosition", 2)
     this.uProjectionMatrix = uniformMat4(gl, program, "uProjectionMatrix")
     this.uColor = uniformVec4(gl, program, "uColor")
   }
@@ -69,11 +68,7 @@ export class SolidRectangleShader {
       return
     }
 
-    {
-      gl.bindBuffer(gl.ARRAY_BUFFER, buffer.positionBuffer)
-      gl.vertexAttribPointer(this.vertexPosition, 2, gl.FLOAT, false, 0, 0)
-      gl.enableVertexAttribArray(this.vertexPosition)
-    }
+    this.aVertex.upload(gl, buffer.positionBuffer)
 
     gl.useProgram(this.program)
 

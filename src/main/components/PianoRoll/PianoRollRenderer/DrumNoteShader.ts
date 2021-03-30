@@ -1,17 +1,16 @@
 import { mat4, vec4 } from "gl-matrix"
 import { initShaderProgram } from "../../../helpers/webgl"
+import { Attrib } from "./Attrib"
 import { NoteBuffer } from "./NoteShader"
 import { Uniform, uniformMat4, uniformVec4 } from "./Uniform"
 
 export class DrumNoteShader {
   private program: WebGLProgram
 
-  // attribLocations
-  private vertexPosition: number
-  private bounds: number
-  private velocities: number
+  private aVertex: Attrib
+  private aBounds: Attrib
+  private aVelocity: Attrib
 
-  // uniformLocations
   readonly uProjectionMatrix: Uniform<mat4>
   readonly uFillColor: Uniform<vec4>
   readonly uStrokeColor: Uniform<vec4>
@@ -66,9 +65,10 @@ export class DrumNoteShader {
 
     this.program = program
 
-    this.vertexPosition = gl.getAttribLocation(program, "aVertexPosition")
-    this.bounds = gl.getAttribLocation(program, "aBounds")
-    this.velocities = gl.getAttribLocation(program, "aVelocity")
+    this.aVertex = new Attrib(gl, program, "aVertexPosition", 2)
+    this.aBounds = new Attrib(gl, program, "aBounds", 4)
+    this.aVelocity = new Attrib(gl, program, "aVelocity", 1)
+
     this.uProjectionMatrix = uniformMat4(gl, program, "uProjectionMatrix")
     this.uFillColor = uniformVec4(gl, program, "uFillColor")
     this.uStrokeColor = uniformVec4(gl, program, "uStrokeColor")
@@ -79,23 +79,9 @@ export class DrumNoteShader {
       return
     }
 
-    {
-      gl.bindBuffer(gl.ARRAY_BUFFER, buffer.positionBuffer)
-      gl.vertexAttribPointer(this.vertexPosition, 2, gl.FLOAT, false, 0, 0)
-      gl.enableVertexAttribArray(this.vertexPosition)
-    }
-
-    {
-      gl.bindBuffer(gl.ARRAY_BUFFER, buffer.boundsBuffer)
-      gl.vertexAttribPointer(this.bounds, 4, gl.FLOAT, false, 0, 0)
-      gl.enableVertexAttribArray(this.bounds)
-    }
-
-    {
-      gl.bindBuffer(gl.ARRAY_BUFFER, buffer.velocitiesBuffer)
-      gl.vertexAttribPointer(this.velocities, 1, gl.FLOAT, false, 0, 0)
-      gl.enableVertexAttribArray(this.velocities)
-    }
+    this.aVertex.upload(gl, buffer.positionBuffer)
+    this.aBounds.upload(gl, buffer.boundsBuffer)
+    this.aVelocity.upload(gl, buffer.velocitiesBuffer)
 
     gl.useProgram(this.program)
 

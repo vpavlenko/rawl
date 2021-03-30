@@ -2,6 +2,7 @@ import { mat4, vec4 } from "gl-matrix"
 import { ISize } from "pixi.js"
 import { rectToTriangles } from "../../../helpers/polygon"
 import { initShaderProgram } from "../../../helpers/webgl"
+import { Attrib } from "./Attrib"
 import { Uniform, uniformFloat, uniformMat4, uniformVec4 } from "./Uniform"
 
 export class HorizontalGridBuffer {
@@ -25,10 +26,8 @@ export class HorizontalGridBuffer {
 export class HorizontalGridShader {
   private program: WebGLProgram
 
-  // attribLocations
-  private vertexPosition: number
+  private aVertex: Attrib
 
-  // uniformLocations
   readonly uProjectionMatrix: Uniform<mat4>
   readonly uColor: Uniform<vec4>
   readonly uHeight: Uniform<number>
@@ -66,7 +65,8 @@ export class HorizontalGridShader {
 
     this.program = program
 
-    this.vertexPosition = gl.getAttribLocation(program, "aVertexPosition")
+    this.aVertex = new Attrib(gl, program, "aVertexPosition", 2)
+
     this.uProjectionMatrix = uniformMat4(gl, program, "uProjectionMatrix")
     this.uColor = uniformVec4(gl, program, "uColor")!
     this.uHeight = uniformFloat(gl, program, "uHeight")!
@@ -77,11 +77,7 @@ export class HorizontalGridShader {
       return
     }
 
-    {
-      gl.bindBuffer(gl.ARRAY_BUFFER, buffer.positionBuffer)
-      gl.vertexAttribPointer(this.vertexPosition, 2, gl.FLOAT, false, 0, 0)
-      gl.enableVertexAttribArray(this.vertexPosition)
-    }
+    this.aVertex.upload(gl, buffer.positionBuffer)
 
     gl.useProgram(this.program)
 

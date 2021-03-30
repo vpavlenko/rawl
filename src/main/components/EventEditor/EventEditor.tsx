@@ -5,19 +5,18 @@ import {
   DialogContent,
   DialogTitle,
 } from "@material-ui/core"
-import { useObserver } from "mobx-react-lite"
+import { observer } from "mobx-react-lite"
 import React, { FC } from "react"
 import { localized } from "../../../common/localize/localizedString"
 import { useStores } from "../../hooks/useStores"
 import EventList from "./EventList"
 
-export const EventEditor: FC = () => {
+export const EventEditor: FC = observer(() => {
   const { rootViewStore } = useStores()
   const rootStore = useStores()
-  const { isOpen, events } = useObserver(() => ({
-    isOpen: rootViewStore.openEventEditor,
-    events: rootStore.song?.selectedTrack?.events ?? [],
-  }))
+  const isOpen = rootViewStore.openEventEditor
+  const events = rootStore.song?.selectedTrack?.events ?? []
+
   const close = () => (rootViewStore.openEventEditor = false)
   const onClickOK = close
   const onClickCancel = close
@@ -33,4 +32,4 @@ export const EventEditor: FC = () => {
       </DialogActions>
     </Dialog>
   )
-}
+})

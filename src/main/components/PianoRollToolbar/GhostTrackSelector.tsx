@@ -1,6 +1,6 @@
 import { Checkbox, ListItemText, MenuItem, Select } from "@material-ui/core"
 import { Layers } from "@material-ui/icons"
-import { useObserver } from "mobx-react-lite"
+import { observer } from "mobx-react-lite"
 import React, { useMemo } from "react"
 import styled from "styled-components"
 import { useStores } from "../../hooks/useStores"
@@ -53,15 +53,13 @@ const StyledCheckbox = styled(Checkbox)`
   }
 `
 
-export const GhostTrackSelector = () => {
+export const GhostTrackSelector = observer(() => {
   const rootStore = useStores()
-  const { ghostTrackIds, tracks, selectedTrackId } = useObserver(() => ({
-    ghostTrackIds:
-      rootStore.pianoRollStore.ghostTracks[rootStore.song.selectedTrackId] ??
-      [],
-    tracks: rootStore.song.tracks,
-    selectedTrackId: rootStore.song.selectedTrackId,
-  }))
+  const ghostTrackIds =
+    rootStore.pianoRollStore.ghostTracks[rootStore.song.selectedTrackId] ?? []
+  const tracks = rootStore.song.tracks
+  const selectedTrackId = rootStore.song.selectedTrackId
+
   const trackEntries = useMemo(
     () =>
       tracks
@@ -100,4 +98,4 @@ export const GhostTrackSelector = () => {
       ))}
     </Selector>
   )
-}
+})

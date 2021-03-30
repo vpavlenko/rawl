@@ -1,4 +1,4 @@
-import { useObserver } from "mobx-react-lite"
+import { observer } from "mobx-react-lite"
 import React, { FC, useMemo } from "react"
 import styled from "styled-components"
 import { IPoint } from "../../../common/geometry"
@@ -48,67 +48,65 @@ const PianoKeyPosition = styled.div`
   top: 0;
 `
 
-export const PianoRollStage: FC<PianoRollStageProps> = ({ width, height }) => {
-  const rootStore = useStores()
-  const { measures, timebase, scrollLeft, scrollTop, transform } = useObserver(
-    () => {
-      return {
-        measures: rootStore.song.measures,
-        timebase: rootStore.services.player.timebase,
-        scrollLeft: rootStore.pianoRollStore.scrollLeft,
-        scrollTop: rootStore.pianoRollStore.scrollTop,
-        transform: rootStore.pianoRollStore.transform,
-      }
-    }
-  )
-  const theme = useTheme()
+export const PianoRollStage: FC<PianoRollStageProps> = observer(
+  ({ width, height }) => {
+    const rootStore = useStores()
 
-  const startTick = scrollLeft / transform.pixelsPerTick
+    const measures = rootStore.song.measures
+    const timebase = rootStore.services.player.timebase
+    const scrollLeft = rootStore.pianoRollStore.scrollLeft
+    const scrollTop = rootStore.pianoRollStore.scrollTop
+    const transform = rootStore.pianoRollStore.transform
 
-  const mappedBeats = useMemo(
-    () =>
-      createBeatsInRange(
-        measures,
-        transform.pixelsPerTick,
-        timebase,
-        startTick,
-        width
-      ),
-    [measures, transform, timebase, startTick, width]
-  )
+    const theme = useTheme()
 
-  return (
-    <Container>
-      <ContentPosition style={{ top: -scrollTop + Layout.rulerHeight }}>
-        <PianoLines
-          theme={theme}
-          width={width}
-          pixelsPerKey={transform.pixelsPerKey}
-          numberOfKeys={transform.numberOfKeys}
-        />
-      </ContentPosition>
-      <ContentPosition style={{ top: Layout.rulerHeight }}>
-        <PianoNotes width={width} height={height} />
-      </ContentPosition>
-      <PianoKeyPosition style={{ top: -scrollTop + Layout.rulerHeight }}>
-        <PianoKeys
-          keyHeight={transform.pixelsPerKey}
-          numberOfKeys={transform.numberOfKeys}
-        />
-      </PianoKeyPosition>
-      <RulerPosition
-        style={{
-          background: theme.backgroundColor,
-          borderBottom: `1px solid ${theme.dividerColor}`,
-        }}
-      >
-        <CanvasPianoRuler
-          width={width}
-          beats={mappedBeats}
-          scrollLeft={scrollLeft}
-          pixelsPerTick={transform.pixelsPerTick}
-        />
-      </RulerPosition>
-    </Container>
-  )
-}
+    const startTick = scrollLeft / transform.pixelsPerTick
+
+    const mappedBeats = useMemo(
+      () =>
+        createBeatsInRange(
+          measures,
+          transform.pixelsPerTick,
+          timebase,
+          startTick,
+          width
+        ),
+      [measures, transform, timebase, startTick, width]
+    )
+
+    return (
+      <Container>
+        <ContentPosition style={{ top: -scrollTop + Layout.rulerHeight }}>
+          <PianoLines
+            theme={theme}
+            width={width}
+            pixelsPerKey={transform.pixelsPerKey}
+            numberOfKeys={transform.numberOfKeys}
+          />
+        </ContentPosition>
+        <ContentPosition style={{ top: Layout.rulerHeight }}>
+          <PianoNotes width={width} height={height} />
+        </ContentPosition>
+        <PianoKeyPosition style={{ top: -scrollTop + Layout.rulerHeight }}>
+          <PianoKeys
+            keyHeight={transform.pixelsPerKey}
+            numberOfKeys={transform.numberOfKeys}
+          />
+        </PianoKeyPosition>
+        <RulerPosition
+          style={{
+            background: theme.backgroundColor,
+            borderBottom: `1px solid ${theme.dividerColor}`,
+          }}
+        >
+          <CanvasPianoRuler
+            width={width}
+            beats={mappedBeats}
+            scrollLeft={scrollLeft}
+            pixelsPerTick={transform.pixelsPerTick}
+          />
+        </RulerPosition>
+      </Container>
+    )
+  }
+)

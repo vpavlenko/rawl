@@ -1,7 +1,7 @@
 import { AppBar, IconButton, Toolbar } from "@material-ui/core"
 import { KeyboardTab, Menu as MenuIcon } from "@material-ui/icons"
 import { makeStyles } from "@material-ui/styles"
-import { useObserver } from "mobx-react-lite"
+import { observer } from "mobx-react-lite"
 import React, { FC, useCallback } from "react"
 import styled from "styled-components"
 import { localized } from "../../../common/localize/localizedString"
@@ -37,21 +37,17 @@ const NavBackButton = styled(IconButton)`
   }
 `
 
-export const PianoRollToolbar: FC = () => {
+export const PianoRollToolbar: FC = observer(() => {
   const rootStore = useStores()
 
-  const { trackName, autoScroll, track, trackId, quantize } = useObserver(
-    () => ({
-      trackName: rootStore.song.selectedTrack?.displayName ?? "",
-      track: rootStore.song.selectedTrack,
-      trackId: rootStore.song.selectedTrackId,
-      quantize:
-        rootStore.pianoRollStore.quantize === 0
-          ? rootStore.services.quantizer.denominator
-          : rootStore.pianoRollStore.quantize,
-      autoScroll: rootStore.pianoRollStore.autoScroll,
-    })
-  )
+  const track = rootStore.song.selectedTrack
+  const trackId = rootStore.song.selectedTrackId
+  const quantize =
+    rootStore.pianoRollStore.quantize === 0
+      ? rootStore.services.quantizer.denominator
+      : rootStore.pianoRollStore.quantize
+  const autoScroll = rootStore.pianoRollStore.autoScroll
+
   const { rootViewStore, pianoRollStore: s } = rootStore
 
   const onClickAutoScroll = useCallback(() => (s.autoScroll = !s.autoScroll), [
@@ -106,4 +102,4 @@ export const PianoRollToolbar: FC = () => {
       </Toolbar>
     </AppBar>
   )
-}
+})

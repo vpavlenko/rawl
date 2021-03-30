@@ -6,7 +6,7 @@ import {
   DialogContentText,
   DialogTitle,
 } from "@material-ui/core"
-import { useObserver } from "mobx-react-lite"
+import { observer } from "mobx-react-lite"
 import React, { FC, ReactNode } from "react"
 import styled from "styled-components"
 import { localized } from "../../../common/localize/localizedString"
@@ -56,11 +56,10 @@ const HotKey: FC<HotKeyProps> = ({ hotKeys, text }) => {
   )
 }
 
-export const HelpDialog: FC = () => {
+export const HelpDialog: FC = observer(() => {
   const { rootViewStore } = useStores()
-  const { isOpen } = useObserver(() => ({
-    isOpen: rootViewStore.openHelp,
-  }))
+  const isOpen = rootViewStore.openHelp
+
   const close = () => (rootViewStore.openHelp = false)
 
   return (
@@ -137,4 +136,4 @@ export const HelpDialog: FC = () => {
       </DialogActions>
     </Dialog>
   )
-}
+})

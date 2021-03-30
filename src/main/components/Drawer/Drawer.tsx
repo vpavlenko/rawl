@@ -7,7 +7,7 @@ import {
   ListSubheader,
 } from "@material-ui/core"
 import { Help } from "@material-ui/icons"
-import { useObserver } from "mobx-react-lite"
+import { observer } from "mobx-react-lite"
 import React, { FC } from "react"
 import styled from "styled-components"
 import { localized } from "../../../common/localize/localizedString"
@@ -48,11 +48,9 @@ const HelpIcon = styled(Help)`
   margin-right: 0.6em;
 `
 
-export const Drawer: FC = () => {
+export const Drawer: FC = observer(() => {
   const { rootViewStore, router } = useStores()
-  const { open } = useObserver(() => ({
-    open: rootViewStore.openDrawer,
-  }))
+  const open = rootViewStore.openDrawer
   const close = () => (rootViewStore.openDrawer = false)
 
   return (
@@ -88,7 +86,7 @@ export const Drawer: FC = () => {
       </List>
     </MaterialDrawer>
   )
-}
+})
 
 export const ListHeader = styled(ListSubheader)`
   &.MuiListSubheader-root {

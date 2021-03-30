@@ -9,7 +9,7 @@ import {
   DialogTitle,
 } from "@material-ui/core"
 import { Alert } from "@material-ui/lab"
-import { useObserver } from "mobx-react-lite"
+import { observer } from "mobx-react-lite"
 import React, { FC } from "react"
 import styled from "styled-components"
 import { localized } from "../../../common/localize/localizedString"
@@ -52,28 +52,17 @@ const Spacer = styled.div`
   height: 2rem;
 `
 
-export const MIDIDeviceDialog: FC = () => {
+export const MIDIDeviceDialog: FC = observer(() => {
   const { midiDeviceStore, rootViewStore } = useStores()
 
-  const {
-    inputs,
-    outputs,
-    isLoading,
-    requestError,
-    isOpen,
-    enabledInputIds,
-    enabledOutputIds,
-    isFactorySoundEnabled,
-  } = useObserver(() => ({
-    inputs: midiDeviceStore.inputs,
-    outputs: midiDeviceStore.outputs,
-    isLoading: midiDeviceStore.isLoading,
-    requestError: midiDeviceStore.requestError,
-    enabledInputIds: midiDeviceStore.enabledInputIds,
-    enabledOutputIds: midiDeviceStore.enabledOutputIds,
-    isFactorySoundEnabled: midiDeviceStore.isFactorySoundEnabled,
-    isOpen: rootViewStore.openDeviceDialog,
-  }))
+  const inputs = midiDeviceStore.inputs
+  const outputs = midiDeviceStore.outputs
+  const isLoading = midiDeviceStore.isLoading
+  const requestError = midiDeviceStore.requestError
+  const enabledInputIds = midiDeviceStore.enabledInputIds
+  const enabledOutputIds = midiDeviceStore.enabledOutputIds
+  const isFactorySoundEnabled = midiDeviceStore.isFactorySoundEnabled
+  const isOpen = rootViewStore.openDeviceDialog
 
   const close = () => (rootViewStore.openDeviceDialog = false)
 
@@ -162,4 +151,4 @@ export const MIDIDeviceDialog: FC = () => {
       </DialogActions>
     </Dialog>
   )
-}
+})

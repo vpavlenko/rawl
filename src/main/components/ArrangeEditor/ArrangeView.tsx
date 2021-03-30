@@ -1,6 +1,6 @@
 import useComponentSize from "@rehooks/component-size"
 import { toJS } from "mobx"
-import { useObserver } from "mobx-react-lite"
+import { observer } from "mobx-react-lite"
 import React, { FC, useEffect, useRef, useState } from "react"
 import { NoteCoordTransform } from "../../../common/transform"
 import {
@@ -15,30 +15,19 @@ import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
 import { ArrangeView } from "../ArrangeView/ArrangeView"
 
-const ArrangeViewWrapper: FC = () => {
+const ArrangeViewWrapper: FC = observer(() => {
   const rootStore = useStores()
 
-  const {
-    autoScroll,
-    playerPosition,
-    pixelsPerTick,
-    isPlaying,
-    tracks,
-    measures,
-    timebase,
-    endTick,
-    selection,
-  } = useObserver(() => ({
-    autoScroll: rootStore.arrangeViewStore.autoScroll,
-    playerPosition: rootStore.services.player.position,
-    pixelsPerTick: Layout.pixelsPerTick * rootStore.arrangeViewStore.scaleX,
-    isPlaying: rootStore.services.player.isPlaying,
-    tracks: toJS(rootStore.song.tracks),
-    measures: rootStore.song.measures,
-    timebase: rootStore.services.player.timebase,
-    endTick: rootStore.song.endOfSong,
-    selection: rootStore.arrangeViewStore.selection,
-  }))
+  const autoScroll = rootStore.arrangeViewStore.autoScroll
+  const playerPosition = rootStore.services.player.position
+  const pixelsPerTick = Layout.pixelsPerTick * rootStore.arrangeViewStore.scaleX
+  const isPlaying = rootStore.services.player.isPlaying
+  const tracks = toJS(rootStore.song.tracks)
+  const measures = rootStore.song.measures
+  const timebase = rootStore.services.player.timebase
+  const endTick = rootStore.song.endOfSong
+  const selection = rootStore.arrangeViewStore.selection
+
   const { arrangeViewStore: s } = rootStore
 
   const ref = useRef(null)
@@ -99,6 +88,6 @@ const ArrangeViewWrapper: FC = () => {
       moveSelection={(pos) => arrangeMoveSelection(rootStore)(pos)}
     />
   )
-}
+})
 
 export default ArrangeViewWrapper

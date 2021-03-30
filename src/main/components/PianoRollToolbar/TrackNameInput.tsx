@@ -1,4 +1,4 @@
-import { useObserver } from "mobx-react-lite"
+import { observer } from "mobx-react-lite"
 import React, { FC, useState } from "react"
 import styled from "styled-components"
 import { useStores } from "../../hooks/useStores"
@@ -28,11 +28,10 @@ const Input = styled.input`
   outline: none;
 `
 
-export const TrackNameInput: FC = () => {
+export const TrackNameInput: FC = observer(() => {
   const rootStore = useStores()
-  const { trackName } = useObserver(() => ({
-    trackName: rootStore.song.selectedTrack?.displayName ?? "",
-  }))
+  const trackName = rootStore.song.selectedTrack?.displayName ?? ""
+
   const [isEditing, setEditing] = useState(false)
   return (
     <>
@@ -61,4 +60,4 @@ export const TrackNameInput: FC = () => {
       )}
     </>
   )
-}
+})

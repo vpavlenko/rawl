@@ -1,6 +1,6 @@
 import { List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core"
 import { Add } from "@material-ui/icons"
-import { useObserver } from "mobx-react-lite"
+import { observer } from "mobx-react-lite"
 import React, { FC } from "react"
 import styled from "styled-components"
 import { localized } from "../../../../common/localize/localizedString"
@@ -20,42 +20,38 @@ const AddTrackListIcon = styled(ListItemIcon)`
   margin-right: 0.6em;
 `
 
-export const TrackList: FC = () => {
+export const TrackList: FC = observer(() => {
   const rootStore = useStores()
   const { router } = rootStore
-  const { tracks } = useObserver(() => {
-    const position = rootStore.services.player.position
-    const selectedTrackId = rootStore.song.selectedTrackId
-    const trackMutes = rootStore.song.tracks.map((_, i) =>
-      rootStore.trackMute.isMuted(i)
-    )
-    const trackSolos = rootStore.song.tracks.map((_, i) =>
-      rootStore.trackMute.isSolo(i)
-    )
-    const tracks = rootStore.song.tracks
-      .filter((t) => !t.isConductorTrack)
-      .map(
-        (t): TrackListItemData => {
-          const index = rootStore.song.tracks.indexOf(t)
-          const selected =
-            !rootStore.rootViewStore.isArrangeViewSelected &&
-            index === selectedTrackId
-          return {
-            index,
-            name: t.displayName,
-            instrument: t.instrumentName ?? "",
-            mute: trackMutes[index],
-            solo: trackSolos[index],
-            selected,
-            volume: t.getVolume(position) ?? 0,
-            pan: t.getPan(position) ?? 0,
-          }
+
+  const position = rootStore.services.player.position
+  const selectedTrackId = rootStore.song.selectedTrackId
+  const trackMutes = rootStore.song.tracks.map((_, i) =>
+    rootStore.trackMute.isMuted(i)
+  )
+  const trackSolos = rootStore.song.tracks.map((_, i) =>
+    rootStore.trackMute.isSolo(i)
+  )
+  const tracks = rootStore.song.tracks
+    .filter((t) => !t.isConductorTrack)
+    .map(
+      (t): TrackListItemData => {
+        const index = rootStore.song.tracks.indexOf(t)
+        const selected =
+          !rootStore.rootViewStore.isArrangeViewSelected &&
+          index === selectedTrackId
+        return {
+          index,
+          name: t.displayName,
+          instrument: t.instrumentName ?? "",
+          mute: trackMutes[index],
+          solo: trackSolos[index],
+          selected,
+          volume: t.getVolume(position) ?? 0,
+          pan: t.getPan(position) ?? 0,
         }
-      )
-    return {
-      tracks,
-    }
-  })
+      }
+    )
 
   const onClickMute = (trackId: number) => toggleMuteTrack(rootStore)(trackId)
   const onClickSolo = (trackId: number) => toggleSoloTrack(rootStore)(trackId)
@@ -96,4 +92,4 @@ export const TrackList: FC = () => {
       </ListItem>
     </List>
   )
-}
+})

@@ -10,7 +10,7 @@ import difference from "lodash/difference"
 import groupBy from "lodash/groupBy"
 import map from "lodash/map"
 import range from "lodash/range"
-import { useObserver } from "mobx-react-lite"
+import { observer } from "mobx-react-lite"
 import React, { FC } from "react"
 import styled from "styled-components"
 import { isNotUndefined } from "../../../common/helpers/array"
@@ -189,27 +189,18 @@ const InstrumentBrowser: FC<InstrumentBrowserProps> = ({
   )
 }
 
-const InstrumentBrowserWrapper: FC = () => {
+const InstrumentBrowserWrapper: FC = observer(() => {
   const rootStore = useStores()
-  const {
-    track,
-    trackId,
-    presetNames,
-    s,
-    player,
-    song,
-    instrumentBrowserSetting,
-    openInstrumentBrowser,
-  } = useObserver(() => ({
-    track: rootStore.song.selectedTrack,
-    trackId: rootStore.song.selectedTrackId,
-    presetNames: rootStore.pianoRollStore.presetNames,
-    s: rootStore.pianoRollStore,
-    player: rootStore.services.player,
-    song: rootStore.song,
-    instrumentBrowserSetting: rootStore.pianoRollStore.instrumentBrowserSetting,
-    openInstrumentBrowser: rootStore.pianoRollStore.openInstrumentBrowser,
-  }))
+
+  const track = rootStore.song.selectedTrack
+  const trackId = rootStore.song.selectedTrackId
+  const presetNames = rootStore.pianoRollStore.presetNames
+  const s = rootStore.pianoRollStore
+  const player = rootStore.services.player
+  const song = rootStore.song
+  const instrumentBrowserSetting =
+    rootStore.pianoRollStore.instrumentBrowserSetting
+  const openInstrumentBrowser = rootStore.pianoRollStore.openInstrumentBrowser
 
   if (track === undefined) {
     throw new Error("selectedTrack is undefined")
@@ -277,6 +268,6 @@ const InstrumentBrowserWrapper: FC = () => {
       presetCategories={presetCategories}
     />
   )
-}
+})
 
 export default InstrumentBrowserWrapper

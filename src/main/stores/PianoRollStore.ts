@@ -1,8 +1,11 @@
-import { action, makeObservable, observable } from "mobx"
+import { action, computed, makeObservable, observable } from "mobx"
 import { emptySelection } from "../../common/selection/Selection"
+import { NoteCoordTransform } from "../../common/transform"
 import { LoadSoundFontEvent } from "../../synth/synth"
 import { ControlMode } from "../components/ControlPane/ControlPane"
 import { InstrumentSetting } from "../components/InstrumentBrowser/InstrumentBrowser"
+import { Layout } from "../Constants"
+import { PianoNoteItem } from "../hooks/useNotes"
 
 export type PianoRollMouseMode = "pencil" | "selection"
 
@@ -29,6 +32,8 @@ export default class PianoRollStore {
   }
   presetNames: LoadSoundFontEvent["presetNames"] = [[]]
   ghostTracks: GhostTrackIdMap = {}
+  notes: PianoNoteItem[]
+  canvasWidth: number
 
   constructor() {
     makeObservable(this, {
@@ -48,6 +53,8 @@ export default class PianoRollStore {
       instrumentBrowserSetting: observable,
       presetNames: observable,
       ghostTracks: observable,
+      canvasWidth: observable,
+      transform: computed,
       scrollBy: action,
       toggleTool: action,
     })
@@ -60,5 +67,13 @@ export default class PianoRollStore {
 
   toggleTool() {
     this.mouseMode === "pencil" ? "selection" : "pencil"
+  }
+
+  get transform(): NoteCoordTransform {
+    return new NoteCoordTransform(
+      Layout.pixelsPerTick * this.scaleX,
+      Layout.keyHeight,
+      127
+    )
   }
 }

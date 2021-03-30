@@ -1,5 +1,6 @@
 import React from "react"
 import { createGlobalStyle } from "styled-components"
+import { Layout } from "../../main/Constants"
 import { useTheme } from "../../main/hooks/useTheme"
 import { Theme } from "./Theme"
 
@@ -18,9 +19,9 @@ const GlobalStyle = createGlobalStyle<ThemeStyleProps>`
   --secondary-background-color: ${({ theme }) =>
     theme.secondaryBackgroundColor};
   --tertiary-background-color: ${({ theme }) => theme.tertiaryBackgroundColor};
-  --key-height: ${({ theme }) => theme.keyHeight}px;
-  --key-width: ${({ theme }) => theme.keyWidth}px;
-  --ruler-height: ${({ theme }) => theme.rulerHeight}px;
+  --key-height: ${Layout.keyHeight}px;
+  --key-width: ${Layout.keyWidth}px;
+  --ruler-height: ${Layout.rulerHeight}px;
 }
 
 html,

@@ -10,6 +10,7 @@ import {
   arrangeStartSelection,
   setPlayerPosition,
 } from "../../actions"
+import { Layout } from "../../Constants"
 import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
 import { ArrangeView } from "../ArrangeView/ArrangeView"
@@ -30,7 +31,7 @@ const ArrangeViewWrapper: FC = () => {
   } = useObserver(() => ({
     autoScroll: rootStore.arrangeViewStore.autoScroll,
     playerPosition: rootStore.services.player.position,
-    pixelsPerTick: 0.1 * rootStore.arrangeViewStore.scaleX,
+    pixelsPerTick: Layout.pixelsPerTick * rootStore.arrangeViewStore.scaleX,
     isPlaying: rootStore.services.player.isPlaying,
     tracks: toJS(rootStore.song.tracks),
     measures: rootStore.song.measures,

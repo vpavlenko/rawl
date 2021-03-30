@@ -1,6 +1,7 @@
 import { Graphics } from "@inlet/react-pixi"
 import Color from "color"
 import React, { FC } from "react"
+import { Layout } from "../../Constants"
 import { useTheme } from "../../hooks/useTheme"
 
 const areEquals = (props: LeftTopSpaceProps, nextProps: LeftTopSpaceProps) =>
@@ -18,12 +19,12 @@ export const LeftTopSpace: FC<LeftTopSpaceProps> = React.memo(({ width }) => {
         g.clear()
           .lineStyle()
           .beginFill(Color(theme.backgroundColor).rgbNumber())
-          .drawRect(0, 0, theme.keyWidth, theme.rulerHeight)
+          .drawRect(0, 0, Layout.keyWidth, Layout.rulerHeight)
         g.lineStyle(1, Color(theme.dividerColor).rgbNumber())
-          .moveTo(theme.keyWidth, 0)
-          .lineTo(theme.keyWidth, theme.rulerHeight)
-          .moveTo(0, theme.rulerHeight)
-          .lineTo(width, theme.rulerHeight)
+          .moveTo(Layout.keyWidth, 0)
+          .lineTo(Layout.keyWidth, Layout.rulerHeight)
+          .moveTo(0, Layout.rulerHeight)
+          .lineTo(width, Layout.rulerHeight)
       }}
     />
   )

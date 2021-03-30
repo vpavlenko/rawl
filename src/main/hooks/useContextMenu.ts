@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useCallback } from "react"
 
 export interface AbstractMouseEvent {
   preventDefault: () => void
@@ -13,14 +13,14 @@ export const useContextMenu = () => {
     isOpen: false,
   })
 
-  const onContextMenu = (e: AbstractMouseEvent) => {
+  const onContextMenu = useCallback((e: AbstractMouseEvent) => {
     e.preventDefault()
     setState({
       mouseX: e.clientX - 2,
       mouseY: e.clientY - 4,
       isOpen: true,
     })
-  }
+  }, [])
 
   const handleClose = () => {
     setState({ ...state, isOpen: false })

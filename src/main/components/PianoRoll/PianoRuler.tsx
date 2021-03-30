@@ -8,6 +8,7 @@ import { BeatWithX } from "../../../common/helpers/mapBeats"
 import { LoopSetting } from "../../../common/player"
 import { Theme } from "../../../common/theme/Theme"
 import { setPlayerPosition } from "../../actions"
+import { Layout } from "../../Constants"
 import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
 
@@ -117,7 +118,7 @@ const PianoRuler: FC<PianoRulerProps> = ({
   beats,
 }) => {
   const theme = useTheme()
-  const height = theme.rulerHeight
+  const height = Layout.rulerHeight
 
   const drawBackground = (g: PIXIGraphics) => {
     g.clear()

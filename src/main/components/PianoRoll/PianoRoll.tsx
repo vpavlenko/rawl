@@ -4,9 +4,9 @@ import React, { FC, useCallback, useEffect, useRef } from "react"
 import SplitPane from "react-split-pane"
 import styled from "styled-components"
 import { NoteCoordTransform } from "../../../common/transform"
+import { Layout } from "../../Constants"
 import { isTouchPadEvent } from "../../helpers/touchpad"
 import { useStores } from "../../hooks/useStores"
-import { useTheme } from "../../hooks/useTheme"
 import ControlPane from "../ControlPane/ControlPane"
 import { HorizontalScaleScrollBar } from "../inputs/ScaleScrollBar"
 import { VerticalScrollBar } from "../inputs/ScrollBar"
@@ -122,8 +122,11 @@ const PianoRollWrapper: FC = () => {
   const ref = useRef(null)
   const size = useComponentSize(ref)
 
-  const theme = useTheme()
-  const transform = new NoteCoordTransform(0.1 * scaleX, theme.keyHeight, 127)
+  const transform = new NoteCoordTransform(
+    Layout.pixelsPerTick * scaleX,
+    Layout.keyHeight,
+    127
+  )
 
   useEffect(() => {
     // keep scroll position to cursor
@@ -196,7 +199,7 @@ const PianoRollWrapper: FC = () => {
     <Parent ref={ref}>
       <StyledSplitPane split="horizontal" minSize={50} defaultSize={"60%"}>
         <Alpha onWheel={onWheel} ref={alphaRef}>
-          <PianoRollStage width={size.width} />
+          <PianoRollStage width={size.width} height={alphaHeight} />
           <VerticalScrollBar
             scrollOffset={_scrollTop}
             contentLength={contentHeight}

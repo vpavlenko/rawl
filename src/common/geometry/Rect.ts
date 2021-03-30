@@ -64,3 +64,5 @@ export function scale(rect: IRect, scaleX: number, scaleY: number): IRect {
     height: rect.height * scaleY,
   }
 }
+
+export const zeroRect: IRect = { x: 0, y: 0, width: 0, height: 0 }

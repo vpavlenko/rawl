@@ -7,7 +7,7 @@ import styled from "styled-components"
 import { filterEventsWithScroll } from "../../../common/helpers/filterEventsWithScroll"
 import { createBeatsInRange } from "../../../common/helpers/mapBeats"
 import { changeNotesVelocity, createControlEvent } from "../../actions"
-import { useNoteTransform } from "../../hooks/useNoteTransform"
+import { Layout } from "../../Constants"
 import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
 import PianoGrid from "../PianoRoll/PianoGrid"
@@ -128,16 +128,23 @@ const ControlPane: FC = () => {
   const containerHeight = size.height
 
   const rootStore = useStores()
-  const { events, measures, timebase, scrollLeft, mode } = useObserver(() => ({
+  const {
+    events,
+    measures,
+    timebase,
+    scrollLeft,
+    mode,
+    transform,
+  } = useObserver(() => ({
     events: toJS(rootStore.song.selectedTrack?.events ?? []),
     measures: rootStore.song.measures,
     timebase: rootStore.services.player.timebase,
     scrollLeft: rootStore.pianoRollStore.scrollLeft,
     mode: rootStore.pianoRollStore.controlMode,
+    transform: rootStore.pianoRollStore.transform,
   }))
 
   const theme = useTheme()
-  const transform = useNoteTransform()
   const startTick = scrollLeft / transform.pixelsPerTick
 
   const mappedBeats = createBeatsInRange(
@@ -166,7 +173,7 @@ const ControlPane: FC = () => {
     events: controlEvents,
     transform,
     scrollLeft,
-    width: containerWidth - theme.keyWidth - BORDER_WIDTH,
+    width: containerWidth - Layout.keyWidth - BORDER_WIDTH,
     height: containerHeight - TAB_HEIGHT,
     color: theme.themeColor,
     createEvent: (value: number, tick?: number) =>
@@ -202,7 +209,7 @@ const ControlPane: FC = () => {
         {control}
         <Stage
           style={{
-            marginLeft: theme.keyWidth,
+            marginLeft: Layout.keyWidth,
             pointerEvents: "none",
           }}
           width={controlProps.width}

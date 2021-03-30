@@ -100,12 +100,11 @@ const createSelectionAction = (rootStore: RootStore): MouseGesture => {
   return {
     onMouseDown: (e) => {
       start = { tick: e.tick, noteNumber: e.noteNumber }
-      startSelection(rootStore)(start)
+      startSelection(rootStore)(e)
     },
 
     onMouseMove: (e) => {
-      const end = { tick: e.tick, noteNumber: e.noteNumber }
-      resizeSelection(rootStore)(start, end)
+      resizeSelection(rootStore)(start, e)
     },
 
     onMouseUp: () => {
@@ -144,8 +143,7 @@ const dragSelectionLeftEdgeAction = (rootStore: RootStore): MouseGesture => ({
   onMouseDown: () => {},
 
   onMouseMove: (e) => {
-    const tick = e.transform.getTicks(e.local.x)
-    resizeSelectionLeft(rootStore)(tick)
+    resizeSelectionLeft(rootStore)(e.tick)
   },
 })
 
@@ -153,7 +151,6 @@ const dragSelectionRightEdgeAction = (rootStore: RootStore): MouseGesture => ({
   onMouseDown: () => {},
 
   onMouseMove: (e) => {
-    const tick = e.transform.getTicks(e.local.x)
-    resizeSelectionRight(rootStore)(tick)
+    resizeSelectionRight(rootStore)(e.tick)
   },
 })

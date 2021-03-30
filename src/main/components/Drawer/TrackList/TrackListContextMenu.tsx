@@ -1,6 +1,7 @@
 import { Menu, MenuItem } from "@material-ui/core"
 import React, { FC } from "react"
 import { IPoint } from "../../../../common/geometry"
+import { localized } from "../../../../common/localize/localizedString"
 
 export interface TrackListContextMenuProps {
   isOpen: boolean
@@ -30,7 +31,7 @@ export const TrackListContextMenu: FC<TrackListContextMenuProps> = ({
           handleClose()
         }}
       >
-        Delete Track
+        {localized("delete-track", "Delete track")}
       </MenuItem>
     </Menu>
   )

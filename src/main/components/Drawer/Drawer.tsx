@@ -8,7 +8,7 @@ import {
 } from "@material-ui/core"
 import { Help } from "@material-ui/icons"
 import { observer } from "mobx-react-lite"
-import React, { FC } from "react"
+import React, { FC, useCallback } from "react"
 import styled from "styled-components"
 import { localized } from "../../../common/localize/localizedString"
 import { useStores } from "../../hooks/useStores"
@@ -61,7 +61,13 @@ export const Drawer: FC = observer(() => {
       <TrackList />
       <Divider />
       <List>
-        <ListItem button onClick={() => (router.path = "/tempo")}>
+        <ListItem
+          button
+          onClick={useCallback(() => {
+            close()
+            router.path = "/tempo"
+          }, [])}
+        >
           <ListItemText primary={localized("tempo-track", "Tempo Track")} />
         </ListItem>
       </List>
@@ -69,17 +75,19 @@ export const Drawer: FC = observer(() => {
       <List>
         <ListItem
           button
-          onClick={() => {
-            close()
+          onClick={useCallback(() => {
             rootViewStore.openDeviceDialog = true
-          }}
+          }, [])}
         >
           <ListItemText primary={localized("midi-settings", "MIDI Settings")} />
         </ListItem>
       </List>
       <Divider />
       <List>
-        <ListItem button onClick={() => (rootViewStore.openHelp = true)}>
+        <ListItem
+          button
+          onClick={useCallback(() => (rootViewStore.openHelp = true), [])}
+        >
           <HelpIcon />
           <ListItemText primary={localized("help", "Help")} />
         </ListItem>

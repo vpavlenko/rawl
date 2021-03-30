@@ -3,10 +3,12 @@
 
 import Color from "color"
 import { mat4, vec3, vec4 } from "gl-matrix"
+import { partition } from "lodash"
 import { ISize } from "pixi.js"
 import { IPoint, IRect, zeroPoint, zeroRect } from "../../../../common/geometry"
 import { defaultTheme, Theme } from "../../../../common/theme/Theme"
 import { Layout } from "../../../Constants"
+import { PianoNoteItem } from "../../../hooks/useNotes"
 import {
   BorderedCircleBuffer,
   BorderedCircleShader,
@@ -15,10 +17,12 @@ import {
   BorderedRectangleBuffer,
   BorderedRectangleShader,
 } from "./BorderedRectangleShader"
+import { DrumNoteShader } from "./DrumNoteShader"
 import {
   HorizontalGridBuffer,
   HorizontalGridShader,
 } from "./HorizontalGridShader"
+import { NoteBuffer, NoteShader } from "./NoteShader"
 import { RenderProperty } from "./RenderProperty"
 import {
   SolidRectangleBuffer,
@@ -38,17 +42,17 @@ export class PianoRollRenderer {
     (a, b) => a.width === b.width && a.height === b.height
   )
 
+  private noteShader: NoteShader
+  private drumNoteShader: DrumNoteShader
   private rectShader: BorderedRectangleShader
   private solidRectShader: SolidRectangleShader
   private hGridShader: HorizontalGridShader
   private circleShader: BorderedCircleShader
 
-  private noteBuffer: BorderedRectangleBuffer
-  private selectedNoteBuffer: BorderedRectangleBuffer
+  private noteBuffer: NoteBuffer
   private ghostNoteBuffer: BorderedRectangleBuffer
 
-  private drumNoteBuffer: BorderedCircleBuffer
-  private selectedDrumNoteBuffer: BorderedCircleBuffer
+  private drumNoteBuffer: NoteBuffer
   private ghostDrumNoteBuffer: BorderedCircleBuffer
 
   private selectionBuffer: BorderedRectangleBuffer
@@ -67,17 +71,17 @@ export class PianoRollRenderer {
   private setup() {
     const { gl } = this
 
+    this.noteShader = new NoteShader(gl)
+    this.drumNoteShader = new DrumNoteShader(gl)
     this.rectShader = new BorderedRectangleShader(gl)
     this.solidRectShader = new SolidRectangleShader(gl)
     this.hGridShader = new HorizontalGridShader(gl)
     this.circleShader = new BorderedCircleShader(gl)
 
-    this.noteBuffer = new BorderedRectangleBuffer(gl)
-    this.selectedNoteBuffer = new BorderedRectangleBuffer(gl)
+    this.noteBuffer = new NoteBuffer(gl)
     this.ghostNoteBuffer = new BorderedRectangleBuffer(gl)
 
-    this.drumNoteBuffer = new BorderedCircleBuffer(gl)
-    this.selectedDrumNoteBuffer = new BorderedCircleBuffer(gl)
+    this.drumNoteBuffer = new NoteBuffer(gl)
     this.ghostDrumNoteBuffer = new BorderedCircleBuffer(gl)
 
     this.selectionBuffer = new BorderedRectangleBuffer(gl)
@@ -86,7 +90,7 @@ export class PianoRollRenderer {
     this.gridBuffer = new HorizontalGridBuffer(gl)
     this.cursorBuffer = new SolidRectangleBuffer(gl)
 
-    this.render([], [], [], [], [], [], zeroRect, [], [], 0, zeroPoint)
+    this.render([], [], zeroRect, [], [], 0, zeroPoint)
   }
 
   private vline = (x: number): IRect => ({
@@ -97,12 +101,8 @@ export class PianoRollRenderer {
   })
 
   render(
-    notes: IRect[],
-    selectedNotes: IRect[],
-    ghostNotes: IRect[],
-    drumNotes: IRect[],
-    selectedDrumNotes: IRect[],
-    ghostDrumNotes: IRect[],
+    notes: PianoNoteItem[],
+    ghostNotes: PianoNoteItem[],
     selection: IRect,
     beats: number[],
     highlightedBeats: number[],
@@ -111,13 +111,18 @@ export class PianoRollRenderer {
   ) {
     const { gl } = this
 
-    this.noteBuffer.update(gl, notes)
-    this.selectedNoteBuffer.update(gl, selectedNotes)
-    this.ghostNoteBuffer.update(gl, ghostNotes)
+    {
+      const [drumNotes, normalNotes] = partition(notes, (n) => n.isDrum)
+      const [drumGhostNotes, normalGhostNotes] = partition(
+        ghostNotes,
+        (n) => n.isDrum
+      )
 
-    this.drumNoteBuffer.update(gl, drumNotes)
-    this.selectedDrumNoteBuffer.update(gl, selectedDrumNotes)
-    this.ghostDrumNoteBuffer.update(gl, ghostDrumNotes)
+      this.noteBuffer.update(gl, normalNotes)
+      this.ghostNoteBuffer.update(gl, normalGhostNotes)
+      this.drumNoteBuffer.update(gl, drumNotes)
+      this.ghostDrumNoteBuffer.update(gl, drumGhostNotes)
+    }
 
     this.selectionBuffer.update(gl, [selection])
     this.beatBuffer.update(gl, beats.map(this.vline))
@@ -245,42 +250,20 @@ export class PianoRollRenderer {
       const baseColor = Color(this.theme.themeColor)
       const borderColor = baseColor.lighten(0.3)
 
-      this.rectShader.uProjectionMatrix.value = projectionMatrixScrollXY
-      this.rectShader.uStrokeColor.value = colorToVec4(borderColor)
-      this.rectShader.uFillColor.value = colorToVec4(baseColor)
-      this.rectShader.draw(gl, this.noteBuffer)
+      this.noteShader.uProjectionMatrix.value = projectionMatrixScrollXY
+      this.noteShader.uFillColor.value = colorToVec4(baseColor)
+      this.noteShader.uStrokeColor.value = colorToVec4(borderColor)
+      this.noteShader.draw(gl, this.noteBuffer)
     }
 
     {
       const baseColor = Color(this.theme.themeColor)
       const borderColor = baseColor.lighten(0.3)
 
-      this.circleShader.uProjectionMatrix.value = projectionMatrixScrollXY
-      this.circleShader.uStrokeColor.value = colorToVec4(borderColor)
-      this.circleShader.uFillColor.value = colorToVec4(baseColor)
-      this.circleShader.draw(gl, this.drumNoteBuffer)
-    }
-
-    {
-      const baseColor = Color(this.theme.themeColor)
-      const selectedColor = baseColor.lighten(0.7)
-      const selectedBorderColor = baseColor.lighten(0.8)
-
-      this.rectShader.uProjectionMatrix.value = projectionMatrixScrollXY
-      this.rectShader.uStrokeColor.value = colorToVec4(selectedBorderColor)
-      this.rectShader.uFillColor.value = colorToVec4(selectedColor)
-      this.rectShader.draw(gl, this.selectedNoteBuffer)
-    }
-
-    {
-      const baseColor = Color(this.theme.themeColor)
-      const selectedColor = baseColor.lighten(0.7)
-      const selectedBorderColor = baseColor.lighten(0.8)
-
-      this.circleShader.uProjectionMatrix.value = projectionMatrixScrollXY
-      this.circleShader.uStrokeColor.value = colorToVec4(selectedBorderColor)
-      this.circleShader.uFillColor.value = colorToVec4(selectedColor)
-      this.circleShader.draw(gl, this.selectedDrumNoteBuffer)
+      this.drumNoteShader.uProjectionMatrix.value = projectionMatrixScrollXY
+      this.drumNoteShader.uFillColor.value = colorToVec4(baseColor)
+      this.drumNoteShader.uStrokeColor.value = colorToVec4(borderColor)
+      this.drumNoteShader.draw(gl, this.drumNoteBuffer)
     }
 
     {

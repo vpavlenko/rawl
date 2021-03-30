@@ -185,20 +185,6 @@ export const PianoNotes: FC<PianoRollStageProps> = ({ width, height }) => {
     }
     const selectionBounds = getSelectionBounds(selection, transform)
 
-    const [_selectedNotes, _nonSelectedNotes] = partition(
-      notes,
-      (n) => n.isSelected
-    )
-    const [drumNotes, nonSelectedNotes] = partition(
-      _nonSelectedNotes,
-      (n) => n.isDrum
-    )
-    const [selectedDrumNotes, selectedNotes] = partition(
-      _selectedNotes,
-      (n) => n.isDrum
-    )
-    const [ghostDrumNotes, _ghostNotes] = partition(ghostNotes, (n) => n.isDrum)
-
     const [highlightedBeats, nonHighlightedBeats] = partition(
       mappedBeats,
       (b) => b.beat === 0
@@ -206,12 +192,8 @@ export const PianoNotes: FC<PianoRollStageProps> = ({ width, height }) => {
 
     renderer.theme = theme
     renderer.render(
-      nonSelectedNotes,
-      selectedNotes,
-      _ghostNotes,
-      drumNotes,
-      selectedDrumNotes,
-      ghostDrumNotes,
+      notes,
+      ghostNotes,
       selectionBounds,
       nonHighlightedBeats.map((b) => b.x),
       highlightedBeats.map((b) => b.x),

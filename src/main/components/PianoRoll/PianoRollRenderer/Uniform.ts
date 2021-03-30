@@ -19,7 +19,11 @@ export class Uniform<T> {
     initialValue: RenderProperty<T>,
     fn: UploadFunc<T>
   ) {
-    this.location = gl.getUniformLocation(program, name)!
+    const location = gl.getUniformLocation(program, name)
+    if (location === null) {
+      throw new Error(`failed to getUniformLocation ${name}`)
+    }
+    this.location = location
     this.prop = initialValue
     this.uploadFunc = fn
   }

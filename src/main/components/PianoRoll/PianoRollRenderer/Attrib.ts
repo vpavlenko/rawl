@@ -11,6 +11,9 @@ export class Attrib {
     type: number = gl.FLOAT
   ) {
     this.position = gl.getAttribLocation(program, name)
+    if (this.position < 0) {
+      throw new Error(`failed to getAttribLocation ${name}`)
+    }
     this.size = size
     this.type = type
   }

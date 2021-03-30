@@ -9,22 +9,35 @@ export interface IVelocityData {
   velocity: number
 }
 
+export interface ISelectionData {
+  isSelected: boolean
+}
+
 const triangleVelocities = (obj: IVelocityData): number[] =>
-  Array(6).fill(obj.velocity).flat()
+  Array(6).fill(obj.velocity)
+
+const triangleSelections = (obj: ISelectionData): number[] =>
+  Array(6).fill(obj.isSelected ? 1 : 0)
 
 export class NoteBuffer {
   readonly positionBuffer: WebGLBuffer
   readonly boundsBuffer: WebGLBuffer
   readonly velocitiesBuffer: WebGLBuffer
+  readonly selectionBuffer: WebGLBuffer
+
   private _vertexCount: number
 
   constructor(gl: WebGLRenderingContext) {
     this.positionBuffer = gl.createBuffer()!
     this.boundsBuffer = gl.createBuffer()!
     this.velocitiesBuffer = gl.createBuffer()!
+    this.selectionBuffer = gl.createBuffer()!
   }
 
-  update(gl: WebGLRenderingContext, rects: (IRect & IVelocityData)[]) {
+  update(
+    gl: WebGLRenderingContext,
+    rects: (IRect & IVelocityData & ISelectionData)[]
+  ) {
     const positions = rects.flatMap(rectToTriangles)
     gl.bindBuffer(gl.ARRAY_BUFFER, this.positionBuffer)
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.DYNAMIC_DRAW)
@@ -41,6 +54,10 @@ export class NoteBuffer {
       gl.DYNAMIC_DRAW
     )
 
+    const selection = rects.flatMap(triangleSelections)
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.selectionBuffer)
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(selection), gl.DYNAMIC_DRAW)
+
     this._vertexCount = rects.length * 6
   }
 
@@ -55,6 +72,7 @@ export class NoteShader {
   private aVertex: Attrib
   private aBounds: Attrib
   private aVelocity: Attrib
+  private aSelected: Attrib
 
   readonly uProjectionMatrix: Uniform<mat4>
   readonly uFillColor: Uniform<vec4>
@@ -68,17 +86,20 @@ export class NoteShader {
       // XYZW -> X, Y, Width, Height
       attribute vec4 aBounds;
       attribute float aVelocity;
+      attribute float aSelected;
 
       uniform mat4 uProjectionMatrix;
       varying vec4 vBounds;
       varying vec2 vPosition;
       varying float vVelocity;
+      varying float vSelected;
 
       void main() {
         gl_Position = uProjectionMatrix * aVertexPosition;
         vBounds = aBounds;
         vPosition = aVertexPosition.xy;
         vVelocity = aVelocity;
+        vSelected = aSelected;
       }
     `
 
@@ -91,6 +112,7 @@ export class NoteShader {
       varying vec4 vBounds;
       varying vec2 vPosition;
       varying float vVelocity;
+      varying float vSelected;
 
       void main() {
         float border = 1.0;
@@ -101,7 +123,7 @@ export class NoteShader {
           // draw outline
           gl_FragColor = uStrokeColor;
         } else {
-          gl_FragColor = vec4(uFillColor.rgb, vVelocity / 127.0);
+          gl_FragColor = mix(vec4(uFillColor.rgb, vVelocity / 127.0), vec4(1.0, 1.0, 1.0, 1.0), vSelected);
         }
       }
     `
@@ -112,6 +134,7 @@ export class NoteShader {
     this.aVertex = new Attrib(gl, program, "aVertexPosition", 2)
     this.aBounds = new Attrib(gl, program, "aBounds", 4)
     this.aVelocity = new Attrib(gl, program, "aVelocity", 1)
+    this.aSelected = new Attrib(gl, program, "aSelected", 1)
 
     this.uProjectionMatrix = uniformMat4(gl, program, "uProjectionMatrix")
     this.uFillColor = uniformVec4(gl, program, "uFillColor")
@@ -126,6 +149,7 @@ export class NoteShader {
     this.aVertex.upload(gl, buffer.positionBuffer)
     this.aBounds.upload(gl, buffer.boundsBuffer)
     this.aVelocity.upload(gl, buffer.velocitiesBuffer)
+    this.aSelected.upload(gl, buffer.selectionBuffer)
 
     gl.useProgram(this.program)
 

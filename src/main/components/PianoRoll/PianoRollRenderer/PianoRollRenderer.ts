@@ -8,7 +8,7 @@ import { ISize } from "pixi.js"
 import { IPoint, IRect, zeroPoint, zeroRect } from "../../../../common/geometry"
 import { defaultTheme, Theme } from "../../../../common/theme/Theme"
 import { Layout } from "../../../Constants"
-import { PianoNoteItem } from "../../../hooks/useNotes"
+import { PianoNoteItem } from "../../../stores/PianoRollStore"
 import {
   BorderedCircleBuffer,
   BorderedCircleShader,

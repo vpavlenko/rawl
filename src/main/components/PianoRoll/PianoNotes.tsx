@@ -15,7 +15,6 @@ import { createBeatsInRange } from "../../../common/helpers/mapBeats"
 import { getSelectionBounds } from "../../../common/selection/Selection"
 import { removeEvent } from "../../actions"
 import { useContextMenu } from "../../hooks/useContextMenu"
-import { useNotes } from "../../hooks/useNotes"
 import { useStores } from "../../hooks/useStores"
 import { observeDoubleClick } from "./MouseHandler/observeDoubleClick"
 import PencilMouseHandler from "./MouseHandler/PencilMouseHandler"
@@ -37,7 +36,10 @@ export const PianoNotes: FC<PianoRollStageProps> = ({ width, height }) => {
     notesCursor,
     selection,
     transform,
+    notes,
+    ghostNotes,
   } = useObserver(() => {
+    const [notes, ghostNotes] = rootStore.pianoRollStore.notes
     return {
       trackId: rootStore.song.selectedTrackId,
       measures: rootStore.song.measures,
@@ -49,6 +51,8 @@ export const PianoNotes: FC<PianoRollStageProps> = ({ width, height }) => {
       notesCursor: rootStore.pianoRollStore.notesCursor,
       selection: rootStore.pianoRollStore.selection,
       transform: rootStore.pianoRollStore.transform,
+      notes,
+      ghostNotes,
     }
   })
   const theme = useTheme()
@@ -60,8 +64,6 @@ export const PianoNotes: FC<PianoRollStageProps> = ({ width, height }) => {
 
   const mouseHandler =
     mouseMode === "pencil" ? pencilMouseHandler : selectionMouseHandler
-
-  const [notes, ghostNotes] = useNotes(trackId, width, false)
 
   const { onContextMenu, menuProps } = useContextMenu()
 
@@ -147,6 +149,10 @@ export const PianoNotes: FC<PianoRollStageProps> = ({ width, height }) => {
 
   const ref = useRef<HTMLCanvasElement>(null)
   const [renderer, setRenderer] = useState<PianoRollRenderer | null>(null)
+
+  useEffect(() => {
+    rootStore.pianoRollStore.canvasWidth = width
+  }, [width])
 
   useEffect(() => {
     const canvas = ref.current

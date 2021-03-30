@@ -1,18 +1,31 @@
+import { flatten } from "lodash"
 import { action, computed, makeObservable, observable } from "mobx"
+import { IRect } from "../../common/geometry"
+import { filterEventsWithScroll } from "../../common/helpers/filterEventsWithScroll"
 import { emptySelection } from "../../common/selection/Selection"
+import { isNoteEvent, NoteEvent } from "../../common/track"
 import { NoteCoordTransform } from "../../common/transform"
 import { LoadSoundFontEvent } from "../../synth/synth"
 import { ControlMode } from "../components/ControlPane/ControlPane"
 import { InstrumentSetting } from "../components/InstrumentBrowser/InstrumentBrowser"
 import { Layout } from "../Constants"
-import { PianoNoteItem } from "../hooks/useNotes"
+import RootStore from "./RootStore"
 
 export type PianoRollMouseMode = "pencil" | "selection"
+
+export type PianoNoteItem = IRect & {
+  id: number
+  velocity: number
+  isSelected: boolean
+  isDrum: boolean
+}
 
 // trackId to trackId[] (not contains itself)
 type GhostTrackIdMap = { [index: number]: number[] }
 
 export default class PianoRollStore {
+  private rootStore: RootStore
+
   scrollLeft = 0
   scrollTop = 700 // 中央くらいの音程にスクロールしておく
   controlHeight = 0
@@ -32,10 +45,11 @@ export default class PianoRollStore {
   }
   presetNames: LoadSoundFontEvent["presetNames"] = [[]]
   ghostTracks: GhostTrackIdMap = {}
-  notes: PianoNoteItem[]
   canvasWidth: number
 
-  constructor() {
+  constructor(rootStore: RootStore) {
+    this.rootStore = rootStore
+
     makeObservable(this, {
       scrollLeft: observable,
       scrollTop: observable,
@@ -55,6 +69,7 @@ export default class PianoRollStore {
       ghostTracks: observable,
       canvasWidth: observable,
       transform: computed,
+      notes: computed,
       scrollBy: action,
       toggleTool: action,
     })
@@ -75,5 +90,65 @@ export default class PianoRollStore {
       Layout.keyHeight,
       127
     )
+  }
+
+  get notes(): [PianoNoteItem[], PianoNoteItem[]] {
+    const song = this.rootStore.song
+    const transform = this.transform
+
+    const track = song.tracks[song.selectedTrackId]
+    if (track === undefined) {
+      return [[], []]
+    }
+    const ghostTrackIds = this.ghostTracks[song.selectedTrackId] ?? []
+    const isRhythmTrack = track.isRhythmTrack
+
+    const windowNotes = (notes: NoteEvent[]): NoteEvent[] =>
+      filterEventsWithScroll(
+        notes,
+        transform.pixelsPerTick,
+        this.scrollLeft,
+        this.canvasWidth
+      )
+
+    const getGhostNotes = () =>
+      flatten(
+        ghostTrackIds.map((id) => {
+          const track = song.getTrack(id)
+          return windowNotes(track.events.filter(isNoteEvent)).map(
+            (e): PianoNoteItem => {
+              const rect = track.isRhythmTrack
+                ? transform.getDrumRect(e)
+                : transform.getRect(e)
+              return {
+                ...rect,
+                id: e.id,
+                velocity: 127, // draw opaque when ghost
+                isSelected: false,
+                isDrum: track.isRhythmTrack,
+              }
+            }
+          )
+        })
+      )
+
+    return [
+      windowNotes(track.events.filter(isNoteEvent)).map(
+        (e): PianoNoteItem => {
+          const rect = isRhythmTrack
+            ? transform.getDrumRect(e)
+            : transform.getRect(e)
+          const isSelected = this.selection.noteIds.includes(e.id)
+          return {
+            ...rect,
+            id: e.id,
+            velocity: e.velocity,
+            isSelected,
+            isDrum: isRhythmTrack,
+          }
+        }
+      ),
+      getGhostNotes(),
+    ]
   }
 }

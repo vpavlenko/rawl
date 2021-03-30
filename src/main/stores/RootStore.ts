@@ -65,7 +65,7 @@ export default class RootStore {
       midiInput,
       midiRecorder,
     }
-    this.pianoRollStore = new PianoRollStore()
+    this.pianoRollStore = new PianoRollStore(this)
 
     synth.onLoadSoundFont = (e) => {
       this.pianoRollStore.presetNames = e.presetNames

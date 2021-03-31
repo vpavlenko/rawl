@@ -10,6 +10,7 @@ import { useStores } from "../../hooks/useStores"
 import ControlPane from "../ControlPane/ControlPane"
 import { HorizontalScaleScrollBar } from "../inputs/ScaleScrollBar"
 import { VerticalScrollBar } from "../inputs/ScrollBar"
+import { EventListPane } from "./EventListPane"
 import { PianoRollStage } from "./PianoRollStage"
 
 const WHEEL_SCROLL_RATE = 1 / 120
@@ -212,4 +213,19 @@ const PianoRollWrapper: FC = observer(() => {
   )
 })
 
-export default PianoRollWrapper
+export default () => {
+  return (
+    <div style={{ display: "flex", flexGrow: 1, position: "relative" }}>
+      <StyledSplitPane
+        split="vertical"
+        minSize={50}
+        defaultSize={"20%"}
+        style={{ display: "flex" }}
+        pane2Style={{ display: "flex" }}
+      >
+        <EventListPane />
+        <PianoRollWrapper />
+      </StyledSplitPane>
+    </div>
+  )
+}

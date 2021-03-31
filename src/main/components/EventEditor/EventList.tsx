@@ -213,12 +213,11 @@ function getEventName(e: TrackEvent) {
         default:
           return e.subtype
       }
-    case "dividedSysEx":
-      return null
     case "meta":
-      return null
+      return e.subtype
+    case "dividedSysEx":
     case "sysEx":
-      return null
+      return e.type
   }
 }
 

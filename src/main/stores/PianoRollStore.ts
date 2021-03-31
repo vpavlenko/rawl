@@ -115,6 +115,9 @@ export default class PianoRollStore {
       flatten(
         ghostTrackIds.map((id) => {
           const track = song.getTrack(id)
+          if (track === undefined) {
+            return []
+          }
           return windowNotes(track.events.filter(isNoteEvent)).map(
             (e): PianoNoteItem => {
               const rect = track.isRhythmTrack

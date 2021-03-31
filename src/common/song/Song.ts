@@ -92,7 +92,7 @@ export default class Song {
     return this.tracks[this.selectedTrackId]
   }
 
-  getTrack(id: number): Track {
+  getTrack(id: number): Track | undefined {
     return this.tracks[id]
   }
 

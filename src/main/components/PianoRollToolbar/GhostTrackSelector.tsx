@@ -54,11 +54,10 @@ const StyledCheckbox = styled(Checkbox)`
 `
 
 export const GhostTrackSelector = observer(() => {
-  const rootStore = useStores()
-  const ghostTrackIds =
-    rootStore.pianoRollStore.ghostTracks[rootStore.song.selectedTrackId] ?? []
-  const tracks = rootStore.song.tracks
-  const selectedTrackId = rootStore.song.selectedTrackId
+  const { pianoRollStore, song } = useStores()
+  const ghostTrackIds = pianoRollStore.ghostTracks[song.selectedTrackId] ?? []
+  const tracks = [...song.tracks]
+  const selectedTrackId = song.selectedTrackId
 
   const trackEntries = useMemo(
     () =>
@@ -75,8 +74,8 @@ export const GhostTrackSelector = observer(() => {
   }
 
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    rootStore.pianoRollStore.ghostTracks[rootStore.song.selectedTrackId] = event
-      .target.value as number[]
+    pianoRollStore.ghostTracks[song.selectedTrackId] = event.target
+      .value as number[]
   }
 
   return (
@@ -86,6 +85,7 @@ export const GhostTrackSelector = observer(() => {
       onChange={handleChange}
       displayEmpty={true}
       renderValue={() => <Layers />}
+      MenuProps={{ style: { marginTop: "2rem" } }}
     >
       {trackEntries.map(({ track, id }) => (
         <MenuItem key={id} value={id}>

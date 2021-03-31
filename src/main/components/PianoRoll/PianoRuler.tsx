@@ -1,7 +1,7 @@
 import { Container, Graphics, Text } from "@inlet/react-pixi"
 import Color from "color"
 import isEqual from "lodash/isEqual"
-import { useObserver } from "mobx-react-lite"
+import { observer } from "mobx-react-lite"
 import { Graphics as PIXIGraphics, Point, TextStyle } from "pixi.js"
 import React, { FC, useCallback } from "react"
 import { BeatWithX } from "../../../common/helpers/mapBeats"
@@ -111,98 +111,92 @@ export interface PianoRulerProps {
   beats: BeatWithX[]
 }
 
-const PianoRuler: FC<PianoRulerProps> = ({
-  width,
-  pixelsPerTick,
-  scrollLeft,
-  beats,
-}) => {
-  const theme = useTheme()
-  const height = Layout.rulerHeight
+const PianoRuler: FC<PianoRulerProps> = observer(
+  ({ width, pixelsPerTick, scrollLeft, beats }) => {
+    const theme = useTheme()
+    const height = Layout.rulerHeight
 
-  const drawBackground = (g: PIXIGraphics) => {
-    g.clear()
-    g.lineStyle()
-      .beginFill(Color(theme.backgroundColor).rgbNumber())
-      .drawRect(0, 0, width, height)
-      .endFill()
-    g.lineStyle(1, Color(theme.dividerColor).rgbNumber())
-      .moveTo(0, height)
-      .lineTo(width, height)
-  }
+    const drawBackground = (g: PIXIGraphics) => {
+      g.clear()
+      g.lineStyle()
+        .beginFill(Color(theme.backgroundColor).rgbNumber())
+        .drawRect(0, 0, width, height)
+        .endFill()
+      g.lineStyle(1, Color(theme.dividerColor).rgbNumber())
+        .moveTo(0, height)
+        .lineTo(width, height)
+    }
 
-  // 密過ぎる時は省略する
-  const shouldOmit = beats.length > 1 && beats[1].x - beats[0].x <= 5
+    // 密過ぎる時は省略する
+    const shouldOmit = beats.length > 1 && beats[1].x - beats[0].x <= 5
 
-  const textStyle = new TextStyle({
-    fontSize: 12,
-    fontFamily: theme.canvasFont,
-    fill: Color(theme.secondaryTextColor).rgbNumber(),
-  })
+    const textStyle = new TextStyle({
+      fontSize: 12,
+      fontFamily: theme.canvasFont,
+      fill: Color(theme.secondaryTextColor).rgbNumber(),
+    })
 
-  // 小節番号
-  // 省略時は2つに1つ描画
-  const labels = beats
-    .filter((b) => b.beat === 0 && (!shouldOmit || b.measure % 2 === 0))
-    .map((b) => (
-      <Text
-        key={b.measure}
-        position={new Point(b.x + 5, 2)}
-        text={`${b.measure + 1}`}
-        style={textStyle}
-      />
-    ))
-
-  const rootStore = useStores()
-
-  const { loop } = useObserver(() => ({
-    loop: rootStore.services.player.loop,
-  }))
-
-  const onMouseDown = useCallback(
-    (ev: PIXI.InteractionEvent) => {
-      const local = ev.data.getLocalPosition(ev.target)
-      const tick = (local.x + scrollLeft) / pixelsPerTick
-      if (ev.data.originalEvent.ctrlKey) {
-        // setLoopBegin(tick)
-      } else if (ev.data.originalEvent.altKey) {
-        // setLoopEnd(tick)
-      } else {
-        setPlayerPosition(rootStore)(tick)
-      }
-    },
-    [rootStore, scrollLeft, pixelsPerTick]
-  )
-
-  return (
-    <Container>
-      <Graphics
-        draw={drawBackground}
-        width={width}
-        height={height}
-        interactive={true}
-        mousedown={onMouseDown}
-      />
-      <Container position={new Point(-scrollLeft, 0)}>
-        <Beats
-          beats={beats}
-          height={height}
-          shouldOmit={shouldOmit}
-          theme={theme}
+    // 小節番号
+    // 省略時は2つに1つ描画
+    const labels = beats
+      .filter((b) => b.beat === 0 && (!shouldOmit || b.measure % 2 === 0))
+      .map((b) => (
+        <Text
+          key={b.measure}
+          position={new Point(b.x + 5, 2)}
+          text={`${b.measure + 1}`}
+          style={textStyle}
         />
-        {labels}
-        {loop?.enabled && (
-          <LoopPoints
-            loop={loop}
-            pixelsPerTick={pixelsPerTick}
+      ))
+
+    const rootStore = useStores()
+    const loop = rootStore.services.player.loop
+
+    const onMouseDown = useCallback(
+      (ev: PIXI.InteractionEvent) => {
+        const local = ev.data.getLocalPosition(ev.target)
+        const tick = (local.x + scrollLeft) / pixelsPerTick
+        if (ev.data.originalEvent.ctrlKey) {
+          // setLoopBegin(tick)
+        } else if (ev.data.originalEvent.altKey) {
+          // setLoopEnd(tick)
+        } else {
+          setPlayerPosition(rootStore)(tick)
+        }
+      },
+      [rootStore, scrollLeft, pixelsPerTick]
+    )
+
+    return (
+      <Container>
+        <Graphics
+          draw={drawBackground}
+          width={width}
+          height={height}
+          interactive={true}
+          mousedown={onMouseDown}
+        />
+        <Container position={new Point(-scrollLeft, 0)}>
+          <Beats
+            beats={beats}
             height={height}
+            shouldOmit={shouldOmit}
             theme={theme}
           />
-        )}
+          {labels}
+          {loop?.enabled && (
+            <LoopPoints
+              loop={loop}
+              pixelsPerTick={pixelsPerTick}
+              height={height}
+              theme={theme}
+            />
+          )}
+        </Container>
       </Container>
-    </Container>
-  )
-}
+    )
+  }
+)
 
 function areEqual(props: PianoRulerProps, nextProps: PianoRulerProps) {
   return (

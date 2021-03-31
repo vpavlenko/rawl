@@ -27,6 +27,7 @@ export default {
     "save-song": "保存",
     tracks: "トラック",
     "add-track": "トラックを追加",
+    "delete-track": "トラックを削除",
     categories: "カテゴリ",
     instruments: "楽器",
     "rhythm-track": "リズムトラック",

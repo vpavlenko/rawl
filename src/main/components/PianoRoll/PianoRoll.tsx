@@ -1,5 +1,5 @@
 import useComponentSize from "@rehooks/component-size"
-import { useObserver } from "mobx-react-lite"
+import { observer } from "mobx-react-lite"
 import React, { FC, useCallback, useEffect, useRef } from "react"
 import SplitPane from "react-split-pane"
 import styled from "styled-components"
@@ -97,27 +97,17 @@ const StyledSplitPane = styled(SplitPane)`
   }
 `
 
-const PianoRollWrapper: FC = () => {
+const PianoRollWrapper: FC = observer(() => {
   const rootStore = useStores()
-  const {
-    trackEndTick,
-    isPlaying,
-    playerPosition,
-    scaleX,
-    scrollLeft,
-    scrollTop,
-    autoScroll,
-    s,
-  } = useObserver(() => ({
-    trackEndTick: rootStore.song.endOfSong,
-    isPlaying: rootStore.services.player.isPlaying,
-    playerPosition: rootStore.services.player.position,
-    s: rootStore.pianoRollStore,
-    scaleX: rootStore.pianoRollStore.scaleX,
-    scrollLeft: rootStore.pianoRollStore.scrollLeft,
-    scrollTop: rootStore.pianoRollStore.scrollTop,
-    autoScroll: rootStore.pianoRollStore.autoScroll,
-  }))
+
+  const trackEndTick = rootStore.song.endOfSong
+  const isPlaying = rootStore.services.player.isPlaying
+  const playerPosition = rootStore.services.player.position
+  const s = rootStore.pianoRollStore
+  const scaleX = rootStore.pianoRollStore.scaleX
+  const scrollLeft = rootStore.pianoRollStore.scrollLeft
+  const scrollTop = rootStore.pianoRollStore.scrollTop
+  const autoScroll = rootStore.pianoRollStore.autoScroll
 
   const ref = useRef(null)
   const size = useComponentSize(ref)
@@ -220,6 +210,6 @@ const PianoRollWrapper: FC = () => {
       />
     </Parent>
   )
-}
+})
 
 export default PianoRollWrapper

@@ -3,7 +3,7 @@ import useComponentSize from "@rehooks/component-size"
 import Color from "color"
 import { SetTempoEvent } from "midifile-ts"
 import { toJS } from "mobx"
-import { useObserver } from "mobx-react-lite"
+import { observer } from "mobx-react-lite"
 import React, { FC, useEffect, useRef, useState } from "react"
 import styled from "styled-components"
 import { bpmToUSecPerBeat, uSecPerBeatToBPM } from "../../../common/helpers/bpm"
@@ -50,31 +50,20 @@ const Wrapper = styled.div`
   }
 `
 
-export const TempoGraph: FC = () => {
+export const TempoGraph: FC = observer(() => {
   const rootStore = useStores()
-  const {
-    isPlaying,
-    pixelsPerTick,
-    events: sourceEvents,
-    endTick: trackEndTick,
-    measures,
-    timebase,
-    autoScroll,
-    playerPosition,
-  } = useObserver(() => ({
-    isPlaying: rootStore.services.player.isPlaying,
-    pixelsPerTick: Layout.pixelsPerTick * rootStore.tempoEditorStore.scaleX,
-    events:
-      rootStore.song.conductorTrack !== undefined
-        ? toJS(rootStore.song.conductorTrack.events)
-        : [],
-    endTick: rootStore.song.endOfSong,
-    measures: rootStore.song.measures,
-    timebase: rootStore.services.player.timebase,
-    autoScroll: rootStore.tempoEditorStore.autoScroll,
-    scrollLeft: rootStore.tempoEditorStore.scrollLeft,
-    playerPosition: rootStore.services.player.position,
-  }))
+
+  const isPlaying = rootStore.services.player.isPlaying
+  const pixelsPerTick = Layout.pixelsPerTick * rootStore.tempoEditorStore.scaleX
+  const sourceEvents =
+    rootStore.song.conductorTrack !== undefined
+      ? toJS(rootStore.song.conductorTrack.events)
+      : []
+  const trackEndTick = rootStore.song.endOfSong
+  const measures = rootStore.song.measures
+  const timebase = rootStore.services.player.timebase
+  const autoScroll = rootStore.tempoEditorStore.autoScroll
+  const playerPosition = rootStore.services.player.position
 
   const ref = useRef(null)
   const size = useComponentSize(ref)
@@ -229,4 +218,4 @@ export const TempoGraph: FC = () => {
       />
     </Wrapper>
   )
-}
+})

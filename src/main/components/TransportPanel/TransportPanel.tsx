@@ -7,7 +7,7 @@ import {
   PlayArrow,
   Stop,
 } from "@material-ui/icons"
-import { useObserver } from "mobx-react-lite"
+import { observer } from "mobx-react-lite"
 import React, { FC } from "react"
 import styled from "styled-components"
 import { getMBTString } from "../../../common/measure/mbt"
@@ -175,13 +175,13 @@ export const ToolbarSeparator = styled.div`
   height: 1rem;
 `
 
-export const TransportPanel: FC = () => {
+export const TransportPanel: FC = observer(() => {
   const rootStore = useStores()
-  const { isPlaying, isRecording, canRecording } = useObserver(() => ({
-    isPlaying: rootStore.services.player.isPlaying,
-    isRecording: rootStore.services.midiRecorder.isRecording,
-    canRecording: rootStore.midiDeviceStore.enabledInputIds.size > 0,
-  }))
+
+  const isPlaying = rootStore.services.player.isPlaying
+  const isRecording = rootStore.services.midiRecorder.isRecording
+  const canRecording = rootStore.midiDeviceStore.enabledInputIds.size > 0
+
   const onClickPlay = play(rootStore)
   const onClickStop = stop(rootStore)
   const onClickBackward = rewindOneBar(rootStore)
@@ -227,4 +227,4 @@ export const TransportPanel: FC = () => {
       <Timestamp />
     </Toolbar>
   )
-}
+})

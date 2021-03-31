@@ -5,6 +5,7 @@ import {
   duplicateSelection,
   pasteSelection,
   play,
+  resetSelection,
   selectNextNote,
   selectPreviousNote,
   stop,
@@ -43,6 +44,10 @@ export const KeyboardShortcut: FC = () => {
           } else {
             play(rootStore)()
           }
+          break
+        }
+        case "Escape": {
+          resetSelection(rootStore)()
           break
         }
         case "KeyD": {

@@ -6,7 +6,7 @@ import {
   Toolbar,
 } from "@material-ui/core"
 import { ChevronLeft, KeyboardTab } from "@material-ui/icons"
-import { useObserver } from "mobx-react-lite"
+import { observer } from "mobx-react-lite"
 import React, { FC, useCallback } from "react"
 import { useStores } from "../../hooks/useStores"
 import QuantizeSelector from "../PianoRollToolbar/QuantizeSelector/QuantizeSelector"
@@ -22,15 +22,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export const ArrangeToolbar: FC = () => {
+export const ArrangeToolbar: FC = observer(() => {
   const rootStore = useStores()
-  const { quantize, autoScroll } = useObserver(() => ({
-    quantize:
-      rootStore.arrangeViewStore.quantize === 0
-        ? rootStore.services.quantizer.denominator
-        : rootStore.arrangeViewStore.quantize,
-    autoScroll: rootStore.arrangeViewStore.autoScroll,
-  }))
+  const quantize =
+    rootStore.arrangeViewStore.quantize === 0
+      ? rootStore.services.quantizer.denominator
+      : rootStore.arrangeViewStore.quantize
+  const autoScroll = rootStore.arrangeViewStore.autoScroll
 
   const onClickAutoScroll = useCallback(
     () =>
@@ -66,4 +64,4 @@ export const ArrangeToolbar: FC = () => {
       </Toolbar>
     </AppBar>
   )
-}
+})

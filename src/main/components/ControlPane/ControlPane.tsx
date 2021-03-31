@@ -1,7 +1,7 @@
 import { Container, Stage } from "@inlet/react-pixi"
 import useComponentSize from "@rehooks/component-size"
 import { toJS } from "mobx"
-import { useObserver } from "mobx-react-lite"
+import { observer } from "mobx-react-lite"
 import React, { FC, useCallback, useRef } from "react"
 import styled from "styled-components"
 import { filterEventsWithScroll } from "../../../common/helpers/filterEventsWithScroll"
@@ -117,7 +117,7 @@ const Parent = styled.div`
   }
 `
 
-const ControlPane: FC = () => {
+const ControlPane: FC = observer(() => {
   const TAB_HEIGHT = 30
   const BORDER_WIDTH = 1
 
@@ -128,21 +128,13 @@ const ControlPane: FC = () => {
   const containerHeight = size.height
 
   const rootStore = useStores()
-  const {
-    events,
-    measures,
-    timebase,
-    scrollLeft,
-    mode,
-    transform,
-  } = useObserver(() => ({
-    events: toJS(rootStore.song.selectedTrack?.events ?? []),
-    measures: rootStore.song.measures,
-    timebase: rootStore.services.player.timebase,
-    scrollLeft: rootStore.pianoRollStore.scrollLeft,
-    mode: rootStore.pianoRollStore.controlMode,
-    transform: rootStore.pianoRollStore.transform,
-  }))
+
+  const events = toJS(rootStore.song.selectedTrack?.events ?? [])
+  const measures = rootStore.song.measures
+  const timebase = rootStore.services.player.timebase
+  const scrollLeft = rootStore.pianoRollStore.scrollLeft
+  const mode = rootStore.pianoRollStore.controlMode
+  const transform = rootStore.pianoRollStore.transform
 
   const theme = useTheme()
   const startTick = scrollLeft / transform.pixelsPerTick
@@ -223,6 +215,6 @@ const ControlPane: FC = () => {
       </div>
     </Parent>
   )
-}
+})
 
 export default ControlPane

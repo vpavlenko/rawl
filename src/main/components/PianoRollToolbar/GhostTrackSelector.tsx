@@ -1,6 +1,6 @@
 import { Checkbox, ListItemText, MenuItem, Select } from "@material-ui/core"
 import { Layers } from "@material-ui/icons"
-import { useObserver } from "mobx-react-lite"
+import { observer } from "mobx-react-lite"
 import React, { useMemo } from "react"
 import styled from "styled-components"
 import { useStores } from "../../hooks/useStores"
@@ -53,15 +53,12 @@ const StyledCheckbox = styled(Checkbox)`
   }
 `
 
-export const GhostTrackSelector = () => {
-  const rootStore = useStores()
-  const { ghostTrackIds, tracks, selectedTrackId } = useObserver(() => ({
-    ghostTrackIds:
-      rootStore.pianoRollStore.ghostTracks[rootStore.song.selectedTrackId] ??
-      [],
-    tracks: rootStore.song.tracks,
-    selectedTrackId: rootStore.song.selectedTrackId,
-  }))
+export const GhostTrackSelector = observer(() => {
+  const { pianoRollStore, song } = useStores()
+  const ghostTrackIds = pianoRollStore.ghostTracks[song.selectedTrackId] ?? []
+  const tracks = [...song.tracks]
+  const selectedTrackId = song.selectedTrackId
+
   const trackEntries = useMemo(
     () =>
       tracks
@@ -77,8 +74,8 @@ export const GhostTrackSelector = () => {
   }
 
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    rootStore.pianoRollStore.ghostTracks[rootStore.song.selectedTrackId] = event
-      .target.value as number[]
+    pianoRollStore.ghostTracks[song.selectedTrackId] = event.target
+      .value as number[]
   }
 
   return (
@@ -88,6 +85,7 @@ export const GhostTrackSelector = () => {
       onChange={handleChange}
       displayEmpty={true}
       renderValue={() => <Layers />}
+      MenuProps={{ style: { marginTop: "2rem" } }}
     >
       {trackEntries.map(({ track, id }) => (
         <MenuItem key={id} value={id}>
@@ -100,4 +98,4 @@ export const GhostTrackSelector = () => {
       ))}
     </Selector>
   )
-}
+})

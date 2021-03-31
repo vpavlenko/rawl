@@ -1,7 +1,7 @@
 import { makeStyles } from "@material-ui/core"
 import { Create } from "@material-ui/icons"
 import { ToggleButton, ToggleButtonGroup } from "@material-ui/lab"
-import { useObserver } from "mobx-react-lite"
+import { observer } from "mobx-react-lite"
 import React, { useCallback } from "react"
 import styled from "styled-components"
 import { useStores } from "../../hooks/useStores"
@@ -29,12 +29,9 @@ export const StyledToggleButton = styled(ToggleButton)`
   }
 `
 
-export const ToolSelector = () => {
+export const ToolSelector = observer(() => {
   const { pianoRollStore } = useStores()
-
-  const { mouseMode } = useObserver(() => ({
-    mouseMode: pianoRollStore.mouseMode,
-  }))
+  const mouseMode = pianoRollStore.mouseMode
 
   const onClickPencil = useCallback(
     () => (pianoRollStore.mouseMode = "pencil"),
@@ -60,4 +57,4 @@ export const ToolSelector = () => {
       </StyledToggleButton>
     </ToggleButtonGroup>
   )
-}
+})

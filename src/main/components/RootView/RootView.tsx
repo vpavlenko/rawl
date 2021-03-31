@@ -1,4 +1,4 @@
-import { useObserver } from "mobx-react-lite"
+import { observer } from "mobx-react-lite"
 import React, { FC } from "react"
 import styled from "styled-components"
 import { Drawer } from "../../components/Drawer/Drawer"
@@ -18,9 +18,9 @@ const Container = styled.div`
   flex-direction: column;
 `
 
-const Routes: FC = () => {
+const Routes: FC = observer(() => {
   const { router } = useStores()
-  const { path } = useObserver(() => ({ path: router.path }))
+  const path = router.path
   return (
     <>
       {path === "/track" && <PianoRollEditor />}
@@ -28,7 +28,7 @@ const Routes: FC = () => {
       {path === "/arrange" && <ArrangeEditor />}
     </>
   )
-}
+})
 
 export const RootView: FC = () => (
   <Container>

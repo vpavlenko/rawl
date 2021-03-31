@@ -7,8 +7,8 @@ import {
   ListSubheader,
 } from "@material-ui/core"
 import { Help } from "@material-ui/icons"
-import { useObserver } from "mobx-react-lite"
-import React, { FC } from "react"
+import { observer } from "mobx-react-lite"
+import React, { FC, useCallback } from "react"
 import styled from "styled-components"
 import { localized } from "../../../common/localize/localizedString"
 import { useStores } from "../../hooks/useStores"
@@ -48,11 +48,9 @@ const HelpIcon = styled(Help)`
   margin-right: 0.6em;
 `
 
-export const Drawer: FC = () => {
+export const Drawer: FC = observer(() => {
   const { rootViewStore, router } = useStores()
-  const { open } = useObserver(() => ({
-    open: rootViewStore.openDrawer,
-  }))
+  const open = rootViewStore.openDrawer
   const close = () => (rootViewStore.openDrawer = false)
 
   return (
@@ -63,7 +61,13 @@ export const Drawer: FC = () => {
       <TrackList />
       <Divider />
       <List>
-        <ListItem button onClick={() => (router.path = "/tempo")}>
+        <ListItem
+          button
+          onClick={useCallback(() => {
+            close()
+            router.path = "/tempo"
+          }, [])}
+        >
           <ListItemText primary={localized("tempo-track", "Tempo Track")} />
         </ListItem>
       </List>
@@ -71,24 +75,26 @@ export const Drawer: FC = () => {
       <List>
         <ListItem
           button
-          onClick={() => {
-            close()
+          onClick={useCallback(() => {
             rootViewStore.openDeviceDialog = true
-          }}
+          }, [])}
         >
           <ListItemText primary={localized("midi-settings", "MIDI Settings")} />
         </ListItem>
       </List>
       <Divider />
       <List>
-        <ListItem button onClick={() => (rootViewStore.openHelp = true)}>
+        <ListItem
+          button
+          onClick={useCallback(() => (rootViewStore.openHelp = true), [])}
+        >
           <HelpIcon />
           <ListItemText primary={localized("help", "Help")} />
         </ListItem>
       </List>
     </MaterialDrawer>
   )
-}
+})
 
 export const ListHeader = styled(ListSubheader)`
   &.MuiListSubheader-root {

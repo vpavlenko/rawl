@@ -1,5 +1,5 @@
 import { Button } from "@material-ui/core"
-import { useObserver } from "mobx-react-lite"
+import { observer } from "mobx-react-lite"
 import React, { FC, useCallback } from "react"
 import styled from "styled-components"
 import { useStores } from "../../hooks/useStores"
@@ -25,12 +25,10 @@ const Label = styled.span`
   min-width: 3em;
 `
 
-export const InstrumentButton: FC = () => {
+export const InstrumentButton: FC = observer(() => {
   const rootStore = useStores()
 
-  const instrumentName = useObserver(
-    () => rootStore.song.selectedTrack?.instrumentName ?? ""
-  )
+  const instrumentName = rootStore.song.selectedTrack?.instrumentName ?? ""
 
   const onClickInstrument = useCallback(() => {
     const track = rootStore.song.selectedTrack
@@ -53,4 +51,4 @@ export const InstrumentButton: FC = () => {
       <Label>{instrumentName}</Label>
     </StyledInstrumentButton>
   )
-}
+})

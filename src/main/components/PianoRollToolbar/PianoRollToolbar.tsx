@@ -7,6 +7,7 @@ import styled from "styled-components"
 import { localized } from "../../../common/localize/localizedString"
 import { useStores } from "../../hooks/useStores"
 import InstrumentBrowser from "../InstrumentBrowser/InstrumentBrowser"
+import { EventListButton } from "./EventListButton"
 import { GhostTrackSelector } from "./GhostTrackSelector"
 import { InstrumentButton } from "./InstrumentButton"
 import { PanSlider } from "./PanSlider"
@@ -35,6 +36,10 @@ const NavBackButton = styled(IconButton)`
     background: none;
     color: var(--secondary-text-color);
   }
+`
+
+const Spacer = styled.div`
+  width: 1rem;
 `
 
 export const PianoRollToolbar: FC = observer(() => {
@@ -78,6 +83,10 @@ export const PianoRollToolbar: FC = observer(() => {
         </NavBackButton>
 
         <TrackNameInput />
+
+        <EventListButton />
+
+        <Spacer />
 
         <InstrumentButton />
         <InstrumentBrowser />

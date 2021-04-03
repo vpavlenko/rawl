@@ -81,7 +81,7 @@ const Header = styled.div`
   height: ${Layout.rulerHeight};
   border-bottom: 1px solid ${({ theme }) => theme.dividerColor};
   /* scroll bar width */
-  margin-right: 14px;
+  padding-right: 14px;
 `
 
 const Row = styled.div`

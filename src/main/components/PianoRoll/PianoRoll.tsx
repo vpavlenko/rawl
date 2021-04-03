@@ -213,19 +213,24 @@ const PianoRollWrapper: FC = observer(() => {
   )
 })
 
-export default () => {
-  return (
-    <div style={{ display: "flex", flexGrow: 1, position: "relative" }}>
-      <StyledSplitPane
-        split="vertical"
-        minSize={50}
-        defaultSize={"20%"}
-        style={{ display: "flex" }}
-        pane2Style={{ display: "flex" }}
-      >
-        <EventList />
-        <PianoRollWrapper />
-      </StyledSplitPane>
-    </div>
-  )
-}
+export default observer(() => {
+  const { pianoRollStore } = useStores()
+
+  if (pianoRollStore.showEventList) {
+    return (
+      <div style={{ display: "flex", flexGrow: 1, position: "relative" }}>
+        <StyledSplitPane
+          split="vertical"
+          minSize={50}
+          defaultSize={"20%"}
+          style={{ display: "flex" }}
+          pane2Style={{ display: "flex" }}
+        >
+          <EventList />
+          <PianoRollWrapper />
+        </StyledSplitPane>
+      </div>
+    )
+  }
+  return <PianoRollWrapper />
+})

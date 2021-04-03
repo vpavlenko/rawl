@@ -5,20 +5,17 @@ import {
   TableHead,
   TableRow,
 } from "@material-ui/core"
+import useComponentSize from "@rehooks/component-size"
 import { observer } from "mobx-react-lite"
-import React, { FC, useCallback, useState } from "react"
+import React, { FC, useCallback, useRef, useState } from "react"
+import { FixedSizeList, ListChildComponentProps } from "react-window"
 import styled from "styled-components"
 import { controllerTypeString } from "../../../common/helpers/noteNumberString"
 import { localized } from "../../../common/localize/localizedString"
 import { TrackEvent } from "../../../common/track"
 import { useStores } from "../../hooks/useStores"
 
-interface EventTableProps {
-  items: TrackEvent[]
-  headers: string[]
-}
-
-const Row = styled(TableRow)`
+const Row = styled.div`
   &.selected {
     background: var(--secondary-background-color);
   }
@@ -70,7 +67,7 @@ const InputCell: FC<InputCellProps> = ({ value }) => {
     []
   )
   return (
-    <Cell>
+    <Cell component="div">
       <StyledInput
         type="number"
         value={value ?? ""}
@@ -80,53 +77,6 @@ const InputCell: FC<InputCellProps> = ({ value }) => {
     </Cell>
   )
 }
-
-const EventTable: FC<EventTableProps> = observer(({ items, headers }) => {
-  const { song } = useStores()
-  const track = song.selectedTrack
-  const [selectedEventIds, setSelectedEventIds] = useState<number[]>([])
-
-  const onClickRow = useCallback(
-    (e: React.MouseEvent, ev: TrackEvent) => {
-      if (e.ctrlKey || e.metaKey) {
-        setSelectedEventIds((ids) => [...ids, ev.id])
-      } else {
-        setSelectedEventIds([ev.id])
-      }
-    },
-    [setSelectedEventIds]
-  )
-
-  const onDeleteRow = useCallback(
-    (e: TrackEvent) => {
-      track?.removeEvent(e.id)
-    },
-    [track]
-  )
-
-  return (
-    <Table>
-      <TableHead>
-        <TableRow>
-          {headers.map((header, i) => (
-            <Cell key={i}>{header}</Cell>
-          ))}
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {items.map((item, i) => (
-          <EventRow
-            item={item}
-            key={i}
-            onClick={onClickRow}
-            onDelete={onDeleteRow}
-            isSelected={selectedEventIds.includes(item.id)}
-          />
-        ))}
-      </TableBody>
-    </Table>
-  )
-})
 
 interface EventRowProps {
   item: TrackEvent
@@ -156,8 +106,8 @@ const EventRow: FC<EventRowProps> = ({
       )}
       tabIndex={-1}
     >
-      <Cell>{item.tick}</Cell>
-      <Cell>{getEventName(item)}</Cell>
+      <Cell component="div">{item.tick}</Cell>
+      <Cell component="div">{getEventName(item)}</Cell>
       <InputCell value={getGate(item)} />
       <InputCell value={getValue(item)} />
     </Row>
@@ -221,24 +171,81 @@ function getEventName(e: TrackEvent) {
   }
 }
 
-export interface EventListProps {
-  events: TrackEvent[]
-}
+const Container = styled.div`
+  width: 100%;
+  height: 100%;
+`
 
-const EventList: FC<EventListProps> = ({ events }) => {
-  return (
-    <div className="EventList">
-      <EventTable
-        items={events}
-        headers={[
-          "Tick",
-          localized("event", "Event"),
-          localized("duration", "Duration"),
-          "Value",
-        ]}
-      />
-    </div>
+const EventList: FC = observer(() => {
+  const { song } = useStores()
+  const track = song.selectedTrack
+  const events = [...(track?.events ?? [])]
+  const [selectedEventIds, setSelectedEventIds] = useState<number[]>([])
+
+  const onClickRow = useCallback(
+    (e: React.MouseEvent, ev: TrackEvent) => {
+      if (e.ctrlKey || e.metaKey) {
+        setSelectedEventIds((ids) => [...ids, ev.id])
+      } else {
+        setSelectedEventIds([ev.id])
+      }
+    },
+    [setSelectedEventIds]
   )
-}
+
+  const onDeleteRow = useCallback(
+    (e: TrackEvent) => {
+      track?.removeEvent(e.id)
+    },
+    [track]
+  )
+
+  const headers = [
+    "Tick",
+    localized("event", "Event"),
+    localized("duration", "Duration"),
+    "Value",
+  ]
+
+  const ref = useRef<HTMLDivElement>(null)
+  const size = useComponentSize(ref)
+
+  return (
+    <Container ref={ref}>
+      <Table>
+        <TableHead component="div">
+          <TableRow component="div">
+            {headers.map((header, i) => (
+              <Cell component="div" key={i}>
+                {header}
+              </Cell>
+            ))}
+          </TableRow>
+        </TableHead>
+        <TableBody component="div">
+          <FixedSizeList
+            height={size.height}
+            itemCount={events.length}
+            itemSize={35}
+            width={size.width}
+          >
+            {({ index }: ListChildComponentProps) => {
+              const e = events[index]
+              return (
+                <EventRow
+                  item={e}
+                  key={e.id}
+                  onClick={onClickRow}
+                  onDelete={onDeleteRow}
+                  isSelected={selectedEventIds.includes(e.id)}
+                />
+              )
+            }}
+          </FixedSizeList>
+        </TableBody>
+      </Table>
+    </Container>
+  )
+})
 
 export default EventList

@@ -8,9 +8,9 @@ import { Layout } from "../../Constants"
 import { isTouchPadEvent } from "../../helpers/touchpad"
 import { useStores } from "../../hooks/useStores"
 import ControlPane from "../ControlPane/ControlPane"
+import EventList from "../EventEditor/EventList"
 import { HorizontalScaleScrollBar } from "../inputs/ScaleScrollBar"
 import { VerticalScrollBar } from "../inputs/ScrollBar"
-import { EventListPane } from "./EventListPane"
 import { PianoRollStage } from "./PianoRollStage"
 
 const WHEEL_SCROLL_RATE = 1 / 120
@@ -223,7 +223,7 @@ export default () => {
         style={{ display: "flex" }}
         pane2Style={{ display: "flex" }}
       >
-        <EventListPane />
+        <EventList />
         <PianoRollWrapper />
       </StyledSplitPane>
     </div>

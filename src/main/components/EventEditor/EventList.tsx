@@ -292,6 +292,10 @@ function updateValue(e: TrackEvent, value: number | string) {
           return { value }
         case "note":
           return { velocity: value }
+        case "programChange":
+          return { value }
+        case "pitchBend":
+          return { value }
         default:
           return null
       }
@@ -332,6 +336,10 @@ function getValue(e: TrackEvent) {
           return e.value
         case "note":
           return e.velocity
+        case "programChange":
+          return e.value
+        case "pitchBend":
+          return e.value
         default:
           return null
       }
@@ -372,7 +380,9 @@ function getEventName(e: TrackEvent) {
     case "channel":
       switch (e.subtype) {
         case "controller":
-          return controllerTypeString(e.controllerType)
+          return (
+            controllerTypeString(e.controllerType) ?? `CC${e.controllerType}`
+          )
         default:
           return e.subtype
       }

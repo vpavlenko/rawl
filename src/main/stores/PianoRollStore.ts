@@ -46,6 +46,7 @@ export default class PianoRollStore {
   presetNames: LoadSoundFontEvent["presetNames"] = [[]]
   ghostTracks: GhostTrackIdMap = {}
   canvasWidth: number
+  showEventList = false
 
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore
@@ -68,6 +69,7 @@ export default class PianoRollStore {
       presetNames: observable,
       ghostTracks: observable,
       canvasWidth: observable,
+      showEventList: observable,
       transform: computed,
       notes: computed,
       scrollBy: action,

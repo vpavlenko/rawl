@@ -179,6 +179,10 @@ export const PianoNotes: FC<PianoRollStageProps> = ({ width, height }) => {
     }
 
     setRenderer(new PianoRollRenderer(gl))
+
+    return () => {
+      gl?.getExtension("WEBGL_lose_context")?.loseContext()
+    }
   }, [])
 
   useEffect(() => {

@@ -15,7 +15,6 @@ export const EventEditor: FC = observer(() => {
   const { rootViewStore } = useStores()
   const rootStore = useStores()
   const isOpen = rootViewStore.openEventEditor
-  const events = rootStore.song?.selectedTrack?.events ?? []
 
   const close = () => (rootViewStore.openEventEditor = false)
   const onClickOK = close
@@ -24,7 +23,7 @@ export const EventEditor: FC = observer(() => {
     <Dialog open={isOpen} onClose={close}>
       <DialogTitle>{localized("midi-settings", "MIDI Settings")}</DialogTitle>
       <DialogContent>
-        <EventList events={events} />
+        <EventList />
       </DialogContent>
       <DialogActions>
         <Button onClick={onClickOK}>{localized("ok", "OK")}</Button>

@@ -8,6 +8,7 @@ import { Layout } from "../../Constants"
 import { isTouchPadEvent } from "../../helpers/touchpad"
 import { useStores } from "../../hooks/useStores"
 import ControlPane from "../ControlPane/ControlPane"
+import EventList from "../EventEditor/EventList"
 import { HorizontalScaleScrollBar } from "../inputs/ScaleScrollBar"
 import { VerticalScrollBar } from "../inputs/ScrollBar"
 import { PianoRollStage } from "./PianoRollStage"
@@ -212,4 +213,24 @@ const PianoRollWrapper: FC = observer(() => {
   )
 })
 
-export default PianoRollWrapper
+export default observer(() => {
+  const { pianoRollStore } = useStores()
+
+  if (pianoRollStore.showEventList) {
+    return (
+      <div style={{ display: "flex", flexGrow: 1, position: "relative" }}>
+        <StyledSplitPane
+          split="vertical"
+          minSize={50}
+          defaultSize={"20%"}
+          style={{ display: "flex" }}
+          pane2Style={{ display: "flex" }}
+        >
+          <EventList />
+          <PianoRollWrapper />
+        </StyledSplitPane>
+      </div>
+    )
+  }
+  return <PianoRollWrapper />
+})

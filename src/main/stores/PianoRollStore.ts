@@ -2,6 +2,7 @@ import { flatten } from "lodash"
 import { action, computed, makeObservable, observable } from "mobx"
 import { IRect } from "../../common/geometry"
 import { filterEventsWithScroll } from "../../common/helpers/filterEventsWithScroll"
+import { getMBTString } from "../../common/measure/mbt"
 import { emptySelection } from "../../common/selection/Selection"
 import { isNoteEvent, NoteEvent } from "../../common/track"
 import { NoteCoordTransform } from "../../common/transform"
@@ -72,6 +73,10 @@ export default class PianoRollStore {
       showEventList: observable,
       transform: computed,
       notes: computed,
+      currentVolume: computed,
+      currentPan: computed,
+      currentTempo: computed,
+      currentMBTTime: computed,
       scrollBy: action,
       toggleTool: action,
     })
@@ -155,5 +160,37 @@ export default class PianoRollStore {
       ),
       getGhostNotes(),
     ]
+  }
+
+  get currentVolume(): number {
+    return (
+      this.rootStore.song.selectedTrack?.getVolume(
+        this.rootStore.services.player.position
+      ) ?? 0
+    )
+  }
+
+  get currentPan(): number {
+    return (
+      this.rootStore.song.selectedTrack?.getPan(
+        this.rootStore.services.player.position
+      ) ?? 0
+    )
+  }
+
+  get currentTempo(): number {
+    return (
+      this.rootStore.song.conductorTrack?.getTempo(
+        this.rootStore.services.player.position
+      ) ?? 1
+    )
+  }
+
+  get currentMBTTime(): string {
+    return getMBTString(
+      this.rootStore.song.measures,
+      this.rootStore.services.player.position,
+      this.rootStore.services.player.timebase
+    )
   }
 }

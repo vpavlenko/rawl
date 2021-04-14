@@ -28,10 +28,10 @@ import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
 import { HorizontalScaleScrollBar } from "../inputs/ScaleScrollBar"
 import { BAR_WIDTH, VerticalScrollBar } from "../inputs/ScrollBar"
+import CanvasPianoGrid from "../PianoRoll/CanvasPianoGrid"
+import CanvasPianoRuler from "../PianoRoll/CanvasPianoRuler"
 import { observeDrag } from "../PianoRoll/MouseHandler/observeDrag"
 import PianoCursor from "../PianoRoll/PianoCursor"
-import PianoGrid from "../PianoRoll/PianoGrid"
-import PianoRuler from "../PianoRoll/PianoRuler"
 import PianoSelection from "../PianoRoll/PianoSelection"
 import Stage from "../Stage/Stage"
 import { ArrangeContextMenu } from "./ArrangeContextMenu"
@@ -435,7 +435,7 @@ export const ArrangeView: FC = observer(() => {
         onContextMenu={(e) => e.preventDefault()}
         onWheel={onWheel}
       >
-        <PianoRuler
+        <CanvasPianoRuler
           width={containerWidth}
           beats={mappedBeats}
           scrollLeft={scrollLeft}
@@ -459,7 +459,13 @@ export const ArrangeView: FC = observer(() => {
               />
             ))}
           </div>
-          <PianoGrid height={contentHeight} beats={mappedBeats} />
+          <CanvasPianoGrid
+            height={contentHeight}
+            beats={mappedBeats}
+            width={containerWidth}
+            scrollLeft={scrollLeft}
+            theme={theme}
+          />
           {selectionRect && (
             <PianoSelection bounds={selectionRect} onRightClick={() => {}} />
           )}

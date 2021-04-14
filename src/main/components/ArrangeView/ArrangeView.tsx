@@ -1,24 +1,31 @@
 import { Container } from "@inlet/react-pixi"
+import useComponentSize from "@rehooks/component-size"
 import cloneDeep from "lodash/cloneDeep"
-import React, { RefObject, useState } from "react"
+import { toJS } from "mobx"
+import { observer } from "mobx-react-lite"
+import React, { FC, useEffect, useRef, useState } from "react"
 import styled from "styled-components"
 import {
   containsPoint,
   IPoint,
-  IRect,
-  ISize,
   pointAdd,
   pointSub,
 } from "../../../common/geometry"
 import { filterEventsWithScroll } from "../../../common/helpers/filterEventsWithScroll"
 import { createBeatsInRange } from "../../../common/helpers/mapBeats"
-import { Measure } from "../../../common/measure/Measure"
-import { Theme } from "../../../common/theme/Theme"
-import Track, { isNoteEvent, TrackEvent } from "../../../common/track"
+import { isNoteEvent, TrackEvent } from "../../../common/track"
 import { NoteCoordTransform } from "../../../common/transform"
+import {
+  arrangeEndSelection,
+  arrangeMoveSelection,
+  arrangeResizeSelection,
+  arrangeStartSelection,
+} from "../../actions"
 import ArrangeNoteItem from "../../components/ArrangeView/ArrangeNoteItem"
 import { Layout } from "../../Constants"
 import { useContextMenu } from "../../hooks/useContextMenu"
+import { useStores } from "../../hooks/useStores"
+import { useTheme } from "../../hooks/useTheme"
 import { HorizontalScaleScrollBar } from "../inputs/ScaleScrollBar"
 import { BAR_WIDTH, VerticalScrollBar } from "../inputs/ScrollBar"
 import { observeDrag } from "../PianoRoll/MouseHandler/observeDrag"
@@ -208,61 +215,63 @@ const Wrapper = styled.div`
   }
 `
 
-export interface ArrangeViewProps {
-  tracks: Track[]
-  theme: Theme
-  measures: Measure[]
-  timebase: number
-  endTick: number
-  playerPosition: number
-  setPlayerPosition: (position: number) => void
-  transform: NoteCoordTransform
-  selection: IRect | null
-  startSelection: (position: IPoint) => void
-  resizeSelection: (start: IPoint, end: IPoint) => void
-  endSelection: (start: IPoint, end: IPoint) => void
-  moveSelection: (position: IPoint) => void
-  autoScroll: boolean
-  scrollLeft: number
-  scrollTop: number
-  onScrollLeft: (scroll: number) => void
-  onScrollTop: (scroll: number) => void
-  size: ISize
-  onClickScaleUp: () => void
-  onClickScaleDown: () => void
-  onClickScaleReset: () => void
-}
+export const ArrangeView: FC = observer(() => {
+  const rootStore = useStores()
 
-const _ArrangeView = (
-  {
-    tracks,
-    theme,
-    measures,
-    timebase,
-    endTick: trackEndTick,
-    playerPosition,
-    setPlayerPosition,
-    transform,
-    selection,
-    startSelection,
-    resizeSelection,
-    endSelection,
-    moveSelection,
+  const autoScroll = rootStore.arrangeViewStore.autoScroll
+  const playerPosition = rootStore.services.player.position
+  const pixelsPerTick = Layout.pixelsPerTick * rootStore.arrangeViewStore.scaleX
+  const isPlaying = rootStore.services.player.isPlaying
+  const tracks = toJS(rootStore.song.tracks)
+  const measures = rootStore.song.measures
+  const timebase = rootStore.services.player.timebase
+  const trackEndTick = rootStore.song.endOfSong
+  const selection = rootStore.arrangeViewStore.selection
+
+  const { arrangeViewStore: s } = rootStore
+
+  const ref = useRef(null)
+  const size = useComponentSize(ref)
+
+  const keyHeight = 0.3
+
+  const [_scrollLeft, _setScrollLeft] = useState(0)
+  const [scrollTop, _setScrollTop] = useState(0)
+
+  const transform = new NoteCoordTransform(pixelsPerTick, keyHeight, 127)
+
+  useEffect(() => {
+    // keep scroll position to cursor
+    if (autoScroll && isPlaying) {
+      const x = transform.getX(playerPosition)
+      const screenX = x - _scrollLeft
+      if (screenX > size.width * 0.7 || screenX < 0) {
+        setScrollLeft(x)
+      }
+    }
+  }, [
     autoScroll,
-    scrollLeft = 0,
-    scrollTop = 0,
-    onScrollLeft,
-    onScrollTop,
-    size,
-    onClickScaleUp,
-    onClickScaleDown,
-    onClickScaleReset,
-  }: ArrangeViewProps,
-  ref: RefObject<HTMLDivElement>
-) => {
-  scrollLeft = Math.floor(scrollLeft)
+    isPlaying,
+    _scrollLeft,
+    playerPosition,
+    pixelsPerTick,
+    size.width,
+  ])
 
-  const { pixelsPerTick } = transform
+  const theme = useTheme()
+
+  const onClickScaleUp = () => (s.scaleX = s.scaleX + 0.1)
+  const onClickScaleDown = () => (s.scaleX = Math.max(0.05, s.scaleX - 0.1))
+  const onClickScaleReset = () => (s.scaleX = 1)
+  const startSelection = (pos: IPoint) => arrangeStartSelection(rootStore)(pos)
+  const endSelection = (start: IPoint, end: IPoint) =>
+    arrangeEndSelection(rootStore)(start, end)
+  const resizeSelection = (start: IPoint, end: IPoint) =>
+    arrangeResizeSelection(rootStore)(start, end)
+
+  const moveSelection = (pos: IPoint) => arrangeMoveSelection(rootStore)(pos)
+
+  const scrollLeft = Math.floor(_scrollLeft)
 
   const containerWidth = size.width
   const containerHeight = size.height
@@ -294,12 +303,12 @@ const _ArrangeView = (
 
   function setScrollLeft(scroll: number) {
     const maxOffset = Math.max(0, contentWidth - containerWidth)
-    onScrollLeft(Math.floor(Math.min(maxOffset, Math.max(0, scroll))))
+    _setScrollLeft(Math.floor(Math.min(maxOffset, Math.max(0, scroll))))
   }
 
   function setScrollTop(scroll: number) {
     const maxOffset = Math.max(0, contentHeight - containerHeight)
-    onScrollTop(Math.floor(Math.min(maxOffset, Math.max(0, scroll))))
+    _setScrollTop(Math.floor(Math.min(maxOffset, Math.max(0, scroll))))
   }
 
   const [isSelectionSelected, setSelectionSelected] = useState(false)
@@ -468,7 +477,7 @@ const _ArrangeView = (
           <HorizontalScaleScrollBar
             scrollOffset={scrollLeft}
             contentLength={contentWidth}
-            onScroll={onScrollLeft}
+            onScroll={_setScrollLeft}
             onClickScaleUp={onClickScaleUp}
             onClickScaleDown={onClickScaleDown}
             onClickScaleReset={onClickScaleReset}
@@ -486,7 +495,7 @@ const _ArrangeView = (
         <VerticalScrollBar
           scrollOffset={scrollTop}
           contentLength={contentHeight}
-          onScroll={onScrollTop}
+          onScroll={_setScrollTop}
         />
       </div>
       <div className="scroll-corner" />
@@ -496,8 +505,4 @@ const _ArrangeView = (
       />
     </Wrapper>
   )
-}
-
-export const ArrangeView = React.forwardRef<HTMLDivElement, ArrangeViewProps>(
-  _ArrangeView
-)
+})

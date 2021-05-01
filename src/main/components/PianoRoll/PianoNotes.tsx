@@ -16,6 +16,7 @@ import { getSelectionBounds } from "../../../common/selection/Selection"
 import { removeEvent } from "../../actions"
 import { useContextMenu } from "../../hooks/useContextMenu"
 import { useStores } from "../../hooks/useStores"
+import { GLCanvas } from "../GLCanvas/GLCanvas"
 import { observeDoubleClick } from "./MouseHandler/observeDoubleClick"
 import PencilMouseHandler from "./MouseHandler/PencilMouseHandler"
 import SelectionMouseHandler from "./MouseHandler/SelectionMouseHandler"
@@ -155,43 +156,8 @@ export const PianoNotes: FC<PianoRollStageProps> = ({ width, height }) => {
   }, [width])
 
   useEffect(() => {
-    const canvas = ref.current
-    if (canvas === null) {
-      throw new Error("canvas is not mounted")
-    }
-    // GL コンテキストを初期化する
-    const gl = canvas.getContext("webgl", {
-      alpha: true,
-      antialias: false,
-      depth: false,
-      desynchronized: true,
-      powerPreference: "high-performance",
-      premultipliedAlpha: true,
-      preserveDrawingBuffer: false,
-    })
-
-    // WebGL が使用可能で動作している場合にのみ続行します
-    if (gl === null) {
-      alert(
-        "WebGL を初期化できません。ブラウザーまたはマシンがサポートしていない可能性があります。"
-      )
-      return
-    }
-
-    setRenderer(new PianoRollRenderer(gl))
-
-    return () => {
-      gl?.getExtension("WEBGL_lose_context")?.loseContext()
-    }
-  }, [])
-
-  useEffect(() => {
     if (renderer === null) {
       return
-    }
-    const canvas = ref.current
-    if (canvas === null) {
-      throw new Error("canvas is not mounted")
     }
     const selectionBounds = getSelectionBounds(selection, transform)
 
@@ -227,12 +193,15 @@ export const PianoNotes: FC<PianoRollStageProps> = ({ width, height }) => {
 
   return (
     <>
-      <canvas
+      <GLCanvas
         width={width * canvasScale}
         height={height * canvasScale}
         style={{ width, height, cursor: notesCursor }}
         onContextMenu={useCallback((e) => e.preventDefault(), [])}
-        ref={ref}
+        onCreateContext={useCallback(
+          (gl) => setRenderer(new PianoRollRenderer(gl)),
+          []
+        )}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}

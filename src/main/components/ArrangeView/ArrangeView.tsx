@@ -1,19 +1,19 @@
-import { Container } from "@inlet/react-pixi"
 import useComponentSize from "@rehooks/component-size"
 import cloneDeep from "lodash/cloneDeep"
 import { toJS } from "mobx"
 import { observer } from "mobx-react-lite"
-import React, { FC, useEffect, useRef, useState } from "react"
+import React, { FC, useCallback, useEffect, useRef, useState } from "react"
 import styled from "styled-components"
 import {
   containsPoint,
   IPoint,
+  moveRect,
   pointAdd,
   pointSub,
 } from "../../../common/geometry"
 import { filterEventsWithScroll } from "../../../common/helpers/filterEventsWithScroll"
 import { createBeatsInRange } from "../../../common/helpers/mapBeats"
-import { isNoteEvent, TrackEvent } from "../../../common/track"
+import { isNoteEvent } from "../../../common/track"
 import { NoteCoordTransform } from "../../../common/transform"
 import {
   arrangeEndSelection,
@@ -21,51 +21,18 @@ import {
   arrangeResizeSelection,
   arrangeStartSelection,
 } from "../../actions"
-import ArrangeNoteItem from "../../components/ArrangeView/ArrangeNoteItem"
 import { Layout } from "../../Constants"
 import { useContextMenu } from "../../hooks/useContextMenu"
 import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
+import { GLCanvas } from "../GLCanvas/GLCanvas"
 import { HorizontalScaleScrollBar } from "../inputs/ScaleScrollBar"
 import { BAR_WIDTH, VerticalScrollBar } from "../inputs/ScrollBar"
 import CanvasPianoGrid from "../PianoRoll/CanvasPianoGrid"
 import CanvasPianoRuler from "../PianoRoll/CanvasPianoRuler"
 import { observeDrag } from "../PianoRoll/MouseHandler/observeDrag"
-import PianoCursor from "../PianoRoll/PianoCursor"
-import PianoSelection from "../PianoRoll/PianoSelection"
-import Stage from "../Stage/Stage"
 import { ArrangeContextMenu } from "./ArrangeContextMenu"
-
-interface ArrangeTrackProps {
-  events: TrackEvent[]
-  transform: NoteCoordTransform
-  width: number
-  isDrumMode: boolean
-  scrollLeft: number
-}
-
-function ArrangeTrack({
-  events,
-  transform,
-  width,
-  isDrumMode,
-  scrollLeft,
-}: ArrangeTrackProps) {
-  const t = transform
-  const items = events
-    .filter(isNoteEvent)
-    .map((e) => new ArrangeNoteItem(e.id, t.getRect(e), isDrumMode))
-
-  return (
-    <Stage
-      className="ArrangeTrack"
-      items={items}
-      width={width}
-      height={Math.ceil(t.pixelsPerKey * t.numberOfKeys)}
-      scrollLeft={scrollLeft}
-    />
-  )
-}
+import { ArrangeViewRenderer } from "./ArrangeViewRenderer"
 
 const Wrapper = styled.div`
   flex-grow: 1;
@@ -421,11 +388,37 @@ export const ArrangeView: FC = observer(() => {
   }
 
   function onWheel(e: React.WheelEvent) {
-    e.preventDefault()
     const scrollLineHeight = trackHeight
     const delta = scrollLineHeight * (e.deltaY > 0 ? 1 : -1)
     setScrollTop(scrollTop + delta)
   }
+
+  const [renderer, setRenderer] = useState<ArrangeViewRenderer | null>(null)
+
+  useEffect(() => {
+    if (renderer === null) {
+      return
+    }
+    const trackHeight = Math.ceil(
+      transform.pixelsPerKey * transform.numberOfKeys
+    )
+
+    const rects = tracks
+      .map((t, i) =>
+        filterEventsWithScroll(
+          t.events,
+          pixelsPerTick,
+          scrollLeft,
+          containerWidth
+        )
+          .filter(isNoteEvent)
+          .map((e) =>
+            moveRect(transform.getRect(e), { x: 0, y: trackHeight * i })
+          )
+      )
+      .flat()
+    renderer.render(rects, { x: scrollLeft, y: scrollTop })
+  }, [renderer, tracks, scrollLeft, scrollTop])
 
   return (
     <Wrapper ref={ref}>
@@ -442,23 +435,6 @@ export const ArrangeView: FC = observer(() => {
           pixelsPerTick={pixelsPerTick}
         />
         <div className="content" style={{ top: -scrollTop }}>
-          <div className="tracks">
-            {tracks.map((t, i) => (
-              <ArrangeTrack
-                width={containerWidth}
-                events={filterEventsWithScroll(
-                  t.events,
-                  pixelsPerTick,
-                  scrollLeft,
-                  containerWidth
-                )}
-                transform={transform}
-                key={i}
-                scrollLeft={scrollLeft}
-                isDrumMode={t.isRhythmTrack}
-              />
-            ))}
-          </div>
           <CanvasPianoGrid
             height={contentHeight}
             beats={mappedBeats}
@@ -466,12 +442,16 @@ export const ArrangeView: FC = observer(() => {
             scrollLeft={scrollLeft}
             theme={theme}
           />
-          {selectionRect && (
-            <PianoSelection bounds={selectionRect} onRightClick={() => {}} />
-          )}
-          <Container x={transform.getX(playerPosition) - scrollLeft}>
-            <PianoCursor height={contentHeight} />
-          </Container>
+        </div>
+        <div>
+          <GLCanvas
+            onCreateContext={useCallback(
+              (gl) => setRenderer(new ArrangeViewRenderer(gl)),
+              []
+            )}
+            width={containerWidth}
+            height={contentHeight}
+          />
         </div>
         <div
           style={{

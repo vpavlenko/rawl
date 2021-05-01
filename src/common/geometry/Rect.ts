@@ -66,3 +66,12 @@ export function scale(rect: IRect, scaleX: number, scaleY: number): IRect {
 }
 
 export const zeroRect: IRect = { x: 0, y: 0, width: 0, height: 0 }
+
+export function moveRect(rect: IRect, p: IPoint): IRect {
+  return {
+    x: rect.x + p.x,
+    y: rect.y + p.y,
+    width: rect.width,
+    height: rect.height,
+  }
+}

@@ -1,4 +1,5 @@
 import useComponentSize from "@rehooks/component-size"
+import Color from "color"
 import { partition } from "lodash"
 import cloneDeep from "lodash/cloneDeep"
 import { observer } from "mobx-react-lite"
@@ -330,6 +331,7 @@ export const ArrangeView: FC = observer(() => {
           flexGrow: 1,
           position: "relative",
           overflow: "hidden",
+          background: Color(theme.backgroundColor).darken(0.1).hex(),
         }}
       >
         <CanvasPianoRuler

@@ -103,6 +103,7 @@ export interface PianoRulerProps {
   pixelsPerTick: number
   scrollLeft: number
   beats: BeatWithX[]
+  style?: React.CSSProperties
 }
 
 const PianoRuler: FC<PianoRulerProps> = ({
@@ -110,6 +111,7 @@ const PianoRuler: FC<PianoRulerProps> = ({
   pixelsPerTick,
   scrollLeft,
   beats,
+  style
 }) => {
   const rootStore = useStores()
   const theme = useTheme()
@@ -160,6 +162,7 @@ const PianoRuler: FC<PianoRulerProps> = ({
       width={width}
       height={height}
       onMouseDown={onMouseDown}
+      style={style}
     />
   )
 }

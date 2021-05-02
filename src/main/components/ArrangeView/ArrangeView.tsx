@@ -1,7 +1,6 @@
 import useComponentSize from "@rehooks/component-size"
 import { partition } from "lodash"
 import cloneDeep from "lodash/cloneDeep"
-import { toJS } from "mobx"
 import { observer } from "mobx-react-lite"
 import React, { FC, useCallback, useEffect, useRef, useState } from "react"
 import styled from "styled-components"
@@ -42,6 +41,27 @@ const Wrapper = styled.div`
   background: var(--background-color);
 `
 
+const LeftTopSpace = styled.div`
+  box-sizing: border-box;
+  border-bottom: 1px solid var(--divider-color);
+`
+
+const TrackHeader = styled.div`
+  width: 8rem;
+  padding: 0 0.5rem;
+  box-sizing: border-box;
+  display: flex;
+  border-bottom: 1px solid var(--divider-color);
+  align-items: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`
+
+const HeaderList = styled.div`
+  border-right: 1px solid var(--divider-color);
+`
+
 export const ArrangeView: FC = observer(() => {
   const rootStore = useStores()
 
@@ -49,7 +69,7 @@ export const ArrangeView: FC = observer(() => {
   const playerPosition = rootStore.services.player.position
   const pixelsPerTick = Layout.pixelsPerTick * rootStore.arrangeViewStore.scaleX
   const isPlaying = rootStore.services.player.isPlaying
-  const tracks = toJS(rootStore.song.tracks)
+  const tracks = rootStore.song.tracks
   const measures = rootStore.song.measures
   const timebase = rootStore.services.player.timebase
   const trackEndTick = rootStore.song.endOfSong
@@ -259,9 +279,6 @@ export const ArrangeView: FC = observer(() => {
     if (renderer === null) {
       return
     }
-    const trackHeight = Math.ceil(
-      transform.pixelsPerKey * transform.numberOfKeys
-    )
 
     const rects = tracks
       .map((t, i) =>
@@ -293,10 +310,18 @@ export const ArrangeView: FC = observer(() => {
       highlightedBeats.map((b) => b.x),
       { x: scrollLeft, y: scrollTop }
     )
-  }, [renderer, tracks, scrollLeft, scrollTop])
+  }, [renderer, tracks, scrollLeft, scrollTop, playerPosition, transform])
 
   return (
     <Wrapper ref={ref}>
+      <HeaderList>
+        <LeftTopSpace style={{ height: Layout.rulerHeight }} />
+        {tracks.map((t, i) => (
+          <TrackHeader style={{ height: trackHeight }} key={i}>
+            {t.displayName}
+          </TrackHeader>
+        ))}
+      </HeaderList>
       <div
         className="right"
         onMouseDown={onMouseDown}
@@ -308,6 +333,10 @@ export const ArrangeView: FC = observer(() => {
           beats={mappedBeats}
           scrollLeft={scrollLeft}
           pixelsPerTick={pixelsPerTick}
+          style={{
+            background: theme.backgroundColor,
+            borderBottom: `1px solid ${theme.dividerColor}`,
+          }}
         />
         <GLCanvas
           onCreateContext={useCallback(

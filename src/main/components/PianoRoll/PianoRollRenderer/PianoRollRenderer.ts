@@ -17,6 +17,7 @@ import {
   BorderedRectangleBuffer,
   BorderedRectangleShader,
 } from "./BorderedRectangleShader"
+import { colorToVec4 } from "./color"
 import { DrumNoteShader } from "./DrumNoteShader"
 import {
   HorizontalGridBuffer,
@@ -28,11 +29,6 @@ import {
   SolidRectangleBuffer,
   SolidRectangleShader,
 } from "./SolidRectangleShader"
-
-const colorToVec4 = (color: Color): vec4 => {
-  const rgb = color.rgb().array()
-  return [rgb[0] / 255, rgb[1] / 255, rgb[2] / 255, color.alpha()]
-}
 
 export class PianoRollRenderer {
   private gl: WebGLRenderingContext

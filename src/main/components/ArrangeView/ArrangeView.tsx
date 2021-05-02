@@ -1,4 +1,5 @@
 import useComponentSize from "@rehooks/component-size"
+import { partition } from "lodash"
 import cloneDeep from "lodash/cloneDeep"
 import { toJS } from "mobx"
 import { observer } from "mobx-react-lite"
@@ -28,7 +29,6 @@ import { useTheme } from "../../hooks/useTheme"
 import { GLCanvas } from "../GLCanvas/GLCanvas"
 import { HorizontalScaleScrollBar } from "../inputs/ScaleScrollBar"
 import { BAR_WIDTH, VerticalScrollBar } from "../inputs/ScrollBar"
-import CanvasPianoGrid from "../PianoRoll/CanvasPianoGrid"
 import CanvasPianoRuler from "../PianoRoll/CanvasPianoRuler"
 import { observeDrag } from "../PianoRoll/MouseHandler/observeDrag"
 import { ArrangeContextMenu } from "./ArrangeContextMenu"
@@ -39,147 +39,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   position: relative;
-  background: var(--secondary-background-color);
-
-  .ArrangeTrack {
-    background: var(--background-color);
-    border-bottom: 1px solid var(--divider-color);
-  }
-
-  .tracks,
-  .PianoGrid,
-  .PianoRuler,
-  .PianoCursor,
-  .PianoSelection {
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-
-  .PianoRuler {
-    z-index: 9;
-  }
-
-  .ScrollBar {
-    z-index: 100;
-  }
-
-  .scroll-corner {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    height: 17px;
-    width: 17px;
-    background: var(--secondary-background-color);
-  }
-
-  .right {
-    position: relative;
-    flex-grow: 1;
-  }
-
-  .right > .content {
-    position: absolute;
-    margin-top: var(--ruler-height);
-    width: 100%;
-    height: 100%;
-  }
-
-  .headers {
-    position: absolute;
-    margin-top: var(--ruler-height);
-    width: 100%;
-  }
-
-  .TrackHeader {
-    padding: 0.2em 1em;
-    box-sizing: border-box;
-    border-bottom: 1px solid var(--divider-color);
-    background: var(--background-color);
-    position: relative;
-  }
-
-  .TrackHeader:hover {
-    background: var(--secondary-background-color);
-  }
-
-  .TrackHeader .name {
-    font-weight: bold;
-    font-size: 110%;
-  }
-
-  .TrackHeader .instrument {
-    font-size: 90%;
-    color: var(--secondary-text-color);
-  }
-
-  .left-top-space {
-    height: var(--ruler-height);
-    border-bottom: 1px solid var(--divider-color);
-    background: var(--background-color);
-    position: absolute;
-    top: 0;
-    z-index: 11;
-    left: 0;
-    width: 100%;
-  }
-
-  .NavigationBar {
-    border-bottom: 1px solid var(--divider-color);
-  }
-
-  .NavigationBar .menu {
-    display: flex;
-    flex-grow: 1;
-    -webkit-app-region: drag;
-  }
-
-  .NavigationBar .NavItem {
-    display: flex;
-    align-items: center;
-    margin-left: auto;
-    padding: 1em;
-    text-transform: uppercase;
-    font-size: 90%;
-  }
-
-  .NavigationBar .NavItem:hover {
-    opacity: 0.5;
-  }
-
-  .AddTrackButton {
-    padding: 0.5em 0.75em;
-    border-top: 1px solid var(--divider-color);
-    border-bottom: 1px solid var(--divider-color);
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    box-sizing: border-box;
-    background: var(--background-color);
-  }
-
-  .AddTrackButton:hover {
-    background: var(--secondary-background-color);
-  }
-
-  .AddTrackButton .Icon {
-    margin-right: 0.5em;
-  }
-
-  .TrackHeader .mark {
-    position: absolute;
-    right: 1em;
-    top: 0.8em;
-    background: var(--secondary-background-color);
-    border-radius: 100px;
-    width: 1.25em;
-    height: 1.25em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--secondary-text-color);
-    font-size: 110%;
-  }
+  background: var(--background-color);
 `
 
 export const ArrangeView: FC = observer(() => {
@@ -420,7 +280,19 @@ export const ArrangeView: FC = observer(() => {
 
     const cursorX = transform.getX(playerPosition) - scrollLeft
 
-    renderer.render(cursorX, rects, { x: scrollLeft, y: scrollTop })
+    const [highlightedBeats, nonHighlightedBeats] = partition(
+      mappedBeats,
+      (b) => b.beat === 0
+    )
+
+    renderer.theme = theme
+    renderer.render(
+      cursorX,
+      rects,
+      nonHighlightedBeats.map((b) => b.x),
+      highlightedBeats.map((b) => b.x),
+      { x: scrollLeft, y: scrollTop }
+    )
   }, [renderer, tracks, scrollLeft, scrollTop])
 
   return (
@@ -437,25 +309,14 @@ export const ArrangeView: FC = observer(() => {
           scrollLeft={scrollLeft}
           pixelsPerTick={pixelsPerTick}
         />
-        <div className="content" style={{ top: -scrollTop }}>
-          <CanvasPianoGrid
-            height={contentHeight}
-            beats={mappedBeats}
-            width={containerWidth}
-            scrollLeft={scrollLeft}
-            theme={theme}
-          />
-        </div>
-        <div>
-          <GLCanvas
-            onCreateContext={useCallback(
-              (gl) => setRenderer(new ArrangeViewRenderer(gl)),
-              []
-            )}
-            width={containerWidth}
-            height={contentHeight}
-          />
-        </div>
+        <GLCanvas
+          onCreateContext={useCallback(
+            (gl) => setRenderer(new ArrangeViewRenderer(gl)),
+            []
+          )}
+          width={containerWidth}
+          height={contentHeight}
+        />
         <div
           style={{
             width: `calc(100% - ${BAR_WIDTH}px)`,

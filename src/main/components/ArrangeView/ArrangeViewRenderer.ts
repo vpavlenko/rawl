@@ -1,5 +1,8 @@
+import Color from "color"
 import { mat4, vec3, vec4 } from "gl-matrix"
 import { IPoint, IRect, ISize } from "../../../common/geometry"
+import { defaultTheme, Theme } from "../../../common/theme/Theme"
+import { colorToVec4 } from "../PianoRoll/PianoRollRenderer/color"
 import { RenderProperty } from "../PianoRoll/PianoRollRenderer/RenderProperty"
 import {
   SolidRectangleBuffer,
@@ -17,6 +20,10 @@ export class ArrangeViewRenderer {
   private solidRectShader: SolidRectangleShader
   private solidRectBuffer: SolidRectangleBuffer
   private cursorBuffer: SolidRectangleBuffer
+  private beatBuffer: SolidRectangleBuffer
+  private highlightedBeatBuffer: SolidRectangleBuffer
+
+  theme: Theme = defaultTheme
 
   constructor(gl: WebGLRenderingContext) {
     this.gl = gl
@@ -24,6 +31,8 @@ export class ArrangeViewRenderer {
     this.solidRectShader = new SolidRectangleShader(gl)
     this.solidRectBuffer = new SolidRectangleBuffer(gl)
     this.cursorBuffer = new SolidRectangleBuffer(gl)
+    this.beatBuffer = new SolidRectangleBuffer(gl)
+    this.highlightedBeatBuffer = new SolidRectangleBuffer(gl)
   }
 
   private vline = (x: number): IRect => ({
@@ -33,10 +42,18 @@ export class ArrangeViewRenderer {
     height: this.viewSize.value.height,
   })
 
-  render(cursorX: number, rects: IRect[], scroll: IPoint) {
+  render(
+    cursorX: number,
+    rects: IRect[],
+    beats: number[],
+    highlightedBeats: number[],
+    scroll: IPoint
+  ) {
     const { gl } = this
     this.solidRectBuffer.update(gl, rects)
     this.cursorBuffer.update(gl, [this.vline(cursorX)])
+    this.beatBuffer.update(gl, beats.map(this.vline))
+    this.highlightedBeatBuffer.update(gl, highlightedBeats.map(this.vline))
 
     this.draw(scroll)
   }
@@ -110,6 +127,22 @@ export class ArrangeViewRenderer {
       projectionMatrix,
       vec3.fromValues(-scroll.x, -scroll.y, 0)
     )
+
+    {
+      this.solidRectShader.uProjectionMatrix.value = projectionMatrixScrollX
+      this.solidRectShader.uColor.value = colorToVec4(
+        Color(this.theme.dividerColor).alpha(0.2)
+      )
+      this.solidRectShader.draw(gl, this.beatBuffer)
+    }
+
+    {
+      this.solidRectShader.uProjectionMatrix.value = projectionMatrixScrollX
+      this.solidRectShader.uColor.value = colorToVec4(
+        Color(this.theme.dividerColor).alpha(0.5)
+      )
+      this.solidRectShader.draw(gl, this.highlightedBeatBuffer)
+    }
 
     {
       this.solidRectShader.uProjectionMatrix.value = projectionMatrixScrollXY

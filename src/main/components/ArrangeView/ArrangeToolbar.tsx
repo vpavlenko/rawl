@@ -3,6 +3,7 @@ import { KeyboardTab, Menu as MenuIcon } from "@material-ui/icons"
 import { observer } from "mobx-react-lite"
 import React, { FC, useCallback } from "react"
 import styled from "styled-components"
+import { localized } from "../../../common/localize/localizedString"
 import { useStores } from "../../hooks/useStores"
 import QuantizeSelector from "../PianoRollToolbar/QuantizeSelector/QuantizeSelector"
 import { StyledToggleButton } from "../PianoRollToolbar/ToolSelector"
@@ -72,7 +73,7 @@ export const ArrangeToolbar: FC = observer(() => {
           <MenuIcon />
         </NavBackButton>
 
-        <Title>Arrangement View</Title>
+        <Title>{localized("arrangement-view", "Arrangement View")}</Title>
 
         <Spacer />
 

@@ -64,5 +64,6 @@ export default {
     outputs: "出力",
     "one-octave-up": "+1オクターブ",
     "one-octave-down": "-1オクターブ",
+    "arrangement-view": "アレンジビュー",
   },
 } as { [key: string]: { [key: string]: string } }

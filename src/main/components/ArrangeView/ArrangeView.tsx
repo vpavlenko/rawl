@@ -9,10 +9,8 @@ import {
   IPoint,
   pointAdd,
   pointSub,
+  zeroRect,
 } from "../../../common/geometry"
-import { filterEventsWithScroll } from "../../../common/helpers/filterEventsWithScroll"
-import { createBeatsInRange } from "../../../common/helpers/mapBeats"
-import { isNoteEvent } from "../../../common/track"
 import { NoteCoordTransform } from "../../../common/transform"
 import {
   arrangeEndSelection,
@@ -69,9 +67,6 @@ export const ArrangeView: FC = observer(() => {
   const pixelsPerTick = Layout.pixelsPerTick * rootStore.arrangeViewStore.scaleX
   const isPlaying = rootStore.services.player.isPlaying
   const tracks = rootStore.song.tracks
-  const measures = rootStore.song.measures
-  const timebase = rootStore.services.player.timebase
-  const trackEndTick = rootStore.song.endOfSong
   const selection = rootStore.arrangeViewStore.selection
 
   const { arrangeViewStore: s } = rootStore
@@ -81,10 +76,18 @@ export const ArrangeView: FC = observer(() => {
 
   const keyHeight = 0.3
 
-  const [_scrollLeft, _setScrollLeft] = useState(0)
-  const [scrollTop, _setScrollTop] = useState(0)
+  const _scrollLeft = rootStore.arrangeViewStore.scrollLeft
+  const _setScrollLeft = (v: number) =>
+    rootStore.arrangeViewStore.setScrollLeft(v)
+  const scrollTop = rootStore.arrangeViewStore.scrollTop
+  const _setScrollTop = (v: number) =>
+    (rootStore.arrangeViewStore.scrollTop = v)
 
   const transform = new NoteCoordTransform(pixelsPerTick, keyHeight, 127)
+
+  useEffect(() => {
+    rootStore.arrangeViewStore.canvasWidth = size.width
+  }, [size.width])
 
   useEffect(() => {
     // keep scroll position to cursor
@@ -122,35 +125,18 @@ export const ArrangeView: FC = observer(() => {
   const containerWidth = size.width
   const containerHeight = size.height
 
-  const startTick = scrollLeft / pixelsPerTick
-  const widthTick = transform.getTicks(containerWidth)
-  const endTick = startTick + widthTick
-  const contentWidth = Math.max(trackEndTick, endTick) * pixelsPerTick
-  const mappedBeats = createBeatsInRange(
-    measures,
-    pixelsPerTick,
-    timebase,
-    startTick,
-    containerWidth
-  )
+  const {
+    notes,
+    cursorX,
+    mappedBeats,
+    selectionRect,
+    trackHeight,
+    contentWidth,
+  } = rootStore.arrangeViewStore
 
-  const bottomBorderWidth = 1
-  const trackHeight =
-    Math.ceil(transform.pixelsPerKey * transform.numberOfKeys) +
-    bottomBorderWidth
   const contentHeight = trackHeight * tracks.length
 
-  const selectionRect = selection && {
-    x: transform.getX(selection.x) - scrollLeft,
-    width: transform.getX(selection.width),
-    y: selection.y * trackHeight - scrollTop,
-    height: selection.height * trackHeight,
-  }
-
-  function setScrollLeft(scroll: number) {
-    const maxOffset = Math.max(0, contentWidth - containerWidth)
-    _setScrollLeft(Math.floor(Math.min(maxOffset, Math.max(0, scroll))))
-  }
+  function setScrollLeft(scroll: number) {}
 
   function setScrollTop(scroll: number) {
     const maxOffset = Math.max(0, contentHeight - containerHeight)
@@ -279,24 +265,6 @@ export const ArrangeView: FC = observer(() => {
       return
     }
 
-    const rects = tracks
-      .map((t, i) =>
-        filterEventsWithScroll(
-          t.events,
-          pixelsPerTick,
-          scrollLeft,
-          containerWidth
-        )
-          .filter(isNoteEvent)
-          .map((e) => {
-            const rect = transform.getRect(e)
-            return { ...rect, height: 1, y: trackHeight * i + rect.y }
-          })
-      )
-      .flat()
-
-    const cursorX = transform.getX(playerPosition)
-
     const [highlightedBeats, nonHighlightedBeats] = partition(
       mappedBeats,
       (b) => b.beat === 0
@@ -305,13 +273,23 @@ export const ArrangeView: FC = observer(() => {
     renderer.theme = theme
     renderer.render(
       cursorX,
-      rects,
+      notes,
+      selectionRect ?? zeroRect,
       nonHighlightedBeats.map((b) => b.x),
       highlightedBeats.map((b) => b.x),
       tracks.map((_, i) => trackHeight * (i + 1) - 1),
       { x: scrollLeft, y: scrollTop }
     )
-  }, [renderer, tracks, scrollLeft, scrollTop, playerPosition, transform])
+  }, [
+    renderer,
+    tracks.length,
+    scrollLeft,
+    scrollTop,
+    cursorX,
+    notes,
+    mappedBeats,
+    selectionRect,
+  ])
 
   return (
     <Wrapper>

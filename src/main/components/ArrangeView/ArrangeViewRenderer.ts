@@ -2,6 +2,10 @@ import Color from "color"
 import { mat4, vec3, vec4 } from "gl-matrix"
 import { IPoint, IRect, ISize } from "../../../common/geometry"
 import { defaultTheme, Theme } from "../../../common/theme/Theme"
+import {
+  BorderedRectangleBuffer,
+  BorderedRectangleShader,
+} from "../PianoRoll/PianoRollRenderer/BorderedRectangleShader"
 import { colorToVec4 } from "../PianoRoll/PianoRollRenderer/color"
 import { RenderProperty } from "../PianoRoll/PianoRollRenderer/RenderProperty"
 import {
@@ -17,24 +21,28 @@ export class ArrangeViewRenderer {
     (a, b) => a.width === b.width && a.height === b.height
   )
 
+  private rectShader: BorderedRectangleShader
   private solidRectShader: SolidRectangleShader
   private noteBuffer: SolidRectangleBuffer
   private cursorBuffer: SolidRectangleBuffer
   private beatBuffer: SolidRectangleBuffer
   private highlightedBeatBuffer: SolidRectangleBuffer
   private lineBuffer: SolidRectangleBuffer
+  private selectionBuffer: BorderedRectangleBuffer
 
   theme: Theme = defaultTheme
 
   constructor(gl: WebGLRenderingContext) {
     this.gl = gl
 
+    this.rectShader = new BorderedRectangleShader(gl)
     this.solidRectShader = new SolidRectangleShader(gl)
     this.noteBuffer = new SolidRectangleBuffer(gl)
     this.cursorBuffer = new SolidRectangleBuffer(gl)
     this.beatBuffer = new SolidRectangleBuffer(gl)
     this.highlightedBeatBuffer = new SolidRectangleBuffer(gl)
     this.lineBuffer = new SolidRectangleBuffer(gl)
+    this.selectionBuffer = new BorderedRectangleBuffer(gl)
   }
 
   private vline = (x: number): IRect => ({
@@ -54,6 +62,7 @@ export class ArrangeViewRenderer {
   render(
     cursorX: number,
     notes: IRect[],
+    selection: IRect,
     beats: number[],
     highlightedBeats: number[],
     lines: number[],
@@ -61,6 +70,7 @@ export class ArrangeViewRenderer {
   ) {
     const { gl } = this
     this.noteBuffer.update(gl, notes)
+    this.selectionBuffer.update(gl, [selection])
     this.cursorBuffer.update(gl, [this.vline(cursorX)])
     this.beatBuffer.update(gl, beats.map(this.vline))
     this.highlightedBeatBuffer.update(gl, highlightedBeats.map(this.vline))
@@ -176,6 +186,15 @@ export class ArrangeViewRenderer {
         Color(this.theme.themeColor)
       )
       this.solidRectShader.draw(gl, this.noteBuffer)
+    }
+
+    {
+      this.rectShader.uProjectionMatrix.value = projectionMatrixScrollXY
+      this.rectShader.uStrokeColor.value = colorToVec4(
+        Color(this.theme.themeColor)
+      )
+      this.rectShader.uFillColor.value = vec4.create()
+      this.rectShader.draw(gl, this.selectionBuffer)
     }
 
     {

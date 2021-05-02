@@ -36,7 +36,7 @@ export default class RootStore {
   settingsStore: SettingsStore
   rootViewStore = new RootViewStore()
   pianoRollStore: PianoRollStore
-  arrangeViewStore = new ArrangeViewStore()
+  arrangeViewStore = new ArrangeViewStore(this)
   tempoEditorStore = new TempoEditorStore()
   midiDeviceStore = new MIDIDeviceStore()
 

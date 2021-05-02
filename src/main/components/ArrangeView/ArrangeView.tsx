@@ -93,11 +93,15 @@ export const ArrangeView: FC = observer(() => {
   const keyHeight = 0.3
 
   const scrollLeft = rootStore.arrangeViewStore.scrollLeft
-  const setScrollLeft = (v: number) =>
-    rootStore.arrangeViewStore.setScrollLeft(v)
+  const setScrollLeft = useCallback(
+    (v: number) => rootStore.arrangeViewStore.setScrollLeft(v),
+    []
+  )
   const scrollTop = rootStore.arrangeViewStore.scrollTop
-  const _setScrollTop = (v: number) =>
-    (rootStore.arrangeViewStore.scrollTop = v)
+  const _setScrollTop = useCallback(
+    (v: number) => (rootStore.arrangeViewStore.scrollTop = v),
+    []
+  )
 
   const transform = new NoteCoordTransform(pixelsPerTick, keyHeight, 127)
 
@@ -125,16 +129,12 @@ export const ArrangeView: FC = observer(() => {
 
   const theme = useTheme()
 
-  const onClickScaleUp = () => (s.scaleX = s.scaleX + 0.1)
-  const onClickScaleDown = () => (s.scaleX = Math.max(0.05, s.scaleX - 0.1))
-  const onClickScaleReset = () => (s.scaleX = 1)
-  const startSelection = (pos: IPoint) => arrangeStartSelection(rootStore)(pos)
-  const endSelection = (start: IPoint, end: IPoint) =>
-    arrangeEndSelection(rootStore)(start, end)
-  const resizeSelection = (start: IPoint, end: IPoint) =>
-    arrangeResizeSelection(rootStore)(start, end)
-
-  const moveSelection = (pos: IPoint) => arrangeMoveSelection(rootStore)(pos)
+  const onClickScaleUp = useCallback(() => (s.scaleX += 0.1), [s])
+  const onClickScaleDown = useCallback(
+    () => (s.scaleX = Math.max(0.05, s.scaleX - 0.1)),
+    [s]
+  )
+  const onClickScaleReset = useCallback(() => (s.scaleX = 1), [s])
 
   const containerWidth = size.width
   const containerHeight = size.height
@@ -158,116 +158,132 @@ export const ArrangeView: FC = observer(() => {
 
   const contentHeight = trackHeight * tracks.length
 
-  function handleLeftClick(
-    e: React.MouseEvent,
-    createPoint: (e: MouseEvent) => IPoint
-  ) {
-    const startPos = createPoint(e.nativeEvent)
-    const isSelectionSelected =
-      selection != null && containsPoint(selection, startPos)
+  const handleLeftClick = useCallback(
+    (e: React.MouseEvent, createPoint: (e: MouseEvent) => IPoint) => {
+      const startPos = createPoint(e.nativeEvent)
+      const isSelectionSelected =
+        selection != null && containsPoint(selection, startPos)
 
-    const createSelectionHandler = (
-      e: MouseEvent,
-      mouseMove: (handler: (e: MouseEvent) => void) => void,
-      mouseUp: (handler: (e: MouseEvent) => void) => void
-    ) => {
-      startSelection(startPos)
-      setPlayerPosition(rootStore)(startPos.x)
-      mouseMove((e) => {
-        resizeSelection(startPos, createPoint(e))
-      })
-      mouseUp((e) => {
-        endSelection(startPos, createPoint(e))
-      })
-    }
-
-    const dragSelectionHandler = (
-      e: MouseEvent,
-      mouseMove: (handler: (e: MouseEvent) => void) => void,
-      mouseUp: (handler: (e: MouseEvent) => void) => void
-    ) => {
-      if (selection === null) {
-        return
+      const createSelectionHandler = (
+        e: MouseEvent,
+        mouseMove: (handler: (e: MouseEvent) => void) => void,
+        mouseUp: (handler: (e: MouseEvent) => void) => void
+      ) => {
+        arrangeStartSelection(rootStore)(startPos)
+        setPlayerPosition(rootStore)(startPos.x)
+        mouseMove((e) => {
+          arrangeResizeSelection(rootStore)(startPos, createPoint(e))
+        })
+        mouseUp((e) => {
+          arrangeEndSelection(rootStore)(startPos, createPoint(e))
+        })
       }
-      const startSelection = cloneDeep(selection)
-      mouseMove((e) => {
-        const delta = pointSub(createPoint(e), startPos)
-        const pos = pointAdd(startSelection, delta)
-        moveSelection(pos)
+
+      const dragSelectionHandler = (
+        e: MouseEvent,
+        mouseMove: (handler: (e: MouseEvent) => void) => void,
+        mouseUp: (handler: (e: MouseEvent) => void) => void
+      ) => {
+        if (selection === null) {
+          return
+        }
+        const startSelection = cloneDeep(selection)
+        mouseMove((e) => {
+          const delta = pointSub(createPoint(e), startPos)
+          const pos = pointAdd(startSelection, delta)
+          arrangeMoveSelection(rootStore)(pos)
+        })
+        mouseUp((e) => {})
+      }
+
+      let handler
+
+      if (isSelectionSelected) {
+        handler = dragSelectionHandler
+      } else {
+        handler = createSelectionHandler
+      }
+
+      let mouseMove: (e: MouseEvent) => void
+      let mouseUp: (e: MouseEvent) => void
+      handler(
+        e.nativeEvent,
+        (fn) => (mouseMove = fn),
+        (fn) => (mouseUp = fn)
+      )
+
+      observeDrag({
+        onMouseMove: (e) => mouseMove(e),
+        onMouseUp: (e) => mouseUp(e),
       })
-      mouseUp((e) => {})
-    }
+    },
+    [selection, rootStore]
+  )
 
-    let handler
+  const handleMiddleClick = useCallback(
+    (e: React.MouseEvent) => {
+      function createPoint(e: MouseEvent) {
+        return { x: e.clientX, y: e.clientY }
+      }
+      const startPos = createPoint(e.nativeEvent)
 
-    if (isSelectionSelected) {
-      handler = dragSelectionHandler
-    } else {
-      handler = createSelectionHandler
-    }
-
-    let mouseMove: (e: MouseEvent) => void
-    let mouseUp: (e: MouseEvent) => void
-    handler(
-      e.nativeEvent,
-      (fn) => (mouseMove = fn),
-      (fn) => (mouseUp = fn)
-    )
-
-    observeDrag({
-      onMouseMove: (e) => mouseMove(e),
-      onMouseUp: (e) => mouseUp(e),
-    })
-  }
-
-  function handleMiddleClick(e: React.MouseEvent) {
-    function createPoint(e: MouseEvent) {
-      return { x: e.clientX, y: e.clientY }
-    }
-    const startPos = createPoint(e.nativeEvent)
-
-    observeDrag({
-      onMouseMove(e) {
-        const pos = createPoint(e)
-        const delta = pointSub(pos, startPos)
-        setScrollLeft(Math.max(0, scrollLeft - delta.x))
-        setScrollTop(Math.max(0, scrollTop - delta.y))
-      },
-    })
-  }
+      observeDrag({
+        onMouseMove(e) {
+          const pos = createPoint(e)
+          const delta = pointSub(pos, startPos)
+          setScrollLeft(Math.max(0, scrollLeft - delta.x))
+          setScrollTop(Math.max(0, scrollTop - delta.y))
+        },
+      })
+    },
+    [scrollLeft, scrollTop]
+  )
 
   const { onContextMenu, menuProps } = useContextMenu()
 
-  function onMouseDown(e: React.MouseEvent) {
-    const { left, top } = e.currentTarget.getBoundingClientRect()
+  const onMouseDown = useCallback(
+    (e: React.MouseEvent) => {
+      const { left, top } = e.currentTarget.getBoundingClientRect()
 
-    function createPoint(e: MouseEvent) {
-      const x = e.pageX - left + scrollLeft
-      const y = e.pageY - top - Layout.rulerHeight + scrollTop
-      const tick = transform.getTicks(x)
-      return { x: tick, y: y / trackHeight }
-    }
+      function createPoint(e: MouseEvent) {
+        const x = e.pageX - left + scrollLeft
+        const y = e.pageY - top - Layout.rulerHeight + scrollTop
+        const tick = transform.getTicks(x)
+        return { x: tick, y: y / trackHeight }
+      }
 
-    switch (e.button) {
-      case 0:
-        handleLeftClick(e, createPoint)
-        break
-      case 1:
-        handleMiddleClick(e)
-        break
-      case 2:
-        onContextMenu(e)
-        break
-      default:
-        break
-    }
-  }
+      switch (e.button) {
+        case 0:
+          handleLeftClick(e, createPoint)
+          break
+        case 1:
+          handleMiddleClick(e)
+          break
+        case 2:
+          onContextMenu(e)
+          break
+        default:
+          break
+      }
+    },
+    [
+      scrollLeft,
+      scrollTop,
+      transform,
+      handleLeftClick,
+      handleMiddleClick,
+      onContextMenu,
+    ]
+  )
 
-  function onWheel(e: React.WheelEvent) {
-    const scrollLineHeight = trackHeight
-    const delta = scrollLineHeight * (e.deltaY > 0 ? 1 : -1)
-    setScrollTop(scrollTop + delta)
-  }
+  const onWheel = useCallback(
+    (e: React.WheelEvent) => {
+      const scrollLineHeight = trackHeight
+      const delta = scrollLineHeight * (e.deltaY > 0 ? 1 : -1)
+      setScrollTop(scrollTop + delta)
+    },
+    [scrollTop]
+  )
 
   const [renderer, setRenderer] = useState<ArrangeViewRenderer | null>(null)
 
@@ -323,7 +339,7 @@ export const ArrangeView: FC = observer(() => {
       <div
         ref={ref}
         onMouseDown={onMouseDown}
-        onContextMenu={(e) => e.preventDefault()}
+        onContextMenu={useCallback((e) => e.preventDefault(), [])}
         onWheel={onWheel}
         style={{
           display: "flex",

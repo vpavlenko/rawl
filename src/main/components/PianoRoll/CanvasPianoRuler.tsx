@@ -1,5 +1,5 @@
 import { isEqual } from "lodash"
-import { useObserver } from "mobx-react-lite"
+import { observer } from "mobx-react-lite"
 import React, { FC, useCallback } from "react"
 import { BeatWithX } from "../../../common/helpers/mapBeats"
 import { LoopSetting } from "../../../common/player"
@@ -106,66 +106,55 @@ export interface PianoRulerProps {
   style?: React.CSSProperties
 }
 
-const PianoRuler: FC<PianoRulerProps> = ({
-  width,
-  pixelsPerTick,
-  scrollLeft,
-  beats,
-  style,
-}) => {
-  const rootStore = useStores()
-  const theme = useTheme()
-  const height = Layout.rulerHeight
+const PianoRuler: FC<PianoRulerProps> = observer(
+  ({ width, pixelsPerTick, scrollLeft, beats, style }) => {
+    const rootStore = useStores()
+    const theme = useTheme()
+    const height = Layout.rulerHeight
 
-  const { loop } = useObserver(() => ({
-    loop: rootStore.services.player.loop,
-  }))
+    const { loop } = rootStore.services.player
 
-  const onMouseDown: React.MouseEventHandler<HTMLCanvasElement> = useCallback(
-    (e) => {
-      const local = {
-        x: e.nativeEvent.offsetX,
-        y: e.nativeEvent.offsetY,
+    const onMouseDown: React.MouseEventHandler<HTMLCanvasElement> = useCallback(
+      (e) => {
+        const local = {
+          x: e.nativeEvent.offsetX,
+          y: e.nativeEvent.offsetY,
+        }
+        const tick = (local.x + scrollLeft) / pixelsPerTick
+        if (e.nativeEvent.ctrlKey) {
+          // setLoopBegin(tick)
+        } else if (e.nativeEvent.altKey) {
+          // setLoopEnd(tick)
+        } else {
+          setPlayerPosition(rootStore)(tick)
+        }
+      },
+      [rootStore, scrollLeft, pixelsPerTick]
+    )
+
+    function draw(ctx: CanvasRenderingContext2D) {
+      ctx.clearRect(0, 0, width, height)
+      ctx.save()
+      ctx.translate(-scrollLeft + 0.5, 0)
+      drawRuler(ctx, height, beats, theme)
+      if (loop.enabled) {
+        drawLoopPoints(ctx, loop, height, pixelsPerTick, theme)
       }
-      const tick = (local.x + scrollLeft) / pixelsPerTick
-      if (e.nativeEvent.ctrlKey) {
-        // setLoopBegin(tick)
-      } else if (e.nativeEvent.altKey) {
-        // setLoopEnd(tick)
-      } else {
-        setPlayerPosition(rootStore)(tick)
-      }
-    },
-    [rootStore, scrollLeft, pixelsPerTick]
-  )
-
-  function draw(ctx: CanvasRenderingContext2D) {
-    ctx.clearRect(0, 0, width, height)
-    ctx.save()
-    ctx.translate(-scrollLeft + 0.5, 0)
-    drawRuler(ctx, height, beats, theme)
-    if (loop.enabled) {
-      drawLoopPoints(ctx, loop, height, pixelsPerTick, theme)
+      ctx.restore()
     }
-    ctx.restore()
+
+    return (
+      <DrawCanvas
+        draw={draw}
+        className="PianoRuler"
+        width={width}
+        height={height}
+        onMouseDown={onMouseDown}
+        style={style}
+      />
+    )
   }
-
-  const extendEvent = (e: React.MouseEvent): TickEvent<React.MouseEvent> => ({
-    nativeEvent: e,
-    tick: (e.nativeEvent.offsetX + scrollLeft) / pixelsPerTick,
-  })
-
-  return (
-    <DrawCanvas
-      draw={draw}
-      className="PianoRuler"
-      width={width}
-      height={height}
-      onMouseDown={onMouseDown}
-      style={style}
-    />
-  )
-}
+)
 
 function equals(props: PianoRulerProps, nextProps: PianoRulerProps) {
   return (

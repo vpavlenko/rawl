@@ -6,7 +6,7 @@
     "target": "es5",
     "module": "esnext",
     "esModuleInterop": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": true,

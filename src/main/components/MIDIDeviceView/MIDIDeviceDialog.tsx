@@ -10,7 +10,7 @@ import {
 } from "@material-ui/core"
 import { Alert } from "@material-ui/lab"
 import { observer } from "mobx-react-lite"
-import React, { FC } from "react"
+import { FC } from "react"
 import styled from "styled-components"
 import { localized } from "../../../common/localize/localizedString"
 import { useStores } from "../../hooks/useStores"

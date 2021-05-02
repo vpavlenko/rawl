@@ -3,7 +3,7 @@ import Color from "color"
 import { partition } from "lodash"
 import cloneDeep from "lodash/cloneDeep"
 import { observer } from "mobx-react-lite"
-import React, { FC, useCallback, useEffect, useRef, useState } from "react"
+import { FC, useCallback, useEffect, useRef, useState } from "react"
 import styled from "styled-components"
 import {
   containsPoint,

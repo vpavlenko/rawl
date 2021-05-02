@@ -1,5 +1,5 @@
 import { isNumber } from "lodash"
-import React, { CanvasHTMLAttributes, Component } from "react"
+import { CanvasHTMLAttributes, Component } from "react"
 
 export interface DrawCanvasProps
   extends CanvasHTMLAttributes<HTMLCanvasElement> {

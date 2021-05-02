@@ -1,6 +1,6 @@
 import useComponentSize from "@rehooks/component-size"
 import { observer } from "mobx-react-lite"
-import React, { FC, useCallback, useRef } from "react"
+import { FC, useCallback, useRef } from "react"
 import SplitPane from "react-split-pane"
 import styled from "styled-components"
 import { isTouchPadEvent } from "../../helpers/touchpad"

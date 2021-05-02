@@ -1,7 +1,7 @@
 import { Checkbox, ListItemText, MenuItem, Select } from "@material-ui/core"
 import { Layers } from "@material-ui/icons"
 import { observer } from "mobx-react-lite"
-import React, { useMemo } from "react"
+import { useMemo } from "react"
 import styled from "styled-components"
 import { useStores } from "../../hooks/useStores"
 

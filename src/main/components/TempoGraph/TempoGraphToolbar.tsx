@@ -2,7 +2,7 @@ import { AppBar, IconButton, makeStyles, Toolbar } from "@material-ui/core"
 import { KeyboardTab, Menu as MenuIcon } from "@material-ui/icons"
 import { ToggleButton } from "@material-ui/lab"
 import { observer } from "mobx-react-lite"
-import React, { FC } from "react"
+import { FC } from "react"
 import styled from "styled-components"
 import { useStores } from "../../hooks/useStores"
 

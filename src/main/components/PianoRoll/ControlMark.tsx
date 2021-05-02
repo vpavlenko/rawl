@@ -1,5 +1,5 @@
 import { ControllerEvent, ProgramChangeEvent } from "midifile-ts"
-import React, { FC } from "react"
+import { FC } from "react"
 import styled from "styled-components"
 import { controllerTypeString as CCNames } from "../../../common/helpers/noteNumberString"
 import { TrackEventRequired } from "../../../common/track"

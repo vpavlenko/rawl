@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite"
-import React, { FC, useState } from "react"
+import { FC, useState } from "react"
 import styled from "styled-components"
 import { useStores } from "../../hooks/useStores"
 

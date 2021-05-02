@@ -8,7 +8,7 @@ import {
 } from "@material-ui/core"
 import { Help } from "@material-ui/icons"
 import { observer } from "mobx-react-lite"
-import React, { FC, useCallback } from "react"
+import { FC, useCallback } from "react"
 import styled from "styled-components"
 import { localized } from "../../../common/localize/localizedString"
 import { useStores } from "../../hooks/useStores"

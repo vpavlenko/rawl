@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite"
-import React, { FC, useMemo } from "react"
+import { FC, useMemo } from "react"
 import styled from "styled-components"
 import { IPoint } from "../../../common/geometry"
 import { createBeatsInRange } from "../../../common/helpers/mapBeats"

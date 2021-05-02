@@ -24,8 +24,7 @@ export default class IFrameSynth implements SynthOutput {
       ) as HTMLIFrameElement)
 
     if (iframe.contentWindow == null) {
-      console.error("Failed create iframe for synth.html")
-      return
+      throw new Error("Failed create iframe for synth.html")
     }
 
     this.messenger = new WindowMessenger(iframe.contentWindow)

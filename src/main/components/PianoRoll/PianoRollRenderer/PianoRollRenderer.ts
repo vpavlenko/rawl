@@ -61,11 +61,6 @@ export class PianoRollRenderer {
 
   constructor(gl: WebGLRenderingContext) {
     this.gl = gl
-    this.setup()
-  }
-
-  private setup() {
-    const { gl } = this
 
     this.noteShader = new NoteShader(gl)
     this.drumNoteShader = new DrumNoteShader(gl)

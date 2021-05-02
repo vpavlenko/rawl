@@ -53,11 +53,13 @@ export default class SynthController {
 
     this.setupRecorder()
     this.timer.start()
+
+    this.messenger = new WindowMessenger(window.parent)
     this.bindMessenger()
   }
 
   private bindMessenger() {
-    const messenger = new WindowMessenger(window.parent)
+    const { messenger } = this
     messenger.on(SynthEvent.activate, () => this.activate())
     messenger.on(SynthEvent.midi, (payload: any) => this.onMidi(payload))
     messenger.on(SynthEvent.loadSoundFont, (payload: any) =>
@@ -67,7 +69,6 @@ export default class SynthController {
     messenger.on(SynthEvent.stopRecording, () => this.stopRecording())
 
     messenger.send(SynthEvent.didCreateSynthWindow)
-    this.messenger = messenger
   }
 
   private setupRecorder() {}

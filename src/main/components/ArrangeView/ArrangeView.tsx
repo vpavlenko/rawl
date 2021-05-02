@@ -146,7 +146,11 @@ export const ArrangeView: FC = observer(() => {
         mouseUp: (handler: (e: MouseEvent) => void) => void
       ) => {
         arrangeStartSelection(rootStore)(startPos)
-        setPlayerPosition(rootStore)(startPos.x)
+
+        if (!rootStore.services.player.isPlaying) {
+          setPlayerPosition(rootStore)(startPos.x)
+        }
+
         mouseMove((e) => {
           arrangeResizeSelection(rootStore)(startPos, createPoint(e))
         })

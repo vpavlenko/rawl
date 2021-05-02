@@ -12,7 +12,6 @@ import {
   pointSub,
   zeroRect,
 } from "../../../common/geometry"
-import { NoteCoordTransform } from "../../../common/transform"
 import {
   arrangeEndSelection,
   arrangeMoveSelection,
@@ -78,56 +77,44 @@ const HeaderList = styled.div`
 export const ArrangeView: FC = observer(() => {
   const rootStore = useStores()
 
-  const autoScroll = rootStore.arrangeViewStore.autoScroll
-  const playerPosition = rootStore.services.player.position
-  const pixelsPerTick = Layout.pixelsPerTick * rootStore.arrangeViewStore.scaleX
-  const isPlaying = rootStore.services.player.isPlaying
   const tracks = rootStore.song.tracks
-  const selection = rootStore.arrangeViewStore.selection
 
   const { arrangeViewStore: s } = rootStore
 
   const ref = useRef(null)
   const size = useComponentSize(ref)
 
-  const keyHeight = 0.3
+  const {
+    notes,
+    cursorX,
+    selection,
+    mappedBeats,
+    selectionRect,
+    trackHeight,
+    contentWidth,
+    transform,
+    scrollLeft,
+    scrollTop,
+  } = rootStore.arrangeViewStore
 
-  const scrollLeft = rootStore.arrangeViewStore.scrollLeft
   const setScrollLeft = useCallback(
     (v: number) => rootStore.arrangeViewStore.setScrollLeft(v),
     []
   )
-  const scrollTop = rootStore.arrangeViewStore.scrollTop
   const _setScrollTop = useCallback(
     (v: number) => (rootStore.arrangeViewStore.scrollTop = v),
     []
   )
 
-  const transform = new NoteCoordTransform(pixelsPerTick, keyHeight, 127)
+  const containerWidth = size.width
+  const containerHeight = size.height
+  const contentHeight = trackHeight * tracks.length
+
+  const theme = useTheme()
 
   useEffect(() => {
     rootStore.arrangeViewStore.canvasWidth = size.width
   }, [size.width])
-
-  useEffect(() => {
-    // keep scroll position to cursor
-    if (autoScroll && isPlaying) {
-      const x = transform.getX(playerPosition)
-      const screenX = x - scrollLeft
-      if (screenX > size.width * 0.7 || screenX < 0) {
-        setScrollLeft(x)
-      }
-    }
-  }, [
-    autoScroll,
-    isPlaying,
-    scrollLeft,
-    playerPosition,
-    pixelsPerTick,
-    size.width,
-  ])
-
-  const theme = useTheme()
 
   const onClickScaleUp = useCallback(() => (s.scaleX += 0.1), [s])
   const onClickScaleDown = useCallback(
@@ -136,27 +123,16 @@ export const ArrangeView: FC = observer(() => {
   )
   const onClickScaleReset = useCallback(() => (s.scaleX = 1), [s])
 
-  const containerWidth = size.width
-  const containerHeight = size.height
-
-  function setScrollTop(scroll: number) {
-    const maxOffset = Math.max(
-      0,
-      contentHeight + Layout.rulerHeight + BAR_WIDTH - containerHeight
-    )
-    _setScrollTop(Math.floor(Math.min(maxOffset, Math.max(0, scroll))))
-  }
-
-  const {
-    notes,
-    cursorX,
-    mappedBeats,
-    selectionRect,
-    trackHeight,
-    contentWidth,
-  } = rootStore.arrangeViewStore
-
-  const contentHeight = trackHeight * tracks.length
+  const setScrollTop = useCallback(
+    (scroll: number) => {
+      const maxOffset = Math.max(
+        0,
+        contentHeight + Layout.rulerHeight + BAR_WIDTH - containerHeight
+      )
+      _setScrollTop(Math.floor(Math.min(maxOffset, Math.max(0, scroll))))
+    },
+    [contentHeight, containerHeight, _setScrollTop]
+  )
 
   const handleLeftClick = useCallback(
     (e: React.MouseEvent, createPoint: (e: MouseEvent) => IPoint) => {
@@ -354,7 +330,7 @@ export const ArrangeView: FC = observer(() => {
           width={containerWidth}
           beats={mappedBeats}
           scrollLeft={scrollLeft}
-          pixelsPerTick={pixelsPerTick}
+          pixelsPerTick={transform.pixelsPerTick}
           style={{
             background: theme.backgroundColor,
             borderBottom: `1px solid ${theme.dividerColor}`,

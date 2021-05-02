@@ -2,7 +2,12 @@ import { Container, Graphics, Text } from "@inlet/react-pixi"
 import Color from "color"
 import isEqual from "lodash/isEqual"
 import { observer } from "mobx-react-lite"
-import { Graphics as PIXIGraphics, Point, TextStyle } from "pixi.js"
+import {
+  Graphics as PIXIGraphics,
+  InteractionEvent,
+  Point,
+  TextStyle,
+} from "pixi.js"
 import React, { FC, useCallback } from "react"
 import { BeatWithX } from "../../../common/helpers/mapBeats"
 import { LoopSetting } from "../../../common/player"
@@ -153,7 +158,7 @@ const PianoRuler: FC<PianoRulerProps> = observer(
     const loop = rootStore.services.player.loop
 
     const onMouseDown = useCallback(
-      (ev: PIXI.InteractionEvent) => {
+      (ev: InteractionEvent) => {
         const local = ev.data.getLocalPosition(ev.target)
         const tick = (local.x + scrollLeft) / pixelsPerTick
         if (ev.data.originalEvent.ctrlKey) {

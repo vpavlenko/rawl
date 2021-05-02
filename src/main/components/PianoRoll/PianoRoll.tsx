@@ -1,10 +1,8 @@
 import useComponentSize from "@rehooks/component-size"
 import { observer } from "mobx-react-lite"
-import React, { FC, useCallback, useEffect, useRef } from "react"
+import React, { FC, useCallback, useRef } from "react"
 import SplitPane from "react-split-pane"
 import styled from "styled-components"
-import { NoteCoordTransform } from "../../../common/transform"
-import { Layout } from "../../Constants"
 import { isTouchPadEvent } from "../../helpers/touchpad"
 import { useStores } from "../../hooks/useStores"
 import ControlPane from "../ControlPane/ControlPane"
@@ -102,42 +100,11 @@ const PianoRollWrapper: FC = observer(() => {
   const rootStore = useStores()
 
   const trackEndTick = rootStore.song.endOfSong
-  const isPlaying = rootStore.services.player.isPlaying
-  const playerPosition = rootStore.services.player.position
   const s = rootStore.pianoRollStore
-  const scaleX = rootStore.pianoRollStore.scaleX
-  const scrollLeft = rootStore.pianoRollStore.scrollLeft
-  const scrollTop = rootStore.pianoRollStore.scrollTop
-  const autoScroll = rootStore.pianoRollStore.autoScroll
+  const { scaleX, scrollLeft, scrollTop, transform } = rootStore.pianoRollStore
 
   const ref = useRef(null)
   const size = useComponentSize(ref)
-
-  const transform = new NoteCoordTransform(
-    Layout.pixelsPerTick * scaleX,
-    Layout.keyHeight,
-    127
-  )
-
-  useEffect(() => {
-    // keep scroll position to cursor
-    if (autoScroll && isPlaying) {
-      const x = transform.getX(playerPosition)
-      const screenX = x - scrollLeft
-      if (screenX > size.width * 0.7 || screenX < 0) {
-        s.scrollLeft = x
-      }
-    }
-  }, [
-    autoScroll,
-    isPlaying,
-    scaleX,
-    scrollLeft,
-    playerPosition,
-    size,
-    transform,
-    s,
-  ])
 
   const setScrollLeft = useCallback((v) => (s.scrollLeft = v), [s])
   const setScrollTop = useCallback((v) => (s.scrollTop = v), [s])

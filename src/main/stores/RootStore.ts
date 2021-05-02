@@ -84,6 +84,7 @@ export default class RootStore {
       this.midiDeviceStore.enabledOutputIds = new Set(settings.midiOutputIds)
     })
 
+    this.pianoRollStore.setUpAutorun()
     this.arrangeViewStore.setUpAutorun()
 
     registerReactions(this)

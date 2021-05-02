@@ -1,5 +1,5 @@
 import { flatten } from "lodash"
-import { action, computed, makeObservable, observable } from "mobx"
+import { action, autorun, computed, makeObservable, observable } from "mobx"
 import { IRect } from "../../common/geometry"
 import { filterEventsWithScroll } from "../../common/helpers/filterEventsWithScroll"
 import { getMBTString } from "../../common/measure/mbt"
@@ -79,6 +79,22 @@ export default class PianoRollStore {
       currentMBTTime: computed,
       scrollBy: action,
       toggleTool: action,
+    })
+  }
+
+  setUpAutorun() {
+    autorun(() => {
+      const { isPlaying, position } = this.rootStore.services.player
+      const { autoScroll, scrollLeft, transform, canvasWidth } = this
+
+      // keep scroll position to cursor
+      if (autoScroll && isPlaying) {
+        const x = transform.getX(position)
+        const screenX = x - scrollLeft
+        if (screenX > canvasWidth * 0.7 || screenX < 0) {
+          this.scrollLeft = x
+        }
+      }
     })
   }
 

@@ -1,11 +1,11 @@
 import { withStyles } from "@material-ui/core"
 import Slider from "@material-ui/core/Slider"
 import { VolumeUp } from "@material-ui/icons"
+import { observer } from "mobx-react-lite"
 import React, { FC, useCallback } from "react"
 import styled from "styled-components"
 import { theme } from "../../../common/theme/muiTheme"
 import { setTrackVolume } from "../../actions"
-import { useMemoObserver } from "../../hooks/useMemoObserver"
 import { useStores } from "../../hooks/useStores"
 
 const LightSlider = withStyles({
@@ -31,14 +31,9 @@ export interface VolumeSliderProps {
   trackId: number
 }
 
-const _VolumeSlider: FC<VolumeSliderProps> = ({ trackId }) => {
+const _VolumeSlider: FC<VolumeSliderProps> = observer(({ trackId }) => {
   const rootStore = useStores()
-  const volume = useMemoObserver(
-    () =>
-      rootStore.song.selectedTrack?.getVolume(
-        rootStore.services.player.position
-      ) ?? 0
-  )
+  const volume = rootStore.pianoRollStore.currentVolume
   const onChange = useCallback(
     (value: number) => setTrackVolume(rootStore)(trackId, value),
     [rootStore, trackId]
@@ -53,6 +48,6 @@ const _VolumeSlider: FC<VolumeSliderProps> = ({ trackId }) => {
       />
     </Container>
   )
-}
+})
 
 export const VolumeSlider = React.memo(_VolumeSlider)

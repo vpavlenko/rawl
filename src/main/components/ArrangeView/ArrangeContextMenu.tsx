@@ -12,16 +12,17 @@ export interface ArrangeContextMenuProps {
   isOpen: boolean
   position: IPoint
   handleClose: () => void
-  isSelectionSelected: boolean
 }
 
 export const ArrangeContextMenu: FC<ArrangeContextMenuProps> = ({
   isOpen,
   position,
   handleClose,
-  isSelectionSelected,
 }) => {
   const rootStore = useStores()
+  const isNoteSelected = Object.values(
+    rootStore.arrangeViewStore.selectedEventIds
+  ).some((e) => e.length > 0)
 
   return (
     <Menu
@@ -31,51 +32,46 @@ export const ArrangeContextMenu: FC<ArrangeContextMenuProps> = ({
       anchorReference="anchorPosition"
       anchorPosition={{ top: position.y, left: position.x }}
     >
-      {isSelectionSelected && (
-        <MenuItem
-          onClick={(e) => {
-            e.stopPropagation()
-            handleClose()
-            arrangeCopySelection(rootStore)()
-            arrangeDeleteSelection(rootStore)()
-          }}
-        >
-          Cut
-        </MenuItem>
-      )}
-      {isSelectionSelected && (
-        <MenuItem
-          onClick={(e) => {
-            e.stopPropagation()
-            handleClose()
-            arrangeCopySelection(rootStore)()
-          }}
-        >
-          Copy
-        </MenuItem>
-      )}
-      {
-        <MenuItem
-          onClick={(e) => {
-            e.stopPropagation()
-            handleClose()
-            arrangePasteSelection(rootStore)()
-          }}
-        >
-          Paste
-        </MenuItem>
-      }
-      {isSelectionSelected && (
-        <MenuItem
-          onClick={(e) => {
-            e.stopPropagation()
-            handleClose()
-            arrangeDeleteSelection(rootStore)()
-          }}
-        >
-          Delete
-        </MenuItem>
-      )}
+      <MenuItem
+        onClick={(e) => {
+          e.stopPropagation()
+          handleClose()
+          arrangeCopySelection(rootStore)()
+          arrangeDeleteSelection(rootStore)()
+        }}
+        disabled={!isNoteSelected}
+      >
+        Cut
+      </MenuItem>
+      <MenuItem
+        onClick={(e) => {
+          e.stopPropagation()
+          handleClose()
+          arrangeCopySelection(rootStore)()
+        }}
+        disabled={!isNoteSelected}
+      >
+        Copy
+      </MenuItem>
+      <MenuItem
+        onClick={(e) => {
+          e.stopPropagation()
+          handleClose()
+          arrangePasteSelection(rootStore)()
+        }}
+      >
+        Paste
+      </MenuItem>
+      <MenuItem
+        onClick={(e) => {
+          e.stopPropagation()
+          handleClose()
+          arrangeDeleteSelection(rootStore)()
+        }}
+        disabled={!isNoteSelected}
+      >
+        Delete
+      </MenuItem>
     </Menu>
   )
 }

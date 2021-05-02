@@ -1,10 +1,10 @@
 import { withStyles } from "@material-ui/core"
 import Slider from "@material-ui/core/Slider"
+import { observer } from "mobx-react-lite"
 import React, { FC, useCallback } from "react"
 import styled from "styled-components"
 import { theme } from "../../../common/theme/muiTheme"
 import { setTrackPan } from "../../actions"
-import { useMemoObserver } from "../../hooks/useMemoObserver"
 import { useStores } from "../../hooks/useStores"
 
 const LightSlider = withStyles({
@@ -31,18 +31,14 @@ export interface PanSliderProps {
   trackId: number
 }
 
-const _PanSlider: FC<PanSliderProps> = ({ trackId }) => {
+const _PanSlider: FC<PanSliderProps> = observer(({ trackId }) => {
   const rootStore = useStores()
   const onChange = useCallback(
     (value: number) => setTrackPan(rootStore)(trackId, value),
     [rootStore, trackId]
   )
-  const pan = useMemoObserver(
-    () =>
-      rootStore.song.selectedTrack?.getPan(
-        rootStore.services.player.position
-      ) ?? 0
-  )
+  const pan = rootStore.pianoRollStore.currentPan
+
   return (
     <Container>
       <Label>Pan</Label>
@@ -56,6 +52,6 @@ const _PanSlider: FC<PanSliderProps> = ({ trackId }) => {
       />
     </Container>
   )
-}
+})
 
 export const PanSlider = React.memo(_PanSlider)

@@ -32,6 +32,7 @@ export default class Song {
       selectTrack: action,
       conductorTrack: computed,
       selectedTrack: computed,
+      measures: computed,
       tracks: observable.shallow,
       selectedTrackId: observable,
       filepath: observable,
@@ -97,15 +98,11 @@ export default class Song {
   }
 
   get measures(): Measure[] {
-    return this.getMeasures(480) // FIXME
-  }
-
-  private getMeasures(timebase: number): Measure[] {
-    const { conductorTrack } = this
+    const conductorTrack = this.conductorTrack
     if (conductorTrack === undefined) {
       return []
     }
-    return getMeasuresFromConductorTrack(conductorTrack, timebase)
+    return getMeasuresFromConductorTrack(conductorTrack, this.timebase)
   }
 
   get endOfSong(): number {

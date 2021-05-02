@@ -1,463 +1,355 @@
-import { Container } from "@inlet/react-pixi"
+import useComponentSize from "@rehooks/component-size"
+import Color from "color"
+import { partition } from "lodash"
 import cloneDeep from "lodash/cloneDeep"
-import React, { RefObject, useState } from "react"
+import { observer } from "mobx-react-lite"
+import React, { FC, useCallback, useEffect, useRef, useState } from "react"
 import styled from "styled-components"
 import {
   containsPoint,
   IPoint,
-  IRect,
-  ISize,
   pointAdd,
   pointSub,
+  zeroRect,
 } from "../../../common/geometry"
-import { filterEventsWithScroll } from "../../../common/helpers/filterEventsWithScroll"
-import { createBeatsInRange } from "../../../common/helpers/mapBeats"
-import { Measure } from "../../../common/measure/Measure"
-import { Theme } from "../../../common/theme/Theme"
-import Track, { isNoteEvent, TrackEvent } from "../../../common/track"
-import { NoteCoordTransform } from "../../../common/transform"
-import ArrangeNoteItem from "../../components/ArrangeView/ArrangeNoteItem"
+import {
+  arrangeEndSelection,
+  arrangeMoveSelection,
+  arrangeResizeSelection,
+  arrangeStartSelection,
+  setPlayerPosition,
+} from "../../actions"
 import { Layout } from "../../Constants"
 import { useContextMenu } from "../../hooks/useContextMenu"
+import { useStores } from "../../hooks/useStores"
+import { useTheme } from "../../hooks/useTheme"
+import { GLCanvas } from "../GLCanvas/GLCanvas"
 import { HorizontalScaleScrollBar } from "../inputs/ScaleScrollBar"
 import { BAR_WIDTH, VerticalScrollBar } from "../inputs/ScrollBar"
+import CanvasPianoRuler from "../PianoRoll/CanvasPianoRuler"
 import { observeDrag } from "../PianoRoll/MouseHandler/observeDrag"
-import PianoCursor from "../PianoRoll/PianoCursor"
-import PianoGrid from "../PianoRoll/PianoGrid"
-import PianoRuler from "../PianoRoll/PianoRuler"
-import PianoSelection from "../PianoRoll/PianoSelection"
-import Stage from "../Stage/Stage"
 import { ArrangeContextMenu } from "./ArrangeContextMenu"
-
-interface ArrangeTrackProps {
-  events: TrackEvent[]
-  transform: NoteCoordTransform
-  width: number
-  isDrumMode: boolean
-  scrollLeft: number
-}
-
-function ArrangeTrack({
-  events,
-  transform,
-  width,
-  isDrumMode,
-  scrollLeft,
-}: ArrangeTrackProps) {
-  const t = transform
-  const items = events
-    .filter(isNoteEvent)
-    .map((e) => new ArrangeNoteItem(e.id, t.getRect(e), isDrumMode))
-
-  return (
-    <Stage
-      className="ArrangeTrack"
-      items={items}
-      width={width}
-      height={Math.ceil(t.pixelsPerKey * t.numberOfKeys)}
-      scrollLeft={scrollLeft}
-    />
-  )
-}
+import { ArrangeViewRenderer } from "./ArrangeViewRenderer"
 
 const Wrapper = styled.div`
   flex-grow: 1;
   display: flex;
   flex-direction: row;
   position: relative;
-  background: var(--secondary-background-color);
-
-  .ArrangeTrack {
-    background: var(--background-color);
-    border-bottom: 1px solid var(--divider-color);
-  }
-
-  .tracks,
-  .PianoGrid,
-  .PianoRuler,
-  .PianoCursor,
-  .PianoSelection {
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-
-  .PianoRuler {
-    z-index: 9;
-  }
-
-  .ScrollBar {
-    z-index: 100;
-  }
-
-  .scroll-corner {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    height: 17px;
-    width: 17px;
-    background: var(--secondary-background-color);
-  }
-
-  .right {
-    position: relative;
-    flex-grow: 1;
-  }
-
-  .right > .content {
-    position: absolute;
-    margin-top: var(--ruler-height);
-    width: 100%;
-    height: 100%;
-  }
-
-  .headers {
-    position: absolute;
-    margin-top: var(--ruler-height);
-    width: 100%;
-  }
-
-  .TrackHeader {
-    padding: 0.2em 1em;
-    box-sizing: border-box;
-    border-bottom: 1px solid var(--divider-color);
-    background: var(--background-color);
-    position: relative;
-  }
-
-  .TrackHeader:hover {
-    background: var(--secondary-background-color);
-  }
-
-  .TrackHeader .name {
-    font-weight: bold;
-    font-size: 110%;
-  }
-
-  .TrackHeader .instrument {
-    font-size: 90%;
-    color: var(--secondary-text-color);
-  }
-
-  .left-top-space {
-    height: var(--ruler-height);
-    border-bottom: 1px solid var(--divider-color);
-    background: var(--background-color);
-    position: absolute;
-    top: 0;
-    z-index: 11;
-    left: 0;
-    width: 100%;
-  }
-
-  .NavigationBar {
-    border-bottom: 1px solid var(--divider-color);
-  }
-
-  .NavigationBar .menu {
-    display: flex;
-    flex-grow: 1;
-    -webkit-app-region: drag;
-  }
-
-  .NavigationBar .NavItem {
-    display: flex;
-    align-items: center;
-    margin-left: auto;
-    padding: 1em;
-    text-transform: uppercase;
-    font-size: 90%;
-  }
-
-  .NavigationBar .NavItem:hover {
-    opacity: 0.5;
-  }
-
-  .AddTrackButton {
-    padding: 0.5em 0.75em;
-    border-top: 1px solid var(--divider-color);
-    border-bottom: 1px solid var(--divider-color);
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    box-sizing: border-box;
-    background: var(--background-color);
-  }
-
-  .AddTrackButton:hover {
-    background: var(--secondary-background-color);
-  }
-
-  .AddTrackButton .Icon {
-    margin-right: 0.5em;
-  }
-
-  .TrackHeader .mark {
-    position: absolute;
-    right: 1em;
-    top: 0.8em;
-    background: var(--secondary-background-color);
-    border-radius: 100px;
-    width: 1.25em;
-    height: 1.25em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--secondary-text-color);
-    font-size: 110%;
-  }
+  background: var(--background-color);
+  overflow: hidden;
 `
 
-export interface ArrangeViewProps {
-  tracks: Track[]
-  theme: Theme
-  measures: Measure[]
-  timebase: number
-  endTick: number
-  playerPosition: number
-  setPlayerPosition: (position: number) => void
-  transform: NoteCoordTransform
-  selection: IRect | null
-  startSelection: (position: IPoint) => void
-  resizeSelection: (start: IPoint, end: IPoint) => void
-  endSelection: (start: IPoint, end: IPoint) => void
-  moveSelection: (position: IPoint) => void
-  autoScroll: boolean
-  scrollLeft: number
-  scrollTop: number
-  onScrollLeft: (scroll: number) => void
-  onScrollTop: (scroll: number) => void
-  size: ISize
-  onClickScaleUp: () => void
-  onClickScaleDown: () => void
-  onClickScaleReset: () => void
-}
+const LeftTopSpace = styled.div`
+  z-index: 999;
+  position: absolute;
+  width: 100%;
+  box-sizing: border-box;
+  border-bottom: 1px solid var(--divider-color);
+  background: var(--background-color);
+`
 
-const _ArrangeView = (
-  {
-    tracks,
-    theme,
-    measures,
-    timebase,
-    endTick: trackEndTick,
-    playerPosition,
-    setPlayerPosition,
-    transform,
+const LeftBottomSpace = styled.div`
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background: var(--background-color);
+`
+
+const TrackHeader = styled.div`
+  width: 8rem;
+  padding: 0 0.5rem;
+  box-sizing: border-box;
+  display: flex;
+  border-bottom: 1px solid var(--divider-color);
+  align-items: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`
+
+const HeaderList = styled.div`
+  position: relative;
+  border-right: 1px solid var(--divider-color);
+`
+
+export const ArrangeView: FC = observer(() => {
+  const rootStore = useStores()
+
+  const tracks = rootStore.song.tracks
+
+  const { arrangeViewStore: s } = rootStore
+
+  const ref = useRef(null)
+  const size = useComponentSize(ref)
+
+  const {
+    notes,
+    cursorX,
     selection,
-    startSelection,
-    resizeSelection,
-    endSelection,
-    moveSelection,
-    autoScroll,
-    scrollLeft = 0,
-    scrollTop = 0,
-    onScrollLeft,
-    onScrollTop,
-    size,
-    onClickScaleUp,
-    onClickScaleDown,
-    onClickScaleReset,
-  }: ArrangeViewProps,
-  ref: RefObject<HTMLDivElement>
-) => {
-  scrollLeft = Math.floor(scrollLeft)
+    mappedBeats,
+    selectionRect,
+    trackHeight,
+    contentWidth,
+    transform,
+    scrollLeft,
+    scrollTop,
+  } = rootStore.arrangeViewStore
 
-  const { pixelsPerTick } = transform
+  const setScrollLeft = useCallback(
+    (v: number) => rootStore.arrangeViewStore.setScrollLeft(v),
+    []
+  )
+  const _setScrollTop = useCallback(
+    (v: number) => (rootStore.arrangeViewStore.scrollTop = v),
+    []
+  )
 
   const containerWidth = size.width
   const containerHeight = size.height
-
-  const startTick = scrollLeft / pixelsPerTick
-  const widthTick = transform.getTicks(containerWidth)
-  const endTick = startTick + widthTick
-  const contentWidth = Math.max(trackEndTick, endTick) * pixelsPerTick
-  const mappedBeats = createBeatsInRange(
-    measures,
-    pixelsPerTick,
-    timebase,
-    startTick,
-    containerWidth
-  )
-
-  const bottomBorderWidth = 1
-  const trackHeight =
-    Math.ceil(transform.pixelsPerKey * transform.numberOfKeys) +
-    bottomBorderWidth
   const contentHeight = trackHeight * tracks.length
 
-  const selectionRect = selection && {
-    x: transform.getX(selection.x) - scrollLeft,
-    width: transform.getX(selection.width),
-    y: selection.y * trackHeight - scrollTop,
-    height: selection.height * trackHeight,
-  }
+  const theme = useTheme()
 
-  function setScrollLeft(scroll: number) {
-    const maxOffset = Math.max(0, contentWidth - containerWidth)
-    onScrollLeft(Math.floor(Math.min(maxOffset, Math.max(0, scroll))))
-  }
+  useEffect(() => {
+    rootStore.arrangeViewStore.canvasWidth = size.width
+  }, [size.width])
 
-  function setScrollTop(scroll: number) {
-    const maxOffset = Math.max(0, contentHeight - containerHeight)
-    onScrollTop(Math.floor(Math.min(maxOffset, Math.max(0, scroll))))
-  }
+  const onClickScaleUp = useCallback(() => (s.scaleX += 0.1), [s])
+  const onClickScaleDown = useCallback(
+    () => (s.scaleX = Math.max(0.05, s.scaleX - 0.1)),
+    [s]
+  )
+  const onClickScaleReset = useCallback(() => (s.scaleX = 1), [s])
 
-  const [isSelectionSelected, setSelectionSelected] = useState(false)
+  const setScrollTop = useCallback(
+    (scroll: number) => {
+      const maxOffset = Math.max(
+        0,
+        contentHeight + Layout.rulerHeight + BAR_WIDTH - containerHeight
+      )
+      _setScrollTop(Math.floor(Math.min(maxOffset, Math.max(0, scroll))))
+    },
+    [contentHeight, containerHeight, _setScrollTop]
+  )
 
-  function handleLeftClick(
-    e: React.MouseEvent,
-    createPoint: (e: MouseEvent) => IPoint
-  ) {
-    const startPos = createPoint(e.nativeEvent)
-    const isSelectionSelected =
-      selection != null && containsPoint(selection, startPos)
+  const handleLeftClick = useCallback(
+    (e: React.MouseEvent, createPoint: (e: MouseEvent) => IPoint) => {
+      const startPos = createPoint(e.nativeEvent)
+      const isSelectionSelected =
+        selection != null && containsPoint(selection, startPos)
 
-    // save state to pass to ArrangeContextMenu
-    setSelectionSelected(isSelectionSelected)
+      const createSelectionHandler = (
+        e: MouseEvent,
+        mouseMove: (handler: (e: MouseEvent) => void) => void,
+        mouseUp: (handler: (e: MouseEvent) => void) => void
+      ) => {
+        arrangeStartSelection(rootStore)(startPos)
 
-    const createSelectionHandler = (
-      e: MouseEvent,
-      mouseMove: (handler: (e: MouseEvent) => void) => void,
-      mouseUp: (handler: (e: MouseEvent) => void) => void
-    ) => {
-      startSelection(startPos)
-      mouseMove((e) => {
-        resizeSelection(startPos, createPoint(e))
-      })
-      mouseUp((e) => {
-        endSelection(startPos, createPoint(e))
-      })
-    }
+        if (!rootStore.services.player.isPlaying) {
+          setPlayerPosition(rootStore)(startPos.x)
+        }
 
-    const dragSelectionHandler = (
-      e: MouseEvent,
-      mouseMove: (handler: (e: MouseEvent) => void) => void,
-      mouseUp: (handler: (e: MouseEvent) => void) => void
-    ) => {
-      if (selection === null) {
-        return
+        mouseMove((e) => {
+          arrangeResizeSelection(rootStore)(startPos, createPoint(e))
+        })
+        mouseUp((e) => {
+          arrangeEndSelection(rootStore)(startPos, createPoint(e))
+        })
       }
-      const startSelection = cloneDeep(selection)
-      mouseMove((e) => {
-        const delta = pointSub(createPoint(e), startPos)
-        const pos = pointAdd(startSelection, delta)
-        moveSelection(pos)
+
+      const dragSelectionHandler = (
+        e: MouseEvent,
+        mouseMove: (handler: (e: MouseEvent) => void) => void,
+        mouseUp: (handler: (e: MouseEvent) => void) => void
+      ) => {
+        if (selection === null) {
+          return
+        }
+        const startSelection = cloneDeep(selection)
+        mouseMove((e) => {
+          const delta = pointSub(createPoint(e), startPos)
+          const pos = pointAdd(startSelection, delta)
+          arrangeMoveSelection(rootStore)(pos)
+        })
+        mouseUp((e) => {})
+      }
+
+      let handler
+
+      if (isSelectionSelected) {
+        handler = dragSelectionHandler
+      } else {
+        handler = createSelectionHandler
+      }
+
+      let mouseMove: (e: MouseEvent) => void
+      let mouseUp: (e: MouseEvent) => void
+      handler(
+        e.nativeEvent,
+        (fn) => (mouseMove = fn),
+        (fn) => (mouseUp = fn)
+      )
+
+      observeDrag({
+        onMouseMove: (e) => mouseMove(e),
+        onMouseUp: (e) => mouseUp(e),
       })
-      mouseUp((e) => {})
-    }
+    },
+    [selection, rootStore]
+  )
 
-    let handler
+  const handleMiddleClick = useCallback(
+    (e: React.MouseEvent) => {
+      function createPoint(e: MouseEvent) {
+        return { x: e.clientX, y: e.clientY }
+      }
+      const startPos = createPoint(e.nativeEvent)
 
-    if (isSelectionSelected) {
-      handler = dragSelectionHandler
-    } else {
-      handler = createSelectionHandler
-    }
-
-    let mouseMove: (e: MouseEvent) => void
-    let mouseUp: (e: MouseEvent) => void
-    handler(
-      e.nativeEvent,
-      (fn) => (mouseMove = fn),
-      (fn) => (mouseUp = fn)
-    )
-
-    observeDrag({
-      onMouseMove: (e) => mouseMove(e),
-      onMouseUp: (e) => mouseUp(e),
-    })
-  }
-
-  function handleMiddleClick(e: React.MouseEvent) {
-    function createPoint(e: MouseEvent) {
-      return { x: e.clientX, y: e.clientY }
-    }
-    const startPos = createPoint(e.nativeEvent)
-
-    observeDrag({
-      onMouseMove(e) {
-        const pos = createPoint(e)
-        const delta = pointSub(pos, startPos)
-        setScrollLeft(Math.max(0, scrollLeft - delta.x))
-        setScrollTop(Math.max(0, scrollTop - delta.y))
-      },
-    })
-  }
+      observeDrag({
+        onMouseMove(e) {
+          const pos = createPoint(e)
+          const delta = pointSub(pos, startPos)
+          setScrollLeft(Math.max(0, scrollLeft - delta.x))
+          setScrollTop(Math.max(0, scrollTop - delta.y))
+        },
+      })
+    },
+    [scrollLeft, scrollTop]
+  )
 
   const { onContextMenu, menuProps } = useContextMenu()
 
-  function onMouseDown(e: React.MouseEvent) {
-    const { left, top } = e.currentTarget.getBoundingClientRect()
+  const onMouseDown = useCallback(
+    (e: React.MouseEvent) => {
+      const { left, top } = e.currentTarget.getBoundingClientRect()
 
-    function createPoint(e: MouseEvent) {
-      const x = e.pageX - left + scrollLeft
-      const y = e.pageY - top - Layout.rulerHeight + scrollTop
-      const tick = transform.getTicks(x)
-      return { x: tick, y: y / trackHeight }
+      function createPoint(e: MouseEvent) {
+        const x = e.pageX - left + scrollLeft
+        const y = e.pageY - top - Layout.rulerHeight + scrollTop
+        const tick = transform.getTicks(x)
+        return { x: tick, y: y / trackHeight }
+      }
+
+      switch (e.button) {
+        case 0:
+          handleLeftClick(e, createPoint)
+          break
+        case 1:
+          handleMiddleClick(e)
+          break
+        case 2:
+          onContextMenu(e)
+          break
+        default:
+          break
+      }
+    },
+    [
+      scrollLeft,
+      scrollTop,
+      transform,
+      handleLeftClick,
+      handleMiddleClick,
+      onContextMenu,
+    ]
+  )
+
+  const onWheel = useCallback(
+    (e: React.WheelEvent) => {
+      const scrollLineHeight = trackHeight
+      const delta = scrollLineHeight * (e.deltaY > 0 ? 1 : -1)
+      setScrollTop(scrollTop + delta)
+    },
+    [scrollTop]
+  )
+
+  const [renderer, setRenderer] = useState<ArrangeViewRenderer | null>(null)
+
+  useEffect(() => {
+    if (renderer === null) {
+      return
     }
 
-    switch (e.button) {
-      case 0:
-        handleLeftClick(e, createPoint)
-        break
-      case 1:
-        handleMiddleClick(e)
-        break
-      case 2:
-        onContextMenu(e)
-        break
-      default:
-        break
-    }
-  }
+    const [highlightedBeats, nonHighlightedBeats] = partition(
+      mappedBeats,
+      (b) => b.beat === 0
+    )
 
-  function onWheel(e: React.WheelEvent) {
-    e.preventDefault()
-    const scrollLineHeight = trackHeight
-    const delta = scrollLineHeight * (e.deltaY > 0 ? 1 : -1)
-    setScrollTop(scrollTop + delta)
-  }
+    renderer.theme = theme
+    renderer.render(
+      cursorX,
+      notes,
+      selectionRect ?? zeroRect,
+      nonHighlightedBeats.map((b) => b.x),
+      highlightedBeats.map((b) => b.x),
+      tracks.map((_, i) => trackHeight * (i + 1) - 1),
+      { x: scrollLeft, y: scrollTop }
+    )
+  }, [
+    renderer,
+    tracks.length,
+    scrollLeft,
+    scrollTop,
+    cursorX,
+    notes,
+    mappedBeats,
+    selectionRect,
+  ])
 
   return (
-    <Wrapper ref={ref}>
+    <Wrapper>
+      <HeaderList>
+        <LeftTopSpace style={{ height: Layout.rulerHeight }} />
+        <div
+          style={{
+            marginTop: Layout.rulerHeight,
+            transform: `translateY(${-scrollTop}px)`,
+          }}
+        >
+          {tracks.map((t, i) => (
+            <TrackHeader style={{ height: trackHeight }} key={i}>
+              {t.displayName}
+            </TrackHeader>
+          ))}
+        </div>
+        <LeftBottomSpace style={{ height: BAR_WIDTH }} />
+      </HeaderList>
       <div
-        className="right"
+        ref={ref}
         onMouseDown={onMouseDown}
-        onContextMenu={(e) => e.preventDefault()}
+        onContextMenu={useCallback((e) => e.preventDefault(), [])}
         onWheel={onWheel}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          flexGrow: 1,
+          position: "relative",
+          overflow: "hidden",
+          background: Color(theme.backgroundColor).darken(0.1).hex(),
+        }}
       >
-        <PianoRuler
+        <CanvasPianoRuler
           width={containerWidth}
           beats={mappedBeats}
           scrollLeft={scrollLeft}
-          pixelsPerTick={pixelsPerTick}
+          pixelsPerTick={transform.pixelsPerTick}
+          style={{
+            background: theme.backgroundColor,
+            borderBottom: `1px solid ${theme.dividerColor}`,
+            boxSizing: "border-box",
+          }}
         />
-        <div className="content" style={{ top: -scrollTop }}>
-          <div className="tracks">
-            {tracks.map((t, i) => (
-              <ArrangeTrack
-                width={containerWidth}
-                events={filterEventsWithScroll(
-                  t.events,
-                  pixelsPerTick,
-                  scrollLeft,
-                  containerWidth
-                )}
-                transform={transform}
-                key={i}
-                scrollLeft={scrollLeft}
-                isDrumMode={t.isRhythmTrack}
-              />
-            ))}
-          </div>
-          <PianoGrid height={contentHeight} beats={mappedBeats} />
-          {selectionRect && (
-            <PianoSelection bounds={selectionRect} onRightClick={() => {}} />
+        <GLCanvas
+          style={{ pointerEvents: "none" }}
+          onCreateContext={useCallback(
+            (gl) => setRenderer(new ArrangeViewRenderer(gl)),
+            []
           )}
-          <Container x={transform.getX(playerPosition) - scrollLeft}>
-            <PianoCursor height={contentHeight} />
-          </Container>
-        </div>
+          width={containerWidth}
+          height={contentHeight}
+        />
         <div
           style={{
             width: `calc(100% - ${BAR_WIDTH}px)`,
@@ -468,7 +360,7 @@ const _ArrangeView = (
           <HorizontalScaleScrollBar
             scrollOffset={scrollLeft}
             contentLength={contentWidth}
-            onScroll={onScrollLeft}
+            onScroll={setScrollLeft}
             onClickScaleUp={onClickScaleUp}
             onClickScaleDown={onClickScaleDown}
             onClickScaleReset={onClickScaleReset}
@@ -485,19 +377,21 @@ const _ArrangeView = (
       >
         <VerticalScrollBar
           scrollOffset={scrollTop}
-          contentLength={contentHeight}
-          onScroll={onScrollTop}
+          contentLength={contentHeight + Layout.rulerHeight}
+          onScroll={_setScrollTop}
         />
       </div>
-      <div className="scroll-corner" />
-      <ArrangeContextMenu
-        {...menuProps}
-        isSelectionSelected={isSelectionSelected}
+      <div
+        style={{
+          width: BAR_WIDTH,
+          height: BAR_WIDTH,
+          position: "absolute",
+          bottom: 0,
+          right: 0,
+          background: theme.backgroundColor,
+        }}
       />
+      <ArrangeContextMenu {...menuProps} />
     </Wrapper>
   )
-}
-
-export const ArrangeView = React.forwardRef<HTMLDivElement, ArrangeViewProps>(
-  _ArrangeView
-)
+})

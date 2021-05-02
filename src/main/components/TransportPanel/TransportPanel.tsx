@@ -10,10 +10,8 @@ import {
 import { observer } from "mobx-react-lite"
 import React, { FC } from "react"
 import styled from "styled-components"
-import { getMBTString } from "../../../common/measure/mbt"
 import { fastForwardOneBar, play, rewindOneBar, stop } from "../../actions"
 import { toggleRecording } from "../../actions/recording"
-import { useMemoObserver } from "../../hooks/useMemoObserver"
 import { useStores } from "../../hooks/useStores"
 
 const useStyles = makeStyles((theme) => ({
@@ -105,14 +103,9 @@ const TempoWrapper = styled.div`
   }
 `
 
-const TempoForm: FC = () => {
+const TempoForm: FC = observer(() => {
   const rootStore = useStores()
-  const tempo = useMemoObserver(
-    () =>
-      rootStore.song.conductorTrack?.getTempo(
-        rootStore.services.player.position
-      ) ?? 1
-  )
+  const tempo = rootStore.pianoRollStore.currentTempo
 
   const changeTempo = (tempo: number) => {
     const fixedTempo = Math.max(1, Math.min(512, tempo))
@@ -148,7 +141,7 @@ const TempoForm: FC = () => {
       />
     </TempoWrapper>
   )
-}
+})
 
 const TimestampText = styled.div`
   font-family: "Roboto Mono", monospace;
@@ -156,17 +149,11 @@ const TimestampText = styled.div`
   color: var(--secondary-text-color);
 `
 
-const Timestamp: FC = () => {
-  const rootStore = useStores()
-  const mbtTime = useMemoObserver(() =>
-    getMBTString(
-      rootStore.song.measures,
-      rootStore.services.player.position,
-      rootStore.services.player.timebase
-    )
-  )
+const Timestamp: FC = observer(() => {
+  const { pianoRollStore } = useStores()
+  const mbtTime = pianoRollStore.currentMBTTime
   return <TimestampText>{mbtTime}</TimestampText>
-}
+})
 
 export const ToolbarSeparator = styled.div`
   background: var(--divider-color);

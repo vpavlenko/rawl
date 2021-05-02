@@ -1,8 +1,8 @@
 import React, { FC } from "react"
 import styled from "styled-components"
 import { useStores } from "../../hooks/useStores"
-import { ArrangeToolbar } from "../ArrangeView/ArrangeToolbar"
-import ArrangeView from "./ArrangeView"
+import { ArrangeToolbar } from "./ArrangeToolbar"
+import { ArrangeView } from "./ArrangeView"
 
 interface NavItemProps {
   title: string

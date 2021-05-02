@@ -114,12 +114,12 @@ export default class ArrangeViewStore {
   }
 
   get selectionRect(): IRect | null {
-    const { transform, selection, trackHeight, scrollLeft, scrollTop } = this
+    const { transform, selection, trackHeight } = this
     return (
       selection && {
-        x: transform.getX(selection.x) - scrollLeft,
+        x: transform.getX(selection.x),
         width: transform.getX(selection.width),
-        y: selection.y * trackHeight - scrollTop,
+        y: selection.y * trackHeight,
         height: selection.height * trackHeight,
       }
     )

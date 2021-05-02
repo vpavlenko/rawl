@@ -111,7 +111,7 @@ const PianoRuler: FC<PianoRulerProps> = ({
   pixelsPerTick,
   scrollLeft,
   beats,
-  style
+  style,
 }) => {
   const rootStore = useStores()
   const theme = useTheme()
@@ -144,7 +144,7 @@ const PianoRuler: FC<PianoRulerProps> = ({
     ctx.save()
     ctx.translate(-scrollLeft + 0.5, 0)
     drawRuler(ctx, height, beats, theme)
-    if (loop !== undefined) {
+    if (loop.enabled) {
       drawLoopPoints(ctx, loop, height, pixelsPerTick, theme)
     }
     ctx.restore()

@@ -17,6 +17,7 @@ import {
   arrangeMoveSelection,
   arrangeResizeSelection,
   arrangeStartSelection,
+  setPlayerPosition,
 } from "../../actions"
 import { Layout } from "../../Constants"
 import { useContextMenu } from "../../hooks/useContextMenu"
@@ -155,7 +156,6 @@ export const ArrangeView: FC = observer(() => {
   } = rootStore.arrangeViewStore
 
   const contentHeight = trackHeight * tracks.length
-  const [isSelectionSelected, setSelectionSelected] = useState(false)
 
   function handleLeftClick(
     e: React.MouseEvent,
@@ -165,15 +165,13 @@ export const ArrangeView: FC = observer(() => {
     const isSelectionSelected =
       selection != null && containsPoint(selection, startPos)
 
-    // save state to pass to ArrangeContextMenu
-    setSelectionSelected(isSelectionSelected)
-
     const createSelectionHandler = (
       e: MouseEvent,
       mouseMove: (handler: (e: MouseEvent) => void) => void,
       mouseUp: (handler: (e: MouseEvent) => void) => void
     ) => {
       startSelection(startPos)
+      setPlayerPosition(rootStore)(startPos.x)
       mouseMove((e) => {
         resizeSelection(startPos, createPoint(e))
       })
@@ -346,6 +344,7 @@ export const ArrangeView: FC = observer(() => {
           }}
         />
         <GLCanvas
+          style={{ pointerEvents: "none" }}
           onCreateContext={useCallback(
             (gl) => setRenderer(new ArrangeViewRenderer(gl)),
             []
@@ -394,10 +393,7 @@ export const ArrangeView: FC = observer(() => {
           background: theme.backgroundColor,
         }}
       />
-      <ArrangeContextMenu
-        {...menuProps}
-        isSelectionSelected={isSelectionSelected}
-      />
+      <ArrangeContextMenu {...menuProps} />
     </Wrapper>
   )
 })

@@ -147,7 +147,15 @@ const PianoRollWrapper: FC = observer(() => {
       const scrollX = scrollLeft + deltaX
       setScrollLeft(clampScrollLeft(scrollX))
     },
-    [scrollTop, setScrollTop, transform]
+    [
+      scrollTop,
+      scrollLeft,
+      setScrollTop,
+      setScrollLeft,
+      clampScrollLeft,
+      clampScrollTop,
+      transform,
+    ]
   )
 
   const _scrollLeft = clampScrollLeft(scrollLeft)

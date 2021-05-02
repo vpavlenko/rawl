@@ -16,6 +16,7 @@ export const GLCanvas = ({
   width,
   height,
   onCreateContext,
+  style,
   ...props
 }: GLCanvasProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -60,6 +61,7 @@ export const GLCanvas = ({
       width={width * canvasScale}
       height={height * canvasScale}
       style={{
+        ...style,
         width: width,
         height: height,
       }}

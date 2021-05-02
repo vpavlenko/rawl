@@ -105,13 +105,13 @@ const dragNoteAction = (rootStore: RootStore): MouseGesture => ({
       y: e.nativeEvent.offsetY,
     }
     const position = getPositionType(e)
+    const startTick = e.tick
 
     observeDrag({
       onMouseMove: (e) => {
         const offsetPos = { x: e.offsetX, y: e.offsetY }
         const delta = pointSub(offsetPos, startOffsetPos)
-        const newOffset = pointAdd(delta, startOffsetPos)
-        const tick = transform.getTicks(newOffset.x)
+        const tick = startTick + transform.getTicks(delta.x)
 
         switch (position) {
           case "center": {

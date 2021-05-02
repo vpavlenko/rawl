@@ -18,7 +18,7 @@ export class ArrangeViewRenderer {
   )
 
   private solidRectShader: SolidRectangleShader
-  private solidRectBuffer: SolidRectangleBuffer
+  private noteBuffer: SolidRectangleBuffer
   private cursorBuffer: SolidRectangleBuffer
   private beatBuffer: SolidRectangleBuffer
   private highlightedBeatBuffer: SolidRectangleBuffer
@@ -30,7 +30,7 @@ export class ArrangeViewRenderer {
     this.gl = gl
 
     this.solidRectShader = new SolidRectangleShader(gl)
-    this.solidRectBuffer = new SolidRectangleBuffer(gl)
+    this.noteBuffer = new SolidRectangleBuffer(gl)
     this.cursorBuffer = new SolidRectangleBuffer(gl)
     this.beatBuffer = new SolidRectangleBuffer(gl)
     this.highlightedBeatBuffer = new SolidRectangleBuffer(gl)
@@ -53,14 +53,14 @@ export class ArrangeViewRenderer {
 
   render(
     cursorX: number,
-    rects: IRect[],
+    notes: IRect[],
     beats: number[],
     highlightedBeats: number[],
     lines: number[],
     scroll: IPoint
   ) {
     const { gl } = this
-    this.solidRectBuffer.update(gl, rects)
+    this.noteBuffer.update(gl, notes)
     this.cursorBuffer.update(gl, [this.vline(cursorX)])
     this.beatBuffer.update(gl, beats.map(this.vline))
     this.highlightedBeatBuffer.update(gl, highlightedBeats.map(this.vline))
@@ -139,8 +139,15 @@ export class ArrangeViewRenderer {
       vec3.fromValues(-scroll.x, -scroll.y, 0)
     )
 
+    const projectionMatrixScrollY = mat4.create()
+    mat4.translate(
+      projectionMatrixScrollY,
+      projectionMatrix,
+      vec3.fromValues(0, -scroll.y, 0)
+    )
+
     {
-      this.solidRectShader.uProjectionMatrix.value = projectionMatrixScrollX
+      this.solidRectShader.uProjectionMatrix.value = projectionMatrixScrollY
       this.solidRectShader.uColor.value = colorToVec4(
         Color(this.theme.dividerColor)
       )
@@ -165,8 +172,10 @@ export class ArrangeViewRenderer {
 
     {
       this.solidRectShader.uProjectionMatrix.value = projectionMatrixScrollXY
-      this.solidRectShader.uColor.value = vec4.fromValues(1, 0, 0, 1)
-      this.solidRectShader.draw(gl, this.solidRectBuffer)
+      this.solidRectShader.uColor.value = colorToVec4(
+        Color(this.theme.themeColor)
+      )
+      this.solidRectShader.draw(gl, this.noteBuffer)
     }
 
     {

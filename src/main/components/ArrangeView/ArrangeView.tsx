@@ -7,7 +7,6 @@ import styled from "styled-components"
 import {
   containsPoint,
   IPoint,
-  moveRect,
   pointAdd,
   pointSub,
 } from "../../../common/geometry"
@@ -289,9 +288,10 @@ export const ArrangeView: FC = observer(() => {
           containerWidth
         )
           .filter(isNoteEvent)
-          .map((e) =>
-            moveRect(transform.getRect(e), { x: 0, y: trackHeight * i })
-          )
+          .map((e) => {
+            const rect = transform.getRect(e)
+            return { ...rect, height: 1, y: trackHeight * i + rect.y }
+          })
       )
       .flat()
 
@@ -314,7 +314,7 @@ export const ArrangeView: FC = observer(() => {
   }, [renderer, tracks, scrollLeft, scrollTop, playerPosition, transform])
 
   return (
-    <Wrapper ref={ref}>
+    <Wrapper>
       <HeaderList>
         <LeftTopSpace style={{ height: Layout.rulerHeight }} />
         {tracks.map((t, i) => (
@@ -324,12 +324,15 @@ export const ArrangeView: FC = observer(() => {
         ))}
       </HeaderList>
       <div
+        ref={ref}
         onMouseDown={onMouseDown}
         onContextMenu={(e) => e.preventDefault()}
         onWheel={onWheel}
         style={{
           display: "flex",
           flexDirection: "column",
+          flexGrow: 1,
+          position: "relative",
         }}
       >
         <CanvasPianoRuler

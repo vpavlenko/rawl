@@ -171,7 +171,7 @@ export const TempoGraph: FC = observer(() => {
         width={containerWidth}
         height={canvasHeight}
         style={{ position: "absolute" }}
-        options={{ transparent: true, autoDensity: true, antialias: true }}
+        options={{ backgroundAlpha: 0, autoDensity: true, antialias: true }}
       >
         <StoreContext.Provider value={rootStore}>
           <Container x={Layout.keyWidth}>

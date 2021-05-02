@@ -206,7 +206,7 @@ const ControlPane: FC = observer(() => {
           }}
           width={controlProps.width}
           height={controlProps.height}
-          options={{ transparent: true, autoDensity: true, antialias: true }}
+          options={{ backgroundAlpha: 0, autoDensity: true, antialias: true }}
         >
           <Container x={-scrollLeft}>
             <PianoGrid height={controlProps.height} beats={mappedBeats} />

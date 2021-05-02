@@ -40,8 +40,20 @@ const Wrapper = styled.div`
 `
 
 const LeftTopSpace = styled.div`
+  z-index: 999;
+  position: absolute;
+  width: 100%;
   box-sizing: border-box;
   border-bottom: 1px solid var(--divider-color);
+  background: var(--background-color);
+`
+
+const LeftBottomSpace = styled.div`
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background: var(--background-color);
 `
 
 const TrackHeader = styled.div`
@@ -57,6 +69,7 @@ const TrackHeader = styled.div`
 `
 
 const HeaderList = styled.div`
+  position: relative;
   border-right: 1px solid var(--divider-color);
 `
 
@@ -125,7 +138,10 @@ export const ArrangeView: FC = observer(() => {
   const containerHeight = size.height
 
   function setScrollTop(scroll: number) {
-    const maxOffset = Math.max(0, contentHeight - containerHeight)
+    const maxOffset = Math.max(
+      0,
+      contentHeight + Layout.rulerHeight + BAR_WIDTH - containerHeight
+    )
     _setScrollTop(Math.floor(Math.min(maxOffset, Math.max(0, scroll))))
   }
 
@@ -293,6 +309,7 @@ export const ArrangeView: FC = observer(() => {
         <LeftTopSpace style={{ height: Layout.rulerHeight }} />
         <div
           style={{
+            marginTop: Layout.rulerHeight,
             transform: `translateY(${-scrollTop}px)`,
           }}
         >
@@ -302,6 +319,7 @@ export const ArrangeView: FC = observer(() => {
             </TrackHeader>
           ))}
         </div>
+        <LeftBottomSpace style={{ height: BAR_WIDTH }} />
       </HeaderList>
       <div
         ref={ref}
@@ -313,6 +331,7 @@ export const ArrangeView: FC = observer(() => {
           flexDirection: "column",
           flexGrow: 1,
           position: "relative",
+          overflow: "hidden",
         }}
       >
         <CanvasPianoRuler
@@ -361,11 +380,20 @@ export const ArrangeView: FC = observer(() => {
       >
         <VerticalScrollBar
           scrollOffset={scrollTop}
-          contentLength={contentHeight}
+          contentLength={contentHeight + Layout.rulerHeight}
           onScroll={_setScrollTop}
         />
       </div>
-      <div className="scroll-corner" />
+      <div
+        style={{
+          width: BAR_WIDTH,
+          height: BAR_WIDTH,
+          position: "absolute",
+          bottom: 0,
+          right: 0,
+          background: theme.backgroundColor,
+        }}
+      />
       <ArrangeContextMenu
         {...menuProps}
         isSelectionSelected={isSelectionSelected}

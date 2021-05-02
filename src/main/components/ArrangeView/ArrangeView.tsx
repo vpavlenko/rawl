@@ -417,7 +417,10 @@ export const ArrangeView: FC = observer(() => {
           )
       )
       .flat()
-    renderer.render(rects, { x: scrollLeft, y: scrollTop })
+
+    const cursorX = transform.getX(playerPosition) - scrollLeft
+
+    renderer.render(cursorX, rects, { x: scrollLeft, y: scrollTop })
   }, [renderer, tracks, scrollLeft, scrollTop])
 
   return (

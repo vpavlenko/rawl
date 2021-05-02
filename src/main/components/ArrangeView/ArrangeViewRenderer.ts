@@ -1,10 +1,10 @@
 import { mat4, vec3, vec4 } from "gl-matrix"
 import { IPoint, IRect, ISize } from "../../../common/geometry"
-import {
-  BorderedRectangleBuffer,
-  BorderedRectangleShader,
-} from "../PianoRoll/PianoRollRenderer/BorderedRectangleShader"
 import { RenderProperty } from "../PianoRoll/PianoRollRenderer/RenderProperty"
+import {
+  SolidRectangleBuffer,
+  SolidRectangleShader,
+} from "../PianoRoll/PianoRollRenderer/SolidRectangleShader"
 
 export class ArrangeViewRenderer {
   private gl: WebGLRenderingContext
@@ -14,18 +14,30 @@ export class ArrangeViewRenderer {
     (a, b) => a.width === b.width && a.height === b.height
   )
 
-  private rectShader: BorderedRectangleShader
-  private rectBuffer: BorderedRectangleBuffer
+  private solidRectShader: SolidRectangleShader
+  private solidRectBuffer: SolidRectangleBuffer
+  private cursorBuffer: SolidRectangleBuffer
 
   constructor(gl: WebGLRenderingContext) {
     this.gl = gl
 
-    this.rectShader = new BorderedRectangleShader(gl)
-    this.rectBuffer = new BorderedRectangleBuffer(gl)
+    this.solidRectShader = new SolidRectangleShader(gl)
+    this.solidRectBuffer = new SolidRectangleBuffer(gl)
+    this.cursorBuffer = new SolidRectangleBuffer(gl)
   }
 
-  render(rects: IRect[], scroll: IPoint) {
-    this.rectBuffer.update(this.gl, rects)
+  private vline = (x: number): IRect => ({
+    x,
+    y: 0,
+    width: 1,
+    height: this.viewSize.value.height,
+  })
+
+  render(cursorX: number, rects: IRect[], scroll: IPoint) {
+    const { gl } = this
+    this.solidRectBuffer.update(gl, rects)
+    this.cursorBuffer.update(gl, [this.vline(cursorX)])
+
     this.draw(scroll)
   }
 
@@ -85,6 +97,13 @@ export class ArrangeViewRenderer {
       zFar
     )
 
+    const projectionMatrixScrollX = mat4.create()
+    mat4.translate(
+      projectionMatrixScrollX,
+      projectionMatrix,
+      vec3.fromValues(-scroll.x, 0, 0)
+    )
+
     const projectionMatrixScrollXY = mat4.create()
     mat4.translate(
       projectionMatrixScrollXY,
@@ -93,10 +112,15 @@ export class ArrangeViewRenderer {
     )
 
     {
-      this.rectShader.uProjectionMatrix.value = projectionMatrixScrollXY
-      this.rectShader.uStrokeColor.value = vec4.fromValues(1, 0, 0, 1)
-      this.rectShader.uFillColor.value = vec4.fromValues(1, 0, 0, 1)
-      this.rectShader.draw(gl, this.rectBuffer)
+      this.solidRectShader.uProjectionMatrix.value = projectionMatrixScrollXY
+      this.solidRectShader.uColor.value = vec4.fromValues(1, 0, 0, 1)
+      this.solidRectShader.draw(gl, this.solidRectBuffer)
+    }
+
+    {
+      this.solidRectShader.uProjectionMatrix.value = projectionMatrixScrollX
+      this.solidRectShader.uColor.value = vec4.fromValues(1, 0, 0, 1)
+      this.solidRectShader.draw(gl, this.cursorBuffer)
     }
   }
 }

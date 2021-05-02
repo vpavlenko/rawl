@@ -48,13 +48,13 @@ export default class Sequencer<T> {
   private readonly lookAhead: number
 
   // 再生開始時刻
-  private startTime: number | null
+  private startTime: number | null = null
 
   // 再生開始時の相対時間
-  private startTimeRelative: number | null
+  private startTimeRelative: number | null = null
 
   // スケジュール済みの相対時間
-  private scheduledTime: number
+  private scheduledTime: number = 0
 
   private intervalId: any // Timer (node) or number (browser)
 

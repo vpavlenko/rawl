@@ -11,7 +11,7 @@ export interface MouseGesture {
 
 export default class NoteMouseHandler {
   protected readonly rootStore: RootStore
-  private action: MouseGesture | null
+  private action: MouseGesture | null = null
 
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore

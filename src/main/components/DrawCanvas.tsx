@@ -1,5 +1,5 @@
 import { isNumber } from "lodash"
-import React, { CanvasHTMLAttributes, Component } from "react"
+import { CanvasHTMLAttributes, Component } from "react"
 
 export interface DrawCanvasProps
   extends CanvasHTMLAttributes<HTMLCanvasElement> {
@@ -7,11 +7,11 @@ export interface DrawCanvasProps
 }
 
 export default class DrawCanvas extends Component<DrawCanvasProps> {
-  private canvas: HTMLCanvasElement
-  private ctx: CanvasRenderingContext2D
+  private canvas: HTMLCanvasElement | undefined
+  private ctx: CanvasRenderingContext2D | undefined
 
   componentDidMount() {
-    const ctx = this.canvas.getContext("2d")
+    const ctx = this.canvas?.getContext("2d")
     if (ctx === null) {
       throw new Error("failed to getContext 2d")
     }
@@ -24,7 +24,7 @@ export default class DrawCanvas extends Component<DrawCanvasProps> {
   }
 
   drawCanvas() {
-    if (this.props.draw) {
+    if (this.props.draw && this.ctx) {
       this.ctx.save()
       this.ctx.scale(window.devicePixelRatio, window.devicePixelRatio)
       this.props.draw(this.ctx)

@@ -1,5 +1,5 @@
 import range from "lodash/range"
-import React, { FC } from "react"
+import { FC } from "react"
 import styled from "styled-components"
 import { TempoCoordTransform } from "../../../common/transform"
 

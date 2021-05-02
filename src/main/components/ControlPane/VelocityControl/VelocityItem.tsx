@@ -1,6 +1,6 @@
 import { Graphics } from "@inlet/react-pixi"
 import isEqual from "lodash/isEqual"
-import { Graphics as PIXIGraphics, Rectangle } from "pixi.js"
+import { Graphics as PIXIGraphics, InteractionEvent, Rectangle } from "pixi.js"
 import React, { FC } from "react"
 import { IRect } from "../../../../common/geometry"
 
@@ -14,7 +14,7 @@ export interface VelocityItemProps {
 }
 
 export interface VelocityItemEvent {
-  originalEvent: PIXI.InteractionEvent
+  originalEvent: InteractionEvent
   item: VelocityItemProps
 }
 

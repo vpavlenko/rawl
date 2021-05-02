@@ -1,7 +1,7 @@
 import { AppBar, IconButton, makeStyles, Toolbar } from "@material-ui/core"
 import { KeyboardTab, Menu as MenuIcon } from "@material-ui/icons"
 import { observer } from "mobx-react-lite"
-import React, { FC, useCallback } from "react"
+import { FC, useCallback } from "react"
 import styled from "styled-components"
 import { localized } from "../../../common/localize/localizedString"
 import { useStores } from "../../hooks/useStores"

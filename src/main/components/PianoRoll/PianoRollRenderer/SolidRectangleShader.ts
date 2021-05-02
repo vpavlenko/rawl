@@ -7,7 +7,7 @@ import { Uniform, uniformMat4, uniformVec4 } from "./Uniform"
 
 export class SolidRectangleBuffer {
   readonly positionBuffer: WebGLBuffer
-  private _vertexCount: number
+  private _vertexCount: number = 0
 
   constructor(gl: WebGLRenderingContext) {
     this.positionBuffer = gl.createBuffer()!

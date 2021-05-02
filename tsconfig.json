@@ -6,7 +6,7 @@
     "target": "es5",
     "module": "esnext",
     "esModuleInterop": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": true,
@@ -14,7 +14,8 @@
     "strictNullChecks": true,
     "alwaysStrict": true,
     "useDefineForClassFields": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "strict": true
   },
   "exclude": ["node_modules", "src/submodules", "**/*.test.ts"]
 }

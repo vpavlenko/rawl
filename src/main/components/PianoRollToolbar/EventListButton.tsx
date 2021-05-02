@@ -1,6 +1,6 @@
 import { Button } from "@material-ui/core"
 import { VerticalSplit } from "@material-ui/icons"
-import React, { FC, useCallback } from "react"
+import { FC, useCallback } from "react"
 import styled from "styled-components"
 import { useStores } from "../../hooks/useStores"
 

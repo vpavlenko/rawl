@@ -1,7 +1,7 @@
 import { PixiComponent } from "@inlet/react-pixi"
 import Color from "color"
 import isEqual from "lodash/isEqual"
-import { Graphics as PIXIGraphics, Rectangle } from "pixi.js"
+import { Graphics as PIXIGraphics, InteractionEvent, Rectangle } from "pixi.js"
 import React, { FC } from "react"
 import { IRect } from "../../../common/geometry"
 import { useTheme } from "../../hooks/useTheme"
@@ -11,7 +11,7 @@ const LINE_WIDTH = 2
 interface RectProps {
   color: number
   bounds: IRect
-  rightclick: (e: PIXI.InteractionEvent) => void
+  rightclick: (e: InteractionEvent) => void
 }
 
 const Rect = PixiComponent<RectProps, PIXIGraphics>("Rectangle", {
@@ -33,7 +33,7 @@ const Rect = PixiComponent<RectProps, PIXIGraphics>("Rectangle", {
 
 export interface PianoSelectionProps {
   bounds: IRect
-  onRightClick: (e: PIXI.InteractionEvent) => void
+  onRightClick: (e: InteractionEvent) => void
 }
 
 const PianoSelection: FC<PianoSelectionProps> = ({ bounds, onRightClick }) => {

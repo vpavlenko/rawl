@@ -8,7 +8,7 @@ import {
   Stop,
 } from "@material-ui/icons"
 import { observer } from "mobx-react-lite"
-import React, { FC } from "react"
+import { FC } from "react"
 import styled from "styled-components"
 import { fastForwardOneBar, play, rewindOneBar, stop } from "../../actions"
 import { toggleRecording } from "../../actions/recording"

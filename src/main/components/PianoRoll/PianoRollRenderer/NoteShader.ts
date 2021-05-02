@@ -25,7 +25,7 @@ export class NoteBuffer {
   readonly velocitiesBuffer: WebGLBuffer
   readonly selectionBuffer: WebGLBuffer
 
-  private _vertexCount: number
+  private _vertexCount: number = 0
 
   constructor(gl: WebGLRenderingContext) {
     this.positionBuffer = gl.createBuffer()!

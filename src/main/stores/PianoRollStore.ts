@@ -46,7 +46,7 @@ export default class PianoRollStore {
   }
   presetNames: LoadSoundFontEvent["presetNames"] = [[]]
   ghostTracks: GhostTrackIdMap = {}
-  canvasWidth: number
+  canvasWidth: number = 0
   showEventList = false
 
   constructor(rootStore: RootStore) {

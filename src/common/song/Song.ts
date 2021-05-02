@@ -21,7 +21,7 @@ export default class Song {
   selectedTrackId: number = 0
   filepath: string = ""
   timebase: number = TIME_BASE
-  name: string
+  name: string = ""
 
   private _endOfSong: number = 0
 

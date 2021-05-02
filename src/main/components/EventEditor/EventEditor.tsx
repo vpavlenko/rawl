@@ -6,7 +6,7 @@ import {
   DialogTitle,
 } from "@material-ui/core"
 import { observer } from "mobx-react-lite"
-import React, { FC } from "react"
+import { FC } from "react"
 import { localized } from "../../../common/localize/localizedString"
 import { useStores } from "../../hooks/useStores"
 import EventList from "./EventList"

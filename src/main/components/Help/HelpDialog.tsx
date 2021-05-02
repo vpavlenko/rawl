@@ -7,7 +7,7 @@ import {
   DialogTitle,
 } from "@material-ui/core"
 import { observer } from "mobx-react-lite"
-import React, { FC, ReactNode } from "react"
+import { FC, ReactNode } from "react"
 import styled from "styled-components"
 import { localized } from "../../../common/localize/localizedString"
 import { useStores } from "../../hooks/useStores"

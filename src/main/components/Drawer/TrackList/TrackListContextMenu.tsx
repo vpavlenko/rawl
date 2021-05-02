@@ -1,5 +1,5 @@
 import { Menu, MenuItem } from "@material-ui/core"
-import React, { FC } from "react"
+import { FC } from "react"
 import { IPoint } from "../../../../common/geometry"
 import { localized } from "../../../../common/localize/localizedString"
 

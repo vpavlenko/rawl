@@ -1,5 +1,5 @@
 import { List, ListItem, ListItemText } from "@material-ui/core"
-import React, { ChangeEvent, FC } from "react"
+import { ChangeEvent, FC } from "react"
 import { localized } from "../../../common/localize/localizedString"
 import { createSong, openSong, saveSong } from "../../actions"
 import { useStores } from "../../hooks/useStores"

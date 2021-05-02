@@ -22,6 +22,7 @@ export class ArrangeViewRenderer {
   private cursorBuffer: SolidRectangleBuffer
   private beatBuffer: SolidRectangleBuffer
   private highlightedBeatBuffer: SolidRectangleBuffer
+  private lineBuffer: SolidRectangleBuffer
 
   theme: Theme = defaultTheme
 
@@ -33,6 +34,7 @@ export class ArrangeViewRenderer {
     this.cursorBuffer = new SolidRectangleBuffer(gl)
     this.beatBuffer = new SolidRectangleBuffer(gl)
     this.highlightedBeatBuffer = new SolidRectangleBuffer(gl)
+    this.lineBuffer = new SolidRectangleBuffer(gl)
   }
 
   private vline = (x: number): IRect => ({
@@ -42,11 +44,19 @@ export class ArrangeViewRenderer {
     height: this.viewSize.value.height,
   })
 
+  private hline = (y: number): IRect => ({
+    x: 0,
+    y,
+    width: this.viewSize.value.width,
+    height: 1,
+  })
+
   render(
     cursorX: number,
     rects: IRect[],
     beats: number[],
     highlightedBeats: number[],
+    lines: number[],
     scroll: IPoint
   ) {
     const { gl } = this
@@ -54,6 +64,7 @@ export class ArrangeViewRenderer {
     this.cursorBuffer.update(gl, [this.vline(cursorX)])
     this.beatBuffer.update(gl, beats.map(this.vline))
     this.highlightedBeatBuffer.update(gl, highlightedBeats.map(this.vline))
+    this.lineBuffer.update(gl, lines.map(this.hline))
 
     this.draw(scroll)
   }
@@ -127,6 +138,14 @@ export class ArrangeViewRenderer {
       projectionMatrix,
       vec3.fromValues(-scroll.x, -scroll.y, 0)
     )
+
+    {
+      this.solidRectShader.uProjectionMatrix.value = projectionMatrixScrollX
+      this.solidRectShader.uColor.value = colorToVec4(
+        Color(this.theme.dividerColor)
+      )
+      this.solidRectShader.draw(gl, this.lineBuffer)
+    }
 
     {
       this.solidRectShader.uProjectionMatrix.value = projectionMatrixScrollX

@@ -295,7 +295,7 @@ export const ArrangeView: FC = observer(() => {
       )
       .flat()
 
-    const cursorX = transform.getX(playerPosition) - scrollLeft
+    const cursorX = transform.getX(playerPosition)
 
     const [highlightedBeats, nonHighlightedBeats] = partition(
       mappedBeats,
@@ -308,6 +308,7 @@ export const ArrangeView: FC = observer(() => {
       rects,
       nonHighlightedBeats.map((b) => b.x),
       highlightedBeats.map((b) => b.x),
+      tracks.map((_, i) => trackHeight * (i + 1) - 1),
       { x: scrollLeft, y: scrollTop }
     )
   }, [renderer, tracks, scrollLeft, scrollTop, playerPosition, transform])
@@ -323,10 +324,13 @@ export const ArrangeView: FC = observer(() => {
         ))}
       </HeaderList>
       <div
-        className="right"
         onMouseDown={onMouseDown}
         onContextMenu={(e) => e.preventDefault()}
         onWheel={onWheel}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+        }}
       >
         <CanvasPianoRuler
           width={containerWidth}
@@ -336,6 +340,7 @@ export const ArrangeView: FC = observer(() => {
           style={{
             background: theme.backgroundColor,
             borderBottom: `1px solid ${theme.dividerColor}`,
+            boxSizing: "border-box",
           }}
         />
         <GLCanvas

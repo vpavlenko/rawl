@@ -36,6 +36,7 @@ const Wrapper = styled.div`
   flex-direction: row;
   position: relative;
   background: var(--background-color);
+  overflow: hidden;
 `
 
 const LeftTopSpace = styled.div`
@@ -76,8 +77,8 @@ export const ArrangeView: FC = observer(() => {
 
   const keyHeight = 0.3
 
-  const _scrollLeft = rootStore.arrangeViewStore.scrollLeft
-  const _setScrollLeft = (v: number) =>
+  const scrollLeft = rootStore.arrangeViewStore.scrollLeft
+  const setScrollLeft = (v: number) =>
     rootStore.arrangeViewStore.setScrollLeft(v)
   const scrollTop = rootStore.arrangeViewStore.scrollTop
   const _setScrollTop = (v: number) =>
@@ -93,7 +94,7 @@ export const ArrangeView: FC = observer(() => {
     // keep scroll position to cursor
     if (autoScroll && isPlaying) {
       const x = transform.getX(playerPosition)
-      const screenX = x - _scrollLeft
+      const screenX = x - scrollLeft
       if (screenX > size.width * 0.7 || screenX < 0) {
         setScrollLeft(x)
       }
@@ -101,7 +102,7 @@ export const ArrangeView: FC = observer(() => {
   }, [
     autoScroll,
     isPlaying,
-    _scrollLeft,
+    scrollLeft,
     playerPosition,
     pixelsPerTick,
     size.width,
@@ -120,10 +121,13 @@ export const ArrangeView: FC = observer(() => {
 
   const moveSelection = (pos: IPoint) => arrangeMoveSelection(rootStore)(pos)
 
-  const scrollLeft = Math.floor(_scrollLeft)
-
   const containerWidth = size.width
   const containerHeight = size.height
+
+  function setScrollTop(scroll: number) {
+    const maxOffset = Math.max(0, contentHeight - containerHeight)
+    _setScrollTop(Math.floor(Math.min(maxOffset, Math.max(0, scroll))))
+  }
 
   const {
     notes,
@@ -135,14 +139,6 @@ export const ArrangeView: FC = observer(() => {
   } = rootStore.arrangeViewStore
 
   const contentHeight = trackHeight * tracks.length
-
-  function setScrollLeft(scroll: number) {}
-
-  function setScrollTop(scroll: number) {
-    const maxOffset = Math.max(0, contentHeight - containerHeight)
-    _setScrollTop(Math.floor(Math.min(maxOffset, Math.max(0, scroll))))
-  }
-
   const [isSelectionSelected, setSelectionSelected] = useState(false)
 
   function handleLeftClick(
@@ -295,11 +291,17 @@ export const ArrangeView: FC = observer(() => {
     <Wrapper>
       <HeaderList>
         <LeftTopSpace style={{ height: Layout.rulerHeight }} />
-        {tracks.map((t, i) => (
-          <TrackHeader style={{ height: trackHeight }} key={i}>
-            {t.displayName}
-          </TrackHeader>
-        ))}
+        <div
+          style={{
+            transform: `translateY(${-scrollTop}px)`,
+          }}
+        >
+          {tracks.map((t, i) => (
+            <TrackHeader style={{ height: trackHeight }} key={i}>
+              {t.displayName}
+            </TrackHeader>
+          ))}
+        </div>
       </HeaderList>
       <div
         ref={ref}
@@ -342,7 +344,7 @@ export const ArrangeView: FC = observer(() => {
           <HorizontalScaleScrollBar
             scrollOffset={scrollLeft}
             contentLength={contentWidth}
-            onScroll={_setScrollLeft}
+            onScroll={setScrollLeft}
             onClickScaleUp={onClickScaleUp}
             onClickScaleDown={onClickScaleDown}
             onClickScaleReset={onClickScaleReset}

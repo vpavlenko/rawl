@@ -135,7 +135,7 @@ export const TempoGraph: FC = observer(() => {
       cursorX,
       scrollLeft
     )
-  }, [items, theme, scrollLeft])
+  }, [items, mappedBeats, theme, scrollLeft, cursorX])
 
   return (
     <Wrapper ref={ref}>

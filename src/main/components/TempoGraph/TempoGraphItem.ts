@@ -1,43 +1,7 @@
 import { IRect } from "../../../common/geometry"
-import { CanvasDrawStyle } from "../../style"
-import Item from "../Stage/Item"
 
-export default class TempoGraphItem implements Item {
+export interface TempoGraphItem {
   id: number
   bounds: IRect
-  fillColor: CanvasDrawStyle
-  strokeColor: CanvasDrawStyle
   microsecondsPerBeat: number
-
-  constructor(
-    id: number,
-    x: number,
-    y: number,
-    width: number,
-    height: number,
-    fillColor: CanvasDrawStyle,
-    strokeColor: CanvasDrawStyle,
-    microsecondsPerBeat: number
-  ) {
-    this.id = id
-    this.bounds = { x, y, width, height }
-    this.fillColor = fillColor
-    this.strokeColor = strokeColor
-    this.microsecondsPerBeat = microsecondsPerBeat
-  }
-
-  render(ctx: CanvasRenderingContext2D) {
-    ctx.fillStyle = this.fillColor
-    ctx.strokeStyle = this.strokeColor
-    ctx.lineWidth = 1
-    ctx.beginPath()
-    ctx.rect(
-      this.bounds.x,
-      this.bounds.y,
-      this.bounds.width,
-      this.bounds.height
-    )
-    ctx.fill()
-    ctx.stroke()
-  }
 }

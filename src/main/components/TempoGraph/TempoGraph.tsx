@@ -1,47 +1,29 @@
-import { Container, Stage as PixiStage } from "@inlet/react-pixi"
 import useComponentSize from "@rehooks/component-size"
-import { SetTempoEvent } from "midifile-ts"
+import { partition, range } from "lodash"
 import { observer } from "mobx-react-lite"
-import { FC, useCallback, useEffect, useRef } from "react"
+import React, { FC, useCallback, useEffect, useRef, useState } from "react"
 import styled from "styled-components"
+import { containsPoint, IPoint } from "../../../common/geometry"
 import { bpmToUSecPerBeat, uSecPerBeatToBPM } from "../../../common/helpers/bpm"
-import { TrackEvent } from "../../../common/track"
 import {
   changeTempo as _changeTempo,
   createTempo as _createTempo,
 } from "../../actions"
 import { Layout } from "../../Constants"
-import { StoreContext, useStores } from "../../hooks/useStores"
+import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
+import { GLCanvas } from "../GLCanvas/GLCanvas"
 import { BAR_WIDTH, HorizontalScrollBar } from "../inputs/ScrollBar"
+import CanvasPianoRuler from "../PianoRoll/CanvasPianoRuler"
 import { observeDrag } from "../PianoRoll/MouseHandler/observeDrag"
-import PianoCursor from "../PianoRoll/PianoCursor"
-import PianoGrid from "../PianoRoll/PianoGrid"
-import PianoRuler from "../PianoRoll/PianoRuler"
-import Stage, { StageMouseEvent } from "../Stage/Stage"
-import { HorizontalLines } from "./HorizontalLines"
 import { TempoGraphAxis } from "./TempoGraphAxis"
-import TempoGraphItem from "./TempoGraphItem"
-
-type DisplayEvent = TrackEvent & SetTempoEvent
+import { TempoGraphRenderer } from "./TempoGraphRenderer"
 
 const Wrapper = styled.div`
   position: relative;
   flex-grow: 1;
   background: var(--background-color);
   color: var(--secondary-text-color);
-
-  .HorizontalLines,
-  .Graph {
-    position: absolute;
-    top: var(--ruler-height);
-    pointer-events: none;
-    margin-left: var(--key-width);
-  }
-
-  .Graph {
-    pointer-events: all;
-  }
 `
 
 export const TempoGraph: FC = observer(() => {
@@ -80,20 +62,28 @@ export const TempoGraph: FC = observer(() => {
     rootStore.tempoEditorStore.canvasHeight = contentHeight
   }, [containerWidth, contentHeight])
 
-  useEffect(() => {
-    rootStore.tempoEditorStore.theme = theme
-  }, [theme])
+  const getLocal = useCallback(
+    (e: MouseEvent) => ({
+      x: e.offsetX + scrollLeft,
+      y: e.offsetY,
+    }),
+    [scrollLeft]
+  )
 
-  function onMouseDownGraph(e: StageMouseEvent<MouseEvent, TempoGraphItem>) {
-    const item = e.item
+  const findEvent = useCallback(
+    (local: IPoint) => items.find((n) => containsPoint(n.bounds, local)),
+    [items]
+  )
+
+  function onMouseDownGraph(e: React.MouseEvent) {
+    const local = getLocal(e.nativeEvent)
+    const item = findEvent(local)
     if (!item) {
       return
     }
-
     const event = items.filter((ev) => ev.id === item.id)[0]
     const bpm = uSecPerBeatToBPM(event.microsecondsPerBeat)
     const startY = e.nativeEvent.clientY
-
     observeDrag({
       onMouseMove: (e) => {
         const delta = transform.getDeltaBPM(e.clientY - startY)
@@ -102,8 +92,9 @@ export const TempoGraph: FC = observer(() => {
     })
   }
 
-  function onWheelGraph(e: StageMouseEvent<WheelEvent, TempoGraphItem>) {
-    const item = e.item
+  function onWheelGraph(e: React.WheelEvent) {
+    const local = getLocal(e.nativeEvent)
+    const item = findEvent(local)
     if (!item) {
       return
     }
@@ -113,56 +104,69 @@ export const TempoGraph: FC = observer(() => {
     changeTempo(event.id, bpmToUSecPerBeat(bpm + movement))
   }
 
-  function onDoubleClickGraph(e: StageMouseEvent<MouseEvent, TempoGraphItem>) {
-    const tick = transform.getTicks(e.local.x)
-    const bpm = transform.getBPM(e.local.y)
+  function onDoubleClickGraph(e: React.MouseEvent) {
+    const local = getLocal(e.nativeEvent)
+    const tick = transform.getTicks(local.x)
+    const bpm = transform.getBPM(local.y)
     createTempo(tick, uSecPerBeatToBPM(bpm))
   }
 
-  const width = containerWidth
+  const [renderer, setRenderer] = useState<TempoGraphRenderer | null>(null)
 
-  const canvasHeight = containerHeight - BAR_WIDTH
+  useEffect(() => {
+    if (renderer === null) {
+      return
+    }
+
+    const [highlightedBeats, nonHighlightedBeats] = partition(
+      mappedBeats,
+      (b) => b.beat === 0
+    )
+
+    // 30 -> 510 を 17 分割した線
+    const lines = range(30, transform.maxBPM, 30).map((i) => transform.getY(i))
+
+    renderer.theme = theme
+    renderer.render(
+      items.map((i) => i.bounds),
+      nonHighlightedBeats.map((b) => b.x),
+      highlightedBeats.map((b) => b.x),
+      lines,
+      cursorX,
+      scrollLeft
+    )
+  }, [items, theme, scrollLeft])
 
   return (
     <Wrapper ref={ref}>
-      <PixiStage
+      <CanvasPianoRuler
         width={containerWidth}
-        height={canvasHeight}
-        style={{ position: "absolute" }}
-        options={{ backgroundAlpha: 0, autoDensity: true, antialias: true }}
-      >
-        <StoreContext.Provider value={rootStore}>
-          <Container x={Layout.keyWidth}>
-            <Container x={-scrollLeft} y={Layout.rulerHeight}>
-              <PianoGrid height={canvasHeight} beats={mappedBeats} />
-              <Container x={cursorX}>
-                <PianoCursor height={canvasHeight} />
-              </Container>
-            </Container>
-            <PianoRuler
-              width={width}
-              beats={mappedBeats}
-              scrollLeft={scrollLeft}
-              pixelsPerTick={transform.pixelsPerTick}
-            />
-          </Container>
-        </StoreContext.Provider>
-      </PixiStage>
-      <HorizontalLines
-        width={width}
-        height={contentHeight}
-        transform={transform}
-        borderColor={theme.dividerColor}
+        beats={mappedBeats}
+        scrollLeft={scrollLeft}
+        pixelsPerTick={transform.pixelsPerTick}
+        style={{
+          background: theme.backgroundColor,
+          borderBottom: `1px solid ${theme.dividerColor}`,
+          boxSizing: "border-box",
+          position: "absolute",
+          left: Layout.keyWidth,
+        }}
       />
-      <Stage
-        className="Graph"
-        items={items}
-        width={width}
+      <GLCanvas
+        onCreateContext={useCallback(
+          (gl) => setRenderer(new TempoGraphRenderer(gl)),
+          []
+        )}
+        width={containerWidth}
         height={contentHeight}
         onMouseDown={onMouseDownGraph}
         onDoubleClick={onDoubleClickGraph}
         onWheel={onWheelGraph}
-        scrollLeft={scrollLeft}
+        style={{
+          position: "absolute",
+          top: Layout.rulerHeight,
+          left: Layout.keyWidth,
+        }}
       />
       <TempoGraphAxis
         width={Layout.keyWidth}

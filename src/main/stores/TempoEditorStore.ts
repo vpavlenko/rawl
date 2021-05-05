@@ -1,7 +1,5 @@
-import Color from "color"
 import { autorun, computed, makeObservable, observable } from "mobx"
 import { createBeatsInRange } from "../../common/helpers/mapBeats"
-import { defaultTheme, Theme } from "../../common/theme/Theme"
 import { TempoCoordTransform } from "../../common/transform"
 import { DisplayEvent } from "../components/PianoRoll/ControlMark"
 import { transformEvents } from "../components/TempoGraph/transformEvents"
@@ -16,7 +14,6 @@ export default class TempoEditorStore {
   autoScroll: boolean = true
   canvasWidth: number = 0
   canvasHeight: number = 0
-  theme: Theme = defaultTheme
 
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore
@@ -27,7 +24,6 @@ export default class TempoEditorStore {
       autoScroll: observable,
       canvasWidth: observable,
       canvasHeight: observable,
-      theme: observable,
       transform: computed,
       mappedBeats: computed,
       items: computed,
@@ -75,7 +71,7 @@ export default class TempoEditorStore {
   }
 
   get items() {
-    const { transform, canvasWidth, theme } = this
+    const { transform, canvasWidth } = this
 
     const sourceEvents =
       this.rootStore.song.conductorTrack !== undefined
@@ -86,13 +82,7 @@ export default class TempoEditorStore {
       (e) => (e as any).subtype === "setTempo"
     ) as DisplayEvent[]
 
-    return transformEvents(
-      events,
-      transform,
-      canvasWidth,
-      theme.themeColor,
-      Color(theme.themeColor).alpha(0.1).string()
-    )
+    return transformEvents(events, transform, canvasWidth)
   }
 
   get contentWidth() {

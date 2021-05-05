@@ -1,8 +1,7 @@
 import { SetTempoEvent } from "midifile-ts"
 import { TrackEvent } from "../../../common/track"
 import { TempoCoordTransform } from "../../../common/transform"
-import { CanvasDrawStyle } from "../../style"
-import TempoGraphItem from "./TempoGraphItem"
+import { TempoGraphItem } from "./TempoGraphItem"
 
 const isSetTempoEvent = (e: any): e is TrackEvent & SetTempoEvent =>
   e.subtype == "setTempo"
@@ -10,9 +9,7 @@ const isSetTempoEvent = (e: any): e is TrackEvent & SetTempoEvent =>
 export const transformEvents = (
   events: TrackEvent[],
   transform: TempoCoordTransform,
-  width: number,
-  strokeColor: CanvasDrawStyle,
-  fillColor: CanvasDrawStyle
+  width: number
 ): TempoGraphItem[] => {
   // まず位置だけ計算する
   const items = events.filter(isSetTempoEvent).map((e) => {
@@ -31,15 +28,15 @@ export const transformEvents = (
       x: width,
       y: 0,
     }
-    return new TempoGraphItem(
-      e.id,
-      e.x,
-      e.y,
-      nextItem.x - e.x,
-      transform.height,
-      fillColor,
-      strokeColor,
-      e.microsecondsPerBeat
-    )
+    return {
+      id: e.id,
+      bounds: {
+        x: e.x,
+        y: e.y,
+        width: nextItem.x - e.x,
+        height: transform.height,
+      },
+      microsecondsPerBeat: e.microsecondsPerBeat,
+    }
   })
 }

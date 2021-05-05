@@ -1,4 +1,4 @@
-import { ISize } from "pixi.js"
+import { ISize } from "../../../../common/geometry"
 import { Attrib } from "../../../gl/Attrib"
 import { DisplayObject } from "../../../gl/DisplayObject"
 import { Shader } from "../../../gl/Shader"

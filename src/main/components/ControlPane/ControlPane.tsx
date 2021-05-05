@@ -10,12 +10,12 @@ import { changeNotesVelocity, createControlEvent } from "../../actions"
 import { Layout } from "../../Constants"
 import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
-import PianoGrid from "../PianoRoll/PianoGrid"
 import ExpressionGraph from "./Graph/ExpressionGraph"
 import ModulationGraph from "./Graph/ModulationGraph"
 import PanGraph from "./Graph/PanGraph"
 import PitchGraph from "./Graph/PitchGraph"
 import VolumeGraph from "./Graph/VolumeGraph"
+import PianoGrid from "./PianoGrid"
 import PianoVelocityControl from "./VelocityControl/VelocityControl"
 
 interface ButtonItem {

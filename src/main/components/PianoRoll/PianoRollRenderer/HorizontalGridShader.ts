@@ -1,9 +1,14 @@
 import { mat4, vec4 } from "gl-matrix"
 import { ISize } from "pixi.js"
+import { Attrib } from "../../../gl/Attrib"
+import {
+  Uniform,
+  uniformFloat,
+  uniformMat4,
+  uniformVec4,
+} from "../../../gl/Uniform"
 import { rectToTriangles } from "../../../helpers/polygon"
 import { initShaderProgram } from "../../../helpers/webgl"
-import { Attrib } from "./Attrib"
-import { Uniform, uniformFloat, uniformMat4, uniformVec4 } from "./Uniform"
 
 export class HorizontalGridBuffer {
   readonly positionBuffer: WebGLBuffer

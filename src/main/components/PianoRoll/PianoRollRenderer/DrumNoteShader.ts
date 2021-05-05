@@ -1,8 +1,8 @@
 import { mat4, vec4 } from "gl-matrix"
+import { Attrib } from "../../../gl/Attrib"
+import { Uniform, uniformMat4, uniformVec4 } from "../../../gl/Uniform"
 import { initShaderProgram } from "../../../helpers/webgl"
-import { Attrib } from "./Attrib"
 import { NoteBuffer } from "./NoteShader"
-import { Uniform, uniformMat4, uniformVec4 } from "./Uniform"
 
 export class DrumNoteShader {
   private program: WebGLProgram

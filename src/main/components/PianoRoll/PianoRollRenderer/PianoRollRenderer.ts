@@ -8,6 +8,8 @@ import { ISize } from "pixi.js"
 import { IPoint, IRect, zeroPoint, zeroRect } from "../../../../common/geometry"
 import { defaultTheme, Theme } from "../../../../common/theme/Theme"
 import { Layout } from "../../../Constants"
+import { colorToVec4 } from "../../../gl/color"
+import { RenderProperty } from "../../../gl/RenderProperty"
 import { PianoNoteItem } from "../../../stores/PianoRollStore"
 import {
   BorderedCircleBuffer,
@@ -17,14 +19,12 @@ import {
   BorderedRectangleBuffer,
   BorderedRectangleShader,
 } from "./BorderedRectangleShader"
-import { colorToVec4 } from "./color"
 import { DrumNoteShader } from "./DrumNoteShader"
 import {
   HorizontalGridBuffer,
   HorizontalGridShader,
 } from "./HorizontalGridShader"
 import { NoteBuffer, NoteShader } from "./NoteShader"
-import { RenderProperty } from "./RenderProperty"
 import {
   SolidRectangleBuffer,
   SolidRectangleShader,

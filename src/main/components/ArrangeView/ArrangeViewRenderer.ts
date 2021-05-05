@@ -2,12 +2,12 @@ import Color from "color"
 import { mat4, vec3, vec4 } from "gl-matrix"
 import { IPoint, IRect, ISize } from "../../../common/geometry"
 import { defaultTheme, Theme } from "../../../common/theme/Theme"
+import { colorToVec4 } from "../../gl/color"
+import { RenderProperty } from "../../gl/RenderProperty"
 import {
   BorderedRectangleBuffer,
   BorderedRectangleShader,
 } from "../PianoRoll/PianoRollRenderer/BorderedRectangleShader"
-import { colorToVec4 } from "../PianoRoll/PianoRollRenderer/color"
-import { RenderProperty } from "../PianoRoll/PianoRollRenderer/RenderProperty"
 import {
   SolidRectangleBuffer,
   SolidRectangleShader,

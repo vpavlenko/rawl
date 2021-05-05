@@ -10,25 +10,25 @@ import { defaultTheme, Theme } from "../../../../common/theme/Theme"
 import { Layout } from "../../../Constants"
 import { colorToVec4 } from "../../../gl/color"
 import { RenderProperty } from "../../../gl/RenderProperty"
-import { PianoNoteItem } from "../../../stores/PianoRollStore"
 import {
   BorderedCircleBuffer,
   BorderedCircleShader,
-} from "./BorderedCircleShader"
+} from "../../../gl/shaders/BorderedCircleShader"
 import {
   BorderedRectangleBuffer,
   BorderedRectangleShader,
-} from "./BorderedRectangleShader"
+} from "../../../gl/shaders/BorderedRectangleShader"
+import {
+  SolidRectangleBuffer,
+  SolidRectangleShader,
+} from "../../../gl/shaders/SolidRectangleShader"
+import { PianoNoteItem } from "../../../stores/PianoRollStore"
 import { DrumNoteShader } from "./DrumNoteShader"
 import {
   HorizontalGridBuffer,
   HorizontalGridShader,
 } from "./HorizontalGridShader"
 import { NoteBuffer, NoteShader } from "./NoteShader"
-import {
-  SolidRectangleBuffer,
-  SolidRectangleShader,
-} from "./SolidRectangleShader"
 
 export class PianoRollRenderer {
   private gl: WebGLRenderingContext

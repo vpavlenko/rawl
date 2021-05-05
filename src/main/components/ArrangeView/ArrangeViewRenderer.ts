@@ -7,11 +7,11 @@ import { RenderProperty } from "../../gl/RenderProperty"
 import {
   BorderedRectangleBuffer,
   BorderedRectangleShader,
-} from "../PianoRoll/PianoRollRenderer/BorderedRectangleShader"
+} from "../../gl/shaders/BorderedRectangleShader"
 import {
   SolidRectangleBuffer,
   SolidRectangleShader,
-} from "../PianoRoll/PianoRollRenderer/SolidRectangleShader"
+} from "../../gl/shaders/SolidRectangleShader"
 
 export class ArrangeViewRenderer {
   private gl: WebGLRenderingContext

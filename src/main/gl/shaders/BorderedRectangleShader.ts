@@ -1,11 +1,11 @@
 import { mat4, vec4 } from "gl-matrix"
-import { IRect } from "../../../../common/geometry"
-import { Attrib } from "../../../gl/Attrib"
-import { Uniform, uniformMat4, uniformVec4 } from "../../../gl/Uniform"
-import { rectToTriangleBounds, rectToTriangles } from "../../../helpers/polygon"
-import { initShaderProgram } from "../../../helpers/webgl"
+import { IRect } from "../../../common/geometry"
+import { rectToTriangleBounds, rectToTriangles } from "../../helpers/polygon"
+import { initShaderProgram } from "../../helpers/webgl"
+import { Attrib } from "../Attrib"
+import { Uniform, uniformMat4, uniformVec4 } from "../Uniform"
 
-export class BorderedCircleBuffer {
+export class BorderedRectangleBuffer {
   readonly positionBuffer: WebGLBuffer
   readonly boundsBuffer: WebGLBuffer
   private _vertexCount: number = 0
@@ -32,7 +32,7 @@ export class BorderedCircleBuffer {
   }
 }
 
-export class BorderedCircleShader {
+export class BorderedRectangleShader {
   private program: WebGLProgram
 
   private aVertex: Attrib
@@ -72,15 +72,14 @@ export class BorderedCircleShader {
 
       void main() {
         float border = 1.0;
-        
-        float r = vBounds.w / 2.0;
-        vec2 center = vBounds.xy + vBounds.zw / 2.0;
-        float len = length(vPosition - center);
+        float localX = vPosition.x - vBounds.x;
+        float localY = vPosition.y - vBounds.y;
 
-        if (len < r - border) {
-          gl_FragColor = uFillColor;
-        } else if (len < r) {
+        if ((localX < border) || (localX >= (vBounds.z - border)) || (localY < border) || (localY > (vBounds.w - border))) {
+          // draw outline
           gl_FragColor = uStrokeColor;
+        } else {
+          gl_FragColor = uFillColor;
         }
       }
     `
@@ -96,7 +95,7 @@ export class BorderedCircleShader {
     this.uStrokeColor = uniformVec4(gl, program, "uStrokeColor")
   }
 
-  draw(gl: WebGLRenderingContext, buffer: BorderedCircleBuffer) {
+  draw(gl: WebGLRenderingContext, buffer: BorderedRectangleBuffer) {
     if (buffer.vertexCount === 0) {
       return
     }

@@ -1,11 +1,11 @@
 import { mat4, vec4 } from "gl-matrix"
-import { IRect } from "../../../../common/geometry"
-import { Attrib } from "../../../gl/Attrib"
-import { Uniform, uniformMat4, uniformVec4 } from "../../../gl/Uniform"
-import { rectToTriangleBounds, rectToTriangles } from "../../../helpers/polygon"
-import { initShaderProgram } from "../../../helpers/webgl"
+import { IRect } from "../../../common/geometry"
+import { rectToTriangleBounds, rectToTriangles } from "../../helpers/polygon"
+import { initShaderProgram } from "../../helpers/webgl"
+import { Attrib } from "../Attrib"
+import { Uniform, uniformMat4, uniformVec4 } from "../Uniform"
 
-export class BorderedRectangleBuffer {
+export class BorderedCircleBuffer {
   readonly positionBuffer: WebGLBuffer
   readonly boundsBuffer: WebGLBuffer
   private _vertexCount: number = 0
@@ -32,7 +32,7 @@ export class BorderedRectangleBuffer {
   }
 }
 
-export class BorderedRectangleShader {
+export class BorderedCircleShader {
   private program: WebGLProgram
 
   private aVertex: Attrib
@@ -72,14 +72,15 @@ export class BorderedRectangleShader {
 
       void main() {
         float border = 1.0;
-        float localX = vPosition.x - vBounds.x;
-        float localY = vPosition.y - vBounds.y;
+        
+        float r = vBounds.w / 2.0;
+        vec2 center = vBounds.xy + vBounds.zw / 2.0;
+        float len = length(vPosition - center);
 
-        if ((localX < border) || (localX >= (vBounds.z - border)) || (localY < border) || (localY > (vBounds.w - border))) {
-          // draw outline
-          gl_FragColor = uStrokeColor;
-        } else {
+        if (len < r - border) {
           gl_FragColor = uFillColor;
+        } else if (len < r) {
+          gl_FragColor = uStrokeColor;
         }
       }
     `
@@ -95,7 +96,7 @@ export class BorderedRectangleShader {
     this.uStrokeColor = uniformVec4(gl, program, "uStrokeColor")
   }
 
-  draw(gl: WebGLRenderingContext, buffer: BorderedRectangleBuffer) {
+  draw(gl: WebGLRenderingContext, buffer: BorderedCircleBuffer) {
     if (buffer.vertexCount === 0) {
       return
     }

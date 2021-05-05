@@ -1,9 +1,9 @@
 import { mat4, vec4 } from "gl-matrix"
-import { IRect } from "../../../../common/geometry"
-import { Attrib } from "../../../gl/Attrib"
-import { Uniform, uniformMat4, uniformVec4 } from "../../../gl/Uniform"
-import { rectToTriangles } from "../../../helpers/polygon"
-import { initShaderProgram } from "../../../helpers/webgl"
+import { IRect } from "../../../common/geometry"
+import { rectToTriangles } from "../../helpers/polygon"
+import { initShaderProgram } from "../../helpers/webgl"
+import { Attrib } from "../Attrib"
+import { Uniform, uniformMat4, uniformVec4 } from "../Uniform"
 
 export class SolidRectangleBuffer {
   readonly positionBuffer: WebGLBuffer

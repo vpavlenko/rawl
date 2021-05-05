@@ -1,17 +1,8 @@
 import { partition } from "lodash"
 import { observer } from "mobx-react-lite"
-import {
-  FC,
-  MouseEventHandler,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react"
+import { FC, MouseEventHandler, useCallback, useEffect, useState } from "react"
 import { useTheme } from "styled-components"
 import { containsPoint } from "../../../common/geometry"
-import { createBeatsInRange } from "../../../common/helpers/mapBeats"
 import { getSelectionBounds } from "../../../common/selection/Selection"
 import { removeEvent } from "../../actions"
 import { useContextMenu } from "../../hooks/useContextMenu"
@@ -36,10 +27,9 @@ export const PianoNotes: FC<PianoRollStageProps> = observer(
       selection,
       transform,
       notes: [notes, ghostNotes],
+      mappedBeats,
+      cursorX,
     } = rootStore.pianoRollStore
-
-    const { position: playerPosition, timebase } = rootStore.services.player
-    const { measures } = rootStore.song
 
     const theme = useTheme()
 
@@ -47,8 +37,6 @@ export const PianoNotes: FC<PianoRollStageProps> = observer(
     const [selectionMouseHandler] = useState(
       new SelectionMouseHandler(rootStore)
     )
-
-    const startTick = scrollLeft / transform.pixelsPerTick
 
     const mouseHandler =
       mouseMode === "pencil" ? pencilMouseHandler : selectionMouseHandler
@@ -121,21 +109,6 @@ export const PianoNotes: FC<PianoRollStageProps> = observer(
       [mouseHandler, extendEvent]
     )
 
-    const mappedBeats = useMemo(
-      () =>
-        createBeatsInRange(
-          measures,
-          transform.pixelsPerTick,
-          timebase,
-          startTick,
-          width
-        ),
-      [measures, transform, timebase, startTick, width]
-    )
-
-    const cursorPositionX = transform.getX(playerPosition)
-
-    const ref = useRef<HTMLCanvasElement>(null)
     const [renderer, setRenderer] = useState<PianoRollRenderer | null>(null)
 
     useEffect(() => {
@@ -160,7 +133,7 @@ export const PianoNotes: FC<PianoRollStageProps> = observer(
         selectionBounds,
         nonHighlightedBeats.map((b) => b.x),
         highlightedBeats.map((b) => b.x),
-        cursorPositionX,
+        cursorX,
         { x: scrollLeft, y: scrollTop }
       )
     }, [
@@ -170,7 +143,7 @@ export const PianoNotes: FC<PianoRollStageProps> = observer(
       notes,
       ghostNotes,
       mappedBeats,
-      cursorPositionX,
+      cursorX,
       theme,
       scrollLeft,
       scrollTop,

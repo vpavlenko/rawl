@@ -1,8 +1,7 @@
 import { observer } from "mobx-react-lite"
-import { FC, useMemo } from "react"
+import { FC } from "react"
 import styled from "styled-components"
 import { IPoint } from "../../../common/geometry"
-import { createBeatsInRange } from "../../../common/helpers/mapBeats"
 import { NoteCoordTransform } from "../../../common/transform"
 import { Layout } from "../../Constants"
 import { useStores } from "../../hooks/useStores"
@@ -50,29 +49,9 @@ const PianoKeyPosition = styled.div`
 
 export const PianoRollStage: FC<PianoRollStageProps> = observer(
   ({ width, height }) => {
-    const rootStore = useStores()
-
-    const measures = rootStore.song.measures
-    const timebase = rootStore.services.player.timebase
-    const scrollLeft = rootStore.pianoRollStore.scrollLeft
-    const scrollTop = rootStore.pianoRollStore.scrollTop
-    const transform = rootStore.pianoRollStore.transform
-
+    const { pianoRollStore } = useStores()
+    const { scrollLeft, scrollTop, transform, mappedBeats } = pianoRollStore
     const theme = useTheme()
-
-    const startTick = scrollLeft / transform.pixelsPerTick
-
-    const mappedBeats = useMemo(
-      () =>
-        createBeatsInRange(
-          measures,
-          transform.pixelsPerTick,
-          timebase,
-          startTick,
-          width
-        ),
-      [measures, transform, timebase, startTick, width]
-    )
 
     return (
       <Container>

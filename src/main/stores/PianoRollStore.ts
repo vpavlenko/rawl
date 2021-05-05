@@ -2,6 +2,7 @@ import { flatten } from "lodash"
 import { action, autorun, computed, makeObservable, observable } from "mobx"
 import { IRect } from "../../common/geometry"
 import { filterEventsWithScroll } from "../../common/helpers/filterEventsWithScroll"
+import { BeatWithX, createBeatsInRange } from "../../common/helpers/mapBeats"
 import { getMBTString } from "../../common/measure/mbt"
 import { emptySelection } from "../../common/selection/Selection"
 import { isNoteEvent, NoteEvent } from "../../common/track"
@@ -77,6 +78,8 @@ export default class PianoRollStore {
       currentPan: computed,
       currentTempo: computed,
       currentMBTTime: computed,
+      mappedBeats: computed,
+      cursorX: computed,
       scrollBy: action,
       toggleTool: action,
     })
@@ -207,6 +210,24 @@ export default class PianoRollStore {
       this.rootStore.song.measures,
       this.rootStore.services.player.position,
       this.rootStore.services.player.timebase
+    )
+  }
+
+  get cursorX(): number {
+    return this.transform.getX(this.rootStore.services.player.position)
+  }
+
+  get mappedBeats(): BeatWithX[] {
+    const { scrollLeft, transform, canvasWidth } = this
+
+    const startTick = scrollLeft / transform.pixelsPerTick
+
+    return createBeatsInRange(
+      this.rootStore.song.measures,
+      transform.pixelsPerTick,
+      this.rootStore.song.timebase,
+      startTick,
+      canvasWidth
     )
   }
 }

@@ -1,19 +1,14 @@
 import { Container, Stage as PixiStage } from "@inlet/react-pixi"
 import useComponentSize from "@rehooks/component-size"
-import Color from "color"
 import { SetTempoEvent } from "midifile-ts"
-import { toJS } from "mobx"
 import { observer } from "mobx-react-lite"
-import { FC, useEffect, useRef, useState } from "react"
+import { FC, useCallback, useEffect, useRef } from "react"
 import styled from "styled-components"
 import { bpmToUSecPerBeat, uSecPerBeatToBPM } from "../../../common/helpers/bpm"
-import { createBeatsInRange } from "../../../common/helpers/mapBeats"
 import { TrackEvent } from "../../../common/track"
-import { TempoCoordTransform } from "../../../common/transform"
 import {
   changeTempo as _changeTempo,
   createTempo as _createTempo,
-  setPlayerPosition as _setPlayerPosition,
 } from "../../actions"
 import { Layout } from "../../Constants"
 import { StoreContext, useStores } from "../../hooks/useStores"
@@ -27,7 +22,6 @@ import Stage, { StageMouseEvent } from "../Stage/Stage"
 import { HorizontalLines } from "./HorizontalLines"
 import { TempoGraphAxis } from "./TempoGraphAxis"
 import TempoGraphItem from "./TempoGraphItem"
-import transformEvents from "./transformEvents"
 
 type DisplayEvent = TrackEvent & SetTempoEvent
 
@@ -53,70 +47,42 @@ const Wrapper = styled.div`
 export const TempoGraph: FC = observer(() => {
   const rootStore = useStores()
 
-  const isPlaying = rootStore.services.player.isPlaying
-  const pixelsPerTick = Layout.pixelsPerTick * rootStore.tempoEditorStore.scaleX
-  const sourceEvents =
-    rootStore.song.conductorTrack !== undefined
-      ? toJS(rootStore.song.conductorTrack.events)
-      : []
-  const trackEndTick = rootStore.song.endOfSong
-  const measures = rootStore.song.measures
-  const timebase = rootStore.services.player.timebase
-  const autoScroll = rootStore.tempoEditorStore.autoScroll
-  const playerPosition = rootStore.services.player.position
+  const {
+    mappedBeats,
+    items,
+    transform,
+    scrollLeft: _scrollLeft,
+    cursorX,
+    contentWidth,
+  } = rootStore.tempoEditorStore
 
   const ref = useRef(null)
   const size = useComponentSize(ref)
 
-  const [_scrollLeft, setScrollLeft] = useState(0)
-
-  useEffect(() => {
-    // keep scroll position to cursor
-    if (autoScroll && isPlaying) {
-      const transform = new TempoCoordTransform(pixelsPerTick, size.height)
-      const x = transform.getX(playerPosition)
-      const screenX = x - _scrollLeft
-      if (screenX > size.width * 0.7 || screenX < 0) {
-        setScrollLeft(x)
-      }
-    }
-  }, [
-    autoScroll,
-    isPlaying,
-    _scrollLeft,
-    size.width,
-    pixelsPerTick,
-    playerPosition,
-  ])
-
+  const setScrollLeft = useCallback(
+    (x: number) => (rootStore.tempoEditorStore.scrollLeft = x),
+    []
+  )
   const theme = useTheme()
 
   const changeTempo = _changeTempo(rootStore)
   const createTempo = _createTempo(rootStore)
-  const setPlayerPosition = _setPlayerPosition(rootStore)
 
-  const events = sourceEvents.filter(
-    (e) => (e as any).subtype === "setTempo"
-  ) as DisplayEvent[]
   const scrollLeft = Math.floor(_scrollLeft)
 
   const containerWidth = size.width
   const containerHeight = size.height
 
   const contentHeight = containerHeight - Layout.rulerHeight - BAR_WIDTH
-  const transform = new TempoCoordTransform(pixelsPerTick, contentHeight)
-  const startTick = scrollLeft / pixelsPerTick
-  const widthTick = transform.getTicks(containerWidth)
-  const endTick = startTick + widthTick
-  const contentWidth = Math.max(trackEndTick, endTick) * pixelsPerTick
 
-  const items = transformEvents(
-    events,
-    transform,
-    contentWidth,
-    theme.themeColor,
-    Color(theme.themeColor).alpha(0.1).string()
-  )
+  useEffect(() => {
+    rootStore.tempoEditorStore.canvasWidth = containerWidth
+    rootStore.tempoEditorStore.canvasHeight = contentHeight
+  }, [containerWidth, contentHeight])
+
+  useEffect(() => {
+    rootStore.tempoEditorStore.theme = theme
+  }, [theme])
 
   function onMouseDownGraph(e: StageMouseEvent<MouseEvent, TempoGraphItem>) {
     const item = e.item
@@ -124,7 +90,7 @@ export const TempoGraph: FC = observer(() => {
       return
     }
 
-    const event = events.filter((ev) => ev.id === item.id)[0]
+    const event = items.filter((ev) => ev.id === item.id)[0]
     const bpm = uSecPerBeatToBPM(event.microsecondsPerBeat)
     const startY = e.nativeEvent.clientY
 
@@ -141,7 +107,7 @@ export const TempoGraph: FC = observer(() => {
     if (!item) {
       return
     }
-    const event = events.filter((ev) => ev.id === item.id)[0]
+    const event = items.filter((ev) => ev.id === item.id)[0]
     const movement = e.nativeEvent.deltaY > 0 ? -1 : 1
     const bpm = uSecPerBeatToBPM(event.microsecondsPerBeat)
     changeTempo(event.id, bpmToUSecPerBeat(bpm + movement))
@@ -154,14 +120,6 @@ export const TempoGraph: FC = observer(() => {
   }
 
   const width = containerWidth
-
-  const mappedBeats = createBeatsInRange(
-    measures,
-    pixelsPerTick,
-    timebase,
-    startTick,
-    width
-  )
 
   const canvasHeight = containerHeight - BAR_WIDTH
 
@@ -177,7 +135,7 @@ export const TempoGraph: FC = observer(() => {
           <Container x={Layout.keyWidth}>
             <Container x={-scrollLeft} y={Layout.rulerHeight}>
               <PianoGrid height={canvasHeight} beats={mappedBeats} />
-              <Container x={transform.getX(playerPosition)}>
+              <Container x={cursorX}>
                 <PianoCursor height={canvasHeight} />
               </Container>
             </Container>
@@ -185,7 +143,7 @@ export const TempoGraph: FC = observer(() => {
               width={width}
               beats={mappedBeats}
               scrollLeft={scrollLeft}
-              pixelsPerTick={pixelsPerTick}
+              pixelsPerTick={transform.pixelsPerTick}
             />
           </Container>
         </StoreContext.Provider>

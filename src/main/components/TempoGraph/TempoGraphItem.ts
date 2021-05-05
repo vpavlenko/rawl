@@ -7,6 +7,7 @@ export default class TempoGraphItem implements Item {
   bounds: IRect
   fillColor: CanvasDrawStyle
   strokeColor: CanvasDrawStyle
+  microsecondsPerBeat: number
 
   constructor(
     id: number,
@@ -15,12 +16,14 @@ export default class TempoGraphItem implements Item {
     width: number,
     height: number,
     fillColor: CanvasDrawStyle,
-    strokeColor: CanvasDrawStyle
+    strokeColor: CanvasDrawStyle,
+    microsecondsPerBeat: number
   ) {
     this.id = id
     this.bounds = { x, y, width, height }
     this.fillColor = fillColor
     this.strokeColor = strokeColor
+    this.microsecondsPerBeat = microsecondsPerBeat
   }
 
   render(ctx: CanvasRenderingContext2D) {

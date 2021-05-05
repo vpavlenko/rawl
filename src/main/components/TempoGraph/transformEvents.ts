@@ -7,7 +7,7 @@ import TempoGraphItem from "./TempoGraphItem"
 const isSetTempoEvent = (e: any): e is TrackEvent & SetTempoEvent =>
   e.subtype == "setTempo"
 
-export default (
+export const transformEvents = (
   events: TrackEvent[],
   transform: TempoCoordTransform,
   width: number,
@@ -21,6 +21,7 @@ export default (
       id: e.id,
       x: Math.round(transform.getX(e.tick)),
       y: Math.round(transform.getY(bpm)),
+      microsecondsPerBeat: e.microsecondsPerBeat,
     }
   })
 
@@ -37,7 +38,8 @@ export default (
       nextItem.x - e.x,
       transform.height,
       fillColor,
-      strokeColor
+      strokeColor,
+      e.microsecondsPerBeat
     )
   })
 }

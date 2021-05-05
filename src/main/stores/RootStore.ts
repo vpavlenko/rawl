@@ -37,7 +37,7 @@ export default class RootStore {
   rootViewStore = new RootViewStore()
   pianoRollStore: PianoRollStore
   arrangeViewStore = new ArrangeViewStore(this)
-  tempoEditorStore = new TempoEditorStore()
+  tempoEditorStore = new TempoEditorStore(this)
   midiDeviceStore = new MIDIDeviceStore()
 
   services: Services
@@ -86,6 +86,7 @@ export default class RootStore {
 
     this.pianoRollStore.setUpAutorun()
     this.arrangeViewStore.setUpAutorun()
+    this.tempoEditorStore.setUpAutorun()
 
     registerReactions(this)
   }

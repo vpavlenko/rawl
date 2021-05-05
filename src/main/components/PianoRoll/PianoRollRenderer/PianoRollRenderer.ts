@@ -9,26 +9,15 @@ import { IPoint, IRect, zeroPoint, zeroRect } from "../../../../common/geometry"
 import { defaultTheme, Theme } from "../../../../common/theme/Theme"
 import { Layout } from "../../../Constants"
 import { colorToVec4 } from "../../../gl/color"
+import { DisplayObject } from "../../../gl/DisplayObject"
 import { RenderProperty } from "../../../gl/RenderProperty"
-import {
-  BorderedCircleBuffer,
-  BorderedCircleShader,
-} from "../../../gl/shaders/BorderedCircleShader"
-import {
-  BorderedRectangleBuffer,
-  BorderedRectangleShader,
-} from "../../../gl/shaders/BorderedRectangleShader"
-import {
-  SolidRectangleBuffer,
-  SolidRectangleShader,
-} from "../../../gl/shaders/SolidRectangleShader"
+import { BorderedCircleObject } from "../../../gl/shaders/BorderedCircleShader"
+import { BorderedRectangleObject } from "../../../gl/shaders/BorderedRectangleShader"
+import { SolidRectangleObject } from "../../../gl/shaders/SolidRectangleShader"
 import { PianoNoteItem } from "../../../stores/PianoRollStore"
-import { DrumNoteShader } from "./DrumNoteShader"
-import {
-  HorizontalGridBuffer,
-  HorizontalGridShader,
-} from "./HorizontalGridShader"
-import { NoteBuffer, NoteShader } from "./NoteShader"
+import { DrumNoteObject } from "./DrumNoteShader"
+import { HorizontalGridObject } from "./HorizontalGridShader"
+import { NoteObject } from "./NoteShader"
 
 export class PianoRollRenderer {
   private gl: WebGLRenderingContext
@@ -38,48 +27,48 @@ export class PianoRollRenderer {
     (a, b) => a.width === b.width && a.height === b.height
   )
 
-  private noteShader: NoteShader
-  private drumNoteShader: DrumNoteShader
-  private rectShader: BorderedRectangleShader
-  private solidRectShader: SolidRectangleShader
-  private hGridShader: HorizontalGridShader
-  private circleShader: BorderedCircleShader
+  private objects: DisplayObject<any, any>[] = []
 
-  private noteBuffer: NoteBuffer
-  private ghostNoteBuffer: BorderedRectangleBuffer
+  private noteObject: NoteObject
+  private hGridObject: HorizontalGridObject
 
-  private drumNoteBuffer: NoteBuffer
-  private ghostDrumNoteBuffer: BorderedCircleBuffer
+  private drumNoteObject: DrumNoteObject
 
-  private selectionBuffer: BorderedRectangleBuffer
-  private beatBuffer: SolidRectangleBuffer
-  private highlightedBeatBuffer: SolidRectangleBuffer
-  private gridBuffer: HorizontalGridBuffer
-  private cursorBuffer: SolidRectangleBuffer
+  private ghostNoteObject: BorderedRectangleObject
+
+  private ghostDrumNoteObject: BorderedCircleObject
+
+  private selectionObject: BorderedRectangleObject
+  private beatObject: SolidRectangleObject
+  private highlightedBeatObject: SolidRectangleObject
+  private cursorObject: SolidRectangleObject
 
   theme: Theme = defaultTheme
 
   constructor(gl: WebGLRenderingContext) {
     this.gl = gl
 
-    this.noteShader = new NoteShader(gl)
-    this.drumNoteShader = new DrumNoteShader(gl)
-    this.rectShader = new BorderedRectangleShader(gl)
-    this.solidRectShader = new SolidRectangleShader(gl)
-    this.hGridShader = new HorizontalGridShader(gl)
-    this.circleShader = new BorderedCircleShader(gl)
+    this.hGridObject = new HorizontalGridObject(gl)
+    this.beatObject = new SolidRectangleObject(gl)
+    this.highlightedBeatObject = new SolidRectangleObject(gl)
+    this.cursorObject = new SolidRectangleObject(gl)
+    this.noteObject = new NoteObject(gl)
+    this.ghostNoteObject = new BorderedRectangleObject(gl)
+    this.drumNoteObject = new DrumNoteObject(gl)
+    this.ghostDrumNoteObject = new BorderedCircleObject(gl)
+    this.selectionObject = new BorderedRectangleObject(gl)
 
-    this.noteBuffer = new NoteBuffer(gl)
-    this.ghostNoteBuffer = new BorderedRectangleBuffer(gl)
-
-    this.drumNoteBuffer = new NoteBuffer(gl)
-    this.ghostDrumNoteBuffer = new BorderedCircleBuffer(gl)
-
-    this.selectionBuffer = new BorderedRectangleBuffer(gl)
-    this.beatBuffer = new SolidRectangleBuffer(gl)
-    this.highlightedBeatBuffer = new SolidRectangleBuffer(gl)
-    this.gridBuffer = new HorizontalGridBuffer(gl)
-    this.cursorBuffer = new SolidRectangleBuffer(gl)
+    this.objects.push(
+      // this.hGridObject,
+      this.beatObject,
+      this.highlightedBeatObject,
+      this.ghostNoteObject,
+      this.ghostDrumNoteObject,
+      this.noteObject,
+      this.drumNoteObject,
+      this.selectionObject,
+      this.cursorObject
+    )
 
     this.render([], [], zeroRect, [], [], 0, zeroPoint)
   }
@@ -100,8 +89,6 @@ export class PianoRollRenderer {
     cursorX: number,
     scroll: IPoint
   ) {
-    const { gl } = this
-
     {
       const [drumNotes, normalNotes] = partition(notes, (n) => n.isDrum)
       const [drumGhostNotes, normalGhostNotes] = partition(
@@ -109,19 +96,20 @@ export class PianoRollRenderer {
         (n) => n.isDrum
       )
 
-      this.noteBuffer.update(gl, normalNotes)
-      this.ghostNoteBuffer.update(gl, normalGhostNotes)
-      this.drumNoteBuffer.update(gl, drumNotes)
-      this.ghostDrumNoteBuffer.update(gl, drumGhostNotes)
+      this.noteObject.updateBuffer(normalNotes)
+      this.ghostNoteObject.updateBuffer(normalGhostNotes)
+      this.drumNoteObject.updateBuffer(drumNotes)
+      this.ghostDrumNoteObject.updateBuffer(drumGhostNotes)
     }
 
-    this.selectionBuffer.update(gl, [selection])
-    this.beatBuffer.update(gl, beats.map(this.vline))
-    this.highlightedBeatBuffer.update(gl, highlightedBeats.map(this.vline))
-    this.gridBuffer.update(gl, this.viewSize.value)
-    this.cursorBuffer.update(gl, [this.vline(cursorX)])
+    this.selectionObject.updateBuffer([selection])
+    this.beatObject.updateBuffer(beats.map(this.vline))
+    this.highlightedBeatObject.updateBuffer(highlightedBeats.map(this.vline))
+    this.hGridObject.updateBuffer(this.viewSize.value)
+    this.cursorObject.updateBuffer([this.vline(cursorX)])
 
-    this.draw(scroll)
+    this.updateUniforms(scroll)
+    this.draw()
   }
 
   private clear() {
@@ -131,10 +119,8 @@ export class PianoRollRenderer {
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
   }
 
-  private draw(scroll: IPoint) {
+  private draw() {
     const { gl } = this
-
-    const canvas = gl.canvas as HTMLCanvasElement
 
     this.viewSize.value = {
       width: gl.canvas.width,
@@ -159,9 +145,16 @@ export class PianoRollRenderer {
 
     this.clear()
 
+    this.objects.forEach((o) => o.draw())
+  }
+
+  private updateUniforms(scroll: IPoint) {
+    const { gl } = this
     const zNear = 0
     const zFar = 100.0
     const projectionMatrix = mat4.create()
+
+    const canvas = gl.canvas as HTMLCanvasElement
 
     const scale = canvas.clientWidth / canvas.width
     mat4.scale(
@@ -195,81 +188,76 @@ export class PianoRollRenderer {
     )
 
     {
-      this.hGridShader.uProjectionMatrix.value = projectionMatrixScrollX
-      this.hGridShader.uColor.value = vec4.fromValues(0.5, 0.5, 0.5, 1)
-      this.hGridShader.uHeight.value = Layout.keyHeight
-      // this.hGridShader.draw(gl, this.gridBuffer)
+      this.hGridObject.updateUniforms({
+        projectionMatrix: projectionMatrixScrollX,
+        color: vec4.fromValues(0.5, 0.5, 0.5, 1),
+        height: Layout.keyHeight,
+      })
     }
 
-    {
-      this.solidRectShader.uProjectionMatrix.value = projectionMatrixScrollX
-      this.solidRectShader.uColor.value = colorToVec4(
-        Color(this.theme.dividerColor).alpha(0.2)
-      )
-      this.solidRectShader.draw(gl, this.beatBuffer)
-    }
+    this.beatObject.updateUniforms({
+      projectionMatrix: projectionMatrixScrollX,
+      color: colorToVec4(Color(this.theme.dividerColor).alpha(0.2)),
+    })
+
+    this.highlightedBeatObject.updateUniforms({
+      projectionMatrix: projectionMatrixScrollX,
+      color: colorToVec4(Color(this.theme.dividerColor).alpha(0.5)),
+    })
 
     {
-      this.solidRectShader.uProjectionMatrix.value = projectionMatrixScrollX
-      this.solidRectShader.uColor.value = colorToVec4(
-        Color(this.theme.dividerColor).alpha(0.5)
-      )
-      this.solidRectShader.draw(gl, this.highlightedBeatBuffer)
+      const baseColor = Color(this.theme.ghostNoteColor)
+      const borderColor = baseColor.lighten(0.3)
+
+      this.ghostNoteObject.updateUniforms({
+        projectionMatrix: projectionMatrixScrollXY,
+        strokeColor: colorToVec4(borderColor),
+        fillColor: colorToVec4(baseColor),
+      })
     }
 
     {
       const baseColor = Color(this.theme.ghostNoteColor)
       const borderColor = baseColor.lighten(0.3)
 
-      this.rectShader.uProjectionMatrix.value = projectionMatrixScrollXY
-      this.rectShader.uStrokeColor.value = colorToVec4(borderColor)
-      this.rectShader.uFillColor.value = colorToVec4(baseColor)
-      this.rectShader.draw(gl, this.ghostNoteBuffer)
-    }
-
-    {
-      const baseColor = Color(this.theme.ghostNoteColor)
-      const borderColor = baseColor.lighten(0.3)
-
-      this.circleShader.uProjectionMatrix.value = projectionMatrixScrollXY
-      this.circleShader.uStrokeColor.value = colorToVec4(borderColor)
-      this.circleShader.uFillColor.value = colorToVec4(baseColor)
-      this.circleShader.draw(gl, this.ghostDrumNoteBuffer)
+      this.ghostDrumNoteObject.updateUniforms({
+        projectionMatrix: projectionMatrixScrollXY,
+        strokeColor: colorToVec4(borderColor),
+        fillColor: colorToVec4(baseColor),
+      })
     }
 
     {
       const baseColor = Color(this.theme.themeColor)
       const borderColor = baseColor.lighten(0.3)
 
-      this.noteShader.uProjectionMatrix.value = projectionMatrixScrollXY
-      this.noteShader.uFillColor.value = colorToVec4(baseColor)
-      this.noteShader.uStrokeColor.value = colorToVec4(borderColor)
-      this.noteShader.draw(gl, this.noteBuffer)
+      this.noteObject.updateUniforms({
+        projectionMatrix: projectionMatrixScrollXY,
+        fillColor: colorToVec4(baseColor),
+        strokeColor: colorToVec4(borderColor),
+      })
     }
 
     {
       const baseColor = Color(this.theme.themeColor)
       const borderColor = baseColor.lighten(0.3)
 
-      this.drumNoteShader.uProjectionMatrix.value = projectionMatrixScrollXY
-      this.drumNoteShader.uFillColor.value = colorToVec4(baseColor)
-      this.drumNoteShader.uStrokeColor.value = colorToVec4(borderColor)
-      this.drumNoteShader.draw(gl, this.drumNoteBuffer)
+      this.drumNoteObject.updateUniforms({
+        projectionMatrix: projectionMatrixScrollXY,
+        fillColor: colorToVec4(baseColor),
+        strokeColor: colorToVec4(borderColor),
+      })
     }
 
-    {
-      this.rectShader.uProjectionMatrix.value = projectionMatrixScrollXY
-      this.rectShader.uStrokeColor.value = colorToVec4(
-        Color(this.theme.themeColor)
-      )
-      this.rectShader.uFillColor.value = vec4.create()
-      this.rectShader.draw(gl, this.selectionBuffer)
-    }
+    this.selectionObject.updateUniforms({
+      projectionMatrix: projectionMatrixScrollXY,
+      strokeColor: colorToVec4(Color(this.theme.themeColor)),
+      fillColor: vec4.create(),
+    })
 
-    {
-      this.solidRectShader.uProjectionMatrix.value = projectionMatrixScrollX
-      this.solidRectShader.uColor.value = vec4.fromValues(1, 0, 0, 1)
-      this.solidRectShader.draw(gl, this.cursorBuffer)
-    }
+    this.cursorObject.updateUniforms({
+      projectionMatrix: projectionMatrixScrollX,
+      color: vec4.fromValues(1, 0, 0, 1),
+    })
   }
 }

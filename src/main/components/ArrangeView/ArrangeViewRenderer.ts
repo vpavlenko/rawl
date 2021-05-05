@@ -3,15 +3,10 @@ import { mat4, vec3, vec4 } from "gl-matrix"
 import { IPoint, IRect, ISize } from "../../../common/geometry"
 import { defaultTheme, Theme } from "../../../common/theme/Theme"
 import { colorToVec4 } from "../../gl/color"
+import { DisplayObject } from "../../gl/DisplayObject"
 import { RenderProperty } from "../../gl/RenderProperty"
-import {
-  BorderedRectangleBuffer,
-  BorderedRectangleShader,
-} from "../../gl/shaders/BorderedRectangleShader"
-import {
-  SolidRectangleBuffer,
-  SolidRectangleShader,
-} from "../../gl/shaders/SolidRectangleShader"
+import { BorderedRectangleObject } from "../../gl/shaders/BorderedRectangleShader"
+import { SolidRectangleObject } from "../../gl/shaders/SolidRectangleShader"
 
 export class ArrangeViewRenderer {
   private gl: WebGLRenderingContext
@@ -21,28 +16,35 @@ export class ArrangeViewRenderer {
     (a, b) => a.width === b.width && a.height === b.height
   )
 
-  private rectShader: BorderedRectangleShader
-  private solidRectShader: SolidRectangleShader
-  private noteBuffer: SolidRectangleBuffer
-  private cursorBuffer: SolidRectangleBuffer
-  private beatBuffer: SolidRectangleBuffer
-  private highlightedBeatBuffer: SolidRectangleBuffer
-  private lineBuffer: SolidRectangleBuffer
-  private selectionBuffer: BorderedRectangleBuffer
+  private objects: DisplayObject<any, any>[] = []
+
+  private noteObject: SolidRectangleObject
+  private cursorObject: SolidRectangleObject
+  private beatObject: SolidRectangleObject
+  private highlightedBeatObject: SolidRectangleObject
+  private lineObject: SolidRectangleObject
+  private selectionObject: BorderedRectangleObject
 
   theme: Theme = defaultTheme
 
   constructor(gl: WebGLRenderingContext) {
     this.gl = gl
 
-    this.rectShader = new BorderedRectangleShader(gl)
-    this.solidRectShader = new SolidRectangleShader(gl)
-    this.noteBuffer = new SolidRectangleBuffer(gl)
-    this.cursorBuffer = new SolidRectangleBuffer(gl)
-    this.beatBuffer = new SolidRectangleBuffer(gl)
-    this.highlightedBeatBuffer = new SolidRectangleBuffer(gl)
-    this.lineBuffer = new SolidRectangleBuffer(gl)
-    this.selectionBuffer = new BorderedRectangleBuffer(gl)
+    this.noteObject = new SolidRectangleObject(gl)
+    this.cursorObject = new SolidRectangleObject(gl)
+    this.beatObject = new SolidRectangleObject(gl)
+    this.highlightedBeatObject = new SolidRectangleObject(gl)
+    this.lineObject = new SolidRectangleObject(gl)
+    this.selectionObject = new BorderedRectangleObject(gl)
+
+    this.objects = [
+      this.lineObject,
+      this.beatObject,
+      this.highlightedBeatObject,
+      this.noteObject,
+      this.selectionObject,
+      this.cursorObject,
+    ]
   }
 
   private vline = (x: number): IRect => ({
@@ -68,15 +70,15 @@ export class ArrangeViewRenderer {
     lines: number[],
     scroll: IPoint
   ) {
-    const { gl } = this
-    this.noteBuffer.update(gl, notes)
-    this.selectionBuffer.update(gl, [selection])
-    this.cursorBuffer.update(gl, [this.vline(cursorX)])
-    this.beatBuffer.update(gl, beats.map(this.vline))
-    this.highlightedBeatBuffer.update(gl, highlightedBeats.map(this.vline))
-    this.lineBuffer.update(gl, lines.map(this.hline))
+    this.noteObject.updateBuffer(notes)
+    this.selectionObject.updateBuffer([selection])
+    this.cursorObject.updateBuffer([this.vline(cursorX)])
+    this.beatObject.updateBuffer(beats.map(this.vline))
+    this.highlightedBeatObject.updateBuffer(highlightedBeats.map(this.vline))
+    this.lineObject.updateBuffer(lines.map(this.hline))
 
-    this.draw(scroll)
+    this.updateUniforms(scroll)
+    this.draw()
   }
 
   private clear() {
@@ -86,10 +88,8 @@ export class ArrangeViewRenderer {
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
   }
 
-  private draw(scroll: IPoint) {
+  private draw() {
     const { gl } = this
-
-    const canvas = gl.canvas as HTMLCanvasElement
 
     this.viewSize.value = {
       width: gl.canvas.width,
@@ -113,6 +113,14 @@ export class ArrangeViewRenderer {
     gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA)
 
     this.clear()
+
+    this.objects.forEach((o) => o.draw())
+  }
+
+  private updateUniforms(scroll: IPoint) {
+    const { gl } = this
+
+    const canvas = gl.canvas as HTMLCanvasElement
 
     const zNear = 0
     const zFar = 100.0
@@ -157,50 +165,36 @@ export class ArrangeViewRenderer {
     )
 
     {
-      this.solidRectShader.uProjectionMatrix.value = projectionMatrixScrollY
-      this.solidRectShader.uColor.value = colorToVec4(
-        Color(this.theme.dividerColor)
-      )
-      this.solidRectShader.draw(gl, this.lineBuffer)
+      this.lineObject.updateUniforms({
+        projectionMatrix: projectionMatrixScrollY,
+        color: colorToVec4(Color(this.theme.dividerColor)),
+      })
     }
 
-    {
-      this.solidRectShader.uProjectionMatrix.value = projectionMatrixScrollX
-      this.solidRectShader.uColor.value = colorToVec4(
-        Color(this.theme.dividerColor).alpha(0.2)
-      )
-      this.solidRectShader.draw(gl, this.beatBuffer)
-    }
+    this.beatObject.updateUniforms({
+      projectionMatrix: projectionMatrixScrollX,
+      color: colorToVec4(Color(this.theme.dividerColor).alpha(0.2)),
+    })
 
-    {
-      this.solidRectShader.uProjectionMatrix.value = projectionMatrixScrollX
-      this.solidRectShader.uColor.value = colorToVec4(
-        Color(this.theme.dividerColor).alpha(0.5)
-      )
-      this.solidRectShader.draw(gl, this.highlightedBeatBuffer)
-    }
+    this.highlightedBeatObject.updateUniforms({
+      projectionMatrix: projectionMatrixScrollX,
+      color: colorToVec4(Color(this.theme.dividerColor).alpha(0.5)),
+    })
 
-    {
-      this.solidRectShader.uProjectionMatrix.value = projectionMatrixScrollXY
-      this.solidRectShader.uColor.value = colorToVec4(
-        Color(this.theme.themeColor)
-      )
-      this.solidRectShader.draw(gl, this.noteBuffer)
-    }
+    this.noteObject.updateUniforms({
+      projectionMatrix: projectionMatrixScrollXY,
+      color: colorToVec4(Color(this.theme.themeColor)),
+    })
 
-    {
-      this.rectShader.uProjectionMatrix.value = projectionMatrixScrollXY
-      this.rectShader.uStrokeColor.value = colorToVec4(
-        Color(this.theme.themeColor)
-      )
-      this.rectShader.uFillColor.value = vec4.create()
-      this.rectShader.draw(gl, this.selectionBuffer)
-    }
+    this.selectionObject.updateUniforms({
+      projectionMatrix: projectionMatrixScrollXY,
+      strokeColor: colorToVec4(Color(this.theme.themeColor)),
+      fillColor: vec4.create(),
+    })
 
-    {
-      this.solidRectShader.uProjectionMatrix.value = projectionMatrixScrollX
-      this.solidRectShader.uColor.value = vec4.fromValues(1, 0, 0, 1)
-      this.solidRectShader.draw(gl, this.cursorBuffer)
-    }
+    this.cursorObject.updateUniforms({
+      projectionMatrix: projectionMatrixScrollX,
+      color: vec4.fromValues(1, 0, 0, 1),
+    })
   }
 }

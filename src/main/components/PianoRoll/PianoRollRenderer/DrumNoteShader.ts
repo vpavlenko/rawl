@@ -1,23 +1,22 @@
-import { mat4, vec4 } from "gl-matrix"
 import { Attrib } from "../../../gl/Attrib"
-import { Uniform, uniformMat4, uniformVec4 } from "../../../gl/Uniform"
-import { initShaderProgram } from "../../../helpers/webgl"
+import { DisplayObject } from "../../../gl/DisplayObject"
+import { Shader } from "../../../gl/Shader"
+import { uniformMat4, uniformVec4 } from "../../../gl/Uniform"
 import { NoteBuffer } from "./NoteShader"
 
-export class DrumNoteShader {
-  private program: WebGLProgram
-
-  private aVertex: Attrib
-  private aBounds: Attrib
-  private aVelocity: Attrib
-  private aSelected: Attrib
-
-  readonly uProjectionMatrix: Uniform<mat4>
-  readonly uFillColor: Uniform<vec4>
-  readonly uStrokeColor: Uniform<vec4>
-
+export class DrumNoteObject extends DisplayObject<
+  ReturnType<typeof DrumNoteShader>,
+  NoteBuffer
+> {
   constructor(gl: WebGLRenderingContext) {
-    const vsSource = `
+    super(DrumNoteShader(gl), new NoteBuffer(gl))
+  }
+}
+
+export const DrumNoteShader = (gl: WebGLRenderingContext) =>
+  new Shader(
+    gl,
+    `
       precision lowp float;
       attribute vec4 aVertexPosition;
 
@@ -39,9 +38,8 @@ export class DrumNoteShader {
         vVelocity = aVelocity;
         vSelected = aSelected;
       }
+    `,
     `
-
-    const fsSource = `
       precision lowp float;
 
       uniform vec4 uFillColor;
@@ -65,37 +63,16 @@ export class DrumNoteShader {
           gl_FragColor = uStrokeColor;
         }
       }
-    `
-    const program = initShaderProgram(gl, vsSource, fsSource)!
-
-    this.program = program
-
-    this.aVertex = new Attrib(gl, program, "aVertexPosition", 2)
-    this.aBounds = new Attrib(gl, program, "aBounds", 4)
-    this.aVelocity = new Attrib(gl, program, "aVelocity", 1)
-    this.aSelected = new Attrib(gl, program, "aSelected", 1)
-
-    this.uProjectionMatrix = uniformMat4(gl, program, "uProjectionMatrix")
-    this.uFillColor = uniformVec4(gl, program, "uFillColor")
-    this.uStrokeColor = uniformVec4(gl, program, "uStrokeColor")
-  }
-
-  draw(gl: WebGLRenderingContext, buffer: NoteBuffer) {
-    if (buffer.vertexCount === 0) {
-      return
-    }
-
-    this.aVertex.upload(gl, buffer.positionBuffer)
-    this.aBounds.upload(gl, buffer.boundsBuffer)
-    this.aVelocity.upload(gl, buffer.velocitiesBuffer)
-    this.aSelected.upload(gl, buffer.selectionBuffer)
-
-    gl.useProgram(this.program)
-
-    this.uProjectionMatrix.upload(gl)
-    this.uFillColor.upload(gl)
-    this.uStrokeColor.upload(gl)
-
-    gl.drawArrays(gl.TRIANGLES, 0, buffer.vertexCount)
-  }
-}
+    `,
+    (program) => ({
+      position: new Attrib(gl, program, "aVertexPosition", 2),
+      bounds: new Attrib(gl, program, "aBounds", 4),
+      velocities: new Attrib(gl, program, "aVelocity", 1),
+      selection: new Attrib(gl, program, "aSelected", 1),
+    }),
+    (program) => ({
+      projectionMatrix: uniformMat4(gl, program, "uProjectionMatrix"),
+      fillColor: uniformVec4(gl, program, "uFillColor"),
+      strokeColor: uniformVec4(gl, program, "uStrokeColor"),
+    })
+  )

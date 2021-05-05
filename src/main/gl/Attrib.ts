@@ -1,4 +1,5 @@
 export class Attrib {
+  private gl: WebGLRenderingContext
   private position: number
   private size: number
   private type: number
@@ -10,6 +11,7 @@ export class Attrib {
     size: number,
     type: number = gl.FLOAT
   ) {
+    this.gl = gl
     this.position = gl.getAttribLocation(program, name)
     if (this.position < 0) {
       throw new Error(`failed to getAttribLocation ${name}`)
@@ -18,7 +20,8 @@ export class Attrib {
     this.type = type
   }
 
-  upload(gl: WebGLRenderingContext, buffer: WebGLBuffer) {
+  upload(buffer: WebGLBuffer) {
+    const { gl } = this
     gl.bindBuffer(gl.ARRAY_BUFFER, buffer)
     gl.vertexAttribPointer(this.position, this.size, this.type, false, 0, 0)
     gl.enableVertexAttribArray(this.position)

@@ -1,27 +1,46 @@
-import { mat4, vec4 } from "gl-matrix"
 import { IRect } from "../../../common/geometry"
 import { rectToTriangleBounds, rectToTriangles } from "../../helpers/polygon"
-import { initShaderProgram } from "../../helpers/webgl"
 import { Attrib } from "../Attrib"
-import { Uniform, uniformMat4, uniformVec4 } from "../Uniform"
+import { DisplayObject } from "../DisplayObject"
+import { Shader } from "../Shader"
+import { uniformMat4, uniformVec4 } from "../Uniform"
+
+export class BorderedCircleObject extends DisplayObject<
+  ReturnType<typeof BorderedCircleShader>,
+  BorderedCircleBuffer
+> {
+  constructor(gl: WebGLRenderingContext) {
+    super(BorderedCircleShader(gl), new BorderedCircleBuffer(gl))
+  }
+}
 
 export class BorderedCircleBuffer {
-  readonly positionBuffer: WebGLBuffer
-  readonly boundsBuffer: WebGLBuffer
+  private gl: WebGLRenderingContext
+
+  readonly buffers: {
+    position: WebGLBuffer
+    bounds: WebGLBuffer
+  }
   private _vertexCount: number = 0
 
   constructor(gl: WebGLRenderingContext) {
-    this.positionBuffer = gl.createBuffer()!
-    this.boundsBuffer = gl.createBuffer()!
+    this.gl = gl
+
+    this.buffers = {
+      position: gl.createBuffer()!,
+      bounds: gl.createBuffer()!,
+    }
   }
 
-  update(gl: WebGLRenderingContext, rects: IRect[]) {
+  update(rects: IRect[]) {
+    const { gl } = this
+
     const positions = rects.flatMap(rectToTriangles)
-    gl.bindBuffer(gl.ARRAY_BUFFER, this.positionBuffer)
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.position)
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.DYNAMIC_DRAW)
 
     const bounds = rects.flatMap(rectToTriangleBounds)
-    gl.bindBuffer(gl.ARRAY_BUFFER, this.boundsBuffer)
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.bounds)
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(bounds), gl.DYNAMIC_DRAW)
 
     this._vertexCount = rects.length * 6
@@ -32,18 +51,10 @@ export class BorderedCircleBuffer {
   }
 }
 
-export class BorderedCircleShader {
-  private program: WebGLProgram
-
-  private aVertex: Attrib
-  private aBounds: Attrib
-
-  readonly uProjectionMatrix: Uniform<mat4>
-  readonly uFillColor: Uniform<vec4>
-  readonly uStrokeColor: Uniform<vec4>
-
-  constructor(gl: WebGLRenderingContext) {
-    const vsSource = `
+export const BorderedCircleShader = (gl: WebGLRenderingContext) =>
+  new Shader(
+    gl,
+    `
       precision lowp float;
       attribute vec4 aVertexPosition;
 
@@ -59,9 +70,8 @@ export class BorderedCircleShader {
         vBounds = aBounds;
         vPosition = aVertexPosition.xy;
       }
+    `,
     `
-
-    const fsSource = `
       precision lowp float;
 
       uniform vec4 uFillColor;
@@ -83,33 +93,14 @@ export class BorderedCircleShader {
           gl_FragColor = uStrokeColor;
         }
       }
-    `
-    const program = initShaderProgram(gl, vsSource, fsSource)!
-
-    this.program = program
-
-    this.aVertex = new Attrib(gl, program, "aVertexPosition", 2)
-    this.aBounds = new Attrib(gl, program, "aBounds", 4)
-
-    this.uProjectionMatrix = uniformMat4(gl, program, "uProjectionMatrix")
-    this.uFillColor = uniformVec4(gl, program, "uFillColor")
-    this.uStrokeColor = uniformVec4(gl, program, "uStrokeColor")
-  }
-
-  draw(gl: WebGLRenderingContext, buffer: BorderedCircleBuffer) {
-    if (buffer.vertexCount === 0) {
-      return
-    }
-
-    this.aVertex.upload(gl, buffer.positionBuffer)
-    this.aBounds.upload(gl, buffer.boundsBuffer)
-
-    gl.useProgram(this.program)
-
-    this.uProjectionMatrix.upload(gl)
-    this.uFillColor.upload(gl)
-    this.uStrokeColor.upload(gl)
-
-    gl.drawArrays(gl.TRIANGLES, 0, buffer.vertexCount)
-  }
-}
+    `,
+    (program) => ({
+      position: new Attrib(gl, program, "aVertexPosition", 2),
+      bounds: new Attrib(gl, program, "aBounds", 4),
+    }),
+    (program) => ({
+      projectionMatrix: uniformMat4(gl, program, "uProjectionMatrix"),
+      fillColor: uniformVec4(gl, program, "uFillColor"),
+      strokeColor: uniformVec4(gl, program, "uStrokeColor"),
+    })
+  )

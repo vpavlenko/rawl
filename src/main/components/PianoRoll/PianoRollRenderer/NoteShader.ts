@@ -1,10 +1,18 @@
-import { mat4, vec4 } from "gl-matrix"
 import { IRect } from "../../../../common/geometry"
 import { Attrib } from "../../../gl/Attrib"
-import { Uniform, uniformMat4, uniformVec4 } from "../../../gl/Uniform"
+import { DisplayObject } from "../../../gl/DisplayObject"
+import { Shader } from "../../../gl/Shader"
+import { uniformMat4, uniformVec4 } from "../../../gl/Uniform"
 import { rectToTriangleBounds, rectToTriangles } from "../../../helpers/polygon"
-import { initShaderProgram } from "../../../helpers/webgl"
 
+export class NoteObject extends DisplayObject<
+  ReturnType<typeof NoteShader>,
+  NoteBuffer
+> {
+  constructor(gl: WebGLRenderingContext) {
+    super(NoteShader(gl), new NoteBuffer(gl))
+  }
+}
 export interface IVelocityData {
   velocity: number
 }
@@ -20,34 +28,39 @@ const triangleSelections = (obj: ISelectionData): number[] =>
   Array(6).fill(obj.isSelected ? 1 : 0)
 
 export class NoteBuffer {
-  readonly positionBuffer: WebGLBuffer
-  readonly boundsBuffer: WebGLBuffer
-  readonly velocitiesBuffer: WebGLBuffer
-  readonly selectionBuffer: WebGLBuffer
+  private gl: WebGLRenderingContext
+
+  readonly buffers: {
+    position: WebGLBuffer
+    bounds: WebGLBuffer
+    velocities: WebGLBuffer
+    selection: WebGLBuffer
+  }
 
   private _vertexCount: number = 0
 
   constructor(gl: WebGLRenderingContext) {
-    this.positionBuffer = gl.createBuffer()!
-    this.boundsBuffer = gl.createBuffer()!
-    this.velocitiesBuffer = gl.createBuffer()!
-    this.selectionBuffer = gl.createBuffer()!
+    this.gl = gl
+    this.buffers = {
+      position: gl.createBuffer()!,
+      bounds: gl.createBuffer()!,
+      velocities: gl.createBuffer()!,
+      selection: gl.createBuffer()!,
+    }
   }
 
-  update(
-    gl: WebGLRenderingContext,
-    rects: (IRect & IVelocityData & ISelectionData)[]
-  ) {
+  update(rects: (IRect & IVelocityData & ISelectionData)[]) {
+    const { gl } = this
     const positions = rects.flatMap(rectToTriangles)
-    gl.bindBuffer(gl.ARRAY_BUFFER, this.positionBuffer)
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.position)
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.DYNAMIC_DRAW)
 
     const bounds = rects.flatMap(rectToTriangleBounds)
-    gl.bindBuffer(gl.ARRAY_BUFFER, this.boundsBuffer)
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.bounds)
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(bounds), gl.DYNAMIC_DRAW)
 
     const velocities = rects.flatMap(triangleVelocities)
-    gl.bindBuffer(gl.ARRAY_BUFFER, this.velocitiesBuffer)
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.velocities)
     gl.bufferData(
       gl.ARRAY_BUFFER,
       new Float32Array(velocities),
@@ -55,7 +68,7 @@ export class NoteBuffer {
     )
 
     const selection = rects.flatMap(triangleSelections)
-    gl.bindBuffer(gl.ARRAY_BUFFER, this.selectionBuffer)
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.selection)
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(selection), gl.DYNAMIC_DRAW)
 
     this._vertexCount = rects.length * 6
@@ -66,20 +79,10 @@ export class NoteBuffer {
   }
 }
 
-export class NoteShader {
-  private program: WebGLProgram
-
-  private aVertex: Attrib
-  private aBounds: Attrib
-  private aVelocity: Attrib
-  private aSelected: Attrib
-
-  readonly uProjectionMatrix: Uniform<mat4>
-  readonly uFillColor: Uniform<vec4>
-  readonly uStrokeColor: Uniform<vec4>
-
-  constructor(gl: WebGLRenderingContext) {
-    const vsSource = `
+export const NoteShader = (gl: WebGLRenderingContext) =>
+  new Shader(
+    gl,
+    `
       precision lowp float;
       attribute vec4 aVertexPosition;
 
@@ -101,9 +104,8 @@ export class NoteShader {
         vVelocity = aVelocity;
         vSelected = aSelected;
       }
+    `,
     `
-
-    const fsSource = `
       precision lowp float;
 
       uniform vec4 uFillColor;
@@ -126,37 +128,16 @@ export class NoteShader {
           gl_FragColor = mix(vec4(uFillColor.rgb, vVelocity / 127.0), vec4(1.0, 1.0, 1.0, 1.0), vSelected);
         }
       }
-    `
-    const program = initShaderProgram(gl, vsSource, fsSource)!
-
-    this.program = program
-
-    this.aVertex = new Attrib(gl, program, "aVertexPosition", 2)
-    this.aBounds = new Attrib(gl, program, "aBounds", 4)
-    this.aVelocity = new Attrib(gl, program, "aVelocity", 1)
-    this.aSelected = new Attrib(gl, program, "aSelected", 1)
-
-    this.uProjectionMatrix = uniformMat4(gl, program, "uProjectionMatrix")
-    this.uFillColor = uniformVec4(gl, program, "uFillColor")
-    this.uStrokeColor = uniformVec4(gl, program, "uStrokeColor")
-  }
-
-  draw(gl: WebGLRenderingContext, buffer: NoteBuffer) {
-    if (buffer.vertexCount === 0) {
-      return
-    }
-
-    this.aVertex.upload(gl, buffer.positionBuffer)
-    this.aBounds.upload(gl, buffer.boundsBuffer)
-    this.aVelocity.upload(gl, buffer.velocitiesBuffer)
-    this.aSelected.upload(gl, buffer.selectionBuffer)
-
-    gl.useProgram(this.program)
-
-    this.uProjectionMatrix.upload(gl)
-    this.uFillColor.upload(gl)
-    this.uStrokeColor.upload(gl)
-
-    gl.drawArrays(gl.TRIANGLES, 0, buffer.vertexCount)
-  }
-}
+    `,
+    (program) => ({
+      position: new Attrib(gl, program, "aVertexPosition", 2),
+      bounds: new Attrib(gl, program, "aBounds", 4),
+      velocities: new Attrib(gl, program, "aVelocity", 1),
+      selection: new Attrib(gl, program, "aSelected", 1),
+    }),
+    (program) => ({
+      projectionMatrix: uniformMat4(gl, program, "uProjectionMatrix"),
+      fillColor: uniformVec4(gl, program, "uFillColor"),
+      strokeColor: uniformVec4(gl, program, "uStrokeColor"),
+    })
+  )

@@ -1,22 +1,14 @@
 import Color from "color"
-import { mat4, vec3, vec4 } from "gl-matrix"
-import { IPoint, IRect, ISize } from "../../../common/geometry"
+import { vec4 } from "gl-matrix"
+import { IPoint, IRect } from "../../../common/geometry"
 import { defaultTheme, Theme } from "../../../common/theme/Theme"
 import { colorToVec4 } from "../../gl/color"
-import { DisplayObject } from "../../gl/DisplayObject"
-import { RenderProperty } from "../../gl/RenderProperty"
+import { Renderer2D, translateMatrix } from "../../gl/Renderer2D"
 import { BorderedRectangleObject } from "../../gl/shaders/BorderedRectangleShader"
 import { SolidRectangleObject } from "../../gl/shaders/SolidRectangleShader"
 
 export class ArrangeViewRenderer {
-  private gl: WebGLRenderingContext
-
-  private viewSize: RenderProperty<ISize> = new RenderProperty(
-    { width: 0, height: 0 },
-    (a, b) => a.width === b.width && a.height === b.height
-  )
-
-  private objects: DisplayObject<any, any>[] = []
+  private renderer: Renderer2D
 
   private noteObject: SolidRectangleObject
   private cursorObject: SolidRectangleObject
@@ -28,7 +20,7 @@ export class ArrangeViewRenderer {
   theme: Theme = defaultTheme
 
   constructor(gl: WebGLRenderingContext) {
-    this.gl = gl
+    this.renderer = new Renderer2D(gl)
 
     this.noteObject = new SolidRectangleObject(gl)
     this.cursorObject = new SolidRectangleObject(gl)
@@ -37,7 +29,7 @@ export class ArrangeViewRenderer {
     this.lineObject = new SolidRectangleObject(gl)
     this.selectionObject = new BorderedRectangleObject(gl)
 
-    this.objects = [
+    const objects = [
       this.lineObject,
       this.beatObject,
       this.highlightedBeatObject,
@@ -45,19 +37,21 @@ export class ArrangeViewRenderer {
       this.selectionObject,
       this.cursorObject,
     ]
+
+    objects.forEach((o) => this.renderer.addObject(o))
   }
 
   private vline = (x: number): IRect => ({
     x,
     y: 0,
     width: 1,
-    height: this.viewSize.value.height,
+    height: this.renderer.gl.canvas.height,
   })
 
   private hline = (y: number): IRect => ({
     x: 0,
     y,
-    width: this.viewSize.value.width,
+    width: this.renderer.gl.canvas.width,
     height: 1,
   })
 
@@ -78,98 +72,31 @@ export class ArrangeViewRenderer {
     this.lineObject.updateBuffer(lines.map(this.hline))
 
     this.updateUniforms(scroll)
-    this.draw()
-  }
-
-  private clear() {
-    const { gl } = this
-    gl.clearColor(0.0, 0.0, 0.0, 0.0)
-    gl.clearDepth(1.0)
-    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
-  }
-
-  private draw() {
-    const { gl } = this
-
-    this.viewSize.value = {
-      width: gl.canvas.width,
-      height: gl.canvas.height,
-    }
-
-    if (this.viewSize.isDirty) {
-      gl.viewport(0, 0, gl.canvas.width, gl.canvas.height)
-    }
-
-    gl.disable(gl.CULL_FACE)
-    gl.disable(gl.DEPTH_TEST)
-    gl.disable(gl.DITHER)
-    gl.disable(gl.POLYGON_OFFSET_FILL)
-    gl.disable(gl.SAMPLE_ALPHA_TO_COVERAGE)
-    gl.disable(gl.SAMPLE_COVERAGE)
-    gl.disable(gl.SCISSOR_TEST)
-    gl.disable(gl.STENCIL_TEST)
-
-    gl.enable(gl.BLEND)
-    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA)
-
-    this.clear()
-
-    this.objects.forEach((o) => o.draw())
+    this.renderer.render()
   }
 
   private updateUniforms(scroll: IPoint) {
-    const { gl } = this
-
-    const canvas = gl.canvas as HTMLCanvasElement
-
-    const zNear = 0
-    const zFar = 100.0
-    const projectionMatrix = mat4.create()
-
-    const scale = canvas.clientWidth / canvas.width
-    mat4.scale(
+    const projectionMatrix = this.renderer.createProjectionMatrix()
+    const projectionMatrixScrollX = translateMatrix(
       projectionMatrix,
-      projectionMatrix,
-      vec3.fromValues(scale, scale, scale)
+      -scroll.x,
+      0
     )
-
-    mat4.ortho(
+    const projectionMatrixScrollXY = translateMatrix(
+      projectionMatrix,
+      -scroll.x,
+      -scroll.y
+    )
+    const projectionMatrixScrollY = translateMatrix(
       projectionMatrix,
       0,
-      canvas.clientWidth,
-      canvas.clientHeight,
-      0,
-      zNear,
-      zFar
+      -scroll.y
     )
 
-    const projectionMatrixScrollX = mat4.create()
-    mat4.translate(
-      projectionMatrixScrollX,
-      projectionMatrix,
-      vec3.fromValues(-scroll.x, 0, 0)
-    )
-
-    const projectionMatrixScrollXY = mat4.create()
-    mat4.translate(
-      projectionMatrixScrollXY,
-      projectionMatrix,
-      vec3.fromValues(-scroll.x, -scroll.y, 0)
-    )
-
-    const projectionMatrixScrollY = mat4.create()
-    mat4.translate(
-      projectionMatrixScrollY,
-      projectionMatrix,
-      vec3.fromValues(0, -scroll.y, 0)
-    )
-
-    {
-      this.lineObject.updateUniforms({
-        projectionMatrix: projectionMatrixScrollY,
-        color: colorToVec4(Color(this.theme.dividerColor)),
-      })
-    }
+    this.lineObject.updateUniforms({
+      projectionMatrix: projectionMatrixScrollY,
+      color: colorToVec4(Color(this.theme.dividerColor)),
+    })
 
     this.beatObject.updateUniforms({
       projectionMatrix: projectionMatrixScrollX,

@@ -95,7 +95,6 @@ export default class ArrangeViewStore {
     const { transform, trackHeight } = this
 
     return this.rootStore.song.tracks
-      .filter((t) => !t.isConductorTrack)
       .map((t, i) =>
         filterEventsWithScroll(
           t.events,

@@ -197,6 +197,9 @@ export default class Track {
     if (this.name && this.name.length > 0) {
       return this.name
     }
+    if (this.isConductorTrack) {
+      return `Conductor Track`
+    }
     return `Track ${this.channel}`
   }
 

@@ -77,7 +77,7 @@ const HeaderList = styled.div`
 export const ArrangeView: FC = observer(() => {
   const rootStore = useStores()
 
-  const tracks = rootStore.song.tracks.filter((t) => !t.isConductorTrack)
+  const tracks = rootStore.song.tracks
 
   const { arrangeViewStore: s } = rootStore
 

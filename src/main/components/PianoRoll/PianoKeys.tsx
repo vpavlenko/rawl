@@ -1,5 +1,5 @@
 import Color from "color"
-import React, { FC, useState } from "react"
+import React, { FC, useCallback, useState } from "react"
 import { noteNameWithOctString } from "../../../common/helpers/noteNumberString"
 import { Theme } from "../../../common/theme/Theme"
 import { Layout } from "../../Constants"
@@ -150,56 +150,57 @@ const PianoKeys: FC<PianoKeysProps> = ({ numberOfKeys, keyHeight }) => {
   const width = Layout.keyWidth
   const [touchingKeys, setTouchingKeys] = useState<number[]>([])
 
-  function draw(ctx: CanvasRenderingContext2D): void {
-    drawKeys(ctx, width, keyHeight, numberOfKeys, theme, touchingKeys)
-  }
+  const draw = useCallback(
+    (ctx: CanvasRenderingContext2D) => {
+      drawKeys(ctx, width, keyHeight, numberOfKeys, theme, touchingKeys)
+    },
+    [keyHeight, numberOfKeys, theme, touchingKeys]
+  )
 
-  function pixelsToNoteNumber(y: number): number {
-    return numberOfKeys - y / keyHeight
-  }
+  const onMouseDown = useCallback(
+    (e: React.MouseEvent) => {
+      function pixelsToNoteNumber(y: number): number {
+        return numberOfKeys - y / keyHeight
+      }
 
-  function noteNumberToPixels(noteNumber: number): number {
-    return Math.floor((numberOfKeys - noteNumber - 1) * keyHeight)
-  }
+      const startPosition = {
+        x: e.nativeEvent.offsetX,
+        y: e.nativeEvent.offsetY,
+      }
+      const { player } = rootStore.services
+      const channel = rootStore.song.selectedTrack?.channel ?? 0
 
-  function onMouseDown(e: React.MouseEvent) {
-    const startPosition = {
-      x: e.nativeEvent.offsetX,
-      y: e.nativeEvent.offsetY,
-    }
-    const { player } = rootStore.services
-    const channel = rootStore.song.selectedTrack?.channel ?? 0
+      let prevNoteNumber = Math.floor(pixelsToNoteNumber(startPosition.y))
+      player.sendNoteOn(channel, prevNoteNumber, 127)
 
-    let prevNoteNumber = Math.floor(pixelsToNoteNumber(startPosition.y))
-    player.sendNoteOn(channel, prevNoteNumber, 127)
+      setTouchingKeys([prevNoteNumber])
 
-    setTouchingKeys([prevNoteNumber])
-
-    observeDrag({
-      onMouseMove(e) {
-        const pos = {
-          x: e.offsetX,
-          y: e.offsetY,
-        }
-        const noteNumber = Math.floor(pixelsToNoteNumber(pos.y))
-        if (noteNumber !== prevNoteNumber) {
+      observeDrag({
+        onMouseMove(e) {
+          const pos = {
+            x: e.offsetX,
+            y: e.offsetY,
+          }
+          const noteNumber = Math.floor(pixelsToNoteNumber(pos.y))
+          if (noteNumber !== prevNoteNumber) {
+            player.sendNoteOff(channel, prevNoteNumber, 0)
+            player.sendNoteOn(channel, noteNumber, 127)
+            prevNoteNumber = noteNumber
+            setTouchingKeys([noteNumber])
+          }
+        },
+        onMouseUp(_) {
           player.sendNoteOff(channel, prevNoteNumber, 0)
-          player.sendNoteOn(channel, noteNumber, 127)
-          prevNoteNumber = noteNumber
-          setTouchingKeys([noteNumber])
-        }
-      },
-      onMouseUp(_) {
-        player.sendNoteOff(channel, prevNoteNumber, 0)
-        setTouchingKeys([])
-      },
-    })
-  }
+          setTouchingKeys([])
+        },
+      })
+    },
+    [numberOfKeys, keyHeight]
+  )
 
   return (
     <DrawCanvas
       draw={draw}
-      className="PianoKeys"
       width={width}
       height={keyHeight * numberOfKeys}
       onMouseDown={onMouseDown}

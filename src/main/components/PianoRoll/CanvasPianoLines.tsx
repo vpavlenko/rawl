@@ -1,5 +1,5 @@
 import Color from "color"
-import React, { CSSProperties, FC } from "react"
+import React, { CSSProperties, FC, useCallback } from "react"
 import { Theme } from "../../../common/theme/Theme"
 import DrawCanvas from "../DrawCanvas"
 
@@ -49,26 +49,28 @@ const PianoLines: FC<PianoLinesProps> = ({
   theme,
   style,
 }) => {
-  function draw(ctx: CanvasRenderingContext2D) {
-    const { width, height } = ctx.canvas
-    ctx.clearRect(0, 0, width, height)
-    ctx.save()
-    ctx.translate(0, 0.5)
-    drawHorizontalLines(
-      ctx,
-      numberOfKeys,
-      pixelsPerKey,
-      width,
-      theme.pianoBlackKeyLaneColor,
-      Color(theme.dividerColor).alpha(0.7).string()
-    )
-    ctx.restore()
-  }
+  const draw = useCallback(
+    (ctx: CanvasRenderingContext2D) => {
+      const { width, height } = ctx.canvas
+      ctx.clearRect(0, 0, width, height)
+      ctx.save()
+      ctx.translate(0, 0.5)
+      drawHorizontalLines(
+        ctx,
+        numberOfKeys,
+        pixelsPerKey,
+        width,
+        theme.pianoBlackKeyLaneColor,
+        Color(theme.dividerColor).alpha(0.7).string()
+      )
+      ctx.restore()
+    },
+    [theme, pixelsPerKey, numberOfKeys]
+  )
 
   return (
     <DrawCanvas
       draw={draw}
-      className="PianoLines"
       width={width}
       height={pixelsPerKey * numberOfKeys}
       style={style}

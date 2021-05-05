@@ -132,21 +132,23 @@ const PianoRuler: FC<PianoRulerProps> = observer(
       [rootStore, scrollLeft, pixelsPerTick]
     )
 
-    function draw(ctx: CanvasRenderingContext2D) {
-      ctx.clearRect(0, 0, width, height)
-      ctx.save()
-      ctx.translate(-scrollLeft + 0.5, 0)
-      drawRuler(ctx, height, beats, theme)
-      if (loop.enabled) {
-        drawLoopPoints(ctx, loop, height, pixelsPerTick, theme)
-      }
-      ctx.restore()
-    }
+    const draw = useCallback(
+      (ctx: CanvasRenderingContext2D) => {
+        ctx.clearRect(0, 0, width, height)
+        ctx.save()
+        ctx.translate(-scrollLeft + 0.5, 0)
+        drawRuler(ctx, height, beats, theme)
+        if (loop.enabled) {
+          drawLoopPoints(ctx, loop, height, pixelsPerTick, theme)
+        }
+        ctx.restore()
+      },
+      [width, pixelsPerTick, scrollLeft, beats]
+    )
 
     return (
       <DrawCanvas
         draw={draw}
-        className="PianoRuler"
         width={width}
         height={height}
         onMouseDown={onMouseDown}

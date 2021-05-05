@@ -149,14 +149,12 @@ export const PianoNotes: FC<PianoRollStageProps> = observer(
       scrollTop,
     ])
 
-    const canvasScale = window.devicePixelRatio
-
     return (
       <>
         <GLCanvas
-          width={width * canvasScale}
-          height={height * canvasScale}
-          style={{ width, height, cursor: notesCursor }}
+          width={width}
+          height={height}
+          style={{ cursor: notesCursor }}
           onContextMenu={useCallback((e) => e.preventDefault(), [])}
           onCreateContext={useCallback(
             (gl) => setRenderer(new PianoRollRenderer(gl)),

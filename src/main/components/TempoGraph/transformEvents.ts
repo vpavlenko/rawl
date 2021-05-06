@@ -34,7 +34,7 @@ export const transformEvents = (
         x: e.x,
         y: e.y,
         width: nextItem.x - e.x,
-        height: transform.height,
+        height: transform.height - e.y + 1, // fit to screen bottom
       },
       microsecondsPerBeat: e.microsecondsPerBeat,
     }

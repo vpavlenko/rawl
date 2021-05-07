@@ -73,7 +73,13 @@ export const Drawer: FC = observer(() => {
       </List>
       <Divider />
       <List>
-        <ListItem button onClick={useCallback(() => router.pushArrange(), [])}>
+        <ListItem
+          button
+          onClick={useCallback(() => {
+            close()
+            router.pushArrange()
+          }, [])}
+        >
           <ListItemText
             primary={localized("arrangement-view", "Arrangement View")}
           />

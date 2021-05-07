@@ -17,6 +17,7 @@ import {
   arrangeMoveSelection,
   arrangeResizeSelection,
   arrangeStartSelection,
+  selectTrack,
   setPlayerPosition,
 } from "../../actions"
 import { Layout } from "../../Constants"
@@ -298,6 +299,11 @@ export const ArrangeView: FC = observer(() => {
     selectionRect,
   ])
 
+  const openTrack = (trackId: number) => {
+    rootStore.router.pushTrack()
+    selectTrack(rootStore)(trackId)
+  }
+
   return (
     <Wrapper>
       <HeaderList>
@@ -309,7 +315,11 @@ export const ArrangeView: FC = observer(() => {
           }}
         >
           {tracks.map((t, i) => (
-            <TrackHeader style={{ height: trackHeight }} key={i}>
+            <TrackHeader
+              style={{ height: trackHeight }}
+              key={i}
+              onDoubleClick={() => openTrack(i)}
+            >
               {t.displayName}
             </TrackHeader>
           ))}

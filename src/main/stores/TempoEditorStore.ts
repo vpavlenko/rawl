@@ -71,7 +71,7 @@ export default class TempoEditorStore {
   }
 
   get items() {
-    const { transform, canvasWidth } = this
+    const { transform, canvasWidth, scrollLeft } = this
 
     const sourceEvents =
       this.rootStore.song.conductorTrack !== undefined
@@ -82,7 +82,7 @@ export default class TempoEditorStore {
       (e) => (e as any).subtype === "setTempo"
     ) as DisplayEvent[]
 
-    return transformEvents(events, transform, canvasWidth)
+    return transformEvents(events, transform, canvasWidth + scrollLeft)
   }
 
   get contentWidth() {

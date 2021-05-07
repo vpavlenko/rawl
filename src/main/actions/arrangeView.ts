@@ -40,6 +40,13 @@ const quantizeRect = (quantizer: Quantizer, rect: IRect | null) => {
   }
 }
 
+export const arrangeResetSelection = (rootStore: RootStore) => () => {
+  const { arrangeViewStore: s } = rootStore
+
+  s.selection = null
+  s.selectedEventIds = {}
+}
+
 export const arrangeStartSelection = (rootStore: RootStore) => (
   pos: IPoint
 ) => {

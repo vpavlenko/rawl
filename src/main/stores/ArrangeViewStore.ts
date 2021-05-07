@@ -4,6 +4,7 @@ import { filterEventsWithScroll } from "../../common/helpers/filterEventsWithScr
 import { createBeatsInRange } from "../../common/helpers/mapBeats"
 import { isNoteEvent } from "../../common/track"
 import { NoteCoordTransform } from "../../common/transform"
+import { BAR_WIDTH } from "../components/inputs/ScrollBar"
 import { Layout } from "../Constants"
 import RootStore from "./RootStore"
 
@@ -19,6 +20,7 @@ export default class ArrangeViewStore {
   _scrollLeft = 0
   scrollTop = 0
   canvasWidth = 0
+  canvasHeight = 0
 
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore
@@ -32,6 +34,7 @@ export default class ArrangeViewStore {
       _scrollLeft: observable,
       scrollTop: observable,
       canvasWidth: observable,
+      canvasHeight: observable,
       scrollLeft: computed,
       transform: computed,
       notes: computed,
@@ -40,7 +43,9 @@ export default class ArrangeViewStore {
       trackHeight: computed,
       selectionRect: computed,
       contentWidth: computed,
+      contentHeight: computed,
       setScrollLeft: action,
+      setScrollTop: action,
     })
   }
 
@@ -68,6 +73,19 @@ export default class ArrangeViewStore {
     this._scrollLeft = Math.floor(Math.min(maxOffset, Math.max(0, value)))
   }
 
+  setScrollTop(value: number) {
+    const maxOffset = Math.max(
+      0,
+      this.contentHeight + Layout.rulerHeight + BAR_WIDTH - this.canvasHeight
+    )
+    this.scrollTop = Math.floor(Math.min(maxOffset, Math.max(0, value)))
+  }
+
+  scrollBy(x: number, y: number) {
+    this.setScrollLeft(this.scrollLeft - x)
+    this.setScrollTop(this.scrollTop - y)
+  }
+
   get contentWidth(): number {
     const { scrollLeft, transform, canvasWidth } = this
     const startTick = scrollLeft / transform.pixelsPerTick
@@ -76,6 +94,10 @@ export default class ArrangeViewStore {
     return (
       Math.max(this.rootStore.song.endOfSong, endTick) * transform.pixelsPerTick
     )
+  }
+
+  get contentHeight(): number {
+    return this.trackHeight * this.rootStore.song.tracks.length
   }
 
   get transform(): NoteCoordTransform {

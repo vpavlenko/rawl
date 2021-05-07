@@ -102,13 +102,12 @@ export const ArrangeView: FC = observer(() => {
     (v: number) => rootStore.arrangeViewStore.setScrollLeft(v),
     []
   )
-  const _setScrollTop = useCallback(
-    (v: number) => (rootStore.arrangeViewStore.scrollTop = v),
+  const setScrollTop = useCallback(
+    (v: number) => rootStore.arrangeViewStore.setScrollTop(v),
     []
   )
 
   const containerWidth = size.width
-  const containerHeight = size.height
   const contentHeight = trackHeight * tracks.length
 
   const theme = useTheme()
@@ -117,23 +116,16 @@ export const ArrangeView: FC = observer(() => {
     rootStore.arrangeViewStore.canvasWidth = size.width
   }, [size.width])
 
+  useEffect(() => {
+    rootStore.arrangeViewStore.canvasHeight = size.height
+  }, [size.height])
+
   const onClickScaleUp = useCallback(() => (s.scaleX += 0.1), [s])
   const onClickScaleDown = useCallback(
     () => (s.scaleX = Math.max(0.05, s.scaleX - 0.1)),
     [s]
   )
   const onClickScaleReset = useCallback(() => (s.scaleX = 1), [s])
-
-  const setScrollTop = useCallback(
-    (scroll: number) => {
-      const maxOffset = Math.max(
-        0,
-        contentHeight + Layout.rulerHeight + BAR_WIDTH - containerHeight
-      )
-      _setScrollTop(Math.floor(Math.min(maxOffset, Math.max(0, scroll))))
-    },
-    [contentHeight, containerHeight, _setScrollTop]
-  )
 
   const handleLeftClick = useCallback(
     (e: React.MouseEvent, createPoint: (e: MouseEvent) => IPoint) => {
@@ -388,7 +380,7 @@ export const ArrangeView: FC = observer(() => {
         <VerticalScrollBar
           scrollOffset={scrollTop}
           contentLength={contentHeight + Layout.rulerHeight}
-          onScroll={_setScrollTop}
+          onScroll={setScrollTop}
         />
       </div>
       <div

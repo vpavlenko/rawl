@@ -1,21 +1,8 @@
-import { FC } from "react"
+import React, { FC } from "react"
 import styled from "styled-components"
-import { useStores } from "../../hooks/useStores"
+import { ArrangeViewKeyboardShortcut } from "../KeyboardShortcut/ArrangeViewKeyboardShortcut"
 import { ArrangeToolbar } from "./ArrangeToolbar"
 import { ArrangeView } from "./ArrangeView"
-
-interface NavItemProps {
-  title: string
-  onClick: () => void
-}
-
-function NavItem({ title, onClick }: NavItemProps) {
-  return (
-    <div className="NavItem" onClick={onClick}>
-      {title}
-    </div>
-  )
-}
 
 const Container = styled.div`
   overflow: hidden;
@@ -26,10 +13,9 @@ const Container = styled.div`
 `
 
 export const ArrangeEditor: FC = () => {
-  const { router } = useStores()
-
   return (
     <Container>
+      <ArrangeViewKeyboardShortcut />
       <ArrangeToolbar />
       <ArrangeView />
     </Container>

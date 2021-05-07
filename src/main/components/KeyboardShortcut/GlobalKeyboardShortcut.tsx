@@ -10,9 +10,9 @@ import {
   selectPreviousNote,
   stop,
   transposeSelection,
-} from "../actions"
-import { redo, undo } from "../actions/history"
-import { useStores } from "../hooks/useStores"
+} from "../../actions"
+import { redo, undo } from "../../actions/history"
+import { useStores } from "../../hooks/useStores"
 
 const isFocusable = (e: EventTarget) =>
   e instanceof HTMLAnchorElement ||
@@ -25,7 +25,7 @@ const isFocusable = (e: EventTarget) =>
 
 const SCROLL_DELTA = 24
 
-export const KeyboardShortcut: FC = () => {
+export const GlobalKeyboardShortcut: FC = () => {
   const rootStore = useStores()
 
   useEffect(() => {

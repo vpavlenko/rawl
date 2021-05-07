@@ -9,8 +9,8 @@ import { theme } from "../../../common/theme/muiTheme"
 import { defaultTheme } from "../../../common/theme/Theme"
 import { StoreContext } from "../../hooks/useStores"
 import { ThemeContext } from "../../hooks/useTheme"
-import { KeyboardShortcut } from "../../services/KeyboardShortcut"
 import RootStore from "../../stores/RootStore"
+import { GlobalKeyboardShortcut } from "../KeyboardShortcut/GlobalKeyboardShortcut"
 import { RootView } from "../RootView/RootView"
 
 Sentry.init({
@@ -28,7 +28,7 @@ export function App() {
           <ThemeProvider theme={defaultTheme}>
             <MuiThemeProvider theme={theme}>
               <StylesProvider injectFirst>
-                <KeyboardShortcut />
+                <GlobalKeyboardShortcut />
                 <GlobalCSS />
                 <RootView />
               </StylesProvider>

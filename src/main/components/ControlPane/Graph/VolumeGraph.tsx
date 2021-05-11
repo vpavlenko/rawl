@@ -26,7 +26,6 @@ const VolumeGraph: FC<VolumeGraphProps> = ({
 
   return (
     <LineGraphControl
-      className="VolumeGraph"
       width={width}
       height={height}
       maxValue={127}

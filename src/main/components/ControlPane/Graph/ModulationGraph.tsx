@@ -26,7 +26,6 @@ const ModulationGraph: FC<ModulationGraphProps> = ({
 
   return (
     <LineGraphControl
-      className="ModulationGraph"
       width={width}
       height={height}
       maxValue={127}

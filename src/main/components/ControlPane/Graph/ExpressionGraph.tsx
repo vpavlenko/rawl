@@ -26,7 +26,6 @@ const ExpressionGraph: FC<ExpressionGraphProps> = ({
 
   return (
     <LineGraphControl
-      className="ExpressionGraph"
       width={width}
       height={height}
       maxValue={127}

@@ -23,7 +23,6 @@ export interface LineGraphControlProps {
   maxValue: number
   createEvent: (value: ItemValue) => void
   onClickAxis: (value: number) => void
-  className: string
   lineWidth?: number
   axis: number[]
 }
@@ -37,7 +36,6 @@ const LineGraphControl: FC<LineGraphControlProps> = ({
   lineWidth = 1,
   axis,
   onClickAxis,
-  className,
 }) => {
   const theme = useTheme()
   const { pianoRollStore } = useStores()
@@ -114,7 +112,6 @@ const LineGraphControl: FC<LineGraphControlProps> = ({
 
   return (
     <div
-      className={`PianoControl LineGraph ${className}`}
       style={{
         display: "flex",
       }}

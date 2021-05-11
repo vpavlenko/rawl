@@ -26,7 +26,6 @@ const PitchGraph: FC<PitchGraphProps> = ({
 
   return (
     <LineGraphControl
-      className="PitchGraph"
       width={width}
       height={height}
       maxValue={0x4000}

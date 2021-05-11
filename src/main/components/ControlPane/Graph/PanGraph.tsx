@@ -26,7 +26,6 @@ const PanGraph: FC<PanGraphProps> = ({
 
   return (
     <LineGraphControl
-      className="PanGraph"
       width={width}
       height={height}
       maxValue={127}

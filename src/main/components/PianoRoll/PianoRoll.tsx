@@ -12,6 +12,7 @@ import { VerticalScrollBar } from "../inputs/ScrollBar"
 import { PianoRollStage } from "./PianoRollStage"
 
 const WHEEL_SCROLL_RATE = 1 / 120
+const SCALE_X_MIN = 0.05
 
 const Parent = styled.div`
   flex-grow: 1;
@@ -113,7 +114,7 @@ const PianoRollWrapper: FC = observer(() => {
     s,
   ])
   const onClickScaleDown = useCallback(
-    () => (s.scaleX = Math.max(0.05, scaleX - 0.1)),
+    () => (s.scaleX = Math.max(SCALE_X_MIN, scaleX - 0.1)),
     [scaleX, s]
   )
   const onClickScaleReset = useCallback(() => (s.scaleX = 1), [s])
@@ -140,12 +141,21 @@ const PianoRollWrapper: FC = observer(() => {
       if (!isTouchPadEvent(e.nativeEvent)) {
         deltaY = e.deltaY * transform.pixelsPerKey * WHEEL_SCROLL_RATE
       }
-      const scrollY = scrollTop + deltaY
-      setScrollTop(clampScrollTop(scrollY))
 
-      const deltaX = e.deltaX
-      const scrollX = scrollLeft + deltaX
-      setScrollLeft(clampScrollLeft(scrollX))
+      if (e.altKey || e.ctrlKey) {
+        // zooming
+        console.log(e, e.deltaY, deltaY, s.scaleX)
+        const scaleFactor = isTouchPadEvent(e.nativeEvent) ? 0.01 : 0.05
+        s.scaleX = Math.max(SCALE_X_MIN, s.scaleX + e.deltaY * scaleFactor)
+      } else {
+        // scrolling
+        const scrollY = scrollTop + deltaY
+        setScrollTop(clampScrollTop(scrollY))
+
+        const deltaX = e.deltaX
+        const scrollX = scrollLeft + deltaX
+        setScrollLeft(clampScrollLeft(scrollX))
+      }
     },
     [
       scrollTop,

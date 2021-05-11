@@ -64,11 +64,23 @@ export const GlobalKeyboardShortcut: FC = () => {
 
     window.addEventListener("keydown", listener)
 
+    // prevent zooming
+    const onWheel = (e: WheelEvent) => {
+      // Touchpad pinches are translated into wheel with ctrl event
+      if (e.ctrlKey) {
+        e.preventDefault()
+      }
+    }
+
+    document.addEventListener("wheel", onWheel, { passive: false })
+
     // do not allow to open the default context menu
     document.oncontextmenu = (e) => e.preventDefault()
 
     return () => {
       window.removeEventListener("keydown", listener)
+      document.removeEventListener("wheel", onWheel)
+
       document.oncontextmenu = null
     }
   }, [rootStore])

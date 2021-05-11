@@ -28,7 +28,7 @@ const Parent = styled.div`
 `
 
 const hitTest = <T extends { hitArea: IRect }>(items: T[], point: IPoint) => {
-  return items.find((n) => containsPoint(n.hitArea, point)) ?? null
+  return items.filter((n) => containsPoint(n.hitArea, point))
 }
 
 const PianoVelocityControl: FC<PianoVelocityControlProps> = observer(
@@ -69,9 +69,9 @@ const PianoVelocityControl: FC<PianoVelocityControlProps> = observer(
           x: e.offsetX + scrollLeft,
           y: e.offsetY,
         }
-        const item = hitTest(items, local)
+        const hitItems = hitTest(items, local)
 
-        if (item === null) {
+        if (hitItems.length === 0) {
           return
         }
 
@@ -84,7 +84,7 @@ const PianoVelocityControl: FC<PianoVelocityControlProps> = observer(
           )
         }
 
-        const noteIds = [item.id]
+        const noteIds = hitItems.map((e) => e.id)
 
         changeVelocity(noteIds, calcValue(e))
 

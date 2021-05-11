@@ -116,6 +116,10 @@ export const PianoNotes: FC<PianoRollStageProps> = observer(
     }, [width])
 
     useEffect(() => {
+      rootStore.pianoRollStore.canvasHeight = height
+    }, [height])
+
+    useEffect(() => {
       if (renderer === null) {
         return
       }

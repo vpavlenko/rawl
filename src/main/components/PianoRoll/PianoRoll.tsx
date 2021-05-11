@@ -41,9 +41,6 @@ const Beta = styled.div`
   height: calc(100% - 17px);
 `
 
-const clamp = (value: number, min: number, max: number) =>
-  Math.min(max, Math.max(min, value))
-
 const StyledSplitPane = styled(SplitPane)`
   .Resizer {
     background: #000;
@@ -107,12 +104,10 @@ const PianoRollWrapper: FC = observer(() => {
   const ref = useRef(null)
   const size = useComponentSize(ref)
 
-  const setScrollLeft = useCallback((v) => (s.scrollLeft = v), [s])
-  const setScrollTop = useCallback((v) => (s.scrollTop = v), [s])
-  const onClickScaleUp = useCallback(() => (s.scaleX = scaleX + 0.1), [
-    scaleX,
-    s,
-  ])
+  const onClickScaleUp = useCallback(
+    () => (s.scaleX = scaleX + 0.1),
+    [scaleX, s]
+  )
   const onClickScaleDown = useCallback(
     () => (s.scaleX = Math.max(SCALE_X_MIN, scaleX - 0.1)),
     [scaleX, s]
@@ -129,47 +124,23 @@ const PianoRollWrapper: FC = observer(() => {
   const alphaRef = useRef(null)
   const { height: alphaHeight = 0 } = useComponentSize(alphaRef)
 
-  const clampScrollLeft = (scroll: number) =>
-    Math.floor(clamp(scroll, 0, contentWidth - size.width))
-
-  const clampScrollTop = (scroll: number) =>
-    Math.floor(clamp(scroll, 0, contentHeight - alphaHeight))
-
   const onWheel = useCallback(
     (e: React.WheelEvent) => {
-      let deltaY = e.deltaY
-      if (!isTouchPadEvent(e.nativeEvent)) {
-        deltaY = e.deltaY * transform.pixelsPerKey * WHEEL_SCROLL_RATE
-      }
-
       if (e.altKey || e.ctrlKey) {
         // zooming
-        console.log(e, e.deltaY, deltaY, s.scaleX)
         const scaleFactor = isTouchPadEvent(e.nativeEvent) ? 0.01 : 0.05
         s.scaleX = Math.max(SCALE_X_MIN, s.scaleX + e.deltaY * scaleFactor)
       } else {
         // scrolling
-        const scrollY = scrollTop + deltaY
-        setScrollTop(clampScrollTop(scrollY))
-
-        const deltaX = e.deltaX
-        const scrollX = scrollLeft + deltaX
-        setScrollLeft(clampScrollLeft(scrollX))
+        const scaleFactor = isTouchPadEvent(e.nativeEvent)
+          ? 1
+          : transform.pixelsPerKey * WHEEL_SCROLL_RATE
+        const deltaY = e.deltaY * scaleFactor
+        s.scrollBy(-e.deltaX, -deltaY)
       }
     },
-    [
-      scrollTop,
-      scrollLeft,
-      setScrollTop,
-      setScrollLeft,
-      clampScrollLeft,
-      clampScrollTop,
-      transform,
-    ]
+    [s, transform]
   )
-
-  const _scrollLeft = clampScrollLeft(scrollLeft)
-  const _scrollTop = clampScrollTop(scrollTop)
 
   return (
     <Parent ref={ref}>
@@ -177,9 +148,9 @@ const PianoRollWrapper: FC = observer(() => {
         <Alpha onWheel={onWheel} ref={alphaRef}>
           <PianoRollStage width={size.width} height={alphaHeight} />
           <VerticalScrollBar
-            scrollOffset={_scrollTop}
+            scrollOffset={scrollTop}
             contentLength={contentHeight}
-            onScroll={setScrollTop}
+            onScroll={useCallback((v) => s.setScrollTop(v), [s])}
           />
         </Alpha>
         <Beta>
@@ -187,9 +158,9 @@ const PianoRollWrapper: FC = observer(() => {
         </Beta>
       </StyledSplitPane>
       <HorizontalScaleScrollBar
-        scrollOffset={_scrollLeft}
+        scrollOffset={scrollLeft}
         contentLength={contentWidth}
-        onScroll={setScrollLeft}
+        onScroll={useCallback((v) => s.setScrollLeft(v), [s])}
         onClickScaleUp={onClickScaleUp}
         onClickScaleDown={onClickScaleDown}
         onClickScaleReset={onClickScaleReset}

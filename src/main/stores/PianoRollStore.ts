@@ -1,4 +1,4 @@
-import { flatten } from "lodash"
+import { clamp, flatten } from "lodash"
 import { action, autorun, computed, makeObservable, observable } from "mobx"
 import { IRect } from "../../common/geometry"
 import { filterEventsWithScroll } from "../../common/helpers/filterEventsWithScroll"
@@ -48,6 +48,7 @@ export default class PianoRollStore {
   presetNames: LoadSoundFontEvent["presetNames"] = [[]]
   ghostTracks: GhostTrackIdMap = {}
   canvasWidth: number = 0
+  canvasHeight: number = 0
   showEventList = false
 
   constructor(rootStore: RootStore) {
@@ -71,6 +72,7 @@ export default class PianoRollStore {
       presetNames: observable,
       ghostTracks: observable,
       canvasWidth: observable,
+      canvasHeight: observable,
       showEventList: observable,
       transform: computed,
       windowedEvents: computed,
@@ -81,6 +83,8 @@ export default class PianoRollStore {
       currentMBTTime: computed,
       mappedBeats: computed,
       cursorX: computed,
+      setScrollLeft: action,
+      setScrollTop: action,
       scrollBy: action,
       toggleTool: action,
     })
@@ -102,9 +106,27 @@ export default class PianoRollStore {
     })
   }
 
+  setScrollLeft(x: number) {
+    const { scrollLeft, transform, canvasWidth } = this
+    const trackEndTick = this.rootStore.song.endOfSong
+    const startTick = scrollLeft / transform.pixelsPerTick
+    const widthTick = transform.getTicks(canvasWidth)
+    const endTick = startTick + widthTick
+    const contentWidth =
+      Math.max(trackEndTick, endTick) * transform.pixelsPerTick
+    const maxX = contentWidth - canvasWidth
+    this.scrollLeft = clamp(x, 0, maxX)
+  }
+
+  setScrollTop(y: number) {
+    const { transform, canvasHeight } = this
+    const contentHeight = transform.getMaxY()
+    this.scrollTop = clamp(y, 0, contentHeight - canvasHeight)
+  }
+
   scrollBy(x: number, y: number) {
-    this.scrollLeft = Math.max(0, this.scrollLeft - x)
-    this.scrollTop = Math.max(0, this.scrollTop - y)
+    this.setScrollLeft(this.scrollLeft - x)
+    this.setScrollTop(this.scrollTop - y)
   }
 
   toggleTool() {

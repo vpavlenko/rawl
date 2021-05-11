@@ -5,7 +5,7 @@ import { filterEventsWithScroll } from "../../common/helpers/filterEventsWithScr
 import { BeatWithX, createBeatsInRange } from "../../common/helpers/mapBeats"
 import { getMBTString } from "../../common/measure/mbt"
 import { emptySelection } from "../../common/selection/Selection"
-import { isNoteEvent, NoteEvent } from "../../common/track"
+import { isNoteEvent, TrackEvent } from "../../common/track"
 import { NoteCoordTransform } from "../../common/transform"
 import { LoadSoundFontEvent } from "../../synth/synth"
 import { ControlMode } from "../components/ControlPane/ControlPane"
@@ -73,6 +73,7 @@ export default class PianoRollStore {
       canvasWidth: observable,
       showEventList: observable,
       transform: computed,
+      windowedEvents: computed,
       notes: computed,
       currentVolume: computed,
       currentPan: computed,
@@ -118,24 +119,34 @@ export default class PianoRollStore {
     )
   }
 
+  get windowedEvents(): TrackEvent[] {
+    const { transform, scrollLeft, canvasWidth } = this
+    const track = this.rootStore.song.selectedTrack
+    if (track === undefined) {
+      return []
+    }
+
+    return filterEventsWithScroll(
+      track.events,
+      transform.pixelsPerTick,
+      scrollLeft,
+      canvasWidth
+    )
+  }
+
   get notes(): [PianoNoteItem[], PianoNoteItem[]] {
     const song = this.rootStore.song
-    const transform = this.transform
+    const { selectedTrackId } = song
+    const { transform, windowedEvents, ghostTracks, selection } = this
 
-    const track = song.tracks[song.selectedTrackId]
+    const track = song.selectedTrack
     if (track === undefined) {
       return [[], []]
     }
-    const ghostTrackIds = this.ghostTracks[song.selectedTrackId] ?? []
+    const ghostTrackIds = ghostTracks[selectedTrackId] ?? []
     const isRhythmTrack = track.isRhythmTrack
 
-    const windowNotes = (notes: NoteEvent[]): NoteEvent[] =>
-      filterEventsWithScroll(
-        notes,
-        transform.pixelsPerTick,
-        this.scrollLeft,
-        this.canvasWidth
-      )
+    const noteEvents = windowedEvents.filter(isNoteEvent)
 
     const getGhostNotes = () =>
       flatten(
@@ -144,39 +155,35 @@ export default class PianoRollStore {
           if (track === undefined) {
             return []
           }
-          return windowNotes(track.events.filter(isNoteEvent)).map(
-            (e): PianoNoteItem => {
-              const rect = track.isRhythmTrack
-                ? transform.getDrumRect(e)
-                : transform.getRect(e)
-              return {
-                ...rect,
-                id: e.id,
-                velocity: 127, // draw opaque when ghost
-                isSelected: false,
-                isDrum: track.isRhythmTrack,
-              }
+          return noteEvents.map((e): PianoNoteItem => {
+            const rect = track.isRhythmTrack
+              ? transform.getDrumRect(e)
+              : transform.getRect(e)
+            return {
+              ...rect,
+              id: e.id,
+              velocity: 127, // draw opaque when ghost
+              isSelected: false,
+              isDrum: track.isRhythmTrack,
             }
-          )
+          })
         })
       )
 
     return [
-      windowNotes(track.events.filter(isNoteEvent)).map(
-        (e): PianoNoteItem => {
-          const rect = isRhythmTrack
-            ? transform.getDrumRect(e)
-            : transform.getRect(e)
-          const isSelected = this.selection.noteIds.includes(e.id)
-          return {
-            ...rect,
-            id: e.id,
-            velocity: e.velocity,
-            isSelected,
-            isDrum: isRhythmTrack,
-          }
+      noteEvents.map((e): PianoNoteItem => {
+        const rect = isRhythmTrack
+          ? transform.getDrumRect(e)
+          : transform.getRect(e)
+        const isSelected = selection.noteIds.includes(e.id)
+        return {
+          ...rect,
+          id: e.id,
+          velocity: e.velocity,
+          isSelected,
+          isDrum: isRhythmTrack,
         }
-      ),
+      }),
       getGhostNotes(),
     ]
   }

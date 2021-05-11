@@ -74,6 +74,8 @@ export default class PianoRollStore {
       canvasWidth: observable,
       canvasHeight: observable,
       showEventList: observable,
+      contentWidth: computed,
+      contentHeight: computed,
       transform: computed,
       windowedEvents: computed,
       notes: computed,
@@ -106,14 +108,22 @@ export default class PianoRollStore {
     })
   }
 
-  setScrollLeft(x: number) {
+  get contentWidth(): number {
     const { scrollLeft, transform, canvasWidth } = this
     const trackEndTick = this.rootStore.song.endOfSong
     const startTick = scrollLeft / transform.pixelsPerTick
     const widthTick = transform.getTicks(canvasWidth)
     const endTick = startTick + widthTick
-    const contentWidth =
-      Math.max(trackEndTick, endTick) * transform.pixelsPerTick
+    return Math.max(trackEndTick, endTick) * transform.pixelsPerTick
+  }
+
+  get contentHeight(): number {
+    const { transform } = this
+    return transform.getMaxY()
+  }
+
+  setScrollLeft(x: number) {
+    const { canvasWidth, contentWidth } = this
     const maxX = contentWidth - canvasWidth
     this.scrollLeft = clamp(x, 0, maxX)
   }

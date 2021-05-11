@@ -97,9 +97,15 @@ const StyledSplitPane = styled(SplitPane)`
 const PianoRollWrapper: FC = observer(() => {
   const rootStore = useStores()
 
-  const trackEndTick = rootStore.song.endOfSong
   const s = rootStore.pianoRollStore
-  const { scaleX, scrollLeft, scrollTop, transform } = rootStore.pianoRollStore
+  const {
+    scaleX,
+    scrollLeft,
+    scrollTop,
+    transform,
+    contentWidth,
+    contentHeight,
+  } = rootStore.pianoRollStore
 
   const ref = useRef(null)
   const size = useComponentSize(ref)
@@ -113,13 +119,6 @@ const PianoRollWrapper: FC = observer(() => {
     [scaleX, s]
   )
   const onClickScaleReset = useCallback(() => (s.scaleX = 1), [s])
-
-  const startTick = scrollLeft / transform.pixelsPerTick
-  const widthTick = transform.getTicks(size.width)
-  const endTick = startTick + widthTick
-
-  const contentWidth = Math.max(trackEndTick, endTick) * transform.pixelsPerTick
-  const contentHeight = transform.getMaxY()
 
   const alphaRef = useRef(null)
   const { height: alphaHeight = 0 } = useComponentSize(alphaRef)

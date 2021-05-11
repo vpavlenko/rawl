@@ -3,7 +3,6 @@ import { observer } from "mobx-react-lite"
 import React, { FC, useCallback, useEffect, useState } from "react"
 import styled from "styled-components"
 import { containsPoint, IPoint, IRect } from "../../../../common/geometry"
-import { filterEventsWithScroll } from "../../../../common/helpers/filterEventsWithScroll"
 import { isNoteEvent } from "../../../../common/track"
 import { changeNotesVelocity } from "../../../actions"
 import { useStores } from "../../../hooks/useStores"
@@ -33,23 +32,11 @@ const PianoVelocityControl: FC<PianoVelocityControlProps> = observer(
   ({ width, height }: PianoVelocityControlProps) => {
     const theme = useTheme()
     const rootStore = useStores()
-    const {
-      mappedBeats,
-      cursorX,
-      transform,
-      scrollLeft,
-    } = rootStore.pianoRollStore
+    const { mappedBeats, cursorX, transform, scrollLeft, windowedEvents } =
+      rootStore.pianoRollStore
     const changeVelocity = useCallback(changeNotesVelocity(rootStore), [])
-    const events = rootStore.song.selectedTrack?.events ?? []
 
-    const controlEvents = filterEventsWithScroll(
-      events,
-      transform.pixelsPerTick,
-      scrollLeft,
-      width
-    ).map((e) => ({ ...e }))
-
-    const items = controlEvents.filter(isNoteEvent).map((note) => {
+    const items = windowedEvents.filter(isNoteEvent).map((note) => {
       const { x } = transform.getRect(note)
       const itemWidth = 5
       const itemHeight = (note.velocity / 127) * height
@@ -103,9 +90,8 @@ const PianoVelocityControl: FC<PianoVelocityControlProps> = observer(
 
     const axis = [0, 32, 64, 96, 128]
 
-    const [renderer, setRenderer] = useState<VelocityControlRenderer | null>(
-      null
-    )
+    const [renderer, setRenderer] =
+      useState<VelocityControlRenderer | null>(null)
 
     useEffect(() => {
       if (renderer === null) {

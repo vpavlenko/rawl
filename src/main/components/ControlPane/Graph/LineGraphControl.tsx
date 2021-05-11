@@ -3,7 +3,6 @@ import { ControllerEvent } from "midifile-ts"
 import { observer } from "mobx-react-lite"
 import React, { FC, useCallback, useEffect, useState } from "react"
 import { IPoint, IRect } from "../../../../common/geometry"
-import { filterEventsWithScroll } from "../../../../common/helpers/filterEventsWithScroll"
 import { TrackEvent, TrackEventOf } from "../../../../common/track"
 import { useStores } from "../../../hooks/useStores"
 import { useTheme } from "../../../hooks/useTheme"
@@ -54,19 +53,16 @@ const LineGraphControl: FC<LineGraphControlProps> = observer(
   }) => {
     const theme = useTheme()
     const rootStore = useStores()
-    const { mappedBeats, cursorX, scrollLeft, transform } =
+    const { mappedBeats, cursorX, scrollLeft, transform, windowedEvents } =
       rootStore.pianoRollStore
 
     const controllerEvents = (
       rootStore.song.selectedTrack?.events ?? []
     ).filter(filterEvent) as TrackEventOf<ControllerEvent>[]
 
-    let events = filterEventsWithScroll(
-      controllerEvents,
-      transform.pixelsPerTick,
-      scrollLeft,
-      width
-    )
+    let events = windowedEvents.filter(
+      filterEvent
+    ) as TrackEventOf<ControllerEvent>[]
 
     if (events.length > 0) {
       // add previous event

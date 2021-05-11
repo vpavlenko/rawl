@@ -1,5 +1,6 @@
 const path = require("path")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
+const webpack = require("webpack")
 
 module.exports = {
   context: __dirname,
@@ -28,6 +29,10 @@ module.exports = {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
   },
   plugins: [
+    new webpack.EnvironmentPlugin({
+      VERCEL_ENV: null,
+      VERCEL_GIT_COMMIT_SHA: null,
+    }),
     new HtmlWebpackPlugin({
       inject: true,
       filename: "edit.html",

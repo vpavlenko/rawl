@@ -1,9 +1,10 @@
-import { partition } from "lodash"
+import { last, partition } from "lodash"
+import { ControllerEvent } from "midifile-ts"
 import { observer } from "mobx-react-lite"
 import React, { FC, useCallback, useEffect, useState } from "react"
 import { IPoint, IRect } from "../../../../common/geometry"
 import { filterEventsWithScroll } from "../../../../common/helpers/filterEventsWithScroll"
-import { TrackEvent } from "../../../../common/track"
+import { TrackEvent, TrackEventOf } from "../../../../common/track"
 import { useStores } from "../../../hooks/useStores"
 import { useTheme } from "../../../hooks/useTheme"
 import { GLCanvas } from "../../GLCanvas/GLCanvas"
@@ -13,10 +14,6 @@ import { LineGraphRenderer } from "./LineGraphRenderer"
 interface ItemValue {
   tick: number
   value: number
-}
-
-export interface LineGraphControlEvent extends ItemValue {
-  id: number
 }
 
 export interface LineGraphControlProps {
@@ -57,21 +54,31 @@ const LineGraphControl: FC<LineGraphControlProps> = observer(
   }) => {
     const theme = useTheme()
     const rootStore = useStores()
-    const {
-      mappedBeats,
-      cursorX,
-      scrollLeft,
-      transform,
-    } = rootStore.pianoRollStore
+    const { mappedBeats, cursorX, scrollLeft, transform } =
+      rootStore.pianoRollStore
 
-    const events = rootStore.song.selectedTrack?.events ?? []
+    const controllerEvents = (
+      rootStore.song.selectedTrack?.events ?? []
+    ).filter(filterEvent) as TrackEventOf<ControllerEvent>[]
 
-    const controlEvents = filterEventsWithScroll(
-      events,
+    let events = filterEventsWithScroll(
+      controllerEvents,
       transform.pixelsPerTick,
       scrollLeft,
       width
-    ).filter(filterEvent) as LineGraphControlEvent[]
+    )
+
+    if (events.length > 0) {
+      // add previous event
+      const index = controllerEvents.indexOf(events[0])
+      if (index > 0) {
+        const lastEvent = controllerEvents[index - 1]
+        events.unshift(lastEvent)
+      }
+    } else if (controllerEvents.length > 0) {
+      // add last event
+      events.push(last(controllerEvents)!)
+    }
 
     function transformToPosition(tick: number, value: number) {
       return {
@@ -99,7 +106,7 @@ const LineGraphControl: FC<LineGraphControlProps> = observer(
       createEvent(transformFromPosition(local))
     }
 
-    const items = controlEvents.map((e) => {
+    const items = events.map((e) => {
       return {
         id: e.id,
         ...transformToPosition(e.tick, e.value),

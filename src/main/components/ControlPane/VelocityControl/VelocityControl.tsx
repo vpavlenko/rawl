@@ -1,10 +1,11 @@
 import { partition } from "lodash"
-import isEqual from "lodash/isEqual"
 import { observer } from "mobx-react-lite"
 import React, { FC, useCallback, useEffect, useState } from "react"
 import styled from "styled-components"
 import { containsPoint, IPoint, IRect } from "../../../../common/geometry"
-import { isNoteEvent, TrackEvent } from "../../../../common/track"
+import { filterEventsWithScroll } from "../../../../common/helpers/filterEventsWithScroll"
+import { isNoteEvent } from "../../../../common/track"
+import { changeNotesVelocity } from "../../../actions"
 import { useStores } from "../../../hooks/useStores"
 import { useTheme } from "../../../hooks/useTheme"
 import { GLCanvas } from "../../GLCanvas/GLCanvas"
@@ -15,9 +16,6 @@ import { VelocityControlRenderer } from "./VelocityControlRenderer"
 export interface PianoVelocityControlProps {
   width: number
   height: number
-  events: TrackEvent[]
-  scrollLeft: number
-  changeVelocity: (noteIds: number[], velocity: number) => void
 }
 
 const Parent = styled.div`
@@ -32,18 +30,26 @@ const hitTest = <T extends { hitArea: IRect }>(items: T[], point: IPoint) => {
 }
 
 const PianoVelocityControl: FC<PianoVelocityControlProps> = observer(
-  ({
-    width,
-    height,
-    events,
-    scrollLeft,
-    changeVelocity,
-  }: PianoVelocityControlProps) => {
+  ({ width, height }: PianoVelocityControlProps) => {
     const theme = useTheme()
-    const { pianoRollStore } = useStores()
-    const { mappedBeats, cursorX, transform } = pianoRollStore
+    const rootStore = useStores()
+    const {
+      mappedBeats,
+      cursorX,
+      transform,
+      scrollLeft,
+    } = rootStore.pianoRollStore
+    const changeVelocity = useCallback(changeNotesVelocity(rootStore), [])
+    const events = rootStore.song.selectedTrack?.events ?? []
 
-    const items = events.filter(isNoteEvent).map((note) => {
+    const controlEvents = filterEventsWithScroll(
+      events,
+      transform.pixelsPerTick,
+      scrollLeft,
+      width
+    ).map((e) => ({ ...e }))
+
+    const items = controlEvents.filter(isNoteEvent).map((note) => {
       const { x } = transform.getRect(note)
       const itemWidth = 5
       const itemHeight = (note.velocity / 127) * height
@@ -143,13 +149,7 @@ function areEqual(
   props: PianoVelocityControlProps,
   nextProps: PianoVelocityControlProps
 ) {
-  return (
-    props.scrollLeft === nextProps.scrollLeft &&
-    props.width === nextProps.width &&
-    props.height === nextProps.height &&
-    props.changeVelocity === nextProps.changeVelocity &&
-    isEqual(props.events, nextProps.events)
-  )
+  return props.width === nextProps.width && props.height === nextProps.height
 }
 
 export default React.memo(PianoVelocityControl, areEqual)

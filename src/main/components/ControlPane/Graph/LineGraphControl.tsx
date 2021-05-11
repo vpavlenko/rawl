@@ -2,6 +2,8 @@ import { partition } from "lodash"
 import { observer } from "mobx-react-lite"
 import React, { FC, useCallback, useEffect, useState } from "react"
 import { IPoint, IRect } from "../../../../common/geometry"
+import { filterEventsWithScroll } from "../../../../common/helpers/filterEventsWithScroll"
+import { TrackEvent } from "../../../../common/track"
 import { useStores } from "../../../hooks/useStores"
 import { useTheme } from "../../../hooks/useTheme"
 import { GLCanvas } from "../../GLCanvas/GLCanvas"
@@ -20,8 +22,8 @@ export interface LineGraphControlEvent extends ItemValue {
 export interface LineGraphControlProps {
   width: number
   height: number
-  events: LineGraphControlEvent[]
   maxValue: number
+  filterEvent: (e: TrackEvent) => boolean
   createEvent: (value: ItemValue) => void
   onClickAxis: (value: number) => void
   lineWidth?: number
@@ -44,8 +46,8 @@ const joinObjects = <T extends {}>(
 
 const LineGraphControl: FC<LineGraphControlProps> = observer(
   ({
-    events,
     maxValue,
+    filterEvent,
     createEvent,
     width,
     height,
@@ -54,8 +56,22 @@ const LineGraphControl: FC<LineGraphControlProps> = observer(
     onClickAxis,
   }) => {
     const theme = useTheme()
-    const { pianoRollStore } = useStores()
-    const { mappedBeats, cursorX, scrollLeft, transform } = pianoRollStore
+    const rootStore = useStores()
+    const {
+      mappedBeats,
+      cursorX,
+      scrollLeft,
+      transform,
+    } = rootStore.pianoRollStore
+
+    const events = rootStore.song.selectedTrack?.events ?? []
+
+    const controlEvents = filterEventsWithScroll(
+      events,
+      transform.pixelsPerTick,
+      scrollLeft,
+      width
+    ).filter(filterEvent) as LineGraphControlEvent[]
 
     function transformToPosition(tick: number, value: number) {
       return {
@@ -83,7 +99,7 @@ const LineGraphControl: FC<LineGraphControlProps> = observer(
       createEvent(transformFromPosition(local))
     }
 
-    const items = events.map((e) => {
+    const items = controlEvents.map((e) => {
       return {
         id: e.id,
         ...transformToPosition(e.tick, e.value),

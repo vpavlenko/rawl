@@ -1,7 +1,11 @@
-import React, { FC } from "react"
+import { partition } from "lodash"
+import React, { FC, useCallback, useEffect, useState } from "react"
 import { IPoint } from "../../../../common/geometry"
-import { NoteCoordTransform } from "../../../../common/transform"
-import LineGraph, { LineGraphProps } from "./LineGraph"
+import { useStores } from "../../../hooks/useStores"
+import { useTheme } from "../../../hooks/useTheme"
+import { GLCanvas } from "../../GLCanvas/GLCanvas"
+import { GraphAxis } from "./GraphAxis"
+import { LineGraphRenderer } from "./LineGraphRenderer"
 
 interface ItemValue {
   tick: number
@@ -12,26 +16,38 @@ export interface LineGraphControlEvent extends ItemValue {
   id: number
 }
 
-export type LineGraphControlProps = Omit<LineGraphProps, "items"> & {
+export interface LineGraphControlProps {
+  width: number
+  height: number
   events: LineGraphControlEvent[]
-  transform: NoteCoordTransform
   maxValue: number
   createEvent: (value: ItemValue) => void
+  onClickAxis: (value: number) => void
+  className: string
+  lineWidth?: number
+  axis: number[]
 }
 
 const LineGraphControl: FC<LineGraphControlProps> = ({
   events,
-  transform,
   maxValue,
   createEvent,
-  ...props
+  width,
+  height,
+  lineWidth = 1,
+  axis,
+  onClickAxis,
+  className,
 }) => {
-  const lineWidth = props.lineWidth ?? 1
+  const theme = useTheme()
+  const { pianoRollStore } = useStores()
+  const { mappedBeats, cursorX, scrollLeft, transform } = pianoRollStore
+
   function transformToPosition(tick: number, value: number) {
     return {
       x: Math.round(transform.getX(tick)),
       y:
-        Math.round((1 - value / maxValue) * (props.height - lineWidth * 2)) +
+        Math.round((1 - value / maxValue) * (height - lineWidth * 2)) +
         lineWidth,
     }
   }
@@ -40,9 +56,17 @@ const LineGraphControl: FC<LineGraphControlProps> = ({
     return {
       tick: transform.getTicks(position.x),
       value:
-        (1 - (position.y - lineWidth) / (props.height - lineWidth * 2)) *
-        maxValue,
+        (1 - (position.y - lineWidth) / (height - lineWidth * 2)) * maxValue,
     }
+  }
+
+  const onMouseDown = (ev: React.MouseEvent) => {
+    const e = ev.nativeEvent
+    const local = {
+      x: e.offsetX + scrollLeft,
+      y: e.offsetY,
+    }
+    createEvent(transformFromPosition(local))
   }
 
   const items = events.map((e) => {
@@ -52,12 +76,60 @@ const LineGraphControl: FC<LineGraphControlProps> = ({
     }
   })
 
+  const right = scrollLeft + width
+  const items_ = items.map(({ id, x, y }, i) => {
+    const next = items[i + 1]
+    const nextX = next ? next.x : right // 次がなければ右端まで描画する
+    return {
+      id,
+      x,
+      y,
+      width: nextX - x,
+      height,
+    }
+  })
+
+  const [renderer, setRenderer] = useState<LineGraphRenderer | null>(null)
+
+  useEffect(() => {
+    if (renderer === null) {
+      return
+    }
+
+    const [highlightedBeats, nonHighlightedBeats] = partition(
+      mappedBeats,
+      (b) => b.beat === 0
+    )
+
+    renderer.theme = theme
+    renderer.render(
+      items_,
+      nonHighlightedBeats.map((b) => b.x),
+      highlightedBeats.map((b) => b.x),
+      [],
+      cursorX,
+      scrollLeft
+    )
+  }, [renderer, scrollLeft, mappedBeats, cursorX, items_])
+
   return (
-    <LineGraph
-      onMouseDown={(e) => createEvent(transformFromPosition(e.local))}
-      items={items}
-      {...props}
-    />
+    <div
+      className={`PianoControl LineGraph ${className}`}
+      style={{
+        display: "flex",
+      }}
+    >
+      <GraphAxis axis={axis} onClick={onClickAxis} />
+      <GLCanvas
+        onMouseDown={onMouseDown}
+        onCreateContext={useCallback(
+          (gl) => setRenderer(new LineGraphRenderer(gl)),
+          []
+        )}
+        width={width}
+        height={height}
+      />
+    </div>
   )
 }
 

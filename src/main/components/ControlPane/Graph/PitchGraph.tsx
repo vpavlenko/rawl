@@ -17,11 +17,8 @@ export type PitchGraphProps = Omit<
 const PitchGraph: FC<PitchGraphProps> = ({
   width,
   height,
-  scrollLeft,
   events,
-  transform,
   createEvent,
-  color,
 }) => {
   const filteredEvents = events.filter(
     (e) => (e as any).subtype === "pitchBend"
@@ -32,14 +29,11 @@ const PitchGraph: FC<PitchGraphProps> = ({
       className="PitchGraph"
       width={width}
       height={height}
-      scrollLeft={scrollLeft}
-      transform={transform}
       maxValue={0x4000}
       events={filteredEvents}
       axis={[-0x2000, -0x1000, 0, 0x1000, 0x2000 - 1]}
       createEvent={(obj) => createEvent(obj.value, obj.tick)}
       onClickAxis={(value) => createEvent(value + 0x2000)}
-      color={color}
     />
   )
 }

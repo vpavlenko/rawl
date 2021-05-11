@@ -17,11 +17,8 @@ export type PanGraphProps = Omit<
 const PanGraph: FC<PanGraphProps> = ({
   width,
   height,
-  scrollLeft,
   events,
-  transform,
   createEvent,
-  color,
 }) => {
   const filteredEvents = events.filter(
     (e) => (e as any).controllerType === 0x0a
@@ -32,14 +29,11 @@ const PanGraph: FC<PanGraphProps> = ({
       className="PanGraph"
       width={width}
       height={height}
-      scrollLeft={scrollLeft}
-      transform={transform}
       maxValue={127}
       events={filteredEvents}
       axis={[-0x40, -0x20, 0, 0x20, 0x40 - 1]}
       createEvent={(obj) => createEvent(obj.value, obj.tick)}
       onClickAxis={(value) => createEvent(value + 0x40)}
-      color={color}
     />
   )
 }

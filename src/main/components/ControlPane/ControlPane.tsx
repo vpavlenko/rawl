@@ -1,4 +1,3 @@
-import { Container, Stage } from "@inlet/react-pixi"
 import useComponentSize from "@rehooks/component-size"
 import { toJS } from "mobx"
 import { observer } from "mobx-react-lite"
@@ -15,7 +14,6 @@ import ModulationGraph from "./Graph/ModulationGraph"
 import PanGraph from "./Graph/PanGraph"
 import PitchGraph from "./Graph/PitchGraph"
 import VolumeGraph from "./Graph/VolumeGraph"
-import PianoGrid from "./PianoGrid"
 import PianoVelocityControl from "./VelocityControl/VelocityControl"
 
 interface ButtonItem {
@@ -197,22 +195,7 @@ const ControlPane: FC = observer(() => {
   return (
     <Parent ref={ref}>
       <TabBar onClick={onSelectTab} selectedMode={mode} />
-      <div className="control-content">
-        {control}
-        <Stage
-          style={{
-            marginLeft: Layout.keyWidth,
-            pointerEvents: "none",
-          }}
-          width={controlProps.width}
-          height={controlProps.height}
-          options={{ backgroundAlpha: 0, autoDensity: true, antialias: true }}
-        >
-          <Container x={-scrollLeft}>
-            <PianoGrid height={controlProps.height} beats={mappedBeats} />
-          </Container>
-        </Stage>
-      </div>
+      <div className="control-content">{control}</div>
     </Parent>
   )
 })

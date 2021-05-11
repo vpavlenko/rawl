@@ -49,7 +49,7 @@ export const GlobalKeyboardShortcut: FC = () => {
           }
           break
         }
-        case "Period": {
+        case "Slash": {
           // Press ?
           if (e.shiftKey) {
             rootStore.rootViewStore.openHelp = true

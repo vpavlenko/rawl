@@ -74,12 +74,20 @@ export const GlobalKeyboardShortcut: FC = () => {
 
     document.addEventListener("wheel", onWheel, { passive: false })
 
+    // disable bounce scroll (Safari does not support overscroll-behavior CSS)
+    const onTouchMove = (e: TouchEvent) => {
+      e.preventDefault
+    }
+
+    document.addEventListener("touchmove", onTouchMove, { passive: false })
+
     // do not allow to open the default context menu
     document.oncontextmenu = (e) => e.preventDefault()
 
     return () => {
       window.removeEventListener("keydown", listener)
       document.removeEventListener("wheel", onWheel)
+      document.removeEventListener("touchmove", onTouchMove)
 
       document.oncontextmenu = null
     }

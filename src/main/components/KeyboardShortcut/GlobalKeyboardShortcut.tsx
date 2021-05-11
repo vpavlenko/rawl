@@ -49,6 +49,12 @@ export const GlobalKeyboardShortcut: FC = () => {
           }
           break
         }
+        case "Period": {
+          // Press ?
+          if (e.shiftKey) {
+            rootStore.rootViewStore.openHelp = true
+          }
+        }
         default:
           // do not call preventDefault
           return

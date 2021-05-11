@@ -65,5 +65,6 @@ export default {
     "one-octave-up": "+1オクターブ",
     "one-octave-down": "-1オクターブ",
     "arrangement-view": "アレンジビュー",
+    "open-help": "ヘルプを開く",
   },
 } as { [key: string]: { [key: string]: string } }

@@ -37,15 +37,18 @@ export const GraphAxis: FC<GraphAxisProps> = React.memo(({ axis, onClick }) => {
   return (
     <Parent>
       <Values>
-        {axis.reverse().map((value) => (
-          <Value
-            key={value}
-            className="AxisValue"
-            onClick={() => onClick(value)}
-          >
-            {value}
-          </Value>
-        ))}
+        {axis
+          .slice()
+          .reverse()
+          .map((value) => (
+            <Value
+              key={value}
+              className="AxisValue"
+              onClick={() => onClick(value)}
+            >
+              {value}
+            </Value>
+          ))}
       </Values>
     </Parent>
   )

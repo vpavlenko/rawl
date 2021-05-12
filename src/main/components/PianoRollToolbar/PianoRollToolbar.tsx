@@ -42,6 +42,10 @@ const Spacer = styled.div`
   width: 1rem;
 `
 
+const FlexibleSpacer = styled.div`
+  flex-grow: 1;
+`
+
 export const PianoRollToolbar: FC = observer(() => {
   const rootStore = useStores()
 
@@ -95,6 +99,8 @@ export const PianoRollToolbar: FC = observer(() => {
 
         <VolumeSlider trackId={trackId} />
         <PanSlider trackId={trackId} />
+
+        <FlexibleSpacer />
 
         <ToolSelector />
 

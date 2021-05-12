@@ -32,6 +32,10 @@ const Title = styled.div`
   min-width: 3em;
 `
 
+const FlexibleSpacer = styled.div`
+  flex-grow: 1;
+`
+
 export const ArrangeToolbar: FC = observer(() => {
   const rootStore = useStores()
   const quantize =
@@ -59,7 +63,7 @@ export const ArrangeToolbar: FC = observer(() => {
       <Toolbar variant="dense">
         <Title>{localized("arrangement-view", "Arrangement View")}</Title>
 
-        <Spacer />
+        <FlexibleSpacer />
 
         <QuantizeSelector
           value={quantize}

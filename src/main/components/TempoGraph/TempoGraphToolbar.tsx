@@ -34,6 +34,10 @@ const AutoScrollButton = styled(ToggleButton)`
   }
 `
 
+const FlexibleSpacer = styled.div`
+  flex-grow: 1;
+`
+
 export const TempoGraphToolbar: FC = observer(() => {
   const { tempoEditorStore, rootViewStore } = useStores()
   const autoScroll = tempoEditorStore.autoScroll
@@ -44,6 +48,8 @@ export const TempoGraphToolbar: FC = observer(() => {
     <AppBar position="static" elevation={0} className={classes.appBar}>
       <Toolbar variant="dense">
         <Title>Tempo</Title>
+
+        <FlexibleSpacer />
 
         <AutoScrollButton
           value="autoScroll"

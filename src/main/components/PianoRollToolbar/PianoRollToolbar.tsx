@@ -67,7 +67,7 @@ export const PianoRollToolbar: FC = observer(() => {
     [rootStore, s]
   )
   const onClickNavBack = useCallback(
-    () => (rootViewStore.openDrawer = true),
+    () => (rootViewStore.openTrackListDrawer = true),
     [rootViewStore]
   )
 

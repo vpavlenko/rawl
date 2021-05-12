@@ -1,5 +1,5 @@
-import { AppBar, IconButton, makeStyles, Toolbar } from "@material-ui/core"
-import { KeyboardTab, Menu as MenuIcon } from "@material-ui/icons"
+import { AppBar, makeStyles, Toolbar } from "@material-ui/core"
+import { KeyboardTab } from "@material-ui/icons"
 import { ToggleButton } from "@material-ui/lab"
 import { observer } from "mobx-react-lite"
 import { FC } from "react"
@@ -38,16 +38,11 @@ export const TempoGraphToolbar: FC = observer(() => {
   const { tempoEditorStore, rootViewStore } = useStores()
   const autoScroll = tempoEditorStore.autoScroll
 
-  const onClickNavBack = () => (rootViewStore.openDrawer = true)
   const classes = useStyles({})
 
   return (
     <AppBar position="static" elevation={0} className={classes.appBar}>
       <Toolbar variant="dense">
-        <IconButton onClick={onClickNavBack}>
-          <MenuIcon />
-        </IconButton>
-
         <Title>Tempo</Title>
 
         <AutoScrollButton

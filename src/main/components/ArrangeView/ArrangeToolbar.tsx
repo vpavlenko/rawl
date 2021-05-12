@@ -1,5 +1,5 @@
-import { AppBar, IconButton, makeStyles, Toolbar } from "@material-ui/core"
-import { KeyboardTab, Menu as MenuIcon } from "@material-ui/icons"
+import { AppBar, makeStyles, Toolbar } from "@material-ui/core"
+import { KeyboardTab } from "@material-ui/icons"
 import { observer } from "mobx-react-lite"
 import { FC, useCallback } from "react"
 import styled from "styled-components"
@@ -17,13 +17,6 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "1rem",
   },
 }))
-
-const NavBackButton = styled(IconButton)`
-  &:hover {
-    background: none;
-    color: var(--secondary-text-color);
-  }
-`
 
 const Spacer = styled.div`
   width: 1rem;
@@ -59,20 +52,11 @@ export const ArrangeToolbar: FC = observer(() => {
     rootStore.arrangeViewStore.quantize = e.denominator
   }, [])
 
-  const onClickNavBack = useCallback(
-    () => (rootStore.rootViewStore.openDrawer = true),
-    [rootStore.rootViewStore]
-  )
-
   const classes = useStyles({})
 
   return (
     <AppBar position="static" elevation={0} className={classes.appBar}>
       <Toolbar variant="dense">
-        <NavBackButton onClick={onClickNavBack}>
-          <MenuIcon />
-        </NavBackButton>
-
         <Title>{localized("arrangement-view", "Arrangement View")}</Title>
 
         <Spacer />

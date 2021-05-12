@@ -19,14 +19,12 @@ const serializeUndoableState = (rootStore: RootStore): SerializedState => {
   }
 }
 
-const restoreState = (rootStore: RootStore) => (
-  serializedState: SerializedState
-) => {
-  const song = deserialize(Song, serializedState.song)
-  song.onDeserialized()
-  rootStore.song = song
-  rootStore.pianoRollStore.selection = serializedState.selection
-}
+const restoreState =
+  (rootStore: RootStore) => (serializedState: SerializedState) => {
+    const song = deserialize(Song, serializedState.song)
+    rootStore.song = song
+    rootStore.pianoRollStore.selection = serializedState.selection
+  }
 
 export const pushHistory = (rootStore: RootStore) => () => {
   const state = serializeUndoableState(rootStore)

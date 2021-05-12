@@ -169,7 +169,14 @@ export default class PianoRollStore {
   get notes(): [PianoNoteItem[], PianoNoteItem[]] {
     const song = this.rootStore.song
     const { selectedTrackId } = song
-    const { transform, windowedEvents, ghostTracks, selection } = this
+    const {
+      transform,
+      windowedEvents,
+      ghostTracks,
+      selection,
+      scrollLeft,
+      canvasWidth,
+    } = this
 
     const track = song.selectedTrack
     if (track === undefined) {
@@ -187,7 +194,12 @@ export default class PianoRollStore {
           if (track === undefined) {
             return []
           }
-          return noteEvents.map((e): PianoNoteItem => {
+          return filterEventsWithScroll(
+            track.events.filter(isNoteEvent),
+            transform.pixelsPerTick,
+            scrollLeft,
+            canvasWidth
+          ).map((e): PianoNoteItem => {
             const rect = track.isRhythmTrack
               ? transform.getDrumRect(e)
               : transform.getRect(e)

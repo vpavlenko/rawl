@@ -1,23 +1,20 @@
-import { Container, Stage } from "@inlet/react-pixi"
-import Color from "color"
-import isEqual from "lodash/isEqual"
-import React, { FC, useCallback } from "react"
+import { partition } from "lodash"
+import { observer } from "mobx-react-lite"
+import React, { FC, useCallback, useEffect, useState } from "react"
 import styled from "styled-components"
-import { isNoteEvent, TrackEvent } from "../../../../common/track"
-import { NoteCoordTransform } from "../../../../common/transform"
-import { CanvasDrawStyle } from "../../../style"
+import { containsPoint, IPoint, IRect } from "../../../../common/geometry"
+import { isNoteEvent } from "../../../../common/track"
+import { changeNotesVelocity } from "../../../actions"
+import { useStores } from "../../../hooks/useStores"
+import { useTheme } from "../../../hooks/useTheme"
+import { GLCanvas } from "../../GLCanvas/GLCanvas"
 import { observeDrag } from "../../PianoRoll/MouseHandler/observeDrag"
 import { GraphAxis } from "../Graph/GraphAxis"
-import VelocityItem, { VelocityItemEvent } from "./VelocityItem"
+import { VelocityControlRenderer } from "./VelocityControlRenderer"
 
 export interface PianoVelocityControlProps {
   width: number
   height: number
-  events: TrackEvent[]
-  transform: NoteCoordTransform
-  scrollLeft: number
-  color: CanvasDrawStyle
-  changeVelocity: (noteIds: number[], velocity: number) => void
 }
 
 const Parent = styled.div`
@@ -27,89 +24,118 @@ const Parent = styled.div`
   left: 0;
 `
 
-const PianoVelocityControl: FC<PianoVelocityControlProps> = ({
-  width,
-  height,
-  events,
-  transform,
-  scrollLeft,
-  color,
-  changeVelocity,
-}: PianoVelocityControlProps) => {
-  const onMouseDown = useCallback(
-    (ev: VelocityItemEvent) => {
-      const e = ev.originalEvent.data.originalEvent as MouseEvent
-      const startY = e.clientY - e.offsetY
+const hitTest = <T extends { hitArea: IRect }>(items: T[], point: IPoint) => {
+  return items.filter((n) => containsPoint(n.hitArea, point))
+}
 
-      const calcValue = (e: MouseEvent) => {
-        const offsetY = e.clientY - startY
-        return Math.round(Math.max(0, Math.min(1, 1 - offsetY / height)) * 127)
+const PianoVelocityControl: FC<PianoVelocityControlProps> = observer(
+  ({ width, height }: PianoVelocityControlProps) => {
+    const theme = useTheme()
+    const rootStore = useStores()
+    const { mappedBeats, cursorX, transform, scrollLeft, windowedEvents } =
+      rootStore.pianoRollStore
+    const changeVelocity = useCallback(changeNotesVelocity(rootStore), [])
+
+    const items = windowedEvents.filter(isNoteEvent).map((note) => {
+      const { x } = transform.getRect(note)
+      const itemWidth = 5
+      const itemHeight = (note.velocity / 127) * height
+      return {
+        id: note.id,
+        x,
+        y: height - itemHeight,
+        width: itemWidth,
+        height: itemHeight,
+        hitArea: {
+          x,
+          y: 0,
+          width: itemWidth,
+          height,
+        },
+      }
+    })
+
+    const onMouseDown = useCallback(
+      (ev: React.MouseEvent) => {
+        const e = ev.nativeEvent
+        const local = {
+          x: e.offsetX + scrollLeft,
+          y: e.offsetY,
+        }
+        const hitItems = hitTest(items, local)
+
+        if (hitItems.length === 0) {
+          return
+        }
+
+        const startY = e.clientY - e.offsetY
+
+        const calcValue = (e: MouseEvent) => {
+          const offsetY = e.clientY - startY
+          return Math.round(
+            Math.max(0, Math.min(1, 1 - offsetY / height)) * 127
+          )
+        }
+
+        const noteIds = hitItems.map((e) => e.id)
+
+        changeVelocity(noteIds, calcValue(e))
+
+        observeDrag({
+          onMouseMove: (e) => changeVelocity(noteIds, calcValue(e)),
+        })
+      },
+      [height, items]
+    )
+
+    const axis = [0, 32, 64, 96, 128]
+
+    const [renderer, setRenderer] =
+      useState<VelocityControlRenderer | null>(null)
+
+    useEffect(() => {
+      if (renderer === null) {
+        return
       }
 
-      const noteIds = [ev.item.id]
+      const [highlightedBeats, nonHighlightedBeats] = partition(
+        mappedBeats,
+        (b) => b.beat === 0
+      )
 
-      changeVelocity(noteIds, calcValue(e))
+      renderer.theme = theme
+      renderer.render(
+        items,
+        nonHighlightedBeats.map((b) => b.x),
+        highlightedBeats.map((b) => b.x),
+        [],
+        cursorX,
+        scrollLeft
+      )
+    }, [renderer, scrollLeft, mappedBeats, cursorX, items])
 
-      observeDrag({
-        onMouseMove: (e) => changeVelocity(noteIds, calcValue(e)),
-      })
-    },
-    [height]
-  )
-
-  const items = events.filter(isNoteEvent).map((note) => {
-    const { x } = transform.getRect(note)
-    const itemWidth = 5
-    const itemHeight = (note.velocity / 127) * height
-    const bounds = {
-      x,
-      y: 0,
-      width: itemWidth,
-      height,
-    }
     return (
-      <VelocityItem
-        key={note.id}
-        id={note.id}
-        bounds={bounds}
-        itemHeight={itemHeight}
-        selected={false}
-        fillColor={Color(color).rgbNumber()}
-        onMouseDown={onMouseDown}
-      />
+      <Parent>
+        <GraphAxis axis={axis} onClick={() => {}} />
+        <GLCanvas
+          onMouseDown={onMouseDown}
+          onCreateContext={useCallback(
+            (gl) => setRenderer(new VelocityControlRenderer(gl)),
+            []
+          )}
+          width={width}
+          height={height}
+        />
+      </Parent>
     )
-  })
-
-  const axis = [0, 32, 64, 96, 128]
-
-  return (
-    <Parent>
-      <GraphAxis axis={axis} onClick={() => {}} />
-      <Stage
-        className="PianoControl VelocityControl"
-        options={{ backgroundAlpha: 0, autoDensity: true, antialias: true }}
-        width={width}
-        height={height}
-      >
-        <Container x={-scrollLeft}>{items}</Container>
-      </Stage>
-    </Parent>
-  )
-}
+  }
+)
 
 function areEqual(
   props: PianoVelocityControlProps,
   nextProps: PianoVelocityControlProps
 ) {
-  return (
-    props.scrollLeft === nextProps.scrollLeft &&
-    props.width === nextProps.width &&
-    props.height === nextProps.height &&
-    props.changeVelocity === nextProps.changeVelocity &&
-    isEqual(props.events, nextProps.events) &&
-    isEqual(props.transform, nextProps.transform) &&
-    isEqual(props.color, nextProps.color)
-  )
+  return props.width === nextProps.width && props.height === nextProps.height
 }
 
 export default React.memo(PianoVelocityControl, areEqual)

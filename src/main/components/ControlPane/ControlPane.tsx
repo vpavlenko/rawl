@@ -1,21 +1,14 @@
-import { Container, Stage } from "@inlet/react-pixi"
 import useComponentSize from "@rehooks/component-size"
-import { toJS } from "mobx"
 import { observer } from "mobx-react-lite"
 import React, { FC, useCallback, useRef } from "react"
 import styled from "styled-components"
-import { filterEventsWithScroll } from "../../../common/helpers/filterEventsWithScroll"
-import { createBeatsInRange } from "../../../common/helpers/mapBeats"
-import { changeNotesVelocity, createControlEvent } from "../../actions"
 import { Layout } from "../../Constants"
 import { useStores } from "../../hooks/useStores"
-import { useTheme } from "../../hooks/useTheme"
 import ExpressionGraph from "./Graph/ExpressionGraph"
 import ModulationGraph from "./Graph/ModulationGraph"
 import PanGraph from "./Graph/PanGraph"
 import PitchGraph from "./Graph/PitchGraph"
 import VolumeGraph from "./Graph/VolumeGraph"
-import PianoGrid from "./PianoGrid"
 import PianoVelocityControl from "./VelocityControl/VelocityControl"
 
 interface ButtonItem {
@@ -117,102 +110,47 @@ const Parent = styled.div`
   }
 `
 
+const TAB_HEIGHT = 30
+const BORDER_WIDTH = 1
+
 const ControlPane: FC = observer(() => {
-  const TAB_HEIGHT = 30
-  const BORDER_WIDTH = 1
-
   const ref = useRef(null)
-  const size = useComponentSize(ref)
-
-  const containerWidth = size.width
-  const containerHeight = size.height
-
+  const containerSize = useComponentSize(ref)
   const rootStore = useStores()
 
-  const events = toJS(rootStore.song.selectedTrack?.events ?? [])
-  const measures = rootStore.song.measures
-  const timebase = rootStore.services.player.timebase
-  const scrollLeft = rootStore.pianoRollStore.scrollLeft
   const mode = rootStore.pianoRollStore.controlMode
-  const transform = rootStore.pianoRollStore.transform
-
-  const theme = useTheme()
-  const startTick = scrollLeft / transform.pixelsPerTick
-
-  const mappedBeats = createBeatsInRange(
-    measures,
-    transform.pixelsPerTick,
-    timebase,
-    startTick,
-    size.width
-  )
 
   const onSelectTab = useCallback(
     (m: ControlMode) => (rootStore.pianoRollStore.controlMode = m),
     []
   )
-  const changeVelocity = useCallback(changeNotesVelocity(rootStore), [])
-  const onCreateControlEvent = useCallback(createControlEvent(rootStore), [])
 
-  const controlEvents = filterEventsWithScroll(
-    events,
-    transform.pixelsPerTick,
-    scrollLeft,
-    size.width
-  ).map((e) => ({ ...e })) // deep copy to react changes
-
-  const controlProps = {
-    events: controlEvents,
-    transform,
-    scrollLeft,
-    width: containerWidth - Layout.keyWidth - BORDER_WIDTH,
-    height: containerHeight - TAB_HEIGHT,
-    color: theme.themeColor,
-    createEvent: (value: number, tick?: number) =>
-      onCreateControlEvent(mode, value, tick),
+  const controlSize = {
+    width: containerSize.width - Layout.keyWidth - BORDER_WIDTH,
+    height: containerSize.height - TAB_HEIGHT,
   }
 
   const control = (() => {
     switch (mode) {
       case "velocity":
-        return (
-          <PianoVelocityControl
-            {...controlProps}
-            changeVelocity={changeVelocity}
-          />
-        )
+        return <PianoVelocityControl {...controlSize} />
       case "pitchBend":
-        return <PitchGraph {...controlProps} />
+        return <PitchGraph {...controlSize} />
       case "volume":
-        return <VolumeGraph {...controlProps} />
+        return <VolumeGraph {...controlSize} />
       case "pan":
-        return <PanGraph {...controlProps} />
+        return <PanGraph {...controlSize} />
       case "modulation":
-        return <ModulationGraph {...controlProps} />
+        return <ModulationGraph {...controlSize} />
       case "expression":
-        return <ExpressionGraph {...controlProps} />
+        return <ExpressionGraph {...controlSize} />
     }
   })()
 
   return (
     <Parent ref={ref}>
       <TabBar onClick={onSelectTab} selectedMode={mode} />
-      <div className="control-content">
-        {control}
-        <Stage
-          style={{
-            marginLeft: Layout.keyWidth,
-            pointerEvents: "none",
-          }}
-          width={controlProps.width}
-          height={controlProps.height}
-          options={{ backgroundAlpha: 0, autoDensity: true, antialias: true }}
-        >
-          <Container x={-scrollLeft}>
-            <PianoGrid height={controlProps.height} beats={mappedBeats} />
-          </Container>
-        </Stage>
-      </div>
+      <div className="control-content">{control}</div>
     </Parent>
   )
 })

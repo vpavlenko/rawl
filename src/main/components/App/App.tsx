@@ -14,8 +14,8 @@ import { GlobalKeyboardShortcut } from "../KeyboardShortcut/GlobalKeyboardShortc
 import { RootView } from "../RootView/RootView"
 
 Sentry.init({
-  dsn:
-    "https://aefd54e0ed274a2d89bf8f808f6ef9e5@o571364.ingest.sentry.io/5719392",
+  release: process.env.VERCEL_GIT_COMMIT_SHA,
+  environment: process.env.VERCEL_ENV,
   integrations: [new Integrations.BrowserTracing()],
   tracesSampleRate: 1.0,
 })

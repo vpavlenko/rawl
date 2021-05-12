@@ -12,6 +12,7 @@ import { VerticalScrollBar } from "../inputs/ScrollBar"
 import { PianoRollStage } from "./PianoRollStage"
 
 const WHEEL_SCROLL_RATE = 1 / 120
+const SCALE_X_MIN = 0.05
 
 const Parent = styled.div`
   flex-grow: 1;
@@ -39,9 +40,6 @@ const Beta = styled.div`
   border-top: 1px solid var(--divider-color);
   height: calc(100% - 17px);
 `
-
-const clamp = (value: number, min: number, max: number) =>
-  Math.min(max, Math.max(min, value))
 
 const StyledSplitPane = styled(SplitPane)`
   .Resizer {
@@ -99,67 +97,49 @@ const StyledSplitPane = styled(SplitPane)`
 const PianoRollWrapper: FC = observer(() => {
   const rootStore = useStores()
 
-  const trackEndTick = rootStore.song.endOfSong
   const s = rootStore.pianoRollStore
-  const { scaleX, scrollLeft, scrollTop, transform } = rootStore.pianoRollStore
+  const {
+    scaleX,
+    scrollLeft,
+    scrollTop,
+    transform,
+    contentWidth,
+    contentHeight,
+  } = rootStore.pianoRollStore
 
   const ref = useRef(null)
   const size = useComponentSize(ref)
 
-  const setScrollLeft = useCallback((v) => (s.scrollLeft = v), [s])
-  const setScrollTop = useCallback((v) => (s.scrollTop = v), [s])
-  const onClickScaleUp = useCallback(() => (s.scaleX = scaleX + 0.1), [
-    scaleX,
-    s,
-  ])
+  const onClickScaleUp = useCallback(
+    () => (s.scaleX = scaleX + 0.1),
+    [scaleX, s]
+  )
   const onClickScaleDown = useCallback(
-    () => (s.scaleX = Math.max(0.05, scaleX - 0.1)),
+    () => (s.scaleX = Math.max(SCALE_X_MIN, scaleX - 0.1)),
     [scaleX, s]
   )
   const onClickScaleReset = useCallback(() => (s.scaleX = 1), [s])
 
-  const startTick = scrollLeft / transform.pixelsPerTick
-  const widthTick = transform.getTicks(size.width)
-  const endTick = startTick + widthTick
-
-  const contentWidth = Math.max(trackEndTick, endTick) * transform.pixelsPerTick
-  const contentHeight = transform.getMaxY()
-
   const alphaRef = useRef(null)
   const { height: alphaHeight = 0 } = useComponentSize(alphaRef)
 
-  const clampScrollLeft = (scroll: number) =>
-    Math.floor(clamp(scroll, 0, contentWidth - size.width))
-
-  const clampScrollTop = (scroll: number) =>
-    Math.floor(clamp(scroll, 0, contentHeight - alphaHeight))
-
   const onWheel = useCallback(
     (e: React.WheelEvent) => {
-      let deltaY = e.deltaY
-      if (!isTouchPadEvent(e.nativeEvent)) {
-        deltaY = e.deltaY * transform.pixelsPerKey * WHEEL_SCROLL_RATE
+      if (e.altKey || e.ctrlKey) {
+        // zooming
+        const scaleFactor = isTouchPadEvent(e.nativeEvent) ? 0.01 : 0.05
+        s.scaleX = Math.max(SCALE_X_MIN, s.scaleX + e.deltaY * scaleFactor)
+      } else {
+        // scrolling
+        const scaleFactor = isTouchPadEvent(e.nativeEvent)
+          ? 1
+          : transform.pixelsPerKey * WHEEL_SCROLL_RATE
+        const deltaY = e.deltaY * scaleFactor
+        s.scrollBy(-e.deltaX, -deltaY)
       }
-      const scrollY = scrollTop + deltaY
-      setScrollTop(clampScrollTop(scrollY))
-
-      const deltaX = e.deltaX
-      const scrollX = scrollLeft + deltaX
-      setScrollLeft(clampScrollLeft(scrollX))
     },
-    [
-      scrollTop,
-      scrollLeft,
-      setScrollTop,
-      setScrollLeft,
-      clampScrollLeft,
-      clampScrollTop,
-      transform,
-    ]
+    [s, transform]
   )
-
-  const _scrollLeft = clampScrollLeft(scrollLeft)
-  const _scrollTop = clampScrollTop(scrollTop)
 
   return (
     <Parent ref={ref}>
@@ -167,9 +147,9 @@ const PianoRollWrapper: FC = observer(() => {
         <Alpha onWheel={onWheel} ref={alphaRef}>
           <PianoRollStage width={size.width} height={alphaHeight} />
           <VerticalScrollBar
-            scrollOffset={_scrollTop}
+            scrollOffset={scrollTop}
             contentLength={contentHeight}
-            onScroll={setScrollTop}
+            onScroll={useCallback((v) => s.setScrollTop(v), [s])}
           />
         </Alpha>
         <Beta>
@@ -177,9 +157,9 @@ const PianoRollWrapper: FC = observer(() => {
         </Beta>
       </StyledSplitPane>
       <HorizontalScaleScrollBar
-        scrollOffset={_scrollLeft}
+        scrollOffset={scrollLeft}
         contentLength={contentWidth}
-        onScroll={setScrollLeft}
+        onScroll={useCallback((v) => s.setScrollLeft(v), [s])}
         onClickScaleUp={onClickScaleUp}
         onClickScaleDown={onClickScaleDown}
         onClickScaleReset={onClickScaleReset}

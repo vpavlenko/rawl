@@ -1,45 +1,24 @@
-import { ControllerEvent } from "midifile-ts"
 import React, { FC } from "react"
-import { TrackEvent } from "../../../../common/track"
-import LineGraphControl, {
-  LineGraphControlEvent,
-  LineGraphControlProps,
-} from "./LineGraphControl"
+import { ISize } from "../../../../common/geometry"
+import { createVolume } from "../../../actions"
+import { useStores } from "../../../hooks/useStores"
+import LineGraphControl from "./LineGraphControl"
 
-export type VolumeGraphProps = Omit<
-  LineGraphControlProps,
-  "createEvent" | "onClickAxis" | "maxValue" | "className" | "axis" | "events"
-> & {
-  events: TrackEvent[]
-  createEvent: (value: number, tick?: number) => void
-}
+export type VolumeGraphProps = ISize
 
-const VolumeGraph: FC<VolumeGraphProps> = ({
-  width,
-  height,
-  scrollLeft,
-  events,
-  transform,
-  createEvent,
-  color,
-}) => {
-  const filteredEvents = events.filter(
-    (e) => (e as any).controllerType === 0x07
-  ) as (LineGraphControlEvent & ControllerEvent)[]
+const VolumeGraph: FC<VolumeGraphProps> = ({ width, height }) => {
+  const rootStore = useStores()
+  const createEvent = createVolume(rootStore)
 
   return (
     <LineGraphControl
-      className="VolumeGraph"
       width={width}
       height={height}
-      scrollLeft={scrollLeft}
-      transform={transform}
       maxValue={127}
-      events={filteredEvents}
+      filterEvent={(e) => (e as any).controllerType === 0x07}
       axis={[0, 0x20, 0x40, 0x60, 0x80 - 1]}
       createEvent={(obj) => createEvent(obj.value, obj.tick)}
       onClickAxis={(value) => createEvent(value)}
-      color={color}
     />
   )
 }

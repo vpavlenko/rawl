@@ -49,6 +49,12 @@ export const GlobalKeyboardShortcut: FC = () => {
           }
           break
         }
+        case "Slash": {
+          // Press ?
+          if (e.shiftKey) {
+            rootStore.rootViewStore.openHelp = true
+          }
+        }
         default:
           // do not call preventDefault
           return
@@ -58,11 +64,31 @@ export const GlobalKeyboardShortcut: FC = () => {
 
     window.addEventListener("keydown", listener)
 
+    // prevent zooming
+    const onWheel = (e: WheelEvent) => {
+      // Touchpad pinches are translated into wheel with ctrl event
+      if (e.ctrlKey) {
+        e.preventDefault()
+      }
+    }
+
+    document.addEventListener("wheel", onWheel, { passive: false })
+
+    // disable bounce scroll (Safari does not support overscroll-behavior CSS)
+    const onTouchMove = (e: TouchEvent) => {
+      e.preventDefault
+    }
+
+    document.addEventListener("touchmove", onTouchMove, { passive: false })
+
     // do not allow to open the default context menu
     document.oncontextmenu = (e) => e.preventDefault()
 
     return () => {
       window.removeEventListener("keydown", listener)
+      document.removeEventListener("wheel", onWheel)
+      document.removeEventListener("touchmove", onTouchMove)
+
       document.oncontextmenu = null
     }
   }, [rootStore])

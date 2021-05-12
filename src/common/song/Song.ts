@@ -1,12 +1,5 @@
 import pullAt from "lodash/pullAt"
-import {
-  action,
-  autorun,
-  computed,
-  makeObservable,
-  observable,
-  transaction,
-} from "mobx"
+import { action, computed, makeObservable, observable, transaction } from "mobx"
 import { createModelSchema, list, object, primitive } from "serializr"
 import { TIME_BASE } from "../../main/Constants"
 import { isNotUndefined } from "../helpers/array"
@@ -23,8 +16,6 @@ export default class Song {
   timebase: number = TIME_BASE
   name: string = ""
 
-  private _endOfSong: number = 0
-
   constructor() {
     makeObservable(this, {
       addTrack: action,
@@ -33,6 +24,7 @@ export default class Song {
       conductorTrack: computed,
       selectedTrack: computed,
       measures: computed,
+      endOfSong: computed,
       tracks: observable.shallow,
       selectedTrackId: observable,
       filepath: observable,
@@ -40,41 +32,18 @@ export default class Song {
     })
   }
 
-  private _updateEndOfSong() {
-    const eos = Math.max(
-      ...this.tracks.map((t) => t.endOfTrack).filter(isNotUndefined)
-    )
-    this._endOfSong = (eos ?? 0) + END_MARGIN
-  }
-
-  // デシリアライズ時に呼ぶこと
-  onDeserialized() {
-    this._updateEndOfSong()
-  }
-
-  disposer: (() => void) | null = null
-
   addTrack(t: Track) {
     // 最初のトラックは Conductor Track なので channel を設定しない
     if (t.channel === undefined && this.tracks.length > 0) {
       t.channel = t.channel || this.tracks.length - 1
     }
     this.tracks.push(t)
-    this._updateEndOfSong()
-
-    if (this.disposer) {
-      this.disposer()
-    }
-    this.disposer = autorun(() => {
-      this._updateEndOfSong()
-    })
   }
 
   removeTrack(id: number) {
     transaction(() => {
       pullAt(this.tracks, id)
       this.selectTrack(Math.min(id, this.tracks.length - 1))
-      this._updateEndOfSong()
     })
   }
 
@@ -106,7 +75,10 @@ export default class Song {
   }
 
   get endOfSong(): number {
-    return this._endOfSong
+    const eos = Math.max(
+      ...this.tracks.map((t) => t.endOfTrack).filter(isNotUndefined)
+    )
+    return (eos ?? 0) + END_MARGIN
   }
 
   trackIdOfChannel(channel: number): number | undefined {

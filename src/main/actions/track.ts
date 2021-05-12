@@ -9,7 +9,6 @@ import {
   volumeMidiEvent,
 } from "../../common/midi/MidiEvent"
 import { isNoteEvent, NoteEvent, TrackEventOf } from "../../common/track"
-import { ControlMode } from "../components/ControlPane/ControlPane"
 import RootStore from "../stores/RootStore"
 import { pushHistory } from "./history"
 import {
@@ -136,30 +135,6 @@ export const createExpression = (rootStore: RootStore) => (
 ) => {
   const e = expressionMidiEvent(0, 0, Math.round(value))
   createEvent(rootStore)(e, tick)
-}
-
-export const createControlEvent = (rootStore: RootStore) => (
-  mode: ControlMode,
-  value: number,
-  tick?: number
-) => {
-  const action = (() => {
-    switch (mode) {
-      case "volume":
-        return createVolume
-      case "pitchBend":
-        return createPitchBend
-      case "pan":
-        return createPan
-      case "modulation":
-        return createModulation
-      case "expression":
-        return createExpression
-      case "velocity":
-        throw new Error("invalid type")
-    }
-  })()
-  action(rootStore)(value, tick)
 }
 
 export const removeEvent = (rootStore: RootStore) => (eventId: number) => {

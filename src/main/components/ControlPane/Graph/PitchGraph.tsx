@@ -1,45 +1,24 @@
-import { PitchBendEvent } from "midifile-ts"
 import React, { FC } from "react"
-import { TrackEvent } from "../../../../common/track"
-import LineGraphControl, {
-  LineGraphControlEvent,
-  LineGraphControlProps,
-} from "./LineGraphControl"
+import { ISize } from "../../../../common/geometry"
+import { createPitchBend } from "../../../actions"
+import { useStores } from "../../../hooks/useStores"
+import LineGraphControl from "./LineGraphControl"
 
-export type PitchGraphProps = Omit<
-  LineGraphControlProps,
-  "createEvent" | "onClickAxis" | "maxValue" | "className" | "axis" | "events"
-> & {
-  events: TrackEvent[]
-  createEvent: (value: number, tick?: number) => void
-}
+export type PitchGraphProps = ISize
 
-const PitchGraph: FC<PitchGraphProps> = ({
-  width,
-  height,
-  scrollLeft,
-  events,
-  transform,
-  createEvent,
-  color,
-}) => {
-  const filteredEvents = events.filter(
-    (e) => (e as any).subtype === "pitchBend"
-  ) as (LineGraphControlEvent & PitchBendEvent)[]
+const PitchGraph: FC<PitchGraphProps> = ({ width, height }) => {
+  const rootStore = useStores()
+  const createEvent = createPitchBend(rootStore)
 
   return (
     <LineGraphControl
-      className="PitchGraph"
       width={width}
       height={height}
-      scrollLeft={scrollLeft}
-      transform={transform}
       maxValue={0x4000}
-      events={filteredEvents}
+      filterEvent={(e) => (e as any).subtype === "pitchBend"}
       axis={[-0x2000, -0x1000, 0, 0x1000, 0x2000 - 1]}
       createEvent={(obj) => createEvent(obj.value, obj.tick)}
       onClickAxis={(value) => createEvent(value + 0x2000)}
-      color={color}
     />
   )
 }

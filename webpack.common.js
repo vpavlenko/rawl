@@ -1,8 +1,10 @@
 const path = require("path")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
+const webpack = require("webpack")
 
 module.exports = {
   context: __dirname,
+  devtool: "inline-source-map",
   entry: {
     browserMain: "./src/main/index.tsx",
     browserSynth: "./src/synth/index.tsx",
@@ -28,6 +30,10 @@ module.exports = {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
   },
   plugins: [
+    new webpack.EnvironmentPlugin({
+      VERCEL_ENV: null,
+      VERCEL_GIT_COMMIT_SHA: null,
+    }),
     new HtmlWebpackPlugin({
       inject: true,
       filename: "edit.html",

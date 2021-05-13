@@ -28,8 +28,10 @@ type GhostTrackIdMap = { [index: number]: number[] }
 export default class PianoRollStore {
   private rootStore: RootStore
 
-  scrollLeft = 0
-  scrollTop = 700 // 中央くらいの音程にスクロールしておく
+  scrollLeftTicks = 0
+  scrollTopKeys = 70 // 中央くらいの音程にスクロールしておく
+  SCALE_X_MIN = 0.15
+  SCALE_X_MAX = 15
   controlHeight = 0
   notesCursor = "auto"
   controlMode: ControlMode = "velocity"
@@ -55,8 +57,8 @@ export default class PianoRollStore {
     this.rootStore = rootStore
 
     makeObservable(this, {
-      scrollLeft: observable,
-      scrollTop: observable,
+      scrollLeftTicks: observable,
+      scrollTopKeys: observable,
       controlHeight: observable,
       notesCursor: observable,
       controlMode: observable,
@@ -76,6 +78,8 @@ export default class PianoRollStore {
       showEventList: observable,
       contentWidth: computed,
       contentHeight: computed,
+      scrollLeft: computed,
+      scrollTop: computed,
       transform: computed,
       windowedEvents: computed,
       notes: computed,
@@ -85,8 +89,10 @@ export default class PianoRollStore {
       currentMBTTime: computed,
       mappedBeats: computed,
       cursorX: computed,
-      setScrollLeft: action,
-      setScrollTop: action,
+      setScrollLeftInPixels: action,
+      setScrollTopInPixels: action,
+      setScrollLeftInTicks: action,
+      scaleAroundPointX: action,
       scrollBy: action,
       toggleTool: action,
     })
@@ -95,14 +101,13 @@ export default class PianoRollStore {
   setUpAutorun() {
     autorun(() => {
       const { isPlaying, position } = this.rootStore.services.player
-      const { autoScroll, scrollLeft, transform, canvasWidth } = this
+      const { autoScroll, scrollLeftTicks, transform, canvasWidth } = this
 
       // keep scroll position to cursor
       if (autoScroll && isPlaying) {
-        const x = transform.getX(position)
-        const screenX = x - scrollLeft
+        const screenX = transform.getX(position - scrollLeftTicks)
         if (screenX > canvasWidth * 0.7 || screenX < 0) {
-          this.scrollLeft = x
+          this.scrollLeftTicks = position
         }
       }
     })
@@ -122,21 +127,47 @@ export default class PianoRollStore {
     return transform.getMaxY()
   }
 
-  setScrollLeft(x: number) {
-    const { canvasWidth, contentWidth } = this
-    const maxX = contentWidth - canvasWidth
-    this.scrollLeft = clamp(x, 0, maxX)
+  get scrollLeft(): number {
+    return this.transform.getX(this.scrollLeftTicks)
   }
 
-  setScrollTop(y: number) {
+  get scrollTop(): number {
+    return this.transform.getY(this.scrollTopKeys)
+  }
+
+
+  setScrollLeftInPixels(x: number) {
+    const { canvasWidth, contentWidth } = this
+    const maxX = contentWidth - canvasWidth
+    const scrollLeft = clamp(x, 0, maxX)
+    this.scrollLeftTicks = this.transform.getTicks(scrollLeft)
+  }
+
+  setScrollTopInPixels(y: number) {
     const { transform, canvasHeight } = this
     const contentHeight = transform.getMaxY()
-    this.scrollTop = clamp(y, 0, contentHeight - canvasHeight)
+    const scrollTop = clamp(y, 0, contentHeight - canvasHeight)
+    this.scrollTopKeys = this.transform.getNoteNumber(scrollTop)
+  }
+
+  setScrollLeftInTicks(tick: number) {
+    this.setScrollLeftInPixels(this.transform.getX(tick))
   }
 
   scrollBy(x: number, y: number) {
-    this.setScrollLeft(this.scrollLeft - x)
-    this.setScrollTop(this.scrollTop - y)
+    this.setScrollLeftInPixels(this.scrollLeft - x)
+    this.setScrollTopInPixels(this.scrollTop - y)
+  }
+
+  scaleAroundPointX(scaleXDelta: number, pixelX: number) {
+    const pixelXInTicks0 = this.transform.getTicks(this.scrollLeft + pixelX)
+    if (this.scaleX < 1) {
+      scaleXDelta *= this.scaleX * this.scaleX // to not zoom too fast when zooomed out
+    }
+    this.scaleX = clamp(this.scaleX + scaleXDelta, this.SCALE_X_MIN, this.SCALE_X_MAX)
+    const pixelXInTicks1 = this.transform.getTicks(this.scrollLeft + pixelX)
+    const scrollInTicks = pixelXInTicks1 - pixelXInTicks0
+    this.setScrollLeftInTicks(this.scrollLeftTicks - scrollInTicks)
   }
 
   toggleTool() {
@@ -146,7 +177,7 @@ export default class PianoRollStore {
   get transform(): NoteCoordTransform {
     return new NoteCoordTransform(
       Layout.pixelsPerTick * this.scaleX,
-      Layout.keyHeight,
+      Layout.keyHeight * this.scaleY,
       127
     )
   }

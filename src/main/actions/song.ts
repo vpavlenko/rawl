@@ -1,6 +1,6 @@
 import {
   downloadSongAsMidi,
-  songFromMidi,
+  songFromMidi
 } from "../../common/midi/midiConversion"
 import Song, { emptySong } from "../../common/song"
 import { emptyTrack } from "../../common/track"
@@ -36,7 +36,7 @@ const setSong = (rootStore: RootStore) => (song: Song) => {
   rootStore.song = song
   rootStore.trackMute.reset()
   rootStore.services.quantizer.ticksPerBeat = song.timebase
-  rootStore.pianoRollStore.scrollLeft = 0
+  rootStore.pianoRollStore.setScrollLeftInPixels(0)
   rootStore.pianoRollStore.ghostTracks = {}
   rootStore.historyStore.clear()
 

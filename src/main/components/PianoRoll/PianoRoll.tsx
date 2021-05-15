@@ -1,8 +1,10 @@
 import useComponentSize from "@rehooks/component-size"
+import { clamp } from "lodash"
 import { observer } from "mobx-react-lite"
 import { FC, useCallback, useRef } from "react"
 import SplitPane from "react-split-pane"
 import styled from "styled-components"
+import { Layout } from "../../Constants"
 import { isTouchPadEvent } from "../../helpers/touchpad"
 import { useStores } from "../../hooks/useStores"
 import ControlPane from "../ControlPane/ControlPane"
@@ -12,7 +14,6 @@ import { VerticalScrollBar } from "../inputs/ScrollBar"
 import { PianoRollStage } from "./PianoRollStage"
 
 const WHEEL_SCROLL_RATE = 1 / 120
-const SCALE_X_MIN = 0.05
 
 const Parent = styled.div`
   flex-grow: 1;
@@ -111,11 +112,11 @@ const PianoRollWrapper: FC = observer(() => {
   const size = useComponentSize(ref)
 
   const onClickScaleUp = useCallback(
-    () => (s.scaleX = scaleX + 0.1),
+    () => (s.scaleAroundPointX(0.10, Layout.keyWidth)),
     [scaleX, s]
   )
   const onClickScaleDown = useCallback(
-    () => (s.scaleX = Math.max(SCALE_X_MIN, scaleX - 0.1)),
+    () => (s.scaleAroundPointX(-0.1, Layout.keyWidth)),
     [scaleX, s]
   )
   const onClickScaleReset = useCallback(() => (s.scaleX = 1), [s])
@@ -127,8 +128,14 @@ const PianoRollWrapper: FC = observer(() => {
     (e: React.WheelEvent) => {
       if (e.altKey || e.ctrlKey) {
         // zooming
-        const scaleFactor = isTouchPadEvent(e.nativeEvent) ? 0.01 : 0.05
-        s.scaleX = Math.max(SCALE_X_MIN, s.scaleX + e.deltaY * scaleFactor)
+        let scaleFactor = undefined
+        if (navigator.appVersion.indexOf("Mac") != -1) { // MacOS
+          scaleFactor = isTouchPadEvent(e.nativeEvent) ? 0.005 : -0.02
+        } else {
+          scaleFactor = isTouchPadEvent(e.nativeEvent) ? 0.01 : 0.05
+        }
+        const scaleXDelta = clamp(e.deltaY * scaleFactor, -0.2, 0.2) // prevent acceleration to zoom too fast
+        s.scaleAroundPointX(scaleXDelta, e.clientX - Layout.keyWidth)        
       } else {
         // scrolling
         const scaleFactor = isTouchPadEvent(e.nativeEvent)
@@ -149,7 +156,7 @@ const PianoRollWrapper: FC = observer(() => {
           <VerticalScrollBar
             scrollOffset={scrollTop}
             contentLength={contentHeight}
-            onScroll={useCallback((v) => s.setScrollTop(v), [s])}
+            onScroll={useCallback((v) => s.setScrollTopInPixels(v), [s])}
           />
         </Alpha>
         <Beta>
@@ -159,7 +166,7 @@ const PianoRollWrapper: FC = observer(() => {
       <HorizontalScaleScrollBar
         scrollOffset={scrollLeft}
         contentLength={contentWidth}
-        onScroll={useCallback((v) => s.setScrollLeft(v), [s])}
+        onScroll={useCallback((v) => s.setScrollLeftInPixels(v), [s])}
         onClickScaleUp={onClickScaleUp}
         onClickScaleDown={onClickScaleDown}
         onClickScaleReset={onClickScaleReset}

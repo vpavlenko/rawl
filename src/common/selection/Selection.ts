@@ -66,6 +66,8 @@ export const movedSelection = (
 }
 
 // to が右下になるようにする
+// to Make the lower right
+
 export const regularizedSelection = (
   fromTick: number,
   fromNoteNumber: number,

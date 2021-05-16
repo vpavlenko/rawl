@@ -32,8 +32,18 @@ export interface LoopSetting {
  * Player でイベントを随時読み取るためのクラス
  * 精確にスケジューリングするために先読みを行う
  * https://www.html5rocks.com/ja/tutorials/audio/scheduling/
+ * https://wwwHtml5RocksCom/ja/tutorials/audio/scheduling/
  *
  * これ自体はタイミングを指示するだけで、具体的な midi のメッセージ等を知らない
+ *
+ * Message[] @ DataSource -> LiveMessage[] @ Sequencer -> Output
+ */
+/**
+ * Player Classes for reading events at any time
+ * Perform prefetching for accurate scheduling
+ * https://www.html5rocks.com/ja/tutorials/audio/scheduling/
+ *
+ * This themselves do not know specific MIDI messages only by instructing timing
  *
  * Message[] @ DataSource -> LiveMessage[] @ Sequencer -> Output
  */
@@ -42,18 +52,23 @@ export default class Sequencer<T> {
   private readonly output: Output<T>
 
   // タイマーの間隔
+  // Timer interval
   private readonly interval: number
 
   // 先読み時間
+  // Leading time
   private readonly lookAhead: number
 
   // 再生開始時刻
+  // Regeneration start time
   private startTime: number | null = null
 
   // 再生開始時の相対時間
+  // Relative time at start of reproduction
   private startTimeRelative: number | null = null
 
   // スケジュール済みの相対時間
+  // Scheduled relative time
   private scheduledTime: number = 0
 
   private intervalId: any // Timer (node) or number (browser)
@@ -124,7 +139,9 @@ export default class Sequencer<T> {
     const nowTime = this.startTimeRelative + timestamp - this.startTime
 
     // 前回スケジュール済みの時点から、
+    // From the previous scheduled point,
     // 先読み時間までを処理の対象とする
+    // Target of processing up to read time
     const fromTime = this.scheduledTime
     const toTime = nowTime + this.lookAhead
 

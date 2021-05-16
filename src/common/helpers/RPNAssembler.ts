@@ -16,11 +16,17 @@ RPN は種類、値を表す2～4つのイベントからなるが、
 バラバラになると正しく動作しないので、
 読み込み時にひとつにまとめ、再生・保存時に元に戻す
 
+RPN Controller Event summarizes as one event object
+
+The RPN consists of two to four events representing types and values,
+Because it does not work properly when it comes to breaker,
+Summarize to one at the time of reading, play and save it
 */
 export function assemble<T>(events: (T | ControllerEvent)[]): (T | RPNEvent)[] {
   const result: (T | RPNEvent)[] = []
 
   // ひとつにまとめた RPN イベントを作成する
+  // Create an RPN event summarized by one
   function createCC(
     rpnMSB: ControllerEvent,
     rpnLSB: ControllerEvent,

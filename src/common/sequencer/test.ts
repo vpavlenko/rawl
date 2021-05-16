@@ -31,6 +31,7 @@ describe("Sequencer", () => {
     s.seek(0)
 
     // 先読み時間分のイベントが入っている
+    // There are events for read ahead time
     {
       output.sendMessages = (
         messages: LiveMessage<string>[],
@@ -48,6 +49,7 @@ describe("Sequencer", () => {
     }
 
     // 前回から時間が経過してなければイベントはない
+    // There is no event if time has passed since last time
     {
       output.sendMessages = (
         messages: LiveMessage<string>[],
@@ -59,6 +61,7 @@ describe("Sequencer", () => {
     }
 
     // 時間が経過すると2個目以降のイベントが返ってくる
+    // If time has passed, the second or later events will come back
     {
       output.sendMessages = (
         messages: LiveMessage<string>[],
@@ -93,6 +96,7 @@ describe("Sequencer", () => {
     s.seek(100)
 
     // seek した時点からのメッセージが送信される
+    // SEEK Message is sent from the point
     {
       output.sendMessages = (
         messages: LiveMessage<string>[],

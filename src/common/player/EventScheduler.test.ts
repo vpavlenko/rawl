@@ -6,6 +6,7 @@ describe("EventScheduler", () => {
     const s = new EventScheduler(events, 0, 480, 100)
 
     // 先読み時間分のイベントが入っている
+    // There are events for read ahead time
     {
       const result = s.readNextEvents(120, 0)
       expect(result.length).toBe(1)
@@ -13,12 +14,14 @@ describe("EventScheduler", () => {
     }
 
     // 前回から時間が経過してなければイベントはない
+    // There is no event if time has passed since last time
     {
       const result = s.readNextEvents(120, 0)
       expect(result.length).toBe(0)
     }
 
     // 時間が経過すると2個目以降のイベントが返ってくる
+    // If time has passed, the second or later events will come back
     {
       const result = s.readNextEvents(120, 120)
       expect(result.length).toBe(2)

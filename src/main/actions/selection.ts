@@ -17,7 +17,7 @@ function eventsInSelection(events: TrackEvent[], selection: Selection) {
   return events.filter(isNoteEvent).filter(
     (b) =>
       b.tick >= s.from.tick &&
-      b.tick < s.to.tick && // ノートの先頭だけ範囲にはいっていればよい
+      b.tick < s.to.tick && // ノートの先頭だけ範囲にはいっていればよい -> Only the beginning of the note needs to be in the range
       b.noteNumber <= s.from.noteNumber &&
       b.noteNumber > s.to.noteNumber
   )

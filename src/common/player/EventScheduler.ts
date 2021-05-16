@@ -7,11 +7,18 @@ export interface SchedulableEvent {
  * 精確にスケジューリングするために先読みを行う
  * https://www.html5rocks.com/ja/tutorials/audio/scheduling/
  */
+/**
+ * Player Classes for reading events at any time
+ * Perform prefetching for accurate scheduling
+ * https://www.html5rocks.com/ja/tutorials/audio/scheduling/
+ */
 export default class EventScheduler<E extends SchedulableEvent> {
   // 先読み時間 (ms)
+  // Leading time (MS)
   lookAheadTime = 100
 
   // 1/4 拍子ごとの tick 数
+  // 1/4 TICK number for each beat
   timebase = 480
 
   private _currentTick = 0
@@ -53,12 +60,15 @@ export default class EventScheduler<E extends SchedulableEvent> {
     )
 
     // 先読み時間
+    // Leading time
     const lookAheadTick = Math.floor(
       this.millisecToTick(this.lookAheadTime, bpm)
     )
 
     // 前回スケジュール済みの時点から、
+    // From the previous scheduled point,
     // 先読み時間までを処理の対象とする
+    // Target of processing up to read time
     const startTick = this._scheduledTick
     const endTick = nowTick + lookAheadTick
 

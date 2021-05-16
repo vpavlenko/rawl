@@ -36,12 +36,14 @@ export function songFromMidi(data: StreamSource) {
   return song
 }
 
-const setChannel = (channel: number) => (e: AnyEvent): AnyEvent => {
-  if (e.type === "channel") {
-    return { ...e, channel }
+const setChannel =
+  (channel: number) =>
+  (e: AnyEvent): AnyEvent => {
+    if (e.type === "channel") {
+      return { ...e, channel }
+    }
+    return e
   }
-  return e
-}
 
 export function songToMidi(song: Song) {
   const tracks = toJS(song.tracks)

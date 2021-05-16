@@ -23,22 +23,20 @@ function eventsInSelection(events: TrackEvent[], selection: Selection) {
   )
 }
 
-export const resizeSelection = (rootStore: RootStore) => (
-  start: NotePoint,
-  end: NotePoint
-) => {
-  const {
-    pianoRollStore,
-    services: { quantizer },
-  } = rootStore
+export const resizeSelection =
+  (rootStore: RootStore) => (start: NotePoint, end: NotePoint) => {
+    const {
+      pianoRollStore,
+      services: { quantizer },
+    } = rootStore
 
-  pianoRollStore.selection = regularizedSelection(
-    quantizer.round(start.tick),
-    start.noteNumber,
-    quantizer.round(end.tick),
-    end.noteNumber
-  )
-}
+    pianoRollStore.selection = regularizedSelection(
+      quantizer.round(start.tick),
+      start.noteNumber,
+      quantizer.round(end.tick),
+      end.noteNumber
+    )
+  }
 
 export const fixSelection = (rootStore: RootStore) => () => {
   const { song, pianoRollStore } = rootStore
@@ -63,34 +61,33 @@ export const fixSelection = (rootStore: RootStore) => () => {
   pianoRollStore.selection = s
 }
 
-export const transposeSelection = (rootStore: RootStore) => (
-  deltaPitch: number
-) => {
-  const { song, pianoRollStore } = rootStore
+export const transposeSelection =
+  (rootStore: RootStore) => (deltaPitch: number) => {
+    const { song, pianoRollStore } = rootStore
 
-  const selectedTrack = song.selectedTrack
-  if (selectedTrack === undefined) {
-    return
+    const selectedTrack = song.selectedTrack
+    if (selectedTrack === undefined) {
+      return
+    }
+    const { selection } = pianoRollStore
+    const s = movedSelection(selection, 0, deltaPitch)
+    pianoRollStore.selection = s
+
+    selectedTrack.updateEvents(
+      s.noteIds
+        .map((id) => {
+          const n = selectedTrack.getEventById(id)
+          if (n == undefined || !isNoteEvent(n)) {
+            return null
+          }
+          return {
+            id,
+            noteNumber: n.noteNumber + deltaPitch,
+          }
+        })
+        .filter(isNotNull)
+    )
   }
-  const { selection } = pianoRollStore
-  const s = movedSelection(selection, 0, deltaPitch)
-  pianoRollStore.selection = s
-
-  selectedTrack.updateEvents(
-    s.noteIds
-      .map((id) => {
-        const n = selectedTrack.getEventById(id)
-        if (n == undefined || !isNoteEvent(n)) {
-          return null
-        }
-        return {
-          id,
-          noteNumber: n.noteNumber + deltaPitch,
-        }
-      })
-      .filter(isNotNull)
-  )
-}
 
 export const moveSelection = (rootStore: RootStore) => (point: NotePoint) => {
   const {
@@ -178,103 +175,100 @@ export const resizeSelectionLeft = (rootStore: RootStore) => (tick: number) => {
   resizeNotesInSelectionLeftBy(rootStore)(delta)
 }
 
-export const resizeNotesInSelectionLeftBy = (rootStore: RootStore) => (
-  deltaTick: number
-) => {
-  const { song, pianoRollStore } = rootStore
+export const resizeNotesInSelectionLeftBy =
+  (rootStore: RootStore) => (deltaTick: number) => {
+    const { song, pianoRollStore } = rootStore
 
-  const selectedTrack = song.selectedTrack
-  if (selectedTrack === undefined) {
-    return
+    const selectedTrack = song.selectedTrack
+    if (selectedTrack === undefined) {
+      return
+    }
+
+    pushHistory(rootStore)()
+
+    selectedTrack.updateEvents(
+      pianoRollStore.selection.noteIds
+        .map((id) => {
+          const n = selectedTrack.getEventById(id)
+          if (n == undefined || !isNoteEvent(n)) {
+            return null
+          }
+          const duration = n.duration - deltaTick
+          if (duration <= 0) {
+            // 幅がゼロになる場合は変形しない
+            return { id }
+          }
+          return {
+            id,
+            tick: n.tick + deltaTick,
+            duration,
+          }
+        })
+        .filter(isNotNull)
+    )
   }
 
-  pushHistory(rootStore)()
+export const resizeSelectionRight =
+  (rootStore: RootStore) => (tick: number) => {
+    const {
+      pianoRollStore,
+      services: { quantizer },
+    } = rootStore
 
-  selectedTrack.updateEvents(
-    pianoRollStore.selection.noteIds
-      .map((id) => {
-        const n = selectedTrack.getEventById(id)
-        if (n == undefined || !isNoteEvent(n)) {
-          return null
-        }
-        const duration = n.duration - deltaTick
-        if (duration <= 0) {
-          // 幅がゼロになる場合は変形しない
-          return { id }
-        }
-        return {
-          id,
-          tick: n.tick + deltaTick,
-          duration,
-        }
-      })
-      .filter(isNotNull)
-  )
-}
+    const { selection } = pianoRollStore
+    // 選択範囲とノートを右方向に伸長・縮小する
+    const toTick = quantizer.round(tick)
+    const delta = toTick - selection.to.tick
 
-export const resizeSelectionRight = (rootStore: RootStore) => (
-  tick: number
-) => {
-  const {
-    pianoRollStore,
-    services: { quantizer },
-  } = rootStore
+    // 変形していないときは終了
+    if (delta === 0) {
+      return
+    }
 
-  const { selection } = pianoRollStore
-  // 選択範囲とノートを右方向に伸長・縮小する
-  const toTick = quantizer.round(tick)
-  const delta = toTick - selection.to.tick
+    // 選択領域のサイズがゼロになるときは終了
+    if (toTick - selection.from.tick <= 0) {
+      return
+    }
 
-  // 変形していないときは終了
-  if (delta === 0) {
-    return
+    // 右端を固定して長さを変更
+    const s = cloneDeep(selection)
+    s.to.tick = toTick
+    pianoRollStore.selection = s
+
+    resizeNotesInSelectionRightBy(rootStore)(delta)
   }
 
-  // 選択領域のサイズがゼロになるときは終了
-  if (toTick - selection.from.tick <= 0) {
-    return
+export const resizeNotesInSelectionRightBy =
+  (rootStore: RootStore) => (deltaDuration: number) => {
+    const { song, pianoRollStore } = rootStore
+
+    const selectedTrack = song.selectedTrack
+    if (selectedTrack === undefined) {
+      return
+    }
+
+    pushHistory(rootStore)()
+
+    selectedTrack.updateEvents(
+      pianoRollStore.selection.noteIds
+        .map((id) => {
+          const n = selectedTrack.getEventById(id)
+          if (n == undefined || !isNoteEvent(n)) {
+            return null
+          }
+          const duration = n.duration + deltaDuration
+          if (duration <= 0) {
+            // 幅がゼロになる場合は変形しない
+            return { id }
+          }
+          return {
+            id,
+            duration,
+          }
+        })
+        .filter(isNotNull)
+    )
   }
-
-  // 右端を固定して長さを変更
-  const s = cloneDeep(selection)
-  s.to.tick = toTick
-  pianoRollStore.selection = s
-
-  resizeNotesInSelectionRightBy(rootStore)(delta)
-}
-
-export const resizeNotesInSelectionRightBy = (rootStore: RootStore) => (
-  deltaDuration: number
-) => {
-  const { song, pianoRollStore } = rootStore
-
-  const selectedTrack = song.selectedTrack
-  if (selectedTrack === undefined) {
-    return
-  }
-
-  pushHistory(rootStore)()
-
-  selectedTrack.updateEvents(
-    pianoRollStore.selection.noteIds
-      .map((id) => {
-        const n = selectedTrack.getEventById(id)
-        if (n == undefined || !isNoteEvent(n)) {
-          return null
-        }
-        const duration = n.duration + deltaDuration
-        if (duration <= 0) {
-          // 幅がゼロになる場合は変形しない
-          return { id }
-        }
-        return {
-          id,
-          duration,
-        }
-      })
-      .filter(isNotNull)
-  )
-}
 
 export const startSelection = (rootStore: RootStore) => (point: NotePoint) => {
   const {
@@ -433,35 +427,33 @@ export const duplicateSelection = (rootStore: RootStore) => () => {
   pianoRollStore.selection = s
 }
 
-export const addNoteToSelection = (rootStore: RootStore) => (
-  noteId: number
-) => {
-  const { song, pianoRollStore } = rootStore
+export const addNoteToSelection =
+  (rootStore: RootStore) => (noteId: number) => {
+    const { song, pianoRollStore } = rootStore
 
-  const selectedTrack = song.selectedTrack
-  if (selectedTrack === undefined) {
-    return
+    const selectedTrack = song.selectedTrack
+    if (selectedTrack === undefined) {
+      return
+    }
+    const { selection } = pianoRollStore
+    const s = cloneDeep(selection)
+    s.noteIds.push(noteId)
+    pianoRollStore.selection = s
   }
-  const { selection } = pianoRollStore
-  const s = cloneDeep(selection)
-  s.noteIds.push(noteId)
-  pianoRollStore.selection = s
-}
 
-export const removeNoteToSelection = (rootStore: RootStore) => (
-  noteId: number
-) => {
-  const { song, pianoRollStore } = rootStore
+export const removeNoteToSelection =
+  (rootStore: RootStore) => (noteId: number) => {
+    const { song, pianoRollStore } = rootStore
 
-  const selectedTrack = song.selectedTrack
-  if (selectedTrack === undefined) {
-    return
+    const selectedTrack = song.selectedTrack
+    if (selectedTrack === undefined) {
+      return
+    }
+    const { selection } = pianoRollStore
+    const s = cloneDeep(selection)
+    s.noteIds = s.noteIds.filter((id) => id !== noteId)
+    pianoRollStore.selection = s
   }
-  const { selection } = pianoRollStore
-  const s = cloneDeep(selection)
-  s.noteIds = s.noteIds.filter((id) => id !== noteId)
-  pianoRollStore.selection = s
-}
 
 export const selectNote = (rootStore: RootStore) => (noteId: number) => {
   const { song, pianoRollStore } = rootStore

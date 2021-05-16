@@ -47,44 +47,39 @@ export const arrangeResetSelection = (rootStore: RootStore) => () => {
   s.selectedEventIds = {}
 }
 
-export const arrangeStartSelection = (rootStore: RootStore) => (
-  pos: IPoint
-) => {
-  const { arrangeViewStore: s } = rootStore
+export const arrangeStartSelection =
+  (rootStore: RootStore) => (pos: IPoint) => {
+    const { arrangeViewStore: s } = rootStore
 
-  s.selection = null
-  s.selectedEventIds = {}
-}
-
-export const arrangeResizeSelection = (rootStore: RootStore) => (
-  start: IPoint,
-  end: IPoint
-) => {
-  const {
-    arrangeViewStore: s,
-    song: { tracks },
-    services: { quantizer },
-  } = rootStore
-  // 選択範囲作成時 (確定前) のドラッグ中
-  s.selection = quantizeRect(quantizer, createRect(tracks, start, end))
-}
-
-export const arrangeEndSelection = (rootStore: RootStore) => (
-  start: IPoint,
-  end: IPoint
-) => {
-  const {
-    arrangeViewStore: s,
-    song: { tracks },
-    services: { quantizer },
-  } = rootStore
-
-  const selection = quantizeRect(quantizer, createRect(tracks, start, end))
-  if (selection) {
-    s.selection = selection
-    s.selectedEventIds = getNotesInSelection(tracks, selection)
+    s.selection = null
+    s.selectedEventIds = {}
   }
-}
+
+export const arrangeResizeSelection =
+  (rootStore: RootStore) => (start: IPoint, end: IPoint) => {
+    const {
+      arrangeViewStore: s,
+      song: { tracks },
+      services: { quantizer },
+    } = rootStore
+    // 選択範囲作成時 (確定前) のドラッグ中
+    s.selection = quantizeRect(quantizer, createRect(tracks, start, end))
+  }
+
+export const arrangeEndSelection =
+  (rootStore: RootStore) => (start: IPoint, end: IPoint) => {
+    const {
+      arrangeViewStore: s,
+      song: { tracks },
+      services: { quantizer },
+    } = rootStore
+
+    const selection = quantizeRect(quantizer, createRect(tracks, start, end))
+    if (selection) {
+      s.selection = selection
+      s.selectedEventIds = getNotesInSelection(tracks, selection)
+    }
+  }
 
 export const arrangeMoveSelection = (rootStore: RootStore) => (pos: IPoint) => {
   const {

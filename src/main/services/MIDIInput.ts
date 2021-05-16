@@ -28,27 +28,26 @@ export class MIDIInput {
   }
 }
 
-export const previewMidiInput = (rootStore: RootStore) => (
-  e: WebMidi.MIDIMessageEvent
-) => {
-  if (rootStore.song.selectedTrack === undefined) {
-    return
+export const previewMidiInput =
+  (rootStore: RootStore) => (e: WebMidi.MIDIMessageEvent) => {
+    if (rootStore.song.selectedTrack === undefined) {
+      return
+    }
+    const channel = rootStore.song.selectedTrack.channel
+    if (channel === undefined) {
+      return
+    }
+    const event = parseMessage(e.data)
+
+    // modify channel to the selected track channel
+    event.channel = channel
+
+    const data = serializeMessage(event)
+
+    rootStore.services.synthGroup.sendEvents([
+      {
+        message: data,
+        timestamp: window.performance.now(),
+      },
+    ])
   }
-  const channel = rootStore.song.selectedTrack.channel
-  if (channel === undefined) {
-    return
-  }
-  const event = parseMessage(e.data)
-
-  // modify channel to the selected track channel
-  event.channel = channel
-
-  const data = serializeMessage(event)
-
-  rootStore.services.synthGroup.sendEvents([
-    {
-      message: data,
-      timestamp: window.performance.now(),
-    },
-  ])
-}

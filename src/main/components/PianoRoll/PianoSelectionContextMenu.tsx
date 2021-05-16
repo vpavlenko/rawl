@@ -30,8 +30,8 @@ const HotKey = styled.div`
   margin-left: 2em;
 `
 
-export const PianoSelectionContextMenu: FC<PianoSelectionContextMenuProps> = React.memo(
-  ({ isOpen, position, handleClose }) => {
+export const PianoSelectionContextMenu: FC<PianoSelectionContextMenuProps> =
+  React.memo(({ isOpen, position, handleClose }) => {
     const rootStore = useStores()
     const isNoteSelected = rootStore.pianoRollStore.selection.noteIds.length > 0
 
@@ -112,5 +112,4 @@ export const PianoSelectionContextMenu: FC<PianoSelectionContextMenuProps> = Rea
         </Item>
       </Menu>
     )
-  }
-)
+  })

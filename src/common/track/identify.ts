@@ -47,10 +47,10 @@ export const isControllerEvent = (
 ): e is TrackEventOf<ControllerEvent> =>
   "subtype" in e && e.subtype === "controller"
 
-export const isControllerEventWithType = (controllerType: number) => (
-  e: TrackEvent
-): e is TrackEventOf<ControllerEvent> =>
-  isControllerEvent(e) && e.controllerType === controllerType
+export const isControllerEventWithType =
+  (controllerType: number) =>
+  (e: TrackEvent): e is TrackEventOf<ControllerEvent> =>
+    isControllerEvent(e) && e.controllerType === controllerType
 
 export const isVolumeEvent = isControllerEventWithType(7)
 export const isPanEvent = isControllerEventWithType(10)

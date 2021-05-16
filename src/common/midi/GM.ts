@@ -7,7 +7,7 @@ const GMMap = {
     "Electric Piano 1",
     "Electric Piano 2",
     "Harpsichord",
-    "Clavinet"
+    "Clavinet",
   ],
   "Chromatic Percussion": [
     "Celesta",
@@ -17,7 +17,7 @@ const GMMap = {
     "Marimba",
     "Xylophone",
     "Tubular Bells",
-    "Dulcimer"
+    "Dulcimer",
   ],
   Organ: [
     "Drawbar Organ",
@@ -27,7 +27,7 @@ const GMMap = {
     "Reed Organ",
     "Accordion",
     "Harmonica",
-    "Tango Accordion"
+    "Tango Accordion",
   ],
   Guitar: [
     "Acoustic Guitar (nylon)",
@@ -37,7 +37,7 @@ const GMMap = {
     "Electric Guitar (muted)",
     "Overdriven Guitar",
     "Distortion Guitar",
-    "Guitar Harmonics"
+    "Guitar Harmonics",
   ],
   Bass: [
     "Acoustic Bass",
@@ -47,7 +47,7 @@ const GMMap = {
     "Slap Bass 1",
     "Slap Bass 2",
     "Synth Bass 1",
-    "Synth Bass 2"
+    "Synth Bass 2",
   ],
   Strings: [
     "Violin",
@@ -57,7 +57,7 @@ const GMMap = {
     "Tremolo Strings",
     "Pizzicato Strings",
     "Orchestral Harp",
-    "Timpani"
+    "Timpani",
   ],
   Ensemble: [
     "String Ensemble 1",
@@ -67,7 +67,7 @@ const GMMap = {
     "Choir Aahs",
     "Voice Oohs",
     "Synth Choir",
-    "Orchestra Hit"
+    "Orchestra Hit",
   ],
   Brass: [
     "Trumpet",
@@ -77,7 +77,7 @@ const GMMap = {
     "French Horn",
     "Brass Section",
     "Synth Brass 1",
-    "Synth Brass 2"
+    "Synth Brass 2",
   ],
   Reed: [
     "Soprano Sax",
@@ -87,7 +87,7 @@ const GMMap = {
     "Oboe",
     "English Horn",
     "Bassoon",
-    "Clarinet"
+    "Clarinet",
   ],
   Pipe: [
     "Piccolo",
@@ -97,7 +97,7 @@ const GMMap = {
     "Blown Bottle",
     "Shakuhachi",
     "Whistle",
-    "Ocarina"
+    "Ocarina",
   ],
   "Synth Lead": [
     "Lead 1 (square)",
@@ -107,7 +107,7 @@ const GMMap = {
     "Lead 5 (charang)",
     "Lead 6 (voice)",
     "Lead 7 (fifths)",
-    "Lead 8 (bass + lead)"
+    "Lead 8 (bass + lead)",
   ],
   "Synth Pad": [
     "Pad 1 (new age)",
@@ -117,7 +117,7 @@ const GMMap = {
     "Pad 5 (bowed)",
     "Pad 6 (metallic)",
     "Pad 7 (halo)",
-    "Pad 8 (sweep)"
+    "Pad 8 (sweep)",
   ],
   "Synth Effects": [
     "FX 1 (rain)",
@@ -127,7 +127,7 @@ const GMMap = {
     "FX 5 (brightness)",
     "FX 6 (goblins)",
     "FX 7 (echoes)",
-    "FX 8 (sci-fi)"
+    "FX 8 (sci-fi)",
   ],
   Ethnic: [
     "Sitar",
@@ -137,7 +137,7 @@ const GMMap = {
     "Kalimba",
     "Bagpipe",
     "Fiddle",
-    "Shanai"
+    "Shanai",
   ],
   Percussive: [
     "Tinkle Bell",
@@ -147,7 +147,7 @@ const GMMap = {
     "Taiko Drum",
     "Melodic Tom",
     "Synth Drum",
-    "Reverse Cymbal"
+    "Reverse Cymbal",
   ],
   "Sound effects": [
     "Guitar Fret Noise",
@@ -157,8 +157,8 @@ const GMMap = {
     "Telephone Ring",
     "Helicopter",
     "Applause",
-    "Gunshot"
-  ]
+    "Gunshot",
+  ],
 } as { [key: string]: string[] }
 
 export const getGMCategory = (programNumber: number) => {

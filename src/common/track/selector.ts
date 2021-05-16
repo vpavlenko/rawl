@@ -18,8 +18,10 @@ import { TrackEvent } from "./TrackEvent"
 export const getLast = <T extends TrackEvent>(events: T[]): T | undefined =>
   last(events.slice().sort((e) => e.tick))
 
-export const isTickBefore = (tick: number) => <T extends TrackEvent>(e: T) =>
-  e.tick <= tick
+export const isTickBefore =
+  (tick: number) =>
+  <T extends TrackEvent>(e: T) =>
+    e.tick <= tick
 
 export const getVolume = (events: TrackEvent[], tick: number) =>
   getLast(events.filter(isVolumeEvent).filter(isTickBefore(tick)))?.value

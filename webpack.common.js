@@ -4,7 +4,6 @@ const webpack = require("webpack")
 
 module.exports = {
   context: __dirname,
-  devtool: "inline-source-map",
   entry: {
     browserMain: "./src/main/index.tsx",
     browserSynth: "./src/synth/index.tsx",

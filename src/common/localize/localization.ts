@@ -3,9 +3,8 @@ export default {
     "app-intro": "オープンソースのオンラインMIDIエディタ",
     "app-desc": "何もインストールせずに作曲を始めよう",
     launch: "起動",
-    platform: "対応ブラウザ (デスクトップ版のみ): Google Chrome / Firefox",
-    "platform-issue":
-      "現在Safariで音が再生できない不具合があります。将来的に修正される予定です。",
+    platform:
+      "対応ブラウザ (デスクトップ版のみ): Google Chrome / Firefox / Safari",
     features: "機能",
     "midi-file": "MIDIファイルの読み込み、保存",
     "gm-module": "GM互換音源搭載",

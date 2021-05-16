@@ -1,4 +1,4 @@
-import { MidiMessageHandler, Synthesizer } from "sf2synth/bin/synth"
+import { Synth } from "@ryohey/sf2synth"
 import { WindowMessenger } from "../common/messenger/messenger"
 import { AdaptiveTimer } from "../common/player/AdaptiveTimer"
 import { Message } from "../main/services/SynthOutput"
@@ -33,10 +33,10 @@ export default class SynthController {
   // 送信元とのタイムスタンプの差
   private timestampOffset = 0
 
-  private handler = new MidiMessageHandler()
+  private handler = new Synth.MidiMessageHandler()
   private ctx: AudioContext
   private output: AudioNode
-  private synth: Synthesizer
+  private synth: Synth.Synthesizer
   private messenger: WindowMessenger
   private timer = new AdaptiveTimer(() => this.onTimer(), TIMER_INTERVAL)
 
@@ -47,7 +47,7 @@ export default class SynthController {
     this.ctx = ctx
     this.output = output
 
-    this.synth = new Synthesizer(ctx)
+    this.synth = new Synth.Synthesizer(ctx)
     this.synth.connect(output)
     this.handler.listener = this.synth
 

@@ -67,8 +67,8 @@ export default class EventScheduler<E extends SchedulableEvent> {
     this._scheduledTick = endTick
 
     return this._events
-      .filter(e => e && e.tick >= startTick && e.tick < endTick)
-      .map(e => {
+      .filter((e) => e && e.tick >= startTick && e.tick < endTick)
+      .map((e) => {
         const waitTick = e.tick - nowTick
         const delayedTime =
           timestamp + Math.max(0, this.tickToMillisec(waitTick, bpm))

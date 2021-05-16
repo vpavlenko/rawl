@@ -12,7 +12,7 @@ const NOTE_NAMES = [
   "G#",
   "A",
   "A#",
-  "B"
+  "B",
 ]
 
 function noteNameWithOctString(noteNumber: number): string {

@@ -267,16 +267,18 @@ const EventRow: FC<EventRowProps> = React.memo(
         <InputCell
           style={{ width: widthForCell(2) }}
           value={getGate(item)}
-          onChange={useCallback((value: number) => onChangeGate(item, value), [
-            item,
-          ])}
+          onChange={useCallback(
+            (value: number) => onChangeGate(item, value),
+            [item]
+          )}
         />
         <InputCell
           style={{ width: widthForCell(3) }}
           value={getValue(item)}
-          onChange={useCallback((value: number) => onChangeValue(item, value), [
-            item,
-          ])}
+          onChange={useCallback(
+            (value: number) => onChangeValue(item, value),
+            [item]
+          )}
         />
       </Row>
     )

@@ -5,7 +5,7 @@ describe("NoteTimeTransform", () => {
     [
       { tempo: 120, tick: 0 },
       { tempo: 150, tick: 40 },
-      { tempo: 240, tick: 120 }
+      { tempo: 240, tick: 120 },
     ],
     480
   )

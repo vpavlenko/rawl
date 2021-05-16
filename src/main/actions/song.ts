@@ -1,6 +1,6 @@
 import {
   downloadSongAsMidi,
-  songFromMidi
+  songFromMidi,
 } from "../../common/midi/midiConversion"
 import Song, { emptySong } from "../../common/song"
 import { emptyTrack } from "../../common/track"

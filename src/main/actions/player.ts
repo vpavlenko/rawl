@@ -81,20 +81,18 @@ export const fastForwardOneBar = (rootStore: RootStore) => () => {
   player.position = quantizer.round(player.position + ticksPerMeasure)
 }
 
-export const previewNote = (rootStore: RootStore) => (
-  channel: number,
-  noteNumber: number
-) => {
-  const {
-    services: { player },
-  } = rootStore
-  player.playNote({
-    channel: channel,
-    noteNumber: noteNumber,
-    velocity: 100,
-    duration: 128,
-  })
-}
+export const previewNote =
+  (rootStore: RootStore) => (channel: number, noteNumber: number) => {
+    const {
+      services: { player },
+    } = rootStore
+    player.playNote({
+      channel: channel,
+      noteNumber: noteNumber,
+      velocity: 100,
+      duration: 128,
+    })
+  }
 
 export const previewNoteById = (rootStore: RootStore) => (noteId: number) => {
   const {

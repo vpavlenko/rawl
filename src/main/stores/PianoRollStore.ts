@@ -135,7 +135,6 @@ export default class PianoRollStore {
     return this.transform.getY(this.scrollTopKeys)
   }
 
-
   setScrollLeftInPixels(x: number) {
     const { canvasWidth, contentWidth } = this
     const maxX = contentWidth - canvasWidth
@@ -164,7 +163,11 @@ export default class PianoRollStore {
     if (this.scaleX < 1) {
       scaleXDelta *= this.scaleX * this.scaleX // to not zoom too fast when zooomed out
     }
-    this.scaleX = clamp(this.scaleX + scaleXDelta, this.SCALE_X_MIN, this.SCALE_X_MAX)
+    this.scaleX = clamp(
+      this.scaleX + scaleXDelta,
+      this.SCALE_X_MIN,
+      this.SCALE_X_MAX
+    )
     const pixelXInTicks1 = this.transform.getTicks(this.scrollLeft + pixelX)
     const scrollInTicks = pixelXInTicks1 - pixelXInTicks0
     this.setScrollLeftInTicks(this.scrollLeftTicks - scrollInTicks)

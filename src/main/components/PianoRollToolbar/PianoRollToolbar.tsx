@@ -55,9 +55,10 @@ export const PianoRollToolbar: FC = observer(() => {
 
   const { rootViewStore, pianoRollStore: s } = rootStore
 
-  const onClickAutoScroll = useCallback(() => (s.autoScroll = !s.autoScroll), [
-    s,
-  ])
+  const onClickAutoScroll = useCallback(
+    () => (s.autoScroll = !s.autoScroll),
+    [s]
+  )
   const onSelectQuantize = useCallback(
     (denominator: number) => {
       rootStore.services.quantizer.denominator = denominator
@@ -65,9 +66,10 @@ export const PianoRollToolbar: FC = observer(() => {
     },
     [rootStore, s]
   )
-  const onClickNavBack = useCallback(() => (rootViewStore.openDrawer = true), [
-    rootViewStore,
-  ])
+  const onClickNavBack = useCallback(
+    () => (rootViewStore.openDrawer = true),
+    [rootViewStore]
+  )
 
   const classes = useStyles({})
 

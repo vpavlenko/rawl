@@ -49,8 +49,8 @@ export const ArrangeToolbar: FC = observer(() => {
 
   const onClickAutoScroll = useCallback(
     () =>
-      (rootStore.arrangeViewStore.autoScroll = !rootStore.arrangeViewStore
-        .autoScroll),
+      (rootStore.arrangeViewStore.autoScroll =
+        !rootStore.arrangeViewStore.autoScroll),
     []
   )
 

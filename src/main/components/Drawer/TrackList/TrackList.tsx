@@ -34,24 +34,22 @@ export const TrackList: FC = observer(() => {
   )
   const tracks = rootStore.song.tracks
     .filter((t) => !t.isConductorTrack)
-    .map(
-      (t): TrackListItemData => {
-        const index = rootStore.song.tracks.indexOf(t)
-        const selected =
-          !rootStore.rootViewStore.isArrangeViewSelected &&
-          index === selectedTrackId
-        return {
-          index,
-          name: t.displayName,
-          instrument: t.instrumentName ?? "",
-          mute: trackMutes[index],
-          solo: trackSolos[index],
-          selected,
-          volume: t.getVolume(position) ?? 0,
-          pan: t.getPan(position) ?? 0,
-        }
+    .map((t): TrackListItemData => {
+      const index = rootStore.song.tracks.indexOf(t)
+      const selected =
+        !rootStore.rootViewStore.isArrangeViewSelected &&
+        index === selectedTrackId
+      return {
+        index,
+        name: t.displayName,
+        instrument: t.instrumentName ?? "",
+        mute: trackMutes[index],
+        solo: trackSolos[index],
+        selected,
+        volume: t.getVolume(position) ?? 0,
+        pan: t.getPan(position) ?? 0,
       }
-    )
+    })
 
   const onClickMute = (trackId: number) => toggleMuteTrack(rootStore)(trackId)
   const onClickSolo = (trackId: number) => toggleSoloTrack(rootStore)(trackId)

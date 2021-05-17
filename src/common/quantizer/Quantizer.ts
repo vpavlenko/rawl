@@ -6,6 +6,7 @@ export default class Quantizer {
     this._ticksPerBeat = ticksPerBeat
 
     // N 分音符の N
+    // n-remnant note n
     this.denominator = denominator
   }
 

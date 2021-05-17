@@ -229,7 +229,7 @@ export function controlChangeEvents(
   return [...rpn, ...data]
 }
 
-// value: 0 - 24 (半音)
+// value: 0 - 24 (半音 / Half sound)
 export function pitchbendSensitivityEvents(
   deltaTime: number,
   channel: number,

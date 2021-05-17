@@ -303,6 +303,7 @@ export default class Player {
     const events = this._scheduler.readNextEvents(this._currentTempo, timestamp)
 
     // channel イベントを MIDI Output に送信
+    // Send Channel Event to MIDI OUTPUT
     const messages = events
       .filter(
         ({ event }) =>
@@ -315,6 +316,7 @@ export default class Player {
     this._sendMessages(messages)
 
     // channel イベント以外を実行
+    // Run other than Channel Event
     this.applyPlayerEvents(events.map(({ event }) => event))
 
     if (this._scheduler.currentTick >= this._song.endOfSong) {

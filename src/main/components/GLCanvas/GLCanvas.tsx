@@ -27,6 +27,7 @@ export const GLCanvas = ({
       throw new Error("canvas is not mounted")
     }
     // GL コンテキストを初期化する
+    // Initialize GL context
     const gl = canvas.getContext("webgl", {
       alpha: true,
       antialias: false,
@@ -38,10 +39,9 @@ export const GLCanvas = ({
     })
 
     // WebGL が使用可能で動作している場合にのみ続行します
+    // Continue only if WebGL is enabled
     if (gl === null) {
-      alert(
-        "WebGL を初期化できません。ブラウザーまたはマシンがサポートしていない可能性があります。"
-      )
+      alert("WebGL can't be initialized. May be browser doesn't support")
       return
     }
 

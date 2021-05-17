@@ -86,6 +86,7 @@ const createEvent = (rootStore: RootStore) => (e: AnyEvent, tick?: number) => {
   })
 
   // 即座に反映する
+  // Reflect immediately
   if (tick !== undefined) {
     rootStore.services.player.sendEvent(e)
   }
@@ -219,6 +220,7 @@ export const resizeNoteLeft =
       return
     }
     // 右端を固定して長さを変更
+    // Fix the right end and change the length
     tick = quantizer.round(tick)
     const note = selectedTrack.getEventById(id)
     if (note == undefined || !isNoteEvent(note)) {
@@ -316,6 +318,7 @@ export const setTrackInstrument =
     track.setProgramNumber(programNumber)
 
     // 即座に反映する
+    // Reflect immediately
     if (track.channel !== undefined) {
       player.sendEvent(programChangeMidiEvent(0, track.channel, programNumber))
     }

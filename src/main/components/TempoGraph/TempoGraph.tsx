@@ -123,7 +123,7 @@ export const TempoGraph: FC = observer(() => {
       (b) => b.beat === 0
     )
 
-    // 30 -> 510 を 17 分割した線
+    // 30 -> 510 = 17 Divided line
     const lines = range(30, transform.maxBPM, 30).map((i) => transform.getY(i))
 
     renderer.theme = theme

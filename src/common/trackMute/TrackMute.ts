@@ -80,6 +80,7 @@ export default class TrackMute {
 
   isSoloMode(): boolean {
     // どれかひとつでも solo なら solo モード
+    // Any one or Solo mode Solo mode
     return Object.values(this.solos).some((s) => s)
   }
 
@@ -92,6 +93,7 @@ export default class TrackMute {
   }
 
   // 表示用のメソッド
+  // Method for display
 
   isSolo(trackId: number) {
     return this.isSoloMode() && this.solos[trackId]

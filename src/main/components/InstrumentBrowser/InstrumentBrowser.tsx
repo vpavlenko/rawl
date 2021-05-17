@@ -102,7 +102,7 @@ const InstrumentBrowser: FC<InstrumentBrowserProps> = ({
 
   const onChangeCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
     onChange({
-      programNumber: e.target.selectedIndex * 8, // カテゴリの最初の楽器を選ぶ
+      programNumber: e.target.selectedIndex * 8, // カテゴリの最初の楽器を選ぶ -> Choose the first instrument of the category
       isRhythmTrack,
     })
   }

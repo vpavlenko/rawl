@@ -146,6 +146,8 @@ function Stage<ItemType extends Item>({
   const onMouseMoveCanvas = (e: React.MouseEvent) => {
     // ドラッグ中はウィンドウ外も扱うため document の eventListener から呼ぶが、
     // そうでないときはここから呼ぶ
+    // During dragging, it is called from Document EventListener to handle the window outside,
+    // If so, call here
     if (!isMouseDown) {
       _onMouseMove(extendEvent(e.nativeEvent))
     }

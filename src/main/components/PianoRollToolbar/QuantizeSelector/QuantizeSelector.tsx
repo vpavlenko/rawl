@@ -63,12 +63,15 @@ export interface QuantizeSelectorProps {
 
 function QuantizeSelector({ value, onSelect }: QuantizeSelectorProps) {
   // 整数ではなく 1.5 をかけると整数になるとき付点
+  // Attachment to an integer when it is 1.5 instead of integer
   const dot = value % 1 !== 0 && (value * 1.5) % 1 === 0
 
   // 1.5 で割ると整数になるとき3連符
+  // When divided by 1.5, when it becomes an integer 3
   const triplet = (value / 1.5) % 1 === 0
 
   // 逆算するために triplet と dot を逆にする
+  // Reverse TRIPLET and DOT to reverse
   const denominator = calcQuantize(value, triplet, dot)
 
   const list = [1, 2, 4, 8, 16, 32, 64, 128]

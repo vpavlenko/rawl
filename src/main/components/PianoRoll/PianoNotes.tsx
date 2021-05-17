@@ -44,6 +44,7 @@ export const PianoNotes: FC<PianoRollStageProps> = observer(
     const { onContextMenu, menuProps } = useContextMenu()
 
     // MouseHandler で利用する追加情報をイベントに付加する
+    // Add additional information used by MouseHandler to an event
     const extendEvent = useCallback(
       (e: MouseEvent): PianoNotesMouseEvent => {
         const { scrollTop, scrollLeft } = rootStore.pianoRollStore

@@ -1,6 +1,7 @@
 export default class TempoCoordTransform {
   pixelsPerTick: number
   // グラフの描画領域の高さ
+  // Higher graph drawing area
   height: number
   maxBPM: number
 

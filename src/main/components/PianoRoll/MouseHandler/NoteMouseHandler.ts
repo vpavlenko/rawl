@@ -21,8 +21,10 @@ export default class NoteMouseHandler {
   }
 
   // mousedown 以降に行う MouseAction を返す
+  // Returns a MouseAction to do after MouseDown
   protected actionForMouseDown(e: PianoNotesMouseEvent): MouseGesture | null {
     // 共通の action
+    // Common Action
 
     // wheel drag to start scrolling
     if (e.nativeEvent.button === 1) {
@@ -30,16 +32,19 @@ export default class NoteMouseHandler {
     }
 
     // 右ダブルクリック
+    // Right Double-click
     if (e.nativeEvent.button === 2 && e.nativeEvent.detail % 2 === 0) {
       return changeToolAction(this.rootStore.pianoRollStore)
     }
 
     // サブクラスで残りを実装
+    // Implement the rest with subclasses
     return null
   }
 
   protected getCursorForMouseMove(ev: PianoNotesMouseEvent): string {
     // サブクラスで実装
+    // Implemented in subclasses
     return "auto"
   }
 

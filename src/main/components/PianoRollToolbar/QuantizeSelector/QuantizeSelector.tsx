@@ -63,11 +63,12 @@ export interface QuantizeSelectorProps {
 
 function QuantizeSelector({ value, onSelect }: QuantizeSelectorProps) {
   // 整数ではなく 1.5 をかけると整数になるとき付点
-  // Attachment to an integer when it is 1.5 instead of integer
+  // When it is not integer and multiply 1.5 becomes integer, it becomes a dotted note
+
   const dot = value % 1 !== 0 && (value * 1.5) % 1 === 0
 
   // 1.5 で割ると整数になるとき3連符
-  // When divided by 1.5, when it becomes an integer 3
+  // When divided by 1.5, when it becomes an it becomes a triplet (here triplet is a musical term)
   const triplet = (value / 1.5) % 1 === 0
 
   // 逆算するために triplet と dot を逆にする

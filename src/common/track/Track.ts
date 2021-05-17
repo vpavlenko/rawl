@@ -114,7 +114,7 @@ export default class Track {
   }
 
   // ソート、通知を行わない内部用の addEvent
-  // Sorting, AddEvent for internal notification
+  // add the event without sorting, notification
   private _addEvent<T extends TrackEvent>(e: Omit<T, "id">): T {
     if (!("tick" in e) || isNaN(e.tick)) {
       throw new Error("invalid event is added")

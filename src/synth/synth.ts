@@ -113,7 +113,8 @@ export default class SynthController {
     const now = window.performance.now()
 
     // 再生時刻が現在より過去なら再生して削除
-    // Playback time is recycled and removed from now on
+    // If playback time is past, events will be played and removed from buffer
+
     const eventsToSend = this.eventsBuffer.filter(({ message, timestamp }) => {
       const delay = timestamp - now + this.timestampOffset
       return delay <= 0
@@ -139,7 +140,8 @@ export default class SynthController {
 }
 
 // メッセージがチャンネルイベントならチャンネルを、そうでなければ -1 を返す
-// Returns channel events to channel events, otherwise -1
+// Returns channel number when message is channel events, otherwise -1
+
 const getMessageChannel = (message: MIDIMessage) => {
   const isChannelEvent = (message[0] & 0xf0) !== 0xf0
   return isChannelEvent ? message[0] & 0x0f : -1

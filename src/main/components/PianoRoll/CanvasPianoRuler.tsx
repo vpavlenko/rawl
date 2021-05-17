@@ -21,6 +21,7 @@ function drawRuler(
   ctx.beginPath()
 
   // 密過ぎる時は省略する
+  // Omit when it is too high
   const shouldOmit = beats.length > 1 && beats[1].x - beats[0].x <= 5
 
   beats.forEach(({ beat, measure, x }) => {
@@ -35,7 +36,9 @@ function drawRuler(
     }
 
     // 小節番号
+    // War Number
     // 省略時は2つに1つ描画
+    // Default 1 drawing one for two
     if (isTop && (!shouldOmit || measure % 2 === 0)) {
       ctx.textBaseline = "top"
       ctx.font = `12px ${theme.canvasFont}`

@@ -12,6 +12,7 @@ export const transformEvents = (
   maxX: number
 ): TempoGraphItem[] => {
   // まず位置だけ計算する
+  // Calculate only position
   const items = events
     .filter(isSetTempoEvent)
     .sort((a, b) => a.tick - b.tick)
@@ -26,6 +27,7 @@ export const transformEvents = (
     })
 
   // 次のイベント位置まで延びるように大きさを設定する
+  // Set size to extend to the next event position
   return items.map((e, i) => {
     const nextX = i + 1 < items.length ? items[i + 1].x : maxX
     return {

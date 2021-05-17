@@ -76,6 +76,8 @@ export const removeTrack = (rootStore: RootStore) => (trackId: number) => {
   if (rootStore.song.tracks.filter((t) => !t.isConductorTrack).length <= 1) {
     // conductor track を除き、最後のトラックの場合
     // トラックがなくなるとエラーが出るので削除できなくする
+    // For the last track except for Conductor Track
+    // I can not delete it because there is an error when there is no track
     return
   }
   pushHistory(rootStore)

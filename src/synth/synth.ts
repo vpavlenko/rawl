@@ -31,6 +31,7 @@ export default class SynthController {
   private eventsBuffer: Message[] = []
 
   // 送信元とのタイムスタンプの差
+  // Difference of timestamp with sender
   private timestampOffset = 0
 
   private handler = new Synth.MidiMessageHandler()
@@ -112,6 +113,8 @@ export default class SynthController {
     const now = window.performance.now()
 
     // 再生時刻が現在より過去なら再生して削除
+    // If playback time is past, events will be played and removed from buffer
+
     const eventsToSend = this.eventsBuffer.filter(({ message, timestamp }) => {
       const delay = timestamp - now + this.timestampOffset
       return delay <= 0
@@ -122,6 +125,7 @@ export default class SynthController {
       .map(({ message }) => getMessageChannel(message))
 
     // 再生するイベントと、all sound off を受信したチャンネルのイベントを削除する
+    // Delete the event to play back and the channel of the channel that received the ALL SOUND OFF
     this.eventsBuffer = this.eventsBuffer.filter((e) => {
       return (
         !eventsToSend.includes(e) &&
@@ -135,7 +139,9 @@ export default class SynthController {
   }
 }
 
-/// メッセージがチャンネルイベントならチャンネルを、そうでなければ -1 を返す
+// メッセージがチャンネルイベントならチャンネルを、そうでなければ -1 を返す
+// Returns channel number when message is channel events, otherwise -1
+
 const getMessageChannel = (message: MIDIMessage) => {
   const isChannelEvent = (message[0] & 0xf0) !== 0xf0
   return isChannelEvent ? message[0] & 0x0f : -1

@@ -47,6 +47,7 @@ export const fixSelection = (rootStore: RootStore) => () => {
   }
   const { selection } = pianoRollStore
   // 選択範囲を確定して選択範囲内のノートを選択状態にする
+  // Confirm the selection and select the notes in the selection state
   const s = cloneDeep(selection)
   if (
     s.from.noteNumber - s.to.noteNumber === 0 ||
@@ -102,6 +103,7 @@ export const moveSelection = (rootStore: RootStore) => (point: NotePoint) => {
   }
   const { selection } = pianoRollStore
   // ノートと選択範囲を移動
+  // Move notes and selection
   const tick = quantizer.round(point.tick)
   const noteNumber = Math.round(point.noteNumber)
 
@@ -154,20 +156,24 @@ export const resizeSelectionLeft = (rootStore: RootStore) => (tick: number) => {
 
   const { selection } = pianoRollStore
   // 選択範囲とノートを左方向に伸長・縮小する
+  // Level and reduce the selection and notes in the left direction
   const fromTick = quantizer.round(tick)
   const delta = fromTick - selection.from.tick
 
   // 変形していないときは終了
+  // End when not deformed
   if (delta === 0) {
     return
   }
 
   // 選択領域のサイズがゼロになるときは終了
+  // End when the size of selection area becomes zero
   if (selection.to.tick - fromTick <= 0) {
     return
   }
 
   // 右端を固定して長さを変更
+  // Fix the right end and change the length
   const s = cloneDeep(selection)
   s.from.tick = fromTick
   pianoRollStore.selection = s
@@ -196,6 +202,7 @@ export const resizeNotesInSelectionLeftBy =
           const duration = n.duration - deltaTick
           if (duration <= 0) {
             // 幅がゼロになる場合は変形しない
+            // Do not deform if the width is zero
             return { id }
           }
           return {
@@ -217,20 +224,24 @@ export const resizeSelectionRight =
 
     const { selection } = pianoRollStore
     // 選択範囲とノートを右方向に伸長・縮小する
+    // Return and reduce the selection and note in the right direction
     const toTick = quantizer.round(tick)
     const delta = toTick - selection.to.tick
 
     // 変形していないときは終了
+    // End when not deformed
     if (delta === 0) {
       return
     }
 
     // 選択領域のサイズがゼロになるときは終了
+    // End when the size of selection area becomes zero
     if (toTick - selection.from.tick <= 0) {
       return
     }
 
     // 右端を固定して長さを変更
+    // Fix the right end and change the length
     const s = cloneDeep(selection)
     s.to.tick = toTick
     pianoRollStore.selection = s
@@ -259,6 +270,7 @@ export const resizeNotesInSelectionRightBy =
           const duration = n.duration + deltaDuration
           if (duration <= 0) {
             // 幅がゼロになる場合は変形しない
+            // Do not deform if the width is zero
             return { id }
           }
           return {
@@ -281,6 +293,7 @@ export const startSelection = (rootStore: RootStore) => (point: NotePoint) => {
   }
 
   // 選択範囲の右上を pos にして、ノートの選択状を解除する
+  // Set the upper right corner of the selection to POS and deselect the notes
   const s: Selection = {
     noteIds: [],
     from: point,
@@ -303,6 +316,7 @@ export const cloneSelection = (rootStore: RootStore) => () => {
   }
   const { selection } = pianoRollStore
   // 選択範囲内のノートをコピーした選択範囲を作成
+  // Create a selection that copies notes within selection
   const notes = selection.noteIds
     .map((id) => selectedTrack.getEventById(id))
     .filter(isNotUndefined)
@@ -329,6 +343,7 @@ export const copySelection = (rootStore: RootStore) => () => {
   }
 
   // 選択されたノートをコピー
+  // Copy selected note
   const notes = selection.noteIds
     .map((id) => selectedTrack.getEventById(id))
     .filter(isNotUndefined)
@@ -356,6 +371,7 @@ export const deleteSelection = (rootStore: RootStore) => () => {
 
   const { selection } = pianoRollStore
   // 選択範囲と選択されたノートを削除
+  // Remove selected notes and selected notes
   selectedTrack.removeEvents(selection.noteIds)
   pianoRollStore.selection = emptySelection
 }
@@ -371,6 +387,7 @@ export const pasteSelection = (rootStore: RootStore) => () => {
     return
   }
   // 現在位置にコピーしたノートをペースト
+  // Paste notes copied to the current position
   const text = clipboard.readText()
   if (!text || text.length === 0) {
     return

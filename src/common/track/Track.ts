@@ -114,6 +114,7 @@ export default class Track {
   }
 
   // ソート、通知を行わない内部用の addEvent
+  // add the event without sorting, notification
   private _addEvent<T extends TrackEvent>(e: Omit<T, "id">): T {
     if (!("tick" in e) || isNaN(e.tick)) {
       throw new Error("invalid event is added")
@@ -193,6 +194,7 @@ export default class Track {
   }
 
   // 表示用の名前 トラック名がなければトラック番号を表示する
+  // Display the track number if there is no name track name for display
   get displayName() {
     if (this.name && this.name.length > 0) {
       return this.name

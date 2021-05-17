@@ -19,6 +19,7 @@ const createRect = (tracks: Track[], from: IPoint, to: IPoint) => {
 
   if (rect.y < 0) {
     // Ruler をドラッグしている場合は全てのトラックを選択する
+    // If you are dragging Ruler, select all tracks
     rect.y = 0
     rect.height = tracks.length
   }
@@ -63,6 +64,7 @@ export const arrangeResizeSelection =
       services: { quantizer },
     } = rootStore
     // 選択範囲作成時 (確定前) のドラッグ中
+    // Drag during selection (before finalization)
     s.selection = quantizeRect(quantizer, createRect(tracks, start, end))
   }
 
@@ -93,6 +95,7 @@ export const arrangeMoveSelection = (rootStore: RootStore) => (pos: IPoint) => {
   }
   const { tracks } = song
   // 選択範囲を移動
+  // Move selection range
   const selection = quantizeRect(quantizer, {
     x: Math.max(pos.x, 0),
     y: Math.min(Math.max(pos.y, 0), tracks.length - s.selection.height),
@@ -113,6 +116,7 @@ export const arrangeMoveSelection = (rootStore: RootStore) => (pos: IPoint) => {
   }
 
   // ノートを移動
+  // Move notes
 
   const updates = []
   for (const [trackIndex, selectedEvents] of Object.entries(
@@ -164,6 +168,7 @@ export const arrangeCopySelection = (rootStore: RootStore) => () => {
     return
   }
   // 選択されたノートをコピー
+  // Copy selected note
   const notes = mapValues(s.selectedEventIds, (ids, trackId) => {
     const track = tracks[parseInt(trackId, 10)]
     return ids
@@ -171,7 +176,7 @@ export const arrangeCopySelection = (rootStore: RootStore) => () => {
       .filter(isNotUndefined)
       .map((note) => ({
         ...note,
-        tick: note.tick - selection.x, // 選択範囲からの相対位置にする
+        tick: note.tick - selection.x, // 選択範囲からの相対位置にする // To relative position from selection
       }))
   })
   clipboard.writeText(
@@ -189,6 +194,7 @@ export const arrangePasteSelection = (rootStore: RootStore) => () => {
   } = rootStore
 
   // 現在位置にコピーしたノートをペースト
+  // Paste notes copied to the current position
   const text = clipboard.readText()
   if (!text || text.length === 0) {
     return
@@ -213,6 +219,7 @@ export const arrangeDeleteSelection = (rootStore: RootStore) => () => {
   } = rootStore
 
   // 選択範囲と選択されたノートを削除
+  // Remove selected notes and selected notes
   for (const trackId in s.selectedEventIds) {
     tracks[trackId].removeEvents(s.selectedEventIds[trackId])
   }
@@ -221,6 +228,7 @@ export const arrangeDeleteSelection = (rootStore: RootStore) => () => {
 }
 
 // returns { trackId: [eventId] }
+//Returns {TrackId: [eventId] }
 function getNotesInSelection(tracks: Track[], selection: IRect) {
   const startTick = selection.x
   const endTick = selection.x + selection.width

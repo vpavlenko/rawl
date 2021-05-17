@@ -167,6 +167,7 @@ const _ScrollBar: React.RefForwardingComponent<HTMLDivElement, ScrollBarProps> =
 
         const startLongPressTimer = (delta: number) => {
           // 初回は時間をかける
+          // Take time for the first time
           intervalId = window.setInterval(() => {
             clearInterval(intervalId)
 
@@ -177,6 +178,7 @@ const _ScrollBar: React.RefForwardingComponent<HTMLDivElement, ScrollBarProps> =
             onScroll2((scroll += delta))
 
             // 二回目からは素早く繰り返す
+            // Repeat quickly from the second time
             intervalId = window.setInterval(() => {
               onScroll2((scroll += delta * LONG_PRESS_SPEED))
 
@@ -223,7 +225,7 @@ const _ScrollBar: React.RefForwardingComponent<HTMLDivElement, ScrollBarProps> =
           onMouseMove: (e) => {
             const p = isVertical ? "y" : "x"
             const delta = pointSub(getPoint(e), startPos)[p]
-            const scale = maxOffset / (maxLength - thumbLength) // 移動量とスクロール量の補正値
+            const scale = maxOffset / (maxLength - thumbLength) // 移動量とスクロール量の補正値 -> Correction value of movement amount and scroll amount
             const value = startValue + delta * scale
             onScroll2(value)
           },

@@ -11,6 +11,7 @@ const StyledButton = styled(Button)`
   text-transform: none;
   height: 2rem;
   overflow: hidden;
+  white-space: nowrap;
 `
 
 export const EventListButton: FC = () => {

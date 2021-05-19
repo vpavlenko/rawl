@@ -1,18 +1,18 @@
 import { List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core"
 import { Add } from "@material-ui/icons"
 import { observer } from "mobx-react-lite"
-import { FC } from "react"
+import React, { FC } from "react"
 import styled from "styled-components"
-import { localized } from "../../../../common/localize/localizedString"
+import { localized } from "../../../common/localize/localizedString"
 import {
   addTrack,
   removeTrack,
   selectTrack,
   toggleMuteTrack,
   toggleSoloTrack,
-} from "../../../actions"
-import { useStores } from "../../../hooks/useStores"
-import TrackListItem, { TrackListItemData } from "./TrackListItem"
+} from "../../actions"
+import { useStores } from "../../hooks/useStores"
+import { TrackListItem, TrackListItemData } from "./TrackListItem"
 
 const AddTrackListIcon = styled(ListItemIcon)`
   min-width: auto;

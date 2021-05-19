@@ -4,7 +4,7 @@ import { observer } from "mobx-react-lite"
 import React, { FC, useCallback, useRef } from "react"
 import styled from "styled-components"
 import { useStores } from "../../hooks/useStores"
-import { TrackList } from "./TrackList/TrackList"
+import { TrackList } from "./TrackList"
 
 const NavBackButton = styled(IconButton)`
   svg {
@@ -17,7 +17,7 @@ const NavBackButton = styled(IconButton)`
   }
 `
 
-export const TrackListDrawer: FC = observer(() => {
+export const TrackListMenuButton: FC = observer(() => {
   const { rootViewStore } = useStores()
   const open = rootViewStore.openTrackListDrawer
   const close = () => (rootViewStore.openTrackListDrawer = false)

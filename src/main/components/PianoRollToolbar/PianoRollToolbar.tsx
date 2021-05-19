@@ -6,8 +6,8 @@ import React, { FC, useCallback } from "react"
 import styled from "styled-components"
 import { localized } from "../../../common/localize/localizedString"
 import { useStores } from "../../hooks/useStores"
-import { TrackListDrawer } from "../Drawer/TrackListDrawer"
 import InstrumentBrowser from "../InstrumentBrowser/InstrumentBrowser"
+import { TrackListMenuButton } from "../TrackList/TrackListMenuButton"
 import { EventListButton } from "./EventListButton"
 import { GhostTrackSelector } from "./GhostTrackSelector"
 import { InstrumentButton } from "./InstrumentButton"
@@ -73,7 +73,7 @@ export const PianoRollToolbar: FC = observer(() => {
   return (
     <AppBar position="static" elevation={0} className={classes.appBar}>
       <Toolbar variant="dense">
-        <TrackListDrawer />
+        <TrackListMenuButton />
 
         <TrackNameInput />
 

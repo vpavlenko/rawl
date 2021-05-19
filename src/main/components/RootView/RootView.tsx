@@ -25,6 +25,7 @@ const Column = styled.div`
   height: 100%;
   display: flex;
   flex-grow: 1;
+  flex-direction: column;
 `
 
 const Routes: FC = observer(() => {

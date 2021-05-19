@@ -5,6 +5,7 @@ import {
   Schedule,
   Settings,
 } from "@material-ui/icons"
+import Color from "color"
 import { observer } from "mobx-react-lite"
 import React, { FC, useCallback } from "react"
 import styled from "styled-components"
@@ -33,29 +34,34 @@ const LogoIcon = styled(Logo)`
 
 const Container = styled.div`
   display: flex;
-  flex-direction: column;
-  border-right: 1px solid var(--divider-color);
-  width: 4rem;
+  flex-direction: row;
+  background: ${({ theme }) => Color(theme.backgroundColor).darken(0.2).hex()};
 `
 
 const Tab = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-left: 2px solid transparent;
-  border-right: 2px solid transparent;
-  padding: 1rem 0;
-  font-size: 0.65rem;
+  flex-direction: row;
+  align-items: center; 
+  padding: 0.5rem 1rem;
+  font-size: 0.7rem;
+  border-top: solid 0.1rem transparent;
   color: var(--secondary-text-color);
 
   &.active {
     color: var(--text-color);
-    border-left-color: var(--theme-color);
+    background: var(--background-color);
+    border-top-color: var(--theme-color);
   }
 
   &:hover {
-    background-color: var(--secondary-background-color);
+    background: ${({ theme }) =>
+      Color(theme.backgroundColor).darken(0.1).hex()};
   }
+
+  > svg {
+    margin-right: 0.4rem;
+  }
+}
 `
 
 const InstrumentIcon = styled(PianoIcon)`
@@ -65,9 +71,12 @@ const InstrumentIcon = styled(PianoIcon)`
 
 const Upper = styled.div`
   flex-grow: 1;
+  display: flex;
 `
 
-const Lower = styled.div``
+const Lower = styled.div`
+  display: flex;
+`
 
 export const Navigation: FC = observer(() => {
   const { rootViewStore, router } = useStores()
@@ -92,7 +101,7 @@ export const Navigation: FC = observer(() => {
           className={router.path === "/track" ? "active" : undefined}
           onClick={useCallback(() => (router.path = "/track"), [])}
         >
-          <InstrumentIcon />
+          <InstrumentIcon viewBox="0 0 24 24" />
           <span>Piano Roll</span>
         </Tab>
         <Tab

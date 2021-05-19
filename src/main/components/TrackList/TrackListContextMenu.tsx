@@ -1,7 +1,7 @@
 import { Menu, MenuItem } from "@material-ui/core"
 import { FC } from "react"
-import { IPoint } from "../../../../common/geometry"
-import { localized } from "../../../../common/localize/localizedString"
+import { IPoint } from "../../../common/geometry"
+import { localized } from "../../../common/localize/localizedString"
 
 export interface TrackListContextMenuProps {
   isOpen: boolean

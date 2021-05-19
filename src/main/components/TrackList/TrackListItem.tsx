@@ -2,7 +2,7 @@ import { IconButton, ListItem } from "@material-ui/core"
 import { Headset, VolumeOff, VolumeUp } from "@material-ui/icons"
 import { FC } from "react"
 import styled from "styled-components"
-import { useContextMenu } from "../../../hooks/useContextMenu"
+import { useContextMenu } from "../../hooks/useContextMenu"
 import { TrackListContextMenu } from "./TrackListContextMenu"
 
 export interface TrackListItemData {
@@ -68,7 +68,7 @@ const Container = styled(ListItem)`
   }
 `
 
-const TrackListItem: FC<TrackListItemProps> = ({
+export const TrackListItem: FC<TrackListItemProps> = ({
   name,
   instrument,
   mute,
@@ -128,5 +128,3 @@ const TrackListItem: FC<TrackListItemProps> = ({
     </Container>
   )
 }
-
-export default TrackListItem

@@ -17,7 +17,7 @@ import {
 } from "../midi/MidiEvent"
 import Track from "./Track"
 
-export function conductorTrack(name = "Conductor Track") {
+export function conductorTrack(name = "") {
   const track = new Track()
   const events = toTrackEvents([
     trackNameMidiEvent(0, name),

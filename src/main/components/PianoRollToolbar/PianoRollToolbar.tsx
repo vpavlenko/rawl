@@ -1,12 +1,13 @@
-import { AppBar, IconButton, Toolbar } from "@material-ui/core"
-import { KeyboardTab, Menu as MenuIcon } from "@material-ui/icons"
+import { AppBar, Toolbar } from "@material-ui/core"
+import { KeyboardTab } from "@material-ui/icons"
 import { makeStyles } from "@material-ui/styles"
 import { observer } from "mobx-react-lite"
-import { FC, useCallback } from "react"
+import React, { FC, useCallback } from "react"
 import styled from "styled-components"
 import { localized } from "../../../common/localize/localizedString"
 import { useStores } from "../../hooks/useStores"
 import InstrumentBrowser from "../InstrumentBrowser/InstrumentBrowser"
+import { TrackListMenuButton } from "../TrackList/TrackListMenuButton"
 import { EventListButton } from "./EventListButton"
 import { GhostTrackSelector } from "./GhostTrackSelector"
 import { InstrumentButton } from "./InstrumentButton"
@@ -31,15 +32,12 @@ const AutoScrollIcon = styled(KeyboardTab)`
   font-size: 1.3rem;
 `
 
-const NavBackButton = styled(IconButton)`
-  &:hover {
-    background: none;
-    color: var(--secondary-text-color);
-  }
-`
-
 const Spacer = styled.div`
   width: 1rem;
+`
+
+const FlexibleSpacer = styled.div`
+  flex-grow: 1;
 `
 
 export const PianoRollToolbar: FC = observer(() => {
@@ -66,11 +64,6 @@ export const PianoRollToolbar: FC = observer(() => {
     },
     [rootStore, s]
   )
-  const onClickNavBack = useCallback(
-    () => (rootViewStore.openDrawer = true),
-    [rootViewStore]
-  )
-
   const classes = useStyles({})
 
   if (track === undefined) {
@@ -80,9 +73,7 @@ export const PianoRollToolbar: FC = observer(() => {
   return (
     <AppBar position="static" elevation={0} className={classes.appBar}>
       <Toolbar variant="dense">
-        <NavBackButton onClick={onClickNavBack}>
-          <MenuIcon />
-        </NavBackButton>
+        <TrackListMenuButton />
 
         <TrackNameInput />
 
@@ -95,6 +86,8 @@ export const PianoRollToolbar: FC = observer(() => {
 
         <VolumeSlider trackId={trackId} />
         <PanSlider trackId={trackId} />
+
+        <FlexibleSpacer />
 
         <ToolSelector />
 

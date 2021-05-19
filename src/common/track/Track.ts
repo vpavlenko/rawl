@@ -12,6 +12,7 @@ import { action, computed, makeObservable, observable, transaction } from "mobx"
 import { createModelSchema, list, primitive } from "serializr"
 import { isNotUndefined } from "../helpers/array"
 import { pojo } from "../helpers/pojo"
+import { localized } from "../localize/localizedString"
 import { getInstrumentName } from "../midi/GM"
 import { isControllerEventWithType, isNoteEvent } from "./identify"
 import {
@@ -200,9 +201,9 @@ export default class Track {
       return this.name
     }
     if (this.isConductorTrack) {
-      return `Conductor Track`
+      return localized("conductor-track", "Conductor Track")
     }
-    return `Track ${this.channel}`
+    return `${localized("track", "Track")} ${this.channel}`
   }
 
   get instrumentName() {

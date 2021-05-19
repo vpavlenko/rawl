@@ -4,6 +4,7 @@ import { ToggleButton } from "@material-ui/lab"
 import { observer } from "mobx-react-lite"
 import { FC } from "react"
 import styled from "styled-components"
+import { localized } from "../../../common/localize/localizedString"
 import { useStores } from "../../hooks/useStores"
 
 const useStyles = makeStyles((theme) => ({
@@ -39,7 +40,7 @@ const FlexibleSpacer = styled.div`
 `
 
 export const TempoGraphToolbar: FC = observer(() => {
-  const { tempoEditorStore, rootViewStore } = useStores()
+  const { tempoEditorStore } = useStores()
   const autoScroll = tempoEditorStore.autoScroll
 
   const classes = useStyles({})
@@ -47,7 +48,7 @@ export const TempoGraphToolbar: FC = observer(() => {
   return (
     <AppBar position="static" elevation={0} className={classes.appBar}>
       <Toolbar variant="dense">
-        <Title>Tempo</Title>
+        <Title>{localized("tempo", "Tempo")}</Title>
 
         <FlexibleSpacer />
 

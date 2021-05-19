@@ -4,7 +4,6 @@ import styled from "styled-components"
 import { useStores } from "../../hooks/useStores"
 import { ArrangeEditor } from "../ArrangeView/ArrangeEditor"
 import { BuildInfo } from "../BuildInfo"
-import { TrackListDrawer } from "../Drawer/TrackListDrawer"
 import { EventEditor } from "../EventEditor/EventEditor"
 import { HelpDialog } from "../Help/HelpDialog"
 import { MIDIDeviceDialog } from "../MIDIDeviceView/MIDIDeviceDialog"
@@ -43,7 +42,6 @@ export const RootView: FC = () => (
   <Column>
     <Navigation />
     <Container>
-      <TrackListDrawer />
       <Routes />
       <TransportPanel />
       <BuildInfo />

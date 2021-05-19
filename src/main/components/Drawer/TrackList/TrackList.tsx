@@ -58,7 +58,7 @@ export const TrackList: FC = observer(() => {
   const onSelectTrack = (trackId: number) => {
     router.pushTrack()
     selectTrack(rootStore)(trackId)
-    rootStore.rootViewStore.openDrawer = false
+    rootStore.rootViewStore.openTrackListDrawer = false
   }
   const onClickArrangeView = () => {
     router.pushArrange()

@@ -12,7 +12,6 @@ import {
   toggleSoloTrack,
 } from "../../../actions"
 import { useStores } from "../../../hooks/useStores"
-import { ListHeader } from "../Drawer"
 import TrackListItem, { TrackListItemData } from "./TrackListItem"
 
 const AddTrackListIcon = styled(ListItemIcon)`
@@ -78,9 +77,6 @@ export const TrackList: FC = observer(() => {
 
   return (
     <List>
-      <ListHeader onClick={onClickArrangeView}>
-        {localized("tracks", "Tracks")}
-      </ListHeader>
       {items}
       <ListItem button onClick={onClickAddTrack}>
         <AddTrackListIcon>

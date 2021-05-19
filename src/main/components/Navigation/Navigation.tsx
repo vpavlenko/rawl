@@ -1,10 +1,4 @@
-import {
-  Help,
-  InsertDriveFileOutlined,
-  List,
-  Schedule,
-  Settings,
-} from "@material-ui/icons"
+import { Help, List, Schedule, Settings } from "@material-ui/icons"
 import Color from "color"
 import { observer } from "mobx-react-lite"
 import React, { FC, useCallback } from "react"
@@ -13,6 +7,7 @@ import { localized } from "../../../common/localize/localizedString"
 import { useStores } from "../../hooks/useStores"
 import Logo from "../../images/logo-circle.svg"
 import PianoIcon from "../../images/piano.svg"
+import { FileMenuButton } from "./FileMenuButton"
 
 const BannerContainer = styled.div`
   background: var(--theme-color);
@@ -38,7 +33,7 @@ const Container = styled.div`
   background: ${({ theme }) => Color(theme.backgroundColor).darken(0.2).hex()};
 `
 
-const Tab = styled.div`
+export const Tab = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center; 
@@ -69,13 +64,14 @@ const InstrumentIcon = styled(PianoIcon)`
   fill: currentColor;
 `
 
-const Upper = styled.div`
+const FlexibleSpacer = styled.div`
   flex-grow: 1;
-  display: flex;
 `
 
-const Lower = styled.div`
-  display: flex;
+const Separator = styled.div`
+  background: var(--divider-color);
+  margin: 0.5rem 0.5rem;
+  width: 1px;
 `
 
 export const Navigation: FC = observer(() => {
@@ -83,57 +79,44 @@ export const Navigation: FC = observer(() => {
 
   return (
     <Container>
-      <Upper>
-        {/* <BannerContainer>
-          <a href="/">
-            <LogoIcon
-              viewBox="0 0 99 99"
-              width={undefined}
-              height={undefined}
-            />
-          </a>
-        </BannerContainer> */}
-        <Tab onClick={useCallback(() => (rootViewStore.openDrawer = true), [])}>
-          <InsertDriveFileOutlined />
-          <span>{localized("file", "File")}</span>
-        </Tab>
-        <Tab
-          className={router.path === "/track" ? "active" : undefined}
-          onClick={useCallback(() => (router.path = "/track"), [])}
-        >
-          <InstrumentIcon viewBox="0 0 24 24" />
-          <span>{localized("piano-roll", "Piano Roll")}</span>
-        </Tab>
-        <Tab
-          className={router.path === "/arrange" ? "active" : undefined}
-          onClick={useCallback(() => (router.path = "/arrange"), [])}
-        >
-          <List />
-          <span>{localized("arrange", "Arrange")}</span>
-        </Tab>
-        <Tab
-          className={router.path === "/tempo" ? "active" : undefined}
-          onClick={useCallback(() => (router.path = "/tempo"), [])}
-        >
-          <Schedule />
-          <span>{localized("tempo", "Tempo")}</span>
-        </Tab>
-      </Upper>
-      <Lower>
-        <Tab
-          onClick={useCallback(
-            () => (rootViewStore.openDeviceDialog = true),
-            []
-          )}
-        >
-          <Settings />
-          <span>{localized("settings", "Settings")}</span>
-        </Tab>
-        <Tab onClick={useCallback(() => (rootViewStore.openHelp = true), [])}>
-          <Help />
-          <span>{localized("help", "Help")} </span>
-        </Tab>
-      </Lower>
+      <FileMenuButton />
+
+      <Separator />
+
+      <Tab
+        className={router.path === "/track" ? "active" : undefined}
+        onClick={useCallback(() => (router.path = "/track"), [])}
+      >
+        <InstrumentIcon viewBox="0 0 24 24" />
+        <span>{localized("piano-roll", "Piano Roll")}</span>
+      </Tab>
+      <Tab
+        className={router.path === "/arrange" ? "active" : undefined}
+        onClick={useCallback(() => (router.path = "/arrange"), [])}
+      >
+        <List />
+        <span>{localized("arrange", "Arrange")}</span>
+      </Tab>
+      <Tab
+        className={router.path === "/tempo" ? "active" : undefined}
+        onClick={useCallback(() => (router.path = "/tempo"), [])}
+      >
+        <Schedule />
+        <span>{localized("tempo", "Tempo")}</span>
+      </Tab>
+
+      <FlexibleSpacer />
+
+      <Tab
+        onClick={useCallback(() => (rootViewStore.openDeviceDialog = true), [])}
+      >
+        <Settings />
+        <span>{localized("settings", "Settings")}</span>
+      </Tab>
+      <Tab onClick={useCallback(() => (rootViewStore.openHelp = true), [])}>
+        <Help />
+        <span>{localized("help", "Help")} </span>
+      </Tab>
     </Container>
   )
 })

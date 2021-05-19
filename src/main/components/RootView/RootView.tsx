@@ -1,7 +1,6 @@
 import { observer } from "mobx-react-lite"
 import React, { FC } from "react"
 import styled from "styled-components"
-import { Drawer } from "../../components/Drawer/Drawer"
 import { useStores } from "../../hooks/useStores"
 import { ArrangeEditor } from "../ArrangeView/ArrangeEditor"
 import { BuildInfo } from "../BuildInfo"
@@ -44,7 +43,6 @@ export const RootView: FC = () => (
   <Column>
     <Navigation />
     <Container>
-      <Drawer />
       <TrackListDrawer />
       <Routes />
       <TransportPanel />

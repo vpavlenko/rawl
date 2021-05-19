@@ -65,5 +65,6 @@ export default {
     "one-octave-down": "-1オクターブ",
     "arrangement-view": "アレンジビュー",
     "open-help": "ヘルプを開く",
+    "event-list": "イベントリスト",
   },
 } as { [key: string]: { [key: string]: string } }

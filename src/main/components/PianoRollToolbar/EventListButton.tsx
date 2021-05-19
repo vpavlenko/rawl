@@ -1,7 +1,7 @@
 import { Button } from "@material-ui/core"
-import { VerticalSplit } from "@material-ui/icons"
 import { FC, useCallback } from "react"
 import styled from "styled-components"
+import { localized } from "../../../common/localize/localizedString"
 import { useStores } from "../../hooks/useStores"
 
 const StyledButton = styled(Button)`
@@ -22,7 +22,7 @@ export const EventListButton: FC = () => {
         pianoRollStore.showEventList = !pianoRollStore.showEventList
       }, [])}
     >
-      <VerticalSplit />
+      {localized("event-list", "Event List")}
     </StyledButton>
   )
 }

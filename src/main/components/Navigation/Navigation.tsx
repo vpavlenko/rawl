@@ -95,28 +95,28 @@ export const Navigation: FC = observer(() => {
         </BannerContainer> */}
         <Tab onClick={useCallback(() => (rootViewStore.openDrawer = true), [])}>
           <InsertDriveFileOutlined />
-          <span>File</span>
+          <span>{localized("file", "File")}</span>
         </Tab>
         <Tab
           className={router.path === "/track" ? "active" : undefined}
           onClick={useCallback(() => (router.path = "/track"), [])}
         >
           <InstrumentIcon viewBox="0 0 24 24" />
-          <span>Piano Roll</span>
+          <span>{localized("piano-roll", "Piano Roll")}</span>
         </Tab>
         <Tab
           className={router.path === "/arrange" ? "active" : undefined}
           onClick={useCallback(() => (router.path = "/arrange"), [])}
         >
           <List />
-          <span>Arrange</span>
+          <span>{localized("arrange", "Arrange")}</span>
         </Tab>
         <Tab
           className={router.path === "/tempo" ? "active" : undefined}
           onClick={useCallback(() => (router.path = "/tempo"), [])}
         >
           <Schedule />
-          <span>Tempo</span>
+          <span>{localized("tempo", "Tempo")}</span>
         </Tab>
       </Upper>
       <Lower>
@@ -127,7 +127,7 @@ export const Navigation: FC = observer(() => {
           )}
         >
           <Settings />
-          <span>Settings</span>
+          <span>{localized("settings", "Settings")}</span>
         </Tab>
         <Tab onClick={useCallback(() => (rootViewStore.openHelp = true), [])}>
           <Help />

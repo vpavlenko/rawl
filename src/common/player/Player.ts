@@ -270,7 +270,7 @@ export default class Player {
   }
 
   sendEvent(event: AnyEvent) {
-    const timestamp = window.performance.now() + this._latency
+    const timestamp = window.performance.now()
     const message = serializeMidiEvent(event, false)
     this._sendMessage(message, timestamp)
   }

@@ -43,14 +43,17 @@ export interface LoopSetting {
   enabled: boolean
 }
 
+interface SongStore {
+  song: Song
+}
+
 const TIMER_INTERVAL = 50
 
 export default class Player {
   private _currentTempo = 120
   private _scheduler: EventScheduler<PlayerEvent> | null = null
-  private _song: Song | null = null
+  private _songStore: SongStore
   private _output: SynthOutput
-  private _timebase: number
   private _trackMute: TrackMute
   private _latency: number = 100
   private _timer = new AdaptiveTimer(
@@ -67,7 +70,7 @@ export default class Player {
     enabled: false,
   }
 
-  constructor(timebase: number, output: SynthOutput, trackMute: TrackMute) {
+  constructor(output: SynthOutput, trackMute: TrackMute, songStore: SongStore) {
     makeObservable<Player, "_currentTick" | "_isPlaying">(this, {
       _currentTick: observable,
       _isPlaying: observable,
@@ -77,12 +80,16 @@ export default class Player {
     })
 
     this._output = output
-    this._timebase = timebase
     this._trackMute = trackMute
+    this._songStore = songStore
   }
 
-  set song(song: Song) {
-    this._song = song
+  private get song() {
+    return this._songStore.song
+  }
+
+  private get timebase() {
+    return this.song.timebase
   }
 
   play() {
@@ -90,14 +97,11 @@ export default class Player {
       console.warn("called play() while playing. aborted.")
       return
     }
-    if (this._song === null) {
-      throw new Error("must set song before play")
-    }
-    const eventsToPlay = collectAllEvents(this._song)
+    const eventsToPlay = collectAllEvents(this.song)
     this._scheduler = new EventScheduler(
       eventsToPlay,
       this._currentTick,
-      this._timebase,
+      this.timebase,
       500
     )
     this._isPlaying = true
@@ -109,10 +113,7 @@ export default class Player {
     if (this.disableSeek) {
       return
     }
-    tick = Math.min(
-      Math.max(tick, 0),
-      this._song?.endOfSong ?? Number.MAX_VALUE
-    )
+    tick = Math.min(Math.max(tick, 0), this.song.endOfSong)
     if (this._scheduler) {
       this._scheduler.seek(tick)
     }
@@ -131,14 +132,6 @@ export default class Player {
 
   get isPlaying() {
     return this._isPlaying
-  }
-
-  get timebase() {
-    return this._timebase
-  }
-
-  set timebase(value: number) {
-    this._timebase = value
   }
 
   get numberOfChannels() {
@@ -203,7 +196,7 @@ export default class Player {
   sendCurrentStateEvents() {
     const timestamp = window.performance.now()
     const messages = flatten(
-      this._song?.tracks.map((t) => {
+      this.song.tracks.map((t) => {
         const statusEvents = getStatusEvents(t.events, this._currentTick)
         this.applyPlayerEvents(statusEvents as PlayerEvent[])
         return convertTrackEvents(statusEvents, t.channel).map((e) => ({
@@ -261,11 +254,11 @@ export default class Player {
   }
 
   tickToMillisec(tick: number) {
-    return (tick / (this._timebase / 60) / this._currentTempo) * 1000
+    return (tick / (this.timebase / 60) / this._currentTempo) * 1000
   }
 
   private _shouldPlayChannel(channel: number) {
-    const trackId = this._song?.trackIdOfChannel(channel)
+    const trackId = this.song.trackIdOfChannel(channel)
     return trackId ? this._trackMute.shouldPlayTrack(trackId) : true
   }
 
@@ -296,7 +289,7 @@ export default class Player {
   }
 
   private _onTimer(timestamp: number) {
-    if (this._scheduler === null || this._song === null) {
+    if (this._scheduler === null) {
       return
     }
 
@@ -319,7 +312,7 @@ export default class Player {
     // Run other than Channel Event
     this.applyPlayerEvents(events.map(({ event }) => event))
 
-    if (this._scheduler.currentTick >= this._song.endOfSong) {
+    if (this._scheduler.currentTick >= this.song.endOfSong) {
       this.stop()
     } else {
       const currentTick = this._scheduler.currentTick

@@ -4,7 +4,6 @@ import Quantizer from "../../common/quantizer"
 import Song, { emptySong } from "../../common/song"
 import TrackMute from "../../common/trackMute"
 import { SerializedState } from "../actions/history"
-import { TIME_BASE } from "../Constants"
 import { GroupOutput } from "../services/GroupOutput"
 import IFrameSynth from "../services/IFrameSynth"
 import { MIDIInput, previewMidiInput } from "../services/MIDIInput"
@@ -51,9 +50,8 @@ export default class RootStore {
     const synthGroup = new GroupOutput()
     synthGroup.outputs.push({ synth, isEnabled: true })
 
-    const player = new Player(TIME_BASE, synthGroup, this.trackMute)
-    player.song = this.song
-    const quantizer = new Quantizer(TIME_BASE)
+    const player = new Player(synthGroup, this.trackMute, this)
+    const quantizer = new Quantizer(() => this.song.timebase)
     const midiInput = new MIDIInput()
     const midiRecorder = new MIDIRecorder(player)
     midiRecorder.song = this.song

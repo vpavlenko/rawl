@@ -43,7 +43,6 @@ const setSong = (rootStore: RootStore) => (song: Song) => {
   const { player } = rootStore.services
   player.stop()
   player.reset()
-  player.song = song
   player.timebase = song.timebase
   player.position = 0
 }

@@ -51,8 +51,7 @@ export default class RootStore {
     const synthGroup = new GroupOutput()
     synthGroup.outputs.push({ synth, isEnabled: true })
 
-    const player = new Player(TIME_BASE, synthGroup, this.trackMute)
-    player.song = this.song
+    const player = new Player(TIME_BASE, synthGroup, this.trackMute, this)
     const quantizer = new Quantizer(TIME_BASE)
     const midiInput = new MIDIInput()
     const midiRecorder = new MIDIRecorder(player)

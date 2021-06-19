@@ -1,17 +1,15 @@
+type TimeBaseProvider = () => number
+
 export default class Quantizer {
-  private _ticksPerBeat: number = 480
+  private timeBaseProvider: TimeBaseProvider
   denominator: number = 4
 
-  constructor(ticksPerBeat: number, denominator = 8) {
-    this._ticksPerBeat = ticksPerBeat
+  constructor(timeBaseProvider: TimeBaseProvider, denominator = 8) {
+    this.timeBaseProvider = timeBaseProvider
 
     // N 分音符の N
     // n-remnant note n
     this.denominator = denominator
-  }
-
-  set ticksPerBeat(value: number) {
-    this._ticksPerBeat = value
   }
 
   round(tick: number) {
@@ -30,6 +28,6 @@ export default class Quantizer {
   }
 
   get unit() {
-    return (this._ticksPerBeat * 4) / this.denominator
+    return (this.timeBaseProvider() * 4) / this.denominator
   }
 }

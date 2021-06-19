@@ -45,7 +45,7 @@ export const rewindOneBar = (rootStore: RootStore) => () => {
   const e =
     song.conductorTrack?.getTimeSignatureEvent(player.position) ??
     defaultTimeSignature
-  const ticksPerMeasure = ((player.timebase * 4) / e.denominator) * e.numerator
+  const ticksPerMeasure = ((song.timebase * 4) / e.denominator) * e.numerator
   const measures = (player.position - e.tick) / ticksPerMeasure
   const fixedMeasures = Math.floor(measures)
 
@@ -62,7 +62,7 @@ export const rewindOneBar = (rootStore: RootStore) => () => {
     const e2 = song.conductorTrack?.getTimeSignatureEvent(beginMeasureTick - 1)
     if (e2 !== undefined) {
       const ticksPerMeasure2 =
-        ((player.timebase * 4) / e2.denominator) * e2.numerator
+        ((song.timebase * 4) / e2.denominator) * e2.numerator
       player.position = beginMeasureTick - ticksPerMeasure2
     }
   }
@@ -76,7 +76,7 @@ export const fastForwardOneBar = (rootStore: RootStore) => () => {
   const e =
     song.conductorTrack?.getTimeSignatureEvent(player.position) ??
     defaultTimeSignature
-  const ticksPerBeat = (player.timebase * 4) / e.denominator
+  const ticksPerBeat = (song.timebase * 4) / e.denominator
   const ticksPerMeasure = ticksPerBeat * e.numerator
   player.position = quantizer.round(player.position + ticksPerMeasure)
 }

@@ -54,7 +54,6 @@ export default class Player {
   private _scheduler: EventScheduler<PlayerEvent> | null = null
   private _songStore: SongStore
   private _output: SynthOutput
-  private _timebase: number
   private _trackMute: TrackMute
   private _latency: number = 100
   private _timer = new AdaptiveTimer(
@@ -71,12 +70,7 @@ export default class Player {
     enabled: false,
   }
 
-  constructor(
-    timebase: number,
-    output: SynthOutput,
-    trackMute: TrackMute,
-    songStore: SongStore
-  ) {
+  constructor(output: SynthOutput, trackMute: TrackMute, songStore: SongStore) {
     makeObservable<Player, "_currentTick" | "_isPlaying">(this, {
       _currentTick: observable,
       _isPlaying: observable,
@@ -86,13 +80,16 @@ export default class Player {
     })
 
     this._output = output
-    this._timebase = timebase
     this._trackMute = trackMute
     this._songStore = songStore
   }
 
   private get song() {
     return this._songStore.song
+  }
+
+  private get timebase() {
+    return this.song.timebase
   }
 
   play() {
@@ -104,7 +101,7 @@ export default class Player {
     this._scheduler = new EventScheduler(
       eventsToPlay,
       this._currentTick,
-      this._timebase,
+      this.timebase,
       500
     )
     this._isPlaying = true
@@ -135,14 +132,6 @@ export default class Player {
 
   get isPlaying() {
     return this._isPlaying
-  }
-
-  get timebase() {
-    return this._timebase
-  }
-
-  set timebase(value: number) {
-    this._timebase = value
   }
 
   get numberOfChannels() {
@@ -265,7 +254,7 @@ export default class Player {
   }
 
   tickToMillisec(tick: number) {
-    return (tick / (this._timebase / 60) / this._currentTempo) * 1000
+    return (tick / (this.timebase / 60) / this._currentTempo) * 1000
   }
 
   private _shouldPlayChannel(channel: number) {

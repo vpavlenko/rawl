@@ -294,7 +294,7 @@ export default class PianoRollStore {
     return getMBTString(
       this.rootStore.song.measures,
       this.rootStore.services.player.position,
-      this.rootStore.services.player.timebase
+      this.rootStore.song.timebase
     )
   }
 

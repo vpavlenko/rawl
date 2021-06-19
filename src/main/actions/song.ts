@@ -35,7 +35,6 @@ const openSongFile = (
 const setSong = (rootStore: RootStore) => (song: Song) => {
   rootStore.song = song
   rootStore.trackMute.reset()
-  rootStore.services.quantizer.ticksPerBeat = song.timebase
   rootStore.pianoRollStore.setScrollLeftInPixels(0)
   rootStore.pianoRollStore.ghostTracks = {}
   rootStore.historyStore.clear()
@@ -43,7 +42,6 @@ const setSong = (rootStore: RootStore) => (song: Song) => {
   const { player } = rootStore.services
   player.stop()
   player.reset()
-  player.timebase = song.timebase
   player.position = 0
 }
 

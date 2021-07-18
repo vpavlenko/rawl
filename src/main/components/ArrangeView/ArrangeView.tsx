@@ -1,7 +1,6 @@
 import useComponentSize from "@rehooks/component-size"
 import Color from "color"
 import { partition } from "lodash"
-import cloneDeep from "lodash/cloneDeep"
 import { observer } from "mobx-react-lite"
 import { FC, useCallback, useEffect, useRef, useState } from "react"
 import styled from "styled-components"
@@ -75,6 +74,14 @@ const HeaderList = styled.div`
   border-right: 1px solid var(--divider-color);
 `
 
+const getClientPos = (e: MouseEvent): IPoint => ({ x: e.clientX, y: e.clientY })
+
+type DragHandler = (
+  e: MouseEvent,
+  mouseMove: (handler: (e: MouseEvent, delta: IPoint) => void) => void,
+  mouseUp: (handler: (e: MouseEvent) => void) => void
+) => void
+
 export const ArrangeView: FC = observer(() => {
   const rootStore = useStores()
 
@@ -94,6 +101,7 @@ export const ArrangeView: FC = observer(() => {
     trackHeight,
     contentWidth,
     transform,
+    trackTransform,
     scrollLeft,
     scrollTop,
   } = rootStore.arrangeViewStore
@@ -128,43 +136,45 @@ export const ArrangeView: FC = observer(() => {
   const onClickScaleReset = useCallback(() => (s.scaleX = 1), [s])
 
   const handleLeftClick = useCallback(
-    (e: React.MouseEvent, createPoint: (e: MouseEvent) => IPoint) => {
-      const startPos = createPoint(e.nativeEvent)
-      const isSelectionSelected =
-        selection != null && containsPoint(selection, startPos)
+    (e: React.MouseEvent) => {
+      const startPosPx: IPoint = {
+        x: e.nativeEvent.offsetX + scrollLeft,
+        y: e.nativeEvent.offsetY - Layout.rulerHeight + scrollTop,
+      }
 
-      const createSelectionHandler = (
-        e: MouseEvent,
-        mouseMove: (handler: (e: MouseEvent) => void) => void,
-        mouseUp: (handler: (e: MouseEvent) => void) => void
-      ) => {
+      const isSelectionSelected =
+        selectionRect != null && containsPoint(selectionRect, startPosPx)
+
+      const createSelectionHandler: DragHandler = (e, mouseMove, mouseUp) => {
+        const startPos = trackTransform.getArrangePoint(startPosPx)
         arrangeStartSelection(rootStore)(startPos)
 
         if (!rootStore.services.player.isPlaying) {
-          setPlayerPosition(rootStore)(startPos.x)
+          setPlayerPosition(rootStore)(startPos.tick)
         }
 
-        mouseMove((e) => {
-          arrangeResizeSelection(rootStore)(startPos, createPoint(e))
+        mouseMove((e, deltaPx) => {
+          const selectionToPx = pointAdd(startPosPx, deltaPx)
+          arrangeResizeSelection(rootStore)(
+            startPos,
+            trackTransform.getArrangePoint(selectionToPx)
+          )
         })
         mouseUp((e) => {
-          arrangeEndSelection(rootStore)(startPos, createPoint(e))
+          arrangeEndSelection(rootStore)()
         })
       }
 
-      const dragSelectionHandler = (
-        e: MouseEvent,
-        mouseMove: (handler: (e: MouseEvent) => void) => void,
-        mouseUp: (handler: (e: MouseEvent) => void) => void
-      ) => {
-        if (selection === null) {
+      const dragSelectionHandler: DragHandler = (e, mouseMove, mouseUp) => {
+        if (selectionRect == null) {
           return
         }
-        const startSelection = cloneDeep(selection)
-        mouseMove((e) => {
-          const delta = pointSub(createPoint(e), startPos)
-          const pos = pointAdd(startSelection, delta)
-          arrangeMoveSelection(rootStore)(pos)
+
+        mouseMove((e, deltaPx) => {
+          const selectionFromPx = pointAdd(deltaPx, selectionRect)
+          arrangeMoveSelection(rootStore)(
+            trackTransform.getArrangePoint(selectionFromPx)
+          )
         })
         mouseUp((e) => {})
       }
@@ -177,7 +187,7 @@ export const ArrangeView: FC = observer(() => {
         handler = createSelectionHandler
       }
 
-      let mouseMove: (e: MouseEvent) => void
+      let mouseMove: (e: MouseEvent, delta: IPoint) => void
       let mouseUp: (e: MouseEvent) => void
       handler(
         e.nativeEvent,
@@ -185,12 +195,15 @@ export const ArrangeView: FC = observer(() => {
         (fn) => (mouseUp = fn)
       )
 
+      const startClientPos = getClientPos(e.nativeEvent)
+
       observeDrag({
-        onMouseMove: (e) => mouseMove(e),
+        onMouseMove: (e) =>
+          mouseMove(e, pointSub(getClientPos(e), startClientPos)),
         onMouseUp: (e) => mouseUp(e),
       })
     },
-    [selection, rootStore]
+    [selection, trackTransform, rootStore, scrollLeft, scrollTop]
   )
 
   const handleMiddleClick = useCallback(
@@ -216,18 +229,9 @@ export const ArrangeView: FC = observer(() => {
 
   const onMouseDown = useCallback(
     (e: React.MouseEvent) => {
-      const { left, top } = e.currentTarget.getBoundingClientRect()
-
-      function createPoint(e: MouseEvent) {
-        const x = e.pageX - left + scrollLeft
-        const y = e.pageY - top - Layout.rulerHeight + scrollTop
-        const tick = transform.getTicks(x)
-        return { x: tick, y: y / trackHeight }
-      }
-
       switch (e.button) {
         case 0:
-          handleLeftClick(e, createPoint)
+          handleLeftClick(e)
           break
         case 1:
           handleMiddleClick(e)
@@ -239,14 +243,7 @@ export const ArrangeView: FC = observer(() => {
           break
       }
     },
-    [
-      scrollLeft,
-      scrollTop,
-      transform,
-      handleLeftClick,
-      handleMiddleClick,
-      onContextMenu,
-    ]
+    [handleLeftClick, handleMiddleClick, onContextMenu]
   )
 
   const onWheel = useCallback(

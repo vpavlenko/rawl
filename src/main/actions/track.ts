@@ -35,7 +35,7 @@ export const createTempo =
   (rootStore: RootStore) => (tick: number, microsecondsPerBeat: number) => {
     const {
       song,
-      services: { quantizer },
+      pianoRollStore: { quantizer },
     } = rootStore
 
     const track = song.conductorTrack
@@ -72,7 +72,8 @@ export const changeNotesVelocity =
 const createEvent = (rootStore: RootStore) => (e: AnyEvent, tick?: number) => {
   const {
     song,
-    services: { quantizer, player },
+    services: { player },
+    pianoRollStore: { quantizer },
   } = rootStore
 
   const selectedTrack = song.selectedTrack
@@ -140,7 +141,8 @@ export const createNote =
     const {
       song,
       pianoRollStore,
-      services: { player, quantizer },
+      services: { player },
+      pianoRollStore: { quantizer },
     } = rootStore
     const selectedTrack = song.selectedTrack
     if (selectedTrack === undefined || selectedTrack.channel == undefined) {
@@ -178,7 +180,8 @@ export const moveNote =
   (rootStore: RootStore) => (params: Omit<MoveNote, "type">) => {
     const {
       song,
-      services: { player, quantizer },
+      services: { player },
+      pianoRollStore: { quantizer },
     } = rootStore
 
     const selectedTrack = song.selectedTrack
@@ -213,7 +216,7 @@ export const resizeNoteLeft =
     const {
       song,
       pianoRollStore,
-      services: { quantizer },
+      pianoRollStore: { quantizer },
     } = rootStore
     const selectedTrack = song.selectedTrack
     if (selectedTrack === undefined) {
@@ -239,7 +242,7 @@ export const resizeNoteRight =
     const {
       song,
       pianoRollStore,
-      services: { quantizer },
+      pianoRollStore: { quantizer },
     } = rootStore
     const selectedTrack = song.selectedTrack
     if (selectedTrack === undefined) {

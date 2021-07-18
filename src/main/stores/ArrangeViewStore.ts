@@ -2,6 +2,7 @@ import { action, autorun, computed, makeObservable, observable } from "mobx"
 import { IRect } from "../../common/geometry"
 import { filterEventsWithScroll } from "../../common/helpers/filterEventsWithScroll"
 import { createBeatsInRange } from "../../common/helpers/mapBeats"
+import Quantizer from "../../common/quantizer"
 import { isNoteEvent } from "../../common/track"
 import { NoteCoordTransform } from "../../common/transform"
 import { BAR_WIDTH } from "../components/inputs/ScrollBar"
@@ -16,7 +17,7 @@ export default class ArrangeViewStore {
   selection: IRect | null = null // Rect を使うが、x は tick, y はトラック番号を表す
   selectedEventIds: { [key: number]: number[] } = {} // { trackId: [eventId] }
   autoScroll = true
-  quantize = 0
+  quantize = 1
   _scrollLeft = 0
   scrollTop = 0
   canvasWidth = 0
@@ -44,6 +45,7 @@ export default class ArrangeViewStore {
       selectionRect: computed,
       contentWidth: computed,
       contentHeight: computed,
+      quantizer: computed,
       setScrollLeft: action,
       setScrollTop: action,
     })
@@ -160,5 +162,9 @@ export default class ArrangeViewStore {
         height: selection.height * trackHeight,
       }
     )
+  }
+
+  get quantizer(): Quantizer {
+    return new Quantizer(this.rootStore.song.timebase, this.quantize)
   }
 }

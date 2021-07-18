@@ -37,24 +37,18 @@ const FlexibleSpacer = styled.div`
 `
 
 export const ArrangeToolbar: FC = observer(() => {
-  const rootStore = useStores()
-  const quantize =
-    rootStore.arrangeViewStore.quantize === 0
-      ? rootStore.services.quantizer.denominator
-      : rootStore.arrangeViewStore.quantize
-  const autoScroll = rootStore.arrangeViewStore.autoScroll
+  const { arrangeViewStore } = useStores()
+  const { quantize, autoScroll } = arrangeViewStore
 
   const onClickAutoScroll = useCallback(
-    () =>
-      (rootStore.arrangeViewStore.autoScroll =
-        !rootStore.arrangeViewStore.autoScroll),
-    []
+    () => (arrangeViewStore.autoScroll = !arrangeViewStore.autoScroll),
+    [arrangeViewStore]
   )
 
-  const onSelectQuantize = useCallback((e) => {
-    rootStore.services.quantizer.denominator = e.denominator
-    rootStore.arrangeViewStore.quantize = e.denominator
-  }, [])
+  const onSelectQuantize = useCallback(
+    (e) => (arrangeViewStore.quantize = e.denominator),
+    [arrangeViewStore]
+  )
 
   const classes = useStyles({})
 

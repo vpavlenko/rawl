@@ -60,8 +60,8 @@ export const arrangeResizeSelection =
   (rootStore: RootStore) => (start: IPoint, end: IPoint) => {
     const {
       arrangeViewStore: s,
+      arrangeViewStore: { quantizer },
       song: { tracks },
-      services: { quantizer },
     } = rootStore
     // 選択範囲作成時 (確定前) のドラッグ中
     // Drag during selection (before finalization)
@@ -72,8 +72,8 @@ export const arrangeEndSelection =
   (rootStore: RootStore) => (start: IPoint, end: IPoint) => {
     const {
       arrangeViewStore: s,
+      arrangeViewStore: { quantizer },
       song: { tracks },
-      services: { quantizer },
     } = rootStore
 
     const selection = quantizeRect(quantizer, createRect(tracks, start, end))
@@ -86,14 +86,13 @@ export const arrangeEndSelection =
 export const arrangeMoveSelection = (rootStore: RootStore) => (pos: IPoint) => {
   const {
     arrangeViewStore: s,
-    song,
-    services: { quantizer },
+    arrangeViewStore: { quantizer },
+    song: { tracks },
   } = rootStore
 
   if (s.selection === null) {
     return
   }
-  const { tracks } = song
   // 選択範囲を移動
   // Move selection range
   const selection = quantizeRect(quantizer, {

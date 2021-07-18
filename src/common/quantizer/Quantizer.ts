@@ -1,11 +1,9 @@
-type TimeBaseProvider = () => number
-
 export default class Quantizer {
-  private timeBaseProvider: TimeBaseProvider
-  denominator: number = 4
+  private timebase: number
+  private denominator: number
 
-  constructor(timeBaseProvider: TimeBaseProvider, denominator = 8) {
-    this.timeBaseProvider = timeBaseProvider
+  constructor(timebase: number, denominator = 8) {
+    this.timebase = timebase
 
     // N 分音符の N
     // n-remnant note n
@@ -28,6 +26,6 @@ export default class Quantizer {
   }
 
   get unit() {
-    return (this.timeBaseProvider() * 4) / this.denominator
+    return (this.timebase * 4) / this.denominator
   }
 }

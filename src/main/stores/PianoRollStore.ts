@@ -4,6 +4,7 @@ import { IRect } from "../../common/geometry"
 import { filterEventsWithScroll } from "../../common/helpers/filterEventsWithScroll"
 import { BeatWithX, createBeatsInRange } from "../../common/helpers/mapBeats"
 import { getMBTString } from "../../common/measure/mbt"
+import Quantizer from "../../common/quantizer"
 import { emptySelection } from "../../common/selection/Selection"
 import { isNoteEvent, TrackEvent } from "../../common/track"
 import { NoteCoordTransform } from "../../common/transform"
@@ -39,7 +40,7 @@ export default class PianoRollStore {
   scaleX = 1
   scaleY = 1
   autoScroll = true
-  quantize = 0
+  quantize = 4
   selection = emptySelection
   lastNoteDuration: number | null = null
   openInstrumentBrowser = false
@@ -89,6 +90,7 @@ export default class PianoRollStore {
       currentMBTTime: computed,
       mappedBeats: computed,
       cursorX: computed,
+      quantizer: computed,
       setScrollLeftInPixels: action,
       setScrollTopInPixels: action,
       setScrollLeftInTicks: action,
@@ -314,5 +316,9 @@ export default class PianoRollStore {
       startTick,
       canvasWidth
     )
+  }
+
+  get quantizer(): Quantizer {
+    return new Quantizer(this.rootStore.song.timebase, this.quantize)
   }
 }

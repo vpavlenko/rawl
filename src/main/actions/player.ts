@@ -26,7 +26,8 @@ export const stop = (rootStore: RootStore) => () => {
 
 export const setPlayerPosition = (rootStore: RootStore) => (tick: number) => {
   const {
-    services: { player, quantizer },
+    services: { player },
+    pianoRollStore: { quantizer },
   } = rootStore
   player.position = quantizer.round(tick)
 }
@@ -71,7 +72,8 @@ export const rewindOneBar = (rootStore: RootStore) => () => {
 export const fastForwardOneBar = (rootStore: RootStore) => () => {
   const {
     song,
-    services: { player, quantizer },
+    services: { player },
+    pianoRollStore: { quantizer },
   } = rootStore
   const e =
     song.conductorTrack?.getTimeSignatureEvent(player.position) ??
@@ -97,7 +99,8 @@ export const previewNote =
 export const previewNoteById = (rootStore: RootStore) => (noteId: number) => {
   const {
     song,
-    services: { quantizer, player },
+    services: { player },
+    pianoRollStore: { quantizer },
   } = rootStore
   const selectedTrack = song.selectedTrack
   if (selectedTrack === undefined) {
@@ -112,7 +115,8 @@ export const previewNoteById = (rootStore: RootStore) => (noteId: number) => {
 
 export const setLoopBegin = (rootStore: RootStore) => (tick: number) => {
   const {
-    services: { player, quantizer },
+    services: { player },
+    pianoRollStore: { quantizer },
   } = rootStore
   tick = quantizer.round(tick)
   if (player.loop.end !== null) {
@@ -123,7 +127,8 @@ export const setLoopBegin = (rootStore: RootStore) => (tick: number) => {
 
 export const setLoopEnd = (rootStore: RootStore) => (tick: number) => {
   const {
-    services: { player, quantizer },
+    services: { player },
+    pianoRollStore: { quantizer },
   } = rootStore
   tick = quantizer.round(tick)
   if (player.loop.begin !== null) {

@@ -27,7 +27,7 @@ export const resizeSelection =
   (rootStore: RootStore) => (start: NotePoint, end: NotePoint) => {
     const {
       pianoRollStore,
-      services: { quantizer },
+      pianoRollStore: { quantizer },
     } = rootStore
 
     pianoRollStore.selection = regularizedSelection(
@@ -92,16 +92,13 @@ export const transposeSelection =
 
 export const moveSelection = (rootStore: RootStore) => (point: NotePoint) => {
   const {
-    song,
-    pianoRollStore,
-    services: { quantizer },
+    song: { selectedTrack },
+    pianoRollStore: { selection, quantizer },
   } = rootStore
 
-  const selectedTrack = song.selectedTrack
   if (selectedTrack === undefined) {
     return
   }
-  const { selection } = pianoRollStore
   // ノートと選択範囲を移動
   // Move notes and selection
   const tick = quantizer.round(point.tick)
@@ -118,13 +115,15 @@ export const moveSelectionBy = (rootStore: RootStore) => (delta: NotePoint) => {
     return
   }
 
-  const { song, pianoRollStore } = rootStore
+  const {
+    song: { selectedTrack },
+    pianoRollStore,
+    pianoRollStore: { selection },
+  } = rootStore
 
-  const selectedTrack = song.selectedTrack
   if (selectedTrack === undefined) {
     return
   }
-  const { selection } = pianoRollStore
 
   const s = movedSelection(selection, delta.tick, delta.noteNumber)
   pianoRollStore.selection = s
@@ -151,10 +150,9 @@ export const moveSelectionBy = (rootStore: RootStore) => (delta: NotePoint) => {
 export const resizeSelectionLeft = (rootStore: RootStore) => (tick: number) => {
   const {
     pianoRollStore,
-    services: { quantizer },
+    pianoRollStore: { selection, quantizer },
   } = rootStore
 
-  const { selection } = pianoRollStore
   // 選択範囲とノートを左方向に伸長・縮小する
   // Level and reduce the selection and notes in the left direction
   const fromTick = quantizer.round(tick)
@@ -219,10 +217,9 @@ export const resizeSelectionRight =
   (rootStore: RootStore) => (tick: number) => {
     const {
       pianoRollStore,
-      services: { quantizer },
+      pianoRollStore: { selection, quantizer },
     } = rootStore
 
-    const { selection } = pianoRollStore
     // 選択範囲とノートを右方向に伸長・縮小する
     // Return and reduce the selection and note in the right direction
     const toTick = quantizer.round(tick)
@@ -285,7 +282,8 @@ export const resizeNotesInSelectionRightBy =
 export const startSelection = (rootStore: RootStore) => (point: NotePoint) => {
   const {
     pianoRollStore,
-    services: { quantizer, player },
+    services: { player },
+    pianoRollStore: { quantizer },
   } = rootStore
 
   if (!player.isPlaying) {

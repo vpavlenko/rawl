@@ -1,5 +1,3 @@
-import now from "performance-now"
-
 export interface Message<T> {
   time: number // milliseconds
   body: T
@@ -129,7 +127,7 @@ export default class Sequencer<T> {
    * 一定間隔で呼ばれ、先読みしながらメッセージを output に送信する
    *  テスト用に公開
    */
-  onTimer(timestamp: number = now()): void {
+  onTimer(timestamp: number = performance.now()): void {
     if (this.startTime === null) {
       this.startTime = timestamp
     }

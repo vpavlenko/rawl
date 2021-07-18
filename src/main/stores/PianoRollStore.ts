@@ -67,7 +67,7 @@ export default class PianoRollStore {
       scaleY: observable,
       autoScroll: observable,
       quantize: observable,
-      selection: observable,
+      selection: observable.shallow,
       lastNoteDuration: observable,
       openInstrumentBrowser: observable,
       instrumentBrowserSetting: observable,

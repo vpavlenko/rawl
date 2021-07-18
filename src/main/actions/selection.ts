@@ -425,15 +425,23 @@ export const duplicateSelection = (rootStore: RootStore) => () => {
   pushHistory(rootStore)()
 
   // move to the end of selection
-  const deltaTick = selection.to.tick - selection.from.tick
+  let deltaTick = selection.to.tick - selection.from.tick
 
-  const notes = selection.noteIds
+  const selectedNotes = selection.noteIds
     .map((id) => selectedTrack.getEventById(id))
     .filter(isNotUndefined)
-    .map((note) => ({
-      ...note,
-      tick: note.tick + deltaTick,
-    }))
+    .filter(isNoteEvent)
+
+  if (deltaTick === 0) {
+    const left = Math.min(...selectedNotes.map((n) => n.tick))
+    const right = Math.max(...selectedNotes.map((n) => n.tick + n.duration))
+    deltaTick = right - left
+  }
+
+  const notes = selectedNotes.map((note) => ({
+    ...note,
+    tick: note.tick + deltaTick,
+  }))
 
   // select the created notes
   const addedNotes = selectedTrack.addEvents(notes)

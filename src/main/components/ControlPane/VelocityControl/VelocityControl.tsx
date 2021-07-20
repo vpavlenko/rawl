@@ -90,8 +90,9 @@ const PianoVelocityControl: FC<PianoVelocityControlProps> = observer(
 
     const axis = [0, 32, 64, 96, 128]
 
-    const [renderer, setRenderer] =
-      useState<VelocityControlRenderer | null>(null)
+    const [renderer, setRenderer] = useState<VelocityControlRenderer | null>(
+      null
+    )
 
     useEffect(() => {
       if (renderer === null) {

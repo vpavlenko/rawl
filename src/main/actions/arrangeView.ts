@@ -1,5 +1,5 @@
 import mapValues from "lodash/mapValues"
-import { isNotUndefined } from "../../common/helpers/array"
+import { isNotNull, isNotUndefined } from "../../common/helpers/array"
 import Quantizer from "../../common/quantizer"
 import {
   ArrangeSelection,
@@ -269,3 +269,35 @@ function getNotesInSelection(tracks: Track[], selection: ArrangeSelection) {
   }
   return ids
 }
+
+export const arrangeTransposeSelection =
+  (rootStore: RootStore) => (deltaPitch: number) => {
+    const {
+      song,
+      arrangeViewStore: { selectedEventIds },
+    } = rootStore
+
+    const selectedTrack = song.selectedTrack
+    if (selectedTrack === undefined) {
+      return
+    }
+
+    for (const trackIdStr in selectedEventIds) {
+      const trackId = parseInt(trackIdStr)
+      const eventIds = selectedEventIds[trackId]
+      song.getTrack(trackId)?.updateEvents(
+        eventIds
+          .map((id) => {
+            const n = selectedTrack.getEventById(id)
+            if (n == undefined || !isNoteEvent(n)) {
+              return null
+            }
+            return {
+              id,
+              noteNumber: n.noteNumber + deltaPitch,
+            }
+          })
+          .filter(isNotNull)
+      )
+    }
+  }

@@ -1,9 +1,10 @@
-import { Menu, MenuItem } from "@material-ui/core"
+import { Menu } from "@material-ui/core"
 import { FC } from "react"
 import { IPoint } from "../../../common/geometry"
 import { localized } from "../../../common/localize/localizedString"
 import { duplicateTrack, insertTrack, removeTrack } from "../../actions"
 import { useStores } from "../../hooks/useStores"
+import { ContextMenuItem as Item } from "../ContextMenu/ContextMenu"
 
 export interface ArrangeTrackContextMenuProps {
   isOpen: boolean
@@ -30,7 +31,7 @@ export const ArrangeTrackContextMenu: FC<ArrangeTrackContextMenuProps> = ({
       anchorReference="anchorPosition"
       anchorPosition={{ top: position.y, left: position.x }}
     >
-      <MenuItem
+      <Item
         onClick={(e) => {
           e.stopPropagation()
           insertTrack(rootStore)(selectedTrackId + 1)
@@ -38,9 +39,9 @@ export const ArrangeTrackContextMenu: FC<ArrangeTrackContextMenuProps> = ({
         }}
       >
         {localized("add-track", "Add track")}
-      </MenuItem>
+      </Item>
       {selectedTrackId > 0 && tracks.length > 2 && (
-        <MenuItem
+        <Item
           onClick={(e) => {
             e.stopPropagation()
             removeTrack(rootStore)(selectedTrackId)
@@ -48,10 +49,10 @@ export const ArrangeTrackContextMenu: FC<ArrangeTrackContextMenuProps> = ({
           }}
         >
           {localized("delete-track", "Delete track")}
-        </MenuItem>
+        </Item>
       )}
       {selectedTrackId > 0 && (
-        <MenuItem
+        <Item
           onClick={(e) => {
             e.stopPropagation()
             duplicateTrack(rootStore)(selectedTrackId)
@@ -59,7 +60,7 @@ export const ArrangeTrackContextMenu: FC<ArrangeTrackContextMenuProps> = ({
           }}
         >
           {localized("duplicate-track", "Duplicate track")}
-        </MenuItem>
+        </Item>
       )}
     </Menu>
   )

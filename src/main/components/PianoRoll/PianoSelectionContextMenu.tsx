@@ -1,6 +1,5 @@
-import { Divider, Menu, MenuItem } from "@material-ui/core"
+import { Divider, Menu } from "@material-ui/core"
 import React, { FC, useCallback } from "react"
-import styled from "styled-components"
 import { IPoint } from "../../../common/geometry"
 import { localized } from "../../../common/localize/localizedString"
 import {
@@ -11,24 +10,16 @@ import {
   transposeSelection,
 } from "../../actions"
 import { useStores } from "../../hooks/useStores"
+import {
+  ContextMenuHotKey as HotKey,
+  ContextMenuItem as Item,
+} from "../ContextMenu/ContextMenu"
 
 export interface PianoSelectionContextMenuProps {
   isOpen: boolean
   position: IPoint
   handleClose: () => void
 }
-
-const Item = styled(MenuItem)`
-  font-size: 0.8rem;
-`
-
-const HotKey = styled.div`
-  font-size: 0.9em;
-  flex-grow: 1;
-  text-align: right;
-  color: var(--secondary-text-color);
-  margin-left: 2em;
-`
 
 export const PianoSelectionContextMenu: FC<PianoSelectionContextMenuProps> =
   React.memo(({ isOpen, position, handleClose }) => {
@@ -91,7 +82,7 @@ export const PianoSelectionContextMenu: FC<PianoSelectionContextMenuProps> =
         </Item>
         <Item onClick={onClickPaste}>
           {localized("paste", "Paste")}
-          <HotKey>Ctrl+P</HotKey>
+          <HotKey>Ctrl+V</HotKey>
         </Item>
         <Item onClick={onClickDuplicate} disabled={!isNoteSelected}>
           {localized("duplicate", "Duplicate")}

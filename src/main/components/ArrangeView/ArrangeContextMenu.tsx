@@ -1,12 +1,17 @@
-import { Menu, MenuItem } from "@material-ui/core"
+import { Menu } from "@material-ui/core"
 import { FC } from "react"
 import { IPoint } from "../../../common/geometry"
+import { localized } from "../../../common/localize/localizedString"
 import {
   arrangeCopySelection,
   arrangeDeleteSelection,
   arrangePasteSelection,
 } from "../../actions/arrangeView"
 import { useStores } from "../../hooks/useStores"
+import {
+  ContextMenuHotKey as HotKey,
+  ContextMenuItem as Item,
+} from "../ContextMenu/ContextMenu"
 
 export interface ArrangeContextMenuProps {
   isOpen: boolean
@@ -32,7 +37,7 @@ export const ArrangeContextMenu: FC<ArrangeContextMenuProps> = ({
       anchorReference="anchorPosition"
       anchorPosition={{ top: position.y, left: position.x }}
     >
-      <MenuItem
+      <Item
         onClick={(e) => {
           e.stopPropagation()
           handleClose()
@@ -41,9 +46,10 @@ export const ArrangeContextMenu: FC<ArrangeContextMenuProps> = ({
         }}
         disabled={!isNoteSelected}
       >
-        Cut
-      </MenuItem>
-      <MenuItem
+        {localized("cut", "Cut")}
+        <HotKey>Ctrl+X</HotKey>
+      </Item>
+      <Item
         onClick={(e) => {
           e.stopPropagation()
           handleClose()
@@ -51,18 +57,20 @@ export const ArrangeContextMenu: FC<ArrangeContextMenuProps> = ({
         }}
         disabled={!isNoteSelected}
       >
-        Copy
-      </MenuItem>
-      <MenuItem
+        {localized("copy", "Copy")}
+        <HotKey>Ctrl+C</HotKey>
+      </Item>
+      <Item
         onClick={(e) => {
           e.stopPropagation()
           handleClose()
           arrangePasteSelection(rootStore)()
         }}
       >
-        Paste
-      </MenuItem>
-      <MenuItem
+        {localized("paste", "Paste")}
+        <HotKey>Ctrl+V</HotKey>
+      </Item>
+      <Item
         onClick={(e) => {
           e.stopPropagation()
           handleClose()
@@ -70,8 +78,9 @@ export const ArrangeContextMenu: FC<ArrangeContextMenuProps> = ({
         }}
         disabled={!isNoteSelected}
       >
-        Delete
-      </MenuItem>
+        {localized("delete", "Delete")}
+        <HotKey>Del</HotKey>
+      </Item>
     </Menu>
   )
 }

@@ -83,7 +83,9 @@ export const ArrangeContextMenu: FC<ArrangeContextMenuProps> = ({
         <HotKey>Del</HotKey>
       </Item>
       <Item
-        onClick={() => {
+        onClick={(e) => {
+          e.stopPropagation()
+          handleClose()
           arrangeTransposeSelection(rootStore)(12)
         }}
         disabled={!isNoteSelected}
@@ -91,7 +93,9 @@ export const ArrangeContextMenu: FC<ArrangeContextMenuProps> = ({
         {localized("one-octave-up", "+1 Oct")}
       </Item>
       <Item
-        onClick={() => {
+        onClick={(e) => {
+          e.stopPropagation()
+          handleClose()
           arrangeTransposeSelection(rootStore)(-12)
         }}
         disabled={!isNoteSelected}

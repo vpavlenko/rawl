@@ -56,7 +56,7 @@ const LeftBottomSpace = styled.div`
   background: var(--background-color);
 `
 
-const TrackHeader = styled.div`
+const TrackHeader = styled.div<{ isSelected: boolean }>`
   width: 8rem;
   padding: 0 0.5rem;
   box-sizing: border-box;
@@ -66,6 +66,8 @@ const TrackHeader = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  background-color: ${({ isSelected, theme }) =>
+    isSelected ? theme.secondaryBackgroundColor : theme.backgroundColor};
 `
 
 const HeaderList = styled.div`
@@ -103,6 +105,7 @@ export const ArrangeView: FC = observer(() => {
     trackTransform,
     scrollLeft,
     scrollTop,
+    selectedTrackId,
   } = rootStore.arrangeViewStore
 
   const setScrollLeft = useCallback(
@@ -152,6 +155,10 @@ export const ArrangeView: FC = observer(() => {
           rootStore.services.player.position =
             rootStore.arrangeViewStore.quantizer.round(startPos.tick)
         }
+
+        rootStore.arrangeViewStore.selectedTrackId = Math.floor(
+          startPos.trackIndex
+        )
 
         mouseMove((e, deltaPx) => {
           const selectionToPx = pointAdd(startPosPx, deltaPx)
@@ -307,6 +314,8 @@ export const ArrangeView: FC = observer(() => {
             <TrackHeader
               style={{ height: trackHeight }}
               key={i}
+              isSelected={i === selectedTrackId}
+              onClick={() => (rootStore.arrangeViewStore.selectedTrackId = i)}
               onDoubleClick={() => openTrack(i)}
             >
               {t.displayName}

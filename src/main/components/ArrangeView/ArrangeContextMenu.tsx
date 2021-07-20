@@ -6,6 +6,7 @@ import {
   arrangeCopySelection,
   arrangeDeleteSelection,
   arrangePasteSelection,
+  arrangeTransposeSelection,
 } from "../../actions/arrangeView"
 import { useStores } from "../../hooks/useStores"
 import {
@@ -80,6 +81,22 @@ export const ArrangeContextMenu: FC<ArrangeContextMenuProps> = ({
       >
         {localized("delete", "Delete")}
         <HotKey>Del</HotKey>
+      </Item>
+      <Item
+        onClick={() => {
+          arrangeTransposeSelection(rootStore)(12)
+        }}
+        disabled={!isNoteSelected}
+      >
+        {localized("one-octave-up", "+1 Oct")}
+      </Item>
+      <Item
+        onClick={() => {
+          arrangeTransposeSelection(rootStore)(-12)
+        }}
+        disabled={!isNoteSelected}
+      >
+        {localized("one-octave-down", "-1 Oct")}
       </Item>
     </Menu>
   )

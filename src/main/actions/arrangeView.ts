@@ -1,44 +1,32 @@
 import mapValues from "lodash/mapValues"
-import {
-  fromPoints as rectFromPoints,
-  IPoint,
-  IRect,
-} from "../../common/geometry"
-import { isNotUndefined } from "../../common/helpers/array"
+import { isNotNull, isNotUndefined } from "../../common/helpers/array"
 import Quantizer from "../../common/quantizer"
-import Track, { isNoteEvent, NoteEvent } from "../../common/track"
+import {
+  ArrangeSelection,
+  arrangeSelectionFromPoints,
+  movedSelection,
+} from "../../common/selection/ArrangeSelection"
+import Track, { isNoteEvent, TrackEvent } from "../../common/track"
+import { ArrangePoint } from "../../common/transform/ArrangePoint"
 import clipboard from "../services/Clipboard"
 import RootStore from "../stores/RootStore"
 
-const createRect = (tracks: Track[], from: IPoint, to: IPoint) => {
-  const rect = rectFromPoints(from, to)
-  rect.height = Math.min(
-    tracks.length - rect.y,
-    Math.max(from.y, to.y) - rect.y
-  )
+const createSelection = (
+  start: ArrangePoint,
+  end: ArrangePoint,
+  quantizer: Quantizer,
+  maxTrackIndex: number
+): ArrangeSelection | null => {
+  const rect = arrangeSelectionFromPoints(start, end, quantizer, maxTrackIndex)
 
-  if (rect.y < 0) {
+  if (start.trackIndex < 0) {
     // Ruler をドラッグしている場合は全てのトラックを選択する
     // If you are dragging Ruler, select all tracks
-    rect.y = 0
-    rect.height = tracks.length
+    rect.fromTrackIndex = 0
+    rect.toTrackIndex = maxTrackIndex
   }
-  if (rect.height <= 0 || rect.width < 3) {
-    return null
-  }
-  return rect
-}
 
-const quantizeRect = (quantizer: Quantizer, rect: IRect | null) => {
-  if (rect === null) {
-    return null
-  }
-  return {
-    x: quantizer.round(rect.x),
-    y: Math.floor(rect.y),
-    width: quantizer.round(rect.width),
-    height: Math.ceil(rect.height),
-  }
+  return rect
 }
 
 export const arrangeResetSelection = (rootStore: RootStore) => () => {
@@ -49,7 +37,7 @@ export const arrangeResetSelection = (rootStore: RootStore) => () => {
 }
 
 export const arrangeStartSelection =
-  (rootStore: RootStore) => (pos: IPoint) => {
+  (rootStore: RootStore) => (pos: ArrangePoint) => {
     const { arrangeViewStore: s } = rootStore
 
     s.selection = null
@@ -57,140 +45,172 @@ export const arrangeStartSelection =
   }
 
 export const arrangeResizeSelection =
-  (rootStore: RootStore) => (start: IPoint, end: IPoint) => {
+  (rootStore: RootStore) => (start: ArrangePoint, end: ArrangePoint) => {
     const {
       arrangeViewStore: s,
+      arrangeViewStore: { quantizer },
       song: { tracks },
-      services: { quantizer },
     } = rootStore
     // 選択範囲作成時 (確定前) のドラッグ中
     // Drag during selection (before finalization)
-    s.selection = quantizeRect(quantizer, createRect(tracks, start, end))
+    s.selection = createSelection(start, end, quantizer, tracks.length)
   }
 
-export const arrangeEndSelection =
-  (rootStore: RootStore) => (start: IPoint, end: IPoint) => {
-    const {
-      arrangeViewStore: s,
-      song: { tracks },
-      services: { quantizer },
-    } = rootStore
-
-    const selection = quantizeRect(quantizer, createRect(tracks, start, end))
-    if (selection) {
-      s.selection = selection
-      s.selectedEventIds = getNotesInSelection(tracks, selection)
-    }
-  }
-
-export const arrangeMoveSelection = (rootStore: RootStore) => (pos: IPoint) => {
+export const arrangeEndSelection = (rootStore: RootStore) => () => {
   const {
     arrangeViewStore: s,
-    song,
-    services: { quantizer },
-  } = rootStore
-
-  if (s.selection === null) {
-    return
-  }
-  const { tracks } = song
-  // 選択範囲を移動
-  // Move selection range
-  const selection = quantizeRect(quantizer, {
-    x: Math.max(pos.x, 0),
-    y: Math.min(Math.max(pos.y, 0), tracks.length - s.selection.height),
-    width: s.selection.width,
-    height: s.selection.height,
-  })
-
-  if (!selection) {
-    return
-  }
-
-  const dt = selection.x - s.selection.x
-  const di = selection.y - s.selection.y
-  s.selection = selection
-
-  if (dt === 0 && di === 0) {
-    return
-  }
-
-  // ノートを移動
-  // Move notes
-
-  const updates = []
-  for (const [trackIndex, selectedEvents] of Object.entries(
-    s.selectedEventIds
-  )) {
-    const trackId = parseInt(trackIndex, 10)
-    const track = tracks[trackId]
-    const events = s.selectedEventIds[trackId]
-      .map((id) => track.getEventById(id))
-      .filter(isNotUndefined)
-
-    if (di === 0) {
-      track.updateEvents(
-        events.map((e) => ({
-          id: e.id,
-          tick: e.tick + dt,
-        }))
-      )
-    } else {
-      updates.push({
-        sourceTrackId: trackId,
-        destinationTrackId: trackId + di,
-        events: events.map((e) => ({
-          ...e,
-          tick: e.tick + dt,
-        })),
-      })
-    }
-  }
-  if (di !== 0) {
-    const ids: { [key: number]: number[] } = {}
-    for (const u of updates) {
-      tracks[u.sourceTrackId].removeEvents(u.events.map((e) => e.id))
-      const events = tracks[u.destinationTrackId].addEvents(u.events)
-      ids[u.destinationTrackId] = events.map((e) => e.id)
-    }
-    s.selectedEventIds = ids
-  }
-}
-
-export const arrangeCopySelection = (rootStore: RootStore) => () => {
-  const {
-    arrangeViewStore: s,
+    arrangeViewStore: { selection },
     song: { tracks },
   } = rootStore
 
-  const selection = s.selection
+  if (selection) {
+    s.selectedEventIds = getNotesInSelection(tracks, selection)
+  }
+}
+
+export const arrangeMoveSelection =
+  (rootStore: RootStore) => (point: ArrangePoint) => {
+    const {
+      arrangeViewStore: { quantizer, selection },
+      song: { tracks },
+    } = rootStore
+
+    if (selection === null) {
+      return
+    }
+
+    // quantize
+    point = {
+      tick: quantizer.round(point.tick),
+      trackIndex: Math.round(point.trackIndex),
+    }
+
+    // clamp
+    point = {
+      tick: Math.max(0, point.tick),
+      trackIndex: Math.max(
+        0,
+        Math.min(
+          tracks.length - (selection.toTrackIndex - selection.fromTrackIndex),
+          point.trackIndex
+        )
+      ),
+    }
+
+    const delta: ArrangePoint = {
+      tick: point.tick - selection.fromTick,
+      trackIndex: point.trackIndex - selection.fromTrackIndex,
+    }
+
+    arrangeMoveSelectionBy(rootStore)(delta)
+  }
+
+export const arrangeMoveSelectionBy =
+  (rootStore: RootStore) => (delta: ArrangePoint) => {
+    const {
+      arrangeViewStore: s,
+      song: { tracks },
+    } = rootStore
+
+    if (s.selection === null) {
+      return
+    }
+
+    if (delta.tick === 0 && delta.trackIndex === 0) {
+      return
+    }
+
+    // 選択範囲を移動
+    // Move selection range
+    const selection = movedSelection(s.selection, delta)
+
+    s.selection = selection
+
+    // ノートを移動
+    // Move notes
+
+    const updates = []
+    for (const [trackIndex, selectedEventIds] of Object.entries(
+      s.selectedEventIds
+    )) {
+      const trackId = parseInt(trackIndex, 10)
+      const track = tracks[trackId]
+      const events = selectedEventIds
+        .map((id) => track.getEventById(id))
+        .filter(isNotUndefined)
+
+      if (delta.trackIndex === 0) {
+        track.updateEvents(
+          events.map((e) => ({
+            id: e.id,
+            tick: e.tick + delta.tick,
+          }))
+        )
+      } else {
+        updates.push({
+          sourceTrackId: trackId,
+          destinationTrackId: trackId + delta.trackIndex,
+          events: events.map((e) => ({
+            ...e,
+            tick: e.tick + delta.tick,
+          })),
+        })
+      }
+    }
+    if (delta.trackIndex !== 0) {
+      const ids: { [key: number]: number[] } = {}
+      for (const u of updates) {
+        tracks[u.sourceTrackId].removeEvents(u.events.map((e) => e.id))
+        const events = tracks[u.destinationTrackId].addEvents(u.events)
+        ids[u.destinationTrackId] = events.map((e) => e.id)
+      }
+      s.selectedEventIds = ids
+    }
+  }
+
+interface ArrangeNotesClipboardData {
+  type: "arrange_notes"
+  notes: { [key: number]: TrackEvent[] }
+  selectedTrackId: number
+}
+
+const isArrangeNotesClipboardData = (x: any): x is ArrangeNotesClipboardData =>
+  x.type === "arrange_notes" && "notes" in x && "selectedTrackId" in x
+
+export const arrangeCopySelection = (rootStore: RootStore) => () => {
+  const {
+    arrangeViewStore: { selection, selectedEventIds },
+    song: { tracks },
+  } = rootStore
+
   if (selection === null) {
     return
   }
   // 選択されたノートをコピー
   // Copy selected note
-  const notes = mapValues(s.selectedEventIds, (ids, trackId) => {
+  const notes = mapValues(selectedEventIds, (ids, trackId) => {
     const track = tracks[parseInt(trackId, 10)]
     return ids
       .map((id) => track.getEventById(id))
       .filter(isNotUndefined)
       .map((note) => ({
         ...note,
-        tick: note.tick - selection.x, // 選択範囲からの相対位置にする // To relative position from selection
+        tick: note.tick - selection.fromTick, // 選択範囲からの相対位置にする // To relative position from selection
       }))
   })
-  clipboard.writeText(
-    JSON.stringify({
-      type: "arrange_notes",
-      notes,
-    })
-  )
+  const data: ArrangeNotesClipboardData = {
+    type: "arrange_notes",
+    notes,
+    selectedTrackId: selection.fromTrackIndex,
+  }
+  clipboard.writeText(JSON.stringify(data))
 }
 
 export const arrangePasteSelection = (rootStore: RootStore) => () => {
   const {
     song: { tracks },
     services: { player },
+    arrangeViewStore: { selectedTrackId },
   } = rootStore
 
   // 現在位置にコピーしたノートをペースト
@@ -200,15 +220,20 @@ export const arrangePasteSelection = (rootStore: RootStore) => () => {
     return
   }
   const obj = JSON.parse(text)
-  if (obj.type !== "arrange_notes") {
+  if (!isArrangeNotesClipboardData(obj)) {
     return
   }
+
   for (const trackId in obj.notes) {
-    const notes = obj.notes[trackId].map((note: NoteEvent) => ({
+    const notes = obj.notes[trackId].map((note) => ({
       ...note,
       tick: note.tick + player.position,
     }))
-    tracks[parseInt(trackId)].addEvents(notes)
+    const destTrackId =
+      parseInt(trackId) - obj.selectedTrackId + selectedTrackId
+    if (destTrackId < tracks.length) {
+      tracks[destTrackId].addEvents(notes)
+    }
   }
 }
 
@@ -229,20 +254,50 @@ export const arrangeDeleteSelection = (rootStore: RootStore) => () => {
 
 // returns { trackId: [eventId] }
 //Returns {TrackId: [eventId] }
-function getNotesInSelection(tracks: Track[], selection: IRect) {
-  const startTick = selection.x
-  const endTick = selection.x + selection.width
+function getNotesInSelection(tracks: Track[], selection: ArrangeSelection) {
   const ids: { [key: number]: number[] } = {}
   for (
-    let trackIndex = selection.y;
-    trackIndex < selection.y + selection.height;
+    let trackIndex = selection.fromTrackIndex;
+    trackIndex < selection.toTrackIndex;
     trackIndex++
   ) {
     const track = tracks[trackIndex]
     const events = track.events
       .filter(isNoteEvent)
-      .filter((e) => e.tick >= startTick && e.tick <= endTick)
+      .filter((e) => e.tick >= selection.fromTick && e.tick <= selection.toTick)
     ids[trackIndex] = events.map((e) => e.id)
   }
   return ids
 }
+
+export const arrangeTransposeSelection =
+  (rootStore: RootStore) => (deltaPitch: number) => {
+    const {
+      song,
+      arrangeViewStore: { selectedEventIds },
+    } = rootStore
+
+    const selectedTrack = song.selectedTrack
+    if (selectedTrack === undefined) {
+      return
+    }
+
+    for (const trackIdStr in selectedEventIds) {
+      const trackId = parseInt(trackIdStr)
+      const eventIds = selectedEventIds[trackId]
+      song.getTrack(trackId)?.updateEvents(
+        eventIds
+          .map((id) => {
+            const n = selectedTrack.getEventById(id)
+            if (n == undefined || !isNoteEvent(n)) {
+              return null
+            }
+            return {
+              id,
+              noteNumber: n.noteNumber + deltaPitch,
+            }
+          })
+          .filter(isNotNull)
+      )
+    }
+  }

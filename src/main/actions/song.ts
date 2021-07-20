@@ -85,3 +85,25 @@ export const selectTrack = (rootStore: RootStore) => (trackId: number) => {
   const { song } = rootStore
   song.selectTrack(trackId)
 }
+
+export const insertTrack = (rootStore: RootStore) => (trackId: number) => {
+  pushHistory(rootStore)
+  rootStore.song.insertTrack(
+    emptyTrack(rootStore.song.tracks.length - 1),
+    trackId
+  )
+}
+
+export const duplicateTrack = (rootStore: RootStore) => (trackId: number) => {
+  if (trackId === 0) {
+    throw new Error("Don't remove conductor track")
+  }
+  const track = rootStore.song.getTrack(trackId)
+  if (track === undefined) {
+    throw new Error("No track found")
+  }
+  const newTrack = track.clone()
+  newTrack.channel = undefined
+  pushHistory(rootStore)
+  rootStore.song.insertTrack(newTrack, trackId + 1)
+}

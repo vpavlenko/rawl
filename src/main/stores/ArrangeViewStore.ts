@@ -2,8 +2,11 @@ import { action, autorun, computed, makeObservable, observable } from "mobx"
 import { IRect } from "../../common/geometry"
 import { filterEventsWithScroll } from "../../common/helpers/filterEventsWithScroll"
 import { createBeatsInRange } from "../../common/helpers/mapBeats"
+import Quantizer from "../../common/quantizer"
+import { ArrangeSelection } from "../../common/selection/ArrangeSelection"
 import { isNoteEvent } from "../../common/track"
 import { NoteCoordTransform } from "../../common/transform"
+import { ArrangeCoordTransform } from "../../common/transform/ArrangeCoordTransform"
 import { BAR_WIDTH } from "../components/inputs/ScrollBar"
 import { Layout } from "../Constants"
 import RootStore from "./RootStore"
@@ -13,14 +16,15 @@ export default class ArrangeViewStore {
 
   scaleX = 1
   scaleY = 1
-  selection: IRect | null = null // Rect を使うが、x は tick, y はトラック番号を表す
+  selection: ArrangeSelection | null = null
   selectedEventIds: { [key: number]: number[] } = {} // { trackId: [eventId] }
   autoScroll = true
-  quantize = 0
+  quantize = 1
   _scrollLeft = 0
   scrollTop = 0
   canvasWidth = 0
   canvasHeight = 0
+  selectedTrackId = 0
 
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore
@@ -28,15 +32,17 @@ export default class ArrangeViewStore {
     makeObservable(this, {
       scaleX: observable,
       scaleY: observable,
-      selection: observable,
+      selection: observable.shallow,
       autoScroll: observable,
       quantize: observable,
       _scrollLeft: observable,
       scrollTop: observable,
       canvasWidth: observable,
       canvasHeight: observable,
+      selectedTrackId: observable,
       scrollLeft: computed,
       transform: computed,
+      trackTransform: computed,
       notes: computed,
       cursorX: computed,
       mappedBeats: computed,
@@ -44,6 +50,7 @@ export default class ArrangeViewStore {
       selectionRect: computed,
       contentWidth: computed,
       contentHeight: computed,
+      quantizer: computed,
       setScrollLeft: action,
       setScrollTop: action,
     })
@@ -104,6 +111,11 @@ export default class ArrangeViewStore {
     return new NoteCoordTransform(Layout.pixelsPerTick * this.scaleX, 0.3, 127)
   }
 
+  get trackTransform(): ArrangeCoordTransform {
+    const { transform, trackHeight } = this
+    return new ArrangeCoordTransform(transform.pixelsPerTick, trackHeight)
+  }
+
   get trackHeight(): number {
     const { transform } = this
     const bottomBorderWidth = 1
@@ -151,14 +163,23 @@ export default class ArrangeViewStore {
   }
 
   get selectionRect(): IRect | null {
-    const { transform, selection, trackHeight } = this
-    return (
-      selection && {
-        x: transform.getX(selection.x),
-        width: transform.getX(selection.width),
-        y: selection.y * trackHeight,
-        height: selection.height * trackHeight,
-      }
-    )
+    const { selection, trackTransform } = this
+    if (selection === null) {
+      return null
+    }
+    const x = trackTransform.getX(selection.fromTick)
+    const right = trackTransform.getX(selection.toTick)
+    const y = trackTransform.getY(selection.fromTrackIndex)
+    const bottom = trackTransform.getY(selection.toTrackIndex)
+    return {
+      x,
+      width: right - x,
+      y,
+      height: bottom - y,
+    }
+  }
+
+  get quantizer(): Quantizer {
+    return new Quantizer(this.rootStore.song.timebase, this.quantize)
   }
 }

@@ -1,7 +1,7 @@
-import { createMuiTheme } from "@material-ui/core/styles"
+import { createTheme } from "@material-ui/core/styles"
 import { defaultTheme } from "./Theme"
 
-export const theme = createMuiTheme({
+export const theme = createTheme({
   props: {
     MuiButtonBase: {
       disableRipple: true,

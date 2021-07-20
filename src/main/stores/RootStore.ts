@@ -1,6 +1,5 @@
 import { makeObservable, observable } from "mobx"
 import Player from "../../common/player"
-import Quantizer from "../../common/quantizer"
 import Song, { emptySong } from "../../common/song"
 import TrackMute from "../../common/trackMute"
 import { SerializedState } from "../actions/history"
@@ -20,7 +19,6 @@ import TempoEditorStore from "./TempoEditorStore"
 
 export interface Services {
   player: Player
-  quantizer: Quantizer
   synth: IFrameSynth
   synthGroup: GroupOutput
   midiInput: MIDIInput
@@ -51,13 +49,11 @@ export default class RootStore {
     synthGroup.outputs.push({ synth, isEnabled: true })
 
     const player = new Player(synthGroup, this.trackMute, this)
-    const quantizer = new Quantizer(() => this.song.timebase)
     const midiInput = new MIDIInput()
     const midiRecorder = new MIDIRecorder(player)
     midiRecorder.song = this.song
     this.services = {
       player,
-      quantizer,
       synth,
       synthGroup,
       midiInput,

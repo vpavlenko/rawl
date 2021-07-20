@@ -41,32 +41,25 @@ const FlexibleSpacer = styled.div`
 `
 
 export const PianoRollToolbar: FC = observer(() => {
-  const rootStore = useStores()
+  const { song, pianoRollStore } = useStores()
 
-  const track = rootStore.song.selectedTrack
-  const trackId = rootStore.song.selectedTrackId
-  const quantize =
-    rootStore.pianoRollStore.quantize === 0
-      ? rootStore.services.quantizer.denominator
-      : rootStore.pianoRollStore.quantize
-  const autoScroll = rootStore.pianoRollStore.autoScroll
-
-  const { rootViewStore, pianoRollStore: s } = rootStore
+  const { selectedTrack, selectedTrackId } = song
+  const { quantize: quantize, autoScroll } = pianoRollStore
 
   const onClickAutoScroll = useCallback(
-    () => (s.autoScroll = !s.autoScroll),
-    [s]
+    () => (pianoRollStore.autoScroll = !pianoRollStore.autoScroll),
+    [pianoRollStore]
   )
+
   const onSelectQuantize = useCallback(
     (denominator: number) => {
-      rootStore.services.quantizer.denominator = denominator
-      s.quantize = denominator
+      pianoRollStore.quantize = denominator
     },
-    [rootStore, s]
+    [pianoRollStore]
   )
   const classes = useStyles({})
 
-  if (track === undefined) {
+  if (selectedTrack === undefined) {
     return <></>
   }
 
@@ -84,8 +77,8 @@ export const PianoRollToolbar: FC = observer(() => {
         <InstrumentButton />
         <InstrumentBrowser />
 
-        <VolumeSlider trackId={trackId} />
-        <PanSlider trackId={trackId} />
+        <VolumeSlider trackId={selectedTrackId} />
+        <PanSlider trackId={selectedTrackId} />
 
         <FlexibleSpacer />
 

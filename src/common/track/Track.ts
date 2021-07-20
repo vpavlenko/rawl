@@ -31,8 +31,9 @@ import { TrackEvent, TrackEventOf } from "./TrackEvent"
 
 export default class Track {
   events: TrackEvent[] = []
-  lastEventId = 0
   channel: number | undefined = undefined
+
+  private lastEventId = 0
 
   getEventById = (id: number) => this.events.find((e) => e.id === id)
 
@@ -54,7 +55,6 @@ export default class Track {
       isConductorTrack: computed,
       isRhythmTrack: computed,
       events: observable.shallow,
-      lastEventId: observable,
       channel: observable,
     })
   }
@@ -301,6 +301,13 @@ export default class Track {
 
   get isRhythmTrack() {
     return this.channel === 9
+  }
+
+  clone() {
+    const track = new Track()
+    track.addEvents(this.events.map((e) => ({ ...e })))
+    track.channel = this.channel
+    return track
   }
 }
 

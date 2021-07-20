@@ -21,6 +21,7 @@ export default class Song {
       addTrack: action,
       removeTrack: action,
       selectTrack: action,
+      insertTrack: action,
       conductorTrack: computed,
       selectedTrack: computed,
       measures: computed,
@@ -32,12 +33,16 @@ export default class Song {
     })
   }
 
-  addTrack(t: Track) {
+  insertTrack(t: Track, index: number) {
     // 最初のトラックは Conductor Track なので channel を設定しない
     if (t.channel === undefined && this.tracks.length > 0) {
       t.channel = t.channel || this.tracks.length - 1
     }
-    this.tracks.push(t)
+    this.tracks.splice(index, 0, t)
+  }
+
+  addTrack(t: Track) {
+    this.insertTrack(t, this.tracks.length)
   }
 
   removeTrack(id: number) {

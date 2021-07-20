@@ -30,6 +30,7 @@ export default {
     tracks: "トラック",
     "add-track": "トラックを追加",
     "delete-track": "トラックを削除",
+    "duplicate-track": "トラックを複製",
     categories: "カテゴリ",
     instruments: "楽器",
     "rhythm-track": "リズムトラック",

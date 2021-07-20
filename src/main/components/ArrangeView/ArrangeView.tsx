@@ -28,6 +28,7 @@ import { BAR_WIDTH, VerticalScrollBar } from "../inputs/ScrollBar"
 import CanvasPianoRuler from "../PianoRoll/CanvasPianoRuler"
 import { observeDrag } from "../PianoRoll/MouseHandler/observeDrag"
 import { ArrangeContextMenu } from "./ArrangeContextMenu"
+import { ArrangeTrackContextMenu } from "./ArrangeTrackContextMenu"
 import { ArrangeViewRenderer } from "./ArrangeViewRenderer"
 
 const Wrapper = styled.div`
@@ -233,6 +234,8 @@ export const ArrangeView: FC = observer(() => {
   )
 
   const { onContextMenu, menuProps } = useContextMenu()
+  const { onContextMenu: onTrackContextMenu, menuProps: trackMenuProps } =
+    useContextMenu()
 
   const onMouseDown = useCallback(
     (e: React.MouseEvent) => {
@@ -317,6 +320,10 @@ export const ArrangeView: FC = observer(() => {
               isSelected={i === selectedTrackId}
               onClick={() => (rootStore.arrangeViewStore.selectedTrackId = i)}
               onDoubleClick={() => openTrack(i)}
+              onContextMenu={(e) => {
+                rootStore.arrangeViewStore.selectedTrackId = i
+                onTrackContextMenu(e)
+              }}
             >
               {t.displayName}
             </TrackHeader>
@@ -400,6 +407,7 @@ export const ArrangeView: FC = observer(() => {
         }}
       />
       <ArrangeContextMenu {...menuProps} />
+      <ArrangeTrackContextMenu {...trackMenuProps} />
     </Wrapper>
   )
 })

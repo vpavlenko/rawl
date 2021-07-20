@@ -17,7 +17,6 @@ import {
   arrangeResizeSelection,
   arrangeStartSelection,
   selectTrack,
-  setPlayerPosition,
 } from "../../actions"
 import { Layout } from "../../Constants"
 import { useContextMenu } from "../../hooks/useContextMenu"
@@ -150,7 +149,8 @@ export const ArrangeView: FC = observer(() => {
         arrangeStartSelection(rootStore)(startPos)
 
         if (!rootStore.services.player.isPlaying) {
-          setPlayerPosition(rootStore)(startPos.tick)
+          rootStore.services.player.position =
+            rootStore.arrangeViewStore.quantizer.round(startPos.tick)
         }
 
         mouseMove((e, deltaPx) => {

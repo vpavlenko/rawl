@@ -6,7 +6,7 @@ import {
   arrangeSelectionFromPoints,
   movedSelection,
 } from "../../common/selection/ArrangeSelection"
-import Track, { isNoteEvent, NoteEvent } from "../../common/track"
+import Track, { isNoteEvent, TrackEvent } from "../../common/track"
 import { ArrangePoint } from "../../common/transform/ArrangePoint"
 import clipboard from "../services/Clipboard"
 import RootStore from "../stores/RootStore"
@@ -168,19 +168,27 @@ export const arrangeMoveSelectionBy =
     }
   }
 
+interface ArrangeNotesClipboardData {
+  type: "arrange_notes"
+  notes: { [key: number]: TrackEvent[] }
+  selectedTrackId: number
+}
+
+const isArrangeNotesClipboardData = (x: any): x is ArrangeNotesClipboardData =>
+  x.type === "arrange_notes" && "notes" in x && "selectedTrackId" in x
+
 export const arrangeCopySelection = (rootStore: RootStore) => () => {
   const {
-    arrangeViewStore: s,
+    arrangeViewStore: { selection, selectedEventIds },
     song: { tracks },
   } = rootStore
 
-  const selection = s.selection
   if (selection === null) {
     return
   }
   // 選択されたノートをコピー
   // Copy selected note
-  const notes = mapValues(s.selectedEventIds, (ids, trackId) => {
+  const notes = mapValues(selectedEventIds, (ids, trackId) => {
     const track = tracks[parseInt(trackId, 10)]
     return ids
       .map((id) => track.getEventById(id))
@@ -190,18 +198,19 @@ export const arrangeCopySelection = (rootStore: RootStore) => () => {
         tick: note.tick - selection.fromTick, // 選択範囲からの相対位置にする // To relative position from selection
       }))
   })
-  clipboard.writeText(
-    JSON.stringify({
-      type: "arrange_notes",
-      notes,
-    })
-  )
+  const data: ArrangeNotesClipboardData = {
+    type: "arrange_notes",
+    notes,
+    selectedTrackId: selection.fromTrackIndex,
+  }
+  clipboard.writeText(JSON.stringify(data))
 }
 
 export const arrangePasteSelection = (rootStore: RootStore) => () => {
   const {
     song: { tracks },
     services: { player },
+    arrangeViewStore: { selectedTrackId },
   } = rootStore
 
   // 現在位置にコピーしたノートをペースト
@@ -211,15 +220,20 @@ export const arrangePasteSelection = (rootStore: RootStore) => () => {
     return
   }
   const obj = JSON.parse(text)
-  if (obj.type !== "arrange_notes") {
+  if (!isArrangeNotesClipboardData(obj)) {
     return
   }
+
   for (const trackId in obj.notes) {
-    const notes = obj.notes[trackId].map((note: NoteEvent) => ({
+    const notes = obj.notes[trackId].map((note) => ({
       ...note,
       tick: note.tick + player.position,
     }))
-    tracks[parseInt(trackId)].addEvents(notes)
+    const destTrackId =
+      parseInt(trackId) - obj.selectedTrackId + selectedTrackId
+    if (destTrackId < tracks.length) {
+      tracks[destTrackId].addEvents(notes)
+    }
   }
 }
 

@@ -1,4 +1,5 @@
-import { clamp, flatten } from "lodash"
+import { clamp, flatten, last } from "lodash"
+import { ControllerEvent, PitchBendEvent } from "midifile-ts"
 import { action, autorun, computed, makeObservable, observable } from "mobx"
 import { IRect } from "../../common/geometry"
 import { filterEventsWithScroll } from "../../common/helpers/filterEventsWithScroll"
@@ -6,7 +7,13 @@ import { BeatWithX, createBeatsInRange } from "../../common/helpers/mapBeats"
 import { getMBTString } from "../../common/measure/mbt"
 import Quantizer from "../../common/quantizer"
 import { emptySelection } from "../../common/selection/Selection"
-import { isNoteEvent, TrackEvent } from "../../common/track"
+import {
+  isControllerEvent,
+  isNoteEvent,
+  isPitchBendEvent,
+  TrackEvent,
+  TrackEventOf,
+} from "../../common/track"
 import { NoteCoordTransform } from "../../common/transform"
 import { LoadSoundFontEvent } from "../../synth/synth"
 import { ControlMode } from "../components/ControlPane/ControlPane"
@@ -84,6 +91,7 @@ export default class PianoRollStore {
       transform: computed,
       windowedEvents: computed,
       notes: computed,
+      controllerEvents: computed,
       currentVolume: computed,
       currentPan: computed,
       currentTempo: computed,
@@ -266,6 +274,38 @@ export default class PianoRollStore {
       }),
       getGhostNotes(),
     ]
+  }
+
+  filteredEvents<T extends TrackEvent>(filter: (e: TrackEvent) => e is T): T[] {
+    const song = this.rootStore.song
+    const { selectedTrack } = song
+    const { windowedEvents } = this
+
+    const controllerEvents = (selectedTrack?.events ?? []).filter(filter)
+
+    let events = windowedEvents.filter(filter) as T[]
+
+    if (events.length > 0) {
+      // add previous event
+      const index = controllerEvents.indexOf(events[0])
+      if (index > 0) {
+        const lastEvent = controllerEvents[index - 1]
+        events.unshift(lastEvent)
+      }
+    } else if (controllerEvents.length > 0) {
+      // add last event
+      events.push(last(controllerEvents)!)
+    }
+
+    return events
+  }
+
+  get controllerEvents(): TrackEventOf<ControllerEvent>[] {
+    return this.filteredEvents(isControllerEvent)
+  }
+
+  get pitchBendEvents(): TrackEventOf<PitchBendEvent>[] {
+    return this.filteredEvents(isPitchBendEvent)
   }
 
   get currentVolume(): number {

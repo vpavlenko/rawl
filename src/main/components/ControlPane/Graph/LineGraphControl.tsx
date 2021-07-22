@@ -1,7 +1,7 @@
-import { last, partition } from "lodash"
-import { ControllerEvent } from "midifile-ts"
+import { partition } from "lodash"
+import { ControllerEvent, PitchBendEvent } from "midifile-ts"
 import { observer } from "mobx-react-lite"
-import React, { FC, useCallback, useEffect, useState } from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import { IPoint } from "../../../../common/geometry"
 import { TrackEvent, TrackEventOf } from "../../../../common/track"
 import { useStores } from "../../../hooks/useStores"
@@ -15,52 +15,32 @@ interface ItemValue {
   value: number
 }
 
-export interface LineGraphControlProps {
+export interface LineGraphControlProps<T extends TrackEvent> {
   width: number
   height: number
   maxValue: number
-  filterEvent: (e: TrackEvent) => boolean
+  events: T[]
   createEvent: (value: ItemValue) => void
   onClickAxis: (value: number) => void
   lineWidth?: number
   axis: number[]
 }
 
-const LineGraphControl: FC<LineGraphControlProps> = observer(
-  ({
+const LineGraphControl = observer(
+  <T extends TrackEventOf<ControllerEvent | PitchBendEvent>>({
     maxValue,
-    filterEvent,
+    events,
     createEvent,
     width,
     height,
     lineWidth = 2,
     axis,
     onClickAxis,
-  }) => {
+  }: LineGraphControlProps<T>) => {
     const theme = useTheme()
     const rootStore = useStores()
-    const { mappedBeats, cursorX, scrollLeft, transform, windowedEvents } =
+    const { mappedBeats, cursorX, scrollLeft, transform } =
       rootStore.pianoRollStore
-
-    const controllerEvents = (
-      rootStore.song.selectedTrack?.events ?? []
-    ).filter(filterEvent) as TrackEventOf<ControllerEvent>[]
-
-    let events = windowedEvents.filter(
-      filterEvent
-    ) as TrackEventOf<ControllerEvent>[]
-
-    if (events.length > 0) {
-      // add previous event
-      const index = controllerEvents.indexOf(events[0])
-      if (index > 0) {
-        const lastEvent = controllerEvents[index - 1]
-        events.unshift(lastEvent)
-      }
-    } else if (controllerEvents.length > 0) {
-      // add last event
-      events.push(last(controllerEvents)!)
-    }
 
     function transformToPosition(tick: number, value: number) {
       return {

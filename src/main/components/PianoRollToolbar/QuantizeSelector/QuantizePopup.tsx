@@ -64,7 +64,7 @@ const Right = styled.div`
   margin-left: 0.5em;
 `
 
-export default function QuantizePopup({
+export function QuantizePopup({
   value = 8,
   values,
   triplet,

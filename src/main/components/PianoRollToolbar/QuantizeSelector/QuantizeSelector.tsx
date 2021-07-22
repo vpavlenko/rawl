@@ -2,7 +2,7 @@ import { Button } from "@material-ui/core"
 import { FiberManualRecord, MusicNote } from "@material-ui/icons"
 import React from "react"
 import styled from "styled-components"
-import QuantizePopup from "./QuantizePopup"
+import { QuantizePopup } from "./QuantizePopup"
 
 const Container = styled.div`
   display: flex;

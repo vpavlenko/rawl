@@ -2,7 +2,7 @@ import { last, partition } from "lodash"
 import { ControllerEvent } from "midifile-ts"
 import { observer } from "mobx-react-lite"
 import React, { FC, useCallback, useEffect, useState } from "react"
-import { IPoint, IRect } from "../../../../common/geometry"
+import { IPoint } from "../../../../common/geometry"
 import { TrackEvent, TrackEventOf } from "../../../../common/track"
 import { useStores } from "../../../hooks/useStores"
 import { useTheme } from "../../../hooks/useTheme"
@@ -24,20 +24,6 @@ export interface LineGraphControlProps {
   onClickAxis: (value: number) => void
   lineWidth?: number
   axis: number[]
-}
-
-const joinObjects = <T extends {}>(
-  list: T[],
-  separator: (prev: T, next: T) => T
-): T[] => {
-  const result = []
-  for (let i = 0; i < list.length; i++) {
-    result.push(list[i])
-    if (i < list.length - 1) {
-      result.push(separator(list[i], list[i + 1]))
-    }
-  }
-  return result
 }
 
 const LineGraphControl: FC<LineGraphControlProps> = observer(
@@ -109,30 +95,6 @@ const LineGraphControl: FC<LineGraphControlProps> = observer(
       }
     })
 
-    const right = scrollLeft + width
-    const items_ = items.map(({ id, x, y }, i) => {
-      const next = items[i + 1]
-      const nextX = next ? next.x : right // 次がなければ右端まで描画する
-      return {
-        id,
-        x,
-        y,
-        width: nextX - x,
-        height: lineWidth,
-      }
-    })
-
-    const rects = joinObjects<IRect>(items_, (prev, next) => {
-      const y = Math.min(prev.y, next.y)
-      const height = Math.abs(prev.y - next.y) + lineWidth
-      return {
-        x: next.x,
-        y,
-        width: lineWidth,
-        height,
-      }
-    })
-
     const [renderer, setRenderer] = useState<LineGraphRenderer | null>(null)
 
     useEffect(() => {
@@ -147,14 +109,15 @@ const LineGraphControl: FC<LineGraphControlProps> = observer(
 
       renderer.theme = theme
       renderer.render(
-        rects,
+        lineWidth,
+        items,
         nonHighlightedBeats.map((b) => b.x),
         highlightedBeats.map((b) => b.x),
         [],
         cursorX,
         scrollLeft
       )
-    }, [renderer, scrollLeft, mappedBeats, cursorX, rects])
+    }, [renderer, scrollLeft, mappedBeats, cursorX, items])
 
     return (
       <div

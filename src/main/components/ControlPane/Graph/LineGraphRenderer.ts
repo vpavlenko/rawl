@@ -1,15 +1,47 @@
 import Color from "color"
 import { vec4 } from "gl-matrix"
-import { IRect } from "../../../../common/geometry"
+import { IPoint, IRect } from "../../../../common/geometry"
+import { joinObjects } from "../../../../common/helpers/array"
 import { defaultTheme, Theme } from "../../../../common/theme/Theme"
 import { colorToVec4 } from "../../../gl/color"
 import { Renderer2D, translateMatrix } from "../../../gl/Renderer2D"
+import { BorderedCircleObject } from "../../../gl/shaders/BorderedCircleShader"
 import { SolidRectangleObject } from "../../../gl/shaders/SolidRectangleShader"
+
+const createLineRects = (
+  values: IPoint[],
+  lineWidth: number,
+  right: number
+): IRect[] => {
+  const horizontalLineRects = values.map(({ x, y }, i) => {
+    const next = values[i + 1]
+    const nextX = next ? next.x : right // 次がなければ右端まで描画する
+    return {
+      x,
+      y,
+      width: nextX - x,
+      height: lineWidth,
+    }
+  })
+
+  // add vertical lines between horizontal lines
+  return joinObjects<IRect>(horizontalLineRects, (prev, next) => {
+    const y = Math.min(prev.y, next.y)
+    const height = Math.abs(prev.y - next.y) + lineWidth
+    return {
+      x: next.x,
+      y,
+      width: lineWidth,
+      height,
+    }
+  })
+}
 
 export class LineGraphRenderer {
   private renderer: Renderer2D
 
   private itemObject: SolidRectangleObject
+  private circleObject: BorderedCircleObject
   private cursorObject: SolidRectangleObject
   private beatObject: SolidRectangleObject
   private highlightedBeatObject: SolidRectangleObject
@@ -21,6 +53,7 @@ export class LineGraphRenderer {
     this.renderer = new Renderer2D(gl)
 
     this.itemObject = new SolidRectangleObject(gl)
+    this.circleObject = new BorderedCircleObject(gl)
     this.cursorObject = new SolidRectangleObject(gl)
     this.beatObject = new SolidRectangleObject(gl)
     this.highlightedBeatObject = new SolidRectangleObject(gl)
@@ -31,6 +64,7 @@ export class LineGraphRenderer {
       this.highlightedBeatObject,
       this.lineObject,
       this.itemObject,
+      this.circleObject,
       this.cursorObject,
     ]
     objects.forEach((o) => this.renderer.addObject(o))
@@ -51,14 +85,17 @@ export class LineGraphRenderer {
   })
 
   render(
-    items: IRect[],
+    lineWidth: number,
+    values: IPoint[],
     beats: number[],
     highlightedBeats: number[],
     lines: number[],
     cursorX: number,
     scrollX: number
   ) {
-    this.itemObject.updateBuffer(items)
+    const right = scrollX + this.renderer.gl.canvas.width
+
+    this.itemObject.updateBuffer(createLineRects(values, lineWidth, right))
     this.cursorObject.updateBuffer([this.vline(cursorX)])
     this.beatObject.updateBuffer(beats.map(this.vline))
     this.highlightedBeatObject.updateBuffer(highlightedBeats.map(this.vline))
@@ -79,6 +116,12 @@ export class LineGraphRenderer {
     this.itemObject.updateUniforms({
       projectionMatrix: projectionMatrixScrollX,
       color: colorToVec4(Color(this.theme.themeColor)),
+    })
+
+    this.circleObject.updateUniforms({
+      projectionMatrix: projectionMatrixScrollX,
+      strokeColor: colorToVec4(Color(this.theme.themeColor)),
+      fillColor: colorToVec4(Color(this.theme.backgroundColor)),
     })
 
     this.lineObject.updateUniforms({

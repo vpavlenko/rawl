@@ -1,12 +1,14 @@
 import Color from "color"
 import { vec4 } from "gl-matrix"
-import { IPoint, IRect } from "../../../../common/geometry"
+import { partition } from "lodash"
+import { containsPoint, IPoint, IRect } from "../../../../common/geometry"
 import { joinObjects } from "../../../../common/helpers/array"
 import { defaultTheme, Theme } from "../../../../common/theme/Theme"
 import { colorToVec4 } from "../../../gl/color"
 import { Renderer2D, translateMatrix } from "../../../gl/Renderer2D"
 import { BorderedCircleObject } from "../../../gl/shaders/BorderedCircleShader"
 import { SolidRectangleObject } from "../../../gl/shaders/SolidRectangleShader"
+import { IDValue } from "../../../hooks/recycleKeys"
 
 const createLineRects = (
   values: IPoint[],
@@ -37,31 +39,33 @@ const createLineRects = (
   })
 }
 
-const createCircleRects = (values: IPoint[], radius: number) =>
-  values.map((p) => ({
-    x: p.x - radius,
-    y: p.y - radius,
-    width: radius * 2,
-    height: radius * 2,
-  }))
+const pointToCircleRect = (p: IPoint, radius: number) => ({
+  x: p.x - radius,
+  y: p.y - radius,
+  width: radius * 2,
+  height: radius * 2,
+})
 
 export class LineGraphRenderer {
   private renderer: Renderer2D
 
   private itemObject: SolidRectangleObject
   private circleObject: BorderedCircleObject
+  private highlightedCircleObject: BorderedCircleObject
   private cursorObject: SolidRectangleObject
   private beatObject: SolidRectangleObject
   private highlightedBeatObject: SolidRectangleObject
   private lineObject: SolidRectangleObject
 
   theme: Theme = defaultTheme
+  private circleRects: (IRect & IDValue)[] = []
 
   constructor(gl: WebGLRenderingContext) {
     this.renderer = new Renderer2D(gl)
 
     this.itemObject = new SolidRectangleObject(gl)
     this.circleObject = new BorderedCircleObject(gl)
+    this.highlightedCircleObject = new BorderedCircleObject(gl)
     this.cursorObject = new SolidRectangleObject(gl)
     this.beatObject = new SolidRectangleObject(gl)
     this.highlightedBeatObject = new SolidRectangleObject(gl)
@@ -72,6 +76,7 @@ export class LineGraphRenderer {
       this.highlightedBeatObject,
       this.lineObject,
       this.itemObject,
+      this.highlightedCircleObject,
       this.circleObject,
       this.cursorObject,
     ]
@@ -94,7 +99,9 @@ export class LineGraphRenderer {
 
   render(
     lineWidth: number,
-    values: IPoint[],
+    circleRadius: number,
+    values: (IPoint & IDValue)[],
+    selectedEventId: number | null,
     beats: number[],
     highlightedBeats: number[],
     lines: number[],
@@ -104,7 +111,20 @@ export class LineGraphRenderer {
     const right = scrollX + this.renderer.gl.canvas.width
 
     this.itemObject.updateBuffer(createLineRects(values, lineWidth, right))
-    this.circleObject.updateBuffer(createCircleRects(values, 4))
+
+    this.circleRects = values.map((p) => ({
+      ...pointToCircleRect(p, circleRadius),
+      id: p.id,
+    }))
+
+    const [highlightedItems, nonHighlightedItems] = partition(
+      this.circleRects,
+      (i) => i.id === selectedEventId
+    )
+
+    this.circleObject.updateBuffer(nonHighlightedItems)
+    this.highlightedCircleObject.updateBuffer(highlightedItems)
+
     this.cursorObject.updateBuffer([this.vline(cursorX)])
     this.beatObject.updateBuffer(beats.map(this.vline))
     this.highlightedBeatObject.updateBuffer(highlightedBeats.map(this.vline))
@@ -133,6 +153,12 @@ export class LineGraphRenderer {
       fillColor: colorToVec4(Color(this.theme.themeColor)),
     })
 
+    this.highlightedCircleObject.updateUniforms({
+      projectionMatrix: projectionMatrixScrollX,
+      strokeColor: colorToVec4(Color(this.theme.themeColor)),
+      fillColor: colorToVec4(Color(this.theme.textColor)),
+    })
+
     this.lineObject.updateUniforms({
       projectionMatrix: projectionMatrix,
       color: colorToVec4(Color(this.theme.dividerColor)),
@@ -152,5 +178,9 @@ export class LineGraphRenderer {
       projectionMatrix: projectionMatrixScrollX,
       color: vec4.fromValues(1, 0, 0, 1),
     })
+  }
+
+  hitTest(point: IPoint): number | undefined {
+    return this.circleRects.find((r) => containsPoint(r, point))?.id
   }
 }

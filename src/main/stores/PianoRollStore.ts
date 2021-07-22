@@ -60,6 +60,7 @@ export default class PianoRollStore {
   canvasWidth: number = 0
   canvasHeight: number = 0
   showEventList = false
+  selectedControllerEventId: number | null = null
 
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore
@@ -84,6 +85,7 @@ export default class PianoRollStore {
       canvasWidth: observable,
       canvasHeight: observable,
       showEventList: observable,
+      selectedControllerEventId: observable,
       contentWidth: computed,
       contentHeight: computed,
       scrollLeft: computed,

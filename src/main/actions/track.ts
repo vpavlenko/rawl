@@ -78,49 +78,51 @@ const createEvent = (rootStore: RootStore) => (e: AnyEvent, tick?: number) => {
 
   const selectedTrack = song.selectedTrack
   if (selectedTrack === undefined) {
-    return
+    throw new Error("selected track is undefined")
   }
   pushHistory(rootStore)()
-  selectedTrack.createOrUpdate({
+  const id = selectedTrack.createOrUpdate({
     ...e,
     tick: quantizer.round(tick ?? player.position),
-  })
+  }).id
 
   // 即座に反映する
   // Reflect immediately
   if (tick !== undefined) {
     rootStore.services.player.sendEvent(e)
   }
+
+  return id
 }
 
 export const createPitchBend =
   (rootStore: RootStore) => (value: number, tick?: number) => {
     const e = pitchBendMidiEvent(0, 0, Math.round(value))
-    createEvent(rootStore)(e, tick)
+    return createEvent(rootStore)(e, tick)
   }
 
 export const createVolume =
   (rootStore: RootStore) => (value: number, tick?: number) => {
     const e = volumeMidiEvent(0, 0, Math.round(value))
-    createEvent(rootStore)(e, tick)
+    return createEvent(rootStore)(e, tick)
   }
 
 export const createPan =
   (rootStore: RootStore) => (value: number, tick?: number) => {
     const e = panMidiEvent(0, 0, Math.round(value))
-    createEvent(rootStore)(e, tick)
+    return createEvent(rootStore)(e, tick)
   }
 
 export const createModulation =
   (rootStore: RootStore) => (value: number, tick?: number) => {
     const e = modulationMidiEvent(0, 0, Math.round(value))
-    createEvent(rootStore)(e, tick)
+    return createEvent(rootStore)(e, tick)
   }
 
 export const createExpression =
   (rootStore: RootStore) => (value: number, tick?: number) => {
     const e = expressionMidiEvent(0, 0, Math.round(value))
-    createEvent(rootStore)(e, tick)
+    return createEvent(rootStore)(e, tick)
   }
 
 export const removeEvent = (rootStore: RootStore) => (eventId: number) => {

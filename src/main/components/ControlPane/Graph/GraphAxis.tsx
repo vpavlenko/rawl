@@ -23,7 +23,7 @@ const Value = styled.div`
   color: var(--secondary-text-color);
 
   &:hover {
-    background: rgba(0, 0, 0, 0.04);
+    background: ${({ theme }) => theme.secondaryBackgroundColor};
     cursor: default;
   }
 `

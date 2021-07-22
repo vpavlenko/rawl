@@ -29,6 +29,10 @@ export const StyledToggleButton = styled(ToggleButton)`
   }
 `
 
+StyledToggleButton.defaultProps = {
+  value: "",
+}
+
 export const ToolSelector = observer(() => {
   const { pianoRollStore } = useStores()
   const mouseMode = pianoRollStore.mouseMode

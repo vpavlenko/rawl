@@ -18,7 +18,7 @@ const createLineRects = (
     const nextX = next ? next.x : right // 次がなければ右端まで描画する
     return {
       x,
-      y,
+      y: y - lineWidth / 2,
       width: nextX - x,
       height: lineWidth,
     }
@@ -29,13 +29,21 @@ const createLineRects = (
     const y = Math.min(prev.y, next.y)
     const height = Math.abs(prev.y - next.y) + lineWidth
     return {
-      x: next.x,
+      x: next.x - lineWidth / 2,
       y,
       width: lineWidth,
       height,
     }
   })
 }
+
+const createCircleRects = (values: IPoint[], radius: number) =>
+  values.map((p) => ({
+    x: p.x - radius,
+    y: p.y - radius,
+    width: radius * 2,
+    height: radius * 2,
+  }))
 
 export class LineGraphRenderer {
   private renderer: Renderer2D
@@ -96,6 +104,7 @@ export class LineGraphRenderer {
     const right = scrollX + this.renderer.gl.canvas.width
 
     this.itemObject.updateBuffer(createLineRects(values, lineWidth, right))
+    this.circleObject.updateBuffer(createCircleRects(values, 4))
     this.cursorObject.updateBuffer([this.vline(cursorX)])
     this.beatObject.updateBuffer(beats.map(this.vline))
     this.highlightedBeatObject.updateBuffer(highlightedBeats.map(this.vline))
@@ -121,7 +130,7 @@ export class LineGraphRenderer {
     this.circleObject.updateUniforms({
       projectionMatrix: projectionMatrixScrollX,
       strokeColor: colorToVec4(Color(this.theme.themeColor)),
-      fillColor: colorToVec4(Color(this.theme.backgroundColor)),
+      fillColor: colorToVec4(Color(this.theme.themeColor)),
     })
 
     this.lineObject.updateUniforms({

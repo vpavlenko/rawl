@@ -31,6 +31,7 @@ export interface LineGraphControlProps<T extends TrackEvent> {
   lineWidth?: number
   circleRadius?: number
   axis: number[]
+  axisLabelFormatter?: (value: number) => string
 }
 
 const LineGraphControl = observer(
@@ -43,6 +44,7 @@ const LineGraphControl = observer(
     lineWidth = 2,
     circleRadius = 4,
     axis,
+    axisLabelFormatter = (v) => v.toString(),
     onClickAxis,
   }: LineGraphControlProps<T>) => {
     const theme = useTheme()
@@ -156,7 +158,11 @@ const LineGraphControl = observer(
           display: "flex",
         }}
       >
-        <GraphAxis axis={axis} onClick={onClickAxis} />
+        <GraphAxis
+          values={axis}
+          valueFormatter={axisLabelFormatter}
+          onClick={onClickAxis}
+        />
         <GLCanvas
           style={{ outline: "none" }}
           tabIndex={0}

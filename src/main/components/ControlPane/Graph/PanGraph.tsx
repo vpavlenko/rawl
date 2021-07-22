@@ -19,9 +19,10 @@ const PanGraph: FC<PanGraphProps> = observer(({ width, height }) => {
       height={height}
       maxValue={127}
       events={events}
-      axis={[-0x40, -0x20, 0, 0x20, 0x40 - 1]}
+      axis={[0, 0x20, 0x40, 0x60, 0x80 - 1]}
+      axisLabelFormatter={(v) => (v - 0x40).toString()}
       createEvent={(obj) => createEvent(obj.value, obj.tick)}
-      onClickAxis={(value) => createEvent(value + 0x40)}
+      onClickAxis={(value) => createEvent(value)}
     />
   )
 })

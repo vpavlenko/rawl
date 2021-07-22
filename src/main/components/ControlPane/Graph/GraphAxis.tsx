@@ -29,27 +29,30 @@ const Value = styled.div`
 `
 
 export interface GraphAxisProps {
-  axis: number[]
+  values: number[]
+  valueFormatter?: (value: number) => string
   onClick: (value: number) => void
 }
 
-export const GraphAxis: FC<GraphAxisProps> = React.memo(({ axis, onClick }) => {
-  return (
-    <Parent>
-      <Values>
-        {axis
-          .slice()
-          .reverse()
-          .map((value) => (
-            <Value
-              key={value}
-              className="AxisValue"
-              onClick={() => onClick(value)}
-            >
-              {value}
-            </Value>
-          ))}
-      </Values>
-    </Parent>
-  )
-})
+export const GraphAxis: FC<GraphAxisProps> = React.memo(
+  ({ values, valueFormatter = (v: number) => v.toString(), onClick }) => {
+    return (
+      <Parent>
+        <Values>
+          {values
+            .slice()
+            .reverse()
+            .map((value) => (
+              <Value
+                key={value}
+                className="AxisValue"
+                onClick={() => onClick(value)}
+              >
+                {valueFormatter(value)}
+              </Value>
+            ))}
+        </Values>
+      </Parent>
+    )
+  }
+)

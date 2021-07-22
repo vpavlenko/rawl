@@ -18,9 +18,9 @@ const PitchGraph: FC<PitchGraphProps> = observer(({ width, height }) => {
       height={height}
       maxValue={0x4000}
       events={events}
-      axis={[-0x2000, -0x1000, 0, 0x1000, 0x2000 - 1]}
+      axis={[0, 0x1000, 0x2000, 0x3000, 0x4000 - 1]}
+      axisLabelFormatter={(v) => (v - 0x2000).toString()}
       createEvent={(obj) => createEvent(obj.value, obj.tick)}
-      onClickAxis={(value) => createEvent(value + 0x2000)}
     />
   )
 })

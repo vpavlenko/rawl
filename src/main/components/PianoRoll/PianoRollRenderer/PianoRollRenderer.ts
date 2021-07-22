@@ -113,10 +113,15 @@ export class PianoRollRenderer {
       -scroll.x,
       -scroll.y
     )
+    const projectionMatrixScrollY = translateMatrix(
+      projectionMatrix,
+      0,
+      -scroll.y
+    )
 
     {
       this.hGridObject.updateUniforms({
-        projectionMatrix: projectionMatrixScrollXY,
+        projectionMatrix: projectionMatrixScrollY,
         color: colorToVec4(Color(this.theme.dividerColor).alpha(0.2)),
         highlightedColor: colorToVec4(
           Color(this.theme.dividerColor).alpha(0.5)

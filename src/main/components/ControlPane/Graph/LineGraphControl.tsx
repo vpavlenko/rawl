@@ -8,7 +8,9 @@ import React, {
   useState,
 } from "react"
 import { IPoint } from "../../../../common/geometry"
-import { TrackEvent, TrackEventOf } from "../../../../common/track"
+import { TrackEventOf } from "../../../../common/track"
+import { createEvent as createTrackEvent } from "../../../actions"
+import { pushHistory } from "../../../actions/history"
 import { useStores } from "../../../hooks/useStores"
 import { useTheme } from "../../../hooks/useTheme"
 import { GLCanvas } from "../../GLCanvas/GLCanvas"
@@ -21,13 +23,14 @@ interface ItemValue {
   value: number
 }
 
-export interface LineGraphControlProps<T extends TrackEvent> {
+export interface LineGraphControlProps<
+  T extends ControllerEvent | PitchBendEvent
+> {
   width: number
   height: number
   maxValue: number
-  events: T[]
-  createEvent: (value: ItemValue) => number
-  onClickAxis: (value: number) => void
+  events: TrackEventOf<T>[]
+  createEvent: (value: number) => T
   lineWidth?: number
   circleRadius?: number
   axis: number[]
@@ -35,7 +38,7 @@ export interface LineGraphControlProps<T extends TrackEvent> {
 }
 
 const LineGraphControl = observer(
-  <T extends TrackEventOf<ControllerEvent | PitchBendEvent>>({
+  <T extends ControllerEvent | PitchBendEvent>({
     maxValue,
     events,
     createEvent,
@@ -45,7 +48,6 @@ const LineGraphControl = observer(
     circleRadius = 4,
     axis,
     axisLabelFormatter = (v) => v.toString(),
-    onClickAxis,
   }: LineGraphControlProps<T>) => {
     const theme = useTheme()
     const rootStore = useStores()
@@ -86,6 +88,12 @@ const LineGraphControl = observer(
         if (renderer === null) {
           return
         }
+
+        const { selectedTrack } = rootStore.song
+        if (selectedTrack === undefined) {
+          return
+        }
+
         const getLocal = (e: MouseEvent): IPoint => ({
           x: e.offsetX + scrollLeft,
           y: e.offsetY,
@@ -95,18 +103,21 @@ const LineGraphControl = observer(
 
         let eventId: number
         if (hitEventId === undefined) {
-          eventId = createEvent(transformFromPosition(local))
+          const pos = transformFromPosition(local)
+          const event = createEvent(pos.value)
+          eventId = createTrackEvent(rootStore)(event, pos.tick)
           rootStore.pianoRollStore.selectedControllerEventId = eventId
         } else {
           eventId = hitEventId
           rootStore.pianoRollStore.selectedControllerEventId = hitEventId
         }
 
+        pushHistory(rootStore)()
         observeDrag({
           onMouseMove: (e) => {
             const local = getLocal(e)
             const value = transformFromPosition(local).value
-            rootStore.song.selectedTrack?.updateEvent(eventId, { value })
+            selectedTrack.updateEvent(eventId, { value })
           },
         })
       },
@@ -151,6 +162,28 @@ const LineGraphControl = observer(
         scrollLeft
       )
     }, [renderer, scrollLeft, mappedBeats, cursorX, items])
+
+    const onClickAxis = (value: number) => {
+      const { selectedTrack } = rootStore.song
+      if (selectedTrack === undefined) {
+        return
+      }
+      const { selectedControllerEventId } = rootStore.pianoRollStore
+
+      const event = createEvent(value)
+      pushHistory(rootStore)()
+      if (
+        selectedControllerEventId !== null &&
+        selectedTrack.getEventById(selectedControllerEventId) !== undefined
+      ) {
+        selectedTrack.updateEvent(selectedControllerEventId, event)
+      } else {
+        selectedTrack.createOrUpdate({
+          ...event,
+          tick: rootStore.services.player.position,
+        })
+      }
+    }
 
     return (
       <div

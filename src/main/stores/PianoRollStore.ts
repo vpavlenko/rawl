@@ -1,3 +1,4 @@
+import cursorPencil from "!url-loader!../images/cursor-pencil.svg"
 import { clamp, flatten, last } from "lodash"
 import { ControllerEvent, PitchBendEvent } from "midifile-ts"
 import { action, autorun, computed, makeObservable, observable } from "mobx"
@@ -101,6 +102,7 @@ export default class PianoRollStore {
       mappedBeats: computed,
       cursorX: computed,
       quantizer: computed,
+      controlCursor: computed,
       setScrollLeftInPixels: action,
       setScrollTopInPixels: action,
       setScrollLeftInTicks: action,
@@ -362,5 +364,11 @@ export default class PianoRollStore {
 
   get quantizer(): Quantizer {
     return new Quantizer(this.rootStore.song.timebase, this.quantize)
+  }
+
+  get controlCursor(): string {
+    return this.mouseMode === "pencil"
+      ? `url("${cursorPencil}") 0 20, pointer`
+      : "auto"
   }
 }

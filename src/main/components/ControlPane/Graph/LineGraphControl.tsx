@@ -57,6 +57,7 @@ const LineGraphControl = observer(
       scrollLeft,
       transform,
       selectedControllerEventId,
+      controlCursor,
     } = rootStore.pianoRollStore
 
     function transformToPosition(tick: number, value: number) {
@@ -197,7 +198,7 @@ const LineGraphControl = observer(
           onClick={onClickAxis}
         />
         <GLCanvas
-          style={{ outline: "none" }}
+          style={{ outline: "none", cursor: controlCursor }}
           tabIndex={0}
           onMouseDown={onMouseDown}
           onKeyDown={onKeyDown}

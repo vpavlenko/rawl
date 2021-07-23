@@ -173,15 +173,32 @@ const LineGraphControl = observer(
               .filter(isNotUndefined)
               .map((e) => ({ ...e })) // copy
 
+          const draggedEvent = controllerEvents.find(
+            (ev) => ev.id === hitEventId
+          )
+          if (draggedEvent === undefined) {
+            return
+          }
+
           observeDrag({
             onMouseMove: (e) => {
               const local = getLocal(e)
-              const value = transformFromPosition(local).value
-              const delta = value - start.value
+              const pos = transformFromPosition(local)
+              const deltaTick = pos.tick - start.tick
+              const offsetTick =
+                draggedEvent.tick +
+                deltaTick -
+                rootStore.pianoRollStore.quantizer.round(
+                  draggedEvent.tick + deltaTick
+                )
+              const quantizedDeltaTick = deltaTick - offsetTick
+
+              const deltaValue = pos.value - start.value
               selectedTrack.updateEvents(
                 controllerEvents.map((ev) => ({
                   id: ev.id,
-                  value: Math.min(maxValue, Math.max(0, ev.value + delta)),
+                  tick: Math.max(0, ev.tick + quantizedDeltaTick),
+                  value: Math.min(maxValue, Math.max(0, ev.value + deltaValue)),
                 }))
               )
             },

@@ -8,6 +8,7 @@ import React, {
   useState,
 } from "react"
 import { IPoint, IRect, zeroRect } from "../../../../common/geometry"
+import { isNotUndefined } from "../../../../common/helpers/array"
 import { ControlSelection } from "../../../../common/selection/ControlSelection"
 import { TrackEventOf } from "../../../../common/track"
 import { createEvent as createTrackEvent } from "../../../actions"
@@ -147,40 +148,77 @@ const LineGraphControl = observer(
 
     const selectionMouseDown: MouseEventHandler = useCallback(
       (ev) => {
-        const local = getLocal(ev.nativeEvent)
-        const start = transformFromPosition(local)
-
-        rootStore.pianoRollStore.selectedControllerEventIds = []
-
-        rootStore.pianoRollStore.controlSelection = {
-          fromTick: start.tick,
-          toTick: start.tick,
+        if (renderer === null) {
+          return
         }
 
-        observeDrag({
-          onMouseMove: (e) => {
-            const local = getLocal(e)
-            const end = transformFromPosition(local)
-            rootStore.pianoRollStore.controlSelection = {
-              fromTick: Math.min(start.tick, end.tick),
-              toTick: Math.max(start.tick, end.tick),
-            }
-          },
-          onMouseUp: (e) => {
-            if (
-              rootStore.pianoRollStore.controlSelection === null ||
-              renderer === null
-            ) {
-              return
-            }
-            const rect = transformSelection(
-              rootStore.pianoRollStore.controlSelection
-            )
-            rootStore.pianoRollStore.selectedControllerEventIds =
-              renderer.hitTestIntersect(rect)
-            rootStore.pianoRollStore.controlSelection = null
-          },
-        })
+        const { selectedTrack } = rootStore.song
+        if (selectedTrack === undefined) {
+          return
+        }
+
+        const local = getLocal(ev.nativeEvent)
+        const start = transformFromPosition(local)
+        const hitEventId = renderer.hitTest(local)
+
+        if (hitEventId !== undefined) {
+          pushHistory(rootStore)()
+
+          const controllerEvents =
+            rootStore.pianoRollStore.selectedControllerEventIds
+              .map(
+                (id) =>
+                  selectedTrack.getEventById(id) as unknown as TrackEventOf<T>
+              )
+              .filter(isNotUndefined)
+              .map((e) => ({ ...e })) // copy
+
+          observeDrag({
+            onMouseMove: (e) => {
+              const local = getLocal(e)
+              const value = transformFromPosition(local).value
+              const delta = value - start.value
+              selectedTrack.updateEvents(
+                controllerEvents.map((ev) => ({
+                  id: ev.id,
+                  value: Math.min(maxValue, Math.max(0, ev.value + delta)),
+                }))
+              )
+            },
+          })
+        } else {
+          rootStore.pianoRollStore.selectedControllerEventIds = []
+
+          rootStore.pianoRollStore.controlSelection = {
+            fromTick: start.tick,
+            toTick: start.tick,
+          }
+
+          observeDrag({
+            onMouseMove: (e) => {
+              const local = getLocal(e)
+              const end = transformFromPosition(local)
+              rootStore.pianoRollStore.controlSelection = {
+                fromTick: Math.min(start.tick, end.tick),
+                toTick: Math.max(start.tick, end.tick),
+              }
+            },
+            onMouseUp: (e) => {
+              if (
+                rootStore.pianoRollStore.controlSelection === null ||
+                renderer === null
+              ) {
+                return
+              }
+              const rect = transformSelection(
+                rootStore.pianoRollStore.controlSelection
+              )
+              rootStore.pianoRollStore.selectedControllerEventIds =
+                renderer.hitTestIntersect(rect)
+              rootStore.pianoRollStore.controlSelection = null
+            },
+          })
+        }
       },
       [rootStore, transform, lineWidth, scrollLeft, renderer]
     )

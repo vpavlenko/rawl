@@ -1,80 +1,71 @@
-import { last, partition } from "lodash"
-import { ControllerEvent } from "midifile-ts"
+import { ControllerEvent, PitchBendEvent } from "midifile-ts"
 import { observer } from "mobx-react-lite"
-import React, { FC, useCallback, useEffect, useState } from "react"
-import { IPoint, IRect } from "../../../../common/geometry"
-import { TrackEvent, TrackEventOf } from "../../../../common/track"
+import React, {
+  KeyboardEventHandler,
+  MouseEventHandler,
+  useCallback,
+  useEffect,
+  useState,
+} from "react"
+import { IPoint, IRect, zeroRect } from "../../../../common/geometry"
+import { ControlSelection } from "../../../../common/selection/ControlSelection"
+import { TrackEventOf } from "../../../../common/track"
+import {
+  createOrUpdateControlEventsValue,
+  removeSelectedControlEvents,
+} from "../../../actions/control"
 import { useStores } from "../../../hooks/useStores"
 import { useTheme } from "../../../hooks/useTheme"
 import { GLCanvas } from "../../GLCanvas/GLCanvas"
 import { GraphAxis } from "./GraphAxis"
 import { LineGraphRenderer } from "./LineGraphRenderer"
+import { handleCreateSelectionDrag } from "./MouseHandler/handleCreateSelectionDrag"
+import { handlePencilMouseDown } from "./MouseHandler/handlePencilMouseDown"
+import { handleSelectionDragEvents } from "./MouseHandler/handleSelectionDragEvents"
 
-interface ItemValue {
+export interface ItemValue {
   tick: number
   value: number
 }
 
-export interface LineGraphControlProps {
+export interface LineGraphControlProps<
+  T extends ControllerEvent | PitchBendEvent
+> {
   width: number
   height: number
   maxValue: number
-  filterEvent: (e: TrackEvent) => boolean
-  createEvent: (value: ItemValue) => void
-  onClickAxis: (value: number) => void
+  events: TrackEventOf<T>[]
+  createEvent: (value: number) => T
   lineWidth?: number
+  circleRadius?: number
   axis: number[]
+  axisLabelFormatter?: (value: number) => string
 }
 
-const joinObjects = <T extends {}>(
-  list: T[],
-  separator: (prev: T, next: T) => T
-): T[] => {
-  const result = []
-  for (let i = 0; i < list.length; i++) {
-    result.push(list[i])
-    if (i < list.length - 1) {
-      result.push(separator(list[i], list[i + 1]))
-    }
-  }
-  return result
-}
-
-const LineGraphControl: FC<LineGraphControlProps> = observer(
-  ({
+const LineGraphControl = observer(
+  <T extends ControllerEvent | PitchBendEvent>({
     maxValue,
-    filterEvent,
+    events,
     createEvent,
     width,
     height,
     lineWidth = 2,
+    circleRadius = 4,
     axis,
-    onClickAxis,
-  }) => {
+    axisLabelFormatter = (v) => v.toString(),
+  }: LineGraphControlProps<T>) => {
     const theme = useTheme()
     const rootStore = useStores()
-    const { mappedBeats, cursorX, scrollLeft, transform, windowedEvents } =
-      rootStore.pianoRollStore
-
-    const controllerEvents = (
-      rootStore.song.selectedTrack?.events ?? []
-    ).filter(filterEvent) as TrackEventOf<ControllerEvent>[]
-
-    let events = windowedEvents.filter(
-      filterEvent
-    ) as TrackEventOf<ControllerEvent>[]
-
-    if (events.length > 0) {
-      // add previous event
-      const index = controllerEvents.indexOf(events[0])
-      if (index > 0) {
-        const lastEvent = controllerEvents[index - 1]
-        events.unshift(lastEvent)
-      }
-    } else if (controllerEvents.length > 0) {
-      // add last event
-      events.push(last(controllerEvents)!)
-    }
+    const {
+      mappedBeats,
+      cursorX,
+      scrollLeft,
+      transform,
+      selectedControllerEventIds,
+      controlCursor,
+      controlSelection,
+      mouseMode,
+    } = rootStore.pianoRollStore
 
     function transformToPosition(tick: number, value: number) {
       return {
@@ -93,68 +84,129 @@ const LineGraphControl: FC<LineGraphControlProps> = observer(
       }
     }
 
-    const onMouseDown = (ev: React.MouseEvent) => {
-      const e = ev.nativeEvent
-      const local = {
-        x: e.offsetX + scrollLeft,
-        y: e.offsetY,
-      }
-      createEvent(transformFromPosition(local))
-    }
-
-    const items = events.map((e) => {
+    const transformSelection = (selection: ControlSelection): IRect => {
+      const x = transformToPosition(selection.fromTick, 0).x
       return {
-        id: e.id,
-        ...transformToPosition(e.tick, e.value),
-      }
-    })
-
-    const right = scrollLeft + width
-    const items_ = items.map(({ id, x, y }, i) => {
-      const next = items[i + 1]
-      const nextX = next ? next.x : right // 次がなければ右端まで描画する
-      return {
-        id,
         x,
-        y,
-        width: nextX - x,
-        height: lineWidth,
-      }
-    })
-
-    const rects = joinObjects<IRect>(items_, (prev, next) => {
-      const y = Math.min(prev.y, next.y)
-      const height = Math.abs(prev.y - next.y) + lineWidth
-      return {
-        x: next.x,
-        y,
-        width: lineWidth,
+        y: 0,
+        width: transformToPosition(selection.toTick, 0).x - x,
         height,
       }
-    })
+    }
+
+    const items = events.map((e) => ({
+      id: e.id,
+      ...transformToPosition(e.tick, e.value),
+    }))
 
     const [renderer, setRenderer] = useState<LineGraphRenderer | null>(null)
+
+    const getLocal = (e: MouseEvent): IPoint => ({
+      x: e.offsetX + scrollLeft,
+      y: e.offsetY,
+    })
+
+    const pencilMouseDown: MouseEventHandler = useCallback(
+      (ev) => {
+        if (renderer === null) {
+          return
+        }
+
+        const local = getLocal(ev.nativeEvent)
+
+        handlePencilMouseDown(rootStore)(
+          ev.nativeEvent,
+          local,
+          maxValue,
+          transformFromPosition,
+          (p) => renderer.hitTest(p),
+          createEvent
+        )
+      },
+      [
+        rootStore,
+        transform,
+        lineWidth,
+        scrollLeft,
+        renderer,
+        height,
+        createEvent,
+        maxValue,
+      ]
+    )
+
+    const selectionMouseDown: MouseEventHandler = useCallback(
+      (ev) => {
+        if (renderer === null) {
+          return
+        }
+
+        const local = getLocal(ev.nativeEvent)
+        const hitEventId = renderer.hitTest(local)
+
+        if (hitEventId !== undefined) {
+          handleSelectionDragEvents(rootStore)(
+            ev.nativeEvent,
+            hitEventId,
+            local,
+            maxValue,
+            transformFromPosition
+          )
+        } else {
+          handleCreateSelectionDrag(rootStore)(
+            ev.nativeEvent,
+            local,
+            transformFromPosition,
+            transformSelection,
+            (rect) => renderer.hitTestIntersect(rect)
+          )
+        }
+      },
+      [rootStore, transform, lineWidth, scrollLeft, renderer, height, maxValue]
+    )
+
+    const onMouseDown =
+      mouseMode === "pencil" ? pencilMouseDown : selectionMouseDown
+
+    const onKeyDown: KeyboardEventHandler = useCallback(
+      (e) => {
+        switch (e.key) {
+          case "Backspace":
+          case "Delete":
+            removeSelectedControlEvents(rootStore)()
+        }
+      },
+      [rootStore]
+    )
 
     useEffect(() => {
       if (renderer === null) {
         return
       }
 
-      const [highlightedBeats, nonHighlightedBeats] = partition(
-        mappedBeats,
-        (b) => b.beat === 0
-      )
+      const selectionRect =
+        controlSelection !== null
+          ? transformSelection(controlSelection)
+          : zeroRect
 
       renderer.theme = theme
       renderer.render(
-        rects,
-        nonHighlightedBeats.map((b) => b.x),
-        highlightedBeats.map((b) => b.x),
+        lineWidth,
+        circleRadius,
+        items,
+        selectedControllerEventIds,
+        selectionRect,
+        mappedBeats,
         [],
         cursorX,
         scrollLeft
       )
-    }, [renderer, scrollLeft, mappedBeats, cursorX, rects])
+    }, [renderer, scrollLeft, mappedBeats, cursorX, items])
+
+    const onClickAxis = (value: number) => {
+      const event = createEvent(value)
+      createOrUpdateControlEventsValue(rootStore)(event)
+    }
 
     return (
       <div
@@ -162,9 +214,16 @@ const LineGraphControl: FC<LineGraphControlProps> = observer(
           display: "flex",
         }}
       >
-        <GraphAxis axis={axis} onClick={onClickAxis} />
+        <GraphAxis
+          values={axis}
+          valueFormatter={axisLabelFormatter}
+          onClick={onClickAxis}
+        />
         <GLCanvas
+          style={{ outline: "none", cursor: controlCursor }}
+          tabIndex={0}
           onMouseDown={onMouseDown}
+          onKeyDown={onKeyDown}
           onCreateContext={useCallback(
             (gl) => setRenderer(new LineGraphRenderer(gl)),
             []

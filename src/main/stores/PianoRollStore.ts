@@ -1,12 +1,25 @@
-import { clamp, flatten } from "lodash"
+import cursorPencil from "!url-loader!../images/cursor-pencil.svg"
+import { clamp, flatten, maxBy, minBy } from "lodash"
+import { ControllerEvent, PitchBendEvent } from "midifile-ts"
 import { action, autorun, computed, makeObservable, observable } from "mobx"
 import { IRect } from "../../common/geometry"
+import { isNotUndefined } from "../../common/helpers/array"
 import { filterEventsWithScroll } from "../../common/helpers/filterEventsWithScroll"
 import { BeatWithX, createBeatsInRange } from "../../common/helpers/mapBeats"
 import { getMBTString } from "../../common/measure/mbt"
 import Quantizer from "../../common/quantizer"
+import { ControlSelection } from "../../common/selection/ControlSelection"
 import { emptySelection } from "../../common/selection/Selection"
-import { isNoteEvent, TrackEvent } from "../../common/track"
+import {
+  isExpressionEvent,
+  isModulationEvent,
+  isNoteEvent,
+  isPanEvent,
+  isPitchBendEvent,
+  isVolumeEvent,
+  TrackEvent,
+  TrackEventOf,
+} from "../../common/track"
 import { NoteCoordTransform } from "../../common/transform"
 import { LoadSoundFontEvent } from "../../synth/synth"
 import { ControlMode } from "../components/ControlPane/ControlPane"
@@ -33,9 +46,7 @@ export default class PianoRollStore {
   scrollTopKeys = 70 // 中央くらいの音程にスクロールしておく
   SCALE_X_MIN = 0.15
   SCALE_X_MAX = 15
-  controlHeight = 0
   notesCursor = "auto"
-  controlMode: ControlMode = "velocity"
   mouseMode: PianoRollMouseMode = "pencil"
   scaleX = 1
   scaleY = 1
@@ -53,6 +64,11 @@ export default class PianoRollStore {
   canvasWidth: number = 0
   canvasHeight: number = 0
   showEventList = false
+
+  controlHeight = 0
+  controlMode: ControlMode = "velocity"
+  controlSelection: ControlSelection | null = null
+  selectedControllerEventIds: number[] = []
 
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore
@@ -77,6 +93,8 @@ export default class PianoRollStore {
       canvasWidth: observable,
       canvasHeight: observable,
       showEventList: observable,
+      selectedControllerEventIds: observable,
+      controlSelection: observable,
       contentWidth: computed,
       contentHeight: computed,
       scrollLeft: computed,
@@ -84,6 +102,11 @@ export default class PianoRollStore {
       transform: computed,
       windowedEvents: computed,
       notes: computed,
+      modulationEvents: computed,
+      expressionEvents: computed,
+      panEvents: computed,
+      volumeEvents: computed,
+      pitchBendEvents: computed,
       currentVolume: computed,
       currentPan: computed,
       currentTempo: computed,
@@ -91,6 +114,7 @@ export default class PianoRollStore {
       mappedBeats: computed,
       cursorX: computed,
       quantizer: computed,
+      controlCursor: computed,
       setScrollLeftInPixels: action,
       setScrollTopInPixels: action,
       setScrollLeftInTicks: action,
@@ -268,6 +292,51 @@ export default class PianoRollStore {
     ]
   }
 
+  filteredEvents<T extends TrackEvent>(filter: (e: TrackEvent) => e is T): T[] {
+    const song = this.rootStore.song
+    const { selectedTrack } = song
+    const { windowedEvents, scrollLeft, canvasWidth, transform } = this
+
+    const controllerEvents = (selectedTrack?.events ?? []).filter(filter)
+    const events = windowedEvents.filter(filter)
+
+    // Add controller events in the outside of the visible area
+
+    const tickStart = scrollLeft / transform.pixelsPerTick
+    const tickEnd = (scrollLeft + canvasWidth) / transform.pixelsPerTick
+
+    const prevEvent = maxBy(
+      controllerEvents.filter((e) => e.tick < tickStart),
+      (e) => e.tick
+    )
+    const nextEvent = minBy(
+      controllerEvents.filter((e) => e.tick > tickEnd),
+      (e) => e.tick
+    )
+
+    return [prevEvent, ...events, nextEvent].filter(isNotUndefined)
+  }
+
+  get modulationEvents(): TrackEventOf<ControllerEvent>[] {
+    return this.filteredEvents(isModulationEvent)
+  }
+
+  get expressionEvents(): TrackEventOf<ControllerEvent>[] {
+    return this.filteredEvents(isExpressionEvent)
+  }
+
+  get panEvents(): TrackEventOf<ControllerEvent>[] {
+    return this.filteredEvents(isPanEvent)
+  }
+
+  get volumeEvents(): TrackEventOf<ControllerEvent>[] {
+    return this.filteredEvents(isVolumeEvent)
+  }
+
+  get pitchBendEvents(): TrackEventOf<PitchBendEvent>[] {
+    return this.filteredEvents(isPitchBendEvent)
+  }
+
   get currentVolume(): number {
     return (
       this.rootStore.song.selectedTrack?.getVolume(
@@ -320,5 +389,11 @@ export default class PianoRollStore {
 
   get quantizer(): Quantizer {
     return new Quantizer(this.rootStore.song.timebase, this.quantize)
+  }
+
+  get controlCursor(): string {
+    return this.mouseMode === "pencil"
+      ? `url("${cursorPencil}") 0 20, pointer`
+      : "auto"
   }
 }

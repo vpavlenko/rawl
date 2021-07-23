@@ -88,8 +88,6 @@ const PianoVelocityControl: FC<PianoVelocityControlProps> = observer(
       [height, items]
     )
 
-    const axis = [0, 32, 64, 96, 128]
-
     const [renderer, setRenderer] = useState<VelocityControlRenderer | null>(
       null
     )
@@ -117,7 +115,7 @@ const PianoVelocityControl: FC<PianoVelocityControlProps> = observer(
 
     return (
       <Parent>
-        <GraphAxis axis={axis} onClick={() => {}} />
+        <GraphAxis values={[0, 32, 64, 96, 128]} onClick={() => {}} />
         <GLCanvas
           onMouseDown={onMouseDown}
           onCreateContext={useCallback(

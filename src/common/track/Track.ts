@@ -35,7 +35,8 @@ export default class Track {
 
   private lastEventId = 0
 
-  getEventById = (id: number) => this.events.find((e) => e.id === id)
+  getEventById = (id: number): TrackEvent | undefined =>
+    this.events.find((e) => e.id === id)
 
   constructor() {
     makeObservable(this, {

@@ -54,3 +54,5 @@ export const isControllerEventWithType =
 
 export const isVolumeEvent = isControllerEventWithType(7)
 export const isPanEvent = isControllerEventWithType(10)
+export const isModulationEvent = isControllerEventWithType(1)
+export const isExpressionEvent = isControllerEventWithType(0x0b)

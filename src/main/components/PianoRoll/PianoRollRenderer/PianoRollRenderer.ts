@@ -43,7 +43,7 @@ export class PianoRollRenderer {
     this.selectionObject = new BorderedRectangleObject(gl)
 
     const objects = [
-      // this.hGridObject,
+      this.hGridObject,
       this.beatObject,
       this.highlightedBeatObject,
       this.ghostNoteObject,
@@ -89,7 +89,12 @@ export class PianoRollRenderer {
     this.selectionObject.updateBuffer([selection])
     this.beatObject.updateBuffer(beats.map(this.vline))
     this.highlightedBeatObject.updateBuffer(highlightedBeats.map(this.vline))
-    this.hGridObject.updateBuffer(this.renderer.gl.canvas)
+    this.hGridObject.updateBuffer({
+      x: 0,
+      y: scroll.y,
+      width: this.renderer.gl.canvas.width,
+      height: this.renderer.gl.canvas.height,
+    })
     this.cursorObject.updateBuffer([this.vline(cursorX)])
 
     this.updateUniforms(scroll)
@@ -108,11 +113,20 @@ export class PianoRollRenderer {
       -scroll.x,
       -scroll.y
     )
+    const projectionMatrixScrollY = translateMatrix(
+      projectionMatrix,
+      0,
+      -scroll.y
+    )
 
     {
       this.hGridObject.updateUniforms({
-        projectionMatrix: projectionMatrixScrollX,
-        color: vec4.fromValues(0.5, 0.5, 0.5, 1),
+        projectionMatrix: projectionMatrixScrollY,
+        color: colorToVec4(Color(this.theme.dividerColor).alpha(0.2)),
+        highlightedColor: colorToVec4(
+          Color(this.theme.dividerColor).alpha(0.5)
+        ),
+        blackLaneColor: colorToVec4(Color(this.theme.pianoBlackKeyLaneColor)),
         height: Layout.keyHeight,
       })
     }

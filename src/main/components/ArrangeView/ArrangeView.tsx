@@ -19,6 +19,7 @@ import {
   selectTrack,
 } from "../../actions"
 import { Layout } from "../../Constants"
+import { getClientPos } from "../../helpers/mouseEvent"
 import { useContextMenu } from "../../hooks/useContextMenu"
 import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
@@ -75,8 +76,6 @@ const HeaderList = styled.div`
   position: relative;
   border-right: 1px solid var(--divider-color);
 `
-
-const getClientPos = (e: MouseEvent): IPoint => ({ x: e.clientX, y: e.clientY })
 
 type DragHandler = (
   e: MouseEvent,

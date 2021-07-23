@@ -8,23 +8,22 @@ import React, {
   useState,
 } from "react"
 import { IPoint, IRect, zeroRect } from "../../../../common/geometry"
-import { isNotUndefined } from "../../../../common/helpers/array"
 import { ControlSelection } from "../../../../common/selection/ControlSelection"
 import { TrackEventOf } from "../../../../common/track"
-import { createEvent as createTrackEvent } from "../../../actions"
 import {
   createOrUpdateControlEventsValue,
   removeSelectedControlEvents,
 } from "../../../actions/control"
-import { pushHistory } from "../../../actions/history"
 import { useStores } from "../../../hooks/useStores"
 import { useTheme } from "../../../hooks/useTheme"
 import { GLCanvas } from "../../GLCanvas/GLCanvas"
-import { observeDrag } from "../../PianoRoll/MouseHandler/observeDrag"
 import { GraphAxis } from "./GraphAxis"
 import { LineGraphRenderer } from "./LineGraphRenderer"
+import { handleCreateSelectionDrag } from "./MouseHandler/handleCreateSelectionDrag"
+import { handlePencilMouseDown } from "./MouseHandler/handlePencilMouseDown"
+import { handleSelectionDragEvents } from "./MouseHandler/handleSelectionDragEvents"
 
-interface ItemValue {
+export interface ItemValue {
   tick: number
   value: number
 }
@@ -113,35 +112,16 @@ const LineGraphControl = observer(
           return
         }
 
-        const { selectedTrack } = rootStore.song
-        if (selectedTrack === undefined) {
-          return
-        }
-
         const local = getLocal(ev.nativeEvent)
-        const hitEventId = renderer.hitTest(local)
 
-        let eventId: number
-        if (hitEventId === undefined) {
-          const pos = transformFromPosition(local)
-          const event = createEvent(pos.value)
-          eventId = createTrackEvent(rootStore)(event, pos.tick)
-          rootStore.pianoRollStore.selectedControllerEventIds = [eventId]
-        } else {
-          eventId = hitEventId
-          rootStore.pianoRollStore.selectedControllerEventIds = [hitEventId]
-        }
-
-        rootStore.pianoRollStore.controlSelection = null
-
-        pushHistory(rootStore)()
-        observeDrag({
-          onMouseMove: (e) => {
-            const local = getLocal(e)
-            const value = transformFromPosition(local).value
-            selectedTrack.updateEvent(eventId, { value })
-          },
-        })
+        handlePencilMouseDown(rootStore)(
+          ev.nativeEvent,
+          local,
+          maxValue,
+          transformFromPosition,
+          (p) => renderer.hitTest(p),
+          createEvent
+        )
       },
       [rootStore, transform, lineWidth, scrollLeft, renderer]
     )
@@ -152,89 +132,25 @@ const LineGraphControl = observer(
           return
         }
 
-        const { selectedTrack } = rootStore.song
-        if (selectedTrack === undefined) {
-          return
-        }
-
         const local = getLocal(ev.nativeEvent)
-        const start = transformFromPosition(local)
         const hitEventId = renderer.hitTest(local)
 
         if (hitEventId !== undefined) {
-          pushHistory(rootStore)()
-
-          const controllerEvents =
-            rootStore.pianoRollStore.selectedControllerEventIds
-              .map(
-                (id) =>
-                  selectedTrack.getEventById(id) as unknown as TrackEventOf<T>
-              )
-              .filter(isNotUndefined)
-              .map((e) => ({ ...e })) // copy
-
-          const draggedEvent = controllerEvents.find(
-            (ev) => ev.id === hitEventId
+          handleSelectionDragEvents(rootStore)(
+            ev.nativeEvent,
+            hitEventId,
+            local,
+            maxValue,
+            transformFromPosition
           )
-          if (draggedEvent === undefined) {
-            return
-          }
-
-          observeDrag({
-            onMouseMove: (e) => {
-              const local = getLocal(e)
-              const pos = transformFromPosition(local)
-              const deltaTick = pos.tick - start.tick
-              const offsetTick =
-                draggedEvent.tick +
-                deltaTick -
-                rootStore.pianoRollStore.quantizer.round(
-                  draggedEvent.tick + deltaTick
-                )
-              const quantizedDeltaTick = deltaTick - offsetTick
-
-              const deltaValue = pos.value - start.value
-              selectedTrack.updateEvents(
-                controllerEvents.map((ev) => ({
-                  id: ev.id,
-                  tick: Math.max(0, ev.tick + quantizedDeltaTick),
-                  value: Math.min(maxValue, Math.max(0, ev.value + deltaValue)),
-                }))
-              )
-            },
-          })
         } else {
-          rootStore.pianoRollStore.selectedControllerEventIds = []
-
-          rootStore.pianoRollStore.controlSelection = {
-            fromTick: start.tick,
-            toTick: start.tick,
-          }
-
-          observeDrag({
-            onMouseMove: (e) => {
-              const local = getLocal(e)
-              const end = transformFromPosition(local)
-              rootStore.pianoRollStore.controlSelection = {
-                fromTick: Math.min(start.tick, end.tick),
-                toTick: Math.max(start.tick, end.tick),
-              }
-            },
-            onMouseUp: (e) => {
-              if (
-                rootStore.pianoRollStore.controlSelection === null ||
-                renderer === null
-              ) {
-                return
-              }
-              const rect = transformSelection(
-                rootStore.pianoRollStore.controlSelection
-              )
-              rootStore.pianoRollStore.selectedControllerEventIds =
-                renderer.hitTestIntersect(rect)
-              rootStore.pianoRollStore.controlSelection = null
-            },
-          })
+          handleCreateSelectionDrag(rootStore)(
+            ev.nativeEvent,
+            local,
+            transformFromPosition,
+            transformSelection,
+            (rect) => renderer.hitTestIntersect(rect)
+          )
         }
       },
       [rootStore, transform, lineWidth, scrollLeft, renderer]

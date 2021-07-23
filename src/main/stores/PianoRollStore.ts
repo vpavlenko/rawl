@@ -7,6 +7,7 @@ import { filterEventsWithScroll } from "../../common/helpers/filterEventsWithScr
 import { BeatWithX, createBeatsInRange } from "../../common/helpers/mapBeats"
 import { getMBTString } from "../../common/measure/mbt"
 import Quantizer from "../../common/quantizer"
+import { ControlSelection } from "../../common/selection/ControlSelection"
 import { emptySelection } from "../../common/selection/Selection"
 import {
   isControllerEvent,
@@ -41,9 +42,7 @@ export default class PianoRollStore {
   scrollTopKeys = 70 // 中央くらいの音程にスクロールしておく
   SCALE_X_MIN = 0.15
   SCALE_X_MAX = 15
-  controlHeight = 0
   notesCursor = "auto"
-  controlMode: ControlMode = "velocity"
   mouseMode: PianoRollMouseMode = "pencil"
   scaleX = 1
   scaleY = 1
@@ -61,6 +60,10 @@ export default class PianoRollStore {
   canvasWidth: number = 0
   canvasHeight: number = 0
   showEventList = false
+
+  controlHeight = 0
+  controlMode: ControlMode = "velocity"
+  controlSelection: ControlSelection | null = null
   selectedControllerEventId: number | null = null
 
   constructor(rootStore: RootStore) {
@@ -87,6 +90,7 @@ export default class PianoRollStore {
       canvasHeight: observable,
       showEventList: observable,
       selectedControllerEventId: observable,
+      controlSelection: observable,
       contentWidth: computed,
       contentHeight: computed,
       scrollLeft: computed,

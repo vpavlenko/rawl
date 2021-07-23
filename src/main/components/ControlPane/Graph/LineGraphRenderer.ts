@@ -7,6 +7,7 @@ import { defaultTheme, Theme } from "../../../../common/theme/Theme"
 import { colorToVec4 } from "../../../gl/color"
 import { Renderer2D, translateMatrix } from "../../../gl/Renderer2D"
 import { BorderedCircleObject } from "../../../gl/shaders/BorderedCircleShader"
+import { BorderedRectangleObject } from "../../../gl/shaders/BorderedRectangleShader"
 import { SolidRectangleObject } from "../../../gl/shaders/SolidRectangleShader"
 import { IDValue } from "../../../hooks/recycleKeys"
 
@@ -52,6 +53,7 @@ export class LineGraphRenderer {
   private itemObject: SolidRectangleObject
   private circleObject: BorderedCircleObject
   private highlightedCircleObject: BorderedCircleObject
+  private selectionObject: BorderedRectangleObject
   private cursorObject: SolidRectangleObject
   private beatObject: SolidRectangleObject
   private highlightedBeatObject: SolidRectangleObject
@@ -66,6 +68,7 @@ export class LineGraphRenderer {
     this.itemObject = new SolidRectangleObject(gl)
     this.circleObject = new BorderedCircleObject(gl)
     this.highlightedCircleObject = new BorderedCircleObject(gl)
+    this.selectionObject = new BorderedRectangleObject(gl)
     this.cursorObject = new SolidRectangleObject(gl)
     this.beatObject = new SolidRectangleObject(gl)
     this.highlightedBeatObject = new SolidRectangleObject(gl)
@@ -78,6 +81,7 @@ export class LineGraphRenderer {
       this.itemObject,
       this.highlightedCircleObject,
       this.circleObject,
+      this.selectionObject,
       this.cursorObject,
     ]
     objects.forEach((o) => this.renderer.addObject(o))
@@ -102,6 +106,7 @@ export class LineGraphRenderer {
     circleRadius: number,
     values: (IPoint & IDValue)[],
     selectedEventId: number | null,
+    selection: IRect,
     beats: number[],
     highlightedBeats: number[],
     lines: number[],
@@ -129,6 +134,7 @@ export class LineGraphRenderer {
     this.beatObject.updateBuffer(beats.map(this.vline))
     this.highlightedBeatObject.updateBuffer(highlightedBeats.map(this.vline))
     this.lineObject.updateBuffer(lines.map(this.hline))
+    this.selectionObject.updateBuffer([selection])
 
     this.updateUniforms(scrollX)
     this.renderer.render()
@@ -157,6 +163,12 @@ export class LineGraphRenderer {
       projectionMatrix: projectionMatrixScrollX,
       strokeColor: colorToVec4(Color(this.theme.themeColor)),
       fillColor: colorToVec4(Color(this.theme.textColor)),
+    })
+
+    this.selectionObject.updateUniforms({
+      projectionMatrix: projectionMatrixScrollX,
+      strokeColor: [0, 0, 0, 0],
+      fillColor: colorToVec4(Color(this.theme.themeColor).alpha(0.2)),
     })
 
     this.lineObject.updateUniforms({

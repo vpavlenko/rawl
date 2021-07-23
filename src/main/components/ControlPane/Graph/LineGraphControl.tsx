@@ -3,11 +3,12 @@ import { ControllerEvent, PitchBendEvent } from "midifile-ts"
 import { observer } from "mobx-react-lite"
 import React, {
   KeyboardEventHandler,
+  MouseEventHandler,
   useCallback,
   useEffect,
   useState,
 } from "react"
-import { IPoint } from "../../../../common/geometry"
+import { IPoint, IRect, zeroRect } from "../../../../common/geometry"
 import { TrackEventOf } from "../../../../common/track"
 import { createEvent as createTrackEvent } from "../../../actions"
 import { pushHistory } from "../../../actions/history"
@@ -58,6 +59,8 @@ const LineGraphControl = observer(
       transform,
       selectedControllerEventId,
       controlCursor,
+      controlSelection,
+      mouseMode,
     } = rootStore.pianoRollStore
 
     function transformToPosition(tick: number, value: number) {
@@ -84,8 +87,13 @@ const LineGraphControl = observer(
 
     const [renderer, setRenderer] = useState<LineGraphRenderer | null>(null)
 
-    const onMouseDown = useCallback(
-      (ev: React.MouseEvent) => {
+    const getLocal = (e: MouseEvent): IPoint => ({
+      x: e.offsetX + scrollLeft,
+      y: e.offsetY,
+    })
+
+    const pencilMouseDown: MouseEventHandler = useCallback(
+      (ev) => {
         if (renderer === null) {
           return
         }
@@ -95,10 +103,6 @@ const LineGraphControl = observer(
           return
         }
 
-        const getLocal = (e: MouseEvent): IPoint => ({
-          x: e.offsetX + scrollLeft,
-          y: e.offsetY,
-        })
         const local = getLocal(ev.nativeEvent)
         const hitEventId = renderer.hitTest(local)
 
@@ -125,6 +129,30 @@ const LineGraphControl = observer(
       [rootStore, transform, lineWidth, scrollLeft, renderer]
     )
 
+    const selectionMouseDown: MouseEventHandler = useCallback((ev) => {
+      const local = getLocal(ev.nativeEvent)
+      const start = transformFromPosition(local)
+
+      rootStore.pianoRollStore.controlSelection = {
+        fromTick: start.tick,
+        toTick: start.tick,
+      }
+
+      observeDrag({
+        onMouseMove: (e) => {
+          const local = getLocal(e)
+          const end = transformFromPosition(local)
+          rootStore.pianoRollStore.controlSelection = {
+            fromTick: Math.min(start.tick, end.tick),
+            toTick: Math.max(start.tick, end.tick),
+          }
+        },
+      })
+    }, [])
+
+    const onMouseDown =
+      mouseMode === "pencil" ? pencilMouseDown : selectionMouseDown
+
     const onKeyDown: KeyboardEventHandler = useCallback(
       (e) => {
         const { selectedControllerEventId: eventId } = rootStore.pianoRollStore
@@ -150,12 +178,26 @@ const LineGraphControl = observer(
         (b) => b.beat === 0
       )
 
+      let selectionRect: IRect
+      if (controlSelection !== null) {
+        const x = transformToPosition(controlSelection.fromTick, 0).x
+        selectionRect = {
+          x,
+          y: 0,
+          width: transformToPosition(controlSelection.toTick, 0).x - x,
+          height,
+        }
+      } else {
+        selectionRect = zeroRect
+      }
+
       renderer.theme = theme
       renderer.render(
         lineWidth,
         circleRadius,
         items,
         selectedControllerEventId,
+        selectionRect,
         nonHighlightedBeats.map((b) => b.x),
         highlightedBeats.map((b) => b.x),
         [],

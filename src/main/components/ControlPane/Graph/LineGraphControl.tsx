@@ -9,8 +9,13 @@ import React, {
   useState,
 } from "react"
 import { IPoint, IRect, zeroRect } from "../../../../common/geometry"
+import { ControlSelection } from "../../../../common/selection/ControlSelection"
 import { TrackEventOf } from "../../../../common/track"
 import { createEvent as createTrackEvent } from "../../../actions"
+import {
+  createOrUpdateControlEventsValue,
+  removeSelectedControlEvents,
+} from "../../../actions/control"
 import { pushHistory } from "../../../actions/history"
 import { useStores } from "../../../hooks/useStores"
 import { useTheme } from "../../../hooks/useTheme"
@@ -57,7 +62,7 @@ const LineGraphControl = observer(
       cursorX,
       scrollLeft,
       transform,
-      selectedControllerEventId,
+      selectedControllerEventIds,
       controlCursor,
       controlSelection,
       mouseMode,
@@ -77,6 +82,16 @@ const LineGraphControl = observer(
         tick: transform.getTicks(position.x),
         value:
           (1 - (position.y - lineWidth) / (height - lineWidth * 2)) * maxValue,
+      }
+    }
+
+    const transformSelection = (selection: ControlSelection): IRect => {
+      const x = transformToPosition(selection.fromTick, 0).x
+      return {
+        x,
+        y: 0,
+        width: transformToPosition(selection.toTick, 0).x - x,
+        height,
       }
     }
 
@@ -111,11 +126,13 @@ const LineGraphControl = observer(
           const pos = transformFromPosition(local)
           const event = createEvent(pos.value)
           eventId = createTrackEvent(rootStore)(event, pos.tick)
-          rootStore.pianoRollStore.selectedControllerEventId = eventId
+          rootStore.pianoRollStore.selectedControllerEventIds = [eventId]
         } else {
           eventId = hitEventId
-          rootStore.pianoRollStore.selectedControllerEventId = hitEventId
+          rootStore.pianoRollStore.selectedControllerEventIds = [hitEventId]
         }
+
+        rootStore.pianoRollStore.controlSelection = null
 
         pushHistory(rootStore)()
         observeDrag({
@@ -129,40 +146,55 @@ const LineGraphControl = observer(
       [rootStore, transform, lineWidth, scrollLeft, renderer]
     )
 
-    const selectionMouseDown: MouseEventHandler = useCallback((ev) => {
-      const local = getLocal(ev.nativeEvent)
-      const start = transformFromPosition(local)
+    const selectionMouseDown: MouseEventHandler = useCallback(
+      (ev) => {
+        const local = getLocal(ev.nativeEvent)
+        const start = transformFromPosition(local)
 
-      rootStore.pianoRollStore.controlSelection = {
-        fromTick: start.tick,
-        toTick: start.tick,
-      }
+        rootStore.pianoRollStore.selectedControllerEventIds = []
 
-      observeDrag({
-        onMouseMove: (e) => {
-          const local = getLocal(e)
-          const end = transformFromPosition(local)
-          rootStore.pianoRollStore.controlSelection = {
-            fromTick: Math.min(start.tick, end.tick),
-            toTick: Math.max(start.tick, end.tick),
-          }
-        },
-      })
-    }, [])
+        rootStore.pianoRollStore.controlSelection = {
+          fromTick: start.tick,
+          toTick: start.tick,
+        }
+
+        observeDrag({
+          onMouseMove: (e) => {
+            const local = getLocal(e)
+            const end = transformFromPosition(local)
+            rootStore.pianoRollStore.controlSelection = {
+              fromTick: Math.min(start.tick, end.tick),
+              toTick: Math.max(start.tick, end.tick),
+            }
+          },
+          onMouseUp: (e) => {
+            if (
+              rootStore.pianoRollStore.controlSelection === null ||
+              renderer === null
+            ) {
+              return
+            }
+            const rect = transformSelection(
+              rootStore.pianoRollStore.controlSelection
+            )
+            rootStore.pianoRollStore.selectedControllerEventIds =
+              renderer.hitTestIntersect(rect)
+            rootStore.pianoRollStore.controlSelection = null
+          },
+        })
+      },
+      [rootStore, transform, lineWidth, scrollLeft, renderer]
+    )
 
     const onMouseDown =
       mouseMode === "pencil" ? pencilMouseDown : selectionMouseDown
 
     const onKeyDown: KeyboardEventHandler = useCallback(
       (e) => {
-        const { selectedControllerEventId: eventId } = rootStore.pianoRollStore
-        if (eventId === null) {
-          return
-        }
         switch (e.key) {
           case "Backspace":
           case "Delete":
-            rootStore.song.selectedTrack?.removeEvent(eventId)
+            removeSelectedControlEvents(rootStore)()
         }
       },
       [rootStore]
@@ -178,25 +210,17 @@ const LineGraphControl = observer(
         (b) => b.beat === 0
       )
 
-      let selectionRect: IRect
-      if (controlSelection !== null) {
-        const x = transformToPosition(controlSelection.fromTick, 0).x
-        selectionRect = {
-          x,
-          y: 0,
-          width: transformToPosition(controlSelection.toTick, 0).x - x,
-          height,
-        }
-      } else {
-        selectionRect = zeroRect
-      }
+      const selectionRect =
+        controlSelection !== null
+          ? transformSelection(controlSelection)
+          : zeroRect
 
       renderer.theme = theme
       renderer.render(
         lineWidth,
         circleRadius,
         items,
-        selectedControllerEventId,
+        selectedControllerEventIds,
         selectionRect,
         nonHighlightedBeats.map((b) => b.x),
         highlightedBeats.map((b) => b.x),
@@ -207,25 +231,8 @@ const LineGraphControl = observer(
     }, [renderer, scrollLeft, mappedBeats, cursorX, items])
 
     const onClickAxis = (value: number) => {
-      const { selectedTrack } = rootStore.song
-      if (selectedTrack === undefined) {
-        return
-      }
-      const { selectedControllerEventId } = rootStore.pianoRollStore
-
       const event = createEvent(value)
-      pushHistory(rootStore)()
-      if (
-        selectedControllerEventId !== null &&
-        selectedTrack.getEventById(selectedControllerEventId) !== undefined
-      ) {
-        selectedTrack.updateEvent(selectedControllerEventId, event)
-      } else {
-        selectedTrack.createOrUpdate({
-          ...event,
-          tick: rootStore.services.player.position,
-        })
-      }
+      createOrUpdateControlEventsValue(rootStore)(event)
     }
 
     return (

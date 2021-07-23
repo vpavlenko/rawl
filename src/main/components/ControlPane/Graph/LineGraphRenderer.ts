@@ -1,7 +1,12 @@
 import Color from "color"
 import { vec4 } from "gl-matrix"
 import { partition } from "lodash"
-import { containsPoint, IPoint, IRect } from "../../../../common/geometry"
+import {
+  containsPoint,
+  intersects,
+  IPoint,
+  IRect,
+} from "../../../../common/geometry"
 import { joinObjects } from "../../../../common/helpers/array"
 import { defaultTheme, Theme } from "../../../../common/theme/Theme"
 import { colorToVec4 } from "../../../gl/color"
@@ -105,7 +110,7 @@ export class LineGraphRenderer {
     lineWidth: number,
     circleRadius: number,
     values: (IPoint & IDValue)[],
-    selectedEventId: number | null,
+    selectedEventIds: number[],
     selection: IRect,
     beats: number[],
     highlightedBeats: number[],
@@ -124,7 +129,7 @@ export class LineGraphRenderer {
 
     const [highlightedItems, nonHighlightedItems] = partition(
       this.circleRects,
-      (i) => i.id === selectedEventId
+      (i) => selectedEventIds.includes(i.id)
     )
 
     this.circleObject.updateBuffer(nonHighlightedItems)
@@ -194,5 +199,9 @@ export class LineGraphRenderer {
 
   hitTest(point: IPoint): number | undefined {
     return this.circleRects.find((r) => containsPoint(r, point))?.id
+  }
+
+  hitTestIntersect(rect: IRect): number[] {
+    return this.circleRects.filter((r) => intersects(rect, r)).map((r) => r.id)
   }
 }

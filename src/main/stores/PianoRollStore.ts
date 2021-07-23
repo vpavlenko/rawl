@@ -64,7 +64,7 @@ export default class PianoRollStore {
   controlHeight = 0
   controlMode: ControlMode = "velocity"
   controlSelection: ControlSelection | null = null
-  selectedControllerEventId: number | null = null
+  selectedControllerEventIds: number[] = []
 
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore
@@ -89,7 +89,7 @@ export default class PianoRollStore {
       canvasWidth: observable,
       canvasHeight: observable,
       showEventList: observable,
-      selectedControllerEventId: observable,
+      selectedControllerEventIds: observable,
       controlSelection: observable,
       contentWidth: computed,
       contentHeight: computed,

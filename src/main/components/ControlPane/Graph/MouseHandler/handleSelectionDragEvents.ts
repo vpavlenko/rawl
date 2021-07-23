@@ -24,6 +24,12 @@ export const handleSelectionDragEvents =
 
     pushHistory(rootStore)()
 
+    if (
+      !rootStore.pianoRollStore.selectedControllerEventIds.includes(hitEventId)
+    ) {
+      rootStore.pianoRollStore.selectedControllerEventIds = [hitEventId]
+    }
+
     const controllerEvents = rootStore.pianoRollStore.selectedControllerEventIds
       .map((id) => selectedTrack.getEventById(id) as unknown as TrackEventOf<T>)
       .filter(isNotUndefined)

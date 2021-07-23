@@ -8,6 +8,7 @@ import {
   IRect,
 } from "../../../../common/geometry"
 import { joinObjects } from "../../../../common/helpers/array"
+import { BeatWithX } from "../../../../common/helpers/mapBeats"
 import { defaultTheme, Theme } from "../../../../common/theme/Theme"
 import { colorToVec4 } from "../../../gl/color"
 import { Renderer2D, translateMatrix } from "../../../gl/Renderer2D"
@@ -112,8 +113,7 @@ export class LineGraphRenderer {
     values: (IPoint & IDValue)[],
     selectedEventIds: number[],
     selection: IRect,
-    beats: number[],
-    highlightedBeats: number[],
+    beats: BeatWithX[],
     lines: number[],
     cursorX: number,
     scrollX: number
@@ -132,12 +132,21 @@ export class LineGraphRenderer {
       (i) => selectedEventIds.includes(i.id)
     )
 
+    const [highlightedBeats, nonHighlightedBeats] = partition(
+      beats,
+      (b) => b.beat === 0
+    )
+
     this.circleObject.updateBuffer(nonHighlightedItems)
     this.highlightedCircleObject.updateBuffer(highlightedItems)
 
     this.cursorObject.updateBuffer([this.vline(cursorX)])
-    this.beatObject.updateBuffer(beats.map(this.vline))
-    this.highlightedBeatObject.updateBuffer(highlightedBeats.map(this.vline))
+    this.beatObject.updateBuffer(
+      nonHighlightedBeats.map((b) => this.vline(b.x))
+    )
+    this.highlightedBeatObject.updateBuffer(
+      highlightedBeats.map((b) => this.vline(b.x))
+    )
     this.lineObject.updateBuffer(lines.map(this.hline))
     this.selectionObject.updateBuffer([selection])
 

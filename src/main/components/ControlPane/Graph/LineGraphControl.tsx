@@ -1,4 +1,3 @@
-import { partition } from "lodash"
 import { ControllerEvent, PitchBendEvent } from "midifile-ts"
 import { observer } from "mobx-react-lite"
 import React, {
@@ -205,11 +204,6 @@ const LineGraphControl = observer(
         return
       }
 
-      const [highlightedBeats, nonHighlightedBeats] = partition(
-        mappedBeats,
-        (b) => b.beat === 0
-      )
-
       const selectionRect =
         controlSelection !== null
           ? transformSelection(controlSelection)
@@ -222,8 +216,7 @@ const LineGraphControl = observer(
         items,
         selectedControllerEventIds,
         selectionRect,
-        nonHighlightedBeats.map((b) => b.x),
-        highlightedBeats.map((b) => b.x),
+        mappedBeats,
         [],
         cursorX,
         scrollLeft

@@ -123,7 +123,16 @@ const LineGraphControl = observer(
           createEvent
         )
       },
-      [rootStore, transform, lineWidth, scrollLeft, renderer]
+      [
+        rootStore,
+        transform,
+        lineWidth,
+        scrollLeft,
+        renderer,
+        height,
+        createEvent,
+        maxValue,
+      ]
     )
 
     const selectionMouseDown: MouseEventHandler = useCallback(
@@ -153,7 +162,7 @@ const LineGraphControl = observer(
           )
         }
       },
-      [rootStore, transform, lineWidth, scrollLeft, renderer]
+      [rootStore, transform, lineWidth, scrollLeft, renderer, height, maxValue]
     )
 
     const onMouseDown =

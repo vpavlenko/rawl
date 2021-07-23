@@ -2,7 +2,6 @@ import { observer } from "mobx-react-lite"
 import React, { FC } from "react"
 import { ISize } from "../../../../common/geometry"
 import { modulationMidiEvent } from "../../../../common/midi/MidiEvent"
-import { isModulationEvent } from "../../../../common/track"
 import { useStores } from "../../../hooks/useStores"
 import LineGraphControl from "./LineGraphControl"
 
@@ -11,8 +10,7 @@ export type ModulationGraphProps = ISize
 const ModulationGraph: FC<ModulationGraphProps> = observer(
   ({ width, height }) => {
     const rootStore = useStores()
-    const events =
-      rootStore.pianoRollStore.controllerEvents.filter(isModulationEvent)
+    const events = rootStore.pianoRollStore.modulationEvents
 
     return (
       <LineGraphControl

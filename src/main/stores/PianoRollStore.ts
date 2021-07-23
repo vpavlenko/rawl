@@ -1,8 +1,9 @@
 import cursorPencil from "!url-loader!../images/cursor-pencil.svg"
-import { clamp, flatten, last } from "lodash"
+import { clamp, flatten, maxBy, minBy } from "lodash"
 import { ControllerEvent, PitchBendEvent } from "midifile-ts"
 import { action, autorun, computed, makeObservable, observable } from "mobx"
 import { IRect } from "../../common/geometry"
+import { isNotUndefined } from "../../common/helpers/array"
 import { filterEventsWithScroll } from "../../common/helpers/filterEventsWithScroll"
 import { BeatWithX, createBeatsInRange } from "../../common/helpers/mapBeats"
 import { getMBTString } from "../../common/measure/mbt"
@@ -10,9 +11,12 @@ import Quantizer from "../../common/quantizer"
 import { ControlSelection } from "../../common/selection/ControlSelection"
 import { emptySelection } from "../../common/selection/Selection"
 import {
-  isControllerEvent,
+  isExpressionEvent,
+  isModulationEvent,
   isNoteEvent,
+  isPanEvent,
   isPitchBendEvent,
+  isVolumeEvent,
   TrackEvent,
   TrackEventOf,
 } from "../../common/track"
@@ -98,7 +102,11 @@ export default class PianoRollStore {
       transform: computed,
       windowedEvents: computed,
       notes: computed,
-      controllerEvents: computed,
+      modulationEvents: computed,
+      expressionEvents: computed,
+      panEvents: computed,
+      volumeEvents: computed,
+      pitchBendEvents: computed,
       currentVolume: computed,
       currentPan: computed,
       currentTempo: computed,
@@ -287,29 +295,42 @@ export default class PianoRollStore {
   filteredEvents<T extends TrackEvent>(filter: (e: TrackEvent) => e is T): T[] {
     const song = this.rootStore.song
     const { selectedTrack } = song
-    const { windowedEvents } = this
+    const { windowedEvents, scrollLeft, canvasWidth, transform } = this
 
     const controllerEvents = (selectedTrack?.events ?? []).filter(filter)
+    const events = windowedEvents.filter(filter)
 
-    let events = windowedEvents.filter(filter) as T[]
+    // Add controller events in the outside of the visible area
 
-    if (events.length > 0) {
-      // add previous event
-      const index = controllerEvents.indexOf(events[0])
-      if (index > 0) {
-        const lastEvent = controllerEvents[index - 1]
-        events.unshift(lastEvent)
-      }
-    } else if (controllerEvents.length > 0) {
-      // add last event
-      events.push(last(controllerEvents)!)
-    }
+    const tickStart = scrollLeft / transform.pixelsPerTick
+    const tickEnd = (scrollLeft + canvasWidth) / transform.pixelsPerTick
 
-    return events
+    const prevEvent = maxBy(
+      controllerEvents.filter((e) => e.tick < tickStart),
+      (e) => e.tick
+    )
+    const nextEvent = minBy(
+      controllerEvents.filter((e) => e.tick > tickEnd),
+      (e) => e.tick
+    )
+
+    return [prevEvent, ...events, nextEvent].filter(isNotUndefined)
   }
 
-  get controllerEvents(): TrackEventOf<ControllerEvent>[] {
-    return this.filteredEvents(isControllerEvent)
+  get modulationEvents(): TrackEventOf<ControllerEvent>[] {
+    return this.filteredEvents(isModulationEvent)
+  }
+
+  get expressionEvents(): TrackEventOf<ControllerEvent>[] {
+    return this.filteredEvents(isExpressionEvent)
+  }
+
+  get panEvents(): TrackEventOf<ControllerEvent>[] {
+    return this.filteredEvents(isPanEvent)
+  }
+
+  get volumeEvents(): TrackEventOf<ControllerEvent>[] {
+    return this.filteredEvents(isVolumeEvent)
   }
 
   get pitchBendEvents(): TrackEventOf<PitchBendEvent>[] {

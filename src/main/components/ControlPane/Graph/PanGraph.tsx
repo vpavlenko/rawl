@@ -2,7 +2,6 @@ import { observer } from "mobx-react-lite"
 import React, { FC } from "react"
 import { ISize } from "../../../../common/geometry"
 import { panMidiEvent } from "../../../../common/midi/MidiEvent"
-import { isPanEvent } from "../../../../common/track"
 import { useStores } from "../../../hooks/useStores"
 import LineGraphControl from "./LineGraphControl"
 
@@ -10,7 +9,7 @@ export type PanGraphProps = ISize
 
 const PanGraph: FC<PanGraphProps> = observer(({ width, height }) => {
   const rootStore = useStores()
-  const events = rootStore.pianoRollStore.controllerEvents.filter(isPanEvent)
+  const events = rootStore.pianoRollStore.panEvents
 
   return (
     <LineGraphControl

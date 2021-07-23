@@ -2,7 +2,6 @@ import { observer } from "mobx-react-lite"
 import React, { FC } from "react"
 import { ISize } from "../../../../common/geometry"
 import { expressionMidiEvent } from "../../../../common/midi/MidiEvent"
-import { isExpressionEvent } from "../../../../common/track"
 import { useStores } from "../../../hooks/useStores"
 import LineGraphControl from "./LineGraphControl"
 
@@ -11,8 +10,7 @@ export type ExpressionGraphProps = ISize
 const ExpressionGraph: FC<ExpressionGraphProps> = observer(
   ({ width, height }) => {
     const rootStore = useStores()
-    const events =
-      rootStore.pianoRollStore.controllerEvents.filter(isExpressionEvent)
+    const events = rootStore.pianoRollStore.expressionEvents
 
     return (
       <LineGraphControl

@@ -2,7 +2,6 @@ import { observer } from "mobx-react-lite"
 import React, { FC } from "react"
 import { ISize } from "../../../../common/geometry"
 import { volumeMidiEvent } from "../../../../common/midi/MidiEvent"
-import { isVolumeEvent } from "../../../../common/track"
 import { useStores } from "../../../hooks/useStores"
 import LineGraphControl from "./LineGraphControl"
 
@@ -10,7 +9,7 @@ export type VolumeGraphProps = ISize
 
 const VolumeGraph: FC<VolumeGraphProps> = observer(({ width, height }) => {
   const rootStore = useStores()
-  const events = rootStore.pianoRollStore.controllerEvents.filter(isVolumeEvent)
+  const events = rootStore.pianoRollStore.volumeEvents
 
   return (
     <LineGraphControl

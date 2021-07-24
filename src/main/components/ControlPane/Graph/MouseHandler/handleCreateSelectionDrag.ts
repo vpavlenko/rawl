@@ -1,9 +1,4 @@
-import {
-  IPoint,
-  IRect,
-  pointAdd,
-  pointSub,
-} from "../../../../../common/geometry"
+import { IPoint, pointAdd, pointSub } from "../../../../../common/geometry"
 import { ControlSelection } from "../../../../../common/selection/ControlSelection"
 import { getClientPos } from "../../../../helpers/mouseEvent"
 import RootStore from "../../../../stores/RootStore"
@@ -16,8 +11,7 @@ export const handleCreateSelectionDrag =
     e: MouseEvent,
     startPoint: IPoint,
     transformFromPosition: (position: IPoint) => ItemValue,
-    transformSelection: (selection: ControlSelection) => IRect,
-    getControllerEventIdsInRect: (rect: IRect) => number[]
+    getControllerEventIdsInSelection: (selection: ControlSelection) => number[]
   ) => {
     rootStore.pianoRollStore.selectedControllerEventIds = []
 
@@ -43,15 +37,13 @@ export const handleCreateSelectionDrag =
         }
       },
       onMouseUp: (e) => {
-        if (rootStore.pianoRollStore.controlSelection === null) {
+        const { controlSelection } = rootStore.pianoRollStore
+        if (controlSelection === null) {
           return
         }
-        const rect = transformSelection(
-          rootStore.pianoRollStore.controlSelection
-        )
 
         rootStore.pianoRollStore.selectedControllerEventIds =
-          getControllerEventIdsInRect(rect)
+          getControllerEventIdsInSelection(controlSelection)
         rootStore.pianoRollStore.controlSelection = null
       },
     })

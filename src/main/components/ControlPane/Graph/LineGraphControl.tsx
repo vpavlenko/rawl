@@ -8,6 +8,7 @@ import React, {
   useState,
 } from "react"
 import { IPoint, IRect, zeroRect } from "../../../../common/geometry"
+import { filterEventsWithRange } from "../../../../common/helpers/filterEventsWithScroll"
 import { ControlSelection } from "../../../../common/selection/ControlSelection"
 import { TrackEventOf } from "../../../../common/track"
 import {
@@ -157,12 +158,23 @@ const LineGraphControl = observer(
             ev.nativeEvent,
             local,
             transformFromPosition,
-            transformSelection,
-            (rect) => renderer.hitTestIntersect(rect)
+            (s) =>
+              filterEventsWithRange(events, s.fromTick, s.toTick).map(
+                (e) => e.id
+              )
           )
         }
       },
-      [rootStore, transform, lineWidth, scrollLeft, renderer, height, maxValue]
+      [
+        rootStore,
+        transform,
+        lineWidth,
+        scrollLeft,
+        renderer,
+        height,
+        maxValue,
+        events,
+      ]
     )
 
     const onMouseDown =

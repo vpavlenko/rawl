@@ -2,8 +2,8 @@ import { IPoint, pointAdd, pointSub } from "../../../../../common/geometry"
 import { ControlSelection } from "../../../../../common/selection/ControlSelection"
 import { ControlCoordTransform } from "../../../../../common/transform/ControlCoordTransform"
 import { getClientPos } from "../../../../helpers/mouseEvent"
+import { observeDrag } from "../../../../helpers/observeDrag"
 import RootStore from "../../../../stores/RootStore"
-import { observeDrag } from "../../../PianoRoll/MouseHandler/observeDrag"
 
 export const handleCreateSelectionDrag =
   (rootStore: RootStore) =>

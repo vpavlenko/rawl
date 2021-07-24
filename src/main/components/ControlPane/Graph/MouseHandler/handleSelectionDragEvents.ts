@@ -5,8 +5,8 @@ import { TrackEventOf } from "../../../../../common/track"
 import { ControlCoordTransform } from "../../../../../common/transform/ControlCoordTransform"
 import { pushHistory } from "../../../../actions/history"
 import { getClientPos } from "../../../../helpers/mouseEvent"
+import { observeDrag } from "../../../../helpers/observeDrag"
 import RootStore from "../../../../stores/RootStore"
-import { observeDrag } from "../../../PianoRoll/MouseHandler/observeDrag"
 
 export const handleSelectionDragEvents =
   (rootStore: RootStore) =>

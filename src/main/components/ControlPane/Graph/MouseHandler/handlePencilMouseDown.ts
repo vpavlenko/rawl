@@ -4,8 +4,8 @@ import { ControlCoordTransform } from "../../../../../common/transform/ControlCo
 import { createEvent as createTrackEvent } from "../../../../actions"
 import { pushHistory } from "../../../../actions/history"
 import { getClientPos } from "../../../../helpers/mouseEvent"
+import { observeDrag } from "../../../../helpers/observeDrag"
 import RootStore from "../../../../stores/RootStore"
-import { observeDrag } from "../../../PianoRoll/MouseHandler/observeDrag"
 
 export const handlePencilMouseDown =
   (rootStore: RootStore) =>

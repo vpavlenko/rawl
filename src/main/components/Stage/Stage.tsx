@@ -4,8 +4,8 @@ import {
   intersects as rectIntersects,
   IPoint,
 } from "../../../common/geometry"
+import { observeDrag } from "../../helpers/observeDrag"
 import DrawCanvas from "../DrawCanvas"
-import { observeDrag } from "../PianoRoll/MouseHandler/observeDrag"
 import Item from "./Item"
 
 export interface StageMouseEvent<E, ItemType> {

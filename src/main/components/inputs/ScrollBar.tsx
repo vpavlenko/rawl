@@ -3,7 +3,7 @@ import useComponentSize from "@rehooks/component-size"
 import React, { FC, useRef } from "react"
 import styled from "styled-components"
 import { IPoint, pointSub } from "../../../common/geometry"
-import { observeDrag } from "../PianoRoll/MouseHandler/observeDrag"
+import { observeDrag } from "../../helpers/observeDrag"
 
 export const BAR_WIDTH = 17
 const BUTTON_SIZE = 15

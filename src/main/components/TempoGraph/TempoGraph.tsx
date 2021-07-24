@@ -10,12 +10,12 @@ import {
   createTempo as _createTempo,
 } from "../../actions"
 import { Layout } from "../../Constants"
+import { observeDrag } from "../../helpers/observeDrag"
 import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
 import { GLCanvas } from "../GLCanvas/GLCanvas"
 import { BAR_WIDTH, HorizontalScrollBar } from "../inputs/ScrollBar"
 import CanvasPianoRuler from "../PianoRoll/CanvasPianoRuler"
-import { observeDrag } from "../PianoRoll/MouseHandler/observeDrag"
 import { TempoGraphAxis } from "./TempoGraphAxis"
 import { TempoGraphRenderer } from "./TempoGraphRenderer"
 

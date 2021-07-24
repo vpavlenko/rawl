@@ -1,7 +1,7 @@
+import { observeDrag } from "../../../helpers/observeDrag"
 import PianoRollStore from "../../../stores/PianoRollStore"
 import RootStore from "../../../stores/RootStore"
 import { PianoNotesMouseEvent } from "../PianoRollStage"
-import { observeDrag } from "./observeDrag"
 
 export interface MouseGesture {
   onMouseDown: (e: PianoNotesMouseEvent) => void

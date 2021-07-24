@@ -10,10 +10,10 @@ import {
   resizeNoteRight,
   selectNote,
 } from "../../../actions"
+import { observeDrag } from "../../../helpers/observeDrag"
 import RootStore from "../../../stores/RootStore"
 import { PianoNotesMouseEvent } from "../PianoRollStage"
 import NoteMouseHandler, { MouseGesture } from "./NoteMouseHandler"
-import { observeDrag } from "./observeDrag"
 
 type MousePositionType = "left" | "center" | "right"
 

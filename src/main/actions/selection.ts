@@ -53,7 +53,6 @@ export const fixSelection = (rootStore: RootStore) => () => {
     s.from.noteNumber - s.to.noteNumber === 0 ||
     s.from.tick - s.to.tick === 0
   ) {
-    s.enabled = false
   } else {
     s.noteIds = eventsInSelection(selectedTrack.events, selection).map(
       (e) => e.id
@@ -296,7 +295,6 @@ export const startSelection = (rootStore: RootStore) => (point: NotePoint) => {
     noteIds: [],
     from: point,
     to: point,
-    enabled: true,
   }
   pianoRollStore.selection = s
 }

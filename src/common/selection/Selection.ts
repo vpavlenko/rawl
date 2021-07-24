@@ -7,14 +7,12 @@ export interface Selection {
   noteIds: number[]
   from: NotePoint
   to: NotePoint
-  enabled: boolean
 }
 
 export const emptySelection: Selection = {
   noteIds: [],
   from: zeroNotePoint,
   to: zeroNotePoint,
-  enabled: false,
 }
 
 export const getSelectionBounds = (
@@ -83,5 +81,4 @@ export const regularizedSelection = (
     tick: Math.max(fromTick, toTick),
     noteNumber: Math.min(fromNoteNumber, toNoteNumber),
   },
-  enabled: true,
 })

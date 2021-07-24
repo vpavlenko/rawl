@@ -32,24 +32,31 @@ export class ControlCoordTransform {
     return pixels / this._pixelsPerTick
   }
 
+  getY(value: number) {
+    return (
+      (1 - value / this._maxValue) * (this._height - this._lineWidth * 2) +
+      this._lineWidth
+    )
+  }
+
+  getValue(y: number) {
+    return (
+      (1 - (y - this._lineWidth) / (this._height - this._lineWidth * 2)) *
+      this._maxValue
+    )
+  }
+
   toPosition(tick: number, value: number): IPoint {
     return {
       x: Math.round(this.getX(tick)),
-      y:
-        Math.round(
-          (1 - value / this._maxValue) * (this._height - this._lineWidth * 2)
-        ) + this._lineWidth,
+      y: Math.round(this.getY(value)),
     }
   }
 
   fromPosition(position: IPoint): ItemValue {
     return {
       tick: this.getTicks(position.x),
-      value:
-        (1 -
-          (position.y - this._lineWidth) /
-            (this._height - this._lineWidth * 2)) *
-        this._maxValue,
+      value: this.getValue(position.y),
     }
   }
 

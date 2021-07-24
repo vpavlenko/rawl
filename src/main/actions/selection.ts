@@ -307,6 +307,8 @@ export const startSelection = (rootStore: RootStore) => (point: NotePoint) => {
     player.position = quantizer.round(point.tick)
   }
 
+  pianoRollStore.selectedControllerEventIds = []
+
   // 選択範囲の右上を pos にして、ノートの選択状を解除する
   // Set the upper right corner of the selection to POS and deselect the notes
   pianoRollStore.selection = {
@@ -514,6 +516,8 @@ export const selectNote = (rootStore: RootStore) => (noteId: number) => {
   if (selectedTrack === undefined) {
     return
   }
+
+  pianoRollStore.selectedControllerEventIds = []
 
   pianoRollStore.selection = {
     noteIds: [noteId],

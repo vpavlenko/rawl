@@ -151,7 +151,7 @@ const createNoteAction = (rootStore: RootStore): MouseGesture => {
         return
       }
 
-      if (rootStore.pianoRollStore.selection.noteIds.length > 1) {
+      if ((rootStore.pianoRollStore.selection?.noteIds ?? []).length > 1) {
         resetSelection(rootStore)()
         return
       }

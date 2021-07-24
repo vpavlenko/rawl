@@ -2,7 +2,7 @@ import { partition } from "lodash"
 import { observer } from "mobx-react-lite"
 import { FC, MouseEventHandler, useCallback, useEffect, useState } from "react"
 import { useTheme } from "styled-components"
-import { containsPoint } from "../../../common/geometry"
+import { containsPoint, zeroRect } from "../../../common/geometry"
 import { getSelectionBounds } from "../../../common/selection/Selection"
 import { removeEvent } from "../../actions"
 import { useContextMenu } from "../../hooks/useContextMenu"
@@ -124,7 +124,8 @@ export const PianoNotes: FC<PianoRollStageProps> = observer(
       if (renderer === null) {
         return
       }
-      const selectionBounds = getSelectionBounds(selection, transform)
+      const selectionBounds =
+        selection !== null ? getSelectionBounds(selection, transform) : zeroRect
 
       const [highlightedBeats, nonHighlightedBeats] = partition(
         mappedBeats,

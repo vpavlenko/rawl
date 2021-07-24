@@ -24,6 +24,8 @@ export const handleCreateSelectionDrag =
     const start = transformFromPosition(startPoint)
     const startClientPos = getClientPos(e)
 
+    rootStore.pianoRollStore.selection = null
+
     rootStore.pianoRollStore.controlSelection = {
       fromTick: start.tick,
       toTick: start.tick,

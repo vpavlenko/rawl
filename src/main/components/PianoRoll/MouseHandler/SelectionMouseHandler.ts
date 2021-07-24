@@ -30,22 +30,26 @@ export default class SelectionMouseHandler extends MouseHandler {
     }
 
     const { selection } = this.rootStore.pianoRollStore
-    const type = positionType(selection, e.transform, e.local)
 
     if (e.nativeEvent.button === 0) {
-      switch (type) {
-        case "center":
-          return moveSelectionAction(
-            this.rootStore,
-            selection,
-            e.nativeEvent.ctrlKey
-          )
-        case "right":
-          return dragSelectionRightEdgeAction(this.rootStore)
-        case "left":
-          return dragSelectionLeftEdgeAction(this.rootStore)
-        case "outside":
-          return createSelectionAction(this.rootStore)
+      if (selection !== null) {
+        const type = positionType(selection, e.transform, e.local)
+        switch (type) {
+          case "center":
+            return moveSelectionAction(
+              this.rootStore,
+              selection,
+              e.nativeEvent.ctrlKey
+            )
+          case "right":
+            return dragSelectionRightEdgeAction(this.rootStore)
+          case "left":
+            return dragSelectionLeftEdgeAction(this.rootStore)
+          case "outside":
+            return createSelectionAction(this.rootStore)
+        }
+      } else {
+        return createSelectionAction(this.rootStore)
       }
     }
 
@@ -54,7 +58,10 @@ export default class SelectionMouseHandler extends MouseHandler {
 
   getCursorForMouseMove(e: PianoNotesMouseEvent) {
     const { selection } = this.rootStore.pianoRollStore
-    const type = positionType(selection, e.transform, e.local)
+    const type =
+      selection === null
+        ? "outside"
+        : positionType(selection, e.transform, e.local)
     switch (type) {
       case "center":
         return "move"

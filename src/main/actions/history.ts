@@ -9,7 +9,7 @@ type Json = any
 
 export interface SerializedState {
   song: Json
-  selection: Selection
+  selection: Selection | null
   selectedControllerEventIds: number[]
 }
 

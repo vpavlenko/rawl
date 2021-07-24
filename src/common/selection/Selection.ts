@@ -1,18 +1,12 @@
 import cloneDeep from "lodash/cloneDeep"
 import { IRect } from "../geometry"
 import { NoteCoordTransform } from "../transform"
-import { NotePoint, zeroNotePoint } from "../transform/NotePoint"
+import { NotePoint } from "../transform/NotePoint"
 
 export interface Selection {
   noteIds: number[]
   from: NotePoint
   to: NotePoint
-}
-
-export const emptySelection: Selection = {
-  noteIds: [],
-  from: zeroNotePoint,
-  to: zeroNotePoint,
 }
 
 export const getSelectionBounds = (

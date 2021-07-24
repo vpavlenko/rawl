@@ -5,12 +5,13 @@ import React, {
   MouseEventHandler,
   useCallback,
   useEffect,
+  useMemo,
   useState,
 } from "react"
-import { IPoint, IRect, zeroRect } from "../../../../common/geometry"
+import { IPoint, zeroRect } from "../../../../common/geometry"
 import { filterEventsWithRange } from "../../../../common/helpers/filterEventsWithScroll"
-import { ControlSelection } from "../../../../common/selection/ControlSelection"
 import { TrackEventOf } from "../../../../common/track"
+import { ControlCoordTransform } from "../../../../common/transform/ControlCoordTransform"
 import {
   createOrUpdateControlEventsValue,
   removeSelectedControlEvents,
@@ -68,36 +69,20 @@ const LineGraphControl = observer(
       mouseMode,
     } = rootStore.pianoRollStore
 
-    function transformToPosition(tick: number, value: number) {
-      return {
-        x: Math.round(transform.getX(tick)),
-        y:
-          Math.round((1 - value / maxValue) * (height - lineWidth * 2)) +
-          lineWidth,
-      }
-    }
-
-    function transformFromPosition(position: IPoint): ItemValue {
-      return {
-        tick: transform.getTicks(position.x),
-        value:
-          (1 - (position.y - lineWidth) / (height - lineWidth * 2)) * maxValue,
-      }
-    }
-
-    const transformSelection = (selection: ControlSelection): IRect => {
-      const x = transformToPosition(selection.fromTick, 0).x
-      return {
-        x,
-        y: 0,
-        width: transformToPosition(selection.toTick, 0).x - x,
-        height,
-      }
-    }
+    const controlTransform = useMemo(
+      () =>
+        new ControlCoordTransform(
+          transform.pixelsPerTick,
+          maxValue,
+          height,
+          lineWidth
+        ),
+      [transform.pixelsPerTick, maxValue, height, lineWidth]
+    )
 
     const items = events.map((e) => ({
       id: e.id,
-      ...transformToPosition(e.tick, e.value),
+      ...controlTransform.transformToPosition(e.tick, e.value),
     }))
 
     const [renderer, setRenderer] = useState<LineGraphRenderer | null>(null)
@@ -118,22 +103,12 @@ const LineGraphControl = observer(
         handlePencilMouseDown(rootStore)(
           ev.nativeEvent,
           local,
-          maxValue,
-          transformFromPosition,
+          controlTransform,
           (p) => renderer.hitTest(p),
           createEvent
         )
       },
-      [
-        rootStore,
-        transform,
-        lineWidth,
-        scrollLeft,
-        renderer,
-        height,
-        createEvent,
-        maxValue,
-      ]
+      [rootStore, scrollLeft, renderer, controlTransform, createEvent]
     )
 
     const selectionMouseDown: MouseEventHandler = useCallback(
@@ -150,14 +125,13 @@ const LineGraphControl = observer(
             ev.nativeEvent,
             hitEventId,
             local,
-            maxValue,
-            transformFromPosition
+            controlTransform
           )
         } else {
           handleCreateSelectionDrag(rootStore)(
             ev.nativeEvent,
             local,
-            transformFromPosition,
+            controlTransform,
             (s) =>
               filterEventsWithRange(events, s.fromTick, s.toTick).map(
                 (e) => e.id
@@ -165,16 +139,7 @@ const LineGraphControl = observer(
           )
         }
       },
-      [
-        rootStore,
-        transform,
-        lineWidth,
-        scrollLeft,
-        renderer,
-        height,
-        maxValue,
-        events,
-      ]
+      [rootStore, controlTransform, scrollLeft, renderer, events]
     )
 
     const onMouseDown =
@@ -198,7 +163,7 @@ const LineGraphControl = observer(
 
       const selectionRect =
         controlSelection !== null
-          ? transformSelection(controlSelection)
+          ? controlTransform.transformSelection(controlSelection)
           : zeroRect
 
       renderer.theme = theme
@@ -213,7 +178,7 @@ const LineGraphControl = observer(
         cursorX,
         scrollLeft
       )
-    }, [renderer, scrollLeft, mappedBeats, cursorX, items])
+    }, [renderer, scrollLeft, mappedBeats, cursorX, items, controlTransform])
 
     const onClickAxis = (value: number) => {
       const event = createEvent(value)

@@ -2,11 +2,11 @@ import { ControllerEvent, PitchBendEvent } from "midifile-ts"
 import { IPoint, pointAdd, pointSub } from "../../../../../common/geometry"
 import { isNotUndefined } from "../../../../../common/helpers/array"
 import { TrackEventOf } from "../../../../../common/track"
+import { ControlCoordTransform } from "../../../../../common/transform/ControlCoordTransform"
 import { pushHistory } from "../../../../actions/history"
 import { getClientPos } from "../../../../helpers/mouseEvent"
 import RootStore from "../../../../stores/RootStore"
 import { observeDrag } from "../../../PianoRoll/MouseHandler/observeDrag"
-import { ItemValue } from "../LineGraphControl"
 
 export const handleSelectionDragEvents =
   (rootStore: RootStore) =>
@@ -14,8 +14,7 @@ export const handleSelectionDragEvents =
     e: MouseEvent,
     hitEventId: number,
     startPoint: IPoint,
-    maxValue: number,
-    transformFromPosition: (position: IPoint) => ItemValue
+    transform: ControlCoordTransform
   ) => {
     const { selectedTrack } = rootStore.song
     if (selectedTrack === undefined) {
@@ -40,7 +39,7 @@ export const handleSelectionDragEvents =
       return
     }
 
-    const start = transformFromPosition(startPoint)
+    const start = transform.transformFromPosition(startPoint)
     const startClientPos = getClientPos(e)
 
     observeDrag({
@@ -48,7 +47,7 @@ export const handleSelectionDragEvents =
         const posPx = getClientPos(e)
         const deltaPx = pointSub(posPx, startClientPos)
         const local = pointAdd(startPoint, deltaPx)
-        const pos = transformFromPosition(local)
+        const pos = transform.transformFromPosition(local)
         const deltaTick = pos.tick - start.tick
         const offsetTick =
           draggedEvent.tick +
@@ -64,7 +63,7 @@ export const handleSelectionDragEvents =
             id: ev.id,
             tick: Math.max(0, Math.floor(ev.tick + quantizedDeltaTick)),
             value: Math.min(
-              maxValue,
+              transform.maxValue,
               Math.max(0, Math.floor(ev.value + deltaValue))
             ),
           }))

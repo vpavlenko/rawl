@@ -32,7 +32,7 @@ export class ControlCoordTransform {
     return pixels / this._pixelsPerTick
   }
 
-  transformToPosition(tick: number, value: number) {
+  toPosition(tick: number, value: number): IPoint {
     return {
       x: Math.round(this.getX(tick)),
       y:
@@ -42,7 +42,7 @@ export class ControlCoordTransform {
     }
   }
 
-  transformFromPosition(position: IPoint): ItemValue {
+  fromPosition(position: IPoint): ItemValue {
     return {
       tick: this.getTicks(position.x),
       value:

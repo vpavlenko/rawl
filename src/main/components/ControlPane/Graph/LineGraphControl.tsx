@@ -82,7 +82,7 @@ const LineGraphControl = observer(
 
     const items = events.map((e) => ({
       id: e.id,
-      ...controlTransform.transformToPosition(e.tick, e.value),
+      ...controlTransform.toPosition(e.tick, e.value),
     }))
 
     const [renderer, setRenderer] = useState<LineGraphRenderer | null>(null)

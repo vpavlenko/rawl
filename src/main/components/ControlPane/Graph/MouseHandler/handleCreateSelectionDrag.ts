@@ -15,7 +15,7 @@ export const handleCreateSelectionDrag =
   ) => {
     rootStore.pianoRollStore.selectedControllerEventIds = []
 
-    const start = controlTransform.transformFromPosition(startPoint)
+    const start = controlTransform.fromPosition(startPoint)
     const startClientPos = getClientPos(e)
 
     rootStore.pianoRollStore.selection = null
@@ -30,7 +30,7 @@ export const handleCreateSelectionDrag =
         const posPx = getClientPos(e)
         const deltaPx = pointSub(posPx, startClientPos)
         const local = pointAdd(startPoint, deltaPx)
-        const end = controlTransform.transformFromPosition(local)
+        const end = controlTransform.fromPosition(local)
         rootStore.pianoRollStore.controlSelection = {
           fromTick: Math.min(start.tick, end.tick),
           toTick: Math.max(start.tick, end.tick),

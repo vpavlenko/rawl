@@ -39,7 +39,7 @@ export const handleSelectionDragEvents =
       return
     }
 
-    const start = transform.transformFromPosition(startPoint)
+    const start = transform.fromPosition(startPoint)
     const startClientPos = getClientPos(e)
 
     observeDrag({
@@ -47,7 +47,7 @@ export const handleSelectionDragEvents =
         const posPx = getClientPos(e)
         const deltaPx = pointSub(posPx, startClientPos)
         const local = pointAdd(startPoint, deltaPx)
-        const pos = transform.transformFromPosition(local)
+        const pos = transform.fromPosition(local)
         const deltaTick = pos.tick - start.tick
         const offsetTick =
           draggedEvent.tick +

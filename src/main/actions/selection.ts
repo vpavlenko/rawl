@@ -488,7 +488,7 @@ export const addNoteToSelection =
     pianoRollStore.selection = s
   }
 
-export const removeNoteToSelection =
+export const removeNoteFromSelection =
   (rootStore: RootStore) => (noteId: number) => {
     const {
       song: { selectedTrack },

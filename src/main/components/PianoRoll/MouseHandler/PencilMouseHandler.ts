@@ -4,7 +4,7 @@ import {
   createNote,
   moveNote,
   previewNoteById,
-  removeNoteToSelection,
+  removeNoteFromSelection,
   resetSelection,
   resizeNoteLeft,
   resizeNoteRight,
@@ -64,7 +64,7 @@ export default class PencilMouseHandler extends NoteMouseHandler {
 
       if (e.nativeEvent.shiftKey) {
         if (item.isSelected) {
-          removeNoteToSelection(this.rootStore)(item.id)
+          removeNoteFromSelection(this.rootStore)(item.id)
         } else {
           addNoteToSelection(this.rootStore)(item.id)
         }

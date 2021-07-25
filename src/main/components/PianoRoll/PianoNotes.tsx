@@ -9,7 +9,7 @@ import { observeDoubleClick } from "../../helpers/observeDoubleClick"
 import { useContextMenu } from "../../hooks/useContextMenu"
 import { useStores } from "../../hooks/useStores"
 import { GLCanvas } from "../GLCanvas/GLCanvas"
-import { usePianoRollKeyboardShortcut } from "../KeyboardShortcut/usePianoRollKeyboardShortcut"
+import { usePianoNotesKeyboardShortcut } from "../KeyboardShortcut/usePianoNotesKeyboardShortcut"
 import PencilMouseHandler from "./MouseHandler/PencilMouseHandler"
 import SelectionMouseHandler from "./MouseHandler/SelectionMouseHandler"
 import { PianoRollRenderer } from "./PianoRollRenderer/PianoRollRenderer"
@@ -161,7 +161,7 @@ export const PianoNotes: FC<PianoRollStageProps> = observer(
       [rootStore]
     )
 
-    const onKeyDown = usePianoRollKeyboardShortcut()
+    const onKeyDown = usePianoNotesKeyboardShortcut()
 
     return (
       <>

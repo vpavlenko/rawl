@@ -13,7 +13,7 @@ import { useStores } from "../../hooks/useStores"
 
 const SCROLL_DELTA = 24
 
-export const usePianoRollKeyboardShortcut = (): React.KeyboardEventHandler => {
+export const usePianoNotesKeyboardShortcut = (): React.KeyboardEventHandler => {
   const rootStore = useStores()
 
   return useCallback(

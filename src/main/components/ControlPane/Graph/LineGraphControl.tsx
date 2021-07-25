@@ -185,6 +185,11 @@ const LineGraphControl = observer(
       createOrUpdateControlEventsValue(rootStore)(event)
     }
 
+    const onBlur: React.FocusEventHandler = useCallback(() => {
+      rootStore.pianoRollStore.controlSelection = null
+      rootStore.pianoRollStore.selectedControllerEventIds = []
+    }, [rootStore])
+
     return (
       <div
         style={{

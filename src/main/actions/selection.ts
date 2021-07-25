@@ -7,6 +7,10 @@ import {
 } from "../../common/selection/Selection"
 import { isNoteEvent, NoteEvent, TrackEvent } from "../../common/track"
 import { NotePoint, zeroNotePoint } from "../../common/transform/NotePoint"
+import {
+  isPianoNotesClipboardData,
+  PianoNotesClipboardData,
+} from "../clipboard/clipboardTypes"
 import clipboard from "../services/Clipboard"
 import RootStore from "../stores/RootStore"
 import { pushHistory } from "./history"
@@ -367,16 +371,18 @@ export const copySelection = (rootStore: RootStore) => () => {
   const notes = selection.noteIds
     .map((id) => selectedTrack.getEventById(id))
     .filter(isNotUndefined)
+    .filter(isNoteEvent)
     .map((note) => ({
       ...note,
       tick: note.tick - selection.from.tick, // 選択範囲からの相対位置にする
     }))
-  clipboard.writeText(
-    JSON.stringify({
-      type: "notes",
-      notes,
-    })
-  )
+
+  const data: PianoNotesClipboardData = {
+    type: "piano_notes",
+    notes,
+  }
+
+  clipboard.writeText(JSON.stringify(data))
 }
 
 export const deleteSelection = (rootStore: RootStore) => () => {
@@ -415,13 +421,13 @@ export const pasteSelection = (rootStore: RootStore) => () => {
     return
   }
   const obj = JSON.parse(text)
-  if (obj.type !== "notes") {
+  if (!isPianoNotesClipboardData(obj)) {
     return
   }
 
   pushHistory(rootStore)()
 
-  const notes = (obj.notes as NoteEvent[]).map((note) => ({
+  const notes = obj.notes.map((note) => ({
     ...note,
     tick: note.tick + player.position,
   }))

@@ -6,8 +6,12 @@ import {
   arrangeSelectionFromPoints,
   movedSelection,
 } from "../../common/selection/ArrangeSelection"
-import Track, { isNoteEvent, TrackEvent } from "../../common/track"
+import Track, { isNoteEvent } from "../../common/track"
 import { ArrangePoint } from "../../common/transform/ArrangePoint"
+import {
+  ArrangeNotesClipboardData,
+  isArrangeNotesClipboardData,
+} from "../clipboard/clipboardTypes"
 import clipboard from "../services/Clipboard"
 import RootStore from "../stores/RootStore"
 
@@ -167,15 +171,6 @@ export const arrangeMoveSelectionBy =
       s.selectedEventIds = ids
     }
   }
-
-interface ArrangeNotesClipboardData {
-  type: "arrange_notes"
-  notes: { [key: number]: TrackEvent[] }
-  selectedTrackId: number
-}
-
-const isArrangeNotesClipboardData = (x: any): x is ArrangeNotesClipboardData =>
-  x.type === "arrange_notes" && "notes" in x && "selectedTrackId" in x
 
 export const arrangeCopySelection = (rootStore: RootStore) => () => {
   const {

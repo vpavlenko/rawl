@@ -73,9 +73,9 @@ export const PianoSelectionContextMenu: FC<PianoSelectionContextMenuProps> =
         disableEnforceFocus={true}
         disableAutoFocus={true}
         disableAutoFocusItem={true}
-        transitionDuration={50}
         disableRestoreFocus={true}
         disablePortal
+        transitionDuration={0}
         MenuListProps={{
           disableListWrap: true,
           disablePadding: true,

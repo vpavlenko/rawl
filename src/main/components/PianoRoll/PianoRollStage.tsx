@@ -55,7 +55,7 @@ export const PianoRollStage: FC<PianoRollStageProps> = observer(
     return (
       <Container>
         <ContentPosition style={{ top: Layout.rulerHeight }}>
-          <PianoNotes width={width} height={height} />
+          <PianoNotes width={width} height={height - Layout.rulerHeight} />
         </ContentPosition>
         <PianoKeyPosition style={{ top: -scrollTop + Layout.rulerHeight }}>
           <PianoKeys

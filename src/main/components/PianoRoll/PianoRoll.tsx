@@ -28,7 +28,6 @@ const Parent = styled.div`
 const Alpha = styled.div`
   flex-grow: 1;
   position: relative;
-  overflow: hidden;
 
   .alphaContent {
     position: absolute;

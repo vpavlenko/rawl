@@ -36,7 +36,6 @@ export const handlePencilMouseDown =
     }
 
     rootStore.pianoRollStore.controlSelection = null
-    rootStore.pianoRollStore.selection = null
 
     pushHistory(rootStore)()
     observeDrag({

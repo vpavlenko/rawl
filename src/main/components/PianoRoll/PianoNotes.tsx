@@ -155,12 +155,19 @@ export const PianoNotes: FC<PianoRollStageProps> = observer(
       scrollTop,
     ])
 
+    const onBlur: React.FocusEventHandler = useCallback(
+      () => (rootStore.pianoRollStore.selection = null),
+      [rootStore]
+    )
+
     return (
       <>
         <GLCanvas
           width={width}
           height={height}
           style={{ cursor: notesCursor }}
+          onBlur={onBlur}
+          tabIndex={-1}
           onContextMenu={useCallback((e) => e.preventDefault(), [])}
           onCreateContext={useCallback(
             (gl) => setRenderer(new PianoRollRenderer(gl)),

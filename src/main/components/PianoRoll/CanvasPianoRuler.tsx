@@ -166,7 +166,8 @@ function equals(props: PianoRulerProps, nextProps: PianoRulerProps) {
     props.width === nextProps.width &&
     props.pixelsPerTick === nextProps.pixelsPerTick &&
     props.scrollLeft === nextProps.scrollLeft &&
-    isEqual(props.beats, nextProps.beats)
+    isEqual(props.beats, nextProps.beats) &&
+    isEqual(props.style, nextProps.style)
   )
 }
 

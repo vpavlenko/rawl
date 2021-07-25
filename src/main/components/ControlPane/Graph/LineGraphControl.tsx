@@ -198,7 +198,8 @@ const LineGraphControl = observer(
         />
         <GLCanvas
           style={{ outline: "none", cursor: controlCursor }}
-          tabIndex={0}
+          tabIndex={-1}
+          onBlur={onBlur}
           onMouseDown={onMouseDown}
           onKeyDown={onKeyDown}
           onCreateContext={useCallback(

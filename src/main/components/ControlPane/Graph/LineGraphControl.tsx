@@ -15,10 +15,12 @@ import {
   createOrUpdateControlEventsValue,
   resetControlSelection,
 } from "../../../actions/control"
+import { useContextMenu } from "../../../hooks/useContextMenu"
 import { useStores } from "../../../hooks/useStores"
 import { useTheme } from "../../../hooks/useTheme"
 import { GLCanvas } from "../../GLCanvas/GLCanvas"
 import { useControlPaneKeyboardShortcut } from "../../KeyboardShortcut/useControlPaneKeyboardShortcut"
+import { ControlSelectionContextMenu } from "../ControlSelectionContextMenu"
 import { GraphAxis } from "./GraphAxis"
 import { LineGraphRenderer } from "./LineGraphRenderer"
 import { handleCreateSelectionDrag } from "./MouseHandler/handleCreateSelectionDrag"
@@ -180,6 +182,8 @@ const LineGraphControl = observer(
       resetControlSelection(rootStore)()
     }, [rootStore])
 
+    const { onContextMenu, menuProps } = useContextMenu()
+
     return (
       <div
         style={{
@@ -197,6 +201,7 @@ const LineGraphControl = observer(
           onBlur={onBlur}
           onMouseDown={onMouseDown}
           onKeyDown={onKeyDown}
+          onContextMenu={onContextMenu}
           onCreateContext={useCallback(
             (gl) => setRenderer(new LineGraphRenderer(gl)),
             []
@@ -204,6 +209,7 @@ const LineGraphControl = observer(
           width={width}
           height={height}
         />
+        <ControlSelectionContextMenu {...menuProps} />
       </div>
     )
   }

@@ -1,8 +1,8 @@
 import { useCallback } from "react"
 import {
   copyControlSelection,
+  deleteControlSelection,
   duplicateControlSelection,
-  removeSelectedControlEvents,
   resetControlSelection,
 } from "../../actions/control"
 import { useStores } from "../../hooks/useStores"
@@ -20,7 +20,7 @@ export const useControlPaneKeyboardShortcut =
           }
           case "Backspace":
           case "Delete":
-            removeSelectedControlEvents(rootStore)()
+            deleteControlSelection(rootStore)()
             break
           case "KeyC":
             if (e.ctrlKey || e.metaKey) {
@@ -30,7 +30,7 @@ export const useControlPaneKeyboardShortcut =
           case "KeyX":
             if (e.ctrlKey || e.metaKey) {
               copyControlSelection(rootStore)()
-              removeSelectedControlEvents(rootStore)()
+              deleteControlSelection(rootStore)()
             }
             break
           case "KeyD": {

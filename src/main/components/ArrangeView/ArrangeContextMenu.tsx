@@ -1,6 +1,4 @@
-import { Menu } from "@material-ui/core"
 import { FC } from "react"
-import { IPoint } from "../../../common/geometry"
 import { localized } from "../../../common/localize/localizedString"
 import {
   arrangeCopySelection,
@@ -10,34 +8,21 @@ import {
 } from "../../actions/arrangeView"
 import { useStores } from "../../hooks/useStores"
 import {
+  ContextMenu,
   ContextMenuHotKey as HotKey,
   ContextMenuItem as Item,
+  ContextMenuProps,
 } from "../ContextMenu/ContextMenu"
 
-export interface ArrangeContextMenuProps {
-  isOpen: boolean
-  position: IPoint
-  handleClose: () => void
-}
-
-export const ArrangeContextMenu: FC<ArrangeContextMenuProps> = ({
-  isOpen,
-  position,
-  handleClose,
-}) => {
+export const ArrangeContextMenu: FC<ContextMenuProps> = (props) => {
+  const { handleClose } = props
   const rootStore = useStores()
   const isNoteSelected = Object.values(
     rootStore.arrangeViewStore.selectedEventIds
   ).some((e) => e.length > 0)
 
   return (
-    <Menu
-      keepMounted
-      open={isOpen}
-      onClose={handleClose}
-      anchorReference="anchorPosition"
-      anchorPosition={{ top: position.y, left: position.x }}
-    >
+    <ContextMenu {...props}>
       <Item
         onClick={(e) => {
           e.stopPropagation()
@@ -102,6 +87,6 @@ export const ArrangeContextMenu: FC<ArrangeContextMenuProps> = ({
       >
         {localized("one-octave-down", "-1 Oct")}
       </Item>
-    </Menu>
+    </ContextMenu>
   )
 }

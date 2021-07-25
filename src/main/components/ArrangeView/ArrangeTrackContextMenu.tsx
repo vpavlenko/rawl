@@ -1,22 +1,15 @@
-import { Menu } from "@material-ui/core"
 import { FC } from "react"
-import { IPoint } from "../../../common/geometry"
 import { localized } from "../../../common/localize/localizedString"
 import { duplicateTrack, insertTrack, removeTrack } from "../../actions"
 import { useStores } from "../../hooks/useStores"
-import { ContextMenuItem as Item } from "../ContextMenu/ContextMenu"
+import {
+  ContextMenu,
+  ContextMenuItem as Item,
+  ContextMenuProps,
+} from "../ContextMenu/ContextMenu"
 
-export interface ArrangeTrackContextMenuProps {
-  isOpen: boolean
-  position: IPoint
-  handleClose: () => void
-}
-
-export const ArrangeTrackContextMenu: FC<ArrangeTrackContextMenuProps> = ({
-  isOpen,
-  position,
-  handleClose,
-}) => {
+export const ArrangeTrackContextMenu: FC<ContextMenuProps> = (props) => {
+  const { handleClose } = props
   const rootStore = useStores()
   const {
     song: { tracks },
@@ -24,13 +17,7 @@ export const ArrangeTrackContextMenu: FC<ArrangeTrackContextMenuProps> = ({
   } = rootStore
 
   return (
-    <Menu
-      keepMounted
-      open={isOpen}
-      onClose={handleClose}
-      anchorReference="anchorPosition"
-      anchorPosition={{ top: position.y, left: position.x }}
-    >
+    <ContextMenu {...props}>
       <Item
         onClick={(e) => {
           e.stopPropagation()
@@ -62,6 +49,6 @@ export const ArrangeTrackContextMenu: FC<ArrangeTrackContextMenuProps> = ({
           {localized("duplicate-track", "Duplicate track")}
         </Item>
       )}
-    </Menu>
+    </ContextMenu>
   )
 }

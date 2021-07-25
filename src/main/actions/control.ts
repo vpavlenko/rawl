@@ -9,6 +9,7 @@ export const removeSelectedControlEvents = (rootStore: RootStore) => () => {
   selectedControllerEventIds.forEach((id) =>
     rootStore.song.selectedTrack?.removeEvent(id)
   )
+  resetControlSelection(rootStore)()
 }
 
 export const createOrUpdateControlEventsValue =
@@ -41,3 +42,27 @@ export const createOrUpdateControlEventsValue =
       })
     }
   }
+
+export const deleteControlSelection = (rootStore: RootStore) => () => {
+  const {
+    song: { selectedTrack },
+    pianoRollStore,
+    pianoRollStore: { selectedControllerEventIds },
+  } = rootStore
+
+  if (selectedTrack === undefined || selectedControllerEventIds.length === 0) {
+    return
+  }
+
+  pushHistory(rootStore)()
+
+  // 選択範囲と選択されたノートを削除
+  // Remove selected notes and selected notes
+  selectedTrack.removeEvents(selectedControllerEventIds)
+  pianoRollStore.controlSelection = null
+}
+
+export const resetControlSelection = (rootStore: RootStore) => () => {
+  rootStore.pianoRollStore.controlSelection = null
+  rootStore.pianoRollStore.selectedControllerEventIds = []
+}

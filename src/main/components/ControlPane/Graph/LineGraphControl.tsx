@@ -1,7 +1,6 @@
 import { ControllerEvent, PitchBendEvent } from "midifile-ts"
 import { observer } from "mobx-react-lite"
 import React, {
-  KeyboardEventHandler,
   MouseEventHandler,
   useCallback,
   useEffect,
@@ -14,11 +13,12 @@ import { TrackEventOf } from "../../../../common/track"
 import { ControlCoordTransform } from "../../../../common/transform/ControlCoordTransform"
 import {
   createOrUpdateControlEventsValue,
-  removeSelectedControlEvents,
+  resetControlSelection,
 } from "../../../actions/control"
 import { useStores } from "../../../hooks/useStores"
 import { useTheme } from "../../../hooks/useTheme"
 import { GLCanvas } from "../../GLCanvas/GLCanvas"
+import { useControlPaneKeyboardShortcut } from "../../KeyboardShortcut/useControlPaneKeyboardShortcut"
 import { GraphAxis } from "./GraphAxis"
 import { LineGraphRenderer } from "./LineGraphRenderer"
 import { handleCreateSelectionDrag } from "./MouseHandler/handleCreateSelectionDrag"
@@ -145,16 +145,7 @@ const LineGraphControl = observer(
     const onMouseDown =
       mouseMode === "pencil" ? pencilMouseDown : selectionMouseDown
 
-    const onKeyDown: KeyboardEventHandler = useCallback(
-      (e) => {
-        switch (e.key) {
-          case "Backspace":
-          case "Delete":
-            removeSelectedControlEvents(rootStore)()
-        }
-      },
-      [rootStore]
-    )
+    const onKeyDown = useControlPaneKeyboardShortcut()
 
     useEffect(() => {
       if (renderer === null) {
@@ -186,8 +177,7 @@ const LineGraphControl = observer(
     }
 
     const onBlur: React.FocusEventHandler = useCallback(() => {
-      rootStore.pianoRollStore.controlSelection = null
-      rootStore.pianoRollStore.selectedControllerEventIds = []
+      resetControlSelection(rootStore)()
     }, [rootStore])
 
     return (

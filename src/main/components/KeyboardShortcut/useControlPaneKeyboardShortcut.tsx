@@ -1,5 +1,8 @@
 import { useCallback } from "react"
 import {
+  copyControlSelection,
+  duplicateControlSelection,
+  pasteControlSelection,
   removeSelectedControlEvents,
   resetControlSelection,
 } from "../../actions/control"
@@ -20,6 +23,28 @@ export const useControlPaneKeyboardShortcut =
           case "Delete":
             removeSelectedControlEvents(rootStore)()
             break
+          case "KeyC":
+            if (e.ctrlKey || e.metaKey) {
+              copyControlSelection(rootStore)()
+            }
+            break
+          case "KeyX":
+            if (e.ctrlKey || e.metaKey) {
+              copyControlSelection(rootStore)()
+              removeSelectedControlEvents(rootStore)()
+            }
+            break
+          case "KeyV":
+            if (e.ctrlKey || e.metaKey) {
+              pasteControlSelection(rootStore)()
+            }
+            break
+          case "KeyD": {
+            if (e.ctrlKey || e.metaKey) {
+              duplicateControlSelection(rootStore)()
+            }
+            break
+          }
           case "Digit1": {
             rootStore.pianoRollStore.mouseMode = "pencil"
             break

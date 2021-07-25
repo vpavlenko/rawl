@@ -19,3 +19,13 @@ export const isArrangeNotesClipboardData = (
   x: any
 ): x is ArrangeNotesClipboardData =>
   x.type === "arrange_notes" && "notes" in x && "selectedTrackId" in x
+
+export interface ControlEventsClipboardData {
+  type: "control_events"
+  events: TrackEvent[]
+}
+
+export const isControlEventsClipboardData = (
+  x: any
+): x is ControlEventsClipboardData =>
+  x.type === "control_events" && "events" in x

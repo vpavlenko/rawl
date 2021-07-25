@@ -1,4 +1,4 @@
-import { Divider, Menu } from "@material-ui/core"
+import { Divider } from "@material-ui/core"
 import React, { FC, useCallback } from "react"
 import { IPoint } from "../../../common/geometry"
 import { localized } from "../../../common/localize/localizedString"
@@ -11,8 +11,10 @@ import {
 } from "../../actions"
 import { useStores } from "../../hooks/useStores"
 import {
+  ContextMenu,
   ContextMenuHotKey as HotKey,
   ContextMenuItem as Item,
+  ContextMenuProps,
 } from "../ContextMenu/ContextMenu"
 
 export interface PianoSelectionContextMenuProps {
@@ -21,8 +23,9 @@ export interface PianoSelectionContextMenuProps {
   handleClose: () => void
 }
 
-export const PianoSelectionContextMenu: FC<PianoSelectionContextMenuProps> =
-  React.memo(({ isOpen, position, handleClose }) => {
+export const PianoSelectionContextMenu: FC<ContextMenuProps> = React.memo(
+  (props) => {
+    const { handleClose } = props
     const rootStore = useStores()
     const isNoteSelected =
       (rootStore.pianoRollStore.selection?.noteIds ?? []).length > 0
@@ -64,24 +67,7 @@ export const PianoSelectionContextMenu: FC<PianoSelectionContextMenuProps> =
     }, [])
 
     return (
-      <Menu
-        open={isOpen}
-        onClose={handleClose}
-        anchorReference="anchorPosition"
-        anchorPosition={{ top: position.y, left: position.x }}
-        autoFocus={false}
-        disableEnforceFocus={true}
-        disableAutoFocus={true}
-        disableAutoFocusItem={true}
-        disableRestoreFocus={true}
-        disablePortal
-        transitionDuration={0}
-        MenuListProps={{
-          disableListWrap: true,
-          disablePadding: true,
-          style: { padding: "inherit", width: "inherit" },
-        }}
-      >
+      <ContextMenu {...props}>
         <Item onClick={onClickCut} disabled={!isNoteSelected}>
           {localized("cut", "Cut")}
           <HotKey>Ctrl+X</HotKey>
@@ -111,6 +97,7 @@ export const PianoSelectionContextMenu: FC<PianoSelectionContextMenuProps> =
           {localized("one-octave-down", "-1 Oct")}
           <HotKey>Shift+↓</HotKey>
         </Item>
-      </Menu>
+      </ContextMenu>
     )
-  })
+  }
+)

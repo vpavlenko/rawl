@@ -3,7 +3,6 @@ import {
   copySelection,
   deleteSelection,
   duplicateSelection,
-  pasteSelection,
   resetSelection,
   selectNextNote,
   selectPreviousNote,
@@ -32,11 +31,6 @@ export const usePianoNotesKeyboardShortcut = (): React.KeyboardEventHandler => {
           if (e.ctrlKey || e.metaKey) {
             copySelection(rootStore)()
             deleteSelection(rootStore)()
-          }
-          break
-        case "KeyV":
-          if (e.ctrlKey || e.metaKey) {
-            pasteSelection(rootStore)()
           }
           break
         case "KeyD": {

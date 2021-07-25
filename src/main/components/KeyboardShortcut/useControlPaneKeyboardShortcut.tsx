@@ -2,7 +2,6 @@ import { useCallback } from "react"
 import {
   copyControlSelection,
   duplicateControlSelection,
-  pasteControlSelection,
   removeSelectedControlEvents,
   resetControlSelection,
 } from "../../actions/control"
@@ -32,11 +31,6 @@ export const useControlPaneKeyboardShortcut =
             if (e.ctrlKey || e.metaKey) {
               copyControlSelection(rootStore)()
               removeSelectedControlEvents(rootStore)()
-            }
-            break
-          case "KeyV":
-            if (e.ctrlKey || e.metaKey) {
-              pasteControlSelection(rootStore)()
             }
             break
           case "KeyD": {

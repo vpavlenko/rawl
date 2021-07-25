@@ -65,13 +65,22 @@ export const PianoSelectionContextMenu: FC<PianoSelectionContextMenuProps> =
 
     return (
       <Menu
-        keepMounted
         open={isOpen}
         onClose={handleClose}
         anchorReference="anchorPosition"
         anchorPosition={{ top: position.y, left: position.x }}
+        autoFocus={false}
+        disableEnforceFocus={true}
+        disableAutoFocus={true}
         disableAutoFocusItem={true}
         transitionDuration={50}
+        disableRestoreFocus={true}
+        disablePortal
+        MenuListProps={{
+          disableListWrap: true,
+          disablePadding: true,
+          style: { padding: "inherit", width: "inherit" },
+        }}
       >
         <Item onClick={onClickCut} disabled={!isNoteSelected}>
           {localized("cut", "Cut")}

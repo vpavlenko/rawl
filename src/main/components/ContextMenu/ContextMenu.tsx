@@ -1,5 +1,5 @@
 import { Menu, MenuItem } from "@material-ui/core"
-import { FC } from "react"
+import { FC, useEffect } from "react"
 import styled from "styled-components"
 import { IPoint } from "../../../common/geometry"
 
@@ -27,6 +27,20 @@ export const ContextMenu: FC<ContextMenuProps> = ({
   position,
   children,
 }) => {
+  // Menu cannot handle keydown while disabling focus, so we deal with global keydown event
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (isOpen && e.key === "Escape") {
+        handleClose()
+      }
+    }
+    document.addEventListener("keydown", onKeyDown)
+
+    return () => {
+      document.removeEventListener("keydown", onKeyDown)
+    }
+  }, [isOpen])
+
   return (
     <Menu
       open={isOpen}

@@ -9,6 +9,7 @@ import { observeDoubleClick } from "../../helpers/observeDoubleClick"
 import { useContextMenu } from "../../hooks/useContextMenu"
 import { useStores } from "../../hooks/useStores"
 import { GLCanvas } from "../GLCanvas/GLCanvas"
+import { usePianoRollKeyboardShortcut } from "../KeyboardShortcut/usePianoRollKeyboardShortcut"
 import PencilMouseHandler from "./MouseHandler/PencilMouseHandler"
 import SelectionMouseHandler from "./MouseHandler/SelectionMouseHandler"
 import { PianoRollRenderer } from "./PianoRollRenderer/PianoRollRenderer"
@@ -160,6 +161,8 @@ export const PianoNotes: FC<PianoRollStageProps> = observer(
       [rootStore]
     )
 
+    const onKeyDown = usePianoRollKeyboardShortcut()
+
     return (
       <>
         <GLCanvas
@@ -168,6 +171,7 @@ export const PianoNotes: FC<PianoRollStageProps> = observer(
           style={{ cursor: notesCursor }}
           onBlur={onBlur}
           tabIndex={-1}
+          onKeyDown={onKeyDown}
           onContextMenu={useCallback((e) => e.preventDefault(), [])}
           onCreateContext={useCallback(
             (gl) => setRenderer(new PianoRollRenderer(gl)),

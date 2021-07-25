@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react"
+import { useCallback } from "react"
 import {
   copySelection,
   deleteSelection,
@@ -11,30 +11,34 @@ import {
 } from "../../actions"
 import { useStores } from "../../hooks/useStores"
 
-const isFocusable = (e: EventTarget) =>
-  e instanceof HTMLAnchorElement ||
-  e instanceof HTMLAreaElement ||
-  e instanceof HTMLInputElement ||
-  e instanceof HTMLSelectElement ||
-  e instanceof HTMLTextAreaElement ||
-  e instanceof HTMLButtonElement ||
-  e instanceof HTMLIFrameElement
-
 const SCROLL_DELTA = 24
 
-export const PianoRollKeyboardShortcut: FC = () => {
+export const usePianoRollKeyboardShortcut = (): React.KeyboardEventHandler => {
   const rootStore = useStores()
 
-  useEffect(() => {
-    const listener = (e: KeyboardEvent) => {
-      if (e.target !== null && isFocusable(e.target)) {
-        return
-      }
+  return useCallback(
+    (e) => {
       switch (e.code) {
         case "Escape": {
           resetSelection(rootStore)()
           break
         }
+        case "KeyC":
+          if (e.ctrlKey || e.metaKey) {
+            copySelection(rootStore)()
+          }
+          break
+        case "KeyX":
+          if (e.ctrlKey || e.metaKey) {
+            copySelection(rootStore)()
+            deleteSelection(rootStore)()
+          }
+          break
+        case "KeyV":
+          if (e.ctrlKey || e.metaKey) {
+            pasteSelection(rootStore)()
+          }
+          break
         case "KeyD": {
           if (e.ctrlKey || e.metaKey) {
             duplicateSelection(rootStore)()
@@ -89,29 +93,7 @@ export const PianoRollKeyboardShortcut: FC = () => {
           return
       }
       e.preventDefault()
-    }
-
-    window.addEventListener("keydown", listener)
-
-    document.oncut = () => {
-      copySelection(rootStore)()
-      deleteSelection(rootStore)()
-    }
-    document.oncopy = () => {
-      copySelection(rootStore)()
-    }
-    document.onpaste = () => {
-      pasteSelection(rootStore)()
-    }
-    return () => {
-      window.removeEventListener("keydown", listener)
-
-      document.onkeydown = null
-      document.oncut = null
-      document.oncopy = null
-      document.onpaste = null
-    }
-  }, [rootStore])
-
-  return <></>
+    },
+    [rootStore]
+  )
 }

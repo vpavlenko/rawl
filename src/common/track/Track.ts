@@ -28,6 +28,7 @@ import {
   isTickBefore,
 } from "./selector"
 import { TrackEvent, TrackEventOf } from "./TrackEvent"
+import { validateMidiEvent } from "./validate"
 
 export default class Track {
   events: TrackEvent[] = []
@@ -75,6 +76,11 @@ export default class Track {
       return null
     }
     this.events[index] = newObj
+
+    if (process.env.NODE_ENV !== "production") {
+      validateMidiEvent(newObj)
+    }
+
     return newObj
   }
 

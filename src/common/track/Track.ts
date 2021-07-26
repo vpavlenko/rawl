@@ -75,7 +75,7 @@ export default class Track {
       return null
     }
     this.events[index] = newObj
-    return anObj
+    return newObj
   }
 
   updateEvent<T extends TrackEvent>(id: number, obj: Partial<T>): T | null {

@@ -28,11 +28,11 @@ export default class SelectionMouseHandler extends MouseHandler {
       return null
     }
 
-    const { selection } = this.rootStore.pianoRollStore
+    const { selection, transform } = this.rootStore.pianoRollStore
 
     if (e.nativeEvent.button === 0) {
       if (selection !== null) {
-        const type = positionType(selection, e.transform, e.local)
+        const type = positionType(selection, transform, e.local)
         switch (type) {
           case "center":
             return moveSelectionAction
@@ -52,11 +52,11 @@ export default class SelectionMouseHandler extends MouseHandler {
   }
 
   getCursorForMouseMove(e: PianoNotesMouseEvent) {
-    const { selection } = this.rootStore.pianoRollStore
+    const { selection, transform } = this.rootStore.pianoRollStore
     const type =
       selection === null
         ? "outside"
-        : positionType(selection, e.transform, e.local)
+        : positionType(selection, transform, e.local)
     switch (type) {
       case "center":
         return "move"
@@ -119,7 +119,7 @@ const createSelectionAction: MouseGesture = (rootStore) => ({
 const moveSelectionAction: MouseGesture = (rootStore) => ({
   onMouseDown: (e) => {
     const {
-      pianoRollStore: { selection },
+      pianoRollStore: { selection, transform },
     } = rootStore
     if (selection === null) {
       return
@@ -127,7 +127,7 @@ const moveSelectionAction: MouseGesture = (rootStore) => ({
 
     const isCopy = e.nativeEvent.ctrlKey
     const startPos = e.local
-    const selectionPos = getSelectionBounds(selection, e.transform)
+    const selectionPos = getSelectionBounds(selection, transform)
 
     if (isCopy) {
       cloneSelection(rootStore)()

@@ -103,7 +103,9 @@ const dragNoteAction: MouseGesture = (rootStore) => ({
     if (e.item === null) {
       return
     }
-    const { transform } = e
+    const {
+      pianoRollStore: { transform },
+    } = rootStore
     const { item } = e
     const position = getPositionType(e)
     const startTick = e.tick

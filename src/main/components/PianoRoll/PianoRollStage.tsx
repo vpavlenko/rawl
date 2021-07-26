@@ -2,7 +2,6 @@ import { observer } from "mobx-react-lite"
 import { FC } from "react"
 import styled from "styled-components"
 import { IPoint } from "../../../common/geometry"
-import { NoteCoordTransform } from "../../../common/transform"
 import { Layout } from "../../Constants"
 import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
@@ -21,7 +20,6 @@ export interface PianoNotesMouseEvent {
   tick: number
   noteNumber: number
   local: IPoint
-  transform: NoteCoordTransform
   item: PianoNoteItem | null
 }
 

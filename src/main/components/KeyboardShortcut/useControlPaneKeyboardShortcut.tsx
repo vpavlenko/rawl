@@ -39,14 +39,6 @@ export const useControlPaneKeyboardShortcut =
             }
             break
           }
-          case "Digit1": {
-            rootStore.pianoRollStore.mouseMode = "pencil"
-            break
-          }
-          case "Digit2": {
-            rootStore.pianoRollStore.mouseMode = "selection"
-            break
-          }
           default:
             // do not call preventDefault
             return

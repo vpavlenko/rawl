@@ -139,7 +139,6 @@ export const PianoNotes: FC<PianoRollStageProps> = observer(
           width={width}
           height={height}
           style={{ cursor: notesCursor }}
-          tabIndex={-1}
           onKeyDown={onKeyDown}
           onContextMenu={useCallback((e) => e.preventDefault(), [])}
           onCreateContext={useCallback(

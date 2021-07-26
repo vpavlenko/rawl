@@ -189,8 +189,7 @@ const LineGraphControl = observer(
           onClick={onClickAxis}
         />
         <GLCanvas
-          style={{ outline: "none", cursor: controlCursor }}
-          tabIndex={-1}
+          style={{ cursor: controlCursor }}
           onMouseDown={onMouseDown}
           onKeyDown={onKeyDown}
           onContextMenu={onContextMenu}

@@ -44,14 +44,6 @@ export const usePianoNotesKeyboardShortcut = (): React.KeyboardEventHandler => {
           deleteSelection(rootStore)()
           break
         }
-        case "Digit1": {
-          rootStore.pianoRollStore.mouseMode = "pencil"
-          break
-        }
-        case "Digit2": {
-          rootStore.pianoRollStore.mouseMode = "selection"
-          break
-        }
         case "ArrowUp": {
           if (e.ctrlKey || e.metaKey) {
             rootStore.pianoRollStore.scrollBy(0, SCROLL_DELTA)

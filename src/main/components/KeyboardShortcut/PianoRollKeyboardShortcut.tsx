@@ -21,6 +21,19 @@ export const PianoRollKeyboardShortcut: FC = () => {
   const rootStore = useStores()
 
   useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      switch (e.code) {
+        case "Digit1": {
+          rootStore.pianoRollStore.mouseMode = "pencil"
+          break
+        }
+        case "Digit2": {
+          rootStore.pianoRollStore.mouseMode = "selection"
+          break
+        }
+      }
+    }
+
     // Handle pasting here to allow pasting even when the element does not have focus, such as after clicking the ruler
     const onPaste = (e: ClipboardEvent) => {
       if (e.target !== null && isFocusable(e.target)) {
@@ -43,8 +56,10 @@ export const PianoRollKeyboardShortcut: FC = () => {
     }
 
     document.addEventListener("paste", onPaste)
+    document.addEventListener("keydown", onKeyDown)
     return () => {
-      document.onpaste = null
+      document.removeEventListener("paste", onPaste)
+      document.removeEventListener("keydown", onKeyDown)
     }
   }, [rootStore])
 

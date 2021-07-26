@@ -17,8 +17,6 @@ export interface PianoRollStageProps {
 
 export interface PianoNotesMouseEvent {
   nativeEvent: MouseEvent
-  tick: number
-  noteNumber: number
   local: IPoint
   item: PianoNoteItem | null
 }

@@ -54,8 +54,6 @@ export const PianoNotes: FC<PianoRollStageProps> = observer(
         return {
           nativeEvent: e,
           local,
-          tick: transform.getTicks(local.x),
-          noteNumber: Math.ceil(transform.getNoteNumber(local.y)),
           item: notes.find((n) => containsPoint(n, local)) ?? null,
         }
       },

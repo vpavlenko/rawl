@@ -108,7 +108,7 @@ const dragNoteAction: MouseGesture = (rootStore) => ({
     } = rootStore
     const { item } = e
     const position = getPositionType(e)
-    const startTick = e.tick
+    const startTick = transform.getTicks(e.local.x)
 
     observeDrag2(e.nativeEvent, {
       onMouseMove: (e, delta) => {
@@ -145,6 +145,8 @@ const dragNoteAction: MouseGesture = (rootStore) => ({
 
 const createNoteAction: MouseGesture = (rootStore) => ({
   onMouseDown: (e) => {
+    const { transform } = rootStore.pianoRollStore
+
     if (e.nativeEvent.shiftKey) {
       return
     }
@@ -154,7 +156,8 @@ const createNoteAction: MouseGesture = (rootStore) => ({
       return
     }
 
-    const noteId = createNote(rootStore)(e.tick, e.noteNumber)
+    const { tick, noteNumber } = transform.getNotePoint(e.local)
+    const noteId = createNote(rootStore)(tick, noteNumber)
 
     if (noteId === undefined) {
       return
@@ -166,7 +169,6 @@ const createNoteAction: MouseGesture = (rootStore) => ({
 
     observeDrag2(e.nativeEvent, {
       onMouseMove: (e, delta) => {
-        const { transform } = rootStore.pianoRollStore
         const local = pointAdd(startPos, delta)
         const p = transform.getNotePoint(local)
         moveNote(rootStore)({

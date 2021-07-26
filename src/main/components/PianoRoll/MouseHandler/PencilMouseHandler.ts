@@ -58,6 +58,10 @@ export default class PencilMouseHandler extends NoteMouseHandler {
     switch (e.nativeEvent.button) {
       case 0: {
         if (e.item !== null) {
+          if (e.nativeEvent.detail % 2 === 0) {
+            return removeNoteAction
+          }
+
           const { item } = e
           previewNoteById(this.rootStore)(item.id)
 

@@ -1,10 +1,9 @@
 import { removeEvent } from "../../../actions"
 import { observeDrag } from "../../../helpers/observeDrag"
-import PianoRollStore from "../../../stores/PianoRollStore"
 import RootStore from "../../../stores/RootStore"
 import { PianoNotesMouseEvent } from "../PianoRollStage"
 
-export interface MouseGesture {
+export type MouseGesture = (rootStore: RootStore) => {
   onMouseDown: (e: PianoNotesMouseEvent) => void
   onMouseMove?: (e: PianoNotesMouseEvent) => void
   onMouseUp?: (e: PianoNotesMouseEvent) => void
@@ -29,13 +28,13 @@ export default class NoteMouseHandler {
 
     // wheel drag to start scrolling
     if (e.nativeEvent.button === 1) {
-      return dragScrollAction(this.rootStore.pianoRollStore)
+      return dragScrollAction
     }
 
     // 右ダブルクリック
     // Right Double-click
     if (e.nativeEvent.button === 2 && e.nativeEvent.detail % 2 === 0) {
-      return changeToolAction(this.rootStore.pianoRollStore)
+      return changeToolAction
     }
 
     if (
@@ -43,7 +42,7 @@ export default class NoteMouseHandler {
       e.item !== null &&
       e.nativeEvent.detail % 2 === 0
     ) {
-      return removeNoteAction(this.rootStore)
+      return removeNoteAction
     }
 
     // サブクラスで残りを実装
@@ -59,12 +58,12 @@ export default class NoteMouseHandler {
 
   onMouseDown(e: PianoNotesMouseEvent) {
     this.action = this.actionForMouseDown(e)
-    this.action?.onMouseDown(e)
+    this.action?.(this.rootStore).onMouseDown(e)
   }
 
   onMouseMove(e: PianoNotesMouseEvent) {
     if (this.action) {
-      this.action?.onMouseMove?.(e)
+      this.action?.(this.rootStore).onMouseMove?.(e)
     } else {
       const cursor = this.getCursorForMouseMove(e)
       this.rootStore.pianoRollStore.notesCursor = cursor
@@ -72,12 +71,12 @@ export default class NoteMouseHandler {
   }
 
   onMouseUp(e: PianoNotesMouseEvent) {
-    this.action?.onMouseUp?.(e)
+    this.action?.(this.rootStore).onMouseUp?.(e)
     this.action = null
   }
 }
 
-const dragScrollAction = (pianoRollStore: PianoRollStore): MouseGesture => ({
+const dragScrollAction: MouseGesture = ({ pianoRollStore }) => ({
   onMouseDown: () => {
     observeDrag({
       onMouseMove: (e: MouseEvent) => {
@@ -87,14 +86,14 @@ const dragScrollAction = (pianoRollStore: PianoRollStore): MouseGesture => ({
   },
 })
 
-const changeToolAction = (pianoRollStore: PianoRollStore): MouseGesture => ({
+const changeToolAction: MouseGesture = ({ pianoRollStore }) => ({
   onMouseDown: () => {
     pianoRollStore.toggleTool()
     pianoRollStore.notesCursor = "crosshair"
   },
 })
 
-const removeNoteAction = (rootStore: RootStore): MouseGesture => ({
+const removeNoteAction: MouseGesture = (rootStore) => ({
   onMouseDown: (e) => {
     if (e.item !== null) {
       removeEvent(rootStore)(e.item.id)

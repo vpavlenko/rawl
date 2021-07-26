@@ -14,7 +14,6 @@ import {
   startSelection,
 } from "../../../actions"
 import { observeDrag2 } from "../../../helpers/observeDrag"
-import RootStore from "../../../stores/RootStore"
 import { PianoNotesMouseEvent } from "../PianoRollStage"
 import MouseHandler, { MouseGesture } from "./NoteMouseHandler"
 
@@ -36,20 +35,16 @@ export default class SelectionMouseHandler extends MouseHandler {
         const type = positionType(selection, e.transform, e.local)
         switch (type) {
           case "center":
-            return moveSelectionAction(
-              this.rootStore,
-              selection,
-              e.nativeEvent.ctrlKey
-            )
+            return moveSelectionAction
           case "right":
-            return dragSelectionRightEdgeAction(this.rootStore)
+            return dragSelectionRightEdgeAction
           case "left":
-            return dragSelectionLeftEdgeAction(this.rootStore)
+            return dragSelectionLeftEdgeAction
           case "outside":
-            return createSelectionAction(this.rootStore)
+            return createSelectionAction
         }
       } else {
-        return createSelectionAction(this.rootStore)
+        return createSelectionAction
       }
     }
 
@@ -101,7 +96,7 @@ function positionType(
 }
 
 // 選択範囲外でクリックした場合は選択範囲をリセット
-const createSelectionAction = (rootStore: RootStore): MouseGesture => ({
+const createSelectionAction: MouseGesture = (rootStore) => ({
   onMouseDown: (e) => {
     const start = { tick: e.tick, noteNumber: e.noteNumber }
     const startPos = e.local
@@ -121,12 +116,16 @@ const createSelectionAction = (rootStore: RootStore): MouseGesture => ({
   },
 })
 
-const moveSelectionAction = (
-  rootStore: RootStore,
-  selection: Selection,
-  isCopy: boolean
-): MouseGesture => ({
+const moveSelectionAction: MouseGesture = (rootStore) => ({
   onMouseDown: (e) => {
+    const {
+      pianoRollStore: { selection },
+    } = rootStore
+    if (selection === null) {
+      return
+    }
+
+    const isCopy = e.nativeEvent.ctrlKey
     const startPos = e.local
     const selectionPos = getSelectionBounds(selection, e.transform)
 
@@ -147,7 +146,7 @@ const moveSelectionAction = (
   },
 })
 
-const dragSelectionLeftEdgeAction = (rootStore: RootStore): MouseGesture => ({
+const dragSelectionLeftEdgeAction: MouseGesture = (rootStore) => ({
   onMouseDown: (e) => {
     const startPos = e.local
 
@@ -161,7 +160,7 @@ const dragSelectionLeftEdgeAction = (rootStore: RootStore): MouseGesture => ({
   },
 })
 
-const dragSelectionRightEdgeAction = (rootStore: RootStore): MouseGesture => ({
+const dragSelectionRightEdgeAction: MouseGesture = (rootStore) => ({
   onMouseDown: (e) => {
     const startPos = e.local
 

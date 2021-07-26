@@ -12,7 +12,6 @@ import {
   selectNote,
 } from "../../../actions"
 import { observeDrag2 } from "../../../helpers/observeDrag"
-import RootStore from "../../../stores/RootStore"
 import { PianoNotesMouseEvent } from "../PianoRollStage"
 import NoteMouseHandler, { MouseGesture } from "./NoteMouseHandler"
 
@@ -73,14 +72,14 @@ export default class PencilMouseHandler extends NoteMouseHandler {
           }
 
           if (!e.nativeEvent.shiftKey) {
-            return dragNoteAction(this.rootStore)
+            return dragNoteAction
           }
         }
 
-        return createNoteAction(this.rootStore)
+        return createNoteAction
       }
       case 2:
-        return removeNoteAction(this.rootStore)
+        return removeNoteAction
       default:
         return null
     }
@@ -96,7 +95,7 @@ export default class PencilMouseHandler extends NoteMouseHandler {
   }
 }
 
-const dragNoteAction = (rootStore: RootStore): MouseGesture => ({
+const dragNoteAction: MouseGesture = (rootStore) => ({
   onMouseDown: (e) => {
     if (!(e.nativeEvent instanceof MouseEvent)) {
       return
@@ -142,7 +141,7 @@ const dragNoteAction = (rootStore: RootStore): MouseGesture => ({
   },
 })
 
-const createNoteAction = (rootStore: RootStore): MouseGesture => ({
+const createNoteAction: MouseGesture = (rootStore) => ({
   onMouseDown: (e) => {
     if (e.nativeEvent.shiftKey) {
       return
@@ -179,7 +178,7 @@ const createNoteAction = (rootStore: RootStore): MouseGesture => ({
   },
 })
 
-const removeNoteAction = (rootStore: RootStore): MouseGesture => ({
+const removeNoteAction: MouseGesture = (rootStore) => ({
   onMouseDown: (e) => {
     if (e.item !== null) {
       removeEvent(rootStore)(e.item.id)

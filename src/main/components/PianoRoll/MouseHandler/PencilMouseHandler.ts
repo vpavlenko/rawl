@@ -4,6 +4,7 @@ import {
   createNote,
   moveNote,
   previewNoteById,
+  removeEvent,
   removeNoteFromSelection,
   resetSelection,
   resizeNoteLeft,
@@ -55,29 +56,34 @@ export default class PencilMouseHandler extends NoteMouseHandler {
       return original
     }
 
-    if (e.nativeEvent.button !== 0) {
-      return null
-    }
-    if (e.item !== null) {
-      const { item } = e
-      previewNoteById(this.rootStore)(item.id)
+    switch (e.nativeEvent.button) {
+      case 0: {
+        if (e.item !== null) {
+          const { item } = e
+          previewNoteById(this.rootStore)(item.id)
 
-      if (e.nativeEvent.shiftKey) {
-        if (item.isSelected) {
-          removeNoteFromSelection(this.rootStore)(item.id)
-        } else {
-          addNoteToSelection(this.rootStore)(item.id)
+          if (e.nativeEvent.shiftKey) {
+            if (item.isSelected) {
+              removeNoteFromSelection(this.rootStore)(item.id)
+            } else {
+              addNoteToSelection(this.rootStore)(item.id)
+            }
+          } else if (!item.isSelected) {
+            selectNote(this.rootStore)(item.id)
+          }
+
+          if (!e.nativeEvent.shiftKey) {
+            return dragNoteAction(this.rootStore)
+          }
         }
-      } else if (!item.isSelected) {
-        selectNote(this.rootStore)(item.id)
-      }
 
-      if (!e.nativeEvent.shiftKey) {
-        return dragNoteAction(this.rootStore)
+        return createNoteAction(this.rootStore)
       }
+      case 2:
+        return removeNoteAction(this.rootStore)
+      default:
+        return null
     }
-
-    return createNoteAction(this.rootStore)
   }
 
   protected getCursorForMouseMove(e: PianoNotesMouseEvent): string {
@@ -170,5 +176,19 @@ const createNoteAction = (rootStore: RootStore): MouseGesture => ({
         })
       },
     })
+  },
+})
+
+const removeNoteAction = (rootStore: RootStore): MouseGesture => ({
+  onMouseDown: (e) => {
+    if (e.item !== null) {
+      removeEvent(rootStore)(e.item.id)
+    }
+  },
+
+  onMouseMove: (e) => {
+    if (e.item !== null) {
+      removeEvent(rootStore)(e.item.id)
+    }
   },
 })

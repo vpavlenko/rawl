@@ -1,3 +1,4 @@
+import { removeEvent } from "../../../actions"
 import { observeDrag } from "../../../helpers/observeDrag"
 import PianoRollStore from "../../../stores/PianoRollStore"
 import RootStore from "../../../stores/RootStore"
@@ -35,6 +36,14 @@ export default class NoteMouseHandler {
     // Right Double-click
     if (e.nativeEvent.button === 2 && e.nativeEvent.detail % 2 === 0) {
       return changeToolAction(this.rootStore.pianoRollStore)
+    }
+
+    if (
+      e.nativeEvent.button === 0 &&
+      e.item !== null &&
+      e.nativeEvent.detail % 2 === 0
+    ) {
+      return removeNoteAction(this.rootStore)
     }
 
     // サブクラスで残りを実装
@@ -82,5 +91,13 @@ const changeToolAction = (pianoRollStore: PianoRollStore): MouseGesture => ({
   onMouseDown: () => {
     pianoRollStore.toggleTool()
     pianoRollStore.notesCursor = "crosshair"
+  },
+})
+
+const removeNoteAction = (rootStore: RootStore): MouseGesture => ({
+  onMouseDown: (e) => {
+    if (e.item !== null) {
+      removeEvent(rootStore)(e.item.id)
+    }
   },
 })

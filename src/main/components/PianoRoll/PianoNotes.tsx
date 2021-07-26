@@ -4,8 +4,6 @@ import { FC, MouseEventHandler, useCallback, useEffect, useState } from "react"
 import { useTheme } from "styled-components"
 import { containsPoint, zeroRect } from "../../../common/geometry"
 import { getSelectionBounds } from "../../../common/selection/Selection"
-import { removeEvent } from "../../actions"
-import { observeDoubleClick } from "../../helpers/observeDoubleClick"
 import { useContextMenu } from "../../hooks/useContextMenu"
 import { useStores } from "../../hooks/useStores"
 import { GLCanvas } from "../GLCanvas/GLCanvas"
@@ -68,46 +66,26 @@ export const PianoNotes: FC<PianoRollStageProps> = observer(
     const handleMouseDown: MouseEventHandler<HTMLCanvasElement> = useCallback(
       (e) => {
         const ev = extendEvent(e.nativeEvent)
-        if (e.buttons === 2) {
-          if (
-            ev.item !== null &&
-            rootStore.pianoRollStore.mouseMode == "pencil"
-          ) {
-            removeEvent(rootStore)(ev.item.id)
-          }
-          if (rootStore.pianoRollStore.mouseMode === "selection") {
-            e.stopPropagation()
-            onContextMenu(e)
-          }
+        if (
+          e.buttons === 2 &&
+          rootStore.pianoRollStore.mouseMode === "selection"
+        ) {
+          e.stopPropagation()
+          onContextMenu(e)
           return
         }
-        if (ev.item !== null) {
-          const { item } = ev
-          observeDoubleClick(() => {
-            removeEvent(rootStore)(item.id)
-          })
-        }
-
         mouseHandler.onMouseDown(ev)
       },
       [mouseHandler, extendEvent, onContextMenu]
     )
 
     const handleMouseMove: MouseEventHandler<HTMLCanvasElement> = useCallback(
-      (e) => {
-        const ev = extendEvent(e.nativeEvent)
-        if (mouseMode === "pencil" && e.buttons === 2 && ev.item !== null) {
-          removeEvent(rootStore)(ev.item.id)
-        }
-        mouseHandler.onMouseMove(extendEvent(e.nativeEvent))
-      },
+      (e) => mouseHandler.onMouseMove(extendEvent(e.nativeEvent)),
       [mouseHandler, extendEvent]
     )
 
     const handleMouseUp: MouseEventHandler<HTMLCanvasElement> = useCallback(
-      (e) => {
-        mouseHandler.onMouseUp(extendEvent(e.nativeEvent))
-      },
+      (e) => mouseHandler.onMouseUp(extendEvent(e.nativeEvent)),
       [mouseHandler, extendEvent]
     )
 

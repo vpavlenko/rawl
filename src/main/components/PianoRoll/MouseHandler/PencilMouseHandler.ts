@@ -1,4 +1,4 @@
-import { pointAdd, pointSub } from "../../../../common/geometry"
+import { pointAdd } from "../../../../common/geometry"
 import {
   addNoteToSelection,
   createNote,
@@ -10,7 +10,7 @@ import {
   resizeNoteRight,
   selectNote,
 } from "../../../actions"
-import { observeDrag } from "../../../helpers/observeDrag"
+import { observeDrag2 } from "../../../helpers/observeDrag"
 import RootStore from "../../../stores/RootStore"
 import { PianoNotesMouseEvent } from "../PianoRollStage"
 import NoteMouseHandler, { MouseGesture } from "./NoteMouseHandler"
@@ -100,17 +100,11 @@ const dragNoteAction = (rootStore: RootStore): MouseGesture => ({
     }
     const { transform } = e
     const { item } = e
-    const startOffsetPos = {
-      x: e.nativeEvent.offsetX,
-      y: e.nativeEvent.offsetY,
-    }
     const position = getPositionType(e)
     const startTick = e.tick
 
-    observeDrag({
-      onMouseMove: (e) => {
-        const offsetPos = { x: e.offsetX, y: e.offsetY }
-        const delta = pointSub(offsetPos, startOffsetPos)
+    observeDrag2(e.nativeEvent, {
+      onMouseMove: (e, delta) => {
         const tick = startTick + transform.getTicks(delta.x)
 
         switch (position) {
@@ -142,36 +136,39 @@ const dragNoteAction = (rootStore: RootStore): MouseGesture => ({
   },
 })
 
-const createNoteAction = (rootStore: RootStore): MouseGesture => {
-  let noteId: number | undefined
+const createNoteAction = (rootStore: RootStore): MouseGesture => ({
+  onMouseDown: (e) => {
+    if (e.nativeEvent.shiftKey) {
+      return
+    }
 
-  return {
-    onMouseDown: (e) => {
-      if (e.nativeEvent.shiftKey) {
-        return
-      }
+    if ((rootStore.pianoRollStore.selection?.noteIds ?? []).length > 1) {
+      resetSelection(rootStore)()
+      return
+    }
 
-      if ((rootStore.pianoRollStore.selection?.noteIds ?? []).length > 1) {
-        resetSelection(rootStore)()
-        return
-      }
+    const noteId = createNote(rootStore)(e.tick, e.noteNumber)
 
-      noteId = createNote(rootStore)(e.tick, e.noteNumber)
-      if (noteId !== undefined) {
-        selectNote(rootStore)(noteId)
-      }
-    },
+    if (noteId === undefined) {
+      return
+    }
 
-    onMouseMove: (e) => {
-      if (noteId === undefined) {
-        return
-      }
-      moveNote(rootStore)({
-        id: noteId,
-        tick: e.tick,
-        noteNumber: e.noteNumber,
-        quantize: "floor",
-      })
-    },
-  }
-}
+    selectNote(rootStore)(noteId)
+
+    const startPos = e.local
+
+    observeDrag2(e.nativeEvent, {
+      onMouseMove: (e, delta) => {
+        const { transform } = rootStore.pianoRollStore
+        const local = pointAdd(startPos, delta)
+        const p = transform.getNotePoint(local)
+        moveNote(rootStore)({
+          id: noteId,
+          tick: p.tick,
+          noteNumber: Math.floor(p.noteNumber),
+          quantize: "floor",
+        })
+      },
+    })
+  },
+})

@@ -14,6 +14,8 @@ import {
   resizeSelectionRight,
   startSelection,
 } from "../../../actions"
+import { getClientPos } from "../../../helpers/mouseEvent"
+import { observeDrag } from "../../../helpers/observeDrag"
 import RootStore from "../../../stores/RootStore"
 import { PianoNotesMouseEvent } from "../PianoRollStage"
 import MouseHandler, { MouseGesture } from "./NoteMouseHandler"
@@ -103,19 +105,29 @@ function positionType(
 // 選択範囲外でクリックした場合は選択範囲をリセット
 const createSelectionAction = (rootStore: RootStore): MouseGesture => {
   let start: NotePoint
+  let startPos: IPoint
+  let startClientPos: IPoint
 
   return {
     onMouseDown: (e) => {
       start = { tick: e.tick, noteNumber: e.noteNumber }
+      startPos = e.local
+      startClientPos = getClientPos(e.nativeEvent)
       startSelection(rootStore)(e)
-    },
 
-    onMouseMove: (e) => {
-      resizeSelection(rootStore)(start, e)
-    },
+      observeDrag({
+        onMouseMove: (e) => {
+          const pos = getClientPos(e)
+          const delta = pointSub(pos, startClientPos)
+          const offsetPos = pointAdd(startPos, delta)
+          const end = rootStore.pianoRollStore.transform.getNotePoint(offsetPos)
+          resizeSelection(rootStore)(start, end)
+        },
 
-    onMouseUp: () => {
-      fixSelection(rootStore)()
+        onMouseUp: () => {
+          fixSelection(rootStore)()
+        },
+      })
     },
   }
 }

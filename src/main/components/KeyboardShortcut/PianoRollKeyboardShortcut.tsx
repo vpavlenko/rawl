@@ -7,6 +7,8 @@ import {
 } from "../../clipboard/clipboardTypes"
 import { useStores } from "../../hooks/useStores"
 import clipboard from "../../services/Clipboard"
+import { handleControlPaneKeyboardShortcut } from "./handleControlPaneKeyboardShortcut"
+import { handlePianoNotesKeyboardShortcut } from "./handlePianoNotesKeyboardShortcut"
 
 const isFocusable = (e: EventTarget) =>
   e instanceof HTMLAnchorElement ||
@@ -31,7 +33,17 @@ export const PianoRollKeyboardShortcut: FC = () => {
           rootStore.pianoRollStore.mouseMode = "selection"
           break
         }
+        default:
+          if (handlePianoNotesKeyboardShortcut(rootStore)(e)) {
+            break
+          }
+          if (handleControlPaneKeyboardShortcut(rootStore)(e)) {
+            break
+          }
+          // do not call preventDefault
+          return
       }
+      e.preventDefault()
     }
 
     // Handle pasting here to allow pasting even when the element does not have focus, such as after clicking the ruler

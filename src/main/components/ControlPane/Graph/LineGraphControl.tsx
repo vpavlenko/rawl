@@ -16,7 +16,6 @@ import { useContextMenu } from "../../../hooks/useContextMenu"
 import { useStores } from "../../../hooks/useStores"
 import { useTheme } from "../../../hooks/useTheme"
 import { GLCanvas } from "../../GLCanvas/GLCanvas"
-import { useControlPaneKeyboardShortcut } from "../../KeyboardShortcut/useControlPaneKeyboardShortcut"
 import { ControlSelectionContextMenu } from "../ControlSelectionContextMenu"
 import { GraphAxis } from "./GraphAxis"
 import { LineGraphRenderer } from "./LineGraphRenderer"
@@ -144,8 +143,6 @@ const LineGraphControl = observer(
     const onMouseDown =
       mouseMode === "pencil" ? pencilMouseDown : selectionMouseDown
 
-    const onKeyDown = useControlPaneKeyboardShortcut()
-
     useEffect(() => {
       if (renderer === null) {
         return
@@ -191,7 +188,6 @@ const LineGraphControl = observer(
         <GLCanvas
           style={{ cursor: controlCursor }}
           onMouseDown={onMouseDown}
-          onKeyDown={onKeyDown}
           onContextMenu={onContextMenu}
           onCreateContext={useCallback(
             (gl) => setRenderer(new LineGraphRenderer(gl)),

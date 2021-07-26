@@ -7,7 +7,6 @@ import { getSelectionBounds } from "../../../common/selection/Selection"
 import { useContextMenu } from "../../hooks/useContextMenu"
 import { useStores } from "../../hooks/useStores"
 import { GLCanvas } from "../GLCanvas/GLCanvas"
-import { usePianoNotesKeyboardShortcut } from "../KeyboardShortcut/usePianoNotesKeyboardShortcut"
 import PencilMouseHandler from "./MouseHandler/PencilMouseHandler"
 import SelectionMouseHandler from "./MouseHandler/SelectionMouseHandler"
 import { PianoRollRenderer } from "./PianoRollRenderer/PianoRollRenderer"
@@ -131,15 +130,12 @@ export const PianoNotes: FC<PianoRollStageProps> = observer(
       scrollTop,
     ])
 
-    const onKeyDown = usePianoNotesKeyboardShortcut()
-
     return (
       <>
         <GLCanvas
           width={width}
           height={height}
           style={{ cursor: notesCursor }}
-          onKeyDown={onKeyDown}
           onContextMenu={useCallback((e) => e.preventDefault(), [])}
           onCreateContext={useCallback(
             (gl) => setRenderer(new PianoRollRenderer(gl)),

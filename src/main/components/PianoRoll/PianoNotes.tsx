@@ -131,11 +131,6 @@ export const PianoNotes: FC<PianoRollStageProps> = observer(
       scrollTop,
     ])
 
-    const onBlur: React.FocusEventHandler = useCallback(
-      () => (rootStore.pianoRollStore.selection = null),
-      [rootStore]
-    )
-
     const onKeyDown = usePianoNotesKeyboardShortcut()
 
     return (
@@ -144,7 +139,6 @@ export const PianoNotes: FC<PianoRollStageProps> = observer(
           width={width}
           height={height}
           style={{ cursor: notesCursor }}
-          onBlur={onBlur}
           tabIndex={-1}
           onKeyDown={onKeyDown}
           onContextMenu={useCallback((e) => e.preventDefault(), [])}

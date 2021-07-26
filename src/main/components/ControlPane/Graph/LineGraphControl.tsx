@@ -11,10 +11,7 @@ import { IPoint, zeroRect } from "../../../../common/geometry"
 import { filterEventsWithRange } from "../../../../common/helpers/filterEventsWithScroll"
 import { TrackEventOf } from "../../../../common/track"
 import { ControlCoordTransform } from "../../../../common/transform/ControlCoordTransform"
-import {
-  createOrUpdateControlEventsValue,
-  resetControlSelection,
-} from "../../../actions/control"
+import { createOrUpdateControlEventsValue } from "../../../actions/control"
 import { useContextMenu } from "../../../hooks/useContextMenu"
 import { useStores } from "../../../hooks/useStores"
 import { useTheme } from "../../../hooks/useTheme"
@@ -178,10 +175,6 @@ const LineGraphControl = observer(
       createOrUpdateControlEventsValue(rootStore)(event)
     }
 
-    const onBlur: React.FocusEventHandler = useCallback(() => {
-      resetControlSelection(rootStore)()
-    }, [rootStore])
-
     const { onContextMenu, menuProps } = useContextMenu()
 
     return (
@@ -198,7 +191,6 @@ const LineGraphControl = observer(
         <GLCanvas
           style={{ outline: "none", cursor: controlCursor }}
           tabIndex={-1}
-          onBlur={onBlur}
           onMouseDown={onMouseDown}
           onKeyDown={onKeyDown}
           onContextMenu={onContextMenu}

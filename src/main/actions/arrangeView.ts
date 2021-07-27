@@ -14,6 +14,7 @@ import {
 } from "../clipboard/clipboardTypes"
 import clipboard from "../services/Clipboard"
 import RootStore from "../stores/RootStore"
+import { pushHistory } from "./history"
 
 const createSelection = (
   start: ArrangePoint,
@@ -124,6 +125,8 @@ export const arrangeMoveSelectionBy =
       return
     }
 
+    pushHistory(rootStore)()
+
     // 選択範囲を移動
     // Move selection range
     const selection = movedSelection(s.selection, delta)
@@ -219,6 +222,8 @@ export const arrangePasteSelection = (rootStore: RootStore) => () => {
     return
   }
 
+  pushHistory(rootStore)()
+
   for (const trackId in obj.notes) {
     const notes = obj.notes[trackId].map((note) => ({
       ...note,
@@ -237,6 +242,8 @@ export const arrangeDeleteSelection = (rootStore: RootStore) => () => {
     arrangeViewStore: s,
     song: { tracks },
   } = rootStore
+
+  pushHistory(rootStore)()
 
   // 選択範囲と選択されたノートを削除
   // Remove selected notes and selected notes
@@ -276,6 +283,8 @@ export const arrangeTransposeSelection =
     if (selectedTrack === undefined) {
       return
     }
+
+    pushHistory(rootStore)()
 
     for (const trackIdStr in selectedEventIds) {
       const trackId = parseInt(trackIdStr)

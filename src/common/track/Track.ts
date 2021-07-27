@@ -144,7 +144,11 @@ export default class Track {
   addEvents<T extends TrackEvent>(events: Omit<T, "id">[]): T[] {
     let result: T[] = []
     transaction(() => {
-      result = events.map((e) => this._addEvent(e))
+      const dontMoveChannelEvent = this.isConductorTrack
+
+      result = events
+        .filter((e) => (dontMoveChannelEvent ? e.type !== "channel" : true))
+        .map((e) => this._addEvent(e))
     })
     this.didAddEvent()
     return result

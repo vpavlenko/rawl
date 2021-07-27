@@ -1,12 +1,17 @@
 import cloneDeep from "lodash/cloneDeep"
 import { isNotNull, isNotUndefined } from "../../common/helpers/array"
 import {
+  clampSelection,
   movedSelection,
   regularizedSelection,
   Selection,
 } from "../../common/selection/Selection"
 import { isNoteEvent, NoteEvent, TrackEvent } from "../../common/track"
-import { NotePoint, zeroNotePoint } from "../../common/transform/NotePoint"
+import {
+  clampNotePoint,
+  NotePoint,
+  zeroNotePoint,
+} from "../../common/transform/NotePoint"
 import {
   isPianoNotesClipboardData,
   PianoNotesClipboardData,
@@ -33,11 +38,13 @@ export const resizeSelection =
       pianoRollStore: { quantizer },
     } = rootStore
 
-    pianoRollStore.selection = regularizedSelection(
-      quantizer.round(start.tick),
-      start.noteNumber,
-      quantizer.round(end.tick),
-      end.noteNumber
+    pianoRollStore.selection = clampSelection(
+      regularizedSelection(
+        quantizer.round(start.tick),
+        start.noteNumber,
+        quantizer.round(end.tick),
+        end.noteNumber
+      )
     )
   }
 
@@ -110,13 +117,29 @@ export const moveSelection = (rootStore: RootStore) => (point: NotePoint) => {
 
   // ノートと選択範囲を移動
   // Move notes and selection
-  const tick = quantizer.round(point.tick)
-  const noteNumber = Math.round(point.noteNumber)
+  const quantized = clampNotePoint({
+    tick: quantizer.round(point.tick),
+    noteNumber: Math.round(point.noteNumber),
+  })
 
-  const dt = tick - selection.from.tick
-  const dn = noteNumber - selection.from.noteNumber
+  const dt = quantized.tick - selection.from.tick
+  const dn = quantized.noteNumber - selection.from.noteNumber
 
-  moveSelectionBy(rootStore)({ tick: dt, noteNumber: dn })
+  const to = {
+    tick: selection.to.tick + dt,
+    noteNumber: selection.to.noteNumber + dn,
+  }
+
+  const clampedTo = clampNotePoint(to)
+  const limit = {
+    tick: to.tick - clampedTo.tick,
+    noteNumber: to.noteNumber - clampedTo.noteNumber,
+  }
+
+  moveSelectionBy(rootStore)({
+    tick: dt - limit.tick,
+    noteNumber: dn - limit.noteNumber,
+  })
 }
 
 export const moveSelectionBy = (rootStore: RootStore) => (delta: NotePoint) => {
@@ -146,10 +169,13 @@ export const moveSelectionBy = (rootStore: RootStore) => (delta: NotePoint) => {
         if (n == undefined || !isNoteEvent(n)) {
           return null
         }
-        return {
-          id,
+        const pos = clampNotePoint({
           tick: n.tick + delta.tick,
           noteNumber: n.noteNumber + delta.noteNumber,
+        })
+        return {
+          id,
+          ...pos,
         }
       })
       .filter(isNotNull)
@@ -179,7 +205,7 @@ export const resizeSelectionLeft = (rootStore: RootStore) => (tick: number) => {
 
   // 選択領域のサイズがゼロになるときは終了
   // End when the size of selection area becomes zero
-  if (selection.to.tick - fromTick <= 0) {
+  if (selection.to.tick - fromTick <= 0 || fromTick < 0) {
     return
   }
 
@@ -213,14 +239,15 @@ export const resizeNotesInSelectionLeftBy =
             return null
           }
           const duration = n.duration - deltaTick
-          if (duration <= 0) {
+          const tick = n.tick + deltaTick
+          if (duration <= 0 || tick < 0) {
             // 幅がゼロになる場合は変形しない
             // Do not deform if the width is zero
             return { id }
           }
           return {
             id,
-            tick: n.tick + deltaTick,
+            tick,
             duration,
           }
         })

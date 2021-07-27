@@ -74,3 +74,5 @@ export const Layout = {
   keyWidth: 64,
   rulerHeight: 30,
 }
+
+export const MaxNoteNumber = 127

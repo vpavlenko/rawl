@@ -29,7 +29,7 @@ export class ControlCoordTransform {
   }
 
   getTicks(pixels: number) {
-    return pixels / this._pixelsPerTick
+    return Math.floor(pixels / this._pixelsPerTick)
   }
 
   getY(value: number) {
@@ -40,9 +40,9 @@ export class ControlCoordTransform {
   }
 
   getValue(y: number) {
-    return (
+    return Math.floor(
       (1 - (y - this._lineWidth) / (this._height - this._lineWidth * 2)) *
-      this._maxValue
+        this._maxValue
     )
   }
 

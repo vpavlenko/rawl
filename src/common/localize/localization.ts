@@ -73,5 +73,6 @@ export default {
     "arrangement-view": "アレンジビュー",
     "open-help": "ヘルプを開く",
     "event-list": "イベントリスト",
+    "open-chat": "チャットを開く",
   },
 } as { [key: string]: { [key: string]: string } }

@@ -3,6 +3,7 @@ const common = require("./webpack.common.js")
 const BundleAnalyzerPlugin =
   require("webpack-bundle-analyzer").BundleAnalyzerPlugin
 const CopyPlugin = require("copy-webpack-plugin")
+const SentryWebpackPlugin = require("@sentry/webpack-plugin")
 
 module.exports = merge(common, {
   mode: "production",
@@ -29,6 +30,20 @@ module.exports = merge(common, {
     new BundleAnalyzerPlugin({
       analyzerMode: "static",
       openAnalyzer: false,
+    }),
+    new SentryWebpackPlugin({
+      authToken: process.env.SENTRY_AUTH_TOKEN,
+      org: "codingcafe_jp",
+      project: "signal",
+      release: process.env.VERCEL_GIT_COMMIT_SHA,
+      include: "./dist",
+      ignore: [
+        "node_modules",
+        "webpack.common.js",
+        "webpack.dev.js",
+        "webpack.prod.js",
+      ],
+      dryRun: process.env.VERCEL_ENV !== "production",
     }),
   ],
 })

@@ -32,6 +32,7 @@ module.exports = {
     new webpack.EnvironmentPlugin({
       VERCEL_ENV: null,
       VERCEL_GIT_COMMIT_SHA: null,
+      SENTRY_DSN: null,
     }),
     new HtmlWebpackPlugin({
       inject: true,

@@ -92,6 +92,10 @@ li {
 .ScrollBar .button-forward:hover {
   background: var(--tertiary-background-color);
 }
+
+.gitter-chat-embed {
+  z-index: 10000;
+}
 `
 
 export const GlobalCSS = () => {

@@ -1,28 +1,24 @@
-import {
-  IPoint,
-  IRect,
-  pointAdd,
-  pointSub,
-} from "../../../../../common/geometry"
+import { IPoint, pointAdd, pointSub } from "../../../../../common/geometry"
 import { ControlSelection } from "../../../../../common/selection/ControlSelection"
+import { ControlCoordTransform } from "../../../../../common/transform/ControlCoordTransform"
 import { getClientPos } from "../../../../helpers/mouseEvent"
+import { observeDrag } from "../../../../helpers/observeDrag"
 import RootStore from "../../../../stores/RootStore"
-import { observeDrag } from "../../../PianoRoll/MouseHandler/observeDrag"
-import { ItemValue } from "../LineGraphControl"
 
 export const handleCreateSelectionDrag =
   (rootStore: RootStore) =>
   (
     e: MouseEvent,
     startPoint: IPoint,
-    transformFromPosition: (position: IPoint) => ItemValue,
-    transformSelection: (selection: ControlSelection) => IRect,
-    getControllerEventIdsInRect: (rect: IRect) => number[]
+    controlTransform: ControlCoordTransform,
+    getControllerEventIdsInSelection: (selection: ControlSelection) => number[]
   ) => {
     rootStore.pianoRollStore.selectedControllerEventIds = []
 
-    const start = transformFromPosition(startPoint)
+    const start = controlTransform.fromPosition(startPoint)
     const startClientPos = getClientPos(e)
+
+    rootStore.pianoRollStore.selection = null
 
     rootStore.pianoRollStore.controlSelection = {
       fromTick: start.tick,
@@ -34,22 +30,20 @@ export const handleCreateSelectionDrag =
         const posPx = getClientPos(e)
         const deltaPx = pointSub(posPx, startClientPos)
         const local = pointAdd(startPoint, deltaPx)
-        const end = transformFromPosition(local)
+        const end = controlTransform.fromPosition(local)
         rootStore.pianoRollStore.controlSelection = {
           fromTick: Math.min(start.tick, end.tick),
           toTick: Math.max(start.tick, end.tick),
         }
       },
       onMouseUp: (e) => {
-        if (rootStore.pianoRollStore.controlSelection === null) {
+        const { controlSelection } = rootStore.pianoRollStore
+        if (controlSelection === null) {
           return
         }
-        const rect = transformSelection(
-          rootStore.pianoRollStore.controlSelection
-        )
 
         rootStore.pianoRollStore.selectedControllerEventIds =
-          getControllerEventIdsInRect(rect)
+          getControllerEventIdsInSelection(controlSelection)
         rootStore.pianoRollStore.controlSelection = null
       },
     })

@@ -1,19 +1,18 @@
 import { ControllerEvent, PitchBendEvent } from "midifile-ts"
 import { IPoint, pointAdd, pointSub } from "../../../../../common/geometry"
+import { ControlCoordTransform } from "../../../../../common/transform/ControlCoordTransform"
 import { createEvent as createTrackEvent } from "../../../../actions"
 import { pushHistory } from "../../../../actions/history"
 import { getClientPos } from "../../../../helpers/mouseEvent"
+import { observeDrag } from "../../../../helpers/observeDrag"
 import RootStore from "../../../../stores/RootStore"
-import { observeDrag } from "../../../PianoRoll/MouseHandler/observeDrag"
-import { ItemValue } from "../LineGraphControl"
 
 export const handlePencilMouseDown =
   (rootStore: RootStore) =>
   <T extends ControllerEvent | PitchBendEvent>(
     e: MouseEvent,
     startPoint: IPoint,
-    maxValue: number,
-    transformFromPosition: (position: IPoint) => ItemValue,
+    transform: ControlCoordTransform,
     getHitControllerEvent: (point: IPoint) => number | undefined,
     createEvent: (value: number) => T
   ) => {
@@ -27,7 +26,7 @@ export const handlePencilMouseDown =
 
     let eventId: number
     if (hitEventId === undefined) {
-      const pos = transformFromPosition(startPoint)
+      const pos = transform.fromPosition(startPoint)
       const event = createEvent(pos.value)
       eventId = createTrackEvent(rootStore)(event, pos.tick)
       rootStore.pianoRollStore.selectedControllerEventIds = [eventId]
@@ -37,6 +36,7 @@ export const handlePencilMouseDown =
     }
 
     rootStore.pianoRollStore.controlSelection = null
+    rootStore.pianoRollStore.selection = null
 
     pushHistory(rootStore)()
     observeDrag({
@@ -46,7 +46,7 @@ export const handlePencilMouseDown =
         const local = pointAdd(startPoint, deltaPx)
         const value = Math.max(
           0,
-          Math.min(maxValue, transformFromPosition(local).value)
+          Math.min(transform.maxValue, transform.fromPosition(local).value)
         )
         selectedTrack.updateEvent(eventId, { value })
       },

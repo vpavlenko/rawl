@@ -1,22 +1,22 @@
 import { ControllerEvent, PitchBendEvent } from "midifile-ts"
 import { observer } from "mobx-react-lite"
 import React, {
-  KeyboardEventHandler,
   MouseEventHandler,
   useCallback,
   useEffect,
+  useMemo,
   useState,
 } from "react"
-import { IPoint, IRect, zeroRect } from "../../../../common/geometry"
-import { ControlSelection } from "../../../../common/selection/ControlSelection"
+import { IPoint, zeroRect } from "../../../../common/geometry"
+import { filterEventsWithRange } from "../../../../common/helpers/filterEventsWithScroll"
 import { TrackEventOf } from "../../../../common/track"
-import {
-  createOrUpdateControlEventsValue,
-  removeSelectedControlEvents,
-} from "../../../actions/control"
+import { ControlCoordTransform } from "../../../../common/transform/ControlCoordTransform"
+import { createOrUpdateControlEventsValue } from "../../../actions/control"
+import { useContextMenu } from "../../../hooks/useContextMenu"
 import { useStores } from "../../../hooks/useStores"
 import { useTheme } from "../../../hooks/useTheme"
 import { GLCanvas } from "../../GLCanvas/GLCanvas"
+import { ControlSelectionContextMenu } from "../ControlSelectionContextMenu"
 import { GraphAxis } from "./GraphAxis"
 import { LineGraphRenderer } from "./LineGraphRenderer"
 import { handleCreateSelectionDrag } from "./MouseHandler/handleCreateSelectionDrag"
@@ -67,36 +67,20 @@ const LineGraphControl = observer(
       mouseMode,
     } = rootStore.pianoRollStore
 
-    function transformToPosition(tick: number, value: number) {
-      return {
-        x: Math.round(transform.getX(tick)),
-        y:
-          Math.round((1 - value / maxValue) * (height - lineWidth * 2)) +
-          lineWidth,
-      }
-    }
-
-    function transformFromPosition(position: IPoint): ItemValue {
-      return {
-        tick: transform.getTicks(position.x),
-        value:
-          (1 - (position.y - lineWidth) / (height - lineWidth * 2)) * maxValue,
-      }
-    }
-
-    const transformSelection = (selection: ControlSelection): IRect => {
-      const x = transformToPosition(selection.fromTick, 0).x
-      return {
-        x,
-        y: 0,
-        width: transformToPosition(selection.toTick, 0).x - x,
-        height,
-      }
-    }
+    const controlTransform = useMemo(
+      () =>
+        new ControlCoordTransform(
+          transform.pixelsPerTick,
+          maxValue,
+          height,
+          lineWidth
+        ),
+      [transform.pixelsPerTick, maxValue, height, lineWidth]
+    )
 
     const items = events.map((e) => ({
       id: e.id,
-      ...transformToPosition(e.tick, e.value),
+      ...controlTransform.toPosition(e.tick, e.value),
     }))
 
     const [renderer, setRenderer] = useState<LineGraphRenderer | null>(null)
@@ -117,22 +101,12 @@ const LineGraphControl = observer(
         handlePencilMouseDown(rootStore)(
           ev.nativeEvent,
           local,
-          maxValue,
-          transformFromPosition,
+          controlTransform,
           (p) => renderer.hitTest(p),
           createEvent
         )
       },
-      [
-        rootStore,
-        transform,
-        lineWidth,
-        scrollLeft,
-        renderer,
-        height,
-        createEvent,
-        maxValue,
-      ]
+      [rootStore, scrollLeft, renderer, controlTransform, createEvent]
     )
 
     const selectionMouseDown: MouseEventHandler = useCallback(
@@ -149,35 +123,25 @@ const LineGraphControl = observer(
             ev.nativeEvent,
             hitEventId,
             local,
-            maxValue,
-            transformFromPosition
+            controlTransform
           )
         } else {
           handleCreateSelectionDrag(rootStore)(
             ev.nativeEvent,
             local,
-            transformFromPosition,
-            transformSelection,
-            (rect) => renderer.hitTestIntersect(rect)
+            controlTransform,
+            (s) =>
+              filterEventsWithRange(events, s.fromTick, s.toTick).map(
+                (e) => e.id
+              )
           )
         }
       },
-      [rootStore, transform, lineWidth, scrollLeft, renderer, height, maxValue]
+      [rootStore, controlTransform, scrollLeft, renderer, events]
     )
 
     const onMouseDown =
       mouseMode === "pencil" ? pencilMouseDown : selectionMouseDown
-
-    const onKeyDown: KeyboardEventHandler = useCallback(
-      (e) => {
-        switch (e.key) {
-          case "Backspace":
-          case "Delete":
-            removeSelectedControlEvents(rootStore)()
-        }
-      },
-      [rootStore]
-    )
 
     useEffect(() => {
       if (renderer === null) {
@@ -186,7 +150,7 @@ const LineGraphControl = observer(
 
       const selectionRect =
         controlSelection !== null
-          ? transformSelection(controlSelection)
+          ? controlTransform.transformSelection(controlSelection)
           : zeroRect
 
       renderer.theme = theme
@@ -201,12 +165,14 @@ const LineGraphControl = observer(
         cursorX,
         scrollLeft
       )
-    }, [renderer, scrollLeft, mappedBeats, cursorX, items])
+    }, [renderer, scrollLeft, mappedBeats, cursorX, items, controlTransform])
 
     const onClickAxis = (value: number) => {
       const event = createEvent(value)
       createOrUpdateControlEventsValue(rootStore)(event)
     }
+
+    const { onContextMenu, menuProps } = useContextMenu()
 
     return (
       <div
@@ -220,10 +186,9 @@ const LineGraphControl = observer(
           onClick={onClickAxis}
         />
         <GLCanvas
-          style={{ outline: "none", cursor: controlCursor }}
-          tabIndex={0}
+          style={{ cursor: controlCursor }}
           onMouseDown={onMouseDown}
-          onKeyDown={onKeyDown}
+          onContextMenu={onContextMenu}
           onCreateContext={useCallback(
             (gl) => setRenderer(new LineGraphRenderer(gl)),
             []
@@ -231,6 +196,7 @@ const LineGraphControl = observer(
           width={width}
           height={height}
         />
+        <ControlSelectionContextMenu {...menuProps} />
       </div>
     )
   }

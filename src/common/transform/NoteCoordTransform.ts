@@ -1,4 +1,6 @@
+import { IPoint } from "../geometry"
 import { NoteEvent } from "../track"
+import { NotePoint } from "./NotePoint"
 
 export default class NoteCoordTransform {
   private _pixelsPerTick: number
@@ -40,7 +42,7 @@ export default class NoteCoordTransform {
   }
 
   getNoteNumber(pixels: number) {
-    return this._maxNoteNumber - pixels / this._pixelsPerKey
+    return Math.ceil(this._maxNoteNumber - pixels / this._pixelsPerKey)
   }
 
   getDeltaNoteNumber(deltaPixels: number) {
@@ -80,6 +82,13 @@ export default class NoteCoordTransform {
       y: this.getY(note.noteNumber),
       width: this._pixelsPerKey,
       height: this._pixelsPerKey,
+    }
+  }
+
+  getNotePoint(pos: IPoint): NotePoint {
+    return {
+      tick: this.getTicks(pos.x),
+      noteNumber: this.getNoteNumber(pos.y),
     }
   }
 

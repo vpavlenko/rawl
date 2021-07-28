@@ -2,7 +2,6 @@ import { observer } from "mobx-react-lite"
 import { FC } from "react"
 import styled from "styled-components"
 import { IPoint } from "../../../common/geometry"
-import { NoteCoordTransform } from "../../../common/transform"
 import { Layout } from "../../Constants"
 import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
@@ -18,10 +17,7 @@ export interface PianoRollStageProps {
 
 export interface PianoNotesMouseEvent {
   nativeEvent: MouseEvent
-  tick: number
-  noteNumber: number
   local: IPoint
-  transform: NoteCoordTransform
   item: PianoNoteItem | null
 }
 
@@ -55,7 +51,7 @@ export const PianoRollStage: FC<PianoRollStageProps> = observer(
     return (
       <Container>
         <ContentPosition style={{ top: Layout.rulerHeight }}>
-          <PianoNotes width={width} height={height} />
+          <PianoNotes width={width} height={height - Layout.rulerHeight} />
         </ContentPosition>
         <PianoKeyPosition style={{ top: -scrollTop + Layout.rulerHeight }}>
           <PianoKeys

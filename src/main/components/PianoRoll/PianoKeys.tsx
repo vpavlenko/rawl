@@ -3,10 +3,10 @@ import React, { FC, useCallback, useState } from "react"
 import { noteNameWithOctString } from "../../../common/helpers/noteNumberString"
 import { Theme } from "../../../common/theme/Theme"
 import { Layout } from "../../Constants"
+import { observeDrag } from "../../helpers/observeDrag"
 import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
 import DrawCanvas from "../DrawCanvas"
-import { observeDrag } from "./MouseHandler/observeDrag"
 
 function drawBorder(
   ctx: CanvasRenderingContext2D,

@@ -4,7 +4,6 @@ import {
   Selection,
 } from "../../../../common/selection/Selection"
 import { NoteCoordTransform } from "../../../../common/transform"
-import { NotePoint } from "../../../../common/transform/NotePoint"
 import {
   cloneSelection,
   fixSelection,
@@ -14,7 +13,7 @@ import {
   resizeSelectionRight,
   startSelection,
 } from "../../../actions"
-import RootStore from "../../../stores/RootStore"
+import { observeDrag2 } from "../../../helpers/observeDrag"
 import { PianoNotesMouseEvent } from "../PianoRollStage"
 import MouseHandler, { MouseGesture } from "./NoteMouseHandler"
 
@@ -29,23 +28,23 @@ export default class SelectionMouseHandler extends MouseHandler {
       return null
     }
 
-    const { selection } = this.rootStore.pianoRollStore
-    const type = positionType(selection, e.transform, e.local)
+    const { selection, transform } = this.rootStore.pianoRollStore
 
     if (e.nativeEvent.button === 0) {
-      switch (type) {
-        case "center":
-          return moveSelectionAction(
-            this.rootStore,
-            selection,
-            e.nativeEvent.ctrlKey
-          )
-        case "right":
-          return dragSelectionRightEdgeAction(this.rootStore)
-        case "left":
-          return dragSelectionLeftEdgeAction(this.rootStore)
-        case "outside":
-          return createSelectionAction(this.rootStore)
+      if (selection !== null) {
+        const type = positionType(selection, transform, e.local)
+        switch (type) {
+          case "center":
+            return moveSelectionAction
+          case "right":
+            return dragSelectionRightEdgeAction
+          case "left":
+            return dragSelectionLeftEdgeAction
+          case "outside":
+            return createSelectionAction
+        }
+      } else {
+        return createSelectionAction
       }
     }
 
@@ -53,8 +52,11 @@ export default class SelectionMouseHandler extends MouseHandler {
   }
 
   getCursorForMouseMove(e: PianoNotesMouseEvent) {
-    const { selection } = this.rootStore.pianoRollStore
-    const type = positionType(selection, e.transform, e.local)
+    const { selection, transform } = this.rootStore.pianoRollStore
+    const type =
+      selection === null
+        ? "outside"
+        : positionType(selection, transform, e.local)
     switch (type) {
       case "center":
         return "move"
@@ -94,63 +96,84 @@ function positionType(
 }
 
 // 選択範囲外でクリックした場合は選択範囲をリセット
-const createSelectionAction = (rootStore: RootStore): MouseGesture => {
-  let start: NotePoint
+const createSelectionAction: MouseGesture = (rootStore) => ({
+  onMouseDown: (e) => {
+    const {
+      pianoRollStore: { transform },
+    } = rootStore
 
-  return {
-    onMouseDown: (e) => {
-      start = { tick: e.tick, noteNumber: e.noteNumber }
-      startSelection(rootStore)(e)
-    },
+    const start = transform.getNotePoint(e.local)
+    const startPos = e.local
+    startSelection(rootStore)(start)
 
-    onMouseMove: (e) => {
-      resizeSelection(rootStore)(start, e)
-    },
+    observeDrag2(e.nativeEvent, {
+      onMouseMove: (_e, delta) => {
+        const offsetPos = pointAdd(startPos, delta)
+        const end = transform.getNotePoint(offsetPos)
+        resizeSelection(rootStore)(start, end)
+      },
 
-    onMouseUp: () => {
-      fixSelection(rootStore)()
-    },
-  }
-}
-
-const moveSelectionAction = (
-  rootStore: RootStore,
-  selection: Selection,
-  isCopy: boolean
-): MouseGesture => {
-  let startPos: IPoint
-  let selectionPos: IPoint
-
-  return {
-    onMouseDown: (e) => {
-      startPos = e.local
-      selectionPos = getSelectionBounds(selection, e.transform)
-      if (isCopy) {
-        cloneSelection(rootStore)()
-      }
-    },
-
-    onMouseMove: (e) => {
-      const position = pointAdd(selectionPos, pointSub(e.local, startPos))
-      const tick = e.transform.getTicks(position.x)
-      const noteNumber = Math.round(e.transform.getNoteNumber(position.y))
-      moveSelection(rootStore)({ tick, noteNumber })
-    },
-  }
-}
-
-const dragSelectionLeftEdgeAction = (rootStore: RootStore): MouseGesture => ({
-  onMouseDown: () => {},
-
-  onMouseMove: (e) => {
-    resizeSelectionLeft(rootStore)(e.tick)
+      onMouseUp: () => {
+        fixSelection(rootStore)()
+      },
+    })
   },
 })
 
-const dragSelectionRightEdgeAction = (rootStore: RootStore): MouseGesture => ({
-  onMouseDown: () => {},
+const moveSelectionAction: MouseGesture = (rootStore) => ({
+  onMouseDown: (e) => {
+    const {
+      pianoRollStore: { selection, transform },
+    } = rootStore
+    if (selection === null) {
+      return
+    }
 
-  onMouseMove: (e) => {
-    resizeSelectionRight(rootStore)(e.tick)
+    const isCopy = e.nativeEvent.ctrlKey
+    const startPos = e.local
+    const selectionPos = getSelectionBounds(selection, transform)
+
+    if (isCopy) {
+      cloneSelection(rootStore)()
+    }
+
+    observeDrag2(e.nativeEvent, {
+      onMouseMove: (_e, delta) => {
+        const { transform } = rootStore.pianoRollStore
+        const local = pointAdd(startPos, delta)
+        const position = pointAdd(selectionPos, pointSub(local, startPos))
+        const tick = transform.getTicks(position.x)
+        const noteNumber = Math.round(transform.getNoteNumber(position.y))
+        moveSelection(rootStore)({ tick, noteNumber })
+      },
+    })
+  },
+})
+
+const dragSelectionLeftEdgeAction: MouseGesture = (rootStore) => ({
+  onMouseDown: (e) => {
+    const startPos = e.local
+
+    observeDrag2(e.nativeEvent, {
+      onMouseMove: (_e, delta) => {
+        const local = pointAdd(startPos, delta)
+        const tick = rootStore.pianoRollStore.transform.getTicks(local.x)
+        resizeSelectionLeft(rootStore)(tick)
+      },
+    })
+  },
+})
+
+const dragSelectionRightEdgeAction: MouseGesture = (rootStore) => ({
+  onMouseDown: (e) => {
+    const startPos = e.local
+
+    observeDrag2(e.nativeEvent, {
+      onMouseMove: (_e, delta) => {
+        const local = pointAdd(startPos, delta)
+        const tick = rootStore.pianoRollStore.transform.getTicks(local.x)
+        resizeSelectionRight(rootStore)(tick)
+      },
+    })
   },
 })

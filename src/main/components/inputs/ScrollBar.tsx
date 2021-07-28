@@ -2,8 +2,8 @@ import { ArrowDropUp } from "@material-ui/icons"
 import useComponentSize from "@rehooks/component-size"
 import React, { FC, useRef } from "react"
 import styled from "styled-components"
-import { IPoint, pointSub } from "../../../common/geometry"
-import { observeDrag } from "../PianoRoll/MouseHandler/observeDrag"
+import { IPoint } from "../../../common/geometry"
+import { observeDrag, observeDrag2 } from "../../helpers/observeDrag"
 
 export const BAR_WIDTH = 17
 const BUTTON_SIZE = 15
@@ -221,12 +221,11 @@ const _ScrollBar: React.RefForwardingComponent<HTMLDivElement, ScrollBarProps> =
       if (elm.classList.contains("thumb")) {
         const startValue = scrollOffset
 
-        observeDrag({
-          onMouseMove: (e) => {
+        observeDrag2(e.nativeEvent, {
+          onMouseMove: (e, delta) => {
             const p = isVertical ? "y" : "x"
-            const delta = pointSub(getPoint(e), startPos)[p]
             const scale = maxOffset / (maxLength - thumbLength) // 移動量とスクロール量の補正値 -> Correction value of movement amount and scroll amount
-            const value = startValue + delta * scale
+            const value = startValue + delta[p] * scale
             onScroll2(value)
           },
         })

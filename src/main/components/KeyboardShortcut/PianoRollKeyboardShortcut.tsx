@@ -1,15 +1,14 @@
 import { FC, useEffect } from "react"
+import { pasteSelection } from "../../actions"
+import { pasteControlSelection } from "../../actions/control"
 import {
-  copySelection,
-  deleteSelection,
-  duplicateSelection,
-  pasteSelection,
-  resetSelection,
-  selectNextNote,
-  selectPreviousNote,
-  transposeSelection,
-} from "../../actions"
+  isControlEventsClipboardData,
+  isPianoNotesClipboardData,
+} from "../../clipboard/clipboardTypes"
 import { useStores } from "../../hooks/useStores"
+import clipboard from "../../services/Clipboard"
+import { handleControlPaneKeyboardShortcut } from "./handleControlPaneKeyboardShortcut"
+import { handlePianoNotesKeyboardShortcut } from "./handlePianoNotesKeyboardShortcut"
 
 const isFocusable = (e: EventTarget) =>
   e instanceof HTMLAnchorElement ||
@@ -20,32 +19,12 @@ const isFocusable = (e: EventTarget) =>
   e instanceof HTMLButtonElement ||
   e instanceof HTMLIFrameElement
 
-const SCROLL_DELTA = 24
-
 export const PianoRollKeyboardShortcut: FC = () => {
   const rootStore = useStores()
 
   useEffect(() => {
-    const listener = (e: KeyboardEvent) => {
-      if (e.target !== null && isFocusable(e.target)) {
-        return
-      }
+    const onKeyDown = (e: KeyboardEvent) => {
       switch (e.code) {
-        case "Escape": {
-          resetSelection(rootStore)()
-          break
-        }
-        case "KeyD": {
-          if (e.ctrlKey || e.metaKey) {
-            duplicateSelection(rootStore)()
-          }
-          break
-        }
-        case "Delete":
-        case "Backspace": {
-          deleteSelection(rootStore)()
-          break
-        }
         case "Digit1": {
           rootStore.pianoRollStore.mouseMode = "pencil"
           break
@@ -54,62 +33,45 @@ export const PianoRollKeyboardShortcut: FC = () => {
           rootStore.pianoRollStore.mouseMode = "selection"
           break
         }
-        case "ArrowUp": {
-          if (e.ctrlKey || e.metaKey) {
-            rootStore.pianoRollStore.scrollBy(0, SCROLL_DELTA)
-          } else {
-            transposeSelection(rootStore)(e.shiftKey ? 12 : 1)
-          }
-          break
-        }
-        case "ArrowDown": {
-          if (e.ctrlKey || e.metaKey) {
-            rootStore.pianoRollStore.scrollBy(0, -SCROLL_DELTA)
-          } else {
-            transposeSelection(rootStore)(e.shiftKey ? -12 : -1)
-          }
-          break
-        }
-        case "ArrowRight":
-          if (e.ctrlKey || e.metaKey) {
-            rootStore.pianoRollStore.scrollBy(-SCROLL_DELTA, 0)
-          } else if (rootStore.pianoRollStore.mouseMode == "pencil") {
-            selectNextNote(rootStore)()
-          }
-          break
-        case "ArrowLeft":
-          if (e.ctrlKey || e.metaKey) {
-            rootStore.pianoRollStore.scrollBy(SCROLL_DELTA, 0)
-          } else if (rootStore.pianoRollStore.mouseMode == "pencil") {
-            selectPreviousNote(rootStore)()
-          }
-          break
         default:
+          if (handlePianoNotesKeyboardShortcut(rootStore)(e)) {
+            break
+          }
+          if (handleControlPaneKeyboardShortcut(rootStore)(e)) {
+            break
+          }
           // do not call preventDefault
           return
       }
       e.preventDefault()
     }
 
-    window.addEventListener("keydown", listener)
+    // Handle pasting here to allow pasting even when the element does not have focus, such as after clicking the ruler
+    const onPaste = (e: ClipboardEvent) => {
+      if (e.target !== null && isFocusable(e.target)) {
+        return
+      }
 
-    document.oncut = () => {
-      copySelection(rootStore)()
-      deleteSelection(rootStore)()
+      const text = clipboard.readText()
+
+      if (!text || text.length === 0) {
+        return
+      }
+
+      const obj = JSON.parse(text)
+
+      if (isPianoNotesClipboardData(obj)) {
+        pasteSelection(rootStore)()
+      } else if (isControlEventsClipboardData(obj)) {
+        pasteControlSelection(rootStore)()
+      }
     }
-    document.oncopy = () => {
-      copySelection(rootStore)()
-    }
-    document.onpaste = () => {
-      pasteSelection(rootStore)()
-    }
+
+    document.addEventListener("paste", onPaste)
+    document.addEventListener("keydown", onKeyDown)
     return () => {
-      window.removeEventListener("keydown", listener)
-
-      document.onkeydown = null
-      document.oncut = null
-      document.oncopy = null
-      document.onpaste = null
+      document.removeEventListener("paste", onPaste)
+      document.removeEventListener("keydown", onKeyDown)
     }
   }, [rootStore])
 

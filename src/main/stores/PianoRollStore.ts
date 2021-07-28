@@ -9,7 +9,7 @@ import { BeatWithX, createBeatsInRange } from "../../common/helpers/mapBeats"
 import { getMBTString } from "../../common/measure/mbt"
 import Quantizer from "../../common/quantizer"
 import { ControlSelection } from "../../common/selection/ControlSelection"
-import { emptySelection } from "../../common/selection/Selection"
+import { Selection } from "../../common/selection/Selection"
 import {
   isExpressionEvent,
   isModulationEvent,
@@ -52,7 +52,7 @@ export default class PianoRollStore {
   scaleY = 1
   autoScroll = true
   quantize = 4
-  selection = emptySelection
+  selection: Selection | null = null
   lastNoteDuration: number | null = null
   openInstrumentBrowser = false
   instrumentBrowserSetting: InstrumentSetting = {
@@ -279,7 +279,7 @@ export default class PianoRollStore {
         const rect = isRhythmTrack
           ? transform.getDrumRect(e)
           : transform.getRect(e)
-        const isSelected = selection.noteIds.includes(e.id)
+        const isSelected = (selection?.noteIds ?? []).includes(e.id)
         return {
           ...rect,
           id: e.id,

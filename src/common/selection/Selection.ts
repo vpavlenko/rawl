@@ -1,20 +1,13 @@
 import cloneDeep from "lodash/cloneDeep"
+import { MaxNoteNumber } from "../../main/Constants"
 import { IRect } from "../geometry"
 import { NoteCoordTransform } from "../transform"
-import { NotePoint, zeroNotePoint } from "../transform/NotePoint"
+import { clampNotePoint, NotePoint } from "../transform/NotePoint"
 
 export interface Selection {
   noteIds: number[]
   from: NotePoint
   to: NotePoint
-  enabled: boolean
-}
-
-export const emptySelection: Selection = {
-  noteIds: [],
-  from: zeroNotePoint,
-  to: zeroNotePoint,
-  enabled: false,
 }
 
 export const getSelectionBounds = (
@@ -76,12 +69,23 @@ export const regularizedSelection = (
 ): Selection => ({
   noteIds: [],
   from: {
-    tick: Math.min(fromTick, toTick),
-    noteNumber: Math.max(fromNoteNumber, toNoteNumber),
+    tick: Math.max(0, Math.min(fromTick, toTick)),
+    noteNumber: Math.min(
+      MaxNoteNumber,
+      Math.max(0, Math.max(fromNoteNumber, toNoteNumber))
+    ),
   },
   to: {
     tick: Math.max(fromTick, toTick),
-    noteNumber: Math.min(fromNoteNumber, toNoteNumber),
+    noteNumber: Math.min(
+      MaxNoteNumber,
+      Math.max(0, Math.min(fromNoteNumber, toNoteNumber))
+    ),
   },
-  enabled: true,
+})
+
+export const clampSelection = (selection: Selection): Selection => ({
+  noteIds: selection.noteIds,
+  from: clampNotePoint(selection.from),
+  to: clampNotePoint(selection.to),
 })

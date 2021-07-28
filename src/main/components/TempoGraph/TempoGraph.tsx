@@ -10,12 +10,12 @@ import {
   createTempo as _createTempo,
 } from "../../actions"
 import { Layout } from "../../Constants"
+import { observeDrag2 } from "../../helpers/observeDrag"
 import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
 import { GLCanvas } from "../GLCanvas/GLCanvas"
 import { BAR_WIDTH, HorizontalScrollBar } from "../inputs/ScrollBar"
 import CanvasPianoRuler from "../PianoRoll/CanvasPianoRuler"
-import { observeDrag } from "../PianoRoll/MouseHandler/observeDrag"
 import { TempoGraphAxis } from "./TempoGraphAxis"
 import { TempoGraphRenderer } from "./TempoGraphRenderer"
 
@@ -83,11 +83,10 @@ export const TempoGraph: FC = observer(() => {
     }
     const event = items.filter((ev) => ev.id === item.id)[0]
     const bpm = uSecPerBeatToBPM(event.microsecondsPerBeat)
-    const startY = e.nativeEvent.clientY
-    observeDrag({
-      onMouseMove: (e) => {
-        const delta = transform.getDeltaBPM(e.clientY - startY)
-        changeTempo(event.id, bpmToUSecPerBeat(bpm + delta))
+    observeDrag2(e.nativeEvent, {
+      onMouseMove: (_e, delta) => {
+        const deltaBpm = transform.getDeltaBPM(delta.y)
+        changeTempo(event.id, bpmToUSecPerBeat(bpm + deltaBpm))
       },
     })
   }

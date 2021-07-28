@@ -1,29 +1,19 @@
-import { Menu, MenuItem } from "@material-ui/core"
+import { MenuItem } from "@material-ui/core"
 import { FC } from "react"
-import { IPoint } from "../../../common/geometry"
 import { localized } from "../../../common/localize/localizedString"
+import { ContextMenu, ContextMenuProps } from "../ContextMenu/ContextMenu"
 
-export interface TrackListContextMenuProps {
-  isOpen: boolean
-  position: IPoint
+export type TrackListContextMenuProps = ContextMenuProps & {
   onClickDelete: () => void
-  handleClose: () => void
 }
 
 export const TrackListContextMenu: FC<TrackListContextMenuProps> = ({
-  isOpen,
-  position,
   onClickDelete,
-  handleClose,
+  ...props
 }) => {
+  const { handleClose } = props
   return (
-    <Menu
-      keepMounted
-      open={isOpen}
-      onClose={handleClose}
-      anchorReference="anchorPosition"
-      anchorPosition={{ top: position.y, left: position.x }}
-    >
+    <ContextMenu {...props}>
       <MenuItem
         onClick={(e) => {
           e.stopPropagation()
@@ -33,6 +23,6 @@ export const TrackListContextMenu: FC<TrackListContextMenuProps> = ({
       >
         {localized("delete-track", "Delete track")}
       </MenuItem>
-    </Menu>
+    </ContextMenu>
   )
 }

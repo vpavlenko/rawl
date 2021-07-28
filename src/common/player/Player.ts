@@ -110,10 +110,13 @@ export default class Player {
   }
 
   set position(tick: number) {
+    if (!Number.isInteger(tick)) {
+      console.warn("Player.tick should be an integer", tick)
+    }
     if (this.disableSeek) {
       return
     }
-    tick = Math.min(Math.max(tick, 0), this.song.endOfSong)
+    tick = Math.min(Math.max(Math.floor(tick), 0), this.song.endOfSong)
     if (this._scheduler) {
       this._scheduler.seek(tick)
     }

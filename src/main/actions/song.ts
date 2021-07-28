@@ -65,7 +65,7 @@ export const openSong = (rootStore: RootStore) => (input: HTMLInputElement) => {
 }
 
 export const addTrack = (rootStore: RootStore) => () => {
-  pushHistory(rootStore)
+  pushHistory(rootStore)()
   rootStore.song.addTrack(emptyTrack(rootStore.song.tracks.length - 1))
 }
 
@@ -77,7 +77,7 @@ export const removeTrack = (rootStore: RootStore) => (trackId: number) => {
     // I can not delete it because there is an error when there is no track
     return
   }
-  pushHistory(rootStore)
+  pushHistory(rootStore)()
   rootStore.song.removeTrack(trackId)
 }
 
@@ -87,7 +87,7 @@ export const selectTrack = (rootStore: RootStore) => (trackId: number) => {
 }
 
 export const insertTrack = (rootStore: RootStore) => (trackId: number) => {
-  pushHistory(rootStore)
+  pushHistory(rootStore)()
   rootStore.song.insertTrack(
     emptyTrack(rootStore.song.tracks.length - 1),
     trackId
@@ -104,6 +104,6 @@ export const duplicateTrack = (rootStore: RootStore) => (trackId: number) => {
   }
   const newTrack = track.clone()
   newTrack.channel = undefined
-  pushHistory(rootStore)
+  pushHistory(rootStore)()
   rootStore.song.insertTrack(newTrack, trackId + 1)
 }

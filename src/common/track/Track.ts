@@ -28,6 +28,7 @@ import {
   isTickBefore,
 } from "./selector"
 import { TrackEvent, TrackEventOf } from "./TrackEvent"
+import { validateMidiEvent } from "./validate"
 
 export default class Track {
   events: TrackEvent[] = []
@@ -75,7 +76,12 @@ export default class Track {
       return null
     }
     this.events[index] = newObj
-    return anObj
+
+    if (process.env.NODE_ENV !== "production") {
+      validateMidiEvent(newObj)
+    }
+
+    return newObj
   }
 
   updateEvent<T extends TrackEvent>(id: number, obj: Partial<T>): T | null {
@@ -138,7 +144,11 @@ export default class Track {
   addEvents<T extends TrackEvent>(events: Omit<T, "id">[]): T[] {
     let result: T[] = []
     transaction(() => {
-      result = events.map((e) => this._addEvent(e))
+      const dontMoveChannelEvent = this.isConductorTrack
+
+      result = events
+        .filter((e) => (dontMoveChannelEvent ? e.type !== "channel" : true))
+        .map((e) => this._addEvent(e))
     })
     this.didAddEvent()
     return result

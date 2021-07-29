@@ -2,14 +2,7 @@ import useComponentSize from "@rehooks/component-size"
 import Color from "color"
 import { partition } from "lodash"
 import { observer } from "mobx-react-lite"
-import {
-  FC,
-  MouseEventHandler,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react"
+import { FC, useCallback, useEffect, useRef, useState } from "react"
 import styled from "styled-components"
 import {
   containsPoint,
@@ -338,39 +331,48 @@ export const ArrangeView: FC = observer(() => {
         <LeftBottomSpace style={{ height: BAR_WIDTH }} />
       </HeaderList>
       <div
-        ref={ref}
-        onMouseDown={onMouseDown}
-        onContextMenu={useCallback((e) => e.preventDefault(), [])}
-        onWheel={onWheel}
         style={{
           display: "flex",
-          flexDirection: "column",
           flexGrow: 1,
+          flexDirection: "column",
           position: "relative",
-          overflow: "hidden",
-          background: Color(theme.backgroundColor).darken(0.1).hex(),
         }}
       >
-        <CanvasPianoRuler
-          width={containerWidth}
-          beats={mappedBeats}
-          scrollLeft={scrollLeft}
-          pixelsPerTick={transform.pixelsPerTick}
+        <div
+          ref={ref}
+          onMouseDown={onMouseDown}
+          onContextMenu={useCallback((e) => e.preventDefault(), [])}
+          onWheel={onWheel}
           style={{
-            background: theme.backgroundColor,
-            borderBottom: `1px solid ${theme.dividerColor}`,
-            boxSizing: "border-box",
+            display: "flex",
+            flexGrow: 1,
+            flexDirection: "column",
+            position: "relative",
+            overflow: "hidden",
+            background: Color(theme.backgroundColor).darken(0.1).hex(),
           }}
-        />
-        <GLCanvas
-          style={{ pointerEvents: "none" }}
-          onCreateContext={useCallback(
-            (gl) => setRenderer(new ArrangeViewRenderer(gl)),
-            []
-          )}
-          width={containerWidth}
-          height={contentHeight}
-        />
+        >
+          <CanvasPianoRuler
+            width={containerWidth}
+            beats={mappedBeats}
+            scrollLeft={scrollLeft}
+            pixelsPerTick={transform.pixelsPerTick}
+            style={{
+              background: theme.backgroundColor,
+              borderBottom: `1px solid ${theme.dividerColor}`,
+              boxSizing: "border-box",
+            }}
+          />
+          <GLCanvas
+            style={{ pointerEvents: "none" }}
+            onCreateContext={useCallback(
+              (gl) => setRenderer(new ArrangeViewRenderer(gl)),
+              []
+            )}
+            width={containerWidth}
+            height={contentHeight}
+          />
+        </div>
         <div
           style={{
             width: `calc(100% - ${BAR_WIDTH}px)`,

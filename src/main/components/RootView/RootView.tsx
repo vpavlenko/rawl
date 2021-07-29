@@ -17,6 +17,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  overflow: hidden;
 `
 
 const Column = styled.div`

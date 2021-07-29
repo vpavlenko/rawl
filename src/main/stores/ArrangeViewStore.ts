@@ -20,7 +20,7 @@ export default class ArrangeViewStore {
   selectedEventIds: { [key: number]: number[] } = {} // { trackId: [eventId] }
   autoScroll = true
   quantize = 1
-  _scrollLeft = 0
+  scrollLeftTicks = 0
   scrollTop = 0
   canvasWidth = 0
   canvasHeight = 0
@@ -35,7 +35,7 @@ export default class ArrangeViewStore {
       selection: observable.shallow,
       autoScroll: observable,
       quantize: observable,
-      _scrollLeft: observable,
+      scrollLeftTicks: observable,
       scrollTop: observable,
       canvasWidth: observable,
       canvasHeight: observable,
@@ -51,7 +51,7 @@ export default class ArrangeViewStore {
       contentWidth: computed,
       contentHeight: computed,
       quantizer: computed,
-      setScrollLeft: action,
+      setScrollLeftInPixels: action,
       setScrollTop: action,
     })
   }
@@ -65,19 +65,21 @@ export default class ArrangeViewStore {
         const x = transform.getX(position)
         const screenX = x - scrollLeft
         if (screenX > canvasWidth * 0.7 || screenX < 0) {
-          this.setScrollLeft(x)
+          this.scrollLeftTicks = position
         }
       }
     })
   }
 
-  get scrollLeft() {
-    return this._scrollLeft
+  get scrollLeft(): number {
+    return this.trackTransform.getX(this.scrollLeftTicks)
   }
 
-  setScrollLeft(value: number) {
-    const maxOffset = Math.max(0, this.contentWidth - this.canvasWidth)
-    this._scrollLeft = Math.floor(Math.min(maxOffset, Math.max(0, value)))
+  setScrollLeftInPixels(x: number) {
+    const { canvasWidth, contentWidth } = this
+    const maxOffset = Math.max(0, contentWidth - canvasWidth)
+    const scrollLeft = Math.floor(Math.min(maxOffset, Math.max(0, x)))
+    this.scrollLeftTicks = this.transform.getTicks(scrollLeft)
   }
 
   setScrollTop(value: number) {
@@ -89,7 +91,7 @@ export default class ArrangeViewStore {
   }
 
   scrollBy(x: number, y: number) {
-    this.setScrollLeft(this.scrollLeft - x)
+    this.setScrollLeftInPixels(this.scrollLeft - x)
     this.setScrollTop(this.scrollTop - y)
   }
 

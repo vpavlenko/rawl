@@ -2,7 +2,14 @@ import useComponentSize from "@rehooks/component-size"
 import Color from "color"
 import { partition } from "lodash"
 import { observer } from "mobx-react-lite"
-import { FC, useCallback, useEffect, useRef, useState } from "react"
+import {
+  FC,
+  MouseEventHandler,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react"
 import styled from "styled-components"
 import {
   containsPoint,
@@ -109,7 +116,7 @@ export const ArrangeView: FC = observer(() => {
   } = rootStore.arrangeViewStore
 
   const setScrollLeft = useCallback(
-    (v: number) => rootStore.arrangeViewStore.setScrollLeft(v),
+    (v: number) => rootStore.arrangeViewStore.setScrollLeftInPixels(v),
     []
   )
   const setScrollTop = useCallback(

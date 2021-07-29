@@ -24,9 +24,14 @@ const openSongFile = (
       return
     }
     const buf = e.target.result as ArrayBuffer
-    const song = songFromMidi(new Uint8Array(buf))
-    song.filepath = file.name
-    callback(song)
+
+    try {
+      const song = songFromMidi(new Uint8Array(buf))
+      song.filepath = file.name
+      callback(song)
+    } catch (e) {
+      alert(e)
+    }
   }
 
   reader.readAsArrayBuffer(file)

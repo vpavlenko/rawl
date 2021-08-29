@@ -84,6 +84,15 @@ export function getEventController<T extends TrackEvent>(
               update: (text) => ({ text }),
             },
           }
+        case "midiChannelPrefix":
+          return {
+            name: e.subtype,
+            value: {
+              value: e.value,
+              type: "number",
+              update: (channel) => ({ channel }),
+            },
+          }
         default:
           return { name: e.subtype }
       }

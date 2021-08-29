@@ -230,25 +230,25 @@ const EventRow: FC<EventRowProps> = React.memo(
     )
 
     const onChangeGate = useCallback(
-      (e: TrackEvent, value: number | string) => {
+      (value: number | string) => {
         if (controller.gate === undefined) {
           return
         }
         const obj = controller.gate.update(value)
-        rootStore.song.selectedTrack?.updateEvent(e.id, obj)
+        rootStore.song.selectedTrack?.updateEvent(item.id, obj)
       },
-      [rootStore]
+      [rootStore, item]
     )
 
     const onChangeValue = useCallback(
-      (e: TrackEvent, value: number | string) => {
+      (value: number | string) => {
         if (controller.value === undefined) {
           return
         }
         const obj = controller.value.update(value)
-        rootStore.song.selectedTrack?.updateEvent(e.id, obj)
+        rootStore.song.selectedTrack?.updateEvent(item.id, obj)
       },
-      [rootStore]
+      [rootStore, item]
     )
 
     return (
@@ -287,7 +287,7 @@ const EventRow: FC<EventRowProps> = React.memo(
           <InputCell
             style={{ width: widthForCell(2) }}
             {...controller.gate}
-            onChange={useCallback((value) => onChangeGate(item, value), [item])}
+            onChange={onChangeGate}
           />
         )}
         {controller.value === undefined ? (
@@ -296,10 +296,7 @@ const EventRow: FC<EventRowProps> = React.memo(
           <InputCell
             style={{ width: widthForCell(3) }}
             {...controller.value}
-            onChange={useCallback(
-              (value) => onChangeValue(item, value),
-              [item]
-            )}
+            onChange={onChangeValue}
           />
         )}
       </Row>

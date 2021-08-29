@@ -1,14 +1,14 @@
 import useComponentSize from "@rehooks/component-size"
 import { isEqual } from "lodash"
 import { observer } from "mobx-react-lite"
-import React, { FC, useCallback, useRef, useState } from "react"
+import React, { FC, useCallback, useRef, useState, VFC } from "react"
 import { FixedSizeList, ListChildComponentProps } from "react-window"
 import styled from "styled-components"
-import { controllerTypeString } from "../../../common/helpers/noteNumberString"
 import { localized } from "../../../common/localize/localizedString"
 import { TrackEvent } from "../../../common/track"
 import { Layout } from "../../Constants"
 import { useStores } from "../../hooks/useStores"
+import { EventInputProp, getEventController } from "./EventController"
 
 const Container = styled.div`
   width: 100%;
@@ -101,10 +101,10 @@ const Cell = styled.div`
   }
 `
 
-interface InputCellProps {
-  value: number | string | null
+type InputCellProps = EventInputProp & {
   style?: React.CSSProperties
-  onChange: (value: number) => void
+  type: "number" | "text"
+  onChange: (value: number | string) => void
 }
 
 const StyledInput = styled.input`
@@ -124,14 +124,27 @@ const StyledInput = styled.input`
   }
 `
 
-const InputCell: FC<InputCellProps> = ({ value, style, onChange }) => {
+const DisabledInputCell: VFC<{ style?: React.CSSProperties }> = ({ style }) => (
+  <Cell style={style}>
+    <StyledInput disabled={true} />
+  </Cell>
+)
+
+const InputCell: FC<InputCellProps> = ({ value, type, style, onChange }) => {
   const [isFocus, setFocus] = useState(false)
   const [inputValue, setInputValue] = useState("")
 
   const sendChange = useCallback(() => {
-    const num = parseInt(inputValue)
-    if (!Number.isNaN(num)) {
-      onChange(num)
+    switch (type) {
+      case "number":
+        const num = parseInt(inputValue)
+        if (!Number.isNaN(num)) {
+          onChange(num)
+        }
+        break
+      case "text":
+        onChange(inputValue)
+        break
     }
   }, [inputValue])
 
@@ -165,7 +178,7 @@ const InputCell: FC<InputCellProps> = ({ value, style, onChange }) => {
   return (
     <Cell style={style}>
       <StyledInput
-        type="number"
+        type={type}
         value={isFocus ? inputValue : value?.toString()}
         onFocus={useCallback(() => {
           setFocus(true)
@@ -207,6 +220,8 @@ const EventRow: FC<EventRowProps> = React.memo(
   ({ item, isSelected, style, onClick }) => {
     const rootStore = useStores()
 
+    const controller = getEventController(item)
+
     const onDelete = useCallback(
       (e: TrackEvent) => {
         rootStore.song.selectedTrack?.removeEvent(e.id)
@@ -215,21 +230,23 @@ const EventRow: FC<EventRowProps> = React.memo(
     )
 
     const onChangeGate = useCallback(
-      (e: TrackEvent, value: number) => {
-        const obj = updateGate(e, value)
-        if (obj !== null) {
-          rootStore.song.selectedTrack?.updateEvent(e.id, obj)
+      (e: TrackEvent, value: number | string) => {
+        if (controller.gate === undefined) {
+          return
         }
+        const obj = controller.gate.update(value)
+        rootStore.song.selectedTrack?.updateEvent(e.id, obj)
       },
       [rootStore]
     )
 
     const onChangeValue = useCallback(
-      (e: TrackEvent, value: number) => {
-        const obj = updateValue(e, value)
-        if (obj !== null) {
-          rootStore.song.selectedTrack?.updateEvent(e.id, obj)
+      (e: TrackEvent, value: number | string) => {
+        if (controller.value === undefined) {
+          return
         }
+        const obj = controller.value.update(value)
+        rootStore.song.selectedTrack?.updateEvent(e.id, obj)
       },
       [rootStore]
     )
@@ -262,138 +279,33 @@ const EventRow: FC<EventRowProps> = React.memo(
             overflow: "hidden",
           }}
         >
-          {getEventName(item)}
+          {controller.name}
         </Cell>
-        <InputCell
-          style={{ width: widthForCell(2) }}
-          value={getGate(item)}
-          onChange={useCallback(
-            (value: number) => onChangeGate(item, value),
-            [item]
-          )}
-        />
-        <InputCell
-          style={{ width: widthForCell(3) }}
-          value={getValue(item)}
-          onChange={useCallback(
-            (value: number) => onChangeValue(item, value),
-            [item]
-          )}
-        />
+        {controller.gate === undefined ? (
+          <DisabledInputCell style={{ width: widthForCell(2) }} />
+        ) : (
+          <InputCell
+            style={{ width: widthForCell(2) }}
+            {...controller.gate}
+            onChange={useCallback((value) => onChangeGate(item, value), [item])}
+          />
+        )}
+        {controller.value === undefined ? (
+          <DisabledInputCell style={{ width: widthForCell(3) }} />
+        ) : (
+          <InputCell
+            style={{ width: widthForCell(3) }}
+            {...controller.value}
+            onChange={useCallback(
+              (value) => onChangeValue(item, value),
+              [item]
+            )}
+          />
+        )}
       </Row>
     )
   },
   equalEventRowProps
 )
-
-function updateValue(e: TrackEvent, value: number | string) {
-  switch (e.type) {
-    case "channel":
-      switch (e.subtype) {
-        case "controller":
-          return { value }
-        case "note":
-          return { velocity: value }
-        case "programChange":
-          return { value }
-        case "pitchBend":
-          return { value }
-        default:
-          return null
-      }
-    case "dividedSysEx":
-      return null
-    case "meta":
-      return null
-    case "sysEx":
-      return null
-  }
-}
-
-function updateGate(e: TrackEvent, value: number) {
-  switch (e.type) {
-    case "channel":
-      switch (e.subtype) {
-        case "controller":
-          return null
-        case "note":
-          return { duration: value }
-        default:
-          return null
-      }
-    case "dividedSysEx":
-      return null
-    case "meta":
-      return null
-    case "sysEx":
-      return null
-  }
-}
-
-function getValue(e: TrackEvent) {
-  switch (e.type) {
-    case "channel":
-      switch (e.subtype) {
-        case "controller":
-          return e.value
-        case "note":
-          return e.velocity
-        case "programChange":
-          return e.value
-        case "pitchBend":
-          return e.value
-        default:
-          return null
-      }
-    case "dividedSysEx":
-      return null
-    case "meta":
-      switch (e.subtype) {
-        default:
-          return null
-      }
-    case "sysEx":
-      return null
-  }
-}
-
-function getGate(e: TrackEvent) {
-  switch (e.type) {
-    case "channel":
-      switch (e.subtype) {
-        case "controller":
-          return null
-        case "note":
-          return e.duration
-        default:
-          return null
-      }
-    case "dividedSysEx":
-      return null
-    case "meta":
-      return null
-    case "sysEx":
-      return null
-  }
-}
-
-function getEventName(e: TrackEvent) {
-  switch (e.type) {
-    case "channel":
-      switch (e.subtype) {
-        case "controller":
-          return (
-            controllerTypeString(e.controllerType) ?? `CC${e.controllerType}`
-          )
-        default:
-          return e.subtype
-      }
-    case "meta":
-      return e.subtype
-    case "dividedSysEx":
-    case "sysEx":
-      return e.type
-  }
-}
 
 export default EventList

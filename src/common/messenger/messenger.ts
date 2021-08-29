@@ -23,7 +23,7 @@ export class WindowMessenger implements Messenger {
           if (json.type === type) {
             handler(json.payload)
           }
-        } catch (e) {
+        } catch (e: any) {
           console.error(e.message)
         }
       },

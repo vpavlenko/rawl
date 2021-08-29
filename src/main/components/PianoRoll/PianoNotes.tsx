@@ -128,6 +128,8 @@ export const PianoNotes: FC<PianoRollStageProps> = observer(
       theme,
       scrollLeft,
       scrollTop,
+      width,
+      height,
     ])
 
     return (

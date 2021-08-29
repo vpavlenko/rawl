@@ -154,11 +154,11 @@ export default class PianoRollStore {
   }
 
   get scrollLeft(): number {
-    return this.transform.getX(this.scrollLeftTicks)
+    return Math.round(this.transform.getX(this.scrollLeftTicks))
   }
 
   get scrollTop(): number {
-    return this.transform.getY(this.scrollTopKeys)
+    return Math.round(this.transform.getY(this.scrollTopKeys))
   }
 
   setScrollLeftInPixels(x: number) {

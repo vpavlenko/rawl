@@ -24,6 +24,9 @@ export const PianoRollKeyboardShortcut: FC = () => {
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
+      if (e.target !== null && isFocusable(e.target)) {
+        return
+      }
       switch (e.code) {
         case "Digit1": {
           rootStore.pianoRollStore.mouseMode = "pencil"

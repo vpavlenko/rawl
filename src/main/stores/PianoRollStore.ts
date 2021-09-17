@@ -170,9 +170,9 @@ export default class PianoRollStore {
 
   setScrollTopInPixels(y: number) {
     const { transform, canvasHeight } = this
-    const contentHeight = transform.getMaxY()
-    const scrollTop = clamp(y, 0, contentHeight - canvasHeight)
-    this.scrollTopKeys = this.transform.getNoteNumber(scrollTop)
+    const maxY = transform.getMaxY() - canvasHeight
+    const scrollTop = clamp(y, 0, maxY)
+    this.scrollTopKeys = this.transform.getNoteNumberFractional(scrollTop)
   }
 
   setScrollLeftInTicks(tick: number) {

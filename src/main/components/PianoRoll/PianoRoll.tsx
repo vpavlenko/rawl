@@ -126,16 +126,10 @@ const PianoRollWrapper: FC = observer(() => {
   const onWheel = useCallback(
     (e: React.WheelEvent) => {
       if (e.altKey || e.ctrlKey) {
-        // zooming
-        let scaleFactor = undefined
-        if (navigator.appVersion.indexOf("Mac") != -1) {
-          // MacOS
-          scaleFactor = isTouchPadEvent(e.nativeEvent) ? 0.005 : -0.02
-        } else {
-          scaleFactor = isTouchPadEvent(e.nativeEvent) ? 0.01 : 0.05
-        }
-        const scaleXDelta = clamp(e.deltaY * scaleFactor, -0.2, 0.2) // prevent acceleration to zoom too fast
-        s.scaleAroundPointX(scaleXDelta, e.clientX - Layout.keyWidth)
+        // horizontal zoom
+        const scaleFactor = isTouchPadEvent(e.nativeEvent) ? 0.01 : -0.01
+        const scaleXDelta = clamp(e.deltaY * scaleFactor, -0.15, 0.15) // prevent acceleration to zoom too fast
+        s.scaleAroundPointX(scaleXDelta, e.nativeEvent.offsetX)
       } else {
         // scrolling
         const scaleFactor = isTouchPadEvent(e.nativeEvent)

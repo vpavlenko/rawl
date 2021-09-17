@@ -186,11 +186,8 @@ export default class PianoRollStore {
 
   scaleAroundPointX(scaleXDelta: number, pixelX: number) {
     const pixelXInTicks0 = this.transform.getTicks(this.scrollLeft + pixelX)
-    if (this.scaleX < 1) {
-      scaleXDelta *= this.scaleX * this.scaleX // to not zoom too fast when zooomed out
-    }
     this.scaleX = clamp(
-      this.scaleX + scaleXDelta,
+      this.scaleX * (1 + scaleXDelta),
       this.SCALE_X_MIN,
       this.SCALE_X_MAX
     )

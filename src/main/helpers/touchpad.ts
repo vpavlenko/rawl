@@ -1,5 +1,8 @@
 export const isTouchPadEvent = (e: WheelEvent) => {
-  if (e.deltaX !== 0) {
+  if (!e.shiftKey && e.deltaX !== 0) {
+    return true
+  }
+  if (e.shiftKey && e.deltaY !== 0) {
     return true
   }
   const { wheelDeltaY } = e as any

@@ -46,6 +46,8 @@ export default class PianoRollStore {
   scrollTopKeys = 70 // 中央くらいの音程にスクロールしておく
   SCALE_X_MIN = 0.15
   SCALE_X_MAX = 15
+  SCALE_Y_MIN = 0.5
+  SCALE_Y_MAX = 4
   notesCursor = "auto"
   mouseMode: PianoRollMouseMode = "pencil"
   scaleX = 1
@@ -119,6 +121,7 @@ export default class PianoRollStore {
       setScrollTopInPixels: action,
       setScrollLeftInTicks: action,
       scaleAroundPointX: action,
+      scaleAroundPointY: action,
       scrollBy: action,
       toggleTool: action,
     })
@@ -179,6 +182,10 @@ export default class PianoRollStore {
     this.setScrollLeftInPixels(this.transform.getX(tick))
   }
 
+  setScrollTopInKeys(keys: number) {
+    this.setScrollTopInPixels(this.transform.getY(keys))
+  }
+
   scrollBy(x: number, y: number) {
     this.setScrollLeftInPixels(this.scrollLeft - x)
     this.setScrollTopInPixels(this.scrollTop - y)
@@ -194,6 +201,23 @@ export default class PianoRollStore {
     const pixelXInTicks1 = this.transform.getTicks(this.scrollLeft + pixelX)
     const scrollInTicks = pixelXInTicks1 - pixelXInTicks0
     this.setScrollLeftInTicks(this.scrollLeftTicks - scrollInTicks)
+  }
+
+  scaleAroundPointY(scaleYDelta: number, pixelY: number) {
+    const pixelYInKeys0 = this.transform.getNoteNumberFractional(
+      this.scrollTop + pixelY
+    )
+    this.scaleY = clamp(
+      this.scaleY * (1 + scaleYDelta),
+      this.SCALE_Y_MIN,
+      this.SCALE_Y_MAX
+    )
+
+    const pixelYInKeys1 = this.transform.getNoteNumberFractional(
+      this.scrollTop + pixelY
+    )
+    const scrollInKeys = pixelYInKeys1 - pixelYInKeys0
+    this.setScrollTopInKeys(this.scrollTopKeys - scrollInKeys)
   }
 
   toggleTool() {

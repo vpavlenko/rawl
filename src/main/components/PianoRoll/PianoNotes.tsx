@@ -20,6 +20,8 @@ export const PianoNotes: FC<PianoRollStageProps> = observer(
     const {
       scrollLeft,
       scrollTop,
+      scaleX,
+      scaleY,
       mouseMode,
       notesCursor,
       selection,
@@ -115,7 +117,8 @@ export const PianoNotes: FC<PianoRollStageProps> = observer(
         nonHighlightedBeats.map((b) => b.x),
         highlightedBeats.map((b) => b.x),
         cursorX,
-        { x: scrollLeft, y: scrollTop }
+        { x: scrollLeft, y: scrollTop },
+        { x: scaleX, y: scaleY }
       )
     }, [
       renderer,

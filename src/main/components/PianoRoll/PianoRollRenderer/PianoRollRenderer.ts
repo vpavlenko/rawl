@@ -71,7 +71,8 @@ export class PianoRollRenderer {
     beats: number[],
     highlightedBeats: number[],
     cursorX: number,
-    scroll: IPoint
+    scroll: IPoint,
+    scale: IPoint
   ) {
     {
       const [drumNotes, normalNotes] = partition(notes, (n) => n.isDrum)
@@ -97,11 +98,11 @@ export class PianoRollRenderer {
     })
     this.cursorObject.updateBuffer([this.vline(cursorX)])
 
-    this.updateUniforms(scroll)
+    this.updateUniforms(scroll, scale)
     this.renderer.render()
   }
 
-  private updateUniforms(scroll: IPoint) {
+  private updateUniforms(scroll: IPoint, scale: IPoint) {
     const projectionMatrix = this.renderer.createProjectionMatrix()
     const projectionMatrixScrollX = translateMatrix(
       projectionMatrix,
@@ -127,7 +128,7 @@ export class PianoRollRenderer {
           Color(this.theme.dividerColor).alpha(0.5)
         ),
         blackLaneColor: colorToVec4(Color(this.theme.pianoBlackKeyLaneColor)),
-        height: Layout.keyHeight,
+        height: scale.y * Layout.keyHeight,
       })
     }
 

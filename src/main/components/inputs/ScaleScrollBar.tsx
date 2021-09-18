@@ -57,6 +57,40 @@ const HorizontalScaleScrollBar_: FC<HorizontalScaleScrollBarProps> = (
   )
 }
 
+type VerticalScaleScrollBarProps = Omit<
+  ScrollBarProps,
+  "isVertical" | "barLength" | "style"
+> & {
+  onClickScaleDown?: () => void
+  onClickScaleReset?: () => void
+  onClickScaleUp?: () => void
+}
+
+const VerticalScaleScrollBar_: FC<VerticalScaleScrollBarProps> = (props) => {
+  const ref = useRef<HTMLDivElement>(null)
+  const size = useComponentSize(ref)
+
+  const buttonSize = BAR_WIDTH
+  const barLength = size.height - buttonSize * 3
+  const buttonStyle = {
+    width: buttonSize,
+    height: buttonSize,
+  }
+  return (
+    <ScrollBar ref={ref} isVertical={true} {...props} barLength={barLength}>
+      <ScaleButton style={buttonStyle} onClick={props.onClickScaleUp}>
+        <Add />
+      </ScaleButton>
+      <ScaleButton style={buttonStyle} onClick={props.onClickScaleReset}>
+        <FiberManualRecord />
+      </ScaleButton>
+      <ScaleButton style={buttonStyle} onClick={props.onClickScaleDown}>
+        <Remove />
+      </ScaleButton>
+    </ScrollBar>
+  )
+}
+
 const areEqual = (
   props: HorizontalScaleScrollBarProps,
   nextProps: HorizontalScaleScrollBarProps
@@ -70,5 +104,10 @@ const areEqual = (
 
 export const HorizontalScaleScrollBar = React.memo(
   HorizontalScaleScrollBar_,
+  areEqual
+)
+
+export const VerticalScaleScrollBar = React.memo(
+  VerticalScaleScrollBar_,
   areEqual
 )

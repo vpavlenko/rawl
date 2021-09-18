@@ -46,6 +46,8 @@ export default class PianoRollStore {
   scrollTopKeys = 70 // 中央くらいの音程にスクロールしておく
   SCALE_X_MIN = 0.15
   SCALE_X_MAX = 15
+  SCALE_Y_MIN = 0.5
+  SCALE_Y_MAX = 4
   notesCursor = "auto"
   mouseMode: PianoRollMouseMode = "pencil"
   scaleX = 1
@@ -119,6 +121,7 @@ export default class PianoRollStore {
       setScrollTopInPixels: action,
       setScrollLeftInTicks: action,
       scaleAroundPointX: action,
+      scaleAroundPointY: action,
       scrollBy: action,
       toggleTool: action,
     })
@@ -170,13 +173,17 @@ export default class PianoRollStore {
 
   setScrollTopInPixels(y: number) {
     const { transform, canvasHeight } = this
-    const contentHeight = transform.getMaxY()
-    const scrollTop = clamp(y, 0, contentHeight - canvasHeight)
-    this.scrollTopKeys = this.transform.getNoteNumber(scrollTop)
+    const maxY = transform.getMaxY() - canvasHeight
+    const scrollTop = clamp(y, 0, maxY)
+    this.scrollTopKeys = this.transform.getNoteNumberFractional(scrollTop)
   }
 
   setScrollLeftInTicks(tick: number) {
     this.setScrollLeftInPixels(this.transform.getX(tick))
+  }
+
+  setScrollTopInKeys(keys: number) {
+    this.setScrollTopInPixels(this.transform.getY(keys))
   }
 
   scrollBy(x: number, y: number) {
@@ -186,17 +193,31 @@ export default class PianoRollStore {
 
   scaleAroundPointX(scaleXDelta: number, pixelX: number) {
     const pixelXInTicks0 = this.transform.getTicks(this.scrollLeft + pixelX)
-    if (this.scaleX < 1) {
-      scaleXDelta *= this.scaleX * this.scaleX // to not zoom too fast when zooomed out
-    }
     this.scaleX = clamp(
-      this.scaleX + scaleXDelta,
+      this.scaleX * (1 + scaleXDelta),
       this.SCALE_X_MIN,
       this.SCALE_X_MAX
     )
     const pixelXInTicks1 = this.transform.getTicks(this.scrollLeft + pixelX)
     const scrollInTicks = pixelXInTicks1 - pixelXInTicks0
     this.setScrollLeftInTicks(this.scrollLeftTicks - scrollInTicks)
+  }
+
+  scaleAroundPointY(scaleYDelta: number, pixelY: number) {
+    const pixelYInKeys0 = this.transform.getNoteNumberFractional(
+      this.scrollTop + pixelY
+    )
+    this.scaleY = clamp(
+      this.scaleY * (1 + scaleYDelta),
+      this.SCALE_Y_MIN,
+      this.SCALE_Y_MAX
+    )
+
+    const pixelYInKeys1 = this.transform.getNoteNumberFractional(
+      this.scrollTop + pixelY
+    )
+    const scrollInKeys = pixelYInKeys1 - pixelYInKeys0
+    this.setScrollTopInKeys(this.scrollTopKeys - scrollInKeys)
   }
 
   toggleTool() {

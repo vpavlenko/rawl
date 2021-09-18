@@ -9,8 +9,10 @@ import { isTouchPadEvent } from "../../helpers/touchpad"
 import { useStores } from "../../hooks/useStores"
 import ControlPane from "../ControlPane/ControlPane"
 import EventList from "../EventEditor/EventList"
-import { HorizontalScaleScrollBar } from "../inputs/ScaleScrollBar"
-import { VerticalScrollBar } from "../inputs/ScrollBar"
+import {
+  HorizontalScaleScrollBar,
+  VerticalScaleScrollBar,
+} from "../inputs/ScaleScrollBar"
 import { PianoRollStage } from "./PianoRollStage"
 
 const WHEEL_SCROLL_RATE = 1 / 120
@@ -110,32 +112,43 @@ const PianoRollWrapper: FC = observer(() => {
   const ref = useRef(null)
   const size = useComponentSize(ref)
 
-  const onClickScaleUp = useCallback(
-    () => s.scaleAroundPointX(0.1, Layout.keyWidth),
-    [scaleX, s]
-  )
-  const onClickScaleDown = useCallback(
-    () => s.scaleAroundPointX(-0.1, Layout.keyWidth),
-    [scaleX, s]
-  )
-  const onClickScaleReset = useCallback(() => (s.scaleX = 1), [s])
-
   const alphaRef = useRef(null)
   const { height: alphaHeight = 0 } = useComponentSize(alphaRef)
 
+  const onClickScaleUpHorizontal = useCallback(
+    () => s.scaleAroundPointX(0.2, Layout.keyWidth),
+    [scaleX, s]
+  )
+  const onClickScaleDownHorizontal = useCallback(
+    () => s.scaleAroundPointX(-0.2, Layout.keyWidth),
+    [scaleX, s]
+  )
+  const onClickScaleResetHorizontal = useCallback(() => (s.scaleX = 1), [s])
+
+  const onClickScaleUpVertical = useCallback(
+    () => s.scaleAroundPointY(0.2, 0),
+    [scaleX, s]
+  )
+  const onClickScaleDownVertical = useCallback(
+    () => s.scaleAroundPointY(-0.2, 0),
+    [scaleX, s]
+  )
+  const onClickScaleResetVertical = useCallback(() => (s.scaleY = 1), [s])
+
   const onWheel = useCallback(
     (e: React.WheelEvent) => {
-      if (e.altKey || e.ctrlKey) {
-        // zooming
-        let scaleFactor = undefined
-        if (navigator.appVersion.indexOf("Mac") != -1) {
-          // MacOS
-          scaleFactor = isTouchPadEvent(e.nativeEvent) ? 0.005 : -0.02
-        } else {
-          scaleFactor = isTouchPadEvent(e.nativeEvent) ? 0.01 : 0.05
-        }
-        const scaleXDelta = clamp(e.deltaY * scaleFactor, -0.2, 0.2) // prevent acceleration to zoom too fast
-        s.scaleAroundPointX(scaleXDelta, e.clientX - Layout.keyWidth)
+      if (e.shiftKey && (e.altKey || e.ctrlKey)) {
+        // vertical zoom
+        let scaleXDelta = isTouchPadEvent(e.nativeEvent)
+          ? 0.02 * e.deltaY
+          : 0.01 * e.deltaX
+        scaleXDelta = clamp(scaleXDelta, -0.15, 0.15) // prevent acceleration to zoom too fast
+        s.scaleAroundPointY(scaleXDelta, e.nativeEvent.offsetY)
+      } else if (e.altKey || e.ctrlKey) {
+        // horizontal zoom
+        const scaleFactor = isTouchPadEvent(e.nativeEvent) ? 0.01 : -0.01
+        const scaleXDelta = clamp(e.deltaY * scaleFactor, -0.15, 0.15) // prevent acceleration to zoom too fast
+        s.scaleAroundPointX(scaleXDelta, e.nativeEvent.offsetX)
       } else {
         // scrolling
         const scaleFactor = isTouchPadEvent(e.nativeEvent)
@@ -153,10 +166,13 @@ const PianoRollWrapper: FC = observer(() => {
       <StyledSplitPane split="horizontal" minSize={50} defaultSize={"60%"}>
         <Alpha onWheel={onWheel} ref={alphaRef}>
           <PianoRollStage width={size.width} height={alphaHeight} />
-          <VerticalScrollBar
+          <VerticalScaleScrollBar
             scrollOffset={scrollTop}
             contentLength={contentHeight}
             onScroll={useCallback((v) => s.setScrollTopInPixels(v), [s])}
+            onClickScaleUp={onClickScaleUpVertical}
+            onClickScaleDown={onClickScaleDownVertical}
+            onClickScaleReset={onClickScaleResetVertical}
           />
         </Alpha>
         <Beta>
@@ -167,9 +183,9 @@ const PianoRollWrapper: FC = observer(() => {
         scrollOffset={scrollLeft}
         contentLength={contentWidth}
         onScroll={useCallback((v) => s.setScrollLeftInPixels(v), [s])}
-        onClickScaleUp={onClickScaleUp}
-        onClickScaleDown={onClickScaleDown}
-        onClickScaleReset={onClickScaleReset}
+        onClickScaleUp={onClickScaleUpHorizontal}
+        onClickScaleDown={onClickScaleDownHorizontal}
+        onClickScaleReset={onClickScaleResetHorizontal}
       />
     </Parent>
   )

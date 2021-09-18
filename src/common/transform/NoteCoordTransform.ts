@@ -42,7 +42,11 @@ export default class NoteCoordTransform {
   }
 
   getNoteNumber(pixels: number) {
-    return Math.ceil(this._maxNoteNumber - pixels / this._pixelsPerKey)
+    return Math.ceil(this.getNoteNumberFractional(pixels))
+  }
+
+  getNoteNumberFractional(pixels: number) {
+    return this._maxNoteNumber - pixels / this._pixelsPerKey
   }
 
   getDeltaNoteNumber(deltaPixels: number) {

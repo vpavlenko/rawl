@@ -1,3 +1,4 @@
+import { clamp } from "lodash"
 import { action, autorun, computed, makeObservable, observable } from "mobx"
 import { IRect } from "../../common/geometry"
 import { filterEventsWithScroll } from "../../common/helpers/filterEventsWithScroll"
@@ -16,6 +17,10 @@ export default class ArrangeViewStore {
 
   scaleX = 1
   scaleY = 1
+  SCALE_X_MIN = 0.15
+  SCALE_X_MAX = 15
+  SCALE_Y_MIN = 0.5
+  SCALE_Y_MAX = 4
   selection: ArrangeSelection | null = null
   selectedEventIds: { [key: number]: number[] } = {} // { trackId: [eventId] }
   autoScroll = true
@@ -83,16 +88,31 @@ export default class ArrangeViewStore {
   }
 
   setScrollTop(value: number) {
-    const maxOffset = Math.max(
-      0,
+    const maxOffset =
       this.contentHeight + Layout.rulerHeight + BAR_WIDTH - this.canvasHeight
-    )
-    this.scrollTop = Math.floor(Math.min(maxOffset, Math.max(0, value)))
+    this.scrollTop = clamp(value, 0, maxOffset)
   }
 
   scrollBy(x: number, y: number) {
     this.setScrollLeftInPixels(this.scrollLeft - x)
     this.setScrollTop(this.scrollTop - y)
+  }
+
+  scaleAroundPointX(scaleXDelta: number, pixelX: number) {
+    const pixelXInTicks0 = this.transform.getTicks(this.scrollLeft + pixelX)
+    this.scaleX = clamp(
+      this.scaleX * (1 + scaleXDelta),
+      this.SCALE_X_MIN,
+      this.SCALE_X_MAX
+    )
+    const pixelXInTicks1 = this.transform.getTicks(this.scrollLeft + pixelX)
+    const scrollInTicks = pixelXInTicks1 - pixelXInTicks0
+    this.scrollLeftTicks = Math.max(this.scrollLeftTicks - scrollInTicks, 0)
+  }
+
+  setScaleY(scaleY: number) {
+    this.scaleY = clamp(scaleY, this.SCALE_Y_MIN, this.SCALE_Y_MAX)
+    this.setScrollTop(this.scrollTop)
   }
 
   get contentWidth(): number {
@@ -110,7 +130,11 @@ export default class ArrangeViewStore {
   }
 
   get transform(): NoteCoordTransform {
-    return new NoteCoordTransform(Layout.pixelsPerTick * this.scaleX, 0.3, 127)
+    return new NoteCoordTransform(
+      Layout.pixelsPerTick * this.scaleX,
+      0.5 * this.scaleY,
+      127
+    )
   }
 
   get trackTransform(): ArrangeCoordTransform {
@@ -141,7 +165,7 @@ export default class ArrangeViewStore {
           .filter(isNoteEvent)
           .map((e) => {
             const rect = transform.getRect(e)
-            return { ...rect, height: 1, y: trackHeight * i + rect.y }
+            return { ...rect, height: this.scaleY, y: trackHeight * i + rect.y }
           })
       )
       .flat()

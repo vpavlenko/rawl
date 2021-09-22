@@ -4,7 +4,7 @@ import { observer } from "mobx-react-lite"
 import { FC, useCallback, useRef } from "react"
 import SplitPane from "react-split-pane"
 import styled from "styled-components"
-import { Layout } from "../../Constants"
+import { Layout, WHEEL_SCROLL_RATE } from "../../Constants"
 import { isTouchPadEvent } from "../../helpers/touchpad"
 import { useStores } from "../../hooks/useStores"
 import ControlPane from "../ControlPane/ControlPane"
@@ -14,8 +14,6 @@ import {
   VerticalScaleScrollBar,
 } from "../inputs/ScaleScrollBar"
 import { PianoRollStage } from "./PianoRollStage"
-
-const WHEEL_SCROLL_RATE = 1 / 120
 
 const Parent = styled.div`
   flex-grow: 1;

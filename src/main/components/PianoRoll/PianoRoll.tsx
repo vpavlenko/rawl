@@ -102,6 +102,7 @@ const PianoRollWrapper: FC = observer(() => {
   const s = rootStore.pianoRollStore
   const {
     scaleX,
+    scaleY,
     scrollLeft,
     scrollTop,
     transform,
@@ -127,11 +128,11 @@ const PianoRollWrapper: FC = observer(() => {
 
   const onClickScaleUpVertical = useCallback(
     () => s.scaleAroundPointY(0.2, 0),
-    [scaleX, s]
+    [scaleY, s]
   )
   const onClickScaleDownVertical = useCallback(
     () => s.scaleAroundPointY(-0.2, 0),
-    [scaleX, s]
+    [scaleY, s]
   )
   const onClickScaleResetVertical = useCallback(() => (s.scaleY = 1), [s])
 
@@ -139,11 +140,11 @@ const PianoRollWrapper: FC = observer(() => {
     (e: React.WheelEvent) => {
       if (e.shiftKey && (e.altKey || e.ctrlKey)) {
         // vertical zoom
-        let scaleXDelta = isTouchPadEvent(e.nativeEvent)
+        let scaleYDelta = isTouchPadEvent(e.nativeEvent)
           ? 0.02 * e.deltaY
           : 0.01 * e.deltaX
-        scaleXDelta = clamp(scaleXDelta, -0.15, 0.15) // prevent acceleration to zoom too fast
-        s.scaleAroundPointY(scaleXDelta, e.nativeEvent.offsetY)
+        scaleYDelta = clamp(scaleYDelta, -0.15, 0.15) // prevent acceleration to zoom too fast
+        s.scaleAroundPointY(scaleYDelta, e.nativeEvent.offsetY)
       } else if (e.altKey || e.ctrlKey) {
         // horizontal zoom
         const scaleFactor = isTouchPadEvent(e.nativeEvent) ? 0.01 : -0.01

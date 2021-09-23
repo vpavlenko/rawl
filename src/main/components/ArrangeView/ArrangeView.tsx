@@ -1,6 +1,6 @@
 import useComponentSize from "@rehooks/component-size"
 import Color from "color"
-import { partition } from "lodash"
+import { clamp, partition } from "lodash"
 import { observer } from "mobx-react-lite"
 import { FC, useCallback, useEffect, useRef, useState } from "react"
 import styled from "styled-components"
@@ -18,15 +18,19 @@ import {
   arrangeStartSelection,
   selectTrack,
 } from "../../actions"
-import { Layout } from "../../Constants"
+import { Layout, WHEEL_SCROLL_RATE } from "../../Constants"
 import { getClientPos } from "../../helpers/mouseEvent"
 import { observeDrag } from "../../helpers/observeDrag"
+import { isTouchPadEvent } from "../../helpers/touchpad"
 import { useContextMenu } from "../../hooks/useContextMenu"
 import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
 import { GLCanvas } from "../GLCanvas/GLCanvas"
-import { HorizontalScaleScrollBar } from "../inputs/ScaleScrollBar"
-import { BAR_WIDTH, VerticalScrollBar } from "../inputs/ScrollBar"
+import {
+  HorizontalScaleScrollBar,
+  VerticalScaleScrollBar,
+} from "../inputs/ScaleScrollBar"
+import { BAR_WIDTH } from "../inputs/ScrollBar"
 import CanvasPianoRuler from "../PianoRoll/CanvasPianoRuler"
 import { ArrangeContextMenu } from "./ArrangeContextMenu"
 import { ArrangeTrackContextMenu } from "./ArrangeTrackContextMenu"
@@ -105,6 +109,8 @@ export const ArrangeView: FC = observer(() => {
     trackTransform,
     scrollLeft,
     scrollTop,
+    scaleY,
+    scrollBy,
     selectedTrackId,
   } = rootStore.arrangeViewStore
 
@@ -130,12 +136,25 @@ export const ArrangeView: FC = observer(() => {
     rootStore.arrangeViewStore.canvasHeight = size.height
   }, [size.height])
 
-  const onClickScaleUp = useCallback(() => (s.scaleX += 0.1), [s])
-  const onClickScaleDown = useCallback(
-    () => (s.scaleX = Math.max(0.05, s.scaleX - 0.1)),
+  const onClickScaleUpHorizontal = useCallback(
+    () => s.scaleAroundPointX(0.2, 0),
     [s]
   )
-  const onClickScaleReset = useCallback(() => (s.scaleX = 1), [s])
+  const onClickScaleDownHorizontal = useCallback(
+    () => s.scaleAroundPointX(-0.2, 0),
+    [s]
+  )
+  const onClickScaleResetHorizontal = useCallback(() => (s.scaleX = 1), [s])
+
+  const onClickScaleUpVertical = useCallback(
+    () => s.setScaleY(s.scaleY * (1 + 0.2)),
+    [s]
+  )
+  const onClickScaleDownVertical = useCallback(
+    () => s.setScaleY(s.scaleY * (1 - 0.2)),
+    [s]
+  )
+  const onClickScaleResetVertical = useCallback(() => s.setScaleY(1), [s])
 
   const handleLeftClick = useCallback(
     (e: React.MouseEvent) => {
@@ -257,11 +276,27 @@ export const ArrangeView: FC = observer(() => {
 
   const onWheel = useCallback(
     (e: React.WheelEvent) => {
-      const scrollLineHeight = trackHeight
-      const delta = scrollLineHeight * (e.deltaY > 0 ? 1 : -1)
-      setScrollTop(scrollTop + delta)
+      if (e.shiftKey && (e.altKey || e.ctrlKey)) {
+        // vertical zoom
+        let scaleYDelta = isTouchPadEvent(e.nativeEvent)
+          ? 0.02 * e.deltaY
+          : 0.01 * e.deltaX
+        scaleYDelta = clamp(scaleYDelta, -0.15, 0.15) // prevent acceleration to zoom too fast
+        s.setScaleY(s.scaleY * (1 + scaleYDelta))
+      } else if (e.altKey || e.ctrlKey) {
+        // horizontal zoom
+        const scaleFactor = isTouchPadEvent(e.nativeEvent) ? 0.01 : -0.01
+        const scaleXDelta = clamp(e.deltaY * scaleFactor, -0.15, 0.15) // prevent acceleration to zoom too fast
+        s.scaleAroundPointX(scaleXDelta, e.nativeEvent.offsetX)
+      } else {
+        const scaleFactor = isTouchPadEvent(e.nativeEvent)
+          ? 1
+          : 20 * transform.pixelsPerKey * WHEEL_SCROLL_RATE
+        const deltaY = e.deltaY * scaleFactor
+        s.scrollBy(-e.deltaX, -deltaY)
+      }
     },
-    [scrollTop]
+    [s, scrollBy]
   )
 
   const [renderer, setRenderer] = useState<ArrangeViewRenderer | null>(null)
@@ -384,9 +419,9 @@ export const ArrangeView: FC = observer(() => {
             scrollOffset={scrollLeft}
             contentLength={contentWidth}
             onScroll={setScrollLeft}
-            onClickScaleUp={onClickScaleUp}
-            onClickScaleDown={onClickScaleDown}
-            onClickScaleReset={onClickScaleReset}
+            onClickScaleUp={onClickScaleUpHorizontal}
+            onClickScaleDown={onClickScaleDownHorizontal}
+            onClickScaleReset={onClickScaleResetHorizontal}
           />
         </div>
       </div>
@@ -398,10 +433,13 @@ export const ArrangeView: FC = observer(() => {
           right: 0,
         }}
       >
-        <VerticalScrollBar
+        <VerticalScaleScrollBar
           scrollOffset={scrollTop}
           contentLength={contentHeight + Layout.rulerHeight}
           onScroll={setScrollTop}
+          onClickScaleUp={onClickScaleUpVertical}
+          onClickScaleDown={onClickScaleDownVertical}
+          onClickScaleReset={onClickScaleResetVertical}
         />
       </div>
       <div

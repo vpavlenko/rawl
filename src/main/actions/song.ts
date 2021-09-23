@@ -41,7 +41,7 @@ const setSong = (rootStore: RootStore) => (song: Song) => {
   rootStore.song = song
   rootStore.trackMute.reset()
   rootStore.pianoRollStore.setScrollLeftInPixels(0)
-  rootStore.pianoRollStore.ghostTracks = {}
+  rootStore.pianoRollStore.notGhostTracks = new Set()
   rootStore.historyStore.clear()
 
   const { player } = rootStore.services

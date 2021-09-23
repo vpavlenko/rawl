@@ -10,6 +10,7 @@ import {
   selectTrack,
   toggleMuteTrack,
   toggleSoloTrack,
+  toogleGhostTrack,
 } from "../../actions"
 import { useStores } from "../../hooks/useStores"
 import { TrackListItem, TrackListItemData } from "./TrackListItem"
@@ -47,12 +48,15 @@ export const TrackList: FC = observer(() => {
         selected,
         volume: t.getVolume(position) ?? 0,
         pan: t.getPan(position) ?? 0,
+        ghostTrack: !rootStore.pianoRollStore.notGhostTracks.has(index),
       }
     })
 
   const onClickMute = (trackId: number) => toggleMuteTrack(rootStore)(trackId)
   const onClickSolo = (trackId: number) => toggleSoloTrack(rootStore)(trackId)
   const onClickDelete = (trackId: number) => removeTrack(rootStore)(trackId)
+  const onClickGhostTrack = (trackId: number) =>
+    toogleGhostTrack(rootStore)(trackId)
   const onClickAddTrack = () => addTrack(rootStore)()
   // onChangeName={e => dispatch(SET_TRACK_NAME, { name: e.target.value })},
   const onSelectTrack = (trackId: number) => {
@@ -71,6 +75,7 @@ export const TrackList: FC = observer(() => {
       onClickSolo={() => onClickSolo(t.index)}
       onClickMute={() => onClickMute(t.index)}
       onClickDelete={() => onClickDelete(t.index)}
+      onClickGhostTrack={() => onClickGhostTrack(t.index)}
     />
   ))
 

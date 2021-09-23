@@ -36,9 +36,6 @@ export type PianoNoteItem = IRect & {
   isDrum: boolean
 }
 
-// trackId to trackId[] (not contains itself)
-type GhostTrackIdMap = { [index: number]: number[] }
-
 export default class PianoRollStore {
   private rootStore: RootStore
 
@@ -62,7 +59,7 @@ export default class PianoRollStore {
     programNumber: 0,
   }
   presetNames: LoadSoundFontEvent["presetNames"] = [[]]
-  ghostTracks: GhostTrackIdMap = {}
+  notGhostTracks: Set<number> = new Set()
   canvasWidth: number = 0
   canvasHeight: number = 0
   showEventList = false
@@ -91,7 +88,7 @@ export default class PianoRollStore {
       openInstrumentBrowser: observable,
       instrumentBrowserSetting: observable,
       presetNames: observable,
-      ghostTracks: observable,
+      notGhostTracks: observable,
       canvasWidth: observable,
       canvasHeight: observable,
       showEventList: observable,
@@ -253,7 +250,7 @@ export default class PianoRollStore {
     const {
       transform,
       windowedEvents,
-      ghostTracks,
+      notGhostTracks,
       selection,
       scrollLeft,
       canvasWidth,
@@ -263,16 +260,18 @@ export default class PianoRollStore {
     if (track === undefined) {
       return [[], []]
     }
-    const ghostTrackIds = ghostTracks[selectedTrackId] ?? []
     const isRhythmTrack = track.isRhythmTrack
 
     const noteEvents = windowedEvents.filter(isNoteEvent)
 
     const getGhostNotes = () =>
       flatten(
-        ghostTrackIds.map((id) => {
-          const track = song.getTrack(id)
-          if (track === undefined) {
+        song.tracks.map((track, id) => {
+          if (
+            notGhostTracks.has(id) ||
+            id === selectedTrackId ||
+            track == undefined
+          ) {
             return []
           }
           return filterEventsWithScroll(

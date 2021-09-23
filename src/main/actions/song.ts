@@ -66,6 +66,7 @@ export const openSong = (rootStore: RootStore) => (input: HTMLInputElement) => {
       return
     }
     setSong(rootStore)(song)
+    rootStore.rootViewStore.openTrackListDrawer = true
   })
 }
 

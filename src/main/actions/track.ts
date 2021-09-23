@@ -307,3 +307,19 @@ export const toogleGhostTrack = (rootStore: RootStore) => (trackId: number) => {
     pianoRollStore.notGhostTracks.add(trackId)
   }
 }
+
+export const toogleAllGhostTracks = (rootStore: RootStore) => () => {
+  const { pianoRollStore } = rootStore
+
+  pushHistory(rootStore)()
+  if (
+    pianoRollStore.notGhostTracks.size >
+    Math.floor(rootStore.song.tracks.length / 2)
+  ) {
+    pianoRollStore.notGhostTracks = new Set()
+  } else {
+    for (let i = 0; i < rootStore.song.tracks.length; ++i) {
+      pianoRollStore.notGhostTracks.add(i)
+    }
+  }
+}

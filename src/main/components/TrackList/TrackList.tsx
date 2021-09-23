@@ -10,6 +10,7 @@ import {
   selectTrack,
   toggleMuteTrack,
   toggleSoloTrack,
+  toogleAllGhostTracks,
   toogleGhostTrack,
 } from "../../actions"
 import { useStores } from "../../hooks/useStores"
@@ -57,6 +58,7 @@ export const TrackList: FC = observer(() => {
   const onClickDelete = (trackId: number) => removeTrack(rootStore)(trackId)
   const onClickGhostTrack = (trackId: number) =>
     toogleGhostTrack(rootStore)(trackId)
+  const onClickToogleAllGhostTracks = () => toogleAllGhostTracks(rootStore)()
   const onClickAddTrack = () => addTrack(rootStore)()
   // onChangeName={e => dispatch(SET_TRACK_NAME, { name: e.target.value })},
   const onSelectTrack = (trackId: number) => {
@@ -76,6 +78,7 @@ export const TrackList: FC = observer(() => {
       onClickMute={() => onClickMute(t.index)}
       onClickDelete={() => onClickDelete(t.index)}
       onClickGhostTrack={() => onClickGhostTrack(t.index)}
+      onClickToogleAllGhostTracks={() => onClickToogleAllGhostTracks()}
     />
   ))
 

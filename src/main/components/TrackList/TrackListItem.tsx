@@ -23,6 +23,7 @@ export type TrackListItemProps = TrackListItemData & {
   onClickMute: () => void
   onClickDelete: () => void
   onClickGhostTrack: () => void
+  onClickToogleAllGhostTracks: () => void
 }
 
 const Container = styled(ListItem)`
@@ -82,6 +83,7 @@ export const TrackListItem: FC<TrackListItemProps> = ({
   onClickSolo,
   onClickMute,
   onClickGhostTrack,
+  onClickToogleAllGhostTracks,
 }) => {
   const { onContextMenu, menuProps } = useContextMenu()
 
@@ -129,9 +131,15 @@ export const TrackListItem: FC<TrackListItemProps> = ({
             color="default"
             size="small"
             className={`button solo ${ghostTrack ? "active" : ""}`}
-            onClick={(e) => {
-              e.stopPropagation()
-              onClickGhostTrack()
+            onMouseDown={(e) => {
+              if (
+                e.nativeEvent.button === 1 ||
+                (e.nativeEvent.button === 0 && e.nativeEvent.altKey)
+              ) {
+                onClickToogleAllGhostTracks()
+              } else if (e.nativeEvent.button === 0) {
+                onClickGhostTrack()
+              }
             }}
           >
             <Layers fontSize="small" />

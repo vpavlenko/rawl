@@ -131,13 +131,12 @@ export const TrackListItem: FC<TrackListItemProps> = ({
             color="default"
             size="small"
             className={`button solo ${ghostTrack ? "active" : ""}`}
-            onMouseDown={(e) => {
-              if (
-                e.nativeEvent.button === 1 ||
-                (e.nativeEvent.button === 0 && e.nativeEvent.altKey)
-              ) {
+            onClick={(e) => {
+              if (e.nativeEvent.altKey) {
+                e.stopPropagation()
                 onClickToogleAllGhostTracks()
-              } else if (e.nativeEvent.button === 0) {
+              } else {
+                e.stopPropagation()
                 onClickGhostTrack()
               }
             }}

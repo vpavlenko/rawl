@@ -83,7 +83,7 @@ export const TrackList: FC = observer(() => {
   ))
 
   return (
-    <List>
+    <List style={{ overflowY: "auto" }}>
       {items}
       <ListItem button onClick={onClickAddTrack}>
         <AddTrackListIcon>

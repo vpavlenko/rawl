@@ -17,6 +17,8 @@ const RowContainer = styled.div`
   display: flex;
   flex-direction: row;
   flex-grow: 1;
+  overflow: hidden;
+  flex-basis: 0;
 `
 
 export const PianoRollEditor: FC = observer(() => {

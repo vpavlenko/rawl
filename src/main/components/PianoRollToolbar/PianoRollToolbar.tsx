@@ -9,7 +9,6 @@ import { useStores } from "../../hooks/useStores"
 import InstrumentBrowser from "../InstrumentBrowser/InstrumentBrowser"
 import { TrackListMenuButton } from "../TrackList/TrackListMenuButton"
 import { EventListButton } from "./EventListButton"
-import { GhostTrackSelector } from "./GhostTrackSelector"
 import { InstrumentButton } from "./InstrumentButton"
 import { PanSlider } from "./PanSlider"
 import QuantizeSelector from "./QuantizeSelector/QuantizeSelector"
@@ -94,8 +93,6 @@ export const PianoRollToolbar: FC = observer(() => {
         >
           <AutoScrollIcon />
         </StyledToggleButton>
-
-        <GhostTrackSelector />
       </Toolbar>
     </AppBar>
   )

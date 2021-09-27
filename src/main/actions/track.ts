@@ -296,3 +296,30 @@ export const setTrackInstrument =
       player.sendEvent(programChangeMidiEvent(0, track.channel, programNumber))
     }
   }
+
+export const toogleGhostTrack = (rootStore: RootStore) => (trackId: number) => {
+  const { pianoRollStore } = rootStore
+
+  pushHistory(rootStore)()
+  if (pianoRollStore.notGhostTracks.has(trackId)) {
+    pianoRollStore.notGhostTracks.delete(trackId)
+  } else {
+    pianoRollStore.notGhostTracks.add(trackId)
+  }
+}
+
+export const toogleAllGhostTracks = (rootStore: RootStore) => () => {
+  const { pianoRollStore } = rootStore
+
+  pushHistory(rootStore)()
+  if (
+    pianoRollStore.notGhostTracks.size >
+    Math.floor(rootStore.song.tracks.length / 2)
+  ) {
+    pianoRollStore.notGhostTracks = new Set()
+  } else {
+    for (let i = 0; i < rootStore.song.tracks.length; ++i) {
+      pianoRollStore.notGhostTracks.add(i)
+    }
+  }
+}

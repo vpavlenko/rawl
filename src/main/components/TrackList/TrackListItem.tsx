@@ -1,5 +1,5 @@
 import { IconButton, ListItem } from "@material-ui/core"
-import { Headset, VolumeOff, VolumeUp } from "@material-ui/icons"
+import { Headset, Layers, VolumeOff, VolumeUp } from "@material-ui/icons"
 import { FC } from "react"
 import styled from "styled-components"
 import { useContextMenu } from "../../hooks/useContextMenu"
@@ -14,6 +14,7 @@ export interface TrackListItemData {
   selected: boolean
   volume: number
   pan: number
+  ghostTrack: boolean
 }
 
 export type TrackListItemProps = TrackListItemData & {
@@ -21,6 +22,8 @@ export type TrackListItemProps = TrackListItemData & {
   onClickSolo: () => void
   onClickMute: () => void
   onClickDelete: () => void
+  onClickGhostTrack: () => void
+  onClickToogleAllGhostTracks: () => void
 }
 
 const Container = styled(ListItem)`
@@ -74,12 +77,13 @@ export const TrackListItem: FC<TrackListItemProps> = ({
   mute,
   solo,
   selected,
-  volume,
-  pan,
+  ghostTrack,
   onClick,
   onClickDelete,
   onClickSolo,
   onClickMute,
+  onClickGhostTrack,
+  onClickToogleAllGhostTracks,
 }) => {
   const { onContextMenu, menuProps } = useContextMenu()
 
@@ -122,6 +126,22 @@ export const TrackListItem: FC<TrackListItemProps> = ({
             ) : (
               <VolumeUp fontSize="small" />
             )}
+          </IconButton>
+          <IconButton
+            color="default"
+            size="small"
+            className={`button solo ${ghostTrack ? "active" : ""}`}
+            onClick={(e) => {
+              if (e.nativeEvent.altKey) {
+                e.stopPropagation()
+                onClickToogleAllGhostTracks()
+              } else {
+                e.stopPropagation()
+                onClickGhostTrack()
+              }
+            }}
+          >
+            <Layers fontSize="small" />
           </IconButton>
         </div>
       </div>

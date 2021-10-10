@@ -1,20 +1,22 @@
+import { getSamplesFromSoundFont, SynthEvent } from "@ryohey/wavelet"
 import flatten from "lodash/flatten"
 import range from "lodash/range"
 import throttle from "lodash/throttle"
-import {
-  AnyEvent,
-  MIDIChannelEvents,
-  MIDIControlEvents,
-  serialize as serializeMidiEvent,
-} from "midifile-ts"
+import { AnyEvent, MIDIChannelEvents, MIDIControlEvents } from "midifile-ts"
 import { computed, makeObservable, observable } from "mobx"
-import { Message, SynthOutput } from "../../main/services/SynthOutput"
+import { SynthOutput } from "../../main/services/SynthOutput"
 import { deassemble as deassembleNote } from "../helpers/noteAssembler"
 import { deassemble as deassembleRPN } from "../helpers/RPNAssembler"
+import {
+  controllerMidiEvent,
+  noteOffMidiEvent,
+  noteOnMidiEvent,
+} from "../midi/MidiEvent"
 import Song from "../song"
 import { NoteEvent, resetTrackMIDIEvents, TrackEvent } from "../track"
 import { getStatusEvents } from "../track/selector"
 import TrackMute from "../trackMute"
+import { DistributiveOmit } from "../types"
 import { AdaptiveTimer } from "./AdaptiveTimer"
 import EventScheduler from "./EventScheduler"
 import { PlayerEvent } from "./PlayerEvent"
@@ -62,6 +64,9 @@ export default class Player {
   )
   private _currentTick = 0
   private _isPlaying = false
+  private synth: AudioWorkletNode | null = null
+  private context = new AudioContext()
+
   disableSeek: boolean = false
 
   loop: LoopSetting = {
@@ -82,6 +87,41 @@ export default class Player {
     this._output = output
     this._trackMute = trackMute
     this._songStore = songStore
+
+    this.setupSynth()
+  }
+
+  private async setupSynth() {
+    const url = new URL("@ryohey/wavelet/dist/processor.js", import.meta.url)
+    await this.context.audioWorklet.addModule(url)
+
+    this.synth = new AudioWorkletNode(this.context, "synth-processor", {
+      numberOfInputs: 0,
+      outputChannelCount: [2],
+    } as any)
+    this.synth.connect(this.context.destination)
+
+    await this.loadSoundFont()
+  }
+
+  private async loadSoundFont() {
+    const url = "/A320U.sf2"
+    const data = await (await fetch(url)).arrayBuffer()
+    const parsed = getSamplesFromSoundFont(new Uint8Array(data), this.context)
+
+    for (const sample of parsed) {
+      this.postSynthMessage(
+        {
+          type: "loadSample",
+          sample,
+          bank: sample.bank,
+          instrument: sample.instrument,
+          keyRange: sample.keyRange,
+          velRange: sample.velRange,
+        },
+        [sample.buffer] // transfer instead of copy)
+      )
+    }
   }
 
   private get song() {
@@ -93,6 +133,8 @@ export default class Player {
   }
 
   play() {
+    this.context.resume()
+
     if (this.isPlaying) {
       console.warn("called play() while playing. aborted.")
       return
@@ -142,9 +184,8 @@ export default class Player {
   }
 
   allSoundsOffChannel(ch: number) {
-    this._sendMessage(
-      [0xb0 + ch, MIDIControlEvents.ALL_SOUNDS_OFF, 0],
-      window.performance.now()
+    this.sendEvent(
+      controllerMidiEvent(0, ch, MIDIControlEvents.ALL_SOUNDS_OFF, 0)
     )
   }
 
@@ -170,22 +211,12 @@ export default class Player {
   }
 
   reset() {
-    const timestamp = window.performance.now()
     for (const ch of range(0, this.numberOfChannels)) {
-      // reset controllers
-      const resetControllers = {
-        message: [
-          firstByte("controller", ch),
-          MIDIControlEvents.RESET_CONTROLLERS,
-          0x7f,
-        ],
-        timestamp,
-      }
-      const resetMessages = resetTrackMIDIEvents(ch)
-        .map((e) => serializeMidiEvent(e, false))
-        .map((message) => ({ message, timestamp }))
-      const messages = [resetControllers, ...resetMessages]
-      this._sendMessages(messages)
+      const messages: AnyEvent[] = [
+        controllerMidiEvent(0, ch, MIDIControlEvents.RESET_CONTROLLERS, 0x7f),
+        ...resetTrackMIDIEvents(ch),
+      ]
+      messages.forEach((e) => this.sendEvent(e))
     }
     this.stop()
     this.position = 0
@@ -197,18 +228,13 @@ export default class Player {
    and send them to the synthesizer
   */
   sendCurrentStateEvents() {
-    const timestamp = window.performance.now()
-    const messages = flatten(
-      this.song.tracks.map((t) => {
+    this.song.tracks
+      .flatMap((t) => {
         const statusEvents = getStatusEvents(t.events, this._currentTick)
         this.applyPlayerEvents(statusEvents as PlayerEvent[])
-        return convertTrackEvents(statusEvents, t.channel).map((e) => ({
-          message: serializeMidiEvent(e as any, false),
-          timestamp,
-        }))
+        return convertTrackEvents(statusEvents, t.channel)
       })
-    )
-    this._sendMessages(messages)
+      .forEach((e) => this.sendEvent(e))
   }
 
   get currentTempo() {
@@ -219,14 +245,6 @@ export default class Player {
     this._currentTempo = value
   }
 
-  private _sendMessage(message: number[], timestamp: number) {
-    this._sendMessages([{ message, timestamp }])
-  }
-
-  private _sendMessages(msg: Message[]) {
-    this._output.sendEvents(msg)
-  }
-
   playNote({
     channel,
     noteNumber,
@@ -235,25 +253,15 @@ export default class Player {
   }: Pick<NoteEvent, "noteNumber" | "velocity" | "duration"> & {
     channel: number
   }) {
-    this.sendNoteOn(channel, noteNumber, velocity)
-    this.sendNoteOff(channel, noteNumber, duration)
-  }
-
-  sendNoteOn(channel: number, noteNumber: number, velocity: number) {
-    this._output.activate()
-    const timestamp = window.performance.now()
-    this._sendMessage(
-      [firstByte("noteOn", channel), noteNumber, velocity],
-      timestamp
+    this.sendEvent(noteOnMidiEvent(0, channel, noteNumber, velocity))
+    this.sendEvent(
+      noteOffMidiEvent(0, channel, noteNumber, 0),
+      this.tickToMillisec(duration) / 1000
     )
   }
 
-  sendNoteOff(channel: number, noteNumber: number, delay: number) {
-    const timestamp = window.performance.now()
-    this._sendMessage(
-      [firstByte("noteOff", channel), noteNumber, 0],
-      timestamp + this.tickToMillisec(delay)
-    )
+  private postSynthMessage(e: SynthEvent, transfer?: Transferable[]) {
+    this.synth?.port.postMessage(e, transfer ?? [])
   }
 
   tickToMillisec(tick: number) {
@@ -265,10 +273,11 @@ export default class Player {
     return trackId ? this._trackMute.shouldPlayTrack(trackId) : true
   }
 
-  sendEvent(event: AnyEvent) {
-    const timestamp = window.performance.now()
-    const message = serializeMidiEvent(event, false)
-    this._sendMessage(message, timestamp)
+  sendEvent(event: SendableEvent, delayTime: number = 0) {
+    const ev = anyEventToSynthEvent(event, delayTime * this.context.sampleRate)
+    if (ev !== null) {
+      this.postSynthMessage(ev)
+    }
   }
 
   private syncPosition = throttle(() => {
@@ -300,16 +309,15 @@ export default class Player {
 
     // channel イベントを MIDI Output に送信
     // Send Channel Event to MIDI OUTPUT
-    const messages = events
+    events
       .filter(
-        ({ event }) =>
-          event.type === "channel" && this._shouldPlayChannel(event.channel)
+        ({ event: e }) =>
+          e.type === "channel" && this._shouldPlayChannel(e.channel)
       )
-      .map(({ event, timestamp }) => ({
-        message: serializeMidiEvent(event as any, false),
-        timestamp: timestamp + this._latency,
-      }))
-    this._sendMessages(messages)
+      .forEach(({ event: e, timestamp: time }) => {
+        const delayTime = (time - timestamp) / 1000
+        this.sendEvent(e, delayTime)
+      })
 
     // channel イベント以外を実行
     // Run other than Channel Event
@@ -331,4 +339,53 @@ export default class Player {
 
     this.syncPosition()
   }
+}
+
+type SendableEvent = DistributiveOmit<AnyEvent, "deltaTime">
+
+const anyEventToSynthEvent = (
+  e: SendableEvent,
+  delayTime: number
+): SynthEvent | null => {
+  switch (e.type) {
+    case "channel":
+      switch (e.subtype) {
+        case "noteOn":
+          return {
+            type: "noteOn",
+            channel: e.channel,
+            pitch: e.noteNumber,
+            velocity: e.velocity,
+            delayTime,
+          }
+        case "noteOff":
+          return {
+            type: "noteOff",
+            channel: e.channel,
+            pitch: e.noteNumber,
+            delayTime,
+          }
+        case "pitchBend":
+          return {
+            type: "pitchBend",
+            channel: e.channel,
+            value: e.value,
+            delayTime,
+          }
+        case "programChange":
+          return {
+            type: "programChange",
+            channel: e.channel,
+            value: e.value,
+            delayTime,
+          }
+        case "controller":
+          switch (e.controllerType) {
+            case 0:
+              break
+          }
+          break
+      }
+  }
+  return null
 }

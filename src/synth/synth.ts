@@ -1,4 +1,3 @@
-import { Synth } from "@ryohey/sf2synth"
 import { WindowMessenger } from "../common/messenger/messenger"
 import { AdaptiveTimer } from "../common/player/AdaptiveTimer"
 import { Message } from "../main/services/SynthOutput"
@@ -34,10 +33,8 @@ export default class SynthController {
   // Difference of timestamp with sender
   private timestampOffset = 0
 
-  private handler = new Synth.MidiMessageHandler()
   private ctx: AudioContext
   private output: AudioNode
-  private synth: Synth.Synthesizer
   private messenger: WindowMessenger
   private timer = new AdaptiveTimer(() => this.onTimer(), TIMER_INTERVAL)
 
@@ -47,10 +44,6 @@ export default class SynthController {
     output.connect(ctx.destination)
     this.ctx = ctx
     this.output = output
-
-    this.synth = new Synth.Synthesizer(ctx)
-    this.synth.connect(output)
-    this.handler.listener = this.synth
 
     this.setupRecorder()
     this.timer.start()
@@ -89,17 +82,7 @@ export default class SynthController {
     this.timestampOffset = window.performance.now() - timestamp
   }
 
-  private loadSoundFont(url: string) {
-    fetch(url)
-      .then((res) => res.arrayBuffer())
-      .then((buf) => this.synth.loadSoundFont(new Uint8Array(buf)))
-      .then(() => {
-        this.messenger.send(SynthEvent.didLoadSoundFont, {
-          presetNames: this.synth.soundFont.getPresetNames(),
-        } as LoadSoundFontEvent)
-      })
-      .catch((e) => console.warn(e.message))
-  }
+  private loadSoundFont(url: string) {}
 
   private activate() {
     if (this.ctx.state !== "running") {
@@ -132,10 +115,6 @@ export default class SynthController {
         !allSoundOffChannels.includes(getMessageChannel(e.message))
       )
     })
-
-    eventsToSend.forEach(({ message }) =>
-      this.handler.processMidiMessage(message)
-    )
   }
 }
 

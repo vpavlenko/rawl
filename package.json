@@ -24,7 +24,7 @@
     "@material-ui/icons": "4.11.2",
     "@material-ui/lab": "4.0.0-alpha.60",
     "@rehooks/component-size": "1.0.3",
-    "@ryohey/sf2synth": "^1.0.3",
+    "@ryohey/wavelet": "^0.1.0",
     "@sentry/react": "^6.11.0",
     "@sentry/tracing": "^6.11.0",
     "color": "^4.0.1",

@@ -61,11 +61,6 @@ export default class RootStore {
     }
     this.pianoRollStore = new PianoRollStore(this)
 
-    synth.onLoadSoundFont = (e) => {
-      this.pianoRollStore.presetNames = e.presetNames
-      player.reset()
-    }
-
     const preview = previewMidiInput(this)
 
     midiInput.onMidiMessage = (e) => {

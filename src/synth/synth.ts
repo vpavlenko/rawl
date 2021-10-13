@@ -1,5 +1,4 @@
 import { WindowMessenger } from "../common/messenger/messenger"
-import { AdaptiveTimer } from "../common/player/AdaptiveTimer"
 import { Message } from "../main/services/SynthOutput"
 
 type MIDIMessage = number[]
@@ -36,7 +35,6 @@ export default class SynthController {
   private ctx: AudioContext
   private output: AudioNode
   private messenger: WindowMessenger
-  private timer = new AdaptiveTimer(() => this.onTimer(), TIMER_INTERVAL)
 
   constructor() {
     const ctx = new AudioContext()
@@ -46,7 +44,6 @@ export default class SynthController {
     this.output = output
 
     this.setupRecorder()
-    this.timer.start()
 
     this.messenger = new WindowMessenger(window.parent)
     this.bindMessenger()

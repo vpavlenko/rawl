@@ -2,7 +2,7 @@ import { getSamplesFromSoundFont, SynthEvent } from "@ryohey/wavelet"
 import flatten from "lodash/flatten"
 import range from "lodash/range"
 import throttle from "lodash/throttle"
-import { AnyEvent, MIDIChannelEvents, MIDIControlEvents } from "midifile-ts"
+import { AnyEvent, MIDIControlEvents } from "midifile-ts"
 import { computed, makeObservable, observable } from "mobx"
 import { SynthOutput } from "../../main/services/SynthOutput"
 import { deassemble as deassembleNote } from "../helpers/noteAssembler"
@@ -17,13 +17,8 @@ import { NoteEvent, resetTrackMIDIEvents, TrackEvent } from "../track"
 import { getStatusEvents } from "../track/selector"
 import TrackMute from "../trackMute"
 import { DistributiveOmit } from "../types"
-import { AdaptiveTimer } from "./AdaptiveTimer"
 import EventScheduler from "./EventScheduler"
 import { PlayerEvent } from "./PlayerEvent"
-
-function firstByte(eventType: string, channel: number): number {
-  return (MIDIChannelEvents[eventType] << 4) + channel
-}
 
 function convertTrackEvents(events: TrackEvent[], channel: number | undefined) {
   const a = flatten(events.map((e) => deassembleNote(e)))
@@ -57,11 +52,7 @@ export default class Player {
   private _songStore: SongStore
   private _output: SynthOutput
   private _trackMute: TrackMute
-  private _latency: number = 100
-  private _timer = new AdaptiveTimer(
-    (timestamp) => this._onTimer(timestamp),
-    TIMER_INTERVAL
-  )
+  private _interval: number | null = null
   private _currentTick = 0
   private _isPlaying = false
   private synth: AudioWorkletNode | null = null
@@ -148,7 +139,7 @@ export default class Player {
     )
     this._isPlaying = true
     this._output.activate()
-    this._timer.start()
+    this._interval = window.setInterval(() => this._onTimer(), TIMER_INTERVAL)
   }
 
   set position(tick: number) {
@@ -207,7 +198,11 @@ export default class Player {
     this._scheduler = null
     this.allSoundsOff()
     this._isPlaying = false
-    this._timer.stop()
+
+    if (this._interval !== null) {
+      clearInterval(this._interval)
+      this._interval = null
+    }
   }
 
   reset() {
@@ -300,11 +295,12 @@ export default class Player {
     })
   }
 
-  private _onTimer(timestamp: number) {
+  private _onTimer() {
     if (this._scheduler === null) {
       return
     }
 
+    const timestamp = performance.now()
     const events = this._scheduler.readNextEvents(this._currentTempo, timestamp)
 
     // channel イベントを MIDI Output に送信

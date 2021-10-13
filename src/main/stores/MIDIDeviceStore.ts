@@ -26,7 +26,7 @@ export class MIDIDeviceStore {
     this.requestMIDIAccess()
   }
 
-  requestMIDIAccess() {
+  async requestMIDIAccess() {
     this.isLoading = true
     this.inputs = []
     this.outputs = []
@@ -39,20 +39,18 @@ export class MIDIDeviceStore {
       return
     }
 
-    navigator
-      .requestMIDIAccess({ sysex: true })
-      .then((midiAccess) => {
+    try {
+      const midiAccess = await navigator.requestMIDIAccess({ sysex: true })
+
+      this.updatePorts(midiAccess)
+      midiAccess.onstatechange = () => {
         this.updatePorts(midiAccess)
-        midiAccess.onstatechange = () => {
-          this.updatePorts(midiAccess)
-        }
-      })
-      .catch((error: Error) => {
-        this.requestError = error
-      })
-      .finally(() => {
-        this.isLoading = false
-      })
+      }
+    } catch (error) {
+      this.requestError = error as Error
+    } finally {
+      this.isLoading = false
+    }
   }
 
   private updatePorts(midiAccess: WebMidi.MIDIAccess) {

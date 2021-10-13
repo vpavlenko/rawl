@@ -57,7 +57,6 @@ export default class PianoRollStore {
     isRhythmTrack: false,
     programNumber: 0,
   }
-  presetNames: string[][] = [[]]
   notGhostTracks: Set<number> = new Set()
   canvasWidth: number = 0
   canvasHeight: number = 0
@@ -86,7 +85,6 @@ export default class PianoRollStore {
       lastNoteDuration: observable,
       openInstrumentBrowser: observable,
       instrumentBrowserSetting: observable,
-      presetNames: observable,
       notGhostTracks: observable,
       canvasWidth: observable,
       canvasHeight: observable,

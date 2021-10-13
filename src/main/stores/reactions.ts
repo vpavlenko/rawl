@@ -72,13 +72,7 @@ const updateOutputDevices: Reaction =
         })
         .filter(isNotNull)
 
-    synthGroup.outputs = [
-      {
-        synth: synth,
-        isEnabled: midiDeviceStore.isFactorySoundEnabled,
-      },
-      ...getMIDIDeviceEntries(),
-    ]
+    synthGroup.outputs = [...getMIDIDeviceEntries()]
   }
 
 const updateInputDevices: Reaction =

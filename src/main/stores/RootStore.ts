@@ -4,9 +4,9 @@ import Song, { emptySong } from "../../common/song"
 import TrackMute from "../../common/trackMute"
 import { SerializedState } from "../actions/history"
 import { GroupOutput } from "../services/GroupOutput"
-import IFrameSynth from "../services/IFrameSynth"
 import { MIDIInput, previewMidiInput } from "../services/MIDIInput"
 import { MIDIRecorder } from "../services/MIDIRecorder"
+import { SoundFontSynth } from "../services/SoundFontSynth"
 import ArrangeViewStore from "./ArrangeViewStore"
 import HistoryStore from "./HistoryStore"
 import { MIDIDeviceStore } from "./MIDIDeviceStore"
@@ -19,7 +19,7 @@ import TempoEditorStore from "./TempoEditorStore"
 
 export interface Services {
   player: Player
-  synth: IFrameSynth
+  synth: SoundFontSynth
   synthGroup: GroupOutput
   midiInput: MIDIInput
   midiRecorder: MIDIRecorder
@@ -44,9 +44,8 @@ export default class RootStore {
       song: observable.ref,
     })
 
-    const synth = new IFrameSynth("A320U.sf2")
+    const synth = new SoundFontSynth("A320U.sf2")
     const synthGroup = new GroupOutput()
-    synthGroup.outputs.push({ synth, isEnabled: true })
 
     const player = new Player(synthGroup, this.trackMute, this)
     const midiInput = new MIDIInput()

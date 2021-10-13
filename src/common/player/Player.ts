@@ -1,10 +1,12 @@
-import { getSamplesFromSoundFont, SynthEvent } from "@ryohey/wavelet"
 import flatten from "lodash/flatten"
 import range from "lodash/range"
 import throttle from "lodash/throttle"
 import { AnyEvent, MIDIControlEvents } from "midifile-ts"
 import { computed, makeObservable, observable } from "mobx"
-import { SynthOutput } from "../../main/services/SynthOutput"
+import {
+  SendableEvent,
+  SoundFontSynth,
+} from "../../main/services/SoundFontSynth"
 import { deassemble as deassembleNote } from "../helpers/noteAssembler"
 import { deassemble as deassembleRPN } from "../helpers/RPNAssembler"
 import {
@@ -16,7 +18,6 @@ import Song from "../song"
 import { NoteEvent, resetTrackMIDIEvents, TrackEvent } from "../track"
 import { getStatusEvents } from "../track/selector"
 import TrackMute from "../trackMute"
-import { DistributiveOmit } from "../types"
 import EventScheduler from "./EventScheduler"
 import { PlayerEvent } from "./PlayerEvent"
 
@@ -50,13 +51,11 @@ export default class Player {
   private _currentTempo = 120
   private _scheduler: EventScheduler<PlayerEvent> | null = null
   private _songStore: SongStore
-  private _output: SynthOutput
+  private _output: SoundFontSynth
   private _trackMute: TrackMute
   private _interval: number | null = null
   private _currentTick = 0
   private _isPlaying = false
-  private synth: AudioWorkletNode | null = null
-  private context = new AudioContext()
 
   disableSeek: boolean = false
 
@@ -66,7 +65,11 @@ export default class Player {
     enabled: false,
   }
 
-  constructor(output: SynthOutput, trackMute: TrackMute, songStore: SongStore) {
+  constructor(
+    output: SoundFontSynth,
+    trackMute: TrackMute,
+    songStore: SongStore
+  ) {
     makeObservable<Player, "_currentTick" | "_isPlaying">(this, {
       _currentTick: observable,
       _isPlaying: observable,
@@ -78,41 +81,6 @@ export default class Player {
     this._output = output
     this._trackMute = trackMute
     this._songStore = songStore
-
-    this.setupSynth()
-  }
-
-  private async setupSynth() {
-    const url = new URL("@ryohey/wavelet/dist/processor.js", import.meta.url)
-    await this.context.audioWorklet.addModule(url)
-
-    this.synth = new AudioWorkletNode(this.context, "synth-processor", {
-      numberOfInputs: 0,
-      outputChannelCount: [2],
-    } as any)
-    this.synth.connect(this.context.destination)
-
-    await this.loadSoundFont()
-  }
-
-  private async loadSoundFont() {
-    const url = "/A320U.sf2"
-    const data = await (await fetch(url)).arrayBuffer()
-    const parsed = getSamplesFromSoundFont(new Uint8Array(data), this.context)
-
-    for (const sample of parsed) {
-      this.postSynthMessage(
-        {
-          type: "loadSample",
-          sample,
-          bank: sample.bank,
-          instrument: sample.instrument,
-          keyRange: sample.keyRange,
-          velRange: sample.velRange,
-        },
-        [sample.buffer] // transfer instead of copy)
-      )
-    }
   }
 
   private get song() {
@@ -124,8 +92,6 @@ export default class Player {
   }
 
   play() {
-    this.context.resume()
-
     if (this.isPlaying) {
       console.warn("called play() while playing. aborted.")
       return
@@ -255,10 +221,6 @@ export default class Player {
     )
   }
 
-  private postSynthMessage(e: SynthEvent, transfer?: Transferable[]) {
-    this.synth?.port.postMessage(e, transfer ?? [])
-  }
-
   tickToMillisec(tick: number) {
     return (tick / (this.timebase / 60) / this._currentTempo) * 1000
   }
@@ -269,10 +231,7 @@ export default class Player {
   }
 
   sendEvent(event: SendableEvent, delayTime: number = 0) {
-    const ev = anyEventToSynthEvent(event, delayTime * this.context.sampleRate)
-    if (ev !== null) {
-      this.postSynthMessage(ev)
-    }
+    this._output.sendEvent(event, delayTime)
   }
 
   private syncPosition = throttle(() => {
@@ -335,53 +294,4 @@ export default class Player {
 
     this.syncPosition()
   }
-}
-
-type SendableEvent = DistributiveOmit<AnyEvent, "deltaTime">
-
-const anyEventToSynthEvent = (
-  e: SendableEvent,
-  delayTime: number
-): SynthEvent | null => {
-  switch (e.type) {
-    case "channel":
-      switch (e.subtype) {
-        case "noteOn":
-          return {
-            type: "noteOn",
-            channel: e.channel,
-            pitch: e.noteNumber,
-            velocity: e.velocity,
-            delayTime,
-          }
-        case "noteOff":
-          return {
-            type: "noteOff",
-            channel: e.channel,
-            pitch: e.noteNumber,
-            delayTime,
-          }
-        case "pitchBend":
-          return {
-            type: "pitchBend",
-            channel: e.channel,
-            value: e.value,
-            delayTime,
-          }
-        case "programChange":
-          return {
-            type: "programChange",
-            channel: e.channel,
-            value: e.value,
-            delayTime,
-          }
-        case "controller":
-          switch (e.controllerType) {
-            case 0:
-              break
-          }
-          break
-      }
-  }
-  return null
 }

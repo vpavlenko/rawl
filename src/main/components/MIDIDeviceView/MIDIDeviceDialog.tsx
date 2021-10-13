@@ -55,13 +55,15 @@ const Spacer = styled.div`
 export const MIDIDeviceDialog: FC = observer(() => {
   const { midiDeviceStore, rootViewStore } = useStores()
 
-  const inputs = midiDeviceStore.inputs
-  const outputs = midiDeviceStore.outputs
-  const isLoading = midiDeviceStore.isLoading
-  const requestError = midiDeviceStore.requestError
-  const enabledInputIds = midiDeviceStore.enabledInputIds
-  const enabledOutputIds = midiDeviceStore.enabledOutputIds
-  const isFactorySoundEnabled = midiDeviceStore.isFactorySoundEnabled
+  const {
+    inputs,
+    outputs,
+    isLoading,
+    requestError,
+    enabledInputIds,
+    enabledOutputIds,
+    isFactorySoundEnabled,
+  } = midiDeviceStore
   const isOpen = rootViewStore.openDeviceDialog
 
   const close = () => (rootViewStore.openDeviceDialog = false)

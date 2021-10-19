@@ -1,5 +1,5 @@
+import { deserializeSingleEvent, Stream } from "midifile-ts"
 import { makeObservable, observable, observe } from "mobx"
-import { parseMessage } from "../../common/midi/parseMessage"
 import Player from "../../common/player"
 import Song from "../../common/song"
 import { NoteEvent } from "../../common/track"
@@ -54,7 +54,12 @@ export class MIDIRecorder {
 
     const tick = this.player.position
 
-    const message = parseMessage(e.data)
+    const stream = new Stream(e.data)
+    const message = deserializeSingleEvent(stream)
+
+    if (message.type !== "channel") {
+      return
+    }
 
     if (message.subtype === "noteOn") {
       const note = track.addEvent<NoteEvent>({

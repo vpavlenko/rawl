@@ -59,17 +59,6 @@ li {
   -webkit-user-drag: none;
 }
 
-#synth {
-  width: 1px;
-  height: 1px;
-  display: block;
-  border: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 999;
-}
-
 /* ScrollBar */
 
 .ScrollBar {

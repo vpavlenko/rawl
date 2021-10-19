@@ -29,8 +29,6 @@ export const registerReactions = (rootStore: RootStore) => {
   // reset selection when change track
   observe(rootStore.song, "selectedTrackId", resetSelection(rootStore))
 
-  observe(rootStore, "song", updateMIDIRecorderSong(rootStore))
-
   observe(
     rootStore.services.midiRecorder,
     "isRecording",
@@ -85,11 +83,6 @@ const updateInputDevices: Reaction =
     midiInput.removeAllDevices()
     devices.forEach(midiInput.addDevice)
   }
-
-const updateMIDIRecorderSong: Reaction =
-  ({ song, services: { midiRecorder } }) =>
-  () =>
-    (midiRecorder.song = song)
 
 const disableSeekWhileRecording: Reaction =
   ({ services: { player, midiRecorder } }) =>

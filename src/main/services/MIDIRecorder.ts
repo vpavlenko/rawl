@@ -4,35 +4,40 @@ import Player from "../../common/player"
 import Song from "../../common/song"
 import { NoteEvent } from "../../common/track"
 
+interface SongStore {
+  song: Song
+}
+
 export class MIDIRecorder {
-  private player: Player
   private recordedNotes: NoteEvent[] = []
-  song: Song | null = null
+  private player: Player
+  private songStore: SongStore
   isRecording: boolean = false
 
-  constructor(player: Player) {
+  constructor(player: Player, songStore: SongStore) {
     this.player = player
+    this.songStore = songStore
 
     makeObservable(this, {
       isRecording: observable,
     })
 
     // extend duration while key press
-    observe(player, "position", () => {
+    observe(player, "position", (change) => {
       if (!this.isRecording) {
         return
       }
 
-      const track = this.song?.selectedTrack
+      const track = songStore.song.selectedTrack
       if (track === undefined) {
         return
       }
 
-      const tick = this.player.position
+      const tick = change.object.get()
 
       this.recordedNotes.forEach((n) => {
         track.updateEvent<NoteEvent>(n.id, {
-          duration: tick - n.tick,
+          duration: Math.max(0, tick - n.tick),
         })
       })
     })
@@ -47,12 +52,10 @@ export class MIDIRecorder {
       return
     }
 
-    const track = this.song?.selectedTrack
+    const track = this.songStore.song.selectedTrack
     if (track === undefined) {
       return
     }
-
-    const tick = this.player.position
 
     const stream = new Stream(e.data)
     const message = deserializeSingleEvent(stream)
@@ -60,6 +63,8 @@ export class MIDIRecorder {
     if (message.type !== "channel") {
       return
     }
+
+    const tick = this.player.position
 
     if (message.subtype === "noteOn") {
       const note = track.addEvent<NoteEvent>({
@@ -74,6 +79,14 @@ export class MIDIRecorder {
     }
 
     if (message.subtype === "noteOff") {
+      this.recordedNotes
+        .filter((n) => n.noteNumber === message.noteNumber)
+        .forEach((n) => {
+          track.updateEvent<NoteEvent>(n.id, {
+            duration: Math.max(0, tick - n.tick),
+          })
+        })
+
       this.recordedNotes = this.recordedNotes.filter(
         (n) => n.noteNumber !== message.noteNumber
       )

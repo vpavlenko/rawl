@@ -37,11 +37,9 @@ export class Shader<
     this.uniforms = uniforms(program)
   }
 
-  setUniforms(
-    props: {
-      [Property in keyof U]: GetUniformType<U[Property]>
-    }
-  ) {
+  setUniforms(props: {
+    [Property in keyof U]: GetUniformType<U[Property]>
+  }) {
     for (let key in props) {
       this.uniforms[key as keyof U].value = props[key as keyof typeof props]
     }

@@ -1,6 +1,8 @@
 import { getSamplesFromSoundFont, SynthEvent } from "@ryohey/wavelet"
-import { AnyEvent } from "midifile-ts"
+import { AnyChannelEvent } from "midifile-ts"
 import { DistributiveOmit } from "../../common/types"
+
+export type SendableEvent = DistributiveOmit<AnyChannelEvent, "deltaTime">
 
 export class SoundFontSynth {
   private synth: AudioWorkletNode | null = null
@@ -50,62 +52,14 @@ export class SoundFontSynth {
   }
 
   sendEvent(event: SendableEvent, delayTime: number = 0) {
-    const ev = anyEventToSynthEvent(event, delayTime * this.context.sampleRate)
-    if (ev !== null) {
-      this.postSynthMessage(ev)
-    }
+    this.postSynthMessage({
+      type: "midi",
+      midi: event,
+      delayTime: delayTime * this.context.sampleRate,
+    })
   }
 
   activate() {
     this.context.resume()
   }
-}
-
-export type SendableEvent = DistributiveOmit<AnyEvent, "deltaTime">
-
-const anyEventToSynthEvent = (
-  e: SendableEvent,
-  delayTime: number
-): SynthEvent | null => {
-  switch (e.type) {
-    case "channel":
-      switch (e.subtype) {
-        case "noteOn":
-          return {
-            type: "noteOn",
-            channel: e.channel,
-            pitch: e.noteNumber,
-            velocity: e.velocity,
-            delayTime,
-          }
-        case "noteOff":
-          return {
-            type: "noteOff",
-            channel: e.channel,
-            pitch: e.noteNumber,
-            delayTime,
-          }
-        case "pitchBend":
-          return {
-            type: "pitchBend",
-            channel: e.channel,
-            value: e.value,
-            delayTime,
-          }
-        case "programChange":
-          return {
-            type: "programChange",
-            channel: e.channel,
-            value: e.value,
-            delayTime,
-          }
-        case "controller":
-          switch (e.controllerType) {
-            case 0:
-              break
-          }
-          break
-      }
-  }
-  return null
 }

@@ -15,6 +15,10 @@ export const serializeMessage = (e: ReturnType<typeof parseMessage>) => {
     }
   }
 
+  if (e.subtype === "unknown") {
+    return []
+  }
+
   const subtypeCode = MIDIChannelEvents[e.subtype]
   if (subtypeCode === undefined) {
     return []
@@ -53,9 +57,6 @@ export const serializeMessage = (e: ReturnType<typeof parseMessage>) => {
       add((e.value >> 7) & 0x7f)
       break
     }
-    case "unknown":
-      add(e.data)
-      break
   }
   return bytes
 }

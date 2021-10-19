@@ -96,6 +96,26 @@ li {
 .gitter-chat-embed {
   z-index: 10000;
 }
+
+/* Native Scrollbar */
+
+&::-webkit-scrollbar {
+  width: 12px;
+}
+
+&::-webkit-scrollbar-track {
+  background-color: var(--background-color);
+}
+
+&::-webkit-scrollbar-thumb {
+  background-color: var(--secondary-background-color);
+  border: 3px solid var(--background-color);
+  border-radius: 6px;
+}
+
+&::-webkit-scrollbar-thumb:hover {
+  background-color: var(--tertiary-background-color);
+}
 `
 
 export const GlobalCSS = () => {

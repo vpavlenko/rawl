@@ -46,6 +46,7 @@ const Container = styled.div`
   width: 100%;
   background: #f1f1f1;
   position: absolute;
+  display: flex;
 
   &.vertical {
     width: ${BAR_WIDTH}px;
@@ -53,6 +54,7 @@ const Container = styled.div`
     position: absolute;
     top: 0;
     right: 0;
+    flex-direction: column;
 
     .button-backward .triangle {
       transform: rotate(0deg) scale(1.1);
@@ -69,9 +71,10 @@ const Container = styled.div`
     position: absolute;
     bottom: 0;
     left: 0;
+    flex-direction: row;
+
     & > div {
       height: 100%;
-      float: left;
     }
 
     .button-backward .triangle {

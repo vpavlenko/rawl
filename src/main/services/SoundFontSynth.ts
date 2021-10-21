@@ -42,7 +42,7 @@ export class SoundFontSynth {
           keyRange: sample.keyRange,
           velRange: sample.velRange,
         },
-        [sample.buffer] // transfer instead of copy)
+        [sample.buffer] // transfer instead of copy
       )
     }
   }

@@ -14,7 +14,7 @@ import {
   noteOnMidiEvent,
 } from "../midi/MidiEvent"
 import Song from "../song"
-import { NoteEvent, resetTrackMIDIEvents, TrackEvent } from "../track"
+import { NoteEvent, TrackEvent } from "../track"
 import { getStatusEvents } from "../track/selector"
 import TrackMute from "../trackMute"
 import EventScheduler from "./EventScheduler"
@@ -159,6 +159,14 @@ export default class Player {
     }
   }
 
+  private resetControllers() {
+    for (const ch of range(0, this.numberOfChannels)) {
+      this.sendEvent(
+        controllerMidiEvent(0, ch, MIDIControlEvents.RESET_CONTROLLERS, 0x7f)
+      )
+    }
+  }
+
   stop() {
     this._scheduler = null
     this.allSoundsOff()
@@ -171,18 +179,8 @@ export default class Player {
   }
 
   reset() {
-    for (const ch of range(0, this.numberOfChannels)) {
-      const messages = [
-        controllerMidiEvent(0, ch, MIDIControlEvents.RESET_CONTROLLERS, 0x7f),
-        ...resetTrackMIDIEvents(ch),
-      ]
-      messages.forEach((e) => {
-        if (e.type === "channel") {
-          this.sendEvent(e)
-        }
-      })
-    }
     this.stop()
+    this.resetControllers()
     this.position = 0
   }
 

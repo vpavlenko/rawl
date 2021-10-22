@@ -1,4 +1,4 @@
-import { makeStyles, Toolbar } from "@material-ui/core"
+import { CircularProgress, makeStyles, Toolbar } from "@material-ui/core"
 import {
   FastForward,
   FastRewind,
@@ -162,12 +162,18 @@ export const ToolbarSeparator = styled.div`
   height: 1rem;
 `
 
+export const Right = styled.div`
+  position: absolute;
+  right: 1em;
+`
+
 export const TransportPanel: FC = observer(() => {
   const rootStore = useStores()
 
   const isPlaying = rootStore.services.player.isPlaying
   const isRecording = rootStore.services.midiRecorder.isRecording
   const canRecording = rootStore.midiDeviceStore.enabledInputIds.size > 0
+  const isSynthLoading = rootStore.services.synth.isLoading
 
   const onClickPlay = play(rootStore)
   const onClickStop = stop(rootStore)
@@ -212,6 +218,12 @@ export const TransportPanel: FC = observer(() => {
       <ToolbarSeparator />
 
       <Timestamp />
+
+      {isSynthLoading && (
+        <Right>
+          <CircularProgress size="1rem" />
+        </Right>
+      )}
     </Toolbar>
   )
 })

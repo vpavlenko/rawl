@@ -1,5 +1,6 @@
 import { getSamplesFromSoundFont, SynthEvent } from "@ryohey/wavelet"
 import { AnyChannelEvent } from "midifile-ts"
+import { makeObservable, observable } from "mobx"
 import { DistributiveOmit } from "../../common/types"
 
 export type SendableEvent = DistributiveOmit<AnyChannelEvent, "deltaTime">
@@ -8,11 +9,18 @@ export class SoundFontSynth {
   private synth: AudioWorkletNode | null = null
   private soundFontURL: string
   private context = new AudioContext()
+  isLoading: boolean = true
 
   constructor(soundFontURL: string) {
     this.soundFontURL = soundFontURL
 
-    this.setup()
+    makeObservable(this, {
+      isLoading: observable,
+    })
+
+    this.setup().finally(() => {
+      this.isLoading = false
+    })
   }
 
   private async setup() {

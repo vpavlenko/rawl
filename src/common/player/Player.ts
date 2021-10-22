@@ -8,7 +8,6 @@ import {
   SoundFontSynth,
 } from "../../main/services/SoundFontSynth"
 import { deassemble as deassembleNote } from "../helpers/noteAssembler"
-import { deassemble as deassembleRPN } from "../helpers/RPNAssembler"
 import {
   controllerMidiEvent,
   noteOffMidiEvent,
@@ -22,11 +21,7 @@ import EventScheduler from "./EventScheduler"
 import { PlayerEvent, PlayerEventOf } from "./PlayerEvent"
 
 function convertTrackEvents(events: TrackEvent[], channel: number | undefined) {
-  const a = flatten(events.map((e) => deassembleNote(e)))
-  const b = flatten(
-    a.map((e) => deassembleRPN(e, (x) => ({ ...x, tick: e.tick })))
-  )
-  return b.map(
+  return flatten(events.map((e) => deassembleNote(e))).map(
     (e) => ({ ...e, channel: channel } as PlayerEventOf<AnyChannelEvent>)
   )
 }

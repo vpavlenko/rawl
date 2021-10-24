@@ -64,6 +64,7 @@ export const FileMenuButton: FC = observer(() => {
       <Tab
         ref={ref}
         onClick={useCallback(() => (rootViewStore.openDrawer = true), [])}
+        id="tab-file"
       >
         <span>{localized("file", "File")}</span>
       </Tab>

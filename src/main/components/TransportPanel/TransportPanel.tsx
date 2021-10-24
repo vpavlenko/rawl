@@ -186,6 +186,7 @@ export const TransportPanel: FC = observer(() => {
       </Button>
 
       <PlayButton
+        id="button-play"
         onClick={onClickPlay}
         className={isPlaying ? "active" : undefined}
       >

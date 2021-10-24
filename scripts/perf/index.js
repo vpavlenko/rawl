@@ -8,9 +8,11 @@ const __dirname = dirname(__filename)
 
 const browser = await puppeteer.launch({
   headless: false,
+  ignoreDefaultArgs: ["--mute-audio"],
+  args: ["--autoplay-policy=no-user-gesture-required"],
 })
 const page = await browser.newPage()
-await page.goto("http://localhost:3000/edit")
+await page.goto("http://localhost:3000/edit", { waitUntil: "networkidle0" })
 
 // open midi file
 

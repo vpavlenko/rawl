@@ -371,6 +371,7 @@ export const ArrangeView: FC = observer(() => {
           flexGrow: 1,
           flexDirection: "column",
           position: "relative",
+          overflow: "hidden",
         }}
       >
         <div

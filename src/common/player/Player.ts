@@ -179,9 +179,9 @@ export default class Player {
   }
 
   reset() {
-    this.stop()
     this.resetControllers()
-    this.position = 0
+    this.stop()
+    this._currentTick = 0
   }
 
   /*

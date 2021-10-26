@@ -44,5 +44,10 @@ module.exports = merge(common, {
       },
     ],
   },
-  plugins: [new ForkTsCheckerWebpackPlugin(), new ReactRefreshWebpackPlugin()],
+  plugins: [
+    new ForkTsCheckerWebpackPlugin(),
+    new ReactRefreshWebpackPlugin({
+      exclude: [/node_modules/, /processor.js/],
+    }),
+  ],
 })

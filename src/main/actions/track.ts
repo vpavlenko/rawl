@@ -1,4 +1,4 @@
-import { AnyEvent, SetTempoEvent } from "midifile-ts"
+import { AnyChannelEvent, SetTempoEvent } from "midifile-ts"
 import {
   panMidiEvent,
   programChangeMidiEvent,
@@ -67,7 +67,7 @@ export const changeNotesVelocity =
   }
 
 export const createEvent =
-  (rootStore: RootStore) => (e: AnyEvent, tick?: number) => {
+  (rootStore: RootStore) => (e: AnyChannelEvent, tick?: number) => {
     const {
       song,
       services: { player },

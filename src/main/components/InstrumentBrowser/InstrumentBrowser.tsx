@@ -15,7 +15,7 @@ import { FC } from "react"
 import styled from "styled-components"
 import { isNotUndefined } from "../../../common/helpers/array"
 import { localized } from "../../../common/localize/localizedString"
-import { getGMCategory } from "../../../common/midi/GM"
+import { getGMCategory, getInstrumentName } from "../../../common/midi/GM"
 import { programChangeMidiEvent } from "../../../common/midi/MidiEvent"
 import { setTrackInstrument as setTrackInstrumentAction } from "../../actions"
 import { useStores } from "../../hooks/useStores"
@@ -194,7 +194,6 @@ const InstrumentBrowserWrapper: FC = observer(() => {
 
   const track = rootStore.song.selectedTrack
   const trackId = rootStore.song.selectedTrackId
-  const presetNames = rootStore.pianoRollStore.presetNames
   const s = rootStore.pianoRollStore
   const player = rootStore.services.player
   const song = rootStore.song
@@ -210,9 +209,9 @@ const InstrumentBrowserWrapper: FC = observer(() => {
   const setTrackInstrument = (programNumber: number) =>
     setTrackInstrumentAction(rootStore)(trackId, programNumber)
 
-  const presets: PresetItem[] = Object.keys(presetNames[0]).map((key) => ({
-    programNumber: parseInt(key),
-    name: presetNames[0][parseInt(key)],
+  const presets: PresetItem[] = range(0, 128).map((programNumber) => ({
+    programNumber,
+    name: getInstrumentName(programNumber)!,
   }))
 
   const presetCategories = map(

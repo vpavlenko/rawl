@@ -139,9 +139,12 @@ const _ScrollBar: React.RefForwardingComponent<HTMLDivElement, ScrollBarProps> =
       pageForwardLength = 0
       pageBackwardLength = maxLength
     } else {
-      pageForwardLength =
+      pageForwardLength = Math.floor(
         (maxLength - thumbLength) * normalize(scrollOffset / maxOffset)
-      pageBackwardLength = maxLength - thumbLength - pageForwardLength
+      )
+      pageBackwardLength = Math.floor(
+        maxLength - thumbLength - pageForwardLength
+      )
     }
 
     const className = isVertical ? "vertical" : "horizontal"

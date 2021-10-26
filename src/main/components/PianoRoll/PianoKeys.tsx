@@ -1,6 +1,10 @@
 import Color from "color"
 import React, { FC, useCallback, useState } from "react"
 import { noteNameWithOctString } from "../../../common/helpers/noteNumberString"
+import {
+  noteOffMidiEvent,
+  noteOnMidiEvent,
+} from "../../../common/midi/MidiEvent"
 import { Theme } from "../../../common/theme/Theme"
 import { Layout } from "../../Constants"
 import { observeDrag } from "../../helpers/observeDrag"
@@ -171,7 +175,7 @@ const PianoKeys: FC<PianoKeysProps> = ({ numberOfKeys, keyHeight }) => {
       const channel = rootStore.song.selectedTrack?.channel ?? 0
 
       let prevNoteNumber = Math.floor(pixelsToNoteNumber(startPosition.y))
-      player.sendNoteOn(channel, prevNoteNumber, 127)
+      player.sendEvent(noteOnMidiEvent(0, channel, prevNoteNumber, 127))
 
       setTouchingKeys([prevNoteNumber])
 
@@ -183,14 +187,14 @@ const PianoKeys: FC<PianoKeysProps> = ({ numberOfKeys, keyHeight }) => {
           }
           const noteNumber = Math.floor(pixelsToNoteNumber(pos.y))
           if (noteNumber !== prevNoteNumber) {
-            player.sendNoteOff(channel, prevNoteNumber, 0)
-            player.sendNoteOn(channel, noteNumber, 127)
+            player.sendEvent(noteOffMidiEvent(0, channel, prevNoteNumber, 0))
+            player.sendEvent(noteOnMidiEvent(0, channel, noteNumber, 127))
             prevNoteNumber = noteNumber
             setTouchingKeys([noteNumber])
           }
         },
         onMouseUp(_) {
-          player.sendNoteOff(channel, prevNoteNumber, 0)
+          player.sendEvent(noteOffMidiEvent(0, channel, prevNoteNumber, 0))
           setTouchingKeys([])
         },
       })

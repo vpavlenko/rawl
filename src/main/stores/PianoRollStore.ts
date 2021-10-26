@@ -21,7 +21,6 @@ import {
   TrackEventOf,
 } from "../../common/track"
 import { NoteCoordTransform } from "../../common/transform"
-import { LoadSoundFontEvent } from "../../synth/synth"
 import { ControlMode } from "../components/ControlPane/ControlPane"
 import { InstrumentSetting } from "../components/InstrumentBrowser/InstrumentBrowser"
 import { Layout } from "../Constants"
@@ -58,7 +57,6 @@ export default class PianoRollStore {
     isRhythmTrack: false,
     programNumber: 0,
   }
-  presetNames: LoadSoundFontEvent["presetNames"] = [[]]
   notGhostTracks: Set<number> = new Set()
   canvasWidth: number = 0
   canvasHeight: number = 0
@@ -87,7 +85,6 @@ export default class PianoRollStore {
       lastNoteDuration: observable,
       openInstrumentBrowser: observable,
       instrumentBrowserSetting: observable,
-      presetNames: observable,
       notGhostTracks: observable,
       canvasWidth: observable,
       canvasHeight: observable,

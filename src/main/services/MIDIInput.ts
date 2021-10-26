@@ -1,5 +1,4 @@
-import { parseMessage } from "../../common/midi/parseMessage"
-import { serializeMessage } from "../../common/midi/serializeMessage"
+import { deserializeSingleEvent, Stream } from "midifile-ts"
 import RootStore from "../stores/RootStore"
 
 export class MIDIInput {
@@ -37,17 +36,16 @@ export const previewMidiInput =
     if (channel === undefined) {
       return
     }
-    const event = parseMessage(e.data)
+
+    const stream = new Stream(e.data)
+    const event = deserializeSingleEvent(stream)
+
+    if (event.type !== "channel") {
+      return
+    }
 
     // modify channel to the selected track channel
     event.channel = channel
 
-    const data = serializeMessage(event)
-
-    rootStore.services.synthGroup.sendEvents([
-      {
-        message: data,
-        timestamp: window.performance.now(),
-      },
-    ])
+    rootStore.services.player.sendEvent(event)
   }

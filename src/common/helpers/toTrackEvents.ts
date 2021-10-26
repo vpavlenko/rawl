@@ -1,7 +1,6 @@
 import { AnyEvent } from "midifile-ts"
 import { DeltaTimeProvider, TickProvider } from "../track"
 import { assemble as assembleNotes } from "./noteAssembler"
-import { assemble as assembleRPN } from "./RPNAssembler"
 
 function addTick<T extends DeltaTimeProvider>(
   events: T[]
@@ -24,5 +23,5 @@ const removeUnnecessaryProps = <T>(e: T): T => {
 }
 
 export function toTrackEvents(events: AnyEvent[]) {
-  return assembleNotes(addTick(assembleRPN(events))).map(removeUnnecessaryProps)
+  return assembleNotes(addTick(events)).map(removeUnnecessaryProps)
 }

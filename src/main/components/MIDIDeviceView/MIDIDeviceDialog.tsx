@@ -122,29 +122,33 @@ export const MIDIDeviceDialog: FC = observer(() => {
                 />
               ))}
             </DeviceList>
-            <Spacer />
-            <DialogContentText>
-              {localized("outputs", "Outputs")}
-            </DialogContentText>
-            <DeviceList>
-              <DeviceRow
-                device={factorySound}
-                isSelected={isFactorySoundEnabled}
-                onCheck={(checked) =>
-                  (midiDeviceStore.isFactorySoundEnabled = checked)
-                }
-              />
-              {outputDevices.map(({ device, isSelected }) => (
-                <DeviceRow
-                  key={device.id}
-                  device={device}
-                  isSelected={isSelected}
-                  onCheck={(checked) =>
-                    midiDeviceStore.setOutputEnable(device.id, checked)
-                  }
-                />
-              ))}
-            </DeviceList>
+            {false && (
+              <>
+                <Spacer />
+                <DialogContentText>
+                  {localized("outputs", "Outputs")}
+                </DialogContentText>
+                <DeviceList>
+                  <DeviceRow
+                    device={factorySound}
+                    isSelected={isFactorySoundEnabled}
+                    onCheck={(checked) =>
+                      (midiDeviceStore.isFactorySoundEnabled = checked)
+                    }
+                  />
+                  {outputDevices.map(({ device, isSelected }) => (
+                    <DeviceRow
+                      key={device.id}
+                      device={device}
+                      isSelected={isSelected}
+                      onCheck={(checked) =>
+                        midiDeviceStore.setOutputEnable(device.id, checked)
+                      }
+                    />
+                  ))}
+                </DeviceList>
+              </>
+            )}
           </>
         )}
       </DialogContent>

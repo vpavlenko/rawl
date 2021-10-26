@@ -1,34 +1,29 @@
 import flatten from "lodash/flatten"
 import range from "lodash/range"
 import throttle from "lodash/throttle"
-import {
-  AnyEvent,
-  MIDIChannelEvents,
-  MIDIControlEvents,
-  serialize as serializeMidiEvent,
-} from "midifile-ts"
+import { AnyChannelEvent, MIDIControlEvents } from "midifile-ts"
 import { computed, makeObservable, observable } from "mobx"
-import { Message, SynthOutput } from "../../main/services/SynthOutput"
+import {
+  SendableEvent,
+  SoundFontSynth,
+} from "../../main/services/SoundFontSynth"
 import { deassemble as deassembleNote } from "../helpers/noteAssembler"
-import { deassemble as deassembleRPN } from "../helpers/RPNAssembler"
+import {
+  controllerMidiEvent,
+  noteOffMidiEvent,
+  noteOnMidiEvent,
+} from "../midi/MidiEvent"
 import Song from "../song"
-import { NoteEvent, resetTrackMIDIEvents, TrackEvent } from "../track"
+import { NoteEvent, TrackEvent } from "../track"
 import { getStatusEvents } from "../track/selector"
 import TrackMute from "../trackMute"
-import { AdaptiveTimer } from "./AdaptiveTimer"
 import EventScheduler from "./EventScheduler"
-import { PlayerEvent } from "./PlayerEvent"
-
-function firstByte(eventType: string, channel: number): number {
-  return (MIDIChannelEvents[eventType] << 4) + channel
-}
+import { PlayerEvent, PlayerEventOf } from "./PlayerEvent"
 
 function convertTrackEvents(events: TrackEvent[], channel: number | undefined) {
-  const a = flatten(events.map((e) => deassembleNote(e)))
-  const b = flatten(
-    a.map((e) => deassembleRPN(e, (x) => ({ ...x, tick: e.tick })))
+  return flatten(events.map((e) => deassembleNote(e))).map(
+    (e) => ({ ...e, channel: channel } as PlayerEventOf<AnyChannelEvent>)
   )
-  return b.map((e) => ({ ...e, channel: channel } as PlayerEvent))
 }
 
 function collectAllEvents(song: Song): PlayerEvent[] {
@@ -48,20 +43,18 @@ interface SongStore {
 }
 
 const TIMER_INTERVAL = 50
+const LOOK_AHEAD_TIME = 50
 
 export default class Player {
   private _currentTempo = 120
   private _scheduler: EventScheduler<PlayerEvent> | null = null
   private _songStore: SongStore
-  private _output: SynthOutput
+  private _output: SoundFontSynth
   private _trackMute: TrackMute
-  private _latency: number = 100
-  private _timer = new AdaptiveTimer(
-    (timestamp) => this._onTimer(timestamp),
-    TIMER_INTERVAL
-  )
+  private _interval: number | null = null
   private _currentTick = 0
   private _isPlaying = false
+
   disableSeek: boolean = false
 
   loop: LoopSetting = {
@@ -70,7 +63,11 @@ export default class Player {
     enabled: false,
   }
 
-  constructor(output: SynthOutput, trackMute: TrackMute, songStore: SongStore) {
+  constructor(
+    output: SoundFontSynth,
+    trackMute: TrackMute,
+    songStore: SongStore
+  ) {
     makeObservable<Player, "_currentTick" | "_isPlaying">(this, {
       _currentTick: observable,
       _isPlaying: observable,
@@ -102,11 +99,12 @@ export default class Player {
       eventsToPlay,
       this._currentTick,
       this.timebase,
-      500
+      TIMER_INTERVAL + LOOK_AHEAD_TIME
     )
     this._isPlaying = true
     this._output.activate()
-    this._timer.start()
+    this._interval = window.setInterval(() => this._onTimer(), TIMER_INTERVAL)
+    this._output.activate()
   }
 
   set position(tick: number) {
@@ -142,9 +140,8 @@ export default class Player {
   }
 
   allSoundsOffChannel(ch: number) {
-    this._sendMessage(
-      [0xb0 + ch, MIDIControlEvents.ALL_SOUNDS_OFF, 0],
-      window.performance.now()
+    this.sendEvent(
+      controllerMidiEvent(0, ch, MIDIControlEvents.ALL_SOUNDS_OFF, 0)
     )
   }
 
@@ -162,33 +159,29 @@ export default class Player {
     }
   }
 
+  private resetControllers() {
+    for (const ch of range(0, this.numberOfChannels)) {
+      this.sendEvent(
+        controllerMidiEvent(0, ch, MIDIControlEvents.RESET_CONTROLLERS, 0x7f)
+      )
+    }
+  }
+
   stop() {
     this._scheduler = null
     this.allSoundsOff()
     this._isPlaying = false
-    this._timer.stop()
+
+    if (this._interval !== null) {
+      clearInterval(this._interval)
+      this._interval = null
+    }
   }
 
   reset() {
-    const timestamp = window.performance.now()
-    for (const ch of range(0, this.numberOfChannels)) {
-      // reset controllers
-      const resetControllers = {
-        message: [
-          firstByte("controller", ch),
-          MIDIControlEvents.RESET_CONTROLLERS,
-          0x7f,
-        ],
-        timestamp,
-      }
-      const resetMessages = resetTrackMIDIEvents(ch)
-        .map((e) => serializeMidiEvent(e, false))
-        .map((message) => ({ message, timestamp }))
-      const messages = [resetControllers, ...resetMessages]
-      this._sendMessages(messages)
-    }
+    this.resetControllers()
     this.stop()
-    this.position = 0
+    this._currentTick = 0
   }
 
   /*
@@ -197,18 +190,13 @@ export default class Player {
    and send them to the synthesizer
   */
   sendCurrentStateEvents() {
-    const timestamp = window.performance.now()
-    const messages = flatten(
-      this.song.tracks.map((t) => {
+    this.song.tracks
+      .flatMap((t) => {
         const statusEvents = getStatusEvents(t.events, this._currentTick)
-        this.applyPlayerEvents(statusEvents as PlayerEvent[])
-        return convertTrackEvents(statusEvents, t.channel).map((e) => ({
-          message: serializeMidiEvent(e as any, false),
-          timestamp,
-        }))
+        statusEvents.forEach((e) => this.applyPlayerEvent(e as PlayerEvent))
+        return convertTrackEvents(statusEvents, t.channel)
       })
-    )
-    this._sendMessages(messages)
+      .forEach((e) => this.sendEvent(e))
   }
 
   get currentTempo() {
@@ -219,14 +207,6 @@ export default class Player {
     this._currentTempo = value
   }
 
-  private _sendMessage(message: number[], timestamp: number) {
-    this._sendMessages([{ message, timestamp }])
-  }
-
-  private _sendMessages(msg: Message[]) {
-    this._output.sendEvents(msg)
-  }
-
   playNote({
     channel,
     noteNumber,
@@ -235,24 +215,11 @@ export default class Player {
   }: Pick<NoteEvent, "noteNumber" | "velocity" | "duration"> & {
     channel: number
   }) {
-    this.sendNoteOn(channel, noteNumber, velocity)
-    this.sendNoteOff(channel, noteNumber, duration)
-  }
-
-  sendNoteOn(channel: number, noteNumber: number, velocity: number) {
     this._output.activate()
-    const timestamp = window.performance.now()
-    this._sendMessage(
-      [firstByte("noteOn", channel), noteNumber, velocity],
-      timestamp
-    )
-  }
-
-  sendNoteOff(channel: number, noteNumber: number, delay: number) {
-    const timestamp = window.performance.now()
-    this._sendMessage(
-      [firstByte("noteOff", channel), noteNumber, 0],
-      timestamp + this.tickToMillisec(delay)
+    this.sendEvent(noteOnMidiEvent(0, channel, noteNumber, velocity))
+    this.sendEvent(
+      noteOffMidiEvent(0, channel, noteNumber, 0),
+      this.tickToMillisec(duration) / 1000
     )
   }
 
@@ -265,10 +232,8 @@ export default class Player {
     return trackId ? this._trackMute.shouldPlayTrack(trackId) : true
   }
 
-  sendEvent(event: AnyEvent) {
-    const timestamp = window.performance.now()
-    const message = serializeMidiEvent(event, false)
-    this._sendMessage(message, timestamp)
+  sendEvent(event: SendableEvent, delayTime: number = 0) {
+    this._output.sendEvent(event, delayTime)
   }
 
   private syncPosition = throttle(() => {
@@ -277,43 +242,40 @@ export default class Player {
     }
   }, 50)
 
-  private applyPlayerEvents(events: PlayerEvent[]) {
-    events.forEach((e) => {
-      if (e.type !== "channel" && "subtype" in e) {
-        switch (e.subtype) {
-          case "setTempo":
-            this._currentTempo = 60000000 / e.microsecondsPerBeat
-            break
-          default:
-            break
-        }
+  private applyPlayerEvent(e: PlayerEvent) {
+    if (e.type !== "channel" && "subtype" in e) {
+      switch (e.subtype) {
+        case "setTempo":
+          this._currentTempo = 60000000 / e.microsecondsPerBeat
+          break
+        default:
+          break
       }
-    })
+    }
   }
 
-  private _onTimer(timestamp: number) {
+  private _onTimer() {
     if (this._scheduler === null) {
       return
     }
 
+    const timestamp = performance.now()
     const events = this._scheduler.readNextEvents(this._currentTempo, timestamp)
 
-    // channel イベントを MIDI Output に送信
-    // Send Channel Event to MIDI OUTPUT
-    const messages = events
-      .filter(
-        ({ event }) =>
-          event.type === "channel" && this._shouldPlayChannel(event.channel)
-      )
-      .map(({ event, timestamp }) => ({
-        message: serializeMidiEvent(event as any, false),
-        timestamp: timestamp + this._latency,
-      }))
-    this._sendMessages(messages)
-
-    // channel イベント以外を実行
-    // Run other than Channel Event
-    this.applyPlayerEvents(events.map(({ event }) => event))
+    events.forEach(({ event: e, timestamp: time }) => {
+      if (e.type === "channel") {
+        if (this._shouldPlayChannel(e.channel)) {
+          // channel イベントを MIDI Output に送信
+          // Send Channel Event to MIDI OUTPUT
+          const delayTime = (time - timestamp) / 1000
+          this.sendEvent(e, delayTime)
+        }
+      } else {
+        // channel イベント以外を実行
+        // Run other than Channel Event
+        this.applyPlayerEvent(e)
+      }
+    })
 
     if (this._scheduler.currentTick >= this.song.endOfSong) {
       this.stop()

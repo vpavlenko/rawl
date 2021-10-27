@@ -1,28 +1,37 @@
-import { TimeSignatureEvent } from "midifile-ts"
-import { computed, makeObservable } from "mobx"
+import { computed, makeObservable, observable } from "mobx"
 import { filterEventsWithScroll } from "../../common/helpers/filterEventsWithScroll"
 import { BeatWithX, createBeatsInRange } from "../../common/helpers/mapBeats"
-import { isTimeSignatureEvent, TrackEventOf } from "../../common/track"
-import RootStore from "./RootStore"
+import Song from "../../common/song"
+import { isTimeSignatureEvent } from "../../common/track"
 
 interface CoordTransform {
   pixelsPerTick: number
 }
 
 interface RulerProvider {
-  rootStore: RootStore
+  rootStore: { song: Song }
   transform: CoordTransform
   scrollLeft: number
   canvasWidth: number
 }
 
+export interface TimeSignature {
+  id: number
+  tick: number
+  numerator: number
+  denominator: number
+  isSelected: boolean
+}
+
 export class RulerStore {
-  private parent: RulerProvider
+  readonly parent: RulerProvider
+  selectedTimeSignatureEventIds: number[] = []
 
   constructor(parent: RulerProvider) {
     this.parent = parent
 
     makeObservable(this, {
+      selectedTimeSignatureEventIds: observable.shallow,
       beats: computed,
       timeSignatures: computed,
     })
@@ -42,8 +51,9 @@ export class RulerStore {
     )
   }
 
-  get timeSignatures(): TrackEventOf<TimeSignatureEvent>[] {
+  get timeSignatures(): TimeSignature[] {
     const { transform, scrollLeft, canvasWidth, rootStore } = this.parent
+    const { selectedTimeSignatureEventIds } = this
     const track = rootStore.song.conductorTrack
     if (track === undefined) {
       return []
@@ -54,6 +64,11 @@ export class RulerStore {
       transform.pixelsPerTick,
       scrollLeft,
       canvasWidth
-    ).filter(isTimeSignatureEvent)
+    )
+      .filter(isTimeSignatureEvent)
+      .map((e) => ({
+        ...e,
+        isSelected: selectedTimeSignatureEventIds.includes(e.id),
+      }))
   }
 }

@@ -36,7 +36,7 @@ export const TempoGraph: FC = observer(() => {
     cursorX,
     contentWidth,
   } = rootStore.tempoEditorStore
-  const { beats, timeSignatures } = rootStore.tempoEditorStore.rulerStore
+  const { beats } = rootStore.tempoEditorStore.rulerStore
 
   const ref = useRef(null)
   const size = useComponentSize(ref)
@@ -139,11 +139,7 @@ export const TempoGraph: FC = observer(() => {
   return (
     <Wrapper ref={ref}>
       <CanvasPianoRuler
-        width={containerWidth}
-        beats={beats}
-        timeSignatures={timeSignatures}
-        scrollLeft={scrollLeft}
-        pixelsPerTick={transform.pixelsPerTick}
+        rulerStore={rootStore.tempoEditorStore.rulerStore}
         style={{
           background: theme.backgroundColor,
           borderBottom: `1px solid ${theme.dividerColor}`,

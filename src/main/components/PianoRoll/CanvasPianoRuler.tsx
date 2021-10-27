@@ -1,15 +1,14 @@
-import { isEqual } from "lodash"
-import { TimeSignatureEvent } from "midifile-ts"
+import { findLast, isEqual } from "lodash"
 import { observer } from "mobx-react-lite"
 import React, { FC, useCallback } from "react"
 import { BeatWithX } from "../../../common/helpers/mapBeats"
 import { LoopSetting } from "../../../common/player"
 import { Theme } from "../../../common/theme/Theme"
-import { TrackEventOf } from "../../../common/track"
 import { setPlayerPosition } from "../../actions"
 import { Layout } from "../../Constants"
 import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
+import { RulerStore, TimeSignature } from "../../stores/RulerStore"
 import DrawCanvas from "../DrawCanvas"
 
 const textPadding = 2
@@ -121,7 +120,7 @@ function drawFlag(
 function drawTimeSignatures(
   ctx: CanvasRenderingContext2D,
   height: number,
-  events: TrackEventOf<TimeSignatureEvent>[],
+  events: TimeSignature[],
   pixelsPerTick: number,
   theme: Theme
 ) {
@@ -133,7 +132,9 @@ function drawTimeSignatures(
     const size = ctx.measureText(text)
     const textHeight =
       size.actualBoundingBoxAscent + size.actualBoundingBoxDescent
-    ctx.fillStyle = theme.tertiaryBackgroundColor
+    ctx.fillStyle = e.isSelected
+      ? theme.themeColor
+      : theme.tertiaryBackgroundColor
     drawFlag(
       ctx,
       x,
@@ -153,75 +154,86 @@ export interface TickEvent<E> {
 }
 
 export interface PianoRulerProps {
-  width: number
-  pixelsPerTick: number
-  scrollLeft: number
-  beats: BeatWithX[]
-  timeSignatures: TrackEventOf<TimeSignatureEvent>[]
+  rulerStore: RulerStore
   style?: React.CSSProperties
 }
 
-const PianoRuler: FC<PianoRulerProps> = observer(
-  ({ width, pixelsPerTick, scrollLeft, beats, timeSignatures, style }) => {
-    const rootStore = useStores()
-    const theme = useTheme()
-    const height = Layout.rulerHeight
+const TIME_SIGNATURE_HIT_WIDTH = 20
 
-    const { loop } = rootStore.services.player
+const PianoRuler: FC<PianoRulerProps> = observer(({ rulerStore, style }) => {
+  const rootStore = useStores()
+  const theme = useTheme()
+  const height = Layout.rulerHeight
 
-    const onMouseDown: React.MouseEventHandler<HTMLCanvasElement> = useCallback(
-      (e) => {
-        const local = {
-          x: e.nativeEvent.offsetX,
-          y: e.nativeEvent.offsetY,
-        }
-        const tick = (local.x + scrollLeft) / pixelsPerTick
-        if (e.nativeEvent.ctrlKey) {
-          // setLoopBegin(tick)
-        } else if (e.nativeEvent.altKey) {
-          // setLoopEnd(tick)
-        } else {
-          setPlayerPosition(rootStore)(tick)
-        }
-      },
-      [rootStore, scrollLeft, pixelsPerTick]
-    )
+  const {
+    canvasWidth: width,
+    transform: { pixelsPerTick },
+    scrollLeft,
+  } = rulerStore.parent
+  const { beats, timeSignatures } = rulerStore
+  const { loop } = rootStore.services.player
 
-    const draw = useCallback(
-      (ctx: CanvasRenderingContext2D) => {
-        ctx.clearRect(0, 0, width, height)
-        ctx.save()
-        ctx.translate(-scrollLeft + 0.5, 0)
-        drawRuler(ctx, height, beats, theme)
-        if (loop.enabled) {
-          drawLoopPoints(ctx, loop, height, pixelsPerTick, theme)
-        }
-        drawTimeSignatures(ctx, height, timeSignatures, pixelsPerTick, theme)
-        ctx.restore()
-      },
-      [width, pixelsPerTick, scrollLeft, beats]
-    )
-
-    return (
-      <DrawCanvas
-        draw={draw}
-        width={width}
-        height={height}
-        onMouseDown={onMouseDown}
-        style={style}
-      />
+  const timeSignatureHitTest = (tick: number) => {
+    const widthTick = TIME_SIGNATURE_HIT_WIDTH / pixelsPerTick
+    return findLast(
+      timeSignatures,
+      (e) => e.tick < tick && e.tick + widthTick >= tick
     )
   }
-)
+
+  const onMouseDown: React.MouseEventHandler<HTMLCanvasElement> = useCallback(
+    (e) => {
+      const local = {
+        x: e.nativeEvent.offsetX,
+        y: e.nativeEvent.offsetY,
+      }
+      const tick = (local.x + scrollLeft) / pixelsPerTick
+      const timeSignature = timeSignatureHitTest(tick)
+
+      if (e.nativeEvent.ctrlKey) {
+        // setLoopBegin(tick)
+      } else if (e.nativeEvent.altKey) {
+        // setLoopEnd(tick)
+      } else {
+        if (timeSignature !== undefined) {
+          rulerStore.selectedTimeSignatureEventIds = [timeSignature.id]
+        } else {
+          rulerStore.selectedTimeSignatureEventIds = []
+          setPlayerPosition(rootStore)(tick)
+        }
+      }
+    },
+    [rootStore, scrollLeft, pixelsPerTick]
+  )
+
+  const draw = useCallback(
+    (ctx: CanvasRenderingContext2D) => {
+      ctx.clearRect(0, 0, width, height)
+      ctx.save()
+      ctx.translate(-scrollLeft + 0.5, 0)
+      drawRuler(ctx, height, beats, theme)
+      if (loop.enabled) {
+        drawLoopPoints(ctx, loop, height, pixelsPerTick, theme)
+      }
+      drawTimeSignatures(ctx, height, timeSignatures, pixelsPerTick, theme)
+      ctx.restore()
+    },
+    [width, pixelsPerTick, scrollLeft, beats, timeSignatures]
+  )
+
+  return (
+    <DrawCanvas
+      draw={draw}
+      width={width}
+      height={height}
+      onMouseDown={onMouseDown}
+      style={style}
+    />
+  )
+})
 
 function equals(props: PianoRulerProps, nextProps: PianoRulerProps) {
-  return (
-    props.width === nextProps.width &&
-    props.pixelsPerTick === nextProps.pixelsPerTick &&
-    props.scrollLeft === nextProps.scrollLeft &&
-    isEqual(props.beats, nextProps.beats) &&
-    isEqual(props.style, nextProps.style)
-  )
+  return isEqual(props.style, nextProps.style)
 }
 
 export default React.memo(PianoRuler, equals)

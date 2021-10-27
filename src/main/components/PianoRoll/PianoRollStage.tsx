@@ -46,7 +46,6 @@ export const PianoRollStage: FC<PianoRollStageProps> = observer(
   ({ width, height }) => {
     const { pianoRollStore } = useStores()
     const { scrollLeft, scrollTop, transform } = pianoRollStore
-    const { beats, timeSignatures } = pianoRollStore.rulerStore
 
     const theme = useTheme()
 
@@ -67,13 +66,7 @@ export const PianoRollStage: FC<PianoRollStageProps> = observer(
             borderBottom: `1px solid ${theme.dividerColor}`,
           }}
         >
-          <CanvasPianoRuler
-            width={width}
-            beats={beats}
-            scrollLeft={scrollLeft}
-            pixelsPerTick={transform.pixelsPerTick}
-            timeSignatures={timeSignatures}
-          />
+          <CanvasPianoRuler rulerStore={pianoRollStore.rulerStore} />
         </RulerPosition>
       </Container>
     )

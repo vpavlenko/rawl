@@ -112,7 +112,7 @@ export const ArrangeView: FC = observer(() => {
     scrollBy,
     selectedTrackId,
   } = rootStore.arrangeViewStore
-  const { beats, timeSignatures } = rootStore.arrangeViewStore.rulerStore
+  const { beats } = rootStore.arrangeViewStore.rulerStore
 
   const setScrollLeft = useCallback(
     (v: number) => rootStore.arrangeViewStore.setScrollLeftInPixels(v),
@@ -389,11 +389,7 @@ export const ArrangeView: FC = observer(() => {
           }}
         >
           <CanvasPianoRuler
-            width={containerWidth}
-            beats={beats}
-            timeSignatures={timeSignatures}
-            scrollLeft={scrollLeft}
-            pixelsPerTick={transform.pixelsPerTick}
+            rulerStore={rootStore.arrangeViewStore.rulerStore}
             style={{
               background: theme.backgroundColor,
               borderBottom: `1px solid ${theme.dividerColor}`,

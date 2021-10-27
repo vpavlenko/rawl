@@ -3,12 +3,15 @@ import { computed, makeObservable } from "mobx"
 import { filterEventsWithScroll } from "../../common/helpers/filterEventsWithScroll"
 import { BeatWithX, createBeatsInRange } from "../../common/helpers/mapBeats"
 import { isTimeSignatureEvent, TrackEventOf } from "../../common/track"
-import { NoteCoordTransform } from "../../common/transform"
 import RootStore from "./RootStore"
+
+interface CoordTransform {
+  pixelsPerTick: number
+}
 
 interface RulerProvider {
   rootStore: RootStore
-  transform: NoteCoordTransform
+  transform: CoordTransform
   scrollLeft: number
   canvasWidth: number
 }

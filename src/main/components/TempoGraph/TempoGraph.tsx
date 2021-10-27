@@ -30,13 +30,13 @@ export const TempoGraph: FC = observer(() => {
   const rootStore = useStores()
 
   const {
-    mappedBeats,
     items,
     transform,
     scrollLeft: _scrollLeft,
     cursorX,
     contentWidth,
   } = rootStore.tempoEditorStore
+  const { beats, timeSignatures } = rootStore.tempoEditorStore.rulerStore
 
   const ref = useRef(null)
   const size = useComponentSize(ref)
@@ -118,7 +118,7 @@ export const TempoGraph: FC = observer(() => {
     }
 
     const [highlightedBeats, nonHighlightedBeats] = partition(
-      mappedBeats,
+      beats,
       (b) => b.beat === 0
     )
 
@@ -134,14 +134,14 @@ export const TempoGraph: FC = observer(() => {
       cursorX,
       scrollLeft
     )
-  }, [items, mappedBeats, theme, scrollLeft, cursorX])
+  }, [items, beats, theme, scrollLeft, cursorX])
 
   return (
     <Wrapper ref={ref}>
       <CanvasPianoRuler
         width={containerWidth}
-        beats={mappedBeats}
-        timeSignatures={[]}
+        beats={beats}
+        timeSignatures={timeSignatures}
         scrollLeft={scrollLeft}
         pixelsPerTick={transform.pixelsPerTick}
         style={{

@@ -2,7 +2,6 @@ import { clamp } from "lodash"
 import { action, autorun, computed, makeObservable, observable } from "mobx"
 import { IRect } from "../../common/geometry"
 import { filterEventsWithScroll } from "../../common/helpers/filterEventsWithScroll"
-import { createBeatsInRange } from "../../common/helpers/mapBeats"
 import Quantizer from "../../common/quantizer"
 import { ArrangeSelection } from "../../common/selection/ArrangeSelection"
 import { isNoteEvent } from "../../common/track"
@@ -11,9 +10,11 @@ import { ArrangeCoordTransform } from "../../common/transform/ArrangeCoordTransf
 import { BAR_WIDTH } from "../components/inputs/ScrollBar"
 import { Layout } from "../Constants"
 import RootStore from "./RootStore"
+import { RulerStore } from "./RulerStore"
 
 export default class ArrangeViewStore {
-  private rootStore: RootStore
+  readonly rootStore: RootStore
+  readonly rulerStore: RulerStore
 
   scaleX = 1
   scaleY = 1
@@ -33,6 +34,7 @@ export default class ArrangeViewStore {
 
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore
+    this.rulerStore = new RulerStore(this)
 
     makeObservable(this, {
       scaleX: observable,
@@ -50,7 +52,6 @@ export default class ArrangeViewStore {
       trackTransform: computed,
       notes: computed,
       cursorX: computed,
-      mappedBeats: computed,
       trackHeight: computed,
       selectionRect: computed,
       contentWidth: computed,
@@ -173,19 +174,6 @@ export default class ArrangeViewStore {
 
   get cursorX(): number {
     return this.transform.getX(this.rootStore.services.player.position)
-  }
-
-  get mappedBeats() {
-    const { transform } = this
-    const startTick = this.scrollLeft / transform.pixelsPerTick
-
-    return createBeatsInRange(
-      this.rootStore.song.measures,
-      transform.pixelsPerTick,
-      this.rootStore.song.timebase,
-      startTick,
-      this.canvasWidth
-    )
   }
 
   get selectionRect(): IRect | null {

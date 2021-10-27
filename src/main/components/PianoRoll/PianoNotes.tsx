@@ -27,9 +27,9 @@ export const PianoNotes: FC<PianoRollStageProps> = observer(
       selection,
       transform,
       notes: [notes, ghostNotes],
-      mappedBeats,
       cursorX,
     } = rootStore.pianoRollStore
+    const { beats } = rootStore.pianoRollStore.rulerStore
 
     const theme = useTheme()
 
@@ -105,7 +105,7 @@ export const PianoNotes: FC<PianoRollStageProps> = observer(
         selection !== null ? getSelectionBounds(selection, transform) : zeroRect
 
       const [highlightedBeats, nonHighlightedBeats] = partition(
-        mappedBeats,
+        beats,
         (b) => b.beat === 0
       )
 
@@ -126,7 +126,7 @@ export const PianoNotes: FC<PianoRollStageProps> = observer(
       transform,
       notes,
       ghostNotes,
-      mappedBeats,
+      beats,
       cursorX,
       theme,
       scrollLeft,

@@ -1,15 +1,10 @@
 import cursorPencil from "!url-loader!../images/cursor-pencil.svg"
 import { clamp, flatten, maxBy, minBy } from "lodash"
-import {
-  ControllerEvent,
-  PitchBendEvent,
-  TimeSignatureEvent,
-} from "midifile-ts"
+import { ControllerEvent, PitchBendEvent } from "midifile-ts"
 import { action, autorun, computed, makeObservable, observable } from "mobx"
 import { IRect } from "../../common/geometry"
 import { isNotUndefined } from "../../common/helpers/array"
 import { filterEventsWithScroll } from "../../common/helpers/filterEventsWithScroll"
-import { BeatWithX, createBeatsInRange } from "../../common/helpers/mapBeats"
 import { getMBTString } from "../../common/measure/mbt"
 import Quantizer from "../../common/quantizer"
 import { ControlSelection } from "../../common/selection/ControlSelection"
@@ -20,7 +15,6 @@ import {
   isNoteEvent,
   isPanEvent,
   isPitchBendEvent,
-  isTimeSignatureEvent,
   isVolumeEvent,
   TrackEvent,
   TrackEventOf,
@@ -30,6 +24,7 @@ import { ControlMode } from "../components/ControlPane/ControlPane"
 import { InstrumentSetting } from "../components/InstrumentBrowser/InstrumentBrowser"
 import { Layout } from "../Constants"
 import RootStore from "./RootStore"
+import { RulerStore } from "./RulerStore"
 
 export type PianoRollMouseMode = "pencil" | "selection"
 
@@ -41,7 +36,8 @@ export type PianoNoteItem = IRect & {
 }
 
 export default class PianoRollStore {
-  private rootStore: RootStore
+  readonly rootStore: RootStore
+  readonly rulerStore: RulerStore
 
   scrollLeftTicks = 0
   scrollTopKeys = 70 // 中央くらいの音程にスクロールしておく
@@ -74,6 +70,7 @@ export default class PianoRollStore {
 
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore
+    this.rulerStore = new RulerStore(this)
 
     makeObservable(this, {
       scrollLeftTicks: observable,
@@ -112,11 +109,9 @@ export default class PianoRollStore {
       currentPan: computed,
       currentTempo: computed,
       currentMBTTime: computed,
-      mappedBeats: computed,
       cursorX: computed,
       quantizer: computed,
       controlCursor: computed,
-      timeSignatureEvents: computed,
       setScrollLeftInPixels: action,
       setScrollTopInPixels: action,
       setScrollLeftInTicks: action,
@@ -398,20 +393,6 @@ export default class PianoRollStore {
     return this.transform.getX(this.rootStore.services.player.position)
   }
 
-  get mappedBeats(): BeatWithX[] {
-    const { scrollLeft, transform, canvasWidth } = this
-
-    const startTick = scrollLeft / transform.pixelsPerTick
-
-    return createBeatsInRange(
-      this.rootStore.song.measures,
-      transform.pixelsPerTick,
-      this.rootStore.song.timebase,
-      startTick,
-      canvasWidth
-    )
-  }
-
   get quantizer(): Quantizer {
     return new Quantizer(this.rootStore.song.timebase, this.quantize)
   }
@@ -420,20 +401,5 @@ export default class PianoRollStore {
     return this.mouseMode === "pencil"
       ? `url("${cursorPencil}") 0 20, pointer`
       : "auto"
-  }
-
-  get timeSignatureEvents(): TrackEventOf<TimeSignatureEvent>[] {
-    const { transform, scrollLeft, canvasWidth } = this
-    const track = this.rootStore.song.conductorTrack
-    if (track === undefined) {
-      return []
-    }
-
-    return filterEventsWithScroll(
-      track.events,
-      transform.pixelsPerTick,
-      scrollLeft,
-      canvasWidth
-    ).filter(isTimeSignatureEvent)
   }
 }

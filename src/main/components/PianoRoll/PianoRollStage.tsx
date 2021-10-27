@@ -45,7 +45,13 @@ const PianoKeyPosition = styled.div`
 export const PianoRollStage: FC<PianoRollStageProps> = observer(
   ({ width, height }) => {
     const { pianoRollStore } = useStores()
-    const { scrollLeft, scrollTop, transform, mappedBeats } = pianoRollStore
+    const {
+      scrollLeft,
+      scrollTop,
+      transform,
+      mappedBeats,
+      timeSignatureEvents: timeSignatures,
+    } = pianoRollStore
     const theme = useTheme()
 
     return (
@@ -70,6 +76,7 @@ export const PianoRollStage: FC<PianoRollStageProps> = observer(
             beats={mappedBeats}
             scrollLeft={scrollLeft}
             pixelsPerTick={transform.pixelsPerTick}
+            timeSignatures={timeSignatures}
           />
         </RulerPosition>
       </Container>

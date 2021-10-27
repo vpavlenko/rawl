@@ -391,6 +391,7 @@ export const ArrangeView: FC = observer(() => {
           <CanvasPianoRuler
             width={containerWidth}
             beats={mappedBeats}
+            timeSignatures={[]}
             scrollLeft={scrollLeft}
             pixelsPerTick={transform.pixelsPerTick}
             style={{

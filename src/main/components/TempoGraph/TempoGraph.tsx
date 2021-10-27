@@ -141,6 +141,7 @@ export const TempoGraph: FC = observer(() => {
       <CanvasPianoRuler
         width={containerWidth}
         beats={mappedBeats}
+        timeSignatures={[]}
         scrollLeft={scrollLeft}
         pixelsPerTick={transform.pixelsPerTick}
         style={{

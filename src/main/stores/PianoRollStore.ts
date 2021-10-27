@@ -1,6 +1,10 @@
 import cursorPencil from "!url-loader!../images/cursor-pencil.svg"
 import { clamp, flatten, maxBy, minBy } from "lodash"
-import { ControllerEvent, PitchBendEvent } from "midifile-ts"
+import {
+  ControllerEvent,
+  PitchBendEvent,
+  TimeSignatureEvent,
+} from "midifile-ts"
 import { action, autorun, computed, makeObservable, observable } from "mobx"
 import { IRect } from "../../common/geometry"
 import { isNotUndefined } from "../../common/helpers/array"
@@ -16,6 +20,7 @@ import {
   isNoteEvent,
   isPanEvent,
   isPitchBendEvent,
+  isTimeSignatureEvent,
   isVolumeEvent,
   TrackEvent,
   TrackEventOf,
@@ -111,6 +116,7 @@ export default class PianoRollStore {
       cursorX: computed,
       quantizer: computed,
       controlCursor: computed,
+      timeSignatureEvents: computed,
       setScrollLeftInPixels: action,
       setScrollTopInPixels: action,
       setScrollLeftInTicks: action,
@@ -309,7 +315,9 @@ export default class PianoRollStore {
     ]
   }
 
-  filteredEvents<T extends TrackEvent>(filter: (e: TrackEvent) => e is T): T[] {
+  private filteredEvents<T extends TrackEvent>(
+    filter: (e: TrackEvent) => e is T
+  ): T[] {
     const song = this.rootStore.song
     const { selectedTrack } = song
     const { windowedEvents, scrollLeft, canvasWidth, transform } = this
@@ -412,5 +420,20 @@ export default class PianoRollStore {
     return this.mouseMode === "pencil"
       ? `url("${cursorPencil}") 0 20, pointer`
       : "auto"
+  }
+
+  get timeSignatureEvents(): TrackEventOf<TimeSignatureEvent>[] {
+    const { transform, scrollLeft, canvasWidth } = this
+    const track = this.rootStore.song.conductorTrack
+    if (track === undefined) {
+      return []
+    }
+
+    return filterEventsWithScroll(
+      track.events,
+      transform.pixelsPerTick,
+      scrollLeft,
+      canvasWidth
+    ).filter(isTimeSignatureEvent)
   }
 }

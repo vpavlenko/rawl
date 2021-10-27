@@ -1,14 +1,18 @@
 import { isEqual } from "lodash"
+import { TimeSignatureEvent } from "midifile-ts"
 import { observer } from "mobx-react-lite"
 import React, { FC, useCallback } from "react"
 import { BeatWithX } from "../../../common/helpers/mapBeats"
 import { LoopSetting } from "../../../common/player"
 import { Theme } from "../../../common/theme/Theme"
+import { TrackEventOf } from "../../../common/track"
 import { setPlayerPosition } from "../../actions"
 import { Layout } from "../../Constants"
 import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
 import DrawCanvas from "../DrawCanvas"
+
+const textPadding = 2
 
 function drawRuler(
   ctx: CanvasRenderingContext2D,
@@ -43,7 +47,7 @@ function drawRuler(
       ctx.textBaseline = "top"
       ctx.font = `12px ${theme.canvasFont}`
       ctx.fillStyle = theme.secondaryTextColor
-      ctx.fillText(`${measure}`, x + 5, 2)
+      ctx.fillText(`${measure}`, x + textPadding, textPadding)
     }
   })
 
@@ -96,6 +100,53 @@ function drawLoopPoints(
   }
 }
 
+function drawFlag(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  width: number,
+  height: number,
+  flagSize: number
+) {
+  ctx.beginPath()
+  ctx.moveTo(x, y)
+  ctx.lineTo(x + width + flagSize, y)
+  ctx.lineTo(x + width, y + height)
+  ctx.lineTo(x, y + height)
+  ctx.lineTo(x, y)
+  ctx.closePath()
+  ctx.fill()
+}
+
+function drawTimeSignatures(
+  ctx: CanvasRenderingContext2D,
+  height: number,
+  events: TrackEventOf<TimeSignatureEvent>[],
+  pixelsPerTick: number,
+  theme: Theme
+) {
+  ctx.textBaseline = "bottom"
+  ctx.font = `11px ${theme.canvasFont}`
+  events.forEach((e) => {
+    const x = e.tick * pixelsPerTick
+    const text = `${e.numerator}/${e.denominator}`
+    const size = ctx.measureText(text)
+    const textHeight =
+      size.actualBoundingBoxAscent + size.actualBoundingBoxDescent
+    ctx.fillStyle = theme.tertiaryBackgroundColor
+    drawFlag(
+      ctx,
+      x,
+      height - textHeight - textPadding * 4,
+      size.width + textPadding * 2,
+      textHeight + textPadding * 4,
+      textHeight
+    )
+    ctx.fillStyle = theme.textColor
+    ctx.fillText(text, x + textPadding, height - textPadding)
+  })
+}
+
 export interface TickEvent<E> {
   tick: number
   nativeEvent: E
@@ -106,11 +157,12 @@ export interface PianoRulerProps {
   pixelsPerTick: number
   scrollLeft: number
   beats: BeatWithX[]
+  timeSignatures: TrackEventOf<TimeSignatureEvent>[]
   style?: React.CSSProperties
 }
 
 const PianoRuler: FC<PianoRulerProps> = observer(
-  ({ width, pixelsPerTick, scrollLeft, beats, style }) => {
+  ({ width, pixelsPerTick, scrollLeft, beats, timeSignatures, style }) => {
     const rootStore = useStores()
     const theme = useTheme()
     const height = Layout.rulerHeight
@@ -144,6 +196,7 @@ const PianoRuler: FC<PianoRulerProps> = observer(
         if (loop.enabled) {
           drawLoopPoints(ctx, loop, height, pixelsPerTick, theme)
         }
+        drawTimeSignatures(ctx, height, timeSignatures, pixelsPerTick, theme)
         ctx.restore()
       },
       [width, pixelsPerTick, scrollLeft, beats]

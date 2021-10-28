@@ -1,8 +1,10 @@
+import { maxBy } from "lodash"
 import { AnyChannelEvent, SetTempoEvent } from "midifile-ts"
 import {
   panMidiEvent,
   programChangeMidiEvent,
   setTempoMidiEvent,
+  timeSignatureMidiEvent,
   volumeMidiEvent,
 } from "../../common/midi/MidiEvent"
 import { isNoteEvent, NoteEvent, TrackEventOf } from "../../common/track"
@@ -322,4 +324,37 @@ export const toogleAllGhostTracks = (rootStore: RootStore) => () => {
       pianoRollStore.notGhostTracks.add(i)
     }
   }
+}
+
+export const addTimeSignature = (rootStore: RootStore) => (tick: number) => {
+  const { song } = rootStore
+
+  // get the nearest measure
+  const measure = maxBy(
+    song.measures.filter((m) => m.startTick <= tick),
+    (m) => m.startTick
+  )
+
+  if (measure === undefined) {
+    return
+  }
+
+  // calculate the nearest measure beginning
+  const ticksPerMeasure =
+    ((song.timebase * 4) / measure.denominator) * measure.numerator
+  const numberOfMeasures = Math.floor(
+    (tick - measure.startTick) / ticksPerMeasure
+  )
+  const timeSignatureTick =
+    measure.startTick + numberOfMeasures * ticksPerMeasure
+
+  // prevent duplication
+  if (measure.startTick === timeSignatureTick) {
+    return
+  }
+
+  rootStore.song.conductorTrack?.addEvent({
+    ...timeSignatureMidiEvent(0, 4, 4),
+    tick: timeSignatureTick,
+  })
 }

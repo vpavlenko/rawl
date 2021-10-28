@@ -1,7 +1,6 @@
-import { maxBy } from "lodash"
 import React, { FC, useCallback } from "react"
 import { localized } from "../../../common/localize/localizedString"
-import { timeSignatureMidiEvent } from "../../../common/midi/MidiEvent"
+import { addTimeSignature } from "../../actions"
 import { useStores } from "../../hooks/useStores"
 import { RulerStore } from "../../stores/RulerStore"
 import {
@@ -22,21 +21,7 @@ export const RulerContextMenu: FC<RulerContextMenuProps> = React.memo(
       rulerStore.selectedTimeSignatureEventIds.length > 0
 
     const onClickAddTimeSignature = useCallback(() => {
-      // get the nearest measure start
-      const beat = maxBy(
-        rulerStore.beats.filter(
-          (m) => m.beat === 0 && m.tick <= rootStore.services.player.position
-        ),
-        (m) => m.tick
-      )
-
-      if (beat !== undefined) {
-        rootStore.song.conductorTrack?.addEvent({
-          ...timeSignatureMidiEvent(0, 4, 4),
-          tick: beat.tick,
-        })
-      }
-
+      addTimeSignature(rootStore)(rootStore.services.player.position)
       handleClose()
     }, [])
 

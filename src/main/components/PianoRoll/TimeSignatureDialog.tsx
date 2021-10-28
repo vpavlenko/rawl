@@ -10,6 +10,7 @@ import {
 import { range } from "lodash"
 import { useEffect, useState, VFC } from "react"
 import styled from "styled-components"
+import { localized } from "../../../common/localize/localizedString"
 
 export interface TimeSignatureDialogProps {
   open: boolean
@@ -57,7 +58,7 @@ export const TimeSignatureDialog: VFC<TimeSignatureDialogProps> = ({
 
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Time Signature</DialogTitle>
+      <DialogTitle>{localized("time-signature", "Time Signature")}</DialogTitle>
       <DialogContent>
         <div
           style={{
@@ -106,7 +107,7 @@ export const TimeSignatureDialog: VFC<TimeSignatureDialogProps> = ({
       </DialogContent>
       <DialogActions>
         <Button autoFocus onClick={onClose}>
-          Cancel
+          {localized("cancel", "Cancel")}
         </Button>
         <Button
           onClick={() => {
@@ -115,7 +116,7 @@ export const TimeSignatureDialog: VFC<TimeSignatureDialogProps> = ({
           }}
           disabled={isNaN(numerator) && numerator <= 32 && numerator > 0}
         >
-          OK
+          {localized("ok", "OK")}
         </Button>
       </DialogActions>
     </Dialog>

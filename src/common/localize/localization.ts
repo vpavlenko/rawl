@@ -14,7 +14,10 @@ export default {
     "control-editing": "ベロシティ・ピッチベンド編集",
     tempo: "テンポ",
     "tempo-track": "テンポトラック",
-    "time-signature": "4/4以外の拍子に対応 (表示のみ)",
+    "feature-time-signature": "4/4以外の拍子に対応",
+    "time-signature": "拍子",
+    "add-time-signature": "拍子を追加",
+    "remove-time-signature": "拍子を削除",
     support: "サポート",
     "support-intro":
       "signalは個人的に趣味で作っているアプリです。不具合があるかと思いますがご了承ください。もしブラウザで動作する軽量な作曲ソフトというコンセプトに共感してもらえたら、ぜひご支援ください。バグ報告や他人へのオススメ、スポンサーをしていただけると嬉しいです。",

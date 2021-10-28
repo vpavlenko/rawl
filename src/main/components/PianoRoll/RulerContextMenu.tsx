@@ -44,13 +44,13 @@ export const RulerContextMenu: FC<RulerContextMenuProps> = React.memo(
       <>
         <ContextMenu {...props}>
           <Item onClick={onClickAddTimeSignature}>
-            {localized("add-time-signature", "拍子を追加")}
+            {localized("add-time-signature", "Add Time Signature")}
           </Item>
           <Item
             onClick={onClickRemoveTimeSignature}
             disabled={!isTimeSignatureSelected}
           >
-            {localized("remove-time-signature", "拍子を削除")}
+            {localized("remove-time-signature", "Remove Time Signature")}
           </Item>
         </ContextMenu>
         <TimeSignatureDialog

@@ -4,6 +4,7 @@ export interface BeatWithX {
   measure: number
   beat: number
   x: number
+  tick: number
 }
 
 // 範囲内の measure を探す。最初の要素は startTick 以前のものも含む
@@ -81,6 +82,7 @@ export const createBeatsInRange = (
         measure: measure.measure + Math.floor(beat / measure.numerator),
         beat: beat % measure.numerator,
         x: Math.round(tick * pixelsPerTick),
+        tick,
       })
     }
   })

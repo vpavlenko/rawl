@@ -6,10 +6,12 @@ import { LoopSetting } from "../../../common/player"
 import { Theme } from "../../../common/theme/Theme"
 import { setPlayerPosition } from "../../actions"
 import { Layout } from "../../Constants"
+import { useContextMenu } from "../../hooks/useContextMenu"
 import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
 import { RulerStore, TimeSignature } from "../../stores/RulerStore"
 import DrawCanvas from "../DrawCanvas"
+import { RulerContextMenu } from "./RulerContextMenu"
 
 const textPadding = 2
 
@@ -163,6 +165,7 @@ const TIME_SIGNATURE_HIT_WIDTH = 20
 const PianoRuler: FC<PianoRulerProps> = observer(({ rulerStore, style }) => {
   const rootStore = useStores()
   const theme = useTheme()
+  const { onContextMenu, menuProps } = useContextMenu()
   const height = Layout.rulerHeight
 
   const {
@@ -203,7 +206,7 @@ const PianoRuler: FC<PianoRulerProps> = observer(({ rulerStore, style }) => {
         }
       }
     },
-    [rootStore, scrollLeft, pixelsPerTick]
+    [rootStore, scrollLeft, pixelsPerTick, timeSignatures]
   )
 
   const draw = useCallback(
@@ -222,13 +225,17 @@ const PianoRuler: FC<PianoRulerProps> = observer(({ rulerStore, style }) => {
   )
 
   return (
-    <DrawCanvas
-      draw={draw}
-      width={width}
-      height={height}
-      onMouseDown={onMouseDown}
-      style={style}
-    />
+    <>
+      <DrawCanvas
+        draw={draw}
+        width={width}
+        height={height}
+        onMouseDown={onMouseDown}
+        onContextMenu={onContextMenu}
+        style={style}
+      />
+      <RulerContextMenu {...menuProps} rulerStore={rulerStore} />
+    </>
   )
 })
 

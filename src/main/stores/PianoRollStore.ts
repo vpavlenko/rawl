@@ -5,7 +5,6 @@ import { action, autorun, computed, makeObservable, observable } from "mobx"
 import { IRect } from "../../common/geometry"
 import { isNotUndefined } from "../../common/helpers/array"
 import { filterEventsWithScroll } from "../../common/helpers/filterEventsWithScroll"
-import { BeatWithX, createBeatsInRange } from "../../common/helpers/mapBeats"
 import { getMBTString } from "../../common/measure/mbt"
 import Quantizer from "../../common/quantizer"
 import { ControlSelection } from "../../common/selection/ControlSelection"
@@ -25,6 +24,7 @@ import { ControlMode } from "../components/ControlPane/ControlPane"
 import { InstrumentSetting } from "../components/InstrumentBrowser/InstrumentBrowser"
 import { Layout } from "../Constants"
 import RootStore from "./RootStore"
+import { RulerStore } from "./RulerStore"
 
 export type PianoRollMouseMode = "pencil" | "selection"
 
@@ -36,7 +36,8 @@ export type PianoNoteItem = IRect & {
 }
 
 export default class PianoRollStore {
-  private rootStore: RootStore
+  readonly rootStore: RootStore
+  readonly rulerStore: RulerStore
 
   scrollLeftTicks = 0
   scrollTopKeys = 70 // 中央くらいの音程にスクロールしておく
@@ -69,6 +70,7 @@ export default class PianoRollStore {
 
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore
+    this.rulerStore = new RulerStore(this)
 
     makeObservable(this, {
       scrollLeftTicks: observable,
@@ -107,7 +109,6 @@ export default class PianoRollStore {
       currentPan: computed,
       currentTempo: computed,
       currentMBTTime: computed,
-      mappedBeats: computed,
       cursorX: computed,
       quantizer: computed,
       controlCursor: computed,
@@ -309,7 +310,9 @@ export default class PianoRollStore {
     ]
   }
 
-  filteredEvents<T extends TrackEvent>(filter: (e: TrackEvent) => e is T): T[] {
+  private filteredEvents<T extends TrackEvent>(
+    filter: (e: TrackEvent) => e is T
+  ): T[] {
     const song = this.rootStore.song
     const { selectedTrack } = song
     const { windowedEvents, scrollLeft, canvasWidth, transform } = this
@@ -388,20 +391,6 @@ export default class PianoRollStore {
 
   get cursorX(): number {
     return this.transform.getX(this.rootStore.services.player.position)
-  }
-
-  get mappedBeats(): BeatWithX[] {
-    const { scrollLeft, transform, canvasWidth } = this
-
-    const startTick = scrollLeft / transform.pixelsPerTick
-
-    return createBeatsInRange(
-      this.rootStore.song.measures,
-      transform.pixelsPerTick,
-      this.rootStore.song.timebase,
-      startTick,
-      canvasWidth
-    )
   }
 
   get quantizer(): Quantizer {

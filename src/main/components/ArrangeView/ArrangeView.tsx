@@ -101,7 +101,6 @@ export const ArrangeView: FC = observer(() => {
     notes,
     cursorX,
     selection,
-    mappedBeats,
     selectionRect,
     trackHeight,
     contentWidth,
@@ -113,6 +112,7 @@ export const ArrangeView: FC = observer(() => {
     scrollBy,
     selectedTrackId,
   } = rootStore.arrangeViewStore
+  const { beats } = rootStore.arrangeViewStore.rulerStore
 
   const setScrollLeft = useCallback(
     (v: number) => rootStore.arrangeViewStore.setScrollLeftInPixels(v),
@@ -307,7 +307,7 @@ export const ArrangeView: FC = observer(() => {
     }
 
     const [highlightedBeats, nonHighlightedBeats] = partition(
-      mappedBeats,
+      beats,
       (b) => b.beat === 0
     )
 
@@ -328,7 +328,7 @@ export const ArrangeView: FC = observer(() => {
     scrollTop,
     cursorX,
     notes,
-    mappedBeats,
+    beats,
     selectionRect,
   ])
 
@@ -389,10 +389,7 @@ export const ArrangeView: FC = observer(() => {
           }}
         >
           <CanvasPianoRuler
-            width={containerWidth}
-            beats={mappedBeats}
-            scrollLeft={scrollLeft}
-            pixelsPerTick={transform.pixelsPerTick}
+            rulerStore={rootStore.arrangeViewStore.rulerStore}
             style={{
               background: theme.backgroundColor,
               borderBottom: `1px solid ${theme.dividerColor}`,

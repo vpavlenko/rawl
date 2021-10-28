@@ -1,13 +1,14 @@
 import { autorun, computed, makeObservable, observable } from "mobx"
-import { createBeatsInRange } from "../../common/helpers/mapBeats"
 import { TempoCoordTransform } from "../../common/transform"
 import { DisplayEvent } from "../components/PianoRoll/ControlMark"
 import { transformEvents } from "../components/TempoGraph/transformEvents"
 import { Layout } from "../Constants"
 import RootStore from "./RootStore"
+import { RulerStore } from "./RulerStore"
 
 export default class TempoEditorStore {
-  private rootStore: RootStore
+  readonly rootStore: RootStore
+  readonly rulerStore: RulerStore
 
   scrollLeft: number = 0
   scaleX: number = 1
@@ -17,6 +18,7 @@ export default class TempoEditorStore {
 
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore
+    this.rulerStore = new RulerStore(this)
 
     makeObservable(this, {
       scrollLeft: observable,
@@ -25,7 +27,6 @@ export default class TempoEditorStore {
       canvasWidth: observable,
       canvasHeight: observable,
       transform: computed,
-      mappedBeats: computed,
       items: computed,
       cursorX: computed,
       contentWidth: computed,
@@ -55,19 +56,6 @@ export default class TempoEditorStore {
 
   get cursorX(): number {
     return this.transform.getX(this.rootStore.services.player.position)
-  }
-
-  get mappedBeats() {
-    const measures = this.rootStore.song.measures
-    const startTick = this.scrollLeft / this.transform.pixelsPerTick
-
-    return createBeatsInRange(
-      measures,
-      this.transform.pixelsPerTick,
-      this.rootStore.song.timebase,
-      startTick,
-      this.canvasWidth
-    )
   }
 
   get items() {

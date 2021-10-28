@@ -32,8 +32,9 @@ const PianoVelocityControl: FC<PianoVelocityControlProps> = observer(
   ({ width, height }: PianoVelocityControlProps) => {
     const theme = useTheme()
     const rootStore = useStores()
-    const { mappedBeats, cursorX, transform, scrollLeft, windowedEvents } =
+    const { cursorX, transform, scrollLeft, windowedEvents } =
       rootStore.pianoRollStore
+    const { beats } = rootStore.pianoRollStore.rulerStore
     const changeVelocity = useCallback(changeNotesVelocity(rootStore), [])
 
     const items = windowedEvents.filter(isNoteEvent).map((note) => {
@@ -98,7 +99,7 @@ const PianoVelocityControl: FC<PianoVelocityControlProps> = observer(
       }
 
       const [highlightedBeats, nonHighlightedBeats] = partition(
-        mappedBeats,
+        beats,
         (b) => b.beat === 0
       )
 
@@ -111,7 +112,7 @@ const PianoVelocityControl: FC<PianoVelocityControlProps> = observer(
         cursorX,
         scrollLeft
       )
-    }, [renderer, scrollLeft, mappedBeats, cursorX, items])
+    }, [renderer, scrollLeft, beats, cursorX, items])
 
     return (
       <Parent>

@@ -1,14 +1,20 @@
-import { isEqual } from "lodash"
+import { findLast, isEqual } from "lodash"
 import { observer } from "mobx-react-lite"
-import React, { FC, useCallback } from "react"
+import React, { FC, useCallback, useState } from "react"
 import { BeatWithX } from "../../../common/helpers/mapBeats"
 import { LoopSetting } from "../../../common/player"
 import { Theme } from "../../../common/theme/Theme"
-import { setPlayerPosition } from "../../actions"
+import { setPlayerPosition, updateTimeSignature } from "../../actions"
 import { Layout } from "../../Constants"
+import { useContextMenu } from "../../hooks/useContextMenu"
 import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
+import { RulerStore, TimeSignature } from "../../stores/RulerStore"
 import DrawCanvas from "../DrawCanvas"
+import { RulerContextMenu } from "./RulerContextMenu"
+import { TimeSignatureDialog } from "./TimeSignatureDialog"
+
+const textPadding = 2
 
 function drawRuler(
   ctx: CanvasRenderingContext2D,
@@ -43,7 +49,7 @@ function drawRuler(
       ctx.textBaseline = "top"
       ctx.font = `12px ${theme.canvasFont}`
       ctx.fillStyle = theme.secondaryTextColor
-      ctx.fillText(`${measure}`, x + 5, 2)
+      ctx.fillText(`${measure}`, x + textPadding, textPadding)
     }
   })
 
@@ -96,79 +102,178 @@ function drawLoopPoints(
   }
 }
 
+function drawFlag(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  width: number,
+  height: number,
+  flagSize: number
+) {
+  ctx.beginPath()
+  ctx.moveTo(x, y)
+  ctx.lineTo(x + width + flagSize, y)
+  ctx.lineTo(x + width, y + height)
+  ctx.lineTo(x, y + height)
+  ctx.lineTo(x, y)
+  ctx.closePath()
+  ctx.fill()
+}
+
+function drawTimeSignatures(
+  ctx: CanvasRenderingContext2D,
+  height: number,
+  events: TimeSignature[],
+  pixelsPerTick: number,
+  theme: Theme
+) {
+  ctx.textBaseline = "bottom"
+  ctx.font = `11px ${theme.canvasFont}`
+  events.forEach((e) => {
+    const x = e.tick * pixelsPerTick
+    const text = `${e.numerator}/${e.denominator}`
+    const size = ctx.measureText(text)
+    const textHeight =
+      size.actualBoundingBoxAscent + size.actualBoundingBoxDescent
+    ctx.fillStyle = e.isSelected
+      ? theme.themeColor
+      : theme.tertiaryBackgroundColor
+    drawFlag(
+      ctx,
+      x,
+      height - textHeight - textPadding * 4,
+      size.width + textPadding * 2,
+      textHeight + textPadding * 4,
+      textHeight
+    )
+    ctx.fillStyle = theme.textColor
+    ctx.fillText(text, x + textPadding, height - textPadding)
+  })
+}
+
 export interface TickEvent<E> {
   tick: number
   nativeEvent: E
 }
 
 export interface PianoRulerProps {
-  width: number
-  pixelsPerTick: number
-  scrollLeft: number
-  beats: BeatWithX[]
+  rulerStore: RulerStore
   style?: React.CSSProperties
 }
 
-const PianoRuler: FC<PianoRulerProps> = observer(
-  ({ width, pixelsPerTick, scrollLeft, beats, style }) => {
-    const rootStore = useStores()
-    const theme = useTheme()
-    const height = Layout.rulerHeight
+// null = closed
+interface TimeSignatureDialogState {
+  numerator: number
+  denominator: number
+}
 
-    const { loop } = rootStore.services.player
+const TIME_SIGNATURE_HIT_WIDTH = 20
 
-    const onMouseDown: React.MouseEventHandler<HTMLCanvasElement> = useCallback(
-      (e) => {
-        const local = {
-          x: e.nativeEvent.offsetX,
-          y: e.nativeEvent.offsetY,
-        }
-        const tick = (local.x + scrollLeft) / pixelsPerTick
-        if (e.nativeEvent.ctrlKey) {
-          // setLoopBegin(tick)
-        } else if (e.nativeEvent.altKey) {
-          // setLoopEnd(tick)
+const PianoRuler: FC<PianoRulerProps> = observer(({ rulerStore, style }) => {
+  const rootStore = useStores()
+  const theme = useTheme()
+  const { onContextMenu, menuProps } = useContextMenu()
+  const [timeSignatureDialogState, setTimeSignatureDialogState] =
+    useState<TimeSignatureDialogState | null>(null)
+  const height = Layout.rulerHeight
+
+  const {
+    canvasWidth: width,
+    transform: { pixelsPerTick },
+    scrollLeft,
+  } = rulerStore.parent
+  const { beats, timeSignatures } = rulerStore
+  const { loop } = rootStore.services.player
+
+  const timeSignatureHitTest = (tick: number) => {
+    const widthTick = TIME_SIGNATURE_HIT_WIDTH / pixelsPerTick
+    return findLast(
+      timeSignatures,
+      (e) => e.tick < tick && e.tick + widthTick >= tick
+    )
+  }
+
+  const onMouseDown: React.MouseEventHandler<HTMLCanvasElement> = useCallback(
+    (e) => {
+      const local = {
+        x: e.nativeEvent.offsetX,
+        y: e.nativeEvent.offsetY,
+      }
+      const tick = (local.x + scrollLeft) / pixelsPerTick
+      const timeSignature = timeSignatureHitTest(tick)
+
+      if (e.nativeEvent.ctrlKey) {
+        // setLoopBegin(tick)
+      } else if (e.nativeEvent.altKey) {
+        // setLoopEnd(tick)
+      } else {
+        if (timeSignature !== undefined) {
+          if (e.detail == 2) {
+            setTimeSignatureDialogState(timeSignature)
+          } else {
+            rulerStore.selectedTimeSignatureEventIds = [timeSignature.id]
+          }
         } else {
+          rulerStore.selectedTimeSignatureEventIds = []
           setPlayerPosition(rootStore)(tick)
         }
-      },
-      [rootStore, scrollLeft, pixelsPerTick]
-    )
+      }
+    },
+    [rootStore, scrollLeft, pixelsPerTick, timeSignatures]
+  )
 
-    const draw = useCallback(
-      (ctx: CanvasRenderingContext2D) => {
-        ctx.clearRect(0, 0, width, height)
-        ctx.save()
-        ctx.translate(-scrollLeft + 0.5, 0)
-        drawRuler(ctx, height, beats, theme)
-        if (loop.enabled) {
-          drawLoopPoints(ctx, loop, height, pixelsPerTick, theme)
-        }
-        ctx.restore()
-      },
-      [width, pixelsPerTick, scrollLeft, beats]
-    )
+  const draw = useCallback(
+    (ctx: CanvasRenderingContext2D) => {
+      ctx.clearRect(0, 0, width, height)
+      ctx.save()
+      ctx.translate(-scrollLeft + 0.5, 0)
+      drawRuler(ctx, height, beats, theme)
+      if (loop.enabled) {
+        drawLoopPoints(ctx, loop, height, pixelsPerTick, theme)
+      }
+      drawTimeSignatures(ctx, height, timeSignatures, pixelsPerTick, theme)
+      ctx.restore()
+    },
+    [width, pixelsPerTick, scrollLeft, beats, timeSignatures]
+  )
 
-    return (
+  const closeOpenTimeSignatureDialog = useCallback(() => {
+    setTimeSignatureDialogState(null)
+  }, [])
+
+  const okTimeSignatureDialog = useCallback(
+    ({ numerator, denominator }: TimeSignatureDialogState) => {
+      rulerStore.selectedTimeSignatureEventIds.forEach((id) => {
+        updateTimeSignature(rootStore)(id, numerator, denominator)
+      })
+    },
+    []
+  )
+
+  return (
+    <>
       <DrawCanvas
         draw={draw}
         width={width}
         height={height}
         onMouseDown={onMouseDown}
+        onContextMenu={onContextMenu}
         style={style}
       />
-    )
-  }
-)
+      <RulerContextMenu {...menuProps} rulerStore={rulerStore} />
+      <TimeSignatureDialog
+        open={timeSignatureDialogState != null}
+        initialNumerator={timeSignatureDialogState?.numerator}
+        initialDenominator={timeSignatureDialogState?.denominator}
+        onClose={closeOpenTimeSignatureDialog}
+        onClickOK={okTimeSignatureDialog}
+      />
+    </>
+  )
+})
 
 function equals(props: PianoRulerProps, nextProps: PianoRulerProps) {
-  return (
-    props.width === nextProps.width &&
-    props.pixelsPerTick === nextProps.pixelsPerTick &&
-    props.scrollLeft === nextProps.scrollLeft &&
-    isEqual(props.beats, nextProps.beats) &&
-    isEqual(props.style, nextProps.style)
-  )
+  return isEqual(props.style, nextProps.style)
 }
 
 export default React.memo(PianoRuler, equals)

@@ -1,11 +1,18 @@
+import { maxBy } from "lodash"
 import { AnyChannelEvent, SetTempoEvent } from "midifile-ts"
 import {
   panMidiEvent,
   programChangeMidiEvent,
   setTempoMidiEvent,
+  timeSignatureMidiEvent,
   volumeMidiEvent,
 } from "../../common/midi/MidiEvent"
-import { isNoteEvent, NoteEvent, TrackEventOf } from "../../common/track"
+import {
+  isNoteEvent,
+  isTimeSignatureEvent,
+  NoteEvent,
+  TrackEventOf,
+} from "../../common/track"
 import RootStore from "../stores/RootStore"
 import { pushHistory } from "./history"
 import {
@@ -323,3 +330,61 @@ export const toogleAllGhostTracks = (rootStore: RootStore) => () => {
     }
   }
 }
+
+export const addTimeSignature =
+  (rootStore: RootStore) =>
+  (tick: number, numerator: number, denominator: number) => {
+    const { song } = rootStore
+
+    if (song.conductorTrack === undefined) {
+      return
+    }
+
+    // get the nearest time signature
+    const timeSignature = maxBy(
+      song.conductorTrack.events
+        .filter(isTimeSignatureEvent)
+        .slice()
+        .filter((e) => e.tick <= tick),
+      (e) => e.tick
+    )
+
+    let timeSignatureTick: number
+
+    if (timeSignature === undefined) {
+      timeSignatureTick = 0
+    } else {
+      // calculate the nearest measure beginning
+      const ticksPerMeasure =
+        ((song.timebase * 4) / timeSignature.denominator) *
+        timeSignature.numerator
+      const numberOfMeasures = Math.floor(
+        (tick - timeSignature.tick) / ticksPerMeasure
+      )
+      timeSignatureTick =
+        timeSignature.tick + numberOfMeasures * ticksPerMeasure
+
+      // prevent duplication
+      if (timeSignature.tick === timeSignatureTick) {
+        return
+      }
+    }
+
+    pushHistory(rootStore)()
+
+    rootStore.song.conductorTrack?.addEvent({
+      ...timeSignatureMidiEvent(0, numerator, denominator),
+      tick: timeSignatureTick,
+    })
+  }
+
+export const updateTimeSignature =
+  (rootStore: RootStore) =>
+  (id: number, numerator: number, denominator: number) => {
+    pushHistory(rootStore)()
+
+    rootStore.song.conductorTrack?.updateEvent(id, {
+      numerator,
+      denominator,
+    })
+  }

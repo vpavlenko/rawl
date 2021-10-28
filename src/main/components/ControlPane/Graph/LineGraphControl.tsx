@@ -57,7 +57,6 @@ const LineGraphControl = observer(
     const theme = useTheme()
     const rootStore = useStores()
     const {
-      mappedBeats,
       cursorX,
       scrollLeft,
       transform,
@@ -66,6 +65,7 @@ const LineGraphControl = observer(
       controlSelection,
       mouseMode,
     } = rootStore.pianoRollStore
+    const { beats } = rootStore.pianoRollStore.rulerStore
 
     const controlTransform = useMemo(
       () =>
@@ -160,12 +160,12 @@ const LineGraphControl = observer(
         items,
         selectedControllerEventIds,
         selectionRect,
-        mappedBeats,
+        beats,
         [],
         cursorX,
         scrollLeft
       )
-    }, [renderer, scrollLeft, mappedBeats, cursorX, items, controlTransform])
+    }, [renderer, scrollLeft, beats, cursorX, items, controlTransform])
 
     const onClickAxis = (value: number) => {
       const event = createEvent(value)

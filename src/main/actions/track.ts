@@ -7,7 +7,12 @@ import {
   timeSignatureMidiEvent,
   volumeMidiEvent,
 } from "../../common/midi/MidiEvent"
-import { isNoteEvent, NoteEvent, TrackEventOf } from "../../common/track"
+import {
+  isNoteEvent,
+  isTimeSignatureEvent,
+  NoteEvent,
+  TrackEventOf,
+} from "../../common/track"
 import RootStore from "../stores/RootStore"
 import { pushHistory } from "./history"
 import {
@@ -331,28 +336,38 @@ export const addTimeSignature =
   (tick: number, numerator: number, denominator: number) => {
     const { song } = rootStore
 
-    // get the nearest measure
-    const measure = maxBy(
-      song.measures.filter((m) => m.startTick <= tick),
-      (m) => m.startTick
-    )
-
-    if (measure === undefined) {
+    if (song.conductorTrack === undefined) {
       return
     }
 
-    // calculate the nearest measure beginning
-    const ticksPerMeasure =
-      ((song.timebase * 4) / measure.denominator) * measure.numerator
-    const numberOfMeasures = Math.floor(
-      (tick - measure.startTick) / ticksPerMeasure
+    // get the nearest time signature
+    const timeSignature = maxBy(
+      song.conductorTrack.events
+        .filter(isTimeSignatureEvent)
+        .slice()
+        .filter((e) => e.tick <= tick),
+      (e) => e.tick
     )
-    const timeSignatureTick =
-      measure.startTick + numberOfMeasures * ticksPerMeasure
 
-    // prevent duplication
-    if (measure.startTick === timeSignatureTick) {
-      return
+    let timeSignatureTick: number
+
+    if (timeSignature === undefined) {
+      timeSignatureTick = 0
+    } else {
+      // calculate the nearest measure beginning
+      const ticksPerMeasure =
+        ((song.timebase * 4) / timeSignature.denominator) *
+        timeSignature.numerator
+      const numberOfMeasures = Math.floor(
+        (tick - timeSignature.tick) / ticksPerMeasure
+      )
+      timeSignatureTick =
+        timeSignature.tick + numberOfMeasures * ticksPerMeasure
+
+      // prevent duplication
+      if (timeSignature.tick === timeSignatureTick) {
+        return
+      }
     }
 
     rootStore.song.conductorTrack?.addEvent({

@@ -1,6 +1,5 @@
 import { Divider } from "@material-ui/core"
 import React, { FC, useCallback } from "react"
-import { IPoint } from "../../../common/geometry"
 import { localized } from "../../../common/localize/localizedString"
 import {
   copySelection,
@@ -16,12 +15,6 @@ import {
   ContextMenuItem as Item,
   ContextMenuProps,
 } from "../ContextMenu/ContextMenu"
-
-export interface PianoSelectionContextMenuProps {
-  isOpen: boolean
-  position: IPoint
-  handleClose: () => void
-}
 
 export const PianoSelectionContextMenu: FC<ContextMenuProps> = React.memo(
   (props) => {

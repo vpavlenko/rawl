@@ -13,6 +13,8 @@ import styled from "styled-components"
 import { localized } from "../../../common/localize/localizedString"
 
 export interface TimeSignatureDialogProps {
+  initialNumerator?: number
+  initialDenominator?: number
   open: boolean
   onClose: () => void
   onClickOK: (timeSignature: { numerator: number; denominator: number }) => void
@@ -41,18 +43,20 @@ const NumberInput = styled.input`
 `
 
 export const TimeSignatureDialog: VFC<TimeSignatureDialogProps> = ({
+  initialNumerator = 4,
+  initialDenominator = 4,
   open,
   onClose,
   onClickOK,
 }) => {
-  const [numerator, setNumerator] = useState(4)
-  const [denominator, setDenominator] = useState(4)
+  const [numerator, setNumerator] = useState(initialNumerator)
+  const [denominator, setDenominator] = useState(initialDenominator)
 
   useEffect(() => {
     // reset values when opening the dialog
     if (open) {
-      setNumerator(4)
-      setDenominator(4)
+      setNumerator(initialNumerator)
+      setDenominator(initialDenominator)
     }
   }, [open])
 

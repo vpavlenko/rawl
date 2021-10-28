@@ -370,8 +370,21 @@ export const addTimeSignature =
       }
     }
 
+    pushHistory(rootStore)()
+
     rootStore.song.conductorTrack?.addEvent({
       ...timeSignatureMidiEvent(0, numerator, denominator),
       tick: timeSignatureTick,
+    })
+  }
+
+export const updateTimeSignature =
+  (rootStore: RootStore) =>
+  (id: number, numerator: number, denominator: number) => {
+    pushHistory(rootStore)()
+
+    rootStore.song.conductorTrack?.updateEvent(id, {
+      numerator,
+      denominator,
     })
   }

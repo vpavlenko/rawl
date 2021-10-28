@@ -1,10 +1,10 @@
 import { findLast, isEqual } from "lodash"
 import { observer } from "mobx-react-lite"
-import React, { FC, useCallback } from "react"
+import React, { FC, useCallback, useState } from "react"
 import { BeatWithX } from "../../../common/helpers/mapBeats"
 import { LoopSetting } from "../../../common/player"
 import { Theme } from "../../../common/theme/Theme"
-import { setPlayerPosition } from "../../actions"
+import { setPlayerPosition, updateTimeSignature } from "../../actions"
 import { Layout } from "../../Constants"
 import { useContextMenu } from "../../hooks/useContextMenu"
 import { useStores } from "../../hooks/useStores"
@@ -12,6 +12,7 @@ import { useTheme } from "../../hooks/useTheme"
 import { RulerStore, TimeSignature } from "../../stores/RulerStore"
 import DrawCanvas from "../DrawCanvas"
 import { RulerContextMenu } from "./RulerContextMenu"
+import { TimeSignatureDialog } from "./TimeSignatureDialog"
 
 const textPadding = 2
 
@@ -160,12 +161,20 @@ export interface PianoRulerProps {
   style?: React.CSSProperties
 }
 
+// null = closed
+interface TimeSignatureDialogState {
+  numerator: number
+  denominator: number
+}
+
 const TIME_SIGNATURE_HIT_WIDTH = 20
 
 const PianoRuler: FC<PianoRulerProps> = observer(({ rulerStore, style }) => {
   const rootStore = useStores()
   const theme = useTheme()
   const { onContextMenu, menuProps } = useContextMenu()
+  const [timeSignatureDialogState, setTimeSignatureDialogState] =
+    useState<TimeSignatureDialogState | null>(null)
   const height = Layout.rulerHeight
 
   const {
@@ -199,7 +208,11 @@ const PianoRuler: FC<PianoRulerProps> = observer(({ rulerStore, style }) => {
         // setLoopEnd(tick)
       } else {
         if (timeSignature !== undefined) {
-          rulerStore.selectedTimeSignatureEventIds = [timeSignature.id]
+          if (e.detail == 2) {
+            setTimeSignatureDialogState(timeSignature)
+          } else {
+            rulerStore.selectedTimeSignatureEventIds = [timeSignature.id]
+          }
         } else {
           rulerStore.selectedTimeSignatureEventIds = []
           setPlayerPosition(rootStore)(tick)
@@ -224,6 +237,19 @@ const PianoRuler: FC<PianoRulerProps> = observer(({ rulerStore, style }) => {
     [width, pixelsPerTick, scrollLeft, beats, timeSignatures]
   )
 
+  const closeOpenTimeSignatureDialog = useCallback(() => {
+    setTimeSignatureDialogState(null)
+  }, [])
+
+  const okTimeSignatureDialog = useCallback(
+    ({ numerator, denominator }: TimeSignatureDialogState) => {
+      rulerStore.selectedTimeSignatureEventIds.forEach((id) => {
+        updateTimeSignature(rootStore)(id, numerator, denominator)
+      })
+    },
+    []
+  )
+
   return (
     <>
       <DrawCanvas
@@ -235,6 +261,13 @@ const PianoRuler: FC<PianoRulerProps> = observer(({ rulerStore, style }) => {
         style={style}
       />
       <RulerContextMenu {...menuProps} rulerStore={rulerStore} />
+      <TimeSignatureDialog
+        open={timeSignatureDialogState != null}
+        initialNumerator={timeSignatureDialogState?.numerator}
+        initialDenominator={timeSignatureDialogState?.denominator}
+        onClose={closeOpenTimeSignatureDialog}
+        onClickOK={okTimeSignatureDialog}
+      />
     </>
   )
 })

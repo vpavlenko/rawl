@@ -21,6 +21,7 @@ export type TrackListItemProps = TrackListItemData & {
   onClick: () => void
   onClickSolo: () => void
   onClickMute: () => void
+  onClickAdd: () => void
   onClickDelete: () => void
   onClickGhostTrack: () => void
   onClickToogleAllGhostTracks: () => void
@@ -79,6 +80,7 @@ export const TrackListItem: FC<TrackListItemProps> = ({
   selected,
   ghostTrack,
   onClick,
+  onClickAdd,
   onClickDelete,
   onClickSolo,
   onClickMute,
@@ -94,7 +96,11 @@ export const TrackListItem: FC<TrackListItemProps> = ({
       onClick={onClick}
       onContextMenu={onContextMenu}
     >
-      <TrackListContextMenu onClickDelete={onClickDelete} {...menuProps} />
+      <TrackListContextMenu
+        onClickDelete={onClickDelete}
+        onClickAdd={onClickAdd}
+        {...menuProps}
+      />
       <div className="TrackListItem">
         <div className="label">
           <div className="name">{name}</div>

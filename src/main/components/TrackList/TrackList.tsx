@@ -74,6 +74,7 @@ export const TrackList: FC = observer(() => {
       key={t.index}
       {...t}
       onClick={() => onSelectTrack(t.index)}
+      onClickAdd={() => onClickAddTrack()}
       onClickSolo={() => onClickSolo(t.index)}
       onClickMute={() => onClickMute(t.index)}
       onClickDelete={() => onClickDelete(t.index)}

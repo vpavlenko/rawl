@@ -1,5 +1,6 @@
 import difference from "lodash/difference"
 import isEqual from "lodash/isEqual"
+import omit from "lodash/omit"
 import sortBy from "lodash/sortBy"
 import without from "lodash/without"
 import {
@@ -128,7 +129,7 @@ export default class Track {
       throw new Error("invalid event is added")
     }
     const newEvent = {
-      ...e,
+      ...omit(e, ["deltaTime", "channel"]),
       id: this.lastEventId++,
     } as T
     this.events.push(newEvent)

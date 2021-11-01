@@ -212,10 +212,10 @@ export default class Track {
     if (this.name && this.name.length > 0) {
       return this.name
     }
-    if (this.isConductorTrack) {
+    if (this.channel === undefined) {
       return localized("conductor-track", "Conductor Track")
     }
-    return `${localized("track", "Track")} ${this.channel}`
+    return `${localized("track", "Track")} ${this.channel + 1}`
   }
 
   get instrumentName() {

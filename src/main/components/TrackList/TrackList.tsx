@@ -19,7 +19,7 @@ export const TrackList: FC = observer(() => {
   const onClickAddTrack = () => addTrack(rootStore)()
 
   return (
-    <List style={{ overflowY: "auto" }}>
+    <List style={{ overflowY: "auto" }} disablePadding>
       {rootStore.song.tracks.map(
         (t, i) => !t.isConductorTrack && <TrackListItem key={i} trackId={i} />
       )}

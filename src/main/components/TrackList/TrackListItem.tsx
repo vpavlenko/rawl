@@ -103,79 +103,81 @@ export const TrackListItem: FC<TrackListItemProps> = observer(({ trackId }) => {
   }
 
   return (
-    <Container
-      button
-      selected={selected}
-      onClick={onSelectTrack}
-      onContextMenu={onContextMenu}
-      autoFocus={false}
-    >
+    <>
+      <Container
+        button
+        selected={selected}
+        onClick={onSelectTrack}
+        onContextMenu={onContextMenu}
+        tabIndex={-1}
+      >
+        <div>
+          <div className="label">
+            <div className="name">{name}</div>
+            <div className="instrument">{instrument}</div>
+          </div>
+          <div className="controls">
+            <IconButton
+              color="default"
+              size="small"
+              className={`button solo ${solo ? "active" : ""}`}
+              onClick={(e) => {
+                e.stopPropagation()
+                onClickSolo()
+              }}
+            >
+              <Headset fontSize="small" />
+            </IconButton>
+            <IconButton
+              color="default"
+              size="small"
+              className={`button mute ${mute ? "active" : ""}`}
+              onClick={(e) => {
+                e.stopPropagation()
+                onClickMute()
+              }}
+            >
+              {mute ? (
+                <VolumeOff fontSize="small" />
+              ) : (
+                <VolumeUp fontSize="small" />
+              )}
+            </IconButton>
+            <IconButton
+              color="default"
+              size="small"
+              className={`button solo ${ghostTrack ? "active" : ""}`}
+              onClick={(e) => {
+                if (e.nativeEvent.altKey) {
+                  e.stopPropagation()
+                  onClickToogleAllGhostTracks()
+                } else {
+                  e.stopPropagation()
+                  onClickGhostTrack()
+                }
+              }}
+            >
+              <Layers fontSize="small" />
+            </IconButton>
+            {channel !== undefined && (
+              <ChannelName onClick={() => setDialogOpened(true)}>
+                CH {channel + 1}
+              </ChannelName>
+            )}
+          </div>
+        </div>
+      </Container>
       <TrackListContextMenu
         onClickDelete={onClickDelete}
         onClickAdd={onClickAddTrack}
         onClickProperty={() => setDialogOpened(true)}
         {...menuProps}
       />
-      <div className="TrackListItem">
-        <div className="label">
-          <div className="name">{name}</div>
-          <div className="instrument">{instrument}</div>
-        </div>
-        <div className="controls">
-          <IconButton
-            color="default"
-            size="small"
-            className={`button solo ${solo ? "active" : ""}`}
-            onClick={(e) => {
-              e.stopPropagation()
-              onClickSolo()
-            }}
-          >
-            <Headset fontSize="small" />
-          </IconButton>
-          <IconButton
-            color="default"
-            size="small"
-            className={`button mute ${mute ? "active" : ""}`}
-            onClick={(e) => {
-              e.stopPropagation()
-              onClickMute()
-            }}
-          >
-            {mute ? (
-              <VolumeOff fontSize="small" />
-            ) : (
-              <VolumeUp fontSize="small" />
-            )}
-          </IconButton>
-          <IconButton
-            color="default"
-            size="small"
-            className={`button solo ${ghostTrack ? "active" : ""}`}
-            onClick={(e) => {
-              if (e.nativeEvent.altKey) {
-                e.stopPropagation()
-                onClickToogleAllGhostTracks()
-              } else {
-                e.stopPropagation()
-                onClickGhostTrack()
-              }
-            }}
-          >
-            <Layers fontSize="small" />
-          </IconButton>
-          {channel !== undefined && (
-            <ChannelName onClick={() => setDialogOpened(true)}>
-              CH {channel + 1}
-            </ChannelName>
-          )}
-          <TrackDialog
-            trackId={1}
-            open={isDialogOpened}
-            onClose={() => setDialogOpened(false)}
-          />
-        </div>
-      </div>
-    </Container>
+      <TrackDialog
+        trackId={1}
+        open={isDialogOpened}
+        onClose={() => setDialogOpened(false)}
+      />
+    </>
   )
 })

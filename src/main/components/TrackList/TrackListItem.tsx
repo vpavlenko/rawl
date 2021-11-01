@@ -1,8 +1,9 @@
 import { IconButton, ListItem } from "@material-ui/core"
 import { Headset, Layers, VolumeOff, VolumeUp } from "@material-ui/icons"
-import { FC } from "react"
+import { FC, useState } from "react"
 import styled from "styled-components"
 import { useContextMenu } from "../../hooks/useContextMenu"
+import { TrackDialog } from "./TrackDialog"
 import { TrackListContextMenu } from "./TrackListContextMenu"
 
 export interface TrackListItemData {
@@ -99,6 +100,7 @@ export const TrackListItem: FC<TrackListItemProps> = ({
   onClickToogleAllGhostTracks,
 }) => {
   const { onContextMenu, menuProps } = useContextMenu()
+  const [isDialogOpened, setDialogOpened] = useState(false)
 
   return (
     <Container
@@ -160,7 +162,16 @@ export const TrackListItem: FC<TrackListItemProps> = ({
           >
             <Layers fontSize="small" />
           </IconButton>
-          {channel !== undefined && <ChannelName>CH {channel + 1}</ChannelName>}
+          {channel !== undefined && (
+            <ChannelName onClick={() => setDialogOpened(true)}>
+              CH {channel + 1}
+            </ChannelName>
+          )}
+          <TrackDialog
+            trackId={1}
+            open={isDialogOpened}
+            onClose={() => setDialogOpened(false)}
+          />
         </div>
       </div>
     </Container>

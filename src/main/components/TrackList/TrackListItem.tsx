@@ -1,32 +1,24 @@
 import { IconButton, ListItem } from "@material-ui/core"
 import { Headset, Layers, VolumeOff, VolumeUp } from "@material-ui/icons"
+import { observer } from "mobx-react-lite"
 import { FC, useState } from "react"
 import styled from "styled-components"
+import {
+  addTrack,
+  removeTrack,
+  selectTrack,
+  toggleMuteTrack,
+  toggleSoloTrack,
+  toogleAllGhostTracks,
+  toogleGhostTrack,
+} from "../../actions"
 import { useContextMenu } from "../../hooks/useContextMenu"
+import { useStores } from "../../hooks/useStores"
 import { TrackDialog } from "./TrackDialog"
 import { TrackListContextMenu } from "./TrackListContextMenu"
 
-export interface TrackListItemData {
-  index: number
-  name: string
-  instrument: string
-  mute: boolean
-  solo: boolean
-  selected: boolean
-  volume: number
-  pan: number
-  ghostTrack: boolean
-  channel: number | undefined
-}
-
-export type TrackListItemProps = TrackListItemData & {
-  onClick: () => void
-  onClickSolo: () => void
-  onClickMute: () => void
-  onClickAdd: () => void
-  onClickDelete: () => void
-  onClickGhostTrack: () => void
-  onClickToogleAllGhostTracks: () => void
+export type TrackListItemProps = {
+  trackId: number
 }
 
 const Container = styled(ListItem)`
@@ -83,35 +75,45 @@ const ChannelName = styled.div`
   padding: 0 0.3rem;
 `
 
-export const TrackListItem: FC<TrackListItemProps> = ({
-  name,
-  instrument,
-  mute,
-  solo,
-  selected,
-  ghostTrack,
-  channel,
-  onClick,
-  onClickAdd,
-  onClickDelete,
-  onClickSolo,
-  onClickMute,
-  onClickGhostTrack,
-  onClickToogleAllGhostTracks,
-}) => {
+export const TrackListItem: FC<TrackListItemProps> = observer(({ trackId }) => {
+  const rootStore = useStores()
+  const { song, pianoRollStore, rootViewStore, trackMute, router } = rootStore
+  const track = song.tracks[trackId]
+
+  const selected =
+    !rootViewStore.isArrangeViewSelected && trackId === song.selectedTrackId
+  const name = track.displayName
+  const instrument = track.instrumentName ?? ""
+  const mute = trackMute.isMuted(trackId)
+  const solo = trackMute.isSolo(trackId)
+  const ghostTrack = !pianoRollStore.notGhostTracks.has(trackId)
+  const channel = track.channel
   const { onContextMenu, menuProps } = useContextMenu()
   const [isDialogOpened, setDialogOpened] = useState(false)
+
+  const onClickMute = () => toggleMuteTrack(rootStore)(trackId)
+  const onClickSolo = () => toggleSoloTrack(rootStore)(trackId)
+  const onClickDelete = () => removeTrack(rootStore)(trackId)
+  const onClickGhostTrack = () => toogleGhostTrack(rootStore)(trackId)
+  const onClickToogleAllGhostTracks = () => toogleAllGhostTracks(rootStore)()
+  const onClickAddTrack = () => addTrack(rootStore)()
+  const onSelectTrack = () => {
+    router.pushTrack()
+    selectTrack(rootStore)(trackId)
+  }
 
   return (
     <Container
       button
       selected={selected}
-      onClick={onClick}
+      onClick={onSelectTrack}
       onContextMenu={onContextMenu}
+      autoFocus={false}
     >
       <TrackListContextMenu
         onClickDelete={onClickDelete}
-        onClickAdd={onClickAdd}
+        onClickAdd={onClickAddTrack}
+        onClickProperty={() => setDialogOpened(true)}
         {...menuProps}
       />
       <div className="TrackListItem">
@@ -176,4 +178,4 @@ export const TrackListItem: FC<TrackListItemProps> = ({
       </div>
     </Container>
   )
-}
+})

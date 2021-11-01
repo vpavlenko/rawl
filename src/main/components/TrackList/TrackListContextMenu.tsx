@@ -6,11 +6,13 @@ import { ContextMenu, ContextMenuProps } from "../ContextMenu/ContextMenu"
 export type TrackListContextMenuProps = ContextMenuProps & {
   onClickAdd: () => void
   onClickDelete: () => void
+  onClickProperty: () => void
 }
 
 export const TrackListContextMenu: FC<TrackListContextMenuProps> = ({
   onClickAdd,
   onClickDelete,
+  onClickProperty,
   ...props
 }) => {
   const { handleClose } = props
@@ -33,6 +35,15 @@ export const TrackListContextMenu: FC<TrackListContextMenuProps> = ({
         }}
       >
         {localized("delete-track", "Delete track")}
+      </MenuItem>
+      <MenuItem
+        onClick={(e) => {
+          e.stopPropagation()
+          onClickProperty()
+          handleClose()
+        }}
+      >
+        {localized("property", "Property")}
       </MenuItem>
     </ContextMenu>
   )

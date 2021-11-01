@@ -15,6 +15,7 @@ export interface TrackListItemData {
   volume: number
   pan: number
   ghostTrack: boolean
+  channel: number | undefined
 }
 
 export type TrackListItemProps = TrackListItemData & {
@@ -72,6 +73,15 @@ const Container = styled(ListItem)`
   }
 `
 
+const ChannelName = styled.div`
+  color: var(--secondary-text-color);
+  font-size: 0.7rem;
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--divider-color);
+  padding: 0 0.3rem;
+`
+
 export const TrackListItem: FC<TrackListItemProps> = ({
   name,
   instrument,
@@ -79,6 +89,7 @@ export const TrackListItem: FC<TrackListItemProps> = ({
   solo,
   selected,
   ghostTrack,
+  channel,
   onClick,
   onClickAdd,
   onClickDelete,
@@ -149,6 +160,7 @@ export const TrackListItem: FC<TrackListItemProps> = ({
           >
             <Layers fontSize="small" />
           </IconButton>
+          {channel !== undefined && <ChannelName>CH {channel + 1}</ChannelName>}
         </div>
       </div>
     </Container>

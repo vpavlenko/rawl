@@ -50,6 +50,7 @@ export const TrackList: FC = observer(() => {
         volume: t.getVolume(position) ?? 0,
         pan: t.getPan(position) ?? 0,
         ghostTrack: !rootStore.pianoRollStore.notGhostTracks.has(index),
+        channel: t.channel,
       }
     })
 

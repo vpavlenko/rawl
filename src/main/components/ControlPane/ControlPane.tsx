@@ -5,6 +5,7 @@ import styled from "styled-components"
 import { Layout } from "../../Constants"
 import { useStores } from "../../hooks/useStores"
 import ExpressionGraph from "./Graph/ExpressionGraph"
+import HoldPedalGraph from "./Graph/HoldPedalGraph"
 import ModulationGraph from "./Graph/ModulationGraph"
 import PanGraph from "./Graph/PanGraph"
 import PitchGraph from "./Graph/PitchGraph"
@@ -29,6 +30,7 @@ export type ControlMode =
   | "expression"
   | "modulation"
   | "pan"
+  | "hold"
 
 const TabButton = styled.div`
   min-width: 8em;
@@ -73,6 +75,8 @@ const TabBar: FC<TabBarProps> = React.memo(({ onClick, selectedMode }) => {
     controlButton("Pitch Bend", "pitchBend"),
     controlButton("Volume", "volume"),
     controlButton("Panpot", "pan"),
+    controlButton("Expression", "expression"),
+    controlButton("Hold Pedal", "hold"),
   ]
 
   return (
@@ -144,6 +148,8 @@ const ControlPane: FC = observer(() => {
         return <ModulationGraph {...controlSize} />
       case "expression":
         return <ExpressionGraph {...controlSize} />
+      case "hold":
+        return <HoldPedalGraph {...controlSize} />
     }
   })()
 

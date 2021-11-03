@@ -1,6 +1,6 @@
 import cursorPencil from "!url-loader!../images/cursor-pencil.svg"
 import { clamp, flatten, maxBy, minBy } from "lodash"
-import { ControllerEvent, PitchBendEvent } from "midifile-ts"
+import { ControllerEvent, MIDIControlEvents, PitchBendEvent } from "midifile-ts"
 import { action, autorun, computed, makeObservable, observable } from "mobx"
 import { IRect } from "../../common/geometry"
 import { isNotUndefined } from "../../common/helpers/array"
@@ -10,6 +10,7 @@ import Quantizer from "../../common/quantizer"
 import { ControlSelection } from "../../common/selection/ControlSelection"
 import { Selection } from "../../common/selection/Selection"
 import {
+  isControllerEventWithType,
   isExpressionEvent,
   isModulationEvent,
   isNoteEvent,
@@ -355,6 +356,12 @@ export default class PianoRollStore {
 
   get pitchBendEvents(): TrackEventOf<PitchBendEvent>[] {
     return this.filteredEvents(isPitchBendEvent)
+  }
+
+  get sustainEvents(): TrackEventOf<ControllerEvent>[] {
+    return this.filteredEvents(
+      isControllerEventWithType(MIDIControlEvents.SUSTAIN)
+    )
   }
 
   get currentVolume(): number {

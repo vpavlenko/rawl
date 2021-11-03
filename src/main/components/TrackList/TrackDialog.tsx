@@ -62,7 +62,7 @@ export const TrackDialog: VFC<TrackDialogProps> = ({
             onChange={(e) => setChannel(parseInt(e.target.value as string))}
           >
             {range(0, 16).map((v) => (
-              <MenuItem value={v.toString()}>
+              <MenuItem key={v} value={v.toString()}>
                 {v + 1}
                 {v === 9
                   ? ` (${localized("rhythm-track", "Rhythm Track")})`

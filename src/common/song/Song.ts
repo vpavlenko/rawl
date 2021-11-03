@@ -85,15 +85,6 @@ export default class Song {
     )
     return (eos ?? 0) + END_MARGIN
   }
-
-  trackIdOfChannel(channel: number): number | undefined {
-    const tracks = this.tracks
-    const track = tracks.find((t) => t.channel === channel)
-    if (track) {
-      return tracks.indexOf(track)
-    }
-    return undefined
-  }
 }
 
 createModelSchema(Song, {

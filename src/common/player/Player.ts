@@ -1,7 +1,7 @@
 import flatten from "lodash/flatten"
 import range from "lodash/range"
 import throttle from "lodash/throttle"
-import { AnyChannelEvent, MIDIControlEvents } from "midifile-ts"
+import { AnyChannelEvent, AnyEvent, MIDIControlEvents } from "midifile-ts"
 import { computed, makeObservable, observable } from "mobx"
 import {
   SendableEvent,
@@ -17,18 +17,24 @@ import Song from "../song"
 import { NoteEvent, TrackEvent } from "../track"
 import { getStatusEvents } from "../track/selector"
 import TrackMute from "../trackMute"
+import { DistributiveOmit } from "../types"
 import EventScheduler from "./EventScheduler"
 import { PlayerEvent, PlayerEventOf } from "./PlayerEvent"
 
-function convertTrackEvents(events: TrackEvent[], channel: number | undefined) {
+function convertTrackEvents(
+  events: TrackEvent[],
+  channel: number | undefined,
+  trackId: number
+) {
   return flatten(events.map((e) => deassembleNote(e))).map(
-    (e) => ({ ...e, channel: channel } as PlayerEventOf<AnyChannelEvent>)
+    (e) =>
+      ({ ...e, channel: channel, trackId } as PlayerEventOf<AnyChannelEvent>)
   )
 }
 
 function collectAllEvents(song: Song): PlayerEvent[] {
   return flatten(
-    song.tracks.map((t) => convertTrackEvents(t.events, t.channel))
+    song.tracks.map((t, i) => convertTrackEvents(t.events, t.channel, i))
   )
 }
 
@@ -191,10 +197,10 @@ export default class Player {
   */
   sendCurrentStateEvents() {
     this.song.tracks
-      .flatMap((t) => {
+      .flatMap((t, i) => {
         const statusEvents = getStatusEvents(t.events, this._currentTick)
-        statusEvents.forEach((e) => this.applyPlayerEvent(e as PlayerEvent))
-        return convertTrackEvents(statusEvents, t.channel)
+        statusEvents.forEach((e) => this.applyPlayerEvent(e))
+        return convertTrackEvents(statusEvents, t.channel, i)
       })
       .forEach((e) => this.sendEvent(e))
   }
@@ -227,11 +233,6 @@ export default class Player {
     return (tick / (this.timebase / 60) / this._currentTempo) * 1000
   }
 
-  private _shouldPlayChannel(channel: number) {
-    const trackId = this.song.trackIdOfChannel(channel)
-    return trackId ? this._trackMute.shouldPlayTrack(trackId) : true
-  }
-
   sendEvent(event: SendableEvent, delayTime: number = 0) {
     this._output.sendEvent(event, delayTime)
   }
@@ -242,7 +243,9 @@ export default class Player {
     }
   }, 50)
 
-  private applyPlayerEvent(e: PlayerEvent) {
+  private applyPlayerEvent(
+    e: DistributiveOmit<AnyEvent, "deltaTime" | "channel">
+  ) {
     if (e.type !== "channel" && "subtype" in e) {
       switch (e.subtype) {
         case "setTempo":
@@ -264,7 +267,7 @@ export default class Player {
 
     events.forEach(({ event: e, timestamp: time }) => {
       if (e.type === "channel") {
-        if (this._shouldPlayChannel(e.channel)) {
+        if (this._trackMute.shouldPlayTrack(e.trackId)) {
           // channel イベントを MIDI Output に送信
           // Send Channel Event to MIDI OUTPUT
           const delayTime = (time - timestamp) / 1000

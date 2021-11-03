@@ -1,29 +1,24 @@
 import { IconButton, ListItem } from "@material-ui/core"
 import { Headset, Layers, VolumeOff, VolumeUp } from "@material-ui/icons"
-import { FC } from "react"
+import { observer } from "mobx-react-lite"
+import { FC, useCallback, useState } from "react"
 import styled from "styled-components"
+import {
+  addTrack,
+  removeTrack,
+  selectTrack,
+  toggleMuteTrack,
+  toggleSoloTrack,
+  toogleAllGhostTracks,
+  toogleGhostTrack,
+} from "../../actions"
 import { useContextMenu } from "../../hooks/useContextMenu"
+import { useStores } from "../../hooks/useStores"
+import { TrackDialog } from "./TrackDialog"
 import { TrackListContextMenu } from "./TrackListContextMenu"
 
-export interface TrackListItemData {
-  index: number
-  name: string
-  instrument: string
-  mute: boolean
-  solo: boolean
-  selected: boolean
-  volume: number
-  pan: number
-  ghostTrack: boolean
-}
-
-export type TrackListItemProps = TrackListItemData & {
-  onClick: () => void
-  onClickSolo: () => void
-  onClickMute: () => void
-  onClickDelete: () => void
-  onClickGhostTrack: () => void
-  onClickToogleAllGhostTracks: () => void
+export type TrackListItemProps = {
+  trackId: number
 }
 
 const Container = styled(ListItem)`
@@ -71,80 +66,134 @@ const Container = styled(ListItem)`
   }
 `
 
-export const TrackListItem: FC<TrackListItemProps> = ({
-  name,
-  instrument,
-  mute,
-  solo,
-  selected,
-  ghostTrack,
-  onClick,
-  onClickDelete,
-  onClickSolo,
-  onClickMute,
-  onClickGhostTrack,
-  onClickToogleAllGhostTracks,
-}) => {
+const ChannelName = styled.div`
+  color: var(--secondary-text-color);
+  font-size: 0.7rem;
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--divider-color);
+  padding: 0 0.3rem;
+
+  &:hover {
+    background: var(--secondary-background-color);
+  }
+`
+
+export const TrackListItem: FC<TrackListItemProps> = observer(({ trackId }) => {
+  const rootStore = useStores()
+  const { song, pianoRollStore, rootViewStore, trackMute, router } = rootStore
+  const track = song.tracks[trackId]
+
+  const selected =
+    !rootViewStore.isArrangeViewSelected && trackId === song.selectedTrackId
+  const name = track.displayName
+  const instrument = track.instrumentName ?? ""
+  const mute = trackMute.isMuted(trackId)
+  const solo = trackMute.isSolo(trackId)
+  const ghostTrack = !pianoRollStore.notGhostTracks.has(trackId)
+  const channel = track.channel
   const { onContextMenu, menuProps } = useContextMenu()
+  const [isDialogOpened, setDialogOpened] = useState(false)
+
+  const onClickMute: React.MouseEventHandler<HTMLButtonElement> = useCallback(
+    (e) => {
+      e.stopPropagation()
+      toggleMuteTrack(rootStore)(trackId)
+    },
+    [trackId]
+  )
+  const onClickSolo: React.MouseEventHandler<HTMLButtonElement> = useCallback(
+    (e) => {
+      e.stopPropagation()
+      toggleSoloTrack(rootStore)(trackId)
+    },
+    [trackId]
+  )
+  const onClickDelete = useCallback(
+    () => removeTrack(rootStore)(trackId),
+    [trackId]
+  )
+  const onClickGhostTrack: React.MouseEventHandler<HTMLButtonElement> =
+    useCallback(
+      (e) => {
+        if (e.nativeEvent.altKey) {
+          e.stopPropagation()
+          toogleAllGhostTracks(rootStore)()
+        } else {
+          e.stopPropagation()
+          toogleGhostTrack(rootStore)(trackId)
+        }
+      },
+      [trackId]
+    )
+  const onClickAddTrack = useCallback(() => addTrack(rootStore)(), [trackId])
+  const onSelectTrack = useCallback(() => {
+    router.pushTrack()
+    selectTrack(rootStore)(trackId)
+  }, [trackId])
+  const openDialog = useCallback(() => setDialogOpened(true), [])
+  const closeDialog = useCallback(() => setDialogOpened(false), [])
 
   return (
-    <Container
-      button
-      selected={selected}
-      onClick={onClick}
-      onContextMenu={onContextMenu}
-    >
-      <TrackListContextMenu onClickDelete={onClickDelete} {...menuProps} />
-      <div className="TrackListItem">
-        <div className="label">
-          <div className="name">{name}</div>
-          <div className="instrument">{instrument}</div>
-        </div>
-        <div className="controls">
-          <IconButton
-            color="default"
-            size="small"
-            className={`button solo ${solo ? "active" : ""}`}
-            onClick={(e) => {
-              e.stopPropagation()
-              onClickSolo()
-            }}
-          >
-            <Headset fontSize="small" />
-          </IconButton>
-          <IconButton
-            color="default"
-            size="small"
-            className={`button mute ${mute ? "active" : ""}`}
-            onClick={(e) => {
-              e.stopPropagation()
-              onClickMute()
-            }}
-          >
-            {mute ? (
-              <VolumeOff fontSize="small" />
-            ) : (
-              <VolumeUp fontSize="small" />
+    <>
+      <Container
+        button
+        selected={selected}
+        onClick={onSelectTrack}
+        onContextMenu={onContextMenu}
+        tabIndex={-1}
+      >
+        <div>
+          <div className="label">
+            <div className="name">{name}</div>
+            <div className="instrument">{instrument}</div>
+          </div>
+          <div className="controls">
+            <IconButton
+              color="default"
+              size="small"
+              className={`button solo ${solo ? "active" : ""}`}
+              onClick={onClickSolo}
+            >
+              <Headset fontSize="small" />
+            </IconButton>
+            <IconButton
+              color="default"
+              size="small"
+              className={`button mute ${mute ? "active" : ""}`}
+              onClick={onClickMute}
+            >
+              {mute ? (
+                <VolumeOff fontSize="small" />
+              ) : (
+                <VolumeUp fontSize="small" />
+              )}
+            </IconButton>
+            <IconButton
+              color="default"
+              size="small"
+              className={`button solo ${ghostTrack ? "active" : ""}`}
+              onClick={onClickGhostTrack}
+            >
+              <Layers fontSize="small" />
+            </IconButton>
+            {channel !== undefined && (
+              <ChannelName onClick={openDialog}>CH {channel + 1}</ChannelName>
             )}
-          </IconButton>
-          <IconButton
-            color="default"
-            size="small"
-            className={`button solo ${ghostTrack ? "active" : ""}`}
-            onClick={(e) => {
-              if (e.nativeEvent.altKey) {
-                e.stopPropagation()
-                onClickToogleAllGhostTracks()
-              } else {
-                e.stopPropagation()
-                onClickGhostTrack()
-              }
-            }}
-          >
-            <Layers fontSize="small" />
-          </IconButton>
+          </div>
         </div>
-      </div>
-    </Container>
+      </Container>
+      <TrackListContextMenu
+        onClickDelete={onClickDelete}
+        onClickAdd={onClickAddTrack}
+        onClickProperty={openDialog}
+        {...menuProps}
+      />
+      <TrackDialog
+        trackId={trackId}
+        open={isDialogOpened}
+        onClose={closeDialog}
+      />
+    </>
   )
-}
+})

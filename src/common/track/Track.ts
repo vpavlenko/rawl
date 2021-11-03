@@ -1,5 +1,6 @@
 import difference from "lodash/difference"
 import isEqual from "lodash/isEqual"
+import omit from "lodash/omit"
 import sortBy from "lodash/sortBy"
 import without from "lodash/without"
 import {
@@ -14,6 +15,7 @@ import { isNotUndefined } from "../helpers/array"
 import { pojo } from "../helpers/pojo"
 import { localized } from "../localize/localizedString"
 import { getInstrumentName } from "../midi/GM"
+import { trackNameMidiEvent } from "../midi/MidiEvent"
 import { isControllerEventWithType, isNoteEvent } from "./identify"
 import {
   getEndOfTrackEvent,
@@ -128,7 +130,7 @@ export default class Track {
       throw new Error("invalid event is added")
     }
     const newEvent = {
-      ...e,
+      ...omit(e, ["deltaTime", "channel"]),
       id: this.lastEventId++,
     } as T
     this.events.push(newEvent)
@@ -211,10 +213,10 @@ export default class Track {
     if (this.name && this.name.length > 0) {
       return this.name
     }
-    if (this.isConductorTrack) {
+    if (this.channel === undefined) {
       return localized("conductor-track", "Conductor Track")
     }
-    return `${localized("track", "Track")} ${this.channel}`
+    return `${localized("track", "Track")} ${this.channel + 1}`
   }
 
   get instrumentName() {
@@ -303,6 +305,11 @@ export default class Track {
     const e = getTrackNameEvent(this.events)
     if (e !== undefined) {
       this.updateEvent<TrackEventOf<TrackNameEvent>>(e.id, { text })
+    } else {
+      this.addEvent<TrackEventOf<TrackNameEvent>>({
+        ...trackNameMidiEvent(0, text),
+        tick: 0,
+      })
     }
   }
 

@@ -73,6 +73,7 @@ const TabBar: FC<TabBarProps> = React.memo(({ onClick, selectedMode }) => {
     controlButton("Pitch Bend", "pitchBend"),
     controlButton("Volume", "volume"),
     controlButton("Panpot", "pan"),
+    controlButton("Expression", "expression"),
   ]
 
   return (

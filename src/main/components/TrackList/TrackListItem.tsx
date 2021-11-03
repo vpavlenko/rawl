@@ -1,7 +1,7 @@
 import { IconButton, ListItem } from "@material-ui/core"
 import { Headset, Layers, VolumeOff, VolumeUp } from "@material-ui/icons"
 import { observer } from "mobx-react-lite"
-import { FC, useState } from "react"
+import { FC, useCallback, useState } from "react"
 import styled from "styled-components"
 import {
   addTrack,
@@ -95,16 +95,44 @@ export const TrackListItem: FC<TrackListItemProps> = observer(({ trackId }) => {
   const { onContextMenu, menuProps } = useContextMenu()
   const [isDialogOpened, setDialogOpened] = useState(false)
 
-  const onClickMute = () => toggleMuteTrack(rootStore)(trackId)
-  const onClickSolo = () => toggleSoloTrack(rootStore)(trackId)
-  const onClickDelete = () => removeTrack(rootStore)(trackId)
-  const onClickGhostTrack = () => toogleGhostTrack(rootStore)(trackId)
-  const onClickToogleAllGhostTracks = () => toogleAllGhostTracks(rootStore)()
-  const onClickAddTrack = () => addTrack(rootStore)()
-  const onSelectTrack = () => {
+  const onClickMute: React.MouseEventHandler<HTMLButtonElement> = useCallback(
+    (e) => {
+      e.stopPropagation()
+      toggleMuteTrack(rootStore)(trackId)
+    },
+    [trackId]
+  )
+  const onClickSolo: React.MouseEventHandler<HTMLButtonElement> = useCallback(
+    (e) => {
+      e.stopPropagation()
+      toggleSoloTrack(rootStore)(trackId)
+    },
+    [trackId]
+  )
+  const onClickDelete = useCallback(
+    () => removeTrack(rootStore)(trackId),
+    [trackId]
+  )
+  const onClickGhostTrack: React.MouseEventHandler<HTMLButtonElement> =
+    useCallback(
+      (e) => {
+        if (e.nativeEvent.altKey) {
+          e.stopPropagation()
+          toogleAllGhostTracks(rootStore)()
+        } else {
+          e.stopPropagation()
+          toogleGhostTrack(rootStore)(trackId)
+        }
+      },
+      [trackId]
+    )
+  const onClickAddTrack = useCallback(() => addTrack(rootStore)(), [trackId])
+  const onSelectTrack = useCallback(() => {
     router.pushTrack()
     selectTrack(rootStore)(trackId)
-  }
+  }, [trackId])
+  const openDialog = useCallback(() => setDialogOpened(true), [])
+  const closeDialog = useCallback(() => setDialogOpened(false), [])
 
   return (
     <>
@@ -125,10 +153,7 @@ export const TrackListItem: FC<TrackListItemProps> = observer(({ trackId }) => {
               color="default"
               size="small"
               className={`button solo ${solo ? "active" : ""}`}
-              onClick={(e) => {
-                e.stopPropagation()
-                onClickSolo()
-              }}
+              onClick={onClickSolo}
             >
               <Headset fontSize="small" />
             </IconButton>
@@ -136,10 +161,7 @@ export const TrackListItem: FC<TrackListItemProps> = observer(({ trackId }) => {
               color="default"
               size="small"
               className={`button mute ${mute ? "active" : ""}`}
-              onClick={(e) => {
-                e.stopPropagation()
-                onClickMute()
-              }}
+              onClick={onClickMute}
             >
               {mute ? (
                 <VolumeOff fontSize="small" />
@@ -151,22 +173,12 @@ export const TrackListItem: FC<TrackListItemProps> = observer(({ trackId }) => {
               color="default"
               size="small"
               className={`button solo ${ghostTrack ? "active" : ""}`}
-              onClick={(e) => {
-                if (e.nativeEvent.altKey) {
-                  e.stopPropagation()
-                  onClickToogleAllGhostTracks()
-                } else {
-                  e.stopPropagation()
-                  onClickGhostTrack()
-                }
-              }}
+              onClick={onClickGhostTrack}
             >
               <Layers fontSize="small" />
             </IconButton>
             {channel !== undefined && (
-              <ChannelName onClick={() => setDialogOpened(true)}>
-                CH {channel + 1}
-              </ChannelName>
+              <ChannelName onClick={openDialog}>CH {channel + 1}</ChannelName>
             )}
           </div>
         </div>
@@ -174,13 +186,13 @@ export const TrackListItem: FC<TrackListItemProps> = observer(({ trackId }) => {
       <TrackListContextMenu
         onClickDelete={onClickDelete}
         onClickAdd={onClickAddTrack}
-        onClickProperty={() => setDialogOpened(true)}
+        onClickProperty={openDialog}
         {...menuProps}
       />
       <TrackDialog
         trackId={trackId}
         open={isDialogOpened}
-        onClose={() => setDialogOpened(false)}
+        onClose={closeDialog}
       />
     </>
   )

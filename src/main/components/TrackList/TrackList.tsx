@@ -1,7 +1,7 @@
 import { List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core"
 import { Add } from "@material-ui/icons"
 import { observer } from "mobx-react-lite"
-import React, { FC } from "react"
+import React, { FC, useCallback } from "react"
 import styled from "styled-components"
 import { localized } from "../../../common/localize/localizedString"
 import { addTrack } from "../../actions"
@@ -16,7 +16,7 @@ const AddTrackListIcon = styled(ListItemIcon)`
 export const TrackList: FC = observer(() => {
   const rootStore = useStores()
 
-  const onClickAddTrack = () => addTrack(rootStore)()
+  const onClickAddTrack = useCallback(() => addTrack(rootStore)(), [])
 
   return (
     <List style={{ overflowY: "auto" }} disablePadding>

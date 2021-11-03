@@ -73,6 +73,10 @@ const ChannelName = styled.div`
   align-items: center;
   border: 1px solid var(--divider-color);
   padding: 0 0.3rem;
+
+  &:hover {
+    background: var(--secondary-background-color);
+  }
 `
 
 export const TrackListItem: FC<TrackListItemProps> = observer(({ trackId }) => {
@@ -174,7 +178,7 @@ export const TrackListItem: FC<TrackListItemProps> = observer(({ trackId }) => {
         {...menuProps}
       />
       <TrackDialog
-        trackId={1}
+        trackId={trackId}
         open={isDialogOpened}
         onClose={() => setDialogOpened(false)}
       />

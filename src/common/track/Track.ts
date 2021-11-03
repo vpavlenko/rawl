@@ -15,6 +15,7 @@ import { isNotUndefined } from "../helpers/array"
 import { pojo } from "../helpers/pojo"
 import { localized } from "../localize/localizedString"
 import { getInstrumentName } from "../midi/GM"
+import { trackNameMidiEvent } from "../midi/MidiEvent"
 import { isControllerEventWithType, isNoteEvent } from "./identify"
 import {
   getEndOfTrackEvent,
@@ -304,6 +305,11 @@ export default class Track {
     const e = getTrackNameEvent(this.events)
     if (e !== undefined) {
       this.updateEvent<TrackEventOf<TrackNameEvent>>(e.id, { text })
+    } else {
+      this.addEvent<TrackEventOf<TrackNameEvent>>({
+        ...trackNameMidiEvent(0, text),
+        tick: 0,
+      })
     }
   }
 

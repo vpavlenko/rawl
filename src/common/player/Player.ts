@@ -3,10 +3,7 @@ import range from "lodash/range"
 import throttle from "lodash/throttle"
 import { AnyChannelEvent, AnyEvent, MIDIControlEvents } from "midifile-ts"
 import { computed, makeObservable, observable } from "mobx"
-import {
-  SendableEvent,
-  SoundFontSynth,
-} from "../../main/services/SoundFontSynth"
+import { SendableEvent, SynthOutput } from "../../main/services/SynthOutput"
 import { deassemble as deassembleNote } from "../helpers/noteAssembler"
 import {
   controllerMidiEvent,
@@ -55,7 +52,7 @@ export default class Player {
   private _currentTempo = 120
   private _scheduler: EventScheduler<PlayerEvent> | null = null
   private _songStore: SongStore
-  private _output: SoundFontSynth
+  private _output: SynthOutput
   private _trackMute: TrackMute
   private _interval: number | null = null
   private _currentTick = 0
@@ -69,11 +66,7 @@ export default class Player {
     enabled: false,
   }
 
-  constructor(
-    output: SoundFontSynth,
-    trackMute: TrackMute,
-    songStore: SongStore
-  ) {
+  constructor(output: SynthOutput, trackMute: TrackMute, songStore: SongStore) {
     makeObservable<Player, "_currentTick" | "_isPlaying">(this, {
       _currentTick: observable,
       _isPlaying: observable,
@@ -233,8 +226,13 @@ export default class Player {
     return (tick / (this.timebase / 60) / this._currentTempo) * 1000
   }
 
-  sendEvent(event: SendableEvent, delayTime: number = 0) {
-    this._output.sendEvent(event, delayTime)
+  // delayTime: seconds, timestampNow: milliseconds
+  sendEvent(
+    event: SendableEvent,
+    delayTime: number = 0,
+    timestampNow: number = performance.now()
+  ) {
+    this._output.sendEvent(event, delayTime, timestampNow)
   }
 
   private syncPosition = throttle(() => {
@@ -271,7 +269,7 @@ export default class Player {
           // channel イベントを MIDI Output に送信
           // Send Channel Event to MIDI OUTPUT
           const delayTime = (time - timestamp) / 1000
-          this.sendEvent(e, delayTime)
+          this.sendEvent(e, delayTime, timestamp)
         }
       } else {
         // channel イベント以外を実行

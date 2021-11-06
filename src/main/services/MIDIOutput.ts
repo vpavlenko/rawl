@@ -1,4 +1,5 @@
-import { Message, SynthOutput } from "./SynthOutput"
+import { serialize } from "midifile-ts"
+import { SendableEvent, SynthOutput } from "./SynthOutput"
 
 export default class MIDIOutput implements SynthOutput {
   readonly midiOutput: WebMidi.MIDIOutput
@@ -11,7 +12,14 @@ export default class MIDIOutput implements SynthOutput {
     this.midiOutput.open()
   }
 
-  send(msg: number[], timestamp: number) {
+  sendEvent(
+    event: SendableEvent,
+    delayTime: number,
+    timestampNow: number
+  ): void {
+    const msg = serialize({ ...event, deltaTime: 0 }, false)
+    const timestamp = delayTime * 1000 + timestampNow
+
     if (this.midiOutput.state === "connected") {
       try {
         this.midiOutput.send(msg, timestamp)
@@ -19,9 +27,5 @@ export default class MIDIOutput implements SynthOutput {
         console.warn(e)
       }
     }
-  }
-
-  sendEvents(events: Message[]) {
-    events.forEach((e) => this.send(e.message, e.timestamp))
   }
 }

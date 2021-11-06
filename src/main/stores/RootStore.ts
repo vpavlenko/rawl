@@ -46,8 +46,9 @@ export default class RootStore {
 
     const synth = new SoundFontSynth("A320U.sf2")
     const synthGroup = new GroupOutput()
+    synthGroup.outputs.push({ synth, isEnabled: true })
 
-    const player = new Player(synth, this.trackMute, this)
+    const player = new Player(synthGroup, this.trackMute, this)
     const midiInput = new MIDIInput()
     const midiRecorder = new MIDIRecorder(player, this)
     this.services = {

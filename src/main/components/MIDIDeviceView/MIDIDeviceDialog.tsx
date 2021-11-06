@@ -122,7 +122,7 @@ export const MIDIDeviceDialog: FC = observer(() => {
                 />
               ))}
             </DeviceList>
-            {false && (
+            {
               <>
                 <Spacer />
                 <DialogContentText>
@@ -148,7 +148,7 @@ export const MIDIDeviceDialog: FC = observer(() => {
                   ))}
                 </DeviceList>
               </>
-            )}
+            }
           </>
         )}
       </DialogContent>

@@ -1,12 +1,8 @@
 import { deserializeSingleEvent, Stream } from "midifile-ts"
 import { makeObservable, observable, observe } from "mobx"
 import Player from "../../common/player"
-import Song from "../../common/song"
 import { NoteEvent } from "../../common/track"
-
-interface SongStore {
-  song: Song
-}
+import { SongStore } from "../stores/SongStore"
 
 export class MIDIRecorder {
   private recordedNotes: NoteEvent[] = []

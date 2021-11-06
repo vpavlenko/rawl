@@ -27,7 +27,6 @@ export class MIDIDeviceStore {
       name: "MIDIDeviceStore",
       properties: ["isFactorySoundEnabled", "enabledOutputs", "enabledInputs"],
       storage: window.localStorage,
-      debugMode: true,
     })
 
     this.requestMIDIAccess()

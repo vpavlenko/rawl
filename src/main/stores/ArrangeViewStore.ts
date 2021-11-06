@@ -194,6 +194,6 @@ export default class ArrangeViewStore {
   }
 
   get quantizer(): Quantizer {
-    return new Quantizer(this.rootStore.song.timebase, this.quantize)
+    return new Quantizer(this.rootStore, this.quantize)
   }
 }

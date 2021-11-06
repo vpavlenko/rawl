@@ -4,6 +4,7 @@ import throttle from "lodash/throttle"
 import { AnyChannelEvent, AnyEvent, MIDIControlEvents } from "midifile-ts"
 import { computed, makeObservable, observable } from "mobx"
 import { SendableEvent, SynthOutput } from "../../main/services/SynthOutput"
+import { SongStore } from "../../main/stores/SongStore"
 import { deassemble as deassembleNote } from "../helpers/noteAssembler"
 import {
   controllerMidiEvent,
@@ -39,10 +40,6 @@ export interface LoopSetting {
   begin: number
   end: number
   enabled: boolean
-}
-
-interface SongStore {
-  song: Song
 }
 
 const TIMER_INTERVAL = 50

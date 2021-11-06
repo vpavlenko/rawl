@@ -1,4 +1,4 @@
-import { observe } from "mobx"
+import { autorun, observe } from "mobx"
 import { resetSelection } from "../actions"
 import MIDIOutput from "../services/MIDIOutput"
 import RootStore from "./RootStore"
@@ -13,17 +13,8 @@ export const registerReactions = (rootStore: RootStore) => {
     updateOutputDevices(rootStore)
   )
 
-  observe(
-    rootStore.midiDeviceStore,
-    "isFactorySoundEnabled",
-    updateOutputDevices(rootStore)
-  )
-
-  observe(
-    rootStore.midiDeviceStore,
-    "enabledInputs",
-    updateInputDevices(rootStore)
-  )
+  autorun(updateInputDevices(rootStore))
+  autorun(updateOutputDevices(rootStore))
 
   // reset selection when change track
   observe(rootStore.song, "selectedTrackId", resetSelection(rootStore))
@@ -47,29 +38,30 @@ type Reaction = (rootStore: RootStore) => () => void
 const updateOutputDevices: Reaction =
   ({ midiDeviceStore, services: { player, synth, synthGroup } }) =>
   () => {
+    const { outputs, enabledOutputs, isFactorySoundEnabled } = midiDeviceStore
+
     player.allSoundsOff()
 
-    const getMIDIDeviceEntries = () =>
-      midiDeviceStore.outputs.map((device) => ({
-        synth: new MIDIOutput(device),
-        isEnabled: midiDeviceStore.enabledOutputs[device.id],
-      }))
+    const midiDeviceEntries = outputs.map((device) => ({
+      synth: new MIDIOutput(device),
+      isEnabled: enabledOutputs[device.id],
+    }))
 
     synthGroup.outputs = [
       {
         synth: synth,
-        isEnabled: midiDeviceStore.isFactorySoundEnabled,
+        isEnabled: isFactorySoundEnabled,
       },
-      ...getMIDIDeviceEntries(),
+      ...midiDeviceEntries,
     ]
   }
 
 const updateInputDevices: Reaction =
   ({ midiDeviceStore, services: { midiInput } }) =>
   () => {
-    const devices = midiDeviceStore.inputs.filter(
-      (d) => midiDeviceStore.enabledInputs[d.id]
-    )
+    const { inputs, enabledInputs } = midiDeviceStore
+
+    const devices = inputs.filter((d) => enabledInputs[d.id])
 
     midiInput.removeAllDevices()
     devices.forEach(midiInput.addDevice)

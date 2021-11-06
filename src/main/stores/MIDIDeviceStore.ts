@@ -66,10 +66,16 @@ export class MIDIDeviceStore {
   }
 
   setInputEnable(deviceId: string, enabled: boolean) {
-    this.enabledInputs[deviceId] = enabled
+    this.enabledInputs = {
+      ...this.enabledInputs,
+      [deviceId]: enabled,
+    }
   }
 
   setOutputEnable(deviceId: string, enabled: boolean) {
-    this.enabledOutputs[deviceId] = enabled
+    this.enabledOutputs = {
+      ...this.enabledOutputs,
+      [deviceId]: enabled,
+    }
   }
 }

@@ -1,13 +1,13 @@
 import { action, makeObservable, observable } from "mobx"
-import { toggled } from "../helpers/set"
+import { makePersistable } from "mobx-persist-store"
 
 export class MIDIDeviceStore {
   inputs: WebMidi.MIDIInput[] = []
   outputs: WebMidi.MIDIOutput[] = []
   requestError: Error | null = null
   isLoading = false
-  enabledOutputIds: Set<string> = new Set()
-  enabledInputIds: Set<string> = new Set()
+  enabledOutputs: { [deviceId: string]: boolean } = {}
+  enabledInputs: { [deviceId: string]: boolean } = {}
   isFactorySoundEnabled = true
 
   constructor() {
@@ -16,11 +16,18 @@ export class MIDIDeviceStore {
       outputs: observable,
       requestError: observable,
       isLoading: observable,
-      enabledOutputIds: observable,
-      enabledInputIds: observable,
+      enabledOutputs: observable,
+      enabledInputs: observable,
       isFactorySoundEnabled: observable,
       setInputEnable: action,
       setOutputEnable: action,
+    })
+
+    makePersistable(this, {
+      name: "MIDIDeviceStore",
+      properties: ["isFactorySoundEnabled", "enabledOutputs", "enabledInputs"],
+      storage: window.localStorage,
+      debugMode: true,
     })
 
     this.requestMIDIAccess()
@@ -59,10 +66,10 @@ export class MIDIDeviceStore {
   }
 
   setInputEnable(deviceId: string, enabled: boolean) {
-    this.enabledInputIds = toggled(this.enabledInputIds, deviceId, enabled)
+    this.enabledInputs[deviceId] = enabled
   }
 
   setOutputEnable(deviceId: string, enabled: boolean) {
-    this.enabledOutputIds = toggled(this.enabledOutputIds, deviceId, enabled)
+    this.enabledOutputs[deviceId] = enabled
   }
 }

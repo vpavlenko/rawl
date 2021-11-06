@@ -1,5 +1,4 @@
 import { observe } from "mobx"
-import { isNotNull, isNotUndefined } from "../../common/helpers/array"
 import { resetSelection } from "../actions"
 import MIDIOutput from "../services/MIDIOutput"
 import RootStore from "./RootStore"
@@ -10,7 +9,7 @@ export const registerReactions = (rootStore: RootStore) => {
 
   observe(
     rootStore.midiDeviceStore,
-    "enabledOutputIds",
+    "enabledOutputs",
     updateOutputDevices(rootStore)
   )
 
@@ -22,7 +21,7 @@ export const registerReactions = (rootStore: RootStore) => {
 
   observe(
     rootStore.midiDeviceStore,
-    "enabledInputIds",
+    "enabledInputs",
     updateInputDevices(rootStore)
   )
 
@@ -51,16 +50,10 @@ const updateOutputDevices: Reaction =
     player.allSoundsOff()
 
     const getMIDIDeviceEntries = () =>
-      Array.from(midiDeviceStore.enabledOutputIds.values())
-        .map((deviceId) => {
-          const device = midiDeviceStore.outputs.find((d) => d.id === deviceId)
-          if (device === undefined) {
-            console.error(`device not found: ${deviceId}`)
-            return null
-          }
-          return { synth: new MIDIOutput(device), isEnabled: true }
-        })
-        .filter(isNotNull)
+      midiDeviceStore.outputs.map((device) => ({
+        synth: new MIDIOutput(device),
+        isEnabled: midiDeviceStore.enabledOutputs[device.id],
+      }))
 
     synthGroup.outputs = [
       {
@@ -74,9 +67,9 @@ const updateOutputDevices: Reaction =
 const updateInputDevices: Reaction =
   ({ midiDeviceStore, services: { midiInput } }) =>
   () => {
-    const devices = Array.from(midiDeviceStore.enabledInputIds.values())
-      .map((deviceId) => midiDeviceStore.inputs.find((d) => d.id === deviceId))
-      .filter(isNotUndefined)
+    const devices = midiDeviceStore.inputs.filter(
+      (d) => midiDeviceStore.enabledInputs[d.id]
+    )
 
     midiInput.removeAllDevices()
     devices.forEach(midiInput.addDevice)

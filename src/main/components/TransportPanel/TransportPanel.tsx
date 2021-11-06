@@ -172,7 +172,9 @@ export const TransportPanel: FC = observer(() => {
 
   const isPlaying = rootStore.services.player.isPlaying
   const isRecording = rootStore.services.midiRecorder.isRecording
-  const canRecording = rootStore.midiDeviceStore.enabledInputIds.size > 0
+  const canRecording =
+    Object.values(rootStore.midiDeviceStore.enabledInputs).filter((e) => e)
+      .length > 0
   const isSynthLoading = rootStore.services.synth.isLoading
 
   const onClickPlay = play(rootStore)

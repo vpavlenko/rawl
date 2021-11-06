@@ -104,7 +104,9 @@ export const TimeSignatureDialog: VFC<TimeSignatureDialogProps> = ({
             {range(0, 6)
               .map((v) => Math.pow(2, v))
               .map((v) => (
-                <MenuItem value={v.toString()}>{v}</MenuItem>
+                <MenuItem key={v} value={v.toString()}>
+                  {v}
+                </MenuItem>
               ))}
           </Select>
         </div>

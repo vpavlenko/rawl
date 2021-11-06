@@ -1,11 +1,8 @@
 import { getSamplesFromSoundFont, SynthEvent } from "@ryohey/wavelet"
-import { AnyChannelEvent } from "midifile-ts"
 import { makeObservable, observable } from "mobx"
-import { DistributiveOmit } from "../../common/types"
+import { SendableEvent, SynthOutput } from "./SynthOutput"
 
-export type SendableEvent = DistributiveOmit<AnyChannelEvent, "deltaTime">
-
-export class SoundFontSynth {
+export class SoundFontSynth implements SynthOutput {
   private synth: AudioWorkletNode | null = null
   private soundFontURL: string
   private context = new AudioContext()

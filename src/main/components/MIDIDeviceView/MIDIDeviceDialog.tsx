@@ -60,8 +60,8 @@ export const MIDIDeviceDialog: FC = observer(() => {
     outputs,
     isLoading,
     requestError,
-    enabledInputIds,
-    enabledOutputIds,
+    enabledInputs,
+    enabledOutputs,
     isFactorySoundEnabled,
   } = midiDeviceStore
   const isOpen = rootViewStore.openDeviceDialog
@@ -80,12 +80,12 @@ export const MIDIDeviceDialog: FC = observer(() => {
 
   const inputDevices = inputs.map((device) => ({
     device: portToDevice(device),
-    isSelected: enabledInputIds.has(device.id),
+    isSelected: enabledInputs[device.id],
   }))
 
   const outputDevices = outputs.map((device) => ({
     device: portToDevice(device),
-    isSelected: enabledOutputIds.has(device.id),
+    isSelected: enabledOutputs[device.id],
   }))
 
   const factorySound: Device = {
@@ -122,7 +122,7 @@ export const MIDIDeviceDialog: FC = observer(() => {
                 />
               ))}
             </DeviceList>
-            {false && (
+            {
               <>
                 <Spacer />
                 <DialogContentText>
@@ -148,7 +148,7 @@ export const MIDIDeviceDialog: FC = observer(() => {
                   ))}
                 </DeviceList>
               </>
-            )}
+            }
           </>
         )}
       </DialogContent>

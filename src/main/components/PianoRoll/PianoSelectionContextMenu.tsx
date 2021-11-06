@@ -6,6 +6,7 @@ import {
   deleteSelection,
   duplicateSelection,
   pasteSelection,
+  quantizeSelectedNotes,
   transposeSelection,
 } from "../../actions"
 import { useStores } from "../../hooks/useStores"
@@ -59,6 +60,11 @@ export const PianoSelectionContextMenu: FC<ContextMenuProps> = React.memo(
       handleClose()
     }, [])
 
+    const onClickQuantize = useCallback(() => {
+      quantizeSelectedNotes(rootStore)()
+      handleClose()
+    }, [])
+
     return (
       <ContextMenu {...props}>
         <Item onClick={onClickCut} disabled={!isNoteSelected}>
@@ -89,6 +95,10 @@ export const PianoSelectionContextMenu: FC<ContextMenuProps> = React.memo(
         <Item onClick={onClickOctaveDown} disabled={!isNoteSelected}>
           {localized("one-octave-down", "-1 Oct")}
           <HotKey>Shift+↓</HotKey>
+        </Item>
+        <Item onClick={onClickQuantize} disabled={!isNoteSelected}>
+          {localized("quantize", "Quantize")}
+          <HotKey>Q</HotKey>
         </Item>
       </ContextMenu>
     )

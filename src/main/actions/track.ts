@@ -224,11 +224,8 @@ export const resizeNoteRight =
     if (note == undefined || !isNoteEvent(note)) {
       return null
     }
-    const right = tick
-    const duration = Math.max(
-      quantizer.unit,
-      quantizer.round(right - note.tick)
-    )
+    const right = quantizer.round(tick)
+    const duration = Math.max(quantizer.unit, right - note.tick)
     if (note.duration !== duration) {
       pushHistory(rootStore)()
       pianoRollStore.lastNoteDuration = duration

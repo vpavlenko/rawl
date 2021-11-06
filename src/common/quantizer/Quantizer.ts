@@ -1,28 +1,41 @@
-export default class Quantizer {
-  private timebase: number
-  private denominator: number
+import { SongStore } from "../../main/stores/SongStore"
+import { getMeasureStart } from "../song/selector"
 
-  constructor(timebase: number, denominator = 8) {
-    this.timebase = timebase
+export default class Quantizer {
+  private denominator: number
+  private songStore: SongStore
+
+  constructor(songStore: SongStore, denominator: number) {
+    this.songStore = songStore
 
     // N 分音符の N
     // n-remnant note n
     this.denominator = denominator
   }
 
+  private get timebase() {
+    return this.songStore.song.timebase
+  }
+
+  private calc(tick: number, fn: (tick: number) => number) {
+    const measureStart = getMeasureStart(this.songStore.song, tick)
+    const beats =
+      this.denominator === 1 ? measureStart?.timeSignature.numerator ?? 4 : 4
+    const u = (this.timebase * beats) / this.denominator
+    const offset = measureStart?.tick ?? 0
+    return fn((tick - offset) / u) * u + offset
+  }
+
   round(tick: number) {
-    const u = this.unit
-    return Math.round(tick / u) * u
+    return this.calc(tick, Math.round)
   }
 
   ceil(tick: number) {
-    const u = this.unit
-    return Math.ceil(tick / u) * u
+    return this.calc(tick, Math.ceil)
   }
 
   floor(tick: number) {
-    const u = this.unit
-    return Math.floor(tick / u) * u
+    return this.calc(tick, Math.floor)
   }
 
   get unit() {

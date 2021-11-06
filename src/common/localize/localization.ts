@@ -80,5 +80,6 @@ export default {
     "event-list": "イベントリスト",
     "open-chat": "チャットを開く",
     property: "プロパティ",
+    quantize: "クオンタイズ",
   },
 } as { [key: string]: { [key: string]: string } }

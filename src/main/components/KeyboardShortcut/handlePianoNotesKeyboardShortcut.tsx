@@ -2,6 +2,7 @@ import {
   copySelection,
   deleteSelection,
   duplicateSelection,
+  quantizeSelectedNotes,
   resetSelection,
   selectNextNote,
   selectPreviousNote,
@@ -38,6 +39,10 @@ export const handlePianoNotesKeyboardShortcut =
         if (e.ctrlKey || e.metaKey) {
           duplicateSelection(rootStore)()
         }
+        break
+      }
+      case "KeyQ": {
+        quantizeSelectedNotes(rootStore)()
         break
       }
       case "Delete":

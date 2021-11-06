@@ -603,3 +603,31 @@ export const selectNextNote = (rootStore: RootStore) => () =>
 
 export const selectPreviousNote = (rootStore: RootStore) => () =>
   selectNeighborNote(rootStore)(-1)
+
+export const quantizeSelectedNotes = (rootStore: RootStore) => () => {
+  const {
+    song: { selectedTrack },
+    pianoRollStore: { selection, quantizer },
+  } = rootStore
+
+  if (selectedTrack === undefined || selection === null) {
+    return
+  }
+
+  if (selection.noteIds.length === 0) {
+    return
+  }
+
+  pushHistory(rootStore)()
+
+  const notes = selection.noteIds
+    .map((id) => selectedTrack.getEventById(id))
+    .filter(isNotUndefined)
+    .filter(isNoteEvent)
+    .map((e) => ({
+      ...e,
+      tick: quantizer.round(e.tick),
+    }))
+
+  selectedTrack.updateEvents(notes)
+}

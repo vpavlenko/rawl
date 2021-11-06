@@ -14,7 +14,6 @@ import PianoRollStore from "./PianoRollStore"
 import { registerReactions } from "./reactions"
 import RootViewStore from "./RootViewStore"
 import Router from "./Router"
-import SettingsStore from "./SettingsStore"
 import TempoEditorStore from "./TempoEditorStore"
 
 export interface Services {
@@ -30,7 +29,6 @@ export default class RootStore {
   router = new Router()
   trackMute = new TrackMute()
   historyStore = new HistoryStore<SerializedState>()
-  settingsStore: SettingsStore
   rootViewStore = new RootViewStore()
   pianoRollStore: PianoRollStore
   arrangeViewStore = new ArrangeViewStore(this)
@@ -66,11 +64,6 @@ export default class RootStore {
       preview(e)
       midiRecorder.onMessage(e)
     }
-
-    this.settingsStore = new SettingsStore((settings) => {
-      this.midiDeviceStore.enabledInputIds = new Set(settings.midiInputIds)
-      this.midiDeviceStore.enabledOutputIds = new Set(settings.midiOutputIds)
-    })
 
     this.pianoRollStore.setUpAutorun()
     this.arrangeViewStore.setUpAutorun()

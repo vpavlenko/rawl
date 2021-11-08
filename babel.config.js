@@ -17,6 +17,7 @@ module.exports = {
     ],
   ],
   plugins: [
+    "lodash",
     ["@babel/plugin-proposal-class-properties", { loose: false }],
     "@babel/plugin-proposal-nullish-coalescing-operator",
     "@babel/plugin-proposal-optional-chaining",

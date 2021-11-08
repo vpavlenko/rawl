@@ -1,4 +1,4 @@
-import { KeyboardArrowDown, KeyboardArrowUp } from "@material-ui/icons"
+import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material"
 import { FC } from "react"
 import styled from "styled-components"
 

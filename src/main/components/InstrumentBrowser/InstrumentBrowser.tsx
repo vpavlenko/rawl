@@ -5,7 +5,7 @@ import {
   DialogActions,
   DialogContent,
   FormControlLabel,
-} from "@material-ui/core"
+} from "@mui/material"
 import difference from "lodash/difference"
 import groupBy from "lodash/groupBy"
 import map from "lodash/map"

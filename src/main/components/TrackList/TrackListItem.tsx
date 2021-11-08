@@ -1,5 +1,5 @@
-import { IconButton, ListItem } from "@material-ui/core"
-import { Headset, Layers, VolumeOff, VolumeUp } from "@material-ui/icons"
+import { Headset, Layers, VolumeOff, VolumeUp } from "@mui/icons-material"
+import { IconButton, ListItem } from "@mui/material"
 import { observer } from "mobx-react-lite"
 import { FC, useCallback, useState } from "react"
 import styled from "styled-components"
@@ -137,7 +137,6 @@ export const TrackListItem: FC<TrackListItemProps> = observer(({ trackId }) => {
   return (
     <>
       <Container
-        button
         selected={selected}
         onClick={onSelectTrack}
         onContextMenu={onContextMenu}

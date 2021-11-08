@@ -1,4 +1,4 @@
-import { Add, FiberManualRecord, Remove } from "@material-ui/icons"
+import { Add, FiberManualRecord, Remove } from "@mui/icons-material"
 import useComponentSize from "@rehooks/component-size"
 import React, { FC, useRef } from "react"
 import styled from "styled-components"

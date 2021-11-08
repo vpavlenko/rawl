@@ -1,5 +1,5 @@
-import { IconButton } from "@material-ui/core"
-import { ArrowDropDown, ArrowLeft } from "@material-ui/icons"
+import { IconButton } from "@mui/material"
+import { ArrowDropDown, ArrowLeft } from "@mui/icons-material"
 import { observer } from "mobx-react-lite"
 import React, { FC, useCallback, useRef } from "react"
 import styled from "styled-components"

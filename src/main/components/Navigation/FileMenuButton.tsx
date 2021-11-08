@@ -1,10 +1,4 @@
-import {
-  Divider,
-  ListItemText,
-  makeStyles,
-  Menu,
-  MenuItem,
-} from "@material-ui/core"
+import { Divider, ListItemText, Menu, MenuItem } from "@mui/material"
 import Color from "color"
 import { observer } from "mobx-react-lite"
 import React, { ChangeEvent, FC, useCallback, useRef, VFC } from "react"
@@ -12,6 +6,7 @@ import { localized } from "../../../common/localize/localizedString"
 import { createSong, openSong, saveSong } from "../../actions"
 import { hasFSAccess, openFile, saveFile, saveFileAs } from "../../actions/file"
 import { useStores } from "../../hooks/useStores"
+import { useTheme } from "../../hooks/useTheme"
 import { Tab } from "./Navigation"
 
 const fileInputID = "OpenButtonInputFile"
@@ -30,12 +25,6 @@ const FileInput: FC<{
     <label htmlFor={fileInputID}>{children}</label>
   </>
 )
-
-const useStyles = makeStyles((theme) => ({
-  menuPaper: {
-    background: Color(theme.palette.background.paper).lighten(0.2).hex(),
-  },
-}))
 
 export const FileMenu: VFC<{ close: () => void }> = observer(({ close }) => {
   const rootStore = useStores()
@@ -106,6 +95,7 @@ export const LegacyFileMenu: VFC<{ close: () => void }> = observer(
 export const FileMenuButton: FC = observer(() => {
   const rootStore = useStores()
   const { rootViewStore, exportStore } = rootStore
+  const theme = useTheme()
   const isOpen = rootViewStore.openDrawer
   const handleClose = () => (rootViewStore.openDrawer = false)
 
@@ -125,8 +115,6 @@ export const FileMenuButton: FC = observer(() => {
 
   const ref = useRef<HTMLDivElement>(null)
 
-  const classes = useStyles({})
-
   return (
     <>
       <Tab
@@ -138,13 +126,14 @@ export const FileMenuButton: FC = observer(() => {
       </Tab>
 
       <Menu
-        classes={{ paper: classes.menuPaper }}
+        sx={{
+          background: Color(theme.backgroundColor).lighten(0.2).hex(),
+        }}
         keepMounted
         open={isOpen}
         onClose={handleClose}
         anchorEl={ref.current}
         anchorOrigin={{ horizontal: "left", vertical: "bottom" }}
-        getContentAnchorEl={null}
         transformOrigin={{
           vertical: "top",
           horizontal: "left",

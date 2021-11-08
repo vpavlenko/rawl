@@ -7,8 +7,8 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-} from "@material-ui/core"
-import { Alert } from "@material-ui/lab"
+} from "@mui/material"
+import { Alert } from '@mui/material';
 import { observer } from "mobx-react-lite"
 import { FC } from "react"
 import styled from "styled-components"

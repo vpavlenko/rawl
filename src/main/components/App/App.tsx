@@ -1,5 +1,8 @@
-import { StylesProvider } from "@material-ui/core"
-import { ThemeProvider as MuiThemeProvider } from "@material-ui/styles"
+import {
+  StyledEngineProvider,
+  ThemeProvider as MuiThemeProvider,
+} from "@mui/material/styles"
+import StylesProvider from "@mui/styles/StylesProvider"
 import * as Sentry from "@sentry/react"
 import { Integrations } from "@sentry/tracing"
 import React from "react"
@@ -26,15 +29,17 @@ export function App() {
     <React.StrictMode>
       <StoreContext.Provider value={new RootStore()}>
         <ThemeContext.Provider value={defaultTheme}>
-          <ThemeProvider theme={defaultTheme}>
-            <MuiThemeProvider theme={theme}>
-              <StylesProvider injectFirst>
-                <GlobalKeyboardShortcut />
-                <GlobalCSS />
-                <RootView />
-              </StylesProvider>
-            </MuiThemeProvider>
-          </ThemeProvider>
+          <StyledEngineProvider injectFirst>
+            <ThemeProvider theme={defaultTheme}>
+              <MuiThemeProvider theme={theme}>
+                <StylesProvider injectFirst>
+                  <GlobalKeyboardShortcut />
+                  <GlobalCSS />
+                  <RootView />
+                </StylesProvider>
+              </MuiThemeProvider>
+            </ThemeProvider>
+          </StyledEngineProvider>
         </ThemeContext.Provider>
       </StoreContext.Provider>
     </React.StrictMode>

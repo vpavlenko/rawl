@@ -1,5 +1,5 @@
-import { Tooltip } from "@material-ui/core"
-import { KeyboardTab } from "@material-ui/icons"
+import { KeyboardTab } from "@mui/icons-material"
+import { Tooltip } from "@mui/material"
 import { VFC } from "react"
 import styled from "styled-components"
 import { localized } from "../../../common/localize/localizedString"

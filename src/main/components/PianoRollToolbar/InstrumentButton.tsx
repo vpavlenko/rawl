@@ -1,4 +1,4 @@
-import { Button } from "@material-ui/core"
+import { Button } from "@mui/material"
 import { observer } from "mobx-react-lite"
 import { FC, useCallback } from "react"
 import styled from "styled-components"

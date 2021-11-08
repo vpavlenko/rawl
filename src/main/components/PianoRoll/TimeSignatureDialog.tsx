@@ -6,7 +6,7 @@ import {
   DialogTitle,
   MenuItem,
   Select,
-} from "@material-ui/core"
+} from "@mui/material"
 import { range } from "lodash"
 import { useEffect, useState, VFC } from "react"
 import styled from "styled-components"

@@ -1,5 +1,5 @@
-import { List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core"
-import { Add } from "@material-ui/icons"
+import { List, ListItem, ListItemIcon, ListItemText } from "@mui/material"
+import { Add } from "@mui/icons-material"
 import { observer } from "mobx-react-lite"
 import React, { FC, useCallback } from "react"
 import styled from "styled-components"

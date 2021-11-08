@@ -1,4 +1,4 @@
-import { SvgIcon, SvgIconProps } from "@material-ui/core"
+import { SvgIcon, SvgIconProps } from "@mui/material"
 import React, { VFC } from "react"
 
 export const SelectionToolIcon: VFC<SvgIconProps> = React.forwardRef(

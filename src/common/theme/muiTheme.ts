@@ -1,19 +1,21 @@
-import { unstable_createMuiStrictModeTheme as createTheme } from "@material-ui/core/styles"
+import { unstable_createMuiStrictModeTheme as createTheme } from "@mui/material/styles"
 import { defaultTheme } from "./Theme"
 
 export const theme = createTheme({
-  props: {
+  components: {
     MuiButtonBase: {
-      disableRipple: true,
-      color: "inherit",
+      defaultProps: {
+        disableRipple: true,
+        color: "inherit",
 
-      /* disable focus */
-      tabIndex: -1,
-      onMouseDown: (e) => e.preventDefault(),
+        /* disable focus */
+        tabIndex: -1,
+        onMouseDown: (e) => e.preventDefault(),
+      },
     },
   },
   palette: {
-    type: "dark",
+    mode: "dark",
     primary: {
       main: defaultTheme.themeColor,
     },

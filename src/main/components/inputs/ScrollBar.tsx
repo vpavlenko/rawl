@@ -1,4 +1,4 @@
-import { ArrowDropUp } from "@material-ui/icons"
+import { ArrowDropUp } from "@mui/icons-material"
 import useComponentSize from "@rehooks/component-size"
 import React, { FC, useRef } from "react"
 import styled from "styled-components"

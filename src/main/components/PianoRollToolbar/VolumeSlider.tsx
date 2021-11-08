@@ -1,6 +1,6 @@
-import { withStyles } from "@material-ui/core"
-import Slider from "@material-ui/core/Slider"
-import { VolumeUp } from "@material-ui/icons"
+import withStyles from '@mui/styles/withStyles';
+import Slider from "@mui/material/Slider"
+import { VolumeUp } from "@mui/icons-material"
 import { observer } from "mobx-react-lite"
 import React, { FC, useCallback } from "react"
 import styled from "styled-components"

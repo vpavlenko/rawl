@@ -1,4 +1,4 @@
-import { Menu, MenuItem } from "@material-ui/core"
+import { Menu, MenuItem } from "@mui/material"
 import { FC, useEffect } from "react"
 import styled from "styled-components"
 import { IPoint } from "../../../common/geometry"

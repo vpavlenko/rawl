@@ -1,4 +1,4 @@
-import { Forum, Help, List, Schedule, Settings } from "@material-ui/icons"
+import { Forum, Help, List, Schedule, Settings } from "@mui/icons-material"
 import Color from "color"
 import { observer } from "mobx-react-lite"
 import React, { FC, useCallback } from "react"

@@ -1,4 +1,4 @@
-import { MenuItem } from "@material-ui/core"
+import { MenuItem } from "@mui/material"
 import { FC } from "react"
 import { localized } from "../../../common/localize/localizedString"
 import { ContextMenu, ContextMenuProps } from "../ContextMenu/ContextMenu"

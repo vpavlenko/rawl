@@ -1,10 +1,4 @@
 import {
-  CircularProgress,
-  makeStyles,
-  Toolbar,
-  Tooltip,
-} from "@material-ui/core"
-import {
   FastForward,
   FastRewind,
   FiberManualRecord,
@@ -12,7 +6,9 @@ import {
   Pause,
   PlayArrow,
   Stop,
-} from "@material-ui/icons"
+} from "@mui/icons-material"
+import { CircularProgress, Toolbar, Tooltip } from "@mui/material"
+import makeStyles from "@mui/styles/makeStyles"
 import { observer } from "mobx-react-lite"
 import { FC } from "react"
 import styled from "styled-components"

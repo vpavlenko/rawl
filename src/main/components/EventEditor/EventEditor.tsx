@@ -4,7 +4,7 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-} from "@material-ui/core"
+} from "@mui/material"
 import { observer } from "mobx-react-lite"
 import { FC } from "react"
 import { localized } from "../../../common/localize/localizedString"

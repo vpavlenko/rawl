@@ -1,4 +1,4 @@
-import { Divider } from "@material-ui/core"
+import { Divider } from "@mui/material"
 import React, { FC, useCallback } from "react"
 import { localized } from "../../../common/localize/localizedString"
 import {

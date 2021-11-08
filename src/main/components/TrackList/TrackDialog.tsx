@@ -9,7 +9,7 @@ import {
   MenuItem,
   Select,
   TextField,
-} from "@material-ui/core"
+} from "@mui/material"
 import { range } from "lodash"
 import { useEffect, useState, VFC } from "react"
 import { localized } from "../../../common/localize/localizedString"

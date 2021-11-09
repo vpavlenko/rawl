@@ -42,7 +42,9 @@ export default class RootStore {
       song: observable.ref,
     })
 
-    const synth = new SoundFontSynth("A320U.sf2")
+    const synth = new SoundFontSynth(
+      "https://codingcafe.jp/signal/soundfonts/A320U.sf2"
+    )
     const synthGroup = new GroupOutput()
     synthGroup.outputs.push({ synth, isEnabled: true })
 

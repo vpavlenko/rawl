@@ -43,7 +43,7 @@ export default class RootStore {
     })
 
     const synth = new SoundFontSynth(
-      "https://codingcafe.jp/signal/soundfonts/A320U.sf2"
+      "https://cdn.jsdelivr.net/gh/ryohey/signal@4569a31/public/A320U.sf2"
     )
     const synthGroup = new GroupOutput()
     synthGroup.outputs.push({ synth, isEnabled: true })

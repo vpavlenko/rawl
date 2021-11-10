@@ -184,7 +184,7 @@ export default class Track {
   /* helper */
 
   createOrUpdate<T extends TrackEvent>(
-    newEvent: Omit<T, "id"> & { subtype?: string }
+    newEvent: Omit<T, "id"> & { subtype?: string; controllerType?: number }
   ): T {
     const events = this.events.filter(
       (e) =>
@@ -192,6 +192,9 @@ export default class Track {
         e.tick === newEvent.tick &&
         ("subtype" in e && "subtype" in newEvent
           ? e.subtype === newEvent.subtype
+          : true) &&
+        ("controllerType" in e && "controllerType" in newEvent
+          ? e.controllerType === newEvent.controllerType
           : true)
     )
 

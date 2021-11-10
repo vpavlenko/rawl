@@ -102,7 +102,6 @@ const LineGraphControl = observer(
           ev.nativeEvent,
           local,
           controlTransform,
-          (p) => renderer.hitTest(p),
           createEvent
         )
       },

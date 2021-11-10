@@ -1,13 +1,23 @@
 import { AnyChannelEvent, SetTempoEvent } from "midifile-ts"
+import { closedRange } from "../../common/helpers/array"
 import {
+  controllerMidiEvent,
   panMidiEvent,
+  pitchBendMidiEvent,
   programChangeMidiEvent,
   setTempoMidiEvent,
   timeSignatureMidiEvent,
   volumeMidiEvent,
 } from "../../common/midi/MidiEvent"
 import { getMeasureStart } from "../../common/song/selector"
-import { isNoteEvent, NoteEvent, TrackEventOf } from "../../common/track"
+import {
+  isControllerEventWithType,
+  isNoteEvent,
+  isPitchBendEvent,
+  NoteEvent,
+  TrackEvent,
+  TrackEventOf,
+} from "../../common/track"
 import RootStore from "../stores/RootStore"
 import { pushHistory } from "./history"
 import {
@@ -94,6 +104,88 @@ export const createEvent =
 
     return id
   }
+
+// Update controller events in the range with linear interpolation values
+const updateEventsInRange =
+  (
+    filter: (e: TrackEvent) => boolean,
+    createEvent: (value: number) => AnyChannelEvent
+  ) =>
+  (rootStore: RootStore) =>
+  (
+    startValue: number,
+    endValue: number,
+    startTick: number,
+    endTick: number
+  ) => {
+    const {
+      song,
+      pianoRollStore: { quantizer },
+    } = rootStore
+
+    const selectedTrack = song.selectedTrack
+    if (selectedTrack === undefined) {
+      throw new Error("selected track is undefined")
+    }
+    pushHistory(rootStore)()
+
+    const _startTick = quantizer.floor(
+      Math.max(0, Math.min(startTick, endTick))
+    )
+    const _endTick = quantizer.floor(Math.max(0, Math.max(startTick, endTick)))
+
+    if (_startTick === _endTick) {
+      selectedTrack.createOrUpdate({
+        tick: _endTick,
+        ...createEvent(endValue),
+      })
+      return
+    }
+
+    const minValue = Math.min(startValue, endValue)
+    const maxValue = Math.max(startValue, endValue)
+
+    // linear interpolate
+    const getValue = (tick: number) =>
+      Math.floor(
+        Math.min(
+          maxValue,
+          Math.max(
+            minValue,
+            ((tick - startTick) / (endTick - startTick)) *
+              (endValue - startValue) +
+              startValue
+          )
+        )
+      )
+
+    const events = selectedTrack.events
+      .filter(filter)
+      .filter((e) => e.tick >= _startTick && e.tick <= _endTick)
+
+    selectedTrack.transaction((it) => {
+      it.removeEvents(events.map((e) => e.id))
+
+      const newEvents = closedRange(_startTick, _endTick, quantizer.unit).map(
+        (tick) => ({
+          ...createEvent(getValue(tick)),
+          tick,
+        })
+      )
+
+      it.addEvents(newEvents)
+    })
+  }
+
+export const updateControllersValue = (controllerType: number) =>
+  updateEventsInRange(isControllerEventWithType(controllerType), (value) =>
+    controllerMidiEvent(0, 0, controllerType, value)
+  )
+
+export const updatePitchbendValue = updateEventsInRange(
+  isPitchBendEvent,
+  (value) => pitchBendMidiEvent(0, 0, value)
+)
 
 export const removeEvent = (rootStore: RootStore) => (eventId: number) => {
   const { song } = rootStore

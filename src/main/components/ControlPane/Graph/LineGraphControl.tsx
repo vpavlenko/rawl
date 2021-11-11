@@ -9,6 +9,10 @@ import React, {
 } from "react"
 import { IPoint, zeroRect } from "../../../../common/geometry"
 import { filterEventsWithRange } from "../../../../common/helpers/filterEventsWithScroll"
+import {
+  createValueEvent,
+  ValueEventType,
+} from "../../../../common/helpers/valueEvent"
 import { TrackEventOf } from "../../../../common/track"
 import { ControlCoordTransform } from "../../../../common/transform/ControlCoordTransform"
 import { createOrUpdateControlEventsValue } from "../../../actions/control"
@@ -35,7 +39,7 @@ export interface LineGraphControlProps<
   height: number
   maxValue: number
   events: TrackEventOf<T>[]
-  createEvent: (value: number) => T
+  eventType: ValueEventType
   lineWidth?: number
   circleRadius?: number
   axis: number[]
@@ -46,7 +50,7 @@ const LineGraphControl = observer(
   <T extends ControllerEvent | PitchBendEvent>({
     maxValue,
     events,
-    createEvent,
+    eventType,
     width,
     height,
     lineWidth = 2,
@@ -102,10 +106,10 @@ const LineGraphControl = observer(
           ev.nativeEvent,
           local,
           controlTransform,
-          createEvent
+          eventType
         )
       },
-      [rootStore, scrollLeft, renderer, controlTransform, createEvent]
+      [rootStore, scrollLeft, renderer, controlTransform, eventType]
     )
 
     const selectionMouseDown: MouseEventHandler = useCallback(
@@ -166,10 +170,13 @@ const LineGraphControl = observer(
       )
     }, [renderer, scrollLeft, beats, cursorX, items, controlTransform])
 
-    const onClickAxis = (value: number) => {
-      const event = createEvent(value)
-      createOrUpdateControlEventsValue(rootStore)(event)
-    }
+    const onClickAxis = useCallback(
+      (value: number) => {
+        const event = createValueEvent(eventType, value)
+        createOrUpdateControlEventsValue(rootStore)(event)
+      },
+      [eventType]
+    )
 
     const { onContextMenu, menuProps } = useContextMenu()
 

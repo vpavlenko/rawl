@@ -1,23 +1,19 @@
 import { AnyChannelEvent, SetTempoEvent } from "midifile-ts"
 import { closedRange } from "../../common/helpers/array"
 import {
-  controllerMidiEvent,
+  createValueEvent,
+  isValueEvent,
+  ValueEventType,
+} from "../../common/helpers/valueEvent"
+import {
   panMidiEvent,
-  pitchBendMidiEvent,
   programChangeMidiEvent,
   setTempoMidiEvent,
   timeSignatureMidiEvent,
   volumeMidiEvent,
 } from "../../common/midi/MidiEvent"
 import { getMeasureStart } from "../../common/song/selector"
-import {
-  isControllerEventWithType,
-  isNoteEvent,
-  isPitchBendEvent,
-  NoteEvent,
-  TrackEvent,
-  TrackEventOf,
-} from "../../common/track"
+import { isNoteEvent, NoteEvent, TrackEventOf } from "../../common/track"
 import RootStore from "../stores/RootStore"
 import { pushHistory } from "./history"
 import {
@@ -106,13 +102,10 @@ export const createEvent =
   }
 
 // Update controller events in the range with linear interpolation values
-const updateEventsInRange =
-  (
-    filter: (e: TrackEvent) => boolean,
-    createEvent: (value: number) => AnyChannelEvent
-  ) =>
+export const updateValueEvents =
   (rootStore: RootStore) =>
   (
+    type: ValueEventType,
     startValue: number,
     endValue: number,
     startTick: number,
@@ -137,7 +130,7 @@ const updateEventsInRange =
     if (_startTick === _endTick) {
       selectedTrack.createOrUpdate({
         tick: _endTick,
-        ...createEvent(endValue),
+        ...createValueEvent(type, endValue),
       })
       return
     }
@@ -160,7 +153,7 @@ const updateEventsInRange =
       )
 
     const events = selectedTrack.events
-      .filter(filter)
+      .filter(isValueEvent(type))
       .filter((e) => e.tick >= _startTick && e.tick <= _endTick)
 
     selectedTrack.transaction((it) => {
@@ -168,7 +161,7 @@ const updateEventsInRange =
 
       const newEvents = closedRange(_startTick, _endTick, quantizer.unit).map(
         (tick) => ({
-          ...createEvent(getValue(tick)),
+          ...createValueEvent(type, getValue(tick)),
           tick,
         })
       )
@@ -176,16 +169,6 @@ const updateEventsInRange =
       it.addEvents(newEvents)
     })
   }
-
-export const updateControllersValue = (controllerType: number) =>
-  updateEventsInRange(isControllerEventWithType(controllerType), (value) =>
-    controllerMidiEvent(0, 0, controllerType, value)
-  )
-
-export const updatePitchbendValue = updateEventsInRange(
-  isPitchBendEvent,
-  (value) => pitchBendMidiEvent(0, 0, value)
-)
 
 export const removeEvent = (rootStore: RootStore) => (eventId: number) => {
   const { song } = rootStore

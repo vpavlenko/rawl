@@ -1,10 +1,12 @@
-import { ControllerEvent, PitchBendEvent } from "midifile-ts"
 import { IPoint, pointAdd, pointSub } from "../../../../../common/geometry"
+import {
+  createValueEvent,
+  ValueEventType,
+} from "../../../../../common/helpers/valueEvent"
 import { ControlCoordTransform } from "../../../../../common/transform/ControlCoordTransform"
 import {
   createEvent as createTrackEvent,
-  updateControllersValue,
-  updatePitchbendValue,
+  updateValueEvents,
 } from "../../../../actions"
 import { pushHistory } from "../../../../actions/history"
 import { getClientPos } from "../../../../helpers/mouseEvent"
@@ -13,28 +15,28 @@ import RootStore from "../../../../stores/RootStore"
 
 export const handlePencilMouseDown =
   (rootStore: RootStore) =>
-  <T extends ControllerEvent | PitchBendEvent>(
+  (
     e: MouseEvent,
     startPoint: IPoint,
     transform: ControlCoordTransform,
-    createEvent: (value: number) => T
+    type: ValueEventType
   ) => {
     const { selectedTrack } = rootStore.song
     if (selectedTrack === undefined) {
       return
     }
 
-    const startClientPos = getClientPos(e)
+    pushHistory(rootStore)()
 
     rootStore.pianoRollStore.selectedControllerEventIds = []
     rootStore.pianoRollStore.controlSelection = null
     rootStore.pianoRollStore.selection = null
 
+    const startClientPos = getClientPos(e)
     const pos = transform.fromPosition(startPoint)
-    const event = createEvent(pos.value)
-    createTrackEvent(rootStore)(event, pos.tick)
 
-    pushHistory(rootStore)()
+    const event = createValueEvent(type, pos.value)
+    createTrackEvent(rootStore)(event, pos.tick)
 
     let lastTick = pos.tick
     let lastValue = pos.value
@@ -50,16 +52,7 @@ export const handlePencilMouseDown =
         )
         const tick = transform.getTicks(local.x)
 
-        if (event.subtype === "controller") {
-          updateControllersValue(event.controllerType)(rootStore)(
-            lastValue,
-            value,
-            lastTick,
-            tick
-          )
-        } else {
-          updatePitchbendValue(rootStore)(lastValue, value, lastTick, tick)
-        }
+        updateValueEvents(rootStore)(type, lastValue, value, lastTick, tick)
 
         lastTick = tick
         lastValue = value

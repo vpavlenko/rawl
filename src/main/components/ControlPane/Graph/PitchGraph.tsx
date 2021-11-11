@@ -1,7 +1,6 @@
 import { observer } from "mobx-react-lite"
 import React, { FC } from "react"
 import { ISize } from "../../../../common/geometry"
-import { pitchBendMidiEvent } from "../../../../common/midi/MidiEvent"
 import { useStores } from "../../../hooks/useStores"
 import LineGraphControl from "./LineGraphControl"
 
@@ -19,7 +18,7 @@ const PitchGraph: FC<PitchGraphProps> = observer(({ width, height }) => {
       events={events}
       axis={[0, 0x1000, 0x2000, 0x3000, 0x4000 - 1]}
       axisLabelFormatter={(v) => (v - 0x2000).toString()}
-      createEvent={(value) => pitchBendMidiEvent(0, 0, Math.round(value))}
+      eventType={{ type: "pitchBend" }}
     />
   )
 })

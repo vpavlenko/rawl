@@ -43,7 +43,7 @@ export const PianoRollToolbar: FC = observer(() => {
   const { song, pianoRollStore } = useStores()
 
   const { selectedTrack, selectedTrackId } = song
-  const { quantize: quantize, autoScroll } = pianoRollStore
+  const { quantize, autoScroll, isQuantizeEnabled } = pianoRollStore
 
   const onClickAutoScroll = useCallback(
     () => (pianoRollStore.autoScroll = !pianoRollStore.autoScroll),
@@ -56,6 +56,11 @@ export const PianoRollToolbar: FC = observer(() => {
     },
     [pianoRollStore]
   )
+
+  const onClickQuantizeSwitch = useCallback(() => {
+    pianoRollStore.isQuantizeEnabled = !pianoRollStore.isQuantizeEnabled
+  }, [pianoRollStore])
+
   const classes = useStyles({})
 
   if (selectedTrack === undefined) {
@@ -83,7 +88,12 @@ export const PianoRollToolbar: FC = observer(() => {
 
         <ToolSelector />
 
-        <QuantizeSelector value={quantize} onSelect={onSelectQuantize} />
+        <QuantizeSelector
+          value={quantize}
+          enabled={isQuantizeEnabled}
+          onSelect={onSelectQuantize}
+          onClickSwitch={onClickQuantizeSwitch}
+        />
 
         <StyledToggleButton
           onClick={onClickAutoScroll}

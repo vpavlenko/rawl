@@ -61,7 +61,9 @@ export const ArrangeToolbar: FC = observer(() => {
 
         <QuantizeSelector
           value={quantize}
+          enabled={true}
           onSelect={(value) => onSelectQuantize({ denominator: value })}
+          onClickSwitch={() => {}}
         />
 
         <StyledToggleButton onClick={onClickAutoScroll} selected={autoScroll}>

@@ -122,40 +122,38 @@ export const updateValueEvents =
     }
     pushHistory(rootStore)()
 
-    const _startTick = quantizer.floor(
-      Math.max(0, Math.min(startTick, endTick))
-    )
-    const _endTick = quantizer.floor(Math.max(0, Math.max(startTick, endTick)))
-
-    if (_startTick === _endTick) {
-      selectedTrack.createOrUpdate({
-        tick: _endTick,
-        ...createValueEvent(type, endValue),
-      })
-      return
-    }
+    const minTick = Math.min(startTick, endTick)
+    const maxTick = Math.max(startTick, endTick)
+    const _startTick = quantizer.floor(Math.max(0, minTick))
+    const _endTick = quantizer.floor(Math.max(0, maxTick))
 
     const minValue = Math.min(startValue, endValue)
     const maxValue = Math.max(startValue, endValue)
 
     // linear interpolate
-    const getValue = (tick: number) =>
-      Math.floor(
-        Math.min(
-          maxValue,
-          Math.max(
-            minValue,
-            ((tick - startTick) / (endTick - startTick)) *
-              (endValue - startValue) +
-              startValue
-          )
-        )
-      )
+    const getValue =
+      endTick === startTick
+        ? (_tick: number) => endValue
+        : (tick: number) =>
+            Math.floor(
+              Math.min(
+                maxValue,
+                Math.max(
+                  minValue,
+                  ((tick - startTick) / (endTick - startTick)) *
+                    (endValue - startValue) +
+                    startValue
+                )
+              )
+            )
 
+    // Delete events in the dragged area
     const events = selectedTrack.events.filter(isValueEvent(type)).filter(
       (e) =>
         // to prevent remove the event created previously, do not remove the event placed at startTick
-        e.tick !== startTick && e.tick >= _startTick && e.tick <= _endTick
+        e.tick !== startTick &&
+        e.tick >= Math.min(minTick, _startTick) &&
+        e.tick <= Math.max(maxTick, _endTick)
     )
 
     selectedTrack.transaction((it) => {

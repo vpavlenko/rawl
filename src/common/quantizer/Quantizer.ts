@@ -4,13 +4,16 @@ import { getMeasureStart } from "../song/selector"
 export default class Quantizer {
   private denominator: number
   private songStore: SongStore
+  private isEnabled: boolean = true
 
-  constructor(songStore: SongStore, denominator: number) {
+  constructor(songStore: SongStore, denominator: number, isEnabled: boolean) {
     this.songStore = songStore
 
     // N 分音符の N
     // n-remnant note n
     this.denominator = denominator
+
+    this.isEnabled = isEnabled
   }
 
   private get timebase() {
@@ -18,6 +21,9 @@ export default class Quantizer {
   }
 
   private calc(tick: number, fn: (tick: number) => number) {
+    if (!this.isEnabled) {
+      return tick
+    }
     const measureStart = getMeasureStart(this.songStore.song, tick)
     const beats =
       this.denominator === 1 ? measureStart?.timeSignature.numerator ?? 4 : 4

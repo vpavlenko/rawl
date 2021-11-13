@@ -403,7 +403,7 @@ export default class PianoRollStore {
   }
 
   get quantizer(): Quantizer {
-    return new Quantizer(this.rootStore, this.quantize)
+    return new Quantizer(this.rootStore, this.quantize, this.isQuantizeEnabled)
   }
 
   get controlCursor(): string {

@@ -22,7 +22,7 @@ export default class Quantizer {
 
   private calc(tick: number, fn: (tick: number) => number) {
     if (!this.isEnabled) {
-      return tick
+      return Math.round(tick)
     }
     const measureStart = getMeasureStart(this.songStore.song, tick)
     const beats =

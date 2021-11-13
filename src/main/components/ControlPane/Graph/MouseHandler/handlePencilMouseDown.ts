@@ -21,11 +21,6 @@ export const handlePencilMouseDown =
     transform: ControlCoordTransform,
     type: ValueEventType
   ) => {
-    const { selectedTrack } = rootStore.song
-    if (selectedTrack === undefined) {
-      return
-    }
-
     pushHistory(rootStore)()
 
     rootStore.pianoRollStore.selectedControllerEventIds = []

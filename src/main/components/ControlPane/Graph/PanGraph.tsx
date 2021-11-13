@@ -1,7 +1,7 @@
+import { MIDIControlEvents } from "midifile-ts"
 import { observer } from "mobx-react-lite"
 import React, { FC } from "react"
 import { ISize } from "../../../../common/geometry"
-import { panMidiEvent } from "../../../../common/midi/MidiEvent"
 import { useStores } from "../../../hooks/useStores"
 import LineGraphControl from "./LineGraphControl"
 
@@ -19,7 +19,10 @@ const PanGraph: FC<PanGraphProps> = observer(({ width, height }) => {
       events={events}
       axis={[0, 0x20, 0x40, 0x60, 0x80 - 1]}
       axisLabelFormatter={(v) => (v - 0x40).toString()}
-      createEvent={(value) => panMidiEvent(0, 0, Math.round(value))}
+      eventType={{
+        type: "controller",
+        controllerType: MIDIControlEvents.MSB_PAN,
+      }}
     />
   )
 })

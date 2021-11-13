@@ -52,6 +52,7 @@ export default class PianoRollStore {
   scaleY = 1
   autoScroll = true
   quantize = 4
+  isQuantizeEnabled = true
   selection: Selection | null = null
   lastNoteDuration: number | null = null
   openInstrumentBrowser = false
@@ -84,6 +85,7 @@ export default class PianoRollStore {
       scaleY: observable,
       autoScroll: observable,
       quantize: observable,
+      isQuantizeEnabled: observable,
       selection: observable.shallow,
       lastNoteDuration: observable,
       openInstrumentBrowser: observable,
@@ -401,7 +403,7 @@ export default class PianoRollStore {
   }
 
   get quantizer(): Quantizer {
-    return new Quantizer(this.rootStore, this.quantize)
+    return new Quantizer(this.rootStore, this.quantize, this.isQuantizeEnabled)
   }
 
   get controlCursor(): string {

@@ -1,5 +1,6 @@
 import { Button } from "@material-ui/core"
 import { FiberManualRecord, MusicNote } from "@material-ui/icons"
+import { ToggleButton } from "@material-ui/lab"
 import React from "react"
 import styled from "styled-components"
 import { QuantizePopup } from "./QuantizePopup"
@@ -10,6 +11,20 @@ const Container = styled.div`
   position: relative;
   margin-right: 1em;
   height: 2rem;
+  align-items: stretch;
+  border-radius: 4px;
+`
+
+const Switch = styled(ToggleButton)`
+  min-width: 0;
+  padding: 0.5rem;
+  border-radius: 4px 0 0 4px;
+  border: 1px solid var(--divider-color);
+
+  &.Mui-selected {
+    background: var(--theme-color);
+    border-right: 1px solid transparent;
+  }
 `
 
 const DotLabel = styled(FiberManualRecord)`
@@ -27,12 +42,10 @@ const TripletLabel = styled.span`
 `
 
 const Content = styled(Button)`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+  border-radius: 0 4px 4px 0;
   border: 1px solid var(--divider-color);
-  padding: 4px;
-  cursor: pointer;
+  border-left: 1px solid transparent;
+  min-width: 0;
 `
 
 const Value = styled.div`
@@ -58,10 +71,17 @@ function calcQuantize(num: number, dot: boolean, triplet: boolean): number {
 
 export interface QuantizeSelectorProps {
   value: number
+  enabled: boolean
   onSelect: (value: number) => void
+  onClickSwitch: () => void
 }
 
-function QuantizeSelector({ value, onSelect }: QuantizeSelectorProps) {
+function QuantizeSelector({
+  value,
+  enabled,
+  onSelect,
+  onClickSwitch,
+}: QuantizeSelectorProps) {
   // 整数ではなく 1.5 をかけると整数になるとき付点
   // When it is not integer and multiply 1.5 becomes integer, it becomes a dotted note
 
@@ -80,24 +100,24 @@ function QuantizeSelector({ value, onSelect }: QuantizeSelectorProps) {
   const [anchorEl, setAnchorEl] = React.useState<Element | null>(null)
 
   return (
-    <Container
-      onWheel={(e) => {
-        const currentIndex = list.indexOf(denominator)
-        const delta = e.deltaY < 0 ? 1 : -1
-        const index = Math.min(
-          list.length - 1,
-          Math.max(0, currentIndex + delta)
-        )
-        onSelect(calcQuantize(list[index], dot, triplet))
-      }}
-    >
+    <Container>
+      <Switch selected={enabled} onClick={onClickSwitch}>
+        <Note />
+      </Switch>
       <Content
-        size="small"
         onClick={(e) => {
           setAnchorEl(e.currentTarget)
         }}
+        onWheel={(e) => {
+          const currentIndex = list.indexOf(denominator)
+          const delta = e.deltaY < 0 ? 1 : -1
+          const index = Math.min(
+            list.length - 1,
+            Math.max(0, currentIndex + delta)
+          )
+          onSelect(calcQuantize(list[index], dot, triplet))
+        }}
       >
-        <Note />
         <Value>
           <span className="denominator">{denominator}</span>
           {triplet && <TripletLabel>3</TripletLabel>}

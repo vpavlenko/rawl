@@ -2,7 +2,6 @@ import { MIDIControlEvents } from "midifile-ts"
 import { observer } from "mobx-react-lite"
 import React, { FC } from "react"
 import { ISize } from "../../../../common/geometry"
-import { controllerMidiEvent } from "../../../../common/midi/MidiEvent"
 import { useStores } from "../../../hooks/useStores"
 import LineGraphControl from "./LineGraphControl"
 
@@ -21,14 +20,10 @@ const HoldPedalGraph: FC<HoldPedalGraphProps> = observer(
         events={events}
         axis={[0, 0x20, 0x40, 0x60, 0x80 - 1]}
         axisLabelFormatter={(v) => v.toString()}
-        createEvent={(value) =>
-          controllerMidiEvent(
-            0,
-            0,
-            MIDIControlEvents.SUSTAIN,
-            Math.round(value)
-          )
-        }
+        eventType={{
+          type: "controller",
+          controllerType: MIDIControlEvents.SUSTAIN,
+        }}
       />
     )
   }

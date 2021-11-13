@@ -1,4 +1,10 @@
 import { AnyChannelEvent, SetTempoEvent } from "midifile-ts"
+import { closedRange } from "../../common/helpers/array"
+import {
+  createValueEvent,
+  isValueEvent,
+  ValueEventType,
+} from "../../common/helpers/valueEvent"
 import {
   panMidiEvent,
   programChangeMidiEvent,
@@ -93,6 +99,74 @@ export const createEvent =
     }
 
     return id
+  }
+
+// Update controller events in the range with linear interpolation values
+export const updateValueEvents =
+  (rootStore: RootStore) =>
+  (
+    type: ValueEventType,
+    startValue: number,
+    endValue: number,
+    startTick: number,
+    endTick: number
+  ) => {
+    const {
+      song,
+      pianoRollStore: { quantizer },
+    } = rootStore
+
+    const selectedTrack = song.selectedTrack
+    if (selectedTrack === undefined) {
+      throw new Error("selected track is undefined")
+    }
+
+    const minTick = Math.min(startTick, endTick)
+    const maxTick = Math.max(startTick, endTick)
+    const _startTick = quantizer.floor(Math.max(0, minTick))
+    const _endTick = quantizer.floor(Math.max(0, maxTick))
+
+    const minValue = Math.min(startValue, endValue)
+    const maxValue = Math.max(startValue, endValue)
+
+    // linear interpolate
+    const getValue =
+      endTick === startTick
+        ? (_tick: number) => endValue
+        : (tick: number) =>
+            Math.floor(
+              Math.min(
+                maxValue,
+                Math.max(
+                  minValue,
+                  ((tick - startTick) / (endTick - startTick)) *
+                    (endValue - startValue) +
+                    startValue
+                )
+              )
+            )
+
+    // Delete events in the dragged area
+    const events = selectedTrack.events.filter(isValueEvent(type)).filter(
+      (e) =>
+        // to prevent remove the event created previously, do not remove the event placed at startTick
+        e.tick !== startTick &&
+        e.tick >= Math.min(minTick, _startTick) &&
+        e.tick <= Math.max(maxTick, _endTick)
+    )
+
+    selectedTrack.transaction((it) => {
+      it.removeEvents(events.map((e) => e.id))
+
+      const newEvents = closedRange(_startTick, _endTick, quantizer.unit).map(
+        (tick) => ({
+          ...createValueEvent(type, getValue(tick)),
+          tick,
+        })
+      )
+
+      it.addEvents(newEvents)
+    })
   }
 
 export const removeEvent = (rootStore: RootStore) => (eventId: number) => {

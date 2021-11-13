@@ -1,7 +1,13 @@
-import { ControllerEvent, PitchBendEvent } from "midifile-ts"
 import { IPoint, pointAdd, pointSub } from "../../../../../common/geometry"
+import {
+  createValueEvent,
+  ValueEventType,
+} from "../../../../../common/helpers/valueEvent"
 import { ControlCoordTransform } from "../../../../../common/transform/ControlCoordTransform"
-import { createEvent as createTrackEvent } from "../../../../actions"
+import {
+  createEvent as createTrackEvent,
+  updateValueEvents,
+} from "../../../../actions"
 import { pushHistory } from "../../../../actions/history"
 import { getClientPos } from "../../../../helpers/mouseEvent"
 import { observeDrag } from "../../../../helpers/observeDrag"
@@ -9,36 +15,27 @@ import RootStore from "../../../../stores/RootStore"
 
 export const handlePencilMouseDown =
   (rootStore: RootStore) =>
-  <T extends ControllerEvent | PitchBendEvent>(
+  (
     e: MouseEvent,
     startPoint: IPoint,
     transform: ControlCoordTransform,
-    getHitControllerEvent: (point: IPoint) => number | undefined,
-    createEvent: (value: number) => T
+    type: ValueEventType
   ) => {
-    const { selectedTrack } = rootStore.song
-    if (selectedTrack === undefined) {
-      return
-    }
+    pushHistory(rootStore)()
 
-    const hitEventId = getHitControllerEvent(startPoint)
-    const startClientPos = getClientPos(e)
-
-    let eventId: number
-    if (hitEventId === undefined) {
-      const pos = transform.fromPosition(startPoint)
-      const event = createEvent(pos.value)
-      eventId = createTrackEvent(rootStore)(event, pos.tick)
-      rootStore.pianoRollStore.selectedControllerEventIds = [eventId]
-    } else {
-      eventId = hitEventId
-      rootStore.pianoRollStore.selectedControllerEventIds = [hitEventId]
-    }
-
+    rootStore.pianoRollStore.selectedControllerEventIds = []
     rootStore.pianoRollStore.controlSelection = null
     rootStore.pianoRollStore.selection = null
 
-    pushHistory(rootStore)()
+    const startClientPos = getClientPos(e)
+    const pos = transform.fromPosition(startPoint)
+
+    const event = createValueEvent(type, pos.value)
+    createTrackEvent(rootStore)(event, pos.tick)
+
+    let lastTick = pos.tick
+    let lastValue = pos.value
+
     observeDrag({
       onMouseMove: (e) => {
         const posPx = getClientPos(e)
@@ -48,7 +45,12 @@ export const handlePencilMouseDown =
           0,
           Math.min(transform.maxValue, transform.fromPosition(local).value)
         )
-        selectedTrack.updateEvent(eventId, { value })
+        const tick = transform.getTicks(local.x)
+
+        updateValueEvents(rootStore)(type, lastValue, value, lastTick, tick)
+
+        lastTick = tick
+        lastValue = value
       },
     })
   }

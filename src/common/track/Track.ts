@@ -1,8 +1,6 @@
-import difference from "lodash/difference"
 import isEqual from "lodash/isEqual"
 import omit from "lodash/omit"
 import sortBy from "lodash/sortBy"
-import without from "lodash/without"
 import {
   ControllerEvent,
   ProgramChangeEvent,
@@ -11,7 +9,6 @@ import {
 } from "midifile-ts"
 import { action, computed, makeObservable, observable, transaction } from "mobx"
 import { createModelSchema, list, primitive } from "serializr"
-import { isNotUndefined } from "../helpers/array"
 import { pojo } from "../helpers/pojo"
 import { localized } from "../localize/localizedString"
 import { getInstrumentName } from "../midi/GM"
@@ -109,17 +106,11 @@ export default class Track {
   }
 
   removeEvent(id: number) {
-    const obj = this.getEventById(id)
-    if (obj == undefined) {
-      return
-    }
-    this.events = without(this.events, obj)
-    this.updateEndOfTrack()
+    this.removeEvents([id])
   }
 
   removeEvents(ids: number[]) {
-    const objs = ids.map((id) => this.getEventById(id)).filter(isNotUndefined)
-    this.events = difference(this.events, objs)
+    this.events = this.events.filter((e) => !ids.includes(e.id))
     this.updateEndOfTrack()
   }
 
@@ -184,7 +175,7 @@ export default class Track {
   /* helper */
 
   createOrUpdate<T extends TrackEvent>(
-    newEvent: Omit<T, "id"> & { subtype?: string }
+    newEvent: Omit<T, "id"> & { subtype?: string; controllerType?: number }
   ): T {
     const events = this.events.filter(
       (e) =>
@@ -192,6 +183,9 @@ export default class Track {
         e.tick === newEvent.tick &&
         ("subtype" in e && "subtype" in newEvent
           ? e.subtype === newEvent.subtype
+          : true) &&
+        ("controllerType" in e && "controllerType" in newEvent
+          ? e.controllerType === newEvent.controllerType
           : true)
     )
 

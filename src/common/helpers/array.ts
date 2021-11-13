@@ -23,3 +23,11 @@ export const joinObjects = <T extends {}>(
   }
   return result
 }
+
+export const closedRange = (start: number, end: number, step: number) => {
+  const result = []
+  for (let i = start; i <= end; i += step) {
+    result.push(i)
+  }
+  return result
+}

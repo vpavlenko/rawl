@@ -152,9 +152,11 @@ export const updateValueEvents =
         )
       )
 
-    const events = selectedTrack.events
-      .filter(isValueEvent(type))
-      .filter((e) => e.tick >= _startTick && e.tick <= _endTick)
+    const events = selectedTrack.events.filter(isValueEvent(type)).filter(
+      (e) =>
+        // to prevent remove the event created previously, do not remove the event placed at startTick
+        e.tick !== startTick && e.tick >= _startTick && e.tick <= _endTick
+    )
 
     selectedTrack.transaction((it) => {
       it.removeEvents(events.map((e) => e.id))

@@ -120,7 +120,6 @@ export const updateValueEvents =
     if (selectedTrack === undefined) {
       throw new Error("selected track is undefined")
     }
-    pushHistory(rootStore)()
 
     const minTick = Math.min(startTick, endTick)
     const maxTick = Math.max(startTick, endTick)

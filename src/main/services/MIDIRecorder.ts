@@ -62,30 +62,37 @@ export class MIDIRecorder {
 
     const tick = this.player.position
 
-    if (message.subtype === "noteOn") {
-      const note = track.addEvent<NoteEvent>({
-        type: "channel",
-        subtype: "note",
-        noteNumber: message.noteNumber,
-        tick,
-        velocity: message.velocity,
-        duration: 0,
-      })
-      this.recordedNotes.push(note)
-    }
-
-    if (message.subtype === "noteOff") {
-      this.recordedNotes
-        .filter((n) => n.noteNumber === message.noteNumber)
-        .forEach((n) => {
-          track.updateEvent<NoteEvent>(n.id, {
-            duration: Math.max(0, tick - n.tick),
-          })
+    switch (message.subtype) {
+      case "noteOn": {
+        const note = track.addEvent<NoteEvent>({
+          type: "channel",
+          subtype: "note",
+          noteNumber: message.noteNumber,
+          tick,
+          velocity: message.velocity,
+          duration: 0,
         })
+        this.recordedNotes.push(note)
+        break
+      }
+      case "noteOff": {
+        this.recordedNotes
+          .filter((n) => n.noteNumber === message.noteNumber)
+          .forEach((n) => {
+            track.updateEvent<NoteEvent>(n.id, {
+              duration: Math.max(0, tick - n.tick),
+            })
+          })
 
-      this.recordedNotes = this.recordedNotes.filter(
-        (n) => n.noteNumber !== message.noteNumber
-      )
+        this.recordedNotes = this.recordedNotes.filter(
+          (n) => n.noteNumber !== message.noteNumber
+        )
+        break
+      }
+      default: {
+        track.addEvent({ ...message, tick })
+        break
+      }
     }
   }
 }

@@ -55,13 +55,12 @@ export default class Player {
   private _currentTick = 0
   private _isPlaying = false
 
+  // crossed the loop range while playing
+  private _willLoop = false
+
   disableSeek: boolean = false
 
-  loop: LoopSetting = {
-    begin: 0,
-    end: 0,
-    enabled: false,
-  }
+  loop: LoopSetting | null = null
 
   constructor(output: SynthOutput, trackMute: TrackMute, songStore: SongStore) {
     makeObservable<Player, "_currentTick" | "_isPlaying">(this, {
@@ -97,6 +96,7 @@ export default class Player {
       this.timebase,
       TIMER_INTERVAL + LOOK_AHEAD_TIME
     )
+    this._willLoop = false
     this._isPlaying = true
     this._output.activate()
     this._interval = window.setInterval(() => this._onTimer(), TIMER_INTERVAL)
@@ -115,6 +115,7 @@ export default class Player {
       this._scheduler.seek(tick)
     }
     this._currentTick = tick
+    this._willLoop = false
 
     if (this.isPlaying) {
       this.allSoundsOff()
@@ -280,12 +281,18 @@ export default class Player {
     } else {
       const currentTick = this._scheduler.currentTick
 
+      // Execute the loop when it reaches the loop end position after crossing the loop range (_willLoop is true)
       if (
+        this.loop !== null &&
         this.loop.enabled &&
-        this.loop.begin !== null &&
-        currentTick >= this.loop.end
+        this.loop.end > this.loop.begin &&
+        currentTick >= this.loop.begin
       ) {
-        this.position = this.loop.begin
+        if (currentTick < this.loop.end) {
+          this._willLoop = true
+        } else if (this._willLoop) {
+          this._scheduler.seek(this.loop.begin)
+        }
       }
     }
 

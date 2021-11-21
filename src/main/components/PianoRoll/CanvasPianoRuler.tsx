@@ -4,7 +4,12 @@ import React, { FC, useCallback, useState } from "react"
 import { BeatWithX } from "../../../common/helpers/mapBeats"
 import { LoopSetting } from "../../../common/player"
 import { Theme } from "../../../common/theme/Theme"
-import { setPlayerPosition, updateTimeSignature } from "../../actions"
+import {
+  setLoopBegin,
+  setLoopEnd,
+  setPlayerPosition,
+  updateTimeSignature,
+} from "../../actions"
 import { Layout } from "../../Constants"
 import { useContextMenu } from "../../hooks/useContextMenu"
 import { useStores } from "../../hooks/useStores"
@@ -64,9 +69,10 @@ function drawLoopPoints(
   pixelsPerTick: number,
   theme: Theme
 ) {
-  const lineWidth = 1
   const flagSize = 8
+  ctx.lineWidth = 1
   ctx.fillStyle = loop.enabled ? theme.themeColor : theme.secondaryTextColor
+  ctx.strokeStyle = loop.enabled ? theme.themeColor : theme.secondaryTextColor
   ctx.beginPath()
 
   const beginX = loop.begin * pixelsPerTick
@@ -75,25 +81,26 @@ function drawLoopPoints(
   if (loop.begin !== null) {
     const x = beginX
     ctx.moveTo(x, 0)
-    ctx.lineTo(x + lineWidth + flagSize, 0)
-    ctx.lineTo(x + lineWidth, flagSize)
-    ctx.lineTo(x + lineWidth, height)
     ctx.lineTo(x, height)
-    ctx.lineTo(x, 0)
+
+    ctx.moveTo(x, 0)
+    ctx.lineTo(x + flagSize, 0)
+    ctx.lineTo(x, flagSize)
   }
 
   if (loop.end !== null) {
     const x = endX
     ctx.moveTo(x, 0)
-    ctx.lineTo(x - lineWidth - flagSize, 0)
-    ctx.lineTo(x - lineWidth, flagSize)
-    ctx.lineTo(x - lineWidth, height)
     ctx.lineTo(x, height)
-    ctx.lineTo(x, 0)
+
+    ctx.moveTo(x, 0)
+    ctx.lineTo(x - flagSize, 0)
+    ctx.lineTo(x, flagSize)
   }
 
   ctx.closePath()
   ctx.fill()
+  ctx.stroke()
 
   if (loop.begin !== null && loop.end !== null) {
     ctx.rect(beginX, 0, endX - beginX, height)
@@ -203,9 +210,9 @@ const PianoRuler: FC<PianoRulerProps> = observer(({ rulerStore, style }) => {
       const timeSignature = timeSignatureHitTest(tick)
 
       if (e.nativeEvent.ctrlKey) {
-        // setLoopBegin(tick)
+        setLoopBegin(rootStore)(tick)
       } else if (e.nativeEvent.altKey) {
-        // setLoopEnd(tick)
+        setLoopEnd(rootStore)(tick)
       } else {
         if (timeSignature !== undefined) {
           if (e.detail == 2) {
@@ -228,13 +235,13 @@ const PianoRuler: FC<PianoRulerProps> = observer(({ rulerStore, style }) => {
       ctx.save()
       ctx.translate(-scrollLeft + 0.5, 0)
       drawRuler(ctx, height, beats, theme)
-      if (loop.enabled) {
+      if (loop !== null) {
         drawLoopPoints(ctx, loop, height, pixelsPerTick, theme)
       }
       drawTimeSignatures(ctx, height, timeSignatures, pixelsPerTick, theme)
       ctx.restore()
     },
-    [width, pixelsPerTick, scrollLeft, beats, timeSignatures]
+    [width, pixelsPerTick, scrollLeft, beats, timeSignatures, loop]
   )
 
   const closeOpenTimeSignatureDialog = useCallback(() => {

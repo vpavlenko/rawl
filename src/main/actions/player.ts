@@ -119,10 +119,12 @@ export const setLoopBegin = (rootStore: RootStore) => (tick: number) => {
     pianoRollStore: { quantizer },
   } = rootStore
   tick = quantizer.round(tick)
-  if (player.loop.end !== null) {
-    tick = Math.min(player.loop.end, tick)
+  player.loop = {
+    end: tick,
+    enabled: false,
+    ...player.loop,
+    begin: tick,
   }
-  player.loop = { ...player.loop, begin: tick }
 }
 
 export const setLoopEnd = (rootStore: RootStore) => (tick: number) => {
@@ -131,15 +133,20 @@ export const setLoopEnd = (rootStore: RootStore) => (tick: number) => {
     pianoRollStore: { quantizer },
   } = rootStore
   tick = quantizer.round(tick)
-  if (player.loop.begin !== null) {
-    tick = Math.max(player.loop.begin, tick)
+  player.loop = {
+    begin: tick,
+    enabled: false,
+    ...player.loop,
+    end: tick,
   }
-  player.loop = { ...player.loop, end: tick }
 }
 
 export const toggleEnableLoop = (rootStore: RootStore) => () => {
   const {
     services: { player },
   } = rootStore
+  if (player.loop === null) {
+    return
+  }
   player.loop = { ...player.loop, enabled: !player.loop.enabled }
 }

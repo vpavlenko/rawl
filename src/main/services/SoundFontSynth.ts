@@ -5,7 +5,8 @@ import { SendableEvent, SynthOutput } from "./SynthOutput"
 export class SoundFontSynth implements SynthOutput {
   private synth: AudioWorkletNode | null = null
   private soundFontURL: string
-  private context = new AudioContext()
+  private context = new (window.AudioContext || window.webkitAudioContext)()
+
   isLoading: boolean = true
 
   constructor(soundFontURL: string) {

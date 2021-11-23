@@ -15,6 +15,7 @@ export default {
     tempo: "テンポ",
     "tempo-track": "テンポトラック",
     "feature-time-signature": "4/4以外の拍子に対応",
+    "feature-pwa": "PWA対応",
     "time-signature": "拍子",
     "add-time-signature": "拍子を追加",
     "remove-time-signature": "拍子を削除",

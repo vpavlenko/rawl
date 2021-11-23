@@ -46,6 +46,8 @@
           sans-serif;
         line-height: 1.5;
         -webkit-font-smoothing: antialiased;
+        background: hsl(245deg 5% 16%);
+        color: white;
       }
       a {
         color: var(--themeColor);
@@ -148,10 +150,23 @@
       }
       section#features ul {
         line-height: 2;
-        list-style-type: circle;
       }
+
+      #features .content {
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      #features .content .left {
+        flex-grow: 1;
+      }
+
+      #features .content .right {
+        flex-shrink: 0;
+      }
+
       section#support {
-        background: #eaeaea;
+        background: #1f1f23;
       }
       #github-link {
         display: flex;
@@ -182,6 +197,92 @@
           margin-top: 3rem;
           width: 100%;
         }
+      }
+
+      a.external-link {
+        font-size: 0.9rem;
+        display: inline-block;
+        background: #3b3b44;
+        border-radius: 0.3em;
+        padding: 0.5em 1em;
+        color: white;
+        text-decoration: none;
+        margin-bottom: 0.5rem;
+      }
+
+      /* carbon */
+
+      #carbonads * {
+        margin: initial;
+        padding: initial;
+      }
+
+      #carbonads {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial,
+          sans-serif;
+      }
+
+      #carbonads {
+        padding: 10px 0 0 10px;
+        display: flex;
+        max-width: 330px;
+        background-color: #28292a;
+        border: 1px solid #1e2021;
+      }
+
+      #carbonads a {
+        color: #ddd;
+        text-decoration: none;
+      }
+
+      #carbonads a:hover {
+        color: #ddd;
+      }
+
+      #carbonads span {
+        position: relative;
+        display: block;
+        overflow: hidden;
+      }
+
+      #carbonads .carbon-wrap {
+        display: flex;
+      }
+
+      #carbonads .carbon-img {
+        display: block;
+        margin: 0;
+        line-height: 1;
+      }
+
+      #carbonads .carbon-img img {
+        display: block;
+      }
+
+      #carbonads .carbon-text {
+        padding: 10px;
+        text-align: left;
+        font-size: 13px;
+        margin-bottom: 16px;
+        line-height: 1.5;
+      }
+
+      #carbonads .carbon-poweredby {
+        display: block;
+        padding: 6px 8px;
+        background: #1e2021;
+        color: #aaa;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-weight: 600;
+        font-size: 8px;
+        line-height: 1;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        border-top-left-radius: 6px;
       }
     </style>
   </head>
@@ -224,18 +325,28 @@
 
     <section id="features">
       <div class="content">
-        <h3 data-i18n="features">Features</h3>
-        <ul>
-          <li data-i18n="midi-file">Open/Save MIDI Files</li>
-          <li data-i18n="gm-module">
-            Built-in GM compatible virtual sound module
-          </li>
-          <li data-i18n="piano-roll-editor">Piano Roll Editor</li>
-          <li data-i18n="multi-track">Multi track editing</li>
-          <li data-i18n="control-editing">Velocity, pitchbend editing</li>
-          <li data-i18n="tempo-track">Tempo Track</li>
-          <li data-i18n="feature-time-signature">Non 4/4 Time Signature</li>
-        </ul>
+        <div class="left">
+          <h3 data-i18n="features">Features</h3>
+          <ul>
+            <li data-i18n="midi-file">Open/Save MIDI Files</li>
+            <li data-i18n="gm-module">
+              Built-in GM compatible virtual sound module
+            </li>
+            <li data-i18n="piano-roll-editor">Piano Roll Editor</li>
+            <li data-i18n="multi-track">Multi track editing</li>
+            <li data-i18n="control-editing">Velocity, pitchbend editing</li>
+            <li data-i18n="tempo-track">Tempo Track</li>
+            <li data-i18n="feature-time-signature">Non 4/4 Time Signature</li>
+          </ul>
+        </div>
+        <div class="right">
+          <script
+            async
+            type="text/javascript"
+            src="//cdn.carbonads.com/carbon.js?serve=CVAIKKQM&placement=carbonadsnet"
+            id="_carbonads_js"
+          ></script>
+        </div>
       </div>
     </section>
 
@@ -249,30 +360,31 @@
           grateful if you could report bugs, recommend to others, and
           sponsorship.
         </p>
-        <p>
-          <a href="https://twitter.com/signalmidi" data-i18n="follow-twitter">
-            Check for updates on Twitter</a
-          >
-        </p>
-        <p>
-          <a
-            href="https://github.com/ryohey/signal/issues/new?assignees=&labels=&template=bug_report.md&title="
-            data-i18n="report-bugs"
-            >Report bugs on GitHub</a
-          >
-        </p>
-        <p>
-          <a
-            href="https://github.com/ryohey/signal/issues/new?assignees=&labels=&template=feature_request.md&title="
-            data-i18n="request-features"
-            >Request features on GitHub</a
-          >
-        </p>
-        <p>
-          <a href="https://github.com/sponsors/ryohey" data-i18n="sponsor"
-            >Become a sponsor</a
-          >
-        </p>
+        <a
+          class="external-link"
+          href="https://twitter.com/signalmidi"
+          data-i18n="follow-twitter"
+        >
+          Check for updates on Twitter</a
+        >
+        <a
+          class="external-link"
+          href="https://github.com/ryohey/signal/issues/new?assignees=&labels=&template=bug_report.md&title="
+          data-i18n="report-bugs"
+          >Report bugs on GitHub</a
+        >
+        <a
+          class="external-link"
+          href="https://github.com/ryohey/signal/issues/new?assignees=&labels=&template=feature_request.md&title="
+          data-i18n="request-features"
+          >Request features on GitHub</a
+        >
+        <a
+          class="external-link"
+          href="https://github.com/sponsors/ryohey"
+          data-i18n="sponsor"
+          >Become a sponsor</a
+        >
       </div>
     </section>
   </body>

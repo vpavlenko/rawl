@@ -3,12 +3,9 @@ import { range } from "lodash"
 import { observer } from "mobx-react-lite"
 import React, { FC, useCallback, useEffect, useRef, useState } from "react"
 import styled from "styled-components"
-import { containsPoint, IPoint, zeroRect } from "../../../common/geometry"
+import { IPoint, zeroRect } from "../../../common/geometry"
 import { bpmToUSecPerBeat, uSecPerBeatToBPM } from "../../../common/helpers/bpm"
-import {
-  changeTempo as _changeTempo,
-  createTempo as _createTempo,
-} from "../../actions"
+import { changeTempo as _changeTempo } from "../../actions"
 import { Layout } from "../../Constants"
 import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
@@ -48,7 +45,6 @@ export const TempoGraph: FC = observer(() => {
   const theme = useTheme()
 
   const changeTempo = _changeTempo(rootStore)
-  const createTempo = _createTempo(rootStore)
 
   const scrollLeft = Math.floor(_scrollLeft)
 
@@ -71,26 +67,37 @@ export const TempoGraph: FC = observer(() => {
   )
 
   const findEvent = useCallback(
-    (local: IPoint) => items.find((n) => containsPoint(n.bounds, local)),
+    (local: IPoint) =>
+      items.find(
+        (n) => local.x >= n.bounds.x && local.x < n.bounds.x + n.bounds.width
+      ),
     [items]
   )
 
-  function onMouseDownGraph(e: React.MouseEvent) {
-    const local = getLocal(e.nativeEvent)
-    handlePencilMouseDown(rootStore)(e.nativeEvent, local, transform)
-  }
+  const onMouseDownGraph = useCallback(
+    (e: React.MouseEvent) =>
+      handlePencilMouseDown(rootStore)(
+        e.nativeEvent,
+        getLocal(e.nativeEvent),
+        transform
+      ),
+    [rootStore, transform, scrollLeft]
+  )
 
-  function onWheelGraph(e: React.WheelEvent) {
-    const local = getLocal(e.nativeEvent)
-    const item = findEvent(local)
-    if (!item) {
-      return
-    }
-    const event = items.filter((ev) => ev.id === item.id)[0]
-    const movement = e.nativeEvent.deltaY > 0 ? -1 : 1
-    const bpm = uSecPerBeatToBPM(event.microsecondsPerBeat)
-    changeTempo(event.id, bpmToUSecPerBeat(bpm + movement))
-  }
+  const onWheelGraph = useCallback(
+    (e: React.WheelEvent) => {
+      const local = getLocal(e.nativeEvent)
+      const item = findEvent(local)
+      if (!item) {
+        return
+      }
+      const event = items.filter((ev) => ev.id === item.id)[0]
+      const movement = e.nativeEvent.deltaY > 0 ? -1 : 1
+      const bpm = uSecPerBeatToBPM(event.microsecondsPerBeat)
+      changeTempo(event.id, bpmToUSecPerBeat(bpm + movement))
+    },
+    [items, rootStore]
+  )
 
   const [renderer, setRenderer] = useState<LineGraphRenderer | null>(null)
 

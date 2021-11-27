@@ -8,7 +8,6 @@ import {
 import {
   panMidiEvent,
   programChangeMidiEvent,
-  setTempoMidiEvent,
   timeSignatureMidiEvent,
   volumeMidiEvent,
 } from "../../common/midi/MidiEvent"
@@ -40,25 +39,6 @@ export const changeTempo =
     track.updateEvent<TrackEventOf<SetTempoEvent>>(id, {
       microsecondsPerBeat: microsecondsPerBeat,
     })
-  }
-
-export const createTempo =
-  (rootStore: RootStore) => (tick: number, microsecondsPerBeat: number) => {
-    const {
-      song,
-      pianoRollStore: { quantizer },
-    } = rootStore
-
-    const track = song.conductorTrack
-    if (track === undefined) {
-      return
-    }
-    pushHistory(rootStore)()
-    const e = {
-      ...setTempoMidiEvent(0, Math.round(microsecondsPerBeat)),
-      tick: quantizer.round(tick),
-    }
-    track.createOrUpdate<TrackEventOf<SetTempoEvent>>(e)
   }
 
 /* events */

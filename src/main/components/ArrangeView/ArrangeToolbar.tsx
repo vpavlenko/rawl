@@ -45,7 +45,7 @@ export const ArrangeToolbar: FC = observer(() => {
   )
 
   const onSelectQuantize = useCallback(
-    (e) => (arrangeViewStore.quantize = e.denominator),
+    (denominator: number) => (arrangeViewStore.quantize = denominator),
     [arrangeViewStore]
   )
 
@@ -61,7 +61,7 @@ export const ArrangeToolbar: FC = observer(() => {
         <QuantizeSelector
           value={quantize}
           enabled={true}
-          onSelect={(value) => onSelectQuantize({ denominator: value })}
+          onSelect={onSelectQuantize}
           onClickSwitch={() => {}}
         />
 

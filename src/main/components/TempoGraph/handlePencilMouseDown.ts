@@ -30,7 +30,7 @@ export const handlePencilMouseDown =
 
     const event = {
       ...setTempoMidiEvent(0, Math.round(bpm)),
-      tick: pos.tick,
+      tick: quantizer.round(pos.tick),
     }
     track.createOrUpdate(event)
 

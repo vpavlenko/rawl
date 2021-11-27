@@ -7,7 +7,7 @@ export type ValueEventType =
   | { type: "pitchBend" }
   | { type: "controller"; controllerType: number }
 
-export const createValueEvent = (t: ValueEventType, value: number) => {
+export const createValueEvent = (t: ValueEventType) => (value: number) => {
   switch (t.type) {
     case "pitchBend":
       return pitchBendMidiEvent(0, 0, Math.round(value))

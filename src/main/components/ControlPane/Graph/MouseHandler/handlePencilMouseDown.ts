@@ -30,7 +30,7 @@ export const handlePencilMouseDown =
     const startClientPos = getClientPos(e)
     const pos = transform.fromPosition(startPoint)
 
-    const event = createValueEvent(type, pos.value)
+    const event = createValueEvent(type)(pos.value)
     createTrackEvent(rootStore)(event, pos.tick)
 
     let lastTick = pos.tick
@@ -47,7 +47,7 @@ export const handlePencilMouseDown =
         )
         const tick = transform.getTicks(local.x)
 
-        updateValueEvents(rootStore)(type, lastValue, value, lastTick, tick)
+        updateValueEvents(type)(rootStore)(lastValue, value, lastTick, tick)
 
         lastTick = tick
         lastValue = value

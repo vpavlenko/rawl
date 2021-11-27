@@ -172,7 +172,7 @@ const LineGraphControl = observer(
 
     const onClickAxis = useCallback(
       (value: number) => {
-        const event = createValueEvent(eventType, value)
+        const event = createValueEvent(eventType)(value)
         createOrUpdateControlEventsValue(rootStore)(event)
       },
       [eventType]

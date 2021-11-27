@@ -1,7 +1,6 @@
 import { IPoint, pointAdd, pointSub } from "../../../common/geometry"
 import { bpmToUSecPerBeat } from "../../../common/helpers/bpm"
 import { setTempoMidiEvent } from "../../../common/midi/MidiEvent"
-import Quantizer from "../../../common/quantizer"
 import { isSetTempoEvent } from "../../../common/track"
 import { TempoCoordTransform } from "../../../common/transform"
 import { updateEventsInRange } from "../../actions"
@@ -13,7 +12,10 @@ import RootStore from "../../stores/RootStore"
 export const handlePencilMouseDown =
   (rootStore: RootStore) =>
   (e: MouseEvent, startPoint: IPoint, transform: TempoCoordTransform) => {
-    const { song, tempoEditorStore } = rootStore
+    const {
+      song,
+      tempoEditorStore: { quantizer },
+    } = rootStore
 
     const track = song.conductorTrack
     if (track === undefined) {
@@ -46,11 +48,8 @@ export const handlePencilMouseDown =
         )
         const tick = transform.getTicks(local.x)
 
-        updateEventsInRange(
-          track,
-          new Quantizer(rootStore, 4, true),
-          isSetTempoEvent,
-          (v) => setTempoMidiEvent(0, bpmToUSecPerBeat(v))
+        updateEventsInRange(track, quantizer, isSetTempoEvent, (v) =>
+          setTempoMidiEvent(0, bpmToUSecPerBeat(v))
         )(lastValue, value, lastTick, tick)
 
         lastTick = tick

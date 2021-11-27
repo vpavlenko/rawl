@@ -1,4 +1,5 @@
 import { autorun, computed, makeObservable, observable } from "mobx"
+import Quantizer from "../../common/quantizer"
 import { TempoCoordTransform } from "../../common/transform"
 import { DisplayEvent } from "../components/PianoRoll/ControlMark"
 import { transformEvents } from "../components/TempoGraph/transformEvents"
@@ -15,6 +16,8 @@ export default class TempoEditorStore {
   autoScroll: boolean = true
   canvasWidth: number = 0
   canvasHeight: number = 0
+  quantize = 4
+  isQuantizeEnabled = true
 
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore
@@ -30,6 +33,8 @@ export default class TempoEditorStore {
       items: computed,
       cursorX: computed,
       contentWidth: computed,
+      quantize: observable,
+      isQuantizeEnabled: observable,
     })
   }
 
@@ -81,5 +86,9 @@ export default class TempoEditorStore {
     const endTick = startTick + widthTick
 
     return Math.max(trackEndTick, endTick) * transform.pixelsPerTick
+  }
+
+  get quantizer(): Quantizer {
+    return new Quantizer(this.rootStore, this.quantize, this.isQuantizeEnabled)
   }
 }

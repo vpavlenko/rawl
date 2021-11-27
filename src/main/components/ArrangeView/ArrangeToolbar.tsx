@@ -1,4 +1,3 @@
-import { AppBar, makeStyles, Toolbar } from "@material-ui/core"
 import { observer } from "mobx-react-lite"
 import { FC, useCallback } from "react"
 import styled from "styled-components"
@@ -6,20 +5,7 @@ import { localized } from "../../../common/localize/localizedString"
 import { useStores } from "../../hooks/useStores"
 import { AutoScrollButton } from "../Toolbar/AutoScrollButton"
 import QuantizeSelector from "../Toolbar/QuantizeSelector/QuantizeSelector"
-
-const useStyles = makeStyles((theme) => ({
-  appBar: {
-    background: "var(--background-color)",
-    borderBottom: "1px solid var(--divider-color)",
-  },
-  title: {
-    marginRight: "1rem",
-  },
-}))
-
-const Spacer = styled.div`
-  width: 1rem;
-`
+import { Toolbar } from "../Toolbar/Toolbar"
 
 const Title = styled.div`
   font-weight: bold;
@@ -49,24 +35,20 @@ export const ArrangeToolbar: FC = observer(() => {
     [arrangeViewStore]
   )
 
-  const classes = useStyles({})
-
   return (
-    <AppBar position="static" elevation={0} className={classes.appBar}>
-      <Toolbar variant="dense">
-        <Title>{localized("arrangement-view", "Arrangement View")}</Title>
+    <Toolbar>
+      <Title>{localized("arrangement-view", "Arrangement View")}</Title>
 
-        <FlexibleSpacer />
+      <FlexibleSpacer />
 
-        <QuantizeSelector
-          value={quantize}
-          enabled={true}
-          onSelect={onSelectQuantize}
-          onClickSwitch={() => {}}
-        />
+      <QuantizeSelector
+        value={quantize}
+        enabled={true}
+        onSelect={onSelectQuantize}
+        onClickSwitch={() => {}}
+      />
 
-        <AutoScrollButton onClick={onClickAutoScroll} selected={autoScroll} />
-      </Toolbar>
-    </AppBar>
+      <AutoScrollButton onClick={onClickAutoScroll} selected={autoScroll} />
+    </Toolbar>
   )
 })

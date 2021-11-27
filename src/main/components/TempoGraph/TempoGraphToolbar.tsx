@@ -1,4 +1,3 @@
-import { AppBar, makeStyles, Toolbar } from "@material-ui/core"
 import { observer } from "mobx-react-lite"
 import { FC, useCallback } from "react"
 import styled from "styled-components"
@@ -6,16 +5,7 @@ import { localized } from "../../../common/localize/localizedString"
 import { useStores } from "../../hooks/useStores"
 import { AutoScrollButton } from "../Toolbar/AutoScrollButton"
 import QuantizeSelector from "../Toolbar/QuantizeSelector/QuantizeSelector"
-
-const useStyles = makeStyles((theme) => ({
-  appBar: {
-    background: "var(--background-color)",
-    borderBottom: "1px solid var(--divider-color)",
-  },
-  title: {
-    marginRight: "1rem",
-  },
-}))
+import { Toolbar } from "../Toolbar/Toolbar"
 
 const Title = styled.span`
   font-weight: bold;
@@ -31,8 +21,6 @@ export const TempoGraphToolbar: FC = observer(() => {
   const { tempoEditorStore } = useStores()
   const { autoScroll, quantize, isQuantizeEnabled } = tempoEditorStore
 
-  const classes = useStyles({})
-
   const onSelectQuantize = useCallback(
     (denominator: number) => (tempoEditorStore.quantize = denominator),
     [tempoEditorStore]
@@ -43,24 +31,22 @@ export const TempoGraphToolbar: FC = observer(() => {
   }, [tempoEditorStore])
 
   return (
-    <AppBar position="static" elevation={0} className={classes.appBar}>
-      <Toolbar variant="dense">
-        <Title>{localized("tempo", "Tempo")}</Title>
+    <Toolbar>
+      <Title>{localized("tempo", "Tempo")}</Title>
 
-        <FlexibleSpacer />
+      <FlexibleSpacer />
 
-        <QuantizeSelector
-          value={quantize}
-          enabled={isQuantizeEnabled}
-          onSelect={onSelectQuantize}
-          onClickSwitch={onClickQuantizeSwitch}
-        />
+      <QuantizeSelector
+        value={quantize}
+        enabled={isQuantizeEnabled}
+        onSelect={onSelectQuantize}
+        onClickSwitch={onClickQuantizeSwitch}
+      />
 
-        <AutoScrollButton
-          onClick={() => (tempoEditorStore.autoScroll = !autoScroll)}
-          selected={autoScroll}
-        />
-      </Toolbar>
-    </AppBar>
+      <AutoScrollButton
+        onClick={() => (tempoEditorStore.autoScroll = !autoScroll)}
+        selected={autoScroll}
+      />
+    </Toolbar>
   )
 })

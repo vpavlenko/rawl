@@ -1,9 +1,9 @@
 import useComponentSize from "@rehooks/component-size"
-import { partition, range } from "lodash"
+import { range } from "lodash"
 import { observer } from "mobx-react-lite"
 import React, { FC, useCallback, useEffect, useRef, useState } from "react"
 import styled from "styled-components"
-import { containsPoint, IPoint } from "../../../common/geometry"
+import { containsPoint, IPoint, zeroRect } from "../../../common/geometry"
 import { bpmToUSecPerBeat, uSecPerBeatToBPM } from "../../../common/helpers/bpm"
 import {
   changeTempo as _changeTempo,
@@ -13,11 +13,11 @@ import { Layout } from "../../Constants"
 import { observeDrag2 } from "../../helpers/observeDrag"
 import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
+import { LineGraphRenderer } from "../ControlPane/Graph/LineGraphRenderer"
 import { GLCanvas } from "../GLCanvas/GLCanvas"
 import { BAR_WIDTH, HorizontalScrollBar } from "../inputs/ScrollBar"
 import CanvasPianoRuler from "../PianoRoll/CanvasPianoRuler"
 import { TempoGraphAxis } from "./TempoGraphAxis"
-import { TempoGraphRenderer } from "./TempoGraphRenderer"
 
 const Wrapper = styled.div`
   position: relative;
@@ -110,26 +110,30 @@ export const TempoGraph: FC = observer(() => {
     createTempo(tick, uSecPerBeatToBPM(bpm))
   }
 
-  const [renderer, setRenderer] = useState<TempoGraphRenderer | null>(null)
+  const [renderer, setRenderer] = useState<LineGraphRenderer | null>(null)
 
   useEffect(() => {
     if (renderer === null) {
       return
     }
 
-    const [highlightedBeats, nonHighlightedBeats] = partition(
-      beats,
-      (b) => b.beat === 0
-    )
-
     // 30 -> 510 = 17 Divided line
     const lines = range(30, transform.maxBPM, 30).map((i) => transform.getY(i))
 
+    const selectionRect = zeroRect
+
+    const lineWidth = 2
+    const circleRadius = 4
+
     renderer.theme = theme
+
     renderer.render(
-      items.map((i) => i.bounds),
-      nonHighlightedBeats.map((b) => b.x),
-      highlightedBeats.map((b) => b.x),
+      lineWidth,
+      circleRadius,
+      items.map((i) => ({ ...i.bounds, id: i.id })),
+      [],
+      selectionRect,
+      beats,
       lines,
       cursorX,
       scrollLeft
@@ -150,7 +154,7 @@ export const TempoGraph: FC = observer(() => {
       />
       <GLCanvas
         onCreateContext={useCallback(
-          (gl) => setRenderer(new TempoGraphRenderer(gl)),
+          (gl) => setRenderer(new LineGraphRenderer(gl)),
           []
         )}
         width={containerWidth}

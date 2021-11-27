@@ -2,15 +2,7 @@ import { FC, useEffect } from "react"
 import { play, stop } from "../../actions"
 import { redo, undo } from "../../actions/history"
 import { useStores } from "../../hooks/useStores"
-
-const isFocusable = (e: EventTarget) =>
-  e instanceof HTMLAnchorElement ||
-  e instanceof HTMLAreaElement ||
-  e instanceof HTMLInputElement ||
-  e instanceof HTMLSelectElement ||
-  e instanceof HTMLTextAreaElement ||
-  e instanceof HTMLButtonElement ||
-  e instanceof HTMLIFrameElement
+import { isFocusable } from "./isFocusable"
 
 export const GlobalKeyboardShortcut: FC = () => {
   const rootStore = useStores()

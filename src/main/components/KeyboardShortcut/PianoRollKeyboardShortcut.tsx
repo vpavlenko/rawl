@@ -9,15 +9,7 @@ import { useStores } from "../../hooks/useStores"
 import clipboard from "../../services/Clipboard"
 import { handleControlPaneKeyboardShortcut } from "./handleControlPaneKeyboardShortcut"
 import { handlePianoNotesKeyboardShortcut } from "./handlePianoNotesKeyboardShortcut"
-
-const isFocusable = (e: EventTarget) =>
-  e instanceof HTMLAnchorElement ||
-  e instanceof HTMLAreaElement ||
-  e instanceof HTMLInputElement ||
-  e instanceof HTMLSelectElement ||
-  e instanceof HTMLTextAreaElement ||
-  e instanceof HTMLButtonElement ||
-  e instanceof HTMLIFrameElement
+import { isFocusable } from "./isFocusable"
 
 export const PianoRollKeyboardShortcut: FC = () => {
   const rootStore = useStores()

@@ -6,15 +6,7 @@ import {
   arrangeResetSelection,
 } from "../../actions"
 import { useStores } from "../../hooks/useStores"
-
-const isFocusable = (e: EventTarget) =>
-  e instanceof HTMLAnchorElement ||
-  e instanceof HTMLAreaElement ||
-  e instanceof HTMLInputElement ||
-  e instanceof HTMLSelectElement ||
-  e instanceof HTMLTextAreaElement ||
-  e instanceof HTMLButtonElement ||
-  e instanceof HTMLIFrameElement
+import { isFocusable } from "./isFocusable"
 
 const SCROLL_DELTA = 24
 

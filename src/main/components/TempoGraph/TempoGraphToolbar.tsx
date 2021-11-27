@@ -1,38 +1,17 @@
-import { AppBar, makeStyles, Toolbar } from "@material-ui/core"
-import { KeyboardTab } from "@material-ui/icons"
-import { ToggleButton } from "@material-ui/lab"
 import { observer } from "mobx-react-lite"
-import { FC } from "react"
+import { FC, useCallback } from "react"
 import styled from "styled-components"
 import { localized } from "../../../common/localize/localizedString"
 import { useStores } from "../../hooks/useStores"
-
-const useStyles = makeStyles((theme) => ({
-  appBar: {
-    background: "var(--background-color)",
-    borderBottom: "1px solid var(--divider-color)",
-  },
-  title: {
-    marginRight: "1rem",
-  },
-}))
+import { AutoScrollButton } from "../Toolbar/AutoScrollButton"
+import QuantizeSelector from "../Toolbar/QuantizeSelector/QuantizeSelector"
+import { Toolbar } from "../Toolbar/Toolbar"
+import { ToolSelector } from "../Toolbar/ToolSelector"
 
 const Title = styled.span`
   font-weight: bold;
   margin-right: 2em;
   font-size: 1rem;
-`
-
-const AutoScrollButton = styled(ToggleButton)`
-  height: 2rem;
-  color: var(--text-color);
-  font-size: 1rem;
-  &.MuiToggleButton-root.Mui-selected {
-    background: var(--theme-color);
-  }
-  svg {
-    font-size: 1.3rem;
-  }
 `
 
 const FlexibleSpacer = styled.div`
@@ -41,25 +20,43 @@ const FlexibleSpacer = styled.div`
 
 export const TempoGraphToolbar: FC = observer(() => {
   const { tempoEditorStore } = useStores()
-  const autoScroll = tempoEditorStore.autoScroll
+  const { autoScroll, quantize, isQuantizeEnabled, mouseMode } =
+    tempoEditorStore
 
-  const classes = useStyles({})
+  const onSelectQuantize = useCallback(
+    (denominator: number) => (tempoEditorStore.quantize = denominator),
+    [tempoEditorStore]
+  )
+
+  const onClickQuantizeSwitch = useCallback(() => {
+    tempoEditorStore.isQuantizeEnabled = !tempoEditorStore.isQuantizeEnabled
+  }, [tempoEditorStore])
 
   return (
-    <AppBar position="static" elevation={0} className={classes.appBar}>
-      <Toolbar variant="dense">
-        <Title>{localized("tempo", "Tempo")}</Title>
+    <Toolbar>
+      <Title>{localized("tempo", "Tempo")}</Title>
 
-        <FlexibleSpacer />
+      <FlexibleSpacer />
 
-        <AutoScrollButton
-          value="autoScroll"
-          onClick={() => (tempoEditorStore.autoScroll = !autoScroll)}
-          selected={autoScroll}
-        >
-          <KeyboardTab />
-        </AutoScrollButton>
-      </Toolbar>
-    </AppBar>
+      <ToolSelector
+        mouseMode={mouseMode}
+        onSelect={useCallback(
+          (mouseMode) => (tempoEditorStore.mouseMode = mouseMode),
+          []
+        )}
+      />
+
+      <QuantizeSelector
+        value={quantize}
+        enabled={isQuantizeEnabled}
+        onSelect={onSelectQuantize}
+        onClickSwitch={onClickQuantizeSwitch}
+      />
+
+      <AutoScrollButton
+        onClick={() => (tempoEditorStore.autoScroll = !autoScroll)}
+        selected={autoScroll}
+      />
+    </Toolbar>
   )
 })

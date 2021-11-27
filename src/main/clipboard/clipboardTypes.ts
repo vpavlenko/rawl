@@ -1,4 +1,5 @@
-import { NoteEvent, TrackEvent } from "../../common/track"
+import { SetTempoEvent } from "midifile-ts"
+import { NoteEvent, TrackEvent, TrackEventOf } from "../../common/track"
 
 export interface PianoNotesClipboardData {
   type: "piano_notes"
@@ -29,3 +30,12 @@ export const isControlEventsClipboardData = (
   x: any
 ): x is ControlEventsClipboardData =>
   x.type === "control_events" && "events" in x
+
+export interface TempoEventsClipboardData {
+  type: "tempo_events"
+  events: TrackEventOf<SetTempoEvent>[]
+}
+
+export const isTempoEventsClipboardData = (
+  x: any
+): x is ControlEventsClipboardData => x.type === "tempo_events" && "events" in x

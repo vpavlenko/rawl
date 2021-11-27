@@ -1,8 +1,11 @@
 import { autorun, computed, makeObservable, observable } from "mobx"
+import Quantizer from "../../common/quantizer"
+import { TempoSelection } from "../../common/selection/TempoSelection"
 import { TempoCoordTransform } from "../../common/transform"
 import { DisplayEvent } from "../components/PianoRoll/ControlMark"
 import { transformEvents } from "../components/TempoGraph/transformEvents"
 import { Layout } from "../Constants"
+import { PianoRollMouseMode } from "./PianoRollStore"
 import RootStore from "./RootStore"
 import { RulerStore } from "./RulerStore"
 
@@ -15,6 +18,11 @@ export default class TempoEditorStore {
   autoScroll: boolean = true
   canvasWidth: number = 0
   canvasHeight: number = 0
+  quantize = 4
+  isQuantizeEnabled = true
+  mouseMode: PianoRollMouseMode = "pencil"
+  selection: TempoSelection | null = null
+  selectedEventIds: number[] = []
 
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore
@@ -26,6 +34,11 @@ export default class TempoEditorStore {
       autoScroll: observable,
       canvasWidth: observable,
       canvasHeight: observable,
+      quantize: observable,
+      isQuantizeEnabled: observable,
+      mouseMode: observable,
+      selection: observable,
+      selectedEventIds: observable,
       transform: computed,
       items: computed,
       cursorX: computed,
@@ -81,5 +94,9 @@ export default class TempoEditorStore {
     const endTick = startTick + widthTick
 
     return Math.max(trackEndTick, endTick) * transform.pixelsPerTick
+  }
+
+  get quantizer(): Quantizer {
+    return new Quantizer(this.rootStore, this.quantize, this.isQuantizeEnabled)
   }
 }

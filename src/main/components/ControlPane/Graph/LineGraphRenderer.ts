@@ -58,7 +58,7 @@ export class LineGraphRenderer {
   private cursorObject: SolidRectangleObject
   private beatObject: SolidRectangleObject
   private highlightedBeatObject: SolidRectangleObject
-  private lineObject: SolidRectangleObject
+  private horizontalLineObject: SolidRectangleObject
 
   theme: Theme = defaultTheme
   private circleRects: (IRect & IDValue)[] = []
@@ -73,12 +73,12 @@ export class LineGraphRenderer {
     this.cursorObject = new SolidRectangleObject(gl)
     this.beatObject = new SolidRectangleObject(gl)
     this.highlightedBeatObject = new SolidRectangleObject(gl)
-    this.lineObject = new SolidRectangleObject(gl)
+    this.horizontalLineObject = new SolidRectangleObject(gl)
 
     const objects = [
       this.beatObject,
       this.highlightedBeatObject,
-      this.lineObject,
+      this.horizontalLineObject,
       this.itemObject,
       this.highlightedCircleObject,
       this.circleObject,
@@ -107,9 +107,9 @@ export class LineGraphRenderer {
     circleRadius: number,
     values: (IPoint & IDValue)[],
     selectedEventIds: number[],
-    selection: IRect,
+    selection: IRect | null,
     beats: BeatWithX[],
-    lines: number[],
+    horizontalLines: number[],
     cursorX: number,
     scrollX: number
   ) {
@@ -142,8 +142,8 @@ export class LineGraphRenderer {
     this.highlightedBeatObject.updateBuffer(
       highlightedBeats.map((b) => this.vline(b.x))
     )
-    this.lineObject.updateBuffer(lines.map(this.hline))
-    this.selectionObject.updateBuffer([selection])
+    this.horizontalLineObject.updateBuffer(horizontalLines.map(this.hline))
+    this.selectionObject.updateBuffer(selection !== null ? [selection] : [])
 
     this.updateUniforms(scrollX)
     this.renderer.render()
@@ -180,7 +180,7 @@ export class LineGraphRenderer {
       fillColor: colorToVec4(Color(this.theme.themeColor).alpha(0.2)),
     })
 
-    this.lineObject.updateUniforms({
+    this.horizontalLineObject.updateUniforms({
       projectionMatrix: projectionMatrix,
       color: colorToVec4(Color(this.theme.dividerColor)),
     })

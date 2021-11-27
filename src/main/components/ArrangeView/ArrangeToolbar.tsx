@@ -1,26 +1,11 @@
-import { AppBar, makeStyles, Toolbar } from "@material-ui/core"
-import { KeyboardTab } from "@material-ui/icons"
 import { observer } from "mobx-react-lite"
 import { FC, useCallback } from "react"
 import styled from "styled-components"
 import { localized } from "../../../common/localize/localizedString"
 import { useStores } from "../../hooks/useStores"
-import QuantizeSelector from "../PianoRollToolbar/QuantizeSelector/QuantizeSelector"
-import { StyledToggleButton } from "../PianoRollToolbar/ToolSelector"
-
-const useStyles = makeStyles((theme) => ({
-  appBar: {
-    background: "var(--background-color)",
-    borderBottom: "1px solid var(--divider-color)",
-  },
-  title: {
-    marginRight: "1rem",
-  },
-}))
-
-const Spacer = styled.div`
-  width: 1rem;
-`
+import { AutoScrollButton } from "../Toolbar/AutoScrollButton"
+import QuantizeSelector from "../Toolbar/QuantizeSelector/QuantizeSelector"
+import { Toolbar } from "../Toolbar/Toolbar"
 
 const Title = styled.div`
   font-weight: bold;
@@ -46,30 +31,24 @@ export const ArrangeToolbar: FC = observer(() => {
   )
 
   const onSelectQuantize = useCallback(
-    (e) => (arrangeViewStore.quantize = e.denominator),
+    (denominator: number) => (arrangeViewStore.quantize = denominator),
     [arrangeViewStore]
   )
 
-  const classes = useStyles({})
-
   return (
-    <AppBar position="static" elevation={0} className={classes.appBar}>
-      <Toolbar variant="dense">
-        <Title>{localized("arrangement-view", "Arrangement View")}</Title>
+    <Toolbar>
+      <Title>{localized("arrangement-view", "Arrangement View")}</Title>
 
-        <FlexibleSpacer />
+      <FlexibleSpacer />
 
-        <QuantizeSelector
-          value={quantize}
-          enabled={true}
-          onSelect={(value) => onSelectQuantize({ denominator: value })}
-          onClickSwitch={() => {}}
-        />
+      <QuantizeSelector
+        value={quantize}
+        enabled={true}
+        onSelect={onSelectQuantize}
+        onClickSwitch={() => {}}
+      />
 
-        <StyledToggleButton onClick={onClickAutoScroll} selected={autoScroll}>
-          <KeyboardTab />
-        </StyledToggleButton>
-      </Toolbar>
-    </AppBar>
+      <AutoScrollButton onClick={onClickAutoScroll} selected={autoScroll} />
+    </Toolbar>
   )
 })

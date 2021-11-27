@@ -1,17 +1,17 @@
 import { FC, useEffect } from "react"
-import { pasteSelection } from "../../actions"
-import { pasteControlSelection } from "../../actions/control"
 import {
-  isControlEventsClipboardData,
-  isPianoNotesClipboardData,
-} from "../../clipboard/clipboardTypes"
+  copyTempoSelection,
+  deleteTempoSelection,
+  duplicateTempoSelection,
+  pasteTempoSelection,
+  resetTempoSelection,
+} from "../../actions/tempo"
+import { isTempoEventsClipboardData } from "../../clipboard/clipboardTypes"
 import { useStores } from "../../hooks/useStores"
 import clipboard from "../../services/Clipboard"
-import { handleControlPaneKeyboardShortcut } from "./handleControlPaneKeyboardShortcut"
-import { handlePianoNotesKeyboardShortcut } from "./handlePianoNotesKeyboardShortcut"
 import { isFocusable } from "./isFocusable"
 
-export const PianoRollKeyboardShortcut: FC = () => {
+export const TempoEditorKeyboardShortcut: FC = () => {
   const rootStore = useStores()
 
   useEffect(() => {
@@ -21,27 +21,45 @@ export const PianoRollKeyboardShortcut: FC = () => {
       }
       switch (e.code) {
         case "Digit1": {
-          rootStore.pianoRollStore.mouseMode = "pencil"
+          rootStore.tempoEditorStore.mouseMode = "pencil"
           break
         }
         case "Digit2": {
-          rootStore.pianoRollStore.mouseMode = "selection"
+          rootStore.tempoEditorStore.mouseMode = "selection"
+          break
+        }
+        case "Escape": {
+          resetTempoSelection(rootStore)()
+          break
+        }
+        case "Backspace":
+        case "Delete":
+          deleteTempoSelection(rootStore)()
+          break
+        case "KeyC":
+          if (e.ctrlKey || e.metaKey) {
+            copyTempoSelection(rootStore)()
+          }
+          break
+        case "KeyX":
+          if (e.ctrlKey || e.metaKey) {
+            copyTempoSelection(rootStore)()
+            deleteTempoSelection(rootStore)()
+          }
+          break
+        case "KeyD": {
+          if (e.ctrlKey || e.metaKey) {
+            duplicateTempoSelection(rootStore)()
+          }
           break
         }
         default:
-          if (handlePianoNotesKeyboardShortcut(rootStore)(e)) {
-            break
-          }
-          if (handleControlPaneKeyboardShortcut(rootStore)(e)) {
-            break
-          }
           // do not call preventDefault
           return
       }
       e.preventDefault()
     }
 
-    // Handle pasting here to allow pasting even when the element does not have focus, such as after clicking the ruler
     const onPaste = (e: ClipboardEvent) => {
       if (e.target !== null && isFocusable(e.target)) {
         return
@@ -55,10 +73,8 @@ export const PianoRollKeyboardShortcut: FC = () => {
 
       const obj = JSON.parse(text)
 
-      if (isPianoNotesClipboardData(obj)) {
-        pasteSelection(rootStore)()
-      } else if (isControlEventsClipboardData(obj)) {
-        pasteControlSelection(rootStore)()
+      if (isTempoEventsClipboardData(obj)) {
+        pasteTempoSelection(rootStore)()
       }
     }
 

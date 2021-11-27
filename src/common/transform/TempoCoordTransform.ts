@@ -1,9 +1,11 @@
+import { IPoint } from "../geometry"
+
 export default class TempoCoordTransform {
-  pixelsPerTick: number
+  readonly pixelsPerTick: number
   // グラフの描画領域の高さ
   // Higher graph drawing area
-  height: number
-  maxBPM: number
+  readonly height: number
+  readonly maxBPM: number
 
   constructor(pixelsPerTick: number, height: number, maxBPM = 320) {
     this.pixelsPerTick = pixelsPerTick
@@ -41,5 +43,12 @@ export default class TempoCoordTransform {
       this.height === t.height &&
       this.maxBPM === t.maxBPM
     )
+  }
+
+  fromPosition(position: IPoint) {
+    return {
+      tick: this.getTicks(position.x),
+      bpm: this.getBPM(position.y),
+    }
   }
 }

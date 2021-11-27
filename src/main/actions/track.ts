@@ -1,4 +1,4 @@
-import { AnyChannelEvent, SetTempoEvent } from "midifile-ts"
+import { AnyChannelEvent, AnyEvent, SetTempoEvent } from "midifile-ts"
 import { closedRange } from "../../common/helpers/array"
 import {
   createValueEvent,
@@ -8,12 +8,17 @@ import {
 import {
   panMidiEvent,
   programChangeMidiEvent,
-  setTempoMidiEvent,
   timeSignatureMidiEvent,
   volumeMidiEvent,
 } from "../../common/midi/MidiEvent"
+import Quantizer from "../../common/quantizer"
 import { getMeasureStart } from "../../common/song/selector"
-import { isNoteEvent, NoteEvent, TrackEventOf } from "../../common/track"
+import Track, {
+  isNoteEvent,
+  NoteEvent,
+  TrackEvent,
+  TrackEventOf,
+} from "../../common/track"
 import RootStore from "../stores/RootStore"
 import { pushHistory } from "./history"
 import {
@@ -34,25 +39,6 @@ export const changeTempo =
     track.updateEvent<TrackEventOf<SetTempoEvent>>(id, {
       microsecondsPerBeat: microsecondsPerBeat,
     })
-  }
-
-export const createTempo =
-  (rootStore: RootStore) => (tick: number, microsecondsPerBeat: number) => {
-    const {
-      song,
-      pianoRollStore: { quantizer },
-    } = rootStore
-
-    const track = song.conductorTrack
-    if (track === undefined) {
-      return
-    }
-    pushHistory(rootStore)()
-    const e = {
-      ...setTempoMidiEvent(0, Math.round(microsecondsPerBeat)),
-      tick: quantizer.round(tick),
-    }
-    track.createOrUpdate<TrackEventOf<SetTempoEvent>>(e)
   }
 
 /* events */
@@ -102,23 +88,21 @@ export const createEvent =
   }
 
 // Update controller events in the range with linear interpolation values
-export const updateValueEvents =
-  (rootStore: RootStore) =>
+export const updateEventsInRange =
   (
-    type: ValueEventType,
+    track: Track | undefined,
+    quantizer: Quantizer,
+    filterEvent: (e: TrackEvent) => boolean,
+    createEvent: (value: number) => AnyEvent
+  ) =>
+  (
     startValue: number,
     endValue: number,
     startTick: number,
     endTick: number
   ) => {
-    const {
-      song,
-      pianoRollStore: { quantizer },
-    } = rootStore
-
-    const selectedTrack = song.selectedTrack
-    if (selectedTrack === undefined) {
-      throw new Error("selected track is undefined")
+    if (track === undefined) {
+      throw new Error("track is undefined")
     }
 
     const minTick = Math.min(startTick, endTick)
@@ -147,7 +131,7 @@ export const updateValueEvents =
             )
 
     // Delete events in the dragged area
-    const events = selectedTrack.events.filter(isValueEvent(type)).filter(
+    const events = track.events.filter(filterEvent).filter(
       (e) =>
         // to prevent remove the event created previously, do not remove the event placed at startTick
         e.tick !== startTick &&
@@ -155,12 +139,12 @@ export const updateValueEvents =
         e.tick <= Math.max(maxTick, _endTick)
     )
 
-    selectedTrack.transaction((it) => {
+    track.transaction((it) => {
       it.removeEvents(events.map((e) => e.id))
 
       const newEvents = closedRange(_startTick, _endTick, quantizer.unit).map(
         (tick) => ({
-          ...createValueEvent(type, getValue(tick)),
+          ...createEvent(getValue(tick)),
           tick,
         })
       )
@@ -168,6 +152,15 @@ export const updateValueEvents =
       it.addEvents(newEvents)
     })
   }
+
+export const updateValueEvents =
+  (type: ValueEventType) => (rootStore: RootStore) =>
+    updateEventsInRange(
+      rootStore.song.selectedTrack,
+      rootStore.pianoRollStore.quantizer,
+      isValueEvent(type),
+      createValueEvent(type)
+    )
 
 export const removeEvent = (rootStore: RootStore) => (eventId: number) => {
   const { song } = rootStore

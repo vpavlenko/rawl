@@ -1,18 +1,17 @@
 import { AppBar, Toolbar } from "@material-ui/core"
-import { KeyboardTab } from "@material-ui/icons"
 import { makeStyles } from "@material-ui/styles"
 import { observer } from "mobx-react-lite"
 import React, { FC, useCallback } from "react"
 import styled from "styled-components"
-import { localized } from "../../../common/localize/localizedString"
 import { useStores } from "../../hooks/useStores"
 import InstrumentBrowser from "../InstrumentBrowser/InstrumentBrowser"
 import { TrackListMenuButton } from "../TrackList/TrackListMenuButton"
+import { AutoScrollButton } from "./AutoScrollButton"
 import { EventListButton } from "./EventListButton"
 import { InstrumentButton } from "./InstrumentButton"
 import { PanSlider } from "./PanSlider"
 import QuantizeSelector from "./QuantizeSelector/QuantizeSelector"
-import { StyledToggleButton, ToolSelector } from "./ToolSelector"
+import { ToolSelector } from "./ToolSelector"
 import { TrackNameInput } from "./TrackNameInput"
 import { VolumeSlider } from "./VolumeSlider"
 
@@ -25,11 +24,6 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "1rem",
   },
 }))
-
-const AutoScrollIcon = styled(KeyboardTab)`
-  height: 2rem;
-  font-size: 1.3rem;
-`
 
 const Spacer = styled.div`
   width: 1rem;
@@ -95,14 +89,7 @@ export const PianoRollToolbar: FC = observer(() => {
           onClickSwitch={onClickQuantizeSwitch}
         />
 
-        <StyledToggleButton
-          onClick={onClickAutoScroll}
-          selected={autoScroll}
-          value="autoScroll"
-          title={localized("auto-scroll", "Auto-Scroll")}
-        >
-          <AutoScrollIcon />
-        </StyledToggleButton>
+        <AutoScrollButton onClick={onClickAutoScroll} selected={autoScroll} />
       </Toolbar>
     </AppBar>
   )

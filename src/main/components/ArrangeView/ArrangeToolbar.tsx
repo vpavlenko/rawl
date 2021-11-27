@@ -1,12 +1,11 @@
 import { AppBar, makeStyles, Toolbar } from "@material-ui/core"
-import { KeyboardTab } from "@material-ui/icons"
 import { observer } from "mobx-react-lite"
 import { FC, useCallback } from "react"
 import styled from "styled-components"
 import { localized } from "../../../common/localize/localizedString"
 import { useStores } from "../../hooks/useStores"
+import { AutoScrollButton } from "../PianoRollToolbar/AutoScrollButton"
 import QuantizeSelector from "../PianoRollToolbar/QuantizeSelector/QuantizeSelector"
-import { StyledToggleButton } from "../PianoRollToolbar/ToolSelector"
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -66,9 +65,7 @@ export const ArrangeToolbar: FC = observer(() => {
           onClickSwitch={() => {}}
         />
 
-        <StyledToggleButton onClick={onClickAutoScroll} selected={autoScroll}>
-          <KeyboardTab />
-        </StyledToggleButton>
+        <AutoScrollButton onClick={onClickAutoScroll} selected={autoScroll} />
       </Toolbar>
     </AppBar>
   )

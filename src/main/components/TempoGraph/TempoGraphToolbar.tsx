@@ -1,11 +1,10 @@
 import { AppBar, makeStyles, Toolbar } from "@material-ui/core"
-import { KeyboardTab } from "@material-ui/icons"
-import { ToggleButton } from "@material-ui/lab"
 import { observer } from "mobx-react-lite"
 import { FC } from "react"
 import styled from "styled-components"
 import { localized } from "../../../common/localize/localizedString"
 import { useStores } from "../../hooks/useStores"
+import { AutoScrollButton } from "../PianoRollToolbar/AutoScrollButton"
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -21,18 +20,6 @@ const Title = styled.span`
   font-weight: bold;
   margin-right: 2em;
   font-size: 1rem;
-`
-
-const AutoScrollButton = styled(ToggleButton)`
-  height: 2rem;
-  color: var(--text-color);
-  font-size: 1rem;
-  &.MuiToggleButton-root.Mui-selected {
-    background: var(--theme-color);
-  }
-  svg {
-    font-size: 1.3rem;
-  }
 `
 
 const FlexibleSpacer = styled.div`
@@ -53,12 +40,9 @@ export const TempoGraphToolbar: FC = observer(() => {
         <FlexibleSpacer />
 
         <AutoScrollButton
-          value="autoScroll"
           onClick={() => (tempoEditorStore.autoScroll = !autoScroll)}
           selected={autoScroll}
-        >
-          <KeyboardTab />
-        </AutoScrollButton>
+        />
       </Toolbar>
     </AppBar>
   )

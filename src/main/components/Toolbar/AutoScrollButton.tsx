@@ -2,7 +2,7 @@ import { KeyboardTab } from "@material-ui/icons"
 import { VFC } from "react"
 import styled from "styled-components"
 import { localized } from "../../../common/localize/localizedString"
-import { StyledToggleButton } from "./ToolSelector"
+import { StyledToggleButton } from "../PianoRollToolbar/ToolSelector"
 
 const AutoScrollIcon = styled(KeyboardTab)`
   height: 2rem;

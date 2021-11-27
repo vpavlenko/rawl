@@ -4,8 +4,8 @@ import { FC, useCallback } from "react"
 import styled from "styled-components"
 import { localized } from "../../../common/localize/localizedString"
 import { useStores } from "../../hooks/useStores"
-import { AutoScrollButton } from "../PianoRollToolbar/AutoScrollButton"
-import QuantizeSelector from "../PianoRollToolbar/QuantizeSelector/QuantizeSelector"
+import { AutoScrollButton } from "../Toolbar/AutoScrollButton"
+import QuantizeSelector from "../Toolbar/QuantizeSelector/QuantizeSelector"
 
 const useStyles = makeStyles((theme) => ({
   appBar: {

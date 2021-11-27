@@ -10,7 +10,7 @@ import { TrackListMenuButton } from "../TrackList/TrackListMenuButton"
 import { EventListButton } from "./EventListButton"
 import { InstrumentButton } from "./InstrumentButton"
 import { PanSlider } from "./PanSlider"
-import { ToolSelector } from "./ToolSelector"
+import { PianoRollToolSelector } from "./PianoRollToolSelector"
 import { TrackNameInput } from "./TrackNameInput"
 import { VolumeSlider } from "./VolumeSlider"
 
@@ -66,7 +66,7 @@ export const PianoRollToolbar: FC = observer(() => {
 
       <FlexibleSpacer />
 
-      <ToolSelector />
+      <PianoRollToolSelector />
 
       <QuantizeSelector
         value={quantize}

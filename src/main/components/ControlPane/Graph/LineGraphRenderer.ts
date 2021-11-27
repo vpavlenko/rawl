@@ -107,7 +107,7 @@ export class LineGraphRenderer {
     circleRadius: number,
     values: (IPoint & IDValue)[],
     selectedEventIds: number[],
-    selection: IRect,
+    selection: IRect | null,
     beats: BeatWithX[],
     horizontalLines: number[],
     cursorX: number,
@@ -143,7 +143,7 @@ export class LineGraphRenderer {
       highlightedBeats.map((b) => this.vline(b.x))
     )
     this.horizontalLineObject.updateBuffer(horizontalLines.map(this.hline))
-    this.selectionObject.updateBuffer([selection])
+    this.selectionObject.updateBuffer(selection !== null ? [selection] : [])
 
     this.updateUniforms(scrollX)
     this.renderer.render()

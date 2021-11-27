@@ -1,13 +1,13 @@
-import { IPoint, pointAdd, pointSub } from "../../../common/geometry"
-import { bpmToUSecPerBeat } from "../../../common/helpers/bpm"
-import { setTempoMidiEvent } from "../../../common/midi/MidiEvent"
-import { isSetTempoEvent } from "../../../common/track"
-import { TempoCoordTransform } from "../../../common/transform"
-import { updateEventsInRange } from "../../actions"
-import { pushHistory } from "../../actions/history"
-import { getClientPos } from "../../helpers/mouseEvent"
-import { observeDrag } from "../../helpers/observeDrag"
-import RootStore from "../../stores/RootStore"
+import { IPoint, pointAdd, pointSub } from "../../../../common/geometry"
+import { bpmToUSecPerBeat } from "../../../../common/helpers/bpm"
+import { setTempoMidiEvent } from "../../../../common/midi/MidiEvent"
+import { isSetTempoEvent } from "../../../../common/track"
+import { TempoCoordTransform } from "../../../../common/transform"
+import { updateEventsInRange } from "../../../actions"
+import { pushHistory } from "../../../actions/history"
+import { getClientPos } from "../../../helpers/mouseEvent"
+import { observeDrag } from "../../../helpers/observeDrag"
+import RootStore from "../../../stores/RootStore"
 
 export const handlePencilMouseDown =
   (rootStore: RootStore) =>

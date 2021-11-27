@@ -1,3 +1,5 @@
+import { IPoint } from "../geometry"
+
 export default class TempoCoordTransform {
   readonly pixelsPerTick: number
   // グラフの描画領域の高さ
@@ -41,5 +43,12 @@ export default class TempoCoordTransform {
       this.height === t.height &&
       this.maxBPM === t.maxBPM
     )
+  }
+
+  fromPosition(position: IPoint) {
+    return {
+      tick: this.getTicks(position.x),
+      bpm: this.getBPM(position.y),
+    }
   }
 }

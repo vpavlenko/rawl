@@ -10,13 +10,13 @@ import {
   createTempo as _createTempo,
 } from "../../actions"
 import { Layout } from "../../Constants"
-import { observeDrag2 } from "../../helpers/observeDrag"
 import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
 import { LineGraphRenderer } from "../ControlPane/Graph/LineGraphRenderer"
 import { GLCanvas } from "../GLCanvas/GLCanvas"
 import { BAR_WIDTH, HorizontalScrollBar } from "../inputs/ScrollBar"
 import CanvasPianoRuler from "../PianoRoll/CanvasPianoRuler"
+import { handlePencilMouseDown } from "./handlePencilMouseDown"
 import { TempoGraphAxis } from "./TempoGraphAxis"
 
 const Wrapper = styled.div`
@@ -77,18 +77,7 @@ export const TempoGraph: FC = observer(() => {
 
   function onMouseDownGraph(e: React.MouseEvent) {
     const local = getLocal(e.nativeEvent)
-    const item = findEvent(local)
-    if (!item) {
-      return
-    }
-    const event = items.filter((ev) => ev.id === item.id)[0]
-    const bpm = uSecPerBeatToBPM(event.microsecondsPerBeat)
-    observeDrag2(e.nativeEvent, {
-      onMouseMove: (_e, delta) => {
-        const deltaBpm = transform.getDeltaBPM(delta.y)
-        changeTempo(event.id, bpmToUSecPerBeat(bpm + deltaBpm))
-      },
-    })
+    handlePencilMouseDown(rootStore)(e.nativeEvent, local, transform)
   }
 
   function onWheelGraph(e: React.WheelEvent) {
@@ -101,13 +90,6 @@ export const TempoGraph: FC = observer(() => {
     const movement = e.nativeEvent.deltaY > 0 ? -1 : 1
     const bpm = uSecPerBeatToBPM(event.microsecondsPerBeat)
     changeTempo(event.id, bpmToUSecPerBeat(bpm + movement))
-  }
-
-  function onDoubleClickGraph(e: React.MouseEvent) {
-    const local = getLocal(e.nativeEvent)
-    const tick = transform.getTicks(local.x)
-    const bpm = transform.getBPM(local.y)
-    createTempo(tick, uSecPerBeatToBPM(bpm))
   }
 
   const [renderer, setRenderer] = useState<LineGraphRenderer | null>(null)
@@ -160,7 +142,6 @@ export const TempoGraph: FC = observer(() => {
         width={containerWidth}
         height={contentHeight}
         onMouseDown={onMouseDownGraph}
-        onDoubleClick={onDoubleClickGraph}
         onWheel={onWheelGraph}
         style={{
           position: "absolute",

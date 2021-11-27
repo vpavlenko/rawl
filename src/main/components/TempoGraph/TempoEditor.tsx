@@ -1,5 +1,6 @@
 import { FC } from "react"
 import styled from "styled-components"
+import { TempoEditorKeyboardShortcut } from "../KeyboardShortcut/TempoEditorKeyboardShortcut"
 import { TempoGraph } from "./TempoGraph"
 import { TempoGraphToolbar } from "./TempoGraphToolbar"
 
@@ -13,6 +14,7 @@ const Container = styled.div`
 export const TempoEditor: FC = () => {
   return (
     <Container>
+      <TempoEditorKeyboardShortcut />
       <TempoGraphToolbar />
       <TempoGraph />
     </Container>

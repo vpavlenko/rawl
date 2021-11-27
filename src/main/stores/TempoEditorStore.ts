@@ -4,6 +4,7 @@ import { TempoCoordTransform } from "../../common/transform"
 import { DisplayEvent } from "../components/PianoRoll/ControlMark"
 import { transformEvents } from "../components/TempoGraph/transformEvents"
 import { Layout } from "../Constants"
+import { PianoRollMouseMode } from "./PianoRollStore"
 import RootStore from "./RootStore"
 import { RulerStore } from "./RulerStore"
 
@@ -18,6 +19,7 @@ export default class TempoEditorStore {
   canvasHeight: number = 0
   quantize = 4
   isQuantizeEnabled = true
+  mouseMode: PianoRollMouseMode = "pencil"
 
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore
@@ -29,12 +31,13 @@ export default class TempoEditorStore {
       autoScroll: observable,
       canvasWidth: observable,
       canvasHeight: observable,
+      quantize: observable,
+      isQuantizeEnabled: observable,
+      mouseMode: observable,
       transform: computed,
       items: computed,
       cursorX: computed,
       contentWidth: computed,
-      quantize: observable,
-      isQuantizeEnabled: observable,
     })
   }
 

@@ -40,15 +40,17 @@ const Routes: FC = observer(() => {
 })
 
 export const RootView: FC = () => (
-  <Column>
-    <Navigation />
-    <Container>
-      <Routes />
-      <TransportPanel />
-      <BuildInfo />
-      <HelpDialog />
-      <MIDIDeviceDialog />
-      <EventEditor />
-    </Container>
-  </Column>
+  <>
+    <Column>
+      <Navigation />
+      <Container>
+        <Routes />
+        <TransportPanel />
+        <BuildInfo />
+        <EventEditor />
+      </Container>
+    </Column>
+    <HelpDialog />
+    <MIDIDeviceDialog />
+  </>
 )

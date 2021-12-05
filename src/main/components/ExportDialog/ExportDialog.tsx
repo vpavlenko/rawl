@@ -34,10 +34,17 @@ export const ExportDialog: VFC = observer(() => {
   }, [open])
 
   return (
-    <Dialog open={open} onClose={onClose} fullWidth maxWidth="xs">
+    <Dialog
+      open={open}
+      onClose={onClose}
+      fullWidth
+      maxWidth="xs"
+      disableEscapeKeyDown={true}
+      disableBackdropClick={true}
+    >
       <DialogTitle>{localized("export-audio", "Export Audio")}</DialogTitle>
       <DialogContent>
-        <p>Type: WAV</p>
+        <p>{localized("file-type", "File Type")}: WAV</p>
         {!exportEnabled && (
           <Alert severity="warning">
             {localized("export-error-too-short", "Songs are too short")}

@@ -83,5 +83,9 @@ export default {
     property: "プロパティ",
     quantize: "クオンタイズ",
     "export-audio": "オーディオ書き出し",
+    export: "書き出し",
+    "exporting-audio": "オーディオを書き出し中...",
+    "file-type": "ファイル形式",
+    "export-error-too-short": "曲が短すぎます",
   },
 } as { [key: string]: { [key: string]: string } }

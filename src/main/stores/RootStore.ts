@@ -8,6 +8,7 @@ import { MIDIInput, previewMidiInput } from "../services/MIDIInput"
 import { MIDIRecorder } from "../services/MIDIRecorder"
 import { SoundFontSynth } from "../services/SoundFontSynth"
 import ArrangeViewStore from "./ArrangeViewStore"
+import { ExportStore } from "./ExportStore"
 import HistoryStore from "./HistoryStore"
 import { MIDIDeviceStore } from "./MIDIDeviceStore"
 import PianoRollStore from "./PianoRollStore"
@@ -34,6 +35,7 @@ export default class RootStore {
   arrangeViewStore = new ArrangeViewStore(this)
   tempoEditorStore = new TempoEditorStore(this)
   midiDeviceStore = new MIDIDeviceStore()
+  exportStore = new ExportStore(this)
 
   services: Services
 

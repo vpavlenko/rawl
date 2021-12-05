@@ -5,6 +5,8 @@ import { useStores } from "../../hooks/useStores"
 import { ArrangeEditor } from "../ArrangeView/ArrangeEditor"
 import { BuildInfo } from "../BuildInfo"
 import { EventEditor } from "../EventEditor/EventEditor"
+import { ExportDialog } from "../ExportDialog/ExportDialog"
+import { ExportProgressDialog } from "../ExportDialog/ExportProgressDialog"
 import { HelpDialog } from "../Help/HelpDialog"
 import { MIDIDeviceDialog } from "../MIDIDeviceView/MIDIDeviceDialog"
 import { Navigation } from "../Navigation/Navigation"
@@ -52,5 +54,7 @@ export const RootView: FC = () => (
     </Column>
     <HelpDialog />
     <MIDIDeviceDialog />
+    <ExportDialog />
+    <ExportProgressDialog />
   </>
 )

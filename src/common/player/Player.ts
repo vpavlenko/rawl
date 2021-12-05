@@ -30,7 +30,7 @@ function convertTrackEvents(
   )
 }
 
-function collectAllEvents(song: Song): PlayerEvent[] {
+export function collectAllEvents(song: Song): PlayerEvent[] {
   return flatten(
     song.tracks.map((t, i) => convertTrackEvents(t.events, t.channel, i))
   )

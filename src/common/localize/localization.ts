@@ -82,5 +82,6 @@ export default {
     "open-chat": "チャットを開く",
     property: "プロパティ",
     quantize: "クオンタイズ",
+    "export-audio": "オーディオ書き出し",
   },
 } as { [key: string]: { [key: string]: string } }

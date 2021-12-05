@@ -34,14 +34,7 @@ export const ExportDialog: VFC = observer(() => {
   }, [open])
 
   return (
-    <Dialog
-      open={open}
-      onClose={onClose}
-      fullWidth
-      maxWidth="xs"
-      disableEscapeKeyDown={true}
-      disableBackdropClick={true}
-    >
+    <Dialog open={open} onClose={onClose} fullWidth maxWidth="xs">
       <DialogTitle>{localized("export-audio", "Export Audio")}</DialogTitle>
       <DialogContent>
         <p>{localized("file-type", "File Type")}: WAV</p>

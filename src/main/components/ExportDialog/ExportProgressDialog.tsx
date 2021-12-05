@@ -16,10 +16,6 @@ export const ExportProgressDialog: VFC = observer(() => {
   const rootStore = useStores()
   const { exportStore } = rootStore
   const { openExportProgressDialog: open, progress } = exportStore
-  const onClose = useCallback(
-    () => (exportStore.openExportProgressDialog = false),
-    [exportStore]
-  )
 
   const onClickCancel = useCallback(() => {
     exportStore.openExportProgressDialog = false
@@ -27,7 +23,7 @@ export const ExportProgressDialog: VFC = observer(() => {
   }, [])
 
   return (
-    <Dialog open={open} onClose={onClose} fullWidth maxWidth="xs">
+    <Dialog open={open} fullWidth maxWidth="xs">
       <DialogTitle>
         {localized("exporting-audio", "Exporting Audio...")}
       </DialogTitle>

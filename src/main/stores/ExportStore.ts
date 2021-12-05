@@ -5,7 +5,7 @@ export class ExportStore {
   openExportDialog = false
   openExportProgressDialog = false
   progress = 0
-  rendererWorker: Worker | null = null
+  isCanceled = false
   private readonly rootStore: SongStore
 
   constructor(rootStore: SongStore) {

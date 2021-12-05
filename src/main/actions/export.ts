@@ -1,5 +1,6 @@
 import {
   audioDataToAudioBuffer,
+  CancelMessage,
   getSamplesFromSoundFont,
   OutMessage,
   StartMessage,
@@ -33,12 +34,14 @@ export const exportSongAsWav = (rootStore: RootStore) => () => {
   const sampleRate = 44100
   const events = songToSynthEvents(song, sampleRate)
   const message: StartMessage = {
+    type: "start",
     samples,
     events,
     sampleRate,
   }
   worker.postMessage(message)
 
+  exportStore.rendererWorker = worker
   exportStore.openExportProgressDialog = true
   exportStore.progress = 0
 
@@ -71,7 +74,8 @@ export const exportSongAsWav = (rootStore: RootStore) => () => {
 }
 
 export const cancelExport = (rootStore: RootStore) => () => {
-  rootStore.exportStore.rendererWorker?.terminate()
+  const message: CancelMessage = { type: "cancel" }
+  rootStore.exportStore.rendererWorker?.postMessage(message)
 }
 
 export const canExport = (song: Song) =>

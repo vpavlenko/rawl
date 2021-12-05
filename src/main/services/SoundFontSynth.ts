@@ -7,6 +7,11 @@ export class SoundFontSynth implements SynthOutput {
   private soundFontURL: string
   private context = new (window.AudioContext || window.webkitAudioContext)()
 
+  private _loadedSoundFontData: ArrayBuffer | null = null
+  get loadedSoundFontData(): ArrayBuffer | null {
+    return this._loadedSoundFontData
+  }
+
   isLoading: boolean = true
 
   constructor(soundFontURL: string) {
@@ -36,19 +41,13 @@ export class SoundFontSynth implements SynthOutput {
 
   private async loadSoundFont() {
     const data = await (await fetch(this.soundFontURL)).arrayBuffer()
-    const parsed = getSamplesFromSoundFont(new Uint8Array(data), this.context)
+    const samples = getSamplesFromSoundFont(new Uint8Array(data), this.context)
+    this._loadedSoundFontData = data
 
-    for (const sample of parsed) {
+    for (const sample of samples) {
       this.postSynthMessage(
-        {
-          type: "loadSample",
-          sample,
-          bank: sample.bank,
-          instrument: sample.instrument,
-          keyRange: sample.keyRange,
-          velRange: sample.velRange,
-        },
-        [sample.buffer] // transfer instead of copy
+        sample,
+        [sample.sample.buffer] // transfer instead of copy
       )
     }
   }

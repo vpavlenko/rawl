@@ -5,6 +5,8 @@ import { useStores } from "../../hooks/useStores"
 import { ArrangeEditor } from "../ArrangeView/ArrangeEditor"
 import { BuildInfo } from "../BuildInfo"
 import { EventEditor } from "../EventEditor/EventEditor"
+import { ExportDialog } from "../ExportDialog/ExportDialog"
+import { ExportProgressDialog } from "../ExportDialog/ExportProgressDialog"
 import { HelpDialog } from "../Help/HelpDialog"
 import { MIDIDeviceDialog } from "../MIDIDeviceView/MIDIDeviceDialog"
 import { Navigation } from "../Navigation/Navigation"
@@ -40,15 +42,19 @@ const Routes: FC = observer(() => {
 })
 
 export const RootView: FC = () => (
-  <Column>
-    <Navigation />
-    <Container>
-      <Routes />
-      <TransportPanel />
-      <BuildInfo />
-      <HelpDialog />
-      <MIDIDeviceDialog />
-      <EventEditor />
-    </Container>
-  </Column>
+  <>
+    <Column>
+      <Navigation />
+      <Container>
+        <Routes />
+        <TransportPanel />
+        <BuildInfo />
+        <EventEditor />
+      </Container>
+    </Column>
+    <HelpDialog />
+    <MIDIDeviceDialog />
+    <ExportDialog />
+    <ExportProgressDialog />
+  </>
 )

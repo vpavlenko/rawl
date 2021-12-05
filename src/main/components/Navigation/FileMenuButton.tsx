@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const FileMenuButton: FC = observer(() => {
   const rootStore = useStores()
-  const { rootViewStore } = rootStore
+  const { rootViewStore, exportStore } = rootStore
   const isOpen = rootViewStore.openDrawer
   const handleClose = () => (rootViewStore.openDrawer = false)
 
@@ -53,6 +53,11 @@ export const FileMenuButton: FC = observer(() => {
   const onClickSave = () => {
     handleClose()
     saveSong(rootStore)()
+  }
+
+  const onClickExport = () => {
+    handleClose()
+    exportStore.openExportDialog = true
   }
 
   const ref = useRef<HTMLDivElement>(null)
@@ -94,6 +99,10 @@ export const FileMenuButton: FC = observer(() => {
 
         <MenuItem onClick={onClickSave}>
           {localized("save-song", "Save")}
+        </MenuItem>
+
+        <MenuItem onClick={onClickExport}>
+          {localized("export-audio", "Export Audio")}
         </MenuItem>
       </Menu>
     </>

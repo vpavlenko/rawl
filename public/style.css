@@ -1,0 +1,255 @@
+:root {
+  --themeColor: #5a4edf;
+  --themeColor2: #4c41cc;
+}
+body {
+  margin: 0;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, Helvetica Neue,
+    sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  background: hsl(245deg 5% 16%);
+  color: white;
+}
+a {
+  color: var(--themeColor);
+}
+.content {
+  max-width: 60rem;
+  width: 100%;
+  margin: 0 auto;
+}
+header {
+  background: var(--themeColor2);
+}
+header .content {
+  padding: 1rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+section .content {
+  padding: 5rem 0;
+}
+#title {
+  display: flex;
+}
+#title img {
+  height: 1.7rem;
+}
+#title:hover {
+  opacity: 0.7;
+}
+#hero {
+  background: var(--themeColor);
+  color: white;
+  overflow: hidden;
+}
+#hero .content {
+  display: flex;
+}
+#hero .text h1 {
+  font-weight: 800;
+  font-size: 3.2rem;
+  line-height: 1;
+  margin: 0 0 1rem 0;
+}
+#hero .image {
+  width: 40%;
+  padding-left: 2rem;
+}
+#hero .image img {
+  width: 34rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 1rem 8rem #0000004f;
+}
+#hero .text .description {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+#launch-button {
+  background: white;
+  padding: 0.8rem 2rem;
+  border-radius: 9999px;
+  text-decoration: none;
+  color: var(--themeColor);
+  font-weight: bold;
+  display: inline-block;
+  margin: 2rem 0 0 0;
+  font-size: 1.2rem;
+  border: 2px solid transparent;
+  transition: 0.2s ease;
+  box-shadow: 0 1rem 7rem #0000004f;
+}
+#launch-button:hover {
+  border-color: white;
+  background: transparent;
+  color: white;
+}
+p.platform {
+  opacity: 0.8;
+  font-size: 0.9rem;
+}
+p.issue {
+  display: inline-block;
+  color: #ffb200;
+  background: #ffd4001f;
+  border: 1px solid #ffb200;
+  padding: 0.5em;
+  font-size: 0.8rem;
+  border-radius: 0.5rem;
+  margin: 0;
+}
+h3 {
+  font-size: 1.5rem;
+}
+.sponsor-intro {
+  width: 40em;
+  line-height: 1.9;
+  margin-bottom: 1.5em;
+  max-width: 100%;
+}
+section#features ul {
+  line-height: 2;
+}
+
+#features .content {
+  display: flex;
+}
+
+#features .content .left {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+#features .content .right {
+  flex-shrink: 0;
+  min-width: 342px;
+}
+
+#features .feature {
+  background: #ffffff0d;
+  padding: 2rem;
+  border-radius: 1rem;
+  margin-right: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 1rem 3rem 0 #0000000e;
+}
+
+#features .feature .icon {
+  display: inline-flex;
+  width: 4rem;
+  border-radius: 2rem;
+  height: 4rem;
+  overflow: hidden;
+  background: white;
+  align-items: center;
+  justify-content: center;
+}
+
+#features .feature .title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+#features .feature .description {
+  opacity: 0.5;
+}
+
+#features .feature .icon img {
+  width: 2rem;
+}
+
+section#sponsor {
+  background: #1f1f23;
+}
+#github-link {
+  display: flex;
+}
+#github-link svg {
+  fill: white;
+}
+
+@media screen and (max-width: 896px) {
+  .content {
+    width: 90%;
+  }
+
+  #hero .content {
+    flex-direction: column;
+  }
+
+  #hero .text h1 {
+    font-size: 2.5rem;
+  }
+
+  #hero .image {
+    padding: 0;
+    width: 100%;
+  }
+
+  #hero .image img {
+    margin-top: 3rem;
+    width: 100%;
+  }
+
+  #features .content {
+    flex-direction: column-reverse;
+  }
+
+  #features .feature {
+    margin-right: 0;
+  }
+}
+
+a.external-link {
+  font-size: 0.9rem;
+  display: inline-flex;
+  border: #3b3b44 2px solid;
+  border-radius: 0.3em;
+  padding: 0.5em 1em;
+  color: white;
+  text-decoration: none;
+  align-items: center;
+}
+
+a.external-link img {
+  margin-right: 0.7em;
+}
+
+a.sponsor-button {
+  display: inline-flex;
+  align-items: center;
+  font-weight: 600;
+  background: #bb5d9029;
+  border-radius: 0.3em;
+  padding: 1em 1.5em;
+  color: white;
+  text-decoration: none;
+  border: 2px solid transparent;
+  transition: 0.2s ease;
+}
+
+a.sponsor-button:hover {
+  border-color: #bb5d90;
+}
+
+a.sponsor-button img {
+  margin-right: 0.7em;
+  width: 1.2em;
+}
+
+.support-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.support-row span {
+  padding-left: 1em;
+  font-size: 0.9rem;
+  opacity: 0.6;
+}

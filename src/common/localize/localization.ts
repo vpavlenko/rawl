@@ -1,6 +1,6 @@
 export default {
   ja: {
-    "app-intro": "オープンソースの\nオンラインMIDIエディタ",
+    "app-intro": "オープンソースのオンラインMIDIエディタ",
     "app-desc": "何もインストールせずに作曲を始めよう",
     launch: "起動",
     platform:

@@ -104,7 +104,7 @@ h3 {
   font-size: 1.5rem;
 }
 .sponsor-intro {
-  width: 30em;
+  width: 40em;
   line-height: 1.9;
   margin-bottom: 1.5em;
   max-width: 100%;
@@ -223,6 +223,7 @@ a.external-link img {
 a.sponsor-button {
   display: inline-flex;
   align-items: center;
+  font-weight: 600;
   background: #bb5d9029;
   border-radius: 0.3em;
   padding: 1em 1.5em;

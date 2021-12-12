@@ -1,29 +1,42 @@
 export default {
   ja: {
-    "app-intro": "オープンソースのオンラインMIDIエディタ",
+    "app-intro": "オープンソースの\nオンラインMIDIエディタ",
     "app-desc": "何もインストールせずに作曲を始めよう",
     launch: "起動",
     platform:
       "対応ブラウザ (デスクトップ版のみ): Google Chrome / Firefox / Safari",
     features: "機能",
+    "feature-midi-file": "フル機能のMIDIエディター",
+    "feature-midi-file-description":
+      "複数トラックに対応したピアノロールエディタを使って、自在に作曲しましょう。もちろんベロシティやピッチベンド、エクスプレッション、モジュレーションを使った豊かな表現ができます。",
     "feature-gm-module": "GM互換音源搭載",
     "feature-gm-module-description":
       "WebAudio APIとAudioWorkletで作られた専用の音源モジュールにより、ブラウザ上で大量のMIDIノートを鳴らすことが可能になりました。",
     "piano-roll": "ピアノロール",
     tempo: "テンポ",
     "tempo-track": "テンポトラック",
-    "feature-time-signature": "4/4以外の拍子に対応",
+    "feature-time-signature": "4/4以外の拍子・テンポチェンジに対応",
+    "feature-time-signature-description":
+      "グラフエディタを使って、曲の途中でテンポや拍子を自由に変えることができます。",
     "feature-pwa": "PWA対応",
-    "feature-export-wav": "WAV ファイルへの書き出し",
+    "feature-pwa-description":
+      "アドレスバーが邪魔ですか？アプリとしてインストールすることができます。",
+    "feature-export-wav": "WAVファイルへの書き出し",
+    "feature-midi-io": "MIDI入出力",
+    "feature-midi-io-description":
+      "Web MIDI APIに対応したブラウザでは、MIDIキーボードを接続して演奏を録音したり、ハードウェアシンセで音を鳴らしたりすることができます。",
+    "feature-export-audio": "高速オーディオ書き出し機能",
+    "feature-export-audio-description":
+      "作った曲をWAVファイルに書き出して、スマートフォンで聴いたり動画のBGMに使ったり、DAWに取り込んだりすることができます。",
     "time-signature": "拍子",
     "add-time-signature": "拍子を追加",
     "remove-time-signature": "拍子を削除",
     support: "サポート",
-    "support-intro":
-      "signalは個人的に趣味で作っているアプリです。不具合があるかと思いますがご了承ください。もしブラウザで動作する軽量な作曲ソフトというコンセプトに共感してもらえたら、ぜひご支援ください。バグ報告や他人へのオススメ、スポンサーをしていただけると嬉しいです。",
-    "report-bugs": "GitHubで不具合を報告",
-    "request-features": "GitHubで機能要望を送る",
-    sponsor: "スポンサーになって支援する",
+    "sponsor-intro":
+      "signalは週末に趣味で作っているアプリです。もしブラウザで動作する軽量な作曲ソフトというコンセプトに共感してもらえたら、ぜひご支援ください。",
+    "support-github-desctiption": "GitHubで不具合報告や要望を送る",
+    "become-sponsor": "スポンサーになりませんか？",
+    "open-github-sponsors": "GitHub Sponsorsを開く",
     "follow-twitter": "Twitterで更新情報を確認する",
     file: "ファイル",
     "new-song": "新規作成",

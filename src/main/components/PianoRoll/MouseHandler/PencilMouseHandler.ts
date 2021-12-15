@@ -2,6 +2,7 @@ import { pointAdd } from "../../../../common/geometry"
 import {
   addNoteToSelection,
   createNote,
+  fixSelection,
   moveNote,
   previewNoteById,
   removeEvent,
@@ -9,7 +10,9 @@ import {
   resetSelection,
   resizeNoteLeft,
   resizeNoteRight,
+  resizeSelection,
   selectNote,
+  startSelection,
 } from "../../../actions"
 import { observeDrag2 } from "../../../helpers/observeDrag"
 import { PianoNotesMouseEvent } from "../PianoRollStage"
@@ -77,6 +80,10 @@ export default class PencilMouseHandler extends NoteMouseHandler {
 
           if (!e.nativeEvent.shiftKey) {
             return dragNoteAction
+          }
+        } else {
+          if (e.nativeEvent.shiftKey || e.nativeEvent.ctrlKey) {
+            return selectNoteAction
           }
         }
 
@@ -155,10 +162,7 @@ const createNoteAction: MouseGesture = (rootStore) => ({
       return
     }
 
-    if ((rootStore.pianoRollStore.selection?.noteIds ?? []).length > 1) {
-      resetSelection(rootStore)()
-      return
-    }
+    resetSelection(rootStore)()
 
     const { tick, noteNumber } = transform.getNotePoint(e.local)
     const noteId = createNote(rootStore)(tick, noteNumber)
@@ -197,5 +201,29 @@ const removeNoteAction: MouseGesture = (rootStore) => ({
     if (e.item !== null) {
       removeEvent(rootStore)(e.item.id)
     }
+  },
+})
+
+const selectNoteAction: MouseGesture = (rootStore) => ({
+  onMouseDown: (e) => {
+    const {
+      pianoRollStore: { transform },
+    } = rootStore
+
+    const start = transform.getNotePoint(e.local)
+    const startPos = e.local
+    startSelection(rootStore)(start, true)
+
+    observeDrag2(e.nativeEvent, {
+      onMouseMove: (_e, delta) => {
+        const offsetPos = pointAdd(startPos, delta)
+        const end = transform.getNotePoint(offsetPos)
+        resizeSelection(rootStore)(start, end)
+      },
+
+      onMouseUp: () => {
+        fixSelection(rootStore)(true)
+      },
+    })
   },
 })

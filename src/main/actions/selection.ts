@@ -597,7 +597,7 @@ export const selectPreviousNote = (rootStore: RootStore) => () =>
 export const quantizeSelectedNotes = (rootStore: RootStore) => () => {
   const {
     song: { selectedTrack },
-    pianoRollStore: { selectedNoteIds, quantizer },
+    pianoRollStore: { selectedNoteIds, enabledQuantizer: quantizer },
   } = rootStore
 
   if (selectedTrack === undefined || selectedNoteIds.length === 0) {

@@ -408,6 +408,10 @@ export default class PianoRollStore {
     return new Quantizer(this.rootStore, this.quantize, this.isQuantizeEnabled)
   }
 
+  get enabledQuantizer(): Quantizer {
+    return new Quantizer(this.rootStore, this.quantize, true)
+  }
+
   get controlCursor(): string {
     return this.mouseMode === "pencil"
       ? `url("${cursorPencil}") 0 20, pointer`

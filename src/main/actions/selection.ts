@@ -222,10 +222,10 @@ export const resizeNotesInSelectionLeftBy =
   (rootStore: RootStore) => (deltaTick: number) => {
     const {
       song: { selectedTrack },
-      pianoRollStore: { selection, selectedNoteIds },
+      pianoRollStore: { selectedNoteIds },
     } = rootStore
 
-    if (selectedTrack === undefined || selection === null) {
+    if (selectedTrack === undefined || selectedNoteIds.length === 0) {
       return
     }
 
@@ -296,10 +296,10 @@ export const resizeNotesInSelectionRightBy =
   (rootStore: RootStore) => (deltaDuration: number) => {
     const {
       song: { selectedTrack },
-      pianoRollStore: { selection, selectedNoteIds },
+      pianoRollStore: { selectedNoteIds },
     } = rootStore
 
-    if (selectedTrack === undefined || selection === null) {
+    if (selectedTrack === undefined || selectedNoteIds.length === 0) {
       return
     }
 

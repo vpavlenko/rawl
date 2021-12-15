@@ -5,7 +5,6 @@ import { NoteCoordTransform } from "../transform"
 import { clampNotePoint, NotePoint } from "../transform/NotePoint"
 
 export interface Selection {
-  noteIds: number[]
   from: NotePoint
   to: NotePoint
 }
@@ -67,7 +66,6 @@ export const regularizedSelection = (
   toTick: number,
   toNoteNumber: number
 ): Selection => ({
-  noteIds: [],
   from: {
     tick: Math.max(0, Math.min(fromTick, toTick)),
     noteNumber: Math.min(
@@ -85,7 +83,6 @@ export const regularizedSelection = (
 })
 
 export const clampSelection = (selection: Selection): Selection => ({
-  noteIds: selection.noteIds,
   from: clampNotePoint(selection.from),
   to: clampNotePoint(selection.to),
 })

@@ -21,8 +21,7 @@ export const PianoSelectionContextMenu: FC<ContextMenuProps> = React.memo(
   (props) => {
     const { handleClose } = props
     const rootStore = useStores()
-    const isNoteSelected =
-      (rootStore.pianoRollStore.selection?.noteIds ?? []).length > 0
+    const isNoteSelected = rootStore.pianoRollStore.selectedNoteIds.length > 0
 
     const onClickCut = useCallback(() => {
       copySelection(rootStore)()

@@ -54,6 +54,7 @@ export default class PianoRollStore {
   quantize = 4
   isQuantizeEnabled = true
   selection: Selection | null = null
+  selectedNoteIds: number[] = []
   lastNoteDuration: number | null = null
   openInstrumentBrowser = false
   instrumentBrowserSetting: InstrumentSetting = {
@@ -87,6 +88,7 @@ export default class PianoRollStore {
       quantize: observable,
       isQuantizeEnabled: observable,
       selection: observable.shallow,
+      selectedNoteIds: observable,
       lastNoteDuration: observable,
       openInstrumentBrowser: observable,
       instrumentBrowserSetting: observable,
@@ -252,9 +254,9 @@ export default class PianoRollStore {
       transform,
       windowedEvents,
       notGhostTracks,
-      selection,
       scrollLeft,
       canvasWidth,
+      selectedNoteIds,
     } = this
 
     const track = song.selectedTrack
@@ -300,7 +302,7 @@ export default class PianoRollStore {
         const rect = isRhythmTrack
           ? transform.getDrumRect(e)
           : transform.getRect(e)
-        const isSelected = (selection?.noteIds ?? []).includes(e.id)
+        const isSelected = selectedNoteIds.includes(e.id)
         return {
           ...rect,
           id: e.id,

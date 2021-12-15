@@ -15,10 +15,6 @@ const SCROLL_DELTA = 24
 export const handlePianoNotesKeyboardShortcut =
   (rootStore: RootStore) =>
   (e: KeyboardEvent): boolean => {
-    if (rootStore.pianoRollStore.selection === null) {
-      return false
-    }
-
     switch (e.code) {
       case "Escape": {
         resetSelection(rootStore)()

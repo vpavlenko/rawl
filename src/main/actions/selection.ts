@@ -1,3 +1,4 @@
+import { min } from "lodash"
 import cloneDeep from "lodash/cloneDeep"
 import { isNotNull, isNotUndefined } from "../../common/helpers/array"
 import {
@@ -385,28 +386,27 @@ export const cloneSelection = (rootStore: RootStore) => () => {
 export const copySelection = (rootStore: RootStore) => () => {
   const {
     song: { selectedTrack },
-    pianoRollStore: { selection, mouseMode, selectedNoteIds },
+    pianoRollStore: { selection, selectedNoteIds },
   } = rootStore
 
-  if (selectedTrack === undefined || selection === null) {
+  if (selectedTrack === undefined || selectedNoteIds.length === 0) {
     return
   }
 
-  if (mouseMode !== "selection") {
-    // not selection mode
-    return
-  }
-
-  // 選択されたノートをコピー
-  // Copy selected note
-  const notes = selectedNoteIds
+  const selectedNotes = selectedNoteIds
     .map((id) => selectedTrack.getEventById(id))
     .filter(isNotUndefined)
     .filter(isNoteEvent)
-    .map((note) => ({
-      ...note,
-      tick: note.tick - selection.from.tick, // 選択範囲からの相対位置にする
-    }))
+
+  const startTick =
+    selection?.from.tick ?? min(selectedNotes.map((note) => note.tick))!
+
+  // 選択されたノートをコピー
+  // Copy selected note
+  const notes = selectedNotes.map((note) => ({
+    ...note,
+    tick: note.tick - startTick, // 選択範囲からの相対位置にする
+  }))
 
   const data: PianoNotesClipboardData = {
     type: "piano_notes",

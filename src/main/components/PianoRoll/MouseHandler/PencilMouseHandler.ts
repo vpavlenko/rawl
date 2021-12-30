@@ -41,11 +41,10 @@ export const getPencilActionForMouseDown =
             } else {
               addNoteToSelection(rootStore)(item.id)
             }
-          } else if (!item.isSelected) {
-            selectNote(rootStore)(item.id)
-          }
-
-          if (!e.shiftKey) {
+          } else {
+            if (!item.isSelected) {
+              selectNote(rootStore)(item.id)
+            }
             return dragNoteAction
           }
         } else {

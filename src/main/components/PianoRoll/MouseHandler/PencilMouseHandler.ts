@@ -191,16 +191,22 @@ const createNoteAction: MouseGesture = (rootStore) => ({
 })
 
 const removeNoteAction: MouseGesture = (rootStore) => ({
-  onMouseDown: (e) => {
+  onMouseDown: (e, getNotes) => {
     if (e.item !== null) {
       removeEvent(rootStore)(e.item.id)
     }
-  },
 
-  onMouseMove: (e) => {
-    if (e.item !== null) {
-      removeEvent(rootStore)(e.item.id)
-    }
+    const startPos = e.local
+
+    observeDrag2(e.nativeEvent, {
+      onMouseMove: (e, delta) => {
+        const local = pointAdd(startPos, delta)
+        const items = getNotes(local)
+        if (items.length > 0) {
+          removeEvent(rootStore)(items[0].id)
+        }
+      },
+    })
   },
 })
 

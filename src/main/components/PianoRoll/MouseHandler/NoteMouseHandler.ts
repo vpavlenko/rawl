@@ -1,9 +1,14 @@
+import { IPoint } from "../../../../common/geometry"
 import { observeDrag } from "../../../helpers/observeDrag"
+import { PianoNoteItem } from "../../../stores/PianoRollStore"
 import RootStore from "../../../stores/RootStore"
 import { PianoNotesMouseEvent } from "../PianoRollStage"
 
 export type MouseGesture = (rootStore: RootStore) => {
-  onMouseDown: (e: PianoNotesMouseEvent) => void
+  onMouseDown: (
+    e: PianoNotesMouseEvent,
+    getNotes: (local: IPoint) => PianoNoteItem[]
+  ) => void
   onMouseMove?: (e: PianoNotesMouseEvent) => void
   onMouseUp?: (e: PianoNotesMouseEvent) => void
 }
@@ -47,9 +52,12 @@ export default class NoteMouseHandler {
     return "auto"
   }
 
-  onMouseDown(e: PianoNotesMouseEvent) {
+  onMouseDown(
+    e: PianoNotesMouseEvent,
+    getNotes: (local: IPoint) => PianoNoteItem[]
+  ) {
     this.action = this.actionForMouseDown(e)
-    this.action?.(this.rootStore).onMouseDown(e)
+    this.action?.(this.rootStore).onMouseDown(e, getNotes)
   }
 
   onMouseMove(e: PianoNotesMouseEvent) {

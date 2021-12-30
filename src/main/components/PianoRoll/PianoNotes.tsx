@@ -2,7 +2,7 @@ import { partition } from "lodash"
 import { observer } from "mobx-react-lite"
 import { FC, MouseEventHandler, useCallback, useEffect, useState } from "react"
 import { useTheme } from "styled-components"
-import { containsPoint, zeroRect } from "../../../common/geometry"
+import { containsPoint, IPoint, zeroRect } from "../../../common/geometry"
 import { getSelectionBounds } from "../../../common/selection/Selection"
 import { useContextMenu } from "../../hooks/useContextMenu"
 import { useStores } from "../../hooks/useStores"
@@ -43,22 +43,32 @@ export const PianoNotes: FC<PianoRollStageProps> = observer(
 
     const { onContextMenu, menuProps } = useContextMenu()
 
+    const getNotes = useCallback(
+      (local: IPoint) => notes.filter((n) => containsPoint(n, local)),
+      [notes]
+    )
+
+    const getLocal = useCallback(
+      (e: MouseEvent) => ({
+        x: e.offsetX + scrollLeft,
+        y: e.offsetY + scrollTop,
+      }),
+      [scrollLeft, scrollTop]
+    )
+
     // MouseHandler で利用する追加情報をイベントに付加する
     // Add additional information used by MouseHandler to an event
     const extendEvent = useCallback(
       (e: MouseEvent): PianoNotesMouseEvent => {
-        const { scrollTop, scrollLeft } = rootStore.pianoRollStore
-        const local = {
-          x: e.offsetX + scrollLeft,
-          y: e.offsetY + scrollTop,
-        }
+        const local = getLocal(e)
+        const notes = getNotes(local)
         return {
           nativeEvent: e,
           local,
-          item: notes.find((n) => containsPoint(n, local)) ?? null,
+          item: notes.length > 0 ? notes[0] : null,
         }
       },
-      [transform, notes, rootStore]
+      [getLocal, getNotes]
     )
 
     const handleMouseDown: MouseEventHandler<HTMLCanvasElement> = useCallback(
@@ -72,9 +82,9 @@ export const PianoNotes: FC<PianoRollStageProps> = observer(
           onContextMenu(e)
           return
         }
-        mouseHandler.onMouseDown(ev)
+        mouseHandler.onMouseDown(ev, getNotes)
       },
-      [mouseHandler, extendEvent, onContextMenu]
+      [mouseHandler, extendEvent, onContextMenu, getNotes]
     )
 
     const handleMouseMove: MouseEventHandler<HTMLCanvasElement> = useCallback(

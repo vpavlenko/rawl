@@ -2,7 +2,7 @@ import cursorPencil from "!url-loader!../images/cursor-pencil.svg"
 import { clamp, flatten, maxBy, minBy } from "lodash"
 import { ControllerEvent, MIDIControlEvents, PitchBendEvent } from "midifile-ts"
 import { action, autorun, computed, makeObservable, observable } from "mobx"
-import { IRect } from "../../common/geometry"
+import { containsPoint, IPoint, IRect } from "../../common/geometry"
 import { isNotUndefined } from "../../common/helpers/array"
 import { filterEventsWithScroll } from "../../common/helpers/filterEventsWithScroll"
 import { getMBTString } from "../../common/measure/mbt"
@@ -313,6 +313,19 @@ export default class PianoRollStore {
       }),
       getGhostNotes(),
     ]
+  }
+
+  // hit test notes in canvas coordinates
+  getNotes(local: IPoint): PianoNoteItem[] {
+    return this.notes[0].filter((n) => containsPoint(n, local))
+  }
+
+  // convert mouse position to the local coordinate on the canvas
+  getLocal(e: { offsetX: number; offsetY: number }): IPoint {
+    return {
+      x: e.offsetX + this.scrollLeft,
+      y: e.offsetY + this.scrollTop,
+    }
   }
 
   private filteredEvents<T extends TrackEvent>(

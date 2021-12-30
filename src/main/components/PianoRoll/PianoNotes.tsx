@@ -2,7 +2,7 @@ import { partition } from "lodash"
 import { observer } from "mobx-react-lite"
 import { FC, MouseEventHandler, useCallback, useEffect, useState } from "react"
 import { useTheme } from "styled-components"
-import { containsPoint, IPoint, zeroRect } from "../../../common/geometry"
+import { zeroRect } from "../../../common/geometry"
 import { getSelectionBounds } from "../../../common/selection/Selection"
 import { useContextMenu } from "../../hooks/useContextMenu"
 import { useStores } from "../../hooks/useStores"
@@ -10,7 +10,7 @@ import { GLCanvas } from "../GLCanvas/GLCanvas"
 import PencilMouseHandler from "./MouseHandler/PencilMouseHandler"
 import SelectionMouseHandler from "./MouseHandler/SelectionMouseHandler"
 import { PianoRollRenderer } from "./PianoRollRenderer/PianoRollRenderer"
-import { PianoNotesMouseEvent, PianoRollStageProps } from "./PianoRollStage"
+import { PianoRollStageProps } from "./PianoRollStage"
 import { PianoSelectionContextMenu } from "./PianoSelectionContextMenu"
 
 export const PianoNotes: FC<PianoRollStageProps> = observer(
@@ -43,37 +43,8 @@ export const PianoNotes: FC<PianoRollStageProps> = observer(
 
     const { onContextMenu, menuProps } = useContextMenu()
 
-    const getNotes = useCallback(
-      (local: IPoint) => notes.filter((n) => containsPoint(n, local)),
-      [notes]
-    )
-
-    const getLocal = useCallback(
-      (e: MouseEvent) => ({
-        x: e.offsetX + scrollLeft,
-        y: e.offsetY + scrollTop,
-      }),
-      [scrollLeft, scrollTop]
-    )
-
-    // MouseHandler で利用する追加情報をイベントに付加する
-    // Add additional information used by MouseHandler to an event
-    const extendEvent = useCallback(
-      (e: MouseEvent): PianoNotesMouseEvent => {
-        const local = getLocal(e)
-        const notes = getNotes(local)
-        return {
-          nativeEvent: e,
-          local,
-          item: notes.length > 0 ? notes[0] : null,
-        }
-      },
-      [getLocal, getNotes]
-    )
-
     const handleMouseDown: MouseEventHandler<HTMLCanvasElement> = useCallback(
       (e) => {
-        const ev = extendEvent(e.nativeEvent)
         if (
           e.buttons === 2 &&
           rootStore.pianoRollStore.mouseMode === "selection"
@@ -82,14 +53,14 @@ export const PianoNotes: FC<PianoRollStageProps> = observer(
           onContextMenu(e)
           return
         }
-        mouseHandler.onMouseDown(ev, getNotes)
+        mouseHandler.onMouseDown(e.nativeEvent)
       },
-      [mouseHandler, extendEvent, onContextMenu, getNotes]
+      [mouseHandler, onContextMenu]
     )
 
     const handleMouseMove: MouseEventHandler<HTMLCanvasElement> = useCallback(
-      (e) => mouseHandler.onMouseMove(extendEvent(e.nativeEvent)),
-      [mouseHandler, extendEvent]
+      (e) => mouseHandler.onMouseMove(e.nativeEvent),
+      [mouseHandler]
     )
 
     const handleMouseUp: MouseEventHandler<HTMLCanvasElement> = useCallback(

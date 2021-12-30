@@ -1,15 +1,7 @@
-import { IPoint } from "../../../../common/geometry"
 import { observeDrag } from "../../../helpers/observeDrag"
-import { PianoNoteItem } from "../../../stores/PianoRollStore"
 import RootStore from "../../../stores/RootStore"
-import { PianoNotesMouseEvent } from "../PianoRollStage"
 
-export type MouseGesture = (
-  rootStore: RootStore
-) => (
-  e: PianoNotesMouseEvent,
-  getNotes: (local: IPoint) => PianoNoteItem[]
-) => void
+export type MouseGesture = (rootStore: RootStore) => (e: MouseEvent) => void
 
 export default class NoteMouseHandler {
   protected readonly rootStore: RootStore
@@ -24,18 +16,18 @@ export default class NoteMouseHandler {
 
   // mousedown 以降に行う MouseAction を返す
   // Returns a MouseAction to do after MouseDown
-  protected actionForMouseDown(e: PianoNotesMouseEvent): MouseGesture | null {
+  protected actionForMouseDown(e: MouseEvent): MouseGesture | null {
     // 共通の action
     // Common Action
 
     // wheel drag to start scrolling
-    if (e.nativeEvent.button === 1) {
+    if (e.button === 1) {
       return dragScrollAction
     }
 
     // 右ダブルクリック
     // Right Double-click
-    if (e.nativeEvent.button === 2 && e.nativeEvent.detail % 2 === 0) {
+    if (e.button === 2 && e.detail % 2 === 0) {
       return changeToolAction
     }
 
@@ -44,21 +36,18 @@ export default class NoteMouseHandler {
     return null
   }
 
-  protected getCursorForMouseMove(ev: PianoNotesMouseEvent): string {
+  protected getCursorForMouseMove(ev: MouseEvent): string {
     // サブクラスで実装
     // Implemented in subclasses
     return "auto"
   }
 
-  onMouseDown(
-    e: PianoNotesMouseEvent,
-    getNotes: (local: IPoint) => PianoNoteItem[]
-  ) {
+  onMouseDown(e: MouseEvent) {
     this.isMouseDown = true
-    this.actionForMouseDown(e)?.(this.rootStore)(e, getNotes)
+    this.actionForMouseDown(e)?.(this.rootStore)(e)
   }
 
-  onMouseMove(e: PianoNotesMouseEvent) {
+  onMouseMove(e: MouseEvent) {
     if (!this.isMouseDown) {
       const cursor = this.getCursorForMouseMove(e)
       this.rootStore.pianoRollStore.notesCursor = cursor

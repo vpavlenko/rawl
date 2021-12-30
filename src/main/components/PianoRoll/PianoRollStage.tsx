@@ -1,11 +1,9 @@
 import { observer } from "mobx-react-lite"
 import { FC } from "react"
 import styled from "styled-components"
-import { IPoint } from "../../../common/geometry"
 import { Layout } from "../../Constants"
 import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
-import { PianoNoteItem } from "../../stores/PianoRollStore"
 import CanvasPianoRuler from "./CanvasPianoRuler"
 import PianoKeys from "./PianoKeys"
 import { PianoNotes } from "./PianoNotes"
@@ -13,12 +11,6 @@ import { PianoNotes } from "./PianoNotes"
 export interface PianoRollStageProps {
   width: number
   height: number
-}
-
-export interface PianoNotesMouseEvent {
-  nativeEvent: MouseEvent
-  local: IPoint
-  item: PianoNoteItem | null
 }
 
 const Container = styled.div``

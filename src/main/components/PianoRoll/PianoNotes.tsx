@@ -7,8 +7,7 @@ import { getSelectionBounds } from "../../../common/selection/Selection"
 import { useContextMenu } from "../../hooks/useContextMenu"
 import { useStores } from "../../hooks/useStores"
 import { GLCanvas } from "../GLCanvas/GLCanvas"
-import PencilMouseHandler from "./MouseHandler/PencilMouseHandler"
-import SelectionMouseHandler from "./MouseHandler/SelectionMouseHandler"
+import NoteMouseHandler from "./MouseHandler/NoteMouseHandler"
 import { PianoRollRenderer } from "./PianoRollRenderer/PianoRollRenderer"
 import { PianoRollStageProps } from "./PianoRollStage"
 import { PianoSelectionContextMenu } from "./PianoSelectionContextMenu"
@@ -22,7 +21,6 @@ export const PianoNotes: FC<PianoRollStageProps> = observer(
       scrollTop,
       scaleX,
       scaleY,
-      mouseMode,
       notesCursor,
       selection,
       transform,
@@ -33,40 +31,17 @@ export const PianoNotes: FC<PianoRollStageProps> = observer(
 
     const theme = useTheme()
 
-    const [pencilMouseHandler] = useState(new PencilMouseHandler(rootStore))
-    const [selectionMouseHandler] = useState(
-      new SelectionMouseHandler(rootStore)
-    )
-
-    const mouseHandler =
-      mouseMode === "pencil" ? pencilMouseHandler : selectionMouseHandler
+    const [mouseHandler] = useState(new NoteMouseHandler(rootStore))
 
     const { onContextMenu, menuProps } = useContextMenu()
 
-    const handleMouseDown: MouseEventHandler<HTMLCanvasElement> = useCallback(
-      (e) => {
-        if (
-          e.buttons === 2 &&
-          rootStore.pianoRollStore.mouseMode === "selection"
-        ) {
-          e.stopPropagation()
-          onContextMenu(e)
-          return
-        }
-        mouseHandler.onMouseDown(e.nativeEvent)
-      },
-      [mouseHandler, onContextMenu]
-    )
-
-    const handleMouseMove: MouseEventHandler<HTMLCanvasElement> = useCallback(
-      (e) => mouseHandler.onMouseMove(e.nativeEvent),
-      [mouseHandler]
-    )
-
-    const handleMouseUp: MouseEventHandler<HTMLCanvasElement> = useCallback(
-      (e) => mouseHandler.onMouseUp(),
-      [mouseHandler]
-    )
+    const handleContextMenu: MouseEventHandler = useCallback((e) => {
+      if (rootStore.pianoRollStore.mouseMode === "selection") {
+        e.stopPropagation()
+        onContextMenu(e)
+        return
+      }
+    }, [])
 
     const [renderer, setRenderer] = useState<PianoRollRenderer | null>(null)
 
@@ -122,14 +97,14 @@ export const PianoNotes: FC<PianoRollStageProps> = observer(
           width={width}
           height={height}
           style={{ cursor: notesCursor }}
-          onContextMenu={useCallback((e) => e.preventDefault(), [])}
+          onContextMenu={handleContextMenu}
           onCreateContext={useCallback(
             (gl) => setRenderer(new PianoRollRenderer(gl)),
             []
           )}
-          onMouseDown={handleMouseDown}
-          onMouseMove={handleMouseMove}
-          onMouseUp={handleMouseUp}
+          onMouseDown={mouseHandler.onMouseDown}
+          onMouseMove={mouseHandler.onMouseMove}
+          onMouseUp={mouseHandler.onMouseUp}
         />
         <PianoSelectionContextMenu {...menuProps} />
       </>

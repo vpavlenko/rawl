@@ -16,17 +16,14 @@ import {
 } from "../../../actions"
 import { observeDrag2 } from "../../../helpers/observeDrag"
 import { PianoNoteItem } from "../../../stores/PianoRollStore"
-import NoteMouseHandler, { MouseGesture } from "./NoteMouseHandler"
+import RootStore from "../../../stores/RootStore"
+import { MouseGesture } from "./NoteMouseHandler"
 
-export default class PencilMouseHandler extends NoteMouseHandler {
-  protected actionForMouseDown(e: MouseEvent): MouseGesture | null {
-    const original = super.actionForMouseDown(e)
-    if (original) {
-      return original
-    }
-
-    const local = this.rootStore.pianoRollStore.getLocal(e)
-    const items = this.rootStore.pianoRollStore.getNotes(local)
+export const getPencilActionForMouseDown =
+  (rootStore: RootStore) =>
+  (e: MouseEvent): MouseGesture | null => {
+    const local = rootStore.pianoRollStore.getLocal(e)
+    const items = rootStore.pianoRollStore.getNotes(local)
 
     switch (e.button) {
       case 0: {
@@ -36,16 +33,16 @@ export default class PencilMouseHandler extends NoteMouseHandler {
           }
 
           const item = items[0]
-          previewNoteById(this.rootStore)(item.id)
+          previewNoteById(rootStore)(item.id)
 
           if (e.shiftKey) {
             if (item.isSelected) {
-              removeNoteFromSelection(this.rootStore)(item.id)
+              removeNoteFromSelection(rootStore)(item.id)
             } else {
-              addNoteToSelection(this.rootStore)(item.id)
+              addNoteToSelection(rootStore)(item.id)
             }
           } else if (!item.isSelected) {
-            selectNote(this.rootStore)(item.id)
+            selectNote(rootStore)(item.id)
           }
 
           if (!e.shiftKey) {
@@ -66,9 +63,11 @@ export default class PencilMouseHandler extends NoteMouseHandler {
     }
   }
 
-  protected getCursorForMouseMove(e: MouseEvent): string {
-    const local = this.rootStore.pianoRollStore.getLocal(e)
-    const items = this.rootStore.pianoRollStore.getNotes(local)
+export const getPencilCursorForMouseMove =
+  (rootStore: RootStore) =>
+  (e: MouseEvent): string => {
+    const local = rootStore.pianoRollStore.getLocal(e)
+    const items = rootStore.pianoRollStore.getNotes(local)
     if (items.length > 0) {
       const position = getPositionType(local, items[0])
       return mousePositionToCursor(position)
@@ -76,7 +75,6 @@ export default class PencilMouseHandler extends NoteMouseHandler {
 
     return "auto"
   }
-}
 
 type MousePositionType = "left" | "center" | "right"
 

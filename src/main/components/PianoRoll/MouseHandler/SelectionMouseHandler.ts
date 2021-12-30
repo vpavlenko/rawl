@@ -14,21 +14,18 @@ import {
   startSelection,
 } from "../../../actions"
 import { observeDrag2 } from "../../../helpers/observeDrag"
-import MouseHandler, { MouseGesture } from "./NoteMouseHandler"
+import RootStore from "../../../stores/RootStore"
+import { MouseGesture } from "./NoteMouseHandler"
 
-export default class SelectionMouseHandler extends MouseHandler {
-  protected actionForMouseDown(e: MouseEvent) {
-    const original = super.actionForMouseDown(e)
-    if (original) {
-      return original
-    }
-
+export const getSelectionActionForMouseDown =
+  (rootStore: RootStore) =>
+  (e: MouseEvent): MouseGesture | null => {
     if (e.relatedTarget) {
       return null
     }
 
-    const { selection, transform } = this.rootStore.pianoRollStore
-    const local = this.rootStore.pianoRollStore.getLocal(e)
+    const { selection, transform } = rootStore.pianoRollStore
+    const local = rootStore.pianoRollStore.getLocal(e)
 
     if (e.button === 0) {
       if (selection !== null) {
@@ -51,9 +48,10 @@ export default class SelectionMouseHandler extends MouseHandler {
     return null
   }
 
-  getCursorForMouseMove(e: MouseEvent) {
-    const { selection, transform } = this.rootStore.pianoRollStore
-    const local = this.rootStore.pianoRollStore.getLocal(e)
+export const getSelectionCursorForMouseMoven =
+  (rootStore: RootStore) => (e: MouseEvent) => {
+    const { selection, transform } = rootStore.pianoRollStore
+    const local = rootStore.pianoRollStore.getLocal(e)
     const type =
       selection === null ? "outside" : positionType(selection, transform, local)
     switch (type) {
@@ -67,7 +65,6 @@ export default class SelectionMouseHandler extends MouseHandler {
         return "crosshair"
     }
   }
-}
 
 function positionType(
   selection: Selection,

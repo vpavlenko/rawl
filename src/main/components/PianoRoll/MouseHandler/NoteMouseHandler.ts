@@ -1,5 +1,13 @@
 import { observeDrag } from "../../../helpers/observeDrag"
 import RootStore from "../../../stores/RootStore"
+import {
+  getPencilActionForMouseDown,
+  getPencilCursorForMouseMove,
+} from "./PencilMouseHandler"
+import {
+  getSelectionActionForMouseDown,
+  getSelectionCursorForMouseMoven,
+} from "./SelectionMouseHandler"
 
 export type MouseGesture = (rootStore: RootStore) => (e: MouseEvent) => void
 
@@ -16,7 +24,7 @@ export default class NoteMouseHandler {
 
   // mousedown 以降に行う MouseAction を返す
   // Returns a MouseAction to do after MouseDown
-  protected actionForMouseDown(e: MouseEvent): MouseGesture | null {
+  actionForMouseDown(e: MouseEvent): MouseGesture | null {
     // 共通の action
     // Common Action
 
@@ -31,23 +39,31 @@ export default class NoteMouseHandler {
       return changeToolAction
     }
 
-    // サブクラスで残りを実装
-    // Implement the rest with subclasses
-    return null
+    switch (this.rootStore.pianoRollStore.mouseMode) {
+      case "pencil":
+        return getPencilActionForMouseDown(this.rootStore)(e)
+      case "selection":
+        return getSelectionActionForMouseDown(this.rootStore)(e)
+    }
   }
 
-  protected getCursorForMouseMove(ev: MouseEvent): string {
-    // サブクラスで実装
-    // Implemented in subclasses
-    return "auto"
+  protected getCursorForMouseMove(e: MouseEvent): string {
+    switch (this.rootStore.pianoRollStore.mouseMode) {
+      case "pencil":
+        return getPencilCursorForMouseMove(this.rootStore)(e)
+      case "selection":
+        return getSelectionCursorForMouseMoven(this.rootStore)(e)
+    }
   }
 
-  onMouseDown(e: MouseEvent) {
+  onMouseDown(ev: React.MouseEvent) {
+    const e = ev.nativeEvent
     this.isMouseDown = true
     this.actionForMouseDown(e)?.(this.rootStore)(e)
   }
 
-  onMouseMove(e: MouseEvent) {
+  onMouseMove(ev: React.MouseEvent) {
+    const e = ev.nativeEvent
     if (!this.isMouseDown) {
       const cursor = this.getCursorForMouseMove(e)
       this.rootStore.pianoRollStore.notesCursor = cursor

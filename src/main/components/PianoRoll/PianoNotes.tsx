@@ -93,8 +93,8 @@ export const PianoNotes: FC<PianoRollStageProps> = observer(
     )
 
     const handleMouseUp: MouseEventHandler<HTMLCanvasElement> = useCallback(
-      (e) => mouseHandler.onMouseUp(extendEvent(e.nativeEvent)),
-      [mouseHandler, extendEvent]
+      (e) => mouseHandler.onMouseUp(),
+      [mouseHandler]
     )
 
     const [renderer, setRenderer] = useState<PianoRollRenderer | null>(null)

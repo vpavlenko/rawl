@@ -13,7 +13,7 @@ export type MouseGesture = (
 
 export default class NoteMouseHandler {
   protected readonly rootStore: RootStore
-  private action: MouseGesture | null = null
+  private isMouseDown = false
 
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore
@@ -54,19 +54,19 @@ export default class NoteMouseHandler {
     e: PianoNotesMouseEvent,
     getNotes: (local: IPoint) => PianoNoteItem[]
   ) {
-    this.action = this.actionForMouseDown(e)
-    this.action?.(this.rootStore)(e, getNotes)
+    this.isMouseDown = true
+    this.actionForMouseDown(e)?.(this.rootStore)(e, getNotes)
   }
 
   onMouseMove(e: PianoNotesMouseEvent) {
-    if (this.action === null) {
+    if (!this.isMouseDown) {
       const cursor = this.getCursorForMouseMove(e)
       this.rootStore.pianoRollStore.notesCursor = cursor
     }
   }
 
-  onMouseUp(e: PianoNotesMouseEvent) {
-    this.action = null
+  onMouseUp() {
+    this.isMouseDown = false
   }
 }
 

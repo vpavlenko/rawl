@@ -1,9 +1,8 @@
-import { IPoint, pointAdd, pointSub } from "../../../../common/geometry"
+import { IPoint, IRect, pointAdd, pointSub } from "../../../../common/geometry"
 import {
   getSelectionBounds,
   Selection,
 } from "../../../../common/selection/Selection"
-import { NoteCoordTransform } from "../../../../common/transform"
 import {
   cloneSelection,
   fixSelection,
@@ -24,12 +23,12 @@ export const getSelectionActionForMouseDown =
       return null
     }
 
-    const { selection, transform } = rootStore.pianoRollStore
+    const { selection, selectionBounds } = rootStore.pianoRollStore
     const local = rootStore.pianoRollStore.getLocal(e)
 
     if (e.button === 0) {
-      if (selection !== null) {
-        const type = positionType(selection, transform, local)
+      if (selection !== null && selectionBounds !== null) {
+        const type = positionType(selectionBounds, local)
         switch (type) {
           case "center":
             return moveSelectionAction(selection)
@@ -50,10 +49,12 @@ export const getSelectionActionForMouseDown =
 
 export const getSelectionCursorForMouseMoven =
   (rootStore: RootStore) => (e: MouseEvent) => {
-    const { selection, transform } = rootStore.pianoRollStore
+    const { selectionBounds } = rootStore.pianoRollStore
     const local = rootStore.pianoRollStore.getLocal(e)
     const type =
-      selection === null ? "outside" : positionType(selection, transform, local)
+      selectionBounds === null
+        ? "outside"
+        : positionType(selectionBounds, local)
     switch (type) {
       case "center":
         return "move"
@@ -66,12 +67,8 @@ export const getSelectionCursorForMouseMoven =
     }
   }
 
-function positionType(
-  selection: Selection,
-  transform: NoteCoordTransform,
-  pos: IPoint
-) {
-  const rect = getSelectionBounds(selection, transform)
+function positionType(selectionBounds: IRect, pos: IPoint) {
+  const rect = selectionBounds
   const contains =
     rect.x <= pos.x &&
     rect.x + rect.width >= pos.x &&

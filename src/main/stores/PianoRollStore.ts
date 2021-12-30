@@ -8,7 +8,7 @@ import { filterEventsWithScroll } from "../../common/helpers/filterEventsWithScr
 import { getMBTString } from "../../common/measure/mbt"
 import Quantizer from "../../common/quantizer"
 import { ControlSelection } from "../../common/selection/ControlSelection"
-import { Selection } from "../../common/selection/Selection"
+import { getSelectionBounds, Selection } from "../../common/selection/Selection"
 import {
   isControllerEventWithType,
   isExpressionEvent,
@@ -105,6 +105,8 @@ export default class PianoRollStore {
       transform: computed,
       windowedEvents: computed,
       notes: computed,
+      ghostNotes: computed,
+      selectionBounds: computed,
       modulationEvents: computed,
       expressionEvents: computed,
       panEvents: computed,
@@ -247,77 +249,71 @@ export default class PianoRollStore {
     )
   }
 
-  get notes(): [PianoNoteItem[], PianoNoteItem[]] {
+  get notes(): PianoNoteItem[] {
     const song = this.rootStore.song
-    const { selectedTrackId } = song
-    const {
-      transform,
-      windowedEvents,
-      notGhostTracks,
-      scrollLeft,
-      canvasWidth,
-      selectedNoteIds,
-    } = this
+    const { transform, windowedEvents, selectedNoteIds } = this
 
     const track = song.selectedTrack
     if (track === undefined) {
-      return [[], []]
+      return []
     }
     const isRhythmTrack = track.isRhythmTrack
 
     const noteEvents = windowedEvents.filter(isNoteEvent)
 
-    const getGhostNotes = () =>
-      flatten(
-        song.tracks.map((track, id) => {
-          if (
-            notGhostTracks.has(id) ||
-            id === selectedTrackId ||
-            track == undefined
-          ) {
-            return []
-          }
-          return filterEventsWithScroll(
-            track.events.filter(isNoteEvent),
-            transform.pixelsPerTick,
-            scrollLeft,
-            canvasWidth
-          ).map((e): PianoNoteItem => {
-            const rect = track.isRhythmTrack
-              ? transform.getDrumRect(e)
-              : transform.getRect(e)
-            return {
-              ...rect,
-              id: e.id,
-              velocity: 127, // draw opaque when ghost
-              isSelected: false,
-              isDrum: track.isRhythmTrack,
-            }
-          })
-        })
-      )
+    return noteEvents.map((e): PianoNoteItem => {
+      const rect = isRhythmTrack
+        ? transform.getDrumRect(e)
+        : transform.getRect(e)
+      const isSelected = selectedNoteIds.includes(e.id)
+      return {
+        ...rect,
+        id: e.id,
+        velocity: e.velocity,
+        isSelected,
+        isDrum: isRhythmTrack,
+      }
+    })
+  }
 
-    return [
-      noteEvents.map((e): PianoNoteItem => {
-        const rect = isRhythmTrack
-          ? transform.getDrumRect(e)
-          : transform.getRect(e)
-        const isSelected = selectedNoteIds.includes(e.id)
-        return {
-          ...rect,
-          id: e.id,
-          velocity: e.velocity,
-          isSelected,
-          isDrum: isRhythmTrack,
+  get ghostNotes(): PianoNoteItem[] {
+    const song = this.rootStore.song
+    const { selectedTrackId } = song
+    const { transform, notGhostTracks, scrollLeft, canvasWidth } = this
+
+    return flatten(
+      song.tracks.map((track, id) => {
+        if (
+          notGhostTracks.has(id) ||
+          id === selectedTrackId ||
+          track == undefined
+        ) {
+          return []
         }
-      }),
-      getGhostNotes(),
-    ]
+        return filterEventsWithScroll(
+          track.events.filter(isNoteEvent),
+          transform.pixelsPerTick,
+          scrollLeft,
+          canvasWidth
+        ).map((e): PianoNoteItem => {
+          const rect = track.isRhythmTrack
+            ? transform.getDrumRect(e)
+            : transform.getRect(e)
+          return {
+            ...rect,
+            id: e.id,
+            velocity: 127, // draw opaque when ghost
+            isSelected: false,
+            isDrum: track.isRhythmTrack,
+          }
+        })
+      })
+    )
   }
 
   // hit test notes in canvas coordinates
   getNotes(local: IPoint): PianoNoteItem[] {
-    return this.notes[0].filter((n) => containsPoint(n, local))
+    return this.notes.filter((n) => containsPoint(n, local))
   }
 
   // convert mouse position to the local coordinate on the canvas
@@ -326,6 +322,13 @@ export default class PianoRollStore {
       x: e.offsetX + this.scrollLeft,
       y: e.offsetY + this.scrollTop,
     }
+  }
+
+  get selectionBounds(): IRect | null {
+    if (this.selection !== null) {
+      return getSelectionBounds(this.selection, this.transform)
+    }
+    return null
   }
 
   private filteredEvents<T extends TrackEvent>(

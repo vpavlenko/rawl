@@ -3,7 +3,6 @@ import { observer } from "mobx-react-lite"
 import { FC, MouseEventHandler, useCallback, useEffect, useState } from "react"
 import { useTheme } from "styled-components"
 import { zeroRect } from "../../../common/geometry"
-import { getSelectionBounds } from "../../../common/selection/Selection"
 import { useContextMenu } from "../../hooks/useContextMenu"
 import { useStores } from "../../hooks/useStores"
 import { GLCanvas } from "../GLCanvas/GLCanvas"
@@ -22,9 +21,10 @@ export const PianoNotes: FC<PianoRollStageProps> = observer(
       scaleX,
       scaleY,
       notesCursor,
-      selection,
+      selectionBounds,
       transform,
-      notes: [notes, ghostNotes],
+      notes,
+      ghostNotes,
       cursorX,
     } = rootStore.pianoRollStore
     const { beats } = rootStore.pianoRollStore.rulerStore
@@ -57,8 +57,6 @@ export const PianoNotes: FC<PianoRollStageProps> = observer(
       if (renderer === null) {
         return
       }
-      const selectionBounds =
-        selection !== null ? getSelectionBounds(selection, transform) : zeroRect
 
       const [highlightedBeats, nonHighlightedBeats] = partition(
         beats,
@@ -69,7 +67,7 @@ export const PianoNotes: FC<PianoRollStageProps> = observer(
       renderer.render(
         notes,
         ghostNotes,
-        selectionBounds,
+        selectionBounds ?? zeroRect,
         nonHighlightedBeats.map((b) => b.x),
         highlightedBeats.map((b) => b.x),
         cursorX,
@@ -78,7 +76,7 @@ export const PianoNotes: FC<PianoRollStageProps> = observer(
       )
     }, [
       renderer,
-      selection,
+      selectionBounds,
       transform,
       notes,
       ghostNotes,

@@ -13,17 +13,26 @@ export const handleCreateSelectionDrag =
     controlTransform: ControlCoordTransform,
     getControllerEventIdsInSelection: (selection: ControlSelection) => number[]
   ) => {
-    rootStore.pianoRollStore.selectedControllerEventIds = []
+    const {
+      pianoRollStore,
+      pianoRollStore: { quantizer },
+      services: { player },
+    } = rootStore
+    pianoRollStore.selectedControllerEventIds = []
 
-    const start = controlTransform.fromPosition(startPoint)
+    const startTick = quantizer.round(controlTransform.getTicks(startPoint.x))
     const startClientPos = getClientPos(e)
 
-    rootStore.pianoRollStore.selection = null
-    rootStore.pianoRollStore.selectedNoteIds = []
+    pianoRollStore.selection = null
+    pianoRollStore.selectedNoteIds = []
 
-    rootStore.pianoRollStore.controlSelection = {
-      fromTick: start.tick,
-      toTick: start.tick,
+    if (!player.isPlaying) {
+      player.position = startTick
+    }
+
+    pianoRollStore.controlSelection = {
+      fromTick: startTick,
+      toTick: startTick,
     }
 
     observeDrag({
@@ -31,21 +40,21 @@ export const handleCreateSelectionDrag =
         const posPx = getClientPos(e)
         const deltaPx = pointSub(posPx, startClientPos)
         const local = pointAdd(startPoint, deltaPx)
-        const end = controlTransform.fromPosition(local)
-        rootStore.pianoRollStore.controlSelection = {
-          fromTick: Math.min(start.tick, end.tick),
-          toTick: Math.max(start.tick, end.tick),
+        const endTick = quantizer.round(controlTransform.getTicks(local.x))
+        pianoRollStore.controlSelection = {
+          fromTick: Math.min(startTick, endTick),
+          toTick: Math.max(startTick, endTick),
         }
       },
-      onMouseUp: (e) => {
-        const { controlSelection } = rootStore.pianoRollStore
+      onMouseUp: (_e) => {
+        const { controlSelection } = pianoRollStore
         if (controlSelection === null) {
           return
         }
 
-        rootStore.pianoRollStore.selectedControllerEventIds =
+        pianoRollStore.selectedControllerEventIds =
           getControllerEventIdsInSelection(controlSelection)
-        rootStore.pianoRollStore.controlSelection = null
+        pianoRollStore.controlSelection = null
       },
     })
   }

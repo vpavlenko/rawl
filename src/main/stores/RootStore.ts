@@ -27,17 +27,17 @@ export interface Services {
 
 export default class RootStore {
   song: Song = emptySong()
-  router = new Router()
-  trackMute = new TrackMute()
-  historyStore = new HistoryStore<SerializedState>()
-  rootViewStore = new RootViewStore()
-  pianoRollStore: PianoRollStore
-  arrangeViewStore = new ArrangeViewStore(this)
-  tempoEditorStore = new TempoEditorStore(this)
-  midiDeviceStore = new MIDIDeviceStore()
-  exportStore = new ExportStore(this)
+  readonly router = new Router()
+  readonly trackMute = new TrackMute()
+  readonly historyStore = new HistoryStore<SerializedState>()
+  readonly rootViewStore = new RootViewStore()
+  readonly pianoRollStore: PianoRollStore
+  readonly arrangeViewStore = new ArrangeViewStore(this)
+  readonly tempoEditorStore = new TempoEditorStore(this)
+  readonly midiDeviceStore = new MIDIDeviceStore()
+  readonly exportStore = new ExportStore(this)
 
-  services: Services
+  readonly services: Services
 
   constructor() {
     makeObservable(this, {

@@ -123,18 +123,15 @@ const dragNoteCenterAction =
   (item: PianoNoteItem): MouseGesture =>
   (rootStore) =>
   (e) => {
-    const {
-      pianoRollStore: { transform },
-    } = rootStore
+    const { transform, quantizer } = rootStore.pianoRollStore
 
     observeDrag2(e, {
       onMouseMove: (e, delta) => {
         const position = pointAdd(item, delta)
         moveNote(rootStore)({
           id: item.id,
-          tick: transform.getTicks(position.x),
-          noteNumber: Math.round(transform.getNoteNumber(position.y)),
-          quantize: "round",
+          tick: quantizer.round(transform.getTicks(position.x)),
+          noteNumber: Math.round(transform.getNoteNumberFractional(position.y)),
         })
         e.stopPropagation()
       },
@@ -195,7 +192,7 @@ const dragNoteRightAction =
   }
 
 const createNoteAction: MouseGesture = (rootStore) => (e) => {
-  const { transform } = rootStore.pianoRollStore
+  const { transform, quantizer } = rootStore.pianoRollStore
   const local = rootStore.pianoRollStore.getLocal(e)
 
   if (e.shiftKey) {
@@ -205,25 +202,22 @@ const createNoteAction: MouseGesture = (rootStore) => (e) => {
   resetSelection(rootStore)()
 
   const { tick, noteNumber } = transform.getNotePoint(local)
-  const noteId = createNote(rootStore)(tick, noteNumber)
+  const note = createNote(rootStore)(tick, noteNumber)
 
-  if (noteId === undefined) {
+  if (note === undefined) {
     return
   }
 
-  selectNote(rootStore)(noteId)
-
-  const startPos = local
+  selectNote(rootStore)(note.id)
 
   observeDrag2(e, {
-    onMouseMove: (e, delta) => {
-      const local = pointAdd(startPos, delta)
-      const p = transform.getNotePoint(local)
+    onMouseMove: (_e, delta) => {
+      const tick = note.tick + transform.getTicks(delta.x)
+      const noteNumber = note.noteNumber + transform.getDeltaNoteNumber(delta.y)
       moveNote(rootStore)({
-        id: noteId,
-        tick: p.tick,
-        noteNumber: Math.floor(p.noteNumber),
-        quantize: "floor",
+        id: note.id,
+        tick: quantizer.round(tick),
+        noteNumber: Math.round(noteNumber),
       })
     },
   })

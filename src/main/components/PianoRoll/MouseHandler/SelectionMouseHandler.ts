@@ -1,8 +1,4 @@
-import { IPoint, IRect, pointAdd, pointSub } from "../../../../common/geometry"
-import {
-  getSelectionBounds,
-  Selection,
-} from "../../../../common/selection/Selection"
+import { IPoint, IRect, pointAdd } from "../../../../common/geometry"
 import {
   cloneSelection,
   fixSelection,
@@ -12,7 +8,7 @@ import {
   resizeSelectionRight,
   startSelection,
 } from "../../../actions"
-import { observeDrag2 } from "../../../helpers/observeDrag"
+import { observeDrag, observeDrag2 } from "../../../helpers/observeDrag"
 import RootStore from "../../../stores/RootStore"
 import { MouseGesture } from "./NoteMouseHandler"
 
@@ -23,19 +19,19 @@ export const getSelectionActionForMouseDown =
       return null
     }
 
-    const { selection, selectionBounds } = rootStore.pianoRollStore
+    const { selectionBounds } = rootStore.pianoRollStore
     const local = rootStore.pianoRollStore.getLocal(e)
 
     if (e.button === 0) {
-      if (selection !== null && selectionBounds !== null) {
+      if (selectionBounds !== null) {
         const type = positionType(selectionBounds, local)
         switch (type) {
           case "center":
-            return moveSelectionAction(selection)
+            return moveSelectionAction(selectionBounds)
           case "right":
-            return dragSelectionRightEdgeAction(selection)
+            return dragSelectionRightEdgeAction
           case "left":
-            return dragSelectionLeftEdgeAction(selection)
+            return dragSelectionLeftEdgeAction
           case "outside":
             return createSelectionAction
         }
@@ -113,17 +109,12 @@ const createSelectionAction: MouseGesture = (rootStore) => (e) => {
 }
 
 const moveSelectionAction =
-  (selection: Selection): MouseGesture =>
+  (selectionBounds: IRect): MouseGesture =>
   (rootStore) =>
   (e) => {
-    const {
-      pianoRollStore: { transform },
-    } = rootStore
+    const { transform } = rootStore.pianoRollStore
 
-    const local = rootStore.pianoRollStore.getLocal(e)
     const isCopy = e.ctrlKey
-    const startPos = local
-    const selectionPos = getSelectionBounds(selection, transform)
 
     if (isCopy) {
       cloneSelection(rootStore)()
@@ -131,42 +122,31 @@ const moveSelectionAction =
 
     observeDrag2(e, {
       onMouseMove: (_e, delta) => {
-        const { transform } = rootStore.pianoRollStore
-        const local = pointAdd(startPos, delta)
-        const position = pointAdd(selectionPos, pointSub(local, startPos))
-        const tick = transform.getTicks(position.x)
-        const noteNumber = Math.round(transform.getNoteNumber(position.y))
-        moveSelection(rootStore)({ tick, noteNumber })
+        const position = pointAdd(selectionBounds, delta)
+        moveSelection(rootStore)({
+          tick: transform.getTicks(position.x),
+          noteNumber: Math.round(transform.getNoteNumberFractional(position.y)),
+        })
       },
     })
   }
 
-const dragSelectionLeftEdgeAction =
-  (_selection: Selection): MouseGesture =>
-  (rootStore) =>
-  (e) => {
-    const startPos = rootStore.pianoRollStore.getLocal(e)
+const dragSelectionLeftEdgeAction: MouseGesture = (rootStore) => (e) => {
+  observeDrag({
+    onMouseMove: (e2) => {
+      const local = rootStore.pianoRollStore.getLocal(e2)
+      const tick = rootStore.pianoRollStore.transform.getTicks(local.x)
+      resizeSelectionLeft(rootStore)(tick)
+    },
+  })
+}
 
-    observeDrag2(e, {
-      onMouseMove: (_e, delta) => {
-        const local = pointAdd(startPos, delta)
-        const tick = rootStore.pianoRollStore.transform.getTicks(local.x)
-        resizeSelectionLeft(rootStore)(tick)
-      },
-    })
-  }
-
-const dragSelectionRightEdgeAction =
-  (_selection: Selection): MouseGesture =>
-  (rootStore) =>
-  (e) => {
-    const startPos = rootStore.pianoRollStore.getLocal(e)
-
-    observeDrag2(e, {
-      onMouseMove: (_e, delta) => {
-        const local = pointAdd(startPos, delta)
-        const tick = rootStore.pianoRollStore.transform.getTicks(local.x)
-        resizeSelectionRight(rootStore)(tick)
-      },
-    })
-  }
+const dragSelectionRightEdgeAction: MouseGesture = (rootStore) => (e) => {
+  observeDrag({
+    onMouseMove: (e2) => {
+      const local = rootStore.pianoRollStore.getLocal(e2)
+      const tick = rootStore.pianoRollStore.transform.getTicks(local.x)
+      resizeSelectionRight(rootStore)(tick)
+    },
+  })
+}

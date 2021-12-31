@@ -1,8 +1,7 @@
-import { IPoint, pointAdd, pointSub } from "../../../../../common/geometry"
+import { IPoint, pointAdd } from "../../../../../common/geometry"
 import { ControlSelection } from "../../../../../common/selection/ControlSelection"
 import { ControlCoordTransform } from "../../../../../common/transform/ControlCoordTransform"
-import { getClientPos } from "../../../../helpers/mouseEvent"
-import { observeDrag } from "../../../../helpers/observeDrag"
+import { observeDrag2 } from "../../../../helpers/observeDrag"
 import RootStore from "../../../../stores/RootStore"
 
 export const handleCreateSelectionDrag =
@@ -21,7 +20,6 @@ export const handleCreateSelectionDrag =
     pianoRollStore.selectedControllerEventIds = []
 
     const startTick = quantizer.round(controlTransform.getTicks(startPoint.x))
-    const startClientPos = getClientPos(e)
 
     pianoRollStore.selection = null
     pianoRollStore.selectedNoteIds = []
@@ -35,11 +33,9 @@ export const handleCreateSelectionDrag =
       toTick: startTick,
     }
 
-    observeDrag({
-      onMouseMove: (e) => {
-        const posPx = getClientPos(e)
-        const deltaPx = pointSub(posPx, startClientPos)
-        const local = pointAdd(startPoint, deltaPx)
+    observeDrag2(e, {
+      onMouseMove: (_e, delta) => {
+        const local = pointAdd(startPoint, delta)
         const endTick = quantizer.round(controlTransform.getTicks(local.x))
         pianoRollStore.controlSelection = {
           fromTick: Math.min(startTick, endTick),

@@ -26,6 +26,7 @@ export const handlePencilMouseDown =
     rootStore.pianoRollStore.selectedControllerEventIds = []
     rootStore.pianoRollStore.controlSelection = null
     rootStore.pianoRollStore.selection = null
+    rootStore.pianoRollStore.selectedNoteIds = []
 
     const startClientPos = getClientPos(e)
     const pos = transform.fromPosition(startPoint)

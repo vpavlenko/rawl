@@ -19,6 +19,7 @@ export const handleCreateSelectionDrag =
     const startClientPos = getClientPos(e)
 
     rootStore.pianoRollStore.selection = null
+    rootStore.pianoRollStore.selectedNoteIds = []
 
     rootStore.pianoRollStore.controlSelection = {
       fromTick: start.tick,

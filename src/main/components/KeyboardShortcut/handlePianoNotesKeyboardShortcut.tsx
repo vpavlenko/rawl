@@ -15,69 +15,93 @@ const SCROLL_DELTA = 24
 export const handlePianoNotesKeyboardShortcut =
   (rootStore: RootStore) =>
   (e: KeyboardEvent): boolean => {
+    const isSelected = rootStore.pianoRollStore.selectedNoteIds.length > 0
+
     switch (e.code) {
       case "Escape": {
         resetSelection(rootStore)()
-        break
+        return true
       }
       case "KeyC":
-        if (e.ctrlKey || e.metaKey) {
+        if ((e.ctrlKey || e.metaKey) && isSelected) {
           copySelection(rootStore)()
+          return true
         }
-        break
+        return false
       case "KeyX":
-        if (e.ctrlKey || e.metaKey) {
+        if ((e.ctrlKey || e.metaKey) && isSelected) {
           copySelection(rootStore)()
           deleteSelection(rootStore)()
+          return true
         }
-        break
+        return false
       case "KeyD": {
-        if (e.ctrlKey || e.metaKey) {
+        if ((e.ctrlKey || e.metaKey) && isSelected) {
           duplicateSelection(rootStore)()
+          return true
         }
-        break
+        return false
       }
       case "KeyQ": {
-        quantizeSelectedNotes(rootStore)()
-        break
+        if (isSelected) {
+          quantizeSelectedNotes(rootStore)()
+          return true
+        }
+        return false
       }
       case "Delete":
       case "Backspace": {
-        deleteSelection(rootStore)()
-        break
+        if (isSelected) {
+          deleteSelection(rootStore)()
+          return true
+        }
+        return false
       }
       case "ArrowUp": {
         if (e.ctrlKey || e.metaKey) {
           rootStore.pianoRollStore.scrollBy(0, SCROLL_DELTA)
-        } else {
+          return true
+        } else if (isSelected) {
           transposeSelection(rootStore)(e.shiftKey ? 12 : 1)
+          return true
         }
-        break
+        return false
       }
       case "ArrowDown": {
         if (e.ctrlKey || e.metaKey) {
           rootStore.pianoRollStore.scrollBy(0, -SCROLL_DELTA)
-        } else {
+          return true
+        } else if (isSelected) {
           transposeSelection(rootStore)(e.shiftKey ? -12 : -1)
+          return true
         }
-        break
+        return false
       }
       case "ArrowRight":
         if (e.ctrlKey || e.metaKey) {
           rootStore.pianoRollStore.scrollBy(-SCROLL_DELTA, 0)
-        } else if (rootStore.pianoRollStore.mouseMode == "pencil") {
+          return true
+        } else if (
+          rootStore.pianoRollStore.mouseMode == "pencil" &&
+          isSelected
+        ) {
           selectNextNote(rootStore)()
+          return true
         }
-        break
+        return false
       case "ArrowLeft":
         if (e.ctrlKey || e.metaKey) {
           rootStore.pianoRollStore.scrollBy(SCROLL_DELTA, 0)
-        } else if (rootStore.pianoRollStore.mouseMode == "pencil") {
+          return true
+        } else if (
+          rootStore.pianoRollStore.mouseMode == "pencil" &&
+          isSelected
+        ) {
           selectPreviousNote(rootStore)()
+          return true
         }
-        break
+        return false
       default:
         return false
     }
-    return true
   }

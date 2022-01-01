@@ -207,49 +207,47 @@ export const createNote =
       ...note,
       channel: selectedTrack.channel,
     })
-    return added.id
+    return added
   }
 
 export type MoveNote = {
-  type: "moveNote"
-  quantize: "floor" | "round" | "ceil"
-} & Pick<NoteEvent, "id" | "tick" | "noteNumber">
+  id: number
+  tick: number
+  noteNumber: number
+}
 
-export const moveNote =
-  (rootStore: RootStore) => (params: Omit<MoveNote, "type">) => {
-    const {
-      song,
-      services: { player },
-      pianoRollStore: { quantizer },
-    } = rootStore
+export const moveNote = (rootStore: RootStore) => (params: MoveNote) => {
+  const {
+    song,
+    services: { player },
+  } = rootStore
 
-    const selectedTrack = song.selectedTrack
-    if (selectedTrack === undefined || selectedTrack.channel == undefined) {
-      return
-    }
-    const note = selectedTrack.getEventById(params.id)
-    if (note == undefined || !isNoteEvent(note)) {
-      return null
-    }
-    const tick = quantizer[params.quantize || "floor"](params.tick)
-    const tickChanged = tick !== note.tick
-    const pitchChanged = params.noteNumber !== note.noteNumber
+  const selectedTrack = song.selectedTrack
+  if (selectedTrack === undefined || selectedTrack.channel == undefined) {
+    return
+  }
+  const note = selectedTrack.getEventById(params.id)
+  if (note == undefined || !isNoteEvent(note)) {
+    return null
+  }
+  const tickChanged = params.tick !== note.tick
+  const pitchChanged = params.noteNumber !== note.noteNumber
 
-    if (pitchChanged || tickChanged) {
-      moveSelectionBy(rootStore)({
-        tick: tick - note.tick,
-        noteNumber: params.noteNumber - note.noteNumber,
+  if (pitchChanged || tickChanged) {
+    moveSelectionBy(rootStore)({
+      tick: params.tick - note.tick,
+      noteNumber: params.noteNumber - note.noteNumber,
+    })
+
+    if (pitchChanged) {
+      player.playNote({
+        ...note,
+        noteNumber: params.noteNumber,
+        channel: selectedTrack.channel,
       })
-
-      if (pitchChanged) {
-        player.playNote({
-          ...note,
-          noteNumber: params.noteNumber,
-          channel: selectedTrack.channel,
-        })
-      }
     }
   }
+}
 export const resizeNoteLeft =
   (rootStore: RootStore) => (id: number, tick: number) => {
     const {

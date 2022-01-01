@@ -2,15 +2,13 @@ import { partition } from "lodash"
 import { observer } from "mobx-react-lite"
 import { FC, MouseEventHandler, useCallback, useEffect, useState } from "react"
 import { useTheme } from "styled-components"
-import { containsPoint, zeroRect } from "../../../common/geometry"
-import { getSelectionBounds } from "../../../common/selection/Selection"
+import { zeroRect } from "../../../common/geometry"
 import { useContextMenu } from "../../hooks/useContextMenu"
 import { useStores } from "../../hooks/useStores"
 import { GLCanvas } from "../GLCanvas/GLCanvas"
-import PencilMouseHandler from "./MouseHandler/PencilMouseHandler"
-import SelectionMouseHandler from "./MouseHandler/SelectionMouseHandler"
+import NoteMouseHandler from "./MouseHandler/NoteMouseHandler"
 import { PianoRollRenderer } from "./PianoRollRenderer/PianoRollRenderer"
-import { PianoNotesMouseEvent, PianoRollStageProps } from "./PianoRollStage"
+import { PianoRollStageProps } from "./PianoRollStage"
 import { PianoSelectionContextMenu } from "./PianoSelectionContextMenu"
 
 export const PianoNotes: FC<PianoRollStageProps> = observer(
@@ -22,70 +20,28 @@ export const PianoNotes: FC<PianoRollStageProps> = observer(
       scrollTop,
       scaleX,
       scaleY,
-      mouseMode,
       notesCursor,
-      selection,
+      selectionBounds,
       transform,
-      notes: [notes, ghostNotes],
+      notes,
+      ghostNotes,
       cursorX,
     } = rootStore.pianoRollStore
     const { beats } = rootStore.pianoRollStore.rulerStore
 
     const theme = useTheme()
 
-    const [pencilMouseHandler] = useState(new PencilMouseHandler(rootStore))
-    const [selectionMouseHandler] = useState(
-      new SelectionMouseHandler(rootStore)
-    )
-
-    const mouseHandler =
-      mouseMode === "pencil" ? pencilMouseHandler : selectionMouseHandler
+    const [mouseHandler] = useState(new NoteMouseHandler(rootStore))
 
     const { onContextMenu, menuProps } = useContextMenu()
 
-    // MouseHandler で利用する追加情報をイベントに付加する
-    // Add additional information used by MouseHandler to an event
-    const extendEvent = useCallback(
-      (e: MouseEvent): PianoNotesMouseEvent => {
-        const { scrollTop, scrollLeft } = rootStore.pianoRollStore
-        const local = {
-          x: e.offsetX + scrollLeft,
-          y: e.offsetY + scrollTop,
-        }
-        return {
-          nativeEvent: e,
-          local,
-          item: notes.find((n) => containsPoint(n, local)) ?? null,
-        }
-      },
-      [transform, notes, rootStore]
-    )
-
-    const handleMouseDown: MouseEventHandler<HTMLCanvasElement> = useCallback(
-      (e) => {
-        const ev = extendEvent(e.nativeEvent)
-        if (
-          e.buttons === 2 &&
-          rootStore.pianoRollStore.mouseMode === "selection"
-        ) {
-          e.stopPropagation()
-          onContextMenu(e)
-          return
-        }
-        mouseHandler.onMouseDown(ev)
-      },
-      [mouseHandler, extendEvent, onContextMenu]
-    )
-
-    const handleMouseMove: MouseEventHandler<HTMLCanvasElement> = useCallback(
-      (e) => mouseHandler.onMouseMove(extendEvent(e.nativeEvent)),
-      [mouseHandler, extendEvent]
-    )
-
-    const handleMouseUp: MouseEventHandler<HTMLCanvasElement> = useCallback(
-      (e) => mouseHandler.onMouseUp(extendEvent(e.nativeEvent)),
-      [mouseHandler, extendEvent]
-    )
+    const handleContextMenu: MouseEventHandler = useCallback((e) => {
+      if (rootStore.pianoRollStore.mouseMode === "selection") {
+        e.stopPropagation()
+        onContextMenu(e)
+        return
+      }
+    }, [])
 
     const [renderer, setRenderer] = useState<PianoRollRenderer | null>(null)
 
@@ -101,8 +57,6 @@ export const PianoNotes: FC<PianoRollStageProps> = observer(
       if (renderer === null) {
         return
       }
-      const selectionBounds =
-        selection !== null ? getSelectionBounds(selection, transform) : zeroRect
 
       const [highlightedBeats, nonHighlightedBeats] = partition(
         beats,
@@ -113,7 +67,7 @@ export const PianoNotes: FC<PianoRollStageProps> = observer(
       renderer.render(
         notes,
         ghostNotes,
-        selectionBounds,
+        selectionBounds ?? zeroRect,
         nonHighlightedBeats.map((b) => b.x),
         highlightedBeats.map((b) => b.x),
         cursorX,
@@ -122,7 +76,7 @@ export const PianoNotes: FC<PianoRollStageProps> = observer(
       )
     }, [
       renderer,
-      selection,
+      selectionBounds,
       transform,
       notes,
       ghostNotes,
@@ -141,14 +95,14 @@ export const PianoNotes: FC<PianoRollStageProps> = observer(
           width={width}
           height={height}
           style={{ cursor: notesCursor }}
-          onContextMenu={useCallback((e) => e.preventDefault(), [])}
+          onContextMenu={handleContextMenu}
           onCreateContext={useCallback(
             (gl) => setRenderer(new PianoRollRenderer(gl)),
             []
           )}
-          onMouseDown={handleMouseDown}
-          onMouseMove={handleMouseMove}
-          onMouseUp={handleMouseUp}
+          onMouseDown={mouseHandler.onMouseDown}
+          onMouseMove={mouseHandler.onMouseMove}
+          onMouseUp={mouseHandler.onMouseUp}
         />
         <PianoSelectionContextMenu {...menuProps} />
       </>

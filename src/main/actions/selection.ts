@@ -436,6 +436,7 @@ export const deleteSelection = (rootStore: RootStore) => () => {
   // Remove selected notes and selected notes
   selectedTrack.removeEvents(selectedNoteIds)
   pianoRollStore.selection = null
+  pianoRollStore.selectedNoteIds = []
 }
 
 export const pasteSelection = (rootStore: RootStore) => () => {

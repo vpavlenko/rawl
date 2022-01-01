@@ -1,8 +1,7 @@
-import { IPoint, pointAdd, pointSub } from "../../../../../common/geometry"
+import { IPoint, pointAdd } from "../../../../../common/geometry"
 import { ControlSelection } from "../../../../../common/selection/ControlSelection"
 import { ControlCoordTransform } from "../../../../../common/transform/ControlCoordTransform"
-import { getClientPos } from "../../../../helpers/mouseEvent"
-import { observeDrag } from "../../../../helpers/observeDrag"
+import { observeDrag2 } from "../../../../helpers/observeDrag"
 import RootStore from "../../../../stores/RootStore"
 
 export const handleCreateSelectionDrag =
@@ -13,38 +12,45 @@ export const handleCreateSelectionDrag =
     controlTransform: ControlCoordTransform,
     getControllerEventIdsInSelection: (selection: ControlSelection) => number[]
   ) => {
-    rootStore.pianoRollStore.selectedControllerEventIds = []
+    const {
+      pianoRollStore,
+      pianoRollStore: { quantizer },
+      services: { player },
+    } = rootStore
+    pianoRollStore.selectedControllerEventIds = []
 
-    const start = controlTransform.fromPosition(startPoint)
-    const startClientPos = getClientPos(e)
+    const startTick = quantizer.round(controlTransform.getTicks(startPoint.x))
 
-    rootStore.pianoRollStore.selection = null
+    pianoRollStore.selection = null
+    pianoRollStore.selectedNoteIds = []
 
-    rootStore.pianoRollStore.controlSelection = {
-      fromTick: start.tick,
-      toTick: start.tick,
+    if (!player.isPlaying) {
+      player.position = startTick
     }
 
-    observeDrag({
-      onMouseMove: (e) => {
-        const posPx = getClientPos(e)
-        const deltaPx = pointSub(posPx, startClientPos)
-        const local = pointAdd(startPoint, deltaPx)
-        const end = controlTransform.fromPosition(local)
-        rootStore.pianoRollStore.controlSelection = {
-          fromTick: Math.min(start.tick, end.tick),
-          toTick: Math.max(start.tick, end.tick),
+    pianoRollStore.controlSelection = {
+      fromTick: startTick,
+      toTick: startTick,
+    }
+
+    observeDrag2(e, {
+      onMouseMove: (_e, delta) => {
+        const local = pointAdd(startPoint, delta)
+        const endTick = quantizer.round(controlTransform.getTicks(local.x))
+        pianoRollStore.controlSelection = {
+          fromTick: Math.min(startTick, endTick),
+          toTick: Math.max(startTick, endTick),
         }
       },
-      onMouseUp: (e) => {
-        const { controlSelection } = rootStore.pianoRollStore
+      onMouseUp: (_e) => {
+        const { controlSelection } = pianoRollStore
         if (controlSelection === null) {
           return
         }
 
-        rootStore.pianoRollStore.selectedControllerEventIds =
+        pianoRollStore.selectedControllerEventIds =
           getControllerEventIdsInSelection(controlSelection)
-        rootStore.pianoRollStore.controlSelection = null
+        pianoRollStore.controlSelection = null
       },
     })
   }

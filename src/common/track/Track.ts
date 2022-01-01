@@ -317,8 +317,8 @@ export default class Track {
 
   clone() {
     const track = new Track()
-    track.addEvents(this.events.map((e) => ({ ...e })))
     track.channel = this.channel
+    track.addEvents(this.events.map((e) => ({ ...e })))
     return track
   }
 }

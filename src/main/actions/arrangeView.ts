@@ -69,7 +69,7 @@ export const arrangeEndSelection = (rootStore: RootStore) => () => {
   } = rootStore
 
   if (selection) {
-    s.selectedEventIds = getNotesInSelection(tracks, selection)
+    s.selectedEventIds = getEventsInSelection(tracks, selection)
   }
 }
 
@@ -255,8 +255,7 @@ export const arrangeDeleteSelection = (rootStore: RootStore) => () => {
 }
 
 // returns { trackId: [eventId] }
-//Returns {TrackId: [eventId] }
-function getNotesInSelection(tracks: Track[], selection: ArrangeSelection) {
+function getEventsInSelection(tracks: Track[], selection: ArrangeSelection) {
   const ids: { [key: number]: number[] } = {}
   for (
     let trackIndex = selection.fromTrackIndex;
@@ -264,9 +263,9 @@ function getNotesInSelection(tracks: Track[], selection: ArrangeSelection) {
     trackIndex++
   ) {
     const track = tracks[trackIndex]
-    const events = track.events
-      .filter(isNoteEvent)
-      .filter((e) => e.tick >= selection.fromTick && e.tick <= selection.toTick)
+    const events = track.events.filter(
+      (e) => e.tick >= selection.fromTick && e.tick < selection.toTick
+    )
     ids[trackIndex] = events.map((e) => e.id)
   }
   return ids

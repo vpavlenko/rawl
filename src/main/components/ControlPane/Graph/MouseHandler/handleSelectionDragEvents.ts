@@ -1,11 +1,13 @@
 import { ControllerEvent, PitchBendEvent } from "midifile-ts"
-import { IPoint, pointAdd, pointSub } from "../../../../../common/geometry"
-import { isNotUndefined } from "../../../../../common/helpers/array"
+import { IPoint } from "../../../../../common/geometry"
+import {
+  isValueEvent,
+  ValueEventType,
+} from "../../../../../common/helpers/valueEvent"
 import { TrackEventOf } from "../../../../../common/track"
 import { ControlCoordTransform } from "../../../../../common/transform/ControlCoordTransform"
 import { pushHistory } from "../../../../actions/history"
-import { getClientPos } from "../../../../helpers/mouseEvent"
-import { observeDrag } from "../../../../helpers/observeDrag"
+import { observeDrag2 } from "../../../../helpers/observeDrag"
 import RootStore from "../../../../stores/RootStore"
 
 export const handleSelectionDragEvents =
@@ -14,50 +16,46 @@ export const handleSelectionDragEvents =
     e: MouseEvent,
     hitEventId: number,
     startPoint: IPoint,
-    transform: ControlCoordTransform
+    transform: ControlCoordTransform,
+    type: ValueEventType
   ) => {
-    const { selectedTrack } = rootStore.song
+    const {
+      song: { selectedTrack },
+      pianoRollStore,
+    } = rootStore
     if (selectedTrack === undefined) {
       return
     }
 
     pushHistory(rootStore)()
 
-    if (
-      !rootStore.pianoRollStore.selectedControllerEventIds.includes(hitEventId)
-    ) {
-      rootStore.pianoRollStore.selectedControllerEventIds = [hitEventId]
+    if (!pianoRollStore.selectedControllerEventIds.includes(hitEventId)) {
+      pianoRollStore.selectedControllerEventIds = [hitEventId]
     }
 
-    const controllerEvents = rootStore.pianoRollStore.selectedControllerEventIds
-      .map((id) => selectedTrack.getEventById(id) as unknown as TrackEventOf<T>)
-      .filter(isNotUndefined)
-      .map((e) => ({ ...e })) // copy
+    const controllerEvents = selectedTrack.events
+      .filter((e) => pianoRollStore.selectedControllerEventIds.includes(e.id))
+      .map((e) => ({ ...e } as unknown as TrackEventOf<T>)) // copy
 
     const draggedEvent = controllerEvents.find((ev) => ev.id === hitEventId)
     if (draggedEvent === undefined) {
       return
     }
 
-    const start = transform.fromPosition(startPoint)
-    const startClientPos = getClientPos(e)
+    const startValue = transform.getValue(startPoint.y)
 
-    observeDrag({
-      onMouseMove: (e) => {
-        const posPx = getClientPos(e)
-        const deltaPx = pointSub(posPx, startClientPos)
-        const local = pointAdd(startPoint, deltaPx)
-        const pos = transform.fromPosition(local)
-        const deltaTick = pos.tick - start.tick
+    observeDrag2(e, {
+      onMouseMove: (_e, delta) => {
+        const deltaTick = transform.getTicks(delta.x)
         const offsetTick =
           draggedEvent.tick +
           deltaTick -
-          rootStore.pianoRollStore.quantizer.round(
-            draggedEvent.tick + deltaTick
-          )
+          pianoRollStore.quantizer.round(draggedEvent.tick + deltaTick)
         const quantizedDeltaTick = deltaTick - offsetTick
 
-        const deltaValue = pos.value - start.value
+        const currentValue = transform.getValue(startPoint.y + delta.y)
+        const deltaValue = currentValue - startValue
+
         selectedTrack.updateEvents(
           controllerEvents.map((ev) => ({
             id: ev.id,
@@ -68,6 +66,24 @@ export const handleSelectionDragEvents =
             ),
           }))
         )
+      },
+
+      onMouseUp: (_e) => {
+        // Find events with the same tick and remove it
+
+        const controllerEvents = selectedTrack.events.filter((e) =>
+          pianoRollStore.selectedControllerEventIds.includes(e.id)
+        )
+        const eventTicks = controllerEvents.map((e) => e.tick)
+        const duplicatedEventIds = selectedTrack.events
+          .filter(isValueEvent(type))
+          .filter(
+            (e) =>
+              !pianoRollStore.selectedControllerEventIds.includes(e.id) &&
+              eventTicks.includes(e.tick)
+          )
+          .map((e) => e.id)
+        selectedTrack.removeEvents(duplicatedEventIds)
       },
     })
   }

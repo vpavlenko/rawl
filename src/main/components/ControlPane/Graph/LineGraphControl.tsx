@@ -126,7 +126,8 @@ const LineGraphControl = observer(
             ev.nativeEvent,
             hitEventId,
             local,
-            controlTransform
+            controlTransform,
+            eventType
           )
         } else {
           handleCreateSelectionDrag(rootStore)(
@@ -140,7 +141,7 @@ const LineGraphControl = observer(
           )
         }
       },
-      [rootStore, controlTransform, scrollLeft, renderer, events]
+      [rootStore, controlTransform, scrollLeft, renderer, events, eventType]
     )
 
     const onMouseDown =

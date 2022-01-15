@@ -126,9 +126,10 @@ export const duplicateTempoSelection = (rootStore: RootStore) => () => {
     tick: note.tick + deltaTick,
   }))
 
+  const addedEvents = conductorTrack.transaction((it) =>
+    events.map((e) => it.createOrUpdate(e))
+  )
+
   // select the created events
-  conductorTrack.transaction((it) => {
-    const addedEvents = events.map((e) => it.createOrUpdate(e))
-    tempoEditorStore.selectedEventIds = addedEvents.map((e) => e.id)
-  })
+  tempoEditorStore.selectedEventIds = addedEvents.map((e) => e.id)
 }

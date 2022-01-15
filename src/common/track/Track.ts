@@ -135,11 +135,10 @@ export default class Track {
   }
 
   addEvents<T extends TrackEvent>(events: Omit<T, "id">[]): T[] {
-    let result: T[] = []
-    transaction(() => {
+    const result = transaction(() => {
       const dontMoveChannelEvent = this.isConductorTrack
 
-      result = events
+      return events
         .filter((e) => (dontMoveChannelEvent ? e.type !== "channel" : true))
         .map((e) => this._addEvent(e))
     })
@@ -168,26 +167,32 @@ export default class Track {
     this.setEndOfTrack(tick)
   }
 
-  transaction(func: (track: Track) => void) {
-    transaction(() => func(this))
+  transaction<T>(func: (track: Track) => T) {
+    return transaction(() => func(this))
   }
 
   /* helper */
 
+  private getRedundantEvents<T extends TrackEvent>(
+    event: Omit<T, "id"> & { subtype?: string; controllerType?: number }
+  ) {
+    return this.events.filter(
+      (e) =>
+        e.type === event.type &&
+        e.tick === event.tick &&
+        ("subtype" in e && "subtype" in event
+          ? e.subtype === event.subtype
+          : true) &&
+        ("controllerType" in e && "controllerType" in event
+          ? e.controllerType === event.controllerType
+          : true)
+    )
+  }
+
   createOrUpdate<T extends TrackEvent>(
     newEvent: Omit<T, "id"> & { subtype?: string; controllerType?: number }
   ): T {
-    const events = this.events.filter(
-      (e) =>
-        e.type === newEvent.type &&
-        e.tick === newEvent.tick &&
-        ("subtype" in e && "subtype" in newEvent
-          ? e.subtype === newEvent.subtype
-          : true) &&
-        ("controllerType" in e && "controllerType" in newEvent
-          ? e.controllerType === newEvent.controllerType
-          : true)
-    )
+    const events = this.getRedundantEvents(newEvent)
 
     if (events.length > 0) {
       this.transaction((it) => {
@@ -199,6 +204,16 @@ export default class Track {
     } else {
       return this.addEvent(newEvent)
     }
+  }
+
+  removeRedundantEvents<T extends TrackEvent>(
+    event: T & { subtype?: string; controllerType?: number }
+  ) {
+    this.removeEvents(
+      this.getRedundantEvents(event)
+        .filter((e) => e.id !== event.id)
+        .map((e) => e.id)
+    )
   }
 
   // 表示用の名前 トラック名がなければトラック番号を表示する

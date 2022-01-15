@@ -1,10 +1,11 @@
-import { makeStyles } from "@material-ui/core"
+import { makeStyles, Tooltip } from "@material-ui/core"
 import { Create } from "@material-ui/icons"
 import { ToggleButton, ToggleButtonGroup } from "@material-ui/lab"
-import { useCallback, VFC } from "react"
+import React, { useCallback, VFC } from "react"
 import styled from "styled-components"
-import SelectIcon from "../../images/select.svg"
+import { localized } from "../../../common/localize/localizedString"
 import { PianoRollMouseMode } from "../../stores/PianoRollStore"
+import { SelectionToolIcon } from "./SelectionToolIcon"
 
 const useStyles = makeStyles((theme) => ({
   toggleButtonGroup: {
@@ -12,11 +13,6 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "1rem",
   },
 }))
-
-const SelectionToolIcon = styled(SelectIcon)`
-  width: 1rem;
-  fill: currentColor;
-`
 
 export const StyledToggleButton = styled(ToggleButton)`
   height: 2rem;
@@ -49,13 +45,17 @@ export const ToolSelector: VFC<ToolSelectorProps> = ({
         onClick={useCallback(() => onSelect("pencil"), [])}
         value="pencil"
       >
-        <Create style={{ width: "1rem" }} />
+        <Tooltip title={`${localized("pencil-tool", "Pencil Tool")} [1]`}>
+          <Create style={{ width: "1rem" }} />
+        </Tooltip>
       </StyledToggleButton>
       <StyledToggleButton
         onClick={useCallback(() => onSelect("selection"), [])}
         value="selection"
       >
-        <SelectionToolIcon viewBox="0 0 24 24" />
+        <Tooltip title={`${localized("selection-tool", "Selection Tool")} [2]`}>
+          <SelectionToolIcon style={{ width: "1rem" }} />
+        </Tooltip>
       </StyledToggleButton>
     </ToggleButtonGroup>
   )

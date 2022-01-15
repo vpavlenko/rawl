@@ -1,9 +1,6 @@
 import { ControllerEvent, PitchBendEvent } from "midifile-ts"
 import { IPoint } from "../../../../../common/geometry"
-import {
-  isValueEvent,
-  ValueEventType,
-} from "../../../../../common/helpers/valueEvent"
+import { ValueEventType } from "../../../../../common/helpers/valueEvent"
 import { TrackEventOf } from "../../../../../common/track"
 import { ControlCoordTransform } from "../../../../../common/transform/ControlCoordTransform"
 import { pushHistory } from "../../../../actions/history"
@@ -70,20 +67,13 @@ export const handleSelectionDragEvents =
 
       onMouseUp: (_e) => {
         // Find events with the same tick and remove it
-
         const controllerEvents = selectedTrack.events.filter((e) =>
           pianoRollStore.selectedControllerEventIds.includes(e.id)
         )
-        const eventTicks = controllerEvents.map((e) => e.tick)
-        const duplicatedEventIds = selectedTrack.events
-          .filter(isValueEvent(type))
-          .filter(
-            (e) =>
-              !pianoRollStore.selectedControllerEventIds.includes(e.id) &&
-              eventTicks.includes(e.tick)
-          )
-          .map((e) => e.id)
-        selectedTrack.removeEvents(duplicatedEventIds)
+
+        selectedTrack.transaction((it) =>
+          controllerEvents.forEach((e) => it.removeRedundantEvents(e))
+        )
       },
     })
   }

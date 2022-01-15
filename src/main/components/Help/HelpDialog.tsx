@@ -71,7 +71,7 @@ export const HelpDialog: FC = observer(() => {
         </DialogContentText>
         <HotKey
           hotKeys={[["Space"]]}
-          text={localized("play-stop", "Play/Stop")}
+          text={localized("play-pause", "Play/Pause")}
         />
         <HotKey
           hotKeys={[["1"]]}

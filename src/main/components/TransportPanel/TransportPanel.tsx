@@ -1,4 +1,9 @@
-import { CircularProgress, makeStyles, Toolbar } from "@material-ui/core"
+import {
+  CircularProgress,
+  makeStyles,
+  Toolbar,
+  Tooltip,
+} from "@material-ui/core"
 import {
   FastForward,
   FastRewind,
@@ -10,6 +15,7 @@ import {
 import { observer } from "mobx-react-lite"
 import { FC } from "react"
 import styled from "styled-components"
+import { localized } from "../../../common/localize/localizedString"
 import { fastForwardOneBar, play, rewindOneBar, stop } from "../../actions"
 import { toggleRecording } from "../../actions/recording"
 import { useStores } from "../../hooks/useStores"
@@ -186,33 +192,50 @@ export const TransportPanel: FC = observer(() => {
   const classes = useStyles({})
   return (
     <Toolbar variant="dense" className={classes.toolbar}>
-      <Button onClick={onClickBackward}>
-        <FastRewind />
-      </Button>
-      <Button onClick={onClickStop}>
-        <Stop />
-      </Button>
+      <Tooltip title={`${localized("rewind", "Rewind")}`} placement="top">
+        <Button onClick={onClickBackward}>
+          <FastRewind />
+        </Button>
+      </Tooltip>
 
-      <PlayButton
-        id="button-play"
-        onClick={onClickPlay}
-        className={isPlaying ? "active" : undefined}
+      <Tooltip title={`${localized("stop", "Stop")}`} placement="top">
+        <Button onClick={onClickStop}>
+          <Stop />
+        </Button>
+      </Tooltip>
+
+      <Tooltip
+        title={`${localized("play-pause", "Play/Pause")} [space]`}
+        placement="top"
       >
-        {isPlaying ? <Pause /> : <PlayArrow />}
-      </PlayButton>
+        <PlayButton
+          id="button-play"
+          onClick={onClickPlay}
+          className={isPlaying ? "active" : undefined}
+        >
+          {isPlaying ? <Pause /> : <PlayArrow />}
+        </PlayButton>
+      </Tooltip>
 
       {canRecording && (
-        <RecordButton
-          onClick={onClickRecord}
-          className={isRecording ? "active" : undefined}
-        >
-          <FiberManualRecord />
-        </RecordButton>
+        <Tooltip title={`${localized("record", "Record")}`} placement="top">
+          <RecordButton
+            onClick={onClickRecord}
+            className={isRecording ? "active" : undefined}
+          >
+            <FiberManualRecord />
+          </RecordButton>
+        </Tooltip>
       )}
 
-      <Button onClick={onClickForward}>
-        <FastForward />
-      </Button>
+      <Tooltip
+        title={`${localized("fast-forward", "Fast Forward")}`}
+        placement="top"
+      >
+        <Button onClick={onClickForward}>
+          <FastForward />
+        </Button>
+      </Tooltip>
 
       <ToolbarSeparator />
 

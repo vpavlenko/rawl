@@ -1,8 +1,9 @@
-import { Button } from "@material-ui/core"
+import { Button, Tooltip } from "@material-ui/core"
 import { FiberManualRecord, MusicNote } from "@material-ui/icons"
 import { ToggleButton } from "@material-ui/lab"
 import React from "react"
 import styled from "styled-components"
+import { localized } from "../../../../common/localize/localizedString"
 import { QuantizePopup } from "./QuantizePopup"
 
 const Container = styled.div`
@@ -102,7 +103,9 @@ function QuantizeSelector({
   return (
     <Container>
       <Switch selected={enabled} onClick={onClickSwitch}>
-        <Note />
+        <Tooltip title={localized("snap-to-grid", "Snap to Grid")}>
+          <Note />
+        </Tooltip>
       </Switch>
       <Content
         onClick={(e) => {

@@ -1,3 +1,4 @@
+import { Tooltip } from "@material-ui/core"
 import { KeyboardTab } from "@material-ui/icons"
 import { VFC } from "react"
 import styled from "styled-components"
@@ -18,12 +19,9 @@ export const AutoScrollButton: VFC<AutoScrollButtonProps> = ({
   onClick,
   selected,
 }) => (
-  <StyledToggleButton
-    onClick={onClick}
-    selected={selected}
-    value="autoScroll"
-    title={localized("auto-scroll", "Auto-Scroll")}
-  >
-    <AutoScrollIcon />
+  <StyledToggleButton onClick={onClick} selected={selected} value="autoScroll">
+    <Tooltip title={localized("auto-scroll", "Auto-Scroll")}>
+      <AutoScrollIcon />
+    </Tooltip>
   </StyledToggleButton>
 )

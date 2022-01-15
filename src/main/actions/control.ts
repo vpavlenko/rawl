@@ -133,7 +133,7 @@ export const pasteControlSelection = (rootStore: RootStore) => () => {
     ...e,
     tick: e.tick + player.position,
   }))
-  selectedTrack.addEvents(events)
+  selectedTrack.transaction((it) => events.forEach((e) => it.createOrUpdate(e)))
 }
 
 export const duplicateControlSelection = (rootStore: RootStore) => () => {
@@ -164,6 +164,8 @@ export const duplicateControlSelection = (rootStore: RootStore) => () => {
   }))
 
   // select the created events
-  const addedEvents = selectedTrack.addEvents(notes)
+  const addedEvents = selectedTrack.transaction((it) =>
+    notes.map((e) => it.createOrUpdate(e))
+  )
   pianoRollStore.selectedControllerEventIds = addedEvents.map((e) => e.id)
 }

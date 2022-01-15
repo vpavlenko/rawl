@@ -168,8 +168,8 @@ export default class Track {
     this.setEndOfTrack(tick)
   }
 
-  transaction(func: (track: Track) => void) {
-    transaction(() => func(this))
+  transaction<T>(func: (track: Track) => T) {
+    return transaction(() => func(this))
   }
 
   /* helper */

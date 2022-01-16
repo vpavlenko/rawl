@@ -1,4 +1,10 @@
-import { ListItemText, makeStyles, Menu, MenuItem } from "@material-ui/core"
+import {
+  Divider,
+  ListItemText,
+  makeStyles,
+  Menu,
+  MenuItem,
+} from "@material-ui/core"
 import Color from "color"
 import { observer } from "mobx-react-lite"
 import React, { ChangeEvent, FC, useCallback, useRef, VFC } from "react"
@@ -55,7 +61,10 @@ export const FileMenu: VFC<{ close: () => void }> = observer(({ close }) => {
         {localized("open-song", "Open")}
       </MenuItem>
 
-      <MenuItem onClick={onClickSave}>
+      <MenuItem
+        onClick={onClickSave}
+        disabled={rootStore.song.fileHandle === null}
+      >
         {localized("save-song", "Save")}
       </MenuItem>
 
@@ -147,9 +156,13 @@ export const FileMenuButton: FC = observer(() => {
           <ListItemText primary={localized("new-song", "New")} />
         </MenuItem>
 
+        <Divider />
+
         {hasFSAccess && <FileMenu close={handleClose} />}
 
         {!hasFSAccess && <LegacyFileMenu close={handleClose} />}
+
+        <Divider />
 
         <MenuItem onClick={onClickExport}>
           {localized("export-audio", "Export Audio")}

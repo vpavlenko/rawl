@@ -42,6 +42,7 @@ export default {
     "new-song": "新規作成",
     "open-song": "開く",
     "save-song": "保存",
+    "save-as": "名前を付けて保存",
     track: "トラック",
     tracks: "トラック",
     "add-track": "トラックを追加",

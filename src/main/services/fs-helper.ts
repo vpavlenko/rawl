@@ -1,5 +1,3 @@
-import "@types/wicg-file-system-access"
-
 /**
  * Open a handle to an existing file on the local file system.
  *

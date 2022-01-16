@@ -1,9 +1,10 @@
 import { ListItemText, makeStyles, Menu, MenuItem } from "@material-ui/core"
 import Color from "color"
 import { observer } from "mobx-react-lite"
-import React, { ChangeEvent, FC, useCallback, useRef } from "react"
+import React, { ChangeEvent, FC, useCallback, useRef, VFC } from "react"
 import { localized } from "../../../common/localize/localizedString"
 import { createSong, openSong, saveSong } from "../../actions"
+import { hasFSAccess, openFile } from "../../actions/file"
 import { useStores } from "../../hooks/useStores"
 import { Tab } from "./Navigation"
 
@@ -30,6 +31,60 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
+export const FileMenu: VFC<{ close: () => void }> = observer(({ close }) => {
+  const rootStore = useStores()
+
+  const onClickOpen = async () => {
+    close()
+    await openFile(rootStore)
+  }
+
+  const onClickSave = () => {
+    close()
+    saveSong(rootStore)()
+  }
+
+  return (
+    <>
+      <MenuItem onClick={onClickOpen}>
+        {localized("open-song", "Open")}
+      </MenuItem>
+
+      <MenuItem onClick={onClickSave}>
+        {localized("save-song", "Save")}
+      </MenuItem>
+    </>
+  )
+})
+
+export const LegacyFileMenu: VFC<{ close: () => void }> = observer(
+  ({ close }) => {
+    const rootStore = useStores()
+
+    const onClickOpen = (e: ChangeEvent<HTMLInputElement>) => {
+      close()
+      openSong(rootStore)(e.currentTarget)
+    }
+
+    const onClickSave = () => {
+      close()
+      saveSong(rootStore)()
+    }
+
+    return (
+      <>
+        <FileInput onChange={onClickOpen}>
+          <MenuItem>{localized("open-song", "Open")}</MenuItem>
+        </FileInput>
+
+        <MenuItem onClick={onClickSave}>
+          {localized("save-song", "Save")}
+        </MenuItem>
+      </>
+    )
+  }
+)
+
 export const FileMenuButton: FC = observer(() => {
   const rootStore = useStores()
   const { rootViewStore, exportStore } = rootStore
@@ -43,16 +98,6 @@ export const FileMenuButton: FC = observer(() => {
     ) {
       createSong(rootStore)()
     }
-  }
-
-  const onClickOpen = (e: ChangeEvent<HTMLInputElement>) => {
-    handleClose()
-    openSong(rootStore)(e.currentTarget)
-  }
-
-  const onClickSave = () => {
-    handleClose()
-    saveSong(rootStore)()
   }
 
   const onClickExport = () => {
@@ -93,13 +138,9 @@ export const FileMenuButton: FC = observer(() => {
           <ListItemText primary={localized("new-song", "New")} />
         </MenuItem>
 
-        <FileInput onChange={onClickOpen}>
-          <MenuItem>{localized("open-song", "Open")}</MenuItem>
-        </FileInput>
+        {hasFSAccess && <FileMenu close={handleClose} />}
 
-        <MenuItem onClick={onClickSave}>
-          {localized("save-song", "Save")}
-        </MenuItem>
+        {!hasFSAccess && <LegacyFileMenu close={handleClose} />}
 
         <MenuItem onClick={onClickExport}>
           {localized("export-audio", "Export Audio")}

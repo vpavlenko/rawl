@@ -1,36 +1,12 @@
-/**
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-"use strict"
-
-/* exported getFileHandle, getNewFileHandle, readFile, verifyPermission,
-             writeFile */
+import "@types/wicg-file-system-access"
 
 /**
  * Open a handle to an existing file on the local file system.
  *
  * @return {!Promise<FileSystemFileHandle>} Handle to the existing file.
  */
-function getFileHandle() {
-  // For Chrome 86 and later...
-  if ("showOpenFilePicker" in window) {
-    return window.showOpenFilePicker().then((handles) => handles[0])
-  }
-  // For Chrome 85 and earlier...
-  return window.chooseFileSystemEntries()
+export function getFileHandle() {
+  return window.showOpenFilePicker().then((handles) => handles[0])
 }
 
 /**
@@ -38,31 +14,16 @@ function getFileHandle() {
  *
  * @return {!Promise<FileSystemFileHandle>} Handle to the new file.
  */
-function getNewFileHandle() {
-  // For Chrome 86 and later...
-  if ("showSaveFilePicker" in window) {
-    const opts = {
-      types: [
-        {
-          description: "Text file",
-          accept: { "text/plain": [".txt"] },
-        },
-      ],
-    }
-    return window.showSaveFilePicker(opts)
-  }
-  // For Chrome 85 and earlier...
+export function getNewFileHandle() {
   const opts = {
-    type: "save-file",
-    accepts: [
+    types: [
       {
         description: "Text file",
-        extensions: ["txt"],
-        mimeTypes: ["text/plain"],
+        accept: { "text/plain": [".txt"] },
       },
     ],
   }
-  return window.chooseFileSystemEntries(opts)
+  return window.showSaveFilePicker(opts)
 }
 
 /**
@@ -71,7 +32,7 @@ function getNewFileHandle() {
  * @param {File} file
  * @return {!Promise<string>} A promise that resolves to the parsed string.
  */
-function readFile(file) {
+export function readFile(file: File) {
   // If the new .text() reader is available, use it.
   if (file.text) {
     return file.text()
@@ -87,15 +48,23 @@ function readFile(file) {
  * @param {File} file
  * @return {Promise<string>} A promise that resolves to the parsed string.
  */
-function _readFileLegacy(file) {
-  return new Promise((resolve) => {
+function _readFileLegacy(file: File) {
+  return new Promise<string>((resolve) => {
     const reader = new FileReader()
     reader.addEventListener("loadend", (e) => {
-      const text = e.srcElement.result
+      const text = reader.result as string
       resolve(text)
     })
     reader.readAsText(file)
   })
+}
+
+declare global {
+  interface FileSystemFileHandle {
+    createWriter(): Promise<FileSystemWritableFileStream>
+  }
+
+  interface FileSystemWritableFileStream {}
 }
 
 /**
@@ -104,18 +73,10 @@ function _readFileLegacy(file) {
  * @param {FileSystemFileHandle} fileHandle File handle to write to.
  * @param {string} contents Contents to write.
  */
-async function writeFile(fileHandle, contents) {
-  // Support for Chrome 82 and earlier.
-  if (fileHandle.createWriter) {
-    // Create a writer (request permission if necessary).
-    const writer = await fileHandle.createWriter()
-    // Write the full length of the contents
-    await writer.write(0, contents)
-    // Close the file and write the contents to disk
-    await writer.close()
-    return
-  }
-  // For Chrome 83 and later.
+export async function writeFile(
+  fileHandle: FileSystemFileHandle,
+  contents: string
+) {
   // Create a FileSystemWritableFileStream to write to.
   const writable = await fileHandle.createWritable()
   // Write the contents of the file to the stream.
@@ -132,11 +93,12 @@ async function writeFile(fileHandle, contents) {
  * @param {boolean} withWrite True if write permission should be checked.
  * @return {boolean} True if the user has granted read/write permission.
  */
-async function verifyPermission(fileHandle, withWrite) {
-  const opts = {}
+export async function verifyPermission(
+  fileHandle: FileSystemFileHandle,
+  withWrite: boolean
+) {
+  const opts: FileSystemHandlePermissionDescriptor = {}
   if (withWrite) {
-    opts.writable = true
-    // For Chrome 86 and later...
     opts.mode = "readwrite"
   }
   // Check if we already have permission, if so, return true.

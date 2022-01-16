@@ -8,23 +8,6 @@ export function getFileHandle() {
 }
 
 /**
- * Create a handle to a new (text) file on the local file system.
- *
- * @return {!Promise<FileSystemFileHandle>} Handle to the new file.
- */
-export function getNewFileHandle() {
-  const opts = {
-    types: [
-      {
-        description: "Text file",
-        accept: { "text/plain": [".txt"] },
-      },
-    ],
-  }
-  return window.showSaveFilePicker(opts)
-}
-
-/**
  * Reads the raw text from a file.
  *
  * @param {File} file
@@ -57,23 +40,15 @@ function _readFileLegacy(file: File) {
   })
 }
 
-declare global {
-  interface FileSystemFileHandle {
-    createWriter(): Promise<FileSystemWritableFileStream>
-  }
-
-  interface FileSystemWritableFileStream {}
-}
-
 /**
  * Writes the contents to disk.
  *
  * @param {FileSystemFileHandle} fileHandle File handle to write to.
- * @param {string} contents Contents to write.
+ * @param contents Contents to write.
  */
 export async function writeFile(
   fileHandle: FileSystemFileHandle,
-  contents: string
+  contents: FileSystemWriteChunkType
 ) {
   // Create a FileSystemWritableFileStream to write to.
   const writable = await fileHandle.createWritable()

@@ -4,7 +4,7 @@ import { observer } from "mobx-react-lite"
 import React, { ChangeEvent, FC, useCallback, useRef, VFC } from "react"
 import { localized } from "../../../common/localize/localizedString"
 import { createSong, openSong, saveSong } from "../../actions"
-import { hasFSAccess, openFile } from "../../actions/file"
+import { hasFSAccess, openFile, saveFile, saveFileAs } from "../../actions/file"
 import { useStores } from "../../hooks/useStores"
 import { Tab } from "./Navigation"
 
@@ -39,9 +39,14 @@ export const FileMenu: VFC<{ close: () => void }> = observer(({ close }) => {
     await openFile(rootStore)
   }
 
-  const onClickSave = () => {
+  const onClickSave = async () => {
     close()
-    saveSong(rootStore)()
+    await saveFile(rootStore)
+  }
+
+  const onClickSaveAs = async () => {
+    close()
+    await saveFileAs(rootStore)
   }
 
   return (
@@ -52,6 +57,10 @@ export const FileMenu: VFC<{ close: () => void }> = observer(({ close }) => {
 
       <MenuItem onClick={onClickSave}>
         {localized("save-song", "Save")}
+      </MenuItem>
+
+      <MenuItem onClick={onClickSaveAs}>
+        {localized("save-as", "Save As")}
       </MenuItem>
     </>
   )

@@ -1,46 +1,4 @@
 /**
- * Open a handle to an existing file on the local file system.
- *
- * @return {!Promise<FileSystemFileHandle>} Handle to the existing file.
- */
-export function getFileHandle() {
-  return window.showOpenFilePicker().then((handles) => handles[0])
-}
-
-/**
- * Reads the raw text from a file.
- *
- * @param {File} file
- * @return {!Promise<string>} A promise that resolves to the parsed string.
- */
-export function readFile(file: File) {
-  // If the new .text() reader is available, use it.
-  if (file.text) {
-    return file.text()
-  }
-  // Otherwise use the traditional file reading technique.
-  return _readFileLegacy(file)
-}
-
-/**
- * Reads the raw text from a file.
- *
- * @private
- * @param {File} file
- * @return {Promise<string>} A promise that resolves to the parsed string.
- */
-function _readFileLegacy(file: File) {
-  return new Promise<string>((resolve) => {
-    const reader = new FileReader()
-    reader.addEventListener("loadend", (e) => {
-      const text = reader.result as string
-      resolve(text)
-    })
-    reader.readAsText(file)
-  })
-}
-
-/**
  * Writes the contents to disk.
  *
  * @param {FileSystemFileHandle} fileHandle File handle to write to.

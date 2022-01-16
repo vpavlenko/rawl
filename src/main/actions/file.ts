@@ -1,5 +1,5 @@
 import { songFromMidi, songToMidi } from "../../common/midi/midiConversion"
-import { getFileHandle, writeFile } from "../services/fs-helper"
+import { writeFile } from "../services/fs-helper"
 import RootStore from "../stores/RootStore"
 
 export const hasFSAccess =
@@ -8,7 +8,7 @@ export const hasFSAccess =
 export const openFile = async (rootStore: RootStore) => {
   let fileHandle: FileSystemFileHandle
   try {
-    fileHandle = await getFileHandle()
+    fileHandle = (await window.showOpenFilePicker())[0]
   } catch (ex) {
     if ((ex as Error).name === "AbortError") {
       return

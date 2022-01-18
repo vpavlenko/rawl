@@ -1,6 +1,12 @@
 {
   "compilerOptions": {
-    "types": ["node", "jest", "webpack-env", "webmidi"],
+    "types": [
+      "node",
+      "jest",
+      "webpack-env",
+      "webmidi",
+      "wicg-file-system-access"
+    ],
     "baseUrl": ".",
     "sourceMap": true,
     "target": "es5",

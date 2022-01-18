@@ -15,6 +15,7 @@ export default class Song {
   filepath: string = ""
   timebase: number = TIME_BASE
   name: string = ""
+  fileHandle: FileSystemFileHandle | null = null
 
   constructor() {
     makeObservable(this, {

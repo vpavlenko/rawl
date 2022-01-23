@@ -1,5 +1,4 @@
 import { SynthEvent } from "@ryohey/wavelet"
-import { collectAllEvents } from "../player"
 import Song from "../song"
 
 const tickToMillisec = (tick: number, bpm: number, timebase: number) =>
@@ -9,7 +8,7 @@ export const songToSynthEvents = (
   song: Song,
   sampleRate: number
 ): SynthEvent[] => {
-  const events = collectAllEvents(song).sort((a, b) => a.tick - b.tick)
+  const events = [...song.allEvents].sort((a, b) => a.tick - b.tick)
 
   const now = 0
   let bpm = 120

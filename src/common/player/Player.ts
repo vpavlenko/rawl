@@ -1,40 +1,21 @@
-import flatten from "lodash/flatten"
 import range from "lodash/range"
 import throttle from "lodash/throttle"
-import { AnyChannelEvent, AnyEvent, MIDIControlEvents } from "midifile-ts"
+import { AnyEvent, MIDIControlEvents } from "midifile-ts"
 import { computed, makeObservable, observable } from "mobx"
 import { SendableEvent, SynthOutput } from "../../main/services/SynthOutput"
 import { SongStore } from "../../main/stores/SongStore"
-import { deassemble as deassembleNote } from "../helpers/noteAssembler"
+import { filterEventsWithRange } from "../helpers/filterEventsWithScroll"
 import {
   controllerMidiEvent,
   noteOffMidiEvent,
   noteOnMidiEvent,
 } from "../midi/MidiEvent"
-import Song from "../song"
-import { NoteEvent, TrackEvent } from "../track"
+import { NoteEvent } from "../track"
 import { getStatusEvents } from "../track/selector"
 import TrackMute from "../trackMute"
 import { DistributiveOmit } from "../types"
 import EventScheduler from "./EventScheduler"
-import { PlayerEvent, PlayerEventOf } from "./PlayerEvent"
-
-function convertTrackEvents(
-  events: TrackEvent[],
-  channel: number | undefined,
-  trackId: number
-) {
-  return flatten(events.map((e) => deassembleNote(e))).map(
-    (e) =>
-      ({ ...e, channel: channel, trackId } as PlayerEventOf<AnyChannelEvent>)
-  )
-}
-
-export function collectAllEvents(song: Song): PlayerEvent[] {
-  return flatten(
-    song.tracks.map((t, i) => convertTrackEvents(t.events, t.channel, i))
-  )
-}
+import { convertTrackEvents, PlayerEvent } from "./PlayerEvent"
 
 export interface LoopSetting {
   begin: number
@@ -89,9 +70,9 @@ export default class Player {
       console.warn("called play() while playing. aborted.")
       return
     }
-    const eventsToPlay = collectAllEvents(this.song)
     this._scheduler = new EventScheduler(
-      eventsToPlay,
+      (startTick, endTick) =>
+        filterEventsWithRange(this.song.allEvents, startTick, endTick),
       this._currentTick,
       this.timebase,
       TIMER_INTERVAL + LOOK_AHEAD_TIME

@@ -24,10 +24,15 @@ export default class EventScheduler<E extends SchedulableEvent> {
   private _currentTick = 0
   private _scheduledTick = 0
   private _prevTime: number | undefined = undefined
-  private _events: E[]
+  private _getEvents: (startTick: number, endTick: number) => E[]
 
-  constructor(events: E[] = [], tick = 0, timebase = 480, lookAheadTime = 100) {
-    this._events = events
+  constructor(
+    getEvents: (startTick: number, endTick: number) => E[],
+    tick = 0,
+    timebase = 480,
+    lookAheadTime = 100
+  ) {
+    this._getEvents = getEvents
     this._currentTick = tick
     this._scheduledTick = tick
     this.timebase = timebase
@@ -76,13 +81,11 @@ export default class EventScheduler<E extends SchedulableEvent> {
     this._currentTick = nowTick
     this._scheduledTick = endTick
 
-    return this._events
-      .filter((e) => e && e.tick >= startTick && e.tick < endTick)
-      .map((e) => {
-        const waitTick = e.tick - nowTick
-        const delayedTime =
-          timestamp + Math.max(0, this.tickToMillisec(waitTick, bpm))
-        return { event: e, timestamp: delayedTime }
-      })
+    return this._getEvents(startTick, endTick).map((e) => {
+      const waitTick = e.tick - nowTick
+      const delayedTime =
+        timestamp + Math.max(0, this.tickToMillisec(waitTick, bpm))
+      return { event: e, timestamp: delayedTime }
+    })
   }
 }

@@ -22,7 +22,6 @@ export default class EventScheduler<E extends SchedulableEvent> {
   timebase = 480
 
   private _currentTick = 0
-  private _scheduledTick = 0
   private _prevTime: number | undefined = undefined
   private _getEvents: (startTick: number, endTick: number) => E[]
 
@@ -34,7 +33,6 @@ export default class EventScheduler<E extends SchedulableEvent> {
   ) {
     this._getEvents = getEvents
     this._currentTick = tick
-    this._scheduledTick = tick
     this.timebase = timebase
     this.lookAheadTime = lookAheadTime
   }
@@ -52,7 +50,7 @@ export default class EventScheduler<E extends SchedulableEvent> {
   }
 
   seek(tick: number) {
-    this._currentTick = this._scheduledTick = Math.max(0, tick)
+    this._currentTick = Math.max(0, tick)
   }
 
   readNextEvents(bpm: number, timestamp: number) {
@@ -60,9 +58,8 @@ export default class EventScheduler<E extends SchedulableEvent> {
       this._prevTime = timestamp
     }
     const delta = timestamp - this._prevTime
-    const nowTick = Math.floor(
-      this._currentTick + Math.max(0, this.millisecToTick(delta, bpm))
-    )
+    const deltaTick = Math.max(0, this.millisecToTick(delta, bpm))
+    const nowTick = Math.floor(this._currentTick + deltaTick)
 
     // 先読み時間
     // Leading time
@@ -74,12 +71,11 @@ export default class EventScheduler<E extends SchedulableEvent> {
     // From the previous scheduled point,
     // 先読み時間までを処理の対象とする
     // Target of processing up to read time
-    const startTick = this._scheduledTick
+    const startTick = this._currentTick + lookAheadTick
     const endTick = nowTick + lookAheadTick
 
     this._prevTime = timestamp
     this._currentTick = nowTick
-    this._scheduledTick = endTick
 
     return this._getEvents(startTick, endTick).map((e) => {
       const waitTick = e.tick - nowTick

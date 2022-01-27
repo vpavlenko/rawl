@@ -28,7 +28,7 @@ export default class Song {
       selectedTrack: computed,
       measures: computed,
       endOfSong: computed,
-      allEvents: computed,
+      allEvents: computed({ keepAlive: true }),
       tracks: observable.shallow,
       selectedTrackId: observable,
       filepath: observable,

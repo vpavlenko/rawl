@@ -240,6 +240,9 @@ export default class Player {
     }
 
     const timestamp = performance.now()
+
+    this._scheduler.loop =
+      this.loop !== null && this.loop.enabled ? this.loop : null
     const events = this._scheduler.readNextEvents(this._currentTempo, timestamp)
 
     events.forEach(({ event: e, timestamp: time }) => {
@@ -259,22 +262,6 @@ export default class Player {
 
     if (this._scheduler.currentTick >= this.song.endOfSong) {
       this.stop()
-    } else {
-      const currentTick = this._scheduler.currentTick
-
-      // Execute the loop when it reaches the loop end position after crossing the loop range (_willLoop is true)
-      if (
-        this.loop !== null &&
-        this.loop.enabled &&
-        this.loop.end > this.loop.begin &&
-        currentTick >= this.loop.begin
-      ) {
-        if (currentTick < this.loop.end) {
-          this._willLoop = true
-        } else if (this._willLoop) {
-          this._scheduler.seek(this.loop.begin)
-        }
-      }
     }
 
     this.syncPosition()

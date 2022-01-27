@@ -2,6 +2,11 @@ export interface SchedulableEvent {
   tick: number
 }
 
+export interface EventSchedulerLoop {
+  begin: number
+  end: number
+}
+
 /**
  * Player でイベントを随時読み取るためのクラス
  * 精確にスケジューリングするために先読みを行う
@@ -21,7 +26,10 @@ export default class EventScheduler<E extends SchedulableEvent> {
   // 1/4 TICK number for each beat
   timebase = 480
 
+  loop: EventSchedulerLoop | null = null
+
   private _currentTick = 0
+  private _scheduledTick = 0
   private _prevTime: number | undefined = undefined
   private _getEvents: (startTick: number, endTick: number) => E[]
 
@@ -33,6 +41,7 @@ export default class EventScheduler<E extends SchedulableEvent> {
   ) {
     this._getEvents = getEvents
     this._currentTick = tick
+    this._scheduledTick = tick
     this.timebase = timebase
     this.lookAheadTime = lookAheadTime
   }
@@ -50,10 +59,22 @@ export default class EventScheduler<E extends SchedulableEvent> {
   }
 
   seek(tick: number) {
-    this._currentTick = Math.max(0, tick)
+    this._currentTick = this._scheduledTick = Math.max(0, tick)
   }
 
   readNextEvents(bpm: number, timestamp: number) {
+    const getEventsInRange = (
+      startTick: number,
+      endTick: number,
+      currentTick: number
+    ) =>
+      this._getEvents(startTick, endTick).map((e) => {
+        const waitTick = e.tick - currentTick
+        const delayedTime =
+          timestamp + Math.max(0, this.tickToMillisec(waitTick, bpm))
+        return { event: e, timestamp: delayedTime }
+      })
+
     if (this._prevTime === undefined) {
       this._prevTime = timestamp
     }
@@ -71,17 +92,31 @@ export default class EventScheduler<E extends SchedulableEvent> {
     // From the previous scheduled point,
     // 先読み時間までを処理の対象とする
     // Target of processing up to read time
-    const startTick = this._currentTick + lookAheadTick
+    const startTick = this._scheduledTick
     const endTick = nowTick + lookAheadTick
 
     this._prevTime = timestamp
-    this._currentTick = nowTick
 
-    return this._getEvents(startTick, endTick).map((e) => {
-      const waitTick = e.tick - nowTick
-      const delayedTime =
-        timestamp + Math.max(0, this.tickToMillisec(waitTick, bpm))
-      return { event: e, timestamp: delayedTime }
-    })
+    if (
+      this.loop !== null &&
+      startTick < this.loop.end &&
+      endTick >= this.loop.end
+    ) {
+      const offset = endTick - this.loop.end
+      const endTick2 = this.loop.begin + offset
+      const currentTick = this.loop.begin - (this.loop.end - nowTick)
+      this._currentTick = currentTick
+      this._scheduledTick = endTick2
+
+      return [
+        ...getEventsInRange(startTick, this.loop.end, nowTick),
+        ...getEventsInRange(this.loop.begin, endTick2, currentTick),
+      ]
+    } else {
+      this._currentTick = nowTick
+      this._scheduledTick = endTick
+
+      return getEventsInRange(startTick, endTick, nowTick)
+    }
   }
 }

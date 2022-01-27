@@ -36,9 +36,6 @@ export default class Player {
   private _currentTick = 0
   private _isPlaying = false
 
-  // crossed the loop range while playing
-  private _willLoop = false
-
   disableSeek: boolean = false
 
   loop: LoopSetting | null = null
@@ -77,7 +74,6 @@ export default class Player {
       this.timebase,
       TIMER_INTERVAL + LOOK_AHEAD_TIME
     )
-    this._willLoop = false
     this._isPlaying = true
     this._output.activate()
     this._interval = window.setInterval(() => this._onTimer(), TIMER_INTERVAL)
@@ -96,7 +92,6 @@ export default class Player {
       this._scheduler.seek(tick)
     }
     this._currentTick = tick
-    this._willLoop = false
 
     if (this.isPlaying) {
       this.allSoundsOff()

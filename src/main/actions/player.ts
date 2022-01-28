@@ -120,9 +120,8 @@ export const setLoopBegin = (rootStore: RootStore) => (tick: number) => {
   } = rootStore
   tick = quantizer.round(tick)
   player.loop = {
-    end: tick,
-    enabled: false,
-    ...player.loop,
+    end: Math.max(tick, player.loop?.end ?? tick),
+    enabled: player.loop?.enabled ?? false,
     begin: tick,
   }
 }
@@ -134,9 +133,8 @@ export const setLoopEnd = (rootStore: RootStore) => (tick: number) => {
   } = rootStore
   tick = quantizer.round(tick)
   player.loop = {
-    begin: tick,
-    enabled: false,
-    ...player.loop,
+    begin: Math.min(tick, player.loop?.begin ?? tick),
+    enabled: player.loop?.enabled ?? false,
     end: tick,
   }
 }

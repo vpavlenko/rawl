@@ -67,9 +67,10 @@ export default class Player {
       console.warn("called play() while playing. aborted.")
       return
     }
-    this._scheduler = new EventScheduler(
+    this._scheduler = new EventScheduler<PlayerEvent>(
       (startTick, endTick) =>
         filterEventsWithRange(this.song.allEvents, startTick, endTick),
+      () => this.allNotesOffEvents(),
       this._currentTick,
       this.timebase,
       TIMER_INTERVAL + LOOK_AHEAD_TIME
@@ -130,6 +131,13 @@ export default class Player {
         this.allSoundsOffChannel(ch)
       }
     }
+  }
+
+  private allNotesOffEvents(): DistributiveOmit<PlayerEvent, "tick">[] {
+    return range(0, this.numberOfChannels).map((ch) => ({
+      ...controllerMidiEvent(0, ch, MIDIControlEvents.ALL_NOTES_OFF, 0),
+      trackId: -1, // do not mute
+    }))
   }
 
   private resetControllers() {
@@ -211,7 +219,7 @@ export default class Player {
 
   private syncPosition = throttle(() => {
     if (this._scheduler !== null) {
-      this._currentTick = this._scheduler.currentTick
+      this._currentTick = this._scheduler.scheduledTick
     }
   }, 50)
 
@@ -255,7 +263,7 @@ export default class Player {
       }
     })
 
-    if (this._scheduler.currentTick >= this.song.endOfSong) {
+    if (this._scheduler.scheduledTick >= this.song.endOfSong) {
       this.stop()
     }
 

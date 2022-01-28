@@ -24,14 +24,6 @@ export const stop = (rootStore: RootStore) => () => {
   }
 }
 
-export const setPlayerPosition = (rootStore: RootStore) => (tick: number) => {
-  const {
-    services: { player },
-    pianoRollStore: { quantizer },
-  } = rootStore
-  player.position = quantizer.round(tick)
-}
-
 const defaultTimeSignature = {
   numerator: 4,
   denominator: 4,
@@ -116,9 +108,7 @@ export const previewNoteById = (rootStore: RootStore) => (noteId: number) => {
 export const setLoopBegin = (rootStore: RootStore) => (tick: number) => {
   const {
     services: { player },
-    pianoRollStore: { quantizer },
   } = rootStore
-  tick = quantizer.round(tick)
   player.loop = {
     end: Math.max(tick, player.loop?.end ?? tick),
     enabled: player.loop?.enabled ?? false,
@@ -129,9 +119,7 @@ export const setLoopBegin = (rootStore: RootStore) => (tick: number) => {
 export const setLoopEnd = (rootStore: RootStore) => (tick: number) => {
   const {
     services: { player },
-    pianoRollStore: { quantizer },
   } = rootStore
-  tick = quantizer.round(tick)
   player.loop = {
     begin: Math.min(tick, player.loop?.begin ?? tick),
     enabled: player.loop?.enabled ?? false,

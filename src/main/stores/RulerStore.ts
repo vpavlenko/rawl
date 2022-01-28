@@ -1,6 +1,7 @@
 import { computed, makeObservable, observable } from "mobx"
 import { filterEventsWithScroll } from "../../common/helpers/filterEventsWithScroll"
 import { BeatWithX, createBeatsInRange } from "../../common/helpers/mapBeats"
+import Quantizer from "../../common/quantizer"
 import Song from "../../common/song"
 import { isTimeSignatureEvent } from "../../common/track"
 
@@ -13,6 +14,7 @@ interface RulerProvider {
   transform: CoordTransform
   scrollLeft: number
   canvasWidth: number
+  quantizer: Quantizer
 }
 
 export interface TimeSignature {
@@ -34,6 +36,7 @@ export class RulerStore {
       selectedTimeSignatureEventIds: observable.shallow,
       beats: computed,
       timeSignatures: computed,
+      quantizer: computed,
     })
   }
 
@@ -70,5 +73,9 @@ export class RulerStore {
         ...e,
         isSelected: selectedTimeSignatureEventIds.includes(e.id),
       }))
+  }
+
+  get quantizer(): Quantizer {
+    return this.parent.quantizer
   }
 }

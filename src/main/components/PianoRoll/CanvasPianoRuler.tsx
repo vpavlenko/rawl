@@ -4,12 +4,7 @@ import React, { FC, useCallback, useState } from "react"
 import { BeatWithX } from "../../../common/helpers/mapBeats"
 import { LoopSetting } from "../../../common/player"
 import { Theme } from "../../../common/theme/Theme"
-import {
-  setLoopBegin,
-  setLoopEnd,
-  setPlayerPosition,
-  updateTimeSignature,
-} from "../../actions"
+import { setLoopBegin, setLoopEnd, updateTimeSignature } from "../../actions"
 import { Layout } from "../../Constants"
 import { useContextMenu } from "../../hooks/useContextMenu"
 import { useStores } from "../../hooks/useStores"
@@ -189,8 +184,13 @@ const PianoRuler: FC<PianoRulerProps> = observer(({ rulerStore, style }) => {
     transform: { pixelsPerTick },
     scrollLeft,
   } = rulerStore.parent
-  const { beats, timeSignatures } = rulerStore
-  const { loop } = rootStore.services.player
+  const { beats, timeSignatures, quantizer } = rulerStore
+  const {
+    services: {
+      player,
+      player: { loop },
+    },
+  } = rootStore
 
   const timeSignatureHitTest = (tick: number) => {
     const widthTick = TIME_SIGNATURE_HIT_WIDTH / pixelsPerTick
@@ -207,12 +207,13 @@ const PianoRuler: FC<PianoRulerProps> = observer(({ rulerStore, style }) => {
         y: e.nativeEvent.offsetY,
       }
       const tick = (local.x + scrollLeft) / pixelsPerTick
+      const quantizedTick = quantizer.round(tick)
       const timeSignature = timeSignatureHitTest(tick)
 
       if (e.nativeEvent.ctrlKey) {
-        setLoopBegin(rootStore)(tick)
+        setLoopBegin(rootStore)(quantizedTick)
       } else if (e.nativeEvent.altKey) {
-        setLoopEnd(rootStore)(tick)
+        setLoopEnd(rootStore)(quantizedTick)
       } else {
         if (timeSignature !== undefined) {
           if (e.detail == 2) {
@@ -222,11 +223,11 @@ const PianoRuler: FC<PianoRulerProps> = observer(({ rulerStore, style }) => {
           }
         } else {
           rulerStore.selectedTimeSignatureEventIds = []
-          setPlayerPosition(rootStore)(tick)
+          player.position = quantizedTick
         }
       }
     },
-    [rootStore, scrollLeft, pixelsPerTick, timeSignatures]
+    [rootStore, quantizer, player, scrollLeft, pixelsPerTick, timeSignatures]
   )
 
   const draw = useCallback(

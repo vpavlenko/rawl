@@ -78,4 +78,15 @@ export class RulerStore {
   get quantizer(): Quantizer {
     return this.parent.quantizer
   }
+
+  getTick(offsetX: number) {
+    const { transform, scrollLeft } = this.parent
+    const tick = (offsetX + scrollLeft) / transform.pixelsPerTick
+    return tick
+  }
+
+  getQuantizedTick(offsetX: number) {
+    const { quantizer } = this.parent
+    return quantizer.round(this.getTick(offsetX))
+  }
 }

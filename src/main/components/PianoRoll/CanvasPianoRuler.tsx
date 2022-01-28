@@ -1,6 +1,6 @@
 import { findLast, isEqual } from "lodash"
 import { observer } from "mobx-react-lite"
-import React, { FC, useCallback, useState } from "react"
+import React, { FC, MouseEventHandler, useCallback, useState } from "react"
 import { BeatWithX } from "../../../common/helpers/mapBeats"
 import { LoopSetting } from "../../../common/player"
 import { Theme } from "../../../common/theme/Theme"
@@ -177,6 +177,7 @@ const PianoRuler: FC<PianoRulerProps> = observer(({ rulerStore, style }) => {
   const { onContextMenu, menuProps } = useContextMenu()
   const [timeSignatureDialogState, setTimeSignatureDialogState] =
     useState<TimeSignatureDialogState | null>(null)
+  const [rightClickTick, setRightClickTick] = useState(0)
   const height = Layout.rulerHeight
 
   const {
@@ -202,11 +203,7 @@ const PianoRuler: FC<PianoRulerProps> = observer(({ rulerStore, style }) => {
 
   const onMouseDown: React.MouseEventHandler<HTMLCanvasElement> = useCallback(
     (e) => {
-      const local = {
-        x: e.nativeEvent.offsetX,
-        y: e.nativeEvent.offsetY,
-      }
-      const tick = (local.x + scrollLeft) / pixelsPerTick
+      const tick = rulerStore.getTick(e.nativeEvent.offsetX)
       const quantizedTick = quantizer.round(tick)
       const timeSignature = timeSignatureHitTest(tick)
 
@@ -258,6 +255,14 @@ const PianoRuler: FC<PianoRulerProps> = observer(({ rulerStore, style }) => {
     []
   )
 
+  const onContextMenuWrapper: MouseEventHandler = useCallback(
+    (e) => {
+      setRightClickTick(rulerStore.getQuantizedTick(e.nativeEvent.offsetX))
+      onContextMenu(e)
+    },
+    [rulerStore]
+  )
+
   return (
     <>
       <DrawCanvas
@@ -265,10 +270,14 @@ const PianoRuler: FC<PianoRulerProps> = observer(({ rulerStore, style }) => {
         width={width}
         height={height}
         onMouseDown={onMouseDown}
-        onContextMenu={onContextMenu}
+        onContextMenu={onContextMenuWrapper}
         style={style}
       />
-      <RulerContextMenu {...menuProps} rulerStore={rulerStore} />
+      <RulerContextMenu
+        {...menuProps}
+        rulerStore={rulerStore}
+        tick={rightClickTick}
+      />
       <TimeSignatureDialog
         open={timeSignatureDialogState != null}
         initialNumerator={timeSignatureDialogState?.numerator}

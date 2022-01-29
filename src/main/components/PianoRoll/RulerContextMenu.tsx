@@ -5,6 +5,7 @@ import { useStores } from "../../hooks/useStores"
 import { RulerStore } from "../../stores/RulerStore"
 import {
   ContextMenu,
+  ContextMenuHotKey as HotKey,
   ContextMenuItem as Item,
   ContextMenuProps,
 } from "../ContextMenu/ContextMenu"
@@ -56,9 +57,11 @@ export const RulerContextMenu: FC<RulerContextMenuProps> = React.memo(
         <ContextMenu {...props}>
           <Item onClick={onClickSetLoopStart}>
             {localized("set-loop-start", "Set Loop Start")}
+            <HotKey>Ctrl+Click</HotKey>
           </Item>
           <Item onClick={onClickSetLoopEnd}>
             {localized("set-loop-end", "Set Loop End")}
+            <HotKey>Alt+Click</HotKey>
           </Item>
           <Item onClick={onClickAddTimeSignature}>
             {localized("add-time-signature", "Add Time Signature")}

@@ -105,5 +105,7 @@ export default {
     "exporting-audio": "オーディオを書き出し中...",
     "file-type": "ファイル形式",
     "export-error-too-short": "曲が短すぎます",
+    "set-loop-start": "ループ開始位置を設定",
+    "set-loop-end": "ループ終了位置を設定",
   },
 } as { [key: string]: { [key: string]: string } }

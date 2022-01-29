@@ -8,6 +8,7 @@ import {
   FastForward,
   FastRewind,
   FiberManualRecord,
+  Loop,
   Pause,
   PlayArrow,
   Stop,
@@ -16,7 +17,13 @@ import { observer } from "mobx-react-lite"
 import { FC } from "react"
 import styled from "styled-components"
 import { localized } from "../../../common/localize/localizedString"
-import { fastForwardOneBar, play, rewindOneBar, stop } from "../../actions"
+import {
+  fastForwardOneBar,
+  play,
+  rewindOneBar,
+  stop,
+  toggleEnableLoop,
+} from "../../actions"
 import { toggleRecording } from "../../actions/recording"
 import { useStores } from "../../hooks/useStores"
 
@@ -25,10 +32,6 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     background: "var(--background-color)",
     borderTop: "1px solid var(--divider-color)",
-  },
-  loop: {
-    marginLeft: "1rem",
-    height: "2rem",
   },
 }))
 
@@ -88,6 +91,12 @@ const PlayButton = styled(Button)`
 const RecordButton = styled(Button)`
   &.active {
     color: ${({ theme }) => theme.recordColor};
+  }
+`
+
+const LoopButton = styled(Button)`
+  &.active {
+    color: ${({ theme }) => theme.themeColor};
   }
 `
 
@@ -176,7 +185,7 @@ export const Right = styled.div`
 export const TransportPanel: FC = observer(() => {
   const rootStore = useStores()
 
-  const isPlaying = rootStore.services.player.isPlaying
+  const { isPlaying, loop } = rootStore.services.player
   const isRecording = rootStore.services.midiRecorder.isRecording
   const canRecording =
     Object.values(rootStore.midiDeviceStore.enabledInputs).filter((e) => e)
@@ -188,6 +197,7 @@ export const TransportPanel: FC = observer(() => {
   const onClickBackward = rewindOneBar(rootStore)
   const onClickForward = fastForwardOneBar(rootStore)
   const onClickRecord = toggleRecording(rootStore)
+  const onClickEnableLoop = toggleEnableLoop(rootStore)
 
   const classes = useStyles({})
   return (
@@ -236,6 +246,15 @@ export const TransportPanel: FC = observer(() => {
           <FastForward />
         </Button>
       </Tooltip>
+
+      {loop && (
+        <LoopButton
+          onClick={onClickEnableLoop}
+          className={loop.enabled ? "active" : undefined}
+        >
+          <Loop />
+        </LoopButton>
+      )}
 
       <ToolbarSeparator />
 

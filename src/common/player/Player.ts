@@ -1,40 +1,21 @@
-import flatten from "lodash/flatten"
 import range from "lodash/range"
 import throttle from "lodash/throttle"
-import { AnyChannelEvent, AnyEvent, MIDIControlEvents } from "midifile-ts"
+import { AnyEvent, MIDIControlEvents } from "midifile-ts"
 import { computed, makeObservable, observable } from "mobx"
 import { SendableEvent, SynthOutput } from "../../main/services/SynthOutput"
 import { SongStore } from "../../main/stores/SongStore"
-import { deassemble as deassembleNote } from "../helpers/noteAssembler"
+import { filterEventsWithRange } from "../helpers/filterEventsWithScroll"
 import {
   controllerMidiEvent,
   noteOffMidiEvent,
   noteOnMidiEvent,
 } from "../midi/MidiEvent"
-import Song from "../song"
-import { NoteEvent, TrackEvent } from "../track"
+import { NoteEvent } from "../track"
 import { getStatusEvents } from "../track/selector"
 import TrackMute from "../trackMute"
 import { DistributiveOmit } from "../types"
 import EventScheduler from "./EventScheduler"
-import { PlayerEvent, PlayerEventOf } from "./PlayerEvent"
-
-function convertTrackEvents(
-  events: TrackEvent[],
-  channel: number | undefined,
-  trackId: number
-) {
-  return flatten(events.map((e) => deassembleNote(e))).map(
-    (e) =>
-      ({ ...e, channel: channel, trackId } as PlayerEventOf<AnyChannelEvent>)
-  )
-}
-
-export function collectAllEvents(song: Song): PlayerEvent[] {
-  return flatten(
-    song.tracks.map((t, i) => convertTrackEvents(t.events, t.channel, i))
-  )
-}
+import { convertTrackEvents, PlayerEvent } from "./PlayerEvent"
 
 export interface LoopSetting {
   begin: number
@@ -57,11 +38,7 @@ export default class Player {
 
   disableSeek: boolean = false
 
-  loop: LoopSetting = {
-    begin: 0,
-    end: 0,
-    enabled: false,
-  }
+  loop: LoopSetting | null = null
 
   constructor(output: SynthOutput, trackMute: TrackMute, songStore: SongStore) {
     makeObservable<Player, "_currentTick" | "_isPlaying">(this, {
@@ -90,9 +67,10 @@ export default class Player {
       console.warn("called play() while playing. aborted.")
       return
     }
-    const eventsToPlay = collectAllEvents(this.song)
-    this._scheduler = new EventScheduler(
-      eventsToPlay,
+    this._scheduler = new EventScheduler<PlayerEvent>(
+      (startTick, endTick) =>
+        filterEventsWithRange(this.song.allEvents, startTick, endTick),
+      () => this.allNotesOffEvents(),
       this._currentTick,
       this.timebase,
       TIMER_INTERVAL + LOOK_AHEAD_TIME
@@ -153,6 +131,13 @@ export default class Player {
         this.allSoundsOffChannel(ch)
       }
     }
+  }
+
+  private allNotesOffEvents(): DistributiveOmit<PlayerEvent, "tick">[] {
+    return range(0, this.numberOfChannels).map((ch) => ({
+      ...controllerMidiEvent(0, ch, MIDIControlEvents.ALL_NOTES_OFF, 0),
+      trackId: -1, // do not mute
+    }))
   }
 
   private resetControllers() {
@@ -234,7 +219,7 @@ export default class Player {
 
   private syncPosition = throttle(() => {
     if (this._scheduler !== null) {
-      this._currentTick = this._scheduler.currentTick
+      this._currentTick = this._scheduler.scheduledTick
     }
   }, 50)
 
@@ -258,6 +243,9 @@ export default class Player {
     }
 
     const timestamp = performance.now()
+
+    this._scheduler.loop =
+      this.loop !== null && this.loop.enabled ? this.loop : null
     const events = this._scheduler.readNextEvents(this._currentTempo, timestamp)
 
     events.forEach(({ event: e, timestamp: time }) => {
@@ -275,18 +263,8 @@ export default class Player {
       }
     })
 
-    if (this._scheduler.currentTick >= this.song.endOfSong) {
+    if (this._scheduler.scheduledTick >= this.song.endOfSong) {
       this.stop()
-    } else {
-      const currentTick = this._scheduler.currentTick
-
-      if (
-        this.loop.enabled &&
-        this.loop.begin !== null &&
-        currentTick >= this.loop.end
-      ) {
-        this.position = this.loop.begin
-      }
     }
 
     this.syncPosition()

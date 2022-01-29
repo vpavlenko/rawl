@@ -6,7 +6,6 @@ import {
 import { encode } from "wav-encoder"
 import { downloadBlob } from "../../common/helpers/Downloader"
 import { songToSynthEvents } from "../../common/helpers/songToSynthEvents"
-import { collectAllEvents } from "../../common/player"
 import Song from "../../common/song"
 import RootStore from "../stores/RootStore"
 
@@ -72,4 +71,4 @@ export const cancelExport = (rootStore: RootStore) => () => {
 }
 
 export const canExport = (song: Song) =>
-  collectAllEvents(song).some((e) => e.tick >= 120)
+  song.allEvents.some((e) => e.tick >= 120)

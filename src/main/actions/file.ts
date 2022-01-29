@@ -8,7 +8,16 @@ export const hasFSAccess =
 export const openFile = async (rootStore: RootStore) => {
   let fileHandle: FileSystemFileHandle
   try {
-    fileHandle = (await window.showOpenFilePicker())[0]
+    fileHandle = (
+      await window.showOpenFilePicker({
+        types: [
+          {
+            description: "MIDI file",
+            accept: { "audio/midi": [".mid"] },
+          },
+        ],
+      })
+    )[0]
   } catch (ex) {
     if ((ex as Error).name === "AbortError") {
       return

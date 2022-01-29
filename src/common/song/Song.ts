@@ -5,6 +5,7 @@ import { TIME_BASE } from "../../main/Constants"
 import { isNotUndefined } from "../helpers/array"
 import { Measure } from "../measure/Measure"
 import { getMeasuresFromConductorTrack } from "../measure/MeasureList"
+import { collectAllEvents, PlayerEvent } from "../player/PlayerEvent"
 import Track from "../track"
 
 const END_MARGIN = 480 * 30
@@ -27,6 +28,7 @@ export default class Song {
       selectedTrack: computed,
       measures: computed,
       endOfSong: computed,
+      allEvents: computed({ keepAlive: true }),
       tracks: observable.shallow,
       selectedTrackId: observable,
       filepath: observable,
@@ -85,6 +87,10 @@ export default class Song {
       ...this.tracks.map((t) => t.endOfTrack).filter(isNotUndefined)
     )
     return (eos ?? 0) + END_MARGIN
+  }
+
+  get allEvents(): PlayerEvent[] {
+    return collectAllEvents(this.tracks)
   }
 }
 

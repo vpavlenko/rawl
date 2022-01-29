@@ -1,9 +1,16 @@
+import { filterEventsWithRange } from "../helpers/filterEventsWithScroll"
 import EventScheduler from "./EventScheduler"
 
 describe("EventScheduler", () => {
   it("readNextEvents", () => {
     const events = [{ tick: 0 }, { tick: 100 }, { tick: 110 }]
-    const s = new EventScheduler(events, 0, 480, 100)
+    const s = new EventScheduler(
+      (start, end) => filterEventsWithRange(events, start, end),
+      () => [],
+      0,
+      480,
+      100
+    )
 
     // 先読み時間分のイベントが入っている
     // There are events for read ahead time

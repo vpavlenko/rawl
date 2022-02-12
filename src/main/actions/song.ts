@@ -37,11 +37,12 @@ const openSongFile = (
   reader.readAsArrayBuffer(file)
 }
 
-const setSong = (rootStore: RootStore) => (song: Song) => {
+export const setSong = (rootStore: RootStore) => (song: Song) => {
   rootStore.song = song
   rootStore.trackMute.reset()
   rootStore.pianoRollStore.setScrollLeftInPixels(0)
   rootStore.pianoRollStore.notGhostTracks = new Set()
+  rootStore.rootViewStore.openTrackListDrawer = true
   rootStore.historyStore.clear()
 
   const { player } = rootStore.services
@@ -66,7 +67,6 @@ export const openSong = (rootStore: RootStore) => (input: HTMLInputElement) => {
       return
     }
     setSong(rootStore)(song)
-    rootStore.rootViewStore.openTrackListDrawer = true
   })
 }
 

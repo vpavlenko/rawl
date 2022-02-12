@@ -1,6 +1,7 @@
 import { songFromMidi, songToMidi } from "../../common/midi/midiConversion"
 import { writeFile } from "../services/fs-helper"
 import RootStore from "../stores/RootStore"
+import { setSong } from "./song"
 
 export const hasFSAccess =
   "chooseFileSystemEntries" in window || "showOpenFilePicker" in window
@@ -32,7 +33,7 @@ export const openFile = async (rootStore: RootStore) => {
   const song = songFromMidi(new Uint8Array(buf))
   song.filepath = file.name
   song.fileHandle = fileHandle
-  rootStore.song = song
+  setSong(rootStore)(song)
 }
 
 export const saveFile = async (rootStore: RootStore) => {

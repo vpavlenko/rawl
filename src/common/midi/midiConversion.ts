@@ -1,13 +1,20 @@
+import groupBy from "lodash/groupBy"
 import {
   AnyEvent,
+  MidiFile,
   read,
   StreamSource,
   write as writeMidiFile,
 } from "midifile-ts"
 import { toJS } from "mobx"
 import { downloadBlob } from "../helpers/Downloader"
+import { assemble } from "../helpers/noteAssembler"
 import { toRawEvents } from "../helpers/toRawEvents"
-import { toTrackEvents } from "../helpers/toTrackEvents"
+import {
+  addTick,
+  removeUnnecessaryProps,
+  toTrackEvents,
+} from "../helpers/toTrackEvents"
 import Song from "../song"
 import Track from "../track"
 
@@ -25,11 +32,46 @@ const trackFromMidiEvents = (events: AnyEvent[]): Track => {
   return track
 }
 
+const tracksFromFormat0Events = (events: AnyEvent[]): Track[] => {
+  const tickedEvents = addTick(events)
+  const eventsPerChannel = groupBy(tickedEvents, (e) => {
+    if ("channel" in e) {
+      return e.channel + 1
+    }
+    return 0 // conductor track
+  })
+  const tracks: Track[] = []
+  for (const channel of Object.keys(eventsPerChannel)) {
+    const events = eventsPerChannel[channel]
+    const ch = parseInt(channel)
+    while (tracks.length <= ch) {
+      const track = new Track()
+      track.channel = ch > 0 ? ch - 1 : undefined
+      tracks.push(track)
+    }
+    const track = tracks[ch]
+    const trackEvents = assemble(events).map(removeUnnecessaryProps)
+    track.addEvents(trackEvents)
+  }
+  return tracks
+}
+
+const getTracks = (midi: MidiFile): Track[] => {
+  switch (midi.header.formatType) {
+    case 0:
+      return tracksFromFormat0Events(midi.tracks[0])
+    case 1:
+      return midi.tracks.map(trackFromMidiEvents)
+    default:
+      throw new Error(`Unsupported midi format ${midi.header.formatType}`)
+  }
+}
+
 export function songFromMidi(data: StreamSource) {
   const song = new Song()
   const midi = read(data)
 
-  midi.tracks.map(trackFromMidiEvents).map((track) => song.addTrack(track))
+  getTracks(midi).forEach((t) => song.addTrack(t))
   song.selectedTrackId = 1
   song.timebase = midi.header.ticksPerBeat
 

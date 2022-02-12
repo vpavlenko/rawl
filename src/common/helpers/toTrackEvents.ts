@@ -2,7 +2,7 @@ import { AnyEvent } from "midifile-ts"
 import { DeltaTimeProvider, TickProvider } from "../track"
 import { assemble as assembleNotes } from "./noteAssembler"
 
-function addTick<T extends DeltaTimeProvider>(
+export function addTick<T extends DeltaTimeProvider>(
   events: T[]
 ): (T & TickProvider)[] {
   let tick = 0
@@ -17,7 +17,7 @@ function addTick<T extends DeltaTimeProvider>(
   })
 }
 
-const removeUnnecessaryProps = <T>(e: T): T => {
+export const removeUnnecessaryProps = <T>(e: T): T => {
   const { channel, ...ev } = e as any
   return ev
 }

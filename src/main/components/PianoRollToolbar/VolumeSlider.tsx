@@ -8,7 +8,6 @@ import { useStores } from "../../hooks/useStores"
 
 const LightSlider = styled(Slider)`
   color: ${({ theme }) => theme.textColor};
-  margin-right: 1rem;
   margin-left: 1rem;
 `
 

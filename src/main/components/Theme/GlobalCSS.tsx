@@ -1,6 +1,6 @@
 import { css, Global } from "@emotion/react"
 import React from "react"
-import { useTheme } from "../../main/hooks/useTheme"
+import { useTheme } from "../../hooks/useTheme"
 
 export const GlobalCSS = () => {
   const theme = useTheme()

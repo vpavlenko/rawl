@@ -13,6 +13,7 @@
     "module": "esnext",
     "esModuleInterop": true,
     "jsx": "react-jsx",
+    "jsxImportSource": "@emotion/react",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": true,

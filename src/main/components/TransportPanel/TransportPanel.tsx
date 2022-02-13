@@ -9,7 +9,6 @@ import {
   Stop,
 } from "@mui/icons-material"
 import { CircularProgress, Toolbar, Tooltip } from "@mui/material"
-import makeStyles from "@mui/styles/makeStyles"
 import { observer } from "mobx-react-lite"
 import { FC } from "react"
 import { localized } from "../../../common/localize/localizedString"
@@ -23,13 +22,11 @@ import {
 import { toggleRecording } from "../../actions/recording"
 import { useStores } from "../../hooks/useStores"
 
-const useStyles = makeStyles((theme) => ({
-  toolbar: {
-    justifyContent: "center",
-    background: "${({ theme }) => theme.backgroundColor}",
-    borderTop: "1px solid ${({ theme }) => theme.dividerColor}",
-  },
-}))
+const StyledToolbar = styled(Toolbar)`
+  justify-content: center;
+  background: ${({ theme }) => theme.backgroundColor};
+  border-top: 1px solid ${({ theme }) => theme.dividerColor};
+`
 
 const TempoInput = styled.input`
   background: transparent;
@@ -195,9 +192,8 @@ export const TransportPanel: FC = observer(() => {
   const onClickRecord = toggleRecording(rootStore)
   const onClickEnableLoop = toggleEnableLoop(rootStore)
 
-  const classes = useStyles({})
   return (
-    <Toolbar variant="dense" className={classes.toolbar}>
+    <StyledToolbar variant="dense">
       <Tooltip title={`${localized("rewind", "Rewind")}`} placement="top">
         <Button onClick={onClickBackward}>
           <FastRewind />
@@ -265,6 +261,6 @@ export const TransportPanel: FC = observer(() => {
           <CircularProgress size="1rem" />
         </Right>
       )}
-    </Toolbar>
+    </StyledToolbar>
   )
 })

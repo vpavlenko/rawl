@@ -26,7 +26,6 @@
     "@mui/icons-material": "^5.1.0",
     "@mui/lab": "^5.0.0-alpha.54",
     "@mui/material": "^5.1.0",
-    "@mui/styles": "^5.1.0",
     "@rehooks/component-size": "1.0.3",
     "@ryohey/wavelet": "^0.5.3",
     "@sentry/react": "^6.17.7",

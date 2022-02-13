@@ -98,6 +98,41 @@ export const previousTrack = (rootStore: RootStore) => () => {
   const { song } = rootStore
   song.selectTrack(Math.max(song.selectedTrackId - 1, 1))
 }
+
+export const toggleSolo = (rootStore: RootStore) => () => {
+  const {
+    song: { selectedTrackId },
+    trackMute,
+  } = rootStore
+  if (trackMute.isSolo(selectedTrackId)) {
+    trackMute.unsolo(selectedTrackId)
+  } else {
+    trackMute.solo(selectedTrackId)
+  }
+}
+
+export const toggleMute = (rootStore: RootStore) => () => {
+  const {
+    song: { selectedTrackId },
+    trackMute,
+  } = rootStore
+  if (trackMute.isMuted(selectedTrackId)) {
+    trackMute.unmute(selectedTrackId)
+  } else {
+    trackMute.mute(selectedTrackId)
+  }
+}
+
+export const toggleGhost = (RootStore: RootStore) => () => {
+  const {
+    song: { selectedTrackId },
+    pianoRollStore,
+  } = RootStore
+  if (pianoRollStore.notGhostTracks.has(selectedTrackId)) {
+    pianoRollStore.notGhostTracks.delete(selectedTrackId)
+  } else {
+    pianoRollStore.notGhostTracks.add(selectedTrackId)
+  }
 }
 
 export const previewNote =

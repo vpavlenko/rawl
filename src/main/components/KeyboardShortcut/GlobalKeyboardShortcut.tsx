@@ -52,6 +52,14 @@ export const GlobalKeyboardShortcut: FC = () => {
           stop(rootStore)()
           break
         }
+        case "KeyA": {
+          rewindOneBar(rootStore)()
+          return
+        }
+        case "KeyD": {
+          fastForwardOneBar(rootStore)()
+          return
+        }
         }
         default:
           // do not call preventDefault

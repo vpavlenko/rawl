@@ -75,6 +75,9 @@ export const HelpDialog: FC = observer(() => {
         />
         <HotKey hotKeys={[["Enter"]]} text={localized("stop", "Stop")} />
         <HotKey
+          hotKeys={[["A"], ["D"]]}
+          text={localized("forward-rewind", "Rewind / Forward")}
+        />
         />
         <HotKey
           hotKeys={[["1"]]}

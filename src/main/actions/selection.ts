@@ -1,5 +1,6 @@
 import { min } from "lodash"
 import cloneDeep from "lodash/cloneDeep"
+import { intersects } from "../../common/geometry"
 import { isNotNull, isNotUndefined } from "../../common/helpers/array"
 import {
   clampSelection,
@@ -17,26 +18,24 @@ import clipboard from "../services/Clipboard"
 import RootStore from "../stores/RootStore"
 import { pushHistory } from "./history"
 
-const isOverlappingRanges = (
-  range1: [number, number],
-  range2: [number, number]
-): boolean => {
-  return Math.max(range1[0], range2[0]) < Math.min(range1[1], range2[1])
-}
-
 function eventsInSelection(events: TrackEvent[], selection: Selection) {
-  const s = selection
-  return events
-    .filter(isNoteEvent)
-    .filter(
-      (b) =>
-        isOverlappingRanges(
-          [b.tick, b.tick + b.duration],
-          [s.from.tick, s.to.tick]
-        ) &&
-        b.noteNumber <= s.from.noteNumber &&
-        b.noteNumber > s.to.noteNumber
+  const selectionRect = {
+    x: selection.from.tick,
+    width: selection.to.tick - selection.from.tick,
+    y: selection.to.noteNumber,
+    height: selection.from.noteNumber - selection.to.noteNumber,
+  }
+  return events.filter(isNoteEvent).filter((b) =>
+    intersects(
+      {
+        x: b.tick,
+        width: b.duration,
+        y: b.noteNumber,
+        height: 1,
+      },
+      selectionRect
     )
+  )
 }
 
 export const resizeSelection =

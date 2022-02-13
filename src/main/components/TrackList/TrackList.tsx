@@ -13,13 +13,18 @@ const AddTrackListIcon = styled(ListItemIcon)`
   margin-right: 0.6em;
 `
 
+const StyledList = styled(List)`
+  overflowy: "auto";
+  border-right: 1px solid ${({ theme }) => theme.dividerColor};
+`
+
 export const TrackList: FC = observer(() => {
   const rootStore = useStores()
 
   const onClickAddTrack = useCallback(() => addTrack(rootStore)(), [])
 
   return (
-    <List style={{ overflowY: "auto" }} disablePadding>
+    <StyledList disablePadding>
       {rootStore.song.tracks.map(
         (t, i) => !t.isConductorTrack && <TrackListItem key={i} trackId={i} />
       )}
@@ -29,6 +34,6 @@ export const TrackList: FC = observer(() => {
         </AddTrackListIcon>
         <ListItemText primary={localized("add-track", "Add track")} />
       </ListItem>
-    </List>
+    </StyledList>
   )
 })

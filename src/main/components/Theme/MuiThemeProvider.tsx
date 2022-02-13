@@ -45,6 +45,13 @@ export const MuiThemeProvider: FC = ({ children }) => {
               },
             },
           },
+          MuiSlider: {
+            defaultProps: {
+              /* disable focus */
+              tabIndex: -1,
+              onClick: (e) => e.currentTarget.blur(),
+            },
+          },
         },
         palette: {
           mode: "dark",

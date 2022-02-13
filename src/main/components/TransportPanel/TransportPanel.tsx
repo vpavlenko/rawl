@@ -19,7 +19,7 @@ import styled from "styled-components"
 import { localized } from "../../../common/localize/localizedString"
 import {
   fastForwardOneBar,
-  play,
+  playOrPause,
   rewindOneBar,
   stop,
   toggleEnableLoop,
@@ -192,7 +192,7 @@ export const TransportPanel: FC = observer(() => {
       .length > 0
   const isSynthLoading = rootStore.services.synth.isLoading
 
-  const onClickPlay = play(rootStore)
+  const onClickPlay = playOrPause(rootStore)
   const onClickStop = stop(rootStore)
   const onClickBackward = rewindOneBar(rootStore)
   const onClickForward = fastForwardOneBar(rootStore)

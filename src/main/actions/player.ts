@@ -1,7 +1,7 @@
 import { isNoteEvent } from "../../common/track/identify"
 import RootStore from "../stores/RootStore"
 
-export const play = (rootStore: RootStore) => () => {
+export const playOrPause = (rootStore: RootStore) => () => {
   const {
     services: { player },
   } = rootStore
@@ -15,13 +15,11 @@ export const play = (rootStore: RootStore) => () => {
 export const stop = (rootStore: RootStore) => () => {
   const {
     services: { player },
+    pianoRollStore,
   } = rootStore
-  if (player.isPlaying) {
-    player.stop()
-  } else {
-    player.stop()
-    player.position = 0
-  }
+  player.stop()
+  player.position = 0
+  pianoRollStore.setScrollLeftInTicks(0)
 }
 
 const defaultTimeSignature = {

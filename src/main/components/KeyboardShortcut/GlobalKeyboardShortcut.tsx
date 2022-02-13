@@ -46,6 +46,12 @@ export const GlobalKeyboardShortcut: FC = () => {
           if (e.shiftKey) {
             rootStore.rootViewStore.openHelp = true
           }
+          break
+        }
+        case "Enter": {
+          stop(rootStore)()
+          break
+        }
         }
         default:
           // do not call preventDefault

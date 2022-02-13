@@ -1,5 +1,5 @@
+import styled from "@emotion/styled"
 import { FC } from "react"
-import styled from "styled-components"
 import { TempoEditorKeyboardShortcut } from "../KeyboardShortcut/TempoEditorKeyboardShortcut"
 import { TempoGraph } from "./TempoGraph"
 import { TempoGraphToolbar } from "./TempoGraphToolbar"

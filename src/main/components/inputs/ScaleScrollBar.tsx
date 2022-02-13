@@ -1,7 +1,7 @@
+import styled from "@emotion/styled"
 import { Add, FiberManualRecord, Remove } from "@mui/icons-material"
 import useComponentSize from "@rehooks/component-size"
 import React, { FC, useRef } from "react"
-import styled from "styled-components"
 import { BAR_WIDTH, ScrollBar, ScrollBarProps } from "./ScrollBar"
 
 const ScaleButton = styled.div`

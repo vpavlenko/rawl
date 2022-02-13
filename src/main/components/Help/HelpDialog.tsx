@@ -1,3 +1,4 @@
+import styled from "@emotion/styled"
 import {
   Button,
   Dialog,
@@ -8,7 +9,6 @@ import {
 } from "@mui/material"
 import { observer } from "mobx-react-lite"
 import { FC, ReactNode } from "react"
-import styled from "styled-components"
 import { localized } from "../../../common/localize/localizedString"
 import { useStores } from "../../hooks/useStores"
 
@@ -32,8 +32,8 @@ const Key = styled.div`
   border: 1px solid white;
   border-radius: 4px;
   padding: 0.1em 0.5em 0.2em 0.5em;
-  background: var(--text-color);
-  color: var(--background-color);
+  background: ${({ theme }) => theme.textColor};
+  color: ${({ theme }) => theme.backgroundColor};
   box-shadow: inset 0 -2px 0 0px #0000006b;
 `
 

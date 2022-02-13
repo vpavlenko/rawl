@@ -16,5 +16,5 @@ module.exports = {
       },
     ],
   ],
-  plugins: ["lodash", "babel-plugin-styled-components"],
+  plugins: ["lodash", "@emotion"],
 }

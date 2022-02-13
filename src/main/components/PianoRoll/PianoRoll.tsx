@@ -1,9 +1,9 @@
+import styled from "@emotion/styled"
 import useComponentSize from "@rehooks/component-size"
 import { clamp } from "lodash"
 import { observer } from "mobx-react-lite"
 import { FC, useCallback, useRef } from "react"
 import SplitPane from "react-split-pane"
-import styled from "styled-components"
 import { Layout, WHEEL_SCROLL_RATE } from "../../Constants"
 import { isTouchPadEvent } from "../../helpers/touchpad"
 import { useStores } from "../../hooks/useStores"
@@ -17,7 +17,7 @@ import { PianoRollStage } from "./PianoRollStage"
 
 const Parent = styled.div`
   flex-grow: 1;
-  background: var(--background-color);
+  background: ${({ theme }) => theme.backgroundColor};
   position: relative;
 
   .ScrollBar {
@@ -37,7 +37,7 @@ const Alpha = styled.div`
 `
 
 const Beta = styled.div`
-  border-top: 1px solid var(--divider-color);
+  border-top: 1px solid ${({ theme }) => theme.dividerColor};
   height: calc(100% - 17px);
 `
 

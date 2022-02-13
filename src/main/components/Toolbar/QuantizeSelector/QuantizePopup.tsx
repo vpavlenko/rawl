@@ -1,7 +1,7 @@
-import { Popover } from "@mui/material";
-import makeStyles from '@mui/styles/makeStyles';
+import styled from "@emotion/styled"
+import { Popover } from "@mui/material"
+import makeStyles from "@mui/styles/makeStyles"
 import React from "react"
-import styled from "styled-components"
 import { localized } from "../../../../common/localize/localizedString"
 import { NumberPicker } from "./NumberPicker"
 
@@ -38,7 +38,7 @@ const Container = styled.div`
     content: "";
     width: 1em;
     height: 1em;
-    background: var(--background-color);
+    background: ${({ theme }) => theme.backgroundColor};
     position: absolute;
     top: -0.5em;
     left: calc(50% - 1em);

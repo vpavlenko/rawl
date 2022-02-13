@@ -1,9 +1,9 @@
+import styled from "@emotion/styled"
 import useComponentSize from "@rehooks/component-size"
 import { isEqual } from "lodash"
 import { observer } from "mobx-react-lite"
 import React, { FC, useCallback, useRef, useState, VFC } from "react"
 import { FixedSizeList, ListChildComponentProps } from "react-window"
-import styled from "styled-components"
 import { localized } from "../../../common/localize/localizedString"
 import { TrackEvent } from "../../../common/track"
 import { Layout } from "../../Constants"
@@ -89,7 +89,7 @@ const Row = styled.div`
   outline: none;
 
   &:focus {
-    background: var(--secondary-background-color);
+    background: ${({ theme }) => theme.secondaryBackgroundColor};
   }
 `
 
@@ -97,7 +97,7 @@ const Cell = styled.div`
   padding: 0.5rem;
 
   &:focus-within {
-    background: var(--secondary-background-color);
+    background: ${({ theme }) => theme.secondaryBackgroundColor};
   }
 `
 

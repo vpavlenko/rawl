@@ -1,6 +1,6 @@
+import styled from "@emotion/styled"
 import { observer } from "mobx-react-lite"
 import { FC, useState } from "react"
-import styled from "styled-components"
 import { useStores } from "../../hooks/useStores"
 
 const TrackName = styled.span`
@@ -17,7 +17,7 @@ const TrackName = styled.span`
 const Input = styled.input`
   font-size: inherit;
   font-family: inherit;
-  border: var(--divider-color) 1px solid;
+  border: ${({ theme }) => theme.dividerColor} 1px solid;
   color: inherit;
   height: 2rem;
   padding: 0 0.5rem;

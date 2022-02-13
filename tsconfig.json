@@ -7,7 +7,7 @@
       "webmidi",
       "wicg-file-system-access"
     ],
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "sourceMap": true,
     "target": "esnext",
     "module": "esnext",

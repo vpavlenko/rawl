@@ -1,8 +1,8 @@
+import styled from "@emotion/styled"
 import { Forum, Help, List, Schedule, Settings } from "@mui/icons-material"
 import Color from "color"
 import { observer } from "mobx-react-lite"
 import React, { FC, useCallback } from "react"
-import styled from "styled-components"
 import { localized } from "../../../common/localize/localizedString"
 import { useStores } from "../../hooks/useStores"
 import Logo from "../../images/logo-circle.svg"
@@ -10,7 +10,7 @@ import PianoIcon from "../../images/piano.svg"
 import { FileMenuButton } from "./FileMenuButton"
 
 const BannerContainer = styled.div`
-  background: var(--theme-color);
+  background: ${({ theme }) => theme.themeColor};
   padding: 0 16px;
   height: 3rem;
   display: flex;
@@ -40,12 +40,12 @@ export const Tab = styled.div`
   padding: 0.5rem 1rem;
   font-size: 0.7rem;
   border-top: solid 0.1rem transparent;
-  color: var(--secondary-text-color);
+  color: ${({ theme }) => theme.secondaryTextColor};
 
   &.active {
-    color: var(--text-color);
-    background: var(--background-color);
-    border-top-color: var(--theme-color);
+    color: ${({ theme }) => theme.textColor};
+    background: ${({ theme }) => theme.backgroundColor};
+    border-top-color: ${({ theme }) => theme.themeColor};
   }
 
   &:hover {
@@ -69,7 +69,7 @@ const FlexibleSpacer = styled.div`
 `
 
 const Separator = styled.div`
-  background: var(--divider-color);
+  background: ${({ theme }) => theme.dividerColor};
   margin: 0.5rem 0.5rem;
   width: 1px;
 `

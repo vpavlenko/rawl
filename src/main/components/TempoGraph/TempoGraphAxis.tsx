@@ -1,6 +1,6 @@
+import styled from "@emotion/styled"
 import range from "lodash/range"
 import { FC } from "react"
-import styled from "styled-components"
 import { TempoCoordTransform } from "../../../common/transform"
 
 const Container = styled.div`
@@ -8,9 +8,9 @@ const Container = styled.div`
   left: 0;
   top: 0;
   height: 100%;
-  background: var(--background-color);
+  background: ${({ theme }) => theme.backgroundColor};
   pointer-events: none;
-  border-right: 1px solid var(--divider-color);
+  border-right: 1px solid ${({ theme }) => theme.dividerColor};
   box-shadow: 0px 0px 5px 0 rgba(0, 0, 0, 0.1);
 `
 

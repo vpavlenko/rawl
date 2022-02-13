@@ -1,3 +1,4 @@
+import { ThemeProvider } from "@emotion/react"
 import {
   StyledEngineProvider,
   ThemeProvider as MuiThemeProvider,
@@ -6,7 +7,6 @@ import StylesProvider from "@mui/styles/StylesProvider"
 import * as Sentry from "@sentry/react"
 import { Integrations } from "@sentry/tracing"
 import React from "react"
-import { ThemeProvider } from "styled-components"
 import { GlobalCSS } from "../../../common/theme/GlobalCSS"
 import { theme } from "../../../common/theme/muiTheme"
 import { defaultTheme } from "../../../common/theme/Theme"

@@ -1,8 +1,8 @@
+import styled from "@emotion/styled"
 import { Create } from "@mui/icons-material"
 import { ToggleButton, ToggleButtonGroup } from "@mui/lab"
 import { Tooltip } from "@mui/material"
 import React, { useCallback, VFC } from "react"
-import styled from "styled-components"
 import { localized } from "../../../common/localize/localizedString"
 import { PianoRollMouseMode } from "../../stores/PianoRollStore"
 import { SelectionToolIcon } from "./SelectionToolIcon"
@@ -14,11 +14,11 @@ const StyledToggleButtonGroup = styled(ToggleButtonGroup)`
 
 export const StyledToggleButton = styled(ToggleButton)`
   height: 2rem;
-  color: var(--text-color);
+  color: ${({ theme }) => theme.textColor};
   font-size: 1rem;
   padding: 0 0.7rem;
   &.Mui-selected {
-    background: var(--theme-color);
+    background: ${({ theme }) => theme.themeColor};
   }
 `
 

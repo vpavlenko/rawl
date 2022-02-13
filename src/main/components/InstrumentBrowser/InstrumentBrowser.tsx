@@ -1,3 +1,4 @@
+import styled from "@emotion/styled"
 import {
   Button,
   Checkbox,
@@ -12,7 +13,6 @@ import map from "lodash/map"
 import range from "lodash/range"
 import { observer } from "mobx-react-lite"
 import { FC } from "react"
-import styled from "styled-components"
 import { isNotUndefined } from "../../../common/helpers/array"
 import { localized } from "../../../common/localize/localizedString"
 import { getGMCategory, getInstrumentName } from "../../../common/midi/GM"
@@ -61,7 +61,7 @@ const Finder = styled.div`
   select {
     overflow: auto;
     background-color: #00000024;
-    border: 1px solid var(--divider-color);
+    border: 1px solid ${({ theme }) => theme.dividerColor};
   }
 
   option:checked {
@@ -69,11 +69,11 @@ const Finder = styled.div`
   }
 
   select:focus option:checked {
-    box-shadow: 0 0 10px 100px var(--theme-color) inset;
+    box-shadow: 0 0 10px 100px ${({ theme }) => theme.themeColor} inset;
   }
 
   select:focus {
-    outline: var(--theme-color) 1px solid;
+    outline: ${({ theme }) => theme.themeColor} 1px solid;
   }
 
   .left select {
@@ -86,7 +86,7 @@ const Finder = styled.div`
   option {
     padding: 0.5em 1em;
     font-size: 0.9rem;
-    color: var(--text-color);
+    color: ${({ theme }) => theme.textColor};
   }
 `
 

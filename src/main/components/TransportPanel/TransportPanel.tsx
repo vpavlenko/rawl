@@ -1,3 +1,4 @@
+import styled from "@emotion/styled"
 import {
   FastForward,
   FastRewind,
@@ -11,7 +12,6 @@ import { CircularProgress, Toolbar, Tooltip } from "@mui/material"
 import makeStyles from "@mui/styles/makeStyles"
 import { observer } from "mobx-react-lite"
 import { FC } from "react"
-import styled from "styled-components"
 import { localized } from "../../../common/localize/localizedString"
 import {
   fastForwardOneBar,
@@ -26,8 +26,8 @@ import { useStores } from "../../hooks/useStores"
 const useStyles = makeStyles((theme) => ({
   toolbar: {
     justifyContent: "center",
-    background: "var(--background-color)",
-    borderTop: "1px solid var(--divider-color)",
+    background: "${({ theme }) => theme.backgroundColor}",
+    borderTop: "1px solid ${({ theme }) => theme.dividerColor}",
   },
 }))
 
@@ -58,7 +58,7 @@ const Button = styled.div`
   border-radius: 100%;
   margin: 0.25rem;
   padding: 0.4rem;
-  color: var(--text-color);
+  color: ${({ theme }) => theme.textColor};
   display: flex;
   cursor: pointer;
 
@@ -72,15 +72,15 @@ const Button = styled.div`
 `
 
 const PlayButton = styled(Button)`
-  background: var(--theme-color);
+  background: ${({ theme }) => theme.themeColor};
 
   &:hover {
-    background: var(--theme-color);
+    background: ${({ theme }) => theme.themeColor};
     opacity: 0.8;
   }
 
   &.active {
-    background: var(--theme-color);
+    background: ${({ theme }) => theme.themeColor};
   }
 `
 
@@ -105,11 +105,11 @@ const TempoWrapper = styled.div`
 
   label {
     font-size: 0.6rem;
-    color: var(--secondary-text-color);
+    color: ${({ theme }) => theme.secondaryTextColor};
   }
 
   &:focus-within {
-    border: 1px solid var(--divider-color);
+    border: 1px solid ${({ theme }) => theme.dividerColor};
     background: #ffffff14;
   }
 `
@@ -157,7 +157,7 @@ const TempoForm: FC = observer(() => {
 const TimestampText = styled.div`
   font-family: "Roboto Mono", monospace;
   font-size: 0.9rem;
-  color: var(--secondary-text-color);
+  color: ${({ theme }) => theme.secondaryTextColor};
 `
 
 const Timestamp: FC = observer(() => {
@@ -167,7 +167,7 @@ const Timestamp: FC = observer(() => {
 })
 
 export const ToolbarSeparator = styled.div`
-  background: var(--divider-color);
+  background: ${({ theme }) => theme.dividerColor};
   margin: 0.4em 1em;
   width: 1px;
   height: 1rem;

@@ -1,7 +1,7 @@
+import styled from "@emotion/styled"
 import { Toolbar } from "@mui/material"
 import { observer } from "mobx-react-lite"
 import React, { FC, useCallback } from "react"
-import styled from "styled-components"
 import { useStores } from "../../hooks/useStores"
 import InstrumentBrowser from "../InstrumentBrowser/InstrumentBrowser"
 import { AutoScrollButton } from "../Toolbar/AutoScrollButton"

@@ -1,8 +1,8 @@
-import withStyles from '@mui/styles/withStyles';
+import styled from "@emotion/styled"
 import Slider from "@mui/material/Slider"
+import withStyles from "@mui/styles/withStyles"
 import { observer } from "mobx-react-lite"
 import React, { FC, useCallback } from "react"
-import styled from "styled-components"
 import { theme } from "../../../common/theme/muiTheme"
 import { setTrackPan } from "../../actions"
 import { useStores } from "../../hooks/useStores"
@@ -24,7 +24,7 @@ const Label = styled.div`
   display: flex;
   align-items: center;
   margin-right: 1rem;
-  color: var(--secondary-text-color);
+  color: ${({ theme }) => theme.secondaryTextColor};
 `
 
 export interface PanSliderProps {

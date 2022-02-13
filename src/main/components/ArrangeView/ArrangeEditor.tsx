@@ -1,5 +1,5 @@
+import styled from "@emotion/styled"
 import React, { FC } from "react"
-import styled from "styled-components"
 import { ArrangeViewKeyboardShortcut } from "../KeyboardShortcut/ArrangeViewKeyboardShortcut"
 import { ArrangeToolbar } from "./ArrangeToolbar"
 import { ArrangeView } from "./ArrangeView"

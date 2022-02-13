@@ -1,7 +1,7 @@
+import styled from "@emotion/styled"
 import { ArrowDropUp } from "@mui/icons-material"
 import useComponentSize from "@rehooks/component-size"
 import React, { FC, useRef } from "react"
-import styled from "styled-components"
 import { IPoint } from "../../../common/geometry"
 import { observeDrag, observeDrag2 } from "../../helpers/observeDrag"
 
@@ -113,170 +113,170 @@ const Container = styled.div`
   }
 `
 
-const _ScrollBar: React.RefForwardingComponent<
-  HTMLDivElement,
-  ScrollBarProps
-> = (
-  {
-    isVertical,
-    barLength,
-    scrollOffset = 50,
-    contentLength = 1000,
-    onScroll,
-    children,
-  },
-  ref
-) => {
-  const buttonLength = BUTTON_SIZE
-  const maxOffset = contentLength - barLength
-  const maxLength = barLength - buttonLength * 2
-  const valueRatio = normalize(barLength / contentLength)
-  const thumbLength = Math.max(MIN_THUMB_LENGTH, maxLength * valueRatio)
-  const disabled = maxOffset <= 0
+const _ScrollBar: React.RefForwardingComponent<HTMLDivElement, ScrollBarProps> =
+  (
+    {
+      isVertical,
+      barLength,
+      scrollOffset = 50,
+      contentLength = 1000,
+      onScroll,
+      children,
+    },
+    ref
+  ) => {
+    const buttonLength = BUTTON_SIZE
+    const maxOffset = contentLength - barLength
+    const maxLength = barLength - buttonLength * 2
+    const valueRatio = normalize(barLength / contentLength)
+    const thumbLength = Math.max(MIN_THUMB_LENGTH, maxLength * valueRatio)
+    const disabled = maxOffset <= 0
 
-  let pageForwardLength: number
-  let pageBackwardLength: number
+    let pageForwardLength: number
+    let pageBackwardLength: number
 
-  if (disabled) {
-    pageForwardLength = 0
-    pageBackwardLength = maxLength
-  } else {
-    pageForwardLength = Math.floor(
-      (maxLength - thumbLength) * normalize(scrollOffset / maxOffset)
-    )
-    pageBackwardLength = Math.floor(maxLength - thumbLength - pageForwardLength)
-  }
+    if (disabled) {
+      pageForwardLength = 0
+      pageBackwardLength = maxLength
+    } else {
+      pageForwardLength = Math.floor(
+        (maxLength - thumbLength) * normalize(scrollOffset / maxOffset)
+      )
+      pageBackwardLength = Math.floor(
+        maxLength - thumbLength - pageForwardLength
+      )
+    }
 
-  const className = isVertical ? "vertical" : "horizontal"
-  const lengthProp = isVertical ? "height" : "width"
+    const className = isVertical ? "vertical" : "horizontal"
+    const lengthProp = isVertical ? "height" : "width"
 
-  const onScroll2 = (scroll: number) =>
-    onScroll?.(Math.min(maxOffset, Math.max(0, scroll)))
+    const onScroll2 = (scroll: number) =>
+      onScroll?.(Math.min(maxOffset, Math.max(0, scroll)))
 
-  const handleMouseDown =
-    (delta: number) => (e: React.MouseEvent<HTMLDivElement>) => {
+    const handleMouseDown =
+      (delta: number) => (e: React.MouseEvent<HTMLDivElement>) => {
+        e.stopPropagation()
+
+        if (disabled) {
+          return
+        }
+
+        const currentTarget = e.target
+        const startPos = getPoint(e)
+
+        let intervalId = 0
+        let scroll = scrollOffset
+        onScroll2((scroll += delta))
+
+        const isHoverOnTarget = () =>
+          document.elementFromPoint(startPos.x, startPos.y) === currentTarget
+
+        const startLongPressTimer = (delta: number) => {
+          // 初回は時間をかける
+          // Take time for the first time
+          intervalId = window.setInterval(() => {
+            clearInterval(intervalId)
+
+            if (!isHoverOnTarget()) {
+              return
+            }
+
+            onScroll2((scroll += delta))
+
+            // 二回目からは素早く繰り返す
+            // Repeat quickly from the second time
+            intervalId = window.setInterval(() => {
+              onScroll2((scroll += delta * LONG_PRESS_SPEED))
+
+              if (!isHoverOnTarget()) {
+                stopLongPressTimer()
+              }
+            }, LONG_PRESS_INTERVAL)
+          }, LONG_PRESS_DELAY)
+        }
+
+        const stopLongPressTimer = () => {
+          clearInterval(intervalId)
+          intervalId = 0
+        }
+
+        startLongPressTimer(delta)
+
+        observeDrag({
+          onMouseMove: (e) => {
+            if (currentTarget !== e.target) {
+              stopLongPressTimer()
+            }
+          },
+          onMouseUp: () => {
+            stopLongPressTimer()
+          },
+        })
+      }
+
+    const onMouseDownThumb = (e: React.MouseEvent<HTMLDivElement>) => {
       e.stopPropagation()
 
       if (disabled) {
         return
       }
 
-      const currentTarget = e.target
+      const elm = e.target as HTMLDivElement
       const startPos = getPoint(e)
 
-      let intervalId = 0
-      let scroll = scrollOffset
-      onScroll2((scroll += delta))
+      if (elm.classList.contains("thumb")) {
+        const startValue = scrollOffset
 
-      const isHoverOnTarget = () =>
-        document.elementFromPoint(startPos.x, startPos.y) === currentTarget
-
-      const startLongPressTimer = (delta: number) => {
-        // 初回は時間をかける
-        // Take time for the first time
-        intervalId = window.setInterval(() => {
-          clearInterval(intervalId)
-
-          if (!isHoverOnTarget()) {
-            return
-          }
-
-          onScroll2((scroll += delta))
-
-          // 二回目からは素早く繰り返す
-          // Repeat quickly from the second time
-          intervalId = window.setInterval(() => {
-            onScroll2((scroll += delta * LONG_PRESS_SPEED))
-
-            if (!isHoverOnTarget()) {
-              stopLongPressTimer()
-            }
-          }, LONG_PRESS_INTERVAL)
-        }, LONG_PRESS_DELAY)
+        observeDrag2(e.nativeEvent, {
+          onMouseMove: (e, delta) => {
+            const p = isVertical ? "y" : "x"
+            const scale = maxOffset / (maxLength - thumbLength) // 移動量とスクロール量の補正値 -> Correction value of movement amount and scroll amount
+            const value = startValue + delta[p] * scale
+            onScroll2(value)
+          },
+        })
       }
-
-      const stopLongPressTimer = () => {
-        clearInterval(intervalId)
-        intervalId = 0
-      }
-
-      startLongPressTimer(delta)
-
-      observeDrag({
-        onMouseMove: (e) => {
-          if (currentTarget !== e.target) {
-            stopLongPressTimer()
-          }
-        },
-        onMouseUp: () => {
-          stopLongPressTimer()
-        },
-      })
     }
 
-  const onMouseDownThumb = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.stopPropagation()
+    const triangle = <ArrowDropUp className="triangle" />
 
-    if (disabled) {
-      return
-    }
-
-    const elm = e.target as HTMLDivElement
-    const startPos = getPoint(e)
-
-    if (elm.classList.contains("thumb")) {
-      const startValue = scrollOffset
-
-      observeDrag2(e.nativeEvent, {
-        onMouseMove: (e, delta) => {
-          const p = isVertical ? "y" : "x"
-          const scale = maxOffset / (maxLength - thumbLength) // 移動量とスクロール量の補正値 -> Correction value of movement amount and scroll amount
-          const value = startValue + delta[p] * scale
-          onScroll2(value)
-        },
-      })
-    }
-  }
-
-  const triangle = <ArrowDropUp className="triangle" />
-
-  return (
-    <Container ref={ref} className={`ScrollBar ${className}`}>
-      <div
-        className="button-backward"
-        style={{ [lengthProp]: buttonLength }}
-        onMouseDown={handleMouseDown(-SCROLL_BASE_AMOUNT)}
-      >
-        {triangle}
-      </div>
-      <div
-        className="page-backward"
-        style={{ [lengthProp]: pageForwardLength }}
-        onMouseDown={handleMouseDown(-4 * SCROLL_BASE_AMOUNT)}
-      />
-      {!disabled && (
-        <Thumb
-          className="thumb"
-          style={{ [lengthProp]: thumbLength }}
-          onMouseDown={onMouseDownThumb}
+    return (
+      <Container ref={ref} className={`ScrollBar ${className}`}>
+        <div
+          className="button-backward"
+          style={{ [lengthProp]: buttonLength }}
+          onMouseDown={handleMouseDown(-SCROLL_BASE_AMOUNT)}
+        >
+          {triangle}
+        </div>
+        <div
+          className="page-backward"
+          style={{ [lengthProp]: pageForwardLength }}
+          onMouseDown={handleMouseDown(-4 * SCROLL_BASE_AMOUNT)}
         />
-      )}
-      <div
-        className="page-forward"
-        style={{ [lengthProp]: pageBackwardLength }}
-        onMouseDown={handleMouseDown(4 * SCROLL_BASE_AMOUNT)}
-      />
-      <div
-        className="button-forward"
-        style={{ [lengthProp]: buttonLength }}
-        onMouseDown={handleMouseDown(SCROLL_BASE_AMOUNT)}
-      >
-        {triangle}
-      </div>
-      {children}
-    </Container>
-  )
-}
+        {!disabled && (
+          <Thumb
+            className="thumb"
+            style={{ [lengthProp]: thumbLength }}
+            onMouseDown={onMouseDownThumb}
+          />
+        )}
+        <div
+          className="page-forward"
+          style={{ [lengthProp]: pageBackwardLength }}
+          onMouseDown={handleMouseDown(4 * SCROLL_BASE_AMOUNT)}
+        />
+        <div
+          className="button-forward"
+          style={{ [lengthProp]: buttonLength }}
+          onMouseDown={handleMouseDown(SCROLL_BASE_AMOUNT)}
+        >
+          {triangle}
+        </div>
+        {children}
+      </Container>
+    )
+  }
 
 export const ScrollBar = React.forwardRef(_ScrollBar)
 

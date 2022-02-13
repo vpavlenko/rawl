@@ -1,8 +1,8 @@
-import { IconButton } from "@mui/material"
+import styled from "@emotion/styled"
 import { ArrowDropDown, ArrowLeft } from "@mui/icons-material"
+import { IconButton } from "@mui/material"
 import { observer } from "mobx-react-lite"
 import React, { FC, useCallback, useRef } from "react"
-import styled from "styled-components"
 import { useStores } from "../../hooks/useStores"
 
 const NavBackButton = styled(IconButton)`
@@ -12,7 +12,7 @@ const NavBackButton = styled(IconButton)`
 
   &:hover {
     background: none;
-    color: var(--secondary-text-color);
+    color: ${({ theme }) => theme.secondaryTextColor};
   }
 `
 

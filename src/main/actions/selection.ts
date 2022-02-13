@@ -17,15 +17,29 @@ import clipboard from "../services/Clipboard"
 import RootStore from "../stores/RootStore"
 import { pushHistory } from "./history"
 
+const isOverlappingRanges = (
+  range1: [number, number],
+  range2: [number, number]
+): boolean => {
+  return (
+    (range1[0] < range2[0] && range2[0] < range1[1]) ||
+    (range1[0] < range2[1] && range2[1] < range1[1])
+  )
+}
+
 function eventsInSelection(events: TrackEvent[], selection: Selection) {
   const s = selection
-  return events.filter(isNoteEvent).filter(
-    (b) =>
-      b.tick >= s.from.tick &&
-      b.tick < s.to.tick && // ノートの先頭だけ範囲にはいっていればよい -> Only the beginning of the note needs to be in the range
-      b.noteNumber <= s.from.noteNumber &&
-      b.noteNumber > s.to.noteNumber
-  )
+  return events
+    .filter(isNoteEvent)
+    .filter(
+      (b) =>
+        isOverlappingRanges(
+          [b.tick, b.tick + b.duration],
+          [s.from.tick, s.to.tick]
+        ) &&
+        b.noteNumber <= s.from.noteNumber &&
+        b.noteNumber > s.to.noteNumber
+    )
 }
 
 export const resizeSelection =

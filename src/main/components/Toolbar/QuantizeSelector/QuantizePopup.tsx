@@ -1,6 +1,5 @@
 import styled from "@emotion/styled"
 import { Popover } from "@mui/material"
-import makeStyles from "@mui/styles/makeStyles"
 import React from "react"
 import { localized } from "../../../../common/localize/localizedString"
 import { NumberPicker } from "./NumberPicker"
@@ -18,14 +17,12 @@ export interface QuantizePopupProps {
   onChangeDotted: (value: boolean) => void
 }
 
-const useStyles = makeStyles((theme) => ({
-  popover: {
-    "& .MuiPopover-paper": {
-      overflow: "visible",
-      marginTop: "1em",
-    },
-  },
-}))
+const StyledPopover = styled(Popover)`
+  .MuiPaper-root {
+    overflow: visible;
+    margin-top: 1em;
+  }
+`
 
 const Container = styled.div`
   padding: 0 1em;
@@ -85,10 +82,9 @@ export function QuantizePopup({
     const index = Math.min(values.indexOf(value) + 1, values.length - 1)
     return values[index]
   }
-  const classes = useStyles({})
+
   return (
-    <Popover
-      className={classes.popover}
+    <StyledPopover
       open={isOpen}
       onClose={onClose}
       anchorEl={anchorEl}
@@ -133,6 +129,6 @@ export function QuantizePopup({
           </div>
         </Right>
       </Container>
-    </Popover>
+    </StyledPopover>
   )
 }

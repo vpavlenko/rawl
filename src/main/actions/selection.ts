@@ -17,20 +17,11 @@ import clipboard from "../services/Clipboard"
 import RootStore from "../stores/RootStore"
 import { pushHistory } from "./history"
 
-const isInRange = (number: number, range: [number, number]): boolean => {
-  return range[0] < number && number < range[1]
-}
-
 const isOverlappingRanges = (
   range1: [number, number],
   range2: [number, number]
 ): boolean => {
-  return (
-    isInRange(range1[0], range2) ||
-    isInRange(range1[1], range2) ||
-    isInRange(range2[0], range1) ||
-    isInRange(range2[1], range1)
-  )
+  return Math.max(range1[0], range2[0]) < Math.min(range1[1], range2[1])
 }
 
 function eventsInSelection(events: TrackEvent[], selection: Selection) {

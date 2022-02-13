@@ -32,6 +32,7 @@ export const rewindOneBar = (rootStore: RootStore) => () => {
   const {
     song,
     services: { player },
+    pianoRollStore,
   } = rootStore
   const e =
     song.conductorTrack?.getTimeSignatureEvent(player.position) ??
@@ -57,20 +58,36 @@ export const rewindOneBar = (rootStore: RootStore) => () => {
       player.position = beginMeasureTick - ticksPerMeasure2
     }
   }
+
+  // make sure player doesn't move out of sight to the left
+  if (player.position < pianoRollStore.scrollLeftTicks) {
+    pianoRollStore.setScrollLeftInTicks(player.position)
+  }
 }
 
 export const fastForwardOneBar = (rootStore: RootStore) => () => {
   const {
     song,
     services: { player },
-    pianoRollStore: { quantizer },
+    pianoRollStore,
   } = rootStore
+  const { quantizer } = pianoRollStore
+
   const e =
     song.conductorTrack?.getTimeSignatureEvent(player.position) ??
     defaultTimeSignature
   const ticksPerBeat = (song.timebase * 4) / e.denominator
   const ticksPerMeasure = ticksPerBeat * e.numerator
   player.position = quantizer.round(player.position + ticksPerMeasure)
+
+  // make sure player doesn't move out of sight to the right
+  const { transform, scrollLeft } = pianoRollStore
+  const x = transform.getX(player.position)
+  const screenX = x - scrollLeft
+  if (screenX > pianoRollStore.canvasWidth * 0.7) {
+    pianoRollStore.setScrollLeftInPixels(x - pianoRollStore.canvasWidth * 0.7)
+  }
+}
 }
 
 export const previewNote =

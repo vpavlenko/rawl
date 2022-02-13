@@ -82,11 +82,15 @@ const Finder = styled.div`
   .right select {
     width: 17em;
   }
+`
 
-  option {
-    padding: 0.5em 1em;
-    font-size: 0.9rem;
-    color: ${({ theme }) => theme.textColor};
+const Option = styled.option`
+  padding: 0.5em 1em;
+  font-size: 0.9rem;
+  color: ${({ theme }) => theme.textColor};
+
+  &:checked {
+    background: ${({ theme }) => theme.themeColor};
   }
 `
 
@@ -126,18 +130,18 @@ const InstrumentBrowser: FC<InstrumentBrowserProps> = ({
   const categoryOptions = presetCategories.map(
     (preset: PresetCategory, i: number) => {
       return (
-        <option key={i} value={i}>
+        <Option key={i} value={i}>
           {preset.name}
-        </option>
+        </Option>
       )
     }
   )
 
   const instrumentOptions = instruments.map((p: PresetItem, i: number) => {
     return (
-      <option key={i} value={p.programNumber}>
+      <Option key={i} value={p.programNumber}>
         {p.name}
-      </option>
+      </Option>
     )
   })
 

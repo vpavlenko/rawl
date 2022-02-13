@@ -60,6 +60,14 @@ export const GlobalKeyboardShortcut: FC = () => {
           fastForwardOneBar(rootStore)()
           return
         }
+        case "KeyS": {
+          nextTrack(rootStore)()
+          return
+        }
+        case "KeyW": {
+          previousTrack(rootStore)()
+          return
+        }
         }
         default:
           // do not call preventDefault

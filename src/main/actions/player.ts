@@ -88,6 +88,16 @@ export const fastForwardOneBar = (rootStore: RootStore) => () => {
     pianoRollStore.setScrollLeftInPixels(x - pianoRollStore.canvasWidth * 0.7)
   }
 }
+
+export const nextTrack = (rootStore: RootStore) => () => {
+  const { song } = rootStore
+  song.selectTrack(Math.min(song.selectedTrackId + 1, song.tracks.length - 1))
+}
+
+export const previousTrack = (rootStore: RootStore) => () => {
+  const { song } = rootStore
+  song.selectTrack(Math.max(song.selectedTrackId - 1, 1))
+}
 }
 
 export const previewNote =

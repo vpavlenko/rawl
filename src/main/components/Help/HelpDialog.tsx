@@ -78,6 +78,10 @@ export const HelpDialog: FC = observer(() => {
           hotKeys={[["A"], ["D"]]}
           text={localized("forward-rewind", "Rewind / Forward")}
         />
+        <HotKey
+          hotKeys={[["S"], ["W"]]}
+          text={localized("next-previous", "Next / Previous Track")}
+        />
         />
         <HotKey
           hotKeys={[["1"]]}

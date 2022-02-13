@@ -19,6 +19,7 @@ export const MuiThemeProvider: FC = ({ children }) => {
             styleOverrides: {
               root: {
                 color: theme.textColor,
+                fontSize: "inherit",
               },
             },
           },
@@ -26,6 +27,7 @@ export const MuiThemeProvider: FC = ({ children }) => {
             styleOverrides: {
               root: {
                 color: theme.textColor,
+                fontSize: "inherit",
               },
             },
           },
@@ -33,6 +35,13 @@ export const MuiThemeProvider: FC = ({ children }) => {
             styleOverrides: {
               root: {
                 background: theme.backgroundColor,
+              },
+            },
+          },
+          MuiMenuItem: {
+            styleOverrides: {
+              root: {
+                fontSize: "inherit",
               },
             },
           },

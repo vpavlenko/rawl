@@ -9,6 +9,7 @@ import { useStores } from "../../hooks/useStores"
 const LightSlider = styled(Slider)`
   color: ${({ theme }) => theme.textColor};
   margin-right: 1rem;
+  margin-left: 1rem;
 `
 
 const Container = styled.div`
@@ -38,6 +39,7 @@ const _VolumeSlider: FC<VolumeSliderProps> = observer(({ trackId }) => {
     <Container>
       <VolumeIcon />
       <LightSlider
+        size="small"
         value={volume}
         onChange={(_, value) => onChange(value as number)}
         max={127}

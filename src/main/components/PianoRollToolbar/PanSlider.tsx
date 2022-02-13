@@ -39,6 +39,7 @@ const _PanSlider: FC<PanSliderProps> = observer(({ trackId }) => {
     <Container>
       <Label>Pan</Label>
       <LightSlider
+        size="small"
         value={pan}
         onChange={(_, value) => onChange(value as number)}
         min={0}

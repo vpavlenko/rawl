@@ -1,4 +1,5 @@
-import { Divider, ListItemText, Menu, MenuItem } from "@mui/material"
+import styled from "@emotion/styled"
+import { Divider, Menu, MenuItem } from "@mui/material"
 import Color from "color"
 import { observer } from "mobx-react-lite"
 import React, { ChangeEvent, FC, useCallback, useRef, VFC } from "react"
@@ -92,6 +93,13 @@ export const LegacyFileMenu: VFC<{ close: () => void }> = observer(
   }
 )
 
+const StyledMenu = styled(Menu)`
+  .MuiList-root {
+    background: ${({ theme }) =>
+      Color(theme.backgroundColor).lighten(0.2).hex()};
+  }
+`
+
 export const FileMenuButton: FC = observer(() => {
   const rootStore = useStores()
   const { rootViewStore, exportStore } = rootStore
@@ -125,10 +133,7 @@ export const FileMenuButton: FC = observer(() => {
         <span>{localized("file", "File")}</span>
       </Tab>
 
-      <Menu
-        sx={{
-          background: Color(theme.backgroundColor).lighten(0.2).hex(),
-        }}
+      <StyledMenu
         keepMounted
         open={isOpen}
         onClose={handleClose}
@@ -141,9 +146,7 @@ export const FileMenuButton: FC = observer(() => {
         transitionDuration={50}
         disableAutoFocusItem={true}
       >
-        <MenuItem onClick={onClickNew}>
-          <ListItemText primary={localized("new-song", "New")} />
-        </MenuItem>
+        <MenuItem onClick={onClickNew}>{localized("new-song", "New")}</MenuItem>
 
         <Divider />
 
@@ -156,7 +159,7 @@ export const FileMenuButton: FC = observer(() => {
         <MenuItem onClick={onClickExport}>
           {localized("export-audio", "Export Audio")}
         </MenuItem>
-      </Menu>
+      </StyledMenu>
     </>
   )
 })

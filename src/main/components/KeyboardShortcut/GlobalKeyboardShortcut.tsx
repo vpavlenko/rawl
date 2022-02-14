@@ -1,5 +1,15 @@
 import { FC, useEffect } from "react"
-import { play, stop } from "../../actions"
+import {
+  fastForwardOneBar,
+  nextTrack,
+  playOrPause,
+  previousTrack,
+  rewindOneBar,
+  stop,
+  toggleGhost,
+  toggleMute,
+  toggleSolo,
+} from "../../actions"
 import { redo, undo } from "../../actions/history"
 import { useStores } from "../../hooks/useStores"
 import { isFocusable } from "./isFocusable"
@@ -18,11 +28,7 @@ export const GlobalKeyboardShortcut: FC = () => {
       }
       switch (e.code) {
         case "Space": {
-          if (player.isPlaying) {
-            stop(rootStore)()
-          } else {
-            play(rootStore)()
-          }
+          playOrPause(rootStore)()
           break
         }
         case "KeyZ": {
@@ -46,6 +52,39 @@ export const GlobalKeyboardShortcut: FC = () => {
           if (e.shiftKey) {
             rootStore.rootViewStore.openHelp = true
           }
+          break
+        }
+        case "Enter": {
+          stop(rootStore)()
+          break
+        }
+        case "KeyA": {
+          rewindOneBar(rootStore)()
+          return
+        }
+        case "KeyD": {
+          fastForwardOneBar(rootStore)()
+          return
+        }
+        case "KeyS": {
+          nextTrack(rootStore)()
+          return
+        }
+        case "KeyW": {
+          previousTrack(rootStore)()
+          return
+        }
+        case "KeyN": {
+          toggleSolo(rootStore)()
+          return
+        }
+        case "KeyM": {
+          toggleMute(rootStore)()
+          return
+        }
+        case "Comma": {
+          toggleGhost(rootStore)()
+          return
         }
         default:
           // do not call preventDefault

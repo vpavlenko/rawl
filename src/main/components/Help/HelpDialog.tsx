@@ -80,7 +80,7 @@ export const HelpDialog: FC = observer(() => {
         />
         <HotKey
           hotKeys={[["S"], ["W"]]}
-          text={localized("next-previous", "Next / Previous Track")}
+          text={localized("next-previous-track", "Next / Previous Track")}
         />
         <HotKey
           hotKeys={[["N"], ["M"], [","]]}

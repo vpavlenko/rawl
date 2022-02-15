@@ -23,11 +23,11 @@ export function bottom(rect: IRect) {
 }
 
 export function intersects(rectA: IRect, rectB: IRect) {
-  return !(
-    right(rectA) < rectB.x ||
-    right(rectB) < rectA.x ||
-    bottom(rectA) < rectB.y ||
-    bottom(rectB) < rectA.y
+  return (
+    right(rectA) > rectB.x &&
+    right(rectB) > rectA.x &&
+    bottom(rectA) > rectB.y &&
+    bottom(rectB) > rectA.y
   )
 }
 

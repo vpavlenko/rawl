@@ -4,6 +4,7 @@ import {
   createNote,
   fixSelection,
   moveNote,
+  muteNote,
   previewNoteById,
   removeEvent,
   removeNoteFromSelection,
@@ -69,6 +70,10 @@ export const getPencilActionForMouseDown =
         return null
     }
   }
+
+export const getPencilActionForMouseUp = (): MouseGesture => {
+  return muteNoteAction
+}
 
 export const getPencilCursorForMouseMove =
   (rootStore: RootStore) =>
@@ -221,6 +226,14 @@ const createNoteAction: MouseGesture = (rootStore) => (e) => {
       })
     },
   })
+}
+
+const muteNoteAction: MouseGesture = (rootStore) => (e) => {
+  const { transform } = rootStore.pianoRollStore
+  const local = rootStore.pianoRollStore.getLocal(e)
+
+  const { noteNumber } = transform.getNotePoint(local)
+  muteNote(rootStore)(noteNumber)
 }
 
 const removeNoteAction: MouseGesture = (rootStore) => (e) => {

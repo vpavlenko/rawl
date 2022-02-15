@@ -1,11 +1,11 @@
+import { Alert } from "@mui/lab"
 import {
   Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
-} from "@material-ui/core"
-import { Alert } from "@material-ui/lab"
+} from "@mui/material"
 import { observer } from "mobx-react-lite"
 import { useCallback, useEffect, useState, VFC } from "react"
 import { localized } from "../../../common/localize/localizedString"

@@ -1,7 +1,7 @@
+import styled from "@emotion/styled"
 import { partition } from "lodash"
 import { observer } from "mobx-react-lite"
 import React, { FC, useCallback, useEffect, useState } from "react"
-import styled from "styled-components"
 import { containsPoint, IPoint, IRect } from "../../../../common/geometry"
 import { isNoteEvent } from "../../../../common/track"
 import { changeNotesVelocity } from "../../../actions"

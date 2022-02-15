@@ -1,6 +1,6 @@
-import { Menu, MenuItem } from "@material-ui/core"
+import styled from "@emotion/styled"
+import { Menu, MenuItem } from "@mui/material"
 import { FC, useEffect } from "react"
-import styled from "styled-components"
 import { IPoint } from "../../../common/geometry"
 
 export const ContextMenuItem = styled(MenuItem)`
@@ -11,7 +11,7 @@ export const ContextMenuHotKey = styled.div`
   font-size: 0.9em;
   flex-grow: 1;
   text-align: right;
-  color: var(--secondary-text-color);
+  color: ${({ theme }) => theme.secondaryTextColor};
   margin-left: 2em;
 `
 

@@ -1,6 +1,6 @@
+import styled from "@emotion/styled"
 import { ControllerEvent, ProgramChangeEvent } from "midifile-ts"
 import { FC } from "react"
-import styled from "styled-components"
 import { controllerTypeString as CCNames } from "../../../common/helpers/noteNumberString"
 import { TrackEventRequired } from "../../../common/track"
 
@@ -30,8 +30,8 @@ const Container = styled.div`
   position: absolute;
   white-space: nowrap;
   opacity: 0.8;
-  background: var(--theme-color);
-  color: var(--background-color);
+  background: ${({ theme }) => theme.themeColor};
+  color: ${({ theme }) => theme.backgroundColor};
   padding: 0.1em 0.3em;
   border-radius: 0 0.3em 0.3em 0;
   margin: 0.2em 0 0 0;

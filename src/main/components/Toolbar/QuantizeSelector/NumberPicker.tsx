@@ -1,6 +1,6 @@
-import { KeyboardArrowDown, KeyboardArrowUp } from "@material-ui/icons"
+import styled from "@emotion/styled"
+import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material"
 import { FC } from "react"
-import styled from "styled-components"
 
 export interface NumberPickerProps {
   value: number
@@ -12,8 +12,8 @@ export interface NumberPickerProps {
 
 const Value = styled.div`
   font-size: 150%;
-  background: var(--background-color);
-  border: 1px solid var(--divider-color);
+  background: ${({ theme }) => theme.backgroundColor};
+  border: 1px solid ${({ theme }) => theme.dividerColor};
   width: 2em;
   padding: 0.25em;
   text-align: center;
@@ -25,11 +25,11 @@ const Container = styled.div`
   align-items: center;
 
   svg {
-    color: var(--secondary-text-color);
+    color: ${({ theme }) => theme.secondaryTextColor};
   }
 
   svg:hover {
-    color: var(--text-color);
+    color: ${({ theme }) => theme.textColor};
   }
 `
 

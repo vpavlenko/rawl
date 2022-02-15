@@ -1,4 +1,6 @@
+import styled from "@emotion/styled"
 import {
+  Alert,
   Button,
   Checkbox,
   CircularProgress,
@@ -7,11 +9,9 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-} from "@material-ui/core"
-import { Alert } from "@material-ui/lab"
+} from "@mui/material"
 import { observer } from "mobx-react-lite"
 import { FC } from "react"
-import styled from "styled-components"
 import { localized } from "../../../common/localize/localizedString"
 import { useStores } from "../../hooks/useStores"
 

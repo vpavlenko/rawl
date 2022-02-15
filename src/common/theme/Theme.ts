@@ -33,7 +33,3 @@ export const defaultTheme: Theme = {
   ghostNoteColor: "#444444",
   recordColor: "#dd3c3c",
 }
-
-declare module "styled-components" {
-  interface DefaultTheme extends Theme {}
-}

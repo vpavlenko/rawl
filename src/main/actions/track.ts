@@ -193,7 +193,7 @@ export const createNote =
       ? quantizer.round(tick)
       : quantizer.floor(tick)
 
-    const note = <Omit<NoteEvent, "id">>{
+    const note: Omit<NoteEvent, "id"> = {
       type: "channel",
       subtype: "note",
       noteNumber: noteNumber,

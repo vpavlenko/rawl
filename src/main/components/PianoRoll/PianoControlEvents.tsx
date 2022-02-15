@@ -1,6 +1,7 @@
+import styled from "@emotion/styled"
 import { FC } from "react"
-import styled from "styled-components"
 import { TrackEvent } from "../../../common/track"
+import { Layout } from "../../Constants"
 import { ControlMark, DisplayEvent } from "./ControlMark"
 
 /// 重なって表示されないようにひとつのイベントとしてまとめる
@@ -60,8 +61,8 @@ export interface PianoControlEventsProps {
 }
 
 const Container = styled.div`
-  margin-left: var(--key-width);
-  margin-top: var(--ruler-height);
+  margin-left: ${Layout.keyWidth}px;
+  margin-top: ${Layout.rulerHeight}px;
   position: absolute;
 
   .content {

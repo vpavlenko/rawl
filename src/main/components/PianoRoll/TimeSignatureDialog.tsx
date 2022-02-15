@@ -1,3 +1,4 @@
+import styled from "@emotion/styled"
 import {
   Button,
   Dialog,
@@ -6,10 +7,9 @@ import {
   DialogTitle,
   MenuItem,
   Select,
-} from "@material-ui/core"
+} from "@mui/material"
 import { range } from "lodash"
 import { useEffect, useState, VFC } from "react"
-import styled from "styled-components"
 import { localized } from "../../../common/localize/localizedString"
 
 export interface TimeSignatureDialogProps {
@@ -33,7 +33,7 @@ const NumberInput = styled.input`
   font-family: "Roboto Mono", monospace;
   font-size: 1rem;
   padding: 0.2rem 0;
-  border: 1px solid var(--divider-color);
+  border: 1px solid ${({ theme }) => theme.dividerColor};
   border-radius: 0.2rem;
 
   &::-webkit-inner-spin-button {

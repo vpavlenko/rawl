@@ -1,7 +1,7 @@
-import { Tooltip } from "@material-ui/core"
-import { KeyboardTab } from "@material-ui/icons"
+import styled from "@emotion/styled"
+import { KeyboardTab } from "@mui/icons-material"
+import { Tooltip } from "@mui/material"
 import { VFC } from "react"
-import styled from "styled-components"
 import { localized } from "../../../common/localize/localizedString"
 import { StyledToggleButton } from "./ToolSelector"
 

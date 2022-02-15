@@ -1,7 +1,7 @@
+import styled from "@emotion/styled"
 import useComponentSize from "@rehooks/component-size"
 import { observer } from "mobx-react-lite"
 import React, { FC, useCallback, useRef } from "react"
-import styled from "styled-components"
 import { Layout } from "../../Constants"
 import { useStores } from "../../hooks/useStores"
 import ExpressionGraph from "./Graph/ExpressionGraph"
@@ -38,7 +38,7 @@ const TabButton = styled.div`
   -webkit-appearance: none;
   border: none;
   padding: 0.5em 0.8em;
-  color: var(--secondary-text-color);
+  color: ${({ theme }) => theme.secondaryTextColor};
   outline: none;
   text-align: center;
   font-size: 0.7rem;
@@ -49,17 +49,17 @@ const TabButton = styled.div`
   }
 
   &.selected {
-    color: var(--text-color);
-    background: var(--secondary-background-color);
+    color: ${({ theme }) => theme.textColor};
+    background: ${({ theme }) => theme.secondaryBackgroundColor};
   }
 `
 
 const Toolbar = styled.div`
-  border-bottom: 1px solid var(--divider-color);
+  border-bottom: 1px solid ${({ theme }) => theme.dividerColor};
   box-sizing: border-box;
   display: flex;
-  margin-left: var(--key-width);
-  border-left: 1px solid var(--divider-color);
+  margin-left: ${Layout.keyWidth}px;
+  border-left: 1px solid ${({ theme }) => theme.dividerColor};
   height: 30px;
 `
 
@@ -99,7 +99,7 @@ const Parent = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  background: var(--background-color);
+  background: ${({ theme }) => theme.backgroundColor};
 
   .control-content {
     flex-grow: 1;

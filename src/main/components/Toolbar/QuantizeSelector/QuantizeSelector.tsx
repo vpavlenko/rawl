@@ -1,14 +1,14 @@
-import { Button, Tooltip } from "@material-ui/core"
-import { FiberManualRecord, MusicNote } from "@material-ui/icons"
-import { ToggleButton } from "@material-ui/lab"
+import styled from "@emotion/styled"
+import { FiberManualRecord, MusicNote } from "@mui/icons-material"
+import { ToggleButton } from "@mui/lab"
+import { Button, Tooltip } from "@mui/material"
 import React from "react"
-import styled from "styled-components"
 import { localized } from "../../../../common/localize/localizedString"
 import { QuantizePopup } from "./QuantizePopup"
 
 const Container = styled.div`
   display: flex;
-  color: var(--secondary-text-color);
+  color: ${({ theme }) => theme.secondaryTextColor};
   position: relative;
   margin-right: 1em;
   height: 2rem;
@@ -20,10 +20,10 @@ const Switch = styled(ToggleButton)`
   min-width: 0;
   padding: 0.5rem;
   border-radius: 4px 0 0 4px;
-  border: 1px solid var(--divider-color);
+  border: 1px solid ${({ theme }) => theme.dividerColor};
 
   &.Mui-selected {
-    background: var(--theme-color);
+    background: ${({ theme }) => theme.themeColor};
     border-right: 1px solid transparent;
   }
 `
@@ -44,7 +44,7 @@ const TripletLabel = styled.span`
 
 const Content = styled(Button)`
   border-radius: 0 4px 4px 0;
-  border: 1px solid var(--divider-color);
+  border: 1px solid ${({ theme }) => theme.dividerColor};
   border-left: 1px solid transparent;
   min-width: 0;
 `
@@ -102,7 +102,7 @@ function QuantizeSelector({
 
   return (
     <Container>
-      <Switch selected={enabled} onClick={onClickSwitch}>
+      <Switch selected={enabled} onClick={onClickSwitch} value="">
         <Tooltip title={localized("snap-to-grid", "Snap to Grid")}>
           <Note />
         </Tooltip>

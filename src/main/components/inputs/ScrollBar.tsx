@@ -1,7 +1,7 @@
-import { ArrowDropUp } from "@material-ui/icons"
+import styled from "@emotion/styled"
+import { ArrowDropUp } from "@mui/icons-material"
 import useComponentSize from "@rehooks/component-size"
 import React, { FC, useRef } from "react"
-import styled from "styled-components"
 import { IPoint } from "../../../common/geometry"
 import { observeDrag, observeDrag2 } from "../../helpers/observeDrag"
 

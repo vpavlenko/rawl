@@ -1,9 +1,9 @@
+import styled from "@emotion/styled"
 import useComponentSize from "@rehooks/component-size"
 import Color from "color"
 import { clamp, partition } from "lodash"
 import { observer } from "mobx-react-lite"
 import { FC, useCallback, useEffect, useRef, useState } from "react"
-import styled from "styled-components"
 import {
   containsPoint,
   IPoint,
@@ -41,7 +41,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   position: relative;
-  background: var(--background-color);
+  background: ${({ theme }) => theme.backgroundColor};
   overflow: hidden;
 `
 
@@ -50,8 +50,8 @@ const LeftTopSpace = styled.div`
   position: absolute;
   width: 100%;
   box-sizing: border-box;
-  border-bottom: 1px solid var(--divider-color);
-  background: var(--background-color);
+  border-bottom: 1px solid ${({ theme }) => theme.dividerColor};
+  background: ${({ theme }) => theme.backgroundColor};
 `
 
 const LeftBottomSpace = styled.div`
@@ -59,7 +59,7 @@ const LeftBottomSpace = styled.div`
   left: 0;
   bottom: 0;
   width: 100%;
-  background: var(--background-color);
+  background: ${({ theme }) => theme.backgroundColor};
 `
 
 const TrackHeader = styled.div<{ isSelected: boolean }>`
@@ -67,7 +67,7 @@ const TrackHeader = styled.div<{ isSelected: boolean }>`
   padding: 0 0.5rem;
   box-sizing: border-box;
   display: flex;
-  border-bottom: 1px solid var(--divider-color);
+  border-bottom: 1px solid ${({ theme }) => theme.dividerColor};
   align-items: center;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -78,7 +78,7 @@ const TrackHeader = styled.div<{ isSelected: boolean }>`
 
 const HeaderList = styled.div`
   position: relative;
-  border-right: 1px solid var(--divider-color);
+  border-right: 1px solid ${({ theme }) => theme.dividerColor};
 `
 
 type DragHandler = (

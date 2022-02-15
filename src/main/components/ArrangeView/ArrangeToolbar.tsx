@@ -1,6 +1,6 @@
+import styled from "@emotion/styled"
 import { observer } from "mobx-react-lite"
 import { FC, useCallback } from "react"
-import styled from "styled-components"
 import { localized } from "../../../common/localize/localizedString"
 import { useStores } from "../../hooks/useStores"
 import { AutoScrollButton } from "../Toolbar/AutoScrollButton"

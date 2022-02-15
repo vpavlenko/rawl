@@ -1,8 +1,8 @@
+import styled from "@emotion/styled"
 import useComponentSize from "@rehooks/component-size"
 import { range } from "lodash"
 import { observer } from "mobx-react-lite"
 import React, { FC, useCallback, useEffect, useRef, useState } from "react"
-import styled from "styled-components"
 import { IPoint } from "../../../common/geometry"
 import { bpmToUSecPerBeat, uSecPerBeatToBPM } from "../../../common/helpers/bpm"
 import { getTempoSelectionBounds } from "../../../common/selection/TempoSelection"
@@ -22,8 +22,8 @@ import { TempoGraphAxis } from "./TempoGraphAxis"
 const Wrapper = styled.div`
   position: relative;
   flex-grow: 1;
-  background: var(--background-color);
-  color: var(--secondary-text-color);
+  background: ${({ theme }) => theme.backgroundColor};
+  color: ${({ theme }) => theme.secondaryTextColor};
 `
 
 export const TempoGraph: FC = observer(() => {

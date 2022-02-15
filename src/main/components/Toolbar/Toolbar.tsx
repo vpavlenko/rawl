@@ -1,26 +1,22 @@
-import {
-  AppBar,
-  makeStyles,
-  Toolbar as MaterialToolbar,
-} from "@material-ui/core"
+import styled from "@emotion/styled"
+import { AppBar, Toolbar as MaterialToolbar } from "@mui/material"
 import { FC } from "react"
 
-const useStyles = makeStyles((theme) => ({
-  appBar: {
-    background: "var(--background-color)",
-    borderBottom: "1px solid var(--divider-color)",
-  },
-  title: {
-    marginRight: "1rem",
-  },
-}))
+const StyledAppBar = styled(AppBar)`
+  background: ${({ theme }) => theme.backgroundColor};
+  border-bottom: 1px solid ${({ theme }) => theme.dividerColor};
+`
+
+const StyledToolbar = styled(MaterialToolbar)`
+  .title {
+    marginright: 1rem;
+  }
+`
 
 export const Toolbar: FC = ({ children }) => {
-  const classes = useStyles({})
-
   return (
-    <AppBar position="static" elevation={0} className={classes.appBar}>
-      <MaterialToolbar variant="dense">{children}</MaterialToolbar>
-    </AppBar>
+    <StyledAppBar position="static" elevation={0}>
+      <StyledToolbar variant="dense">{children}</StyledToolbar>
+    </StyledAppBar>
   )
 }

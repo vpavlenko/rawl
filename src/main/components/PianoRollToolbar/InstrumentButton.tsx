@@ -1,13 +1,13 @@
-import { Button } from "@material-ui/core"
+import styled from "@emotion/styled"
+import { Button } from "@mui/material"
 import { observer } from "mobx-react-lite"
 import { FC, useCallback } from "react"
-import styled from "styled-components"
 import { useStores } from "../../hooks/useStores"
 import PianoIcon from "../../images/piano.svg"
 
 const StyledInstrumentButton = styled(Button)`
   padding: 0 1rem;
-  border: 1px solid var(--divider-color);
+  border: 1px solid ${({ theme }) => theme.dividerColor};
   text-transform: none;
   height: 2rem;
   overflow: hidden;

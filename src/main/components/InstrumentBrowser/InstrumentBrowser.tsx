@@ -1,3 +1,4 @@
+import styled from "@emotion/styled"
 import {
   Button,
   Checkbox,
@@ -5,14 +6,13 @@ import {
   DialogActions,
   DialogContent,
   FormControlLabel,
-} from "@material-ui/core"
+} from "@mui/material"
 import difference from "lodash/difference"
 import groupBy from "lodash/groupBy"
 import map from "lodash/map"
 import range from "lodash/range"
 import { observer } from "mobx-react-lite"
 import { FC } from "react"
-import styled from "styled-components"
 import { isNotUndefined } from "../../../common/helpers/array"
 import { localized } from "../../../common/localize/localizedString"
 import { getGMCategory, getInstrumentName } from "../../../common/midi/GM"
@@ -61,7 +61,7 @@ const Finder = styled.div`
   select {
     overflow: auto;
     background-color: #00000024;
-    border: 1px solid var(--divider-color);
+    border: 1px solid ${({ theme }) => theme.dividerColor};
   }
 
   option:checked {
@@ -69,11 +69,11 @@ const Finder = styled.div`
   }
 
   select:focus option:checked {
-    box-shadow: 0 0 10px 100px var(--theme-color) inset;
+    box-shadow: 0 0 10px 100px ${({ theme }) => theme.themeColor} inset;
   }
 
   select:focus {
-    outline: var(--theme-color) 1px solid;
+    outline: ${({ theme }) => theme.themeColor} 1px solid;
   }
 
   .left select {
@@ -82,11 +82,15 @@ const Finder = styled.div`
   .right select {
     width: 17em;
   }
+`
 
-  option {
-    padding: 0.5em 1em;
-    font-size: 0.9rem;
-    color: var(--text-color);
+const Option = styled.option`
+  padding: 0.5em 1em;
+  font-size: 0.9rem;
+  color: ${({ theme }) => theme.textColor};
+
+  &:checked {
+    background: ${({ theme }) => theme.themeColor};
   }
 `
 
@@ -126,18 +130,18 @@ const InstrumentBrowser: FC<InstrumentBrowserProps> = ({
   const categoryOptions = presetCategories.map(
     (preset: PresetCategory, i: number) => {
       return (
-        <option key={i} value={i}>
+        <Option key={i} value={i}>
           {preset.name}
-        </option>
+        </Option>
       )
     }
   )
 
   const instrumentOptions = instruments.map((p: PresetItem, i: number) => {
     return (
-      <option key={i} value={p.programNumber}>
+      <Option key={i} value={p.programNumber}>
         {p.name}
-      </option>
+      </Option>
     )
   })
 

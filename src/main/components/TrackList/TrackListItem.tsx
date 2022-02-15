@@ -1,8 +1,8 @@
-import { IconButton, ListItem } from "@material-ui/core"
-import { Headset, Layers, VolumeOff, VolumeUp } from "@material-ui/icons"
+import styled from "@emotion/styled"
+import { Headset, Layers, VolumeOff, VolumeUp } from "@mui/icons-material"
+import { IconButton, ListItem } from "@mui/material"
 import { observer } from "mobx-react-lite"
 import { FC, useCallback, useState } from "react"
-import styled from "styled-components"
 import {
   addTrack,
   removeTrack,
@@ -24,7 +24,7 @@ export type TrackListItemProps = {
 const Container = styled(ListItem)`
   &.Mui-selected {
     background-color: rgb(255 255 255 / 5%);
-    border-right: 5px solid var(--theme-color);
+    border-right: 5px solid ${({ theme }) => theme.themeColor};
 
     .name {
       font-weight: 600;
@@ -58,24 +58,24 @@ const Container = styled(ListItem)`
 
   .button {
     margin-right: 0.5em;
-    color: var(--secondary-text-color);
+    color: ${({ theme }) => theme.secondaryTextColor};
   }
 
   .button.active {
-    color: var(--text-color);
+    color: ${({ theme }) => theme.textColor};
   }
 `
 
 const ChannelName = styled.div`
-  color: var(--secondary-text-color);
+  color: ${({ theme }) => theme.secondaryTextColor};
   font-size: 0.7rem;
   display: flex;
   align-items: center;
-  border: 1px solid var(--divider-color);
+  border: 1px solid ${({ theme }) => theme.dividerColor};
   padding: 0 0.3rem;
 
   &:hover {
-    background: var(--secondary-background-color);
+    background: ${({ theme }) => theme.secondaryBackgroundColor};
   }
 `
 
@@ -137,7 +137,6 @@ export const TrackListItem: FC<TrackListItemProps> = observer(({ trackId }) => {
   return (
     <>
       <Container
-        button
         selected={selected}
         onClick={onSelectTrack}
         onContextMenu={onContextMenu}

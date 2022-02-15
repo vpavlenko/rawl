@@ -5,7 +5,7 @@ import {
   DialogContent,
   DialogTitle,
   LinearProgress,
-} from "@material-ui/core"
+} from "@mui/material"
 import { observer } from "mobx-react-lite"
 import { useCallback, VFC } from "react"
 import { localized } from "../../../common/localize/localizedString"

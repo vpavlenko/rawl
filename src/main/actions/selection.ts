@@ -1,5 +1,6 @@
 import { min } from "lodash"
 import cloneDeep from "lodash/cloneDeep"
+import { intersects } from "../../common/geometry"
 import { isNotNull, isNotUndefined } from "../../common/helpers/array"
 import {
   clampSelection,
@@ -18,13 +19,22 @@ import RootStore from "../stores/RootStore"
 import { pushHistory } from "./history"
 
 function eventsInSelection(events: TrackEvent[], selection: Selection) {
-  const s = selection
-  return events.filter(isNoteEvent).filter(
-    (b) =>
-      b.tick >= s.from.tick &&
-      b.tick < s.to.tick && // ノートの先頭だけ範囲にはいっていればよい -> Only the beginning of the note needs to be in the range
-      b.noteNumber <= s.from.noteNumber &&
-      b.noteNumber > s.to.noteNumber
+  const selectionRect = {
+    x: selection.from.tick,
+    width: selection.to.tick - selection.from.tick,
+    y: selection.to.noteNumber,
+    height: selection.from.noteNumber - selection.to.noteNumber,
+  }
+  return events.filter(isNoteEvent).filter((b) =>
+    intersects(
+      {
+        x: b.tick,
+        width: b.duration,
+        y: b.noteNumber,
+        height: 1,
+      },
+      selectionRect
+    )
   )
 }
 

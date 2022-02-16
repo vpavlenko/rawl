@@ -204,6 +204,26 @@ export default class Player {
     )
   }
 
+  startNote({
+    channel,
+    noteNumber,
+    velocity,
+  }: Pick<NoteEvent, "noteNumber" | "velocity"> & {
+    channel: number
+  }) {
+    this._output.activate()
+    this.sendEvent(noteOnMidiEvent(0, channel, noteNumber, velocity))
+  }
+
+  stopNote({
+    channel,
+    noteNumber,
+  }: Pick<NoteEvent, "noteNumber"> & {
+    channel: number
+  }) {
+    this.sendEvent(noteOffMidiEvent(0, channel, noteNumber, 0))
+  }
+
   tickToMillisec(tick: number) {
     return (tick / (this.timebase / 60) / this._currentTempo) * 1000
   }

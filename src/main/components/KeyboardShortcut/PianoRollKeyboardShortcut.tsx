@@ -39,6 +39,7 @@ export const PianoRollKeyboardShortcut: FC = () => {
           return
       }
       e.preventDefault()
+      e.stopPropagation()
     }
 
     // Handle pasting here to allow pasting even when the element does not have focus, such as after clicking the ruler

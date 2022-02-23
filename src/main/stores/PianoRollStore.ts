@@ -384,27 +384,21 @@ export default class PianoRollStore {
     )
   }
 
-  get currentVolume(): number {
-    return (
-      this.rootStore.song.selectedTrack?.getVolume(
-        this.rootStore.services.player.position
-      ) ?? 0
+  get currentVolume(): number | undefined {
+    return this.rootStore.song.selectedTrack?.getVolume(
+      this.rootStore.services.player.position
     )
   }
 
-  get currentPan(): number {
-    return (
-      this.rootStore.song.selectedTrack?.getPan(
-        this.rootStore.services.player.position
-      ) ?? 0
+  get currentPan(): number | undefined {
+    return this.rootStore.song.selectedTrack?.getPan(
+      this.rootStore.services.player.position
     )
   }
 
-  get currentTempo(): number {
-    return (
-      this.rootStore.song.conductorTrack?.getTempo(
-        this.rootStore.services.player.position
-      ) ?? 1
+  get currentTempo(): number | undefined {
+    return this.rootStore.song.conductorTrack?.getTempo(
+      this.rootStore.services.player.position
     )
   }
 

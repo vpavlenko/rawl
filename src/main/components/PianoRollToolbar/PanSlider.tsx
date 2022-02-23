@@ -27,13 +27,15 @@ export interface PanSliderProps {
   trackId: number
 }
 
+const PAN_CENTER = 64
+
 const _PanSlider: FC<PanSliderProps> = observer(({ trackId }) => {
   const rootStore = useStores()
   const onChange = useCallback(
     (value: number) => setTrackPan(rootStore)(trackId, value),
     [rootStore, trackId]
   )
-  const pan = rootStore.pianoRollStore.currentPan
+  const pan = rootStore.pianoRollStore.currentPan ?? PAN_CENTER
 
   return (
     <Container>
@@ -44,8 +46,8 @@ const _PanSlider: FC<PanSliderProps> = observer(({ trackId }) => {
         onChange={(_, value) => onChange(value as number)}
         min={0}
         max={127}
-        defaultValue={64}
-        marks={[{ value: 64 }]}
+        defaultValue={PAN_CENTER}
+        marks={[{ value: PAN_CENTER }]}
       />
     </Container>
   )

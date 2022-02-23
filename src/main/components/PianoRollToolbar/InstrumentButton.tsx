@@ -1,6 +1,7 @@
 import styled from "@emotion/styled"
 import { observer } from "mobx-react-lite"
 import { FC, useCallback } from "react"
+import { getInstrumentName } from "../../../common/midi/GM"
 import { useStores } from "../../hooks/useStores"
 import PianoIcon from "../../images/piano.svg"
 import { ToolbarButton } from "../Toolbar/ToolbarButton"
@@ -12,7 +13,8 @@ const InstrumentIcon = styled(PianoIcon)`
 export const InstrumentButton: FC = observer(() => {
   const rootStore = useStores()
 
-  const instrumentName = rootStore.song.selectedTrack?.instrumentName ?? ""
+  const instrumentName =
+    rootStore.song.selectedTrack?.instrumentName ?? getInstrumentName(0)
 
   const onClickInstrument = useCallback(() => {
     const track = rootStore.song.selectedTrack

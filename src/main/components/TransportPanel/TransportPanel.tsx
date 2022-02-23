@@ -13,6 +13,7 @@ import MetronomeIcon from "mdi-react/MetronomeIcon"
 import { observer } from "mobx-react-lite"
 import { FC, useCallback } from "react"
 import { localized } from "../../../common/localize/localizedString"
+import { DEFAULT_TEMPO } from "../../../common/player"
 import {
   fastForwardOneBar,
   playOrPause,
@@ -121,7 +122,7 @@ const TempoWrapper = styled.div`
 
 const TempoForm: FC = observer(() => {
   const rootStore = useStores()
-  const tempo = rootStore.pianoRollStore.currentTempo
+  const tempo = rootStore.pianoRollStore.currentTempo ?? DEFAULT_TEMPO
 
   const changeTempo = (tempo: number) => {
     const fixedTempo = Math.max(1, Math.min(512, tempo))

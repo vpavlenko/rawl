@@ -12,7 +12,7 @@ import { createModelSchema, list, primitive } from "serializr"
 import { pojo } from "../helpers/pojo"
 import { localized } from "../localize/localizedString"
 import { getInstrumentName } from "../midi/GM"
-import { trackNameMidiEvent } from "../midi/MidiEvent"
+import { programChangeMidiEvent, trackNameMidiEvent } from "../midi/MidiEvent"
 import { isControllerEventWithType, isNoteEvent } from "./identify"
 import {
   getEndOfTrackEvent,
@@ -298,6 +298,11 @@ export default class Track {
     const e = getProgramNumberEvent(this.events)
     if (e !== undefined) {
       this.updateEvent<TrackEventOf<ProgramChangeEvent>>(e.id, { value })
+    } else {
+      this.addEvent<TrackEventOf<ProgramChangeEvent>>({
+        ...programChangeMidiEvent(0, 0, value),
+        tick: 0,
+      })
     }
   }
 

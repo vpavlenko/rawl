@@ -1,3 +1,5 @@
+import { localized } from "../localize/localizedString"
+
 const GMMap = {
   Piano: [
     "Acoustic Grand Piano",
@@ -186,20 +188,20 @@ function getGMMapIndexes(programNumber: number): [number, number] | undefined {
 }
 
 export const fancyCategoryNames = [
-  "🎹 Piano",
-  "🔔 Chromatic Percussion",
-  "⛪ Organ",
-  "🎸Guitar",
-  "🎸 Bass",
-  "🎻 Strings",
-  "🧑‍🤝‍🧑 Ensemble",
-  "🎺 Brass",
-  "🎷 Reed",
-  "🍾 Pipe",
-  "🕹️ Synth Lead",
-  "🔮 Synth Pad",
-  "⚡ Synth Effects",
-  "🍛 Ethnic",
-  "🥁 Percussive",
-  "🚁 Sound effects",
-] as const
+  `🎹 ${localized("Piano", "Piano")}`,
+  `🔔 ${localized("Chromatic Percussion", "Chromatic Percussion")}`,
+  `🎹 ${localized("Organ", "Organ")}`,
+  `🎸 ${localized("Guitar", "Guitar")}`,
+  `🎸 ${localized("Bass", "Bass")}`,
+  `🎻 ${localized("Strings", "Strings")}`,
+  `🧑‍🤝‍🧑 ${localized("Ensemble", "Ensemble")}`,
+  `🎺 ${localized("Brass", "Brass")}`,
+  `🎷 ${localized("Reed", "Reed")}`,
+  `🍾 ${localized("Pipe", "Pipe")}`,
+  `🕹️ ${localized("Synth Lead", "Synth Lead")}`,
+  `🔮 ${localized("Synth Pad", "Synth Pad")}`,
+  `⚡ ${localized("Synth Effects", "Synth Effects")}`,
+  `🍛 ${localized("Ethnic", "Ethnic")}`,
+  `🥁 ${localized("Percussive", "Percussive")}`,
+  `🚁 ${localized("Sound effects", "Sound effects")}`,
+]

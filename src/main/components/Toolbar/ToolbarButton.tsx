@@ -16,6 +16,7 @@ export const ToolbarButton = styled.button<{ selected?: boolean }>`
   align-items: center;
   border-radius: 4px;
   cursor: pointer;
+  outline: none;
 
   &:hover {
     background: ${({ theme }) => theme.secondaryBackgroundColor};

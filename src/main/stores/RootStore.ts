@@ -51,7 +51,7 @@ export default class RootStore {
     )
     const metronomeSynth = new SoundFontSynth(
       context,
-      "https://cdn.jsdelivr.net/gh/ryohey/signal@4569a31/public/A320U.sf2"
+      "https://cdn.jsdelivr.net/gh/ryohey/signal@240d092/public/A320U_drums.sf2"
     )
     const synthGroup = new GroupOutput()
     synthGroup.outputs.push({ synth, isEnabled: true })

@@ -1,28 +1,12 @@
 import styled from "@emotion/styled"
-import { Button } from "@mui/material"
 import { observer } from "mobx-react-lite"
 import { FC, useCallback } from "react"
 import { useStores } from "../../hooks/useStores"
 import PianoIcon from "../../images/piano.svg"
-
-const StyledInstrumentButton = styled(Button)`
-  padding: 0 1rem;
-  border: 1px solid ${({ theme }) => theme.dividerColor};
-  text-transform: none;
-  height: 2rem;
-  overflow: hidden;
-`
+import { ToolbarButton } from "../Toolbar/ToolbarButton"
 
 const InstrumentIcon = styled(PianoIcon)`
-  width: 1.3rem;
-  fill: currentColor;
-`
-
-const Label = styled.span`
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  min-width: 3em;
+  margin-right: 0.5rem;
 `
 
 export const InstrumentButton: FC = observer(() => {
@@ -44,11 +28,9 @@ export const InstrumentButton: FC = observer(() => {
   }, [rootStore])
 
   return (
-    <StyledInstrumentButton
-      onClick={onClickInstrument}
-      startIcon={<InstrumentIcon viewBox="0 0 24 24" />}
-    >
-      <Label>{instrumentName}</Label>
-    </StyledInstrumentButton>
+    <ToolbarButton onClick={onClickInstrument}>
+      <InstrumentIcon viewBox="0 0 24 24" />
+      {instrumentName}
+    </ToolbarButton>
   )
 })

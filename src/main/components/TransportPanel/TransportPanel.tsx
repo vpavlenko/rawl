@@ -9,8 +9,9 @@ import {
   Stop,
 } from "@mui/icons-material"
 import { CircularProgress, Toolbar, Tooltip } from "@mui/material"
+import MetronomeIcon from "mdi-react/MetronomeIcon"
 import { observer } from "mobx-react-lite"
-import { FC } from "react"
+import { FC, useCallback } from "react"
 import { localized } from "../../../common/localize/localizedString"
 import {
   fastForwardOneBar,
@@ -64,7 +65,8 @@ const Button = styled.div`
   }
 
   svg {
-    font-size: 1.2rem;
+    width: 1.2rem;
+    height: 1.2rem;
   }
 `
 
@@ -88,6 +90,12 @@ const RecordButton = styled(Button)`
 `
 
 const LoopButton = styled(Button)`
+  &.active {
+    color: ${({ theme }) => theme.themeColor};
+  }
+`
+
+const MetronomeButton = styled(Button)`
   &.active {
     color: ${({ theme }) => theme.themeColor};
   }
@@ -177,8 +185,11 @@ export const Right = styled.div`
 
 export const TransportPanel: FC = observer(() => {
   const rootStore = useStores()
+  const {
+    services: { player },
+  } = rootStore
 
-  const { isPlaying, loop } = rootStore.services.player
+  const { isPlaying, isMetronomeEnabled, loop } = player
   const isRecording = rootStore.services.midiRecorder.isRecording
   const canRecording =
     Object.values(rootStore.midiDeviceStore.enabledInputs).filter((e) => e)
@@ -191,6 +202,9 @@ export const TransportPanel: FC = observer(() => {
   const onClickForward = fastForwardOneBar(rootStore)
   const onClickRecord = toggleRecording(rootStore)
   const onClickEnableLoop = toggleEnableLoop(rootStore)
+  const onClickMetronone = useCallback(() => {
+    player.isMetronomeEnabled = !player.isMetronomeEnabled
+  }, [player])
 
   return (
     <StyledToolbar variant="dense">
@@ -249,6 +263,13 @@ export const TransportPanel: FC = observer(() => {
       )}
 
       <ToolbarSeparator />
+
+      <MetronomeButton
+        onClick={onClickMetronone}
+        className={isMetronomeEnabled ? "active" : undefined}
+      >
+        <MetronomeIcon />
+      </MetronomeButton>
 
       <TempoForm />
 

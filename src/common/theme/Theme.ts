@@ -4,7 +4,6 @@ export interface Theme {
   themeColor: string
   backgroundColor: string
   secondaryBackgroundColor: string
-  tertiaryBackgroundColor: string
   dividerColor: string
   textColor: string
   secondaryTextColor: string
@@ -26,7 +25,6 @@ export const defaultTheme: Theme = {
   dividerColor: "#454a58",
   backgroundColor: "#272a36",
   secondaryBackgroundColor: "#454b60",
-  tertiaryBackgroundColor: "#535b72",
   pianoKeyBlack: "#272a36",
   pianoKeyWhite: "#fbfcff",
   pianoBlackKeyLaneColor: "#1f2029",

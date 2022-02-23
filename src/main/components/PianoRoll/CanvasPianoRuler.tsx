@@ -139,7 +139,7 @@ function drawTimeSignatures(
       size.actualBoundingBoxAscent + size.actualBoundingBoxDescent
     ctx.fillStyle = e.isSelected
       ? theme.themeColor
-      : theme.tertiaryBackgroundColor
+      : theme.secondaryBackgroundColor
     drawFlag(
       ctx,
       x,

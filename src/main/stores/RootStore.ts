@@ -20,7 +20,6 @@ import TempoEditorStore from "./TempoEditorStore"
 export interface Services {
   player: Player
   synth: SoundFontSynth
-  metronomeSynth: SoundFontSynth
   synthGroup: GroupOutput
   midiInput: MIDIInput
   midiRecorder: MIDIRecorder
@@ -45,23 +44,25 @@ export default class RootStore {
       song: observable.ref,
     })
 
+    const context = new (window.AudioContext || window.webkitAudioContext)()
     const synth = new SoundFontSynth(
+      context,
       "https://cdn.jsdelivr.net/gh/ryohey/signal@4569a31/public/A320U.sf2"
     )
     const metronomeSynth = new SoundFontSynth(
+      context,
       "https://cdn.jsdelivr.net/gh/ryohey/signal@4569a31/public/A320U.sf2"
     )
     const synthGroup = new GroupOutput()
     synthGroup.outputs.push({ synth, isEnabled: true })
 
-    const player = new Player(synthGroup, this.trackMute, this)
+    const player = new Player(synthGroup, metronomeSynth, this.trackMute, this)
     const midiInput = new MIDIInput()
     const midiRecorder = new MIDIRecorder(player, this)
     this.services = {
       player,
       synth,
       synthGroup,
-      metronomeSynth,
       midiInput,
       midiRecorder,
     }

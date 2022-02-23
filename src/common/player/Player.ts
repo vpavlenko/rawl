@@ -5,6 +5,7 @@ import { computed, makeObservable, observable } from "mobx"
 import { SendableEvent, SynthOutput } from "../../main/services/SynthOutput"
 import { SongStore } from "../../main/stores/SongStore"
 import { filterEventsWithRange } from "../helpers/filterEventsWithScroll"
+import { Beat, createBeatsInRange } from "../helpers/mapBeats"
 import {
   controllerMidiEvent,
   noteOffMidiEvent,
@@ -25,31 +26,41 @@ export interface LoopSetting {
 
 const TIMER_INTERVAL = 50
 const LOOK_AHEAD_TIME = 50
+const METRONOME_TRACK_ID = 99999
 
 export default class Player {
   private _currentTempo = 120
   private _scheduler: EventScheduler<PlayerEvent> | null = null
   private _songStore: SongStore
   private _output: SynthOutput
+  private _metronomeOutput: SynthOutput
   private _trackMute: TrackMute
   private _interval: number | null = null
   private _currentTick = 0
   private _isPlaying = false
 
   disableSeek: boolean = false
+  isMetronomeEnabled: boolean = true
 
   loop: LoopSetting | null = null
 
-  constructor(output: SynthOutput, trackMute: TrackMute, songStore: SongStore) {
+  constructor(
+    output: SynthOutput,
+    metronomeOutput: SynthOutput,
+    trackMute: TrackMute,
+    songStore: SongStore
+  ) {
     makeObservable<Player, "_currentTick" | "_isPlaying">(this, {
       _currentTick: observable,
       _isPlaying: observable,
       loop: observable,
+      isMetronomeEnabled: observable,
       position: computed,
       isPlaying: computed,
     })
 
     this._output = output
+    this._metronomeOutput = metronomeOutput
     this._trackMute = trackMute
     this._songStore = songStore
   }
@@ -69,7 +80,18 @@ export default class Player {
     }
     this._scheduler = new EventScheduler<PlayerEvent>(
       (startTick, endTick) =>
-        filterEventsWithRange(this.song.allEvents, startTick, endTick),
+        filterEventsWithRange(this.song.allEvents, startTick, endTick).concat(
+          filterEventsWithRange(
+            createBeatsInRange(
+              this.song.measures,
+              this.song.timebase,
+              startTick,
+              endTick
+            ).flatMap((b) => this.beatToEvents(b)),
+            startTick,
+            endTick
+          )
+        ),
       () => this.allNotesOffEvents(),
       this._currentTick,
       this.timebase,
@@ -146,6 +168,18 @@ export default class Player {
         controllerMidiEvent(0, ch, MIDIControlEvents.RESET_CONTROLLERS, 0x7f)
       )
     }
+  }
+
+  private beatToEvents(beat: Beat): PlayerEvent[] {
+    const velocity = beat.beat === 0 ? 100 : 70
+    const noteNumber = beat.beat === 0 ? 76 : 77
+    return [
+      {
+        ...noteOnMidiEvent(0, 9, noteNumber, velocity),
+        tick: beat.tick,
+        trackId: METRONOME_TRACK_ID,
+      },
+    ]
   }
 
   stop() {
@@ -270,10 +304,14 @@ export default class Player {
 
     events.forEach(({ event: e, timestamp: time }) => {
       if (e.type === "channel") {
-        if (this._trackMute.shouldPlayTrack(e.trackId)) {
+        const delayTime = (time - timestamp) / 1000
+        if (e.trackId === METRONOME_TRACK_ID) {
+          if (this.isMetronomeEnabled) {
+            this._metronomeOutput.sendEvent(e, delayTime, timestamp)
+          }
+        } else if (this._trackMute.shouldPlayTrack(e.trackId)) {
           // channel イベントを MIDI Output に送信
           // Send Channel Event to MIDI OUTPUT
-          const delayTime = (time - timestamp) / 1000
           this.sendEvent(e, delayTime, timestamp)
         }
       } else {

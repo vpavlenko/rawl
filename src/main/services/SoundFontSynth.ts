@@ -14,7 +14,8 @@ export class SoundFontSynth implements SynthOutput {
 
   isLoading: boolean = true
 
-  constructor(soundFontURL: string) {
+  constructor(context: AudioContext, soundFontURL: string) {
+    this.context = context
     this.soundFontURL = soundFontURL
 
     makeObservable(this, {

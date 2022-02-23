@@ -161,10 +161,6 @@ const GMMap = {
   ],
 } as { [key: string]: string[] }
 
-export const getGMCategory = (programNumber: number) => {
-  return Object.keys(GMMap)[Math.floor(programNumber / 8)]
-}
-
 // programNumber は 0 から始まる数
 export function getInstrumentName(programNumber: number): string | undefined {
   const ids = getGMMapIndexes(programNumber)
@@ -188,3 +184,22 @@ function getGMMapIndexes(programNumber: number): [number, number] | undefined {
   }
   return undefined
 }
+
+export const fancyCategoryNames = [
+  "🎹 Piano",
+  "🔔 Chromatic Percussion",
+  "⛪ Organ",
+  "🎸Guitar",
+  "🎸 Bass",
+  "🎻 Strings",
+  "🧑‍🤝‍🧑 Ensemble",
+  "🎺 Brass",
+  "🎷 Reed",
+  "🍾 Pipe",
+  "🕹️ Synth Lead",
+  "🔮 Synth Pad",
+  "⚡ Synth Effects",
+  "🍛 Ethnic",
+  "🥁 Percussive",
+  "🚁 Sound effects",
+] as const

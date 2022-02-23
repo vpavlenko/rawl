@@ -7,15 +7,15 @@ import {
   DialogContent,
   FormControlLabel,
 } from "@mui/material"
+import { map } from "lodash"
 import difference from "lodash/difference"
 import groupBy from "lodash/groupBy"
-import map from "lodash/map"
 import range from "lodash/range"
 import { observer } from "mobx-react-lite"
 import { FC } from "react"
 import { isNotUndefined } from "../../../common/helpers/array"
 import { localized } from "../../../common/localize/localizedString"
-import { getGMCategory, getInstrumentName } from "../../../common/midi/GM"
+import { fancyCategoryNames, getInstrumentName } from "../../../common/midi/GM"
 import { programChangeMidiEvent } from "../../../common/midi/MidiEvent"
 import { setTrackInstrument as setTrackInstrumentAction } from "../../actions"
 import { useStores } from "../../hooks/useStores"
@@ -57,30 +57,20 @@ const Finder = styled.div`
     padding: 0.5em 1em;
     display: block;
   }
+`
 
-  select {
-    overflow: auto;
-    background-color: #00000024;
-    border: 1px solid ${({ theme }) => theme.dividerColor};
-  }
+const Select = styled.select`
+  width: 17em;
+  overflow: auto;
+  background-color: #00000024;
+  border: 1px solid ${({ theme }) => theme.dividerColor};
 
-  option:checked {
-    box-shadow: none;
-  }
-
-  select:focus option:checked {
-    box-shadow: 0 0 10px 100px ${({ theme }) => theme.themeColor} inset;
-  }
-
-  select:focus {
+  &:focus {
     outline: ${({ theme }) => theme.themeColor} 1px solid;
-  }
 
-  .left select {
-    width: 17em;
-  }
-  .right select {
-    width: 17em;
+    option:checked {
+      box-shadow: 0 0 10px 100px ${({ theme }) => theme.themeColor} inset;
+    }
   }
 `
 
@@ -88,9 +78,11 @@ const Option = styled.option`
   padding: 0.5em 1em;
   font-size: 0.9rem;
   color: ${({ theme }) => theme.textColor};
+  height: 1.2rem;
 
   &:checked {
     background: ${({ theme }) => theme.themeColor};
+    box-shadow: none;
   }
 `
 
@@ -151,23 +143,23 @@ const InstrumentBrowser: FC<InstrumentBrowserProps> = ({
         <Finder className={isRhythmTrack ? "disabled" : ""}>
           <div className="left">
             <label>{localized("categories", "Categories")}</label>
-            <select
+            <Select
               size={12}
               onChange={onChangeCategory}
               value={selectedCategoryId}
             >
               {categoryOptions}
-            </select>
+            </Select>
           </div>
           <div className="right">
             <label>{localized("instruments", "Instruments")}</label>
-            <select
+            <Select
               size={12}
               onChange={onChangeInstrument}
               value={programNumber}
             >
               {instrumentOptions}
-            </select>
+            </Select>
           </div>
         </Finder>
         <div className="footer">
@@ -219,8 +211,8 @@ const InstrumentBrowserWrapper: FC = observer(() => {
   }))
 
   const presetCategories = map(
-    groupBy(presets, (p) => getGMCategory(p.programNumber)),
-    (presets, name) => ({ name, presets })
+    groupBy(presets, (p) => Math.floor(p.programNumber / 8)),
+    (presets, index) => ({ name: fancyCategoryNames[parseInt(index)], presets })
   )
 
   const onChange = (setting: InstrumentSetting) => {

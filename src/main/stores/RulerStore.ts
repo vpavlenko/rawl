@@ -1,6 +1,9 @@
 import { computed, makeObservable, observable } from "mobx"
 import { filterEventsWithScroll } from "../../common/helpers/filterEventsWithScroll"
-import { BeatWithX, createBeatsInRange } from "../../common/helpers/mapBeats"
+import {
+  BeatWithX,
+  createBeatsWithXInRange,
+} from "../../common/helpers/mapBeats"
 import Quantizer from "../../common/quantizer"
 import Song from "../../common/song"
 import { isTimeSignatureEvent } from "../../common/track"
@@ -45,7 +48,7 @@ export class RulerStore {
 
     const startTick = scrollLeft / transform.pixelsPerTick
 
-    return createBeatsInRange(
+    return createBeatsWithXInRange(
       rootStore.song.measures,
       transform.pixelsPerTick,
       rootStore.song.timebase,

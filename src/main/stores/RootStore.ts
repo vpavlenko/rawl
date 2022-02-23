@@ -44,13 +44,19 @@ export default class RootStore {
       song: observable.ref,
     })
 
+    const context = new (window.AudioContext || window.webkitAudioContext)()
     const synth = new SoundFontSynth(
+      context,
       "https://cdn.jsdelivr.net/gh/ryohey/signal@4569a31/public/A320U.sf2"
+    )
+    const metronomeSynth = new SoundFontSynth(
+      context,
+      "https://cdn.jsdelivr.net/gh/ryohey/signal@6959f35/public/A320U_drums.sf2"
     )
     const synthGroup = new GroupOutput()
     synthGroup.outputs.push({ synth, isEnabled: true })
 
-    const player = new Player(synthGroup, this.trackMute, this)
+    const player = new Player(synthGroup, metronomeSynth, this.trackMute, this)
     const midiInput = new MIDIInput()
     const midiRecorder = new MIDIRecorder(player, this)
     this.services = {

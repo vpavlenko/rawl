@@ -1,10 +1,13 @@
 import { Measure } from "../measure/Measure"
 
-export interface BeatWithX {
+export interface Beat {
   measure: number
   beat: number
-  x: number
   tick: number
+}
+
+export type BeatWithX = Beat & {
+  x: number
 }
 
 // 範囲内の measure を探す。最初の要素は startTick 以前のものも含む
@@ -52,19 +55,17 @@ const getMeasuresInRange = (
 
 export const createBeatsInRange = (
   allMeasures: Measure[],
-  pixelsPerTick: number,
-  timeBase: number,
+  timebase: number,
   startTick: number,
-  width: number
-): BeatWithX[] => {
-  const beats: BeatWithX[] = []
-  const endTick = startTick + width / pixelsPerTick
+  endTick: number
+): Beat[] => {
+  const beats: Beat[] = []
   const measures = getMeasuresInRange(allMeasures, startTick, endTick)
 
   measures.forEach((measure, i) => {
     const nextMeasure = measures[i + 1]
 
-    const ticksPerBeat = (timeBase * 4) / measure.denominator
+    const ticksPerBeat = (timebase * 4) / measure.denominator
 
     // 次の小節か曲の endTick まで拍を作る
     // Make a beat up to the next bar or song EndTick
@@ -81,11 +82,26 @@ export const createBeatsInRange = (
       beats.push({
         measure: measure.measure + Math.floor(beat / measure.numerator),
         beat: beat % measure.numerator,
-        x: Math.round(tick * pixelsPerTick),
         tick,
       })
     }
   })
 
   return beats
+}
+
+export const createBeatsWithXInRange = (
+  allMeasures: Measure[],
+  pixelsPerTick: number,
+  timebase: number,
+  startTick: number,
+  width: number
+): BeatWithX[] => {
+  const endTick = startTick + width / pixelsPerTick
+  return createBeatsInRange(allMeasures, timebase, startTick, endTick).map(
+    (b) => ({
+      ...b,
+      x: Math.round(b.tick * pixelsPerTick),
+    })
+  )
 }

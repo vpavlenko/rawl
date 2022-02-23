@@ -33,6 +33,7 @@
     "color": "^4.2.1",
     "gl-matrix": "^3.4.3",
     "lodash": "^4.17.21",
+    "mdi-react": "^8.2.0",
     "midifile-ts": "1.4.0",
     "mobx": "^6.3.13",
     "mobx-persist-store": "^1.0.4",

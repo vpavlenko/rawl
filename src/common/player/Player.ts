@@ -40,7 +40,7 @@ export default class Player {
   private _isPlaying = false
 
   disableSeek: boolean = false
-  isMetronomeEnabled: boolean = true
+  isMetronomeEnabled: boolean = false
 
   loop: LoopSetting | null = null
 

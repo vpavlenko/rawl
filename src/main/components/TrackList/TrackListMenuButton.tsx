@@ -1,19 +1,27 @@
 import styled from "@emotion/styled"
-import { ArrowDropDown, ArrowLeft } from "@mui/icons-material"
-import { IconButton } from "@mui/material"
+import { ArrowLeft } from "@mui/icons-material"
 import { observer } from "mobx-react-lite"
-import React, { FC, useCallback, useRef } from "react"
+import { FC, useCallback, useRef } from "react"
 import { useStores } from "../../hooks/useStores"
 
-const NavBackButton = styled(IconButton)`
-  svg {
-    transform: scale(1.5);
-  }
+const NavBackButton = styled.button`
+  -webkit-appearance: none;
+  border: none;
+  outline: none;
+  height: 2rem;
+  background: none;
+  color: inherit;
+  cursor: pointer;
 
   &:hover {
     background: none;
     color: ${({ theme }) => theme.secondaryTextColor};
   }
+`
+
+const ArrowIcon = styled(ArrowLeft)<{ isOpen: boolean }>`
+  transition: transform 0.1s ease;
+  transform: scale(1.5) rotateZ(${({ isOpen }) => (isOpen ? "0deg" : "-90deg")});
 `
 
 export const TrackListMenuButton: FC = observer(() => {
@@ -30,7 +38,7 @@ export const TrackListMenuButton: FC = observer(() => {
   return (
     <>
       <NavBackButton ref={ref} onClick={onClickNavBack}>
-        {open ? <ArrowLeft /> : <ArrowDropDown />}
+        <ArrowIcon isOpen={open} />
       </NavBackButton>
     </>
   )

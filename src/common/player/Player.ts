@@ -27,9 +27,10 @@ export interface LoopSetting {
 const TIMER_INTERVAL = 50
 const LOOK_AHEAD_TIME = 50
 const METRONOME_TRACK_ID = 99999
+export const DEFAULT_TEMPO = 120
 
 export default class Player {
-  private _currentTempo = 120
+  private _currentTempo = DEFAULT_TEMPO
   private _scheduler: EventScheduler<PlayerEvent> | null = null
   private _songStore: SongStore
   private _output: SynthOutput

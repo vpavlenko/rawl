@@ -29,7 +29,7 @@ export interface VolumeSliderProps {
 
 const _VolumeSlider: FC<VolumeSliderProps> = observer(({ trackId }) => {
   const rootStore = useStores()
-  const volume = rootStore.pianoRollStore.currentVolume
+  const volume = rootStore.pianoRollStore.currentVolume ?? 100
   const onChange = useCallback(
     (value: number) => setTrackVolume(rootStore)(trackId, value),
     [rootStore, trackId]

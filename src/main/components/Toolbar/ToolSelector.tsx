@@ -1,30 +1,19 @@
 import styled from "@emotion/styled"
 import { Create } from "@mui/icons-material"
-import { ToggleButton, ToggleButtonGroup } from "@mui/lab"
 import { Tooltip } from "@mui/material"
 import React, { useCallback, VFC } from "react"
 import { localized } from "../../../common/localize/localizedString"
 import { PianoRollMouseMode } from "../../stores/PianoRollStore"
 import { SelectionToolIcon } from "./SelectionToolIcon"
+import {
+  ToolbarButtonGroup,
+  ToolbarButtonGroupItem,
+} from "./ToolbarButtonGroup"
 
-const StyledToggleButtonGroup = styled(ToggleButtonGroup)`
+const ButtonGroup = styled(ToolbarButtonGroup)`
   background-color: transparent;
   margin-right: 1rem;
 `
-
-export const StyledToggleButton = styled(ToggleButton)`
-  height: 2rem;
-  color: ${({ theme }) => theme.textColor};
-  font-size: 1rem;
-  padding: 0 0.7rem;
-  &.Mui-selected {
-    background: ${({ theme }) => theme.themeColor};
-  }
-`
-
-StyledToggleButton.defaultProps = {
-  value: "",
-}
 
 export interface ToolSelectorProps {
   mouseMode: PianoRollMouseMode
@@ -36,23 +25,23 @@ export const ToolSelector: VFC<ToolSelectorProps> = ({
   onSelect,
 }) => {
   return (
-    <StyledToggleButtonGroup value={mouseMode}>
-      <StyledToggleButton
+    <ButtonGroup>
+      <ToolbarButtonGroupItem
         onClick={useCallback(() => onSelect("pencil"), [])}
-        value="pencil"
+        selected={mouseMode === "pencil"}
       >
         <Tooltip title={`${localized("pencil-tool", "Pencil Tool")} [1]`}>
           <Create style={{ width: "1rem" }} />
         </Tooltip>
-      </StyledToggleButton>
-      <StyledToggleButton
+      </ToolbarButtonGroupItem>
+      <ToolbarButtonGroupItem
         onClick={useCallback(() => onSelect("selection"), [])}
-        value="selection"
+        selected={mouseMode === "selection"}
       >
         <Tooltip title={`${localized("selection-tool", "Selection Tool")} [2]`}>
           <SelectionToolIcon style={{ width: "1rem" }} />
         </Tooltip>
-      </StyledToggleButton>
-    </StyledToggleButtonGroup>
+      </ToolbarButtonGroupItem>
+    </ButtonGroup>
   )
 }

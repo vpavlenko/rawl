@@ -1,6 +1,6 @@
 import styled from "@emotion/styled"
 import { Headset, Layers, VolumeOff, VolumeUp } from "@mui/icons-material"
-import { IconButton, ListItem } from "@mui/material"
+import { IconButton } from "@mui/material"
 import { observer } from "mobx-react-lite"
 import { FC, useCallback, useState } from "react"
 import {
@@ -21,15 +21,13 @@ export type TrackListItemProps = {
   trackId: number
 }
 
-const Container = styled(ListItem)`
-  &.Mui-selected {
-    background-color: rgb(255 255 255 / 5%);
-    border-right: 5px solid ${({ theme }) => theme.themeColor};
-
-    .name {
-      font-weight: 600;
-    }
-  }
+const Container = styled.div<{ selected: boolean }>`
+  background-color: ${({ selected }) =>
+    selected ? "rgba(255, 255, 255, 5%)" : "transparent"};
+  border-right: 5px solid;
+  border-right-color: ${({ theme, selected }) =>
+    selected ? theme.themeColor : "transparent"};
+  padding: 0.5rem 1rem;
 
   .controls {
     display: flex;
@@ -43,6 +41,7 @@ const Container = styled(ListItem)`
   }
 
   .name {
+    font-weight: ${({ selected }) => (selected ? 600 : "inherit")};
     padding-right: 0.5em;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -64,6 +63,10 @@ const Container = styled(ListItem)`
   .button.active {
     color: ${({ theme }) => theme.textColor};
   }
+
+  &:hover {
+    background: rgba(255, 255, 255, 5%);
+  }
 `
 
 const ChannelName = styled.div`
@@ -73,6 +76,7 @@ const ChannelName = styled.div`
   align-items: center;
   border: 1px solid ${({ theme }) => theme.dividerColor};
   padding: 0 0.3rem;
+  cursor: pointer;
 
   &:hover {
     background: ${({ theme }) => theme.secondaryBackgroundColor};

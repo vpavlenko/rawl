@@ -4,7 +4,6 @@ export interface Theme {
   themeColor: string
   backgroundColor: string
   secondaryBackgroundColor: string
-  tertiaryBackgroundColor: string
   dividerColor: string
   textColor: string
   secondaryTextColor: string
@@ -17,19 +16,18 @@ export interface Theme {
 }
 
 export const defaultTheme: Theme = {
-  font: "-apple-system, BlinkMacSystemFont, Avenir, Lato",
+  font: "Inter, -apple-system, BlinkMacSystemFont, Avenir, Lato",
   canvasFont: "Arial",
   themeColor: "hsl(230, 70%, 55%)",
-  textColor: "#fbfcff",
+  textColor: "#ffffff",
   secondaryTextColor: "#8e96ab",
   tertiaryTextColor: "#5a6173",
   dividerColor: "#454a58",
-  backgroundColor: "#272a36",
-  secondaryBackgroundColor: "#454b60",
-  tertiaryBackgroundColor: "#535b72",
+  backgroundColor: "hsl(228, 16%, 18%)",
+  secondaryBackgroundColor: "hsl(227, 16%, 32%)",
   pianoKeyBlack: "#272a36",
   pianoKeyWhite: "#fbfcff",
-  pianoBlackKeyLaneColor: "#1f2029",
+  pianoBlackKeyLaneColor: "hsl(228, 16%, 14%)",
   ghostNoteColor: "#444444",
   recordColor: "#dd3c3c",
 }

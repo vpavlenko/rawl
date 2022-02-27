@@ -19,8 +19,7 @@ export const GlobalCSS = () => {
           color: ${theme.textColor};
           background-color: ${theme.backgroundColor};
           overscroll-behavior: none;
-          font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue,
-            sans-serif;
+          font-family: ${theme.font};
         }
 
         #root {
@@ -56,14 +55,14 @@ export const GlobalCSS = () => {
 
         .ScrollBar .thumb:active,
         .ScrollBar .thumb:hover {
-          background: ${theme.tertiaryBackgroundColor};
+          background: ${theme.tertiaryTextColor};
         }
 
         .ScrollBar .button-backward:active,
         .ScrollBar .button-backward:hover,
         .ScrollBar .button-forward:active,
         .ScrollBar .button-forward:hover {
-          background: ${theme.tertiaryBackgroundColor};
+          background: ${theme.tertiaryTextColor};
         }
 
         .gitter-chat-embed {
@@ -87,7 +86,7 @@ export const GlobalCSS = () => {
         }
 
         &::-webkit-scrollbar-thumb:hover {
-          background-color: ${theme.tertiaryBackgroundColor};
+          background-color: ${theme.tertiaryTextColor};
         }
       `}
     />

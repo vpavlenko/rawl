@@ -8,7 +8,7 @@ import {
   PlayArrow,
   Stop,
 } from "@mui/icons-material"
-import { CircularProgress, Toolbar, Tooltip } from "@mui/material"
+import { CircularProgress, Tooltip } from "@mui/material"
 import MetronomeIcon from "mdi-react/MetronomeIcon"
 import { observer } from "mobx-react-lite"
 import { FC, useCallback } from "react"
@@ -24,8 +24,11 @@ import {
 import { toggleRecording } from "../../actions/recording"
 import { useStores } from "../../hooks/useStores"
 
-const StyledToolbar = styled(Toolbar)`
+const Toolbar = styled.div`
+  display: flex;
+  align-items: center;
   justify-content: center;
+  padding: 0.25rem 1rem;
   background: ${({ theme }) => theme.backgroundColor};
   border-top: 1px solid ${({ theme }) => theme.dividerColor};
 `
@@ -208,7 +211,7 @@ export const TransportPanel: FC = observer(() => {
   }, [player])
 
   return (
-    <StyledToolbar variant="dense">
+    <Toolbar>
       <Tooltip title={`${localized("rewind", "Rewind")}`} placement="top">
         <Button onClick={onClickBackward}>
           <FastRewind />
@@ -283,6 +286,6 @@ export const TransportPanel: FC = observer(() => {
           <CircularProgress size="1rem" />
         </Right>
       )}
-    </StyledToolbar>
+    </Toolbar>
   )
 })

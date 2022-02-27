@@ -1,11 +1,18 @@
 import styled from "@emotion/styled"
 import { ArrowDropDown, ArrowLeft } from "@mui/icons-material"
-import { IconButton } from "@mui/material"
 import { observer } from "mobx-react-lite"
 import React, { FC, useCallback, useRef } from "react"
 import { useStores } from "../../hooks/useStores"
 
-const NavBackButton = styled(IconButton)`
+const NavBackButton = styled.button`
+  -webkit-appearance: none;
+  border: none;
+  outline: none;
+  height: 2rem;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+
   svg {
     transform: scale(1.5);
   }

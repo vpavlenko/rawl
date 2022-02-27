@@ -73,6 +73,7 @@ const ChannelName = styled.div`
   align-items: center;
   border: 1px solid ${({ theme }) => theme.dividerColor};
   padding: 0 0.3rem;
+  cursor: pointer;
 
   &:hover {
     background: ${({ theme }) => theme.secondaryBackgroundColor};

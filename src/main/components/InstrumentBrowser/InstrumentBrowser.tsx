@@ -57,10 +57,17 @@ const Finder = styled.div`
     padding: 0.5em 1em;
     display: block;
   }
+
+  .left select {
+    width: 15em;
+  }
+
+  .right select {
+    width: 21em;
+  }
 `
 
 const Select = styled.select`
-  width: 17em;
   overflow: auto;
   background-color: #00000024;
   border: 1px solid ${({ theme }) => theme.dividerColor};

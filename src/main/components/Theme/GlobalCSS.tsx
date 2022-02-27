@@ -19,8 +19,7 @@ export const GlobalCSS = () => {
           color: ${theme.textColor};
           background-color: ${theme.backgroundColor};
           overscroll-behavior: none;
-          font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue,
-            sans-serif;
+          font-family: ${theme.font};
         }
 
         #root {

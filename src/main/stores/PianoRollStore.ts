@@ -4,7 +4,7 @@ import { ControllerEvent, MIDIControlEvents, PitchBendEvent } from "midifile-ts"
 import { action, autorun, computed, makeObservable, observable } from "mobx"
 import { containsPoint, IPoint, IRect } from "../../common/geometry"
 import { isNotUndefined } from "../../common/helpers/array"
-import { filterEventsWithScroll } from "../../common/helpers/filterEvents"
+import { filterEventsOverlapScroll } from "../../common/helpers/filterEvents"
 import { getMBTString } from "../../common/measure/mbt"
 import Quantizer from "../../common/quantizer"
 import { ControlSelection } from "../../common/selection/ControlSelection"
@@ -241,7 +241,7 @@ export default class PianoRollStore {
       return []
     }
 
-    return filterEventsWithScroll(
+    return filterEventsOverlapScroll(
       track.events,
       transform.pixelsPerTick,
       scrollLeft,
@@ -290,7 +290,7 @@ export default class PianoRollStore {
         ) {
           return []
         }
-        return filterEventsWithScroll(
+        return filterEventsOverlapScroll(
           track.events.filter(isNoteEvent),
           transform.pixelsPerTick,
           scrollLeft,

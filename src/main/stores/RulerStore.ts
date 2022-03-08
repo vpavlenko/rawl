@@ -1,5 +1,5 @@
 import { computed, makeObservable, observable } from "mobx"
-import { filterEventsWithScroll } from "../../common/helpers/filterEventsWithScroll"
+import { filterEventsWithScroll } from "../../common/helpers/filterEvents"
 import {
   BeatWithX,
   createBeatsWithXInRange,

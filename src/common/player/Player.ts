@@ -4,7 +4,7 @@ import { AnyEvent, MIDIControlEvents } from "midifile-ts"
 import { computed, makeObservable, observable } from "mobx"
 import { SendableEvent, SynthOutput } from "../../main/services/SynthOutput"
 import { SongStore } from "../../main/stores/SongStore"
-import { filterEventsWithRange } from "../helpers/filterEventsWithScroll"
+import { filterEventsWithRange } from "../helpers/filterEvents"
 import { Beat, createBeatsInRange } from "../helpers/mapBeats"
 import {
   controllerMidiEvent,

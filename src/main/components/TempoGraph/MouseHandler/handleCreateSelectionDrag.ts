@@ -1,5 +1,5 @@
 import { IPoint, pointAdd, pointSub } from "../../../../common/geometry"
-import { filterEventsWithRange } from "../../../../common/helpers/filterEventsWithScroll"
+import { filterEventsWithRange } from "../../../../common/helpers/filterEvents"
 import { isSetTempoEvent } from "../../../../common/track"
 import { TempoCoordTransform } from "../../../../common/transform"
 import { getClientPos } from "../../../helpers/mouseEvent"

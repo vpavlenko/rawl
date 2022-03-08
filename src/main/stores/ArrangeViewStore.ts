@@ -1,7 +1,7 @@
 import { clamp } from "lodash"
 import { action, autorun, computed, makeObservable, observable } from "mobx"
 import { IRect } from "../../common/geometry"
-import { filterEventsWithScroll } from "../../common/helpers/filterEventsWithScroll"
+import { filterEventsWithScroll } from "../../common/helpers/filterEvents"
 import Quantizer from "../../common/quantizer"
 import { ArrangeSelection } from "../../common/selection/ArrangeSelection"
 import { isNoteEvent } from "../../common/track"

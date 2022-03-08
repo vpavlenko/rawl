@@ -1,4 +1,4 @@
-import { filterEventsWithRange } from "../helpers/filterEventsWithScroll"
+import { filterEventsWithRange } from "../helpers/filterEvents"
 import EventScheduler from "./EventScheduler"
 
 describe("EventScheduler", () => {

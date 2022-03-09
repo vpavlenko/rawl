@@ -1,7 +1,7 @@
 import { clamp } from "lodash"
 import { action, autorun, computed, makeObservable, observable } from "mobx"
 import { IRect } from "../../common/geometry"
-import { filterEventsWithScroll } from "../../common/helpers/filterEventsWithScroll"
+import { filterEventsOverlapScroll } from "../../common/helpers/filterEvents"
 import Quantizer from "../../common/quantizer"
 import { ArrangeSelection } from "../../common/selection/ArrangeSelection"
 import { isNoteEvent } from "../../common/track"
@@ -157,7 +157,7 @@ export default class ArrangeViewStore {
 
     return this.rootStore.song.tracks
       .map((t, i) =>
-        filterEventsWithScroll(
+        filterEventsOverlapScroll(
           t.events,
           transform.pixelsPerTick,
           this.scrollLeft,

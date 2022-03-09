@@ -8,7 +8,7 @@ import React, {
   useState,
 } from "react"
 import { IPoint, zeroRect } from "../../../../common/geometry"
-import { filterEventsWithRange } from "../../../../common/helpers/filterEventsWithScroll"
+import { filterEventsWithRange } from "../../../../common/helpers/filterEvents"
 import {
   createValueEvent,
   ValueEventType,

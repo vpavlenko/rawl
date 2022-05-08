@@ -1,9 +1,30 @@
+import { vec4 } from "gl-matrix"
 import { IRect } from "../../../common/geometry"
 import { rectToTriangles } from "../../helpers/polygon"
 import { Attrib } from "../Attrib"
 import { DisplayObject } from "../DisplayObject"
+import { RenderObject } from "../RenderObject"
 import { Shader } from "../Shader"
 import { uniformMat4, uniformVec4 } from "../Uniform"
+
+export class SolidRectangleObject2 extends RenderObject<
+  Omit<
+    Parameters<ReturnType<typeof SolidRectangleShader>["setUniforms"]>[0],
+    "projectionMatrix"
+  >,
+  SolidRectangleBuffer,
+  ReturnType<typeof SolidRectangleShader>
+> {
+  constructor(gl: WebGLRenderingContext) {
+    super(SolidRectangleShader(gl), new SolidRectangleBuffer(gl), {
+      color: vec4.create(),
+    })
+  }
+
+  updateBuffer(param: Parameters<typeof this.buffer.update>[0]) {
+    this.buffer.update(param)
+  }
+}
 
 export class SolidRectangleObject extends DisplayObject<
   ReturnType<typeof SolidRectangleShader>,

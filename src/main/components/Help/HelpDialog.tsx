@@ -143,6 +143,10 @@ export const HelpDialog: FC = observer(() => {
             "Paste Copied Selection to Current Position"
           )}
         />
+        <HotKey
+          hotKeys={[["Cmd", "A"]]}
+          text={localized("select-all", "Select all")}
+        />
         <HotKey hotKeys={[["?"]]} text={localized("open-help", "Open Help")} />
       </DialogContent>
       <DialogActions>

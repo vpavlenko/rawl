@@ -77,6 +77,7 @@ export default {
     "copy-selection": "選択範囲をコピー",
     "cut-selection": "選択範囲を切り取り",
     "paste-selection": "コピーした選択範囲を現在位置に貼り付け",
+    "select-all": "すべて選択",
     "delete-selection": "選択範囲を削除",
     "move-selection": "選択範囲を移動",
     undo: "元に戻す",

@@ -24,7 +24,7 @@ export const handlePianoNotesKeyboardShortcut =
         return true
       }
       case "KeyA": {
-        if (e.ctrlKey) {
+        if (e.ctrlKey || e.metaKey) {
           selectAllNotes(rootStore)()
           return true
         }

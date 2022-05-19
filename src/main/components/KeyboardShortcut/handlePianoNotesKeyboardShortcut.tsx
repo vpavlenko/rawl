@@ -4,6 +4,7 @@ import {
   duplicateSelection,
   quantizeSelectedNotes,
   resetSelection,
+  selectAllNotes,
   selectNextNote,
   selectPreviousNote,
   transposeSelection,
@@ -21,6 +22,14 @@ export const handlePianoNotesKeyboardShortcut =
       case "Escape": {
         resetSelection(rootStore)()
         return true
+      }
+      case "KeyA": {
+        if (e.ctrlKey || e.metaKey) {
+          selectAllNotes(rootStore)()
+          return true
+        }
+
+        return false
       }
       case "KeyC":
         if ((e.ctrlKey || e.metaKey) && isSelected) {

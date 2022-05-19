@@ -628,3 +628,13 @@ export const quantizeSelectedNotes = (rootStore: RootStore) => () => {
 
   selectedTrack.updateEvents(notes)
 }
+
+export const selectAllNotes = (rootStore: RootStore) => () => {
+  const selectedTrack = rootStore.song.selectedTrack
+
+  if (selectedTrack) {
+    rootStore.pianoRollStore.selectedNoteIds = selectedTrack.events
+      .filter(isNoteEvent)
+      .map((note) => note.id)
+  }
+}

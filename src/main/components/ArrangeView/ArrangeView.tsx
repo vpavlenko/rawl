@@ -19,6 +19,8 @@ import {
   selectTrack,
 } from "../../actions"
 import { Layout, WHEEL_SCROLL_RATE } from "../../Constants"
+import { colorToVec4 } from "../../gl/color"
+import { SolidRectangleObject2 } from "../../gl/shaders/SolidRectangleShader"
 import { getClientPos } from "../../helpers/mouseEvent"
 import { observeDrag } from "../../helpers/observeDrag"
 import { isTouchPadEvent } from "../../helpers/touchpad"
@@ -300,6 +302,27 @@ export const ArrangeView: FC = observer(() => {
   )
 
   const [renderer, setRenderer] = useState<ArrangeViewRenderer | null>(null)
+  const [noteObject, setNoteObject] = useState<SolidRectangleObject2 | null>(
+    null
+  )
+
+  const onCreateContext = useCallback((gl) => {
+    const renderer = new ArrangeViewRenderer(gl)
+    setRenderer(renderer)
+    const noteObject = new SolidRectangleObject2(gl)
+    renderer.scrollXYGroup.addChild(noteObject)
+    setNoteObject(noteObject)
+  }, [])
+
+  useEffect(() => {
+    noteObject?.updateBuffer(notes)
+  }, [noteObject, notes])
+
+  useEffect(() => {
+    noteObject?.setProps({
+      color: colorToVec4(Color(theme.themeColor)),
+    })
+  }, [noteObject, theme])
 
   useEffect(() => {
     if (renderer === null) {
@@ -314,7 +337,6 @@ export const ArrangeView: FC = observer(() => {
     renderer.theme = theme
     renderer.render(
       cursorX,
-      notes,
       selectionRect ?? zeroRect,
       nonHighlightedBeats.map((b) => b.x),
       highlightedBeats.map((b) => b.x),
@@ -398,10 +420,7 @@ export const ArrangeView: FC = observer(() => {
           />
           <GLCanvas
             style={{ pointerEvents: "none" }}
-            onCreateContext={useCallback(
-              (gl) => setRenderer(new ArrangeViewRenderer(gl)),
-              []
-            )}
+            onCreateContext={onCreateContext}
             width={containerWidth}
             height={contentHeight}
           />

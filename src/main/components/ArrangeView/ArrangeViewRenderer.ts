@@ -19,7 +19,6 @@ import { DisplayObject } from "../../gl/DisplayObject"
 export class ArrangeViewRenderer {
   private renderer: Renderer2D
 
-  private noteObject: SolidRectangleObject2
   private cursorObject: SolidRectangleObject2
   private beatObject: SolidRectangleObject2
   private highlightedBeatObject: SolidRectangleObject2
@@ -27,17 +26,16 @@ export class ArrangeViewRenderer {
   private selectionObject: BorderedRectangleObject
 
   private rootGroup = new TransformGroup()
-  private scrollXGroup = new TransformGroup()
-  private scrollYGroup = new TransformGroup()
-  private scrollXYGroup = new TransformGroup()
-  private foregroundScrollXGroup = new TransformGroup()
+  scrollXGroup = new TransformGroup()
+  scrollYGroup = new TransformGroup()
+  scrollXYGroup = new TransformGroup()
+  foregroundScrollXGroup = new TransformGroup()
 
   theme: Theme = defaultTheme
 
   constructor(gl: WebGLRenderingContext) {
     this.renderer = new Renderer2D(gl)
 
-    this.noteObject = new SolidRectangleObject2(gl)
     this.cursorObject = new SolidRectangleObject2(gl)
     this.beatObject = new SolidRectangleObject2(gl)
     this.highlightedBeatObject = new SolidRectangleObject2(gl)
@@ -54,7 +52,6 @@ export class ArrangeViewRenderer {
     this.scrollXGroup.addChild(this.beatObject)
     this.scrollXGroup.addChild(this.highlightedBeatObject)
     this.scrollYGroup.addChild(this.lineObject)
-    this.scrollXYGroup.addChild(this.noteObject)
     this.foregroundScrollXGroup.addChild(this.cursorObject)
 
     const objects = [this.selectionObject]
@@ -78,14 +75,12 @@ export class ArrangeViewRenderer {
 
   render(
     cursorX: number,
-    notes: IRect[],
     selection: IRect,
     beats: number[],
     highlightedBeats: number[],
     lines: number[],
     scroll: IPoint
   ) {
-    this.noteObject.updateBuffer(notes)
     this.selectionObject.updateBuffer([selection])
     this.cursorObject.updateBuffer([this.vline(cursorX)])
     this.beatObject.updateBuffer(beats.map(this.vline))
@@ -117,10 +112,6 @@ export class ArrangeViewRenderer {
 
     this.highlightedBeatObject.setProps({
       color: colorToVec4(Color(this.theme.dividerColor).alpha(0.5)),
-    })
-
-    this.noteObject.setProps({
-      color: colorToVec4(Color(this.theme.themeColor)),
     })
 
     this.cursorObject.setProps({

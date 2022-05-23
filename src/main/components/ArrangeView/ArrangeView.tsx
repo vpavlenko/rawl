@@ -36,6 +36,7 @@ import { BAR_WIDTH } from "../inputs/ScrollBar"
 import CanvasPianoRuler from "../PianoRoll/CanvasPianoRuler"
 import { ArrangeContextMenu } from "./ArrangeContextMenu"
 import { ArrangeTrackContextMenu } from "./ArrangeTrackContextMenu"
+import { ArrangeViewCanvas } from "./ArrangeViewCanvas"
 import { ArrangeViewRenderer } from "./ArrangeViewRenderer"
 
 const Wrapper = styled.div`
@@ -100,8 +101,6 @@ export const ArrangeView: FC = observer(() => {
   const size = useComponentSize(ref)
 
   const {
-    notes,
-    cursorX,
     selection,
     selectionRect,
     trackHeight,
@@ -110,11 +109,9 @@ export const ArrangeView: FC = observer(() => {
     trackTransform,
     scrollLeft,
     scrollTop,
-    scaleY,
     scrollBy,
     selectedTrackId,
   } = rootStore.arrangeViewStore
-  const { beats } = rootStore.arrangeViewStore.rulerStore
 
   const setScrollLeft = useCallback(
     (v: number) => rootStore.arrangeViewStore.setScrollLeftInPixels(v),
@@ -301,59 +298,6 @@ export const ArrangeView: FC = observer(() => {
     [s, scrollBy]
   )
 
-  const [renderer, setRenderer] = useState<ArrangeViewRenderer | null>(null)
-  const [noteObject, setNoteObject] = useState<SolidRectangleObject2 | null>(
-    null
-  )
-
-  const onCreateContext = useCallback((gl) => {
-    const renderer = new ArrangeViewRenderer(gl)
-    setRenderer(renderer)
-    const noteObject = new SolidRectangleObject2(gl)
-    renderer.scrollXYGroup.addChild(noteObject)
-    setNoteObject(noteObject)
-  }, [])
-
-  useEffect(() => {
-    noteObject?.updateBuffer(notes)
-  }, [noteObject, notes])
-
-  useEffect(() => {
-    noteObject?.setProps({
-      color: colorToVec4(Color(theme.themeColor)),
-    })
-  }, [noteObject, theme])
-
-  useEffect(() => {
-    if (renderer === null) {
-      return
-    }
-
-    const [highlightedBeats, nonHighlightedBeats] = partition(
-      beats,
-      (b) => b.beat === 0
-    )
-
-    renderer.theme = theme
-    renderer.render(
-      cursorX,
-      selectionRect ?? zeroRect,
-      nonHighlightedBeats.map((b) => b.x),
-      highlightedBeats.map((b) => b.x),
-      tracks.map((_, i) => trackHeight * (i + 1) - 1),
-      { x: scrollLeft, y: scrollTop }
-    )
-  }, [
-    renderer,
-    tracks.length,
-    scrollLeft,
-    scrollTop,
-    cursorX,
-    notes,
-    beats,
-    selectionRect,
-  ])
-
   const openTrack = (trackId: number) => {
     rootStore.router.pushTrack()
     selectTrack(rootStore)(trackId)
@@ -418,12 +362,7 @@ export const ArrangeView: FC = observer(() => {
               boxSizing: "border-box",
             }}
           />
-          <GLCanvas
-            style={{ pointerEvents: "none" }}
-            onCreateContext={onCreateContext}
-            width={containerWidth}
-            height={contentHeight}
-          />
+          <ArrangeViewCanvas width={containerWidth} />
         </div>
         <div
           style={{

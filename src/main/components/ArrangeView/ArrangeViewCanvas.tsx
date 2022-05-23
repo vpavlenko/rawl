@@ -1,6 +1,6 @@
 import Color from "color"
 import { partition } from "lodash"
-import { useState, useCallback, useEffect, VFC } from "react"
+import { useCallback, useEffect, useState, VFC } from "react"
 import { zeroRect } from "../../../common/geometry"
 import { colorToVec4 } from "../../gl/color"
 import { SolidRectangleObject2 } from "../../gl/shaders/SolidRectangleShader"
@@ -22,17 +22,10 @@ export const ArrangeViewCanvas: VFC<ArrangeViewCanvasProps> = ({ width }) => {
   const {
     notes,
     cursorX,
-    selection,
     selectionRect,
     trackHeight,
-    contentWidth,
-    transform,
-    trackTransform,
     scrollLeft,
     scrollTop,
-    scaleY,
-    scrollBy,
-    selectedTrackId,
     rulerStore: { beats },
   } = rootStore.arrangeViewStore
 

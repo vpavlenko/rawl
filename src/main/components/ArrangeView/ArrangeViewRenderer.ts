@@ -3,18 +3,10 @@ import { mat4, vec3, vec4 } from "gl-matrix"
 import { IPoint, IRect } from "../../../common/geometry"
 import { defaultTheme, Theme } from "../../../common/theme/Theme"
 import { colorToVec4 } from "../../gl/color"
-import { Renderer2D, translateMatrix } from "../../gl/Renderer2D"
-import { Drawable } from "../../gl/Drawable"
+import { Renderer2D } from "../../gl/Renderer2D"
 import { BorderedRectangleObject } from "../../gl/shaders/BorderedRectangleShader"
-import {
-  SolidRectangleBuffer,
-  SolidRectangleObject,
-  SolidRectangleObject2,
-  SolidRectangleShader,
-} from "../../gl/shaders/SolidRectangleShader"
+import { SolidRectangleObject2 } from "../../gl/shaders/SolidRectangleShader"
 import { TransformGroup } from "../../gl/TransformGroup"
-import { RenderObject } from "../../gl/RenderObject"
-import { DisplayObject } from "../../gl/DisplayObject"
 
 export class ArrangeViewRenderer {
   private renderer: Renderer2D

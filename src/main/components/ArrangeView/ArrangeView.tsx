@@ -1,15 +1,14 @@
 import styled from "@emotion/styled"
 import useComponentSize from "@rehooks/component-size"
 import Color from "color"
-import { clamp, partition } from "lodash"
+import { clamp } from "lodash"
 import { observer } from "mobx-react-lite"
-import { FC, useCallback, useEffect, useRef, useState } from "react"
+import { FC, useCallback, useEffect, useRef } from "react"
 import {
   containsPoint,
   IPoint,
   pointAdd,
   pointSub,
-  zeroRect,
 } from "../../../common/geometry"
 import {
   arrangeEndSelection,
@@ -19,15 +18,12 @@ import {
   selectTrack,
 } from "../../actions"
 import { Layout, WHEEL_SCROLL_RATE } from "../../Constants"
-import { colorToVec4 } from "../../gl/color"
-import { SolidRectangleObject2 } from "../../gl/shaders/SolidRectangleShader"
 import { getClientPos } from "../../helpers/mouseEvent"
 import { observeDrag } from "../../helpers/observeDrag"
 import { isTouchPadEvent } from "../../helpers/touchpad"
 import { useContextMenu } from "../../hooks/useContextMenu"
 import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
-import { GLCanvas } from "../GLCanvas/GLCanvas"
 import {
   HorizontalScaleScrollBar,
   VerticalScaleScrollBar,
@@ -37,7 +33,6 @@ import CanvasPianoRuler from "../PianoRoll/CanvasPianoRuler"
 import { ArrangeContextMenu } from "./ArrangeContextMenu"
 import { ArrangeTrackContextMenu } from "./ArrangeTrackContextMenu"
 import { ArrangeViewCanvas } from "./ArrangeViewCanvas"
-import { ArrangeViewRenderer } from "./ArrangeViewRenderer"
 
 const Wrapper = styled.div`
   flex-grow: 1;

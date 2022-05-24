@@ -1,12 +1,15 @@
 import { mat4, vec3 } from "gl-matrix"
 import { ISize } from "../../common/geometry"
-import { DisplayObject } from "./DisplayObject"
 import { RenderProperty } from "./RenderProperty"
 
 export const translateMatrix = (mat: mat4, x: number, y: number) => {
   const newMat = mat4.create()
   mat4.translate(newMat, mat, vec3.fromValues(x, y, 0))
   return newMat
+}
+
+export interface Renderable {
+  draw(): void
 }
 
 export class Renderer2D {
@@ -17,13 +20,21 @@ export class Renderer2D {
     (a, b) => a.width === b.width && a.height === b.height
   )
 
-  private objects: DisplayObject<any, any>[] = []
+  private objects: Renderable[] = []
 
   constructor(gl: WebGLRenderingContext) {
     this.gl = gl
   }
 
-  addObject(object: DisplayObject<any, any>) {
+  setNeedsDisplay() {
+    this.render()
+  }
+
+  setObjects(objects: Renderable[]) {
+    this.objects = objects
+  }
+
+  addObject(object: Renderable) {
     this.objects.push(object)
   }
 

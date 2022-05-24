@@ -9,19 +9,18 @@ import { SolidRectangleObject2 } from "../../gl/shaders/SolidRectangleShader"
 import { TransformGroup } from "../../gl/TransformGroup"
 
 export class ArrangeViewRenderer {
-  private renderer: Renderer2D
+  readonly renderer: Renderer2D
 
   private cursorObject: SolidRectangleObject2
   private beatObject: SolidRectangleObject2
   private highlightedBeatObject: SolidRectangleObject2
-  private lineObject: SolidRectangleObject2
   private selectionObject: BorderedRectangleObject
 
   private rootGroup = new TransformGroup()
-  scrollXGroup = new TransformGroup()
-  scrollYGroup = new TransformGroup()
-  scrollXYGroup = new TransformGroup()
-  foregroundScrollXGroup = new TransformGroup()
+  readonly scrollXGroup = new TransformGroup()
+  readonly scrollYGroup = new TransformGroup()
+  readonly scrollXYGroup = new TransformGroup()
+  readonly foregroundScrollXGroup = new TransformGroup()
 
   theme: Theme = defaultTheme
 
@@ -32,8 +31,6 @@ export class ArrangeViewRenderer {
     this.beatObject = new SolidRectangleObject2(gl)
     this.highlightedBeatObject = new SolidRectangleObject2(gl)
 
-    this.lineObject = new SolidRectangleObject2(gl)
-
     this.selectionObject = new BorderedRectangleObject(gl)
 
     this.rootGroup.addChild(this.scrollXGroup)
@@ -43,7 +40,6 @@ export class ArrangeViewRenderer {
 
     this.scrollXGroup.addChild(this.beatObject)
     this.scrollXGroup.addChild(this.highlightedBeatObject)
-    this.scrollYGroup.addChild(this.lineObject)
     this.foregroundScrollXGroup.addChild(this.cursorObject)
 
     const objects = [this.selectionObject]
@@ -51,14 +47,14 @@ export class ArrangeViewRenderer {
     objects.forEach((o) => this.renderer.addObject(o))
   }
 
-  private vline = (x: number): IRect => ({
+  vline = (x: number): IRect => ({
     x,
     y: 0,
     width: 1,
     height: this.renderer.gl.canvas.height,
   })
 
-  private hline = (y: number): IRect => ({
+  hline = (y: number): IRect => ({
     x: 0,
     y,
     width: this.renderer.gl.canvas.width,
@@ -70,14 +66,12 @@ export class ArrangeViewRenderer {
     selection: IRect,
     beats: number[],
     highlightedBeats: number[],
-    lines: number[],
     scroll: IPoint
   ) {
     this.selectionObject.updateBuffer([selection])
     this.cursorObject.updateBuffer([this.vline(cursorX)])
     this.beatObject.updateBuffer(beats.map(this.vline))
     this.highlightedBeatObject.updateBuffer(highlightedBeats.map(this.vline))
-    this.lineObject.updateBuffer(lines.map(this.hline))
 
     this.updateTheme()
     this.updateTransform(scroll)
@@ -94,10 +88,6 @@ export class ArrangeViewRenderer {
   }
 
   private updateTheme() {
-    this.lineObject.setProps({
-      color: colorToVec4(Color(this.theme.dividerColor)),
-    })
-
     this.beatObject.setProps({
       color: colorToVec4(Color(this.theme.dividerColor).alpha(0.2)),
     })

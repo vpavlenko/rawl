@@ -1,12 +1,13 @@
 import Color from "color"
 import { partition } from "lodash"
 import { useCallback, useEffect, useState, VFC } from "react"
-import { zeroRect } from "../../../common/geometry"
+import { IRect, zeroRect } from "../../../common/geometry"
 import { colorToVec4 } from "../../gl/color"
 import { SolidRectangleObject2 } from "../../gl/shaders/SolidRectangleShader"
 import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
-import { GLCanvas } from "../GLCanvas/GLCanvas"
+import { GLSolidRectangleNode } from "../GLSurface/GLSolidRectangleNode"
+import { GLSurface } from "../GLSurface/GLSurface"
 import { ArrangeViewRenderer } from "./ArrangeViewRenderer"
 
 export interface ArrangeViewCanvasProps {
@@ -33,24 +34,59 @@ export const ArrangeViewCanvas: VFC<ArrangeViewCanvasProps> = ({ width }) => {
   const [noteObject, setNoteObject] = useState<SolidRectangleObject2 | null>(
     null
   )
+  const [lineObject, setLineObject] = useState<SolidRectangleObject2 | null>(
+    null
+  )
 
   const onCreateContext = useCallback((gl) => {
     const renderer = new ArrangeViewRenderer(gl)
     setRenderer(renderer)
+
     const noteObject = new SolidRectangleObject2(gl)
     renderer.scrollXYGroup.addChild(noteObject)
     setNoteObject(noteObject)
+
+    const lineObject = new SolidRectangleObject2(gl)
+    renderer.scrollYGroup.addChild(lineObject)
+    setLineObject(lineObject)
   }, [])
+
+  const vline = (x: number): IRect => ({
+    x,
+    y: 0,
+    width: 1,
+    height: renderer?.renderer.gl.canvas.height ?? 0,
+  })
+
+  const hline = (y: number): IRect => ({
+    x: 0,
+    y,
+    width: renderer?.renderer.gl.canvas.width ?? 0,
+    height: 1,
+  })
 
   useEffect(() => {
     noteObject?.updateBuffer(notes)
+    renderer?.renderer?.render()
   }, [noteObject, notes])
 
   useEffect(() => {
     noteObject?.setProps({
       color: colorToVec4(Color(theme.themeColor)),
     })
-  }, [noteObject, theme])
+    lineObject?.setProps({
+      color: colorToVec4(Color(theme.dividerColor)),
+    })
+    renderer?.renderer?.render()
+  }, [noteObject, lineObject, theme, renderer])
+
+  useEffect(() => {
+    const lines = tracks.map((_, i) => trackHeight * (i + 1) - 1)
+    lineObject?.updateBuffer(lines.map(hline))
+    renderer?.renderer?.render()
+  }, [lineObject, tracks])
+
+  useEffect(() => {})
 
   useEffect(() => {
     if (renderer === null) {
@@ -68,7 +104,6 @@ export const ArrangeViewCanvas: VFC<ArrangeViewCanvasProps> = ({ width }) => {
       selectionRect ?? zeroRect,
       nonHighlightedBeats.map((b) => b.x),
       highlightedBeats.map((b) => b.x),
-      tracks.map((_, i) => trackHeight * (i + 1) - 1),
       { x: scrollLeft, y: scrollTop }
     )
   }, [
@@ -85,11 +120,14 @@ export const ArrangeViewCanvas: VFC<ArrangeViewCanvasProps> = ({ width }) => {
   const height = trackHeight * tracks.length
 
   return (
-    <GLCanvas
+    <GLSurface
       style={{ pointerEvents: "none" }}
       onCreateContext={onCreateContext}
       width={width}
       height={height}
-    />
+    >
+      <GLSolidRectangleNode buffer={[]} />
+      <GLSolidRectangleNode buffer={[]} />
+    </GLSurface>
   )
 }

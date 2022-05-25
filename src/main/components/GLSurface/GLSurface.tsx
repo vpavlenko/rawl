@@ -50,6 +50,10 @@ export abstract class GLNode<Props>
   draw(): void {
     this.shader?.draw(this.buffer as any)
   }
+
+  render() {
+    return <></>
+  }
 }
 
 export const isGLNode = (x: any): x is GLNode<any> => x instanceof GLNode
@@ -116,16 +120,19 @@ export const GLSurface: FC<GLSurfaceProps> = ({
   const canvasScale = window.devicePixelRatio
 
   return (
-    <canvas
-      {...props}
-      ref={canvasRef}
-      width={width * canvasScale}
-      height={height * canvasScale}
-      style={{
-        ...style,
-        width: width,
-        height: height,
-      }}
-    />
+    <>
+      <canvas
+        {...props}
+        ref={canvasRef}
+        width={width * canvasScale}
+        height={height * canvasScale}
+        style={{
+          ...style,
+          width: width,
+          height: height,
+        }}
+      />
+      <div style={{ display: "none" }}>{children}</div>
+    </>
   )
 }

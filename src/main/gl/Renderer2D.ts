@@ -21,13 +21,20 @@ export class Renderer2D {
   )
 
   private objects: Renderable[] = []
+  private isQueued = false
 
   constructor(gl: WebGLRenderingContext) {
     this.gl = gl
   }
 
   setNeedsDisplay() {
-    this.render()
+    if (this.isQueued) {
+      return
+    }
+    requestAnimationFrame(() => {
+      this.isQueued = false
+      this.render()
+    })
   }
 
   setObjects(objects: Renderable[]) {

@@ -1,6 +1,6 @@
 import Color from "color"
 import { partition } from "lodash"
-import { useCallback, useEffect, useState, VFC } from "react"
+import { useCallback, useEffect, useMemo, useState, VFC } from "react"
 import { IRect, zeroRect } from "../../../common/geometry"
 import { colorToVec4 } from "../../gl/color"
 import { SolidRectangleObject2 } from "../../gl/shaders/SolidRectangleShader"
@@ -80,11 +80,10 @@ export const ArrangeViewCanvas: VFC<ArrangeViewCanvasProps> = ({ width }) => {
     renderer?.renderer?.render()
   }, [noteObject, lineObject, theme, renderer])
 
-  useEffect(() => {
-    const lines = tracks.map((_, i) => trackHeight * (i + 1) - 1)
-    lineObject?.updateBuffer(lines.map(hline))
-    renderer?.renderer?.render()
-  }, [lineObject, tracks])
+  const lineBuffer = useMemo(
+    () => tracks.map((_, i) => trackHeight * (i + 1) - 1).map(hline),
+    [lineObject, tracks]
+  )
 
   useEffect(() => {})
 
@@ -127,7 +126,7 @@ export const ArrangeViewCanvas: VFC<ArrangeViewCanvasProps> = ({ width }) => {
       height={height}
     >
       <GLSolidRectangleNode buffer={[]} />
-      <GLSolidRectangleNode buffer={[]} />
+      <GLSolidRectangleNode buffer={lineBuffer} />
     </GLSurface>
   )
 }

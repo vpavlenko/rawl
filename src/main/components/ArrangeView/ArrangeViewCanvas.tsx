@@ -1,14 +1,11 @@
-import Color from "color"
-import { partition } from "lodash"
-import { useCallback, useEffect, useMemo, useState, VFC } from "react"
-import { IRect, zeroRect } from "../../../common/geometry"
-import { colorToVec4 } from "../../gl/color"
+import { mat4, vec3, vec4 } from "gl-matrix"
+import { useCallback, useMemo, useState, VFC } from "react"
+import { IRect } from "../../../common/geometry"
 import { SolidRectangleObject2 } from "../../gl/shaders/SolidRectangleShader"
 import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
 import { GLSolidRectangleNode } from "../GLSurface/GLSolidRectangleNode"
 import { GLSurface } from "../GLSurface/GLSurface"
-import { ArrangeViewRenderer } from "./ArrangeViewRenderer"
 
 export interface ArrangeViewCanvasProps {
   width: number
@@ -30,7 +27,7 @@ export const ArrangeViewCanvas: VFC<ArrangeViewCanvasProps> = ({ width }) => {
     rulerStore: { beats },
   } = rootStore.arrangeViewStore
 
-  const [renderer, setRenderer] = useState<ArrangeViewRenderer | null>(null)
+  const [gl, setGL] = useState<WebGLRenderingContext | null>(null)
   const [noteObject, setNoteObject] = useState<SolidRectangleObject2 | null>(
     null
   )
@@ -38,83 +35,58 @@ export const ArrangeViewCanvas: VFC<ArrangeViewCanvasProps> = ({ width }) => {
     null
   )
 
-  const onCreateContext = useCallback((gl) => {
-    const renderer = new ArrangeViewRenderer(gl)
-    setRenderer(renderer)
-
-    const noteObject = new SolidRectangleObject2(gl)
-    renderer.scrollXYGroup.addChild(noteObject)
-    setNoteObject(noteObject)
-
-    const lineObject = new SolidRectangleObject2(gl)
-    renderer.scrollYGroup.addChild(lineObject)
-    setLineObject(lineObject)
-  }, [])
-
   const vline = (x: number): IRect => ({
     x,
     y: 0,
     width: 1,
-    height: renderer?.renderer.gl.canvas.height ?? 0,
+    height: gl?.canvas.height ?? 0,
   })
 
   const hline = (y: number): IRect => ({
     x: 0,
     y,
-    width: renderer?.renderer.gl.canvas.width ?? 0,
+    width: gl?.canvas.width ?? 0,
     height: 1,
   })
-
-  useEffect(() => {
-    noteObject?.updateBuffer(notes)
-    renderer?.renderer?.render()
-  }, [noteObject, notes])
-
-  useEffect(() => {
-    noteObject?.setProps({
-      color: colorToVec4(Color(theme.themeColor)),
-    })
-    lineObject?.setProps({
-      color: colorToVec4(Color(theme.dividerColor)),
-    })
-    renderer?.renderer?.render()
-  }, [noteObject, lineObject, theme, renderer])
 
   const lineBuffer = useMemo(
     () => tracks.map((_, i) => trackHeight * (i + 1) - 1).map(hline),
     [lineObject, tracks]
   )
 
-  useEffect(() => {})
+  const onCreateContext = useCallback((gl: WebGLRenderingContext) => {
+    setGL(gl)
+  }, [])
 
-  useEffect(() => {
-    if (renderer === null) {
-      return
+  const createProjectionMatrix = () => {
+    if (gl === null) {
+      return mat4.create()
     }
+    const zNear = 0
+    const zFar = 100.0
+    const projectionMatrix = mat4.create()
 
-    const [highlightedBeats, nonHighlightedBeats] = partition(
-      beats,
-      (b) => b.beat === 0
+    const canvas = gl.canvas as HTMLCanvasElement
+
+    const scale = canvas.clientWidth / canvas.width
+    mat4.scale(
+      projectionMatrix,
+      projectionMatrix,
+      vec3.fromValues(scale, scale, scale)
     )
 
-    renderer.theme = theme
-    renderer.render(
-      cursorX,
-      selectionRect ?? zeroRect,
-      nonHighlightedBeats.map((b) => b.x),
-      highlightedBeats.map((b) => b.x),
-      { x: scrollLeft, y: scrollTop }
+    mat4.ortho(
+      projectionMatrix,
+      0,
+      canvas.clientWidth,
+      canvas.clientHeight,
+      0,
+      zNear,
+      zFar
     )
-  }, [
-    renderer,
-    tracks.length,
-    scrollLeft,
-    scrollTop,
-    cursorX,
-    notes,
-    beats,
-    selectionRect,
-  ])
+
+    return projectionMatrix
+  }
 
   const height = trackHeight * tracks.length
 
@@ -125,8 +97,13 @@ export const ArrangeViewCanvas: VFC<ArrangeViewCanvasProps> = ({ width }) => {
       width={width}
       height={height}
     >
-      <GLSolidRectangleNode buffer={[]} />
-      <GLSolidRectangleNode buffer={lineBuffer} />
+      <GLSolidRectangleNode
+        buffer={lineBuffer}
+        uniforms={{
+          projectionMatrix: createProjectionMatrix(),
+          color: vec4.fromValues(1, 0, 0, 1),
+        }}
+      />
     </GLSurface>
   )
 }

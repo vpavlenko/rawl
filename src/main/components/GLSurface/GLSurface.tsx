@@ -19,14 +19,15 @@ interface Buffer<T> {
   update(props: T): void
 }
 
-export abstract class GLNode<Props>
-  extends Component<{ buffer: Props }>
+export abstract class GLNode<Props extends { buffer: any; uniforms: any }>
+  extends Component<Props>
   implements Renderable
 {
   protected shader: Shader<any, any> | null = null
-  protected buffer: Buffer<Props> | null = null
+  protected buffer: Buffer<Props["buffer"]> | null = null
+  protected uniforms: any = {}
 
-  constructor(props: { buffer: Props }) {
+  constructor(props: Props) {
     super(props)
   }
 
@@ -50,6 +51,7 @@ export abstract class GLNode<Props>
   protected abstract initialize(gl: WebGLRenderingContext): void
 
   draw(): void {
+    this.shader?.setUniforms(this.props.uniforms)
     this.shader?.draw(this.buffer as any)
   }
 

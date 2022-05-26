@@ -1,7 +1,7 @@
-import { isArray } from "lodash"
 import { Component, FC, useEffect, useRef, useState } from "react"
 import { Renderable, Renderer2D } from "../../gl/Renderer2D"
 import { Shader } from "../../gl/Shader"
+import { RendererContext } from "../../hooks/useRenderer"
 
 export type GLSurfaceProps = Omit<
   React.DetailedHTMLProps<
@@ -23,8 +23,6 @@ export abstract class GLNode<Props>
   extends Component<{ buffer: Props }>
   implements Renderable
 {
-  renderer: Renderer2D | null = null
-  private isInitialized = false
   protected shader: Shader<any, any> | null = null
   protected buffer: Buffer<Props> | null = null
 
@@ -32,20 +30,24 @@ export abstract class GLNode<Props>
     super(props)
   }
 
+  static contextType = RendererContext
+  declare context: React.ContextType<typeof RendererContext>
+
   componentDidUpdate() {
     this.buffer?.update(this.props.buffer)
-    this.renderer?.setNeedsDisplay()
+    this.context.setNeedsDisplay()
   }
 
-  abstract initialize(gl: WebGLRenderingContext): void
-
-  setContext(gl: WebGLRenderingContext) {
-    if (this.isInitialized) {
-      return
+  componentDidMount() {
+    if (this.context === null) {
+      throw new Error("Must provide RendererContext")
     }
+    const gl = this.context.gl
     this.initialize(gl)
-    this.isInitialized = true
+    this.context.addObject(this)
   }
+
+  protected abstract initialize(gl: WebGLRenderingContext): void
 
   draw(): void {
     this.shader?.draw(this.buffer as any)
@@ -103,20 +105,6 @@ export const GLSurface: FC<GLSurfaceProps> = ({
     }
   }, [])
 
-  useEffect(() => {
-    if (!isArray(children)) {
-      return
-    }
-    const nodes = children?.filter(isGLNode) ?? []
-    renderer?.setObjects(nodes)
-    if (renderer !== null) {
-      nodes.forEach((c) => {
-        c.initialize(renderer.gl)
-        c.renderer = renderer
-      })
-    }
-  }, [renderer, children])
-
   const canvasScale = window.devicePixelRatio
 
   return (
@@ -132,7 +120,11 @@ export const GLSurface: FC<GLSurfaceProps> = ({
           height: height,
         }}
       />
-      <div style={{ display: "none" }}>{children}</div>
+      {renderer && (
+        <RendererContext.Provider value={renderer}>
+          {children}
+        </RendererContext.Provider>
+      )}
     </>
   )
 }

@@ -1,9 +1,8 @@
 import Color from "color"
-import { mat4, vec3 } from "gl-matrix"
+import { mat4, vec3, vec4 } from "gl-matrix"
 import { useCallback, useMemo, useState, VFC } from "react"
 import { IRect } from "../../../common/geometry"
 import { colorToVec4 } from "../../gl/color"
-import { SolidRectangleObject2 } from "../../gl/shaders/SolidRectangleShader"
 import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
 import { GLSurface } from "../GLSurface/GLSurface"
@@ -31,7 +30,7 @@ const Lines: VFC<{ width: number; projectionMatrix: mat4 }> = ({
     height: 1,
   })
 
-  const lineBuffer = useMemo(
+  const rects = useMemo(
     () => tracks.map((_, i) => trackHeight * (i + 1) - 1).map(hline),
     [tracks, width]
   )
@@ -40,7 +39,34 @@ const Lines: VFC<{ width: number; projectionMatrix: mat4 }> = ({
 
   return (
     <Rectangles
-      rects={lineBuffer}
+      rects={rects}
+      projectionMatrix={projectionMatrix}
+      color={color}
+    />
+  )
+}
+
+const Cursor: VFC<{ projectionMatrix: mat4; height: number }> = ({
+  projectionMatrix,
+  height,
+}) => {
+  const rootStore = useStores()
+  const { cursorX } = rootStore.arrangeViewStore
+
+  const vline = (x: number): IRect => ({
+    x,
+    y: 0,
+    width: 1,
+    height,
+  })
+
+  const rect = vline(cursorX)
+
+  const color = vec4.fromValues(1, 0, 0, 1)
+
+  return (
+    <Rectangles
+      rects={[rect]}
       projectionMatrix={projectionMatrix}
       color={color}
     />
@@ -49,34 +75,10 @@ const Lines: VFC<{ width: number; projectionMatrix: mat4 }> = ({
 
 export const ArrangeViewCanvas: VFC<ArrangeViewCanvasProps> = ({ width }) => {
   const rootStore = useStores()
-  const theme = useTheme()
-
   const tracks = rootStore.song.tracks
-
-  const {
-    notes,
-    cursorX,
-    selectionRect,
-    trackHeight,
-    scrollLeft,
-    scrollTop,
-    rulerStore: { beats },
-  } = rootStore.arrangeViewStore
+  const { trackHeight } = rootStore.arrangeViewStore
 
   const [gl, setGL] = useState<WebGLRenderingContext | null>(null)
-  const [noteObject, setNoteObject] = useState<SolidRectangleObject2 | null>(
-    null
-  )
-  const [lineObject, setLineObject] = useState<SolidRectangleObject2 | null>(
-    null
-  )
-
-  const vline = (x: number): IRect => ({
-    x,
-    y: 0,
-    width: 1,
-    height: gl?.canvas.height ?? 0,
-  })
 
   const onCreateContext = useCallback((gl: WebGLRenderingContext) => {
     setGL(gl)
@@ -124,6 +126,10 @@ export const ArrangeViewCanvas: VFC<ArrangeViewCanvasProps> = ({ width }) => {
     >
       <Lines
         width={gl?.canvas.width ?? 0}
+        projectionMatrix={projectionMatrix}
+      />
+      <Cursor
+        height={gl?.canvas.height ?? 0}
         projectionMatrix={projectionMatrix}
       />
     </GLSurface>

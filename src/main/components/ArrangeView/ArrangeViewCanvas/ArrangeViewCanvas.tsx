@@ -75,8 +75,6 @@ export const ArrangeViewCanvas: VFC<ArrangeViewCanvasProps> = observer(
     )
 
     const height = trackHeight * tracks.length
-    const canvasWidth = size.width
-    const canvasHeight = height
 
     return (
       <GLSurface
@@ -86,11 +84,11 @@ export const ArrangeViewCanvas: VFC<ArrangeViewCanvasProps> = observer(
         width={width}
         height={height}
       >
-        <Lines width={canvasWidth} projectionMatrix={scrollYMatrix} />
-        <Beats height={canvasHeight} projectionMatrix={scrollXMatrix} />
+        <Lines width={width} projectionMatrix={scrollYMatrix} />
+        <Beats height={height} projectionMatrix={scrollXMatrix} />
         <Notes projectionMatrix={scrollXYMatrix} />
         <Selection projectionMatrix={scrollXYMatrix} />
-        <Cursor height={canvasHeight} projectionMatrix={scrollXMatrix} />
+        <Cursor height={height} projectionMatrix={scrollXMatrix} />
       </GLSurface>
     )
   }

@@ -1,12 +1,16 @@
 import { mat4, vec3 } from "gl-matrix"
 import { ISize } from "../../common/geometry"
-import { DisplayObject } from "./DisplayObject"
 import { RenderProperty } from "./RenderProperty"
 
 export const translateMatrix = (mat: mat4, x: number, y: number) => {
   const newMat = mat4.create()
   mat4.translate(newMat, mat, vec3.fromValues(x, y, 0))
   return newMat
+}
+
+export interface Renderable {
+  draw(): void
+  zIndex?: number
 }
 
 export class Renderer2D {
@@ -17,14 +21,34 @@ export class Renderer2D {
     (a, b) => a.width === b.width && a.height === b.height
   )
 
-  private objects: DisplayObject<any, any>[] = []
+  private objects: Renderable[] = []
+  private isQueued = false
 
   constructor(gl: WebGLRenderingContext) {
     this.gl = gl
   }
 
-  addObject(object: DisplayObject<any, any>) {
+  setNeedsDisplay() {
+    if (this.isQueued) {
+      return
+    }
+    this.isQueued = true
+    requestAnimationFrame(() => {
+      this.isQueued = false
+      this.render()
+    })
+  }
+
+  setObjects(objects: Renderable[]) {
+    this.objects = objects
+  }
+
+  addObject(object: Renderable) {
     this.objects.push(object)
+  }
+
+  removeObject(object: Renderable) {
+    this.objects = this.objects.filter((obj) => obj !== object)
   }
 
   private clear() {
@@ -60,7 +84,9 @@ export class Renderer2D {
 
     this.clear()
 
-    this.objects.forEach((o) => o.draw())
+    this.objects
+      .sort((a, b) => (a.zIndex ?? 0) - (b.zIndex ?? 0))
+      .forEach((o) => o.draw())
   }
 
   createProjectionMatrix() {

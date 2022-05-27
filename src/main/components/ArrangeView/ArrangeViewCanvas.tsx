@@ -92,6 +92,20 @@ const Beats: VFC<{ projectionMatrix: mat4; height: number }> = ({
   )
 }
 
+const Notes: VFC<{ projectionMatrix: mat4 }> = ({ projectionMatrix }) => {
+  const rootStore = useStores()
+  const theme = useTheme()
+  const { notes } = rootStore.arrangeViewStore
+
+  return (
+    <Rectangles
+      rects={notes}
+      projectionMatrix={projectionMatrix}
+      color={colorToVec4(Color(theme.themeColor))}
+    />
+  )
+}
+
 const Selection: VFC<{ projectionMatrix: mat4 }> = ({ projectionMatrix }) => {
   const rootStore = useStores()
   const theme = useTheme()
@@ -193,6 +207,7 @@ export const ArrangeViewCanvas: VFC<ArrangeViewCanvasProps> = ({ width }) => {
     >
       <Lines width={canvasWidth} projectionMatrix={projectionMatrix} />
       <Beats height={canvasHeight} projectionMatrix={projectionMatrix} />
+      <Notes projectionMatrix={projectionMatrix} />
       <Selection projectionMatrix={projectionMatrix} />
       <Cursor height={canvasHeight} projectionMatrix={projectionMatrix} />
     </GLSurface>

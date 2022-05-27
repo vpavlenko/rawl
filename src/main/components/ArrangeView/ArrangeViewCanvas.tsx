@@ -1,5 +1,6 @@
 import Color from "color"
 import { mat4, vec3, vec4 } from "gl-matrix"
+import { partition } from "lodash"
 import { useCallback, useMemo, useState, VFC } from "react"
 import { IRect } from "../../../common/geometry"
 import { colorToVec4 } from "../../gl/color"
@@ -43,6 +44,50 @@ const Lines: VFC<{ width: number; projectionMatrix: mat4 }> = ({
       projectionMatrix={projectionMatrix}
       color={color}
     />
+  )
+}
+
+const Beats: VFC<{ projectionMatrix: mat4; height: number }> = ({
+  projectionMatrix,
+  height,
+}) => {
+  const rootStore = useStores()
+  const theme = useTheme()
+  const {
+    rulerStore: { beats },
+  } = rootStore.arrangeViewStore
+
+  const vline = (x: number): IRect => ({
+    x,
+    y: 0,
+    width: 1,
+    height,
+  })
+
+  const [highlightedBeats, nonHighlightedBeats] = partition(
+    beats,
+    (b) => b.beat === 0
+  )
+
+  const lines = nonHighlightedBeats.map((b) => vline(b.x))
+  const highlightedLines = highlightedBeats.map((b) => vline(b.x))
+
+  const color = colorToVec4(Color(theme.dividerColor).alpha(0.2))
+  const highlightedColor = colorToVec4(Color(theme.dividerColor).alpha(0.5))
+
+  return (
+    <>
+      <Rectangles
+        rects={lines}
+        projectionMatrix={projectionMatrix}
+        color={color}
+      />
+      <Rectangles
+        rects={highlightedLines}
+        projectionMatrix={projectionMatrix}
+        color={highlightedColor}
+      />
+    </>
   )
 }
 
@@ -115,6 +160,8 @@ export const ArrangeViewCanvas: VFC<ArrangeViewCanvasProps> = ({ width }) => {
   }
 
   const height = trackHeight * tracks.length
+  const canvasWidth = gl?.canvas.width ?? 0
+  const canvasHeight = gl?.canvas.height ?? 0
   const projectionMatrix = createProjectionMatrix()
 
   return (
@@ -124,14 +171,9 @@ export const ArrangeViewCanvas: VFC<ArrangeViewCanvasProps> = ({ width }) => {
       width={width}
       height={height}
     >
-      <Lines
-        width={gl?.canvas.width ?? 0}
-        projectionMatrix={projectionMatrix}
-      />
-      <Cursor
-        height={gl?.canvas.height ?? 0}
-        projectionMatrix={projectionMatrix}
-      />
+      <Lines width={canvasWidth} projectionMatrix={projectionMatrix} />
+      <Cursor height={canvasHeight} projectionMatrix={projectionMatrix} />
+      <Beats height={canvasHeight} projectionMatrix={projectionMatrix} />
     </GLSurface>
   )
 }

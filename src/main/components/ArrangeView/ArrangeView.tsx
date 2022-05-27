@@ -32,7 +32,7 @@ import { BAR_WIDTH } from "../inputs/ScrollBar"
 import CanvasPianoRuler from "../PianoRoll/CanvasPianoRuler"
 import { ArrangeContextMenu } from "./ArrangeContextMenu"
 import { ArrangeTrackContextMenu } from "./ArrangeTrackContextMenu"
-import { ArrangeViewCanvas } from "./ArrangeViewCanvas"
+import { ArrangeViewCanvas } from "./ArrangeViewCanvas/ArrangeViewCanvas"
 
 const Wrapper = styled.div`
   flex-grow: 1;

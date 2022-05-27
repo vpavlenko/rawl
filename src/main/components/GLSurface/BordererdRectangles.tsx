@@ -5,7 +5,7 @@ import {
   BorderedRectangleBuffer,
   BorderedRectangleShader,
 } from "../../gl/shaders/BorderedRectangleShader"
-import { GLNode } from "./GLSurface"
+import { GLNode } from "./GLNode"
 
 export interface BordererdRectanglesProps {
   rects: IRect[]

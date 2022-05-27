@@ -5,7 +5,7 @@ import {
   SolidRectangleBuffer,
   SolidRectangleShader,
 } from "../../gl/shaders/SolidRectangleShader"
-import { GLNode } from "./GLSurface"
+import { GLNode } from "./GLNode"
 
 export interface RectanglesProps {
   rects: IRect[]

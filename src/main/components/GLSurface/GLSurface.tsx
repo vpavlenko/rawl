@@ -21,11 +21,10 @@ export type GLSurfaceProps = Omit<
 > & {
   width: number
   height: number
-  onCreateContext: (gl: WebGLRenderingContext) => void
 }
 
 export const GLSurface = forwardRef<HTMLCanvasElement, GLSurfaceProps>(
-  ({ width, height, onCreateContext, style, children, ...props }, ref) => {
+  ({ width, height, style, children, ...props }, ref) => {
     const canvasRef = useRef<HTMLCanvasElement>(null)
     useImperativeHandle(ref, () => canvasRef.current!)
     const [renderer, setRenderer] = useState<Renderer2D | null>(null)
@@ -57,8 +56,6 @@ export const GLSurface = forwardRef<HTMLCanvasElement, GLSurfaceProps>(
 
       const renderer = new Renderer2D(gl)
       setRenderer(renderer)
-
-      onCreateContext(gl)
 
       return () => {
         gl?.getExtension("WEBGL_lose_context")?.loseContext()

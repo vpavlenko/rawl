@@ -12,15 +12,15 @@ export const Selection: VFC = observer(() => {
   const theme = useTheme()
   const { selectionRect } = rootStore.arrangeViewStore
 
+  if (selectionRect === null) {
+    return <></>
+  }
+
   return (
-    <>
-      {selectionRect && (
-        <BordererdRectangles
-          rects={[selectionRect]}
-          fillColor={vec4.create()}
-          strokeColor={colorToVec4(Color(theme.themeColor))}
-        />
-      )}
-    </>
+    <BordererdRectangles
+      rects={[selectionRect]}
+      fillColor={vec4.create()}
+      strokeColor={colorToVec4(Color(theme.themeColor))}
+    />
   )
 })

@@ -6,6 +6,7 @@ import { observer } from "mobx-react-lite"
 import { useCallback, useMemo, useRef, useState, VFC } from "react"
 import { IRect } from "../../../common/geometry"
 import { colorToVec4 } from "../../gl/color"
+import { translateMatrix } from "../../gl/Renderer2D"
 import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
 import { BordererdRectangles } from "../GLSurface/BordererdRectangles"
@@ -159,7 +160,7 @@ export const ArrangeViewCanvas: VFC<ArrangeViewCanvasProps> = observer(
   ({ width }) => {
     const rootStore = useStores()
     const tracks = rootStore.song.tracks
-    const { trackHeight } = rootStore.arrangeViewStore
+    const { trackHeight, scrollLeft, scrollTop } = rootStore.arrangeViewStore
     const ref = useRef<HTMLCanvasElement>(null)
     const size = useComponentSize(ref)
 
@@ -199,6 +200,21 @@ export const ArrangeViewCanvas: VFC<ArrangeViewCanvasProps> = observer(
       return projectionMatrix
     }, [gl, size.width, size.height])
 
+    const scrollXMatrix = useMemo(
+      () => translateMatrix(projectionMatrix, -scrollLeft, 0),
+      [projectionMatrix, scrollLeft]
+    )
+
+    const scrollYMatrix = useMemo(
+      () => translateMatrix(projectionMatrix, 0, -scrollTop),
+      [projectionMatrix, scrollLeft, scrollTop]
+    )
+
+    const scrollXYMatrix = useMemo(
+      () => translateMatrix(projectionMatrix, -scrollLeft, -scrollTop),
+      [projectionMatrix, scrollLeft, scrollTop]
+    )
+
     const height = trackHeight * tracks.length
     const canvasWidth = size.width
     const canvasHeight = height
@@ -211,11 +227,11 @@ export const ArrangeViewCanvas: VFC<ArrangeViewCanvasProps> = observer(
         width={width}
         height={height}
       >
-        <Lines width={canvasWidth} projectionMatrix={projectionMatrix} />
-        <Beats height={canvasHeight} projectionMatrix={projectionMatrix} />
-        <Notes projectionMatrix={projectionMatrix} />
-        <Selection projectionMatrix={projectionMatrix} />
-        <Cursor height={canvasHeight} projectionMatrix={projectionMatrix} />
+        <Lines width={canvasWidth} projectionMatrix={scrollYMatrix} />
+        <Beats height={canvasHeight} projectionMatrix={scrollXMatrix} />
+        <Notes projectionMatrix={scrollXYMatrix} />
+        <Selection projectionMatrix={scrollXYMatrix} />
+        <Cursor height={canvasHeight} projectionMatrix={scrollXMatrix} />
       </GLSurface>
     )
   }

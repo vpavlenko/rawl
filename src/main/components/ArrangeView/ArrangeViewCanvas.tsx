@@ -51,7 +51,7 @@ export const ArrangeViewCanvas: VFC<ArrangeViewCanvasProps> = ({ width }) => {
 
   const lineBuffer = useMemo(
     () => tracks.map((_, i) => trackHeight * (i + 1) - 1).map(hline),
-    [lineObject, tracks]
+    [lineObject, tracks, gl?.canvas.width]
   )
 
   const onCreateContext = useCallback((gl: WebGLRenderingContext) => {

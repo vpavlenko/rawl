@@ -51,8 +51,11 @@ export abstract class GLNode<Props extends { buffer: any; uniforms: any }>
   protected abstract initialize(gl: WebGLRenderingContext): void
 
   draw(): void {
-    this.shader?.setUniforms(this.props.uniforms)
-    this.shader?.draw(this.buffer as any)
+    if (this.shader === null || this.buffer === null) {
+      return
+    }
+    this.shader.setUniforms(this.props.uniforms)
+    this.shader.draw(this.buffer as any)
   }
 
   render() {

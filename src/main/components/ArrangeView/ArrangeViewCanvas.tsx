@@ -6,6 +6,7 @@ import { IRect } from "../../../common/geometry"
 import { colorToVec4 } from "../../gl/color"
 import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
+import { BordererdRectangles } from "../GLSurface/BordererdRectangles"
 import { GLSurface } from "../GLSurface/GLSurface"
 import { Rectangles } from "../GLSurface/Rectangles"
 
@@ -91,6 +92,25 @@ const Beats: VFC<{ projectionMatrix: mat4; height: number }> = ({
   )
 }
 
+const Selection: VFC<{ projectionMatrix: mat4 }> = ({ projectionMatrix }) => {
+  const rootStore = useStores()
+  const theme = useTheme()
+  const { selectionRect } = rootStore.arrangeViewStore
+
+  return (
+    <>
+      {selectionRect && (
+        <BordererdRectangles
+          rects={[selectionRect]}
+          projectionMatrix={projectionMatrix}
+          fillColor={vec4.create()}
+          strokeColor={colorToVec4(Color(theme.themeColor))}
+        />
+      )}
+    </>
+  )
+}
+
 const Cursor: VFC<{ projectionMatrix: mat4; height: number }> = ({
   projectionMatrix,
   height,
@@ -172,8 +192,9 @@ export const ArrangeViewCanvas: VFC<ArrangeViewCanvasProps> = ({ width }) => {
       height={height}
     >
       <Lines width={canvasWidth} projectionMatrix={projectionMatrix} />
-      <Cursor height={canvasHeight} projectionMatrix={projectionMatrix} />
       <Beats height={canvasHeight} projectionMatrix={projectionMatrix} />
+      <Selection projectionMatrix={projectionMatrix} />
+      <Cursor height={canvasHeight} projectionMatrix={projectionMatrix} />
     </GLSurface>
   )
 }

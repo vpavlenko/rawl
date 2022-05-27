@@ -87,7 +87,7 @@ function positionType(selectionBounds: IRect, pos: IPoint) {
 // 選択範囲外でクリックした場合は選択範囲をリセット
 const createSelectionAction: MouseGesture = (rootStore) => (e) => {
   const {
-    pianoRollStore: { transform },
+    pianoRollStore: { transform, quantizer },
   } = rootStore
 
   const local = rootStore.pianoRollStore.getLocal(e)
@@ -99,7 +99,10 @@ const createSelectionAction: MouseGesture = (rootStore) => (e) => {
     onMouseMove: (_e, delta) => {
       const offsetPos = pointAdd(startPos, delta)
       const end = transform.getNotePoint(offsetPos)
-      resizeSelection(rootStore)(start, end)
+      resizeSelection(rootStore)(
+        { ...start, tick: quantizer.round(start.tick) },
+        { ...end, tick: quantizer.round(end.tick) }
+      )
     },
 
     onMouseUp: () => {

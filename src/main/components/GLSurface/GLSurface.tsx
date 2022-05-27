@@ -19,15 +19,23 @@ interface Buffer<T> {
   update(props: T): void
 }
 
-export abstract class GLNode<Props extends { buffer: any; uniforms: any }>
-  extends Component<Props>
+interface GLNodeProps {
+  createShader: (gl: WebGLRenderingContext) => Shader<any, any>
+  createBuffer: (gl: WebGLRenderingContext) => Buffer<any>
+  buffer: any
+  uniforms: any
+}
+
+export abstract class GLNode
+  extends Component<GLNodeProps>
   implements Renderable
 {
   protected shader: Shader<any, any> | null = null
-  protected buffer: Buffer<Props["buffer"]> | null = null
+  protected buffer: Buffer<ReturnType<GLNodeProps["createBuffer"]>> | null =
+    null
   protected uniforms: any = {}
 
-  constructor(props: Props) {
+  constructor(props: GLNodeProps) {
     super(props)
   }
 
@@ -44,7 +52,8 @@ export abstract class GLNode<Props extends { buffer: any; uniforms: any }>
       throw new Error("Must provide RendererContext")
     }
     const gl = this.context.gl
-    this.initialize(gl)
+    this.shader = this.props.createShader(gl)
+    this.buffer = this.props.createBuffer(gl)
     this.context.addObject(this)
   }
 
@@ -63,7 +72,7 @@ export abstract class GLNode<Props extends { buffer: any; uniforms: any }>
   }
 }
 
-export const isGLNode = (x: any): x is GLNode<any> => x instanceof GLNode
+export const isGLNode = (x: any): x is GLNode => x instanceof GLNode
 
 export const GLSurface: FC<GLSurfaceProps> = ({
   width,

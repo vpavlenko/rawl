@@ -1,14 +1,50 @@
-import { mat4, vec3, vec4 } from "gl-matrix"
+import Color from "color"
+import { mat4, vec3 } from "gl-matrix"
 import { useCallback, useMemo, useState, VFC } from "react"
 import { IRect } from "../../../common/geometry"
+import { colorToVec4 } from "../../gl/color"
 import { SolidRectangleObject2 } from "../../gl/shaders/SolidRectangleShader"
 import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
-import { GLSolidRectangleNode } from "../GLSurface/GLSolidRectangleNode"
 import { GLSurface } from "../GLSurface/GLSurface"
+import { Rectangles } from "../GLSurface/Rectangles"
 
 export interface ArrangeViewCanvasProps {
   width: number
+}
+
+const Lines: VFC<{ width: number; projectionMatrix: mat4 }> = ({
+  width,
+  projectionMatrix,
+}) => {
+  const rootStore = useStores()
+  const theme = useTheme()
+
+  const { trackHeight } = rootStore.arrangeViewStore
+
+  const tracks = rootStore.song.tracks
+
+  const hline = (y: number): IRect => ({
+    x: 0,
+    y,
+    width,
+    height: 1,
+  })
+
+  const lineBuffer = useMemo(
+    () => tracks.map((_, i) => trackHeight * (i + 1) - 1).map(hline),
+    [tracks, width]
+  )
+
+  const color = colorToVec4(Color(theme.dividerColor))
+
+  return (
+    <Rectangles
+      rects={lineBuffer}
+      projectionMatrix={projectionMatrix}
+      color={color}
+    />
+  )
 }
 
 export const ArrangeViewCanvas: VFC<ArrangeViewCanvasProps> = ({ width }) => {
@@ -41,18 +77,6 @@ export const ArrangeViewCanvas: VFC<ArrangeViewCanvasProps> = ({ width }) => {
     width: 1,
     height: gl?.canvas.height ?? 0,
   })
-
-  const hline = (y: number): IRect => ({
-    x: 0,
-    y,
-    width: gl?.canvas.width ?? 0,
-    height: 1,
-  })
-
-  const lineBuffer = useMemo(
-    () => tracks.map((_, i) => trackHeight * (i + 1) - 1).map(hline),
-    [lineObject, tracks, gl?.canvas.width]
-  )
 
   const onCreateContext = useCallback((gl: WebGLRenderingContext) => {
     setGL(gl)
@@ -89,6 +113,7 @@ export const ArrangeViewCanvas: VFC<ArrangeViewCanvasProps> = ({ width }) => {
   }
 
   const height = trackHeight * tracks.length
+  const projectionMatrix = createProjectionMatrix()
 
   return (
     <GLSurface
@@ -97,12 +122,9 @@ export const ArrangeViewCanvas: VFC<ArrangeViewCanvasProps> = ({ width }) => {
       width={width}
       height={height}
     >
-      <GLSolidRectangleNode
-        buffer={lineBuffer}
-        uniforms={{
-          projectionMatrix: createProjectionMatrix(),
-          color: vec4.fromValues(1, 0, 0, 1),
-        }}
+      <Lines
+        width={gl?.canvas.width ?? 0}
+        projectionMatrix={projectionMatrix}
       />
     </GLSurface>
   )

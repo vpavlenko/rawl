@@ -32,6 +32,7 @@ export class Renderer2D {
     if (this.isQueued) {
       return
     }
+    this.isQueued = true
     requestAnimationFrame(() => {
       this.isQueued = false
       this.render()

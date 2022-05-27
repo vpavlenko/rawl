@@ -57,6 +57,10 @@ export abstract class GLNode
     this.context.addObject(this)
   }
 
+  componentWillUnmount() {
+    this.context.removeObject(this)
+  }
+
   protected abstract initialize(gl: WebGLRenderingContext): void
 
   draw(): void {

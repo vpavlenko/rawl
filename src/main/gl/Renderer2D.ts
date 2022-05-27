@@ -45,6 +45,10 @@ export class Renderer2D {
     this.objects.push(object)
   }
 
+  removeObject(object: Renderable) {
+    this.objects = this.objects.filter((obj) => obj !== object)
+  }
+
   private clear() {
     const { gl } = this
     gl.clearColor(0.0, 0.0, 0.0, 0.0)

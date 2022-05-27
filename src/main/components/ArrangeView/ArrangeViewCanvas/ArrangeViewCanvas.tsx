@@ -2,9 +2,10 @@ import useComponentSize from "@rehooks/component-size"
 import { mat4, vec3 } from "gl-matrix"
 import { observer } from "mobx-react-lite"
 import { useCallback, useMemo, useRef, useState, VFC } from "react"
-import { translateMatrix } from "../../../gl/Renderer2D"
+import { matrixFromTranslation } from "../../../helpers/matrix"
 import { useStores } from "../../../hooks/useStores"
 import { GLSurface } from "../../GLSurface/GLSurface"
+import { Transform } from "../../GLSurface/Transform"
 import { Beats } from "./Beats"
 import { Cursor } from "./Cursor"
 import { Lines } from "./Lines"
@@ -60,18 +61,18 @@ export const ArrangeViewCanvas: VFC<ArrangeViewCanvasProps> = observer(
     }, [gl, size.width, size.height])
 
     const scrollXMatrix = useMemo(
-      () => translateMatrix(projectionMatrix, -scrollLeft, 0),
-      [projectionMatrix, scrollLeft]
+      () => matrixFromTranslation(-scrollLeft, 0),
+      [scrollLeft]
     )
 
     const scrollYMatrix = useMemo(
-      () => translateMatrix(projectionMatrix, 0, -scrollTop),
-      [projectionMatrix, scrollLeft, scrollTop]
+      () => matrixFromTranslation(0, -scrollTop),
+      [scrollLeft, scrollTop]
     )
 
     const scrollXYMatrix = useMemo(
-      () => translateMatrix(projectionMatrix, -scrollLeft, -scrollTop),
-      [projectionMatrix, scrollLeft, scrollTop]
+      () => matrixFromTranslation(-scrollLeft, -scrollTop),
+      [scrollLeft, scrollTop]
     )
 
     const height = trackHeight * tracks.length
@@ -84,11 +85,19 @@ export const ArrangeViewCanvas: VFC<ArrangeViewCanvasProps> = observer(
         width={width}
         height={height}
       >
-        <Lines width={width} projectionMatrix={scrollYMatrix} />
-        <Beats height={height} projectionMatrix={scrollXMatrix} />
-        <Notes projectionMatrix={scrollXYMatrix} />
-        <Selection projectionMatrix={scrollXYMatrix} />
-        <Cursor height={height} projectionMatrix={scrollXMatrix} />
+        <Transform matrix={scrollYMatrix}>
+          <Lines width={width} />
+        </Transform>
+        <Transform matrix={scrollXMatrix}>
+          <Beats height={height} />
+        </Transform>
+        <Transform matrix={scrollXYMatrix}>
+          <Notes />
+          <Selection />
+        </Transform>
+        <Transform matrix={scrollXMatrix}>
+          <Cursor height={height} />
+        </Transform>
       </GLSurface>
     )
   }

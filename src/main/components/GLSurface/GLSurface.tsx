@@ -1,11 +1,15 @@
+import useComponentSize from "@rehooks/component-size"
+import { mat4 } from "gl-matrix"
 import {
   forwardRef,
   useEffect,
   useImperativeHandle,
+  useMemo,
   useRef,
   useState,
 } from "react"
 import { Renderer2D } from "../../gl/Renderer2D"
+import { ProjectionMatrixContext } from "../../hooks/useProjectionMatrix"
 import { RendererContext } from "../../hooks/useRenderer"
 
 export type GLSurfaceProps = Omit<
@@ -25,6 +29,7 @@ export const GLSurface = forwardRef<HTMLCanvasElement, GLSurfaceProps>(
     const canvasRef = useRef<HTMLCanvasElement>(null)
     useImperativeHandle(ref, () => canvasRef.current!)
     const [renderer, setRenderer] = useState<Renderer2D | null>(null)
+    const size = useComponentSize(canvasRef)
 
     useEffect(() => {
       const canvas = canvasRef.current
@@ -60,6 +65,11 @@ export const GLSurface = forwardRef<HTMLCanvasElement, GLSurfaceProps>(
       }
     }, [])
 
+    const projectionMatrix = useMemo(
+      () => renderer?.createProjectionMatrix() ?? mat4.create(),
+      [renderer, size.width, size.height]
+    )
+
     const canvasScale = window.devicePixelRatio
 
     return (
@@ -77,7 +87,9 @@ export const GLSurface = forwardRef<HTMLCanvasElement, GLSurfaceProps>(
         />
         {renderer && (
           <RendererContext.Provider value={renderer}>
-            {children}
+            <ProjectionMatrixContext.Provider value={projectionMatrix}>
+              {children}
+            </ProjectionMatrixContext.Provider>
           </RendererContext.Provider>
         )}
       </>

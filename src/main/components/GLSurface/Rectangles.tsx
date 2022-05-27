@@ -1,23 +1,21 @@
-import { mat4, vec4 } from "gl-matrix"
+import { vec4 } from "gl-matrix"
 import { VFC } from "react"
 import { IRect } from "../../../common/geometry"
 import {
   SolidRectangleBuffer,
   SolidRectangleShader,
 } from "../../gl/shaders/SolidRectangleShader"
+import { useProjectionMatrix } from "../../hooks/useProjectionMatrix"
 import { GLNode } from "./GLNode"
 
 export interface RectanglesProps {
   rects: IRect[]
-  projectionMatrix: mat4
   color: vec4
 }
 
-export const Rectangles: VFC<RectanglesProps> = ({
-  rects,
-  projectionMatrix,
-  color,
-}) => {
+export const Rectangles: VFC<RectanglesProps> = ({ rects, color }) => {
+  const projectionMatrix = useProjectionMatrix()
+
   return (
     <GLNode
       createShader={SolidRectangleShader}

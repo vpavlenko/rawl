@@ -90,13 +90,11 @@ export const ArrangeViewCanvas: VFC<ArrangeViewCanvasProps> = observer(
         </Transform>
         <Transform matrix={scrollXMatrix}>
           <Beats height={height} />
+          <Cursor height={height} />
         </Transform>
         <Transform matrix={scrollXYMatrix}>
           <Notes />
           <Selection />
-        </Transform>
-        <Transform matrix={scrollXMatrix}>
-          <Cursor height={height} />
         </Transform>
       </GLSurface>
     )

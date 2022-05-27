@@ -12,6 +12,7 @@ interface GLNodeProps {
   createBuffer: (gl: WebGLRenderingContext) => Buffer<any>
   buffer: any
   uniforms: any
+  zIndex?: number
 }
 
 export abstract class GLNode
@@ -59,5 +60,9 @@ export abstract class GLNode
 
   render() {
     return <></>
+  }
+
+  get zIndex(): number {
+    return this.props.zIndex ?? 0
   }
 }

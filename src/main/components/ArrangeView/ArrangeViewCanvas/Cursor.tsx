@@ -20,5 +20,5 @@ export const Cursor: VFC<{ height: number }> = observer(({ height }) => {
 
   const color = vec4.fromValues(1, 0, 0, 1)
 
-  return <Rectangles rects={[rect]} color={color} />
+  return <Rectangles rects={[rect]} color={color} zIndex={10} />
 })

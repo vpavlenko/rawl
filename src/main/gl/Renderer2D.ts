@@ -10,6 +10,7 @@ export const translateMatrix = (mat: mat4, x: number, y: number) => {
 
 export interface Renderable {
   draw(): void
+  zIndex?: number
 }
 
 export class Renderer2D {
@@ -82,7 +83,9 @@ export class Renderer2D {
 
     this.clear()
 
-    this.objects.forEach((o) => o.draw())
+    this.objects
+      .sort((a, b) => (a.zIndex ?? 0) - (b.zIndex ?? 0))
+      .forEach((o) => o.draw())
   }
 
   createProjectionMatrix() {

@@ -30,7 +30,7 @@ function eventsInSelection(events: TrackEvent[], selection: Selection) {
       {
         x: b.tick,
         width: b.duration,
-        y: b.noteNumber,
+        y: b.noteNumber - 1, // Subtract 1 since the pitch is the lower end of the rectangle
         height: 1,
       },
       selectionRect
@@ -40,16 +40,13 @@ function eventsInSelection(events: TrackEvent[], selection: Selection) {
 
 export const resizeSelection =
   (rootStore: RootStore) => (start: NotePoint, end: NotePoint) => {
-    const {
-      pianoRollStore,
-      pianoRollStore: { quantizer },
-    } = rootStore
+    const { pianoRollStore } = rootStore
 
     pianoRollStore.selection = clampSelection(
       regularizedSelection(
-        quantizer.round(start.tick),
+        start.tick,
         start.noteNumber,
-        quantizer.round(end.tick),
+        end.tick,
         end.noteNumber
       )
     )

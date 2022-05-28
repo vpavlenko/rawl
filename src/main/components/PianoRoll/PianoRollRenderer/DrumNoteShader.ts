@@ -1,17 +1,6 @@
 import { Attrib } from "../../../gl/Attrib"
-import { DisplayObject } from "../../../gl/DisplayObject"
 import { Shader } from "../../../gl/Shader"
 import { uniformMat4, uniformVec4 } from "../../../gl/Uniform"
-import { NoteBuffer } from "./NoteShader"
-
-export class DrumNoteObject extends DisplayObject<
-  ReturnType<typeof DrumNoteShader>,
-  NoteBuffer
-> {
-  constructor(gl: WebGLRenderingContext) {
-    super(DrumNoteShader(gl), new NoteBuffer(gl))
-  }
-}
 
 export const DrumNoteShader = (gl: WebGLRenderingContext) =>
   new Shader(

@@ -1,18 +1,9 @@
 import { IRect } from "../../../../common/geometry"
 import { Attrib } from "../../../gl/Attrib"
-import { DisplayObject } from "../../../gl/DisplayObject"
 import { Shader } from "../../../gl/Shader"
 import { uniformMat4, uniformVec4 } from "../../../gl/Uniform"
 import { rectToTriangleBounds, rectToTriangles } from "../../../helpers/polygon"
 
-export class NoteObject extends DisplayObject<
-  ReturnType<typeof NoteShader>,
-  NoteBuffer
-> {
-  constructor(gl: WebGLRenderingContext) {
-    super(NoteShader(gl), new NoteBuffer(gl))
-  }
-}
 export interface IVelocityData {
   velocity: number
 }

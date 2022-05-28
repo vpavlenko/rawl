@@ -1,18 +1,8 @@
 import { IRect } from "../../../../common/geometry"
 import { Attrib } from "../../../gl/Attrib"
-import { DisplayObject } from "../../../gl/DisplayObject"
 import { Shader } from "../../../gl/Shader"
 import { uniformFloat, uniformMat4, uniformVec4 } from "../../../gl/Uniform"
 import { rectToTriangles } from "../../../helpers/polygon"
-
-export class HorizontalGridObject extends DisplayObject<
-  ReturnType<typeof HorizontalGridShader>,
-  HorizontalGridBuffer
-> {
-  constructor(gl: WebGLRenderingContext) {
-    super(HorizontalGridShader(gl), new HorizontalGridBuffer(gl))
-  }
-}
 
 export class HorizontalGridBuffer {
   private gl: WebGLRenderingContext

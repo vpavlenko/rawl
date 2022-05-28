@@ -3,12 +3,8 @@ import { VFC } from "react"
 import { IRect } from "../../../../common/geometry"
 import { useProjectionMatrix } from "../../../hooks/useProjectionMatrix"
 import { GLNode } from "../../GLSurface/GLNode"
-import { DrumNoteShader } from "../PianoRollRenderer/DrumNoteShader"
-import {
-  ISelectionData,
-  IVelocityData,
-  NoteBuffer,
-} from "../PianoRollRenderer/NoteShader"
+import { DrumNoteShader } from "./shaders/DrumNoteShader"
+import { ISelectionData, IVelocityData, NoteBuffer } from "./shaders/NoteShader"
 
 export interface NoteCirclesProps {
   rects: (IRect & IVelocityData & ISelectionData)[]

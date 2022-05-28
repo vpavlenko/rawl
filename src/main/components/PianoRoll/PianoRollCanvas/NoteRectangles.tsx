@@ -8,7 +8,7 @@ import {
   IVelocityData,
   NoteBuffer,
   NoteShader,
-} from "../PianoRollRenderer/NoteShader"
+} from "./shaders/NoteShader"
 
 export interface NoteRectanglesProps {
   rects: (IRect & IVelocityData & ISelectionData)[]

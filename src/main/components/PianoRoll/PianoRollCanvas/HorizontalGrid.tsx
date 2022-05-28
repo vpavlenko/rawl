@@ -6,7 +6,7 @@ import { GLNode } from "../../GLSurface/GLNode"
 import {
   HorizontalGridBuffer,
   HorizontalGridShader,
-} from "../PianoRollRenderer/HorizontalGridShader"
+} from "./shaders/HorizontalGridShader"
 
 export interface HorizontalGridProps {
   rect: IRect

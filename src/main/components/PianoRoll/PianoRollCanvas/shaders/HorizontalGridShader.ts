@@ -1,8 +1,8 @@
-import { IRect } from "../../../../common/geometry"
-import { Attrib } from "../../../gl/Attrib"
-import { Shader } from "../../../gl/Shader"
-import { uniformFloat, uniformMat4, uniformVec4 } from "../../../gl/Uniform"
-import { rectToTriangles } from "../../../helpers/polygon"
+import { IRect } from "../../../../../common/geometry"
+import { Attrib } from "../../../../gl/Attrib"
+import { Shader } from "../../../../gl/Shader"
+import { uniformFloat, uniformMat4, uniformVec4 } from "../../../../gl/Uniform"
+import { rectToTriangles } from "../../../../helpers/polygon"
 
 export class HorizontalGridBuffer {
   private gl: WebGLRenderingContext

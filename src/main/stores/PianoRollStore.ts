@@ -51,7 +51,7 @@ export default class PianoRollStore {
   scaleX = 1
   scaleY = 1
   autoScroll = true
-  quantize = 4
+  quantize = 8
   isQuantizeEnabled = true
   selection: Selection | null = null
   selectedNoteIds: number[] = []

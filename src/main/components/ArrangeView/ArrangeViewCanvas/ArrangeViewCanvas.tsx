@@ -49,14 +49,34 @@ export const ArrangeViewCanvas: VFC<ArrangeViewCanvasProps> = observer(
           <Lines width={width} />
         </Transform>
         <Transform matrix={scrollXMatrix}>
-          <Beats height={height} />
-          <Cursor height={height} />
+          <_Beats height={height} />
+          <_Cursor height={height} />
         </Transform>
         <Transform matrix={scrollXYMatrix}>
           <Notes />
-          <Selection />
+          <_Selection />
         </Transform>
       </GLSurface>
     )
   }
 )
+
+const _Beats: VFC<{ height: number }> = observer(({ height }) => {
+  const rootStore = useStores()
+  const {
+    rulerStore: { beats },
+  } = rootStore.arrangeViewStore
+  return <Beats height={height} beats={beats} />
+})
+
+const _Cursor: VFC<{ height: number }> = observer(({ height }) => {
+  const rootStore = useStores()
+  const { cursorX } = rootStore.arrangeViewStore
+  return <Cursor x={cursorX} height={height} />
+})
+
+const _Selection = observer(() => {
+  const rootStore = useStores()
+  const { selectionRect } = rootStore.arrangeViewStore
+  return <Selection rect={selectionRect} />
+})

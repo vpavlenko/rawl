@@ -1,19 +1,17 @@
 import { useTheme } from "@emotion/react"
 import Color from "color"
 import { partition } from "lodash"
-import { observer } from "mobx-react-lite"
 import { VFC } from "react"
 import { IRect } from "../../../../common/geometry"
+import { BeatWithX } from "../../../../common/helpers/mapBeats"
 import { colorToVec4 } from "../../../gl/color"
-import { useStores } from "../../../hooks/useStores"
 import { Rectangles } from "../../GLSurface/Rectangles"
 
-export const Beats: VFC<{ height: number }> = observer(({ height }) => {
-  const rootStore = useStores()
+export const Beats: VFC<{ height: number; beats: BeatWithX[] }> = ({
+  height,
+  beats,
+}) => {
   const theme = useTheme()
-  const {
-    rulerStore: { beats },
-  } = rootStore.arrangeViewStore
 
   const vline = (x: number): IRect => ({
     x,
@@ -39,4 +37,4 @@ export const Beats: VFC<{ height: number }> = observer(({ height }) => {
       <Rectangles rects={highlightedLines} color={highlightedColor} />
     </>
   )
-})
+}

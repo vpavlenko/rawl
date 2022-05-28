@@ -1,26 +1,23 @@
 import { useTheme } from "@emotion/react"
 import Color from "color"
 import { vec4 } from "gl-matrix"
-import { observer } from "mobx-react-lite"
 import { VFC } from "react"
+import { IRect } from "../../../../common/geometry"
 import { colorToVec4 } from "../../../gl/color"
-import { useStores } from "../../../hooks/useStores"
 import { BordererdRectangles } from "../../GLSurface/BordererdRectangles"
 
-export const Selection: VFC = observer(() => {
-  const rootStore = useStores()
+export const Selection: VFC<{ rect: IRect | null }> = ({ rect }) => {
   const theme = useTheme()
-  const { selectionRect } = rootStore.arrangeViewStore
 
-  if (selectionRect === null) {
+  if (rect === null) {
     return <></>
   }
 
   return (
     <BordererdRectangles
-      rects={[selectionRect]}
+      rects={[rect]}
       fillColor={vec4.create()}
       strokeColor={colorToVec4(Color(theme.themeColor))}
     />
   )
-})
+}

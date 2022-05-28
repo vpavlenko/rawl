@@ -30,7 +30,7 @@ function eventsInSelection(events: TrackEvent[], selection: Selection) {
       {
         x: b.tick,
         width: b.duration,
-        y: b.noteNumber,
+        y: b.noteNumber - 1, // Subtract 1 since the pitch is the lower end of the rectangle
         height: 1,
       },
       selectionRect

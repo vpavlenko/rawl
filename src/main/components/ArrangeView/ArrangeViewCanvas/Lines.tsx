@@ -5,7 +5,7 @@ import { useMemo, VFC } from "react"
 import { IRect } from "../../../../common/geometry"
 import { colorToVec4 } from "../../../gl/color"
 import { useStores } from "../../../hooks/useStores"
-import { Rectangles } from "../../GLSurface/Rectangles"
+import { Rectangles } from "../../GLSurface/shapes/Rectangles"
 
 export const Lines: VFC<{ width: number }> = observer(({ width }) => {
   const rootStore = useStores()

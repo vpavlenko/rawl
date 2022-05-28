@@ -5,7 +5,7 @@ import { VFC } from "react"
 import { IRect } from "../../../../common/geometry"
 import { BeatWithX } from "../../../../common/helpers/mapBeats"
 import { colorToVec4 } from "../../../gl/color"
-import { Rectangles } from "../../GLSurface/Rectangles"
+import { Rectangles } from "../../GLSurface/shapes/Rectangles"
 
 export const Beats: VFC<{ height: number; beats: BeatWithX[] }> = ({
   height,

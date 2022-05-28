@@ -33,8 +33,12 @@ export const Beats: VFC<{ height: number; beats: BeatWithX[] }> = ({
 
   return (
     <>
-      <Rectangles rects={lines} color={color} />
-      <Rectangles rects={highlightedLines} color={highlightedColor} />
+      <Rectangles rects={lines} color={color} zIndex={2} />
+      <Rectangles
+        rects={highlightedLines}
+        color={highlightedColor}
+        zIndex={3}
+      />
     </>
   )
 }

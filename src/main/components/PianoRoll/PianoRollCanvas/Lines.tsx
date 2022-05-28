@@ -26,6 +26,7 @@ export const Lines: VFC = observer(() => {
       highlightedColor={colorToVec4(Color(theme.dividerColor).alpha(0.5))}
       blackLaneColor={colorToVec4(Color(theme.pianoBlackKeyLaneColor))}
       height={scaleY * Layout.keyHeight}
+      zIndex={1}
     />
   )
 })

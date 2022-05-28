@@ -29,5 +29,5 @@ export const Lines: VFC<{ width: number }> = observer(({ width }) => {
 
   const color = colorToVec4(Color(theme.dividerColor))
 
-  return <Rectangles rects={rects} color={color} />
+  return <Rectangles rects={rects} color={color} zIndex={1} />
 })

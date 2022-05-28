@@ -18,6 +18,7 @@ export const Selection: VFC<{ rect: IRect | null }> = ({ rect }) => {
       rects={[rect]}
       fillColor={vec4.create()}
       strokeColor={colorToVec4(Color(theme.themeColor))}
+      zIndex={8}
     />
   )
 }

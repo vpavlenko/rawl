@@ -12,12 +12,14 @@ export interface BordererdRectanglesProps {
   rects: IRect[]
   fillColor: vec4
   strokeColor: vec4
+  zIndex: number
 }
 
 export const BordererdRectangles: VFC<BordererdRectanglesProps> = ({
   rects,
   fillColor,
   strokeColor,
+  zIndex,
 }) => {
   const projectionMatrix = useProjectionMatrix()
 
@@ -27,6 +29,7 @@ export const BordererdRectangles: VFC<BordererdRectanglesProps> = ({
       createBuffer={(gl) => new BorderedRectangleBuffer(gl)}
       uniforms={{ projectionMatrix, fillColor, strokeColor }}
       buffer={rects}
+      zIndex={zIndex}
     />
   )
 }

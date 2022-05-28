@@ -12,6 +12,10 @@ export const Notes: VFC = observer(() => {
   const { notes } = rootStore.arrangeViewStore
 
   return (
-    <Rectangles rects={notes} color={colorToVec4(Color(theme.themeColor))} />
+    <Rectangles
+      rects={notes}
+      color={colorToVec4(Color(theme.themeColor))}
+      zIndex={4}
+    />
   )
 })

@@ -23,11 +23,13 @@ export const GhostNotes: VFC = observer(() => {
         fillColor={colorToVec4(baseColor)}
         strokeColor={colorToVec4(borderColor)}
         rects={drumNotes}
+        zIndex={4}
       />
       <NoteRectangles
         fillColor={colorToVec4(baseColor)}
         strokeColor={colorToVec4(borderColor)}
         rects={normalNotes}
+        zIndex={5}
       />
     </>
   )

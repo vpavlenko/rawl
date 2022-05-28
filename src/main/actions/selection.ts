@@ -41,15 +41,18 @@ function eventsInSelection(events: TrackEvent[], selection: Selection) {
 export const resizeSelection =
   (rootStore: RootStore) => (start: NotePoint, end: NotePoint) => {
     const { pianoRollStore } = rootStore
-
-    pianoRollStore.selection = clampSelection(
-      regularizedSelection(
-        start.tick,
-        start.noteNumber,
-        end.tick,
-        end.noteNumber
-      )
+    const selection = regularizedSelection(
+      start.tick,
+      start.noteNumber,
+      end.tick,
+      end.noteNumber
     )
+
+    // integer containing the original coordinates.
+    selection.from.noteNumber = Math.ceil(selection.from.noteNumber)
+    selection.to.noteNumber = Math.floor(selection.to.noteNumber)
+
+    pianoRollStore.selection = clampSelection(selection)
   }
 
 export const fixSelection =

@@ -96,6 +96,13 @@ export default class NoteCoordTransform {
     }
   }
 
+  getNotePointFractional(pos: IPoint): NotePoint {
+    return {
+      tick: this.getTicks(pos.x),
+      noteNumber: this.getNoteNumberFractional(pos.y),
+    }
+  }
+
   equals(t: NoteCoordTransform) {
     return (
       this.pixelsPerKey === t.pixelsPerKey &&

@@ -91,14 +91,14 @@ const createSelectionAction: MouseGesture = (rootStore) => (e) => {
   } = rootStore
 
   const local = rootStore.pianoRollStore.getLocal(e)
-  const start = transform.getNotePoint(local)
+  const start = transform.getNotePointFractional(local)
   const startPos = local
   startSelection(rootStore)(start)
 
   observeDrag2(e, {
     onMouseMove: (_e, delta) => {
       const offsetPos = pointAdd(startPos, delta)
-      const end = transform.getNotePoint(offsetPos)
+      const end = transform.getNotePointFractional(offsetPos)
       resizeSelection(rootStore)(
         { ...start, tick: quantizer.round(start.tick) },
         { ...end, tick: quantizer.round(end.tick) }

@@ -4,7 +4,7 @@ import { vec4 } from "gl-matrix"
 import { VFC } from "react"
 import { IRect } from "../../../../common/geometry"
 import { colorToVec4 } from "../../../gl/color"
-import { BordererdRectangles } from "../../GLSurface/shapes/BordererdRectangles"
+import { BordererdRectangles } from "../shapes/BordererdRectangles"
 
 export const Selection: VFC<{ rect: IRect | null }> = ({ rect }) => {
   const theme = useTheme()

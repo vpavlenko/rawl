@@ -2,13 +2,13 @@ import { observer } from "mobx-react-lite"
 import { useMemo, useRef, VFC } from "react"
 import { matrixFromTranslation } from "../../../helpers/matrix"
 import { useStores } from "../../../hooks/useStores"
+import { Beats } from "../../GLSurface/common/Beats"
+import { Cursor } from "../../GLSurface/common/Cursor"
+import { Selection } from "../../GLSurface/common/Selection"
 import { GLSurface } from "../../GLSurface/GLSurface"
 import { Transform } from "../../GLSurface/Transform"
-import { Beats } from "./Beats"
-import { Cursor } from "./Cursor"
 import { Lines } from "./Lines"
 import { Notes } from "./Notes"
-import { Selection } from "./Selection"
 
 export interface ArrangeViewCanvasProps {
   width: number

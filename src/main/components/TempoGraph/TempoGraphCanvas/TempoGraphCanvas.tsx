@@ -116,36 +116,40 @@ export const TempoGraphCanvas: VFC<TempoGraphCanvasProps> = observer(
         onWheel={onWheelGraph}
         style={style}
       >
-        <Lines width={width} />
+        <Lines width={width} zIndex={0} />
         <Transform matrix={scrollXMatrix}>
-          <TempoItems width={width} />
-          <_Beats height={height} />
-          <_Cursor height={height} />
-          <_Selection />
+          <TempoItems width={width} zIndex={1} />
+          <_Beats height={height} zIndex={2} />
+          <_Selection zIndex={3} />
+          <_Cursor height={height} zIndex={4} />
         </Transform>
       </GLSurface>
     )
   }
 )
 
-const _Beats: VFC<{ height: number }> = observer(({ height }) => {
-  const rootStore = useStores()
-  const {
-    rulerStore: { beats },
-  } = rootStore.tempoEditorStore
-  return <Beats height={height} beats={beats} />
-})
+const _Beats: VFC<{ height: number; zIndex: number }> = observer(
+  ({ height, zIndex }) => {
+    const rootStore = useStores()
+    const {
+      rulerStore: { beats },
+    } = rootStore.tempoEditorStore
+    return <Beats height={height} beats={beats} zIndex={zIndex} />
+  }
+)
 
-const _Cursor: VFC<{ height: number }> = observer(({ height }) => {
-  const rootStore = useStores()
-  const { cursorX } = rootStore.tempoEditorStore
-  return <Cursor x={cursorX} height={height} />
-})
+const _Cursor: VFC<{ height: number; zIndex: number }> = observer(
+  ({ height, zIndex }) => {
+    const rootStore = useStores()
+    const { cursorX } = rootStore.tempoEditorStore
+    return <Cursor x={cursorX} height={height} zIndex={zIndex} />
+  }
+)
 
-const _Selection = observer(() => {
+const _Selection: VFC<{ zIndex: number }> = observer(({ zIndex }) => {
   const rootStore = useStores()
   const { selection, transform } = rootStore.tempoEditorStore
   const selectionRect =
     selection != null ? getTempoSelectionBounds(selection, transform) : null
-  return <Selection rect={selectionRect} />
+  return <Selection rect={selectionRect} zIndex={zIndex} />
 })

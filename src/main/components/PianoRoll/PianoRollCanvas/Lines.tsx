@@ -7,7 +7,7 @@ import { colorToVec4 } from "../../../gl/color"
 import { useStores } from "../../../hooks/useStores"
 import { HorizontalGrid } from "./HorizontalGrid"
 
-export const Lines: VFC = observer(() => {
+export const Lines: VFC<{ zIndex: number }> = observer(({ zIndex }) => {
   const theme = useTheme()
   const rootStore = useStores()
   const {
@@ -26,7 +26,7 @@ export const Lines: VFC = observer(() => {
       highlightedColor={colorToVec4(Color(theme.dividerColor).alpha(0.5))}
       blackLaneColor={colorToVec4(Color(theme.pianoBlackKeyLaneColor))}
       height={scaleY * Layout.keyHeight}
-      zIndex={1}
+      zIndex={zIndex}
     />
   )
 })

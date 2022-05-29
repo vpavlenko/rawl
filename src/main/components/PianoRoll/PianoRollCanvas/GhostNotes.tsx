@@ -8,7 +8,7 @@ import { useTheme } from "../../../hooks/useTheme"
 import { NoteCircles } from "./NoteCircles"
 import { NoteRectangles } from "./NoteRectangles"
 
-export const GhostNotes: VFC = observer(() => {
+export const GhostNotes: VFC<{ zIndex: number }> = observer(({ zIndex }) => {
   const rootStore = useStores()
   const theme = useTheme()
 
@@ -23,13 +23,13 @@ export const GhostNotes: VFC = observer(() => {
         fillColor={colorToVec4(baseColor)}
         strokeColor={colorToVec4(borderColor)}
         rects={drumNotes}
-        zIndex={4}
+        zIndex={zIndex}
       />
       <NoteRectangles
         fillColor={colorToVec4(baseColor)}
         strokeColor={colorToVec4(borderColor)}
         rects={normalNotes}
-        zIndex={5}
+        zIndex={zIndex + 0.1}
       />
     </>
   )

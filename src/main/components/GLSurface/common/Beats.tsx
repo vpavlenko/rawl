@@ -7,10 +7,11 @@ import { BeatWithX } from "../../../../common/helpers/mapBeats"
 import { colorToVec4 } from "../../../gl/color"
 import { Rectangles } from "../shapes/Rectangles"
 
-export const Beats: VFC<{ height: number; beats: BeatWithX[] }> = ({
-  height,
-  beats,
-}) => {
+export const Beats: VFC<{
+  height: number
+  beats: BeatWithX[]
+  zIndex: number
+}> = ({ height, beats, zIndex }) => {
   const theme = useTheme()
 
   const vline = (x: number): IRect => ({
@@ -33,11 +34,11 @@ export const Beats: VFC<{ height: number; beats: BeatWithX[] }> = ({
 
   return (
     <>
-      <Rectangles rects={lines} color={color} zIndex={2} />
+      <Rectangles rects={lines} color={color} zIndex={zIndex} />
       <Rectangles
         rects={highlightedLines}
         color={highlightedColor}
-        zIndex={3}
+        zIndex={zIndex + 0.1}
       />
     </>
   )

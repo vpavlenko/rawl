@@ -75,16 +75,16 @@ export const PianoRollCanvas: FC<PianoRollStageProps> = observer(
           onMouseUp={mouseHandler.onMouseUp}
         >
           <Transform matrix={scrollYMatrix}>
-            <Lines />
+            <Lines zIndex={0} />
           </Transform>
           <Transform matrix={scrollXMatrix}>
-            <_Beats height={height} />
-            <_Cursor height={height} />
+            <_Beats height={height} zIndex={1} />
+            <_Cursor height={height} zIndex={5} />
           </Transform>
           <Transform matrix={scrollXYMatrix}>
-            <GhostNotes />
-            <Notes />
-            <_Selection />
+            <GhostNotes zIndex={2} />
+            <Notes zIndex={3} />
+            <_Selection zIndex={4} />
           </Transform>
         </GLSurface>
         <PianoSelectionContextMenu {...menuProps} />
@@ -93,22 +93,26 @@ export const PianoRollCanvas: FC<PianoRollStageProps> = observer(
   }
 )
 
-const _Beats: VFC<{ height: number }> = observer(({ height }) => {
-  const rootStore = useStores()
-  const {
-    rulerStore: { beats },
-  } = rootStore.pianoRollStore
-  return <Beats height={height} beats={beats} />
-})
+const _Beats: VFC<{ height: number; zIndex: number }> = observer(
+  ({ height, zIndex }) => {
+    const rootStore = useStores()
+    const {
+      rulerStore: { beats },
+    } = rootStore.pianoRollStore
+    return <Beats height={height} beats={beats} zIndex={zIndex} />
+  }
+)
 
-const _Cursor: VFC<{ height: number }> = observer(({ height }) => {
-  const rootStore = useStores()
-  const { cursorX } = rootStore.pianoRollStore
-  return <Cursor x={cursorX} height={height} />
-})
+const _Cursor: VFC<{ height: number; zIndex: number }> = observer(
+  ({ height, zIndex }) => {
+    const rootStore = useStores()
+    const { cursorX } = rootStore.pianoRollStore
+    return <Cursor x={cursorX} height={height} zIndex={zIndex} />
+  }
+)
 
-const _Selection = observer(() => {
+const _Selection: VFC<{ zIndex: number }> = observer(({ zIndex }) => {
   const rootStore = useStores()
   const { selectionBounds } = rootStore.pianoRollStore
-  return <Selection rect={selectionBounds} />
+  return <Selection rect={selectionBounds} zIndex={zIndex} />
 })

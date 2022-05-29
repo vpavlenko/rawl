@@ -12,46 +12,49 @@ import { Rectangles } from "../../GLSurface/shapes/Rectangles"
 
 export interface TempoItemsProps {
   width: number
+  zIndex: number
 }
 
-export const TempoItems: VFC<TempoItemsProps> = observer(({ width }) => {
-  const rootStore = useStores()
-  const theme = useTheme()
-  const { items, selectedEventIds, controlPoints, scrollLeft } =
-    rootStore.tempoEditorStore
+export const TempoItems: VFC<TempoItemsProps> = observer(
+  ({ width, zIndex }) => {
+    const rootStore = useStores()
+    const theme = useTheme()
+    const { items, selectedEventIds, controlPoints, scrollLeft } =
+      rootStore.tempoEditorStore
 
-  const lineWidth = 2
+    const lineWidth = 2
 
-  const right = scrollLeft + width
-  const values = items.map((i) => ({ ...i.bounds, id: i.id }))
-  const rects = createLineRects(values, lineWidth, right)
-  const [highlightedItems, nonHighlightedItems] = partition(
-    controlPoints,
-    (i) => selectedEventIds.includes(i.id)
-  )
+    const right = scrollLeft + width
+    const values = items.map((i) => ({ ...i.bounds, id: i.id }))
+    const rects = createLineRects(values, lineWidth, right)
+    const [highlightedItems, nonHighlightedItems] = partition(
+      controlPoints,
+      (i) => selectedEventIds.includes(i.id)
+    )
 
-  return (
-    <>
-      <Rectangles
-        rects={rects}
-        color={colorToVec4(Color(theme.themeColor))}
-        zIndex={4}
-      />
-      <BordererdCircles
-        rects={nonHighlightedItems}
-        zIndex={5}
-        strokeColor={colorToVec4(Color(theme.themeColor))}
-        fillColor={colorToVec4(Color(theme.themeColor))}
-      />
-      <BordererdCircles
-        rects={highlightedItems}
-        zIndex={6}
-        strokeColor={colorToVec4(Color(theme.themeColor))}
-        fillColor={colorToVec4(Color(theme.textColor))}
-      />
-    </>
-  )
-})
+    return (
+      <>
+        <Rectangles
+          rects={rects}
+          color={colorToVec4(Color(theme.themeColor))}
+          zIndex={zIndex}
+        />
+        <BordererdCircles
+          rects={nonHighlightedItems}
+          zIndex={zIndex + 0.1}
+          strokeColor={colorToVec4(Color(theme.themeColor))}
+          fillColor={colorToVec4(Color(theme.themeColor))}
+        />
+        <BordererdCircles
+          rects={highlightedItems}
+          zIndex={zIndex + 0.2}
+          strokeColor={colorToVec4(Color(theme.themeColor))}
+          fillColor={colorToVec4(Color(theme.textColor))}
+        />
+      </>
+    )
+  }
+)
 
 const createLineRects = (
   values: IPoint[],

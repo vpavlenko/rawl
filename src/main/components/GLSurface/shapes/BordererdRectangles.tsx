@@ -12,7 +12,7 @@ export interface BordererdRectanglesProps {
   rects: IRect[]
   fillColor: vec4
   strokeColor: vec4
-  zIndex: number
+  zIndex?: number
 }
 
 export const BordererdRectangles: VFC<BordererdRectanglesProps> = ({

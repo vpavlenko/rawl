@@ -1,16 +1,8 @@
 import styled from "@emotion/styled"
-import { partition } from "lodash"
 import { observer } from "mobx-react-lite"
-import React, { FC, useCallback, useEffect, useState } from "react"
-import { containsPoint, IPoint, IRect } from "../../../../common/geometry"
-import { isNoteEvent } from "../../../../common/track"
-import { changeNotesVelocity } from "../../../actions"
-import { observeDrag } from "../../../helpers/observeDrag"
-import { useStores } from "../../../hooks/useStores"
-import { useTheme } from "../../../hooks/useTheme"
-import { GLCanvas } from "../../GLCanvas/GLCanvas"
+import React, { FC } from "react"
 import { GraphAxis } from "../Graph/GraphAxis"
-import { VelocityControlRenderer } from "./VelocityControlRenderer"
+import { VelocityControlCanvas } from "./VelocityControlCanvas"
 
 export interface PianoVelocityControlProps {
   width: number
@@ -24,108 +16,12 @@ const Parent = styled.div`
   left: 0;
 `
 
-const hitTest = <T extends { hitArea: IRect }>(items: T[], point: IPoint) => {
-  return items.filter((n) => containsPoint(n.hitArea, point))
-}
-
 const PianoVelocityControl: FC<PianoVelocityControlProps> = observer(
   ({ width, height }: PianoVelocityControlProps) => {
-    const theme = useTheme()
-    const rootStore = useStores()
-    const { cursorX, transform, scrollLeft, windowedEvents } =
-      rootStore.pianoRollStore
-    const { beats } = rootStore.pianoRollStore.rulerStore
-    const changeVelocity = useCallback(changeNotesVelocity(rootStore), [])
-
-    const items = windowedEvents.filter(isNoteEvent).map((note) => {
-      const { x } = transform.getRect(note)
-      const itemWidth = 5
-      const itemHeight = (note.velocity / 127) * height
-      return {
-        id: note.id,
-        x,
-        y: height - itemHeight,
-        width: itemWidth,
-        height: itemHeight,
-        hitArea: {
-          x,
-          y: 0,
-          width: itemWidth,
-          height,
-        },
-      }
-    })
-
-    const onMouseDown = useCallback(
-      (ev: React.MouseEvent) => {
-        const e = ev.nativeEvent
-        const local = {
-          x: e.offsetX + scrollLeft,
-          y: e.offsetY,
-        }
-        const hitItems = hitTest(items, local)
-
-        if (hitItems.length === 0) {
-          return
-        }
-
-        const startY = e.clientY - e.offsetY
-
-        const calcValue = (e: MouseEvent) => {
-          const offsetY = e.clientY - startY
-          return Math.round(
-            Math.max(0, Math.min(1, 1 - offsetY / height)) * 127
-          )
-        }
-
-        const noteIds = hitItems.map((e) => e.id)
-
-        changeVelocity(noteIds, calcValue(e))
-
-        observeDrag({
-          onMouseMove: (e) => changeVelocity(noteIds, calcValue(e)),
-        })
-      },
-      [height, items]
-    )
-
-    const [renderer, setRenderer] = useState<VelocityControlRenderer | null>(
-      null
-    )
-
-    useEffect(() => {
-      if (renderer === null) {
-        return
-      }
-
-      const [highlightedBeats, nonHighlightedBeats] = partition(
-        beats,
-        (b) => b.beat === 0
-      )
-
-      renderer.theme = theme
-      renderer.render(
-        items,
-        nonHighlightedBeats.map((b) => b.x),
-        highlightedBeats.map((b) => b.x),
-        [],
-        cursorX,
-        scrollLeft
-      )
-    }, [renderer, scrollLeft, beats, cursorX, items])
-
     return (
       <Parent>
         <GraphAxis values={[0, 32, 64, 96, 128]} onClick={() => {}} />
-        <GLCanvas
-          onMouseDown={onMouseDown}
-          onCreateContext={useCallback(
-            (gl) => setRenderer(new VelocityControlRenderer(gl)),
-            []
-          )}
-          width={width}
-          height={height}
-        />
+        <VelocityControlCanvas width={width} height={height} />
       </Parent>
     )
   }

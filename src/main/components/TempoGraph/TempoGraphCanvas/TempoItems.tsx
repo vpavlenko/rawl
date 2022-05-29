@@ -17,11 +17,12 @@ export interface TempoItemsProps {
 export const TempoItems: VFC<TempoItemsProps> = observer(({ width }) => {
   const rootStore = useStores()
   const theme = useTheme()
-  const { items, selectedEventIds, controlPoints } = rootStore.tempoEditorStore
+  const { items, selectedEventIds, controlPoints, scrollLeft } =
+    rootStore.tempoEditorStore
 
   const lineWidth = 2
 
-  const right = scrollX + width
+  const right = scrollLeft + width
   const values = items.map((i) => ({ ...i.bounds, id: i.id }))
   const rects = createLineRects(values, lineWidth, right)
   const [highlightedItems, nonHighlightedItems] = partition(

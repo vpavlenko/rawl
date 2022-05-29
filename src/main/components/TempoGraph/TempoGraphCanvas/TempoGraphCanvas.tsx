@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite"
-import { CSSProperties, useCallback, VFC } from "react"
+import { CSSProperties, useCallback, useMemo, VFC } from "react"
 import { IPoint } from "../../../../common/geometry"
 import {
   bpmToUSecPerBeat,
@@ -7,11 +7,13 @@ import {
 } from "../../../../common/helpers/bpm"
 import { getTempoSelectionBounds } from "../../../../common/selection/TempoSelection"
 import { changeTempo } from "../../../actions"
+import { matrixFromTranslation } from "../../../helpers/matrix"
 import { useStores } from "../../../hooks/useStores"
 import { Beats } from "../../GLSurface/common/Beats"
 import { Cursor } from "../../GLSurface/common/Cursor"
 import { Selection } from "../../GLSurface/common/Selection"
 import { GLSurface } from "../../GLSurface/GLSurface"
+import { Transform } from "../../GLSurface/Transform"
 import { handleCreateSelectionDrag } from "../MouseHandler/handleCreateSelectionDrag"
 import { handlePencilMouseDown } from "../MouseHandler/handlePencilMouseDown"
 import { handleSelectionDragEvents } from "../MouseHandler/handleSelectionDragEvents"
@@ -101,6 +103,11 @@ export const TempoGraphCanvas: VFC<TempoGraphCanvasProps> = observer(
       [items, rootStore]
     )
 
+    const scrollXMatrix = useMemo(
+      () => matrixFromTranslation(-scrollLeft, 0),
+      [scrollLeft]
+    )
+
     return (
       <GLSurface
         width={width}
@@ -110,10 +117,12 @@ export const TempoGraphCanvas: VFC<TempoGraphCanvasProps> = observer(
         style={style}
       >
         <Lines width={width} />
-        <TempoItems width={width} />
-        <_Beats height={height} />
-        <_Cursor height={height} />
-        <_Selection />
+        <Transform matrix={scrollXMatrix}>
+          <TempoItems width={width} />
+          <_Beats height={height} />
+          <_Cursor height={height} />
+          <_Selection />
+        </Transform>
       </GLSurface>
     )
   }
@@ -123,7 +132,7 @@ const _Beats: VFC<{ height: number }> = observer(({ height }) => {
   const rootStore = useStores()
   const {
     rulerStore: { beats },
-  } = rootStore.arrangeViewStore
+  } = rootStore.tempoEditorStore
   return <Beats height={height} beats={beats} />
 })
 

@@ -1,4 +1,5 @@
 import { autorun, computed, makeObservable, observable } from "mobx"
+import { containsPoint, IPoint } from "../../common/geometry"
 import Quantizer from "../../common/quantizer"
 import { TempoSelection } from "../../common/selection/TempoSelection"
 import { TempoCoordTransform } from "../../common/transform"
@@ -43,6 +44,7 @@ export default class TempoEditorStore {
       items: computed,
       cursorX: computed,
       contentWidth: computed,
+      controlPoints: computed,
     })
   }
 
@@ -99,4 +101,25 @@ export default class TempoEditorStore {
   get quantizer(): Quantizer {
     return new Quantizer(this.rootStore, this.quantize, this.isQuantizeEnabled)
   }
+
+  // draggable hit areas for each tempo changes
+  get controlPoints() {
+    const { items } = this
+    const circleRadius = 4
+    return items.map((p) => ({
+      ...pointToCircleRect(p.bounds, circleRadius),
+      id: p.id,
+    }))
+  }
+
+  hitTest(point: IPoint): number | undefined {
+    return this.controlPoints.find((r) => containsPoint(r, point))?.id
+  }
 }
+
+const pointToCircleRect = (p: IPoint, radius: number) => ({
+  x: p.x - radius,
+  y: p.y - radius,
+  width: radius * 2,
+  height: radius * 2,
+})

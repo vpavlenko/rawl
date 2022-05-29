@@ -11,13 +11,13 @@ import { Layout } from "../../Constants"
 import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
 import { LineGraphRenderer } from "../ControlPane/Graph/LineGraphRenderer"
-import { GLCanvas } from "../GLCanvas/GLCanvas"
 import { BAR_WIDTH, HorizontalScrollBar } from "../inputs/ScrollBar"
 import CanvasPianoRuler from "../PianoRoll/CanvasPianoRuler"
 import { handleCreateSelectionDrag } from "./MouseHandler/handleCreateSelectionDrag"
 import { handlePencilMouseDown } from "./MouseHandler/handlePencilMouseDown"
 import { handleSelectionDragEvents } from "./MouseHandler/handleSelectionDragEvents"
 import { TempoGraphAxis } from "./TempoGraphAxis"
+import { TempoGraphCanvas } from "./TempoGraphCanvas/TempoGraphCanvas"
 
 const Wrapper = styled.div`
   position: relative;
@@ -184,15 +184,9 @@ export const TempoGraph: FC = observer(() => {
           left: Layout.keyWidth,
         }}
       />
-      <GLCanvas
-        onCreateContext={useCallback(
-          (gl) => setRenderer(new LineGraphRenderer(gl)),
-          []
-        )}
+      <TempoGraphCanvas
         width={containerWidth}
         height={contentHeight}
-        onMouseDown={onMouseDownGraph}
-        onWheel={onWheelGraph}
         style={{
           position: "absolute",
           top: Layout.rulerHeight,

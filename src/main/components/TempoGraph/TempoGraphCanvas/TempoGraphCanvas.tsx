@@ -1,91 +1,142 @@
 import { observer } from "mobx-react-lite"
-import { useCallback, VFC } from "react"
+import { CSSProperties, useCallback, VFC } from "react"
 import { IPoint } from "../../../../common/geometry"
-import { Layout } from "../../../Constants"
+import {
+  bpmToUSecPerBeat,
+  uSecPerBeatToBPM,
+} from "../../../../common/helpers/bpm"
+import { getTempoSelectionBounds } from "../../../../common/selection/TempoSelection"
+import { changeTempo } from "../../../actions"
 import { useStores } from "../../../hooks/useStores"
+import { Beats } from "../../GLSurface/common/Beats"
+import { Cursor } from "../../GLSurface/common/Cursor"
+import { Selection } from "../../GLSurface/common/Selection"
 import { GLSurface } from "../../GLSurface/GLSurface"
 import { handleCreateSelectionDrag } from "../MouseHandler/handleCreateSelectionDrag"
 import { handlePencilMouseDown } from "../MouseHandler/handlePencilMouseDown"
 import { handleSelectionDragEvents } from "../MouseHandler/handleSelectionDragEvents"
+import { Lines } from "./Lines"
+import { TempoItems } from "./TempoItems"
 
-export const TempoGraphCanvas: VFC = observer(() => {
-  const rootStore = useStores()
+export interface TempoGraphCanvasProps {
+  width: number
+  height: number
+  style?: CSSProperties
+}
 
-  const {
-    items,
-    transform,
-    scrollLeft: _scrollLeft,
-    cursorX,
-    contentWidth,
-    selection,
-    mouseMode,
-    selectedEventIds,
-  } = rootStore.tempoEditorStore
-  const { beats } = rootStore.tempoEditorStore.rulerStore
+export const TempoGraphCanvas: VFC<TempoGraphCanvasProps> = observer(
+  ({ width, height, style }) => {
+    const rootStore = useStores()
 
-  const scrollLeft = Math.floor(_scrollLeft)
+    const {
+      items,
+      transform,
+      scrollLeft: _scrollLeft,
+      mouseMode,
+    } = rootStore.tempoEditorStore
 
-  const getLocal = useCallback(
-    (e: MouseEvent) => ({
-      x: e.offsetX + scrollLeft,
-      y: e.offsetY,
-    }),
-    [scrollLeft]
-  )
+    const scrollLeft = Math.floor(_scrollLeft)
 
-  const findEvent = useCallback(
-    (local: IPoint) =>
-      items.find(
-        (n) => local.x >= n.bounds.x && local.x < n.bounds.x + n.bounds.width
-      ),
-    [items]
-  )
+    const getLocal = useCallback(
+      (e: MouseEvent) => ({
+        x: e.offsetX + scrollLeft,
+        y: e.offsetY,
+      }),
+      [scrollLeft]
+    )
 
-  const pencilMouseDown = useCallback(
-    (e: React.MouseEvent) => {
-      handlePencilMouseDown(rootStore)(
-        e.nativeEvent,
-        getLocal(e.nativeEvent),
-        transform
-      )
-    },
-    [rootStore, transform, scrollLeft, mouseMode]
-  )
+    const findEvent = useCallback(
+      (local: IPoint) =>
+        items.find(
+          (n) => local.x >= n.bounds.x && local.x < n.bounds.x + n.bounds.width
+        ),
+      [items]
+    )
 
-  const selectionMouseDown = useCallback(
-    (ev: React.MouseEvent) => {
-      if (renderer === null) {
-        return
-      }
-
-      const local = getLocal(ev.nativeEvent)
-      const hitEventId = renderer.hitTest(local)
-
-      if (hitEventId !== undefined) {
-        handleSelectionDragEvents(rootStore)(
-          ev.nativeEvent,
-          hitEventId,
-          local,
+    const pencilMouseDown = useCallback(
+      (e: React.MouseEvent) => {
+        handlePencilMouseDown(rootStore)(
+          e.nativeEvent,
+          getLocal(e.nativeEvent),
           transform
         )
-      } else {
-        handleCreateSelectionDrag(rootStore)(ev.nativeEvent, local, transform)
-      }
-    },
-    [rootStore, transform, scrollLeft, renderer, items]
-  )
+      },
+      [rootStore, transform, scrollLeft, mouseMode]
+    )
 
-  return (
-    <GLSurface
-      width={containerWidth}
-      height={contentHeight}
-      onMouseDown={onMouseDownGraph}
-      onWheel={onWheelGraph}
-      style={{
-        position: "absolute",
-        top: Layout.rulerHeight,
-        left: Layout.keyWidth,
-      }}
-    ></GLSurface>
-  )
+    const selectionMouseDown = useCallback(
+      (ev: React.MouseEvent) => {
+        const local = getLocal(ev.nativeEvent)
+        const hitEventId = rootStore.tempoEditorStore.hitTest(local)
+
+        if (hitEventId !== undefined) {
+          handleSelectionDragEvents(rootStore)(
+            ev.nativeEvent,
+            hitEventId,
+            local,
+            transform
+          )
+        } else {
+          handleCreateSelectionDrag(rootStore)(ev.nativeEvent, local, transform)
+        }
+      },
+      [rootStore, transform]
+    )
+
+    const onMouseDownGraph =
+      mouseMode === "pencil" ? pencilMouseDown : selectionMouseDown
+
+    const onWheelGraph = useCallback(
+      (e: React.WheelEvent) => {
+        const local = getLocal(e.nativeEvent)
+        const item = findEvent(local)
+        if (!item) {
+          return
+        }
+        const event = items.filter((ev) => ev.id === item.id)[0]
+        const movement = e.nativeEvent.deltaY > 0 ? -1 : 1
+        const bpm = uSecPerBeatToBPM(event.microsecondsPerBeat)
+        changeTempo(rootStore)(event.id, bpmToUSecPerBeat(bpm + movement))
+      },
+      [items, rootStore]
+    )
+
+    return (
+      <GLSurface
+        width={width}
+        height={height}
+        onMouseDown={onMouseDownGraph}
+        onWheel={onWheelGraph}
+        style={style}
+      >
+        <Lines width={width} />
+        <TempoItems width={width} />
+        <_Beats height={height} />
+        <_Cursor height={height} />
+        <_Selection />
+      </GLSurface>
+    )
+  }
+)
+
+const _Beats: VFC<{ height: number }> = observer(({ height }) => {
+  const rootStore = useStores()
+  const {
+    rulerStore: { beats },
+  } = rootStore.arrangeViewStore
+  return <Beats height={height} beats={beats} />
+})
+
+const _Cursor: VFC<{ height: number }> = observer(({ height }) => {
+  const rootStore = useStores()
+  const { cursorX } = rootStore.tempoEditorStore
+  return <Cursor x={cursorX} height={height} />
+})
+
+const _Selection = observer(() => {
+  const rootStore = useStores()
+  const { selection, transform } = rootStore.tempoEditorStore
+  const selectionRect =
+    selection != null ? getTempoSelectionBounds(selection, transform) : null
+  return <Selection rect={selectionRect} />
 })

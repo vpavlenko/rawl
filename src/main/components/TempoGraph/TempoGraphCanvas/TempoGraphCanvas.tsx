@@ -82,7 +82,7 @@ export const TempoGraphCanvas: VFC<TempoGraphCanvasProps> = observer(
           handleCreateSelectionDrag(rootStore)(ev.nativeEvent, local, transform)
         }
       },
-      [rootStore, transform]
+      [rootStore, transform, scrollLeft]
     )
 
     const onMouseDownGraph =
@@ -100,7 +100,7 @@ export const TempoGraphCanvas: VFC<TempoGraphCanvasProps> = observer(
         const bpm = uSecPerBeatToBPM(event.microsecondsPerBeat)
         changeTempo(rootStore)(event.id, bpmToUSecPerBeat(bpm + movement))
       },
-      [items, rootStore]
+      [items, rootStore, scrollLeft]
     )
 
     const scrollXMatrix = useMemo(

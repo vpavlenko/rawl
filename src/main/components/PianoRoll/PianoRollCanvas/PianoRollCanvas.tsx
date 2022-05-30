@@ -6,7 +6,6 @@ import {
   useEffect,
   useMemo,
   useState,
-  VFC,
 } from "react"
 import { matrixFromTranslation } from "../../../helpers/matrix"
 import { useContextMenu } from "../../../hooks/useContextMenu"
@@ -26,7 +25,14 @@ import { Notes } from "./Notes"
 export const PianoRollCanvas: FC<PianoRollStageProps> = observer(
   ({ width, height }) => {
     const rootStore = useStores()
-    const { notesCursor, scrollLeft, scrollTop } = rootStore.pianoRollStore
+    const {
+      notesCursor,
+      scrollLeft,
+      scrollTop,
+      rulerStore: { beats },
+      cursorX,
+      selectionBounds,
+    } = rootStore.pianoRollStore
 
     const [mouseHandler] = useState(new NoteMouseHandler(rootStore))
 
@@ -78,13 +84,13 @@ export const PianoRollCanvas: FC<PianoRollStageProps> = observer(
             <Lines zIndex={0} />
           </Transform>
           <Transform matrix={scrollXMatrix}>
-            <_Beats height={height} zIndex={1} />
-            <_Cursor height={height} zIndex={5} />
+            <Beats height={height} beats={beats} zIndex={1} />
+            <Cursor x={cursorX} height={height} zIndex={5} />
           </Transform>
           <Transform matrix={scrollXYMatrix}>
             <GhostNotes zIndex={2} />
             <Notes zIndex={3} />
-            <_Selection zIndex={4} />
+            <Selection rect={selectionBounds} zIndex={4} />
           </Transform>
         </GLSurface>
         <PianoSelectionContextMenu {...menuProps} />
@@ -92,27 +98,3 @@ export const PianoRollCanvas: FC<PianoRollStageProps> = observer(
     )
   }
 )
-
-const _Beats: VFC<{ height: number; zIndex: number }> = observer(
-  ({ height, zIndex }) => {
-    const rootStore = useStores()
-    const {
-      rulerStore: { beats },
-    } = rootStore.pianoRollStore
-    return <Beats height={height} beats={beats} zIndex={zIndex} />
-  }
-)
-
-const _Cursor: VFC<{ height: number; zIndex: number }> = observer(
-  ({ height, zIndex }) => {
-    const rootStore = useStores()
-    const { cursorX } = rootStore.pianoRollStore
-    return <Cursor x={cursorX} height={height} zIndex={zIndex} />
-  }
-)
-
-const _Selection: VFC<{ zIndex: number }> = observer(({ zIndex }) => {
-  const rootStore = useStores()
-  const { selectionBounds } = rootStore.pianoRollStore
-  return <Selection rect={selectionBounds} zIndex={zIndex} />
-})

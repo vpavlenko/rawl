@@ -1,7 +1,10 @@
 import { autorun, computed, makeObservable, observable } from "mobx"
 import { containsPoint, IPoint } from "../../common/geometry"
 import Quantizer from "../../common/quantizer"
-import { TempoSelection } from "../../common/selection/TempoSelection"
+import {
+  getTempoSelectionBounds,
+  TempoSelection,
+} from "../../common/selection/TempoSelection"
 import { TempoCoordTransform } from "../../common/transform"
 import { DisplayEvent } from "../components/PianoRoll/ControlMark"
 import { transformEvents } from "../components/TempoGraph/transformEvents"
@@ -45,6 +48,7 @@ export default class TempoEditorStore {
       cursorX: computed,
       contentWidth: computed,
       controlPoints: computed,
+      selectionRect: computed,
     })
   }
 
@@ -110,6 +114,13 @@ export default class TempoEditorStore {
       ...pointToCircleRect(p.bounds, circleRadius),
       id: p.id,
     }))
+  }
+
+  get selectionRect() {
+    const { selection, transform } = this
+    return selection != null
+      ? getTempoSelectionBounds(selection, transform)
+      : null
   }
 
   hitTest(point: IPoint): number | undefined {

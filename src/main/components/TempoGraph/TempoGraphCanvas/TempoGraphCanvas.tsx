@@ -5,7 +5,6 @@ import {
   bpmToUSecPerBeat,
   uSecPerBeatToBPM,
 } from "../../../../common/helpers/bpm"
-import { getTempoSelectionBounds } from "../../../../common/selection/TempoSelection"
 import { changeTempo } from "../../../actions"
 import { matrixFromTranslation } from "../../../helpers/matrix"
 import { useStores } from "../../../hooks/useStores"
@@ -35,6 +34,9 @@ export const TempoGraphCanvas: VFC<TempoGraphCanvasProps> = observer(
       transform,
       scrollLeft: _scrollLeft,
       mouseMode,
+      rulerStore: { beats },
+      cursorX,
+      selectionRect,
     } = rootStore.tempoEditorStore
 
     const scrollLeft = Math.floor(_scrollLeft)
@@ -119,37 +121,11 @@ export const TempoGraphCanvas: VFC<TempoGraphCanvasProps> = observer(
         <Lines width={width} zIndex={0} />
         <Transform matrix={scrollXMatrix}>
           <TempoItems width={width} zIndex={1} />
-          <_Beats height={height} zIndex={2} />
-          <_Selection zIndex={3} />
-          <_Cursor height={height} zIndex={4} />
+          <Beats height={height} beats={beats} zIndex={2} />
+          <Selection rect={selectionRect} zIndex={3} />
+          <Cursor x={cursorX} height={height} zIndex={4} />
         </Transform>
       </GLSurface>
     )
   }
 )
-
-const _Beats: VFC<{ height: number; zIndex: number }> = observer(
-  ({ height, zIndex }) => {
-    const rootStore = useStores()
-    const {
-      rulerStore: { beats },
-    } = rootStore.tempoEditorStore
-    return <Beats height={height} beats={beats} zIndex={zIndex} />
-  }
-)
-
-const _Cursor: VFC<{ height: number; zIndex: number }> = observer(
-  ({ height, zIndex }) => {
-    const rootStore = useStores()
-    const { cursorX } = rootStore.tempoEditorStore
-    return <Cursor x={cursorX} height={height} zIndex={zIndex} />
-  }
-)
-
-const _Selection: VFC<{ zIndex: number }> = observer(({ zIndex }) => {
-  const rootStore = useStores()
-  const { selection, transform } = rootStore.tempoEditorStore
-  const selectionRect =
-    selection != null ? getTempoSelectionBounds(selection, transform) : null
-  return <Selection rect={selectionRect} zIndex={zIndex} />
-})

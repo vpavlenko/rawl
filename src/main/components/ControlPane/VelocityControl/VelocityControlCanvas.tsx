@@ -15,7 +15,13 @@ import { VelocityItems } from "./VelocityItems"
 export const VelocityControlCanvas: VFC<{ width: number; height: number }> =
   observer(({ width, height }) => {
     const rootStore = useStores()
-    const { transform, scrollLeft, windowedEvents } = rootStore.pianoRollStore
+    const {
+      transform,
+      scrollLeft,
+      windowedEvents,
+      rulerStore: { beats },
+      cursorX,
+    } = rootStore.pianoRollStore
     const changeVelocity = useCallback(changeNotesVelocity(rootStore), [])
 
     const items = windowedEvents.filter(isNoteEvent).map((note) => {
@@ -83,27 +89,9 @@ export const VelocityControlCanvas: VFC<{ width: number; height: number }> =
       <GLSurface width={width} height={height} onMouseDown={onMouseDown}>
         <Transform matrix={scrollXMatrix}>
           <VelocityItems rects={items} />
-          <_Beats height={height} zIndex={2} />
-          <_Cursor height={height} zIndex={4} />
+          <Beats height={height} beats={beats} zIndex={2} />
+          <Cursor x={cursorX} height={height} zIndex={4} />
         </Transform>
       </GLSurface>
     )
   })
-
-const _Beats: VFC<{ height: number; zIndex: number }> = observer(
-  ({ height, zIndex }) => {
-    const rootStore = useStores()
-    const {
-      rulerStore: { beats },
-    } = rootStore.pianoRollStore
-    return <Beats height={height} beats={beats} zIndex={zIndex} />
-  }
-)
-
-const _Cursor: VFC<{ height: number; zIndex: number }> = observer(
-  ({ height, zIndex }) => {
-    const rootStore = useStores()
-    const { cursorX } = rootStore.pianoRollStore
-    return <Cursor x={cursorX} height={height} zIndex={zIndex} />
-  }
-)

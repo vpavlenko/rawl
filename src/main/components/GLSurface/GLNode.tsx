@@ -43,7 +43,9 @@ export abstract class GLNode
     const gl = this.context.gl
     this.shader = this.props.createShader(gl)
     this.buffer = this.props.createBuffer(gl)
+    this.buffer.update(this.props.buffer)
     this.context.addObject(this)
+    this.context.setNeedsDisplay()
   }
 
   componentWillUnmount() {

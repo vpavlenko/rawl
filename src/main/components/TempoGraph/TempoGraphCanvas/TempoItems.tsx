@@ -1,14 +1,7 @@
-import { useTheme } from "@emotion/react"
-import Color from "color"
-import { partition } from "lodash"
 import { observer } from "mobx-react-lite"
 import { VFC } from "react"
-import { IPoint, IRect } from "../../../../common/geometry"
-import { joinObjects } from "../../../../common/helpers/array"
-import { colorToVec4 } from "../../../gl/color"
 import { useStores } from "../../../hooks/useStores"
-import { BordererdCircles } from "../../GLSurface/shapes/BordererdCircles"
-import { Rectangles } from "../../GLSurface/shapes/Rectangles"
+import { LineGraphItems } from "../../ControlPane/Graph/LineGraphItems"
 
 export interface TempoItemsProps {
   width: number
@@ -18,69 +11,19 @@ export interface TempoItemsProps {
 export const TempoItems: VFC<TempoItemsProps> = observer(
   ({ width, zIndex }) => {
     const rootStore = useStores()
-    const theme = useTheme()
     const { items, selectedEventIds, controlPoints, scrollLeft } =
       rootStore.tempoEditorStore
 
-    const lineWidth = 2
-
-    const right = scrollLeft + width
-    const values = items.map((i) => ({ ...i.bounds, id: i.id }))
-    const rects = createLineRects(values, lineWidth, right)
-    const [highlightedItems, nonHighlightedItems] = partition(
-      controlPoints,
-      (i) => selectedEventIds.includes(i.id)
-    )
-
     return (
-      <>
-        <Rectangles
-          rects={rects}
-          color={colorToVec4(Color(theme.themeColor))}
-          zIndex={zIndex}
-        />
-        <BordererdCircles
-          rects={nonHighlightedItems}
-          zIndex={zIndex + 0.1}
-          strokeColor={colorToVec4(Color(theme.themeColor))}
-          fillColor={colorToVec4(Color(theme.themeColor))}
-        />
-        <BordererdCircles
-          rects={highlightedItems}
-          zIndex={zIndex + 0.2}
-          strokeColor={colorToVec4(Color(theme.themeColor))}
-          fillColor={colorToVec4(Color(theme.textColor))}
-        />
-      </>
+      <LineGraphItems
+        width={width}
+        items={items.map((i) => ({ ...i.bounds, id: i.id }))}
+        selectedEventIds={selectedEventIds}
+        controlPoints={controlPoints}
+        scrollLeft={scrollLeft}
+        lineWidth={2}
+        zIndex={zIndex}
+      />
     )
   }
 )
-
-const createLineRects = (
-  values: IPoint[],
-  lineWidth: number,
-  right: number
-): IRect[] => {
-  const horizontalLineRects = values.map(({ x, y }, i) => {
-    const next = values[i + 1]
-    const nextX = next ? next.x : right // 次がなければ右端まで描画する
-    return {
-      x,
-      y: y - lineWidth / 2,
-      width: nextX - x,
-      height: lineWidth,
-    }
-  })
-
-  // add vertical lines between horizontal lines
-  return joinObjects<IRect>(horizontalLineRects, (prev, next) => {
-    const y = Math.min(prev.y, next.y)
-    const height = Math.abs(prev.y - next.y) + lineWidth
-    return {
-      x: next.x - lineWidth / 2,
-      y,
-      width: lineWidth,
-      height,
-    }
-  })
-}

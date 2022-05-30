@@ -117,7 +117,7 @@ export default class TempoEditorStore {
   }
 }
 
-const pointToCircleRect = (p: IPoint, radius: number) => ({
+export const pointToCircleRect = (p: IPoint, radius: number) => ({
   x: p.x - radius,
   y: p.y - radius,
   width: radius * 2,

@@ -1,18 +1,8 @@
 import { IRect } from "../../../common/geometry"
 import { rectToTriangleBounds, rectToTriangles } from "../../helpers/polygon"
 import { Attrib } from "../Attrib"
-import { DisplayObject } from "../DisplayObject"
 import { Shader } from "../Shader"
 import { uniformMat4, uniformVec4 } from "../Uniform"
-
-export class BorderedCircleObject extends DisplayObject<
-  ReturnType<typeof BorderedCircleShader>,
-  BorderedCircleBuffer
-> {
-  constructor(gl: WebGLRenderingContext) {
-    super(BorderedCircleShader(gl), new BorderedCircleBuffer(gl))
-  }
-}
 
 export class BorderedCircleBuffer {
   private gl: WebGLRenderingContext

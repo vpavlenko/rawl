@@ -2,7 +2,7 @@ import { observer } from "mobx-react-lite"
 import React, { FC } from "react"
 import { ISize } from "../../../../common/geometry"
 import { useStores } from "../../../hooks/useStores"
-import LineGraphControl from "./LineGraphControl"
+import LineGraphControl from "../LineGraph/LineGraph"
 
 export type PitchGraphProps = ISize
 

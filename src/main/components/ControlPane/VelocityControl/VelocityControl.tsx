@@ -1,7 +1,7 @@
 import styled from "@emotion/styled"
 import { observer } from "mobx-react-lite"
 import React, { FC } from "react"
-import { GraphAxis } from "../Graph/GraphAxis"
+import { GraphAxis } from "../LineGraph/GraphAxis"
 import { VelocityControlCanvas } from "./VelocityControlCanvas"
 
 export interface PianoVelocityControlProps {

@@ -1,7 +1,7 @@
 import { observer } from "mobx-react-lite"
 import { VFC } from "react"
 import { useStores } from "../../../hooks/useStores"
-import { LineGraphItems } from "../../ControlPane/Graph/LineGraphItems"
+import { LineGraphItems } from "../../ControlPane/LineGraph/LineGraphItems"
 
 export interface TempoItemsProps {
   width: number

@@ -1,4 +1,4 @@
-import { ItemValue } from "../../main/components/ControlPane/Graph/LineGraphControl"
+import { ItemValue } from "../../main/components/ControlPane/LineGraph/LineGraph"
 import { IPoint, IRect } from "../geometry"
 import { ControlSelection } from "../selection/ControlSelection"
 

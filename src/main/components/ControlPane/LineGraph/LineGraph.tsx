@@ -14,20 +14,18 @@ import { useContextMenu } from "../../../hooks/useContextMenu"
 import { useStores } from "../../../hooks/useStores"
 import { pointToCircleRect } from "../../../stores/TempoEditorStore"
 import { ControlSelectionContextMenu } from "../ControlSelectionContextMenu"
+import { handleCreateSelectionDrag } from "../Graph/MouseHandler/handleCreateSelectionDrag"
+import { handlePencilMouseDown } from "../Graph/MouseHandler/handlePencilMouseDown"
+import { handleSelectionDragEvents } from "../Graph/MouseHandler/handleSelectionDragEvents"
 import { GraphAxis } from "./GraphAxis"
 import { LineGraphCanvas } from "./LineGraphCanvas"
-import { handleCreateSelectionDrag } from "./MouseHandler/handleCreateSelectionDrag"
-import { handlePencilMouseDown } from "./MouseHandler/handlePencilMouseDown"
-import { handleSelectionDragEvents } from "./MouseHandler/handleSelectionDragEvents"
 
 export interface ItemValue {
   tick: number
   value: number
 }
 
-export interface LineGraphControlProps<
-  T extends ControllerEvent | PitchBendEvent
-> {
+export interface LineGraphProps<T extends ControllerEvent | PitchBendEvent> {
   width: number
   height: number
   maxValue: number
@@ -39,7 +37,7 @@ export interface LineGraphControlProps<
   axisLabelFormatter?: (value: number) => string
 }
 
-const LineGraphControl = observer(
+const LineGraph = observer(
   <T extends ControllerEvent | PitchBendEvent>({
     maxValue,
     events,
@@ -50,7 +48,7 @@ const LineGraphControl = observer(
     circleRadius = 4,
     axis,
     axisLabelFormatter = (v) => v.toString(),
-  }: LineGraphControlProps<T>) => {
+  }: LineGraphProps<T>) => {
     const rootStore = useStores()
     const { scrollLeft, transform, controlCursor, mouseMode } =
       rootStore.pianoRollStore
@@ -168,4 +166,4 @@ const LineGraphControl = observer(
   }
 )
 
-export default React.memo(LineGraphControl)
+export default React.memo(LineGraph)

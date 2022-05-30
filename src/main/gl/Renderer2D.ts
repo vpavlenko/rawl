@@ -2,12 +2,6 @@ import { mat4, vec3 } from "gl-matrix"
 import { ISize } from "../../common/geometry"
 import { RenderProperty } from "./RenderProperty"
 
-export const translateMatrix = (mat: mat4, x: number, y: number) => {
-  const newMat = mat4.create()
-  mat4.translate(newMat, mat, vec3.fromValues(x, y, 0))
-  return newMat
-}
-
 export interface Renderable {
   draw(): void
   zIndex?: number

@@ -1,18 +1,8 @@
 import { IRect } from "../../../common/geometry"
 import { rectToTriangles } from "../../helpers/polygon"
 import { Attrib } from "../Attrib"
-import { DisplayObject } from "../DisplayObject"
 import { Shader } from "../Shader"
 import { uniformMat4, uniformVec4 } from "../Uniform"
-
-export class SolidRectangleObject extends DisplayObject<
-  ReturnType<typeof SolidRectangleShader>,
-  SolidRectangleBuffer
-> {
-  constructor(gl: WebGLRenderingContext) {
-    super(SolidRectangleShader(gl), new SolidRectangleBuffer(gl))
-  }
-}
 
 export class SolidRectangleBuffer {
   private gl: WebGLRenderingContext

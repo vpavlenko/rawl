@@ -1,7 +1,11 @@
 import { Component } from "react"
-import { Shader } from "../../gl/DisplayObject"
 import { Renderable } from "../../gl/Renderer2D"
 import { RendererContext } from "../../hooks/useRenderer"
+
+interface Shader<P, B> {
+  setUniforms(params: P): void
+  draw(buffer: B): void
+}
 
 interface Buffer<T> {
   update(props: T): void

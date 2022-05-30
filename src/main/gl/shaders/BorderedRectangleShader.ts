@@ -1,18 +1,8 @@
 import { IRect } from "../../../common/geometry"
 import { rectToTriangleBounds, rectToTriangles } from "../../helpers/polygon"
 import { Attrib } from "../Attrib"
-import { DisplayObject } from "../DisplayObject"
 import { Shader } from "../Shader"
 import { uniformMat4, uniformVec4 } from "../Uniform"
-
-export class BorderedRectangleObject extends DisplayObject<
-  ReturnType<typeof BorderedRectangleShader>,
-  BorderedRectangleBuffer
-> {
-  constructor(gl: WebGLRenderingContext) {
-    super(BorderedRectangleShader(gl), new BorderedRectangleBuffer(gl))
-  }
-}
 
 export class BorderedRectangleBuffer {
   private gl: WebGLRenderingContext

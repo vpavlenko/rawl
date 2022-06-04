@@ -1,3 +1,4 @@
+import { GLCanvas, Transform } from "@ryohey/webgl-react"
 import { observer } from "mobx-react-lite"
 import { CSSProperties, useMemo, VFC } from "react"
 import { IPoint, IRect } from "../../../../common/geometry"
@@ -8,8 +9,6 @@ import { useStores } from "../../../hooks/useStores"
 import { Beats } from "../../GLSurface/common/Beats"
 import { Cursor } from "../../GLSurface/common/Cursor"
 import { Selection } from "../../GLSurface/common/Selection"
-import { GLSurface } from "../../GLSurface/GLSurface"
-import { Transform } from "../../GLSurface/Transform"
 import { LineGraphItems } from "./LineGraphItems"
 
 export interface LineGraphCanvasProps {
@@ -69,7 +68,7 @@ export const LineGraphCanvas: VFC<LineGraphCanvasProps> = observer(
     )
 
     return (
-      <GLSurface
+      <GLCanvas
         width={width}
         height={height}
         onMouseDown={onMouseDown}
@@ -90,7 +89,7 @@ export const LineGraphCanvas: VFC<LineGraphCanvasProps> = observer(
           <Selection rect={selectionRect} zIndex={2} />
           <Cursor x={cursorX} height={height} zIndex={3} />
         </Transform>
-      </GLSurface>
+      </GLCanvas>
     )
   }
 )

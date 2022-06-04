@@ -1,3 +1,4 @@
+import { GLCanvas, Transform } from "@ryohey/webgl-react"
 import { observer } from "mobx-react-lite"
 import { useCallback, useMemo, VFC } from "react"
 import { containsPoint, IPoint } from "../../../../common/geometry"
@@ -8,8 +9,6 @@ import { observeDrag } from "../../../helpers/observeDrag"
 import { useStores } from "../../../hooks/useStores"
 import { Beats } from "../../GLSurface/common/Beats"
 import { Cursor } from "../../GLSurface/common/Cursor"
-import { GLSurface } from "../../GLSurface/GLSurface"
-import { Transform } from "../../GLSurface/Transform"
 import { VelocityItems } from "./VelocityItems"
 
 export const VelocityControlCanvas: VFC<{ width: number; height: number }> =
@@ -86,12 +85,12 @@ export const VelocityControlCanvas: VFC<{ width: number; height: number }> =
     )
 
     return (
-      <GLSurface width={width} height={height} onMouseDown={onMouseDown}>
+      <GLCanvas width={width} height={height} onMouseDown={onMouseDown}>
         <Transform matrix={scrollXMatrix}>
           <VelocityItems rects={items} />
           <Beats height={height} beats={beats} zIndex={2} />
           <Cursor x={cursorX} height={height} zIndex={4} />
         </Transform>
-      </GLSurface>
+      </GLCanvas>
     )
   })

@@ -1,3 +1,4 @@
+import { GLCanvas, Transform } from "@ryohey/webgl-react"
 import { observer } from "mobx-react-lite"
 import { CSSProperties, useCallback, useMemo, VFC } from "react"
 import { IPoint } from "../../../../common/geometry"
@@ -11,8 +12,6 @@ import { useStores } from "../../../hooks/useStores"
 import { Beats } from "../../GLSurface/common/Beats"
 import { Cursor } from "../../GLSurface/common/Cursor"
 import { Selection } from "../../GLSurface/common/Selection"
-import { GLSurface } from "../../GLSurface/GLSurface"
-import { Transform } from "../../GLSurface/Transform"
 import { handleCreateSelectionDrag } from "../MouseHandler/handleCreateSelectionDrag"
 import { handlePencilMouseDown } from "../MouseHandler/handlePencilMouseDown"
 import { handleSelectionDragEvents } from "../MouseHandler/handleSelectionDragEvents"
@@ -111,7 +110,7 @@ export const TempoGraphCanvas: VFC<TempoGraphCanvasProps> = observer(
     )
 
     return (
-      <GLSurface
+      <GLCanvas
         width={width}
         height={height}
         onMouseDown={onMouseDownGraph}
@@ -125,7 +124,7 @@ export const TempoGraphCanvas: VFC<TempoGraphCanvasProps> = observer(
           <Selection rect={selectionRect} zIndex={3} />
           <Cursor x={cursorX} height={height} zIndex={4} />
         </Transform>
-      </GLSurface>
+      </GLCanvas>
     )
   }
 )

@@ -1,11 +1,12 @@
-import { IRect } from "../../../../../common/geometry"
-import { Attrib } from "../../../../gl/Attrib"
-import { Shader } from "../../../../gl/Shader"
-import { uniformMat4, uniformVec4 } from "../../../../gl/Uniform"
 import {
+  Attrib,
   rectToTriangleBounds,
   rectToTriangles,
-} from "../../../../helpers/polygon"
+  Shader,
+  uniformMat4,
+  uniformVec4,
+} from "@ryohey/webgl-react"
+import { IRect } from "../../../../../common/geometry"
 
 export interface IVelocityData {
   velocity: number

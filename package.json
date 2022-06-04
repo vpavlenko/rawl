@@ -28,6 +28,7 @@
     "@mui/material": "^5.8.1",
     "@rehooks/component-size": "1.0.3",
     "@ryohey/wavelet": "^0.5.3",
+    "@ryohey/webgl-react": "^0.2.1",
     "@sentry/react": "^6.19.7",
     "@sentry/tracing": "^6.19.7",
     "color": "^4.2.3",

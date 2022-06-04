@@ -1,8 +1,7 @@
+import { GLNode, useProjectionMatrix } from "@ryohey/webgl-react"
 import { vec4 } from "gl-matrix"
 import { VFC } from "react"
 import { IRect } from "../../../../common/geometry"
-import { useProjectionMatrix } from "../../../hooks/useProjectionMatrix"
-import { GLNode } from "../../GLSurface/GLNode"
 import { DrumNoteShader } from "./shaders/DrumNoteShader"
 import { ISelectionData, IVelocityData, NoteBuffer } from "./shaders/NoteShader"
 

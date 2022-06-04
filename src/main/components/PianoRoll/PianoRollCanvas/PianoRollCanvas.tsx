@@ -1,3 +1,4 @@
+import { GLCanvas, Transform } from "@ryohey/webgl-react"
 import { observer } from "mobx-react-lite"
 import {
   FC,
@@ -13,8 +14,6 @@ import { useStores } from "../../../hooks/useStores"
 import { Beats } from "../../GLSurface/common/Beats"
 import { Cursor } from "../../GLSurface/common/Cursor"
 import { Selection } from "../../GLSurface/common/Selection"
-import { GLSurface } from "../../GLSurface/GLSurface"
-import { Transform } from "../../GLSurface/Transform"
 import NoteMouseHandler from "../MouseHandler/NoteMouseHandler"
 import { PianoRollStageProps } from "../PianoRollStage"
 import { PianoSelectionContextMenu } from "../PianoSelectionContextMenu"
@@ -71,7 +70,7 @@ export const PianoRollCanvas: FC<PianoRollStageProps> = observer(
 
     return (
       <>
-        <GLSurface
+        <GLCanvas
           width={width}
           height={height}
           style={{ cursor: notesCursor }}
@@ -92,7 +91,7 @@ export const PianoRollCanvas: FC<PianoRollStageProps> = observer(
             <Notes zIndex={3} />
             <Selection rect={selectionBounds} zIndex={4} />
           </Transform>
-        </GLSurface>
+        </GLCanvas>
         <PianoSelectionContextMenu {...menuProps} />
       </>
     )

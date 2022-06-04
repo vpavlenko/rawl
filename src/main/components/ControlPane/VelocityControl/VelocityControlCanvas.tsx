@@ -7,8 +7,8 @@ import { changeNotesVelocity } from "../../../actions"
 import { matrixFromTranslation } from "../../../helpers/matrix"
 import { observeDrag } from "../../../helpers/observeDrag"
 import { useStores } from "../../../hooks/useStores"
-import { Beats } from "../../GLSurface/common/Beats"
-import { Cursor } from "../../GLSurface/common/Cursor"
+import { Beats } from "../../GLNodes/Beats"
+import { Cursor } from "../../GLNodes/Cursor"
 import { VelocityItems } from "./VelocityItems"
 
 export const VelocityControlCanvas: VFC<{ width: number; height: number }> =

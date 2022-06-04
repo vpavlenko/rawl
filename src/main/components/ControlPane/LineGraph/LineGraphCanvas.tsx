@@ -6,9 +6,9 @@ import { ControlCoordTransform } from "../../../../common/transform/ControlCoord
 import { matrixFromTranslation } from "../../../helpers/matrix"
 import { IDValue } from "../../../hooks/recycleKeys"
 import { useStores } from "../../../hooks/useStores"
-import { Beats } from "../../GLSurface/common/Beats"
-import { Cursor } from "../../GLSurface/common/Cursor"
-import { Selection } from "../../GLSurface/common/Selection"
+import { Beats } from "../../GLNodes/Beats"
+import { Cursor } from "../../GLNodes/Cursor"
+import { Selection } from "../../GLNodes/Selection"
 import { LineGraphItems } from "./LineGraphItems"
 
 export interface LineGraphCanvasProps {

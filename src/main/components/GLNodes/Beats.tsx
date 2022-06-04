@@ -3,9 +3,9 @@ import { Rectangles } from "@ryohey/webgl-react"
 import Color from "color"
 import { partition } from "lodash"
 import { VFC } from "react"
-import { IRect } from "../../../../common/geometry"
-import { BeatWithX } from "../../../../common/helpers/mapBeats"
-import { colorToVec4 } from "../../../gl/color"
+import { IRect } from "../../../common/geometry"
+import { BeatWithX } from "../../../common/helpers/mapBeats"
+import { colorToVec4 } from "../../gl/color"
 
 export const Beats: VFC<{
   height: number

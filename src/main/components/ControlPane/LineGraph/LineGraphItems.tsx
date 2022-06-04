@@ -1,12 +1,11 @@
 import { useTheme } from "@emotion/react"
+import { BorderedCircles, Rectangles } from "@ryohey/webgl-react"
 import Color from "color"
 import { partition } from "lodash"
 import { VFC } from "react"
 import { IPoint, IRect } from "../../../../common/geometry"
 import { joinObjects } from "../../../../common/helpers/array"
 import { colorToVec4 } from "../../../gl/color"
-import { BordererdCircles } from "../../GLSurface/shapes/BordererdCircles"
-import { Rectangles } from "../../GLSurface/shapes/Rectangles"
 
 export interface LineGraphItemsProps {
   width: number
@@ -43,13 +42,13 @@ export const LineGraphItems: VFC<LineGraphItemsProps> = ({
         color={colorToVec4(Color(theme.themeColor))}
         zIndex={zIndex}
       />
-      <BordererdCircles
+      <BorderedCircles
         rects={nonHighlightedItems}
         zIndex={zIndex + 0.1}
         strokeColor={colorToVec4(Color(theme.themeColor))}
         fillColor={colorToVec4(Color(theme.themeColor))}
       />
-      <BordererdCircles
+      <BorderedCircles
         rects={highlightedItems}
         zIndex={zIndex + 0.2}
         strokeColor={colorToVec4(Color(theme.themeColor))}

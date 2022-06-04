@@ -1,6 +1,4 @@
-import { Attrib } from "../../../../gl/Attrib"
-import { Shader } from "../../../../gl/Shader"
-import { uniformMat4, uniformVec4 } from "../../../../gl/Uniform"
+import { Attrib, Shader, uniformMat4, uniformVec4 } from "@ryohey/webgl-react"
 
 export const DrumNoteShader = (gl: WebGLRenderingContext) =>
   new Shader(

@@ -1,4 +1,5 @@
 import { useTheme } from "@emotion/react"
+import { Rectangles } from "@ryohey/webgl-react"
 import Color from "color"
 import { range } from "lodash"
 import { observer } from "mobx-react-lite"
@@ -6,7 +7,6 @@ import { VFC } from "react"
 import { IRect } from "../../../../common/geometry"
 import { colorToVec4 } from "../../../gl/color"
 import { useStores } from "../../../hooks/useStores"
-import { Rectangles } from "../../GLSurface/shapes/Rectangles"
 
 export const Lines: VFC<{ width: number; zIndex: number }> = observer(
   ({ width, zIndex }) => {

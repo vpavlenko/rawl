@@ -1,12 +1,11 @@
+import { GLCanvas, Transform } from "@ryohey/webgl-react"
 import { observer } from "mobx-react-lite"
 import { useMemo, useRef, VFC } from "react"
 import { matrixFromTranslation } from "../../../helpers/matrix"
 import { useStores } from "../../../hooks/useStores"
-import { Beats } from "../../GLSurface/common/Beats"
-import { Cursor } from "../../GLSurface/common/Cursor"
-import { Selection } from "../../GLSurface/common/Selection"
-import { GLSurface } from "../../GLSurface/GLSurface"
-import { Transform } from "../../GLSurface/Transform"
+import { Beats } from "../../GLNodes/Beats"
+import { Cursor } from "../../GLNodes/Cursor"
+import { Selection } from "../../GLNodes/Selection"
 import { Lines } from "./Lines"
 import { Notes } from "./Notes"
 
@@ -46,7 +45,7 @@ export const ArrangeViewCanvas: VFC<ArrangeViewCanvasProps> = observer(
     const height = trackHeight * tracks.length
 
     return (
-      <GLSurface
+      <GLCanvas
         ref={ref}
         style={{ pointerEvents: "none" }}
         width={width}
@@ -63,7 +62,7 @@ export const ArrangeViewCanvas: VFC<ArrangeViewCanvasProps> = observer(
           <Notes zIndex={2} />
           <Selection rect={selectionRect} zIndex={3} />
         </Transform>
-      </GLSurface>
+      </GLCanvas>
     )
   }
 )

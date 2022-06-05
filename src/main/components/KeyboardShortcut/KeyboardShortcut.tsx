@@ -5,7 +5,8 @@ export interface Action {
   code: KeyboardEvent["code"]
   metaKey?: boolean
   shiftKey?: boolean
-  run: () => void
+  enabled?: () => boolean
+  run: (e: KeyboardEvent) => void
 }
 
 export interface KeyboardShortcutProps {
@@ -26,32 +27,46 @@ export const KeyboardShortcut: FC<KeyboardShortcutProps> = ({
       if (e.target !== null && isFocusable(e.target)) {
         return
       }
+      console.log("onKeyDown")
       const action = actions.find(
         (action) =>
+          (action.enabled?.() ?? true) &&
           e.code === action.code &&
           e.shiftKey === (action.shiftKey ?? false) &&
           (e.ctrlKey || e.metaKey) === (action.metaKey ?? false)
       )
       if (action !== undefined) {
-        action.run()
+        action.run(e)
         e.preventDefault()
+        e.stopPropagation()
       }
     }
 
-    window.addEventListener("keydown", onKeyDown)
+    document.addEventListener("keydown", onKeyDown)
 
+    return () => document.removeEventListener("keydown", onKeyDown)
+  }, [actions])
+
+  useEffect(() => {
     document.oncut = onCut ?? null
-    document.oncopy = onCopy ?? null
-    document.onpaste = onPaste ?? null
-
     return () => {
-      document.removeEventListener("keydown", onKeyDown)
-
       document.oncut = null
+    }
+  }, [onCut])
+
+  useEffect(() => {
+    document.oncopy = onCopy ?? null
+    return () => {
       document.oncopy = null
+    }
+  }, [onCopy])
+
+  useEffect(() => {
+    document.onpaste = onPaste ?? null
+    return () => {
       document.onpaste = null
     }
-  }, [])
+  }, [onPaste])
 
   return <></>
 }

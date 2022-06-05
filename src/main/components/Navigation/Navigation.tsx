@@ -85,7 +85,7 @@ export const Navigation: FC = observer(() => {
       <Separator />
 
       <Tooltip
-        title={"[Cmd+1]"}
+        title={`${localized("switch-tab", "Switch Tab")} [Cmd+1]`}
         placement="bottom"
         enterDelay={300}
         enterNextDelay={500}
@@ -100,7 +100,7 @@ export const Navigation: FC = observer(() => {
       </Tooltip>
 
       <Tooltip
-        title={"[Cmd+2]"}
+        title={`${localized("switch-tab", "Switch Tab")} [Cmd+2]`}
         placement="bottom"
         enterDelay={300}
         enterNextDelay={500}
@@ -115,7 +115,7 @@ export const Navigation: FC = observer(() => {
       </Tooltip>
 
       <Tooltip
-        title={"[Cmd+3]"}
+        title={`${localized("switch-tab", "Switch Tab")} [Cmd+3]`}
         placement="bottom"
         enterDelay={300}
         enterNextDelay={500}

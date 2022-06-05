@@ -66,6 +66,21 @@ export const GlobalKeyboardShortcut: FC = () => {
         { code: "KeyN", run: toggleSolo(rootStore) },
         { code: "KeyM", run: toggleMute(rootStore) },
         { code: "Comma", run: toggleGhost(rootStore) },
+        {
+          code: "Digit1",
+          metaKey: true,
+          run: () => (rootStore.router.path = "/track"),
+        },
+        {
+          code: "Digit2",
+          metaKey: true,
+          run: () => (rootStore.router.path = "/arrange"),
+        },
+        {
+          code: "Digit3",
+          metaKey: true,
+          run: () => (rootStore.router.path = "/tempo"),
+        },
       ]}
     />
   )

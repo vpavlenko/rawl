@@ -10,11 +10,19 @@ export interface Action {
 
 export interface KeyboardShortcutProps {
   actions: Action[]
+  onCut?: (e: ClipboardEvent) => void
+  onCopy?: (e: ClipboardEvent) => void
+  onPaste?: (e: ClipboardEvent) => void
 }
 
-export const KeyboardShortcut: FC<KeyboardShortcutProps> = ({ actions }) => {
+export const KeyboardShortcut: FC<KeyboardShortcutProps> = ({
+  actions,
+  onCut,
+  onCopy,
+  onPaste,
+}) => {
   useEffect(() => {
-    const listener = (e: KeyboardEvent) => {
+    const onKeyDown = (e: KeyboardEvent) => {
       if (e.target !== null && isFocusable(e.target)) {
         return
       }
@@ -30,7 +38,19 @@ export const KeyboardShortcut: FC<KeyboardShortcutProps> = ({ actions }) => {
       }
     }
 
-    window.addEventListener("keydown", listener)
+    window.addEventListener("keydown", onKeyDown)
+
+    document.oncut = onCut ?? null
+    document.oncopy = onCopy ?? null
+    document.onpaste = onPaste ?? null
+
+    return () => {
+      document.removeEventListener("keydown", onKeyDown)
+
+      document.oncut = null
+      document.oncopy = null
+      document.onpaste = null
+    }
   }, [])
 
   return <></>

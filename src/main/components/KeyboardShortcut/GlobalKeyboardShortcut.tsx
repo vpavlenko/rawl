@@ -14,83 +14,52 @@ import { redo, undo } from "../../actions/history"
 import { useStores } from "../../hooks/useStores"
 import { isFocusable } from "./isFocusable"
 
+type Action = {
+  code: KeyboardEvent["code"]
+  metaKey?: boolean
+  shiftKey?: boolean
+  run: () => void
+}
+
 export const GlobalKeyboardShortcut: FC = () => {
   const rootStore = useStores()
 
-  useEffect(() => {
-    const {
-      services: { player },
-    } = rootStore
+  const actions: Action[] = [
+    { code: "Space", run: playOrPause(rootStore) },
+    { code: "KeyZ", metaKey: true, shiftKey: true, run: redo(rootStore) },
+    { code: "KeyZ", metaKey: true, shiftKey: false, run: undo(rootStore) },
+    { code: "KeyY", metaKey: true, run: redo(rootStore) },
+    // Press ?
+    {
+      code: "Slash",
+      shiftKey: true,
+      run: () => (rootStore.rootViewStore.openHelp = true),
+    },
+    { code: "Enter", run: stop(rootStore) },
+    { code: "KeyA", run: rewindOneBar(rootStore) },
+    { code: "KeyD", run: fastForwardOneBar(rootStore) },
+    { code: "KeyS", run: nextTrack(rootStore) },
+    { code: "KeyW", run: previousTrack(rootStore) },
+    { code: "KeyN", run: toggleSolo(rootStore) },
+    { code: "KeyM", run: toggleMute(rootStore) },
+    { code: "Comma", run: toggleGhost(rootStore) },
+  ]
 
+  useEffect(() => {
     const listener = (e: KeyboardEvent) => {
       if (e.target !== null && isFocusable(e.target)) {
         return
       }
-      switch (e.code) {
-        case "Space": {
-          playOrPause(rootStore)()
-          break
-        }
-        case "KeyZ": {
-          if (e.ctrlKey || e.metaKey) {
-            if (e.shiftKey) {
-              redo(rootStore)()
-            } else {
-              undo(rootStore)()
-            }
-          }
-          break
-        }
-        case "KeyY": {
-          if (e.ctrlKey || e.metaKey) {
-            redo(rootStore)()
-          }
-          break
-        }
-        case "Slash": {
-          // Press ?
-          if (e.shiftKey) {
-            rootStore.rootViewStore.openHelp = true
-          }
-          break
-        }
-        case "Enter": {
-          stop(rootStore)()
-          break
-        }
-        case "KeyA": {
-          rewindOneBar(rootStore)()
-          return
-        }
-        case "KeyD": {
-          fastForwardOneBar(rootStore)()
-          return
-        }
-        case "KeyS": {
-          nextTrack(rootStore)()
-          return
-        }
-        case "KeyW": {
-          previousTrack(rootStore)()
-          return
-        }
-        case "KeyN": {
-          toggleSolo(rootStore)()
-          return
-        }
-        case "KeyM": {
-          toggleMute(rootStore)()
-          return
-        }
-        case "Comma": {
-          toggleGhost(rootStore)()
-          return
-        }
-        default:
-          // do not call preventDefault
-          return
+      const action = actions.find(
+        (action) =>
+          e.code === action.code &&
+          e.shiftKey === (action.shiftKey ?? false) &&
+          (e.ctrlKey || e.metaKey) === (action.metaKey ?? false)
+      )
+      if (action !== undefined) {
+        action.run()
+        e.preventDefault()
       }
-      e.preventDefault()
     }
 
     window.addEventListener("keydown", listener)

@@ -27,7 +27,6 @@ export const KeyboardShortcut: FC<KeyboardShortcutProps> = ({
       if (e.target !== null && isFocusable(e.target)) {
         return
       }
-      console.log("onKeyDown")
       const action = actions.find(
         (action) =>
           (action.enabled?.() ?? true) &&

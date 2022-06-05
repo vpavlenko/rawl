@@ -229,8 +229,14 @@ export const arrangePasteSelection = (rootStore: RootStore) => () => {
       ...note,
       tick: note.tick + player.position,
     }))
-    const destTrackId =
-      parseInt(trackId) - obj.selectedTrackId + selectedTrackId
+
+    const isRulerSelected = selectedTrackId < 0
+    const trackNumberOffset = isRulerSelected
+      ? 0
+      : -obj.selectedTrackId + selectedTrackId
+
+    const destTrackId = parseInt(trackId) + trackNumberOffset
+
     if (destTrackId < tracks.length) {
       tracks[destTrackId].addEvents(notes)
     }

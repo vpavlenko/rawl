@@ -37,7 +37,12 @@ export const TrackListMenuButton: FC = observer(() => {
 
   return (
     <>
-      <NavBackButton ref={ref} onClick={onClickNavBack}>
+      <NavBackButton
+        ref={ref}
+        onClick={onClickNavBack}
+        tabIndex={-1}
+        onMouseDown={(e) => e.preventDefault()}
+      >
         <ArrowIcon isOpen={open} />
       </NavBackButton>
     </>

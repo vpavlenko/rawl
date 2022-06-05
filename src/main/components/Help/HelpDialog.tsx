@@ -104,6 +104,14 @@ export const HelpDialog: FC = observer(() => {
         />
         <HotKey
           hotKeys={[
+            ["Cmd", "1"],
+            ["Cmd", "2"],
+            ["Cmd", "3"],
+          ]}
+          text={localized("switch-tab", "Switch Tab")}
+        />
+        <HotKey
+          hotKeys={[
             ["Cmd", "↑"],
             ["Cmd", "↓"],
           ]}

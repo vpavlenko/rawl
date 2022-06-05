@@ -1,4 +1,5 @@
-import { FC, useEffect } from "react"
+import { observer } from "mobx-react-lite"
+import { FC } from "react"
 import { pasteSelection } from "../../actions"
 import { pasteControlSelection } from "../../actions/control"
 import {
@@ -7,69 +8,76 @@ import {
 } from "../../clipboard/clipboardTypes"
 import { useStores } from "../../hooks/useStores"
 import clipboard from "../../services/Clipboard"
-import { handleControlPaneKeyboardShortcut } from "./handleControlPaneKeyboardShortcut"
-import { handlePianoNotesKeyboardShortcut } from "./handlePianoNotesKeyboardShortcut"
+import { controlPaneKeyboardShortcutActions } from "./controlPaneKeyboardShortcutActions"
 import { isFocusable } from "./isFocusable"
+import { KeyboardShortcut } from "./KeyboardShortcut"
+import { pianoNotesKeyboardShortcutActions } from "./pianoNotesKeyboardShortcutActions"
 
-export const PianoRollKeyboardShortcut: FC = () => {
+const SCROLL_DELTA = 24
+
+export const PianoRollKeyboardShortcut: FC = observer(() => {
   const rootStore = useStores()
 
-  useEffect(() => {
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.target !== null && isFocusable(e.target)) {
-        return
-      }
-      switch (e.code) {
-        case "Digit1": {
-          rootStore.pianoRollStore.mouseMode = "pencil"
-          break
-        }
-        case "Digit2": {
-          rootStore.pianoRollStore.mouseMode = "selection"
-          break
-        }
-        default:
-          if (handlePianoNotesKeyboardShortcut(rootStore)(e)) {
-            break
-          }
-          if (handleControlPaneKeyboardShortcut(rootStore)(e)) {
-            break
-          }
-          // do not call preventDefault
-          return
-      }
-      e.preventDefault()
-      e.stopPropagation()
+  // Handle pasting here to allow pasting even when the element does not have focus, such as after clicking the ruler
+  const onPaste = (e: ClipboardEvent) => {
+    if (e.target !== null && isFocusable(e.target)) {
+      return
     }
 
-    // Handle pasting here to allow pasting even when the element does not have focus, such as after clicking the ruler
-    const onPaste = (e: ClipboardEvent) => {
-      if (e.target !== null && isFocusable(e.target)) {
-        return
-      }
+    const text = clipboard.readText()
 
-      const text = clipboard.readText()
-
-      if (!text || text.length === 0) {
-        return
-      }
-
-      const obj = JSON.parse(text)
-
-      if (isPianoNotesClipboardData(obj)) {
-        pasteSelection(rootStore)()
-      } else if (isControlEventsClipboardData(obj)) {
-        pasteControlSelection(rootStore)()
-      }
+    if (!text || text.length === 0) {
+      return
     }
 
-    document.addEventListener("paste", onPaste)
-    document.addEventListener("keydown", onKeyDown)
-    return () => {
-      document.removeEventListener("paste", onPaste)
-      document.removeEventListener("keydown", onKeyDown)
-    }
-  }, [rootStore])
+    const obj = JSON.parse(text)
 
-  return <></>
-}
+    if (isPianoNotesClipboardData(obj)) {
+      pasteSelection(rootStore)()
+    } else if (isControlEventsClipboardData(obj)) {
+      pasteControlSelection(rootStore)()
+    }
+  }
+
+  return (
+    <KeyboardShortcut
+      actions={[
+        ...(rootStore.pianoRollStore.selectedNoteIds.length > 0
+          ? pianoNotesKeyboardShortcutActions(rootStore)
+          : []),
+        ...(rootStore.pianoRollStore.selectedControllerEventIds.length > 0
+          ? controlPaneKeyboardShortcutActions(rootStore)
+          : []),
+        {
+          code: "ArrowUp",
+          metaKey: true,
+          run: () => rootStore.pianoRollStore.scrollBy(0, SCROLL_DELTA),
+        },
+        {
+          code: "ArrowDown",
+          metaKey: true,
+          run: () => rootStore.pianoRollStore.scrollBy(0, -SCROLL_DELTA),
+        },
+        {
+          code: "ArrowRight",
+          metaKey: true,
+          run: () => rootStore.pianoRollStore.scrollBy(-SCROLL_DELTA, 0),
+        },
+        {
+          code: "ArrowLeft",
+          metaKey: true,
+          run: () => rootStore.pianoRollStore.scrollBy(SCROLL_DELTA, 0),
+        },
+        {
+          code: "Digit1",
+          run: () => (rootStore.pianoRollStore.mouseMode = "pencil"),
+        },
+        {
+          code: "Digit2",
+          run: () => (rootStore.pianoRollStore.mouseMode = "selection"),
+        },
+      ]}
+      onPaste={onPaste}
+    />
+  )
+})

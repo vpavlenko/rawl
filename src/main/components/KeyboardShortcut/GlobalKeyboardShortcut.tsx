@@ -12,89 +12,12 @@ import {
 } from "../../actions"
 import { redo, undo } from "../../actions/history"
 import { useStores } from "../../hooks/useStores"
-import { isFocusable } from "./isFocusable"
+import { KeyboardShortcut } from "./KeyboardShortcut"
 
 export const GlobalKeyboardShortcut: FC = () => {
   const rootStore = useStores()
 
   useEffect(() => {
-    const {
-      services: { player },
-    } = rootStore
-
-    const listener = (e: KeyboardEvent) => {
-      if (e.target !== null && isFocusable(e.target)) {
-        return
-      }
-      switch (e.code) {
-        case "Space": {
-          playOrPause(rootStore)()
-          break
-        }
-        case "KeyZ": {
-          if (e.ctrlKey || e.metaKey) {
-            if (e.shiftKey) {
-              redo(rootStore)()
-            } else {
-              undo(rootStore)()
-            }
-          }
-          break
-        }
-        case "KeyY": {
-          if (e.ctrlKey || e.metaKey) {
-            redo(rootStore)()
-          }
-          break
-        }
-        case "Slash": {
-          // Press ?
-          if (e.shiftKey) {
-            rootStore.rootViewStore.openHelp = true
-          }
-          break
-        }
-        case "Enter": {
-          stop(rootStore)()
-          break
-        }
-        case "KeyA": {
-          rewindOneBar(rootStore)()
-          return
-        }
-        case "KeyD": {
-          fastForwardOneBar(rootStore)()
-          return
-        }
-        case "KeyS": {
-          nextTrack(rootStore)()
-          return
-        }
-        case "KeyW": {
-          previousTrack(rootStore)()
-          return
-        }
-        case "KeyN": {
-          toggleSolo(rootStore)()
-          return
-        }
-        case "KeyM": {
-          toggleMute(rootStore)()
-          return
-        }
-        case "Comma": {
-          toggleGhost(rootStore)()
-          return
-        }
-        default:
-          // do not call preventDefault
-          return
-      }
-      e.preventDefault()
-    }
-
-    window.addEventListener("keydown", listener)
-
     // prevent zooming
     const onWheel = (e: WheelEvent) => {
       // Touchpad pinches are translated into wheel with ctrl event
@@ -116,13 +39,49 @@ export const GlobalKeyboardShortcut: FC = () => {
     document.oncontextmenu = (e) => e.preventDefault()
 
     return () => {
-      window.removeEventListener("keydown", listener)
       document.removeEventListener("wheel", onWheel)
       document.removeEventListener("touchmove", onTouchMove)
-
       document.oncontextmenu = null
     }
-  }, [rootStore])
+  }, [])
 
-  return <></>
+  return (
+    <KeyboardShortcut
+      actions={[
+        { code: "Space", run: playOrPause(rootStore) },
+        { code: "KeyZ", metaKey: true, shiftKey: true, run: redo(rootStore) },
+        { code: "KeyZ", metaKey: true, shiftKey: false, run: undo(rootStore) },
+        { code: "KeyY", metaKey: true, run: redo(rootStore) },
+        {
+          // Press ?
+          code: "Slash",
+          shiftKey: true,
+          run: () => (rootStore.rootViewStore.openHelp = true),
+        },
+        { code: "Enter", run: stop(rootStore) },
+        { code: "KeyA", run: rewindOneBar(rootStore) },
+        { code: "KeyD", run: fastForwardOneBar(rootStore) },
+        { code: "KeyS", run: nextTrack(rootStore) },
+        { code: "KeyW", run: previousTrack(rootStore) },
+        { code: "KeyN", run: toggleSolo(rootStore) },
+        { code: "KeyM", run: toggleMute(rootStore) },
+        { code: "Comma", run: toggleGhost(rootStore) },
+        {
+          code: "Digit1",
+          metaKey: true,
+          run: () => (rootStore.router.path = "/track"),
+        },
+        {
+          code: "Digit2",
+          metaKey: true,
+          run: () => (rootStore.router.path = "/arrange"),
+        },
+        {
+          code: "Digit3",
+          metaKey: true,
+          run: () => (rootStore.router.path = "/tempo"),
+        },
+      ]}
+    />
+  )
 }

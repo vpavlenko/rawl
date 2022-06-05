@@ -1,5 +1,6 @@
 import styled from "@emotion/styled"
 import { Forum, Help, List, Schedule, Settings } from "@mui/icons-material"
+import { Tooltip } from "@mui/material"
 import Color from "color"
 import { observer } from "mobx-react-lite"
 import React, { FC, useCallback } from "react"
@@ -83,27 +84,50 @@ export const Navigation: FC = observer(() => {
 
       <Separator />
 
-      <Tab
-        className={router.path === "/track" ? "active" : undefined}
-        onClick={useCallback(() => (router.path = "/track"), [])}
+      <Tooltip
+        title={`${localized("switch-tab", "Switch Tab")} [Cmd+1]`}
+        placement="bottom"
+        enterDelay={300}
+        enterNextDelay={500}
       >
-        <InstrumentIcon viewBox="0 0 24 24" />
-        <span>{localized("piano-roll", "Piano Roll")}</span>
-      </Tab>
-      <Tab
-        className={router.path === "/arrange" ? "active" : undefined}
-        onClick={useCallback(() => (router.path = "/arrange"), [])}
+        <Tab
+          className={router.path === "/track" ? "active" : undefined}
+          onClick={useCallback(() => (router.path = "/track"), [])}
+        >
+          <InstrumentIcon viewBox="0 0 24 24" />
+          <span>{localized("piano-roll", "Piano Roll")}</span>
+        </Tab>
+      </Tooltip>
+
+      <Tooltip
+        title={`${localized("switch-tab", "Switch Tab")} [Cmd+2]`}
+        placement="bottom"
+        enterDelay={300}
+        enterNextDelay={500}
       >
-        <List />
-        <span>{localized("arrange", "Arrange")}</span>
-      </Tab>
-      <Tab
-        className={router.path === "/tempo" ? "active" : undefined}
-        onClick={useCallback(() => (router.path = "/tempo"), [])}
+        <Tab
+          className={router.path === "/arrange" ? "active" : undefined}
+          onClick={useCallback(() => (router.path = "/arrange"), [])}
+        >
+          <List />
+          <span>{localized("arrange", "Arrange")}</span>
+        </Tab>
+      </Tooltip>
+
+      <Tooltip
+        title={`${localized("switch-tab", "Switch Tab")} [Cmd+3]`}
+        placement="bottom"
+        enterDelay={300}
+        enterNextDelay={500}
       >
-        <Schedule />
-        <span>{localized("tempo", "Tempo")}</span>
-      </Tab>
+        <Tab
+          className={router.path === "/tempo" ? "active" : undefined}
+          onClick={useCallback(() => (router.path = "/tempo"), [])}
+        >
+          <Schedule />
+          <span>{localized("tempo", "Tempo")}</span>
+        </Tab>
+      </Tooltip>
 
       <FlexibleSpacer />
 

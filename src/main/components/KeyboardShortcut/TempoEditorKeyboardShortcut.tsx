@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react"
+import { FC } from "react"
 import {
   copyTempoSelection,
   deleteTempoSelection,
@@ -10,81 +10,59 @@ import { isTempoEventsClipboardData } from "../../clipboard/clipboardTypes"
 import { useStores } from "../../hooks/useStores"
 import clipboard from "../../services/Clipboard"
 import { isFocusable } from "./isFocusable"
+import { KeyboardShortcut } from "./KeyboardShortcut"
 
 export const TempoEditorKeyboardShortcut: FC = () => {
   const rootStore = useStores()
 
-  useEffect(() => {
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.target !== null && isFocusable(e.target)) {
-        return
-      }
-      switch (e.code) {
-        case "Digit1": {
-          rootStore.tempoEditorStore.mouseMode = "pencil"
-          break
-        }
-        case "Digit2": {
-          rootStore.tempoEditorStore.mouseMode = "selection"
-          break
-        }
-        case "Escape": {
-          resetTempoSelection(rootStore)()
-          break
-        }
-        case "Backspace":
-        case "Delete":
-          deleteTempoSelection(rootStore)()
-          break
-        case "KeyC":
-          if (e.ctrlKey || e.metaKey) {
-            copyTempoSelection(rootStore)()
-          }
-          break
-        case "KeyX":
-          if (e.ctrlKey || e.metaKey) {
-            copyTempoSelection(rootStore)()
-            deleteTempoSelection(rootStore)()
-          }
-          break
-        case "KeyD": {
-          if (e.ctrlKey || e.metaKey) {
-            duplicateTempoSelection(rootStore)()
-          }
-          break
-        }
-        default:
-          // do not call preventDefault
+  return (
+    <KeyboardShortcut
+      actions={[
+        {
+          code: "Digit1",
+          run: () => (rootStore.tempoEditorStore.mouseMode = "pencil"),
+        },
+        {
+          code: "Digit2",
+          run: () => (rootStore.tempoEditorStore.mouseMode = "selection"),
+        },
+        { code: "Escape", run: resetTempoSelection(rootStore) },
+        { code: "Backspace", run: deleteTempoSelection(rootStore) },
+        { code: "Delete", run: deleteTempoSelection(rootStore) },
+        { code: "KeyC", metaKey: true, run: copyTempoSelection(rootStore) },
+        {
+          code: "KeyX",
+          metaKey: true,
+          run: () => {
+            {
+              copyTempoSelection(rootStore)()
+              deleteTempoSelection(rootStore)()
+            }
+          },
+        },
+        {
+          code: "KeyD",
+          metaKey: true,
+          run: duplicateTempoSelection(rootStore),
+        },
+      ]}
+      onPaste={(e) => {
+        if (e.target !== null && isFocusable(e.target)) {
           return
-      }
-      e.preventDefault()
-    }
+        }
 
-    const onPaste = (e: ClipboardEvent) => {
-      if (e.target !== null && isFocusable(e.target)) {
-        return
-      }
+        const text = clipboard.readText()
 
-      const text = clipboard.readText()
+        if (!text || text.length === 0) {
+          return
+        }
 
-      if (!text || text.length === 0) {
-        return
-      }
+        const obj = JSON.parse(text)
 
-      const obj = JSON.parse(text)
-
-      if (isTempoEventsClipboardData(obj)) {
-        pasteTempoSelection(rootStore)()
-      }
-    }
-
-    document.addEventListener("paste", onPaste)
-    document.addEventListener("keydown", onKeyDown)
-    return () => {
-      document.removeEventListener("paste", onPaste)
-      document.removeEventListener("keydown", onKeyDown)
-    }
-  }, [rootStore])
-
-  return <></>
+        if (isTempoEventsClipboardData(obj)) {
+          pasteTempoSelection(rootStore)()
+        }
+      }}
+    />
+  )
 }

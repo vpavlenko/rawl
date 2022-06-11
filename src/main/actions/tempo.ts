@@ -71,7 +71,7 @@ export const copyTempoSelection = (rootStore: RootStore) => () => {
 export const pasteTempoSelection = (rootStore: RootStore) => () => {
   const {
     song: { conductorTrack },
-    services: { player },
+    player,
   } = rootStore
 
   if (conductorTrack === undefined) {

@@ -20,23 +20,19 @@ export const registerReactions = (rootStore: RootStore) => {
   observe(rootStore.song, "selectedTrackId", resetSelection(rootStore))
 
   observe(
-    rootStore.services.midiRecorder,
+    rootStore.midiRecorder,
     "isRecording",
     disableSeekWhileRecording(rootStore)
   )
 
-  observe(
-    rootStore.services.player,
-    "isPlaying",
-    stopRecordingWhenStopPlayer(rootStore)
-  )
+  observe(rootStore.player, "isPlaying", stopRecordingWhenStopPlayer(rootStore))
 }
 
 type Reaction = (rootStore: RootStore) => () => void
 
 // sync synthGroup.output to enabledOutputIds/isFactorySoundEnabled
 const updateOutputDevices: Reaction =
-  ({ midiDeviceStore, services: { player, synth, synthGroup } }) =>
+  ({ midiDeviceStore, player, synth, synthGroup }) =>
   () => {
     const { outputs, enabledOutputs, isFactorySoundEnabled } = midiDeviceStore
 
@@ -57,7 +53,7 @@ const updateOutputDevices: Reaction =
   }
 
 const updateInputDevices: Reaction =
-  ({ midiDeviceStore, services: { midiInput } }) =>
+  ({ midiDeviceStore, midiInput }) =>
   () => {
     const { inputs, enabledInputs } = midiDeviceStore
 
@@ -68,12 +64,12 @@ const updateInputDevices: Reaction =
   }
 
 const disableSeekWhileRecording: Reaction =
-  ({ services: { player, midiRecorder } }) =>
+  ({ player, midiRecorder }) =>
   () =>
     (player.disableSeek = midiRecorder.isRecording)
 
 const stopRecordingWhenStopPlayer: Reaction =
-  ({ services: { player, midiRecorder } }) =>
+  ({ player, midiRecorder }) =>
   () => {
     if (!player.isPlaying) {
       midiRecorder.isRecording = false

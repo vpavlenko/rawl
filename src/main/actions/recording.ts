@@ -1,7 +1,7 @@
 import RootStore from "../stores/RootStore"
 
 export const toggleRecording =
-  ({ services: { midiRecorder, player } }: RootStore) =>
+  ({ midiRecorder, player }: RootStore) =>
   () => {
     if (midiRecorder.isRecording) {
       midiRecorder.isRecording = false

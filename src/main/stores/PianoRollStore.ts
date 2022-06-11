@@ -131,7 +131,7 @@ export default class PianoRollStore {
 
   setUpAutorun() {
     autorun(() => {
-      const { isPlaying, position } = this.rootStore.services.player
+      const { isPlaying, position } = this.rootStore.player
       const { autoScroll, scrollLeftTicks, transform, canvasWidth } = this
 
       // keep scroll position to cursor
@@ -386,32 +386,32 @@ export default class PianoRollStore {
 
   get currentVolume(): number | undefined {
     return this.rootStore.song.selectedTrack?.getVolume(
-      this.rootStore.services.player.position
+      this.rootStore.player.position
     )
   }
 
   get currentPan(): number | undefined {
     return this.rootStore.song.selectedTrack?.getPan(
-      this.rootStore.services.player.position
+      this.rootStore.player.position
     )
   }
 
   get currentTempo(): number | undefined {
     return this.rootStore.song.conductorTrack?.getTempo(
-      this.rootStore.services.player.position
+      this.rootStore.player.position
     )
   }
 
   get currentMBTTime(): string {
     return getMBTString(
       this.rootStore.song.measures,
-      this.rootStore.services.player.position,
+      this.rootStore.player.position,
       this.rootStore.song.timebase
     )
   }
 
   get cursorX(): number {
-    return this.transform.getX(this.rootStore.services.player.position)
+    return this.transform.getX(this.rootStore.player.position)
   }
 
   get quantizer(): Quantizer {

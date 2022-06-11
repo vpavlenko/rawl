@@ -4,7 +4,7 @@ export const toggleMuteTrack = (rootStore: RootStore) => (trackId: number) => {
   const {
     song: { tracks },
     trackMute,
-    services: { player },
+    player,
   } = rootStore
   const channel = tracks[trackId].channel
   if (channel === undefined) {
@@ -23,7 +23,7 @@ export const toggleSoloTrack = (rootStore: RootStore) => (trackId: number) => {
   const {
     song: { tracks },
     trackMute,
-    services: { player },
+    player,
   } = rootStore
   const channel = tracks[trackId].channel
   if (channel === undefined) {

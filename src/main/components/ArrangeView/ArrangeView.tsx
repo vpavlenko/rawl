@@ -164,8 +164,8 @@ export const ArrangeView: FC = observer(() => {
         const startPos = trackTransform.getArrangePoint(startPosPx)
         arrangeStartSelection(rootStore)(startPos)
 
-        if (!rootStore.services.player.isPlaying) {
-          rootStore.services.player.position =
+        if (!rootStore.player.isPlaying) {
+          rootStore.player.position =
             rootStore.arrangeViewStore.quantizer.round(startPos.tick)
         }
 

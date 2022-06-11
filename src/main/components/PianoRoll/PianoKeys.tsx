@@ -171,7 +171,7 @@ const PianoKeys: FC<PianoKeysProps> = ({ numberOfKeys, keyHeight }) => {
         x: e.nativeEvent.offsetX,
         y: e.nativeEvent.offsetY,
       }
-      const { player } = rootStore.services
+      const { player } = rootStore
       const channel = rootStore.song.selectedTrack?.channel ?? 0
 
       let prevNoteNumber = Math.floor(pixelsToNoteNumber(startPosition.y))

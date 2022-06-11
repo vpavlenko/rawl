@@ -78,7 +78,7 @@ export const RulerContextMenu: FC<RulerContextMenuProps> = React.memo(
           onClose={closeOpenTimeSignatureDialog}
           onClickOK={({ numerator, denominator }) => {
             addTimeSignature(rootStore)(
-              rootStore.services.player.position,
+              rootStore.player.position,
               numerator,
               denominator
             )

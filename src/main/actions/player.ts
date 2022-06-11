@@ -2,9 +2,7 @@ import { isNoteEvent } from "../../common/track/identify"
 import RootStore from "../stores/RootStore"
 
 export const playOrPause = (rootStore: RootStore) => () => {
-  const {
-    services: { player },
-  } = rootStore
+  const { player } = rootStore
   if (player.isPlaying) {
     player.stop()
   } else {
@@ -13,10 +11,7 @@ export const playOrPause = (rootStore: RootStore) => () => {
 }
 
 export const stop = (rootStore: RootStore) => () => {
-  const {
-    services: { player },
-    pianoRollStore,
-  } = rootStore
+  const { player, pianoRollStore } = rootStore
   player.stop()
   player.position = 0
   pianoRollStore.setScrollLeftInTicks(0)
@@ -29,11 +24,7 @@ const defaultTimeSignature = {
 }
 
 export const rewindOneBar = (rootStore: RootStore) => () => {
-  const {
-    song,
-    services: { player },
-    pianoRollStore,
-  } = rootStore
+  const { song, player, pianoRollStore } = rootStore
   const e =
     song.conductorTrack?.getTimeSignatureEvent(player.position) ??
     defaultTimeSignature
@@ -66,11 +57,7 @@ export const rewindOneBar = (rootStore: RootStore) => () => {
 }
 
 export const fastForwardOneBar = (rootStore: RootStore) => () => {
-  const {
-    song,
-    services: { player },
-    pianoRollStore,
-  } = rootStore
+  const { song, player, pianoRollStore } = rootStore
   const { quantizer } = pianoRollStore
 
   const e =
@@ -137,9 +124,7 @@ export const toggleGhost = (RootStore: RootStore) => () => {
 
 export const previewNote =
   (rootStore: RootStore) => (channel: number, noteNumber: number) => {
-    const {
-      services: { player },
-    } = rootStore
+    const { player } = rootStore
     player.playNote({
       channel: channel,
       noteNumber: noteNumber,
@@ -151,7 +136,7 @@ export const previewNote =
 export const previewNoteById = (rootStore: RootStore) => (noteId: number) => {
   const {
     song,
-    services: { player },
+    player,
     pianoRollStore: { quantizer },
   } = rootStore
   const selectedTrack = song.selectedTrack
@@ -166,9 +151,7 @@ export const previewNoteById = (rootStore: RootStore) => (noteId: number) => {
 }
 
 export const setLoopBegin = (rootStore: RootStore) => (tick: number) => {
-  const {
-    services: { player },
-  } = rootStore
+  const { player } = rootStore
   player.loop = {
     end: Math.max(tick, player.loop?.end ?? tick),
     enabled: player.loop?.enabled ?? false,
@@ -177,9 +160,7 @@ export const setLoopBegin = (rootStore: RootStore) => (tick: number) => {
 }
 
 export const setLoopEnd = (rootStore: RootStore) => (tick: number) => {
-  const {
-    services: { player },
-  } = rootStore
+  const { player } = rootStore
   player.loop = {
     begin: Math.min(tick, player.loop?.begin ?? tick),
     enabled: player.loop?.enabled ?? false,
@@ -188,9 +169,7 @@ export const setLoopEnd = (rootStore: RootStore) => (tick: number) => {
 }
 
 export const toggleEnableLoop = (rootStore: RootStore) => () => {
-  const {
-    services: { player },
-  } = rootStore
+  const { player } = rootStore
   if (player.loop === null) {
     return
   }

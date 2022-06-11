@@ -45,7 +45,7 @@ export const setSong = (rootStore: RootStore) => (song: Song) => {
   rootStore.rootViewStore.openTrackListDrawer = true
   rootStore.historyStore.clear()
 
-  const { player } = rootStore.services
+  const { player } = rootStore
   player.stop()
   player.reset()
   player.position = 0

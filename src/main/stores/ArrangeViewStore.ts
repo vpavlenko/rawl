@@ -65,7 +65,7 @@ export default class ArrangeViewStore {
   // keep scroll position to cursor
   setUpAutorun() {
     autorun(() => {
-      const { isPlaying, position } = this.rootStore.services.player
+      const { isPlaying, position } = this.rootStore.player
       const { scrollLeft, transform, canvasWidth } = this
       if (this.autoScroll && isPlaying) {
         const x = transform.getX(position)
@@ -173,7 +173,7 @@ export default class ArrangeViewStore {
   }
 
   get cursorX(): number {
-    return this.transform.getX(this.rootStore.services.player.position)
+    return this.transform.getX(this.rootStore.player.position)
   }
 
   get selectionRect(): IRect | null {

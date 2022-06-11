@@ -207,7 +207,7 @@ export const arrangeCopySelection = (rootStore: RootStore) => () => {
 export const arrangePasteSelection = (rootStore: RootStore) => () => {
   const {
     song: { tracks },
-    services: { player },
+    player,
     arrangeViewStore: { selectedTrackId },
   } = rootStore
 

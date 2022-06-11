@@ -25,23 +25,6 @@ export const getSelectionBounds = (
   }
 }
 
-export const movedSelectionTo = (
-  selection: Selection,
-  tick: number,
-  number: number
-): Selection => {
-  const s = cloneDeep(selection)
-
-  const duration = selection.to.tick - selection.from.tick
-  const width = selection.to.noteNumber - selection.from.noteNumber
-  s.from.tick = tick
-  s.to.tick = tick + duration
-  s.from.noteNumber = number
-  s.to.noteNumber = number + width
-
-  return s
-}
-
 export const movedSelection = (
   selection: Selection,
   dt: number,

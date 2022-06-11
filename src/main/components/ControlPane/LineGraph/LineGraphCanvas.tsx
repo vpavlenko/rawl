@@ -4,12 +4,15 @@ import { CSSProperties, useMemo, VFC } from "react"
 import { IPoint, IRect } from "../../../../common/geometry"
 import { ControlCoordTransform } from "../../../../common/transform/ControlCoordTransform"
 import { matrixFromTranslation } from "../../../helpers/matrix"
-import { IDValue } from "../../../hooks/recycleKeys"
 import { useStores } from "../../../hooks/useStores"
 import { Beats } from "../../GLNodes/Beats"
 import { Cursor } from "../../GLNodes/Cursor"
 import { Selection } from "../../GLNodes/Selection"
 import { LineGraphItems } from "./LineGraphItems"
+
+interface IDValue {
+  id: number
+}
 
 export interface LineGraphCanvasProps {
   width: number

@@ -30,8 +30,8 @@ export default class RootStore {
   readonly exportStore = new ExportStore(this)
   readonly player: Player
   readonly synth: SoundFontSynth
-  readonly synthGroup: GroupOutput
-  readonly midiInput: MIDIInput
+  readonly synthGroup = new GroupOutput()
+  readonly midiInput = new MIDIInput()
   readonly midiRecorder: MIDIRecorder
 
   constructor() {
@@ -48,7 +48,6 @@ export default class RootStore {
       context,
       "https://cdn.jsdelivr.net/gh/ryohey/signal@6959f35/public/A320U_drums.sf2"
     )
-    this.synthGroup = new GroupOutput()
     this.synthGroup.outputs.push({ synth: this.synth, isEnabled: true })
 
     this.player = new Player(
@@ -57,7 +56,6 @@ export default class RootStore {
       this.trackMute,
       this
     )
-    this.midiInput = new MIDIInput()
     this.midiRecorder = new MIDIRecorder(this.player, this)
 
     this.pianoRollStore = new PianoRollStore(this)

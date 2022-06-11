@@ -1,4 +1,4 @@
-export function download(url: string, name = "noname") {
+function download(url: string, name = "noname") {
   const a = document.createElement("a")
   a.href = url
   a.download = name

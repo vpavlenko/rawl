@@ -153,11 +153,6 @@ function drawTimeSignatures(
   })
 }
 
-export interface TickEvent<E> {
-  tick: number
-  nativeEvent: E
-}
-
 export interface PianoRulerProps {
   rulerStore: RulerStore
   style?: React.CSSProperties

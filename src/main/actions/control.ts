@@ -9,15 +9,6 @@ import clipboard from "../services/Clipboard"
 import RootStore from "../stores/RootStore"
 import { pushHistory } from "./history"
 
-export const removeSelectedControlEvents = (rootStore: RootStore) => () => {
-  const { selectedControllerEventIds } = rootStore.pianoRollStore
-  pushHistory(rootStore)()
-  selectedControllerEventIds.forEach((id) =>
-    rootStore.song.selectedTrack?.removeEvent(id)
-  )
-  resetControlSelection(rootStore)()
-}
-
 export const createOrUpdateControlEventsValue =
   (rootStore: RootStore) =>
   <T extends ControllerEvent | PitchBendEvent>(event: T) => {

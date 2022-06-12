@@ -13,7 +13,11 @@ import { pojo } from "../helpers/pojo"
 import { localized } from "../localize/localizedString"
 import { getInstrumentName } from "../midi/GM"
 import { programChangeMidiEvent, trackNameMidiEvent } from "../midi/MidiEvent"
-import { isControllerEventWithType, isNoteEvent } from "./identify"
+import {
+  isControllerEventWithType,
+  isEndOfTrackEvent,
+  isNoteEvent,
+} from "./identify"
 import {
   getEndOfTrackEvent,
   getLast,
@@ -157,12 +161,14 @@ export default class Track {
 
   updateEndOfTrack() {
     const tick = Math.max(
-      ...this.events.map((e) => {
-        if (isNoteEvent(e)) {
-          return e.tick + e.duration
-        }
-        return e.tick
-      })
+      ...this.events
+        .filter((e) => !isEndOfTrackEvent(e))
+        .map((e) => {
+          if (isNoteEvent(e)) {
+            return e.tick + e.duration
+          }
+          return e.tick
+        })
     )
     this.setEndOfTrack(tick)
   }

@@ -5,6 +5,7 @@ import {
   pasteSelection,
   quantizeSelectedNotes,
   resetSelection,
+  selectAllNotes,
   selectNextNote,
   selectPreviousNote,
   transposeSelection,
@@ -37,6 +38,11 @@ export const pianoNotesKeyboardShortcutActions = (
     code: "KeyD",
     metaKey: true,
     run: duplicateSelection(rootStore),
+  },
+  {
+    code: "KeyA",
+    metaKey: true,
+    run: selectAllNotes(rootStore),
   },
   {
     code: "KeyQ",

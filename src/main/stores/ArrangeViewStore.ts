@@ -13,7 +13,6 @@ import RootStore from "./RootStore"
 import { RulerStore } from "./RulerStore"
 
 export default class ArrangeViewStore {
-  readonly rootStore: RootStore
   readonly rulerStore: RulerStore
 
   scaleX = 1
@@ -32,7 +31,7 @@ export default class ArrangeViewStore {
   canvasHeight = 0
   selectedTrackId = 0
 
-  constructor(rootStore: RootStore) {
+  constructor(readonly rootStore: RootStore) {
     this.rootStore = rootStore
     this.rulerStore = new RulerStore(this)
 

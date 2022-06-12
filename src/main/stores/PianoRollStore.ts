@@ -37,7 +37,6 @@ export type PianoNoteItem = IRect & {
 }
 
 export default class PianoRollStore {
-  readonly rootStore: RootStore
   readonly rulerStore: RulerStore
 
   scrollLeftTicks = 0
@@ -71,8 +70,7 @@ export default class PianoRollStore {
   controlSelection: ControlSelection | null = null
   selectedControllerEventIds: number[] = []
 
-  constructor(rootStore: RootStore) {
-    this.rootStore = rootStore
+  constructor(readonly rootStore: RootStore) {
     this.rulerStore = new RulerStore(this)
 
     makeObservable(this, {

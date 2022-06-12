@@ -27,7 +27,7 @@ export default class RootStore {
   readonly arrangeViewStore = new ArrangeViewStore(this)
   readonly tempoEditorStore = new TempoEditorStore(this)
   readonly midiDeviceStore = new MIDIDeviceStore()
-  readonly exportStore = new ExportStore(this)
+  readonly exportStore = new ExportStore()
   readonly player: Player
   readonly synth: SoundFontSynth
   readonly synthGroup = new GroupOutput()

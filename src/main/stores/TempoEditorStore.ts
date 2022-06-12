@@ -14,7 +14,6 @@ import RootStore from "./RootStore"
 import { RulerStore } from "./RulerStore"
 
 export default class TempoEditorStore {
-  readonly rootStore: RootStore
   readonly rulerStore: RulerStore
 
   scrollLeft: number = 0
@@ -28,8 +27,7 @@ export default class TempoEditorStore {
   selection: TempoSelection | null = null
   selectedEventIds: number[] = []
 
-  constructor(rootStore: RootStore) {
-    this.rootStore = rootStore
+  constructor(readonly rootStore: RootStore) {
     this.rulerStore = new RulerStore(this)
 
     makeObservable(this, {

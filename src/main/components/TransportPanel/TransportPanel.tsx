@@ -131,9 +131,9 @@ const TempoForm: FC = observer(() => {
     const fixedTempo = Math.max(1, Math.min(512, tempo))
     rootStore.song.conductorTrack?.setTempo(
       fixedTempo,
-      rootStore.services.player.position
+      rootStore.player.position
     )
-    rootStore.services.player.currentTempo = fixedTempo
+    rootStore.player.currentTempo = fixedTempo
   }
 
   const onKeyPressTempo = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -189,16 +189,14 @@ export const Right = styled.div`
 
 export const TransportPanel: FC = observer(() => {
   const rootStore = useStores()
-  const {
-    services: { player },
-  } = rootStore
+  const { player } = rootStore
 
   const { isPlaying, isMetronomeEnabled, loop } = player
-  const isRecording = rootStore.services.midiRecorder.isRecording
+  const isRecording = rootStore.midiRecorder.isRecording
   const canRecording =
     Object.values(rootStore.midiDeviceStore.enabledInputs).filter((e) => e)
       .length > 0
-  const isSynthLoading = rootStore.services.synth.isLoading
+  const isSynthLoading = rootStore.synth.isLoading
 
   const onClickPlay = playOrPause(rootStore)
   const onClickStop = stop(rootStore)

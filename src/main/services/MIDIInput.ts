@@ -47,5 +47,5 @@ export const previewMidiInput =
     // modify channel to the selected track channel
     event.channel = channel
 
-    rootStore.services.player.sendEvent(event)
+    rootStore.player.sendEvent(event)
   }

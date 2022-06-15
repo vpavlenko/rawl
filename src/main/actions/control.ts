@@ -35,7 +35,7 @@ export const createOrUpdateControlEventsValue =
     } else {
       selectedTrack.createOrUpdate({
         ...event,
-        tick: rootStore.services.player.position,
+        tick: rootStore.player.position,
       })
     }
   }
@@ -101,7 +101,7 @@ export const copyControlSelection = (rootStore: RootStore) => () => {
 export const pasteControlSelection = (rootStore: RootStore) => () => {
   const {
     song: { selectedTrack },
-    services: { player },
+    player,
   } = rootStore
 
   if (selectedTrack === undefined) {

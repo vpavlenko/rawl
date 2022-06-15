@@ -17,14 +17,6 @@ import RootViewStore from "./RootViewStore"
 import Router from "./Router"
 import TempoEditorStore from "./TempoEditorStore"
 
-export interface Services {
-  player: Player
-  synth: SoundFontSynth
-  synthGroup: GroupOutput
-  midiInput: MIDIInput
-  midiRecorder: MIDIRecorder
-}
-
 export default class RootStore {
   song: Song = emptySong()
   readonly router = new Router()
@@ -35,9 +27,12 @@ export default class RootStore {
   readonly arrangeViewStore = new ArrangeViewStore(this)
   readonly tempoEditorStore = new TempoEditorStore(this)
   readonly midiDeviceStore = new MIDIDeviceStore()
-  readonly exportStore = new ExportStore(this)
-
-  readonly services: Services
+  readonly exportStore = new ExportStore()
+  readonly player: Player
+  readonly synth: SoundFontSynth
+  readonly synthGroup = new GroupOutput()
+  readonly midiInput = new MIDIInput()
+  readonly midiRecorder: MIDIRecorder
 
   constructor() {
     makeObservable(this, {
@@ -45,7 +40,7 @@ export default class RootStore {
     })
 
     const context = new (window.AudioContext || window.webkitAudioContext)()
-    const synth = new SoundFontSynth(
+    this.synth = new SoundFontSynth(
       context,
       "https://cdn.jsdelivr.net/gh/ryohey/signal@4569a31/public/A320U.sf2"
     )
@@ -53,26 +48,23 @@ export default class RootStore {
       context,
       "https://cdn.jsdelivr.net/gh/ryohey/signal@6959f35/public/A320U_drums.sf2"
     )
-    const synthGroup = new GroupOutput()
-    synthGroup.outputs.push({ synth, isEnabled: true })
+    this.synthGroup.outputs.push({ synth: this.synth, isEnabled: true })
 
-    const player = new Player(synthGroup, metronomeSynth, this.trackMute, this)
-    const midiInput = new MIDIInput()
-    const midiRecorder = new MIDIRecorder(player, this)
-    this.services = {
-      player,
-      synth,
-      synthGroup,
-      midiInput,
-      midiRecorder,
-    }
+    this.player = new Player(
+      this.synthGroup,
+      metronomeSynth,
+      this.trackMute,
+      this
+    )
+    this.midiRecorder = new MIDIRecorder(this.player, this)
+
     this.pianoRollStore = new PianoRollStore(this)
 
     const preview = previewMidiInput(this)
 
-    midiInput.onMidiMessage = (e) => {
+    this.midiInput.onMidiMessage = (e) => {
       preview(e)
-      midiRecorder.onMessage(e)
+      this.midiRecorder.onMessage(e)
     }
 
     this.pianoRollStore.setUpAutorun()

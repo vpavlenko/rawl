@@ -15,7 +15,7 @@ export const handleCreateSelectionDrag =
     const {
       pianoRollStore,
       pianoRollStore: { quantizer },
-      services: { player },
+      player,
     } = rootStore
     pianoRollStore.selectedControllerEventIds = []
 

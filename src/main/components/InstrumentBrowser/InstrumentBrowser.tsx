@@ -198,7 +198,7 @@ const InstrumentBrowserWrapper: FC = observer(() => {
   const track = rootStore.song.selectedTrack
   const trackId = rootStore.song.selectedTrackId
   const s = rootStore.pianoRollStore
-  const player = rootStore.services.player
+  const player = rootStore.player
   const song = rootStore.song
   const instrumentBrowserSetting =
     rootStore.pianoRollStore.instrumentBrowserSetting

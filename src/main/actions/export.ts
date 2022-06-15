@@ -13,11 +13,7 @@ const waitForAnimationFrame = () =>
   new Promise<void>((resolve) => window.requestAnimationFrame(() => resolve()))
 
 export const exportSongAsWav = (rootStore: RootStore) => async () => {
-  const {
-    song,
-    services: { synth },
-    exportStore,
-  } = rootStore
+  const { song, synth, exportStore } = rootStore
 
   const soundFontData = synth.loadedSoundFontData
   if (soundFontData === null) {

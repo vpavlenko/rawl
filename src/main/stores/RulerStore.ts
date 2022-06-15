@@ -29,12 +29,9 @@ export interface TimeSignature {
 }
 
 export class RulerStore {
-  readonly parent: RulerProvider
   selectedTimeSignatureEventIds: number[] = []
 
-  constructor(parent: RulerProvider) {
-    this.parent = parent
-
+  constructor(readonly parent: RulerProvider) {
     makeObservable(this, {
       selectedTimeSignatureEventIds: observable.shallow,
       beats: computed,

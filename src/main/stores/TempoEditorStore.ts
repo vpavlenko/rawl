@@ -14,7 +14,6 @@ import RootStore from "./RootStore"
 import { RulerStore } from "./RulerStore"
 
 export default class TempoEditorStore {
-  readonly rootStore: RootStore
   readonly rulerStore: RulerStore
 
   scrollLeft: number = 0
@@ -28,8 +27,7 @@ export default class TempoEditorStore {
   selection: TempoSelection | null = null
   selectedEventIds: number[] = []
 
-  constructor(rootStore: RootStore) {
-    this.rootStore = rootStore
+  constructor(readonly rootStore: RootStore) {
     this.rulerStore = new RulerStore(this)
 
     makeObservable(this, {
@@ -54,7 +52,7 @@ export default class TempoEditorStore {
 
   setUpAutorun() {
     autorun(() => {
-      const { isPlaying, position } = this.rootStore.services.player
+      const { isPlaying, position } = this.rootStore.player
       const { autoScroll, scrollLeft, transform, canvasWidth } = this
 
       // keep scroll position to cursor
@@ -74,7 +72,7 @@ export default class TempoEditorStore {
   }
 
   get cursorX(): number {
-    return this.transform.getX(this.rootStore.services.player.position)
+    return this.transform.getX(this.rootStore.player.position)
   }
 
   get items() {

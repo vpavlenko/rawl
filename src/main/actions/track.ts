@@ -64,7 +64,7 @@ export const createEvent =
   (rootStore: RootStore) => (e: AnyChannelEvent, tick?: number) => {
     const {
       song,
-      services: { player },
+      player,
       pianoRollStore: { quantizer },
     } = rootStore
 
@@ -81,7 +81,7 @@ export const createEvent =
     // 即座に反映する
     // Reflect immediately
     if (tick !== undefined) {
-      rootStore.services.player.sendEvent(e)
+      rootStore.player.sendEvent(e)
     }
 
     return id
@@ -180,7 +180,7 @@ export const createNote =
     const {
       song,
       pianoRollStore,
-      services: { player },
+      player,
       pianoRollStore: { quantizer },
     } = rootStore
     const selectedTrack = song.selectedTrack
@@ -211,10 +211,7 @@ export const createNote =
   }
 
 export const muteNote = (rootStore: RootStore) => (noteNumber: number) => {
-  const {
-    song,
-    services: { player },
-  } = rootStore
+  const { song, player } = rootStore
   const selectedTrack = song.selectedTrack
   if (selectedTrack === undefined || selectedTrack.channel == undefined) {
     return
@@ -229,10 +226,7 @@ export type MoveNote = {
 }
 
 export const moveNote = (rootStore: RootStore) => (params: MoveNote) => {
-  const {
-    song,
-    services: { player },
-  } = rootStore
+  const { song, player } = rootStore
 
   const selectedTrack = song.selectedTrack
   if (selectedTrack === undefined || selectedTrack.channel == undefined) {
@@ -326,10 +320,7 @@ export const setTrackName = (rootStore: RootStore) => (name: string) => {
 
 export const setTrackVolume =
   (rootStore: RootStore) => (trackId: number, volume: number) => {
-    const {
-      song,
-      services: { player },
-    } = rootStore
+    const { song, player } = rootStore
 
     pushHistory(rootStore)()
     const track = song.tracks[trackId]
@@ -342,10 +333,7 @@ export const setTrackVolume =
 
 export const setTrackPan =
   (rootStore: RootStore) => (trackId: number, pan: number) => {
-    const {
-      song,
-      services: { player },
-    } = rootStore
+    const { song, player } = rootStore
 
     pushHistory(rootStore)()
     const track = song.tracks[trackId]
@@ -358,10 +346,7 @@ export const setTrackPan =
 
 export const setTrackInstrument =
   (rootStore: RootStore) => (trackId: number, programNumber: number) => {
-    const {
-      song,
-      services: { player },
-    } = rootStore
+    const { song, player } = rootStore
 
     pushHistory(rootStore)()
     const track = song.tracks[trackId]

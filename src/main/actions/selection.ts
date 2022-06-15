@@ -342,7 +342,7 @@ export const startSelection =
   (point: NotePoint, keepSelectedNoteIds: boolean = false) => {
     const {
       pianoRollStore,
-      services: { player },
+      player,
       pianoRollStore: { quantizer },
     } = rootStore
 
@@ -450,10 +450,7 @@ export const deleteSelection = (rootStore: RootStore) => () => {
 }
 
 export const pasteSelection = (rootStore: RootStore) => () => {
-  const {
-    song,
-    services: { player },
-  } = rootStore
+  const { song, player } = rootStore
 
   const selectedTrack = song.selectedTrack
   if (selectedTrack === undefined) {

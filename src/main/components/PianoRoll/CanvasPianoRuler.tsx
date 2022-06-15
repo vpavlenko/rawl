@@ -182,10 +182,8 @@ const PianoRuler: FC<PianoRulerProps> = observer(({ rulerStore, style }) => {
   } = rulerStore.parent
   const { beats, timeSignatures, quantizer } = rulerStore
   const {
-    services: {
-      player,
-      player: { loop },
-    },
+    player,
+    player: { loop },
   } = rootStore
 
   const timeSignatureHitTest = (tick: number) => {

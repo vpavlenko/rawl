@@ -13,7 +13,6 @@ import RootStore from "./RootStore"
 import { RulerStore } from "./RulerStore"
 
 export default class ArrangeViewStore {
-  readonly rootStore: RootStore
   readonly rulerStore: RulerStore
 
   scaleX = 1
@@ -32,7 +31,7 @@ export default class ArrangeViewStore {
   canvasHeight = 0
   selectedTrackId = 0
 
-  constructor(rootStore: RootStore) {
+  constructor(readonly rootStore: RootStore) {
     this.rootStore = rootStore
     this.rulerStore = new RulerStore(this)
 
@@ -65,7 +64,7 @@ export default class ArrangeViewStore {
   // keep scroll position to cursor
   setUpAutorun() {
     autorun(() => {
-      const { isPlaying, position } = this.rootStore.services.player
+      const { isPlaying, position } = this.rootStore.player
       const { scrollLeft, transform, canvasWidth } = this
       if (this.autoScroll && isPlaying) {
         const x = transform.getX(position)
@@ -173,7 +172,7 @@ export default class ArrangeViewStore {
   }
 
   get cursorX(): number {
-    return this.transform.getX(this.rootStore.services.player.position)
+    return this.transform.getX(this.rootStore.player.position)
   }
 
   get selectionRect(): IRect | null {

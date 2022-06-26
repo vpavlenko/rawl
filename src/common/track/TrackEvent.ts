@@ -11,6 +11,10 @@ export interface DeltaTimeProvider {
 
 export type TrackEventRequired = TickProvider & {
   id: number
+
+  // Mark as recording in progress
+  // Do not playback in Player
+  isRecording?: boolean
 }
 
 export type TrackEventOf<T> = DistributiveOmit<T, "deltaTime" | "channel"> &

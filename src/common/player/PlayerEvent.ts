@@ -16,6 +16,7 @@ export const convertTrackEvents = (
   trackId: number
 ) =>
   events
+    .filter((e) => !(e.isRecording === true))
     .flatMap((e) => deassembleNote(e))
     .map(
       (e) =>

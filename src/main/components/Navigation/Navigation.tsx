@@ -1,13 +1,15 @@
 import styled from "@emotion/styled"
-import { Forum, Help, List, Schedule, Settings } from "@mui/icons-material"
+import { Forum, Help, Settings } from "@mui/icons-material"
 import { Tooltip } from "@mui/material"
 import Color from "color"
 import { observer } from "mobx-react-lite"
-import React, { FC, useCallback } from "react"
+import { FC, useCallback } from "react"
 import { localized } from "../../../common/localize/localizedString"
 import { useStores } from "../../hooks/useStores"
+import ArrangeIcon from "../../images/icons/arrange.svg"
+import PianoIcon from "../../images/icons/piano.svg"
+import TempoIcon from "../../images/icons/tempo.svg"
 import Logo from "../../images/logo-circle.svg"
-import PianoIcon from "../../images/piano.svg"
 import { FileMenuButton } from "./FileMenuButton"
 
 const BannerContainer = styled.div`
@@ -60,11 +62,6 @@ export const Tab = styled.div`
 }
 `
 
-const InstrumentIcon = styled(PianoIcon)`
-  width: 1.3rem;
-  fill: currentColor;
-`
-
 const FlexibleSpacer = styled.div`
   flex-grow: 1;
 `
@@ -94,7 +91,14 @@ export const Navigation: FC = observer(() => {
           className={router.path === "/track" ? "active" : undefined}
           onClick={useCallback(() => (router.path = "/track"), [])}
         >
-          <InstrumentIcon viewBox="0 0 24 24" />
+          <PianoIcon
+            style={{
+              width: "1.3rem",
+              height: "1.3rem",
+              fill: "currentColor",
+            }}
+            viewBox="0 0 128 128"
+          />
           <span>{localized("piano-roll", "Piano Roll")}</span>
         </Tab>
       </Tooltip>
@@ -109,7 +113,14 @@ export const Navigation: FC = observer(() => {
           className={router.path === "/arrange" ? "active" : undefined}
           onClick={useCallback(() => (router.path = "/arrange"), [])}
         >
-          <List />
+          <ArrangeIcon
+            style={{
+              width: "1.3rem",
+              height: "1.3rem",
+              fill: "currentColor",
+            }}
+            viewBox="0 0 128 128"
+          />
           <span>{localized("arrange", "Arrange")}</span>
         </Tab>
       </Tooltip>
@@ -124,7 +135,14 @@ export const Navigation: FC = observer(() => {
           className={router.path === "/tempo" ? "active" : undefined}
           onClick={useCallback(() => (router.path = "/tempo"), [])}
         >
-          <Schedule />
+          <TempoIcon
+            style={{
+              width: "1.3rem",
+              height: "1.3rem",
+              fill: "currentColor",
+            }}
+            viewBox="0 0 128 128"
+          />
           <span>{localized("tempo", "Tempo")}</span>
         </Tab>
       </Tooltip>

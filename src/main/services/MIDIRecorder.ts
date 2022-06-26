@@ -1,7 +1,7 @@
 import { deserializeSingleEvent, Stream } from "midifile-ts"
 import { makeObservable, observable, observe } from "mobx"
 import Player from "../../common/player"
-import { NoteEvent } from "../../common/track"
+import { NoteEvent, TrackEvent } from "../../common/track"
 import { SongStore } from "../stores/SongStore"
 
 export class MIDIRecorder {
@@ -38,8 +38,18 @@ export class MIDIRecorder {
       })
     })
 
-    observe(this, "isRecording", () => {
+    observe(this, "isRecording", (change) => {
       this.recordedNotes = []
+
+      if (!change.newValue) {
+        // stop recording
+        this.songStore.song.tracks.forEach((track) => {
+          const events = track.events
+            .filter((e) => e.isRecording === true)
+            .map<Partial<TrackEvent>>((e) => ({ ...e, isRecording: false }))
+          track.updateEvents(events)
+        })
+      }
     })
   }
 
@@ -71,6 +81,7 @@ export class MIDIRecorder {
           tick,
           velocity: message.velocity,
           duration: 0,
+          isRecording: true,
         })
         this.recordedNotes.push(note)
         break
@@ -90,7 +101,7 @@ export class MIDIRecorder {
         break
       }
       default: {
-        track.addEvent({ ...message, tick })
+        track.addEvent({ ...message, tick, isRecording: true })
         break
       }
     }

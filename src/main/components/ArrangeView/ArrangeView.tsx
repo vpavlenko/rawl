@@ -338,7 +338,7 @@ export const ArrangeView: FC = observer(() => {
         <div
           ref={ref}
           onMouseDown={onMouseDown}
-          onContextMenu={useCallback((e) => e.preventDefault(), [])}
+          onContextMenu={useCallback((e: any) => e.preventDefault(), [])}
           onWheel={onWheel}
           style={{
             display: "flex",

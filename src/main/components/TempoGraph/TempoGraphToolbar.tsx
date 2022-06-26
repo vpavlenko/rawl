@@ -41,7 +41,7 @@ export const TempoGraphToolbar: FC = observer(() => {
       <ToolSelector
         mouseMode={mouseMode}
         onSelect={useCallback(
-          (mouseMode) => (tempoEditorStore.mouseMode = mouseMode),
+          (mouseMode: any) => (tempoEditorStore.mouseMode = mouseMode),
           []
         )}
       />

@@ -19,10 +19,18 @@ const NavBackButton = styled.button`
   }
 `
 
-const ArrowIcon = styled(ArrowLeft)<{ isOpen: boolean }>`
-  transition: transform 0.1s ease;
-  transform: scale(1.5) rotateZ(${({ isOpen }) => (isOpen ? "0deg" : "-90deg")});
-`
+interface ArrowIconProps {
+  isOpen: boolean
+}
+
+const ArrowIcon: FC<ArrowIconProps> = ({ isOpen }) => (
+  <ArrowLeft
+    style={{
+      transition: "transform 0.1s ease",
+      transform: `scale(1.5) rotateZ(${isOpen ? "0deg" : "-90deg"})`,
+    }}
+  />
+)
 
 export const TrackListMenuButton: FC = observer(() => {
   const { rootViewStore } = useStores()

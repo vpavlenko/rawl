@@ -255,6 +255,9 @@ export const moveNote = (rootStore: RootStore) => (params: MoveNote) => {
     }
   }
 }
+
+const MIN_DURATION = 10
+
 export const resizeNoteLeft =
   (rootStore: RootStore) => (id: number, tick: number, quantize: boolean) => {
     const {
@@ -276,7 +279,8 @@ export const resizeNoteLeft =
       return null
     }
     const duration = note.duration + (note.tick - tick)
-    if (note.tick !== tick && duration >= (quantize ? quantizer.unit : 1)) {
+    const minDuration = quantize ? quantizer.unit : MIN_DURATION
+    if (note.tick !== tick && duration >= minDuration) {
       pushHistory(rootStore)()
       pianoRollStore.lastNoteDuration = duration
       resizeNotesInSelectionLeftBy(rootStore)(tick - note.tick)
@@ -299,7 +303,8 @@ export const resizeNoteRight =
       return null
     }
     const right = quantize ? quantizer.round(tick) : tick
-    const duration = Math.max(quantize ? quantizer.unit : 1, right - note.tick)
+    const minDuration = quantize ? quantizer.unit : MIN_DURATION
+    const duration = Math.max(minDuration, right - note.tick)
     if (note.duration !== duration) {
       pushHistory(rootStore)()
       pianoRollStore.lastNoteDuration = duration

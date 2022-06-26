@@ -157,14 +157,18 @@ const dragNoteLeftAction =
   (e) => {
     const local = rootStore.pianoRollStore.getLocal(e)
     const {
-      pianoRollStore: { transform },
+      pianoRollStore: { transform, isQuantizeEnabled },
     } = rootStore
     const startTick = transform.getTicks(local.x)
 
     observeDrag2(e, {
       onMouseMove: (e, delta) => {
         const tick = startTick + transform.getTicks(delta.x)
-        resizeNoteLeft(rootStore)(item.id, tick, !e.shiftKey)
+        resizeNoteLeft(rootStore)(
+          item.id,
+          tick,
+          !e.shiftKey && isQuantizeEnabled
+        )
         e.stopPropagation()
       },
       onClick: (e) => {
@@ -181,14 +185,18 @@ const dragNoteRightAction =
   (e) => {
     const local = rootStore.pianoRollStore.getLocal(e)
     const {
-      pianoRollStore: { transform },
+      pianoRollStore: { transform, isQuantizeEnabled },
     } = rootStore
     const startTick = transform.getTicks(local.x)
 
     observeDrag2(e, {
       onMouseMove: (e, delta) => {
         const tick = startTick + transform.getTicks(delta.x)
-        resizeNoteRight(rootStore)(item.id, tick, !e.shiftKey)
+        resizeNoteRight(rootStore)(
+          item.id,
+          tick,
+          !e.shiftKey && isQuantizeEnabled
+        )
         e.stopPropagation()
       },
       onClick: (e) => {

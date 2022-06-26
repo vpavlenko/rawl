@@ -256,7 +256,7 @@ export const moveNote = (rootStore: RootStore) => (params: MoveNote) => {
   }
 }
 export const resizeNoteLeft =
-  (rootStore: RootStore) => (id: number, tick: number) => {
+  (rootStore: RootStore) => (id: number, tick: number, quantize: boolean) => {
     const {
       song,
       pianoRollStore,
@@ -268,13 +268,15 @@ export const resizeNoteLeft =
     }
     // 右端を固定して長さを変更
     // Fix the right end and change the length
-    tick = quantizer.round(tick)
+    if (quantize) {
+      tick = quantizer.round(tick)
+    }
     const note = selectedTrack.getEventById(id)
     if (note == undefined || !isNoteEvent(note)) {
       return null
     }
     const duration = note.duration + (note.tick - tick)
-    if (note.tick !== tick && duration >= quantizer.unit) {
+    if (note.tick !== tick && duration >= (quantize ? quantizer.unit : 1)) {
       pushHistory(rootStore)()
       pianoRollStore.lastNoteDuration = duration
       resizeNotesInSelectionLeftBy(rootStore)(tick - note.tick)
@@ -282,7 +284,7 @@ export const resizeNoteLeft =
   }
 
 export const resizeNoteRight =
-  (rootStore: RootStore) => (id: number, tick: number) => {
+  (rootStore: RootStore) => (id: number, tick: number, quantize: boolean) => {
     const {
       song,
       pianoRollStore,
@@ -296,8 +298,8 @@ export const resizeNoteRight =
     if (note == undefined || !isNoteEvent(note)) {
       return null
     }
-    const right = quantizer.round(tick)
-    const duration = Math.max(quantizer.unit, right - note.tick)
+    const right = quantize ? quantizer.round(tick) : tick
+    const duration = Math.max(quantize ? quantizer.unit : 1, right - note.tick)
     if (note.duration !== duration) {
       pushHistory(rootStore)()
       pianoRollStore.lastNoteDuration = duration

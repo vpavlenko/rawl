@@ -133,9 +133,12 @@ const dragNoteCenterAction =
     observeDrag2(e, {
       onMouseMove: (e, delta) => {
         const position = pointAdd(item, delta)
+        const rawTick = transform.getTicks(position.x)
+        const tick = e.shiftKey ? rawTick : quantizer.round(rawTick)
+
         moveNote(rootStore)({
           id: item.id,
-          tick: quantizer.round(transform.getTicks(position.x)),
+          tick,
           noteNumber: Math.round(transform.getNoteNumberFractional(position.y)),
         })
         e.stopPropagation()
@@ -161,7 +164,7 @@ const dragNoteLeftAction =
     observeDrag2(e, {
       onMouseMove: (e, delta) => {
         const tick = startTick + transform.getTicks(delta.x)
-        resizeNoteLeft(rootStore)(item.id, tick)
+        resizeNoteLeft(rootStore)(item.id, tick, !e.shiftKey)
         e.stopPropagation()
       },
       onClick: (e) => {
@@ -185,7 +188,7 @@ const dragNoteRightAction =
     observeDrag2(e, {
       onMouseMove: (e, delta) => {
         const tick = startTick + transform.getTicks(delta.x)
-        resizeNoteRight(rootStore)(item.id, tick)
+        resizeNoteRight(rootStore)(item.id, tick, !e.shiftKey)
         e.stopPropagation()
       },
       onClick: (e) => {

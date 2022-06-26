@@ -132,15 +132,15 @@ export const Navigation: FC = observer(() => {
       <Tab
         onClick={useCallback(() => (rootViewStore.openDeviceDialog = true), [])}
       >
-        <Settings />
+        <Settings style={IconStyle} />
         <span>{localized("settings", "Settings")}</span>
       </Tab>
       <Tab onClick={useCallback(() => (rootViewStore.openHelp = true), [])}>
-        <Help />
+        <Help style={IconStyle} />
         <span>{localized("help", "Help")} </span>
       </Tab>
       <Tab id="open-gitter-button">
-        <Forum />
+        <Forum style={IconStyle} />
         <span>{localized("open-chat", "Open Chat")} </span>
       </Tab>
     </Container>

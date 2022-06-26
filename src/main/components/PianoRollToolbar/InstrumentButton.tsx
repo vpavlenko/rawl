@@ -1,38 +1,39 @@
-import styled from "@emotion/styled"
 import { observer } from "mobx-react-lite"
 import { FC, useCallback } from "react"
-import { getInstrumentName } from "../../../common/midi/GM"
+import { categoryEmojis, getCategoryIndex } from "../../../common/midi/GM"
 import { useStores } from "../../hooks/useStores"
-import PianoIcon from "../../images/piano.svg"
 import { ToolbarButton } from "../Toolbar/ToolbarButton"
 
-const InstrumentIcon = styled(PianoIcon)`
-  margin-right: 0.5rem;
-`
-
 export const InstrumentButton: FC = observer(() => {
-  const rootStore = useStores()
+  const {
+    song: { selectedTrack },
+    pianoRollStore,
+  } = useStores()
 
-  const instrumentName =
-    rootStore.song.selectedTrack?.instrumentName ?? getInstrumentName(0)
+  if (selectedTrack === undefined) {
+    return <></>
+  }
+
+  const { programNumber, instrumentName } = selectedTrack
+  const emoji = categoryEmojis[getCategoryIndex(programNumber ?? 0)]
 
   const onClickInstrument = useCallback(() => {
-    const track = rootStore.song.selectedTrack
+    const track = selectedTrack
     if (track === undefined) {
       return
     }
     const programNumber = track.programNumber
-    rootStore.pianoRollStore.instrumentBrowserSetting = {
+    pianoRollStore.instrumentBrowserSetting = {
       isRhythmTrack: track.isRhythmTrack,
       programNumber: programNumber ?? 0,
     }
-    rootStore.pianoRollStore.openInstrumentBrowser = true
-  }, [rootStore])
+    pianoRollStore.openInstrumentBrowser = true
+  }, [pianoRollStore])
 
   return (
     <ToolbarButton onClick={onClickInstrument}>
-      <InstrumentIcon viewBox="0 0 24 24" />
-      {instrumentName}
+      <span style={{ marginRight: "0.5rem" }}>{emoji}</span>
+      <span>{instrumentName}</span>
     </ToolbarButton>
   )
 })

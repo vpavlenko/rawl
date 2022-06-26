@@ -15,7 +15,12 @@ import { observer } from "mobx-react-lite"
 import { FC } from "react"
 import { isNotUndefined } from "../../../common/helpers/array"
 import { localized } from "../../../common/localize/localizedString"
-import { fancyCategoryNames, getInstrumentName } from "../../../common/midi/GM"
+import {
+  categoryEmojis,
+  categoryNames,
+  getCategoryIndex,
+  getInstrumentName,
+} from "../../../common/midi/GM"
 import { programChangeMidiEvent } from "../../../common/midi/MidiEvent"
 import { setTrackInstrument as setTrackInstrumentAction } from "../../actions"
 import { useStores } from "../../hooks/useStores"
@@ -101,7 +106,7 @@ const InstrumentBrowser: FC<InstrumentBrowserProps> = ({
   onChange,
   setting: { programNumber, isRhythmTrack },
 }) => {
-  const selectedCategoryId = Math.floor(programNumber / 8)
+  const selectedCategoryId = getCategoryIndex(programNumber)
 
   const onChangeCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
     onChange({
@@ -218,8 +223,11 @@ const InstrumentBrowserWrapper: FC = observer(() => {
   }))
 
   const presetCategories = map(
-    groupBy(presets, (p) => Math.floor(p.programNumber / 8)),
-    (presets, index) => ({ name: fancyCategoryNames[parseInt(index)], presets })
+    groupBy(presets, (p) => getCategoryIndex(p.programNumber)),
+    (presets, index) => {
+      const cat = parseInt(index)
+      return { name: categoryEmojis[cat] + " " + categoryNames[cat], presets }
+    }
   )
 
   const onChange = (setting: InstrumentSetting) => {

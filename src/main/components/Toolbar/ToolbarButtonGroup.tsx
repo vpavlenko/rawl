@@ -14,7 +14,7 @@ const _ToolbarButtonGroupItem = styled.button<{ selected?: boolean }>`
   outline: none;
   -webkit-appearance: none;
   min-width: auto;
-  padding: 0 0.7rem;
+  padding: 0 0.5rem;
   color: inherit;
   background: ${({ theme, selected }) =>
     selected ? theme.themeColor : "inherit"};
@@ -43,11 +43,6 @@ const _ToolbarButtonGroupItem = styled.button<{ selected?: boolean }>`
 
   &:hover {
     background: ${({ theme }) => theme.secondaryBackgroundColor};
-  }
-
-  svg {
-    width: 1.3rem;
-    fill: currentColor;
   }
 `
 

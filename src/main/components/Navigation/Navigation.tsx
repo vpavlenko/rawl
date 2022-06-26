@@ -1,13 +1,15 @@
 import styled from "@emotion/styled"
-import { Forum, Help, List, Schedule, Settings } from "@mui/icons-material"
+import { Forum, Help, Settings } from "@mui/icons-material"
 import { Tooltip } from "@mui/material"
 import Color from "color"
 import { observer } from "mobx-react-lite"
-import React, { FC, useCallback } from "react"
+import { CSSProperties, FC, useCallback } from "react"
 import { localized } from "../../../common/localize/localizedString"
 import { useStores } from "../../hooks/useStores"
+import ArrangeIcon from "../../images/icons/arrange.svg"
+import PianoIcon from "../../images/icons/piano.svg"
+import TempoIcon from "../../images/icons/tempo.svg"
 import Logo from "../../images/logo-circle.svg"
-import PianoIcon from "../../images/piano.svg"
 import { FileMenuButton } from "./FileMenuButton"
 
 const BannerContainer = styled.div`
@@ -53,16 +55,7 @@ export const Tab = styled.div`
     background: ${({ theme }) =>
       Color(theme.backgroundColor).darken(0.1).hex()};
   }
-
-  > svg {
-    margin-right: 0.4rem;
-  }
 }
-`
-
-const InstrumentIcon = styled(PianoIcon)`
-  width: 1.3rem;
-  fill: currentColor;
 `
 
 const FlexibleSpacer = styled.div`
@@ -75,14 +68,19 @@ const Separator = styled.div`
   width: 1px;
 `
 
+const IconStyle: CSSProperties = {
+  width: "1.3rem",
+  height: "1.3rem",
+  fill: "currentColor",
+  marginRight: "0.4rem",
+}
+
 export const Navigation: FC = observer(() => {
   const { rootViewStore, router } = useStores()
 
   return (
     <Container>
       <FileMenuButton />
-
-      <Separator />
 
       <Tooltip
         title={`${localized("switch-tab", "Switch Tab")} [Cmd+1]`}
@@ -94,7 +92,7 @@ export const Navigation: FC = observer(() => {
           className={router.path === "/track" ? "active" : undefined}
           onClick={useCallback(() => (router.path = "/track"), [])}
         >
-          <InstrumentIcon viewBox="0 0 24 24" />
+          <PianoIcon style={IconStyle} viewBox="0 0 128 128" />
           <span>{localized("piano-roll", "Piano Roll")}</span>
         </Tab>
       </Tooltip>
@@ -109,7 +107,7 @@ export const Navigation: FC = observer(() => {
           className={router.path === "/arrange" ? "active" : undefined}
           onClick={useCallback(() => (router.path = "/arrange"), [])}
         >
-          <List />
+          <ArrangeIcon style={IconStyle} viewBox="0 0 128 128" />
           <span>{localized("arrange", "Arrange")}</span>
         </Tab>
       </Tooltip>
@@ -124,7 +122,7 @@ export const Navigation: FC = observer(() => {
           className={router.path === "/tempo" ? "active" : undefined}
           onClick={useCallback(() => (router.path = "/tempo"), [])}
         >
-          <Schedule />
+          <TempoIcon style={IconStyle} viewBox="0 0 128 128" />
           <span>{localized("tempo", "Tempo")}</span>
         </Tab>
       </Tooltip>
@@ -134,15 +132,15 @@ export const Navigation: FC = observer(() => {
       <Tab
         onClick={useCallback(() => (rootViewStore.openDeviceDialog = true), [])}
       >
-        <Settings />
+        <Settings style={IconStyle} />
         <span>{localized("settings", "Settings")}</span>
       </Tab>
       <Tab onClick={useCallback(() => (rootViewStore.openHelp = true), [])}>
-        <Help />
+        <Help style={IconStyle} />
         <span>{localized("help", "Help")} </span>
       </Tab>
       <Tab id="open-gitter-button">
-        <Forum />
+        <Forum style={IconStyle} />
         <span>{localized("open-chat", "Open Chat")} </span>
       </Tab>
     </Container>

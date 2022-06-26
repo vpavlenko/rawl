@@ -1,8 +1,9 @@
 import styled from "@emotion/styled"
+import { KeyboardArrowDown } from "@mui/icons-material"
 import { Divider, Menu, MenuItem } from "@mui/material"
 import Color from "color"
 import { observer } from "mobx-react-lite"
-import React, { ChangeEvent, FC, useCallback, useRef, VFC } from "react"
+import { ChangeEvent, FC, useCallback, useRef, VFC } from "react"
 import { localized } from "../../../common/localize/localizedString"
 import { createSong, openSong, saveSong } from "../../actions"
 import { hasFSAccess, openFile, saveFile, saveFileAs } from "../../actions/file"
@@ -130,7 +131,10 @@ export const FileMenuButton: FC = observer(() => {
         onClick={useCallback(() => (rootViewStore.openDrawer = true), [])}
         id="tab-file"
       >
-        <span>{localized("file", "File")}</span>
+        <span style={{ marginLeft: "0.25rem" }}>
+          {localized("file", "File")}
+        </span>
+        <KeyboardArrowDown style={{ width: "1rem", marginLeft: "0.25rem" }} />
       </Tab>
 
       <StyledMenu

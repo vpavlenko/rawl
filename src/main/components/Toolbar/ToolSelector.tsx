@@ -1,10 +1,10 @@
 import styled from "@emotion/styled"
-import { Create } from "@mui/icons-material"
 import { Tooltip } from "@mui/material"
-import React, { useCallback, VFC } from "react"
+import { useCallback, VFC } from "react"
 import { localized } from "../../../common/localize/localizedString"
+import PencilIcon from "../../images/icons/pencil.svg"
+import SelectionIcon from "../../images/icons/selection.svg"
 import { PianoRollMouseMode } from "../../stores/PianoRollStore"
-import { SelectionToolIcon } from "./SelectionToolIcon"
 import {
   ToolbarButtonGroup,
   ToolbarButtonGroupItem,
@@ -31,7 +31,10 @@ export const ToolSelector: VFC<ToolSelectorProps> = ({
         selected={mouseMode === "pencil"}
       >
         <Tooltip title={`${localized("pencil-tool", "Pencil Tool")} [1]`}>
-          <Create style={{ width: "1rem" }} />
+          <PencilIcon
+            style={{ width: "1.3rem", fill: "currentColor" }}
+            viewBox="0 0 128 128"
+          />
         </Tooltip>
       </ToolbarButtonGroupItem>
       <ToolbarButtonGroupItem
@@ -39,7 +42,10 @@ export const ToolSelector: VFC<ToolSelectorProps> = ({
         selected={mouseMode === "selection"}
       >
         <Tooltip title={`${localized("selection-tool", "Selection Tool")} [2]`}>
-          <SelectionToolIcon style={{ width: "1rem" }} />
+          <SelectionIcon
+            style={{ width: "1.3rem", fill: "currentColor" }}
+            viewBox="0 0 128 128"
+          />
         </Tooltip>
       </ToolbarButtonGroupItem>
     </ButtonGroup>

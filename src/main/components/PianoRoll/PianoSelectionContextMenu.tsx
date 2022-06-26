@@ -64,6 +64,11 @@ export const PianoSelectionContextMenu: FC<ContextMenuProps> = React.memo(
       handleClose()
     }, [])
 
+    const onClickTranspose = useCallback(() => {
+      rootStore.pianoRollStore.openTransposeDialog = true
+      handleClose()
+    }, [])
+
     return (
       <ContextMenu {...props}>
         <Item onClick={onClickCut} disabled={!isNoteSelected}>
@@ -98,6 +103,9 @@ export const PianoSelectionContextMenu: FC<ContextMenuProps> = React.memo(
         <Item onClick={onClickQuantize} disabled={!isNoteSelected}>
           {localized("quantize", "Quantize")}
           <HotKey>Q</HotKey>
+        </Item>
+        <Item onClick={onClickTranspose} disabled={!isNoteSelected}>
+          {localized("transpose", "Transpose")}
         </Item>
       </ContextMenu>
     )

@@ -30,6 +30,7 @@ export default class ArrangeViewStore {
   canvasWidth = 0
   canvasHeight = 0
   selectedTrackId = 0
+  openTransposeDialog = false
 
   constructor(readonly rootStore: RootStore) {
     this.rootStore = rootStore
@@ -46,6 +47,7 @@ export default class ArrangeViewStore {
       canvasWidth: observable,
       canvasHeight: observable,
       selectedTrackId: observable,
+      openTransposeDialog: observable,
       scrollLeft: computed,
       transform: computed,
       trackTransform: computed,

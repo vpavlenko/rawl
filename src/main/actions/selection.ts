@@ -17,6 +17,7 @@ import {
 import clipboard from "../services/Clipboard"
 import RootStore from "../stores/RootStore"
 import { pushHistory } from "./history"
+import { transposeNotes } from "./song"
 
 function eventsInSelection(events: TrackEvent[], selection: Selection) {
   const selectionRect = {
@@ -83,34 +84,21 @@ export const fixSelection =
 export const transposeSelection =
   (rootStore: RootStore) => (deltaPitch: number) => {
     const {
-      song: { selectedTrack },
+      song: { selectedTrackId },
       pianoRollStore,
       pianoRollStore: { selection, selectedNoteIds },
     } = rootStore
 
-    if (selectedTrack === undefined) {
-      return
-    }
+    pushHistory(rootStore)()
 
     if (selection !== null) {
       const s = movedSelection(selection, 0, deltaPitch)
       pianoRollStore.selection = s
     }
 
-    selectedTrack.updateEvents(
-      selectedNoteIds
-        .map((id) => {
-          const n = selectedTrack.getEventById(id)
-          if (n == undefined || !isNoteEvent(n)) {
-            return null
-          }
-          return {
-            id,
-            noteNumber: n.noteNumber + deltaPitch,
-          }
-        })
-        .filter(isNotNull)
-    )
+    transposeNotes(rootStore)(deltaPitch, {
+      [selectedTrackId]: selectedNoteIds,
+    })
   }
 
 export const moveSelection = (rootStore: RootStore) => (point: NotePoint) => {

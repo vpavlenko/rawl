@@ -87,6 +87,16 @@ export const ArrangeContextMenu: FC<ContextMenuProps> = (props) => {
       >
         {localized("one-octave-down", "-1 Oct")}
       </Item>
+      <Item
+        onClick={(e) => {
+          e.stopPropagation()
+          handleClose()
+          rootStore.arrangeViewStore.openTransposeDialog = true
+        }}
+        disabled={!isNoteSelected}
+      >
+        {localized("transpose", "Transpose")}
+      </Item>
     </ContextMenu>
   )
 }

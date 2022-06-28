@@ -22,7 +22,6 @@ import Track, {
 import RootStore from "../stores/RootStore"
 import { pushHistory } from "./history"
 import {
-  moveSelectionBy,
   resizeNotesInSelectionLeftBy,
   resizeNotesInSelectionRightBy,
 } from "./selection"
@@ -217,43 +216,6 @@ export const muteNote = (rootStore: RootStore) => (noteNumber: number) => {
     return
   }
   player.stopNote({ channel: selectedTrack.channel, noteNumber })
-}
-
-export type MoveNote = {
-  id: number
-  tick: number
-  noteNumber: number
-}
-
-export const moveNote = (rootStore: RootStore) => (params: MoveNote) => {
-  const { song, player } = rootStore
-
-  const selectedTrack = song.selectedTrack
-  if (selectedTrack === undefined || selectedTrack.channel == undefined) {
-    return
-  }
-  const note = selectedTrack.getEventById(params.id)
-  if (note == undefined || !isNoteEvent(note)) {
-    return null
-  }
-  const tickChanged = params.tick !== note.tick
-  const pitchChanged = params.noteNumber !== note.noteNumber
-
-  if (pitchChanged || tickChanged) {
-    moveSelectionBy(rootStore)({
-      tick: params.tick - note.tick,
-      noteNumber: params.noteNumber - note.noteNumber,
-    })
-
-    if (pitchChanged) {
-      muteNote(rootStore)(note.noteNumber)
-      player.startNote({
-        ...note,
-        noteNumber: params.noteNumber,
-        channel: selectedTrack.channel,
-      })
-    }
-  }
 }
 
 const MIN_DURATION = 10

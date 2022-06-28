@@ -121,17 +121,6 @@ export const toggleGhost = (RootStore: RootStore) => () => {
   }
 }
 
-export const previewNote =
-  (rootStore: RootStore) => (channel: number, noteNumber: number) => {
-    const { player } = rootStore
-    player.playNote({
-      channel: channel,
-      noteNumber: noteNumber,
-      velocity: 100,
-      duration: 128,
-    })
-  }
-
 export const setLoopBegin = (rootStore: RootStore) => (tick: number) => {
   const { player } = rootStore
   player.loop = {

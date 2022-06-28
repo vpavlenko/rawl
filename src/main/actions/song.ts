@@ -5,6 +5,7 @@ import {
 } from "../../common/midi/midiConversion"
 import Song, { emptySong } from "../../common/song"
 import { emptyTrack, isNoteEvent } from "../../common/track"
+import { clampNoteNumber } from "../../common/transform/NotePoint"
 import RootStore from "../stores/RootStore"
 import { pushHistory } from "./history"
 
@@ -141,7 +142,7 @@ export const transposeNotes =
             }
             return {
               id,
-              noteNumber: n.noteNumber + deltaPitch,
+              noteNumber: clampNoteNumber(n.noteNumber + deltaPitch),
             }
           })
           .filter(isNotNull)

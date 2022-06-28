@@ -29,6 +29,10 @@ export const ArrangeViewKeyboardShortcut: FC = () => {
           metaKey: true,
           run: () => rootStore.arrangeViewStore.scrollBy(0, -SCROLL_DELTA),
         },
+        {
+          code: "KeyT",
+          run: () => (rootStore.arrangeViewStore.openTransposeDialog = true),
+        },
       ]}
       onCut={() => {
         arrangeCopySelection(rootStore)()

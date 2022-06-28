@@ -96,6 +96,7 @@ export const ArrangeContextMenu: FC<ContextMenuProps> = (props) => {
         disabled={!isNoteSelected}
       >
         {localized("transpose", "Transpose")}
+        <HotKey>T</HotKey>
       </Item>
     </ContextMenu>
   )

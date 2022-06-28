@@ -106,6 +106,7 @@ export const PianoSelectionContextMenu: FC<ContextMenuProps> = React.memo(
         </Item>
         <Item onClick={onClickTranspose} disabled={!isNoteSelected}>
           {localized("transpose", "Transpose")}
+          <HotKey>T</HotKey>
         </Item>
       </ContextMenu>
     )

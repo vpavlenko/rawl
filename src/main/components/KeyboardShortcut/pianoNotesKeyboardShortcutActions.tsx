@@ -48,6 +48,10 @@ export const pianoNotesKeyboardShortcutActions = (
     code: "KeyQ",
     run: quantizeSelectedNotes(rootStore),
   },
+  {
+    code: "KeyT",
+    run: () => (rootStore.pianoRollStore.openTransposeDialog = true),
+  },
   { code: "Delete", run: deleteSelection(rootStore) },
   {
     code: "Backspace",

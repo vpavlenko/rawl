@@ -64,6 +64,7 @@ export default class PianoRollStore {
   canvasWidth: number = 0
   canvasHeight: number = 0
   showEventList = false
+  openTransposeDialog = false
 
   controlHeight = 0
   controlMode: ControlMode = "velocity"
@@ -94,6 +95,7 @@ export default class PianoRollStore {
       canvasWidth: observable,
       canvasHeight: observable,
       showEventList: observable,
+      openTransposeDialog: observable,
       selectedControllerEventIds: observable,
       controlSelection: observable,
       contentWidth: computed,

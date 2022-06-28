@@ -48,6 +48,10 @@ export const pianoNotesKeyboardShortcutActions = (
     code: "KeyQ",
     run: quantizeSelectedNotes(rootStore),
   },
+  {
+    code: "KeyT",
+    run: () => (rootStore.pianoRollStore.openTransposeDialog = true),
+  },
   { code: "Delete", run: deleteSelection(rootStore) },
   {
     code: "Backspace",
@@ -55,23 +59,19 @@ export const pianoNotesKeyboardShortcutActions = (
   },
   {
     code: "ArrowUp",
-    metaKey: true,
     run: (e) => transposeSelection(rootStore)(e.shiftKey ? 12 : 1),
   },
   {
     code: "ArrowDown",
-    metaKey: true,
     run: (e) => transposeSelection(rootStore)(e.shiftKey ? -12 : -1),
   },
   {
     code: "ArrowRight",
-    metaKey: true,
     run: selectNextNote(rootStore),
     enabled: () => rootStore.pianoRollStore.mouseMode == "pencil",
   },
   {
     code: "ArrowLeft",
-    metaKey: true,
     run: selectPreviousNote(rootStore),
     enabled: () => rootStore.pianoRollStore.mouseMode == "pencil",
   },

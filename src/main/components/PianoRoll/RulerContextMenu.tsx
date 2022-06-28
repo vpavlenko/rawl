@@ -1,4 +1,5 @@
 import React, { FC, useCallback, useState } from "react"
+import { envString } from "../../../common/localize/envString"
 import { localized } from "../../../common/localize/localizedString"
 import { addTimeSignature, setLoopBegin, setLoopEnd } from "../../actions"
 import { useStores } from "../../hooks/useStores"
@@ -57,7 +58,7 @@ export const RulerContextMenu: FC<RulerContextMenuProps> = React.memo(
         <ContextMenu {...props}>
           <Item onClick={onClickSetLoopStart}>
             {localized("set-loop-start", "Set Loop Start")}
-            <HotKey>Ctrl+Click</HotKey>
+            <HotKey>{envString.cmdOrCtrl}+Click</HotKey>
           </Item>
           <Item onClick={onClickSetLoopEnd}>
             {localized("set-loop-end", "Set Loop End")}

@@ -1,9 +1,11 @@
+import { isNotNull } from "../../common/helpers/array"
 import {
   downloadSongAsMidi,
   songFromMidi,
 } from "../../common/midi/midiConversion"
 import Song, { emptySong } from "../../common/song"
-import { emptyTrack } from "../../common/track"
+import { emptyTrack, isNoteEvent } from "../../common/track"
+import { clampNoteNumber } from "../../common/transform/NotePoint"
 import RootStore from "../stores/RootStore"
 import { pushHistory } from "./history"
 
@@ -113,3 +115,37 @@ export const duplicateTrack = (rootStore: RootStore) => (trackId: number) => {
   pushHistory(rootStore)()
   rootStore.song.insertTrack(newTrack, trackId + 1)
 }
+
+export const transposeNotes =
+  (rootStore: RootStore) =>
+  (
+    deltaPitch: number,
+    selectedEventIds: {
+      [key: number]: number[] // trackId: eventId
+    }
+  ) => {
+    const { song } = rootStore
+
+    for (const trackIdStr in selectedEventIds) {
+      const trackId = parseInt(trackIdStr)
+      const eventIds = selectedEventIds[trackId]
+      const track = song.getTrack(trackId)
+      if (track === undefined) {
+        continue
+      }
+      track.updateEvents(
+        eventIds
+          .map((id) => {
+            const n = track.getEventById(id)
+            if (n == undefined || !isNoteEvent(n)) {
+              return null
+            }
+            return {
+              id,
+              noteNumber: clampNoteNumber(n.noteNumber + deltaPitch),
+            }
+          })
+          .filter(isNotNull)
+      )
+    }
+  }

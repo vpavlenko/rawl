@@ -1,6 +1,6 @@
 import styled from "@emotion/styled"
 import { observer } from "mobx-react-lite"
-import React, { FC } from "react"
+import { FC } from "react"
 import { useStores } from "../../hooks/useStores"
 import { ArrangeEditor } from "../ArrangeView/ArrangeEditor"
 import { BuildInfo } from "../BuildInfo"
@@ -13,6 +13,8 @@ import { Navigation } from "../Navigation/Navigation"
 import { PianoRollEditor } from "../PianoRoll/PianoRollEditor"
 import { TempoEditor } from "../TempoGraph/TempoEditor"
 import { TransportPanel } from "../TransportPanel/TransportPanel"
+import { ArrangeTransposeDialog } from "../TransposeDialog/ArrangeTransposeDialog"
+import { PianoRollTransposeDialog } from "../TransposeDialog/PianoRollTransposeDialog"
 
 const Container = styled.div`
   height: 100%;
@@ -56,5 +58,7 @@ export const RootView: FC = () => (
     <MIDIDeviceDialog />
     <ExportDialog />
     <ExportProgressDialog />
+    <PianoRollTransposeDialog />
+    <ArrangeTransposeDialog />
   </>
 )

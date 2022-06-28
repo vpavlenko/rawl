@@ -1,12 +1,12 @@
 import mapValues from "lodash/mapValues"
-import { isNotNull, isNotUndefined } from "../../common/helpers/array"
+import { isNotUndefined } from "../../common/helpers/array"
 import Quantizer from "../../common/quantizer"
 import {
   ArrangeSelection,
   arrangeSelectionFromPoints,
   movedSelection,
 } from "../../common/selection/ArrangeSelection"
-import Track, { isNoteEvent } from "../../common/track"
+import Track from "../../common/track"
 import { ArrangePoint } from "../../common/transform/ArrangePoint"
 import {
   ArrangeNotesClipboardData,
@@ -15,6 +15,7 @@ import {
 import clipboard from "../services/Clipboard"
 import RootStore from "../stores/RootStore"
 import { pushHistory } from "./history"
+import { transposeNotes } from "./song"
 
 const createSelection = (
   start: ArrangePoint,
@@ -279,34 +280,9 @@ function getEventsInSelection(tracks: Track[], selection: ArrangeSelection) {
 
 export const arrangeTransposeSelection =
   (rootStore: RootStore) => (deltaPitch: number) => {
-    const {
-      song,
-      arrangeViewStore: { selectedEventIds },
-    } = rootStore
-
-    const selectedTrack = song.selectedTrack
-    if (selectedTrack === undefined) {
-      return
-    }
-
     pushHistory(rootStore)()
-
-    for (const trackIdStr in selectedEventIds) {
-      const trackId = parseInt(trackIdStr)
-      const eventIds = selectedEventIds[trackId]
-      song.getTrack(trackId)?.updateEvents(
-        eventIds
-          .map((id) => {
-            const n = selectedTrack.getEventById(id)
-            if (n == undefined || !isNoteEvent(n)) {
-              return null
-            }
-            return {
-              id,
-              noteNumber: n.noteNumber + deltaPitch,
-            }
-          })
-          .filter(isNotNull)
-      )
-    }
+    transposeNotes(rootStore)(
+      deltaPitch,
+      rootStore.arrangeViewStore.selectedEventIds
+    )
   }

@@ -233,6 +233,11 @@ const startDragNote =
       onMouseUp: (_e) => {
         player.stopNote({ noteNumber: prevNoteNumber, channel })
       },
+      onClick: () => {
+        if (!e.shiftKey) {
+          selectNote(rootStore)(note.id)
+        }
+      },
     })
   }
 

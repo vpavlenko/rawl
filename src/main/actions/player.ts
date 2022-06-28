@@ -1,4 +1,3 @@
-import { isNoteEvent } from "../../common/track/identify"
 import RootStore from "../stores/RootStore"
 
 export const playOrPause = (rootStore: RootStore) => () => {
@@ -120,34 +119,6 @@ export const toggleGhost = (RootStore: RootStore) => () => {
   } else {
     pianoRollStore.notGhostTracks.add(selectedTrackId)
   }
-}
-
-export const previewNote =
-  (rootStore: RootStore) => (channel: number, noteNumber: number) => {
-    const { player } = rootStore
-    player.playNote({
-      channel: channel,
-      noteNumber: noteNumber,
-      velocity: 100,
-      duration: 128,
-    })
-  }
-
-export const previewNoteById = (rootStore: RootStore) => (noteId: number) => {
-  const {
-    song,
-    player,
-    pianoRollStore: { quantizer },
-  } = rootStore
-  const selectedTrack = song.selectedTrack
-  if (selectedTrack === undefined) {
-    return
-  }
-  const note = selectedTrack.getEventById(noteId)
-  if (note == undefined || !isNoteEvent(note)) {
-    return
-  }
-  player.playNote({ ...note, channel: selectedTrack.channel ?? 0 })
 }
 
 export const setLoopBegin = (rootStore: RootStore) => (tick: number) => {

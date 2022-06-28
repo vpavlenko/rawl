@@ -2,7 +2,6 @@ import { observeDrag } from "../../../helpers/observeDrag"
 import RootStore from "../../../stores/RootStore"
 import {
   getPencilActionForMouseDown,
-  getPencilActionForMouseUp,
   getPencilCursorForMouseMove,
 } from "./PencilMouseHandler"
 import {
@@ -71,13 +70,8 @@ export default class NoteMouseHandler {
     }
   }
 
-  onMouseUp(ev: React.MouseEvent) {
-    const e = ev.nativeEvent
+  onMouseUp(_ev: React.MouseEvent) {
     this.isMouseDown = false
-    switch (this.rootStore.pianoRollStore.mouseMode) {
-      case "pencil":
-        getPencilActionForMouseUp()(this.rootStore)(e)
-    }
   }
 }
 

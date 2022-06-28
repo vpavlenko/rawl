@@ -200,13 +200,8 @@ export const createNote =
       velocity: 127,
       duration: pianoRollStore.lastNoteDuration || quantizer.unit,
     }
-    const added = selectedTrack.addEvent(note)
 
-    player.startNote({
-      ...note,
-      channel: selectedTrack.channel,
-    })
-    return added
+    return selectedTrack.addEvent(note)
   }
 
 export const muteNote = (rootStore: RootStore) => (noteNumber: number) => {

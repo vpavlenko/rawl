@@ -112,6 +112,7 @@ export default {
     "set-loop-start": "ループ開始位置を設定",
     "set-loop-end": "ループ終了位置を設定",
     "switch-tab": "タブを切り替え",
+    transpose: "トランスポーズ",
     Piano: "ピアノ",
     "Chromatic Percussion": "クロマチック",
     Organ: "オルガン",

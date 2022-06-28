@@ -1,4 +1,5 @@
 import React, { FC, useCallback } from "react"
+import { envString } from "../../../common/localize/envString"
 import { localized } from "../../../common/localize/localizedString"
 import {
   copyControlSelection,
@@ -51,19 +52,19 @@ export const ControlSelectionContextMenu: FC<ContextMenuProps> = React.memo(
       <ContextMenu {...props}>
         <Item onClick={onClickCut} disabled={!isEventSelected}>
           {localized("cut", "Cut")}
-          <HotKey>Ctrl+X</HotKey>
+          <HotKey>{envString.cmdOrCtrl}+X</HotKey>
         </Item>
         <Item onClick={onClickCopy} disabled={!isEventSelected}>
           {localized("copy", "Copy")}
-          <HotKey>Ctrl+C</HotKey>
+          <HotKey>{envString.cmdOrCtrl}+C</HotKey>
         </Item>
         <Item onClick={onClickPaste}>
           {localized("paste", "Paste")}
-          <HotKey>Ctrl+V</HotKey>
+          <HotKey>{envString.cmdOrCtrl}+V</HotKey>
         </Item>
         <Item onClick={onClickDuplicate} disabled={!isEventSelected}>
           {localized("duplicate", "Duplicate")}
-          <HotKey>Ctrl+D</HotKey>
+          <HotKey>{envString.cmdOrCtrl}+D</HotKey>
         </Item>
         <Item onClick={onClickDelete} disabled={!isEventSelected}>
           {localized("delete", "Delete")}

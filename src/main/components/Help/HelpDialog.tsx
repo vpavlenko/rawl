@@ -9,6 +9,7 @@ import {
 } from "@mui/material"
 import { observer } from "mobx-react-lite"
 import { FC, ReactNode } from "react"
+import { envString } from "../../../common/localize/envString"
 import { localized } from "../../../common/localize/localizedString"
 import { useStores } from "../../hooks/useStores"
 
@@ -105,36 +106,39 @@ export const HelpDialog: FC = observer(() => {
         />
         <HotKey
           hotKeys={[
-            ["Cmd", "1"],
-            ["Cmd", "2"],
-            ["Cmd", "3"],
+            [envString.cmdOrCtrl, "1"],
+            [envString.cmdOrCtrl, "2"],
+            [envString.cmdOrCtrl, "3"],
           ]}
           text={localized("switch-tab", "Switch Tab")}
         />
         <HotKey
           hotKeys={[
-            ["Cmd", "↑"],
-            ["Cmd", "↓"],
+            [envString.cmdOrCtrl, "↑"],
+            [envString.cmdOrCtrl, "↓"],
           ]}
           text={localized("scroll-vertically", "Scroll Vertically")}
         />
         <HotKey
           hotKeys={[
-            ["Cmd", "←"],
-            ["Cmd", "→"],
+            [envString.cmdOrCtrl, "←"],
+            [envString.cmdOrCtrl, "→"],
           ]}
           text={localized("scroll-horizontally", "Scroll Horizontally")}
         />
-        <HotKey hotKeys={[["Cmd", "Z"]]} text={localized("undo", "Undo")} />
+        <HotKey
+          hotKeys={[[envString.cmdOrCtrl, "Z"]]}
+          text={localized("undo", "Undo")}
+        />
         <HotKey
           hotKeys={[
-            ["Cmd", "Y"],
-            ["Cmd", "Shift", "Z"],
+            [envString.cmdOrCtrl, "Y"],
+            [envString.cmdOrCtrl, "Shift", "Z"],
           ]}
           text={localized("redo", "Redo")}
         />
         <HotKey
-          hotKeys={[["Cmd", "C"]]}
+          hotKeys={[[envString.cmdOrCtrl, "C"]]}
           text={localized("copy-selection", "Copy Selection")}
         />
         <HotKey
@@ -142,18 +146,18 @@ export const HelpDialog: FC = observer(() => {
           text={localized("delete-selection", "Delete Selection")}
         />
         <HotKey
-          hotKeys={[["Cmd", "X"]]}
+          hotKeys={[[envString.cmdOrCtrl, "X"]]}
           text={localized("cut-selection", "Cut Selection")}
         />
         <HotKey
-          hotKeys={[["Cmd", "V"]]}
+          hotKeys={[[envString.cmdOrCtrl, "V"]]}
           text={localized(
             "paste-selection",
             "Paste Copied Selection to Current Position"
           )}
         />
         <HotKey
-          hotKeys={[["Cmd", "A"]]}
+          hotKeys={[[envString.cmdOrCtrl, "A"]]}
           text={localized("select-all", "Select all")}
         />
         <HotKey hotKeys={[["?"]]} text={localized("open-help", "Open Help")} />

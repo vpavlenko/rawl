@@ -1,4 +1,6 @@
+import { Divider } from "@mui/material"
 import { FC } from "react"
+import { envString } from "../../../common/localize/envString"
 import { localized } from "../../../common/localize/localizedString"
 import {
   arrangeCopySelection,
@@ -33,7 +35,7 @@ export const ArrangeContextMenu: FC<ContextMenuProps> = (props) => {
         disabled={!isNoteSelected}
       >
         {localized("cut", "Cut")}
-        <HotKey>Ctrl+X</HotKey>
+        <HotKey>{envString.cmdOrCtrl}+X</HotKey>
       </Item>
       <Item
         onClick={(e) => {
@@ -44,7 +46,7 @@ export const ArrangeContextMenu: FC<ContextMenuProps> = (props) => {
         disabled={!isNoteSelected}
       >
         {localized("copy", "Copy")}
-        <HotKey>Ctrl+C</HotKey>
+        <HotKey>{envString.cmdOrCtrl}+C</HotKey>
       </Item>
       <Item
         onClick={(e) => {
@@ -54,7 +56,7 @@ export const ArrangeContextMenu: FC<ContextMenuProps> = (props) => {
         }}
       >
         {localized("paste", "Paste")}
-        <HotKey>Ctrl+V</HotKey>
+        <HotKey>{envString.cmdOrCtrl}+V</HotKey>
       </Item>
       <Item
         onClick={(e) => {
@@ -67,6 +69,7 @@ export const ArrangeContextMenu: FC<ContextMenuProps> = (props) => {
         {localized("delete", "Delete")}
         <HotKey>Del</HotKey>
       </Item>
+      <Divider />
       <Item
         onClick={(e) => {
           e.stopPropagation()

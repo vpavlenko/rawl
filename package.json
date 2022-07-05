@@ -29,7 +29,7 @@
     "@rehooks/component-size": "1.0.3",
     "@ryohey/react-split-pane": "^0.1.94",
     "@ryohey/wavelet": "^0.5.3",
-    "@ryohey/webgl-react": "file:../webgl-react",
+    "@ryohey/webgl-react": "^0.2.3",
     "@sentry/react": "^7.5.0",
     "@sentry/tracing": "^7.5.0",
     "color": "^4.2.3",

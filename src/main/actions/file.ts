@@ -3,8 +3,14 @@ import { writeFile } from "../services/fs-helper"
 import RootStore from "../stores/RootStore"
 import { setSong } from "./song"
 
+// URL parameter for automation purposes used in scripts/perf/index.js
+// /edit?disableFileSystem=true
+export const disableFileSystem =
+  new URL(window.location.href).searchParams.get("disableFileSystem") === "true"
+
 export const hasFSAccess =
-  "chooseFileSystemEntries" in window || "showOpenFilePicker" in window
+  ("chooseFileSystemEntries" in window || "showOpenFilePicker" in window) &&
+  !disableFileSystem
 
 export const openFile = async (rootStore: RootStore) => {
   let fileHandle: FileSystemFileHandle

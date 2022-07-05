@@ -66,7 +66,9 @@ type VerticalScaleScrollBarProps = Omit<
   onClickScaleUp?: () => void
 }
 
-const VerticalScaleScrollBar_: FC<VerticalScaleScrollBarProps> = (props) => {
+const VerticalScaleScrollBar_: FC<
+  React.PropsWithChildren<VerticalScaleScrollBarProps>
+> = (props) => {
   const ref = useRef<HTMLDivElement>(null)
   const size = useComponentSize(ref)
 

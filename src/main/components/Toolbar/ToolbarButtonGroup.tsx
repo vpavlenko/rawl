@@ -47,7 +47,9 @@ const _ToolbarButtonGroupItem = styled.button<{ selected?: boolean }>`
 `
 
 export const ToolbarButtonGroupItem: FC<
-  Omit<ComponentProps<typeof _ToolbarButtonGroupItem>, "tabIndex">
+  React.PropsWithChildren<
+    Omit<ComponentProps<typeof _ToolbarButtonGroupItem>, "tabIndex">
+  >
 > = ({ children, ...props }) => (
   <_ToolbarButtonGroupItem
     {...props}

@@ -1,9 +1,9 @@
 import styled from "@emotion/styled"
 import useComponentSize from "@rehooks/component-size"
+import SplitPane from "@ryohey/react-split-pane"
 import { clamp } from "lodash"
 import { observer } from "mobx-react-lite"
 import { FC, useCallback, useRef } from "react"
-import SplitPane from "react-split-pane"
 import { Layout, WHEEL_SCROLL_RATE } from "../../Constants"
 import { isTouchPadEvent } from "../../helpers/touchpad"
 import { useStores } from "../../hooks/useStores"
@@ -168,7 +168,7 @@ const PianoRollWrapper: FC = observer(() => {
           <VerticalScaleScrollBar
             scrollOffset={scrollTop}
             contentLength={contentHeight}
-            onScroll={useCallback((v) => s.setScrollTopInPixels(v), [s])}
+            onScroll={useCallback((v: any) => s.setScrollTopInPixels(v), [s])}
             onClickScaleUp={onClickScaleUpVertical}
             onClickScaleDown={onClickScaleDownVertical}
             onClickScaleReset={onClickScaleResetVertical}
@@ -181,7 +181,7 @@ const PianoRollWrapper: FC = observer(() => {
       <HorizontalScaleScrollBar
         scrollOffset={scrollLeft}
         contentLength={contentWidth}
-        onScroll={useCallback((v) => s.setScrollLeftInPixels(v), [s])}
+        onScroll={useCallback((v: any) => s.setScrollLeftInPixels(v), [s])}
         onClickScaleUp={onClickScaleUpHorizontal}
         onClickScaleDown={onClickScaleDownHorizontal}
         onClickScaleReset={onClickScaleResetHorizontal}

@@ -1,5 +1,5 @@
 import styled from "@emotion/styled"
-import { ComponentProps, FC } from "react"
+import { ComponentProps, forwardRef } from "react"
 
 const _ToolbarButton = styled.button<{ selected?: boolean }>`
   -webkit-appearance: none;
@@ -29,9 +29,12 @@ const _ToolbarButton = styled.button<{ selected?: boolean }>`
   }
 `
 
-export const ToolbarButton: FC<
-  Omit<ComponentProps<typeof _ToolbarButton>, "tabIndex">
-> = ({ children, ...props }) => (
+export const ToolbarButton = forwardRef<
+  HTMLButtonElement,
+  React.PropsWithChildren<
+    Omit<ComponentProps<typeof _ToolbarButton>, "tabIndex">
+  >
+>(({ children, ...props }, ref) => (
   <_ToolbarButton
     {...props}
     onMouseDown={(e) => e.preventDefault()}
@@ -39,4 +42,4 @@ export const ToolbarButton: FC<
   >
     {children}
   </_ToolbarButton>
-)
+))

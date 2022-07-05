@@ -20,6 +20,10 @@ export interface ToolSelectorProps {
   onSelect: (mouseMode: PianoRollMouseMode) => void
 }
 
+const IconWrapper = styled.div`
+  display: flex;
+`
+
 export const ToolSelector: VFC<ToolSelectorProps> = ({
   mouseMode,
   onSelect,
@@ -31,10 +35,16 @@ export const ToolSelector: VFC<ToolSelectorProps> = ({
         selected={mouseMode === "pencil"}
       >
         <Tooltip title={`${localized("pencil-tool", "Pencil Tool")} [1]`}>
-          <PencilIcon
-            style={{ width: "1.3rem", fill: "currentColor" }}
-            viewBox="0 0 128 128"
-          />
+          <IconWrapper>
+            <PencilIcon
+              style={{
+                width: "1.3rem",
+                height: "1.3rem",
+                fill: "currentColor",
+              }}
+              viewBox="0 0 128 128"
+            />
+          </IconWrapper>
         </Tooltip>
       </ToolbarButtonGroupItem>
       <ToolbarButtonGroupItem
@@ -42,10 +52,12 @@ export const ToolSelector: VFC<ToolSelectorProps> = ({
         selected={mouseMode === "selection"}
       >
         <Tooltip title={`${localized("selection-tool", "Selection Tool")} [2]`}>
-          <SelectionIcon
-            style={{ width: "1.3rem", fill: "currentColor" }}
-            viewBox="0 0 128 128"
-          />
+          <IconWrapper>
+            <SelectionIcon
+              style={{ width: "1.3rem", fill: "currentColor" }}
+              viewBox="0 0 128 128"
+            />
+          </IconWrapper>
         </Tooltip>
       </ToolbarButtonGroupItem>
     </ButtonGroup>

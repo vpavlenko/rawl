@@ -1,6 +1,6 @@
 import styled from "@emotion/styled"
 import { Menu, MenuItem } from "@mui/material"
-import { FC, useEffect } from "react"
+import { FC, ReactNode, useEffect } from "react"
 import { IPoint } from "../../../common/geometry"
 
 export const ContextMenuItem = styled(MenuItem)`
@@ -19,6 +19,7 @@ export interface ContextMenuProps {
   isOpen: boolean
   position: IPoint
   handleClose: () => void
+  children?: ReactNode
 }
 
 export const ContextMenu: FC<ContextMenuProps> = ({

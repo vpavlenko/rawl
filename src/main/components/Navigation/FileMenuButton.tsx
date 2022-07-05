@@ -13,9 +13,11 @@ import { Tab } from "./Navigation"
 
 const fileInputID = "OpenButtonInputFile"
 
-const FileInput: FC<{
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void
-}> = ({ onChange, children }) => (
+const FileInput: FC<
+  React.PropsWithChildren<{
+    onChange: (e: ChangeEvent<HTMLInputElement>) => void
+  }>
+> = ({ onChange, children }) => (
   <>
     <input
       accept="audio/midi"

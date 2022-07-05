@@ -46,7 +46,11 @@ const _ToolbarButtonGroupItem = styled.button<{ selected?: boolean }>`
   }
 `
 
-export const ToolbarButtonGroupItem: FC<React.PropsWithChildren<Omit<ComponentProps<typeof _ToolbarButtonGroupItem>, "tabIndex">>> = ({ children, ...props }) => (
+export const ToolbarButtonGroupItem: FC<
+  React.PropsWithChildren<
+    Omit<ComponentProps<typeof _ToolbarButtonGroupItem>, "tabIndex">
+  >
+> = ({ children, ...props }) => (
   <_ToolbarButtonGroupItem
     {...props}
     onMouseDown={(e) => e.preventDefault()}

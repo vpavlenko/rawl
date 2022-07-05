@@ -50,4 +50,10 @@ module.exports = merge(common, {
       exclude: [/node_modules/, /processor.js/],
     }),
   ],
+  resolve: {
+    alias: {
+      // Prevent to load local package's react https://github.com/facebook/react/issues/13991#issuecomment-435587809
+      react: path.resolve("./node_modules/react"),
+    },
+  },
 })

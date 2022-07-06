@@ -8,6 +8,7 @@ import { MIDIInput, previewMidiInput } from "../services/MIDIInput"
 import { MIDIRecorder } from "../services/MIDIRecorder"
 import { SoundFontSynth } from "../services/SoundFontSynth"
 import ArrangeViewStore from "./ArrangeViewStore"
+import { AuthStore } from "./AuthStore"
 import { ExportStore } from "./ExportStore"
 import HistoryStore from "./HistoryStore"
 import { MIDIDeviceStore } from "./MIDIDeviceStore"
@@ -30,6 +31,7 @@ export default class RootStore {
   readonly midiDeviceStore = new MIDIDeviceStore()
   readonly exportStore = new ExportStore()
   readonly toastStore = new ToastStore()
+  readonly authStore = new AuthStore()
   readonly player: Player
   readonly synth: SoundFontSynth
   readonly synthGroup = new GroupOutput()

@@ -11,7 +11,7 @@ import {
   ListItemText,
   Snackbar,
 } from "@mui/material"
-import { getDocs } from "firebase/firestore"
+import { getDocs, QueryDocumentSnapshot } from "firebase/firestore"
 import { observer } from "mobx-react-lite"
 import { useCallback, useEffect, useState } from "react"
 import { localized } from "../../../common/localize/localizedString"
@@ -26,19 +26,19 @@ import { useStores } from "../../hooks/useStores"
 const FileList = observer(() => {
   const rootStore = useStores()
   const [isLoading, setLoading] = useState(true)
-  const [files, setFiles] = useState<FirestoreSong[]>([])
+  const [files, setFiles] = useState<QueryDocumentSnapshot<FirestoreSong>[]>([])
   const [error, setError] = useState<Error | null>(null)
   const [isErrorVisible, setErrorVisible] = useState(false)
 
   useEffect(() => {
     ;(async () => {
       const snapshot = await getDocs(songCollection)
-      setFiles(snapshot.docs.map((d) => d.data()))
+      setFiles(snapshot.docs)
       setLoading(false)
     })()
   }, [])
 
-  const onClickSong = async (song: FirestoreSong) => {
+  const onClickSong = async (song: QueryDocumentSnapshot<FirestoreSong>) => {
     try {
       const midiSong = await loadSong(song)
       setSong(rootStore)(midiSong)
@@ -61,7 +61,7 @@ const FileList = observer(() => {
         {isLoading && <CircularProgress />}
         {files.map((song, i) => (
           <ListItemButton key={i} onClick={() => onClickSong(song)}>
-            <ListItemText primary={song.name} />
+            <ListItemText primary={song.data().name} />
           </ListItemButton>
         ))}
       </List>

@@ -7,7 +7,10 @@ import { ChangeEvent, FC, useCallback, useRef } from "react"
 import { localized } from "../../../common/localize/localizedString"
 import { createSong, openSong, saveSong } from "../../actions"
 import { hasFSAccess, openFile, saveFile, saveFileAs } from "../../actions/file"
-import { saveSong as saveSongToFirestore } from "../../firebase/database"
+import {
+  createSong as saveSongToFirestore,
+  updateSong,
+} from "../../firebase/database"
 import { useStores } from "../../hooks/useStores"
 import { Tab } from "./Navigation"
 
@@ -108,7 +111,12 @@ const CloudMenu: FC<{ close: () => void }> = observer(({ close }) => {
   }
 
   const onClickSave = async () => {
-    await saveSongToFirestore(rootStore.song)
+    const { song } = rootStore
+    if (song.firestoreReference === null) {
+      await saveSongToFirestore(rootStore.song)
+    } else {
+      await updateSong(song)
+    }
     close()
   }
 

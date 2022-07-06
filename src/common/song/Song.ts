@@ -1,7 +1,9 @@
+import { DocumentReference } from "firebase/firestore"
 import pullAt from "lodash/pullAt"
 import { action, computed, makeObservable, observable, transaction } from "mobx"
 import { createModelSchema, list, object, primitive } from "serializr"
 import { TIME_BASE } from "../../main/Constants"
+import { FirestoreSong, FirestoreSongData } from "../../main/firebase/database"
 import { isNotUndefined } from "../helpers/array"
 import { Measure } from "../measure/Measure"
 import { getMeasuresFromConductorTrack } from "../measure/MeasureList"
@@ -17,6 +19,8 @@ export default class Song {
   timebase: number = TIME_BASE
   name: string = ""
   fileHandle: FileSystemFileHandle | null = null
+  firestoreReference: DocumentReference<FirestoreSong> | null = null
+  firestoreDataReference: DocumentReference<FirestoreSongData> | null = null
 
   constructor() {
     makeObservable(this, {

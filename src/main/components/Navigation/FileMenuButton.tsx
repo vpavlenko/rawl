@@ -8,7 +8,6 @@ import { localized } from "../../../common/localize/localizedString"
 import { createSong, openSong, saveSong } from "../../actions"
 import { hasFSAccess, openFile, saveFile, saveFileAs } from "../../actions/file"
 import { useStores } from "../../hooks/useStores"
-import { useTheme } from "../../hooks/useTheme"
 import { Tab } from "./Navigation"
 
 const fileInputID = "OpenButtonInputFile"
@@ -110,7 +109,6 @@ const StyledMenu = styled(Menu)`
 export const FileMenuButton: FC = observer(() => {
   const rootStore = useStores()
   const { rootViewStore, exportStore } = rootStore
-  const theme = useTheme()
   const isOpen = rootViewStore.openDrawer
   const handleClose = () => (rootViewStore.openDrawer = false)
 

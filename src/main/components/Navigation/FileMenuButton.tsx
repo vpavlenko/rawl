@@ -29,7 +29,7 @@ const FileInput: FC<
   </>
 )
 
- const FileMenu: FC<{ close: () => void }> = observer(({ close }) => {
+const FileMenu: FC<{ close: () => void }> = observer(({ close }) => {
   const rootStore = useStores()
 
   const onClickOpen = async () => {
@@ -71,33 +71,56 @@ const FileInput: FC<
   )
 })
 
- const LegacyFileMenu: FC<{ close: () => void }> = observer(
-  ({ close }) => {
-    const rootStore = useStores()
+const LegacyFileMenu: FC<{ close: () => void }> = observer(({ close }) => {
+  const rootStore = useStores()
 
-    const onClickOpen = (e: ChangeEvent<HTMLInputElement>) => {
-      close()
-      openSong(rootStore)(e.currentTarget)
-    }
-
-    const onClickSave = () => {
-      close()
-      saveSong(rootStore)()
-    }
-
-    return (
-      <>
-        <FileInput onChange={onClickOpen}>
-          <MenuItem>{localized("open-song", "Open")}</MenuItem>
-        </FileInput>
-
-        <MenuItem onClick={onClickSave}>
-          {localized("save-song", "Save")}
-        </MenuItem>
-      </>
-    )
+  const onClickOpen = (e: ChangeEvent<HTMLInputElement>) => {
+    close()
+    openSong(rootStore)(e.currentTarget)
   }
-)
+
+  const onClickSave = () => {
+    close()
+    saveSong(rootStore)()
+  }
+
+  return (
+    <>
+      <FileInput onChange={onClickOpen}>
+        <MenuItem>{localized("open-song", "Open")}</MenuItem>
+      </FileInput>
+
+      <MenuItem onClick={onClickSave}>
+        {localized("save-song", "Save")}
+      </MenuItem>
+    </>
+  )
+})
+
+const CloudMenu: FC<{ close: () => void }> = observer(({ close }) => {
+  const { rootViewStore } = useStores()
+
+  const onClickOpen = () => {
+    rootViewStore.openCloudFileDialog = true
+    close()
+  }
+
+  const onClickSave = () => {
+    close()
+  }
+
+  return (
+    <>
+      <MenuItem onClick={onClickOpen}>
+        {localized("open-song-cloud", "Open from Cloud")}
+      </MenuItem>
+
+      <MenuItem onClick={onClickSave}>
+        {localized("save-song-cloud", "Save to Cloud")}
+      </MenuItem>
+    </>
+  )
+})
 
 const StyledMenu = styled(Menu)`
   .MuiList-root {
@@ -108,7 +131,11 @@ const StyledMenu = styled(Menu)`
 
 export const FileMenuButton: FC = observer(() => {
   const rootStore = useStores()
-  const { rootViewStore, exportStore } = rootStore
+  const {
+    rootViewStore,
+    exportStore,
+    authStore: { user },
+  } = rootStore
   const isOpen = rootViewStore.openDrawer
   const handleClose = () => (rootViewStore.openDrawer = false)
 
@@ -161,6 +188,20 @@ export const FileMenuButton: FC = observer(() => {
         {hasFSAccess && <FileMenu close={handleClose} />}
 
         {!hasFSAccess && <LegacyFileMenu close={handleClose} />}
+
+        <Divider />
+
+        <MenuItem disabled={true}>
+          {localized("cloud-save", "Cloud Save")}
+        </MenuItem>
+
+        {user && <CloudMenu close={handleClose} />}
+
+        {user === null && (
+          <MenuItem disabled={true}>
+            {localized("please-sign-up", "Please sign up to use Cloud Save")}
+          </MenuItem>
+        )}
 
         <Divider />
 

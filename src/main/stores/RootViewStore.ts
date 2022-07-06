@@ -10,6 +10,7 @@ export default class RootViewStore {
   openEventEditor = false
   eventEditorEvents: TrackEvent[] = []
   openSignInDialog = false
+  openCloudFileDialog = false
 
   constructor() {
     makeObservable(this, {
@@ -21,6 +22,7 @@ export default class RootViewStore {
       openEventEditor: observable,
       eventEditorEvents: observable.shallow,
       openSignInDialog: observable,
+      openCloudFileDialog: observable,
     })
   }
 }

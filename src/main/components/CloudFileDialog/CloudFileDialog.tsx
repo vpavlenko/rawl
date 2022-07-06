@@ -11,16 +11,15 @@ import {
   ListItemText,
   Snackbar,
 } from "@mui/material"
-import { getDoc, getDocs } from "firebase/firestore"
+import { getDocs } from "firebase/firestore"
 import { observer } from "mobx-react-lite"
 import { useCallback, useEffect, useState } from "react"
 import { localized } from "../../../common/localize/localizedString"
-import { songFromMidi } from "../../../common/midi/midiConversion"
 import { setSong } from "../../actions"
 import {
   FirestoreSong,
+  loadSong,
   songCollection,
-  songDataConverter,
 } from "../../firebase/database"
 import { useStores } from "../../hooks/useStores"
 
@@ -39,21 +38,10 @@ const FileList = observer(() => {
     })()
   }, [])
 
-  const openSong = async (song: FirestoreSong) => {
-    const snapshot = await getDoc(song.data.withConverter(songDataConverter))
-    const data = snapshot.data()?.data
-    if (data === undefined) {
-      throw new Error("Song data does not exist")
-    }
-    const buf = await data.arrayBuffer()
-
-    const midiSong = songFromMidi(new Uint8Array(buf))
-    setSong(rootStore)(midiSong)
-  }
-
   const onClickSong = async (song: FirestoreSong) => {
     try {
-      await openSong(song)
+      const midiSong = await loadSong(song)
+      setSong(rootStore)(midiSong)
       rootStore.rootViewStore.openCloudFileDialog = false
     } catch (e) {
       setError(e as Error)

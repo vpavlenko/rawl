@@ -2,8 +2,10 @@ import {
   collection,
   DocumentReference,
   FirestoreDataConverter,
+  getDoc,
   Timestamp,
 } from "firebase/firestore"
+import { songFromMidi } from "../../common/midi/midiConversion"
 import { firestore } from "./firebase"
 
 export interface FirestoreSongData {
@@ -42,3 +44,14 @@ export const songDataConverter: FirestoreDataConverter<FirestoreSongData> = {
 export const songCollection = collection(firestore, "songs").withConverter(
   songConverter
 )
+
+export const loadSong = async (song: FirestoreSong) => {
+  const snapshot = await getDoc(song.data.withConverter(songDataConverter))
+  const data = snapshot.data()?.data
+  if (data === undefined) {
+    throw new Error("Song data does not exist")
+  }
+  const buf = await data.arrayBuffer()
+
+  return songFromMidi(new Uint8Array(buf))
+}

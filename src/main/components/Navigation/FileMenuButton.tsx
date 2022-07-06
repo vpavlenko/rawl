@@ -3,7 +3,7 @@ import { KeyboardArrowDown } from "@mui/icons-material"
 import { Divider, Menu, MenuItem } from "@mui/material"
 import Color from "color"
 import { observer } from "mobx-react-lite"
-import { ChangeEvent, FC, useCallback, useRef, VFC } from "react"
+import { ChangeEvent, FC, useCallback, useRef } from "react"
 import { localized } from "../../../common/localize/localizedString"
 import { createSong, openSong, saveSong } from "../../actions"
 import { hasFSAccess, openFile, saveFile, saveFileAs } from "../../actions/file"
@@ -29,7 +29,7 @@ const FileInput: FC<
   </>
 )
 
-export const FileMenu: VFC<{ close: () => void }> = observer(({ close }) => {
+ const FileMenu: FC<{ close: () => void }> = observer(({ close }) => {
   const rootStore = useStores()
 
   const onClickOpen = async () => {
@@ -71,7 +71,7 @@ export const FileMenu: VFC<{ close: () => void }> = observer(({ close }) => {
   )
 })
 
-export const LegacyFileMenu: VFC<{ close: () => void }> = observer(
+ const LegacyFileMenu: FC<{ close: () => void }> = observer(
   ({ close }) => {
     const rootStore = useStores()
 

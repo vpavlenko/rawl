@@ -12,6 +12,7 @@ import { HelpDialog } from "../Help/HelpDialog"
 import { MIDIDeviceDialog } from "../MIDIDeviceView/MIDIDeviceDialog"
 import { Navigation } from "../Navigation/Navigation"
 import { PianoRollEditor } from "../PianoRoll/PianoRollEditor"
+import { SignInDialog } from "../SignInDialog/SignInDialog"
 import { TempoEditor } from "../TempoGraph/TempoEditor"
 import { Toast } from "../Toast/Toast"
 import { TransportPanel } from "../TransportPanel/TransportPanel"
@@ -64,5 +65,6 @@ export const RootView: FC = () => (
     <ArrangeTransposeDialog />
     <Toast />
     <Head />
+    <SignInDialog />
   </>
 )

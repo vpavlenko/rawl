@@ -7,6 +7,7 @@ import { ChangeEvent, FC, useCallback, useRef } from "react"
 import { localized } from "../../../common/localize/localizedString"
 import { createSong, openSong, saveSong } from "../../actions"
 import { hasFSAccess, openFile, saveFile, saveFileAs } from "../../actions/file"
+import { saveSong as saveSongToFirestore } from "../../firebase/database"
 import { useStores } from "../../hooks/useStores"
 import { Tab } from "./Navigation"
 
@@ -98,14 +99,16 @@ const LegacyFileMenu: FC<{ close: () => void }> = observer(({ close }) => {
 })
 
 const CloudMenu: FC<{ close: () => void }> = observer(({ close }) => {
-  const { rootViewStore } = useStores()
+  const rootStore = useStores()
+  const { rootViewStore } = rootStore
 
   const onClickOpen = () => {
     rootViewStore.openCloudFileDialog = true
     close()
   }
 
-  const onClickSave = () => {
+  const onClickSave = async () => {
+    await saveSongToFirestore(rootStore.song)
     close()
   }
 

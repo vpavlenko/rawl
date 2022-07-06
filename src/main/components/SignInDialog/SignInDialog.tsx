@@ -12,11 +12,7 @@ import { useStores } from "../../hooks/useStores"
 import { StyledFirebaseAuth } from "../FirebaseAuth/StyledFirebaseAuth"
 
 import "firebase/auth"
-import {
-  GithubAuthProvider,
-  GoogleAuthProvider,
-  TwitterAuthProvider,
-} from "firebase/auth"
+import { GithubAuthProvider, GoogleAuthProvider } from "firebase/auth"
 import { auth } from "../../firebase/firebase"
 
 export const SignInDialog = observer(() => {
@@ -57,7 +53,6 @@ export const SignInDialog = observer(() => {
           uiConfig={{
             signInOptions: [
               GoogleAuthProvider.PROVIDER_ID,
-              TwitterAuthProvider.PROVIDER_ID,
               GithubAuthProvider.PROVIDER_ID,
             ],
             callbacks: {

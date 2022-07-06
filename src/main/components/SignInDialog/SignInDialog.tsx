@@ -31,6 +31,18 @@ export const SignInDialog = observer(() => {
     [rootViewStore]
   )
 
+  const signInSuccessWithAuthResult = (
+    authResult: any,
+    redirectUrl?: string | undefined
+  ) => {
+    rootViewStore.openSignInDialog = false
+    return false
+  }
+
+  const signInFailure = (error: firebaseui.auth.AuthUIError) => {
+    console.warn(error)
+  }
+
   return (
     <Dialog
       open={openSignInDialog}
@@ -48,6 +60,11 @@ export const SignInDialog = observer(() => {
               TwitterAuthProvider.PROVIDER_ID,
               GithubAuthProvider.PROVIDER_ID,
             ],
+            callbacks: {
+              signInSuccessWithAuthResult,
+              signInFailure,
+            },
+            signInFlow: "popup",
           }}
           firebaseAuth={auth}
         />

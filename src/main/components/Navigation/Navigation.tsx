@@ -1,5 +1,5 @@
 import styled from "@emotion/styled"
-import { AccountCircle, Forum, Help, Settings } from "@mui/icons-material"
+import { Forum, Help, Settings } from "@mui/icons-material"
 import { Tooltip } from "@mui/material"
 import Color from "color"
 import { observer } from "mobx-react-lite"
@@ -11,6 +11,7 @@ import PianoIcon from "../../images/icons/piano.svg"
 import TempoIcon from "../../images/icons/tempo.svg"
 import Logo from "../../images/logo-circle.svg"
 import { FileMenuButton } from "./FileMenuButton"
+import { UserButton } from "./UserButton"
 
 const BannerContainer = styled.div`
   background: ${({ theme }) => theme.themeColor};
@@ -58,7 +59,7 @@ export const Tab = styled.div`
 }
 `
 
-const TabTitle = styled.span`
+export const TabTitle = styled.span`
   margin-left: 0.4rem;
 
   @media (max-width: 850px) {
@@ -70,14 +71,18 @@ const FlexibleSpacer = styled.div`
   flex-grow: 1;
 `
 
-const IconStyle: CSSProperties = {
+export const IconStyle: CSSProperties = {
   width: "1.3rem",
   height: "1.3rem",
   fill: "currentColor",
 }
 
 export const Navigation: FC = observer(() => {
-  const { rootViewStore, router } = useStores()
+  const {
+    rootViewStore,
+    authStore: { user },
+    router,
+  } = useStores()
 
   return (
     <Container>
@@ -136,20 +141,18 @@ export const Navigation: FC = observer(() => {
         <Settings style={IconStyle} />
         <TabTitle>{localized("settings", "Settings")}</TabTitle>
       </Tab>
+
       <Tab onClick={useCallback(() => (rootViewStore.openHelp = true), [])}>
         <Help style={IconStyle} />
         <TabTitle>{localized("help", "Help")}</TabTitle>
       </Tab>
+
       <Tab id="open-gitter-button">
         <Forum style={IconStyle} />
         <TabTitle>{localized("open-chat", "Open Chat")}</TabTitle>
       </Tab>
-      <Tab
-        onClick={useCallback(() => (rootViewStore.openSignInDialog = true), [])}
-      >
-        <AccountCircle style={IconStyle} />
-        <TabTitle>{localized("sign-in", "Sign in")}</TabTitle>
-      </Tab>
+
+      <UserButton />
     </Container>
   )
 })

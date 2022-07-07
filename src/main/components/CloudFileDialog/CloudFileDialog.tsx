@@ -1,5 +1,4 @@
 import {
-  Alert,
   Button,
   CircularProgress,
   Dialog,
@@ -9,7 +8,6 @@ import {
   List,
   ListItemButton,
   ListItemText,
-  Snackbar,
 } from "@mui/material"
 import { getDocs, QueryDocumentSnapshot } from "firebase/firestore"
 import { observer } from "mobx-react-lite"
@@ -27,8 +25,6 @@ const FileList = observer(() => {
   const rootStore = useStores()
   const [isLoading, setLoading] = useState(true)
   const [files, setFiles] = useState<QueryDocumentSnapshot<FirestoreSong>[]>([])
-  const [error, setError] = useState<Error | null>(null)
-  const [isErrorVisible, setErrorVisible] = useState(false)
 
   useEffect(() => {
     ;(async () => {
@@ -44,38 +40,25 @@ const FileList = observer(() => {
       setSong(rootStore)(midiSong)
       rootStore.rootViewStore.openCloudFileDialog = false
     } catch (e) {
-      setError(e as Error)
-      setErrorVisible(true)
+      rootStore.toastStore.showError((e as Error).message)
     }
   }
 
   return (
-    <>
-      <List
-        sx={{
-          overflow: "auto",
-          maxHeight: 300,
-        }}
-        subheader={<li />}
-      >
-        {isLoading && <CircularProgress />}
-        {files.map((song, i) => (
-          <ListItemButton key={i} onClick={() => onClickSong(song)}>
-            <ListItemText primary={song.data().name} />
-          </ListItemButton>
-        ))}
-      </List>
-      <Snackbar
-        open={isErrorVisible}
-        autoHideDuration={3000}
-        onClose={() => setErrorVisible(false)}
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-      >
-        <Alert severity="error" sx={{ width: "100%" }}>
-          {error?.message}
-        </Alert>
-      </Snackbar>
-    </>
+    <List
+      sx={{
+        overflow: "auto",
+        maxHeight: 300,
+      }}
+      subheader={<li />}
+    >
+      {isLoading && <CircularProgress />}
+      {files.map((song, i) => (
+        <ListItemButton key={i} onClick={() => onClickSong(song)}>
+          <ListItemText primary={song.data().name} />
+        </ListItemButton>
+      ))}
+    </List>
   )
 })
 

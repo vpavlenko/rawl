@@ -113,11 +113,16 @@ const CloudMenu: FC<{ close: () => void }> = observer(({ close }) => {
   const onClickSave = async () => {
     close()
     const { song } = rootStore
-    if (song.firestoreReference === null) {
-      await saveSongToFirestore(rootStore.song)
-    } else {
-      await updateSong(song)
-      rootStore.toastStore.showSuccess(localized("song-saved", "Song saved"))
+
+    try {
+      if (song.firestoreReference === null) {
+        await saveSongToFirestore(rootStore.song)
+      } else {
+        await updateSong(song)
+        rootStore.toastStore.showSuccess(localized("song-saved", "Song saved"))
+      }
+    } catch (e) {
+      rootStore.toastStore.showError((e as Error).message)
     }
   }
 

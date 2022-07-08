@@ -14,11 +14,7 @@ import { observer } from "mobx-react-lite"
 import { useCallback, useEffect, useState } from "react"
 import { localized } from "../../../common/localize/localizedString"
 import { setSong } from "../../actions"
-import {
-  FirestoreSong,
-  loadSong,
-  songCollection,
-} from "../../firebase/database"
+import { FirestoreSong, loadSong, songCollection } from "../../firebase/song"
 import { useStores } from "../../hooks/useStores"
 
 const FileList = observer(() => {

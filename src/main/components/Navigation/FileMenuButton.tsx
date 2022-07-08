@@ -10,7 +10,7 @@ import { hasFSAccess, openFile, saveFile, saveFileAs } from "../../actions/file"
 import {
   createSong as saveSongToFirestore,
   updateSong,
-} from "../../firebase/database"
+} from "../../firebase/song"
 import { useStores } from "../../hooks/useStores"
 import { Tab } from "./Navigation"
 

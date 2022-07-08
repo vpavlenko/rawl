@@ -18,6 +18,7 @@ export interface FirestoreSongData {
   createdAt: Timestamp
   updatedAt: Timestamp
   data?: Bytes
+  userId: string
 }
 
 export interface FirestoreSong {
@@ -85,6 +86,7 @@ export const createSong = async (song: Song) => {
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),
     data: Bytes.fromUint8Array(bytes),
+    userId: auth.currentUser.uid,
   })
 
   return await addDoc(songCollection, {

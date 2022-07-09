@@ -20,6 +20,7 @@ export const SignInDialog = observer(() => {
   const {
     rootViewStore,
     rootViewStore: { openSignInDialog },
+    toastStore,
   } = rootStore
 
   const onClose = useCallback(
@@ -32,6 +33,9 @@ export const SignInDialog = observer(() => {
     redirectUrl?: string | undefined
   ) => {
     rootViewStore.openSignInDialog = false
+    toastStore.showSuccess(
+      localized("success-sign-in", "Successfully signed in")
+    )
     return false
   }
 

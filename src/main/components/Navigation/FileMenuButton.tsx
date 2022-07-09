@@ -1,5 +1,5 @@
 import styled from "@emotion/styled"
-import { KeyboardArrowDown } from "@mui/icons-material"
+import { CloudOutlined, KeyboardArrowDown } from "@mui/icons-material"
 import { Divider, Menu, MenuItem } from "@mui/material"
 import Color from "color"
 import { observer } from "mobx-react-lite"
@@ -71,9 +71,18 @@ export const FileMenuButton: FC = observer(() => {
         {user && <CloudFileMenu close={handleClose} />}
 
         {user === null && (
-          <MenuItem disabled={true}>
-            {localized("please-sign-up", "Please sign up to use Cloud Save")}
-          </MenuItem>
+          <>
+            <Divider />
+            <MenuItem
+              onClick={() => {
+                handleClose()
+                rootViewStore.openSignInDialog = true
+              }}
+            >
+              <CloudOutlined sx={{ marginRight: "0.5em" }} />
+              {localized("please-sign-up", "Sign up to use Cloud Save")}
+            </MenuItem>
+          </>
         )}
 
         <Divider />

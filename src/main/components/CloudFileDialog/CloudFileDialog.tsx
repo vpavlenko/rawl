@@ -9,12 +9,12 @@ import {
   ListItemButton,
   ListItemText,
 } from "@mui/material"
-import { getDocs, QueryDocumentSnapshot } from "firebase/firestore"
+import { QueryDocumentSnapshot } from "firebase/firestore"
 import { observer } from "mobx-react-lite"
 import { useCallback, useEffect, useState } from "react"
 import { localized } from "../../../common/localize/localizedString"
 import { setSong } from "../../actions"
-import { FirestoreSong, loadSong, songCollection } from "../../firebase/song"
+import { FirestoreSong, getSongs, loadSong } from "../../firebase/song"
 import { useStores } from "../../hooks/useStores"
 
 const FileList = observer(() => {
@@ -24,7 +24,7 @@ const FileList = observer(() => {
 
   useEffect(() => {
     ;(async () => {
-      const snapshot = await getDocs(songCollection)
+      const snapshot = await getSongs()
       setFiles(snapshot.docs)
       setLoading(false)
     })()

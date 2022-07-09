@@ -5,10 +5,13 @@ import {
   DocumentReference,
   FirestoreDataConverter,
   getDoc,
+  getDocs,
+  query,
   QueryDocumentSnapshot,
   serverTimestamp,
   Timestamp,
   updateDoc,
+  where,
 } from "firebase/firestore"
 import { songFromMidi, songToMidi } from "../../common/midi/midiConversion"
 import Song from "../../common/song"
@@ -89,13 +92,16 @@ export const createSong = async (song: Song) => {
     userId: auth.currentUser.uid,
   })
 
-  return await addDoc(songCollection, {
+  const doc = await addDoc(songCollection, {
     name: song.name,
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),
     dataRef: dataDoc,
     userId: auth.currentUser.uid,
   })
+
+  song.firestoreDataReference = dataDoc
+  song.firestoreReference = doc
 }
 
 export const updateSong = async (song: Song) => {
@@ -121,4 +127,14 @@ export const updateSong = async (song: Song) => {
     updatedAt: serverTimestamp(),
     data: Bytes.fromUint8Array(bytes),
   })
+}
+
+export const getSongs = async () => {
+  if (auth.currentUser === null) {
+    throw new Error("You must be logged in to get songs from the cloud")
+  }
+
+  return await getDocs(
+    query(songCollection, where("userId", "==", auth.currentUser.uid))
+  )
 }

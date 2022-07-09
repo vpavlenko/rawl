@@ -119,8 +119,8 @@ const CloudMenu: FC<{ close: () => void }> = observer(({ close }) => {
         await saveSongToFirestore(rootStore.song)
       } else {
         await updateSong(song)
-        rootStore.toastStore.showSuccess(localized("song-saved", "Song saved"))
       }
+      rootStore.toastStore.showSuccess(localized("song-saved", "Song saved"))
     } catch (e) {
       rootStore.toastStore.showError((e as Error).message)
     }

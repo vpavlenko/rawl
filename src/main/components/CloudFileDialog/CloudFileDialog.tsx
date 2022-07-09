@@ -5,9 +5,11 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  List,
-  ListItemButton,
-  ListItemText,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
 } from "@mui/material"
 import { QueryDocumentSnapshot } from "firebase/firestore"
 import { observer } from "mobx-react-lite"
@@ -41,20 +43,37 @@ const FileList = observer(() => {
   }
 
   return (
-    <List
-      sx={{
-        overflow: "auto",
-        maxHeight: 300,
-      }}
-      subheader={<li />}
-    >
-      {isLoading && <CircularProgress />}
-      {files.map((song, i) => (
-        <ListItemButton key={i} onClick={() => onClickSong(song)}>
-          <ListItemText primary={song.data().name} />
-        </ListItemButton>
-      ))}
-    </List>
+    <Table stickyHeader>
+      <TableHead>
+        <TableRow>
+          <TableCell>Title</TableCell>
+          <TableCell>Created</TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody
+        sx={{
+          overflow: "auto",
+          maxHeight: 300,
+        }}
+      >
+        {isLoading && <CircularProgress />}
+        {files.map((song, i) => {
+          const createdAt = song.data().createdAt.toDate()
+          const updatedAt = song.data().updatedAt.toDate()
+          return (
+            <TableRow key={i} onClick={() => onClickSong(song)}>
+              <TableCell component="th" scope="row">
+                {song.data().name}
+              </TableCell>
+              <TableCell>
+                {createdAt.toLocaleDateString()}{" "}
+                {createdAt.toLocaleTimeString()}
+              </TableCell>
+            </TableRow>
+          )
+        })}
+      </TableBody>
+    </Table>
   )
 })
 

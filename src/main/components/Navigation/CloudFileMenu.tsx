@@ -93,6 +93,24 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
       }
     }
 
+    const onClickSaveAs = async () => {
+      close()
+      try {
+        const text = await promptStore.show({
+          title: localized("name-song", "Name this song"),
+        })
+        if (text !== null && text.length > 0) {
+          song.name = text
+        } else {
+          return
+        }
+        await createSong(song)
+        rootStore.toastStore.showSuccess(localized("song-saved", "Song saved"))
+      } catch (e) {
+        rootStore.toastStore.showError((e as Error).message)
+      }
+    }
+
     const onClickImport = async () => {
       close()
       try {
@@ -120,11 +138,15 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
         <Divider />
 
         <MenuItem onClick={onClickOpen}>
-          {localized("open-song", "Open from Cloud")}
+          {localized("open-song", "Open")}
         </MenuItem>
 
         <MenuItem onClick={onClickSave} disabled={song.isSaved}>
-          {localized("save-song", "Save to Cloud")}
+          {localized("save-song", "Save")}
+        </MenuItem>
+
+        <MenuItem onClick={onClickSaveAs}>
+          {localized("save-as", "Save As")}
         </MenuItem>
 
         <Divider />

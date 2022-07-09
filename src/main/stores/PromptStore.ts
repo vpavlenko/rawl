@@ -3,6 +3,7 @@ import { makeObservable, observable } from "mobx"
 export interface PromptOptions {
   title: string
   message?: string
+  initialText?: string
 }
 
 type PromptProps = PromptOptions & {

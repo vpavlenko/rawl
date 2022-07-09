@@ -98,6 +98,7 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
       try {
         const text = await promptStore.show({
           title: localized("name-song", "Name this song"),
+          initialText: song.name,
         })
         if (text !== null && text.length > 0) {
           song.name = text

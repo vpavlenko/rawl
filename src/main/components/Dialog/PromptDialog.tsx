@@ -24,7 +24,7 @@ export const PromptDialog = observer(() => {
   // reset on open
   useEffect(() => {
     if (props !== null) {
-      setInput("")
+      setInput(props.initialText ?? "")
     }
   }, [props !== null])
 
@@ -33,18 +33,9 @@ export const PromptDialog = observer(() => {
     onClose()
   }
 
-  if (props === null) {
-    return <></>
-  }
-
   return (
-    <Dialog
-      open={props !== null}
-      onClose={onClose}
-      keepMounted={false}
-      maxWidth="xs"
-    >
-      <DialogTitle>{props.title}</DialogTitle>
+    <Dialog open={props !== null} onClose={onClose} maxWidth="xs">
+      <DialogTitle>{props?.title}</DialogTitle>
       <DialogContent>
         <TextField
           type="text"
@@ -62,7 +53,7 @@ export const PromptDialog = observer(() => {
         <Button onClick={_onClickOK}>{localized("ok", "OK")}</Button>
         <Button
           onClick={() => {
-            props.callback(null)
+            props?.callback(null)
             onClose()
           }}
         >

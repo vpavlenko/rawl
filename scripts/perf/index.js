@@ -12,7 +12,9 @@ const browser = await puppeteer.launch({
   args: ["--autoplay-policy=no-user-gesture-required"],
 })
 const page = await browser.newPage()
-await page.goto("http://localhost:3000/edit", { waitUntil: "networkidle0" })
+await page.goto("http://localhost:3000/edit?disableFileSystem=true", {
+  waitUntil: "networkidle0",
+})
 
 // open midi file
 

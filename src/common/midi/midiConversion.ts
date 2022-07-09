@@ -72,6 +72,15 @@ export function songFromMidi(data: StreamSource) {
   const midi = read(data)
 
   getTracks(midi).forEach((t) => song.addTrack(t))
+
+  if (midi.header.formatType === 1 && song.tracks.length > 0) {
+    // Use the first track name as the song title
+    const name = song.tracks[0].name
+    if (name !== undefined) {
+      song.name = name
+    }
+  }
+
   song.selectedTrackId = 1
   song.timebase = midi.header.ticksPerBeat
 

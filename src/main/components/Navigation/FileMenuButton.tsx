@@ -35,7 +35,11 @@ export const FileMenu: VFC<{ close: () => void }> = observer(({ close }) => {
 
   const onClickOpen = async () => {
     close()
-    await openFile(rootStore)
+    try {
+      await openFile(rootStore)
+    } catch (e) {
+      rootStore.toastStore.showError((e as Error).message)
+    }
   }
 
   const onClickSave = async () => {

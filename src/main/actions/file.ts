@@ -3,8 +3,14 @@ import { writeFile } from "../services/fs-helper"
 import RootStore from "../stores/RootStore"
 import { setSong } from "./song"
 
+// URL parameter for automation purposes used in scripts/perf/index.js
+// /edit?disableFileSystem=true
+export const disableFileSystem =
+  new URL(window.location.href).searchParams.get("disableFileSystem") === "true"
+
 export const hasFSAccess =
-  "chooseFileSystemEntries" in window || "showOpenFilePicker" in window
+  ("chooseFileSystemEntries" in window || "showOpenFilePicker" in window) &&
+  !disableFileSystem
 
 export const openFile = async (rootStore: RootStore) => {
   let fileHandle: FileSystemFileHandle
@@ -29,11 +35,20 @@ export const openFile = async (rootStore: RootStore) => {
     return
   }
   const file = await fileHandle.getFile()
-  const buf = await file.arrayBuffer()
-  const song = songFromMidi(new Uint8Array(buf))
-  song.filepath = file.name
+  const song = await songFromFile(file)
   song.fileHandle = fileHandle
   setSong(rootStore)(song)
+}
+
+export const songFromFile = async (file: File) => {
+  const buf = await file.arrayBuffer()
+  const song = songFromMidi(new Uint8Array(buf))
+  if (song.name.length === 0) {
+    // Use the file name without extension as the song title
+    song.name = file.name.replace(/\.[^/.]+$/, "")
+  }
+  song.filepath = file.name
+  return song
 }
 
 export const saveFile = async (rootStore: RootStore) => {

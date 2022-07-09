@@ -9,34 +9,33 @@ import { clampNoteNumber } from "../../common/transform/NotePoint"
 import RootStore from "../stores/RootStore"
 import { pushHistory } from "./history"
 
-const openSongFile = (
-  input: HTMLInputElement,
-  callback: (song: Song | null) => void
-) => {
+const openSongFile = async (input: HTMLInputElement): Promise<Song | null> => {
   if (input.files === null || input.files.length === 0) {
-    return
+    return Promise.resolve(null)
   }
 
   const file = input.files[0]
   const reader = new FileReader()
 
-  reader.onload = (e) => {
-    if (e.target == null) {
-      callback(null)
-      return
-    }
-    const buf = e.target.result as ArrayBuffer
+  return new Promise((resolve, reject) => {
+    reader.onload = (e) => {
+      if (e.target == null) {
+        resolve(null)
+        return
+      }
+      const buf = e.target.result as ArrayBuffer
 
-    try {
-      const song = songFromMidi(new Uint8Array(buf))
-      song.filepath = file.name
-      callback(song)
-    } catch (e) {
-      alert(e)
+      try {
+        const song = songFromMidi(new Uint8Array(buf))
+        song.filepath = file.name
+        resolve(song)
+      } catch (e) {
+        reject(e)
+      }
     }
-  }
 
-  reader.readAsArrayBuffer(file)
+    reader.readAsArrayBuffer(file)
+  })
 }
 
 export const setSong = (rootStore: RootStore) => (song: Song) => {
@@ -63,14 +62,18 @@ export const saveSong = (rootStore: RootStore) => () => {
   downloadSongAsMidi(song)
 }
 
-export const openSong = (rootStore: RootStore) => (input: HTMLInputElement) => {
-  openSongFile(input, (song) => {
-    if (song === null) {
-      return
+export const openSong =
+  (rootStore: RootStore) => async (input: HTMLInputElement) => {
+    try {
+      const song = await openSongFile(input)
+      if (song === null) {
+        return
+      }
+      setSong(rootStore)(song)
+    } catch (e) {
+      rootStore.toastStore.showError((e as Error).message)
     }
-    setSong(rootStore)(song)
-  })
-}
+  }
 
 export const addTrack = (rootStore: RootStore) => () => {
   pushHistory(rootStore)()

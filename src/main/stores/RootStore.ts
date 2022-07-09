@@ -14,6 +14,7 @@ import { ExportStore } from "./ExportStore"
 import HistoryStore from "./HistoryStore"
 import { MIDIDeviceStore } from "./MIDIDeviceStore"
 import PianoRollStore from "./PianoRollStore"
+import { PromptStore } from "./PromptStore"
 import { registerReactions } from "./reactions"
 import RootViewStore from "./RootViewStore"
 import Router from "./Router"
@@ -34,6 +35,7 @@ export default class RootStore {
   readonly toastStore = new ToastStore()
   readonly authStore = new AuthStore()
   readonly dialogStore = new DialogStore()
+  readonly promptStore = new PromptStore()
   readonly player: Player
   readonly synth: SoundFontSynth
   readonly synthGroup = new GroupOutput()

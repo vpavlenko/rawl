@@ -27,11 +27,10 @@ export const ActionDialog = observer(() => {
       open={props !== null}
       onClose={onClose}
       keepMounted={false}
-      fullWidth
       maxWidth="xs"
     >
       <DialogTitle>{props.title}</DialogTitle>
-      <DialogContent>{props.message}</DialogContent>
+      {props.message && <DialogContent>{props.message}</DialogContent>}
       <DialogActions>
         {props.actions.map((action) => (
           <Button

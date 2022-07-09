@@ -42,7 +42,6 @@ export const PromptDialog = observer(() => {
       open={props !== null}
       onClose={onClose}
       keepMounted={false}
-      fullWidth
       maxWidth="xs"
     >
       <DialogTitle>{props.title}</DialogTitle>

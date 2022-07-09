@@ -62,15 +62,11 @@ export const FileMenuButton: FC = observer(() => {
         transitionDuration={50}
         disableAutoFocusItem={true}
       >
-        {hasFSAccess && <FileMenu close={handleClose} />}
+        {user === null && hasFSAccess && <FileMenu close={handleClose} />}
 
-        {!hasFSAccess && <LegacyFileMenu close={handleClose} />}
-
-        <Divider />
-
-        <MenuItem disabled={true}>
-          {localized("cloud-save", "Cloud Save")}
-        </MenuItem>
+        {user === null && !hasFSAccess && (
+          <LegacyFileMenu close={handleClose} />
+        )}
 
         {user && <CloudFileMenu close={handleClose} />}
 

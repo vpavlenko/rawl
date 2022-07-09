@@ -3,167 +3,14 @@ import { KeyboardArrowDown } from "@mui/icons-material"
 import { Divider, Menu, MenuItem } from "@mui/material"
 import Color from "color"
 import { observer } from "mobx-react-lite"
-import { ChangeEvent, FC, useCallback, useRef } from "react"
+import { FC, useCallback, useRef } from "react"
 import { localized } from "../../../common/localize/localizedString"
-import { createSong, openSong, saveSong } from "../../actions"
-import { hasFSAccess, openFile, saveFile, saveFileAs } from "../../actions/file"
-import {
-  createSong as saveSongToFirestore,
-  updateSong,
-} from "../../firebase/song"
+import { hasFSAccess } from "../../actions/file"
 import { useStores } from "../../hooks/useStores"
+import { CloudFileMenu } from "./CloudFileMenu"
+import { FileMenu } from "./FileMenu"
+import { LegacyFileMenu } from "./LegacyFileMenu"
 import { Tab } from "./Navigation"
-
-const fileInputID = "OpenButtonInputFile"
-
-const FileInput: FC<
-  React.PropsWithChildren<{
-    onChange: (e: ChangeEvent<HTMLInputElement>) => void
-  }>
-> = ({ onChange, children }) => (
-  <>
-    <input
-      accept="audio/midi"
-      style={{ display: "none" }}
-      id={fileInputID}
-      type="file"
-      onChange={onChange}
-    />
-    <label htmlFor={fileInputID}>{children}</label>
-  </>
-)
-
-const FileMenu: FC<{ close: () => void }> = observer(({ close }) => {
-  const rootStore = useStores()
-
-  const onClickNew = () => {
-    close()
-    if (
-      confirm(localized("confirm-new", "Are you sure you want to continue?"))
-    ) {
-      createSong(rootStore)()
-    }
-  }
-
-  const onClickOpen = async () => {
-    close()
-    try {
-      await openFile(rootStore)
-    } catch (e) {
-      rootStore.toastStore.showError((e as Error).message)
-    }
-  }
-
-  const onClickSave = async () => {
-    close()
-    await saveFile(rootStore)
-  }
-
-  const onClickSaveAs = async () => {
-    close()
-    await saveFileAs(rootStore)
-  }
-
-  return (
-    <>
-      <MenuItem onClick={onClickNew}>{localized("new-song", "New")}</MenuItem>
-
-      <Divider />
-
-      <MenuItem onClick={onClickOpen}>
-        {localized("open-song", "Open")}
-      </MenuItem>
-
-      <MenuItem
-        onClick={onClickSave}
-        disabled={rootStore.song.fileHandle === null}
-      >
-        {localized("save-song", "Save")}
-      </MenuItem>
-
-      <MenuItem onClick={onClickSaveAs}>
-        {localized("save-as", "Save As")}
-      </MenuItem>
-    </>
-  )
-})
-
-const LegacyFileMenu: FC<{ close: () => void }> = observer(({ close }) => {
-  const rootStore = useStores()
-
-  const onClickNew = () => {
-    close()
-    if (
-      confirm(localized("confirm-new", "Are you sure you want to continue?"))
-    ) {
-      createSong(rootStore)()
-    }
-  }
-
-  const onClickOpen = (e: ChangeEvent<HTMLInputElement>) => {
-    close()
-    openSong(rootStore)(e.currentTarget)
-  }
-
-  const onClickSave = () => {
-    close()
-    saveSong(rootStore)()
-  }
-
-  return (
-    <>
-      <MenuItem onClick={onClickNew}>{localized("new-song", "New")}</MenuItem>
-
-      <Divider />
-
-      <FileInput onChange={onClickOpen}>
-        <MenuItem>{localized("open-song", "Open")}</MenuItem>
-      </FileInput>
-
-      <MenuItem onClick={onClickSave}>
-        {localized("save-song", "Save")}
-      </MenuItem>
-    </>
-  )
-})
-
-const CloudMenu: FC<{ close: () => void }> = observer(({ close }) => {
-  const rootStore = useStores()
-  const { rootViewStore } = rootStore
-
-  const onClickOpen = () => {
-    rootViewStore.openCloudFileDialog = true
-    close()
-  }
-
-  const onClickSave = async () => {
-    close()
-    const { song } = rootStore
-
-    try {
-      if (song.firestoreReference === null) {
-        await saveSongToFirestore(rootStore.song)
-      } else {
-        await updateSong(song)
-      }
-      rootStore.toastStore.showSuccess(localized("song-saved", "Song saved"))
-    } catch (e) {
-      rootStore.toastStore.showError((e as Error).message)
-    }
-  }
-
-  return (
-    <>
-      <MenuItem onClick={onClickOpen}>
-        {localized("open-song-cloud", "Open from Cloud")}
-      </MenuItem>
-
-      <MenuItem onClick={onClickSave}>
-        {localized("save-song-cloud", "Save to Cloud")}
-      </MenuItem>
-    </>
-  )
-})
 
 const StyledMenu = styled(Menu)`
   .MuiList-root {
@@ -225,7 +72,7 @@ export const FileMenuButton: FC = observer(() => {
           {localized("cloud-save", "Cloud Save")}
         </MenuItem>
 
-        {user && <CloudMenu close={handleClose} />}
+        {user && <CloudFileMenu close={handleClose} />}
 
         {user === null && (
           <MenuItem disabled={true}>

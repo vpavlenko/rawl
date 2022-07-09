@@ -27,6 +27,10 @@ const openSongFile = async (input: HTMLInputElement): Promise<Song | null> => {
 
       try {
         const song = songFromMidi(new Uint8Array(buf))
+        if (song.name.length === 0) {
+          // Use the file name without extension as the song title
+          song.name = file.name.replace(/\.[^/.]+$/, "")
+        }
         song.filepath = file.name
         resolve(song)
       } catch (e) {

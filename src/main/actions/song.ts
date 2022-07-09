@@ -1,12 +1,10 @@
 import { isNotNull } from "../../common/helpers/array"
-import {
-  downloadSongAsMidi,
-  songFromMidi,
-} from "../../common/midi/midiConversion"
+import { downloadSongAsMidi } from "../../common/midi/midiConversion"
 import Song, { emptySong } from "../../common/song"
 import { emptyTrack, isNoteEvent } from "../../common/track"
 import { clampNoteNumber } from "../../common/transform/NotePoint"
 import RootStore from "../stores/RootStore"
+import { songFromFile } from "./file"
 import { pushHistory } from "./history"
 
 const openSongFile = async (input: HTMLInputElement): Promise<Song | null> => {
@@ -15,31 +13,7 @@ const openSongFile = async (input: HTMLInputElement): Promise<Song | null> => {
   }
 
   const file = input.files[0]
-  const reader = new FileReader()
-
-  return new Promise((resolve, reject) => {
-    reader.onload = (e) => {
-      if (e.target == null) {
-        resolve(null)
-        return
-      }
-      const buf = e.target.result as ArrayBuffer
-
-      try {
-        const song = songFromMidi(new Uint8Array(buf))
-        if (song.name.length === 0) {
-          // Use the file name without extension as the song title
-          song.name = file.name.replace(/\.[^/.]+$/, "")
-        }
-        song.filepath = file.name
-        resolve(song)
-      } catch (e) {
-        reject(e)
-      }
-    }
-
-    reader.readAsArrayBuffer(file)
-  })
+  return await songFromFile(file)
 }
 
 export const setSong = (rootStore: RootStore) => (song: Song) => {

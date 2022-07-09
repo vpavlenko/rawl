@@ -35,11 +35,20 @@ export const openFile = async (rootStore: RootStore) => {
     return
   }
   const file = await fileHandle.getFile()
-  const buf = await file.arrayBuffer()
-  const song = songFromMidi(new Uint8Array(buf))
-  song.filepath = file.name
+  const song = await songFromFile(file)
   song.fileHandle = fileHandle
   setSong(rootStore)(song)
+}
+
+export const songFromFile = async (file: File) => {
+  const buf = await file.arrayBuffer()
+  const song = songFromMidi(new Uint8Array(buf))
+  if (song.name.length === 0) {
+    // Use the file name without extension as the song title
+    song.name = file.name.replace(/\.[^/.]+$/, "")
+  }
+  song.filepath = file.name
+  return song
 }
 
 export const saveFile = async (rootStore: RootStore) => {

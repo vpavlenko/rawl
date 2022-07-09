@@ -9,6 +9,7 @@ import { MIDIRecorder } from "../services/MIDIRecorder"
 import { SoundFontSynth } from "../services/SoundFontSynth"
 import ArrangeViewStore from "./ArrangeViewStore"
 import { AuthStore } from "./AuthStore"
+import { DialogStore } from "./DialogStore"
 import { ExportStore } from "./ExportStore"
 import HistoryStore from "./HistoryStore"
 import { MIDIDeviceStore } from "./MIDIDeviceStore"
@@ -32,6 +33,7 @@ export default class RootStore {
   readonly exportStore = new ExportStore()
   readonly toastStore = new ToastStore()
   readonly authStore = new AuthStore()
+  readonly dialogStore = new DialogStore()
   readonly player: Player
   readonly synth: SoundFontSynth
   readonly synthGroup = new GroupOutput()

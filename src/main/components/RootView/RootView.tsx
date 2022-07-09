@@ -5,6 +5,7 @@ import { useStores } from "../../hooks/useStores"
 import { ArrangeEditor } from "../ArrangeView/ArrangeEditor"
 import { BuildInfo } from "../BuildInfo"
 import { CloudFileDialog } from "../CloudFileDialog/CloudFileDialog"
+import { ActionDialog } from "../Dialog/ActionDialog"
 import { EventEditor } from "../EventEditor/EventEditor"
 import { ExportDialog } from "../ExportDialog/ExportDialog"
 import { ExportProgressDialog } from "../ExportDialog/ExportProgressDialog"
@@ -68,5 +69,6 @@ export const RootView: FC = () => (
     <Head />
     <SignInDialog />
     <CloudFileDialog />
+    <ActionDialog />
   </>
 )

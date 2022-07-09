@@ -8,5 +8,7 @@ export function emptySong() {
   song.name = "new song"
   song.filepath = "new song.mid"
   song.selectedTrackId = 1
+  // Empty songs do not need to be saved.
+  song.isSaved = true
   return song
 }

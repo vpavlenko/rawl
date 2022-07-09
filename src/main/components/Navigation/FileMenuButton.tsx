@@ -36,6 +36,15 @@ const FileInput: FC<
 const FileMenu: FC<{ close: () => void }> = observer(({ close }) => {
   const rootStore = useStores()
 
+  const onClickNew = () => {
+    close()
+    if (
+      confirm(localized("confirm-new", "Are you sure you want to continue?"))
+    ) {
+      createSong(rootStore)()
+    }
+  }
+
   const onClickOpen = async () => {
     close()
     try {
@@ -57,6 +66,10 @@ const FileMenu: FC<{ close: () => void }> = observer(({ close }) => {
 
   return (
     <>
+      <MenuItem onClick={onClickNew}>{localized("new-song", "New")}</MenuItem>
+
+      <Divider />
+
       <MenuItem onClick={onClickOpen}>
         {localized("open-song", "Open")}
       </MenuItem>
@@ -78,6 +91,15 @@ const FileMenu: FC<{ close: () => void }> = observer(({ close }) => {
 const LegacyFileMenu: FC<{ close: () => void }> = observer(({ close }) => {
   const rootStore = useStores()
 
+  const onClickNew = () => {
+    close()
+    if (
+      confirm(localized("confirm-new", "Are you sure you want to continue?"))
+    ) {
+      createSong(rootStore)()
+    }
+  }
+
   const onClickOpen = (e: ChangeEvent<HTMLInputElement>) => {
     close()
     openSong(rootStore)(e.currentTarget)
@@ -90,6 +112,10 @@ const LegacyFileMenu: FC<{ close: () => void }> = observer(({ close }) => {
 
   return (
     <>
+      <MenuItem onClick={onClickNew}>{localized("new-song", "New")}</MenuItem>
+
+      <Divider />
+
       <FileInput onChange={onClickOpen}>
         <MenuItem>{localized("open-song", "Open")}</MenuItem>
       </FileInput>
@@ -156,15 +182,6 @@ export const FileMenuButton: FC = observer(() => {
   const isOpen = rootViewStore.openDrawer
   const handleClose = () => (rootViewStore.openDrawer = false)
 
-  const onClickNew = () => {
-    handleClose()
-    if (
-      confirm(localized("confirm-new", "Are you sure you want to continue?"))
-    ) {
-      createSong(rootStore)()
-    }
-  }
-
   const onClickExport = () => {
     handleClose()
     exportStore.openExportDialog = true
@@ -198,10 +215,6 @@ export const FileMenuButton: FC = observer(() => {
         transitionDuration={50}
         disableAutoFocusItem={true}
       >
-        <MenuItem onClick={onClickNew}>{localized("new-song", "New")}</MenuItem>
-
-        <Divider />
-
         {hasFSAccess && <FileMenu close={handleClose} />}
 
         {!hasFSAccess && <LegacyFileMenu close={handleClose} />}

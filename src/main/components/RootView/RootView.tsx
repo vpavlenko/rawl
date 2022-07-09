@@ -7,6 +7,7 @@ import { BuildInfo } from "../BuildInfo"
 import { EventEditor } from "../EventEditor/EventEditor"
 import { ExportDialog } from "../ExportDialog/ExportDialog"
 import { ExportProgressDialog } from "../ExportDialog/ExportProgressDialog"
+import { Head } from "../Head/Head"
 import { HelpDialog } from "../Help/HelpDialog"
 import { MIDIDeviceDialog } from "../MIDIDeviceView/MIDIDeviceDialog"
 import { Navigation } from "../Navigation/Navigation"
@@ -62,5 +63,6 @@ export const RootView: FC = () => (
     <PianoRollTransposeDialog />
     <ArrangeTransposeDialog />
     <Toast />
+    <Head />
   </>
 )

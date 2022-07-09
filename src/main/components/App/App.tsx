@@ -1,6 +1,7 @@
 import * as Sentry from "@sentry/react"
 import { Integrations } from "@sentry/tracing"
 import React from "react"
+import { HelmetProvider } from "react-helmet-async"
 import { defaultTheme } from "../../../common/theme/Theme"
 import { StoreContext } from "../../hooks/useStores"
 import { ThemeContext } from "../../hooks/useTheme"
@@ -26,9 +27,11 @@ export function App() {
         <ThemeContext.Provider value={defaultTheme}>
           <MuiThemeProvider>
             <EmotionThemeProvider>
-              <GlobalKeyboardShortcut />
-              <GlobalCSS />
-              <RootView />
+              <HelmetProvider>
+                <GlobalKeyboardShortcut />
+                <GlobalCSS />
+                <RootView />
+              </HelmetProvider>
             </EmotionThemeProvider>
           </MuiThemeProvider>
         </ThemeContext.Provider>

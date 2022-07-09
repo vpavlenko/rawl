@@ -28,7 +28,7 @@ export default class Song {
   fileHandle: FileSystemFileHandle | null = null
   firestoreReference: DocumentReference<FirestoreSong> | null = null
   firestoreDataReference: DocumentReference<FirestoreSongData> | null = null
-  isSaved = false
+  isSaved = true
 
   constructor() {
     makeObservable(this, {

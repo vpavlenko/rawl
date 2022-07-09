@@ -10,13 +10,30 @@ import { useStores } from "../../hooks/useStores"
 export const CloudFileMenu: FC<{ close: () => void }> = observer(
   ({ close }) => {
     const rootStore = useStores()
-    const { rootViewStore, dialogStore, promptStore } = rootStore
+    const { song, rootViewStore, dialogStore, promptStore } = rootStore
+
+    const saveOrCreateSong = async () => {
+      if (song.firestoreReference !== null) {
+        await updateSong(song)
+      } else {
+        if (song.name.length === 0) {
+          const text = await promptStore.show({
+            title: localized("name-song", "Name this song"),
+          })
+          if (text !== null && text.length > 0) {
+            song.name = text
+          } else {
+            return Promise.resolve(false)
+          }
+        }
+        await createSong(song)
+      }
+      rootStore.toastStore.showSuccess(localized("song-saved", "Song saved"))
+    }
 
     // true: saved or not necessary
     // false: canceled
     const saveIfNeeded = async (): Promise<boolean> => {
-      const { song } = rootStore
-
       if (song.isSaved) {
         return true
       }
@@ -34,24 +51,7 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
       })
       switch (res) {
         case "yes":
-          if (song.firestoreReference !== null) {
-            await updateSong(song)
-          } else {
-            if (song.name.length === 0) {
-              const text = await promptStore.show({
-                title: localized("name-song", "Name this song"),
-              })
-              if (text !== null && text.length > 0) {
-                song.name = text
-              } else {
-                return Promise.resolve(false)
-              }
-            }
-            await createSong(song)
-          }
-          rootStore.toastStore.showSuccess(
-            localized("song-saved", "Song saved")
-          )
+          await saveOrCreateSong()
           return true
         case "no":
           return true
@@ -87,7 +87,7 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
     const onClickSave = async () => {
       close()
       try {
-        await saveIfNeeded()
+        await saveOrCreateSong()
       } catch (e) {
         rootStore.toastStore.showError((e as Error).message)
       }
@@ -123,7 +123,7 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
           {localized("open-song", "Open from Cloud")}
         </MenuItem>
 
-        <MenuItem onClick={onClickSave}>
+        <MenuItem onClick={onClickSave} disabled={song.isSaved}>
           {localized("save-song", "Save to Cloud")}
         </MenuItem>
 

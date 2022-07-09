@@ -75,6 +75,7 @@ export const loadSong = async (
   song.name = songSnapshot.data().name
   song.firestoreReference = songSnapshot.ref
   song.firestoreDataReference = snapshot.ref
+  song.isSaved = true
   return song
 }
 
@@ -102,6 +103,7 @@ export const createSong = async (song: Song) => {
 
   song.firestoreDataReference = dataDoc
   song.firestoreReference = doc
+  song.isSaved = true
 }
 
 export const updateSong = async (song: Song) => {
@@ -127,6 +129,8 @@ export const updateSong = async (song: Song) => {
     updatedAt: serverTimestamp(),
     data: Bytes.fromUint8Array(bytes),
   })
+
+  song.isSaved = true
 }
 
 export const getSongs = async () => {

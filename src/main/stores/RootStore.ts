@@ -9,6 +9,7 @@ import { MIDIRecorder } from "../services/MIDIRecorder"
 import { SoundFontSynth } from "../services/SoundFontSynth"
 import ArrangeViewStore from "./ArrangeViewStore"
 import { AuthStore } from "./AuthStore"
+import { CloudFileStore } from "./CloudFileStore"
 import { DialogStore } from "./DialogStore"
 import { ExportStore } from "./ExportStore"
 import HistoryStore from "./HistoryStore"
@@ -36,6 +37,7 @@ export default class RootStore {
   readonly authStore = new AuthStore()
   readonly dialogStore = new DialogStore()
   readonly promptStore = new PromptStore()
+  readonly cloudFileStore = new CloudFileStore()
   readonly player: Player
   readonly synth: SoundFontSynth
   readonly synthGroup = new GroupOutput()

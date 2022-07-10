@@ -17,12 +17,11 @@ import {
   TableRow,
 } from "@mui/material"
 import { QueryDocumentSnapshot } from "firebase/firestore"
-import { orderBy } from "lodash"
 import { observer } from "mobx-react-lite"
-import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { localized } from "../../../common/localize/localizedString"
 import { setSong } from "../../actions"
-import { FirestoreSong, getSongs, loadSong } from "../../firebase/song"
+import { FirestoreSong, loadSong } from "../../firebase/song"
 import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
 
@@ -52,43 +51,15 @@ const TH = styled(TableCell)`
 
 const FileList = observer(() => {
   const rootStore = useStores()
+  const { cloudFileStore } = rootStore
   const theme = useTheme()
-  const [isLoading, setLoading] = useState(true)
+  const { isLoading, dateType, files, selectedColumn, sortAscending } =
+    cloudFileStore
   const [isDateMenuOpen, setDateMenuOpen] = useState(false)
-  const [dateType, setDateType] = useState<"created" | "updated">("created")
-  const [selectedColumn, setSelectedColumn] = useState<"name" | "date">("date")
-  const [sortAscending, setSortAscending] = useState(false)
-  const [files, setFiles] = useState<QueryDocumentSnapshot<FirestoreSong>[]>([])
-  const sortedFiles = useMemo(
-    () =>
-      orderBy(
-        files,
-        (f) => {
-          const data = f.data()
-          switch (selectedColumn) {
-            case "name":
-              return data.name
-            case "date":
-              switch (dateType) {
-                case "created":
-                  return data.createdAt.seconds
-                case "updated":
-                  return data.updatedAt.seconds
-              }
-          }
-        },
-        sortAscending ? "asc" : "desc"
-      ),
-    [files, dateType, selectedColumn, sortAscending]
-  )
   const dateCellRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    ;(async () => {
-      const snapshot = await getSongs()
-      setFiles(snapshot.docs)
-      setLoading(false)
-    })()
+    cloudFileStore.load()
   }, [])
 
   const onClickSong = async (song: QueryDocumentSnapshot<FirestoreSong>) => {
@@ -118,7 +89,7 @@ const FileList = observer(() => {
       size="small"
       onClick={(e) => {
         e.stopPropagation()
-        setSortAscending((v) => !v)
+        cloudFileStore.sortAscending = !cloudFileStore.sortAscending
       }}
       style={{
         color: theme.secondaryTextColor,
@@ -138,7 +109,7 @@ const FileList = observer(() => {
               sx={{
                 width: "60%",
               }}
-              onClick={() => setSelectedColumn("name")}
+              onClick={() => (cloudFileStore.selectedColumn = "name")}
               isSelected={selectedColumn === "name"}
             >
               Name
@@ -147,7 +118,7 @@ const FileList = observer(() => {
             <TH
               ref={dateCellRef}
               sx={{ display: "flex", alignItems: "center" }}
-              onClick={() => setSelectedColumn("date")}
+              onClick={() => (cloudFileStore.selectedColumn = "date")}
               isSelected={selectedColumn === "date"}
             >
               {sortLabel}
@@ -170,7 +141,7 @@ const FileList = observer(() => {
             maxHeight: 300,
           }}
         >
-          {sortedFiles.map((song, i) => {
+          {files.map((song, i) => {
             const date: Date = (() => {
               switch (dateType) {
                 case "created":
@@ -205,7 +176,7 @@ const FileList = observer(() => {
         <MenuItem
           onClick={() => {
             setDateMenuOpen(false)
-            setDateType("created")
+            cloudFileStore.dateType = "created"
           }}
         >
           Created
@@ -213,7 +184,7 @@ const FileList = observer(() => {
         <MenuItem
           onClick={() => {
             setDateMenuOpen(false)
-            setDateType("updated")
+            cloudFileStore.dateType = "updated"
           }}
         >
           Modified

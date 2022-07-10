@@ -1,4 +1,4 @@
-import { ArrowDropDown } from "@mui/icons-material"
+import { ArrowDownward, ArrowDropDown, ArrowUpward } from "@mui/icons-material"
 import {
   Button,
   CircularProgress,
@@ -6,6 +6,7 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  IconButton,
   Menu,
   MenuItem,
   Table,
@@ -15,36 +16,46 @@ import {
   TableRow,
 } from "@mui/material"
 import { QueryDocumentSnapshot } from "firebase/firestore"
+import { orderBy } from "lodash"
 import { observer } from "mobx-react-lite"
-import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import {
+  CSSProperties,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react"
 import { localized } from "../../../common/localize/localizedString"
 import { setSong } from "../../actions"
 import { FirestoreSong, getSongs, loadSong } from "../../firebase/song"
 import { useStores } from "../../hooks/useStores"
 
-const reverse =
-  <T extends {}>(fn: (a: T, b: T) => number) =>
-  (a: T, b: T) =>
-    fn(b, a)
+const arrowIconStyle: CSSProperties = { width: "1.1rem", height: "1.1rem" }
 
 const FileList = observer(() => {
   const rootStore = useStores()
   const [isLoading, setLoading] = useState(true)
   const [isDateMenuOpen, setDateMenuOpen] = useState(false)
   const [sortType, setSortType] = useState<"created" | "modified">("created")
+  const [sortAscending, setSortAscending] = useState(false)
   const [files, setFiles] = useState<QueryDocumentSnapshot<FirestoreSong>[]>([])
-  const sortedFiles = useMemo(() => {
-    switch (sortType) {
-      case "created":
-        return [...files].sort(
-          (a, b) => a.data().updatedAt.seconds - b.data().updatedAt.seconds
-        )
-      case "modified":
-        return [...files].sort(
-          (a, b) => a.data().createdAt.seconds - b.data().createdAt.seconds
-        )
-    }
-  }, [files, sortType])
+  const sortedFiles = useMemo(
+    () =>
+      orderBy(
+        files,
+        (f) => {
+          switch (sortType) {
+            case "created":
+              return f.data().updatedAt.seconds
+            case "modified":
+              return f.data().createdAt.seconds
+          }
+        },
+        sortAscending ? "asc" : "desc"
+      ),
+    [files, sortType, sortAscending]
+  )
   const dateCellRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -85,11 +96,24 @@ const FileList = observer(() => {
             <TableCell sx={{ width: "60%" }}>Title</TableCell>
             <TableCell
               ref={dateCellRef}
-              sx={{ display: "flex" }}
+              sx={{ display: "flex", alignItems: "center" }}
               onClick={() => setDateMenuOpen(true)}
             >
               {sortLabel}
               <ArrowDropDown style={{ marginLeft: "0.1em" }} />
+              <IconButton
+                size="small"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setSortAscending((v) => !v)
+                }}
+              >
+                {sortAscending ? (
+                  <ArrowDownward style={arrowIconStyle} />
+                ) : (
+                  <ArrowUpward style={arrowIconStyle} />
+                )}
+              </IconButton>
             </TableCell>
           </TableRow>
         </TableHead>

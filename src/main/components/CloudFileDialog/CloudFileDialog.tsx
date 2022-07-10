@@ -1,3 +1,4 @@
+import styled from "@emotion/styled"
 import { ArrowDownward, ArrowDropDown, ArrowUpward } from "@mui/icons-material"
 import {
   Button,
@@ -18,26 +19,44 @@ import {
 import { QueryDocumentSnapshot } from "firebase/firestore"
 import { orderBy } from "lodash"
 import { observer } from "mobx-react-lite"
-import {
-  CSSProperties,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { localized } from "../../../common/localize/localizedString"
 import { setSong } from "../../actions"
 import { FirestoreSong, getSongs, loadSong } from "../../firebase/song"
 import { useStores } from "../../hooks/useStores"
+import { useTheme } from "../../hooks/useTheme"
 
-const arrowIconStyle: CSSProperties = { width: "1.1rem", height: "1.1rem" }
+const ArrowUp = styled(ArrowUpward)`
+  width: "1.1rem";
+  height: "1.1rem";
+`
+
+const ArrowDown = styled(ArrowDownward)`
+  width: "1.1rem";
+  height: "1.1rem";
+`
+
+const TH = styled(TableCell)`
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  background: none;
+  color: ${({ theme }) => theme.secondaryTextColor};
+  font-weight: ${({ isSelected }: { isSelected: boolean }) =>
+    isSelected ? "bold" : "normal"};
+  cursor: pointer;
+
+  &:hover {
+    background: ${({ theme }) => theme.secondaryBackgroundColor};
+  }
+`
 
 const FileList = observer(() => {
   const rootStore = useStores()
+  const theme = useTheme()
   const [isLoading, setLoading] = useState(true)
   const [isDateMenuOpen, setDateMenuOpen] = useState(false)
-  const [sortType, setSortType] = useState<"created" | "modified">("created")
+  const [dateType, setDateType] = useState<"created" | "updated">("created")
+  const [selectedColumn, setSelectedColumn] = useState<"name" | "date">("date")
   const [sortAscending, setSortAscending] = useState(false)
   const [files, setFiles] = useState<QueryDocumentSnapshot<FirestoreSong>[]>([])
   const sortedFiles = useMemo(
@@ -45,16 +64,22 @@ const FileList = observer(() => {
       orderBy(
         files,
         (f) => {
-          switch (sortType) {
-            case "created":
-              return f.data().updatedAt.seconds
-            case "modified":
-              return f.data().createdAt.seconds
+          const data = f.data()
+          switch (selectedColumn) {
+            case "name":
+              return data.name
+            case "date":
+              switch (dateType) {
+                case "created":
+                  return data.createdAt.seconds
+                case "updated":
+                  return data.updatedAt.seconds
+              }
           }
         },
         sortAscending ? "asc" : "desc"
       ),
-    [files, sortType, sortAscending]
+    [files, dateType, selectedColumn, sortAscending]
   )
   const dateCellRef = useRef<HTMLDivElement>(null)
 
@@ -80,41 +105,63 @@ const FileList = observer(() => {
   }
 
   const sortLabel = (() => {
-    switch (sortType) {
+    switch (dateType) {
       case "created":
         return "Created"
-      case "modified":
+      case "updated":
         return "Modified"
     }
   })()
+
+  const sortOrderButton = (
+    <IconButton
+      size="small"
+      onClick={(e) => {
+        e.stopPropagation()
+        setSortAscending((v) => !v)
+      }}
+      style={{
+        color: theme.secondaryTextColor,
+        marginLeft: "0.1em",
+      }}
+    >
+      {sortAscending ? <ArrowDown /> : <ArrowUp />}
+    </IconButton>
+  )
 
   return (
     <>
       <Table stickyHeader>
         <TableHead>
           <TableRow>
-            <TableCell sx={{ width: "60%" }}>Title</TableCell>
-            <TableCell
+            <TH
+              sx={{
+                width: "60%",
+              }}
+              onClick={() => setSelectedColumn("name")}
+              isSelected={selectedColumn === "name"}
+            >
+              Name
+              {selectedColumn === "name" && sortOrderButton}
+            </TH>
+            <TH
               ref={dateCellRef}
               sx={{ display: "flex", alignItems: "center" }}
-              onClick={() => setDateMenuOpen(true)}
+              onClick={() => setSelectedColumn("date")}
+              isSelected={selectedColumn === "date"}
             >
               {sortLabel}
-              <ArrowDropDown style={{ marginLeft: "0.1em" }} />
               <IconButton
                 size="small"
-                onClick={(e) => {
-                  e.stopPropagation()
-                  setSortAscending((v) => !v)
+                style={{
+                  marginLeft: "0.2em",
                 }}
+                onClick={() => setDateMenuOpen(true)}
               >
-                {sortAscending ? (
-                  <ArrowDownward style={arrowIconStyle} />
-                ) : (
-                  <ArrowUpward style={arrowIconStyle} />
-                )}
+                <ArrowDropDown style={{ fill: theme.secondaryTextColor }} />
               </IconButton>
-            </TableCell>
+              {selectedColumn === "date" && sortOrderButton}
+            </TH>
           </TableRow>
         </TableHead>
         <TableBody
@@ -125,10 +172,10 @@ const FileList = observer(() => {
         >
           {sortedFiles.map((song, i) => {
             const date: Date = (() => {
-              switch (sortType) {
+              switch (dateType) {
                 case "created":
                   return song.data().createdAt.toDate()
-                case "modified":
+                case "updated":
                   return song.data().updatedAt.toDate()
               }
             })()
@@ -158,7 +205,7 @@ const FileList = observer(() => {
         <MenuItem
           onClick={() => {
             setDateMenuOpen(false)
-            setSortType("created")
+            setDateType("created")
           }}
         >
           Created
@@ -166,7 +213,7 @@ const FileList = observer(() => {
         <MenuItem
           onClick={() => {
             setDateMenuOpen(false)
-            setSortType("modified")
+            setDateType("updated")
           }}
         >
           Modified

@@ -1,3 +1,4 @@
+import { ArrowDropDown } from "@mui/icons-material"
 import {
   Button,
   CircularProgress,
@@ -5,6 +6,8 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  Menu,
+  MenuItem,
   Table,
   TableBody,
   TableCell,
@@ -13,16 +16,36 @@ import {
 } from "@mui/material"
 import { QueryDocumentSnapshot } from "firebase/firestore"
 import { observer } from "mobx-react-lite"
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { localized } from "../../../common/localize/localizedString"
 import { setSong } from "../../actions"
 import { FirestoreSong, getSongs, loadSong } from "../../firebase/song"
 import { useStores } from "../../hooks/useStores"
 
+const reverse =
+  <T extends {}>(fn: (a: T, b: T) => number) =>
+  (a: T, b: T) =>
+    fn(b, a)
+
 const FileList = observer(() => {
   const rootStore = useStores()
   const [isLoading, setLoading] = useState(true)
+  const [isDateMenuOpen, setDateMenuOpen] = useState(false)
+  const [sortType, setSortType] = useState<"created" | "modified">("created")
   const [files, setFiles] = useState<QueryDocumentSnapshot<FirestoreSong>[]>([])
+  const sortedFiles = useMemo(() => {
+    switch (sortType) {
+      case "created":
+        return [...files].sort(
+          (a, b) => a.data().updatedAt.seconds - b.data().updatedAt.seconds
+        )
+      case "modified":
+        return [...files].sort(
+          (a, b) => a.data().createdAt.seconds - b.data().createdAt.seconds
+        )
+    }
+  }, [files, sortType])
+  const dateCellRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     ;(async () => {
@@ -41,39 +64,91 @@ const FileList = observer(() => {
       rootStore.toastStore.showError((e as Error).message)
     }
   }
+  if (isLoading) {
+    return <CircularProgress />
+  }
+
+  const sortLabel = (() => {
+    switch (sortType) {
+      case "created":
+        return "Created"
+      case "modified":
+        return "Modified"
+    }
+  })()
 
   return (
-    <Table stickyHeader>
-      <TableHead>
-        <TableRow>
-          <TableCell>Title</TableCell>
-          <TableCell>Created</TableCell>
-        </TableRow>
-      </TableHead>
-      <TableBody
-        sx={{
-          overflow: "auto",
-          maxHeight: 300,
+    <>
+      <Table stickyHeader>
+        <TableHead>
+          <TableRow>
+            <TableCell sx={{ width: "60%" }}>Title</TableCell>
+            <TableCell
+              ref={dateCellRef}
+              sx={{ display: "flex" }}
+              onClick={() => setDateMenuOpen(true)}
+            >
+              {sortLabel}
+              <ArrowDropDown style={{ marginLeft: "0.1em" }} />
+            </TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody
+          sx={{
+            overflow: "auto",
+            maxHeight: 300,
+          }}
+        >
+          {sortedFiles.map((song, i) => {
+            const date: Date = (() => {
+              switch (sortType) {
+                case "created":
+                  return song.data().createdAt.toDate()
+                case "modified":
+                  return song.data().updatedAt.toDate()
+              }
+            })()
+            const dateStr =
+              date.toLocaleDateString() + " " + date.toLocaleTimeString()
+            return (
+              <TableRow key={i} onClick={() => onClickSong(song)}>
+                <TableCell component="th" scope="row">
+                  {song.data().name}
+                </TableCell>
+                <TableCell>{dateStr}</TableCell>
+              </TableRow>
+            )
+          })}
+        </TableBody>
+      </Table>
+      <Menu
+        open={isDateMenuOpen}
+        onClose={() => setDateMenuOpen(false)}
+        anchorEl={dateCellRef.current}
+        anchorOrigin={{ horizontal: "left", vertical: "bottom" }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "left",
         }}
       >
-        {isLoading && <CircularProgress />}
-        {files.map((song, i) => {
-          const createdAt = song.data().createdAt.toDate()
-          const updatedAt = song.data().updatedAt.toDate()
-          return (
-            <TableRow key={i} onClick={() => onClickSong(song)}>
-              <TableCell component="th" scope="row">
-                {song.data().name}
-              </TableCell>
-              <TableCell>
-                {createdAt.toLocaleDateString()}{" "}
-                {createdAt.toLocaleTimeString()}
-              </TableCell>
-            </TableRow>
-          )
-        })}
-      </TableBody>
-    </Table>
+        <MenuItem
+          onClick={() => {
+            setDateMenuOpen(false)
+            setSortType("created")
+          }}
+        >
+          Created
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            setDateMenuOpen(false)
+            setSortType("modified")
+          }}
+        >
+          Modified
+        </MenuItem>
+      </Menu>
+    </>
   )
 })
 

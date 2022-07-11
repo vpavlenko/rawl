@@ -115,7 +115,13 @@ export default {
     transpose: "トランスポーズ",
     yes: "はい",
     no: "いいえ",
+    "please-sign-up": "サインアップしてクラウドセーブを利用",
     "save-changes": "曲への変更を保存しますか?",
+    "sign-in": "サインイン",
+    "cloud-beta-warning":
+      "クラウド機能は開発中のベータ版のため、大事な楽曲はこまめにダウンロードをお願いします。",
+    "cloud-description":
+      "サインインすることで楽曲をクラウドに保存し、いつでもどこからでも作曲を再開することができます。",
     Piano: "ピアノ",
     "Chromatic Percussion": "クロマチック",
     Organ: "オルガン",

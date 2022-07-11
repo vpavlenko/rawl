@@ -7,7 +7,7 @@ import { useStores } from "../../hooks/useStores"
 
 const fileInputID = "OpenButtonInputFile"
 
-const FileInput: FC<
+export const FileInput: FC<
   React.PropsWithChildren<{
     onChange: (e: ChangeEvent<HTMLInputElement>) => void
   }>

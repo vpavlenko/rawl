@@ -122,6 +122,8 @@ export default {
       "クラウド機能は開発中のベータ版のため、大事な楽曲はこまめにダウンロードをお願いします。",
     "cloud-description":
       "サインインすることで楽曲をクラウドに保存し、いつでもどこからでも作曲を再開することができます。",
+    "import-midi": "MIDI をインポート",
+    "export-midi": "MIDI をエクスポート",
     Piano: "ピアノ",
     "Chromatic Percussion": "クロマチック",
     Organ: "オルガン",

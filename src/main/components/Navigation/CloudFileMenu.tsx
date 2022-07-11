@@ -1,18 +1,21 @@
 import { Divider, MenuItem } from "@mui/material"
 import { observer } from "mobx-react-lite"
-import { FC } from "react"
+import { ChangeEvent, FC } from "react"
 import { localized } from "../../../common/localize/localizedString"
 import { emptySong } from "../../../common/song"
-import { setSong } from "../../actions"
+import { openSong, saveSong, setSong } from "../../actions"
+import { hasFSAccess, openFile, saveFileAs } from "../../actions/file"
 import { createSong, updateSong } from "../../firebase/song"
 import { useStores } from "../../hooks/useStores"
+import { FileInput } from "./LegacyFileMenu"
 
 export const CloudFileMenu: FC<{ close: () => void }> = observer(
   ({ close }) => {
     const rootStore = useStores()
-    const { song, rootViewStore, dialogStore, promptStore } = rootStore
+    const { rootViewStore, dialogStore, promptStore } = rootStore
 
     const saveOrCreateSong = async () => {
+      const { song } = rootStore
       if (song.firestoreReference !== null) {
         await updateSong(song)
       } else {
@@ -34,6 +37,7 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
     // true: saved or not necessary
     // false: canceled
     const saveIfNeeded = async (): Promise<boolean> => {
+      const { song } = rootStore
       if (song.isSaved) {
         return true
       }
@@ -94,6 +98,7 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
     }
 
     const onClickSaveAs = async () => {
+      const { song } = rootStore
       close()
       try {
         const text = await promptStore.show({
@@ -112,13 +117,24 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
       }
     }
 
+    const onClickImportLegacy = async (e: ChangeEvent<HTMLInputElement>) => {
+      close()
+      try {
+        await openSong(rootStore)(e.currentTarget)
+        await saveOrCreateSong()
+      } catch (e) {
+        rootStore.toastStore.showError((e as Error).message)
+      }
+    }
+
     const onClickImport = async () => {
       close()
       try {
         if (!(await saveIfNeeded())) {
           return
         }
-        // TODO: open midi
+        await openFile(rootStore)
+        await saveOrCreateSong()
       } catch (e) {
         rootStore.toastStore.showError((e as Error).message)
       }
@@ -126,7 +142,11 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
 
     const onClickExport = async () => {
       try {
-        // TODO: export midi
+        if (hasFSAccess) {
+          await saveFileAs(rootStore)
+        } else {
+          saveSong(rootStore)()
+        }
       } catch (e) {
         rootStore.toastStore.showError((e as Error).message)
       }
@@ -142,7 +162,7 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
           {localized("open-song", "Open")}
         </MenuItem>
 
-        <MenuItem onClick={onClickSave} disabled={song.isSaved}>
+        <MenuItem onClick={onClickSave} disabled={rootStore.song.isSaved}>
           {localized("save-song", "Save")}
         </MenuItem>
 
@@ -152,9 +172,17 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
 
         <Divider />
 
-        <MenuItem onClick={onClickImport}>
-          {localized("import-midi", "Import MIDI file")}
-        </MenuItem>
+        {!hasFSAccess && (
+          <FileInput onChange={onClickImportLegacy}>
+            <MenuItem>{localized("import-midi", "Import MIDI file")}</MenuItem>
+          </FileInput>
+        )}
+
+        {hasFSAccess && (
+          <MenuItem onClick={onClickImport}>
+            {localized("import-midi", "Import MIDI file")}
+          </MenuItem>
+        )}
 
         <MenuItem onClick={onClickExport}>
           {localized("export-midi", "Export MIDI file")}

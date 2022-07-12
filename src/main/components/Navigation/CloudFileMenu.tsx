@@ -125,6 +125,31 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
       }
     }
 
+    const onClickRename = async () => {
+      close()
+      const { song } = rootStore
+      try {
+        if (song.name.length === 0) {
+          const text = await promptStore.show({
+            title: localized("rename", "Rename"),
+          })
+          if (text !== null && text.length > 0) {
+            song.name = text
+          } else {
+            return Promise.resolve(false)
+          }
+        }
+        if (song.firestoreReference !== null) {
+          await updateSong(song)
+        } else {
+          await createSong(song)
+        }
+        rootStore.toastStore.showSuccess(localized("song-saved", "Song saved"))
+      } catch (e) {
+        rootStore.toastStore.showError((e as Error).message)
+      }
+    }
+
     const onClickImportLegacy = async (e: ChangeEvent<HTMLInputElement>) => {
       close()
       try {
@@ -176,6 +201,10 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
 
         <MenuItem onClick={onClickSaveAs}>
           {localized("save-as", "Save As")}
+        </MenuItem>
+
+        <MenuItem onClick={onClickRename}>
+          {localized("rename", "Rename")}
         </MenuItem>
 
         <Divider />

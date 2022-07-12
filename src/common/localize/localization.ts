@@ -46,6 +46,7 @@ export default {
     "song-created": "楽曲が作成されました",
     "song-saved": "楽曲が保存されました",
     "untitled-song": "無題の楽曲",
+    rename: "名前の変更",
     track: "トラック",
     tracks: "トラック",
     "add-track": "トラックを追加",

@@ -10,8 +10,10 @@ export const FileMenu: FC<{ close: () => void }> = observer(({ close }) => {
   const rootStore = useStores()
 
   const onClickNew = () => {
+    const { song } = rootStore
     close()
     if (
+      song.isSaved ||
       confirm(localized("confirm-new", "Are you sure you want to continue?"))
     ) {
       createSong(rootStore)()
@@ -19,9 +21,15 @@ export const FileMenu: FC<{ close: () => void }> = observer(({ close }) => {
   }
 
   const onClickOpen = async () => {
+    const { song } = rootStore
     close()
     try {
-      await openFile(rootStore)
+      if (
+        song.isSaved ||
+        confirm(localized("confirm-new", "Are you sure you want to continue?"))
+      ) {
+        await openFile(rootStore)
+      }
     } catch (e) {
       rootStore.toastStore.showError((e as Error).message)
     }

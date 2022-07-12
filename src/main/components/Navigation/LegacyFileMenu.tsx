@@ -29,17 +29,19 @@ export const LegacyFileMenu: FC<{ close: () => void }> = observer(
     const rootStore = useStores()
 
     const onClickNew = () => {
+      const { song } = rootStore
       close()
       if (
+        song.isSaved ||
         confirm(localized("confirm-new", "Are you sure you want to continue?"))
       ) {
         createSong(rootStore)()
       }
     }
 
-    const onClickOpen = (e: ChangeEvent<HTMLInputElement>) => {
+    const onClickOpen = async (e: ChangeEvent<HTMLInputElement>) => {
       close()
-      openSong(rootStore)(e.currentTarget)
+      await openSong(rootStore)(e.currentTarget)
     }
 
     const onClickSave = () => {

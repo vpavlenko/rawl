@@ -26,7 +26,7 @@ export const FileMenu: FC<{ close: () => void }> = observer(({ close }) => {
     try {
       if (
         song.isSaved ||
-        confirm(localized("confirm-new", "Are you sure you want to continue?"))
+        confirm(localized("confirm-open", "Are you sure you want to continue?"))
       ) {
         await openFile(rootStore)
       }

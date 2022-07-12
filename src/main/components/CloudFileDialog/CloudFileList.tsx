@@ -16,6 +16,7 @@ import {
 import { QueryDocumentSnapshot } from "firebase/firestore"
 import { observer } from "mobx-react-lite"
 import { useEffect, useRef, useState } from "react"
+import { localized } from "../../../common/localize/localizedString"
 import { setSong } from "../../actions"
 import { FirestoreSong, loadSong } from "../../firebase/song"
 import { useStores } from "../../hooks/useStores"
@@ -150,12 +151,16 @@ export const CloudFileList = observer(() => {
                     return song.data().updatedAt.toDate()
                 }
               })()
+              const songName =
+                song.data().name.length > 0
+                  ? song.data().name
+                  : localized("untitled-song", "Untitled song")
               const dateStr =
                 date.toLocaleDateString() + " " + date.toLocaleTimeString()
               return (
                 <FileRow key={song.id} onClick={() => onClickSong(song)}>
                   <TableCell component="th" scope="row">
-                    {song.data().name}
+                    {songName}
                   </TableCell>
                   <TableCell>{dateStr}</TableCell>
                 </FileRow>

@@ -18,6 +18,7 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
       const { song } = rootStore
       if (song.firestoreReference !== null) {
         await updateSong(song)
+        rootStore.toastStore.showSuccess(localized("song-saved", "Song saved"))
       } else {
         if (song.name.length === 0) {
           const text = await promptStore.show({
@@ -30,8 +31,10 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
           }
         }
         await createSong(song)
+        rootStore.toastStore.showSuccess(
+          localized("song-created", "Song created")
+        )
       }
-      rootStore.toastStore.showSuccess(localized("song-saved", "Song saved"))
     }
 
     // true: saved or not necessary
@@ -70,7 +73,12 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
         if (!(await saveIfNeeded())) {
           return
         }
-        setSong(rootStore)(emptySong())
+        const newSong = emptySong()
+        setSong(rootStore)(newSong)
+        await createSong(newSong)
+        rootStore.toastStore.showSuccess(
+          localized("song-created", "Song created")
+        )
       } catch (e) {
         rootStore.toastStore.showError((e as Error).message)
       }

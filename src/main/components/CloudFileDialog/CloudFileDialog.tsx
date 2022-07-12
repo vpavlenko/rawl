@@ -25,7 +25,7 @@ export const CloudFileDialog = observer(() => {
 
   return (
     <Dialog open={openCloudFileDialog} onClose={onClose} fullWidth>
-      <DialogTitle>{localized("cloud-files", "Cloud files")}</DialogTitle>
+      <DialogTitle>{localized("files", "Files")}</DialogTitle>
       <DialogContent>
         <CloudFileList />
       </DialogContent>

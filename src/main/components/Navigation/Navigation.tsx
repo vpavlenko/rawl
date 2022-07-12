@@ -11,6 +11,7 @@ import PianoIcon from "../../images/icons/piano.svg"
 import TempoIcon from "../../images/icons/tempo.svg"
 import Logo from "../../images/logo-circle.svg"
 import { FileMenuButton } from "./FileMenuButton"
+import { UserButton } from "./UserButton"
 
 const BannerContainer = styled.div`
   background: ${({ theme }) => theme.themeColor};
@@ -58,25 +59,30 @@ export const Tab = styled.div`
 }
 `
 
+export const TabTitle = styled.span`
+  margin-left: 0.4rem;
+
+  @media (max-width: 850px) {
+    display: none;
+  }
+`
+
 const FlexibleSpacer = styled.div`
   flex-grow: 1;
 `
 
-const Separator = styled.div`
-  background: ${({ theme }) => theme.dividerColor};
-  margin: 0.5rem 0.5rem;
-  width: 1px;
-`
-
-const IconStyle: CSSProperties = {
+export const IconStyle: CSSProperties = {
   width: "1.3rem",
   height: "1.3rem",
   fill: "currentColor",
-  marginRight: "0.4rem",
 }
 
 export const Navigation: FC = observer(() => {
-  const { rootViewStore, router } = useStores()
+  const {
+    rootViewStore,
+    authStore: { user },
+    router,
+  } = useStores()
 
   return (
     <Container>
@@ -93,7 +99,7 @@ export const Navigation: FC = observer(() => {
           onClick={useCallback(() => (router.path = "/track"), [])}
         >
           <PianoIcon style={IconStyle} viewBox="0 0 128 128" />
-          <span>{localized("piano-roll", "Piano Roll")}</span>
+          <TabTitle>{localized("piano-roll", "Piano Roll")}</TabTitle>
         </Tab>
       </Tooltip>
 
@@ -108,7 +114,7 @@ export const Navigation: FC = observer(() => {
           onClick={useCallback(() => (router.path = "/arrange"), [])}
         >
           <ArrangeIcon style={IconStyle} viewBox="0 0 128 128" />
-          <span>{localized("arrange", "Arrange")}</span>
+          <TabTitle>{localized("arrange", "Arrange")}</TabTitle>
         </Tab>
       </Tooltip>
 
@@ -123,7 +129,7 @@ export const Navigation: FC = observer(() => {
           onClick={useCallback(() => (router.path = "/tempo"), [])}
         >
           <TempoIcon style={IconStyle} viewBox="0 0 128 128" />
-          <span>{localized("tempo", "Tempo")}</span>
+          <TabTitle>{localized("tempo", "Tempo")}</TabTitle>
         </Tab>
       </Tooltip>
 
@@ -133,16 +139,20 @@ export const Navigation: FC = observer(() => {
         onClick={useCallback(() => (rootViewStore.openDeviceDialog = true), [])}
       >
         <Settings style={IconStyle} />
-        <span>{localized("settings", "Settings")}</span>
+        <TabTitle>{localized("settings", "Settings")}</TabTitle>
       </Tab>
+
       <Tab onClick={useCallback(() => (rootViewStore.openHelp = true), [])}>
         <Help style={IconStyle} />
-        <span>{localized("help", "Help")} </span>
+        <TabTitle>{localized("help", "Help")}</TabTitle>
       </Tab>
+
       <Tab id="open-gitter-button">
         <Forum style={IconStyle} />
-        <span>{localized("open-chat", "Open Chat")} </span>
+        <TabTitle>{localized("open-chat", "Open Chat")}</TabTitle>
       </Tab>
+
+      <UserButton />
     </Container>
   )
 })

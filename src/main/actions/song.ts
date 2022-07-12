@@ -37,6 +37,7 @@ export const createSong = (rootStore: RootStore) => () => {
 
 export const saveSong = (rootStore: RootStore) => () => {
   const { song } = rootStore
+  song.isSaved = true
   downloadSongAsMidi(song)
 }
 

@@ -48,6 +48,7 @@ export const songFromFile = async (file: File) => {
     song.name = file.name.replace(/\.[^/.]+$/, "")
   }
   song.filepath = file.name
+  song.isSaved = true
   return song
 }
 

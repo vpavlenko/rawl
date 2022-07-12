@@ -4,13 +4,14 @@ import { Helmet } from "react-helmet-async"
 import { useStores } from "../../hooks/useStores"
 
 export const Head: FC = observer(() => {
-  const {
-    song: { name },
-  } = useStores()
+  const { song } = useStores()
 
   return (
     <Helmet>
-      <title>{name}</title>
+      <title>
+        {song.name.length === 0 ? "New song" : song.name}
+        {song.isSaved ? "" : " *"}
+      </title>
     </Helmet>
   )
 })

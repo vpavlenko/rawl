@@ -7,7 +7,9 @@
     "build": "webpack --config webpack.prod.js",
     "test": "jest",
     "format": "prettier --write src",
-    "lint": "prettier --check src"
+    "lint": "prettier --check src",
+    "firebase": "firebase emulators:start",
+    "firebase:deploy": "firebase deploy"
   },
   "repository": {
     "type": "git",
@@ -33,6 +35,8 @@
     "@sentry/react": "^7.5.0",
     "@sentry/tracing": "^7.5.0",
     "color": "^4.2.3",
+    "firebase": "^9.8.4",
+    "firebaseui": "^6.0.1",
     "gl-matrix": "^3.4.3",
     "lodash": "^4.17.21",
     "mdi-react": "^8.6.0",

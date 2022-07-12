@@ -4,6 +4,9 @@ import { FC } from "react"
 import { useStores } from "../../hooks/useStores"
 import { ArrangeEditor } from "../ArrangeView/ArrangeEditor"
 import { BuildInfo } from "../BuildInfo"
+import { CloudFileDialog } from "../CloudFileDialog/CloudFileDialog"
+import { ActionDialog } from "../Dialog/ActionDialog"
+import { PromptDialog } from "../Dialog/PromptDialog"
 import { EventEditor } from "../EventEditor/EventEditor"
 import { ExportDialog } from "../ExportDialog/ExportDialog"
 import { ExportProgressDialog } from "../ExportDialog/ExportProgressDialog"
@@ -11,7 +14,9 @@ import { Head } from "../Head/Head"
 import { HelpDialog } from "../Help/HelpDialog"
 import { MIDIDeviceDialog } from "../MIDIDeviceView/MIDIDeviceDialog"
 import { Navigation } from "../Navigation/Navigation"
+import { OnBeforeUnload } from "../OnBeforeUnload/OnBeforeUnload"
 import { PianoRollEditor } from "../PianoRoll/PianoRollEditor"
+import { SignInDialog } from "../SignInDialog/SignInDialog"
 import { TempoEditor } from "../TempoGraph/TempoEditor"
 import { Toast } from "../Toast/Toast"
 import { TransportPanel } from "../TransportPanel/TransportPanel"
@@ -64,5 +69,10 @@ export const RootView: FC = () => (
     <ArrangeTransposeDialog />
     <Toast />
     <Head />
+    <SignInDialog />
+    <CloudFileDialog />
+    <ActionDialog />
+    <PromptDialog />
+    <OnBeforeUnload />
   </>
 )

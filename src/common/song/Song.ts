@@ -1,7 +1,16 @@
+import { DocumentReference } from "firebase/firestore"
 import pullAt from "lodash/pullAt"
-import { action, computed, makeObservable, observable, transaction } from "mobx"
+import {
+  action,
+  computed,
+  makeObservable,
+  observable,
+  reaction,
+  transaction,
+} from "mobx"
 import { createModelSchema, list, object, primitive } from "serializr"
 import { TIME_BASE } from "../../main/Constants"
+import { FirestoreSong, FirestoreSongData } from "../../main/firebase/song"
 import { isNotUndefined } from "../helpers/array"
 import { Measure } from "../measure/Measure"
 import { getMeasuresFromConductorTrack } from "../measure/MeasureList"
@@ -17,6 +26,9 @@ export default class Song {
   timebase: number = TIME_BASE
   name: string = ""
   fileHandle: FileSystemFileHandle | null = null
+  firestoreReference: DocumentReference<FirestoreSong> | null = null
+  firestoreDataReference: DocumentReference<FirestoreSongData> | null = null
+  isSaved = true
 
   constructor() {
     makeObservable(this, {
@@ -33,7 +45,17 @@ export default class Song {
       selectedTrackId: observable,
       filepath: observable,
       timebase: observable,
+      name: observable,
+      isSaved: observable,
     })
+
+    reaction(
+      () => [
+        this.tracks.map((t) => ({ channel: t.channel, events: t.events })),
+        this.name,
+      ],
+      () => (this.isSaved = false)
+    )
   }
 
   insertTrack(t: Track, index: number) {

@@ -1,104 +1,16 @@
 import styled from "@emotion/styled"
-import { KeyboardArrowDown } from "@mui/icons-material"
+import { CloudOutlined, KeyboardArrowDown } from "@mui/icons-material"
 import { Divider, Menu, MenuItem } from "@mui/material"
 import Color from "color"
 import { observer } from "mobx-react-lite"
-import { ChangeEvent, FC, useCallback, useRef, VFC } from "react"
+import { FC, useCallback, useRef } from "react"
 import { localized } from "../../../common/localize/localizedString"
-import { createSong, openSong, saveSong } from "../../actions"
-import { hasFSAccess, openFile, saveFile, saveFileAs } from "../../actions/file"
+import { hasFSAccess } from "../../actions/file"
 import { useStores } from "../../hooks/useStores"
-import { useTheme } from "../../hooks/useTheme"
+import { CloudFileMenu } from "./CloudFileMenu"
+import { FileMenu } from "./FileMenu"
+import { LegacyFileMenu } from "./LegacyFileMenu"
 import { Tab } from "./Navigation"
-
-const fileInputID = "OpenButtonInputFile"
-
-const FileInput: FC<
-  React.PropsWithChildren<{
-    onChange: (e: ChangeEvent<HTMLInputElement>) => void
-  }>
-> = ({ onChange, children }) => (
-  <>
-    <input
-      accept="audio/midi"
-      style={{ display: "none" }}
-      id={fileInputID}
-      type="file"
-      onChange={onChange}
-    />
-    <label htmlFor={fileInputID}>{children}</label>
-  </>
-)
-
-export const FileMenu: VFC<{ close: () => void }> = observer(({ close }) => {
-  const rootStore = useStores()
-
-  const onClickOpen = async () => {
-    close()
-    try {
-      await openFile(rootStore)
-    } catch (e) {
-      rootStore.toastStore.showError((e as Error).message)
-    }
-  }
-
-  const onClickSave = async () => {
-    close()
-    await saveFile(rootStore)
-  }
-
-  const onClickSaveAs = async () => {
-    close()
-    await saveFileAs(rootStore)
-  }
-
-  return (
-    <>
-      <MenuItem onClick={onClickOpen}>
-        {localized("open-song", "Open")}
-      </MenuItem>
-
-      <MenuItem
-        onClick={onClickSave}
-        disabled={rootStore.song.fileHandle === null}
-      >
-        {localized("save-song", "Save")}
-      </MenuItem>
-
-      <MenuItem onClick={onClickSaveAs}>
-        {localized("save-as", "Save As")}
-      </MenuItem>
-    </>
-  )
-})
-
-export const LegacyFileMenu: VFC<{ close: () => void }> = observer(
-  ({ close }) => {
-    const rootStore = useStores()
-
-    const onClickOpen = (e: ChangeEvent<HTMLInputElement>) => {
-      close()
-      openSong(rootStore)(e.currentTarget)
-    }
-
-    const onClickSave = () => {
-      close()
-      saveSong(rootStore)()
-    }
-
-    return (
-      <>
-        <FileInput onChange={onClickOpen}>
-          <MenuItem>{localized("open-song", "Open")}</MenuItem>
-        </FileInput>
-
-        <MenuItem onClick={onClickSave}>
-          {localized("save-song", "Save")}
-        </MenuItem>
-      </>
-    )
-  }
-)
 
 const StyledMenu = styled(Menu)`
   .MuiList-root {
@@ -109,19 +21,13 @@ const StyledMenu = styled(Menu)`
 
 export const FileMenuButton: FC = observer(() => {
   const rootStore = useStores()
-  const { rootViewStore, exportStore } = rootStore
-  const theme = useTheme()
+  const {
+    rootViewStore,
+    exportStore,
+    authStore: { user },
+  } = rootStore
   const isOpen = rootViewStore.openDrawer
   const handleClose = () => (rootViewStore.openDrawer = false)
-
-  const onClickNew = () => {
-    handleClose()
-    if (
-      confirm(localized("confirm-new", "Are you sure you want to continue?"))
-    ) {
-      createSong(rootStore)()
-    }
-  }
 
   const onClickExport = () => {
     handleClose()
@@ -156,13 +62,28 @@ export const FileMenuButton: FC = observer(() => {
         transitionDuration={50}
         disableAutoFocusItem={true}
       >
-        <MenuItem onClick={onClickNew}>{localized("new-song", "New")}</MenuItem>
+        {user === null && hasFSAccess && <FileMenu close={handleClose} />}
 
-        <Divider />
+        {user === null && !hasFSAccess && (
+          <LegacyFileMenu close={handleClose} />
+        )}
 
-        {hasFSAccess && <FileMenu close={handleClose} />}
+        {user && <CloudFileMenu close={handleClose} />}
 
-        {!hasFSAccess && <LegacyFileMenu close={handleClose} />}
+        {user === null && (
+          <>
+            <Divider />
+            <MenuItem
+              onClick={() => {
+                handleClose()
+                rootViewStore.openSignInDialog = true
+              }}
+            >
+              <CloudOutlined sx={{ marginRight: "0.5em" }} />
+              {localized("please-sign-up", "Sign up to use Cloud Save")}
+            </MenuItem>
+          </>
+        )}
 
         <Divider />
 

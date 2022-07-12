@@ -117,7 +117,7 @@ export const CloudFileList = observer(() => {
                 onClick={() => (cloudFileStore.selectedColumn = "name")}
                 isSelected={selectedColumn === "name"}
               >
-                Name
+                {localized("name", "Name")}
                 {selectedColumn === "name" && sortOrderButton}
               </TH>
               <TH
@@ -185,7 +185,7 @@ export const CloudFileList = observer(() => {
             cloudFileStore.dateType = "created"
           }}
         >
-          Created
+          {localized("created-date", "Created")}
         </MenuItem>
         <MenuItem
           onClick={() => {
@@ -193,7 +193,7 @@ export const CloudFileList = observer(() => {
             cloudFileStore.dateType = "updated"
           }}
         >
-          Modified
+          {localized("modified-date", "Modified")}
         </MenuItem>
       </Menu>
     </>

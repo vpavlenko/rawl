@@ -14,6 +14,7 @@ import { Head } from "../Head/Head"
 import { HelpDialog } from "../Help/HelpDialog"
 import { MIDIDeviceDialog } from "../MIDIDeviceView/MIDIDeviceDialog"
 import { Navigation } from "../Navigation/Navigation"
+import { OnBeforeUnload } from "../OnBeforeUnload/OnBeforeUnload"
 import { PianoRollEditor } from "../PianoRoll/PianoRollEditor"
 import { SignInDialog } from "../SignInDialog/SignInDialog"
 import { TempoEditor } from "../TempoGraph/TempoEditor"
@@ -72,5 +73,6 @@ export const RootView: FC = () => (
     <CloudFileDialog />
     <ActionDialog />
     <PromptDialog />
+    <OnBeforeUnload />
   </>
 )

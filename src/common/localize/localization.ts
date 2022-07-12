@@ -123,6 +123,7 @@ export default {
     "please-sign-up": "サインアップしてクラウドセーブを利用",
     "save-changes": "曲への変更を保存しますか?",
     "sign-in": "サインイン",
+    "success-sign-in": "サインインに成功しました",
     "cloud-beta-warning":
       "クラウド機能は開発中のベータ版のため、大事な楽曲はこまめにダウンロードをお願いします。",
     "cloud-description":

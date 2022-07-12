@@ -82,9 +82,9 @@ export const CloudFileList = observer(() => {
   const sortLabel = (() => {
     switch (dateType) {
       case "created":
-        return "Created"
+        return localized("created-date", "Created")
       case "updated":
-        return "Modified"
+        return localized("modified-date", "Modified")
     }
   })()
 

@@ -1,13 +1,13 @@
 export default {
   ja: {
-    "landing-title": "signal - ブラウザMIDIシーケンサ",
-    "app-intro": "オープンソースのブラウザMIDIシーケンサ",
-    "app-desc": "何もインストールせずに作曲を始めよう",
+    "landing-title": "signal - オンラインMIDIシーケンサ",
+    "app-intro": "ブラウザで音楽が作れる",
+    "app-desc": "すぐに使えるMIDI編集フリーソフト",
     launch: "起動",
     platform:
       "対応ブラウザ (デスクトップ版のみ): Google Chrome / Firefox / Safari",
     features: "機能",
-    "feature-midi-file": "ブラウザでMIDIの打ち込みができる",
+    "feature-midi-file": "フル機能のMIDIエディター",
     "feature-midi-file-description":
       "複数トラックに対応したピアノロールエディタを使って、自在に作曲しましょう。もちろんベロシティやピッチベンド、エクスプレッション、モジュレーションを使った豊かな表現ができます。",
     "feature-gm-module": "GM互換音源搭載",

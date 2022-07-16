@@ -1,5 +1,6 @@
 export default {
   ja: {
+    "landing-title": "signal - ブラウザMIDIシーケンサ",
     "app-intro": "オープンソースのブラウザMIDIシーケンサ",
     "app-desc": "何もインストールせずに作曲を始めよう",
     launch: "起動",

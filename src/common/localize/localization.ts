@@ -1,12 +1,12 @@
 export default {
   ja: {
-    "app-intro": "オープンソースのオンラインMIDIエディタ",
+    "app-intro": "オープンソースのブラウザMIDIシーケンサ",
     "app-desc": "何もインストールせずに作曲を始めよう",
     launch: "起動",
     platform:
       "対応ブラウザ (デスクトップ版のみ): Google Chrome / Firefox / Safari",
     features: "機能",
-    "feature-midi-file": "フル機能のMIDIエディター",
+    "feature-midi-file": "ブラウザでMIDIの打ち込みができる",
     "feature-midi-file-description":
       "複数トラックに対応したピアノロールエディタを使って、自在に作曲しましょう。もちろんベロシティやピッチベンド、エクスプレッション、モジュレーションを使った豊かな表現ができます。",
     "feature-gm-module": "GM互換音源搭載",
@@ -22,7 +22,7 @@ export default {
     "feature-pwa-description":
       "アドレスバーが邪魔ですか？アプリとしてインストールすることができます。",
     "feature-export-wav": "WAVファイルへの書き出し",
-    "feature-midi-io": "MIDI入出力",
+    "feature-midi-io": "MIDIキーボード対応",
     "feature-midi-io-description":
       "Web MIDI APIに対応したブラウザでは、MIDIキーボードを接続して演奏を録音したり、ハードウェアシンセで音を鳴らしたりすることができます。",
     "feature-export-audio": "高速オーディオ書き出し機能",

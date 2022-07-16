@@ -10,7 +10,7 @@ export function localized(
 
   // Use URL parameter ?lang=ja or navigator.language
   const navigatorLanguage = navigator.language.split("-")[0]
-  const langParam = new URL(window.location.href).searchParams.get("lang")
+  const langParam = new URL(location.href).searchParams.get("lang")
   const locale = langParam ?? navigatorLanguage
 
   if (

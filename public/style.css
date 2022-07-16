@@ -78,7 +78,7 @@ section .content {
   margin: 2rem 0 0 0;
   font-size: 1.2rem;
   border: 2px solid transparent;
-  transition: 0.2s ease;
+  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
   box-shadow: 0 1rem 7rem #0000004f;
 }
 #launch-button:hover {

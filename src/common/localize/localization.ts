@@ -1,7 +1,8 @@
 export default {
   ja: {
-    "app-intro": "オープンソースのオンラインMIDIエディタ",
-    "app-desc": "何もインストールせずに作曲を始めよう",
+    "landing-title": "signal - オンラインMIDIシーケンサ",
+    "app-intro": "ブラウザで音楽が作れる",
+    "app-desc": "すぐに使えるMIDI編集フリーソフト",
     launch: "起動",
     platform:
       "対応ブラウザ (デスクトップ版のみ): Google Chrome / Firefox / Safari",
@@ -22,7 +23,7 @@ export default {
     "feature-pwa-description":
       "アドレスバーが邪魔ですか？アプリとしてインストールすることができます。",
     "feature-export-wav": "WAVファイルへの書き出し",
-    "feature-midi-io": "MIDI入出力",
+    "feature-midi-io": "MIDIキーボード対応",
     "feature-midi-io-description":
       "Web MIDI APIに対応したブラウザでは、MIDIキーボードを接続して演奏を録音したり、ハードウェアシンセで音を鳴らしたりすることができます。",
     "feature-export-audio": "高速オーディオ書き出し機能",

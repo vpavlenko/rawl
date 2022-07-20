@@ -115,9 +115,14 @@ export default class Track {
 
   // ソート、通知を行わない内部用の addEvent
   // add the event without sorting, notification
-  private _addEvent<T extends TrackEvent>(e: Omit<T, "id">): T {
+  private _addEvent<T extends TrackEvent>(
+    e: Omit<T, "id"> & { subtype?: string }
+  ): T {
     if (!("tick" in e) || isNaN(e.tick)) {
       throw new Error("invalid event is added")
+    }
+    if ("subtype" in e && e.subtype === "endOfTrack") {
+      throw new Error("endOfTrack event is added")
     }
     const newEvent = {
       ...omit(e, ["deltaTime", "channel"]),

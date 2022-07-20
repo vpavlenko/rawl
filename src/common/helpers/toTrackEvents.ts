@@ -22,6 +22,11 @@ export const removeUnnecessaryProps = <T>(e: T): T => {
   return ev
 }
 
+export const isSupportedEvent = (e: AnyEvent): boolean =>
+  !(e.type === "meta" && e.subtype === "endOfTrack")
+
 export function toTrackEvents(events: AnyEvent[]) {
-  return assembleNotes(addTick(events)).map(removeUnnecessaryProps)
+  return assembleNotes(addTick(events.filter(isSupportedEvent))).map(
+    removeUnnecessaryProps
+  )
 }

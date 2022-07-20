@@ -12,6 +12,7 @@ import { assemble } from "../helpers/noteAssembler"
 import { toRawEvents } from "../helpers/toRawEvents"
 import {
   addTick,
+  isSupportedEvent,
   removeUnnecessaryProps,
   toTrackEvents,
 } from "../helpers/toTrackEvents"
@@ -50,7 +51,9 @@ const tracksFromFormat0Events = (events: AnyEvent[]): Track[] => {
       tracks.push(track)
     }
     const track = tracks[ch]
-    const trackEvents = assemble(events).map(removeUnnecessaryProps)
+    const trackEvents = assemble(events.filter(isSupportedEvent)).map(
+      removeUnnecessaryProps
+    )
     track.addEvents(trackEvents)
   }
   return tracks

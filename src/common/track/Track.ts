@@ -19,7 +19,6 @@ import {
   isNoteEvent,
 } from "./identify"
 import {
-  getEndOfTrackEvent,
   getLast,
   getPan,
   getProgramNumberEvent,
@@ -51,7 +50,6 @@ export default class Track {
       addEvent: action,
       addEvents: action,
       sortByTick: action,
-      updateEndOfTrack: action,
       displayName: computed,
       instrumentName: computed,
       name: computed,
@@ -90,7 +88,6 @@ export default class Track {
   updateEvent<T extends TrackEvent>(id: number, obj: Partial<T>): T | null {
     const result = this._updateEvent(id, obj)
     if (result) {
-      this.updateEndOfTrack()
       this.sortByTick()
     }
     return result
@@ -105,7 +102,6 @@ export default class Track {
         this._updateEvent(event.id, event)
       })
     })
-    this.updateEndOfTrack()
     this.sortByTick()
   }
 
@@ -115,7 +111,6 @@ export default class Track {
 
   removeEvents(ids: number[]) {
     this.events = this.events.filter((e) => !ids.includes(e.id))
-    this.updateEndOfTrack()
   }
 
   // ソート、通知を行わない内部用の addEvent
@@ -151,26 +146,11 @@ export default class Track {
   }
 
   didAddEvent() {
-    this.updateEndOfTrack()
     this.sortByTick()
   }
 
   sortByTick() {
     this.events = sortBy(this.events, "tick")
-  }
-
-  updateEndOfTrack() {
-    const tick = Math.max(
-      ...this.events
-        .filter((e) => !isEndOfTrackEvent(e))
-        .map((e) => {
-          if (isNoteEvent(e)) {
-            return e.tick + e.duration
-          }
-          return e.tick
-        })
-    )
-    this.setEndOfTrack(tick)
   }
 
   transaction<T>(func: (track: Track) => T) {
@@ -278,7 +258,16 @@ export default class Track {
     return getProgramNumberEvent(this.events)?.value
   }
   get endOfTrack() {
-    return getEndOfTrackEvent(this.events)?.tick
+    return Math.max(
+      ...this.events
+        .filter((e) => !isEndOfTrackEvent(e))
+        .map((e) => {
+          if (isNoteEvent(e)) {
+            return e.tick + e.duration
+          }
+          return e.tick
+        })
+    )
   }
 
   getPan = (tick: number) => getPan(this.events, tick)
@@ -292,13 +281,6 @@ export default class Track {
 
   setPan = (value: number, tick: number) =>
     this.setControllerValue(10, tick, value)
-
-  setEndOfTrack(tick: number) {
-    const e = getEndOfTrackEvent(this.events)
-    if (e !== undefined) {
-      this.updateEvent(e.id, { tick })
-    }
-  }
 
   setProgramNumber(value: number) {
     const e = getProgramNumberEvent(this.events)

@@ -13,13 +13,8 @@ import { pojo } from "../helpers/pojo"
 import { localized } from "../localize/localizedString"
 import { getInstrumentName } from "../midi/GM"
 import { programChangeMidiEvent, trackNameMidiEvent } from "../midi/MidiEvent"
+import { isControllerEventWithType, isNoteEvent } from "./identify"
 import {
-  isControllerEventWithType,
-  isEndOfTrackEvent,
-  isNoteEvent,
-} from "./identify"
-import {
-  getEndOfTrackEvent,
   getLast,
   getPan,
   getProgramNumberEvent,
@@ -51,7 +46,6 @@ export default class Track {
       addEvent: action,
       addEvents: action,
       sortByTick: action,
-      updateEndOfTrack: action,
       displayName: computed,
       instrumentName: computed,
       name: computed,
@@ -90,7 +84,6 @@ export default class Track {
   updateEvent<T extends TrackEvent>(id: number, obj: Partial<T>): T | null {
     const result = this._updateEvent(id, obj)
     if (result) {
-      this.updateEndOfTrack()
       this.sortByTick()
     }
     return result
@@ -105,7 +98,6 @@ export default class Track {
         this._updateEvent(event.id, event)
       })
     })
-    this.updateEndOfTrack()
     this.sortByTick()
   }
 
@@ -115,14 +107,18 @@ export default class Track {
 
   removeEvents(ids: number[]) {
     this.events = this.events.filter((e) => !ids.includes(e.id))
-    this.updateEndOfTrack()
   }
 
   // ソート、通知を行わない内部用の addEvent
   // add the event without sorting, notification
-  private _addEvent<T extends TrackEvent>(e: Omit<T, "id">): T {
+  private _addEvent<T extends TrackEvent>(
+    e: Omit<T, "id"> & { subtype?: string }
+  ): T {
     if (!("tick" in e) || isNaN(e.tick)) {
       throw new Error("invalid event is added")
+    }
+    if ("subtype" in e && e.subtype === "endOfTrack") {
+      throw new Error("endOfTrack event is added")
     }
     const newEvent = {
       ...omit(e, ["deltaTime", "channel"]),
@@ -151,26 +147,11 @@ export default class Track {
   }
 
   didAddEvent() {
-    this.updateEndOfTrack()
     this.sortByTick()
   }
 
   sortByTick() {
     this.events = sortBy(this.events, "tick")
-  }
-
-  updateEndOfTrack() {
-    const tick = Math.max(
-      ...this.events
-        .filter((e) => !isEndOfTrackEvent(e))
-        .map((e) => {
-          if (isNoteEvent(e)) {
-            return e.tick + e.duration
-          }
-          return e.tick
-        })
-    )
-    this.setEndOfTrack(tick)
   }
 
   transaction<T>(func: (track: Track) => T) {
@@ -278,7 +259,13 @@ export default class Track {
     return getProgramNumberEvent(this.events)?.value
   }
   get endOfTrack() {
-    return getEndOfTrackEvent(this.events)?.tick
+    let maxTick = 0
+    // Use for loop instead of map/filter to avoid the error `Maximum call stack size exceeded`
+    for (const e of this.events) {
+      const tick = isNoteEvent(e) ? e.tick + e.duration : e.tick
+      maxTick = Math.max(maxTick, tick)
+    }
+    return maxTick
   }
 
   getPan = (tick: number) => getPan(this.events, tick)
@@ -292,13 +279,6 @@ export default class Track {
 
   setPan = (value: number, tick: number) =>
     this.setControllerValue(10, tick, value)
-
-  setEndOfTrack(tick: number) {
-    const e = getEndOfTrackEvent(this.events)
-    if (e !== undefined) {
-      this.updateEvent(e.id, { tick })
-    }
-  }
 
   setProgramNumber(value: number) {
     const e = getProgramNumberEvent(this.events)

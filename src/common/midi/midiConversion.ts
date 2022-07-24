@@ -1,6 +1,7 @@
 import groupBy from "lodash/groupBy"
 import {
   AnyEvent,
+  EndOfTrackEvent,
   MidiFile,
   read,
   StreamSource,
@@ -12,6 +13,7 @@ import { assemble } from "../helpers/noteAssembler"
 import { toRawEvents } from "../helpers/toRawEvents"
 import {
   addTick,
+  isSupportedEvent,
   removeUnnecessaryProps,
   toTrackEvents,
 } from "../helpers/toTrackEvents"
@@ -50,7 +52,9 @@ const tracksFromFormat0Events = (events: AnyEvent[]): Track[] => {
       tracks.push(track)
     }
     const track = tracks[ch]
-    const trackEvents = assemble(events).map(removeUnnecessaryProps)
+    const trackEvents = assemble(events.filter(isSupportedEvent)).map(
+      removeUnnecessaryProps
+    )
     track.addEvents(trackEvents)
   }
   return tracks
@@ -96,15 +100,24 @@ const setChannel =
     return e
   }
 
-export function songToMidi(song: Song) {
+export function songToMidiEvents(song: Song): AnyEvent[][] {
   const tracks = toJS(song.tracks)
-  const rawTracks = tracks.map((t) => {
-    const rawEvents = toRawEvents(t.events)
+  return tracks.map((t) => {
+    const endOfTrack: EndOfTrackEvent = {
+      deltaTime: 0,
+      type: "meta",
+      subtype: "endOfTrack",
+    }
+    const rawEvents = [...toRawEvents(t.events), endOfTrack]
     if (t.channel !== undefined) {
       return rawEvents.map(setChannel(t.channel))
     }
     return rawEvents
   })
+}
+
+export function songToMidi(song: Song) {
+  const rawTracks = songToMidiEvents(song)
   return writeMidiFile(rawTracks, song.timebase)
 }
 

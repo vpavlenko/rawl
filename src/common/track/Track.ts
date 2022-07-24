@@ -13,11 +13,7 @@ import { pojo } from "../helpers/pojo"
 import { localized } from "../localize/localizedString"
 import { getInstrumentName } from "../midi/GM"
 import { programChangeMidiEvent, trackNameMidiEvent } from "../midi/MidiEvent"
-import {
-  isControllerEventWithType,
-  isEndOfTrackEvent,
-  isNoteEvent,
-} from "./identify"
+import { isControllerEventWithType, isNoteEvent } from "./identify"
 import {
   getLast,
   getPan,
@@ -263,16 +259,13 @@ export default class Track {
     return getProgramNumberEvent(this.events)?.value
   }
   get endOfTrack() {
-    return Math.max(
-      ...this.events
-        .filter((e) => !isEndOfTrackEvent(e))
-        .map((e) => {
-          if (isNoteEvent(e)) {
-            return e.tick + e.duration
-          }
-          return e.tick
-        })
-    )
+    let maxTick = 0
+    // Use for loop instead of map/filter to avoid the error `Maximum call stack size exceeded`
+    for (const e of this.events) {
+      const tick = isNoteEvent(e) ? e.tick + e.duration : e.tick
+      maxTick = Math.max(maxTick, tick)
+    }
+    return maxTick
   }
 
   getPan = (tick: number) => getPan(this.events, tick)

@@ -59,11 +59,21 @@ export const pianoNotesKeyboardShortcutActions = (
   },
   {
     code: "ArrowUp",
-    run: (e) => transposeSelection(rootStore)(e.shiftKey ? 12 : 1),
+    shiftKey: true,
+    run: () => transposeSelection(rootStore)(12),
+  },
+  {
+    code: "ArrowUp",
+    run: () => transposeSelection(rootStore)(1),
   },
   {
     code: "ArrowDown",
-    run: (e) => transposeSelection(rootStore)(e.shiftKey ? -12 : -1),
+    shiftKey: true,
+    run: () => transposeSelection(rootStore)(-12),
+  },
+  {
+    code: "ArrowDown",
+    run: () => transposeSelection(rootStore)(-1),
   },
   {
     code: "ArrowRight",

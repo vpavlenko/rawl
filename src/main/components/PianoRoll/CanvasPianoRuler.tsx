@@ -140,12 +140,13 @@ function drawTimeSignatures(
     ctx.fillStyle = e.isSelected
       ? theme.themeColor
       : theme.secondaryBackgroundColor
+    const flagHeight = textHeight + textPadding * 4
     drawFlag(
       ctx,
       x,
-      height - textHeight - textPadding * 4,
+      height - flagHeight,
       size.width + textPadding * 2,
-      textHeight + textPadding * 4,
+      flagHeight,
       textHeight
     )
     ctx.fillStyle = theme.textColor

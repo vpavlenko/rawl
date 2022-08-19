@@ -4,6 +4,7 @@ import { Tooltip } from "@mui/material"
 import Color from "color"
 import { observer } from "mobx-react-lite"
 import { CSSProperties, FC, useCallback } from "react"
+import { envString } from "../../../common/localize/envString"
 import { localized } from "../../../common/localize/localizedString"
 import { useStores } from "../../hooks/useStores"
 import ArrangeIcon from "../../images/icons/arrange.svg"
@@ -89,7 +90,9 @@ export const Navigation: FC = observer(() => {
       <FileMenuButton />
 
       <Tooltip
-        title={`${localized("switch-tab", "Switch Tab")} [Cmd+1]`}
+        title={`${localized("switch-tab", "Switch Tab")} [${
+          envString.cmdOrCtrl
+        }+1]`}
         placement="bottom"
         enterDelay={300}
         enterNextDelay={500}
@@ -104,7 +107,9 @@ export const Navigation: FC = observer(() => {
       </Tooltip>
 
       <Tooltip
-        title={`${localized("switch-tab", "Switch Tab")} [Cmd+2]`}
+        title={`${localized("switch-tab", "Switch Tab")} [${
+          envString.cmdOrCtrl
+        }+2]`}
         placement="bottom"
         enterDelay={300}
         enterNextDelay={500}
@@ -119,7 +124,9 @@ export const Navigation: FC = observer(() => {
       </Tooltip>
 
       <Tooltip
-        title={`${localized("switch-tab", "Switch Tab")} [Cmd+3]`}
+        title={`${localized("switch-tab", "Switch Tab")} [${
+          envString.cmdOrCtrl
+        }+3]`}
         placement="bottom"
         enterDelay={300}
         enterNextDelay={500}

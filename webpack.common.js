@@ -7,6 +7,7 @@ module.exports = {
   entry: {
     browserMain: "./src/main/index.tsx",
     browserLanding: "./src/landing/index.ts",
+    browserCommunity: "./src/community/index.tsx",
   },
   output: {
     filename: "[name]-[chunkhash].js",
@@ -44,6 +45,12 @@ module.exports = {
       filename: "index.html",
       chunks: ["browserLanding"],
       template: path.join(__dirname, "public", "index.html"),
+    }),
+    new HtmlWebpackPlugin({
+      inject: true,
+      filename: "community.html",
+      chunks: ["browserCommunity"],
+      template: path.join(__dirname, "public", "community.html"),
     }),
   ],
 }

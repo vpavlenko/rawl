@@ -1,5 +1,5 @@
+import { FormatListBulleted } from "@mui/icons-material"
 import { Tooltip } from "@mui/material"
-import TableOfContentsIcon from "mdi-react/FormatListBulletedIcon"
 import { FC, useCallback } from "react"
 import { localized } from "../../../common/localize/localizedString"
 import { useStores } from "../../hooks/useStores"
@@ -15,7 +15,7 @@ export const EventListButton: FC = () => {
           pianoRollStore.showEventList = !pianoRollStore.showEventList
         }, [])}
       >
-        <TableOfContentsIcon />
+        <FormatListBulleted />
       </ToolbarButton>
     </Tooltip>
   )

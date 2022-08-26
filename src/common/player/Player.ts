@@ -13,7 +13,7 @@ import {
 } from "../midi/MidiEvent"
 import { NoteEvent } from "../track"
 import { getStatusEvents } from "../track/selector"
-import TrackMute from "../trackMute"
+import { ITrackMute } from "../trackMute/ITrackMute"
 import { DistributiveOmit } from "../types"
 import EventScheduler from "./EventScheduler"
 import { convertTrackEvents, PlayerEvent } from "./PlayerEvent"
@@ -35,7 +35,7 @@ export default class Player {
   private _songStore: SongStore
   private _output: SynthOutput
   private _metronomeOutput: SynthOutput
-  private _trackMute: TrackMute
+  private _trackMute: ITrackMute
   private _interval: number | null = null
   private _currentTick = 0
   private _isPlaying = false
@@ -48,7 +48,7 @@ export default class Player {
   constructor(
     output: SynthOutput,
     metronomeOutput: SynthOutput,
-    trackMute: TrackMute,
+    trackMute: ITrackMute,
     songStore: SongStore
   ) {
     makeObservable<Player, "_currentTick" | "_isPlaying">(this, {

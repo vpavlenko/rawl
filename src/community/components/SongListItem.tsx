@@ -7,10 +7,11 @@ const Avatar = styled.img`
   border: 1px ${({ theme }) => theme.dividerColor} solid;
   border-radius: 999px;
   width: 2rem;
+  height: 2rem;
   margin-right: 0.5rem;
 `
 
-const User = styled.div`
+const Content = styled.div`
   display: flex;
   align-items: center;
   flex-grow: 1;
@@ -23,7 +24,7 @@ const Username = styled.div`
   font-size: 90%;
 `
 
-const SongTitle = styled.div`
+const Title = styled.div`
   font-weight: 600;
   font-size: 130%;
 `
@@ -56,7 +57,7 @@ const PlayButton = () => {
   )
 }
 
-const SongWrapper = styled.div`
+const Wrapper = styled.div`
   display: flex;
   padding: 0.5rem 0;
   cursor: pointer;
@@ -80,22 +81,23 @@ const Time = styled.div`
   color: ${({ theme }) => theme.secondaryTextColor};
 `
 
-export const SongListItem: FC<{
+export interface SongListItemProps {
   song: { name: string; updatedAt: Date }
   user: { name: string; photoURL: string }
-}> = ({ song, user }) => {
-  const date = song.updatedAt
+}
+
+export const SongListItem: FC<SongListItemProps> = ({ song, user }) => {
   return (
-    <SongWrapper>
+    <Wrapper>
       <PlayButton />
-      <User>
+      <Content>
         <Avatar src={user.photoURL} />
         <div>
-          <SongTitle>{song.name}</SongTitle>
+          <Title>{song.name}</Title>
           <Username>@{user.name}</Username>
         </div>
-      </User>
-      <Time>{formatTimeAgo(date)}</Time>
-    </SongWrapper>
+      </Content>
+      <Time>{formatTimeAgo(song.updatedAt)}</Time>
+    </Wrapper>
   )
 }

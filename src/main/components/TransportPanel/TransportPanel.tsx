@@ -4,8 +4,6 @@ import {
   FastRewind,
   FiberManualRecord,
   Loop,
-  Pause,
-  PlayArrow,
   Stop,
 } from "@mui/icons-material"
 import { CircularProgress, Tooltip } from "@mui/material"
@@ -23,6 +21,7 @@ import {
 } from "../../actions"
 import { toggleRecording } from "../../actions/recording"
 import { useStores } from "../../hooks/useStores"
+import { PlayButton } from "./PlayButton"
 
 const Toolbar = styled.div`
   display: flex;
@@ -53,7 +52,7 @@ const TempoInput = styled.input`
   }
 `
 
-const Button = styled.div`
+export const CircleButton = styled.div`
   --webkit-appearance: none;
   outline: none;
   border: none;
@@ -74,32 +73,19 @@ const Button = styled.div`
   }
 `
 
-const PlayButton = styled(Button)`
-  background: ${({ theme }) => theme.themeColor};
-
-  &:hover {
-    background: ${({ theme }) => theme.themeColor};
-    opacity: 0.8;
-  }
-
-  &.active {
-    background: ${({ theme }) => theme.themeColor};
-  }
-`
-
-const RecordButton = styled(Button)`
+const RecordButton = styled(CircleButton)`
   &.active {
     color: ${({ theme }) => theme.recordColor};
   }
 `
 
-const LoopButton = styled(Button)`
+const LoopButton = styled(CircleButton)`
   &.active {
     color: ${({ theme }) => theme.themeColor};
   }
 `
 
-const MetronomeButton = styled(Button)`
+const MetronomeButton = styled(CircleButton)`
   &.active {
     color: ${({ theme }) => theme.themeColor};
   }
@@ -211,28 +197,22 @@ export const TransportPanel: FC = observer(() => {
   return (
     <Toolbar>
       <Tooltip title={`${localized("rewind", "Rewind")}`} placement="top">
-        <Button onClick={onClickBackward}>
+        <CircleButton onClick={onClickBackward}>
           <FastRewind />
-        </Button>
+        </CircleButton>
       </Tooltip>
 
       <Tooltip title={`${localized("stop", "Stop")}`} placement="top">
-        <Button onClick={onClickStop}>
+        <CircleButton onClick={onClickStop}>
           <Stop />
-        </Button>
+        </CircleButton>
       </Tooltip>
 
       <Tooltip
         title={`${localized("play-pause", "Play/Pause")} [space]`}
         placement="top"
       >
-        <PlayButton
-          id="button-play"
-          onClick={onClickPlay}
-          className={isPlaying ? "active" : undefined}
-        >
-          {isPlaying ? <Pause /> : <PlayArrow />}
-        </PlayButton>
+        <PlayButton onClick={onClickPlay} isPlaying={isPlaying} />
       </Tooltip>
 
       {canRecording && (
@@ -250,9 +230,9 @@ export const TransportPanel: FC = observer(() => {
         title={`${localized("fast-forward", "Fast Forward")}`}
         placement="top"
       >
-        <Button onClick={onClickForward}>
+        <CircleButton onClick={onClickForward}>
           <FastForward />
-        </Button>
+        </CircleButton>
       </Tooltip>
 
       {loop && (

@@ -33,12 +33,11 @@ const ArrowIcon: FC<ArrowIconProps> = ({ isOpen }) => (
 )
 
 export const TrackListMenuButton: FC = observer(() => {
-  const { rootViewStore } = useStores()
-  const open = rootViewStore.openTrackListDrawer
+  const { pianoRollStore } = useStores()
+  const open = pianoRollStore.showTrackList
   const onClickNavBack = useCallback(
-    () =>
-      (rootViewStore.openTrackListDrawer = !rootViewStore.openTrackListDrawer),
-    [rootViewStore]
+    () => (pianoRollStore.showTrackList = !pianoRollStore.showTrackList),
+    [pianoRollStore]
   )
 
   const ref = useRef<HTMLButtonElement>(null)

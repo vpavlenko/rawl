@@ -35,8 +35,7 @@ const PaneLayout: FC<SplitPaneProps & { isShow: boolean; pane: ReactNode }> = ({
 
 export const PianoRollEditor: FC = observer(() => {
   const { pianoRollStore, rootViewStore } = useStores()
-  const { openTrackListDrawer } = rootViewStore
-  const { showEventList } = pianoRollStore
+  const { showTrackList, showEventList } = pianoRollStore
 
   return (
     <ColumnContainer>
@@ -47,7 +46,7 @@ export const PianoRollEditor: FC = observer(() => {
           split="vertical"
           minSize={240}
           pane2Style={{ display: "flex" }}
-          isShow={openTrackListDrawer}
+          isShow={showTrackList}
           pane={<TrackList />}
         >
           <PaneLayout

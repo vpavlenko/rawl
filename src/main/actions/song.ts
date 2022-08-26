@@ -21,7 +21,7 @@ export const setSong = (rootStore: RootStore) => (song: Song) => {
   rootStore.trackMute.reset()
   rootStore.pianoRollStore.setScrollLeftInPixels(0)
   rootStore.pianoRollStore.notGhostTracks = new Set()
-  rootStore.rootViewStore.openTrackListDrawer = true
+  rootStore.pianoRollStore.showTrackList = true
   rootStore.historyStore.clear()
 
   const { player } = rootStore

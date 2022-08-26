@@ -63,6 +63,7 @@ export default class PianoRollStore {
   notGhostTracks: Set<number> = new Set()
   canvasWidth: number = 0
   canvasHeight: number = 0
+  showTrackList = false
   showEventList = false
   openTransposeDialog = false
 
@@ -94,6 +95,7 @@ export default class PianoRollStore {
       notGhostTracks: observable,
       canvasWidth: observable,
       canvasHeight: observable,
+      showTrackList: observable,
       showEventList: observable,
       openTransposeDialog: observable,
       selectedControllerEventIds: observable,

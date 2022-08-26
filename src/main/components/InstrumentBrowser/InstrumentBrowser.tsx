@@ -236,12 +236,19 @@ const InstrumentBrowserWrapper: FC = observer(() => {
       return
     }
     player.sendEvent(programChangeMidiEvent(0, channel, setting.programNumber))
-    player.playNote({
-      duration: 240,
-      noteNumber: 64,
+    const noteNumber = 64
+    player.startNote({
+      noteNumber,
       velocity: 100,
       channel,
     })
+    player.stopNote(
+      {
+        noteNumber,
+        channel,
+      },
+      0.5
+    )
     s.instrumentBrowserSetting = setting
   }
 

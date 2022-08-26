@@ -9,11 +9,6 @@ const ScaleButton = styled.div`
   align-items: center;
   justify-content: center;
 
-  &:hover {
-    background: #dddddd;
-    color: black;
-  }
-
   > svg {
     width: 15px;
     height: 15px;

@@ -17,8 +17,8 @@ import { QueryDocumentSnapshot } from "firebase/firestore"
 import { observer } from "mobx-react-lite"
 import { useEffect, useRef, useState } from "react"
 import { localized } from "../../../common/localize/localizedString"
+import { FirestoreSong, loadSong } from "../../../firebase/song"
 import { setSong } from "../../actions"
-import { FirestoreSong, loadSong } from "../../firebase/song"
 import { useStores } from "../../hooks/useStores"
 
 const ArrowUp = styled(ArrowUpward)`

@@ -1,7 +1,7 @@
 import { QueryDocumentSnapshot } from "@firebase/firestore"
 import { orderBy } from "lodash"
 import { computed, makeObservable, observable } from "mobx"
-import { FirestoreSong, getSongs } from "../firebase/song"
+import { FirestoreSong, getCurrentUserSongs } from "../../firebase/song"
 
 export class CloudFileStore {
   isLoading = false
@@ -23,7 +23,7 @@ export class CloudFileStore {
 
   async load() {
     this.isLoading = true
-    const snapshot = await getSongs()
+    const snapshot = await getCurrentUserSongs()
     this._files = snapshot.docs
     this.isLoading = false
   }

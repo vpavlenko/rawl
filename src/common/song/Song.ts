@@ -9,8 +9,8 @@ import {
   transaction,
 } from "mobx"
 import { createModelSchema, list, object, primitive } from "serializr"
+import { FirestoreSong, FirestoreSongData } from "../../firebase/song"
 import { TIME_BASE } from "../../main/Constants"
-import { FirestoreSong, FirestoreSongData } from "../../main/firebase/song"
 import { isNotUndefined } from "../helpers/array"
 import { Measure } from "../measure/Measure"
 import { getMeasuresFromConductorTrack } from "../measure/MeasureList"

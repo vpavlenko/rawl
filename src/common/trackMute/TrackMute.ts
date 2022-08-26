@@ -1,4 +1,5 @@
 import { makeObservable, observable } from "mobx"
+import { ITrackMute } from "./ITrackMute"
 
 function updated<T>(obj: T, key: keyof T, value: any) {
   return { ...obj, [key]: value }
@@ -26,7 +27,7 @@ type BoolMap = { [index: number]: boolean }
   mute モードに遷移する
 
 */
-export default class TrackMute {
+export default class TrackMute implements ITrackMute {
   private mutes: BoolMap = {}
 
   private solos: BoolMap = {}

@@ -36,7 +36,8 @@ const TabButton = styled.div`
   min-width: 8em;
   background: transparent;
   -webkit-appearance: none;
-  border: none;
+  border-bottom: 1px solid;
+  border-color: transparent;
   padding: 0.5em 0.8em;
   color: ${({ theme }) => theme.secondaryTextColor};
   outline: none;
@@ -45,12 +46,12 @@ const TabButton = styled.div`
   cursor: default;
 
   &:hover {
-    background: #ffffff14;
+    background: ${({ theme }) => theme.secondaryBackgroundColor};
   }
 
   &.selected {
     color: ${({ theme }) => theme.textColor};
-    background: ${({ theme }) => theme.secondaryBackgroundColor};
+    border-color: ${({ theme }) => theme.themeColor};
   }
 `
 

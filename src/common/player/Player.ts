@@ -11,9 +11,8 @@ import {
   noteOffMidiEvent,
   noteOnMidiEvent,
 } from "../midi/MidiEvent"
-import { NoteEvent } from "../track"
 import { getStatusEvents } from "../track/selector"
-import TrackMute from "../trackMute"
+import { ITrackMute } from "../trackMute/ITrackMute"
 import { DistributiveOmit } from "../types"
 import EventScheduler from "./EventScheduler"
 import { convertTrackEvents, PlayerEvent } from "./PlayerEvent"
@@ -35,7 +34,7 @@ export default class Player {
   private _songStore: SongStore
   private _output: SynthOutput
   private _metronomeOutput: SynthOutput
-  private _trackMute: TrackMute
+  private _trackMute: ITrackMute
   private _interval: number | null = null
   private _currentTick = 0
   private _isPlaying = false
@@ -48,7 +47,7 @@ export default class Player {
   constructor(
     output: SynthOutput,
     metronomeOutput: SynthOutput,
-    trackMute: TrackMute,
+    trackMute: ITrackMute,
     songStore: SongStore
   ) {
     makeObservable<Player, "_currentTick" | "_isPlaying">(this, {
@@ -223,44 +222,33 @@ export default class Player {
     this._currentTempo = value
   }
 
-  playNote({
-    channel,
-    noteNumber,
-    velocity,
-    duration,
-  }: Pick<NoteEvent, "noteNumber" | "velocity" | "duration"> & {
-    channel: number
-  }) {
+  startNote(
+    {
+      channel,
+      noteNumber,
+      velocity,
+    }: {
+      noteNumber: number
+      velocity: number
+      channel: number
+    },
+    delayTime = 0
+  ) {
     this._output.activate()
-    this.sendEvent(noteOnMidiEvent(0, channel, noteNumber, velocity))
-    this.sendEvent(
-      noteOffMidiEvent(0, channel, noteNumber, 0),
-      this.tickToMillisec(duration) / 1000
-    )
+    this.sendEvent(noteOnMidiEvent(0, channel, noteNumber, velocity), delayTime)
   }
 
-  startNote({
-    channel,
-    noteNumber,
-    velocity,
-  }: Pick<NoteEvent, "noteNumber" | "velocity"> & {
-    channel: number
-  }) {
-    this._output.activate()
-    this.sendEvent(noteOnMidiEvent(0, channel, noteNumber, velocity))
-  }
-
-  stopNote({
-    channel,
-    noteNumber,
-  }: Pick<NoteEvent, "noteNumber"> & {
-    channel: number
-  }) {
-    this.sendEvent(noteOffMidiEvent(0, channel, noteNumber, 0))
-  }
-
-  tickToMillisec(tick: number) {
-    return (tick / (this.timebase / 60) / this._currentTempo) * 1000
+  stopNote(
+    {
+      channel,
+      noteNumber,
+    }: {
+      noteNumber: number
+      channel: number
+    },
+    delayTime = 0
+  ) {
+    this.sendEvent(noteOffMidiEvent(0, channel, noteNumber, 0), delayTime)
   }
 
   // delayTime: seconds, timestampNow: milliseconds

@@ -23,18 +23,23 @@ export interface TimeSignatureDialogProps {
 const NumberInput = styled.input`
   background: transparent;
   -webkit-appearance: none;
-  border: none;
+  outline: none;
   color: inherit;
   font-size: inherit;
   font-family: inherit;
   width: 3em;
   text-align: center;
-  outline: none;
   font-family: "Roboto Mono", monospace;
   font-size: 1rem;
   padding: 0.2rem 0;
   border: 1px solid ${({ theme }) => theme.dividerColor};
   border-radius: 0.2rem;
+  box-sizing: border-box;
+
+  &:focus {
+    border-color: ${({ theme }) => theme.themeColor};
+    border-width: 2px;
+  }
 
   &::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -67,7 +72,7 @@ export const TimeSignatureDialog: VFC<TimeSignatureDialogProps> = ({
         <div
           style={{
             display: "flex",
-            alignItems: "center",
+            alignItems: "stretch",
             justifyContent: "center",
           }}
         >
@@ -88,15 +93,16 @@ export const TimeSignatureDialog: VFC<TimeSignatureDialogProps> = ({
           <span
             style={{
               width: "3em",
-              display: "inline-block",
-              textAlign: "center",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
             }}
           >
             /
           </span>
           <Select
             style={{
-              width: "4em",
+              minWidth: "5em",
             }}
             value={denominator.toString()}
             onChange={(e) => setDenominator(parseInt(e.target.value as string))}

@@ -27,7 +27,7 @@ const DotLabel = styled(FiberManualRecord)`
 `
 
 const TripletLabel = styled.span`
-  opacity: 0.6;
+  color: ${({ theme }) => theme.secondaryTextColor};
   font-size: 70%;
   padding: 0 0.24em;
 `

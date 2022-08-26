@@ -1,6 +1,7 @@
 import { Divider, MenuItem } from "@mui/material"
 import { observer } from "mobx-react-lite"
 import { ChangeEvent, FC } from "react"
+import { useToast } from "use-toast-mui"
 import { localized } from "../../../common/localize/localizedString"
 import { createSong, openSong, saveSong } from "../../actions"
 import { useStores } from "../../hooks/useStores"
@@ -27,6 +28,7 @@ export const FileInput: FC<
 export const LegacyFileMenu: FC<{ close: () => void }> = observer(
   ({ close }) => {
     const rootStore = useStores()
+    const toast = useToast()
 
     const onClickNew = () => {
       const { song } = rootStore
@@ -41,7 +43,11 @@ export const LegacyFileMenu: FC<{ close: () => void }> = observer(
 
     const onClickOpen = async (e: ChangeEvent<HTMLInputElement>) => {
       close()
-      await openSong(rootStore)(e.currentTarget)
+      try {
+        await openSong(rootStore)(e.currentTarget)
+      } catch (e) {
+        toast.error((e as Error).message)
+      }
     }
 
     const onClickSave = () => {

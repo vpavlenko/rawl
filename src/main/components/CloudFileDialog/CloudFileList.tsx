@@ -16,6 +16,7 @@ import {
 import { QueryDocumentSnapshot } from "firebase/firestore"
 import { observer } from "mobx-react-lite"
 import { useEffect, useRef, useState } from "react"
+import { useToast } from "use-toast-mui"
 import { localized } from "../../../common/localize/localizedString"
 import { FirestoreSong, loadSong } from "../../../firebase/song"
 import { setSong } from "../../actions"
@@ -56,6 +57,7 @@ const FileRow = styled(TableRow)`
 export const CloudFileList = observer(() => {
   const rootStore = useStores()
   const { cloudFileStore } = rootStore
+  const toast = useToast()
   const theme = useTheme()
   const { isLoading, dateType, files, selectedColumn, sortAscending } =
     cloudFileStore
@@ -72,7 +74,7 @@ export const CloudFileList = observer(() => {
       setSong(rootStore)(midiSong)
       rootStore.rootViewStore.openCloudFileDialog = false
     } catch (e) {
-      rootStore.toastStore.showError((e as Error).message)
+      toast.error((e as Error).message)
     }
   }
   if (isLoading) {

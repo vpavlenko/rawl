@@ -1,6 +1,7 @@
 import { Divider, MenuItem } from "@mui/material"
 import { observer } from "mobx-react-lite"
 import { FC } from "react"
+import { useToast } from "use-toast-mui"
 import { localized } from "../../../common/localize/localizedString"
 import { createSong } from "../../actions"
 import { openFile, saveFile, saveFileAs } from "../../actions/file"
@@ -8,6 +9,7 @@ import { useStores } from "../../hooks/useStores"
 
 export const FileMenu: FC<{ close: () => void }> = observer(({ close }) => {
   const rootStore = useStores()
+  const toast = useToast()
 
   const onClickNew = () => {
     const { song } = rootStore
@@ -31,7 +33,7 @@ export const FileMenu: FC<{ close: () => void }> = observer(({ close }) => {
         await openFile(rootStore)
       }
     } catch (e) {
-      rootStore.toastStore.showError((e as Error).message)
+      toast.error((e as Error).message)
     }
   }
 

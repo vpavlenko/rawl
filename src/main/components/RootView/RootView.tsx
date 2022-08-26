@@ -18,7 +18,6 @@ import { OnBeforeUnload } from "../OnBeforeUnload/OnBeforeUnload"
 import { PianoRollEditor } from "../PianoRoll/PianoRollEditor"
 import { SignInDialog } from "../SignInDialog/SignInDialog"
 import { TempoEditor } from "../TempoGraph/TempoEditor"
-import { Toast } from "../Toast/Toast"
 import { TransportPanel } from "../TransportPanel/TransportPanel"
 import { ArrangeTransposeDialog } from "../TransposeDialog/ArrangeTransposeDialog"
 import { PianoRollTransposeDialog } from "../TransposeDialog/PianoRollTransposeDialog"
@@ -67,7 +66,6 @@ export const RootView: FC = () => (
     <ExportProgressDialog />
     <PianoRollTransposeDialog />
     <ArrangeTransposeDialog />
-    <Toast />
     <Head />
     <SignInDialog />
     <CloudFileDialog />

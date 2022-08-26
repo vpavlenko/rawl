@@ -20,7 +20,6 @@ import { registerReactions } from "./reactions"
 import RootViewStore from "./RootViewStore"
 import Router from "./Router"
 import TempoEditorStore from "./TempoEditorStore"
-import { ToastStore } from "./ToastStore"
 
 export default class RootStore {
   song: Song = emptySong()
@@ -33,7 +32,6 @@ export default class RootStore {
   readonly tempoEditorStore = new TempoEditorStore(this)
   readonly midiDeviceStore = new MIDIDeviceStore()
   readonly exportStore = new ExportStore()
-  readonly toastStore = new ToastStore()
   readonly authStore = new AuthStore()
   readonly dialogStore = new DialogStore()
   readonly promptStore = new PromptStore()

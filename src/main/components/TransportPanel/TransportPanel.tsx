@@ -11,7 +11,6 @@ import MetronomeIcon from "mdi-react/MetronomeIcon"
 import { observer } from "mobx-react-lite"
 import { FC, useCallback } from "react"
 import { localized } from "../../../common/localize/localizedString"
-import { DEFAULT_TEMPO } from "../../../common/player"
 import {
   fastForwardOneBar,
   playOrPause,
@@ -23,6 +22,7 @@ import { toggleRecording } from "../../actions/recording"
 import { useStores } from "../../hooks/useStores"
 import { CircleButton } from "./CircleButton"
 import { PlayButton } from "./PlayButton"
+import { TempoForm } from "./TempoForm"
 
 const Toolbar = styled.div`
   display: flex;
@@ -31,47 +31,6 @@ const Toolbar = styled.div`
   padding: 0.25rem 1rem;
   background: ${({ theme }) => theme.backgroundColor};
   border-top: 1px solid ${({ theme }) => theme.dividerColor};
-`
-
-const TempoInput = styled.input`
-  background: transparent;
-  -webkit-appearance: none;
-  border: none;
-  color: inherit;
-  font-size: inherit;
-  font-family: inherit;
-  width: 5em;
-  text-align: center;
-  outline: none;
-  font-family: "Roboto Mono", monospace;
-  font-size: 1rem;
-  padding: 0.3rem 0;
-
-  &::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-`
-
-export const CircleButton = styled.div`
-  --webkit-appearance: none;
-  outline: none;
-  border: none;
-  border-radius: 100%;
-  margin: 0.25rem;
-  padding: 0.4rem;
-  color: ${({ theme }) => theme.textColor};
-  display: flex;
-  cursor: pointer;
-
-  &:hover {
-    background: ${({ theme }) => theme.secondaryBackgroundColor};
-  }
-
-  svg {
-    width: 1.2rem;
-    height: 1.2rem;
-  }
 `
 
 const RecordButton = styled(CircleButton)`
@@ -91,64 +50,6 @@ const MetronomeButton = styled(CircleButton)`
     color: ${({ theme }) => theme.themeColor};
   }
 `
-
-const TempoWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  border: 1px solid transparent;
-  padding-left: 0.7rem;
-  border-radius: 0.25rem;
-
-  label {
-    font-size: 0.6rem;
-    color: ${({ theme }) => theme.secondaryTextColor};
-  }
-
-  &:focus-within {
-    border: 1px solid ${({ theme }) => theme.dividerColor};
-    background: #ffffff14;
-  }
-`
-
-const TempoForm: FC = observer(() => {
-  const rootStore = useStores()
-  const tempo = rootStore.pianoRollStore.currentTempo ?? DEFAULT_TEMPO
-
-  const changeTempo = (tempo: number) => {
-    const fixedTempo = Math.max(1, Math.min(512, tempo))
-    rootStore.song.conductorTrack?.setTempo(
-      fixedTempo,
-      rootStore.player.position
-    )
-    rootStore.player.currentTempo = fixedTempo
-  }
-
-  const onKeyPressTempo = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      e.preventDefault()
-      e.currentTarget.blur()
-    }
-  }
-
-  const onChangeTempo = (e: React.ChangeEvent<HTMLInputElement>) =>
-    changeTempo(parseFloat(e.target.value))
-
-  return (
-    <TempoWrapper>
-      <label htmlFor="tempo-input">BPM</label>
-      <TempoInput
-        type="number"
-        id="tempo-input"
-        min={1}
-        max={1000}
-        value={Math.round(tempo * 100) / 100}
-        step={1}
-        onChange={onChangeTempo}
-        onKeyPress={onKeyPressTempo}
-      />
-    </TempoWrapper>
-  )
-})
 
 const TimestampText = styled.div`
   font-family: "Roboto Mono", monospace;

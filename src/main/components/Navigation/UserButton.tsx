@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite"
 import { FC } from "react"
-import { auth } from "../../firebase/firebase"
+import { auth } from "../../../firebase/firebase"
 import { useStores } from "../../hooks/useStores"
 import { UserButtonContent } from "./UserButtonContent"
 

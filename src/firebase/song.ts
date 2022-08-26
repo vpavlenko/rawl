@@ -13,8 +13,8 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore"
-import { songFromMidi, songToMidi } from "../../common/midi/midiConversion"
-import Song from "../../common/song"
+import { songFromMidi, songToMidi } from "../common/midi/midiConversion"
+import Song from "../common/song"
 import { auth, firestore } from "./firebase"
 
 export interface FirestoreSongData {

@@ -1,6 +1,6 @@
 import { QueryDocumentSnapshot } from "@firebase/firestore"
 import { makeObservable, observable } from "mobx"
-import { FirestoreSong, getCurrentUserSongs } from "../../main/firebase/song"
+import { FirestoreSong, getCurrentUserSongs } from "../../firebase/song"
 
 export class CommunitySongStore {
   isLoading = false

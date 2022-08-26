@@ -1,7 +1,7 @@
 import { QueryDocumentSnapshot } from "@firebase/firestore"
 import { orderBy } from "lodash"
 import { computed, makeObservable, observable } from "mobx"
-import { FirestoreSong, getCurrentUserSongs } from "../firebase/song"
+import { FirestoreSong, getCurrentUserSongs } from "../../firebase/song"
 
 export class CloudFileStore {
   isLoading = false

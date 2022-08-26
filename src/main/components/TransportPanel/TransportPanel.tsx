@@ -21,6 +21,7 @@ import {
 } from "../../actions"
 import { toggleRecording } from "../../actions/recording"
 import { useStores } from "../../hooks/useStores"
+import { CircleButton } from "./CircleButton"
 import { PlayButton } from "./PlayButton"
 
 const Toolbar = styled.div`

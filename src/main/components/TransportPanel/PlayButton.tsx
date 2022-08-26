@@ -1,7 +1,7 @@
 import styled from "@emotion/styled"
 import { Pause, PlayArrow } from "@mui/icons-material"
 import { FC } from "react"
-import { CircleButton } from "./TransportPanel"
+import { CircleButton } from "./CircleButton"
 
 export const StyledButton = styled(CircleButton)`
   background: ${({ theme }) => theme.themeColor};

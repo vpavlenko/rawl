@@ -1,9 +1,9 @@
 import Player from "../../common/player"
 import { SoundFontSynth } from "../../main/services/SoundFontSynth"
 import { AuthStore } from "../../main/stores/AuthStore"
-import { CloudFileStore } from "../../main/stores/CloudFileStore"
 import { DialogStore } from "../../main/stores/DialogStore"
 import { PromptStore } from "../../main/stores/PromptStore"
+import { CommunitySongStore } from "./CommunitySongStore"
 import { SongStore } from "./SongStore"
 
 export default class RootStore {
@@ -11,7 +11,7 @@ export default class RootStore {
   readonly authStore = new AuthStore()
   readonly dialogStore = new DialogStore()
   readonly promptStore = new PromptStore()
-  readonly cloudFileStore = new CloudFileStore()
+  readonly communitySongStore = new CommunitySongStore()
   readonly player: Player
   readonly synth: SoundFontSynth
 

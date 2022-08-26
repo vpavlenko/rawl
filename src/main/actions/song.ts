@@ -43,15 +43,11 @@ export const saveSong = (rootStore: RootStore) => () => {
 
 export const openSong =
   (rootStore: RootStore) => async (input: HTMLInputElement) => {
-    try {
-      const song = await openSongFile(input)
-      if (song === null) {
-        return
-      }
-      setSong(rootStore)(song)
-    } catch (e) {
-      rootStore.toastStore.showError((e as Error).message)
+    const song = await openSongFile(input)
+    if (song === null) {
+      return
     }
+    setSong(rootStore)(song)
   }
 
 export const addTrack = (rootStore: RootStore) => () => {

@@ -1,6 +1,7 @@
 import { Divider, MenuItem } from "@mui/material"
 import { observer } from "mobx-react-lite"
 import { ChangeEvent, FC } from "react"
+import { useToast } from "use-toast-mui"
 import { localized } from "../../../common/localize/localizedString"
 import { emptySong } from "../../../common/song"
 import { createSong, updateSong } from "../../../firebase/song"
@@ -13,12 +14,13 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
   ({ close }) => {
     const rootStore = useStores()
     const { rootViewStore, dialogStore, promptStore } = rootStore
+    const toast = useToast()
 
     const saveOrCreateSong = async () => {
       const { song } = rootStore
       if (song.firestoreReference !== null) {
         await updateSong(song)
-        rootStore.toastStore.showSuccess(localized("song-saved", "Song saved"))
+        toast.success(localized("song-saved", "Song saved"))
       } else {
         if (song.name.length === 0) {
           const text = await promptStore.show({
@@ -31,9 +33,7 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
           }
         }
         await createSong(song)
-        rootStore.toastStore.showSuccess(
-          localized("song-created", "Song created")
-        )
+        toast.success(localized("song-created", "Song created"))
       }
     }
 
@@ -76,11 +76,9 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
         const newSong = emptySong()
         setSong(rootStore)(newSong)
         await createSong(newSong)
-        rootStore.toastStore.showSuccess(
-          localized("song-created", "Song created")
-        )
+        toast.success(localized("song-created", "Song created"))
       } catch (e) {
-        rootStore.toastStore.showError((e as Error).message)
+        toast.error((e as Error).message)
       }
     }
 
@@ -92,7 +90,7 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
         }
         rootViewStore.openCloudFileDialog = true
       } catch (e) {
-        rootStore.toastStore.showError((e as Error).message)
+        toast.error((e as Error).message)
       }
     }
 
@@ -101,7 +99,7 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
       try {
         await saveOrCreateSong()
       } catch (e) {
-        rootStore.toastStore.showError((e as Error).message)
+        toast.error((e as Error).message)
       }
     }
 
@@ -119,9 +117,9 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
           return
         }
         await createSong(song)
-        rootStore.toastStore.showSuccess(localized("song-saved", "Song saved"))
+        toast.success(localized("song-saved", "Song saved"))
       } catch (e) {
-        rootStore.toastStore.showError((e as Error).message)
+        toast.error((e as Error).message)
       }
     }
 
@@ -144,9 +142,9 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
         } else {
           await createSong(song)
         }
-        rootStore.toastStore.showSuccess(localized("song-saved", "Song saved"))
+        toast.success(localized("song-saved", "Song saved"))
       } catch (e) {
-        rootStore.toastStore.showError((e as Error).message)
+        toast.error((e as Error).message)
       }
     }
 
@@ -156,7 +154,7 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
         await openSong(rootStore)(e.currentTarget)
         await saveOrCreateSong()
       } catch (e) {
-        rootStore.toastStore.showError((e as Error).message)
+        toast.error((e as Error).message)
       }
     }
 
@@ -169,7 +167,7 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
         await openFile(rootStore)
         await saveOrCreateSong()
       } catch (e) {
-        rootStore.toastStore.showError((e as Error).message)
+        toast.error((e as Error).message)
       }
     }
 
@@ -181,7 +179,7 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
           saveSong(rootStore)()
         }
       } catch (e) {
-        rootStore.toastStore.showError((e as Error).message)
+        toast.error((e as Error).message)
       }
     }
 

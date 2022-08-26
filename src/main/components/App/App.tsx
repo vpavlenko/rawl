@@ -2,6 +2,7 @@ import * as Sentry from "@sentry/react"
 import { Integrations } from "@sentry/tracing"
 import React from "react"
 import { HelmetProvider } from "react-helmet-async"
+import { ToastProvider } from "use-toast-mui"
 import { defaultTheme } from "../../../common/theme/Theme"
 import { StoreContext } from "../../hooks/useStores"
 import { ThemeContext } from "../../hooks/useTheme"
@@ -28,9 +29,11 @@ export function App() {
           <MuiThemeProvider>
             <EmotionThemeProvider>
               <HelmetProvider>
-                <GlobalKeyboardShortcut />
-                <GlobalCSS />
-                <RootView />
+                <ToastProvider>
+                  <GlobalKeyboardShortcut />
+                  <GlobalCSS />
+                  <RootView />
+                </ToastProvider>
               </HelmetProvider>
             </EmotionThemeProvider>
           </MuiThemeProvider>

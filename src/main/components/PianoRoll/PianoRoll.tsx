@@ -1,6 +1,5 @@
 import styled from "@emotion/styled"
 import useComponentSize from "@rehooks/component-size"
-import SplitPane from "@ryohey/react-split-pane"
 import { clamp } from "lodash"
 import { observer } from "mobx-react-lite"
 import { FC, useCallback, useRef } from "react"
@@ -8,12 +7,12 @@ import { Layout, WHEEL_SCROLL_RATE } from "../../Constants"
 import { isTouchPadEvent } from "../../helpers/touchpad"
 import { useStores } from "../../hooks/useStores"
 import ControlPane from "../ControlPane/ControlPane"
-import EventList from "../EventEditor/EventList"
 import {
   HorizontalScaleScrollBar,
   VerticalScaleScrollBar,
 } from "../inputs/ScaleScrollBar"
 import { PianoRollStage } from "./PianoRollStage"
+import { StyledSplitPane } from "./StyledSplitPane"
 
 const Parent = styled.div`
   flex-grow: 1;
@@ -39,59 +38,6 @@ const Alpha = styled.div`
 const Beta = styled.div`
   border-top: 1px solid ${({ theme }) => theme.dividerColor};
   height: calc(100% - 17px);
-`
-
-const StyledSplitPane = styled(SplitPane)`
-  .Resizer {
-    background: #000;
-    opacity: 0.2;
-    z-index: 1;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    -moz-background-clip: padding;
-    -webkit-background-clip: padding;
-    background-clip: padding-box;
-  }
-
-  .Resizer:hover {
-    transition: all 0.2s ease;
-  }
-
-  .Resizer.horizontal {
-    height: 11px;
-    margin: -5px 0;
-    border-top: 5px solid rgba(255, 255, 255, 0);
-    border-bottom: 5px solid rgba(255, 255, 255, 0);
-    cursor: row-resize;
-    width: 100%;
-  }
-
-  .Resizer.horizontal:hover {
-    border-top: 5px solid rgba(255, 255, 255, 0.5);
-    border-bottom: 5px solid rgba(255, 255, 255, 0.5);
-  }
-
-  .Resizer.vertical {
-    width: 11px;
-    margin: 0 -5px;
-    border-left: 5px solid rgba(255, 255, 255, 0);
-    border-right: 5px solid rgba(255, 255, 255, 0);
-    cursor: col-resize;
-  }
-
-  .Resizer.vertical:hover {
-    border-left: 5px solid rgba(255, 255, 255, 0.5);
-    border-right: 5px solid rgba(255, 255, 255, 0.5);
-  }
-
-  .Resizer.disabled {
-    cursor: not-allowed;
-  }
-
-  .Resizer.disabled:hover {
-    border-color: transparent;
-  }
 `
 
 const PianoRollWrapper: FC = observer(() => {
@@ -190,24 +136,4 @@ const PianoRollWrapper: FC = observer(() => {
   )
 })
 
-export default observer(() => {
-  const { pianoRollStore } = useStores()
-
-  if (pianoRollStore.showEventList) {
-    return (
-      <div style={{ display: "flex", flexGrow: 1, position: "relative" }}>
-        <StyledSplitPane
-          split="vertical"
-          minSize={50}
-          defaultSize={"20%"}
-          style={{ display: "flex" }}
-          pane2Style={{ display: "flex" }}
-        >
-          <EventList />
-          <PianoRollWrapper />
-        </StyledSplitPane>
-      </div>
-    )
-  }
-  return <PianoRollWrapper />
-})
+export default PianoRollWrapper

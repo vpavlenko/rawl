@@ -1,11 +1,14 @@
 import styled from "@emotion/styled"
+import { SplitPaneProps } from "@ryohey/react-split-pane"
 import { observer } from "mobx-react-lite"
-import { FC } from "react"
+import { FC, ReactNode } from "react"
 import { useStores } from "../../hooks/useStores"
+import EventList from "../EventEditor/EventList"
 import { PianoRollKeyboardShortcut } from "../KeyboardShortcut/PianoRollKeyboardShortcut"
 import { PianoRollToolbar } from "../PianoRollToolbar/PianoRollToolbar"
 import { TrackList } from "../TrackList/TrackList"
 import PianoRoll from "./PianoRoll"
+import { StyledSplitPane } from "./StyledSplitPane"
 
 const ColumnContainer = styled.div`
   display: flex;
@@ -13,26 +16,51 @@ const ColumnContainer = styled.div`
   flex-grow: 1;
 `
 
-const RowContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-grow: 1;
-  overflow: hidden;
-  flex-basis: 0;
-`
+const PaneLayout: FC<SplitPaneProps & { isShow: boolean; pane: ReactNode }> = ({
+  isShow,
+  pane,
+  children,
+  ...props
+}) => {
+  if (isShow) {
+    return (
+      <StyledSplitPane {...props}>
+        {pane}
+        {children}
+      </StyledSplitPane>
+    )
+  }
+  return <>{children}</>
+}
 
 export const PianoRollEditor: FC = observer(() => {
-  const { rootViewStore } = useStores()
-  const open = rootViewStore.openTrackListDrawer
+  const { pianoRollStore, rootViewStore } = useStores()
+  const { openTrackListDrawer } = rootViewStore
+  const { showEventList } = pianoRollStore
 
   return (
     <ColumnContainer>
       <PianoRollKeyboardShortcut />
       <PianoRollToolbar />
-      <RowContainer>
-        {open && <TrackList />}
-        <PianoRoll />
-      </RowContainer>
+      <div style={{ display: "flex", flexGrow: 1, position: "relative" }}>
+        <PaneLayout
+          split="vertical"
+          minSize={240}
+          pane2Style={{ display: "flex" }}
+          isShow={openTrackListDrawer}
+          pane={<TrackList />}
+        >
+          <PaneLayout
+            split="vertical"
+            minSize={240}
+            pane2Style={{ display: "flex" }}
+            isShow={showEventList}
+            pane={<EventList />}
+          >
+            <PianoRoll />
+          </PaneLayout>
+        </PaneLayout>
+      </div>
     </ColumnContainer>
   )
 })

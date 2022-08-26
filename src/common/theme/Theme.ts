@@ -27,7 +27,7 @@ export const defaultTheme: Theme = {
   secondaryBackgroundColor: "hsl(227, 16%, 22%)",
   pianoKeyBlack: "#272a36",
   pianoKeyWhite: "#fbfcff",
-  pianoBlackKeyLaneColor: "hsl(228, 16%, 14%)",
+  pianoBlackKeyLaneColor: "hsl(228, 16%, 15%)",
   ghostNoteColor: "#444444",
   recordColor: "#dd3c3c",
 }

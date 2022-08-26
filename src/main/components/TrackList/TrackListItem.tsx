@@ -22,8 +22,8 @@ export type TrackListItemProps = {
 }
 
 const Container = styled.div<{ selected: boolean }>`
-  background-color: ${({ selected }) =>
-    selected ? "rgba(255, 255, 255, 5%)" : "transparent"};
+  background-color: ${({ theme, selected }) =>
+    selected ? theme.secondaryBackgroundColor : "transparent"};
   border-right: 5px solid;
   border-right-color: ${({ theme, selected }) =>
     selected ? theme.themeColor : "transparent"};
@@ -41,14 +41,16 @@ const Container = styled.div<{ selected: boolean }>`
   }
 
   .name {
-    font-weight: ${({ selected }) => (selected ? 600 : "inherit")};
+    font-weight: 600;
+    color: ${({ theme, selected }) =>
+      selected ? theme.textColor : theme.secondaryTextColor};
     padding-right: 0.5em;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
 
   .label .instrument {
-    opacity: 0.5;
+    color: ${({ theme }) => theme.secondaryTextColor};
     font-size: 90%;
     overflow: hidden;
     white-space: nowrap;
@@ -65,7 +67,7 @@ const Container = styled.div<{ selected: boolean }>`
   }
 
   &:hover {
-    background: rgba(255, 255, 255, 5%);
+    background: ${({ theme }) => theme.secondaryBackgroundColor};
   }
 `
 

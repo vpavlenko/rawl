@@ -1,5 +1,4 @@
 import { css, Global } from "@emotion/react"
-import React from "react"
 import { useTheme } from "../../hooks/useTheme"
 
 export const GlobalCSS = () => {
@@ -45,24 +44,28 @@ export const GlobalCSS = () => {
         /* ScrollBar */
 
         .ScrollBar {
-          background-color: ${theme.backgroundColor} !important;
+          background-color: ${theme.backgroundColor};
         }
 
         .ScrollBar .thumb {
-          border: 2px solid rgba(0, 0, 0, 0.2);
-          background: ${theme.secondaryBackgroundColor};
+          border: 1px solid ${theme.backgroundColor};
+          background: ${theme.secondaryTextColor};
+          opacity: 0.2;
         }
 
-        .ScrollBar .thumb:active,
         .ScrollBar .thumb:hover {
-          background: ${theme.tertiaryTextColor};
+          opacity: 0.3;
+        }
+
+        .ScrollBar .thumb:active {
+          opacity: 0.5;
         }
 
         .ScrollBar .button-backward:active,
         .ScrollBar .button-backward:hover,
         .ScrollBar .button-forward:active,
         .ScrollBar .button-forward:hover {
-          background: ${theme.tertiaryTextColor};
+          background: ${theme.secondaryBackgroundColor};
         }
 
         .gitter-chat-embed {

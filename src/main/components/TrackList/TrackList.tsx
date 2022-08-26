@@ -1,17 +1,9 @@
 import styled from "@emotion/styled"
-import { Add } from "@mui/icons-material"
-import { ListItem, ListItemIcon, ListItemText } from "@mui/material"
 import { observer } from "mobx-react-lite"
-import { FC, useCallback } from "react"
-import { localized } from "../../../common/localize/localizedString"
-import { addTrack } from "../../actions"
+import { FC } from "react"
 import { useStores } from "../../hooks/useStores"
+import { AddTrackButton } from "./AddTrackButton"
 import { TrackListItem } from "./TrackListItem"
-
-const AddTrackListIcon = styled(ListItemIcon)`
-  min-width: auto;
-  margin-right: 0.6em;
-`
 
 const List = styled.div`
   overflow-y: auto;
@@ -22,19 +14,12 @@ const List = styled.div`
 export const TrackList: FC = observer(() => {
   const rootStore = useStores()
 
-  const onClickAddTrack = useCallback(() => addTrack(rootStore)(), [])
-
   return (
     <List>
       {rootStore.song.tracks.map(
         (t, i) => !t.isConductorTrack && <TrackListItem key={i} trackId={i} />
       )}
-      <ListItem button onClick={onClickAddTrack}>
-        <AddTrackListIcon>
-          <Add />
-        </AddTrackListIcon>
-        <ListItemText primary={localized("add-track", "Add track")} />
-      </ListItem>
+      <AddTrackButton />
     </List>
   )
 })

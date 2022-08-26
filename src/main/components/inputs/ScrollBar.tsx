@@ -29,22 +29,11 @@ export interface ScrollBarProps {
 
 const Thumb = styled.div`
   box-sizing: border-box;
-  border: 2px solid #f1f1f1;
-  background: #c1c1c1;
-
-  &:hover {
-    background: #b1b1b1;
-  }
-
-  &:active {
-    background: #8d8d8d;
-  }
 `
 
 const Container = styled.div`
   height: 100%;
   width: 100%;
-  background: #f1f1f1;
   position: absolute;
   display: flex;
 
@@ -84,18 +73,6 @@ const Container = styled.div`
     .button-forward .triangle {
       transform: rotate(90deg) scale(1.1);
     }
-  }
-
-  .button-backward:hover,
-  .button-forward:hover {
-    background: #dddddd;
-    color: black;
-  }
-
-  .button-backward:active,
-  .button-forward:active {
-    background: #666666;
-    color: #ffffff;
   }
 
   .triangle {

@@ -65,7 +65,7 @@ const Button = styled.div`
   cursor: pointer;
 
   &:hover {
-    background: #ffffff0d;
+    background: ${({ theme }) => theme.secondaryBackgroundColor};
   }
 
   svg {

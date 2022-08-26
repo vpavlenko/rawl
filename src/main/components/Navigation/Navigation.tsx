@@ -54,8 +54,7 @@ export const Tab = styled.div`
   }
 
   &:hover {
-    background: ${({ theme }) =>
-      Color(theme.backgroundColor).darken(0.1).hex()};
+    background: ${({ theme }) => theme.secondaryBackgroundColor};
   }
 }
 `

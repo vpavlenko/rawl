@@ -24,7 +24,7 @@ export const defaultTheme: Theme = {
   tertiaryTextColor: "#5a6173",
   dividerColor: "#454a58",
   backgroundColor: "hsl(228, 16%, 18%)",
-  secondaryBackgroundColor: "hsl(227, 16%, 32%)",
+  secondaryBackgroundColor: "hsl(227, 16%, 22%)",
   pianoKeyBlack: "#272a36",
   pianoKeyWhite: "#fbfcff",
   pianoBlackKeyLaneColor: "hsl(228, 16%, 14%)",

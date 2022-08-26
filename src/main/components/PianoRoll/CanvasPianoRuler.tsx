@@ -96,12 +96,6 @@ function drawLoopPoints(
   ctx.closePath()
   ctx.fill()
   ctx.stroke()
-
-  if (loop.begin !== null && loop.end !== null) {
-    ctx.rect(beginX, 0, endX - beginX, height)
-    ctx.fillStyle = "rgba(0, 0, 0, 0.02)"
-    ctx.fill()
-  }
 }
 
 function drawFlag(

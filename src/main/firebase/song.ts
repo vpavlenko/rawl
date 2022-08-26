@@ -133,7 +133,7 @@ export const updateSong = async (song: Song) => {
   song.isSaved = true
 }
 
-export const getSongs = async () => {
+export const getCurrentUserSongs = async () => {
   if (auth.currentUser === null) {
     throw new Error("You must be logged in to get songs from the cloud")
   }

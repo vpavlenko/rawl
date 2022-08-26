@@ -5,7 +5,6 @@ import { FC } from "react"
 import { CircleButton } from "../../main/components/TransportPanel/CircleButton"
 import { PlayButton } from "../../main/components/TransportPanel/PlayButton"
 import { BottomPlayerSong } from "./BottomPlayerSong"
-import mock from "./MOCK_DATA.json"
 
 const Wrapper = styled.div`
   border-top: 1px solid ${({ theme }) => theme.dividerColor};
@@ -26,17 +25,18 @@ const PlaybackSlider = styled(Slider)`
 `
 
 export const BottomPlayer: FC = () => {
-  const songs = mock.map((d) => ({
+  const song = {
     song: {
-      id: d.id,
-      name: d.song_name,
-      updatedAt: new Date(d.created_at),
+      id: 2,
+      name: "Swan, black",
     },
     user: {
-      name: d.name,
-      photoURL: d.avatar,
+      name: "blegassick1",
+      created_at: new Date("2022-05-02T22:43:31Z"),
+      photoURL:
+        "https://robohash.org/autvoluptatemcumque.png?size=50x50&set=set1",
     },
-  }))
+  }
 
   return (
     <Wrapper>
@@ -49,7 +49,7 @@ export const BottomPlayer: FC = () => {
           <SkipNext />
         </CircleButton>
         <PlaybackSlider size="small" style={{ marginRight: "2rem" }} />
-        <BottomPlayerSong song={songs[0].song} user={songs[0].user} />
+        <BottomPlayerSong song={song.song} user={song.user} />
       </Inner>
     </Wrapper>
   )

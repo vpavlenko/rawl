@@ -2,6 +2,8 @@ import * as Sentry from "@sentry/react"
 import { Integrations } from "@sentry/tracing"
 import React from "react"
 import { HelmetProvider } from "react-helmet-async"
+import { DialogProvider } from "use-dialog-mui"
+import { PromptProvider } from "use-prompt-mui"
 import { ToastProvider } from "use-toast-mui"
 import { defaultTheme } from "../../../common/theme/Theme"
 import { StoreContext } from "../../hooks/useStores"
@@ -30,9 +32,13 @@ export function App() {
             <EmotionThemeProvider>
               <HelmetProvider>
                 <ToastProvider>
-                  <GlobalKeyboardShortcut />
-                  <GlobalCSS />
-                  <RootView />
+                  <PromptProvider>
+                    <DialogProvider>
+                      <GlobalKeyboardShortcut />
+                      <GlobalCSS />
+                      <RootView />
+                    </DialogProvider>
+                  </PromptProvider>
                 </ToastProvider>
               </HelmetProvider>
             </EmotionThemeProvider>

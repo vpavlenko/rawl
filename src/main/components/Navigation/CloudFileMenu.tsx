@@ -1,6 +1,7 @@
 import { Divider, MenuItem } from "@mui/material"
 import { observer } from "mobx-react-lite"
 import { ChangeEvent, FC } from "react"
+import { useDialog } from "use-dialog-mui"
 import { usePrompt } from "use-prompt-mui"
 import { useToast } from "use-toast-mui"
 import { localized } from "../../../common/localize/localizedString"
@@ -14,9 +15,10 @@ import { FileInput } from "./LegacyFileMenu"
 export const CloudFileMenu: FC<{ close: () => void }> = observer(
   ({ close }) => {
     const rootStore = useStores()
-    const { rootViewStore, dialogStore } = rootStore
+    const { rootViewStore } = rootStore
     const toast = useToast()
     const prompt = usePrompt()
+    const dialog = useDialog()
 
     const saveOrCreateSong = async () => {
       const { song } = rootStore
@@ -47,7 +49,7 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
         return true
       }
 
-      const res = await dialogStore.show({
+      const res = await dialog.show({
         title: localized(
           "save-changes",
           "Do you want to save your changes to the song?"

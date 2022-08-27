@@ -1,6 +1,7 @@
 import { Divider, MenuItem } from "@mui/material"
 import { observer } from "mobx-react-lite"
 import { ChangeEvent, FC } from "react"
+import { usePrompt } from "use-prompt-mui"
 import { useToast } from "use-toast-mui"
 import { localized } from "../../../common/localize/localizedString"
 import { emptySong } from "../../../common/song"
@@ -13,8 +14,9 @@ import { FileInput } from "./LegacyFileMenu"
 export const CloudFileMenu: FC<{ close: () => void }> = observer(
   ({ close }) => {
     const rootStore = useStores()
-    const { rootViewStore, dialogStore, promptStore } = rootStore
+    const { rootViewStore, dialogStore } = rootStore
     const toast = useToast()
+    const prompt = usePrompt()
 
     const saveOrCreateSong = async () => {
       const { song } = rootStore
@@ -23,7 +25,7 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
         toast.success(localized("song-saved", "Song saved"))
       } else {
         if (song.name.length === 0) {
-          const text = await promptStore.show({
+          const text = await prompt.show({
             title: localized("save-as", "Save as"),
           })
           if (text !== null && text.length > 0) {
@@ -107,7 +109,7 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
       const { song } = rootStore
       close()
       try {
-        const text = await promptStore.show({
+        const text = await prompt.show({
           title: localized("save-as", "Save as"),
           initialText: song.name,
         })
@@ -128,7 +130,7 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
       const { song } = rootStore
       try {
         if (song.name.length === 0) {
-          const text = await promptStore.show({
+          const text = await prompt.show({
             title: localized("rename", "Rename"),
           })
           if (text !== null && text.length > 0) {

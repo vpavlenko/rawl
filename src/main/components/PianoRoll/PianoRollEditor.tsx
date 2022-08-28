@@ -45,6 +45,7 @@ export const PianoRollEditor: FC = observer(() => {
         <PaneLayout
           split="vertical"
           minSize={240}
+          pane1Style={{ display: "flex" }}
           pane2Style={{ display: "flex" }}
           isShow={showTrackList}
           pane={<TrackList />}
@@ -52,6 +53,7 @@ export const PianoRollEditor: FC = observer(() => {
           <PaneLayout
             split="vertical"
             minSize={240}
+            pane1Style={{ display: "flex" }}
             pane2Style={{ display: "flex" }}
             isShow={showEventList}
             pane={<EventList />}

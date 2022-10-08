@@ -28,14 +28,18 @@ const EventList: FC = observer(() => {
     <Container ref={ref}>
       <Header>
         <Row>
-          <Cell style={{ width: widthForCell(0) }}>Tick</Cell>
+          <Cell style={{ width: widthForCell(0) }}>
+            {localized("tick", "Tick")}
+          </Cell>
           <Cell style={{ width: widthForCell(1), flexGrow: 1 }}>
             {localized("event", "Event")}
           </Cell>
           <Cell style={{ width: widthForCell(2) }}>
             {localized("duration", "Duration")}
           </Cell>
-          <Cell style={{ width: widthForCell(3) }}>Value</Cell>
+          <Cell style={{ width: widthForCell(3) }}>
+            {localized("value", "Value")}
+          </Cell>
         </Row>
       </Header>
       <FixedSizeList

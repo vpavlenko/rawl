@@ -2,6 +2,7 @@ import styled from "@emotion/styled"
 import useComponentSize from "@rehooks/component-size"
 import { observer } from "mobx-react-lite"
 import React, { FC, useCallback, useRef } from "react"
+import { localized } from "../../../common/localize/localizedString"
 import { Layout } from "../../Constants"
 import { useStores } from "../../hooks/useStores"
 import ExpressionGraph from "./Graph/ExpressionGraph"
@@ -72,12 +73,12 @@ const TabBar: FC<TabBarProps> = React.memo(({ onClick, selectedMode }) => {
   })
 
   const buttons = [
-    controlButton("Velocity", "velocity"),
-    controlButton("Pitch Bend", "pitchBend"),
-    controlButton("Volume", "volume"),
-    controlButton("Panpot", "pan"),
-    controlButton("Expression", "expression"),
-    controlButton("Hold Pedal", "hold"),
+    controlButton(localized("velocity", "Velocity"), "velocity"),
+    controlButton(localized("pitch-bend", "Pitch Bend"), "pitchBend"),
+    controlButton(localized("volume", "Volume"), "volume"),
+    controlButton(localized("panpot", "Panpot"), "pan"),
+    controlButton(localized("expression", "Expression"), "expression"),
+    controlButton(localized("hold-pedal", "Hold Pedal"), "hold"),
   ]
 
   return (

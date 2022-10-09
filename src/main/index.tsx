@@ -6,7 +6,6 @@ import { App } from "./components/App/App"
 
 Sentry.init({
   dsn: process.env.SENTRY_DSN,
-  release: process.env.VERCEL_GIT_COMMIT_SHA,
   environment: process.env.VERCEL_ENV,
   integrations: [new Integrations.BrowserTracing()],
   tracesSampleRate: 1.0,

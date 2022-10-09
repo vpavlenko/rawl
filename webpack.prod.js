@@ -50,6 +50,7 @@ module.exports = merge(common, {
         "webpack.prod.js",
       ],
       dryRun: process.env.VERCEL_ENV !== "production",
+      debug: true,
     }),
   ],
 })

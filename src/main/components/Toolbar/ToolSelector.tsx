@@ -54,7 +54,11 @@ export const ToolSelector: VFC<ToolSelectorProps> = ({
         <Tooltip title={`${localized("selection-tool", "Selection Tool")} [2]`}>
           <IconWrapper>
             <SelectionIcon
-              style={{ width: "1.3rem", fill: "currentColor" }}
+              style={{
+                width: "1.3rem",
+                height: "1.3rem",
+                fill: "currentColor",
+              }}
               viewBox="0 0 128 128"
             />
           </IconWrapper>

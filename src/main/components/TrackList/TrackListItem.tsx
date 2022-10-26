@@ -3,6 +3,7 @@ import { Headset, Layers, VolumeOff, VolumeUp } from "@mui/icons-material"
 import { IconButton } from "@mui/material"
 import { observer } from "mobx-react-lite"
 import { FC, useCallback, useState } from "react"
+import { categoryEmojis, getCategoryIndex } from "../../../common/midi/GM"
 import {
   addTrack,
   removeTrack,
@@ -22,56 +23,54 @@ export type TrackListItemProps = {
 }
 
 const Container = styled.div<{ selected: boolean }>`
-  background-color: ${({ theme, selected }) =>
-    selected ? theme.secondaryBackgroundColor : "transparent"};
+  display: flex;
+  align-items: center;
   border-right: 5px solid;
   border-right-color: ${({ theme, selected }) =>
     selected ? theme.themeColor : "transparent"};
   padding: 0.5rem 1rem;
-
-  .controls {
-    display: flex;
-  }
-
-  .label {
-    display: flex;
-    padding-bottom: 0.3em;
-    font-size: 105%;
-    align-items: baseline;
-  }
-
-  .name {
-    font-weight: 600;
-    color: ${({ theme, selected }) =>
-      selected ? theme.textColor : theme.secondaryTextColor};
-    padding-right: 0.5em;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .label .instrument {
-    color: ${({ theme }) => theme.secondaryTextColor};
-    font-size: 90%;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
-
-  .button {
-    margin-right: 0.5em;
-    color: ${({ theme }) => theme.secondaryTextColor};
-  }
-
-  .button.active {
-    color: ${({ theme }) => theme.textColor};
-  }
 
   &:hover {
     background: ${({ theme }) => theme.secondaryBackgroundColor};
   }
 `
 
+const Label = styled.div`
+  display: flex;
+  padding-bottom: 0.3em;
+  font-size: 105%;
+  align-items: baseline;
+`
+
+const Instrument = styled.div`
+  color: ${({ theme }) => theme.secondaryTextColor};
+  font-size: 90%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+`
+
+const Name = styled.div<{ selected: boolean }>`
+  font-weight: 600;
+  color: ${({ theme, selected }) =>
+    selected ? theme.textColor : theme.secondaryTextColor};
+  padding-right: 0.5em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`
+
+const Controls = styled.div`
+  display: flex;
+`
+
+const Button = styled(IconButton)<{ active: boolean }>`
+  margin-right: 0.5em;
+  color: ${({ theme, active }) =>
+    active ? theme.textColor : theme.secondaryTextColor};
+`
+
 const ChannelName = styled.div`
+  flex-shrink: 0;
   color: ${({ theme }) => theme.secondaryTextColor};
   font-size: 0.7rem;
   display: flex;
@@ -83,6 +82,23 @@ const ChannelName = styled.div`
   &:hover {
     background: ${({ theme }) => theme.secondaryBackgroundColor};
   }
+`
+
+const Icon = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 1.3rem;
+  margin-right: 1rem;
+  flex-shrink: 0;
+  background: ${({ theme }) => theme.secondaryBackgroundColor};
+`
+
+const IconInner = styled.div<{ selected: boolean }>`
+  opacity: ${({ selected }) => (selected ? 1 : 0.5)};
 `
 
 export const TrackListItem: FC<TrackListItemProps> = observer(({ trackId }) => {
@@ -140,6 +156,10 @@ export const TrackListItem: FC<TrackListItemProps> = observer(({ trackId }) => {
   const openDialog = useCallback(() => setDialogOpened(true), [])
   const closeDialog = useCallback(() => setDialogOpened(false), [])
 
+  const emoji = track.isRhythmTrack
+    ? "🥁"
+    : categoryEmojis[getCategoryIndex(track.programNumber ?? 0)]
+
   return (
     <>
       <Container
@@ -148,24 +168,27 @@ export const TrackListItem: FC<TrackListItemProps> = observer(({ trackId }) => {
         onContextMenu={onContextMenu}
         tabIndex={-1}
       >
+        <Icon>
+          <IconInner selected={selected}>{emoji}</IconInner>
+        </Icon>
         <div>
-          <div className="label">
-            <div className="name">{name}</div>
-            <div className="instrument">{instrument}</div>
-          </div>
-          <div className="controls">
-            <IconButton
+          <Label>
+            <Name selected={selected}>{name}</Name>
+            <Instrument>{instrument}</Instrument>
+          </Label>
+          <Controls>
+            <Button
               color="default"
               size="small"
-              className={`button solo ${solo ? "active" : ""}`}
+              active={solo}
               onClick={onClickSolo}
             >
               <Headset fontSize="small" />
-            </IconButton>
-            <IconButton
+            </Button>
+            <Button
               color="default"
               size="small"
-              className={`button mute ${mute ? "active" : ""}`}
+              active={mute}
               onClick={onClickMute}
             >
               {mute ? (
@@ -173,19 +196,19 @@ export const TrackListItem: FC<TrackListItemProps> = observer(({ trackId }) => {
               ) : (
                 <VolumeUp fontSize="small" />
               )}
-            </IconButton>
-            <IconButton
+            </Button>
+            <Button
               color="default"
               size="small"
-              className={`button solo ${ghostTrack ? "active" : ""}`}
+              active={ghostTrack}
               onClick={onClickGhostTrack}
             >
               <Layers fontSize="small" />
-            </IconButton>
+            </Button>
             {channel !== undefined && (
               <ChannelName onClick={openDialog}>CH {channel + 1}</ChannelName>
             )}
-          </div>
+          </Controls>
         </div>
       </Container>
       <TrackListContextMenu

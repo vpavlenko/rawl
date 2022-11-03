@@ -27,10 +27,9 @@ const Container = styled.div<{ selected: boolean }>`
     selected ? theme.secondaryBackgroundColor : "transparent"};
   display: flex;
   align-items: center;
-  border-right: 5px solid;
-  border-right-color: ${({ theme, selected }) =>
-    selected ? theme.themeColor : "transparent"};
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.5rem;
+  border-radius: 0.5rem;
+  margin: 0.5rem;
 
   &:hover {
     background: ${({ theme }) => theme.secondaryBackgroundColor};
@@ -94,7 +93,7 @@ const Icon = styled.div<{ selected: boolean }>`
   width: 2.6rem;
   height: 2.6rem;
   border-radius: 1.3rem;
-  margin-right: 1rem;
+  margin-right: 0.5rem;
   flex-shrink: 0;
   background: ${({ theme, selected }) =>
     selected ? theme.backgroundColor : theme.secondaryBackgroundColor};

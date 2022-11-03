@@ -12,6 +12,8 @@ const Wrapper = styled.div`
   padding: 0.5rem 1rem;
   align-items: center;
   color: ${({ theme }) => theme.secondaryTextColor};
+  border-radius: 0.5rem;
+  margin: 0.5rem;
 
   &:hover {
     background: ${({ theme }) => theme.secondaryBackgroundColor};

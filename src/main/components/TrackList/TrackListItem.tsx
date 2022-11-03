@@ -23,6 +23,8 @@ export type TrackListItemProps = {
 }
 
 const Container = styled.div<{ selected: boolean }>`
+  background-color: ${({ theme, selected }) =>
+    selected ? theme.secondaryBackgroundColor : "transparent"};
   display: flex;
   align-items: center;
   border-right: 5px solid;
@@ -84,7 +86,7 @@ const ChannelName = styled.div`
   }
 `
 
-const Icon = styled.div`
+const Icon = styled.div<{ selected: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -94,7 +96,8 @@ const Icon = styled.div`
   border-radius: 1.3rem;
   margin-right: 1rem;
   flex-shrink: 0;
-  background: ${({ theme }) => theme.secondaryBackgroundColor};
+  background: ${({ theme, selected }) =>
+    selected ? theme.backgroundColor : theme.secondaryBackgroundColor};
 `
 
 const IconInner = styled.div<{ selected: boolean }>`
@@ -168,7 +171,7 @@ export const TrackListItem: FC<TrackListItemProps> = observer(({ trackId }) => {
         onContextMenu={onContextMenu}
         tabIndex={-1}
       >
-        <Icon>
+        <Icon selected={selected}>
           <IconInner selected={selected}>{emoji}</IconInner>
         </Icon>
         <div>

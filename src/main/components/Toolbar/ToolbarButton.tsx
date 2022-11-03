@@ -4,7 +4,7 @@ import { ComponentProps, forwardRef } from "react"
 const _ToolbarButton = styled.button<{ selected?: boolean }>`
   -webkit-appearance: none;
   min-width: auto;
-  padding: 0 0.7rem;
+  padding: 0 0.75rem;
   color: inherit;
   border: 1px solid ${({ theme }) => theme.dividerColor};
   background: ${({ theme, selected }) =>

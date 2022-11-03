@@ -28,7 +28,7 @@ const TempoWrapper = styled.div`
   display: flex;
   align-items: center;
   border: 1px solid transparent;
-  padding-left: 0.7rem;
+  padding-left: 0.75rem;
   border-radius: 0.25rem;
 
   label {

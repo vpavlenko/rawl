@@ -36,6 +36,8 @@ const Container = styled.div`
   display: flex;
   flex-direction: row;
   background: ${({ theme }) => Color(theme.backgroundColor).darken(0.2).hex()};
+  height: 3rem;
+  flex-shrink: 0;
 `
 
 export const Tab = styled.div`
@@ -43,7 +45,7 @@ export const Tab = styled.div`
   flex-direction: row;
   align-items: center; 
   padding: 0.5rem 1rem;
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   border-top: solid 0.1rem transparent;
   color: ${({ theme }) => theme.secondaryTextColor};
 
@@ -60,7 +62,7 @@ export const Tab = styled.div`
 `
 
 export const TabTitle = styled.span`
-  margin-left: 0.4rem;
+  margin-left: 0.5rem;
 
   @media (max-width: 850px) {
     display: none;

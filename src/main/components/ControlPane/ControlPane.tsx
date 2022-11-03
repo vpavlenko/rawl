@@ -43,7 +43,7 @@ const TabButton = styled.div`
   color: ${({ theme }) => theme.secondaryTextColor};
   outline: none;
   text-align: center;
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   cursor: default;
 
   &:hover {

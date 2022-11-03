@@ -39,13 +39,12 @@ const Container = styled.div<{ selected: boolean }>`
 const Label = styled.div`
   display: flex;
   padding-bottom: 0.3em;
-  font-size: 105%;
   align-items: baseline;
 `
 
 const Instrument = styled.div`
   color: ${({ theme }) => theme.secondaryTextColor};
-  font-size: 90%;
+  font-size: 0.75rem;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -56,12 +55,14 @@ const Name = styled.div<{ selected: boolean }>`
   color: ${({ theme, selected }) =>
     selected ? theme.textColor : theme.secondaryTextColor};
   padding-right: 0.5em;
+  font-size: 0.875rem;
   text-overflow: ellipsis;
   white-space: nowrap;
 `
 
 const Controls = styled.div`
   display: flex;
+  align-items: center;
 `
 
 const Button = styled(IconButton)<{ active: boolean }>`
@@ -73,12 +74,13 @@ const Button = styled(IconButton)<{ active: boolean }>`
 const ChannelName = styled.div`
   flex-shrink: 0;
   color: ${({ theme }) => theme.secondaryTextColor};
-  font-size: 0.7rem;
+  font-size: 0.625rem;
   display: flex;
   align-items: center;
   border: 1px solid ${({ theme }) => theme.dividerColor};
-  padding: 0 0.3rem;
+  padding: 0 0.25rem;
   cursor: pointer;
+  height: 1.25rem;
 
   &:hover {
     background: ${({ theme }) => theme.secondaryBackgroundColor};

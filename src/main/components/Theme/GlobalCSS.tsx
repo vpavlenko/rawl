@@ -22,7 +22,7 @@ export const GlobalCSS = () => {
           background-color: ${theme.backgroundColor};
           overscroll-behavior: none;
           font-family: ${theme.font};
-          font-size: 0.8rem;
+          font-size: 0.75rem;
         }
 
         #root {

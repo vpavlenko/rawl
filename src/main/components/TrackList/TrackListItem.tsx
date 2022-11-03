@@ -30,6 +30,7 @@ const Container = styled.div<{ selected: boolean }>`
   padding: 0.5rem 0.5rem;
   border-radius: 0.5rem;
   margin: 0.5rem;
+  outline: none;
 
   &:hover {
     background: ${({ theme }) => theme.secondaryBackgroundColor};

@@ -4,7 +4,7 @@ export const Layout = {
   pixelsPerTick: 0.1,
   keyHeight: 12,
   keyWidth: 64,
-  rulerHeight: 30,
+  rulerHeight: 32,
 }
 
 export const MaxNoteNumber = 127

@@ -21,7 +21,7 @@ const Label = styled.div`
   display: flex;
   width: 3rem;
   align-items: center;
-  margin-right: 1rem;
+  margin-right: 0.5rem;
   color: ${({ theme }) => theme.secondaryTextColor};
 `
 

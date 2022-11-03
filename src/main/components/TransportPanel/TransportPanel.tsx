@@ -31,6 +31,8 @@ const Toolbar = styled.div`
   padding: 0.25rem 1rem;
   background: ${({ theme }) => theme.backgroundColor};
   border-top: 1px solid ${({ theme }) => theme.dividerColor};
+  height: 3rem;
+  box-sizing: border-box;
 `
 
 const RecordButton = styled(CircleButton)`

@@ -6,6 +6,10 @@ export const GlobalCSS = () => {
   return (
     <Global
       styles={css`
+        html {
+          font-size: 16px;
+        }
+
         html,
         body {
           height: 100%;
@@ -13,12 +17,12 @@ export const GlobalCSS = () => {
         }
 
         body {
-          font-size: 80%;
           -webkit-font-smoothing: subpixel-antialiased;
           color: ${theme.textColor};
           background-color: ${theme.backgroundColor};
           overscroll-behavior: none;
           font-family: ${theme.font};
+          font-size: 0.8rem;
         }
 
         #root {

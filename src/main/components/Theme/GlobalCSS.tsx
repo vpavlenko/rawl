@@ -95,6 +95,11 @@ export const GlobalCSS = () => {
         &::-webkit-scrollbar-thumb:hover {
           background-color: ${theme.tertiaryTextColor};
         }
+
+        /* firebase */
+        .firebase-emulator-warning {
+          width: auto !important;
+        }
       `}
     />
   )

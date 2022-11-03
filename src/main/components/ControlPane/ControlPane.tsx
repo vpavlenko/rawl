@@ -42,9 +42,11 @@ const TabButton = styled.div`
   padding: 0.5em 0.8em;
   color: ${({ theme }) => theme.secondaryTextColor};
   outline: none;
-  text-align: center;
   font-size: 0.75rem;
   cursor: default;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   &:hover {
     background: ${({ theme }) => theme.secondaryBackgroundColor};
@@ -62,7 +64,8 @@ const Toolbar = styled.div`
   display: flex;
   margin-left: ${Layout.keyWidth}px;
   border-left: 1px solid ${({ theme }) => theme.dividerColor};
-  height: 30px;
+  height: 2rem;
+  flex-shrink: 0;
 `
 
 const TabBar: FC<TabBarProps> = React.memo(({ onClick, selectedMode }) => {

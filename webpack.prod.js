@@ -10,7 +10,6 @@ module.exports = merge(common, {
   optimization: {
     minimize: false,
   },
-  devtool: "source-map",
   module: {
     rules: [
       {

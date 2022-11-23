@@ -81,8 +81,8 @@ export const Slider: FC<SliderProps> = ({
     onValueChange={(value) => onChange(value[0])}
     {...props}
   >
-    <StyledTrack className="SliderTrack">
-      <StyledRange className="SliderRange" />
+    <StyledTrack>
+      <StyledRange />
       {marks?.map((value, index) => (
         <Mark
           key={index}
@@ -92,6 +92,6 @@ export const Slider: FC<SliderProps> = ({
         />
       ))}
     </StyledTrack>
-    <StyledThumb tabIndex={-1} className="SliderThumb" />
+    <StyledThumb tabIndex={-1} />
   </StyledRoot>
 )

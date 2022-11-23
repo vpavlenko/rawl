@@ -1,12 +1,5 @@
 import styled from "@emotion/styled"
-import {
-  Button,
-  Checkbox,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  FormControlLabel,
-} from "@mui/material"
+import { Button, Checkbox, FormControlLabel } from "@mui/material"
 import { map } from "lodash"
 import difference from "lodash/difference"
 import groupBy from "lodash/groupBy"
@@ -24,6 +17,7 @@ import {
 import { programChangeMidiEvent } from "../../../common/midi/MidiEvent"
 import { setTrackInstrument as setTrackInstrumentAction } from "../../actions"
 import { useStores } from "../../hooks/useStores"
+import { Dialog, DialogActions, DialogContent } from "../Dialog/Dialog"
 
 export interface InstrumentSetting {
   programNumber: number
@@ -150,7 +144,7 @@ const InstrumentBrowser: FC<InstrumentBrowserProps> = ({
   })
 
   return (
-    <Dialog open={isOpen} onClose={onClickCancel}>
+    <Dialog open={isOpen} onOpenChange={onClickCancel}>
       <DialogContent className="InstrumentBrowser">
         <Finder className={isRhythmTrack ? "disabled" : ""}>
           <div className="left">

@@ -1,16 +1,14 @@
 import styled from "@emotion/styled"
+import { Button, MenuItem, Select } from "@mui/material"
+import { range } from "lodash"
+import { useEffect, useState, VFC } from "react"
+import { localized } from "../../../common/localize/localizedString"
 import {
-  Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
-  MenuItem,
-  Select,
-} from "@mui/material"
-import { range } from "lodash"
-import { useEffect, useState, VFC } from "react"
-import { localized } from "../../../common/localize/localizedString"
+} from "../Dialog/Dialog"
 
 export interface TimeSignatureDialogProps {
   initialNumerator?: number
@@ -66,7 +64,7 @@ export const TimeSignatureDialog: VFC<TimeSignatureDialogProps> = ({
   }, [open])
 
   return (
-    <Dialog open={open} onClose={onClose}>
+    <Dialog open={open} onOpenChange={onClose}>
       <DialogTitle>{localized("time-signature", "Time Signature")}</DialogTitle>
       <DialogContent>
         <div

@@ -2,7 +2,7 @@ import { keyframes } from "@emotion/react"
 import styled from "@emotion/styled"
 import {
   Content,
-  DialogProps,
+  DialogProps as Props,
   Overlay,
   Portal,
   Root,
@@ -47,7 +47,7 @@ const StyledContent = styled(Content)`
   left: 50%;
   transform: translate(-50%, -50%);
   margin-bottom: 1rem;
-  max-width: 25rem;
+  max-width: 30rem;
   max-height: 85vh;
   padding: 1rem;
   animation: ${contentShow} 150ms cubic-bezier(0.16, 1, 0.3, 1);
@@ -57,11 +57,15 @@ const StyledContent = styled(Content)`
   }
 `
 
-export const Dialog: FC<DialogProps> = ({ children, ...props }) => (
+export type DialogProps = Props & {
+  style?: React.CSSProperties
+}
+
+export const Dialog: FC<DialogProps> = ({ children, style, ...props }) => (
   <Root {...props}>
     <Portal>
       <StyledOverlay />
-      <StyledContent>{children}</StyledContent>
+      <StyledContent style={style}>{children}</StyledContent>
     </Portal>
   </Root>
 )
@@ -69,10 +73,12 @@ export const Dialog: FC<DialogProps> = ({ children, ...props }) => (
 export const DialogTitle = styled.div`
   font-size: 1.25rem;
   color: ${({ theme }) => theme.textColor};
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 `
 
-export const DialogContent = styled.div``
+export const DialogContent = styled.div`
+  margin-bottom: 1rem;
+`
 
 export const DialogActions = styled.div`
   display: flex;

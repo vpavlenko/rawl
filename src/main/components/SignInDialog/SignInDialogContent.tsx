@@ -1,13 +1,12 @@
+import { Alert, Button } from "@mui/material"
+import { FC } from "react"
+import { localized } from "../../../common/localize/localizedString"
 import {
-  Alert,
-  Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
-} from "@mui/material"
-import { FC } from "react"
-import { localized } from "../../../common/localize/localizedString"
+} from "../Dialog/Dialog"
 import { StyledFirebaseAuth } from "../FirebaseAuth/StyledFirebaseAuth"
 
 import styled from "@emotion/styled"
@@ -42,13 +41,7 @@ export const SignInDialogContent: FC<SignInDialogContentProps> = ({
   onFailure,
 }) => {
   return (
-    <Dialog
-      open={open}
-      onClose={onClose}
-      keepMounted={false}
-      fullWidth
-      maxWidth="xs"
-    >
+    <Dialog open={open} onOpenChange={onClose} style={{ minWidth: "20rem" }}>
       <DialogTitle>
         {localized("sign-in", "Sign in")}
         <BetaLabel>Beta</BetaLabel>

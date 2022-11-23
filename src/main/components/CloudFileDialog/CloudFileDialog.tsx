@@ -1,14 +1,14 @@
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-} from "@mui/material"
+import { Button } from "@mui/material"
 import { observer } from "mobx-react-lite"
 import { useCallback } from "react"
 import { localized } from "../../../common/localize/localizedString"
 import { useStores } from "../../hooks/useStores"
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from "../Dialog/Dialog"
 import { CloudFileList } from "./CloudFileList"
 
 export const CloudFileDialog = observer(() => {
@@ -24,7 +24,7 @@ export const CloudFileDialog = observer(() => {
   )
 
   return (
-    <Dialog open={openCloudFileDialog} onClose={onClose} fullWidth>
+    <Dialog open={openCloudFileDialog} onOpenChange={onClose}>
       <DialogTitle>{localized("files", "Files")}</DialogTitle>
       <DialogContent>
         <CloudFileList />

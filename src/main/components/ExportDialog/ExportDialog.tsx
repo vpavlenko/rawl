@@ -1,16 +1,16 @@
 import { Alert } from "@mui/lab"
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-} from "@mui/material"
+import { Button } from "@mui/material"
 import { observer } from "mobx-react-lite"
 import { useCallback, useEffect, useState, VFC } from "react"
 import { localized } from "../../../common/localize/localizedString"
 import { canExport, exportSongAsWav } from "../../actions"
 import { useStores } from "../../hooks/useStores"
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from "../Dialog/Dialog"
 
 export const ExportDialog: VFC = observer(() => {
   const rootStore = useStores()
@@ -34,7 +34,7 @@ export const ExportDialog: VFC = observer(() => {
   }, [open])
 
   return (
-    <Dialog open={open} onClose={onClose} fullWidth maxWidth="xs">
+    <Dialog open={open} onOpenChange={onClose} style={{ minWidth: "20rem" }}>
       <DialogTitle>{localized("export-audio", "Export Audio")}</DialogTitle>
       <DialogContent>
         <p>{localized("file-type", "File Type")}: WAV</p>

@@ -1,19 +1,15 @@
 import styled from "@emotion/styled"
-import {
-  Alert,
-  Button,
-  Checkbox,
-  CircularProgress,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-} from "@mui/material"
+import { Alert, Button, Checkbox, CircularProgress } from "@mui/material"
 import { observer } from "mobx-react-lite"
 import { FC } from "react"
 import { localized } from "../../../common/localize/localizedString"
 import { useStores } from "../../hooks/useStores"
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from "../Dialog/Dialog"
 
 interface Device {
   id: string
@@ -50,6 +46,10 @@ const DeviceList = styled.div``
 
 const Spacer = styled.div`
   height: 2rem;
+`
+
+const SectionTitle = styled.div`
+  font-weight: bold;
 `
 
 export const MIDIDeviceDialog: FC = observer(() => {
@@ -95,7 +95,7 @@ export const MIDIDeviceDialog: FC = observer(() => {
   }
 
   return (
-    <Dialog open={isOpen} onClose={close}>
+    <Dialog open={isOpen} onOpenChange={close} style={{ minWidth: "20rem" }}>
       <DialogTitle>{localized("midi-settings", "MIDI Settings")}</DialogTitle>
       <DialogContent>
         {isLoading && <CircularProgress />}
@@ -107,9 +107,7 @@ export const MIDIDeviceDialog: FC = observer(() => {
         )}
         {!isLoading && (
           <>
-            <DialogContentText>
-              {localized("inputs", "Inputs")}
-            </DialogContentText>
+            <SectionTitle>{localized("inputs", "Inputs")}</SectionTitle>
             <DeviceList>
               {inputDevices.map(({ device, isSelected }) => (
                 <DeviceRow
@@ -125,9 +123,7 @@ export const MIDIDeviceDialog: FC = observer(() => {
             {
               <>
                 <Spacer />
-                <DialogContentText>
-                  {localized("outputs", "Outputs")}
-                </DialogContentText>
+                <SectionTitle>{localized("outputs", "Outputs")}</SectionTitle>
                 <DeviceList>
                   <DeviceRow
                     device={factorySound}

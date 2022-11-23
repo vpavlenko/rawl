@@ -1,17 +1,16 @@
 import styled from "@emotion/styled"
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-} from "@mui/material"
+import { Button } from "@mui/material"
 import { observer } from "mobx-react-lite"
 import { FC, ReactNode } from "react"
 import { envString } from "../../../common/localize/envString"
 import { localized } from "../../../common/localize/localizedString"
 import { useStores } from "../../hooks/useStores"
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from "../Dialog/Dialog"
 
 interface HotKeyProps {
   hotKeys: string[][]
@@ -64,12 +63,10 @@ export const HelpDialog: FC = observer(() => {
   const close = () => (rootViewStore.openHelp = false)
 
   return (
-    <Dialog open={isOpen} onClose={close}>
+    <Dialog open={isOpen} onOpenChange={close}>
       <DialogTitle>{localized("help", "Help")}</DialogTitle>
       <DialogContent>
-        <DialogContentText>
-          {localized("keyboard-shortcut", "Keyboard Shortcut")}
-        </DialogContentText>
+        <h3>{localized("keyboard-shortcut", "Keyboard Shortcut")}</h3>
         <HotKey
           hotKeys={[["Space"]]}
           text={localized("play-pause", "Play / Pause")}

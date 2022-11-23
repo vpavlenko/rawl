@@ -1,9 +1,5 @@
 import {
   Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
   FormControl,
   InputLabel,
   MenuItem,
@@ -11,9 +7,15 @@ import {
   TextField,
 } from "@mui/material"
 import { range } from "lodash"
-import { useEffect, useState, VFC } from "react"
+import { FC, useEffect, useState } from "react"
 import { localized } from "../../../common/localize/localizedString"
 import { useStores } from "../../hooks/useStores"
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from "../Dialog/Dialog"
 
 export interface TrackDialogProps {
   trackId: number
@@ -21,7 +23,7 @@ export interface TrackDialogProps {
   onClose: () => void
 }
 
-export const TrackDialog: VFC<TrackDialogProps> = ({
+export const TrackDialog: FC<TrackDialogProps> = ({
   trackId,
   open,
   onClose,
@@ -38,7 +40,7 @@ export const TrackDialog: VFC<TrackDialogProps> = ({
   }, [trackId])
 
   return (
-    <Dialog open={open} onClose={onClose} fullWidth maxWidth="xs">
+    <Dialog open={open} onOpenChange={onClose} style={{ minWidth: "20rem" }}>
       <DialogTitle>
         {localized("track", "Track")}: {track.displayName}
       </DialogTitle>

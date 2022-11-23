@@ -1,13 +1,12 @@
+import { Button, TextField } from "@mui/material"
+import { FC, useEffect, useState } from "react"
+import { localized } from "../../../common/localize/localizedString"
 import {
-  Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
-  TextField,
-} from "@mui/material"
-import { useEffect, useState, VFC } from "react"
-import { localized } from "../../../common/localize/localizedString"
+} from "../Dialog/Dialog"
 
 export interface TransposeDialogProps {
   open: boolean
@@ -15,7 +14,7 @@ export interface TransposeDialogProps {
   onClose: () => void
 }
 
-export const TransposeDialog: VFC<TransposeDialogProps> = ({
+export const TransposeDialog: FC<TransposeDialogProps> = ({
   open,
   onClickOK,
   onClose,
@@ -36,7 +35,7 @@ export const TransposeDialog: VFC<TransposeDialogProps> = ({
   }
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="xs" keepMounted={false}>
+    <Dialog open={open} onOpenChange={onClose}>
       <DialogTitle>{localized("transpose", "Transpose")}</DialogTitle>
       <DialogContent>
         <TextField

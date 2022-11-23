@@ -1,6 +1,7 @@
-import { Button, TextField } from "@mui/material"
+import { TextField } from "@mui/material"
 import { FC, useEffect, useState } from "react"
 import { localized } from "../../../common/localize/localizedString"
+import { Button, PrimaryButton } from "../../../components/Button"
 import {
   Dialog,
   DialogActions,
@@ -53,9 +54,9 @@ export const TransposeDialog: FC<TransposeDialogProps> = ({
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>{localized("close", "Close")}</Button>
-        <Button onClick={_onClickOK} color="primary" variant="contained">
+        <PrimaryButton onClick={_onClickOK}>
           {localized("ok", "OK")}
-        </Button>
+        </PrimaryButton>
       </DialogActions>
     </Dialog>
   )

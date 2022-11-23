@@ -1,4 +1,4 @@
-import { Alert, Button } from "@mui/material"
+import { Alert } from "@mui/material"
 import { FC } from "react"
 import { localized } from "../../../common/localize/localizedString"
 import {
@@ -12,6 +12,7 @@ import { StyledFirebaseAuth } from "../FirebaseAuth/StyledFirebaseAuth"
 import styled from "@emotion/styled"
 import "firebase/auth"
 import { GithubAuthProvider, GoogleAuthProvider } from "firebase/auth"
+import { Button } from "../../../components/Button"
 import { auth } from "../../../firebase/firebase"
 
 const BetaLabel = styled.span`

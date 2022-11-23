@@ -1,9 +1,9 @@
 import styled from "@emotion/styled"
-import { Button } from "@mui/material"
 import { observer } from "mobx-react-lite"
 import { FC, ReactNode } from "react"
 import { envString } from "../../../common/localize/envString"
 import { localized } from "../../../common/localize/localizedString"
+import { Button } from "../../../components/Button"
 import {
   Dialog,
   DialogActions,

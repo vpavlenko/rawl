@@ -1,7 +1,7 @@
-import { Button } from "@mui/material"
 import { observer } from "mobx-react-lite"
 import { useCallback } from "react"
 import { localized } from "../../../common/localize/localizedString"
+import { Button } from "../../../components/Button"
 import {
   Dialog,
   DialogActions,

@@ -1,8 +1,8 @@
 import { Alert } from "@mui/lab"
-import { Button } from "@mui/material"
 import { observer } from "mobx-react-lite"
 import { useCallback, useEffect, useState, VFC } from "react"
 import { localized } from "../../../common/localize/localizedString"
+import { Button, PrimaryButton } from "../../../components/Button"
 import {
   Dialog,
   DialogActions,
@@ -47,9 +47,9 @@ export const ExportDialog: VFC = observer(() => {
       <DialogActions>
         <Button onClick={onClose}>{localized("close", "Close")}</Button>
         {exportEnabled && (
-          <Button onClick={onClickExport} color="primary" variant="contained">
+          <PrimaryButton onClick={onClickExport}>
             {localized("export", "Export")}
-          </Button>
+          </PrimaryButton>
         )}
       </DialogActions>
     </Dialog>

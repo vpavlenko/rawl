@@ -1,7 +1,8 @@
-import { Button, LinearProgress } from "@mui/material"
+import { LinearProgress } from "@mui/material"
 import { observer } from "mobx-react-lite"
 import { useCallback, VFC } from "react"
 import { localized } from "../../../common/localize/localizedString"
+import { Button } from "../../../components/Button"
 import {
   Dialog,
   DialogActions,

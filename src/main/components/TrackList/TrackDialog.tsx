@@ -1,5 +1,4 @@
 import {
-  Button,
   FormControl,
   InputLabel,
   MenuItem,
@@ -9,6 +8,7 @@ import {
 import { range } from "lodash"
 import { FC, useEffect, useState } from "react"
 import { localized } from "../../../common/localize/localizedString"
+import { Button, PrimaryButton } from "../../../components/Button"
 import {
   Dialog,
   DialogActions,
@@ -78,7 +78,7 @@ export const TrackDialog: FC<TrackDialogProps> = ({
         <Button autoFocus onClick={onClose}>
           {localized("cancel", "Cancel")}
         </Button>
-        <Button
+        <PrimaryButton
           onClick={() => {
             track.channel = channel
             track.setName(name ?? "")
@@ -86,7 +86,7 @@ export const TrackDialog: FC<TrackDialogProps> = ({
           }}
         >
           {localized("ok", "OK")}
-        </Button>
+        </PrimaryButton>
       </DialogActions>
     </Dialog>
   )

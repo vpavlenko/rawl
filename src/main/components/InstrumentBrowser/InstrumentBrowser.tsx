@@ -1,5 +1,5 @@
 import styled from "@emotion/styled"
-import { Button, Checkbox, FormControlLabel } from "@mui/material"
+import { Checkbox, FormControlLabel } from "@mui/material"
 import { map } from "lodash"
 import difference from "lodash/difference"
 import groupBy from "lodash/groupBy"
@@ -15,6 +15,7 @@ import {
   getInstrumentName,
 } from "../../../common/midi/GM"
 import { programChangeMidiEvent } from "../../../common/midi/MidiEvent"
+import { Button, PrimaryButton } from "../../../components/Button"
 import {
   Dialog,
   DialogActions,
@@ -187,9 +188,9 @@ const InstrumentBrowser: FC<InstrumentBrowserProps> = ({
       </DialogContent>
       <DialogActions>
         <Button onClick={onClickCancel}>{localized("cancel", "Cancel")}</Button>
-        <Button color="primary" onClick={onClickOK}>
+        <PrimaryButton onClick={onClickOK}>
           {localized("ok", "OK")}
-        </Button>
+        </PrimaryButton>
       </DialogActions>
     </Dialog>
   )

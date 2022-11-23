@@ -1,8 +1,9 @@
 import styled from "@emotion/styled"
-import { Button, MenuItem, Select } from "@mui/material"
+import { MenuItem, Select } from "@mui/material"
 import { range } from "lodash"
 import { useEffect, useState, VFC } from "react"
 import { localized } from "../../../common/localize/localizedString"
+import { Button, PrimaryButton } from "../../../components/Button"
 import {
   Dialog,
   DialogActions,
@@ -119,7 +120,7 @@ export const TimeSignatureDialog: VFC<TimeSignatureDialogProps> = ({
         <Button autoFocus onClick={onClose}>
           {localized("cancel", "Cancel")}
         </Button>
-        <Button
+        <PrimaryButton
           onClick={() => {
             onClickOK({ numerator, denominator })
             onClose()
@@ -127,7 +128,7 @@ export const TimeSignatureDialog: VFC<TimeSignatureDialogProps> = ({
           disabled={isNaN(numerator) && numerator <= 32 && numerator > 0}
         >
           {localized("ok", "OK")}
-        </Button>
+        </PrimaryButton>
       </DialogActions>
     </Dialog>
   )

@@ -1,4 +1,3 @@
-import { Divider } from "@mui/material"
 import React, { FC, useCallback } from "react"
 import { envString } from "../../../common/localize/envString"
 import { localized } from "../../../common/localize/localizedString"
@@ -13,6 +12,7 @@ import {
 import { useStores } from "../../hooks/useStores"
 import {
   ContextMenu,
+  ContextMenuDivider as Divider,
   ContextMenuHotKey as HotKey,
   ContextMenuItem as Item,
   ContextMenuProps,

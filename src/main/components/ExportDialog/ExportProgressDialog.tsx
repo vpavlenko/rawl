@@ -2,14 +2,14 @@ import { Button, LinearProgress } from "@mui/material"
 import { observer } from "mobx-react-lite"
 import { useCallback, VFC } from "react"
 import { localized } from "../../../common/localize/localizedString"
-import { cancelExport } from "../../actions"
-import { useStores } from "../../hooks/useStores"
 import {
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
-} from "../Dialog/Dialog"
+} from "../../../components/Dialog"
+import { cancelExport } from "../../actions"
+import { useStores } from "../../hooks/useStores"
 
 export const ExportProgressDialog: VFC = observer(() => {
   const rootStore = useStores()

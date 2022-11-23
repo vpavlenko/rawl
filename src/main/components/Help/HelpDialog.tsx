@@ -4,13 +4,13 @@ import { observer } from "mobx-react-lite"
 import { FC, ReactNode } from "react"
 import { envString } from "../../../common/localize/envString"
 import { localized } from "../../../common/localize/localizedString"
-import { useStores } from "../../hooks/useStores"
 import {
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
-} from "../Dialog/Dialog"
+} from "../../../components/Dialog"
+import { useStores } from "../../hooks/useStores"
 
 interface HotKeyProps {
   hotKeys: string[][]

@@ -3,13 +3,13 @@ import { Alert, Button, Checkbox, CircularProgress } from "@mui/material"
 import { observer } from "mobx-react-lite"
 import { FC } from "react"
 import { localized } from "../../../common/localize/localizedString"
-import { useStores } from "../../hooks/useStores"
 import {
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
-} from "../Dialog/Dialog"
+} from "../../../components/Dialog"
+import { useStores } from "../../hooks/useStores"
 
 interface Device {
   id: string

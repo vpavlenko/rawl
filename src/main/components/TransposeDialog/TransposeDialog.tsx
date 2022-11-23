@@ -6,7 +6,7 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-} from "../Dialog/Dialog"
+} from "../../../components/Dialog"
 
 export interface TransposeDialogProps {
   open: boolean

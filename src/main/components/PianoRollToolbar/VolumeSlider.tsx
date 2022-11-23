@@ -2,9 +2,9 @@ import styled from "@emotion/styled"
 import { VolumeUp } from "@mui/icons-material"
 import { observer } from "mobx-react-lite"
 import React, { FC, useCallback } from "react"
+import { Slider } from "../../../components/Slider"
 import { setTrackVolume } from "../../actions"
 import { useStores } from "../../hooks/useStores"
-import { Slider } from "../inputs/Slider"
 
 const Container = styled.div`
   display: flex;

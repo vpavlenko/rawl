@@ -9,13 +9,13 @@ import {
 import { range } from "lodash"
 import { FC, useEffect, useState } from "react"
 import { localized } from "../../../common/localize/localizedString"
-import { useStores } from "../../hooks/useStores"
 import {
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
-} from "../Dialog/Dialog"
+} from "../../../components/Dialog"
+import { useStores } from "../../hooks/useStores"
 
 export interface TrackDialogProps {
   trackId: number

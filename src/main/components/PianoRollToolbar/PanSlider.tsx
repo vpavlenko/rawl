@@ -2,9 +2,9 @@ import styled from "@emotion/styled"
 import { observer } from "mobx-react-lite"
 import React, { FC, useCallback } from "react"
 import { localized } from "../../../common/localize/localizedString"
+import { Slider } from "../../../components/Slider"
 import { setTrackPan } from "../../actions"
 import { useStores } from "../../hooks/useStores"
-import { Slider } from "../inputs/Slider"
 
 const Container = styled.div`
   display: flex;

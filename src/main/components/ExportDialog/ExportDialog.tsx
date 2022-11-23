@@ -3,14 +3,14 @@ import { Button } from "@mui/material"
 import { observer } from "mobx-react-lite"
 import { useCallback, useEffect, useState, VFC } from "react"
 import { localized } from "../../../common/localize/localizedString"
-import { canExport, exportSongAsWav } from "../../actions"
-import { useStores } from "../../hooks/useStores"
 import {
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
-} from "../Dialog/Dialog"
+} from "../../../components/Dialog"
+import { canExport, exportSongAsWav } from "../../actions"
+import { useStores } from "../../hooks/useStores"
 
 export const ExportDialog: VFC = observer(() => {
   const rootStore = useStores()

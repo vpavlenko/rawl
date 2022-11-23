@@ -15,9 +15,13 @@ import {
   getInstrumentName,
 } from "../../../common/midi/GM"
 import { programChangeMidiEvent } from "../../../common/midi/MidiEvent"
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+} from "../../../components/Dialog"
 import { setTrackInstrument as setTrackInstrumentAction } from "../../actions"
 import { useStores } from "../../hooks/useStores"
-import { Dialog, DialogActions, DialogContent } from "../Dialog/Dialog"
 
 export interface InstrumentSetting {
   programNumber: number

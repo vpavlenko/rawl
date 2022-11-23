@@ -1,7 +1,7 @@
 import styled from "@emotion/styled"
 import { SkipNext, SkipPrevious } from "@mui/icons-material"
 import { FC } from "react"
-import { Slider } from "../../main/components/inputs/Slider"
+import { Slider } from "../../components/Slider"
 import { CircleButton } from "../../main/components/TransportPanel/CircleButton"
 import { PlayButton } from "../../main/components/TransportPanel/PlayButton"
 import { BottomPlayerSong } from "./BottomPlayerSong"

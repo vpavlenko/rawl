@@ -13,6 +13,7 @@ export interface Theme {
   pianoBlackKeyLaneColor: string
   ghostNoteColor: string
   recordColor: string
+  shadowColor: string
 }
 
 export const defaultTheme: Theme = {
@@ -30,4 +31,5 @@ export const defaultTheme: Theme = {
   pianoBlackKeyLaneColor: "hsl(228, 16%, 15%)",
   ghostNoteColor: "#444444",
   recordColor: "#dd3c3c",
+  shadowColor: "rgba(0, 0, 0, 0.02)",
 }

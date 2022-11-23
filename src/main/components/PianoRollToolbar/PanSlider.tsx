@@ -1,14 +1,10 @@
 import styled from "@emotion/styled"
-import Slider from "@mui/material/Slider"
 import { observer } from "mobx-react-lite"
 import React, { FC, useCallback } from "react"
 import { localized } from "../../../common/localize/localizedString"
 import { setTrackPan } from "../../actions"
 import { useStores } from "../../hooks/useStores"
-
-const LightSlider = styled(Slider)`
-  color: ${({ theme }) => theme.textColor};
-`
+import { Slider } from "../inputs/Slider"
 
 const Container = styled.div`
   display: flex;
@@ -42,15 +38,15 @@ const _PanSlider: FC<PanSliderProps> = observer(({ trackId }) => {
   return (
     <Container>
       <Label>{localized("pan", "Pan")}</Label>
-      <LightSlider
-        size="small"
+      <Slider
         value={pan}
-        onChange={(_, value) => onChange(value as number)}
+        onChange={(value) => onChange(value as number)}
         min={0}
         max={127}
         defaultValue={PAN_CENTER}
-        marks={[{ value: PAN_CENTER }]}
-      />
+        minStepsBetweenThumbs={1}
+        marks={[PAN_CENTER]}
+      ></Slider>
     </Container>
   )
 })

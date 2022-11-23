@@ -48,7 +48,11 @@ export const BottomPlayer: FC = () => {
         <CircleButton>
           <SkipNext />
         </CircleButton>
-        <PlaybackSlider style={{ marginRight: "2rem" }} />
+        <PlaybackSlider
+          value={0}
+          onChange={() => {}}
+          style={{ marginRight: "2rem" }}
+        />
         <BottomPlayerSong song={song.song} user={song.user} />
       </Inner>
     </Wrapper>

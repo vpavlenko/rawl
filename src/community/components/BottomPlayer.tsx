@@ -1,7 +1,7 @@
 import styled from "@emotion/styled"
 import { SkipNext, SkipPrevious } from "@mui/icons-material"
-import { Slider } from "@mui/material"
 import { FC } from "react"
+import { Slider } from "../../main/components/inputs/Slider"
 import { CircleButton } from "../../main/components/TransportPanel/CircleButton"
 import { PlayButton } from "../../main/components/TransportPanel/PlayButton"
 import { BottomPlayerSong } from "./BottomPlayerSong"
@@ -48,7 +48,7 @@ export const BottomPlayer: FC = () => {
         <CircleButton>
           <SkipNext />
         </CircleButton>
-        <PlaybackSlider size="small" style={{ marginRight: "2rem" }} />
+        <PlaybackSlider style={{ marginRight: "2rem" }} />
         <BottomPlayerSong song={song.song} user={song.user} />
       </Inner>
     </Wrapper>

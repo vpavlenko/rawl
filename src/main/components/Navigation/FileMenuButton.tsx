@@ -1,12 +1,16 @@
 import styled from "@emotion/styled"
 import { CloudOutlined, KeyboardArrowDown } from "@mui/icons-material"
-import { Divider, Menu, MenuItem } from "@mui/material"
+import { Menu } from "@mui/material"
 import Color from "color"
 import { observer } from "mobx-react-lite"
 import { FC, useCallback, useRef } from "react"
 import { localized } from "../../../common/localize/localizedString"
 import { hasFSAccess } from "../../actions/file"
 import { useStores } from "../../hooks/useStores"
+import {
+  ContextMenuDivider as Divider,
+  ContextMenuItem as MenuItem,
+} from "../ContextMenu/ContextMenu"
 import { CloudFileMenu } from "./CloudFileMenu"
 import { FileMenu } from "./FileMenu"
 import { LegacyFileMenu } from "./LegacyFileMenu"

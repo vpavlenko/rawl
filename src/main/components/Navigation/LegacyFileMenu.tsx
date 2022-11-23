@@ -1,10 +1,13 @@
-import { Divider, MenuItem } from "@mui/material"
 import { observer } from "mobx-react-lite"
 import { ChangeEvent, FC } from "react"
 import { useToast } from "use-toast-mui"
 import { localized } from "../../../common/localize/localizedString"
 import { createSong, openSong, saveSong } from "../../actions"
 import { useStores } from "../../hooks/useStores"
+import {
+  ContextMenuDivider as Divider,
+  ContextMenuItem as MenuItem,
+} from "../ContextMenu/ContextMenu"
 
 const fileInputID = "OpenButtonInputFile"
 

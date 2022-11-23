@@ -1,4 +1,3 @@
-import { Divider, MenuItem } from "@mui/material"
 import { observer } from "mobx-react-lite"
 import { ChangeEvent, FC } from "react"
 import { useDialog } from "use-dialog-mui"
@@ -10,6 +9,10 @@ import { createSong, updateSong } from "../../../firebase/song"
 import { openSong, saveSong, setSong } from "../../actions"
 import { hasFSAccess, openFile, saveFileAs } from "../../actions/file"
 import { useStores } from "../../hooks/useStores"
+import {
+  ContextMenuDivider as Divider,
+  ContextMenuItem as MenuItem,
+} from "../ContextMenu/ContextMenu"
 import { FileInput } from "./LegacyFileMenu"
 
 export const CloudFileMenu: FC<{ close: () => void }> = observer(

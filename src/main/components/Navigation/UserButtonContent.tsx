@@ -1,11 +1,12 @@
 import styled from "@emotion/styled"
 import { AccountCircle } from "@mui/icons-material"
-import { Menu, MenuItem } from "@mui/material"
+import { Menu } from "@mui/material"
 import Color from "color"
 import { User } from "firebase/auth"
 import { FC, useRef, useState } from "react"
 import { localized } from "../../../common/localize/localizedString"
 import { useTheme } from "../../hooks/useTheme"
+import { ContextMenuItem as MenuItem } from "../ContextMenu/ContextMenu"
 import { IconStyle, Tab, TabTitle } from "./Navigation"
 
 const StyledMenu = styled(Menu)`

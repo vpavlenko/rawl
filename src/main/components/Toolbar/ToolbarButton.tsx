@@ -39,6 +39,7 @@ export const ToolbarButton = forwardRef<
     {...props}
     onMouseDown={(e) => e.preventDefault()}
     tabIndex={-1}
+    ref={ref}
   >
     {children}
   </_ToolbarButton>

@@ -33,6 +33,7 @@
     "@radix-ui/react-popover": "^1.0.2",
     "@radix-ui/react-portal": "^1.0.1",
     "@radix-ui/react-slider": "^1.1.0",
+    "@radix-ui/react-tooltip": "^1.0.2",
     "@rehooks/component-size": "1.0.3",
     "@ryohey/react-split-pane": "^0.1.94",
     "@ryohey/wavelet": "^0.5.3",

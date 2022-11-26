@@ -1,8 +1,8 @@
 import styled from "@emotion/styled"
 import { KeyboardTab } from "@mui/icons-material"
-import { Tooltip } from "@mui/material"
 import { VFC } from "react"
 import { localized } from "../../../common/localize/localizedString"
+import { Tooltip } from "../../../components/Tooltip"
 import { ToolbarButton } from "./ToolbarButton"
 
 const AutoScrollIcon = styled(KeyboardTab)`

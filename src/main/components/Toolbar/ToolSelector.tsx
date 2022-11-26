@@ -1,7 +1,7 @@
 import styled from "@emotion/styled"
-import { Tooltip } from "@mui/material"
 import { useCallback, VFC } from "react"
 import { localized } from "../../../common/localize/localizedString"
+import { Tooltip } from "../../../components/Tooltip"
 import PencilIcon from "../../images/icons/pencil.svg"
 import SelectionIcon from "../../images/icons/selection.svg"
 import { PianoRollMouseMode } from "../../stores/PianoRollStore"

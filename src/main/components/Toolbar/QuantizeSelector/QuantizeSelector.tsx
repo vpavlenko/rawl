@@ -1,8 +1,8 @@
 import styled from "@emotion/styled"
 import { FiberManualRecord, MusicNote } from "@mui/icons-material"
-import { Tooltip } from "@mui/material"
 import React from "react"
 import { localized } from "../../../../common/localize/localizedString"
+import { Tooltip } from "../../../../components/Tooltip"
 import {
   ToolbarButtonGroup,
   ToolbarButtonGroupItem,

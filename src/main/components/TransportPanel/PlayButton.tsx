@@ -1,6 +1,8 @@
 import styled from "@emotion/styled"
 import { Pause, PlayArrow } from "@mui/icons-material"
 import { FC } from "react"
+import { localized } from "../../../common/localize/localizedString"
+import { Tooltip } from "../../../components/Tooltip"
 import { CircleButton } from "./CircleButton"
 
 export const StyledButton = styled(CircleButton)`
@@ -21,14 +23,22 @@ export interface PlayButtonProps {
   isPlaying: boolean
 }
 
-export const PlayButton: FC<PlayButtonProps> = ({ onClick, isPlaying }) => {
+export const PlayButton: FC<PlayButtonProps> = (
+  { onClick, isPlaying },
+  ref
+) => {
   return (
-    <StyledButton
-      id="button-play"
-      onClick={onClick}
-      className={isPlaying ? "active" : undefined}
+    <Tooltip
+      title={`${localized("play-pause", "Play/Pause")} [space]`}
+      side="top"
     >
-      {isPlaying ? <Pause /> : <PlayArrow />}
-    </StyledButton>
+      <StyledButton
+        id="button-play"
+        onClick={onClick}
+        className={isPlaying ? "active" : undefined}
+      >
+        {isPlaying ? <Pause /> : <PlayArrow />}
+      </StyledButton>
+    </Tooltip>
   )
 }

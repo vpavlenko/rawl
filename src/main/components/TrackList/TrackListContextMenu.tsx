@@ -1,7 +1,7 @@
-import { MenuItem } from "@mui/material"
 import { FC } from "react"
 import { localized } from "../../../common/localize/localizedString"
 import { ContextMenu, ContextMenuProps } from "../../../components/ContextMenu"
+import { MenuItem } from "../../../components/Menu"
 
 export type TrackListContextMenuProps = ContextMenuProps & {
   onClickAdd: () => void

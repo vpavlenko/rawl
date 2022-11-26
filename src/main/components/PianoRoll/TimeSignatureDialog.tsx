@@ -1,5 +1,5 @@
 import styled from "@emotion/styled"
-import { MenuItem, Select } from "@mui/material"
+import { Select } from "@mui/material"
 import { range } from "lodash"
 import { useEffect, useState, VFC } from "react"
 import { localized } from "../../../common/localize/localizedString"
@@ -10,6 +10,7 @@ import {
   DialogContent,
   DialogTitle,
 } from "../../../components/Dialog"
+import { MenuItem } from "../../../components/Menu"
 
 export interface TimeSignatureDialogProps {
   initialNumerator?: number

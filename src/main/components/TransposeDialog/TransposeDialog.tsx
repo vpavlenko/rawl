@@ -1,4 +1,3 @@
-import { TextField } from "@mui/material"
 import { FC, useEffect, useState } from "react"
 import { localized } from "../../../common/localize/localizedString"
 import { Button, PrimaryButton } from "../../../components/Button"
@@ -8,6 +7,7 @@ import {
   DialogContent,
   DialogTitle,
 } from "../../../components/Dialog"
+import { TextField } from "../../../components/TextField"
 
 export interface TransposeDialogProps {
   open: boolean

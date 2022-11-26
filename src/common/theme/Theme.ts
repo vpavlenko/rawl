@@ -14,6 +14,7 @@ export interface Theme {
   ghostNoteColor: string
   recordColor: string
   shadowColor: string
+  highlightColor: string
 }
 
 export const defaultTheme: Theme = {
@@ -32,4 +33,5 @@ export const defaultTheme: Theme = {
   ghostNoteColor: "#444444",
   recordColor: "#dd3c3c",
   shadowColor: "rgba(0, 0, 0, 0.1)",
+  highlightColor: "#8388a51a",
 }

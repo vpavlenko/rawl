@@ -56,7 +56,7 @@ export const Tab = styled.div`
   }
 
   &:hover {
-    background: ${({ theme }) => theme.secondaryBackgroundColor};
+    background: ${({ theme }) => theme.highlightColor};
   }
 }
 `

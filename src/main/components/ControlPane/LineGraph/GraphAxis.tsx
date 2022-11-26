@@ -24,7 +24,7 @@ const Value = styled.div`
   color: ${({ theme }) => theme.secondaryTextColor};
 
   &:hover {
-    background: ${({ theme }) => theme.secondaryBackgroundColor};
+    background: ${({ theme }) => theme.highlightColor};
     cursor: default;
   }
 `

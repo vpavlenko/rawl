@@ -49,7 +49,7 @@ const TabButton = styled.div`
   justify-content: center;
 
   &:hover {
-    background: ${({ theme }) => theme.secondaryBackgroundColor};
+    background: ${({ theme }) => theme.highlightColor};
   }
 
   &.selected {

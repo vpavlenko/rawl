@@ -20,7 +20,7 @@ const _ToolbarButton = styled.button<{ selected?: boolean }>`
   outline: none;
 
   &:hover {
-    background: ${({ theme }) => theme.secondaryBackgroundColor};
+    background: ${({ theme }) => theme.highlightColor};
   }
 
   svg {

@@ -11,7 +11,7 @@ export const Button = styled.button`
   height: 2rem;
 
   &:hover {
-    background: ${({ theme }) => theme.secondaryBackgroundColor};
+    background: ${({ theme }) => theme.highlightColor};
   }
   &:active {
     background: ${({ theme }) =>

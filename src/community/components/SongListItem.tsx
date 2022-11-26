@@ -64,7 +64,7 @@ const Wrapper = styled.div`
   border-radius: 0.5rem;
 
   &:hover {
-    background: ${({ theme }) => theme.secondaryBackgroundColor};
+    background: ${({ theme }) => theme.highlightColor};
 
     .arrow {
       display: block;

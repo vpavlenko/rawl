@@ -12,7 +12,7 @@ export const CircleButton = styled.div`
   cursor: pointer;
 
   &:hover {
-    background: ${({ theme }) => theme.secondaryBackgroundColor};
+    background: ${({ theme }) => theme.highlightColor};
   }
 
   svg {

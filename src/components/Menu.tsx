@@ -38,7 +38,7 @@ const StyledLi = styled.li<{ disabled?: boolean }>`
 
   &:hover {
     background: ${({ theme, disabled }) =>
-      disabled ? "transparent" : theme.tertiaryTextColor};
+      disabled ? "transparent" : theme.highlightColor};
   }
 `
 

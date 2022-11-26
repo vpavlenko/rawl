@@ -17,7 +17,7 @@ const Wrapper = styled.div`
   margin: 0.5rem;
 
   &:hover {
-    background: ${({ theme }) => theme.secondaryBackgroundColor};
+    background: ${({ theme }) => theme.highlightColor};
   }
 `
 

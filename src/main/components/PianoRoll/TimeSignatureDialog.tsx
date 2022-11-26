@@ -1,5 +1,4 @@
 import styled from "@emotion/styled"
-import { Select } from "@mui/material"
 import { range } from "lodash"
 import { useEffect, useState, VFC } from "react"
 import { localized } from "../../../common/localize/localizedString"
@@ -10,7 +9,8 @@ import {
   DialogContent,
   DialogTitle,
 } from "../../../components/Dialog"
-import { MenuItem } from "../../../components/Menu"
+import { Select } from "../../../components/Select"
+import { TextField } from "../../../components/TextField"
 
 export interface TimeSignatureDialogProps {
   initialNumerator?: number
@@ -20,26 +20,11 @@ export interface TimeSignatureDialogProps {
   onClickOK: (timeSignature: { numerator: number; denominator: number }) => void
 }
 
-const NumberInput = styled.input`
-  background: transparent;
-  -webkit-appearance: none;
-  outline: none;
-  color: inherit;
-  font-size: inherit;
-  font-family: inherit;
+const NumberInput = styled(TextField)`
   width: 3em;
   text-align: center;
-  font-family: "Roboto Mono", monospace;
   font-size: 1rem;
   padding: 0.2rem 0;
-  border: 1px solid ${({ theme }) => theme.dividerColor};
-  border-radius: 0.2rem;
-  box-sizing: border-box;
-
-  &:focus {
-    border-color: ${({ theme }) => theme.themeColor};
-    border-width: 2px;
-  }
 
   &::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -110,9 +95,9 @@ export const TimeSignatureDialog: VFC<TimeSignatureDialogProps> = ({
             {range(0, 6)
               .map((v) => Math.pow(2, v))
               .map((v) => (
-                <MenuItem key={v} value={v.toString()}>
+                <option key={v} value={v.toString()}>
                   {v}
-                </MenuItem>
+                </option>
               ))}
           </Select>
         </div>

@@ -15,13 +15,21 @@ const StyledContent = styled(Content)`
   padding: 0.5rem 0;
 `
 
+const List = styled.ul`
+  list-style: none;
+  padding: 0;
+  margin: 0;
+`
+
 export const Menu: FC<MenuProps> = ({ trigger, children }) => {
   return (
     <Root>
       <Trigger asChild>{trigger}</Trigger>
 
       <Portal>
-        <StyledContent>{children}</StyledContent>
+        <StyledContent>
+          <List>{children}</List>
+        </StyledContent>
       </Portal>
     </Root>
   )
@@ -34,7 +42,7 @@ const StyledLi = styled.li<{ disabled?: boolean }>`
   display: flex;
   align-items: center;
   padding: 0.5rem 1rem;
-  user-select: ${({ disabled }) => (disabled ? "none" : "auto")};
+  pointer-events: ${({ disabled }) => (disabled ? "none" : "auto")};
 
   &:hover {
     background: ${({ theme, disabled }) =>

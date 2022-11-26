@@ -1,5 +1,5 @@
 import styled from "@emotion/styled"
-import { Menu } from "@mui/material"
+import * as Portal from "@radix-ui/react-portal"
 import { FC, ReactNode, useEffect } from "react"
 import { IPoint } from "../common/geometry"
 
@@ -11,12 +11,37 @@ export const ContextMenuHotKey = styled.div`
   margin-left: 2em;
 `
 
+const Wrapper = styled.div`
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+`
+
+const Content = styled.div`
+  position: absolute;
+  background: ${({ theme }) => theme.secondaryBackgroundColor};
+  border-radius: 0.5rem;
+  box-shadow: 0 1rem 3rem ${({ theme }) => theme.shadowColor};
+  border: 1px solid ${({ theme }) => theme.backgroundColor};
+  padding: 0.5rem 0;
+`
+
+const List = styled.ul`
+  list-style: none;
+  padding: 0;
+  margin: 0;
+`
+
 export interface ContextMenuProps {
   isOpen: boolean
   position: IPoint
   handleClose: () => void
   children?: ReactNode
 }
+
+const estimatedWidth = 200
 
 export const ContextMenu: FC<ContextMenuProps> = ({
   isOpen,
@@ -38,26 +63,23 @@ export const ContextMenu: FC<ContextMenuProps> = ({
     }
   }, [isOpen])
 
+  if (!isOpen) {
+    return <></>
+  }
+
+  // fix position to avoid placing menu outside of the screen
+  const fixedX = Math.min(position.x, window.innerWidth - estimatedWidth)
+
   return (
-    <Menu
-      open={isOpen}
-      onClose={handleClose}
-      anchorReference="anchorPosition"
-      anchorPosition={{ top: position.y, left: position.x }}
-      autoFocus={false}
-      disableEnforceFocus={true}
-      disableAutoFocus={true}
-      disableAutoFocusItem={true}
-      disableRestoreFocus={true}
-      disablePortal
-      transitionDuration={0}
-      MenuListProps={{
-        disableListWrap: true,
-        disablePadding: true,
-        style: { padding: "inherit", width: "inherit" },
-      }}
-    >
-      {children}
-    </Menu>
+    <Portal.Root>
+      <Wrapper onClick={handleClose}>
+        <Content
+          style={{ left: fixedX, top: position.y }}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <List>{children}</List>
+        </Content>
+      </Wrapper>
+    </Portal.Root>
   )
 }

@@ -3,32 +3,12 @@ import { Menu } from "@mui/material"
 import { FC, ReactNode, useEffect } from "react"
 import { IPoint } from "../common/geometry"
 
-export const ContextMenuItem = styled.li<{ disabled?: boolean }>`
-  font-size: 0.8rem;
-  color: ${({ theme, disabled }) =>
-    disabled ? theme.secondaryTextColor : theme.textColor};
-  display: flex;
-  align-items: center;
-  padding: 0.5rem 1rem;
-  user-select: ${({ disabled }) => (disabled ? "none" : "auto")};
-
-  &:hover {
-    background: ${({ theme, disabled }) =>
-      disabled ? "transparent" : theme.secondaryBackgroundColor};
-  }
-`
-
 export const ContextMenuHotKey = styled.div`
   font-size: 0.9em;
   flex-grow: 1;
   text-align: right;
   color: ${({ theme }) => theme.secondaryTextColor};
   margin-left: 2em;
-`
-
-export const ContextMenuDivider = styled.hr`
-  border: none;
-  border-top: 1px solid ${({ theme }) => theme.dividerColor};
 `
 
 export interface ContextMenuProps {

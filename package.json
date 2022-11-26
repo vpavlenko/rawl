@@ -29,6 +29,7 @@
     "@mui/lab": "^5.0.0-alpha.102",
     "@mui/material": "^5.10.8",
     "@radix-ui/react-dialog": "^1.0.2",
+    "@radix-ui/react-dropdown-menu": "^2.0.1",
     "@radix-ui/react-slider": "^1.1.0",
     "@rehooks/component-size": "1.0.3",
     "@ryohey/react-split-pane": "^0.1.94",

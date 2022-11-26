@@ -5,10 +5,7 @@ import { usePrompt } from "use-prompt-mui"
 import { useToast } from "use-toast-mui"
 import { localized } from "../../../common/localize/localizedString"
 import { emptySong } from "../../../common/song"
-import {
-  ContextMenuDivider as Divider,
-  ContextMenuItem as MenuItem,
-} from "../../../components/ContextMenu"
+import { MenuDivider, MenuItem } from "../../../components/Menu"
 import { createSong, updateSong } from "../../../firebase/song"
 import { openSong, saveSong, setSong } from "../../actions"
 import { hasFSAccess, openFile, saveFileAs } from "../../actions/file"
@@ -194,7 +191,7 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
       <>
         <MenuItem onClick={onClickNew}>{localized("new-song", "New")}</MenuItem>
 
-        <Divider />
+        <MenuDivider />
 
         <MenuItem onClick={onClickOpen}>
           {localized("open-song", "Open")}
@@ -212,7 +209,7 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
           {localized("rename", "Rename")}
         </MenuItem>
 
-        <Divider />
+        <MenuDivider />
 
         {!hasFSAccess && (
           <FileInput onChange={onClickImportLegacy}>

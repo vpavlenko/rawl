@@ -1,10 +1,7 @@
 import { FC } from "react"
 import { localized } from "../../../common/localize/localizedString"
-import {
-  ContextMenu,
-  ContextMenuItem as Item,
-  ContextMenuProps,
-} from "../../../components/ContextMenu"
+import { ContextMenu, ContextMenuProps } from "../../../components/ContextMenu"
+import { MenuItem } from "../../../components/Menu"
 import { duplicateTrack, insertTrack, removeTrack } from "../../actions"
 import { useStores } from "../../hooks/useStores"
 
@@ -18,7 +15,7 @@ export const ArrangeTrackContextMenu: FC<ContextMenuProps> = (props) => {
 
   return (
     <ContextMenu {...props}>
-      <Item
+      <MenuItem
         onClick={(e) => {
           e.stopPropagation()
           insertTrack(rootStore)(selectedTrackId + 1)
@@ -26,9 +23,9 @@ export const ArrangeTrackContextMenu: FC<ContextMenuProps> = (props) => {
         }}
       >
         {localized("add-track", "Add track")}
-      </Item>
+      </MenuItem>
       {selectedTrackId > 0 && tracks.length > 2 && (
-        <Item
+        <MenuItem
           onClick={(e) => {
             e.stopPropagation()
             removeTrack(rootStore)(selectedTrackId)
@@ -36,10 +33,10 @@ export const ArrangeTrackContextMenu: FC<ContextMenuProps> = (props) => {
           }}
         >
           {localized("delete-track", "Delete track")}
-        </Item>
+        </MenuItem>
       )}
       {selectedTrackId > 0 && (
-        <Item
+        <MenuItem
           onClick={(e) => {
             e.stopPropagation()
             duplicateTrack(rootStore)(selectedTrackId)
@@ -47,7 +44,7 @@ export const ArrangeTrackContextMenu: FC<ContextMenuProps> = (props) => {
           }}
         >
           {localized("duplicate-track", "Duplicate track")}
-        </Item>
+        </MenuItem>
       )}
     </ContextMenu>
   )

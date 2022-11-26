@@ -3,11 +3,10 @@ import { envString } from "../../../common/localize/envString"
 import { localized } from "../../../common/localize/localizedString"
 import {
   ContextMenu,
-  ContextMenuDivider as Divider,
   ContextMenuHotKey as HotKey,
-  ContextMenuItem as Item,
   ContextMenuProps,
 } from "../../../components/ContextMenu"
+import { MenuDivider, MenuItem } from "../../../components/Menu"
 import {
   arrangeCopySelection,
   arrangeDeleteSelection,
@@ -25,7 +24,7 @@ export const ArrangeContextMenu: FC<ContextMenuProps> = (props) => {
 
   return (
     <ContextMenu {...props}>
-      <Item
+      <MenuItem
         onClick={(e) => {
           e.stopPropagation()
           handleClose()
@@ -36,8 +35,8 @@ export const ArrangeContextMenu: FC<ContextMenuProps> = (props) => {
       >
         {localized("cut", "Cut")}
         <HotKey>{envString.cmdOrCtrl}+X</HotKey>
-      </Item>
-      <Item
+      </MenuItem>
+      <MenuItem
         onClick={(e) => {
           e.stopPropagation()
           handleClose()
@@ -47,8 +46,8 @@ export const ArrangeContextMenu: FC<ContextMenuProps> = (props) => {
       >
         {localized("copy", "Copy")}
         <HotKey>{envString.cmdOrCtrl}+C</HotKey>
-      </Item>
-      <Item
+      </MenuItem>
+      <MenuItem
         onClick={(e) => {
           e.stopPropagation()
           handleClose()
@@ -57,8 +56,8 @@ export const ArrangeContextMenu: FC<ContextMenuProps> = (props) => {
       >
         {localized("paste", "Paste")}
         <HotKey>{envString.cmdOrCtrl}+V</HotKey>
-      </Item>
-      <Item
+      </MenuItem>
+      <MenuItem
         onClick={(e) => {
           e.stopPropagation()
           handleClose()
@@ -68,9 +67,9 @@ export const ArrangeContextMenu: FC<ContextMenuProps> = (props) => {
       >
         {localized("delete", "Delete")}
         <HotKey>Del</HotKey>
-      </Item>
-      <Divider />
-      <Item
+      </MenuItem>
+      <MenuDivider />
+      <MenuItem
         onClick={(e) => {
           e.stopPropagation()
           handleClose()
@@ -79,8 +78,8 @@ export const ArrangeContextMenu: FC<ContextMenuProps> = (props) => {
         disabled={!isNoteSelected}
       >
         {localized("one-octave-up", "+1 Oct")}
-      </Item>
-      <Item
+      </MenuItem>
+      <MenuItem
         onClick={(e) => {
           e.stopPropagation()
           handleClose()
@@ -89,8 +88,8 @@ export const ArrangeContextMenu: FC<ContextMenuProps> = (props) => {
         disabled={!isNoteSelected}
       >
         {localized("one-octave-down", "-1 Oct")}
-      </Item>
-      <Item
+      </MenuItem>
+      <MenuItem
         onClick={(e) => {
           e.stopPropagation()
           handleClose()
@@ -100,7 +99,7 @@ export const ArrangeContextMenu: FC<ContextMenuProps> = (props) => {
       >
         {localized("transpose", "Transpose")}
         <HotKey>T</HotKey>
-      </Item>
+      </MenuItem>
     </ContextMenu>
   )
 }

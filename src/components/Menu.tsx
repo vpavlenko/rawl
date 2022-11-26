@@ -1,0 +1,59 @@
+import styled from "@emotion/styled"
+import { Content, Portal, Root, Trigger } from "@radix-ui/react-dropdown-menu"
+import React, { FC, PropsWithChildren } from "react"
+
+export type MenuProps = PropsWithChildren<{
+  trigger: React.ReactNode
+}>
+
+const StyledContent = styled(Content)`
+  background: ${({ theme }) => theme.secondaryBackgroundColor};
+  border-radius: 0.5rem;
+  box-shadow: 0 1rem 3rem ${({ theme }) => theme.shadowColor};
+  border: 1px solid ${({ theme }) => theme.backgroundColor};
+  margin: 0 1rem;
+  padding: 0.5rem 0;
+`
+
+export const Menu: FC<MenuProps> = ({ trigger, children }) => {
+  return (
+    <Root>
+      <Trigger asChild>{trigger}</Trigger>
+
+      <Portal>
+        <StyledContent>{children}</StyledContent>
+      </Portal>
+    </Root>
+  )
+}
+
+const StyledLi = styled.li<{ disabled?: boolean }>`
+  font-size: 0.8rem;
+  color: ${({ theme, disabled }) =>
+    disabled ? theme.secondaryTextColor : theme.textColor};
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  user-select: ${({ disabled }) => (disabled ? "none" : "auto")};
+
+  &:hover {
+    background: ${({ theme, disabled }) =>
+      disabled ? "transparent" : theme.tertiaryTextColor};
+  }
+`
+
+export type MenuItemProps = React.DetailedHTMLProps<
+  React.LiHTMLAttributes<HTMLLIElement>,
+  HTMLLIElement
+> & {
+  disabled?: boolean
+}
+
+export const MenuItem: FC<MenuItemProps> = ({ children, ...props }) => (
+  <StyledLi {...props}>{children}</StyledLi>
+)
+
+export const MenuDivider = styled.hr`
+  border: none;
+  border-top: 1px solid ${({ theme }) => theme.dividerColor};
+`

@@ -1,6 +1,5 @@
 import styled from "@emotion/styled"
 import { Headset, Layers, VolumeOff, VolumeUp } from "@mui/icons-material"
-import { IconButton } from "@mui/material"
 import { observer } from "mobx-react-lite"
 import { FC, useCallback, useState } from "react"
 import { categoryEmojis, getCategoryIndex } from "../../../common/midi/GM"
@@ -66,10 +65,23 @@ const Controls = styled.div`
   align-items: center;
 `
 
-const Button = styled(IconButton)<{ active: boolean }>`
+const Button = styled.button<{ active: boolean }>`
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 999px;
+  background: none;
   margin-right: 0.5em;
   color: ${({ theme, active }) =>
     active ? theme.textColor : theme.secondaryTextColor};
+  cursor: pointer;
+
+  &:hover {
+    background: ${({ theme }) => theme.highlightColor};
+  }
 `
 
 const ChannelName = styled.div`
@@ -82,9 +94,10 @@ const ChannelName = styled.div`
   padding: 0 0.25rem;
   cursor: pointer;
   height: 1.25rem;
+  margin-left: 0.25rem;
 
   &:hover {
-    background: ${({ theme }) => theme.secondaryBackgroundColor};
+    background: ${({ theme }) => theme.highlightColor};
   }
 `
 
@@ -182,32 +195,17 @@ export const TrackListItem: FC<TrackListItemProps> = observer(({ trackId }) => {
             <Instrument>{instrument}</Instrument>
           </Label>
           <Controls>
-            <Button
-              color="default"
-              size="small"
-              active={solo}
-              onClick={onClickSolo}
-            >
+            <Button active={solo} onClick={onClickSolo}>
               <Headset fontSize="small" />
             </Button>
-            <Button
-              color="default"
-              size="small"
-              active={mute}
-              onClick={onClickMute}
-            >
+            <Button active={mute} onClick={onClickMute}>
               {mute ? (
                 <VolumeOff fontSize="small" />
               ) : (
                 <VolumeUp fontSize="small" />
               )}
             </Button>
-            <Button
-              color="default"
-              size="small"
-              active={ghostTrack}
-              onClick={onClickGhostTrack}
-            >
+            <Button active={ghostTrack} onClick={onClickGhostTrack}>
               <Layers fontSize="small" />
             </Button>
             {channel !== undefined && (

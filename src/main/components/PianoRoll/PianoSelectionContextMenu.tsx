@@ -2,6 +2,13 @@ import React, { FC, useCallback } from "react"
 import { envString } from "../../../common/localize/envString"
 import { localized } from "../../../common/localize/localizedString"
 import {
+  ContextMenu,
+  ContextMenuDivider as Divider,
+  ContextMenuHotKey as HotKey,
+  ContextMenuItem as Item,
+  ContextMenuProps,
+} from "../../../components/ContextMenu"
+import {
   copySelection,
   deleteSelection,
   duplicateSelection,
@@ -10,13 +17,6 @@ import {
   transposeSelection,
 } from "../../actions"
 import { useStores } from "../../hooks/useStores"
-import {
-  ContextMenu,
-  ContextMenuDivider as Divider,
-  ContextMenuHotKey as HotKey,
-  ContextMenuItem as Item,
-  ContextMenuProps,
-} from "../ContextMenu/ContextMenu"
 
 export const PianoSelectionContextMenu: FC<ContextMenuProps> = React.memo(
   (props) => {

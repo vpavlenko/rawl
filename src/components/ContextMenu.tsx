@@ -1,7 +1,7 @@
 import styled from "@emotion/styled"
 import { Menu } from "@mui/material"
 import { FC, ReactNode, useEffect } from "react"
-import { IPoint } from "../../../common/geometry"
+import { IPoint } from "../common/geometry"
 
 export const ContextMenuItem = styled.li<{ disabled?: boolean }>`
   font-size: 0.8rem;

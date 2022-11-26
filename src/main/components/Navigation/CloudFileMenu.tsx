@@ -5,14 +5,14 @@ import { usePrompt } from "use-prompt-mui"
 import { useToast } from "use-toast-mui"
 import { localized } from "../../../common/localize/localizedString"
 import { emptySong } from "../../../common/song"
+import {
+  ContextMenuDivider as Divider,
+  ContextMenuItem as MenuItem,
+} from "../../../components/ContextMenu"
 import { createSong, updateSong } from "../../../firebase/song"
 import { openSong, saveSong, setSong } from "../../actions"
 import { hasFSAccess, openFile, saveFileAs } from "../../actions/file"
 import { useStores } from "../../hooks/useStores"
-import {
-  ContextMenuDivider as Divider,
-  ContextMenuItem as MenuItem,
-} from "../ContextMenu/ContextMenu"
 import { FileInput } from "./LegacyFileMenu"
 
 export const CloudFileMenu: FC<{ close: () => void }> = observer(

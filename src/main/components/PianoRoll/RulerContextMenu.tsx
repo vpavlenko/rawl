@@ -1,15 +1,15 @@
 import React, { FC, useCallback, useState } from "react"
 import { envString } from "../../../common/localize/envString"
 import { localized } from "../../../common/localize/localizedString"
-import { addTimeSignature, setLoopBegin, setLoopEnd } from "../../actions"
-import { useStores } from "../../hooks/useStores"
-import { RulerStore } from "../../stores/RulerStore"
 import {
   ContextMenu,
   ContextMenuHotKey as HotKey,
   ContextMenuItem as Item,
   ContextMenuProps,
-} from "../ContextMenu/ContextMenu"
+} from "../../../components/ContextMenu"
+import { addTimeSignature, setLoopBegin, setLoopEnd } from "../../actions"
+import { useStores } from "../../hooks/useStores"
+import { RulerStore } from "../../stores/RulerStore"
 import { TimeSignatureDialog } from "./TimeSignatureDialog"
 
 export interface RulerContextMenuProps extends ContextMenuProps {

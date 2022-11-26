@@ -2,18 +2,18 @@ import React, { FC, useCallback } from "react"
 import { envString } from "../../../common/localize/envString"
 import { localized } from "../../../common/localize/localizedString"
 import {
+  ContextMenu,
+  ContextMenuHotKey as HotKey,
+  ContextMenuItem as Item,
+  ContextMenuProps,
+} from "../../../components/ContextMenu"
+import {
   copyControlSelection,
   deleteControlSelection,
   duplicateControlSelection,
   pasteControlSelection,
 } from "../../actions/control"
 import { useStores } from "../../hooks/useStores"
-import {
-  ContextMenu,
-  ContextMenuHotKey as HotKey,
-  ContextMenuItem as Item,
-  ContextMenuProps,
-} from "../ContextMenu/ContextMenu"
 
 export const ControlSelectionContextMenu: FC<ContextMenuProps> = React.memo(
   (props) => {

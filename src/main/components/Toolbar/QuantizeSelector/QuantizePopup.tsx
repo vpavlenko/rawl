@@ -1,6 +1,6 @@
 import styled from "@emotion/styled"
-import { Popover } from "@mui/material"
-import React from "react"
+import * as Popover from "@radix-ui/react-popover"
+import { ReactNode } from "react"
 import { localized } from "../../../../common/localize/localizedString"
 import { NumberPicker } from "./NumberPicker"
 
@@ -9,33 +9,28 @@ export interface QuantizePopupProps {
   values: number[]
   triplet: boolean
   dotted: boolean
-  isOpen: boolean
-  onClose: () => void
-  anchorEl: Element | null
+  trigger: ReactNode
   onChangeValue: (value: number) => void
   onChangeTriplet: (value: boolean) => void
   onChangeDotted: (value: boolean) => void
 }
 
-const StyledPopover = styled(Popover)`
-  .MuiPaper-root {
-    overflow: visible;
-    margin-top: 1em;
-  }
-`
-
 const Container = styled.div`
+  background: ${({ theme }) => theme.secondaryBackgroundColor};
+  border: 1px solid ${({ theme }) => theme.backgroundColor};
+  box-shadow: 0 1rem 3rem ${({ theme }) => theme.shadowColor};
   padding: 0 1em;
   border-radius: 0.4em;
   display: flex;
-  top: 3em;
-  left: -3em;
+  position: relative;
+  top: 1em;
+  left: 0.25rem;
 
   &::before {
     content: "";
     width: 1em;
     height: 1em;
-    background: ${({ theme }) => theme.backgroundColor};
+    background: ${({ theme }) => theme.secondaryBackgroundColor};
     position: absolute;
     top: -0.5em;
     left: calc(50% - 1em);
@@ -67,12 +62,10 @@ export function QuantizePopup({
   values,
   triplet,
   dotted,
-  isOpen,
-  onClose,
   onChangeValue,
   onChangeTriplet,
   onChangeDotted,
-  anchorEl,
+  trigger,
 }: QuantizePopupProps) {
   const prevValue = () => {
     const index = Math.max(values.indexOf(value) - 1, 0)
@@ -84,51 +77,44 @@ export function QuantizePopup({
   }
 
   return (
-    <StyledPopover
-      open={isOpen}
-      onClose={onClose}
-      anchorEl={anchorEl}
-      anchorOrigin={{
-        vertical: "bottom",
-        horizontal: "center",
-      }}
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "center",
-      }}
-    >
-      <Container>
-        <NumberPicker
-          value={value}
-          prevValue={prevValue}
-          nextValue={nextValue}
-          onChange={onChangeValue}
-        />
-        <Right>
-          <div className="field">
-            <input
-              type="checkbox"
-              onChange={(e) => onChangeTriplet(e.target.checked)}
-              checked={triplet}
-              id="QuantizePopupInputTriplet"
+    <Popover.Root>
+      <Popover.Trigger asChild>{trigger}</Popover.Trigger>
+      <Popover.Portal>
+        <Popover.Content>
+          <Container>
+            <NumberPicker
+              value={value}
+              prevValue={prevValue}
+              nextValue={nextValue}
+              onChange={onChangeValue}
             />
-            <label htmlFor="QuantizePopupInputTriplet">
-              {localized("triplet", "Triplet")}
-            </label>
-          </div>
-          <div className="field">
-            <input
-              type="checkbox"
-              onChange={(e) => onChangeDotted(e.target.checked)}
-              checked={dotted}
-              id="QuantizePopupInputDotted"
-            />
-            <label htmlFor="QuantizePopupInputDotted">
-              {localized("dotted", "Dotted")}
-            </label>
-          </div>
-        </Right>
-      </Container>
-    </StyledPopover>
+            <Right>
+              <div className="field">
+                <input
+                  type="checkbox"
+                  onChange={(e) => onChangeTriplet(e.target.checked)}
+                  checked={triplet}
+                  id="QuantizePopupInputTriplet"
+                />
+                <label htmlFor="QuantizePopupInputTriplet">
+                  {localized("triplet", "Triplet")}
+                </label>
+              </div>
+              <div className="field">
+                <input
+                  type="checkbox"
+                  onChange={(e) => onChangeDotted(e.target.checked)}
+                  checked={dotted}
+                  id="QuantizePopupInputDotted"
+                />
+                <label htmlFor="QuantizePopupInputDotted">
+                  {localized("dotted", "Dotted")}
+                </label>
+              </div>
+            </Right>
+          </Container>
+        </Popover.Content>
+      </Popover.Portal>
+    </Popover.Root>
   )
 }

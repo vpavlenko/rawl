@@ -85,8 +85,6 @@ function QuantizeSelector({
 
   const list = [1, 2, 4, 8, 16, 32, 64, 128]
 
-  const [anchorEl, setAnchorEl] = React.useState<Element | null>(null)
-
   return (
     <Container>
       <Switch selected={enabled} onClick={onClickSwitch}>
@@ -94,30 +92,7 @@ function QuantizeSelector({
           <Note />
         </Tooltip>
       </Switch>
-      <Content
-        onClick={(e) => {
-          setAnchorEl(e.currentTarget)
-        }}
-        onWheel={(e) => {
-          const currentIndex = list.indexOf(denominator)
-          const delta = e.deltaY < 0 ? 1 : -1
-          const index = Math.min(
-            list.length - 1,
-            Math.max(0, currentIndex + delta)
-          )
-          onSelect(calcQuantize(list[index], dot, triplet))
-        }}
-      >
-        <Value>
-          <span className="denominator">{denominator}</span>
-          {triplet && <TripletLabel>3</TripletLabel>}
-          {dot && <DotLabel />}
-        </Value>
-      </Content>
       <QuantizePopup
-        anchorEl={anchorEl}
-        isOpen={anchorEl !== null}
-        onClose={() => setAnchorEl(null)}
         value={denominator}
         values={list}
         dotted={dot}
@@ -125,6 +100,26 @@ function QuantizeSelector({
         onChangeValue={(d) => onSelect(calcQuantize(d, dot, triplet))}
         onChangeDotted={(d) => onSelect(calcQuantize(denominator, d, false))}
         onChangeTriplet={(t) => onSelect(calcQuantize(denominator, false, t))}
+        trigger={
+          <Content
+            tabIndex={-1}
+            onWheel={(e) => {
+              const currentIndex = list.indexOf(denominator)
+              const delta = e.deltaY < 0 ? 1 : -1
+              const index = Math.min(
+                list.length - 1,
+                Math.max(0, currentIndex + delta)
+              )
+              onSelect(calcQuantize(list[index], dot, triplet))
+            }}
+          >
+            <Value>
+              <span className="denominator">{denominator}</span>
+              {triplet && <TripletLabel>3</TripletLabel>}
+              {dot && <DotLabel />}
+            </Value>
+          </Content>
+        }
       />
     </Container>
   )

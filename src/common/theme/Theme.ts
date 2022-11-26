@@ -32,6 +32,6 @@ export const defaultTheme: Theme = {
   pianoBlackKeyLaneColor: "hsl(228, 16%, 15%)",
   ghostNoteColor: "#444444",
   recordColor: "#dd3c3c",
-  shadowColor: "rgba(0, 0, 0, 0.1)",
+  shadowColor: "rgba(0, 0, 0, 0.2)",
   highlightColor: "#8388a51a",
 }

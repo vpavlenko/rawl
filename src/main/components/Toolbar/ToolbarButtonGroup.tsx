@@ -1,5 +1,4 @@
 import styled from "@emotion/styled"
-import { ComponentProps, FC } from "react"
 
 export const ToolbarButtonGroup = styled.div`
   min-width: auto;
@@ -10,7 +9,7 @@ export const ToolbarButtonGroup = styled.div`
   cursor: pointer;
 `
 
-const _ToolbarButtonGroupItem = styled.button<{ selected?: boolean }>`
+export const ToolbarButtonGroupItem = styled.button<{ selected?: boolean }>`
   outline: none;
   -webkit-appearance: none;
   min-width: auto;
@@ -45,17 +44,3 @@ const _ToolbarButtonGroupItem = styled.button<{ selected?: boolean }>`
     background: ${({ theme }) => theme.secondaryBackgroundColor};
   }
 `
-
-export const ToolbarButtonGroupItem: FC<
-  React.PropsWithChildren<
-    Omit<ComponentProps<typeof _ToolbarButtonGroupItem>, "tabIndex">
-  >
-> = ({ children, ...props }) => (
-  <_ToolbarButtonGroupItem
-    {...props}
-    onMouseDown={(e) => e.preventDefault()}
-    tabIndex={-1}
-  >
-    {children}
-  </_ToolbarButtonGroupItem>
-)

@@ -113,12 +113,7 @@ export const TransportPanel: FC = observer(() => {
         </CircleButton>
       </Tooltip>
 
-      <Tooltip
-        title={`${localized("play-pause", "Play/Pause")} [space]`}
-        side="top"
-      >
-        <PlayButton onClick={onClickPlay} isPlaying={isPlaying} />
-      </Tooltip>
+      <PlayButton onClick={onClickPlay} isPlaying={isPlaying} />
 
       {canRecording && (
         <Tooltip title={`${localized("record", "Record")}`} side="top">

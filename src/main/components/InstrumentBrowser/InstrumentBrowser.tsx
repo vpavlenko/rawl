@@ -1,5 +1,5 @@
 import styled from "@emotion/styled"
-import { Checkbox, FormControlLabel } from "@mui/material"
+import { CheckedState } from "@radix-ui/react-checkbox"
 import { map } from "lodash"
 import difference from "lodash/difference"
 import groupBy from "lodash/groupBy"
@@ -16,11 +16,13 @@ import {
 } from "../../../common/midi/GM"
 import { programChangeMidiEvent } from "../../../common/midi/MidiEvent"
 import { Button, PrimaryButton } from "../../../components/Button"
+import { Checkbox } from "../../../components/Checkbox"
 import {
   Dialog,
   DialogActions,
   DialogContent,
 } from "../../../components/Dialog"
+import { Label } from "../../../components/Label"
 import { setTrackInstrument as setTrackInstrumentAction } from "../../actions"
 import { useStores } from "../../hooks/useStores"
 
@@ -55,20 +57,18 @@ const Finder = styled.div`
     opacity: 0.5;
     pointer-events: none;
   }
+`
 
-  .left label,
-  .right label {
-    padding: 0.5em 1em;
-    display: block;
-  }
+const Left = styled.div`
+  width: 15rem;
+  display: flex;
+  flex-direction: column;
+`
 
-  .left select {
-    width: 15em;
-  }
-
-  .right select {
-    width: 21em;
-  }
+const Right = styled.div`
+  width: 21rem;
+  display: flex;
+  flex-direction: column;
 `
 
 const Select = styled.select`
@@ -97,6 +97,10 @@ const Option = styled.option`
   }
 `
 
+const Footer = styled.div`
+  margin-top: 1rem;
+`
+
 const InstrumentBrowser: FC<InstrumentBrowserProps> = ({
   onClickCancel,
   onClickOK,
@@ -121,8 +125,8 @@ const InstrumentBrowser: FC<InstrumentBrowserProps> = ({
     })
   }
 
-  const onChangeRhythmTrack = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onChange({ programNumber, isRhythmTrack: e.target.checked })
+  const onChangeRhythmTrack = (state: CheckedState) => {
+    onChange({ programNumber, isRhythmTrack: state === true })
   }
 
   const instruments =
@@ -152,8 +156,8 @@ const InstrumentBrowser: FC<InstrumentBrowserProps> = ({
     <Dialog open={isOpen} onOpenChange={onClickCancel}>
       <DialogContent className="InstrumentBrowser">
         <Finder className={isRhythmTrack ? "disabled" : ""}>
-          <div className="left">
-            <label>{localized("categories", "Categories")}</label>
+          <Left>
+            <Label>{localized("categories", "Categories")}</Label>
             <Select
               size={12}
               onChange={onChangeCategory}
@@ -161,9 +165,9 @@ const InstrumentBrowser: FC<InstrumentBrowserProps> = ({
             >
               {categoryOptions}
             </Select>
-          </div>
-          <div className="right">
-            <label>{localized("instruments", "Instruments")}</label>
+          </Left>
+          <Right>
+            <Label>{localized("instruments", "Instruments")}</Label>
             <Select
               size={12}
               onChange={onChangeInstrument}
@@ -171,20 +175,19 @@ const InstrumentBrowser: FC<InstrumentBrowserProps> = ({
             >
               {instrumentOptions}
             </Select>
-          </div>
+          </Right>
         </Finder>
-        <div className="footer">
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={isRhythmTrack}
-                onChange={onChangeRhythmTrack}
-                color="primary"
-              />
-            }
-            label={localized("rhythm-track", "Rhythm Track")}
-          />
-        </div>
+        <Footer>
+          <Label style={{ display: "flex", alignItems: "center" }}>
+            <Checkbox
+              checked={isRhythmTrack}
+              onCheckedChange={onChangeRhythmTrack}
+              color="primary"
+              style={{ marginRight: "0.5rem" }}
+            />
+            {localized("rhythm-track", "Rhythm Track")}
+          </Label>
+        </Footer>
       </DialogContent>
       <DialogActions>
         <Button onClick={onClickCancel}>{localized("cancel", "Cancel")}</Button>

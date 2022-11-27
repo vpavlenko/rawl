@@ -2,9 +2,6 @@ import { useTheme } from "@emotion/react"
 import styled from "@emotion/styled"
 import { ArrowDownward, ArrowDropDown, ArrowUpward } from "@mui/icons-material"
 import {
-  IconButton,
-  Menu,
-  MenuItem,
   Table,
   TableBody,
   TableCell,
@@ -18,6 +15,8 @@ import { useEffect, useRef, useState } from "react"
 import { useToast } from "use-toast-mui"
 import { localized } from "../../../common/localize/localizedString"
 import { CircularProgress } from "../../../components/CircularProgress"
+import { IconButton } from "../../../components/IconButton"
+import { Menu, MenuItem } from "../../../components/Menu"
 import { FirestoreSong, loadSong } from "../../../firebase/song"
 import { setSong } from "../../actions"
 import { useStores } from "../../hooks/useStores"
@@ -92,7 +91,6 @@ export const CloudFileList = observer(() => {
 
   const sortOrderButton = (
     <IconButton
-      size="small"
       onClick={(e) => {
         e.stopPropagation()
         cloudFileStore.sortAscending = !cloudFileStore.sortAscending
@@ -129,15 +127,37 @@ export const CloudFileList = observer(() => {
               >
                 <div style={{ display: "flex", alignItems: "center" }}>
                   {sortLabel}
-                  <IconButton
-                    size="small"
-                    style={{
-                      marginLeft: "0.2em",
-                    }}
-                    onClick={() => setDateMenuOpen(true)}
+                  <Menu
+                    trigger={
+                      <IconButton
+                        style={{
+                          marginLeft: "0.2em",
+                        }}
+                        onClick={() => setDateMenuOpen(true)}
+                      >
+                        <ArrowDropDown
+                          style={{ fill: theme.secondaryTextColor }}
+                        />
+                      </IconButton>
+                    }
                   >
-                    <ArrowDropDown style={{ fill: theme.secondaryTextColor }} />
-                  </IconButton>
+                    <MenuItem
+                      onClick={() => {
+                        setDateMenuOpen(false)
+                        cloudFileStore.dateType = "created"
+                      }}
+                    >
+                      {localized("created-date", "Created")}
+                    </MenuItem>
+                    <MenuItem
+                      onClick={() => {
+                        setDateMenuOpen(false)
+                        cloudFileStore.dateType = "updated"
+                      }}
+                    >
+                      {localized("modified-date", "Modified")}
+                    </MenuItem>
+                  </Menu>
                   {selectedColumn === "date" && sortOrderButton}
                 </div>
               </TH>
@@ -171,33 +191,6 @@ export const CloudFileList = observer(() => {
           </TableBody>
         </Table>
       </TableContainer>
-      <Menu
-        open={isDateMenuOpen}
-        onClose={() => setDateMenuOpen(false)}
-        anchorEl={dateCellRef.current}
-        anchorOrigin={{ horizontal: "left", vertical: "bottom" }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "left",
-        }}
-      >
-        <MenuItem
-          onClick={() => {
-            setDateMenuOpen(false)
-            cloudFileStore.dateType = "created"
-          }}
-        >
-          {localized("created-date", "Created")}
-        </MenuItem>
-        <MenuItem
-          onClick={() => {
-            setDateMenuOpen(false)
-            cloudFileStore.dateType = "updated"
-          }}
-        >
-          {localized("modified-date", "Modified")}
-        </MenuItem>
-      </Menu>
     </>
   )
 })

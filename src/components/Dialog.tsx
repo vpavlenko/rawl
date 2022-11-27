@@ -30,7 +30,6 @@ const contentShow = keyframes`
 `
 
 const StyledOverlay = styled(Overlay)`
-  z-index: 2;
   background-color: rgba(0, 0, 0, 0.3);
   position: fixed;
   inset: 0;
@@ -38,7 +37,6 @@ const StyledOverlay = styled(Overlay)`
 `
 
 const StyledContent = styled(Content)`
-  z-index: 3;
   background-color: ${({ theme }) => theme.backgroundColor};
   border-radius: 0.5rem;
   box-shadow: 0 0.5rem 3rem ${({ theme }) => theme.shadowColor};

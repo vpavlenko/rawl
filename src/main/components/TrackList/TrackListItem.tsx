@@ -3,6 +3,7 @@ import { Headset, Layers, VolumeOff, VolumeUp } from "@mui/icons-material"
 import { observer } from "mobx-react-lite"
 import { FC, useCallback, useState } from "react"
 import { categoryEmojis, getCategoryIndex } from "../../../common/midi/GM"
+import { IconButton } from "../../../components/IconButton"
 import {
   addTrack,
   removeTrack,
@@ -63,25 +64,6 @@ const Name = styled.div<{ selected: boolean }>`
 const Controls = styled.div`
   display: flex;
   align-items: center;
-`
-
-const Button = styled.button<{ active: boolean }>`
-  width: 2rem;
-  height: 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  border-radius: 999px;
-  background: none;
-  margin-right: 0.5em;
-  color: ${({ theme, active }) =>
-    active ? theme.textColor : theme.secondaryTextColor};
-  cursor: pointer;
-
-  &:hover {
-    background: ${({ theme }) => theme.highlightColor};
-  }
 `
 
 const ChannelName = styled.div`
@@ -195,19 +177,31 @@ export const TrackListItem: FC<TrackListItemProps> = observer(({ trackId }) => {
             <Instrument>{instrument}</Instrument>
           </Label>
           <Controls>
-            <Button active={solo} onClick={onClickSolo}>
+            <IconButton
+              active={solo}
+              onClick={onClickSolo}
+              style={{ marginRight: "0.5rem" }}
+            >
               <Headset fontSize="small" />
-            </Button>
-            <Button active={mute} onClick={onClickMute}>
+            </IconButton>
+            <IconButton
+              active={mute}
+              onClick={onClickMute}
+              style={{ marginRight: "0.5rem" }}
+            >
               {mute ? (
                 <VolumeOff fontSize="small" />
               ) : (
                 <VolumeUp fontSize="small" />
               )}
-            </Button>
-            <Button active={ghostTrack} onClick={onClickGhostTrack}>
+            </IconButton>
+            <IconButton
+              active={ghostTrack}
+              onClick={onClickGhostTrack}
+              style={{ marginRight: "0.5rem" }}
+            >
               <Layers fontSize="small" />
-            </Button>
+            </IconButton>
             {channel !== undefined && (
               <ChannelName onClick={openDialog}>CH {channel + 1}</ChannelName>
             )}

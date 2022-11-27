@@ -13,7 +13,6 @@ import { GlobalKeyboardShortcut } from "../KeyboardShortcut/GlobalKeyboardShortc
 import { RootView } from "../RootView/RootView"
 import { EmotionThemeProvider } from "../Theme/EmotionThemeProvider"
 import { GlobalCSS } from "../Theme/GlobalCSS"
-import { MuiThemeProvider } from "../Theme/MuiThemeProvider"
 
 Sentry.init({
   dsn: process.env.SENTRY_DSN,
@@ -28,21 +27,19 @@ export function App() {
     <React.StrictMode>
       <StoreContext.Provider value={new RootStore()}>
         <ThemeContext.Provider value={defaultTheme}>
-          <MuiThemeProvider>
-            <EmotionThemeProvider>
-              <HelmetProvider>
-                <ToastProvider>
-                  <PromptProvider>
-                    <DialogProvider>
-                      <GlobalKeyboardShortcut />
-                      <GlobalCSS />
-                      <RootView />
-                    </DialogProvider>
-                  </PromptProvider>
-                </ToastProvider>
-              </HelmetProvider>
-            </EmotionThemeProvider>
-          </MuiThemeProvider>
+          <EmotionThemeProvider>
+            <HelmetProvider>
+              <ToastProvider>
+                <PromptProvider>
+                  <DialogProvider>
+                    <GlobalKeyboardShortcut />
+                    <GlobalCSS />
+                    <RootView />
+                  </DialogProvider>
+                </PromptProvider>
+              </ToastProvider>
+            </HelmetProvider>
+          </EmotionThemeProvider>
         </ThemeContext.Provider>
       </StoreContext.Provider>
     </React.StrictMode>

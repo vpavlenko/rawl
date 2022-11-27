@@ -1,4 +1,3 @@
-import { LinearProgress } from "@mui/material"
 import { observer } from "mobx-react-lite"
 import { useCallback, VFC } from "react"
 import { localized } from "../../../common/localize/localizedString"
@@ -9,6 +8,7 @@ import {
   DialogContent,
   DialogTitle,
 } from "../../../components/Dialog"
+import { LinearProgress } from "../../../components/LinearProgress"
 import { cancelExport } from "../../actions"
 import { useStores } from "../../hooks/useStores"
 
@@ -28,7 +28,7 @@ export const ExportProgressDialog: VFC = observer(() => {
         {localized("exporting-audio", "Exporting Audio...")}
       </DialogTitle>
       <DialogContent>
-        <LinearProgress variant="determinate" value={progress * 100} />
+        <LinearProgress value={progress} max={1} />
       </DialogContent>
       <DialogActions>
         <Button onClick={onClickCancel}>{localized("cancel", "Cancel")}</Button>

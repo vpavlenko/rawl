@@ -6,11 +6,11 @@ import {
   Loop,
   Stop,
 } from "@mui/icons-material"
-import { CircularProgress } from "@mui/material"
 import MetronomeIcon from "mdi-react/MetronomeIcon"
 import { observer } from "mobx-react-lite"
 import { FC, useCallback } from "react"
 import { localized } from "../../../common/localize/localizedString"
+import { CircularProgress } from "../../../components/CircularProgress"
 import { Tooltip } from "../../../components/Tooltip"
 import {
   fastForwardOneBar,

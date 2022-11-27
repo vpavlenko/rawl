@@ -2,7 +2,6 @@ import { useTheme } from "@emotion/react"
 import styled from "@emotion/styled"
 import { ArrowDownward, ArrowDropDown, ArrowUpward } from "@mui/icons-material"
 import {
-  CircularProgress,
   IconButton,
   Menu,
   MenuItem,
@@ -18,6 +17,7 @@ import { observer } from "mobx-react-lite"
 import { useEffect, useRef, useState } from "react"
 import { useToast } from "use-toast-mui"
 import { localized } from "../../../common/localize/localizedString"
+import { CircularProgress } from "../../../components/CircularProgress"
 import { FirestoreSong, loadSong } from "../../../firebase/song"
 import { setSong } from "../../actions"
 import { useStores } from "../../hooks/useStores"

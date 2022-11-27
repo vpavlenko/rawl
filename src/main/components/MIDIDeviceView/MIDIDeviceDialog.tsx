@@ -1,11 +1,11 @@
 import styled from "@emotion/styled"
-import { CircularProgress } from "@mui/material"
 import { observer } from "mobx-react-lite"
 import { FC } from "react"
 import { localized } from "../../../common/localize/localizedString"
 import { Alert } from "../../../components/Alert"
 import { Button } from "../../../components/Button"
 import { Checkbox } from "../../../components/Checkbox"
+import { CircularProgress } from "../../../components/CircularProgress"
 import {
   Dialog,
   DialogActions,

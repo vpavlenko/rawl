@@ -1,7 +1,8 @@
 import styled from "@emotion/styled"
 import { Check } from "@mui/icons-material"
 import { CheckboxProps, Indicator, Root } from "@radix-ui/react-checkbox"
-import { FC } from "react"
+import { FC, ReactNode } from "react"
+import { Label } from "./Label"
 
 const StyledRoot = styled(Root)`
   border: 1px solid ${({ theme }) => theme.dividerColor};
@@ -30,10 +31,21 @@ const CheckIcon = styled(Check)`
   height: 1rem;
 `
 
-export const Checkbox: FC<CheckboxProps> = (props) => (
-  <StyledRoot {...props}>
-    <StyledIndicator>
-      <CheckIcon />
-    </StyledIndicator>
-  </StyledRoot>
+const Title = styled.span`
+  margin-left: 0.5rem;
+`
+
+export const Checkbox: FC<CheckboxProps & { label?: ReactNode }> = ({
+  label,
+  style,
+  ...props
+}) => (
+  <Label style={{ display: "flex", alignItems: "center", ...style }}>
+    <StyledRoot {...props}>
+      <StyledIndicator>
+        <CheckIcon />
+      </StyledIndicator>
+    </StyledRoot>
+    <Title>{label}</Title>
+  </Label>
 )

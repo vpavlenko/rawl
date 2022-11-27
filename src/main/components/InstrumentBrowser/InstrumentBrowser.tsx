@@ -178,15 +178,11 @@ const InstrumentBrowser: FC<InstrumentBrowserProps> = ({
           </Right>
         </Finder>
         <Footer>
-          <Label style={{ display: "flex", alignItems: "center" }}>
-            <Checkbox
-              checked={isRhythmTrack}
-              onCheckedChange={onChangeRhythmTrack}
-              color="primary"
-              style={{ marginRight: "0.5rem" }}
-            />
-            {localized("rhythm-track", "Rhythm Track")}
-          </Label>
+          <Checkbox
+            checked={isRhythmTrack}
+            onCheckedChange={onChangeRhythmTrack}
+            label={localized("rhythm-track", "Rhythm Track")}
+          />
         </Footer>
       </DialogContent>
       <DialogActions>

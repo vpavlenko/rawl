@@ -1,16 +1,18 @@
 import styled from "@emotion/styled"
-import { Checkbox, CircularProgress } from "@mui/material"
+import { CircularProgress } from "@mui/material"
 import { observer } from "mobx-react-lite"
 import { FC } from "react"
 import { localized } from "../../../common/localize/localizedString"
 import { Alert } from "../../../components/Alert"
 import { Button } from "../../../components/Button"
+import { Checkbox } from "../../../components/Checkbox"
 import {
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
 } from "../../../components/Dialog"
+import { Label } from "../../../components/Label"
 import { useStores } from "../../hooks/useStores"
 
 interface Device {
@@ -25,22 +27,27 @@ interface ListItem {
   onCheck: (isChecked: boolean) => void
 }
 
-const DeviceRowWrapper = styled.div`
-  display: flex;
-  align-items: center;
-`
-
 const DeviceRow: FC<ListItem> = ({ device, isSelected, onCheck }) => {
   return (
-    <DeviceRowWrapper>
+    <Label
+      style={{
+        display: "flex",
+        alignItems: "center",
+        marginBottom: "1rem",
+      }}
+    >
       <Checkbox
-        color="primary"
         checked={isSelected}
-        onChange={(e) => onCheck(e.currentTarget.checked)}
+        onCheckedChange={(state) => onCheck(state === true)}
+        style={{ marginRight: "0.5rem" }}
+        label={
+          <>
+            {device.name}
+            {!device.isConnected && " (disconnected)"}
+          </>
+        }
       />
-      {device.name}
-      {!device.isConnected && " (disconnected)"}
-    </DeviceRowWrapper>
+    </Label>
   )
 }
 
@@ -52,6 +59,7 @@ const Spacer = styled.div`
 
 const SectionTitle = styled.div`
   font-weight: bold;
+  margin: 1rem 0;
 `
 
 export const MIDIDeviceDialog: FC = observer(() => {

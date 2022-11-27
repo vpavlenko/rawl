@@ -5,5 +5,4 @@ export const Label = styled.label`
   color: ${({ theme }) => theme.secondaryTextColor};
   font-size: 0.8rem;
   font-family: inherit;
-  margin-bottom: 0.5rem;
 `

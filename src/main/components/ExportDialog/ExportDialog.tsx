@@ -1,7 +1,7 @@
-import { Alert } from "@mui/lab"
 import { observer } from "mobx-react-lite"
 import { useCallback, useEffect, useState, VFC } from "react"
 import { localized } from "../../../common/localize/localizedString"
+import { Alert } from "../../../components/Alert"
 import { Button, PrimaryButton } from "../../../components/Button"
 import {
   Dialog,

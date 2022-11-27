@@ -1,4 +1,3 @@
-import { Alert } from "@mui/material"
 import { FC } from "react"
 import { localized } from "../../../common/localize/localizedString"
 import {
@@ -10,6 +9,7 @@ import {
 import { StyledFirebaseAuth } from "../FirebaseAuth/StyledFirebaseAuth"
 
 import styled from "@emotion/styled"
+import { Info } from "@mui/icons-material"
 import "firebase/auth"
 import { GithubAuthProvider, GoogleAuthProvider } from "firebase/auth"
 import { Button } from "../../../components/Button"
@@ -26,6 +26,13 @@ const BetaLabel = styled.span`
 const Description = styled.div`
   margin: 1rem 0 2rem 0;
   line-height: 1.5;
+`
+
+const Alert = styled.div`
+  background: ${({ theme }) => theme.secondaryBackgroundColor};
+  display: flex;
+  padding: 1rem;
+  border-radius: 0.5rem;
 `
 
 export interface SignInDialogContentProps {
@@ -48,11 +55,14 @@ export const SignInDialogContent: FC<SignInDialogContentProps> = ({
         <BetaLabel>Beta</BetaLabel>
       </DialogTitle>
       <DialogContent>
-        <Alert severity="info">
-          {localized(
-            "cloud-beta-warning",
-            "Since the cloud function is in beta during development, please download and save your important songs frequently."
-          )}
+        <Alert>
+          <Info style={{ marginRight: "1rem" }} />
+          <div>
+            {localized(
+              "cloud-beta-warning",
+              "Since the cloud function is in beta during development, please download and save your important songs frequently."
+            )}
+          </div>
         </Alert>
         <Description>
           {localized(

@@ -40,7 +40,7 @@ const StyledOverlay = styled(Overlay)`
 const StyledContent = styled(Content)`
   z-index: 3;
   background-color: ${({ theme }) => theme.backgroundColor};
-  border-radius: 6px;
+  border-radius: 0.5rem;
   box-shadow: 0 0.5rem 3rem ${({ theme }) => theme.shadowColor};
   position: fixed;
   top: 50%;

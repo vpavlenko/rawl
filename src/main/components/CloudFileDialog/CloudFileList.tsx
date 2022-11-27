@@ -1,4 +1,4 @@
-import { PropsOf, useTheme } from "@emotion/react"
+import { useTheme } from "@emotion/react"
 import styled from "@emotion/styled"
 import { ArrowDownward, ArrowDropDown, ArrowUpward } from "@mui/icons-material"
 import { QueryDocumentSnapshot } from "firebase/firestore"
@@ -12,6 +12,7 @@ import { Menu, MenuItem } from "../../../components/Menu"
 import { FirestoreSong, loadSong } from "../../../firebase/song"
 import { setSong } from "../../actions"
 import { useStores } from "../../hooks/useStores"
+import { CloudFileRow } from "./CloudFileRow"
 
 const ArrowUp = styled(ArrowUpward)`
   width: 1.1rem;
@@ -23,51 +24,31 @@ const ArrowDown = styled(ArrowDownward)`
   height: 1.1rem;
 `
 
-const Table = styled.table`
-  border-collapse: collapse;
-  max-height: 20rem;
-  overflow-x: hidden;
-`
-
-const Cell = styled.td`
+const HeaderCell = styled.div`
+  display: flex;
   align-items: center;
-  padding: 0 1rem;
   background: ${({ theme }) => theme.backgroundColor};
   font-weight: ${({ isSelected }: { isSelected?: boolean }) =>
     isSelected ? "bold" : "normal"};
   cursor: pointer;
-  overflow-x: hidden;
-  white-space: nowrap;
-  max-width: 17rem;
-  text-overflow: ellipsis;
-  height: 2.5rem;
-`
-
-const HeadCell = styled(Cell)`
   padding: 0 1rem;
+  box-sizing: border-box;
+
   &:hover {
     background: ${({ theme }) => theme.secondaryBackgroundColor};
   }
 `
 
-const TableHead = styled.thead`
-  color: ${({ theme }) => theme.secondaryTextColor};
-  width: 100%;
-  display: block;
+const NameCell = styled(HeaderCell)`
+  flex-grow: 1;
 `
 
-const TH: FC<PropsOf<typeof HeadCell>> = ({ children, ...props }) => {
-  return (
-    <HeadCell {...props}>
-      <div style={{ display: "flex", alignItems: "center" }}>{children}</div>
-    </HeadCell>
-  )
-}
+const DateCell = styled(HeaderCell)`
+  width: 12rem;
+`
 
-const TableBody = styled.tbody`
-  display: block;
+const Body = styled.div`
   max-height: 20rem;
-  width: 100%;
   overflow-y: auto;
 
   tr:hover td {
@@ -78,12 +59,11 @@ const TableBody = styled.tbody`
 const SortButton: FC<{ sortAscending: boolean }> = ({ sortAscending }) =>
   sortAscending ? <ArrowDown /> : <ArrowUp />
 
-const FileRow = styled.tr`
-  cursor: pointer;
+const Container = styled.div``
 
-  &:hover {
-    background: ${({ theme }) => theme.secondaryBackgroundColor};
-  }
+const Header = styled.div`
+  display: flex;
+  height: 2.5rem;
 `
 
 export const CloudFileList = observer(() => {
@@ -121,87 +101,67 @@ export const CloudFileList = observer(() => {
   })()
 
   return (
-    <Table>
-      <TableHead>
-        <tr>
-          <TH
-            style={{
-              width: "70%",
-            }}
-            onClick={() => {
-              if (cloudFileStore.selectedColumn === "name") {
-                cloudFileStore.sortAscending = !cloudFileStore.sortAscending
-              } else {
-                cloudFileStore.selectedColumn = "name"
-              }
-            }}
-            isSelected={selectedColumn === "name"}
-          >
-            {localized("name", "Name")}
-            <div style={{ width: "0.5rem" }}></div>
-            {selectedColumn === "name" && (
-              <SortButton sortAscending={sortAscending} />
-            )}
-          </TH>
-          <TH
-            onClick={() => {
-              if (cloudFileStore.selectedColumn === "date") {
-                cloudFileStore.sortAscending = !cloudFileStore.sortAscending
-              } else {
-                cloudFileStore.selectedColumn = "date"
-              }
-            }}
-            isSelected={selectedColumn === "date"}
-          >
-            {sortLabel}
-            <Menu
-              trigger={
-                <IconButton
-                  style={{
-                    marginLeft: "0.2em",
-                  }}
-                >
-                  <ArrowDropDown style={{ fill: theme.secondaryTextColor }} />
-                </IconButton>
-              }
-            >
-              <MenuItem onClick={() => (cloudFileStore.dateType = "created")}>
-                {localized("created-date", "Created")}
-              </MenuItem>
-              <MenuItem onClick={() => (cloudFileStore.dateType = "updated")}>
-                {localized("modified-date", "Modified")}
-              </MenuItem>
-            </Menu>
-            {selectedColumn === "date" && (
-              <SortButton sortAscending={sortAscending} />
-            )}
-          </TH>
-        </tr>
-      </TableHead>
-      <TableBody>
-        {files.map((song) => {
-          const date: Date = (() => {
-            switch (dateType) {
-              case "created":
-                return song.data().createdAt.toDate()
-              case "updated":
-                return song.data().updatedAt.toDate()
+    <Container>
+      <Header>
+        <NameCell
+          onClick={() => {
+            if (cloudFileStore.selectedColumn === "name") {
+              cloudFileStore.sortAscending = !cloudFileStore.sortAscending
+            } else {
+              cloudFileStore.selectedColumn = "name"
             }
-          })()
-          const songName =
-            song.data().name.length > 0
-              ? song.data().name
-              : localized("untitled-song", "Untitled song")
-          const dateStr =
-            date.toLocaleDateString() + " " + date.toLocaleTimeString()
-          return (
-            <FileRow key={song.id} onClick={() => onClickSong(song)}>
-              <Cell>{songName}</Cell>
-              <Cell>{dateStr}</Cell>
-            </FileRow>
-          )
-        })}
-      </TableBody>
-    </Table>
+          }}
+          isSelected={selectedColumn === "name"}
+        >
+          {localized("name", "Name")}
+          <div style={{ width: "0.5rem" }}></div>
+          {selectedColumn === "name" && (
+            <SortButton sortAscending={sortAscending} />
+          )}
+        </NameCell>
+        <DateCell
+          onClick={() => {
+            if (cloudFileStore.selectedColumn === "date") {
+              cloudFileStore.sortAscending = !cloudFileStore.sortAscending
+            } else {
+              cloudFileStore.selectedColumn = "date"
+            }
+          }}
+          isSelected={selectedColumn === "date"}
+        >
+          {sortLabel}
+          <Menu
+            trigger={
+              <IconButton
+                style={{
+                  marginLeft: "0.2em",
+                }}
+              >
+                <ArrowDropDown style={{ fill: theme.secondaryTextColor }} />
+              </IconButton>
+            }
+          >
+            <MenuItem onClick={() => (cloudFileStore.dateType = "created")}>
+              {localized("created-date", "Created")}
+            </MenuItem>
+            <MenuItem onClick={() => (cloudFileStore.dateType = "updated")}>
+              {localized("modified-date", "Modified")}
+            </MenuItem>
+          </Menu>
+          {selectedColumn === "date" && (
+            <SortButton sortAscending={sortAscending} />
+          )}
+        </DateCell>
+      </Header>
+      <Body>
+        {files.map((song) => (
+          <CloudFileRow
+            song={song}
+            dateType={dateType}
+            onClick={() => onClickSong(song)}
+          />
+        ))}
+      </Body>
+    </Container>
   )
 })

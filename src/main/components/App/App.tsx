@@ -4,10 +4,11 @@ import React from "react"
 import { HelmetProvider } from "react-helmet-async"
 import { DialogProvider } from "use-dialog-mui"
 import { PromptProvider } from "use-prompt-mui"
-import { ToastProvider } from "use-toast-mui"
 import { defaultTheme } from "../../../common/theme/Theme"
+import { Toast } from "../../../components/Toast"
 import { StoreContext } from "../../hooks/useStores"
 import { ThemeContext } from "../../hooks/useTheme"
+import { ToastProvider } from "../../hooks/useToast"
 import RootStore from "../../stores/RootStore"
 import { GlobalKeyboardShortcut } from "../KeyboardShortcut/GlobalKeyboardShortcut"
 import { RootView } from "../RootView/RootView"
@@ -29,7 +30,7 @@ export function App() {
         <ThemeContext.Provider value={defaultTheme}>
           <EmotionThemeProvider>
             <HelmetProvider>
-              <ToastProvider>
+              <ToastProvider component={Toast}>
                 <PromptProvider>
                   <DialogProvider>
                     <GlobalKeyboardShortcut />

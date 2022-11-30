@@ -3,9 +3,10 @@ import { Integrations } from "@sentry/tracing"
 import React from "react"
 import { HelmetProvider } from "react-helmet-async"
 import { DialogProvider } from "use-dialog-mui"
-import { PromptProvider } from "use-prompt-mui"
 import { defaultTheme } from "../../../common/theme/Theme"
+import { PromptDialog } from "../../../components/PromptDialog"
 import { Toast } from "../../../components/Toast"
+import { PromptProvider } from "../../hooks/usePrompt"
 import { StoreContext } from "../../hooks/useStores"
 import { ThemeContext } from "../../hooks/useTheme"
 import { ToastProvider } from "../../hooks/useToast"
@@ -31,7 +32,7 @@ export function App() {
           <EmotionThemeProvider>
             <HelmetProvider>
               <ToastProvider component={Toast}>
-                <PromptProvider>
+                <PromptProvider component={PromptDialog}>
                   <DialogProvider>
                     <GlobalKeyboardShortcut />
                     <GlobalCSS />

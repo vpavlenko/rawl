@@ -15,6 +15,9 @@ export interface Theme {
   recordColor: string
   shadowColor: string
   highlightColor: string
+  greenColor: string
+  redColor: string
+  yellowColor: string
 }
 
 export const defaultTheme: Theme = {
@@ -34,4 +37,7 @@ export const defaultTheme: Theme = {
   recordColor: "#dd3c3c",
   shadowColor: "rgba(0, 0, 0, 0.2)",
   highlightColor: "#8388a51a",
+  greenColor: "#31DE53",
+  redColor: "#DE5267",
+  yellowColor: "#DEB126",
 }

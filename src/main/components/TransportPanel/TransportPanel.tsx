@@ -1,12 +1,10 @@
 import styled from "@emotion/styled"
-import {
-  FastForward,
-  FastRewind,
-  FiberManualRecord,
-  Loop,
-  Stop,
-} from "@mui/icons-material"
+import FastForward from "mdi-react/FastForwardIcon"
+import FastRewind from "mdi-react/FastRewindIcon"
+import FiberManualRecord from "mdi-react/FiberManualRecordIcon"
+import Loop from "mdi-react/LoopIcon"
 import MetronomeIcon from "mdi-react/MetronomeIcon"
+import Stop from "mdi-react/StopIcon"
 import { observer } from "mobx-react-lite"
 import { FC, useCallback } from "react"
 import { localized } from "../../../common/localize/localizedString"

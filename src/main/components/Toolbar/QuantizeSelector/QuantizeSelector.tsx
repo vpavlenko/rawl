@@ -1,5 +1,6 @@
 import styled from "@emotion/styled"
-import { FiberManualRecord, MusicNote } from "@mui/icons-material"
+import FiberManualRecord from "mdi-react/FiberManualRecordIcon"
+import MusicNote from "mdi-react/MusicNoteIcon"
 import React from "react"
 import { localized } from "../../../../common/localize/localizedString"
 import { Tooltip } from "../../../../components/Tooltip"
@@ -19,11 +20,12 @@ const Switch = styled(ToolbarButtonGroupItem)`
 `
 
 const DotLabel = styled(FiberManualRecord)`
-  top: -0.2rem;
+  top: -0.5rem;
   left: 0.1rem;
   position: relative;
-  width: 0.6rem;
-  font-size: 1.1rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin: 0 -0.1rem;
 `
 
 const TripletLabel = styled.span`
@@ -43,7 +45,7 @@ const Value = styled.div`
 `
 
 const Note = styled(MusicNote)`
-  font-size: 1.1rem;
+  width: 1.1rem;
 `
 
 function calcQuantize(num: number, dot: boolean, triplet: boolean): number {

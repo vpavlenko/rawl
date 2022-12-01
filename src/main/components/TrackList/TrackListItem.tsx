@@ -1,5 +1,8 @@
 import styled from "@emotion/styled"
-import { Headset, Layers, VolumeOff, VolumeUp } from "@mui/icons-material"
+import Headset from "mdi-react/HeadphonesIcon"
+import Layers from "mdi-react/LayersIcon"
+import VolumeUp from "mdi-react/VolumeHighIcon"
+import VolumeOff from "mdi-react/VolumeOffIcon"
 import { observer } from "mobx-react-lite"
 import { FC, useCallback, useState } from "react"
 import { categoryEmojis, getCategoryIndex } from "../../../common/midi/GM"
@@ -101,6 +104,12 @@ const IconInner = styled.div<{ selected: boolean }>`
   opacity: ${({ selected }) => (selected ? 1 : 0.5)};
 `
 
+const ControlButton = styled(IconButton)`
+  width: 1.9rem;
+  height: 1.9rem;
+  margin-right: 0.25rem;
+`
+
 export const TrackListItem: FC<TrackListItemProps> = observer(({ trackId }) => {
   const rootStore = useStores()
   const { song, pianoRollStore, rootViewStore, trackMute, router } = rootStore
@@ -177,31 +186,15 @@ export const TrackListItem: FC<TrackListItemProps> = observer(({ trackId }) => {
             <Instrument>{instrument}</Instrument>
           </Label>
           <Controls>
-            <IconButton
-              active={solo}
-              onClick={onClickSolo}
-              style={{ marginRight: "0.5rem" }}
-            >
-              <Headset fontSize="small" />
-            </IconButton>
-            <IconButton
-              active={mute}
-              onClick={onClickMute}
-              style={{ marginRight: "0.5rem" }}
-            >
-              {mute ? (
-                <VolumeOff fontSize="small" />
-              ) : (
-                <VolumeUp fontSize="small" />
-              )}
-            </IconButton>
-            <IconButton
-              active={ghostTrack}
-              onClick={onClickGhostTrack}
-              style={{ marginRight: "0.5rem" }}
-            >
-              <Layers fontSize="small" />
-            </IconButton>
+            <ControlButton active={solo} onClick={onClickSolo}>
+              <Headset />
+            </ControlButton>
+            <ControlButton active={mute} onClick={onClickMute}>
+              {mute ? <VolumeOff /> : <VolumeUp />}
+            </ControlButton>
+            <ControlButton active={ghostTrack} onClick={onClickGhostTrack}>
+              <Layers />
+            </ControlButton>
             {channel !== undefined && (
               <ChannelName onClick={openDialog}>CH {channel + 1}</ChannelName>
             )}

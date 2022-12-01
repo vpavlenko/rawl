@@ -1,5 +1,6 @@
 import styled from "@emotion/styled"
-import { Pause, PlayArrow } from "@mui/icons-material"
+import Pause from "mdi-react/PauseIcon"
+import PlayArrow from "mdi-react/PlayArrowIcon"
 import { FC } from "react"
 import { localized } from "../../../common/localize/localizedString"
 import { Tooltip } from "../../../components/Tooltip"

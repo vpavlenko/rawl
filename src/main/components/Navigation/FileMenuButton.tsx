@@ -1,4 +1,5 @@
-import { CloudOutlined, KeyboardArrowDown } from "@mui/icons-material"
+import CloudOutlined from "mdi-react/CloudOutlineIcon"
+import KeyboardArrowDown from "mdi-react/KeyboardArrowDownIcon"
 import { observer } from "mobx-react-lite"
 import { FC, useCallback, useRef } from "react"
 import { localized } from "../../../common/localize/localizedString"
@@ -57,7 +58,7 @@ export const FileMenuButton: FC = observer(() => {
               rootViewStore.openSignInDialog = true
             }}
           >
-            <CloudOutlined sx={{ marginRight: "0.5em" }} />
+            <CloudOutlined style={{ marginRight: "0.5em" }} />
             {localized("please-sign-up", "Sign up to use Cloud Save")}
           </MenuItem>
         </>

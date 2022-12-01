@@ -1,6 +1,8 @@
 import styled from "@emotion/styled"
-import { Add, FiberManualRecord, Remove } from "@mui/icons-material"
 import useComponentSize from "@rehooks/component-size"
+import Add from "mdi-react/AddIcon"
+import FiberManualRecord from "mdi-react/FiberManualRecordIcon"
+import Minus from "mdi-react/MinusIcon"
 import React, { FC, useRef } from "react"
 import { BAR_WIDTH, ScrollBar, ScrollBarProps } from "./ScrollBar"
 
@@ -40,7 +42,7 @@ const HorizontalScaleScrollBar_: FC<HorizontalScaleScrollBarProps> = (
   return (
     <ScrollBar ref={ref} isVertical={false} {...props} barLength={barLength}>
       <ScaleButton style={buttonStyle} onClick={props.onClickScaleDown}>
-        <Remove />
+        <Minus />
       </ScaleButton>
       <ScaleButton style={buttonStyle} onClick={props.onClickScaleReset}>
         <FiberManualRecord />
@@ -82,7 +84,7 @@ const VerticalScaleScrollBar_: FC<
         <FiberManualRecord />
       </ScaleButton>
       <ScaleButton style={buttonStyle} onClick={props.onClickScaleDown}>
-        <Remove />
+        <Minus />
       </ScaleButton>
     </ScrollBar>
   )

@@ -1,5 +1,5 @@
 import styled from "@emotion/styled"
-import { Add } from "@mui/icons-material"
+import Add from "mdi-react/AddIcon"
 import { observer } from "mobx-react-lite"
 import { FC, useCallback } from "react"
 import { localized } from "../../../common/localize/localizedString"

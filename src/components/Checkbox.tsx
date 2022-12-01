@@ -1,6 +1,6 @@
 import styled from "@emotion/styled"
-import { Check } from "@mui/icons-material"
 import { CheckboxProps, Indicator, Root } from "@radix-ui/react-checkbox"
+import Check from "mdi-react/CheckIcon"
 import { FC, ReactNode } from "react"
 import { Label } from "./Label"
 

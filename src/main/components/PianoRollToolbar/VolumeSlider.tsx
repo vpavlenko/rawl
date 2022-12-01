@@ -1,5 +1,5 @@
 import styled from "@emotion/styled"
-import { VolumeUp } from "@mui/icons-material"
+import VolumeUp from "mdi-react/VolumeHighIcon"
 import { observer } from "mobx-react-lite"
 import React, { FC, useCallback } from "react"
 import { Slider } from "../../../components/Slider"
@@ -15,6 +15,8 @@ const Container = styled.div`
 `
 
 const VolumeIcon = styled(VolumeUp)`
+  width: 2rem;
+  height: 2rem;
   color: ${({ theme }) => theme.secondaryTextColor};
   margin-right: 0.5rem;
 `

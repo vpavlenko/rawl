@@ -1,5 +1,5 @@
 import styled from "@emotion/styled"
-import { ArrowDropDown } from "@mui/icons-material"
+import ArrowDropDown from "mdi-react/ArrowDropDownIcon"
 import { DetailedHTMLProps, FC } from "react"
 
 const StyledSelect = styled.select`

@@ -1,5 +1,6 @@
 import styled from "@emotion/styled"
-import { SkipNext, SkipPrevious } from "@mui/icons-material"
+import SkipNext from "mdi-react/SkipNextIcon"
+import SkipPrevious from "mdi-react/SkipPreviousIcon"
 import { FC } from "react"
 import { Slider } from "../../components/Slider"
 import { CircleButton } from "../../main/components/TransportPanel/CircleButton"

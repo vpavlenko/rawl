@@ -1,5 +1,5 @@
-import { AccountCircle } from "@mui/icons-material"
 import { User } from "firebase/auth"
+import AccountCircle from "mdi-react/AccountCircleIcon"
 import { FC, useRef, useState } from "react"
 import { localized } from "../../../common/localize/localizedString"
 import { Menu, MenuItem } from "../../../components/Menu"

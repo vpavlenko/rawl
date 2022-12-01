@@ -23,7 +23,7 @@ export const PromptDialog: FC<PromptProps> = (props) => {
   }
 
   return (
-    <Dialog open={true} onOpenChange={onCancel} style={{ width: "12rem" }}>
+    <Dialog open={true} onOpenChange={onCancel} style={{ width: "20rem" }}>
       <DialogTitle>{props.title}</DialogTitle>
       <DialogContent>
         <TextField
@@ -36,6 +36,7 @@ export const PromptDialog: FC<PromptProps> = (props) => {
               onClickOK()
             }
           }}
+          style={{ width: "100%" }}
         />
       </DialogContent>
       <DialogActions>

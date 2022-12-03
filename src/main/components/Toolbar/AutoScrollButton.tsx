@@ -19,9 +19,9 @@ export const AutoScrollButton: FC<AutoScrollButtonProps> = ({
   onClick,
   selected,
 }) => (
-  <ToolbarButton onClick={onClick} selected={selected}>
-    <Tooltip title={localized("auto-scroll", "Auto-Scroll")}>
+  <Tooltip title={localized("auto-scroll", "Auto-Scroll")}>
+    <ToolbarButton onClick={onClick} selected={selected}>
       <AutoScrollIcon />
-    </Tooltip>
-  </ToolbarButton>
+    </ToolbarButton>
+  </Tooltip>
 )

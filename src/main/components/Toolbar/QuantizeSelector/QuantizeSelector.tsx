@@ -89,11 +89,11 @@ function QuantizeSelector({
 
   return (
     <Container>
-      <Switch selected={enabled} onClick={onClickSwitch}>
-        <Tooltip title={localized("snap-to-grid", "Snap to Grid")}>
+      <Tooltip title={localized("snap-to-grid", "Snap to Grid")}>
+        <Switch selected={enabled} onClick={onClickSwitch}>
           <Note />
-        </Tooltip>
-      </Switch>
+        </Switch>
+      </Tooltip>
       <QuantizePopup
         value={denominator}
         values={list}

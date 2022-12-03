@@ -8,7 +8,7 @@ const SentryWebpackPlugin = require("@sentry/webpack-plugin")
 module.exports = merge(common, {
   mode: "production",
   optimization: {
-    minimize: false,
+    concatenateModules: false,
   },
   devtool: "source-map",
   module: {

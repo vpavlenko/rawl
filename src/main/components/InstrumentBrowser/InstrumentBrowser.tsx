@@ -5,7 +5,7 @@ import difference from "lodash/difference"
 import groupBy from "lodash/groupBy"
 import range from "lodash/range"
 import { observer } from "mobx-react-lite"
-import { FC } from "react"
+import { FC, PropsWithChildren } from "react"
 import { isNotUndefined } from "../../../common/helpers/array"
 import { localized } from "../../../common/localize/localizedString"
 import {
@@ -69,33 +69,48 @@ const Right = styled.div`
   width: 21rem;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 `
 
-const Select = styled.select`
+const Select = styled.div`
   overflow: auto;
   background-color: #00000024;
   border: 1px solid ${({ theme }) => theme.dividerColor};
+  max-height: 22rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 
   &:focus {
     outline: ${({ theme }) => theme.themeColor} 1px solid;
-
-    option:checked {
-      box-shadow: 0 0 10px 100px ${({ theme }) => theme.themeColor} inset;
-    }
   }
 `
 
-const Option = styled.option`
+const _Option = styled.div`
   padding: 0.5em 1em;
+  flex-shrink: 0;
   font-size: 0.9rem;
-  color: ${({ theme }) => theme.textColor};
-  height: 1.2rem;
+  height: 2rem;
+  box-sizing: border-box;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  user-select: none;
 
-  &:checked {
+  &.checked {
     background: ${({ theme }) => theme.themeColor};
-    box-shadow: none;
   }
 `
+
+const Option: FC<
+  PropsWithChildren<{ checked: boolean; onClick: () => void }>
+> = ({ checked, onClick, children }) => {
+  return (
+    <_Option className={checked ? "checked" : ""} onClick={onClick}>
+      {children}
+    </_Option>
+  )
+}
 
 const Footer = styled.div`
   margin-top: 1rem;
@@ -111,20 +126,6 @@ const InstrumentBrowser: FC<InstrumentBrowserProps> = ({
 }) => {
   const selectedCategoryId = getCategoryIndex(programNumber)
 
-  const onChangeCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    onChange({
-      programNumber: e.target.selectedIndex * 8, // カテゴリの最初の楽器を選ぶ -> Choose the first instrument of the category
-      isRhythmTrack,
-    })
-  }
-
-  const onChangeInstrument = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    onChange({
-      programNumber: parseInt(e.target.value),
-      isRhythmTrack,
-    })
-  }
-
   const onChangeRhythmTrack = (state: CheckedState) => {
     onChange({ programNumber, isRhythmTrack: state === true })
   }
@@ -137,7 +138,16 @@ const InstrumentBrowser: FC<InstrumentBrowserProps> = ({
   const categoryOptions = presetCategories.map(
     (preset: PresetCategory, i: number) => {
       return (
-        <Option key={i} value={i}>
+        <Option
+          key={i}
+          checked={i === selectedCategoryId}
+          onClick={() =>
+            onChange({
+              programNumber: i * 8, // Choose the first instrument of the category
+              isRhythmTrack,
+            })
+          }
+        >
           {preset.name}
         </Option>
       )
@@ -146,7 +156,13 @@ const InstrumentBrowser: FC<InstrumentBrowserProps> = ({
 
   const instrumentOptions = instruments.map((p: PresetItem, i: number) => {
     return (
-      <Option key={i} value={p.programNumber}>
+      <Option
+        key={i}
+        checked={i === programNumber - selectedCategoryId * 8}
+        onClick={() =>
+          onChange({ programNumber: p.programNumber, isRhythmTrack })
+        }
+      >
         {p.name}
       </Option>
     )
@@ -158,23 +174,11 @@ const InstrumentBrowser: FC<InstrumentBrowserProps> = ({
         <Finder className={isRhythmTrack ? "disabled" : ""}>
           <Left>
             <Label>{localized("categories", "Categories")}</Label>
-            <Select
-              size={12}
-              onChange={onChangeCategory}
-              value={selectedCategoryId}
-            >
-              {categoryOptions}
-            </Select>
+            <Select>{categoryOptions}</Select>
           </Left>
           <Right>
             <Label>{localized("instruments", "Instruments")}</Label>
-            <Select
-              size={12}
-              onChange={onChangeInstrument}
-              value={programNumber}
-            >
-              {instrumentOptions}
-            </Select>
+            <Select>{instrumentOptions}</Select>
           </Right>
         </Finder>
         <Footer>

@@ -49,6 +49,10 @@ const StyledContent = styled(Content)`
   max-height: 85vh;
   padding: 1rem;
   animation: ${contentShow} 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  pointer-events: auto;
+  overflow: hidden;
 
   &:focus {
     outline: none;
@@ -75,6 +79,7 @@ export const DialogTitle = styled.div`
 `
 
 export const DialogContent = styled.div`
+  overflow-y: auto;
   margin-bottom: 1rem;
 `
 

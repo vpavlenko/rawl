@@ -24,6 +24,7 @@ export const ToolbarButtonGroupItem = styled.button<{ selected?: boolean }>`
   display: flex;
   align-items: center;
   cursor: pointer;
+  margin: 0;
 
   border: 1px solid ${({ theme }) => theme.dividerColor};
   border-radius: 4px;

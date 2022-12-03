@@ -11,6 +11,9 @@ export const CircularProgress: FC<CircularProgressProps> = ({
 }) => {
   const theme = useTheme()
   return (
-    <NinetyRingWithBg width={size} height={size} color={theme.themeColor} />
+    <NinetyRingWithBg
+      style={{ width: size, height: size }}
+      color={theme.themeColor}
+    />
   )
 }

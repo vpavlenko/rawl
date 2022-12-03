@@ -1,4 +1,3 @@
-import { useTheme } from "@emotion/react"
 import styled from "@emotion/styled"
 import { QueryDocumentSnapshot } from "firebase/firestore"
 import ArrowDownward from "mdi-react/ArrowDownwardIcon"
@@ -13,6 +12,7 @@ import { Menu, MenuItem } from "../../../components/Menu"
 import { FirestoreSong, loadSong } from "../../../firebase/song"
 import { setSong } from "../../actions"
 import { useStores } from "../../hooks/useStores"
+import { useTheme } from "../../hooks/useTheme"
 import { useToast } from "../../hooks/useToast"
 import { CloudFileRow } from "./CloudFileRow"
 

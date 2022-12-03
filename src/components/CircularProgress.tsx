@@ -1,5 +1,5 @@
+import NinetyRingWithBg from "@ryohey/react-svg-spinners/dist/NinetyRingWithBg"
 import { FC } from "react"
-import { NinetyRingWithBg } from "react-svg-spinners"
 import { useTheme } from "../main/hooks/useTheme"
 
 export interface CircularProgressProps {

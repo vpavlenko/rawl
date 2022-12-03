@@ -11,6 +11,7 @@ module.exports = {
   },
   output: {
     filename: "[name]-[chunkhash].js",
+    clean: true,
   },
   module: {
     rules: [

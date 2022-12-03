@@ -1,6 +1,6 @@
 import styled from "@emotion/styled"
 import KeyboardTab from "mdi-react/KeyboardTabIcon"
-import { VFC } from "react"
+import { FC } from "react"
 import { localized } from "../../../common/localize/localizedString"
 import { Tooltip } from "../../../components/Tooltip"
 import { ToolbarButton } from "./ToolbarButton"
@@ -15,7 +15,7 @@ export interface AutoScrollButtonProps {
   selected: boolean
 }
 
-export const AutoScrollButton: VFC<AutoScrollButtonProps> = ({
+export const AutoScrollButton: FC<AutoScrollButtonProps> = ({
   onClick,
   selected,
 }) => (

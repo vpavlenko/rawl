@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite"
-import { useCallback, VFC } from "react"
+import { FC, useCallback } from "react"
 import { localized } from "../../../common/localize/localizedString"
 import { Button } from "../../../components/Button"
 import {
@@ -12,7 +12,7 @@ import { LinearProgress } from "../../../components/LinearProgress"
 import { cancelExport } from "../../actions"
 import { useStores } from "../../hooks/useStores"
 
-export const ExportProgressDialog: VFC = observer(() => {
+export const ExportProgressDialog: FC = observer(() => {
   const rootStore = useStores()
   const { exportStore } = rootStore
   const { openExportProgressDialog: open, progress } = exportStore

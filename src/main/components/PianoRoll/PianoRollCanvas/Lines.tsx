@@ -1,13 +1,13 @@
 import { useTheme } from "@emotion/react"
 import Color from "color"
 import { observer } from "mobx-react-lite"
-import { VFC } from "react"
+import { FC } from "react"
 import { Layout } from "../../../Constants"
 import { colorToVec4 } from "../../../gl/color"
 import { useStores } from "../../../hooks/useStores"
 import { HorizontalGrid } from "./HorizontalGrid"
 
-export const Lines: VFC<{ zIndex: number }> = observer(({ zIndex }) => {
+export const Lines: FC<{ zIndex: number }> = observer(({ zIndex }) => {
   const theme = useTheme()
   const rootStore = useStores()
   const {

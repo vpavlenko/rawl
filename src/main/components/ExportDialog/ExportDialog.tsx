@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite"
-import { useCallback, useEffect, useState, VFC } from "react"
+import { FC, useCallback, useEffect, useState } from "react"
 import { localized } from "../../../common/localize/localizedString"
 import { Alert } from "../../../components/Alert"
 import { Button, PrimaryButton } from "../../../components/Button"
@@ -12,7 +12,7 @@ import {
 import { canExport, exportSongAsWav } from "../../actions"
 import { useStores } from "../../hooks/useStores"
 
-export const ExportDialog: VFC = observer(() => {
+export const ExportDialog: FC = observer(() => {
   const rootStore = useStores()
   const { exportStore, song } = rootStore
   const { openExportDialog: open } = exportStore

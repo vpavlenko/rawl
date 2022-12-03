@@ -1,6 +1,6 @@
 import { GLCanvas, Transform } from "@ryohey/webgl-react"
 import { observer } from "mobx-react-lite"
-import { CSSProperties, useCallback, useMemo, VFC } from "react"
+import { CSSProperties, FC, useCallback, useMemo } from "react"
 import { IPoint } from "../../../../common/geometry"
 import {
   bpmToUSecPerBeat,
@@ -24,7 +24,7 @@ export interface TempoGraphCanvasProps {
   style?: CSSProperties
 }
 
-export const TempoGraphCanvas: VFC<TempoGraphCanvasProps> = observer(
+export const TempoGraphCanvas: FC<TempoGraphCanvasProps> = observer(
   ({ width, height, style }) => {
     const rootStore = useStores()
 

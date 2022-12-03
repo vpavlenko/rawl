@@ -1,6 +1,6 @@
 import styled from "@emotion/styled"
 import { range } from "lodash"
-import { useEffect, useState, VFC } from "react"
+import { FC, useEffect, useState } from "react"
 import { localized } from "../../../common/localize/localizedString"
 import { Button, PrimaryButton } from "../../../components/Button"
 import {
@@ -32,7 +32,7 @@ const NumberInput = styled(TextField)`
   }
 `
 
-export const TimeSignatureDialog: VFC<TimeSignatureDialogProps> = ({
+export const TimeSignatureDialog: FC<TimeSignatureDialogProps> = ({
   initialNumerator = 4,
   initialDenominator = 4,
   open,

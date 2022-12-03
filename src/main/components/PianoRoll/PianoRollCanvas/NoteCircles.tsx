@@ -1,6 +1,6 @@
 import { GLNode, useProjectionMatrix } from "@ryohey/webgl-react"
 import { vec4 } from "gl-matrix"
-import { VFC } from "react"
+import { FC } from "react"
 import { IRect } from "../../../../common/geometry"
 import { DrumNoteShader } from "./shaders/DrumNoteShader"
 import { ISelectionData, IVelocityData, NoteBuffer } from "./shaders/NoteShader"
@@ -12,7 +12,7 @@ export interface NoteCirclesProps {
   zIndex?: number
 }
 
-export const NoteCircles: VFC<NoteCirclesProps> = ({
+export const NoteCircles: FC<NoteCirclesProps> = ({
   rects,
   fillColor,
   strokeColor,

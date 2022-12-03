@@ -3,12 +3,12 @@ import { Rectangles } from "@ryohey/webgl-react"
 import Color from "color"
 import { range } from "lodash"
 import { observer } from "mobx-react-lite"
-import { VFC } from "react"
+import { FC } from "react"
 import { IRect } from "../../../../common/geometry"
 import { colorToVec4 } from "../../../gl/color"
 import { useStores } from "../../../hooks/useStores"
 
-export const Lines: VFC<{ width: number; zIndex: number }> = observer(
+export const Lines: FC<{ width: number; zIndex: number }> = observer(
   ({ width, zIndex }) => {
     const rootStore = useStores()
     const theme = useTheme()

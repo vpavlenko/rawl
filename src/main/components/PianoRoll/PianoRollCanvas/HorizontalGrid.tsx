@@ -1,6 +1,6 @@
 import { GLNode, useProjectionMatrix } from "@ryohey/webgl-react"
 import { vec4 } from "gl-matrix"
-import { VFC } from "react"
+import { FC } from "react"
 import { IRect } from "../../../../common/geometry"
 import {
   HorizontalGridBuffer,
@@ -16,7 +16,7 @@ export interface HorizontalGridProps {
   zIndex?: number
 }
 
-export const HorizontalGrid: VFC<HorizontalGridProps> = ({
+export const HorizontalGrid: FC<HorizontalGridProps> = ({
   rect,
   color,
   highlightedColor,

@@ -79,6 +79,7 @@ export const DialogTitle = styled.div`
 `
 
 export const DialogContent = styled.div`
+  overflow-x: hidden;
   overflow-y: auto;
   margin-bottom: 1rem;
 `

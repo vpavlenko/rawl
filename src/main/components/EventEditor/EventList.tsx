@@ -122,6 +122,9 @@ const StyledInput = styled.input`
   font-family: inherit;
   outline: none;
 
+  /* Hide spin button on Firefox */
+  -moz-appearance: textfield;
+
   &::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;

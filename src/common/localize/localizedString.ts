@@ -2,13 +2,13 @@ import localization from "./localization"
 
 export type Language = "en" | "ja" | "zh"
 
-export function localized(key: string): string
+export function localized(key: string): string | undefined
 export function localized(key: string, defaultValue: string): string
 export function localized(
   key: string,
-  defaultValue?: string,
+  defaultValue: string,
   language?: Language
-): string | undefined
+): string
 export function localized(
   key: string,
   defaultValue?: string,

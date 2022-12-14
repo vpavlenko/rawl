@@ -10,7 +10,6 @@ import {
 import { action, computed, makeObservable, observable, transaction } from "mobx"
 import { createModelSchema, list, primitive } from "serializr"
 import { pojo } from "../helpers/pojo"
-import { localized } from "../localize/localizedString"
 import { programChangeMidiEvent, trackNameMidiEvent } from "../midi/MidiEvent"
 import { isControllerEventWithType, isNoteEvent } from "./identify"
 import {
@@ -45,7 +44,6 @@ export default class Track {
       addEvent: action,
       addEvents: action,
       sortByTick: action,
-      displayName: computed,
       name: computed,
       endOfTrack: computed,
       programNumber: computed,
@@ -199,18 +197,6 @@ export default class Track {
         .filter((e) => e.id !== event.id)
         .map((e) => e.id)
     )
-  }
-
-  // 表示用の名前 トラック名がなければトラック番号を表示する
-  // Display the track number if there is no name track name for display
-  get displayName() {
-    if (this.name && this.name.length > 0) {
-      return this.name
-    }
-    if (this.channel === undefined) {
-      return localized("conductor-track", "Conductor Track")
-    }
-    return `${localized("track", "Track")} ${this.channel + 1}`
   }
 
   private setControllerValue = (

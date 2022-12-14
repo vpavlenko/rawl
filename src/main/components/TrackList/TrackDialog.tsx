@@ -12,6 +12,7 @@ import { Localized } from "../../../components/Localized"
 import { Select } from "../../../components/Select"
 import { TextField } from "../../../components/TextField"
 import { useStores } from "../../hooks/useStores"
+import { TrackName } from "./TrackName"
 
 export interface TrackDialogProps {
   trackId: number
@@ -38,7 +39,8 @@ export const TrackDialog: FC<TrackDialogProps> = ({
   return (
     <Dialog open={open} onOpenChange={onClose} style={{ minWidth: "20rem" }}>
       <DialogTitle>
-        <Localized default="Track">track</Localized>: {track.displayName}
+        <Localized default="Track">track</Localized>:{" "}
+        <TrackName track={track} />
       </DialogTitle>
       <DialogContent>
         <Label>

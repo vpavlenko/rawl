@@ -1,11 +1,11 @@
 import React, { FC, useCallback, useState } from "react"
 import { envString } from "../../../common/localize/envString"
-import { localized } from "../../../common/localize/localizedString"
 import {
   ContextMenu,
   ContextMenuHotKey as HotKey,
   ContextMenuProps,
 } from "../../../components/ContextMenu"
+import { Localized } from "../../../components/Localized"
 import { MenuItem } from "../../../components/Menu"
 import { addTimeSignature, setLoopBegin, setLoopEnd } from "../../actions"
 import { useStores } from "../../hooks/useStores"
@@ -57,21 +57,25 @@ export const RulerContextMenu: FC<RulerContextMenuProps> = React.memo(
       <>
         <ContextMenu {...props}>
           <MenuItem onClick={onClickSetLoopStart}>
-            {localized("set-loop-start", "Set Loop Start")}
+            <Localized default="Set Loop Start">set-loop-start</Localized>
             <HotKey>{envString.cmdOrCtrl}+Click</HotKey>
           </MenuItem>
           <MenuItem onClick={onClickSetLoopEnd}>
-            {localized("set-loop-end", "Set Loop End")}
+            <Localized default="Set Loop End">set-loop-end</Localized>
             <HotKey>Alt+Click</HotKey>
           </MenuItem>
           <MenuItem onClick={onClickAddTimeSignature}>
-            {localized("add-time-signature", "Add Time Signature")}
+            <Localized default="Add Time Signature">
+              add-time-signature
+            </Localized>
           </MenuItem>
           <MenuItem
             onClick={onClickRemoveTimeSignature}
             disabled={!isTimeSignatureSelected}
           >
-            {localized("remove-time-signature", "Remove Time Signature")}
+            <Localized default="Remove Time Signature">
+              remove-time-signature
+            </Localized>
           </MenuItem>
         </ContextMenu>
         <TimeSignatureDialog

@@ -1,6 +1,6 @@
 import { FC } from "react"
-import { localized } from "../../../common/localize/localizedString"
 import { ContextMenu, ContextMenuProps } from "../../../components/ContextMenu"
+import { Localized } from "../../../components/Localized"
 import { MenuItem } from "../../../components/Menu"
 
 export type TrackListContextMenuProps = ContextMenuProps & {
@@ -25,7 +25,7 @@ export const TrackListContextMenu: FC<TrackListContextMenuProps> = ({
           handleClose()
         }}
       >
-        {localized("add-track", "Add track")}
+        <Localized default="Add track">add-track</Localized>
       </MenuItem>
       <MenuItem
         onClick={(e) => {
@@ -34,7 +34,7 @@ export const TrackListContextMenu: FC<TrackListContextMenuProps> = ({
           handleClose()
         }}
       >
-        {localized("delete-track", "Delete track")}
+        <Localized default="Delete track">delete-track</Localized>
       </MenuItem>
       <MenuItem
         onClick={(e) => {
@@ -43,7 +43,7 @@ export const TrackListContextMenu: FC<TrackListContextMenuProps> = ({
           handleClose()
         }}
       >
-        {localized("property", "Property")}
+        <Localized default="Property">property</Localized>
       </MenuItem>
     </ContextMenu>
   )

@@ -1,6 +1,6 @@
 import styled from "@emotion/styled"
 import { FC, useCallback } from "react"
-import { localized } from "../../../common/localize/localizedString"
+import { Localized } from "../../../components/Localized"
 import { Tooltip } from "../../../components/Tooltip"
 import PencilIcon from "../../images/icons/pencil.svg"
 import SelectionIcon from "../../images/icons/selection.svg"
@@ -36,7 +36,13 @@ export const ToolSelector: FC<ToolSelectorProps> = ({
         onClick={useCallback(() => onSelect("pencil"), [])}
         selected={mouseMode === "pencil"}
       >
-        <Tooltip title={`${localized("pencil-tool", "Pencil Tool")} [1]`}>
+        <Tooltip
+          title={
+            <>
+              <Localized default="Pencil Tool">pencil-tool</Localized> [1]
+            </>
+          }
+        >
           <IconWrapper>
             <PencilIcon
               style={{
@@ -55,7 +61,13 @@ export const ToolSelector: FC<ToolSelectorProps> = ({
         onClick={useCallback(() => onSelect("selection"), [])}
         selected={mouseMode === "selection"}
       >
-        <Tooltip title={`${localized("selection-tool", "Selection Tool")} [2]`}>
+        <Tooltip
+          title={
+            <>
+              <Localized default="Selection Tool">selection-tool</Localized> [2]
+            </>
+          }
+        >
           <IconWrapper>
             <SelectionIcon
               style={{

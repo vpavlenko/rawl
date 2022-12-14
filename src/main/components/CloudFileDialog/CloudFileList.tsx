@@ -8,6 +8,7 @@ import { FC, useEffect } from "react"
 import { localized } from "../../../common/localize/localizedString"
 import { CircularProgress } from "../../../components/CircularProgress"
 import { IconButton } from "../../../components/IconButton"
+import { Localized } from "../../../components/Localized"
 import { Menu, MenuItem } from "../../../components/Menu"
 import { FirestoreSong, loadSong } from "../../../firebase/song"
 import { setSong } from "../../actions"
@@ -115,7 +116,7 @@ export const CloudFileList = observer(() => {
           }}
           isSelected={selectedColumn === "name"}
         >
-          {localized("name", "Name")}
+          <Localized default="Name">name</Localized>
           <div style={{ width: "0.5rem" }}></div>
           {selectedColumn === "name" && (
             <SortButton sortAscending={sortAscending} />
@@ -144,10 +145,10 @@ export const CloudFileList = observer(() => {
             }
           >
             <MenuItem onClick={() => (cloudFileStore.dateType = "created")}>
-              {localized("created-date", "Created")}
+              <Localized default="Created">created-date</Localized>
             </MenuItem>
             <MenuItem onClick={() => (cloudFileStore.dateType = "updated")}>
-              {localized("modified-date", "Modified")}
+              <Localized default="Modified">modified-date</Localized>
             </MenuItem>
           </Menu>
           {selectedColumn === "date" && (

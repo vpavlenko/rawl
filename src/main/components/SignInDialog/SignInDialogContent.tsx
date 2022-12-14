@@ -13,6 +13,7 @@ import "firebase/auth"
 import { GithubAuthProvider, GoogleAuthProvider } from "firebase/auth"
 import { Alert } from "../../../components/Alert"
 import { Button } from "../../../components/Button"
+import { Localized } from "../../../components/Localized"
 import { auth } from "../../../firebase/firebase"
 
 const BetaLabel = styled.span`
@@ -44,7 +45,7 @@ export const SignInDialogContent: FC<SignInDialogContentProps> = ({
   return (
     <Dialog open={open} onOpenChange={onClose} style={{ minWidth: "20rem" }}>
       <DialogTitle>
-        {localized("sign-in", "Sign in")}
+        <Localized default="Sign in">sign-in</Localized>
         <BetaLabel>Beta</BetaLabel>
       </DialogTitle>
       <DialogContent>
@@ -79,7 +80,9 @@ export const SignInDialogContent: FC<SignInDialogContentProps> = ({
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>{localized("close", "Close")}</Button>
+        <Button onClick={onClose}>
+          <Localized default="Close">close</Localized>
+        </Button>
       </DialogActions>
     </Dialog>
   )

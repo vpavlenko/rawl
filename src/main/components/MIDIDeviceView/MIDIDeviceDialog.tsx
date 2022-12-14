@@ -1,7 +1,6 @@
 import styled from "@emotion/styled"
 import { observer } from "mobx-react-lite"
 import { FC } from "react"
-import { localized } from "../../../common/localize/localizedString"
 import { Alert } from "../../../components/Alert"
 import { Button } from "../../../components/Button"
 import { Checkbox } from "../../../components/Checkbox"
@@ -13,6 +12,7 @@ import {
   DialogTitle,
 } from "../../../components/Dialog"
 import { Label } from "../../../components/Label"
+import { Localized } from "../../../components/Localized"
 import { useStores } from "../../hooks/useStores"
 
 interface Device {
@@ -106,7 +106,9 @@ export const MIDIDeviceDialog: FC = observer(() => {
 
   return (
     <Dialog open={isOpen} onOpenChange={close} style={{ minWidth: "20rem" }}>
-      <DialogTitle>{localized("midi-settings", "MIDI Settings")}</DialogTitle>
+      <DialogTitle>
+        <Localized default="MIDI Settings">midi-settings</Localized>
+      </DialogTitle>
       <DialogContent>
         {isLoading && <CircularProgress />}
         {requestError && (
@@ -117,7 +119,9 @@ export const MIDIDeviceDialog: FC = observer(() => {
         )}
         {!isLoading && (
           <>
-            <SectionTitle>{localized("inputs", "Inputs")}</SectionTitle>
+            <SectionTitle>
+              <Localized default="Inputs">inputs</Localized>
+            </SectionTitle>
             <DeviceList>
               {inputDevices.map(({ device, isSelected }) => (
                 <DeviceRow
@@ -133,7 +137,9 @@ export const MIDIDeviceDialog: FC = observer(() => {
             {
               <>
                 <Spacer />
-                <SectionTitle>{localized("outputs", "Outputs")}</SectionTitle>
+                <SectionTitle>
+                  <Localized default="Outputs">outputs</Localized>
+                </SectionTitle>
                 <DeviceList>
                   <DeviceRow
                     device={factorySound}
@@ -159,7 +165,9 @@ export const MIDIDeviceDialog: FC = observer(() => {
         )}
       </DialogContent>
       <DialogActions>
-        <Button onClick={close}>{localized("close", "Close")}</Button>
+        <Button onClick={close}>
+          <Localized default="Close">close</Localized>
+        </Button>
       </DialogActions>
     </Dialog>
   )

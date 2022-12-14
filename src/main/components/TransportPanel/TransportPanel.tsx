@@ -7,8 +7,8 @@ import MetronomeIcon from "mdi-react/MetronomeIcon"
 import Stop from "mdi-react/StopIcon"
 import { observer } from "mobx-react-lite"
 import { FC, useCallback } from "react"
-import { localized } from "../../../common/localize/localizedString"
 import { CircularProgress } from "../../../components/CircularProgress"
+import { Localized } from "../../../components/Localized"
 import { Tooltip } from "../../../components/Tooltip"
 import {
   fastForwardOneBar,
@@ -99,13 +99,16 @@ export const TransportPanel: FC = observer(() => {
 
   return (
     <Toolbar>
-      <Tooltip title={`${localized("rewind", "Rewind")}`} side="top">
+      <Tooltip
+        title={<Localized default="Rewind">rewind</Localized>}
+        side="top"
+      >
         <CircleButton onClick={onClickBackward}>
           <FastRewind />
         </CircleButton>
       </Tooltip>
 
-      <Tooltip title={`${localized("stop", "Stop")}`} side="top">
+      <Tooltip title={<Localized default="Stop">stop</Localized>} side="top">
         <CircleButton onClick={onClickStop}>
           <Stop />
         </CircleButton>
@@ -114,7 +117,10 @@ export const TransportPanel: FC = observer(() => {
       <PlayButton onClick={onClickPlay} isPlaying={isPlaying} />
 
       {canRecording && (
-        <Tooltip title={`${localized("record", "Record")}`} side="top">
+        <Tooltip
+          title={<Localized default="Record">record</Localized>}
+          side="top"
+        >
           <RecordButton
             onClick={onClickRecord}
             className={isRecording ? "active" : undefined}
@@ -125,7 +131,7 @@ export const TransportPanel: FC = observer(() => {
       )}
 
       <Tooltip
-        title={`${localized("fast-forward", "Fast Forward")}`}
+        title={<Localized default="Fast Forward">fast-forward</Localized>}
         side="top"
       >
         <CircleButton onClick={onClickForward}>

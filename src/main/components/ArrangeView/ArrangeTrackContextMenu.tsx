@@ -1,6 +1,6 @@
 import { FC } from "react"
-import { localized } from "../../../common/localize/localizedString"
 import { ContextMenu, ContextMenuProps } from "../../../components/ContextMenu"
+import { Localized } from "../../../components/Localized"
 import { MenuItem } from "../../../components/Menu"
 import { duplicateTrack, insertTrack, removeTrack } from "../../actions"
 import { useStores } from "../../hooks/useStores"
@@ -22,7 +22,7 @@ export const ArrangeTrackContextMenu: FC<ContextMenuProps> = (props) => {
           handleClose()
         }}
       >
-        {localized("add-track", "Add track")}
+        <Localized default="Add track">add-track</Localized>
       </MenuItem>
       {selectedTrackId > 0 && tracks.length > 2 && (
         <MenuItem
@@ -32,7 +32,7 @@ export const ArrangeTrackContextMenu: FC<ContextMenuProps> = (props) => {
             handleClose()
           }}
         >
-          {localized("delete-track", "Delete track")}
+          <Localized default="Delete track">delete-track</Localized>
         </MenuItem>
       )}
       {selectedTrackId > 0 && (
@@ -43,7 +43,7 @@ export const ArrangeTrackContextMenu: FC<ContextMenuProps> = (props) => {
             handleClose()
           }}
         >
-          {localized("duplicate-track", "Duplicate track")}
+          <Localized default="Duplicate track">duplicate-track</Localized>
         </MenuItem>
       )}
     </ContextMenu>

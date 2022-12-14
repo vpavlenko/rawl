@@ -2,7 +2,7 @@ import styled from "@emotion/styled"
 import FiberManualRecord from "mdi-react/FiberManualRecordIcon"
 import MusicNote from "mdi-react/MusicNoteIcon"
 import React from "react"
-import { localized } from "../../../../common/localize/localizedString"
+import { Localized } from "../../../../components/Localized"
 import { Tooltip } from "../../../../components/Tooltip"
 import {
   ToolbarButtonGroup,
@@ -89,7 +89,9 @@ function QuantizeSelector({
 
   return (
     <Container>
-      <Tooltip title={localized("snap-to-grid", "Snap to Grid")}>
+      <Tooltip
+        title={<Localized default="Snap to Grid">snap-to-grid</Localized>}
+      >
         <Switch selected={enabled} onClick={onClickSwitch}>
           <Note />
         </Switch>

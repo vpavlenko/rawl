@@ -2,7 +2,6 @@ import styled from "@emotion/styled"
 import { observer } from "mobx-react-lite"
 import { FC, ReactNode } from "react"
 import { envString } from "../../../common/localize/envString"
-import { localized } from "../../../common/localize/localizedString"
 import { Button } from "../../../components/Button"
 import {
   Dialog,
@@ -10,11 +9,12 @@ import {
   DialogContent,
   DialogTitle,
 } from "../../../components/Dialog"
+import { Localized } from "../../../components/Localized"
 import { useStores } from "../../hooks/useStores"
 
 interface HotKeyProps {
   hotKeys: string[][]
-  text: string
+  text: ReactNode
 }
 
 const HotKeyContainer = styled.div`
@@ -64,42 +64,62 @@ export const HelpDialog: FC = observer(() => {
 
   return (
     <Dialog open={isOpen} onOpenChange={close}>
-      <DialogTitle>{localized("help", "Help")}</DialogTitle>
+      <DialogTitle>
+        <Localized default="Help">help</Localized>
+      </DialogTitle>
       <DialogContent>
-        <h3>{localized("keyboard-shortcut", "Keyboard Shortcut")}</h3>
+        <h3>
+          <Localized default="Keyboard Shortcut">keyboard-shortcut</Localized>
+        </h3>
         <HotKey
           hotKeys={[["Space"]]}
-          text={localized("play-pause", "Play / Pause")}
+          text={<Localized default="Play / Pause">play-pause</Localized>}
         />
-        <HotKey hotKeys={[["Enter"]]} text={localized("stop", "Stop")} />
+        <HotKey
+          hotKeys={[["Enter"]]}
+          text={<Localized default="Stop">stop</Localized>}
+        />
         <HotKey
           hotKeys={[["A"], ["D"]]}
-          text={localized("forward-rewind", "Rewind / Forward")}
+          text={
+            <Localized default="Rewind / Forward">forward-rewind</Localized>
+          }
         />
         <HotKey
           hotKeys={[["S"], ["W"]]}
-          text={localized("next-previous-track", "Next / Previous Track")}
+          text={
+            <Localized default="Next / Previous Track">
+              next-previous-track
+            </Localized>
+          }
         />
         <HotKey
           hotKeys={[["N"], ["M"], [","]]}
-          text={localized("solo-mute-ghost", "Solo, Mute or Ghost Track")}
+          text={
+            <Localized default="Solo, Mute or Ghost Track">
+              solo-mute-ghost
+            </Localized>
+          }
         />
-        <HotKey hotKeys={[["T"]]} text={localized("transpose", "Transpose")} />
+        <HotKey
+          hotKeys={[["T"]]}
+          text={<Localized default="Transpose">transpose</Localized>}
+        />
         <HotKey
           hotKeys={[["1"]]}
-          text={localized("pencil-tool", "Pencil Tool")}
+          text={<Localized default="Pencil Tool">pencil-tool</Localized>}
         />
         <HotKey
           hotKeys={[["2"]]}
-          text={localized("selection-tool", "Selection Tool")}
+          text={<Localized default="Selection Tool">selection-tool</Localized>}
         />
         <HotKey
           hotKeys={[["↑"], ["↓"]]}
-          text={localized("move-selection", "Move selection")}
+          text={<Localized default="Move selection">move-selection</Localized>}
         />
         <HotKey
           hotKeys={[["←"], ["→"]]}
-          text={localized("select-note", "Select note")}
+          text={<Localized default="Select note">select-note</Localized>}
         />
         <HotKey
           hotKeys={[
@@ -107,60 +127,74 @@ export const HelpDialog: FC = observer(() => {
             [envString.cmdOrCtrl, "2"],
             [envString.cmdOrCtrl, "3"],
           ]}
-          text={localized("switch-tab", "Switch Tab")}
+          text={<Localized default="Switch Tab">switch-tab</Localized>}
         />
         <HotKey
           hotKeys={[
             [envString.cmdOrCtrl, "↑"],
             [envString.cmdOrCtrl, "↓"],
           ]}
-          text={localized("scroll-vertically", "Scroll Vertically")}
+          text={
+            <Localized default="Scroll Vertically">scroll-vertically</Localized>
+          }
         />
         <HotKey
           hotKeys={[
             [envString.cmdOrCtrl, "←"],
             [envString.cmdOrCtrl, "→"],
           ]}
-          text={localized("scroll-horizontally", "Scroll Horizontally")}
+          text={
+            <Localized default="Scroll Horizontally">
+              scroll-horizontally
+            </Localized>
+          }
         />
         <HotKey
           hotKeys={[[envString.cmdOrCtrl, "Z"]]}
-          text={localized("undo", "Undo")}
+          text={<Localized default="Undo">undo</Localized>}
         />
         <HotKey
           hotKeys={[
             [envString.cmdOrCtrl, "Y"],
             [envString.cmdOrCtrl, "Shift", "Z"],
           ]}
-          text={localized("redo", "Redo")}
+          text={<Localized default="Redo">redo</Localized>}
         />
         <HotKey
           hotKeys={[[envString.cmdOrCtrl, "C"]]}
-          text={localized("copy-selection", "Copy Selection")}
+          text={<Localized default="Copy Selection">copy-selection</Localized>}
         />
         <HotKey
           hotKeys={[["Delete"], ["Backspace"]]}
-          text={localized("delete-selection", "Delete Selection")}
+          text={
+            <Localized default="Delete Selection">delete-selection</Localized>
+          }
         />
         <HotKey
           hotKeys={[[envString.cmdOrCtrl, "X"]]}
-          text={localized("cut-selection", "Cut Selection")}
+          text={<Localized default="Cut Selection">cut-selection</Localized>}
         />
         <HotKey
           hotKeys={[[envString.cmdOrCtrl, "V"]]}
-          text={localized(
-            "paste-selection",
-            "Paste Copied Selection to Current Position"
-          )}
+          text={
+            <Localized default="Paste Copied Selection to Current Position">
+              paste-selection
+            </Localized>
+          }
         />
         <HotKey
           hotKeys={[[envString.cmdOrCtrl, "A"]]}
-          text={localized("select-all", "Select all")}
+          text={<Localized default="Select all">select-all</Localized>}
         />
-        <HotKey hotKeys={[["?"]]} text={localized("open-help", "Open Help")} />
+        <HotKey
+          hotKeys={[["?"]]}
+          text={<Localized default="Open Help">open-help</Localized>}
+        />
       </DialogContent>
       <DialogActions>
-        <Button onClick={close}>{localized("close", "Close")}</Button>
+        <Button onClick={close}>
+          <Localized default="Close">close</Localized>
+        </Button>
       </DialogActions>
     </Dialog>
   )

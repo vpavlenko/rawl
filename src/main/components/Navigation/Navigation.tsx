@@ -6,7 +6,7 @@ import Settings from "mdi-react/SettingsIcon"
 import { observer } from "mobx-react-lite"
 import { CSSProperties, FC, useCallback } from "react"
 import { envString } from "../../../common/localize/envString"
-import { localized } from "../../../common/localize/localizedString"
+import { Localized } from "../../../components/Localized"
 import { Tooltip } from "../../../components/Tooltip"
 import { useStores } from "../../hooks/useStores"
 import ArrangeIcon from "../../images/icons/arrange.svg"
@@ -93,9 +93,12 @@ export const Navigation: FC = observer(() => {
       <FileMenuButton />
 
       <Tooltip
-        title={`${localized("switch-tab", "Switch Tab")} [${
-          envString.cmdOrCtrl
-        }+1]`}
+        title={
+          <>
+            <Localized default="Switch Tab">switch-tab</Localized> [
+            {envString.cmdOrCtrl}+1]
+          </>
+        }
         delayDuration={500}
       >
         <Tab
@@ -103,14 +106,19 @@ export const Navigation: FC = observer(() => {
           onClick={useCallback(() => (router.path = "/track"), [])}
         >
           <PianoIcon style={IconStyle} viewBox="0 0 128 128" />
-          <TabTitle>{localized("piano-roll", "Piano Roll")}</TabTitle>
+          <TabTitle>
+            <Localized default="Piano Roll">piano-roll</Localized>
+          </TabTitle>
         </Tab>
       </Tooltip>
 
       <Tooltip
-        title={`${localized("switch-tab", "Switch Tab")} [${
-          envString.cmdOrCtrl
-        }+2]`}
+        title={
+          <>
+            <Localized default="Switch Tab">switch-tab</Localized> [
+            {envString.cmdOrCtrl}+2]
+          </>
+        }
         delayDuration={500}
       >
         <Tab
@@ -118,14 +126,19 @@ export const Navigation: FC = observer(() => {
           onClick={useCallback(() => (router.path = "/arrange"), [])}
         >
           <ArrangeIcon style={IconStyle} viewBox="0 0 128 128" />
-          <TabTitle>{localized("arrange", "Arrange")}</TabTitle>
+          <TabTitle>
+            <Localized default="Arrange">arrange</Localized>
+          </TabTitle>
         </Tab>
       </Tooltip>
 
       <Tooltip
-        title={`${localized("switch-tab", "Switch Tab")} [${
-          envString.cmdOrCtrl
-        }+3]`}
+        title={
+          <>
+            <Localized default="Switch Tab">switch-tab</Localized> [
+            {envString.cmdOrCtrl}+3]
+          </>
+        }
         delayDuration={500}
       >
         <Tab
@@ -133,7 +146,9 @@ export const Navigation: FC = observer(() => {
           onClick={useCallback(() => (router.path = "/tempo"), [])}
         >
           <TempoIcon style={IconStyle} viewBox="0 0 128 128" />
-          <TabTitle>{localized("tempo", "Tempo")}</TabTitle>
+          <TabTitle>
+            <Localized default="Tempo">tempo</Localized>
+          </TabTitle>
         </Tab>
       </Tooltip>
 
@@ -143,17 +158,23 @@ export const Navigation: FC = observer(() => {
         onClick={useCallback(() => (rootViewStore.openDeviceDialog = true), [])}
       >
         <Settings style={IconStyle} />
-        <TabTitle>{localized("settings", "Settings")}</TabTitle>
+        <TabTitle>
+          <Localized default="Settings">settings</Localized>
+        </TabTitle>
       </Tab>
 
       <Tab onClick={useCallback(() => (rootViewStore.openHelp = true), [])}>
         <Help style={IconStyle} />
-        <TabTitle>{localized("help", "Help")}</TabTitle>
+        <TabTitle>
+          <Localized default="Help">help</Localized>
+        </TabTitle>
       </Tab>
 
       <Tab id="open-gitter-button">
         <Forum style={IconStyle} />
-        <TabTitle>{localized("open-chat", "Open Chat")}</TabTitle>
+        <TabTitle>
+          <Localized default="Open Chat">open-chat</Localized>
+        </TabTitle>
       </Tab>
 
       <UserButton />

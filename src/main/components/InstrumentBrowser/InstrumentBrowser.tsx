@@ -7,7 +7,6 @@ import range from "lodash/range"
 import { observer } from "mobx-react-lite"
 import { FC } from "react"
 import { isNotUndefined } from "../../../common/helpers/array"
-import { localized } from "../../../common/localize/localizedString"
 import {
   categoryEmojis,
   categoryNames,
@@ -23,6 +22,7 @@ import {
   DialogContent,
 } from "../../../components/Dialog"
 import { Label } from "../../../components/Label"
+import { Localized } from "../../../components/Localized"
 import { setTrackInstrument as setTrackInstrumentAction } from "../../actions"
 import { useStores } from "../../hooks/useStores"
 import { SelectBox } from "./SelectBox"
@@ -112,7 +112,7 @@ const InstrumentBrowser: FC<InstrumentBrowserProps> = ({
         <Finder className={isRhythmTrack ? "disabled" : ""}>
           <Left>
             <Label style={{ marginBottom: "0.5rem" }}>
-              {localized("categories", "Categories")}
+              <Localized default="Categories">categories</Localized>
             </Label>
             <SelectBox
               items={categoryOptions}
@@ -127,7 +127,7 @@ const InstrumentBrowser: FC<InstrumentBrowserProps> = ({
           </Left>
           <Right>
             <Label style={{ marginBottom: "0.5rem" }}>
-              {localized("instruments", "Instruments")}
+              <Localized default="Instruments">instruments</Localized>
             </Label>
             <SelectBox
               items={instrumentOptions}
@@ -142,14 +142,16 @@ const InstrumentBrowser: FC<InstrumentBrowserProps> = ({
           <Checkbox
             checked={isRhythmTrack}
             onCheckedChange={onChangeRhythmTrack}
-            label={localized("rhythm-track", "Rhythm Track")}
+            label=<Localized default="Rhythm Track">rhythm-track</Localized>
           />
         </Footer>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClickCancel}>{localized("cancel", "Cancel")}</Button>
+        <Button onClick={onClickCancel}>
+          <Localized default="Cancel">cancel</Localized>
+        </Button>
         <PrimaryButton onClick={onClickOK}>
-          {localized("ok", "OK")}
+          <Localized default="OK">ok</Localized>
         </PrimaryButton>
       </DialogActions>
     </Dialog>

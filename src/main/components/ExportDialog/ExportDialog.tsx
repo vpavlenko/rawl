@@ -1,6 +1,5 @@
 import { observer } from "mobx-react-lite"
 import { FC, useCallback, useEffect, useState } from "react"
-import { localized } from "../../../common/localize/localizedString"
 import { Alert } from "../../../components/Alert"
 import { Button, PrimaryButton } from "../../../components/Button"
 import {
@@ -9,6 +8,7 @@ import {
   DialogContent,
   DialogTitle,
 } from "../../../components/Dialog"
+import { Localized } from "../../../components/Localized"
 import { canExport, exportSongAsWav } from "../../actions"
 import { useStores } from "../../hooks/useStores"
 
@@ -35,20 +35,28 @@ export const ExportDialog: FC = observer(() => {
 
   return (
     <Dialog open={open} onOpenChange={onClose} style={{ minWidth: "20rem" }}>
-      <DialogTitle>{localized("export-audio", "Export Audio")}</DialogTitle>
+      <DialogTitle>
+        <Localized default="Export Audio">export-audio</Localized>
+      </DialogTitle>
       <DialogContent>
-        <p>{localized("file-type", "File Type")}: WAV</p>
+        <p>
+          <Localized default="File Type">file-type</Localized>: WAV
+        </p>
         {!exportEnabled && (
           <Alert severity="warning">
-            {localized("export-error-too-short", "Songs are too short")}
+            <Localized default="Songs are too short">
+              export-error-too-short
+            </Localized>
           </Alert>
         )}
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>{localized("close", "Close")}</Button>
+        <Button onClick={onClose}>
+          <Localized default="Close">close</Localized>
+        </Button>
         {exportEnabled && (
           <PrimaryButton onClick={onClickExport}>
-            {localized("export", "Export")}
+            <Localized default="Export">export</Localized>
           </PrimaryButton>
         )}
       </DialogActions>

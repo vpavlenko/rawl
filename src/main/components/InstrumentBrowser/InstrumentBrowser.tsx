@@ -5,7 +5,7 @@ import difference from "lodash/difference"
 import groupBy from "lodash/groupBy"
 import range from "lodash/range"
 import { observer } from "mobx-react-lite"
-import { FC, PropsWithChildren } from "react"
+import { FC } from "react"
 import { isNotUndefined } from "../../../common/helpers/array"
 import { localized } from "../../../common/localize/localizedString"
 import {
@@ -25,6 +25,7 @@ import {
 import { Label } from "../../../components/Label"
 import { setTrackInstrument as setTrackInstrumentAction } from "../../actions"
 import { useStores } from "../../hooks/useStores"
+import { SelectBox } from "./SelectBox"
 
 export interface InstrumentSetting {
   programNumber: number
@@ -72,46 +73,6 @@ const Right = styled.div`
   overflow: hidden;
 `
 
-const Select = styled.div`
-  overflow: auto;
-  background-color: #00000024;
-  border: 1px solid ${({ theme }) => theme.dividerColor};
-  max-height: 22rem;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-
-  &:focus {
-    outline: ${({ theme }) => theme.themeColor} 1px solid;
-  }
-`
-
-const _Option = styled.div`
-  padding: 0.5em 1em;
-  flex-shrink: 0;
-  font-size: 0.9rem;
-  height: 2rem;
-  box-sizing: border-box;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  user-select: none;
-
-  &.checked {
-    background: ${({ theme }) => theme.themeColor};
-  }
-`
-
-const Option: FC<
-  PropsWithChildren<{ checked: boolean; onClick: () => void }>
-> = ({ checked, onClick, children }) => {
-  return (
-    <_Option className={checked ? "checked" : ""} onClick={onClick}>
-      {children}
-    </_Option>
-  )
-}
-
 const Footer = styled.div`
   margin-top: 1rem;
 `
@@ -135,50 +96,46 @@ const InstrumentBrowser: FC<InstrumentBrowserProps> = ({
       ? presetCategories[selectedCategoryId].presets
       : []
 
-  const categoryOptions = presetCategories.map(
-    (preset: PresetCategory, i: number) => {
-      return (
-        <Option
-          key={i}
-          checked={i === selectedCategoryId}
-          onClick={() =>
-            onChange({
-              programNumber: i * 8, // Choose the first instrument of the category
-              isRhythmTrack,
-            })
-          }
-        >
-          {preset.name}
-        </Option>
-      )
-    }
-  )
+  const categoryOptions = presetCategories.map((preset, i) => ({
+    value: i,
+    name: preset.name,
+  }))
 
-  const instrumentOptions = instruments.map((p: PresetItem, i: number) => {
-    return (
-      <Option
-        key={i}
-        checked={i === programNumber - selectedCategoryId * 8}
-        onClick={() =>
-          onChange({ programNumber: p.programNumber, isRhythmTrack })
-        }
-      >
-        {p.name}
-      </Option>
-    )
-  })
+  const instrumentOptions = instruments.map((p) => ({
+    value: p.programNumber,
+    name: p.name,
+  }))
 
   return (
     <Dialog open={isOpen} onOpenChange={onClickCancel}>
       <DialogContent className="InstrumentBrowser">
         <Finder className={isRhythmTrack ? "disabled" : ""}>
           <Left>
-            <Label>{localized("categories", "Categories")}</Label>
-            <Select>{categoryOptions}</Select>
+            <Label style={{ marginBottom: "0.5rem" }}>
+              {localized("categories", "Categories")}
+            </Label>
+            <SelectBox
+              items={categoryOptions}
+              selectedValue={selectedCategoryId}
+              onChange={(i) =>
+                onChange({
+                  programNumber: i * 8, // Choose the first instrument of the category
+                  isRhythmTrack,
+                })
+              }
+            />
           </Left>
           <Right>
-            <Label>{localized("instruments", "Instruments")}</Label>
-            <Select>{instrumentOptions}</Select>
+            <Label style={{ marginBottom: "0.5rem" }}>
+              {localized("instruments", "Instruments")}
+            </Label>
+            <SelectBox
+              items={instrumentOptions}
+              selectedValue={programNumber}
+              onChange={(programNumber) =>
+                onChange({ programNumber, isRhythmTrack })
+              }
+            />
           </Right>
         </Finder>
         <Footer>

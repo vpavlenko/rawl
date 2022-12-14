@@ -24,12 +24,18 @@ const StyledSelect = styled.select`
   &:focus {
     border-color: ${({ theme }) => theme.themeColor};
   }
+
+  option {
+    color: ${({ theme }) => theme.textColor};
+    background: ${({ theme }) => theme.backgroundColor};
+  }
 `
 
 const Arrow = styled(ArrowDropDown)`
   position: absolute;
   right: 0.5rem;
   top: 0.8rem;
+  pointer-events: none;
 `
 
 const Wrapper = styled.div`

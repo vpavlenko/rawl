@@ -17,6 +17,7 @@ import PianoRollStore from "./PianoRollStore"
 import { registerReactions } from "./reactions"
 import RootViewStore from "./RootViewStore"
 import Router from "./Router"
+import SettingStore from "./SettingStore"
 import TempoEditorStore from "./TempoEditorStore"
 
 export default class RootStore {
@@ -32,6 +33,7 @@ export default class RootStore {
   readonly exportStore = new ExportStore()
   readonly authStore = new AuthStore()
   readonly cloudFileStore = new CloudFileStore()
+  readonly settingStore = new SettingStore()
   readonly player: Player
   readonly synth: SoundFontSynth
   readonly synthGroup = new GroupOutput()

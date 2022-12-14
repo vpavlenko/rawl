@@ -1,5 +1,4 @@
 import { FC } from "react"
-import { localized } from "../../../common/localize/localizedString"
 import {
   Dialog,
   DialogActions,
@@ -50,16 +49,14 @@ export const SignInDialogContent: FC<SignInDialogContentProps> = ({
       </DialogTitle>
       <DialogContent>
         <Alert severity="info">
-          {localized(
-            "cloud-beta-warning",
-            "Since the cloud function is in beta during development, please download and save your important songs frequently."
-          )}
+          <Localized default="Since the cloud function is in beta during development, please download and save your important songs frequently.">
+            cloud-beta-warning
+          </Localized>
         </Alert>
         <Description>
-          {localized(
-            "cloud-description",
-            "By signing in, you can save your music to the cloud and resume composing from anywhere at any time."
-          )}
+          <Localized default="By signing in, you can save your music to the cloud and resume composing from anywhere at any time.">
+            cloud-description
+          </Localized>
         </Description>
         <StyledFirebaseAuth
           uiConfig={{

@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite"
 import { FC, useCallback } from "react"
-import { localized } from "../../../common/localize/localizedString"
+import { useLocalization } from "../../hooks/useLocalization"
 import { useStores } from "../../hooks/useStores"
 import { useToast } from "../../hooks/useToast"
 import { SignInDialogContent } from "./SignInDialogContent"
@@ -12,6 +12,7 @@ export const SignInDialog: FC = observer(() => {
     rootViewStore: { openSignInDialog },
   } = rootStore
   const toast = useToast()
+  const localized = useLocalization()
 
   const onClose = useCallback(
     () => (rootViewStore.openSignInDialog = false),

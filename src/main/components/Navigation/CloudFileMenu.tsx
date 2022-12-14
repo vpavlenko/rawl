@@ -1,6 +1,5 @@
 import { observer } from "mobx-react-lite"
 import { ChangeEvent, FC } from "react"
-import { localized } from "../../../common/localize/localizedString"
 import { emptySong } from "../../../common/song"
 import { Localized } from "../../../components/Localized"
 import { MenuDivider, MenuItem } from "../../../components/Menu"
@@ -8,6 +7,7 @@ import { createSong, updateSong } from "../../../firebase/song"
 import { openSong, saveSong, setSong } from "../../actions"
 import { hasFSAccess, openFile, saveFileAs } from "../../actions/file"
 import { useDialog } from "../../hooks/useDialog"
+import { useLocalization } from "../../hooks/useLocalization"
 import { usePrompt } from "../../hooks/usePrompt"
 import { useStores } from "../../hooks/useStores"
 import { useToast } from "../../hooks/useToast"
@@ -20,6 +20,7 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
     const toast = useToast()
     const prompt = usePrompt()
     const dialog = useDialog()
+    const localized = useLocalization()
 
     const saveOrCreateSong = async () => {
       const { song } = rootStore

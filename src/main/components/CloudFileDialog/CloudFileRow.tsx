@@ -1,8 +1,8 @@
 import styled from "@emotion/styled"
 import { QueryDocumentSnapshot } from "firebase/firestore"
 import { FC } from "react"
-import { localized } from "../../../common/localize/localizedString"
 import { FirestoreSong } from "../../../firebase/song"
+import { useLocalization } from "../../hooks/useLocalization"
 
 const Container = styled.div`
   display: flex;
@@ -49,6 +49,7 @@ export const CloudFileRow: FC<CloudFileRowProps> = ({
   onClick,
   dateType,
 }) => {
+  const localized = useLocalization()
   const date: Date = (() => {
     switch (dateType) {
       case "created":

@@ -5,13 +5,13 @@ import ArrowDropDown from "mdi-react/ArrowDropDownIcon"
 import ArrowUpward from "mdi-react/ArrowUpwardIcon"
 import { observer } from "mobx-react-lite"
 import { FC, useEffect } from "react"
-import { localized } from "../../../common/localize/localizedString"
 import { CircularProgress } from "../../../components/CircularProgress"
 import { IconButton } from "../../../components/IconButton"
 import { Localized } from "../../../components/Localized"
 import { Menu, MenuItem } from "../../../components/Menu"
 import { FirestoreSong, loadSong } from "../../../firebase/song"
 import { setSong } from "../../actions"
+import { useLocalization } from "../../hooks/useLocalization"
 import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
 import { useToast } from "../../hooks/useToast"
@@ -74,6 +74,7 @@ export const CloudFileList = observer(() => {
   const { cloudFileStore } = rootStore
   const toast = useToast()
   const theme = useTheme()
+  const localized = useLocalization()
   const { isLoading, dateType, files, selectedColumn, sortAscending } =
     cloudFileStore
 

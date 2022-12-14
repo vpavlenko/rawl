@@ -1,9 +1,9 @@
 import { observer } from "mobx-react-lite"
 import { ChangeEvent, FC } from "react"
-import { localized } from "../../../common/localize/localizedString"
 import { Localized } from "../../../components/Localized"
 import { MenuDivider, MenuItem } from "../../../components/Menu"
 import { createSong, openSong, saveSong } from "../../actions"
+import { useLocalization } from "../../hooks/useLocalization"
 import { useStores } from "../../hooks/useStores"
 import { useToast } from "../../hooks/useToast"
 
@@ -30,6 +30,7 @@ export const LegacyFileMenu: FC<{ close: () => void }> = observer(
   ({ close }) => {
     const rootStore = useStores()
     const toast = useToast()
+    const localized = useLocalization()
 
     const onClickNew = () => {
       const { song } = rootStore

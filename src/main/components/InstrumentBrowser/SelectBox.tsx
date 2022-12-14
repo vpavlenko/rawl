@@ -61,12 +61,14 @@ export const SelectBox = <T extends {}>({
           onChange(items[currentIndex - 1].value)
         }
         e.preventDefault()
+        e.stopPropagation()
         break
       case "ArrowDown":
         if (currentIndex < items.length - 1) {
           onChange(items[currentIndex + 1].value)
         }
         e.preventDefault()
+        e.stopPropagation()
         break
     }
   }

@@ -11,7 +11,6 @@ import { action, computed, makeObservable, observable, transaction } from "mobx"
 import { createModelSchema, list, primitive } from "serializr"
 import { pojo } from "../helpers/pojo"
 import { localized } from "../localize/localizedString"
-import { getInstrumentName } from "../midi/GM"
 import { programChangeMidiEvent, trackNameMidiEvent } from "../midi/MidiEvent"
 import { isControllerEventWithType, isNoteEvent } from "./identify"
 import {
@@ -47,7 +46,6 @@ export default class Track {
       addEvents: action,
       sortByTick: action,
       displayName: computed,
-      instrumentName: computed,
       name: computed,
       endOfTrack: computed,
       programNumber: computed,
@@ -213,17 +211,6 @@ export default class Track {
       return localized("conductor-track", "Conductor Track")
     }
     return `${localized("track", "Track")} ${this.channel + 1}`
-  }
-
-  get instrumentName() {
-    if (this.isRhythmTrack) {
-      return "Standard Drum Kit"
-    }
-    const program = this.programNumber
-    if (program !== undefined) {
-      return getInstrumentName(program)
-    }
-    return undefined
   }
 
   private setControllerValue = (

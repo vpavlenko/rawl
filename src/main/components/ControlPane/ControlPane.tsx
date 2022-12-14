@@ -1,8 +1,8 @@
 import styled from "@emotion/styled"
 import useComponentSize from "@rehooks/component-size"
 import { observer } from "mobx-react-lite"
-import React, { FC, useCallback, useRef } from "react"
-import { localized } from "../../../common/localize/localizedString"
+import React, { FC, ReactNode, useCallback, useRef } from "react"
+import { Localized } from "../../../components/Localized"
 import { Layout } from "../../Constants"
 import { useStores } from "../../hooks/useStores"
 import ExpressionGraph from "./Graph/ExpressionGraph"
@@ -14,7 +14,8 @@ import VolumeGraph from "./Graph/VolumeGraph"
 import PianoVelocityControl from "./VelocityControl/VelocityControl"
 
 interface ButtonItem {
-  label: string
+  label: ReactNode
+  name: string
   selected: boolean
   onClick: () => void
 }
@@ -69,28 +70,41 @@ const Toolbar = styled.div`
 `
 
 const TabBar: FC<TabBarProps> = React.memo(({ onClick, selectedMode }) => {
-  const controlButton = (label: string, name: ControlMode): ButtonItem => ({
+  const controlButton = (label: ReactNode, name: ControlMode): ButtonItem => ({
     label,
+    name,
     selected: selectedMode === name,
     onClick: () => onClick(name),
   })
 
   const buttons = [
-    controlButton(localized("velocity", "Velocity"), "velocity"),
-    controlButton(localized("pitch-bend", "Pitch Bend"), "pitchBend"),
-    controlButton(localized("volume", "Volume"), "volume"),
-    controlButton(localized("panpot", "Panpot"), "pan"),
-    controlButton(localized("expression", "Expression"), "expression"),
-    controlButton(localized("hold-pedal", "Hold Pedal"), "hold"),
+    controlButton(
+      <Localized default="Velocity">velocity</Localized>,
+      "velocity"
+    ),
+    controlButton(
+      <Localized default="Pitch Bend">pitch-bend</Localized>,
+      "pitchBend"
+    ),
+    controlButton(<Localized default="Volume">volume</Localized>, "volume"),
+    controlButton(<Localized default="Panpot">panpot</Localized>, "pan"),
+    controlButton(
+      <Localized default="Expression">expression</Localized>,
+      "expression"
+    ),
+    controlButton(
+      <Localized default="Hold Pedal">hold-pedal</Localized>,
+      "hold"
+    ),
   ]
 
   return (
     <Toolbar>
-      {buttons.map(({ label, selected, onClick }) => (
+      {buttons.map(({ label, selected, onClick, name }) => (
         <TabButton
           className={selected ? "selected" : ""}
           onClick={onClick}
-          key={label}
+          key={name}
         >
           {label}
         </TabButton>

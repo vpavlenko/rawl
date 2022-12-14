@@ -6,7 +6,6 @@ export default class RootViewStore {
   openDrawer = false
   openHelp = false
   openDeviceDialog = false
-  openEventEditor = false
   eventEditorEvents: TrackEvent[] = []
   openSignInDialog = false
   openCloudFileDialog = false
@@ -17,7 +16,6 @@ export default class RootViewStore {
       openDrawer: observable,
       openHelp: observable,
       openDeviceDialog: observable,
-      openEventEditor: observable,
       eventEditorEvents: observable.shallow,
       openSignInDialog: observable,
       openCloudFileDialog: observable,

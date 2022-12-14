@@ -1,5 +1,6 @@
 import styled from "@emotion/styled"
-import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material"
+import KeyboardArrowDown from "mdi-react/KeyboardArrowDownIcon"
+import KeyboardArrowUp from "mdi-react/KeyboardArrowUpIcon"
 import { FC } from "react"
 
 export interface NumberPickerProps {

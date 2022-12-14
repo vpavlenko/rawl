@@ -1,15 +1,10 @@
 import styled from "@emotion/styled"
-import { VolumeUp } from "@mui/icons-material"
-import Slider from "@mui/material/Slider"
+import VolumeUp from "mdi-react/VolumeHighIcon"
 import { observer } from "mobx-react-lite"
 import React, { FC, useCallback } from "react"
+import { Slider } from "../../../components/Slider"
 import { setTrackVolume } from "../../actions"
 import { useStores } from "../../hooks/useStores"
-
-const LightSlider = styled(Slider)`
-  color: ${({ theme }) => theme.textColor};
-  margin-left: 0.5rem;
-`
 
 const Container = styled.div`
   display: flex;
@@ -20,7 +15,10 @@ const Container = styled.div`
 `
 
 const VolumeIcon = styled(VolumeUp)`
+  width: 2rem;
+  height: 2rem;
   color: ${({ theme }) => theme.secondaryTextColor};
+  margin-right: 0.5rem;
 `
 
 export interface VolumeSliderProps {
@@ -37,11 +35,11 @@ const _VolumeSlider: FC<VolumeSliderProps> = observer(({ trackId }) => {
   return (
     <Container>
       <VolumeIcon />
-      <LightSlider
-        size="small"
+      <Slider
         value={volume}
-        onChange={(_, value) => onChange(value as number)}
+        onChange={(value) => onChange(value)}
         max={127}
+        minStepsBetweenThumbs={1}
       />
     </Container>
   )

@@ -1,8 +1,9 @@
 import styled from "@emotion/styled"
-import { FiberManualRecord, MusicNote } from "@mui/icons-material"
-import { Tooltip } from "@mui/material"
+import FiberManualRecord from "mdi-react/FiberManualRecordIcon"
+import MusicNote from "mdi-react/MusicNoteIcon"
 import React from "react"
 import { localized } from "../../../../common/localize/localizedString"
+import { Tooltip } from "../../../../components/Tooltip"
 import {
   ToolbarButtonGroup,
   ToolbarButtonGroupItem,
@@ -19,11 +20,12 @@ const Switch = styled(ToolbarButtonGroupItem)`
 `
 
 const DotLabel = styled(FiberManualRecord)`
-  top: -0.2rem;
+  top: -0.5rem;
   left: 0.1rem;
   position: relative;
-  width: 0.6rem;
-  font-size: 1.1rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin: 0 -0.1rem;
 `
 
 const TripletLabel = styled.span`
@@ -43,7 +45,7 @@ const Value = styled.div`
 `
 
 const Note = styled(MusicNote)`
-  font-size: 1.1rem;
+  width: 1.1rem;
 `
 
 function calcQuantize(num: number, dot: boolean, triplet: boolean): number {
@@ -85,39 +87,14 @@ function QuantizeSelector({
 
   const list = [1, 2, 4, 8, 16, 32, 64, 128]
 
-  const [anchorEl, setAnchorEl] = React.useState<Element | null>(null)
-
   return (
     <Container>
-      <Switch selected={enabled} onClick={onClickSwitch}>
-        <Tooltip title={localized("snap-to-grid", "Snap to Grid")}>
+      <Tooltip title={localized("snap-to-grid", "Snap to Grid")}>
+        <Switch selected={enabled} onClick={onClickSwitch}>
           <Note />
-        </Tooltip>
-      </Switch>
-      <Content
-        onClick={(e) => {
-          setAnchorEl(e.currentTarget)
-        }}
-        onWheel={(e) => {
-          const currentIndex = list.indexOf(denominator)
-          const delta = e.deltaY < 0 ? 1 : -1
-          const index = Math.min(
-            list.length - 1,
-            Math.max(0, currentIndex + delta)
-          )
-          onSelect(calcQuantize(list[index], dot, triplet))
-        }}
-      >
-        <Value>
-          <span className="denominator">{denominator}</span>
-          {triplet && <TripletLabel>3</TripletLabel>}
-          {dot && <DotLabel />}
-        </Value>
-      </Content>
+        </Switch>
+      </Tooltip>
       <QuantizePopup
-        anchorEl={anchorEl}
-        isOpen={anchorEl !== null}
-        onClose={() => setAnchorEl(null)}
         value={denominator}
         values={list}
         dotted={dot}
@@ -125,6 +102,26 @@ function QuantizeSelector({
         onChangeValue={(d) => onSelect(calcQuantize(d, dot, triplet))}
         onChangeDotted={(d) => onSelect(calcQuantize(denominator, d, false))}
         onChangeTriplet={(t) => onSelect(calcQuantize(denominator, false, t))}
+        trigger={
+          <Content
+            tabIndex={-1}
+            onWheel={(e) => {
+              const currentIndex = list.indexOf(denominator)
+              const delta = e.deltaY < 0 ? 1 : -1
+              const index = Math.min(
+                list.length - 1,
+                Math.max(0, currentIndex + delta)
+              )
+              onSelect(calcQuantize(list[index], dot, triplet))
+            }}
+          >
+            <Value>
+              <span className="denominator">{denominator}</span>
+              {triplet && <TripletLabel>3</TripletLabel>}
+              {dot && <DotLabel />}
+            </Value>
+          </Content>
+        }
       />
     </Container>
   )

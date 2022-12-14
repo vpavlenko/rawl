@@ -1,6 +1,6 @@
 import { GLCanvas, Transform } from "@ryohey/webgl-react"
 import { observer } from "mobx-react-lite"
-import { useMemo, useRef, VFC } from "react"
+import { FC, useMemo, useRef } from "react"
 import { matrixFromTranslation } from "../../../helpers/matrix"
 import { useStores } from "../../../hooks/useStores"
 import { Beats } from "../../GLNodes/Beats"
@@ -13,7 +13,7 @@ export interface ArrangeViewCanvasProps {
   width: number
 }
 
-export const ArrangeViewCanvas: VFC<ArrangeViewCanvasProps> = observer(
+export const ArrangeViewCanvas: FC<ArrangeViewCanvasProps> = observer(
   ({ width }) => {
     const rootStore = useStores()
     const tracks = rootStore.song.tracks

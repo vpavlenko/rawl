@@ -7,7 +7,7 @@ import { NoteEvent, TickProvider } from "../track"
   assemble noteOn and noteOff to single note event to append duration
 
  */
-export function assemble<T>(
+export function assemble<T extends {}>(
   events: (T | TickNoteOffEvent | TickNoteOnEvent)[]
 ): (T | NoteEvent)[] {
   const noteOnEvents: TickNoteOnEvent[] = []
@@ -63,7 +63,7 @@ export type TickNoteOffEvent = Omit<NoteOffEvent, "channel" | "deltaTime"> &
   TickProvider
 
 // separate note to noteOn + noteOff
-export function deassemble<T>(
+export function deassemble<T extends {}>(
   e: T | NoteEvent
 ): (T | TickNoteOnEvent | TickNoteOffEvent)[] {
   if ("subtype" in e && e.subtype === "note") {

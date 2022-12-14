@@ -1,6 +1,6 @@
 import { GLCanvas, Transform } from "@ryohey/webgl-react"
 import { observer } from "mobx-react-lite"
-import { CSSProperties, useMemo, VFC } from "react"
+import { CSSProperties, FC, useMemo } from "react"
 import { IPoint, IRect } from "../../../../common/geometry"
 import { ControlCoordTransform } from "../../../../common/transform/ControlCoordTransform"
 import { matrixFromTranslation } from "../../../helpers/matrix"
@@ -27,7 +27,7 @@ export interface LineGraphCanvasProps {
 
 const lineWidth = 2
 
-export const LineGraphCanvas: VFC<LineGraphCanvasProps> = observer(
+export const LineGraphCanvas: FC<LineGraphCanvasProps> = observer(
   ({
     items,
     width,

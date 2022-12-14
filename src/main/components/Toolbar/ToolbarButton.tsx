@@ -20,7 +20,7 @@ const _ToolbarButton = styled.button<{ selected?: boolean }>`
   outline: none;
 
   &:hover {
-    background: ${({ theme }) => theme.secondaryBackgroundColor};
+    background: ${({ theme }) => theme.highlightColor};
   }
 
   svg {
@@ -39,6 +39,7 @@ export const ToolbarButton = forwardRef<
     {...props}
     onMouseDown={(e) => e.preventDefault()}
     tabIndex={-1}
+    ref={ref}
   >
     {children}
   </_ToolbarButton>

@@ -1,18 +1,18 @@
 import styled from "@emotion/styled"
-import {
-  Alert,
-  Button,
-  Checkbox,
-  CircularProgress,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-} from "@mui/material"
 import { observer } from "mobx-react-lite"
 import { FC } from "react"
 import { localized } from "../../../common/localize/localizedString"
+import { Alert } from "../../../components/Alert"
+import { Button } from "../../../components/Button"
+import { Checkbox } from "../../../components/Checkbox"
+import { CircularProgress } from "../../../components/CircularProgress"
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from "../../../components/Dialog"
+import { Label } from "../../../components/Label"
 import { useStores } from "../../hooks/useStores"
 
 interface Device {
@@ -27,22 +27,27 @@ interface ListItem {
   onCheck: (isChecked: boolean) => void
 }
 
-const DeviceRowWrapper = styled.div`
-  display: flex;
-  align-items: center;
-`
-
 const DeviceRow: FC<ListItem> = ({ device, isSelected, onCheck }) => {
   return (
-    <DeviceRowWrapper>
+    <Label
+      style={{
+        display: "flex",
+        alignItems: "center",
+        marginBottom: "1rem",
+      }}
+    >
       <Checkbox
-        color="primary"
         checked={isSelected}
-        onChange={(e) => onCheck(e.currentTarget.checked)}
+        onCheckedChange={(state) => onCheck(state === true)}
+        style={{ marginRight: "0.5rem" }}
+        label={
+          <>
+            {device.name}
+            {!device.isConnected && " (disconnected)"}
+          </>
+        }
       />
-      {device.name}
-      {!device.isConnected && " (disconnected)"}
-    </DeviceRowWrapper>
+    </Label>
   )
 }
 
@@ -50,6 +55,11 @@ const DeviceList = styled.div``
 
 const Spacer = styled.div`
   height: 2rem;
+`
+
+const SectionTitle = styled.div`
+  font-weight: bold;
+  margin: 1rem 0;
 `
 
 export const MIDIDeviceDialog: FC = observer(() => {
@@ -95,7 +105,7 @@ export const MIDIDeviceDialog: FC = observer(() => {
   }
 
   return (
-    <Dialog open={isOpen} onClose={close}>
+    <Dialog open={isOpen} onOpenChange={close} style={{ minWidth: "20rem" }}>
       <DialogTitle>{localized("midi-settings", "MIDI Settings")}</DialogTitle>
       <DialogContent>
         {isLoading && <CircularProgress />}
@@ -107,9 +117,7 @@ export const MIDIDeviceDialog: FC = observer(() => {
         )}
         {!isLoading && (
           <>
-            <DialogContentText>
-              {localized("inputs", "Inputs")}
-            </DialogContentText>
+            <SectionTitle>{localized("inputs", "Inputs")}</SectionTitle>
             <DeviceList>
               {inputDevices.map(({ device, isSelected }) => (
                 <DeviceRow
@@ -125,9 +133,7 @@ export const MIDIDeviceDialog: FC = observer(() => {
             {
               <>
                 <Spacer />
-                <DialogContentText>
-                  {localized("outputs", "Outputs")}
-                </DialogContentText>
+                <SectionTitle>{localized("outputs", "Outputs")}</SectionTitle>
                 <DeviceList>
                   <DeviceRow
                     device={factorySound}

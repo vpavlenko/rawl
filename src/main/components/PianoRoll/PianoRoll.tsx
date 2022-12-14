@@ -18,10 +18,6 @@ const Parent = styled.div`
   flex-grow: 1;
   background: ${({ theme }) => theme.backgroundColor};
   position: relative;
-
-  .ScrollBar {
-    z-index: 10;
-  }
 `
 
 const Alpha = styled.div`

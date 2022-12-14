@@ -1,6 +1,5 @@
 import styled from "@emotion/styled"
-import { Add } from "@mui/icons-material"
-import { ListItemIcon } from "@mui/material"
+import Add from "mdi-react/AddIcon"
 import { observer } from "mobx-react-lite"
 import { FC, useCallback } from "react"
 import { localized } from "../../../common/localize/localizedString"
@@ -17,13 +16,13 @@ const Wrapper = styled.div`
   margin: 0.5rem;
 
   &:hover {
-    background: ${({ theme }) => theme.secondaryBackgroundColor};
+    background: ${({ theme }) => theme.highlightColor};
   }
 `
 
-const AddTrackListIcon = styled(ListItemIcon)`
+const AddIcon = styled(Add)`
   min-width: auto;
-  margin-right: 0.6em;
+  margin-right: 0.5em;
   color: inherit;
 `
 
@@ -38,9 +37,7 @@ export const AddTrackButton: FC = observer(() => {
 
   return (
     <Wrapper onClick={onClickAddTrack}>
-      <AddTrackListIcon>
-        <Add />
-      </AddTrackListIcon>
+      <AddIcon />
       <Label>{localized("add-track", "Add track")}</Label>
     </Wrapper>
   )

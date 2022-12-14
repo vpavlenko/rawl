@@ -1,16 +1,16 @@
 import styled from "@emotion/styled"
+import { range } from "lodash"
+import { FC, useEffect, useState } from "react"
+import { localized } from "../../../common/localize/localizedString"
+import { Button, PrimaryButton } from "../../../components/Button"
 import {
-  Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
-  MenuItem,
-  Select,
-} from "@mui/material"
-import { range } from "lodash"
-import { useEffect, useState, VFC } from "react"
-import { localized } from "../../../common/localize/localizedString"
+} from "../../../components/Dialog"
+import { Select } from "../../../components/Select"
+import { TextField } from "../../../components/TextField"
 
 export interface TimeSignatureDialogProps {
   initialNumerator?: number
@@ -20,26 +20,11 @@ export interface TimeSignatureDialogProps {
   onClickOK: (timeSignature: { numerator: number; denominator: number }) => void
 }
 
-const NumberInput = styled.input`
-  background: transparent;
-  -webkit-appearance: none;
-  outline: none;
-  color: inherit;
-  font-size: inherit;
-  font-family: inherit;
+const NumberInput = styled(TextField)`
   width: 3em;
   text-align: center;
-  font-family: "Roboto Mono", monospace;
   font-size: 1rem;
   padding: 0.2rem 0;
-  border: 1px solid ${({ theme }) => theme.dividerColor};
-  border-radius: 0.2rem;
-  box-sizing: border-box;
-
-  &:focus {
-    border-color: ${({ theme }) => theme.themeColor};
-    border-width: 2px;
-  }
 
   &::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -47,7 +32,7 @@ const NumberInput = styled.input`
   }
 `
 
-export const TimeSignatureDialog: VFC<TimeSignatureDialogProps> = ({
+export const TimeSignatureDialog: FC<TimeSignatureDialogProps> = ({
   initialNumerator = 4,
   initialDenominator = 4,
   open,
@@ -66,7 +51,7 @@ export const TimeSignatureDialog: VFC<TimeSignatureDialogProps> = ({
   }, [open])
 
   return (
-    <Dialog open={open} onClose={onClose}>
+    <Dialog open={open} onOpenChange={onClose}>
       <DialogTitle>{localized("time-signature", "Time Signature")}</DialogTitle>
       <DialogContent>
         <div
@@ -110,9 +95,9 @@ export const TimeSignatureDialog: VFC<TimeSignatureDialogProps> = ({
             {range(0, 6)
               .map((v) => Math.pow(2, v))
               .map((v) => (
-                <MenuItem key={v} value={v.toString()}>
+                <option key={v} value={v.toString()}>
                   {v}
-                </MenuItem>
+                </option>
               ))}
           </Select>
         </div>
@@ -121,7 +106,7 @@ export const TimeSignatureDialog: VFC<TimeSignatureDialogProps> = ({
         <Button autoFocus onClick={onClose}>
           {localized("cancel", "Cancel")}
         </Button>
-        <Button
+        <PrimaryButton
           onClick={() => {
             onClickOK({ numerator, denominator })
             onClose()
@@ -129,7 +114,7 @@ export const TimeSignatureDialog: VFC<TimeSignatureDialogProps> = ({
           disabled={isNaN(numerator) && numerator <= 32 && numerator > 0}
         >
           {localized("ok", "OK")}
-        </Button>
+        </PrimaryButton>
       </DialogActions>
     </Dialog>
   )

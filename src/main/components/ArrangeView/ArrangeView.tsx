@@ -44,7 +44,6 @@ const Wrapper = styled.div`
 `
 
 const LeftTopSpace = styled.div`
-  z-index: 999;
   position: absolute;
   width: 100%;
   box-sizing: border-box;

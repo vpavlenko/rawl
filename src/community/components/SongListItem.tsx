@@ -1,5 +1,6 @@
 import styled from "@emotion/styled"
-import { Circle, PlayArrow } from "@mui/icons-material"
+import Circle from "mdi-react/CircleIcon"
+import PlayArrow from "mdi-react/PlayArrowIcon"
 import { FC } from "react"
 import { formatTimeAgo } from "../helpers/formatTimeAgo"
 
@@ -64,7 +65,7 @@ const Wrapper = styled.div`
   border-radius: 0.5rem;
 
   &:hover {
-    background: ${({ theme }) => theme.secondaryBackgroundColor};
+    background: ${({ theme }) => theme.highlightColor};
 
     .arrow {
       display: block;

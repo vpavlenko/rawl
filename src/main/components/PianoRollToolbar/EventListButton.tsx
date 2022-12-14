@@ -1,7 +1,7 @@
-import { FormatListBulleted } from "@mui/icons-material"
-import { Tooltip } from "@mui/material"
+import FormatListBulleted from "mdi-react/FormatListBulletedIcon"
 import { FC, useCallback } from "react"
 import { localized } from "../../../common/localize/localizedString"
+import { Tooltip } from "../../../components/Tooltip"
 import { useStores } from "../../hooks/useStores"
 import { ToolbarButton } from "../Toolbar/ToolbarButton"
 

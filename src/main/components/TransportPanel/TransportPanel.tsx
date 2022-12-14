@@ -1,16 +1,15 @@
 import styled from "@emotion/styled"
-import {
-  FastForward,
-  FastRewind,
-  FiberManualRecord,
-  Loop,
-  Stop,
-} from "@mui/icons-material"
-import { CircularProgress, Tooltip } from "@mui/material"
+import FastForward from "mdi-react/FastForwardIcon"
+import FastRewind from "mdi-react/FastRewindIcon"
+import FiberManualRecord from "mdi-react/FiberManualRecordIcon"
+import Loop from "mdi-react/LoopIcon"
 import MetronomeIcon from "mdi-react/MetronomeIcon"
+import Stop from "mdi-react/StopIcon"
 import { observer } from "mobx-react-lite"
 import { FC, useCallback } from "react"
 import { localized } from "../../../common/localize/localizedString"
+import { CircularProgress } from "../../../components/CircularProgress"
+import { Tooltip } from "../../../components/Tooltip"
 import {
   fastForwardOneBar,
   playOrPause,
@@ -100,27 +99,22 @@ export const TransportPanel: FC = observer(() => {
 
   return (
     <Toolbar>
-      <Tooltip title={`${localized("rewind", "Rewind")}`} placement="top">
+      <Tooltip title={`${localized("rewind", "Rewind")}`} side="top">
         <CircleButton onClick={onClickBackward}>
           <FastRewind />
         </CircleButton>
       </Tooltip>
 
-      <Tooltip title={`${localized("stop", "Stop")}`} placement="top">
+      <Tooltip title={`${localized("stop", "Stop")}`} side="top">
         <CircleButton onClick={onClickStop}>
           <Stop />
         </CircleButton>
       </Tooltip>
 
-      <Tooltip
-        title={`${localized("play-pause", "Play/Pause")} [space]`}
-        placement="top"
-      >
-        <PlayButton onClick={onClickPlay} isPlaying={isPlaying} />
-      </Tooltip>
+      <PlayButton onClick={onClickPlay} isPlaying={isPlaying} />
 
       {canRecording && (
-        <Tooltip title={`${localized("record", "Record")}`} placement="top">
+        <Tooltip title={`${localized("record", "Record")}`} side="top">
           <RecordButton
             onClick={onClickRecord}
             className={isRecording ? "active" : undefined}
@@ -132,7 +126,7 @@ export const TransportPanel: FC = observer(() => {
 
       <Tooltip
         title={`${localized("fast-forward", "Fast Forward")}`}
-        placement="top"
+        side="top"
       >
         <CircleButton onClick={onClickForward}>
           <FastForward />

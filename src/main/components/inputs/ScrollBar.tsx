@@ -1,6 +1,6 @@
 import styled from "@emotion/styled"
-import { ArrowDropUp } from "@mui/icons-material"
 import useComponentSize from "@rehooks/component-size"
+import ArrowDropUp from "mdi-react/ArrowDropUpIcon"
 import React, { FC, useRef } from "react"
 import { IPoint } from "../../../common/geometry"
 import { observeDrag, observeDrag2 } from "../../helpers/observeDrag"

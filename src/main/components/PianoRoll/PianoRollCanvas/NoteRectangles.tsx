@@ -1,6 +1,6 @@
 import { GLNode, useProjectionMatrix } from "@ryohey/webgl-react"
 import { vec4 } from "gl-matrix"
-import { VFC } from "react"
+import { FC } from "react"
 import { IRect } from "../../../../common/geometry"
 import {
   ISelectionData,
@@ -16,7 +16,7 @@ export interface NoteRectanglesProps {
   zIndex?: number
 }
 
-export const NoteRectangles: VFC<NoteRectanglesProps> = ({
+export const NoteRectangles: FC<NoteRectanglesProps> = ({
   rects,
   fillColor,
   strokeColor,

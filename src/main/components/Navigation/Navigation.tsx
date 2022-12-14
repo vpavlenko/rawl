@@ -1,11 +1,13 @@
 import styled from "@emotion/styled"
-import { Forum, Help, Settings } from "@mui/icons-material"
-import { Tooltip } from "@mui/material"
 import Color from "color"
+import Forum from "mdi-react/ForumIcon"
+import Help from "mdi-react/HelpCircleIcon"
+import Settings from "mdi-react/SettingsIcon"
 import { observer } from "mobx-react-lite"
 import { CSSProperties, FC, useCallback } from "react"
 import { envString } from "../../../common/localize/envString"
 import { localized } from "../../../common/localize/localizedString"
+import { Tooltip } from "../../../components/Tooltip"
 import { useStores } from "../../hooks/useStores"
 import ArrangeIcon from "../../images/icons/arrange.svg"
 import PianoIcon from "../../images/icons/piano.svg"
@@ -56,7 +58,7 @@ export const Tab = styled.div`
   }
 
   &:hover {
-    background: ${({ theme }) => theme.secondaryBackgroundColor};
+    background: ${({ theme }) => theme.highlightColor};
   }
 }
 `
@@ -94,9 +96,7 @@ export const Navigation: FC = observer(() => {
         title={`${localized("switch-tab", "Switch Tab")} [${
           envString.cmdOrCtrl
         }+1]`}
-        placement="bottom"
-        enterDelay={300}
-        enterNextDelay={500}
+        delayDuration={500}
       >
         <Tab
           className={router.path === "/track" ? "active" : undefined}
@@ -111,9 +111,7 @@ export const Navigation: FC = observer(() => {
         title={`${localized("switch-tab", "Switch Tab")} [${
           envString.cmdOrCtrl
         }+2]`}
-        placement="bottom"
-        enterDelay={300}
-        enterNextDelay={500}
+        delayDuration={500}
       >
         <Tab
           className={router.path === "/arrange" ? "active" : undefined}
@@ -128,9 +126,7 @@ export const Navigation: FC = observer(() => {
         title={`${localized("switch-tab", "Switch Tab")} [${
           envString.cmdOrCtrl
         }+3]`}
-        placement="bottom"
-        enterDelay={300}
-        enterNextDelay={500}
+        delayDuration={500}
       >
         <Tab
           className={router.path === "/tempo" ? "active" : undefined}

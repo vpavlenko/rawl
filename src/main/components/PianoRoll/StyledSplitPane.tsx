@@ -5,7 +5,6 @@ export const StyledSplitPane = styled(SplitPane)`
   .Resizer {
     background: #000;
     opacity: 0.2;
-    z-index: 1;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;

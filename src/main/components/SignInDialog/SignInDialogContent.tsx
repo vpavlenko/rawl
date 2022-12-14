@@ -1,18 +1,18 @@
+import { FC } from "react"
+import { localized } from "../../../common/localize/localizedString"
 import {
-  Alert,
-  Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
-} from "@mui/material"
-import { FC } from "react"
-import { localized } from "../../../common/localize/localizedString"
+} from "../../../components/Dialog"
 import { StyledFirebaseAuth } from "../FirebaseAuth/StyledFirebaseAuth"
 
 import styled from "@emotion/styled"
 import "firebase/auth"
 import { GithubAuthProvider, GoogleAuthProvider } from "firebase/auth"
+import { Alert } from "../../../components/Alert"
+import { Button } from "../../../components/Button"
 import { auth } from "../../../firebase/firebase"
 
 const BetaLabel = styled.span`
@@ -42,13 +42,7 @@ export const SignInDialogContent: FC<SignInDialogContentProps> = ({
   onFailure,
 }) => {
   return (
-    <Dialog
-      open={open}
-      onClose={onClose}
-      keepMounted={false}
-      fullWidth
-      maxWidth="xs"
-    >
+    <Dialog open={open} onOpenChange={onClose} style={{ minWidth: "20rem" }}>
       <DialogTitle>
         {localized("sign-in", "Sign in")}
         <BetaLabel>Beta</BetaLabel>

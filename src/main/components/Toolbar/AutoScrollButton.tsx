@@ -1,8 +1,8 @@
 import styled from "@emotion/styled"
-import { KeyboardTab } from "@mui/icons-material"
-import { Tooltip } from "@mui/material"
-import { VFC } from "react"
+import KeyboardTab from "mdi-react/KeyboardTabIcon"
+import { FC } from "react"
 import { localized } from "../../../common/localize/localizedString"
+import { Tooltip } from "../../../components/Tooltip"
 import { ToolbarButton } from "./ToolbarButton"
 
 const AutoScrollIcon = styled(KeyboardTab)`
@@ -15,13 +15,13 @@ export interface AutoScrollButtonProps {
   selected: boolean
 }
 
-export const AutoScrollButton: VFC<AutoScrollButtonProps> = ({
+export const AutoScrollButton: FC<AutoScrollButtonProps> = ({
   onClick,
   selected,
 }) => (
-  <ToolbarButton onClick={onClick} selected={selected}>
-    <Tooltip title={localized("auto-scroll", "Auto-Scroll")}>
+  <Tooltip title={localized("auto-scroll", "Auto-Scroll")}>
+    <ToolbarButton onClick={onClick} selected={selected}>
       <AutoScrollIcon />
-    </Tooltip>
-  </ToolbarButton>
+    </ToolbarButton>
+  </Tooltip>
 )

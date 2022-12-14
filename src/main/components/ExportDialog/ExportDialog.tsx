@@ -1,18 +1,18 @@
-import { Alert } from "@mui/lab"
+import { observer } from "mobx-react-lite"
+import { FC, useCallback, useEffect, useState } from "react"
+import { localized } from "../../../common/localize/localizedString"
+import { Alert } from "../../../components/Alert"
+import { Button, PrimaryButton } from "../../../components/Button"
 import {
-  Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
-} from "@mui/material"
-import { observer } from "mobx-react-lite"
-import { useCallback, useEffect, useState, VFC } from "react"
-import { localized } from "../../../common/localize/localizedString"
+} from "../../../components/Dialog"
 import { canExport, exportSongAsWav } from "../../actions"
 import { useStores } from "../../hooks/useStores"
 
-export const ExportDialog: VFC = observer(() => {
+export const ExportDialog: FC = observer(() => {
   const rootStore = useStores()
   const { exportStore, song } = rootStore
   const { openExportDialog: open } = exportStore
@@ -34,7 +34,7 @@ export const ExportDialog: VFC = observer(() => {
   }, [open])
 
   return (
-    <Dialog open={open} onClose={onClose} fullWidth maxWidth="xs">
+    <Dialog open={open} onOpenChange={onClose} style={{ minWidth: "20rem" }}>
       <DialogTitle>{localized("export-audio", "Export Audio")}</DialogTitle>
       <DialogContent>
         <p>{localized("file-type", "File Type")}: WAV</p>
@@ -47,9 +47,9 @@ export const ExportDialog: VFC = observer(() => {
       <DialogActions>
         <Button onClick={onClose}>{localized("close", "Close")}</Button>
         {exportEnabled && (
-          <Button onClick={onClickExport} color="primary" variant="contained">
+          <PrimaryButton onClick={onClickExport}>
             {localized("export", "Export")}
-          </Button>
+          </PrimaryButton>
         )}
       </DialogActions>
     </Dialog>

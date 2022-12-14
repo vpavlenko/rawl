@@ -1,9 +1,12 @@
 import styled from "@emotion/styled"
-import { Headset, Layers, VolumeOff, VolumeUp } from "@mui/icons-material"
-import { IconButton } from "@mui/material"
+import Headset from "mdi-react/HeadphonesIcon"
+import Layers from "mdi-react/LayersIcon"
+import VolumeUp from "mdi-react/VolumeHighIcon"
+import VolumeOff from "mdi-react/VolumeOffIcon"
 import { observer } from "mobx-react-lite"
 import { FC, useCallback, useState } from "react"
 import { categoryEmojis, getCategoryIndex } from "../../../common/midi/GM"
+import { IconButton } from "../../../components/IconButton"
 import {
   addTrack,
   removeTrack,
@@ -33,7 +36,7 @@ const Container = styled.div<{ selected: boolean }>`
   outline: none;
 
   &:hover {
-    background: ${({ theme }) => theme.secondaryBackgroundColor};
+    background: ${({ theme }) => theme.highlightColor};
   }
 `
 
@@ -66,12 +69,6 @@ const Controls = styled.div`
   align-items: center;
 `
 
-const Button = styled(IconButton)<{ active: boolean }>`
-  margin-right: 0.5em;
-  color: ${({ theme, active }) =>
-    active ? theme.textColor : theme.secondaryTextColor};
-`
-
 const ChannelName = styled.div`
   flex-shrink: 0;
   color: ${({ theme }) => theme.secondaryTextColor};
@@ -82,9 +79,10 @@ const ChannelName = styled.div`
   padding: 0 0.25rem;
   cursor: pointer;
   height: 1.25rem;
+  margin-left: 0.25rem;
 
   &:hover {
-    background: ${({ theme }) => theme.secondaryBackgroundColor};
+    background: ${({ theme }) => theme.highlightColor};
   }
 `
 
@@ -104,6 +102,12 @@ const Icon = styled.div<{ selected: boolean }>`
 
 const IconInner = styled.div<{ selected: boolean }>`
   opacity: ${({ selected }) => (selected ? 1 : 0.5)};
+`
+
+const ControlButton = styled(IconButton)`
+  width: 1.9rem;
+  height: 1.9rem;
+  margin-right: 0.25rem;
 `
 
 export const TrackListItem: FC<TrackListItemProps> = observer(({ trackId }) => {
@@ -182,34 +186,15 @@ export const TrackListItem: FC<TrackListItemProps> = observer(({ trackId }) => {
             <Instrument>{instrument}</Instrument>
           </Label>
           <Controls>
-            <Button
-              color="default"
-              size="small"
-              active={solo}
-              onClick={onClickSolo}
-            >
-              <Headset fontSize="small" />
-            </Button>
-            <Button
-              color="default"
-              size="small"
-              active={mute}
-              onClick={onClickMute}
-            >
-              {mute ? (
-                <VolumeOff fontSize="small" />
-              ) : (
-                <VolumeUp fontSize="small" />
-              )}
-            </Button>
-            <Button
-              color="default"
-              size="small"
-              active={ghostTrack}
-              onClick={onClickGhostTrack}
-            >
-              <Layers fontSize="small" />
-            </Button>
+            <ControlButton active={solo} onClick={onClickSolo}>
+              <Headset />
+            </ControlButton>
+            <ControlButton active={mute} onClick={onClickMute}>
+              {mute ? <VolumeOff /> : <VolumeUp />}
+            </ControlButton>
+            <ControlButton active={ghostTrack} onClick={onClickGhostTrack}>
+              <Layers />
+            </ControlButton>
             {channel !== undefined && (
               <ChannelName onClick={openDialog}>CH {channel + 1}</ChannelName>
             )}

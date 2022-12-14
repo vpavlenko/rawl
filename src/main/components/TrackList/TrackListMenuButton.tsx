@@ -1,5 +1,5 @@
 import styled from "@emotion/styled"
-import { ArrowLeft } from "@mui/icons-material"
+import ArrowLeft from "mdi-react/MenuLeftIcon"
 import { observer } from "mobx-react-lite"
 import { FC, useCallback, useRef } from "react"
 import { useStores } from "../../hooks/useStores"
@@ -27,7 +27,7 @@ const ArrowIcon: FC<ArrowIconProps> = ({ isOpen }) => (
   <ArrowLeft
     style={{
       transition: "transform 0.1s ease",
-      transform: `scale(1.5) rotateZ(${isOpen ? "0deg" : "-90deg"})`,
+      transform: `scale(1.4) rotateZ(${isOpen ? "0deg" : "-90deg"})`,
     }}
   />
 )

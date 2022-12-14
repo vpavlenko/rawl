@@ -1,10 +1,10 @@
-import { Divider, MenuItem } from "@mui/material"
 import { observer } from "mobx-react-lite"
 import { ChangeEvent, FC } from "react"
-import { useToast } from "use-toast-mui"
 import { localized } from "../../../common/localize/localizedString"
+import { MenuDivider, MenuItem } from "../../../components/Menu"
 import { createSong, openSong, saveSong } from "../../actions"
 import { useStores } from "../../hooks/useStores"
+import { useToast } from "../../hooks/useToast"
 
 const fileInputID = "OpenButtonInputFile"
 
@@ -59,7 +59,7 @@ export const LegacyFileMenu: FC<{ close: () => void }> = observer(
       <>
         <MenuItem onClick={onClickNew}>{localized("new-song", "New")}</MenuItem>
 
-        <Divider />
+        <MenuDivider />
 
         <FileInput onChange={onClickOpen}>
           <MenuItem>{localized("open-song", "Open")}</MenuItem>

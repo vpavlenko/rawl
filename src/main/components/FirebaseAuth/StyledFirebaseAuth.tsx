@@ -37,7 +37,7 @@ const Container = styled.div`
     cursor: pointer;
 
     &:hover {
-      background: ${({ theme }) => theme.secondaryBackgroundColor} !important;
+      background: ${({ theme }) => theme.highlightColor} !important;
     }
   }
 

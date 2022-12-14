@@ -1,13 +1,13 @@
-import { useTheme } from "@emotion/react"
 import { Rectangles } from "@ryohey/webgl-react"
 import Color from "color"
 import { partition } from "lodash"
-import { VFC } from "react"
+import { FC } from "react"
 import { IRect } from "../../../common/geometry"
 import { BeatWithX } from "../../../common/helpers/mapBeats"
 import { colorToVec4 } from "../../gl/color"
+import { useTheme } from "../../hooks/useTheme"
 
-export const Beats: VFC<{
+export const Beats: FC<{
   height: number
   beats: BeatWithX[]
   zIndex: number

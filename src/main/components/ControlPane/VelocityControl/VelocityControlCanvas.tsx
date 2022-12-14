@@ -1,6 +1,6 @@
 import { GLCanvas, Transform } from "@ryohey/webgl-react"
 import { observer } from "mobx-react-lite"
-import { useCallback, useMemo, VFC } from "react"
+import { FC, useCallback, useMemo } from "react"
 import { containsPoint, IPoint } from "../../../../common/geometry"
 import { isNoteEvent } from "../../../../common/track"
 import { changeNotesVelocity } from "../../../actions"
@@ -11,7 +11,7 @@ import { Beats } from "../../GLNodes/Beats"
 import { Cursor } from "../../GLNodes/Cursor"
 import { VelocityItems } from "./VelocityItems"
 
-export const VelocityControlCanvas: VFC<{ width: number; height: number }> =
+export const VelocityControlCanvas: FC<{ width: number; height: number }> =
   observer(({ width, height }) => {
     const rootStore = useStores()
     const {

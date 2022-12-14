@@ -1,15 +1,15 @@
-import { Divider, MenuItem } from "@mui/material"
 import { observer } from "mobx-react-lite"
 import { ChangeEvent, FC } from "react"
-import { useDialog } from "use-dialog-mui"
-import { usePrompt } from "use-prompt-mui"
-import { useToast } from "use-toast-mui"
 import { localized } from "../../../common/localize/localizedString"
 import { emptySong } from "../../../common/song"
+import { MenuDivider, MenuItem } from "../../../components/Menu"
 import { createSong, updateSong } from "../../../firebase/song"
 import { openSong, saveSong, setSong } from "../../actions"
 import { hasFSAccess, openFile, saveFileAs } from "../../actions/file"
+import { useDialog } from "../../hooks/useDialog"
+import { usePrompt } from "../../hooks/usePrompt"
 import { useStores } from "../../hooks/useStores"
+import { useToast } from "../../hooks/useToast"
 import { FileInput } from "./LegacyFileMenu"
 
 export const CloudFileMenu: FC<{ close: () => void }> = observer(
@@ -23,6 +23,14 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
     const saveOrCreateSong = async () => {
       const { song } = rootStore
       if (song.firestoreReference !== null) {
+        if (song.name.length === 0) {
+          const text = await prompt.show({
+            title: localized("save-as", "Save as"),
+          })
+          if (text !== null && text.length > 0) {
+            song.name = text
+          }
+        }
         await updateSong(song)
         toast.success(localized("song-saved", "Song saved"))
       } else {
@@ -32,8 +40,6 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
           })
           if (text !== null && text.length > 0) {
             song.name = text
-          } else {
-            return Promise.resolve(false)
           }
         }
         await createSong(song)
@@ -191,7 +197,7 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
       <>
         <MenuItem onClick={onClickNew}>{localized("new-song", "New")}</MenuItem>
 
-        <Divider />
+        <MenuDivider />
 
         <MenuItem onClick={onClickOpen}>
           {localized("open-song", "Open")}
@@ -209,7 +215,7 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
           {localized("rename", "Rename")}
         </MenuItem>
 
-        <Divider />
+        <MenuDivider />
 
         {!hasFSAccess && (
           <FileInput onChange={onClickImportLegacy}>

@@ -2,7 +2,7 @@ import styled from "@emotion/styled"
 import useComponentSize from "@rehooks/component-size"
 import { isEqual } from "lodash"
 import { observer } from "mobx-react-lite"
-import React, { FC, useCallback, useRef, useState, VFC } from "react"
+import React, { FC, useCallback, useRef, useState } from "react"
 import { FixedSizeList, ListChildComponentProps } from "react-window"
 import { localized } from "../../../common/localize/localizedString"
 import { TrackEvent } from "../../../common/track"
@@ -122,13 +122,16 @@ const StyledInput = styled.input`
   font-family: inherit;
   outline: none;
 
+  /* Hide spin button on Firefox */
+  -moz-appearance: textfield;
+
   &::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
   }
 `
 
-const DisabledInputCell: VFC<{ style?: React.CSSProperties }> = ({ style }) => (
+const DisabledInputCell: FC<{ style?: React.CSSProperties }> = ({ style }) => (
   <Cell style={style}>
     <StyledInput disabled={true} />
   </Cell>

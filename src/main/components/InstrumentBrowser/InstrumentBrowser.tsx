@@ -1,12 +1,5 @@
 import styled from "@emotion/styled"
-import {
-  Button,
-  Checkbox,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  FormControlLabel,
-} from "@mui/material"
+import { CheckedState } from "@radix-ui/react-checkbox"
 import { map } from "lodash"
 import difference from "lodash/difference"
 import groupBy from "lodash/groupBy"
@@ -22,8 +15,17 @@ import {
   getInstrumentName,
 } from "../../../common/midi/GM"
 import { programChangeMidiEvent } from "../../../common/midi/MidiEvent"
+import { Button, PrimaryButton } from "../../../components/Button"
+import { Checkbox } from "../../../components/Checkbox"
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+} from "../../../components/Dialog"
+import { Label } from "../../../components/Label"
 import { setTrackInstrument as setTrackInstrumentAction } from "../../actions"
 import { useStores } from "../../hooks/useStores"
+import { SelectBox } from "./SelectBox"
 
 export interface InstrumentSetting {
   programNumber: number
@@ -56,46 +58,23 @@ const Finder = styled.div`
     opacity: 0.5;
     pointer-events: none;
   }
-
-  .left label,
-  .right label {
-    padding: 0.5em 1em;
-    display: block;
-  }
-
-  .left select {
-    width: 15em;
-  }
-
-  .right select {
-    width: 21em;
-  }
 `
 
-const Select = styled.select`
-  overflow: auto;
-  background-color: #00000024;
-  border: 1px solid ${({ theme }) => theme.dividerColor};
-
-  &:focus {
-    outline: ${({ theme }) => theme.themeColor} 1px solid;
-
-    option:checked {
-      box-shadow: 0 0 10px 100px ${({ theme }) => theme.themeColor} inset;
-    }
-  }
+const Left = styled.div`
+  width: 15rem;
+  display: flex;
+  flex-direction: column;
 `
 
-const Option = styled.option`
-  padding: 0.5em 1em;
-  font-size: 0.9rem;
-  color: ${({ theme }) => theme.textColor};
-  height: 1.2rem;
+const Right = styled.div`
+  width: 21rem;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+`
 
-  &:checked {
-    background: ${({ theme }) => theme.themeColor};
-    box-shadow: none;
-  }
+const Footer = styled.div`
+  margin-top: 1rem;
 `
 
 const InstrumentBrowser: FC<InstrumentBrowserProps> = ({
@@ -108,22 +87,8 @@ const InstrumentBrowser: FC<InstrumentBrowserProps> = ({
 }) => {
   const selectedCategoryId = getCategoryIndex(programNumber)
 
-  const onChangeCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    onChange({
-      programNumber: e.target.selectedIndex * 8, // カテゴリの最初の楽器を選ぶ -> Choose the first instrument of the category
-      isRhythmTrack,
-    })
-  }
-
-  const onChangeInstrument = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    onChange({
-      programNumber: parseInt(e.target.value),
-      isRhythmTrack,
-    })
-  }
-
-  const onChangeRhythmTrack = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onChange({ programNumber, isRhythmTrack: e.target.checked })
+  const onChangeRhythmTrack = (state: CheckedState) => {
+    onChange({ programNumber, isRhythmTrack: state === true })
   }
 
   const instruments =
@@ -131,67 +96,61 @@ const InstrumentBrowser: FC<InstrumentBrowserProps> = ({
       ? presetCategories[selectedCategoryId].presets
       : []
 
-  const categoryOptions = presetCategories.map(
-    (preset: PresetCategory, i: number) => {
-      return (
-        <Option key={i} value={i}>
-          {preset.name}
-        </Option>
-      )
-    }
-  )
+  const categoryOptions = presetCategories.map((preset, i) => ({
+    value: i,
+    name: preset.name,
+  }))
 
-  const instrumentOptions = instruments.map((p: PresetItem, i: number) => {
-    return (
-      <Option key={i} value={p.programNumber}>
-        {p.name}
-      </Option>
-    )
-  })
+  const instrumentOptions = instruments.map((p) => ({
+    value: p.programNumber,
+    name: p.name,
+  }))
 
   return (
-    <Dialog open={isOpen} onClose={onClickCancel}>
+    <Dialog open={isOpen} onOpenChange={onClickCancel}>
       <DialogContent className="InstrumentBrowser">
         <Finder className={isRhythmTrack ? "disabled" : ""}>
-          <div className="left">
-            <label>{localized("categories", "Categories")}</label>
-            <Select
-              size={12}
-              onChange={onChangeCategory}
-              value={selectedCategoryId}
-            >
-              {categoryOptions}
-            </Select>
-          </div>
-          <div className="right">
-            <label>{localized("instruments", "Instruments")}</label>
-            <Select
-              size={12}
-              onChange={onChangeInstrument}
-              value={programNumber}
-            >
-              {instrumentOptions}
-            </Select>
-          </div>
+          <Left>
+            <Label style={{ marginBottom: "0.5rem" }}>
+              {localized("categories", "Categories")}
+            </Label>
+            <SelectBox
+              items={categoryOptions}
+              selectedValue={selectedCategoryId}
+              onChange={(i) =>
+                onChange({
+                  programNumber: i * 8, // Choose the first instrument of the category
+                  isRhythmTrack,
+                })
+              }
+            />
+          </Left>
+          <Right>
+            <Label style={{ marginBottom: "0.5rem" }}>
+              {localized("instruments", "Instruments")}
+            </Label>
+            <SelectBox
+              items={instrumentOptions}
+              selectedValue={programNumber}
+              onChange={(programNumber) =>
+                onChange({ programNumber, isRhythmTrack })
+              }
+            />
+          </Right>
         </Finder>
-        <div className="footer">
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={isRhythmTrack}
-                onChange={onChangeRhythmTrack}
-                color="primary"
-              />
-            }
+        <Footer>
+          <Checkbox
+            checked={isRhythmTrack}
+            onCheckedChange={onChangeRhythmTrack}
             label={localized("rhythm-track", "Rhythm Track")}
           />
-        </div>
+        </Footer>
       </DialogContent>
       <DialogActions>
         <Button onClick={onClickCancel}>{localized("cancel", "Cancel")}</Button>
-        <Button color="primary" onClick={onClickOK}>
+        <PrimaryButton onClick={onClickOK}>
           {localized("ok", "OK")}
-        </Button>
+        </PrimaryButton>
       </DialogActions>
     </Dialog>
   )

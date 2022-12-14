@@ -5,7 +5,6 @@ import { useStores } from "../../hooks/useStores"
 import { ArrangeEditor } from "../ArrangeView/ArrangeEditor"
 import { BuildInfo } from "../BuildInfo"
 import { CloudFileDialog } from "../CloudFileDialog/CloudFileDialog"
-import { EventEditor } from "../EventEditor/EventEditor"
 import { ExportDialog } from "../ExportDialog/ExportDialog"
 import { ExportProgressDialog } from "../ExportDialog/ExportProgressDialog"
 import { Head } from "../Head/Head"
@@ -55,7 +54,6 @@ export const RootView: FC = () => (
         <Routes />
         <TransportPanel />
         <BuildInfo />
-        <EventEditor />
       </Container>
     </Column>
     <HelpDialog />

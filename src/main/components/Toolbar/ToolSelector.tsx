@@ -1,7 +1,7 @@
 import styled from "@emotion/styled"
-import { Tooltip } from "@mui/material"
-import { useCallback, VFC } from "react"
+import { FC, useCallback } from "react"
 import { localized } from "../../../common/localize/localizedString"
+import { Tooltip } from "../../../components/Tooltip"
 import PencilIcon from "../../images/icons/pencil.svg"
 import SelectionIcon from "../../images/icons/selection.svg"
 import { PianoRollMouseMode } from "../../stores/PianoRollStore"
@@ -24,13 +24,15 @@ const IconWrapper = styled.div`
   display: flex;
 `
 
-export const ToolSelector: VFC<ToolSelectorProps> = ({
+export const ToolSelector: FC<ToolSelectorProps> = ({
   mouseMode,
   onSelect,
 }) => {
   return (
     <ButtonGroup>
       <ToolbarButtonGroupItem
+        onMouseDown={(e) => e.preventDefault()}
+        tabIndex={-1}
         onClick={useCallback(() => onSelect("pencil"), [])}
         selected={mouseMode === "pencil"}
       >
@@ -48,6 +50,8 @@ export const ToolSelector: VFC<ToolSelectorProps> = ({
         </Tooltip>
       </ToolbarButtonGroupItem>
       <ToolbarButtonGroupItem
+        onMouseDown={(e) => e.preventDefault()}
+        tabIndex={-1}
         onClick={useCallback(() => onSelect("selection"), [])}
         selected={mouseMode === "selection"}
       >

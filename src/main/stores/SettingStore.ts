@@ -1,4 +1,5 @@
 import { makeObservable, observable } from "mobx"
+import { makePersistable } from "mobx-persist-store"
 import { Language } from "../../common/localize/localizedString"
 
 export default class SettingStore {
@@ -9,10 +10,10 @@ export default class SettingStore {
       language: observable,
     })
 
-    // makePersistable(this, {
-    //   name: "SettingStore",
-    //   properties: ["language"],
-    //   storage: window.localStorage,
-    // })
+    makePersistable(this, {
+      name: "SettingStore",
+      properties: ["language"],
+      storage: window.localStorage,
+    })
   }
 }

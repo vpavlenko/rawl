@@ -9,6 +9,7 @@ const routes: SettingRoute[] = ["general", "midi"]
 const RouteItem = styled(Button)<{ selected: boolean }>`
   display: flex;
   font-size: 1rem;
+  align-items: center;
   margin-bottom: 0.5rem;
   background: ${({ theme, selected }) =>
     selected ? theme.highlightColor : "inherit"};

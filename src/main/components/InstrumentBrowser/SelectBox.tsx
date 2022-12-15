@@ -1,8 +1,8 @@
 import styled from "@emotion/styled"
-import { FC, PropsWithChildren } from "react"
+import { FC, PropsWithChildren, ReactNode } from "react"
 
 export interface SelectBoxProps<T> {
-  items: { name: string; value: T }[]
+  items: { label: ReactNode; value: T }[]
   selectedValue: T
   onChange: (value: T) => void
 }
@@ -81,7 +81,7 @@ export const SelectBox = <T extends {}>({
           checked={item.value === selectedValue}
           onClick={() => onChange(item.value)}
         >
-          {item.name}
+          {item.label}
         </Option>
       ))}
     </Select>

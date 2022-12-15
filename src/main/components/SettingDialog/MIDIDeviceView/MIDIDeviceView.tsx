@@ -1,19 +1,13 @@
 import styled from "@emotion/styled"
 import { observer } from "mobx-react-lite"
 import { FC } from "react"
-import { Alert } from "../../../components/Alert"
-import { Button } from "../../../components/Button"
-import { Checkbox } from "../../../components/Checkbox"
-import { CircularProgress } from "../../../components/CircularProgress"
-import {
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-} from "../../../components/Dialog"
-import { Label } from "../../../components/Label"
-import { Localized } from "../../../components/Localized"
-import { useStores } from "../../hooks/useStores"
+import { Alert } from "../../../../components/Alert"
+import { Checkbox } from "../../../../components/Checkbox"
+import { CircularProgress } from "../../../../components/CircularProgress"
+import { DialogContent, DialogTitle } from "../../../../components/Dialog"
+import { Label } from "../../../../components/Label"
+import { Localized } from "../../../../components/Localized"
+import { useStores } from "../../../hooks/useStores"
 
 interface Device {
   id: string
@@ -62,8 +56,8 @@ const SectionTitle = styled.div`
   margin: 1rem 0;
 `
 
-export const MIDIDeviceDialog: FC = observer(() => {
-  const { midiDeviceStore, rootViewStore } = useStores()
+export const MIDIDeviceView: FC = observer(() => {
+  const { midiDeviceStore } = useStores()
 
   const {
     inputs,
@@ -74,9 +68,6 @@ export const MIDIDeviceDialog: FC = observer(() => {
     enabledOutputs,
     isFactorySoundEnabled,
   } = midiDeviceStore
-  const isOpen = rootViewStore.openDeviceDialog
-
-  const close = () => (rootViewStore.openDeviceDialog = false)
 
   const formatName = (device: WebMidi.MIDIPort) =>
     (device?.name ?? "") +
@@ -105,7 +96,7 @@ export const MIDIDeviceDialog: FC = observer(() => {
   }
 
   return (
-    <Dialog open={isOpen} onOpenChange={close} style={{ minWidth: "20rem" }}>
+    <>
       <DialogTitle>
         <Localized default="MIDI Settings">midi-settings</Localized>
       </DialogTitle>
@@ -164,11 +155,6 @@ export const MIDIDeviceDialog: FC = observer(() => {
           </>
         )}
       </DialogContent>
-      <DialogActions>
-        <Button onClick={close}>
-          <Localized default="Close">close</Localized>
-        </Button>
-      </DialogActions>
-    </Dialog>
+    </>
   )
 })

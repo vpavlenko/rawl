@@ -155,7 +155,10 @@ export const Navigation: FC = observer(() => {
       <FlexibleSpacer />
 
       <Tab
-        onClick={useCallback(() => (rootViewStore.openDeviceDialog = true), [])}
+        onClick={useCallback(
+          () => (rootViewStore.openSettingDialog = true),
+          []
+        )}
       >
         <Settings style={IconStyle} />
         <TabTitle>

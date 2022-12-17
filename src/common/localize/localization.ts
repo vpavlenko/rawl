@@ -101,6 +101,7 @@ export default {
     "midi-settings": "MIDI設定",
     inputs: "入力",
     outputs: "出力",
+    "no-inputs": "入力デバイスが見つかりません",
     "one-octave-up": "+1オクターブ",
     "one-octave-down": "-1オクターブ",
     arrange: "アレンジ",

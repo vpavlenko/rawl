@@ -47,6 +47,10 @@ const DeviceRow: FC<ListItem> = ({ device, isSelected, onCheck }) => {
 
 const DeviceList = styled.div``
 
+const Notice = styled.div`
+  color: ${({ theme }) => theme.secondaryTextColor};
+`
+
 const Spacer = styled.div`
   height: 2rem;
 `
@@ -114,6 +118,13 @@ export const MIDIDeviceView: FC = observer(() => {
               <Localized default="Inputs">inputs</Localized>
             </SectionTitle>
             <DeviceList>
+              {inputDevices.length === 0 && (
+                <Notice>
+                  <Localized default="No input device found">
+                    no-inputs
+                  </Localized>
+                </Notice>
+              )}
               {inputDevices.map(({ device, isSelected }) => (
                 <DeviceRow
                   key={device.id}

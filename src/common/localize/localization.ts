@@ -126,6 +126,7 @@ export default {
     "please-sign-up": "サインアップしてクラウドセーブを利用",
     "save-changes": "曲への変更を保存しますか?",
     "sign-in": "サインイン",
+    "sign-out": "サインアウト",
     "success-sign-in": "サインインに成功しました",
     files: "ファイル",
     "created-date": "作成日時",

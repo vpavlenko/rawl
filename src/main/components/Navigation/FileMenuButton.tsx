@@ -30,6 +30,8 @@ export const FileMenuButton: FC = observer(() => {
 
   return (
     <Menu
+      open={isOpen}
+      onOpenChange={(open) => (rootViewStore.openDrawer = open)}
       trigger={
         <Tab
           ref={ref}

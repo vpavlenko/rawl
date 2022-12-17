@@ -1,5 +1,4 @@
 import { FC, useEffect, useState } from "react"
-import { localized } from "../../../common/localize/localizedString"
 import { Button, PrimaryButton } from "../../../components/Button"
 import {
   Dialog,
@@ -7,6 +6,7 @@ import {
   DialogContent,
   DialogTitle,
 } from "../../../components/Dialog"
+import { Localized } from "../../../components/Localized"
 import { TextField } from "../../../components/TextField"
 
 export interface TransposeDialogProps {
@@ -37,7 +37,9 @@ export const TransposeDialog: FC<TransposeDialogProps> = ({
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogTitle>{localized("transpose", "Transpose")}</DialogTitle>
+      <DialogTitle>
+        <Localized default="Transpose">transpose</Localized>
+      </DialogTitle>
       <DialogContent>
         <TextField
           type="number"
@@ -53,9 +55,11 @@ export const TransposeDialog: FC<TransposeDialogProps> = ({
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>{localized("close", "Close")}</Button>
+        <Button onClick={onClose}>
+          <Localized default="Close">close</Localized>
+        </Button>
         <PrimaryButton onClick={_onClickOK}>
-          {localized("ok", "OK")}
+          <Localized default="OK">ok</Localized>
         </PrimaryButton>
       </DialogActions>
     </Dialog>

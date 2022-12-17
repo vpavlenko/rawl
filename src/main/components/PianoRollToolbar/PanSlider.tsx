@@ -1,7 +1,7 @@
 import styled from "@emotion/styled"
 import { observer } from "mobx-react-lite"
 import React, { FC, useCallback } from "react"
-import { localized } from "../../../common/localize/localizedString"
+import { Localized } from "../../../components/Localized"
 import { Slider } from "../../../components/Slider"
 import { setTrackPan } from "../../actions"
 import { useStores } from "../../hooks/useStores"
@@ -37,7 +37,9 @@ const _PanSlider: FC<PanSliderProps> = observer(({ trackId }) => {
 
   return (
     <Container>
-      <Label>{localized("pan", "Pan")}</Label>
+      <Label>
+        <Localized default="Pan">pan</Localized>
+      </Label>
       <Slider
         value={pan}
         onChange={(value) => onChange(value as number)}

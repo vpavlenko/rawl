@@ -1,12 +1,13 @@
 import { observer } from "mobx-react-lite"
 import { ChangeEvent, FC } from "react"
-import { localized } from "../../../common/localize/localizedString"
 import { emptySong } from "../../../common/song"
+import { Localized } from "../../../components/Localized"
 import { MenuDivider, MenuItem } from "../../../components/Menu"
 import { createSong, updateSong } from "../../../firebase/song"
 import { openSong, saveSong, setSong } from "../../actions"
 import { hasFSAccess, openFile, saveFileAs } from "../../actions/file"
 import { useDialog } from "../../hooks/useDialog"
+import { useLocalization } from "../../hooks/useLocalization"
 import { usePrompt } from "../../hooks/usePrompt"
 import { useStores } from "../../hooks/useStores"
 import { useToast } from "../../hooks/useToast"
@@ -19,6 +20,7 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
     const toast = useToast()
     const prompt = usePrompt()
     const dialog = useDialog()
+    const localized = useLocalization()
 
     const saveOrCreateSong = async () => {
       const { song } = rootStore
@@ -195,42 +197,46 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
 
     return (
       <>
-        <MenuItem onClick={onClickNew}>{localized("new-song", "New")}</MenuItem>
+        <MenuItem onClick={onClickNew}>
+          <Localized default="New">new-song</Localized>
+        </MenuItem>
 
         <MenuDivider />
 
         <MenuItem onClick={onClickOpen}>
-          {localized("open-song", "Open")}
+          <Localized default="Open">open-song</Localized>
         </MenuItem>
 
         <MenuItem onClick={onClickSave} disabled={rootStore.song.isSaved}>
-          {localized("save-song", "Save")}
+          <Localized default="Save">save-song</Localized>
         </MenuItem>
 
         <MenuItem onClick={onClickSaveAs}>
-          {localized("save-as", "Save As")}
+          <Localized default="Save As">save-as</Localized>
         </MenuItem>
 
         <MenuItem onClick={onClickRename}>
-          {localized("rename", "Rename")}
+          <Localized default="Rename">rename</Localized>
         </MenuItem>
 
         <MenuDivider />
 
         {!hasFSAccess && (
           <FileInput onChange={onClickImportLegacy}>
-            <MenuItem>{localized("import-midi", "Import MIDI file")}</MenuItem>
+            <MenuItem>
+              <Localized default="Import MIDI file">import-midi</Localized>
+            </MenuItem>
           </FileInput>
         )}
 
         {hasFSAccess && (
           <MenuItem onClick={onClickImport}>
-            {localized("import-midi", "Import MIDI file")}
+            <Localized default="Import MIDI file">import-midi</Localized>
           </MenuItem>
         )}
 
         <MenuItem onClick={onClickExport}>
-          {localized("export-midi", "Export MIDI file")}
+          <Localized default="Export MIDI file">export-midi</Localized>
         </MenuItem>
       </>
     )

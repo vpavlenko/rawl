@@ -1,7 +1,7 @@
 import { User } from "firebase/auth"
 import AccountCircle from "mdi-react/AccountCircleIcon"
 import { FC, useRef, useState } from "react"
-import { localized } from "../../../common/localize/localizedString"
+import { Localized } from "../../../components/Localized"
 import { Menu, MenuItem } from "../../../components/Menu"
 import { useTheme } from "../../hooks/useTheme"
 import { IconStyle, Tab, TabTitle } from "./Navigation"
@@ -27,7 +27,9 @@ export const UserButtonContent: FC<UserButtonContentProps> = ({
     return (
       <Tab onClick={onClickSignIn}>
         <AccountCircle style={IconStyle} />
-        <TabTitle>{localized("sign-in", "Sign in")}</TabTitle>
+        <TabTitle>
+          <Localized default="Sign in">sign-in</Localized>
+        </TabTitle>
       </Tab>
     )
   }
@@ -49,7 +51,7 @@ export const UserButtonContent: FC<UserButtonContentProps> = ({
       }
     >
       <MenuItem onClick={onClickSignOut}>
-        {localized("sign-out", "Sign out")}
+        <Localized default="Sign out">sign-out</Localized>
       </MenuItem>
     </Menu>
   )

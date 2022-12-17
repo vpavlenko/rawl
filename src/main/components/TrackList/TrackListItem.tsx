@@ -18,8 +18,10 @@ import {
 } from "../../actions"
 import { useContextMenu } from "../../hooks/useContextMenu"
 import { useStores } from "../../hooks/useStores"
+import { TrackInstrumentName } from "./InstrumentName"
 import { TrackDialog } from "./TrackDialog"
 import { TrackListContextMenu } from "./TrackListContextMenu"
+import { TrackName } from "./TrackName"
 
 export type TrackListItemProps = {
   trackId: number
@@ -117,8 +119,6 @@ export const TrackListItem: FC<TrackListItemProps> = observer(({ trackId }) => {
 
   const selected =
     !rootViewStore.isArrangeViewSelected && trackId === song.selectedTrackId
-  const name = track.displayName
-  const instrument = track.instrumentName ?? ""
   const mute = trackMute.isMuted(trackId)
   const solo = trackMute.isSolo(trackId)
   const ghostTrack = !pianoRollStore.notGhostTracks.has(trackId)
@@ -182,8 +182,12 @@ export const TrackListItem: FC<TrackListItemProps> = observer(({ trackId }) => {
         </Icon>
         <div>
           <Label>
-            <Name selected={selected}>{name}</Name>
-            <Instrument>{instrument}</Instrument>
+            <Name selected={selected}>
+              <TrackName track={track} />
+            </Name>
+            <Instrument>
+              <TrackInstrumentName track={track} />
+            </Instrument>
           </Label>
           <Controls>
             <ControlButton active={solo} onClick={onClickSolo}>

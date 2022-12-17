@@ -1,15 +1,17 @@
 import { observer } from "mobx-react-lite"
 import { FC } from "react"
-import { localized } from "../../../common/localize/localizedString"
+import { Localized } from "../../../components/Localized"
 import { MenuDivider, MenuItem } from "../../../components/Menu"
 import { createSong } from "../../actions"
 import { openFile, saveFile, saveFileAs } from "../../actions/file"
+import { useLocalization } from "../../hooks/useLocalization"
 import { useStores } from "../../hooks/useStores"
 import { useToast } from "../../hooks/useToast"
 
 export const FileMenu: FC<{ close: () => void }> = observer(({ close }) => {
   const rootStore = useStores()
   const toast = useToast()
+  const localized = useLocalization()
 
   const onClickNew = () => {
     const { song } = rootStore
@@ -49,23 +51,25 @@ export const FileMenu: FC<{ close: () => void }> = observer(({ close }) => {
 
   return (
     <>
-      <MenuItem onClick={onClickNew}>{localized("new-song", "New")}</MenuItem>
+      <MenuItem onClick={onClickNew}>
+        <Localized default="New">new-song</Localized>
+      </MenuItem>
 
       <MenuDivider />
 
       <MenuItem onClick={onClickOpen}>
-        {localized("open-song", "Open")}
+        <Localized default="Open">open-song</Localized>
       </MenuItem>
 
       <MenuItem
         onClick={onClickSave}
         disabled={rootStore.song.fileHandle === null}
       >
-        {localized("save-song", "Save")}
+        <Localized default="Save">save-song</Localized>
       </MenuItem>
 
       <MenuItem onClick={onClickSaveAs}>
-        {localized("save-as", "Save As")}
+        <Localized default="Save As">save-as</Localized>
       </MenuItem>
     </>
   )

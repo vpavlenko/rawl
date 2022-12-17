@@ -1,19 +1,12 @@
 import styled from "@emotion/styled"
 import { CheckedState } from "@radix-ui/react-checkbox"
-import { map } from "lodash"
+import { groupBy, map } from "lodash"
 import difference from "lodash/difference"
-import groupBy from "lodash/groupBy"
 import range from "lodash/range"
 import { observer } from "mobx-react-lite"
 import { FC } from "react"
 import { isNotUndefined } from "../../../common/helpers/array"
-import { localized } from "../../../common/localize/localizedString"
-import {
-  categoryEmojis,
-  categoryNames,
-  getCategoryIndex,
-  getInstrumentName,
-} from "../../../common/midi/GM"
+import { getCategoryIndex } from "../../../common/midi/GM"
 import { programChangeMidiEvent } from "../../../common/midi/MidiEvent"
 import { Button, PrimaryButton } from "../../../components/Button"
 import { Checkbox } from "../../../components/Checkbox"
@@ -23,8 +16,11 @@ import {
   DialogContent,
 } from "../../../components/Dialog"
 import { Label } from "../../../components/Label"
+import { Localized } from "../../../components/Localized"
 import { setTrackInstrument as setTrackInstrumentAction } from "../../actions"
 import { useStores } from "../../hooks/useStores"
+import { FancyCategoryName } from "../TrackList/CategoryName"
+import { InstrumentName } from "../TrackList/InstrumentName"
 import { SelectBox } from "./SelectBox"
 
 export interface InstrumentSetting {
@@ -42,12 +38,10 @@ export interface InstrumentBrowserProps {
 }
 
 export interface PresetItem {
-  name: string
   programNumber: number
 }
 
 export interface PresetCategory {
-  name: string
   presets: PresetItem[]
 }
 
@@ -98,12 +92,14 @@ const InstrumentBrowser: FC<InstrumentBrowserProps> = ({
 
   const categoryOptions = presetCategories.map((preset, i) => ({
     value: i,
-    name: preset.name,
+    label: (
+      <FancyCategoryName programNumber={preset.presets[0].programNumber} />
+    ),
   }))
 
   const instrumentOptions = instruments.map((p) => ({
     value: p.programNumber,
-    name: p.name,
+    label: <InstrumentName programNumber={p.programNumber} />,
   }))
 
   return (
@@ -112,7 +108,7 @@ const InstrumentBrowser: FC<InstrumentBrowserProps> = ({
         <Finder className={isRhythmTrack ? "disabled" : ""}>
           <Left>
             <Label style={{ marginBottom: "0.5rem" }}>
-              {localized("categories", "Categories")}
+              <Localized default="Categories">categories</Localized>
             </Label>
             <SelectBox
               items={categoryOptions}
@@ -127,7 +123,7 @@ const InstrumentBrowser: FC<InstrumentBrowserProps> = ({
           </Left>
           <Right>
             <Label style={{ marginBottom: "0.5rem" }}>
-              {localized("instruments", "Instruments")}
+              <Localized default="Instruments">instruments</Localized>
             </Label>
             <SelectBox
               items={instrumentOptions}
@@ -142,14 +138,16 @@ const InstrumentBrowser: FC<InstrumentBrowserProps> = ({
           <Checkbox
             checked={isRhythmTrack}
             onCheckedChange={onChangeRhythmTrack}
-            label={localized("rhythm-track", "Rhythm Track")}
+            label=<Localized default="Rhythm Track">rhythm-track</Localized>
           />
         </Footer>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClickCancel}>{localized("cancel", "Cancel")}</Button>
+        <Button onClick={onClickCancel}>
+          <Localized default="Cancel">cancel</Localized>
+        </Button>
         <PrimaryButton onClick={onClickOK}>
-          {localized("ok", "OK")}
+          <Localized default="OK">ok</Localized>
         </PrimaryButton>
       </DialogActions>
     </Dialog>
@@ -178,15 +176,12 @@ const InstrumentBrowserWrapper: FC = observer(() => {
 
   const presets: PresetItem[] = range(0, 128).map((programNumber) => ({
     programNumber,
-    name: getInstrumentName(programNumber)!,
+    name: <InstrumentName programNumber={programNumber} />,
   }))
 
   const presetCategories = map(
     groupBy(presets, (p) => getCategoryIndex(p.programNumber)),
-    (presets, index) => {
-      const cat = parseInt(index)
-      return { name: categoryEmojis[cat] + " " + categoryNames[cat], presets }
-    }
+    (presets) => ({ presets })
   )
 
   const onChange = (setting: InstrumentSetting) => {

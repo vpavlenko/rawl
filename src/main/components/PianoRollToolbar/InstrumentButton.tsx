@@ -3,6 +3,7 @@ import { FC, useCallback } from "react"
 import { categoryEmojis, getCategoryIndex } from "../../../common/midi/GM"
 import { useStores } from "../../hooks/useStores"
 import { ToolbarButton } from "../Toolbar/ToolbarButton"
+import { TrackInstrumentName } from "../TrackList/InstrumentName"
 
 export const InstrumentButton: FC = observer(() => {
   const {
@@ -14,7 +15,7 @@ export const InstrumentButton: FC = observer(() => {
     return <></>
   }
 
-  const { programNumber, instrumentName } = selectedTrack
+  const { programNumber } = selectedTrack
   const emoji = categoryEmojis[getCategoryIndex(programNumber ?? 0)]
 
   const onClickInstrument = useCallback(() => {
@@ -33,7 +34,9 @@ export const InstrumentButton: FC = observer(() => {
   return (
     <ToolbarButton onClick={onClickInstrument}>
       <span style={{ marginRight: "0.5rem" }}>{emoji}</span>
-      <span>{instrumentName}</span>
+      <span>
+        <TrackInstrumentName track={selectedTrack} />
+      </span>
     </ToolbarButton>
   )
 })

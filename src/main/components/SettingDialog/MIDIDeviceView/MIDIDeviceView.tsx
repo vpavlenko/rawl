@@ -1,19 +1,13 @@
 import styled from "@emotion/styled"
 import { observer } from "mobx-react-lite"
 import { FC } from "react"
-import { localized } from "../../../common/localize/localizedString"
-import { Alert } from "../../../components/Alert"
-import { Button } from "../../../components/Button"
-import { Checkbox } from "../../../components/Checkbox"
-import { CircularProgress } from "../../../components/CircularProgress"
-import {
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-} from "../../../components/Dialog"
-import { Label } from "../../../components/Label"
-import { useStores } from "../../hooks/useStores"
+import { Alert } from "../../../../components/Alert"
+import { Checkbox } from "../../../../components/Checkbox"
+import { CircularProgress } from "../../../../components/CircularProgress"
+import { DialogContent, DialogTitle } from "../../../../components/Dialog"
+import { Label } from "../../../../components/Label"
+import { Localized } from "../../../../components/Localized"
+import { useStores } from "../../../hooks/useStores"
 
 interface Device {
   id: string
@@ -53,6 +47,10 @@ const DeviceRow: FC<ListItem> = ({ device, isSelected, onCheck }) => {
 
 const DeviceList = styled.div``
 
+const Notice = styled.div`
+  color: ${({ theme }) => theme.secondaryTextColor};
+`
+
 const Spacer = styled.div`
   height: 2rem;
 `
@@ -62,8 +60,8 @@ const SectionTitle = styled.div`
   margin: 1rem 0;
 `
 
-export const MIDIDeviceDialog: FC = observer(() => {
-  const { midiDeviceStore, rootViewStore } = useStores()
+export const MIDIDeviceView: FC = observer(() => {
+  const { midiDeviceStore } = useStores()
 
   const {
     inputs,
@@ -74,9 +72,6 @@ export const MIDIDeviceDialog: FC = observer(() => {
     enabledOutputs,
     isFactorySoundEnabled,
   } = midiDeviceStore
-  const isOpen = rootViewStore.openDeviceDialog
-
-  const close = () => (rootViewStore.openDeviceDialog = false)
 
   const formatName = (device: WebMidi.MIDIPort) =>
     (device?.name ?? "") +
@@ -105,8 +100,10 @@ export const MIDIDeviceDialog: FC = observer(() => {
   }
 
   return (
-    <Dialog open={isOpen} onOpenChange={close} style={{ minWidth: "20rem" }}>
-      <DialogTitle>{localized("midi-settings", "MIDI Settings")}</DialogTitle>
+    <>
+      <DialogTitle>
+        <Localized default="MIDI Settings">midi-settings</Localized>
+      </DialogTitle>
       <DialogContent>
         {isLoading && <CircularProgress />}
         {requestError && (
@@ -117,8 +114,17 @@ export const MIDIDeviceDialog: FC = observer(() => {
         )}
         {!isLoading && (
           <>
-            <SectionTitle>{localized("inputs", "Inputs")}</SectionTitle>
+            <SectionTitle>
+              <Localized default="Inputs">inputs</Localized>
+            </SectionTitle>
             <DeviceList>
+              {inputDevices.length === 0 && (
+                <Notice>
+                  <Localized default="No input device found">
+                    no-inputs
+                  </Localized>
+                </Notice>
+              )}
               {inputDevices.map(({ device, isSelected }) => (
                 <DeviceRow
                   key={device.id}
@@ -133,7 +139,9 @@ export const MIDIDeviceDialog: FC = observer(() => {
             {
               <>
                 <Spacer />
-                <SectionTitle>{localized("outputs", "Outputs")}</SectionTitle>
+                <SectionTitle>
+                  <Localized default="Outputs">outputs</Localized>
+                </SectionTitle>
                 <DeviceList>
                   <DeviceRow
                     device={factorySound}
@@ -158,9 +166,6 @@ export const MIDIDeviceDialog: FC = observer(() => {
           </>
         )}
       </DialogContent>
-      <DialogActions>
-        <Button onClick={close}>{localized("close", "Close")}</Button>
-      </DialogActions>
-    </Dialog>
+    </>
   )
 })

@@ -30,6 +30,7 @@ import {
 } from "../inputs/ScaleScrollBar"
 import { BAR_WIDTH } from "../inputs/ScrollBar"
 import CanvasPianoRuler from "../PianoRoll/CanvasPianoRuler"
+import { TrackName } from "../TrackList/TrackName"
 import { ArrangeContextMenu } from "./ArrangeContextMenu"
 import { ArrangeTrackContextMenu } from "./ArrangeTrackContextMenu"
 import { ArrangeViewCanvas } from "./ArrangeViewCanvas/ArrangeViewCanvas"
@@ -319,7 +320,7 @@ export const ArrangeView: FC = observer(() => {
                 onTrackContextMenu(e)
               }}
             >
-              {t.displayName}
+              <TrackName track={t} />
             </TrackHeader>
           ))}
         </div>

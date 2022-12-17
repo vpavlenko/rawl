@@ -3,6 +3,8 @@ import { Content, Portal, Root, Trigger } from "@radix-ui/react-dropdown-menu"
 import React, { FC, PropsWithChildren } from "react"
 
 export type MenuProps = PropsWithChildren<{
+  open?: boolean
+  onOpenChange?: (open: boolean) => void
   trigger: React.ReactNode
 }>
 
@@ -21,9 +23,14 @@ const List = styled.ul`
   margin: 0;
 `
 
-export const Menu: FC<MenuProps> = ({ trigger, children }) => {
+export const Menu: FC<MenuProps> = ({
+  trigger,
+  open,
+  onOpenChange,
+  children,
+}) => {
   return (
-    <Root>
+    <Root open={open} onOpenChange={onOpenChange}>
       <Trigger asChild>{trigger}</Trigger>
 
       <Portal>

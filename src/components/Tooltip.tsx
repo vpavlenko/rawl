@@ -9,10 +9,10 @@ import {
   Trigger,
 } from "@radix-ui/react-tooltip"
 import Color from "color"
-import { FC } from "react"
+import { FC, ReactNode } from "react"
 
 export type TooltipProps = TooltipProviderProps & {
-  title: string
+  title: ReactNode
   side?: TooltipContentProps["side"]
 }
 

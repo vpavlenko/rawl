@@ -2,8 +2,9 @@ import styled from "@emotion/styled"
 import { observer } from "mobx-react-lite"
 import { FC, useState } from "react"
 import { useStores } from "../../hooks/useStores"
+import { TrackName } from "../TrackList/TrackName"
 
-const TrackName = styled.span`
+const TrackNameWrapper = styled.span`
   font-weight: bold;
   margin-right: 2em;
   font-size: 1rem;
@@ -30,7 +31,13 @@ const Input = styled.input`
 
 export const TrackNameInput: FC = observer(() => {
   const rootStore = useStores()
-  const trackName = rootStore.song.selectedTrack?.displayName ?? ""
+  const {
+    song: { selectedTrack },
+  } = rootStore
+
+  if (selectedTrack === undefined) {
+    return <></>
+  }
 
   const [isEditing, setEditing] = useState(false)
   return (
@@ -54,9 +61,9 @@ export const TrackNameInput: FC = observer(() => {
           onBlur={() => setEditing(false)}
         />
       ) : (
-        <TrackName onDoubleClick={() => setEditing(true)}>
-          {trackName}
-        </TrackName>
+        <TrackNameWrapper onDoubleClick={() => setEditing(true)}>
+          <TrackName track={selectedTrack} />
+        </TrackNameWrapper>
       )}
     </>
   )

@@ -101,6 +101,7 @@ export default {
     "midi-settings": "MIDI設定",
     inputs: "入力",
     outputs: "出力",
+    "no-inputs": "入力デバイスが見つかりません",
     "one-octave-up": "+1オクターブ",
     "one-octave-down": "-1オクターブ",
     arrange: "アレンジ",
@@ -125,6 +126,7 @@ export default {
     "please-sign-up": "サインアップしてクラウドセーブを利用",
     "save-changes": "曲への変更を保存しますか?",
     "sign-in": "サインイン",
+    "sign-out": "サインアウト",
     "success-sign-in": "サインインに成功しました",
     files: "ファイル",
     "created-date": "作成日時",
@@ -135,6 +137,8 @@ export default {
       "サインインすることで楽曲をクラウドに保存し、いつでもどこからでも作曲を再開することができます。",
     "import-midi": "MIDI をインポート",
     "export-midi": "MIDI をエクスポート",
+    general: "一般",
+    /* MIDI Instrument Categories */
     Piano: "ピアノ",
     "Chromatic Percussion": "クロマチック",
     Organ: "オルガン",
@@ -151,6 +155,7 @@ export default {
     Ethnic: "民族楽器",
     Percussive: "打楽器",
     "Sound effects": "効果音",
+    /* MIDI Instruments */
     "Acoustic Grand Piano": "アコースティックピアノ",
     "Bright Acoustic Piano": "ブライトピアノ",
     "Electric Grand Piano": "エレクトリック・グランドピアノ",
@@ -414,6 +419,7 @@ export default {
       "通过登录，您可以将您的曲目保存到云端并随时随地恢复作曲。",
     "import-midi": "导入 MIDI",
     "export-midi": "导出 MIDI",
+    /* MIDI Instrument Categories */
     Piano: "钢琴",
     "Chromatic Percussion": "半音打击乐",
     Organ: "风琴",
@@ -430,6 +436,7 @@ export default {
     Ethnic: "民族乐器",
     Percussive: "打击乐",
     "Sound effects": "声音特效",
+    /* MIDI Instruments */
     "Acoustic Grand Piano": "大钢琴",
     "Bright Acoustic Piano": "立式钢琴",
     "Electric Grand Piano": "电钢琴",

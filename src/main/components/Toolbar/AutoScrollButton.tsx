@@ -1,7 +1,7 @@
 import styled from "@emotion/styled"
 import KeyboardTab from "mdi-react/KeyboardTabIcon"
 import { FC } from "react"
-import { localized } from "../../../common/localize/localizedString"
+import { Localized } from "../../../components/Localized"
 import { Tooltip } from "../../../components/Tooltip"
 import { ToolbarButton } from "./ToolbarButton"
 
@@ -19,7 +19,7 @@ export const AutoScrollButton: FC<AutoScrollButtonProps> = ({
   onClick,
   selected,
 }) => (
-  <Tooltip title={localized("auto-scroll", "Auto-Scroll")}>
+  <Tooltip title={<Localized default="Auto-Scroll">auto-scroll</Localized>}>
     <ToolbarButton onClick={onClick} selected={selected}>
       <AutoScrollIcon />
     </ToolbarButton>

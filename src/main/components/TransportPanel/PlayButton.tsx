@@ -2,7 +2,7 @@ import styled from "@emotion/styled"
 import Pause from "mdi-react/PauseIcon"
 import PlayArrow from "mdi-react/PlayArrowIcon"
 import { FC } from "react"
-import { localized } from "../../../common/localize/localizedString"
+import { Localized } from "../../../components/Localized"
 import { Tooltip } from "../../../components/Tooltip"
 import { CircleButton } from "./CircleButton"
 
@@ -30,7 +30,11 @@ export const PlayButton: FC<PlayButtonProps> = (
 ) => {
   return (
     <Tooltip
-      title={`${localized("play-pause", "Play/Pause")} [space]`}
+      title={
+        <>
+          <Localized default="Play/Pause">play-pause</Localized> [space]
+        </>
+      }
       side="top"
     >
       <StyledButton

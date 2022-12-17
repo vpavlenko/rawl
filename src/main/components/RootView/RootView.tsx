@@ -9,10 +9,10 @@ import { ExportDialog } from "../ExportDialog/ExportDialog"
 import { ExportProgressDialog } from "../ExportDialog/ExportProgressDialog"
 import { Head } from "../Head/Head"
 import { HelpDialog } from "../Help/HelpDialog"
-import { MIDIDeviceDialog } from "../MIDIDeviceView/MIDIDeviceDialog"
 import { Navigation } from "../Navigation/Navigation"
 import { OnBeforeUnload } from "../OnBeforeUnload/OnBeforeUnload"
 import { PianoRollEditor } from "../PianoRoll/PianoRollEditor"
+import { SettingDialog } from "../SettingDialog/SettingDialog"
 import { SignInDialog } from "../SignInDialog/SignInDialog"
 import { TempoEditor } from "../TempoGraph/TempoEditor"
 import { TransportPanel } from "../TransportPanel/TransportPanel"
@@ -57,7 +57,6 @@ export const RootView: FC = () => (
       </Container>
     </Column>
     <HelpDialog />
-    <MIDIDeviceDialog />
     <ExportDialog />
     <ExportProgressDialog />
     <PianoRollTransposeDialog />
@@ -65,6 +64,7 @@ export const RootView: FC = () => (
     <Head />
     <SignInDialog />
     <CloudFileDialog />
+    <SettingDialog />
     <OnBeforeUnload />
   </>
 )

@@ -5,12 +5,13 @@ import ArrowDropDown from "mdi-react/ArrowDropDownIcon"
 import ArrowUpward from "mdi-react/ArrowUpwardIcon"
 import { observer } from "mobx-react-lite"
 import { FC, useEffect } from "react"
-import { localized } from "../../../common/localize/localizedString"
 import { CircularProgress } from "../../../components/CircularProgress"
 import { IconButton } from "../../../components/IconButton"
+import { Localized } from "../../../components/Localized"
 import { Menu, MenuItem } from "../../../components/Menu"
 import { FirestoreSong, loadSong } from "../../../firebase/song"
 import { setSong } from "../../actions"
+import { useLocalization } from "../../hooks/useLocalization"
 import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
 import { useToast } from "../../hooks/useToast"
@@ -73,6 +74,7 @@ export const CloudFileList = observer(() => {
   const { cloudFileStore } = rootStore
   const toast = useToast()
   const theme = useTheme()
+  const localized = useLocalization()
   const { isLoading, dateType, files, selectedColumn, sortAscending } =
     cloudFileStore
 
@@ -115,7 +117,7 @@ export const CloudFileList = observer(() => {
           }}
           isSelected={selectedColumn === "name"}
         >
-          {localized("name", "Name")}
+          <Localized default="Name">name</Localized>
           <div style={{ width: "0.5rem" }}></div>
           {selectedColumn === "name" && (
             <SortButton sortAscending={sortAscending} />
@@ -144,10 +146,10 @@ export const CloudFileList = observer(() => {
             }
           >
             <MenuItem onClick={() => (cloudFileStore.dateType = "created")}>
-              {localized("created-date", "Created")}
+              <Localized default="Created">created-date</Localized>
             </MenuItem>
             <MenuItem onClick={() => (cloudFileStore.dateType = "updated")}>
-              {localized("modified-date", "Modified")}
+              <Localized default="Modified">modified-date</Localized>
             </MenuItem>
           </Menu>
           {selectedColumn === "date" && (

@@ -18,6 +18,7 @@ const RouteItem = styled(Button)<{ selected: boolean }>`
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  min-width: 8em;
   margin-right: 2rem;
 `
 

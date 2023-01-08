@@ -3,7 +3,7 @@ import { makePersistable } from "mobx-persist-store"
 import { Language } from "../../common/localize/localizedString"
 
 export default class SettingStore {
-  language: Language | null = "ja"
+  language: Language | null = null
 
   constructor() {
     makeObservable(this, {

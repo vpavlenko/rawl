@@ -18,19 +18,16 @@ const Wrapper = styled.div`
 `
 
 export const TempoGraph: FC = observer(() => {
-  const rootStore = useStores()
-
   const {
-    transform,
-    scrollLeft: _scrollLeft,
-    contentWidth,
-  } = rootStore.tempoEditorStore
+    tempoEditorStore,
+    tempoEditorStore: { transform, scrollLeft: _scrollLeft, contentWidth },
+  } = useStores()
 
   const ref = useRef(null)
   const size = useComponentSize(ref)
 
   const setScrollLeft = useCallback(
-    (x: number) => (rootStore.tempoEditorStore.scrollLeft = x),
+    (x: number) => (tempoEditorStore.scrollLeft = x),
     []
   )
   const theme = useTheme()
@@ -43,14 +40,14 @@ export const TempoGraph: FC = observer(() => {
   const contentHeight = containerHeight - Layout.rulerHeight - BAR_WIDTH
 
   useEffect(() => {
-    rootStore.tempoEditorStore.canvasWidth = containerWidth
-    rootStore.tempoEditorStore.canvasHeight = contentHeight
+    tempoEditorStore.canvasWidth = containerWidth
+    tempoEditorStore.canvasHeight = contentHeight
   }, [containerWidth, contentHeight])
 
   return (
     <Wrapper ref={ref}>
       <CanvasPianoRuler
-        rulerStore={rootStore.tempoEditorStore.rulerStore}
+        rulerStore={tempoEditorStore.rulerStore}
         style={{
           background: theme.backgroundColor,
           borderBottom: `1px solid ${theme.dividerColor}`,

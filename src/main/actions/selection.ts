@@ -212,14 +212,16 @@ export const resizeSelectionLeft = (rootStore: RootStore) => (tick: number) => {
 }
 
 export const resizeNotesInSelectionLeftBy =
-  (rootStore: RootStore) => (deltaTick: number) => {
-    const { selectedNoteIds, selectedTrack } = rootStore.pianoRollStore
-
+  ({
+    pianoRollStore: { selectedNoteIds, selectedTrack },
+    pushHistory,
+  }: RootStore) =>
+  (deltaTick: number) => {
     if (selectedTrack === undefined || selectedNoteIds.length === 0) {
       return
     }
 
-    pushHistory(rootStore)()
+    pushHistory()
 
     selectedTrack.updateEvents(
       selectedNoteIds
@@ -599,12 +601,12 @@ export const quantizeSelectedNotes = (rootStore: RootStore) => () => {
   selectedTrack.updateEvents(notes)
 }
 
-export const selectAllNotes = (rootStore: RootStore) => () => {
-  const { selectedTrack } = rootStore.pianoRollStore
-
-  if (selectedTrack) {
-    rootStore.pianoRollStore.selectedNoteIds = selectedTrack.events
-      .filter(isNoteEvent)
-      .map((note) => note.id)
+export const selectAllNotes =
+  ({ pianoRollStore, pianoRollStore: { selectedTrack } }: RootStore) =>
+  () => {
+    if (selectedTrack) {
+      pianoRollStore.selectedNoteIds = selectedTrack.events
+        .filter(isNoteEvent)
+        .map((note) => note.id)
+    }
   }
-}

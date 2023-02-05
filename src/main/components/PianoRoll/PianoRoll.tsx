@@ -37,18 +37,18 @@ const Beta = styled.div`
 `
 
 const PianoRollWrapper: FC = observer(() => {
-  const rootStore = useStores()
-
-  const s = rootStore.pianoRollStore
   const {
-    scaleX,
-    scaleY,
-    scrollLeft,
-    scrollTop,
-    transform,
-    contentWidth,
-    contentHeight,
-  } = rootStore.pianoRollStore
+    pianoRollStore: s,
+    pianoRollStore: {
+      scaleX,
+      scaleY,
+      scrollLeft,
+      scrollTop,
+      transform,
+      contentWidth,
+      contentHeight,
+    },
+  } = useStores()
 
   const ref = useRef(null)
   const size = useComponentSize(ref)

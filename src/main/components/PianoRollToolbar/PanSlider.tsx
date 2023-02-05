@@ -29,11 +29,14 @@ const PAN_CENTER = 64
 
 const _PanSlider: FC<PanSliderProps> = observer(({ trackId }) => {
   const rootStore = useStores()
+  const {
+    pianoRollStore: { currentPan },
+  } = rootStore
   const onChange = useCallback(
     (value: number) => setTrackPan(rootStore)(trackId, value),
     [rootStore, trackId]
   )
-  const pan = rootStore.pianoRollStore.currentPan ?? PAN_CENTER
+  const pan = currentPan ?? PAN_CENTER
 
   return (
     <Container>

@@ -25,20 +25,23 @@ export const PianoRollCanvas: FC<PianoRollStageProps> = observer(
   ({ width, height }) => {
     const rootStore = useStores()
     const {
-      notesCursor,
-      scrollLeft,
-      scrollTop,
-      rulerStore: { beats },
-      cursorX,
-      selectionBounds,
-    } = rootStore.pianoRollStore
+      pianoRollStore,
+      pianoRollStore: {
+        notesCursor,
+        scrollLeft,
+        scrollTop,
+        rulerStore: { beats },
+        cursorX,
+        selectionBounds,
+      },
+    } = rootStore
 
     const [mouseHandler] = useState(new NoteMouseHandler(rootStore))
 
     const { onContextMenu, menuProps } = useContextMenu()
 
     const handleContextMenu: MouseEventHandler = useCallback((e) => {
-      if (rootStore.pianoRollStore.mouseMode === "selection") {
+      if (pianoRollStore.mouseMode === "selection") {
         e.stopPropagation()
         onContextMenu(e)
         return
@@ -46,11 +49,11 @@ export const PianoRollCanvas: FC<PianoRollStageProps> = observer(
     }, [])
 
     useEffect(() => {
-      rootStore.pianoRollStore.canvasWidth = width
+      pianoRollStore.canvasWidth = width
     }, [width])
 
     useEffect(() => {
-      rootStore.pianoRollStore.canvasHeight = height
+      pianoRollStore.canvasHeight = height
     }, [height])
 
     const scrollXMatrix = useMemo(

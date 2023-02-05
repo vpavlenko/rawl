@@ -9,8 +9,9 @@ export type ModulationGraphProps = ISize
 
 const ModulationGraph: FC<ModulationGraphProps> = observer(
   ({ width, height }) => {
-    const rootStore = useStores()
-    const events = rootStore.pianoRollStore.modulationEvents
+    const {
+      pianoRollStore: { modulationEvents: events },
+    } = useStores()
 
     return (
       <LineGraphControl

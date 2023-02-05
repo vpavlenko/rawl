@@ -18,9 +18,10 @@ import { useStores } from "../../hooks/useStores"
 export const ArrangeContextMenu: FC<ContextMenuProps> = (props) => {
   const { handleClose } = props
   const rootStore = useStores()
-  const isNoteSelected = Object.values(
-    rootStore.arrangeViewStore.selectedEventIds
-  ).some((e) => e.length > 0)
+  const { arrangeViewStore } = rootStore
+  const isNoteSelected = Object.values(arrangeViewStore.selectedEventIds).some(
+    (e) => e.length > 0
+  )
 
   return (
     <ContextMenu {...props}>
@@ -93,7 +94,7 @@ export const ArrangeContextMenu: FC<ContextMenuProps> = (props) => {
         onClick={(e) => {
           e.stopPropagation()
           handleClose()
-          rootStore.arrangeViewStore.openTransposeDialog = true
+          arrangeViewStore.openTransposeDialog = true
         }}
         disabled={!isNoteSelected}
       >

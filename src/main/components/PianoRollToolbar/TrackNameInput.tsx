@@ -30,8 +30,9 @@ const Input = styled.input`
 `
 
 export const TrackNameInput: FC = observer(() => {
-  const rootStore = useStores()
-  const { selectedTrack } = rootStore.pianoRollStore
+  const {
+    pianoRollStore: { selectedTrack },
+  } = useStores()
 
   if (selectedTrack === undefined) {
     return <></>

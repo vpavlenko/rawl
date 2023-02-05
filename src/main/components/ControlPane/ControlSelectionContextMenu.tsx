@@ -19,8 +19,8 @@ export const ControlSelectionContextMenu: FC<ContextMenuProps> = React.memo(
   (props) => {
     const { handleClose } = props
     const rootStore = useStores()
-    const isEventSelected =
-      rootStore.pianoRollStore.selectedControllerEventIds.length > 0
+    const { pianoRollStore } = rootStore
+    const isEventSelected = pianoRollStore.selectedControllerEventIds.length > 0
 
     const onClickCut = useCallback(() => {
       copyControlSelection(rootStore)()

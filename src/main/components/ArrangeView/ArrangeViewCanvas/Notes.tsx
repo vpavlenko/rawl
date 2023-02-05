@@ -7,9 +7,10 @@ import { useStores } from "../../../hooks/useStores"
 import { useTheme } from "../../../hooks/useTheme"
 
 export const Notes: FC<{ zIndex: number }> = observer(({ zIndex }) => {
-  const rootStore = useStores()
+  const {
+    arrangeViewStore: { notes },
+  } = useStores()
   const theme = useTheme()
-  const { notes } = rootStore.arrangeViewStore
 
   return (
     <Rectangles

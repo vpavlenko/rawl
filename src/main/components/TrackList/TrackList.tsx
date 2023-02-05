@@ -13,11 +13,11 @@ const List = styled.div`
 `
 
 export const TrackList: FC = observer(() => {
-  const rootStore = useStores()
+  const { song } = useStores()
 
   return (
     <List>
-      {rootStore.song.tracks.map(
+      {song.tracks.map(
         (t, i) => !t.isConductorTrack && <TrackListItem key={i} trackId={i} />
       )}
       <AddTrackButton />

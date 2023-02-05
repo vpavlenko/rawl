@@ -7,22 +7,19 @@ import {
 } from "../clipboard/clipboardTypes"
 import clipboard from "../services/Clipboard"
 import RootStore from "../stores/RootStore"
-import { pushHistory } from "./history"
 
 export const createOrUpdateControlEventsValue =
-  (rootStore: RootStore) =>
+  ({
+    pianoRollStore: { selectedTrack, selectedControllerEventIds },
+    player,
+    pushHistory,
+  }: RootStore) =>
   <T extends ControllerEvent | PitchBendEvent>(event: T) => {
-    pushHistory(rootStore)()
-    const {
-      pianoRollStore: { selectedTrack, selectedControllerEventIds },
-      player,
-    } = rootStore
-
     if (selectedTrack === undefined) {
       return
     }
 
-    pushHistory(rootStore)()
+    pushHistory()
 
     const controllerEvents = selectedControllerEventIds
       .map((id) => selectedTrack.getEventById(id))
@@ -40,120 +37,132 @@ export const createOrUpdateControlEventsValue =
     }
   }
 
-export const deleteControlSelection = (rootStore: RootStore) => () => {
-  const {
+export const deleteControlSelection =
+  ({
     pianoRollStore,
     pianoRollStore: { selectedTrack, selectedControllerEventIds },
-  } = rootStore
+    pushHistory,
+  }: RootStore) =>
+  () => {
+    if (
+      selectedTrack === undefined ||
+      selectedControllerEventIds.length === 0
+    ) {
+      return
+    }
 
-  if (selectedTrack === undefined || selectedControllerEventIds.length === 0) {
-    return
+    pushHistory()
+
+    // 選択範囲と選択されたノートを削除
+    // Remove selected notes and selected notes
+    selectedTrack.removeEvents(selectedControllerEventIds)
+    pianoRollStore.controlSelection = null
   }
 
-  pushHistory(rootStore)()
+export const resetControlSelection =
+  ({ pianoRollStore }: RootStore) =>
+  () => {
+    pianoRollStore.controlSelection = null
+    pianoRollStore.selectedControllerEventIds = []
+  }
 
-  // 選択範囲と選択されたノートを削除
-  // Remove selected notes and selected notes
-  selectedTrack.removeEvents(selectedControllerEventIds)
-  pianoRollStore.controlSelection = null
-}
-
-export const resetControlSelection = (rootStore: RootStore) => () => {
-  rootStore.pianoRollStore.controlSelection = null
-  rootStore.pianoRollStore.selectedControllerEventIds = []
-}
-
-export const copyControlSelection = (rootStore: RootStore) => () => {
-  const {
+export const copyControlSelection =
+  ({
     pianoRollStore: { selectedTrack, selectedControllerEventIds },
-  } = rootStore
+  }: RootStore) =>
+  () => {
+    if (
+      selectedTrack === undefined ||
+      selectedControllerEventIds.length === 0
+    ) {
+      return
+    }
 
-  if (selectedTrack === undefined || selectedControllerEventIds.length === 0) {
-    return
+    // Copy selected events
+    const events = selectedControllerEventIds
+      .map((id) => selectedTrack.getEventById(id))
+      .filter(isNotUndefined)
+
+    const minTick = min(events.map((e) => e.tick))
+
+    if (minTick === undefined) {
+      return
+    }
+
+    const relativePositionedEvents = events.map((note) => ({
+      ...note,
+      tick: note.tick - minTick,
+    }))
+
+    const data: ControlEventsClipboardData = {
+      type: "control_events",
+      events: relativePositionedEvents,
+    }
+
+    clipboard.writeText(JSON.stringify(data))
   }
 
-  // Copy selected events
-  const events = selectedControllerEventIds
-    .map((id) => selectedTrack.getEventById(id))
-    .filter(isNotUndefined)
+export const pasteControlSelection =
+  ({ pianoRollStore: { selectedTrack }, player, pushHistory }: RootStore) =>
+  () => {
+    if (selectedTrack === undefined) {
+      return
+    }
 
-  const minTick = min(events.map((e) => e.tick))
+    const text = clipboard.readText()
+    if (!text || text.length === 0) {
+      return
+    }
 
-  if (minTick === undefined) {
-    return
+    const obj = JSON.parse(text)
+    if (!isControlEventsClipboardData(obj)) {
+      return
+    }
+
+    pushHistory()
+
+    const events = obj.events.map((e) => ({
+      ...e,
+      tick: e.tick + player.position,
+    }))
+    selectedTrack.transaction((it) =>
+      events.forEach((e) => it.createOrUpdate(e))
+    )
   }
 
-  const relativePositionedEvents = events.map((note) => ({
-    ...note,
-    tick: note.tick - minTick,
-  }))
-
-  const data: ControlEventsClipboardData = {
-    type: "control_events",
-    events: relativePositionedEvents,
-  }
-
-  clipboard.writeText(JSON.stringify(data))
-}
-
-export const pasteControlSelection = (rootStore: RootStore) => () => {
-  const {
-    pianoRollStore: { selectedTrack },
-    player,
-  } = rootStore
-
-  if (selectedTrack === undefined) {
-    return
-  }
-
-  const text = clipboard.readText()
-  if (!text || text.length === 0) {
-    return
-  }
-
-  const obj = JSON.parse(text)
-  if (!isControlEventsClipboardData(obj)) {
-    return
-  }
-
-  pushHistory(rootStore)()
-
-  const events = obj.events.map((e) => ({
-    ...e,
-    tick: e.tick + player.position,
-  }))
-  selectedTrack.transaction((it) => events.forEach((e) => it.createOrUpdate(e)))
-}
-
-export const duplicateControlSelection = (rootStore: RootStore) => () => {
-  const {
+export const duplicateControlSelection =
+  ({
     pianoRollStore,
     pianoRollStore: { selectedTrack, selectedControllerEventIds },
-  } = rootStore
+    pushHistory,
+  }: RootStore) =>
+  () => {
+    if (
+      selectedTrack === undefined ||
+      selectedControllerEventIds.length === 0
+    ) {
+      return
+    }
 
-  if (selectedTrack === undefined || selectedControllerEventIds.length === 0) {
-    return
+    pushHistory()
+
+    const selectedEvents = selectedControllerEventIds
+      .map((id) => selectedTrack.getEventById(id))
+      .filter(isNotUndefined)
+
+    // move to the end of selection
+    let deltaTick =
+      (maxBy(selectedEvents, (e) => e.tick)?.tick ?? 0) -
+      (minBy(selectedEvents, (e) => e.tick)?.tick ?? 0)
+
+    const notes = selectedEvents.map((note) => ({
+      ...note,
+      tick: note.tick + deltaTick,
+    }))
+
+    // select the created events
+    const addedEvents = selectedTrack.transaction((it) =>
+      notes.map((e) => it.createOrUpdate(e))
+    )
+    pianoRollStore.selectedControllerEventIds = addedEvents.map((e) => e.id)
   }
-
-  pushHistory(rootStore)()
-
-  const selectedEvents = selectedControllerEventIds
-    .map((id) => selectedTrack.getEventById(id))
-    .filter(isNotUndefined)
-
-  // move to the end of selection
-  let deltaTick =
-    (maxBy(selectedEvents, (e) => e.tick)?.tick ?? 0) -
-    (minBy(selectedEvents, (e) => e.tick)?.tick ?? 0)
-
-  const notes = selectedEvents.map((note) => ({
-    ...note,
-    tick: note.tick + deltaTick,
-  }))
-
-  // select the created events
-  const addedEvents = selectedTrack.transaction((it) =>
-    notes.map((e) => it.createOrUpdate(e))
-  )
-  pianoRollStore.selectedControllerEventIds = addedEvents.map((e) => e.id)
-}

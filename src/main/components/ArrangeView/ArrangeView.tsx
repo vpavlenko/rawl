@@ -162,7 +162,7 @@ export const ArrangeView: FC = observer(() => {
 
       const createSelectionHandler: DragHandler = (e, mouseMove, mouseUp) => {
         const startPos = trackTransform.getArrangePoint(startPosPx)
-        arrangeStartSelection(rootStore)(startPos)
+        arrangeStartSelection(rootStore)()
 
         if (!rootStore.player.isPlaying) {
           rootStore.player.position =

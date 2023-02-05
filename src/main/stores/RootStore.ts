@@ -2,7 +2,7 @@ import { makeObservable, observable } from "mobx"
 import Player from "../../common/player"
 import Song, { emptySong } from "../../common/song"
 import TrackMute from "../../common/trackMute"
-import { SerializedState } from "../actions/history"
+import { pushHistory, SerializedState } from "../actions/history"
 import { GroupOutput } from "../services/GroupOutput"
 import { MIDIInput, previewMidiInput } from "../services/MIDIInput"
 import { MIDIRecorder } from "../services/MIDIRecorder"
@@ -78,5 +78,9 @@ export default class RootStore {
     this.tempoEditorStore.setUpAutorun()
 
     registerReactions(this)
+  }
+
+  get pushHistory() {
+    return pushHistory(this)
   }
 }

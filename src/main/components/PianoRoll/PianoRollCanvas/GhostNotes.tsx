@@ -9,10 +9,11 @@ import { NoteCircles } from "./NoteCircles"
 import { NoteRectangles } from "./NoteRectangles"
 
 export const GhostNotes: FC<{ zIndex: number }> = observer(({ zIndex }) => {
-  const rootStore = useStores()
+  const {
+    pianoRollStore: { ghostNotes: notes },
+  } = useStores()
   const theme = useTheme()
 
-  const { ghostNotes: notes } = rootStore.pianoRollStore
   const [drumNotes, normalNotes] = partition(notes, (n) => n.isDrum)
   const baseColor = Color(theme.ghostNoteColor)
   const borderColor = baseColor.lighten(0.3)

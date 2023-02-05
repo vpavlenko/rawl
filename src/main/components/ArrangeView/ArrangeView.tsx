@@ -87,33 +87,34 @@ type DragHandler = (
 
 export const ArrangeView: FC = observer(() => {
   const rootStore = useStores()
-
-  const tracks = rootStore.song.tracks
-
-  const { arrangeViewStore: s } = rootStore
+  const {
+    arrangeViewStore,
+    arrangeViewStore: {
+      selection,
+      selectionRect,
+      trackHeight,
+      contentWidth,
+      transform,
+      trackTransform,
+      scrollLeft,
+      scrollTop,
+      scrollBy,
+      selectedTrackId,
+    },
+    player,
+    router,
+    song: { tracks },
+  } = rootStore
 
   const ref = useRef(null)
   const size = useComponentSize(ref)
 
-  const {
-    selection,
-    selectionRect,
-    trackHeight,
-    contentWidth,
-    transform,
-    trackTransform,
-    scrollLeft,
-    scrollTop,
-    scrollBy,
-    selectedTrackId,
-  } = rootStore.arrangeViewStore
-
   const setScrollLeft = useCallback(
-    (v: number) => rootStore.arrangeViewStore.setScrollLeftInPixels(v),
+    (v: number) => arrangeViewStore.setScrollLeftInPixels(v),
     []
   )
   const setScrollTop = useCallback(
-    (v: number) => rootStore.arrangeViewStore.setScrollTop(v),
+    (v: number) => arrangeViewStore.setScrollTop(v),
     []
   )
 
@@ -123,32 +124,38 @@ export const ArrangeView: FC = observer(() => {
   const theme = useTheme()
 
   useEffect(() => {
-    rootStore.arrangeViewStore.canvasWidth = size.width
+    arrangeViewStore.canvasWidth = size.width
   }, [size.width])
 
   useEffect(() => {
-    rootStore.arrangeViewStore.canvasHeight = size.height
+    arrangeViewStore.canvasHeight = size.height
   }, [size.height])
 
   const onClickScaleUpHorizontal = useCallback(
-    () => s.scaleAroundPointX(0.2, 0),
-    [s]
+    () => arrangeViewStore.scaleAroundPointX(0.2, 0),
+    [arrangeViewStore]
   )
   const onClickScaleDownHorizontal = useCallback(
-    () => s.scaleAroundPointX(-0.2, 0),
-    [s]
+    () => arrangeViewStore.scaleAroundPointX(-0.2, 0),
+    [arrangeViewStore]
   )
-  const onClickScaleResetHorizontal = useCallback(() => (s.scaleX = 1), [s])
+  const onClickScaleResetHorizontal = useCallback(
+    () => (arrangeViewStore.scaleX = 1),
+    [arrangeViewStore]
+  )
 
   const onClickScaleUpVertical = useCallback(
-    () => s.setScaleY(s.scaleY * (1 + 0.2)),
-    [s]
+    () => arrangeViewStore.setScaleY(arrangeViewStore.scaleY * (1 + 0.2)),
+    [arrangeViewStore]
   )
   const onClickScaleDownVertical = useCallback(
-    () => s.setScaleY(s.scaleY * (1 - 0.2)),
-    [s]
+    () => arrangeViewStore.setScaleY(arrangeViewStore.scaleY * (1 - 0.2)),
+    [arrangeViewStore]
   )
-  const onClickScaleResetVertical = useCallback(() => s.setScaleY(1), [s])
+  const onClickScaleResetVertical = useCallback(
+    () => arrangeViewStore.setScaleY(1),
+    [arrangeViewStore]
+  )
 
   const handleLeftClick = useCallback(
     (e: React.MouseEvent) => {
@@ -162,16 +169,13 @@ export const ArrangeView: FC = observer(() => {
 
       const createSelectionHandler: DragHandler = (e, mouseMove, mouseUp) => {
         const startPos = trackTransform.getArrangePoint(startPosPx)
-        arrangeStartSelection(rootStore)(startPos)
+        arrangeStartSelection(rootStore)()
 
-        if (!rootStore.player.isPlaying) {
-          rootStore.player.position =
-            rootStore.arrangeViewStore.quantizer.round(startPos.tick)
+        if (!player.isPlaying) {
+          player.position = arrangeViewStore.quantizer.round(startPos.tick)
         }
 
-        rootStore.arrangeViewStore.selectedTrackId = Math.floor(
-          startPos.trackIndex
-        )
+        arrangeViewStore.selectedTrackId = Math.floor(startPos.trackIndex)
 
         mouseMove((e, deltaPx) => {
           const selectionToPx = pointAdd(startPosPx, deltaPx)
@@ -276,25 +280,25 @@ export const ArrangeView: FC = observer(() => {
           ? 0.02 * e.deltaY
           : 0.01 * e.deltaX
         scaleYDelta = clamp(scaleYDelta, -0.15, 0.15) // prevent acceleration to zoom too fast
-        s.setScaleY(s.scaleY * (1 + scaleYDelta))
+        arrangeViewStore.setScaleY(arrangeViewStore.scaleY * (1 + scaleYDelta))
       } else if (e.altKey || e.ctrlKey) {
         // horizontal zoom
         const scaleFactor = isTouchPadEvent(e.nativeEvent) ? 0.01 : -0.01
         const scaleXDelta = clamp(e.deltaY * scaleFactor, -0.15, 0.15) // prevent acceleration to zoom too fast
-        s.scaleAroundPointX(scaleXDelta, e.nativeEvent.offsetX)
+        arrangeViewStore.scaleAroundPointX(scaleXDelta, e.nativeEvent.offsetX)
       } else {
         const scaleFactor = isTouchPadEvent(e.nativeEvent)
           ? 1
           : 20 * transform.pixelsPerKey * WHEEL_SCROLL_RATE
         const deltaY = e.deltaY * scaleFactor
-        s.scrollBy(-e.deltaX, -deltaY)
+        arrangeViewStore.scrollBy(-e.deltaX, -deltaY)
       }
     },
-    [s, scrollBy]
+    [arrangeViewStore, scrollBy]
   )
 
   const openTrack = (trackId: number) => {
-    rootStore.router.pushTrack()
+    router.pushTrack()
     selectTrack(rootStore)(trackId)
   }
 
@@ -313,10 +317,10 @@ export const ArrangeView: FC = observer(() => {
               style={{ height: trackHeight }}
               key={i}
               isSelected={i === selectedTrackId}
-              onClick={() => (rootStore.arrangeViewStore.selectedTrackId = i)}
+              onClick={() => (arrangeViewStore.selectedTrackId = i)}
               onDoubleClick={() => openTrack(i)}
               onContextMenu={(e) => {
-                rootStore.arrangeViewStore.selectedTrackId = i
+                arrangeViewStore.selectedTrackId = i
                 onTrackContextMenu(e)
               }}
             >
@@ -350,7 +354,7 @@ export const ArrangeView: FC = observer(() => {
           }}
         >
           <CanvasPianoRuler
-            rulerStore={rootStore.arrangeViewStore.rulerStore}
+            rulerStore={arrangeViewStore.rulerStore}
             style={{
               background: theme.backgroundColor,
               borderBottom: `1px solid ${theme.dividerColor}`,

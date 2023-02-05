@@ -9,8 +9,9 @@ export type HoldPedalGraphProps = ISize
 
 const HoldPedalGraph: FC<HoldPedalGraphProps> = observer(
   ({ width, height }) => {
-    const rootStore = useStores()
-    const events = rootStore.pianoRollStore.sustainEvents
+    const {
+      pianoRollStore: { sustainEvents: events },
+    } = useStores()
 
     return (
       <LineGraphControl

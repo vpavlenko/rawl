@@ -85,7 +85,6 @@ export function songFromMidi(data: StreamSource) {
     }
   }
 
-  song.selectedTrackId = 1
   song.timebase = midi.header.ticksPerBeat
 
   return song

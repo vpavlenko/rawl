@@ -29,14 +29,17 @@ export const TempoGraphCanvas: FC<TempoGraphCanvasProps> = observer(
     const rootStore = useStores()
 
     const {
-      items,
-      transform,
-      scrollLeft: _scrollLeft,
-      mouseMode,
-      rulerStore: { beats },
-      cursorX,
-      selectionRect,
-    } = rootStore.tempoEditorStore
+      tempoEditorStore,
+      tempoEditorStore: {
+        items,
+        transform,
+        scrollLeft: _scrollLeft,
+        mouseMode,
+        rulerStore: { beats },
+        cursorX,
+        selectionRect,
+      },
+    } = rootStore
 
     const scrollLeft = Math.floor(_scrollLeft)
 
@@ -70,7 +73,7 @@ export const TempoGraphCanvas: FC<TempoGraphCanvasProps> = observer(
     const selectionMouseDown = useCallback(
       (ev: React.MouseEvent) => {
         const local = getLocal(ev.nativeEvent)
-        const hitEventId = rootStore.tempoEditorStore.hitTest(local)
+        const hitEventId = tempoEditorStore.hitTest(local)
 
         if (hitEventId !== undefined) {
           handleSelectionDragEvents(rootStore)(
@@ -99,7 +102,10 @@ export const TempoGraphCanvas: FC<TempoGraphCanvasProps> = observer(
         const event = items.filter((ev) => ev.id === item.id)[0]
         const movement = e.nativeEvent.deltaY > 0 ? -1 : 1
         const bpm = uSecPerBeatToBPM(event.microsecondsPerBeat)
-        changeTempo(rootStore)(event.id, bpmToUSecPerBeat(bpm + movement))
+        changeTempo(rootStore)(
+          event.id,
+          Math.floor(bpmToUSecPerBeat(bpm + movement))
+        )
       },
       [items, rootStore, scrollLeft]
     )

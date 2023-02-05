@@ -9,8 +9,9 @@ export type ExpressionGraphProps = ISize
 
 const ExpressionGraph: FC<ExpressionGraphProps> = observer(
   ({ width, height }) => {
-    const rootStore = useStores()
-    const events = rootStore.pianoRollStore.expressionEvents
+    const {
+      pianoRollStore: { expressionEvents: events },
+    } = useStores()
 
     return (
       <LineGraphControl

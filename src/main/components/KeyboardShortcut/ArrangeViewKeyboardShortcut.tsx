@@ -12,6 +12,7 @@ const SCROLL_DELTA = 24
 
 export const ArrangeViewKeyboardShortcut: FC = () => {
   const rootStore = useStores()
+  const { arrangeViewStore } = rootStore
 
   return (
     <KeyboardShortcut
@@ -22,16 +23,16 @@ export const ArrangeViewKeyboardShortcut: FC = () => {
         {
           code: "ArrowUp",
           metaKey: true,
-          run: () => rootStore.arrangeViewStore.scrollBy(0, SCROLL_DELTA),
+          run: () => arrangeViewStore.scrollBy(0, SCROLL_DELTA),
         },
         {
           code: "ArrowDown",
           metaKey: true,
-          run: () => rootStore.arrangeViewStore.scrollBy(0, -SCROLL_DELTA),
+          run: () => arrangeViewStore.scrollBy(0, -SCROLL_DELTA),
         },
         {
           code: "KeyT",
-          run: () => (rootStore.arrangeViewStore.openTransposeDialog = true),
+          run: () => (arrangeViewStore.openTransposeDialog = true),
         },
       ]}
       onCut={() => {

@@ -17,6 +17,7 @@ const SCROLL_DELTA = 24
 
 export const PianoRollKeyboardShortcut: FC = observer(() => {
   const rootStore = useStores()
+  const { pianoRollStore } = rootStore
 
   // Handle pasting here to allow pasting even when the element does not have focus, such as after clicking the ruler
   const onPaste = (e: ClipboardEvent) => {
@@ -42,39 +43,39 @@ export const PianoRollKeyboardShortcut: FC = observer(() => {
   return (
     <KeyboardShortcut
       actions={[
-        ...(rootStore.pianoRollStore.selectedNoteIds.length > 0
+        ...(pianoRollStore.selectedNoteIds.length > 0
           ? pianoNotesKeyboardShortcutActions(rootStore)
           : []),
-        ...(rootStore.pianoRollStore.selectedControllerEventIds.length > 0
+        ...(pianoRollStore.selectedControllerEventIds.length > 0
           ? controlPaneKeyboardShortcutActions(rootStore)
           : []),
         {
           code: "ArrowUp",
           metaKey: true,
-          run: () => rootStore.pianoRollStore.scrollBy(0, SCROLL_DELTA),
+          run: () => pianoRollStore.scrollBy(0, SCROLL_DELTA),
         },
         {
           code: "ArrowDown",
           metaKey: true,
-          run: () => rootStore.pianoRollStore.scrollBy(0, -SCROLL_DELTA),
+          run: () => pianoRollStore.scrollBy(0, -SCROLL_DELTA),
         },
         {
           code: "ArrowRight",
           metaKey: true,
-          run: () => rootStore.pianoRollStore.scrollBy(-SCROLL_DELTA, 0),
+          run: () => pianoRollStore.scrollBy(-SCROLL_DELTA, 0),
         },
         {
           code: "ArrowLeft",
           metaKey: true,
-          run: () => rootStore.pianoRollStore.scrollBy(SCROLL_DELTA, 0),
+          run: () => pianoRollStore.scrollBy(SCROLL_DELTA, 0),
         },
         {
           code: "Digit1",
-          run: () => (rootStore.pianoRollStore.mouseMode = "pencil"),
+          run: () => (pianoRollStore.mouseMode = "pencil"),
         },
         {
           code: "Digit2",
-          run: () => (rootStore.pianoRollStore.mouseMode = "selection"),
+          run: () => (pianoRollStore.mouseMode = "selection"),
         },
       ]}
       onPaste={onPaste}

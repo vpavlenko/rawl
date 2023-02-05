@@ -21,9 +21,11 @@ export const handleSelectionDragEvents =
     startPoint: IPoint,
     transform: TempoCoordTransform
   ) => {
-    const { conductorTrack } = rootStore.song
-    const { tempoEditorStore } = rootStore
-    const { quantizer } = tempoEditorStore
+    const {
+      song: { conductorTrack },
+      tempoEditorStore,
+      tempoEditorStore: { quantizer },
+    } = rootStore
 
     if (conductorTrack === undefined) {
       return

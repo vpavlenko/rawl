@@ -27,14 +27,13 @@ import {
 } from "./selection"
 
 export const changeTempo =
-  (rootStore: RootStore) => (id: number, microsecondsPerBeat: number) => {
-    const { song } = rootStore
-
+  ({ song, pushHistory }: RootStore) =>
+  (id: number, microsecondsPerBeat: number) => {
     const track = song.conductorTrack
     if (track === undefined) {
       return
     }
-    pushHistory(rootStore)()
+    pushHistory()
     track.updateEvent<TrackEventOf<SetTempoEvent>>(id, {
       microsecondsPerBeat: microsecondsPerBeat,
     })
@@ -43,14 +42,12 @@ export const changeTempo =
 /* events */
 
 export const changeNotesVelocity =
-  (rootStore: RootStore) => (noteIds: number[], velocity: number) => {
-    const { song } = rootStore
-
-    const selectedTrack = song.selectedTrack
+  ({ pianoRollStore: { selectedTrack }, pushHistory }: RootStore) =>
+  (noteIds: number[], velocity: number) => {
     if (selectedTrack === undefined) {
       return
     }
-    pushHistory(rootStore)()
+    pushHistory()
     selectedTrack.updateEvents(
       noteIds.map((id) => ({
         id,
@@ -60,18 +57,16 @@ export const changeNotesVelocity =
   }
 
 export const createEvent =
-  (rootStore: RootStore) => (e: AnyChannelEvent, tick?: number) => {
-    const {
-      song,
-      player,
-      pianoRollStore: { quantizer },
-    } = rootStore
-
-    const selectedTrack = song.selectedTrack
+  ({
+    player,
+    pianoRollStore: { quantizer, selectedTrack },
+    pushHistory,
+  }: RootStore) =>
+  (e: AnyChannelEvent, tick?: number) => {
     if (selectedTrack === undefined) {
       throw new Error("selected track is undefined")
     }
-    pushHistory(rootStore)()
+    pushHistory()
     const id = selectedTrack.createOrUpdate({
       ...e,
       tick: quantizer.round(tick ?? player.position),
@@ -80,7 +75,7 @@ export const createEvent =
     // 即座に反映する
     // Reflect immediately
     if (tick !== undefined) {
-      rootStore.player.sendEvent(e)
+      player.sendEvent(e)
     }
 
     return id
@@ -153,40 +148,38 @@ export const updateEventsInRange =
   }
 
 export const updateValueEvents =
-  (type: ValueEventType) => (rootStore: RootStore) =>
+  (type: ValueEventType) =>
+  ({ pianoRollStore }: RootStore) =>
     updateEventsInRange(
-      rootStore.song.selectedTrack,
-      rootStore.pianoRollStore.quantizer,
+      pianoRollStore.selectedTrack,
+      pianoRollStore.quantizer,
       isValueEvent(type),
       createValueEvent(type)
     )
 
-export const removeEvent = (rootStore: RootStore) => (eventId: number) => {
-  const { song } = rootStore
-
-  const selectedTrack = song.selectedTrack
-  if (selectedTrack === undefined) {
-    return
+export const removeEvent =
+  ({ pianoRollStore: { selectedTrack }, pushHistory }: RootStore) =>
+  (eventId: number) => {
+    if (selectedTrack === undefined) {
+      return
+    }
+    pushHistory()
+    selectedTrack.removeEvent(eventId)
   }
-  pushHistory(rootStore)()
-  selectedTrack.removeEvent(eventId)
-}
 
 /* note */
 
 export const createNote =
-  (rootStore: RootStore) => (tick: number, noteNumber: number) => {
-    const {
-      song,
-      pianoRollStore,
-      player,
-      pianoRollStore: { quantizer },
-    } = rootStore
-    const selectedTrack = song.selectedTrack
+  ({
+    pianoRollStore,
+    pianoRollStore: { quantizer, selectedTrack },
+    pushHistory,
+  }: RootStore) =>
+  (tick: number, noteNumber: number) => {
     if (selectedTrack === undefined || selectedTrack.channel == undefined) {
       return
     }
-    pushHistory(rootStore)()
+    pushHistory()
 
     tick = selectedTrack.isRhythmTrack
       ? quantizer.round(tick)
@@ -204,25 +197,23 @@ export const createNote =
     return selectedTrack.addEvent(note)
   }
 
-export const muteNote = (rootStore: RootStore) => (noteNumber: number) => {
-  const { song, player } = rootStore
-  const selectedTrack = song.selectedTrack
-  if (selectedTrack === undefined || selectedTrack.channel == undefined) {
-    return
+export const muteNote =
+  ({ player, pianoRollStore: { selectedTrack } }: RootStore) =>
+  (noteNumber: number) => {
+    if (selectedTrack === undefined || selectedTrack.channel == undefined) {
+      return
+    }
+    player.stopNote({ channel: selectedTrack.channel, noteNumber })
   }
-  player.stopNote({ channel: selectedTrack.channel, noteNumber })
-}
 
 const MIN_DURATION = 10
 
 export const resizeNoteLeft =
   (rootStore: RootStore) => (id: number, tick: number, quantize: boolean) => {
     const {
-      song,
       pianoRollStore,
-      pianoRollStore: { quantizer },
+      pianoRollStore: { quantizer, selectedTrack },
     } = rootStore
-    const selectedTrack = song.selectedTrack
     if (selectedTrack === undefined) {
       return
     }
@@ -247,11 +238,9 @@ export const resizeNoteLeft =
 export const resizeNoteRight =
   (rootStore: RootStore) => (id: number, tick: number, quantize: boolean) => {
     const {
-      song,
       pianoRollStore,
-      pianoRollStore: { quantizer },
+      pianoRollStore: { quantizer, selectedTrack },
     } = rootStore
-    const selectedTrack = song.selectedTrack
     if (selectedTrack === undefined) {
       return
     }
@@ -271,22 +260,20 @@ export const resizeNoteRight =
 
 /* track meta */
 
-export const setTrackName = (rootStore: RootStore) => (name: string) => {
-  const { song } = rootStore
-
-  const selectedTrack = song.selectedTrack
-  if (selectedTrack === undefined) {
-    return
+export const setTrackName =
+  ({ pianoRollStore: { selectedTrack }, pushHistory }: RootStore) =>
+  (name: string) => {
+    if (selectedTrack === undefined) {
+      return
+    }
+    pushHistory()
+    selectedTrack.setName(name)
   }
-  pushHistory(rootStore)()
-  selectedTrack.setName(name)
-}
 
 export const setTrackVolume =
-  (rootStore: RootStore) => (trackId: number, volume: number) => {
-    const { song, player } = rootStore
-
-    pushHistory(rootStore)()
+  ({ song, player, pushHistory }: RootStore) =>
+  (trackId: number, volume: number) => {
+    pushHistory()
     const track = song.tracks[trackId]
     track.setVolume(volume, player.position)
 
@@ -296,10 +283,9 @@ export const setTrackVolume =
   }
 
 export const setTrackPan =
-  (rootStore: RootStore) => (trackId: number, pan: number) => {
-    const { song, player } = rootStore
-
-    pushHistory(rootStore)()
+  ({ song, player, pushHistory }: RootStore) =>
+  (trackId: number, pan: number) => {
+    pushHistory()
     const track = song.tracks[trackId]
     track.setPan(pan, player.position)
 
@@ -309,10 +295,9 @@ export const setTrackPan =
   }
 
 export const setTrackInstrument =
-  (rootStore: RootStore) => (trackId: number, programNumber: number) => {
-    const { song, player } = rootStore
-
-    pushHistory(rootStore)()
+  ({ song, player, pushHistory }: RootStore) =>
+  (trackId: number, programNumber: number) => {
+    pushHistory()
     const track = song.tracks[trackId]
     track.setProgramNumber(programNumber)
 
@@ -323,38 +308,35 @@ export const setTrackInstrument =
     }
   }
 
-export const toogleGhostTrack = (rootStore: RootStore) => (trackId: number) => {
-  const { pianoRollStore } = rootStore
-
-  pushHistory(rootStore)()
-  if (pianoRollStore.notGhostTracks.has(trackId)) {
-    pianoRollStore.notGhostTracks.delete(trackId)
-  } else {
-    pianoRollStore.notGhostTracks.add(trackId)
-  }
-}
-
-export const toogleAllGhostTracks = (rootStore: RootStore) => () => {
-  const { pianoRollStore } = rootStore
-
-  pushHistory(rootStore)()
-  if (
-    pianoRollStore.notGhostTracks.size >
-    Math.floor(rootStore.song.tracks.length / 2)
-  ) {
-    pianoRollStore.notGhostTracks = new Set()
-  } else {
-    for (let i = 0; i < rootStore.song.tracks.length; ++i) {
-      pianoRollStore.notGhostTracks.add(i)
+export const toogleGhostTrack =
+  ({ pianoRollStore, pushHistory }: RootStore) =>
+  (trackId: number) => {
+    pushHistory()
+    if (pianoRollStore.notGhostTracks.has(trackId)) {
+      pianoRollStore.notGhostTracks.delete(trackId)
+    } else {
+      pianoRollStore.notGhostTracks.add(trackId)
     }
   }
-}
+
+export const toogleAllGhostTracks =
+  ({ song, pianoRollStore, pushHistory }: RootStore) =>
+  () => {
+    pushHistory()
+    if (
+      pianoRollStore.notGhostTracks.size > Math.floor(song.tracks.length / 2)
+    ) {
+      pianoRollStore.notGhostTracks = new Set()
+    } else {
+      for (let i = 0; i < song.tracks.length; ++i) {
+        pianoRollStore.notGhostTracks.add(i)
+      }
+    }
+  }
 
 export const addTimeSignature =
-  (rootStore: RootStore) =>
+  ({ song, pushHistory }: RootStore) =>
   (tick: number, numerator: number, denominator: number) => {
-    const { song } = rootStore
-
     const measureStart = getMeasureStart(song, tick)
 
     const timeSignatureTick = measureStart?.tick ?? 0
@@ -367,20 +349,19 @@ export const addTimeSignature =
       return
     }
 
-    pushHistory(rootStore)()
+    pushHistory()
 
-    rootStore.song.conductorTrack?.addEvent({
+    song.conductorTrack?.addEvent({
       ...timeSignatureMidiEvent(0, numerator, denominator),
       tick: timeSignatureTick,
     })
   }
 
 export const updateTimeSignature =
-  (rootStore: RootStore) =>
+  ({ song, pushHistory }: RootStore) =>
   (id: number, numerator: number, denominator: number) => {
-    pushHistory(rootStore)()
-
-    rootStore.song.conductorTrack?.updateEvent(id, {
+    pushHistory()
+    song.conductorTrack?.updateEvent(id, {
       numerator,
       denominator,
     })

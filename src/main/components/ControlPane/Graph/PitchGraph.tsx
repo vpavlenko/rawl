@@ -7,8 +7,9 @@ import LineGraphControl from "../LineGraph/LineGraph"
 export type PitchGraphProps = ISize
 
 const PitchGraph: FC<PitchGraphProps> = observer(({ width, height }) => {
-  const rootStore = useStores()
-  const events = rootStore.pianoRollStore.pitchBendEvents
+  const {
+    pianoRollStore: { pitchBendEvents: events },
+  } = useStores()
 
   return (
     <LineGraphControl

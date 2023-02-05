@@ -71,7 +71,7 @@ const Header = styled.div`
 
 export const CloudFileList = observer(() => {
   const rootStore = useStores()
-  const { cloudFileStore } = rootStore
+  const { cloudFileStore, rootViewStore } = rootStore
   const toast = useToast()
   const theme = useTheme()
   const localized = useLocalization()
@@ -86,7 +86,7 @@ export const CloudFileList = observer(() => {
     try {
       const midiSong = await loadSong(song)
       setSong(rootStore)(midiSong)
-      rootStore.rootViewStore.openCloudFileDialog = false
+      rootViewStore.openCloudFileDialog = false
     } catch (e) {
       toast.error((e as Error).message)
     }

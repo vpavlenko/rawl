@@ -118,7 +118,8 @@ export const TrackListItem: FC<TrackListItemProps> = observer(({ trackId }) => {
   const track = song.tracks[trackId]
 
   const selected =
-    !rootViewStore.isArrangeViewSelected && trackId === song.selectedTrackId
+    !rootViewStore.isArrangeViewSelected &&
+    trackId === pianoRollStore.selectedTrackId
   const mute = trackMute.isMuted(trackId)
   const solo = trackMute.isSolo(trackId)
   const ghostTrack = !pianoRollStore.notGhostTracks.has(trackId)

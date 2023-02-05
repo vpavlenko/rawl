@@ -15,12 +15,14 @@ export const VelocityControlCanvas: FC<{ width: number; height: number }> =
   observer(({ width, height }) => {
     const rootStore = useStores()
     const {
-      transform,
-      scrollLeft,
-      windowedEvents,
-      rulerStore: { beats },
-      cursorX,
-    } = rootStore.pianoRollStore
+      pianoRollStore: {
+        transform,
+        scrollLeft,
+        windowedEvents,
+        rulerStore: { beats },
+        cursorX,
+      },
+    } = rootStore
     const changeVelocity = useCallback(changeNotesVelocity(rootStore), [])
 
     const items = windowedEvents.filter(isNoteEvent).map((note) => {

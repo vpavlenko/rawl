@@ -9,12 +9,11 @@ import { useTheme } from "../../../hooks/useTheme"
 
 export const Lines: FC<{ width: number; zIndex: number }> = observer(
   ({ width, zIndex }) => {
-    const rootStore = useStores()
+    const {
+      song: { tracks },
+      arrangeViewStore: { trackHeight },
+    } = useStores()
     const theme = useTheme()
-
-    const { trackHeight } = rootStore.arrangeViewStore
-
-    const tracks = rootStore.song.tracks
 
     const hline = (y: number): IRect => ({
       x: 0,

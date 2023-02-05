@@ -21,7 +21,8 @@ export const PianoSelectionContextMenu: FC<ContextMenuProps> = React.memo(
   (props) => {
     const { handleClose } = props
     const rootStore = useStores()
-    const isNoteSelected = rootStore.pianoRollStore.selectedNoteIds.length > 0
+    const { pianoRollStore } = rootStore
+    const isNoteSelected = pianoRollStore.selectedNoteIds.length > 0
 
     const onClickCut = useCallback(() => {
       copySelection(rootStore)()
@@ -65,7 +66,7 @@ export const PianoSelectionContextMenu: FC<ContextMenuProps> = React.memo(
     }, [])
 
     const onClickTranspose = useCallback(() => {
-      rootStore.pianoRollStore.openTransposeDialog = true
+      pianoRollStore.openTransposeDialog = true
       handleClose()
     }, [])
 

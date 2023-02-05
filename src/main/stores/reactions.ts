@@ -16,9 +16,6 @@ export const registerReactions = (rootStore: RootStore) => {
   autorun(updateInputDevices(rootStore))
   autorun(updateOutputDevices(rootStore))
 
-  // reset selection when change track
-  observe(rootStore.song, "selectedTrackId", resetSelection(rootStore))
-
   observe(
     rootStore.midiRecorder,
     "isRecording",

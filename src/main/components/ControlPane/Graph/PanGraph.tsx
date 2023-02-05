@@ -8,8 +8,9 @@ import LineGraphControl from "../LineGraph/LineGraph"
 export type PanGraphProps = ISize
 
 const PanGraph: FC<PanGraphProps> = observer(({ width, height }) => {
-  const rootStore = useStores()
-  const events = rootStore.pianoRollStore.panEvents
+  const {
+    pianoRollStore: { panEvents: events },
+  } = useStores()
 
   return (
     <LineGraphControl

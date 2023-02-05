@@ -17,8 +17,8 @@ export const handleSelectionDragEvents =
     type: ValueEventType
   ) => {
     const {
-      song: { selectedTrack },
       pianoRollStore,
+      pianoRollStore: { selectedTrack },
     } = rootStore
     if (selectedTrack === undefined) {
       return

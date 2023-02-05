@@ -9,9 +9,9 @@ export interface TempoItemsProps {
 }
 
 export const TempoItems: FC<TempoItemsProps> = observer(({ width, zIndex }) => {
-  const rootStore = useStores()
-  const { items, selectedEventIds, controlPoints, scrollLeft } =
-    rootStore.tempoEditorStore
+  const {
+    tempoEditorStore: { items, selectedEventIds, controlPoints, scrollLeft },
+  } = useStores()
 
   return (
     <LineGraphItems

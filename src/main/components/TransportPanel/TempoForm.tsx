@@ -43,16 +43,17 @@ const TempoWrapper = styled.div`
 `
 
 export const TempoForm: FC = observer(() => {
-  const rootStore = useStores()
-  const tempo = rootStore.pianoRollStore.currentTempo ?? DEFAULT_TEMPO
+  const {
+    song,
+    pianoRollStore: { currentTempo },
+    player,
+  } = useStores()
+  const tempo = currentTempo ?? DEFAULT_TEMPO
 
   const changeTempo = (tempo: number) => {
     const fixedTempo = Math.max(1, Math.min(512, tempo))
-    rootStore.song.conductorTrack?.setTempo(
-      fixedTempo,
-      rootStore.player.position
-    )
-    rootStore.player.currentTempo = fixedTempo
+    song.conductorTrack?.setTempo(fixedTempo, player.position)
+    player.currentTempo = fixedTempo
   }
 
   const onKeyPressTempo = (e: React.KeyboardEvent<HTMLInputElement>) => {

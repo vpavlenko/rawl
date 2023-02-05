@@ -59,13 +59,13 @@ export function trackNameMidiEvent(
 // from bpm: SetTempoMidiEvent(t, 60000000 / bpm)
 export function setTempoMidiEvent(
   deltaTime: number,
-  value: number
+  microsecondsPerBeat: number
 ): SetTempoEvent {
   return {
     deltaTime,
     type: "meta",
     subtype: "setTempo",
-    microsecondsPerBeat: value,
+    microsecondsPerBeat,
   }
 }
 

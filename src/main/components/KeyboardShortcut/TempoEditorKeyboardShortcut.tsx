@@ -14,17 +14,18 @@ import { KeyboardShortcut } from "./KeyboardShortcut"
 
 export const TempoEditorKeyboardShortcut: FC = () => {
   const rootStore = useStores()
+  const { tempoEditorStore } = rootStore
 
   return (
     <KeyboardShortcut
       actions={[
         {
           code: "Digit1",
-          run: () => (rootStore.tempoEditorStore.mouseMode = "pencil"),
+          run: () => (tempoEditorStore.mouseMode = "pencil"),
         },
         {
           code: "Digit2",
-          run: () => (rootStore.tempoEditorStore.mouseMode = "selection"),
+          run: () => (tempoEditorStore.mouseMode = "selection"),
         },
         { code: "Escape", run: resetTempoSelection(rootStore) },
         { code: "Backspace", run: deleteTempoSelection(rootStore) },

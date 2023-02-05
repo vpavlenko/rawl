@@ -122,7 +122,7 @@ const dragNoteCenterAction =
   (rootStore) =>
   (e) => {
     const {
-      song: { selectedTrack },
+      pianoRollStore: { selectedTrack },
     } = rootStore
 
     if (selectedTrack === undefined) {
@@ -144,8 +144,7 @@ const dragNoteEdgeAction =
   (e) => {
     const {
       player,
-      song: { selectedTrack },
-      pianoRollStore: { transform, isQuantizeEnabled },
+      pianoRollStore: { selectedTrack, transform, isQuantizeEnabled },
     } = rootStore
 
     if (selectedTrack === undefined || selectedTrack.channel === undefined) {
@@ -195,9 +194,12 @@ const dragNoteRightAction = dragNoteEdgeAction("right")
 
 const startDragNote =
   (rootStore: RootStore) => (e: MouseEvent, note: NoteEvent) => {
-    const { player, song } = rootStore
+    const {
+      player,
+      pianoRollStore: { selectedTrack },
+    } = rootStore
     const { transform, quantizer } = rootStore.pianoRollStore
-    const channel = song.selectedTrack?.channel ?? 0
+    const channel = selectedTrack?.channel ?? 0
 
     player.startNote({ ...note, channel })
 

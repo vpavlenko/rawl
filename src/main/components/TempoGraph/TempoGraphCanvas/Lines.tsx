@@ -10,10 +10,10 @@ import { useTheme } from "../../../hooks/useTheme"
 
 export const Lines: FC<{ width: number; zIndex: number }> = observer(
   ({ width, zIndex }) => {
-    const rootStore = useStores()
+    const {
+      tempoEditorStore: { transform },
+    } = useStores()
     const theme = useTheme()
-
-    const { transform } = rootStore.tempoEditorStore
 
     const hline = (y: number): IRect => ({
       x: 0,

@@ -28,11 +28,12 @@ export class MIDIInput {
 }
 
 export const previewMidiInput =
-  (rootStore: RootStore) => (e: WebMidi.MIDIMessageEvent) => {
-    if (rootStore.song.selectedTrack === undefined) {
+  ({ pianoRollStore: { selectedTrack }, player }: RootStore) =>
+  (e: WebMidi.MIDIMessageEvent) => {
+    if (selectedTrack === undefined) {
       return
     }
-    const channel = rootStore.song.selectedTrack.channel
+    const { channel } = selectedTrack
     if (channel === undefined) {
       return
     }
@@ -47,5 +48,5 @@ export const previewMidiInput =
     // modify channel to the selected track channel
     event.channel = channel
 
-    rootStore.player.sendEvent(event)
+    player.sendEvent(event)
   }

@@ -5,7 +5,6 @@ import { emptyTrack, isNoteEvent } from "../../common/track"
 import { clampNoteNumber } from "../../common/transform/NotePoint"
 import RootStore from "../stores/RootStore"
 import { songFromFile } from "./file"
-import { pushHistory } from "./history"
 
 const openSongFile = async (input: HTMLInputElement): Promise<Song | null> => {
   if (input.files === null || input.files.length === 0) {
@@ -17,14 +16,23 @@ const openSongFile = async (input: HTMLInputElement): Promise<Song | null> => {
 }
 
 export const setSong = (rootStore: RootStore) => (song: Song) => {
+  const { trackMute, pianoRollStore, player, historyStore, arrangeViewStore } =
+    rootStore
   rootStore.song = song
-  rootStore.trackMute.reset()
-  rootStore.pianoRollStore.setScrollLeftInPixels(0)
-  rootStore.pianoRollStore.notGhostTracks = new Set()
-  rootStore.pianoRollStore.showTrackList = true
-  rootStore.historyStore.clear()
+  trackMute.reset()
 
-  const { player } = rootStore
+  pianoRollStore.setScrollLeftInPixels(0)
+  pianoRollStore.notGhostTracks = new Set()
+  pianoRollStore.showTrackList = true
+  pianoRollStore.selection = null
+  pianoRollStore.selectedNoteIds = []
+  pianoRollStore.selectedTrackId = Math.min(song.tracks.length - 1, 1)
+
+  arrangeViewStore.selection = null
+  arrangeViewStore.selectedEventIds = []
+
+  historyStore.clear()
+
   player.stop()
   player.reset()
   player.position = 0
@@ -50,60 +58,65 @@ export const openSong =
     setSong(rootStore)(song)
   }
 
-export const addTrack = (rootStore: RootStore) => () => {
-  pushHistory(rootStore)()
-  rootStore.song.addTrack(emptyTrack(rootStore.song.tracks.length - 1))
-}
-
-export const removeTrack = (rootStore: RootStore) => (trackId: number) => {
-  if (rootStore.song.tracks.filter((t) => !t.isConductorTrack).length <= 1) {
-    // conductor track を除き、最後のトラックの場合
-    // トラックがなくなるとエラーが出るので削除できなくする
-    // For the last track except for Conductor Track
-    // I can not delete it because there is an error when there is no track
-    return
+export const addTrack =
+  ({ song, pushHistory }: RootStore) =>
+  () => {
+    pushHistory()
+    song.addTrack(emptyTrack(song.tracks.length - 1))
   }
-  pushHistory(rootStore)()
-  rootStore.song.removeTrack(trackId)
-}
 
-export const selectTrack = (rootStore: RootStore) => (trackId: number) => {
-  const { song } = rootStore
-  song.selectTrack(trackId)
-}
-
-export const insertTrack = (rootStore: RootStore) => (trackId: number) => {
-  pushHistory(rootStore)()
-  rootStore.song.insertTrack(
-    emptyTrack(rootStore.song.tracks.length - 1),
-    trackId
-  )
-}
-
-export const duplicateTrack = (rootStore: RootStore) => (trackId: number) => {
-  if (trackId === 0) {
-    throw new Error("Don't remove conductor track")
+export const removeTrack =
+  ({ song, pianoRollStore, pushHistory }: RootStore) =>
+  (trackId: number) => {
+    if (song.tracks.filter((t) => !t.isConductorTrack).length <= 1) {
+      // conductor track を除き、最後のトラックの場合
+      // トラックがなくなるとエラーが出るので削除できなくする
+      // For the last track except for Conductor Track
+      // I can not delete it because there is an error when there is no track
+      return
+    }
+    pushHistory()
+    song.removeTrack(trackId)
+    pianoRollStore.selectedTrackId = Math.min(trackId, song.tracks.length - 1)
   }
-  const track = rootStore.song.getTrack(trackId)
-  if (track === undefined) {
-    throw new Error("No track found")
+
+export const selectTrack =
+  ({ pianoRollStore }: RootStore) =>
+  (trackId: number) => {
+    pianoRollStore.selectedTrackId = trackId
   }
-  const newTrack = track.clone()
-  newTrack.channel = undefined
-  pushHistory(rootStore)()
-  rootStore.song.insertTrack(newTrack, trackId + 1)
-}
+
+export const insertTrack =
+  ({ song, pushHistory }: RootStore) =>
+  (trackId: number) => {
+    pushHistory()
+    song.insertTrack(emptyTrack(song.tracks.length - 1), trackId)
+  }
+
+export const duplicateTrack =
+  ({ song, pushHistory }: RootStore) =>
+  (trackId: number) => {
+    if (trackId === 0) {
+      throw new Error("Don't remove conductor track")
+    }
+    const track = song.getTrack(trackId)
+    if (track === undefined) {
+      throw new Error("No track found")
+    }
+    const newTrack = track.clone()
+    newTrack.channel = undefined
+    pushHistory()
+    song.insertTrack(newTrack, trackId + 1)
+  }
 
 export const transposeNotes =
-  (rootStore: RootStore) =>
+  ({ song }: RootStore) =>
   (
     deltaPitch: number,
     selectedEventIds: {
       [key: number]: number[] // trackId: eventId
     }
   ) => {
-    const { song } = rootStore
-
     for (const trackIdStr in selectedEventIds) {
       const trackId = parseInt(trackIdStr)
       const eventIds = selectedEventIds[trackId]

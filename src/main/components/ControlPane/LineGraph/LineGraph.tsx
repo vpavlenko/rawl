@@ -50,8 +50,9 @@ const LineGraph = observer(
     axisLabelFormatter = (v) => v.toString(),
   }: LineGraphProps<T>) => {
     const rootStore = useStores()
-    const { scrollLeft, transform, controlCursor, mouseMode } =
-      rootStore.pianoRollStore
+    const {
+      pianoRollStore: { scrollLeft, transform, controlCursor, mouseMode },
+    } = rootStore
 
     const controlTransform = useMemo(
       () =>

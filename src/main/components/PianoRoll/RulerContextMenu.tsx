@@ -1,3 +1,4 @@
+import { observer } from "mobx-react-lite"
 import React, { FC, useCallback, useState } from "react"
 import { envString } from "../../../common/localize/envString"
 import {
@@ -18,9 +19,10 @@ export interface RulerContextMenuProps extends ContextMenuProps {
 }
 
 export const RulerContextMenu: FC<RulerContextMenuProps> = React.memo(
-  ({ rulerStore, tick, ...props }) => {
+  observer(({ rulerStore, tick, ...props }) => {
     const { handleClose } = props
     const rootStore = useStores()
+    const { song, player } = rootStore
     const [isOpenTimeSignatureDialog, setOpenTimeSignatureDialog] =
       useState(false)
 
@@ -33,11 +35,11 @@ export const RulerContextMenu: FC<RulerContextMenuProps> = React.memo(
     }, [])
 
     const onClickRemoveTimeSignature = useCallback(() => {
-      rootStore.song.conductorTrack?.removeEvents(
+      song.conductorTrack?.removeEvents(
         rulerStore.selectedTimeSignatureEventIds
       )
       handleClose()
-    }, [])
+    }, [song])
 
     const onClickSetLoopStart = useCallback(() => {
       setLoopBegin(rootStore)(tick)
@@ -82,14 +84,10 @@ export const RulerContextMenu: FC<RulerContextMenuProps> = React.memo(
           open={isOpenTimeSignatureDialog}
           onClose={closeOpenTimeSignatureDialog}
           onClickOK={({ numerator, denominator }) => {
-            addTimeSignature(rootStore)(
-              rootStore.player.position,
-              numerator,
-              denominator
-            )
+            addTimeSignature(rootStore)(player.position, numerator, denominator)
           }}
         />
       </>
     )
-  }
+  })
 )

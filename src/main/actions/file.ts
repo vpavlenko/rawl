@@ -68,7 +68,7 @@ export const saveFile = async (rootStore: RootStore) => {
   }
 }
 
-export const saveFileAs = async (rootStore: RootStore) => {
+export const saveFileAs = async ({ song }: RootStore) => {
   let fileHandle
   try {
     fileHandle = await window.showSaveFilePicker({
@@ -89,9 +89,9 @@ export const saveFileAs = async (rootStore: RootStore) => {
     return
   }
   try {
-    const data = songToMidi(rootStore.song).buffer
+    const data = songToMidi(song).buffer
     await writeFile(fileHandle, data)
-    rootStore.song.fileHandle = fileHandle
+    song.fileHandle = fileHandle
   } catch (ex) {
     const msg = "Unable to save file."
     console.error(msg, ex)

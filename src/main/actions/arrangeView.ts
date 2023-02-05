@@ -35,44 +35,51 @@ const createSelection = (
   return rect
 }
 
-export const arrangeResetSelection = (rootStore: RootStore) => () => {
-  const { arrangeViewStore: s } = rootStore
-
-  s.selection = null
-  s.selectedEventIds = {}
-}
+export const arrangeResetSelection =
+  ({ arrangeViewStore }: RootStore) =>
+  () => {
+    arrangeViewStore.selection = null
+    arrangeViewStore.selectedEventIds = {}
+  }
 
 export const arrangeStartSelection =
-  (rootStore: RootStore) => (pos: ArrangePoint) => {
-    const { arrangeViewStore: s } = rootStore
-
-    s.selection = null
-    s.selectedEventIds = {}
+  ({ arrangeViewStore }: RootStore) =>
+  () => {
+    arrangeViewStore.selection = null
+    arrangeViewStore.selectedEventIds = {}
   }
 
 export const arrangeResizeSelection =
-  (rootStore: RootStore) => (start: ArrangePoint, end: ArrangePoint) => {
-    const {
-      arrangeViewStore: s,
-      arrangeViewStore: { quantizer },
-      song: { tracks },
-    } = rootStore
+  ({
+    song: { tracks },
+    arrangeViewStore,
+    arrangeViewStore: { quantizer },
+  }: RootStore) =>
+  (start: ArrangePoint, end: ArrangePoint) => {
     // 選択範囲作成時 (確定前) のドラッグ中
     // Drag during selection (before finalization)
-    s.selection = createSelection(start, end, quantizer, tracks.length)
+    arrangeViewStore.selection = createSelection(
+      start,
+      end,
+      quantizer,
+      tracks.length
+    )
   }
 
-export const arrangeEndSelection = (rootStore: RootStore) => () => {
-  const {
-    arrangeViewStore: s,
+export const arrangeEndSelection =
+  ({
+    arrangeViewStore,
     arrangeViewStore: { selection },
     song: { tracks },
-  } = rootStore
-
-  if (selection) {
-    s.selectedEventIds = getEventsInSelection(tracks, selection)
+  }: RootStore) =>
+  () => {
+    if (selection) {
+      arrangeViewStore.selectedEventIds = getEventsInSelection(
+        tracks,
+        selection
+      )
+    }
   }
-}
 
 export const arrangeMoveSelection =
   (rootStore: RootStore) => (point: ArrangePoint) => {
@@ -112,12 +119,8 @@ export const arrangeMoveSelection =
   }
 
 export const arrangeMoveSelectionBy =
-  (rootStore: RootStore) => (delta: ArrangePoint) => {
-    const {
-      arrangeViewStore: s,
-      song: { tracks },
-    } = rootStore
-
+  ({ arrangeViewStore: s, song: { tracks }, pushHistory }: RootStore) =>
+  (delta: ArrangePoint) => {
     if (s.selection === null) {
       return
     }
@@ -126,7 +129,7 @@ export const arrangeMoveSelectionBy =
       return
     }
 
-    pushHistory(rootStore)()
+    pushHistory()
 
     // 選択範囲を移動
     // Move selection range
@@ -176,90 +179,88 @@ export const arrangeMoveSelectionBy =
     }
   }
 
-export const arrangeCopySelection = (rootStore: RootStore) => () => {
-  const {
+export const arrangeCopySelection =
+  ({
     arrangeViewStore: { selection, selectedEventIds },
     song: { tracks },
-  } = rootStore
-
-  if (selection === null) {
-    return
+  }: RootStore) =>
+  () => {
+    if (selection === null) {
+      return
+    }
+    // 選択されたノートをコピー
+    // Copy selected note
+    const notes = mapValues(selectedEventIds, (ids, trackId) => {
+      const track = tracks[parseInt(trackId, 10)]
+      return ids
+        .map((id) => track.getEventById(id))
+        .filter(isNotUndefined)
+        .map((note) => ({
+          ...note,
+          tick: note.tick - selection.fromTick, // 選択範囲からの相対位置にする // To relative position from selection
+        }))
+    })
+    const data: ArrangeNotesClipboardData = {
+      type: "arrange_notes",
+      notes,
+      selectedTrackId: selection.fromTrackIndex,
+    }
+    clipboard.writeText(JSON.stringify(data))
   }
-  // 選択されたノートをコピー
-  // Copy selected note
-  const notes = mapValues(selectedEventIds, (ids, trackId) => {
-    const track = tracks[parseInt(trackId, 10)]
-    return ids
-      .map((id) => track.getEventById(id))
-      .filter(isNotUndefined)
-      .map((note) => ({
-        ...note,
-        tick: note.tick - selection.fromTick, // 選択範囲からの相対位置にする // To relative position from selection
-      }))
-  })
-  const data: ArrangeNotesClipboardData = {
-    type: "arrange_notes",
-    notes,
-    selectedTrackId: selection.fromTrackIndex,
-  }
-  clipboard.writeText(JSON.stringify(data))
-}
 
-export const arrangePasteSelection = (rootStore: RootStore) => () => {
-  const {
+export const arrangePasteSelection =
+  ({
     song: { tracks },
     player,
     arrangeViewStore: { selectedTrackId },
-  } = rootStore
+    pushHistory,
+  }: RootStore) =>
+  () => {
+    // 現在位置にコピーしたノートをペースト
+    // Paste notes copied to the current position
+    const text = clipboard.readText()
+    if (!text || text.length === 0) {
+      return
+    }
+    const obj = JSON.parse(text)
+    if (!isArrangeNotesClipboardData(obj)) {
+      return
+    }
 
-  // 現在位置にコピーしたノートをペースト
-  // Paste notes copied to the current position
-  const text = clipboard.readText()
-  if (!text || text.length === 0) {
-    return
-  }
-  const obj = JSON.parse(text)
-  if (!isArrangeNotesClipboardData(obj)) {
-    return
-  }
+    pushHistory()
 
-  pushHistory(rootStore)()
+    for (const trackId in obj.notes) {
+      const notes = obj.notes[trackId].map((note) => ({
+        ...note,
+        tick: note.tick + player.position,
+      }))
 
-  for (const trackId in obj.notes) {
-    const notes = obj.notes[trackId].map((note) => ({
-      ...note,
-      tick: note.tick + player.position,
-    }))
+      const isRulerSelected = selectedTrackId < 0
+      const trackNumberOffset = isRulerSelected
+        ? 0
+        : -obj.selectedTrackId + selectedTrackId
 
-    const isRulerSelected = selectedTrackId < 0
-    const trackNumberOffset = isRulerSelected
-      ? 0
-      : -obj.selectedTrackId + selectedTrackId
+      const destTrackId = parseInt(trackId) + trackNumberOffset
 
-    const destTrackId = parseInt(trackId) + trackNumberOffset
-
-    if (destTrackId < tracks.length) {
-      tracks[destTrackId].addEvents(notes)
+      if (destTrackId < tracks.length) {
+        tracks[destTrackId].addEvents(notes)
+      }
     }
   }
-}
 
-export const arrangeDeleteSelection = (rootStore: RootStore) => () => {
-  const {
-    arrangeViewStore: s,
-    song: { tracks },
-  } = rootStore
+export const arrangeDeleteSelection =
+  ({ arrangeViewStore: s, song: { tracks }, pushHistory }: RootStore) =>
+  () => {
+    pushHistory()
 
-  pushHistory(rootStore)()
-
-  // 選択範囲と選択されたノートを削除
-  // Remove selected notes and selected notes
-  for (const trackId in s.selectedEventIds) {
-    tracks[trackId].removeEvents(s.selectedEventIds[trackId])
+    // 選択範囲と選択されたノートを削除
+    // Remove selected notes and selected notes
+    for (const trackId in s.selectedEventIds) {
+      tracks[trackId].removeEvents(s.selectedEventIds[trackId])
+    }
+    s.selection = null
+    s.selectedEventIds = []
   }
-  s.selection = null
-  s.selectedEventIds = []
-}
 
 // returns { trackId: [eventId] }
 function getEventsInSelection(tracks: Track[], selection: ArrangeSelection) {

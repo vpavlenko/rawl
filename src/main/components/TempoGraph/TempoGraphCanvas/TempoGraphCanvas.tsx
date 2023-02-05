@@ -102,7 +102,10 @@ export const TempoGraphCanvas: FC<TempoGraphCanvasProps> = observer(
         const event = items.filter((ev) => ev.id === item.id)[0]
         const movement = e.nativeEvent.deltaY > 0 ? -1 : 1
         const bpm = uSecPerBeatToBPM(event.microsecondsPerBeat)
-        changeTempo(rootStore)(event.id, bpmToUSecPerBeat(bpm + movement))
+        changeTempo(rootStore)(
+          event.id,
+          Math.floor(bpmToUSecPerBeat(bpm + movement))
+        )
       },
       [items, rootStore, scrollLeft]
     )

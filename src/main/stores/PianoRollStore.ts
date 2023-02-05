@@ -59,7 +59,7 @@ export default class PianoRollStore {
   autoScroll = true
   quantize = 8
   isQuantizeEnabled = true
-  selectedTrackId: number = 0
+  selectedTrackId: number = 1
   selection: Selection | null = null
   selectedNoteIds: number[] = []
   lastNoteDuration: number | null = null

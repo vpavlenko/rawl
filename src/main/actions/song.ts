@@ -22,7 +22,7 @@ export const setSong = (rootStore: RootStore) => (song: Song) => {
   rootStore.pianoRollStore.setScrollLeftInPixels(0)
   rootStore.pianoRollStore.notGhostTracks = new Set()
   rootStore.pianoRollStore.showTrackList = true
-  rootStore.pianoRollStore.selectedTrackId = Math.max(song.tracks.length - 1, 1)
+  rootStore.pianoRollStore.selectedTrackId = Math.min(song.tracks.length - 1, 1)
   rootStore.historyStore.clear()
 
   const { player } = rootStore

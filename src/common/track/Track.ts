@@ -9,8 +9,13 @@ import {
 } from "midifile-ts"
 import { action, computed, makeObservable, observable, transaction } from "mobx"
 import { createModelSchema, list, primitive } from "serializr"
+import { bpmToUSecPerBeat } from "../helpers/bpm"
 import { pojo } from "../helpers/pojo"
-import { programChangeMidiEvent, trackNameMidiEvent } from "../midi/MidiEvent"
+import {
+  programChangeMidiEvent,
+  setTempoMidiEvent,
+  trackNameMidiEvent,
+} from "../midi/MidiEvent"
 import { isControllerEventWithType, isNoteEvent } from "./identify"
 import {
   getLast,
@@ -267,9 +272,15 @@ export default class Track {
 
   setTempo(bpm: number, tick: number) {
     const e = getTempoEvent(this.events, tick)
+    const microsecondsPerBeat = Math.floor(bpmToUSecPerBeat(bpm))
     if (e !== undefined) {
       this.updateEvent<TrackEventOf<SetTempoEvent>>(e.id, {
-        microsecondsPerBeat: 60000000 / bpm,
+        microsecondsPerBeat,
+      })
+    } else {
+      this.addEvent<TrackEventOf<SetTempoEvent>>({
+        ...setTempoMidiEvent(0, microsecondsPerBeat),
+        tick: 0,
       })
     }
   }

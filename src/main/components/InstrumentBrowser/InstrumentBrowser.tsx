@@ -157,20 +157,23 @@ const InstrumentBrowser: FC<InstrumentBrowserProps> = ({
 const InstrumentBrowserWrapper: FC = observer(() => {
   const rootStore = useStores()
 
-  const track = rootStore.song.selectedTrack
-  const trackId = rootStore.song.selectedTrackId
-  const s = rootStore.pianoRollStore
-  const player = rootStore.player
-  const song = rootStore.song
-  const instrumentBrowserSetting =
-    rootStore.pianoRollStore.instrumentBrowserSetting
-  const openInstrumentBrowser = rootStore.pianoRollStore.openInstrumentBrowser
+  const {
+    pianoRollStore: {
+      selectedTrack: track,
+      selectedTrackId: trackId,
+      instrumentBrowserSetting,
+      openInstrumentBrowser,
+    },
+    pianoRollStore,
+    player,
+    song,
+  } = rootStore
 
   if (track === undefined) {
     throw new Error("selectedTrack is undefined")
   }
 
-  const close = () => (s.openInstrumentBrowser = false)
+  const close = () => (pianoRollStore.openInstrumentBrowser = false)
   const setTrackInstrument = (programNumber: number) =>
     setTrackInstrumentAction(rootStore)(trackId, programNumber)
 
@@ -203,7 +206,7 @@ const InstrumentBrowserWrapper: FC = observer(() => {
       },
       0.5
     )
-    s.instrumentBrowserSetting = setting
+    pianoRollStore.instrumentBrowserSetting = setting
   }
 
   return (

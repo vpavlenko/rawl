@@ -76,18 +76,24 @@ export const fastForwardOneBar = (rootStore: RootStore) => () => {
 }
 
 export const nextTrack = (rootStore: RootStore) => () => {
-  const { song } = rootStore
-  song.selectTrack(Math.min(song.selectedTrackId + 1, song.tracks.length - 1))
+  const { pianoRollStore, song } = rootStore
+  pianoRollStore.selectedTrackId = Math.min(
+    pianoRollStore.selectedTrackId + 1,
+    song.tracks.length - 1
+  )
 }
 
 export const previousTrack = (rootStore: RootStore) => () => {
-  const { song } = rootStore
-  song.selectTrack(Math.max(song.selectedTrackId - 1, 1))
+  const { pianoRollStore } = rootStore
+  pianoRollStore.selectedTrackId = Math.max(
+    pianoRollStore.selectedTrackId - 1,
+    1
+  )
 }
 
 export const toggleSolo = (rootStore: RootStore) => () => {
   const {
-    song: { selectedTrackId },
+    pianoRollStore: { selectedTrackId },
     trackMute,
   } = rootStore
   if (trackMute.isSolo(selectedTrackId)) {
@@ -99,7 +105,7 @@ export const toggleSolo = (rootStore: RootStore) => () => {
 
 export const toggleMute = (rootStore: RootStore) => () => {
   const {
-    song: { selectedTrackId },
+    pianoRollStore: { selectedTrackId },
     trackMute,
   } = rootStore
   if (trackMute.isMuted(selectedTrackId)) {
@@ -111,7 +117,7 @@ export const toggleMute = (rootStore: RootStore) => () => {
 
 export const toggleGhost = (RootStore: RootStore) => () => {
   const {
-    song: { selectedTrackId },
+    pianoRollStore: { selectedTrackId },
     pianoRollStore,
   } = RootStore
   if (pianoRollStore.notGhostTracks.has(selectedTrackId)) {

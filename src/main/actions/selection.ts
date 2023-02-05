@@ -60,9 +60,8 @@ export const fixSelection =
   (rootStore: RootStore) =>
   (clearRect: boolean = false) => {
     const {
-      song: { selectedTrack },
       pianoRollStore,
-      pianoRollStore: { selection },
+      pianoRollStore: { selectedTrack, selection },
     } = rootStore
 
     if (selectedTrack === undefined || selection === null) {
@@ -84,9 +83,8 @@ export const fixSelection =
 export const transposeSelection =
   (rootStore: RootStore) => (deltaPitch: number) => {
     const {
-      song: { selectedTrackId },
       pianoRollStore,
-      pianoRollStore: { selection, selectedNoteIds },
+      pianoRollStore: { selectedTrackId, selection, selectedNoteIds },
     } = rootStore
 
     pushHistory(rootStore)()
@@ -103,8 +101,7 @@ export const transposeSelection =
 
 export const moveSelection = (rootStore: RootStore) => (point: NotePoint) => {
   const {
-    song: { selectedTrack },
-    pianoRollStore: { selection, quantizer },
+    pianoRollStore: { selectedTrack, selection, quantizer },
   } = rootStore
 
   if (selectedTrack === undefined || selection === null) {
@@ -144,9 +141,8 @@ export const moveSelectionBy = (rootStore: RootStore) => (delta: NotePoint) => {
   }
 
   const {
-    song: { selectedTrack },
     pianoRollStore,
-    pianoRollStore: { selection, selectedNoteIds },
+    pianoRollStore: { selectedTrack, selection, selectedNoteIds },
   } = rootStore
 
   if (selectedTrack === undefined) {
@@ -218,10 +214,7 @@ export const resizeSelectionLeft = (rootStore: RootStore) => (tick: number) => {
 
 export const resizeNotesInSelectionLeftBy =
   (rootStore: RootStore) => (deltaTick: number) => {
-    const {
-      song: { selectedTrack },
-      pianoRollStore: { selectedNoteIds },
-    } = rootStore
+    const { selectedNoteIds, selectedTrack } = rootStore.pianoRollStore
 
     if (selectedTrack === undefined || selectedNoteIds.length === 0) {
       return
@@ -292,10 +285,7 @@ export const resizeSelectionRight =
 
 export const resizeNotesInSelectionRightBy =
   (rootStore: RootStore) => (deltaDuration: number) => {
-    const {
-      song: { selectedTrack },
-      pianoRollStore: { selectedNoteIds },
-    } = rootStore
+    const { selectedTrack, selectedNoteIds } = rootStore.pianoRollStore
 
     if (selectedTrack === undefined || selectedNoteIds.length === 0) {
       return
@@ -360,9 +350,8 @@ export const resetSelection = (rootStore: RootStore) => () => {
 
 export const cloneSelection = (rootStore: RootStore) => () => {
   const {
-    song: { selectedTrack },
     pianoRollStore,
-    pianoRollStore: { selection, selectedNoteIds },
+    pianoRollStore: { selection, selectedNoteIds, selectedTrack },
   } = rootStore
 
   if (selectedTrack === undefined || selection === null) {
@@ -383,8 +372,7 @@ export const cloneSelection = (rootStore: RootStore) => () => {
 
 export const copySelection = (rootStore: RootStore) => () => {
   const {
-    song: { selectedTrack },
-    pianoRollStore: { selection, selectedNoteIds },
+    pianoRollStore: { selection, selectedNoteIds, selectedTrack },
   } = rootStore
 
   if (selectedTrack === undefined || selectedNoteIds.length === 0) {
@@ -416,9 +404,8 @@ export const copySelection = (rootStore: RootStore) => () => {
 
 export const deleteSelection = (rootStore: RootStore) => () => {
   const {
-    song: { selectedTrack },
     pianoRollStore,
-    pianoRollStore: { selection, selectedNoteIds },
+    pianoRollStore: { selection, selectedNoteIds, selectedTrack },
   } = rootStore
 
   if (
@@ -438,9 +425,9 @@ export const deleteSelection = (rootStore: RootStore) => () => {
 }
 
 export const pasteSelection = (rootStore: RootStore) => () => {
-  const { song, player } = rootStore
+  const { player } = rootStore
 
-  const selectedTrack = song.selectedTrack
+  const { selectedTrack } = rootStore.pianoRollStore
   if (selectedTrack === undefined) {
     return
   }
@@ -466,9 +453,8 @@ export const pasteSelection = (rootStore: RootStore) => () => {
 
 export const duplicateSelection = (rootStore: RootStore) => () => {
   const {
-    song: { selectedTrack },
     pianoRollStore,
-    pianoRollStore: { selection, selectedNoteIds },
+    pianoRollStore: { selection, selectedNoteIds, selectedTrack },
   } = rootStore
 
   if (
@@ -517,9 +503,8 @@ export const addNoteToSelection =
 export const removeNoteFromSelection =
   (rootStore: RootStore) => (noteId: number) => {
     const {
-      song: { selectedTrack },
       pianoRollStore,
-      pianoRollStore: { selectedNoteIds },
+      pianoRollStore: { selectedNoteIds, selectedTrack },
     } = rootStore
 
     if (selectedTrack === undefined || selectedNoteIds.length === 0) {
@@ -533,8 +518,8 @@ export const removeNoteFromSelection =
 
 export const selectNote = (rootStore: RootStore) => (noteId: number) => {
   const {
-    song: { selectedTrack },
     pianoRollStore,
+    pianoRollStore: { selectedTrack },
   } = rootStore
 
   if (selectedTrack === undefined) {
@@ -556,8 +541,7 @@ const sortedNotes = (notes: NoteEvent[]): NoteEvent[] =>
 
 const selectNeighborNote = (rootStore: RootStore) => (deltaIndex: number) => {
   const {
-    song: { selectedTrack },
-    pianoRollStore: { selectedNoteIds },
+    pianoRollStore: { selectedTrack, selectedNoteIds },
   } = rootStore
 
   if (selectedTrack === undefined || selectedNoteIds.length === 0) {
@@ -592,8 +576,11 @@ export const selectPreviousNote = (rootStore: RootStore) => () =>
 
 export const quantizeSelectedNotes = (rootStore: RootStore) => () => {
   const {
-    song: { selectedTrack },
-    pianoRollStore: { selectedNoteIds, enabledQuantizer: quantizer },
+    pianoRollStore: {
+      selectedTrack,
+      selectedNoteIds,
+      enabledQuantizer: quantizer,
+    },
   } = rootStore
 
   if (selectedTrack === undefined || selectedNoteIds.length === 0) {
@@ -615,7 +602,7 @@ export const quantizeSelectedNotes = (rootStore: RootStore) => () => {
 }
 
 export const selectAllNotes = (rootStore: RootStore) => () => {
-  const selectedTrack = rootStore.song.selectedTrack
+  const { selectedTrack } = rootStore.pianoRollStore
 
   if (selectedTrack) {
     rootStore.pianoRollStore.selectedNoteIds = selectedTrack.events

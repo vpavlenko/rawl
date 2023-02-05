@@ -17,8 +17,11 @@ const Container = styled.div`
 
 const EventList: FC = observer(() => {
   const rootStore = useStores()
+  const {
+    pianoRollStore: { selectedTrack },
+  } = rootStore
 
-  const events = [...(rootStore.song.selectedTrack?.events ?? [])]
+  const events = [...(selectedTrack?.events ?? [])]
   const [selectedEventIds, setSelectedEventIds] = useState<number[]>([])
 
   const ref = useRef<HTMLDivElement>(null)
@@ -226,12 +229,15 @@ const equalEventRowProps = (a: EventRowProps, b: EventRowProps) =>
 const EventRow: FC<EventRowProps> = React.memo(
   ({ item, isSelected, style, onClick }) => {
     const rootStore = useStores()
+    const {
+      pianoRollStore: { selectedTrack },
+    } = rootStore
 
     const controller = getEventController(item)
 
     const onDelete = useCallback(
       (e: TrackEvent) => {
-        rootStore.song.selectedTrack?.removeEvent(e.id)
+        selectedTrack?.removeEvent(e.id)
       },
       [rootStore]
     )
@@ -242,7 +248,7 @@ const EventRow: FC<EventRowProps> = React.memo(
           return
         }
         const obj = controller.gate.update(value)
-        rootStore.song.selectedTrack?.updateEvent(item.id, obj)
+        selectedTrack?.updateEvent(item.id, obj)
       },
       [rootStore, item]
     )
@@ -253,7 +259,7 @@ const EventRow: FC<EventRowProps> = React.memo(
           return
         }
         const obj = controller.value.update(value)
-        rootStore.song.selectedTrack?.updateEvent(item.id, obj)
+        selectedTrack?.updateEvent(item.id, obj)
       },
       [rootStore, item]
     )

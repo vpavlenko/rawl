@@ -1,7 +1,14 @@
 import cursorPencil from "!url-loader!../images/cursor-pencil.svg"
 import { clamp, flatten, maxBy, minBy } from "lodash"
 import { ControllerEvent, MIDIControlEvents, PitchBendEvent } from "midifile-ts"
-import { action, autorun, computed, makeObservable, observable } from "mobx"
+import {
+  action,
+  autorun,
+  computed,
+  makeObservable,
+  observable,
+  observe,
+} from "mobx"
 import { containsPoint, IPoint, IRect } from "../../common/geometry"
 import { isNotUndefined } from "../../common/helpers/array"
 import { filterEventsOverlapScroll } from "../../common/helpers/filterEvents"
@@ -9,7 +16,7 @@ import { getMBTString } from "../../common/measure/mbt"
 import Quantizer from "../../common/quantizer"
 import { ControlSelection } from "../../common/selection/ControlSelection"
 import { getSelectionBounds, Selection } from "../../common/selection/Selection"
-import {
+import Track, {
   isControllerEventWithType,
   isExpressionEvent,
   isModulationEvent,
@@ -52,6 +59,7 @@ export default class PianoRollStore {
   autoScroll = true
   quantize = 8
   isQuantizeEnabled = true
+  selectedTrackId: number = 0
   selection: Selection | null = null
   selectedNoteIds: number[] = []
   lastNoteDuration: number | null = null
@@ -87,6 +95,7 @@ export default class PianoRollStore {
       autoScroll: observable,
       quantize: observable,
       isQuantizeEnabled: observable,
+      selectedTrackId: observable,
       selection: observable.shallow,
       selectedNoteIds: observable,
       lastNoteDuration: observable,
@@ -121,6 +130,7 @@ export default class PianoRollStore {
       cursorX: computed,
       quantizer: computed,
       controlCursor: computed,
+      selectedTrack: computed,
       setScrollLeftInPixels: action,
       setScrollTopInPixels: action,
       setScrollLeftInTicks: action,
@@ -143,6 +153,12 @@ export default class PianoRollStore {
           this.scrollLeftTicks = position
         }
       }
+    })
+
+    // reset selection when change track
+    observe(this, "selectedTrackId", () => {
+      this.selection = null
+      this.selectedNoteIds = []
     })
   }
 
@@ -228,6 +244,10 @@ export default class PianoRollStore {
     this.mouseMode === "pencil" ? "selection" : "pencil"
   }
 
+  get selectedTrack(): Track | undefined {
+    return this.rootStore.song.tracks[this.selectedTrackId]
+  }
+
   get transform(): NoteCoordTransform {
     return new NoteCoordTransform(
       Layout.pixelsPerTick * this.scaleX,
@@ -237,8 +257,7 @@ export default class PianoRollStore {
   }
 
   get windowedEvents(): TrackEvent[] {
-    const { transform, scrollLeft, canvasWidth } = this
-    const track = this.rootStore.song.selectedTrack
+    const { transform, scrollLeft, canvasWidth, selectedTrack: track } = this
     if (track === undefined) {
       return []
     }
@@ -252,10 +271,13 @@ export default class PianoRollStore {
   }
 
   get notes(): PianoNoteItem[] {
-    const song = this.rootStore.song
-    const { transform, windowedEvents, selectedNoteIds } = this
+    const {
+      transform,
+      windowedEvents,
+      selectedNoteIds,
+      selectedTrack: track,
+    } = this
 
-    const track = song.selectedTrack
     if (track === undefined) {
       return []
     }
@@ -280,8 +302,13 @@ export default class PianoRollStore {
 
   get ghostNotes(): PianoNoteItem[] {
     const song = this.rootStore.song
-    const { selectedTrackId } = song
-    const { transform, notGhostTracks, scrollLeft, canvasWidth } = this
+    const {
+      transform,
+      notGhostTracks,
+      scrollLeft,
+      canvasWidth,
+      selectedTrackId,
+    } = this
 
     return flatten(
       song.tracks.map((track, id) => {
@@ -337,8 +364,13 @@ export default class PianoRollStore {
     filter: (e: TrackEvent) => e is T
   ): T[] {
     const song = this.rootStore.song
-    const { selectedTrack } = song
-    const { windowedEvents, scrollLeft, canvasWidth, transform } = this
+    const {
+      windowedEvents,
+      scrollLeft,
+      canvasWidth,
+      transform,
+      selectedTrack,
+    } = this
 
     const controllerEvents = (selectedTrack?.events ?? []).filter(filter)
     const events = windowedEvents.filter(filter)
@@ -387,15 +419,11 @@ export default class PianoRollStore {
   }
 
   get currentVolume(): number | undefined {
-    return this.rootStore.song.selectedTrack?.getVolume(
-      this.rootStore.player.position
-    )
+    return this.selectedTrack?.getVolume(this.rootStore.player.position)
   }
 
   get currentPan(): number | undefined {
-    return this.rootStore.song.selectedTrack?.getPan(
-      this.rootStore.player.position
-    )
+    return this.selectedTrack?.getPan(this.rootStore.player.position)
   }
 
   get currentTempo(): number | undefined {

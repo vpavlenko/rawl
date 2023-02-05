@@ -2,17 +2,17 @@ import { deserializeSingleEvent, Stream } from "midifile-ts"
 import { makeObservable, observable, observe } from "mobx"
 import Player from "../../common/player"
 import { NoteEvent, TrackEvent } from "../../common/track"
-import { SongStore } from "../stores/SongStore"
+import RootStore from "../stores/RootStore"
 
 export class MIDIRecorder {
   private recordedNotes: NoteEvent[] = []
   private player: Player
-  private songStore: SongStore
+  private rootStore: RootStore
   isRecording: boolean = false
 
-  constructor(player: Player, songStore: SongStore) {
+  constructor(player: Player, rootStore: RootStore) {
     this.player = player
-    this.songStore = songStore
+    this.rootStore = rootStore
 
     makeObservable(this, {
       isRecording: observable,
@@ -24,7 +24,7 @@ export class MIDIRecorder {
         return
       }
 
-      const track = songStore.song.selectedTrack
+      const track = rootStore.pianoRollStore.selectedTrack
       if (track === undefined) {
         return
       }
@@ -43,7 +43,7 @@ export class MIDIRecorder {
 
       if (!change.newValue) {
         // stop recording
-        this.songStore.song.tracks.forEach((track) => {
+        this.rootStore.song.tracks.forEach((track) => {
           const events = track.events
             .filter((e) => e.isRecording === true)
             .map<Partial<TrackEvent>>((e) => ({ ...e, isRecording: false }))
@@ -58,7 +58,7 @@ export class MIDIRecorder {
       return
     }
 
-    const track = this.songStore.song.selectedTrack
+    const track = this.rootStore.pianoRollStore.selectedTrack
     if (track === undefined) {
       return
     }

@@ -7,8 +7,8 @@ import { TrackInstrumentName } from "../TrackList/InstrumentName"
 
 export const InstrumentButton: FC = observer(() => {
   const {
-    song: { selectedTrack },
     pianoRollStore,
+    pianoRollStore: { selectedTrack },
   } = useStores()
 
   if (selectedTrack === undefined) {

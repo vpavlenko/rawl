@@ -44,9 +44,10 @@ export const changeTempo =
 
 export const changeNotesVelocity =
   (rootStore: RootStore) => (noteIds: number[], velocity: number) => {
-    const { song } = rootStore
+    const {
+      pianoRollStore: { selectedTrack },
+    } = rootStore
 
-    const selectedTrack = song.selectedTrack
     if (selectedTrack === undefined) {
       return
     }
@@ -62,12 +63,10 @@ export const changeNotesVelocity =
 export const createEvent =
   (rootStore: RootStore) => (e: AnyChannelEvent, tick?: number) => {
     const {
-      song,
       player,
-      pianoRollStore: { quantizer },
+      pianoRollStore: { quantizer, selectedTrack },
     } = rootStore
 
-    const selectedTrack = song.selectedTrack
     if (selectedTrack === undefined) {
       throw new Error("selected track is undefined")
     }
@@ -155,16 +154,17 @@ export const updateEventsInRange =
 export const updateValueEvents =
   (type: ValueEventType) => (rootStore: RootStore) =>
     updateEventsInRange(
-      rootStore.song.selectedTrack,
+      rootStore.pianoRollStore.selectedTrack,
       rootStore.pianoRollStore.quantizer,
       isValueEvent(type),
       createValueEvent(type)
     )
 
 export const removeEvent = (rootStore: RootStore) => (eventId: number) => {
-  const { song } = rootStore
+  const {
+    pianoRollStore: { selectedTrack },
+  } = rootStore
 
-  const selectedTrack = song.selectedTrack
   if (selectedTrack === undefined) {
     return
   }
@@ -177,12 +177,9 @@ export const removeEvent = (rootStore: RootStore) => (eventId: number) => {
 export const createNote =
   (rootStore: RootStore) => (tick: number, noteNumber: number) => {
     const {
-      song,
       pianoRollStore,
-      player,
-      pianoRollStore: { quantizer },
+      pianoRollStore: { quantizer, selectedTrack },
     } = rootStore
-    const selectedTrack = song.selectedTrack
     if (selectedTrack === undefined || selectedTrack.channel == undefined) {
       return
     }
@@ -205,8 +202,10 @@ export const createNote =
   }
 
 export const muteNote = (rootStore: RootStore) => (noteNumber: number) => {
-  const { song, player } = rootStore
-  const selectedTrack = song.selectedTrack
+  const {
+    player,
+    pianoRollStore: { selectedTrack },
+  } = rootStore
   if (selectedTrack === undefined || selectedTrack.channel == undefined) {
     return
   }
@@ -218,11 +217,9 @@ const MIN_DURATION = 10
 export const resizeNoteLeft =
   (rootStore: RootStore) => (id: number, tick: number, quantize: boolean) => {
     const {
-      song,
       pianoRollStore,
-      pianoRollStore: { quantizer },
+      pianoRollStore: { quantizer, selectedTrack },
     } = rootStore
-    const selectedTrack = song.selectedTrack
     if (selectedTrack === undefined) {
       return
     }
@@ -247,11 +244,9 @@ export const resizeNoteLeft =
 export const resizeNoteRight =
   (rootStore: RootStore) => (id: number, tick: number, quantize: boolean) => {
     const {
-      song,
       pianoRollStore,
-      pianoRollStore: { quantizer },
+      pianoRollStore: { quantizer, selectedTrack },
     } = rootStore
-    const selectedTrack = song.selectedTrack
     if (selectedTrack === undefined) {
       return
     }
@@ -272,9 +267,10 @@ export const resizeNoteRight =
 /* track meta */
 
 export const setTrackName = (rootStore: RootStore) => (name: string) => {
-  const { song } = rootStore
+  const {
+    pianoRollStore: { selectedTrack },
+  } = rootStore
 
-  const selectedTrack = song.selectedTrack
   if (selectedTrack === undefined) {
     return
   }

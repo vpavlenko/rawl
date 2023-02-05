@@ -31,9 +31,7 @@ const Input = styled.input`
 
 export const TrackNameInput: FC = observer(() => {
   const rootStore = useStores()
-  const {
-    song: { selectedTrack },
-  } = rootStore
+  const { selectedTrack } = rootStore.pianoRollStore
 
   if (selectedTrack === undefined) {
     return <></>
@@ -44,12 +42,12 @@ export const TrackNameInput: FC = observer(() => {
     <>
       {isEditing ? (
         <Input
-          defaultValue={rootStore.song.selectedTrack?.name ?? ""}
+          defaultValue={selectedTrack.name ?? ""}
           ref={(c) => c?.focus()}
           // to support IME we use onKeyPress instead of onKeyDown for capture Enter
           onKeyPress={(e) => {
             if (e.key === "Enter") {
-              rootStore.song.selectedTrack?.setName(e.currentTarget.value)
+              selectedTrack.setName(e.currentTarget.value)
               setEditing(false)
             }
           }}

@@ -14,8 +14,8 @@ export const createOrUpdateControlEventsValue =
   <T extends ControllerEvent | PitchBendEvent>(event: T) => {
     pushHistory(rootStore)()
     const {
-      pianoRollStore: { selectedControllerEventIds },
-      song: { selectedTrack },
+      pianoRollStore: { selectedTrack, selectedControllerEventIds },
+      player,
     } = rootStore
 
     if (selectedTrack === undefined) {
@@ -35,16 +35,15 @@ export const createOrUpdateControlEventsValue =
     } else {
       selectedTrack.createOrUpdate({
         ...event,
-        tick: rootStore.player.position,
+        tick: player.position,
       })
     }
   }
 
 export const deleteControlSelection = (rootStore: RootStore) => () => {
   const {
-    song: { selectedTrack },
     pianoRollStore,
-    pianoRollStore: { selectedControllerEventIds },
+    pianoRollStore: { selectedTrack, selectedControllerEventIds },
   } = rootStore
 
   if (selectedTrack === undefined || selectedControllerEventIds.length === 0) {
@@ -66,8 +65,7 @@ export const resetControlSelection = (rootStore: RootStore) => () => {
 
 export const copyControlSelection = (rootStore: RootStore) => () => {
   const {
-    song: { selectedTrack },
-    pianoRollStore: { selectedControllerEventIds },
+    pianoRollStore: { selectedTrack, selectedControllerEventIds },
   } = rootStore
 
   if (selectedTrack === undefined || selectedControllerEventIds.length === 0) {
@@ -100,7 +98,7 @@ export const copyControlSelection = (rootStore: RootStore) => () => {
 
 export const pasteControlSelection = (rootStore: RootStore) => () => {
   const {
-    song: { selectedTrack },
+    pianoRollStore: { selectedTrack },
     player,
   } = rootStore
 
@@ -129,9 +127,8 @@ export const pasteControlSelection = (rootStore: RootStore) => () => {
 
 export const duplicateControlSelection = (rootStore: RootStore) => () => {
   const {
-    song: { selectedTrack },
     pianoRollStore,
-    pianoRollStore: { selectedControllerEventIds },
+    pianoRollStore: { selectedTrack, selectedControllerEventIds },
   } = rootStore
 
   if (selectedTrack === undefined || selectedControllerEventIds.length === 0) {

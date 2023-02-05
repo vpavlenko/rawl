@@ -11,6 +11,7 @@ type Json = any
 export interface SerializedState {
   song: Json
   selection: PianoRollStore["selection"]
+  selectedNoteIds: PianoRollStore["selectedNoteIds"]
   selectedControllerEventIds: PianoRollStore["selectedControllerEventIds"]
   arrangeSelection: ArrangeViewStore["selection"]
   arrangeSelectedEventIds: ArrangeViewStore["selectedEventIds"]
@@ -20,6 +21,7 @@ const serializeUndoableState = (rootStore: RootStore): SerializedState => {
   return {
     song: serialize(rootStore.song),
     selection: cloneDeep(rootStore.pianoRollStore.selection),
+    selectedNoteIds: cloneDeep(rootStore.pianoRollStore.selectedNoteIds),
     selectedControllerEventIds: cloneDeep(
       rootStore.pianoRollStore.selectedControllerEventIds
     ),
@@ -35,6 +37,7 @@ const restoreState =
     const song = deserialize(Song, serializedState.song)
     rootStore.song = song
     rootStore.pianoRollStore.selection = serializedState.selection
+    rootStore.pianoRollStore.selectedNoteIds = serializedState.selectedNoteIds
     rootStore.pianoRollStore.selectedControllerEventIds =
       serializedState.selectedControllerEventIds
     rootStore.arrangeViewStore.selection = serializedState.arrangeSelection

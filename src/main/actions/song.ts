@@ -16,15 +16,23 @@ const openSongFile = async (input: HTMLInputElement): Promise<Song | null> => {
 }
 
 export const setSong = (rootStore: RootStore) => (song: Song) => {
+  const { trackMute, pianoRollStore, player, historyStore, arrangeViewStore } =
+    rootStore
   rootStore.song = song
-  rootStore.trackMute.reset()
-  rootStore.pianoRollStore.setScrollLeftInPixels(0)
-  rootStore.pianoRollStore.notGhostTracks = new Set()
-  rootStore.pianoRollStore.showTrackList = true
-  rootStore.pianoRollStore.selectedTrackId = Math.min(song.tracks.length - 1, 1)
-  rootStore.historyStore.clear()
+  trackMute.reset()
 
-  const { player } = rootStore
+  pianoRollStore.setScrollLeftInPixels(0)
+  pianoRollStore.notGhostTracks = new Set()
+  pianoRollStore.showTrackList = true
+  pianoRollStore.selection = null
+  pianoRollStore.selectedNoteIds = []
+  pianoRollStore.selectedTrackId = Math.min(song.tracks.length - 1, 1)
+
+  arrangeViewStore.selection = null
+  arrangeViewStore.selectedEventIds = []
+
+  historyStore.clear()
+
   player.stop()
   player.reset()
   player.position = 0

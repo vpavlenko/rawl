@@ -28,6 +28,11 @@ import {
   getVolume,
   isTickBefore,
 } from "./selector"
+import {
+  isSignalTrackColorEvent,
+  SignalTrackColorEvent,
+  TrackColor,
+} from "./signalEvents"
 import { TrackEvent, TrackEventOf } from "./TrackEvent"
 import { validateMidiEvent } from "./validate"
 
@@ -54,6 +59,7 @@ export default class Track {
       programNumber: computed,
       isConductorTrack: computed,
       isRhythmTrack: computed,
+      color: computed,
       events: observable.shallow,
       channel: observable,
     })
@@ -244,6 +250,25 @@ export default class Track {
       maxTick = Math.max(maxTick, tick)
     }
     return maxTick
+  }
+
+  get color(): SignalTrackColorEvent | undefined {
+    return this.events.filter(isSignalTrackColorEvent)[0]
+  }
+
+  set setColor(color: TrackColor) {
+    const e = this.color
+    if (e !== undefined) {
+      this.updateEvent<SignalTrackColorEvent>(e.id, color)
+    } else {
+      this.addEvent<TrackEventOf<SignalTrackColorEvent>>({
+        tick: 0,
+        type: "channel",
+        subtype: "signal",
+        signalEventType: "trackColor",
+        ...color,
+      })
+    }
   }
 
   getPan = (tick: number) => getPan(this.events, tick)

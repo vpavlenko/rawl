@@ -7,6 +7,7 @@ import {
   PitchBendEvent,
   PortPrefixEvent,
   ProgramChangeEvent,
+  SequencerSpecificEvent,
   SetTempoEvent,
   TimeSignatureEvent,
   TrackNameEvent,
@@ -201,6 +202,18 @@ export function expressionMidiEvent(
 
 export function resetAllMidiEvent(deltaTime: number, channel: number) {
   return controllerMidiEvent(deltaTime, channel, 121, 0)
+}
+
+export function sequencerSpecificEvent(
+  deltaTime: number,
+  data: number[]
+): SequencerSpecificEvent {
+  return {
+    type: "meta",
+    subtype: "sequencerSpecific",
+    deltaTime,
+    data,
+  }
 }
 
 // Control Change

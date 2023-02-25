@@ -170,9 +170,9 @@ export const TrackListItem: FC<TrackListItemProps> = observer(({ trackId }) => {
   const closeDialog = useCallback(() => setDialogOpened(false), [])
   const changeTrackColor = useCallback(() => {
     track.setColor({
-      red: Math.random() * 0xff,
-      green: Math.random() * 0xff,
-      blue: Math.random() * 0xff,
+      red: Math.floor(Math.random() * 0xff),
+      green: Math.floor(Math.random() * 0xff),
+      blue: Math.floor(Math.random() * 0xff),
       alpha: 0xff,
     })
   }, [])

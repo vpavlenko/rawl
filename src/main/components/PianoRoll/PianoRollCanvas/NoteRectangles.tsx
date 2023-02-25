@@ -13,6 +13,7 @@ export interface NoteRectanglesProps {
   rects: (IRect & IVelocityData & ISelectionData)[]
   fillColor: vec4
   strokeColor: vec4
+  selectedFillColor: vec4
   zIndex?: number
 }
 
@@ -20,6 +21,7 @@ export const NoteRectangles: FC<NoteRectanglesProps> = ({
   rects,
   fillColor,
   strokeColor,
+  selectedFillColor,
   zIndex,
 }) => {
   const projectionMatrix = useProjectionMatrix()
@@ -28,7 +30,7 @@ export const NoteRectangles: FC<NoteRectanglesProps> = ({
     <GLNode
       createShader={NoteShader}
       createBuffer={(gl) => new NoteBuffer(gl)}
-      uniforms={{ projectionMatrix, fillColor, strokeColor }}
+      uniforms={{ projectionMatrix, fillColor, strokeColor, selectedFillColor }}
       buffer={rects}
       zIndex={zIndex}
     />

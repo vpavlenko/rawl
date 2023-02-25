@@ -17,6 +17,7 @@ export const GhostNotes: FC<{ zIndex: number }> = observer(({ zIndex }) => {
   const [drumNotes, normalNotes] = partition(notes, (n) => n.isDrum)
   const baseColor = Color(theme.ghostNoteColor)
   const borderColor = baseColor.lighten(0.3)
+  const selectedColor = baseColor.lighten(0.7)
 
   return (
     <>
@@ -29,6 +30,7 @@ export const GhostNotes: FC<{ zIndex: number }> = observer(({ zIndex }) => {
       <NoteRectangles
         fillColor={colorToVec4(baseColor)}
         strokeColor={colorToVec4(borderColor)}
+        selectedFillColor={colorToVec4(selectedColor)}
         rects={normalNotes}
         zIndex={zIndex + 0.1}
       />

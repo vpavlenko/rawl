@@ -26,6 +26,7 @@ export const Notes: FC<{ zIndex: number }> = observer(({ zIndex }) => {
       : theme.themeColor
   )
   const borderColor = baseColor.lighten(0.3)
+  const selectedColor = baseColor.lighten(0.7)
 
   return (
     <>
@@ -38,6 +39,7 @@ export const Notes: FC<{ zIndex: number }> = observer(({ zIndex }) => {
       <NoteRectangles
         fillColor={colorToVec4(baseColor)}
         strokeColor={colorToVec4(borderColor)}
+        selectedFillColor={colorToVec4(selectedColor)}
         rects={normalNotes}
         zIndex={zIndex + 0.1}
       />

@@ -105,6 +105,7 @@ export const NoteShader = (gl: WebGLRenderingContext) =>
 
       uniform vec4 uFillColor;
       uniform vec4 uStrokeColor;
+      uniform vec4 uSelectedFillColor;
 
       varying vec4 vBounds;
       varying vec2 vPosition;
@@ -120,7 +121,7 @@ export const NoteShader = (gl: WebGLRenderingContext) =>
           // draw outline
           gl_FragColor = uStrokeColor;
         } else {
-          gl_FragColor = mix(vec4(uFillColor.rgb, vVelocity / 127.0), vec4(1.0, 1.0, 1.0, 1.0), vSelected);
+          gl_FragColor = mix(vec4(uFillColor.rgb, vVelocity / 127.0), uSelectedFillColor, vSelected);
         }
       }
     `,
@@ -134,5 +135,6 @@ export const NoteShader = (gl: WebGLRenderingContext) =>
       projectionMatrix: uniformMat4(gl, program, "uProjectionMatrix"),
       fillColor: uniformVec4(gl, program, "uFillColor"),
       strokeColor: uniformVec4(gl, program, "uStrokeColor"),
+      selectedFillColor: uniformVec4(gl, program, "uSelectedFillColor"),
     })
   )

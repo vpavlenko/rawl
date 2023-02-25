@@ -7,12 +7,14 @@ export type TrackListContextMenuProps = ContextMenuProps & {
   onClickAdd: () => void
   onClickDelete: () => void
   onClickProperty: () => void
+  onClickChangeTrackColor: () => void
 }
 
 export const TrackListContextMenu: FC<TrackListContextMenuProps> = ({
   onClickAdd,
   onClickDelete,
   onClickProperty,
+  onClickChangeTrackColor,
   ...props
 }) => {
   const { handleClose } = props
@@ -44,6 +46,15 @@ export const TrackListContextMenu: FC<TrackListContextMenuProps> = ({
         }}
       >
         <Localized default="Property">property</Localized>
+      </MenuItem>
+      <MenuItem
+        onClick={(e) => {
+          e.stopPropagation()
+          onClickChangeTrackColor()
+          handleClose()
+        }}
+      >
+        <Localized default="Change track color">change-track-color</Localized>
       </MenuItem>
     </ContextMenu>
   )

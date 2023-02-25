@@ -6,6 +6,7 @@ import VolumeOff from "mdi-react/VolumeOffIcon"
 import { observer } from "mobx-react-lite"
 import { FC, useCallback, useState } from "react"
 import { categoryEmojis, getCategoryIndex } from "../../../common/midi/GM"
+import { trackColorToCSSColor } from "../../../common/track/TrackColor"
 import { IconButton } from "../../../components/IconButton"
 import {
   addTrack,
@@ -88,7 +89,7 @@ const ChannelName = styled.div`
   }
 `
 
-const Icon = styled.div<{ selected: boolean }>`
+const Icon = styled.div<{ selected: boolean; color: string }>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -100,6 +101,8 @@ const Icon = styled.div<{ selected: boolean }>`
   flex-shrink: 0;
   background: ${({ theme, selected }) =>
     selected ? theme.backgroundColor : theme.secondaryBackgroundColor};
+  border: 2px solid ${({ color }) => color};
+  box-sizing: border-box;
 `
 
 const IconInner = styled.div<{ selected: boolean }>`
@@ -165,10 +168,23 @@ export const TrackListItem: FC<TrackListItemProps> = observer(({ trackId }) => {
   }, [trackId])
   const openDialog = useCallback(() => setDialogOpened(true), [])
   const closeDialog = useCallback(() => setDialogOpened(false), [])
+  const changeTrackColor = useCallback(() => {
+    track.setColor({
+      red: Math.random() * 0xff,
+      green: Math.random() * 0xff,
+      blue: Math.random() * 0xff,
+      alpha: 0xff,
+    })
+  }, [])
 
   const emoji = track.isRhythmTrack
     ? "🥁"
     : categoryEmojis[getCategoryIndex(track.programNumber ?? 0)]
+
+  const color =
+    track.color !== undefined
+      ? trackColorToCSSColor(track.color)
+      : "transparent"
 
   return (
     <>
@@ -178,7 +194,7 @@ export const TrackListItem: FC<TrackListItemProps> = observer(({ trackId }) => {
         onContextMenu={onContextMenu}
         tabIndex={-1}
       >
-        <Icon selected={selected}>
+        <Icon selected={selected} color={color}>
           <IconInner selected={selected}>{emoji}</IconInner>
         </Icon>
         <div>
@@ -210,6 +226,7 @@ export const TrackListItem: FC<TrackListItemProps> = observer(({ trackId }) => {
         onClickDelete={onClickDelete}
         onClickAdd={onClickAddTrack}
         onClickProperty={openDialog}
+        onClickChangeTrackColor={changeTrackColor}
         {...menuProps}
       />
       <TrackDialog

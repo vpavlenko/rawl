@@ -28,11 +28,8 @@ import {
   getVolume,
   isTickBefore,
 } from "./selector"
-import {
-  isSignalTrackColorEvent,
-  SignalTrackColorEvent,
-  TrackColor,
-} from "./signalEvents"
+import { isSignalTrackColorEvent, SignalTrackColorEvent } from "./signalEvents"
+import { TrackColor } from "./TrackColor"
 import { TrackEvent, TrackEventOf } from "./TrackEvent"
 import { validateMidiEvent } from "./validate"
 
@@ -256,7 +253,7 @@ export default class Track {
     return this.events.filter(isSignalTrackColorEvent)[0]
   }
 
-  set setColor(color: TrackColor) {
+  setColor(color: TrackColor) {
     const e = this.color
     if (e !== undefined) {
       this.updateEvent<SignalTrackColorEvent>(e.id, color)

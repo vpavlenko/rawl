@@ -1,5 +1,6 @@
 import { SequencerSpecificEvent } from "midifile-ts"
 import { sequencerSpecificEvent } from "../midi/MidiEvent"
+import { TrackColor } from "./TrackColor"
 import { TrackEvent } from "./TrackEvent"
 
 /**
@@ -24,13 +25,6 @@ export type SignalEvent<T extends string> = {
   type: "channel"
   subtype: "signal"
   signalEventType: T
-}
-
-export interface TrackColor {
-  red: number // 0 to 0xFF
-  green: number // 0 to 0xFF
-  blue: number // 0 to 0xFF
-  alpha: number // 0 to 0xFF (0 is transparent)
 }
 
 export type SignalTrackColorEvent = SignalEvent<"trackColor"> & TrackColor

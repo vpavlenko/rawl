@@ -2,36 +2,48 @@ import Color from "color"
 import { partition } from "lodash"
 import { observer } from "mobx-react-lite"
 import { FC } from "react"
+import { trackColorToCSSColor } from "../../../../common/track/TrackColor"
 import { colorToVec4 } from "../../../gl/color"
 import { useStores } from "../../../hooks/useStores"
 import { useTheme } from "../../../hooks/useTheme"
+import { PianoNoteItem } from "../../../stores/PianoRollStore"
 import { NoteCircles } from "./NoteCircles"
 import { NoteRectangles } from "./NoteRectangles"
 
 export const GhostNotes: FC<{ zIndex: number }> = observer(({ zIndex }) => {
   const {
+    song,
     pianoRollStore: { ghostNotes: notes },
   } = useStores()
   const theme = useTheme()
 
   const [drumNotes, normalNotes] = partition(notes, (n) => n.isDrum)
-  const baseColor = Color(theme.ghostNoteColor)
-  const borderColor = baseColor.lighten(0.3)
-  const selectedColor = baseColor.lighten(0.7)
+
+  const getColorForTrackId = (trackId: number) => {
+    const color = song.getTrack(trackId)?.color
+    return colorToVec4(
+      Color(
+        color !== undefined ? trackColorToCSSColor(color) : theme.ghostNoteColor
+      ).fade(0.5)
+    )
+  }
+  const borderColor = Color(theme.ghostNoteColor).lighten(0.3)
+
+  const colorize = (item: PianoNoteItem) => ({
+    ...item,
+    color: getColorForTrackId(item.trackId),
+  })
 
   return (
     <>
       <NoteCircles
-        fillColor={colorToVec4(baseColor)}
         strokeColor={colorToVec4(borderColor)}
-        rects={drumNotes}
+        rects={drumNotes.map(colorize)}
         zIndex={zIndex}
       />
       <NoteRectangles
-        fillColor={colorToVec4(baseColor)}
         strokeColor={colorToVec4(borderColor)}
-        selectedFillColor={colorToVec4(selectedColor)}
-        rects={normalNotes}
+        rects={normalNotes.map(colorize)}
         zIndex={zIndex + 0.1}
       />
     </>

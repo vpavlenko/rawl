@@ -6,6 +6,7 @@ import { trackColorToCSSColor } from "../../../../common/track/TrackColor"
 import { colorToVec4 } from "../../../gl/color"
 import { useStores } from "../../../hooks/useStores"
 import { useTheme } from "../../../hooks/useTheme"
+import { PianoNoteItem } from "../../../stores/PianoRollStore"
 import { NoteCircles } from "./NoteCircles"
 import { NoteRectangles } from "./NoteRectangles"
 
@@ -25,22 +26,25 @@ export const Notes: FC<{ zIndex: number }> = observer(({ zIndex }) => {
       ? trackColorToCSSColor(selectedTrack.color)
       : theme.themeColor
   )
-  const borderColor = baseColor.lighten(0.3)
-  const selectedColor = baseColor.lighten(0.7)
+  const borderColor = colorToVec4(baseColor.lighten(0.3))
+  const selectedColor = colorToVec4(baseColor.lighten(0.7))
+  const baseColorVec4 = colorToVec4(baseColor)
+
+  const colorize = (item: PianoNoteItem) => ({
+    ...item,
+    color: item.isSelected ? selectedColor : baseColorVec4,
+  })
 
   return (
     <>
       <NoteCircles
-        fillColor={colorToVec4(baseColor)}
-        strokeColor={colorToVec4(borderColor)}
-        rects={drumNotes}
+        strokeColor={borderColor}
+        rects={drumNotes.map(colorize)}
         zIndex={zIndex}
       />
       <NoteRectangles
-        fillColor={colorToVec4(baseColor)}
-        strokeColor={colorToVec4(borderColor)}
-        selectedFillColor={colorToVec4(selectedColor)}
-        rects={normalNotes}
+        strokeColor={borderColor}
+        rects={normalNotes.map(colorize)}
         zIndex={zIndex + 0.1}
       />
     </>

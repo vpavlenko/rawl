@@ -175,7 +175,7 @@ export const TrackListItem: FC<TrackListItemProps> = observer(({ trackId }) => {
       blue: Math.floor(Math.random() * 0xff),
       alpha: 0xff,
     })
-  }, [])
+  }, [track])
 
   const emoji = track.isRhythmTrack
     ? "🥁"

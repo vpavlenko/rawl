@@ -1,4 +1,5 @@
 import styled from "@emotion/styled"
+import Color from "color"
 import Headset from "mdi-react/HeadphonesIcon"
 import Layers from "mdi-react/LayersIcon"
 import VolumeUp from "mdi-react/VolumeHighIcon"
@@ -19,6 +20,7 @@ import {
 } from "../../actions"
 import { useContextMenu } from "../../hooks/useContextMenu"
 import { useStores } from "../../hooks/useStores"
+import { ColorPicker } from "../ColorPicker/ColorPicker"
 import { TrackInstrumentName } from "./InstrumentName"
 import { TrackDialog } from "./TrackDialog"
 import { TrackListContextMenu } from "./TrackListContextMenu"
@@ -129,6 +131,7 @@ export const TrackListItem: FC<TrackListItemProps> = observer(({ trackId }) => {
   const channel = track.channel
   const { onContextMenu, menuProps } = useContextMenu()
   const [isDialogOpened, setDialogOpened] = useState(false)
+  const [isColorPickerOpened, setColorPickerOpened] = useState(false)
 
   const onClickMute: React.MouseEventHandler<HTMLButtonElement> = useCallback(
     (e) => {
@@ -168,14 +171,17 @@ export const TrackListItem: FC<TrackListItemProps> = observer(({ trackId }) => {
   }, [trackId])
   const openDialog = useCallback(() => setDialogOpened(true), [])
   const closeDialog = useCallback(() => setDialogOpened(false), [])
-  const changeTrackColor = useCallback(() => {
+  const changeTrackColor = useCallback(() => setColorPickerOpened(true), [])
+
+  const onPickColor = (color: string) => {
+    const obj = Color(color)
     track.setColor({
-      red: Math.floor(Math.random() * 0xff),
-      green: Math.floor(Math.random() * 0xff),
-      blue: Math.floor(Math.random() * 0xff),
+      red: Math.floor(obj.red()),
+      green: Math.floor(obj.green()),
+      blue: Math.floor(obj.blue()),
       alpha: 0xff,
     })
-  }, [track])
+  }
 
   const emoji = track.isRhythmTrack
     ? "🥁"
@@ -233,6 +239,11 @@ export const TrackListItem: FC<TrackListItemProps> = observer(({ trackId }) => {
         trackId={trackId}
         open={isDialogOpened}
         onClose={closeDialog}
+      />
+      <ColorPicker
+        open={isColorPickerOpened}
+        onSelect={onPickColor}
+        onClose={() => setColorPickerOpened(false)}
       />
     </>
   )

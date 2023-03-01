@@ -24,7 +24,7 @@ export const GhostNotes: FC<{ zIndex: number }> = observer(({ zIndex }) => {
     return colorToVec4(
       Color(
         color !== undefined ? trackColorToCSSColor(color) : theme.ghostNoteColor
-      ).fade(0.5)
+      ).mix(Color(theme.backgroundColor), 0.8)
     )
   }
   const borderColor = Color(theme.ghostNoteColor).lighten(0.3)

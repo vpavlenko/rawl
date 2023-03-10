@@ -26,7 +26,7 @@ export const Notes: FC<{ zIndex: number }> = observer(({ zIndex }) => {
       ? trackColorToCSSColor(selectedTrack.color)
       : theme.themeColor
   )
-  const borderColor = colorToVec4(baseColor.lighten(0.3))
+  const borderColor = colorToVec4(baseColor.lightness(10))
   const selectedColor = colorToVec4(baseColor.lighten(0.7))
   const baseColorVec4 = colorToVec4(baseColor)
 

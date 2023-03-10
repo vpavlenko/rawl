@@ -24,10 +24,10 @@ export const GhostNotes: FC<{ zIndex: number }> = observer(({ zIndex }) => {
     return colorToVec4(
       Color(
         color !== undefined ? trackColorToCSSColor(color) : theme.ghostNoteColor
-      ).mix(Color(theme.backgroundColor), 0.8)
+      ).mix(Color(theme.backgroundColor), 0.7)
     )
   }
-  const borderColor = Color(theme.ghostNoteColor).lighten(0.3)
+  const borderColor = Color("transparent")
 
   const colorize = (item: PianoNoteItem) => ({
     ...item,

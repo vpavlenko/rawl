@@ -43,22 +43,20 @@ export const ColorPicker: FC<ColorPickerProps> = ({
     onClose()
   }
 
-  const colors = range(0, 4)
-    .flatMap((y) =>
-      range(0, numColumn).map(
-        (x) =>
-          `hsl(
-          ${((365 / numColumn) * x).toFixed()}deg
-          ${100}%
-          ${((100 / 5) * (y + 1)).toFixed()}%
+  const hues = [-5, 22, 45, 155, 190, 230, 260, 335]
+  const saturation = 70
+  const luminances = [65, 55, 39]
+
+  const colors = range(0, luminances.length).flatMap((y) =>
+    range(0, hues.length).map(
+      (x) =>
+        `hsl(
+          ${hues[x].toFixed()}deg
+          ${saturation}%
+          ${luminances[y].toFixed()}%
         )`
-      )
     )
-    .concat(
-      range(0, numColumn).map(
-        (x) => `hsl(0deg 0% ${((100 / numColumn) * x).toFixed()}%)`
-      )
-    )
+  )
 
   return (
     <Dialog open={open} onOpenChange={onClose}>

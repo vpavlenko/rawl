@@ -43,7 +43,7 @@ export const ColorPicker: FC<ColorPickerProps> = ({
     onClose()
   }
 
-  const hues = [-5, 22, 45, 155, 190, 230, 260, 335]
+  const hues = [-5, 25, 45, 155, 190, 230, 260, 335]
   const saturation = 70
   const luminances = [65, 55, 39]
 

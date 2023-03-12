@@ -1,7 +1,8 @@
+import { isEqual } from "lodash"
 import { SequencerSpecificEvent } from "midifile-ts"
-import { sequencerSpecificEvent } from "../midi/MidiEvent"
+import { DistributiveOmit } from "../types"
 import { TrackColor } from "./TrackColor"
-import { TrackEvent } from "./TrackEvent"
+import { TrackEvent, TrackEventOf } from "./TrackEvent"
 
 /**
  * Stores track color information, etc.
@@ -29,21 +30,11 @@ export type SignalEvent<T extends string> = {
 
 export type SignalTrackColorEvent = SignalEvent<"trackColor"> & TrackColor
 
-// 'S' 'i' 'g' 'n' 0x01 A B G R
-export const signalTrackColor = (deltaTime: number, e: SignalTrackColorEvent) =>
-  sequencerSpecificEvent(deltaTime, [
-    ...signalEventPrefix,
-    SignalEventType.trackColor,
-    e.alpha,
-    e.blue,
-    e.green,
-    e.red,
-  ])
-
 export type AnySignalEvent = SignalTrackColorEvent
 
-export const isSignalEvent = (e: TrackEvent): e is AnySignalEvent =>
-  "subtype" in e && e.subtype === "signal"
+export const isSignalEvent = (
+  e: DistributiveOmit<TrackEvent, "tick" | "id">
+): e is AnySignalEvent => "subtype" in e && e.subtype === "signal"
 
 export const isSignalTrackColorEvent = (
   e: TrackEvent
@@ -55,25 +46,49 @@ export const mapToSignalEvent = <
 >(
   e: T
 ): AnySignalEvent | T => {
-  if (e.data.length <= 5 || e.data.slice(0, 4) !== signalEventPrefix) {
+  if (e.data.length <= 5 || !isEqual(e.data.slice(0, 4), signalEventPrefix)) {
     return e
   }
 
   switch (e.data[4]) {
     case SignalEventType.trackColor:
-      if (e.data.length !== 10) {
+      // 'S' 'i' 'g' 'n' 0x01 A B G R
+      if (e.data.length !== 9) {
         return e
       }
       return {
         ...e,
         subtype: "signal",
         signalEventType: "trackColor",
-        alpha: e.data[6],
-        blue: e.data[7],
-        green: e.data[8],
-        red: e.data[9],
+        alpha: e.data[5],
+        blue: e.data[6],
+        green: e.data[7],
+        red: e.data[8],
       }
     default:
       return e
+  }
+}
+
+export const mapFromSignalEvent = (
+  e: AnySignalEvent
+): TrackEventOf<SequencerSpecificEvent> => {
+  switch (e.signalEventType) {
+    case "trackColor":
+      // 'S' 'i' 'g' 'n' 0x01 A B G R
+      return {
+        id: e.id,
+        tick: e.tick,
+        type: "meta",
+        subtype: "sequencerSpecific",
+        data: [
+          ...signalEventPrefix,
+          SignalEventType.trackColor,
+          e.alpha,
+          e.blue,
+          e.green,
+          e.red,
+        ],
+      }
   }
 }

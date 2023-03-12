@@ -44,3 +44,10 @@ export function toTrackEvents(events: AnyEvent[]) {
     addTick(events.filter(isSupportedEvent)).map(toSignalEvent)
   ).map(removeUnnecessaryProps)
 }
+
+// toTrackEvents without addTick
+export function tickedEventsToTrackEvents(events: (AnyEvent & TickProvider)[]) {
+  return assembleNotes(events.filter(isSupportedEvent).map(toSignalEvent)).map(
+    removeUnnecessaryProps
+  )
+}

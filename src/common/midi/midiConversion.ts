@@ -9,12 +9,10 @@ import {
 } from "midifile-ts"
 import { toJS } from "mobx"
 import { downloadBlob } from "../helpers/Downloader"
-import { assemble } from "../helpers/noteAssembler"
 import { toRawEvents } from "../helpers/toRawEvents"
 import {
   addTick,
-  isSupportedEvent,
-  removeUnnecessaryProps,
+  tickedEventsToTrackEvents,
   toTrackEvents,
 } from "../helpers/toTrackEvents"
 import Song from "../song"
@@ -52,9 +50,7 @@ const tracksFromFormat0Events = (events: AnyEvent[]): Track[] => {
       tracks.push(track)
     }
     const track = tracks[ch]
-    const trackEvents = assemble(events.filter(isSupportedEvent)).map(
-      removeUnnecessaryProps
-    )
+    const trackEvents = tickedEventsToTrackEvents(events)
     track.addEvents(trackEvents)
   }
   return tracks

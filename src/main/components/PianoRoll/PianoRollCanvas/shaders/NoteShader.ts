@@ -6,21 +6,12 @@ import {
   uniformMat4,
   uniformVec4,
 } from "@ryohey/webgl-react"
+import { vec4 } from "gl-matrix"
 import { IRect } from "../../../../../common/geometry"
 
-export interface IVelocityData {
-  velocity: number
+export interface IColorData {
+  color: vec4
 }
-
-export interface ISelectionData {
-  isSelected: boolean
-}
-
-const triangleVelocities = (obj: IVelocityData): number[] =>
-  Array(6).fill(obj.velocity)
-
-const triangleSelections = (obj: ISelectionData): number[] =>
-  Array(6).fill(obj.isSelected ? 1 : 0)
 
 export class NoteBuffer {
   private gl: WebGLRenderingContext
@@ -28,8 +19,7 @@ export class NoteBuffer {
   readonly buffers: {
     position: WebGLBuffer
     bounds: WebGLBuffer
-    velocities: WebGLBuffer
-    selection: WebGLBuffer
+    color: WebGLBuffer
   }
 
   private _vertexCount: number = 0
@@ -39,12 +29,11 @@ export class NoteBuffer {
     this.buffers = {
       position: gl.createBuffer()!,
       bounds: gl.createBuffer()!,
-      velocities: gl.createBuffer()!,
-      selection: gl.createBuffer()!,
+      color: gl.createBuffer()!,
     }
   }
 
-  update(rects: (IRect & IVelocityData & ISelectionData)[]) {
+  update(rects: (IRect & IColorData)[]) {
     const { gl } = this
     const positions = rects.flatMap(rectToTriangles)
     gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.position)
@@ -54,17 +43,11 @@ export class NoteBuffer {
     gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.bounds)
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(bounds), gl.DYNAMIC_DRAW)
 
-    const velocities = rects.flatMap(triangleVelocities)
-    gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.velocities)
-    gl.bufferData(
-      gl.ARRAY_BUFFER,
-      new Float32Array(velocities),
-      gl.DYNAMIC_DRAW
+    const colors = rects.flatMap((obj) =>
+      Array.from(Array(6)).flatMap(() => Array.from(obj.color))
     )
-
-    const selection = rects.flatMap(triangleSelections)
-    gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.selection)
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(selection), gl.DYNAMIC_DRAW)
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.color)
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.DYNAMIC_DRAW)
 
     this._vertexCount = rects.length * 6
   }
@@ -83,33 +66,27 @@ export const NoteShader = (gl: WebGLRenderingContext) =>
 
       // XYZW -> X, Y, Width, Height
       attribute vec4 aBounds;
-      attribute float aVelocity;
-      attribute float aSelected;
+      attribute vec4 aColor;
 
       uniform mat4 uProjectionMatrix;
       varying vec4 vBounds;
       varying vec2 vPosition;
-      varying float vVelocity;
-      varying float vSelected;
+      varying vec4 vColor;
 
       void main() {
         gl_Position = uProjectionMatrix * aVertexPosition;
         vBounds = aBounds;
         vPosition = aVertexPosition.xy;
-        vVelocity = aVelocity;
-        vSelected = aSelected;
+        vColor = aColor;
       }
     `,
     `
       precision lowp float;
 
-      uniform vec4 uFillColor;
       uniform vec4 uStrokeColor;
-
       varying vec4 vBounds;
       varying vec2 vPosition;
-      varying float vVelocity;
-      varying float vSelected;
+      varying vec4 vColor;
 
       void main() {
         float border = 1.0;
@@ -120,19 +97,17 @@ export const NoteShader = (gl: WebGLRenderingContext) =>
           // draw outline
           gl_FragColor = uStrokeColor;
         } else {
-          gl_FragColor = mix(vec4(uFillColor.rgb, vVelocity / 127.0), vec4(1.0, 1.0, 1.0, 1.0), vSelected);
+          gl_FragColor = vColor;
         }
       }
     `,
     (program) => ({
       position: new Attrib(gl, program, "aVertexPosition", 2),
       bounds: new Attrib(gl, program, "aBounds", 4),
-      velocities: new Attrib(gl, program, "aVelocity", 1),
-      selection: new Attrib(gl, program, "aSelected", 1),
+      color: new Attrib(gl, program, "aColor", 4),
     }),
     (program) => ({
       projectionMatrix: uniformMat4(gl, program, "uProjectionMatrix"),
-      fillColor: uniformVec4(gl, program, "uFillColor"),
       strokeColor: uniformVec4(gl, program, "uStrokeColor"),
     })
   )

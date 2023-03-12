@@ -9,21 +9,18 @@ export const DrumNoteShader = (gl: WebGLRenderingContext) =>
 
       // XYZW -> X, Y, Width, Height
       attribute vec4 aBounds;
-      attribute float aVelocity;
-      attribute float aSelected;
+      attribute vec4 aColor;
 
       uniform mat4 uProjectionMatrix;
       varying vec4 vBounds;
       varying vec2 vPosition;
-      varying float vVelocity;
-      varying float vSelected;
+      varying vec4 vColor;
 
       void main() {
         gl_Position = uProjectionMatrix * aVertexPosition;
         vBounds = aBounds;
         vPosition = aVertexPosition.xy;
-        vVelocity = aVelocity;
-        vSelected = aSelected;
+        vColor = aColor;
       }
     `,
     `
@@ -34,8 +31,7 @@ export const DrumNoteShader = (gl: WebGLRenderingContext) =>
 
       varying vec4 vBounds;
       varying vec2 vPosition;
-      varying float vVelocity;
-      varying float vSelected;
+      varying vec4 vColor;
 
       void main() {
         float border = 1.0;
@@ -45,7 +41,7 @@ export const DrumNoteShader = (gl: WebGLRenderingContext) =>
         float len = length(vPosition - center);
 
         if (len < r - border) {
-          gl_FragColor = mix(vec4(uFillColor.rgb, vVelocity / 127.0), vec4(1.0, 1.0, 1.0, 1.0), vSelected);
+          gl_FragColor = vColor;
         } else if (len < r) {
           gl_FragColor = uStrokeColor;
         }
@@ -54,12 +50,10 @@ export const DrumNoteShader = (gl: WebGLRenderingContext) =>
     (program) => ({
       position: new Attrib(gl, program, "aVertexPosition", 2),
       bounds: new Attrib(gl, program, "aBounds", 4),
-      velocities: new Attrib(gl, program, "aVelocity", 1),
-      selection: new Attrib(gl, program, "aSelected", 1),
+      color: new Attrib(gl, program, "aColor", 4),
     }),
     (program) => ({
       projectionMatrix: uniformMat4(gl, program, "uProjectionMatrix"),
-      fillColor: uniformVec4(gl, program, "uFillColor"),
       strokeColor: uniformVec4(gl, program, "uStrokeColor"),
     })
   )

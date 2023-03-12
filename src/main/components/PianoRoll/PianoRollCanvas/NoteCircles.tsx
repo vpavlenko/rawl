@@ -3,18 +3,16 @@ import { vec4 } from "gl-matrix"
 import { FC } from "react"
 import { IRect } from "../../../../common/geometry"
 import { DrumNoteShader } from "./shaders/DrumNoteShader"
-import { ISelectionData, IVelocityData, NoteBuffer } from "./shaders/NoteShader"
+import { IColorData, NoteBuffer } from "./shaders/NoteShader"
 
 export interface NoteCirclesProps {
-  rects: (IRect & IVelocityData & ISelectionData)[]
-  fillColor: vec4
+  rects: (IRect & IColorData)[]
   strokeColor: vec4
   zIndex?: number
 }
 
 export const NoteCircles: FC<NoteCirclesProps> = ({
   rects,
-  fillColor,
   strokeColor,
   zIndex,
 }) => {
@@ -24,7 +22,7 @@ export const NoteCircles: FC<NoteCirclesProps> = ({
     <GLNode
       createShader={DrumNoteShader}
       createBuffer={(gl) => new NoteBuffer(gl)}
-      uniforms={{ projectionMatrix, fillColor, strokeColor }}
+      uniforms={{ projectionMatrix, strokeColor }}
       buffer={rects}
       zIndex={zIndex}
     />

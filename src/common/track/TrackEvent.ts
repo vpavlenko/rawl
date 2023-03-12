@@ -1,5 +1,6 @@
 import { AnyEvent } from "midifile-ts"
 import { DistributiveOmit } from "../types"
+import { AnySignalEvent } from "./signalEvents"
 
 export interface TickProvider {
   tick: number
@@ -29,4 +30,6 @@ type NoteEventContent = {
 }
 
 export type NoteEvent = TrackEventOf<NoteEventContent>
-export type TrackEvent = TrackEventOf<AnyEvent | NoteEventContent>
+export type TrackEvent = TrackEventOf<
+  AnyEvent | NoteEventContent | AnySignalEvent
+>

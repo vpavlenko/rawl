@@ -2,23 +2,16 @@ import { GLNode, useProjectionMatrix } from "@ryohey/webgl-react"
 import { vec4 } from "gl-matrix"
 import { FC } from "react"
 import { IRect } from "../../../../common/geometry"
-import {
-  ISelectionData,
-  IVelocityData,
-  NoteBuffer,
-  NoteShader,
-} from "./shaders/NoteShader"
+import { IColorData, NoteBuffer, NoteShader } from "./shaders/NoteShader"
 
 export interface NoteRectanglesProps {
-  rects: (IRect & IVelocityData & ISelectionData)[]
-  fillColor: vec4
+  rects: (IRect & IColorData)[]
   strokeColor: vec4
   zIndex?: number
 }
 
 export const NoteRectangles: FC<NoteRectanglesProps> = ({
   rects,
-  fillColor,
   strokeColor,
   zIndex,
 }) => {
@@ -28,7 +21,7 @@ export const NoteRectangles: FC<NoteRectanglesProps> = ({
     <GLNode
       createShader={NoteShader}
       createBuffer={(gl) => new NoteBuffer(gl)}
-      uniforms={{ projectionMatrix, fillColor, strokeColor }}
+      uniforms={{ projectionMatrix, strokeColor }}
       buffer={rects}
       zIndex={zIndex}
     />

@@ -69,4 +69,24 @@ describe("SongFile", () => {
       })
     })
   })
+
+  describe("signal events", () => {
+    it("should save the track color", () => {
+      const song = emptySong()
+      song.tracks[1].setColor({
+        red: 12,
+        green: 34,
+        blue: 56,
+        alpha: 78,
+      })
+      const bytes = songToMidi(song)
+      const song2 = songFromMidi(bytes)
+      expect(song2.tracks[1].color).toMatchObject({
+        red: 12,
+        green: 34,
+        blue: 56,
+        alpha: 78,
+      })
+    })
+  })
 })

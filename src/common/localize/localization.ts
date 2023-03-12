@@ -46,6 +46,7 @@ export default {
     "save-as": "名前を付けて保存",
     "song-created": "楽曲が作成されました",
     "song-saved": "楽曲が保存されました",
+    "download-midi": "MIDIファイルをダウンロード",
     "untitled-song": "無題の楽曲",
     name: "名前",
     rename: "名前の変更",
@@ -62,6 +63,7 @@ export default {
     "track-name": "トラック名",
     cancel: "キャンセル",
     ok: "OK",
+    reset: "リセット",
     triplet: "三連符",
     dotted: "付点",
     "confirm-new": "編集中の楽曲が破棄されます。本当に新規作成しますか？",
@@ -138,6 +140,7 @@ export default {
     "import-midi": "MIDI をインポート",
     "export-midi": "MIDI をエクスポート",
     general: "一般",
+    "change-track-color": "トラックの色を変更",
     /* MIDI Instrument Categories */
     Piano: "ピアノ",
     "Chromatic Percussion": "クロマチック",

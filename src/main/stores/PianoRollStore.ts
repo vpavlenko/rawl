@@ -41,6 +41,7 @@ export type PianoNoteItem = IRect & {
   velocity: number
   isSelected: boolean
   isDrum: boolean
+  trackId: number
 }
 
 export default class PianoRollStore {
@@ -276,6 +277,7 @@ export default class PianoRollStore {
       windowedEvents,
       selectedNoteIds,
       selectedTrack: track,
+      selectedTrackId,
     } = this
 
     if (track === undefined) {
@@ -296,6 +298,7 @@ export default class PianoRollStore {
         velocity: e.velocity,
         isSelected,
         isDrum: isRhythmTrack,
+        trackId: selectedTrackId,
       }
     })
   }
@@ -334,6 +337,7 @@ export default class PianoRollStore {
             velocity: 127, // draw opaque when ghost
             isSelected: false,
             isDrum: track.isRhythmTrack,
+            trackId: id,
           }
         })
       })

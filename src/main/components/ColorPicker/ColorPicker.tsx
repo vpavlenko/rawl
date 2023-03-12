@@ -13,7 +13,7 @@ const numColumn = 8
 
 export interface ColorPickerProps {
   open: boolean
-  onSelect: (color: string) => void
+  onSelect: (color: string | null) => void
   onClose: () => void
 }
 
@@ -38,7 +38,7 @@ export const ColorPicker: FC<ColorPickerProps> = ({
   onSelect,
   onClose,
 }) => {
-  const _onSelect = (color: string) => {
+  const _onSelect = (color: string | null) => {
     onSelect(color)
     onClose()
   }
@@ -68,6 +68,9 @@ export const ColorPicker: FC<ColorPickerProps> = ({
         </Container>
       </DialogContent>
       <DialogActions>
+        <Button onClick={() => _onSelect(null)}>
+          <Localized default="Reset">reset</Localized>
+        </Button>
         <Button onClick={onClose}>
           <Localized default="Close">close</Localized>
         </Button>

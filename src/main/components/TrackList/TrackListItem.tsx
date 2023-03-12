@@ -173,7 +173,11 @@ export const TrackListItem: FC<TrackListItemProps> = observer(({ trackId }) => {
   const closeDialog = useCallback(() => setDialogOpened(false), [])
   const changeTrackColor = useCallback(() => setColorPickerOpened(true), [])
 
-  const onPickColor = (color: string) => {
+  const onPickColor = (color: string | null) => {
+    if (color === null) {
+      track.setColor(null)
+      return
+    }
     const obj = Color(color)
     track.setColor({
       red: Math.floor(obj.red()),

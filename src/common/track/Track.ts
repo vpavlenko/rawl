@@ -253,7 +253,14 @@ export default class Track {
     return this.events.filter(isSignalTrackColorEvent)[0]
   }
 
-  setColor(color: TrackColor) {
+  setColor(color: TrackColor | null) {
+    if (color === null) {
+      const e = this.color
+      if (e !== undefined) {
+        this.removeEvent(e.id)
+      }
+      return
+    }
     const e = this.color
     if (e !== undefined) {
       this.updateEvent<SignalTrackColorEvent>(e.id, color)

@@ -46,6 +46,7 @@ export default {
     "save-as": "名前を付けて保存",
     "song-created": "楽曲が作成されました",
     "song-saved": "楽曲が保存されました",
+    "download-midi": "MIDIファイルをダウンロード",
     "untitled-song": "無題の楽曲",
     name: "名前",
     rename: "名前の変更",

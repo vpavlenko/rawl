@@ -174,6 +174,7 @@ export const createNote =
     pianoRollStore,
     pianoRollStore: { quantizer, selectedTrack },
     pushHistory,
+    song,
   }: RootStore) =>
   (tick: number, noteNumber: number) => {
     if (selectedTrack === undefined || selectedTrack.channel == undefined) {
@@ -185,13 +186,17 @@ export const createNote =
       ? quantizer.round(tick)
       : quantizer.floor(tick)
 
+    const duration = selectedTrack.isRhythmTrack
+      ? song.timebase / 8 // 32th note in the rhythm track
+      : pianoRollStore.lastNoteDuration ?? quantizer.unit
+
     const note: Omit<NoteEvent, "id"> = {
       type: "channel",
       subtype: "note",
       noteNumber: noteNumber,
       tick,
       velocity: 127,
-      duration: pianoRollStore.lastNoteDuration || quantizer.unit,
+      duration,
     }
 
     return selectedTrack.addEvent(note)

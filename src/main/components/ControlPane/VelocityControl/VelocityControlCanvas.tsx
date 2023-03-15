@@ -23,7 +23,9 @@ export const VelocityControlCanvas: FC<{ width: number; height: number }> =
         cursorX,
       },
     } = rootStore
-    const changeVelocity = useCallback(changeNotesVelocity(rootStore), [])
+    const changeVelocity = useCallback(changeNotesVelocity(rootStore), [
+      rootStore,
+    ])
 
     const items = windowedEvents.filter(isNoteEvent).map((note) => {
       const { x } = transform.getRect(note)
@@ -78,7 +80,7 @@ export const VelocityControlCanvas: FC<{ width: number; height: number }> =
           onMouseMove: (e) => changeVelocity(noteIds, calcValue(e)),
         })
       },
-      [height, items]
+      [height, items, changeVelocity]
     )
 
     const scrollXMatrix = useMemo(

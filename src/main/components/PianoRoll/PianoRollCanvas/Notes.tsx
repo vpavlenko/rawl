@@ -26,13 +26,15 @@ export const Notes: FC<{ zIndex: number }> = observer(({ zIndex }) => {
       ? trackColorToCSSColor(selectedTrack.color)
       : theme.themeColor
   )
-  const borderColor = colorToVec4(baseColor.lightness(10))
+  const borderColor = colorToVec4(baseColor.lighten(0.3))
   const selectedColor = colorToVec4(baseColor.lighten(0.7))
-  const baseColorVec4 = colorToVec4(baseColor)
+  const backgroundColor = Color(theme.backgroundColor)
 
   const colorize = (item: PianoNoteItem) => ({
     ...item,
-    color: item.isSelected ? selectedColor : baseColorVec4,
+    color: item.isSelected
+      ? selectedColor
+      : colorToVec4(baseColor.mix(backgroundColor, 1 - item.velocity / 127)),
   })
 
   return (

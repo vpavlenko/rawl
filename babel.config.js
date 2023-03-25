@@ -16,5 +16,5 @@ module.exports = {
       },
     ],
   ],
-  plugins: ["lodash", "@emotion"],
+  plugins: ["lodash", "@emotion", "inline-react-svg"],
 }

@@ -1,4 +1,3 @@
-import cursorPencil from "!url-loader!../images/cursor-pencil.svg"
 import { clamp, flatten, maxBy, minBy } from "lodash"
 import { ControllerEvent, MIDIControlEvents, PitchBendEvent } from "midifile-ts"
 import {
@@ -458,7 +457,7 @@ export default class PianoRollStore {
 
   get controlCursor(): string {
     return this.mouseMode === "pencil"
-      ? `url("${cursorPencil}") 0 20, pointer`
+      ? `url("./cursor-pencil.svg") 0 20, pointer`
       : "auto"
   }
 }

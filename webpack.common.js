@@ -19,10 +19,6 @@ module.exports = {
         test: /\.(png|jpg|jpeg|gif|woff|woff2|eot|ttf)$/,
         loader: "url-loader",
       },
-      {
-        test: /\.svg$/,
-        loader: "react-svg-loader",
-      },
     ],
   },
   resolve: {

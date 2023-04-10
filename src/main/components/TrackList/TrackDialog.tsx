@@ -62,9 +62,14 @@ export const TrackDialog: FC<TrackDialogProps> = ({
           {range(0, 16).map((v) => (
             <option key={v} value={v.toString()}>
               {v + 1}
-              {v === 9
-                ? ` ($<Localized default="Rhythm Track">rhythm-track</Localized>)`
-                : ""}
+              {v === 9 ? (
+                <>
+                  {" "}
+                  (<Localized default="Rhythm Track">rhythm-track</Localized>)
+                </>
+              ) : (
+                ""
+              )}
             </option>
           ))}
         </Select>

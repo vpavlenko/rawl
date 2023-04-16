@@ -1,47 +1,51 @@
 import styled from "@emotion/styled"
 import useComponentSize from "@rehooks/component-size"
+import { MIDIControlEventNames, MIDIControlEvents } from "midifile-ts"
 import { observer } from "mobx-react-lite"
-import React, { FC, ReactNode, useCallback, useRef } from "react"
+import React, { FC, useCallback, useRef } from "react"
+import {
+  ValueEventType,
+  isEqualValueEventType,
+} from "../../../common/helpers/valueEvent"
 import { Localized } from "../../../components/Localized"
 import { Layout } from "../../Constants"
 import { useStores } from "../../hooks/useStores"
-import ExpressionGraph from "./Graph/ExpressionGraph"
-import HoldPedalGraph from "./Graph/HoldPedalGraph"
-import ModulationGraph from "./Graph/ModulationGraph"
-import PanGraph from "./Graph/PanGraph"
-import PitchGraph from "./Graph/PitchGraph"
-import VolumeGraph from "./Graph/VolumeGraph"
+import { ValueEventGraph } from "./Graph/ValueEventGraph"
 import PianoVelocityControl from "./VelocityControl/VelocityControl"
-
-interface ButtonItem {
-  label: ReactNode
-  name: string
-  selected: boolean
-  onClick: () => void
-}
 
 interface TabBarProps {
   onClick: (mode: ControlMode) => void
   selectedMode: ControlMode
 }
 
-export type ControlMode =
-  | "velocity"
-  | "volume"
-  | "pitchBend"
-  | "expression"
-  | "modulation"
-  | "pan"
-  | "hold"
+export type ControlMode = { type: "velocity" } | ValueEventType
 
-const TabButton = styled.div`
+const isEqualControlMode = (a: ControlMode, b: ControlMode) => {
+  switch (a.type) {
+    case "velocity":
+    case "pitchBend":
+      return a.type === b.type
+    case "controller":
+      switch (b.type) {
+        case "velocity":
+        case "pitchBend":
+          return false
+        case "controller":
+          return isEqualValueEventType(a, b)
+      }
+  }
+}
+
+const TabButton = styled.div<{ selected: boolean }>`
   min-width: 8em;
   background: transparent;
   -webkit-appearance: none;
   border-bottom: 1px solid;
-  border-color: transparent;
+  border-color: ${({ theme, selected }) =>
+    selected ? theme.themeColor : "transparent"};
   padding: 0.5em 0.8em;
-  color: ${({ theme }) => theme.secondaryTextColor};
+  color: ${({ theme, selected }) =>
+    selected ? theme.textColor : theme.secondaryTextColor};
   outline: none;
   font-size: 0.75rem;
   cursor: default;
@@ -51,11 +55,6 @@ const TabButton = styled.div`
 
   &:hover {
     background: ${({ theme }) => theme.highlightColor};
-  }
-
-  &.selected {
-    color: ${({ theme }) => theme.textColor};
-    border-color: ${({ theme }) => theme.themeColor};
   }
 `
 
@@ -69,44 +68,73 @@ const Toolbar = styled.div`
   flex-shrink: 0;
 `
 
-const TabBar: FC<TabBarProps> = React.memo(({ onClick, selectedMode }) => {
-  const controlButton = (label: ReactNode, name: ControlMode): ButtonItem => ({
-    label,
-    name,
-    selected: selectedMode === name,
-    onClick: () => onClick(name),
-  })
+const TabLabel: FC<{ mode: ControlMode }> = ({ mode }) => {
+  switch (mode.type) {
+    case "velocity":
+      return <Localized default="Velocity">velocity</Localized>
+    case "pitchBend":
+      return <Localized default="Pitch Bend">pitch-bend</Localized>
+    case "controller":
+      switch (mode.controllerType) {
+        case MIDIControlEvents.MSB_MAIN_VOLUME:
+          return <Localized default="Volume">volume</Localized>
+        case MIDIControlEvents.MSB_PAN:
+          return <Localized default="Panpot">panpot</Localized>
+        case MIDIControlEvents.MSB_EXPRESSION:
+          return <Localized default="Expression">expression</Localized>
+        case MIDIControlEvents.SUSTAIN:
+          return <Localized default="Hold Pedal">hold-pedal</Localized>
+        default:
+          return (
+            <>
+              {MIDIControlEventNames[mode.controllerType] === "Undefined"
+                ? `CC${mode.controllerType}`
+                : MIDIControlEventNames[mode.controllerType]}
+            </>
+          )
+      }
+  }
+}
 
-  const buttons = [
-    controlButton(
-      <Localized default="Velocity">velocity</Localized>,
-      "velocity"
-    ),
-    controlButton(
-      <Localized default="Pitch Bend">pitch-bend</Localized>,
-      "pitchBend"
-    ),
-    controlButton(<Localized default="Volume">volume</Localized>, "volume"),
-    controlButton(<Localized default="Panpot">panpot</Localized>, "pan"),
-    controlButton(
-      <Localized default="Expression">expression</Localized>,
-      "expression"
-    ),
-    controlButton(
-      <Localized default="Hold Pedal">hold-pedal</Localized>,
-      "hold"
-    ),
+const TabBar: FC<TabBarProps> = React.memo(({ onClick, selectedMode }) => {
+  const modes: ControlMode[] = [
+    {
+      type: "velocity",
+    },
+    {
+      type: "pitchBend",
+    },
+    {
+      type: "controller",
+      controllerType: MIDIControlEvents.MSB_MAIN_VOLUME,
+    },
+    {
+      type: "controller",
+      controllerType: MIDIControlEvents.MSB_PAN,
+    },
+    {
+      type: "controller",
+      controllerType: MIDIControlEvents.MSB_EXPRESSION,
+    },
+    {
+      type: "controller",
+      controllerType: MIDIControlEvents.SUSTAIN,
+    },
+    {
+      type: "controller",
+      controllerType: MIDIControlEvents.MSB_MODWHEEL,
+    },
   ]
 
   return (
     <Toolbar>
-      {buttons.map(({ label, selected, onClick, name }) => (
+      {modes.map((mode, i) => (
         <TabButton
-          className={selected ? "selected" : ""}
-          onClick={onClick}
-          key={name}
+          selected={isEqualControlMode(selectedMode, mode)}
+          onClick={() => onClick(mode)}
+          key={i}
         >
-          {label}
+          <TabLabel mode={mode} />
         </TabButton>
       ))}
     </Toolbar>
@@ -119,17 +147,17 @@ const Parent = styled.div`
   display: flex;
   flex-direction: column;
   background: ${({ theme }) => theme.backgroundColor};
+`
 
-  .control-content {
-    flex-grow: 1;
-    position: relative;
+const Content = styled.div`
+  flex-grow: 1;
+  position: relative;
 
-    > canvas,
-    > .LineGraph {
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
+  > canvas,
+  > .LineGraph {
+    position: absolute;
+    top: 0;
+    left: 0;
   }
 `
 
@@ -154,28 +182,28 @@ const ControlPane: FC = observer(() => {
   }
 
   const control = (() => {
-    switch (mode) {
+    switch (mode.type) {
       case "velocity":
         return <PianoVelocityControl {...controlSize} />
       case "pitchBend":
-        return <PitchGraph {...controlSize} />
-      case "volume":
-        return <VolumeGraph {...controlSize} />
-      case "pan":
-        return <PanGraph {...controlSize} />
-      case "modulation":
-        return <ModulationGraph {...controlSize} />
-      case "expression":
-        return <ExpressionGraph {...controlSize} />
-      case "hold":
-        return <HoldPedalGraph {...controlSize} />
+        return <ValueEventGraph {...controlSize} type={{ type: "pitchBend" }} />
+      case "controller":
+        return (
+          <ValueEventGraph
+            {...controlSize}
+            type={{
+              type: "controller",
+              controllerType: mode.controllerType,
+            }}
+          />
+        )
     }
   })()
 
   return (
     <Parent ref={ref}>
       <TabBar onClick={onSelectTab} selectedMode={mode} />
-      <div className="control-content">{control}</div>
+      <Content>{control}</Content>
     </Parent>
   )
 })

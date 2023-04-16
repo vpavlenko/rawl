@@ -24,3 +24,18 @@ export const isValueEvent = (t: ValueEventType) => {
       return isControllerEventWithType(t.controllerType)
   }
 }
+
+export const isEqualValueEventType = (
+  item: ValueEventType,
+  other: ValueEventType
+): boolean => {
+  switch (item.type) {
+    case "pitchBend":
+      return other.type === "pitchBend"
+    case "controller":
+      return (
+        other.type === "controller" &&
+        item.controllerType === other.controllerType
+      )
+  }
+}

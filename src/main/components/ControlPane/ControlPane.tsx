@@ -185,18 +185,8 @@ const ControlPane: FC = observer(() => {
     switch (mode.type) {
       case "velocity":
         return <PianoVelocityControl {...controlSize} />
-      case "pitchBend":
-        return <ValueEventGraph {...controlSize} type={{ type: "pitchBend" }} />
-      case "controller":
-        return (
-          <ValueEventGraph
-            {...controlSize}
-            type={{
-              type: "controller",
-              controllerType: mode.controllerType,
-            }}
-          />
-        )
+      default:
+        return <ValueEventGraph {...controlSize} type={mode} />
     }
   })()
 

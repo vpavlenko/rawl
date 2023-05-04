@@ -2,6 +2,7 @@ import cloneDeep from "lodash/cloneDeep"
 import { deserialize, serialize } from "serializr"
 import Song from "../../common/song/Song"
 import ArrangeViewStore from "../stores/ArrangeViewStore"
+import { ControlStore } from "../stores/ControlStore"
 import PianoRollStore from "../stores/PianoRollStore"
 import RootStore from "../stores/RootStore"
 
@@ -12,7 +13,7 @@ export interface SerializedState {
   song: Json
   selection: PianoRollStore["selection"]
   selectedNoteIds: PianoRollStore["selectedNoteIds"]
-  selectedControllerEventIds: PianoRollStore["selectedControllerEventIds"]
+  selectedControllerEventIds: ControlStore["selectedControllerEventIds"]
   arrangeSelection: ArrangeViewStore["selection"]
   arrangeSelectedEventIds: ArrangeViewStore["selectedEventIds"]
 }
@@ -23,7 +24,7 @@ const serializeUndoableState = (rootStore: RootStore): SerializedState => {
     selection: cloneDeep(rootStore.pianoRollStore.selection),
     selectedNoteIds: cloneDeep(rootStore.pianoRollStore.selectedNoteIds),
     selectedControllerEventIds: cloneDeep(
-      rootStore.pianoRollStore.selectedControllerEventIds
+      rootStore.controlStore.selectedControllerEventIds
     ),
     arrangeSelection: cloneDeep(rootStore.arrangeViewStore.selection),
     arrangeSelectedEventIds: cloneDeep(
@@ -38,7 +39,7 @@ const restoreState =
     rootStore.song = song
     rootStore.pianoRollStore.selection = serializedState.selection
     rootStore.pianoRollStore.selectedNoteIds = serializedState.selectedNoteIds
-    rootStore.pianoRollStore.selectedControllerEventIds =
+    rootStore.controlStore.selectedControllerEventIds =
       serializedState.selectedControllerEventIds
     rootStore.arrangeViewStore.selection = serializedState.arrangeSelection
     rootStore.arrangeViewStore.selectedEventIds =

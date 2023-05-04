@@ -1,7 +1,7 @@
 import { IPoint, pointAdd, pointSub } from "../../../../../common/geometry"
 import {
-  createValueEvent,
   ValueEventType,
+  createValueEvent,
 } from "../../../../../common/helpers/valueEvent"
 import { ControlCoordTransform } from "../../../../../common/transform/ControlCoordTransform"
 import {
@@ -23,8 +23,8 @@ export const handlePencilMouseDown =
   ) => {
     pushHistory(rootStore)()
 
-    rootStore.pianoRollStore.selectedControllerEventIds = []
-    rootStore.pianoRollStore.controlSelection = null
+    rootStore.controlStore.selectedControllerEventIds = []
+    rootStore.controlStore.controlSelection = null
     rootStore.pianoRollStore.selection = null
     rootStore.pianoRollStore.selectedNoteIds = []
 

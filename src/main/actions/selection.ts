@@ -3,16 +3,16 @@ import cloneDeep from "lodash/cloneDeep"
 import { intersects } from "../../common/geometry"
 import { isNotNull, isNotUndefined } from "../../common/helpers/array"
 import {
+  Selection,
   clampSelection,
   movedSelection,
   regularizedSelection,
-  Selection,
 } from "../../common/selection/Selection"
-import { isNoteEvent, NoteEvent, TrackEvent } from "../../common/track"
-import { clampNotePoint, NotePoint } from "../../common/transform/NotePoint"
+import { NoteEvent, TrackEvent, isNoteEvent } from "../../common/track"
+import { NotePoint, clampNotePoint } from "../../common/transform/NotePoint"
 import {
-  isPianoNotesClipboardData,
   PianoNotesClipboardData,
+  isPianoNotesClipboardData,
 } from "../clipboard/clipboardTypes"
 import clipboard from "../services/Clipboard"
 import RootStore from "../stores/RootStore"
@@ -319,13 +319,18 @@ export const resizeNotesInSelectionRightBy =
   }
 
 export const startSelection =
-  ({ pianoRollStore, player, pianoRollStore: { quantizer } }: RootStore) =>
+  ({
+    pianoRollStore,
+    controlStore,
+    player,
+    pianoRollStore: { quantizer },
+  }: RootStore) =>
   (point: NotePoint, keepSelectedNoteIds: boolean = false) => {
     if (!player.isPlaying) {
       player.position = quantizer.round(point.tick)
     }
 
-    pianoRollStore.selectedControllerEventIds = []
+    controlStore.selectedControllerEventIds = []
 
     if (!keepSelectedNoteIds) {
       // deselect the notes
@@ -520,13 +525,14 @@ export const selectNote = (rootStore: RootStore) => (noteId: number) => {
   const {
     pianoRollStore,
     pianoRollStore: { selectedTrack },
+    controlStore,
   } = rootStore
 
   if (selectedTrack === undefined) {
     return
   }
 
-  pianoRollStore.selectedControllerEventIds = []
+  controlStore.selectedControllerEventIds = []
   pianoRollStore.selectedNoteIds = [noteId]
 }
 

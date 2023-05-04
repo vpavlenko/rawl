@@ -19,6 +19,7 @@ export const handleSelectionDragEvents =
     const {
       pianoRollStore,
       pianoRollStore: { selectedTrack },
+      controlStore,
     } = rootStore
     if (selectedTrack === undefined) {
       return
@@ -26,12 +27,12 @@ export const handleSelectionDragEvents =
 
     pushHistory(rootStore)()
 
-    if (!pianoRollStore.selectedControllerEventIds.includes(hitEventId)) {
-      pianoRollStore.selectedControllerEventIds = [hitEventId]
+    if (!controlStore.selectedControllerEventIds.includes(hitEventId)) {
+      controlStore.selectedControllerEventIds = [hitEventId]
     }
 
     const controllerEvents = selectedTrack.events
-      .filter((e) => pianoRollStore.selectedControllerEventIds.includes(e.id))
+      .filter((e) => controlStore.selectedControllerEventIds.includes(e.id))
       .map((e) => ({ ...e } as unknown as TrackEventOf<T>)) // copy
 
     const draggedEvent = controllerEvents.find((ev) => ev.id === hitEventId)
@@ -68,7 +69,7 @@ export const handleSelectionDragEvents =
       onMouseUp: (_e) => {
         // Find events with the same tick and remove it
         const controllerEvents = selectedTrack.events.filter((e) =>
-          pianoRollStore.selectedControllerEventIds.includes(e.id)
+          controlStore.selectedControllerEventIds.includes(e.id)
         )
 
         selectedTrack.transaction((it) =>

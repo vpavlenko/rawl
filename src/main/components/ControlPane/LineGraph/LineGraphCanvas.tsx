@@ -41,13 +41,13 @@ export const LineGraphCanvas: FC<LineGraphCanvasProps> = observer(
     const rootStore = useStores()
 
     const {
-      scrollLeft,
       controlSelection,
+      scrollLeft,
       selectedControllerEventIds,
       cursorX,
       transform,
       rulerStore: { beats },
-    } = rootStore.pianoRollStore
+    } = rootStore.controlStore
 
     const controlTransform = useMemo(
       () =>

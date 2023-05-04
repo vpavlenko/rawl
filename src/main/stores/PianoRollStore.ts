@@ -1,5 +1,4 @@
 import { clamp, flatten, maxBy, minBy } from "lodash"
-import { ControllerEvent, PitchBendEvent } from "midifile-ts"
 import {
   action,
   autorun,
@@ -13,18 +12,10 @@ import { isNotUndefined } from "../../common/helpers/array"
 import { filterEventsOverlapScroll } from "../../common/helpers/filterEvents"
 import { getMBTString } from "../../common/measure/mbt"
 import Quantizer from "../../common/quantizer"
-import { ControlSelection } from "../../common/selection/ControlSelection"
 import { Selection, getSelectionBounds } from "../../common/selection/Selection"
-import Track, {
-  TrackEvent,
-  TrackEventOf,
-  isControllerEventWithType,
-  isNoteEvent,
-  isPitchBendEvent,
-} from "../../common/track"
+import Track, { TrackEvent, isNoteEvent } from "../../common/track"
 import { NoteCoordTransform } from "../../common/transform"
 import { Layout } from "../Constants"
-import { ControlMode } from "../components/ControlPane/ControlPane"
 import { InstrumentSetting } from "../components/InstrumentBrowser/InstrumentBrowser"
 import RootStore from "./RootStore"
 import { RulerStore } from "./RulerStore"
@@ -71,20 +62,13 @@ export default class PianoRollStore {
   showEventList = false
   openTransposeDialog = false
 
-  controlHeight = 0
-  controlMode: ControlMode = { type: "velocity" }
-  controlSelection: ControlSelection | null = null
-  selectedControllerEventIds: number[] = []
-
   constructor(readonly rootStore: RootStore) {
     this.rulerStore = new RulerStore(this)
 
     makeObservable(this, {
       scrollLeftTicks: observable,
       scrollTopKeys: observable,
-      controlHeight: observable,
       notesCursor: observable,
-      controlMode: observable,
       mouseMode: observable,
       scaleX: observable,
       scaleY: observable,
@@ -103,8 +87,6 @@ export default class PianoRollStore {
       showTrackList: observable,
       showEventList: observable,
       openTransposeDialog: observable,
-      selectedControllerEventIds: observable,
-      controlSelection: observable,
       contentWidth: computed,
       contentHeight: computed,
       scrollLeft: computed,
@@ -114,7 +96,6 @@ export default class PianoRollStore {
       notes: computed,
       ghostNotes: computed,
       selectionBounds: computed,
-      controlValueEvents: computed,
       currentVolume: computed,
       currentPan: computed,
       currentTempo: computed,
@@ -355,9 +336,7 @@ export default class PianoRollStore {
     return null
   }
 
-  private filteredEvents<T extends TrackEvent>(
-    filter: (e: TrackEvent) => e is T
-  ): T[] {
+  filteredEvents<T extends TrackEvent>(filter: (e: TrackEvent) => e is T): T[] {
     const {
       windowedEvents,
       scrollLeft,
@@ -384,23 +363,6 @@ export default class PianoRollStore {
     )
 
     return [prevEvent, ...events, nextEvent].filter(isNotUndefined)
-  }
-
-  get controlValueEvents(): (
-    | TrackEventOf<ControllerEvent>
-    | TrackEventOf<PitchBendEvent>
-  )[] {
-    const { controlMode } = this
-    switch (controlMode.type) {
-      case "velocity":
-        throw new Error("don't use this method for velocity")
-      case "pitchBend":
-        return this.filteredEvents(isPitchBendEvent)
-      case "controller":
-        return this.filteredEvents(
-          isControllerEventWithType(controlMode.controllerType)
-        )
-    }
   }
 
   get currentVolume(): number | undefined {

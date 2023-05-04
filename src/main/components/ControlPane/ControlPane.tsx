@@ -167,12 +167,11 @@ const BORDER_WIDTH = 1
 const ControlPane: FC = observer(() => {
   const ref = useRef(null)
   const containerSize = useComponentSize(ref)
-  const { pianoRollStore } = useStores()
-
-  const mode = pianoRollStore.controlMode
+  const { controlStore } = useStores()
+  const { controlMode: mode } = controlStore
 
   const onSelectTab = useCallback(
-    (m: ControlMode) => (pianoRollStore.controlMode = m),
+    (m: ControlMode) => (controlStore.controlMode = m),
     []
   )
 

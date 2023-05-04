@@ -49,7 +49,7 @@ const labelFormatterForType = (
 export const ValueEventGraph: FC<ValueEventGraphProps> = React.memo(
   observer(({ width, height, type }) => {
     const {
-      pianoRollStore: { controlValueEvents: events },
+      controlStore: { controlValueEvents: events },
     } = useStores()
 
     const axis = useMemo(() => axisForType(type), [type])

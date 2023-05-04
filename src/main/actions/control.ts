@@ -10,7 +10,8 @@ import RootStore from "../stores/RootStore"
 
 export const createOrUpdateControlEventsValue =
   ({
-    pianoRollStore: { selectedTrack, selectedControllerEventIds },
+    controlStore: { selectedControllerEventIds },
+    pianoRollStore: { selectedTrack },
     player,
     pushHistory,
   }: RootStore) =>
@@ -39,8 +40,9 @@ export const createOrUpdateControlEventsValue =
 
 export const deleteControlSelection =
   ({
-    pianoRollStore,
-    pianoRollStore: { selectedTrack, selectedControllerEventIds },
+    controlStore,
+    controlStore: { selectedControllerEventIds },
+    pianoRollStore: { selectedTrack },
     pushHistory,
   }: RootStore) =>
   () => {
@@ -56,19 +58,20 @@ export const deleteControlSelection =
     // 選択範囲と選択されたノートを削除
     // Remove selected notes and selected notes
     selectedTrack.removeEvents(selectedControllerEventIds)
-    pianoRollStore.controlSelection = null
+    controlStore.controlSelection = null
   }
 
 export const resetControlSelection =
-  ({ pianoRollStore }: RootStore) =>
+  ({ controlStore }: RootStore) =>
   () => {
-    pianoRollStore.controlSelection = null
-    pianoRollStore.selectedControllerEventIds = []
+    controlStore.controlSelection = null
+    controlStore.selectedControllerEventIds = []
   }
 
 export const copyControlSelection =
   ({
-    pianoRollStore: { selectedTrack, selectedControllerEventIds },
+    pianoRollStore: { selectedTrack },
+    controlStore: { selectedControllerEventIds },
   }: RootStore) =>
   () => {
     if (
@@ -132,8 +135,9 @@ export const pasteControlSelection =
 
 export const duplicateControlSelection =
   ({
-    pianoRollStore,
-    pianoRollStore: { selectedTrack, selectedControllerEventIds },
+    pianoRollStore: { selectedTrack },
+    controlStore,
+    controlStore: { selectedControllerEventIds },
     pushHistory,
   }: RootStore) =>
   () => {
@@ -164,5 +168,5 @@ export const duplicateControlSelection =
     const addedEvents = selectedTrack.transaction((it) =>
       notes.map((e) => it.createOrUpdate(e))
     )
-    pianoRollStore.selectedControllerEventIds = addedEvents.map((e) => e.id)
+    controlStore.selectedControllerEventIds = addedEvents.map((e) => e.id)
   }

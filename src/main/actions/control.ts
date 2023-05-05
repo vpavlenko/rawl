@@ -10,8 +10,7 @@ import RootStore from "../stores/RootStore"
 
 export const createOrUpdateControlEventsValue =
   ({
-    controlStore: { selectedControllerEventIds },
-    pianoRollStore: { selectedTrack },
+    controlStore: { selectedControllerEventIds, selectedTrack },
     player,
     pushHistory,
   }: RootStore) =>
@@ -41,8 +40,7 @@ export const createOrUpdateControlEventsValue =
 export const deleteControlSelection =
   ({
     controlStore,
-    controlStore: { selectedControllerEventIds },
-    pianoRollStore: { selectedTrack },
+    controlStore: { selectedControllerEventIds, selectedTrack },
     pushHistory,
   }: RootStore) =>
   () => {
@@ -70,8 +68,7 @@ export const resetControlSelection =
 
 export const copyControlSelection =
   ({
-    pianoRollStore: { selectedTrack },
-    controlStore: { selectedControllerEventIds },
+    controlStore: { selectedControllerEventIds, selectedTrack },
   }: RootStore) =>
   () => {
     if (
@@ -135,9 +132,8 @@ export const pasteControlSelection =
 
 export const duplicateControlSelection =
   ({
-    pianoRollStore: { selectedTrack },
     controlStore,
-    controlStore: { selectedControllerEventIds },
+    controlStore: { selectedControllerEventIds, selectedTrack },
     pushHistory,
   }: RootStore) =>
   () => {

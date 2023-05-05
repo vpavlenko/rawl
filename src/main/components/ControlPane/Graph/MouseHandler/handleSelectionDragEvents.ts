@@ -17,9 +17,8 @@ export const handleSelectionDragEvents =
     type: ValueEventType
   ) => {
     const {
-      pianoRollStore,
-      pianoRollStore: { selectedTrack },
       controlStore,
+      controlStore: { selectedTrack },
     } = rootStore
     if (selectedTrack === undefined) {
       return
@@ -48,7 +47,7 @@ export const handleSelectionDragEvents =
         const offsetTick =
           draggedEvent.tick +
           deltaTick -
-          pianoRollStore.quantizer.round(draggedEvent.tick + deltaTick)
+          controlStore.quantizer.round(draggedEvent.tick + deltaTick)
         const quantizedDeltaTick = deltaTick - offsetTick
 
         const currentValue = transform.getValue(startPoint.y + delta.y)

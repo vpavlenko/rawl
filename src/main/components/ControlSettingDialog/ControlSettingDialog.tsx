@@ -23,10 +23,11 @@ const Item = styled.div<{ isSelected: boolean }>`
   padding: 0.5rem 1rem;
   background: ${({ theme, isSelected }) =>
     isSelected ? theme.themeColor : "transparent"};
+  white-space: nowrap;
 `
 
 const Content = styled.div`
-  max-height: 20rem;
+  max-height: 30rem;
   display: flex;
 `
 
@@ -103,7 +104,7 @@ export const ControlSettingDialog = observer(() => {
   }
 
   return (
-    <Dialog open={open} onOpenChange={onClose}>
+    <Dialog open={open} onOpenChange={onClose} style={{ maxWidth: "40rem" }}>
       <DialogTitle>
         <Localized default="Control Settings">control-settings</Localized>
       </DialogTitle>

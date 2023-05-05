@@ -23,9 +23,7 @@ const TabButtonBase = styled.div`
   outline: none;
   font-size: 0.75rem;
   cursor: default;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  text-align: center;
 
   &:hover {
     background: ${({ theme }) => theme.highlightColor};
@@ -33,12 +31,22 @@ const TabButtonBase = styled.div`
 `
 
 const TabButton = styled(TabButtonBase)<{ selected: boolean }>`
-  min-width: 8em;
+  width: 8em;
+  overflow: hidden;
   border-bottom: 1px solid;
   border-color: ${({ theme, selected }) =>
     selected ? theme.themeColor : "transparent"};
   color: ${({ theme, selected }) =>
     selected ? theme.textColor : theme.secondaryTextColor};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+
+const NoWrap = styled.span`
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 `
 
 const Toolbar = styled.div`
@@ -49,6 +57,7 @@ const Toolbar = styled.div`
   border-left: 1px solid ${({ theme }) => theme.dividerColor};
   height: 2rem;
   flex-shrink: 0;
+  overflow-x: auto;
 `
 
 const TabBar: FC<TabBarProps> = React.memo(
@@ -64,7 +73,9 @@ const TabBar: FC<TabBarProps> = React.memo(
             onClick={() => onClick(mode)}
             key={i}
           >
-            <ControlName mode={mode} />
+            <NoWrap>
+              <ControlName mode={mode} />
+            </NoWrap>
           </TabButton>
         ))}
         <TabButtonBase

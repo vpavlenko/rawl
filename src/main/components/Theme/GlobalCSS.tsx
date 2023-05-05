@@ -82,7 +82,8 @@ export const GlobalCSS = () => {
           width: 12px;
         }
 
-        &::-webkit-scrollbar-track {
+        &::-webkit-scrollbar-track,
+        &::-webkit-scrollbar-corner {
           background-color: ${theme.backgroundColor};
         }
 

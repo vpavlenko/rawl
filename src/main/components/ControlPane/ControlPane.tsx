@@ -96,50 +96,26 @@ const TabLabel: FC<{ mode: ControlMode }> = ({ mode }) => {
   }
 }
 
-const TabBar: FC<TabBarProps> = React.memo(({ onClick, selectedMode }) => {
-  const modes: ControlMode[] = [
-    {
-      type: "velocity",
-    },
-    {
-      type: "pitchBend",
-    },
-    {
-      type: "controller",
-      controllerType: MIDIControlEvents.MSB_MAIN_VOLUME,
-    },
-    {
-      type: "controller",
-      controllerType: MIDIControlEvents.MSB_PAN,
-    },
-    {
-      type: "controller",
-      controllerType: MIDIControlEvents.MSB_EXPRESSION,
-    },
-    {
-      type: "controller",
-      controllerType: MIDIControlEvents.SUSTAIN,
-    },
-    {
-      type: "controller",
-      controllerType: MIDIControlEvents.MSB_MODWHEEL,
-    },
-  ]
+const TabBar: FC<TabBarProps> = React.memo(
+  observer(({ onClick, selectedMode }) => {
+    const { controlStore } = useStores()
+    const { controlModes } = controlStore
 
-  return (
-    <Toolbar>
-      {modes.map((mode, i) => (
-        <TabButton
-          selected={isEqualControlMode(selectedMode, mode)}
-          onClick={() => onClick(mode)}
-          key={i}
-        >
-          <TabLabel mode={mode} />
-        </TabButton>
-      ))}
-    </Toolbar>
-  )
-})
+    return (
+      <Toolbar>
+        {controlModes.map((mode, i) => (
+          <TabButton
+            selected={isEqualControlMode(selectedMode, mode)}
+            onClick={() => onClick(mode)}
+            key={i}
+          >
+            <TabLabel mode={mode} />
+          </TabButton>
+        ))}
+      </Toolbar>
+    )
+  })
+)
 
 const Parent = styled.div`
   width: 100%;

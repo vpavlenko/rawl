@@ -1,5 +1,6 @@
-import { ControllerEvent, PitchBendEvent } from "midifile-ts"
+import { ControllerEvent, MIDIControlEvents, PitchBendEvent } from "midifile-ts"
 import { computed, makeObservable, observable } from "mobx"
+import { makePersistable } from "mobx-persist-store"
 import { ControlSelection } from "../../common/selection/ControlSelection"
 import {
   TrackEventOf,
@@ -14,11 +15,41 @@ export class ControlStore {
   selection: ControlSelection | null = null
   selectedEventIds: number[] = []
 
+  controlModes: ControlMode[] = [
+    {
+      type: "velocity",
+    },
+    {
+      type: "pitchBend",
+    },
+    {
+      type: "controller",
+      controllerType: MIDIControlEvents.MSB_MAIN_VOLUME,
+    },
+    {
+      type: "controller",
+      controllerType: MIDIControlEvents.MSB_PAN,
+    },
+    {
+      type: "controller",
+      controllerType: MIDIControlEvents.MSB_EXPRESSION,
+    },
+    {
+      type: "controller",
+      controllerType: MIDIControlEvents.SUSTAIN,
+    },
+    {
+      type: "controller",
+      controllerType: MIDIControlEvents.MSB_MODWHEEL,
+    },
+  ]
+
   constructor(private readonly pianoRollStore: PianoRollStore) {
     makeObservable(this, {
       controlMode: observable,
       selection: observable,
       selectedEventIds: observable,
+      controlModes: observable,
       scrollLeft: computed,
       cursorX: computed,
       transform: computed,
@@ -27,6 +58,12 @@ export class ControlStore {
       quantizer: computed,
       mouseMode: computed,
       cursor: computed,
+    })
+
+    makePersistable(this, {
+      name: "ControlStore",
+      properties: ["controlModes"],
+      storage: window.localStorage,
     })
   }
 

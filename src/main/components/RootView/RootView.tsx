@@ -5,6 +5,7 @@ import { useStores } from "../../hooks/useStores"
 import { ArrangeEditor } from "../ArrangeView/ArrangeEditor"
 import { BuildInfo } from "../BuildInfo"
 import { CloudFileDialog } from "../CloudFileDialog/CloudFileDialog"
+import { ControlSettingDialog } from "../ControlSettingDialog/ControlSettingDialog"
 import { ExportDialog } from "../ExportDialog/ExportDialog"
 import { ExportProgressDialog } from "../ExportDialog/ExportProgressDialog"
 import { Head } from "../Head/Head"
@@ -65,6 +66,7 @@ export const RootView: FC = () => (
     <SignInDialog />
     <CloudFileDialog />
     <SettingDialog />
+    <ControlSettingDialog />
     <OnBeforeUnload />
   </>
 )

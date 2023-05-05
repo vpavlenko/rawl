@@ -1,14 +1,35 @@
 import { ControllerEvent, MIDIControlEvents, PitchBendEvent } from "midifile-ts"
 import { computed, makeObservable, observable } from "mobx"
 import { makePersistable } from "mobx-persist-store"
+import {
+  ValueEventType,
+  isEqualValueEventType,
+} from "../../common/helpers/valueEvent"
 import { ControlSelection } from "../../common/selection/ControlSelection"
 import {
   TrackEventOf,
   isControllerEventWithType,
   isPitchBendEvent,
 } from "../../common/track"
-import { ControlMode } from "../components/ControlPane/ControlPane"
 import PianoRollStore from "./PianoRollStore"
+
+export type ControlMode = { type: "velocity" } | ValueEventType
+
+export const isEqualControlMode = (a: ControlMode, b: ControlMode) => {
+  switch (a.type) {
+    case "velocity":
+    case "pitchBend":
+      return a.type === b.type
+    case "controller":
+      switch (b.type) {
+        case "velocity":
+        case "pitchBend":
+          return false
+        case "controller":
+          return isEqualValueEventType(a, b)
+      }
+  }
+}
 
 export class ControlStore {
   controlMode: ControlMode = { type: "velocity" }

@@ -9,6 +9,7 @@ export default class RootViewStore {
   openSignInDialog = false
   openCloudFileDialog = false
   openSettingDialog = false
+  openControlSettingDialog = false
 
   constructor() {
     makeObservable(this, {
@@ -19,6 +20,7 @@ export default class RootViewStore {
       openSignInDialog: observable,
       openCloudFileDialog: observable,
       openSettingDialog: observable,
+      openControlSettingDialog: observable,
     })
   }
 }

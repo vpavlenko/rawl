@@ -1,15 +1,12 @@
 import styled from "@emotion/styled"
 import useComponentSize from "@rehooks/component-size"
-import { MIDIControlEventNames, MIDIControlEvents } from "midifile-ts"
+import DotsHorizontalIcon from "mdi-react/DotsHorizontalIcon"
 import { observer } from "mobx-react-lite"
 import React, { FC, useCallback, useRef } from "react"
-import {
-  ValueEventType,
-  isEqualValueEventType,
-} from "../../../common/helpers/valueEvent"
-import { Localized } from "../../../components/Localized"
 import { Layout } from "../../Constants"
 import { useStores } from "../../hooks/useStores"
+import { ControlMode, isEqualControlMode } from "../../stores/ControlStore"
+import { ControlName } from "./ControlName"
 import { ValueEventGraph } from "./Graph/ValueEventGraph"
 import PianoVelocityControl from "./VelocityControl/VelocityControl"
 
@@ -18,34 +15,11 @@ interface TabBarProps {
   selectedMode: ControlMode
 }
 
-export type ControlMode = { type: "velocity" } | ValueEventType
-
-const isEqualControlMode = (a: ControlMode, b: ControlMode) => {
-  switch (a.type) {
-    case "velocity":
-    case "pitchBend":
-      return a.type === b.type
-    case "controller":
-      switch (b.type) {
-        case "velocity":
-        case "pitchBend":
-          return false
-        case "controller":
-          return isEqualValueEventType(a, b)
-      }
-  }
-}
-
-const TabButton = styled.div<{ selected: boolean }>`
-  min-width: 8em;
+const TabButtonBase = styled.div`
   background: transparent;
   -webkit-appearance: none;
-  border-bottom: 1px solid;
-  border-color: ${({ theme, selected }) =>
-    selected ? theme.themeColor : "transparent"};
   padding: 0.5em 0.8em;
-  color: ${({ theme, selected }) =>
-    selected ? theme.textColor : theme.secondaryTextColor};
+  color: ${({ theme }) => theme.secondaryTextColor};
   outline: none;
   font-size: 0.75rem;
   cursor: default;
@@ -58,6 +32,15 @@ const TabButton = styled.div<{ selected: boolean }>`
   }
 `
 
+const TabButton = styled(TabButtonBase)<{ selected: boolean }>`
+  min-width: 8em;
+  border-bottom: 1px solid;
+  border-color: ${({ theme, selected }) =>
+    selected ? theme.themeColor : "transparent"};
+  color: ${({ theme, selected }) =>
+    selected ? theme.textColor : theme.secondaryTextColor};
+`
+
 const Toolbar = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.dividerColor};
   box-sizing: border-box;
@@ -68,37 +51,9 @@ const Toolbar = styled.div`
   flex-shrink: 0;
 `
 
-const TabLabel: FC<{ mode: ControlMode }> = ({ mode }) => {
-  switch (mode.type) {
-    case "velocity":
-      return <Localized default="Velocity">velocity</Localized>
-    case "pitchBend":
-      return <Localized default="Pitch Bend">pitch-bend</Localized>
-    case "controller":
-      switch (mode.controllerType) {
-        case MIDIControlEvents.MSB_MAIN_VOLUME:
-          return <Localized default="Volume">volume</Localized>
-        case MIDIControlEvents.MSB_PAN:
-          return <Localized default="Panpot">panpot</Localized>
-        case MIDIControlEvents.MSB_EXPRESSION:
-          return <Localized default="Expression">expression</Localized>
-        case MIDIControlEvents.SUSTAIN:
-          return <Localized default="Hold Pedal">hold-pedal</Localized>
-        default:
-          return (
-            <>
-              {MIDIControlEventNames[mode.controllerType] === "Undefined"
-                ? `CC${mode.controllerType}`
-                : MIDIControlEventNames[mode.controllerType]}
-            </>
-          )
-      }
-  }
-}
-
 const TabBar: FC<TabBarProps> = React.memo(
   observer(({ onClick, selectedMode }) => {
-    const { controlStore } = useStores()
+    const { controlStore, rootViewStore } = useStores()
     const { controlModes } = controlStore
 
     return (
@@ -109,9 +64,14 @@ const TabBar: FC<TabBarProps> = React.memo(
             onClick={() => onClick(mode)}
             key={i}
           >
-            <TabLabel mode={mode} />
+            <ControlName mode={mode} />
           </TabButton>
         ))}
+        <TabButtonBase
+          onClick={() => (rootViewStore.openControlSettingDialog = true)}
+        >
+          <DotsHorizontalIcon style={{ width: "1rem" }} />
+        </TabButtonBase>
       </Toolbar>
     )
   })

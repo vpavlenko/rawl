@@ -330,7 +330,7 @@ export const startSelection =
       player.position = quantizer.round(point.tick)
     }
 
-    controlStore.selectedControllerEventIds = []
+    controlStore.selectedEventIds = []
 
     if (!keepSelectedNoteIds) {
       // deselect the notes
@@ -532,7 +532,7 @@ export const selectNote = (rootStore: RootStore) => (noteId: number) => {
     return
   }
 
-  controlStore.selectedControllerEventIds = []
+  controlStore.selectedEventIds = []
   pianoRollStore.selectedNoteIds = [noteId]
 }
 

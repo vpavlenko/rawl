@@ -20,7 +20,7 @@ export const ControlSelectionContextMenu: FC<ContextMenuProps> = React.memo(
     const { handleClose } = props
     const rootStore = useStores()
     const { controlStore } = rootStore
-    const isEventSelected = controlStore.selectedControllerEventIds.length > 0
+    const isEventSelected = controlStore.selectedEventIds.length > 0
 
     const onClickCut = useCallback(() => {
       copyControlSelection(rootStore)()

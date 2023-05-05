@@ -18,7 +18,7 @@ export const handleCreateSelectionDrag =
       controlStore: { quantizer },
       player,
     } = rootStore
-    controlStore.selectedControllerEventIds = []
+    controlStore.selectedEventIds = []
 
     const startTick = quantizer.round(controlTransform.getTicks(startPoint.x))
 
@@ -29,7 +29,7 @@ export const handleCreateSelectionDrag =
       player.position = startTick
     }
 
-    controlStore.controlSelection = {
+    controlStore.selection = {
       fromTick: startTick,
       toTick: startTick,
     }
@@ -38,20 +38,20 @@ export const handleCreateSelectionDrag =
       onMouseMove: (_e, delta) => {
         const local = pointAdd(startPoint, delta)
         const endTick = quantizer.round(controlTransform.getTicks(local.x))
-        controlStore.controlSelection = {
+        controlStore.selection = {
           fromTick: Math.min(startTick, endTick),
           toTick: Math.max(startTick, endTick),
         }
       },
       onMouseUp: (_e) => {
-        const { controlSelection } = controlStore
-        if (controlSelection === null) {
+        const { selection } = controlStore
+        if (selection === null) {
           return
         }
 
-        controlStore.selectedControllerEventIds =
-          getControllerEventIdsInSelection(controlSelection)
-        controlStore.controlSelection = null
+        controlStore.selectedEventIds =
+          getControllerEventIdsInSelection(selection)
+        controlStore.selection = null
       },
     })
   }

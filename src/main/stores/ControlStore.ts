@@ -10,17 +10,15 @@ import { ControlMode } from "../components/ControlPane/ControlPane"
 import PianoRollStore from "./PianoRollStore"
 
 export class ControlStore {
-  controlHeight = 0
   controlMode: ControlMode = { type: "velocity" }
-  controlSelection: ControlSelection | null = null
-  selectedControllerEventIds: number[] = []
+  selection: ControlSelection | null = null
+  selectedEventIds: number[] = []
 
   constructor(private readonly pianoRollStore: PianoRollStore) {
     makeObservable(this, {
-      controlHeight: observable,
       controlMode: observable,
-      controlSelection: observable,
-      selectedControllerEventIds: observable,
+      selection: observable,
+      selectedEventIds: observable,
       scrollLeft: computed,
       cursorX: computed,
       transform: computed,
@@ -28,7 +26,7 @@ export class ControlStore {
       selectedTrack: computed,
       quantizer: computed,
       mouseMode: computed,
-      controlCursor: computed,
+      cursor: computed,
     })
   }
 
@@ -77,7 +75,7 @@ export class ControlStore {
     return this.pianoRollStore.mouseMode
   }
 
-  get controlCursor() {
+  get cursor() {
     return this.pianoRollStore.controlCursor
   }
 }

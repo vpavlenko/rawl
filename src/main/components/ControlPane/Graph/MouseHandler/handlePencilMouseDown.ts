@@ -23,8 +23,8 @@ export const handlePencilMouseDown =
   ) => {
     pushHistory(rootStore)()
 
-    rootStore.controlStore.selectedControllerEventIds = []
-    rootStore.controlStore.controlSelection = null
+    rootStore.controlStore.selectedEventIds = []
+    rootStore.controlStore.selection = null
     rootStore.pianoRollStore.selection = null
     rootStore.pianoRollStore.selectedNoteIds = []
 

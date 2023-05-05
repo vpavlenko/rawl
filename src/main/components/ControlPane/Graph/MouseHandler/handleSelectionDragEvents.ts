@@ -26,12 +26,12 @@ export const handleSelectionDragEvents =
 
     pushHistory(rootStore)()
 
-    if (!controlStore.selectedControllerEventIds.includes(hitEventId)) {
-      controlStore.selectedControllerEventIds = [hitEventId]
+    if (!controlStore.selectedEventIds.includes(hitEventId)) {
+      controlStore.selectedEventIds = [hitEventId]
     }
 
     const controllerEvents = selectedTrack.events
-      .filter((e) => controlStore.selectedControllerEventIds.includes(e.id))
+      .filter((e) => controlStore.selectedEventIds.includes(e.id))
       .map((e) => ({ ...e } as unknown as TrackEventOf<T>)) // copy
 
     const draggedEvent = controllerEvents.find((ev) => ev.id === hitEventId)
@@ -68,7 +68,7 @@ export const handleSelectionDragEvents =
       onMouseUp: (_e) => {
         // Find events with the same tick and remove it
         const controllerEvents = selectedTrack.events.filter((e) =>
-          controlStore.selectedControllerEventIds.includes(e.id)
+          controlStore.selectedEventIds.includes(e.id)
         )
 
         selectedTrack.transaction((it) =>

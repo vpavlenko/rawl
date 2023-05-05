@@ -51,7 +51,7 @@ const LineGraph = observer(
   }: LineGraphProps<T>) => {
     const rootStore = useStores()
     const {
-      controlStore: { scrollLeft, transform, controlCursor, mouseMode },
+      controlStore: { scrollLeft, transform, cursor, mouseMode },
     } = rootStore
 
     const controlTransform = useMemo(
@@ -152,7 +152,7 @@ const LineGraph = observer(
           onClick={onClickAxis}
         />
         <LineGraphCanvas
-          style={{ cursor: controlCursor }}
+          style={{ cursor }}
           onMouseDown={onMouseDown}
           onContextMenu={onContextMenu}
           width={width}

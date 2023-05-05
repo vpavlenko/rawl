@@ -27,6 +27,8 @@ export class ControlStore {
       rulerStore: computed,
       selectedTrack: computed,
       quantizer: computed,
+      mouseMode: computed,
+      controlCursor: computed,
     })
   }
 
@@ -69,5 +71,13 @@ export class ControlStore {
 
   get quantizer() {
     return this.pianoRollStore.quantizer
+  }
+
+  get mouseMode() {
+    return this.pianoRollStore.mouseMode
+  }
+
+  get controlCursor() {
+    return this.pianoRollStore.controlCursor
   }
 }

@@ -1,11 +1,11 @@
 import { ControllerEvent, PitchBendEvent } from "midifile-ts"
 import { observer } from "mobx-react-lite"
 import React, { MouseEventHandler, useCallback, useMemo } from "react"
-import { containsPoint, IPoint } from "../../../../common/geometry"
+import { IPoint, containsPoint } from "../../../../common/geometry"
 import { filterEventsWithRange } from "../../../../common/helpers/filterEvents"
 import {
-  createValueEvent,
   ValueEventType,
+  createValueEvent,
 } from "../../../../common/helpers/valueEvent"
 import { TrackEventOf } from "../../../../common/track"
 import { ControlCoordTransform } from "../../../../common/transform/ControlCoordTransform"
@@ -51,7 +51,7 @@ const LineGraph = observer(
   }: LineGraphProps<T>) => {
     const rootStore = useStores()
     const {
-      pianoRollStore: { scrollLeft, transform, controlCursor, mouseMode },
+      controlStore: { scrollLeft, transform, controlCursor, mouseMode },
     } = rootStore
 
     const controlTransform = useMemo(

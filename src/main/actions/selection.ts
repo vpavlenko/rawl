@@ -323,7 +323,7 @@ export const startSelection =
     pianoRollStore,
     controlStore,
     player,
-    pianoRollStore: { quantizer },
+    controlStore: { quantizer },
   }: RootStore) =>
   (point: NotePoint, keepSelectedNoteIds: boolean = false) => {
     if (!player.isPlaying) {

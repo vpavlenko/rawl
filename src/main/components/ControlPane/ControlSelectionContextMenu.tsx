@@ -2,8 +2,8 @@ import React, { FC, useCallback } from "react"
 import { envString } from "../../../common/localize/envString"
 import {
   ContextMenu,
-  ContextMenuHotKey as HotKey,
   ContextMenuProps,
+  ContextMenuHotKey as HotKey,
 } from "../../../components/ContextMenu"
 import { Localized } from "../../../components/Localized"
 import { MenuItem } from "../../../components/Menu"
@@ -19,8 +19,8 @@ export const ControlSelectionContextMenu: FC<ContextMenuProps> = React.memo(
   (props) => {
     const { handleClose } = props
     const rootStore = useStores()
-    const { pianoRollStore } = rootStore
-    const isEventSelected = pianoRollStore.selectedControllerEventIds.length > 0
+    const { controlStore } = rootStore
+    const isEventSelected = controlStore.selectedEventIds.length > 0
 
     const onClickCut = useCallback(() => {
       copyControlSelection(rootStore)()

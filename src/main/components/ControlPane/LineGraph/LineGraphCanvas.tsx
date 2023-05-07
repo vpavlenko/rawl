@@ -41,13 +41,13 @@ export const LineGraphCanvas: FC<LineGraphCanvasProps> = observer(
     const rootStore = useStores()
 
     const {
+      selection,
       scrollLeft,
-      controlSelection,
-      selectedControllerEventIds,
+      selectedEventIds,
       cursorX,
       transform,
       rulerStore: { beats },
-    } = rootStore.pianoRollStore
+    } = rootStore.controlStore
 
     const controlTransform = useMemo(
       () =>
@@ -61,9 +61,7 @@ export const LineGraphCanvas: FC<LineGraphCanvasProps> = observer(
     )
 
     const selectionRect =
-      controlSelection !== null
-        ? controlTransform.transformSelection(controlSelection)
-        : null
+      selection !== null ? controlTransform.transformSelection(selection) : null
 
     const scrollXMatrix = useMemo(
       () => matrixFromTranslation(-Math.floor(scrollLeft), 0),
@@ -84,7 +82,7 @@ export const LineGraphCanvas: FC<LineGraphCanvasProps> = observer(
             scrollLeft={scrollLeft}
             width={width}
             items={items}
-            selectedEventIds={selectedControllerEventIds}
+            selectedEventIds={selectedEventIds}
             controlPoints={controlPoints}
             lineWidth={2}
             zIndex={1}

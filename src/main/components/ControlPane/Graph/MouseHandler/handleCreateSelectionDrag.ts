@@ -14,10 +14,11 @@ export const handleCreateSelectionDrag =
   ) => {
     const {
       pianoRollStore,
-      pianoRollStore: { quantizer },
+      controlStore,
+      controlStore: { quantizer },
       player,
     } = rootStore
-    pianoRollStore.selectedControllerEventIds = []
+    controlStore.selectedEventIds = []
 
     const startTick = quantizer.round(controlTransform.getTicks(startPoint.x))
 
@@ -28,7 +29,7 @@ export const handleCreateSelectionDrag =
       player.position = startTick
     }
 
-    pianoRollStore.controlSelection = {
+    controlStore.selection = {
       fromTick: startTick,
       toTick: startTick,
     }
@@ -37,20 +38,20 @@ export const handleCreateSelectionDrag =
       onMouseMove: (_e, delta) => {
         const local = pointAdd(startPoint, delta)
         const endTick = quantizer.round(controlTransform.getTicks(local.x))
-        pianoRollStore.controlSelection = {
+        controlStore.selection = {
           fromTick: Math.min(startTick, endTick),
           toTick: Math.max(startTick, endTick),
         }
       },
       onMouseUp: (_e) => {
-        const { controlSelection } = pianoRollStore
-        if (controlSelection === null) {
+        const { selection } = controlStore
+        if (selection === null) {
           return
         }
 
-        pianoRollStore.selectedControllerEventIds =
-          getControllerEventIdsInSelection(controlSelection)
-        pianoRollStore.controlSelection = null
+        controlStore.selectedEventIds =
+          getControllerEventIdsInSelection(selection)
+        controlStore.selection = null
       },
     })
   }

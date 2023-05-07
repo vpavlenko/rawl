@@ -10,7 +10,7 @@ import RootStore from "../stores/RootStore"
 
 export const createOrUpdateControlEventsValue =
   ({
-    pianoRollStore: { selectedTrack, selectedControllerEventIds },
+    controlStore: { selectedEventIds, selectedTrack },
     player,
     pushHistory,
   }: RootStore) =>
@@ -21,7 +21,7 @@ export const createOrUpdateControlEventsValue =
 
     pushHistory()
 
-    const controllerEvents = selectedControllerEventIds
+    const controllerEvents = selectedEventIds
       .map((id) => selectedTrack.getEventById(id))
       .filter(isNotUndefined)
 
@@ -39,15 +39,12 @@ export const createOrUpdateControlEventsValue =
 
 export const deleteControlSelection =
   ({
-    pianoRollStore,
-    pianoRollStore: { selectedTrack, selectedControllerEventIds },
+    controlStore,
+    controlStore: { selectedEventIds, selectedTrack },
     pushHistory,
   }: RootStore) =>
   () => {
-    if (
-      selectedTrack === undefined ||
-      selectedControllerEventIds.length === 0
-    ) {
+    if (selectedTrack === undefined || selectedEventIds.length === 0) {
       return
     }
 
@@ -55,31 +52,26 @@ export const deleteControlSelection =
 
     // 選択範囲と選択されたノートを削除
     // Remove selected notes and selected notes
-    selectedTrack.removeEvents(selectedControllerEventIds)
-    pianoRollStore.controlSelection = null
+    selectedTrack.removeEvents(selectedEventIds)
+    controlStore.selection = null
   }
 
 export const resetControlSelection =
-  ({ pianoRollStore }: RootStore) =>
+  ({ controlStore }: RootStore) =>
   () => {
-    pianoRollStore.controlSelection = null
-    pianoRollStore.selectedControllerEventIds = []
+    controlStore.selection = null
+    controlStore.selectedEventIds = []
   }
 
 export const copyControlSelection =
-  ({
-    pianoRollStore: { selectedTrack, selectedControllerEventIds },
-  }: RootStore) =>
+  ({ controlStore: { selectedEventIds, selectedTrack } }: RootStore) =>
   () => {
-    if (
-      selectedTrack === undefined ||
-      selectedControllerEventIds.length === 0
-    ) {
+    if (selectedTrack === undefined || selectedEventIds.length === 0) {
       return
     }
 
     // Copy selected events
-    const events = selectedControllerEventIds
+    const events = selectedEventIds
       .map((id) => selectedTrack.getEventById(id))
       .filter(isNotUndefined)
 
@@ -132,21 +124,18 @@ export const pasteControlSelection =
 
 export const duplicateControlSelection =
   ({
-    pianoRollStore,
-    pianoRollStore: { selectedTrack, selectedControllerEventIds },
+    controlStore,
+    controlStore: { selectedEventIds, selectedTrack },
     pushHistory,
   }: RootStore) =>
   () => {
-    if (
-      selectedTrack === undefined ||
-      selectedControllerEventIds.length === 0
-    ) {
+    if (selectedTrack === undefined || selectedEventIds.length === 0) {
       return
     }
 
     pushHistory()
 
-    const selectedEvents = selectedControllerEventIds
+    const selectedEvents = selectedEventIds
       .map((id) => selectedTrack.getEventById(id))
       .filter(isNotUndefined)
 
@@ -164,5 +153,5 @@ export const duplicateControlSelection =
     const addedEvents = selectedTrack.transaction((it) =>
       notes.map((e) => it.createOrUpdate(e))
     )
-    pianoRollStore.selectedControllerEventIds = addedEvents.map((e) => e.id)
+    controlStore.selectedEventIds = addedEvents.map((e) => e.id)
   }

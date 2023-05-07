@@ -8,16 +8,16 @@ import {
 } from "../../clipboard/clipboardTypes"
 import { useStores } from "../../hooks/useStores"
 import clipboard from "../../services/Clipboard"
+import { KeyboardShortcut } from "./KeyboardShortcut"
 import { controlPaneKeyboardShortcutActions } from "./controlPaneKeyboardShortcutActions"
 import { isFocusable } from "./isFocusable"
-import { KeyboardShortcut } from "./KeyboardShortcut"
 import { pianoNotesKeyboardShortcutActions } from "./pianoNotesKeyboardShortcutActions"
 
 const SCROLL_DELTA = 24
 
 export const PianoRollKeyboardShortcut: FC = observer(() => {
   const rootStore = useStores()
-  const { pianoRollStore } = rootStore
+  const { pianoRollStore, controlStore } = rootStore
 
   // Handle pasting here to allow pasting even when the element does not have focus, such as after clicking the ruler
   const onPaste = (e: ClipboardEvent) => {
@@ -46,7 +46,7 @@ export const PianoRollKeyboardShortcut: FC = observer(() => {
         ...(pianoRollStore.selectedNoteIds.length > 0
           ? pianoNotesKeyboardShortcutActions(rootStore)
           : []),
-        ...(pianoRollStore.selectedControllerEventIds.length > 0
+        ...(controlStore.selectedEventIds.length > 0
           ? controlPaneKeyboardShortcutActions(rootStore)
           : []),
         {

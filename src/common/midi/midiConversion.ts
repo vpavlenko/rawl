@@ -1,3 +1,4 @@
+import { partition } from "lodash"
 import groupBy from "lodash/groupBy"
 import {
   AnyEvent,
@@ -64,8 +65,7 @@ const findChannel = (events: AnyEvent[]) => {
   return undefined
 }
 
-const getConductorTrack = (tracks: AnyEvent[][]) =>
-  tracks.find((t) => findChannel(t) === undefined)
+const isConductorTrack = (track: AnyEvent[]) => findChannel(track) === undefined
 
 const isConductorEvent = (e: AnyEvent) =>
   "subtype" in e && (e.subtype === "timeSignature" || e.subtype === "setTempo")
@@ -73,26 +73,28 @@ const isConductorEvent = (e: AnyEvent) =>
 export const createConductorTrackIfNeeded = (
   tracks: AnyEvent[][]
 ): AnyEvent[][] => {
-  const conductorTrack = getConductorTrack(tracks)
-  if (conductorTrack !== undefined) {
-    return tracks
-  }
-  if (tracks.length === 0) {
-    return []
-  }
-  const newConductorTrack: AnyEvent[] = []
-  const [firstTrack, ...restTracks] = tracks
-  const newFirstTrack: AnyEvent[] = []
+  // Find conductor track
+  let [conductorTracks, normalTracks] = partition(tracks, isConductorTrack)
 
-  // Find meta events from the first track
-  for (const e of firstTrack) {
-    if (isConductorEvent(e)) {
-      newConductorTrack.push(e)
-    } else {
-      newFirstTrack.push(e)
-    }
+  // Create a conductor track if there is no conductor track
+  if (conductorTracks.length === 0) {
+    conductorTracks.push([])
   }
-  return [newConductorTrack, newFirstTrack, ...restTracks]
+
+  const [conductorTrack, ...restTracks] = [...conductorTracks, ...normalTracks]
+
+  const newTracks = restTracks.map((t) =>
+    t.filter((e) => {
+      // Collect all conductor events
+      if (isConductorEvent(e)) {
+        conductorTrack.push(e)
+        return false
+      }
+      return true
+    })
+  )
+
+  return [conductorTrack, ...newTracks]
 }
 
 const getTracks = (midi: MidiFile): Track[] => {

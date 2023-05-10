@@ -1,3 +1,4 @@
+import { partition } from "lodash"
 import groupBy from "lodash/groupBy"
 import {
   AnyEvent,
@@ -21,11 +22,9 @@ import Track from "../track"
 const trackFromMidiEvents = (events: AnyEvent[]): Track => {
   const track = new Track()
 
-  const chEvent = events.find((e) => {
-    return e.type === "channel"
-  })
-  if (chEvent !== undefined && "channel" in chEvent) {
-    track.channel = chEvent.channel
+  const channel = findChannel(events)
+  if (channel !== undefined) {
+    track.channel = channel
   }
   track.addEvents(toTrackEvents(events))
 
@@ -56,12 +55,54 @@ const tracksFromFormat0Events = (events: AnyEvent[]): Track[] => {
   return tracks
 }
 
+const findChannel = (events: AnyEvent[]) => {
+  const chEvent = events.find((e) => {
+    return e.type === "channel"
+  })
+  if (chEvent !== undefined && "channel" in chEvent) {
+    return chEvent.channel
+  }
+  return undefined
+}
+
+const isConductorTrack = (track: AnyEvent[]) => findChannel(track) === undefined
+
+const isConductorEvent = (e: AnyEvent) =>
+  "subtype" in e && (e.subtype === "timeSignature" || e.subtype === "setTempo")
+
+export const createConductorTrackIfNeeded = (
+  tracks: AnyEvent[][]
+): AnyEvent[][] => {
+  // Find conductor track
+  let [conductorTracks, normalTracks] = partition(tracks, isConductorTrack)
+
+  // Create a conductor track if there is no conductor track
+  if (conductorTracks.length === 0) {
+    conductorTracks.push([])
+  }
+
+  const [conductorTrack, ...restTracks] = [...conductorTracks, ...normalTracks]
+
+  const newTracks = restTracks.map((t) =>
+    t.filter((e) => {
+      // Collect all conductor events
+      if (isConductorEvent(e)) {
+        conductorTrack.push(e)
+        return false
+      }
+      return true
+    })
+  )
+
+  return [conductorTrack, ...newTracks]
+}
+
 const getTracks = (midi: MidiFile): Track[] => {
   switch (midi.header.formatType) {
     case 0:
       return tracksFromFormat0Events(midi.tracks[0])
     case 1:
-      return midi.tracks.map(trackFromMidiEvents)
+      return createConductorTrackIfNeeded(midi.tracks).map(trackFromMidiEvents)
     default:
       throw new Error(`Unsupported midi format ${midi.header.formatType}`)
   }

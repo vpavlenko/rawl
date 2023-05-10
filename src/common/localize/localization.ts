@@ -141,6 +141,9 @@ export default {
     "export-midi": "MIDI をエクスポート",
     general: "一般",
     "change-track-color": "トラックの色を変更",
+    "control-settings": "コントロール設定",
+    add: "追加",
+    remove: "削除",
     /* MIDI Instrument Categories */
     Piano: "ピアノ",
     "Chromatic Percussion": "クロマチック",

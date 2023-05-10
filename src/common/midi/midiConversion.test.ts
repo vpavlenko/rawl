@@ -5,7 +5,18 @@ import { serialize } from "serializr"
 import { emptySong } from "../song/SongFactory"
 import { NoteEvent } from "../track"
 import Track from "../track/Track"
-import { songFromMidi, songToMidi, songToMidiEvents } from "./midiConversion"
+import {
+  noteOffMidiEvent,
+  noteOnMidiEvent,
+  setTempoMidiEvent,
+  timeSignatureMidiEvent,
+} from "./MidiEvent"
+import {
+  createConductorTrackIfNeeded,
+  songFromMidi,
+  songToMidi,
+  songToMidiEvents,
+} from "./midiConversion"
 
 // id for each event will not be serialized in midi file
 // we change ids sorted by order in events array
@@ -87,6 +98,36 @@ describe("SongFile", () => {
         blue: 56,
         alpha: 78,
       })
+    })
+  })
+  describe("createConductorTrackIfNeeded", () => {
+    it("should not create the conductor track", () => {
+      const tracks: AnyEvent[][] = [
+        [timeSignatureMidiEvent(0, 4, 4), setTempoMidiEvent(120, 500000)],
+        [noteOnMidiEvent(0, 1, 60, 100), noteOffMidiEvent(120, 1, 60, 0)],
+      ]
+      const result = createConductorTrackIfNeeded(tracks)
+      expect(result).toStrictEqual([
+        [timeSignatureMidiEvent(0, 4, 4), setTempoMidiEvent(120, 500000)],
+        [noteOnMidiEvent(0, 1, 60, 100), noteOffMidiEvent(120, 1, 60, 0)],
+      ])
+    })
+    it("should create the conductor track", () => {
+      const tracks: AnyEvent[][] = [
+        [
+          timeSignatureMidiEvent(0, 4, 4),
+          setTempoMidiEvent(120, 500000),
+          noteOnMidiEvent(120, 5, 60, 100),
+          noteOffMidiEvent(120, 5, 60, 0),
+        ],
+        [noteOnMidiEvent(0, 2, 60, 100), noteOffMidiEvent(120, 2, 60, 0)],
+      ]
+      const result = createConductorTrackIfNeeded(tracks)
+      expect(result).toStrictEqual([
+        [timeSignatureMidiEvent(0, 4, 4), setTempoMidiEvent(120, 500000)],
+        [noteOnMidiEvent(120, 5, 60, 100), noteOffMidiEvent(120, 5, 60, 0)],
+        [noteOnMidiEvent(0, 2, 60, 100), noteOffMidiEvent(120, 2, 60, 0)],
+      ])
     })
   })
 })

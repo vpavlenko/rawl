@@ -9,15 +9,16 @@ import {
   write as writeMidiFile,
 } from "midifile-ts"
 import { toJS } from "mobx"
+import { isNotNull } from "../helpers/array"
 import { downloadBlob } from "../helpers/Downloader"
-import { toRawEvents } from "../helpers/toRawEvents"
+import { addDeltaTime, toRawEvents } from "../helpers/toRawEvents"
 import {
   addTick,
   tickedEventsToTrackEvents,
   toTrackEvents,
 } from "../helpers/toTrackEvents"
 import Song from "../song"
-import Track from "../track"
+import Track, { AnyEventFeature } from "../track"
 
 const trackFromMidiEvents = (events: AnyEvent[]): Track => {
   const track = new Track()
@@ -67,7 +68,7 @@ const findChannel = (events: AnyEvent[]) => {
 
 const isConductorTrack = (track: AnyEvent[]) => findChannel(track) === undefined
 
-const isConductorEvent = (e: AnyEvent) =>
+const isConductorEvent = (e: AnyEventFeature) =>
   "subtype" in e && (e.subtype === "timeSignature" || e.subtype === "setTempo")
 
 export const createConductorTrackIfNeeded = (
@@ -81,20 +82,25 @@ export const createConductorTrackIfNeeded = (
     conductorTracks.push([])
   }
 
-  const [conductorTrack, ...restTracks] = [...conductorTracks, ...normalTracks]
+  const [conductorTrack, ...restTracks] = [
+    ...conductorTracks,
+    ...normalTracks,
+  ].map(addTick)
 
-  const newTracks = restTracks.map((t) =>
-    t.filter((e) => {
-      // Collect all conductor events
-      if (isConductorEvent(e)) {
-        conductorTrack.push(e)
-        return false
-      }
-      return true
-    })
+  const newTracks = restTracks.map((track) =>
+    track
+      .map((e) => {
+        // Collect all conductor events
+        if (isConductorEvent(e)) {
+          conductorTrack.push(e)
+          return null
+        }
+        return e
+      })
+      .filter(isNotNull)
   )
 
-  return [conductorTrack, ...newTracks]
+  return [conductorTrack, ...newTracks].map(addDeltaTime)
 }
 
 const getTracks = (midi: MidiFile): Track[] => {

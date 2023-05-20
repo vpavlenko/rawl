@@ -60,6 +60,11 @@ export const Tab = styled.div`
   &:hover {
     background: ${({ theme }) => theme.highlightColor};
   }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 }
 `
 
@@ -173,10 +178,12 @@ export const Navigation: FC = observer(() => {
         </TabTitle>
       </Tab>
 
-      <Tab id="open-gitter-button">
+      <Tab>
         <Forum style={IconStyle} />
         <TabTitle>
-          <Localized default="Open Chat">open-chat</Localized>
+          <a href="https://discord.gg/XQxzNdDJse" target="_blank">
+            Discord
+          </a>
         </TabTitle>
       </Tab>
 

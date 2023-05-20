@@ -72,10 +72,6 @@ export const GlobalCSS = () => {
           background: ${theme.secondaryBackgroundColor};
         }
 
-        .gitter-chat-embed {
-          z-index: 10000;
-        }
-
         /* Native Scrollbar */
 
         &::-webkit-scrollbar {

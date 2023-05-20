@@ -1,4 +1,4 @@
-![Node.js CI](https://github.com/ryohey/signal/workflows/Node.js%20CI/badge.svg) [![Join the chat at https://gitter.im/signal-midi/community](https://badges.gitter.im/signal-midi/community.svg)](https://gitter.im/signal-midi/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+![Node.js CI](https://github.com/ryohey/signal/workflows/Node.js%20CI/badge.svg) [![Join the chat at https://discord.gg/XQxzNdDJse](https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/XQxzNdDJse)
 
 # Signal
 

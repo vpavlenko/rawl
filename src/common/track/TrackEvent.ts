@@ -33,3 +33,6 @@ export type NoteEvent = TrackEventOf<NoteEventContent>
 export type TrackEvent = TrackEventOf<
   AnyEvent | NoteEventContent | AnySignalEvent
 >
+
+export type FeatureOf<T> = DistributiveOmit<T, "deltaTime" | "tick" | "id">
+export type AnyEventFeature = FeatureOf<AnyEvent>

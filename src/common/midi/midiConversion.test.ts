@@ -125,7 +125,7 @@ describe("SongFile", () => {
       const result = createConductorTrackIfNeeded(tracks)
       expect(result).toStrictEqual([
         [timeSignatureMidiEvent(0, 4, 4), setTempoMidiEvent(120, 500000)],
-        [noteOnMidiEvent(120, 5, 60, 100), noteOffMidiEvent(120, 5, 60, 0)],
+        [noteOnMidiEvent(240, 5, 60, 100), noteOffMidiEvent(120, 5, 60, 0)],
         [noteOnMidiEvent(0, 2, 60, 100), noteOffMidiEvent(120, 2, 60, 0)],
       ])
     })

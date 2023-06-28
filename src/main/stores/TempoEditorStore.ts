@@ -1,14 +1,14 @@
 import { autorun, computed, makeObservable, observable } from "mobx"
-import { containsPoint, IPoint } from "../../common/geometry"
+import { IPoint, containsPoint } from "../../common/geometry"
 import Quantizer from "../../common/quantizer"
 import {
-  getTempoSelectionBounds,
   TempoSelection,
+  getTempoSelectionBounds,
 } from "../../common/selection/TempoSelection"
 import { TempoCoordTransform } from "../../common/transform"
+import { Layout } from "../Constants"
 import { DisplayEvent } from "../components/PianoRoll/ControlMark"
 import { transformEvents } from "../components/TempoGraph/transformEvents"
-import { Layout } from "../Constants"
 import { PianoRollMouseMode } from "./PianoRollStore"
 import RootStore from "./RootStore"
 import { RulerStore } from "./RulerStore"

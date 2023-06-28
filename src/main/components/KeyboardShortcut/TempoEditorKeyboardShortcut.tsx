@@ -9,8 +9,8 @@ import {
 import { isTempoEventsClipboardData } from "../../clipboard/clipboardTypes"
 import { useStores } from "../../hooks/useStores"
 import clipboard from "../../services/Clipboard"
-import { isFocusable } from "./isFocusable"
 import { KeyboardShortcut } from "./KeyboardShortcut"
+import { isFocusable } from "./isFocusable"
 
 export const TempoEditorKeyboardShortcut: FC = () => {
   const rootStore = useStores()
@@ -27,10 +27,14 @@ export const TempoEditorKeyboardShortcut: FC = () => {
           code: "Digit2",
           run: () => (tempoEditorStore.mouseMode = "selection"),
         },
-        { code: "Escape", run: resetTempoSelection(rootStore) },
-        { code: "KeyC", metaKey: true, run: copyTempoSelection(rootStore) },
+        { code: "Escape", run: () => resetTempoSelection(rootStore)() },
         { code: "Backspace", run: () => deleteTempoSelection(rootStore)() },
         { code: "Delete", run: () => deleteTempoSelection(rootStore)() },
+        {
+          code: "KeyC",
+          metaKey: true,
+          run: () => copyTempoSelection(rootStore)(),
+        },
         {
           code: "KeyX",
           metaKey: true,
@@ -44,7 +48,7 @@ export const TempoEditorKeyboardShortcut: FC = () => {
         {
           code: "KeyD",
           metaKey: true,
-          run: duplicateTempoSelection(rootStore),
+          run: () => duplicateTempoSelection(rootStore)(),
         },
       ]}
       onPaste={(e) => {

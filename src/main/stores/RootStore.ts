@@ -34,7 +34,7 @@ export default class RootStore {
   readonly midiDeviceStore = new MIDIDeviceStore()
   readonly exportStore = new ExportStore()
   readonly authStore = new AuthStore()
-  readonly cloudFileStore = new CloudFileStore()
+  readonly cloudFileStore = new CloudFileStore(this)
   readonly settingStore = new SettingStore()
   readonly player: Player
   readonly synth: SoundFontSynth

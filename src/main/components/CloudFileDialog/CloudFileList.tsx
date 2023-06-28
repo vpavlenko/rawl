@@ -50,6 +50,10 @@ const DateCell = styled(HeaderCell)`
   width: 12rem;
 `
 
+const MenuCell = styled(HeaderCell)`
+  width: 4rem;
+`
+
 const Body = styled.div`
   max-height: 20rem;
   overflow-y: auto;
@@ -156,6 +160,7 @@ export const CloudFileList = observer(() => {
             <SortButton sortAscending={sortAscending} />
           )}
         </DateCell>
+        <MenuCell></MenuCell>
       </Header>
       <Body>
         {files.map((song) => (

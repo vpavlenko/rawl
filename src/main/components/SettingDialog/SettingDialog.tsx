@@ -13,6 +13,7 @@ import { useStores } from "../../hooks/useStores"
 import { GeneralSettingsView } from "./GeneralSettingsView"
 import { MIDIDeviceView } from "./MIDIDeviceView/MIDIDeviceView"
 import { SettingNavigation, SettingRoute } from "./SettingNavigation"
+import { SoundFontSettingsView } from "./SoundFontSettingView"
 
 const RouteContent: FC<{ route: SettingRoute }> = ({ route }) => {
   switch (route) {
@@ -20,6 +21,8 @@ const RouteContent: FC<{ route: SettingRoute }> = ({ route }) => {
       return <GeneralSettingsView />
     case "midi":
       return <MIDIDeviceView />
+    case "soundfont":
+      return <SoundFontSettingsView />
   }
 }
 const Content = styled.div`

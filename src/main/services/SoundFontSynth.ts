@@ -4,7 +4,6 @@ import { SendableEvent, SynthOutput } from "./SynthOutput"
 
 export class SoundFontSynth implements SynthOutput {
   private synth: AudioWorkletNode | null = null
-  private soundFontURL: string
   private context = new (window.AudioContext || window.webkitAudioContext)()
 
   private _loadedSoundFontData: ArrayBuffer | null = null
@@ -14,34 +13,31 @@ export class SoundFontSynth implements SynthOutput {
 
   isLoading: boolean = true
 
-  constructor(context: AudioContext, soundFontURL: string) {
+  constructor(context: AudioContext) {
     this.context = context
-    this.soundFontURL = soundFontURL
 
     makeObservable(this, {
       isLoading: observable,
     })
-
-    this.setup().finally(() => {
-      this.isLoading = false
-    })
   }
 
-  private async setup() {
+  async setup() {
     const url = new URL("@ryohey/wavelet/dist/processor.js", import.meta.url)
     await this.context.audioWorklet.addModule(url)
+  }
 
+  async loadSoundFont(data: ArrayBuffer) {
+    if (this.synth !== null) {
+      this.synth.disconnect()
+    }
+
+    // create new node
     this.synth = new AudioWorkletNode(this.context, "synth-processor", {
       numberOfInputs: 0,
       outputChannelCount: [2],
     } as any)
     this.synth.connect(this.context.destination)
 
-    await this.loadSoundFont()
-  }
-
-  private async loadSoundFont() {
-    const data = await (await fetch(this.soundFontURL)).arrayBuffer()
     const samples = getSamplesFromSoundFont(new Uint8Array(data), this.context)
     this._loadedSoundFontData = data
 

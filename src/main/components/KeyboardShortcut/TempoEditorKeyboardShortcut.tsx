@@ -28,9 +28,9 @@ export const TempoEditorKeyboardShortcut: FC = () => {
           run: () => (tempoEditorStore.mouseMode = "selection"),
         },
         { code: "Escape", run: resetTempoSelection(rootStore) },
-        { code: "Backspace", run: deleteTempoSelection(rootStore) },
-        { code: "Delete", run: deleteTempoSelection(rootStore) },
         { code: "KeyC", metaKey: true, run: copyTempoSelection(rootStore) },
+        { code: "Backspace", run: () => deleteTempoSelection(rootStore)() },
+        { code: "Delete", run: () => deleteTempoSelection(rootStore)() },
         {
           code: "KeyX",
           metaKey: true,

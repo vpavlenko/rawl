@@ -7,7 +7,7 @@ service cloud.firestore {
       allow create: if request.auth != null && request.auth.uid == request.resource.data.userId;
     }
     match /songData/{songDataId} {
-      allow read, elete: if request.auth != null && request.auth.uid == resource.data.userId;
+      allow read, delete: if request.auth != null && request.auth.uid == resource.data.userId;
       allow update: if request.auth != null && request.auth.uid == resource.data.userId && !('uid' in request.writeFields);
       allow create: if request.auth != null && request.auth.uid == request.resource.data.userId;
     }

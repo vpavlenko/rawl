@@ -7,8 +7,8 @@ import { ArrangeSelection } from "../../common/selection/ArrangeSelection"
 import { isNoteEvent } from "../../common/track"
 import { NoteCoordTransform } from "../../common/transform"
 import { ArrangeCoordTransform } from "../../common/transform/ArrangeCoordTransform"
-import { BAR_WIDTH } from "../components/inputs/ScrollBar"
 import { Layout } from "../Constants"
+import { BAR_WIDTH } from "../components/inputs/ScrollBar"
 import RootStore from "./RootStore"
 import { RulerStore } from "./RulerStore"
 
@@ -40,6 +40,7 @@ export default class ArrangeViewStore {
       scaleX: observable,
       scaleY: observable,
       selection: observable.shallow,
+      selectedEventIds: observable,
       autoScroll: observable,
       quantize: observable,
       scrollLeftTicks: observable,

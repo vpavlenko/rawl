@@ -10,10 +10,10 @@ import { Action } from "./KeyboardShortcut"
 export const controlPaneKeyboardShortcutActions = (
   rootStore: RootStore
 ): Action[] => [
-  { code: "Escape", run: resetControlSelection(rootStore) },
-  { code: "Backspace", run: deleteControlSelection(rootStore) },
-  { code: "Delete", run: deleteControlSelection(rootStore) },
-  { code: "KeyC", metaKey: true, run: copyControlSelection(rootStore) },
+  { code: "Escape", run: () => resetControlSelection(rootStore)() },
+  { code: "Backspace", run: () => deleteControlSelection(rootStore)() },
+  { code: "Delete", run: () => deleteControlSelection(rootStore)() },
+  { code: "KeyC", metaKey: true, run: () => copyControlSelection(rootStore)() },
   {
     code: "KeyX",
     metaKey: true,
@@ -22,5 +22,9 @@ export const controlPaneKeyboardShortcutActions = (
       deleteControlSelection(rootStore)()
     },
   },
-  { code: "KeyD", metaKey: true, run: duplicateControlSelection(rootStore) },
+  {
+    code: "KeyD",
+    metaKey: true,
+    run: () => duplicateControlSelection(rootStore)(),
+  },
 ]

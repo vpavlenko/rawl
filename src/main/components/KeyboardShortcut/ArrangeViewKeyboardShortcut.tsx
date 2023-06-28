@@ -17,9 +17,9 @@ export const ArrangeViewKeyboardShortcut: FC = () => {
   return (
     <KeyboardShortcut
       actions={[
-        { code: "Escape", run: arrangeResetSelection(rootStore) },
-        { code: "Delete", run: arrangeDeleteSelection(rootStore) },
-        { code: "Backspace", run: arrangeDeleteSelection(rootStore) },
+        { code: "Escape", run: () => arrangeResetSelection(rootStore)() },
+        { code: "Delete", run: () => arrangeDeleteSelection(rootStore)() },
+        { code: "Backspace", run: () => arrangeDeleteSelection(rootStore)() },
         {
           code: "ArrowUp",
           metaKey: true,
@@ -39,12 +39,8 @@ export const ArrangeViewKeyboardShortcut: FC = () => {
         arrangeCopySelection(rootStore)()
         arrangeDeleteSelection(rootStore)()
       }}
-      onCopy={() => {
-        arrangeCopySelection(rootStore)()
-      }}
-      onPaste={() => {
-        arrangePasteSelection(rootStore)()
-      }}
+      onCopy={() => arrangeCopySelection(rootStore)()}
+      onPaste={() => arrangePasteSelection(rootStore)()}
     />
   )
 }

@@ -2,6 +2,7 @@ import {
   addDoc,
   Bytes,
   collection,
+  deleteDoc,
   DocumentReference,
   FirestoreDataConverter,
   getDoc,
@@ -131,6 +132,16 @@ export const updateSong = async (song: Song) => {
   })
 
   song.isSaved = true
+}
+
+export const deleteSong = async (
+  song: QueryDocumentSnapshot<FirestoreSong>
+) => {
+  if (auth.currentUser === null) {
+    throw new Error("You must be logged in to save songs to the cloud")
+  }
+  await deleteDoc(song.data().dataRef)
+  await deleteDoc(song.ref)
 }
 
 export const getCurrentUserSongs = async () => {

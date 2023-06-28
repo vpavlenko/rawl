@@ -19,7 +19,7 @@ export const pianoNotesKeyboardShortcutActions = (
   {
     code: "KeyC",
     metaKey: true,
-    run: copySelection(rootStore),
+    run: () => copySelection(rootStore)(),
   },
   {
     code: "KeyX",
@@ -32,30 +32,30 @@ export const pianoNotesKeyboardShortcutActions = (
   {
     code: "KeyV",
     metaKey: true,
-    run: pasteSelection(rootStore),
+    run: () => pasteSelection(rootStore)(),
   },
   {
     code: "KeyD",
     metaKey: true,
-    run: duplicateSelection(rootStore),
+    run: () => duplicateSelection(rootStore)(),
   },
   {
     code: "KeyA",
     metaKey: true,
-    run: selectAllNotes(rootStore),
+    run: () => selectAllNotes(rootStore)(),
   },
   {
     code: "KeyQ",
-    run: quantizeSelectedNotes(rootStore),
+    run: () => quantizeSelectedNotes(rootStore)(),
   },
   {
     code: "KeyT",
     run: () => (rootStore.pianoRollStore.openTransposeDialog = true),
   },
-  { code: "Delete", run: deleteSelection(rootStore) },
+  { code: "Delete", run: () => deleteSelection(rootStore)() },
   {
     code: "Backspace",
-    run: deleteSelection(rootStore),
+    run: () => deleteSelection(rootStore)(),
   },
   {
     code: "ArrowUp",
@@ -85,5 +85,5 @@ export const pianoNotesKeyboardShortcutActions = (
     run: selectPreviousNote(rootStore),
     enabled: () => rootStore.pianoRollStore.mouseMode == "pencil",
   },
-  { code: "Escape", run: resetSelection(rootStore) },
+  { code: "Escape", run: () => resetSelection(rootStore)() },
 ]

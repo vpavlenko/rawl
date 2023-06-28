@@ -96,6 +96,8 @@ export default {
     paste: "ペースト",
     duplicate: "複製",
     delete: "削除",
+    "song-deleted": "曲を削除しました",
+    "song-delete-failed": "曲の削除に失敗しました",
     "select-note": "ノートを選択",
     "scroll-horizontally": "左右にスクロール",
     "scroll-vertically": "上下にスクロール",

@@ -1,7 +1,12 @@
 import { QueryDocumentSnapshot } from "@firebase/firestore"
 import { orderBy } from "lodash"
 import { computed, makeObservable, observable } from "mobx"
-import { FirestoreSong, getCurrentUserSongs } from "../../firebase/song"
+import {
+  FirestoreSong,
+  deleteSong,
+  getCurrentUserSongs,
+} from "../../firebase/song"
+import RootStore from "./RootStore"
 
 export class CloudFileStore {
   isLoading = false
@@ -10,7 +15,7 @@ export class CloudFileStore {
   sortAscending = false
   _files: QueryDocumentSnapshot<FirestoreSong>[] = []
 
-  constructor() {
+  constructor(private readonly rootStore: RootStore) {
     makeObservable(this, {
       isLoading: observable,
       selectedColumn: observable,
@@ -47,5 +52,14 @@ export class CloudFileStore {
       },
       this.sortAscending ? "asc" : "desc"
     )
+  }
+
+  async deleteSong(song: QueryDocumentSnapshot<FirestoreSong>) {
+    await deleteSong(song)
+    if (this.rootStore.song.firestoreReference?.id === song.id) {
+      this.rootStore.song.firestoreReference = null
+      this.rootStore.song.firestoreDataReference = null
+    }
+    await this.load()
   }
 }

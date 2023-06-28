@@ -49,24 +49,34 @@ export const GlobalKeyboardShortcut: FC = () => {
   return (
     <KeyboardShortcut
       actions={[
-        { code: "Space", run: playOrPause(rootStore) },
-        { code: "KeyZ", metaKey: true, shiftKey: true, run: redo(rootStore) },
-        { code: "KeyZ", metaKey: true, shiftKey: false, run: undo(rootStore) },
-        { code: "KeyY", metaKey: true, run: redo(rootStore) },
+        { code: "Space", run: () => playOrPause(rootStore)() },
+        {
+          code: "KeyZ",
+          metaKey: true,
+          shiftKey: true,
+          run: () => redo(rootStore)(),
+        },
+        {
+          code: "KeyZ",
+          metaKey: true,
+          shiftKey: false,
+          run: () => undo(rootStore)(),
+        },
+        { code: "KeyY", metaKey: true, run: () => redo(rootStore)() },
         {
           // Press ?
           code: "Slash",
           shiftKey: true,
           run: () => (rootViewStore.openHelp = true),
         },
-        { code: "Enter", run: stop(rootStore) },
-        { code: "KeyA", run: rewindOneBar(rootStore) },
-        { code: "KeyD", run: fastForwardOneBar(rootStore) },
-        { code: "KeyS", run: nextTrack(rootStore) },
-        { code: "KeyW", run: previousTrack(rootStore) },
-        { code: "KeyN", run: toggleSolo(rootStore) },
-        { code: "KeyM", run: toggleMute(rootStore) },
-        { code: "Comma", run: toggleGhost(rootStore) },
+        { code: "Enter", run: () => stop(rootStore)() },
+        { code: "KeyA", run: () => rewindOneBar(rootStore)() },
+        { code: "KeyD", run: () => fastForwardOneBar(rootStore)() },
+        { code: "KeyS", run: () => nextTrack(rootStore)() },
+        { code: "KeyW", run: () => previousTrack(rootStore)() },
+        { code: "KeyN", run: () => toggleSolo(rootStore)() },
+        { code: "KeyM", run: () => toggleMute(rootStore)() },
+        { code: "Comma", run: () => toggleGhost(rootStore)() },
         {
           code: "Digit1",
           metaKey: true,

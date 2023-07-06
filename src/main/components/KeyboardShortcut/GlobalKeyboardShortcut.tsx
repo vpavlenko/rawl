@@ -8,6 +8,7 @@ import {
   stop,
   toggleGhost,
   toggleMute,
+  toggleRecording,
   toggleSolo,
 } from "../../actions"
 import { redo, undo } from "../../actions/history"
@@ -76,6 +77,7 @@ export const GlobalKeyboardShortcut: FC = () => {
         { code: "KeyW", run: () => previousTrack(rootStore)() },
         { code: "KeyN", run: () => toggleSolo(rootStore)() },
         { code: "KeyM", run: () => toggleMute(rootStore)() },
+        { code: "KeyR", run: () => toggleRecording(rootStore)() },
         { code: "Comma", run: () => toggleGhost(rootStore)() },
         {
           code: "Digit1",

@@ -86,6 +86,14 @@ export const HelpDialog: FC = observer(() => {
           }
         />
         <HotKey
+          hotKeys={[["R"]]}
+          text={
+            <Localized default="Start / Stop Recording">
+              start-stop-recording
+            </Localized>
+          }
+        />
+        <HotKey
           hotKeys={[["S"], ["W"]]}
           text={
             <Localized default="Next / Previous Track">

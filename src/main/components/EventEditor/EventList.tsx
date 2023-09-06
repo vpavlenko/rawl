@@ -2,7 +2,7 @@ import styled from "@emotion/styled"
 import useComponentSize from "@rehooks/component-size"
 import { isEqual } from "lodash"
 import { observer } from "mobx-react-lite"
-import React, { FC, useCallback, useRef, useState } from "react"
+import React, { FC, useCallback, useMemo, useRef, useState } from "react"
 import { FixedSizeList, ListChildComponentProps } from "react-window"
 import { TrackEvent } from "../../../common/track"
 import { Localized } from "../../../components/Localized"
@@ -14,16 +14,22 @@ const Container = styled.div`
   width: 100%;
   height: 100%;
 `
-
+  
 const EventList: FC = observer(() => {
   const rootStore = useStores()
   const {
-    pianoRollStore: { selectedTrack },
+    pianoRollStore: { selectedTrack , selectedNoteIds: selectedEventIds = [] },
   } = rootStore
 
-  const events = [...(selectedTrack?.events ?? [])]
-  const [selectedEventIds, setSelectedEventIds] = useState<number[]>([])
 
+  const events = useMemo(()=>{
+    const { events = [] } = selectedTrack || {};
+    if( selectedEventIds.length > 0 ){
+      return events.filter(event => selectedEventIds.indexOf(event.id) >= 0);
+    } 
+    return events;
+  }, [selectedTrack?.events, selectedEventIds ]);
+  
   const ref = useRef<HTMLDivElement>(null)
   const size = useComponentSize(ref)
 
@@ -50,7 +56,7 @@ const EventList: FC = observer(() => {
         itemCount={events.length}
         itemSize={35}
         width={size.width}
-        itemData={{ events, selectedEventIds, setSelectedEventIds }}
+        itemData={{ events }}
         itemKey={(index) => events[index].id}
       >
         {ItemRenderer}
@@ -60,14 +66,14 @@ const EventList: FC = observer(() => {
 })
 
 const ItemRenderer = ({ index, style, data }: ListChildComponentProps) => {
-  const { events, selectedEventIds, setSelectedEventIds } = data
+  const { events, selectedEventIds = [], setSelectedEventIds } = data
   const e = events[index]
 
   const onClickRow = useCallback((e: React.MouseEvent, ev: TrackEvent) => {
     if (e.ctrlKey || e.metaKey) {
-      setSelectedEventIds((ids: number[]) => [...ids, ev.id])
+      setSelectedEventIds?.((ids: number[]) => [...ids, ev.id])
     } else {
-      setSelectedEventIds([ev.id])
+      setSelectedEventIds?.([ev.id])
     }
   }, [])
 

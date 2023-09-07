@@ -14,22 +14,21 @@ const Container = styled.div`
   width: 100%;
   height: 100%;
 `
-  
+
 const EventList: FC = observer(() => {
   const rootStore = useStores()
   const {
-    pianoRollStore: { selectedTrack , selectedNoteIds: selectedEventIds = [] },
+    pianoRollStore: { selectedTrack, selectedNoteIds: selectedEventIds = [] },
   } = rootStore
 
+  const events = useMemo(() => {
+    const { events = [] } = selectedTrack || {}
+    if (selectedEventIds.length > 0) {
+      return events.filter((event) => selectedEventIds.indexOf(event.id) >= 0)
+    }
+    return events
+  }, [selectedTrack?.events, selectedEventIds])
 
-  const events = useMemo(()=>{
-    const { events = [] } = selectedTrack || {};
-    if( selectedEventIds.length > 0 ){
-      return events.filter(event => selectedEventIds.indexOf(event.id) >= 0);
-    } 
-    return events;
-  }, [selectedTrack?.events, selectedEventIds ]);
-  
   const ref = useRef<HTMLDivElement>(null)
   const size = useComponentSize(ref)
 

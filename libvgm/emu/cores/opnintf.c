@@ -68,6 +68,7 @@ static DEV_DEF devDef_MAME_2203 =
 	ym2203_set_srchg_cb,	// SetSampleRateChangeCallback
 	ym2203_set_log_cb,	// SetLoggingCallback
 	device_ym2203_link_ssg,	// LinkDevice
+	NULL,   // GetChipState
 	
 	devFunc_MAME_2203,	// rwFuncs
 };
@@ -104,6 +105,7 @@ static DEV_DEF devDef_MAME_2608 =
 	ym2608_set_srchg_cb,	// SetSampleRateChangeCallback
 	ym2608_set_log_cb,	// SetLoggingCallback
 	device_ym2608_link_ssg,	// LinkDevice
+	NULL,   // GetChipState
 	
 	devFunc_MAME_2608,	// rwFuncs
 };
@@ -142,6 +144,7 @@ static DEV_DEF devDef_MAME_2610 =
 	NULL,	// SetSampleRateChangeCallback (not required, the YM2610 lacks the "prescaler" register)
 	ym2610_set_log_cb,	// SetLoggingCallback
 	device_ym2610_link_ssg,	// LinkDevice
+	NULL,   // GetChipState
 	
 	devFunc_MAME_2610,	// rwFuncs
 };
@@ -160,6 +163,7 @@ static DEV_DEF devDef_MAME_2610B =
 	NULL,	// SetSampleRateChangeCallback (not required, the YM2610 lacks the "prescaler" register)
 	ym2610_set_log_cb,	// SetLoggingCallback
 	device_ym2610_link_ssg,	// LinkDevice
+	NULL,   // GetChipState
 	
 	devFunc_MAME_2610,	// rwFuncs
 };

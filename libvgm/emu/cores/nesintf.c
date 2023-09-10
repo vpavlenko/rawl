@@ -52,6 +52,7 @@ static void nes_set_mute_mask_mame(void* chip, UINT32 MuteMask);
 static void nes_set_pan_mame(void* chipptr, const INT16* PanVals);
 static void nes_set_mute_mask_nsfplay(void* chip, UINT32 MuteMask);
 static void nes_set_pan_nsfplay(void* chip, const INT16* PanVals);
+static const char* nes_get_chip_state(void* chip);
 
 
 #ifdef EC_NES_MAME
@@ -79,6 +80,7 @@ static DEV_DEF devDef_MAME =
 	NULL,	// SetSampleRateChangeCallback
 	NULL,	// SetLoggingCallback
 	NULL,	// LinkDevice
+	NULL,   // GetChipState
 	
 	devFunc_MAME,	// rwFuncs
 };
@@ -108,6 +110,7 @@ static DEV_DEF devDef_NSFPlay =
 	NULL,	// SetSampleRateChangeCallback
 	NULL,	// SetLoggingCallback
 	NULL,	// LinkDevice
+	nes_get_chip_state,   // GetChipState
 	
 	devFunc_NSFPlay,	// rwFuncs
 };
@@ -616,6 +619,15 @@ static void nes_set_mute_mask_nsfplay(void* chip, UINT32 MuteMask)
 	
 	return;
 }
+
+#ifdef EC_NES_NSFPLAY
+static const char* nes_get_chip_state(void* chip)
+{
+	NESAPU_INF* info = (NESAPU_INF*)chip;
+
+	return NES_APU_np_GetChipState(info->chip_apu);
+}
+#endif
 
 static void nes_set_pan_nsfplay(void* chip, const INT16* PanVals)
 {

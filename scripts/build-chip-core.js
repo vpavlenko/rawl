@@ -271,6 +271,7 @@ const chipModules = [
       '_lvgm_set_playback_speed',
       '_lvgm_get_playback_speed',
       '_lvgm_reset',
+      '_lvgm_get_chip_state',
     ],
     flags: [],
   },

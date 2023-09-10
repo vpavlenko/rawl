@@ -106,3 +106,8 @@ UINT32 PlayerBase::GetTotalPlayTicks(UINT32 numLoops) const
 		return (UINT32)-1;
 	return GetTotalTicks() + GetLoopTicks() * (numLoops - 1);
 }
+
+const char* PlayerBase::GetChipState(UINT32 id) const 
+{
+	return "null";
+}

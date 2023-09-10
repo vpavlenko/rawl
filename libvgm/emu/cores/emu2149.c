@@ -70,6 +70,7 @@ DEV_DEF devDef_YM2149_Emu =
 	NULL,	// SetSampleRateChangeCallback
 	NULL,	// SetLoggingCallback
 	NULL,	// LinkDevice
+	NULL,   // GetChipState
 	
 	devFunc,	// rwFuncs
 };

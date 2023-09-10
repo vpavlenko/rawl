@@ -307,6 +307,25 @@ const char* lvgm_get_voice_name(lvgm_player *player, UINT8 index) {
   return voices[index].name.c_str();
 }
 
+const char* lvgm_get_chip_state(lvgm_player *player) {
+  PlayerA* playerA = real(player);
+  PlayerBase* base = playerA->GetPlayer();
+  if (base == nullptr) return "base == nullptr";
+
+  static std::string result;
+  result = "{";
+  for (auto it = chips.begin(); it != chips.end(); ++it) {
+    const auto& chip = *it;
+    result += '"' + chip.name + '"' + ": ";
+    result += base->GetChipState(chip.idx);
+    if (std::next(it) != chips.end()) {
+      result += ", ";
+    }
+  }
+  result += "}";
+  return result.c_str();
+}
+
 void lvgm_set_voice_mask(lvgm_player *player, UINT64 mask) {
   PlayerA* playerA = real(player);
   PlayerBase* base = playerA->GetPlayer();

@@ -1177,7 +1177,7 @@ void VGMPlayer::GenerateDeviceConfig(void)
 			SONG_DEV_CFG sdCfg;
 			UINT8 chipType = _DEV_LIST[vgmChip];
 			UINT32 hdrClock = GetChipClock(vgmChip, chipID);
-			
+
 			memset(&devCfg, 0x00, sizeof(DEV_GEN_CFG));
 			devCfg.clock = hdrClock & ~0xC0000000;
 			devCfg.flags = (hdrClock & 0x80000000) >> 31;
@@ -1894,4 +1894,35 @@ void VGMPlayer::ParseFileForFMClocks()
 			break;
 		}
 	}
+}
+
+const char* VGMPlayer::GetChipState(UINT32 id) const
+{
+	size_t optID = DeviceID2OptionID(id);
+	if (optID == (size_t)-1)
+		return NULL;	// bad device ID
+	
+	size_t devID = _optDevMap[optID];
+	if (devID < _devices.size())
+		return GetChipStateForDevice(_devices[devID]);
+
+	return NULL;
+}
+
+const char* VGMPlayer::GetChipStateForDevice(const VGMPlayer::CHIP_DEVICE& chipDev) const
+{
+	const VGM_BASEDEV* clDev;
+	UINT8 linkCntr = 0;
+	static std::string result;
+	result = "[";
+
+	for (clDev = &chipDev.base; clDev != NULL && linkCntr < 2; clDev = clDev->linkDev, linkCntr ++)
+	{
+		const DEV_INFO* devInf = &clDev->defInf;
+		if (devInf->dataPtr != NULL && devInf->devDef->GetChipState != NULL)
+			result += devInf->devDef->GetChipState(devInf->dataPtr);
+	}
+	
+	result += "]";
+	return result.c_str();
 }

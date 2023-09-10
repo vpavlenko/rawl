@@ -63,6 +63,7 @@ DEV_DEF devDef_YM2151_Nuked =
 	NULL,	// SetSampleRateChangeCallback
 	NULL,	// SetLoggingCallback
 	NULL,	// LinkDevice
+	NULL,   // GetChipState
 	
 	devFunc,	// rwFuncs
 };

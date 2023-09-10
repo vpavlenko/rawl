@@ -105,6 +105,7 @@ static DEV_DEF devDef =
 	NULL,	// SetSampleRateChangeCallback
 	k053260_set_log_cb,	// SetLoggingCallback
 	NULL,	// LinkDevice
+	NULL,   // GetChipState
 	
 	devFunc,	// rwFuncs
 };

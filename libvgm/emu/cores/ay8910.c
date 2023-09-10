@@ -572,6 +572,7 @@ DEV_DEF devDef_AY8910_MAME =
 	ay8910_set_srchg_cb,	// SetSampleRateChangeCallback
 	ay8910_set_log_cb,	// SetLoggingCallback
 	NULL,	// LinkDevice
+	NULL,   // GetChipState
 	
 	devFunc,	// rwFuncs
 };

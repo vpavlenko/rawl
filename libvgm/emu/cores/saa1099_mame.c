@@ -114,6 +114,7 @@ DEV_DEF devDef_SAA1099_MAME =
 	NULL,	// SetSampleRateChangeCallback
 	saa1099m_set_log_cb,	// SetLoggingCallback
 	NULL,	// LinkDevice
+	NULL,   // GetChipState
 	
 	devFunc,	// rwFuncs
 };

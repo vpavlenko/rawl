@@ -81,6 +81,7 @@ DEV_DEF devDef_QSound_MAME =
 	NULL,	// SetSampleRateChangeCallback
 	qsound_set_log_cb,	// SetLoggingCallback
 	NULL,	// LinkDevice
+	NULL,   // GetChipState
 	
 	devFunc,	// rwFuncs
 };

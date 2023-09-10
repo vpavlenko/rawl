@@ -3,6 +3,7 @@ import autoBind from 'auto-bind';
 import { allOrNone } from '../util';
 
 const fileExtensions = [
+  'nsf',
   'vgm',
   'vgz',
   'gym',
@@ -22,6 +23,7 @@ export default class VGMPlayer extends Player {
     this.fileExtensions = fileExtensions;
     this.buffer = this.core._malloc(this.bufferSize * 4 * 2);
     this.vgmCtx = this.core._lvgm_init(this.sampleRate);
+    console.log('VPDBG: VGMPlayer start');
   }
 
   loadData(data, filename) {
@@ -149,6 +151,9 @@ export default class VGMPlayer extends Player {
 
   setVoiceMask(voiceMask) {
     if (this.vgmCtx) {
+      setInterval(() => {
+        console.log('_lvgm_get_chip_state: ', this.core.UTF8ToString(this.core._lvgm_get_chip_state(this.vgmCtx)))
+      }, 1000);
       let bitmask = 0n;
       voiceMask.forEach((isEnabled, i) => {
         if (!isEnabled) {

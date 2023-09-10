@@ -85,6 +85,7 @@ static DEV_DEF devDef =
 	es5503_set_srchg_cb,	// SetSampleRateChangeCallback
 	NULL,	// SetLoggingCallback
 	NULL,	// LinkDevice
+	NULL,   // GetChipState
 	
 	devFunc,	// rwFuncs
 };

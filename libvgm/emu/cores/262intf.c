@@ -49,6 +49,7 @@ static DEV_DEF devDef262_MAME =
 	NULL,	// SetSampleRateChangeCallback
 	ymf262_set_log_cb,	// SetLoggingCallback
 	NULL,	// LinkDevice
+	NULL,   // GetChipState
 	
 	devFunc262_MAME,	// rwFuncs
 };
@@ -78,6 +79,7 @@ static DEV_DEF devDef262_AdLibEmu =
 	NULL,	// SetSampleRateChangeCallback
 	NULL,	// SetLoggingCallback
 	NULL,	// LinkDevice
+	NULL,   // GetChipState
 	
 	devFunc262_Emu,	// rwFuncs
 };
@@ -107,6 +109,7 @@ static DEV_DEF devDef262_Nuked =
 	NULL,	// SetSampleRateChangeCallback
 	NULL,	// SetLoggingCallback
 	NULL,	// LinkDevice
+	NULL,   // GetChipState
 	
 	devFunc262_Nuked,	// rwFuncs
 };

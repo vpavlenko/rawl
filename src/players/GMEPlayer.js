@@ -15,7 +15,6 @@ const TIMESLICED_SEEK_MS_MAP = {
   '.vgz': 10000,
 };
 const fileExtensions = [
-  'nsf',
   'nsfe',
   'spc',
   'ay',

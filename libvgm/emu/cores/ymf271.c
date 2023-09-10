@@ -80,6 +80,7 @@ static DEV_DEF devDef =
 	NULL,	// SetSampleRateChangeCallback
 	ymf271_set_log_cb,	// SetLoggingCallback
 	NULL,	// LinkDevice
+	NULL,   // GetChipState
 	
 	devFunc,	// rwFuncs
 };

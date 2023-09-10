@@ -56,6 +56,7 @@ static DEV_DEF devDef3812_MAME =
 	NULL,	// SetSampleRateChangeCallback
 	opl_set_log_cb,	// SetLoggingCallback
 	NULL,	// LinkDevice
+	NULL,   // GetChipState
 	
 	devFunc3812_MAME,	// rwFuncs
 };
@@ -83,6 +84,7 @@ static DEV_DEF devDef3812_AdLibEmu =
 	NULL,	// SetSampleRateChangeCallback
 	NULL,	// SetLoggingCallback
 	NULL,	// LinkDevice
+	NULL,   // GetChipState
 	
 	devFunc3812_Emu,	// rwFuncs
 };
@@ -110,6 +112,7 @@ static DEV_DEF devDef3812_Nuked =
 	NULL,	// SetSampleRateChangeCallback
 	NULL,	// SetLoggingCallback
 	NULL,	// LinkDevice
+	NULL,   // GetChipState
 	
 	devFunc3812_Nuked,	// rwFuncs
 };
@@ -155,6 +158,7 @@ static DEV_DEF devDef3526_MAME =
 	NULL,	// SetSampleRateChangeCallback
 	opl_set_log_cb,	// SetLoggingCallback
 	NULL,	// LinkDevice
+	NULL,   // GetChipState
 	
 	devFunc3526_MAME,	// rwFuncs
 };
@@ -192,6 +196,7 @@ static DEV_DEF devDef8950_MAME =
 	NULL,	// SetSampleRateChangeCallback
 	opl_set_log_cb,	// SetLoggingCallback
 	NULL,	// LinkDevice
+	NULL,   // GetChipState
 	
 	devFunc8950_MAME,	// rwFuncs
 };

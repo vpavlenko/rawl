@@ -68,6 +68,7 @@ static DEV_DEF devDef =
 	okim6258_set_srchg_cb,	// SetSampleRateChangeCallback
 	okim6258_set_log_cb,	// SetLoggingCallback
 	NULL,	// LinkDevice
+	NULL,   // GetChipState
 	
 	devFunc,	// rwFuncs
 };

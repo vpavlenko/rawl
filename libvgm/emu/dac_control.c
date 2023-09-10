@@ -41,6 +41,7 @@ static DEV_DEF devDef_DAC =
 	NULL,	// SetSampleRateChangeCallback
 	NULL,	// SetLoggingCallback
 	NULL,	// LinkDevice
+	NULL,   // GetChipState
 	
 	NULL,	// rwFuncs
 };

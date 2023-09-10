@@ -90,6 +90,7 @@ static DEV_DEF devDef =
 	NULL,	// SetSampleRateChangeCallback
 	scsp_set_log_cb,	// SetLoggingCallback
 	NULL,	// LinkDevice
+	NULL,   // GetChipState
 	
 	devFunc,	// rwFuncs
 };

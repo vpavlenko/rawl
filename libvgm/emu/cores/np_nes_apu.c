@@ -7,6 +7,7 @@
 // (Note: Encoding is UTF-8)
 
 #include <stdlib.h>
+#include <stdio.h>
 #include <stddef.h>	// for NULL
 
 #include "../../stdtype.h"
@@ -506,4 +507,16 @@ bool NES_APU_np_Write(void* chip, UINT16 adr, UINT8 val)
 	//}
 
 	return false;
+}
+
+const char* NES_APU_np_GetChipState(void* chip)
+{
+	static char result[200];
+	NES_APU* apu = (NES_APU*)chip;
+	sprintf(
+		result, 
+		"{\"freq0\":%d,\"freq1\":%d,\"sfreq0\":%d,\"sfreq1\":%d,\"duty0\":%d,\"duty1\":%d}",
+		apu->freq[0], apu->freq[1], apu->sfreq[0], apu->sfreq[1], apu->duty[0], apu->duty[1]
+	);
+	return result;
 }

@@ -145,7 +145,8 @@ public:
 	virtual UINT32 GetTotalTicks(void) const = 0;	// get time for playing once in ticks
 	virtual UINT32 GetLoopTicks(void) const = 0;	// get time for one loop in ticks
 	virtual UINT32 GetTotalPlayTicks(UINT32 numLoops) const;	// get time for playing + looping (without fading)
-	
+	virtual const char* GetChipState(UINT32 id) const;
+
 	virtual UINT8 Start(void) = 0;
 	virtual UINT8 Stop(void) = 0;
 	virtual UINT8 Reset(void) = 0;

@@ -93,6 +93,7 @@ static DEV_DEF devDef =
 	NULL,	// SetSampleRateChangeCallback
 	iremga20_set_log_cb,	// SetLoggingCallback
 	NULL,	// LinkDevice
+	NULL,   // GetChipState
 	
 	devFunc,	// rwFuncs
 };

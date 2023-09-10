@@ -186,6 +186,7 @@ DEV_DEF devDef_SN76496_MAME =
 	NULL,	// SetSampleRateChangeCallback
 	sn76496_set_log_cb,	// SetLoggingCallback
 	NULL,	// LinkDevice
+	NULL,   // GetChipState
 	
 	devFunc,	// rwFuncs
 };

@@ -181,7 +181,9 @@ public:
 	UINT32 GetTotalTicks(void) const;	// get time for playing once in ticks
 	UINT32 GetLoopTicks(void) const;	// get time for one loop in ticks
 	//UINT32 GetTotalPlayTicks(UINT32 numLoops) const;	// get time for playing + looping (without fading)
-	
+	const char* GetChipState(UINT32 id) const;
+	const char* GetChipStateForDevice(const VGMPlayer::CHIP_DEVICE& chipDev) const;
+
 	UINT32 GetModifiedLoopCount(UINT32 defaultLoops) const;	// get loop count, modified according to LoopModified/LoopBase header
 	const std::vector<DACSTRM_DEV>& GetStreamDevInfo(void) const;
 	

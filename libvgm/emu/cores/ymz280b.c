@@ -81,6 +81,7 @@ static DEV_DEF devDef =
 	NULL,	// SetSampleRateChangeCallback
 	ymz280b_set_log_cb,	// SetLoggingCallback
 	NULL,	// LinkDevice
+	NULL,   // GetChipState
 	
 	devFunc,	// rwFuncs
 };

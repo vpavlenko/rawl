@@ -44,6 +44,7 @@ typedef void (*DEVFUNC_WRITE_BLOCK)(void* info, UINT32 offset, UINT32 length, co
 typedef void (*DEVFUNC_WRITE_CLOCK)(void* info, UINT32 clock);
 typedef void (*DEVFUNC_WRITE_VOLUME)(void* info, INT32 volume);	// 16.16 fixed point
 typedef void (*DEVFUNC_WRITE_VOL_LR)(void* info, INT32 volL, INT32 volR);
+typedef const char* (*DEVFUNC_GETCHIPSTATE)(void *info);
 
 #define RWF_WRITE		0x00
 #define RWF_READ		0x01
@@ -103,6 +104,7 @@ struct _device_definition
 	DEVFUNC_SRCCB SetSRateChgCB;	// used to set callback function for realtime sample rate changes
 	DEVFUNC_SETLOGCB SetLogCB;		// set callback for logging
 	DEVFUNC_LINKDEV LinkDevice;		// used to link multiple devices together
+	DEVFUNC_GETCHIPSTATE GetChipState;     // used to get oscillator parameters for pitch visualization
 	
 	const DEVDEF_RWFUNC* rwFuncs;	// terminated by (funcPtr == NULL)
 };	// DEV_DEF

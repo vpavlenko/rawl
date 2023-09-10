@@ -23,6 +23,7 @@
 
 #include <stdlib.h>	// for calloc()
 #include <stddef.h>	// for NULL
+#include <stdio.h>
 #define _USE_MATH_DEFINES
 #include <math.h>
 
@@ -2680,6 +2681,43 @@ void YM2612_DacAndTimers_Update(ym2612_ *YM2612, DEV_SMPL **buffer, UINT32 lengt
 #endif
     }
   }
+}
+
+double computeFrequency(unsigned char highByte, unsigned char lowByte) {
+    // Extract BLK and FREQ from the high and low bytes
+    unsigned char BLK = (highByte >> 2) & 0x07;  // Extract bits 2-4
+    unsigned int FREQ = ((highByte & 0x07) << 8) | lowByte;  // Combine the top 3 bits of highByte with lowByte
+
+    // Compute the frequency
+    return 644.0 * (FREQ / 1024.0) * (1 << BLK);
+}
+
+const char* YM2612_GetChipState(ym2612_ *YM2612)
+{
+    static char buffer[1024]; // Assumes the final JSON string will fit in this buffer
+
+    // Extract BLK and FREQ values for each channel
+    int blocks[6];
+    int freqs[6];
+    for (int i = 0; i < 6; i++) {
+        blocks[i] = YM2612->CHANNEL[i].FOCT[0]; // FOCT corresponds to BLK
+        freqs[i] = YM2612->CHANNEL[i].FNUM[0];  // FNUM corresponds to FREQ
+    }
+
+    // Generate JSON string
+    snprintf(buffer, sizeof(buffer), 
+        "{\"channels\": ["
+        "{\"ch1_blk\": %d, \"ch1_freq\": %d},"
+        "{\"ch2_blk\": %d, \"ch2_freq\": %d},"
+        "{\"ch3_blk\": %d, \"ch3_freq\": %d},"
+        "{\"ch4_blk\": %d, \"ch4_freq\": %d},"
+        "{\"ch5_blk\": %d, \"ch5_freq\": %d},"
+        "{\"ch6_blk\": %d, \"ch6_freq\": %d}"
+        "]}",
+        blocks[0], freqs[0], blocks[1], freqs[1], blocks[2], freqs[2], 
+        blocks[3], freqs[3], blocks[4], freqs[4], blocks[5], freqs[5]);
+
+    return buffer;
 }
 
 /* Gens */

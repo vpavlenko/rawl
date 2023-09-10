@@ -82,6 +82,7 @@ DEV_DEF devDef_YM2151_MAME =
 	NULL,	// SetSampleRateChangeCallback
 	NULL,	// SetLoggingCallback
 	NULL,	// LinkDevice
+	NULL,   // GetChipState
 	
 	devFunc_MAME,	// rwFuncs
 };

@@ -158,6 +158,7 @@
 #include <stdlib.h>
 #include <string.h>	// for memset
 #include <stddef.h>	// for NULL
+#include <stdio.h>
 #define _USE_MATH_DEFINES
 #include <math.h>
 
@@ -4809,5 +4810,25 @@ void ym2612_set_log_cb(void* chip, DEVCB_LOG func, void* param)
 	YM2612 *F2612 = (YM2612 *)chip;
 	dev_logger_set(&F2612->OPN.logger, F2612, func, param);
 	return;
+}
+
+const char* ym2612_get_chip_state(void* chip)
+{
+	YM2612 *F2612 = (YM2612 *)chip;
+    static char freqStr[6 * 30 + 1]; // Buffer increased to allow for extra details
+
+    // Fetch the block and fnum for each channel and sprintf them
+    sprintf(freqStr, 
+        "CH1: Block: %u, Fnum: %u; CH2: Block: %u, Fnum: %u; CH3: Block: %u, Fnum: %u; "
+        "CH4: Block: %u, Fnum: %u; CH5: Block: %u, Fnum: %u; CH6: Block: %u, Fnum: %u",
+        (F2612->CH[0].block_fnum >> 10) & 7, F2612->CH[0].block_fnum & 1023,
+        (F2612->CH[1].block_fnum >> 10) & 7, F2612->CH[1].block_fnum & 1023,
+        (F2612->CH[2].block_fnum >> 10) & 7, F2612->CH[2].block_fnum & 1023,
+        (F2612->CH[3].block_fnum >> 10) & 7, F2612->CH[3].block_fnum & 1023,
+        (F2612->CH[4].block_fnum >> 10) & 7, F2612->CH[4].block_fnum & 1023,
+        (F2612->CH[5].block_fnum >> 10) & 7, F2612->CH[5].block_fnum & 1023
+    );
+
+    return freqStr;
 }
 #endif /* (BUILD_YM2612) */

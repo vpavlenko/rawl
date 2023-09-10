@@ -13,5 +13,6 @@ void NES_APU_np_SetClock(void* chip, UINT32 clock);
 void NES_APU_np_SetOption(void* chip, int id, int b);
 void NES_APU_np_SetMask(void* chip, int m);
 void NES_APU_np_SetStereoMix(void* chip, int trk, INT16 mixl, INT16 mixr);
+const char* NES_APU_np_GetChipState(void* chip);
 
 #endif	// __NP_NES_APU_H__

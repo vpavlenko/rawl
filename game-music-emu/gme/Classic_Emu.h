@@ -49,6 +49,7 @@ public:
 	Classic_Emu();
 	~Classic_Emu();
 	virtual void set_buffer( Multi_Buffer* );
+	virtual const char* get_chip_state();
 
 protected:
 	virtual blargg_err_t set_sample_rate_( int sample_rate );

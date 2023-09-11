@@ -159,6 +159,8 @@ void gme_set_equalizer( gme_t*, gme_equalizer_t const* eq );
 /* stub to avoid ABI breakage, I think --Wyatt */
 void gme_enable_accuracy( gme_t*, int enabled );
 
+const char* gme_get_chip_state( gme_t* );
+
 /******** Effects processor ********/
 
 /* Adds stereo surround and echo to music that's usually mono or has little

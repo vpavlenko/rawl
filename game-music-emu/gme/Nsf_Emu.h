@@ -31,6 +31,7 @@ public:
 	Nsf_Emu();
 	~Nsf_Emu();
 	virtual void unload();
+	virtual const char* get_chip_state();
 
 protected:
 	virtual blargg_err_t track_info_( track_info_t*, int track ) const;

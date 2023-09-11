@@ -186,7 +186,33 @@ export default class GMEPlayer extends Player {
     return core._gme_start_track(this.gmeCtx, subtune);
   }
 
+  
   loadData(data, filepath) {
+    function frequencyToNoteName(frequency) {
+      const noteNames = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+      const A4 = 440;  // Reference frequency
+  
+      // Calculate the number of half-steps away from A4
+      let n = Math.round(12 * Math.log2(frequency / A4));
+  
+      // Determine the note name and octave
+      let index = (n + 9) % 12; // "+ 9" adjusts the offset for A being the reference note
+      let octave = 4 + Math.floor((n + 9) / 12);
+  
+      return noteNames[index] + octave;
+    }
+  
+    const K = 111720; // The established proportionality constant
+
+    function unitsToFrequency(units) {
+        return K / units;
+    }
+    
+    function unitsToNoteName(units) {
+        const frequency = unitsToFrequency(units);
+        return frequencyToNoteName(frequency);
+    }  
+
     this.subtune = 0;
     this.fadingOut = false;
     this.seekTargetMs = null;
@@ -208,6 +234,10 @@ export default class GMEPlayer extends Player {
       throw Error('gme_open_data failed');
     }
     this.gmeCtx = core.getValue(this.emuPtr, "i32");
+    setInterval(() => {
+      const units = JSON.parse(core.UTF8ToString(core._gme_get_chip_state(this.gmeCtx))).square1_period;
+      console.log(units, unitsToNoteName(units));
+    }, 50);
     this.voiceMask = Array(core._gme_voice_count(this.gmeCtx)).fill(true);
 
     // Enable silence detection

@@ -123,6 +123,8 @@ public:
 	
 	// Equalizer preset for a TV speaker
 	static equalizer_t const tv_eq;
+
+	virtual const char* get_chip_state();
 	
 // Derived interface
 protected:

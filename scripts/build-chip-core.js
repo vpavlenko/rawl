@@ -212,6 +212,7 @@ const chipModules = [
       '_gme_tell_scaled',
       '_gme_set_fade',
       '_gme_voice_name',
+      '_gme_get_chip_state',
     ],
     flags: [
       // '-DVGM_YM2612_MAME=1',  // fast and accurate, but suffers on some GYM files

@@ -1,5 +1,7 @@
 // Game_Music_Emu $vers. http://www.slack.net/~ant/
 
+#include <string>
+
 #include "Nsf_Emu.h"
 
 #if !NSF_EMU_APU_ONLY
@@ -343,4 +345,10 @@ blargg_err_t Nsf_Emu::hash_( Hash_Function& out ) const
 {
 	hash_nsf_file( header(), core_.rom_().begin(), core_.rom_().file_size(), out );
 	return blargg_ok;
+}
+
+const char* Nsf_Emu::get_chip_state() {
+	static std::string result;
+	result = "{\"square1_period\": " + std::to_string(this->core_.nes_apu()->square1.period()) + "}";
+	return result.c_str();
 }

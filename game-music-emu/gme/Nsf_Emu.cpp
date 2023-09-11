@@ -349,6 +349,9 @@ blargg_err_t Nsf_Emu::hash_( Hash_Function& out ) const
 
 const char* Nsf_Emu::get_chip_state() {
 	static std::string result;
-	result = "{\"square1_period\": " + std::to_string(this->core_.nes_apu()->square1.period()) + "}";
+	result = "{\"square1_period\": " + std::to_string(this->core_.nes_apu()->square1.period()) +
+		+ ", \"square1_volume\": " + std::to_string(this->core_.nes_apu()->square1.volume()) +
+		+ "}";
+	
 	return result.c_str();
 }

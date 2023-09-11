@@ -144,6 +144,7 @@ class App extends React.Component {
       directories: {},
       hasPlayer: false,
       paramDefs: [],
+      chiptheory: { p1: ['init'] },
     };
 
     this.initChipCore(audioCtx, playerNode, bufferSize);
@@ -174,6 +175,7 @@ class App extends React.Component {
     // Get debug from location.search
     const debug = queryString.parse(window.location.search.substring(1)).debug;
     // Create all the players. Players will set up IDBFS mount points.
+    const self = this;
     const players = [
       MIDIPlayer,
       GMEPlayer,
@@ -182,7 +184,7 @@ class App extends React.Component {
       N64Player,
       MDXPlayer,
       VGMPlayer,
-    ].map(P => new P(this.chipCore, audioCtx.sampleRate, bufferSize, debug));
+    ].map(P => new P(this.chipCore, audioCtx.sampleRate, bufferSize, debug, (chiptheory) => self.setState({ chiptheory })));
     this.midiPlayer = players[0];
 
     // Set up the central audio processing callback. This is where the magic happens.
@@ -441,7 +443,7 @@ class App extends React.Component {
         // TODO: move fetch metadata to Player when it becomes event emitter
         requestCache.fetchCached(metadataUrl).then(response => {
           const { imageUrl, infoTexts } = response;
-          const newInfoTexts = [ ...infoTexts, ...this.state.infoTexts ];
+          const newInfoTexts = [...infoTexts, ...this.state.infoTexts];
           this.setState({ imageUrl, infoTexts: newInfoTexts });
 
           if ('mediaSession' in navigator) {
@@ -692,152 +694,154 @@ class App extends React.Component {
         disableClick
         style={{}}
         onDrop={this.onDrop}>{dropzoneProps => (
-        <div className="App">
-          <DropMessage dropzoneProps={dropzoneProps}/>
-          <MessageBox showInfo={this.state.showInfo}
-                      infoTexts={this.state.infoTexts}
-                      toggleInfo={this.toggleInfo}/>
-          <Alert handlePlayerError={this.handlePlayerError}
-                 playerError={this.state.playerError}
-                 showPlayerError={this.state.showPlayerError}/>
-          <AppHeader user={this.state.user}
-                     handleLogout={this.handleLogout}
-                     handleLogin={this.handleLogin}
-                     isPhone={isMobile.phone}/>
-          <div className="App-main">
-            <div className="App-main-inner">
-              <div className="tab-container">
-                <NavLink className="tab" activeClassName="tab-selected" to={{ pathname: "/", ...search }}
-                         exact>Search</NavLink>
-                <NavLink className="tab" activeClassName="tab-selected"
-                         to={{ pathname: "/browse", ...search }}>Browse</NavLink>
-                <NavLink className="tab" activeClassName="tab-selected"
-                         to={{ pathname: "/favorites", ...search }}>Favorites</NavLink>
-                {/* this.sequencer?.players?.map((p, i) => `p${i}:${p.stopped?'off':'on'}`).join(' ') */}
-                <button className={this.state.showPlayerSettings ? 'tab tab-selected' : 'tab'}
-                        style={{ marginLeft: 'auto', marginRight: 0 }}
-                        onClick={this.toggleSettings}>Settings</button>
-              </div>
-              <div className="App-main-content-and-settings">
-              <div className="App-main-content-area" ref={this.contentAreaRef}>
-                <Switch>
-                  <Route path="/" exact render={() => (
-                    <Search
-                      currContext={currContext}
-                      currIdx={currIdx}
-                      toggleFavorite={this.handleToggleFavorite}
-                      favorites={this.state.faves}
-                      onSongClick={this.handleSongClick}>
-                      {this.state.loading && <p>Loading player engine...</p>}
-                    </Search>
-                  )}/>
-                  <Route path="/favorites" render={() => (
-                    <Favorites
-                      user={this.state.user}
-                      loadingUser={this.state.loadingUser}
-                      handleLogin={this.handleLogin}
-                      handleShufflePlay={this.handleShufflePlay}
-                      onSongClick={this.handleSongClick}
-                      currContext={currContext}
-                      currIdx={currIdx}
-                      toggleFavorite={this.handleToggleFavorite}
-                      favorites={this.state.faves}/>
-                  )}/>
-                  <Route path="/browse/:browsePath*" render={({ history, match, location }) => {
-                    // Undo the react-router-dom double-encoded % workaround - see DirectoryLink.js
-                    const browsePath = match.params?.browsePath?.replace('%25', '%') || '';
-                    return (
-                      this.contentAreaRef.current &&
-                      <Browse currContext={currContext}
-                              currIdx={currIdx}
-                              historyAction={history.action}
-                              locationKey={location.key}
-                              browsePath={browsePath}
-                              listing={this.state.directories[browsePath]}
-                              playContext={this.playContexts[browsePath]}
-                              fetchDirectory={this.fetchDirectory}
-                              handleSongClick={this.handleSongClick}
-                              handleShufflePlay={this.handleShufflePlay}
-                              scrollContainerRef={this.contentAreaRef}
-                              favorites={this.state.faves}
-                              toggleFavorite={this.handleToggleFavorite}/>
-                    );
-                  }}/>
-                  <Route path="/settings" render={() => (
-                    <Settings
-                      ejected={this.state.ejected}
-                      tempo={this.state.tempo}
-                      currentSongNumVoices={this.state.currentSongNumVoices}
-                      voiceMask={this.state.voiceMask}
-                      voiceNames={this.state.voiceNames}
-                      handleSetVoiceMask={this.handleSetVoiceMask}
-                      handleTempoChange={this.handleTempoChange}
-                      sequencer={this.sequencer}
-                      />
-                  )}/>
-                </Switch>
-              </div>
-                { this.state.showPlayerSettings &&
-                <div className="App-main-content-area settings">
-                  <Settings
-                    ejected={this.state.ejected}
-                    tempo={this.state.tempo}
-                    currentSongNumVoices={this.state.currentSongNumVoices}
-                    voiceMask={this.state.voiceMask}
-                    voiceNames={this.state.voiceNames}
-                    handleSetVoiceMask={this.handleSetVoiceMask}
-                    handleTempoChange={this.handleTempoChange}
-                    sequencer={this.sequencer}
-                  />
+          <div className="App">
+            <DropMessage dropzoneProps={dropzoneProps} />
+            <MessageBox showInfo={this.state.showInfo}
+              infoTexts={this.state.infoTexts}
+              toggleInfo={this.toggleInfo} />
+            <Alert handlePlayerError={this.handlePlayerError}
+              playerError={this.state.playerError}
+              showPlayerError={this.state.showPlayerError} />
+            <AppHeader user={this.state.user}
+              handleLogout={this.handleLogout}
+              handleLogin={this.handleLogin}
+              isPhone={isMobile.phone} />
+            <div className="App-main">
+              <div className="App-main-inner">
+                <div className="tab-container">
+                  <NavLink className="tab" activeClassName="tab-selected" to={{ pathname: "/", ...search }}
+                    exact>Search</NavLink>
+                  <NavLink className="tab" activeClassName="tab-selected"
+                    to={{ pathname: "/browse", ...search }}>Browse</NavLink>
+                  <NavLink className="tab" activeClassName="tab-selected"
+                    to={{ pathname: "/favorites", ...search }}>Favorites</NavLink>
+                  {/* this.sequencer?.players?.map((p, i) => `p${i}:${p.stopped?'off':'on'}`).join(' ') */}
+                  <button className={this.state.showPlayerSettings ? 'tab tab-selected' : 'tab'}
+                    style={{ marginLeft: 'auto', marginRight: 0 }}
+                    onClick={this.toggleSettings}>Settings</button>
                 </div>
-                }
+                <div className="App-main-content-and-settings">
+                  <div className="App-main-content-area" ref={this.contentAreaRef}>
+                    <Switch>
+                      <Route path="/" exact render={() => (
+                        <Search
+                          currContext={currContext}
+                          currIdx={currIdx}
+                          toggleFavorite={this.handleToggleFavorite}
+                          favorites={this.state.faves}
+                          onSongClick={this.handleSongClick}>
+                          {this.state.loading && <p>Loading player engine...</p>}
+                        </Search>
+                      )} />
+                      <Route path="/favorites" render={() => (
+                        <Favorites
+                          user={this.state.user}
+                          loadingUser={this.state.loadingUser}
+                          handleLogin={this.handleLogin}
+                          handleShufflePlay={this.handleShufflePlay}
+                          onSongClick={this.handleSongClick}
+                          currContext={currContext}
+                          currIdx={currIdx}
+                          toggleFavorite={this.handleToggleFavorite}
+                          favorites={this.state.faves} />
+                      )} />
+                      <Route path="/browse/:browsePath*" render={({ history, match, location }) => {
+                        // Undo the react-router-dom double-encoded % workaround - see DirectoryLink.js
+                        const browsePath = match.params?.browsePath?.replace('%25', '%') || '';
+                        return (
+                          this.contentAreaRef.current &&
+                          <Browse currContext={currContext}
+                            currIdx={currIdx}
+                            historyAction={history.action}
+                            locationKey={location.key}
+                            browsePath={browsePath}
+                            listing={this.state.directories[browsePath]}
+                            playContext={this.playContexts[browsePath]}
+                            fetchDirectory={this.fetchDirectory}
+                            handleSongClick={this.handleSongClick}
+                            handleShufflePlay={this.handleShufflePlay}
+                            scrollContainerRef={this.contentAreaRef}
+                            favorites={this.state.faves}
+                            toggleFavorite={this.handleToggleFavorite}
+                            chiptheory={this.state.chiptheory}
+                          />
+                        );
+                      }} />
+                      <Route path="/settings" render={() => (
+                        <Settings
+                          ejected={this.state.ejected}
+                          tempo={this.state.tempo}
+                          currentSongNumVoices={this.state.currentSongNumVoices}
+                          voiceMask={this.state.voiceMask}
+                          voiceNames={this.state.voiceNames}
+                          handleSetVoiceMask={this.handleSetVoiceMask}
+                          handleTempoChange={this.handleTempoChange}
+                          sequencer={this.sequencer}
+                        />
+                      )} />
+                    </Switch>
+                  </div>
+                  {this.state.showPlayerSettings &&
+                    <div className="App-main-content-area settings">
+                      <Settings
+                        ejected={this.state.ejected}
+                        tempo={this.state.tempo}
+                        currentSongNumVoices={this.state.currentSongNumVoices}
+                        voiceMask={this.state.voiceMask}
+                        voiceNames={this.state.voiceNames}
+                        handleSetVoiceMask={this.handleSetVoiceMask}
+                        handleTempoChange={this.handleTempoChange}
+                        sequencer={this.sequencer}
+                      />
+                    </div>
+                  }
+                </div>
               </div>
+              {!isMobile.phone && !this.state.loading &&
+                <Visualizer audioCtx={this.audioCtx}
+                  sourceNode={this.playerNode}
+                  chipCore={this.chipCore}
+                  paused={this.state.ejected || this.state.paused} />}
             </div>
-            {!isMobile.phone && !this.state.loading &&
-              <Visualizer audioCtx={this.audioCtx}
-                          sourceNode={this.playerNode}
-                          chipCore={this.chipCore}
-                          paused={this.state.ejected || this.state.paused}/>}
+            <AppFooter
+              currentSongDurationMs={this.state.currentSongDurationMs}
+              currentSongNumSubtunes={this.state.currentSongNumSubtunes}
+              currentSongNumVoices={this.state.currentSongNumVoices}
+              currentSongSubtune={this.state.currentSongSubtune}
+              ejected={this.state.ejected}
+              faves={this.state.faves}
+              getCurrentSongLink={this.getCurrentSongLink}
+              handleCycleRepeat={this.handleCycleRepeat}
+              handleCycleShuffle={this.handleCycleShuffle}
+              handleSetVoiceMask={this.handleSetVoiceMask}
+              handleTempoChange={this.handleTempoChange}
+              handleTimeSliderChange={this.handleTimeSliderChange}
+              handleToggleFavorite={this.handleToggleFavorite}
+              handleVolumeChange={this.handleVolumeChange}
+              imageUrl={this.state.imageUrl}
+              infoTexts={this.state.infoTexts}
+              nextSong={this.nextSong}
+              nextSubtune={this.nextSubtune}
+              paused={this.state.paused}
+              prevSong={this.prevSong}
+              prevSubtune={this.prevSubtune}
+              repeat={this.state.repeat}
+              shuffle={this.state.shuffle}
+              sequencer={this.sequencer}
+              showPlayerSettings={this.state.showPlayerSettings}
+              songUrl={this.state.songUrl}
+              subtitle={subtitle}
+              tempo={this.state.tempo}
+              title={title}
+              toggleInfo={this.toggleInfo}
+              togglePause={this.togglePause}
+              toggleSettings={this.toggleSettings}
+              voiceNames={this.state.voiceNames}
+              voiceMask={this.state.voiceMask}
+              volume={this.state.volume}
+            />
           </div>
-          <AppFooter
-            currentSongDurationMs={this.state.currentSongDurationMs}
-            currentSongNumSubtunes={this.state.currentSongNumSubtunes}
-            currentSongNumVoices={this.state.currentSongNumVoices}
-            currentSongSubtune={this.state.currentSongSubtune}
-            ejected={this.state.ejected}
-            faves={this.state.faves}
-            getCurrentSongLink={this.getCurrentSongLink}
-            handleCycleRepeat={this.handleCycleRepeat}
-            handleCycleShuffle={this.handleCycleShuffle}
-            handleSetVoiceMask={this.handleSetVoiceMask}
-            handleTempoChange={this.handleTempoChange}
-            handleTimeSliderChange={this.handleTimeSliderChange}
-            handleToggleFavorite={this.handleToggleFavorite}
-            handleVolumeChange={this.handleVolumeChange}
-            imageUrl={this.state.imageUrl}
-            infoTexts={this.state.infoTexts}
-            nextSong={this.nextSong}
-            nextSubtune={this.nextSubtune}
-            paused={this.state.paused}
-            prevSong={this.prevSong}
-            prevSubtune={this.prevSubtune}
-            repeat={this.state.repeat}
-            shuffle={this.state.shuffle}
-            sequencer={this.sequencer}
-            showPlayerSettings={this.state.showPlayerSettings}
-            songUrl={this.state.songUrl}
-            subtitle={subtitle}
-            tempo={this.state.tempo}
-            title={title}
-            toggleInfo={this.toggleInfo}
-            togglePause={this.togglePause}
-            toggleSettings={this.toggleSettings}
-            voiceNames={this.state.voiceNames}
-            voiceMask={this.state.voiceMask}
-            volume={this.state.volume}
-          />
-        </div>
-      )}</Dropzone>
+        )}</Dropzone>
     );
   }
 }

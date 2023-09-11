@@ -127,7 +127,7 @@ export default class GMEPlayer extends Player {
       if (this.seekTargetMs) {
         const fadeLength = Math.min(256, this.bufferSize / 2);
         for (i = 0; i < fadeLength; i++) {
-          const fade = i/fadeLength;
+          const fade = i / fadeLength;
           channels[0][i] *= fade;
           channels[1][i] *= fade;
           channels[0][this.bufferSize - (i + 1)] *= fade;
@@ -183,6 +183,27 @@ export default class GMEPlayer extends Player {
       ...this.getBasePlayerState(),
       isStopped: false,
     });
+
+    // Render the whole track into Chiptheory
+    core._gme_start_track(this.gmeCtx, subtune)
+
+    console.time();
+    const samplesPerSecond = 30;
+    const bufferSizeForPrerendering = Math.ceil(this.sampleRate / samplesPerSecond)
+    const bufferForPrerendering = core._malloc(bufferSizeForPrerendering * 16); // i16
+
+    const p1 = [];
+    for (let i = 0; i < this.getDurationMs() / 1000 * samplesPerSecond; ++i) {
+      core._gme_play(this.gmeCtx, bufferSizeForPrerendering * 2, bufferForPrerendering);
+      const stringState = core.UTF8ToString(core._gme_get_chip_state(this.gmeCtx));
+      const parsedState = JSON.parse(stringState);
+      // p1.push([parsedState.square1_volume, parsedState.square1_period]);
+      p1.push(parsedState.square1_volume > 0 ? parsedState.square1_period : 0)
+    }
+    console.log(p1);
+    // this.setChiptheory({ p1 })
+    console.timeEnd();
+
     return core._gme_start_track(this.gmeCtx, subtune);
   }
 

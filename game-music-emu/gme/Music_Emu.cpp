@@ -259,3 +259,7 @@ void         Gme_Info_::mute_voices_( int )                 { check( false ); }
 void         Gme_Info_::set_tempo_( double )                { }
 blargg_err_t Gme_Info_::start_track_( int )                 { return BLARGG_ERR( BLARGG_ERR_CALLER, "can't play file opened for info only" ); }
 blargg_err_t Gme_Info_::play_( int, sample_t [] )           { return BLARGG_ERR( BLARGG_ERR_CALLER, "can't play file opened for info only" ); }
+
+const char* Music_Emu::get_chip_state() {
+    return "not implemented";	
+}

@@ -113,7 +113,7 @@ public:
 
 	void enable_w4011_( bool enable = true ) { enable_w4011 = enable; }
 	
-private:
+public:
 	friend struct Nes_Dmc;
 	
 	// noncopyable

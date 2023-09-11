@@ -367,6 +367,7 @@ BLARGG_EXPORT const char* gme_voice_name   ( Music_Emu const* gme, int i )      
 BLARGG_EXPORT gme_err_t gme_save           ( Music_Emu const* gme, gme_writer_t writer, void* your_data ) { return gme->save( writer, your_data ); }
 /* this function is no longer needed, apparently, but a stub is kept to avoid ABI breakage.  --Wyatt */
 BLARGG_EXPORT void      gme_enable_accuracy( Music_Emu* gme, int enabled ){return;}
+BLARGG_EXPORT const char* gme_get_chip_state  ( Music_Emu* gme )                      { return gme->get_chip_state(); }
 
 
 BLARGG_EXPORT void gme_effects( Music_Emu const* gme, gme_effects_t* out )

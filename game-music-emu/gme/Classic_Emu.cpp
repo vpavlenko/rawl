@@ -122,3 +122,7 @@ blargg_err_t Classic_Emu::play_( int count, sample_t out [] )
 	}
 	return blargg_ok;
 }
+
+const char* Classic_Emu::get_chip_state() {
+	return "not implemented";
+}

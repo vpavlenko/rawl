@@ -3,7 +3,6 @@ import autoBind from 'auto-bind';
 import { allOrNone } from '../util';
 
 const fileExtensions = [
-  'nsf',
   'vgm',
   'vgz',
   'gym',

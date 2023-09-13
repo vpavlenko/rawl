@@ -29,15 +29,15 @@ type Note = {
     chipState: any,
 }
 
-const calculateNotes = chipStateDump => {
-    if (chipStateDump.p1 === undefined)
+const calculateNotesFromPeriods = periods => {
+    if (periods === undefined)
         return [];
 
     const pulse1Notes: Note[] = [];
     let timeMs = 0;
     const stepMs = 1 / RESOLUTION_DUMPS_PER_SECOND;
 
-    for (const pulse1Period of chipStateDump.p1) {
+    for (const pulse1Period of periods) {
         const newNoteEstimation = findNoteWithClosestPulsePeriod(pulse1Period) // What if it's 0?
         const lastNote = pulse1Notes[pulse1Notes.length - 1]
         if (pulse1Notes.length === 0 || lastNote.note.midiNumber !== newNoteEstimation.midiNumber) {
@@ -66,27 +66,30 @@ const calculateNotes = chipStateDump => {
 const msToX = ms => ms * 100
 const midiNumberToY = midiNumber => 800 - (midiNumber - 33) * 10
 
-const getNoteRectangles = notes => {
+const getNoteRectangles = (notes, color) => {
     return notes.map(note => <div style={{
         position: 'absolute',
         height: '10px',
         width: msToX(note.span[1]) - msToX(note.span[0]),
-        backgroundColor: 'red',
+        color: 'white',
+        backgroundColor: color,
         top: midiNumberToY(note.note.midiNumber),
         left: msToX(note.span[0]),
         fontSize: '16px',
-    }}>{note.note.name}</div>)
+        lineHeight: '16px',
+        fontFamily: 'Helvetica, sans-serif'
+    }}>{note.note.name.slice(0, -1)}</div>)
 }
 
 const Chiptheory = ({ chipStateDump }) => {
     console.log('Chiptheory rerender');
 
     const notes = useMemo(() => {
-        return calculateNotes(chipStateDump)
+        return { p1: calculateNotesFromPeriods(chipStateDump.p1), p2: calculateNotesFromPeriods(chipStateDump.p2) }
     }, [chipStateDump]);
 
     const noteRectangles = useMemo(() => {
-        return getNoteRectangles(notes)
+        return [...getNoteRectangles(notes.p1, 'red'), ...getNoteRectangles(notes.p2, 'green')]
     }, [notes])
 
 

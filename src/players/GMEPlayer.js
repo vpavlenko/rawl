@@ -193,15 +193,17 @@ export default class GMEPlayer extends Player {
     const bufferForPrerendering = core._malloc(bufferSizeForPrerendering * 16); // i16
 
     const p1 = [];
+    const p2 = [];
     for (let i = 0; i < this.getDurationMs() / 1000 * RESOLUTION_DUMPS_PER_SECOND; ++i) {
       core._gme_play(this.gmeCtx, bufferSizeForPrerendering * 2, bufferForPrerendering);
       const stringState = core.UTF8ToString(core._gme_get_chip_state(this.gmeCtx));
       const parsedState = JSON.parse(stringState);
       // p1.push([parsedState.square1_volume, parsedState.square1_period]);
       p1.push(parsedState.square1_volume > 0 ? parsedState.square1_period : 0)
+      p2.push(parsedState.square2_volume > 0 ? parsedState.square2_period : 0)
     }
     // console.log(p1);
-    this.setChipStateDump({ p1 })
+    this.setChipStateDump({ p1, p2 })
     console.timeEnd();
 
     return core._gme_start_track(this.gmeCtx, subtune);

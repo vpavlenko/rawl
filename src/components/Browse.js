@@ -128,6 +128,7 @@ export default class Browse extends React.PureComponent {
       browsePath,
       playContext,
       chipStateDump,
+      getCurrentPositionMs
     } = this.props;
     const listingWithParent = [{
       path: '..',
@@ -153,7 +154,7 @@ export default class Browse extends React.PureComponent {
           itemHeight={ITEM_HEIGHT}
           itemBuffer={ITEM_BUFFER}
         />
-        <Chiptheory chipStateDump={chipStateDump} />
+        <Chiptheory chipStateDump={chipStateDump} getCurrentPositionMs={getCurrentPositionMs} />
       </Fragment>
     );
   }

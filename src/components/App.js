@@ -764,6 +764,13 @@ class App extends React.Component {
                             favorites={this.state.faves}
                             toggleFavorite={this.handleToggleFavorite}
                             chipStateDump={this.state.chipStateDump}
+                            getCurrentPositionMs={() => {
+                              // TODO: reevaluate this approach
+                              if (this.sequencer && this.sequencer.getPlayer()) {
+                                return this.sequencer.getPlayer().getPositionMs();
+                              }
+                              return 0;
+                            }}
                           />
                         );
                       }} />

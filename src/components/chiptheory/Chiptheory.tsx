@@ -4,7 +4,7 @@ import { NES_APU_NOTE_ESTIMATIONS, nesApuNoteEstimation } from './nesApuNoteEsti
 
 export const RESOLUTION_DUMPS_PER_SECOND = 100;
 
-type OscType = 'pulse' | 'triangle';
+type OscType = 'pulse' | 'triangle' | 'noise';
 
 function findNoteWithClosestPeriod(period: number, oscType: OscType): nesApuNoteEstimation {
     let closestNote: nesApuNoteEstimation | null = null;
@@ -38,18 +38,18 @@ const calculateNotesFromPeriods = (periods, oscType) => {
     if (periods === undefined)
         return [];
 
-    const pulse1Notes: Note[] = [];
+    const notes: Note[] = [];
     let timeMs = 0;
     const stepMs = 1 / RESOLUTION_DUMPS_PER_SECOND;
 
     for (const period of periods) {
-        const newNoteEstimation = findNoteWithClosestPeriod(period, oscType) // What if it's 0?
-        const lastNote = pulse1Notes[pulse1Notes.length - 1]
-        if (pulse1Notes.length === 0 || lastNote.note.midiNumber !== newNoteEstimation.midiNumber) {
-            if (pulse1Notes.length > 0) {
+        const newNoteEstimation = oscType === 'noise' ? { midiNumber: 25 + period, name: `${period}_` } : findNoteWithClosestPeriod(period, oscType)
+        const lastNote = notes[notes.length - 1]
+        if (notes.length === 0 || lastNote.note.midiNumber !== newNoteEstimation.midiNumber) {
+            if (notes.length > 0) {
                 lastNote.span[1] = timeMs;
             }
-            pulse1Notes.push({
+            notes.push({
                 note: {
                     midiNumber: newNoteEstimation.midiNumber,
                     name: newNoteEstimation.name
@@ -61,16 +61,16 @@ const calculateNotesFromPeriods = (periods, oscType) => {
 
         timeMs += stepMs;
     }
-    if (pulse1Notes.length > 0) {
-        pulse1Notes[pulse1Notes.length - 1].span[1] = timeMs;
+    if (notes.length > 0) {
+        notes[notes.length - 1].span[1] = timeMs;
     }
 
-    return pulse1Notes;
+    return notes;
 }
 
 const NOTE_HEIGHT = 7
 const msToX = ms => ms * 70
-const midiNumberToY = midiNumber => 600 - (midiNumber - 21) * NOTE_HEIGHT
+const midiNumberToY = midiNumber => 600 - (midiNumber - 20) * NOTE_HEIGHT
 
 const getNoteRectangles = (notes, color) => {
     return notes.map(note => <div style={{
@@ -97,21 +97,25 @@ const Chiptheory = ({ chipStateDump }) => {
         return {
             p1: calculateNotesFromPeriods(chipStateDump.p1, 'pulse'),
             p2: calculateNotesFromPeriods(chipStateDump.p2, 'pulse'),
-            t: calculateNotesFromPeriods(chipStateDump.t, 'triangle') // TODO should be one octave lower and use trianglePeriod
+            t: calculateNotesFromPeriods(chipStateDump.t, 'triangle'),
+            n: calculateNotesFromPeriods(chipStateDump.n, 'noise')
         }
     }, [chipStateDump]);
 
     const noteRectangles = useMemo(() => {
-        return [...getNoteRectangles(notes.p1, 'red'), ...getNoteRectangles(notes.p2, 'green'), ...getNoteRectangles(notes.t, 'blue')]
+        return [...getNoteRectangles(notes.p1, 'red'), ...getNoteRectangles(notes.p2, 'green'), ...getNoteRectangles(notes.t, 'blue'),
+        ...getNoteRectangles(notes.n, 'black')]
     }, [notes])
 
 
     return <div style={{ width: '96%', height: '100%', marginTop: '1em', padding: '1em', backgroundColor: 'black' }}>
-        <div style={{ position: 'relative', overflowX: 'scroll', width: '100%', height: '600px', backgroundColor: 'gray' }}>{noteRectangles}</div>
+        <div style={{
+            position: 'relative', overflowX: 'scroll', overflowY: 'hidden', height: '100%', backgroundColor: 'gray'
+        }}>{noteRectangles}</div>
         <div>Add a tag:{" "}
             <input type="text" />
         </div>
-        <div>notes: {JSON.stringify(notes)}</div>
+        <div>notes: {JSON.stringify(notes.n)}</div>
     </div>
 }
 

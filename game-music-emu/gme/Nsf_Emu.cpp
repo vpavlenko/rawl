@@ -353,6 +353,8 @@ const char* Nsf_Emu::get_chip_state() {
 		+ ", \"square1_volume\": " + std::to_string(this->core_.nes_apu()->square1.volume())
 		+ ", \"square2_period\": " + std::to_string(this->core_.nes_apu()->square2.period())
 		+ ", \"square2_volume\": " + std::to_string(this->core_.nes_apu()->square2.volume())
+		+ ", \"noise_period\": " + std::to_string(this->core_.nes_apu()->noise.period())
+		+ ", \"noise_volume\": " + std::to_string(this->core_.nes_apu()->noise.volume())
 		+ ", \"triangle_period\": " + std::to_string(this->core_.nes_apu()->triangle.period())
 		+ ", \"triangle_volume\": 1" + 
 			// (this->core_.nes_apu()->triangle.linear_counter != 0 

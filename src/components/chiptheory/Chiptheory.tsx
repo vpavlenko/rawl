@@ -43,7 +43,7 @@ const calculateNotesFromPeriods = (periods, oscType) => {
     const stepInSeconds = 1 / RESOLUTION_DUMPS_PER_SECOND;
 
     for (const period of periods) {
-        const newNoteEstimation = oscType === 'noise' ? { midiNumber: 25 + (period === -1 ? -100 : period), name: `${period}_` } : findNoteWithClosestPeriod(period, oscType)
+        const newNoteEstimation = oscType === 'noise' ? { midiNumber: 90 + (period === -1 ? -100 : period % 15), name: `${period}_` } : findNoteWithClosestPeriod(period, oscType)
         const lastNote = notes[notes.length - 1]
         if (notes.length === 0 || lastNote.note.midiNumber !== newNoteEstimation.midiNumber) {
             if (notes.length > 0) {
@@ -82,15 +82,16 @@ const getNoteRectangles = (notes, color) => {
             position: 'absolute',
             height: `${NOTE_HEIGHT}px`,
             width: secondsToX(note.span[1]) - secondsToX(note.span[0]),
-            color: 'white',
+            color: color === 'white' ? 'black' : 'white',
             backgroundColor: color,
             top: midiNumberToY(note.note.midiNumber),
             left: secondsToX(note.span[0]),
         }}><div style={{
             position: 'relative',
-            top: '-10px',
-            fontSize: '12px',
-            lineHeight: '12px',
+            top: color === 'black' ? '-8px' : '0px',
+            left: '1px',
+            fontSize: '8px',
+            lineHeight: '8px',
             fontFamily: 'Helvetica, sans-serif'
         }}>{note.note.name.slice(0, -1)}</div></div>)
 }
@@ -137,7 +138,7 @@ const Chiptheory = ({ chipStateDump, getCurrentPositionMs }) => {
                 return;
             }
 
-            setPositionMs(getCurrentPositionMs())
+            setPositionMs(getCurrentPositionMs() - 70)  // A dirty hack, I don't know why it gets ahead of playback.
             requestAnimationFrame(animate);
         };
 
@@ -158,9 +159,9 @@ const Chiptheory = ({ chipStateDump, getCurrentPositionMs }) => {
         }}>{noteRectangles}
             {currentlyPlayedRectangles}
             {positionBar}</div>
-        <div>Add a tag:{" "}
+        {/* <div>Add a tag:{" "}
             <input type="text" />
-        </div>
+        </div> */}
         {/* <div>notes: {JSON.stringify(notes.n)}</div */}
     </div>
 }

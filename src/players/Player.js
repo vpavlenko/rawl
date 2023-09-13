@@ -26,7 +26,7 @@ export default class Player extends EventEmitter {
    * @param {number} [bufferSize=2048] - Audio buffer size
    * @param {boolean} [debug=false] - Enable debug logging
    */
-  constructor(core, sampleRate, bufferSize = 2048, debug = false, setChiptheory) {
+  constructor(core, sampleRate, bufferSize = 2048, debug = false, setChipStateDump) {
     super();
 
     this.core = core;
@@ -42,7 +42,7 @@ export default class Player extends EventEmitter {
     this.perfLoggingInterval = 100;
     this.paramDefs = [];
     this.params = {};
-    this.setChiptheory = setChiptheory;
+    this.setChipStateDump = setChipStateDump;
   }
 
   togglePause() {

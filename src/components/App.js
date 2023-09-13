@@ -144,7 +144,7 @@ class App extends React.Component {
       directories: {},
       hasPlayer: false,
       paramDefs: [],
-      chiptheory: { p1: ['init'] },
+      chipStateDump: {},
     };
 
     this.initChipCore(audioCtx, playerNode, bufferSize);
@@ -184,7 +184,7 @@ class App extends React.Component {
       N64Player,
       MDXPlayer,
       VGMPlayer,
-    ].map(P => new P(this.chipCore, audioCtx.sampleRate, bufferSize, debug, (chiptheory) => self.setState({ chiptheory })));
+    ].map(P => new P(this.chipCore, audioCtx.sampleRate, bufferSize, debug, (chipStateDump) => self.setState({ chipStateDump })));
     this.midiPlayer = players[0];
 
     // Set up the central audio processing callback. This is where the magic happens.
@@ -763,7 +763,7 @@ class App extends React.Component {
                             scrollContainerRef={this.contentAreaRef}
                             favorites={this.state.faves}
                             toggleFavorite={this.handleToggleFavorite}
-                            chiptheory={this.state.chiptheory}
+                            chipStateDump={this.state.chipStateDump}
                           />
                         );
                       }} />

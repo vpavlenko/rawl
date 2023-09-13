@@ -30,8 +30,8 @@
 }
 
 .App * {
-    font-size: 24px !important;
-    font-family: VGA_SquarePx, monospace !important;
+    font-size: 24px;
+        font-family: VGA_SquarePx, monospace;
     -webkit-font-smoothing: antialiased; /* supports Japanese characters better than 'none' */
     -moz-osx-font-smoothing: grayscale; /* Firefox */
     -webkit-tap-highlight-color: rgba(0,0,0,0);

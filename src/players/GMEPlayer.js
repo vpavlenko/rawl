@@ -3,6 +3,7 @@ import SubBass from "../effects/SubBass";
 import { allOrNone, remap01 } from '../util';
 import path from 'path';
 import autoBind from 'auto-bind';
+import { RESOLUTION_DUMPS_PER_SECOND } from "../components/chiptheory/Chiptheory.tsx";
 
 let core = null;
 
@@ -188,20 +189,19 @@ export default class GMEPlayer extends Player {
     core._gme_start_track(this.gmeCtx, subtune)
 
     console.time();
-    const samplesPerSecond = 30;
-    const bufferSizeForPrerendering = Math.ceil(this.sampleRate / samplesPerSecond)
+    const bufferSizeForPrerendering = Math.ceil(this.sampleRate / RESOLUTION_DUMPS_PER_SECOND)
     const bufferForPrerendering = core._malloc(bufferSizeForPrerendering * 16); // i16
 
     const p1 = [];
-    for (let i = 0; i < this.getDurationMs() / 1000 * samplesPerSecond; ++i) {
+    for (let i = 0; i < this.getDurationMs() / 1000 * RESOLUTION_DUMPS_PER_SECOND; ++i) {
       core._gme_play(this.gmeCtx, bufferSizeForPrerendering * 2, bufferForPrerendering);
       const stringState = core.UTF8ToString(core._gme_get_chip_state(this.gmeCtx));
       const parsedState = JSON.parse(stringState);
       // p1.push([parsedState.square1_volume, parsedState.square1_period]);
       p1.push(parsedState.square1_volume > 0 ? parsedState.square1_period : 0)
     }
-    console.log(p1);
-    // this.setChiptheory({ p1 })
+    // console.log(p1);
+    this.setChipStateDump({ p1 })
     console.timeEnd();
 
     return core._gme_start_track(this.gmeCtx, subtune);

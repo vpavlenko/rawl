@@ -201,9 +201,9 @@ export default class GMEPlayer extends Player {
       const stringState = core.UTF8ToString(core._gme_get_chip_state(this.gmeCtx));
       const parsedState = JSON.parse(stringState);
       // p1.push([parsedState.square1_volume, parsedState.square1_period]);
-      p1.push(parsedState.square1_volume > 0 ? parsedState.square1_period : 0)
-      p2.push(parsedState.square2_volume > 0 ? parsedState.square2_period : 0)
-      t.push(parsedState.triangle_volume > 0 ? parsedState.triangle_period : 0)
+      p1.push(parsedState.square1_volume > 0 ? parsedState.square1_period : -1)
+      p2.push(parsedState.square2_volume > 0 ? parsedState.square2_period : -1)
+      t.push(parsedState.triangle_volume > 0 ? parsedState.triangle_period : -1)
       // n.push([parsedState.noise_volume, parsedState.noise_period])
       n.push(parsedState.noise_volume > 0 ? parsedState.noise_period : -1)
     }

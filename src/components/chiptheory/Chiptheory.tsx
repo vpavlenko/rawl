@@ -1,14 +1,34 @@
 import * as React from 'react';
 import { useMemo, useState, useEffect, useRef } from 'react';
-import { NES_APU_NOTE_ESTIMATIONS, nesApuNoteEstimation } from './nesApuNoteEstimations';
+import { NES_APU_NOTE_ESTIMATIONS, PAUSE, nesApuNoteEstimation } from './nesApuNoteEstimations';
 import { AnalysisGrid, Cursor, STEP_CALL_TO_ACTION, Step, advanceAnalysis, getSavedAnalysis } from './Analysis';
 
-export const RESOLUTION_DUMPS_PER_SECOND = 500;
+export const RESOLUTION_DUMPS_PER_SECOND = 100;
 export const RESOLUTION_MS = 1 / RESOLUTION_DUMPS_PER_SECOND;
 
 type OscType = 'pulse' | 'triangle' | 'noise';
 
+
 function findNoteWithClosestPeriod(period: number, oscType: OscType): nesApuNoteEstimation {
+    if (period === -1) {
+        return PAUSE
+    }
+    if (oscType === 'noise') {
+        const noise = period % 10;
+        return {
+            "name": `${noise}_`,  // pause
+            "midiNumber": noise + 90,
+            "frequency": 0,
+            "pianoNumber": null,
+            "apuIndex": null,
+            "pulsePeriod": null,
+            "pulseFrequency": null,
+            "pulseTuningError": null,
+            "trianglePeriod": null,
+            "triangleFrequency": null,
+            "triangleTuningError": null
+        }
+    }
     let closestNote: nesApuNoteEstimation | null = null;
     let smallestDifference = Infinity;
 
@@ -45,8 +65,7 @@ const calculateNotesFromPeriods = (periods, oscType) => {
     const stepInSeconds = RESOLUTION_MS;
 
     for (const period of periods) {
-        const newNoteEstimation = oscType === 'noise' ?
-            { midiNumber: 90 + (period === -1 ? -100 : period % 15), name: `${period}_` } :
+        const newNoteEstimation =
             findNoteWithClosestPeriod(period, oscType)
         const lastNote = notes[notes.length - 1]
         if (notes.length === 0 || lastNote.note.midiNumber !== newNoteEstimation.midiNumber) {
@@ -55,8 +74,8 @@ const calculateNotesFromPeriods = (periods, oscType) => {
             }
             notes.push({
                 note: {
-                    midiNumber: newNoteEstimation.midiNumber,
-                    name: newNoteEstimation.name
+                    midiNumber: period === -1 ? -1 : newNoteEstimation.midiNumber,
+                    name: newNoteEstimation.name,
                 },
                 span: [timeInSeconds, 0],
                 chipState: { period: period }
@@ -69,7 +88,7 @@ const calculateNotesFromPeriods = (periods, oscType) => {
         notes[notes.length - 1].span[1] = timeInSeconds;
     }
 
-    return notes;
+    return notes.filter(note => note.note.midiNumber !== -1);
 }
 
 const NOTE_HEIGHT = 7
@@ -82,7 +101,7 @@ const isNoteCurrentlyPlayed = (note, positionMs) => {
 
 const getNoteRectangles = (notes, color, handleNoteClick = note => { }) => {
     return notes.map(note => {
-        const top = midiNumberToY(note.note.midiNumber);
+        const top = midiNumberToY(note.note.midiNumber) + { 'red': 1, 'green': -1, 'blue': 0, 'white': 0, 'black': 0 }[color];
         const left = secondsToX(note.span[0]);
         return <div
             style={{
@@ -119,20 +138,19 @@ const findCurrentlyPlayedNotes = (notes, positionMs) => {
 
 const Chiptheory = ({ chipStateDump, getCurrentPositionMs }) => {
     const [analysis, setAnalysis] = useState(getSavedAnalysis());
-    const [step, setStep] = useState<Step>('first measure')
 
-    const stepRef = useRef(step);
     useEffect(() => {
-        stepRef.current = step;
-    }, [step]);
+        // If chipStateDump changed, that means we're playing a new subtune, and a previous analysis isn't valid.
+        setAnalysis(getSavedAnalysis())
+    }, [chipStateDump]);
 
     const analysisRef = useRef(analysis);
     useEffect(() => {
         analysisRef.current = analysis;
     }, [analysis]);
 
-    // Without the ref magic, this will only capture the initial analysis and step.
-    const handleNoteClick = (note) => advanceAnalysis(note, analysisRef.current, setAnalysis, stepRef.current, setStep)
+    // Without the ref magic, this will only capture the initial analysis.
+    const handleNoteClick = (note) => advanceAnalysis(note, analysisRef.current, setAnalysis)
 
     const notes = useMemo(() => {
         return {
@@ -175,14 +193,14 @@ const Chiptheory = ({ chipStateDump, getCurrentPositionMs }) => {
 
     return <div style={{ width: '96%', height: '100%', marginTop: '1em', padding: '1em', backgroundColor: 'black' }}>
         <div style={{
-            position: 'relative', overflowX: 'scroll', overflowY: 'hidden', height: '100%', backgroundColor: 'gray'
+            position: 'relative', overflowX: 'scroll', overflowY: 'hidden', height: '100%', backgroundColor: 'gray',
         }}>
             {noteRectangles}
             {currentlyPlayedRectangles}
             <Cursor style={{ left: secondsToX(positionMs / 1000) }} />
             <AnalysisGrid analysis={analysis} allNotes={allNotes} />
         </div>
-        <div>Analyze track in several clicks. {STEP_CALL_TO_ACTION[step]}</div>
+        <div>Analyze track in several clicks. {STEP_CALL_TO_ACTION[analysis.step]}</div>
     </div>
 }
 

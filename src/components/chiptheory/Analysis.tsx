@@ -9,6 +9,7 @@ export type Step = 'first measure' | 'second measure' | 'tonic' | 'mode' | 'end'
 
 type Analysis = {
     clickResolutionMs: number,
+    step: Step,
     firstMeasure: number,
     secondMeasure: number,
     tonic: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11,
@@ -17,6 +18,7 @@ type Analysis = {
 export const getSavedAnalysis: () => Analysis = () => {
     return {
         clickResolutionMs: RESOLUTION_MS,
+        step: 'first measure',
         firstMeasure: null,
         secondMeasure: null,
         tonic: null, // 0..11 in midi notes
@@ -31,17 +33,14 @@ export const STEP_CALL_TO_ACTION: Record<Step, string> = {
     'end': 'Thank you!'
 }
 
-export const advanceAnalysis = (note, analysis, setAnalysis, step, setStep) => {
-    console.log('advanceAnalysis', step, analysis)
+export const advanceAnalysis = (note, analysis, setAnalysis) => {
+    const { step } = analysis;
     if (step === 'first measure') {
-        setAnalysis({ ...analysis, firstMeasure: note.span[0] });
-        setStep('second measure');
+        setAnalysis({ ...analysis, firstMeasure: note.span[0], step: 'second measure' });
     } else if (step === 'second measure') {
-        setAnalysis({ ...analysis, secondMeasure: note.span[0] });
-        setStep('tonic');
+        setAnalysis({ ...analysis, secondMeasure: note.span[0], step: 'tonic' });
     } else if (step === 'tonic') {
-        setAnalysis({ ...analysis, tonic: note.note.midiNumber });
-        setStep('mode');
+        setAnalysis({ ...analysis, tonic: note.note.midiNumber, step: 'mode' });
     }
 }
 
@@ -77,15 +76,24 @@ const Measure = ({ second, number }) => {
 const Beat = ({ second }) => <BeatBar style={{ left: secondsToX(second) }} />
 
 const adjustMeasureLength = (second, allNotes) => {
+    // This doesn't work well, at some point the beat tracking slips off.
+    // A good algorithm should probably weigh all notes acording not only to the desired second,
+    // but also to previous notes that caused span.
+    // In a way, the should first and foremost continue tracking bars using the notes from the same voice that
+    // was initially used to mark the first measure.
+
     let closestDiff = Infinity;
     let closestNoteOn = null;
+    let closestNote = null;
     for (const note of allNotes) {
         const currentDiff = Math.abs(second - note.span[0])
         if (currentDiff < closestDiff) {
             closestNoteOn = note.span[0];
+            closestNote = note; // for debuggin only
             closestDiff = currentDiff;
         }
     }
+    console.log('adjustMeasureLength', second, closestNote);
     return closestNoteOn;
 }
 
@@ -108,6 +116,7 @@ export const AnalysisGrid: React.FC<{ analysis: Analysis, allNotes: Note[] }> = 
             beats.push(<Beat second={previousMeasure * 0.75 + newMeasure * 0.25} />)
             beats.push(<Beat second={previousMeasure * 0.5 + newMeasure * 0.5} />)
             beats.push(<Beat second={previousMeasure * 0.25 + newMeasure * 0.75} />)
+            // measureLength = newMeasure - previousMeasure // I'm not sure it improves anything
             previousMeasure = newMeasure
         }
     }

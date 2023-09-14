@@ -12,20 +12,22 @@ export type nesApuNoteEstimation = {
     triangleTuningError: number | null;
 };
 
+export const PAUSE = {
+    "name": "PP",  // pause
+    "midiNumber": -1,
+    "frequency": 20,
+    "pianoNumber": null,
+    "apuIndex": null,
+    "pulsePeriod": null,
+    "pulseFrequency": null,
+    "pulseTuningError": null,
+    "trianglePeriod": null,
+    "triangleFrequency": null,
+    "triangleTuningError": null
+}
+
 export const NES_APU_NOTE_ESTIMATIONS: nesApuNoteEstimation[] = [
-    {
-        "name": "PP",
-        "midiNumber": 20,
-        "frequency": 25.9565,
-        "pianoNumber": null,
-        "apuIndex": null,
-        "pulsePeriod": null,
-        "pulseFrequency": null,
-        "pulseTuningError": null,
-        "trianglePeriod": null,
-        "triangleFrequency": null,
-        "triangleTuningError": null
-    },
+    PAUSE,
     {
         "name": "A0",
         "midiNumber": 21,

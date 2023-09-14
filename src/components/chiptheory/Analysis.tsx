@@ -18,7 +18,7 @@ type PitchClassToScaleDegree = [ScaleDegree | null, ScaleDegree | null, ScaleDeg
 const MODES = [null, 'phrygian', null, 'minor', 'major', null, null, null, null, 'dorian', 'mixolydian', null] as const
 export type Mode = typeof MODES[number]
 
-const RAINBOW_COLORS = ['red', 'orange', 'yellow', 'green', 'blue', 'violet', 'pink']
+const RAINBOW_COLORS = ['red', 'orange', '#FFD700', 'green', 'blue', '#9400D3', '#FF1493']
 
 // if we have a note, it's color is mapped into degree, then mapped into colors
 
@@ -44,17 +44,11 @@ export type Analysis = {
 }
 
 const getGradient = (firstColor, secondColor) => ({
-    background: `repeating-linear-gradient(
-        -45deg,
-        ${firstColor},
-        ${firstColor} 7px,
-        ${secondColor} 7px,
-        ${secondColor} 14px,
-      )`
+    background: `repeating-linear-gradient( -45deg, ${firstColor}, ${firstColor} 4px,  ${secondColor} 4px, ${secondColor} 8px)`
 })
 
 export const getNoteColor = (defaultColor: string, midiNumber, analysis) => {
-    if (defaultColor === 'black' || analysis.tonic === null && analysis.mode === null) {
+    if (defaultColor === 'black' || analysis.tonic === null || analysis.mode === null) {
         return { backgroundColor: defaultColor }
     }
 
@@ -166,7 +160,7 @@ const TonalGrid = ({ tonic }) => {
     }
     const result = []
     for (let octave = 2; octave <= 7; ++octave) {
-        result.push(<div style={{ position: 'absolute', width: '100%', height: NOTE_HEIGHT, left: 0, top: midiNumberToY(tonic + octave * 12), backgroundColor: '#bbb', zIndex: 1, }} />)
+        result.push(<div style={{ position: 'absolute', width: '2000px', height: NOTE_HEIGHT, left: 0, top: midiNumberToY(tonic + octave * 12), backgroundColor: '#888', zIndex: 1, }} />)
     }
     return result
 }

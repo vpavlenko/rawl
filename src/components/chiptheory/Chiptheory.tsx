@@ -196,7 +196,7 @@ const Chiptheory = ({ chipStateDump, getCurrentPositionMs }) => {
 
     return <div style={{ width: '96%', height: '100%', marginTop: '1em', padding: '1em', backgroundColor: 'black' }}>
         <div style={{
-            position: 'relative', overflowX: 'scroll', overflowY: 'hidden', height: '100%', backgroundColor: 'gray',
+            position: 'relative', overflowX: 'scroll', overflowY: 'hidden', width: '100%', height: '100%', backgroundColor: 'gray',
         }}>
             {noteRectangles}
             {currentlyPlayedRectangles}

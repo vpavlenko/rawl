@@ -5,16 +5,73 @@ import styled from 'styled-components';
 // Analysis is done in steps.
 // The meaning of a click/hover at each step is different.
 
-export type Step = 'first measure' | 'second measure' | 'tonic' | 'mode' | 'end'
-export const STEPS: Step[] = ['first measure', 'second measure', 'tonic', 'mode', 'end']
-export type Tonic = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11
+export const STEPS = ['first measure', 'second measure', 'tonic', 'mode', 'end'] as const
+export type Step = typeof STEPS[number]
 
-type Analysis = {
+export type PitchClass = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11
+
+export type ScaleDegree = 1 | 2 | 3 | 4 | 5 | 6 | 7
+type PitchClassToScaleDegree = [ScaleDegree | null, ScaleDegree | null, ScaleDegree | null, ScaleDegree | null, ScaleDegree | null, ScaleDegree | null, ScaleDegree | null, ScaleDegree | null, ScaleDegree | null, ScaleDegree | null, ScaleDegree | null, ScaleDegree | null];
+
+
+// const MODES = [null, 'phrygian', null, 'minor', 'major', 'minor pentatonic', 'blues', null, null, 'dorian', 'mixolydian', null] as const
+const MODES = [null, 'phrygian', null, 'minor', 'major', null, null, null, null, 'dorian', 'mixolydian', null] as const
+export type Mode = typeof MODES[number]
+
+const RAINBOW_COLORS = ['red', 'orange', 'yellow', 'green', 'blue', 'violet', 'pink']
+
+// if we have a note, it's color is mapped into degree, then mapped into colors
+
+export type PitchClassToScaleDegreeViaMode = {
+    [K in Mode]: K extends string ? PitchClassToScaleDegree : never;
+}
+
+const MIDI_NOTE_TO_SCALE_DEGREE: PitchClassToScaleDegreeViaMode = {
+    'phrygian': [1, 2, null, 3, null, 4, null, 5, 6, null, 7, null],
+    'minor': [1, null, 2, 3, null, 4, null, 5, 6, null, 7, null],
+    'dorian': [1, null, 2, 3, null, 4, null, 5, null, 6, 7, null],
+    'mixolydian': [1, null, 2, null, 3, 4, null, 5, null, 6, 7, null],
+    'major': [1, null, 2, null, 3, 4, null, 5, null, 6, null, 7],
+}
+
+export type Analysis = {
     clickResolutionMs: number,
     step: Step,
     firstMeasure: number,
     secondMeasure: number,
-    tonic: Tonic | null,
+    tonic: PitchClass | null,
+    mode: Mode
+}
+
+const getGradient = (firstColor, secondColor) => ({
+    background: `repeating-linear-gradient(
+        -45deg,
+        ${firstColor},
+        ${firstColor} 7px,
+        ${secondColor} 7px,
+        ${secondColor} 14px,
+      )`
+})
+
+export const getNoteColor = (defaultColor: string, midiNumber, analysis) => {
+    if (defaultColor === 'black' || analysis.tonic === null && analysis.mode === null) {
+        return { backgroundColor: defaultColor }
+    }
+
+    const mapping = MIDI_NOTE_TO_SCALE_DEGREE[analysis.mode]
+    let pointer = (midiNumber - analysis.tonic) % 12
+    if (mapping[pointer] === null) {
+        // We're in between of two colors. Let's get them
+        while (mapping[pointer] === null) {
+            pointer--;
+        }
+        let lowerScaleDegree = mapping[pointer] - 1;
+        let upperScaleDegree = (lowerScaleDegree + 1) % 7;
+        return getGradient(RAINBOW_COLORS[lowerScaleDegree], RAINBOW_COLORS[upperScaleDegree])
+    }
+    return {
+        backgroundColor: RAINBOW_COLORS[mapping[pointer] - 1]
+    }
 }
 
 export const getSavedAnalysis: () => Analysis = () => {
@@ -24,6 +81,7 @@ export const getSavedAnalysis: () => Analysis = () => {
         firstMeasure: null,
         secondMeasure: null,
         tonic: null, // 0..11 in midi notes
+        mode: null,
     }
 }
 
@@ -41,6 +99,8 @@ export const prevStep = (analysis, setAnalysis) =>
 export const nextStep = (analysis, setAnalysis) =>
     setAnalysis({ ...analysis, step: STEPS[STEPS.indexOf(analysis.step) + 1] })
 
+// TODO: save analysis
+
 export const advanceAnalysis = (note, analysis, setAnalysis) => {
     const { step } = analysis;
     if (step === 'first measure') {
@@ -49,6 +109,9 @@ export const advanceAnalysis = (note, analysis, setAnalysis) => {
         setAnalysis({ ...analysis, secondMeasure: note.span[0], step: 'tonic' });
     } else if (step === 'tonic') {
         setAnalysis({ ...analysis, tonic: note.note.midiNumber % 12, step: 'mode' });
+    } else if (step === 'mode') {
+        const mode = MODES[(note.note.midiNumber - analysis.tonic) % 12]
+        setAnalysis({ ...analysis, mode, step: 'end' });
     }
 }
 
@@ -85,24 +148,15 @@ const Measure = ({ second, number }) => {
 const Beat = ({ second }) => <BeatBar style={{ left: secondsToX(second) }} />
 
 const adjustMeasureLength = (second, allNotes) => {
-    // This doesn't work well, at some point the beat tracking slips off.
-    // A good algorithm should probably weigh all notes acording not only to the desired second,
-    // but also to previous notes that caused span.
-    // In a way, the should first and foremost continue tracking bars using the notes from the same voice that
-    // was initially used to mark the first measure.
-
     let closestDiff = Infinity;
     let closestNoteOn = null;
-    let closestNote = null;
     for (const note of allNotes) {
         const currentDiff = Math.abs(second - note.span[0])
         if (currentDiff < closestDiff) {
             closestNoteOn = note.span[0];
-            closestNote = note; // for debuggin only
             closestDiff = currentDiff;
         }
     }
-    console.log('adjustMeasureLength', second, closestNote);
     return closestNoteOn;
 }
 

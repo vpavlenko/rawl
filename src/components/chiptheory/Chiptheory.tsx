@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useMemo, useState, useEffect, useRef } from 'react';
 import { NES_APU_NOTE_ESTIMATIONS, PAUSE, nesApuNoteEstimation } from './nesApuNoteEstimations';
-import { AnalysisGrid, Cursor, STEPS, STEP_CALL_TO_ACTION, Step, advanceAnalysis, getSavedAnalysis, nextStep, prevStep } from './Analysis';
+import { Analysis, AnalysisGrid, Cursor, STEPS, STEP_CALL_TO_ACTION, Step, advanceAnalysis, getNoteColor, getSavedAnalysis, nextStep, prevStep } from './Analysis';
 
 export const RESOLUTION_DUMPS_PER_SECOND = 100;
 export const RESOLUTION_MS = 1 / RESOLUTION_DUMPS_PER_SECOND;
@@ -99,22 +99,23 @@ const isNoteCurrentlyPlayed = (note, positionMs) => {
     return (note.span[0] <= positionSeconds) && (positionSeconds <= note.span[1])
 }
 
-const getNoteRectangles = (notes, color, handleNoteClick = note => { }) => {
+const getNoteRectangles = (notes: Note[], color: string, analysis: Analysis, handleNoteClick = note => { },) => {
     return notes.map(note => {
         const top = midiNumberToY(note.note.midiNumber) + { 'red': 1, 'green': -1, 'blue': 0, 'white': 0, 'black': 0 }[color];
         const left = secondsToX(note.span[0]);
+        const colorOrGradient = getNoteColor(color, note.note.midiNumber, analysis)
         return <div
             style={{
                 position: 'absolute',
                 height: `${NOTE_HEIGHT}px`,
                 width: secondsToX(note.span[1]) - secondsToX(note.span[0]),
                 color: color === 'white' ? 'black' : 'white',
-                backgroundColor: color,
                 top,
                 left,
                 pointerEvents: color === 'white' ? 'none' : 'auto',
                 cursor: 'pointer',
                 zIndex: 10,
+                ...(color === 'white' ? { backgroundColor: color } : colorOrGradient)
             }}
             onClick={() => handleNoteClick(note)}
         ><div style={{
@@ -139,7 +140,7 @@ const findCurrentlyPlayedNotes = (notes, positionMs) => {
 }
 
 const Chiptheory = ({ chipStateDump, getCurrentPositionMs }) => {
-    const [analysis, setAnalysis] = useState(getSavedAnalysis());
+    const [analysis, setAnalysis] = useState<Analysis>(getSavedAnalysis());
 
     useEffect(() => {
         // If chipStateDump changed, that means we're playing a new subtune, and a previous analysis isn't valid.
@@ -165,14 +166,14 @@ const Chiptheory = ({ chipStateDump, getCurrentPositionMs }) => {
     const allNotes = useMemo(() => [...notes.t, ...notes.n, ...notes.p1, ...notes.p2,], [chipStateDump]);
 
     const noteRectangles = useMemo(() => {
-        return [...getNoteRectangles(notes.p1, 'red', handleNoteClick),
-        ...getNoteRectangles(notes.p2, 'green', handleNoteClick),
-        ...getNoteRectangles(notes.t, 'blue', handleNoteClick),
-        ...getNoteRectangles(notes.n, 'black', handleNoteClick)]
-    }, [notes])
+        return [...getNoteRectangles(notes.p1, 'red', analysis, handleNoteClick),
+        ...getNoteRectangles(notes.p2, 'green', analysis, handleNoteClick),
+        ...getNoteRectangles(notes.t, 'blue', analysis, handleNoteClick),
+        ...getNoteRectangles(notes.n, 'black', analysis, handleNoteClick)]
+    }, [notes, analysis])
 
     const [positionMs, setPositionMs] = useState(0);
-    const currentlyPlayedRectangles = getNoteRectangles(findCurrentlyPlayedNotes(allNotes, positionMs), 'white')
+    const currentlyPlayedRectangles = getNoteRectangles(findCurrentlyPlayedNotes(allNotes, positionMs), 'white', analysis)
 
     useEffect(() => {
         let running = true;

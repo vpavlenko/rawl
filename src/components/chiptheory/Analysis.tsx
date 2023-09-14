@@ -1,24 +1,26 @@
 import * as React from 'react';
-import { Note, RESOLUTION_MS, secondsToX } from './Chiptheory';
+import { NOTE_HEIGHT, Note, RESOLUTION_MS, midiNumberToY, secondsToX } from './Chiptheory';
 import styled from 'styled-components';
 
 // Analysis is done in steps.
 // The meaning of a click/hover at each step is different.
 
 export type Step = 'first measure' | 'second measure' | 'tonic' | 'mode' | 'end'
+export const STEPS: Step[] = ['first measure', 'second measure', 'tonic', 'mode', 'end']
+export type Tonic = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11
 
 type Analysis = {
     clickResolutionMs: number,
     step: Step,
     firstMeasure: number,
     secondMeasure: number,
-    tonic: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11,
+    tonic: Tonic | null,
 }
 
 export const getSavedAnalysis: () => Analysis = () => {
     return {
         clickResolutionMs: RESOLUTION_MS,
-        step: 'first measure',
+        step: STEPS[0],
         firstMeasure: null,
         secondMeasure: null,
         tonic: null, // 0..11 in midi notes
@@ -30,8 +32,14 @@ export const STEP_CALL_TO_ACTION: Record<Step, string> = {
     'second measure': 'Step 2. Click on a note at the start of the second measure of the main section',
     'tonic': 'Step 3. Click on a tonic of the main section',
     'mode': 'Step 4. Click on a characteristic note of the main section. Minor: b3, major: 3, phrygian: b2, dorian: #6, mixolydian: b7, blues: #4, pentatonic: 4',
-    'end': 'Thank you!'
+    'end': 'Analysis completed, thank you!'
 }
+
+export const prevStep = (analysis, setAnalysis) =>
+    setAnalysis({ ...analysis, step: STEPS[STEPS.indexOf(analysis.step) - 1] })
+
+export const nextStep = (analysis, setAnalysis) =>
+    setAnalysis({ ...analysis, step: STEPS[STEPS.indexOf(analysis.step) + 1] })
 
 export const advanceAnalysis = (note, analysis, setAnalysis) => {
     const { step } = analysis;
@@ -40,7 +48,7 @@ export const advanceAnalysis = (note, analysis, setAnalysis) => {
     } else if (step === 'second measure') {
         setAnalysis({ ...analysis, secondMeasure: note.span[0], step: 'tonic' });
     } else if (step === 'tonic') {
-        setAnalysis({ ...analysis, tonic: note.note.midiNumber, step: 'mode' });
+        setAnalysis({ ...analysis, tonic: note.note.midiNumber % 12, step: 'mode' });
     }
 }
 
@@ -49,6 +57,7 @@ const VerticalBar = styled.div`
     height: 100%;
     position: absolute;
     top: 0;
+    z-index: 2;
 `;
 
 export const Cursor = styled(VerticalBar)`
@@ -69,7 +78,7 @@ const Measure = ({ second, number }) => {
         <Downbeat style={{
             left
         }} />
-        <div style={{ position: 'absolute', top: 20, left: `${left + 5}px` }}>{number}</div>
+        <div style={{ position: 'absolute', top: 10, left: `${left + 5}px`, color: 'black' }} >{number}</div >
     </>
 }
 
@@ -97,6 +106,17 @@ const adjustMeasureLength = (second, allNotes) => {
     return closestNoteOn;
 }
 
+const TonalGrid = ({ tonic }) => {
+    if (tonic === null) {
+        return [];
+    }
+    const result = []
+    for (let octave = 2; octave <= 7; ++octave) {
+        result.push(<div style={{ position: 'absolute', width: '100%', height: NOTE_HEIGHT, left: 0, top: midiNumberToY(tonic + octave * 12), backgroundColor: '#bbb', zIndex: 1, }} />)
+    }
+    return result
+}
+
 export const AnalysisGrid: React.FC<{ analysis: Analysis, allNotes: Note[] }> = React.memo(({ analysis, allNotes }) => {
     let measures = [];
     let beats = [];
@@ -110,8 +130,10 @@ export const AnalysisGrid: React.FC<{ analysis: Analysis, allNotes: Note[] }> = 
 
         let previousMeasure = analysis.firstMeasure;
         let measureLength = analysis.secondMeasure - analysis.firstMeasure;
+        measures.push(<Measure second={previousMeasure} number={1} />)
         for (let i = 2; i < 100; i++) {
             const newMeasure = adjustMeasureLength(previousMeasure + measureLength, allNotes);
+            if (previousMeasure === newMeasure) break;
             measures.push(<Measure second={newMeasure} number={i} />)
             beats.push(<Beat second={previousMeasure * 0.75 + newMeasure * 0.25} />)
             beats.push(<Beat second={previousMeasure * 0.5 + newMeasure * 0.5} />)
@@ -123,5 +145,6 @@ export const AnalysisGrid: React.FC<{ analysis: Analysis, allNotes: Note[] }> = 
     return <>
         {measures}
         {beats}
+        {<TonalGrid tonic={analysis.tonic} />}
     </>
 });

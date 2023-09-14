@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useMemo, useState, useEffect, useRef } from 'react';
 import { NES_APU_NOTE_ESTIMATIONS, PAUSE, nesApuNoteEstimation } from './nesApuNoteEstimations';
-import { AnalysisGrid, Cursor, STEP_CALL_TO_ACTION, Step, advanceAnalysis, getSavedAnalysis } from './Analysis';
+import { AnalysisGrid, Cursor, STEPS, STEP_CALL_TO_ACTION, Step, advanceAnalysis, getSavedAnalysis, nextStep, prevStep } from './Analysis';
 
 export const RESOLUTION_DUMPS_PER_SECOND = 100;
 export const RESOLUTION_MS = 1 / RESOLUTION_DUMPS_PER_SECOND;
@@ -91,9 +91,9 @@ const calculateNotesFromPeriods = (periods, oscType) => {
     return notes.filter(note => note.note.midiNumber !== -1);
 }
 
-const NOTE_HEIGHT = 7
+export const NOTE_HEIGHT = 7
 export const secondsToX = seconds => seconds * 70
-const midiNumberToY = midiNumber => 600 - (midiNumber - 20) * NOTE_HEIGHT
+export const midiNumberToY = midiNumber => 600 - (midiNumber - 20) * NOTE_HEIGHT
 const isNoteCurrentlyPlayed = (note, positionMs) => {
     const positionSeconds = positionMs / 1000;
     return (note.span[0] <= positionSeconds) && (positionSeconds <= note.span[1])
@@ -112,7 +112,9 @@ const getNoteRectangles = (notes, color, handleNoteClick = note => { }) => {
                 backgroundColor: color,
                 top,
                 left,
+                pointerEvents: color === 'white' ? 'none' : 'auto',
                 cursor: 'pointer',
+                zIndex: 10,
             }}
             onClick={() => handleNoteClick(note)}
         ><div style={{
@@ -200,7 +202,17 @@ const Chiptheory = ({ chipStateDump, getCurrentPositionMs }) => {
             <Cursor style={{ left: secondsToX(positionMs / 1000) }} />
             <AnalysisGrid analysis={analysis} allNotes={allNotes} />
         </div>
-        <div>Analyze track in several clicks. {STEP_CALL_TO_ACTION[analysis.step]}</div>
+        <div><button
+            className="box-button"
+            disabled={analysis.step === STEPS[0]}
+            onClick={() => prevStep(analysisRef.current, setAnalysis)}>&lt;
+        </button>
+            {' '}
+            <button
+                className="box-button"
+                disabled={analysis.step === STEPS[STEPS.length - 1]}
+                onClick={() => nextStep(analysisRef.current, setAnalysis)}>&gt;
+            </button>{"  "}{STEP_CALL_TO_ACTION[analysis.step]}</div>
     </div>
 }
 

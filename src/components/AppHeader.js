@@ -25,9 +25,8 @@ export default class AppHeader extends React.PureComponent {
           Chip Player JS
         </a>
         {' • '}
-        Send feedback to the author of{" "}
-        <a href="https://github.com/vpavlenko/study-music" target="_blank" rel="noopener noreferrer">
-          study-music
+        <a href="https://github.com/vpavlenko/" target="_blank" rel="noopener noreferrer">
+          Send feedback
         </a>
       </header>
     );

@@ -1,13 +1,13 @@
 import pianoKeys from '../images/piano-keys.png';
 import Spectrogram from '../Spectrogram';
-import React, {PureComponent} from 'react';
+import React, { PureComponent } from 'react';
 
 const SPECTROGRAM_MODES = [
   'Linear FFT', 'Log FFT', 'Constant Q'
 ];
 const WEIGHTING_MODES = [
-  {label: 'None', description: 'No attenuation'},
-  {label: 'A-Weighting', description: 'Darkens low and high frequencies to approximate sensitivity of human hearing.'}
+  { label: 'None', description: 'No attenuation' },
+  { label: 'A-Weighting', description: 'Darkens low and high frequencies to approximate sensitivity of human hearing.' }
 ];
 const FFT_SIZES = [
   512, 1024, 2048, 4096, 8192
@@ -60,19 +60,19 @@ export default class Visualizer extends PureComponent {
 
   handleModeClick = (e) => {
     const mode = parseInt(e.target.value, 10);
-    this.setState({vizMode: mode});
+    this.setState({ vizMode: mode });
     this.spectrogram.setMode(mode);
   };
 
   handleWeightingModeClick = (e) => {
     const mode = parseInt(e.target.value, 10);
-    this.setState({weightingMode: mode});
+    this.setState({ weightingMode: mode });
     this.spectrogram.setWeighting(mode);
   };
 
   handleFFTSizeClick = (e) => {
     const size = parseInt(e.target.value, 10);
-    this.setState({fftSize: size});
+    this.setState({ fftSize: size });
     this.spectrogram.setFFTSize(size);
   };
 
@@ -83,8 +83,8 @@ export default class Visualizer extends PureComponent {
   }
 
   handleToggleVisualizer = (e) => {
-    const enabled = e.target.value === 'true';
-    this.setState({enabled: enabled});
+    // const enabled = e.target.value === 'true';
+    this.setState({ enabled: !this.state.enabled });
   };
 
   render() {
@@ -96,28 +96,22 @@ export default class Visualizer extends PureComponent {
     return (
       <div className='Visualizer'>
         <h3 className='Visualizer-toggle'>
-          Visualizer{' '}
           <label className='inline'><input onClick={this.handleToggleVisualizer}
-                        type='radio'
-                        value={true}
-                        defaultChecked={this.state.enabled === true}
-                        name='visualizer-enabled'/>On</label>
-          <label className='inline'><input onClick={this.handleToggleVisualizer}
-                        type='radio'
-                        value={false}
-                        defaultChecked={this.state.enabled === false}
-                        name='visualizer-enabled'/>Off</label>
+            type='checkbox'
+            // value={true}
+            checked={this.state.enabled}
+            name='visualizer-enabled' />Visualizer</label>
         </h3>
         <div className='Visualizer-options' style={enabledStyle}>
           <div>
             Mode:{' '}
             {
               SPECTROGRAM_MODES.map((mode, i) =>
-                <label key={'m_'+i} className='inline'><input onClick={this.handleModeClick}
-                                      type='radio'
-                                      name='spectrogram-mode'
-                                      defaultChecked={this.state.vizMode === i}
-                                      value={i}/>{mode}</label>
+                <label key={'m_' + i} className='inline'><input onClick={this.handleModeClick}
+                  type='radio'
+                  name='spectrogram-mode'
+                  defaultChecked={this.state.vizMode === i}
+                  value={i} />{mode}</label>
               )
             }
           </div>
@@ -126,12 +120,12 @@ export default class Visualizer extends PureComponent {
               Weighting:{' '}
               {
                 WEIGHTING_MODES.map((mode, i) =>
-                  <label title={mode.description} key={'w_'+i} className='inline'>
+                  <label title={mode.description} key={'w_' + i} className='inline'>
                     <input onClick={this.handleWeightingModeClick}
-                           type='radio'
-                           name='weighting-mode'
-                           defaultChecked={this.state.weightingMode === i}
-                           value={i}/>{mode.label}</label>
+                      type='radio'
+                      name='weighting-mode'
+                      defaultChecked={this.state.weightingMode === i}
+                      value={i} />{mode.label}</label>
                 )
               }
             </div>
@@ -140,11 +134,11 @@ export default class Visualizer extends PureComponent {
               FFT Size:{' '}
               {
                 FFT_SIZES.map((size, i) =>
-                  <label key={'f_'+i} className='inline'><input onClick={this.handleFFTSizeClick}
-                                        type='radio'
-                                        name='fft-size'
-                                        defaultChecked={this.state.fftSize === size}
-                                        value={size}/>{FFT_LABELS[i]}</label>
+                  <label key={'f_' + i} className='inline'><input onClick={this.handleFFTSizeClick}
+                    type='radio'
+                    name='fft-size'
+                    defaultChecked={this.state.fftSize === size}
+                    value={size} />{FFT_LABELS[i]}</label>
                 )
               }
             </div>
@@ -153,27 +147,27 @@ export default class Visualizer extends PureComponent {
             Speed:{' '}
             {
               SPEEDS.map((speed, i) =>
-                <label key={'s_'+i} className='inline'><input onClick={this.handleSpeedClick}
-                                                              type='radio'
-                                                              name='speed'
-                                                              defaultChecked={this.state.speed === speed}
-                                                              value={speed}/>{SPEED_LABELS[i]}</label>
+                <label key={'s_' + i} className='inline'><input onClick={this.handleSpeedClick}
+                  type='radio'
+                  name='speed'
+                  defaultChecked={this.state.speed === speed}
+                  value={speed} />{SPEED_LABELS[i]}</label>
               )
             }
           </div>
         </div>
         <canvas style={enabledStyle} className='Visualizer-analyzer' width={VIS_WIDTH} height={60}
-                ref={this.freqCanvasRef}/>
+          ref={this.freqCanvasRef} />
         <canvas style={enabledStyle} className='Visualizer-spectrogram' width={VIS_WIDTH} height={800}
-                ref={this.specCanvasRef}/>
+          ref={this.specCanvasRef} />
         <img src={pianoKeys}
-             className='Visualizer-overlay'
-             ref={this.pianoKeysRef}
-             alt='Piano keys'
-             style={{
-               display: (this.state.enabled && this.state.vizMode === 2) ? 'block' : 'none',
-               width: VIS_WIDTH,
-             }}/>
+          className='Visualizer-overlay'
+          ref={this.pianoKeysRef}
+          alt='Piano keys'
+          style={{
+            display: (this.state.enabled && this.state.vizMode === 2) ? 'block' : 'none',
+            width: VIS_WIDTH,
+          }} />
       </div>
     );
   }

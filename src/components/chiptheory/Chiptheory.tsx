@@ -201,16 +201,20 @@ const Chiptheory = ({ chipStateDump, getCurrentPositionMs }) => {
         };
     }, []);
 
-    return <div style={{ width: '96%', height: PIANO_ROLL_HEIGHT, marginTop: '1em', padding: '1em', backgroundColor: 'black' }}>
-        <div style={{
-            position: 'relative', overflowX: 'scroll', overflowY: 'hidden', width: '100%', height: '100%', backgroundColor: 'gray',
-        }}>
-            {noteRectangles}
-            {currentlyPlayedRectangles}
-            <Cursor style={{ left: secondsToX(positionMs / 1000) }} />
-            <AnalysisGrid analysis={analysis} allNotes={allNotes} />
+    return <div className="App-main-content-and-settings">
+        <div style={{ width: '96%', height: '96%', marginTop: '1em', padding: 0, backgroundColor: 'black' }}>
+            <div style={{
+                margin: 0,
+                padding: 0,
+                position: 'relative', overflowX: 'scroll', overflowY: 'hidden', width: '100%', height: '100%', backgroundColor: 'gray',
+            }}>
+                {noteRectangles}
+                {currentlyPlayedRectangles}
+                <Cursor style={{ left: secondsToX(positionMs / 1000) }} />
+                <AnalysisGrid analysis={analysis} allNotes={allNotes} />
+            </div>
         </div>
-        <div><button
+        <div className="App-main-content-area settings"><div><button
             className="box-button"
             disabled={analysis.step === STEPS[0]}
             onClick={() => prevStep(analysisRef.current, setAnalysis)}>&lt;
@@ -220,7 +224,7 @@ const Chiptheory = ({ chipStateDump, getCurrentPositionMs }) => {
                 className="box-button"
                 disabled={analysis.step === STEPS[STEPS.length - 1]}
                 onClick={() => nextStep(analysisRef.current, setAnalysis)}>&gt;
-            </button>{"  "}{STEP_CALL_TO_ACTION[analysis.step]}</div>
+            </button>{"  "}<div>{STEP_CALL_TO_ACTION[analysis.step]}</div></div></div>
     </div>
 }
 

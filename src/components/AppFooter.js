@@ -64,23 +64,23 @@ function AppFooter(props) {
       <div className="AppFooter-main">
         <div className="AppFooter-main-inner">
           <button onClick={prevSong}
-                  title="Previous"
-                  className="box-button"
-                  disabled={ejected}>
+            title="Previous"
+            className="box-button"
+            disabled={ejected}>
             ⏮
           </button>
           {' '}
           <button onClick={togglePause}
-                  title={paused ? 'Resume' : 'Pause'}
-                  className="box-button"
-                  disabled={ejected}>
+            title={paused ? 'Resume' : 'Pause'}
+            className="box-button"
+            disabled={ejected}>
             {paused ? ' ► ' : ' ⏸ '}
           </button>
           {' '}
           <button onClick={nextSong}
-                  title="Next"
-                  className="box-button"
-                  disabled={ejected}>
+            title="Next"
+            className="box-button"
+            disabled={ejected}>
             ⏭
           </button>
           {' '}
@@ -100,22 +100,22 @@ function AppFooter(props) {
               </button>
             </span>}
           <span className="AppFooter-more-buttons">
-              <button title="Cycle Repeat (repeat off, repeat all songs in the context, or repeat one song)"
-                      className="box-button" onClick={handleCycleRepeat}>
-                <img alt="Repeat" src={repeatImage} style={{ verticalAlign: 'bottom' }}/>
-                {REPEAT_LABELS[repeat]}
-              </button>
+            {/* <button title="Cycle Repeat (repeat off, repeat all songs in the context, or repeat one song)"
+              className="box-button" onClick={handleCycleRepeat}>
+              <img alt="Repeat" src={repeatImage} style={{ verticalAlign: 'bottom' }} />
+              {REPEAT_LABELS[repeat]}
+            </button>
             {' '}
             <button title="Toggle shuffle mode" className="box-button" onClick={handleCycleShuffle}>
-                <img alt="Roll the dice" src={diceImage} style={{ verticalAlign: 'bottom' }}/>
+              <img alt="Roll the dice" src={diceImage} style={{ verticalAlign: 'bottom' }} />
               {SHUFFLE_LABELS[shuffle]}
-              </button>
+            </button> */}
             {' '}
             {(!showPlayerSettings && false) && // TODO: Remove footer settings
               <button className="box-button" onClick={toggleSettings}>
                 Settings &gt;
               </button>}
-            </span>
+          </span>
           <div style={{ display: 'flex', flexDirection: 'row' }}>
             <TimeSlider
               paused={paused}
@@ -127,7 +127,7 @@ function AppFooter(props) {
                 }
                 return 0;
               }}
-              onChange={handleTimeSliderChange}/>
+              onChange={handleTimeSliderChange} />
             <VolumeSlider
               onChange={(e) => {
                 handleVolumeChange(e.target.value);
@@ -138,24 +138,24 @@ function AppFooter(props) {
                 e.stopPropagation();
               }}
               title="Double-click or right-click to reset to 100%."
-              value={volume}/>
+              value={volume} />
           </div>
           {!ejected &&
             <div className="SongDetails">
-              {faves && songUrl &&
+              {/* {faves && songUrl &&
                 <div style={{ float: 'left', marginBottom: '58px' }}>
                   <FavoriteButton isFavorite={faves.includes(songUrl)}
-                                  toggleFavorite={handleToggleFavorite}
-                                  href={songUrl}/>
-                </div>}
+                    toggleFavorite={handleToggleFavorite}
+                    href={songUrl} />
+                </div>} */}
               <div className="SongDetails-title">
                 <a style={{ color: 'var(--neutral4)' }} href={getCurrentSongLink()}>
                   {title}{' '}
-                  <img alt="Copy link" src={linkImage} style={{ verticalAlign: 'bottom' }}/>
+                  <img alt="Copy link" src={linkImage} style={{ verticalAlign: 'bottom' }} />
                 </a>
                 {' '}
                 <a style={{ color: 'var(--neutral4)' }} href={songUrl}>
-                  <img alt="Download" src={downloadImage} style={{ verticalAlign: 'bottom' }}/>
+                  <img alt="Download" src={downloadImage} style={{ verticalAlign: 'bottom' }} />
                 </a>
                 {' '}
                 {infoTexts.length > 0 &&
@@ -163,13 +163,13 @@ function AppFooter(props) {
                     тхт
                   </a>
                 }
+                <div className="SongDetails-subtitle">{subtitle}</div>
+                {/* <div className="SongDetails-filepath">{pathLinks}</div> */}
               </div>
-              <div className="SongDetails-subtitle">{subtitle}</div>
-              <div className="SongDetails-filepath">{pathLinks}</div>
             </div>}
         </div>
       </div>
-      {(showPlayerSettings && false) && // TODO: Remove footer settings
+      {(showPlayerSettings) && // TODO: Remove footer settings
         <div className="AppFooter-settings">
           <div style={{
             display: 'flex',
@@ -193,12 +193,12 @@ function AppFooter(props) {
               handleSetVoiceMask={handleSetVoiceMask}
               getParameter={sequencer.getPlayer().getParameter}
               setParameter={sequencer.getPlayer().setParameter}
-              paramDefs={sequencer.getPlayer().getParamDefs()}/>
+              paramDefs={sequencer.getPlayer().getParamDefs()} />
             :
             <div>(No active player)</div>}
         </div>}
       {imageUrl &&
-        <img alt="Cover art" className="AppFooter-art" src={imageUrl}/>}
+        <img alt="Cover art" className="AppFooter-art" src={imageUrl} />}
     </div>
   );
 }

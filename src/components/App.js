@@ -789,7 +789,7 @@ class App extends React.Component {
                       )} />
                     </Switch>
                   </div>
-                  {this.state.showPlayerSettings &&
+                  {this.state.showPlayerSettings && false && // moved to AppFooter
                     <div className="App-main-content-area settings">
                       <Settings
                         ejected={this.state.ejected}

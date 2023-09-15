@@ -213,3 +213,18 @@ export const AnalysisGrid: React.FC<{ analysis: Analysis, allNotes: Note[] }> = 
         {<TonalGrid tonic={analysis.tonic} />}
     </>
 });
+
+export const AnalysisBox: React.FC<{ analysis: Analysis, setAnalysis }> = React.memo(({ analysis, setAnalysis }) => {
+    // TODO: maybe analysisRef.cuurent was correct?
+    return <div className="App-main-content-area settings"><div><button
+        className="box-button"
+        disabled={analysis.step === STEPS[0]}
+        onClick={() => prevStep(analysis, setAnalysis)}>&lt;
+    </button>
+        {' '}
+        <button
+            className="box-button"
+            disabled={analysis.step === STEPS[STEPS.length - 1]}
+            onClick={() => nextStep(analysis, setAnalysis)}>&gt;
+        </button>{"  "}<div>{STEP_CALL_TO_ACTION[analysis.step]}</div></div></div>
+})

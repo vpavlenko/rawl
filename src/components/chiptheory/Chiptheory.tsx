@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useMemo, useState, useEffect, useRef } from 'react';
 import { NES_APU_NOTE_ESTIMATIONS, PAUSE, nesApuNoteEstimation } from './nesApuNoteEstimations';
-import { Analysis, AnalysisGrid, Cursor, STEPS, STEP_CALL_TO_ACTION, Step, advanceAnalysis, getNoteColor, getSavedAnalysis, getTransparencyGradient, nextStep, prevStep } from './Analysis';
+import { Analysis, AnalysisBox, AnalysisGrid, Cursor, STEPS, STEP_CALL_TO_ACTION, Step, advanceAnalysis, getNoteColor, getSavedAnalysis, getTransparencyGradient, nextStep, prevStep } from './Analysis';
 
 export const RESOLUTION_DUMPS_PER_SECOND = 200;
 export const RESOLUTION_MS = 1 / RESOLUTION_DUMPS_PER_SECOND;
@@ -214,17 +214,7 @@ const Chiptheory = ({ chipStateDump, getCurrentPositionMs }) => {
                 <AnalysisGrid analysis={analysis} allNotes={allNotes} />
             </div>
         </div>
-        <div className="App-main-content-area settings"><div><button
-            className="box-button"
-            disabled={analysis.step === STEPS[0]}
-            onClick={() => prevStep(analysisRef.current, setAnalysis)}>&lt;
-        </button>
-            {' '}
-            <button
-                className="box-button"
-                disabled={analysis.step === STEPS[STEPS.length - 1]}
-                onClick={() => nextStep(analysisRef.current, setAnalysis)}>&gt;
-            </button>{"  "}<div>{STEP_CALL_TO_ACTION[analysis.step]}</div></div></div>
+        <AnalysisBox analysis={analysis} setAnalysis={setAnalysis} />
     </div>
 }
 

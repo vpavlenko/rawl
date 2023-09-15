@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useMemo, useState, useEffect, useRef } from 'react';
 import { NES_APU_NOTE_ESTIMATIONS, PAUSE, nesApuNoteEstimation } from './nesApuNoteEstimations';
-import { Analysis, AnalysisGrid, Cursor, STEPS, STEP_CALL_TO_ACTION, Step, advanceAnalysis, getNoteColor, getSavedAnalysis, nextStep, prevStep } from './Analysis';
+import { Analysis, AnalysisGrid, Cursor, STEPS, STEP_CALL_TO_ACTION, Step, advanceAnalysis, getNoteColor, getSavedAnalysis, getTransparencyGradient, nextStep, prevStep } from './Analysis';
 
 export const RESOLUTION_DUMPS_PER_SECOND = 100;
 export const RESOLUTION_MS = 1 / RESOLUTION_DUMPS_PER_SECOND;
@@ -93,7 +93,8 @@ const calculateNotesFromPeriods = (periods, oscType) => {
 
 export const NOTE_HEIGHT = 7
 export const secondsToX = seconds => seconds * 70
-export const midiNumberToY = midiNumber => 600 - (midiNumber - 20) * NOTE_HEIGHT
+const PIANO_ROLL_HEIGHT = 600;
+export const midiNumberToY = midiNumber => PIANO_ROLL_HEIGHT - (midiNumber - 19) * NOTE_HEIGHT
 const isNoteCurrentlyPlayed = (note, positionMs) => {
     const positionSeconds = positionMs / 1000;
     return (note.span[0] <= positionSeconds) && (positionSeconds <= note.span[1])
@@ -101,7 +102,7 @@ const isNoteCurrentlyPlayed = (note, positionMs) => {
 
 const getNoteRectangles = (notes: Note[], color: string, analysis: Analysis, handleNoteClick = note => { },) => {
     return notes.map(note => {
-        const top = midiNumberToY(note.note.midiNumber) + { 'red': 1, 'green': -1, 'blue': 0, 'white': 0, 'black': 0 }[color];
+        const top = midiNumberToY(note.note.midiNumber) // + { 'red': 1, 'green': -1, 'blue': 0, 'white': 0, 'black': 0 }[color];
         const left = secondsToX(note.span[0]);
         const colorOrGradient = getNoteColor(color, note.note.midiNumber, analysis)
         return <div
@@ -115,7 +116,8 @@ const getNoteRectangles = (notes: Note[], color: string, analysis: Analysis, han
                 pointerEvents: color === 'white' ? 'none' : 'auto',
                 cursor: 'pointer',
                 zIndex: 10,
-                ...(color === 'white' ? { backgroundColor: color } : colorOrGradient)
+                // ...(color === 'white' ? { backgroundColor: color } : colorOrGradient)
+                ...(color === 'white' ? getTransparencyGradient('white') : colorOrGradient)
             }}
             onClick={() => handleNoteClick(note)}
         ><div style={{
@@ -125,7 +127,10 @@ const getNoteRectangles = (notes: Note[], color: string, analysis: Analysis, han
             fontSize: '8px',
             lineHeight: '8px',
             fontFamily: 'Helvetica, sans-serif'
-        }}>{note.note.name.slice(0, -1)}</div></div>
+        }}>
+                {note.note.name.slice(0, -1)}
+                {/* {note.note.midiNumber} */}
+            </div></div>
     })
 }
 
@@ -194,7 +199,7 @@ const Chiptheory = ({ chipStateDump, getCurrentPositionMs }) => {
         };
     }, []);
 
-    return <div style={{ width: '96%', height: '100%', marginTop: '1em', padding: '1em', backgroundColor: 'black' }}>
+    return <div style={{ width: '96%', height: PIANO_ROLL_HEIGHT, marginTop: '1em', padding: '1em', backgroundColor: 'black' }}>
         <div style={{
             position: 'relative', overflowX: 'scroll', overflowY: 'hidden', width: '100%', height: '100%', backgroundColor: 'gray',
         }}>

@@ -18,7 +18,7 @@ type PitchClassToScaleDegree = [ScaleDegree | null, ScaleDegree | null, ScaleDeg
 const MODES = [null, 'phrygian', null, 'minor', 'major', null, null, null, null, 'dorian', 'mixolydian', null] as const
 export type Mode = typeof MODES[number]
 
-const RAINBOW_COLORS = ['red', 'orange', '#FFD700', 'green', 'blue', '#9400D3', '#FF1493']
+const RAINBOW_COLORS = ['red', '#cc7700', '#C1C100', 'green', 'blue', '#9400D3', '#FF1493']
 
 // if we have a note, it's color is mapped into degree, then mapped into colors
 
@@ -43,29 +43,36 @@ export type Analysis = {
     mode: Mode
 }
 
-const getGradient = (firstColor, secondColor) => ({
-    background: `repeating-linear-gradient( -45deg, ${firstColor}, ${firstColor} 4px,  ${secondColor} 4px, ${secondColor} 8px)`
+// const getGradient = (firstColor, secondColor) => ({
+//     background: `repeating-linear-gradient( -45deg, ${firstColor}, ${firstColor} 4px,  ${secondColor} 4px, ${secondColor} 8px)`
+// })
+
+export const getTransparencyGradient = (color) => ({
+    background: `linear-gradient(to right, ${color}, transparent)`
 })
 
 export const getNoteColor = (defaultColor: string, midiNumber, analysis) => {
     if (defaultColor === 'black' || analysis.tonic === null || analysis.mode === null) {
-        return { backgroundColor: defaultColor }
+        // return { backgroundColor: defaultColor }
+        return getTransparencyGradient(defaultColor)
     }
 
     const mapping = MIDI_NOTE_TO_SCALE_DEGREE[analysis.mode]
     let pointer = (midiNumber - analysis.tonic) % 12
     if (mapping[pointer] === null) {
         // We're in between of two colors. Let's get them
-        while (mapping[pointer] === null) {
-            pointer--;
-        }
-        let lowerScaleDegree = mapping[pointer] - 1;
-        let upperScaleDegree = (lowerScaleDegree + 1) % 7;
-        return getGradient(RAINBOW_COLORS[lowerScaleDegree], RAINBOW_COLORS[upperScaleDegree])
+        // while (mapping[pointer] === null) {
+        //     pointer--;
+        // }
+        // let lowerScaleDegree = mapping[pointer] - 1;
+        // let upperScaleDegree = (lowerScaleDegree + 1) % 7;
+        // return getGradient(RAINBOW_COLORS[lowerScaleDegree], RAINBOW_COLORS[upperScaleDegree])
+        return getTransparencyGradient('black')
     }
-    return {
-        backgroundColor: RAINBOW_COLORS[mapping[pointer] - 1]
-    }
+    // return {
+    //     backgroundColor: RAINBOW_COLORS[mapping[pointer] - 1]
+    // }
+    return getTransparencyGradient(RAINBOW_COLORS[mapping[pointer] - 1])
 }
 
 export const getSavedAnalysis: () => Analysis = () => {

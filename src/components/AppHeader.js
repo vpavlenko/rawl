@@ -5,7 +5,7 @@ export default class AppHeader extends React.PureComponent {
   render() {
     return (
       <header className="AppHeader">
-        <Link className="AppHeader-title" to={{ pathname: "/" }}>Chip Player JS</Link>
+        <Link className="AppHeader-title" to={{ pathname: "/" }}>Chiptheory</Link>
         {this.props.user ?
           <>
             {' • '}
@@ -16,12 +16,18 @@ export default class AppHeader extends React.PureComponent {
           :
           <>
             {' • '}
-            <a href="#" onClick={this.props.handleLogin}>Login/Sign Up</a> to Save Favorites
+            <a href="#" onClick={this.props.handleLogin}>Login/Sign Up</a> to Save Analyses
           </>
         }
         {' • '}
-        <a href="https://twitter.com/messages/compose?recipient_id=587634572" target="_blank" rel="noopener noreferrer">
-          Feedback
+        Built on top of{" "}
+        <a href="https://chiptune.app/" target="_blank" rel="noopener noreferrer">
+          Chip Player JS
+        </a>
+        {' • '}
+        Send feedback to the author of{" "}
+        <a href="https://github.com/vpavlenko/study-music" target="_blank" rel="noopener noreferrer">
+          study-music
         </a>
       </header>
     );

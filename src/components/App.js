@@ -16,7 +16,7 @@ import {
   arrayRemove,
   arrayUnion
 } from 'firebase/firestore/lite';
-import { NavLink, Route, Switch, withRouter } from 'react-router-dom';
+import { NavLink, Route, Switch, withRouter, Redirect } from 'react-router-dom';
 import Dropzone from 'react-dropzone';
 
 import ChipCore from '../chip-core';
@@ -709,12 +709,12 @@ class App extends React.Component {
             <div className="App-main">
               <div className="App-main-inner">
                 <div className="tab-container">
-                  <NavLink className="tab" activeClassName="tab-selected" to={{ pathname: "/", ...search }}
-                    exact>Search</NavLink>
+                  {/* <NavLink className="tab" activeClassName="tab-selected" to={{ pathname: "/", ...search }}
+                    exact>Search</NavLink> */}
                   <NavLink className="tab" activeClassName="tab-selected"
                     to={{ pathname: "/browse", ...search }}>Browse</NavLink>
-                  <NavLink className="tab" activeClassName="tab-selected"
-                    to={{ pathname: "/favorites", ...search }}>Favorites</NavLink>
+                  {/* <NavLink className="tab" activeClassName="tab-selected"
+                    to={{ pathname: "/favorites", ...search }}>Favorites</NavLink> */}
                   {/* this.sequencer?.players?.map((p, i) => `p${i}:${p.stopped?'off':'on'}`).join(' ') */}
                   <button className={this.state.showPlayerSettings ? 'tab tab-selected' : 'tab'}
                     style={{ marginLeft: 'auto', marginRight: 0 }}
@@ -724,14 +724,15 @@ class App extends React.Component {
                   <div className="App-main-content-area" ref={this.contentAreaRef}>
                     <Switch>
                       <Route path="/" exact render={() => (
-                        <Search
-                          currContext={currContext}
-                          currIdx={currIdx}
-                          toggleFavorite={this.handleToggleFavorite}
-                          favorites={this.state.faves}
-                          onSongClick={this.handleSongClick}>
-                          {this.state.loading && <p>Loading player engine...</p>}
-                        </Search>
+                        <Redirect to="/browse/Nintendo" />
+                        // <Search
+                        //   currContext={currContext}
+                        //   currIdx={currIdx}
+                        //   toggleFavorite={this.handleToggleFavorite}
+                        //   favorites={this.state.faves}
+                        //   onSongClick={this.handleSongClick}>
+                        //   {this.state.loading && <p>Loading player engine...</p>}
+                        // </Search>
                       )} />
                       <Route path="/favorites" render={() => (
                         <Favorites

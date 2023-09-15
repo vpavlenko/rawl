@@ -88,6 +88,7 @@
     "node-stream-zip": "^1.7.0",
     "patch-package": "^5.1.1",
     "postinstall-prepare": "^1.0.1",
+    "prettier": "3.0.3",
     "request": "^2.88.0",
     "request-promise": "^4.2.2",
     "sanitize-filename": "^1.6.1",

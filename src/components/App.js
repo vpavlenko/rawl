@@ -45,7 +45,7 @@ import AppHeader from './AppHeader';
 import Browse from './Browse';
 import DropMessage from './DropMessage';
 import Favorites from './Favorites';
-import Search from './Search';
+// import Search from './Search';
 import Visualizer from './Visualizer';
 import Alert from './Alert';
 import MessageBox from './MessageBox';

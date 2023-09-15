@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { NOTE_HEIGHT, Note, RESOLUTION_MS, midiNumberToY, secondsToX } from './Chiptheory';
-import styled from 'styled-components';
+import styled, { CSSProperties } from 'styled-components';
 
 // Analysis is done in steps.
 // The meaning of a click/hover at each step is different.
@@ -48,10 +48,18 @@ export type Analysis = {
 // })
 
 export const getTransparencyGradient = (color) => ({
-    background: `linear-gradient(to right, ${color}, transparent)`
+    background: `linear-gradient(to right, ${color} 0px, ${color} 10px, transparent 100%)`
 })
 
-export const getNoteColor = (defaultColor: string, midiNumber, analysis) => {
+export const getNoteColor = (defaultColor: string, midiNumber, analysis): CSSProperties => {
+    if (defaultColor === 'white') {
+        return {
+            // border: '1px solid white',
+            boxShadow: 'white 0px 1px 1px 0px',
+            boxSizing: 'border-box',
+            backgroundColor: 'transparent'
+        }
+    }
     if (defaultColor === 'black' || analysis.tonic === null || analysis.mode === null) {
         // return { backgroundColor: defaultColor }
         return getTransparencyGradient(defaultColor)

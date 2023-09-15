@@ -3,7 +3,7 @@ import { useMemo, useState, useEffect, useRef } from 'react';
 import { NES_APU_NOTE_ESTIMATIONS, PAUSE, nesApuNoteEstimation } from './nesApuNoteEstimations';
 import { Analysis, AnalysisGrid, Cursor, STEPS, STEP_CALL_TO_ACTION, Step, advanceAnalysis, getNoteColor, getSavedAnalysis, getTransparencyGradient, nextStep, prevStep } from './Analysis';
 
-export const RESOLUTION_DUMPS_PER_SECOND = 100;
+export const RESOLUTION_DUMPS_PER_SECOND = 200;
 export const RESOLUTION_MS = 1 / RESOLUTION_DUMPS_PER_SECOND;
 
 type OscType = 'pulse' | 'triangle' | 'noise';
@@ -105,6 +105,17 @@ const getNoteRectangles = (notes: Note[], color: string, analysis: Analysis, han
         const top = midiNumberToY(note.note.midiNumber) // + { 'red': 1, 'green': -1, 'blue': 0, 'white': 0, 'black': 0 }[color];
         const left = secondsToX(note.span[0]);
         const colorOrGradient = getNoteColor(color, note.note.midiNumber, analysis)
+        const noteName = <div style={{
+            position: 'relative',
+            top: color === 'black' ? '-8px' : '0px',
+            left: '1px',
+            fontSize: '8px',
+            lineHeight: '8px',
+            fontFamily: 'Helvetica, sans-serif'
+        }}>
+            {note.note.name.slice(0, -1)}
+            {/* {note.note.midiNumber} */}
+        </div>;
         return <div
             style={{
                 position: 'absolute',
@@ -117,20 +128,11 @@ const getNoteRectangles = (notes: Note[], color: string, analysis: Analysis, han
                 cursor: 'pointer',
                 zIndex: 10,
                 // ...(color === 'white' ? { backgroundColor: color } : colorOrGradient)
-                ...(color === 'white' ? getTransparencyGradient('white') : colorOrGradient)
+                // ...(color === 'white' ? getTransparencyGradient('white') : colorOrGradient)
+                ...(colorOrGradient)
             }}
             onClick={() => handleNoteClick(note)}
-        ><div style={{
-            position: 'relative',
-            top: color === 'black' ? '-8px' : '0px',
-            left: '1px',
-            fontSize: '8px',
-            lineHeight: '8px',
-            fontFamily: 'Helvetica, sans-serif'
-        }}>
-                {note.note.name.slice(0, -1)}
-                {/* {note.note.midiNumber} */}
-            </div></div>
+        >{color !== 'white' && noteName}</div>
     })
 }
 

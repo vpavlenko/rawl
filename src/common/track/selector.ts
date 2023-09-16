@@ -1,6 +1,7 @@
 import last from "lodash/last"
 import uniq from "lodash/uniq"
 import { isNotUndefined } from "../helpers/array"
+import { TrackEvent } from "./TrackEvent"
 import {
   isControllerEvent,
   isControllerEventWithType,
@@ -13,10 +14,9 @@ import {
   isTrackNameEvent,
   isVolumeEvent,
 } from "./identify"
-import { TrackEvent } from "./TrackEvent"
 
 export const getLast = <T extends TrackEvent>(events: T[]): T | undefined =>
-  last(events.slice().sort((e) => e.tick))
+  last(events.slice().sort((a, b) => a.tick - b.tick))
 
 export const isTickBefore =
   (tick: number) =>

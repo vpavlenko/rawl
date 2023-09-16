@@ -24,7 +24,7 @@ export function getMeasuresFromConductorTrack(
   const events = conductorTrack.events
     .filter(isTimeSignatureEvent)
     .slice()
-    .sort((e) => e.tick)
+    .sort((a, b) => a.tick - b.tick)
 
   if (events.length === 0) {
     return [

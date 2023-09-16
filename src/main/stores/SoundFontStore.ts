@@ -5,19 +5,19 @@ import { SoundFontSynth } from "../services/SoundFontSynth"
 
 const storeName = "soundfonts"
 
-interface LocalSoundFont extends Metadata {
+interface LocalSoundFont {
   type: "local"
   data: ArrayBuffer
 }
 
-interface RemoteSoundFont extends Metadata {
+interface RemoteSoundFont {
   type: "remote"
   url: string
 }
 
 type SoundFontItem = LocalSoundFont | RemoteSoundFont
 
-const defaultSoundFonts: SoundFontItem[] = [
+const defaultSoundFonts: (SoundFontItem & Metadata)[] = [
   {
     id: -999, // Use negative number to avoid conflict with user saved soundfonts
     type: "remote",
@@ -48,11 +48,15 @@ export class SoundFontStore {
     })
 
     await this.storage.init()
-    const savedFiles = await this.storage.list()
-    this.files = [...defaultSoundFonts, ...savedFiles]
+    await this.updateFileList()
 
     // load last selected soundfont on startup
     await this.load(this.selectedSoundFontId ?? defaultSoundFonts[0].id)
+  }
+
+  private async updateFileList() {
+    const savedFiles = await this.storage.list()
+    this.files = [...defaultSoundFonts, ...savedFiles]
   }
 
   private async getSoundFont(id: number): Promise<SoundFontItem | null> {
@@ -82,5 +86,10 @@ export class SoundFontStore {
         await this.synth.loadSoundFontFromURL(soundfont.url)
         break
     }
+  }
+
+  async addSoundFont(data: ArrayBuffer, name: string) {
+    await this.storage.save({ type: "local", data }, name)
+    await this.updateFileList()
   }
 }

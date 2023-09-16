@@ -3,7 +3,7 @@ export interface Metadata {
   name: string
 }
 
-export class IndexedDBStorage<Data extends Metadata> {
+export class IndexedDBStorage<Data> {
   private db: IDBDatabase | null = null
 
   constructor(

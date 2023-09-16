@@ -80,13 +80,18 @@ export default class RootStore {
 
     registerReactions(this)
 
-    this.setupSynth()
-    this.setupMetronomeSynth()
+    this.init()
   }
 
-  private async setupSynth() {
-    await this.synth.setup()
-    await this.soundFontStore.loadLastSelectedSoundFont()
+  private async init() {
+    try {
+      await this.synth.setup()
+      await this.soundFontStore.init()
+      this.setupMetronomeSynth()
+    } catch (e) {
+      this.rootViewStore.initializeError = e as Error
+      this.rootViewStore.openInitializeErrorDialog = true
+    }
   }
 
   private async setupMetronomeSynth() {

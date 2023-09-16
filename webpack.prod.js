@@ -50,8 +50,8 @@ module.exports = merge(common, {
       ],
       dryRun: process.env.VERCEL_ENV !== "production",
       debug: true,
-      errorHandler: (err, invokeErr, compilation) => {
-        compilation.warnings.push("Sentry CLI Plugin: " + err.message)
+      errorHandler: (err) => {
+        console.warn("Sentry CLI Plugin: " + err.message)
       },
     }),
   ],

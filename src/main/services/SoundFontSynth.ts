@@ -26,6 +26,12 @@ export class SoundFontSynth implements SynthOutput {
     await this.context.audioWorklet.addModule(url)
   }
 
+  async loadSoundFontFromURL(url: string) {
+    const response = await fetch(url)
+    const data = await response.arrayBuffer()
+    await this.loadSoundFont(data)
+  }
+
   async loadSoundFont(data: ArrayBuffer) {
     if (this.synth !== null) {
       this.synth.disconnect()

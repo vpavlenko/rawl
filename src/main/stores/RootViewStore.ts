@@ -10,6 +10,8 @@ export default class RootViewStore {
   openCloudFileDialog = false
   openSettingDialog = false
   openControlSettingDialog = false
+  initializeError: Error | null = null
+  openInitializeErrorDialog = false
 
   constructor() {
     makeObservable(this, {
@@ -21,6 +23,8 @@ export default class RootViewStore {
       openCloudFileDialog: observable,
       openSettingDialog: observable,
       openControlSettingDialog: observable,
+      initializeError: observable,
+      openInitializeErrorDialog: observable,
     })
   }
 }

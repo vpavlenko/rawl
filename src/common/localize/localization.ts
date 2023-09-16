@@ -146,6 +146,7 @@ export default {
     "control-settings": "コントロール設定",
     add: "追加",
     remove: "削除",
+    "initialize-error": "起動時の処理でエラーが発生しました",
     /* MIDI Instrument Categories */
     Piano: "ピアノ",
     "Chromatic Percussion": "クロマチック",

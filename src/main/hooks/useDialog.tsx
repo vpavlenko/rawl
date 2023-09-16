@@ -43,7 +43,7 @@ export const useDialog = () => {
 
   return {
     async show<Keys extends string>(
-      options: DialogOptions<Keys>
+      options: DialogOptions<Keys>,
     ): Promise<Keys> {
       return new Promise((resolve, _reject) => {
         setDialog({

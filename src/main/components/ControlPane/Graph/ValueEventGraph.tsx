@@ -29,7 +29,7 @@ const maxValueForType = (type: ValueEventType) => {
 }
 
 const labelFormatterForType = (
-  type: ValueEventType
+  type: ValueEventType,
 ): ((v: number) => string) => {
   switch (type.type) {
     case "controller":
@@ -67,5 +67,5 @@ export const ValueEventGraph: FC<ValueEventGraphProps> = React.memo(
         axisLabelFormatter={labelFormatter}
       />
     )
-  })
+  }),
 )

@@ -48,15 +48,15 @@ export const TempoGraphCanvas: FC<TempoGraphCanvasProps> = observer(
         x: e.offsetX + scrollLeft,
         y: e.offsetY,
       }),
-      [scrollLeft]
+      [scrollLeft],
     )
 
     const findEvent = useCallback(
       (local: IPoint) =>
         items.find(
-          (n) => local.x >= n.bounds.x && local.x < n.bounds.x + n.bounds.width
+          (n) => local.x >= n.bounds.x && local.x < n.bounds.x + n.bounds.width,
         ),
-      [items]
+      [items],
     )
 
     const pencilMouseDown = useCallback(
@@ -64,10 +64,10 @@ export const TempoGraphCanvas: FC<TempoGraphCanvasProps> = observer(
         handlePencilMouseDown(rootStore)(
           e.nativeEvent,
           getLocal(e.nativeEvent),
-          transform
+          transform,
         )
       },
-      [rootStore, transform, scrollLeft, mouseMode]
+      [rootStore, transform, scrollLeft, mouseMode],
     )
 
     const selectionMouseDown = useCallback(
@@ -80,13 +80,13 @@ export const TempoGraphCanvas: FC<TempoGraphCanvasProps> = observer(
             ev.nativeEvent,
             hitEventId,
             local,
-            transform
+            transform,
           )
         } else {
           handleCreateSelectionDrag(rootStore)(ev.nativeEvent, local, transform)
         }
       },
-      [rootStore, transform, scrollLeft]
+      [rootStore, transform, scrollLeft],
     )
 
     const onMouseDownGraph =
@@ -104,15 +104,15 @@ export const TempoGraphCanvas: FC<TempoGraphCanvasProps> = observer(
         const bpm = uSecPerBeatToBPM(event.microsecondsPerBeat)
         changeTempo(rootStore)(
           event.id,
-          Math.floor(bpmToUSecPerBeat(bpm + movement))
+          Math.floor(bpmToUSecPerBeat(bpm + movement)),
         )
       },
-      [items, rootStore, scrollLeft]
+      [items, rootStore, scrollLeft],
     )
 
     const scrollXMatrix = useMemo(
       () => matrixFromTranslation(-scrollLeft, 0),
-      [scrollLeft]
+      [scrollLeft],
     )
 
     return (
@@ -132,5 +132,5 @@ export const TempoGraphCanvas: FC<TempoGraphCanvasProps> = observer(
         </Transform>
       </GLCanvas>
     )
-  }
+  },
 )

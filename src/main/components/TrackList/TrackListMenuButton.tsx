@@ -37,7 +37,7 @@ export const TrackListMenuButton: FC = observer(() => {
   const open = pianoRollStore.showTrackList
   const onClickNavBack = useCallback(
     () => (pianoRollStore.showTrackList = !pianoRollStore.showTrackList),
-    [pianoRollStore]
+    [pianoRollStore],
   )
 
   const ref = useRef<HTMLButtonElement>(null)

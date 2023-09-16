@@ -127,7 +127,7 @@ export const duplicateTempoSelection =
     }))
 
     const addedEvents = conductorTrack.transaction((it) =>
-      events.map((e) => it.createOrUpdate(e))
+      events.map((e) => it.createOrUpdate(e)),
     )
 
     // select the created events

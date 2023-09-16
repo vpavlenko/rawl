@@ -3,7 +3,7 @@ export type Range = [start: number, end: number]
 const getRange = (
   pixelsPerTick: number,
   scrollLeft: number,
-  width: number
+  width: number,
 ): Range => [scrollLeft / pixelsPerTick, (scrollLeft + width) / pixelsPerTick]
 
 export const filterEventsWithRange = <T extends { tick: number }>(
@@ -15,12 +15,12 @@ export const filterEventsWithScroll = <T extends { tick: number }>(
   events: T[],
   pixelsPerTick: number,
   scrollLeft: number,
-  width: number
+  width: number,
 ): T[] =>
   filterEventsWithRange(events, ...getRange(pixelsPerTick, scrollLeft, width))
 
 export const filterEventsOverlapRange = <
-  T extends { tick: number; duration?: number }
+  T extends { tick: number; duration?: number },
 >(
   events: T[],
   ...range: Range
@@ -35,15 +35,15 @@ export const filterEventsOverlapRange = <
 }
 
 export const filterEventsOverlapScroll = <
-  T extends { tick: number; duration?: number }
+  T extends { tick: number; duration?: number },
 >(
   events: T[],
   pixelsPerTick: number,
   scrollLeft: number,
-  width: number
+  width: number,
 ): T[] => {
   return filterEventsOverlapRange(
     events,
-    ...getRange(pixelsPerTick, scrollLeft, width)
+    ...getRange(pixelsPerTick, scrollLeft, width),
   )
 }

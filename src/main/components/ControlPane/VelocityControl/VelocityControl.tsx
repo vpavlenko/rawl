@@ -24,12 +24,12 @@ const PianoVelocityControl: FC<PianoVelocityControlProps> = observer(
         <VelocityControlCanvas width={width} height={height} />
       </Parent>
     )
-  }
+  },
 )
 
 function areEqual(
   props: PianoVelocityControlProps,
-  nextProps: PianoVelocityControlProps
+  nextProps: PianoVelocityControlProps,
 ) {
   return props.width === nextProps.width && props.height === nextProps.height
 }

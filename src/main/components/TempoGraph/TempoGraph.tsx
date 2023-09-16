@@ -28,7 +28,7 @@ export const TempoGraph: FC = observer(() => {
 
   const setScrollLeft = useCallback(
     (x: number) => (tempoEditorStore.scrollLeft = x),
-    []
+    [],
   )
   const theme = useTheme()
 

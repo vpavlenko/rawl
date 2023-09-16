@@ -16,9 +16,9 @@ export const Localized: FC<LocalizedProps> = observer(
         {localized(
           children,
           defaultValue,
-          settingStore.language ?? undefined
+          settingStore.language ?? undefined,
         ) ?? defaultValue}
       </>
     )
-  }
+  },
 )

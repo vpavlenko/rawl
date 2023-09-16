@@ -15,7 +15,7 @@ export type BeatWithX = Beat & {
 const getMeasuresInRange = (
   measures: Measure[],
   startTick: number,
-  endTick: number
+  endTick: number,
 ) => {
   let i = 0
   const result: Measure[] = []
@@ -57,7 +57,7 @@ export const createBeatsInRange = (
   allMeasures: Measure[],
   timebase: number,
   startTick: number,
-  endTick: number
+  endTick: number,
 ): Beat[] => {
   const beats: Beat[] = []
   const measures = getMeasuresInRange(allMeasures, startTick, endTick)
@@ -73,7 +73,7 @@ export const createBeatsInRange = (
 
     const startBeat = Math.max(
       0,
-      Math.floor((startTick - measure.startTick) / ticksPerBeat)
+      Math.floor((startTick - measure.startTick) / ticksPerBeat),
     )
     const endBeat = (lastTick - measure.startTick) / ticksPerBeat
 
@@ -95,13 +95,13 @@ export const createBeatsWithXInRange = (
   pixelsPerTick: number,
   timebase: number,
   startTick: number,
-  width: number
+  width: number,
 ): BeatWithX[] => {
   const endTick = startTick + width / pixelsPerTick
   return createBeatsInRange(allMeasures, timebase, startTick, endTick).map(
     (b) => ({
       ...b,
       x: Math.round(b.tick * pixelsPerTick),
-    })
+    }),
   )
 }

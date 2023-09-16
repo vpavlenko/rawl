@@ -36,7 +36,7 @@ export const RulerContextMenu: FC<RulerContextMenuProps> = React.memo(
 
     const onClickRemoveTimeSignature = useCallback(() => {
       song.conductorTrack?.removeEvents(
-        rulerStore.selectedTimeSignatureEventIds
+        rulerStore.selectedTimeSignatureEventIds,
       )
       handleClose()
     }, [song])
@@ -89,5 +89,5 @@ export const RulerContextMenu: FC<RulerContextMenuProps> = React.memo(
         />
       </>
     )
-  })
+  }),
 )

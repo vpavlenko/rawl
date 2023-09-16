@@ -46,7 +46,7 @@ export default class EventScheduler<E extends SchedulableEvent> {
     createLoopEndEvents: () => DistributiveOmit<E, "tick">[],
     tick = 0,
     timebase = 480,
-    lookAheadTime = 100
+    lookAheadTime = 100,
   ) {
     this._getEvents = getEvents
     this._createLoopEndEvents = createLoopEndEvents
@@ -85,7 +85,7 @@ export default class EventScheduler<E extends SchedulableEvent> {
     const getEventsInRange = (
       startTick: number,
       endTick: number,
-      currentTick: number
+      currentTick: number,
     ) => this._getEvents(startTick, endTick).map(withTimestamp(currentTick))
 
     if (this._prevTime === undefined) {
@@ -98,7 +98,7 @@ export default class EventScheduler<E extends SchedulableEvent> {
     // 先読み時間
     // Leading time
     const lookAheadTick = Math.floor(
-      this.millisecToTick(this.lookAheadTime, bpm)
+      this.millisecToTick(this.lookAheadTime, bpm),
     )
 
     // 前回スケジュール済みの時点から、
@@ -125,7 +125,7 @@ export default class EventScheduler<E extends SchedulableEvent> {
       return [
         ...getEventsInRange(startTick, loop.end, nowTick),
         ...this._createLoopEndEvents().map((e) =>
-          withTimestamp(currentTick)({ ...e, tick: loop.begin } as E)
+          withTimestamp(currentTick)({ ...e, tick: loop.begin } as E),
         ),
         ...getEventsInRange(loop.begin, endTick2, currentTick),
       ]

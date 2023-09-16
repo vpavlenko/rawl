@@ -48,7 +48,7 @@ export const handleCreateSelectionDrag =
         tempoEditorStore.selectedEventIds = filterEventsWithRange(
           conductorTrack.events.filter(isSetTempoEvent),
           selection.fromTick,
-          selection.toTick
+          selection.toTick,
         ).map((e) => e.id)
 
         tempoEditorStore.selection = null

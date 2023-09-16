@@ -24,11 +24,11 @@ const serializeUndoableState = (rootStore: RootStore): SerializedState => {
     selection: cloneDeep(rootStore.pianoRollStore.selection),
     selectedNoteIds: cloneDeep(rootStore.pianoRollStore.selectedNoteIds),
     selectedControllerEventIds: cloneDeep(
-      rootStore.controlStore.selectedEventIds
+      rootStore.controlStore.selectedEventIds,
     ),
     arrangeSelection: cloneDeep(rootStore.arrangeViewStore.selection),
     arrangeSelectedEventIds: cloneDeep(
-      rootStore.arrangeViewStore.selectedEventIds
+      rootStore.arrangeViewStore.selectedEventIds,
     ),
   }
 }

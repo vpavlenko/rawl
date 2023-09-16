@@ -82,7 +82,7 @@ const HeaderList = styled.div`
 type DragHandler = (
   e: MouseEvent,
   mouseMove: (handler: (e: MouseEvent, delta: IPoint) => void) => void,
-  mouseUp: (handler: (e: MouseEvent) => void) => void
+  mouseUp: (handler: (e: MouseEvent) => void) => void,
 ) => void
 
 export const ArrangeView: FC = observer(() => {
@@ -111,11 +111,11 @@ export const ArrangeView: FC = observer(() => {
 
   const setScrollLeft = useCallback(
     (v: number) => arrangeViewStore.setScrollLeftInPixels(v),
-    []
+    [],
   )
   const setScrollTop = useCallback(
     (v: number) => arrangeViewStore.setScrollTop(v),
-    []
+    [],
   )
 
   const containerWidth = size.width
@@ -133,28 +133,28 @@ export const ArrangeView: FC = observer(() => {
 
   const onClickScaleUpHorizontal = useCallback(
     () => arrangeViewStore.scaleAroundPointX(0.2, 0),
-    [arrangeViewStore]
+    [arrangeViewStore],
   )
   const onClickScaleDownHorizontal = useCallback(
     () => arrangeViewStore.scaleAroundPointX(-0.2, 0),
-    [arrangeViewStore]
+    [arrangeViewStore],
   )
   const onClickScaleResetHorizontal = useCallback(
     () => (arrangeViewStore.scaleX = 1),
-    [arrangeViewStore]
+    [arrangeViewStore],
   )
 
   const onClickScaleUpVertical = useCallback(
     () => arrangeViewStore.setScaleY(arrangeViewStore.scaleY * (1 + 0.2)),
-    [arrangeViewStore]
+    [arrangeViewStore],
   )
   const onClickScaleDownVertical = useCallback(
     () => arrangeViewStore.setScaleY(arrangeViewStore.scaleY * (1 - 0.2)),
-    [arrangeViewStore]
+    [arrangeViewStore],
   )
   const onClickScaleResetVertical = useCallback(
     () => arrangeViewStore.setScaleY(1),
-    [arrangeViewStore]
+    [arrangeViewStore],
   )
 
   const handleLeftClick = useCallback(
@@ -181,7 +181,7 @@ export const ArrangeView: FC = observer(() => {
           const selectionToPx = pointAdd(startPosPx, deltaPx)
           arrangeResizeSelection(rootStore)(
             startPos,
-            trackTransform.getArrangePoint(selectionToPx)
+            trackTransform.getArrangePoint(selectionToPx),
           )
         })
         mouseUp((e) => {
@@ -197,7 +197,7 @@ export const ArrangeView: FC = observer(() => {
         mouseMove((e, deltaPx) => {
           const selectionFromPx = pointAdd(deltaPx, selectionRect)
           arrangeMoveSelection(rootStore)(
-            trackTransform.getArrangePoint(selectionFromPx)
+            trackTransform.getArrangePoint(selectionFromPx),
           )
         })
         mouseUp((e) => {})
@@ -216,7 +216,7 @@ export const ArrangeView: FC = observer(() => {
       handler(
         e.nativeEvent,
         (fn) => (mouseMove = fn),
-        (fn) => (mouseUp = fn)
+        (fn) => (mouseUp = fn),
       )
 
       const startClientPos = getClientPos(e.nativeEvent)
@@ -227,7 +227,7 @@ export const ArrangeView: FC = observer(() => {
         onMouseUp: (e) => mouseUp(e),
       })
     },
-    [selection, trackTransform, rootStore, scrollLeft, scrollTop]
+    [selection, trackTransform, rootStore, scrollLeft, scrollTop],
   )
 
   const handleMiddleClick = useCallback(
@@ -246,7 +246,7 @@ export const ArrangeView: FC = observer(() => {
         },
       })
     },
-    [scrollLeft, scrollTop]
+    [scrollLeft, scrollTop],
   )
 
   const { onContextMenu, menuProps } = useContextMenu()
@@ -269,7 +269,7 @@ export const ArrangeView: FC = observer(() => {
           break
       }
     },
-    [handleLeftClick, handleMiddleClick, onContextMenu]
+    [handleLeftClick, handleMiddleClick, onContextMenu],
   )
 
   const onWheel = useCallback(
@@ -294,7 +294,7 @@ export const ArrangeView: FC = observer(() => {
         arrangeViewStore.scrollBy(-e.deltaX, -deltaY)
       }
     },
-    [arrangeViewStore, scrollBy]
+    [arrangeViewStore, scrollBy],
   )
 
   const openTrack = (trackId: number) => {

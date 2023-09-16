@@ -10,7 +10,7 @@ export const handleCreateSelectionDrag =
     e: MouseEvent,
     startPoint: IPoint,
     controlTransform: ControlCoordTransform,
-    getControllerEventIdsInSelection: (selection: ControlSelection) => number[]
+    getControllerEventIdsInSelection: (selection: ControlSelection) => number[],
   ) => {
     const {
       pianoRollStore,

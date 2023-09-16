@@ -20,7 +20,7 @@ function drawRuler(
   ctx: CanvasRenderingContext2D,
   height: number,
   beats: BeatWithX[],
-  theme: Theme
+  theme: Theme,
 ) {
   ctx.strokeStyle = theme.secondaryTextColor
   ctx.lineWidth = 1
@@ -62,7 +62,7 @@ function drawLoopPoints(
   loop: LoopSetting,
   height: number,
   pixelsPerTick: number,
-  theme: Theme
+  theme: Theme,
 ) {
   const flagSize = 8
   ctx.lineWidth = 1
@@ -104,7 +104,7 @@ function drawFlag(
   y: number,
   width: number,
   height: number,
-  flagSize: number
+  flagSize: number,
 ) {
   ctx.beginPath()
   ctx.moveTo(x, y)
@@ -121,7 +121,7 @@ function drawTimeSignatures(
   height: number,
   events: TimeSignature[],
   pixelsPerTick: number,
-  theme: Theme
+  theme: Theme,
 ) {
   ctx.textBaseline = "bottom"
   ctx.font = `11px ${theme.canvasFont}`
@@ -141,7 +141,7 @@ function drawTimeSignatures(
       height - flagHeight,
       size.width + textPadding * 2,
       flagHeight,
-      textHeight
+      textHeight,
     )
     ctx.fillStyle = theme.textColor
     ctx.fillText(text, x + textPadding, height - textPadding)
@@ -185,7 +185,7 @@ const PianoRuler: FC<PianoRulerProps> = observer(({ rulerStore, style }) => {
     const widthTick = TIME_SIGNATURE_HIT_WIDTH / pixelsPerTick
     return findLast(
       timeSignatures,
-      (e) => e.tick < tick && e.tick + widthTick >= tick
+      (e) => e.tick < tick && e.tick + widthTick >= tick,
     )
   }
 
@@ -212,7 +212,7 @@ const PianoRuler: FC<PianoRulerProps> = observer(({ rulerStore, style }) => {
         }
       }
     },
-    [rootStore, quantizer, player, scrollLeft, pixelsPerTick, timeSignatures]
+    [rootStore, quantizer, player, scrollLeft, pixelsPerTick, timeSignatures],
   )
 
   const draw = useCallback(
@@ -227,7 +227,7 @@ const PianoRuler: FC<PianoRulerProps> = observer(({ rulerStore, style }) => {
       drawTimeSignatures(ctx, height, timeSignatures, pixelsPerTick, theme)
       ctx.restore()
     },
-    [width, pixelsPerTick, scrollLeft, beats, timeSignatures, loop]
+    [width, pixelsPerTick, scrollLeft, beats, timeSignatures, loop],
   )
 
   const closeOpenTimeSignatureDialog = useCallback(() => {
@@ -240,7 +240,7 @@ const PianoRuler: FC<PianoRulerProps> = observer(({ rulerStore, style }) => {
         updateTimeSignature(rootStore)(id, numerator, denominator)
       })
     },
-    []
+    [],
   )
 
   const onContextMenuWrapper: MouseEventHandler = useCallback(
@@ -248,7 +248,7 @@ const PianoRuler: FC<PianoRulerProps> = observer(({ rulerStore, style }) => {
       setRightClickTick(rulerStore.getQuantizedTick(e.nativeEvent.offsetX))
       onContextMenu(e)
     },
-    [rulerStore]
+    [rulerStore],
   )
 
   return (

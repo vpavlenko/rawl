@@ -60,9 +60,9 @@ const LineGraph = observer(
           transform.pixelsPerTick,
           maxValue,
           height,
-          lineWidth
+          lineWidth,
         ),
-      [transform.pixelsPerTick, maxValue, height, lineWidth]
+      [transform.pixelsPerTick, maxValue, height, lineWidth],
     )
 
     const items = events.map((e) => ({
@@ -77,7 +77,7 @@ const LineGraph = observer(
 
     const hitTest = useCallback(
       (point: IPoint) => controlPoints.find((r) => containsPoint(r, point))?.id,
-      [controlPoints]
+      [controlPoints],
     )
 
     const getLocal = (e: MouseEvent): IPoint => ({
@@ -93,10 +93,10 @@ const LineGraph = observer(
           ev.nativeEvent,
           local,
           controlTransform,
-          eventType
+          eventType,
         )
       },
-      [rootStore, scrollLeft, controlTransform, eventType]
+      [rootStore, scrollLeft, controlTransform, eventType],
     )
 
     const selectionMouseDown: MouseEventHandler = useCallback(
@@ -110,7 +110,7 @@ const LineGraph = observer(
             hitEventId,
             local,
             controlTransform,
-            eventType
+            eventType,
           )
         } else {
           handleCreateSelectionDrag(rootStore)(
@@ -119,12 +119,12 @@ const LineGraph = observer(
             controlTransform,
             (s) =>
               filterEventsWithRange(events, s.fromTick, s.toTick).map(
-                (e) => e.id
-              )
+                (e) => e.id,
+              ),
           )
         }
       },
-      [rootStore, controlTransform, scrollLeft, events, eventType, hitTest]
+      [rootStore, controlTransform, scrollLeft, events, eventType, hitTest],
     )
 
     const onMouseDown =
@@ -135,7 +135,7 @@ const LineGraph = observer(
         const event = createValueEvent(eventType)(value)
         createOrUpdateControlEventsValue(rootStore)(event)
       },
-      [eventType]
+      [eventType],
     )
 
     const { onContextMenu, menuProps } = useContextMenu()
@@ -164,7 +164,7 @@ const LineGraph = observer(
         <ControlSelectionContextMenu {...menuProps} />
       </div>
     )
-  }
+  },
 )
 
 export default React.memo(LineGraph)

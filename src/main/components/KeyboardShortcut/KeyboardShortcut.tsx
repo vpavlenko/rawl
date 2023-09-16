@@ -32,7 +32,7 @@ export const KeyboardShortcut: FC<KeyboardShortcutProps> = ({
           (action.enabled?.() ?? true) &&
           e.code === action.code &&
           e.shiftKey === (action.shiftKey ?? false) &&
-          (e.ctrlKey || e.metaKey) === (action.metaKey ?? false)
+          (e.ctrlKey || e.metaKey) === (action.metaKey ?? false),
       )
       if (action !== undefined) {
         action.run(e)

@@ -16,7 +16,7 @@ export const SignInDialog: FC = observer(() => {
 
   const onClose = useCallback(
     () => (rootViewStore.openSignInDialog = false),
-    [rootViewStore]
+    [rootViewStore],
   )
 
   const signInSuccessWithAuthResult = () => {

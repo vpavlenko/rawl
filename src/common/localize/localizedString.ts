@@ -7,12 +7,12 @@ export function localized(key: string, defaultValue: string): string
 export function localized(
   key: string,
   defaultValue: string,
-  language?: Language
+  language?: Language,
 ): string
 export function localized(
   key: string,
   defaultValue?: string,
-  language?: Language
+  language?: Language,
 ): string | undefined {
   // ja-JP or ja -> ja
 

@@ -50,7 +50,7 @@ export class CloudFileStore {
             }
         }
       },
-      this.sortAscending ? "asc" : "desc"
+      this.sortAscending ? "asc" : "desc",
     )
   }
 

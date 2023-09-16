@@ -168,8 +168,8 @@ const InputCell: FC<InputCellProps> = ({ value, type, style, onChange }) => {
       if (e.key === "Enter") {
         const inputs = Array.from(
           e.currentTarget?.parentElement?.parentElement?.parentElement?.querySelectorAll(
-            "input"
-          ) ?? []
+            "input",
+          ) ?? [],
         ).filter((e) => !e.disabled)
         const index = inputs.indexOf(e.currentTarget)
         const elm = inputs[index + 1]
@@ -187,7 +187,7 @@ const InputCell: FC<InputCellProps> = ({ value, type, style, onChange }) => {
         sendChange()
       }
     },
-    [sendChange, value]
+    [sendChange, value],
   )
 
   return (
@@ -209,7 +209,7 @@ const InputCell: FC<InputCellProps> = ({ value, type, style, onChange }) => {
               setInputValue(e.target.value)
             }
           },
-          [isFocus]
+          [isFocus],
         )}
         disabled={value === null}
         onKeyDown={onKeyDown}
@@ -244,7 +244,7 @@ const EventRow: FC<EventRowProps> = React.memo(
       (e: TrackEvent) => {
         selectedTrack?.removeEvent(e.id)
       },
-      [rootStore]
+      [rootStore],
     )
 
     const onChangeGate = useCallback(
@@ -255,7 +255,7 @@ const EventRow: FC<EventRowProps> = React.memo(
         const obj = controller.gate.update(value)
         selectedTrack?.updateEvent(item.id, obj)
       },
-      [rootStore, item]
+      [rootStore, item],
     )
 
     const onChangeValue = useCallback(
@@ -266,7 +266,7 @@ const EventRow: FC<EventRowProps> = React.memo(
         const obj = controller.value.update(value)
         selectedTrack?.updateEvent(item.id, obj)
       },
-      [rootStore, item]
+      [rootStore, item],
     )
 
     return (
@@ -283,7 +283,7 @@ const EventRow: FC<EventRowProps> = React.memo(
               e.stopPropagation()
             }
           },
-          [item]
+          [item],
         )}
         tabIndex={-1}
       >
@@ -320,7 +320,7 @@ const EventRow: FC<EventRowProps> = React.memo(
       </Row>
     )
   },
-  equalEventRowProps
+  equalEventRowProps,
 )
 
 export default EventList

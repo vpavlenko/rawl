@@ -29,17 +29,17 @@ export const ArrangeViewCanvas: FC<ArrangeViewCanvasProps> = observer(
 
     const scrollXMatrix = useMemo(
       () => matrixFromTranslation(-scrollLeft, 0),
-      [scrollLeft]
+      [scrollLeft],
     )
 
     const scrollYMatrix = useMemo(
       () => matrixFromTranslation(0, -scrollTop),
-      [scrollLeft, scrollTop]
+      [scrollLeft, scrollTop],
     )
 
     const scrollXYMatrix = useMemo(
       () => matrixFromTranslation(-scrollLeft, -scrollTop),
-      [scrollLeft, scrollTop]
+      [scrollLeft, scrollTop],
     )
 
     const height = trackHeight * tracks.length
@@ -64,5 +64,5 @@ export const ArrangeViewCanvas: FC<ArrangeViewCanvasProps> = observer(
         </Transform>
       </GLCanvas>
     )
-  }
+  },
 )

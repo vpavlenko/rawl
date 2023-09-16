@@ -35,7 +35,7 @@ export const SettingDialog: FC = observer(() => {
 
   const onClose = useCallback(
     () => (rootViewStore.openSettingDialog = false),
-    [rootViewStore]
+    [rootViewStore],
   )
 
   return (

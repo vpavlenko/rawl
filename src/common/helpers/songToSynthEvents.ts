@@ -12,7 +12,7 @@ interface Keyframe {
 
 export const songToSynthEvents = (
   song: Song,
-  sampleRate: number
+  sampleRate: number,
 ): SynthEvent[] => {
   const events = [...song.allEvents].sort((a, b) => a.tick - b.tick)
 

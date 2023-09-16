@@ -7,7 +7,7 @@ export interface PianoNotesClipboardData {
 }
 
 export const isPianoNotesClipboardData = (
-  x: any
+  x: any,
 ): x is PianoNotesClipboardData => x.type === "piano_notes" && "notes" in x
 
 export interface ArrangeNotesClipboardData {
@@ -17,7 +17,7 @@ export interface ArrangeNotesClipboardData {
 }
 
 export const isArrangeNotesClipboardData = (
-  x: any
+  x: any,
 ): x is ArrangeNotesClipboardData =>
   x.type === "arrange_notes" && "notes" in x && "selectedTrackId" in x
 
@@ -27,7 +27,7 @@ export interface ControlEventsClipboardData {
 }
 
 export const isControlEventsClipboardData = (
-  x: any
+  x: any,
 ): x is ControlEventsClipboardData =>
   x.type === "control_events" && "events" in x
 
@@ -37,5 +37,5 @@ export interface TempoEventsClipboardData {
 }
 
 export const isTempoEventsClipboardData = (
-  x: any
+  x: any,
 ): x is ControlEventsClipboardData => x.type === "tempo_events" && "events" in x

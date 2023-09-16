@@ -11,7 +11,7 @@ export interface Selection {
 
 export const getSelectionBounds = (
   selection: Selection,
-  transform: NoteCoordTransform
+  transform: NoteCoordTransform,
 ): IRect => {
   const left = transform.getX(selection.from.tick)
   const right = transform.getX(selection.to.tick)
@@ -28,7 +28,7 @@ export const getSelectionBounds = (
 export const movedSelection = (
   selection: Selection,
   dt: number,
-  dn: number
+  dn: number,
 ): Selection => {
   const s = cloneDeep(selection)
 
@@ -47,20 +47,20 @@ export const regularizedSelection = (
   fromTick: number,
   fromNoteNumber: number,
   toTick: number,
-  toNoteNumber: number
+  toNoteNumber: number,
 ): Selection => ({
   from: {
     tick: Math.max(0, Math.min(fromTick, toTick)),
     noteNumber: Math.min(
       MaxNoteNumber,
-      Math.max(0, Math.max(fromNoteNumber, toNoteNumber))
+      Math.max(0, Math.max(fromNoteNumber, toNoteNumber)),
     ),
   },
   to: {
     tick: Math.max(fromTick, toTick),
     noteNumber: Math.min(
       MaxNoteNumber,
-      Math.max(0, Math.min(fromNoteNumber, toNoteNumber))
+      Math.max(0, Math.min(fromNoteNumber, toNoteNumber)),
     ),
   },
 })

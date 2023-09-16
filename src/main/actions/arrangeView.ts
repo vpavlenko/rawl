@@ -21,7 +21,7 @@ const createSelection = (
   start: ArrangePoint,
   end: ArrangePoint,
   quantizer: Quantizer,
-  maxTrackIndex: number
+  maxTrackIndex: number,
 ): ArrangeSelection | null => {
   const rect = arrangeSelectionFromPoints(start, end, quantizer, maxTrackIndex)
 
@@ -62,7 +62,7 @@ export const arrangeResizeSelection =
       start,
       end,
       quantizer,
-      tracks.length
+      tracks.length,
     )
   }
 
@@ -76,7 +76,7 @@ export const arrangeEndSelection =
     if (selection) {
       arrangeViewStore.selectedEventIds = getEventsInSelection(
         tracks,
-        selection
+        selection,
       )
     }
   }
@@ -105,8 +105,8 @@ export const arrangeMoveSelection =
         0,
         Math.min(
           tracks.length - (selection.toTrackIndex - selection.fromTrackIndex),
-          point.trackIndex
-        )
+          point.trackIndex,
+        ),
       ),
     }
 
@@ -142,7 +142,7 @@ export const arrangeMoveSelectionBy =
 
     const updates = []
     for (const [trackIndex, selectedEventIds] of Object.entries(
-      s.selectedEventIds
+      s.selectedEventIds,
     )) {
       const trackId = parseInt(trackIndex, 10)
       const track = tracks[trackId]
@@ -155,7 +155,7 @@ export const arrangeMoveSelectionBy =
           events.map((e) => ({
             id: e.id,
             tick: e.tick + delta.tick,
-          }))
+          })),
         )
       } else {
         updates.push({
@@ -272,7 +272,7 @@ function getEventsInSelection(tracks: Track[], selection: ArrangeSelection) {
   ) {
     const track = tracks[trackIndex]
     const events = track.events.filter(
-      (e) => e.tick >= selection.fromTick && e.tick < selection.toTick
+      (e) => e.tick >= selection.fromTick && e.tick < selection.toTick,
     )
     ids[trackIndex] = events.map((e) => e.id)
   }
@@ -284,6 +284,6 @@ export const arrangeTransposeSelection =
     pushHistory(rootStore)()
     transposeNotes(rootStore)(
       deltaPitch,
-      rootStore.arrangeViewStore.selectedEventIds
+      rootStore.arrangeViewStore.selectedEventIds,
     )
   }

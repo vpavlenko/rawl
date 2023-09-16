@@ -27,7 +27,7 @@ export const createOrUpdateControlEventsValue =
 
     if (controllerEvents.length > 0) {
       controllerEvents.forEach((e) =>
-        selectedTrack.updateEvent(e.id, { value: event.value })
+        selectedTrack.updateEvent(e.id, { value: event.value }),
       )
     } else {
       selectedTrack.createOrUpdate({
@@ -118,7 +118,7 @@ export const pasteControlSelection =
       tick: e.tick + player.position,
     }))
     selectedTrack.transaction((it) =>
-      events.forEach((e) => it.createOrUpdate(e))
+      events.forEach((e) => it.createOrUpdate(e)),
     )
   }
 
@@ -151,7 +151,7 @@ export const duplicateControlSelection =
 
     // select the created events
     const addedEvents = selectedTrack.transaction((it) =>
-      notes.map((e) => it.createOrUpdate(e))
+      notes.map((e) => it.createOrUpdate(e)),
     )
     controlStore.selectedEventIds = addedEvents.map((e) => e.id)
   }

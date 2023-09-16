@@ -89,7 +89,7 @@ const TabBar: FC<TabBarProps> = React.memo(
         </TabButtonBase>
       </Toolbar>
     )
-  })
+  }),
 )
 
 const Parent = styled.div`
@@ -123,7 +123,7 @@ const ControlPane: FC = observer(() => {
 
   const onSelectTab = useCallback(
     (m: ControlMode) => (controlStore.controlMode = m),
-    []
+    [],
   )
 
   const controlSize = {

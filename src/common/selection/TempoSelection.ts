@@ -8,7 +8,7 @@ export interface TempoSelection {
 
 export const getTempoSelectionBounds = (
   selection: TempoSelection,
-  transform: TempoCoordTransform
+  transform: TempoCoordTransform,
 ): IRect => {
   const left = transform.getX(selection.fromTick)
   const right = transform.getX(selection.toTick)

@@ -341,5 +341,5 @@ export const TrackInstrumentName: FC<{ track: Track }> = observer(
       return <>Standard Drum Kit</>
     }
     return <InstrumentName programNumber={track.programNumber} />
-  }
+  },
 )

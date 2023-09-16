@@ -19,7 +19,7 @@ export const handleSelectionDragEvents =
     e: MouseEvent,
     hitEventId: number,
     startPoint: IPoint,
-    transform: TempoCoordTransform
+    transform: TempoCoordTransform,
   ) => {
     const {
       song: { conductorTrack },
@@ -41,8 +41,8 @@ export const handleSelectionDragEvents =
       .map(
         (id) =>
           conductorTrack.getEventById(
-            id
-          ) as unknown as TrackEventOf<SetTempoEvent>
+            id,
+          ) as unknown as TrackEventOf<SetTempoEvent>,
       )
       .filter(isNotUndefined)
       .map((e) => ({ ...e })) // copy
@@ -79,11 +79,11 @@ export const handleSelectionDragEvents =
                 clamp(
                   uSecPerBeatToBPM(ev.microsecondsPerBeat) + deltaValue,
                   0,
-                  transform.maxBPM
-                )
-              )
+                  transform.maxBPM,
+                ),
+              ),
             ),
-          }))
+          })),
         )
       },
     })

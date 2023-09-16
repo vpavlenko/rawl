@@ -112,5 +112,5 @@ export const PianoSelectionContextMenu: FC<ContextMenuProps> = React.memo(
         </MenuItem>
       </ContextMenu>
     )
-  }
+  },
 )

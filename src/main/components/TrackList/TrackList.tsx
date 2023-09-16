@@ -18,7 +18,7 @@ export const TrackList: FC = observer(() => {
   return (
     <List>
       {song.tracks.map(
-        (t, i) => !t.isConductorTrack && <TrackListItem key={i} trackId={i} />
+        (t, i) => !t.isConductorTrack && <TrackListItem key={i} trackId={i} />,
       )}
       <AddTrackButton />
     </List>

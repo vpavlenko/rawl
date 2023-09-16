@@ -33,18 +33,18 @@ export type SignalTrackColorEvent = SignalEvent<"trackColor"> & TrackColor
 export type AnySignalEvent = SignalTrackColorEvent
 
 export const isSignalEvent = (
-  e: DistributiveOmit<TrackEvent, "tick" | "id">
+  e: DistributiveOmit<TrackEvent, "tick" | "id">,
 ): e is AnySignalEvent => "subtype" in e && e.subtype === "signal"
 
 export const isSignalTrackColorEvent = (
-  e: TrackEvent
+  e: TrackEvent,
 ): e is SignalTrackColorEvent =>
   isSignalEvent(e) && e.signalEventType === "trackColor"
 
 export const mapToSignalEvent = <
-  T extends Pick<SequencerSpecificEvent, "data">
+  T extends Pick<SequencerSpecificEvent, "data">,
 >(
-  e: T
+  e: T,
 ): AnySignalEvent | T => {
   if (e.data.length <= 5 || !isEqual(e.data.slice(0, 4), signalEventPrefix)) {
     return e
@@ -71,7 +71,7 @@ export const mapToSignalEvent = <
 }
 
 export const mapFromSignalEvent = (
-  e: AnySignalEvent
+  e: AnySignalEvent,
 ): TrackEventOf<SequencerSpecificEvent> => {
   switch (e.signalEventType) {
     case "trackColor":

@@ -44,7 +44,7 @@ export class NoteBuffer {
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(bounds), gl.DYNAMIC_DRAW)
 
     const colors = rects.flatMap((obj) =>
-      Array.from(Array(6)).flatMap(() => Array.from(obj.color))
+      Array.from(Array(6)).flatMap(() => Array.from(obj.color)),
     )
     gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.color)
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.DYNAMIC_DRAW)
@@ -109,5 +109,5 @@ export const NoteShader = (gl: WebGLRenderingContext) =>
     (program) => ({
       projectionMatrix: uniformMat4(gl, program, "uProjectionMatrix"),
       strokeColor: uniformVec4(gl, program, "uStrokeColor"),
-    })
+    }),
   )

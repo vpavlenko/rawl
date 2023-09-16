@@ -20,7 +20,7 @@ export const ArrangeContextMenu: FC<ContextMenuProps> = (props) => {
   const rootStore = useStores()
   const { arrangeViewStore } = rootStore
   const isNoteSelected = Object.values(arrangeViewStore.selectedEventIds).some(
-    (e) => e.length > 0
+    (e) => e.length > 0,
   )
 
   return (

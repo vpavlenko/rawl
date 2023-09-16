@@ -62,5 +62,5 @@ export const PianoRollStage: FC<PianoRollStageProps> = observer(
         </RulerPosition>
       </Container>
     )
-  }
+  },
 )

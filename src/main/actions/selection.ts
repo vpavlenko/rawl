@@ -34,8 +34,8 @@ function eventsInSelection(events: TrackEvent[], selection: Selection) {
         y: b.noteNumber - 1, // Subtract 1 since the pitch is the lower end of the rectangle
         height: 1,
       },
-      selectionRect
-    )
+      selectionRect,
+    ),
   )
 }
 
@@ -46,7 +46,7 @@ export const resizeSelection =
       start.tick,
       start.noteNumber,
       end.tick,
-      end.noteNumber
+      end.noteNumber,
     )
 
     // integer containing the original coordinates.
@@ -70,7 +70,7 @@ export const fixSelection =
     // Confirm the selection and select the notes in the selection state
     pianoRollStore.selectedNoteIds = eventsInSelection(
       selectedTrack.events,
-      selection
+      selection,
     ).map((e) => e.id)
 
     if (clearRect) {
@@ -171,7 +171,7 @@ export const moveSelectionBy =
             ...pos,
           }
         })
-        .filter(isNotNull)
+        .filter(isNotNull),
     )
   }
 
@@ -243,7 +243,7 @@ export const resizeNotesInSelectionLeftBy =
             duration,
           }
         })
-        .filter(isNotNull)
+        .filter(isNotNull),
     )
   }
 
@@ -314,7 +314,7 @@ export const resizeNotesInSelectionRightBy =
             duration,
           }
         })
-        .filter(isNotNull)
+        .filter(isNotNull),
     )
   }
 
@@ -517,7 +517,7 @@ export const removeNoteFromSelection =
     }
 
     pianoRollStore.selectedNoteIds = selectedNoteIds.filter(
-      (id) => id !== noteId
+      (id) => id !== noteId,
     )
   }
 
@@ -558,7 +558,7 @@ const selectNeighborNote = (rootStore: RootStore) => (deltaIndex: number) => {
   const selectedNotes = sortedNotes(
     selectedNoteIds
       .map((id) => allNotes.find((n) => n.id === id))
-      .filter(isNotUndefined)
+      .filter(isNotUndefined),
   )
   if (selectedNotes.length === 0) {
     return

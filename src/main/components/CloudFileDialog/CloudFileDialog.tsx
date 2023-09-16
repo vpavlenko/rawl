@@ -20,7 +20,7 @@ export const CloudFileDialog = observer(() => {
 
   const onClose = useCallback(
     () => (rootViewStore.openCloudFileDialog = false),
-    [rootViewStore]
+    [rootViewStore],
   )
 
   return (

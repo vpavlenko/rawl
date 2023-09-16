@@ -64,7 +64,7 @@ export default class Track {
 
   private _updateEvent<T extends TrackEvent>(
     id: number,
-    obj: Partial<T>
+    obj: Partial<T>,
   ): T | null {
     const index = this.events.findIndex((e) => e.id === id)
     if (index < 0) {
@@ -116,7 +116,7 @@ export default class Track {
   // ソート、通知を行わない内部用の addEvent
   // add the event without sorting, notification
   private _addEvent<T extends TrackEvent>(
-    e: Omit<T, "id"> & { subtype?: string }
+    e: Omit<T, "id"> & { subtype?: string },
   ): T {
     if (!("tick" in e) || isNaN(e.tick)) {
       throw new Error("invalid event is added")
@@ -165,7 +165,7 @@ export default class Track {
   /* helper */
 
   private getRedundantEvents<T extends TrackEvent>(
-    event: Omit<T, "id"> & { subtype?: string; controllerType?: number }
+    event: Omit<T, "id"> & { subtype?: string; controllerType?: number },
   ) {
     return this.events.filter(
       (e) =>
@@ -176,12 +176,12 @@ export default class Track {
           : true) &&
         ("controllerType" in e && "controllerType" in event
           ? e.controllerType === event.controllerType
-          : true)
+          : true),
     )
   }
 
   createOrUpdate<T extends TrackEvent>(
-    newEvent: Omit<T, "id"> & { subtype?: string; controllerType?: number }
+    newEvent: Omit<T, "id"> & { subtype?: string; controllerType?: number },
   ): T {
     const events = this.getRedundantEvents(newEvent)
 
@@ -198,24 +198,24 @@ export default class Track {
   }
 
   removeRedundantEvents<T extends TrackEvent>(
-    event: T & { subtype?: string; controllerType?: number }
+    event: T & { subtype?: string; controllerType?: number },
   ) {
     this.removeEvents(
       this.getRedundantEvents(event)
         .filter((e) => e.id !== event.id)
-        .map((e) => e.id)
+        .map((e) => e.id),
     )
   }
 
   private setControllerValue = (
     controllerType: number,
     tick: number,
-    value: number
+    value: number,
   ) => {
     const e = getLast(
       this.events
         .filter(isControllerEventWithType(controllerType))
-        .filter(isTickBefore(tick))
+        .filter(isTickBefore(tick)),
     )
     if (e !== undefined) {
       this.updateEvent<TrackEventOf<ControllerEvent>>(e.id, {

@@ -72,5 +72,5 @@ export const ControlSelectionContextMenu: FC<ContextMenuProps> = React.memo(
         </MenuItem>
       </ContextMenu>
     )
-  }
+  },
 )

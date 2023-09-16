@@ -15,7 +15,7 @@ import DrawCanvas from "../DrawCanvas"
 function drawBorder(
   ctx: CanvasRenderingContext2D,
   width: number,
-  dividerColor: string
+  dividerColor: string,
 ): void {
   ctx.lineWidth = 1
   ctx.strokeStyle = dividerColor
@@ -28,7 +28,7 @@ function drawBorder(
 
 function makeBlackKeyFillStyle(
   ctx: CanvasRenderingContext2D,
-  width: number
+  width: number,
 ): CanvasFillStrokeStyles["fillStyle"] {
   const grd = ctx.createLinearGradient(0, 0, width, 0)
   grd.addColorStop(0.0, "rgba(33, 33, 33, 1.000)")
@@ -44,7 +44,7 @@ function drawBlackKey(
   width: number,
   height: number,
   fillStyle: CanvasFillStrokeStyles["fillStyle"],
-  dividerColor: string
+  dividerColor: string,
 ): void {
   const middle = Math.round(height / 2)
 
@@ -66,7 +66,7 @@ function drawLabel(
   height: number,
   keyNum: number,
   font: string,
-  color: string
+  color: string,
 ) {
   const x = width - 5
   ctx.textAlign = "right"
@@ -82,7 +82,7 @@ function drawKeys(
   keyHeight: number,
   numberOfKeys: number,
   theme: Theme,
-  touchingKeys: number[]
+  touchingKeys: number[],
 ) {
   ctx.save()
   ctx.translate(0, 0.5)
@@ -114,7 +114,7 @@ function drawKeys(
         width,
         keyHeight,
         isSelected ? theme.themeColor : blackKeyFillStyle,
-        grayDividerColor
+        grayDividerColor,
       )
     } else {
       if (isSelected) {
@@ -134,7 +134,7 @@ function drawKeys(
         keyHeight,
         i,
         theme.canvasFont,
-        theme.secondaryTextColor
+        theme.secondaryTextColor,
       )
     }
     ctx.restore()
@@ -158,7 +158,7 @@ const PianoKeys: FC<PianoKeysProps> = ({ numberOfKeys, keyHeight }) => {
     (ctx: CanvasRenderingContext2D) => {
       drawKeys(ctx, width, keyHeight, numberOfKeys, theme, touchingKeys)
     },
-    [keyHeight, numberOfKeys, theme, touchingKeys]
+    [keyHeight, numberOfKeys, theme, touchingKeys],
   )
 
   const onMouseDown = useCallback(
@@ -202,7 +202,7 @@ const PianoKeys: FC<PianoKeysProps> = ({ numberOfKeys, keyHeight }) => {
         },
       })
     },
-    [numberOfKeys, keyHeight]
+    [numberOfKeys, keyHeight],
   )
 
   return (

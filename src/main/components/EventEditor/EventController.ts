@@ -23,7 +23,7 @@ export type EventController = {
 }
 
 export function getEventController<T extends TrackEvent>(
-  e: T
+  e: T,
 ): EventController {
   switch (e.type) {
     case "channel":

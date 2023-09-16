@@ -72,7 +72,7 @@ const isConductorEvent = (e: AnyEventFeature) =>
   "subtype" in e && (e.subtype === "timeSignature" || e.subtype === "setTempo")
 
 export const createConductorTrackIfNeeded = (
-  tracks: AnyEvent[][]
+  tracks: AnyEvent[][],
 ): AnyEvent[][] => {
   // Find conductor track
   let [conductorTracks, normalTracks] = partition(tracks, isConductorTrack)
@@ -97,7 +97,7 @@ export const createConductorTrackIfNeeded = (
         }
         return e
       })
-      .filter(isNotNull)
+      .filter(isNotNull),
   )
 
   return [conductorTrack, ...newTracks].map(addDeltaTime)

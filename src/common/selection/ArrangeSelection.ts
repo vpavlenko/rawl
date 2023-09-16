@@ -12,19 +12,19 @@ export function arrangeSelectionFromPoints(
   start: ArrangePoint,
   end: ArrangePoint,
   quantizer: Quantizer,
-  maxTrackIndex: number
+  maxTrackIndex: number,
 ): ArrangeSelection {
   const startSelection = selectionForPoint(start, quantizer)
   const endSelection = selectionForPoint(end, quantizer)
   return clampSelection(
     unionSelections(startSelection, endSelection),
-    maxTrackIndex
+    maxTrackIndex,
   )
 }
 
 export const selectionForPoint = (
   point: ArrangePoint,
-  quantizer: Quantizer
+  quantizer: Quantizer,
 ): ArrangeSelection => {
   const fromTick = quantizer.floor(point.tick)
   const toTick = quantizer.ceil(point.tick)
@@ -38,7 +38,7 @@ export const selectionForPoint = (
 
 export const unionSelections = (
   a: ArrangeSelection,
-  b: ArrangeSelection
+  b: ArrangeSelection,
 ): ArrangeSelection => {
   return {
     fromTick: Math.min(a.fromTick, b.fromTick),
@@ -50,20 +50,20 @@ export const unionSelections = (
 
 export const clampSelection = (
   selection: ArrangeSelection,
-  maxTrackIndex: number
+  maxTrackIndex: number,
 ): ArrangeSelection => ({
   fromTick: Math.max(0, selection.fromTick),
   toTick: Math.max(0, selection.toTick),
   fromTrackIndex: Math.min(
     maxTrackIndex,
-    Math.max(0, selection.fromTrackIndex)
+    Math.max(0, selection.fromTrackIndex),
   ),
   toTrackIndex: Math.min(maxTrackIndex, Math.max(0, selection.toTrackIndex)),
 })
 
 export const movedSelection = (
   selection: ArrangeSelection,
-  delta: ArrangePoint
+  delta: ArrangePoint,
 ): ArrangeSelection => ({
   fromTick: selection.fromTick + delta.tick,
   toTick: selection.toTick + delta.tick,

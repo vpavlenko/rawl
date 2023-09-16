@@ -10,7 +10,7 @@ export const PianoRollToolSelector = observer(() => {
       mouseMode={pianoRollStore.mouseMode}
       onSelect={useCallback(
         (mouseMode: any) => (pianoRollStore.mouseMode = mouseMode),
-        []
+        [],
       )}
     />
   )

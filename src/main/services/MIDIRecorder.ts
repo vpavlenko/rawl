@@ -96,7 +96,7 @@ export class MIDIRecorder {
           })
 
         this.recordedNotes = this.recordedNotes.filter(
-          (n) => n.noteNumber !== message.noteNumber
+          (n) => n.noteNumber !== message.noteNumber,
         )
         break
       }

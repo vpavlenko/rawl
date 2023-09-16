@@ -29,5 +29,5 @@ export const Lines: FC<{ width: number; zIndex: number }> = observer(
     const color = colorToVec4(Color(theme.dividerColor))
 
     return <Rectangles rects={rects} color={color} zIndex={zIndex} />
-  }
+  },
 )

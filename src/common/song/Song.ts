@@ -50,7 +50,7 @@ export default class Song {
         this.tracks.map((t) => ({ channel: t.channel, events: t.events })),
         this.name,
       ],
-      () => (this.isSaved = false)
+      () => (this.isSaved = false),
     )
   }
 
@@ -90,7 +90,7 @@ export default class Song {
 
   get endOfSong(): number {
     const eos = Math.max(
-      ...this.tracks.map((t) => t.endOfTrack).filter(isNotUndefined)
+      ...this.tracks.map((t) => t.endOfTrack).filter(isNotUndefined),
     )
     return (eos ?? 0) + END_MARGIN
   }

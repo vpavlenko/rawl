@@ -23,7 +23,7 @@ export const Beats: FC<{
 
   const [highlightedBeats, nonHighlightedBeats] = partition(
     beats,
-    (b) => b.beat === 0
+    (b) => b.beat === 0,
   )
 
   const lines = nonHighlightedBeats.map((b) => vline(b.x))

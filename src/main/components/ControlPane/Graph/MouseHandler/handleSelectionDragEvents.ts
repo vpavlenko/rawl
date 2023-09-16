@@ -14,7 +14,7 @@ export const handleSelectionDragEvents =
     hitEventId: number,
     startPoint: IPoint,
     transform: ControlCoordTransform,
-    type: ValueEventType
+    type: ValueEventType,
   ) => {
     const {
       controlStore,
@@ -32,7 +32,7 @@ export const handleSelectionDragEvents =
 
     const controllerEvents = selectedTrack.events
       .filter((e) => controlStore.selectedEventIds.includes(e.id))
-      .map((e) => ({ ...e } as unknown as TrackEventOf<T>)) // copy
+      .map((e) => ({ ...e }) as unknown as TrackEventOf<T>) // copy
 
     const draggedEvent = controllerEvents.find((ev) => ev.id === hitEventId)
     if (draggedEvent === undefined) {
@@ -59,20 +59,20 @@ export const handleSelectionDragEvents =
             tick: Math.max(0, Math.floor(ev.tick + quantizedDeltaTick)),
             value: Math.min(
               transform.maxValue,
-              Math.max(0, Math.floor(ev.value + deltaValue))
+              Math.max(0, Math.floor(ev.value + deltaValue)),
             ),
-          }))
+          })),
         )
       },
 
       onMouseUp: (_e) => {
         // Find events with the same tick and remove it
         const controllerEvents = selectedTrack.events.filter((e) =>
-          controlStore.selectedEventIds.includes(e.id)
+          controlStore.selectedEventIds.includes(e.id),
         )
 
         selectedTrack.transaction((it) =>
-          controllerEvents.forEach((e) => it.removeRedundantEvents(e))
+          controllerEvents.forEach((e) => it.removeRedundantEvents(e)),
         )
       },
     })

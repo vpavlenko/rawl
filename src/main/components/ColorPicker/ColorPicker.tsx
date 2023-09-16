@@ -54,8 +54,8 @@ export const ColorPicker: FC<ColorPickerProps> = ({
           ${hues[x].toFixed()}deg
           ${saturation}%
           ${luminances[y].toFixed()}%
-        )`
-    )
+        )`,
+    ),
   )
 
   return (

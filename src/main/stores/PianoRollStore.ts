@@ -189,7 +189,7 @@ export default class PianoRollStore {
     this.scaleX = clamp(
       this.scaleX * (1 + scaleXDelta),
       this.SCALE_X_MIN,
-      this.SCALE_X_MAX
+      this.SCALE_X_MAX,
     )
     const pixelXInTicks1 = this.transform.getTicks(this.scrollLeft + pixelX)
     const scrollInTicks = pixelXInTicks1 - pixelXInTicks0
@@ -198,16 +198,16 @@ export default class PianoRollStore {
 
   scaleAroundPointY(scaleYDelta: number, pixelY: number) {
     const pixelYInKeys0 = this.transform.getNoteNumberFractional(
-      this.scrollTop + pixelY
+      this.scrollTop + pixelY,
     )
     this.scaleY = clamp(
       this.scaleY * (1 + scaleYDelta),
       this.SCALE_Y_MIN,
-      this.SCALE_Y_MAX
+      this.SCALE_Y_MAX,
     )
 
     const pixelYInKeys1 = this.transform.getNoteNumberFractional(
-      this.scrollTop + pixelY
+      this.scrollTop + pixelY,
     )
     const scrollInKeys = pixelYInKeys1 - pixelYInKeys0
     this.setScrollTopInKeys(this.scrollTopKeys - scrollInKeys)
@@ -225,7 +225,7 @@ export default class PianoRollStore {
     return new NoteCoordTransform(
       Layout.pixelsPerTick * this.scaleX,
       Layout.keyHeight * this.scaleY,
-      127
+      127,
     )
   }
 
@@ -239,7 +239,7 @@ export default class PianoRollStore {
       track.events,
       transform.pixelsPerTick,
       scrollLeft,
-      canvasWidth
+      canvasWidth,
     )
   }
 
@@ -298,7 +298,7 @@ export default class PianoRollStore {
           track.events.filter(isNoteEvent),
           transform.pixelsPerTick,
           scrollLeft,
-          canvasWidth
+          canvasWidth,
         ).map((e): PianoNoteItem => {
           const rect = track.isRhythmTrack
             ? transform.getDrumRect(e)
@@ -312,7 +312,7 @@ export default class PianoRollStore {
             trackId: id,
           }
         })
-      })
+      }),
     )
   }
 
@@ -355,11 +355,11 @@ export default class PianoRollStore {
 
     const prevEvent = maxBy(
       controllerEvents.filter((e) => e.tick < tickStart),
-      (e) => e.tick
+      (e) => e.tick,
     )
     const nextEvent = minBy(
       controllerEvents.filter((e) => e.tick > tickEnd),
-      (e) => e.tick
+      (e) => e.tick,
     )
 
     return [prevEvent, ...events, nextEvent].filter(isNotUndefined)
@@ -375,7 +375,7 @@ export default class PianoRollStore {
 
   get currentTempo(): number | undefined {
     return this.rootStore.song.conductorTrack?.getTempo(
-      this.rootStore.player.position
+      this.rootStore.player.position,
     )
   }
 
@@ -383,7 +383,7 @@ export default class PianoRollStore {
     return getMBTString(
       this.rootStore.song.measures,
       this.rootStore.player.position,
-      this.rootStore.song.timebase
+      this.rootStore.song.timebase,
     )
   }
 

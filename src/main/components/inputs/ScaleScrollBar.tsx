@@ -28,7 +28,7 @@ type HorizontalScaleScrollBarProps = Omit<
 }
 
 const HorizontalScaleScrollBar_: FC<HorizontalScaleScrollBarProps> = (
-  props
+  props,
 ) => {
   const ref = useRef<HTMLDivElement>(null)
   const size = useComponentSize(ref)
@@ -92,7 +92,7 @@ const VerticalScaleScrollBar_: FC<
 
 const areEqual = (
   props: HorizontalScaleScrollBarProps,
-  nextProps: HorizontalScaleScrollBarProps
+  nextProps: HorizontalScaleScrollBarProps,
 ) =>
   props.scrollOffset === nextProps.scrollOffset &&
   props.contentLength === nextProps.contentLength &&
@@ -103,10 +103,10 @@ const areEqual = (
 
 export const HorizontalScaleScrollBar = React.memo(
   HorizontalScaleScrollBar_,
-  areEqual
+  areEqual,
 )
 
 export const VerticalScaleScrollBar = React.memo(
   VerticalScaleScrollBar_,
-  areEqual
+  areEqual,
 )

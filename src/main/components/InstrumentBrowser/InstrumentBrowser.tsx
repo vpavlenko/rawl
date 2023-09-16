@@ -184,7 +184,7 @@ const InstrumentBrowserWrapper: FC = observer(() => {
 
   const presetCategories = map(
     groupBy(presets, (p) => getCategoryIndex(p.programNumber)),
-    (presets) => ({ presets })
+    (presets) => ({ presets }),
   )
 
   const onChange = (setting: InstrumentSetting) => {
@@ -204,7 +204,7 @@ const InstrumentBrowserWrapper: FC = observer(() => {
         noteNumber,
         channel,
       },
-      0.5
+      0.5,
     )
     pianoRollStore.instrumentBrowserSetting = setting
   }
@@ -230,7 +230,7 @@ const InstrumentBrowserWrapper: FC = observer(() => {
               .map((t) => t.channel)
             const availableChannel =
               Math.min(
-                ...difference(channels, usedChannels).filter(isNotUndefined)
+                ...difference(channels, usedChannels).filter(isNotUndefined),
               ) || 0
             track.channel = availableChannel
           }

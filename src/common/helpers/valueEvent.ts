@@ -27,7 +27,7 @@ export const isValueEvent = (t: ValueEventType) => {
 
 export const isEqualValueEventType = (
   item: ValueEventType,
-  other: ValueEventType
+  other: ValueEventType,
 ): boolean => {
   switch (item.type) {
     case "pitchBend":

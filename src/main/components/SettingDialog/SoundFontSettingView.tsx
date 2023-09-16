@@ -6,7 +6,7 @@ import { useStores } from "../../hooks/useStores"
 
 export const SoundFontSettingsView: FC = observer(() => {
   const { soundFontStore } = useStores()
-  const { filenames } = soundFontStore
+  const { files } = soundFontStore
   // TODO: add open local file dialog and put it to SoundFontStore
   return (
     <>
@@ -14,14 +14,14 @@ export const SoundFontSettingsView: FC = observer(() => {
         <Localized default="SoundFont">soundfont</Localized>
       </DialogTitle>
       <DialogContent>
-        {filenames.map((filename) => {
+        {files.map((file) => {
           return (
             <p
               onClick={async () => {
-                await soundFontStore.load(filename)
+                await soundFontStore.load(file.id)
               }}
             >
-              {filename}
+              {file.name}
             </p>
           )
         })}

@@ -1,81 +1,86 @@
-export class IndexedDBStorage<Data> {
+export interface Metadata {
+  id: number
+  name: string
+}
+
+export class IndexedDBStorage<Data extends Metadata> {
   private db: IDBDatabase | null = null
 
   constructor(
-    private readonly databaseName: string,
-    private readonly storeName: string,
+    private readonly dbName: string,
+    private readonly version: number,
   ) {}
 
-  async list(): Promise<string[]> {
-    return new Promise<string[]>((resolve, reject) => {
-      if (this.db === null) {
-        reject()
-        return
+  async init() {
+    this.db = await this.openDatabase()
+  }
+
+  private openDatabase(): Promise<IDBDatabase> {
+    return new Promise((resolve, reject) => {
+      const openDBRequest = indexedDB.open(this.dbName, this.version)
+      openDBRequest.onsuccess = () => resolve(openDBRequest.result)
+      openDBRequest.onupgradeneeded = (event) => {
+        const db = openDBRequest.result
+        if (!db.objectStoreNames.contains("files")) {
+          db.createObjectStore("files", { keyPath: "id", autoIncrement: true })
+        }
       }
-      const transaction = this.db.transaction([this.storeName], "readonly")
-      transaction.oncomplete = () => {
-        resolve(request.result.map((key) => key.toString()))
-      }
-      transaction.onerror = () => {
-        reject()
-      }
-      const objectStore = transaction.objectStore(this.storeName)
-      const request = objectStore.getAllKeys()
+      openDBRequest.onerror = () => reject(openDBRequest.error)
     })
   }
 
-  async open() {
-    return new Promise<void>((resolve, reject) => {
-      const request = window.indexedDB.open(this.databaseName, 0)
-      request.onerror = () => {
-        console.warn("There are no IndexedDB support on this browser")
-        reject()
+  async save(data: Data, name: string): Promise<number> {
+    if (!this.db) throw new Error("Database not initialized")
+    const transaction = this.db.transaction("files", "readwrite")
+    const store = transaction.objectStore("files")
+    const request = store.add({ data, name })
+    const result = await this.requestToPromise<IDBValidKey>(request)
+    return result as number
+  }
+
+  async load(id: number): Promise<Data | null> {
+    if (!this.db) throw new Error("Database not initialized")
+    const transaction = this.db.transaction("files", "readonly")
+    const store = transaction.objectStore("files")
+    const request = store.get(id)
+    const result = await this.requestToPromise<{ data: Data }>(request)
+    return result ? result.data : null
+  }
+
+  async delete(id: number): Promise<void> {
+    if (!this.db) throw new Error("Database not initialized")
+    const transaction = this.db.transaction("files", "readwrite")
+    const store = transaction.objectStore("files")
+    store.delete(id)
+  }
+
+  async list(): Promise<Metadata[]> {
+    if (!this.db) throw new Error("Database not initialized")
+    const transaction = this.db.transaction("files", "readonly")
+    const store = transaction.objectStore("files")
+
+    return new Promise<Metadata[]>((resolve, reject) => {
+      const request = store.openCursor()
+      const results: Metadata[] = []
+
+      request.onsuccess = (event) => {
+        const cursor = (event.target as IDBRequest<IDBCursorWithValue>).result
+        if (cursor) {
+          results.push({ id: cursor.key as number, name: cursor.value.name })
+          cursor.continue()
+        } else {
+          resolve(results)
+        }
       }
-      request.onsuccess = () => {
-        this.db = request.result
-        resolve()
-      }
-      request.onupgradeneeded = () => {
-        const db = request.result
-        const objectStore = db.createObjectStore(this.storeName)
-        objectStore.createIndex("url", "url", { unique: true })
-      }
+
+      request.onerror = () => reject(request.error)
     })
   }
 
-  async put(data: Data, key: string) {
-    return new Promise<void>((resolve, reject) => {
-      if (this.db === null) {
-        reject()
-        return
-      }
-      const transaction = this.db.transaction([this.storeName], "readwrite")
-      transaction.oncomplete = () => {
-        resolve()
-      }
-      transaction.onerror = () => {
-        reject()
-      }
-      const objectStore = transaction.objectStore(this.storeName)
-      objectStore.put(data, key)
-    })
-  }
-
-  async get(key: string) {
-    return new Promise<Data>((resolve, reject) => {
-      if (this.db === null) {
-        reject()
-        return
-      }
-      const transaction = this.db.transaction([this.storeName], "readonly")
-      transaction.oncomplete = () => {
-        resolve(request.result)
-      }
-      transaction.onerror = () => {
-        reject()
-      }
-      const objectStore = transaction.objectStore(this.storeName)
-      const request = objectStore.get(key) as IDBRequest<Data>
+  private requestToPromise<T>(request: IDBRequest): Promise<T> {
+    return new Promise((resolve, reject) => {
+      request.onsuccess = () => resolve(request.result)
+      request.onerror = () => reject(request.error)
     })
   }
 }

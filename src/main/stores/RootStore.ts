@@ -85,17 +85,8 @@ export default class RootStore {
   }
 
   private async setupSynth() {
-    // TODO: load last user selected soundfont
-    const soundFontURL =
-      "https://cdn.jsdelivr.net/gh/ryohey/signal@4569a31/public/A320U.sf2"
     await this.synth.setup()
-    const data = await (await fetch(soundFontURL)).arrayBuffer()
-    // TODO: if soundfontStore already has default soundfont, skip put
-    this.soundFontStore.put({
-      filename: soundFontURL,
-      data,
-    })
-    await this.synth.loadSoundFont(data)
+    await this.soundFontStore.loadLastSelectedSoundFont()
   }
 
   private async setupMetronomeSynth() {

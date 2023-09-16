@@ -68,7 +68,7 @@ export const VelocityControlCanvas: FC<{ width: number; height: number }> =
         const calcValue = (e: MouseEvent) => {
           const offsetY = e.clientY - startY
           return Math.round(
-            Math.max(0, Math.min(1, 1 - offsetY / height)) * 127
+            Math.max(0, Math.min(1, 1 - offsetY / height)) * 127,
           )
         }
 
@@ -80,12 +80,12 @@ export const VelocityControlCanvas: FC<{ width: number; height: number }> =
           onMouseMove: (e) => changeVelocity(noteIds, calcValue(e)),
         })
       },
-      [height, items, changeVelocity]
+      [height, items, changeVelocity],
     )
 
     const scrollXMatrix = useMemo(
       () => matrixFromTranslation(-scrollLeft, 0),
-      [scrollLeft]
+      [scrollLeft],
     )
 
     return (

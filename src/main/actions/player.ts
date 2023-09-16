@@ -45,7 +45,7 @@ export const rewindOneBar =
     } else {
       // another time signature
       const e2 = song.conductorTrack?.getTimeSignatureEvent(
-        beginMeasureTick - 1
+        beginMeasureTick - 1,
       )
       if (e2 !== undefined) {
         const ticksPerMeasure2 =
@@ -85,7 +85,7 @@ export const nextTrack =
   () => {
     pianoRollStore.selectedTrackId = Math.min(
       pianoRollStore.selectedTrackId + 1,
-      song.tracks.length - 1
+      song.tracks.length - 1,
     )
   }
 
@@ -94,7 +94,7 @@ export const previousTrack =
   () => {
     pianoRollStore.selectedTrackId = Math.max(
       pianoRollStore.selectedTrackId - 1,
-      1
+      1,
     )
   }
 

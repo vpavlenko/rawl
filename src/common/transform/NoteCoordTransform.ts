@@ -10,7 +10,7 @@ export default class NoteCoordTransform {
   constructor(
     pixelsPerTick: number,
     pixelsPerKey: number,
-    maxNoteNumber: number
+    maxNoteNumber: number,
   ) {
     this._pixelsPerTick = pixelsPerTick
     this._pixelsPerKey = pixelsPerKey

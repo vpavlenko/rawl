@@ -60,7 +60,7 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
       const res = await dialog.show({
         title: localized(
           "save-changes",
-          "Do you want to save your changes to the song?"
+          "Do you want to save your changes to the song?",
         ),
         actions: [
           { title: localized("yes", "Yes"), key: "yes" },
@@ -240,5 +240,5 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
         </MenuItem>
       </>
     )
-  }
+  },
 )

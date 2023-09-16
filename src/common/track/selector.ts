@@ -46,7 +46,7 @@ export const getEndOfTrackEvent = (events: TrackEvent[]) =>
 
 export const getTempo = (
   events: TrackEvent[],
-  tick: number
+  tick: number,
 ): number | undefined => {
   const e = getTempoEvent(events, tick)
   if (e === undefined) {
@@ -63,23 +63,23 @@ export const getStatusEvents = (events: TrackEvent[], tick: number) => {
   // remove duplicated control types
   const recentControlEvents = uniq(controlEvents.map((e) => e.controllerType))
     .map((type) =>
-      getLast(controlEvents.filter(isControllerEventWithType(type)))
+      getLast(controlEvents.filter(isControllerEventWithType(type))),
     )
     .filter(isNotUndefined)
 
   const setTempo = getLast(
-    events.filter(isSetTempoEvent).filter(isTickBefore(tick))
+    events.filter(isSetTempoEvent).filter(isTickBefore(tick)),
   )
 
   const programChange = getLast(
-    events.filter(isProgramChangeEvent).filter(isTickBefore(tick))
+    events.filter(isProgramChangeEvent).filter(isTickBefore(tick)),
   )
 
   const pitchBend = getLast(
-    events.filter(isPitchBendEvent).filter(isTickBefore(tick))
+    events.filter(isPitchBendEvent).filter(isTickBefore(tick)),
   )
 
   return [...recentControlEvents, setTempo, programChange, pitchBend].filter(
-    isNotUndefined
+    isNotUndefined,
   )
 }

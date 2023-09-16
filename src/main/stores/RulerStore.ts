@@ -50,7 +50,7 @@ export class RulerStore {
       transform.pixelsPerTick,
       rootStore.song.timebase,
       startTick,
-      canvasWidth
+      canvasWidth,
     )
   }
 
@@ -66,7 +66,7 @@ export class RulerStore {
       track.events,
       transform.pixelsPerTick,
       scrollLeft,
-      canvasWidth
+      canvasWidth,
     )
       .filter(isTimeSignatureEvent)
       .map((e) => ({

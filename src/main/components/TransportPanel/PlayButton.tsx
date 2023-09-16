@@ -26,7 +26,7 @@ export interface PlayButtonProps {
 
 export const PlayButton: FC<PlayButtonProps> = (
   { onClick, isPlaying },
-  ref
+  ref,
 ) => {
   return (
     <Tooltip

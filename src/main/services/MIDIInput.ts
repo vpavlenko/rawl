@@ -12,7 +12,7 @@ export class MIDIInput {
   removeDevice = (device: WebMidi.MIDIInput) => {
     device.removeEventListener(
       "midimessage",
-      this.onMidiMessage as (e: Event) => void
+      this.onMidiMessage as (e: Event) => void,
     )
     this.devices = this.devices.filter((d) => d.id !== device.id)
   }

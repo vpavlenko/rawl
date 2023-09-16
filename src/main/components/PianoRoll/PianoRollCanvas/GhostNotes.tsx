@@ -23,8 +23,10 @@ export const GhostNotes: FC<{ zIndex: number }> = observer(({ zIndex }) => {
     const color = song.getTrack(trackId)?.color
     return colorToVec4(
       Color(
-        color !== undefined ? trackColorToCSSColor(color) : theme.ghostNoteColor
-      ).mix(Color(theme.backgroundColor), 0.7)
+        color !== undefined
+          ? trackColorToCSSColor(color)
+          : theme.ghostNoteColor,
+      ).mix(Color(theme.backgroundColor), 0.7),
     )
   }
   const borderColor = Color("transparent")

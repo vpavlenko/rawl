@@ -12,7 +12,7 @@ export class ControlCoordTransform {
     pixelsPerTick: number,
     maxValue: number,
     height: number,
-    lineWidth: number
+    lineWidth: number,
   ) {
     this._pixelsPerTick = pixelsPerTick
     this._maxValue = maxValue
@@ -42,7 +42,7 @@ export class ControlCoordTransform {
   getValue(y: number) {
     return Math.floor(
       (1 - (y - this._lineWidth) / (this._height - this._lineWidth * 2)) *
-        this._maxValue
+        this._maxValue,
     )
   }
 

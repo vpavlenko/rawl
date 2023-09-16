@@ -162,7 +162,7 @@ export const Navigation: FC = observer(() => {
       <Tab
         onClick={useCallback(
           () => (rootViewStore.openSettingDialog = true),
-          []
+          [],
         )}
       >
         <Settings style={IconStyle} />

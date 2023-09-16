@@ -8,7 +8,7 @@ import { NoteEvent, TickProvider } from "../track"
 
  */
 export function assemble<T extends {}>(
-  events: (T | TickNoteOffEvent | TickNoteOnEvent)[]
+  events: (T | TickNoteOffEvent | TickNoteOnEvent)[],
 ): (T | NoteEvent)[] {
   const noteOnEvents: TickNoteOnEvent[] = []
 
@@ -64,7 +64,7 @@ export type TickNoteOffEvent = Omit<NoteOffEvent, "channel" | "deltaTime"> &
 
 // separate note to noteOn + noteOff
 export function deassemble<T extends {}>(
-  e: T | NoteEvent
+  e: T | NoteEvent,
 ): (T | TickNoteOnEvent | TickNoteOffEvent)[] {
   if ("subtype" in e && e.subtype === "note") {
     const channel = (e as any)["channel"] ?? -1

@@ -18,7 +18,7 @@ export const ExportDialog: FC = observer(() => {
   const { openExportDialog: open } = exportStore
   const onClose = useCallback(
     () => (exportStore.openExportDialog = false),
-    [exportStore]
+    [exportStore],
   )
 
   const onClickExport = useCallback(() => {

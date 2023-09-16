@@ -10,7 +10,7 @@ export const registerReactions = (rootStore: RootStore) => {
   observe(
     rootStore.midiDeviceStore,
     "enabledOutputs",
-    updateOutputDevices(rootStore)
+    updateOutputDevices(rootStore),
   )
 
   autorun(updateInputDevices(rootStore))
@@ -19,7 +19,7 @@ export const registerReactions = (rootStore: RootStore) => {
   observe(
     rootStore.midiRecorder,
     "isRecording",
-    disableSeekWhileRecording(rootStore)
+    disableSeekWhileRecording(rootStore),
   )
 
   observe(rootStore.player, "isPlaying", stopRecordingWhenStopPlayer(rootStore))

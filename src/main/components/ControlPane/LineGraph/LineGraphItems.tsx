@@ -32,7 +32,7 @@ export const LineGraphItems: FC<LineGraphItemsProps> = ({
   const rects = createLineRects(values, lineWidth, right)
   const [highlightedItems, nonHighlightedItems] = partition(
     controlPoints,
-    (i) => selectedEventIds.includes(i.id)
+    (i) => selectedEventIds.includes(i.id),
   )
 
   return (
@@ -61,7 +61,7 @@ export const LineGraphItems: FC<LineGraphItemsProps> = ({
 const createLineRects = (
   values: IPoint[],
   lineWidth: number,
-  right: number
+  right: number,
 ): IRect[] => {
   const horizontalLineRects = values.map(({ x, y }, i) => {
     const next = values[i + 1]

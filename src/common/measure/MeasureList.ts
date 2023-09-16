@@ -19,7 +19,7 @@ export function getMeasureAt(tick: number, measures: Measure[]): Measure {
 
 export function getMeasuresFromConductorTrack(
   conductorTrack: Track,
-  timebase: number
+  timebase: number,
 ): Measure[] {
   const events = conductorTrack.events
     .filter(isTimeSignatureEvent)
@@ -43,7 +43,7 @@ export function getMeasuresFromConductorTrack(
         const lastEvent = events[i - 1]
         const ticksPerBeat = (timebase * 4) / lastEvent.denominator
         const measureDelta = Math.floor(
-          (e.tick - lastEvent.tick) / ticksPerBeat / lastEvent.numerator
+          (e.tick - lastEvent.tick) / ticksPerBeat / lastEvent.numerator,
         )
         measure = lastMeasure + measureDelta
         lastMeasure = measure

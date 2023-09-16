@@ -7,7 +7,7 @@ import { ControlMark, DisplayEvent } from "./ControlMark"
 /// 重なって表示されないようにひとつのイベントとしてまとめる
 function groupControlEvents(
   events: DisplayEvent[],
-  tickWindow: number
+  tickWindow: number,
 ): DisplayEvent[][] {
   const groups: DisplayEvent[][] = []
   let group: DisplayEvent[] = []
@@ -82,7 +82,7 @@ const PianoControlEvents: FC<PianoControlEventsProps> = ({
 }) => {
   const eventGroups = groupControlEvents(
     events.filter(isDisplayControlEvent),
-    120
+    120,
   )
 
   return (

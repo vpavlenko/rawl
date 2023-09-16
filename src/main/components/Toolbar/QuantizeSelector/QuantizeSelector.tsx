@@ -112,7 +112,7 @@ function QuantizeSelector({
               const delta = e.deltaY < 0 ? 1 : -1
               const index = Math.min(
                 list.length - 1,
-                Math.max(0, currentIndex + delta)
+                Math.max(0, currentIndex + delta),
               )
               onSelect(calcQuantize(list[index], dot, triplet))
             }}

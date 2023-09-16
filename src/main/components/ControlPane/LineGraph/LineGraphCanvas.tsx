@@ -55,9 +55,9 @@ export const LineGraphCanvas: FC<LineGraphCanvasProps> = observer(
           transform.pixelsPerTick,
           maxValue,
           height,
-          lineWidth
+          lineWidth,
         ),
-      [transform.pixelsPerTick, maxValue, height]
+      [transform.pixelsPerTick, maxValue, height],
     )
 
     const selectionRect =
@@ -65,7 +65,7 @@ export const LineGraphCanvas: FC<LineGraphCanvasProps> = observer(
 
     const scrollXMatrix = useMemo(
       () => matrixFromTranslation(-Math.floor(scrollLeft), 0),
-      [scrollLeft]
+      [scrollLeft],
     )
 
     return (
@@ -92,5 +92,5 @@ export const LineGraphCanvas: FC<LineGraphCanvasProps> = observer(
         </Transform>
       </GLCanvas>
     )
-  }
+  },
 )

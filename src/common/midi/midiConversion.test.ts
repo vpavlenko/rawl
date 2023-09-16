@@ -48,8 +48,8 @@ describe("SongFile", () => {
       for (const track of tracks) {
         expect(
           track.findIndex(
-            (e) => e.type === "meta" && e.subtype === "endOfTrack"
-          )
+            (e) => e.type === "meta" && e.subtype === "endOfTrack",
+          ),
         ).toBe(track.length - 1)
       }
     }
@@ -57,7 +57,7 @@ describe("SongFile", () => {
     const openFile = (fileName: string): AnyEvent[][] => {
       const song = songFromMidi(
         fs.readFileSync(path.join(__dirname, "../../../testdata/", fileName))
-          .buffer
+          .buffer,
       )
       return songToMidiEvents(song)
     }

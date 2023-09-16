@@ -25,7 +25,7 @@ export const TempoGraphToolbar: FC = observer(() => {
 
   const onSelectQuantize = useCallback(
     (denominator: number) => (tempoEditorStore.quantize = denominator),
-    [tempoEditorStore]
+    [tempoEditorStore],
   )
 
   const onClickQuantizeSwitch = useCallback(() => {
@@ -44,7 +44,7 @@ export const TempoGraphToolbar: FC = observer(() => {
         mouseMode={mouseMode}
         onSelect={useCallback(
           (mouseMode: any) => (tempoEditorStore.mouseMode = mouseMode),
-          []
+          [],
         )}
       />
 

@@ -84,7 +84,7 @@ export default class TempoEditorStore {
         : []
 
     const events = sourceEvents.filter(
-      (e) => (e as any).subtype === "setTempo"
+      (e) => (e as any).subtype === "setTempo",
     ) as DisplayEvent[]
 
     return transformEvents(events, transform, canvasWidth + scrollLeft)

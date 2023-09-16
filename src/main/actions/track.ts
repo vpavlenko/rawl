@@ -52,7 +52,7 @@ export const changeNotesVelocity =
       noteIds.map((id) => ({
         id,
         velocity: velocity,
-      }))
+      })),
     )
   }
 
@@ -87,13 +87,13 @@ export const updateEventsInRange =
     track: Track | undefined,
     quantizer: Quantizer,
     filterEvent: (e: TrackEvent) => boolean,
-    createEvent: (value: number) => AnyEvent
+    createEvent: (value: number) => AnyEvent,
   ) =>
   (
     startValue: number,
     endValue: number,
     startTick: number,
-    endTick: number
+    endTick: number,
   ) => {
     if (track === undefined) {
       throw new Error("track is undefined")
@@ -119,9 +119,9 @@ export const updateEventsInRange =
                   minValue,
                   ((tick - startTick) / (endTick - startTick)) *
                     (endValue - startValue) +
-                    startValue
-                )
-              )
+                    startValue,
+                ),
+              ),
             )
 
     // Delete events in the dragged area
@@ -130,7 +130,7 @@ export const updateEventsInRange =
         // to prevent remove the event created previously, do not remove the event placed at startTick
         e.tick !== startTick &&
         e.tick >= Math.min(minTick, _startTick) &&
-        e.tick <= Math.max(maxTick, _endTick)
+        e.tick <= Math.max(maxTick, _endTick),
     )
 
     track.transaction((it) => {
@@ -140,7 +140,7 @@ export const updateEventsInRange =
         (tick) => ({
           ...createEvent(getValue(tick)),
           tick,
-        })
+        }),
       )
 
       it.addEvents(newEvents)
@@ -154,7 +154,7 @@ export const updateValueEvents =
       pianoRollStore.selectedTrack,
       pianoRollStore.quantizer,
       isValueEvent(type),
-      createValueEvent(type)
+      createValueEvent(type),
     )
 
 export const removeEvent =

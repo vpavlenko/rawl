@@ -48,7 +48,7 @@ export default class Player {
     output: SynthOutput,
     metronomeOutput: SynthOutput,
     trackMute: ITrackMute,
-    songStore: SongStore
+    songStore: SongStore,
   ) {
     makeObservable<Player, "_currentTick" | "_isPlaying">(this, {
       _currentTick: observable,
@@ -86,16 +86,16 @@ export default class Player {
               this.song.measures,
               this.song.timebase,
               startTick,
-              endTick
+              endTick,
             ).flatMap((b) => this.beatToEvents(b)),
             startTick,
-            endTick
-          )
+            endTick,
+          ),
         ),
       () => this.allNotesOffEvents(),
       this._currentTick,
       this.timebase,
-      TIMER_INTERVAL + LOOK_AHEAD_TIME
+      TIMER_INTERVAL + LOOK_AHEAD_TIME,
     )
     this._isPlaying = true
     this._output.activate()
@@ -137,7 +137,7 @@ export default class Player {
 
   allSoundsOffChannel(ch: number) {
     this.sendEvent(
-      controllerMidiEvent(0, ch, MIDIControlEvents.ALL_SOUNDS_OFF, 0)
+      controllerMidiEvent(0, ch, MIDIControlEvents.ALL_SOUNDS_OFF, 0),
     )
   }
 
@@ -165,7 +165,7 @@ export default class Player {
   private resetControllers() {
     for (const ch of range(0, this.numberOfChannels)) {
       this.sendEvent(
-        controllerMidiEvent(0, ch, MIDIControlEvents.RESET_CONTROLLERS, 0x7f)
+        controllerMidiEvent(0, ch, MIDIControlEvents.RESET_CONTROLLERS, 0x7f),
       )
     }
   }
@@ -232,7 +232,7 @@ export default class Player {
       velocity: number
       channel: number
     },
-    delayTime = 0
+    delayTime = 0,
   ) {
     this._output.activate()
     this.sendEvent(noteOnMidiEvent(0, channel, noteNumber, velocity), delayTime)
@@ -246,7 +246,7 @@ export default class Player {
       noteNumber: number
       channel: number
     },
-    delayTime = 0
+    delayTime = 0,
   ) {
     this.sendEvent(noteOffMidiEvent(0, channel, noteNumber, 0), delayTime)
   }
@@ -255,7 +255,7 @@ export default class Player {
   sendEvent(
     event: SendableEvent,
     delayTime: number = 0,
-    timestampNow: number = performance.now()
+    timestampNow: number = performance.now(),
   ) {
     this._output.sendEvent(event, delayTime, timestampNow)
   }
@@ -267,7 +267,7 @@ export default class Player {
   }, 50)
 
   private applyPlayerEvent(
-    e: DistributiveOmit<AnyEvent, "deltaTime" | "channel">
+    e: DistributiveOmit<AnyEvent, "deltaTime" | "channel">,
   ) {
     if (e.type !== "channel" && "subtype" in e) {
       switch (e.subtype) {

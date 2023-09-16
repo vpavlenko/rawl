@@ -55,5 +55,5 @@ export const GraphAxis: FC<GraphAxisProps> = React.memo(
         </Values>
       </Parent>
     )
-  }
+  },
 )

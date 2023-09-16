@@ -11,7 +11,7 @@ export const PianoRollTransposeDialog = observer(() => {
 
   const onClose = useCallback(
     () => (pianoRollStore.openTransposeDialog = false),
-    [pianoRollStore]
+    [pianoRollStore],
   )
 
   const onClickOK = useCallback(
@@ -19,7 +19,7 @@ export const PianoRollTransposeDialog = observer(() => {
       transposeSelection(rootStore)(value)
       pianoRollStore.openTransposeDialog = false
     },
-    [pianoRollStore]
+    [pianoRollStore],
   )
 
   return (

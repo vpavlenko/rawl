@@ -58,21 +58,21 @@ const PianoRollWrapper: FC = observer(() => {
 
   const onClickScaleUpHorizontal = useCallback(
     () => s.scaleAroundPointX(0.2, Layout.keyWidth),
-    [scaleX, s]
+    [scaleX, s],
   )
   const onClickScaleDownHorizontal = useCallback(
     () => s.scaleAroundPointX(-0.2, Layout.keyWidth),
-    [scaleX, s]
+    [scaleX, s],
   )
   const onClickScaleResetHorizontal = useCallback(() => (s.scaleX = 1), [s])
 
   const onClickScaleUpVertical = useCallback(
     () => s.scaleAroundPointY(0.2, 0),
-    [scaleY, s]
+    [scaleY, s],
   )
   const onClickScaleDownVertical = useCallback(
     () => s.scaleAroundPointY(-0.2, 0),
-    [scaleY, s]
+    [scaleY, s],
   )
   const onClickScaleResetVertical = useCallback(() => (s.scaleY = 1), [s])
 
@@ -99,7 +99,7 @@ const PianoRollWrapper: FC = observer(() => {
         s.scrollBy(-e.deltaX, -deltaY)
       }
     },
-    [s, transform]
+    [s, transform],
   )
 
   return (

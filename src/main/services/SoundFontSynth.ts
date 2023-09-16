@@ -48,7 +48,7 @@ export class SoundFontSynth implements SynthOutput {
     for (const sample of samples) {
       this.postSynthMessage(
         sample,
-        [sample.sample.buffer] // transfer instead of copy
+        [sample.sample.buffer], // transfer instead of copy
       )
     }
   }

@@ -27,12 +27,12 @@ export const ArrangeToolbar: FC = observer(() => {
 
   const onClickAutoScroll = useCallback(
     () => (arrangeViewStore.autoScroll = !arrangeViewStore.autoScroll),
-    [arrangeViewStore]
+    [arrangeViewStore],
   )
 
   const onSelectQuantize = useCallback(
     (denominator: number) => (arrangeViewStore.quantize = denominator),
-    [arrangeViewStore]
+    [arrangeViewStore],
   )
 
   return (

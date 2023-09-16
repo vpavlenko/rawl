@@ -102,7 +102,7 @@ const _ScrollBar: React.ForwardRefRenderFunction<
     onScroll,
     children,
   },
-  ref
+  ref,
 ) => {
   const buttonLength = BUTTON_SIZE
   const maxOffset = contentLength - barLength
@@ -119,7 +119,7 @@ const _ScrollBar: React.ForwardRefRenderFunction<
     pageBackwardLength = maxLength
   } else {
     pageForwardLength = Math.floor(
-      (maxLength - thumbLength) * normalize(scrollOffset / maxOffset)
+      (maxLength - thumbLength) * normalize(scrollOffset / maxOffset),
     )
     pageBackwardLength = Math.floor(maxLength - thumbLength - pageForwardLength)
   }
@@ -292,7 +292,7 @@ export type HorizontalScrollBarProps = Omit<HorizontalScrollBar_Props, "size">
 
 const areEqual = (
   props: VerticalScrollBar_Props,
-  nextProps: VerticalScrollBar_Props
+  nextProps: VerticalScrollBar_Props,
 ) =>
   props.scrollOffset === nextProps.scrollOffset &&
   props.contentLength === nextProps.contentLength &&

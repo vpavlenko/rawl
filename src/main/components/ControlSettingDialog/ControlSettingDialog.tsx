@@ -60,7 +60,7 @@ export const ControlSettingDialog = observer(() => {
   const { rootViewStore, controlStore } = rootStore
   const { openControlSettingDialog: open } = rootViewStore
   const [selectedLeftMode, setSelectedLeftMode] = useState<ControlMode | null>(
-    null
+    null,
   )
   const [selectedRightMode, setSelectedRightMode] =
     useState<ControlMode | null>(null)
@@ -69,7 +69,7 @@ export const ControlSettingDialog = observer(() => {
 
   const rightModes = getAllControlModes().filter(
     (mode) =>
-      !controlStore.controlModes.some((m) => isEqualControlMode(m, mode))
+      !controlStore.controlModes.some((m) => isEqualControlMode(m, mode)),
   )
 
   const leftItems = leftModes.map((mode) => ({
@@ -86,7 +86,7 @@ export const ControlSettingDialog = observer(() => {
 
   const onClose = useCallback(
     () => (rootViewStore.openControlSettingDialog = false),
-    [rootViewStore]
+    [rootViewStore],
   )
 
   const onClickAdd = () => {
@@ -98,7 +98,7 @@ export const ControlSettingDialog = observer(() => {
   const onClickRemove = () => {
     if (selectedLeftMode) {
       controlStore.controlModes = controlStore.controlModes.filter(
-        (mode) => !isEqualControlMode(mode, selectedLeftMode)
+        (mode) => !isEqualControlMode(mode, selectedLeftMode),
       )
     }
   }

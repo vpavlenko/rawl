@@ -101,7 +101,7 @@ const createSelectionAction: MouseGesture = (rootStore) => (e) => {
       const end = transform.getNotePointFractional(offsetPos)
       resizeSelection(rootStore)(
         { ...start, tick: quantizer.round(start.tick) },
-        { ...end, tick: quantizer.round(end.tick) }
+        { ...end, tick: quantizer.round(end.tick) },
       )
     },
 

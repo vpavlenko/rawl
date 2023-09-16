@@ -76,5 +76,5 @@ export const LegacyFileMenu: FC<{ close: () => void }> = observer(
         </MenuItem>
       </>
     )
-  }
+  },
 )

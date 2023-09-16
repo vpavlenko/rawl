@@ -14,7 +14,7 @@ import RootStore from "../../stores/RootStore"
 import { Action } from "./KeyboardShortcut"
 
 export const pianoNotesKeyboardShortcutActions = (
-  rootStore: RootStore
+  rootStore: RootStore,
 ): Action[] => [
   {
     code: "KeyC",

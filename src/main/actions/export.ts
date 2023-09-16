@@ -23,7 +23,7 @@ export const exportSongAsWav =
     const context = new (window.AudioContext || window.webkitAudioContext)()
     const samples = getSamplesFromSoundFont(
       new Uint8Array(soundFontData),
-      context
+      context,
     )
     const sampleRate = 44100
     const events = songToSynthEvents(song, sampleRate)

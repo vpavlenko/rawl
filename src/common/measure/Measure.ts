@@ -8,7 +8,7 @@ export interface Measure {
 export const calculateMBT = (
   measure: Measure,
   tick: number,
-  ticksPerBeatBase: number
+  ticksPerBeatBase: number,
 ) => {
   const ticksPerBeat = (ticksPerBeatBase * 4) / measure.denominator
   const ticksPerMeasure = ticksPerBeat * measure.numerator

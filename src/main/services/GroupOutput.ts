@@ -15,7 +15,7 @@ export class GroupOutput implements SynthOutput {
   sendEvent(
     event: SendableEvent,
     delayTime: number,
-    timestampNow: number
+    timestampNow: number,
   ): void {
     this.outputs
       .filter((o) => o.isEnabled)

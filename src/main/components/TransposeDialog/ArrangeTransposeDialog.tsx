@@ -11,7 +11,7 @@ export const ArrangeTransposeDialog = observer(() => {
 
   const onClose = useCallback(
     () => (arrangeViewStore.openTransposeDialog = false),
-    [arrangeViewStore]
+    [arrangeViewStore],
   )
 
   const onClickOK = useCallback(
@@ -19,7 +19,7 @@ export const ArrangeTransposeDialog = observer(() => {
       arrangeTransposeSelection(rootStore)(value)
       arrangeViewStore.openTransposeDialog = false
     },
-    [arrangeViewStore]
+    [arrangeViewStore],
   )
 
   return (

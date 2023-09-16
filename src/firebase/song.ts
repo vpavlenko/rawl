@@ -54,19 +54,19 @@ export const songDataConverter: FirestoreDataConverter<FirestoreSongData> = {
 }
 
 export const songCollection = collection(firestore, "songs").withConverter(
-  songConverter
+  songConverter,
 )
 
 export const songDataCollection = collection(
   firestore,
-  "songData"
+  "songData",
 ).withConverter(songDataConverter)
 
 export const loadSong = async (
-  songSnapshot: QueryDocumentSnapshot<FirestoreSong>
+  songSnapshot: QueryDocumentSnapshot<FirestoreSong>,
 ) => {
   const snapshot = await getDoc(
-    songSnapshot.data().dataRef.withConverter(songDataConverter)
+    songSnapshot.data().dataRef.withConverter(songDataConverter),
   )
   const data = snapshot.data()?.data
   if (data === undefined) {
@@ -135,7 +135,7 @@ export const updateSong = async (song: Song) => {
 }
 
 export const deleteSong = async (
-  song: QueryDocumentSnapshot<FirestoreSong>
+  song: QueryDocumentSnapshot<FirestoreSong>,
 ) => {
   if (auth.currentUser === null) {
     throw new Error("You must be logged in to save songs to the cloud")
@@ -150,6 +150,6 @@ export const getCurrentUserSongs = async () => {
   }
 
   return await getDocs(
-    query(songCollection, where("userId", "==", auth.currentUser.uid))
+    query(songCollection, where("userId", "==", auth.currentUser.uid)),
   )
 }

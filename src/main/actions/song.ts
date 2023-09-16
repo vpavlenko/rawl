@@ -115,7 +115,7 @@ export const transposeNotes =
     deltaPitch: number,
     selectedEventIds: {
       [key: number]: number[] // trackId: eventId
-    }
+    },
   ) => {
     for (const trackIdStr in selectedEventIds) {
       const trackId = parseInt(trackIdStr)
@@ -136,7 +136,7 @@ export const transposeNotes =
               noteNumber: clampNoteNumber(n.noteNumber + deltaPitch),
             }
           })
-          .filter(isNotNull)
+          .filter(isNotNull),
       )
     }
   }

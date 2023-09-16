@@ -44,12 +44,12 @@ export const handlePencilMouseDown =
         const local = pointAdd(startPoint, deltaPx)
         const value = Math.max(
           0,
-          Math.min(transform.maxBPM, transform.fromPosition(local).bpm)
+          Math.min(transform.maxBPM, transform.fromPosition(local).bpm),
         )
         const tick = transform.getTicks(local.x)
 
         updateEventsInRange(track, quantizer, isSetTempoEvent, (v) =>
-          setTempoMidiEvent(0, bpmToUSecPerBeat(v))
+          setTempoMidiEvent(0, bpmToUSecPerBeat(v)),
         )(lastValue, value, lastTick, tick)
 
         lastTick = tick

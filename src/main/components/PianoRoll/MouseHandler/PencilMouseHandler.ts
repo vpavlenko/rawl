@@ -96,7 +96,7 @@ const mousePositionToCursor = (position: MousePositionType) => {
 
 const getPositionType = (
   local: IPoint,
-  item: PianoNoteItem
+  item: PianoNoteItem,
 ): MousePositionType => {
   if (item === null) {
     console.warn("no item")
@@ -210,7 +210,7 @@ const startDragNote =
       onMouseMove: (_e, delta) => {
         const tick = quantizer.round(note.tick + transform.getTicks(delta.x))
         const noteNumber = Math.round(
-          note.noteNumber + transform.getDeltaNoteNumber(delta.y)
+          note.noteNumber + transform.getDeltaNoteNumber(delta.y),
         )
 
         const tickChanged = tick !== prevTick

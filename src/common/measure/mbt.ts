@@ -5,7 +5,7 @@ export const getMBTString = (
   measures: Measure[],
   tick: number,
   ticksPerBeat: number,
-  formatter = defaultMBTFormatter
+  formatter = defaultMBTFormatter,
 ): string => formatter(getMBT(measures, tick, ticksPerBeat))
 
 interface Beat {
@@ -17,7 +17,7 @@ interface Beat {
 const getMBT = (
   measures: Measure[],
   tick: number,
-  ticksPerBeat: number
+  ticksPerBeat: number,
 ): Beat => {
   return calculateMBT(getMeasureAt(tick, measures), tick, ticksPerBeat)
 }
@@ -30,6 +30,6 @@ const pad = (v: number, digit: number) => {
 function defaultMBTFormatter(mbt: Beat): string {
   return `${pad(mbt.measure + 1, 4)}:${pad(mbt.beat + 1, 2)}:${pad(
     mbt.tick,
-    3
+    3,
   )}`
 }

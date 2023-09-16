@@ -8,7 +8,7 @@ import RootStore from "../../stores/RootStore"
 import { Action } from "./KeyboardShortcut"
 
 export const controlPaneKeyboardShortcutActions = (
-  rootStore: RootStore
+  rootStore: RootStore,
 ): Action[] => [
   { code: "Escape", run: () => resetControlSelection(rootStore)() },
   { code: "Backspace", run: () => deleteControlSelection(rootStore)() },

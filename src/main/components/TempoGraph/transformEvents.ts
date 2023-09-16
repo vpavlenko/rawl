@@ -9,7 +9,7 @@ const isSetTempoEvent = (e: any): e is TrackEvent & SetTempoEvent =>
 export const transformEvents = (
   events: TrackEvent[],
   transform: TempoCoordTransform,
-  maxX: number
+  maxX: number,
 ): TempoGraphItem[] => {
   // まず位置だけ計算する
   // Calculate only position

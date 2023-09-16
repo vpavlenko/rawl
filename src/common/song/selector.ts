@@ -13,7 +13,7 @@ export const getMeasureStart = (song: Song, tick: number) => {
       .filter(isTimeSignatureEvent)
       .slice()
       .filter((e) => e.tick <= tick),
-    (e) => e.tick
+    (e) => e.tick,
   )
 
   if (timeSignature === undefined) {
@@ -24,7 +24,7 @@ export const getMeasureStart = (song: Song, tick: number) => {
   const ticksPerMeasure =
     ((song.timebase * 4) / timeSignature.denominator) * timeSignature.numerator
   const numberOfMeasures = Math.floor(
-    (tick - timeSignature.tick) / ticksPerMeasure
+    (tick - timeSignature.tick) / ticksPerMeasure,
   )
 
   return {

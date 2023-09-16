@@ -106,7 +106,7 @@ export default class ArrangeViewStore {
     this.scaleX = clamp(
       this.scaleX * (1 + scaleXDelta),
       this.SCALE_X_MIN,
-      this.SCALE_X_MAX
+      this.SCALE_X_MAX,
     )
     const pixelXInTicks1 = this.transform.getTicks(this.scrollLeft + pixelX)
     const scrollInTicks = pixelXInTicks1 - pixelXInTicks0
@@ -136,7 +136,7 @@ export default class ArrangeViewStore {
     return new NoteCoordTransform(
       Layout.pixelsPerTick * this.scaleX,
       0.5 * this.scaleY,
-      127
+      127,
     )
   }
 
@@ -163,13 +163,13 @@ export default class ArrangeViewStore {
           t.events,
           transform.pixelsPerTick,
           this.scrollLeft,
-          this.canvasWidth
+          this.canvasWidth,
         )
           .filter(isNoteEvent)
           .map((e) => {
             const rect = transform.getRect(e)
             return { ...rect, height: this.scaleY, y: trackHeight * i + rect.y }
-          })
+          }),
       )
       .flat()
   }

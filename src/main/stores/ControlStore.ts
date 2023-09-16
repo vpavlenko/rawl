@@ -100,7 +100,7 @@ export class ControlStore {
         return this.pianoRollStore.filteredEvents(isPitchBendEvent)
       case "controller":
         return this.pianoRollStore.filteredEvents(
-          isControllerEventWithType(controlMode.controllerType)
+          isControllerEventWithType(controlMode.controllerType),
         )
     }
   }

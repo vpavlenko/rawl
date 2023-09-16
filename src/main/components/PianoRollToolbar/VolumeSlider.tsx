@@ -33,7 +33,7 @@ const _VolumeSlider: FC<VolumeSliderProps> = observer(({ trackId }) => {
   const volume = currentVolume ?? 100
   const onChange = useCallback(
     (value: number) => setTrackVolume(rootStore)(trackId, value),
-    [rootStore, trackId]
+    [rootStore, trackId],
   )
   return (
     <Container>

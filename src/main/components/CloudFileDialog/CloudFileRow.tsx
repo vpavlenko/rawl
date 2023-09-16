@@ -105,7 +105,7 @@ export const CloudFileRow: FC<CloudFileRowProps> = observer(
                 } catch (e) {
                   console.error(e)
                   toast.error(
-                    localized("song-delete-failed", "Song delete failed")
+                    localized("song-delete-failed", "Song delete failed"),
                   )
                 }
               }}
@@ -116,5 +116,5 @@ export const CloudFileRow: FC<CloudFileRowProps> = observer(
         </MenuCell>
       </Container>
     )
-  }
+  },
 )

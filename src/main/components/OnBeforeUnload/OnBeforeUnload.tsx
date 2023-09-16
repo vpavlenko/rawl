@@ -12,7 +12,7 @@ export const OnBeforeUnload = observer(() => {
       if (!rootStore.song.isSaved) {
         e.returnValue = localized(
           "confirm-close",
-          "Your edits have not been saved. Be sure to download it before exiting. Do you really want to close it?"
+          "Your edits have not been saved. Be sure to download it before exiting. Do you really want to close it?",
         )
       }
     }

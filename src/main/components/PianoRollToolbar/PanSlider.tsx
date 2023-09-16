@@ -34,7 +34,7 @@ const _PanSlider: FC<PanSliderProps> = observer(({ trackId }) => {
   } = rootStore
   const onChange = useCallback(
     (value: number) => setTrackPan(rootStore)(trackId, value),
-    [rootStore, trackId]
+    [rootStore, trackId],
   )
   const pan = currentPan ?? PAN_CENTER
 

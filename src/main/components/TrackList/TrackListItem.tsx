@@ -138,18 +138,18 @@ export const TrackListItem: FC<TrackListItemProps> = observer(({ trackId }) => {
       e.stopPropagation()
       toggleMuteTrack(rootStore)(trackId)
     },
-    [trackId]
+    [trackId],
   )
   const onClickSolo: React.MouseEventHandler<HTMLButtonElement> = useCallback(
     (e) => {
       e.stopPropagation()
       toggleSoloTrack(rootStore)(trackId)
     },
-    [trackId]
+    [trackId],
   )
   const onClickDelete = useCallback(
     () => removeTrack(rootStore)(trackId),
-    [trackId]
+    [trackId],
   )
   const onClickGhostTrack: React.MouseEventHandler<HTMLButtonElement> =
     useCallback(
@@ -162,7 +162,7 @@ export const TrackListItem: FC<TrackListItemProps> = observer(({ trackId }) => {
           toogleGhostTrack(rootStore)(trackId)
         }
       },
-      [trackId]
+      [trackId],
     )
   const onClickAddTrack = useCallback(() => addTrack(rootStore)(), [trackId])
   const onSelectTrack = useCallback(() => {

@@ -55,5 +55,5 @@ export const DrumNoteShader = (gl: WebGLRenderingContext) =>
     (program) => ({
       projectionMatrix: uniformMat4(gl, program, "uProjectionMatrix"),
       strokeColor: uniformVec4(gl, program, "uStrokeColor"),
-    })
+    }),
   )

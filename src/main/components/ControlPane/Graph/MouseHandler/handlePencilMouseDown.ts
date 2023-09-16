@@ -19,7 +19,7 @@ export const handlePencilMouseDown =
     e: MouseEvent,
     startPoint: IPoint,
     transform: ControlCoordTransform,
-    type: ValueEventType
+    type: ValueEventType,
   ) => {
     pushHistory(rootStore)()
 
@@ -44,7 +44,7 @@ export const handlePencilMouseDown =
         const local = pointAdd(startPoint, deltaPx)
         const value = Math.max(
           0,
-          Math.min(transform.maxValue, transform.fromPosition(local).value)
+          Math.min(transform.maxValue, transform.fromPosition(local).value),
         )
         const tick = transform.getTicks(local.x)
 

@@ -16,7 +16,7 @@ export default class RootStore {
 
     this.synth = new SoundFontSynth(
       context,
-      "https://cdn.jsdelivr.net/gh/ryohey/signal@4569a31/public/A320U.sf2"
+      "https://cdn.jsdelivr.net/gh/ryohey/signal@4569a31/public/A320U.sf2",
     )
 
     const dummySynth = {
@@ -32,7 +32,7 @@ export default class RootStore {
       this.synth,
       dummySynth,
       dummyTrackMute,
-      this.songStore
+      this.songStore,
     )
   }
 }

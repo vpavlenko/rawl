@@ -33,6 +33,8 @@ export class SoundFontSynth implements SynthOutput {
   }
 
   async loadSoundFont(data: ArrayBuffer) {
+    this.isLoading = true
+
     if (this.synth !== null) {
       this.synth.disconnect()
     }
@@ -53,6 +55,8 @@ export class SoundFontSynth implements SynthOutput {
         [sample.sample.buffer], // transfer instead of copy
       )
     }
+
+    this.isLoading = false
   }
 
   private postSynthMessage(e: SynthEvent, transfer?: Transferable[]) {

@@ -62,7 +62,6 @@ function BrowseList({ virtual, ...props }) {
           const name = item.path.split('/').pop();
           const isPlaying = currContext === playContext && currIdx === item.idx;
           const isBackLink = item.path === '..' && prevPageIsParentDir;
-          console.log('VPDBG', path, analyses, analyses && analyses[path])
           const analysis = analyses && analyses[path]
 
           if (item.type === 'directory') {

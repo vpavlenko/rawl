@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled, { CSSProperties } from "styled-components";
-import { NOTE_HEIGHT, Note, midiNumberToY, secondsToX } from "./Chiptheory";
+import { NOTE_HEIGHT, Note, secondsToX } from "./Chiptheory";
 
 // Analysis is done in steps.
 // The meaning of a click/hover at each step is different.
@@ -240,7 +240,7 @@ const adjustMeasureLength = (second, allNotes) => {
   return closestNoteOn;
 };
 
-const TonalGrid = ({ tonic, width }) => {
+const TonalGrid = ({ tonic, width, midiNumberToY }) => {
   if (tonic === null) {
     return [];
   }
@@ -263,64 +263,68 @@ const TonalGrid = ({ tonic, width }) => {
   return result;
 };
 
-export const AnalysisGrid: React.FC<{ analysis: Analysis; allNotes: Note[] }> =
-  React.memo(({ analysis, allNotes }) => {
-    let measures = [];
-    let beats = [];
-    const maxRigthSpan = allNotes.reduce(
-      (maxValue, note) => Math.max(maxValue, note.span[1]),
-      -Infinity,
-    );
+export const AnalysisGrid: React.FC<{
+  analysis: Analysis;
+  allNotes: Note[];
+  midiNumberToY: (number) => number;
+}> = React.memo(({ analysis, allNotes, midiNumberToY }) => {
+  let measures = [];
+  let beats = [];
+  const maxRigthSpan = allNotes.reduce(
+    (maxValue, note) => Math.max(maxValue, note.span[1]),
+    -Infinity,
+  );
 
-    if (analysis.firstMeasure) {
-      measures.push(<Measure second={analysis.firstMeasure} number={1} />);
+  if (analysis.firstMeasure) {
+    measures.push(<Measure second={analysis.firstMeasure} number={1} />);
+  }
+  if (analysis.secondMeasure) {
+    let previousMeasure = analysis.firstMeasure;
+    let measureLength = analysis.secondMeasure - analysis.firstMeasure;
+    measures.push(<Measure second={previousMeasure} number={1} />);
+    for (let i = 2; i < 400; i++) {
+      const newMeasure = adjustMeasureLength(
+        previousMeasure + measureLength,
+        allNotes,
+      );
+      if (previousMeasure === newMeasure) break;
+      measures.push(<Measure key={i} second={newMeasure} number={i} />);
+      beats.push(
+        <Beat
+          key={`${i}_1`}
+          second={previousMeasure * 0.75 + newMeasure * 0.25}
+        />,
+      );
+      beats.push(
+        <Beat
+          key={`${i}_2`}
+          second={previousMeasure * 0.5 + newMeasure * 0.5}
+        />,
+      );
+      beats.push(
+        <Beat
+          key={`${i}_3`}
+          second={previousMeasure * 0.25 + newMeasure * 0.75}
+        />,
+      );
+      // measureLength = newMeasure - previousMeasure // I'm not sure it improves anything
+      previousMeasure = newMeasure;
     }
-    if (analysis.secondMeasure) {
-      let previousMeasure = analysis.firstMeasure;
-      let measureLength = analysis.secondMeasure - analysis.firstMeasure;
-      measures.push(<Measure second={previousMeasure} number={1} />);
-      for (let i = 2; i < 400; i++) {
-        const newMeasure = adjustMeasureLength(
-          previousMeasure + measureLength,
-          allNotes,
-        );
-        if (previousMeasure === newMeasure) break;
-        measures.push(<Measure key={i} second={newMeasure} number={i} />);
-        beats.push(
-          <Beat
-            key={`${i}_1`}
-            second={previousMeasure * 0.75 + newMeasure * 0.25}
-          />,
-        );
-        beats.push(
-          <Beat
-            key={`${i}_2`}
-            second={previousMeasure * 0.5 + newMeasure * 0.5}
-          />,
-        );
-        beats.push(
-          <Beat
-            key={`${i}_3`}
-            second={previousMeasure * 0.25 + newMeasure * 0.75}
-          />,
-        );
-        // measureLength = newMeasure - previousMeasure // I'm not sure it improves anything
-        previousMeasure = newMeasure;
+  }
+  return (
+    <>
+      {measures}
+      {beats}
+      {
+        <TonalGrid
+          tonic={analysis.tonic}
+          width={secondsToX(maxRigthSpan) + 100}
+          midiNumberToY={midiNumberToY}
+        />
       }
-    }
-    return (
-      <>
-        {measures}
-        {beats}
-        {
-          <TonalGrid
-            tonic={analysis.tonic}
-            width={secondsToX(maxRigthSpan) + 100}
-          />
-        }
-      </>
-    );
-  });
+    </>
+  );
+});
 
 export const AnalysisBox: React.FC<{ analysis: Analysis; setAnalysis }> =
   React.memo(({ analysis, setAnalysis }) => {

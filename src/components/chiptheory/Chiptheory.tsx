@@ -107,11 +107,8 @@ const calculateNotesFromPeriods = (periods, oscType) => {
   return notes.filter((note) => note.note.midiNumber !== -1);
 };
 
-export const NOTE_HEIGHT = 7;
 export const secondsToX = (seconds) => seconds * 70;
-const PIANO_ROLL_HEIGHT = 600;
-export const midiNumberToY = (midiNumber) =>
-  PIANO_ROLL_HEIGHT - (midiNumber - 19) * NOTE_HEIGHT;
+// const PIANO_ROLL_HEIGHT = 600;
 const isNoteCurrentlyPlayed = (note, positionMs) => {
   const positionSeconds = positionMs / 1000;
   return note.span[0] <= positionSeconds && positionSeconds <= note.span[1];
@@ -121,6 +118,8 @@ const getNoteRectangles = (
   notes: Note[],
   color: string,
   analysis: Analysis,
+  midiNumberToY: (number) => number,
+  noteHeight: number,
   handleNoteClick = (note) => {},
 ) => {
   return notes.map((note) => {
@@ -131,22 +130,22 @@ const getNoteRectangles = (
       <div
         style={{
           position: "relative",
-          top: color === "black" ? "-8px" : "0px",
+          top: color === "black" ? `"-${noteHeight}px` : "0px",
           left: "1px",
-          fontSize: "8px",
-          lineHeight: "8px",
+          fontSize: `${Math.min(noteHeight, 14)}px`,
+          lineHeight: `${Math.min(noteHeight, 14)}px`,
           fontFamily: "Helvetica, sans-serif",
+          opacity: 0.7,
         }}
       >
         {note.note.name.slice(0, -1)}
-        {/* {note.note.midiNumber} */}
       </div>
     );
     return (
       <div
         style={{
           position: "absolute",
-          height: `${NOTE_HEIGHT}px`,
+          height: `${noteHeight}px`,
           width: secondsToX(note.span[1]) - secondsToX(note.span[0]),
           color: color === "white" ? "black" : "white",
           top,
@@ -174,6 +173,23 @@ const findCurrentlyPlayedNotes = (notes, positionMs) => {
     }
   }
   return result;
+};
+
+const getMidiRange = (
+  notes: Note[],
+): { minMidiNumber: number; maxMidiNumber: number } => {
+  let minMidiNumber = +Infinity;
+  let maxMidiNumber = -Infinity;
+  for (const note of notes) {
+    const { midiNumber } = note.note;
+    if (midiNumber < minMidiNumber) {
+      minMidiNumber = midiNumber;
+    }
+    if (midiNumber > maxMidiNumber) {
+      maxMidiNumber = midiNumber;
+    }
+  }
+  return { minMidiNumber, maxMidiNumber };
 };
 
 const Chiptheory = ({
@@ -210,25 +226,88 @@ const Chiptheory = ({
       n: calculateNotesFromPeriods(chipStateDump.n, "noise"),
     };
   }, [chipStateDump]);
+
   const allNotes = useMemo(
     () => [...notes.t, ...notes.n, ...notes.p1, ...notes.p2],
     [chipStateDump],
   );
 
+  const { minMidiNumber, maxMidiNumber } = useMemo(
+    () => getMidiRange([...notes.t, ...notes.p1, ...notes.p2]),
+    [notes],
+  );
+
+  const [divHeight, setDivHeight] = useState(0);
+  const divRef = useRef(null);
+  useEffect(() => {
+    const updateHeight = () => {
+      if (divRef.current) {
+        setDivHeight(divRef.current.offsetHeight);
+      }
+    };
+    updateHeight();
+    window.addEventListener("resize", updateHeight);
+    return () => {
+      window.removeEventListener("resize", updateHeight);
+    };
+  }, []);
+
+  const noteHeight = divHeight / (maxMidiNumber - minMidiNumber + 7);
+  const midiNumberToY = (midiNumber) =>
+    divHeight - (midiNumber - minMidiNumber + 4) * noteHeight;
+
+  console.log(
+    "VPDBG ",
+    divHeight,
+    minMidiNumber,
+    maxMidiNumber,
+    divHeight / (maxMidiNumber - minMidiNumber),
+  );
+
   const noteRectangles = useMemo(() => {
     return [
-      ...getNoteRectangles(notes.p1, "red", analysis, handleNoteClick),
-      ...getNoteRectangles(notes.p2, "green", analysis, handleNoteClick),
-      ...getNoteRectangles(notes.t, "blue", analysis, handleNoteClick),
-      ...getNoteRectangles(notes.n, "black", analysis, handleNoteClick),
+      ...getNoteRectangles(
+        notes.p1,
+        "red",
+        analysis,
+        midiNumberToY,
+        noteHeight,
+        handleNoteClick,
+      ),
+      ...getNoteRectangles(
+        notes.p2,
+        "green",
+        analysis,
+        midiNumberToY,
+        noteHeight,
+        handleNoteClick,
+      ),
+      ...getNoteRectangles(
+        notes.t,
+        "blue",
+        analysis,
+        midiNumberToY,
+        noteHeight,
+        handleNoteClick,
+      ),
+      ...getNoteRectangles(
+        notes.n,
+        "black",
+        analysis,
+        midiNumberToY,
+        noteHeight,
+        handleNoteClick,
+      ),
     ];
-  }, [notes, analysis]);
+  }, [notes, analysis, noteHeight]);
 
   const [positionMs, setPositionMs] = useState(0);
   const currentlyPlayedRectangles = getNoteRectangles(
     findCurrentlyPlayedNotes(allNotes, positionMs),
     "white",
     analysis,
+    midiNumberToY,
+    noteHeight,
   );
 
   useEffect(() => {
@@ -262,6 +341,7 @@ const Chiptheory = ({
         }}
       >
         <div
+          ref={divRef}
           style={{
             margin: 0,
             padding: 0,
@@ -276,7 +356,11 @@ const Chiptheory = ({
           {noteRectangles}
           {currentlyPlayedRectangles}
           <Cursor style={{ left: secondsToX(positionMs / 1000) }} />
-          <AnalysisGrid analysis={analysis} allNotes={allNotes} />
+          <AnalysisGrid
+            analysis={analysis}
+            allNotes={allNotes}
+            midiNumberToY={midiNumberToY}
+          />
         </div>
       </div>
       <AnalysisBox analysis={analysis} setAnalysis={setAnalysis} />

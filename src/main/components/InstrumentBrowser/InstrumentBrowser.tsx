@@ -4,7 +4,7 @@ import { groupBy, map } from "lodash"
 import difference from "lodash/difference"
 import range from "lodash/range"
 import { observer } from "mobx-react-lite"
-import { FC } from "react"
+import { FC, useState } from "react"
 import { isNotUndefined } from "../../../common/helpers/array"
 import { getCategoryIndex } from "../../../common/midi/GM"
 import { programChangeMidiEvent } from "../../../common/midi/MidiEvent"
@@ -169,6 +169,10 @@ const InstrumentBrowserWrapper: FC = observer(() => {
     song,
   } = rootStore
 
+  const [stopNoteTimeout, setStopNoteTimeout] = useState<NodeJS.Timeout | null>(
+    null,
+  )
+
   if (track === undefined) {
     throw new Error("selectedTrack is undefined")
   }
@@ -193,19 +197,33 @@ const InstrumentBrowserWrapper: FC = observer(() => {
       return
     }
     player.sendEvent(programChangeMidiEvent(0, channel, setting.programNumber))
-    const noteNumber = 64
-    player.startNote({
-      noteNumber,
-      velocity: 100,
-      channel,
-    })
-    player.stopNote(
-      {
+    if (!player.isPlaying) {
+      const noteNumber = 64
+
+      // if note is already playing, stop it immediately and cancel the timeout
+      if (stopNoteTimeout !== null) {
+        clearTimeout(stopNoteTimeout)
+        player.stopNote({
+          noteNumber,
+          channel,
+        })
+      }
+
+      player.startNote({
         noteNumber,
+        velocity: 100,
         channel,
-      },
-      0.5,
-    )
+      })
+      const timeout = setTimeout(() => {
+        player.stopNote({
+          noteNumber,
+          channel,
+        })
+        setStopNoteTimeout(null)
+      }, 500)
+
+      setStopNoteTimeout(timeout)
+    }
     pianoRollStore.instrumentBrowserSetting = setting
   }
 

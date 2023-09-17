@@ -84,8 +84,6 @@ export class SoundFontStore {
       throw new Error("SoundFont not found")
     }
 
-    this.selectedSoundFontId = id
-
     switch (soundfont.type) {
       case "local":
         await this.synth.loadSoundFont(soundfont.data)
@@ -94,6 +92,8 @@ export class SoundFontStore {
         await this.synth.loadSoundFontFromURL(soundfont.url)
         break
     }
+
+    this.selectedSoundFontId = id
   }
 
   async addSoundFont(data: ArrayBuffer, name: string) {

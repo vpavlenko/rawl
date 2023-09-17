@@ -708,7 +708,7 @@ class App extends React.Component {
               isPhone={isMobile.phone} />
             <div className="App-main">
               <div className="App-main-inner">
-                <div className="tab-container">
+                {<div className="tab-container">
                   {/* <NavLink className="tab" activeClassName="tab-selected" to={{ pathname: "/", ...search }}
                     exact>Search</NavLink> */}
                   <NavLink className="tab" activeClassName="tab-selected"
@@ -719,7 +719,7 @@ class App extends React.Component {
                   <button className={this.state.showPlayerSettings ? 'tab tab-selected' : 'tab'}
                     style={{ marginLeft: 'auto', marginRight: 0 }}
                     onClick={this.toggleSettings}>Settings</button>
-                </div>
+                </div> && false}
                 <div className="App-main-content-and-settings">
                   <div className="App-main-content-area" ref={this.contentAreaRef}>
                     <Switch>
@@ -809,6 +809,8 @@ class App extends React.Component {
                 <Visualizer audioCtx={this.audioCtx}
                   sourceNode={this.playerNode}
                   chipCore={this.chipCore}
+                  settingsEnabled={this.state.showPlayerSettings}
+                  handleToggleSettings={this.toggleSettings}
                   paused={this.state.ejected || this.state.paused} />}
             </div>
             <AppFooter

@@ -101,6 +101,11 @@ export default class Visualizer extends PureComponent {
             // value={true}
             checked={this.state.enabled}
             name='visualizer-enabled' />Visualizer</label>
+          <label className='inline' style={{ marginLeft: '20px' }}><input onClick={this.props.handleToggleSettings}
+            type='checkbox'
+            // value={true}
+            checked={this.props.settingsEnabled}
+            name='visualizer-enabled' />Settings</label>
         </h3>
         <div className='Visualizer-options' style={enabledStyle}>
           <div>

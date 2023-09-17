@@ -139,12 +139,12 @@ export default class Browse extends React.PureComponent {
       <Fragment>
         <div className="Browse-topRow">
           /{browsePath}{' '}
-          <button
+          {/* <button
             className="box-button"
             title="Shuffle this directory (and all subdirectories)"
             onClick={this.handleShufflePlay}>
             Shuffle Play
-          </button>
+          </button> */}
         </div>
         <this.VirtualDirectoryListing
           key={browsePath}

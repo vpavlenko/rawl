@@ -163,7 +163,7 @@ function AppFooter(props) {
                     тхт
                   </a>
                 }
-                <div className="SongDetails-subtitle">{subtitle}</div>
+                <span style={{ marginLeft: '20px' }}>{subtitle}</span>
                 {/* <div className="SongDetails-filepath">{pathLinks}</div> */}
               </div>
             </div>}

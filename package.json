@@ -1,8 +1,8 @@
 {
-  "name": "chip-player-js",
+  "name": "chiptheory",
   "version": "0.1.0",
   "private": true,
-  "repository": "https://github.com/mmontag/chip-player-js",
+  "repository": "https://github.com/vpavlenko/chiptheory",
   "description": "Web-based music player for a variety of video game and chiptune music formats.",
   "dependencies": {
     "@babel/core": "^7.22.5",

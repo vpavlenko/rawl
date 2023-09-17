@@ -27,7 +27,7 @@ const directories = require(DIRECTORIES_PATH);
 
 const PUBLIC_CATALOG_URL = process.env.DEV ?
   'http://localhost:8000/catalog' :
-  'https://gifx.co/music';
+  'https://corsproxy.io/?https://gifx.co/music';
 const LOCAL_CATALOG_ROOT = process.env.DEV ?
   '/Users/montag/Music/Chip Archive' :
   '/var/www/gifx.co/public_html/music';
@@ -55,7 +55,7 @@ const trie = new TrieSearch('file', {
   splitOnRegEx: /[^a-zA-Z0-9]|(?<=[a-z])(?=[A-Z])/,
 });
 const start = performance.now();
-const files = catalog.map((file, i) => ({id: i, file: file}));
+const files = catalog.map((file, i) => ({ id: i, file: file }));
 trie.addAll(files);
 const time = (performance.now() - start).toFixed(1);
 console.log('Added %s items (%s tokens) to search trie in %s ms.', files.length, trie.size, time);
@@ -192,7 +192,7 @@ const routes = {
 
       // --- Image and Info Text ---
       // 1. Try matching same filename for info text.
-      const infoFiles = glob.sync(`${LOCAL_CATALOG_ROOT}/${dir}/${name}.{text,txt,doc}`, {nocase: true});
+      const infoFiles = glob.sync(`${LOCAL_CATALOG_ROOT}/${dir}/${name}.{text,txt,doc}`, { nocase: true });
       if (infoFiles.length > 0) {
         infoTexts.push(fs.readFileSync(infoFiles[0], 'utf8'));
       }
@@ -202,7 +202,7 @@ const routes = {
       while (segments.length) {
         const dir = segments.join('/');
         if (imageUrl === null) {
-          const imageFiles = glob.sync(`${LOCAL_CATALOG_ROOT}/${dir}/*.{gif,png,jpg,jpeg}`, {nocase: true});
+          const imageFiles = glob.sync(`${LOCAL_CATALOG_ROOT}/${dir}/*.{gif,png,jpg,jpeg}`, { nocase: true });
           if (imageFiles.length > 0) {
             const imageFile = encodeURI(path.basename(imageFiles[0]));
             const imageDir = encodeURI(dir);
@@ -210,7 +210,7 @@ const routes = {
           }
         }
         if (infoTexts.length === 0) {
-          const infoFiles = glob.sync(`${LOCAL_CATALOG_ROOT}/${dir}/*.{text,txt,doc}`, {nocase: true});
+          const infoFiles = glob.sync(`${LOCAL_CATALOG_ROOT}/${dir}/*.{text,txt,doc}`, { nocase: true });
           infoTexts.push(...infoFiles.map(infoFile => fs.readFileSync(infoFile, 'utf8')));
         }
         if (imageUrl !== null && infoTexts.length > 0) {
@@ -236,7 +236,7 @@ http.createServer(async function (req, res) {
     if (route) {
       try {
         const json = await route(params);
-        const headers = {...HEADERS};
+        const headers = { ...HEADERS };
         if (!['random', 'shuffle'].includes(lastPathComponent)) {
           headers['Cache-Control'] = 'public, max-age=3600';
         }

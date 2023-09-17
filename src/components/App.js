@@ -1,26 +1,27 @@
-import React from 'react';
 import autoBindReact from 'auto-bind/react';
+import { initializeApp as firebaseInitializeApp } from 'firebase/app';
+import { GoogleAuthProvider, getAuth, onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth';
+import {
+  arrayRemove,
+  arrayUnion,
+  doc,
+  getDoc,
+  getFirestore,
+  setDoc,
+  updateDoc
+} from 'firebase/firestore/lite';
 import isMobile from 'ismobilejs';
 import clamp from 'lodash/clamp';
 import shuffle from 'lodash/shuffle';
 import path from 'path';
 import queryString from 'querystring';
-import { initializeApp as firebaseInitializeApp } from 'firebase/app';
-import { getAuth, onAuthStateChanged, signInWithPopup, signOut, GoogleAuthProvider } from 'firebase/auth';
-import {
-  getFirestore,
-  doc,
-  getDoc,
-  updateDoc,
-  setDoc,
-  arrayRemove,
-  arrayUnion
-} from 'firebase/firestore/lite';
-import { NavLink, Route, Switch, withRouter, Redirect } from 'react-router-dom';
+import React from 'react';
 import Dropzone from 'react-dropzone';
+import { NavLink, Redirect, Route, Switch, withRouter } from 'react-router-dom';
 
+import requestCache from '../RequestCache';
+import Sequencer, { NUM_REPEAT_MODES, NUM_SHUFFLE_MODES, REPEAT_OFF, SHUFFLE_OFF } from '../Sequencer';
 import ChipCore from '../chip-core';
-import firebaseConfig from '../config/firebaseConfig';
 import {
   API_BASE,
   CATALOG_PREFIX,
@@ -29,16 +30,15 @@ import {
   REPLACE_STATE_ON_SEEK,
   SOUNDFONT_MOUNTPOINT
 } from '../config';
+import firebaseConfig from '../config/firebaseConfig';
 import { ensureEmscFileWithData, getMetadataUrlForCatalogUrl, titlesFromMetadata, unlockAudioContext } from '../util';
-import requestCache from '../RequestCache';
-import Sequencer, { NUM_REPEAT_MODES, NUM_SHUFFLE_MODES, REPEAT_OFF, SHUFFLE_OFF } from '../Sequencer';
 
 import GMEPlayer from '../players/GMEPlayer';
+import MDXPlayer from '../players/MDXPlayer';
 import MIDIPlayer from '../players/MIDIPlayer';
+import N64Player from '../players/N64Player';
 import V2MPlayer from '../players/V2MPlayer';
 import XMPPlayer from '../players/XMPPlayer';
-import N64Player from '../players/N64Player';
-import MDXPlayer from '../players/MDXPlayer';
 
 import AppFooter from './AppFooter';
 import AppHeader from './AppHeader';
@@ -46,11 +46,13 @@ import Browse from './Browse';
 import DropMessage from './DropMessage';
 import Favorites from './Favorites';
 // import Search from './Search';
-import Visualizer from './Visualizer';
+import VGMPlayer from '../players/VGMPlayer';
 import Alert from './Alert';
 import MessageBox from './MessageBox';
 import Settings from './Settings';
-import VGMPlayer from '../players/VGMPlayer';
+import Visualizer from './Visualizer';
+import Chiptheory from './chiptheory/Chiptheory';
+
 
 class App extends React.Component {
   constructor(props) {
@@ -87,6 +89,7 @@ class App extends React.Component {
               this.setState({
                 faves: data.faves || [],
                 showPlayerSettings: data.settings ? data.settings.showPlayerSettings : false,
+                analyses: data.analyses
               });
             }
           })
@@ -313,6 +316,54 @@ class App extends React.Component {
     }
   }
 
+  async saveAnalysis(analysis) {
+    const currIdx = this.sequencer?.getCurrIdx()
+    if (currIdx === undefined) return;
+    debugger;
+
+
+    const path = this.playContexts[this.browsePath] && this.playContexts[this.browsePath][currIdx]
+    const subtune = this.state.currentSongSubtune
+    if (!path) return;
+
+    // hack .__.
+    const lastSlashIndex = path.lastIndexOf('/');
+    const beforeSlash = path.substring(0, lastSlashIndex);
+    const afterSlash = path.substring(lastSlashIndex + 1);
+
+    const user = this.state.user;
+    if (user) {
+      const userRef = doc(this.db, 'users', user.uid);
+      const userDoc = await getDoc(userRef);
+
+      let userData = userDoc.exists ? userDoc.data() : {};
+
+      // Ensuring 'analyses' exists
+      if (!userData.analyses) {
+        userData.analyses = {};
+      }
+
+      // Ensuring '[beforeSlash]' exists
+      if (!userData.analyses[beforeSlash]) {
+        userData.analyses[beforeSlash] = {};
+      }
+
+      // Ensuring '[afterSlash]' exists
+      if (!userData.analyses[beforeSlash][afterSlash]) {
+        userData.analyses[beforeSlash][afterSlash] = {};
+      }
+
+      // Now, update the '[subtune]' data
+      userData.analyses[beforeSlash][afterSlash][subtune] = analysis;
+
+      await setDoc(userRef, userData).catch((e) => {
+        console.log('Couldn\'t save analysis.', e);
+      });
+
+      this.setState({ analyses: userData.analyses })
+    }
+
+  }
   attachMediaKeyHandlers() {
     if ('mediaSession' in navigator) {
       console.log('Attaching Media Key event handlers.');
@@ -749,30 +800,42 @@ class App extends React.Component {
                       <Route path="/browse/:browsePath*" render={({ history, match, location }) => {
                         // Undo the react-router-dom double-encoded % workaround - see DirectoryLink.js
                         const browsePath = match.params?.browsePath?.replace('%25', '%') || '';
+                        this.browsePath = browsePath;
+                        const path = this.playContexts[browsePath] && this.playContexts[browsePath][currIdx]
+                        const subtune = this.state.currentSongSubtune
+                        const lastSlashIndex = path && path.lastIndexOf('/');
+                        const afterSlash = lastSlashIndex && path.substring(lastSlashIndex + 1);
+                        const savedAnalysis = this.state.analyses && this.state.analyses[browsePath] && this.state.analyses[browsePath][afterSlash] && this.state.analyses[browsePath][afterSlash][subtune]
                         return (
-                          this.contentAreaRef.current &&
-                          <Browse currContext={currContext}
-                            currIdx={currIdx}
-                            historyAction={history.action}
-                            locationKey={location.key}
-                            browsePath={browsePath}
-                            listing={this.state.directories[browsePath]}
-                            playContext={this.playContexts[browsePath]}
-                            fetchDirectory={this.fetchDirectory}
-                            handleSongClick={this.handleSongClick}
-                            handleShufflePlay={this.handleShufflePlay}
-                            scrollContainerRef={this.contentAreaRef}
-                            favorites={this.state.faves}
-                            toggleFavorite={this.handleToggleFavorite}
-                            chipStateDump={this.state.chipStateDump}
-                            getCurrentPositionMs={() => {
-                              // TODO: reevaluate this approach
-                              if (this.sequencer && this.sequencer.getPlayer()) {
-                                return this.sequencer.getPlayer().getPositionMs();
-                              }
-                              return 0;
-                            }}
-                          />
+                          this.contentAreaRef.current && <>
+                            <Browse currContext={currContext}
+                              currIdx={currIdx}
+                              historyAction={history.action}
+                              locationKey={location.key}
+                              browsePath={browsePath}
+                              listing={this.state.directories[browsePath]}
+                              playContext={this.playContexts[browsePath]}
+                              fetchDirectory={this.fetchDirectory}
+                              handleSongClick={this.handleSongClick}
+                              handleShufflePlay={this.handleShufflePlay}
+                              scrollContainerRef={this.contentAreaRef}
+                              favorites={this.state.faves}
+                              toggleFavorite={this.handleToggleFavorite}
+                              analyses={this.state.analyses}
+                            />
+                            <Chiptheory
+                              chipStateDump={this.state.chipStateDump}
+                              getCurrentPositionMs={() => {
+                                // TODO: reevaluate this approach
+                                if (this.sequencer && this.sequencer.getPlayer()) {
+                                  return this.sequencer.getPlayer().getPositionMs();
+                                }
+                                return 0;
+                              }}
+                              savedAnalysis={savedAnalysis}
+                              saveAnalysis={this.saveAnalysis}
+                            />
+                          </>
                         );
                       }} />
                       <Route path="/settings" render={() => (

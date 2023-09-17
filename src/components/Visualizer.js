@@ -1,6 +1,6 @@
+import React, { PureComponent } from 'react';
 import pianoKeys from '../images/piano-keys.png';
 import Spectrogram from '../Spectrogram';
-import React, { PureComponent } from 'react';
 
 const SPECTROGRAM_MODES = [
   'Linear FFT', 'Log FFT', 'Constant Q'

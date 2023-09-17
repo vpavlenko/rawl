@@ -1,15 +1,12 @@
 import * as React from "react";
 import styled, { CSSProperties } from "styled-components";
-import {
-  NOTE_HEIGHT,
-  Note,
-  RESOLUTION_MS,
-  midiNumberToY,
-  secondsToX,
-} from "./Chiptheory";
+import { NOTE_HEIGHT, Note, midiNumberToY, secondsToX } from "./Chiptheory";
 
 // Analysis is done in steps.
 // The meaning of a click/hover at each step is different.
+
+export const RESOLUTION_DUMPS_PER_SECOND = 100;
+export const RESOLUTION_MS = 1 / RESOLUTION_DUMPS_PER_SECOND;
 
 export const STEPS = [
   "first measure",
@@ -138,15 +135,13 @@ export const getNoteColor = (
   return getTransparencyGradient(RAINBOW_COLORS[mapping[pointer] - 1]);
 };
 
-export const getSavedAnalysis: () => Analysis = () => {
-  return {
-    clickResolutionMs: RESOLUTION_MS,
-    step: STEPS[0],
-    firstMeasure: null,
-    secondMeasure: null,
-    tonic: null, // 0..11 in midi notes
-    mode: null,
-  };
+export const ANALYSIS_STUB = {
+  clickResolutionMs: RESOLUTION_MS,
+  step: STEPS[0],
+  firstMeasure: null,
+  secondMeasure: null,
+  tonic: null, // 0..11 in midi notes
+  mode: null,
 };
 
 export const STEP_CALL_TO_ACTION: Record<Step, string> = {
@@ -165,12 +160,11 @@ export const prevStep = (analysis, setAnalysis) =>
 export const nextStep = (analysis, setAnalysis) =>
   setAnalysis({ ...analysis, step: STEPS[STEPS.indexOf(analysis.step) + 1] });
 
-// TODO: save analysis
-
-export const advanceAnalysis = (note, analysis, setAnalysis) => {
+export const advanceAnalysis = (note, analysis, saveAnalysis, setAnalysis) => {
+  debugger;
   const { step } = analysis;
-  const nextStep = STEPS[ STEPS.indexOf(step) + 1 ]
-  let update: Partial<Analysis> = {}
+  const nextStep = STEPS[STEPS.indexOf(step) + 1];
+  let update: Partial<Analysis> = {};
 
   if (step === "first measure") {
     update.firstMeasure = note.span[0];
@@ -182,11 +176,10 @@ export const advanceAnalysis = (note, analysis, setAnalysis) => {
     update.mode = MODES[(note.note.midiNumber - analysis.tonic) % 12];
   }
 
-  const newAnalysis = {...analysis, ...update, step: nextStep}
+  const newAnalysis = { ...analysis, ...update, step: nextStep };
 
-  // todo: save newAnalysis to Firebase for this subtune
-
-  setAnalysis(newAnalysis)
+  saveAnalysis(newAnalysis);
+  setAnalysis(newAnalysis);
 };
 
 const VerticalBar = styled.div`
@@ -274,30 +267,42 @@ export const AnalysisGrid: React.FC<{ analysis: Analysis; allNotes: Note[] }> =
   React.memo(({ analysis, allNotes }) => {
     let measures = [];
     let beats = [];
-    const maxRigthSpan = allNotes.reduce((maxValue, note) => Math.max(maxValue, note.span[1]), -Infinity);
+    const maxRigthSpan = allNotes.reduce(
+      (maxValue, note) => Math.max(maxValue, note.span[1]),
+      -Infinity,
+    );
 
     if (analysis.firstMeasure) {
       measures.push(<Measure second={analysis.firstMeasure} number={1} />);
     }
     if (analysis.secondMeasure) {
-      // measures.push(<Measure second={analysis.secondMeasure} number={2} />)
-
       let previousMeasure = analysis.firstMeasure;
       let measureLength = analysis.secondMeasure - analysis.firstMeasure;
       measures.push(<Measure second={previousMeasure} number={1} />);
-      for (let i = 2; i < 100; i++) {
+      for (let i = 2; i < 400; i++) {
         const newMeasure = adjustMeasureLength(
           previousMeasure + measureLength,
           allNotes,
         );
         if (previousMeasure === newMeasure) break;
-        measures.push(<Measure second={newMeasure} number={i} />);
+        measures.push(<Measure key={i} second={newMeasure} number={i} />);
         beats.push(
-          <Beat second={previousMeasure * 0.75 + newMeasure * 0.25} />,
+          <Beat
+            key={`${i}_1`}
+            second={previousMeasure * 0.75 + newMeasure * 0.25}
+          />,
         );
-        beats.push(<Beat second={previousMeasure * 0.5 + newMeasure * 0.5} />);
         beats.push(
-          <Beat second={previousMeasure * 0.25 + newMeasure * 0.75} />,
+          <Beat
+            key={`${i}_2`}
+            second={previousMeasure * 0.5 + newMeasure * 0.5}
+          />,
+        );
+        beats.push(
+          <Beat
+            key={`${i}_3`}
+            second={previousMeasure * 0.25 + newMeasure * 0.75}
+          />,
         );
         // measureLength = newMeasure - previousMeasure // I'm not sure it improves anything
         previousMeasure = newMeasure;
@@ -307,14 +312,18 @@ export const AnalysisGrid: React.FC<{ analysis: Analysis; allNotes: Note[] }> =
       <>
         {measures}
         {beats}
-        {<TonalGrid tonic={analysis.tonic} width={secondsToX(maxRigthSpan) + 100} />}
+        {
+          <TonalGrid
+            tonic={analysis.tonic}
+            width={secondsToX(maxRigthSpan) + 100}
+          />
+        }
       </>
     );
   });
 
 export const AnalysisBox: React.FC<{ analysis: Analysis; setAnalysis }> =
   React.memo(({ analysis, setAnalysis }) => {
-    // TODO: maybe analysisRef.cuurent was correct?
     return (
       <div className="App-main-content-area settings">
         <div>

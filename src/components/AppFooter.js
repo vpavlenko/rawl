@@ -1,14 +1,10 @@
 import React, { memo, useCallback } from 'react';
-import diceImage from '../images/dice.png';
 import downloadImage from '../images/download.png';
 import linkImage from '../images/link.png';
-import repeatImage from '../images/repeat.png';
+import { pathToLinks } from '../util';
+import PlayerParams from './PlayerParams';
 import TimeSlider from './TimeSlider';
 import VolumeSlider from './VolumeSlider';
-import FavoriteButton from './FavoriteButton';
-import PlayerParams from './PlayerParams';
-import { pathToLinks } from '../util';
-import { REPEAT_LABELS, SHUFFLE_LABELS } from '../Sequencer';
 
 export default memo(AppFooter);
 function AppFooter(props) {

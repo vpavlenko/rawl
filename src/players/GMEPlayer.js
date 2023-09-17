@@ -1,9 +1,9 @@
-import Player from "./Player.js";
+import autoBind from 'auto-bind';
+import path from 'path';
+import { RESOLUTION_DUMPS_PER_SECOND } from "../components/chiptheory/Analysis.tsx";
 import SubBass from "../effects/SubBass";
 import { allOrNone, remap01 } from '../util';
-import path from 'path';
-import autoBind from 'auto-bind';
-import { RESOLUTION_DUMPS_PER_SECOND } from "../components/chiptheory/Chiptheory.tsx";
+import Player from "./Player.js";
 
 let core = null;
 

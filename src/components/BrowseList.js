@@ -1,11 +1,10 @@
-import React, { memo, useEffect } from 'react';
 import bytes from 'bytes';
 import trimEnd from 'lodash/trimEnd';
+import queryString from 'querystring';
+import React, { memo, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { CATALOG_PREFIX } from '../config';
 import DirectoryLink from './DirectoryLink';
-import FavoriteButton from './FavoriteButton';
-import queryString from 'querystring';
-import { useHistory } from 'react-router-dom';
 
 export default memo(BrowseList);
 function BrowseList({ virtual, ...props }) {
@@ -17,13 +16,14 @@ function BrowseList({ virtual, ...props }) {
     handleSongClick,
     browsePath,
     playContext,
+    analyses,
   } = props;
 
+  // Chiptheory's autoplay for NES, because most directories have a single file
   useEffect(() => {
     const firstSongItem = virtual.items.find(item => item.type !== 'directory');
 
     if (firstSongItem) {
-      // debugger;
       const path = firstSongItem.path === '..' ?
         browsePath.substr(0, browsePath.lastIndexOf('/')) :
         firstSongItem.path.replace('%', '%25').replace('#', '%23').replace(/^\//, '');
@@ -62,6 +62,8 @@ function BrowseList({ virtual, ...props }) {
           const name = item.path.split('/').pop();
           const isPlaying = currContext === playContext && currIdx === item.idx;
           const isBackLink = item.path === '..' && prevPageIsParentDir;
+          console.log('VPDBG', path, analyses, analyses && analyses[path])
+          const analysis = analyses && analyses[path]
 
           if (item.type === 'directory') {
             return (
@@ -70,14 +72,14 @@ function BrowseList({ virtual, ...props }) {
                   <DirectoryLink to={'/browse/' + path} search={search} isBackLink={isBackLink} history={history}>{name}</DirectoryLink>
                 </div>
                 <div className="BrowseList-colDir">
-                  &lt;DIR&gt;
+                  {analysis && "ANALYSIS"}
                 </div>
-                <div className="BrowseList-colCount" title={`Contains ${item.numChildren} direct child items`}>
+                {/* <div className="BrowseList-colCount" title={`Contains ${item.numChildren} direct child items`}>
                   {item.numChildren}
                 </div>
                 <div className="BrowseList-colSize" title={`Directory size is ${item.size} bytes (recursive)`}>
                   {item.size != null && bytes(item.size, { unitSeparator: ' ' })}
-                </div>
+                </div> */}
               </div>
             );
           } else {

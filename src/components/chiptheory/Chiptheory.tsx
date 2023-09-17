@@ -1,22 +1,20 @@
 import * as React from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
+  ANALYSIS_STUB,
   Analysis,
   AnalysisBox,
   AnalysisGrid,
   Cursor,
+  RESOLUTION_MS,
   advanceAnalysis,
   getNoteColor,
-  getSavedAnalysis
 } from "./Analysis";
 import {
   NES_APU_NOTE_ESTIMATIONS,
   PAUSE,
   nesApuNoteEstimation,
 } from "./nesApuNoteEstimations";
-
-export const RESOLUTION_DUMPS_PER_SECOND = 200;
-export const RESOLUTION_MS = 1 / RESOLUTION_DUMPS_PER_SECOND;
 
 type OscType = "pulse" | "triangle" | "noise";
 
@@ -178,13 +176,22 @@ const findCurrentlyPlayedNotes = (notes, positionMs) => {
   return result;
 };
 
-const Chiptheory = ({ chipStateDump, getCurrentPositionMs }) => {
-  const [analysis, setAnalysis] = useState<Analysis>(getSavedAnalysis());
+const Chiptheory = ({
+  chipStateDump,
+  getCurrentPositionMs,
+  savedAnalysis,
+  saveAnalysis,
+}) => {
+  const [analysis, setAnalysis] = useState<Analysis>(ANALYSIS_STUB);
 
   useEffect(() => {
     // If chipStateDump changed, that means we're playing a new subtune, and a previous analysis isn't valid.
-    setAnalysis(getSavedAnalysis());
-  }, [chipStateDump]);
+    if (savedAnalysis) {
+      setAnalysis(savedAnalysis);
+    } else {
+      setAnalysis(ANALYSIS_STUB);
+    }
+  }, [savedAnalysis]);
 
   const analysisRef = useRef(analysis);
   useEffect(() => {
@@ -193,7 +200,7 @@ const Chiptheory = ({ chipStateDump, getCurrentPositionMs }) => {
 
   // Without the ref magic, this will only capture the initial analysis.
   const handleNoteClick = (note) =>
-    advanceAnalysis(note, analysisRef.current, setAnalysis);
+    advanceAnalysis(note, analysisRef.current, saveAnalysis, setAnalysis);
 
   const notes = useMemo(() => {
     return {

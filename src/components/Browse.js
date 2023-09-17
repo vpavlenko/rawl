@@ -1,8 +1,7 @@
+import autoBindReact from 'auto-bind/react';
 import React, { Fragment } from 'react';
 import VirtualList from 'react-virtual-list';
 import BrowseList from './BrowseList';
-import autoBindReact from 'auto-bind/react';
-import Chiptheory from './chiptheory/Chiptheory.tsx';
 
 const ITEM_HEIGHT = 19; // should match --charH CSS variable
 const ITEM_BUFFER = 10;
@@ -127,8 +126,6 @@ export default class Browse extends React.PureComponent {
       listing,
       browsePath,
       playContext,
-      chipStateDump,
-      getCurrentPositionMs
     } = this.props;
     const listingWithParent = [{
       path: '..',
@@ -154,7 +151,6 @@ export default class Browse extends React.PureComponent {
           itemHeight={ITEM_HEIGHT}
           itemBuffer={ITEM_BUFFER}
         />
-        <Chiptheory chipStateDump={chipStateDump} getCurrentPositionMs={getCurrentPositionMs} />
       </Fragment>
     );
   }

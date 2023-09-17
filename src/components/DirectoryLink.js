@@ -1,8 +1,7 @@
-import { Link } from "react-router-dom";
-import folder from "../images/folder.png";
 import * as PropTypes from "prop-types";
-import React, { memo } from "react";
 import queryString from 'querystring';
+import React, { memo } from "react";
+import { Link } from "react-router-dom";
 
 function getSearch() {
   const urlParams = queryString.parse(window.location.search.substring(1));
@@ -35,7 +34,9 @@ function DirectoryLink(props) {
 
   return (
     <Link to={toObj} className={linkClassName} onClick={onClick}>
-      <img alt='folder' className={folderClassName} src={folder}/>{props.children}
+      {/* <img alt='folder' className={folderClassName} src={folder}/> */}
+
+      {props.children}
     </Link>
   );
 }

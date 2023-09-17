@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled, { CSSProperties } from "styled-components";
-import { NOTE_HEIGHT, Note, secondsToX } from "./Chiptheory";
+import { Note, secondsToX } from "./Chiptheory";
 
 // Analysis is done in steps.
 // The meaning of a click/hover at each step is different.
@@ -240,7 +240,7 @@ const adjustMeasureLength = (second, allNotes) => {
   return closestNoteOn;
 };
 
-const TonalGrid = ({ tonic, width, midiNumberToY }) => {
+const TonalGrid = ({ tonic, width, midiNumberToY, noteHeight }) => {
   if (tonic === null) {
     return [];
   }
@@ -251,7 +251,7 @@ const TonalGrid = ({ tonic, width, midiNumberToY }) => {
         style={{
           position: "absolute",
           width: `${width}px`,
-          height: NOTE_HEIGHT,
+          height: noteHeight,
           left: 0,
           top: midiNumberToY(tonic + octave * 12),
           backgroundColor: "#888",
@@ -267,7 +267,8 @@ export const AnalysisGrid: React.FC<{
   analysis: Analysis;
   allNotes: Note[];
   midiNumberToY: (number) => number;
-}> = React.memo(({ analysis, allNotes, midiNumberToY }) => {
+  noteHeight: number;
+}> = React.memo(({ analysis, allNotes, midiNumberToY, noteHeight }) => {
   let measures = [];
   let beats = [];
   const maxRigthSpan = allNotes.reduce(
@@ -320,6 +321,7 @@ export const AnalysisGrid: React.FC<{
           tonic={analysis.tonic}
           width={secondsToX(maxRigthSpan) + 100}
           midiNumberToY={midiNumberToY}
+          noteHeight={noteHeight}
         />
       }
     </>

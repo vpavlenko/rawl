@@ -256,14 +256,6 @@ const Chiptheory = ({
   const midiNumberToY = (midiNumber) =>
     divHeight - (midiNumber - minMidiNumber + 4) * noteHeight;
 
-  console.log(
-    "VPDBG ",
-    divHeight,
-    minMidiNumber,
-    maxMidiNumber,
-    divHeight / (maxMidiNumber - minMidiNumber),
-  );
-
   const noteRectangles = useMemo(() => {
     return [
       ...getNoteRectangles(
@@ -360,6 +352,7 @@ const Chiptheory = ({
             analysis={analysis}
             allNotes={allNotes}
             midiNumberToY={midiNumberToY}
+            noteHeight={noteHeight}
           />
         </div>
       </div>

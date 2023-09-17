@@ -89,10 +89,10 @@ a:focus {
 a:active {
     background: var(--active);
 }
-
+/* 
 a:visited {
     color: var(--clickable);
-}
+} */
 
 /* Form elements */
 

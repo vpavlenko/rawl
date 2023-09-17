@@ -68,10 +68,10 @@ function BrowseList({ virtual, ...props }) {
             return (
               <div key={name} className="BrowseList-row">
                 <div className="BrowseList-colName">
-                  <DirectoryLink to={'/browse/' + path} search={search} isBackLink={isBackLink} history={history}>{name}</DirectoryLink>
+                  <DirectoryLink dim={!analysis} to={'/browse/' + path} search={search} isBackLink={isBackLink} history={history}>{name}</DirectoryLink>
                 </div>
                 <div className="BrowseList-colDir">
-                  {analysis && "ANALYSIS"}
+                  {/* {analysis && "ANALYSIS"} */}
                 </div>
                 {/* <div className="BrowseList-colCount" title={`Contains ${item.numChildren} direct child items`}>
                   {item.numChildren}

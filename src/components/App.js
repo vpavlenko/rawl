@@ -70,10 +70,21 @@ class App extends React.Component {
     const firebaseApp = firebaseInitializeApp(firebaseConfig);
     const auth = getAuth(firebaseApp);
     this.db = getFirestore(firebaseApp);
+
+    // Load the analyses: by Vitaly Pavlenko
+    const docRef = doc(this.db, 'users', 'hqAWkYyzu2hIzNgE3ui89f41vFA2')
+    getDoc(docRef)
+      .then(userSnapshot => {
+        if (userSnapshot.exists()) {
+          this.setState({ analyses: userSnapshot.data().analyses })
+        }
+      })
+
     onAuthStateChanged(auth, user => {
       this.setState({ user: user, loadingUser: !!user });
       if (user) {
         const docRef = doc(this.db, 'users', user.uid);
+        console.log('VPDBG docRef', user.uid)
         getDoc(docRef)
           .then(userSnapshot => {
             if (!userSnapshot.exists()) {
@@ -319,8 +330,6 @@ class App extends React.Component {
   async saveAnalysis(analysis) {
     const currIdx = this.sequencer?.getCurrIdx()
     if (currIdx === undefined) return;
-    debugger;
-
 
     const path = this.playContexts[this.browsePath] && this.playContexts[this.browsePath][currIdx]
     const subtune = this.state.currentSongSubtune

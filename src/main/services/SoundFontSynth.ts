@@ -46,7 +46,15 @@ export class SoundFontSynth implements SynthOutput {
     } as any)
     this.synth.connect(this.context.destination)
 
-    const samples = getSamplesFromSoundFont(new Uint8Array(data), this.context)
+    const offlineContext = new OfflineAudioContext(
+      2,
+      1,
+      this.context.sampleRate,
+    )
+    const samples = getSamplesFromSoundFont(
+      new Uint8Array(data),
+      offlineContext,
+    )
     this._loadedSoundFontData = data
 
     for (const sample of samples) {

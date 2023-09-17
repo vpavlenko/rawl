@@ -1,4 +1,5 @@
 import * as React from "react";
+import styled, { CSSProperties } from "styled-components";
 import {
   NOTE_HEIGHT,
   Note,
@@ -6,7 +7,6 @@ import {
   midiNumberToY,
   secondsToX,
 } from "./Chiptheory";
-import styled, { CSSProperties } from "styled-components";
 
 // Analysis is done in steps.
 // The meaning of a click/hover at each step is different.
@@ -169,24 +169,24 @@ export const nextStep = (analysis, setAnalysis) =>
 
 export const advanceAnalysis = (note, analysis, setAnalysis) => {
   const { step } = analysis;
+  const nextStep = STEPS[ STEPS.indexOf(step) + 1 ]
+  let update: Partial<Analysis> = {}
+
   if (step === "first measure") {
-    setAnalysis({
-      ...analysis,
-      firstMeasure: note.span[0],
-      step: "second measure",
-    });
+    update.firstMeasure = note.span[0];
   } else if (step === "second measure") {
-    setAnalysis({ ...analysis, secondMeasure: note.span[0], step: "tonic" });
+    update.secondMeasure = note.span[0];
   } else if (step === "tonic") {
-    setAnalysis({
-      ...analysis,
-      tonic: note.note.midiNumber % 12,
-      step: "mode",
-    });
+    update.tonic = (note.note.midiNumber % 12) as PitchClass;
   } else if (step === "mode") {
-    const mode = MODES[(note.note.midiNumber - analysis.tonic) % 12];
-    setAnalysis({ ...analysis, mode, step: "end" });
+    update.mode = MODES[(note.note.midiNumber - analysis.tonic) % 12];
   }
+
+  const newAnalysis = {...analysis, ...update, step: nextStep}
+
+  // todo: save newAnalysis to Firebase for this subtune
+
+  setAnalysis(newAnalysis)
 };
 
 const VerticalBar = styled.div`
@@ -247,7 +247,7 @@ const adjustMeasureLength = (second, allNotes) => {
   return closestNoteOn;
 };
 
-const TonalGrid = ({ tonic }) => {
+const TonalGrid = ({ tonic, width }) => {
   if (tonic === null) {
     return [];
   }
@@ -257,7 +257,7 @@ const TonalGrid = ({ tonic }) => {
       <div
         style={{
           position: "absolute",
-          width: "2000px",
+          width: `${width}px`,
           height: NOTE_HEIGHT,
           left: 0,
           top: midiNumberToY(tonic + octave * 12),
@@ -274,7 +274,7 @@ export const AnalysisGrid: React.FC<{ analysis: Analysis; allNotes: Note[] }> =
   React.memo(({ analysis, allNotes }) => {
     let measures = [];
     let beats = [];
-    console.log("inside grid, analysis", analysis);
+    const maxRigthSpan = allNotes.reduce((maxValue, note) => Math.max(maxValue, note.span[1]), -Infinity);
 
     if (analysis.firstMeasure) {
       measures.push(<Measure second={analysis.firstMeasure} number={1} />);
@@ -307,7 +307,7 @@ export const AnalysisGrid: React.FC<{ analysis: Analysis; allNotes: Note[] }> =
       <>
         {measures}
         {beats}
-        {<TonalGrid tonic={analysis.tonic} />}
+        {<TonalGrid tonic={analysis.tonic} width={secondsToX(maxRigthSpan) + 100} />}
       </>
     );
   });

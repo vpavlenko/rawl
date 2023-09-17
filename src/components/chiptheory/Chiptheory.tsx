@@ -1,25 +1,19 @@
 import * as React from "react";
-import { useMemo, useState, useEffect, useRef } from "react";
-import {
-  NES_APU_NOTE_ESTIMATIONS,
-  PAUSE,
-  nesApuNoteEstimation,
-} from "./nesApuNoteEstimations";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   Analysis,
   AnalysisBox,
   AnalysisGrid,
   Cursor,
-  STEPS,
-  STEP_CALL_TO_ACTION,
-  Step,
   advanceAnalysis,
   getNoteColor,
-  getSavedAnalysis,
-  getTransparencyGradient,
-  nextStep,
-  prevStep,
+  getSavedAnalysis
 } from "./Analysis";
+import {
+  NES_APU_NOTE_ESTIMATIONS,
+  PAUSE,
+  nesApuNoteEstimation,
+} from "./nesApuNoteEstimations";
 
 export const RESOLUTION_DUMPS_PER_SECOND = 200;
 export const RESOLUTION_MS = 1 / RESOLUTION_DUMPS_PER_SECOND;

@@ -5,7 +5,7 @@ import { Button } from "../../../components/Button"
 import { DialogContent, DialogTitle } from "../../../components/Dialog"
 import { Localized } from "../../../components/Localized"
 import { useStores } from "../../hooks/useStores"
-import { Metadata } from "../../services/IndexedDBStorage"
+import { SoundFontFile } from "../../stores/SoundFontStore"
 import { FileInput } from "../Navigation/LegacyFileMenu"
 
 const OpenFileButton = styled(Button)`
@@ -52,7 +52,7 @@ export const SoundFontSettingsView: FC = observer(() => {
 })
 
 interface SoundFontRowProps {
-  item: Metadata
+  item: SoundFontFile
   isSelected: boolean
   onClick: () => void
 }

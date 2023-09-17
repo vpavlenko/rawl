@@ -1,6 +1,6 @@
 import { makeObservable, observable } from "mobx"
 import { makePersistable } from "mobx-persist-store"
-import { IndexedDBStorage, Metadata } from "../services/IndexedDBStorage"
+import { IndexedDBStorage } from "../services/IndexedDBStorage"
 import { SoundFontSynth } from "../services/SoundFontSynth"
 
 const storeName = "soundfonts"
@@ -15,9 +15,15 @@ interface RemoteSoundFont {
   url: string
 }
 
+interface Metadata {
+  name: string
+}
+
+export type SoundFontFile = Metadata & { id: number }
+
 type SoundFontItem = LocalSoundFont | RemoteSoundFont
 
-const defaultSoundFonts: (SoundFontItem & Metadata)[] = [
+const defaultSoundFonts: (SoundFontItem & Metadata & { id: number })[] = [
   {
     id: -999, // Use negative number to avoid conflict with user saved soundfonts
     type: "remote",
@@ -27,8 +33,8 @@ const defaultSoundFonts: (SoundFontItem & Metadata)[] = [
 ]
 
 export class SoundFontStore {
-  private readonly storage: IndexedDBStorage<SoundFontItem>
-  files: Metadata[] = []
+  private readonly storage: IndexedDBStorage<SoundFontItem, Metadata>
+  files: SoundFontFile[] = []
   selectedSoundFontId: number | null = null
 
   constructor(private readonly synth: SoundFontSynth) {
@@ -55,7 +61,11 @@ export class SoundFontStore {
   }
 
   private async updateFileList() {
-    const savedFiles = await this.storage.list()
+    const list = await this.storage.list()
+    const savedFiles = Object.keys(list).map((id) => ({
+      ...list[Number(id)],
+      id: Number(id),
+    }))
     this.files = [...defaultSoundFonts, ...savedFiles]
   }
 
@@ -66,8 +76,6 @@ export class SoundFontStore {
     }
     return await this.storage.load(id)
   }
-
-  async loadSelectedSoundFont() {}
 
   async load(id: number) {
     const soundfont = await this.getSoundFont(id)
@@ -89,7 +97,7 @@ export class SoundFontStore {
   }
 
   async addSoundFont(data: ArrayBuffer, name: string) {
-    await this.storage.save({ type: "local", data }, name)
+    await this.storage.save({ type: "local", data }, { name })
     await this.updateFileList()
   }
 }

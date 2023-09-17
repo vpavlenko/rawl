@@ -1,9 +1,12 @@
-export interface Metadata {
-  id: number
-  name: string
+interface Catalog<Metadata> {
+  files: { [key: string]: Metadata }
 }
 
-export class IndexedDBStorage<Data> {
+const filesStoreName = "files"
+const catalogStoreName = "catalog"
+const catalogKey = 0
+
+export class IndexedDBStorage<Data, Metadata> {
   private db: IDBDatabase | null = null
 
   constructor(
@@ -21,66 +24,91 @@ export class IndexedDBStorage<Data> {
       openDBRequest.onsuccess = () => resolve(openDBRequest.result)
       openDBRequest.onupgradeneeded = (event) => {
         const db = openDBRequest.result
-        if (!db.objectStoreNames.contains("files")) {
-          db.createObjectStore("files", { keyPath: "id", autoIncrement: true })
+        if (!db.objectStoreNames.contains(filesStoreName)) {
+          db.createObjectStore(filesStoreName, {
+            autoIncrement: true,
+          })
+        }
+        if (!db.objectStoreNames.contains(catalogStoreName)) {
+          db.createObjectStore(catalogStoreName)
         }
       }
       openDBRequest.onerror = () => reject(openDBRequest.error)
     })
   }
 
-  async save(data: Data, name: string): Promise<number> {
+  private async getCatalog(): Promise<Catalog<Metadata>> {
     if (!this.db) throw new Error("Database not initialized")
-    const transaction = this.db.transaction("files", "readwrite")
-    const store = transaction.objectStore("files")
-    const request = store.add({ data, name })
-    const result = await this.requestToPromise<IDBValidKey>(request)
+    const transaction = this.db.transaction(catalogStoreName, "readonly")
+    const store = transaction.objectStore(catalogStoreName)
+    const request = store.get(catalogKey)
+    const result = await requestToPromise<Catalog<Metadata> | undefined>(
+      request,
+    )
+    return result ?? { files: {} }
+  }
+
+  private async setCatalog(catalog: Catalog<Metadata>): Promise<void> {
+    if (!this.db) throw new Error("Database not initialized")
+    const transaction = this.db.transaction(catalogStoreName, "readwrite")
+    const store = transaction.objectStore(catalogStoreName)
+    const request = store.put(catalog, catalogKey)
+    await requestToPromise(request)
+  }
+
+  private async updateCatalog(
+    update: (catalog: Catalog<Metadata>) => Catalog<Metadata>,
+  ): Promise<void> {
+    const currentCatalog = await this.getCatalog()
+    const newCatalog = update(currentCatalog)
+    await this.setCatalog(newCatalog)
+  }
+
+  async save(data: Data, metadata: Metadata): Promise<number> {
+    if (!this.db) throw new Error("Database not initialized")
+    const transaction = this.db.transaction(filesStoreName, "readwrite")
+    const store = transaction.objectStore(filesStoreName)
+    const request = store.add(data)
+    const result = await requestToPromise<IDBValidKey>(request)
+
+    await this.updateCatalog((catalog) => {
+      catalog.files[result as number] = metadata
+      return catalog
+    })
+
     return result as number
   }
 
   async load(id: number): Promise<Data | null> {
     if (!this.db) throw new Error("Database not initialized")
-    const transaction = this.db.transaction("files", "readonly")
-    const store = transaction.objectStore("files")
+    const transaction = this.db.transaction(filesStoreName, "readonly")
+    const store = transaction.objectStore(filesStoreName)
     const request = store.get(id)
-    const result = await this.requestToPromise<{ data: Data }>(request)
+    const result = await requestToPromise<{ data: Data } | undefined>(request)
     return result ? result.data : null
   }
 
   async delete(id: number): Promise<void> {
     if (!this.db) throw new Error("Database not initialized")
-    const transaction = this.db.transaction("files", "readwrite")
-    const store = transaction.objectStore("files")
+    const transaction = this.db.transaction(filesStoreName, "readwrite")
+    const store = transaction.objectStore(filesStoreName)
     store.delete(id)
-  }
 
-  async list(): Promise<Metadata[]> {
-    if (!this.db) throw new Error("Database not initialized")
-    const transaction = this.db.transaction("files", "readonly")
-    const store = transaction.objectStore("files")
-
-    return new Promise<Metadata[]>((resolve, reject) => {
-      const request = store.openCursor()
-      const results: Metadata[] = []
-
-      request.onsuccess = (event) => {
-        const cursor = (event.target as IDBRequest<IDBCursorWithValue>).result
-        if (cursor) {
-          results.push({ id: cursor.key as number, name: cursor.value.name })
-          cursor.continue()
-        } else {
-          resolve(results)
-        }
-      }
-
-      request.onerror = () => reject(request.error)
+    await this.updateCatalog((catalog) => {
+      delete catalog.files[id]
+      return catalog
     })
   }
 
-  private requestToPromise<T>(request: IDBRequest): Promise<T> {
-    return new Promise((resolve, reject) => {
-      request.onsuccess = () => resolve(request.result)
-      request.onerror = () => reject(request.error)
-    })
+  async list(): Promise<{ [key: string]: Metadata }> {
+    const catalog = await this.getCatalog()
+    return catalog.files
   }
+}
+
+function requestToPromise<T>(request: IDBRequest): Promise<T> {
+  return new Promise((resolve, reject) => {
+    request.onsuccess = () => resolve(request.result)
+    request.onerror = () => reject(request.error)
+  })
 }

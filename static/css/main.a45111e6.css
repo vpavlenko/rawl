@@ -94,10 +94,10 @@ a:focus {
 a:active {
     background: var(--active);
 }
-
+/* 
 a:visited {
     color: var(--clickable);
-}
+} */
 
 /* Form elements */
 
@@ -968,4 +968,4 @@ img {
             box-shadow: none;
 }
 
-/*# sourceMappingURL=main.5cc8ae6d.css.map*/
+/*# sourceMappingURL=main.a45111e6.css.map*/

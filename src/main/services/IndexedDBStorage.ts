@@ -84,8 +84,8 @@ export class IndexedDBStorage<Data, Metadata> {
     const transaction = this.db.transaction(filesStoreName, "readonly")
     const store = transaction.objectStore(filesStoreName)
     const request = store.get(id)
-    const result = await requestToPromise<{ data: Data } | undefined>(request)
-    return result ? result.data : null
+    const result = await requestToPromise<Data | undefined>(request)
+    return result ?? null
   }
 
   async delete(id: number): Promise<void> {

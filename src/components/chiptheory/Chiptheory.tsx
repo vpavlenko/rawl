@@ -118,9 +118,9 @@ const getNoteRectangles = (
   notes: Note[],
   color: string,
   analysis: Analysis,
-  midiNumberToY: (number) => number,
+  midiNumberToY: (number: number) => number,
   noteHeight: number,
-  handleNoteClick = (note) => {},
+  handleNoteClick = (note: Note) => {},
 ) => {
   return notes.map((note) => {
     const top = midiNumberToY(note.note.midiNumber); // + { 'red': 1, 'green': -1, 'blue': 0, 'white': 0, 'black': 0 }[color];
@@ -355,6 +355,7 @@ const Chiptheory = ({
             allNotes={allNotes}
             midiNumberToY={midiNumberToY}
             noteHeight={noteHeight}
+            selectedDownbeat={selectedDownbeat}
             selectDownbeat={setSelectedDownbeat}
           />
         </div>

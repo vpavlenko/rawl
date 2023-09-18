@@ -148,6 +148,8 @@ export const nextStep = (analysis, setAnalysis) =>
 
 export const advanceAnalysis = (note, analysis, saveAnalysis, setAnalysis) => {
   const { step } = analysis;
+  if (step === "end") return;
+
   const nextStep = STEPS[STEPS.indexOf(step) + 1];
   let update: Partial<Analysis> = {};
 
@@ -187,7 +189,7 @@ const BeatBar = styled(VerticalBar)`
   border-left: 1px dashed darkgrey;
 `;
 
-const Measure = ({ second, number, selectDownbeat }) => {
+const Measure = ({ second, number, selectedDownbeat, selectDownbeat }) => {
   const left = secondsToX(second);
   return (
     <>
@@ -201,7 +203,7 @@ const Measure = ({ second, number, selectDownbeat }) => {
           position: "absolute",
           top: 10,
           left: `${left + 5}px`,
-          color: "black",
+          color: selectedDownbeat === number ? "white" : "black",
           zIndex: 2,
           cursor: "pointer",
         }}
@@ -215,7 +217,7 @@ const Measure = ({ second, number, selectDownbeat }) => {
 
 const Beat = ({ second }) => <BeatBar style={{ left: secondsToX(second) }} />;
 
-const adjustMeasureLength = (second, allNotes) => {
+const snapToSomeNoteOnset = (second, allNotes) => {
   let closestDiff = Infinity;
   let closestNoteOn = null;
   for (const note of allNotes) {
@@ -256,21 +258,31 @@ export const AnalysisGrid: React.FC<{
   allNotes: Note[];
   midiNumberToY: (number: number) => number;
   noteHeight: number;
+  selectedDownbeat: number;
   selectDownbeat: (number: number) => void;
 }> = React.memo(
-  ({ analysis, allNotes, midiNumberToY, noteHeight, selectDownbeat }) => {
+  ({
+    analysis,
+    allNotes,
+    midiNumberToY,
+    noteHeight,
+    selectedDownbeat,
+    selectDownbeat,
+  }) => {
     let measures = [];
     let beats = [];
     const maxRigthSpan = allNotes.reduce(
       (maxValue, note) => Math.max(maxValue, note.span[1]),
       -Infinity,
     );
+    let loopLeft = null;
 
     if (analysis.firstMeasure) {
       measures.push(
         <Measure
           second={analysis.firstMeasure}
           number={1}
+          selectedDownbeat={selectedDownbeat}
           selectDownbeat={selectDownbeat}
         />,
       );
@@ -282,11 +294,12 @@ export const AnalysisGrid: React.FC<{
         <Measure
           second={previousMeasure}
           number={1}
+          selectedDownbeat={selectedDownbeat}
           selectDownbeat={selectDownbeat}
         />,
       );
       for (let i = 2; i < 400; i++) {
-        const newMeasure = adjustMeasureLength(
+        const newMeasure = snapToSomeNoteOnset(
           previousMeasure + measureLength,
           allNotes,
         );
@@ -296,6 +309,7 @@ export const AnalysisGrid: React.FC<{
             key={i}
             second={newMeasure}
             number={i}
+            selectedDownbeat={selectedDownbeat}
             selectDownbeat={selectDownbeat}
           />,
         );
@@ -319,6 +333,10 @@ export const AnalysisGrid: React.FC<{
         );
         // measureLength = newMeasure - previousMeasure // I'm not sure it improves anything
         previousMeasure = newMeasure;
+        if (i === analysis.loop) {
+          loopLeft = secondsToX(newMeasure);
+          break;
+        }
       }
     }
     return (
@@ -333,6 +351,22 @@ export const AnalysisGrid: React.FC<{
             noteHeight={noteHeight}
           />
         }
+        {loopLeft && (
+          <div
+            style={{
+              position: "absolute",
+              backgroundColor: "black",
+              left: loopLeft,
+              height: "100%",
+              right: 0,
+              opacity: 0.7,
+              zIndex: 100,
+              width: "3000px",
+            }}
+          >
+            <div style={{ margin: "20px" }}>Loop</div>
+          </div>
+        )}
       </>
     );
   },
@@ -389,22 +423,26 @@ export const AnalysisBox: React.FC<{
             {selectedDownbeat !== null && (
               <div>
                 <div> What happens at measure {selectedDownbeat}?</div>
+                <ul>
+                  <li>
+                    <button
+                      className="box-button"
+                      onClick={() => {
+                        const newAnalysis = {
+                          ...analysis,
+                          loop: selectedDownbeat,
+                        };
 
-                <button
-                  className="box-button"
-                  onClick={() => {
-                    const newAnalysis = {
-                      ...analysis,
-                      loop: selectedDownbeat,
-                    };
-
-                    selectDownbeat(null);
-                    saveAnalysis(newAnalysis);
-                    setAnalysis(newAnalysis);
-                  }}
-                >
-                  Loop
-                </button>
+                        selectDownbeat(null);
+                        saveAnalysis(newAnalysis);
+                        setAnalysis(newAnalysis);
+                      }}
+                    >
+                      Loop
+                    </button>
+                  </li>
+                  <li>Chord: click on its root</li>
+                </ul>
               </div>
             )}
             Loop starts at: {analysis.loop}

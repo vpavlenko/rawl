@@ -974,4 +974,16 @@ img {
             box-shadow: none;
 }
 
-/*# sourceMappingURL=main.bfb77a7a.css.map*/
+
+
+
+
+.noteRectangleTonal:hover .noteText {
+    opacity: 1;
+}
+
+.noteRectangleTonal .noteText {
+    opacity: 0;
+}
+
+/*# sourceMappingURL=main.23bccf14.css.map*/

@@ -71,7 +71,7 @@ class App extends React.Component {
     const auth = getAuth(firebaseApp);
     this.db = getFirestore(firebaseApp);
 
-    // Load the analyses: by Vitaly Pavlenko
+    // Load the analyses by Vitaly Pavlenko
     const docRef = doc(this.db, 'users', 'hqAWkYyzu2hIzNgE3ui89f41vFA2')
     getDoc(docRef)
       .then(userSnapshot => {
@@ -84,7 +84,6 @@ class App extends React.Component {
       this.setState({ user: user, loadingUser: !!user });
       if (user) {
         const docRef = doc(this.db, 'users', user.uid);
-        console.log('VPDBG docRef', user.uid)
         getDoc(docRef)
           .then(userSnapshot => {
             if (!userSnapshot.exists()) {

@@ -321,6 +321,8 @@ const Chiptheory = ({
     };
   }, []);
 
+  const [selectedDownbeat, setSelectedDownbeat] = useState<number | null>(null);
+
   return (
     <div className="App-main-content-and-settings">
       <div
@@ -353,10 +355,17 @@ const Chiptheory = ({
             allNotes={allNotes}
             midiNumberToY={midiNumberToY}
             noteHeight={noteHeight}
+            selectDownbeat={setSelectedDownbeat}
           />
         </div>
       </div>
-      <AnalysisBox analysis={analysis} setAnalysis={setAnalysis} />
+      <AnalysisBox
+        analysis={analysis}
+        saveAnalysis={saveAnalysis}
+        setAnalysis={setAnalysis}
+        selectedDownbeat={selectedDownbeat}
+        selectDownbeat={setSelectedDownbeat}
+      />
     </div>
   );
 };

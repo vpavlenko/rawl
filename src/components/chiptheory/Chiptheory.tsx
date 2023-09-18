@@ -123,7 +123,7 @@ const getNoteRectangles = (
   handleNoteClick = (note: Note) => {},
 ) => {
   return notes.map((note) => {
-    const top = midiNumberToY(note.note.midiNumber); // + { 'red': 1, 'green': -1, 'blue': 0, 'white': 0, 'black': 0 }[color];
+    const top = midiNumberToY(note.note.midiNumber);
     const left = secondsToX(note.span[0]);
     const colorOrGradient = getNoteColor(color, note.note.midiNumber, analysis);
     const noteName = (
@@ -143,7 +143,8 @@ const getNoteRectangles = (
     );
     return (
       <div
-        className={analysis.mode && "noteRectangleTonal"}
+        className={"noteRectangleTonal"}
+        // className={analysis.mode && "noteRectangleTonal"}
         style={{
           position: "absolute",
           height: `${noteHeight}px`,
@@ -261,7 +262,7 @@ const Chiptheory = ({
     return [
       ...getNoteRectangles(
         notes.p1,
-        "red",
+        "#26577C",
         analysis,
         midiNumberToY,
         noteHeight,
@@ -269,7 +270,7 @@ const Chiptheory = ({
       ),
       ...getNoteRectangles(
         notes.p2,
-        "green",
+        "#AE445A",
         analysis,
         midiNumberToY,
         noteHeight,
@@ -277,7 +278,7 @@ const Chiptheory = ({
       ),
       ...getNoteRectangles(
         notes.t,
-        "blue",
+        "#63995A",
         analysis,
         midiNumberToY,
         noteHeight,

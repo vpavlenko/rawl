@@ -137,7 +137,7 @@ export const STEP_CALL_TO_ACTION: Record<Step, string> = {
     "Step 2. Click on a note at the start of the second measure of the main section",
   tonic: "Step 3. Click on a tonic of the main section",
   mode: "Step 4. Click on a characteristic note of the main section. Minor: b3, major: 3, phrygian: b2, dorian: #6, mixolydian: b7, blues: #4, pentatonic: 4",
-  end: "Analysis completed, thank you!",
+  end: "Click on root notes to enter chords",
 };
 
 // These two don't propagate to Firestore because they tweak transient state.
@@ -149,7 +149,13 @@ export const nextStep = (analysis, setAnalysis) =>
 
 export const advanceAnalysis = (note, analysis, saveAnalysis, setAnalysis) => {
   const { step } = analysis;
-  if (step === "end") return;
+  if (step === "end") {
+    // enter chords
+    // get note degree
+    // get measure notes
+    // compare thirds
+    // if previous chords: span the last one?
+  }
 
   const nextStep = STEPS[STEPS.indexOf(step) + 1];
   let update: Partial<Analysis> = {};
@@ -446,7 +452,6 @@ export const AnalysisBox: React.FC<{
                 </ul>
               </div>
             )}
-            Loop starts at: {analysis.loop}
             {/* <h2>Time</h2>
             <h2>Form</h2>
             <div>At which bar does it loop forever?</div> */}

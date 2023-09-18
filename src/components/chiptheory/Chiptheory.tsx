@@ -165,7 +165,7 @@ const getNoteRectangles = (
           top,
           left,
           pointerEvents: voice === "under cursor" ? "none" : "auto",
-          borderTopLeftRadius: voice === "pulse2" ? "100%" : 0,
+          borderTopLeftRadius: voice === "pulse1" ? "100%" : 0,
           borderBottomLeftRadius: voice === "triangle" ? "100%" : 0,
           cursor: "pointer",
           zIndex: 10,
@@ -369,9 +369,9 @@ const Chiptheory = ({
     <div className="App-main-content-and-settings">
       <div
         style={{
-          width: "96%",
-          height: "96%",
-          marginTop: "1em",
+          width: "100%",
+          height: "100%",
+          marginTop: "19px",
           padding: 0,
           backgroundColor: "black",
         }}

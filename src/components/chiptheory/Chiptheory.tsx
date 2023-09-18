@@ -10,6 +10,7 @@ import {
   advanceAnalysis,
   getNoteColor,
 } from "./Analysis";
+import { MeasuresAndBeats, calculateMeasuresAndBeats } from "./helpers";
 import {
   NES_APU_NOTE_ESTIMATIONS,
   PAUSE,
@@ -17,6 +18,7 @@ import {
 } from "./nesApuNoteEstimations";
 
 type OscType = "pulse" | "triangle" | "noise";
+type Voice = "pulse1" | "pulse2" | "triangle" | "noise" | "under cursor";
 
 function findNoteWithClosestPeriod(
   period: number,
@@ -114,14 +116,24 @@ const isNoteCurrentlyPlayed = (note, positionMs) => {
   return note.span[0] <= positionSeconds && positionSeconds <= note.span[1];
 };
 
+// This is used when tonal context isn't set yet.
+const VOICE_TO_COLOR: { [key in Voice]: string } = {
+  pulse1: "#26577C",
+  pulse2: "#AE445A",
+  triangle: "#63995A",
+  noise: "black",
+  "under cursor": "under cursor",
+};
+
 const getNoteRectangles = (
   notes: Note[],
-  color: string,
+  voice: Voice,
   analysis: Analysis,
   midiNumberToY: (number: number) => number,
   noteHeight: number,
   handleNoteClick = (note: Note) => {},
 ) => {
+  const color = VOICE_TO_COLOR[voice];
   return notes.map((note) => {
     const top = midiNumberToY(note.note.midiNumber);
     const left = secondsToX(note.span[0]);
@@ -149,10 +161,10 @@ const getNoteRectangles = (
           position: "absolute",
           height: `${noteHeight}px`,
           width: secondsToX(note.span[1]) - secondsToX(note.span[0]),
-          color: color === "white" ? "black" : "white",
+          color: "white",
           top,
           left,
-          pointerEvents: color === "white" ? "none" : "auto",
+          pointerEvents: voice === "under cursor" ? "none" : "auto",
           cursor: "pointer",
           zIndex: 10,
           // ...(color === 'white' ? { backgroundColor: color } : colorOrGradient)
@@ -161,7 +173,7 @@ const getNoteRectangles = (
         }}
         onClick={() => handleNoteClick(note)}
       >
-        {color !== "white" && noteName}
+        {voice !== "under cursor" && noteName}
       </div>
     );
   });
@@ -203,7 +215,6 @@ const Chiptheory = ({
   const [analysis, setAnalysis] = useState<Analysis>(ANALYSIS_STUB);
 
   useEffect(() => {
-    // If chipStateDump changed, that means we're playing a new subtune, and a previous analysis isn't valid.
     if (savedAnalysis) {
       setAnalysis(savedAnalysis);
     } else {
@@ -211,14 +222,27 @@ const Chiptheory = ({
     }
   }, [savedAnalysis]);
 
+  const [selectedDownbeat, setSelectedDownbeat] = useState<number | null>(null);
+
   const analysisRef = useRef(analysis);
   useEffect(() => {
     analysisRef.current = analysis;
   }, [analysis]);
 
-  // Without the ref magic, this will only capture the initial analysis.
+  const selectedDownbeatRef = useRef(selectedDownbeat);
+  useEffect(() => {
+    selectedDownbeatRef.current = selectedDownbeat;
+  }, [selectedDownbeat]);
+
   const handleNoteClick = (note) =>
-    advanceAnalysis(note, analysisRef.current, saveAnalysis, setAnalysis);
+    advanceAnalysis(
+      note,
+      selectedDownbeatRef.current,
+      setSelectedDownbeat,
+      analysisRef.current,
+      saveAnalysis,
+      setAnalysis,
+    );
 
   const notes = useMemo(() => {
     return {
@@ -232,6 +256,15 @@ const Chiptheory = ({
   const allNotes = useMemo(
     () => [...notes.t, ...notes.n, ...notes.p1, ...notes.p2],
     [chipStateDump],
+  );
+
+  const [measuresAndBeats, setMeasuresAndBeats] = useState<MeasuresAndBeats>({
+    measures: [],
+    beats: [],
+  });
+  useEffect(
+    () => setMeasuresAndBeats(calculateMeasuresAndBeats(analysis, allNotes)),
+    [analysis.firstMeasure, analysis.secondMeasure, analysis.correctedMeasures],
   );
 
   const { minMidiNumber, maxMidiNumber } = useMemo(
@@ -255,14 +288,17 @@ const Chiptheory = ({
   }, []);
 
   const noteHeight = divHeight / (maxMidiNumber - minMidiNumber + 7);
-  const midiNumberToY = (midiNumber) =>
-    divHeight - (midiNumber - minMidiNumber + 4) * noteHeight;
+  const midiNumberToY = useMemo(
+    () => (midiNumber) =>
+      divHeight - (midiNumber - minMidiNumber + 4) * noteHeight,
+    [noteHeight],
+  );
 
   const noteRectangles = useMemo(() => {
     return [
       ...getNoteRectangles(
         notes.p1,
-        "#26577C",
+        "pulse1",
         analysis,
         midiNumberToY,
         noteHeight,
@@ -270,7 +306,7 @@ const Chiptheory = ({
       ),
       ...getNoteRectangles(
         notes.p2,
-        "#AE445A",
+        "pulse2",
         analysis,
         midiNumberToY,
         noteHeight,
@@ -278,7 +314,7 @@ const Chiptheory = ({
       ),
       ...getNoteRectangles(
         notes.t,
-        "#63995A",
+        "triangle",
         analysis,
         midiNumberToY,
         noteHeight,
@@ -286,7 +322,7 @@ const Chiptheory = ({
       ),
       ...getNoteRectangles(
         notes.n,
-        "black",
+        "noise",
         analysis,
         midiNumberToY,
         noteHeight,
@@ -298,7 +334,7 @@ const Chiptheory = ({
   const [positionMs, setPositionMs] = useState(0);
   const currentlyPlayedRectangles = getNoteRectangles(
     findCurrentlyPlayedNotes(allNotes, positionMs),
-    "white",
+    "under cursor",
     analysis,
     midiNumberToY,
     noteHeight,
@@ -322,8 +358,6 @@ const Chiptheory = ({
       running = false;
     };
   }, []);
-
-  const [selectedDownbeat, setSelectedDownbeat] = useState<number | null>(null);
 
   return (
     <div className="App-main-content-and-settings">
@@ -355,6 +389,7 @@ const Chiptheory = ({
           <AnalysisGrid
             analysis={analysis}
             allNotes={allNotes}
+            measuresAndBeats={measuresAndBeats}
             midiNumberToY={midiNumberToY}
             noteHeight={noteHeight}
             selectedDownbeat={selectedDownbeat}

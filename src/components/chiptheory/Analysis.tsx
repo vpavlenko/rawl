@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled, { CSSProperties } from "styled-components";
 import { Note, secondsToX } from "./Chiptheory";
+import { MeasuresAndBeats } from "./helpers";
 
 // Analysis is done in steps.
 // The meaning of a click/hover at each step is different.
@@ -19,21 +20,21 @@ export type Step = (typeof STEPS)[number];
 
 export type PitchClass = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11;
 
-export type ScaleDegree = 1 | 2 | 3 | 4 | 5 | 6 | 7;
+export type ScaleDegree = 1 | 2 | 3 | 4 | 5 | 6 | 7 | null;
 type PitchClassToScaleDegree = [
-  ScaleDegree | null,
-  ScaleDegree | null,
-  ScaleDegree | null,
-  ScaleDegree | null,
-  ScaleDegree | null,
-  ScaleDegree | null,
-  ScaleDegree | null,
-  ScaleDegree | null,
-  ScaleDegree | null,
-  ScaleDegree | null,
-  ScaleDegree | null,
-  ScaleDegree | null,
-];
+  ScaleDegree,
+  ScaleDegree,
+  ScaleDegree,
+  ScaleDegree,
+  ScaleDegree,
+  ScaleDegree,
+  ScaleDegree,
+  ScaleDegree,
+  ScaleDegree,
+  ScaleDegree,
+  ScaleDegree,
+  ScaleDegree,
+]; // 12
 
 // const MODES = [null, 'phrygian', null, 'minor', 'major', 'minor pentatonic', 'blues', null, null, 'dorian', 'mixolydian', null] as const
 const MODES = [
@@ -81,6 +82,7 @@ export type Analysis = {
   step: Step;
   firstMeasure: number;
   secondMeasure: number;
+  correctedMeasures: { [key: number]: number };
   loop: number | null;
   tonic: PitchClass | null;
   mode: Mode;
@@ -95,7 +97,7 @@ export const getNoteColor = (
   midiNumber,
   analysis,
 ): CSSProperties => {
-  if (defaultColor === "white") {
+  if (defaultColor === "under cursor") {
     return {
       // boxShadow: "gray 0px 1px, white 0px 1.5px",
       boxShadow: "white 0px 1px",
@@ -120,13 +122,14 @@ export const getNoteColor = (
   return getTransparencyGradient(RAINBOW_COLORS[mapping[pointer] - 1]);
 };
 
-export const ANALYSIS_STUB = {
+export const ANALYSIS_STUB: Analysis = {
   clickResolutionMs: RESOLUTION_MS,
   step: STEPS[0],
   firstMeasure: null,
   secondMeasure: null,
+  correctedMeasures: [],
   loop: null,
-  tonic: null, // 0..11 in midi notes
+  tonic: null,
   mode: null,
 };
 
@@ -147,30 +150,45 @@ export const prevStep = (analysis, setAnalysis) =>
 export const nextStep = (analysis, setAnalysis) =>
   setAnalysis({ ...analysis, step: STEPS[STEPS.indexOf(analysis.step) + 1] });
 
-export const advanceAnalysis = (note, analysis, saveAnalysis, setAnalysis) => {
-  const { step } = analysis;
-  if (step === "end") {
-    // enter chords
-    // get note degree
-    // get measure notes
-    // compare thirds
-    // if previous chords: span the last one?
-  }
-
-  const nextStep = STEPS[STEPS.indexOf(step) + 1];
+export const advanceAnalysis = (
+  note: Note,
+  selectedDownbeat: number | null,
+  selectDownbeat: (_: null) => void,
+  analysis: Analysis,
+  saveAnalysis,
+  setAnalysis,
+) => {
   let update: Partial<Analysis> = {};
+  debugger;
 
-  if (step === "first measure") {
-    update.firstMeasure = note.span[0];
-  } else if (step === "second measure") {
-    update.secondMeasure = note.span[0];
-  } else if (step === "tonic") {
-    update.tonic = (note.note.midiNumber % 12) as PitchClass;
-  } else if (step === "mode") {
-    update.mode = MODES[(note.note.midiNumber - analysis.tonic) % 12];
+  if (selectedDownbeat !== null) {
+    update.correctedMeasures = { ...(analysis.correctedMeasures || []) };
+    update.correctedMeasures[selectedDownbeat] = note.span[0];
+    selectDownbeat(null);
+  } else {
+    const { step } = analysis;
+    if (step === "end") {
+      // enter chords
+      // get note degree
+      // get measure notes
+      // compare thirds
+      // if previous chords: span the last one?
+    } else {
+      update.step = STEPS[STEPS.indexOf(step) + 1];
+    }
+
+    if (step === "first measure") {
+      update.firstMeasure = note.span[0];
+    } else if (step === "second measure") {
+      update.secondMeasure = note.span[0];
+    } else if (step === "tonic") {
+      update.tonic = (note.note.midiNumber % 12) as PitchClass;
+    } else if (step === "mode") {
+      update.mode = MODES[(note.note.midiNumber - analysis.tonic) % 12];
+    }
   }
 
-  const newAnalysis = { ...analysis, ...update, step: nextStep };
+  const newAnalysis = { ...analysis, ...update };
 
   saveAnalysis(newAnalysis);
   setAnalysis(newAnalysis);
@@ -224,33 +242,22 @@ const Measure = ({ second, number, selectedDownbeat, selectDownbeat }) => {
 
 const Beat = ({ second }) => <BeatBar style={{ left: secondsToX(second) }} />;
 
-const snapToSomeNoteOnset = (second, allNotes) => {
-  let closestDiff = Infinity;
-  let closestNoteOn = null;
-  for (const note of allNotes) {
-    const currentDiff = Math.abs(second - note.span[0]);
-    if (currentDiff < closestDiff) {
-      closestNoteOn = note.span[0];
-      closestDiff = currentDiff;
-    }
-  }
-  return closestNoteOn;
-};
-
 const TonalGrid = ({ tonic, width, midiNumberToY, noteHeight }) => {
   if (tonic === null) {
     return [];
   }
   const result = [];
   for (let octave = 2; octave <= 7; ++octave) {
+    const midiNumber = tonic + octave * 12;
     result.push(
       <div
+        key={midiNumber}
         style={{
           position: "absolute",
           width: `${width}px`,
           height: noteHeight,
           left: 0,
-          top: midiNumberToY(tonic + octave * 12),
+          top: midiNumberToY(midiNumber),
           backgroundColor: "#222",
           zIndex: 1,
         }}
@@ -260,9 +267,42 @@ const TonalGrid = ({ tonic, width, midiNumberToY, noteHeight }) => {
   return result;
 };
 
+const areEqual = (prevProps, nextProps) => {
+  let isEqual = true;
+
+  // Loop through all the previous props
+  for (let key in prevProps) {
+    if (prevProps[key] !== nextProps[key]) {
+      console.log(
+        `Prop '${key}' changed from`,
+        prevProps[key],
+        "to",
+        nextProps[key],
+      );
+      isEqual = false;
+    }
+  }
+
+  // In case there are new props added
+  for (let key in nextProps) {
+    if (prevProps[key] !== nextProps[key]) {
+      console.log(
+        `Prop '${key}' changed from`,
+        prevProps[key],
+        "to",
+        nextProps[key],
+      );
+      isEqual = false;
+    }
+  }
+
+  return isEqual;
+};
+
 export const AnalysisGrid: React.FC<{
   analysis: Analysis;
   allNotes: Note[];
+  measuresAndBeats: MeasuresAndBeats;
   midiNumberToY: (number: number) => number;
   noteHeight: number;
   selectedDownbeat: number;
@@ -271,85 +311,36 @@ export const AnalysisGrid: React.FC<{
   ({
     analysis,
     allNotes,
+    measuresAndBeats,
     midiNumberToY,
     noteHeight,
     selectedDownbeat,
     selectDownbeat,
   }) => {
-    let measures = [];
-    let beats = [];
+    const { measures, beats } = measuresAndBeats;
     const maxRigthSpan = allNotes.reduce(
       (maxValue, note) => Math.max(maxValue, note.span[1]),
       -Infinity,
     );
     let loopLeft = null;
 
-    if (analysis.firstMeasure) {
-      measures.push(
-        <Measure
-          second={analysis.firstMeasure}
-          number={1}
-          selectedDownbeat={selectedDownbeat}
-          selectDownbeat={selectDownbeat}
-        />,
-      );
-    }
-    if (analysis.secondMeasure) {
-      let previousMeasure = analysis.firstMeasure;
-      let measureLength = analysis.secondMeasure - analysis.firstMeasure;
-      measures.push(
-        <Measure
-          second={previousMeasure}
-          number={1}
-          selectedDownbeat={selectedDownbeat}
-          selectDownbeat={selectDownbeat}
-        />,
-      );
-      for (let i = 2; i < 400; i++) {
-        const newMeasure = snapToSomeNoteOnset(
-          previousMeasure + measureLength,
-          allNotes,
-        );
-        if (previousMeasure === newMeasure) break;
-        measures.push(
-          <Measure
-            key={i}
-            second={newMeasure}
-            number={i}
-            selectedDownbeat={selectedDownbeat}
-            selectDownbeat={selectDownbeat}
-          />,
-        );
-        beats.push(
-          <Beat
-            key={`${i}_1`}
-            second={previousMeasure * 0.75 + newMeasure * 0.25}
-          />,
-        );
-        beats.push(
-          <Beat
-            key={`${i}_2`}
-            second={previousMeasure * 0.5 + newMeasure * 0.5}
-          />,
-        );
-        beats.push(
-          <Beat
-            key={`${i}_3`}
-            second={previousMeasure * 0.25 + newMeasure * 0.75}
-          />,
-        );
-        // measureLength = newMeasure - previousMeasure // I'm not sure it improves anything
-        previousMeasure = newMeasure;
-        if (i === analysis.loop) {
-          loopLeft = secondsToX(newMeasure);
-          break;
-        }
-      }
+    if (analysis.loop) {
+      loopLeft = secondsToX(measures[analysis.loop - 1]);
     }
     return (
       <>
-        {measures}
-        {beats}
+        {measures.map((time, i) => (
+          <Measure
+            key={i}
+            second={time}
+            number={i + 1}
+            selectedDownbeat={selectedDownbeat}
+            selectDownbeat={selectDownbeat}
+          />
+        ))}
+        {beats.map((time) => (
+          <Beat key={time} second={time} />
+        ))}
         {
           <TonalGrid
             tonic={analysis.tonic}
@@ -377,6 +368,7 @@ export const AnalysisGrid: React.FC<{
       </>
     );
   },
+  areEqual,
 );
 
 type AnalysisPart = React.FC<{ analysis: Analysis }>;
@@ -424,12 +416,14 @@ export const AnalysisBox: React.FC<{
               </div>
             </div>
             {"  "}
-            <div>{STEP_CALL_TO_ACTION[analysis.step]}</div>
+            {selectedDownbeat === null && (
+              <div>{STEP_CALL_TO_ACTION[analysis.step]}</div>
+            )}
           </div>
           <div style={{ marginTop: "20px" }}>
             {selectedDownbeat !== null && (
               <div>
-                <div> What happens at measure {selectedDownbeat}?</div>
+                <div>What happens at measure {selectedDownbeat}?</div>
                 <ul>
                   <li>
                     <button
@@ -445,10 +439,10 @@ export const AnalysisBox: React.FC<{
                         setAnalysis(newAnalysis);
                       }}
                     >
-                      Loop
+                      Mark loop start
                     </button>
                   </li>
-                  <li>Chord: click on its root</li>
+                  <li>Adjust downbeat: select note</li>
                 </ul>
               </div>
             )}

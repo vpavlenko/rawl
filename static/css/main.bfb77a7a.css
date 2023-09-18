@@ -110,6 +110,7 @@ button {
     -webkit-appearance: none;
     padding: 0 var(--charW1);
     color: var(--clickable);
+    cursor: pointer;
 }
 
 select {
@@ -189,6 +190,10 @@ input[type=range]:focus {
     background: var(--focus);
 }
 
+label {
+    cursor: pointer;
+}
+
 label.inline {
     display: inline-block;
     margin-right: var(--charW1);
@@ -209,6 +214,7 @@ input[type=radio] {
     width: 32px;
     margin: 0;
     color: var(--clickable);
+    cursor: pointer;
 }
 
 input[type=checkbox]:before {
@@ -968,4 +974,4 @@ img {
             box-shadow: none;
 }
 
-/*# sourceMappingURL=main.a45111e6.css.map*/
+/*# sourceMappingURL=main.bfb77a7a.css.map*/

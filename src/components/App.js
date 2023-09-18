@@ -444,8 +444,8 @@ class App extends React.Component {
     });
   }
 
-  playContext(context, index = 0) {
-    this.sequencer.playContext(context, index);
+  playContext(context, index = 0, subtune = 0) {
+    this.sequencer.playContext(context, index, subtune);
   }
 
   prevSong() {
@@ -665,11 +665,11 @@ class App extends React.Component {
     this.sequencer.setShuffle(shuffle);
   }
 
-  handleSongClick(url, context, index) {
+  handleSongClick(url, context, index, subtune = 0) {
     return (e) => {
       e.preventDefault();
       if (context) {
-        this.playContext(context, index);
+        this.playContext(context, index, subtune);
       } else {
         this.sequencer.playSonglist([url]);
       }

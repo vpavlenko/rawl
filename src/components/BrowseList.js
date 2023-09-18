@@ -31,21 +31,18 @@ function BrowseList({ virtual, ...props }) {
         browsePath.substr(0, browsePath.lastIndexOf('/')) :
         firstSongItem.path.replace('%', '%25').replace('#', '%23').replace(/^\//, '');
 
-      const href = CATALOG_PREFIX + path;
-      handleSongClick(href, playContext, firstSongItem.idx)({
-        preventDefault: () => { },
-      });
-
       const params = new URLSearchParams(location.search);
-      const subtune = params.get('subtune')
+      let subtune = params.get('subtune') || null
       if (subtune) {
-        // Dirty hack, it's a race condition >_<
-        setTimeout(
-          () => sequencer.playSubtune(subtune - 1), 1000);
+        subtune = parseInt(subtune, 10) - 1
         params.delete('subtune')
         history.push({ pathname: location.pathname })
       }
 
+      const href = CATALOG_PREFIX + path;
+      handleSongClick(href, playContext, firstSongItem.idx, subtune)({
+        preventDefault: () => { },
+      });
     }
     // Add the dependencies that would trigger the effect when changed
   }, [virtual.items.length]);
@@ -76,7 +73,11 @@ function BrowseList({ virtual, ...props }) {
           const name = item.path.split('/').pop();
           const isPlaying = currContext === playContext && currIdx === item.idx;
           const isBackLink = item.path === '..' && prevPageIsParentDir;
-          const analysis = analyses && analyses[path]
+          let analysis = analyses && analyses[path] && Object.values(analyses[path])
+          if (analysis && analysis[0]) {
+            analysis = analysis[0]
+            Object.keys(analysis).map(index => console.log(index, analysis[index]))
+          }
 
           if (item.type === 'directory') {
             return (
@@ -84,9 +85,13 @@ function BrowseList({ virtual, ...props }) {
                 <div className="BrowseList-colName">
                   <DirectoryLink dim={!analysis} to={'/browse/' + path} search={search} isBackLink={isBackLink} history={history}>{name}</DirectoryLink>
                 </div>
-                <div className="BrowseList-colDir">
-                  {/* {analysis && "ANALYSIS"} */}
-                </div>
+                {analysis && <div>
+                  {Object.keys(analysis).map(index => {
+                    const realIndex = parseInt(index, 10) + 1
+                    return <DirectoryLink dim={!analysis} to={'/browse/' + path} search={`?subtune=${realIndex}`}>[{realIndex}]</DirectoryLink>
+                  })}
+                </div>}
+                {/* className="BrowseList-colDir" */}
                 {/* <div className="BrowseList-colCount" title={`Contains ${item.numChildren} direct child items`}>
                   {item.numChildren}
                 </div>
@@ -117,6 +122,6 @@ function BrowseList({ virtual, ...props }) {
           }
         })}
       </div>
-    </div>
+    </div >
   );
 };

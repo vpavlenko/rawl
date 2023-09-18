@@ -87,7 +87,7 @@ export type Analysis = {
 };
 
 export const getTransparencyGradient = (color) => ({
-  background: `linear-gradient(to right, ${color} 0px, ${color} 10px, transparent 100%)`,
+  background: `linear-gradient(to right, ${color} 0px, ${color} 1000px, transparent 100%)`, // 1000px disables gradient
 });
 
 export const getNoteColor = (

@@ -128,6 +128,7 @@ const getNoteRectangles = (
     const colorOrGradient = getNoteColor(color, note.note.midiNumber, analysis);
     const noteName = (
       <div
+        className="noteText"
         style={{
           position: "relative",
           top: color === "black" ? `"-${noteHeight}px` : "0px",
@@ -135,7 +136,6 @@ const getNoteRectangles = (
           fontSize: `${Math.min(noteHeight, 14)}px`,
           lineHeight: `${Math.min(noteHeight, 14)}px`,
           fontFamily: "Helvetica, sans-serif",
-          opacity: 0.7,
         }}
       >
         {note.note.name.slice(0, -1)}
@@ -143,6 +143,7 @@ const getNoteRectangles = (
     );
     return (
       <div
+        className={analysis.mode && "noteRectangleTonal"}
         style={{
           position: "absolute",
           height: `${noteHeight}px`,

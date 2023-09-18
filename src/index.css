@@ -872,3 +872,15 @@ img {
     padding: 0 var(--charW2);
     box-shadow: none;
 }
+
+
+
+
+
+.noteRectangleTonal:hover .noteText {
+    opacity: 1;
+}
+
+.noteRectangleTonal .noteText {
+    opacity: 0;
+}

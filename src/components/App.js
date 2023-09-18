@@ -842,6 +842,7 @@ class App extends React.Component {
                               }}
                               savedAnalysis={savedAnalysis}
                               saveAnalysis={this.saveAnalysis}
+                              voiceMask={this.state.voiceMask}
                             />
                           </>
                         );

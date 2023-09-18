@@ -128,6 +128,7 @@ const VOICE_TO_COLOR: { [key in Voice]: string } = {
 const getNoteRectangles = (
   notes: Note[],
   voice: Voice,
+  isActiveVoice: boolean,
   analysis: Analysis,
   midiNumberToY: (number: number) => number,
   noteHeight: number,
@@ -169,7 +170,7 @@ const getNoteRectangles = (
           borderBottomLeftRadius: voice === "triangle" ? "100%" : 0,
           cursor: "pointer",
           zIndex: 10,
-          opacity: 0.8,
+          opacity: isActiveVoice ? 0.8 : 0.1,
           ...colorOrGradient,
         }}
         onClick={() => handleNoteClick(note)}
@@ -212,6 +213,7 @@ const Chiptheory = ({
   getCurrentPositionMs,
   savedAnalysis,
   saveAnalysis,
+  voiceMask,
 }) => {
   const [analysis, setAnalysis] = useState<Analysis>(ANALYSIS_STUB);
 
@@ -305,6 +307,7 @@ const Chiptheory = ({
       ...getNoteRectangles(
         notes.p1,
         "pulse1",
+        voiceMask[0],
         analysis,
         midiNumberToY,
         noteHeight,
@@ -313,6 +316,7 @@ const Chiptheory = ({
       ...getNoteRectangles(
         notes.p2,
         "pulse2",
+        voiceMask[1],
         analysis,
         midiNumberToY,
         noteHeight,
@@ -321,6 +325,7 @@ const Chiptheory = ({
       ...getNoteRectangles(
         notes.t,
         "triangle",
+        voiceMask[2],
         analysis,
         midiNumberToY,
         noteHeight,
@@ -335,12 +340,13 @@ const Chiptheory = ({
       //   handleNoteClick,
       // ),
     ];
-  }, [notes, analysis, noteHeight]);
+  }, [notes, analysis, noteHeight, voiceMask]);
 
   const [positionMs, setPositionMs] = useState(0);
   const currentlyPlayedRectangles = getNoteRectangles(
     findCurrentlyPlayedNotes(allNotes, positionMs),
     "under cursor",
+    true,
     analysis,
     midiNumberToY,
     noteHeight,

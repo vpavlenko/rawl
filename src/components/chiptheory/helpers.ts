@@ -26,10 +26,10 @@ export const calculateMeasuresAndBeats = (
   let measures = [];
   let beats = [];
 
-  if (analysis.firstMeasure) {
+  if (analysis.firstMeasure !== null) {
     measures.push(analysis.firstMeasure);
   }
-  if (analysis.secondMeasure) {
+  if (analysis.secondMeasure !== null) {
     let previousMeasure = analysis.firstMeasure;
     let measureLength = analysis.secondMeasure - analysis.firstMeasure;
 

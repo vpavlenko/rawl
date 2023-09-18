@@ -3,9 +3,6 @@ import styled, { CSSProperties } from "styled-components";
 import { Note, secondsToX } from "./Chiptheory";
 import { MeasuresAndBeats } from "./helpers";
 
-// Analysis is done in steps.
-// The meaning of a click/hover at each step is different.
-
 export const RESOLUTION_DUMPS_PER_SECOND = 100;
 export const RESOLUTION_MS = 1 / RESOLUTION_DUMPS_PER_SECOND;
 
@@ -89,7 +86,8 @@ export type Analysis = {
 };
 
 export const getTransparencyGradient = (color) => ({
-  background: `linear-gradient(to right, ${color} 0px, ${color} 10px, ${color} 50%, transparent 100%)`, // 1000px disables gradient
+  // background: `linear-gradient(to right, ${color} 0px, ${color} 10px, ${color} 50%, transparent 100%)`, // 1000px disables gradient
+  backgroundColor: color,
 });
 
 export const getNoteColor = (
@@ -229,7 +227,7 @@ const Measure = ({ second, number, selectedDownbeat, selectDownbeat }) => {
           top: 10,
           left: `${left + 5}px`,
           color: selectedDownbeat === number ? "red" : "white",
-          zIndex: 2,
+          zIndex: 5,
           cursor: "pointer",
         }}
         onClick={() => selectDownbeat(number)}
@@ -240,7 +238,9 @@ const Measure = ({ second, number, selectedDownbeat, selectDownbeat }) => {
   );
 };
 
-const Beat = ({ second }) => <BeatBar style={{ left: secondsToX(second) }} />;
+const Beat = ({ second }) => (
+  <BeatBar style={{ left: secondsToX(second), zIndex: 2 }} />
+);
 
 const TonalGrid = ({ tonic, width, midiNumberToY, noteHeight }) => {
   if (tonic === null) {
@@ -265,38 +265,6 @@ const TonalGrid = ({ tonic, width, midiNumberToY, noteHeight }) => {
     );
   }
   return result;
-};
-
-const areEqual = (prevProps, nextProps) => {
-  let isEqual = true;
-
-  // Loop through all the previous props
-  for (let key in prevProps) {
-    if (prevProps[key] !== nextProps[key]) {
-      console.log(
-        `Prop '${key}' changed from`,
-        prevProps[key],
-        "to",
-        nextProps[key],
-      );
-      isEqual = false;
-    }
-  }
-
-  // In case there are new props added
-  for (let key in nextProps) {
-    if (prevProps[key] !== nextProps[key]) {
-      console.log(
-        `Prop '${key}' changed from`,
-        prevProps[key],
-        "to",
-        nextProps[key],
-      );
-      isEqual = false;
-    }
-  }
-
-  return isEqual;
 };
 
 export const AnalysisGrid: React.FC<{
@@ -368,7 +336,6 @@ export const AnalysisGrid: React.FC<{
       </>
     );
   },
-  areEqual,
 );
 
 type AnalysisPart = React.FC<{ analysis: Analysis }>;
@@ -397,8 +364,7 @@ export const AnalysisBox: React.FC<{
         <div className="App-main-content-area settings">
           <div>
             <div style={{ display: "flex", flexDirection: "row" }}>
-              <h1>Rapid Analysis</h1>
-              <div style={{ marginLeft: "20px" }}>
+              <div style={{ marginBottom: "10px" }}>
                 <button
                   className="box-button"
                   disabled={analysis.step === STEPS[0]}

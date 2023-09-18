@@ -28,7 +28,7 @@ function findNoteWithClosestPeriod(
     return PAUSE;
   }
   if (oscType === "noise") {
-    const noise = period % 10;
+    const noise = period % 4;
     return {
       name: `${noise}_`, // pause
       midiNumber: noise + 90,
@@ -121,7 +121,7 @@ const VOICE_TO_COLOR: { [key in Voice]: string } = {
   pulse1: "#26577C",
   pulse2: "#AE445A",
   triangle: "#63995A",
-  noise: "black",
+  noise: "white",
   "under cursor": "under cursor",
 };
 
@@ -165,10 +165,11 @@ const getNoteRectangles = (
           top,
           left,
           pointerEvents: voice === "under cursor" ? "none" : "auto",
+          borderTopLeftRadius: voice === "pulse2" ? "100%" : 0,
+          borderBottomLeftRadius: voice === "triangle" ? "100%" : 0,
           cursor: "pointer",
           zIndex: 10,
-          // ...(color === 'white' ? { backgroundColor: color } : colorOrGradient)
-          // ...(color === 'white' ? getTransparencyGradient('white') : colorOrGradient)
+          opacity: 0.8,
           ...colorOrGradient,
         }}
         onClick={() => handleNoteClick(note)}
@@ -254,7 +255,7 @@ const Chiptheory = ({
   }, [chipStateDump]);
 
   const allNotes = useMemo(
-    () => [...notes.t, ...notes.n, ...notes.p1, ...notes.p2],
+    () => [...notes.t, ...notes.p1, ...notes.p2], // [...notes.n]
     [chipStateDump],
   );
 
@@ -264,7 +265,12 @@ const Chiptheory = ({
   });
   useEffect(
     () => setMeasuresAndBeats(calculateMeasuresAndBeats(analysis, allNotes)),
-    [analysis.firstMeasure, analysis.secondMeasure, analysis.correctedMeasures],
+    [
+      analysis.firstMeasure,
+      analysis.secondMeasure,
+      analysis.correctedMeasures,
+      allNotes,
+    ],
   );
 
   const { minMidiNumber, maxMidiNumber } = useMemo(
@@ -320,14 +326,14 @@ const Chiptheory = ({
         noteHeight,
         handleNoteClick,
       ),
-      ...getNoteRectangles(
-        notes.n,
-        "noise",
-        analysis,
-        midiNumberToY,
-        noteHeight,
-        handleNoteClick,
-      ),
+      // ...getNoteRectangles(
+      //   notes.n,
+      //   "noise",
+      //   analysis,
+      //   midiNumberToY,
+      //   noteHeight,
+      //   handleNoteClick,
+      // ),
     ];
   }, [notes, analysis, noteHeight]);
 

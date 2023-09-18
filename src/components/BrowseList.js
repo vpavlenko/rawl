@@ -2,7 +2,7 @@ import bytes from 'bytes';
 import trimEnd from 'lodash/trimEnd';
 import queryString from 'querystring';
 import React, { memo, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { CATALOG_PREFIX } from '../config';
 import DirectoryLink from './DirectoryLink';
 
@@ -13,11 +13,14 @@ function BrowseList({ virtual, ...props }) {
     currIdx,
     favorites,
     toggleFavorite,
+    sequencer,
     handleSongClick,
     browsePath,
     playContext,
     analyses,
   } = props;
+
+  const location = useLocation();
 
   // Chiptheory's autoplay for NES, because most directories have a single file
   useEffect(() => {
@@ -32,6 +35,17 @@ function BrowseList({ virtual, ...props }) {
       handleSongClick(href, playContext, firstSongItem.idx)({
         preventDefault: () => { },
       });
+
+      const params = new URLSearchParams(location.search);
+      const subtune = params.get('subtune')
+      if (subtune) {
+        // Dirty hack, it's a race condition >_<
+        setTimeout(
+          () => sequencer.playSubtune(subtune - 1), 1000);
+        params.delete('subtune')
+        history.push({ pathname: location.pathname })
+      }
+
     }
     // Add the dependencies that would trigger the effect when changed
   }, [virtual.items.length]);

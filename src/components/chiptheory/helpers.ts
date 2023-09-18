@@ -51,7 +51,7 @@ export const calculateMeasuresAndBeats = (
       beats.push(previousMeasure * 0.75 + newMeasure * 0.25);
       beats.push(previousMeasure * 0.5 + newMeasure * 0.5);
       beats.push(previousMeasure * 0.25 + newMeasure * 0.75);
-      // measureLength = newMeasure - previousMeasure // I'm not sure it improves anything
+      measureLength = newMeasure - previousMeasure
       previousMeasure = newMeasure;
       if (i === analysis.loop) {
         //   loopLeft = secondsToX(newMeasure);

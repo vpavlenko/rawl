@@ -830,6 +830,7 @@ class App extends React.Component {
                               favorites={this.state.faves}
                               toggleFavorite={this.handleToggleFavorite}
                               analyses={this.state.analyses}
+                              sequencer={this.sequencer}
                             />
                             <Chiptheory
                               chipStateDump={this.state.chipStateDump}

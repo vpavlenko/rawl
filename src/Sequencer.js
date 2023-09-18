@@ -1,8 +1,8 @@
-import promisify from "./promisify-xhr";
-import {CATALOG_PREFIX} from "./config";
-import shuffle from 'lodash/shuffle';
-import EventEmitter from 'events';
 import autoBindReact from 'auto-bind/react';
+import EventEmitter from 'events';
+import shuffle from 'lodash/shuffle';
+import { CATALOG_PREFIX } from "./config";
+import promisify from "./promisify-xhr";
 
 export const REPEAT_OFF = 0;
 export const REPEAT_ALL = 1;

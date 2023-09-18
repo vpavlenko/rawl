@@ -87,7 +87,7 @@ export type Analysis = {
 };
 
 export const getTransparencyGradient = (color) => ({
-  background: `linear-gradient(to right, ${color} 0px, ${color} 1000px, transparent 100%)`, // 1000px disables gradient
+  background: `linear-gradient(to right, ${color} 0px, ${color} 10px, ${color} 50%, transparent 100%)`, // 1000px disables gradient
 });
 
 export const getNoteColor = (
@@ -97,7 +97,8 @@ export const getNoteColor = (
 ): CSSProperties => {
   if (defaultColor === "white") {
     return {
-      boxShadow: "gray 0px 1px, white 0px 1.5px",
+      // boxShadow: "gray 0px 1px, white 0px 1.5px",
+      boxShadow: "white 0px 1px",
       boxSizing: "border-box",
       backgroundColor: "transparent",
     };
@@ -113,7 +114,7 @@ export const getNoteColor = (
   const mapping = MIDI_NOTE_TO_SCALE_DEGREE[analysis.mode];
   let pointer = (midiNumber - analysis.tonic) % 12;
   if (mapping[pointer] === null) {
-    return getTransparencyGradient("black");
+    return getTransparencyGradient("#bbb");
   }
 
   return getTransparencyGradient(RAINBOW_COLORS[mapping[pointer] - 1]);
@@ -182,11 +183,11 @@ export const Cursor = styled(VerticalBar)`
 `;
 
 const Downbeat = styled(VerticalBar)`
-  background-color: black;
+  background-color: #444;
 `;
 
 const BeatBar = styled(VerticalBar)`
-  border-left: 1px dashed darkgrey;
+  border-left: 1px dashed #222;
 `;
 
 const Measure = ({ second, number, selectedDownbeat, selectDownbeat }) => {
@@ -203,7 +204,7 @@ const Measure = ({ second, number, selectedDownbeat, selectDownbeat }) => {
           position: "absolute",
           top: 10,
           left: `${left + 5}px`,
-          color: selectedDownbeat === number ? "white" : "black",
+          color: selectedDownbeat === number ? "red" : "white",
           zIndex: 2,
           cursor: "pointer",
         }}
@@ -244,7 +245,7 @@ const TonalGrid = ({ tonic, width, midiNumberToY, noteHeight }) => {
           height: noteHeight,
           left: 0,
           top: midiNumberToY(tonic + octave * 12),
-          backgroundColor: "#888",
+          backgroundColor: "#222",
           zIndex: 1,
         }}
       />,
@@ -355,7 +356,7 @@ export const AnalysisGrid: React.FC<{
           <div
             style={{
               position: "absolute",
-              backgroundColor: "black",
+              backgroundColor: "#222",
               left: loopLeft,
               height: "100%",
               right: 0,
@@ -364,7 +365,7 @@ export const AnalysisGrid: React.FC<{
               width: "3000px",
             }}
           >
-            <div style={{ margin: "20px" }}>Loop</div>
+            <div style={{ margin: "20px", color: "white" }}>Loop</div>
           </div>
         )}
       </>

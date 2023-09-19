@@ -73,8 +73,8 @@ const MODES = [
 ] as const;
 export type Mode = (typeof MODES)[number];
 
-const romanNumeralToChromaticDegree = (romanNumeral: string): number => {
-  if (typeof romanNumeral !== "string") return -1;
+export const romanNumeralToChromaticDegree = (romanNumeral: string): number => {
+  if (typeof romanNumeral !== "string" || romanNumeral.length === 0) return -1;
   if (romanNumeral[romanNumeral.length - 1].match(/\d/)) {
     romanNumeral = romanNumeral.slice(0, -1);
   }
@@ -289,12 +289,14 @@ const Measure: React.FC<{
   return (
     <>
       <Downbeat
+        key={`db_${number}`}
         style={{
           left,
           ...(isFourMeasureMark && { backgroundColor: "#aaa" }),
         }}
       />
       <div
+        key={`db_n_${number}`}
         style={{
           position: "absolute",
           top: 30,
@@ -309,6 +311,7 @@ const Measure: React.FC<{
         {number}
       </div>
       <div
+        key={`db_rn_${number}`}
         style={{
           position: "absolute",
           left: `${left}px`,
@@ -422,6 +425,7 @@ export const AnalysisGrid: React.FC<{
         }
         {loopLeft && (
           <div
+            key="loop"
             style={{
               boxShadow: "inset 0px 0 10px white",
               position: "absolute",
@@ -500,7 +504,7 @@ export const AnalysisBox: React.FC<{
       };
 
       return (
-        <div style={{ marginTop: "10px" }}>
+        <div key={`if_${analysisFieldName}`} style={{ marginTop: "10px" }}>
           {label}:{" "}
           <input
             type="text"

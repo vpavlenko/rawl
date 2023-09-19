@@ -6,9 +6,11 @@ import {
   AnalysisBox,
   AnalysisGrid,
   Cursor,
+  PitchClass,
   RESOLUTION_MS,
   advanceAnalysis,
   getNoteColor,
+  romanNumeralToChromaticDegree,
 } from "./Analysis";
 import { MeasuresAndBeats, calculateMeasuresAndBeats } from "./helpers";
 import {
@@ -124,6 +126,26 @@ const VOICE_TO_COLOR: { [key in Voice]: string } = {
   "under cursor": "under cursor",
 };
 
+const getChordNote = (
+  note: Note,
+  tonic: PitchClass | null,
+  measures: number[] | null,
+  romanNumerals?: string,
+): string => {
+  const noteMiddle = (note.span[0] + note.span[1]) / 2;
+  if (!measures) return "";
+  const measureIndex = measures.findIndex((time) => time >= noteMiddle);
+  if (measureIndex === -1) return "";
+
+  const romanNumeral = romanNumerals?.split(" ")?.[measureIndex - 1];
+  const rootChromaticScaleDegree = romanNumeralToChromaticDegree(romanNumeral);
+  if (rootChromaticScaleDegree === -1) return "";
+
+  return ["r", "b9", "9", "b3", "3", "11", "b5", "5", "b6", "6", "b7", "△"][
+    (((note.note.midiNumber - tonic) % 12) + 12 - rootChromaticScaleDegree) % 12
+  ];
+};
+
 const getNoteRectangles = (
   notes: Note[],
   voice: Voice,
@@ -132,27 +154,40 @@ const getNoteRectangles = (
   midiNumberToY: (number: number) => number,
   noteHeight: number,
   handleNoteClick = (note: Note) => {},
+  measures: number[] = null,
 ) => {
   const color = VOICE_TO_COLOR[voice];
   return notes.map((note) => {
     const top = midiNumberToY(note.note.midiNumber);
     const left = secondsToX(note.span[0]);
     const colorOrGradient = getNoteColor(color, note.note.midiNumber, analysis);
+    const chordNote = getChordNote(
+      note,
+      analysis.tonic,
+      measures,
+      analysis.romanNumerals,
+    );
     const noteName = (
-      <div
+      <span
         className="noteText"
         style={{
           position: "relative",
           top: color === "black" ? `"-${noteHeight}px` : "0px",
-          left: "1px",
+          // left: "1px",
           fontSize: `${Math.min(noteHeight, 14)}px`,
           lineHeight: `${Math.min(noteHeight, 14)}px`,
           fontFamily: "Helvetica, sans-serif",
+          color: "#fefefe",
+          // backgroundColor: "black",
+          textShadow: "1px 1px 2px rgba(0, 0, 0, 1)",
+          // background: "rgba(0, 0, 0, 0.5)",
         }}
       >
-        {note.note.name.slice(0, -1)}
-      </div>
+        {/* {note.note.name.slice(0, -1)} */}
+        {chordNote}
+      </span>
     );
+
     return (
       <div
         className={"noteRectangleTonal"}
@@ -170,6 +205,8 @@ const getNoteRectangles = (
           cursor: "pointer",
           zIndex: 10,
           opacity: isActiveVoice ? 0.8 : 0.1,
+          display: "grid",
+          placeItems: "center",
           ...colorOrGradient,
         }}
         onClick={() => handleNoteClick(note)}
@@ -311,6 +348,7 @@ const Chiptheory = ({
         midiNumberToY,
         noteHeight,
         handleNoteClick,
+        measuresAndBeats.measures,
       ),
       ...getNoteRectangles(
         notes.p2,
@@ -320,6 +358,7 @@ const Chiptheory = ({
         midiNumberToY,
         noteHeight,
         handleNoteClick,
+        measuresAndBeats.measures,
       ),
       ...getNoteRectangles(
         notes.t,
@@ -329,6 +368,7 @@ const Chiptheory = ({
         midiNumberToY,
         noteHeight,
         handleNoteClick,
+        measuresAndBeats.measures,
       ),
       // ...getNoteRectangles(
       //   notes.n,

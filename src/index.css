@@ -877,8 +877,9 @@ img {
     opacity: 1;
 }
 
-.noteRectangleTonal .noteText {
-    opacity: 0;
+.noteRectangleTonal {
+    /* opacity: 0; */
+    /* color: white !important; */
 }
 
 .vertical-list-of-buttons {

@@ -35,7 +35,7 @@ export const STEP_CALL_TO_ACTION: Record<Step, string> = {
   tonic: "Click on a tonic of the main section",
   mode: "Click on a minor/major third on top of the tonic. It doesn't matter on 12-tone coloring, but matters in 7-tone coloring",
   // mode: "Step 4. Click on a characteristic note of the main section. Minor: b3, major: 3, phrygian: b2, dorian: #6, mixolydian: b7, blues: #4, pentatonic: 4",
-  end: "Click on root notes to enter chords",
+  end: "Click on root notes to enter chords. Currently only one chord per measure is supported",
 };
 
 export type PitchClass = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11;
@@ -73,15 +73,15 @@ const MODES = [
 ] as const;
 export type Mode = (typeof MODES)[number];
 
-const RAINBOW_COLORS = [
-  "red",
-  "#cc7700",
-  "#C1C100",
-  "green",
-  "blue",
-  "#9400D3",
-  "#FF1493",
-];
+// const RAINBOW_COLORS = [
+//   "red",
+//   "#cc7700",
+//   "#C1C100",
+//   "green",
+//   "blue",
+//   "#9400D3",
+//   "#FF1493",
+// ];
 
 const TWELVE_TONE_COLORS = [
   "red",
@@ -104,13 +104,13 @@ export type PitchClassToScaleDegreeViaMode = {
   [K in Mode]: K extends string ? PitchClassToScaleDegree : never;
 };
 
-const MIDI_NOTE_TO_SCALE_DEGREE: PitchClassToScaleDegreeViaMode = {
-  phrygian: [1, 2, null, 3, null, 4, null, 5, 6, null, 7, null],
-  minor: [1, null, 2, 3, null, 4, null, 5, 6, null, 7, null],
-  dorian: [1, null, 2, 3, null, 4, null, 5, null, 6, 7, null],
-  mixolydian: [1, null, 2, null, 3, 4, null, 5, null, 6, 7, null],
-  major: [1, null, 2, null, 3, 4, null, 5, null, 6, null, 7],
-};
+// const MIDI_NOTE_TO_SCALE_DEGREE: PitchClassToScaleDegreeViaMode = {
+//   phrygian: [1, 2, null, 3, null, 4, null, 5, 6, null, 7, null],
+//   minor: [1, null, 2, 3, null, 4, null, 5, 6, null, 7, null],
+//   dorian: [1, null, 2, 3, null, 4, null, 5, null, 6, 7, null],
+//   mixolydian: [1, null, 2, null, 3, 4, null, 5, null, 6, 7, null],
+//   major: [1, null, 2, null, 3, 4, null, 5, null, 6, null, 7],
+// };
 
 export type Analysis = {
   clickResolutionMs: number;
@@ -124,6 +124,8 @@ export type Analysis = {
   tonic: PitchClass | null;
   mode: Mode;
   basedOn: string;
+  romanNumerals: string;
+  comment: string;
 };
 
 export const getTransparencyGradient = (color) => ({
@@ -146,8 +148,8 @@ export const getNoteColor = (
   }
   if (
     defaultColor === "black" ||
-    analysis.tonic === null ||
-    analysis.mode === null
+    analysis.tonic === null
+    //  || analysis.mode === null
   ) {
     return getTransparencyGradient(defaultColor);
   }
@@ -176,6 +178,8 @@ export const ANALYSIS_STUB: Analysis = {
   tonic: null,
   mode: null,
   basedOn: null,
+  romanNumerals: "",
+  comment: "",
 };
 
 // These two don't propagate to Firestore because they tweak transient state.
@@ -217,6 +221,7 @@ export const advanceAnalysis = (
       update.secondMeasure = note.span[0];
     } else if (step === "tonic") {
       update.tonic = (note.note.midiNumber % 12) as PitchClass;
+      update.step = "end";
     } else if (step === "mode") {
       update.mode = MODES[(note.note.midiNumber - analysis.tonic) % 12];
     }
@@ -254,12 +259,14 @@ const Measure: React.FC<{
   isFourMeasureMark: boolean;
   selectedDownbeat: number;
   selectDownbeat: (number: number) => void;
+  romanNumeral: string;
 }> = ({
   second,
   number,
   isFourMeasureMark,
   selectedDownbeat,
   selectDownbeat,
+  romanNumeral,
 }) => {
   const left = secondsToX(second);
   return (
@@ -282,7 +289,7 @@ const Measure: React.FC<{
         }}
         onClick={() => selectDownbeat(number)}
       >
-        {number}
+        {number} {romanNumeral}
       </div>
     </>
   );
@@ -362,6 +369,7 @@ export const AnalysisGrid: React.FC<{
               number={i + 1}
               selectedDownbeat={selectedDownbeat}
               selectDownbeat={selectDownbeat}
+              romanNumeral={analysis?.romanNumerals?.split("")?.[i]}
             />
           );
         })}
@@ -400,12 +408,12 @@ export const AnalysisGrid: React.FC<{
   },
 );
 
-type AnalysisPart = React.FC<{ analysis: Analysis }>;
+// type AnalysisPart = React.FC<{ analysis: Analysis }>;
 
-const Key: AnalysisPart = React.memo(({ analysis }) => {
-  const { tonic, mode } = analysis;
-  return <>{tonic !== null && <div>midiNumber: {tonic}</div>}</>;
-});
+// const Key: AnalysisPart = React.memo(({ analysis }) => {
+//   const { tonic, mode } = analysis;
+//   return <>{tonic !== null && <div>midiNumber: {tonic}</div>}</>;
+// });
 
 export const AnalysisBox: React.FC<{
   analysis: Analysis;
@@ -421,14 +429,67 @@ export const AnalysisBox: React.FC<{
     selectedDownbeat,
     selectDownbeat,
   }) => {
-    const [basedOn, setBasedOn] = useState<string>("");
-    const [beatsPerMeasure, setBeatsPerMeasure] = useState<string>("4");
+    const useInputField = (
+      initialValue,
+      analysisFieldName,
+      label,
+      width = "auto",
+    ) => {
+      const [value, setValue] = useState(initialValue.toString());
+      const [isSaved, setIsSaved] = useState(false);
 
-    useEffect(() => setBasedOn(analysis.basedOn || ""), [analysis.basedOn]);
-    useEffect(
-      () => setBeatsPerMeasure((analysis.beatsPerMeasure || 4).toString()),
-      [analysis.beatsPerMeasure],
+      useEffect(() => {
+        setValue(analysis[analysisFieldName] ?? initialValue.toString());
+      }, [analysis[analysisFieldName]]);
+
+      useEffect(() => {
+        if (isSaved) {
+          const timer = setTimeout(() => setIsSaved(false), 100); // adjust timing as desired
+          return () => clearTimeout(timer);
+        }
+      }, [isSaved]);
+
+      const handleKeyDown = (e) => {
+        if (e.key === "Enter") {
+          const newAnalysis = {
+            ...analysis,
+            [analysisFieldName]:
+              typeof initialValue === "number" ? parseInt(value, 10) : value,
+          };
+
+          saveAnalysis(newAnalysis);
+          setAnalysis(newAnalysis);
+          setIsSaved(true);
+        }
+      };
+
+      return (
+        <div style={{ marginTop: "10px" }}>
+          {label}:{" "}
+          <input
+            type="text"
+            value={value}
+            style={{
+              width,
+              backgroundColor: isSaved ? "#66d" : "#aaa", // #d4edda is a green-tint for success from Bootstrap
+              transition: "background-color 0.1s",
+            }}
+            onChange={(e) => setValue(e.target.value)}
+            onKeyDown={handleKeyDown}
+          />
+        </div>
+      );
+    };
+
+    const basedOn = useInputField("", "basedOn", "Based on");
+    const beatsPerMeasure = useInputField(
+      4,
+      "beatsPerMeasure",
+      "Beats per measure",
+      "1em",
     );
+    const romanNumerals = useInputField("", "romanNumerals", "Roman numerals");
+    const comment = useInputField("", "comment", "Comment");
 
     return (
       <>
@@ -512,45 +573,10 @@ export const AnalysisBox: React.FC<{
                 </ul>
               </div>
             )}
-            <div>
-              Based on:{" "}
-              <input
-                type="text"
-                value={basedOn}
-                onChange={(e) => setBasedOn(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    const newAnalysis = {
-                      ...analysis,
-                      basedOn,
-                    };
-
-                    saveAnalysis(newAnalysis);
-                    setAnalysis(newAnalysis);
-                  }
-                }}
-              />
-            </div>
-            <div style={{ marginTop: "10px" }}>
-              Beats per measure:{" "}
-              <input
-                type="text"
-                value={beatsPerMeasure}
-                style={{ width: "1em" }}
-                onChange={(e) => setBeatsPerMeasure(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    const newAnalysis = {
-                      ...analysis,
-                      beatsPerMeasure: parseInt(beatsPerMeasure, 10),
-                    };
-
-                    saveAnalysis(newAnalysis);
-                    setAnalysis(newAnalysis);
-                  }
-                }}
-              />
-            </div>
+            {basedOn}
+            {beatsPerMeasure}
+            {romanNumerals}
+            {comment}
           </div>
         </div>
       </>

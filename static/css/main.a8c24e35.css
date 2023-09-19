@@ -978,8 +978,9 @@ img {
     opacity: 1;
 }
 
-.noteRectangleTonal .noteText {
-    opacity: 0;
+.noteRectangleTonal {
+    /* opacity: 0; */
+    /* color: white !important; */
 }
 
 .vertical-list-of-buttons {
@@ -990,4 +991,4 @@ img {
     margin-bottom: 20px;
 }
 
-/*# sourceMappingURL=main.db254cd9.css.map*/
+/*# sourceMappingURL=main.a8c24e35.css.map*/

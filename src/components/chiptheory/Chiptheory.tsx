@@ -8,8 +8,8 @@ import {
   Cursor,
   PitchClass,
   RESOLUTION_MS,
+  TWELVE_TONE_COLORS,
   advanceAnalysis,
-  getNoteColor,
   romanNumeralToChromaticDegree,
 } from "./Analysis";
 import { MeasuresAndBeats, calculateMeasuresAndBeats } from "./helpers";
@@ -20,7 +20,7 @@ import {
 } from "./nesApuNoteEstimations";
 
 type OscType = "pulse" | "triangle" | "noise";
-type Voice = "pulse1" | "pulse2" | "triangle" | "noise" | "under cursor";
+export type Voice = "pulse1" | "pulse2" | "triangle" | "noise" | "under cursor";
 
 function findNoteWithClosestPeriod(
   period: number,
@@ -126,12 +126,25 @@ const VOICE_TO_COLOR: { [key in Voice]: string } = {
   "under cursor": "under cursor",
 };
 
+const getNoteColor = (voice: Voice, midiNumber, analysis): string => {
+  if (voice === "noise") {
+    return "black";
+  }
+
+  if (analysis.tonic === null) {
+    return VOICE_TO_COLOR[voice];
+  }
+
+  return TWELVE_TONE_COLORS[(midiNumber - analysis.tonic) % 12];
+};
+
 const getChordNote = (
   note: Note,
   tonic: PitchClass | null,
   measures: number[] | null,
   romanNumerals?: string,
 ): string => {
+  if (note.span[1] - note.span[0] < 0.1) return "";
   const noteMiddle = (note.span[0] + note.span[1]) / 2;
   if (!measures) return "";
   const measureIndex = measures.findIndex((time) => time >= noteMiddle);
@@ -141,7 +154,7 @@ const getChordNote = (
   const rootChromaticScaleDegree = romanNumeralToChromaticDegree(romanNumeral);
   if (rootChromaticScaleDegree === -1) return "";
 
-  return ["r", "b9", "9", "b3", "3", "11", "b5", "5", "b6", "6", "b7", "△"][
+  return ["r", "♭9", "2", "m", "3", "4", "T", "5", "♭6", "6", "7", "△"][
     (((note.note.midiNumber - tonic) % 12) + 12 - rootChromaticScaleDegree) % 12
   ];
 };
@@ -156,11 +169,10 @@ const getNoteRectangles = (
   handleNoteClick = (note: Note) => {},
   measures: number[] = null,
 ) => {
-  const color = VOICE_TO_COLOR[voice];
   return notes.map((note) => {
     const top = midiNumberToY(note.note.midiNumber);
     const left = secondsToX(note.span[0]);
-    const colorOrGradient = getNoteColor(color, note.note.midiNumber, analysis);
+    const color = getNoteColor(voice, note.note.midiNumber, analysis);
     const chordNote = getChordNote(
       note,
       analysis.tonic,
@@ -172,14 +184,23 @@ const getNoteRectangles = (
         className="noteText"
         style={{
           position: "relative",
-          top: color === "black" ? `"-${noteHeight}px` : "0px",
+          top: "0px",
           // left: "1px",
-          fontSize: `${Math.min(noteHeight, 14)}px`,
-          lineHeight: `${Math.min(noteHeight, 14)}px`,
+          fontSize: `${Math.min(noteHeight + 2, 14)}px`,
+          lineHeight: `${Math.min(noteHeight + 2, 14)}px`,
           fontFamily: "Helvetica, sans-serif",
-          color: "#fefefe",
+          fontWeight: 700,
+          // color: "#fefefe",
+          color: ["blue", "red"].indexOf(color) !== -1 ? "white" : "black",
           // backgroundColor: "black",
-          textShadow: "1px 1px 2px rgba(0, 0, 0, 1)",
+          // padding: "5px",
+          // borderRadius: "100%",
+
+          // textShadow: "0px 0px 3px rgba(0, 0, 0, 1)",
+
+          // backgroundColor: "rgba(0, 0, 0, 0.5)",
+          // padding: "0px 10px",
+
           // background: "rgba(0, 0, 0, 0.5)",
         }}
       >
@@ -196,22 +217,31 @@ const getNoteRectangles = (
           position: "absolute",
           height: `${noteHeight}px`,
           width: secondsToX(note.span[1]) - secondsToX(note.span[0]),
-          color: "white",
+          backgroundColor: color,
           top,
           left,
           pointerEvents: voice === "under cursor" ? "none" : "auto",
-          borderTopLeftRadius: voice === "pulse1" ? "100%" : 0,
-          borderBottomLeftRadius: voice === "triangle" ? "100%" : 0,
+          // borderTopLeftRadius: voice === "pulse1" ? "100%" : 0,
+          boxShadow: voice === "triangle" ? `${color} 0px 0px 10px 0px` : "",
+          // borderTop: voice === "pulse1" ? "1px dotted white" : "",
+          borderRadius: voice === "pulse1" ? "10px" : "",
+          // borderBottomLeftRadius: voice === "triangle" ? "100%" : 0,
           cursor: "pointer",
           zIndex: 10,
           opacity: isActiveVoice ? 0.8 : 0.1,
           display: "grid",
           placeItems: "center",
-          ...colorOrGradient,
+          ...(voice === "under cursor"
+            ? {
+                boxShadow: "white 0px 1px",
+                boxSizing: "border-box",
+                backgroundColor: "transparent",
+              }
+            : {}),
         }}
         onClick={() => handleNoteClick(note)}
       >
-        {voice !== "under cursor" && noteName}
+        {voice !== "under cursor" && chordNote && noteName}
       </div>
     );
   });
@@ -379,7 +409,7 @@ const Chiptheory = ({
       //   handleNoteClick,
       // ),
     ];
-  }, [notes, analysis, noteHeight, voiceMask]);
+  }, [notes, analysis, measuresAndBeats, noteHeight, voiceMask]);
 
   const [positionMs, setPositionMs] = useState(0);
   const currentlyPlayedRectangles = getNoteRectangles(

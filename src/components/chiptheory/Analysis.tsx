@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
-import styled, { CSSProperties } from "styled-components";
+import styled from "styled-components";
 import { Note, secondsToX } from "./Chiptheory";
 import { MeasuresAndBeats } from "./helpers";
 
@@ -81,12 +81,19 @@ export const romanNumeralToChromaticDegree = (romanNumeral: string): number => {
   return {
     I: 0,
     II: 2,
-    III: 4, // obviously will fail in minor mode
+    III: 3, // obviously will fail in minor mode
     IV: 5,
     V: 7,
-    VI: 9,
-    VII: 11,
-  }[romanNumeral.toUpperCase()];
+    VI: 8,
+    VII: 10,
+    i: 0,
+    ii: 2,
+    iii: 4, // obviously will fail in minor mode
+    iv: 5,
+    v: 7,
+    vi: 9,
+    vii: 11,
+  }[romanNumeral];
 };
 
 // const RAINBOW_COLORS = [
@@ -99,11 +106,11 @@ export const romanNumeralToChromaticDegree = (romanNumeral: string): number => {
 //   "#FF1493",
 // ];
 
-const TWELVE_TONE_COLORS = [
+export const TWELVE_TONE_COLORS = [
   "red",
   "brown", // CC5500
   "#FF8C00",
-  "#C1C100",
+  "#dd0", // "#C1C100",
   "green",
   "#0EFFD0",
   "#787276",
@@ -142,44 +149,6 @@ export type Analysis = {
   basedOn: string;
   romanNumerals: string;
   comment: string;
-};
-
-export const getTransparencyGradient = (color) => ({
-  // background: `linear-gradient(to right, ${color} 0px, ${color} 10px, ${color} 50%, transparent 100%)`, // 1000px disables gradient
-  backgroundColor: color,
-});
-
-export const getNoteColor = (
-  defaultColor: string,
-  midiNumber,
-  analysis,
-): CSSProperties => {
-  if (defaultColor === "under cursor") {
-    return {
-      // boxShadow: "gray 0px 1px, white 0px 1.5px",
-      boxShadow: "white 0px 1px",
-      boxSizing: "border-box",
-      backgroundColor: "transparent",
-    };
-  }
-  if (
-    defaultColor === "black" ||
-    analysis.tonic === null
-    //  || analysis.mode === null
-  ) {
-    return getTransparencyGradient(defaultColor);
-  }
-
-  // const mapping = MIDI_NOTE_TO_SCALE_DEGREE[analysis.mode];
-  // let pointer = (midiNumber - analysis.tonic) % 12;
-  // if (mapping[pointer] === null) {
-  //   return getTransparencyGradient("#bbb");
-  // }
-
-  // return getTransparencyGradient(RAINBOW_COLORS[mapping[pointer] - 1]);
-  return getTransparencyGradient(
-    TWELVE_TONE_COLORS[(midiNumber - analysis.tonic) % 12],
-  );
 };
 
 export const ANALYSIS_STUB: Analysis = {
@@ -286,6 +255,9 @@ const Measure: React.FC<{
 }) => {
   const left = secondsToX(span[0]) - 1;
   const width = secondsToX(span[1]) - left;
+  const color =
+    TWELVE_TONE_COLORS[romanNumeralToChromaticDegree(romanNumeral)] ??
+    "transparent";
   return (
     <>
       <Downbeat
@@ -318,12 +290,10 @@ const Measure: React.FC<{
           width,
           top: 0,
           height: "25px",
-          backgroundColor:
-            TWELVE_TONE_COLORS[romanNumeralToChromaticDegree(romanNumeral)] ??
-            "transparent",
+          backgroundColor: color,
           display: "grid",
           placeItems: "center",
-          color: "white",
+          color: ["#dd0"].indexOf(color) !== -1 ? "black" : "white",
           fontSize: "25px",
           zIndex: 5,
         }}

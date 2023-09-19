@@ -293,7 +293,10 @@ const Measure: React.FC<{
           backgroundColor: color,
           display: "grid",
           placeItems: "center",
-          color: ["#dd0"].indexOf(color) !== -1 ? "black" : "white",
+          color:
+            ["#dd0", "#9F9FFF", "#0EFFD0"].indexOf(color) !== -1
+              ? "black"
+              : "white",
           fontSize: "25px",
           zIndex: 5,
         }}

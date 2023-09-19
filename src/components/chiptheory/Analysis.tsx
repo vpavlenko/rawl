@@ -379,6 +379,7 @@ export const AnalysisGrid: React.FC<{
         {loopLeft && (
           <div
             style={{
+              boxShadow: "inset 0px 0 10px white",
               position: "absolute",
               // backgroundColor: "#222",
               background:
@@ -420,9 +421,14 @@ export const AnalysisBox: React.FC<{
     selectedDownbeat,
     selectDownbeat,
   }) => {
-    const [basedOn, setBasedOn] = useState(analysis.basedOn || "");
+    const [basedOn, setBasedOn] = useState<string>("");
+    const [beatsPerMeasure, setBeatsPerMeasure] = useState<string>("4");
 
-    useEffect(() => setBasedOn(analysis.basedOn), [analysis.basedOn]);
+    useEffect(() => setBasedOn(analysis.basedOn || ""), [analysis.basedOn]);
+    useEffect(
+      () => setBeatsPerMeasure((analysis.beatsPerMeasure || 4).toString()),
+      [analysis.beatsPerMeasure],
+    );
 
     return (
       <>
@@ -525,15 +531,26 @@ export const AnalysisBox: React.FC<{
                 }}
               />
             </div>
+            <div style={{ marginTop: "10px" }}>
+              Beats per measure:{" "}
+              <input
+                type="text"
+                value={beatsPerMeasure}
+                style={{ width: "1em" }}
+                onChange={(e) => setBeatsPerMeasure(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    const newAnalysis = {
+                      ...analysis,
+                      beatsPerMeasure: parseInt(beatsPerMeasure, 10),
+                    };
 
-            {/* <h2>Time</h2>
-            <h2>Form</h2>
-            <div>At which bar does it loop forever?</div> */}
-            {/* <h2>Key</h2>
-            <Key analysis={analysis}></Key> */}
-            {/* <h2>Chords</h2>
-            <h2>Harmony</h2>
-            <h2>Arrangement</h2> */}
+                    saveAnalysis(newAnalysis);
+                    setAnalysis(newAnalysis);
+                  }
+                }}
+              />
+            </div>
           </div>
         </div>
       </>

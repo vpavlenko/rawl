@@ -92,6 +92,16 @@ export default class Visualizer extends PureComponent {
         <h3 className="Visualizer-toggle">
           <label className="inline">
             <input
+              onChange={this.props.handleToggleAnalysis}
+              type="checkbox"
+              // value={true}
+              checked={this.props.analysisEnabled}
+              name="analysis-enabled"
+            />
+            Analysis
+          </label>
+          <label className="inline" style={{ marginLeft: "20px" }}>
+            <input
               onChange={this.handleToggleVisualizer}
               type="checkbox"
               // value={true}
@@ -106,7 +116,7 @@ export default class Visualizer extends PureComponent {
               type="checkbox"
               // value={true}
               checked={this.props.settingsEnabled}
-              name="visualizer-enabled"
+              name="settings-enabled"
             />
             Settings
           </label>

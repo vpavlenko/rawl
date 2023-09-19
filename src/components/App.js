@@ -158,6 +158,7 @@ class App extends React.Component {
       hasPlayer: false,
       paramDefs: [],
       chipStateDump: {},
+      analysisEnabled: true,
     };
 
     this.initChipCore(audioCtx, playerNode, bufferSize);
@@ -838,6 +839,7 @@ class App extends React.Component {
                               savedAnalysis={savedAnalysis}
                               saveAnalysis={this.saveAnalysis}
                               voiceMask={this.state.voiceMask}
+                              analysisEnabled={this.state.analysisEnabled}
                             />
                           </>
                         );
@@ -878,6 +880,8 @@ class App extends React.Component {
                   chipCore={this.chipCore}
                   settingsEnabled={this.state.showPlayerSettings}
                   handleToggleSettings={this.toggleSettings}
+                  analysisEnabled={this.state.analysisEnabled}
+                  handleToggleAnalysis={() => this.setState(state => ({ analysisEnabled: !state.analysisEnabled }))}
                   paused={this.state.ejected || this.state.paused} />}
             </div>
             <AppFooter

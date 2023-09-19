@@ -92,10 +92,10 @@ const TWELVE_TONE_COLORS = [
   "#0EFFD0",
   "#787276",
   "blue",
-  "#CF9FFF",
+  "#9F9FFF",
   "#9400D3",
   "#FF1493",
-  "#ffb3b3",
+  "#ffaacc",
 ];
 
 // if we have a note, it's color is mapped into degree, then mapped into colors

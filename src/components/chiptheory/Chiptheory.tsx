@@ -214,6 +214,7 @@ const Chiptheory = ({
   savedAnalysis,
   saveAnalysis,
   voiceMask,
+  analysisEnabled,
 }) => {
   const [analysis, setAnalysis] = useState<Analysis>(ANALYSIS_STUB);
 
@@ -413,13 +414,15 @@ const Chiptheory = ({
           />
         </div>
       </div>
-      <AnalysisBox
-        analysis={analysis}
-        saveAnalysis={saveAnalysis}
-        setAnalysis={setAnalysis}
-        selectedDownbeat={selectedDownbeat}
-        selectDownbeat={setSelectedDownbeat}
-      />
+      {analysisEnabled && (
+        <AnalysisBox
+          analysis={analysis}
+          saveAnalysis={saveAnalysis}
+          setAnalysis={setAnalysis}
+          selectedDownbeat={selectedDownbeat}
+          selectDownbeat={setSelectedDownbeat}
+        />
+      )}
     </div>
   );
 };

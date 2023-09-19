@@ -974,10 +974,6 @@ img {
             box-shadow: none;
 }
 
-
-
-
-
 .noteRectangleTonal:hover .noteText {
     opacity: 1;
 }
@@ -986,4 +982,12 @@ img {
     opacity: 0;
 }
 
-/*# sourceMappingURL=main.23bccf14.css.map*/
+.vertical-list-of-buttons {
+    margin-bottom: 20px;
+}
+
+.vertical-list-of-buttons li {
+    margin-bottom: 20px;
+}
+
+/*# sourceMappingURL=main.db254cd9.css.map*/

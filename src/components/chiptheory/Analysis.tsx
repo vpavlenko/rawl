@@ -273,6 +273,7 @@ const Measure: React.FC<{
           color: selectedDownbeat === number ? "red" : "white",
           zIndex: 5,
           cursor: "pointer",
+          userSelect: "none",
         }}
         onClick={() => selectDownbeat(number)}
       >

@@ -87,9 +87,9 @@ function BrowseList({ virtual, ...props }) {
                   <DirectoryLink dim={!analysis} to={'/browse/' + path} search={search} isBackLink={isBackLink} history={history}>{name}</DirectoryLink>
                 </div>
                 {analysis && <div>
-                  {Object.keys(analysis).map(index => {
+                  {Object.entries(analysis).map(([index, value]) => {
                     const realIndex = parseInt(index, 10) + 1
-                    return <DirectoryLink key={realIndex} dim={!analysis} to={'/browse/' + path} search={`?subtune=${realIndex}`}>[{realIndex}]</DirectoryLink>
+                    return <DirectoryLink key={realIndex} dim={analysis} to={'/browse/' + path} search={`?subtune=${realIndex}`}>[{value.romanNumerals || realIndex}]</DirectoryLink>
                   })}
                 </div>}
                 {/* className="BrowseList-colDir" */}

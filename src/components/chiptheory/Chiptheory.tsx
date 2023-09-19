@@ -295,6 +295,10 @@ const Chiptheory = ({
     };
   }, []);
 
+  useEffect(() => {
+    divRef.current.scrollLeft = 0;
+  }, [chipStateDump]);
+
   const noteHeight = divHeight / (maxMidiNumber - minMidiNumber + 7);
   const midiNumberToY = useMemo(
     () => (midiNumber) =>

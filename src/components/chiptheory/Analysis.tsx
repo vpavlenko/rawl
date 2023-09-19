@@ -13,7 +13,29 @@ export const STEPS = [
   "mode",
   "end",
 ] as const;
+
 export type Step = (typeof STEPS)[number];
+
+const STEP_FONT_COLOR: {
+  [key in Step]: string;
+} = {
+  "first measure": "#ffaaaa",
+  "second measure": "#ffffaa",
+  tonic: "#aaffaa",
+  mode: "#aaffff",
+  end: "white",
+};
+
+export const STEP_CALL_TO_ACTION: Record<Step, string> = {
+  "first measure":
+    "Beat tracking 1. Click on a note at the start of the first measure of the main section. You may skip the intro",
+  "second measure":
+    "Beat tracking 2. Click on a note at the start of the second measure of the main section",
+  tonic: "Click on a tonic of the main section",
+  mode: "Click on a minor/major third on top of the tonic. It doesn't matter on 12-tone coloring, but matters in 7-tone coloring",
+  // mode: "Step 4. Click on a characteristic note of the main section. Minor: b3, major: 3, phrygian: b2, dorian: #6, mixolydian: b7, blues: #4, pentatonic: 4",
+  end: "Click on root notes to enter chords",
+};
 
 export type PitchClass = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11;
 
@@ -95,6 +117,7 @@ export type Analysis = {
   firstMeasure: number;
   secondMeasure: number;
   correctedMeasures: { [key: number]: number };
+  fourMeasurePhrasingReferences: number[];
   loop: number | null;
   tonic: PitchClass | null;
   mode: Mode;
@@ -144,19 +167,10 @@ export const ANALYSIS_STUB: Analysis = {
   firstMeasure: null,
   secondMeasure: null,
   correctedMeasures: [],
+  fourMeasurePhrasingReferences: [],
   loop: null,
   tonic: null,
   mode: null,
-};
-
-export const STEP_CALL_TO_ACTION: Record<Step, string> = {
-  "first measure":
-    "Step 1. Click on a note at the start of the first measure of the main section. Skip the intro",
-  "second measure":
-    "Step 2. Click on a note at the start of the second measure of the main section",
-  tonic: "Step 3. Click on a tonic of the main section",
-  mode: "Step 4. Click on a characteristic note of the main section. Minor: b3, major: 3, phrygian: b2, dorian: #6, mixolydian: b7, blues: #4, pentatonic: 4",
-  end: "Click on root notes to enter chords",
 };
 
 // These two don't propagate to Firestore because they tweak transient state.
@@ -229,14 +243,26 @@ const BeatBar = styled(VerticalBar)`
   border-left: 1px dashed #222;
 `;
 
-const Measure = ({ second, number, selectedDownbeat, selectDownbeat }) => {
+const Measure: React.FC<{
+  second: number;
+  number: number;
+  isFourMeasureMark: boolean;
+  selectedDownbeat: number;
+  selectDownbeat: (number: number) => void;
+}> = ({
+  second,
+  number,
+  isFourMeasureMark,
+  selectedDownbeat,
+  selectDownbeat,
+}) => {
   const left = secondsToX(second);
   return (
     <>
       <Downbeat
         style={{
           left,
-          ...(number % 4 === 1 && { backgroundColor: "#999" }),
+          ...(isFourMeasureMark && { backgroundColor: "#aaa" }),
         }}
       />
       <div
@@ -315,15 +341,24 @@ export const AnalysisGrid: React.FC<{
     }
     return (
       <>
-        {measures.map((time, i) => (
-          <Measure
-            key={i}
-            second={time}
-            number={i + 1}
-            selectedDownbeat={selectedDownbeat}
-            selectDownbeat={selectDownbeat}
-          />
-        ))}
+        {measures.map((time, i) => {
+          const fourMeasurePhrasingStart =
+            analysis.fourMeasurePhrasingReferences?.[0] ?? 1;
+          const number = i + 1;
+          return (
+            <Measure
+              key={i}
+              second={time}
+              isFourMeasureMark={
+                number >= fourMeasurePhrasingStart &&
+                number % 4 == fourMeasurePhrasingStart % 4
+              }
+              number={i + 1}
+              selectedDownbeat={selectedDownbeat}
+              selectDownbeat={selectDownbeat}
+            />
+          );
+        })}
         {beats.map((time) => (
           <Beat key={time} second={time} />
         ))}
@@ -401,14 +436,16 @@ export const AnalysisBox: React.FC<{
             </div>
             {"  "}
             {selectedDownbeat === null && (
-              <div>{STEP_CALL_TO_ACTION[analysis.step]}</div>
+              <div style={{ color: STEP_FONT_COLOR[analysis.step] }}>
+                {STEP_CALL_TO_ACTION[analysis.step]}
+              </div>
             )}
           </div>
           <div style={{ marginTop: "20px" }}>
             {selectedDownbeat !== null && (
               <div>
-                <div>What happens at measure {selectedDownbeat}?</div>
-                <ul>
+                <div>What to do with measure {selectedDownbeat}?</div>
+                <ul className="vertical-list-of-buttons">
                   <li>
                     <button
                       className="box-button"
@@ -426,10 +463,38 @@ export const AnalysisBox: React.FC<{
                       Mark loop start
                     </button>
                   </li>
+                  <li>
+                    <button
+                      className="box-button"
+                      onClick={() => {
+                        const newAnalysis = {
+                          ...analysis,
+                          fourMeasurePhrasingReferences: [selectedDownbeat],
+                        };
+
+                        selectDownbeat(null);
+                        saveAnalysis(newAnalysis);
+                        setAnalysis(newAnalysis);
+                      }}
+                    >
+                      Mark start of 4-measure phrasing
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      className="box-button"
+                      onClick={() => {
+                        selectDownbeat(null);
+                      }}
+                    >
+                      Deselect
+                    </button>
+                  </li>
                   <li>Adjust downbeat: select note</li>
                 </ul>
               </div>
             )}
+
             {/* <h2>Time</h2>
             <h2>Form</h2>
             <div>At which bar does it loop forever?</div> */}

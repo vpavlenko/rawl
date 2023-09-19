@@ -873,14 +873,18 @@ img {
     box-shadow: none;
 }
 
-
-
-
-
 .noteRectangleTonal:hover .noteText {
     opacity: 1;
 }
 
 .noteRectangleTonal .noteText {
     opacity: 0;
+}
+
+.vertical-list-of-buttons {
+    margin-bottom: 20px;
+}
+
+.vertical-list-of-buttons li {
+    margin-bottom: 20px;
 }

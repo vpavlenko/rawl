@@ -73,6 +73,22 @@ const MODES = [
 ] as const;
 export type Mode = (typeof MODES)[number];
 
+const romanNumeralToChromaticDegree = (romanNumeral: string): number => {
+  if (typeof romanNumeral !== "string") return -1;
+  if (romanNumeral[romanNumeral.length - 1].match(/\d/)) {
+    romanNumeral = romanNumeral.slice(0, -1);
+  }
+  return {
+    I: 0,
+    II: 2,
+    III: 4, // obviously will fail in minor mode
+    IV: 5,
+    V: 7,
+    VI: 9,
+    VII: 11,
+  }[romanNumeral.toUpperCase()];
+};
+
 // const RAINBOW_COLORS = [
 //   "red",
 //   "#cc7700",
@@ -254,21 +270,22 @@ const BeatBar = styled(VerticalBar)`
 `;
 
 const Measure: React.FC<{
-  second: number;
+  span: [number, number];
   number: number;
   isFourMeasureMark: boolean;
   selectedDownbeat: number;
   selectDownbeat: (number: number) => void;
   romanNumeral: string;
 }> = ({
-  second,
+  span,
   number,
   isFourMeasureMark,
   selectedDownbeat,
   selectDownbeat,
   romanNumeral,
 }) => {
-  const left = secondsToX(second);
+  const left = secondsToX(span[0]) - 1;
+  const width = secondsToX(span[1]) - left;
   return (
     <>
       <Downbeat
@@ -280,8 +297,8 @@ const Measure: React.FC<{
       <div
         style={{
           position: "absolute",
-          top: 10,
-          left: `${left + 5}px`,
+          top: 30,
+          left: `${left + 7}px`,
           color: selectedDownbeat === number ? "red" : "white",
           zIndex: 5,
           cursor: "pointer",
@@ -289,7 +306,26 @@ const Measure: React.FC<{
         }}
         onClick={() => selectDownbeat(number)}
       >
-        {number} {romanNumeral}
+        {number}
+      </div>
+      <div
+        style={{
+          position: "absolute",
+          left: `${left}px`,
+          width,
+          top: 0,
+          height: "25px",
+          backgroundColor:
+            TWELVE_TONE_COLORS[romanNumeralToChromaticDegree(romanNumeral)] ??
+            "transparent",
+          display: "grid",
+          placeItems: "center",
+          color: "white",
+          fontSize: "25px",
+          zIndex: 5,
+        }}
+      >
+        {romanNumeral}
       </div>
     </>
   );
@@ -361,7 +397,7 @@ export const AnalysisGrid: React.FC<{
           return (
             <Measure
               key={i}
-              second={time}
+              span={[time, measures[i + 1] ?? time]}
               isFourMeasureMark={
                 number >= fourMeasurePhrasingStart &&
                 number % 4 == fourMeasurePhrasingStart % 4
@@ -369,7 +405,7 @@ export const AnalysisGrid: React.FC<{
               number={i + 1}
               selectedDownbeat={selectedDownbeat}
               selectDownbeat={selectDownbeat}
-              romanNumeral={analysis?.romanNumerals?.split("")?.[i]}
+              romanNumeral={analysis?.romanNumerals?.split(" ")?.[i]}
             />
           );
         })}

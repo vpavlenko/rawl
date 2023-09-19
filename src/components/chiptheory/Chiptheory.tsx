@@ -110,7 +110,6 @@ const calculateNotesFromPeriods = (periods, oscType) => {
 };
 
 export const secondsToX = (seconds) => seconds * 70;
-// const PIANO_ROLL_HEIGHT = 600;
 const isNoteCurrentlyPlayed = (note, positionMs) => {
   const positionSeconds = positionMs / 1000;
   return note.span[0] <= positionSeconds && positionSeconds <= note.span[1];
@@ -268,12 +267,7 @@ const Chiptheory = ({
   });
   useEffect(
     () => setMeasuresAndBeats(calculateMeasuresAndBeats(analysis, allNotes)),
-    [
-      analysis.firstMeasure,
-      analysis.secondMeasure,
-      analysis.correctedMeasures,
-      allNotes,
-    ],
+    [analysis, allNotes],
   );
 
   const { minMidiNumber, maxMidiNumber } = useMemo(

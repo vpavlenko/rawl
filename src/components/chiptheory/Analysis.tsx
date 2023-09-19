@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useEffect, useState } from "react";
 import styled, { CSSProperties } from "styled-components";
 import { Note, secondsToX } from "./Chiptheory";
 import { MeasuresAndBeats } from "./helpers";
@@ -118,9 +119,11 @@ export type Analysis = {
   secondMeasure: number;
   correctedMeasures: { [key: number]: number };
   fourMeasurePhrasingReferences: number[];
+  beatsPerMeasure: number;
   loop: number | null;
   tonic: PitchClass | null;
   mode: Mode;
+  basedOn: string;
 };
 
 export const getTransparencyGradient = (color) => ({
@@ -168,9 +171,11 @@ export const ANALYSIS_STUB: Analysis = {
   secondMeasure: null,
   correctedMeasures: [],
   fourMeasurePhrasingReferences: [],
+  beatsPerMeasure: 4,
   loop: null,
   tonic: null,
   mode: null,
+  basedOn: null,
 };
 
 // These two don't propagate to Firestore because they tweak transient state.
@@ -375,16 +380,18 @@ export const AnalysisGrid: React.FC<{
           <div
             style={{
               position: "absolute",
-              backgroundColor: "#222",
+              // backgroundColor: "#222",
+              background:
+                "linear-gradient(to right, rgba(0, 0, 0, 0.5) 0%, rgba(0,0,0,0.9) 300px)",
               left: loopLeft,
               height: "100%",
               right: 0,
-              opacity: 0.7,
+              // opacity: 0.8,
               zIndex: 100,
-              width: "3000px",
+              width: "5000px",
             }}
           >
-            <div style={{ margin: "20px", color: "white" }}>Loop</div>
+            <div style={{ margin: "50px", color: "white" }}>Loop</div>
           </div>
         )}
       </>
@@ -413,6 +420,10 @@ export const AnalysisBox: React.FC<{
     selectedDownbeat,
     selectDownbeat,
   }) => {
+    const [basedOn, setBasedOn] = useState(analysis.basedOn || "");
+
+    useEffect(() => setBasedOn(analysis.basedOn), [analysis.basedOn]);
+
     return (
       <>
         <div className="App-main-content-area settings">
@@ -495,6 +506,25 @@ export const AnalysisBox: React.FC<{
                 </ul>
               </div>
             )}
+            <div>
+              Based on:{" "}
+              <input
+                type="text"
+                value={basedOn}
+                onChange={(e) => setBasedOn(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    const newAnalysis = {
+                      ...analysis,
+                      basedOn,
+                    };
+
+                    saveAnalysis(newAnalysis);
+                    setAnalysis(newAnalysis);
+                  }
+                }}
+              />
+            </div>
 
             {/* <h2>Time</h2>
             <h2>Form</h2>

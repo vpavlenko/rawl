@@ -61,12 +61,13 @@ export const calculateMeasuresAndBeats = (
     const lastLength = measures[measures.length - 1] - measures[measures.length - 2]
     measures.push(measures[measures.length - 1] + lastLength)
   }
+  const beatsPerMeasure = analysis.beatsPerMeasure || 4;
   for (let i = 0; i < measures.length - 1; ++i) {
     const from = measures[i]
     const to = measures[i + 1]
-    beats.push(from * 0.75 + to * 0.25);
-    beats.push(from * 0.5 + to * 0.5);
-    beats.push(from * 0.25 + to * 0.75);
+    for (let j = 1; j < beatsPerMeasure; ++j) {
+      beats.push(from * (beatsPerMeasure - j) / beatsPerMeasure + to * j / beatsPerMeasure);
+    }
   }
   return { measures, beats };
 };

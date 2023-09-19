@@ -60,6 +60,21 @@ const RAINBOW_COLORS = [
   "#FF1493",
 ];
 
+const TWELVE_TONE_COLORS = [
+  "red",
+  "brown", // CC5500
+  "#FF8C00",
+  "#C1C100",
+  "green",
+  "#0EFFD0",
+  "#787276",
+  "blue",
+  "#CF9FFF",
+  "#9400D3",
+  "#FF1493",
+  "#ffb3b3",
+];
+
 // if we have a note, it's color is mapped into degree, then mapped into colors
 
 export type PitchClassToScaleDegreeViaMode = {
@@ -111,13 +126,16 @@ export const getNoteColor = (
     return getTransparencyGradient(defaultColor);
   }
 
-  const mapping = MIDI_NOTE_TO_SCALE_DEGREE[analysis.mode];
-  let pointer = (midiNumber - analysis.tonic) % 12;
-  if (mapping[pointer] === null) {
-    return getTransparencyGradient("#bbb");
-  }
+  // const mapping = MIDI_NOTE_TO_SCALE_DEGREE[analysis.mode];
+  // let pointer = (midiNumber - analysis.tonic) % 12;
+  // if (mapping[pointer] === null) {
+  //   return getTransparencyGradient("#bbb");
+  // }
 
-  return getTransparencyGradient(RAINBOW_COLORS[mapping[pointer] - 1]);
+  // return getTransparencyGradient(RAINBOW_COLORS[mapping[pointer] - 1]);
+  return getTransparencyGradient(
+    TWELVE_TONE_COLORS[(midiNumber - analysis.tonic) % 12],
+  );
 };
 
 export const ANALYSIS_STUB: Analysis = {
@@ -200,7 +218,7 @@ const VerticalBar = styled.div`
 `;
 
 export const Cursor = styled(VerticalBar)`
-  background-color: pink;
+  background-color: #ff6666;
 `;
 
 const Downbeat = styled(VerticalBar)`
@@ -218,6 +236,7 @@ const Measure = ({ second, number, selectedDownbeat, selectDownbeat }) => {
       <Downbeat
         style={{
           left,
+          ...(number % 4 === 1 && { backgroundColor: "#999" }),
         }}
       />
       <div

@@ -48,16 +48,25 @@ export const calculateMeasuresAndBeats = (
       }
       if (previousMeasure === newMeasure) break;
       measures.push(newMeasure);
-      beats.push(previousMeasure * 0.75 + newMeasure * 0.25);
-      beats.push(previousMeasure * 0.5 + newMeasure * 0.5);
-      beats.push(previousMeasure * 0.25 + newMeasure * 0.75);
       measureLength = newMeasure - previousMeasure
       previousMeasure = newMeasure;
       if (i === analysis.loop) {
-        //   loopLeft = secondsToX(newMeasure);
         break;
       }
     }
+  }
+  if (measures.length > 2) {
+    // Fix last measure
+    measures.pop()
+    const lastLength = measures[measures.length - 1] - measures[measures.length - 2]
+    measures.push(measures[measures.length - 1] + lastLength)
+  }
+  for (let i = 0; i < measures.length - 1; ++i) {
+    const from = measures[i]
+    const to = measures[i + 1]
+    beats.push(from * 0.75 + to * 0.25);
+    beats.push(from * 0.5 + to * 0.5);
+    beats.push(from * 0.25 + to * 0.75);
   }
   return { measures, beats };
 };

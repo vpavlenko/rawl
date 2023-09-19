@@ -188,7 +188,7 @@ export default class GMEPlayer extends Player {
     // Render the whole track into Chiptheory
     core._gme_start_track(this.gmeCtx, subtune)
 
-    console.time();
+    console.time('extract notes from NES file');
     const bufferSizeForPrerendering = Math.ceil(this.sampleRate / RESOLUTION_DUMPS_PER_SECOND)
     const bufferForPrerendering = core._malloc(bufferSizeForPrerendering * 16); // i16
 
@@ -209,7 +209,7 @@ export default class GMEPlayer extends Player {
     }
     // console.log(p1);
     this.setChipStateDump({ p1, p2, t, n })
-    console.timeEnd();
+    console.timeEnd('extract notes from NES file');
 
     return core._gme_start_track(this.gmeCtx, subtune);
   }

@@ -346,22 +346,16 @@ class App extends React.Component {
 
       let userData = userDoc.exists ? userDoc.data() : {};
 
-      // Ensuring 'analyses' exists
       if (!userData.analyses) {
         userData.analyses = {};
       }
-
-      // Ensuring '[beforeSlash]' exists
       if (!userData.analyses[beforeSlash]) {
         userData.analyses[beforeSlash] = {};
       }
-
-      // Ensuring '[afterSlash]' exists
       if (!userData.analyses[beforeSlash][afterSlash]) {
         userData.analyses[beforeSlash][afterSlash] = {};
       }
 
-      // Now, update the '[subtune]' data
       userData.analyses[beforeSlash][afterSlash][subtune] = analysis;
 
       await setDoc(userRef, userData).catch((e) => {
@@ -466,7 +460,7 @@ class App extends React.Component {
 
   handleSequencerStateUpdate(sequencerState) {
     const { isEjected } = sequencerState;
-    console.debug('App.handleSequencerStateUpdate(isEjected=%s)', isEjected);
+    console.log('App.handleSequencerStateUpdate(isEjected=%s)', isEjected);
 
     if (isEjected) {
       this.setState({

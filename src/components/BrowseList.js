@@ -32,11 +32,13 @@ function BrowseList({ virtual, ...props }) {
         firstSongItem.path.replace('%', '%25').replace('#', '%23').replace(/^\//, '');
 
       const params = new URLSearchParams(location.search);
-      let subtune = params.get('subtune') || null
+      let subtune = params.get('subtune')
       if (subtune) {
         subtune = parseInt(subtune, 10) - 1
         params.delete('subtune')
         history.push({ pathname: location.pathname })
+      } else {
+        subtune = 0
       }
 
       const href = CATALOG_PREFIX + path;
@@ -76,7 +78,6 @@ function BrowseList({ virtual, ...props }) {
           let analysis = analyses && analyses[path] && Object.values(analyses[path])
           if (analysis && analysis[0]) {
             analysis = analysis[0]
-            Object.keys(analysis).map(index => console.log(index, analysis[index]))
           }
 
           if (item.type === 'directory') {
@@ -88,7 +89,7 @@ function BrowseList({ virtual, ...props }) {
                 {analysis && <div>
                   {Object.keys(analysis).map(index => {
                     const realIndex = parseInt(index, 10) + 1
-                    return <DirectoryLink dim={!analysis} to={'/browse/' + path} search={`?subtune=${realIndex}`}>[{realIndex}]</DirectoryLink>
+                    return <DirectoryLink key={realIndex} dim={!analysis} to={'/browse/' + path} search={`?subtune=${realIndex}`}>[{realIndex}]</DirectoryLink>
                   })}
                 </div>}
                 {/* className="BrowseList-colDir" */}

@@ -157,7 +157,6 @@ export const advanceAnalysis = (
   setAnalysis,
 ) => {
   let update: Partial<Analysis> = {};
-  debugger;
 
   if (selectedDownbeat !== null) {
     update.correctedMeasures = { ...(analysis.correctedMeasures || []) };

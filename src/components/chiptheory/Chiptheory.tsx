@@ -120,7 +120,7 @@ const isNoteCurrentlyPlayed = (note, positionMs) => {
 const VOICE_TO_COLOR: { [key in Voice]: string } = {
   pulse1: "#26577C",
   pulse2: "#AE445A",
-  triangle: "#63995A",
+  triangle: "#63995a",
   noise: "white",
   "under cursor": "under cursor",
 };

@@ -119,8 +119,13 @@ const SIMPLE_RN_TO_CHROMATIC_DEGREE = {
   bvi: 8,
 };
 
+const split = (s: string, delimiter: string) =>
+  (s || "").split(delimiter).filter((s) => s !== "");
+
 export const romanNumeralsToArray = (romanNumerals: string): string[] =>
-  (romanNumerals || "").split(" ").filter((s) => s !== "");
+  split(romanNumerals, " ");
+
+const dashedRnToArray = (dashedRN: string): string[] => split(dashedRN, "-");
 
 export const romanNumeralToChromaticDegree = (romanNumeral: string): number => {
   if (typeof romanNumeral !== "string" || romanNumeral.length === 0) return 12;
@@ -158,21 +163,31 @@ export const RomanNumeral: React.FC<{
   romanNumeral: string;
   styleProps?: any;
 }> = ({ romanNumeral, styleProps = {} }) => {
-  const color =
+  const backgroundColor =
     TWELVE_TONE_COLORS[romanNumeralToChromaticDegree(romanNumeral)] ??
     "transparent";
   return (
-    <span
+    <div
       style={{
-        color:
-          ["#dd0", "#9F9FFF", "#0EFFD0"].indexOf(color) !== -1
-            ? "black"
-            : "white",
-        ...styleProps,
+        width: "100%",
+        height: "100%",
+        backgroundColor,
+        display: "grid",
+        placeItems: "center",
       }}
     >
-      {romanNumeral}
-    </span>
+      <span
+        style={{
+          color:
+            ["#dd0", "#9F9FFF", "#0EFFD0"].indexOf(backgroundColor) !== -1
+              ? "black"
+              : "white",
+          ...styleProps,
+        }}
+      >
+        {romanNumeral}
+      </span>
+    </div>
   );
 };
 
@@ -208,3 +223,23 @@ export const RomanNumerals: React.FC<{ romanNumerals: string }> = ({
     </div>
   </div>
 );
+
+export const MeasureOfRomanNumerals: React.FC<{ dashedRN: string }> = ({
+  dashedRN,
+}) => {
+  const chords = dashedRnToArray(dashedRN);
+  return (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        width: "100%",
+        height: "100%",
+      }}
+    >
+      {chords.map((chord) => (
+        <RomanNumeral romanNumeral={chord} />
+      ))}
+    </div>
+  );
+};

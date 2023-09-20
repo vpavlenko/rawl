@@ -4,9 +4,8 @@ import styled from "styled-components";
 import { Note, secondsToX } from "./Chiptheory";
 import { MeasuresAndBeats } from "./measures";
 import {
-  RomanNumeral,
-  TWELVE_TONE_COLORS,
-  romanNumeralToChromaticDegree,
+  MeasureOfRomanNumerals,
+  romanNumeralsToArray,
   updateRomanNumerals,
 } from "./romanNumerals";
 
@@ -234,9 +233,9 @@ const Measure: React.FC<{
 }) => {
   const left = secondsToX(span[0]) - 1;
   const width = secondsToX(span[1]) - left - 1;
-  const color =
-    TWELVE_TONE_COLORS[romanNumeralToChromaticDegree(romanNumeral)] ??
-    "transparent";
+  // const color =
+  //   TWELVE_TONE_COLORS[romanNumeralToChromaticDegree(romanNumeral)] ??
+  //   "transparent";
   return (
     <>
       <Downbeat
@@ -272,7 +271,6 @@ const Measure: React.FC<{
           width,
           top: 0,
           height: "25px",
-          backgroundColor: color,
           display: "grid",
           placeItems: "center",
           fontSize: "25px",
@@ -280,7 +278,7 @@ const Measure: React.FC<{
           borderLeft: "1px solid black",
         }}
       >
-        <RomanNumeral romanNumeral={romanNumeral} />
+        <MeasureOfRomanNumerals dashedRN={romanNumeral} />
       </div>
     </>
   );
@@ -362,7 +360,7 @@ export const AnalysisGrid: React.FC<{
               number={i + 1}
               selectedDownbeat={selectedDownbeat}
               selectDownbeat={selectDownbeat}
-              romanNumeral={analysis?.romanNumerals?.split(" ")?.[i]}
+              romanNumeral={romanNumeralsToArray(analysis?.romanNumerals)[i]}
             />
           );
         })}

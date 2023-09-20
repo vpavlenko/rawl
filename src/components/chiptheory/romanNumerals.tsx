@@ -136,6 +136,7 @@ const SIMPLE_RN_TO_CHROMATIC_DEGREE = {
   "#iv": 6,
   biii: 3,
   "#VII": 11,
+  bii: 1,
 };
 
 const split = (s: string, delimiter: string) =>
@@ -218,7 +219,6 @@ export const RomanNumerals: React.FC<{ romanNumerals: string }> = ({
     <div
       style={{
         display: "flex",
-        // width: "100px",
         height: "18px",
         flexDirection: "row",
       }}
@@ -230,6 +230,7 @@ export const RomanNumerals: React.FC<{ romanNumerals: string }> = ({
             height: "18px",
             display: "grid",
             placeItems: "center",
+            overflow: "hidden",
             backgroundColor:
               TWELVE_TONE_COLORS[romanNumeralToChromaticDegree(s)],
           }}

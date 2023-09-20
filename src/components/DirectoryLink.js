@@ -21,7 +21,7 @@ function DirectoryLink(props) {
   const to = props.to.replace('%25', '%2525');
   const search = props.search || getSearch();
 
-  let toObj = { pathname: to, search: search, state: { prevPathname: window.location.pathname } };
+  let toObj = { pathname: to, search: props.children === '..' ? '' : search, state: { prevPathname: window.location.pathname } };
   let onClick = null;
 
   if (props.isBackLink) {
@@ -34,8 +34,6 @@ function DirectoryLink(props) {
 
   return (
     <Link to={toObj} className={linkClassName} onClick={onClick}>
-      {/* <img alt='folder' className={folderClassName} src={folder}/> */}
-
       {props.children}
     </Link>
   );

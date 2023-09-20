@@ -132,6 +132,9 @@ const SIMPLE_RN_TO_CHROMATIC_DEGREE = {
   "-": 12,
   bvi: 8,
   "#IV": 6,
+  "#iv": 6,
+  biii: 3,
+  "#VII": 11,
 };
 
 const split = (s: string, delimiter: string) =>
@@ -142,10 +145,11 @@ export const romanNumeralsToArray = (romanNumerals: string): string[] =>
 
 const dashedRnToArray = (dashedRN: string): string[] => split(dashedRN, "-");
 
-const cleanupRn = (rn: string): string => rn.replace(/[\d|o|ø]+$/, "");
+const cleanupRn = (rn: string): string => rn.replace(/[\d|o|ø]+/, "");
 
 export const romanNumeralToChromaticDegree = (romanNumeral: string): number => {
-  if (typeof romanNumeral !== "string" || romanNumeral.length === 0) return 12;
+  if (typeof romanNumeral !== "string" || romanNumeral.length === 0) return 12; // wtf
+
   romanNumeral = cleanupRn(romanNumeral);
   const [applied, to] = romanNumeral.split("/");
   if (to) {

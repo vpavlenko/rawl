@@ -150,6 +150,7 @@ export const advanceAnalysis = (
   time: number = null,
   notes: Note[] = [],
   measures: number[] = [],
+  altKey: boolean = false,
 ) => {
   let update: Partial<Analysis> = {};
 
@@ -159,13 +160,7 @@ export const advanceAnalysis = (
     selectDownbeat(null);
   } else {
     const { step } = analysis;
-    if (step === "end") {
-      // enter chords
-      // get note degree
-      // get measure notes
-      // compare thirds
-      // if previous chords: span the last one?
-    } else {
+    if (step !== "end") {
       update.step = STEPS[STEPS.indexOf(step) + 1];
     }
 
@@ -182,6 +177,7 @@ export const advanceAnalysis = (
         note,
         notes,
         measures,
+        altKey,
       );
     }
     // } else if (step === "mode") {

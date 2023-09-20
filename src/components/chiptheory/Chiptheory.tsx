@@ -148,7 +148,7 @@ const getNoteRectangles = (
   analysis: Analysis,
   midiNumberToY: (number: number) => number,
   noteHeight: number,
-  handleNoteClick = (note: Note) => {},
+  handleNoteClick = (note: Note, altKey: boolean) => {},
   measures: number[] = null,
 ) => {
   return notes.map((note) => {
@@ -206,7 +206,7 @@ const getNoteRectangles = (
         }}
         onClick={(e) => {
           e.stopPropagation();
-          handleNoteClick(note);
+          handleNoteClick(note, e.altKey);
         }}
       >
         {noteElement}
@@ -327,7 +327,7 @@ const Chiptheory = ({
     [noteHeight],
   );
 
-  const handleNoteClick = (note) => {
+  const handleNoteClick = (note, altKey) => {
     advanceAnalysis(
       note,
       selectedDownbeatRef.current,
@@ -338,6 +338,7 @@ const Chiptheory = ({
       null,
       allNotes,
       measuresAndBeats.measures,
+      altKey,
     );
   };
 

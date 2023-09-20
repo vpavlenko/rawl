@@ -64,6 +64,7 @@ export const updateRomanNumerals = (
   note: Note,
   notes: Note[],
   measures: number[],
+  isHalfMeasure: boolean,
 ) => {
   const noteMiddle = (note.span[0] + note.span[1]) / 2;
   const measureIndex = measures.findIndex((time) => time >= noteMiddle) - 1;
@@ -71,16 +72,22 @@ export const updateRomanNumerals = (
     measures[measureIndex],
     measures[measureIndex + 1],
   ];
+  const measureMiddle = measureSpan[0] * 0.5 + measureSpan[1] * 0.5;
+  const span: Span = isHalfMeasure
+    ? noteMiddle < measureMiddle
+      ? [measureSpan[0], measureMiddle]
+      : [measureMiddle, measureSpan[1]]
+    : measureSpan;
 
   const noteDegree = (note.note.midiNumber - analysis.tonic) % 12;
   const minorThirdWeight = sumPitchClassTimeInSpan(
     ((note.note.midiNumber + 3) % 12) as PitchClass,
-    measureSpan,
+    span,
     notes,
   );
   const majorThirdWeight = sumPitchClassTimeInSpan(
     ((note.note.midiNumber + 4) % 12) as PitchClass,
-    measureSpan,
+    span,
     notes,
   );
   const newRomanNumeral = (
@@ -88,14 +95,21 @@ export const updateRomanNumerals = (
   )[noteDegree];
 
   const rnArray = romanNumeralsToArray(analysis.romanNumerals);
-  if (rnArray.length > measureIndex) {
-    rnArray[measureIndex] = newRomanNumeral;
-  } else {
-    while (rnArray.length < measureIndex) {
-      rnArray.push("-");
-    }
-    rnArray.push(newRomanNumeral);
+
+  while (rnArray.length <= measureIndex) {
+    rnArray.push("_");
   }
+  if (isHalfMeasure) {
+    const dashedRN = dashedRnToArray(rnArray[measureIndex]);
+    if (dashedRN.length < 2) {
+      dashedRN.push(dashedRN[0]);
+    }
+    dashedRN[noteMiddle < measureMiddle ? 0 : 1] = newRomanNumeral;
+    rnArray[measureIndex] = dashedRN.join("-");
+  } else {
+    rnArray[measureIndex] = newRomanNumeral;
+  }
+
   return rnArray.join(" ");
 };
 

@@ -111,7 +111,10 @@ const calculateNotesFromPeriods = (periods, oscType) => {
   return notes.filter((note) => note.note.midiNumber !== -1);
 };
 
-export const secondsToX = (seconds) => seconds * 70;
+const SECOND_WIDTH = 70;
+export const secondsToX = (seconds) => seconds * SECOND_WIDTH;
+const xToSeconds = (x) => x / SECOND_WIDTH;
+
 const isNoteCurrentlyPlayed = (note, positionMs) => {
   const positionSeconds = positionMs / 1000;
   return note.span[0] <= positionSeconds && positionSeconds <= note.span[1];
@@ -239,7 +242,10 @@ const getNoteRectangles = (
               }
             : {}),
         }}
-        onClick={() => handleNoteClick(note)}
+        onClick={(e) => {
+          e.stopPropagation();
+          handleNoteClick(note);
+        }}
       >
         {voice !== "under cursor" && chordNote && noteName}
       </div>
@@ -304,7 +310,7 @@ const Chiptheory = ({
     selectedDownbeatRef.current = selectedDownbeat;
   }, [selectedDownbeat]);
 
-  const handleNoteClick = (note) =>
+  const handleNoteClick = (note) => {
     advanceAnalysis(
       note,
       selectedDownbeatRef.current,
@@ -313,6 +319,7 @@ const Chiptheory = ({
       saveAnalysis,
       setAnalysis,
     );
+  };
 
   const notes = useMemo(() => {
     return {
@@ -361,7 +368,7 @@ const Chiptheory = ({
     divRef.current.scrollLeft = 0;
   }, [chipStateDump]);
 
-  const noteHeight = divHeight / (maxMidiNumber - minMidiNumber + 7);
+  const noteHeight = (divHeight - 20) / (maxMidiNumber - minMidiNumber + 7);
   const midiNumberToY = useMemo(
     () => (midiNumber) =>
       divHeight - (midiNumber - minMidiNumber + 4) * noteHeight,
@@ -462,6 +469,23 @@ const Chiptheory = ({
             width: "100%",
             height: "100%",
             backgroundColor: "black",
+          }}
+          onClick={(e) => {
+            if (selectedDownbeat) {
+              const targetElement = e.target as HTMLElement;
+              const rect = targetElement.getBoundingClientRect();
+              const distance = e.clientX - rect.left + targetElement.scrollLeft;
+
+              advanceAnalysis(
+                null,
+                selectedDownbeatRef.current,
+                setSelectedDownbeat,
+                analysisRef.current,
+                saveAnalysis,
+                setAnalysis,
+                xToSeconds(distance),
+              );
+            }
           }}
         >
           {noteRectangles}

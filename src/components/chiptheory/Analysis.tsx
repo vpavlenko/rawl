@@ -175,18 +175,19 @@ export const nextStep = (analysis, setAnalysis) =>
   setAnalysis({ ...analysis, step: STEPS[STEPS.indexOf(analysis.step) + 1] });
 
 export const advanceAnalysis = (
-  note: Note,
+  note: Note | null,
   selectedDownbeat: number | null,
   selectDownbeat: (_: null) => void,
   analysis: Analysis,
   saveAnalysis,
   setAnalysis,
+  time: number = null,
 ) => {
   let update: Partial<Analysis> = {};
 
   if (selectedDownbeat !== null) {
     update.correctedMeasures = { ...(analysis.correctedMeasures || []) };
-    update.correctedMeasures[selectedDownbeat] = note.span[0];
+    update.correctedMeasures[selectedDownbeat] = note?.span[0] ?? time;
     selectDownbeat(null);
   } else {
     const { step } = analysis;
@@ -278,7 +279,10 @@ const Measure: React.FC<{
           cursor: "pointer",
           userSelect: "none",
         }}
-        onClick={() => selectDownbeat(number)}
+        onClick={(e) => {
+          e.stopPropagation();
+          selectDownbeat(number);
+        }}
       >
         {number}
       </div>
@@ -401,6 +405,7 @@ export const AnalysisGrid: React.FC<{
             key="loop"
             style={{
               boxShadow: "inset 0px 0 10px white",
+              pointerEvents: "none",
               position: "absolute",
               // backgroundColor: "#222",
               background:

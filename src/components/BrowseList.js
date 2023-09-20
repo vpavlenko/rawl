@@ -42,8 +42,6 @@ function BrowseList({ virtual, ...props }) {
       let subtune = params.get("subtune");
       if (subtune) {
         subtune = parseInt(subtune, 10) - 1;
-        params.delete("subtune");
-        history.push({ pathname: location.pathname });
       } else {
         subtune = 0;
       }

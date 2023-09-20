@@ -117,14 +117,15 @@ const SIMPLE_RN_TO_CHROMATIC_DEGREE = {
   I: 0,
   bII: 1,
   II: 2,
-  III: 3, // obviously will fail in minor mode
+  "#III": 4,
+  III: 3,
   IV: 5,
   V: 7,
   VI: 8,
   VII: 10,
   i: 0,
   ii: 2,
-  iii: 4, // obviously will fail in minor mode
+  iii: 4,
   iv: 5,
   v: 7,
   vi: 9,

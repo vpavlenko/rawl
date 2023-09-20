@@ -4,6 +4,7 @@ import shuffle from 'lodash/shuffle';
 import { CATALOG_PREFIX } from "./config";
 import promisify from "./promisify-xhr";
 
+
 export const REPEAT_OFF = 0;
 export const REPEAT_ALL = 1;
 export const REPEAT_ONE = 2;
@@ -16,7 +17,7 @@ export const NUM_SHUFFLE_MODES = 2;
 export const SHUFFLE_LABELS = ['Off', 'On'];
 
 export default class Sequencer extends EventEmitter {
-  constructor(players) {
+  constructor(players, location, history) {
     super();
     autoBindReact(this);
 
@@ -32,6 +33,8 @@ export default class Sequencer extends EventEmitter {
     this.shuffleOrder = [];
     this.songRequest = null;
     this.repeat = REPEAT_OFF;
+    this.location = location;
+    this.history = history;
 
     this.players.forEach(player => {
       player.on('playerStateUpdate', this.handlePlayerStateUpdate);
@@ -146,6 +149,15 @@ export default class Sequencer extends EventEmitter {
   }
 
   playSubtune(subtune) {
+    const currentPathname = window.location.pathname;
+    const searchParams = new URLSearchParams(window.location.search);
+    searchParams.set('subtune', subtune + 1);
+
+    this.history.push({
+      pathname: currentPathname,
+      search: searchParams.toString()
+    });
+
     this.player.playSubtune(subtune);
   }
 

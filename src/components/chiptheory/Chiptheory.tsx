@@ -10,7 +10,6 @@ import {
   RESOLUTION_MS,
   TWELVE_TONE_COLORS,
   advanceAnalysis,
-  romanNumeralToChromaticDegree,
 } from "./Analysis";
 import { MeasuresAndBeats, calculateMeasuresAndBeats } from "./measures";
 import {
@@ -18,6 +17,7 @@ import {
   PAUSE,
   nesApuNoteEstimation,
 } from "./nesApuNoteEstimations";
+import { romanNumeralToChromaticDegree } from "./romanNumerals";
 
 type OscType = "pulse" | "triangle" | "noise";
 export type Voice = "pulse1" | "pulse2" | "triangle" | "noise" | "under cursor";
@@ -197,9 +197,10 @@ const getNoteRectangles = (
           fontWeight: 700,
           // color: "#fefefe",
           color:
-            ["brown", "blue", "red", "#9400D3"].indexOf(color) !== -1
+            ["brown", "blue", "#9400D3", "#787276"].indexOf(color) !== -1
               ? "white"
               : "black",
+          opacity: 1,
           // backgroundColor: "black",
           // padding: "5px",
           // borderRadius: "100%",
@@ -236,7 +237,7 @@ const getNoteRectangles = (
           // borderBottomLeftRadius: voice === "triangle" ? "100%" : 0,
           cursor: "pointer",
           zIndex: 10,
-          opacity: isActiveVoice ? 0.8 : 0.1,
+          opacity: isActiveVoice ? 0.9 : 0.1,
           display: "grid",
           placeItems: "center",
           ...(voice === "under cursor"

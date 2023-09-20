@@ -99,3 +99,37 @@ export const updateRomanNumerals = (
   }
   return rnArray.join(" ");
 };
+
+const SIMPLE_RN_TO_CHROMATIC_DEGREE = {
+  I: 0,
+  bII: 1,
+  II: 2,
+  III: 3, // obviously will fail in minor mode
+  IV: 5,
+  V: 7,
+  VI: 8,
+  VII: 10,
+  i: 0,
+  ii: 2,
+  iii: 4, // obviously will fail in minor mode
+  iv: 5,
+  v: 7,
+  vi: 9,
+  vii: 11,
+};
+
+export const romanNumeralToChromaticDegree = (romanNumeral: string): number => {
+  if (typeof romanNumeral !== "string" || romanNumeral.length === 0) return -1;
+  if (romanNumeral[romanNumeral.length - 1].match(/\d|o|ø/)) {
+    romanNumeral = romanNumeral.slice(0, -1);
+  }
+  const [applied, to] = romanNumeral.split("/");
+  if (to) {
+    if (applied.startsWith("V")) {
+      return (SIMPLE_RN_TO_CHROMATIC_DEGREE[to] + 7) % 12;
+    }
+    // viio/
+    return (SIMPLE_RN_TO_CHROMATIC_DEGREE[to] + 11) % 12;
+  }
+  return SIMPLE_RN_TO_CHROMATIC_DEGREE[romanNumeral];
+};

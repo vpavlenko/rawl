@@ -3,7 +3,10 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Note, secondsToX } from "./Chiptheory";
 import { MeasuresAndBeats } from "./measures";
-import { updateRomanNumerals } from "./romanNumerals";
+import {
+  romanNumeralToChromaticDegree,
+  updateRomanNumerals,
+} from "./romanNumerals";
 
 export const RESOLUTION_DUMPS_PER_SECOND = 100;
 export const RESOLUTION_MS = 1 / RESOLUTION_DUMPS_PER_SECOND;
@@ -72,30 +75,6 @@ const MODES = [
   null,
 ] as const;
 export type Mode = (typeof MODES)[number];
-
-export const romanNumeralToChromaticDegree = (romanNumeral: string): number => {
-  if (typeof romanNumeral !== "string" || romanNumeral.length === 0) return -1;
-  if (romanNumeral[romanNumeral.length - 1].match(/\d|o|ø/)) {
-    romanNumeral = romanNumeral.slice(0, -1);
-  }
-  return {
-    I: 0,
-    bII: 1,
-    II: 2,
-    III: 3, // obviously will fail in minor mode
-    IV: 5,
-    V: 7,
-    VI: 8,
-    VII: 10,
-    i: 0,
-    ii: 2,
-    iii: 4, // obviously will fail in minor mode
-    iv: 5,
-    v: 7,
-    vi: 9,
-    vii: 11,
-  }[romanNumeral];
-};
 
 // const RAINBOW_COLORS = [
 //   "red",
@@ -183,7 +162,7 @@ export const advanceAnalysis = (
   saveAnalysis,
   setAnalysis,
   time: number = null,
-  notes: Note[],
+  notes: Note[] = [],
   measures: number[] = [],
 ) => {
   let update: Partial<Analysis> = {};

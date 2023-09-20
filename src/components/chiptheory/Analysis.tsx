@@ -11,7 +11,7 @@ export const STEPS = [
   "first measure",
   "second measure",
   "tonic",
-  "mode",
+  // "mode",
   "end",
 ] as const;
 
@@ -23,7 +23,7 @@ const STEP_FONT_COLOR: {
   "first measure": "#ffaaaa",
   "second measure": "#ffffaa",
   tonic: "#aaffaa",
-  mode: "#aaffff",
+  // mode: "#aaffff",
   end: "white",
 };
 
@@ -33,7 +33,7 @@ export const STEP_CALL_TO_ACTION: Record<Step, string> = {
   "second measure":
     "Beat tracking 2. Click on a note at the start of the second measure of the main section",
   tonic: "Click on a tonic of the main section",
-  mode: "Click on a minor/major third on top of the tonic. It doesn't matter on 12-tone coloring, but matters in 7-tone coloring",
+  // mode: "Click on a minor/major third on top of the tonic. It doesn't matter on 12-tone coloring, but matters in 7-tone coloring",
   // mode: "Step 4. Click on a characteristic note of the main section. Minor: b3, major: 3, phrygian: b2, dorian: #6, mixolydian: b7, blues: #4, pentatonic: 4",
   end: "Click on root notes to enter chords. Currently only one chord per measure is supported",
 };
@@ -209,9 +209,10 @@ export const advanceAnalysis = (
     } else if (step === "tonic") {
       update.tonic = (note.note.midiNumber % 12) as PitchClass;
       update.step = "end";
-    } else if (step === "mode") {
-      update.mode = MODES[(note.note.midiNumber - analysis.tonic) % 12];
     }
+    // } else if (step === "mode") {
+    //   update.mode = MODES[(note.note.midiNumber - analysis.tonic) % 12];
+    // }
   }
 
   const newAnalysis = { ...analysis, ...update };
@@ -230,6 +231,7 @@ const VerticalBar = styled.div`
 
 export const Cursor = styled(VerticalBar)`
   background-color: #ff6666;
+  pointer-events: none;
 `;
 
 const Downbeat = styled(VerticalBar)`
@@ -314,7 +316,9 @@ const Measure: React.FC<{
 };
 
 const Beat = ({ second }) => (
-  <BeatBar style={{ left: secondsToX(second), zIndex: 2 }} />
+  <BeatBar
+    style={{ left: secondsToX(second), zIndex: 2, pointerEvents: "none" }}
+  />
 );
 
 const TonalGrid = ({ tonic, width, midiNumberToY, noteHeight }) => {
@@ -453,7 +457,7 @@ export const AnalysisBox: React.FC<{
       initialValue,
       analysisFieldName,
       label,
-      width = "auto",
+      width = "95%",
     ) => {
       const [value, setValue] = useState(initialValue.toString());
       const [isSaved, setIsSaved] = useState(false);
@@ -541,7 +545,7 @@ export const AnalysisBox: React.FC<{
             )}
           </div>
           <div style={{ marginTop: "20px" }}>
-            {selectedDownbeat !== null && (
+            {selectedDownbeat !== null ? (
               <div>
                 <div>What to do with measure {selectedDownbeat}?</div>
                 <ul className="vertical-list-of-buttons">
@@ -579,24 +583,17 @@ export const AnalysisBox: React.FC<{
                       Mark start of 4-measure phrasing
                     </button>
                   </li>
-                  <li>
-                    <button
-                      className="box-button"
-                      onClick={() => {
-                        selectDownbeat(null);
-                      }}
-                    >
-                      Deselect
-                    </button>
-                  </li>
-                  <li>Adjust downbeat: select note</li>
+                  <li>Adjust position: click anywhere</li>
                 </ul>
               </div>
+            ) : (
+              <div>
+                {basedOn}
+                {beatsPerMeasure}
+                {romanNumerals}
+                {comment}
+              </div>
             )}
-            {basedOn}
-            {beatsPerMeasure}
-            {romanNumerals}
-            {comment}
           </div>
         </div>
       </>

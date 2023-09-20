@@ -840,6 +840,7 @@ class App extends React.Component {
                               saveAnalysis={this.saveAnalysis}
                               voiceMask={this.state.voiceMask}
                               analysisEnabled={this.state.analysisEnabled}
+                              seek={this.seekRelativeInner}
                             />
                           </>
                         );

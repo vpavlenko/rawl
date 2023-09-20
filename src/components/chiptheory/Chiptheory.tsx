@@ -157,7 +157,7 @@ const getChordNote = (
   const rootChromaticScaleDegree = romanNumeralToChromaticDegree(romanNumeral);
   if (rootChromaticScaleDegree === -1) return "";
 
-  return ["r", "♭9", "2", "m", "3", "4", "T", "5", "♭6", "6", "7", "△"][
+  return ["r", "♭", "2", "m", "3", "4", "T", "5", "↓", "6", "7", "△"][
     (((note.note.midiNumber - tonic) % 12) + 12 - rootChromaticScaleDegree) % 12
   ];
 };
@@ -195,7 +195,7 @@ const getNoteRectangles = (
           fontWeight: 700,
           // color: "#fefefe",
           color:
-            ["blue", "red", "#9400D3"].indexOf(color) !== -1
+            ["brown", "blue", "red", "#9400D3"].indexOf(color) !== -1
               ? "white"
               : "black",
           // backgroundColor: "black",
@@ -290,6 +290,7 @@ const Chiptheory = ({
   saveAnalysis,
   voiceMask,
   analysisEnabled,
+  seek,
 }) => {
   const [analysis, setAnalysis] = useState<Analysis>(ANALYSIS_STUB);
 
@@ -450,6 +451,20 @@ const Chiptheory = ({
     };
   }, []);
 
+  useEffect(() => {
+    const handleEscapePress = (event) => {
+      if (event.key === "Escape" || event.keyCode === 27) {
+        setSelectedDownbeat(null);
+      }
+    };
+
+    document.addEventListener("keydown", handleEscapePress);
+
+    return () => {
+      document.removeEventListener("keydown", handleEscapePress);
+    };
+  }, []);
+
   return (
     <div className="App-main-content-and-settings">
       <div
@@ -474,11 +489,11 @@ const Chiptheory = ({
             backgroundColor: "black",
           }}
           onClick={(e) => {
+            const targetElement = e.target as HTMLElement;
+            const rect = targetElement.getBoundingClientRect();
+            const distance = e.clientX - rect.left + targetElement.scrollLeft;
+            const time = xToSeconds(distance);
             if (selectedDownbeat) {
-              const targetElement = e.target as HTMLElement;
-              const rect = targetElement.getBoundingClientRect();
-              const distance = e.clientX - rect.left + targetElement.scrollLeft;
-
               advanceAnalysis(
                 null,
                 selectedDownbeatRef.current,
@@ -486,8 +501,10 @@ const Chiptheory = ({
                 analysisRef.current,
                 saveAnalysis,
                 setAnalysis,
-                xToSeconds(distance),
+                time,
               );
+            } else {
+              seek(time * 1000);
             }
           }}
         >

@@ -1,10 +1,10 @@
-import bytes from 'bytes';
-import trimEnd from 'lodash/trimEnd';
-import queryString from 'querystring';
-import React, { memo, useEffect } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
-import { CATALOG_PREFIX } from '../config';
-import DirectoryLink from './DirectoryLink';
+import bytes from "bytes";
+import trimEnd from "lodash/trimEnd";
+import queryString from "querystring";
+import React, { memo, useEffect } from "react";
+import { useHistory, useLocation } from "react-router-dom";
+import { CATALOG_PREFIX } from "../config";
+import DirectoryLink from "./DirectoryLink";
 
 export default memo(BrowseList);
 function BrowseList({ virtual, ...props }) {
@@ -24,25 +24,36 @@ function BrowseList({ virtual, ...props }) {
 
   // Chiptheory's autoplay for NES, because most directories have a single file
   useEffect(() => {
-    const firstSongItem = virtual.items.find(item => item.type !== 'directory');
+    const firstSongItem = virtual.items.find(
+      (item) => item.type !== "directory",
+    );
 
     if (firstSongItem) {
-      const path = firstSongItem.path === '..' ?
-        browsePath.substr(0, browsePath.lastIndexOf('/')) :
-        firstSongItem.path.replace('%', '%25').replace('#', '%23').replace(/^\//, '');
+      const path =
+        firstSongItem.path === ".."
+          ? browsePath.substr(0, browsePath.lastIndexOf("/"))
+          : firstSongItem.path
+            .replace("%", "%25")
+            .replace("#", "%23")
+            .replace(/^\//, "");
 
       const params = new URLSearchParams(location.search);
-      let subtune = params.get('subtune')
+      let subtune = params.get("subtune");
       if (subtune) {
-        subtune = parseInt(subtune, 10) - 1
-        params.delete('subtune')
-        history.push({ pathname: location.pathname })
+        subtune = parseInt(subtune, 10) - 1;
+        params.delete("subtune");
+        history.push({ pathname: location.pathname });
       } else {
-        subtune = 0
+        subtune = 0;
       }
 
       const href = CATALOG_PREFIX + path;
-      handleSongClick(href, playContext, firstSongItem.idx, subtune)({
+      handleSongClick(
+        href,
+        playContext,
+        firstSongItem.idx,
+        subtune,
+      )({
         preventDefault: () => { },
       });
     }
@@ -59,39 +70,64 @@ function BrowseList({ virtual, ...props }) {
 
   // Check if previous page url is the parent directory of current page url.
   const history = useHistory();
-  const prevPath = trimEnd(history.location.state?.prevPathname, '/');
-  const currPath = trimEnd(window.location.pathname, '/');
-  const prevPageIsParentDir = prevPath === currPath.substring(0, currPath.lastIndexOf('/'));
+  const prevPath = trimEnd(history.location.state?.prevPathname, "/");
+  const currPath = trimEnd(window.location.pathname, "/");
+  const prevPageIsParentDir =
+    prevPath === currPath.substring(0, currPath.lastIndexOf("/"));
 
   return (
-    <div style={{ position: 'relative' }}>
+    <div style={{ position: "relative" }}>
       <div style={virtual.style}>
-        {virtual.items.map(item => {
+        {virtual.items.map((item) => {
           // XXX: Escape immediately: the escaped URL is considered canonical.
           //      The URL must be decoded for display from here on out.
-          const path = item.path === '..' ?
-            browsePath.substr(0, browsePath.lastIndexOf('/')) : // parent path
-            item.path.replace('%', '%25').replace('#', '%23').replace(/^\//, '');
-          const name = item.path.split('/').pop();
+          const path =
+            item.path === ".."
+              ? browsePath.substr(0, browsePath.lastIndexOf("/")) // parent path
+              : item.path
+                .replace("%", "%25")
+                .replace("#", "%23")
+                .replace(/^\//, "");
+          const name = item.path.split("/").pop();
           const isPlaying = currContext === playContext && currIdx === item.idx;
-          const isBackLink = item.path === '..' && prevPageIsParentDir;
-          let analysis = analyses && analyses[path] && Object.values(analyses[path])
+          const isBackLink = item.path === ".." && prevPageIsParentDir;
+          let analysis =
+            analyses && analyses[path] && Object.values(analyses[path]);
           if (analysis && analysis[0]) {
-            analysis = analysis[0]
+            analysis = analysis[0];
           }
 
-          if (item.type === 'directory') {
+          if (item.type === "directory") {
             return (
               <div key={name} className="BrowseList-row">
                 <div className="BrowseList-colName">
-                  <DirectoryLink dim={!analysis} to={'/browse/' + path} search={search} isBackLink={isBackLink} history={history}>{name}</DirectoryLink>
+                  <DirectoryLink
+                    dim={!analysis}
+                    to={"/browse/" + path}
+                    search={search}
+                    isBackLink={isBackLink}
+                    history={history}
+                  >
+                    {name}
+                  </DirectoryLink>
                 </div>
-                {analysis && <div>
-                  {Object.entries(analysis).map(([index, value]) => {
-                    const realIndex = parseInt(index, 10) + 1
-                    return <DirectoryLink key={realIndex} dim={analysis} to={'/browse/' + path} search={`?subtune=${realIndex}`}>[{value.romanNumerals || realIndex}]</DirectoryLink>
-                  })}
-                </div>}
+                {analysis && (
+                  <div>
+                    {Object.entries(analysis).map(([index, value]) => {
+                      const realIndex = parseInt(index, 10) + 1;
+                      return (
+                        <DirectoryLink
+                          key={realIndex}
+                          dim={analysis}
+                          to={"/browse/" + path}
+                          search={`?subtune=${realIndex}`}
+                        >
+                          <snap style={{ fontFamily: "Helvetica, sans-serif", fontSize: "12pt", color: "white", paddingLeft: "12pt" }}>{value.romanNumerals || `[${realIndex}]`}</snap>
+                        </DirectoryLink>
+                      );
+                    })}
+                  </div>
+                )}
                 {/* className="BrowseList-colDir" */}
                 {/* <div className="BrowseList-colCount" title={`Contains ${item.numChildren} direct child items`}>
                   {item.numChildren}
@@ -104,25 +140,36 @@ function BrowseList({ virtual, ...props }) {
           } else {
             const href = CATALOG_PREFIX + path;
             return (
-              <div key={name} className={isPlaying ? 'Song-now-playing BrowseList-row' : 'BrowseList-row'}>
+              <div
+                key={name}
+                className={
+                  isPlaying
+                    ? "Song-now-playing BrowseList-row"
+                    : "BrowseList-row"
+                }
+              >
                 <div className="BrowseList-colName">
                   {/* {favorites &&
                       <FavoriteButton isFavorite={favorites.includes(href)}
                                       href={href}
                                       toggleFavorite={toggleFavorite}/>} */}
-                  <a onClick={(e) => handleSongClick(href, playContext, item.idx)(e)}
-                    href={href}>
+                  <a
+                    onClick={(e) =>
+                      handleSongClick(href, playContext, item.idx)(e)
+                    }
+                    href={href}
+                  >
                     {name}
                   </a>
                 </div>
                 <div className="BrowseList-colSize">
-                  {bytes(item.size, { unitSeparator: ' ' })}
+                  {bytes(item.size, { unitSeparator: " " })}
                 </div>
               </div>
             );
           }
         })}
       </div>
-    </div >
+    </div>
   );
-};
+}

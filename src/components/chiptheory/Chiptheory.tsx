@@ -12,7 +12,7 @@ import {
   advanceAnalysis,
   romanNumeralToChromaticDegree,
 } from "./Analysis";
-import { MeasuresAndBeats, calculateMeasuresAndBeats } from "./helpers";
+import { MeasuresAndBeats, calculateMeasuresAndBeats } from "./measures";
 import {
   NES_APU_NOTE_ESTIMATIONS,
   PAUSE,
@@ -66,12 +66,14 @@ function findNoteWithClosestPeriod(
   return closestNote!;
 }
 
+export type Span = [number, number];
+
 export type Note = {
   note: {
     midiNumber: number;
     name: string;
   };
-  span: [number, number];
+  span: Span;
   chipState: any;
 };
 
@@ -314,17 +316,6 @@ const Chiptheory = ({
     selectedDownbeatRef.current = selectedDownbeat;
   }, [selectedDownbeat]);
 
-  const handleNoteClick = (note) => {
-    advanceAnalysis(
-      note,
-      selectedDownbeatRef.current,
-      setSelectedDownbeat,
-      analysisRef.current,
-      saveAnalysis,
-      setAnalysis,
-    );
-  };
-
   const notes = useMemo(() => {
     return {
       p1: calculateNotesFromPeriods(chipStateDump.p1, "pulse"),
@@ -378,6 +369,20 @@ const Chiptheory = ({
       divHeight - (midiNumber - minMidiNumber + 4) * noteHeight,
     [noteHeight],
   );
+
+  const handleNoteClick = (note) => {
+    advanceAnalysis(
+      note,
+      selectedDownbeatRef.current,
+      setSelectedDownbeat,
+      analysisRef.current,
+      saveAnalysis,
+      setAnalysis,
+      null,
+      allNotes,
+      measuresAndBeats.measures,
+    );
+  };
 
   const noteRectangles = useMemo(() => {
     return [

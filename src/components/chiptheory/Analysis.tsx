@@ -2,7 +2,8 @@ import * as React from "react";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Note, secondsToX } from "./Chiptheory";
-import { MeasuresAndBeats } from "./helpers";
+import { MeasuresAndBeats } from "./measures";
+import { updateRomanNumerals } from "./romanNumerals";
 
 export const RESOLUTION_DUMPS_PER_SECOND = 100;
 export const RESOLUTION_MS = 1 / RESOLUTION_DUMPS_PER_SECOND;
@@ -56,7 +57,6 @@ type PitchClassToScaleDegree = [
   ScaleDegree,
 ]; // 12
 
-// const MODES = [null, 'phrygian', null, 'minor', 'major', 'minor pentatonic', 'blues', null, null, 'dorian', 'mixolydian', null] as const
 const MODES = [
   null,
   "phrygian",
@@ -75,7 +75,7 @@ export type Mode = (typeof MODES)[number];
 
 export const romanNumeralToChromaticDegree = (romanNumeral: string): number => {
   if (typeof romanNumeral !== "string" || romanNumeral.length === 0) return -1;
-  if (romanNumeral[romanNumeral.length - 1].match(/\d/)) {
+  if (romanNumeral[romanNumeral.length - 1].match(/\d|o|ø/)) {
     romanNumeral = romanNumeral.slice(0, -1);
   }
   return {
@@ -183,6 +183,8 @@ export const advanceAnalysis = (
   saveAnalysis,
   setAnalysis,
   time: number = null,
+  notes: Note[],
+  measures: number[] = [],
 ) => {
   let update: Partial<Analysis> = {};
 
@@ -209,6 +211,13 @@ export const advanceAnalysis = (
     } else if (step === "tonic") {
       update.tonic = (note.note.midiNumber % 12) as PitchClass;
       update.step = "end";
+    } else if (step === "end") {
+      update.romanNumerals = updateRomanNumerals(
+        analysis,
+        note,
+        notes,
+        measures,
+      );
     }
     // } else if (step === "mode") {
     //   update.mode = MODES[(note.note.midiNumber - analysis.tonic) % 12];

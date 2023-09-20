@@ -19,6 +19,7 @@ import {
 import {
   TWELVE_TONE_COLORS,
   romanNumeralToChromaticDegree,
+  romanNumeralsToArray,
 } from "./romanNumerals";
 
 type OscType = "pulse" | "triangle" | "noise";
@@ -157,7 +158,8 @@ const getChordNote = (
   const measureIndex = measures.findIndex((time) => time >= noteMiddle);
   if (measureIndex === -1) return "";
 
-  const romanNumeral = romanNumerals?.split(" ")?.[measureIndex - 1];
+  const romanNumeral = romanNumeralsToArray(romanNumerals)[measureIndex - 1];
+  if (!romanNumeral) return "";
   const rootChromaticScaleDegree = romanNumeralToChromaticDegree(romanNumeral);
   if (rootChromaticScaleDegree === -1) return "";
 
@@ -180,50 +182,32 @@ const getNoteRectangles = (
     const top = midiNumberToY(note.note.midiNumber);
     const left = secondsToX(note.span[0]);
     const color = getNoteColor(voice, note.note.midiNumber, analysis);
-    const chordNote = getChordNote(
-      note,
-      analysis.tonic,
-      measures,
-      analysis.romanNumerals,
-    );
-    const noteName = (
+    const chordNote =
+      voice !== "under cursor"
+        ? getChordNote(note, analysis.tonic, measures, analysis.romanNumerals)
+        : null;
+    const noteElement = chordNote ? (
       <span
         className="noteText"
         style={{
-          // position: "relative",
-          // top: "0px",
-          // left: "1px",
           fontSize: `${Math.min(noteHeight + 2, 14)}px`,
           lineHeight: `${Math.min(noteHeight, 14)}px`,
           fontFamily: "Helvetica, sans-serif",
           fontWeight: 700,
-          // color: "#fefefe",
           color:
             ["brown", "blue", "#9400D3", "#787276"].indexOf(color) !== -1
               ? "white"
               : "black",
           opacity: 1,
-          // backgroundColor: "black",
-          // padding: "5px",
-          // borderRadius: "100%",
-
-          // textShadow: "0px 0px 3px rgba(0, 0, 0, 1)",
-
-          // backgroundColor: "rgba(0, 0, 0, 0.5)",
-          // padding: "0px 10px",
-
-          // background: "rgba(0, 0, 0, 0.5)",
         }}
       >
-        {/* {note.note.name.slice(0, -1)} */}
         {chordNote}
       </span>
-    );
+    ) : null;
 
     return (
       <div
         className={"noteRectangleTonal"}
-        // className={analysis.mode && "noteRectangleTonal"}
         style={{
           position: "absolute",
           height: `${noteHeight}px`,
@@ -232,11 +216,8 @@ const getNoteRectangles = (
           top,
           left,
           pointerEvents: voice === "under cursor" ? "none" : "auto",
-          // borderTopLeftRadius: voice === "pulse1" ? "100%" : 0,
           boxShadow: voice === "triangle" ? `${color} 0px 0px 10px 0px` : "",
-          // borderTop: voice === "pulse1" ? "1px dotted white" : "",
           borderRadius: voice === "pulse1" ? "10px" : "",
-          // borderBottomLeftRadius: voice === "triangle" ? "100%" : 0,
           cursor: "pointer",
           zIndex: 10,
           opacity: isActiveVoice ? 0.9 : 0.1,
@@ -255,7 +236,7 @@ const getNoteRectangles = (
           handleNoteClick(note);
         }}
       >
-        {voice !== "under cursor" && chordNote && noteName}
+        {noteElement}
       </div>
     );
   });

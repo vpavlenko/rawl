@@ -87,9 +87,7 @@ export const updateRomanNumerals = (
     minorThirdWeight > majorThirdWeight ? MINOR_CHORDS : MAJOR_CHORDS
   )[noteDegree];
 
-  const rnArray = (analysis.romanNumerals || "")
-    .split(" ")
-    .filter((s) => s !== "");
+  const rnArray = romanNumeralsToArray(analysis.romanNumerals);
   if (rnArray.length > measureIndex) {
     rnArray[measureIndex] = newRomanNumeral;
   } else {
@@ -118,7 +116,11 @@ const SIMPLE_RN_TO_CHROMATIC_DEGREE = {
   vi: 9,
   vii: 11,
   "-": 12,
+  bvi: 8,
 };
+
+export const romanNumeralsToArray = (romanNumerals: string): string[] =>
+  (romanNumerals || "").split(" ").filter((s) => s !== "");
 
 export const romanNumeralToChromaticDegree = (romanNumeral: string): number => {
   if (typeof romanNumeral !== "string" || romanNumeral.length === 0) return 12;
@@ -186,26 +188,23 @@ export const RomanNumerals: React.FC<{ romanNumerals: string }> = ({
         flexDirection: "row",
       }}
     >
-      {romanNumerals
-        .split(" ")
-        .filter((s) => s !== "")
-        .map((s) => (
-          <div
-            style={{
-              width: "15px",
-              height: "18px",
-              display: "grid",
-              placeItems: "center",
-              backgroundColor:
-                TWELVE_TONE_COLORS[romanNumeralToChromaticDegree(s)],
-            }}
-          >
-            <RomanNumeral
-              romanNumeral={s}
-              styleProps={{ fontFamily: "sans-serif", fontSize: "14px" }}
-            />
-          </div>
-        ))}
+      {romanNumeralsToArray(romanNumerals).map((s) => (
+        <div
+          style={{
+            width: "15px",
+            height: "18px",
+            display: "grid",
+            placeItems: "center",
+            backgroundColor:
+              TWELVE_TONE_COLORS[romanNumeralToChromaticDegree(s)],
+          }}
+        >
+          <RomanNumeral
+            romanNumeral={s}
+            styleProps={{ fontFamily: "sans-serif", fontSize: "14px" }}
+          />
+        </div>
+      ))}
     </div>
   </div>
 );

@@ -6,7 +6,6 @@ import {
   AnalysisBox,
   AnalysisGrid,
   Cursor,
-  PitchClass,
   RESOLUTION_MS,
   advanceAnalysis,
 } from "./Analysis";
@@ -16,11 +15,7 @@ import {
   PAUSE,
   nesApuNoteEstimation,
 } from "./nesApuNoteEstimations";
-import {
-  TWELVE_TONE_COLORS,
-  romanNumeralToChromaticDegree,
-  romanNumeralsToArray,
-} from "./romanNumerals";
+import { TWELVE_TONE_COLORS, getChordNote } from "./romanNumerals";
 
 type OscType = "pulse" | "triangle" | "noise";
 export type Voice = "pulse1" | "pulse2" | "triangle" | "noise" | "under cursor";
@@ -144,28 +139,6 @@ const getNoteColor = (voice: Voice, midiNumber, analysis): string => {
   }
 
   return TWELVE_TONE_COLORS[(midiNumber - analysis.tonic) % 12];
-};
-
-const getChordNote = (
-  note: Note,
-  tonic: PitchClass | null,
-  measures: number[] | null,
-  romanNumerals?: string,
-): string => {
-  if (note.span[1] - note.span[0] < 0.1) return "";
-  const noteMiddle = (note.span[0] + note.span[1]) / 2;
-  if (!measures) return "";
-  const measureIndex = measures.findIndex((time) => time >= noteMiddle);
-  if (measureIndex === -1) return "";
-
-  const romanNumeral = romanNumeralsToArray(romanNumerals)[measureIndex - 1];
-  if (!romanNumeral) return "";
-  const rootChromaticScaleDegree = romanNumeralToChromaticDegree(romanNumeral);
-  if (rootChromaticScaleDegree === -1) return "";
-
-  return ["r", "♭", "2", "m", "3", "4", "T", "5", "↓", "6", "7", "△"][
-    (((note.note.midiNumber - tonic) % 12) + 12 - rootChromaticScaleDegree) % 12
-  ];
 };
 
 const getNoteRectangles = (

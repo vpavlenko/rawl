@@ -243,3 +243,36 @@ export const MeasureOfRomanNumerals: React.FC<{ dashedRN: string }> = ({
     </div>
   );
 };
+
+export const getChordNote = (
+  note: Note,
+  tonic: PitchClass | null,
+  measures: number[] | null,
+  romanNumerals?: string,
+): string => {
+  if (note.span[1] - note.span[0] < 0.1) return "";
+  const noteMiddle = (note.span[0] + note.span[1]) / 2;
+  if (!measures) return "";
+  const measureIndex = measures.findIndex((time) => time >= noteMiddle);
+  if (measureIndex === -1 || measureIndex === 0) return ""; // anacrusis can't have RN
+
+  const dashedRnArray = dashedRnToArray(
+    romanNumeralsToArray(romanNumerals)[measureIndex - 1],
+  );
+  const l = measures[measureIndex - 1];
+  const r = measures[measureIndex];
+  const n = dashedRnArray.length;
+  let i = 0;
+  while (i < n && noteMiddle > l + ((r - l) * (i + 1)) / n) {
+    i++;
+  }
+  const romanNumeral = dashedRnArray[i];
+
+  if (!romanNumeral) return "";
+  const rootChromaticScaleDegree = romanNumeralToChromaticDegree(romanNumeral);
+  if (rootChromaticScaleDegree === -1) return "";
+
+  return ["r", "♭", "2", "m", "3", "4", "T", "5", "↓", "6", "7", "△"][
+    (((note.note.midiNumber - tonic) % 12) + 12 - rootChromaticScaleDegree) % 12
+  ];
+};

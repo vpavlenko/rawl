@@ -80,6 +80,7 @@ export const romanNumeralToChromaticDegree = (romanNumeral: string): number => {
   }
   return {
     I: 0,
+    bII: 1,
     II: 2,
     III: 3, // obviously will fail in minor mode
     IV: 5,
@@ -255,7 +256,7 @@ const Measure: React.FC<{
   romanNumeral,
 }) => {
   const left = secondsToX(span[0]) - 1;
-  const width = secondsToX(span[1]) - left;
+  const width = secondsToX(span[1]) - left - 1;
   const color =
     TWELVE_TONE_COLORS[romanNumeralToChromaticDegree(romanNumeral)] ??
     "transparent";
@@ -303,6 +304,7 @@ const Measure: React.FC<{
               : "white",
           fontSize: "25px",
           zIndex: 5,
+          borderLeft: "1px solid black",
         }}
       >
         {romanNumeral}

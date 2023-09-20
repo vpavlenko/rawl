@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { Note, secondsToX } from "./Chiptheory";
 import { MeasuresAndBeats } from "./measures";
 import {
+  RomanNumeral,
+  TWELVE_TONE_COLORS,
   romanNumeralToChromaticDegree,
   updateRomanNumerals,
 } from "./romanNumerals";
@@ -85,21 +87,6 @@ export type Mode = (typeof MODES)[number];
 //   "#9400D3",
 //   "#FF1493",
 // ];
-
-export const TWELVE_TONE_COLORS = [
-  "red",
-  "brown", // CC5500
-  "#FF8C00",
-  "#dd0", // "#C1C100",
-  "green",
-  "#0EFFD0",
-  "#787276",
-  "blue",
-  "#9F9FFF",
-  "#9400D3",
-  "#FF1493",
-  "#ffaacc",
-];
 
 // if we have a note, it's color is mapped into degree, then mapped into colors
 
@@ -288,16 +275,12 @@ const Measure: React.FC<{
           backgroundColor: color,
           display: "grid",
           placeItems: "center",
-          color:
-            ["#dd0", "#9F9FFF", "#0EFFD0"].indexOf(color) !== -1
-              ? "black"
-              : "white",
           fontSize: "25px",
           zIndex: 5,
           borderLeft: "1px solid black",
         }}
       >
-        {romanNumeral}
+        <RomanNumeral romanNumeral={romanNumeral} />
       </div>
     </>
   );

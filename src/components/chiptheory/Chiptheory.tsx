@@ -8,7 +8,6 @@ import {
   Cursor,
   PitchClass,
   RESOLUTION_MS,
-  TWELVE_TONE_COLORS,
   advanceAnalysis,
 } from "./Analysis";
 import { MeasuresAndBeats, calculateMeasuresAndBeats } from "./measures";
@@ -17,7 +16,10 @@ import {
   PAUSE,
   nesApuNoteEstimation,
 } from "./nesApuNoteEstimations";
-import { romanNumeralToChromaticDegree } from "./romanNumerals";
+import {
+  TWELVE_TONE_COLORS,
+  romanNumeralToChromaticDegree,
+} from "./romanNumerals";
 
 type OscType = "pulse" | "triangle" | "noise";
 export type Voice = "pulse1" | "pulse2" | "triangle" | "noise" | "under cursor";

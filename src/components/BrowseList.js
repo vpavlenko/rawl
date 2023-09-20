@@ -5,6 +5,7 @@ import React, { memo, useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { CATALOG_PREFIX } from "../config";
 import DirectoryLink from "./DirectoryLink";
+import { RomanNumerals } from "./chiptheory/romanNumerals";
 
 export default memo(BrowseList);
 function BrowseList({ virtual, ...props }) {
@@ -122,7 +123,20 @@ function BrowseList({ virtual, ...props }) {
                           to={"/browse/" + path}
                           search={`?subtune=${realIndex}`}
                         >
-                          <snap style={{ fontFamily: "Helvetica, sans-serif", fontSize: "12pt", color: "white", paddingLeft: "12pt" }}>{value.romanNumerals || `[${realIndex}]`}</snap>
+                          <snap
+                            style={{
+                              fontFamily: "Helvetica, sans-serif",
+                              fontSize: "12pt",
+                              color: "white",
+                              paddingLeft: "12pt",
+                            }}
+                          >
+                            {value.romanNumerals ? (
+                              <RomanNumerals romanNumerals={value.romanNumerals} />
+                            ) : (
+                              `[${realIndex}]`
+                            )}
+                          </snap>
                         </DirectoryLink>
                       );
                     })}

@@ -186,15 +186,18 @@ const getNoteRectangles = (
       <span
         className="noteText"
         style={{
-          position: "relative",
-          top: "0px",
+          // position: "relative",
+          // top: "0px",
           // left: "1px",
           fontSize: `${Math.min(noteHeight + 2, 14)}px`,
-          lineHeight: `${Math.min(noteHeight + 2, 14)}px`,
+          lineHeight: `${Math.min(noteHeight, 14)}px`,
           fontFamily: "Helvetica, sans-serif",
           fontWeight: 700,
           // color: "#fefefe",
-          color: ["blue", "red"].indexOf(color) !== -1 ? "white" : "black",
+          color:
+            ["blue", "red", "#9400D3"].indexOf(color) !== -1
+              ? "white"
+              : "black",
           // backgroundColor: "black",
           // padding: "5px",
           // borderRadius: "100%",

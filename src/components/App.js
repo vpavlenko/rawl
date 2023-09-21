@@ -221,7 +221,7 @@ class App extends React.Component {
       players.forEach(player => player.handleFileSystemReady());
     });
 
-    this.sequencer = new Sequencer(players, this.props.location, this.props.history);
+    this.sequencer = new Sequencer(players, this.props.history);
     this.sequencer.on('sequencerStateUpdate', this.handleSequencerStateUpdate);
     this.sequencer.on('playerError', this.handlePlayerError);
 

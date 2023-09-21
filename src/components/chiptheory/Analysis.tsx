@@ -31,11 +31,9 @@ const STEP_FONT_COLOR: {
 };
 
 export const STEP_CALL_TO_ACTION: Record<Step, string> = {
-  "first measure":
-    "Beat tracking 1. Click on a note at the start of the first measure of the main section. You may skip the intro",
-  "second measure":
-    "Beat tracking 2. Click on a note at the start of the second measure of the main section",
-  tonic: "Click on a tonic of the main section",
+  "first measure": "Click on a note at the start of the first measure",
+  "second measure": "Click on a note at the start of the second measure",
+  tonic: "Click on a main tonic",
   end: "Click on root notes to enter chords. Alt+click for half duration",
 };
 
@@ -51,8 +49,6 @@ export type Analysis = {
   beatsPerMeasure: number;
   loop: number | null;
   tonic: PitchClass | null;
-  // how to account for modulations?
-  // modulation is new tonic + new measure
   modulations: { [key: number]: PitchClass };
   basedOn: string;
   romanNumerals: string;

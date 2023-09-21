@@ -17,7 +17,7 @@ export const NUM_SHUFFLE_MODES = 2;
 export const SHUFFLE_LABELS = ['Off', 'On'];
 
 export default class Sequencer extends EventEmitter {
-  constructor(players, location, history) {
+  constructor(players, history) {
     super();
     autoBindReact(this);
 
@@ -33,7 +33,6 @@ export default class Sequencer extends EventEmitter {
     this.shuffleOrder = [];
     this.songRequest = null;
     this.repeat = REPEAT_OFF;
-    this.location = location;
     this.history = history;
 
     this.players.forEach(player => {
@@ -149,7 +148,7 @@ export default class Sequencer extends EventEmitter {
   }
 
   playSubtune(subtune) {
-    const currentPathname = window.location.pathname;
+    const currentPathname = window.location.pathname.replace('/chiptheory', '/');
     const searchParams = new URLSearchParams(window.location.search);
     searchParams.set('subtune', subtune + 1);
 

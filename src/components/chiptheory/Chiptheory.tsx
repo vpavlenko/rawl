@@ -325,6 +325,7 @@ const Chiptheory = ({
     };
     updateHeight();
     window.addEventListener("resize", updateHeight);
+    new ResizeObserver(() => updateHeight()).observe(divRef.current);
     return () => {
       window.removeEventListener("resize", updateHeight);
     };

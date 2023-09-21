@@ -215,7 +215,6 @@ export const RomanNumeral: React.FC<{
 export const RomanNumerals: React.FC<{ romanNumerals: string }> = ({
   romanNumerals,
 }) => {
-  console.log(romanNumerals, romanNumerals.replace("-", " "));
   return (
     <div style={{ display: "inline-block" }}>
       <div
@@ -268,25 +267,54 @@ export const MeasureOfRomanNumerals: React.FC<{ dashedRN: string }> = ({
   );
 };
 
+export const getTonic = (measure: number, analysis: Analysis): PitchClass => {
+  debugger;
+  const modulations = [
+    [-1, analysis.tonic],
+    ...Object.entries(analysis.modulations || []),
+  ].sort((a, b) => (a[0] as number) - (b[1] as number));
+  let i = 0;
+  while (
+    i + 1 < modulations.length &&
+    (modulations[i + 1][0] as number) <= measure
+  ) {
+    i++;
+  }
+  return modulations[i][1] as PitchClass;
+};
+
+export const getNoteMeasure = (
+  note: Note,
+  measures: number[] | null,
+): number => {
+  if (!measures) {
+    return -1;
+  }
+  const noteMiddle = (note.span[0] + note.span[1]) / 2;
+  return measures.findIndex((time) => time >= noteMiddle);
+};
+
 export const getChordNote = (
   note: Note,
-  tonic: PitchClass | null,
+  analysis: Analysis,
   measures: number[] | null,
   romanNumerals?: string,
 ): string => {
   if (note.span[1] - note.span[0] < 0.1) return "";
-  const noteMiddle = (note.span[0] + note.span[1]) / 2;
   if (!measures) return "";
-  const measureIndex = measures.findIndex((time) => time >= noteMiddle);
-  if (measureIndex === -1 || measureIndex === 0) return ""; // anacrusis can't have RN
+
+  const measure = getNoteMeasure(note, measures);
+  if (measure === -1 || measure === 0) return ""; // anacrusis can't have RN
 
   const dashedRnArray = dashedRnToArray(
-    romanNumeralsToArray(romanNumerals)[measureIndex - 1],
+    romanNumeralsToArray(romanNumerals)[measure - 1],
   );
-  const l = measures[measureIndex - 1];
-  const r = measures[measureIndex];
+  const l = measures[measure - 1];
+  const r = measures[measure];
   const n = dashedRnArray.length;
   let i = 0;
+  const noteMiddle = (note.span[0] + note.span[1]) / 2;
+
   while (i < n && noteMiddle > l + ((r - l) * (i + 1)) / n) {
     i++;
   }
@@ -297,6 +325,9 @@ export const getChordNote = (
   if (rootChromaticScaleDegree === -1) return "";
 
   return ["r", "♭", "2", "m", "3", "4", "T", "5", "↓", "6", "7", "△"][
-    (((note.note.midiNumber - tonic) % 12) + 12 - rootChromaticScaleDegree) % 12
+    (((note.note.midiNumber - getTonic(measure, analysis)) % 12) +
+      12 -
+      rootChromaticScaleDegree) %
+      12
   ];
 };

@@ -15,7 +15,12 @@ import {
   PAUSE,
   nesApuNoteEstimation,
 } from "./nesApuNoteEstimations";
-import { TWELVE_TONE_COLORS, getChordNote } from "./romanNumerals";
+import {
+  TWELVE_TONE_COLORS,
+  getChordNote,
+  getNoteMeasure,
+  getTonic,
+} from "./romanNumerals";
 
 type OscType = "pulse" | "triangle" | "noise";
 export type Voice = "pulse1" | "pulse2" | "triangle" | "noise" | "under cursor";
@@ -129,7 +134,12 @@ const VOICE_TO_COLOR: { [key in Voice]: string } = {
   "under cursor": "under cursor",
 };
 
-const getNoteColor = (voice: Voice, midiNumber, analysis): string => {
+const getNoteColor = (
+  voice: Voice,
+  note: Note,
+  analysis,
+  measures: number[],
+): string => {
   if (voice === "noise") {
     return "black";
   }
@@ -138,7 +148,11 @@ const getNoteColor = (voice: Voice, midiNumber, analysis): string => {
     return VOICE_TO_COLOR[voice];
   }
 
-  return TWELVE_TONE_COLORS[(midiNumber - analysis.tonic) % 12];
+  return TWELVE_TONE_COLORS[
+    (note.note.midiNumber -
+      getTonic(getNoteMeasure(note, measures), analysis)) %
+      12
+  ];
 };
 
 const getNoteRectangles = (
@@ -154,10 +168,10 @@ const getNoteRectangles = (
   return notes.map((note) => {
     const top = midiNumberToY(note.note.midiNumber);
     const left = secondsToX(note.span[0]);
-    const color = getNoteColor(voice, note.note.midiNumber, analysis);
+    const color = getNoteColor(voice, note, analysis, measures);
     const chordNote =
       voice !== "under cursor"
-        ? getChordNote(note, analysis.tonic, measures, analysis.romanNumerals)
+        ? getChordNote(note, analysis, measures, analysis.romanNumerals)
         : null;
     const noteElement = chordNote ? (
       <span

@@ -268,18 +268,18 @@ export const MeasureOfRomanNumerals: React.FC<{ dashedRN: string }> = ({
 };
 
 export const getTonic = (measure: number, analysis: Analysis): PitchClass => {
-  debugger;
   const modulations = [
     [-1, analysis.tonic],
-    ...Object.entries(analysis.modulations || []),
-  ].sort((a, b) => (a[0] as number) - (b[1] as number));
+    ...Object.entries(analysis.modulations || []).map((entry) => [
+      parseInt(entry[0], 10),
+      entry[1],
+    ]),
+  ].sort((a, b) => a[0] - b[0]);
   let i = 0;
-  while (
-    i + 1 < modulations.length &&
-    (modulations[i + 1][0] as number) <= measure
-  ) {
+  while (i + 1 < modulations.length && modulations[i + 1][0] <= measure) {
     i++;
   }
+  console.log(modulations, measure, i);
   return modulations[i][1] as PitchClass;
 };
 

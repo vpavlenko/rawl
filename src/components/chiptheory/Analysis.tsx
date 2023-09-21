@@ -5,6 +5,7 @@ import { Note, secondsToX } from "./Chiptheory";
 import { MeasuresAndBeats } from "./measures";
 import {
   MeasureOfRomanNumerals,
+  getModulations,
   romanNumeralsToArray,
   updateRomanNumerals,
 } from "./romanNumerals";
@@ -13,9 +14,9 @@ export const RESOLUTION_DUMPS_PER_SECOND = 100;
 export const RESOLUTION_MS = 1 / RESOLUTION_DUMPS_PER_SECOND;
 
 export const STEPS = [
+  "tonic",
   "first measure",
   "second measure",
-  "tonic",
   "end",
 ] as const;
 
@@ -226,30 +227,62 @@ const Beat = ({ second }) => (
   />
 );
 
-const TonalGrid = ({ tonic, width, midiNumberToY, noteHeight }) => {
-  if (tonic === null) {
-    return [];
-  }
-  const result = [];
-  for (let octave = 2; octave <= 7; ++octave) {
-    const midiNumber = tonic + octave * 12;
-    result.push(
-      <div
-        key={midiNumber}
-        style={{
-          position: "absolute",
-          width: `${width}px`,
-          height: noteHeight,
-          left: 0,
-          top: midiNumberToY(midiNumber),
-          backgroundColor: "#222",
-          zIndex: 1,
-        }}
-      />,
-    );
-  }
-  return result;
-};
+const TonalGrid: React.FC<{
+  analysis: Analysis;
+  measures: number[];
+  midiNumberToY: (number) => number;
+  secondsToX: (number) => number;
+  noteHeight: number;
+}> = React.memo(
+  ({ analysis, measures, midiNumberToY, secondsToX, noteHeight }) => {
+    const modulations = getModulations(analysis);
+    if (!modulations || !measures) return;
+    modulations.push({ measure: measures.length, tonic: modulations[0].tonic });
+
+    const result = [];
+    for (let i = 0; i + 1 < modulations.length; ++i) {
+      const from = measures[Math.max(modulations[i].measure - 1, 0)];
+      const to =
+        measures[Math.min(modulations[i + 1].measure - 1, measures.length - 1)];
+      const { tonic } = modulations[i];
+      const width = secondsToX(to - from);
+      if (!width) return;
+      for (let octave = 2; octave <= 7; ++octave) {
+        const midiNumber = tonic + octave * 12;
+        result.push(
+          <>
+            {/* <div
+              key={`tonic_${midiNumber}`}
+              style={{
+                position: "absolute",
+                width,
+                height: noteHeight,
+                left: secondsToX(from),
+                top: midiNumberToY(midiNumber),
+                backgroundColor: "#222",
+                zIndex: 1,
+              }}
+            /> */}
+            <div
+              key={`gradient_${midiNumber}`}
+              style={{
+                position: "absolute",
+                width,
+                height: 12 * noteHeight,
+                left: secondsToX(from),
+                top: midiNumberToY(midiNumber - 1),
+                pointerEvents: "none",
+                background: `linear-gradient(to top, #222, transparent)`,
+                zIndex: 1,
+              }}
+            />
+          </>,
+        );
+      }
+    }
+    return result;
+  },
+);
 
 export const AnalysisGrid: React.FC<{
   analysis: Analysis;
@@ -270,10 +303,10 @@ export const AnalysisGrid: React.FC<{
     selectDownbeat,
   }) => {
     const { measures, beats } = measuresAndBeats;
-    const maxRigthSpan = allNotes.reduce(
-      (maxValue, note) => Math.max(maxValue, note.span[1]),
-      -Infinity,
-    );
+    // const maxRigthSpan = allNotes.reduce(
+    //   (maxValue, note) => Math.max(maxValue, note.span[1]),
+    //   -Infinity,
+    // );
     let loopLeft = null;
 
     if (analysis.loop) {
@@ -305,8 +338,9 @@ export const AnalysisGrid: React.FC<{
         ))}
         {
           <TonalGrid
-            tonic={analysis.tonic}
-            width={secondsToX(maxRigthSpan) + 100}
+            analysis={analysis}
+            measures={measures}
+            secondsToX={secondsToX}
             midiNumberToY={midiNumberToY}
             noteHeight={noteHeight}
           />

@@ -79,7 +79,8 @@ export const updateRomanNumerals = (
       : [measureMiddle, measureSpan[1]]
     : measureSpan;
 
-  const noteDegree = (note.note.midiNumber - analysis.tonic) % 12;
+  const tonic = getTonic(measureIndex, analysis);
+  const noteDegree = (note.note.midiNumber - tonic) % 12;
   const minorThirdWeight = sumPitchClassTimeInSpan(
     ((note.note.midiNumber + 3) % 12) as PitchClass,
     span,
@@ -271,7 +272,7 @@ export const getModulations = (analysis: Analysis) =>
   [
     { measure: -1, tonic: analysis.tonic },
     ...Object.entries(analysis.modulations || []).map((entry) => ({
-      measure: parseInt(entry[0], 10),
+      measure: parseInt(entry[0], 10) - 1,
       tonic: entry[1],
     })),
   ].sort((a, b) => a.measure - b.measure);

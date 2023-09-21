@@ -76,7 +76,10 @@ class App extends React.Component {
     getDoc(docRef)
       .then(userSnapshot => {
         if (userSnapshot.exists()) {
-          this.setState({ analyses: userSnapshot.data().analyses })
+          // this shouldn't override analyses of the user
+          if (!this.state.analyses || Object.keys(this.state.analyses).length === 0) {
+            this.setState({ analyses: userSnapshot.data().analyses })
+          }
         }
       })
 
@@ -92,6 +95,9 @@ class App extends React.Component {
               setDoc(docRef, {
                 faves: [],
                 settings: {},
+                user: {
+                  email: user.email
+                }
               });
             } else {
               // Restore user

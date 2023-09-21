@@ -241,9 +241,9 @@ const TonalGrid: React.FC<{
 
     const result = [];
     for (let i = 0; i + 1 < modulations.length; ++i) {
-      const from = measures[Math.max(modulations[i].measure - 1, 0)];
+      const from = measures[Math.max(modulations[i].measure, 0)];
       const to =
-        measures[Math.min(modulations[i + 1].measure - 1, measures.length - 1)];
+        measures[Math.min(modulations[i + 1].measure, measures.length - 1)];
       const { tonic } = modulations[i];
       const width = secondsToX(to - from);
       if (!width) continue;

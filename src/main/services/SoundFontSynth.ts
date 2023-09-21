@@ -1,4 +1,4 @@
-import { getSamplesFromSoundFont, SynthEvent } from "@ryohey/wavelet"
+import { SynthEvent, getSampleEventsFromSoundFont } from "@ryohey/wavelet"
 import { makeObservable, observable } from "mobx"
 import { SendableEvent, SynthOutput } from "./SynthOutput"
 
@@ -46,21 +46,13 @@ export class SoundFontSynth implements SynthOutput {
     } as any)
     this.synth.connect(this.context.destination)
 
-    const offlineContext = new OfflineAudioContext(
-      2,
-      1,
-      this.context.sampleRate,
-    )
-    const samples = getSamplesFromSoundFont(
-      new Uint8Array(data),
-      offlineContext,
-    )
+    const sampleEvents = getSampleEventsFromSoundFont(new Uint8Array(data))
     this._loadedSoundFontData = data
 
-    for (const sample of samples) {
+    for (const e of sampleEvents) {
       this.postSynthMessage(
-        sample,
-        [sample.sample.buffer], // transfer instead of copy
+        e.event,
+        e.transfer, // transfer instead of copy
       )
     }
 

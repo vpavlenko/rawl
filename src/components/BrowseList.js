@@ -129,11 +129,11 @@ function BrowseList({ virtual, ...props }) {
                               paddingLeft: "12pt",
                             }}
                           >
-                            {value.romanNumerals ? (
+                            {value.comment || (value.romanNumerals &&
                               <RomanNumerals romanNumerals={value.romanNumerals} />
-                            ) : (value.comment || value.basedOn || (
+                            ) || value.basedOn ||
                               `[${realIndex}]`
-                            ))}
+                            }
                           </snap>
                         </DirectoryLink>
                       );

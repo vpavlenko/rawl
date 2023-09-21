@@ -120,7 +120,7 @@ const isNoteCurrentlyPlayed = (note, positionMs) => {
   return note.span[0] <= positionSeconds && positionSeconds <= note.span[1];
 };
 
-// This is used when tonal context isn't set yet.
+// This is used when tonic isn't set yet.
 const VOICE_TO_COLOR: { [key in Voice]: string } = {
   pulse1: "#26577C",
   pulse2: "#AE445A",

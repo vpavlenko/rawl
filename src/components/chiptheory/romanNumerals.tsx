@@ -147,7 +147,7 @@ export const romanNumeralsToArray = (romanNumerals: string): string[] =>
 
 const dashedRnToArray = (dashedRN: string): string[] => split(dashedRN, "-");
 
-const cleanupRn = (rn: string): string => rn.replace(/[\d|o|ø]+/, "");
+const cleanupRn = (rn: string): string => rn.replace(/\d|o|ø/g, "");
 
 export const romanNumeralToChromaticDegree = (romanNumeral: string): number => {
   if (typeof romanNumeral !== "string" || romanNumeral.length === 0) return 12; // wtf
@@ -214,36 +214,39 @@ export const RomanNumeral: React.FC<{
 
 export const RomanNumerals: React.FC<{ romanNumerals: string }> = ({
   romanNumerals,
-}) => (
-  <div style={{ display: "inline-block" }}>
-    <div
-      style={{
-        display: "flex",
-        height: "18px",
-        flexDirection: "row",
-      }}
-    >
-      {romanNumeralsToArray(romanNumerals).map((s) => (
-        <div
-          style={{
-            width: "15px",
-            height: "18px",
-            display: "grid",
-            placeItems: "center",
-            overflow: "hidden",
-            backgroundColor:
-              TWELVE_TONE_COLORS[romanNumeralToChromaticDegree(s)],
-          }}
-        >
-          <RomanNumeral
-            romanNumeral={s}
-            styleProps={{ fontFamily: "sans-serif", fontSize: "14px" }}
-          />
-        </div>
-      ))}
+}) => {
+  console.log(romanNumerals, romanNumerals.replace("-", " "));
+  return (
+    <div style={{ display: "inline-block" }}>
+      <div
+        style={{
+          display: "flex",
+          height: "18px",
+          flexDirection: "row",
+        }}
+      >
+        {romanNumeralsToArray(romanNumerals.replace(/-/g, " ")).map((s) => (
+          <div
+            style={{
+              width: "15px",
+              height: "18px",
+              display: "grid",
+              placeItems: "center",
+              overflow: "hidden",
+              backgroundColor:
+                TWELVE_TONE_COLORS[romanNumeralToChromaticDegree(s)],
+            }}
+          >
+            <RomanNumeral
+              romanNumeral={s}
+              styleProps={{ fontFamily: "sans-serif", fontSize: "14px" }}
+            />
+          </div>
+        ))}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export const MeasureOfRomanNumerals: React.FC<{ dashedRN: string }> = ({
   dashedRN,

@@ -16,7 +16,6 @@ export const STEPS = [
   "first measure",
   "second measure",
   "tonic",
-  // "mode",
   "end",
 ] as const;
 
@@ -28,7 +27,6 @@ const STEP_FONT_COLOR: {
   "first measure": "#ffaaaa",
   "second measure": "#ffffaa",
   tonic: "#aaffaa",
-  // mode: "#aaffff",
   end: "white",
 };
 
@@ -38,68 +36,10 @@ export const STEP_CALL_TO_ACTION: Record<Step, string> = {
   "second measure":
     "Beat tracking 2. Click on a note at the start of the second measure of the main section",
   tonic: "Click on a tonic of the main section",
-  // mode: "Click on a minor/major third on top of the tonic. It doesn't matter on 12-tone coloring, but matters in 7-tone coloring",
-  // mode: "Step 4. Click on a characteristic note of the main section. Minor: b3, major: 3, phrygian: b2, dorian: #6, mixolydian: b7, blues: #4, pentatonic: 4",
-  end: "Click on root notes to enter chords. Currently only one chord per measure is supported",
+  end: "Click on root notes to enter chords. Alt+click for half duration",
 };
 
 export type PitchClass = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11;
-
-export type ScaleDegree = 1 | 2 | 3 | 4 | 5 | 6 | 7 | null;
-type PitchClassToScaleDegree = [
-  ScaleDegree,
-  ScaleDegree,
-  ScaleDegree,
-  ScaleDegree,
-  ScaleDegree,
-  ScaleDegree,
-  ScaleDegree,
-  ScaleDegree,
-  ScaleDegree,
-  ScaleDegree,
-  ScaleDegree,
-  ScaleDegree,
-]; // 12
-
-const MODES = [
-  null,
-  "phrygian",
-  null,
-  "minor",
-  "major",
-  null,
-  null,
-  null,
-  null,
-  "dorian",
-  "mixolydian",
-  null,
-] as const;
-export type Mode = (typeof MODES)[number];
-
-// const RAINBOW_COLORS = [
-//   "red",
-//   "#cc7700",
-//   "#C1C100",
-//   "green",
-//   "blue",
-//   "#9400D3",
-//   "#FF1493",
-// ];
-
-// if we have a note, it's color is mapped into degree, then mapped into colors
-
-export type PitchClassToScaleDegreeViaMode = {
-  [K in Mode]: K extends string ? PitchClassToScaleDegree : never;
-};
-
-// const MIDI_NOTE_TO_SCALE_DEGREE: PitchClassToScaleDegreeViaMode = {
-//   phrygian: [1, 2, null, 3, null, 4, null, 5, 6, null, 7, null],
-//   minor: [1, null, 2, 3, null, 4, null, 5, 6, null, 7, null],
-//   dorian: [1, null, 2, 3, null, 4, null, 5, null, 6, 7, null],
-//   mixolydian: [1, null, 2, null, 3, 4, null, 5, null, 6, 7, null],
-//   major: [1, null, 2, null, 3, 4, null, 5, null, 6, null, 7],
-// };
 
 export type Analysis = {
   clickResolutionMs: number;
@@ -111,7 +51,9 @@ export type Analysis = {
   beatsPerMeasure: number;
   loop: number | null;
   tonic: PitchClass | null;
-  mode: Mode;
+  // how to account for modulations?
+  // modulation is new tonic + new measure
+  modulations: { [key: number]: PitchClass };
   basedOn: string;
   romanNumerals: string;
   comment: string;
@@ -124,10 +66,10 @@ export const ANALYSIS_STUB: Analysis = {
   secondMeasure: null,
   correctedMeasures: [],
   fourMeasurePhrasingReferences: [],
+  modulations: [],
   beatsPerMeasure: 4,
   loop: null,
   tonic: null,
-  mode: null,
   basedOn: null,
   romanNumerals: "",
   comment: "",
@@ -155,9 +97,18 @@ export const advanceAnalysis = (
   let update: Partial<Analysis> = {};
 
   if (selectedDownbeat !== null) {
-    update.correctedMeasures = { ...(analysis.correctedMeasures || []) };
-    update.correctedMeasures[selectedDownbeat] = note?.span[0] ?? time;
-    selectDownbeat(null);
+    if (altKey) {
+      if (note) {
+        update.modulations = { ...(analysis.modulations || []) };
+        update.modulations[selectedDownbeat] = (note.note.midiNumber %
+          12) as PitchClass;
+        selectDownbeat(null);
+      }
+    } else {
+      update.correctedMeasures = { ...(analysis.correctedMeasures || []) };
+      update.correctedMeasures[selectedDownbeat] = note?.span[0] ?? time;
+      selectDownbeat(null);
+    }
   } else {
     const { step } = analysis;
     if (step !== "end") {
@@ -170,7 +121,6 @@ export const advanceAnalysis = (
       update.secondMeasure = note.span[0];
     } else if (step === "tonic") {
       update.tonic = (note.note.midiNumber % 12) as PitchClass;
-      update.step = "end";
     } else if (step === "end") {
       update.romanNumerals = updateRomanNumerals(
         analysis,
@@ -180,9 +130,6 @@ export const advanceAnalysis = (
         altKey,
       );
     }
-    // } else if (step === "mode") {
-    //   update.mode = MODES[(note.note.midiNumber - analysis.tonic) % 12];
-    // }
   }
 
   const newAnalysis = { ...analysis, ...update };
@@ -229,9 +176,6 @@ const Measure: React.FC<{
 }) => {
   const left = secondsToX(span[0]) - 1;
   const width = secondsToX(span[1]) - left - 1;
-  // const color =
-  //   TWELVE_TONE_COLORS[romanNumeralToChromaticDegree(romanNumeral)] ??
-  //   "transparent";
   return (
     <>
       <Downbeat
@@ -397,13 +341,6 @@ export const AnalysisGrid: React.FC<{
   },
 );
 
-// type AnalysisPart = React.FC<{ analysis: Analysis }>;
-
-// const Key: AnalysisPart = React.memo(({ analysis }) => {
-//   const { tonic, mode } = analysis;
-//   return <>{tonic !== null && <div>midiNumber: {tonic}</div>}</>;
-// });
-
 export const AnalysisBox: React.FC<{
   analysis: Analysis;
   saveAnalysis: (analysis: Analysis) => void;
@@ -460,7 +397,7 @@ export const AnalysisBox: React.FC<{
             value={value}
             style={{
               width,
-              backgroundColor: isSaved ? "#66d" : "#aaa", // #d4edda is a green-tint for success from Bootstrap
+              backgroundColor: isSaved ? "#66d" : "#aaa",
               transition: "background-color 0.1s",
             }}
             onChange={(e) => setValue(e.target.value)}
@@ -549,6 +486,7 @@ export const AnalysisBox: React.FC<{
                     </button>
                   </li>
                   <li>Adjust position: click anywhere</li>
+                  <li>Enter modulation: alt+click on a new tonic</li>
                 </ul>
               </div>
             ) : (

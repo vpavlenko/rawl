@@ -148,7 +148,7 @@ export default class Sequencer extends EventEmitter {
   }
 
   playSubtune(subtune) {
-    const currentPathname = window.location.pathname.replace('/chiptheory', '/');
+    const currentPathname = window.location.pathname.replace('/chiptheory/', '/');
     const searchParams = new URLSearchParams(window.location.search);
     searchParams.set('subtune', subtune + 1);
 

@@ -19,10 +19,15 @@ const TAGS = [
   "scale:pentatonic",
   "scale:chromatic",
   "scale:phrygian",
+  "scale:atonal",
   "scale:natural_minor",
+  "form:12-bar-blues",
   "harmony:stasis",
   "rhythm:syncopation",
   "chip:extensions",
+  "bass:descending-chromatic",
+  "rhythm:interesting",
+  "form:ABA",
 ];
 
 export const STEPS = [

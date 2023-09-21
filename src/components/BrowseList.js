@@ -1,11 +1,23 @@
 import bytes from "bytes";
 import trimEnd from "lodash/trimEnd";
 import queryString from "querystring";
-import React, { memo, useEffect } from "react";
+import * as React from "react";
+import { memo, useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
+import styled from "styled-components";
 import { CATALOG_PREFIX } from "../config";
 import DirectoryLink from "./DirectoryLink";
 import { RomanNumerals } from "./chiptheory/romanNumerals";
+
+const Badge = styled.span`
+  border-radius: 5px;
+  background-color: ${(props) => props.color || "#ccc"};
+  color: black;
+  font-family: Helvetica, sans-serif;
+  font-size: 12pt;
+  padding: 0px 5px;
+  white-space:nowrap;
+`;
 
 export default memo(BrowseList);
 function BrowseList({ virtual, ...props }) {
@@ -129,27 +141,20 @@ function BrowseList({ virtual, ...props }) {
                               paddingLeft: "12pt",
                             }}
                           >
-                            {value.comment ||
+                            {(value.comment && (
+                              <Badge color="#cc4">{value.comment}</Badge>
+                            )) ||
                               (value.tags && value.tags.length > 0 && (
-                                <span
-                                  style={{
-                                    borderRadius: "5px",
-                                    backgroundColor: "#ccc",
-                                    color: "black",
-                                    fontFamily: "Helvetica, sans-serif",
-                                    fontSize: "12pt",
-                                    padding: "0px 5px",
-                                  }}
-                                >
-                                  {value.tags.join(",")}
-                                </span>
+                                <Badge>{value.tags.join(",")}</Badge>
                               )) ||
                               (value.romanNumerals && (
                                 <RomanNumerals
                                   romanNumerals={value.romanNumerals}
                                 />
                               )) ||
-                              value.basedOn ||
+                              (value.basedOn && (
+                                <Badge color="#cfc">{value.basedOn}</Badge>
+                              )) ||
                               `[${realIndex}]`}
                           </snap>
                         </DirectoryLink>

@@ -605,7 +605,10 @@ class App extends React.Component {
     this.seekRelativeInner(seekMs);
   }
 
-  seekRelativeInner(seekMs) {
+  seekRelativeInner(seekMs, firedByChiptheory = false) {
+    if (!firedByChiptheory && this.state.seekCallback) {
+      this.state.seekCallback(seekMs);
+    }
     this.sequencer.getPlayer().seekMs(seekMs);
     this.setState({
       currentSongPositionMs: seekMs, // Smooth
@@ -846,7 +849,8 @@ class App extends React.Component {
                               saveAnalysis={this.saveAnalysis}
                               voiceMask={this.state.voiceMask}
                               analysisEnabled={this.state.analysisEnabled}
-                              seek={this.seekRelativeInner}
+                              seek={time => this.seekRelativeInner(time, true)}
+                              registerSeekCallback={seekCallback => this.setState({ seekCallback })}
                             />
                           </>
                         );

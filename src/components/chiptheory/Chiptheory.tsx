@@ -203,8 +203,9 @@ const getNoteRectangles = (
           top,
           left,
           pointerEvents: voice === "under cursor" ? "none" : "auto",
-          boxShadow: voice === "triangle" ? `${color} 0px 0px 10px 0px` : "",
-          borderRadius: voice === "pulse1" ? "10px" : "",
+          // boxShadow: voice === "triangle" ? `${color} 0px 0px 7px 0px` : "",
+          borderRadius:
+            voice === "pulse1" ? "10px" : voice === "triangle" ? "3px" : "",
           cursor: "pointer",
           zIndex: 10,
           opacity: isActiveVoice ? 0.9 : 0.1,
@@ -264,6 +265,7 @@ const Chiptheory = ({
   voiceMask,
   analysisEnabled,
   seek,
+  registerSeekCallback,
 }) => {
   const [analysis, setAnalysis] = useState<Analysis>(ANALYSIS_STUB);
 
@@ -441,6 +443,12 @@ const Chiptheory = ({
     return () => {
       document.removeEventListener("keydown", handleEscapePress);
     };
+  }, []);
+
+  useEffect(() => {
+    registerSeekCallback(
+      (seekMs) => (divRef.current.scrollLeft = secondsToX(seekMs / 1000) - 100),
+    );
   }, []);
 
   return (

@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
+import Select from "react-select";
 import styled from "styled-components";
 import { Note, secondsToX } from "./Chiptheory";
 import { MeasuresAndBeats } from "./measures";
@@ -54,6 +55,7 @@ export type Analysis = {
   basedOn: string;
   romanNumerals: string;
   comment: string;
+  tags: string[];
 };
 
 export const ANALYSIS_STUB: Analysis = {
@@ -70,6 +72,7 @@ export const ANALYSIS_STUB: Analysis = {
   basedOn: null,
   romanNumerals: "",
   comment: "",
+  tags: [],
 };
 
 // These two don't propagate to Firestore because they tweak transient state.
@@ -349,7 +352,7 @@ export const AnalysisGrid: React.FC<{
           <div
             key="loop"
             style={{
-              boxShadow: "inset 0px 0 10px white",
+              boxShadow: "inset 0px -5px 10px white",
               pointerEvents: "none",
               position: "absolute",
               // backgroundColor: "#222",
@@ -524,6 +527,29 @@ export const AnalysisBox: React.FC<{
               {beatsPerMeasure}
               {romanNumerals}
               {comment}
+              <div key="tags" style={{ marginTop: "10px" }}>
+                Tags:
+                <Select
+                  isMulti
+                  options={[
+                    { label: "scale:blues", value: "scale:blues" },
+                    { label: "scale:pentatonic", value: "scale:pentatonic" },
+                  ]}
+                  value={(analysis.tags || []).map((tag) => ({
+                    value: tag,
+                    label: tag,
+                  }))}
+                  onChange={(tags) => {
+                    const newAnalysis = {
+                      ...analysis,
+                      tags: tags.map((tag) => tag.value),
+                    };
+
+                    saveAnalysis(newAnalysis);
+                    setAnalysis(newAnalysis);
+                  }}
+                />
+              </div>
             </div>
           )}
         </div>

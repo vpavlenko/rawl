@@ -446,6 +446,7 @@ const Chiptheory = ({
   return (
     <div className="App-main-content-and-settings">
       <div
+        key="leftPanel"
         style={{
           width: "100%",
           height: "100%",

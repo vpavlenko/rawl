@@ -246,7 +246,7 @@ const TonalGrid: React.FC<{
         measures[Math.min(modulations[i + 1].measure - 1, measures.length - 1)];
       const { tonic } = modulations[i];
       const width = secondsToX(to - from);
-      if (!width) return;
+      if (!width) continue;
       for (let octave = 2; octave <= 7; ++octave) {
         const midiNumber = tonic + octave * 12;
         result.push(
@@ -448,88 +448,86 @@ export const AnalysisBox: React.FC<{
     const comment = useInputField("", "comment", "Comment");
 
     return (
-      <>
-        <div className="App-main-content-area settings">
-          <div>
-            <div style={{ display: "flex", flexDirection: "row" }}>
-              <div style={{ marginBottom: "10px" }}>
-                <button
-                  className="box-button"
-                  disabled={analysis.step === STEPS[0]}
-                  onClick={() => prevStep(analysis, setAnalysis)}
-                >
-                  &lt;
-                </button>{" "}
-                <button
-                  className="box-button"
-                  disabled={analysis.step === STEPS[STEPS.length - 1]}
-                  onClick={() => nextStep(analysis, setAnalysis)}
-                >
-                  &gt;
-                </button>
-              </div>
+      <div className="App-main-content-area settings" key="AnalysisBox">
+        <div>
+          <div style={{ display: "flex", flexDirection: "row" }}>
+            <div style={{ marginBottom: "10px" }}>
+              <button
+                className="box-button"
+                disabled={analysis.step === STEPS[0]}
+                onClick={() => prevStep(analysis, setAnalysis)}
+              >
+                &lt;
+              </button>{" "}
+              <button
+                className="box-button"
+                disabled={analysis.step === STEPS[STEPS.length - 1]}
+                onClick={() => nextStep(analysis, setAnalysis)}
+              >
+                &gt;
+              </button>
             </div>
-            {"  "}
-            {selectedDownbeat === null && (
-              <div style={{ color: STEP_FONT_COLOR[analysis.step] }}>
-                {STEP_CALL_TO_ACTION[analysis.step]}
-              </div>
-            )}
           </div>
-          <div style={{ marginTop: "20px" }}>
-            {selectedDownbeat !== null ? (
-              <div>
-                <div>What to do with measure {selectedDownbeat}?</div>
-                <ul className="vertical-list-of-buttons">
-                  <li>
-                    <button
-                      className="box-button"
-                      onClick={() => {
-                        const newAnalysis = {
-                          ...analysis,
-                          loop: selectedDownbeat,
-                        };
-
-                        selectDownbeat(null);
-                        saveAnalysis(newAnalysis);
-                        setAnalysis(newAnalysis);
-                      }}
-                    >
-                      Mark loop start
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      className="box-button"
-                      onClick={() => {
-                        const newAnalysis = {
-                          ...analysis,
-                          fourMeasurePhrasingReferences: [selectedDownbeat],
-                        };
-
-                        selectDownbeat(null);
-                        saveAnalysis(newAnalysis);
-                        setAnalysis(newAnalysis);
-                      }}
-                    >
-                      Mark start of 4-measure phrasing
-                    </button>
-                  </li>
-                  <li>Adjust position: click anywhere</li>
-                  <li>Enter modulation: alt+click on a new tonic</li>
-                </ul>
-              </div>
-            ) : (
-              <div>
-                {basedOn}
-                {beatsPerMeasure}
-                {romanNumerals}
-                {comment}
-              </div>
-            )}
-          </div>
+          {"  "}
+          {selectedDownbeat === null && (
+            <div style={{ color: STEP_FONT_COLOR[analysis.step] }}>
+              {STEP_CALL_TO_ACTION[analysis.step]}
+            </div>
+          )}
         </div>
-      </>
+        <div style={{ marginTop: "20px" }}>
+          {selectedDownbeat !== null ? (
+            <div>
+              <div>What to do with measure {selectedDownbeat}?</div>
+              <ul className="vertical-list-of-buttons">
+                <li>
+                  <button
+                    className="box-button"
+                    onClick={() => {
+                      const newAnalysis = {
+                        ...analysis,
+                        loop: selectedDownbeat,
+                      };
+
+                      selectDownbeat(null);
+                      saveAnalysis(newAnalysis);
+                      setAnalysis(newAnalysis);
+                    }}
+                  >
+                    Mark loop start
+                  </button>
+                </li>
+                <li>
+                  <button
+                    className="box-button"
+                    onClick={() => {
+                      const newAnalysis = {
+                        ...analysis,
+                        fourMeasurePhrasingReferences: [selectedDownbeat],
+                      };
+
+                      selectDownbeat(null);
+                      saveAnalysis(newAnalysis);
+                      setAnalysis(newAnalysis);
+                    }}
+                  >
+                    Mark start of 4-measure phrasing
+                  </button>
+                </li>
+                <li>Adjust position: click anywhere</li>
+                <li>Enter modulation: alt+click on a new tonic</li>
+              </ul>
+            </div>
+          ) : (
+            <div>
+              {basedOn}
+              {beatsPerMeasure}
+              {romanNumerals}
+              {comment}
+            </div>
+          )}
+        </div>
+      </div>
     );
   },
 );

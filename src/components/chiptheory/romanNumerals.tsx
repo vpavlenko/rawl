@@ -294,7 +294,7 @@ export const getNoteMeasure = (
     return -1;
   }
   const noteMiddle = (note.span[0] + note.span[1]) / 2;
-  return measures.findIndex((time) => time >= noteMiddle);
+  return measures.findIndex((time) => time >= noteMiddle) - 1;
 };
 
 export const getChordNote = (
@@ -307,13 +307,13 @@ export const getChordNote = (
   if (!measures) return "";
 
   const measure = getNoteMeasure(note, measures);
-  if (measure === -1 || measure === 0) return ""; // anacrusis can't have RN
+  if (measure < 0 || measure + 1 >= measures.length) return ""; // anacrusis can't have RN
 
   const dashedRnArray = dashedRnToArray(
-    romanNumeralsToArray(romanNumerals)[measure - 1],
+    romanNumeralsToArray(romanNumerals)[measure],
   );
-  const l = measures[measure - 1];
-  const r = measures[measure];
+  const l = measures[measure];
+  const r = measures[measure + 1];
   const n = dashedRnArray.length;
   let i = 0;
   const noteMiddle = (note.span[0] + note.span[1]) / 2;

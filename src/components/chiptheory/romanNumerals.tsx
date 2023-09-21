@@ -47,7 +47,7 @@ const MINOR_CHORDS = [
 const MAJOR_CHORDS = [
   "I",
   "bII",
-  "V/V",
+  "II",
   "III",
   "V/vi",
   "IV",
@@ -57,6 +57,20 @@ const MAJOR_CHORDS = [
   "V/ii",
   "VII",
   "#VII",
+];
+const POWER_CHORDS = [
+  "I5",
+  "bII5",
+  "II5",
+  "III5",
+  "#III5",
+  "IV5",
+  "#IV5",
+  "V5",
+  "VI5",
+  "#VI5",
+  "VII5",
+  "#VII5",
 ];
 
 export const updateRomanNumerals = (
@@ -92,7 +106,11 @@ export const updateRomanNumerals = (
     notes,
   );
   const newRomanNumeral = (
-    minorThirdWeight > majorThirdWeight ? MINOR_CHORDS : MAJOR_CHORDS
+    minorThirdWeight > majorThirdWeight
+      ? MINOR_CHORDS
+      : majorThirdWeight === 0
+      ? POWER_CHORDS
+      : MAJOR_CHORDS
   )[noteDegree];
 
   const rnArray = romanNumeralsToArray(analysis.romanNumerals);

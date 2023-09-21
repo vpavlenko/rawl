@@ -14,6 +14,17 @@ import {
 export const RESOLUTION_DUMPS_PER_SECOND = 100;
 export const RESOLUTION_MS = 1 / RESOLUTION_DUMPS_PER_SECOND;
 
+const TAGS = [
+  "scale:blues",
+  "scale:pentatonic",
+  "scale:chromatic",
+  "scale:phrygian",
+  "scale:natural_minor",
+  "harmony:stasis",
+  "rhythm:syncopation",
+  "chip:extensions",
+];
+
 export const STEPS = [
   "tonic",
   "first measure",
@@ -56,6 +67,7 @@ export type Analysis = {
   romanNumerals: string;
   comment: string;
   tags: string[];
+  disableSnapToNotes: boolean;
 };
 
 export const ANALYSIS_STUB: Analysis = {
@@ -73,6 +85,7 @@ export const ANALYSIS_STUB: Analysis = {
   romanNumerals: "",
   comment: "",
   tags: [],
+  disableSnapToNotes: false,
 };
 
 // These two don't propagate to Firestore because they tweak transient state.
@@ -525,16 +538,31 @@ export const AnalysisBox: React.FC<{
             <div>
               {basedOn}
               {beatsPerMeasure}
+              <div key="disable_snap" style={{ marginTop: "10px" }}>
+                <label>
+                  <input
+                    type="checkbox"
+                    onChange={() => {
+                      const newAnalysis = {
+                        ...analysis,
+                        disableSnapToNotes: !analysis.disableSnapToNotes,
+                      };
+
+                      saveAnalysis(newAnalysis);
+                      setAnalysis(newAnalysis);
+                    }}
+                    checked={analysis.disableSnapToNotes}
+                  />
+                  Disable snap to notes
+                </label>
+              </div>
               {romanNumerals}
               {comment}
               <div key="tags" style={{ marginTop: "10px" }}>
                 Tags:
                 <Select
                   isMulti
-                  options={[
-                    { label: "scale:blues", value: "scale:blues" },
-                    { label: "scale:pentatonic", value: "scale:pentatonic" },
-                  ]}
+                  options={TAGS.map((tag) => ({ value: tag, label: tag }))}
                   value={(analysis.tags || []).map((tag) => ({
                     value: tag,
                     label: tag,

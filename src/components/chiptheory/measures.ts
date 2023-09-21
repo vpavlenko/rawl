@@ -35,20 +35,16 @@ export const calculateMeasuresAndBeats = (
 
     for (let i = 2; i < 400; i++) {
       let newMeasure = null;
-      if (
-        analysis.correctedMeasures &&
-        analysis.correctedMeasures[i]
-      ) {
+      if (analysis.correctedMeasures && analysis.correctedMeasures[i]) {
         newMeasure = analysis.correctedMeasures[i];
       } else {
-        newMeasure = snapToSomeNoteOnset(
-          previousMeasure + measureLength,
-          notes,
-        );
+        newMeasure = analysis.disableSnapToNotes
+          ? previousMeasure + measureLength
+          : snapToSomeNoteOnset(previousMeasure + measureLength, notes);
       }
       if (previousMeasure === newMeasure) break;
       measures.push(newMeasure);
-      measureLength = newMeasure - previousMeasure
+      measureLength = newMeasure - previousMeasure;
       previousMeasure = newMeasure;
       if (i === analysis.loop) {
         break;
@@ -57,16 +53,20 @@ export const calculateMeasuresAndBeats = (
   }
   if (measures.length > 2) {
     // Fix last measure
-    measures.pop()
-    const lastLength = measures[measures.length - 1] - measures[measures.length - 2]
-    measures.push(measures[measures.length - 1] + lastLength)
+    measures.pop();
+    const lastLength =
+      measures[measures.length - 1] - measures[measures.length - 2];
+    measures.push(measures[measures.length - 1] + lastLength);
   }
   const beatsPerMeasure = analysis.beatsPerMeasure || 4;
   for (let i = 0; i < measures.length - 1; ++i) {
-    const from = measures[i]
-    const to = measures[i + 1]
+    const from = measures[i];
+    const to = measures[i + 1];
     for (let j = 1; j < beatsPerMeasure; ++j) {
-      beats.push(from * (beatsPerMeasure - j) / beatsPerMeasure + to * j / beatsPerMeasure);
+      beats.push(
+        (from * (beatsPerMeasure - j)) / beatsPerMeasure +
+          (to * j) / beatsPerMeasure,
+      );
     }
   }
   return { measures, beats };

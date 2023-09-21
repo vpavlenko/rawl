@@ -129,11 +129,28 @@ function BrowseList({ virtual, ...props }) {
                               paddingLeft: "12pt",
                             }}
                           >
-                            {value.comment || (value.romanNumerals &&
-                              <RomanNumerals romanNumerals={value.romanNumerals} />
-                            ) || value.basedOn ||
-                              `[${realIndex}]`
-                            }
+                            {value.comment ||
+                              (value.tags && value.tags.length > 0 && (
+                                <span
+                                  style={{
+                                    borderRadius: "5px",
+                                    backgroundColor: "#ccc",
+                                    color: "black",
+                                    fontFamily: "Helvetica, sans-serif",
+                                    fontSize: "12pt",
+                                    padding: "0px 5px",
+                                  }}
+                                >
+                                  {value.tags.join(",")}
+                                </span>
+                              )) ||
+                              (value.romanNumerals && (
+                                <RomanNumerals
+                                  romanNumerals={value.romanNumerals}
+                                />
+                              )) ||
+                              value.basedOn ||
+                              `[${realIndex}]`}
                           </snap>
                         </DirectoryLink>
                       );

@@ -25,6 +25,10 @@ import {
 type OscType = "pulse" | "triangle" | "noise";
 export type Voice = "pulse1" | "pulse2" | "triangle" | "noise" | "under cursor";
 
+// If not used, the playback cursor isn't exactly where the sound is
+const LATENCY_CORRECTION_MS =
+  (localStorage && parseInt(localStorage.getItem("latency"), 10)) || 70;
+
 function findNoteWithClosestPeriod(
   period: number,
   oscType: OscType,
@@ -420,7 +424,7 @@ const Chiptheory = ({
         return;
       }
 
-      setPositionMs(getCurrentPositionMs() - 70); // A dirty hack, I don't know why it gets ahead of playback.
+      setPositionMs(getCurrentPositionMs() - LATENCY_CORRECTION_MS);
       requestAnimationFrame(animate);
     };
 

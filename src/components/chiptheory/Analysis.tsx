@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Select from "react-select";
 import styled from "styled-components";
 import { Note, secondsToX } from "./Chiptheory";
-import { MeasuresAndBeats } from "./measures";
+import { MeasuresAndBeats, getPhrasingMeasures } from "./measures";
 import {
   MeasureOfRomanNumerals,
   getModulations,
@@ -23,10 +23,12 @@ const TAGS = [
   "scale:natural_minor",
   "form:12-bar-blues",
   "harmony:stasis",
+  "harmony:parallel_keys",
   "rhythm:syncopation",
-  "chip:extensions",
-  "bass:descending-chromatic",
   "rhythm:interesting",
+  "chip:extensions",
+  "voice-leading:descending-chromatic-bass",
+  "voice-leading:Vsus4",
   "form:ABA",
 ];
 
@@ -333,21 +335,18 @@ export const AnalysisGrid: React.FC<{
     if (analysis.loop) {
       loopLeft = secondsToX(measures[analysis.loop - 1]);
     }
+
+    const phrasingMeasures = getPhrasingMeasures(analysis, measures.length);
     return (
       <>
         {measures.map((time, i) => {
-          const fourMeasurePhrasingStart =
-            analysis.fourMeasurePhrasingReferences?.[0] ?? 1;
-          const number = i + 1;
+          const number = i + 1; // Caveat: measures are 1-indexed when stored in the DB .__.
           return (
             <Measure
               key={i}
               span={[time, measures[i + 1] ?? time]}
-              isFourMeasureMark={
-                number >= fourMeasurePhrasingStart &&
-                number % 4 == fourMeasurePhrasingStart % 4
-              }
-              number={i + 1}
+              isFourMeasureMark={phrasingMeasures.indexOf(number) !== -1}
+              number={number}
               selectedDownbeat={selectedDownbeat}
               selectDownbeat={selectDownbeat}
               romanNumeral={romanNumeralsToArray(analysis?.romanNumerals)[i]}
@@ -533,6 +532,26 @@ export const AnalysisBox: React.FC<{
                     }}
                   >
                     Mark start of 4-measure phrasing
+                  </button>
+                </li>
+                <li>
+                  <button
+                    className="box-button"
+                    onClick={() => {
+                      const newAnalysis = {
+                        ...analysis,
+                        fourMeasurePhrasingReferences: [
+                          ...(analysis.fourMeasurePhrasingReferences || []),
+                          selectedDownbeat,
+                        ].sort(),
+                      };
+
+                      selectDownbeat(null);
+                      saveAnalysis(newAnalysis);
+                      setAnalysis(newAnalysis);
+                    }}
+                  >
+                    Add custom phrasing measure (manual mode)
                   </button>
                 </li>
                 <li>Adjust position: click anywhere</li>

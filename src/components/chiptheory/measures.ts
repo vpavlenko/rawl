@@ -71,3 +71,19 @@ export const calculateMeasuresAndBeats = (
   }
   return { measures, beats };
 };
+
+export const getPhrasingMeasures = (
+  analysis: Analysis,
+  numMeasures: number,
+): number[] => {
+  if ((analysis.fourMeasurePhrasingReferences?.length ?? 0) > 1) {
+    return analysis.fourMeasurePhrasingReferences;
+  }
+  const fourMeasurePhrasingStart =
+    analysis.fourMeasurePhrasingReferences?.[0] ?? 1;
+  const result = [];
+  for (let i = fourMeasurePhrasingStart; i < numMeasures; i += 4) {
+    result.push(i);
+  }
+  return result;
+};

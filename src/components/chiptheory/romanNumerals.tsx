@@ -214,6 +214,7 @@ export const RomanNumeral: React.FC<{
         backgroundColor,
         display: "grid",
         placeItems: "center",
+        userSelect: "none",
       }}
     >
       <span

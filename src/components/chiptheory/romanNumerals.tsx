@@ -238,33 +238,33 @@ export const RomanNumerals: React.FC<{ romanNumerals: string }> = ({
   const array = romanNumeralsToArray(romanNumerals);
   const result = [];
   for (let i = 0; i < array.length; i += 4) {
-    array.slice(4 * i, 4 * i + 4);
+    let row = [];
+    array.slice(i, i + 4).map((measure) => {
+      const chords = measure.split("-");
+      chords.forEach((chord) =>
+        row.push(
+          <div
+            style={{
+              width: 50 / chords.length,
+              height: "18px",
+              display: "grid",
+              placeItems: "center",
+              overflow: "hidden",
+              backgroundColor:
+                TWELVE_TONE_COLORS[romanNumeralToChromaticDegree(chord)],
+            }}
+          >
+            <RomanNumeral
+              romanNumeral={chord.replace("_", " ")}
+              styleProps={{ fontFamily: "sans-serif", fontSize: "14px" }}
+            />
+          </div>,
+        ),
+      );
+    });
+
     result.push(
-      <div style={{ display: "flex", flexDirection: "row" }}>
-        {array
-          .slice(i, i + 4)
-          .join(" ")
-          .replace(/-/g, " ")
-          .split(" ")
-          .map((s) => (
-            <div
-              style={{
-                width: "30px",
-                height: "18px",
-                display: "grid",
-                placeItems: "center",
-                overflow: "hidden",
-                backgroundColor:
-                  TWELVE_TONE_COLORS[romanNumeralToChromaticDegree(s)],
-              }}
-            >
-              <RomanNumeral
-                romanNumeral={s.replace("_", " ")}
-                styleProps={{ fontFamily: "sans-serif", fontSize: "14px" }}
-              />
-            </div>
-          ))}
-      </div>,
+      <div style={{ display: "flex", flexDirection: "row" }}>{row}</div>,
     );
   }
   return (

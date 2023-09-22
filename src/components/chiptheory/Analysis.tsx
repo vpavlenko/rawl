@@ -46,6 +46,8 @@ const TAGS = [
   "form:ABA",
   "form:12-bar-blues",
   "bass:walking",
+  "timbre:rich",
+  "style:ragtime",
 ];
 
 export const STEPS = [

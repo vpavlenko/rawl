@@ -133,6 +133,49 @@ function BrowseList({ virtual, ...props }) {
                       const modulations = Object.entries(
                         piece.modulations || {},
                       );
+                      const badges = [];
+                      if (piece.comment) {
+                        badges.push(
+                          <Badge color="#cc4">{piece.comment}</Badge>,
+                        );
+                      }
+                      if ((piece.beatsPerMeasure ?? 4) !== 4) {
+                        badges.push(
+                          <Badge color="#99f">{`${piece.beatsPerMeasure}/4 or ${piece.beatsPerMeasure}/8`}</Badge>,
+                        );
+                      }
+                      if (piece.tags && piece.tags.length > 0) {
+                        piece.tags.map((tag) =>
+                          badges.push(
+                            <Badge>{tag.split(":").join(": ")}</Badge>,
+                          ),
+                        );
+                      }
+                      if (piece.romanNumerals) {
+                        badges.push(
+                          <RomanNumerals romanNumerals={piece.romanNumerals} />,
+                        );
+                      }
+                      if (piece.basedOn) {
+                        badges.push(
+                          <Badge color="#cfc">{piece.basedOn}</Badge>,
+                        );
+                      }
+                      if (modulations.length > 0) {
+                        badges.push(
+                          <Badge color="#fcc">
+                            {"mod: " +
+                              modulations
+                                .map(([measure, newTonic]) =>
+                                  formatModulation(newTonic, piece.tonic),
+                                )
+                                .join(", ")}
+                          </Badge>,
+                        );
+                      }
+                      if (badges.length === 0) {
+                        badges.push(<Badge color="white">{realIndex}</Badge>);
+                      }
                       return (
                         <DirectoryLink
                           key={realIndex}
@@ -158,38 +201,7 @@ function BrowseList({ virtual, ...props }) {
                                 flexDirection: "column",
                               }}
                             >
-                              {piece.comment && (
-                                <Badge color="#cc4">{piece.comment}</Badge>
-                              )}
-                              {(piece.beatsPerMeasure ?? 4) !== 4 && (
-                                <Badge color="#99f">{`${piece.beatsPerMeasure}/4 or ${piece.beatsPerMeasure}/8`}</Badge>
-                              )}
-                              {piece.tags && piece.tags.length > 0 && (
-                                <>
-                                  {piece.tags.map((tag) => (
-                                    <Badge>{tag.split(":").join(": ")}</Badge>
-                                  ))}
-                                </>
-                              )}
-                              {piece.romanNumerals && (
-                                <RomanNumerals
-                                  romanNumerals={piece.romanNumerals}
-                                />
-                              )}
-                              {piece.basedOn && (
-                                <Badge color="#cfc">{piece.basedOn}</Badge>
-                              )}
-                              {modulations.length > 0 && (
-                                <Badge color="#fcc">
-                                  {"mod: " +
-                                    modulations
-                                      .map(([measure, newTonic]) =>
-                                        formatModulation(newTonic, piece.tonic),
-                                      )
-                                      .join(", ")}
-                                </Badge>
-                              )}
-                              {/* {`[${realIndex}]`} */}
+                              {badges}
                             </div>
                           </div>
                         </DirectoryLink>

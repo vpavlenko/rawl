@@ -144,8 +144,8 @@ function BrowseList({ virtual, ...props }) {
                             style={{
                               display: "inline-block",
                               backgroundColor: "#444",
-                              border: "1px solid white",
-                              margin: "3px",
+                              // border: "1px solid white",
+                              margin: "5px 20px 20px 0px",
                               padding: "0px",
                               fontFamily: "Helvetica, sans-serif",
                               fontSize: "12pt",
@@ -162,10 +162,14 @@ function BrowseList({ virtual, ...props }) {
                                 <Badge color="#cc4">{piece.comment}</Badge>
                               )}
                               {(piece.beatsPerMeasure ?? 4) !== 4 && (
-                                <Badge color="#99f">{`${piece.beatsPerMeasure}/`}</Badge>
+                                <Badge color="#99f">{`${piece.beatsPerMeasure}/4 or ${piece.beatsPerMeasure}/8`}</Badge>
                               )}
                               {piece.tags && piece.tags.length > 0 && (
-                                <Badge>{piece.tags.join(",")}</Badge>
+                                <>
+                                  {piece.tags.map((tag) => (
+                                    <Badge>{tag.split(":").join(": ")}</Badge>
+                                  ))}
+                                </>
                               )}
                               {piece.romanNumerals && (
                                 <RomanNumerals

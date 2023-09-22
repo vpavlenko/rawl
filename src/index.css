@@ -501,7 +501,7 @@ body,
     justify-content: flex-start;
     flex-direction: column;
     /* background-color: black; */
-    border-bottom: 1px dotted #555;
+    /* border-bottom: 1px dotted #555; */
     margin-bottom: 10px
 
 }

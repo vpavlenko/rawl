@@ -19,22 +19,32 @@ const TAGS = [
   "scale:pentatonic",
   "scale:chromatic",
   "scale:phrygian",
+  "scale:dorian",
+  "scale:mixolydian",
+  "scale:lydian",
+  "scale:hijaz",
+  "scale:hijazkar",
   "scale:atonal",
   "scale:octatonic",
   "scale:natural_minor",
-  "form:12-bar-blues",
   "harmony:stasis",
   "harmony:parallel_keys",
   "rhythm:syncopation",
   "rhythm:interesting",
   "rhythm:swing",
+  "rhythm:clave",
   "tempo:accelerando",
   "tempo:ritardando",
   "chip:extensions",
   "voice-leading:descending-chromatic-bass",
   "voice-leading:descending-chromatic-melody",
   "voice-leading:Vsus4",
+  "voice-leading:Cad64",
+  "voice-leading:triple_suspension",
+  "chord:N6",
+  "chord:Aug6",
   "form:ABA",
+  "form:12-bar-blues",
   "bass:walking",
 ];
 
@@ -477,7 +487,7 @@ export const AnalysisBox: React.FC<{
       <div
         className="App-main-content-area settings"
         key="AnalysisBox"
-        style={{ marginTop: "20px" }}
+        // style={{ marginTop: "20px" }}
       >
         <div>
           <div style={{ display: "flex", flexDirection: "row" }}>

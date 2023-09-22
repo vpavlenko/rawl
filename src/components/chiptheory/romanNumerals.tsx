@@ -249,7 +249,7 @@ export const RomanNumerals: React.FC<{ romanNumerals: string }> = ({
           .map((s) => (
             <div
               style={{
-                width: "15px",
+                width: "30px",
                 height: "18px",
                 display: "grid",
                 placeItems: "center",
@@ -259,7 +259,7 @@ export const RomanNumerals: React.FC<{ romanNumerals: string }> = ({
               }}
             >
               <RomanNumeral
-                romanNumeral={s}
+                romanNumeral={s.replace("_", " ")}
                 styleProps={{ fontFamily: "sans-serif", fontSize: "14px" }}
               />
             </div>
@@ -272,7 +272,6 @@ export const RomanNumerals: React.FC<{ romanNumerals: string }> = ({
       <div
         style={{
           display: "flex",
-          // height: "18px",
           flexDirection: "column",
         }}
       >

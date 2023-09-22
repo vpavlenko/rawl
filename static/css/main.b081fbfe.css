@@ -541,7 +541,7 @@ body,
     -ms-flex-direction: column;
         flex-direction: column;
     /* background-color: black; */
-    border-bottom: 1px dotted #555;
+    /* border-bottom: 1px dotted #555; */
     margin-bottom: 10px
 
 }
@@ -999,4 +999,4 @@ img {
     margin-bottom: 20px;
 }
 
-/*# sourceMappingURL=main.d40b3400.css.map*/
+/*# sourceMappingURL=main.b081fbfe.css.map*/

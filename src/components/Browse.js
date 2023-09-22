@@ -46,7 +46,6 @@ export default class Browse extends React.PureComponent {
   saveScrollPosition(locationKey) {
     const scrollTop = Math.round(this.props.scrollContainerRef.current.scrollTop);
     sessionStorage.setItem(locationKey, scrollTop.toString());
-    // console.log("Browse.storeScroll: %s stored at %s", locationKey, scrollTop);
   }
 
   getSnapshotBeforeUpdate(prevProps, prevState) {

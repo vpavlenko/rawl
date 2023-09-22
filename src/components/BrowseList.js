@@ -50,9 +50,9 @@ function BrowseList({ virtual, ...props }) {
         firstSongItem.path === ".."
           ? browsePath.substr(0, browsePath.lastIndexOf("/"))
           : firstSongItem.path
-            .replace("%", "%25")
-            .replace("#", "%23")
-            .replace(/^\//, "");
+              .replace("%", "%25")
+              .replace("#", "%23")
+              .replace(/^\//, "");
 
       const params = new URLSearchParams(location.search);
       let subtune = params.get("subtune");
@@ -69,7 +69,7 @@ function BrowseList({ virtual, ...props }) {
         firstSongItem.idx,
         subtune,
       )({
-        preventDefault: () => { },
+        preventDefault: () => {},
       });
     }
     // Add the dependencies that would trigger the effect when changed
@@ -100,9 +100,9 @@ function BrowseList({ virtual, ...props }) {
             item.path === ".."
               ? browsePath.substr(0, browsePath.lastIndexOf("/")) // parent path
               : item.path
-                .replace("%", "%25")
-                .replace("#", "%23")
-                .replace(/^\//, "");
+                  .replace("%", "%25")
+                  .replace("#", "%23")
+                  .replace(/^\//, "");
           const name = item.path.split("/").pop();
           const isPlaying = currContext === playContext && currIdx === item.idx;
           const isBackLink = item.path === ".." && prevPageIsParentDir;
@@ -142,11 +142,11 @@ function BrowseList({ virtual, ...props }) {
                         >
                           <div
                             style={{
-                              display: 'inline-block',
-                              backgroundColor: '#444',
-                              border: '1px solid white',
-                              margin: '3px',
-                              padding: '0px',
+                              display: "inline-block",
+                              backgroundColor: "#444",
+                              border: "1px solid white",
+                              margin: "3px",
+                              padding: "0px",
                               fontFamily: "Helvetica, sans-serif",
                               fontSize: "12pt",
                               color: "white",
@@ -161,7 +161,9 @@ function BrowseList({ virtual, ...props }) {
                               {piece.comment && (
                                 <Badge color="#cc4">{piece.comment}</Badge>
                               )}
-                              {(piece.beatsPerMeasure ?? 4) !== 4 && <Badge color="#99f">{`${piece.beatsPerMeasure}/`}</Badge>}
+                              {(piece.beatsPerMeasure ?? 4) !== 4 && (
+                                <Badge color="#99f">{`${piece.beatsPerMeasure}/`}</Badge>
+                              )}
                               {piece.tags && piece.tags.length > 0 && (
                                 <Badge>{piece.tags.join(",")}</Badge>
                               )}

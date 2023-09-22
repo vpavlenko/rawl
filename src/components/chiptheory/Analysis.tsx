@@ -20,12 +20,14 @@ const TAGS = [
   "scale:chromatic",
   "scale:phrygian",
   "scale:atonal",
+  "scale:octatonic",
   "scale:natural_minor",
   "form:12-bar-blues",
   "harmony:stasis",
   "harmony:parallel_keys",
   "rhythm:syncopation",
   "rhythm:interesting",
+  "rhythm:swing",
   "tempo:accelerando",
   "tempo:ritardando",
   "chip:extensions",
@@ -33,6 +35,7 @@ const TAGS = [
   "voice-leading:descending-chromatic-melody",
   "voice-leading:Vsus4",
   "form:ABA",
+  "bass:walking",
 ];
 
 export const STEPS = [

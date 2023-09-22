@@ -1,4 +1,3 @@
-import bytes from "bytes";
 import trimEnd from "lodash/trimEnd";
 import queryString from "querystring";
 import * as React from "react";
@@ -10,14 +9,19 @@ import DirectoryLink from "./DirectoryLink";
 import { RomanNumerals } from "./chiptheory/romanNumerals";
 
 const Badge = styled.span`
-  border-radius: 5px;
+  border-radius: 0px;
   background-color: ${(props) => props.color || "#ccc"};
   color: black;
   font-family: Helvetica, sans-serif;
   font-size: 12pt;
   padding: 0px 5px;
-  white-space:nowrap;
+  white-space: nowrap;
 `;
+
+const formatModulation = (newTonic, base) => {
+  const diff = (newTonic - base + 12) % 12;
+  return diff > 6 ? `-${12 - diff}st` : `+${diff}st`;
+};
 
 export default memo(BrowseList);
 function BrowseList({ virtual, ...props }) {
@@ -124,39 +128,64 @@ function BrowseList({ virtual, ...props }) {
                 </div>
                 {analysis && (
                   <div>
-                    {Object.entries(analysis).map(([index, value]) => {
+                    {Object.entries(analysis).map(([index, piece]) => {
                       const realIndex = parseInt(index, 10) + 1;
+                      const modulations = Object.entries(
+                        piece.modulations || {},
+                      );
                       return (
                         <DirectoryLink
                           key={realIndex}
-                          dim={analysis}
+                          dim={new Boolean(analysis)}
                           to={"/browse/" + path}
                           search={`?subtune=${realIndex}`}
                         >
-                          <snap
+                          <div
                             style={{
+                              display: 'inline-block',
+                              backgroundColor: '#444',
+                              border: '1px solid white',
+                              margin: '3px',
+                              padding: '0px',
                               fontFamily: "Helvetica, sans-serif",
                               fontSize: "12pt",
                               color: "white",
-                              paddingLeft: "12pt",
                             }}
                           >
-                            {(value.comment && (
-                              <Badge color="#cc4">{value.comment}</Badge>
-                            )) ||
-                              (value.tags && value.tags.length > 0 && (
-                                <Badge>{value.tags.join(",")}</Badge>
-                              )) ||
-                              (value.romanNumerals && (
+                            <div
+                              style={{
+                                display: "flex",
+                                flexDirection: "column",
+                              }}
+                            >
+                              {piece.comment && (
+                                <Badge color="#cc4">{piece.comment}</Badge>
+                              )}
+                              {(piece.beatsPerMeasure ?? 4) !== 4 && <Badge color="#99f">{`${piece.beatsPerMeasure}/`}</Badge>}
+                              {piece.tags && piece.tags.length > 0 && (
+                                <Badge>{piece.tags.join(",")}</Badge>
+                              )}
+                              {piece.romanNumerals && (
                                 <RomanNumerals
-                                  romanNumerals={value.romanNumerals}
+                                  romanNumerals={piece.romanNumerals}
                                 />
-                              )) ||
-                              (value.basedOn && (
-                                <Badge color="#cfc">{value.basedOn}</Badge>
-                              )) ||
-                              `[${realIndex}]`}
-                          </snap>
+                              )}
+                              {piece.basedOn && (
+                                <Badge color="#cfc">{piece.basedOn}</Badge>
+                              )}
+                              {modulations.length > 0 && (
+                                <Badge color="#fcc">
+                                  {"mod: " +
+                                    modulations
+                                      .map(([measure, newTonic]) =>
+                                        formatModulation(newTonic, piece.tonic),
+                                      )
+                                      .join(", ")}
+                                </Badge>
+                              )}
+                              {/* {`[${realIndex}]`} */}
+                            </div>
+                          </div>
                         </DirectoryLink>
                       );
                     })}
@@ -196,9 +225,9 @@ function BrowseList({ virtual, ...props }) {
                     {name}
                   </a>
                 </div>
-                <div className="BrowseList-colSize">
+                {/* <div className="BrowseList-colSize">
                   {bytes(item.size, { unitSeparator: " " })}
-                </div>
+                </div> */}
               </div>
             );
           }

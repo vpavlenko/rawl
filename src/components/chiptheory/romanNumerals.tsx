@@ -235,33 +235,48 @@ export const RomanNumeral: React.FC<{
 export const RomanNumerals: React.FC<{ romanNumerals: string }> = ({
   romanNumerals,
 }) => {
+  const array = romanNumeralsToArray(romanNumerals);
+  const result = [];
+  for (let i = 0; i < array.length; i += 4) {
+    array.slice(4 * i, 4 * i + 4);
+    result.push(
+      <div style={{ display: "flex", flexDirection: "row" }}>
+        {array
+          .slice(i, i + 4)
+          .join(" ")
+          .replace(/-/g, " ")
+          .split(" ")
+          .map((s) => (
+            <div
+              style={{
+                width: "15px",
+                height: "18px",
+                display: "grid",
+                placeItems: "center",
+                overflow: "hidden",
+                backgroundColor:
+                  TWELVE_TONE_COLORS[romanNumeralToChromaticDegree(s)],
+              }}
+            >
+              <RomanNumeral
+                romanNumeral={s}
+                styleProps={{ fontFamily: "sans-serif", fontSize: "14px" }}
+              />
+            </div>
+          ))}
+      </div>,
+    );
+  }
   return (
     <div style={{ display: "inline-block" }}>
       <div
         style={{
           display: "flex",
-          height: "18px",
-          flexDirection: "row",
+          // height: "18px",
+          flexDirection: "column",
         }}
       >
-        {romanNumeralsToArray(romanNumerals.replace(/-/g, " ")).map((s) => (
-          <div
-            style={{
-              width: "15px",
-              height: "18px",
-              display: "grid",
-              placeItems: "center",
-              overflow: "hidden",
-              backgroundColor:
-                TWELVE_TONE_COLORS[romanNumeralToChromaticDegree(s)],
-            }}
-          >
-            <RomanNumeral
-              romanNumeral={s}
-              styleProps={{ fontFamily: "sans-serif", fontSize: "14px" }}
-            />
-          </div>
-        ))}
+        {result}
       </div>
     </div>
   );
@@ -322,7 +337,7 @@ export const getChordNote = (
   measures: number[] | null,
   romanNumerals?: string,
 ): string => {
-  if (note.span[1] - note.span[0] < 0.1) return "";
+  if (note.span[1] - note.span[0] < 0.08) return "";
   if (!measures) return "";
 
   const measure = getNoteMeasure(note, measures);

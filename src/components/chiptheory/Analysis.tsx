@@ -26,8 +26,11 @@ const TAGS = [
   "harmony:parallel_keys",
   "rhythm:syncopation",
   "rhythm:interesting",
+  "tempo:accelerando",
+  "tempo:ritardando",
   "chip:extensions",
   "voice-leading:descending-chromatic-bass",
+  "voice-leading:descending-chromatic-melody",
   "voice-leading:Vsus4",
   "form:ABA",
 ];
@@ -468,7 +471,11 @@ export const AnalysisBox: React.FC<{
     const comment = useInputField("", "comment", "Comment");
 
     return (
-      <div className="App-main-content-area settings" key="AnalysisBox">
+      <div
+        className="App-main-content-area settings"
+        key="AnalysisBox"
+        style={{ marginTop: "20px" }}
+      >
         <div>
           <div style={{ display: "flex", flexDirection: "row" }}>
             <div style={{ marginBottom: "10px" }}>

@@ -189,7 +189,6 @@ const getNoteRectangles = (
             ["brown", "blue", "#9400D3", "#787276"].indexOf(color) !== -1
               ? "white"
               : "black",
-          opacity: 1,
         }}
       >
         {chordNote}

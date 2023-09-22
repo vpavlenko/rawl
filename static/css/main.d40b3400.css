@@ -536,6 +536,14 @@ body,
 .BrowseList-row {
     display: -ms-flexbox;
     display: flex;
+    -ms-flex-pack: start;
+        justify-content: flex-start;
+    -ms-flex-direction: column;
+        flex-direction: column;
+    /* background-color: black; */
+    border-bottom: 1px dotted #555;
+    margin-bottom: 10px
+
 }
 
 .BrowseList-row:has(a:hover) {
@@ -991,4 +999,4 @@ img {
     margin-bottom: 20px;
 }
 
-/*# sourceMappingURL=main.a8c24e35.css.map*/
+/*# sourceMappingURL=main.d40b3400.css.map*/

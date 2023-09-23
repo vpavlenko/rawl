@@ -1,8 +1,10 @@
 import styled from "@emotion/styled"
+import Color from "color"
 import CircleIcon from "mdi-react/CircleIcon"
 import { observer } from "mobx-react-lite"
-import { ChangeEvent, FC } from "react"
+import { ChangeEvent, FC, useState } from "react"
 import { Button } from "../../../components/Button"
+import { CircularProgress } from "../../../components/CircularProgress"
 import { DialogContent, DialogTitle } from "../../../components/Dialog"
 import { Localized } from "../../../components/Localized"
 import { useStores } from "../../hooks/useStores"
@@ -21,9 +23,26 @@ const List = styled.div`
   overflow-y: auto;
 `
 
+const Overlay = styled.div`
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  background-color: ${({ theme }) =>
+    Color(theme.backgroundColor).alpha(0.5).toString()};
+  color: ${({ theme }) => theme.textColor};
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+`
+
 export const SoundFontSettingsView: FC = observer(() => {
   const { soundFontStore } = useStores()
   const { files, selectedSoundFontId } = soundFontStore
+  const [isLoading, setIsLoading] = useState(false)
+
   // TODO: add open local file dialog and put it to SoundFontStore
   const onOpenSoundFont = async (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
@@ -47,10 +66,17 @@ export const SoundFontSettingsView: FC = observer(() => {
               isSelected={file.id === selectedSoundFontId}
               item={file}
               onClick={async () => {
+                setIsLoading(true)
                 await soundFontStore.load(file.id)
+                setIsLoading(false)
               }}
             />
           ))}
+          {isLoading && (
+            <Overlay>
+              <CircularProgress />
+            </Overlay>
+          )}
         </List>
         <FileInput onChange={onOpenSoundFont} accept=".sf2">
           <OpenFileButton as="div">

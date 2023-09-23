@@ -1,6 +1,6 @@
 import styled from "@emotion/styled"
 import Color from "color"
-import CircleIcon from "mdi-react/CircleIcon"
+import RemoveIcon from "mdi-react/RemoveIcon"
 import { observer } from "mobx-react-lite"
 import { ChangeEvent, FC, useState } from "react"
 import { Alert } from "../../../components/Alert"
@@ -8,6 +8,7 @@ import { Button } from "../../../components/Button"
 import { CircularProgress } from "../../../components/CircularProgress"
 import { DialogContent, DialogTitle } from "../../../components/Dialog"
 import { Localized } from "../../../components/Localized"
+import { RadioButton } from "../../../components/RadioButton"
 import { useStores } from "../../hooks/useStores"
 import { useToast } from "../../hooks/useToast"
 import { SoundFontFile } from "../../stores/SoundFontStore"
@@ -78,6 +79,7 @@ export const SoundFontSettingsView: FC = observer(() => {
                   setIsLoading(false)
                 }
               }}
+              onClickDelete={async () => {}}
             />
           ))}
           {isLoading && (
@@ -105,41 +107,38 @@ interface SoundFontRowProps {
   item: SoundFontFile
   isSelected: boolean
   onClick: () => void
+  onClickDelete: () => void
 }
 
-const RadioButton = styled.div`
-  display: inline-flex;
-  width: 1.25rem;
-  height: 1.25rem;
-  border: 1px solid ${({ theme }) => theme.dividerColor};
-  align-items: center;
-  justify-content: center;
-  border-radius: 9999px;
-`
-
-const CheckIcon = styled(CircleIcon)`
-  fill: ${({ theme }) => theme.textColor};
-  width: 0.7rem;
-  height: 0.7rem;
+const Remove = styled(RemoveIcon)`
+  width: 1rem;
+  color: ${({ theme }) => theme.secondaryTextColor};
 `
 
 const RowWrapper = styled.div`
   display: flex;
-  padding: 0.5rem 0;
   align-items: center;
 `
 
-const RowLabel = styled.span`
-  margin-left: 0.5rem;
-  font-size: 0.8rem;
-  color: ${({ theme }) => theme.secondaryTextColor};
-`
-
-const SoundFontRow: FC<SoundFontRowProps> = ({ item, isSelected, onClick }) => {
+const SoundFontRow: FC<SoundFontRowProps> = ({
+  item,
+  isSelected,
+  onClick,
+  onClickDelete,
+}) => {
   return (
-    <RowWrapper onClick={onClick}>
-      <RadioButton>{isSelected && <CheckIcon />}</RadioButton>
-      <RowLabel>{item.name}</RowLabel>
+    <RowWrapper>
+      <RadioButton
+        label={item.name}
+        isSelected={isSelected}
+        onClick={onClick}
+      />
+      <Button
+        style={{ marginLeft: "auto", display: "flex", alignItems: "center" }}
+        onClick={onClickDelete}
+      >
+        <Remove />
+      </Button>
     </RowWrapper>
   )
 }

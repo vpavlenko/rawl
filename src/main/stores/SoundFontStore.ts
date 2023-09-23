@@ -100,4 +100,9 @@ export class SoundFontStore {
     await this.storage.save({ type: "local", data }, { name })
     await this.updateFileList()
   }
+
+  async removeSoundFont(id: number) {
+    await this.storage.delete(id)
+    await this.updateFileList()
+  }
 }

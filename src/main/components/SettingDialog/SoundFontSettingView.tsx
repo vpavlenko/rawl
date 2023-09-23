@@ -79,7 +79,9 @@ export const SoundFontSettingsView: FC = observer(() => {
                   setIsLoading(false)
                 }
               }}
-              onClickDelete={async () => {}}
+              onClickDelete={async () => {
+                await soundFontStore.removeSoundFont(file.id)
+              }}
             />
           ))}
           {isLoading && (
@@ -88,7 +90,7 @@ export const SoundFontSettingsView: FC = observer(() => {
             </Overlay>
           )}
         </List>
-        <FileInput onChange={onOpenSoundFont} accept="*">
+        <FileInput onChange={onOpenSoundFont} accept=".sf2">
           <OpenFileButton as="div">
             <Localized default="Add">add</Localized>
           </OpenFileButton>
@@ -133,12 +135,14 @@ const SoundFontRow: FC<SoundFontRowProps> = ({
         isSelected={isSelected}
         onClick={onClick}
       />
-      <Button
-        style={{ marginLeft: "auto", display: "flex", alignItems: "center" }}
-        onClick={onClickDelete}
-      >
-        <Remove />
-      </Button>
+      {item.id >= 0 && (
+        <Button
+          style={{ marginLeft: "auto", display: "flex", alignItems: "center" }}
+          onClick={onClickDelete}
+        >
+          <Remove />
+        </Button>
+      )}
     </RowWrapper>
   )
 }

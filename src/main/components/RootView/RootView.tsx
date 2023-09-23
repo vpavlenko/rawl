@@ -10,6 +10,7 @@ import { ExportDialog } from "../ExportDialog/ExportDialog"
 import { ExportProgressDialog } from "../ExportDialog/ExportProgressDialog"
 import { Head } from "../Head/Head"
 import { HelpDialog } from "../Help/HelpDialog"
+import { InitializeErrorDialog } from "../InitializeErrorDialog/InitializeErrorDialog"
 import { Navigation } from "../Navigation/Navigation"
 import { OnBeforeUnload } from "../OnBeforeUnload/OnBeforeUnload"
 import { PianoRollEditor } from "../PianoRoll/PianoRollEditor"
@@ -67,6 +68,7 @@ export const RootView: FC = () => (
     <CloudFileDialog />
     <SettingDialog />
     <ControlSettingDialog />
+    <InitializeErrorDialog />
     <OnBeforeUnload />
   </>
 )

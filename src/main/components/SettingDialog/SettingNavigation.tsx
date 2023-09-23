@@ -3,8 +3,8 @@ import { FC } from "react"
 import { Button } from "../../../components/Button"
 import { Localized } from "../../../components/Localized"
 
-export type SettingRoute = "general" | "midi"
-const routes: SettingRoute[] = ["general", "midi"]
+export type SettingRoute = "general" | "midi" | "soundfont"
+const routes: SettingRoute[] = ["general", "midi", "soundfont"]
 
 const RouteItem = styled(Button)<{ selected: boolean }>`
   display: flex;
@@ -28,6 +28,8 @@ const RouteName: FC<{ route: SettingRoute }> = ({ route }) => {
       return <Localized default="General">general</Localized>
     case "midi":
       return <Localized default="MIDI">midi</Localized>
+    case "soundfont":
+      return <Localized default="SoundFont">soundfont</Localized>
   }
 }
 

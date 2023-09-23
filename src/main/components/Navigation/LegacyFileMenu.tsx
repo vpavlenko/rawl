@@ -12,11 +12,12 @@ const fileInputID = "OpenButtonInputFile"
 export const FileInput: FC<
   React.PropsWithChildren<{
     onChange: (e: ChangeEvent<HTMLInputElement>) => void
+    accept?: string
   }>
-> = ({ onChange, children }) => (
+> = ({ onChange, children, accept }) => (
   <>
     <input
-      accept="audio/midi"
+      accept={accept}
       style={{ display: "none" }}
       id={fileInputID}
       type="file"
@@ -65,7 +66,7 @@ export const LegacyFileMenu: FC<{ close: () => void }> = observer(
 
         <MenuDivider />
 
-        <FileInput onChange={onClickOpen}>
+        <FileInput onChange={onClickOpen} accept="audio/midi">
           <MenuItem>
             <Localized default="Open">open-song</Localized>
           </MenuItem>

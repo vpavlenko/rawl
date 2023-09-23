@@ -14,10 +14,7 @@ export default class RootStore {
   constructor() {
     const context = new (window.AudioContext || window.webkitAudioContext)()
 
-    this.synth = new SoundFontSynth(
-      context,
-      "https://cdn.jsdelivr.net/gh/ryohey/signal@4569a31/public/A320U.sf2",
-    )
+    this.synth = new SoundFontSynth(context)
 
     const dummySynth = {
       activate() {},
@@ -34,5 +31,15 @@ export default class RootStore {
       dummyTrackMute,
       this.songStore,
     )
+
+    this.setupSynth()
+  }
+
+  private async setupSynth() {
+    const soundFontURL =
+      "https://cdn.jsdelivr.net/gh/ryohey/signal@4569a31/public/A320U.sf2"
+    await this.synth.setup()
+    const data = await (await fetch(soundFontURL)).arrayBuffer()
+    await this.synth.loadSoundFont(data)
   }
 }

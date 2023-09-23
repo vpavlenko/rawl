@@ -10,6 +10,7 @@ export const Button = styled.button`
   cursor: pointer;
   height: 2rem;
   outline: none;
+  font-size: 0.8rem;
 
   &:hover {
     background: ${({ theme }) => theme.highlightColor};

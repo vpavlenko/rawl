@@ -1,10 +1,9 @@
-import { getSamplesFromSoundFont, SynthEvent } from "@ryohey/wavelet"
+import { SynthEvent, getSampleEventsFromSoundFont } from "@ryohey/wavelet"
 import { makeObservable, observable } from "mobx"
 import { SendableEvent, SynthOutput } from "./SynthOutput"
 
 export class SoundFontSynth implements SynthOutput {
   private synth: AudioWorkletNode | null = null
-  private soundFontURL: string
   private context = new (window.AudioContext || window.webkitAudioContext)()
 
   private _loadedSoundFontData: ArrayBuffer | null = null
@@ -13,48 +12,60 @@ export class SoundFontSynth implements SynthOutput {
   }
 
   isLoading: boolean = true
+  private sequenceNumber = 0
 
-  constructor(context: AudioContext, soundFontURL: string) {
+  constructor(context: AudioContext) {
     this.context = context
-    this.soundFontURL = soundFontURL
 
     makeObservable(this, {
       isLoading: observable,
     })
-
-    this.setup().finally(() => {
-      this.isLoading = false
-    })
   }
 
-  private async setup() {
+  async setup() {
     const url = new URL("@ryohey/wavelet/dist/processor.js", import.meta.url)
     await this.context.audioWorklet.addModule(url)
+  }
 
+  async loadSoundFontFromURL(url: string) {
+    const response = await fetch(url)
+    const data = await response.arrayBuffer()
+    await this.loadSoundFont(data)
+  }
+
+  async loadSoundFont(data: ArrayBuffer) {
+    this.isLoading = true
+
+    if (this.synth !== null) {
+      this.synth.disconnect()
+    }
+
+    // create new node
     this.synth = new AudioWorkletNode(this.context, "synth-processor", {
       numberOfInputs: 0,
       outputChannelCount: [2],
     } as any)
     this.synth.connect(this.context.destination)
+    this.sequenceNumber = 0
 
-    await this.loadSoundFont()
-  }
-
-  private async loadSoundFont() {
-    const data = await (await fetch(this.soundFontURL)).arrayBuffer()
-    const samples = getSamplesFromSoundFont(new Uint8Array(data), this.context)
+    const sampleEvents = getSampleEventsFromSoundFont(new Uint8Array(data))
     this._loadedSoundFontData = data
 
-    for (const sample of samples) {
+    for (const e of sampleEvents) {
       this.postSynthMessage(
-        sample,
-        [sample.sample.buffer], // transfer instead of copy
+        e.event,
+        e.transfer, // transfer instead of copy
       )
     }
+
+    this.isLoading = false
   }
 
   private postSynthMessage(e: SynthEvent, transfer?: Transferable[]) {
-    this.synth?.port.postMessage(e, transfer ?? [])
+    this.synth?.port.postMessage(
+      { ...e, sequenceNumber: this.sequenceNumber++ },
+      transfer ?? [],
+    )
   }
 
   sendEvent(event: SendableEvent, delayTime: number = 0) {

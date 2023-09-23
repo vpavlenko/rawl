@@ -18,6 +18,7 @@ import PianoRollStore from "./PianoRollStore"
 import RootViewStore from "./RootViewStore"
 import Router from "./Router"
 import SettingStore from "./SettingStore"
+import { SoundFontStore } from "./SoundFontStore"
 import TempoEditorStore from "./TempoEditorStore"
 import { registerReactions } from "./reactions"
 
@@ -38,9 +39,11 @@ export default class RootStore {
   readonly settingStore = new SettingStore()
   readonly player: Player
   readonly synth: SoundFontSynth
+  readonly metronomeSynth: SoundFontSynth
   readonly synthGroup = new GroupOutput()
   readonly midiInput = new MIDIInput()
   readonly midiRecorder: MIDIRecorder
+  readonly soundFontStore: SoundFontStore
 
   constructor() {
     makeObservable(this, {
@@ -48,19 +51,13 @@ export default class RootStore {
     })
 
     const context = new (window.AudioContext || window.webkitAudioContext)()
-    this.synth = new SoundFontSynth(
-      context,
-      "https://cdn.jsdelivr.net/gh/ryohey/signal@4569a31/public/A320U.sf2",
-    )
-    const metronomeSynth = new SoundFontSynth(
-      context,
-      "https://cdn.jsdelivr.net/gh/ryohey/signal@6959f35/public/A320U_drums.sf2",
-    )
+    this.synth = new SoundFontSynth(context)
+    this.metronomeSynth = new SoundFontSynth(context)
     this.synthGroup.outputs.push({ synth: this.synth, isEnabled: true })
 
     this.player = new Player(
       this.synthGroup,
-      metronomeSynth,
+      this.metronomeSynth,
       this.trackMute,
       this,
     )
@@ -68,6 +65,7 @@ export default class RootStore {
 
     this.pianoRollStore = new PianoRollStore(this)
     this.controlStore = new ControlStore(this.pianoRollStore)
+    this.soundFontStore = new SoundFontStore(this.synth)
 
     const preview = previewMidiInput(this)
 
@@ -81,6 +79,27 @@ export default class RootStore {
     this.tempoEditorStore.setUpAutorun()
 
     registerReactions(this)
+
+    this.init()
+  }
+
+  private async init() {
+    try {
+      await this.synth.setup()
+      await this.soundFontStore.init()
+      this.setupMetronomeSynth()
+    } catch (e) {
+      this.rootViewStore.initializeError = e as Error
+      this.rootViewStore.openInitializeErrorDialog = true
+    }
+  }
+
+  private async setupMetronomeSynth() {
+    const soundFontURL =
+      "https://cdn.jsdelivr.net/gh/ryohey/signal@6959f35/public/A320U_drums.sf2"
+    await this.metronomeSynth.setup()
+    const data = await (await fetch(soundFontURL)).arrayBuffer()
+    await this.metronomeSynth.loadSoundFont(data)
   }
 
   get pushHistory() {

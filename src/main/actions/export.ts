@@ -1,6 +1,6 @@
 import {
   audioDataToAudioBuffer,
-  getSamplesFromSoundFont,
+  getSampleEventsFromSoundFont,
   renderAudio,
 } from "@ryohey/wavelet"
 import { encode } from "wav-encoder"
@@ -20,10 +20,8 @@ export const exportSongAsWav =
       return
     }
 
-    const context = new (window.AudioContext || window.webkitAudioContext)()
-    const samples = getSamplesFromSoundFont(
+    const sampleEvents = getSampleEventsFromSoundFont(
       new Uint8Array(soundFontData),
-      context,
     )
     const sampleRate = 44100
     const events = songToSynthEvents(song, sampleRate)
@@ -33,6 +31,7 @@ export const exportSongAsWav =
     exportStore.progress = 0
 
     try {
+      const samples = sampleEvents.map((e) => e.event)
       const audioData = await renderAudio(samples, events, {
         sampleRate,
         bufferSize: 128,

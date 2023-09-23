@@ -3,11 +3,13 @@ import Color from "color"
 import CircleIcon from "mdi-react/CircleIcon"
 import { observer } from "mobx-react-lite"
 import { ChangeEvent, FC, useState } from "react"
+import { Alert } from "../../../components/Alert"
 import { Button } from "../../../components/Button"
 import { CircularProgress } from "../../../components/CircularProgress"
 import { DialogContent, DialogTitle } from "../../../components/Dialog"
 import { Localized } from "../../../components/Localized"
 import { useStores } from "../../hooks/useStores"
+import { useToast } from "../../hooks/useToast"
 import { SoundFontFile } from "../../stores/SoundFontStore"
 import { FileInput } from "../Navigation/LegacyFileMenu"
 
@@ -42,6 +44,7 @@ export const SoundFontSettingsView: FC = observer(() => {
   const { soundFontStore } = useStores()
   const { files, selectedSoundFontId } = soundFontStore
   const [isLoading, setIsLoading] = useState(false)
+  const toast = useToast()
 
   // TODO: add open local file dialog and put it to SoundFontStore
   const onOpenSoundFont = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -67,8 +70,13 @@ export const SoundFontSettingsView: FC = observer(() => {
               item={file}
               onClick={async () => {
                 setIsLoading(true)
-                await soundFontStore.load(file.id)
-                setIsLoading(false)
+                try {
+                  await soundFontStore.load(file.id)
+                } catch (e) {
+                  toast.error((e as Error).message)
+                } finally {
+                  setIsLoading(false)
+                }
               }}
             />
           ))}
@@ -78,11 +86,16 @@ export const SoundFontSettingsView: FC = observer(() => {
             </Overlay>
           )}
         </List>
-        <FileInput onChange={onOpenSoundFont} accept=".sf2">
+        <FileInput onChange={onOpenSoundFont} accept="*">
           <OpenFileButton as="div">
             <Localized default="Add">add</Localized>
           </OpenFileButton>
         </FileInput>
+        <Alert severity="info" style={{ marginTop: "1rem" }}>
+          <Localized default="SoundFont will be saved in the browser.">
+            soundfont-save-notice
+          </Localized>
+        </Alert>
       </DialogContent>
     </>
   )

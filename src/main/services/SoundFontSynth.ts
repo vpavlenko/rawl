@@ -12,6 +12,7 @@ export class SoundFontSynth implements SynthOutput {
   }
 
   isLoading: boolean = true
+  private sequenceNumber = 0
 
   constructor(context: AudioContext) {
     this.context = context
@@ -45,6 +46,7 @@ export class SoundFontSynth implements SynthOutput {
       outputChannelCount: [2],
     } as any)
     this.synth.connect(this.context.destination)
+    this.sequenceNumber = 0
 
     const sampleEvents = getSampleEventsFromSoundFont(new Uint8Array(data))
     this._loadedSoundFontData = data
@@ -60,7 +62,10 @@ export class SoundFontSynth implements SynthOutput {
   }
 
   private postSynthMessage(e: SynthEvent, transfer?: Transferable[]) {
-    this.synth?.port.postMessage(e, transfer ?? [])
+    this.synth?.port.postMessage(
+      { ...e, sequenceNumber: this.sequenceNumber++ },
+      transfer ?? [],
+    )
   }
 
   sendEvent(event: SendableEvent, delayTime: number = 0) {

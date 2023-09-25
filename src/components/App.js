@@ -357,26 +357,26 @@ class App extends React.Component {
   }
 
   handleToggleFavorite(path) {
-    const user = this.state.user;
-    if (user) {
-      const userRef = doc(this.db, "users", user.uid);
-      let newFaves, favesOp;
-      const oldFaves = this.state.faves;
-      const exists = oldFaves.includes(path);
-      if (exists) {
-        newFaves = oldFaves.filter((fave) => fave !== path);
-        favesOp = arrayRemove(path);
-      } else {
-        newFaves = [...oldFaves, path];
-        favesOp = arrayUnion(path);
-      }
-      // Optimistic update
-      this.setState({ faves: newFaves });
-      updateDoc(userRef, { faves: favesOp }).catch((e) => {
-        this.setState({ faves: oldFaves });
-        console.log("Couldn't update favorites in Firebase.", e);
-      });
-    }
+    // const user = this.state.user;
+    // if (user) {
+    //   const userRef = doc(this.db, "users", user.uid);
+    //   let newFaves, favesOp;
+    //   const oldFaves = this.state.faves;
+    //   const exists = oldFaves.includes(path);
+    //   if (exists) {
+    //     newFaves = oldFaves.filter((fave) => fave !== path);
+    //     favesOp = arrayRemove(path);
+    //   } else {
+    //     newFaves = [...oldFaves, path];
+    //     favesOp = arrayUnion(path);
+    //   }
+    //   // Optimistic update
+    //   this.setState({ faves: newFaves });
+    //   updateDoc(userRef, { faves: favesOp }).catch((e) => {
+    //     this.setState({ faves: oldFaves });
+    //     console.log("Couldn't update favorites in Firebase.", e);
+    //   });
+    // }
   }
 
   async saveAnalysis(analysis) {

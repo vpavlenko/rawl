@@ -48,21 +48,21 @@ const TAGS = [
   "location:lost",
   "location:game_won",
   "chip:extensions",
-  "voice-leading:descending-chromatic-bass",
-  "voice-leading:descending-diatonic-bass",
-  "voice-leading:descending-chromatic-melody",
-  "voice-leading:ascending-chromatic",
-  "voice-leading:Vsus4",
-  "voice-leading:Cad64",
-  "voice-leading:triple_suspension",
+  "voice_leading:descending_chromatic_bass",
+  "voice_leading:descending_diatonic_bass",
+  "voice_leading:descending_chromatic_melody",
+  "voice_leading:ascending_chromatic",
+  "voice_leading:Vsus4",
+  "voice_leading:Cad64",
+  "voice_leading:triple_suspension",
   "chord:N6",
   "chord:Aug6",
   "form:ABA",
   "form:AABA",
   "form:ABABC",
-  "form:12-bar-blues",
-  "form:16-bar-blues",
-  "form:basso-ostinato",
+  "form:12-bar_blues",
+  "form:16-bar_blues",
+  "form:basso_ostinato",
   "form:fermata_between_sections",
   "form:stasis_vs_progression", // contrast between A and B
   "form:period",
@@ -73,13 +73,13 @@ const TAGS = [
   "melody:riff",
   "bass:pedal_point",
   "style:common_practice",
-  "timbre:melody_doubling", // "middle_voice:melody_echo"
-  "arrangement:melody_in_middle_voice", // rename: "middle_voice:melody"
+  "middle_voice:melody_echo",
+  "middle_voice:melody",
   "middle_voice:doubles_bass",
-  "voice-leading:parallel_fourths", // "middle_voice:parallel_fourths"
-  "voice-leading:doubling_in_thirds", // "middle_voice:parallel_thirds"
-  "voice-leading:parallel_sixths", // "middle_voice:parallel_sixths"
-  "middle-voice:arpeggio",
+  "middle_voice:parallel_fourths",
+  "middle_voice:parallel_thirds",
+  "middle_voice:parallel_sixths",
+  "middle_voice:arpeggio",
 ];
 
 export const STEPS = [

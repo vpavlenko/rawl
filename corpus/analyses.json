@@ -754,7 +754,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "voice-leading:descending-diatonic-bass",
+          "voice_leading:descending_diatonic_bass",
           "melody:riff"
         ],
         "fourMeasurePhrasingReferences": [],
@@ -1311,7 +1311,7 @@
         },
         "tonic": 11,
         "tags": [
-          "form:12-bar-blues"
+          "form:12-bar_blues"
         ]
       },
       "14": {
@@ -1460,8 +1460,8 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "form:16-bar-blues",
-          "voice-leading:doubling_in_thirds"
+          "form:16-bar_blues",
+          "middle_voice:parallel_thirds"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.2200000000000009,
@@ -1483,7 +1483,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "voice-leading:doubling_in_thirds"
+          "middle_voice:parallel_thirds"
         ],
         "fourMeasurePhrasingReferences": [
           3
@@ -1595,7 +1595,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "voice-leading:descending-diatonic-bass"
+          "voice_leading:descending_diatonic_bass"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 2.1199999999999988,
@@ -2066,7 +2066,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "voice-leading:descending-chromatic-bass"
+          "voice_leading:descending_chromatic_bass"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.8200000000000014,
@@ -2122,7 +2122,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "voice-leading:descending-chromatic-melody"
+          "voice_leading:descending_chromatic_melody"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.5700000000000012,
@@ -2550,7 +2550,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "form:12-bar-blues"
+          "form:12-bar_blues"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.5400000000000011,
@@ -2636,7 +2636,7 @@
         "modulations": [],
         "tags": [
           "form:stasis_vs_progression",
-          "voice-leading:parallel_fourths"
+          "middle_voice:parallel_fourths"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 0.8900000000000006,
@@ -2677,7 +2677,7 @@
         "tags": [
           "location:boss",
           "harmony:stasis",
-          "voice-leading:descending-chromatic-melody"
+          "voice_leading:descending_chromatic_melody"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.9900000000000015,
@@ -2773,7 +2773,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "voice-leading:descending-diatonic-bass"
+          "voice_leading:descending_diatonic_bass"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 0.8900000000000006,
@@ -2809,7 +2809,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "voice-leading:descending-diatonic-bass"
+          "voice_leading:descending_diatonic_bass"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 0.8900000000000006,
@@ -2910,7 +2910,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "form:12-bar-blues"
+          "form:12-bar_blues"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.0400000000000007,
@@ -2929,7 +2929,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "form:12-bar-blues"
+          "form:12-bar_blues"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.0400000000000007,
@@ -3070,7 +3070,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "form:12-bar-blues"
+          "form:12-bar_blues"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.7900000000000014,
@@ -3093,7 +3093,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "voice-leading:descending-chromatic-bass"
+          "voice_leading:descending_chromatic_bass"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 2.53999999999999,
@@ -3287,7 +3287,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "form:12-bar-blues"
+          "form:12-bar_blues"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": null,
@@ -3559,7 +3559,7 @@
         "modulations": [],
         "tags": [
           "melody:riff",
-          "voice-leading:descending-diatonic-bass"
+          "voice_leading:descending_diatonic_bass"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.340000000000001,
@@ -3656,7 +3656,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "middle-voice:arpeggio"
+          "middle_voice:arpeggio"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.9900000000000015,
@@ -3869,7 +3869,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "form:12-bar-blues",
+          "form:12-bar_blues",
           "bass:walking"
         ],
         "fourMeasurePhrasingReferences": [],
@@ -3915,7 +3915,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "voice-leading:doubling_in_thirds",
+          "middle_voice:parallel_thirds",
           "scale:dorian"
         ],
         "fourMeasurePhrasingReferences": [],
@@ -3937,7 +3937,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "voice-leading:descending-chromatic-bass"
+          "voice_leading:descending_chromatic_bass"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 0.9900000000000007,
@@ -3956,7 +3956,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "voice-leading:ascending-chromatic"
+          "voice_leading:ascending_chromatic"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.1400000000000008,
@@ -4016,7 +4016,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "middle-voice:arpeggio"
+          "middle_voice:arpeggio"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.5900000000000012,
@@ -4125,7 +4125,7 @@
         "romanNumerals": "I i I I",
         "clickResolutionMs": 0.01,
         "tags": [
-          "voice-leading:parallel_sixths"
+          "middle_voice:parallel_sixths"
         ],
         "mode": "major",
         "fourMeasurePhrasingReferences": [],
@@ -4237,8 +4237,8 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "arrangement:melody_in_middle_voice",
-          "form:basso-ostinato"
+          "middle_voice:melody",
+          "form:basso_ostinato"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.5900000000000012,
@@ -4274,7 +4274,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "voice-leading:doubling_in_thirds"
+          "middle_voice:parallel_thirds"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.5900000000000012,
@@ -4295,7 +4295,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "voice-leading:doubling_in_thirds"
+          "middle_voice:parallel_thirds"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.5900000000000012,
@@ -4355,7 +4355,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "voice-leading:doubling_in_thirds"
+          "middle_voice:parallel_thirds"
         ],
         "fourMeasurePhrasingReferences": [
           13,
@@ -4377,7 +4377,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "voice-leading:doubling_in_thirds"
+          "middle_voice:parallel_thirds"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.5900000000000012,
@@ -4396,7 +4396,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "voice-leading:doubling_in_thirds"
+          "middle_voice:parallel_thirds"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 4.789999999999942,
@@ -4453,7 +4453,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "voice-leading:doubling_in_thirds"
+          "middle_voice:parallel_thirds"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.5900000000000012,
@@ -4472,7 +4472,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "voice-leading:doubling_in_thirds"
+          "middle_voice:parallel_thirds"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.5900000000000012,
@@ -4491,7 +4491,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "voice-leading:doubling_in_thirds"
+          "middle_voice:parallel_thirds"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.5900000000000012,
@@ -4561,7 +4561,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "voice-leading:doubling_in_thirds"
+          "middle_voice:parallel_thirds"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.5900000000000012,
@@ -4838,7 +4838,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "voice-leading:Vsus4"
+          "voice_leading:Vsus4"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.440000000000001,
@@ -5052,7 +5052,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "form:basso-ostinato"
+          "form:basso_ostinato"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 0.9400000000000006,
@@ -6027,7 +6027,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "form:12-bar-blues"
+          "form:12-bar_blues"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.0900000000000007,

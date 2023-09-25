@@ -68,7 +68,9 @@ const Search: React.FC<{
     <div>
       {Object.entries(tags).map(([categoryName, categoryContent]) => (
         <div key={categoryName}>
-          <h6 style={{ marginBottom: "0px" }}>{categoryName}</h6>
+          <h6 style={{ marginBottom: "0px" }}>
+            {categoryName.replace(/_/g, " ")}
+          </h6>
           <div style={{ margin: "0px 0px 30px 10px" }}>
             {Object.entries(categoryContent).map(([value, items]) => {
               return (
@@ -86,7 +88,7 @@ const Search: React.FC<{
                     history.push(`/search/${categoryName}/${value}`)
                   }
                 >
-                  {value.split(/[_-]/).join(" ")}{" "}
+                  {value.replace(/_/g, " ")}{" "}
                   <span style={{ fontSize: "16px" }}>{items.length}</span>
                 </div>
               );

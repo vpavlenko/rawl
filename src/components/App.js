@@ -938,11 +938,12 @@ class App extends React.Component {
                         )}
                       /> */}
                       <Route
-                        path="/browse/:browsePath*"
+                        path={["/browse/:browsePath*", "/search/:searchPath*"]}
                         render={({ history, match, location }) => {
                           // Undo the react-router-dom double-encoded % workaround - see DirectoryLink.js
                           const browsePath =
                             match.params?.browsePath?.replace("%25", "%") || "";
+                          const searchPath = match.params?.searchPath;
                           this.browsePath = browsePath;
                           const path =
                             this.playContexts[browsePath] &&
@@ -968,6 +969,7 @@ class App extends React.Component {
                                   historyAction={history.action}
                                   locationKey={location.key}
                                   browsePath={browsePath}
+                                  searchPath={searchPath}
                                   listing={this.state.directories[browsePath]}
                                   playContext={this.playContexts[browsePath]}
                                   fetchDirectory={this.fetchDirectory}

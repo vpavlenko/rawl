@@ -1,7 +1,8 @@
-import autoBindReact from 'auto-bind/react';
-import React, { Fragment } from 'react';
-import VirtualList from 'react-virtual-list';
-import BrowseList from './BrowseList';
+import autoBindReact from "auto-bind/react";
+import React from "react";
+import VirtualList from "react-virtual-list";
+import BrowseList from "./BrowseList";
+import Search from "./chiptheory/Search";
 
 const ITEM_HEIGHT = 19; // should match --charH CSS variable
 const ITEM_BUFFER = 10;
@@ -9,7 +10,8 @@ const ITEM_BUFFER = 10;
 const mapToVirtualProps = (props, state) => {
   const { items, itemHeight } = props;
   const { firstItemIndex, lastItemIndex } = state;
-  const visibleItems = lastItemIndex > -1 ? items.slice(firstItemIndex, lastItemIndex + 1) : [];
+  const visibleItems =
+    lastItemIndex > -1 ? items.slice(firstItemIndex, lastItemIndex + 1) : [];
 
   // style
   const height = items.length * itemHeight;
@@ -23,7 +25,7 @@ const mapToVirtualProps = (props, state) => {
         paddingTop,
         minHeight: height,
         height: height,
-        boxSizing: 'border-box',
+        boxSizing: "border-box",
       },
     },
   };
@@ -44,7 +46,9 @@ export default class Browse extends React.PureComponent {
   }
 
   saveScrollPosition(locationKey) {
-    const scrollTop = Math.round(this.props.scrollContainerRef.current.scrollTop);
+    const scrollTop = Math.round(
+      this.props.scrollContainerRef.current.scrollTop,
+    );
     sessionStorage.setItem(locationKey, scrollTop.toString());
   }
 
@@ -87,13 +91,19 @@ export default class Browse extends React.PureComponent {
 
     ...therefore, play param is now disabled.
      */
-    if (this.props.historyAction === "POP") { // User has just navigated back or forward
+    if (this.props.historyAction === "POP") {
+      // User has just navigated back or forward
       const { browsePath, locationKey } = this.props;
       if (sessionStorage.getItem(locationKey)) {
         const scrollToPosY = sessionStorage.getItem(locationKey);
         this.props.scrollContainerRef.current.scrollTo(0, scrollToPosY);
         sessionStorage.removeItem(locationKey); // Stop scroll restoration until next navigation
-        console.debug("%s (%s) scroll position restored to %s", browsePath, locationKey, scrollToPosY);
+        console.debug(
+          "%s (%s) scroll position restored to %s",
+          browsePath,
+          locationKey,
+          scrollToPosY,
+        );
       }
     } else if (prevProps.locationKey !== this.props.locationKey) {
       // Scroll to top when navigating to a new directory
@@ -106,51 +116,70 @@ export default class Browse extends React.PureComponent {
   }
 
   navigate() {
-    const {
-      browsePath,
-      listing,
-      fetchDirectory,
-    } = this.props;
+    const { browsePath, listing, fetchDirectory } = this.props;
     if (!listing) {
       fetchDirectory(browsePath);
     }
   }
 
-  VirtualDirectoryListing = VirtualList({
-    container: this.props.scrollContainerRef.current,
-  }, mapToVirtualProps)(BrowseList);
+  VirtualDirectoryListing = VirtualList(
+    {
+      container: this.props.scrollContainerRef.current,
+    },
+    mapToVirtualProps,
+  )(BrowseList);
 
   render() {
-    const {
-      listing,
-      browsePath,
-      playContext,
-    } = this.props;
-    const listingWithParent = [{
-      path: '..',
-      type: 'directory',
-    }, ...(listing || [])];
+    const { listing, browsePath, searchPath, playContext } = this.props;
+    const listingWithParent = [
+      {
+        path: "..",
+        type: "directory",
+      },
+      ...(listing || []),
+    ];
+
+    const isRoot = browsePath === "Nintendo";
 
     return (
-      <Fragment>
-        {/* <div className="Browse-topRow">
-          /{browsePath}{' '}
-          <button
-            className="box-button"
-            title="Shuffle this directory (and all subdirectories)"
-            onClick={this.handleShufflePlay}>
-            Shuffle Play
-          </button>
-        </div> */}
-        <this.VirtualDirectoryListing
-          key={browsePath}
-          {...this.props}
-          playContext={playContext}
-          items={listingWithParent}
-          itemHeight={ITEM_HEIGHT}
-          itemBuffer={ITEM_BUFFER}
-        />
-      </Fragment>
+      <>
+        {isRoot || searchPath ? (
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "200px 1fr",
+              gap: "50px",
+              height: "100%",
+            }}
+          >
+            <div style={{ overflowY: "auto", height: "100%", width: "200px" }}>
+              <Search analyses={this.props.analyses} searchPath={searchPath} />
+            </div>
+
+            <div style={{ overflowY: "auto", height: "100%" }}>
+              <this.VirtualDirectoryListing
+                key={browsePath}
+                {...this.props}
+                playContext={playContext}
+                items={listingWithParent}
+                itemHeight={ITEM_HEIGHT}
+                itemBuffer={ITEM_BUFFER}
+              />
+            </div>
+          </div>
+        ) : (
+          <div style={{}}>
+            <this.VirtualDirectoryListing
+              key={browsePath}
+              {...this.props}
+              playContext={playContext}
+              items={listingWithParent}
+              itemHeight={ITEM_HEIGHT}
+              itemBuffer={ITEM_BUFFER}
+            />
+          </div>
+        )}
+      </>
     );
   }
 }

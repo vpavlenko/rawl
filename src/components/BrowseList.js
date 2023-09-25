@@ -75,7 +75,7 @@ function BrowseList({ virtual, ...props }) {
     prevPath === currPath.substring(0, currPath.lastIndexOf("/"));
 
   return (
-    <div style={{ position: "relative" }}>
+    <div>
       <div style={virtual.style}>
         {virtual.items.map((item) => {
           // XXX: Escape immediately: the escaped URL is considered canonical.

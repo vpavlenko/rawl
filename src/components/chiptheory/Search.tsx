@@ -1,14 +1,20 @@
 import * as React from "react";
 import { memo, useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { Analysis } from "./Analysis";
-import Card from "./Card";
 
 const Search: React.FC<{
   analyses: {
     [game: string]: { [file: string]: { [subtune: number]: Analysis } };
   };
-}> = ({ analyses }) => {
+  searchPath: string;
+}> = ({ analyses, searchPath }) => {
+  const history = useHistory();
+
   const [tags, setTags] = useState({});
+
+  const [selectedCategory, selectedValue] = (searchPath || "").split("/");
+
   useEffect(() => {
     const result = {};
     if (analyses) {
@@ -31,27 +37,35 @@ const Search: React.FC<{
       );
     }
     setTags(result);
-    console.log(result);
   }, [analyses]);
 
   return (
     <div>
-      <h3 className="Browse-topRow">Chiptheory Search by Tags</h3>
       {Object.entries(tags).map(([categoryName, categoryContent]) => (
         <div>
-          <h3>{categoryName}</h3>
-          {Object.entries(categoryContent).map(([value, items]) => {
-            return (
-              <div>
-                <h3>
-                  {value} : {items.length}
-                </h3>
-                {items.map(({ analysis, subtune }) => (
-                  <Card analysis={analysis} index={subtune} />
-                ))}
-              </div>
-            );
-          })}
+          <h6 style={{ marginBottom: "0px" }}>{categoryName}</h6>
+          <div style={{ margin: "0px 0px 30px 10px" }}>
+            {Object.entries(categoryContent).map(([value, items]) => {
+              return (
+                <div
+                  style={{
+                    cursor: "pointer",
+                    marginBottom: "3px",
+                    ...(categoryName === selectedCategory &&
+                    value === selectedValue
+                      ? { color: "yellow" }
+                      : {}),
+                  }}
+                  onClick={() =>
+                    history.push(`/search/${categoryName}/${value}`)
+                  }
+                >
+                  {value.split(/[_-]/).join(" ")}{" "}
+                  <span style={{ fontSize: "16px" }}>{items.length}</span>
+                </div>
+              );
+            })}
+          </div>
         </div>
       ))}
     </div>

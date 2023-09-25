@@ -7,7 +7,7 @@ type Corpus = {
   [game: string]: { [file: string]: { [subtune: number]: Analysis } };
 };
 
-const matches = (analysis: Analysis, searchPath: string) => {
+export const matches = (analysis: Analysis, searchPath: string) => {
   return (analysis.tags || []).some(
     (tag) => tag === searchPath.replace("/", ":"),
   );

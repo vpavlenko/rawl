@@ -6,6 +6,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import { CATALOG_PREFIX } from "../config";
 import DirectoryLink from "./DirectoryLink";
 import Card from "./chiptheory/Card";
+import { matches } from "./chiptheory/Search";
 
 export default memo(BrowseList);
 function BrowseList({ virtual, ...props }) {
@@ -19,6 +20,7 @@ function BrowseList({ virtual, ...props }) {
     browsePath,
     playContext,
     analyses,
+    searchPath,
   } = props;
 
   const location = useLocation();
@@ -91,10 +93,10 @@ function BrowseList({ virtual, ...props }) {
           const name = item.path.split("/").pop();
           const isPlaying = currContext === playContext && currIdx === item.idx;
           const isBackLink = item.path === ".." && prevPageIsParentDir;
-          let analysis =
+          let fileAnalysis =
             analyses && analyses[path] && Object.values(analyses[path]);
-          if (analysis && analysis[0]) {
-            analysis = analysis[0];
+          if (fileAnalysis && fileAnalysis[0]) {
+            fileAnalysis = fileAnalysis[0];
           }
 
           if (item.type === "directory") {
@@ -102,7 +104,7 @@ function BrowseList({ virtual, ...props }) {
               <div key={name} className="BrowseList-row">
                 <div className="BrowseList-colName">
                   <DirectoryLink
-                    dim={!analysis}
+                    dim={!fileAnalysis}
                     to={"/browse/" + path}
                     search={search}
                     isBackLink={isBackLink}
@@ -111,20 +113,20 @@ function BrowseList({ virtual, ...props }) {
                     {name}
                   </DirectoryLink>
                 </div>
-                {analysis && (
+                {fileAnalysis && (
                   <div>
-                    {Object.entries(analysis).map(([index, piece]) => {
+                    {Object.entries(fileAnalysis).map(([index, piece]) => {
                       const realIndex = parseInt(index, 10) + 1;
-                      return (
+                      return !searchPath || matches(piece, searchPath) ? (
                         <DirectoryLink
                           key={realIndex}
-                          dim={new Boolean(analysis)}
+                          dim={new Boolean(fileAnalysis)}
                           to={"/browse/" + path}
                           search={`?subtune=${realIndex}`}
                         >
                           <Card analysis={piece} index={realIndex} />
                         </DirectoryLink>
-                      );
+                      ) : null;
                     })}
                   </div>
                 )}

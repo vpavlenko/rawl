@@ -102,6 +102,7 @@ function BrowseList({ virtual, ...props }) {
               : item.path
                   .replace("%", "%25")
                   .replace("#", "%23")
+                  .replace("&", "%26")
                   .replace(/^\//, "");
           const name = item.path.split("/").pop();
           const isPlaying = currContext === playContext && currIdx === item.idx;

@@ -8,8 +8,6 @@ import {
   signOut,
 } from "firebase/auth";
 import {
-  arrayRemove,
-  arrayUnion,
   doc,
   getDoc,
   getFirestore,
@@ -422,6 +420,7 @@ class App extends React.Component {
       this.setState({ analyses: userData.analyses });
     }
   }
+
   attachMediaKeyHandlers() {
     if ("mediaSession" in navigator) {
       console.log("Attaching Media Key event handlers.");
@@ -941,9 +940,11 @@ class App extends React.Component {
                         path={["/browse/:browsePath*", "/search/:searchPath*"]}
                         render={({ history, match, location }) => {
                           // Undo the react-router-dom double-encoded % workaround - see DirectoryLink.js
-                          const browsePath =
-                            match.params?.browsePath?.replace("%25", "%") || "";
                           const searchPath = match.params?.searchPath;
+                          const browsePath = searchPath
+                            ? "Nintendo"
+                            : match.params?.browsePath?.replace("%25", "%") ||
+                              "";
                           this.browsePath = browsePath;
                           const path =
                             this.playContexts[browsePath] &&

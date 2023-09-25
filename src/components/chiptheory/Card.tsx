@@ -26,27 +26,45 @@ const Card: React.FC<{ analysis: Analysis; index: number }> = ({
   const modulations = Object.entries(analysis.modulations || {});
   const badges = [];
   if (analysis.comment) {
-    badges.push(<Badge color="#cc4">{analysis.comment}</Badge>);
+    badges.push(
+      <Badge key="comment" color="#cc4">
+        {analysis.comment}
+      </Badge>,
+    );
   }
   if ((analysis.beatsPerMeasure ?? 4) !== 4) {
     badges.push(
-      <Badge color="#99f">{`${analysis.beatsPerMeasure}/4 or ${analysis.beatsPerMeasure}/8`}</Badge>,
+      <Badge
+        key="beats"
+        color="#99f"
+      >{`${analysis.beatsPerMeasure}/4 or ${analysis.beatsPerMeasure}/8`}</Badge>,
     );
   }
   if (analysis.tags && analysis.tags.length > 0) {
     analysis.tags.map((tag) =>
-      badges.push(<Badge>{tag.split(":").join(": ")}</Badge>),
+      badges.push(
+        <Badge key={`tag_${tag}`}>{tag.split(":").join(": ")}</Badge>,
+      ),
     );
   }
   if (analysis.romanNumerals) {
-    badges.push(<RomanNumerals romanNumerals={analysis.romanNumerals} />);
+    badges.push(
+      <RomanNumerals
+        key="romanNumerals"
+        romanNumerals={analysis.romanNumerals}
+      />,
+    );
   }
   if (analysis.basedOn) {
-    badges.push(<Badge color="#cfc">{analysis.basedOn}</Badge>);
+    badges.push(
+      <Badge key="basedOn" color="#cfc">
+        {analysis.basedOn}
+      </Badge>,
+    );
   }
   if (modulations.length > 0) {
     badges.push(
-      <Badge color="#fcc">
+      <Badge key="modulations" color="#fcc">
         {"mod: " +
           modulations
             .map(([measure, newTonic]) =>
@@ -57,7 +75,11 @@ const Card: React.FC<{ analysis: Analysis; index: number }> = ({
     );
   }
   if (badges.length === 0) {
-    badges.push(<Badge color="white">{index}</Badge>);
+    badges.push(
+      <Badge key="index" color="white">
+        {index}
+      </Badge>,
+    );
   }
 
   return (

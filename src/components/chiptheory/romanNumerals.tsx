@@ -242,7 +242,7 @@ export const RomanNumerals: React.FC<{ romanNumerals: string }> = ({
     let row = [];
     array.slice(i, i + 4).map((measure) => {
       const chords = measure.split("-");
-      chords.forEach((chord) =>
+      chords.forEach((chord, j) =>
         row.push(
           <div
             style={{

@@ -3,10 +3,35 @@ import { memo, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Analysis } from "./Analysis";
 
+type Corpus = {
+  [game: string]: { [file: string]: { [subtune: number]: Analysis } };
+};
+
+const matches = (analysis: Analysis, searchPath: string) => {
+  return (analysis.tags || []).some(
+    (tag) => tag === searchPath.replace("/", ":"),
+  );
+};
+
+export const filterListing = (
+  listing,
+  analyses: Corpus,
+  searchPath: string,
+) => {
+  if (!searchPath || !analyses) return listing;
+
+  return listing.filter(
+    ({ path }) =>
+      path === ".." ||
+      (analyses[path.slice(1)] &&
+        Object.values(analyses[path.slice(1)]).some((file) =>
+          Object.values(file).some((analysis) => matches(analysis, searchPath)),
+        )),
+  );
+};
+
 const Search: React.FC<{
-  analyses: {
-    [game: string]: { [file: string]: { [subtune: number]: Analysis } };
-  };
+  analyses: Corpus;
   searchPath: string;
 }> = ({ analyses, searchPath }) => {
   const history = useHistory();
@@ -42,12 +67,13 @@ const Search: React.FC<{
   return (
     <div>
       {Object.entries(tags).map(([categoryName, categoryContent]) => (
-        <div>
+        <div key={categoryName}>
           <h6 style={{ marginBottom: "0px" }}>{categoryName}</h6>
           <div style={{ margin: "0px 0px 30px 10px" }}>
             {Object.entries(categoryContent).map(([value, items]) => {
               return (
                 <div
+                  key={value}
                   style={{
                     cursor: "pointer",
                     marginBottom: "3px",

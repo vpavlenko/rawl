@@ -2,7 +2,7 @@ import autoBindReact from "auto-bind/react";
 import React from "react";
 import VirtualList from "react-virtual-list";
 import BrowseList from "./BrowseList";
-import Search from "./chiptheory/Search";
+import Search, { filterListing } from "./chiptheory/Search";
 
 const ITEM_HEIGHT = 19; // should match --charH CSS variable
 const ITEM_BUFFER = 10;
@@ -130,7 +130,8 @@ export default class Browse extends React.PureComponent {
   )(BrowseList);
 
   render() {
-    const { listing, browsePath, searchPath, playContext } = this.props;
+    const { listing, browsePath, searchPath, playContext, analyses } =
+      this.props;
     const listingWithParent = [
       {
         path: "..",
@@ -140,6 +141,12 @@ export default class Browse extends React.PureComponent {
     ];
 
     const isRoot = browsePath === "Nintendo";
+
+    const filteredListing = filterListing(
+      listingWithParent,
+      analyses,
+      searchPath,
+    );
 
     return (
       <>
@@ -153,7 +160,7 @@ export default class Browse extends React.PureComponent {
             }}
           >
             <div style={{ overflowY: "auto", height: "100%", width: "200px" }}>
-              <Search analyses={this.props.analyses} searchPath={searchPath} />
+              <Search analyses={analyses} searchPath={searchPath} />
             </div>
 
             <div style={{ overflowY: "auto", height: "100%" }}>
@@ -161,7 +168,7 @@ export default class Browse extends React.PureComponent {
                 key={browsePath}
                 {...this.props}
                 playContext={playContext}
-                items={listingWithParent}
+                items={filteredListing}
                 itemHeight={ITEM_HEIGHT}
                 itemBuffer={ITEM_BUFFER}
               />

@@ -156,6 +156,7 @@ const SIMPLE_RN_TO_CHROMATIC_DEGREE = {
   biii: 3,
   "#VII": 11,
   bii: 1,
+  "#VI": 9,
 };
 
 const split = (s: string, delimiter: string) =>

@@ -1,35 +1,7 @@
 import autoBindReact from "auto-bind/react";
 import React from "react";
-import VirtualList from "react-virtual-list";
 import BrowseList from "./BrowseList";
 import Search, { filterListing } from "./chiptheory/Search";
-
-const ITEM_HEIGHT = 19; // should match --charH CSS variable
-const ITEM_BUFFER = 10;
-
-const mapToVirtualProps = (props, state) => {
-  const { items, itemHeight } = props;
-  const { firstItemIndex, lastItemIndex } = state;
-  const visibleItems =
-    lastItemIndex > -1 ? items.slice(firstItemIndex, lastItemIndex + 1) : [];
-
-  // style
-  const height = items.length * itemHeight;
-  const paddingTop = firstItemIndex * itemHeight;
-
-  return {
-    ...props,
-    virtual: {
-      items: visibleItems,
-      style: {
-        paddingTop,
-        minHeight: height,
-        height: height,
-        boxSizing: "border-box",
-      },
-    },
-  };
-};
 
 export default class Browse extends React.PureComponent {
   constructor(props) {
@@ -122,13 +94,6 @@ export default class Browse extends React.PureComponent {
     }
   }
 
-  VirtualDirectoryListing = VirtualList(
-    {
-      container: this.props.scrollContainerRef.current,
-    },
-    mapToVirtualProps,
-  )(BrowseList);
-
   render() {
     const { listing, browsePath, searchPath, playContext, analyses } =
       this.props;
@@ -154,35 +119,31 @@ export default class Browse extends React.PureComponent {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "200px 1fr",
+              gridTemplateColumns: "300px 1fr",
               gap: "50px",
               height: "100%",
             }}
           >
-            <div style={{ overflowY: "auto", height: "100%", width: "200px" }}>
+            <div style={{ overflowY: "auto", height: "100%" }}>
               <Search analyses={analyses} searchPath={searchPath} />
             </div>
 
             <div style={{ overflowY: "auto", height: "100%" }}>
-              <this.VirtualDirectoryListing
+              <BrowseList
                 key={browsePath}
                 {...this.props}
                 playContext={playContext}
                 items={filteredListing}
-                itemHeight={ITEM_HEIGHT}
-                itemBuffer={ITEM_BUFFER}
               />
             </div>
           </div>
         ) : (
-          <div style={{}}>
-            <this.VirtualDirectoryListing
+          <div>
+            <BrowseList
               key={browsePath}
               {...this.props}
               playContext={playContext}
-              items={listingWithParent}
-              itemHeight={ITEM_HEIGHT}
-              itemBuffer={ITEM_BUFFER}
+              items={filteredListing}
             />
           </div>
         )}

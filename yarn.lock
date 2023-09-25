@@ -10373,7 +10373,7 @@ promise@8.0.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.5.10, prop-types@^15.6.0, prop-types@^15.6.2, prop-types@^15.8.1:
+prop-types@^15.6.0, prop-types@^15.6.2, prop-types@^15.8.1:
   version "15.8.1"
   resolved "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -10707,12 +10707,6 @@ react-transition-group@^4.3.0:
     dom-helpers "^5.0.1"
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
-
-"react-virtual-list@git+https://github.com/glebcha/react-virtual-list.git#544bc7":
-  version "2.3.0"
-  resolved "git+ssh://git@github.com/glebcha/react-virtual-list.git#544bc78939ab3255af0538d349d5247fd08634bb"
-  dependencies:
-    prop-types "^15.5.10"
 
 react@^16.8.0:
   version "16.14.0"

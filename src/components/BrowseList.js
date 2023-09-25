@@ -9,13 +9,10 @@ import Card from "./chiptheory/Card";
 import { matches } from "./chiptheory/Search";
 
 export default memo(BrowseList);
-function BrowseList({ virtual, ...props }) {
+function BrowseList({ items, ...props }) {
   const {
     currContext,
     currIdx,
-    favorites,
-    toggleFavorite,
-    sequencer,
     handleSongClick,
     browsePath,
     playContext,
@@ -27,9 +24,7 @@ function BrowseList({ virtual, ...props }) {
 
   // Chiptheory's autoplay for NES, because most directories have a single file
   useEffect(() => {
-    const firstSongItem = virtual.items.find(
-      (item) => item.type !== "directory",
-    );
+    const firstSongItem = items.find((item) => item.type !== "directory");
 
     if (firstSongItem) {
       const path =
@@ -59,7 +54,7 @@ function BrowseList({ virtual, ...props }) {
       });
     }
     // Add the dependencies that would trigger the effect when changed
-  }, [virtual.items.length]);
+  }, [items.length]);
 
   // Scroll Into View
   // ----------------
@@ -78,8 +73,8 @@ function BrowseList({ virtual, ...props }) {
 
   return (
     <div>
-      <div style={virtual.style}>
-        {virtual.items.map((item) => {
+      <div>
+        {items.map((item) => {
           // XXX: Escape immediately: the escaped URL is considered canonical.
           //      The URL must be decoded for display from here on out.
           const path =

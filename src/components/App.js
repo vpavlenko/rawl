@@ -1,6 +1,12 @@
-import autoBindReact from 'auto-bind/react';
-import { initializeApp as firebaseInitializeApp } from 'firebase/app';
-import { GoogleAuthProvider, getAuth, onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth';
+import autoBindReact from "auto-bind/react";
+import { initializeApp as firebaseInitializeApp } from "firebase/app";
+import {
+  GoogleAuthProvider,
+  getAuth,
+  onAuthStateChanged,
+  signInWithPopup,
+  signOut,
+} from "firebase/auth";
 import {
   arrayRemove,
   arrayUnion,
@@ -8,51 +14,60 @@ import {
   getDoc,
   getFirestore,
   setDoc,
-  updateDoc
-} from 'firebase/firestore/lite';
-import isMobile from 'ismobilejs';
-import clamp from 'lodash/clamp';
-import shuffle from 'lodash/shuffle';
-import path from 'path';
-import queryString from 'querystring';
-import React from 'react';
-import Dropzone from 'react-dropzone';
-import { NavLink, Redirect, Route, Switch, withRouter } from 'react-router-dom';
+  updateDoc,
+} from "firebase/firestore/lite";
+import isMobile from "ismobilejs";
+import clamp from "lodash/clamp";
+import shuffle from "lodash/shuffle";
+import path from "path";
+import queryString from "querystring";
+import React from "react";
+import Dropzone from "react-dropzone";
+import { NavLink, Redirect, Route, Switch, withRouter } from "react-router-dom";
 
-import requestCache from '../RequestCache';
-import Sequencer, { NUM_REPEAT_MODES, NUM_SHUFFLE_MODES, REPEAT_OFF, SHUFFLE_OFF } from '../Sequencer';
-import ChipCore from '../chip-core';
+import requestCache from "../RequestCache";
+import Sequencer, {
+  NUM_REPEAT_MODES,
+  NUM_SHUFFLE_MODES,
+  REPEAT_OFF,
+  SHUFFLE_OFF,
+} from "../Sequencer";
+import ChipCore from "../chip-core";
 import {
   API_BASE,
   CATALOG_PREFIX,
   ERROR_FLASH_DURATION_MS,
   MAX_VOICES,
   REPLACE_STATE_ON_SEEK,
-  SOUNDFONT_MOUNTPOINT
-} from '../config';
-import firebaseConfig from '../config/firebaseConfig';
-import { ensureEmscFileWithData, getMetadataUrlForCatalogUrl, titlesFromMetadata, unlockAudioContext } from '../util';
+  SOUNDFONT_MOUNTPOINT,
+} from "../config";
+import firebaseConfig from "../config/firebaseConfig";
+import {
+  ensureEmscFileWithData,
+  getMetadataUrlForCatalogUrl,
+  titlesFromMetadata,
+  unlockAudioContext,
+} from "../util";
 
-import GMEPlayer from '../players/GMEPlayer';
-import MDXPlayer from '../players/MDXPlayer';
-import MIDIPlayer from '../players/MIDIPlayer';
-import N64Player from '../players/N64Player';
-import V2MPlayer from '../players/V2MPlayer';
-import XMPPlayer from '../players/XMPPlayer';
+import GMEPlayer from "../players/GMEPlayer";
+import MDXPlayer from "../players/MDXPlayer";
+import MIDIPlayer from "../players/MIDIPlayer";
+import N64Player from "../players/N64Player";
+import V2MPlayer from "../players/V2MPlayer";
+import XMPPlayer from "../players/XMPPlayer";
 
-import AppFooter from './AppFooter';
-import AppHeader from './AppHeader';
-import Browse from './Browse';
-import DropMessage from './DropMessage';
-import Favorites from './Favorites';
+import AppFooter from "./AppFooter";
+import AppHeader from "./AppHeader";
+import Browse from "./Browse";
+import DropMessage from "./DropMessage";
 // import Search from './Search';
-import VGMPlayer from '../players/VGMPlayer';
-import Alert from './Alert';
-import MessageBox from './MessageBox';
-import Settings from './Settings';
-import Visualizer from './Visualizer';
-import Chiptheory from './chiptheory/Chiptheory';
-
+import VGMPlayer from "../players/VGMPlayer";
+import Alert from "./Alert";
+import MessageBox from "./MessageBox";
+import Settings from "./Settings";
+import Visualizer from "./Visualizer";
+import Chiptheory from "./chiptheory/Chiptheory";
+import Search from "./chiptheory/Search";
 
 class App extends React.Component {
   constructor(props) {
@@ -72,40 +87,44 @@ class App extends React.Component {
     this.db = getFirestore(firebaseApp);
 
     // Load the analyses by Vitaly Pavlenko
-    const docRef = doc(this.db, 'users', 'hqAWkYyzu2hIzNgE3ui89f41vFA2')
-    getDoc(docRef)
-      .then(userSnapshot => {
-        if (userSnapshot.exists()) {
-          // this shouldn't override analyses of the user
-          if (!this.state.analyses || Object.keys(this.state.analyses).length === 0) {
-            this.setState({ analyses: userSnapshot.data().analyses })
-          }
+    const docRef = doc(this.db, "users", "hqAWkYyzu2hIzNgE3ui89f41vFA2");
+    getDoc(docRef).then((userSnapshot) => {
+      if (userSnapshot.exists()) {
+        // this shouldn't override analyses of the user
+        if (
+          !this.state.analyses ||
+          Object.keys(this.state.analyses).length === 0
+        ) {
+          this.setState({ analyses: userSnapshot.data().analyses });
         }
-      })
+      }
+    });
 
-    onAuthStateChanged(auth, user => {
+    onAuthStateChanged(auth, (user) => {
       this.setState({ user: user, loadingUser: !!user });
       if (user) {
-        const docRef = doc(this.db, 'users', user.uid);
+        const docRef = doc(this.db, "users", user.uid);
         getDoc(docRef)
-          .then(userSnapshot => {
+          .then((userSnapshot) => {
             if (!userSnapshot.exists()) {
               // Create user
-              console.debug('Creating user document', user.uid);
+              console.debug("Creating user document", user.uid);
               setDoc(docRef, {
                 faves: [],
                 settings: {},
                 user: {
-                  email: user.email
-                }
+                  email: user.email,
+                },
               });
             } else {
               // Restore user
               const data = userSnapshot.data();
               this.setState({
                 faves: data.faves || [],
-                showPlayerSettings: data.settings ? data.settings.showPlayerSettings : false,
-                analyses: data.analyses
+                showPlayerSettings: data.settings
+                  ? data.settings.showPlayerSettings
+                  : false,
+                analyses: data.analyses,
               });
             }
           })
@@ -119,20 +138,39 @@ class App extends React.Component {
     // ┌────────────┐      ┌────────────┐      ┌─────────────┐
     // │ playerNode ├─────>│  gainNode  ├─────>│ destination │
     // └────────────┘      └────────────┘      └─────────────┘
-    const audioCtx = this.audioCtx = window.audioCtx = new (window.AudioContext || window.webkitAudioContext)({
-      latencyHint: 'playback'
-    });
-    const bufferSize = Math.max( // Make sure script node bufferSize is at least baseLatency
-      Math.pow(2, Math.ceil(Math.log2((audioCtx.baseLatency || 0.001) * audioCtx.sampleRate))), 2048);
-    const gainNode = this.gainNode = audioCtx.createGain();
+    const audioCtx =
+      (this.audioCtx =
+      window.audioCtx =
+        new (window.AudioContext || window.webkitAudioContext)({
+          latencyHint: "playback",
+        }));
+    const bufferSize = Math.max(
+      // Make sure script node bufferSize is at least baseLatency
+      Math.pow(
+        2,
+        Math.ceil(
+          Math.log2((audioCtx.baseLatency || 0.001) * audioCtx.sampleRate),
+        ),
+      ),
+      2048,
+    );
+    const gainNode = (this.gainNode = audioCtx.createGain());
     gainNode.gain.value = 1;
     gainNode.connect(audioCtx.destination);
-    const playerNode = this.playerNode = audioCtx.createScriptProcessor(bufferSize, 0, 2);
+    const playerNode = (this.playerNode = audioCtx.createScriptProcessor(
+      bufferSize,
+      0,
+      2,
+    ));
     playerNode.connect(gainNode);
 
     unlockAudioContext(audioCtx);
-    console.log('Sample rate: %d hz. Base latency: %d. Buffer size: %d.',
-      audioCtx.sampleRate, audioCtx.baseLatency * audioCtx.sampleRate, bufferSize);
+    console.log(
+      "Sample rate: %d hz. Base latency: %d. Buffer size: %d.",
+      audioCtx.sampleRate,
+      audioCtx.baseLatency * audioCtx.sampleRate,
+      bufferSize,
+    );
 
     this.state = {
       loading: true,
@@ -148,7 +186,7 @@ class App extends React.Component {
       currentSongPositionMs: 0,
       tempo: 1,
       voiceMask: Array(MAX_VOICES).fill(true),
-      voiceNames: Array(MAX_VOICES).fill(''),
+      voiceNames: Array(MAX_VOICES).fill(""),
       imageUrl: null,
       infoTexts: [],
       showInfo: false,
@@ -176,17 +214,17 @@ class App extends React.Component {
       this.chipCore = await new ChipCore({
         // Look for .wasm file in web root, not the same location as the app bundle (static/js).
         locateFile: (path, prefix) => {
-          if (path.endsWith('.wasm') || path.endsWith('.wast'))
+          if (path.endsWith(".wasm") || path.endsWith(".wast"))
             return `${process.env.PUBLIC_URL}/${path}`;
           return prefix + path;
         },
-        print: (msg) => console.debug('[stdout] ' + msg),
-        printErr: (msg) => console.debug('[stderr] ' + msg),
+        print: (msg) => console.debug("[stdout] " + msg),
+        printErr: (msg) => console.debug("[stderr] " + msg),
       });
     } catch (e) {
       // Browser doesn't support WASM (Safari in iOS Simulator)
       Object.assign(this.state, {
-        playerError: 'Error loading player engine. Old browser?',
+        playerError: "Error loading player engine. Old browser?",
         loading: false,
       });
       return;
@@ -204,7 +242,16 @@ class App extends React.Component {
       N64Player,
       MDXPlayer,
       VGMPlayer,
-    ].map(P => new P(this.chipCore, audioCtx.sampleRate, bufferSize, debug, (chipStateDump) => self.setState({ chipStateDump })));
+    ].map(
+      (P) =>
+        new P(
+          this.chipCore,
+          audioCtx.sampleRate,
+          bufferSize,
+          debug,
+          (chipStateDump) => self.setState({ chipStateDump }),
+        ),
+    );
     this.midiPlayer = players[0];
 
     // Set up the central audio processing callback. This is where the magic happens.
@@ -217,20 +264,19 @@ class App extends React.Component {
         if (player.stopped) continue;
         player.processAudio(channels);
       }
-    }
+    };
 
     // Populate all mounted IDBFS file systems from IndexedDB.
     this.chipCore.FS.syncfs(true, (err) => {
       if (err) {
-        console.log('Error populating FS from indexeddb.', err);
+        console.log("Error populating FS from indexeddb.", err);
       }
-      players.forEach(player => player.handleFileSystemReady());
+      players.forEach((player) => player.handleFileSystemReady());
     });
 
     this.sequencer = new Sequencer(players, this.props.history);
-    this.sequencer.on('sequencerStateUpdate', this.handleSequencerStateUpdate);
-    this.sequencer.on('playerError', this.handlePlayerError);
-
+    this.sequencer.on("sequencerStateUpdate", this.handleSequencerStateUpdate);
+    this.sequencer.on("playerError", this.handlePlayerError);
 
     // TODO: Move to separate processUrlParams method.
     const urlParams = queryString.parse(window.location.search.substring(1));
@@ -241,7 +287,7 @@ class App extends React.Component {
       // See comment in Browse.js for more about why a sticky play param is not a good idea.
       delete urlParams.play;
       const qs = queryString.stringify(urlParams);
-      const search = qs ? `?${qs}` : '';
+      const search = qs ? `?${qs}` : "";
       // Navigate to song's containing folder. History comes from withRouter().
       this.fetchDirectory(dirname).then(() => {
         this.props.history.replace(`/browse/${dirname}${search}`);
@@ -263,22 +309,22 @@ class App extends React.Component {
 
   static mapSequencerStateToAppState(sequencerState) {
     const map = {
-      ejected: 'isEjected',
-      paused: 'isPaused',
-      currentSongSubtune: 'subtune',
-      currentSongMetadata: 'metadata',
-      currentSongNumVoices: 'numVoices',
-      currentSongPositionMs: 'positionMs',
-      currentSongDurationMs: 'durationMs',
-      currentSongNumSubtunes: 'numSubtunes',
-      tempo: 'tempo',
-      voiceNames: 'voiceNames',
-      voiceMask: 'voiceMask',
-      songUrl: 'url',
-      hasPlayer: 'hasPlayer',
+      ejected: "isEjected",
+      paused: "isPaused",
+      currentSongSubtune: "subtune",
+      currentSongMetadata: "metadata",
+      currentSongNumVoices: "numVoices",
+      currentSongPositionMs: "positionMs",
+      currentSongDurationMs: "durationMs",
+      currentSongNumSubtunes: "numSubtunes",
+      tempo: "tempo",
+      voiceNames: "voiceNames",
+      voiceMask: "voiceMask",
+      songUrl: "url",
+      hasPlayer: "hasPlayer",
       // TODO: add param values? move to paramStateUpdate?
-      paramDefs: 'paramDefs',
-      infoTexts: 'infoTexts',
+      paramDefs: "paramDefs",
+      infoTexts: "infoTexts",
     };
     const appState = {};
     for (let prop in map) {
@@ -293,11 +339,13 @@ class App extends React.Component {
   handleLogin() {
     const auth = getAuth();
     const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider).then(result => {
-      console.log('Firebase auth result:', result);
-    }).catch(error => {
-      console.log('Firebase auth error:', error);
-    });
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        console.log("Firebase auth result:", result);
+      })
+      .catch((error) => {
+        console.log("Firebase auth error:", error);
+      });
   }
 
   handleLogout() {
@@ -313,12 +361,12 @@ class App extends React.Component {
   handleToggleFavorite(path) {
     const user = this.state.user;
     if (user) {
-      const userRef = doc(this.db, 'users', user.uid);
+      const userRef = doc(this.db, "users", user.uid);
       let newFaves, favesOp;
       const oldFaves = this.state.faves;
       const exists = oldFaves.includes(path);
       if (exists) {
-        newFaves = oldFaves.filter(fave => fave !== path);
+        newFaves = oldFaves.filter((fave) => fave !== path);
         favesOp = arrayRemove(path);
       } else {
         newFaves = [...oldFaves, path];
@@ -328,27 +376,29 @@ class App extends React.Component {
       this.setState({ faves: newFaves });
       updateDoc(userRef, { faves: favesOp }).catch((e) => {
         this.setState({ faves: oldFaves });
-        console.log('Couldn\'t update favorites in Firebase.', e);
+        console.log("Couldn't update favorites in Firebase.", e);
       });
     }
   }
 
   async saveAnalysis(analysis) {
-    const currIdx = this.sequencer?.getCurrIdx()
+    const currIdx = this.sequencer?.getCurrIdx();
     if (currIdx === undefined) return;
 
-    const path = this.playContexts[this.browsePath] && this.playContexts[this.browsePath][currIdx]
-    const subtune = this.state.currentSongSubtune
+    const path =
+      this.playContexts[this.browsePath] &&
+      this.playContexts[this.browsePath][currIdx];
+    const subtune = this.state.currentSongSubtune;
     if (!path) return;
 
     // hack .__.
-    const lastSlashIndex = path.lastIndexOf('/');
+    const lastSlashIndex = path.lastIndexOf("/");
     const beforeSlash = path.substring(0, lastSlashIndex);
     const afterSlash = path.substring(lastSlashIndex + 1);
 
     const user = this.state.user;
     if (user) {
-      const userRef = doc(this.db, 'users', user.uid);
+      const userRef = doc(this.db, "users", user.uid);
       const userDoc = await getDoc(userRef);
 
       let userData = userDoc.exists ? userDoc.data() : {};
@@ -366,77 +416,87 @@ class App extends React.Component {
       userData.analyses[beforeSlash][afterSlash][subtune] = analysis;
 
       await setDoc(userRef, userData).catch((e) => {
-        console.log('Couldn\'t save analysis.', e);
+        console.log("Couldn't save analysis.", e);
       });
 
-      this.setState({ analyses: userData.analyses })
+      this.setState({ analyses: userData.analyses });
     }
-
   }
   attachMediaKeyHandlers() {
-    if ('mediaSession' in navigator) {
-      console.log('Attaching Media Key event handlers.');
+    if ("mediaSession" in navigator) {
+      console.log("Attaching Media Key event handlers.");
 
       // Limitations of MediaSession: there must always be an active audio element.
       // See https://bugs.chromium.org/p/chromium/issues/detail?id=944538
       //     https://github.com/GoogleChrome/samples/issues/637
-      this.mediaSessionAudio = document.createElement('audio');
-      this.mediaSessionAudio.src = process.env.PUBLIC_URL + '/5-seconds-of-silence.mp3';
+      this.mediaSessionAudio = document.createElement("audio");
+      this.mediaSessionAudio.src =
+        process.env.PUBLIC_URL + "/5-seconds-of-silence.mp3";
       this.mediaSessionAudio.loop = true;
       this.mediaSessionAudio.volume = 0;
 
-      navigator.mediaSession.setActionHandler('play', () => this.togglePause());
-      navigator.mediaSession.setActionHandler('pause', () => this.togglePause());
-      navigator.mediaSession.setActionHandler('previoustrack', () => this.prevSong());
-      navigator.mediaSession.setActionHandler('nexttrack', () => this.nextSong());
-      navigator.mediaSession.setActionHandler('seekbackward', () => this.seekRelative(-5000));
-      navigator.mediaSession.setActionHandler('seekforward', () => this.seekRelative(5000));
+      navigator.mediaSession.setActionHandler("play", () => this.togglePause());
+      navigator.mediaSession.setActionHandler("pause", () =>
+        this.togglePause(),
+      );
+      navigator.mediaSession.setActionHandler("previoustrack", () =>
+        this.prevSong(),
+      );
+      navigator.mediaSession.setActionHandler("nexttrack", () =>
+        this.nextSong(),
+      );
+      navigator.mediaSession.setActionHandler("seekbackward", () =>
+        this.seekRelative(-5000),
+      );
+      navigator.mediaSession.setActionHandler("seekforward", () =>
+        this.seekRelative(5000),
+      );
     }
 
-    document.addEventListener('keydown', (e) => {
+    document.addEventListener("keydown", (e) => {
       // Keyboard shortcuts: tricky to get it just right and keep the browser behavior intact.
       // The order of switch-cases matters. More privileged keys appear at the top.
       // More restricted keys appear at the bottom, after various input focus states are filtered out.
       if (e.ctrlKey || e.metaKey) return; // avoid browser keyboard shortcuts
 
       switch (e.key) {
-        case 'Escape':
+        case "Escape":
           this.setState({ showInfo: false });
           e.target.blur();
           break;
         default:
       }
 
-      if (e.target.tagName === 'INPUT' && e.target.type === 'text') return; // text input has focus
+      if (e.target.tagName === "INPUT" && e.target.type === "text") return; // text input has focus
 
       switch (e.key) {
-        case ' ':
+        case " ":
           this.togglePause();
           e.preventDefault();
           break;
-        case '-':
+        case "-":
           this.setSpeedRelative(-0.1);
           break;
-        case '_':
+        case "_":
           this.setSpeedRelative(-0.01);
           break;
-        case '=':
+        case "=":
           this.setSpeedRelative(0.1);
           break;
-        case '+':
+        case "+":
           this.setSpeedRelative(0.01);
           break;
         default:
       }
 
-      if (e.target.tagName === 'INPUT' && e.target.type === 'range') return; // a range slider has focus
+      if (e.target.tagName === "INPUT" && e.target.type === "range") return; // a range slider has focus
 
       switch (e.key) {
-        case 'ArrowLeft':
+        case "ArrowLeft":
           this.seekRelative(-5000);
           e.preventDefault();
           break;
-        case 'ArrowRight':
+        case "ArrowRight":
           this.seekRelative(5000);
           e.preventDefault();
           break;
@@ -467,7 +527,7 @@ class App extends React.Component {
 
   handleSequencerStateUpdate(sequencerState) {
     const { isEjected } = sequencerState;
-    console.log('App.handleSequencerStateUpdate(isEjected=%s)', isEjected);
+    console.log("App.handleSequencerStateUpdate(isEjected=%s)", isEjected);
 
     if (isEjected) {
       this.setState({
@@ -484,11 +544,11 @@ class App extends React.Component {
       // TODO: Disabled to support scroll restoration.
       // updateQueryString({ play: undefined });
 
-      if ('mediaSession' in navigator) {
+      if ("mediaSession" in navigator) {
         this.mediaSessionAudio.pause();
 
-        navigator.mediaSession.playbackState = 'none';
-        if ('MediaMetadata' in window) {
+        navigator.mediaSession.playbackState = "none";
+        if ("MediaMetadata" in window) {
           navigator.mediaSession.metadata = new window.MediaMetadata({});
         }
       }
@@ -501,34 +561,42 @@ class App extends React.Component {
         // const filepath = url.replace(CATALOG_PREFIX, '');
         // updateQueryString({ play: filepath, t: undefined });
         // TODO: move fetch metadata to Player when it becomes event emitter
-        requestCache.fetchCached(metadataUrl).then(response => {
-          const { imageUrl, infoTexts } = response;
-          const newInfoTexts = [...infoTexts, ...this.state.infoTexts];
-          this.setState({ imageUrl, infoTexts: newInfoTexts });
+        requestCache
+          .fetchCached(metadataUrl)
+          .then((response) => {
+            const { imageUrl, infoTexts } = response;
+            const newInfoTexts = [...infoTexts, ...this.state.infoTexts];
+            this.setState({ imageUrl, infoTexts: newInfoTexts });
 
-          if ('mediaSession' in navigator) {
-            // Clear artwork if imageUrl is null.
-            navigator.mediaSession.metadata.artwork = (imageUrl == null) ? [] : [{
-              src: imageUrl,
-              sizes: '512x512',
-            }];
-          }
-        }).catch(e => {
-          this.setState({ imageUrl: null });
-        });
+            if ("mediaSession" in navigator) {
+              // Clear artwork if imageUrl is null.
+              navigator.mediaSession.metadata.artwork =
+                imageUrl == null
+                  ? []
+                  : [
+                      {
+                        src: imageUrl,
+                        sizes: "512x512",
+                      },
+                    ];
+            }
+          })
+          .catch((e) => {
+            this.setState({ imageUrl: null });
+          });
       }
 
       const metadata = player.getMetadata();
 
-      if ('mediaSession' in navigator) {
+      if ("mediaSession" in navigator) {
         this.mediaSessionAudio.play();
 
-        if ('MediaMetadata' in window) {
+        if ("MediaMetadata" in window) {
           navigator.mediaSession.metadata = new window.MediaMetadata({
             title: metadata.title || metadata.formatted?.title,
             artist: metadata.artist || metadata.formatted?.subtitle,
             album: metadata.game,
-            artwork: []
+            artwork: [],
           });
         }
       }
@@ -544,14 +612,17 @@ class App extends React.Component {
     if (message) this.setState({ playerError: message });
     this.setState({ showPlayerError: !!message });
     clearTimeout(this.errorTimer);
-    this.errorTimer = setTimeout(() => this.setState({ showPlayerError: false }), ERROR_FLASH_DURATION_MS);
+    this.errorTimer = setTimeout(
+      () => this.setState({ showPlayerError: false }),
+      ERROR_FLASH_DURATION_MS,
+    );
   }
 
   togglePause() {
     if (this.state.ejected || !this.sequencer.getPlayer()) return;
 
     const paused = this.sequencer.getPlayer().togglePause();
-    if ('mediaSession' in navigator) {
+    if ("mediaSession" in navigator) {
       if (paused) {
         this.mediaSessionAudio.pause();
       } else {
@@ -568,11 +639,12 @@ class App extends React.Component {
 
     const user = this.state.user;
     if (user) {
-      const userRef = doc(this.db, 'users', user.uid);
-      updateDoc(userRef, { settings: { showPlayerSettings: showPlayerSettings } })
-        .catch((e) => {
-          console.log('Couldn\'t update settings in Firebase.', e);
-        });
+      const userRef = doc(this.db, "users", user.uid);
+      updateDoc(userRef, {
+        settings: { showPlayerSettings: showPlayerSettings },
+      }).catch((e) => {
+        console.log("Couldn't update settings in Firebase.", e);
+      });
     }
   }
 
@@ -589,10 +661,13 @@ class App extends React.Component {
         ...queryString.parse(window.location.search.substr(1)),
         t: seekMs,
       };
-      const stateUrl = '?' + queryString.stringify(urlParams)
-        .replace(/%20/g, '+')
-        .replace(/%2F/g, '/');
-      window.history.replaceState(null, '', stateUrl);
+      const stateUrl =
+        "?" +
+        queryString
+          .stringify(urlParams)
+          .replace(/%20/g, "+")
+          .replace(/%2F/g, "/");
+      window.history.replaceState(null, "", stateUrl);
     }
   }
 
@@ -600,7 +675,11 @@ class App extends React.Component {
     if (!this.sequencer.getPlayer()) return;
 
     const durationMs = this.state.currentSongDurationMs;
-    const seekMs = clamp(this.sequencer.getPlayer().getPositionMs() + ms, 0, durationMs);
+    const seekMs = clamp(
+      this.sequencer.getPlayer().getPositionMs() + ms,
+      0,
+      durationMs,
+    );
 
     this.seekRelativeInner(seekMs);
   }
@@ -632,10 +711,10 @@ class App extends React.Component {
   handleTempoChange(event) {
     if (!this.sequencer.getPlayer()) return;
 
-    const tempo = parseFloat((event.target ? event.target.value : event)) || 1.0;
+    const tempo = parseFloat(event.target ? event.target.value : event) || 1.0;
     this.sequencer.getPlayer().setTempo(tempo);
     this.setState({
-      tempo: tempo
+      tempo: tempo,
     });
   }
 
@@ -645,21 +724,23 @@ class App extends React.Component {
     const tempo = clamp(this.state.tempo + delta, 0.1, 2);
     this.sequencer.getPlayer().setTempo(tempo);
     this.setState({
-      tempo: tempo
+      tempo: tempo,
     });
   }
 
   handleShufflePlay(path) {
-    if (path === 'favorites') {
+    if (path === "favorites") {
       this.sequencer.playContext(shuffle(this.state.faves));
     } else {
       // This is more like a synthetic recursive shuffle.
       fetch(`${API_BASE}/shuffle?path=${encodeURI(path)}&limit=100`)
-        .then(response => response.json())
-        .then(json => json.items.map(item =>
-          item.replace('%', '%25').replace('#', '%23').replace(/^\//, '')
-        ))
-        .then(items => this.sequencer.playContext(items));
+        .then((response) => response.json())
+        .then((json) =>
+          json.items.map((item) =>
+            item.replace("%", "%25").replace("#", "%23").replace(/^\//, ""),
+          ),
+        )
+        .then((items) => this.sequencer.playContext(items));
     }
   }
 
@@ -677,7 +758,7 @@ class App extends React.Component {
       } else {
         this.sequencer.playSonglist([url]);
       }
-    }
+    };
   }
 
   handleVolumeChange(volume) {
@@ -700,12 +781,15 @@ class App extends React.Component {
 
   fetchDirectory(path) {
     return fetch(`${API_BASE}/browse?path=%2F${encodeURIComponent(path)}`)
-      .then(response => response.json())
-      .then(items => {
+      .then((response) => response.json())
+      .then((items) => {
         this.playContexts[path] = items
-          .filter(item => item.type === 'file')
-          .map(item =>
-            item.path.replace('%', '%25').replace('#', '%23').replace(/^\//, '')
+          .filter((item) => item.type === "file")
+          .map((item) =>
+            item.path
+              .replace("%", "%25")
+              .replace("#", "%23")
+              .replace(/^\//, ""),
           );
         const directories = {
           ...this.state.directories,
@@ -717,25 +801,36 @@ class App extends React.Component {
 
   getCurrentSongLink() {
     const url = this.sequencer.getCurrUrl();
-    return url ? process.env.PUBLIC_URL + '/?play=' + encodeURIComponent(url.replace(CATALOG_PREFIX, '')) : '#';
+    return url
+      ? process.env.PUBLIC_URL +
+          "/?play=" +
+          encodeURIComponent(url.replace(CATALOG_PREFIX, ""))
+      : "#";
   }
 
   onDrop = (droppedFiles) => {
     const reader = new FileReader();
     const file = droppedFiles[0];
     const ext = path.extname(file.name).toLowerCase();
-    if (ext === '.sf2' && !this.midiPlayer) {
-      this.handlePlayerError('MIDIPlayer has not been created - unable to load SoundFont.');
+    if (ext === ".sf2" && !this.midiPlayer) {
+      this.handlePlayerError(
+        "MIDIPlayer has not been created - unable to load SoundFont.",
+      );
       return;
     }
     reader.onload = async () => {
-      if (ext === '.sf2' && this.midiPlayer) {
+      if (ext === ".sf2" && this.midiPlayer) {
         const sf2Path = `user/${file.name}`;
         const forceWrite = true;
         const isTransient = false;
-        await ensureEmscFileWithData(this.chipCore, `${SOUNDFONT_MOUNTPOINT}/${sf2Path}`, new Uint8Array(reader.result), forceWrite);
+        await ensureEmscFileWithData(
+          this.chipCore,
+          `${SOUNDFONT_MOUNTPOINT}/${sf2Path}`,
+          new Uint8Array(reader.result),
+          forceWrite,
+        );
         this.midiPlayer.updateSoundfontParamDefs();
-        this.midiPlayer.setParameter('soundfont', sf2Path, isTransient);
+        this.midiPlayer.setParameter("soundfont", sf2Path, isTransient);
         // TODO: emit "paramDefsChanged" from player.
         // See https://reactjs.org/docs/integrating-with-other-libraries.html#integrating-with-model-layers
         this.forceUpdate();
@@ -748,114 +843,194 @@ class App extends React.Component {
   };
 
   render() {
-    const { title, subtitle } = titlesFromMetadata(this.state.currentSongMetadata);
+    const { title, subtitle } = titlesFromMetadata(
+      this.state.currentSongMetadata,
+    );
     const currContext = this.sequencer?.getCurrContext();
     const currIdx = this.sequencer?.getCurrIdx();
     const search = { search: window.location.search };
     return (
-      <Dropzone
-        disableClick
-        style={{}}
-        onDrop={this.onDrop}>{dropzoneProps => (
+      <Dropzone disableClick style={{}} onDrop={this.onDrop}>
+        {(dropzoneProps) => (
           <div className="App">
             <DropMessage dropzoneProps={dropzoneProps} />
-            <MessageBox showInfo={this.state.showInfo}
+            <MessageBox
+              showInfo={this.state.showInfo}
               infoTexts={this.state.infoTexts}
-              toggleInfo={this.toggleInfo} />
-            <Alert handlePlayerError={this.handlePlayerError}
+              toggleInfo={this.toggleInfo}
+            />
+            <Alert
+              handlePlayerError={this.handlePlayerError}
               playerError={this.state.playerError}
-              showPlayerError={this.state.showPlayerError} />
-            <AppHeader user={this.state.user}
+              showPlayerError={this.state.showPlayerError}
+            />
+            <AppHeader
+              user={this.state.user}
               handleLogout={this.handleLogout}
               handleLogin={this.handleLogin}
-              isPhone={isMobile.phone} />
+              isPhone={isMobile.phone}
+            />
             <div className="App-main">
               <div className="App-main-inner">
-                {<div className="tab-container">
-                  {/* <NavLink className="tab" activeClassName="tab-selected" to={{ pathname: "/", ...search }}
-                    exact>Search</NavLink> */}
-                  <NavLink className="tab" activeClassName="tab-selected"
-                    to={{ pathname: "/browse", ...search }}>Browse</NavLink>
-                  {/* <NavLink className="tab" activeClassName="tab-selected"
+                {(
+                  <div className="tab-container">
+                    <NavLink
+                      className="tab"
+                      activeClassName="tab-selected"
+                      to={{ pathname: "/", ...search }}
+                      exact
+                    >
+                      Search
+                    </NavLink>
+                    <NavLink
+                      className="tab"
+                      activeClassName="tab-selected"
+                      to={{ pathname: "/browse", ...search }}
+                    >
+                      Browse
+                    </NavLink>
+                    {/* <NavLink className="tab" activeClassName="tab-selected"
                     to={{ pathname: "/favorites", ...search }}>Favorites</NavLink> */}
-                  {/* this.sequencer?.players?.map((p, i) => `p${i}:${p.stopped?'off':'on'}`).join(' ') */}
-                  <button className={this.state.showPlayerSettings ? 'tab tab-selected' : 'tab'}
-                    style={{ marginLeft: 'auto', marginRight: 0 }}
-                    onClick={this.toggleSettings}>Settings</button>
-                </div> && false}
+                    {/* this.sequencer?.players?.map((p, i) => `p${i}:${p.stopped?'off':'on'}`).join(' ') */}
+                    <button
+                      className={
+                        this.state.showPlayerSettings
+                          ? "tab tab-selected"
+                          : "tab"
+                      }
+                      style={{ marginLeft: "auto", marginRight: 0 }}
+                      onClick={this.toggleSettings}
+                    >
+                      Settings
+                    </button>
+                  </div>
+                ) && false}
                 <div className="App-main-content-and-settings">
-                  <div className="App-main-content-area" ref={this.contentAreaRef}>
+                  <div
+                    className="App-main-content-area"
+                    ref={this.contentAreaRef}
+                  >
                     <Switch>
-                      <Route path="/" exact render={() => (
-                        <Redirect to="/browse/Nintendo" />
-                        // <Search
-                        //   currContext={currContext}
-                        //   currIdx={currIdx}
-                        //   toggleFavorite={this.handleToggleFavorite}
-                        //   favorites={this.state.faves}
-                        //   onSongClick={this.handleSongClick}>
-                        //   {this.state.loading && <p>Loading player engine...</p>}
-                        // </Search>
-                      )} />
-                      <Route path="/favorites" render={() => (
-                        <Favorites
-                          user={this.state.user}
-                          loadingUser={this.state.loadingUser}
-                          handleLogin={this.handleLogin}
-                          handleShufflePlay={this.handleShufflePlay}
-                          onSongClick={this.handleSongClick}
-                          currContext={currContext}
-                          currIdx={currIdx}
-                          toggleFavorite={this.handleToggleFavorite}
-                          favorites={this.state.faves} />
-                      )} />
-                      <Route path="/browse/:browsePath*" render={({ history, match, location }) => {
-                        // Undo the react-router-dom double-encoded % workaround - see DirectoryLink.js
-                        const browsePath = match.params?.browsePath?.replace('%25', '%') || '';
-                        this.browsePath = browsePath;
-                        const path = this.playContexts[browsePath] && this.playContexts[browsePath][currIdx]
-                        const subtune = this.state.currentSongSubtune
-                        const lastSlashIndex = path && path.lastIndexOf('/');
-                        const afterSlash = lastSlashIndex && path.substring(lastSlashIndex + 1);
-                        const savedAnalysis = this.state.analyses && this.state.analyses[browsePath] && this.state.analyses[browsePath][afterSlash] && this.state.analyses[browsePath][afterSlash][subtune]
-                        return (
-                          this.contentAreaRef.current && <>
-                            <Browse currContext={currContext}
-                              currIdx={currIdx}
-                              historyAction={history.action}
-                              locationKey={location.key}
-                              browsePath={browsePath}
-                              listing={this.state.directories[browsePath]}
-                              playContext={this.playContexts[browsePath]}
-                              fetchDirectory={this.fetchDirectory}
-                              handleSongClick={this.handleSongClick}
-                              handleShufflePlay={this.handleShufflePlay}
-                              scrollContainerRef={this.contentAreaRef}
-                              favorites={this.state.faves}
-                              toggleFavorite={this.handleToggleFavorite}
-                              analyses={this.state.analyses}
-                              sequencer={this.sequencer}
-                            />
-                            <Chiptheory
-                              chipStateDump={this.state.chipStateDump}
-                              getCurrentPositionMs={() => {
-                                // TODO: reevaluate this approach
-                                if (this.sequencer && this.sequencer.getPlayer()) {
-                                  return this.sequencer.getPlayer().getPositionMs();
-                                }
-                                return 0;
-                              }}
-                              savedAnalysis={savedAnalysis}
-                              saveAnalysis={this.saveAnalysis}
-                              voiceMask={this.state.voiceMask}
-                              analysisEnabled={this.state.analysisEnabled}
-                              seek={time => this.seekRelativeInner(time, true)}
-                              registerSeekCallback={seekCallback => this.setState({ seekCallback })}
-                            />
-                          </>
-                        );
-                      }} />
-                      <Route path="/settings" render={() => (
+                      <Route
+                        path="/"
+                        exact
+                        render={() => <Redirect to="/browse/Nintendo" />}
+                      />
+                      <Route
+                        path="/search"
+                        exact
+                        render={() => <Search analyses={this.state.analyses} />}
+                      />
+                      {/* <Route
+                        path="/"
+                        render={() => (
+                          <Favorites
+                            user={this.state.user}
+                            loadingUser={this.state.loadingUser}
+                            handleLogin={this.handleLogin}
+                            handleShufflePlay={this.handleShufflePlay}
+                            onSongClick={this.handleSongClick}
+                            currContext={currContext}
+                            currIdx={currIdx}
+                            toggleFavorite={this.handleToggleFavorite}
+                            favorites={this.state.faves}
+                          />
+                        )}
+                      /> */}
+                      <Route
+                        path="/browse/:browsePath*"
+                        render={({ history, match, location }) => {
+                          // Undo the react-router-dom double-encoded % workaround - see DirectoryLink.js
+                          const browsePath =
+                            match.params?.browsePath?.replace("%25", "%") || "";
+                          this.browsePath = browsePath;
+                          const path =
+                            this.playContexts[browsePath] &&
+                            this.playContexts[browsePath][currIdx];
+                          const subtune = this.state.currentSongSubtune;
+                          const lastSlashIndex = path && path.lastIndexOf("/");
+                          const afterSlash =
+                            lastSlashIndex &&
+                            path.substring(lastSlashIndex + 1);
+                          const savedAnalysis =
+                            this.state.analyses &&
+                            this.state.analyses[browsePath] &&
+                            this.state.analyses[browsePath][afterSlash] &&
+                            this.state.analyses[browsePath][afterSlash][
+                              subtune
+                            ];
+                          return (
+                            this.contentAreaRef.current && (
+                              <>
+                                <Browse
+                                  currContext={currContext}
+                                  currIdx={currIdx}
+                                  historyAction={history.action}
+                                  locationKey={location.key}
+                                  browsePath={browsePath}
+                                  listing={this.state.directories[browsePath]}
+                                  playContext={this.playContexts[browsePath]}
+                                  fetchDirectory={this.fetchDirectory}
+                                  handleSongClick={this.handleSongClick}
+                                  handleShufflePlay={this.handleShufflePlay}
+                                  scrollContainerRef={this.contentAreaRef}
+                                  favorites={this.state.faves}
+                                  toggleFavorite={this.handleToggleFavorite}
+                                  analyses={this.state.analyses}
+                                  sequencer={this.sequencer}
+                                />
+                                <Chiptheory
+                                  chipStateDump={this.state.chipStateDump}
+                                  getCurrentPositionMs={() => {
+                                    // TODO: reevaluate this approach
+                                    if (
+                                      this.sequencer &&
+                                      this.sequencer.getPlayer()
+                                    ) {
+                                      return this.sequencer
+                                        .getPlayer()
+                                        .getPositionMs();
+                                    }
+                                    return 0;
+                                  }}
+                                  savedAnalysis={savedAnalysis}
+                                  saveAnalysis={this.saveAnalysis}
+                                  voiceMask={this.state.voiceMask}
+                                  analysisEnabled={this.state.analysisEnabled}
+                                  seek={(time) =>
+                                    this.seekRelativeInner(time, true)
+                                  }
+                                  registerSeekCallback={(seekCallback) =>
+                                    this.setState({ seekCallback })
+                                  }
+                                />
+                              </>
+                            )
+                          );
+                        }}
+                      />
+                      <Route
+                        path="/settings"
+                        render={() => (
+                          <Settings
+                            ejected={this.state.ejected}
+                            tempo={this.state.tempo}
+                            currentSongNumVoices={
+                              this.state.currentSongNumVoices
+                            }
+                            voiceMask={this.state.voiceMask}
+                            voiceNames={this.state.voiceNames}
+                            handleSetVoiceMask={this.handleSetVoiceMask}
+                            handleTempoChange={this.handleTempoChange}
+                            sequencer={this.sequencer}
+                          />
+                        )}
+                      />
+                    </Switch>
+                  </div>
+                  {this.state.showPlayerSettings &&
+                    false && ( // moved to AppFooter
+                      <div className="App-main-content-area settings">
                         <Settings
                           ejected={this.state.ejected}
                           tempo={this.state.tempo}
@@ -866,34 +1041,26 @@ class App extends React.Component {
                           handleTempoChange={this.handleTempoChange}
                           sequencer={this.sequencer}
                         />
-                      )} />
-                    </Switch>
-                  </div>
-                  {this.state.showPlayerSettings && false && // moved to AppFooter
-                    <div className="App-main-content-area settings">
-                      <Settings
-                        ejected={this.state.ejected}
-                        tempo={this.state.tempo}
-                        currentSongNumVoices={this.state.currentSongNumVoices}
-                        voiceMask={this.state.voiceMask}
-                        voiceNames={this.state.voiceNames}
-                        handleSetVoiceMask={this.handleSetVoiceMask}
-                        handleTempoChange={this.handleTempoChange}
-                        sequencer={this.sequencer}
-                      />
-                    </div>
-                  }
+                      </div>
+                    )}
                 </div>
               </div>
-              {!isMobile.phone && !this.state.loading &&
-                <Visualizer audioCtx={this.audioCtx}
+              {!isMobile.phone && !this.state.loading && (
+                <Visualizer
+                  audioCtx={this.audioCtx}
                   sourceNode={this.playerNode}
                   chipCore={this.chipCore}
                   settingsEnabled={this.state.showPlayerSettings}
                   handleToggleSettings={this.toggleSettings}
                   analysisEnabled={this.state.analysisEnabled}
-                  handleToggleAnalysis={() => this.setState(state => ({ analysisEnabled: !state.analysisEnabled }))}
-                  paused={this.state.ejected || this.state.paused} />}
+                  handleToggleAnalysis={() =>
+                    this.setState((state) => ({
+                      analysisEnabled: !state.analysisEnabled,
+                    }))
+                  }
+                  paused={this.state.ejected || this.state.paused}
+                />
+              )}
             </div>
             <AppFooter
               currentSongDurationMs={this.state.currentSongDurationMs}
@@ -933,7 +1100,8 @@ class App extends React.Component {
               volume={this.state.volume}
             />
           </div>
-        )}</Dropzone>
+        )}
+      </Dropzone>
     );
   }
 }

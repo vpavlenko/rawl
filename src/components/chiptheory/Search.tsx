@@ -71,14 +71,14 @@ const Search: React.FC<{
           <h6 style={{ marginBottom: "0px" }}>
             {categoryName.replace(/_/g, " ")}
           </h6>
-          <div style={{ margin: "0px 0px 30px 10px" }}>
+          <div style={{ margin: "0px 0px 30px 0px" }}>
             {Object.entries(categoryContent).map(([value, items]) => {
               return (
                 <div
                   key={value}
                   style={{
                     cursor: "pointer",
-                    marginBottom: "3px",
+                    // marginBottom: "0px",
                     ...(categoryName === selectedCategory &&
                     value === selectedValue
                       ? { color: "yellow" }

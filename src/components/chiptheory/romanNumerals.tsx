@@ -167,7 +167,7 @@ export const romanNumeralsToArray = (romanNumerals: string): string[] =>
 
 const dashedRnToArray = (dashedRN: string): string[] => split(dashedRN, "-");
 
-const cleanupRn = (rn: string): string => rn.replace(/\d|o|ø/g, "");
+const cleanupRn = (rn: string): string => rn.replace(/\d|o|ø|\+/g, "");
 
 export const romanNumeralToChromaticDegree = (romanNumeral: string): number => {
   if (typeof romanNumeral !== "string" || romanNumeral.length === 0) return 12; // wtf

@@ -28,6 +28,7 @@ const TAGS = [
   "scale:atonal",
   "scale:octatonic",
   "scale:natural_minor",
+  "scale:whole-tone",
   "harmony:stasis",
   "harmony:parallel_keys",
   "harmony:diatonic_seventh_chords",
@@ -41,8 +42,10 @@ const TAGS = [
   "tempo:ritardando",
   "tempo:uneven",
   "beats:unclear_measure_onsets",
+  "beats:incomplete_measure_on_transition",
   "tonic:ambiguous", // when pitch class set is uniform 7 notes, but no certain tonic
   "location:scary",
+  "location:menu",
   "location:boss",
   "location:level_completed",
   "location:lost",
@@ -66,7 +69,9 @@ const TAGS = [
   "form:fermata_between_sections",
   "form:stasis_vs_progression", // contrast between A and B
   "form:period",
+  "form:tag",
   "bass:walking",
+  "bass:melody",
   "timbre:rich",
   "style:ragtime",
   "bass:riff",
@@ -76,10 +81,16 @@ const TAGS = [
   "middle_voice:melody_echo",
   "middle_voice:melody",
   "middle_voice:doubles_bass",
+  "middle_voice:parallel_octaves",
   "middle_voice:parallel_fourths",
   "middle_voice:parallel_thirds",
   "middle_voice:parallel_sixths",
   "middle_voice:arpeggio",
+  "middle_voice:absent",
+  "middle_voice:root",
+  "reference:previous_subtune",
+  "motive:natural_horn_call",
+  "motive:cadential",
 ];
 
 export const STEPS = [
@@ -320,7 +331,7 @@ const TonalGrid: React.FC<{
       const { tonic } = modulations[i];
       const width = secondsToX(to - from);
       if (!width) continue;
-      for (let octave = 2; octave <= 7; ++octave) {
+      for (let octave = 2; octave <= 9; ++octave) {
         const midiNumber = tonic + octave * 12;
         result.push(
           <>

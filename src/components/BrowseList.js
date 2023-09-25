@@ -3,25 +3,9 @@ import queryString from "querystring";
 import * as React from "react";
 import { memo, useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
-import styled from "styled-components";
 import { CATALOG_PREFIX } from "../config";
 import DirectoryLink from "./DirectoryLink";
-import { RomanNumerals } from "./chiptheory/romanNumerals";
-
-const Badge = styled.span`
-  border-radius: 0px;
-  background-color: ${(props) => props.color || "#ccc"};
-  color: black;
-  font-family: Helvetica, sans-serif;
-  font-size: 12pt;
-  padding: 0px 5px;
-  white-space: nowrap;
-`;
-
-const formatModulation = (newTonic, base) => {
-  const diff = (newTonic - base + 12) % 12;
-  return diff > 6 ? `-${12 - diff}st` : `+${diff}st`;
-};
+import Card from "./chiptheory/Card";
 
 export default memo(BrowseList);
 function BrowseList({ virtual, ...props }) {
@@ -131,52 +115,6 @@ function BrowseList({ virtual, ...props }) {
                   <div>
                     {Object.entries(analysis).map(([index, piece]) => {
                       const realIndex = parseInt(index, 10) + 1;
-                      const modulations = Object.entries(
-                        piece.modulations || {},
-                      );
-                      const badges = [];
-                      if (piece.comment) {
-                        badges.push(
-                          <Badge color="#cc4">{piece.comment}</Badge>,
-                        );
-                      }
-                      if ((piece.beatsPerMeasure ?? 4) !== 4) {
-                        badges.push(
-                          <Badge color="#99f">{`${piece.beatsPerMeasure}/4 or ${piece.beatsPerMeasure}/8`}</Badge>,
-                        );
-                      }
-                      if (piece.tags && piece.tags.length > 0) {
-                        piece.tags.map((tag) =>
-                          badges.push(
-                            <Badge>{tag.split(":").join(": ")}</Badge>,
-                          ),
-                        );
-                      }
-                      if (piece.romanNumerals) {
-                        badges.push(
-                          <RomanNumerals romanNumerals={piece.romanNumerals} />,
-                        );
-                      }
-                      if (piece.basedOn) {
-                        badges.push(
-                          <Badge color="#cfc">{piece.basedOn}</Badge>,
-                        );
-                      }
-                      if (modulations.length > 0) {
-                        badges.push(
-                          <Badge color="#fcc">
-                            {"mod: " +
-                              modulations
-                                .map(([measure, newTonic]) =>
-                                  formatModulation(newTonic, piece.tonic),
-                                )
-                                .join(", ")}
-                          </Badge>,
-                        );
-                      }
-                      if (badges.length === 0) {
-                        badges.push(<Badge color="white">{realIndex}</Badge>);
-                      }
                       return (
                         <DirectoryLink
                           key={realIndex}
@@ -184,39 +122,12 @@ function BrowseList({ virtual, ...props }) {
                           to={"/browse/" + path}
                           search={`?subtune=${realIndex}`}
                         >
-                          <div
-                            style={{
-                              display: "inline-block",
-                              backgroundColor: "#444",
-                              // border: "1px solid white",
-                              margin: "5px 20px 20px 0px",
-                              padding: "0px",
-                              fontFamily: "Helvetica, sans-serif",
-                              fontSize: "12pt",
-                              color: "white",
-                            }}
-                          >
-                            <div
-                              style={{
-                                display: "flex",
-                                flexDirection: "column",
-                              }}
-                            >
-                              {badges}
-                            </div>
-                          </div>
+                          <Card analysis={piece} index={realIndex} />
                         </DirectoryLink>
                       );
                     })}
                   </div>
                 )}
-                {/* className="BrowseList-colDir" */}
-                {/* <div className="BrowseList-colCount" title={`Contains ${item.numChildren} direct child items`}>
-                  {item.numChildren}
-                </div>
-                <div className="BrowseList-colSize" title={`Directory size is ${item.size} bytes (recursive)`}>
-                  {item.size != null && bytes(item.size, { unitSeparator: ' ' })}
-                </div> */}
               </div>
             );
           } else {
@@ -231,10 +142,6 @@ function BrowseList({ virtual, ...props }) {
                 }
               >
                 <div className="BrowseList-colName">
-                  {/* {favorites &&
-                      <FavoriteButton isFavorite={favorites.includes(href)}
-                                      href={href}
-                                      toggleFavorite={toggleFavorite}/>} */}
                   <a
                     onClick={(e) =>
                       handleSongClick(href, playContext, item.idx)(e)
@@ -244,9 +151,6 @@ function BrowseList({ virtual, ...props }) {
                     {name}
                   </a>
                 </div>
-                {/* <div className="BrowseList-colSize">
-                  {bytes(item.size, { unitSeparator: " " })}
-                </div> */}
               </div>
             );
           }

@@ -117,7 +117,8 @@
     "prepare": "patch-package",
     "server": "DEV=1 node public/index.js",
     "fixvgm": "node $NODE_DEBUG_OPTION scripts/fixvgm.js",
-    "backup-corpus": "node scripts/backup-corpus.js"
+    "backup-corpus": "node scripts/backup-corpus.js",
+    "rename-tag": "node scripts/rename-tag.js"
   },
   "jest": {
     "collectCoverageFrom": [

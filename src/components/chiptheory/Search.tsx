@@ -28,16 +28,17 @@ export const matches = (analysis: Analysis, searchPath: string) => {
 
 const ROMAN_NUMERALS_SEARCH = [
   "VI VII I",
-  "V/ii",
-  "V/V",
+  "i VII VI V",
   "V IV I",
-  "I VII",
+  "V/ii",
   "V7/IV",
+  "V/V",
+  "V/vi",
+  "I VII",
   "IV iv",
   "viio/V",
   "viio7",
   "bII",
-  "i VII VI V",
 ];
 
 export const filterListing = (

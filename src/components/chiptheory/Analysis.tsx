@@ -30,6 +30,7 @@ const TAGS = [
   "scale:natural_minor",
   "scale:whole-tone",
   "scale:nikriz",
+  "scale:saba",
   "harmony:stasis",
   "harmony:parallel_keys",
   "harmony:diatonic_seventh_chords",
@@ -86,6 +87,7 @@ const TAGS = [
   "style:common_practice",
   "style:ragtime",
   "style:waltz",
+  "style:arabic",
   "middle_voice:melody_echo",
   "middle_voice:melody",
   "middle_voice:doubles_bass",
@@ -146,6 +148,7 @@ export type Analysis = {
   comment: string;
   tags: string[];
   disableSnapToNotes: boolean;
+  form?: { [key: number]: string };
 };
 
 export const ANALYSIS_STUB: Analysis = {
@@ -164,6 +167,7 @@ export const ANALYSIS_STUB: Analysis = {
   comment: "",
   tags: [],
   disableSnapToNotes: false,
+  form: [],
 };
 
 // These two don't propagate to Firestore because they tweak transient state.
@@ -257,6 +261,7 @@ const Measure: React.FC<{
   selectedDownbeat: number;
   selectDownbeat: (number: number) => void;
   romanNumeral: string;
+  formSection: string;
 }> = ({
   span,
   number,
@@ -264,6 +269,7 @@ const Measure: React.FC<{
   selectedDownbeat,
   selectDownbeat,
   romanNumeral,
+  formSection,
 }) => {
   const left = secondsToX(span[0]) - 1;
   const width = secondsToX(span[1]) - left - 1;
@@ -294,6 +300,24 @@ const Measure: React.FC<{
       >
         {number}
       </div>
+      {formSection && (
+        <div
+          key={`form_section_${number}`}
+          style={{
+            position: "absolute",
+            left: `${left + 1}px`,
+            top: "55px",
+            zIndex: 10,
+            backgroundColor: "#333",
+            padding: "5px 10px 5px 10px",
+            color: "#ffe",
+            userSelect: "none",
+            pointerEvents: "none",
+          }}
+        >
+          {formSection}
+        </div>
+      )}
       <div
         key={`db_rn_${number}`}
         style={{
@@ -417,6 +441,7 @@ export const AnalysisGrid: React.FC<{
               key={i}
               span={[time, measures[i + 1] ?? time]}
               isFourMeasureMark={phrasingMeasures.indexOf(number) !== -1}
+              formSection={(analysis.form ?? {})[number]}
               number={number}
               selectedDownbeat={selectedDownbeat}
               selectDownbeat={selectDownbeat}
@@ -443,13 +468,11 @@ export const AnalysisGrid: React.FC<{
               boxShadow: "inset 0px -5px 10px white",
               pointerEvents: "none",
               position: "absolute",
-              // backgroundColor: "#222",
               background:
                 "linear-gradient(to right, rgba(0, 0, 0, 0.5) 0%, rgba(0,0,0,0.9) 300px)",
               left: loopLeft,
               height: "100%",
               right: 0,
-              // opacity: 0.8,
               zIndex: 100,
               width: "5000px",
             }}
@@ -481,28 +504,33 @@ export const AnalysisBox: React.FC<{
       analysisFieldName,
       label,
       width = "95%",
+      mergeValueIntoAnalysis = null,
     ) => {
       const [value, setValue] = useState(initialValue.toString());
       const [isSaved, setIsSaved] = useState(false);
 
       useEffect(() => {
         setValue(analysis[analysisFieldName] ?? initialValue.toString());
-      }, [analysis[analysisFieldName]]);
+      }, [analysis[analysisFieldName]]); // TODO: doesn't work for formSection
 
       useEffect(() => {
         if (isSaved) {
-          const timer = setTimeout(() => setIsSaved(false), 100); // adjust timing as desired
+          const timer = setTimeout(() => setIsSaved(false), 100);
           return () => clearTimeout(timer);
         }
       }, [isSaved]);
 
       const handleKeyDown = (e) => {
         if (e.key === "Enter") {
-          const newAnalysis = {
-            ...analysis,
-            [analysisFieldName]:
-              typeof initialValue === "number" ? parseInt(value, 10) : value,
-          };
+          const newAnalysis = mergeValueIntoAnalysis
+            ? mergeValueIntoAnalysis(analysis, value)
+            : {
+                ...analysis,
+                [analysisFieldName]:
+                  typeof initialValue === "number"
+                    ? parseInt(value, 10)
+                    : value,
+              };
 
           saveAnalysis(newAnalysis);
           setAnalysis(newAnalysis);
@@ -537,6 +565,19 @@ export const AnalysisBox: React.FC<{
     );
     const romanNumerals = useInputField("", "romanNumerals", "Roman numerals");
     const comment = useInputField("", "comment", "Comment");
+    const formSection = useInputField(
+      "",
+      null,
+      "Form section",
+      undefined,
+      (analysis, value) => {
+        selectDownbeat(null);
+        return {
+          ...analysis,
+          form: { ...analysis.form, [selectedDownbeat]: value },
+        };
+      },
+    );
 
     return (
       <div
@@ -631,6 +672,7 @@ export const AnalysisBox: React.FC<{
                 </li>
                 <li>Adjust position: click anywhere</li>
                 <li>Enter modulation: alt+click on a new tonic</li>
+                <li>{formSection}</li>
               </ul>
             </div>
           ) : (

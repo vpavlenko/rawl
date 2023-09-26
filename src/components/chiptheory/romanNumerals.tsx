@@ -256,7 +256,7 @@ export const RomanNumeral: React.FC<{
 
 export const RowOfRomanNumerals: React.FC<{
   rnArray: string[];
-  isSearch: boolean;
+  isSearch?: boolean;
 }> = ({ rnArray, isSearch = false }) => {
   let row = [];
   rnArray.map((measure, i) => {

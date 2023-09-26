@@ -77,7 +77,12 @@ export const getPhrasingMeasures = (
   numMeasures: number,
 ): number[] => {
   if ((analysis.fourMeasurePhrasingReferences?.length ?? 0) > 1) {
-    return analysis.fourMeasurePhrasingReferences;
+    return Array.from(
+      new Set([
+        ...analysis.fourMeasurePhrasingReferences,
+        ...Object.keys(analysis.form || {}).map((key) => parseInt(key, 10)),
+      ]),
+    ).sort((a, b) => a - b);
   }
   const fourMeasurePhrasingStart =
     analysis.fourMeasurePhrasingReferences?.[0] ?? 1;

@@ -2,7 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 
 import { Analysis } from "./Analysis";
-import { RomanNumerals } from "./romanNumerals";
+import { FormAndHarmony } from "./romanNumerals";
 
 const Badge = styled.span`
   border-radius: 0px;
@@ -48,12 +48,7 @@ const Card: React.FC<{ analysis: Analysis; index: number }> = ({
     );
   }
   if (analysis.romanNumerals) {
-    badges.push(
-      <RomanNumerals
-        key="romanNumerals"
-        romanNumerals={analysis.romanNumerals}
-      />,
-    );
+    badges.push(<FormAndHarmony key="formAndHarmony" analysis={analysis} />);
   }
   if (analysis.basedOn) {
     badges.push(

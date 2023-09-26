@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Analysis, PitchClass } from "./Analysis";
 import { Note, Span } from "./Chiptheory";
+import { getPhrasingMeasures } from "./measures";
 
 const getIntersectionTime = (i: Span, j: Span): number => {
   const [iStart, iEnd] = i;
@@ -233,28 +234,6 @@ export const RomanNumeral: React.FC<{
   );
 };
 
-export const RomanNumerals: React.FC<{ romanNumerals: string }> = ({
-  romanNumerals,
-}) => {
-  const array = romanNumeralsToArray(romanNumerals);
-  const result = [];
-  for (let i = 0; i < array.length; i += 4) {
-    result.push(<RowOfRomanNumerals rnArray={array.slice(i, i + 4)} />);
-  }
-  return (
-    <div style={{ display: "inline-block" }}>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
-        {result}
-      </div>
-    </div>
-  );
-};
-
 export const RowOfRomanNumerals: React.FC<{ rnArray: string[] }> = ({
   rnArray,
 }) => {
@@ -370,4 +349,57 @@ export const getChordNote = (
       rootChromaticScaleDegree) %
       12
   ];
+};
+
+export const FormAndHarmony: React.FC<{ analysis: Analysis }> = ({
+  analysis,
+}) => {
+  const { romanNumerals, form } = analysis;
+  const array = romanNumeralsToArray(romanNumerals);
+  const phrasingMeasures = getPhrasingMeasures(analysis, romanNumerals.length);
+  if (phrasingMeasures?.[0] !== 1) {
+    phrasingMeasures.unshift(1);
+  }
+
+  const result = [];
+  for (let i = 0; i + 1 < phrasingMeasures.length; i++) {
+    const formSection = analysis.form?.[phrasingMeasures[i]];
+    // if (formSection === "chorus") debugger;
+    if (formSection) {
+      result.push(
+        <div
+          key={`formSection_${i}`}
+          style={{
+            textAlign: "center",
+            fontFamily: "sans-serif",
+            fontSize: "14px",
+            backgroundColor: "#333",
+            color: "white",
+          }}
+        >
+          {formSection}
+        </div>,
+      );
+    }
+    result.push(
+      <RowOfRomanNumerals
+        rnArray={array.slice(
+          phrasingMeasures[i] - 1,
+          phrasingMeasures[i + 1] - 1,
+        )}
+      />,
+    );
+  }
+  return (
+    <div style={{ display: "inline-block" }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        {result}
+      </div>
+    </div>
+  );
 };

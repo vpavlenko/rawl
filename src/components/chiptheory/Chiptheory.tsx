@@ -340,7 +340,7 @@ const Chiptheory = ({
     divRef.current.scrollLeft = 0;
   }, [chipStateDump]);
 
-  const noteHeight = (divHeight - 20) / (maxMidiNumber - minMidiNumber + 7);
+  const noteHeight = (divHeight - 60) / (maxMidiNumber - minMidiNumber + 7);
   const midiNumberToY = useMemo(
     () => (midiNumber) =>
       divHeight - (midiNumber - minMidiNumber + 4) * noteHeight,

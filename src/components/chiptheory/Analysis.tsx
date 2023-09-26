@@ -68,6 +68,7 @@ const TAGS = [
   "form:ABA",
   "form:AABA",
   "form:ABABC",
+  "form:ABACA",
   "form:12-bar_blues",
   "form:16-bar_blues",
   "form:basso_ostinato",
@@ -413,7 +414,6 @@ export const AnalysisGrid: React.FC<{
 }> = React.memo(
   ({
     analysis,
-    allNotes,
     measuresAndBeats,
     midiNumberToY,
     noteHeight,
@@ -421,10 +421,6 @@ export const AnalysisGrid: React.FC<{
     selectDownbeat,
   }) => {
     const { measures, beats } = measuresAndBeats;
-    // const maxRigthSpan = allNotes.reduce(
-    //   (maxValue, note) => Math.max(maxValue, note.span[1]),
-    //   -Infinity,
-    // );
     let loopLeft = null;
 
     if (analysis.loop) {
@@ -659,7 +655,7 @@ export const AnalysisBox: React.FC<{
                         fourMeasurePhrasingReferences: [
                           ...(analysis.fourMeasurePhrasingReferences || []),
                           selectedDownbeat,
-                        ].sort(),
+                        ].sort((a, b) => a - b),
                       };
 
                       selectDownbeat(null);

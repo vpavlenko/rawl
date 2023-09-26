@@ -125,6 +125,466 @@
       }
     }
   },
+  "Nintendo/Adventures of Lolo 2": {
+    "Adventures of Lolo 2.nsfe": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "timbre:layered",
+          "upper_voices:absent"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "secondMeasure": 1.5900000000000012,
+        "loop": 5,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "5": 6.3299999999999095
+        },
+        "tonic": 7,
+        "basedOn": null
+      },
+      "1": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "I V I-V I",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "secondMeasure": 0.9900000000000007,
+        "loop": null,
+        "firstMeasure": 0.19000000000000003,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 7,
+        "basedOn": null
+      },
+      "2": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "V I IV I IV I V/V V I IV V7/vi vi IV I V I",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "form:period"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "secondMeasure": 0.7900000000000005,
+        "loop": 17,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 7,
+        "basedOn": null
+      },
+      "3": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "V-I ii-V I",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "secondMeasure": 0.7900000000000005,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 7,
+        "basedOn": null
+      },
+      "4": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "I bII-III",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "secondMeasure": 0.7900000000000005,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 7,
+        "basedOn": null
+      },
+      "5": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "I bII I bII I bII I",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "tempo:ritardando",
+          "middle_voice:parallel_thirds"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "secondMeasure": 2.1399999999999983,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "phrygian shuttle - maybe better visualize through modulations?",
+        "correctedMeasures": {
+          "7": 13.057142857142857
+        },
+        "tonic": 7,
+        "basedOn": null
+      },
+      "6": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "i",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "scale:nikriz",
+          "style:arabic",
+          "timbre:layered",
+          "middle_voice:melody_echo",
+          "middle_voice:parallel_octaves",
+          "bass:melody"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "secondMeasure": 2.53999999999999,
+        "loop": 9,
+        "firstMeasure": 1.490000000000001,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      },
+      "7": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "motive:natural_horn_call"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "secondMeasure": 1.0400000000000007,
+        "loop": null,
+        "firstMeasure": 0.19000000000000003,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      },
+      "8": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "scale:saba"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "first measure",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 5,
+        "basedOn": null
+      },
+      "9": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "I V vi I IV V V vi IV V iii vi ii ii V5 V I V vi I IV V iii vi IV ii iii vi ii V I I I _ _ _ IV IV ii/ii V/ii ii V I I IV IV ii/ii V/ii ii V I",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "tempo:ritardando",
+          "location:game_won",
+          "voice_leading:descending_diatonic_bass",
+          "middle_voice:arpeggio",
+          "form:period",
+          "beats:division_change"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "secondMeasure": 1.490000000000001,
+        "form": {
+          "1": "A:antecedent",
+          "17": "A:consequent",
+          "37": "B:antecedent",
+          "45": "B:consequent"
+        },
+        "loop": 53,
+        "firstMeasure": 0.2900000000000001,
+        "step": "end",
+        "comment": "feels like based on smth, maybe bc too common-practice. part B is based on mm. 25-32",
+        "correctedMeasures": {
+          "35": 40.94285714285714,
+          "36": 41.885714285714286,
+          "37": 42.91000000000003,
+          "38": 43.65999999999988
+        },
+        "tonic": 5,
+        "basedOn": null
+      }
+    }
+  },
+  "Nintendo/Adventures of Lolo 3": {
+    "Adventures of Lolo 3.nsfe": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "first measure",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 8,
+        "basedOn": null
+      },
+      "1": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "tonic",
+        "comment": "same as Lolo 2, subtune 1",
+        "correctedMeasures": [],
+        "tonic": null,
+        "basedOn": null
+      },
+      "2": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ I V/vi vi ii I V I",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "form:period",
+          "bass:melody",
+          "upper_voices:arpeggio"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "secondMeasure": 1.5700000000000012,
+        "form": {
+          "1": "A;antecedent",
+          "9": "A;consequent",
+          "17": "B"
+        },
+        "loop": 25,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 5,
+        "basedOn": null
+      },
+      "3": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "I7 I7",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.5900000000000012,
+        "loop": 3,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      },
+      "4": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": true,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.5900000000000012,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 3,
+        "basedOn": null
+      },
+      "5": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "I V7/V V7 I I V7/V V7 I V I IV-V vi ii-V I IV-V V",
+        "clickResolutionMs": 0.01,
+        "tags": [],
+        "modulations": {
+          "13": 8,
+          "16": 5
+        },
+        "fourMeasurePhrasingReferences": [],
+        "secondMeasure": 1.5900000000000012,
+        "form": {
+          "1": "A",
+          "5": "A"
+        },
+        "loop": 17,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "jazz-like far ii-V-I",
+        "correctedMeasures": [],
+        "tonic": 5,
+        "basedOn": null
+      },
+      "7": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "first measure",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 7,
+        "basedOn": null
+      },
+      "8": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "i VII i VII",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "bass:melody",
+          "upper_voices:arpeggio"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 3.189999999999976,
+        "loop": 5,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 7,
+        "basedOn": null
+      },
+      "9": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "scale:blues"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "first measure",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 10,
+        "basedOn": null
+      },
+      "10": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "I ii V7 I I ii V7 I",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "middle_voice:arpeggio"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.390000000000001,
+        "loop": 9,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 5,
+        "basedOn": null
+      },
+      "11": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "I ii V I",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "middle_voice:parallel_sixths"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.7600000000000013,
+        "loop": 5,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "3": 3.699999999999965,
+          "5": 7.419999999999886,
+          "7": 11.149999999999807
+        },
+        "tonic": 4,
+        "basedOn": null
+      },
+      "12": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "first measure",
+        "comment": "same as Lolo 2 subtune 7, but timbres are crispier",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      }
+    }
+  },
   "Nintendo/Almana no Kiseki": {
     "Almana no Kiseki (FDS)(1987-08-11)(Konami).nsf": {
       "1": {
@@ -193,17 +653,19 @@
       "1": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
-        "romanNumerals": "I I IV I I I V/V V I V vi iii",
+        "romanNumerals": "I I IV I I I V/V V I V vi iii ii V5",
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 4.789999999999942,
-        "loop": null,
+        "loop": 15,
         "firstMeasure": 3.189999999999976,
         "step": "end",
         "comment": "",
-        "correctedMeasures": [],
+        "correctedMeasures": {
+          "15": 25.570000000001198
+        },
         "tonic": 0,
         "basedOn": null
       }
@@ -1818,6 +2280,12 @@
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.0400000000000007,
+        "form": {
+          "1": "chorus",
+          "13": "chorus",
+          "25": "chorus",
+          "37": "chorus"
+        },
         "loop": 49,
         "firstMeasure": 0,
         "step": "end",
@@ -2067,9 +2535,13 @@
         "firstMeasure": 0.7900000000000005,
         "clickResolutionMs": 0.01,
         "step": "end",
-        "comment": "country",
+        "comment": "country, timbre: banjo",
         "correctedMeasures": [],
-        "tonic": 0
+        "tonic": 0,
+        "tags": [
+          "form:period",
+          "middle_voice:melody"
+        ]
       }
     }
   },
@@ -2195,7 +2667,7 @@
       "7": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
-        "romanNumerals": "I I I I7-V7 I I I I7-V7 _ _ _ _ V7/V V IV-#III-III-III ii-bII",
+        "romanNumerals": "I I I I7-V7 I I I I7-V7 IV5 VII5 IV5 VII5 V7/V V IV-#III-III-III ii-bII",
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [],
@@ -2398,6 +2870,12 @@
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 0.9900000000000007,
+        "form": {
+          "1": "intro",
+          "5": "chorus",
+          "17": "chorus",
+          "29": "chorus"
+        },
         "loop": 41,
         "firstMeasure": 0,
         "step": "end",
@@ -3678,6 +4156,27 @@
       }
     }
   },
+  "Nintendo/Balda (BBG)": {
+    "Balda (BBG).nsf": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "tonic",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": null,
+        "basedOn": "Вдоль по Питерской"
+      }
+    }
+  },
   "Nintendo/Adventures of Lolo": {
     "Adventures of Lolo.nsfe": {
       "0": {
@@ -3771,11 +4270,29 @@
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 2.1399999999999983,
+        "form": {
+          "1": "A:antecedent",
+          "9": "A:consequent",
+          "17": "A:antecedent",
+          "25": "A:consequent",
+          "33": "B:antecedent",
+          "37": "B:consequent",
+          "41": "C:antecedent",
+          "49": "C:consequent",
+          "57": "B:antecedent",
+          "61": "B:consequent",
+          "65": "C:antecedent",
+          "73": "C:consequent",
+          "81": "D:antecedent",
+          "89": "D:consequent"
+        },
         "loop": 97,
         "firstMeasure": 1.0400000000000007,
         "step": "end",
         "comment": "",
+        "tonic": 5,
         "correctedMeasures": {
+          "1": 1.3285714285714285,
           "9": 9.58999999999984,
           "16": 17.02857142857143,
           "24": 25.52857142857143,
@@ -3787,7 +4304,6 @@
           "88": 93.71428571428571,
           "100": 106.5
         },
-        "tonic": 5,
         "basedOn": null
       },
       "6": {
@@ -5320,12 +5836,33 @@
   "Nintendo/16 Mahjong": {
     "16 Mahjong (1989)(Sachen, Thin Chen).nsf": {
       "0": {
-        "mode": "minor",
-        "secondMeasure": 1.5900000000000012,
-        "loop": null,
-        "romanNumerals": "i VII VI VII i VII VI VII-I i VII-III VII-VI VII-v i VII-III VII-VI v-i i VII VI VII i VII VI VII-I - - - - i VII VI VII-I",
-        "firstMeasure": 0,
+        "romanNumerals": "i VII VI VII i VII VI VII-I i VII-III VII-VI VII-v i VII-III VII-VI v-i i VII VI VII i VII VI VII-I _ _ _ _ i VII VI VII-I",
         "clickResolutionMs": 0.01,
+        "tags": [
+          "form:period",
+          "form:ABACA"
+        ],
+        "mode": "minor",
+        "fourMeasurePhrasingReferences": [
+          36,
+          5
+        ],
+        "secondMeasure": 1.5900000000000012,
+        "form": {
+          "1": "A:antecedent",
+          "5": "A:consequent",
+          "9": "B:antecedent",
+          "13": "B:consequent",
+          "17": "A:antecedent",
+          "21": "A:consequent",
+          "25": "C:antecedent",
+          "29": "C:consequent",
+          "33": "fill",
+          "36": "A:antecedent",
+          "40": "A:consequent"
+        },
+        "loop": null,
+        "firstMeasure": 0,
         "step": "end",
         "comment": "",
         "tonic": 6,
@@ -6433,14 +6970,19 @@
       "4": {
         "mode": "minor",
         "secondMeasure": 0.7700000000000005,
-        "loop": null,
-        "romanNumerals": "I I I I vi vi vi vi ii ii ii ii IV IV v v i VII VI V",
+        "loop": 49,
+        "romanNumerals": "I I I I vi vi vi vi ii ii ii ii IV IV v v i VII VI V I5 VII5 VI V I5 VII5 VI5 V",
         "firstMeasure": 0,
         "clickResolutionMs": 0.01,
         "step": "end",
         "comment": "mixolydian with 4th in chords",
         "correctedMeasures": [],
-        "tonic": 7
+        "tonic": 7,
+        "tags": [
+          "harmony:parallel_keys",
+          "timbre:oscillator_as_percussion",
+          "middle_voice:absent"
+        ]
       },
       "5": {
         "mode": "dorian",
@@ -6709,7 +7251,9 @@
         "romanNumerals": "VI VII I",
         "clickResolutionMs": 0.01,
         "modulations": [],
-        "tags": [],
+        "tags": [
+          "location:level_completed"
+        ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.340000000000001,
         "loop": null,
@@ -7044,6 +7588,42 @@
           "16": 23.771428571428572
         },
         "tonic": 2,
+        "basedOn": null
+      }
+    }
+  },
+  "Nintendo/Ball Story II - Jong Yuk Chuen Suet Fa Jong II": {
+    "Ball Story II - Jong Yuk Chuen Suet Fa Jong II (19xx)(Sun Team).nsf": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "_ _ _ _ _ _ I I V V5 IV I V V5 I I vi vi IV I ii iii IV I V5 V",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "form:period",
+          "middle_voice:arpeggio"
+        ],
+        "fourMeasurePhrasingReferences": [
+          7
+        ],
+        "form": {
+          "1": "intro",
+          "7": "antecedent",
+          "15": "consequent"
+        },
+        "secondMeasure": 1.0400000000000007,
+        "loop": 27,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "infinite period",
+        "correctedMeasures": {
+          "1": 4.957142857142857,
+          "10": 9.571428571428571,
+          "14": 13.842857142857143,
+          "26": 26.614285714285714
+        },
+        "tonic": 0,
         "basedOn": null
       }
     }

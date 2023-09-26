@@ -78,6 +78,7 @@ const TAGS = [
   "bass:walking",
   "bass:melody",
   "timbre:rich",
+  "timbre:layered",
   "bass:riff",
   "melody:riff",
   "bass:pedal_point",
@@ -140,7 +141,7 @@ export type Analysis = {
   tonic: PitchClass | null;
   modulations: { [key: number]: PitchClass };
   basedOn: string;
-  romanNumerals: string;
+  romanNumerals?: string;
   comment: string;
   tags: string[];
   disableSnapToNotes: boolean;

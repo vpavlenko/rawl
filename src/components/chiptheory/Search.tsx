@@ -2,16 +2,29 @@ import * as React from "react";
 import { memo, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Analysis } from "./Analysis";
+import { RomanNumerals } from "./romanNumerals";
 
 type Corpus = {
   [game: string]: { [file: string]: { [subtune: number]: Analysis } };
 };
 
 export const matches = (analysis: Analysis, searchPath: string) => {
+  const searchCategory = searchPath.slice(0, searchPath.indexOf("/"));
+  const searchValue = searchPath.slice(searchPath.indexOf("/") + 1);
+  if (searchCategory === "chords") {
+    // TODO: fails on half-measures, seventh chords, power chords, inversions.
+    // Also the spaces are hilarious
+    return (" " + (analysis.romanNumerals || "") + " ").includes(
+      " " + searchValue.replace(/-/g, " ") + " ",
+    );
+  }
+
   return (analysis.tags || []).some(
     (tag) => tag === searchPath.replace("/", ":"),
   );
 };
+
+const ROMAN_NUMERALS_SEARCH = ["VI VII I", "V/V", "V IV I", "I VII", "IV iv"];
 
 export const filterListing = (
   listing,
@@ -66,6 +79,19 @@ const Search: React.FC<{
 
   return (
     <div>
+      <div key="rn" style={{ margin: "0px 0px 30px 0px" }}>
+        <h6 style={{ marginBottom: "5px" }}>roman numerals</h6>
+        {ROMAN_NUMERALS_SEARCH.map((rn) => (
+          <div
+            style={{ cursor: "pointer", paddingBottom: "5px" }}
+            onClick={() =>
+              history.push(`/search/chords/${rn.replace(/ /g, "-")}`)
+            }
+          >
+            <RomanNumerals romanNumerals={rn} />
+          </div>
+        ))}
+      </div>
       {Object.entries(tags).map(([categoryName, categoryContent]) => (
         <div key={categoryName}>
           <h6 style={{ marginBottom: "2px" }}>

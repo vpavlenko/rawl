@@ -79,6 +79,7 @@ const TAGS = [
   "bass:melody",
   "timbre:rich",
   "timbre:layered",
+  "timbre:oscillator_as_percussion",
   "bass:riff",
   "melody:riff",
   "bass:pedal_point",

@@ -14,9 +14,11 @@ export const matches = (analysis: Analysis, searchPath: string) => {
   if (searchCategory === "chords") {
     // TODO: fails on half-measures, seventh chords, power chords, inversions.
     // Also the spaces are hilarious
-    return (" " + (analysis.romanNumerals || "") + " ").includes(
-      " " + searchValue.replace(/-/g, " ") + " ",
-    );
+    return (
+      " " +
+      (analysis.romanNumerals || "").replace(/-/g, " ") +
+      " "
+    ).includes(" " + searchValue.replace(/-/g, " ") + " ");
   }
 
   return (analysis.tags || []).some(
@@ -24,7 +26,19 @@ export const matches = (analysis: Analysis, searchPath: string) => {
   );
 };
 
-const ROMAN_NUMERALS_SEARCH = ["VI VII I", "V/V", "V IV I", "I VII", "IV iv"];
+const ROMAN_NUMERALS_SEARCH = [
+  "VI VII I",
+  "V/ii",
+  "V/V",
+  "V IV I",
+  "I VII",
+  "V7/IV",
+  "IV iv",
+  "viio/V",
+  "viio7",
+  "bII",
+  "i VII VI V",
+];
 
 export const filterListing = (
   listing,
@@ -47,11 +61,14 @@ const Search: React.FC<{
   analyses: Corpus;
   searchPath: string;
 }> = ({ analyses, searchPath }) => {
+  searchPath = searchPath || "";
+
   const history = useHistory();
 
   const [tags, setTags] = useState({});
 
-  const [selectedCategory, selectedValue] = (searchPath || "").split("/");
+  const selectedCategory = searchPath.slice(0, searchPath.indexOf("/"));
+  const selectedValue = searchPath.slice(searchPath.indexOf("/") + 1);
 
   useEffect(() => {
     const result = {};
@@ -83,7 +100,18 @@ const Search: React.FC<{
         <h6 style={{ marginBottom: "5px" }}>roman numerals</h6>
         {ROMAN_NUMERALS_SEARCH.map((rn) => (
           <div
-            style={{ cursor: "pointer", paddingBottom: "5px" }}
+            key={rn}
+            style={{
+              cursor: "pointer",
+              margin: "0px 10px 10px 1px",
+              display: "inline-block",
+              ...(selectedCategory === "chords" &&
+              selectedValue.replace(/-/g, " ") === rn
+                ? {
+                    boxShadow: "0px 0px 0px 1px white",
+                  }
+                : {}),
+            }}
             onClick={() =>
               history.push(`/search/chords/${rn.replace(/ /g, "-")}`)
             }

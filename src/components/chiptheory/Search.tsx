@@ -119,7 +119,7 @@ const Search: React.FC<{
               history.push(`/search/chords/${rn.replace(/ /g, "-")}`)
             }
           >
-            <RowOfRomanNumerals rnArray={rn.split(" ")} />
+            <RowOfRomanNumerals rnArray={rn.split(" ")} isSearch={true} />
           </div>
         ))}
       </div>

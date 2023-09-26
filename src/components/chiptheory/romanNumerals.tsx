@@ -254,9 +254,10 @@ export const RomanNumeral: React.FC<{
   );
 };
 
-export const RowOfRomanNumerals: React.FC<{ rnArray: string[] }> = ({
-  rnArray,
-}) => {
+export const RowOfRomanNumerals: React.FC<{
+  rnArray: string[];
+  isSearch: boolean;
+}> = ({ rnArray, isSearch = false }) => {
   let row = [];
   rnArray.map((measure, i) => {
     const chords = measure.split("-");
@@ -264,8 +265,8 @@ export const RowOfRomanNumerals: React.FC<{ rnArray: string[] }> = ({
       return row.push(
         <div
           style={{
-            width: 60 / chords.length,
-            height: "24px",
+            width: isSearch ? 70 : 150 / chords.length,
+            height: isSearch ? 30 : 48,
             display: "grid",
             placeItems: "center",
             overflow: "hidden",
@@ -282,12 +283,13 @@ export const RowOfRomanNumerals: React.FC<{ rnArray: string[] }> = ({
             }
             styleProps={{
               fontFamily: "sans-serif",
-              fontSize:
-                chords.length >= 3
-                  ? "12px"
-                  : chords.length == 2
-                  ? "15px"
-                  : "20px",
+              fontSize: isSearch
+                ? "18px"
+                : chords.length >= 3
+                ? "18px"
+                : chords.length == 2
+                ? "24px"
+                : "28px",
             }}
           />
         </div>,

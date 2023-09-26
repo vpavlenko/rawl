@@ -201,10 +201,24 @@ export const TWELVE_TONE_COLORS = [
   "black",
 ];
 
+const makeArrowIfAppliedTo = (first: string, second?: string): string => {
+  // won't work if modulation happens in between
+  if (
+    second &&
+    first.indexOf("/") !== -1 &&
+    SIMPLE_RN_TO_CHROMATIC_DEGREE[cleanupRn(first.split("/")[1])] ===
+      SIMPLE_RN_TO_CHROMATIC_DEGREE[cleanupRn(second)]
+  ) {
+    return first.split("/")[0] + "→";
+  }
+  return first;
+};
+
 export const RomanNumeral: React.FC<{
   romanNumeral: string;
+  nextNumeral?: string;
   styleProps?: any;
-}> = ({ romanNumeral, styleProps = {} }) => {
+}> = ({ romanNumeral, styleProps = {}, nextNumeral = undefined }) => {
   const backgroundColor =
     TWELVE_TONE_COLORS[romanNumeralToChromaticDegree(romanNumeral)] ??
     "transparent";
@@ -228,7 +242,13 @@ export const RomanNumeral: React.FC<{
           ...styleProps,
         }}
       >
-        {romanNumeral}
+        {makeArrowIfAppliedTo(romanNumeral, nextNumeral)
+          .replace("7", "⁷")
+          .replace("5", "⁵")
+          .replace("6", "⁶")
+          .replace("b", "♭")
+          .replace("#", "♯")
+          .replace("o", "ᵒ")}
       </span>
     </div>
   );
@@ -238,14 +258,14 @@ export const RowOfRomanNumerals: React.FC<{ rnArray: string[] }> = ({
   rnArray,
 }) => {
   let row = [];
-  rnArray.map((measure) => {
+  rnArray.map((measure, i) => {
     const chords = measure.split("-");
-    chords.forEach((chord, j) =>
-      row.push(
+    chords.forEach((chord, j) => {
+      return row.push(
         <div
           style={{
-            width: 50 / chords.length,
-            height: "18px",
+            width: 60 / chords.length,
+            height: "24px",
             display: "grid",
             placeItems: "center",
             overflow: "hidden",
@@ -255,11 +275,24 @@ export const RowOfRomanNumerals: React.FC<{ rnArray: string[] }> = ({
         >
           <RomanNumeral
             romanNumeral={chord.replace("_", " ")}
-            styleProps={{ fontFamily: "sans-serif", fontSize: "14px" }}
+            nextNumeral={
+              j + 1 < chords.length
+                ? chords[j + 1]
+                : (rnArray[i + 1] || "").split("-")[0]
+            }
+            styleProps={{
+              fontFamily: "sans-serif",
+              fontSize:
+                chords.length >= 3
+                  ? "12px"
+                  : chords.length == 2
+                  ? "15px"
+                  : "20px",
+            }}
           />
         </div>,
-      ),
-    );
+      );
+    });
   });
   return <div style={{ display: "flex", flexDirection: "row" }}>{row}</div>;
 };

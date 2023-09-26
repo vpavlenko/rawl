@@ -28,6 +28,7 @@ const TAGS = [
   "scale:atonal",
   "scale:octatonic",
   "scale:natural_minor",
+  "scale:melodic_minor",
   "scale:whole-tone",
   "scale:nikriz",
   "scale:saba",
@@ -100,6 +101,7 @@ const TAGS = [
   "middle_voice:arpeggio",
   "middle_voice:absent",
   "middle_voice:root",
+  "middle_voice:static_chord_tones",
   "reference:previous_subtune",
   "motive:natural_horn_call",
   "motive:cadential",
@@ -503,6 +505,7 @@ export const AnalysisBox: React.FC<{
       label,
       width = "95%",
       mergeValueIntoAnalysis = null,
+      list = null,
     ) => {
       const [value, setValue] = useState(initialValue.toString());
       const [isSaved, setIsSaved] = useState(false);
@@ -547,6 +550,7 @@ export const AnalysisBox: React.FC<{
               backgroundColor: isSaved ? "#66d" : "#aaa",
               transition: "background-color 0.1s",
             }}
+            list={list}
             onChange={(e) => setValue(e.target.value)}
             onKeyDown={handleKeyDown}
           />
@@ -575,6 +579,7 @@ export const AnalysisBox: React.FC<{
           form: { ...analysis.form, [selectedDownbeat]: value },
         };
       },
+      "form-sections",
     );
 
     return (
@@ -671,6 +676,14 @@ export const AnalysisBox: React.FC<{
                 <li>Adjust position: click anywhere</li>
                 <li>Enter modulation: alt+click on a new tonic</li>
                 <li>{formSection}</li>
+
+                <datalist id="form-sections">
+                  <option value="A:antecedent" />
+                  <option value="A:consequent" />
+                  <option value="B:antecedent" />
+                  <option value="B:consequent" />
+                  <option value="intro" />
+                </datalist>
               </ul>
             </div>
           ) : (

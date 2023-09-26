@@ -87,8 +87,10 @@ export const getPhrasingMeasures = (
   const fourMeasurePhrasingStart =
     analysis.fourMeasurePhrasingReferences?.[0] ?? 1;
   const result = [];
-  for (let i = fourMeasurePhrasingStart; i < numMeasures; i += 4) {
+  let i;
+  for (i = fourMeasurePhrasingStart; i < numMeasures; i += 4) {
     result.push(i);
   }
+  result.push(i);
   return result;
 };

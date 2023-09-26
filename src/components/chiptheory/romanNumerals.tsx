@@ -356,15 +356,17 @@ export const FormAndHarmony: React.FC<{ analysis: Analysis }> = ({
 }) => {
   const { romanNumerals, form } = analysis;
   const array = romanNumeralsToArray(romanNumerals);
-  const phrasingMeasures = getPhrasingMeasures(analysis, romanNumerals.length);
+  const phrasingMeasures = getPhrasingMeasures(
+    analysis,
+    Math.max(4, array.length),
+  );
   if (phrasingMeasures?.[0] !== 1) {
     phrasingMeasures.unshift(1);
   }
 
   const result = [];
   for (let i = 0; i + 1 < phrasingMeasures.length; i++) {
-    const formSection = analysis.form?.[phrasingMeasures[i]];
-    // if (formSection === "chorus") debugger;
+    const formSection = form?.[phrasingMeasures[i]];
     if (formSection) {
       result.push(
         <div

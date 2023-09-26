@@ -30,6 +30,7 @@ const ROMAN_NUMERALS_SEARCH = [
   "VI VII I",
   "i VII VI V",
   "V IV I",
+  "V vi",
   "V/ii",
   "V7/IV",
   "V/V",
@@ -39,6 +40,7 @@ const ROMAN_NUMERALS_SEARCH = [
   "viio/V",
   "viio7",
   "bII",
+  "I7",
 ];
 
 export const filterListing = (

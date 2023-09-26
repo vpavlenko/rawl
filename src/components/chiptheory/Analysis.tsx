@@ -103,6 +103,7 @@ const TAGS = [
   "motive:natural_horn_call",
   "motive:cadential",
   "upper_voices:polyphony",
+  "upper_voices:arpeggio",
   "upper_voices:absent",
 ];
 

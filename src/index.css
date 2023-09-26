@@ -502,8 +502,11 @@ body,
     flex-direction: column;
     /* background-color: black; */
     /* border-bottom: 1px dotted #555; */
-    margin-bottom: 10px
+    margin-bottom: 0px
+}
 
+.BrowseList-row-mainPage {
+    margin-bottom: 100px
 }
 
 .BrowseList-row:has(a:hover) {

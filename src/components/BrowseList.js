@@ -96,7 +96,13 @@ function BrowseList({ items, ...props }) {
 
           if (item.type === "directory") {
             return (
-              <div key={name} className="BrowseList-row">
+              <div
+                key={name}
+                className={
+                  "BrowseList-row" +
+                  (items.length > 4 ? " BrowseList-row-mainPage" : "")
+                }
+              >
                 <div className="BrowseList-colName">
                   <DirectoryLink
                     dim={!fileAnalysis}

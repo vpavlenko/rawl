@@ -11,7 +11,7 @@ const Badge = styled.span`
   font-family: Helvetica, sans-serif;
   font-size: 12pt;
   padding: 0px 5px;
-  white-space: nowrap;
+  max-width: 400px;
 `;
 
 const formatModulation = (newTonic, base) => {
@@ -43,7 +43,9 @@ const Card: React.FC<{ analysis: Analysis; index: number }> = ({
   if (analysis.tags && analysis.tags.length > 0) {
     analysis.tags.map((tag) =>
       badges.push(
-        <Badge key={`tag_${tag}`}>{tag.split(":").join(": ")}</Badge>,
+        <Badge key={`tag_${tag}`}>
+          {tag.split(":").join(": ").replace(/_/g, " ")}
+        </Badge>,
       ),
     );
   }

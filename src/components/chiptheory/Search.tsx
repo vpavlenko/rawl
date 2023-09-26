@@ -68,7 +68,7 @@ const Search: React.FC<{
     <div>
       {Object.entries(tags).map(([categoryName, categoryContent]) => (
         <div key={categoryName}>
-          <h6 style={{ marginBottom: "0px" }}>
+          <h6 style={{ marginBottom: "2px" }}>
             {categoryName.replace(/_/g, " ")}
           </h6>
           <div style={{ margin: "0px 0px 30px 0px" }}>

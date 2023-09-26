@@ -2,7 +2,7 @@ import * as React from "react";
 import { memo, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Analysis } from "./Analysis";
-import { RomanNumerals } from "./romanNumerals";
+import { RowOfRomanNumerals } from "./romanNumerals";
 
 type Corpus = {
   [game: string]: { [file: string]: { [subtune: number]: Analysis } };
@@ -117,7 +117,7 @@ const Search: React.FC<{
               history.push(`/search/chords/${rn.replace(/ /g, "-")}`)
             }
           >
-            <RomanNumerals romanNumerals={rn} />
+            <RowOfRomanNumerals rnArray={rn.split(" ")} />
           </div>
         ))}
       </div>

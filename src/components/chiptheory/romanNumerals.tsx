@@ -239,34 +239,7 @@ export const RomanNumerals: React.FC<{ romanNumerals: string }> = ({
   const array = romanNumeralsToArray(romanNumerals);
   const result = [];
   for (let i = 0; i < array.length; i += 4) {
-    let row = [];
-    array.slice(i, i + 4).map((measure) => {
-      const chords = measure.split("-");
-      chords.forEach((chord, j) =>
-        row.push(
-          <div
-            style={{
-              width: 50 / chords.length,
-              height: "18px",
-              display: "grid",
-              placeItems: "center",
-              overflow: "hidden",
-              backgroundColor:
-                TWELVE_TONE_COLORS[romanNumeralToChromaticDegree(chord)],
-            }}
-          >
-            <RomanNumeral
-              romanNumeral={chord.replace("_", " ")}
-              styleProps={{ fontFamily: "sans-serif", fontSize: "14px" }}
-            />
-          </div>,
-        ),
-      );
-    });
-
-    result.push(
-      <div style={{ display: "flex", flexDirection: "row" }}>{row}</div>,
-    );
+    result.push(<RowOfRomanNumerals rnArray={array.slice(i, i + 4)} />);
   }
   return (
     <div style={{ display: "inline-block" }}>
@@ -280,6 +253,36 @@ export const RomanNumerals: React.FC<{ romanNumerals: string }> = ({
       </div>
     </div>
   );
+};
+
+export const RowOfRomanNumerals: React.FC<{ rnArray: string[] }> = ({
+  rnArray,
+}) => {
+  let row = [];
+  rnArray.map((measure) => {
+    const chords = measure.split("-");
+    chords.forEach((chord, j) =>
+      row.push(
+        <div
+          style={{
+            width: 50 / chords.length,
+            height: "18px",
+            display: "grid",
+            placeItems: "center",
+            overflow: "hidden",
+            backgroundColor:
+              TWELVE_TONE_COLORS[romanNumeralToChromaticDegree(chord)],
+          }}
+        >
+          <RomanNumeral
+            romanNumeral={chord.replace("_", " ")}
+            styleProps={{ fontFamily: "sans-serif", fontSize: "14px" }}
+          />
+        </div>,
+      ),
+    );
+  });
+  return <div style={{ display: "flex", flexDirection: "row" }}>{row}</div>;
 };
 
 export const MeasureOfRomanNumerals: React.FC<{ dashedRN: string }> = ({

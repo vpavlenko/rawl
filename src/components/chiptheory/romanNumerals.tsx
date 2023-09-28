@@ -245,6 +245,7 @@ export const RomanNumeral: React.FC<{
           .replace("7", "⁷")
           .replace("5", "⁵")
           .replace("6", "⁶")
+          .replace("4", "⁴")
           .replace("b", "♭")
           .replace("#", "♯")
           .replace("o", "ᵒ")}

@@ -8,7 +8,7 @@ type Corpus = {
   [game: string]: { [file: string]: { [subtune: number]: Analysis } };
 };
 
-export const matches = (analysis: Analysis, searchPath: string) => {
+export const matches = (analysis: Analysis, searchPath: string): boolean => {
   const searchCategory = searchPath.slice(0, searchPath.indexOf("/"));
   const searchValue = searchPath.slice(searchPath.indexOf("/") + 1);
   if (searchCategory === "chords") {
@@ -19,6 +19,10 @@ export const matches = (analysis: Analysis, searchPath: string) => {
       (analysis.romanNumerals || "").replace(/-/g, " ") +
       " "
     ).includes(" " + searchValue.replace(/-/g, " ") + " ");
+  }
+  if (searchCategory === "cover") {
+    // a dirty hack: the section is called "covers", but that's how split by slash works when searchValue is empty
+    return Boolean(analysis.basedOn);
   }
 
   return (analysis.tags || []).some(
@@ -69,12 +73,14 @@ const Search: React.FC<{
   const history = useHistory();
 
   const [tags, setTags] = useState({});
+  const [basedOnCount, setBasedOnCount] = useState(0);
 
   const selectedCategory = searchPath.slice(0, searchPath.indexOf("/"));
   const selectedValue = searchPath.slice(searchPath.indexOf("/") + 1);
 
   useEffect(() => {
     const result = {};
+    let basedOnCountInner = 0;
     if (analyses) {
       Object.keys(analyses).map((game) =>
         Object.keys(analyses[game]).map((file) => {
@@ -90,15 +96,19 @@ const Search: React.FC<{
                 { game, file, subtune, analysis },
               ];
             });
+            if (analysis.basedOn) {
+              basedOnCountInner++;
+            }
           });
         }),
       );
     }
     setTags(result);
+    setBasedOnCount(basedOnCountInner);
   }, [analyses]);
 
   return (
-    <div>
+    <div key="rn">
       <div key="rn" style={{ margin: "0px 0px 30px 0px" }}>
         <h6 style={{ marginBottom: "5px" }}>roman numerals</h6>
         {ROMAN_NUMERALS_SEARCH.map((rn) => (
@@ -123,6 +133,20 @@ const Search: React.FC<{
           </div>
         ))}
       </div>
+      <div key="covers">
+        <div style={{ margin: "0px 0px 30px 0px" }}>
+          <h6
+            style={{
+              marginBottom: "5px",
+              cursor: "pointer",
+              ...("cover" === selectedCategory ? { color: "yellow" } : {}),
+            }}
+            onClick={() => history.push(`/search/covers/`)}
+          >
+            covers <span style={{ fontSize: "16px" }}>{basedOnCount}</span>
+          </h6>
+        </div>
+      </div>
       {Object.entries(tags).map(([categoryName, categoryContent]) => (
         <div key={categoryName}>
           <h6 style={{ marginBottom: "2px" }}>
@@ -135,7 +159,6 @@ const Search: React.FC<{
                   key={value}
                   style={{
                     cursor: "pointer",
-                    // marginBottom: "0px",
                     ...(categoryName === selectedCategory &&
                     value === selectedValue
                       ? { color: "yellow" }

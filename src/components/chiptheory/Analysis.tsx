@@ -687,6 +687,7 @@ export const AnalysisBox: React.FC<{
                   <option value="B:consequent" />
                   <option value="intro" />
                   <option value="bridge" />
+                  <option value="chorus" />
                   <option value="HC" />
                   <option value="PAC" />
                 </datalist>

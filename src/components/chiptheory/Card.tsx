@@ -83,12 +83,13 @@ const Card: React.FC<{ analysis: Analysis; index: number }> = ({
     <div
       style={{
         display: "inline-block",
-        backgroundColor: "#444",
+        backgroundColor: "transparent",
         margin: "5px 20px 20px 0px",
         padding: "0px",
         fontFamily: "Helvetica, sans-serif",
         fontSize: "12pt",
         color: "white",
+        cursor: "pointer",
       }}
     >
       <div

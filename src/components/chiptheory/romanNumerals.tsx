@@ -220,8 +220,7 @@ export const RomanNumeral: React.FC<{
   styleProps?: any;
 }> = ({ romanNumeral, styleProps = {}, nextNumeral = undefined }) => {
   const backgroundColor =
-    TWELVE_TONE_COLORS[romanNumeralToChromaticDegree(romanNumeral)] ??
-    "transparent";
+    TWELVE_TONE_COLORS[romanNumeralToChromaticDegree(romanNumeral)] ?? "black";
   return (
     <div
       style={{

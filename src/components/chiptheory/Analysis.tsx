@@ -34,6 +34,7 @@ const TAGS = [
   "scale:saba",
   "harmony:stasis",
   "harmony:parallel_keys",
+  "harmony:power_chords",
   "harmony:diatonic_seventh_chords",
   "harmony:constant_structures",
   "harmony:quartal",
@@ -70,6 +71,7 @@ const TAGS = [
   "form:ABA",
   "form:AABA",
   "form:ABABC",
+  "form:ABAC",
   "form:ABACA",
   "form:12-bar_blues",
   "form:16-bar_blues",
@@ -81,6 +83,7 @@ const TAGS = [
   "form:tag",
   "bass:walking",
   "bass:melody",
+  "timbre:ultra_fast_notes",
   "timbre:rich",
   "timbre:layered",
   "timbre:oscillator_as_percussion",
@@ -683,6 +686,9 @@ export const AnalysisBox: React.FC<{
                   <option value="B:antecedent" />
                   <option value="B:consequent" />
                   <option value="intro" />
+                  <option value="bridge" />
+                  <option value="HC" />
+                  <option value="PAC" />
                 </datalist>
               </ul>
             </div>

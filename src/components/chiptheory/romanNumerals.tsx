@@ -196,7 +196,7 @@ export const TWELVE_TONE_COLORS = [
   "blue",
   "#9F9FFF",
   "#9400D3",
-  "#FF1493",
+  "#ff14c4",
   "#ffaacc",
   "black",
 ];
@@ -295,7 +295,7 @@ const Modulation: React.FC<{ semitones: PitchClass }> = ({ semitones }) => {
 
 export const RowOfRomanNumerals: React.FC<{
   rnArray: string[];
-  modulations: RelativeModulations;
+  modulations?: RelativeModulations;
   isSearch?: boolean;
 }> = ({ rnArray, modulations = {}, isSearch = false }) => {
   let row = [];

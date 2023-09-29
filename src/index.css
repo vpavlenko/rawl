@@ -898,3 +898,9 @@ img {
 .vertical-list-of-buttons li {
     margin-bottom: 20px;
 }
+
+.modulation * {
+    font-family: Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 1;
+}

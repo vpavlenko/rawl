@@ -254,10 +254,50 @@ export const RomanNumeral: React.FC<{
   );
 };
 
+const Modulation: React.FC<{ semitones: PitchClass }> = ({ semitones }) => {
+  const zeroCenteredSemitones = semitones > 6 ? -12 + semitones : semitones;
+
+  return (
+    <div
+      className="modulation"
+      style={{
+        position: "absolute",
+        left: 0,
+        backgroundColor: "black",
+        color: "white",
+        padding: 0,
+        margin: 0,
+        height: "100%",
+        top: 0,
+        zIndex: 100,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        alignItems: "center",
+      }}
+    >
+      {zeroCenteredSemitones > 0 ? (
+        <div>▲</div>
+      ) : (
+        <div style={{ opacity: 0 }}>▲</div>
+      )}
+
+      <div>{Math.abs(zeroCenteredSemitones)}</div>
+
+      {zeroCenteredSemitones < 0 ? (
+        <div>▼</div>
+      ) : (
+        <div style={{ opacity: 0 }}>▼</div>
+      )}
+    </div>
+  );
+};
+
 export const RowOfRomanNumerals: React.FC<{
   rnArray: string[];
+  modulations: RelativeModulations;
   isSearch?: boolean;
-}> = ({ rnArray, isSearch = false }) => {
+}> = ({ rnArray, modulations = {}, isSearch = false }) => {
   let row = [];
   rnArray.map((measure, i) => {
     const chords = measure.split("-");
@@ -270,10 +310,14 @@ export const RowOfRomanNumerals: React.FC<{
             display: "grid",
             placeItems: "center",
             overflow: "hidden",
+            position: "relative",
             backgroundColor:
               TWELVE_TONE_COLORS[romanNumeralToChromaticDegree(chord)],
           }}
         >
+          {i in modulations && j === 0 && (
+            <Modulation semitones={modulations[i]} />
+          )}
           <RomanNumeral
             romanNumeral={chord.replace("_", " ")}
             nextNumeral={
@@ -386,6 +430,35 @@ export const getChordNote = (
   ];
 };
 
+type RelativeModulations = { [key: number]: PitchClass };
+
+const getRelativeModulations = (
+  tonic: PitchClass | null,
+  modulations: { [key: number]: PitchClass },
+): RelativeModulations => {
+  if (tonic === null) {
+    return {};
+  }
+
+  const modulationsCopy = { ...modulations, 0: tonic };
+
+  const sortedKeys = Object.keys(modulationsCopy)
+    .map(Number)
+    .sort((a, b) => a - b);
+
+  let relativeModulations: RelativeModulations = {};
+
+  for (let i = 1; i < sortedKeys.length; i++) {
+    const prev = modulationsCopy[sortedKeys[i - 1]];
+    const current = modulationsCopy[sortedKeys[i]];
+
+    relativeModulations[sortedKeys[i]] = ((current - prev + 12) %
+      12) as PitchClass;
+  }
+
+  return relativeModulations;
+};
+
 export const FormAndHarmony: React.FC<{ analysis: Analysis }> = ({
   analysis,
 }) => {
@@ -398,8 +471,12 @@ export const FormAndHarmony: React.FC<{ analysis: Analysis }> = ({
   if (phrasingMeasures?.[0] !== 1) {
     phrasingMeasures.unshift(1);
   }
-
+  const relativeModulations = getRelativeModulations(
+    analysis.tonic,
+    analysis.modulations,
+  );
   const result = [];
+  // Let's calculate all modulations and convert them to relative form: ±X st
   for (let i = 0; i + 1 < phrasingMeasures.length; i++) {
     const formSection = form?.[phrasingMeasures[i]];
     if (formSection) {
@@ -409,21 +486,38 @@ export const FormAndHarmony: React.FC<{ analysis: Analysis }> = ({
           style={{
             textAlign: "center",
             fontFamily: "sans-serif",
-            fontSize: "14px",
-            backgroundColor: "#333",
-            color: "white",
+            fontSize: "25px",
+            padding: "15px",
+            // backgroundColor: "#333",
+            // color: "white",
+            backgroundColor: "#999",
+            color: "black",
           }}
         >
           {formSection}
         </div>,
       );
     }
+    const relevantModulations = Object.keys(relativeModulations)
+      .filter((key) => {
+        const measureIndex = Number(key);
+        return (
+          measureIndex >= phrasingMeasures[i] &&
+          measureIndex < phrasingMeasures[i + 1]
+        );
+      })
+      .reduce((obj, key) => {
+        obj[Number(key) - phrasingMeasures[i]] = relativeModulations[key];
+        return obj;
+      }, {});
+
     result.push(
       <RowOfRomanNumerals
         rnArray={array.slice(
           phrasingMeasures[i] - 1,
           phrasingMeasures[i + 1] - 1,
         )}
+        modulations={relevantModulations}
       />,
     );
   }

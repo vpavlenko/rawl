@@ -42,7 +42,7 @@ const MINOR_CHORDS = [
   "v",
   "bvi",
   "vi",
-  "vii",
+  "bvii",
   "viio",
 ];
 const MAJOR_CHORDS = [
@@ -158,6 +158,7 @@ const SIMPLE_RN_TO_CHROMATIC_DEGREE = {
   "#VII": 11,
   bii: 1,
   "#VI": 9,
+  bvii: 10,
 };
 
 const split = (s: string, delimiter: string) =>

@@ -41,6 +41,9 @@ const ROMAN_NUMERALS_SEARCH = [
   "V/vi",
   "I VII",
   "IV iv",
+  "i I",
+  "i VI i",
+  // "i #IV", // TODO: make searchable
   "viio/V",
   "viio7",
   "bII",

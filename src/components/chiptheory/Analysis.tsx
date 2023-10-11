@@ -29,6 +29,7 @@ const TAGS = [
   "scale:octatonic",
   "scale:natural_minor",
   "scale:melodic_minor",
+  "scale:hexatonic_minor_no6",
   "scale:whole-tone",
   "scale:nikriz",
   "scale:saba",
@@ -58,7 +59,12 @@ const TAGS = [
   "location:level_completed",
   "location:lost",
   "location:game_won",
+  "location:intro",
+  "location:film", // like an intro, but between the levels
+  "location:shop",
+  "location:level",
   "chip:extensions",
+  "chip:tonal_DMC",
   "voice_leading:descending_chromatic_bass",
   "voice_leading:descending_diatonic_bass",
   "voice_leading:descending_chromatic_melody",
@@ -66,6 +72,7 @@ const TAGS = [
   "voice_leading:Vsus4",
   "voice_leading:Cad64",
   "voice_leading:triple_suspension",
+  "voice_leading:W-arpeggio",
   "chord:N6",
   "chord:Aug6",
   "form:ABA",
@@ -86,6 +93,7 @@ const TAGS = [
   "timbre:ultra_fast_notes",
   "timbre:rich",
   "timbre:layered",
+  "timbre:wide_vibrato",
   "timbre:oscillator_as_percussion",
   "bass:riff",
   "melody:riff",
@@ -259,7 +267,7 @@ const Downbeat = styled(VerticalBar)`
 `;
 
 const BeatBar = styled(VerticalBar)`
-  border-left: 1px dashed #222;
+  border-left: 1px dashed #303030;
 `;
 
 const Measure: React.FC<{

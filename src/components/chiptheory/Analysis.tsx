@@ -24,7 +24,6 @@ const TAGS = [
   "scale:mixolydian",
   "scale:lydian",
   "scale:hijaz",
-  "scale:hijazkar",
   "scale:atonal",
   "scale:octatonic",
   "scale:natural_minor",
@@ -40,6 +39,8 @@ const TAGS = [
   "harmony:constant_structures",
   "harmony:quartal",
   "harmony:neo-riemannian",
+  "harmony:diminished_seventh_chords",
+  "harmony:shuttle",
   "rhythm:syncopation",
   "rhythm:interesting",
   "rhythm:swing",
@@ -55,16 +56,20 @@ const TAGS = [
   "tonic:ambiguous", // when pitch class set is uniform 7 notes, but no certain tonic
   "location:scary",
   "location:menu",
+  "location:launch_screen",
   "location:boss",
   "location:level_completed",
   "location:lost",
   "location:game_won",
-  "location:intro",
-  "location:film", // like an intro, but between the levels
+  "location:credits",
+  "location:intro", // it's a story film
+  // "location:film", // like an intro, but between the levels
   "location:shop",
   "location:level",
+  "location:password",
   "chip:extensions",
   "chip:tonal_DMC",
+  "chip:vocal_DMC",
   "voice_leading:descending_chromatic_bass",
   "voice_leading:descending_diatonic_bass",
   "voice_leading:descending_chromatic_melody",
@@ -88,6 +93,8 @@ const TAGS = [
   "form:stasis_vs_progression", // contrast between A and B
   "form:period",
   "form:tag",
+  "form:accumulative",
+  "form:solo",
   "bass:walking",
   "bass:melody",
   "timbre:ultra_fast_notes",
@@ -103,22 +110,26 @@ const TAGS = [
   "style:waltz",
   "style:arabic",
   "middle_voice:melody_echo",
-  "middle_voice:melody",
+  "middle_voice:melody", // that implicitly means "upper_voice:arpeggio"
   "middle_voice:doubles_bass",
   "middle_voice:parallel_octaves",
   "middle_voice:parallel_fourths",
+  "middle_voice:parallel_fifths",
   "middle_voice:parallel_thirds",
   "middle_voice:parallel_sixths",
   "middle_voice:arpeggio",
   "middle_voice:absent",
   "middle_voice:root",
   "middle_voice:static_chord_tones",
+  "middle_voice:riff",
   "reference:previous_subtune",
   "motive:natural_horn_call",
   "motive:cadential",
   "upper_voices:polyphony",
   "upper_voices:arpeggio",
   "upper_voices:absent",
+  "percussion:layered",
+  "analyzed_in:hopkins",
 ];
 
 export const STEPS = [
@@ -255,6 +266,7 @@ const VerticalBar = styled.div`
   position: absolute;
   top: 0;
   z-index: 2;
+  pointer-events: none;
 `;
 
 export const Cursor = styled(VerticalBar)`

@@ -423,7 +423,7 @@ export const getChordNote = (
   const rootChromaticScaleDegree = romanNumeralToChromaticDegree(romanNumeral);
   if (rootChromaticScaleDegree === -1) return "";
 
-  return ["r", "♭", "2", "m", "3", "4", "T", "5", "↓", "6", "7", "△"][
+  return ["•", "♭", "2", "v", "3", "4", "T", "5", "↓", "6", "7", "▵"][
     (((note.note.midiNumber - getTonic(measure, analysis)) % 12) +
       12 -
       rootChromaticScaleDegree) %

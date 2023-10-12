@@ -47,6 +47,8 @@ const TAGS = [
   "rhythm:clave",
   "rhythm:latin",
   "rhythm:3+3+2",
+  "rhythm:4 against 3",
+  "rhythm:3 against 2",
   "tempo:accelerando",
   "tempo:ritardando",
   "tempo:uneven",
@@ -69,6 +71,7 @@ const TAGS = [
   "location:password",
   "chip:extensions",
   "chip:tonal_DMC",
+  "chip:toms_DMC",
   "chip:vocal_DMC",
   "voice_leading:descending_chromatic_bass",
   "voice_leading:descending_diatonic_bass",
@@ -92,6 +95,7 @@ const TAGS = [
   "form:extra_measure",
   "form:stasis_vs_progression", // contrast between A and B
   "form:period",
+  "form:reversed_period",
   "form:tag",
   "form:accumulative",
   "form:solo",
@@ -102,6 +106,7 @@ const TAGS = [
   "timbre:layered",
   "timbre:wide_vibrato",
   "timbre:oscillator_as_percussion",
+  "timbre:unexpected_detune",
   "bass:riff",
   "melody:riff",
   "bass:pedal_point",
@@ -121,6 +126,7 @@ const TAGS = [
   "middle_voice:absent",
   "middle_voice:root",
   "middle_voice:static_chord_tones",
+  "middle_voice:drone",
   "middle_voice:riff",
   "reference:previous_subtune",
   "motive:natural_horn_call",
@@ -130,6 +136,7 @@ const TAGS = [
   "upper_voices:absent",
   "percussion:layered",
   "analyzed_in:hopkins",
+  "analyzed_in:the common cold",
 ];
 
 export const STEPS = [
@@ -279,7 +286,7 @@ const Downbeat = styled(VerticalBar)`
 `;
 
 const BeatBar = styled(VerticalBar)`
-  border-left: 1px dashed #303030;
+  border-left: 1px dashed #262626;
 `;
 
 const Measure: React.FC<{

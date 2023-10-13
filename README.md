@@ -6,3 +6,15 @@ All credits for tremendous original work go to Matt Montag and all contributors 
 My stuff lives primarily in [src/components/chiptheory](src/components/chiptheory), I also removed some features from the UI to maximize useful display area for analysis.
 
 My analyses in JSON are available [here](corpus/analyses.json)
+
+# Hypothesis
+
+Languages on NES are clusters that are far away from each other. Some games that are unbound by external influences try to make tracks for levels so that all levels are as far from each other as possible. To achieve that, they employ the following languages:
+- [common practice](https://vpavlenko.github.io/chiptheory/search/style/common_practice) ([periods](https://vpavlenko.github.io/chiptheory/search/form/period), [V/V](https://vpavlenko.github.io/chiptheory/search/chords/V/V) and [other](https://vpavlenko.github.io/chiptheory/search/chords/V/vi) applied dominants)
+- [jazz](https://vpavlenko.github.io/chiptheory/browse/Nintendo/A%20Ressha%20de%20Ikou?subtune=3) (this one is rare)
+- [12-bar blues](https://vpavlenko.github.io/chiptheory/search/form/12-bar_blues) or [blues scale]() (I-IV or stasis)
+- chiptune (constant structures, modulations with exact repetitions, mixolydian shuttles, Super Mario cadence or phrygian stasis)
+- [hijaz](https://vpavlenko.github.io/chiptheory/search/scale/hijaz)
+- [chromatic](https://vpavlenko.github.io/chiptheory/search/scale/chromatic)
+- [atonal](https://vpavlenko.github.io/chiptheory/search/scale/atonal)
+- [pentatonic](https://vpavlenko.github.io/chiptheory/search/scale/pentatonic), including [W-arpeggios](https://vpavlenko.github.io/chiptheory/search/voice_leading/W-arpeggio)

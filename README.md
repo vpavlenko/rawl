@@ -13,7 +13,7 @@ Languages on NES are clusters that are far away from each other. Some games that
 - [common practice](https://vpavlenko.github.io/chiptheory/search/style/common_practice) ([periods](https://vpavlenko.github.io/chiptheory/search/form/period), [V/V](https://vpavlenko.github.io/chiptheory/search/chords/V/V) and [other](https://vpavlenko.github.io/chiptheory/search/chords/V/vi) applied dominants)
 - [jazz](https://vpavlenko.github.io/chiptheory/browse/Nintendo/A%20Ressha%20de%20Ikou?subtune=3) (this one is rare)
 - [12-bar blues](https://vpavlenko.github.io/chiptheory/search/form/12-bar_blues) or [blues scale]() (I-IV or stasis)
-- chiptune (constant structures, modulations with exact repetitions, mixolydian shuttles, Super Mario cadence or phrygian stasis)
+- chiptune ([constant structures](https://vpavlenko.github.io/chiptheory/search/harmony/constant_structures), modulations with exact repetitions, [mixolydian shuttles](https://vpavlenko.github.io/chiptheory/search/harmony/mixolydian_shuttle), [Super Mario cadence](https://vpavlenko.github.io/chiptheory/search/chords/VI-VII-I) or [phrygian](https://vpavlenko.github.io/chiptheory/search/scale/phrygian) stasis, [parallel keys](https://vpavlenko.github.io/chiptheory/search/harmony/parallel_keys), [quartal](https://vpavlenko.github.io/chiptheory/search/harmony/quartal))
 - [hijaz](https://vpavlenko.github.io/chiptheory/search/scale/hijaz)
 - [chromatic](https://vpavlenko.github.io/chiptheory/search/scale/chromatic)
 - [atonal](https://vpavlenko.github.io/chiptheory/search/scale/atonal)

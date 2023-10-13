@@ -17,4 +17,4 @@ Languages on NES are clusters that are far away from each other. Some games that
 - [hijaz](https://vpavlenko.github.io/chiptheory/search/scale/hijaz)
 - [chromatic](https://vpavlenko.github.io/chiptheory/search/scale/chromatic)
 - [atonal](https://vpavlenko.github.io/chiptheory/search/scale/atonal)
-- [pentatonic](https://vpavlenko.github.io/chiptheory/search/scale/pentatonic), including [W-arpeggios](https://vpavlenko.github.io/chiptheory/search/voice_leading/W-arpeggio)
+- [pentatonic](https://vpavlenko.github.io/chiptheory/search/scale/pentatonic), including [W-arpeggios](https://vpavlenko.github.io/chiptheory/search/voice_leading/W-arpeggio) - specifically when depicting China or Japan

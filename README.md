@@ -14,7 +14,11 @@ Languages on NES are clusters that are far away from each other. Some games that
 - [jazz](https://vpavlenko.github.io/chiptheory/browse/Nintendo/A%20Ressha%20de%20Ikou?subtune=3) (this one is rare)
 - [12-bar blues](https://vpavlenko.github.io/chiptheory/search/form/12-bar_blues) or [blues scale]() (I-IV or stasis)
 - chiptune ([constant structures](https://vpavlenko.github.io/chiptheory/search/harmony/constant_structures), modulations with exact repetitions, [mixolydian shuttles](https://vpavlenko.github.io/chiptheory/search/harmony/mixolydian_shuttle), [Super Mario cadence](https://vpavlenko.github.io/chiptheory/search/chords/VI-VII-I) or [phrygian](https://vpavlenko.github.io/chiptheory/search/scale/phrygian) stasis, [parallel keys](https://vpavlenko.github.io/chiptheory/search/harmony/parallel_keys), [quartal](https://vpavlenko.github.io/chiptheory/search/harmony/quartal))
-- [hijaz](https://vpavlenko.github.io/chiptheory/search/scale/hijaz)
+- [hijaz](https://vpavlenko.github.io/chiptheory/search/scale/hijaz) - surprisingly, without any Near East connotations
 - [chromatic](https://vpavlenko.github.io/chiptheory/search/scale/chromatic)
 - [atonal](https://vpavlenko.github.io/chiptheory/search/scale/atonal)
 - [pentatonic](https://vpavlenko.github.io/chiptheory/search/scale/pentatonic), including [W-arpeggios](https://vpavlenko.github.io/chiptheory/search/voice_leading/W-arpeggio) - specifically when depicting China or Japan
+
+Two things are interesting:
+- these languages most likely don't blend within a single track, but may well go together in different levels of the same game
+- other world language are absent: hemitonic pentatonics, gamelan, maqamat. all tunings are 12-edo

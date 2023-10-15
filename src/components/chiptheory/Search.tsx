@@ -32,22 +32,27 @@ export const matches = (analysis: Analysis, searchPath: string): boolean => {
 
 const ROMAN_NUMERALS_SEARCH = [
   "VI VII I",
+  "I III",
+  "VI i4",
+  "bII",
+  "i I",
+  "IV iv",
+  "I VII",
   "VII VI V",
+  "VII VI v",
   "V IV I",
   "V vi",
   "V/ii",
   "V7/IV",
   "V/V",
   "V/vi",
-  "I VII",
-  "IV iv",
-  "i I",
   "i VI i",
   // "i #IV", // TODO: make searchable. sharp can't be used in the URL unencoded
   "viio/V",
   "viio7",
-  "bII",
   "I7",
+  "V+",
+  "I^",
 ];
 
 export const filterListing = (

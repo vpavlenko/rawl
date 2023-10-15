@@ -169,7 +169,7 @@ export const romanNumeralsToArray = (romanNumerals: string): string[] =>
 
 const dashedRnToArray = (dashedRN: string): string[] => split(dashedRN, "-");
 
-const cleanupRn = (rn: string): string => rn.replace(/\d|o|ø|\+/g, "");
+const cleanupRn = (rn: string): string => rn.replace(/\d|o|ø|\^|\+/g, "");
 
 export const romanNumeralToChromaticDegree = (romanNumeral: string): number => {
   if (typeof romanNumeral !== "string" || romanNumeral.length === 0) return 12; // wtf
@@ -242,14 +242,18 @@ export const RomanNumeral: React.FC<{
           ...styleProps,
         }}
       >
-        {makeArrowIfAppliedTo(romanNumeral, nextNumeral)
-          .replace("7", "⁷")
-          .replace("5", "⁵")
-          .replace("6", "⁶")
-          .replace("4", "⁴")
-          .replace("b", "♭")
-          .replace("#", "♯")
-          .replace("o", "ᵒ")}
+        {
+          makeArrowIfAppliedTo(romanNumeral, nextNumeral)
+            .replace("7", "⁷")
+            .replace("5", "⁵")
+            .replace("6", "⁶")
+            .replace("4", "⁴")
+            .replace("2", "²")
+            .replace("b", "♭")
+            .replace("#", "♯")
+            .replace("o", "ᵒ")
+          // .replace("^", "▵")
+        }
       </span>
     </div>
   );
@@ -423,7 +427,7 @@ export const getChordNote = (
   const rootChromaticScaleDegree = romanNumeralToChromaticDegree(romanNumeral);
   if (rootChromaticScaleDegree === -1) return "";
 
-  return ["•", "♭", "2", "v", "3", "4", "T", "5", "↓", "6", "7", "▵"][
+  return ["•", "♭", "2", "v", "3", "4", "T", "5", "+", "6", "7", "▵"][
     (((note.note.midiNumber - getTonic(measure, analysis)) % 12) +
       12 -
       rootChromaticScaleDegree) %

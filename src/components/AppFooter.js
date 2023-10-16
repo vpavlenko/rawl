@@ -1,7 +1,6 @@
 import React, { memo, useCallback } from "react";
 import downloadImage from "../images/download.png";
 import linkImage from "../images/link.png";
-import { pathToLinks } from "../util";
 import PlayerParams from "./PlayerParams";
 import TimeSlider from "./TimeSlider";
 import VolumeSlider from "./VolumeSlider";
@@ -9,18 +8,14 @@ import VolumeSlider from "./VolumeSlider";
 export default memo(AppFooter);
 function AppFooter(props) {
   const {
-    // this.state.
     currentSongDurationMs,
     currentSongNumSubtunes,
     currentSongNumVoices,
     currentSongSubtune,
     ejected,
-    faves,
     imageUrl,
     infoTexts,
     paused,
-    repeat,
-    shuffle,
     showPlayerSettings,
     songUrl,
     subtitle,
@@ -29,27 +24,17 @@ function AppFooter(props) {
     voiceNames,
     voiceMask,
     volume,
-
-    // this.
-    getCurrentSongLink,
-    handleCycleRepeat,
-    handleCycleShuffle,
     handleSetVoiceMask,
     handleTempoChange,
     handleTimeSliderChange,
-    handleToggleFavorite,
     handleVolumeChange,
-    nextSong,
     nextSubtune,
-    prevSong,
     prevSubtune,
     sequencer,
     toggleInfo,
     togglePause,
-    toggleSettings,
   } = props;
 
-  const pathLinks = pathToLinks(songUrl);
   const handleToggleInfo = useCallback(
     (e) => {
       e.preventDefault();
@@ -57,6 +42,8 @@ function AppFooter(props) {
     },
     [toggleInfo],
   );
+
+  // if (currentSongNumSubtunes === 0) return null;
 
   return (
     <div className="AppFooter">
@@ -92,7 +79,6 @@ function AppFooter(props) {
               paused={paused}
               currentSongDurationMs={currentSongDurationMs}
               getCurrentPositionMs={() => {
-                // TODO: reevaluate this approach
                 if (sequencer && sequencer.getPlayer()) {
                   return sequencer.getPlayer().getPositionMs();
                 }
@@ -116,17 +102,12 @@ function AppFooter(props) {
           {!ejected && (
             <div className="SongDetails">
               <div className="SongDetails-title">
-                {/* <a
-                  style={{ color: "var(--neutral4)" }}
-                  href={getCurrentSongLink()}
-                > */}
                 {title}{" "}
                 <img
                   alt="Copy link"
                   src={linkImage}
                   style={{ verticalAlign: "bottom" }}
-                />
-                {/* </a> */}{" "}
+                />{" "}
                 <a style={{ color: "var(--neutral4)" }} href={songUrl}>
                   <img
                     alt="Download"
@@ -140,7 +121,6 @@ function AppFooter(props) {
                   </a>
                 )}
                 <span style={{ marginLeft: "20px" }}>{subtitle}</span>
-                {/* <div className="SongDetails-filepath">{pathLinks}</div> */}
               </div>
             </div>
           )}

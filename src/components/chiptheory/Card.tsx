@@ -34,10 +34,7 @@ const Card: React.FC<{ analysis: Analysis; index: number }> = ({
   }
   if ((analysis.beatsPerMeasure ?? 4) !== 4) {
     badges.push(
-      <Badge
-        key="beats"
-        color="#99f"
-      >{`${analysis.beatsPerMeasure}/4 or ${analysis.beatsPerMeasure}/8`}</Badge>,
+      <Badge key="beats" color="#99f">{`${analysis.beatsPerMeasure}/4`}</Badge>,
     );
   }
   if (analysis.tags && analysis.tags.length > 0) {

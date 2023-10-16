@@ -48,7 +48,7 @@ const MINOR_CHORDS = [
 const MAJOR_CHORDS = [
   "I",
   "bII",
-  "II",
+  "V/V",
   "III",
   "V/vi",
   "IV",
@@ -434,7 +434,7 @@ export const getChordNote = (
   const rootChromaticScaleDegree = romanNumeralToChromaticDegree(romanNumeral);
   if (rootChromaticScaleDegree === -1) return "";
 
-  return ["•", "♭", "2", "v", "3", "4", "T", "5", "+", "6", "7", "▵"][
+  return ["•", "♭", "2", "③", "3", "4", "T", "5", "+", "6", "7", "▵"][
     (((note.note.midiNumber - getTonic(measure, analysis)) % 12) +
       12 -
       rootChromaticScaleDegree) %

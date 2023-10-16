@@ -1833,27 +1833,571 @@
       "0": {
         "mode": "minor",
         "secondMeasure": 2.389999999999993,
+        "form": {
+          "1": "A:antecedent",
+          "9": "A:consequent",
+          "17": "B:consequent",
+          "21": "B:antecedent"
+        },
         "loop": 25,
-        "romanNumerals": "i V7 i V7 i VII III V7 i V i V i VII i i VII III VII III VII III V/V V",
+        "romanNumerals": "i V7 i V7 i V7/III III V7 i V i V i VII i i V I V I V I V/V V",
         "firstMeasure": 0.7900000000000005,
         "clickResolutionMs": 0.01,
         "step": "end",
         "correctedMeasures": [],
-        "tonic": 7
+        "tonic": 7,
+        "modulations": {
+          "17": 10,
+          "23": 7
+        },
+        "tags": [
+          "form:period",
+          "form:reversed_period"
+        ]
       },
-      "4": {
+      "1": {
         "beatsPerMeasure": 4,
-        "romanNumerals": "i i VII i",
+        "disableSnapToNotes": false,
+        "romanNumerals": "_ _ i-V i",
         "clickResolutionMs": 0.01,
-        "mode": null,
+        "modulations": [],
+        "tags": [],
         "fourMeasurePhrasingReferences": [],
-        "secondMeasure": 2.389999999999993,
+        "form": [],
+        "secondMeasure": 2.0899999999999994,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 4,
+        "basedOn": null
+      },
+      "2": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "i viio i V7 i V V i",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "form:period"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": {
+          "1": "antecedent",
+          "5": "consequent"
+        },
+        "secondMeasure": 1.390000000000001,
         "loop": 9,
         "firstMeasure": 0,
         "step": "end",
         "comment": "",
         "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      },
+      "3": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ i-VII _ i-VII _ i-VII VI-VII i-VII VI-VII",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "style:bagpipe",
+          "middle_voice:drone",
+          "form:solo",
+          "harmony:stasis",
+          "bass:pedal_point",
+          "scale:mixed_minor"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.5900000000000012,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "Celtic",
+        "correctedMeasures": [],
+        "tonic": 11,
+        "basedOn": null
+      },
+      "4": {
+        "beatsPerMeasure": 4,
+        "romanNumerals": "i-IV i VII i i IV-i VII i",
+        "clickResolutionMs": 0.01,
+        "tags": [
+          "scale:dorian",
+          "upper_voices:polyphony"
+        ],
+        "mode": null,
+        "fourMeasurePhrasingReferences": [],
+        "secondMeasure": 2.389999999999993,
+        "form": {
+          "1": "A",
+          "2": "",
+          "5": "A'"
+        },
+        "loop": 9,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "backward period?",
+        "correctedMeasures": [],
         "tonic": 9,
+        "basedOn": null
+      },
+      "5": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "i io i io i io i io7 i io ii-v i i io i io7 i io ii-v i V I V I V I V/V V i VII VI V V/V V V/V V",
+        "clickResolutionMs": 0.01,
+        "modulations": {
+          "21": 10,
+          "27": 7
+        },
+        "tags": [
+          "scale:nikriz",
+          "form:period"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": {
+          "5": "A:antecedent",
+          "9": "A:consequent",
+          "13": "A:antecedent",
+          "17": "A:consequent",
+          "21": "B",
+          "29": "C"
+        },
+        "secondMeasure": 1.290000000000001,
+        "loop": 37,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "mm.21-28 resembles subtune 1",
+        "correctedMeasures": [],
+        "tonic": 7,
+        "basedOn": null
+      },
+      "6": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "scale:nikriz"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 2.0899999999999994,
+        "loop": 7,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 2,
+        "basedOn": null
+      },
+      "7": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "_ _ _ _ _ _ _ _ IV iii _ I _ _ VI-viio V i V i i _ _ _ _ V/V iv V i V/V _ V _ _ _ _ _ _ _ V _ io7 io7 i i _ _ V V",
+        "clickResolutionMs": 0.01,
+        "modulations": {
+          "9": 5,
+          "15": 2
+        },
+        "tags": [
+          "scale:nikriz"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 0.7900000000000005,
+        "loop": 49,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 2,
+        "basedOn": null
+      },
+      "8": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "first measure",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 2,
+        "basedOn": null
+      },
+      "9": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "I5 I5-iv I5 I5-iv I5 VII i VII-viio7 V I5-v I5 I5-v I5 iv i iv-v I5 viio i",
+        "clickResolutionMs": 0.01,
+        "tags": [
+          "harmony:diminished_chord_modulation",
+          "middle_voice:absent",
+          "scale:natural_minor",
+          "form:sentence"
+        ],
+        "modulations": {
+          "9": 0,
+          "18": 9
+        },
+        "fourMeasurePhrasingReferences": [
+          2
+        ],
+        "form": {
+          "2": "A:sentence. basic idea",
+          "4": "basic idea again",
+          "6": "1 m. fragmentation",
+          "10": "B:sentence",
+          "18": "bridge"
+        },
+        "secondMeasure": 2.0899999999999994,
+        "loop": 20,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "very diverse track just on two voices",
+        "correctedMeasures": [],
+        "tonic": 9,
+        "basedOn": null
+      },
+      "10": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.5900000000000012,
+        "loop": 9,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      },
+      "11": {
+        "beatsPerMeasure": 3,
+        "disableSnapToNotes": false,
+        "romanNumerals": "i i iio6 i64-V7 i i V i i i bII V i i v i i IV-IV-i V-V-bII V i IV-IV-i V-bII i i VI bII V i VI bII V",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "upper_voices:polyphony",
+          "voice_leading:Cad64",
+          "form:period",
+          "scale:mixed_minor"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "secondMeasure": 1.1900000000000008,
+        "form": {
+          "1": "A:antecedent",
+          "5": "A:consequent",
+          "9": "B:antecedent",
+          "13": "B:consequent",
+          "17": "C:antecedent",
+          "21": "C:consequent",
+          "25": "D",
+          "29": "D'"
+        },
+        "loop": 33,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      },
+      "12": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": {
+          "9": 9,
+          "13": 7,
+          "17": 0
+        },
+        "tags": [
+          "form:period",
+          "form:not_looped",
+          "middle_voice:thirds_and_sixths",
+          "form:ABA"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": {
+          "1": "A:antecedent",
+          "5": "A:consequent",
+          "9": "B:antecedent",
+          "13": "B:consequent"
+        },
+        "secondMeasure": 1.0400000000000007,
+        "loop": 17,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      },
+      "13": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "i V V7 i i bII i-i-v-V7 i i iv i IV i-V7 i iv i VII i",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "form:period",
+          "form:extra_measure",
+          "voice_leading:rich_ornamentation",
+          "middle_voice:lower_chord_tones"
+        ],
+        "fourMeasurePhrasingReferences": [
+          14,
+          19
+        ],
+        "secondMeasure": 2.6399999999999877,
+        "form": {
+          "1": "A:antecedent",
+          "5": "A:consequent",
+          "9": "B:antecedent",
+          "14": "B:consequent"
+        },
+        "loop": 19,
+        "firstMeasure": 0.5400000000000003,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 9,
+        "basedOn": null
+      },
+      "14": {
+        "beatsPerMeasure": 3,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.5900000000000012,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 11,
+        "basedOn": null
+      },
+      "15": {
+        "beatsPerMeasure": 3,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.8400000000000014,
+        "loop": null,
+        "firstMeasure": 0.24000000000000007,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 2,
+        "basedOn": null
+      },
+      "17": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "harmony:diminished_seventh_chords"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.0400000000000007,
+        "loop": 37,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 9,
+        "basedOn": null
+      },
+      "19": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "io7-viio7 io7-viio7 io7 viio7 io7-viio7 io7-viio7 io7-viio7 io7-viio7",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "scale:chromatic",
+          "harmony:diminished_seventh_chords"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.9900000000000015,
+        "loop": 9,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 4,
+        "basedOn": null
+      },
+      "20": {
+        "beatsPerMeasure": 5,
+        "disableSnapToNotes": false,
+        "romanNumerals": "_ _ _ _ i IV i-VII i-VII i IV i-VII i _ _ _ _ _ _ _ i-IV _ _ _ _ _ _ _ _ i-VII",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "form:extra_measure",
+          "bass:riff",
+          "scale:dorian",
+          "upper_voices:polyphony"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "secondMeasure": 1.290000000000001,
+        "form": {
+          "5": "A:antecedent",
+          "9": "A:consequent",
+          "13": "B:antecedent",
+          "17": "B:consequent",
+          "21": "C:antecedent",
+          "25": "C:consequent",
+          "29": "C:antecedent",
+          "33": "C:consequent",
+          "37": "extra measure"
+        },
+        "loop": 38,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 11,
+        "basedOn": null
+      },
+      "21": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "_ i i VII I5 i i VII i i V VII i i V VII i _ _-_-_-viio/V V V V V V V V V io7 io7 V7 V7",
+        "clickResolutionMs": 0.01,
+        "modulations": {
+          "22": 10,
+          "24": 11,
+          "26": 0,
+          "30": 9
+        },
+        "tags": [
+          "harmony:diminished_seventh_chords",
+          "scale:mixed_minor",
+          "middle_voice:thirds_and_sixths"
+        ],
+        "fourMeasurePhrasingReferences": [
+          2,
+          18,
+          20,
+          24,
+          28
+        ],
+        "form": {
+          "2": "A",
+          "6": "A",
+          "10": "B",
+          "14": "B",
+          "18": "bridge"
+        },
+        "secondMeasure": 1.5900000000000012,
+        "loop": 32,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "23": 35.110000000001584
+        },
+        "tonic": 9,
+        "basedOn": null
+      },
+      "22": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "reference:previous_subtune"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "first measure",
+        "comment": "subtune 1 but twice as slow",
+        "correctedMeasures": [],
+        "tonic": 7,
+        "basedOn": null
+      },
+      "24": {
+        "beatsPerMeasure": 3,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "voice_leading:W-arpeggio"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 2.6399999999999877,
+        "loop": 28,
+        "firstMeasure": 0.6400000000000003,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 2,
+        "basedOn": null
+      },
+      "25": {
+        "beatsPerMeasure": 3,
+        "disableSnapToNotes": false,
+        "romanNumerals": "i i V+-V+-bII7 V7 i i bII-V i",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "scale:nikriz",
+          "form:period",
+          "upper_voices:polyphony"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "secondMeasure": 1.5900000000000012,
+        "form": {
+          "1": "antecedent",
+          "5": "consequent"
+        },
+        "loop": 9,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
         "basedOn": null
       }
     }
@@ -2521,7 +3065,7 @@
       },
       "2": {
         "beatsPerMeasure": 4,
-        "romanNumerals": "I I VI VI I I VI VI I I I I I I",
+        "romanNumerals": "I I VI VI I I VI VI I I I I I I ii7 ii7",
         "clickResolutionMs": 0.01,
         "modulations": {
           "9": 5,
@@ -2537,7 +3081,7 @@
         "loop": 17,
         "firstMeasure": 0,
         "step": "end",
-        "comment": "modulation from m.9?",
+        "comment": "",
         "correctedMeasures": {
           "3": 2.099999999999999
         },
@@ -9834,6 +10378,7 @@
         "firstMeasure": 0,
         "clickResolutionMs": 0.01,
         "step": "end",
+        "comment": "Chinese publisher Dragon Co., that's why the Chinese OST in the Africa-themed game",
         "tonic": 6,
         "correctedMeasures": {
           "24": 24.470000000001026,
@@ -9857,6 +10402,143 @@
         },
         "tonic": 9
       },
+      "2": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "scale:dorian",
+          "harmony:stasis",
+          "style:chinese",
+          "bass:riff",
+          "form:solo"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 2.0899999999999994,
+        "loop": 33,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "5": 8.489999999999863,
+          "9": 17.029999999999863,
+          "11": 21.280000000000527,
+          "14": 27.670000000001526,
+          "17": 34.06000000000179,
+          "19": 38.31000000000095,
+          "22": 44.699999999999676,
+          "25": 51.0999999999984,
+          "28": 57.48999999999713,
+          "31": 63.88999999999586,
+          "33": 68.12999999999795
+        },
+        "tonic": 2,
+        "basedOn": null
+      },
+      "3": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "beats:incomplete_measure_on_transition",
+          "scale:lydian",
+          "style:chinese",
+          "melody:riff",
+          "timbre:oscillator_as_percussion"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 2.0899999999999994,
+        "loop": 45,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "loop shifts melody over percussion by 1 beat",
+        "correctedMeasures": {
+          "6": 10.639999999999818,
+          "10": 19.1800000000002,
+          "14": 27.670000000001526,
+          "17": 34.06000000000179,
+          "19": 38.31000000000095,
+          "23": 46.84999999999925,
+          "25": 51.0999999999984,
+          "28": 57.48999999999713,
+          "31": 63.88999999999586,
+          "33": 68.12999999999795,
+          "36": 74.53000000000122,
+          "39": 80.92000000000449,
+          "42": 87.32000000000777,
+          "43": 89.46000000000886,
+          "44": 91.61000000000996,
+          "45": 93.71000000001104,
+          "46": 95.86000000001214
+        },
+        "tonic": 4,
+        "basedOn": null
+      },
+      "4": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "scale:pentatonic",
+          "timbre:oscillator_as_percussion",
+          "style:chinese",
+          "timbre:wide_vibrato",
+          "form:solo",
+          "form:basso_ostinato"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 2.8899999999999824,
+        "loop": 23,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "6": 14.629999999999733,
+          "15": 41.01000000000041,
+          "17": 46.84999999999925
+        },
+        "tonic": 7,
+        "basedOn": null
+      },
+      "5": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "timbre:oscillator_as_percussion",
+          "timbre:wide_vibrato",
+          "style:chinese",
+          "form:solo",
+          "bass:riff",
+          "timbre:silence",
+          "scale:major_pentatonic"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.5900000000000012,
+        "loop": 28,
+        "firstMeasure": 0,
+        "step": "first measure",
+        "comment": "guzheng/koto as a solo",
+        "correctedMeasures": {
+          "16": 23.970000000000947,
+          "22": 33.5100000000019,
+          "23": 35.110000000001584
+        },
+        "tonic": 6,
+        "basedOn": null
+      },
       "6": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
@@ -9878,7 +10560,7 @@
         "loop": 29,
         "firstMeasure": 0,
         "step": "end",
-        "comment": "guzheng/koto as a solo?",
+        "comment": "guzheng/koto as a solo",
         "correctedMeasures": {
           "5": 10.639999999999818,
           "6": 13.279999999999761,
@@ -10065,7 +10747,7 @@
         "mode": "minor",
         "secondMeasure": 1.490000000000001,
         "loop": 12,
-        "romanNumerals": "i^",
+        "romanNumerals": "i^ _ _ _ i^",
         "firstMeasure": 0,
         "clickResolutionMs": 0.01,
         "step": "end",
@@ -11337,13 +12019,21 @@
       "0": {
         "mode": "major",
         "secondMeasure": 1.340000000000001,
+        "form": {
+          "1": "antecedent",
+          "5": "consequent"
+        },
         "loop": null,
-        "romanNumerals": "I ii V I I IV V I",
+        "romanNumerals": "I ii V V-I I IV V I",
         "firstMeasure": 0,
         "clickResolutionMs": 0.01,
         "step": "end",
         "correctedMeasures": [],
-        "tonic": 9
+        "tonic": 9,
+        "tags": [
+          "upper_voices:polyphony",
+          "form:period"
+        ]
       },
       "1": {
         "mode": "major",
@@ -11354,7 +12044,28 @@
         "clickResolutionMs": 0.01,
         "step": "end",
         "correctedMeasures": [],
-        "tonic": 0
+        "tonic": 0,
+        "tags": [
+          "style:major_chord_jingle"
+        ]
+      },
+      "3": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "first measure",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
       }
     }
   },
@@ -11744,10 +12455,20 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "middle_voice:parallel_thirds"
+          "middle_voice:parallel_thirds",
+          "form:sentence",
+          "style:common_practice"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.5900000000000012,
+        "form": {
+          "1": "A, basic idea",
+          "3": "basic idea repeated",
+          "5": "fragmentation",
+          "7": "PAC",
+          "9": "A",
+          "17": "bridge"
+        },
         "loop": 22,
         "firstMeasure": 0,
         "step": "end",

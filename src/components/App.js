@@ -1065,43 +1065,45 @@ class App extends React.Component {
                 />
               )}
             </div>
-            <AppFooter
-              currentSongDurationMs={this.state.currentSongDurationMs}
-              currentSongNumSubtunes={this.state.currentSongNumSubtunes}
-              currentSongNumVoices={this.state.currentSongNumVoices}
-              currentSongSubtune={this.state.currentSongSubtune}
-              ejected={this.state.ejected}
-              faves={this.state.faves}
-              getCurrentSongLink={this.getCurrentSongLink}
-              handleCycleRepeat={this.handleCycleRepeat}
-              handleCycleShuffle={this.handleCycleShuffle}
-              handleSetVoiceMask={this.handleSetVoiceMask}
-              handleTempoChange={this.handleTempoChange}
-              handleTimeSliderChange={this.handleTimeSliderChange}
-              handleToggleFavorite={this.handleToggleFavorite}
-              handleVolumeChange={this.handleVolumeChange}
-              imageUrl={this.state.imageUrl}
-              infoTexts={this.state.infoTexts}
-              nextSong={this.nextSong}
-              nextSubtune={this.nextSubtune}
-              paused={this.state.paused}
-              prevSong={this.prevSong}
-              prevSubtune={this.prevSubtune}
-              repeat={this.state.repeat}
-              shuffle={this.state.shuffle}
-              sequencer={this.sequencer}
-              showPlayerSettings={this.state.showPlayerSettings}
-              songUrl={this.state.songUrl}
-              subtitle={subtitle}
-              tempo={this.state.tempo}
-              title={title}
-              toggleInfo={this.toggleInfo}
-              togglePause={this.togglePause}
-              toggleSettings={this.toggleSettings}
-              voiceNames={this.state.voiceNames}
-              voiceMask={this.state.voiceMask}
-              volume={this.state.volume}
-            />
+            {this.state.currentSongNumSubtunes > 0 && (
+              <AppFooter
+                currentSongDurationMs={this.state.currentSongDurationMs}
+                currentSongNumSubtunes={this.state.currentSongNumSubtunes}
+                currentSongNumVoices={this.state.currentSongNumVoices}
+                currentSongSubtune={this.state.currentSongSubtune}
+                ejected={this.state.ejected}
+                faves={this.state.faves}
+                getCurrentSongLink={this.getCurrentSongLink}
+                handleCycleRepeat={this.handleCycleRepeat}
+                handleCycleShuffle={this.handleCycleShuffle}
+                handleSetVoiceMask={this.handleSetVoiceMask}
+                handleTempoChange={this.handleTempoChange}
+                handleTimeSliderChange={this.handleTimeSliderChange}
+                handleToggleFavorite={this.handleToggleFavorite}
+                handleVolumeChange={this.handleVolumeChange}
+                imageUrl={this.state.imageUrl}
+                infoTexts={this.state.infoTexts}
+                nextSong={this.nextSong}
+                nextSubtune={this.nextSubtune}
+                paused={this.state.paused}
+                prevSong={this.prevSong}
+                prevSubtune={this.prevSubtune}
+                repeat={this.state.repeat}
+                shuffle={this.state.shuffle}
+                sequencer={this.sequencer}
+                showPlayerSettings={this.state.showPlayerSettings}
+                songUrl={this.state.songUrl}
+                subtitle={subtitle}
+                tempo={this.state.tempo}
+                title={title}
+                toggleInfo={this.toggleInfo}
+                togglePause={this.togglePause}
+                toggleSettings={this.toggleSettings}
+                voiceNames={this.state.voiceNames}
+                voiceMask={this.state.voiceMask}
+                volume={this.state.volume}
+              />
+            )}
           </div>
         )}
       </Dropzone>

@@ -115,24 +115,18 @@ function AppFooter(props) {
           </div>
           {!ejected && (
             <div className="SongDetails">
-              {/* {faves && songUrl &&
-                <div style={{ float: 'left', marginBottom: '58px' }}>
-                  <FavoriteButton isFavorite={faves.includes(songUrl)}
-                    toggleFavorite={handleToggleFavorite}
-                    href={songUrl} />
-                </div>} */}
               <div className="SongDetails-title">
-                <a
+                {/* <a
                   style={{ color: "var(--neutral4)" }}
                   href={getCurrentSongLink()}
-                >
-                  {title}{" "}
-                  <img
-                    alt="Copy link"
-                    src={linkImage}
-                    style={{ verticalAlign: "bottom" }}
-                  />
-                </a>{" "}
+                > */}
+                {title}{" "}
+                <img
+                  alt="Copy link"
+                  src={linkImage}
+                  style={{ verticalAlign: "bottom" }}
+                />
+                {/* </a> */}{" "}
                 <a style={{ color: "var(--neutral4)" }} href={songUrl}>
                   <img
                     alt="Download"
@@ -152,21 +146,8 @@ function AppFooter(props) {
           )}
         </div>
       </div>
-      {showPlayerSettings && ( // TODO: Remove footer settings
+      {showPlayerSettings && (
         <div className="AppFooter-settings">
-          {/* <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "start",
-              marginBottom: "19px",
-            }}
-          >
-            <h3 style={{ margin: "0 8px 0 0" }}>Player Settings</h3>
-            <button className="box-button" onClick={toggleSettings}>
-              Close
-            </button>
-          </div> */}
           {sequencer.getPlayer() ? (
             <PlayerParams
               ejected={ejected}

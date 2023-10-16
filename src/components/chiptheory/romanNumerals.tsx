@@ -259,7 +259,7 @@ export const RomanNumeral: React.FC<{
   );
 };
 
-const Modulation: React.FC<{ semitones: PitchClass; isCompact: boolean }> = ({
+const Modulation: React.FC<{ semitones: PitchClass; isCompact?: boolean }> = ({
   semitones,
   isCompact = false,
 }) => {

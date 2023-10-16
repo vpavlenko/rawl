@@ -264,18 +264,16 @@ export const prevStep = (analysis, setAnalysis) =>
 export const nextStep = (analysis, setAnalysis) =>
   setAnalysis({ ...analysis, step: STEPS[STEPS.indexOf(analysis.step) + 1] });
 
-export const advanceAnalysis = (
+export const getNewAnalysis = (
   note: Note | null,
   selectedDownbeat: number | null,
   selectDownbeat: (_: null) => void,
   analysis: Analysis,
-  saveAnalysis,
-  setAnalysis,
   time: number = null,
   notes: Note[] = [],
   measures: number[] = [],
   altKey: boolean = false,
-) => {
+): Analysis => {
   let update: Partial<Analysis> = {};
 
   if (selectedDownbeat !== null) {
@@ -314,7 +312,31 @@ export const advanceAnalysis = (
     }
   }
 
-  const newAnalysis = { ...analysis, ...update };
+  return { ...analysis, ...update };
+};
+
+export const advanceAnalysis = (
+  note: Note | null,
+  selectedDownbeat: number | null,
+  selectDownbeat: (_: null) => void,
+  analysis: Analysis,
+  saveAnalysis,
+  setAnalysis,
+  time: number = null,
+  notes: Note[] = [],
+  measures: number[] = [],
+  altKey: boolean = false,
+) => {
+  const newAnalysis = getNewAnalysis(
+    note,
+    selectedDownbeat,
+    selectDownbeat,
+    analysis,
+    time,
+    notes,
+    measures,
+    altKey,
+  );
 
   saveAnalysis(newAnalysis);
   setAnalysis(newAnalysis);

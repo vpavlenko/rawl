@@ -8,6 +8,7 @@ import {
   Cursor,
   RESOLUTION_MS,
   advanceAnalysis,
+  getNewAnalysis,
 } from "./Analysis";
 import { MeasuresAndBeats, calculateMeasuresAndBeats } from "./measures";
 import {
@@ -168,6 +169,8 @@ const getNoteRectangles = (
   noteHeight: number,
   handleNoteClick = (note: Note, altKey: boolean) => {},
   measures: number[] = null,
+  handleMouseEnter = (note: Note, altKey: boolean) => {},
+  handleMouseLeave = () => {},
 ) => {
   return notes.map((note) => {
     const top = midiNumberToY(note.note.midiNumber);
@@ -206,7 +209,6 @@ const getNoteRectangles = (
           top,
           left,
           pointerEvents: voice === "under cursor" ? "none" : "auto",
-          // boxShadow: voice === "triangle" ? `${color} 0px 0px 7px 0px` : "",
           borderRadius:
             voice === "pulse1" ? "10px" : voice === "triangle" ? "3px" : "",
           cursor: "pointer",
@@ -226,6 +228,8 @@ const getNoteRectangles = (
           e.stopPropagation();
           handleNoteClick(note, e.altKey);
         }}
+        onMouseEnter={(e) => handleMouseEnter(note, e.altKey)}
+        onMouseLeave={handleMouseLeave}
       >
         {noteElement}
       </div>
@@ -347,7 +351,7 @@ const Chiptheory = ({
     [noteHeight],
   );
 
-  const handleNoteClick = (note, altKey) => {
+  const handleNoteClick = (note: Note, altKey: boolean) => {
     advanceAnalysis(
       note,
       selectedDownbeatRef.current,
@@ -362,48 +366,62 @@ const Chiptheory = ({
     );
   };
 
+  const [hoveredNote, setHoveredNote] = useState<Note | null>(null);
+  const [hoveredAltKey, setHoveredAltKey] = useState<boolean>(false);
+  const handleMouseEnter = (note: Note, altKey: boolean) => {
+    setHoveredNote(note);
+    setHoveredAltKey(altKey);
+  };
+  const handleMouseLeave = () => {
+    setHoveredNote(null);
+  };
+
+  // The idea is to blend hoveredPitchClass into analysis as if it's already applied and pass it to getNoteRectangles
+  // That is, to make a dry run of advanceAnalysis.
+  // TODO: measuresAndBeats should be recalculated
+
   const noteRectangles = useMemo(() => {
-    return [
-      ...getNoteRectangles(
-        notes.p1,
-        "pulse1",
-        voiceMask[0],
-        analysis,
-        midiNumberToY,
-        noteHeight,
-        handleNoteClick,
-        measuresAndBeats.measures,
-      ),
-      ...getNoteRectangles(
-        notes.p2,
-        "pulse2",
-        voiceMask[1],
-        analysis,
-        midiNumberToY,
-        noteHeight,
-        handleNoteClick,
-        measuresAndBeats.measures,
-      ),
-      ...getNoteRectangles(
-        notes.t,
-        "triangle",
-        voiceMask[2],
-        analysis,
-        midiNumberToY,
-        noteHeight,
-        handleNoteClick,
-        measuresAndBeats.measures,
-      ),
-      // ...getNoteRectangles(
-      //   notes.n,
-      //   "noise",
-      //   analysis,
-      //   midiNumberToY,
-      //   noteHeight,
-      //   handleNoteClick,
-      // ),
+    const voices = [
+      { notes: notes.p1, label: "pulse1", mask: voiceMask[0] },
+      { notes: notes.p2, label: "pulse2", mask: voiceMask[1] },
+      { notes: notes.t, label: "triangle", mask: voiceMask[2] },
     ];
-  }, [notes, analysis, measuresAndBeats, noteHeight, voiceMask]);
+
+    const futureAnalysis = hoveredNote
+      ? getNewAnalysis(
+          hoveredNote,
+          selectedDownbeatRef.current,
+          setSelectedDownbeat,
+          analysisRef.current,
+          null,
+          allNotes,
+          measuresAndBeats.measures,
+          hoveredAltKey,
+        )
+      : analysis;
+    return voices.flatMap((voice) =>
+      getNoteRectangles(
+        voice.notes,
+        voice.label as Voice,
+        voice.mask,
+        futureAnalysis,
+        midiNumberToY,
+        noteHeight,
+        handleNoteClick,
+        measuresAndBeats.measures,
+        handleMouseEnter,
+        handleMouseLeave,
+      ),
+    );
+  }, [
+    notes,
+    analysis,
+    measuresAndBeats,
+    noteHeight,
+    voiceMask,
+    hoveredNote,
+    hoveredAltKey,
+  ]);
 
   const [positionMs, setPositionMs] = useState(0);
   const currentlyPlayedRectangles = getNoteRectangles(

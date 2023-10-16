@@ -401,13 +401,13 @@ body,
     border-top: 1px solid var(--clickable);
     margin: 0 var(--charW2neg);
     flex-shrink: 0;
-    height: 160px;
+    height: 100px;
     display: flex;
 }
 
 .AppFooter-art {
     width: 160px;
-    height: 160px;
+    height: 100px;
     background-color: var(--neutral0);
     object-fit: scale-down;
     image-rendering: unset;
@@ -432,6 +432,8 @@ body,
 */
 .AppFooter-main-inner {
     padding: var(--charH) var(--charW2);
+    display: flex;
+    flex-direction: column;
 }
 
 .AppFooter-settings {
@@ -694,7 +696,8 @@ body,
 
 .TimeSlider {
     flex-grow: 1;
-    margin: var(--charH) 0;
+    margin-left: var(--charW2);
+    /* margin: var(--charH) 0; */
 }
 
 .TimeSlider-labels,
@@ -706,8 +709,8 @@ body,
 
 .VolumeSlider {
     flex-shrink: 0;
-    margin-top: var(--charH);
-    margin-bottom: var(--charH);
+    /* margin-top: var(--charH); */
+    /* margin-bottom: var(--charH); */
     margin-left: var(--charW2);
 }
 

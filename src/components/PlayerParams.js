@@ -1,5 +1,5 @@
-import React, { PureComponent } from 'react';
-import autoBindReact from 'auto-bind/react';
+import autoBindReact from "auto-bind/react";
+import React, { PureComponent } from "react";
 
 export default class PlayerParams extends PureComponent {
   constructor(props) {
@@ -66,112 +66,147 @@ export default class PlayerParams extends PureComponent {
 
   render() {
     return (
-      <div className='PlayerParams'>
-        <span className='PlayerParams-param PlayerParams-group'>
-          <label htmlFor='tempo' className="PlayerParams-label">
-            Speed:{' '}
-          </label>
-          <input
-            id='tempo'
-            disabled={this.props.ejected}
-            type='range' value={this.props.tempo}
-            min='0.3' max='2.0' step='0.05'
-            onInput={this.props.handleTempoChange}
-            onChange={this.props.handleTempoChange}/>{' '}
-          {this.props.tempo.toFixed(2)}
-        </span>
-
-        {this.props.numVoices > 1 &&
-          <span className='PlayerParams-param PlayerParams-group'>
+      <div className="PlayerParams">
+        {this.props.numVoices > 1 && (
+          <span className="PlayerParams-param PlayerParams-group">
             <label className="PlayerParams-label">
-              Voices:{' '}
+              Voices (alt+click to solo):{" "}
             </label>
             <div className="PlayerParams-voiceList">
               {[...Array(this.props.numVoices)].map((_, i) => {
                 return (
-                  <label className='App-voice-label inline' key={i}>
+                  <label className="App-voice-label inline" key={i}>
                     <input
-                      title='Alt+click to solo. Alt+click again to unmute all.'
-                      type='checkbox'
+                      title="Alt+click to solo. Alt+click again to unmute all."
+                      type="checkbox"
                       onChange={(e) => this.handleVoiceToggle(e, i)}
-                      checked={this.props.voiceMask[i]}/>
+                      checked={this.props.voiceMask[i]}
+                    />
                     {this.props.voiceNames[i]}
                   </label>
-                )
+                );
               })}
             </div>
           </span>
-        }
+        )}
 
-        {this.props.paramDefs.map(param => {
+        <span className="PlayerParams-param PlayerParams-group">
+          <label htmlFor="tempo" className="PlayerParams-label">
+            Speed:{" "}
+          </label>
+          <input
+            id="tempo"
+            disabled={this.props.ejected}
+            type="range"
+            value={this.props.tempo}
+            min="0.3"
+            max="2.0"
+            step="0.05"
+            onInput={this.props.handleTempoChange}
+            onChange={this.props.handleTempoChange}
+          />{" "}
+          {this.props.tempo.toFixed(2)}
+        </span>
+
+        {this.props.paramDefs.map((param) => {
           const value = this.props.getParameter(param.id);
           const dependsOn = param.dependsOn;
-          if (dependsOn && this.props.getParameter(dependsOn.param) !== dependsOn.value) {
+          if (
+            dependsOn &&
+            this.props.getParameter(dependsOn.param) !== dependsOn.value
+          ) {
             return null;
           }
           switch (param.type) {
-            case 'enum':
+            case "enum":
               return (
-                <span key={param.id} className='PlayerParams-param'>
-                  <label htmlFor={param.id} title={param.hint} className="PlayerParams-label">
-                  {param.label}:{' '}
-                </label>
+                <span key={param.id} className="PlayerParams-param">
+                  <label
+                    htmlFor={param.id}
+                    title={param.hint}
+                    className="PlayerParams-label"
+                  >
+                    {param.label}:{" "}
+                  </label>
                   <select
                     id={param.id}
                     onChange={(e) => {
                       this.props.setParameter(param.id, e.target.value);
                       this.forceUpdate();
                     }}
-                    value={value}>
-                    {param.options.map(optgroup =>
+                    value={value}
+                  >
+                    {param.options.map((optgroup) => (
                       <optgroup key={optgroup.label} label={optgroup.label}>
-                        {optgroup.items.map(option =>
-                          <option key={option.value} value={option.value}>{option.label}</option>
-                        )}
+                        {optgroup.items.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
                       </optgroup>
-                    )}
+                    ))}
                   </select>
                 </span>
               );
-            case 'number':
+            case "number":
               return (
-                <span key={param.id} className='PlayerParams-param'>
-                  <label htmlFor={param.id} title={param.hint} className="PlayerParams-label">
-                    {param.label}:{' '}
+                <span key={param.id} className="PlayerParams-param">
+                  <label
+                    htmlFor={param.id}
+                    title={param.hint}
+                    className="PlayerParams-label"
+                  >
+                    {param.label}:{" "}
                   </label>
-                  <input id={param.id}
-                         type='range'
-                         title={param.hint}
-                         min={param.min} max={param.max} step={param.step}
-                         onChange={(e) => {
-                           this.props.setParameter(param.id, e.target.value);
-                           this.forceUpdate();
-                         }}
-                         value={value}>
-                  </input>{' '}
-                  {value !== undefined && param.step >= 1 ? value : value.toFixed(2)}
+                  <input
+                    id={param.id}
+                    type="range"
+                    title={param.hint}
+                    min={param.min}
+                    max={param.max}
+                    step={param.step}
+                    onChange={(e) => {
+                      this.props.setParameter(param.id, e.target.value);
+                      this.forceUpdate();
+                    }}
+                    value={value}
+                  ></input>{" "}
+                  {value !== undefined && param.step >= 1
+                    ? value
+                    : value.toFixed(2)}
                 </span>
               );
-            case 'toggle':
+            case "toggle":
               return (
-                <span key={param.id} className='PlayerParams-param'>
-                  <input type='checkbox'
-                         id={param.id}
-                         onChange={(e) => {
-                           this.props.setParameter(param.id, e.target.checked);
-                           this.forceUpdate();
-                         }}
-                         checked={value}/>
-                  <label htmlFor={param.id} title={param.hint} className="PlayerParams-label inline">
+                <span key={param.id} className="PlayerParams-param">
+                  <input
+                    type="checkbox"
+                    id={param.id}
+                    onChange={(e) => {
+                      this.props.setParameter(param.id, e.target.checked);
+                      this.forceUpdate();
+                    }}
+                    checked={value}
+                  />
+                  <label
+                    htmlFor={param.id}
+                    title={param.hint}
+                    className="PlayerParams-label inline"
+                  >
                     {param.label}
                   </label>
                 </span>
               );
-            case 'button':
+            case "button":
               return (
-                <button key={param.id} title={param.hint} className="box-button" onClick={() => {
-                  this.props.setParameter(param.id, true);
-                }}>
+                <button
+                  key={param.id}
+                  title={param.hint}
+                  className="box-button"
+                  onClick={() => {
+                    this.props.setParameter(param.id, true);
+                  }}
+                >
                   {param.label}
                 </button>
               );

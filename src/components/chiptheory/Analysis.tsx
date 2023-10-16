@@ -267,7 +267,6 @@ export const nextStep = (analysis, setAnalysis) =>
 export const getNewAnalysis = (
   note: Note | null,
   selectedDownbeat: number | null,
-  selectDownbeat: (_: null) => void,
   analysis: Analysis,
   time: number = null,
   notes: Note[] = [],
@@ -282,12 +281,10 @@ export const getNewAnalysis = (
         update.modulations = { ...(analysis.modulations || []) };
         update.modulations[selectedDownbeat] = (note.note.midiNumber %
           12) as PitchClass;
-        selectDownbeat(null);
       }
     } else {
       update.correctedMeasures = { ...(analysis.correctedMeasures || []) };
       update.correctedMeasures[selectedDownbeat] = note?.span[0] ?? time;
-      selectDownbeat(null);
     }
   } else {
     const { step } = analysis;
@@ -330,7 +327,6 @@ export const advanceAnalysis = (
   const newAnalysis = getNewAnalysis(
     note,
     selectedDownbeat,
-    selectDownbeat,
     analysis,
     time,
     notes,
@@ -338,6 +334,7 @@ export const advanceAnalysis = (
     altKey,
   );
 
+  selectDownbeat(null);
   saveAnalysis(newAnalysis);
   setAnalysis(newAnalysis);
 };

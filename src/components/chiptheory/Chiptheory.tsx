@@ -10,7 +10,7 @@ import {
   advanceAnalysis,
   getNewAnalysis,
 } from "./Analysis";
-import { MeasuresAndBeats, calculateMeasuresAndBeats } from "./measures";
+import { calculateMeasuresAndBeats } from "./measures";
 import {
   NES_APU_NOTE_ESTIMATIONS,
   PAUSE,
@@ -310,15 +310,6 @@ const Chiptheory = ({
     [chipStateDump],
   );
 
-  const [measuresAndBeats, setMeasuresAndBeats] = useState<MeasuresAndBeats>({
-    measures: [],
-    beats: [],
-  });
-  useEffect(
-    () => setMeasuresAndBeats(calculateMeasuresAndBeats(analysis, allNotes)),
-    [analysis, allNotes],
-  );
-
   const { minMidiNumber, maxMidiNumber } = useMemo(
     () => getMidiRange([...notes.t, ...notes.p1, ...notes.p2]),
     [notes],
@@ -351,6 +342,35 @@ const Chiptheory = ({
     [noteHeight],
   );
 
+  const [hoveredNote, setHoveredNote] = useState<Note | null>(null);
+  const [hoveredAltKey, setHoveredAltKey] = useState<boolean>(false);
+  const handleMouseEnter = (note: Note, altKey: boolean) => {
+    setHoveredNote(note);
+    setHoveredAltKey(altKey);
+  };
+  const handleMouseLeave = () => {
+    setHoveredNote(null);
+  };
+
+  const futureAnalysis = useMemo(
+    () =>
+      hoveredNote
+        ? getNewAnalysis(
+            hoveredNote,
+            selectedDownbeatRef.current,
+            analysisRef.current,
+            null,
+            allNotes,
+            calculateMeasuresAndBeats(analysis, allNotes).measures,
+            hoveredAltKey,
+          )
+        : analysis,
+    [hoveredNote, analysis],
+  );
+  const measuresAndBeats = useMemo(() => {
+    return calculateMeasuresAndBeats(futureAnalysis, allNotes);
+  }, [futureAnalysis, allNotes]);
+
   const handleNoteClick = (note: Note, altKey: boolean) => {
     advanceAnalysis(
       note,
@@ -366,20 +386,6 @@ const Chiptheory = ({
     );
   };
 
-  const [hoveredNote, setHoveredNote] = useState<Note | null>(null);
-  const [hoveredAltKey, setHoveredAltKey] = useState<boolean>(false);
-  const handleMouseEnter = (note: Note, altKey: boolean) => {
-    setHoveredNote(note);
-    setHoveredAltKey(altKey);
-  };
-  const handleMouseLeave = () => {
-    setHoveredNote(null);
-  };
-
-  // The idea is to blend hoveredPitchClass into analysis as if it's already applied and pass it to getNoteRectangles
-  // That is, to make a dry run of advanceAnalysis.
-  // TODO: measuresAndBeats should be recalculated
-
   const noteRectangles = useMemo(() => {
     const voices = [
       { notes: notes.p1, label: "pulse1", mask: voiceMask[0] },
@@ -387,18 +393,6 @@ const Chiptheory = ({
       { notes: notes.t, label: "triangle", mask: voiceMask[2] },
     ];
 
-    const futureAnalysis = hoveredNote
-      ? getNewAnalysis(
-          hoveredNote,
-          selectedDownbeatRef.current,
-          setSelectedDownbeat,
-          analysisRef.current,
-          null,
-          allNotes,
-          measuresAndBeats.measures,
-          hoveredAltKey,
-        )
-      : analysis;
     return voices.flatMap((voice) =>
       getNoteRectangles(
         voice.notes,
@@ -520,7 +514,7 @@ const Chiptheory = ({
           {currentlyPlayedRectangles}
           <Cursor style={{ left: secondsToX(positionMs / 1000) }} />
           <AnalysisGrid
-            analysis={analysis}
+            analysis={futureAnalysis}
             allNotes={allNotes}
             measuresAndBeats={measuresAndBeats}
             midiNumberToY={midiNumberToY}

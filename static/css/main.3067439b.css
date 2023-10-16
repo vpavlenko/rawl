@@ -430,14 +430,14 @@ body,
     margin: 0 var(--charW2neg);
     -ms-flex-negative: 0;
         flex-shrink: 0;
-    height: 160px;
+    height: 100px;
     display: -ms-flexbox;
     display: flex;
 }
 
 .AppFooter-art {
     width: 160px;
-    height: 160px;
+    height: 100px;
     background-color: var(--neutral0);
     -o-object-fit: scale-down;
        object-fit: scale-down;
@@ -465,6 +465,10 @@ body,
 */
 .AppFooter-main-inner {
     padding: var(--charH) var(--charW2);
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+        flex-direction: column;
 }
 
 .AppFooter-settings {
@@ -761,7 +765,8 @@ body,
 .TimeSlider {
     -ms-flex-positive: 1;
         flex-grow: 1;
-    margin: var(--charH) 0;
+    margin-left: var(--charW2);
+    /* margin: var(--charH) 0; */
 }
 
 .TimeSlider-labels,
@@ -777,8 +782,8 @@ body,
 .VolumeSlider {
     -ms-flex-negative: 0;
         flex-shrink: 0;
-    margin-top: var(--charH);
-    margin-bottom: var(--charH);
+    /* margin-top: var(--charH); */
+    /* margin-bottom: var(--charH); */
     margin-left: var(--charW2);
 }
 
@@ -1009,4 +1014,4 @@ img {
 }
 
 
-/*# sourceMappingURL=main.0ca91cc2.css.map*/
+/*# sourceMappingURL=main.3067439b.css.map*/

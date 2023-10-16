@@ -259,7 +259,10 @@ export const RomanNumeral: React.FC<{
   );
 };
 
-const Modulation: React.FC<{ semitones: PitchClass }> = ({ semitones }) => {
+const Modulation: React.FC<{ semitones: PitchClass; isCompact: boolean }> = ({
+  semitones,
+  isCompact = false,
+}) => {
   const zeroCenteredSemitones = semitones > 6 ? -12 + semitones : semitones;
 
   return (
@@ -284,7 +287,7 @@ const Modulation: React.FC<{ semitones: PitchClass }> = ({ semitones }) => {
       {zeroCenteredSemitones > 0 ? (
         <div>▲</div>
       ) : (
-        <div style={{ opacity: 0 }}>▲</div>
+        !isCompact && <div style={{ opacity: 0 }}>▲</div>
       )}
 
       <div>{Math.abs(zeroCenteredSemitones)}</div>
@@ -292,7 +295,7 @@ const Modulation: React.FC<{ semitones: PitchClass }> = ({ semitones }) => {
       {zeroCenteredSemitones < 0 ? (
         <div>▼</div>
       ) : (
-        <div style={{ opacity: 0 }}>▼</div>
+        !isCompact && <div style={{ opacity: 0 }}>▼</div>
       )}
     </div>
   );
@@ -348,9 +351,10 @@ export const RowOfRomanNumerals: React.FC<{
   return <div style={{ display: "flex", flexDirection: "row" }}>{row}</div>;
 };
 
-export const MeasureOfRomanNumerals: React.FC<{ dashedRN: string }> = ({
-  dashedRN,
-}) => {
+export const MeasureOfRomanNumerals: React.FC<{
+  dashedRN: string;
+  modulation: PitchClass | null;
+}> = ({ dashedRN, modulation }) => {
   const chords = dashedRnToArray(dashedRN);
   return (
     <div
@@ -361,6 +365,9 @@ export const MeasureOfRomanNumerals: React.FC<{ dashedRN: string }> = ({
         height: "100%",
       }}
     >
+      {modulation !== null && (
+        <Modulation semitones={modulation} isCompact={true} />
+      )}
       {chords.map((chord) => (
         <RomanNumeral romanNumeral={chord} />
       ))}
@@ -437,7 +444,7 @@ export const getChordNote = (
 
 type RelativeModulations = { [key: number]: PitchClass };
 
-const getRelativeModulations = (
+export const getRelativeModulations = (
   tonic: PitchClass | null,
   modulations: { [key: number]: PitchClass },
 ): RelativeModulations => {

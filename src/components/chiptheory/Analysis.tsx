@@ -7,6 +7,7 @@ import { MeasuresAndBeats, getPhrasingMeasures } from "./measures";
 import {
   MeasureOfRomanNumerals,
   getModulations,
+  getRelativeModulations,
   romanNumeralsToArray,
   updateRomanNumerals,
 } from "./romanNumerals";
@@ -332,6 +333,7 @@ const Measure: React.FC<{
   selectDownbeat: (number: number) => void;
   romanNumeral: string;
   formSection: string;
+  modulation: PitchClass | null;
 }> = ({
   span,
   number,
@@ -340,6 +342,7 @@ const Measure: React.FC<{
   selectDownbeat,
   romanNumeral,
   formSection,
+  modulation,
 }) => {
   const left = secondsToX(span[0]) - 1;
   const width = secondsToX(span[1]) - left - 1;
@@ -403,7 +406,10 @@ const Measure: React.FC<{
           borderLeft: "1px solid black",
         }}
       >
-        <MeasureOfRomanNumerals dashedRN={romanNumeral} />
+        <MeasureOfRomanNumerals
+          dashedRN={romanNumeral}
+          modulation={modulation}
+        />
       </div>
     </>
   );
@@ -497,6 +503,10 @@ export const AnalysisGrid: React.FC<{
     }
 
     const phrasingMeasures = getPhrasingMeasures(analysis, measures.length);
+    const relativeModulations = getRelativeModulations(
+      analysis.tonic,
+      analysis.modulations,
+    );
     return (
       <>
         {measures.map((time, i) => {
@@ -511,6 +521,11 @@ export const AnalysisGrid: React.FC<{
               selectedDownbeat={selectedDownbeat}
               selectDownbeat={selectDownbeat}
               romanNumeral={romanNumeralsToArray(analysis?.romanNumerals)[i]}
+              modulation={
+                number in relativeModulations
+                  ? relativeModulations[number]
+                  : null
+              }
             />
           );
         })}

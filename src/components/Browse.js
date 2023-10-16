@@ -134,6 +134,7 @@ export default class Browse extends React.PureComponent {
                 {...this.props}
                 playContext={playContext}
                 items={filteredListing}
+                isSearch={!!searchPath}
               />
             </div>
           </div>

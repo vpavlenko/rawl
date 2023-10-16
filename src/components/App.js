@@ -54,13 +54,12 @@ import N64Player from "../players/N64Player";
 import V2MPlayer from "../players/V2MPlayer";
 import XMPPlayer from "../players/XMPPlayer";
 
+import VGMPlayer from "../players/VGMPlayer";
+import Alert from "./Alert";
 import AppFooter from "./AppFooter";
 import AppHeader from "./AppHeader";
 import Browse from "./Browse";
 import DropMessage from "./DropMessage";
-// import Search from './Search';
-import VGMPlayer from "../players/VGMPlayer";
-import Alert from "./Alert";
 import MessageBox from "./MessageBox";
 import Settings from "./Settings";
 import Visualizer from "./Visualizer";
@@ -356,28 +355,7 @@ class App extends React.Component {
     });
   }
 
-  handleToggleFavorite(path) {
-    // const user = this.state.user;
-    // if (user) {
-    //   const userRef = doc(this.db, "users", user.uid);
-    //   let newFaves, favesOp;
-    //   const oldFaves = this.state.faves;
-    //   const exists = oldFaves.includes(path);
-    //   if (exists) {
-    //     newFaves = oldFaves.filter((fave) => fave !== path);
-    //     favesOp = arrayRemove(path);
-    //   } else {
-    //     newFaves = [...oldFaves, path];
-    //     favesOp = arrayUnion(path);
-    //   }
-    //   // Optimistic update
-    //   this.setState({ faves: newFaves });
-    //   updateDoc(userRef, { faves: favesOp }).catch((e) => {
-    //     this.setState({ faves: oldFaves });
-    //     console.log("Couldn't update favorites in Firebase.", e);
-    //   });
-    // }
-  }
+  handleToggleFavorite() {}
 
   async saveAnalysis(analysis) {
     const currIdx = this.sequencer?.getCurrIdx();
@@ -920,22 +898,6 @@ class App extends React.Component {
                         exact
                         render={() => <Search analyses={this.state.analyses} />}
                       />
-                      {/* <Route
-                        path="/"
-                        render={() => (
-                          <Favorites
-                            user={this.state.user}
-                            loadingUser={this.state.loadingUser}
-                            handleLogin={this.handleLogin}
-                            handleShufflePlay={this.handleShufflePlay}
-                            onSongClick={this.handleSongClick}
-                            currContext={currContext}
-                            currIdx={currIdx}
-                            toggleFavorite={this.handleToggleFavorite}
-                            favorites={this.state.faves}
-                          />
-                        )}
-                      /> */}
                       <Route
                         path={["/browse/:browsePath*", "/search/:searchPath*"]}
                         render={({ history, match, location }) => {

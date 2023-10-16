@@ -504,11 +504,13 @@ body,
     flex-direction: column;
     /* background-color: black; */
     /* border-bottom: 1px dotted #555; */
-    margin-bottom: 0px
+    margin-bottom: 0px;
+    margin-right: 10px;
 }
 
 .BrowseList-row-mainPage {
-    margin-bottom: 100px
+    /* margin-bottom: 100px */
+    margin-right: 50px;
 }
 
 .BrowseList-row:has(a:hover) {

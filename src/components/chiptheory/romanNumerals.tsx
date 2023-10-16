@@ -313,8 +313,8 @@ export const RowOfRomanNumerals: React.FC<{
       return row.push(
         <div
           style={{
-            width: isSearch ? 70 : 150 / chords.length,
-            height: isSearch ? 30 : 48,
+            width: isSearch ? 70 : 120 / chords.length,
+            height: isSearch ? 30 : 30,
             display: "grid",
             placeItems: "center",
             overflow: "hidden",
@@ -338,10 +338,10 @@ export const RowOfRomanNumerals: React.FC<{
               fontSize: isSearch
                 ? "18px"
                 : chords.length >= 3
-                ? "18px"
+                ? "12px"
                 : chords.length == 2
-                ? "24px"
-                : "28px",
+                ? "16px"
+                : "18px",
             }}
           />
         </div>,
@@ -496,14 +496,14 @@ export const FormAndHarmony: React.FC<{ analysis: Analysis }> = ({
         <div
           key={`formSection_${i}`}
           style={{
-            textAlign: "center",
+            textAlign: "start",
             fontFamily: "sans-serif",
-            fontSize: "25px",
-            padding: "15px",
+            fontSize: "15px",
+            padding: "3px",
             // backgroundColor: "#333",
-            // color: "white",
-            backgroundColor: "#999",
-            color: "black",
+            color: "white",
+            backgroundColor: "#333",
+            // color: "black",
           }}
         >
           {formSection}

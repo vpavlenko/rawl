@@ -18,6 +18,7 @@ function BrowseList({ items, ...props }) {
     playContext,
     analyses,
     searchPath,
+    isSearch,
   } = props;
 
   const location = useLocation();
@@ -73,7 +74,14 @@ function BrowseList({ items, ...props }) {
 
   return (
     <div>
-      <div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          flexWrap: "wrap",
+          alignContent: "flex-start",
+        }}
+      >
         {items.map((item) => {
           // XXX: Escape immediately: the escaped URL is considered canonical.
           //      The URL must be decoded for display from here on out.
@@ -125,7 +133,9 @@ function BrowseList({ items, ...props }) {
                           to={"/browse/" + path}
                           search={`?subtune=${realIndex}`}
                         >
-                          <Card analysis={piece} index={realIndex} />
+                          {isSearch && (
+                            <Card analysis={piece} index={realIndex} />
+                          )}
                         </DirectoryLink>
                       ) : null;
                     })}

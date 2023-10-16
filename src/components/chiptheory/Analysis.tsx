@@ -175,6 +175,23 @@ const TAGS = [
   "analyzed_in:the common cold",
 ];
 
+const FORM_SECTIONS = [
+  "A",
+  "A'",
+  "B",
+  "B'",
+  "C",
+  "C'",
+  "intro",
+  "bridge",
+  "A:antecedent",
+  "A:consequent",
+  "B:antecedent",
+  "B:consequent",
+  "antecedent",
+  "consequent",
+];
+
 export const STEPS = [
   "tonic",
   "first measure",
@@ -585,7 +602,6 @@ export const AnalysisBox: React.FC<{
       label,
       width = "95%",
       mergeValueIntoAnalysis = null,
-      list = null,
     ) => {
       const [value, setValue] = useState(initialValue.toString());
       const [isSaved, setIsSaved] = useState(false);
@@ -630,7 +646,6 @@ export const AnalysisBox: React.FC<{
               backgroundColor: isSaved ? "#66d" : "#aaa",
               transition: "background-color 0.1s",
             }}
-            list={list}
             onChange={(e) => setValue(e.target.value)}
             onKeyDown={handleKeyDown}
           />
@@ -659,7 +674,6 @@ export const AnalysisBox: React.FC<{
           form: { ...analysis.form, [selectedDownbeat]: value },
         };
       },
-      "form-sections",
     );
 
     return (
@@ -755,21 +769,32 @@ export const AnalysisBox: React.FC<{
                 </li>
                 <li>Adjust position: click anywhere</li>
                 <li>Enter modulation: alt+click on a new tonic</li>
-                <li>{formSection}</li>
+                <li>
+                  {formSection}
+                  <div>
+                    {FORM_SECTIONS.map((formSection) => (
+                      <button
+                        style={{ marginRight: "10px", marginTop: "10px" }}
+                        className="box-button"
+                        onClick={() => {
+                          const newAnalysis = {
+                            ...analysis,
+                            form: {
+                              ...analysis.form,
+                              [selectedDownbeat]: formSection,
+                            },
+                          };
 
-                <datalist id="form-sections">
-                  <option value="A:antecedent" />
-                  <option value="A:consequent" />
-                  <option value="B:antecedent" />
-                  <option value="B:consequent" />
-                  <option value="antecedent" />
-                  <option value="consequent" />
-                  <option value="intro" />
-                  <option value="bridge" />
-                  <option value="chorus" />
-                  <option value="HC" />
-                  <option value="PAC" />
-                </datalist>
+                          selectDownbeat(null);
+                          saveAnalysis(newAnalysis);
+                          setAnalysis(newAnalysis);
+                        }}
+                      >
+                        {formSection}
+                      </button>
+                    ))}
+                  </div>
+                </li>
               </ul>
             </div>
           ) : (

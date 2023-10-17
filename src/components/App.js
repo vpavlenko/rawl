@@ -54,6 +54,7 @@ import N64Player from "../players/N64Player";
 import V2MPlayer from "../players/V2MPlayer";
 import XMPPlayer from "../players/XMPPlayer";
 
+import defaultAnalyses from "../corpus/analyses.json";
 import VGMPlayer from "../players/VGMPlayer";
 import Alert from "./Alert";
 import AppFooter from "./AppFooter";
@@ -86,15 +87,15 @@ class App extends React.Component {
     // Load the analyses by Vitaly Pavlenko
     const docRef = doc(this.db, "users", "hqAWkYyzu2hIzNgE3ui89f41vFA2");
     getDoc(docRef).then((userSnapshot) => {
-      if (userSnapshot.exists()) {
-        // this shouldn't override analyses of the user
-        if (
-          !this.state.analyses ||
-          Object.keys(this.state.analyses).length === 0
-        ) {
-          this.setState({ analyses: userSnapshot.data().analyses });
-        }
-      }
+      // if (userSnapshot.exists()) {
+      //   // this shouldn't override analyses of the user
+      //   if (
+      //     !this.state.analyses ||
+      //     Object.keys(this.state.analyses).length === 0
+      //   ) {
+      //     this.setState({ analyses: userSnapshot.data().analyses });
+      //   }
+      // }
     });
 
     onAuthStateChanged(auth, (user) => {
@@ -121,7 +122,7 @@ class App extends React.Component {
                 showPlayerSettings: data.settings
                   ? data.settings.showPlayerSettings
                   : false,
-                analyses: data.analyses,
+                // analyses: data.analyses,
               });
             }
           })
@@ -200,6 +201,7 @@ class App extends React.Component {
       paramDefs: [],
       chipStateDump: {},
       analysisEnabled: true,
+      analyses: defaultAnalyses,
     };
 
     this.initChipCore(audioCtx, playerNode, bufferSize);

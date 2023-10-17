@@ -20,11 +20,16 @@ async function downloadAnalyses() {
 
     // Write to JSON file
     fs.writeFileSync(
-      "corpus/analyses.json",
+      "src/corpus/analyses.json",
       JSON.stringify(analyses, null, 2),
       "utf-8",
     );
     console.log("Data successfully written to corpus/analyses.json");
+
+    await docRef.update({
+      analyses: admin.firestore.FieldValue.delete(),
+    });
+    console.log("Analyses field deleted from Firestore");
   } else {
     console.error("No data found for the specified user");
   }

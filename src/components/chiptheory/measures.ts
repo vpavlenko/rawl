@@ -46,7 +46,7 @@ export const calculateMeasuresAndBeats = (
       measures.push(newMeasure);
       measureLength = newMeasure - previousMeasure;
       previousMeasure = newMeasure;
-      if (i === analysis.loop) {
+      if (i === analysis.loop + 1) {
         break;
       }
     }

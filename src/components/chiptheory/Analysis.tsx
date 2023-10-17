@@ -69,6 +69,7 @@ const TAGS = [
   "beats:unclear_measure_onsets",
   "beats:incomplete_measure_on_transition",
   "beats:division_change",
+  "beats:extra_beat",
   "tonic:ambiguous", // when pitch class set is uniform 7 notes, but no certain tonic
   "location:scary",
   "location:menu",

@@ -3399,6 +3399,34 @@
       }
     }
   },
+  "Nintendo/Higemaru Makaijima - Nanatsu no Shima Daibouken": {
+    "Higemaru Makaijima - Nanatsu no Shima Daibouken (1987-04-14)(Capcom).nsf": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "I V I IV _ _ I V I _ _ _ _ ii V I5-bII5 I^",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "form:not_looped",
+          "voice_leading:W-arpeggio",
+          "timbre:wide_vibrato"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.5700000000000012,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "17": 26.35000000000132
+        },
+        "tonic": 3,
+        "basedOn": null
+      }
+    }
+  },
   "Nintendo/AGCI Test Cart": {
     "AGCI Test Cart (19xx)(American Game Cartridges).nsf": {
       "0": {
@@ -3548,6 +3576,63 @@
         "clickResolutionMs": 0.01,
         "step": "end",
         "tonic": 7
+      }
+    }
+  },
+  "Nintendo/Venice Beach Volleyball": {
+    "Venice Beach Volleyball (1991)(Idea-Tek, American Video Entertainment).nsf": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "form:extra_measure",
+          "beats:extra_beat",
+          "location:level"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "secondMeasure": 2.339999999999994,
+        "form": {
+          "1": "A",
+          "5": "A",
+          "8": "4/4+2/4",
+          "9": "B",
+          "13": "B",
+          "17": "4/4+2/4 - anacrusis is in the loop"
+        },
+        "loop": 18,
+        "firstMeasure": 0.7900000000000005,
+        "step": "end",
+        "comment": "",
+        "tonic": 0,
+        "correctedMeasures": {
+          "9": 14.329999999999739,
+          "10": 15.929999999999705,
+          "18": 29.520000000001815
+        },
+        "basedOn": null
+      },
+      "1": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "i VII _ _ _ _ _ _ _ _ _ III",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "timbre:oscillator_as_percussion"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.5900000000000012,
+        "loop": 13,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 9,
+        "basedOn": null
       }
     }
   },
@@ -5398,6 +5483,42 @@
         "comment": "",
         "correctedMeasures": [],
         "tonic": 4,
+        "basedOn": null
+      },
+      "11": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 2.1399999999999983,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "first measure",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 4,
+        "basedOn": null
+      },
+      "12": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "first measure",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 3,
         "basedOn": null
       }
     }
@@ -11201,6 +11322,248 @@
         "comment": "",
         "correctedMeasures": [],
         "tonic": 7,
+        "basedOn": null
+      }
+    }
+  },
+  "Nintendo/Baseball Stars": {
+    "Baseball Stars [Baseball Star - Mezase Sankanou] (1989-05-19)(SNK).nsf": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "I-viio/ii ii-V I vi IV V I ii V I",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "location:launch_screen",
+          "form:period",
+          "middle_voice:thirds_and_sixths",
+          "bass:octaves"
+        ],
+        "fourMeasurePhrasingReferences": [
+          3
+        ],
+        "secondMeasure": 1.290000000000001,
+        "form": {
+          "1": "intro",
+          "3": "antecedent",
+          "7": "consequent"
+        },
+        "loop": 11,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "6": 6.639999999999903
+        },
+        "tonic": 0,
+        "basedOn": null
+      },
+      "1": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "I V5 I IV V I VII I",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "bass:octaves",
+          "middle_voice:thirds_and_sixths"
+        ],
+        "fourMeasurePhrasingReferences": [
+          3
+        ],
+        "form": [],
+        "secondMeasure": 1.340000000000001,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      },
+      "2": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "I vi IV-V5 I",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "middle_voice:thirds_and_sixths",
+          "bass:octaves"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.9900000000000015,
+        "loop": null,
+        "firstMeasure": 0.3900000000000002,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      },
+      "3": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "I V I IV II5 I V I I V I II5 _ _ V I",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "middle_voice:static_chord_tones",
+          "middle_voice:parallel_octaves"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "secondMeasure": 2.1899999999999973,
+        "form": {
+          "1": "A",
+          "9": "A'"
+        },
+        "loop": 17,
+        "firstMeasure": 0.5900000000000003,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      },
+      "4": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "VI VII I",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "timbre:oscillator_as_percussion"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 0.7900000000000005,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 2,
+        "basedOn": null
+      },
+      "5": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "beats:division_change"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.1900000000000008,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 2,
+        "basedOn": null
+      },
+      "6": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "i V i _ i iv V I5",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "timbre:layered",
+          "scale:melodic_minor",
+          "form:period"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "secondMeasure": 1.8400000000000014,
+        "form": {
+          "1": "antecedent",
+          "5": "consequent"
+        },
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 9,
+        "basedOn": null
+      },
+      "7": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "I I V V V V I I IV iii IV V",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.290000000000001,
+        "loop": 13,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "2": 1.3428571428571427,
+          "4": 3.9714285714285715,
+          "9": 10.639999999999818,
+          "17": 21.23000000000052
+        },
+        "tonic": 0,
+        "basedOn": null
+      },
+      "8": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "timbre:oscillator_as_percussion",
+          "timbre:chirp"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.5900000000000012,
+        "loop": 17,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "10": 14.314285714285715,
+          "11": 15.914285714285715,
+          "12": 17.62857142857143,
+          "13": 19.242857142857144,
+          "14": 20.757142857142856,
+          "17": 25.3
+        },
+        "tonic": 0,
+        "basedOn": null
+      },
+      "12": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.5900000000000012,
+        "loop": 25,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "4": 4.789999999999942,
+          "12": 17.57999999999995,
+          "19": 28.680000000001684,
+          "20": 30.370000000001948
+        },
+        "tonic": 10,
         "basedOn": null
       }
     }

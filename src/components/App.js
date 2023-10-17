@@ -87,15 +87,16 @@ class App extends React.Component {
     // Load the analyses by Vitaly Pavlenko
     const docRef = doc(this.db, "users", "hqAWkYyzu2hIzNgE3ui89f41vFA2");
     getDoc(docRef).then((userSnapshot) => {
-      // if (userSnapshot.exists()) {
-      //   // this shouldn't override analyses of the user
-      //   if (
-      //     !this.state.analyses ||
-      //     Object.keys(this.state.analyses).length === 0
-      //   ) {
-      //     this.setState({ analyses: userSnapshot.data().analyses });
-      //   }
-      // }
+      if (userSnapshot.exists()) {
+        if (userSnapshot.data().analyses) {
+          this.setState((prevState) => ({
+            analyses: {
+              ...prevState.analyses,
+              ...userSnapshot.data().analyses,
+            },
+          }));
+        }
+      }
     });
 
     onAuthStateChanged(auth, (user) => {

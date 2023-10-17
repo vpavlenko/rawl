@@ -87,15 +87,29 @@ class App extends React.Component {
     // Load the analyses by Vitaly Pavlenko
     const docRef = doc(this.db, "users", "hqAWkYyzu2hIzNgE3ui89f41vFA2");
     getDoc(docRef).then((userSnapshot) => {
-      if (userSnapshot.exists()) {
-        if (userSnapshot.data().analyses) {
-          this.setState((prevState) => ({
-            analyses: {
-              ...prevState.analyses,
-              ...userSnapshot.data().analyses,
-            },
-          }));
-        }
+      if (userSnapshot.exists() && userSnapshot.data().analyses) {
+        this.setState((prevState) => {
+          const mergedAnalyses = { ...prevState.analyses };
+
+          for (const game in userSnapshot.data().analyses) {
+            if (!mergedAnalyses[game]) {
+              mergedAnalyses[game] = {};
+            }
+
+            for (const file in userSnapshot.data().analyses[game]) {
+              if (!mergedAnalyses[game][file]) {
+                mergedAnalyses[game][file] = {};
+              }
+
+              for (const subtune in userSnapshot.data().analyses[game][file]) {
+                mergedAnalyses[game][file][subtune] =
+                  userSnapshot.data().analyses[game][file][subtune];
+              }
+            }
+          }
+
+          return { analyses: mergedAnalyses };
+        });
       }
     });
 

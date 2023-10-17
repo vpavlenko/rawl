@@ -4980,7 +4980,9 @@
         "disableSnapToNotes": false,
         "romanNumerals": "_ _ _ _ _ _ _ _ I5 VII5 viio i VI v V i I V V7/IV IV ii iv I I",
         "clickResolutionMs": 0.01,
-        "tags": [],
+        "tags": [
+          "voice_leading:W-arpeggio"
+        ],
         "modulations": {
           "5": 4,
           "17": 7
@@ -15886,6 +15888,387 @@
         "comment": "",
         "tonic": 5,
         "correctedMeasures": {},
+        "basedOn": null
+      },
+      "5": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "harmony:weird",
+          "bass:riff",
+          "harmony:stasis",
+          "scale:pentatonic"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.5900000000000012,
+        "loop": 17,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "13": 18.93000000000016,
+          "14": 20.53000000000041,
+          "17": 25.52000000000119
+        },
+        "tonic": 0,
+        "basedOn": null
+      },
+      "6": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "I I vi vi I I vi vi I I vi vi I I vi vi IV V I vi IV V5 I5 I5 I I #VI5 #VI5 I I #VI5 #VI5 I I vi vi I I vi vi IV V5 I #VI5 IV V5 I I",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "harmony:I-vi shuttle",
+          "form:accumulative",
+          "melody:riff"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": {
+          "1": "A",
+          "5": "A",
+          "9": "A'",
+          "13": "A'",
+          "17": "B",
+          "21": "B'",
+          "25": "A''",
+          "29": "A''",
+          "33": "A'''",
+          "37": "A''''",
+          "41": "B''",
+          "45": "B'''"
+        },
+        "secondMeasure": 1.5700000000000012,
+        "loop": 49,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "19": 28.66000000000168,
+          "24": 36.7,
+          "34": 52.68571428571428,
+          "52": 81.52857142857142
+        },
+        "tonic": 5,
+        "basedOn": null
+      },
+      "8": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "harmony:i-VII shuttle",
+          "bass:riff",
+          "form:accumulative",
+          "scale:hexatonic_minor_no6"
+        ],
+        "fourMeasurePhrasingReferences": [
+          3,
+          7,
+          9,
+          13
+        ],
+        "form": [],
+        "secondMeasure": 6.639999999999903,
+        "loop": 15,
+        "firstMeasure": 4.489999999999949,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      },
+      "9": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "bass:octaves",
+          "scale:pentatonic",
+          "form:accumulative",
+          "middle_voice:absent",
+          "harmony:i-VII shuttle"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.5900000000000012,
+        "loop": 9,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 9,
+        "basedOn": null
+      },
+      "11": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "scale:hemitonic_pentatonic",
+          "bass:octaves",
+          "bass:riff",
+          "middle_voice:melody_echo",
+          "form:accumulative"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 3.139999999999977,
+        "loop": 21,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "17": 51.3,
+          "18": 54.92857142857143,
+          "19": 58.24285714285714,
+          "20": 61.08571428571429
+        },
+        "tonic": 7,
+        "basedOn": null
+      },
+      "12": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "I",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "bass:octaves",
+          "harmony:stasis"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 3.139999999999977,
+        "loop": 9,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      }
+    }
+  },
+  "Nintendo/Arch Rivals - A Basketbrawl!": {
+    "Arch Rivals - A Basketbrawl! (1990-11)(Midway)(Rare)(Acclaim).nsf": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 4.2199999999999545,
+        "loop": 2,
+        "firstMeasure": 1.9600000000000015,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 2,
+        "basedOn": null
+      },
+      "1": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": true,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "form:solo",
+          "middle_voice:parallel_thirds",
+          "harmony:stasis",
+          "bass:riff",
+          "scale:mixolydian",
+          "timbre:layered",
+          "location:sport_level",
+          "melody:fills_at_rests",
+          "timbre:portamento"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 2.1199999999999988,
+        "loop": 39,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "7": 12.759999999999772,
+          "9": 17.00999999999986,
+          "10": 19.160000000000196,
+          "21": 42.590000000000096,
+          "22": 44.72999999999967,
+          "25": 51.1299999999984,
+          "29": 59.61999999999671
+        },
+        "tonic": 2,
+        "basedOn": null
+      },
+      "2": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "form:solo",
+          "reference:previous_subtune",
+          "scale:mixolydian",
+          "middle_voice:melody_echo",
+          "timbre:ultra_fast_notes",
+          "bass:riff",
+          "timbre:layered",
+          "middle_voice:parallel_thirds"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": {
+          "25": "same as subtune 2, m. 27"
+        },
+        "secondMeasure": 2.1399999999999983,
+        "loop": 33,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "same form as subtune 2 - also quotes subtune 2 and subtune 4",
+        "correctedMeasures": {
+          "4": 6.389999999999908,
+          "5": 8.519999999999863,
+          "7": 12.779999999999772,
+          "8": 14.909999999999727,
+          "9": 17.00999999999986,
+          "12": 23.42000000000086,
+          "13": 25.570000000001198,
+          "19": 38.36000000000094,
+          "20": 40.44000000000052,
+          "24": 48.99999999999882
+        },
+        "tonic": 2,
+        "basedOn": null
+      },
+      "3": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "rhythm:3+3+2",
+          "voice_leading:W-arpeggio",
+          "scale:pentatonic",
+          "middle_voice:melody_echo",
+          "timbre:layered",
+          "location:game_won"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 2.1399999999999983,
+        "loop": 11,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 2,
+        "basedOn": null
+      },
+      "4": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "I V V7 I-V I V V7 I-V-I-I",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "form:period",
+          "harmony:pure_I-V",
+          "bass:alberti",
+          "style:common_practice",
+          "middle_voice:arpeggio",
+          "melody:fills_at_rests",
+          "timbre:layered",
+          "location:sport_half_time"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "secondMeasure": 1.6000000000000012,
+        "form": {
+          "1": "antecedent",
+          "5": "consequent"
+        },
+        "loop": null,
+        "firstMeasure": 0.4000000000000002,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 10,
+        "basedOn": null
+      },
+      "5": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "location:sport_points_scored"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.340000000000001,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 2,
+        "basedOn": null
+      },
+      "6": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "motive:natural_horn_call",
+          "location:sport_points_scored"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 4,
+        "basedOn": null
+      },
+      "7": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.5600000000000012,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "phrygian sport jingle, \"California Über Alles\"",
+        "correctedMeasures": [],
+        "tonic": 2,
         "basedOn": null
       }
     }

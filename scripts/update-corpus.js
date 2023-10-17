@@ -41,7 +41,9 @@ async function downloadAndMergeAnalyses() {
 
         for (const subtune in firebaseAnalyses[game][file]) {
           console.log(
-            `Write to game ${game}, file ${file}, subtune ${subtune}`,
+            `Write to game ${game}, file ${file}, subtune ${
+              Number(subtune) + 1
+            }`,
           );
           localAnalyses[game][file][subtune] =
             firebaseAnalyses[game][file][subtune];

@@ -2533,23 +2533,6 @@
       }
     }
   },
-  "Nintendo/Adventure Island JP": {
-    "Adventure Island JP [Takahashi Meijin no Boukenjima] (1986-09-12)(Hudson).nsf": {
-      "0": {
-        "mode": "major",
-        "fourMeasurePhrasingReferences": [],
-        "beatsPerMeasure": 4,
-        "secondMeasure": 1.6400000000000012,
-        "loop": null,
-        "firstMeasure": 0.19000000000000003,
-        "clickResolutionMs": 0.01,
-        "step": "end",
-        "correctedMeasures": [],
-        "tonic": 5,
-        "basedOn": null
-      }
-    }
-  },
   "Nintendo/Gremlins 2 - The New Batch": {
     "Gremlins 2.nsfe": {
       "0": {
@@ -6077,17 +6060,22 @@
     "Adventure Island.nsfe": {
       "0": {
         "beatsPerMeasure": 4,
-        "romanNumerals": "",
+        "romanNumerals": "I II5-V _ _ _ V/ii ii-V",
         "clickResolutionMs": 0.01,
         "modulations": [],
+        "tags": [
+          "bass:walking",
+          "melody:fills_at_rests",
+          "harmony:diatonic_seventh_chords"
+        ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.6400000000000012,
         "loop": null,
         "firstMeasure": 0.19000000000000003,
         "step": "end",
-        "comment": "",
+        "comment": "walking in eights: root or octave",
         "correctedMeasures": [],
-        "tonic": 9,
+        "tonic": 5,
         "basedOn": null
       },
       "1": {
@@ -15827,6 +15815,77 @@
         "comment": "",
         "correctedMeasures": [],
         "tonic": 0,
+        "basedOn": null
+      }
+    }
+  },
+  "Nintendo/Action 52": {
+    "Action 52.nsfe": {
+      "2": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": {
+          "3": 2,
+          "5": 8,
+          "7": 6,
+          "9": 0,
+          "11": 2,
+          "13": 8,
+          "15": 6,
+          "17": 0
+        },
+        "tags": [
+          "harmony:constant_structures",
+          "bass:riff",
+          "scale:pentatonic",
+          "bass:octaves",
+          "form:accumulative",
+          "middle_voice:absent"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": {
+          "1": "A",
+          "9": "A'"
+        },
+        "secondMeasure": 1.5900000000000012,
+        "loop": 17,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      },
+      "3": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": {
+          "3": 7,
+          "5": 0,
+          "9": 5,
+          "11": 7,
+          "13": 0
+        },
+        "tags": [
+          "form:accumulative",
+          "timbre:layered",
+          "middle_voice:absent",
+          "scale:phrygian",
+          "bass:riff"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 2.0899999999999994,
+        "loop": 17,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "tonic": 5,
+        "correctedMeasures": {},
         "basedOn": null
       }
     }

@@ -15808,5 +15808,27 @@
         "basedOn": null
       }
     }
+  },
+  "Nintendo/Zhan Guo Qun Xiong Zhuan": {
+    "Zhan Guo Qun Xiong Zhuan (1996)(Waixing).nsf": {
+      "2": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "first measure",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      }
+    }
   }
 }

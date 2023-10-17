@@ -12810,7 +12810,8 @@
         "tags": [
           "middle_voice:parallel_thirds",
           "form:sentence",
-          "style:common_practice"
+          "style:common_practice",
+          "timbre:chirp"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.5900000000000012,
@@ -16269,6 +16270,150 @@
         "comment": "phrygian sport jingle, \"California Über Alles\"",
         "correctedMeasures": [],
         "tonic": 2,
+        "basedOn": null
+      }
+    }
+  },
+  "Nintendo/Barcode World": {
+    "Barcode World (1992-12-18)(Epoch)(Sunsoft).nsf": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "_ _ I7 IV7 VII7 VI-V I7 IV7 V7/V-V7 I7 IV7 vi7 IV7 vi7 IV7 vi7 V7/V V7",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "tempo:twice_as_fast",
+          "harmony:blues_seventh_chords",
+          "rhythm:swing",
+          "middle_voice:melody",
+          "form:period"
+        ],
+        "fourMeasurePhrasingReferences": [
+          3
+        ],
+        "form": {
+          "3": "A:antecedent",
+          "7": "A:consequent",
+          "11": "B"
+        },
+        "secondMeasure": 5.089999999999936,
+        "loop": 19,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "tonic": 0,
+        "correctedMeasures": {
+          "2": 2.4
+        },
+        "basedOn": null
+      },
+      "1": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": true,
+        "romanNumerals": "I I I I iii7 iii7 IV^ IV^ I I IV^ IV^ I I IV^ IV^",
+        "clickResolutionMs": 0.01,
+        "modulations": {
+          "9": 10,
+          "13": 8
+        },
+        "tags": [
+          "style:bossa_nova",
+          "rhythm:latin",
+          "harmony:diatonic_seventh_chords",
+          "middle_voice:creative_chord_tones",
+          "bass:root_fifth"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 2.7399999999999856,
+        "loop": 17,
+        "firstMeasure": 1.440000000000001,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "2": 2.914285714285714,
+          "3": 4.389999999999951,
+          "4": 5.857142857142857
+        },
+        "tonic": 0,
+        "basedOn": null
+      },
+      "2": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "V V V V I7 I7 IV7 I7 I7 I7 IV7 I7 IV7 IV7 I7 I7 IV V7/V V V",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "form:sentence",
+          "rhythm:3+3+2",
+          "harmony:blues_seventh_chords"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "secondMeasure": 1.340000000000001,
+        "form": {
+          "1": "intro (not looped)",
+          "5": "sentence. basic idea",
+          "9": "basic idea repeated",
+          "13": "fragmentation. 2m+2m+1m+1m",
+          "19": "cadence"
+        },
+        "loop": 21,
+        "firstMeasure": 0.04,
+        "step": "end",
+        "comment": "R=2N sentence",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      },
+      "5": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "location:lost",
+          "scale:whole-tone",
+          "scale:octatonic"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 0.8400000000000005,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      },
+      "6": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "I I IV IV I I IV IV ii V I vi ii V I V5",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "form:sentence",
+          "style:common_practice",
+          "voice_leading:triple_suspension"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "secondMeasure": 1.7400000000000013,
+        "form": {
+          "1": "sentence. basic idea",
+          "5": "repetition of basic idea",
+          "9": "fragmentation via faster harmonic rhythm",
+          "13": "cadence"
+        },
+        "loop": 17,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
         "basedOn": null
       }
     }

@@ -67,6 +67,28 @@ import Visualizer from "./Visualizer";
 import Chiptheory from "./chiptheory/Chiptheory";
 import Search from "./chiptheory/Search";
 
+const mergeAnalyses = (base, diff) => {
+  const result = { ...base };
+
+  for (const game in diff) {
+    if (!result[game]) {
+      result[game] = {};
+    }
+
+    for (const file in diff[game]) {
+      if (!result[game][file]) {
+        result[game][file] = {};
+      }
+
+      for (const subtune in diff[game][file]) {
+        result[game][file][subtune] = diff[game][file][subtune];
+      }
+    }
+  }
+
+  return result;
+};
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -88,27 +110,11 @@ class App extends React.Component {
     const docRef = doc(this.db, "users", "hqAWkYyzu2hIzNgE3ui89f41vFA2");
     getDoc(docRef).then((userSnapshot) => {
       if (userSnapshot.exists() && userSnapshot.data().analyses) {
-        this.setState((prevState) => {
-          const mergedAnalyses = { ...prevState.analyses };
-
-          for (const game in userSnapshot.data().analyses) {
-            if (!mergedAnalyses[game]) {
-              mergedAnalyses[game] = {};
-            }
-
-            for (const file in userSnapshot.data().analyses[game]) {
-              if (!mergedAnalyses[game][file]) {
-                mergedAnalyses[game][file] = {};
-              }
-
-              for (const subtune in userSnapshot.data().analyses[game][file]) {
-                mergedAnalyses[game][file][subtune] =
-                  userSnapshot.data().analyses[game][file][subtune];
-              }
-            }
-          }
-
-          return { analyses: mergedAnalyses };
+        this.setState({
+          analyses: mergeAnalyses(
+            defaultAnalyses,
+            userSnapshot.data().analyses,
+          ),
         });
       }
     });
@@ -396,23 +402,18 @@ class App extends React.Component {
 
       let userData = userDoc.exists ? userDoc.data() : {};
 
-      if (!userData.analyses) {
-        userData.analyses = {};
-      }
-      if (!userData.analyses[beforeSlash]) {
-        userData.analyses[beforeSlash] = {};
-      }
-      if (!userData.analyses[beforeSlash][afterSlash]) {
-        userData.analyses[beforeSlash][afterSlash] = {};
-      }
-
-      userData.analyses[beforeSlash][afterSlash][subtune] = analysis;
+      const diff = {
+        [beforeSlash]: { [afterSlash]: { [subtune]: analysis } },
+      };
+      userData.analyses = mergeAnalyses(userData.analyses ?? {}, diff);
 
       await setDoc(userRef, userData).catch((e) => {
         console.log("Couldn't save analysis.", e);
       });
 
-      this.setState({ analyses: userData.analyses });
+      this.setState((prevState) => ({
+        analyses: mergeAnalyses(prevState.analyses, diff),
+      }));
     }
   }
 

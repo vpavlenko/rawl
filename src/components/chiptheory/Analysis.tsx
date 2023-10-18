@@ -37,6 +37,7 @@ const TAGS = [
   "scale:saba",
   "scale:mixed_minor",
   "scale:hemitonic_pentatonic",
+  "scale:demo",
   "harmony:stasis",
   "harmony:parallel_keys",
   "harmony:power_chords",
@@ -60,6 +61,7 @@ const TAGS = [
   "harmony:weird",
   "harmony:pure_I-V",
   "harmony:57_chord_no3",
+  "harmony:parallel",
   "rhythm:syncopation",
   "rhythm:interesting",
   "rhythm:swing",
@@ -163,6 +165,8 @@ const TAGS = [
   "bass:counterpoint",
   "bass:octaves",
   "bass:root_fifth",
+  "bass:absent",
+  "bass:inversions",
   "style:common_practice",
   "style:ragtime",
   "style:waltz",
@@ -229,6 +233,7 @@ const FORM_SECTIONS = [
   "basic idea repeated",
   "fragmentation",
   "cadence",
+  "extra measure",
 ];
 
 export const STEPS = [

@@ -71,7 +71,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "location:lost"
+          "location:after_credits"
         ],
         "fourMeasurePhrasingReferences": [],
         "form": [],
@@ -16560,6 +16560,311 @@
         "loop": 17,
         "firstMeasure": 0,
         "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      }
+    }
+  },
+  "Nintendo/Bao Xiao Tien Guo (Explosion Sangokushi) - Bao Xiao San Guo (SFX)": {
+    "Bao Xiao Tien Guo (Explosion Sangokushi) - Bao Xiao San Guo (SFX).nsf": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "location:launch_screen",
+          "style:chinese",
+          "middle_voice:riff"
+        ],
+        "fourMeasurePhrasingReferences": [
+          4,
+          7,
+          10
+        ],
+        "form": [],
+        "secondMeasure": 1.5900000000000012,
+        "loop": 20,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "phrasing of different voices doesn't match. unusual loop length",
+        "correctedMeasures": [],
+        "tonic": 9,
+        "basedOn": null
+      },
+      "1": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "location:intro",
+          "tonic:ambiguous"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.0400000000000007,
+        "loop": 18,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 9,
+        "basedOn": null
+      }
+    }
+  },
+  "Nintendo/Exodus - Journey to the Promised Land": {
+    "Exodus - Journey to the Promised Land (1991)(Wisdom Tree).nsf": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": true,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "harmony:parallel",
+          "middle_voice:absent",
+          "form:extra_measure"
+        ],
+        "fourMeasurePhrasingReferences": [
+          5,
+          10,
+          14,
+          19,
+          23,
+          32,
+          41
+        ],
+        "form": {
+          "1": "octave + sixth",
+          "9": "extra measure",
+          "10": "two octaves + sixth",
+          "18": "extra measure",
+          "19": "octave + sixth",
+          "27": "extra measure",
+          "28": "sixth",
+          "36": "extra measure",
+          "37": "third",
+          "45": "extra measure"
+        },
+        "secondMeasure": 2.099999999999999,
+        "loop": 46,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "melody has a range of six notes. probably wrong beat start: one beat off",
+        "tonic": 0,
+        "correctedMeasures": {
+          "6": 10.639999999999818,
+          "7": 12.739999999999773,
+          "8": 14.889999999999727,
+          "10": 19.160000000000196,
+          "15": 29.830000000001863,
+          "16": 31.950000000002195,
+          "24": 49.00999999999882,
+          "25": 51.1299999999984,
+          "28": 57.52999999999712,
+          "33": 68.18999999999798,
+          "34": 70.31999999999907
+        },
+        "basedOn": "Father Abraham (Christian song)"
+      },
+      "1": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "IV-iii ii-I IV-iii ii-I IV-iii ii-I IV-iii ii-I",
+        "clickResolutionMs": 0.01,
+        "modulations": {
+          "5": 5,
+          "7": 0
+        },
+        "tags": [
+          "middle_voice:absent",
+          "form:AABA",
+          "bass:inversions"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": {
+          "1": "A",
+          "3": "A",
+          "5": "B",
+          "7": "A"
+        },
+        "secondMeasure": 2.399999999999993,
+        "loop": 9,
+        "firstMeasure": 0.25000000000000006,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "9": 17.33999999999991
+        },
+        "tonic": 0,
+        "basedOn": null
+      },
+      "2": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "I IV I I64-V I IV I I _ _ _ V _ _ _ I",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "form:period",
+          "bass:inversions",
+          "middle_voice:absent"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": {
+          "1": "A:antecedent",
+          "5": "A:consequent",
+          "9": "B:antecedent",
+          "13": "B:consequent"
+        },
+        "secondMeasure": 1.300000000000001,
+        "loop": null,
+        "firstMeasure": 0.25000000000000006,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      },
+      "3": {
+        "beatsPerMeasure": 11,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.7500000000000013,
+        "loop": 2,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 11,
+        "basedOn": null
+      },
+      "4": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.0500000000000007,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 3,
+        "basedOn": null
+      },
+      "5": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "form:AABA",
+          "bass:inversions",
+          "style:common_practice",
+          "middle_voice:absent"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": {
+          "1": "A",
+          "5": "A'",
+          "9": "B",
+          "13": "A'"
+        },
+        "secondMeasure": 1.300000000000001,
+        "loop": 17,
+        "firstMeasure": 0.25000000000000006,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 10,
+        "basedOn": null
+      },
+      "6": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 0.8000000000000005,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 5,
+        "basedOn": null
+      },
+      "7": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 0.8000000000000005,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      },
+      "8": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.0500000000000007,
+        "loop": null,
+        "firstMeasure": 0.25000000000000006,
+        "step": "second measure",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      },
+      "9": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "scale:demo"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "first measure",
         "comment": "",
         "correctedMeasures": [],
         "tonic": 0,

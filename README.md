@@ -25,4 +25,4 @@ Two things are interesting:
 - these languages most likely don't blend within a single track, but may well go together in different levels of the same game
 - other world language are absent: hemitonic pentatonics, gamelan, maqamat. all tunings are 12-edo
 
-Another hypothesis is that Chinese developers largely used Chinese traditional pentatonic-based tonic-ambiguos language with guzheng imitations, disregarding the game content. (Or did they describe it in their own language, which I as a Westerner don't understand?)
+Another hypothesis is that [Chinese](https://vpavlenko.github.io/chiptheory/search/style/chinese) developers largely used Chinese traditional pentatonic-based tonic-ambiguos language with guzheng imitations, disregarding the game content. (Or did they describe it in their own language, which I as a Westerner don't understand?)

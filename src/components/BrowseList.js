@@ -82,7 +82,7 @@ function BrowseList({ items, ...props }) {
           alignContent: "flex-start",
         }}
       >
-        {items.map((item) => {
+        {items.slice(1).map((item) => {
           // XXX: Escape immediately: the escaped URL is considered canonical.
           //      The URL must be decoded for display from here on out.
           const path =

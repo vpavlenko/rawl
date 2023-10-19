@@ -11,13 +11,14 @@ import { Link } from "react-router-dom";
 
 const PlayContext = React.createContext(null);
 
-const P: React.FC<{ span: [number, number]; mask: string }> = ({
-  span,
-  mask,
-}) => {
+const P: React.FC<{
+  span: [number, number];
+  mask: string;
+  children?: React.ReactNode;
+}> = ({ span, mask, children }) => {
   const playSegment = React.useContext(PlayContext);
 
-  return <button onClick={() => playSegment(span, mask)}>Play</button>;
+  return <button onClick={() => playSegment(span, mask)}>{children}</button>;
 };
 
 const BOOK = {
@@ -29,10 +30,14 @@ const BOOK = {
         <>
           <div>A unison texture, no chords</div>
           <div>
-            The upper voice: <P span={[1, 8]} mask="110" />
+            <P span={[1, 8]} mask="11000">
+              Upper voice
+            </P>
           </div>
           <div>
-            The lower voice: <P span={[1, 8]} mask="001" />
+            <P span={[1, 8]} mask="00100">
+              Lower voice
+            </P>
           </div>
         </>
       ),

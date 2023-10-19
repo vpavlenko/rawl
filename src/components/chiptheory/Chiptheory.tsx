@@ -271,6 +271,7 @@ const Chiptheory = ({
   savedAnalysis,
   saveAnalysis,
   voiceMask,
+  handleSetVoiceMask,
   analysisEnabled,
   seek,
   registerSeekCallback,
@@ -531,6 +532,11 @@ const Chiptheory = ({
           <BookChapter
             path={bookPath}
             playSegment={(span, mask) => {
+              const newVoiceMask = [...voiceMask];
+              for (let i = 0; i < mask.length; ++i) {
+                newVoiceMask[i] = mask[i] === "1";
+              }
+              handleSetVoiceMask(newVoiceMask);
               seek(measuresAndBeats.measures[span[0] - 1] * 1000);
             }}
           />

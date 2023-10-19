@@ -42,7 +42,10 @@ export const calculateMeasuresAndBeats = (
           ? previousMeasure + measureLength
           : snapToSomeNoteOnset(previousMeasure + measureLength, notes);
       }
-      if (previousMeasure === newMeasure) break;
+      if (previousMeasure === newMeasure) {
+        measures.push(previousMeasure + measureLength);
+        break;
+      }
       measures.push(newMeasure);
       measureLength = newMeasure - previousMeasure;
       previousMeasure = newMeasure;

@@ -10,7 +10,7 @@ import {
   advanceAnalysis,
   getNewAnalysis,
 } from "./Analysis";
-import { BookChapter } from "./Book";
+import { BookExample } from "./Book";
 import { calculateMeasuresAndBeats } from "./measures";
 import {
   NES_APU_NOTE_ESTIMATIONS,
@@ -529,7 +529,7 @@ const Chiptheory = ({
       </div>
       {analysisEnabled &&
         (bookPath ? (
-          <BookChapter
+          <BookExample
             path={bookPath}
             playSegment={(span, mask) => {
               const newVoiceMask = [...voiceMask];

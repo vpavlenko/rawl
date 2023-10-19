@@ -16622,14 +16622,16 @@
     "Exodus - Journey to the Promised Land (1991)(Wisdom Tree).nsf": {
       "0": {
         "beatsPerMeasure": 4,
-        "disableSnapToNotes": true,
-        "romanNumerals": "",
+        "disableSnapToNotes": false,
+        "romanNumerals": "I I I V7 V7 V7 V7 I I I I I V7 V7 V7 V7 I I I I I V7 V7 V7 V7 I I I I I V7 V7 V7 V7 I I I I I V7 V7 V7 V7 I I",
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
           "harmony:parallel",
           "middle_voice:absent",
-          "form:extra_measure"
+          "form:extra_measure",
+          "harmony:pure_I-V",
+          "location:level"
         ],
         "fourMeasurePhrasingReferences": [
           5,
@@ -16652,26 +16654,20 @@
           "37": "third",
           "45": "extra measure"
         },
-        "secondMeasure": 2.099999999999999,
+        "secondMeasure": 2.6499999999999875,
         "loop": 46,
-        "firstMeasure": 0,
+        "firstMeasure": 0.5000000000000002,
         "step": "end",
-        "comment": "melody has a range of six notes. probably wrong beat start: one beat off",
+        "comment": "melody has a range of six notes",
         "tonic": 0,
         "correctedMeasures": {
-          "6": 10.639999999999818,
-          "7": 12.739999999999773,
-          "8": 14.889999999999727,
-          "10": 19.160000000000196,
-          "15": 29.830000000001863,
-          "16": 31.950000000002195,
-          "24": 49.00999999999882,
-          "25": 51.1299999999984,
-          "28": 57.52999999999712,
-          "33": 68.18999999999798,
-          "34": 70.31999999999907
+          "4": 6.928571428571429,
+          "13": 26.12857142857143,
+          "22": 45.3,
+          "31": 64.47142857142858,
+          "40": 83.67142857142858
         },
-        "basedOn": "Father Abraham (Christian song)"
+        "basedOn": "Father Abraham Had Many Sons (Christian song)"
       },
       "1": {
         "beatsPerMeasure": 4,
@@ -16685,7 +16681,8 @@
         "tags": [
           "middle_voice:absent",
           "form:AABA",
-          "bass:inversions"
+          "bass:inversions",
+          "location:pause"
         ],
         "fourMeasurePhrasingReferences": [],
         "form": {
@@ -16727,7 +16724,7 @@
         "loop": null,
         "firstMeasure": 0.25000000000000006,
         "step": "end",
-        "comment": "",
+        "comment": "Moses Invulnerable",
         "correctedMeasures": [],
         "tonic": 0,
         "basedOn": null
@@ -16738,14 +16735,16 @@
         "romanNumerals": "",
         "clickResolutionMs": 0.01,
         "modulations": [],
-        "tags": [],
+        "tags": [
+          "location:jingle"
+        ],
         "fourMeasurePhrasingReferences": [],
         "form": [],
         "secondMeasure": 1.7500000000000013,
         "loop": 2,
         "firstMeasure": 0,
         "step": "end",
-        "comment": "",
+        "comment": "Moses Stops",
         "correctedMeasures": [],
         "tonic": 11,
         "basedOn": null
@@ -16763,7 +16762,7 @@
         "loop": null,
         "firstMeasure": 0,
         "step": "end",
-        "comment": "",
+        "comment": "Game Clear",
         "correctedMeasures": [],
         "tonic": 3,
         "basedOn": null
@@ -16778,7 +16777,9 @@
           "form:AABA",
           "bass:inversions",
           "style:common_practice",
-          "middle_voice:absent"
+          "middle_voice:absent",
+          "location:intro",
+          "harmony:pure_I-V"
         ],
         "fourMeasurePhrasingReferences": [],
         "form": {
@@ -16791,7 +16792,7 @@
         "loop": 17,
         "firstMeasure": 0.25000000000000006,
         "step": "end",
-        "comment": "",
+        "comment": "Help Screen",
         "correctedMeasures": [],
         "tonic": 10,
         "basedOn": null
@@ -16802,7 +16803,9 @@
         "romanNumerals": "",
         "clickResolutionMs": 0.01,
         "modulations": [],
-        "tags": [],
+        "tags": [
+          "location:level_start"
+        ],
         "fourMeasurePhrasingReferences": [],
         "form": [],
         "secondMeasure": 0.8000000000000005,
@@ -16817,17 +16820,19 @@
       "7": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
-        "romanNumerals": "",
+        "romanNumerals": "_ I _ I",
         "clickResolutionMs": 0.01,
         "modulations": [],
-        "tags": [],
+        "tags": [
+          "location:lost"
+        ],
         "fourMeasurePhrasingReferences": [],
         "form": [],
         "secondMeasure": 0.8000000000000005,
         "loop": null,
         "firstMeasure": 0,
         "step": "end",
-        "comment": "",
+        "comment": "Game Over",
         "correctedMeasures": [],
         "tonic": 0,
         "basedOn": null
@@ -16838,14 +16843,16 @@
         "romanNumerals": "",
         "clickResolutionMs": 0.01,
         "modulations": [],
-        "tags": [],
+        "tags": [
+          "location:lost"
+        ],
         "fourMeasurePhrasingReferences": [],
         "form": [],
         "secondMeasure": 1.0500000000000007,
         "loop": null,
         "firstMeasure": 0.25000000000000006,
         "step": "second measure",
-        "comment": "",
+        "comment": "Start Over",
         "correctedMeasures": [],
         "tonic": 0,
         "basedOn": null
@@ -16857,7 +16864,8 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "scale:demo"
+          "scale:demo",
+          "location:level_completed"
         ],
         "fourMeasurePhrasingReferences": [],
         "form": [],
@@ -16868,6 +16876,576 @@
         "comment": "",
         "correctedMeasures": [],
         "tonic": 0,
+        "basedOn": null
+      }
+    }
+  },
+  "Nintendo/Crayon Shin-chan - Ora to Poi Poi": {
+    "Crayon Shin-chan - Ora to Poi Poi (1993-08-27)(Tose)(Bandai).nsf": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "I-V7/ii ii-ii-V-V+ I ii V ii/ii-V/ii-ii-V I ii V I IV-iv iii-V7/V ii-V I IV-iv iii-V/ii ii V-V+",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "voice_leading:descending_chromatic_bass",
+          "bass:root_fifth",
+          "melody:fills_at_rests",
+          "timbre:oscillator_as_percussion",
+          "form:period",
+          "rhythm:latin",
+          "form:reversed_period",
+          "voice_leading:Vsus4",
+          "voice_leading:triple_suspension",
+          "scale:blues",
+          "middle_voice:lower_chord_tones",
+          "middle_voice:absent"
+        ],
+        "fourMeasurePhrasingReferences": [
+          3
+        ],
+        "secondMeasure": 1.7900000000000014,
+        "form": {
+          "1": "intro (not looped)",
+          "3": "A:antecedent",
+          "7": "A:consequent",
+          "11": "B:consequent",
+          "15": "B:antecedent"
+        },
+        "loop": 19,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "8": 12.579999999999776,
+          "19": 32.357142857142854
+        },
+        "tonic": 10,
+        "basedOn": null
+      },
+      "1": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "I I V V",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "harmony:tonic_added-sixth_chord"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 2.489999999999991,
+        "loop": 5,
+        "firstMeasure": 0.09,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "2": 2.489999999999991
+        },
+        "tonic": 0,
+        "basedOn": null
+      },
+      "2": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "I7 I7 I7 I7 V-IV V-IV I ",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "style:boogie-woogie",
+          "timbre:oscillator_as_percussion",
+          "melody:fills_at_rests"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.6900000000000013,
+        "loop": 7,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 10,
+        "basedOn": null
+      },
+      "3": {
+        "beatsPerMeasure": 6,
+        "disableSnapToNotes": false,
+        "romanNumerals": "I^ vi I vi IV V",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "middle_voice:parallel_thirds",
+          "bass:alberti",
+          "harmony:diatonic_seventh_chords"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 2.9899999999999802,
+        "loop": 7,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "kind of Alberti, idk",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      },
+      "4": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "_ _ vi _ _ _-V/ii ii",
+        "clickResolutionMs": 0.01,
+        "modulations": {
+          "17": 1,
+          "23": 5
+        },
+        "tags": [
+          "timbre:oscillator_as_percussion"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "secondMeasure": 1.2400000000000009,
+        "form": {
+          "1": "A",
+          "9": "A",
+          "17": "B"
+        },
+        "loop": 25,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "20": 23.985714285714284,
+          "25": 30.370000000001948
+        },
+        "tonic": 5,
+        "basedOn": null
+      },
+      "7": {
+        "beatsPerMeasure": 6,
+        "disableSnapToNotes": false,
+        "romanNumerals": "I VII I I IV IV V V",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "middle_voice:melody"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 0.8900000000000006,
+        "loop": 9,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "melody: 1m arpeggio vs. 1m step-wise",
+        "correctedMeasures": [],
+        "tonic": 2,
+        "basedOn": null
+      },
+      "8": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 2.1399999999999983,
+        "loop": 3,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 1,
+        "basedOn": null
+      },
+      "9": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "I II",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "harmony:lydian_shuttle",
+          "middle_voice:melody_echo",
+          "bass:root",
+          "timbre:oscillator_as_percussion",
+          "rhythm:3+3+2",
+          "melody:arpeggio"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.9900000000000015,
+        "loop": 3,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 8,
+        "basedOn": null
+      },
+      "10": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "I vi IV V I vi IV V iii vi IV V iii vi IV V",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "middle_voice:parallel_thirds",
+          "rhythm:3 against 2",
+          "bass:transposed_riff",
+          "melody:reharmonization"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": {
+          "1": "A",
+          "5": "A",
+          "9": "A'",
+          "13": "A''"
+        },
+        "secondMeasure": 1.5900000000000012,
+        "loop": 17,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      },
+      "11": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "I V I5 I5 ii7 V",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "harmony:tonic_added-sixth_chord",
+          "form:sentence",
+          "bass:different_strategies",
+          "timbre:oscillator_as_percussion",
+          "upper_voices:different_strategies"
+        ],
+        "fourMeasurePhrasingReferences": [
+          3
+        ],
+        "secondMeasure": 1.7900000000000014,
+        "form": {
+          "1": "intro (not looped)",
+          "3": "basic idea",
+          "4": "repeated",
+          "5": "fragmentation 2b+2b+1b+1b"
+        },
+        "loop": 7,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "3": 3.585714285714286
+        },
+        "tonic": 7,
+        "basedOn": null
+      },
+      "12": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "bass:octaves",
+          "timbre:oscillator_as_percussion",
+          "bass:root_fifth"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 0.8400000000000005,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      }
+    }
+  },
+  "Nintendo/Poker Mahjong": {
+    "Poker Mahjong (1991)(Sachen).nsf": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "I IV V I I IV5 V5 I5",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.340000000000001,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      }
+    }
+  },
+  "Nintendo/Road Runner": {
+    "Road Runner (1989)(Atari Games)(Tengen).nsf": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.7900000000000014,
+        "loop": null,
+        "firstMeasure": 0.19000000000000003,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 5,
+        "basedOn": "Rossini, \"William Tell Overture\""
+      },
+      "1": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": {
+          "9": 10
+        },
+        "tags": [
+          "scale:chromatic"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.5900000000000012,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 7,
+        "basedOn": "Aram Khachaturian \"Sabre Dance\""
+      },
+      "2": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 0.7900000000000005,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 7,
+        "basedOn": "Tchaikovsky \"The Nutcracker - Trepak\""
+      },
+      "4": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "tonic",
+        "comment": "bug: high notes not visible",
+        "correctedMeasures": [],
+        "tonic": null,
+        "basedOn": "Rimsky-Korsakov \"Flight of the Bumblebee\""
+      },
+      "5": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "timbre:portamento",
+          "scale:chromatic",
+          "location:lost"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "first measure",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 6,
+        "basedOn": null
+      },
+      "6": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "scale:nikriz",
+          "location:jingle"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "first measure",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 7,
+        "basedOn": null
+      },
+      "7": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "VI VII I",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "location:jingle"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 0.2800000000000001,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 4,
+        "basedOn": null
+      }
+    }
+  },
+  "Nintendo/Metal Fighter": {
+    "Metal Fighter (1989)(Sachen, Joy Van).nsf": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "i i iv iv v v i i",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "scale:natural_minor",
+          "form:abrupt_ending",
+          "bass:transposed_riff",
+          "middle_voice:parallel_thirds"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.340000000000001,
+        "loop": 7,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      },
+      "1": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "I7 I7 I7 I7 IV7 IV7 IV7 IV7 V7 V7 V7 V7",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "harmony:blues_seventh_chords",
+          "middle_voice:parallel_thirds",
+          "bass:transposed_riff",
+          "style:boogie-woogie"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.5900000000000012,
+        "loop": 13,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      },
+      "2": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "i",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "middle_voice:melody_echo",
+          "melody:transposed_riff",
+          "form:abrupt_ending"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.5900000000000012,
+        "loop": 7,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      }
+    }
+  },
+  "Nintendo/Caltron 6-in-1 - Bookyman": {
+    "Caltron 6-in-1 - Bookyman (1992)(MegaSoft)(Caltron).nsf": {
+      "3": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "location:jingle"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "first measure",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 5,
+        "basedOn": null
+      },
+      "4": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "scale:chromatic",
+          "location:jingle"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "first measure",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 2,
         "basedOn": null
       }
     }

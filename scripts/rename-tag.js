@@ -1,6 +1,8 @@
 const admin = require("firebase-admin");
 const serviceAccount = require("../src/config/firebaseConfig.json"); // replace with your service account JSON file path
 
+throw Error("Not implemented for a splitted corpus yet");
+
 // Initialize the Firebase Admin SDK
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),

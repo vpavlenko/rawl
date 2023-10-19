@@ -539,6 +539,7 @@ const Chiptheory = ({
               handleSetVoiceMask(newVoiceMask);
               seek(measuresAndBeats.measures[span[0] - 1] * 1000);
             }}
+            tags={analysis.tags}
           />
         ) : (
           <AnalysisBox

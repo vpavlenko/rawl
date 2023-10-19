@@ -28,7 +28,10 @@ const BOOK = {
       subtune: "7",
       text: () => (
         <>
-          <div>A unison texture, no chords</div>
+          <div>
+            A unison texture, a single melodic line doubled in an octaves, with
+            no accompaniment. A rare beast in NES.
+          </div>
           <div>
             <P span={[1, 8]} mask="11000">
               Upper voice
@@ -86,7 +89,8 @@ export const BookTOC: React.FC = () => {
 export const BookChapter: React.FC<{
   path: string;
   playSegment: (span: [number, number], mask: string) => void;
-}> = ({ path, playSegment }) => {
+  tags: string[];
+}> = ({ path, playSegment, tags }) => {
   const { text } = parseBookPath(path);
   return (
     <div className="App-main-content-area settings" key="BookChapter">
@@ -102,6 +106,22 @@ export const BookChapter: React.FC<{
       <PlayContext.Provider value={playSegment}>
         <div>{text(playSegment)}</div>{" "}
       </PlayContext.Provider>
+      <div>
+        Tags:
+        {tags.map((tag) => (
+          <div>
+            <a
+              href={`https://vpavlenko.github.io/chiptheory/search/${tag.replace(
+                ":",
+                "/",
+              )}`}
+              target="_blank"
+            >
+              {tag}
+            </a>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

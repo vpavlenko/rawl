@@ -10,6 +10,7 @@ import {
   advanceAnalysis,
   getNewAnalysis,
 } from "./Analysis";
+import { BookChapter } from "./Book";
 import { calculateMeasuresAndBeats } from "./measures";
 import {
   NES_APU_NOTE_ESTIMATIONS,
@@ -273,6 +274,7 @@ const Chiptheory = ({
   analysisEnabled,
   seek,
   registerSeekCallback,
+  bookPath,
 }) => {
   const [analysis, setAnalysis] = useState<Analysis>(ANALYSIS_STUB);
 
@@ -524,15 +526,18 @@ const Chiptheory = ({
           />
         </div>
       </div>
-      {analysisEnabled && (
-        <AnalysisBox
-          analysis={analysis}
-          saveAnalysis={saveAnalysis}
-          setAnalysis={setAnalysis}
-          selectedDownbeat={selectedDownbeat}
-          selectDownbeat={setSelectedDownbeat}
-        />
-      )}
+      {analysisEnabled &&
+        (bookPath ? (
+          <BookChapter path={bookPath} />
+        ) : (
+          <AnalysisBox
+            analysis={analysis}
+            saveAnalysis={saveAnalysis}
+            setAnalysis={setAnalysis}
+            selectedDownbeat={selectedDownbeat}
+            selectDownbeat={setSelectedDownbeat}
+          />
+        ))}
     </div>
   );
 };

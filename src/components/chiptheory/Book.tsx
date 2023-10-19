@@ -25,15 +25,21 @@ const BOOK = {
       text: "How these two chords are built?",
     },
   ],
+  chinese_traditional_music: [
+    {
+      path: "Nintendo/3-in-1 - Lion King 5",
+      subtune: "3",
+      text: "Guzheng solo",
+    },
+  ],
+  mixolydian_shuttle: [
+    { path: "Nintendo/Battle Rush - Build Up Robot Tournament", subtune: "1" },
+  ],
 };
 
 export const parseBookPath = (bookPath) => {
   return BOOK[bookPath.split("/")[0]][Number(bookPath.split("/")[1]) - 1];
 };
-
-// Book component should live on the right side, replacing the AnalysisBox.
-// Navigation always displays exactly the book link.
-//
 
 export const BookTOC: React.FC = () => {
   return (
@@ -47,6 +53,22 @@ export const BookTOC: React.FC = () => {
         ))}
       </ul>
       Games:
+    </div>
+  );
+};
+
+export const BookChapter: React.FC<{ path: string }> = ({ path }) => {
+  return (
+    <div className="App-main-content-area settings" key="BookChapter">
+      <div>
+        <div style={{ display: "flex", flexDirection: "row" }}>
+          <div style={{ marginBottom: "10px" }}>
+            <button className="box-button">&lt;</button>{" "}
+            <button className="box-button">&gt;</button>
+          </div>
+        </div>
+      </div>
+      <div>I'm a chapter {path}</div>
     </div>
   );
 };

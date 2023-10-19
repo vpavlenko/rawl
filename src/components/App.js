@@ -994,6 +994,7 @@ class App extends React.Component {
                                   registerSeekCallback={(seekCallback) =>
                                     this.setState({ seekCallback })
                                   }
+                                  bookPath={bookPath}
                                 />
                               </>
                             )

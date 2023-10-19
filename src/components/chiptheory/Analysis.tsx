@@ -57,6 +57,7 @@ const TAGS = [
   "harmony:I-vi shuttle",
   "harmony:i-VI shuttle",
   "harmony:i-VII shuttle",
+  "harmony:I-III shuttle",
   "harmony:diminished_chord_modulation",
   "harmony:weird",
   "harmony:pure_I-V",
@@ -119,10 +120,12 @@ const TAGS = [
   "voice_leading:triple_suspension",
   "voice_leading:W-arpeggio",
   "voice_leading:rich_ornamentation",
+  "voice_leading:three_parallel_voices",
   "non-chord tones:neighbor",
   "chord:N6",
   "chord:Aug6",
   "motive:4 repetitions",
+  "motive:3 repetitions",
   "form:ABA",
   "form:AABA",
   "form:ABABC",
@@ -754,12 +757,8 @@ export const AnalysisBox: React.FC<{
     );
 
     return (
-      <div
-        className="App-main-content-area settings"
-        key="AnalysisBox"
-        // style={{ marginTop: "20px" }}
-      >
-        <div>
+      <div className="App-main-content-area settings" key="AnalysisBox">
+        <div key="nav-buttons">
           <div style={{ display: "flex", flexDirection: "row" }}>
             <div style={{ marginBottom: "10px" }}>
               <button
@@ -785,7 +784,7 @@ export const AnalysisBox: React.FC<{
             </div>
           )}
         </div>
-        <div style={{ marginTop: "20px" }}>
+        <div key="menu" style={{ marginTop: "20px" }}>
           {selectedDownbeat !== null ? (
             <div>
               <div>What to do with measure {selectedDownbeat}?</div>

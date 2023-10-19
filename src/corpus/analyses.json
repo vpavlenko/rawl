@@ -728,7 +728,7 @@
           "timbre:layered",
           "middle_voice:melody_echo",
           "middle_voice:parallel_octaves",
-          "bass:melody"
+          "harmony:unison"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 2.53999999999999,
@@ -860,7 +860,8 @@
         "tags": [
           "form:period",
           "bass:melody",
-          "upper_voices:arpeggio"
+          "melody:riff",
+          "middle_voice:mixed_parallel"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.5700000000000012,
@@ -963,7 +964,8 @@
         "modulations": [],
         "tags": [
           "bass:melody",
-          "upper_voices:arpeggio"
+          "upper_voices:arpeggio",
+          "timbre:unexpected_detune"
         ],
         "fourMeasurePhrasingReferences": [],
         "form": [],
@@ -2080,7 +2082,8 @@
         },
         "tags": [
           "scale:nikriz",
-          "form:period"
+          "form:period",
+          "melody:basic_idea_x3"
         ],
         "fourMeasurePhrasingReferences": [],
         "form": {
@@ -3532,6 +3535,58 @@
           "17": 26.35000000000132
         },
         "tonic": 3,
+        "basedOn": null
+      },
+      "2": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 2.0400000000000005,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "12": 23.40000000000086
+        },
+        "tonic": 8,
+        "basedOn": null
+      },
+      "3": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "timbre:silence",
+          "form:accumulative",
+          "harmony:unison",
+          "scale:hexatonic_minor_no6",
+          "timbre:layered",
+          "bass:root_fifth"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.470000000000001,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "9": 12.759999999999772,
+          "10": 14.359999999999738,
+          "13": 19.17142857142857,
+          "14": 20.87142857142857,
+          "15": 22.4,
+          "16": 23.950000000000944
+        },
+        "tonic": 0,
         "basedOn": null
       }
     }
@@ -6903,13 +6958,15 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
-        "romanNumerals": "I vi I vi-IV5 _ I I I I vi vi vi vi V5 V",
+        "romanNumerals": "I vi I vi-IV5 V I I I I vi vi vi vi V5 V",
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
           "middle_voice:absent",
           "form:extra_measure",
-          "bass:riff"
+          "bass:riff",
+          "timbre:ultra_fast_notes",
+          "form:not_looped"
         ],
         "fourMeasurePhrasingReferences": [
           10,
@@ -6922,6 +6979,14 @@
           6
         ],
         "secondMeasure": 1.5900000000000012,
+        "form": {
+          "1": "intro",
+          "6": "A",
+          "10": "B",
+          "17": "A",
+          "21": "A",
+          "25": "fragmentation"
+        },
         "loop": null,
         "firstMeasure": 0,
         "step": "end",
@@ -6933,15 +6998,21 @@
       "1": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
-        "romanNumerals": "I _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ I _ _ _ vi",
+        "romanNumerals": "I _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ I _ _ _ vi _ _ _ _ _ _ _ _ _ I III",
         "clickResolutionMs": 0.01,
         "tags": [
-          "reference:previous_subtune"
+          "reference:previous_subtune",
+          "timbre:unexpected_detune",
+          "bass:riff",
+          "rhythm:3+3+3+3+2+2",
+          "middle_voice:absent",
+          "form:extra_measure"
         ],
         "modulations": {
           "5": 0,
           "7": 9,
-          "29": 0
+          "29": 0,
+          "40": 9
         },
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.5900000000000012,
@@ -6950,7 +7021,12 @@
         "step": "end",
         "comment": "",
         "correctedMeasures": {
-          "24": 36.91428571428571
+          "24": 36.91428571428571,
+          "41": 64.13999999999591,
+          "42": 65.73999999999673,
+          "54": 85.02857142857142,
+          "63": 99.45,
+          "64": 101.05000000001479
         },
         "tonic": 9,
         "basedOn": null
@@ -6963,11 +7039,14 @@
         "modulations": [],
         "tags": [
           "rhythm:syncopation",
-          "reference:previous_subtune"
+          "reference:previous_subtune",
+          "form:extra_measure",
+          "scale:chromatic",
+          "harmony:parallel_keys"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.5900000000000012,
-        "loop": null,
+        "loop": 35,
         "firstMeasure": 0,
         "step": "end",
         "comment": "",
@@ -7539,7 +7618,8 @@
           "harmony:stasis",
           "voice_leading:descending_chromatic_melody",
           "middle_voice:melody_echo",
-          "bass:riff"
+          "bass:riff",
+          "harmony:unison"
         ],
         "fourMeasurePhrasingReferences": [
           2
@@ -8886,12 +8966,22 @@
         "correctedMeasures": {
           "9": 15.809999999999707,
           "14": 25.40000000000117
-        }
+        },
+        "tags": [
+          "harmony:unison",
+          "timbre:layered",
+          "bass:root",
+          "harmony:parallel_keys"
+        ]
       },
       "1": {
         "beatsPerMeasure": 4,
         "romanNumerals": "",
         "clickResolutionMs": 0.01,
+        "tags": [
+          "harmony:unison",
+          "scale:lydian"
+        ],
         "mode": null,
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 3.8199999999999625,
@@ -8905,10 +8995,32 @@
         "tonic": 1,
         "basedOn": null
       },
+      "2": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 2.020000000000001,
+        "loop": null,
+        "firstMeasure": 0.11999999999999998,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 1,
+        "basedOn": null
+      },
       "3": {
         "beatsPerMeasure": 4,
         "romanNumerals": "I ii V I I ii V I",
         "clickResolutionMs": 0.01,
+        "tags": [
+          "reference:previous_subtune",
+          "harmony:unison"
+        ],
         "mode": null,
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.420000000000001,
@@ -8931,9 +9043,23 @@
           "17": 5,
           "21": 7
         },
+        "tags": [
+          "harmony:stasis",
+          "bass:riff",
+          "scale:hemitonic_pentatonic",
+          "middle_voice:mixed_parallel"
+        ],
         "mode": null,
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.370000000000001,
+        "form": {
+          "1": "A",
+          "5": "B",
+          "9": "A'",
+          "13": "C",
+          "17": "D",
+          "21": "D'"
+        },
         "loop": 25,
         "firstMeasure": 0,
         "step": "end",
@@ -8948,8 +9074,13 @@
       },
       "5": {
         "beatsPerMeasure": 12,
-        "romanNumerals": "I V V I I ii ii-V-I-I ii-V-I-I",
+        "romanNumerals": "I V7 V7 I I6 ii65 ii-V-I-I ii64-V6-I5-I5",
         "clickResolutionMs": 0.01,
+        "tags": [
+          "melody:fills_at_rests",
+          "style:common_practice",
+          "middle_voice:lower_chord_tones"
+        ],
         "mode": null,
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 4.769999999999943,
@@ -12466,7 +12597,10 @@
           "31": 47.93999999999903,
           "32": 49.53999999999871
         },
-        "tonic": 5
+        "tonic": 5,
+        "tags": [
+          "bass:riff"
+        ]
       },
       "1": {
         "mode": "major",
@@ -12611,13 +12745,27 @@
         "modulations": [],
         "tags": [
           "rhythm:3+3+2",
-          "form:basso_ostinato",
           "middle_voice:absent",
-          "bass:melody",
-          "form:ABABC"
+          "melody:arpeggio",
+          "form:progression",
+          "form:not_looped",
+          "location:game_won",
+          "harmony:unison",
+          "bass:root_third_fifth"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.0400000000000007,
+        "form": {
+          "1": "A",
+          "5": "A",
+          "9": "B",
+          "13": "B",
+          "17": "A",
+          "21": "A",
+          "25": "B",
+          "29": "B",
+          "33": "cadence"
+        },
         "loop": null,
         "firstMeasure": 0,
         "step": "end",
@@ -17446,6 +17594,336 @@
         "comment": "",
         "correctedMeasures": [],
         "tonic": 2,
+        "basedOn": null
+      }
+    }
+  },
+  "Nintendo/Don Doko Don": {
+    "Don Doko Don (1990-03-09)(Taito).nsf": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "i VI IV5 V IV5 I vi IV VI-V I",
+        "clickResolutionMs": 0.01,
+        "modulations": {
+          "9": 9
+        },
+        "tags": [
+          "bass:root_fifth",
+          "harmony:parallel_keys",
+          "middle_voice:parallel_thirds"
+        ],
+        "fourMeasurePhrasingReferences": [
+          6
+        ],
+        "form": [],
+        "secondMeasure": 1.5900000000000012,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      },
+      "2": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "_ _ _ _ _ _ _ V/ii IV _ _ _ _ _ _ _ IV iii ii I",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "tempo:uneven",
+          "rhythm:3 against 2",
+          "timbre:silence"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.5900000000000012,
+        "loop": 38,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "22": 33.5100000000019,
+          "23": 35.110000000001584,
+          "37": 57.48571428571429,
+          "38": 58.31428571428572,
+          "39": 59.889999999996654
+        },
+        "tonic": 0,
+        "basedOn": null
+      }
+    }
+  },
+  "Nintendo/Battle Rush - Build Up Robot Tournament": {
+    "Battle Rush - Build Up Robot Tournament (1993-11-13)(Tose)(Bandai).nsf": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "I VII I VII I VII I VII",
+        "clickResolutionMs": 0.01,
+        "modulations": {
+          "9": 0
+        },
+        "tags": [
+          "harmony:mixolydian_shuttle",
+          "bass:transposed_riff",
+          "motive:3 repetitions",
+          "middle_voice:melody",
+          "middle_voice:mixed_parallel",
+          "harmony:stasis"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": {
+          "1": "A",
+          "5": "A",
+          "9": "B",
+          "13": "B"
+        },
+        "secondMeasure": 1.7900000000000014,
+        "loop": 17,
+        "firstMeasure": 0.5900000000000003,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 2,
+        "basedOn": null
+      },
+      "1": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": true,
+        "romanNumerals": "I VII I VII I VII I VII VI VI VII VII I",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "rhythm:syncopation",
+          "bass:transposed_riff",
+          "harmony:stasis",
+          "bass:riff",
+          "melody:fills_at_rests",
+          "middle_voice:mixed_parallel",
+          "middle_voice:melody",
+          "bass:pedal_point",
+          "harmony:mixolydian_shuttle"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.0900000000000007,
+        "loop": 13,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "2": 1.2571428571428571
+        },
+        "tonic": 5,
+        "basedOn": null
+      },
+      "2": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": true,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "middle_voice:thirds_and_sixths",
+          "bass:octaves",
+          "bass:pedal_point"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 2.289999999999995,
+        "loop": 5,
+        "firstMeasure": 0.24000000000000007,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "2": 2.0714285714285716
+        },
+        "tonic": 5,
+        "basedOn": null
+      },
+      "3": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": true,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "tags": [
+          "harmony:I-III shuttle",
+          "voice_leading:three_parallel_voices"
+        ],
+        "modulations": {
+          "3": 8
+        },
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.8900000000000015,
+        "loop": 5,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "2": 1.7
+        },
+        "tonic": 5,
+        "basedOn": null
+      },
+      "4": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 2.0400000000000005,
+        "loop": 5,
+        "firstMeasure": 0.24000000000000007,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "2": 2.0400000000000005,
+          "3": 3.989999999999959
+        },
+        "tonic": 0,
+        "basedOn": null
+      },
+      "5": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": true,
+        "romanNumerals": "V",
+        "clickResolutionMs": 0.01,
+        "modulations": {
+          "10": 0
+        },
+        "tags": [
+          "form:extra_measure",
+          "scale:whole-tone",
+          "tonic:ambiguous"
+        ],
+        "fourMeasurePhrasingReferences": [
+          2
+        ],
+        "secondMeasure": 1.2400000000000009,
+        "form": {
+          "18": "extra measure"
+        },
+        "loop": 19,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "m.10 tonic ambiguous?",
+        "correctedMeasures": {
+          "2": 1.2400000000000009,
+          "3": 2.5,
+          "18": 21.442857142857143
+        },
+        "tonic": 7,
+        "basedOn": null
+      },
+      "6": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "harmony:I-III shuttle"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.7900000000000014,
+        "loop": 5,
+        "firstMeasure": 0.09,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 5,
+        "basedOn": null
+      },
+      "7": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "first measure",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      },
+      "8": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "first measure",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 5,
+        "basedOn": null
+      },
+      "10": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "I^ II I^ II _ _ _ _ _ _ _ _ _ _ _ _ IV IV V V",
+        "clickResolutionMs": 0.01,
+        "modulations": {
+          "41": 10
+        },
+        "tags": [
+          "voice_leading:descending_chromatic_bass",
+          "harmony:lydian_shuttle"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.8400000000000014,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "21": 36.74285714285714,
+          "22": 38.57142857142857,
+          "23": 40.44285714285714,
+          "24": 42.214285714285715,
+          "25": 44.00999999999981,
+          "26": 45.84999999999945
+        },
+        "tonic": 1,
+        "basedOn": null
+      },
+      "11": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "first measure",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 5,
         "basedOn": null
       }
     }

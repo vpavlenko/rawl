@@ -235,6 +235,7 @@ const FORM_SECTIONS = [
   "D'",
   "E",
   "E'",
+  "intro",
   "intro (looped)",
   "intro (not looped)",
   "bridge",

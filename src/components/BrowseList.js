@@ -5,6 +5,7 @@ import { memo, useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { CATALOG_PREFIX } from "../config";
 import DirectoryLink from "./DirectoryLink";
+import { parseBookPath } from "./chiptheory/Book";
 import Card from "./chiptheory/Card";
 import { matches } from "./chiptheory/Search";
 
@@ -18,12 +19,14 @@ function BrowseList({ items, ...props }) {
     playContext,
     analyses,
     searchPath,
+    bookPath,
     isSearch,
   } = props;
 
   const location = useLocation();
 
-  // Chiptheory's autoplay for NES, because most directories have a single file
+  // Chiptheory's autoplay for NES, because most directories have a single file.
+  // We select the very first file and serve it.
   useEffect(() => {
     const firstSongItem = items.find((item) => item.type !== "directory");
 
@@ -37,12 +40,10 @@ function BrowseList({ items, ...props }) {
               .replace(/^\//, "");
 
       const params = new URLSearchParams(location.search);
-      let subtune = params.get("subtune");
-      if (subtune) {
-        subtune = parseInt(subtune, 10) - 1;
-      } else {
-        subtune = 0;
-      }
+      let subtune =
+        params.get("subtune") ||
+        (bookPath ? parseBookPath(bookPath).subtune : 1);
+      subtune = parseInt(subtune, 10) - 1;
 
       const href = CATALOG_PREFIX + path;
       handleSongClick(
@@ -54,8 +55,7 @@ function BrowseList({ items, ...props }) {
         preventDefault: () => {},
       });
     }
-    // Add the dependencies that would trigger the effect when changed
-  }, [items.length]);
+  }, [items.length, location]);
 
   // Scroll Into View
   // ----------------

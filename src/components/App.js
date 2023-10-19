@@ -22,6 +22,7 @@ import queryString from "querystring";
 import React from "react";
 import Dropzone from "react-dropzone";
 import { NavLink, Redirect, Route, Switch, withRouter } from "react-router-dom";
+import { parseBookPath } from "./chiptheory/Book";
 
 import requestCache from "../RequestCache";
 import Sequencer, {
@@ -917,14 +918,21 @@ class App extends React.Component {
                         render={() => <Search analyses={this.state.analyses} />}
                       />
                       <Route
-                        path={["/browse/:browsePath*", "/search/:searchPath*"]}
+                        path={[
+                          "/browse/:browsePath*",
+                          "/search/:searchPath*",
+                          "/book/:bookPath*",
+                        ]}
                         render={({ history, match, location }) => {
                           // Undo the react-router-dom double-encoded % workaround - see DirectoryLink.js
                           const searchPath = match.params?.searchPath;
+                          const bookPath = match.params?.bookPath;
                           const browsePath = searchPath
                             ? "Nintendo"
                             : match.params?.browsePath?.replace("%25", "%") ||
-                              "";
+                              (bookPath ? parseBookPath(bookPath).path : "");
+                          console.log("BROWSE_PATH", browsePath);
+
                           this.browsePath = browsePath;
                           const path =
                             this.playContexts[browsePath] &&
@@ -951,6 +959,7 @@ class App extends React.Component {
                                   locationKey={location.key}
                                   browsePath={browsePath}
                                   searchPath={searchPath}
+                                  bookPath={bookPath}
                                   listing={this.state.directories[browsePath]}
                                   playContext={this.playContexts[browsePath]}
                                   fetchDirectory={this.fetchDirectory}
@@ -965,7 +974,6 @@ class App extends React.Component {
                                 <Chiptheory
                                   chipStateDump={this.state.chipStateDump}
                                   getCurrentPositionMs={() => {
-                                    // TODO: reevaluate this approach
                                     if (
                                       this.sequencer &&
                                       this.sequencer.getPlayer()

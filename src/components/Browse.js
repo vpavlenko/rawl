@@ -1,6 +1,7 @@
 import autoBindReact from "auto-bind/react";
 import React from "react";
 import BrowseList from "./BrowseList";
+import { BookTOC } from "./chiptheory/Book";
 import Search, { filterListing } from "./chiptheory/Search";
 
 export default class Browse extends React.PureComponent {
@@ -129,6 +130,7 @@ export default class Browse extends React.PureComponent {
             </div>
 
             <div style={{ overflowY: "auto", height: "100%" }}>
+              {!searchPath && <BookTOC />}
               <BrowseList
                 key={browsePath}
                 {...this.props}

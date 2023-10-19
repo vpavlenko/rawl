@@ -9,12 +9,33 @@ import { Link } from "react-router-dom";
 
 // How do we make it open via our link?
 
+const PlayContext = React.createContext(null);
+
+const P: React.FC<{ span: [number, number]; mask: string }> = ({
+  span,
+  mask,
+}) => {
+  const playSegment = React.useContext(PlayContext);
+
+  return <button onClick={() => playSegment(span, mask)}>Play</button>;
+};
+
 const BOOK = {
   textures: [
     {
       path: "Nintendo/Adventures of Lolo 2",
       subtune: "7",
-      text: "A unison texture, no chords",
+      text: () => (
+        <>
+          <div>A unison texture, no chords</div>
+          <div>
+            The upper voice: <P span={[1, 8]} mask="110" />
+          </div>
+          <div>
+            The lower voice: <P span={[1, 8]} mask="001" />
+          </div>
+        </>
+      ),
       segment: [1, 8],
     },
   ],
@@ -57,7 +78,11 @@ export const BookTOC: React.FC = () => {
   );
 };
 
-export const BookChapter: React.FC<{ path: string }> = ({ path }) => {
+export const BookChapter: React.FC<{
+  path: string;
+  playSegment: (span: [number, number], mask: string) => void;
+}> = ({ path, playSegment }) => {
+  const { text } = parseBookPath(path);
   return (
     <div className="App-main-content-area settings" key="BookChapter">
       <div>
@@ -69,6 +94,9 @@ export const BookChapter: React.FC<{ path: string }> = ({ path }) => {
         </div>
       </div>
       <div>I'm a chapter {path}</div>
+      <PlayContext.Provider value={playSegment}>
+        <div>{text(playSegment)}</div>{" "}
+      </PlayContext.Provider>
     </div>
   );
 };

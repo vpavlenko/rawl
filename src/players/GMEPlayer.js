@@ -162,6 +162,7 @@ export default class GMEPlayer extends Player {
         }
       }
     } else {
+      // If we're in the book, this should be disabled.
       this.subtune++;
 
       if (

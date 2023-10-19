@@ -528,7 +528,12 @@ const Chiptheory = ({
       </div>
       {analysisEnabled &&
         (bookPath ? (
-          <BookChapter path={bookPath} />
+          <BookChapter
+            path={bookPath}
+            playSegment={(span, mask) => {
+              seek(measuresAndBeats.measures[span[0] - 1] * 1000);
+            }}
+          />
         ) : (
           <AnalysisBox
             analysis={analysis}

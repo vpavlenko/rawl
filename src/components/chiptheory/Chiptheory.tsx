@@ -473,6 +473,7 @@ const Chiptheory = ({
 
   if (
     !paused &&
+    bookPath &&
     analysis.loop &&
     positionMs > measuresAndBeats.measures[analysis.loop - 1] * 1000
   ) {

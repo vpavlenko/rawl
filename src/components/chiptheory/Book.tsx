@@ -248,9 +248,26 @@ const BOOK = {
           </div>
         </>
       ),
-      segment: [1, 8],
+    },
+    {
+      path: "Nintendo/Battle Fleet",
+      subtune: "4 ",
+      text: () => (
+        <>
+          <div>
+            Here the bass always plays the same 1-measure riff in a pentatonic
+            scale. Above it, the scale is expanded to dorian. Almost everywhere,
+            except for m.28, m.32 and m.33 the middle voice plays exactly the
+            third below the melody. This third is drawn from the scale - two
+            notes below it on the scale - so acoustically it can either be a
+            minor third (narrower) or a minor third (wider).
+          </div>
+        </>
+      ),
     },
   ],
+  common_practice_harmony: [{ path: "Nintendo/Banana Prince", subtune: "1" }],
+  melody: [{ path: "Nintendo/Banana Prince", subtune: "1" }],
   // two_chords: [
   //   {
   //     path: "Nintendo/Arch Rivals - A Basketbrawl!",
@@ -265,9 +282,10 @@ const BOOK = {
   //     text: "Guzheng solo",
   //   },
   // ],
-  // mixolydian_shuttle: [
-  //   { path: "Nintendo/Battle Rush - Build Up Robot Tournament", subtune: "1" },
-  // ],
+  mixolydian_shuttle: [
+    { path: "Nintendo/Banana", subtune: "8" },
+    { path: "Nintendo/Battle Rush - Build Up Robot Tournament", subtune: "1" },
+  ],
 };
 
 export const parseBookPath = (bookPath) => {
@@ -312,7 +330,10 @@ export const BookExample: React.FC<{
   const { text } = parseBookPath(path);
   const [previous, next] = getAdjacentExamples(path);
   return (
-    <div className="App-main-content-area settings" key="BookExample">
+    <div
+      className="App-main-content-area settings book-chapter"
+      key="BookExample"
+    >
       <div>
         <div style={{ display: "flex", flexDirection: "row" }}>
           <div style={{ marginBottom: "10px" }}>
@@ -330,7 +351,7 @@ export const BookExample: React.FC<{
         </div>
       </div>
       <PlayContext.Provider value={playSegment}>
-        <div>{text(playSegment)}</div>{" "}
+        <div>{text && text(playSegment)}</div>{" "}
       </PlayContext.Provider>
       {tags && (
         <div>

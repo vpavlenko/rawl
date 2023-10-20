@@ -34,7 +34,7 @@ const ROMAN_NUMERALS_SEARCH = [
   "VI VII I",
   "I III",
   "VI i4",
-  "bII",
+  "i VI i",
   "i I",
   "IV iv",
   "I VII",
@@ -46,12 +46,14 @@ const ROMAN_NUMERALS_SEARCH = [
   "V7/IV",
   "V/V",
   "V/vi",
-  "i VI i",
   // "i #IV", // TODO: make searchable. sharp can't be used in the URL unencoded
   "viio/V",
   "viio7",
-  "I7",
   "V+",
+  "bII",
+  "bvii",
+  "io7",
+  "I7",
   "I^",
 ];
 

@@ -260,7 +260,8 @@ const BOOK = {
             except for m.28, m.32 and m.33 the middle voice plays exactly the
             third below the melody. This third is drawn from the scale - two
             notes below it on the scale - so acoustically it can either be a
-            minor third (narrower) or a minor third (wider).
+            minor third (narrower) or a minor third (wider). You can check all
+            intervals by hovering over the middle voice.
           </div>
         </>
       ),
@@ -286,6 +287,8 @@ const BOOK = {
     { path: "Nintendo/Banana", subtune: "8" },
     { path: "Nintendo/Battle Rush - Build Up Robot Tournament", subtune: "1" },
   ],
+  // modulation:
+  // Nintendo/Bandit Kings of Ancient China - 7
 };
 
 export const parseBookPath = (bookPath) => {

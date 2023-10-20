@@ -17,7 +17,6 @@ const P: React.FC<{
   children?: React.ReactNode;
 }> = ({ span, mask, children }) => {
   const playSegment = React.useContext(PlayContext);
-
   return (
     <button
       className="box-button"
@@ -31,9 +30,9 @@ const P: React.FC<{
 
 const R: React.FC<{
   r: string;
-  children?: React.ReactNode;
-}> = ({ r, children }) => {
-  return <>{children}</>;
+}> = ({ r }) => {
+  debugger;
+  return <>{r}</>;
 };
 
 const BOOK = {
@@ -130,6 +129,63 @@ const BOOK = {
       path: "Nintendo/Adventures of Lolo 3",
       subtune: "19",
       text: () => <>And then, maybe, at some point you celebrate victory.</>,
+    },
+  ],
+  notation: [
+    {
+      path: "Nintendo/1943 - The Battle of Midway",
+      subtune: "10",
+      text: () => (
+        <>
+          <div>
+            I visualize the notes via a piano roll. The notes are painted in 12
+            rainbow colors. Same notes in different octaves have the same color.
+            A red note is a tonic. I choose it manually for every piece.
+          </div>
+        </>
+      ),
+    },
+    {
+      path: "Nintendo/Exodus - Journey to the Promised Land",
+      subtune: "10",
+      text: () => (
+        <>
+          <div>
+            Most pieces choose several notes out of these 12 as main ones and
+            use others rarely. A major scale will always have the same seven
+            colors. What is a major scale? It's seven notes with certain
+            intervals chosen from a tonic. A major scale will always have its
+            third note in green.
+          </div>
+        </>
+      ),
+    },
+    {
+      path: "Nintendo/Alien Syndrome",
+      subtune: "1",
+      text: () => (
+        <>
+          <div>
+            A minor scale will have that third note one semitone closer to the
+            tonic - and thus it will always be yellow. The fifth note is blue in
+            both scales.
+          </div>
+          <div>
+            Oh and there isn't a single thing like a "minor scale". Instead,
+            there are many, depending on which color are second, sixth, seventh
+            notes. Here you see a natural minor scale.
+          </div>
+        </>
+      ),
+    },
+    {
+      path: "Nintendo/Alfred Chicken",
+      subtune: "2",
+      text: () => (
+        <>
+          <div>A chord is three notes chosen from the scale.</div>
+        </>
+      ),
     },
   ],
   textures: [

@@ -996,6 +996,8 @@ class App extends React.Component {
                                     this.setState({ seekCallback })
                                   }
                                   bookPath={bookPath}
+                                  pause={this.togglePause}
+                                  paused={this.state.paused}
                                 />
                               </>
                             )

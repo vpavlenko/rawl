@@ -276,6 +276,8 @@ const Chiptheory = ({
   seek,
   registerSeekCallback,
   bookPath,
+  pause,
+  paused,
 }) => {
   const [analysis, setAnalysis] = useState<Analysis>(ANALYSIS_STUB);
 
@@ -468,6 +470,14 @@ const Chiptheory = ({
       (seekMs) => (divRef.current.scrollLeft = secondsToX(seekMs / 1000) - 100),
     );
   }, []);
+
+  if (
+    !paused &&
+    analysis.loop &&
+    positionMs > measuresAndBeats.measures[analysis.loop - 1] * 1000
+  ) {
+    pause();
+  }
 
   return (
     <div className="App-main-content-and-settings">

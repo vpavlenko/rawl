@@ -37,6 +37,101 @@ const R: React.FC<{
 };
 
 const BOOK = {
+  diversity: [
+    {
+      path: "Nintendo/Armadillo",
+      subtune: "1",
+      text: () => (
+        <>
+          <div>
+            Music for NES/Famicom is very diverse in its structure. I invite you
+            to the journey on discovering it. It can be functional and complex
+            in chords.{" "}
+          </div>
+        </>
+      ),
+    },
+    {
+      path: "Nintendo/Bao Xiao Tien Guo (Explosion Sangokushi) - Bao Xiao San Guo (SFX)",
+      subtune: "2",
+      text: () => (
+        <>
+          It can be static in harmony, it can have riffs and have a dorian feel.
+          What's a dorian feel? Click on the tags below to see other examples
+          which I tagged this way. Maybe you can feel it too.
+        </>
+      ),
+    },
+    {
+      path: "Nintendo/Astyanax",
+      subtune: "8",
+      text: () => (
+        <>
+          It can be chromatic, with no reuse of a standard tonal theory, yet
+          rhythmically very clear and even.
+        </>
+      ),
+    },
+    {
+      path: "Nintendo/Bakushou! Star Monomane Shitennou",
+      subtune: "20",
+      text: () => (
+        <>It can employ the language of rock-n-roll and solo-like elements.</>
+      ),
+    },
+    {
+      path: "Nintendo/Barcode World",
+      subtune: "6",
+      text: () => (
+        <>
+          It may have short tracks for certain cases - eg. when a player is
+          lost.
+        </>
+      ),
+    },
+    {
+      path: "Nintendo/Bad Dudes  [Bad Dudes vs. Dragon Ninja]",
+      subtune: "6",
+      text: () => (
+        <>
+          It can sound very classic. How is this sound achieved? And how to
+          break outside of it?
+        </>
+      ),
+    },
+    {
+      path: "Nintendo/Bucky O'Hare",
+      subtune: "18",
+      text: () => (
+        <>
+          It can sound like 80s. Or maybe it sounds completely different for
+          you.
+        </>
+      ),
+    },
+    {
+      path: "Nintendo/Alfred Chicken",
+      subtune: "1",
+      text: () => (
+        <>Composers were searching for cool timbres and witty sound effects.</>
+      ),
+    },
+    {
+      path: "Nintendo/Alien 3",
+      subtune: "1",
+      text: () => <>Sometimes you just vibe.</>,
+    },
+    {
+      path: "Nintendo/Bucky O'Hare",
+      subtune: "19",
+      text: () => <>Sometimes you fight a boss.</>,
+    },
+    {
+      path: "Nintendo/Adventures of Lolo 3",
+      subtune: "19",
+      text: () => <>And then, maybe, at some point you celebrate victory.</>,
+    },
+  ],
   textures: [
     {
       path: "Nintendo/Adventures of Lolo 2",
@@ -100,23 +195,23 @@ const BOOK = {
       segment: [1, 8],
     },
   ],
-  two_chords: [
-    {
-      path: "Nintendo/Arch Rivals - A Basketbrawl!",
-      subtune: "5",
-      text: "How these two chords are built?",
-    },
-  ],
-  chinese_traditional_music: [
-    {
-      path: "Nintendo/3-in-1 - Lion King 5",
-      subtune: "3",
-      text: "Guzheng solo",
-    },
-  ],
-  mixolydian_shuttle: [
-    { path: "Nintendo/Battle Rush - Build Up Robot Tournament", subtune: "1" },
-  ],
+  // two_chords: [
+  //   {
+  //     path: "Nintendo/Arch Rivals - A Basketbrawl!",
+  //     subtune: "5",
+  //     text: "How these two chords are built?",
+  //   },
+  // ],
+  // chinese_traditional_music: [
+  //   {
+  //     path: "Nintendo/3-in-1 - Lion King 5",
+  //     subtune: "3",
+  //     text: "Guzheng solo",
+  //   },
+  // ],
+  // mixolydian_shuttle: [
+  //   { path: "Nintendo/Battle Rush - Build Up Robot Tournament", subtune: "1" },
+  // ],
 };
 
 export const parseBookPath = (bookPath) => {
@@ -181,22 +276,24 @@ export const BookExample: React.FC<{
       <PlayContext.Provider value={playSegment}>
         <div>{text(playSegment)}</div>{" "}
       </PlayContext.Provider>
-      <div>
-        Tags:
-        {tags.map((tag) => (
-          <div>
-            <a
-              href={`https://vpavlenko.github.io/chiptheory/search/${tag.replace(
-                ":",
-                "/",
-              )}`}
-              target="_blank"
-            >
-              {tag}
-            </a>
-          </div>
-        ))}
-      </div>
+      {tags && (
+        <div>
+          <div>Tags:</div>
+          {tags.map((tag) => (
+            <div key={tag}>
+              <a
+                href={`https://vpavlenko.github.io/chiptheory/search/${tag.replace(
+                  ":",
+                  "/",
+                )}`}
+                target="_blank"
+              >
+                {tag}
+              </a>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

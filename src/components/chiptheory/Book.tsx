@@ -31,7 +31,6 @@ const P: React.FC<{
 const R: React.FC<{
   r: string;
 }> = ({ r }) => {
-  debugger;
   return <>{r}</>;
 };
 
@@ -192,6 +191,7 @@ const BOOK = {
     {
       path: "Nintendo/Adventures of Lolo 2",
       subtune: "7",
+      title: "unison",
       text: () => (
         <>
           <div>
@@ -199,6 +199,7 @@ const BOOK = {
             no bass, no chords. A rare beast in NES. The usage of an unusual
             scale give it another flavor of "not from here".
           </div>
+          <div>&nbsp;</div>
           <div>
             <P span={[1, 8]} mask="11000">
               Upper voice
@@ -223,18 +224,20 @@ const BOOK = {
     {
       path: "Nintendo/Exodus - Journey to the Promised Land",
       subtune: "1",
+      title: "parallel harmony",
       text: () => (
         <>
           <div>
             Western music language dominates in NES. It favors several
-            simultaneous voices. The simplest way to add a second voice is to
-            use parallel harmony. That is, to add notes from the scale at a
-            chosen interval below. Thirds and sixths work perfectly for that,
+            simultaneous voices. One of the simplest way to add a second voice
+            is to use parallel harmony. That is, to add notes from the scale at
+            a chosen interval below. Thirds and sixths work perfectly for that,
             since they are consonant enough and help a listener follow two
             voices independently. Fourths and fifths are "banned" historically
             since they can blend together indistinguishably. See{" "}
             <R r="Huron, 2016" />
           </div>
+          <div>&nbsp;</div>
           <div>
             <P span={[1, 8]} mask="10000">
               Melody
@@ -250,8 +253,36 @@ const BOOK = {
       ),
     },
     {
+      path: "Nintendo/8 Eyes",
+      subtune: "4",
+      title: "Celtic drone",
+      text: () => (
+        <>
+          <div>
+            The other way to add two more voices is to make them static.
+            Historically, this is used in some traditional cultures - here most
+            likely it resembles Celtic music, although the drone is also used
+            eg. in Indian music (played by{" "}
+            <a href="https://en.wikipedia.org/wiki/Tanpura" target="_blank">
+              tanpura
+            </a>
+            ).
+          </div>
+          <div>&nbsp;</div>
+          <div>
+            <P mask="00100">Tonic</P>
+            <P mask="01000">Fifth</P>
+            <P mask="01100">Tonic + fifth</P>
+            <P mask="10000">Melody</P>
+            <P mask="11111">Mix</P>
+          </div>
+        </>
+      ),
+    },
+    {
       path: "Nintendo/Battle Fleet",
       subtune: "4 ",
+      title: "static riff",
       text: () => (
         <>
           <div>
@@ -291,7 +322,6 @@ const BOOK = {
   bass_line: [
     {
       path: "Nintendo/All-Pro Basketball",
-
       subtune: "3",
       title: "chord tones",
       text: () => (
@@ -310,11 +340,11 @@ const BOOK = {
           </div>
           <div>&nbsp;</div>
           <div>
-            <P mask="11111">Mix</P>
             <P mask="01000">First bass voice</P>
             <P mask="00100">Second bass voice</P>
             <P mask="01100">Two layered bass voices</P>
             <P mask="10000">Melody</P>
+            <P mask="11111">Mix</P>
           </div>
         </>
       ),
@@ -334,9 +364,9 @@ const BOOK = {
           </div>
           <div>&nbsp;</div>
           <div>
-            <P mask="11111">Mix</P>
             <P mask="00100">Bass</P>
             <P mask="11000">Upper voices</P>
+            <P mask="11111">Mix</P>
           </div>
         </>
       ),
@@ -351,18 +381,48 @@ const BOOK = {
             Usually in Western harmony all three chord tones are emphasized in
             some voice. So, if a melody takes care of the third, the bass can
             play just root and fifth. It can employ a certain rhythmical figure
-            in which to play these two notes, which we'll call "a riff". Here
-            the riff is <pre>(.) .--5 5--. .--5 5--</pre>
+            in which to play these two notes (a riff). Here the riff is{" "}
+            <pre>(.) .--5 5--. .--5 5--</pre>
             The fifth can be either above or below the root to make a smoother
             voice-leading.
           </div>
           <div>&nbsp;</div>
           <div>
-            <P mask="11111">Mix</P>
             <P mask="00100">Bass</P>
             <P mask="00111">Bass + percussion</P>
             <P mask="11000">Upper voices</P>
             <P mask="11011">Upper voices + percussion</P>
+            <P mask="11111">Mix</P>
+          </div>
+        </>
+      ),
+    },
+    {
+      path: "Nintendo/Bugs Bunny Birthday Blowout, The",
+      subtune: "1",
+      title: "Alberti bass",
+      text: () => (
+        <>
+          <div>
+            <a
+              href="https://en.wikipedia.org/wiki/Alberti_bass"
+              target="_blank"
+            >
+              Alberti bass
+            </a>{" "}
+            is a certain riff that can be traced back to at least 18th century.
+            The order of notes is: lowest, highest, middle, highest. Here in m.3
+            the fifth is omitted in favor of the seventh.
+          </div>
+          <div>&nbsp;</div>
+          <div>
+            <P mask="00100">Bass</P>
+            <P mask="00111">Bass + percussion</P>
+            <P mask="10000">Melody</P>
+            <P mask="01000">Echo</P>
+            <P mask="11000">Melody + echo</P>
+            <P mask="11011">Melody + echo + percussion</P>
+            <P mask="11111">Mix</P>
           </div>
         </>
       ),
@@ -400,7 +460,15 @@ export const BookTOC: React.FC = () => {
       <ul style={{ margin: "0 0 100px 0" }}>
         {Object.keys(BOOK).map((key) => (
           <li>
-            <Link to={{ pathname: `/book/${key}/1` }}>{key}</Link>
+            <Link to={{ pathname: `/book/${key}/1` }}>{key}</Link>:{" "}
+            {BOOK[key].map(({ title }, index) => (
+              <>
+                <Link to={{ pathname: `/book/${key}/${index + 1}` }}>
+                  {title ?? index}
+                </Link>
+                &nbsp;&nbsp;&nbsp;
+              </>
+            ))}
           </li>
         ))}
       </ul>

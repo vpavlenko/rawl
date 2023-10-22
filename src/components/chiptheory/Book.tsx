@@ -87,7 +87,7 @@ const BOOK = {
       title: "lost",
       text: () => (
         <>
-          It may have short tracks for certain cases - eg. when a player is
+          It may have short tracks for certain cases - eg. when a player has
           lost.
         </>
       ),
@@ -442,6 +442,28 @@ const BOOK = {
         </>
       ),
     },
+    {
+      path: "Nintendo/1943 - The Battle of Midway",
+      subtune: "3",
+      title: "smooth",
+      text: () => (
+        <>
+          <div>
+            To make a static and smooth bass line that moves by step, a composer
+            can choose the next chord tone that's closest to the previous note.
+          </div>
+          <div>&nbsp;</div>
+          <div>
+            <P mask="00100">Bass</P>
+            <P mask="00111">Bass + percussion</P>
+            <P mask="10000">Melody</P>
+            <P mask="01000">Middle voice</P>
+            <P mask="11000">Upper voices</P>
+            <P mask="11111">Mix</P>
+          </div>
+        </>
+      ),
+    },
   ],
   // modulation:
   // Nintendo/Bandit Kings of Ancient China - 7
@@ -472,12 +494,13 @@ export const BookTOC: React.FC = () => {
   return (
     <div>
       Topics:
-      <ul style={{ margin: "0 0 100px 0" }}>
+      <ol style={{ margin: "0 0 100px 0" }}>
         {Object.keys(BOOK).map((key) => (
           <li>
             <Link to={{ pathname: `/book/${key}/1` }}>{key}</Link>:{" "}
             {BOOK[key].map(({ title }, index) => (
               <>
+                &nbsp;&nbsp;&nbsp;
                 <Link to={{ pathname: `/book/${key}/${index + 1}` }}>
                   {title ?? index}
                 </Link>
@@ -486,7 +509,7 @@ export const BookTOC: React.FC = () => {
             ))}
           </li>
         ))}
-      </ul>
+      </ol>
       Games:
     </div>
   );

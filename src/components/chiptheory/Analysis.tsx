@@ -157,7 +157,7 @@ const TAGS = [
   "form:verse-chorus",
   "form:development_through_timbre",
   "form:sentence",
-  "form:not_looped",
+  "form:not_looped", // this tag is needed because sometimes annotation lacks looping even when it's present
   "form:progression",
   "form:EDM",
   "timbre:ultra_fast_notes",
@@ -198,6 +198,7 @@ const TAGS = [
   "bass:absent",
   "bass:inversions",
   "bass:different_strategies",
+  "bass:smooth_chord_tones",
   "style:common_practice",
   "style:ragtime",
   "style:waltz",
@@ -247,6 +248,7 @@ const TAGS = [
   "analyzed_in:the common cold",
   "anomaly:strange_offset",
   "lower_voices:double_parallel",
+  "lower_voices:same_range",
 ];
 
 const FORM_SECTIONS = [

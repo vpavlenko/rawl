@@ -6476,40 +6476,352 @@
     "Adventure Island.nsfe": {
       "0": {
         "beatsPerMeasure": 4,
-        "romanNumerals": "I II5-V _ _ _ V/ii ii-V",
+        "romanNumerals": "I^ ii7-V I^ V+/ii _ V/ii ii-V I-V5 I^ _-V I _ _ _ _ I-bII",
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
           "bass:walking",
           "melody:fills_at_rests",
-          "harmony:diatonic_seventh_chords"
+          "harmony:diatonic_seventh_chords",
+          "form:not_looped",
+          "location:launch_screen"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.6400000000000012,
         "loop": null,
         "firstMeasure": 0.19000000000000003,
         "step": "end",
-        "comment": "walking in eights: root or octave",
-        "correctedMeasures": [],
+        "comment": "referenced in 14",
+        "correctedMeasures": {
+          "11": 14.829999999999728
+        },
         "tonic": 5,
         "basedOn": null
       },
       "1": {
-        "mode": "major",
-        "secondMeasure": 3.189999999999976,
-        "firstMeasure": 2.0400000000000005,
+        "disableSnapToNotes": false,
+        "romanNumerals": "_ _ I I V7 V7 V7 V7 I I I I V7 V7 V7 V7 I I V7/IV V7/IV IV IV V7 V7 I",
         "clickResolutionMs": 0.01,
+        "tags": [
+          "rhythm:3 against 2",
+          "rhythm:3+3+2",
+          "rhythm:latin",
+          "middle_voice:lower_chord_tones",
+          "harmony:tonic_added-sixth_chord",
+          "harmony:pure_I-V",
+          "non-chord_tones:chromatic_passing",
+          "bass:inversions",
+          "location:level",
+          "bass:root_third_fifth"
+        ],
+        "mode": "major",
+        "fourMeasurePhrasingReferences": [
+          3
+        ],
+        "secondMeasure": 0.9700000000000006,
+        "form": {
+          "1": "intro",
+          "3": "A",
+          "11": "A'",
+          "19": "B"
+        },
+        "loop": 27,
+        "firstMeasure": 0,
         "step": "end",
-        "tonic": 5
+        "tonic": 5,
+        "correctedMeasures": {
+          "4": 3.189999999999976,
+          "9": 8.489999999999863,
+          "10": 9.6,
+          "11": 10.629999999999818,
+          "13": 12.757142857142858,
+          "15": 14.879999999999727,
+          "16": 15.979999999999704
+        }
       },
       "2": {
         "mode": "major",
+        "fourMeasurePhrasingReferences": [
+          3
+        ],
         "secondMeasure": 1.5900000000000012,
-        "loop": null,
+        "loop": 11,
+        "romanNumerals": "I ii7-V-bII I #VII I^ V+ I bII I",
         "firstMeasure": 0,
         "clickResolutionMs": 0.01,
         "step": "end",
-        "tonic": 5
+        "tonic": 5,
+        "tags": [
+          "non-chord tones:neighbor",
+          "rhythm:3+3+2",
+          "lower_voices:double_parallel",
+          "middle_voice:parallel_thirds",
+          "middle_voice:lower_chord_tones",
+          "non-chord_tones:double_neighbor",
+          "middle_voice:parallel_sixths",
+          "location:level",
+          "harmony:constant_structures",
+          "bass:root_third_fifth"
+        ]
+      },
+      "3": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "I _ _ V/vi I _ _ #VII-#VII-I bii-_",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "scale:atonal",
+          "tempo:uneven",
+          "voice_leading:three_parallel_voices"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.500000000000001,
+        "loop": 10,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "2": 1.4285714285714286,
+          "8": 9.949999999999832,
+          "9": 11.329999999999803,
+          "10": 12.999999999999767
+        },
+        "tonic": 8,
+        "basedOn": null
+      },
+      "4": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "_ i-V i-V V _ V viio7 viio7",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "rhythm:latin",
+          "non-chord_tones:mordent",
+          "harmony:diminished_seventh_chords",
+          "timbre:layered",
+          "middle_voice:lower_chord_tones",
+          "lower_voices:double_parallel",
+          "middle_voice:parallel_octaves"
+        ],
+        "fourMeasurePhrasingReferences": [
+          2
+        ],
+        "form": [],
+        "secondMeasure": 1.7400000000000013,
+        "loop": 9,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "3": 3.7399999999999642,
+          "4": 5.871428571428571,
+          "5": 7.779999999999879
+        },
+        "tonic": 4,
+        "basedOn": null
+      },
+      "5": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "_-V7 i-vii V47-i #IV #IV i",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "harmony:neo-riemannian"
+        ],
+        "fourMeasurePhrasingReferences": [
+          2
+        ],
+        "form": [],
+        "secondMeasure": 1.9900000000000015,
+        "loop": 6,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 4,
+        "basedOn": null
+      },
+      "6": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "V13 I V5 I",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "location:boss",
+          "harmony:pure_I-V",
+          "middle_voice:thirds_and_sixths",
+          "bass:root_third_fifth"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 0.7900000000000005,
+        "loop": 5,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "a side quest rather than a boss",
+        "correctedMeasures": [],
+        "tonic": 5,
+        "basedOn": null
+      },
+      "7": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "I VII I",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "location:level_completed",
+          "harmony:mixolydian_shuttle",
+          "middle_voice:lower_chord_tones",
+          "melody:chord_tones",
+          "bass:creative_chord_tones"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 0.9400000000000006,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 5,
+        "basedOn": null
+      },
+      "8": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "first measure",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 5,
+        "basedOn": null
+      },
+      "9": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "first measure",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 5,
+        "basedOn": null
+      },
+      "10": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "first measure",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      },
+      "11": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "io7 _ io7",
+        "clickResolutionMs": 0.01,
+        "modulations": {
+          "3": 5,
+          "5": 7
+        },
+        "tags": [
+          "harmony:diminished_seventh_chords",
+          "timbre:many_instruments_same_voice"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.6900000000000013,
+        "loop": 5,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "3": 3.4399999999999706,
+          "5": 6.8899999999998975
+        },
+        "tonic": 7,
+        "basedOn": null
+      },
+      "12": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "IV VI VII I",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "scale:blues",
+          "harmony:constant_structures",
+          "location:jingle",
+          "timbre:ultra_fast_notes",
+          "bass:octaves",
+          "bass:inversions"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.5900000000000012,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 9,
+        "basedOn": null
+      },
+      "13": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "_ I^ ii7-V I^ V+/ii _ V/ii ii-V I-V5 I^ _-V I _ _ _ _ I-bII",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "reference:previous_subtune",
+          "form:extra_measure"
+        ],
+        "fourMeasurePhrasingReferences": [
+          2
+        ],
+        "form": [],
+        "secondMeasure": 1.440000000000001,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "green note as a pedal tone",
+        "correctedMeasures": {
+          "10": 13.179999999999763
+        },
+        "tonic": 7,
+        "basedOn": null
       }
     }
   },
@@ -6519,12 +6831,16 @@
         "mode": "major",
         "secondMeasure": 1.1900000000000008,
         "loop": null,
-        "romanNumerals": "I I V7 I I I V vi IV - - V/ii IV V I",
+        "romanNumerals": "I I V7 I I I V vi IV - - V/ii IV V I bII",
         "firstMeasure": 0.3900000000000002,
         "clickResolutionMs": 0.01,
         "step": "end",
         "correctedMeasures": [],
-        "tonic": 4
+        "tonic": 4,
+        "tags": [
+          "form:not_looped",
+          "location:launch_screen"
+        ]
       }
     }
   },
@@ -9199,7 +9515,9 @@
         "tonic": 11,
         "correctedMeasures": {
           "9": 15.809999999999707,
-          "14": 25.40000000000117
+          "10": 17.70999999999997,
+          "14": 25.40000000000117,
+          "15": 27.300000000001468
         },
         "tags": [
           "harmony:unison",
@@ -9349,7 +9667,8 @@
           "harmony:parallel_keys",
           "middle_voice:parallel_fourths",
           "location:level",
-          "rhythm:3 against 2"
+          "rhythm:3 against 2",
+          "bass:pedal_point"
         ],
         "fourMeasurePhrasingReferences": [],
         "form": [],
@@ -19368,6 +19687,30 @@
         "comment": "",
         "correctedMeasures": [],
         "tonic": 2,
+        "basedOn": null
+      }
+    }
+  },
+  "Nintendo/Conquest of the Crystal Palace": {
+    "Conquest of the Crystal Palace [Matendouji] (1990-08-24)(Quest).nsf": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "_ _ _ _ i",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "scale:dorian"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.8400000000000014,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 9,
         "basedOn": null
       }
     }

@@ -51,7 +51,7 @@ const TAGS = [
   "harmony:diminished_seventh_chords",
   "harmony:shuttle",
   "harmony:mixolydian_shuttle",
-  "harmony:lydian_shuttle",
+  "harmony:lydian_shuttle", // TODO: remove in favor of mixolydian shuttle
   "harmony:plagal_shuttle",
   "harmony:phrygian_shuttle",
   "harmony:dorian_shuttle",
@@ -127,7 +127,10 @@ const TAGS = [
   "voice_leading:W-arpeggio",
   "voice_leading:rich_ornamentation",
   "voice_leading:three_parallel_voices",
-  "non-chord tones:neighbor",
+  "non-chord tones:neighbor", // TODO: rename, remove space
+  "non-chord_tones:double_neighbor",
+  "non-chord_tones:chromatic_passing",
+  "non-chord_tones:mordent",
   "chord:N6",
   "chord:Aug6",
   "motive:4 repetitions",
@@ -170,7 +173,7 @@ const TAGS = [
   "timbre:minor_seconds",
   "timbre:chorus",
   "timbre:tremolo",
-  "timbre:many_instruments_same_voice",
+  "timbre:many_instruments_same_voice", // TODO: rename to timbre:many_instruments_same_oscillator
   "melody:riff",
   "melody:transposed_riff",
   "melody:chromatic_embellishments",
@@ -179,6 +182,7 @@ const TAGS = [
   "melody:fills_at_rests",
   "melody:fill_after_cadence",
   "melody:stepwise",
+  "melody:chord_tones",
   "bass:transposed_riff",
   "bass:riff",
   "bass:walking",
@@ -190,6 +194,7 @@ const TAGS = [
   "bass:root",
   "bass:root_fifth",
   "bass:root_third_fifth",
+  "bass:creative_chord_tones",
   "bass:absent",
   "bass:inversions",
   "bass:different_strategies",
@@ -216,7 +221,7 @@ const TAGS = [
   "middle_voice:parallel_sixths",
   "middle_voice:thirds_and_chord_tones",
   "middle_voice:lower_chord_tones",
-  "middle_voice:creative_chord_tones",
+  "middle_voice:creative_chord_tones", // TODO: check that it's not used for bass
   "middle_voice:root",
   "middle_voice:static_chord_tones",
   "middle_voice:drone",
@@ -241,6 +246,7 @@ const TAGS = [
   "analyzed_in:hopkins",
   "analyzed_in:the common cold",
   "anomaly:strange_offset",
+  "lower_voices:double_parallel",
 ];
 
 const FORM_SECTIONS = [

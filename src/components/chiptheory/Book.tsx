@@ -12,10 +12,10 @@ import { Link } from "react-router-dom";
 const PlayContext = React.createContext(null);
 
 const P: React.FC<{
-  span: [number, number];
+  span?: [number, number];
   mask: string;
   children?: React.ReactNode;
-}> = ({ span, mask, children }) => {
+}> = ({ span = null, mask, children }) => {
   const playSegment = React.useContext(PlayContext);
   return (
     <button
@@ -284,8 +284,39 @@ const BOOK = {
   //   },
   // ],
   mixolydian_shuttle: [
+    { path: "Nintendo/Adventure Island", subtune: "8" },
     { path: "Nintendo/Banana", subtune: "8" },
     { path: "Nintendo/Battle Rush - Build Up Robot Tournament", subtune: "1" },
+  ],
+  bass_line: [
+    {
+      path: "Nintendo/All-Pro Basketball",
+      subtune: "3",
+      text: () => (
+        <>
+          <div>
+            The structure of the bass line can either outline the current chord
+            or draw/emphasize certain notes from it. In its clearest form, the
+            bass line plays all notes of the chord and no other notes. Here in
+            mm. 1-32 every chord is major, and every chord is outlined via its
+            notes root (.), major third (3) and perfect fifth (5) in a 3+3+2
+            rhythm. In the part A there melody doubles this bass line in octave,
+            and in the part B there's a separate melody on top of this bass
+            line. Finally, in the Mario cadence (mm. 33-35) the bass line plays
+            mostly the root in octaves. (Why then we see chords VI-VII-I in
+            those measures?)
+          </div>
+          <div>&nbsp;</div>
+          <div>
+            <P mask="11111">Mix</P>
+            <P mask="01000">First bass voice</P>
+            <P mask="00100">Second bass voice</P>
+            <P mask="01100">Two layered bass voices</P>
+            <P mask="10000">Melody</P>
+          </div>
+        </>
+      ),
+    },
   ],
   // modulation:
   // Nintendo/Bandit Kings of Ancient China - 7
@@ -358,6 +389,9 @@ export const BookExample: React.FC<{
       </PlayContext.Provider>
       {tags && (
         <div>
+          <div>&nbsp;</div>
+          <div>&nbsp;</div>
+          <div>&nbsp;</div>
           <div>Tags:</div>
           {tags.map((tag) => (
             <div key={tag}>

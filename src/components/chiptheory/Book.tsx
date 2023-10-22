@@ -291,7 +291,9 @@ const BOOK = {
   bass_line: [
     {
       path: "Nintendo/All-Pro Basketball",
+
       subtune: "3",
+      title: "chord tones",
       text: () => (
         <>
           <div>
@@ -317,13 +319,64 @@ const BOOK = {
         </>
       ),
     },
+    {
+      path: "Nintendo/Arkanoid",
+      subtune: "6",
+      title: "root in octaves",
+      text: () => (
+        <>
+          <div>
+            The bass line can play just the root of the chords in octaves. We
+            still speak of chords in measures where no voice plays just the
+            chord tones, because the upper voices emphasize chord tones by
+            either using them on strong metrical positions or by using them at
+            turn points of the contours.
+          </div>
+          <div>&nbsp;</div>
+          <div>
+            <P mask="11111">Mix</P>
+            <P mask="00100">Bass</P>
+            <P mask="11000">Upper voices</P>
+          </div>
+        </>
+      ),
+    },
+    {
+      path: "Nintendo/Barcode World",
+      subtune: "2",
+      title: "root and fifth",
+      text: () => (
+        <>
+          <div>
+            Usually in Western harmony all three chord tones are emphasized in
+            some voice. So, if a melody takes care of the third, the bass can
+            play just root and fifth. It can employ a certain rhythmical figure
+            in which to play these two notes, which we'll call "a riff". Here
+            the riff is <pre>(.) .--5 5--. .--5 5--</pre>
+            The fifth can be either above or below the root to make a smoother
+            voice-leading.
+          </div>
+          <div>&nbsp;</div>
+          <div>
+            <P mask="11111">Mix</P>
+            <P mask="00100">Bass</P>
+            <P mask="00111">Bass + percussion</P>
+            <P mask="11000">Upper voices</P>
+            <P mask="11011">Upper voices + percussion</P>
+          </div>
+        </>
+      ),
+    },
   ],
   // modulation:
   // Nintendo/Bandit Kings of Ancient China - 7
 };
 
 export const parseBookPath = (bookPath) => {
-  return BOOK[bookPath.split("/")[0]][Number(bookPath.split("/")[1]) - 1];
+  return {
+    ...BOOK[bookPath.split("/")[0]][Number(bookPath.split("/")[1]) - 1],
+    index: Number(bookPath.split("/")[1]),
+  };
 };
 
 const getAdjacentExamples = (bookPath) => {
@@ -361,7 +414,7 @@ export const BookExample: React.FC<{
   playSegment: (span: [number, number], mask: string) => void;
   tags: string[];
 }> = ({ path, playSegment, tags }) => {
-  const { text } = parseBookPath(path);
+  const { title, text, index } = parseBookPath(path);
   const [previous, next] = getAdjacentExamples(path);
   return (
     <div
@@ -380,10 +433,14 @@ export const BookExample: React.FC<{
               <button className="box-button" disabled={!next}>
                 &gt;
               </button>
-            </Link>
+            </Link>{" "}
+            <span style={{ color: "white" }}>
+              {index}. {title}
+            </span>
           </div>
         </div>
       </div>
+
       <PlayContext.Provider value={playSegment}>
         <div>{text && text(playSegment)}</div>{" "}
       </PlayContext.Provider>

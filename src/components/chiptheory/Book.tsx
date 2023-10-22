@@ -39,6 +39,7 @@ const BOOK = {
     {
       path: "Nintendo/Armadillo",
       subtune: "1",
+      title: "functional",
       text: () => (
         <>
           <div>
@@ -52,6 +53,7 @@ const BOOK = {
     {
       path: "Nintendo/Bao Xiao Tien Guo (Explosion Sangokushi) - Bao Xiao San Guo (SFX)",
       subtune: "2",
+      title: "static",
       text: () => (
         <>
           It can be static in harmony, it can have riffs and have a dorian feel.
@@ -63,6 +65,7 @@ const BOOK = {
     {
       path: "Nintendo/Astyanax",
       subtune: "8",
+      title: "chromatic",
       text: () => (
         <>
           It can be chromatic, with no reuse of a standard tonal theory, yet
@@ -73,6 +76,7 @@ const BOOK = {
     {
       path: "Nintendo/Bakushou! Star Monomane Shitennou",
       subtune: "20",
+      title: "rock-n-roll",
       text: () => (
         <>It can employ the language of rock-n-roll and solo-like elements.</>
       ),
@@ -80,6 +84,7 @@ const BOOK = {
     {
       path: "Nintendo/Barcode World",
       subtune: "6",
+      title: "lost",
       text: () => (
         <>
           It may have short tracks for certain cases - eg. when a player is
@@ -90,6 +95,7 @@ const BOOK = {
     {
       path: "Nintendo/Bad Dudes  [Bad Dudes vs. Dragon Ninja]",
       subtune: "6",
+      title: "classic",
       text: () => (
         <>
           It can sound very classic. How is this sound achieved? And how to
@@ -100,6 +106,7 @@ const BOOK = {
     {
       path: "Nintendo/Bucky O'Hare",
       subtune: "18",
+      title: "80s",
       text: () => (
         <>
           It can sound like 80s. Or maybe it sounds completely different for
@@ -110,6 +117,7 @@ const BOOK = {
     {
       path: "Nintendo/Alfred Chicken",
       subtune: "1",
+      title: "cool timbres",
       text: () => (
         <>Composers were searching for cool timbres and witty sound effects.</>
       ),
@@ -117,16 +125,19 @@ const BOOK = {
     {
       path: "Nintendo/Alien 3",
       subtune: "1",
+      title: "vibes",
       text: () => <>Sometimes you just vibe.</>,
     },
     {
       path: "Nintendo/Bucky O'Hare",
       subtune: "19",
+      title: "boss",
       text: () => <>Sometimes you fight a boss.</>,
     },
     {
       path: "Nintendo/Adventures of Lolo 3",
       subtune: "19",
+      title: "victory",
       text: () => <>And then, maybe, at some point you celebrate victory.</>,
     },
   ],
@@ -134,6 +145,7 @@ const BOOK = {
     {
       path: "Nintendo/1943 - The Battle of Midway",
       subtune: "10",
+      title: "12 colors",
       text: () => (
         <>
           <div>
@@ -147,6 +159,7 @@ const BOOK = {
     {
       path: "Nintendo/Exodus - Journey to the Promised Land",
       subtune: "10",
+      title: "major scale",
       text: () => (
         <>
           <div>
@@ -162,6 +175,7 @@ const BOOK = {
     {
       path: "Nintendo/Alien Syndrome",
       subtune: "1",
+      title: "minor scale",
       text: () => (
         <>
           <div>
@@ -180,6 +194,7 @@ const BOOK = {
     {
       path: "Nintendo/Alfred Chicken",
       subtune: "2",
+      title: "major chord",
       text: () => (
         <>
           <div>A chord is three notes chosen from the scale.</div>
@@ -298,8 +313,8 @@ const BOOK = {
       ),
     },
   ],
-  common_practice_harmony: [{ path: "Nintendo/Banana Prince", subtune: "1" }],
-  melody: [{ path: "Nintendo/Banana Prince", subtune: "1" }],
+  // common_practice_harmony: [{ path: "Nintendo/Banana Prince", subtune: "1" }],
+  // melody: [{ path: "Nintendo/Banana Prince", subtune: "1" }],
   // two_chords: [
   //   {
   //     path: "Nintendo/Arch Rivals - A Basketbrawl!",
@@ -314,11 +329,11 @@ const BOOK = {
   //     text: "Guzheng solo",
   //   },
   // ],
-  mixolydian_shuttle: [
-    { path: "Nintendo/Adventure Island", subtune: "8" },
-    { path: "Nintendo/Banana", subtune: "8" },
-    { path: "Nintendo/Battle Rush - Build Up Robot Tournament", subtune: "1" },
-  ],
+  // mixolydian_shuttle: [
+  //   { path: "Nintendo/Adventure Island", subtune: "8" },
+  //   { path: "Nintendo/Banana", subtune: "8" },
+  //   { path: "Nintendo/Battle Rush - Build Up Robot Tournament", subtune: "1" },
+  // ],
   bass_line: [
     {
       path: "Nintendo/All-Pro Basketball",

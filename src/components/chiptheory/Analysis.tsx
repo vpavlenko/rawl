@@ -194,6 +194,7 @@ const TAGS = [
   "bass:root",
   "bass:root_fifth",
   "bass:root_third_fifth",
+  "bass:root_third_fifth_seventh",
   "bass:creative_chord_tones",
   "bass:absent",
   "bass:inversions",
@@ -227,6 +228,7 @@ const TAGS = [
   "middle_voice:static_chord_tones",
   "middle_voice:drone",
   "middle_voice:riff",
+  "middle_voice:transposed_riff",
   // four most typical cases:
   "middle_voice:absent",
   "middle_voice:melody", // that implicitly means "upper_voice:arpeggio"

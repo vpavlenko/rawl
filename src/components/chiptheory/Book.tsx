@@ -855,6 +855,16 @@ const BOOK = {
         </>
       ),
     },
+    {
+      path: "Nintendo/Be-Bop High School - Koukousei Gokuraku Densetsu",
+      subtune: "21",
+      title: "exercise 9",
+      text: () => (
+        <>
+          <div>What's the structure of the bass line here?</div>
+        </>
+      ),
+    },
   ],
   // modulation:
   // Nintendo/Bandit Kings of Ancient China - 7

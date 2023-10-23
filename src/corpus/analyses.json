@@ -20928,5 +20928,96 @@
         "basedOn": null
       }
     }
+  },
+  "Nintendo/Robocop 3": {
+    "Robocop 3 (1992-08)(Probe)(Ocean).nsf": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.8800000000000014,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "5": 7.369999999999887,
+          "6": 10.169999999999828,
+          "7": 14.31999999999974,
+          "8": 16.469999999999775,
+          "9": 20.21000000000036,
+          "10": 24.010000000000954,
+          "11": 27.710000000001532
+        },
+        "tonic": 5,
+        "basedOn": null
+      },
+      "1": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": {
+          "5": 4
+        },
+        "tags": [
+          "timbre:oscillator_as_percussion",
+          "bass:riff",
+          "middle_voice:riff",
+          "melody:riff",
+          "scale:blues"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 2.199999999999997,
+        "loop": 9,
+        "firstMeasure": 0.05,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 9,
+        "basedOn": null
+      }
+    }
+  },
+  "Nintendo/Beauty and the Beast": {
+    "Beauty and the Beast (1994)(-)(Hudson).nsf": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "I V47 I V47 I V47 I V47 I V47 I V47 I iii IV V I  V47 I v-I IV ii7 I V47",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "timbre:oscillator_as_percussion",
+          "timbre:ultra_fast_notes",
+          "timbre:variable_duty_cycle"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": {
+          "1": "A",
+          "5": "A",
+          "9": "A'",
+          "13": "B",
+          "17": "A''",
+          "21": "C"
+        },
+        "secondMeasure": 2.1699999999999977,
+        "loop": 25,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "3": 4.371428571428571
+        },
+        "tonic": 5,
+        "basedOn": null
+      }
+    }
   }
 }

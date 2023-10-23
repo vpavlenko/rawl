@@ -312,6 +312,38 @@ const BOOK = {
         </>
       ),
     },
+    {
+      path: "Nintendo/Robocop 3",
+      subtune: "2",
+      title: "two static riffs",
+      text: () => (
+        <>
+          <div>
+            Here the bass plays a one-measure riff. The upper voice has a riff
+            with slight variations between the measures, doubled in parallel
+            fourths in the middle voice. The bass + the upper voice draw notes
+            from the blues scale. The middle voice has the notes outside of this
+            scale, but it's ok since doubling in a perfect fourth creates a
+            blended timbrally rich single upper voice (a distorted guitar)
+            rather than two independent voices. Here the bass voice has a rapid
+            percussion glide in the same channel.
+          </div>
+          <div>&nbsp;</div>
+          <div>
+            The bass voice has a rapid percussion glide in the same channel.
+            After four measures, the whole thing modulates down a fourth.
+          </div>
+          <div>&nbsp;</div>
+          <div>
+            <P mask="00100">Bass</P>
+            <P mask="01000">Melody</P>
+            <P mask="10000">Middle voice</P>
+            <P mask="11000">Upper voices - parallel fourth</P>
+            <P mask="11111">Mix</P>
+          </div>
+        </>
+      ),
+    },
   ],
   // common_practice_harmony: [{ path: "Nintendo/Banana Prince", subtune: "1" }],
   // melody: [{ path: "Nintendo/Banana Prince", subtune: "1" }],

@@ -4,7 +4,7 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
-        "romanNumerals": "",
+        "romanNumerals": "I I I I",
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
@@ -781,7 +781,7 @@
       "9": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
-        "romanNumerals": "I V vi I IV V V vi IV V iii vi ii ii V5 V I V vi I IV V iii vi IV ii iii vi ii V I I I _ _ _ IV IV ii/ii V/ii ii V I I IV IV ii/ii V/ii ii V I",
+        "romanNumerals": "I V vi I IV V V vi7 IV V iii7 vi ii7 ii7 IV IV-V7 I V vi I IV V iii7 vi7 IV V7 iii vi7 ii7 V7 I I4 I _ _ _ IV IV ii/ii V/ii ii V I I IV IV ii/ii V/ii ii V I",
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
@@ -790,7 +790,10 @@
           "voice_leading:descending_diatonic_bass",
           "middle_voice:arpeggio",
           "form:period",
-          "beats:division_change"
+          "beats:division_change",
+          "voice_leading:Isus4",
+          "melody:reharmonization",
+          "voice_leading:Vsus4"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.490000000000001,
@@ -803,7 +806,7 @@
         "loop": 53,
         "firstMeasure": 0.2900000000000001,
         "step": "end",
-        "comment": "feels like based on smth, maybe bc too common-practice. part B is based on mm. 25-32",
+        "comment": "feels like based on smth, maybe bc too common-practice. part B is based on mm. 25-32 reharmonized via applied chords. m. 15: IV over 5 (Vsus4?)",
         "correctedMeasures": {
           "35": 40.94285714285714,
           "36": 41.885714285714286,
@@ -1151,7 +1154,8 @@
           "form:period",
           "location:game_won",
           "middle_voice:arpeggio",
-          "tempo:ritardando"
+          "tempo:ritardando",
+          "form:not_looped"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.8400000000000014,
@@ -2023,7 +2027,7 @@
         "basedOn": null
       },
       "3": {
-        "beatsPerMeasure": 4,
+        "beatsPerMeasure": 6,
         "disableSnapToNotes": false,
         "romanNumerals": "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ i-VII _ i-VII _ i-VII VI-VII i-VII VI-VII",
         "clickResolutionMs": 0.01,
@@ -2174,7 +2178,8 @@
           "middle_voice:absent",
           "scale:natural_minor",
           "form:sentence",
-          "bass:root_fifth"
+          "bass:root_fifth",
+          "bass:transposed_riff"
         ],
         "modulations": {
           "9": 0,
@@ -3316,7 +3321,8 @@
           "form:progression",
           "bass:root_fifth",
           "bass:transposed_riff",
-          "middle_voice:parallel_thirds"
+          "middle_voice:parallel_thirds",
+          "voice_leading:Vsus4"
         ],
         "fourMeasurePhrasingReferences": [],
         "form": {
@@ -5317,12 +5323,19 @@
         "mode": "major",
         "secondMeasure": 1.5700000000000012,
         "loop": null,
-        "romanNumerals": "I I IV IV IV vi ii I",
+        "romanNumerals": "I I IV IV IV-V viio/vi-vi-vi ii-V I5",
         "firstMeasure": 0,
         "clickResolutionMs": 0.01,
         "step": "end",
         "correctedMeasures": [],
-        "tonic": 0
+        "tonic": 0,
+        "tags": [
+          "form:not_looped",
+          "bass:different_strategies",
+          "lower_voices:same_range",
+          "middle_voice:parallel_fourths",
+          "middle_voice:mixed_parallel"
+        ]
       },
       "1": {
         "mode": null,
@@ -5337,20 +5350,29 @@
         },
         "tonic": 9,
         "modulations": {
-          "5": 0
+          "5": 0,
+          "9": 9
         },
         "tags": [
-          "harmony:stasis"
+          "harmony:stasis",
+          "harmony:neo-riemannian",
+          "scale:mixed_minor",
+          "bass:root"
         ]
       },
       "2": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
-        "romanNumerals": "i v VI IV-V i v VI IV-V I I I V IV-V I ii viio V7 I5 I V IV-V I ii viio V7 I5",
+        "romanNumerals": "i v VI IV-V i v VI IV-V I I I iii IV I ii viio V7 I5 I iii IV I ii viio V7 I5",
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "harmony:parallel_keys"
+          "harmony:parallel_keys",
+          "form:uniform_period",
+          "bass:smooth_chord_tones",
+          "middle_voice:lower_chord_tones",
+          "middle_voice:parallel_thirds",
+          "melody:chord_tones"
         ],
         "fourMeasurePhrasingReferences": [
           11,
@@ -5361,11 +5383,20 @@
           9
         ],
         "secondMeasure": 3.9699999999999593,
+        "form": {
+          "1": "A",
+          "5": "A",
+          "9": "bridge",
+          "11": "B",
+          "19": "B'",
+          "27": "bridge"
+        },
         "loop": 28,
         "firstMeasure": 2.619999999999988,
         "step": "end",
         "comment": "",
         "correctedMeasures": {
+          "10": 14.6,
           "11": 15.959999999999704,
           "12": 17.309999999999906
         },
@@ -16695,11 +16726,10 @@
         },
         "tags": [
           "harmony:constant_structures",
-          "bass:riff",
           "scale:pentatonic",
-          "bass:octaves",
           "form:accumulative",
-          "middle_voice:absent"
+          "middle_voice:absent",
+          "bass:transposed_riff"
         ],
         "fourMeasurePhrasingReferences": [],
         "form": {
@@ -17176,7 +17206,8 @@
           "rhythm:latin",
           "harmony:diatonic_seventh_chords",
           "middle_voice:creative_chord_tones",
-          "bass:root_fifth"
+          "bass:root_fifth",
+          "bass:transposed_riff"
         ],
         "fourMeasurePhrasingReferences": [],
         "form": [],
@@ -18172,7 +18203,8 @@
         "tags": [
           "bass:root_fifth",
           "harmony:parallel_keys",
-          "middle_voice:parallel_thirds"
+          "middle_voice:parallel_thirds",
+          "melody:transposed_riff"
         ],
         "fourMeasurePhrasingReferences": [
           6

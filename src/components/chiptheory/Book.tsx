@@ -523,6 +523,30 @@ const BOOK = {
         </>
       ),
     },
+    {
+      path: "Nintendo/'89 Dennou Kyuusei Uranai",
+      subtune: "16",
+      title: "descending chromatic",
+      text: () => (
+        <>
+          <div>
+            The bass line can go down chromatically, which in the absence of
+            clearly arpeggiated chords makes Roman numeral analysis less clear
+            and less helpful. Sometimes the voice-leading is more important than
+            the storyline of implied chords.
+          </div>
+          <div>&nbsp;</div>
+          <div>
+            <P mask="00100">Bass</P>
+            <P mask="10000">Melody</P>
+            <P mask="10100">Bass + melody</P>
+            <P mask="11000">Melody + parallel thirds below</P>
+            <P mask="01000">Middle voice</P>
+            <P mask="11111">Mix</P>
+          </div>
+        </>
+      ),
+    },
   ],
   // modulation:
   // Nintendo/Bandit Kings of Ancient China - 7
@@ -561,7 +585,7 @@ export const BookTOC: React.FC = () => {
               <>
                 &nbsp;&nbsp;&nbsp;
                 <Link to={{ pathname: `/book/${key}/${index + 1}` }}>
-                  {title ?? index}
+                  <span style={{ whiteSpace: "nowrap" }}>{title ?? index}</span>
                 </Link>
                 &nbsp;&nbsp;&nbsp;
               </>

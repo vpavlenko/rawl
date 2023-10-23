@@ -769,15 +769,17 @@ const getAdjacentExamples = (bookPath) => {
 export const BookTOC: React.FC = () => {
   return (
     <div>
-      The Structure of Music through NES Soundtracks
+      <span style={{ color: "white" }}>
+        The Structure of Music through NES Soundtracks
+      </span>
+      <div>&nbsp;</div>
       <ol style={{ margin: "0 0 100px 0" }}>
         {Object.keys(BOOK).map((key) => (
           <li>
             <Link to={{ pathname: `/book/${key}/1` }}>
               {key.replace(/_/g, " ")}
             </Link>
-            :{" "}
-            <ul>
+            <ol>
               {BOOK[key].map(({ title }, index) => (
                 <li>
                   <Link to={{ pathname: `/book/${key}/${index + 1}` }}>
@@ -785,11 +787,12 @@ export const BookTOC: React.FC = () => {
                   </Link>
                 </li>
               ))}
-            </ul>
+            </ol>
           </li>
         ))}
       </ol>
-      Games:
+      <span style={{ color: "white" }}>Games</span>
+      <div>&nbsp;</div>
     </div>
   );
 };

@@ -500,6 +500,29 @@ const BOOK = {
         </>
       ),
     },
+    {
+      path: "Nintendo/Burai Fighter",
+      subtune: "8",
+      title: "ascending diatonic",
+      text: () => (
+        <>
+          <div>
+            The bass line can also go up, although it happens less frequently.
+            Rhythmically a bass line in the part A uses a riff on two notes.
+          </div>
+          <div>&nbsp;</div>
+          <div>
+            <P mask="01000">Bass</P>
+            <P mask="01011">Bass + percussion</P>
+            <P mask="00100">Melody</P>
+            <P mask="10000">Middle voice</P>
+            <P mask="10100">Upper voices</P>
+            <P mask="11000">Lower voices</P>
+            <P mask="11111">Mix</P>
+          </div>
+        </>
+      ),
+    },
   ],
   // modulation:
   // Nintendo/Bandit Kings of Ancient China - 7

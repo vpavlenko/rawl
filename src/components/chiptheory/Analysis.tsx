@@ -174,6 +174,7 @@ const TAGS = [
   "timbre:chorus",
   "timbre:tremolo",
   "timbre:many_instruments_same_voice", // TODO: rename to timbre:many_instruments_same_oscillator
+  "timbre:variable_duty_cycle",
   "melody:riff",
   "melody:transposed_riff",
   "melody:chromatic_embellishments",

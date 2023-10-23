@@ -28,3 +28,5 @@ Two things are interesting:
 Another hypothesis is that [Chinese](https://vpavlenko.github.io/chiptheory/search/style/chinese) developers largely used Chinese traditional pentatonic-based tonic-ambiguos language with guzheng imitations, disregarding the game content. (Or did they describe it in their own language, which I as a Westerner don't understand?)
 
 What if every bootleg country has some unique musical language?
+
+Also, it feels like there was a gradual development of cool timbral hacks and compositional form. Games from 1986 are simpler than [games from 1993](https://vpavlenko.github.io/chiptheory/browse/Nintendo/Beauty%20and%20the%20Beast?subtune=1).

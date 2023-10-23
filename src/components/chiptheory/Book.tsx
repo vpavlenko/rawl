@@ -865,6 +865,16 @@ const BOOK = {
         </>
       ),
     },
+    {
+      path: "Nintendo/Beauty and the Beast",
+      subtune: "1",
+      title: "exercise 10",
+      text: () => (
+        <>
+          <div>What's the structure of the bass line here?</div>
+        </>
+      ),
+    },
   ],
   // modulation:
   // Nintendo/Bandit Kings of Ancient China - 7

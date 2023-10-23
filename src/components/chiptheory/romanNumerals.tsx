@@ -244,6 +244,7 @@ export const RomanNumeral: React.FC<{
       >
         {
           makeArrowIfAppliedTo(romanNumeral, nextNumeral)
+            .replace("9", "⁹")
             .replace("7", "⁷")
             .replace("6", "⁶")
             .replace("5", "⁵")

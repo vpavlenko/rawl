@@ -387,6 +387,29 @@ const BOOK = {
       ),
     },
     {
+      path: "Nintendo/Bubble Bobble",
+      subtune: "2",
+      title: "root without chords",
+      text: () => (
+        <>
+          <div>
+            Even if there's no middle voice, and the melody isn't clearly
+            outlining the chord tones, the logic and the effect of changes in
+            the bass is similar to the chord changes, especially if the melody
+            doesn't contradict it too much. Here in the part B the bass mostly
+            repeats the melody notes, yet the 2-5-1 cadence in m.23-24 makes it
+            functional and makes the whole period work.
+          </div>
+          <div>&nbsp;</div>
+          <div>
+            <P mask="00100">Bass</P>
+            <P mask="01000">Melody</P>
+            <P mask="11111">Mix</P>
+          </div>
+        </>
+      ),
+    },
+    {
       path: "Nintendo/Barcode World",
       subtune: "2",
       title: "root and fifth",
@@ -443,6 +466,32 @@ const BOOK = {
       ),
     },
     {
+      path: "Nintendo/Bubble Bobble",
+      subtune: "29",
+      title: "Alberti bass and chromatic melody",
+      text: () => (
+        <>
+          <div>
+            Even though Alberti bass is classic, the melody shouldn't
+            necessarily stay within the standard scale. Here a chromatic melody
+            resembles "Flight of the Bumblebee".
+          </div>
+          <div>&nbsp;</div>
+          <div>
+            <P span={[3, 10]} mask="00100">
+              Alberti bass
+            </P>
+            <P span={[3, 10]} mask="01000">
+              Chromatic melody
+            </P>
+            <P span={[3, 10]} mask="11111">
+              Mix
+            </P>
+          </div>
+        </>
+      ),
+    },
+    {
       path: "Nintendo/1943 - The Battle of Midway",
       subtune: "3",
       title: "smooth",
@@ -456,12 +505,24 @@ const BOOK = {
           </div>
           <div>&nbsp;</div>
           <div>
-            <P mask="00100">Bass</P>
-            <P mask="00111">Bass + percussion</P>
-            <P mask="10000">Melody</P>
-            <P mask="01000">Middle voice</P>
-            <P mask="11000">Upper voices</P>
-            <P mask="11111">Mix</P>
+            <P span={[1, 27]} mask="00100">
+              Bass
+            </P>
+            <P span={[1, 27]} mask="00111">
+              Bass + percussion
+            </P>
+            <P span={[1, 27]} mask="10000">
+              Melody
+            </P>
+            <P span={[1, 27]} mask="01000">
+              Middle voice
+            </P>
+            <P span={[1, 27]} mask="11000">
+              Upper voices
+            </P>
+            <P span={[1, 27]} mask="11111">
+              Mix
+            </P>
           </div>
         </>
       ),
@@ -626,6 +687,59 @@ const BOOK = {
         </>
       ),
     },
+    {
+      path: "Nintendo/Bubble Bath Babes",
+      subtune: "1",
+      title: "static functional riff",
+      text: () => (
+        <>
+          <div>
+            A static riff doesn't necessarily lead to rare harmonies. Here a
+            riff on four notes 1-6-2-5 reminds of a standard major pop/jazz
+            progression I-vi-ii-V, yet no chords are present, and the notes go
+            too fast in a 3+3+2{" "}
+            <a
+              href="https://en.wikipedia.org/wiki/Tresillo_(rhythm)"
+              target="_blank"
+            >
+              tresillo
+            </a>{" "}
+            rhythm.
+          </div>
+          <div>&nbsp;</div>
+          <div>
+            <P span={[5, 71]} mask="00100">
+              Bass
+            </P>
+            <P span={[4, 21]} mask="10000">
+              Melody
+            </P>
+            <P span={[4, 21]} mask="01000">
+              Middle voice counterpoint
+            </P>
+            <P span={[4, 21]} mask="11000">
+              Upper voices
+            </P>
+            <P span={[4, 21]} mask="11111">
+              Mix
+            </P>
+          </div>
+        </>
+      ),
+    },
+    {
+      path: "Nintendo/Bubble Bath Babes",
+      subtune: "3",
+      title: "exercise 1",
+      text: () => (
+        <>
+          <div>
+            How is the bass structured here in A+B vs. in A'? Feel free to solo
+            or mute voices via controls in the lower right corner.
+          </div>
+        </>
+      ),
+    },
   ],
   // modulation:
   // Nintendo/Bandit Kings of Ancient China - 7
@@ -715,7 +829,7 @@ export const BookExample: React.FC<{
       <PlayContext.Provider value={playSegment}>
         <div>{text && text(playSegment)}</div>{" "}
       </PlayContext.Provider>
-      {tags && (
+      {tags && (!title || !title.startsWith("exercise")) && (
         <div>
           <div>&nbsp;</div>
           <div>&nbsp;</div>

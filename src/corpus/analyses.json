@@ -19750,5 +19750,624 @@
         "basedOn": null
       }
     }
+  },
+  "Nintendo/Bubble Bath Babes": {
+    "Bubble Bath Babes [Soap Panic] (1991)(Hacker International).nsf": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "_ _ _ _ I V7",
+        "clickResolutionMs": 0.01,
+        "modulations": {
+          "21": 5,
+          "29": 7,
+          "53": 8,
+          "69": 3
+        },
+        "tags": [
+          "rhythm:3+3+2",
+          "melody:fills_at_rests",
+          "upper_voices:same_range",
+          "melody:basic_idea_x3"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "secondMeasure": 1.5400000000000011,
+        "form": {
+          "1": "intro (looped)",
+          "5": "A",
+          "13": "A",
+          "21": "A",
+          "29": "A",
+          "37": "B",
+          "53": "B",
+          "69": "bridge"
+        },
+        "loop": 71,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "51": 79.78571428571429,
+          "67": 105.34285714285714,
+          "70": 110.20000000001947
+        },
+        "tonic": 3,
+        "basedOn": null
+      },
+      "1": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": true,
+        "romanNumerals": "_ _ _ _ I V I",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "rhythm:latin",
+          "middle_voice:thirds_and_sixths",
+          "bass:riff"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": {
+          "13": "loop start"
+        },
+        "secondMeasure": 1.5400000000000011,
+        "loop": 53,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "tonic": 9,
+        "correctedMeasures": {
+          "3": 3.139999999999977,
+          "8": 11.129999999999807,
+          "9": 12.729999999999773,
+          "19": 28.72000000000169,
+          "29": 44.628571428571426
+        },
+        "basedOn": null
+      },
+      "2": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": true,
+        "romanNumerals": "I IV I IV I V7 I _ IV viio/V I64 V/ii ii I64 V _ I IV I IV I IV-V7 I",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "style:ragtime",
+          "voice_leading:Vsus4",
+          "timbre:portamento",
+          "upper_voices:polyphony",
+          "bass:root",
+          "bass:transposed_riff"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": {
+          "1": "A (intro, not looped)",
+          "9": "B",
+          "17": "A'"
+        },
+        "secondMeasure": 4.539999999999948,
+        "loop": 25,
+        "firstMeasure": 3.139999999999977,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "2": 4.742857142857143,
+          "3": 6.339999999999909
+        },
+        "tonic": 2,
+        "basedOn": null
+      },
+      "3": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "tonic",
+        "comment": "copy",
+        "correctedMeasures": [],
+        "tonic": null,
+        "basedOn": null
+      },
+      "4": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 4.3099999999999525,
+        "loop": null,
+        "firstMeasure": 2.020000000000001,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "2": 4.228571428571429,
+          "3": 6.269999999999911,
+          "8": 16.914285714285715,
+          "9": 19.06000000000018
+        },
+        "tonic": 0,
+        "basedOn": null
+      },
+      "5": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "I _ _ V7/IV IV iv I",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "voice_leading:ascending_chromatic",
+          "melody:riff"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.5900000000000012,
+        "loop": 9,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 5,
+        "basedOn": null
+      },
+      "6": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "first measure",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 2,
+        "basedOn": null
+      },
+      "7": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "_ VI-VII-I",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.5400000000000011,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 4,
+        "basedOn": null
+      }
+    }
+  },
+  "Nintendo/Bubble Bobble": {
+    "Bubble Bobble (1988-11)(Taito).nsf": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "_ _ _ _ I I vi vi _ _ _ _ V I V I _ _ _ _ _ _ _ _ _ _ II5-V5 I5-_",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "form:period",
+          "bass:octaves",
+          "middle_voice:absent",
+          "tempo:ritardando",
+          "timbre:unexpected_detune"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "secondMeasure": 1.8400000000000014,
+        "form": {
+          "1": "intro",
+          "5": "A:antecedent",
+          "9": "A:consequent",
+          "13": "B:antecedent",
+          "21": "B:consequent"
+        },
+        "loop": 29,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "5": 8.139999999999871,
+          "6": 9.989999999999831
+        },
+        "tonic": 10,
+        "basedOn": null
+      },
+      "1": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "I I vi vi _ _ _ _ V I V I _ _ _ _ _ _ _ _ _ _ II5-V5 I5",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "reference:previous_subtune",
+          "form:period",
+          "bass:octaves",
+          "middle_voice:absent"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": {
+          "1": "A:antecedent",
+          "5": "A:consequent",
+          "9": "B:antecedent",
+          "17": "B:consequent"
+        },
+        "secondMeasure": 1.8400000000000014,
+        "loop": 25,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 10,
+        "basedOn": null
+      },
+      "2": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "reference:previous_subtune"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "tonic",
+        "comment": "speed up",
+        "correctedMeasures": [],
+        "tonic": null,
+        "basedOn": null
+      },
+      "3": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "scale:major_pentatonic",
+          "location:jingle"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.5900000000000012,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 6,
+        "basedOn": null
+      },
+      "4": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "VI VI I5 I5",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "harmony:i-VI shuttle",
+          "bass:octaves",
+          "melody:arpeggio",
+          "middle_voice:absent"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 2.289999999999995,
+        "loop": 5,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "3": 4.679999999999945,
+          "5": 9.58999999999984
+        },
+        "tonic": 11,
+        "basedOn": null
+      },
+      "5": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "location:jingle"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "first measure",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 7,
+        "basedOn": null
+      },
+      "6": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "I ii iii ii",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "timbre:unexpected_detune",
+          "melody:arpeggio",
+          "bass:octaves"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.290000000000001,
+        "loop": 5,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "3": 2.6399999999999877
+        },
+        "tonic": 0,
+        "basedOn": null
+      },
+      "7": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "reference:previous_subtune"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "tonic",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": null,
+        "basedOn": null
+      },
+      "8": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "location:jingle"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "first measure",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 10,
+        "basedOn": null
+      },
+      "9": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "reference:previous_subtune"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "tonic",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": null,
+        "basedOn": null
+      },
+      "20": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "style:major_chord_jingle"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "first measure",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      },
+      "23": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "first measure",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      },
+      "28": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "_ _ i i iv iv i i V V",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "scale:chromatic",
+          "bass:alberti",
+          "location:boss"
+        ],
+        "fourMeasurePhrasingReferences": [
+          3
+        ],
+        "form": [],
+        "secondMeasure": 1.290000000000001,
+        "loop": 11,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 9,
+        "basedOn": null
+      },
+      "29": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "bII I",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "scale:harmonic_major",
+          "harmony:phrygian_shuttle"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 2.6399999999999877,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 9,
+        "basedOn": null
+      },
+      "30": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "location:credits"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 9.289999999999846,
+        "loop": null,
+        "firstMeasure": 7.349999999999888,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "9": 22.2,
+          "10": 24.1,
+          "11": 25.870000000001244,
+          "17": 37.142857142857146,
+          "21": 44.699999999999676,
+          "23": 48.44999999999893
+        },
+        "tonic": 0,
+        "basedOn": null
+      },
+      "31": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "scale:tetratonic"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "first measure",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 8,
+        "basedOn": null
+      },
+      "32": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "first measure",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 3,
+        "basedOn": null
+      },
+      "34": {
+        "beatsPerMeasure": 12,
+        "disableSnapToNotes": false,
+        "romanNumerals": "i VII VI V i VII VI V i VII VI V i VII VI V i VII VI V ",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "bass:root_fifth",
+          "melody:transposed_riff",
+          "middle_voice:riff"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "secondMeasure": 2.9899999999999802,
+        "form": {
+          "1": "intro",
+          "5": "A",
+          "9": "A",
+          "13": "B",
+          "17": "B"
+        },
+        "loop": 21,
+        "firstMeasure": 0.24000000000000007,
+        "step": "end",
+        "comment": "Saint-Saëns \"Dance Macabre\"-like riff",
+        "correctedMeasures": {
+          "3": 5.789999999999921
+        },
+        "tonic": 9,
+        "basedOn": null
+      }
+    }
   }
 }

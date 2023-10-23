@@ -451,6 +451,8 @@ const BOOK = {
           <div>
             To make a static and smooth bass line that moves by step, a composer
             can choose the next chord tone that's closest to the previous note.
+            This wording implies that a chain of chords was designed first, and
+            the bass line was inferred from it.
           </div>
           <div>&nbsp;</div>
           <div>
@@ -459,6 +461,40 @@ const BOOK = {
             <P mask="10000">Melody</P>
             <P mask="01000">Middle voice</P>
             <P mask="11000">Upper voices</P>
+            <P mask="11111">Mix</P>
+          </div>
+        </>
+      ),
+    },
+    {
+      path: "Nintendo/Adventures of Lolo 2",
+      subtune: "10",
+      title: "descending diatonic",
+      text: () => (
+        <>
+          <div>
+            It's possible to build long step-wise descending bass lines by
+            choosing proper chord tones for each chord. This example starts with
+            five descending notes. The middle voice here plays arpeggiated
+            chords.
+          </div>
+          <div>&nbsp;</div>
+          <div>
+            However, just the arpeggio isn't enough. Sometimes the bass here
+            plays the note of the next chord faster than the arpeggio: m.7,
+            m.15, resulting in a richer harmony. In m.8 the bass is
+            indispensable to make it a deceptive cadence: the arpeggio on top
+            simply plays I. Hover the red note in m.8 to see that.
+          </div>
+          <div>&nbsp;</div>
+          <div>
+            <P mask="00100">Bass</P>
+            <P mask="00111">Bass + percussion</P>
+            <P mask="01000">Arpeggio</P>
+            <P mask="01100">Bass + chords</P>
+            <P mask="10000">Melody</P>
+            <P mask="11000">Melody + chords</P>
+            <P mask="10100">Melody + bass</P>
             <P mask="11111">Mix</P>
           </div>
         </>

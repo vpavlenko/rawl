@@ -4712,7 +4712,8 @@
           "timbre:layered",
           "scale:atonal",
           "harmony:stasis",
-          "harmony:diminished_seventh_chords"
+          "harmony:diminished_seventh_chords",
+          "bass:pedal_point"
         ],
         "fourMeasurePhrasingReferences": [],
         "form": {
@@ -6020,7 +6021,8 @@
         },
         "tags": [
           "bass:riff",
-          "scale:tetratonic"
+          "scale:tetratonic",
+          "harmony:mixolydian_shuttle"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 2.239999999999996,
@@ -6408,7 +6410,7 @@
       "2": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
-        "romanNumerals": "I V/ii ii biiio _ IV _ ",
+        "romanNumerals": "I V7/ii ii biiio I IV I-io7 ii-V7",
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
@@ -11972,9 +11974,10 @@
       },
       "15": {
         "mode": "minor",
+        "beatsPerMeasure": 3,
         "secondMeasure": 1.9900000000000015,
         "loop": 9,
-        "romanNumerals": "i viio v vi VI V7 i4 i",
+        "romanNumerals": "i viio v vi7 VI V7 i4 i",
         "firstMeasure": 0.49000000000000027,
         "clickResolutionMs": 0.01,
         "step": "end",
@@ -15761,7 +15764,9 @@
           "bass:riff",
           "form:fermata_between_sections",
           "form:ABABC",
-          "harmony:parallel_keys"
+          "harmony:parallel_keys",
+          "scale:dorian",
+          "middle_voice:riff"
         ],
         "fourMeasurePhrasingReferences": [
           14,
@@ -18853,7 +18858,6 @@
           "harmony:mixolydian_shuttle",
           "bass:transposed_riff",
           "location:menu",
-          "middle_voice:absent",
           "melody:basic_idea_x3",
           "melody:fills_at_rests",
           "form:accumulative"

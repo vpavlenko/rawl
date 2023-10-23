@@ -547,6 +547,85 @@ const BOOK = {
         </>
       ),
     },
+    {
+      path: "Nintendo/Banana",
+      subtune: "1",
+      title: "transposed riff",
+      text: () => (
+        <>
+          <div>
+            A bass riff can include non-chord tones as well. Here, as the riff
+            is transposed from a different root, the relative distances from the
+            root are calculated according to a scale (here mixolydian), not
+            chromatically. This isn't universal, and even in this example green
+            and yellow notes are both used on VII chords.
+          </div>
+          <div>&nbsp;</div>
+          <div>
+            <P span={[2, 9]} mask="00100">
+              Bass
+            </P>
+            <P span={[2, 9]} mask="11000">
+              Upper voices
+            </P>
+            <P span={[2, 9]} mask="11111">
+              Mix
+            </P>
+          </div>
+        </>
+      ),
+    },
+    {
+      path: "Nintendo/Faxanadu",
+      subtune: "11",
+      title: "static riff and pedal point",
+      text: () => (
+        <>
+          <div>
+            Previous strategies were used when chords are changing often.
+            Another way of structuring a piece is to use static harmony and
+            employ a static bass riff. A bass in part A here repeats a minor
+            major seventh chord, and a bass in part B plays a static note (a
+            pedal point).
+          </div>
+          <div>&nbsp;</div>
+          <div>
+            A:{" "}
+            <P span={[5, 21]} mask="10000">
+              Bass
+            </P>
+            <P span={[5, 21]} mask="01000">
+              Its echo
+            </P>
+            <P span={[5, 21]} mask="11000">
+              Bass + echo
+            </P>
+            <P span={[5, 21]} mask="00100">
+              Melody
+            </P>
+            <P span={[5, 21]} mask="11111">
+              Mix
+            </P>
+          </div>
+          <div>&nbsp;</div>
+          <div>
+            B:{" "}
+            <P span={[21, 37]} mask="00100">
+              Bass pedal point
+            </P>
+            <P span={[21, 37]} mask="01000">
+              Arpeggio
+            </P>
+            <P span={[21, 37]} mask="10000">
+              Melody
+            </P>
+            <P span={[21, 37]} mask="11111">
+              Mix
+            </P>
+          </div>
+        </>
+      ),
+    },
   ],
   // modulation:
   // Nintendo/Bandit Kings of Ancient China - 7
@@ -576,20 +655,23 @@ const getAdjacentExamples = (bookPath) => {
 export const BookTOC: React.FC = () => {
   return (
     <div>
-      Topics:
+      The Structure of Music through NES Soundtracks
       <ol style={{ margin: "0 0 100px 0" }}>
         {Object.keys(BOOK).map((key) => (
           <li>
-            <Link to={{ pathname: `/book/${key}/1` }}>{key}</Link>:{" "}
-            {BOOK[key].map(({ title }, index) => (
-              <>
-                &nbsp;&nbsp;&nbsp;
-                <Link to={{ pathname: `/book/${key}/${index + 1}` }}>
-                  <span style={{ whiteSpace: "nowrap" }}>{title ?? index}</span>
-                </Link>
-                &nbsp;&nbsp;&nbsp;
-              </>
-            ))}
+            <Link to={{ pathname: `/book/${key}/1` }}>
+              {key.replace(/_/g, " ")}
+            </Link>
+            :{" "}
+            <ul>
+              {BOOK[key].map(({ title }, index) => (
+                <li>
+                  <Link to={{ pathname: `/book/${key}/${index + 1}` }}>
+                    {title ?? index}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </li>
         ))}
       </ol>

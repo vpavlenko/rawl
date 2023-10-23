@@ -465,10 +465,11 @@ const Chiptheory = ({
     };
   }, []);
 
+  const seekCallback = (seekMs) =>
+    (divRef.current.scrollLeft = secondsToX(seekMs / 1000) - 100);
+
   useEffect(() => {
-    registerSeekCallback(
-      (seekMs) => (divRef.current.scrollLeft = secondsToX(seekMs / 1000) - 100),
-    );
+    registerSeekCallback(seekCallback);
   }, []);
 
   if (
@@ -548,7 +549,11 @@ const Chiptheory = ({
                 newVoiceMask[i] = mask[i] === "1";
               }
               handleSetVoiceMask(newVoiceMask);
-              seek(span ? measuresAndBeats.measures[span[0] - 1] * 1000 : 0);
+              const start = span
+                ? measuresAndBeats.measures[span[0] - 1] * 1000
+                : 0;
+              seek(start);
+              seekCallback(start);
             }}
             tags={analysis.tags}
           />

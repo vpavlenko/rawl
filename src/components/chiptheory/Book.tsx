@@ -728,6 +728,47 @@ const BOOK = {
       ),
     },
     {
+      path: "Nintendo/Bugs Bunny Crazy Castle, The",
+      subtune: "5",
+      title: "walking bass",
+      text: () => (
+        <>
+          <div>
+            <a
+              href="https://en.wikipedia.org/wiki/Bassline#Walking_bass"
+              target="_blank"
+            >
+              Walking bass
+            </a>{" "}
+            usually consists of even quarter notes. Besides the chord tones,
+            musicians often play chromatic (semitone) approaches to chord tones
+            of the next measure - below or above.
+          </div>
+          <div>&nbsp;</div>
+          <div>
+            <P span={[5, 36]} mask="00100">
+              Bass
+            </P>
+            <P span={[5, 36]} mask="00111">
+              Bass + percussion
+            </P>
+            <P span={[5, 36]} mask="10000">
+              Melody
+            </P>
+            <P span={[5, 36]} mask="01000">
+              Echo
+            </P>
+            <P span={[5, 36]} mask="11000">
+              Melody + echo
+            </P>
+            <P span={[5, 36]} mask="11111">
+              Mix
+            </P>
+          </div>
+        </>
+      ),
+    },
+    {
       path: "Nintendo/Bubble Bath Babes",
       subtune: "3",
       title: "exercise 1",
@@ -737,6 +778,80 @@ const BOOK = {
             How is the bass structured here in A+B vs. in A'? Feel free to solo
             or mute voices via controls in the lower right corner.
           </div>
+        </>
+      ),
+    },
+    {
+      path: "Nintendo/Crayon Shin-chan - Ora to Poi Poi",
+      subtune: "12",
+      title: "exercise 2",
+      text: () => (
+        <>
+          <div>What's the structure of the bass line in mm.3-6?</div>
+        </>
+      ),
+    },
+    {
+      path: "Nintendo/Bandit Kings of Ancient China",
+      subtune: "4",
+      title: "exercise 3",
+      text: () => (
+        <>
+          <div>
+            What's the structure of the bass line in different parts here?
+          </div>
+        </>
+      ),
+    },
+    {
+      path: "Nintendo/Adventures of Rad Gravity, The",
+      subtune: "2",
+      title: "exercise 4",
+      text: () => (
+        <>
+          <div>
+            What's the structure of the bass line in different parts here?
+          </div>
+        </>
+      ),
+    },
+    {
+      path: "Nintendo/Bad News Baseball",
+      subtune: "6",
+      title: "exercise 5",
+      text: () => (
+        <>
+          <div>What's the structure of the bass line here?</div>
+        </>
+      ),
+    },
+    {
+      path: "Nintendo/Alien 3",
+      subtune: "1",
+      title: "exercise 6",
+      text: () => (
+        <>
+          <div>What's the structure of the bass line here?</div>
+        </>
+      ),
+    },
+    {
+      path: "Nintendo/Arch Rivals - A Basketbrawl!",
+      subtune: "5",
+      title: "exercise 7",
+      text: () => (
+        <>
+          <div>What's the structure of the bass line here?</div>
+        </>
+      ),
+    },
+    {
+      path: "Nintendo/Blaster Master",
+      subtune: "15",
+      title: "exercise 8",
+      text: () => (
+        <>
+          <div>What's the structure of the bass line here?</div>
         </>
       ),
     },
@@ -773,9 +888,17 @@ export const BookTOC: React.FC = () => {
         The Structure of Music through NES Soundtracks
       </span>
       <div>&nbsp;</div>
-      <ol style={{ margin: "0 0 100px 0" }}>
+      <ol
+        style={{
+          margin: "0 0 100px 0",
+          // columnCount: 3,
+          columnGap: "20%",
+          columnWidth: "300px",
+          // listStylePosition: "inside",
+        }}
+      >
         {Object.keys(BOOK).map((key) => (
-          <li>
+          <li style={{ breakInside: "avoid" }}>
             <Link to={{ pathname: `/book/${key}/1` }}>
               {key.replace(/_/g, " ")}
             </Link>

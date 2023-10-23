@@ -1,31 +1,45 @@
 import React from "react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 export default class AppHeader extends React.PureComponent {
   render() {
     return (
       <header className="AppHeader">
-        <Link className="AppHeader-title" to={{ pathname: "/" }}>Chiptheory</Link>
-        {this.props.user ?
+        <Link className="AppHeader-title" to={{ pathname: "/" }}>
+          Chiptheory
+        </Link>
+        {this.props.user ? (
           <>
-            {' • '}
-            Logged in as {this.props.user.displayName}.
-            {' '}
-            <a href="#" onClick={this.props.handleLogout}>Logout</a>
+            {" • "}
+            Logged in as {this.props.user.displayName}.{" "}
+            <a href="#" onClick={this.props.handleLogout}>
+              Logout
+            </a>
           </>
-          :
+        ) : (
           <>
-            {' • '}
-            <a href="#" onClick={this.props.handleLogin}>Login/Sign Up</a> to Save Analyses
+            {" • "}
+            <a href="#" onClick={this.props.handleLogin}>
+              Login/Sign Up
+            </a>{" "}
+            to Save Analyses (broken)
           </>
-        }
-        {' • '}
+        )}
+        {" • "}
         Built on top of{" "}
-        <a href="https://chiptune.app/" target="_blank" rel="noopener noreferrer">
+        <a
+          href="https://chiptune.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Chip Player JS
         </a>
-        {' • '}
-        <a href="https://github.com/vpavlenko/" target="_blank" rel="noopener noreferrer">
+        {" • "}
+        <a
+          href="https://github.com/vpavlenko/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Send feedback
         </a>
       </header>

@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
+import { RN } from "./romanNumerals";
 
 // Link structure:
 // /book/textures/1
@@ -234,7 +235,6 @@ const BOOK = {
           </div>
         </>
       ),
-      segment: [1, 8],
     },
     {
       path: "Nintendo/Exodus - Journey to the Promised Land",
@@ -382,8 +382,8 @@ const BOOK = {
             rhythm. In the part A there melody doubles this bass line in octave,
             and in the part B there's a separate melody on top of this bass
             line. Finally, in the Mario cadence (mm. 33-35) the bass line plays
-            mostly the root in octaves. (Why then we see chords VI-VII-I in
-            those measures?)
+            mostly the root in octaves. (Why then we see chords{" "}
+            <RN rn="VI-VII-I" /> in those measures?)
           </div>
           <div>&nbsp;</div>
           <div>
@@ -651,7 +651,7 @@ const BOOK = {
             is transposed from a different root, the relative distances from the
             root are calculated according to a scale (here mixolydian), not
             chromatically. This isn't universal, and even in this example green
-            and yellow notes are both used on VII chords.
+            and yellow notes are both used on <RN rn="VII" /> chords.
           </div>
           <div>&nbsp;</div>
           <div>
@@ -728,8 +728,8 @@ const BOOK = {
           <div>
             A static riff doesn't necessarily lead to rare harmonies. Here a
             riff on four notes 1-6-2-5 reminds of a standard major pop/jazz
-            progression I-vi-ii-V, yet no chords are present, and the notes go
-            too fast in a 3+3+2{" "}
+            progression <RN rn="I-vi-ii-V" />, yet no chords are present, and
+            the notes go too fast in a 3+3+2{" "}
             <a
               href="https://en.wikipedia.org/wiki/Tresillo_(rhythm)"
               target="_blank"
@@ -910,6 +910,31 @@ const BOOK = {
   ],
   // modulation:
   // Nintendo/Bandit Kings of Ancient China - 7
+  form: [
+    {
+      path: "Nintendo/Bonza",
+      subtune: "1",
+      title: "period",
+      text: () => (
+        <>
+          <div>
+            A form is how repetitions of music material are structured on
+            various levels. Oxford Companion to Music: "A period consists of two
+            phrases, antecedent and consequent, each of which begins with the
+            same basic motif". In periods in NES, one to several measures repeat
+            verbatim, and the ending changes.
+          </div>
+          <div>&nbsp;</div>
+          <div>
+            We'll only call it a "normal" period if the consequent ends in a
+            more stable way than the antecedent. So, here the antecedent ends on
+            <RN rn="VII" />, and the consequent squashes the <RN rn="VI-VII" />{" "}
+            chords and adds <RN rn="i" /> after them.
+          </div>
+        </>
+      ),
+    },
+  ],
 };
 
 export const parseBookPath = (bookPath) => {

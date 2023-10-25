@@ -356,8 +356,8 @@ export const RowOfRomanNumerals: React.FC<{
 
 export const MeasureOfRomanNumerals: React.FC<{
   dashedRN: string;
-  modulation: PitchClass | null;
-}> = ({ dashedRN, modulation }) => {
+  modulation?: PitchClass | null;
+}> = ({ dashedRN, modulation = null }) => {
   const chords = dashedRnToArray(dashedRN);
   return (
     <div
@@ -374,6 +374,21 @@ export const MeasureOfRomanNumerals: React.FC<{
       {chords.map((chord) => (
         <RomanNumeral romanNumeral={chord} />
       ))}
+    </div>
+  );
+};
+
+// Used in the Book
+export const RN: React.FC<{ rn: string }> = ({ rn }) => {
+  return (
+    <div
+      style={{
+        width: 40 * rn.split("-").length,
+        marginTop: "1px",
+        display: "inline-block",
+      }}
+    >
+      <MeasureOfRomanNumerals dashedRN={rn} />
     </div>
   );
 };

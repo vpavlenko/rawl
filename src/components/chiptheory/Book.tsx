@@ -931,6 +931,41 @@ const BOOK = {
             <RN rn="VII" />, and the consequent squashes the <RN rn="VI-VII" />{" "}
             chords and adds <RN rn="i" /> after them.
           </div>
+          <div>&nbsp;</div>
+          <div>
+            Chords in m.9 aren't present in a clear form - your analysis may
+            vary.
+          </div>
+        </>
+      ),
+    },
+  ],
+  middle_voice: [
+    {
+      path: "Nintendo/Slalom",
+      subtune: "10",
+      title: "parallel thirds",
+      text: () => (
+        <>
+          <div></div>
+        </>
+      ),
+    },
+  ],
+  classical_harmony: [
+    {
+      path: "Nintendo/Binary Land",
+      subtune: "1",
+      title: "viio/V I64",
+      text: () => (
+        <>
+          <div>
+            This example isn't original NES. It's an arrangement of Erik Satie -
+            Je Te Veux, composed around 1897. So there's no surprise that some
+            classical idioms used here aren't used a century after it without
+            bearing the meaning "common practice". Among them the{" "}
+            <RN rn="viio/V-I64" />
+          </div>
         </>
       ),
     },
@@ -969,8 +1004,8 @@ export const BookTOC: React.FC = () => {
         style={{
           margin: "0 0 100px 0",
           // columnCount: 3,
-          columnGap: "20%",
-          columnWidth: "300px",
+          columnGap: "30px",
+          columnWidth: "350px",
           // listStylePosition: "inside",
         }}
       >

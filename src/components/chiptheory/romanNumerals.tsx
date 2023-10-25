@@ -383,7 +383,7 @@ export const RN: React.FC<{ rn: string }> = ({ rn }) => {
   return (
     <div
       style={{
-        width: 40 * rn.split("-").length,
+        width: 45 * rn.split("-").length,
         marginTop: "1px",
         display: "inline-block",
       }}

@@ -63,6 +63,7 @@ const TAGS = [
   "harmony:diminished_chord_modulation",
   "harmony:weird",
   "harmony:pure_I-V",
+  "harmony:pure_i-V",
   "harmony:57_chord_no3",
   "harmony:parallel",
   "harmony:tonic_added-sixth_chord",
@@ -252,6 +253,9 @@ const TAGS = [
   "anomaly:strange_offset",
   "lower_voices:double_parallel",
   "lower_voices:same_range",
+  "origin:demoscene",
+  "origin:russia",
+  "game_genre:baseball",
 ];
 
 const FORM_SECTIONS = [

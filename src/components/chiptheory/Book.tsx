@@ -2,13 +2,20 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import { RN } from "./romanNumerals";
 
-// Link structure:
-// /book/textures/1
-//
-
-// /Nintendo/All-Pro%20Basketball?subtune=3 - a great starting example
-
-// How do we make it open via our link?
+const FS = ({ fs }) => (
+  <div
+    style={{
+      backgroundColor: "#333",
+      padding: "1px 10px 0px 10px",
+      color: "white",
+      display: "inline-block",
+    }}
+  >
+    {fs}
+  </div>
+);
+const A = () => <FS fs="A" />;
+const B = () => <FS fs="B" />;
 
 const PlayContext = React.createContext(null);
 
@@ -161,6 +168,7 @@ const BOOK = {
       path: "Nintendo/Exodus - Journey to the Promised Land",
       subtune: "10",
       title: "major scale",
+      // or Nintendo/Bird Week - 10
       text: () => (
         <>
           <div>
@@ -379,11 +387,11 @@ const BOOK = {
             bass line plays all notes of the chord and no other notes. Here in
             mm. 1-32 every chord is major, and every chord is outlined via its
             notes root (.), major third (3) and perfect fifth (5) in a 3+3+2
-            rhythm. In the part A there melody doubles this bass line in octave,
-            and in the part B there's a separate melody on top of this bass
-            line. Finally, in the Mario cadence (mm. 33-35) the bass line plays
-            mostly the root in octaves. (Why then we see chords{" "}
-            <RN rn="VI-VII-I" /> in those measures?)
+            rhythm. In <A /> a melody doubles this bass line in octave, and in
+            the <B /> there's a separate melody on top of this bass line.
+            Finally, in the Mario cadence (mm. 33-35) the bass line plays mostly
+            the root in octaves. (Why then we see chords <RN rn="VI-VII-I" /> in
+            those measures?)
           </div>
           <div>&nbsp;</div>
           <div>
@@ -444,7 +452,7 @@ const BOOK = {
     {
       path: "Nintendo/Barcode World",
       subtune: "2",
-      title: "root and fifth",
+      title: "root and fifth - 1",
       text: () => (
         <>
           <div>
@@ -468,57 +476,24 @@ const BOOK = {
       ),
     },
     {
-      path: "Nintendo/Bugs Bunny Birthday Blowout, The",
-      subtune: "1",
-      title: "Alberti bass",
+      path: "Nintendo/Battle Storm",
+      subtune: "11",
+      title: "root and fifth - 2",
       text: () => (
         <>
           <div>
-            <a
-              href="https://en.wikipedia.org/wiki/Alberti_bass"
-              target="_blank"
-            >
-              Alberti bass
-            </a>{" "}
-            is a certain riff that can be traced back to at least 18th century.
-            The order of notes is: lowest, highest, middle, highest. Here in m.3
-            the fifth is omitted in favor of the seventh.
+            Even if the harmony itself isn't classic and very chiptune-y - like
+            in this example, where all chords are major (constant structures),
+            the patterns for bass may be the same.
           </div>
           <div>&nbsp;</div>
           <div>
             <P mask="00100">Bass</P>
             <P mask="00111">Bass + percussion</P>
-            <P mask="10000">Melody</P>
-            <P mask="01000">Echo</P>
-            <P mask="11000">Melody + echo</P>
-            <P mask="11011">Melody + echo + percussion</P>
+            <P mask="10000">Upper voice</P>
+            <P mask="01000">Middle voice</P>
+            <P mask="11000">Upper voices</P>
             <P mask="11111">Mix</P>
-          </div>
-        </>
-      ),
-    },
-    {
-      path: "Nintendo/Bubble Bobble",
-      subtune: "29",
-      title: "Alberti bass and chromatic melody",
-      text: () => (
-        <>
-          <div>
-            Even though Alberti bass is classic, the melody shouldn't
-            necessarily stay within the standard scale. Here a chromatic melody
-            resembles "Flight of the Bumblebee".
-          </div>
-          <div>&nbsp;</div>
-          <div>
-            <P span={[3, 10]} mask="00100">
-              Alberti bass
-            </P>
-            <P span={[3, 10]} mask="01000">
-              Chromatic melody
-            </P>
-            <P span={[3, 10]} mask="11111">
-              Mix
-            </P>
           </div>
         </>
       ),
@@ -668,6 +643,63 @@ const BOOK = {
         </>
       ),
     },
+    {
+      path: "Nintendo/Bugs Bunny Birthday Blowout, The",
+      subtune: "1",
+      title: "Alberti bass - 1",
+      text: () => (
+        <>
+          <div>
+            <a
+              href="https://en.wikipedia.org/wiki/Alberti_bass"
+              target="_blank"
+            >
+              Alberti bass
+            </a>{" "}
+            is a certain riff that can be traced back to at least 18th century.
+            The order of notes is: lowest, highest, middle, highest. Here in m.3
+            the fifth is omitted in favor of the seventh.
+          </div>
+          <div>&nbsp;</div>
+          <div>
+            <P mask="00100">Bass</P>
+            <P mask="00111">Bass + percussion</P>
+            <P mask="10000">Melody</P>
+            <P mask="01000">Echo</P>
+            <P mask="11000">Melody + echo</P>
+            <P mask="11011">Melody + echo + percussion</P>
+            <P mask="11111">Mix</P>
+          </div>
+        </>
+      ),
+    },
+    {
+      path: "Nintendo/Bubble Bobble",
+      subtune: "29",
+      title: "Alberti bass - 2",
+      text: () => (
+        <>
+          <div>
+            Even though Alberti bass is classic, the melody shouldn't
+            necessarily stay within the standard scale. Here a chromatic melody
+            resembles "Flight of the Bumblebee".
+          </div>
+          <div>&nbsp;</div>
+          <div>
+            <P span={[3, 10]} mask="00100">
+              Alberti bass
+            </P>
+            <P span={[3, 10]} mask="01000">
+              Chromatic melody
+            </P>
+            <P span={[3, 10]} mask="11111">
+              Mix
+            </P>
+          </div>
+        </>
+      ),
+    },
+
     {
       path: "Nintendo/Faxanadu",
       subtune: "11",
@@ -908,8 +940,53 @@ const BOOK = {
       ),
     },
   ],
-  // modulation:
-  // Nintendo/Bandit Kings of Ancient China - 7
+  minor: [
+    {
+      path: "Nintendo/Battle Chess",
+      subtune: "1",
+      title: "natural minor",
+      text: () => (
+        <>
+          <div>
+            A pure natural minor harmony isn't easily found. When it does, it
+            lacks the leading tone, so the two avaiable dominants are{" "}
+            <RN rn="v" /> and <RN rn="VII" />.
+          </div>
+        </>
+      ),
+    },
+  ],
+  modulation: [
+    {
+      path: "Nintendo/Bandit Kings of Ancient China",
+      subtune: "7",
+      title: "(1)",
+      text: () => <></>,
+    },
+    {
+      path: "Nintendo/Blackjack",
+      subtune: "2",
+      title: "(2)",
+      text: () => <></>,
+    },
+    {
+      path: " Nintendo/Battle Storm",
+      subtune: "1",
+      title: "(3)",
+      text: () => <></>,
+    },
+    {
+      path: " Nintendo/Battle Storm",
+      subtune: "2",
+      title: "(4)",
+      text: () => (
+        <>
+          Compare with the previous example. Should a modulation be marked in
+          mm.5-6?
+        </>
+      ),
+    },
+  ],
   form: [
     {
       path: "Nintendo/Bonza",
@@ -951,6 +1028,20 @@ const BOOK = {
         </>
       ),
     },
+    {
+      path: "Nintendo/Battle Chess",
+      subtune: "1",
+      title: "transposed riff",
+      text: () => (
+        <>
+          <div>
+            A transposed riff here oscillates between 5 and 4 for <RN rn="i" />{" "}
+            and <RN rn="VI" />. It plays a static 5 for other harmonies. Are{" "}
+            <B /> and <FS fs="B'" /> a period?
+          </div>
+        </>
+      ),
+    },
   ],
   classical_harmony: [
     {
@@ -970,7 +1061,31 @@ const BOOK = {
       ),
     },
   ],
+  misc: [
+    {
+      path: "Nintendo/BreakThru",
+      subtune: "6",
+      title: "chord-scale theory",
+      text: () => (
+        <>
+          <div>
+            A major scale is used for non-chord tones everywhere except on{" "}
+            <RN rn="iv" /> where a minor scale is used. To be precise, a scale
+            played <RN rn="IV" /> is lydian and is taken from a major scale for{" "}
+            <RN rn="I" />. A scale played <RN rn="iv" /> is dorian and is taken
+            from a natural minor scale for <RN rn="i" />. (This is a poorly
+            written paragraph.)
+          </div>
+          <div>&nbsp;</div>
+          <div>To hear it clearer, slow down the speed in Settings.</div>
+        </>
+      ),
+    },
+  ],
 };
+
+// Examples to the whole book:
+// Nintendo/Black Bass, The - 1
 
 export const parseBookPath = (bookPath) => {
   return {
@@ -997,15 +1112,15 @@ export const BookTOC: React.FC = () => {
   return (
     <div>
       <span style={{ color: "white" }}>
-        The Structure of Music through NES Soundtracks
+        Music Theory through NES Soundtracks
       </span>
       <div>&nbsp;</div>
       <ol
         style={{
           margin: "0 0 100px 0",
           // columnCount: 3,
-          columnGap: "30px",
-          columnWidth: "350px",
+          columnGap: "20px",
+          columnWidth: "250px",
           // listStylePosition: "inside",
         }}
       >

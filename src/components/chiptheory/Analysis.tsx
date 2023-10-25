@@ -247,6 +247,7 @@ const TAGS = [
   "upper_voices:legato_melody",
   "upper_voices:different_strategies",
   "upper_voices:same_range",
+  "upper_voice:riff", // when melody is in middle_voice
   "percussion:layered",
   "analyzed_in:hopkins",
   "analyzed_in:the common cold",

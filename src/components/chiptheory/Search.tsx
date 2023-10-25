@@ -33,6 +33,7 @@ export const matches = (analysis: Analysis, searchPath: string): boolean => {
 const ROMAN_NUMERALS_SEARCH = [
   "VI VII I",
   "I III",
+  "III IV V",
   // "VI i4",
   "i VI i",
   "i I",

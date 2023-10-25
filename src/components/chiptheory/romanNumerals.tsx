@@ -489,6 +489,22 @@ export const getRelativeModulations = (
   return relativeModulations;
 };
 
+// In Card
+const FormSection: React.FC<{ label: string }> = ({ label }) => (
+  <div
+    style={{
+      textAlign: "start",
+      fontFamily: "sans-serif",
+      fontSize: "15px",
+      padding: "3px",
+      color: "white",
+      backgroundColor: "#333",
+    }}
+  >
+    {label}
+  </div>
+);
+
 export const FormAndHarmony: React.FC<{ analysis: Analysis }> = ({
   analysis,
 }) => {
@@ -510,23 +526,7 @@ export const FormAndHarmony: React.FC<{ analysis: Analysis }> = ({
   for (let i = 0; i + 1 < phrasingMeasures.length; i++) {
     const formSection = form?.[phrasingMeasures[i]];
     if (formSection) {
-      result.push(
-        <div
-          key={`formSection_${i}`}
-          style={{
-            textAlign: "start",
-            fontFamily: "sans-serif",
-            fontSize: "15px",
-            padding: "3px",
-            // backgroundColor: "#333",
-            color: "white",
-            backgroundColor: "#333",
-            // color: "black",
-          }}
-        >
-          {formSection}
-        </div>,
-      );
+      result.push(<FormSection label={formSection} />);
     }
     const relevantModulations = Object.keys(relativeModulations)
       .filter((key) => {

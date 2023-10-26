@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import { RN } from "./romanNumerals";
+import { RN, TWELVE_TONE_COLORS } from "./romanNumerals";
 
 const FS = ({ fs }) => (
   <div
@@ -16,6 +16,27 @@ const FS = ({ fs }) => (
 );
 const A = () => <FS fs="A" />;
 const B = () => <FS fs="B" />;
+
+const D = ({ d }) => (
+  <div
+    style={{
+      width: "18px",
+      height: "13px",
+      backgroundColor: TWELVE_TONE_COLORS[d],
+      display: "inline-block",
+      borderRadius: "3px",
+    }}
+  />
+);
+const Scale = ({ d }) => (
+  <>
+    {d.map((degree, index) => (
+      <span style={{ position: "relative", top: -index, marginRight: "3px" }}>
+        <D d={degree} />
+      </span>
+    ))}
+  </>
+);
 
 const PlayContext = React.createContext(null);
 
@@ -53,7 +74,7 @@ const BOOK = {
           <div>
             Music for NES/Famicom is very diverse in its structure. I invite you
             to the journey on discovering it. It can be functional and complex
-            in chords.{" "}
+            in chords.
           </div>
         </>
       ),
@@ -119,6 +140,17 @@ const BOOK = {
         <>
           It can sound like 80s. Or maybe it sounds completely different for
           you.
+        </>
+      ),
+    },
+    {
+      path: "Nintendo/Bionic Commando",
+      subtune: "5",
+      title: "complex",
+      text: () => (
+        <>
+          Many voice-leading and harmonic techniques can blend in a single
+          piece.
         </>
       ),
     },
@@ -382,16 +414,17 @@ const BOOK = {
       text: () => (
         <>
           <div>
-            The structure of the bass line can either outline the current chord
-            or draw/emphasize certain notes from it. In its clearest form, the
-            bass line plays all notes of the chord and no other notes. Here in
-            mm. 1-32 every chord is major, and every chord is outlined via its
-            notes root (.), major third (3) and perfect fifth (5) in a 3+3+2
-            rhythm. In <A /> a melody doubles this bass line in octave, and in
-            the <B /> there's a separate melody on top of this bass line.
-            Finally, in the Mario cadence (mm. 33-35) the bass line plays mostly
-            the root in octaves. (Why then we see chords <RN rn="VI-VII-I" /> in
-            those measures?)
+            If a harmony isn't static and there's a chain of chords, then the
+            structure of the bass line can either outline the current chord or
+            draw/emphasize certain notes from it. In its clearest form, the bass
+            line plays all notes of the chord and no other notes. Here in mm.
+            1-32 every chord is major, and every chord is outlined via its notes
+            root (.), major third (3) and perfect fifth (5) in a 3+3+2 rhythm.
+            In <A /> a melody doubles this bass line in octave, and in the <B />{" "}
+            there's a separate melody on top of this bass line. Finally, in the
+            Mario cadence (mm. 33-35) the bass line plays mostly the root in
+            octaves. (Why then we see chords <RN rn="VI-VII-I" /> in those
+            measures?)
           </div>
           <div>&nbsp;</div>
           <div>
@@ -444,6 +477,54 @@ const BOOK = {
           <div>
             <P mask="00100">Bass</P>
             <P mask="01000">Melody</P>
+            <P mask="11111">Mix</P>
+          </div>
+        </>
+      ),
+    },
+    {
+      path: "Nintendo/Bionic Commando",
+      subtune: "3",
+      title: "drone",
+      text: () => (
+        <>
+          <div>
+            If the harmony is static and there are no chord changes, then the
+            bass can play the tonic of the current key - the{" "}
+            <a
+              href="https://en.wikipedia.org/wiki/Drone_(sound)"
+              target="_blank"
+            >
+              drone.
+            </a>
+          </div>
+          <div>&nbsp;</div>
+          <div>
+            <P mask="001000">Bass</P>
+            <P mask="01000">Upper voice</P>
+            <P mask="10000">Middle voice</P>
+            <P mask="11000">Two upper voices</P>
+            <P mask="11111">Mix</P>
+          </div>
+        </>
+      ),
+    },
+    {
+      path: "Nintendo/Battle Storm",
+      subtune: "12",
+      title: "drone and fills",
+      text: () => (
+        <>
+          <div>
+            Here the bass plays the drone and also the fills - notes from the
+            scales and chromatic approaches to them - when the melody is
+            sustained. This is logical: over time, there's always something
+            happening, and there's always only one stream of rapid changes.
+          </div>
+          <div>&nbsp;</div>
+          <div>
+            <P mask="00100">Bass</P>
+            <P mask="11000">Upper voices</P>
             <P mask="11111">Mix</P>
           </div>
         </>
@@ -699,7 +780,6 @@ const BOOK = {
         </>
       ),
     },
-
     {
       path: "Nintendo/Faxanadu",
       subtune: "11",
@@ -948,9 +1028,24 @@ const BOOK = {
       text: () => (
         <>
           <div>
-            A pure natural minor harmony isn't easily found. When it does, it
-            lacks the leading tone, so the two avaiable dominants are{" "}
-            <RN rn="v" /> and <RN rn="VII" />.
+            A pure natural minor <Scale d={[0, 2, 3, 5, 7, 8, 10]} /> harmony
+            isn't easily found. When it does, it lacks the leading tone, so the
+            two avaiable dominants are <RN rn="v" /> and <RN rn="VII" />.
+          </div>
+        </>
+      ),
+    },
+    {
+      path: "Nintendo/Armadillo",
+      subtune: "3",
+      title: "hexatonic minor",
+      text: () => (
+        <>
+          <div>
+            Sometimes a minor scale <Scale d={[0, 2, 3, 5, 7, 10]} />{" "}
+            specifically lacks the sixth scale degree (
+            <D d="8" /> or <D d="9" />
+            ), making it hexatonic and ambiguos - neither aeolian nor dorian.
           </div>
         </>
       ),
@@ -986,6 +1081,13 @@ const BOOK = {
         </>
       ),
     },
+    {
+      path: " Nintendo/Bionic Commando",
+      subtune: "5",
+      title: "(5)",
+      text: () => <></>,
+    },
+    // Battle Storm - 6
   ],
   form: [
     {
@@ -1024,7 +1126,21 @@ const BOOK = {
       title: "parallel thirds",
       text: () => (
         <>
-          <div></div>
+          <div>
+            One way of using a middle voice is to double melody in some
+            interval. For example, in parallel thirds. All notes are taken from
+            a diatonic scale, which means that actually there are two different
+            intervals, both called "thirds": minor thirds and major thirds. As
+            the melody goes, upper voices constantly oscillate between two
+            intervals, making two voices somewhat separable and independent.
+          </div>
+          <div>&nbsp;</div>
+          <div>
+            <P mask="01000">Melody</P>
+            <P mask="10000">Middle voice</P>
+            <P mask="11000">Upper voices</P>
+            <P mask="11111">Mix</P>
+          </div>
         </>
       ),
     },
@@ -1086,6 +1202,9 @@ const BOOK = {
 
 // Examples to the whole book:
 // Nintendo/Black Bass, The - 1
+
+// Harmony:
+// I IV V: Nintendo/Slalom - 10
 
 export const parseBookPath = (bookPath) => {
   return {

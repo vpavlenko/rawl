@@ -34,7 +34,7 @@ export const Scale = ({ d }) => (
       <span
         style={{
           position: "relative",
-          top: d.length / 2 - index,
+          top: (d.length / 2 - index) * 0.8,
           marginRight: "3px",
         }}
       >

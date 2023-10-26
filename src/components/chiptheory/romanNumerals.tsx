@@ -204,7 +204,7 @@ export const TWELVE_TONE_COLORS = [
   "red",
   "brown", // CC5500
   "#FF8C00",
-  "#dd0", // "#C1C100",
+  "#e8e800", // "#C1C100",
   "green",
   "#0EFFD0",
   "#787276",
@@ -250,7 +250,7 @@ export const RomanNumeral: React.FC<{
       <span
         style={{
           color:
-            ["#dd0", "#9F9FFF", "#0EFFD0"].indexOf(backgroundColor) !== -1
+            ["#e8e800", "#9F9FFF", "#0EFFD0"].indexOf(backgroundColor) !== -1
               ? "black"
               : "white",
           ...styleProps,

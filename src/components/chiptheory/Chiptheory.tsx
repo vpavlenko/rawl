@@ -18,6 +18,7 @@ import {
   nesApuNoteEstimation,
 } from "./nesApuNoteEstimations";
 import {
+  TWELVE_CHORD_TONES,
   TWELVE_TONE_COLORS,
   getChordNote,
   getNoteMeasure,
@@ -161,6 +162,27 @@ const getNoteColor = (
   ];
 };
 
+const isCenterInsideSpan = (note: Note, span: Span) => {
+  let center = (note.span[0] + note.span[1]) / 2;
+  return span[0] < center && center < span[1];
+};
+
+const getIntervalBelow = (note: Note, allNotes: Note[]) => {
+  let minDistance = Infinity;
+  for (let n of allNotes) {
+    if (
+      n.note.midiNumber < note.note.midiNumber &&
+      isCenterInsideSpan(note, n.span)
+    ) {
+      minDistance = Math.min(
+        minDistance,
+        note.note.midiNumber - n.note.midiNumber,
+      );
+    }
+  }
+  return minDistance;
+};
+
 const getNoteRectangles = (
   notes: Note[],
   voice: Voice,
@@ -172,6 +194,8 @@ const getNoteRectangles = (
   measures: number[] = null,
   handleMouseEnter = (note: Note, altKey: boolean) => {},
   handleMouseLeave = () => {},
+  allNotes: Note[] = [],
+  voiceMask = null,
 ) => {
   return notes.map((note) => {
     const top = midiNumberToY(note.note.midiNumber);
@@ -198,6 +222,7 @@ const getNoteRectangles = (
         {chordNote}
       </span>
     ) : null;
+    const intervalBelow = getIntervalBelow(note, allNotes);
 
     return (
       <div
@@ -233,6 +258,21 @@ const getNoteRectangles = (
         onMouseLeave={handleMouseLeave}
       >
         {noteElement}
+        {intervalBelow !== Infinity && (
+          // isActiveVoice &&
+          // voiceMask.filter(Boolean).length === 1 &&
+          <div
+            style={{
+              position: "relative",
+              top: "-4px",
+              color: "white",
+              fontFamily: "sans-serif",
+              fontSize: "8px",
+            }}
+          >
+            {TWELVE_CHORD_TONES[intervalBelow]}
+          </div>
+        )}
       </div>
     );
   });
@@ -410,6 +450,8 @@ const Chiptheory = ({
         measuresAndBeats.measures,
         handleMouseEnter,
         handleMouseLeave,
+        allNotes,
+        voiceMask,
       ),
     );
   }, [

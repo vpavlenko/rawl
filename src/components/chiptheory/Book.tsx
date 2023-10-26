@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import { RN, TWELVE_TONE_COLORS } from "./romanNumerals";
+import { RN, TWELVE_CHORD_TONES, TWELVE_TONE_COLORS } from "./romanNumerals";
 
 const FS = ({ fs }) => (
   <div
@@ -20,7 +20,7 @@ const B = () => <FS fs="B" />;
 const D = ({ d }) => (
   <div
     style={{
-      width: "18px",
+      width: "15px",
       height: "13px",
       backgroundColor: TWELVE_TONE_COLORS[d],
       display: "inline-block",
@@ -28,14 +28,45 @@ const D = ({ d }) => (
     }}
   />
 );
-const Scale = ({ d }) => (
-  <>
+export const Scale = ({ d }) => (
+  <div style={{ display: "inline-block" }}>
     {d.map((degree, index) => (
-      <span style={{ position: "relative", top: -index, marginRight: "3px" }}>
+      <span
+        style={{
+          position: "relative",
+          top: d.length / 2 - index,
+          marginRight: "3px",
+        }}
+      >
         <D d={degree} />
       </span>
     ))}
-  </>
+  </div>
+);
+
+const CN = ({ cn }) => (
+  <div
+    style={{
+      width: "24px",
+      height: "18px",
+      display: "inline-block",
+      borderRadius: "10px",
+      backgroundColor: "white",
+    }}
+  >
+    <div style={{ display: "grid", placeItems: "center" }}>
+      <span
+        style={{
+          color: "black",
+          fontFamily: "Helvetica, sans-serif",
+          fontWeight: 700,
+          fontSize: "14px",
+        }}
+      >
+        {TWELVE_CHORD_TONES[cn]}
+      </span>
+    </div>
+  </div>
 );
 
 const PlayContext = React.createContext(null);
@@ -85,9 +116,10 @@ const BOOK = {
       title: "static",
       text: () => (
         <>
-          It can be static in harmony, it can have riffs and have a dorian feel.
-          What's a dorian feel? Click on the tags below to see other examples
-          which I tagged this way. Maybe you can feel it too.
+          It can be static in harmony, it can have riffs and have a dorian feel{" "}
+          <Scale d={[0, 2, 3, 5, 7, 9, 10]} />. What's a dorian feel? Click on
+          the tags below to see other examples which I tagged this way. Maybe
+          you can feel it too.
         </>
       ),
     },
@@ -342,12 +374,13 @@ const BOOK = {
         <>
           <div>
             Here the bass always plays the same 1-measure riff in a pentatonic
-            scale. Above it, the scale is expanded to dorian. Almost everywhere,
-            except for m.28, m.32 and m.33 the middle voice plays exactly the
-            third below the melody. This third is drawn from the scale - two
-            notes below it on the scale - so acoustically it can either be a
-            minor third (narrower) or a minor third (wider). You can check all
-            intervals by hovering over the middle voice.
+            scale <Scale d={[0, 3, 5, 7, 10]} />. Above it, the scale is
+            expanded to dorian. Almost everywhere, except for m.28, m.32 and
+            m.33 the middle voice plays exactly the third below the melody. This
+            third is drawn from the scale - two notes below it on the scale - so
+            acoustically it can either be a minor third (narrower) or a minor
+            third (wider). You can check all intervals by hovering over the
+            middle voice.
           </div>
         </>
       ),
@@ -419,12 +452,12 @@ const BOOK = {
             draw/emphasize certain notes from it. In its clearest form, the bass
             line plays all notes of the chord and no other notes. Here in mm.
             1-32 every chord is major, and every chord is outlined via its notes
-            root (.), major third (3) and perfect fifth (5) in a 3+3+2 rhythm.
-            In <A /> a melody doubles this bass line in octave, and in the <B />{" "}
-            there's a separate melody on top of this bass line. Finally, in the
-            Mario cadence (mm. 33-35) the bass line plays mostly the root in
-            octaves. (Why then we see chords <RN rn="VI-VII-I" /> in those
-            measures?)
+            root <CN cn={0} />, major third <CN cn={4} /> and perfect fifth{" "}
+            <CN cn={7} /> in a 3+3+2 rhythm. In <A /> a melody doubles this bass
+            line in octave, and in the <B /> there's a separate melody on top of
+            this bass line. Finally, in the Mario cadence (mm. 33-35) the bass
+            line plays mostly the root in octaves. (Why then we see chords{" "}
+            <RN rn="VI-VII-I" /> in those measures?)
           </div>
           <div>&nbsp;</div>
           <div>
@@ -1316,7 +1349,7 @@ export const BookExample: React.FC<{
                 )}`}
                 target="_blank"
               >
-                {tag}
+                {tag.replace(":", ": ").replace(/_/g, " ")}
               </a>
             </div>
           ))}

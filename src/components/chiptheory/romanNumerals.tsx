@@ -73,6 +73,20 @@ const POWER_CHORDS = [
   "VII5",
   "#VII5",
 ];
+export const TWELVE_CHORD_TONES = [
+  "•",
+  "♭",
+  "2",
+  "Ⅲ",
+  "3",
+  "4",
+  "T",
+  "5",
+  "+",
+  "6",
+  "7",
+  "▵",
+];
 
 export const updateRomanNumerals = (
   analysis: Analysis,
@@ -452,7 +466,7 @@ export const getChordNote = (
   const rootChromaticScaleDegree = romanNumeralToChromaticDegree(romanNumeral);
   if (rootChromaticScaleDegree === -1) return "";
 
-  return ["•", "♭", "2", "Ⅲ", "3", "4", "T", "5", "+", "6", "7", "▵"][
+  return TWELVE_CHORD_TONES[
     (((note.note.midiNumber - getTonic(measure, analysis)) % 12) +
       12 -
       rootChromaticScaleDegree) %

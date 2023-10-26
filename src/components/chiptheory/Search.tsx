@@ -2,6 +2,7 @@ import * as React from "react";
 import { memo, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Analysis } from "./Analysis";
+import { Scale } from "./Book";
 import { RowOfRomanNumerals } from "./romanNumerals";
 
 type Corpus = {
@@ -58,6 +59,20 @@ const ROMAN_NUMERALS_SEARCH = [
   "I7",
   "I^",
 ];
+const SCALE_DEGREES = {
+  dorian: [0, 2, 3, 5, 7, 9, 10],
+  pentatonic: [0, 3, 5, 7, 10],
+  chromatic: [0, 1, 2, 3, 4, 5, 6],
+  blues: [0, 3, 5, 6, 7, 10],
+  "whole-tone": [0, 2, 4, 6, 8, 10],
+  phrygian: [0, 1, 3, 5, 7, 8, 10],
+  nikriz: [0, 2, 3, 6, 7],
+  melodic_minor: [0, 2, 3, 5, 7, 9, 11],
+  mixed_minor: [8, 9, 10, 11],
+  natural_minor: [0, 2, 3, 5, 7, 8, 10],
+  mixolydian: [0, 2, 4, 5, 7, 9, 10],
+  lydian: [0, 2, 4, 6, 7, 9, 11],
+};
 
 export const filterListing = (
   listing,
@@ -181,6 +196,9 @@ const Search: React.FC<{
                   }
                 >
                   {value.replace(/_/g, " ")}{" "}
+                  {categoryName === "scale" && value in SCALE_DEGREES && (
+                    <Scale d={SCALE_DEGREES[value]} />
+                  )}
                   <span style={{ fontSize: "16px" }}>{items.length}</span>
                 </div>
               );

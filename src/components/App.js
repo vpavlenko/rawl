@@ -410,6 +410,7 @@ class App extends React.Component {
 
       await setDoc(userRef, userData).catch((e) => {
         console.log("Couldn't save analysis.", e);
+        alert("Could not save analysis");
       });
 
       this.setState((prevState) => ({

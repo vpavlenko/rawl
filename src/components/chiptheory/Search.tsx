@@ -58,6 +58,7 @@ const ROMAN_NUMERALS_SEARCH = [
   "io7",
   "I7",
   "I^",
+  "viø",
 ];
 const SCALE_DEGREES = {
   dorian: [0, 2, 3, 5, 7, 9, 10],

@@ -1151,6 +1151,34 @@ const BOOK = {
         </>
       ),
     },
+    {
+      path: "Nintendo/Battle of Olympus",
+      subtune: "1",
+      title: "exact repetition",
+      text: () => (
+        <>
+          <div>
+            Reuse of material shouldn't necessarily make a contrast between a
+            part and its repetition. A part can be repeated verbatim before
+            moving on to the next part. In this case, A+A is not a period.
+          </div>
+        </>
+      ),
+    },
+    {
+      path: "Nintendo/Battle of Olympus",
+      subtune: "4",
+      title: "two periods",
+      text: () => (
+        <>
+          <div>
+            The entire piece may consist of two periods, thus making it a binary
+            form. Here antecedents end with <RN rn={"V"} /> and consequents -
+            with <RN rn={"V-i"} /> - the most common way.
+          </div>
+        </>
+      ),
+    },
   ],
   middle_voice: [
     {
@@ -1163,9 +1191,11 @@ const BOOK = {
             One way of using a middle voice is to double melody in some
             interval. For example, in parallel thirds. All notes are taken from
             a diatonic scale, which means that actually there are two different
-            intervals, both called "thirds": minor thirds and major thirds. As
-            the melody goes, upper voices constantly oscillate between two
-            intervals, making two voices somewhat separable and independent.
+            intervals, both called "thirds": minor thirds <CN cn={0} />
+            <CN cn={3} /> and major thirds <CN cn={0} />
+            <CN cn={4} />. As the melody goes, upper voices constantly oscillate
+            between two intervals, making two voices somewhat separable and
+            independent.
           </div>
           <div>&nbsp;</div>
           <div>
@@ -1227,6 +1257,19 @@ const BOOK = {
           </div>
           <div>&nbsp;</div>
           <div>To hear it clearer, slow down the speed in Settings.</div>
+        </>
+      ),
+    },
+    {
+      path: "Nintendo/Armadillo",
+      subtune: "4",
+      title: "ii and IV are synonyms",
+      text: () => (
+        <>
+          <div>
+            <RN rn="ii" /> and <RN rn="IV" /> are synonyms. Compare m.9 and
+            m.17.
+          </div>
         </>
       ),
     },

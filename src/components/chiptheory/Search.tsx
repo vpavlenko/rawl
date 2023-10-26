@@ -72,6 +72,10 @@ const SCALE_DEGREES = {
   natural_minor: [0, 2, 3, 5, 7, 8, 10],
   mixolydian: [0, 2, 4, 5, 7, 9, 10],
   lydian: [0, 2, 4, 6, 7, 9, 11],
+  hexatonic_minor_no6: [0, 2, 3, 5, 7, 10],
+  major: [0, 2, 4, 5, 7, 9, 11],
+  major_pentatonic: [0, 2, 4, 7, 9],
+  harmonic_major: [0, 2, 4, 5, 7, 8, 11],
 };
 
 export const filterListing = (
@@ -106,7 +110,26 @@ const Search: React.FC<{
   const selectedValue = searchPath.slice(searchPath.indexOf("/") + 1);
 
   useEffect(() => {
-    const result = {};
+    const result = {
+      scale: {
+        phrygian: [],
+        natural_minor: [],
+        dorian: [],
+        melodic_minor: [],
+        nikriz: [],
+        mixed_minor: [],
+        hexatonic_minor_no6: [],
+        pentatonic: [],
+        blues: [],
+        mixolydian: [],
+        major: [],
+        lydian: [],
+        harmonic_major: [],
+        major_pentatonic: [],
+      },
+      bass: {},
+      middle_voice: {},
+    };
     let basedOnCountInner = 0;
     if (analyses) {
       Object.keys(analyses).map((game) =>
@@ -195,10 +218,10 @@ const Search: React.FC<{
                     history.push(`/search/${categoryName}/${value}`)
                   }
                 >
-                  {value.replace(/_/g, " ")}{" "}
                   {categoryName === "scale" && value in SCALE_DEGREES && (
                     <Scale d={SCALE_DEGREES[value]} />
-                  )}
+                  )}{" "}
+                  {value.replace(/_/g, " ")}{" "}
                   <span style={{ fontSize: "16px" }}>{items.length}</span>
                 </div>
               );

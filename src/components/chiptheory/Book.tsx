@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
+import { SCALE_DEGREES } from "./Search";
 import { RN, TWELVE_CHORD_TONES, TWELVE_TONE_COLORS } from "./romanNumerals";
 
 const FS = ({ fs }) => (
@@ -28,21 +29,27 @@ const D = ({ d }) => (
     }}
   />
 );
-export const Scale = ({ d }) => (
-  <div style={{ display: "inline-block" }}>
-    {d.map((degree, index) => (
-      <span
-        style={{
-          position: "relative",
-          top: (d.length / 2 - index) * 0.8,
-          marginRight: "3px",
-        }}
-      >
-        <D d={degree} />
-      </span>
-    ))}
-  </div>
-);
+export const Scale: React.FC<{
+  d?: number[];
+  name?: keyof typeof SCALE_DEGREES;
+}> = ({ d = null, name = null }) => {
+  const array = d ?? SCALE_DEGREES[name];
+  return (
+    <div style={{ display: "inline-block" }}>
+      {array.map((degree, index) => (
+        <span
+          style={{
+            position: "relative",
+            top: (array.length / 2 - index) * 0.8,
+            marginRight: "3px",
+          }}
+        >
+          <D d={degree} />
+        </span>
+      ))}
+    </div>
+  );
+};
 
 const CN = ({ cn }) => (
   <div
@@ -117,9 +124,9 @@ const BOOK = {
       text: () => (
         <>
           It can be static in harmony, it can have riffs and have a dorian feel{" "}
-          <Scale d={[0, 2, 3, 5, 7, 9, 10]} />. What's a dorian feel? Click on
-          the tags below to see other examples which I tagged this way. Maybe
-          you can feel it too.
+          <Scale name="dorian" />. What's a dorian feel? Click on the tags below
+          to see other examples which I tagged this way. Maybe you can feel it
+          too.
         </>
       ),
     },
@@ -374,10 +381,10 @@ const BOOK = {
         <>
           <div>
             Here the bass always plays the same 1-measure riff in a pentatonic
-            scale <Scale d={[0, 3, 5, 7, 10]} />. Above it, the scale is
-            expanded to dorian. Almost everywhere, except for m.28, m.32 and
-            m.33 the middle voice plays exactly the third below the melody. This
-            third is drawn from the scale - two notes below it on the scale - so
+            scale <Scale name="pentatonic" />. Above it, the scale is expanded
+            to dorian. Almost everywhere, except for m.28, m.32 and m.33 the
+            middle voice plays exactly the third below the melody. This third is
+            drawn from the scale - two notes below it on the scale - so
             acoustically it can either be a minor third (narrower) or a minor
             third (wider). You can check all intervals by hovering over the
             middle voice.
@@ -1119,6 +1126,109 @@ const BOOK = {
       ),
     },
     {
+      path: "Nintendo/Bucky O'Hare",
+      subtune: "18",
+      title: "melody echo and parallel fourths",
+      text: () => (
+        <>
+          <div>
+            In the intro and in the bridge the middle voice enhances the timbre:
+            it plays the melody shifted in time, creating a echo/delay effect.
+          </div>
+          <div>&nbsp;</div>
+          <div>
+            intro:{" "}
+            <P span={[1, 8]} mask="01000">
+              Melody
+            </P>
+            <P span={[1, 8]} mask="10000">
+              Echo
+            </P>
+            <P span={[1, 8]} mask="11000">
+              Upper voices
+            </P>
+            <P span={[1, 8]} mask="11100">
+              Mix without percussion
+            </P>
+            <P span={[1, 8]} mask="11111">
+              Mix
+            </P>
+          </div>
+          <div>&nbsp;</div>
+          <div>
+            bridge:{" "}
+            <P span={[17, 24]} mask="01000">
+              Melody
+            </P>
+            <P span={[17, 24]} mask="10000">
+              Echo
+            </P>
+            <P span={[17, 24]} mask="11000">
+              Upper voices
+            </P>
+            <P span={[17, 24]} mask="11100">
+              Mix without percussion
+            </P>
+            <P span={[17, 24]} mask="11111">
+              Mix
+            </P>
+          </div>
+          <div>&nbsp;</div>
+          <div>
+            Parallel fourths blend together and may sound as a single, strong,
+            somewhat distorted voice. (I don't know how much of it is me copying
+            the eternal esoteric narrative from the internet and how much do of
+            it do I really hear.) So, although the scale for the bass and the
+            melody is natural minor <Scale name="natural_minor" />, the middle
+            voice uses the dorian note <D d={9} /> without any distress.
+          </div>
+          <div>&nbsp;</div>
+          <div>
+            verse:{" "}
+            <P span={[9, 16]} mask="01000">
+              Melody
+            </P>
+            <P span={[9, 16]} mask="10000">
+              Parallel fourths below
+            </P>
+            <P span={[9, 16]} mask="11000">
+              Upper voices
+            </P>
+            <P span={[9, 16]} mask="11100">
+              Mix without percussion
+            </P>
+            <P span={[9, 16]} mask="11111">
+              Mix
+            </P>
+          </div>
+          <div>&nbsp;</div>
+          <div>
+            chorus:{" "}
+            <P span={[25, 32]} mask="01000">
+              Melody
+            </P>
+            <P span={[25, 32]} mask="10000">
+              Parallel fourths below
+            </P>
+            <P span={[25, 32]} mask="11000">
+              Upper voices
+            </P>
+            <P span={[25, 32]} mask="11100">
+              Mix without percussion
+            </P>
+            <P span={[25, 32]} mask="11111">
+              Mix
+            </P>
+          </div>
+          <div>&nbsp;</div>
+          <div>
+            the entire track: <P mask="11100">Mix withouth percussion</P>{" "}
+            <P mask="11111">Mix</P>
+          </div>
+        </>
+      ),
+    },
+    {
       path: "Nintendo/Battle Chess",
       subtune: "1",
       title: "transposed riff",
@@ -1141,9 +1251,9 @@ const BOOK = {
       text: () => (
         <>
           <div>
-            A pure natural minor <Scale d={[0, 2, 3, 5, 7, 8, 10]} /> harmony
-            isn't easily found. When it does, it lacks the leading tone, so the
-            two avaiable dominants are <RN rn="v" /> and <RN rn="VII" />.
+            A pure natural minor <Scale name="natural_minor" /> harmony isn't
+            easily found. When it does, it lacks the leading tone, so the two
+            avaiable dominants are <RN rn="v" /> and <RN rn="VII" />.
           </div>
         </>
       ),
@@ -1155,7 +1265,7 @@ const BOOK = {
       text: () => (
         <>
           <div>
-            Sometimes a minor scale <Scale d={[0, 2, 3, 5, 7, 10]} />{" "}
+            Sometimes a minor scale <Scale name="hexatonic_minor_no6" />{" "}
             specifically lacks the sixth scale degree (
             <D d="8" /> or <D d="9" />
             ), making it hexatonic and ambiguos - neither aeolian nor dorian.

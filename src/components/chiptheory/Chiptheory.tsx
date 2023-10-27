@@ -321,6 +321,7 @@ const Chiptheory = ({
 }) => {
   const [analysis, setAnalysis] = useState<Analysis>(ANALYSIS_STUB);
   const [showIntervals, setShowIntervals] = useState(false);
+  const [playEnd, setPlayEnd] = useState(null);
 
   useEffect(() => {
     if (savedAnalysis) {
@@ -521,7 +522,8 @@ const Chiptheory = ({
     !paused &&
     bookPath &&
     analysis.loop &&
-    positionMs > measuresAndBeats.measures[analysis.loop - 1] * 1000
+    (positionMs > measuresAndBeats.measures[analysis.loop - 1] * 1000 ||
+      (playEnd && positionMs > measuresAndBeats.measures[playEnd] * 1000))
   ) {
     pause();
   }
@@ -597,7 +599,6 @@ const Chiptheory = ({
                 e.stopPropagation();
               }}
               onChange={(e) => {
-                debugger;
                 e.stopPropagation();
                 setShowIntervals(e.target.checked);
               }}
@@ -617,6 +618,7 @@ const Chiptheory = ({
                 newVoiceMask[i] = mask[i] === "1";
               }
               handleSetVoiceMask(newVoiceMask);
+              setPlayEnd(span ? span[1] : null);
               const start = span
                 ? measuresAndBeats.measures[span[0] - 1] * 1000
                 : 0;

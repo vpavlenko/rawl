@@ -60,7 +60,7 @@ const ROMAN_NUMERALS_SEARCH = [
   "I^",
   "viø",
 ];
-const SCALE_DEGREES = {
+export const SCALE_DEGREES = {
   hijaz: [0, 1, 4, 5, 7],
   dorian: [0, 2, 3, 5, 7, 9, 10],
   pentatonic: [0, 3, 5, 7, 10],

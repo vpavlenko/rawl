@@ -1,4 +1,4 @@
-import EventEmitter from 'events';
+import EventEmitter from "events";
 //
 // Player can be viewed as a state machine with
 // 3 states (playing, paused, stopped) and 5 transitions
@@ -26,7 +26,14 @@ export default class Player extends EventEmitter {
    * @param {number} [bufferSize=2048] - Audio buffer size
    * @param {boolean} [debug=false] - Enable debug logging
    */
-  constructor(core, sampleRate, bufferSize = 2048, debug = false, setChipStateDump) {
+  constructor(
+    core,
+    sampleRate,
+    bufferSize = 2048,
+    debug = false,
+    setChipStateDump,
+    appTogglePause,
+  ) {
     super();
 
     this.core = core;
@@ -43,6 +50,7 @@ export default class Player extends EventEmitter {
     this.paramDefs = [];
     this.params = {};
     this.setChipStateDump = setChipStateDump;
+    this.appTogglePause = appTogglePause;
   }
 
   togglePause() {
@@ -68,55 +76,56 @@ export default class Player extends EventEmitter {
    * @param {string} filename - Filename for metadata fallback
    */
   loadData(data, filename) {
-    throw Error('Player.loadData() must be implemented.');
+    throw Error("Player.loadData() must be implemented.");
   }
 
   stop() {
-    throw Error('Player.stop() must be implemented.');
+    throw Error("Player.stop() must be implemented.");
   }
 
   isPlaying() {
-    throw Error('Player.isPlaying() must be implemented.');
+    throw Error("Player.isPlaying() must be implemented.");
   }
 
-  getTempo() { // TODO: rename all tempo to speed
-    console.warn('Player.getTempo() not implemented for this player.');
+  getTempo() {
+    // TODO: rename all tempo to speed
+    console.warn("Player.getTempo() not implemented for this player.");
     return 1;
   }
 
   setTempo() {
-    console.warn('Player.setTempo() not implemented for this player.');
+    console.warn("Player.setTempo() not implemented for this player.");
   }
 
   setFadeout(startMs) {
-    console.warn('Player.setFadeout() not implemented for this player.');
+    console.warn("Player.setFadeout() not implemented for this player.");
   }
 
   getDurationMs() {
-    console.warn('Player.getDurationMs() not implemented for this player.');
+    console.warn("Player.getDurationMs() not implemented for this player.");
     return 5000;
   }
 
   getPositionMs() {
-    console.warn('Player.getPositionMs() not implemented for this player.');
+    console.warn("Player.getPositionMs() not implemented for this player.");
     return 0;
   }
 
   seekMs(ms) {
-    console.warn('Player.seekMs() not implemented for this player.');
+    console.warn("Player.seekMs() not implemented for this player.");
   }
 
   getVoiceName(index) {
-    console.warn('Player.getVoiceName() not implemented for this player.');
+    console.warn("Player.getVoiceName() not implemented for this player.");
   }
 
   getVoiceMask() {
-    console.warn('Player.getVoiceMask() not implemented for this player.');
+    console.warn("Player.getVoiceMask() not implemented for this player.");
     return [];
   }
 
   setVoiceMask() {
-    console.warn('Player.setVoiceMask() not implemented for this player.');
+    console.warn("Player.setVoiceMask() not implemented for this player.");
   }
 
   getNumVoices() {
@@ -135,7 +144,7 @@ export default class Player extends EventEmitter {
     return {
       title: null,
       author: null,
-    }
+    };
   }
 
   getParamDefs() {
@@ -153,7 +162,9 @@ export default class Player extends EventEmitter {
       paramDefs: this.getParamDefs(),
       tempo: this.getTempo(),
       voiceMask: this.getVoiceMask(),
-      voiceNames: [...Array(this.getNumVoices())].map((_, i) => this.getVoiceName(i)),
+      voiceNames: [...Array(this.getNumVoices())].map((_, i) =>
+        this.getVoiceName(i),
+      ),
       infoTexts: [],
       isStopped: this.stopped,
       isPaused: this.paused,
@@ -175,14 +186,14 @@ export default class Player extends EventEmitter {
       this.timeCount++;
       if (this.timeCount >= this.perfLoggingInterval) {
         const cost = this.renderTime / this.timeCount;
-        const budget = 1000 * this.bufferSize / this.sampleRate;
+        const budget = (1000 * this.bufferSize) / this.sampleRate;
         console.log(
-          '[%s] %s ms to render %d frames (%s ms) (%s% utilization)',
+          "[%s] %s ms to render %d frames (%s ms) (%s% utilization)",
           this.constructor.name,
           cost.toFixed(2),
           this.bufferSize,
           budget.toFixed(1),
-          (100 * cost / budget).toFixed(1),
+          ((100 * cost) / budget).toFixed(1),
         );
         this.renderTime = 0.0;
         this.timeCount = 0;
@@ -191,11 +202,15 @@ export default class Player extends EventEmitter {
   }
 
   processAudioInner() {
-    throw Error('Player.processAudioInner() must be implemented.');
+    throw Error("Player.processAudioInner() must be implemented.");
   }
 
   muteAudioDuringCall(audioNode, fn) {
-    if (audioNode && audioNode.context.state === 'running' && this.paused === false) {
+    if (
+      audioNode &&
+      audioNode.context.state === "running" &&
+      this.paused === false
+    ) {
       const audioprocess = audioNode.onaudioprocess;
       // Workaround to eliminate stuttering:
       // Temporarily swap the audio process callback, and do the
@@ -212,17 +227,17 @@ export default class Player extends EventEmitter {
     }
   }
 
-  handleFileSystemReady() { }
+  handleFileSystemReady() {}
 
   static metadataFromFilepath(filepath) {
     // Guess metadata from path/filename for MIDI files.
     // Assumes structure:  /Game MIDI/{game}/**/{title}
     //             ...or:  /MIDI/{artist}/**/{title}
-    const parts = filepath.split('/');
+    const parts = filepath.split("/");
     const meta = {};
     meta.title = parts.pop();
     meta.system = parts.shift();
-    if (meta.system === 'Game MIDI') {
+    if (meta.system === "Game MIDI") {
       meta.game = parts.shift();
     } else {
       meta.artist = parts.shift();

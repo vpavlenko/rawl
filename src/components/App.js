@@ -271,6 +271,7 @@ class App extends React.Component {
           bufferSize,
           debug,
           (chipStateDump) => self.setState({ chipStateDump }),
+          this.togglePause,
         ),
     );
     this.midiPlayer = players[0];

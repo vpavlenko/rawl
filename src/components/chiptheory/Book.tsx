@@ -1069,6 +1069,70 @@ const BOOK = {
       ),
     },
   ],
+  middle_voice: [
+    {
+      path: "Nintendo/8 Eyes",
+      subtune: "10",
+      title: "absent",
+      text: () => (
+        <>
+          <div>
+            Even though NES has three tonal oscillators, there's no need to make
+            a rich track by using all three. Bass + melody can already be solid
+            and full-fledged.
+          </div>
+          <div>&nbsp;</div>
+          <div>
+            <P mask="01000">Bass</P>
+            <P span={[2, 19]} mask="10000">
+              Melody
+            </P>
+            <P mask="11111">Mix</P>
+          </div>
+        </>
+      ),
+    },
+    {
+      path: "Nintendo/Slalom",
+      subtune: "10",
+      title: "parallel thirds",
+      text: () => (
+        <>
+          <div>
+            One way of using a middle voice is to double melody in some
+            interval. For example, in parallel thirds. All notes are taken from
+            a diatonic scale, which means that actually there are two different
+            intervals, both called "thirds": minor thirds <CN cn={0} />
+            <CN cn={3} /> and major thirds <CN cn={0} />
+            <CN cn={4} />. As the melody goes, upper voices constantly oscillate
+            between two intervals, making two voices somewhat separable and
+            independent.
+          </div>
+          <div>&nbsp;</div>
+          <div>
+            <P mask="01000">Melody</P>
+            <P mask="10000">Middle voice</P>
+            <P mask="11000">Upper voices</P>
+            <P mask="11111">Mix</P>
+          </div>
+        </>
+      ),
+    },
+    {
+      path: "Nintendo/Battle Chess",
+      subtune: "1",
+      title: "transposed riff",
+      text: () => (
+        <>
+          <div>
+            A transposed riff here oscillates between 5 and 4 for <RN rn="i" />{" "}
+            and <RN rn="VI" />. It plays a static 5 for other harmonies. Are{" "}
+            <B /> and <FS fs="B'" /> a period?
+          </div>
+        </>
+      ),
+    },
+  ],
   minor: [
     {
       path: "Nintendo/Battle Chess",
@@ -1191,70 +1255,6 @@ const BOOK = {
             The entire piece may consist of two periods, thus making it a binary
             form. Here antecedents end with <RN rn={"V"} /> and consequents -
             with <RN rn={"V-i"} /> - the most common way.
-          </div>
-        </>
-      ),
-    },
-  ],
-  middle_voice: [
-    {
-      path: "Nintendo/8 Eyes",
-      subtune: "10",
-      title: "absent",
-      text: () => (
-        <>
-          <div>
-            Even though NES has three tonal oscillators, there's no need to make
-            a rich track by using all three. Bass + melody can already be solid
-            and full-fledged.
-          </div>
-          <div>&nbsp;</div>
-          <div>
-            <P mask="01000">Bass</P>
-            <P span={[2, 19]} mask="10000">
-              Melody
-            </P>
-            <P mask="11111">Mix</P>
-          </div>
-        </>
-      ),
-    },
-    {
-      path: "Nintendo/Slalom",
-      subtune: "10",
-      title: "parallel thirds",
-      text: () => (
-        <>
-          <div>
-            One way of using a middle voice is to double melody in some
-            interval. For example, in parallel thirds. All notes are taken from
-            a diatonic scale, which means that actually there are two different
-            intervals, both called "thirds": minor thirds <CN cn={0} />
-            <CN cn={3} /> and major thirds <CN cn={0} />
-            <CN cn={4} />. As the melody goes, upper voices constantly oscillate
-            between two intervals, making two voices somewhat separable and
-            independent.
-          </div>
-          <div>&nbsp;</div>
-          <div>
-            <P mask="01000">Melody</P>
-            <P mask="10000">Middle voice</P>
-            <P mask="11000">Upper voices</P>
-            <P mask="11111">Mix</P>
-          </div>
-        </>
-      ),
-    },
-    {
-      path: "Nintendo/Battle Chess",
-      subtune: "1",
-      title: "transposed riff",
-      text: () => (
-        <>
-          <div>
-            A transposed riff here oscillates between 5 and 4 for <RN rn="i" />{" "}
-            and <RN rn="VI" />. It plays a static 5 for other harmonies. Are{" "}
-            <B /> and <FS fs="B'" /> a period?
           </div>
         </>
       ),

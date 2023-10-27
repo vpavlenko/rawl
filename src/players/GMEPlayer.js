@@ -162,22 +162,23 @@ export default class GMEPlayer extends Player {
         }
       }
     } else {
-      // If we're in the book, this should be disabled.
-      this.subtune++;
+      this.seekMs(0);
+      this.appTogglePause();
+      // this.subtune++;
 
-      if (
-        this.subtune >= core._gme_track_count(this.gmeCtx) ||
-        this.playSubtune(this.subtune) !== 0
-      ) {
-        this.suspend();
-        console.debug(
-          "GMEPlayer.gmeAudioProcess(): _gme_track_ended == %s and subtune (%s) > _gme_track_count (%s).",
-          core._gme_track_ended(this.gmeCtx),
-          this.subtune,
-          core._gme_track_count(this.gmeCtx),
-        );
-        this.emit("playerStateUpdate", { isStopped: true });
-      }
+      // if (
+      //   this.subtune >= core._gme_track_count(this.gmeCtx) ||
+      //   this.playSubtune(this.subtune) !== 0
+      // ) {
+      //   this.suspend();
+      //   console.debug(
+      //     "GMEPlayer.gmeAudioProcess(): _gme_track_ended == %s and subtune (%s) > _gme_track_count (%s).",
+      //     core._gme_track_ended(this.gmeCtx),
+      //     this.subtune,
+      //     core._gme_track_count(this.gmeCtx),
+      //   );
+      //   this.emit("playerStateUpdate", { isStopped: true });
+      // }
     }
   }
 

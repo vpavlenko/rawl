@@ -579,6 +579,11 @@ const Chiptheory = ({
             selectedDownbeat={selectedDownbeat}
             selectDownbeat={setSelectedDownbeat}
           />
+          {/* <div style={{ position: "fixed", bottom: "20px", right: "80px" }}>
+            <div
+              style={{ backgroundColor: "pink", width: "20px", height: "20px" }}
+            />
+          </div> */}
         </div>
       </div>
       {analysisEnabled &&

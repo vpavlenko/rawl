@@ -1,4 +1,5 @@
 import React, { memo, useCallback } from "react";
+import { useLocation } from "react-router-dom";
 import downloadImage from "../images/download.png";
 import linkImage from "../images/link.png";
 import PlayerParams from "./PlayerParams";
@@ -43,6 +44,10 @@ function AppFooter(props) {
     [toggleInfo],
   );
 
+  const location = useLocation();
+
+  const isBook = location.pathname.includes("/book/");
+
   // if (currentSongNumSubtunes === 0) return null;
 
   return (
@@ -62,14 +67,14 @@ function AppFooter(props) {
               Tune {currentSongSubtune + 1} of {currentSongNumSubtunes}{" "}
               <button
                 className="box-button"
-                disabled={ejected}
+                disabled={ejected || isBook}
                 onClick={prevSubtune}
               >
                 &lt;
               </button>{" "}
               <button
                 className="box-button"
-                disabled={ejected}
+                disabled={ejected || isBook}
                 onClick={nextSubtune}
               >
                 &gt;

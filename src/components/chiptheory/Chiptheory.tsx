@@ -222,7 +222,7 @@ const getNoteRectangles = (
         {chordNote}
       </span>
     ) : null;
-    const intervalBelow = getIntervalBelow(note, allNotes);
+    const intervalBelow = 0 && getIntervalBelow(note, allNotes);
 
     return (
       <div
@@ -257,14 +257,13 @@ const getNoteRectangles = (
         onMouseEnter={(e) => handleMouseEnter(note, e.altKey)}
         onMouseLeave={handleMouseLeave}
       >
-        {noteElement}
-        {intervalBelow !== Infinity && (
+        {false && intervalBelow !== Infinity && (
           // isActiveVoice &&
           // voiceMask.filter(Boolean).length === 1 &&
           <div
             style={{
               position: "relative",
-              top: "-4px",
+              top: noteHeight - 4,
               color: "white",
               fontFamily: "sans-serif",
               fontSize: "8px",
@@ -273,6 +272,7 @@ const getNoteRectangles = (
             {TWELVE_CHORD_TONES[intervalBelow]}
           </div>
         )}
+        {noteElement}
       </div>
     );
   });

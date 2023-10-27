@@ -766,13 +766,14 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "scale:saba"
+          "tempo:ritardando",
+          "scale:whole-tone"
         ],
         "fourMeasurePhrasingReferences": [],
-        "secondMeasure": null,
+        "secondMeasure": 1.440000000000001,
         "loop": null,
-        "firstMeasure": null,
-        "step": "first measure",
+        "firstMeasure": 0,
+        "step": "end",
         "comment": "",
         "correctedMeasures": [],
         "tonic": 5,
@@ -8442,13 +8443,13 @@
           "scale:chromatic",
           "location:final_boss",
           "harmony:phrygian_shuttle",
-          "scale:octatonic",
           "scale:dorian",
           "harmony:stasis",
           "melody:riff",
           "middle_voice:melody_echo",
           "middle_voice:parallel_fourths",
-          "voice_leading:W-arpeggio"
+          "voice_leading:W-arpeggio",
+          "scale:octatonic"
         ],
         "fourMeasurePhrasingReferences": [],
         "form": [],
@@ -9028,7 +9029,11 @@
           "middle_voice:melody_echo",
           "scale:hijaz",
           "location:level",
-          "analyzed_in:hopkins"
+          "analyzed_in:hopkins",
+          "timbre:oscillator_as_percussion",
+          "chip:tonal_DMC",
+          "form:solo",
+          "bass:drone"
         ],
         "fourMeasurePhrasingReferences": [],
         "form": [],
@@ -23666,6 +23671,138 @@
         "comment": "",
         "correctedMeasures": [],
         "tonic": 7,
+        "basedOn": null
+      }
+    }
+  },
+  "Nintendo/Big Nose the Caveman": {
+    "Big Nose the Caveman (1991)(Optimus)(Codemaster).nsf": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "I-IV-V-I I I I I I I I I-V I I I I-V IV V IV V",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "timbre:oscillator_as_percussion",
+          "upper_voice:riff",
+          "harmony:I-IV-V",
+          "tempo:twice_as_fast",
+          "bass:root_fifth"
+        ],
+        "fourMeasurePhrasingReferences": [
+          2
+        ],
+        "form": [],
+        "secondMeasure": 1.8400000000000014,
+        "loop": 18,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "5": 7.439999999999886,
+          "10": 16.779999999999824,
+          "16": 27.970000000001573
+        },
+        "tonic": 3,
+        "basedOn": null
+      },
+      "1": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "I vi IV V I vi IV V IV V IV V",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "timbre:ultra_fast_notes",
+          "bass:root_fifth",
+          "middle_voice:arpeggio",
+          "melody:arpeggio"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 2.1399999999999983,
+        "loop": 13,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "3": 4.239999999999954,
+          "4": 6.389999999999908,
+          "5": 8.489999999999863,
+          "6": 10.628571428571428
+        },
+        "tonic": 2,
+        "basedOn": null
+      },
+      "2": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "I I I I IV IV I I V IV I V I I I I IV IV I I V IV I V I I I I IV IV I I V IV I V I I I I IV IV I I V IV I V",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "form:12-bar_blues",
+          "style:boogie-woogie",
+          "timbre:ultra_fast_notes",
+          "rhythm:3+3+2",
+          "middle_voice:arpeggio",
+          "melody:arpeggio",
+          "melody:transposed_riff"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "secondMeasure": 1.5900000000000012,
+        "form": {
+          "1": "A",
+          "13": "B",
+          "25": "A",
+          "37": "C"
+        },
+        "loop": 49,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "feels like the next part (A, B or C) is chosen randomly",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      },
+      "3": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": true,
+        "romanNumerals": "I I IV V I I IV V I I IV V I I IV V I I IV V I I IV V I I IV V I I IV V I I IV V I I IV V I I IV V",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "timbre:wide_vibrato",
+          "form:progression",
+          "bass:octaves",
+          "middle_voice:arpeggio",
+          "rhythm:3+3+2",
+          "harmony:I-IV-V",
+          "form:solo"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "secondMeasure": 1.8400000000000014,
+        "form": {
+          "1": "A",
+          "5": "A",
+          "9": "B",
+          "25": "A",
+          "29": "C"
+        },
+        "loop": 45,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "4": 5.589999999999925,
+          "5": 7.439999999999886,
+          "7": 11.157142857142857,
+          "31": 55.88999999999745,
+          "32": 57.77142857142857,
+          "35": 63.38999999999596
+        },
+        "tonic": 2,
         "basedOn": null
       }
     }

@@ -77,6 +77,7 @@ const TAGS = [
   "harmony:picardy_third",
   "harmony:rich",
   "harmony:upper_structure",
+  "harmony:I-IV-V",
   "rhythm:syncopation",
   "rhythm:interesting",
   "rhythm:swing",

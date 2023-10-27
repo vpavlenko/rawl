@@ -417,6 +417,22 @@ const BOOK = {
         </>
       ),
     },
+    {
+      path: "Nintendo/Big Nose the Caveman",
+      subtune: "2",
+      title: "arpeggios without melody",
+      text: () => (
+        <>
+          <div>
+            <P mask="10000">Bass</P>
+            <P mask="01000">Narrow chords</P>
+            <P mask="00100">Wide chords</P>
+            <P mask="01100">Upper voices</P>
+            <P mask="11111">Mix</P>
+          </div>
+        </>
+      ),
+    },
   ],
   // common_practice_harmony: [{ path: "Nintendo/Banana Prince", subtune: "1" }],
   // melody: [{ path: "Nintendo/Banana Prince", subtune: "1" }],
@@ -457,7 +473,7 @@ const BOOK = {
             line in octave, and in the <B /> there's a separate melody on top of
             this bass line. Finally, in the Mario cadence (mm. 33-35) the bass
             line plays mostly the root in octaves. (Why then we see chords{" "}
-            <RN rn="VI-VII-I" /> in those measures?)
+            <RN rn="VI-VII-I" searchable={true} /> in those measures?)
           </div>
           <div>&nbsp;</div>
           <div>
@@ -1181,6 +1197,28 @@ const BOOK = {
     },
   ],
   middle_voice: [
+    {
+      path: "Nintendo/8 Eyes",
+      subtune: "10",
+      title: "absent",
+      text: () => (
+        <>
+          <div>
+            Even though NES has three tonal oscillators, there's no need to make
+            a rich track by using all three. Bass + melody can already be solid
+            and full-fledged.
+          </div>
+          <div>&nbsp;</div>
+          <div>
+            <P mask="01000">Bass</P>
+            <P span={[2, 19]} mask="10000">
+              Melody
+            </P>
+            <P mask="11111">Mix</P>
+          </div>
+        </>
+      ),
+    },
     {
       path: "Nintendo/Slalom",
       subtune: "10",

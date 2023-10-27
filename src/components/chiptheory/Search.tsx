@@ -1,6 +1,6 @@
 import * as React from "react";
 import { memo, useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Analysis } from "./Analysis";
 import { Scale } from "./Book";
 import { RowOfRomanNumerals } from "./romanNumerals";
@@ -174,7 +174,6 @@ const Search: React.FC<{
           <div
             key={rn}
             style={{
-              cursor: "pointer",
               margin: "0px 10px 10px 1px",
               display: "inline-block",
               ...(selectedCategory === "chords" &&
@@ -184,11 +183,10 @@ const Search: React.FC<{
                   }
                 : {}),
             }}
-            onClick={() =>
-              history.push(`/search/chords/${rn.replace(/ /g, "-")}`)
-            }
           >
-            <RowOfRomanNumerals rnArray={rn.split(" ")} isSearch={true} />
+            <Link to={`/search/chords/${rn.replace(/ /g, "-")}`}>
+              <RowOfRomanNumerals rnArray={rn.split(" ")} isSearch={true} />
+            </Link>
           </div>
         ))}
       </div>

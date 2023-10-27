@@ -25,6 +25,7 @@ const Card: React.FC<{ analysis: Analysis; index: number }> = ({
 }) => {
   const modulations = Object.entries(analysis.modulations || {});
   const badges = [];
+  badges.push(<Badge>{index}</Badge>);
   if (analysis.comment) {
     badges.push(
       <Badge key="comment" color="#cc4">
@@ -56,18 +57,18 @@ const Card: React.FC<{ analysis: Analysis; index: number }> = ({
       </Badge>,
     );
   }
-  // if (modulations.length > 0) {
-  //   badges.push(
-  //     <Badge key="modulations" color="#fcc">
-  //       {"mod: " +
-  //         modulations
-  //           .map(([measure, newTonic]) =>
-  //             formatModulation(newTonic, analysis.tonic),
-  //           )
-  //           .join(", ")}
-  //     </Badge>,
-  //   );
-  // }
+  if (modulations.length > 0) {
+    badges.push(
+      <Badge key="modulations" color="#fcc">
+        {"mod: " +
+          modulations
+            .map(([measure, newTonic]) =>
+              formatModulation(newTonic, analysis.tonic),
+            )
+            .join(", ")}
+      </Badge>,
+    );
+  }
   if (badges.length === 0) {
     badges.push(
       <Badge key="index" color="white">

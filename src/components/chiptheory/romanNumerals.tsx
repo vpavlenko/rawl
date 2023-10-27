@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Link } from "react-router-dom";
 import { Analysis, PitchClass } from "./Analysis";
 import { Note, Span } from "./Chiptheory";
 import { getPhrasingMeasures } from "./measures";
@@ -393,8 +394,11 @@ export const MeasureOfRomanNumerals: React.FC<{
 };
 
 // Used in the Book
-export const RN: React.FC<{ rn: string }> = ({ rn }) => {
-  return (
+export const RN: React.FC<{ rn: string; searchable?: boolean }> = ({
+  rn,
+  searchable = false,
+}) => {
+  const ui = (
     <div
       style={{
         width: 45 * rn.split("-").length,
@@ -405,6 +409,10 @@ export const RN: React.FC<{ rn: string }> = ({ rn }) => {
       <MeasureOfRomanNumerals dashedRN={rn} />
     </div>
   );
+  if (searchable) {
+    return <Link to={{ pathname: `/search/chords/${rn}` }}>{ui}</Link>;
+  }
+  return ui;
 };
 
 export const getModulations = (analysis: Analysis) =>

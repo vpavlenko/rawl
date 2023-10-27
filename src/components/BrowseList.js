@@ -75,12 +75,16 @@ function BrowseList({ items, ...props }) {
   return (
     <div>
       <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          flexWrap: "wrap",
-          alignContent: "flex-start",
-        }}
+        style={
+          !searchPath
+            ? {
+                display: "flex",
+                flexDirection: "row",
+                flexWrap: "wrap",
+                alignContent: "flex-start",
+              }
+            : {}
+        }
       >
         {items.slice(1).map((item) => {
           // XXX: Escape immediately: the escaped URL is considered canonical.
@@ -134,7 +138,9 @@ function BrowseList({ items, ...props }) {
                           search={`?subtune=${realIndex}`}
                         >
                           {isSearch && (
-                            <Card analysis={piece} index={realIndex} />
+                            <div style={{ marginBottom: "40px" }}>
+                              <Card analysis={piece} index={realIndex} />
+                            </div>
                           )}
                         </DirectoryLink>
                       ) : null;

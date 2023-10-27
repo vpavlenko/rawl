@@ -17,6 +17,7 @@ const FS = ({ fs }) => (
 );
 const A = () => <FS fs="A" />;
 const B = () => <FS fs="B" />;
+const C = () => <FS fs="C" />;
 
 const D = ({ d }) => (
   <div
@@ -1100,35 +1101,9 @@ const BOOK = {
       ),
     },
     {
-      path: "Nintendo/Slalom",
-      subtune: "10",
-      title: "parallel thirds",
-      text: () => (
-        <>
-          <div>
-            One way of using a middle voice is to double melody in some
-            interval. For example, in parallel thirds. All notes are taken from
-            a diatonic scale, which means that actually there are two different
-            intervals, both called "thirds": minor thirds <CN cn={0} />
-            <CN cn={3} /> and major thirds <CN cn={0} />
-            <CN cn={4} />. As the melody goes, upper voices constantly oscillate
-            between two intervals, making two voices somewhat separable and
-            independent.
-          </div>
-          <div>&nbsp;</div>
-          <div>
-            <P mask="01000">Melody</P>
-            <P mask="10000">Middle voice</P>
-            <P mask="11000">Upper voices</P>
-            <P mask="11111">Mix</P>
-          </div>
-        </>
-      ),
-    },
-    {
       path: "Nintendo/Bucky O'Hare",
       subtune: "18",
-      title: "melody echo and parallel fourths",
+      title: "echo and parallel fourths",
       text: () => (
         <>
           <div>
@@ -1229,6 +1204,85 @@ const BOOK = {
       ),
     },
     {
+      path: "Nintendo/Slalom",
+      subtune: "10",
+      title: "parallel thirds",
+      text: () => (
+        <>
+          <div>
+            One classic way of using a middle voice is to double melody in some
+            interval. For example, in parallel thirds. All notes are taken from
+            a diatonic scale, which means that actually there are two different
+            intervals, both called "thirds": minor thirds <CN cn={0} />
+            <CN cn={3} /> and major thirds <CN cn={0} />
+            <CN cn={4} />. As the melody goes, upper voices constantly oscillate
+            between two intervals, making two voices somewhat separable and
+            independent.
+          </div>
+          <div>&nbsp;</div>
+          <div>
+            <P mask="01000">Melody</P>
+            <P mask="10000">Middle voice</P>
+            <P mask="11000">Upper voices</P>
+            <P mask="11111">Mix</P>
+          </div>
+        </>
+      ),
+    },
+    {
+      path: "Nintendo/Bucky O'Hare",
+      subtune: "17",
+      title: "parallel sixths",
+      text: () => (
+        <>
+          <div>
+            Here parallel sixths are used to double the melody in <C />
+          </div>
+          <div>&nbsp;</div>
+          <div>
+            <P span={[13, 20]} mask="01000">
+              Melody
+            </P>
+            <P span={[13, 20]} mask="10000">
+              Middle voice
+            </P>
+            <P span={[13, 20]} mask="11000">
+              Upper voices
+            </P>
+            <P span={[13, 20]} mask="00100">
+              Bass
+            </P>
+            <P span={[13, 20]} mask="11111">
+              Mix
+            </P>
+          </div>
+        </>
+      ),
+    },
+    {
+      path: "Nintendo/Adventures of Lolo 3",
+      subtune: "12",
+      title: "where is the melody?",
+      text: () => (
+        <>
+          <div>
+            Is the melody here in the middle voice or in the upper voice? Is it
+            as ambiguous as in the previous example?
+          </div>
+          <div>&nbsp;</div>
+          <div>
+            <P mask="10000">Upper voice</P>
+            <P mask="00100">Middle voice</P>
+            <P mask="01000">Bass</P>
+            <P mask="11000">Upper voice + bass</P>
+            <P mask="01100">Middle voice + bass</P>
+            <P mask="10100">Upper voices</P>
+            <P mask="11111">Mix</P>
+          </div>
+        </>
+      ),
+    },
+    {
       path: "Nintendo/Battle Chess",
       subtune: "1",
       title: "transposed riff",
@@ -1238,6 +1292,18 @@ const BOOK = {
             A transposed riff here oscillates between 5 and 4 for <RN rn="i" />{" "}
             and <RN rn="VI" />. It plays a static 5 for other harmonies. Are{" "}
             <B /> and <FS fs="B'" /> a period?
+          </div>
+        </>
+      ),
+    },
+    {
+      path: "Nintendo/Armadillo",
+      subtune: "1",
+      title: "exercise 1",
+      text: () => (
+        <>
+          <div>
+            What does the middle voice do in different parts of this track?
           </div>
         </>
       ),

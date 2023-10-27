@@ -196,6 +196,7 @@ const getNoteRectangles = (
   handleMouseLeave = () => {},
   allNotes: Note[] = [],
   voiceMask = null,
+  showIntervals = false,
 ) => {
   return notes.map((note) => {
     const top = midiNumberToY(note.note.midiNumber);
@@ -222,7 +223,7 @@ const getNoteRectangles = (
         {chordNote}
       </span>
     ) : null;
-    const intervalBelow = 0 && getIntervalBelow(note, allNotes);
+    const intervalBelow = showIntervals && getIntervalBelow(note, allNotes);
 
     return (
       <div
@@ -257,22 +258,21 @@ const getNoteRectangles = (
         onMouseEnter={(e) => handleMouseEnter(note, e.altKey)}
         onMouseLeave={handleMouseLeave}
       >
-        {false && intervalBelow !== Infinity && (
-          // isActiveVoice &&
+        {showIntervals && intervalBelow !== Infinity && isActiveVoice && (
           // voiceMask.filter(Boolean).length === 1 &&
           <div
             style={{
               position: "relative",
-              top: noteHeight - 4,
+              top: noteHeight,
               color: "white",
               fontFamily: "sans-serif",
-              fontSize: "8px",
+              fontSize: "12px",
             }}
           >
             {TWELVE_CHORD_TONES[intervalBelow]}
           </div>
         )}
-        {noteElement}
+        {!showIntervals && noteElement}
       </div>
     );
   });
@@ -320,6 +320,7 @@ const Chiptheory = ({
   paused,
 }) => {
   const [analysis, setAnalysis] = useState<Analysis>(ANALYSIS_STUB);
+  const [showIntervals, setShowIntervals] = useState(false);
 
   useEffect(() => {
     if (savedAnalysis) {
@@ -452,6 +453,7 @@ const Chiptheory = ({
         handleMouseLeave,
         allNotes,
         voiceMask,
+        showIntervals,
       ),
     );
   }, [
@@ -462,6 +464,7 @@ const Chiptheory = ({
     voiceMask,
     hoveredNote,
     hoveredAltKey,
+    showIntervals,
   ]);
 
   const [positionMs, setPositionMs] = useState(0);
@@ -579,11 +582,29 @@ const Chiptheory = ({
             selectedDownbeat={selectedDownbeat}
             selectDownbeat={setSelectedDownbeat}
           />
-          {/* <div style={{ position: "fixed", bottom: "20px", right: "80px" }}>
-            <div
-              style={{ backgroundColor: "pink", width: "20px", height: "20px" }}
+          <div
+            style={{
+              position: "fixed",
+              top: "50px",
+              right: "20px",
+              zIndex: "100",
+            }}
+          >
+            <input
+              title="Intervals"
+              type="checkbox"
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+              onChange={(e) => {
+                debugger;
+                e.stopPropagation();
+                setShowIntervals(e.target.checked);
+              }}
+              checked={showIntervals}
             />
-          </div> */}
+            Intervals
+          </div>
         </div>
       </div>
       {analysisEnabled &&

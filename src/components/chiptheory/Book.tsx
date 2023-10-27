@@ -1230,9 +1230,57 @@ const BOOK = {
       ),
     },
     {
+      path: "Nintendo/Faxanadu",
+      subtune: "2",
+      title: "parallel sixths - 1",
+      text: () => (
+        <>
+          <div>
+            <A /> starts without the middle voice. Starting from <FS fs="A'" />{" "}
+            parallel sixths are added for the development. How is further
+            development achieved in <FS fs="A''" />?
+          </div>
+          <div>&nbsp;</div>
+          <div>
+            <P span={[1, 32]} mask="00100">
+              Bass
+            </P>
+            <P span={[1, 32]} mask="10100">
+              Melody + bass
+            </P>
+            <P span={[9, 32]} mask="11000">
+              Upper voices from A'
+            </P>
+            <P span={[9, 32]} mask="11111">
+              Mix from A'
+            </P>
+          </div>
+          <div>&nbsp;</div>
+          <div>
+            <B /> uses parallel thirds instead.
+          </div>
+          <div>&nbsp;</div>
+          <div>
+            <P span={[33, 48]} mask="00100">
+              Bass
+            </P>
+            <P span={[33, 48]} mask="10100">
+              Melody + bass
+            </P>
+            <P span={[33, 48]} mask="11000">
+              Upper voices from A'
+            </P>
+            <P span={[33, 48]} mask="11111">
+              Mix from A'
+            </P>
+          </div>
+        </>
+      ),
+    },
+    {
       path: "Nintendo/Bucky O'Hare",
       subtune: "17",
-      title: "parallel sixths",
+      title: "parallel sixths - 2",
       text: () => (
         <>
           <div>

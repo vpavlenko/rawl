@@ -1030,7 +1030,8 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "middle_voice:parallel_sixths"
+          "middle_voice:parallel_sixths",
+          "bass:root_fifth"
         ],
         "fourMeasurePhrasingReferences": [],
         "form": [],
@@ -1038,7 +1039,7 @@
         "loop": 5,
         "firstMeasure": 0,
         "step": "end",
-        "comment": "",
+        "comment": "which voice is the melody?",
         "correctedMeasures": {
           "3": 3.699999999999965,
           "5": 7.419999999999886,
@@ -2970,8 +2971,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "harmony:parallel_keys",
-          "middle_voice:parallel_sixths"
+          "harmony:parallel_keys"
         ],
         "fourMeasurePhrasingReferences": [],
         "form": [],
@@ -4423,17 +4423,18 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
+          "bass:root_third_fifth",
           "middle_voice:parallel_sixths",
           "middle_voice:parallel_thirds",
-          "bass:root_third_fifth"
+          "lower_voices:same_range"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.0700000000000007,
         "form": {
           "1": "A",
-          "9": "A",
-          "17": "A",
-          "25": "A",
+          "9": "A'",
+          "17": "A''",
+          "25": "A'''",
           "33": "B"
         },
         "loop": 49,
@@ -4463,10 +4464,8 @@
         },
         "tags": [
           "form:extra_measure",
-          "middle_voice:parallel_thirds",
-          "middle_voice:parallel_sixths",
-          "middle_voice:parallel_fourths",
-          "rhythm:latin"
+          "rhythm:latin",
+          "middle_voice:mixed_parallel"
         ],
         "fourMeasurePhrasingReferences": [
           9,
@@ -4780,10 +4779,9 @@
         "clickResolutionMs": 0.01,
         "tags": [
           "middle_voice:melody_echo",
-          "middle_voice:parallel_sixths",
           "middle_voice:arpeggio",
-          "middle_voice:parallel_thirds",
-          "harmony:neo-riemannian"
+          "harmony:neo-riemannian",
+          "middle_voice:mixed_parallel"
         ],
         "modulations": {
           "3": 5,
@@ -6586,6 +6584,10 @@
           3
         ],
         "secondMeasure": 1.5900000000000012,
+        "form": {
+          "1": "intro (not looped)",
+          "3": "A"
+        },
         "loop": 11,
         "romanNumerals": "I ii7-V-bII I #VII I^ V+ I bII I",
         "firstMeasure": 0,
@@ -6596,10 +6598,8 @@
           "non-chord tones:neighbor",
           "rhythm:3+3+2",
           "lower_voices:double_parallel",
-          "middle_voice:parallel_thirds",
           "middle_voice:lower_chord_tones",
           "non-chord_tones:double_neighbor",
-          "middle_voice:parallel_sixths",
           "location:level",
           "harmony:constant_structures",
           "bass:root_third_fifth"
@@ -8350,7 +8350,7 @@
       "16": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
-        "romanNumerals": "_ _ _ _ _ _ _ _ _ _ _ VI-VII i",
+        "romanNumerals": "i i i i i i IV5 i VI VI-VII VI VI-VII i VI-VII i VI-VII i VI-VII i VI-VII",
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
@@ -8362,7 +8362,13 @@
           "location:level"
         ],
         "fourMeasurePhrasingReferences": [],
-        "form": [],
+        "form": {
+          "1": "A",
+          "5": "A'",
+          "9": "B",
+          "13": "C",
+          "17": "C'"
+        },
         "secondMeasure": 3.239999999999975,
         "loop": 21,
         "firstMeasure": 1.440000000000001,
@@ -10719,26 +10725,30 @@
       "7": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
-        "romanNumerals": "_ _ I iii IV",
+        "romanNumerals": "_ I-iii IV I-iii IV",
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
           "scale:blues",
-          "middle_voice:parallel_sixths"
+          "bass:root",
+          "middle_voice:static_chord_tones",
+          "harmony:weird_chord",
+          "middle_voice:parallel_fourths"
         ],
         "fourMeasurePhrasingReferences": [
-          3
+          2
         ],
-        "secondMeasure": 0.7400000000000004,
-        "loop": 11,
+        "secondMeasure": 1.440000000000001,
+        "form": {
+          "1": "intro (not looped)",
+          "2": "A"
+        },
+        "loop": 6,
         "firstMeasure": 0,
         "step": "end",
         "comment": "unusual harmony",
-        "correctedMeasures": {
-          "6": 3.642857142857143,
-          "10": 6.5285714285714285
-        },
         "tonic": 0,
+        "correctedMeasures": {},
         "basedOn": null
       },
       "8": {
@@ -13872,7 +13882,7 @@
         "romanNumerals": "I",
         "clickResolutionMs": 0.01,
         "tags": [
-          "middle_voice:parallel_sixths"
+          "middle_voice:mixed_parallel"
         ],
         "mode": "major",
         "fourMeasurePhrasingReferences": [],
@@ -14482,13 +14492,12 @@
           "35": 7
         },
         "tags": [
-          "middle_voice:parallel_sixths",
-          "middle_voice:parallel_thirds",
           "harmony:stasis",
           "bass:pedal_point",
           "rhythm:syncopation",
           "timbre:ultra_fast_notes",
-          "analyzed_in:hopkins"
+          "analyzed_in:hopkins",
+          "middle_voice:mixed_parallel"
         ],
         "fourMeasurePhrasingReferences": [
           5,

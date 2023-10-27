@@ -1542,6 +1542,26 @@ const BOOK = {
         </>
       ),
     },
+    {
+      path: "Nintendo/Barcode World",
+      subtune: "2",
+      title: "exercise 6",
+      text: () => (
+        <>
+          <div>What does the middle voice do here?</div>
+        </>
+      ),
+    },
+    {
+      path: "Nintendo/Hero Quest",
+      subtune: "5",
+      title: "exercise 10",
+      text: () => (
+        <>
+          <div>What does the middle voice do here?</div>
+        </>
+      ),
+    },
   ],
   minor: [
     {

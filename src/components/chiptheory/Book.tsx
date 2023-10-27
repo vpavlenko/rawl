@@ -1236,6 +1236,15 @@ const BOOK = {
       text: () => (
         <>
           <div>
+            There are two sixths: a minor sixth <CN cn={0} />
+            <CN cn={8} /> and a major sixth <CN cn={0} />
+            <CN cn={9} />. As you go up the minor or the major scale in sixths,
+            these intervals alternate in the same way as the thirds. In fact,
+            sixths are reversed thirds (what does that mean?). So doubling with
+            them also creates a separate and interesting second voice.
+          </div>
+          <div>&nbsp;</div>
+          <div>
             <A /> starts without the middle voice. Starting from <FS fs="A'" />{" "}
             parallel sixths are added for the development. How is further
             development achieved in <FS fs="A''" />?
@@ -1326,6 +1335,130 @@ const BOOK = {
             <P mask="01100">Middle voice + bass</P>
             <P mask="10100">Upper voices</P>
             <P mask="11111">Mix</P>
+          </div>
+        </>
+      ),
+    },
+    {
+      path: "Nintendo/Bubble Bath Babes",
+      subtune: "2",
+      title: "thirds and sixths",
+      text: () => (
+        <>
+          <div>
+            Thirds and sixths both work great, and one can mix them in a single
+            track. Notice a small segment of parallel fourths in mm.38-41 and
+            how different it sounds.
+          </div>
+          <div>&nbsp;</div>
+          <div>
+            <P mask="11111">Mix</P>
+          </div>
+        </>
+      ),
+    },
+    {
+      path: "Nintendo/8 Eyes",
+      subtune: "14",
+      title: "lower chords tones",
+      text: () => (
+        <>
+          <div>
+            Here the middle voice double the melody in terms of the rhythm. The
+            intervals used are more diverse, though: apart from thirds and
+            sixths we see fourths and fifths. Why is that?
+          </div>
+          <div>&nbsp;</div>
+          <div>
+            One explanation may be that the strategy here is different: to
+            simply play some chord tone with the middle voice. So, the role of
+            the middle voice here is more harmonic than melodic. In fact, the
+            melody here is doing the same: it features more leaps to chords
+            tones than a standard step-wise motion.
+          </div>
+          <div>&nbsp;</div>
+          <div>Can the middle voice be heard here as the melody itself?</div>
+          <div>&nbsp;</div>
+          <div>
+            <P mask="10000">Melody</P>
+            <P mask="01000">Middle voice</P>
+            <P mask="00100">Bass</P>
+            <P mask="10100">Upper voice + bass</P>
+            <P mask="01100">Middle voice + bass</P>
+            <P mask="11111">Mix</P>
+          </div>
+        </>
+      ),
+    },
+    {
+      path: "Nintendo/Battle of Olympus",
+      subtune: "1",
+      title: "thirds and chord tones",
+      text: () => (
+        <>
+          <div>
+            In <A /> the middle voice mostly double the melody in thirds.
+            Sometimes the rhythm of the middle voice slows down - then it
+            sustains a chord tone instead. Or you may see it the other way
+            around: the middle voice mostly plays the chord tones, but sometimes
+            it gets distracted by the melody and pairs with it in thirds for
+            brief moments, before gaining consciousness again.
+          </div>
+          <div>&nbsp;</div>
+          <div>Is the chord at the second half of m.3 correctly annotated?</div>
+          <div>&nbsp;</div>
+          <div>
+            <P span={[1, 8]} mask="10000">
+              Melody
+            </P>
+            <P span={[1, 8]} mask="01000">
+              Middle voice
+            </P>
+            <P span={[1, 8]} mask="00100">
+              Bass
+            </P>
+            <P span={[1, 8]} mask="11000">
+              Upper voices
+            </P>
+            <P span={[1, 8]} mask="10100">
+              Upper voice + bass
+            </P>
+            <P span={[1, 8]} mask="01100">
+              Middle voice + bass
+            </P>
+            <P span={[1, 8]} mask="11111">
+              Mix
+            </P>
+          </div>
+          <div>&nbsp;</div>
+          <div>
+            In <B /> the melody plays arpeggios and the middle voice plays
+            static chord tones, so all three voices create chords together. What
+            happens in m.12?
+          </div>
+          <div>&nbsp;</div>
+          <div>
+            <P span={[9, 13]} mask="10000">
+              Melody
+            </P>
+            <P span={[9, 13]} mask="01000">
+              Middle voice
+            </P>
+            <P span={[9, 13]} mask="00100">
+              Bass
+            </P>
+            <P span={[9, 13]} mask="11000">
+              Upper voices
+            </P>
+            <P span={[9, 13]} mask="10100">
+              Upper voice + bass
+            </P>
+            <P span={[9, 13]} mask="01100">
+              Middle voice + bass
+            </P>
+            <P span={[9, 13]} mask="11111">
+              Mix
+            </P>
           </div>
         </>
       ),

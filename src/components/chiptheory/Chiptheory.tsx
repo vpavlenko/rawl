@@ -357,6 +357,15 @@ const Chiptheory = ({
     [chipStateDump],
   );
 
+  const allActiveNotes = useMemo(
+    () => [
+      ...(voiceMask[2] ? notes.t : []),
+      ...(voiceMask[0] ? notes.p1 : []),
+      ...(voiceMask[1] ? notes.p2 : []),
+    ],
+    [chipStateDump, voiceMask],
+  );
+
   const { minMidiNumber, maxMidiNumber } = useMemo(
     () => getMidiRange([...notes.t, ...notes.p1, ...notes.p2]),
     [notes],
@@ -452,7 +461,7 @@ const Chiptheory = ({
         measuresAndBeats.measures,
         handleMouseEnter,
         handleMouseLeave,
-        allNotes,
+        allActiveNotes,
         voiceMask,
         showIntervals,
       ),

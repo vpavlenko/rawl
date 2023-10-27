@@ -9652,7 +9652,8 @@
           "harmony:stasis",
           "bass:riff",
           "scale:hemitonic_pentatonic",
-          "middle_voice:mixed_parallel"
+          "middle_voice:mixed_parallel",
+          "scale:hexatonic_minor_no6"
         ],
         "mode": null,
         "fourMeasurePhrasingReferences": [],
@@ -19116,7 +19117,8 @@
           "reference:previous_subtune",
           "harmony:pure_I-V",
           "middle_voice:thirds_and_chord_tones",
-          "bass:walking"
+          "bass:walking",
+          "middle_voice:parallel_thirds"
         ],
         "fourMeasurePhrasingReferences": [],
         "form": {
@@ -20156,7 +20158,9 @@
         "tags": [
           "rhythm:latin",
           "middle_voice:thirds_and_sixths",
-          "bass:riff"
+          "bass:riff",
+          "non-chord tones:neighbor",
+          "middle_voice:parallel_fourths"
         ],
         "fourMeasurePhrasingReferences": [],
         "form": {
@@ -23585,7 +23589,7 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
-        "romanNumerals": "i VII III-VI VI-v i VII III-VI VI-v i iv V",
+        "romanNumerals": "i VII III-VI VI-v i VII III-VI VI-v i iv V7",
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
@@ -23593,7 +23597,9 @@
           "middle_voice:parallel_thirds",
           "harmony:upper_structure",
           "middle_voice:static_chord_tones",
-          "melody:arpeggio"
+          "melody:arpeggio",
+          "form:uniform_period",
+          "form:binary"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 2.0899999999999994,

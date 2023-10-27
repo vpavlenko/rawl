@@ -1464,6 +1464,38 @@ const BOOK = {
       ),
     },
     {
+      path: "Nintendo/Addams Family",
+      subtune: "5",
+      title: "reduced scales",
+      text: () => (
+        <>
+          <div>
+            Here the upper voices go in mixed intervals. What's the logic behind
+            it?
+          </div>
+          <div>&nbsp;</div>
+          <div>
+            My explanation is that the notes for upper voices aren't drawn from
+            a bigger minor scale. Instead, the local scale is a hemitonic
+            pentatonic <Scale name="hemitonic_pentatonic" /> in <A /> and{" "}
+            <FS fs="A'" /> (with one exceptional <D d="5" />
+            ), and a contrasting brighter hexatonic minor without a sixth degree{" "}
+            <Scale name="hexatonic_minor_no6" /> in <B />, <FS fs="D" /> and{" "}
+            <FS fs="D'" /> (with one neighbor tone <D d="8" />
+            ). Notice a weird effect in m.17, beat 4.
+          </div>
+          <div>&nbsp;</div>
+          <div>
+            <P mask="10000">Melody</P>
+            <P mask="01000">Middle voice</P>
+            <P mask="11000">Upper voices</P>
+            <P mask="00100">Bass</P>
+            <P mask="11111">Mix</P>
+          </div>
+        </>
+      ),
+    },
+    {
       path: "Nintendo/Battle Chess",
       subtune: "1",
       title: "transposed riff",
@@ -1486,6 +1518,27 @@ const BOOK = {
           <div>
             What does the middle voice do in different parts of this track?
           </div>
+        </>
+      ),
+    },
+    {
+      path: "Nintendo/Battle Fleet",
+      subtune: "9",
+      title: "exercise 2",
+      text: () => (
+        <>
+          <div>What does the middle voice do here?</div>
+        </>
+      ),
+    },
+
+    {
+      path: "Nintendo/Cabal",
+      subtune: "11",
+      title: "exercise 5",
+      text: () => (
+        <>
+          <div>What is going on here?</div>
         </>
       ),
     },

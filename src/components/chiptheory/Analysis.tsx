@@ -64,6 +64,7 @@ const TAGS = [
   "harmony:i-bvii shuttle",
   "harmony:diminished_chord_modulation",
   "harmony:weird",
+  "harmony:weird_alterations",
   "harmony:pure_I-V",
   "harmony:pure_i-V",
   "harmony:57_chord_no3",
@@ -78,6 +79,7 @@ const TAGS = [
   "harmony:rich",
   "harmony:upper_structure",
   "harmony:I-IV-V",
+  "harmony:V7b9",
   "rhythm:syncopation",
   "rhythm:interesting",
   "rhythm:swing",
@@ -267,6 +269,7 @@ const TAGS = [
   "origin:demoscene",
   "origin:russia",
   "game_genre:baseball",
+  "lego:pullback",
 ];
 
 const FORM_SECTIONS = [

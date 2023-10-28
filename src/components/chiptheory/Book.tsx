@@ -1382,6 +1382,7 @@ const BOOK = {
           <div>
             <P mask="10000">Melody</P>
             <P mask="01000">Middle voice</P>
+            <P mask="11000">Upper voices</P>
             <P mask="00100">Bass</P>
             <P mask="10100">Upper voice + bass</P>
             <P mask="01100">Middle voice + bass</P>
@@ -1707,6 +1708,36 @@ const BOOK = {
         </>
       ),
     },
+  ],
+  jazz_harmony: [
+    {
+      path: "Nintendo/Blue Marlin, The",
+      subtune: "3",
+      title: "diatonic seventh chords",
+      text: () => (
+        <>
+          <div>
+            In <A /> the chords are played by the middle voice, so they are
+            clearly seventh chords. In <B /> it's a bit more shadowed.
+          </div>
+          <div>&nbsp;</div>
+          <div>
+            <P mask="00100">Bass</P>
+            <P span={[5, 36]} mask="01000">
+              Middle voice
+            </P>
+            <P span={[5, 36]} mask="10000">
+              Melody
+            </P>
+            <P span={[5, 36]} mask="01100">
+              Bass + middle voice
+            </P>
+            <P mask="11111">Mix</P>
+          </div>
+        </>
+      ),
+    },
+    ,
   ],
   misc: [
     {

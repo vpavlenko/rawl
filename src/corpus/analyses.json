@@ -10294,7 +10294,8 @@
           "middle_voice:parallel_thirds",
           "scale:atonal",
           "scale:nikriz",
-          "scale:demo"
+          "scale:demo",
+          "harmony:shuttle"
         ],
         "modulations": {
           "5": 7,
@@ -11351,9 +11352,10 @@
         "modulations": [],
         "tags": [
           "scale:hijaz",
-          "harmony:shuttle",
           "middle_voice:creative_chord_tones",
-          "location:level"
+          "location:level",
+          "timbre:minor_seconds",
+          "harmony:phrygian_shuttle"
         ],
         "fourMeasurePhrasingReferences": [],
         "form": [],
@@ -13851,14 +13853,18 @@
       "4": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
-        "romanNumerals": "",
+        "romanNumerals": "i7 i7 VI VI _ _ _ _ _ _ _ _ _ _ _ _ _ iv v _ VI _ VII",
         "clickResolutionMs": 0.01,
-        "modulations": [],
+        "modulations": {
+          "78": 0
+        },
         "tags": [
           "location:game_won",
           "analyzed_in:hopkins",
-          "harmony:shuttle",
-          "form:extra_measure"
+          "form:extra_measure",
+          "harmony:i-VI shuttle",
+          "timbre:oscillator_as_percussion",
+          "middle_voice:transposed_riff"
         ],
         "fourMeasurePhrasingReferences": [],
         "form": [],
@@ -13866,10 +13872,14 @@
         "loop": null,
         "firstMeasure": 0,
         "step": "end",
-        "comment": "",
+        "comment": "\"Aquatic Ambience\" vibes",
         "correctedMeasures": {
           "2": 1.6200000000000012,
-          "26": 39.91428571428571
+          "26": 39.91428571428571,
+          "28": 43.114285714285714,
+          "29": 44.72857142857143,
+          "65": 102.33000000001545,
+          "74": 116.72000000002281
         },
         "tonic": 1,
         "basedOn": null
@@ -17066,7 +17076,7 @@
       "2": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
-        "romanNumerals": "",
+        "romanNumerals": "i _ i _ i _ i",
         "clickResolutionMs": 0.01,
         "modulations": {
           "3": 2,
@@ -17284,13 +17294,51 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "bass:octaves",
-          "harmony:stasis"
+          "harmony:stasis",
+          "bass:riff"
         ],
         "fourMeasurePhrasingReferences": [],
         "form": [],
         "secondMeasure": 3.139999999999977,
         "loop": 9,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      },
+      "13": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "first measure",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 2,
+        "basedOn": null
+      },
+      "14": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "_ _ _ _ _ _ _ _ _ _ _ I",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "bass:inversions"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.5900000000000012,
+        "loop": null,
         "firstMeasure": 0,
         "step": "end",
         "comment": "",
@@ -17559,9 +17607,9 @@
           "style:bossa_nova",
           "rhythm:latin",
           "harmony:diatonic_seventh_chords",
-          "middle_voice:creative_chord_tones",
           "bass:root_fifth",
-          "bass:transposed_riff"
+          "bass:transposed_riff",
+          "middle_voice:transposed_riff"
         ],
         "fourMeasurePhrasingReferences": [],
         "form": [],
@@ -18774,7 +18822,9 @@
         "disableSnapToNotes": false,
         "romanNumerals": "",
         "clickResolutionMs": 0.01,
-        "modulations": [],
+        "modulations": {
+          "3": 8
+        },
         "tags": [
           "harmony:I-III shuttle"
         ],
@@ -20351,7 +20401,7 @@
       "1": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
-        "romanNumerals": "I I vi vi _ _ _ _ V I V I _ _ _ _ _ _ _ _ _ _ II5-V5 I5",
+        "romanNumerals": "I I vi vi I5 I vi vi V I V I _ _ _ _ _ _ _ _ _ _ II5-V5 I5",
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
@@ -22870,7 +22920,7 @@
       "11": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
-        "romanNumerals": "",
+        "romanNumerals": "_ _ _ _-V",
         "clickResolutionMs": 0.01,
         "modulations": {
           "5": 9
@@ -23818,6 +23868,122 @@
           "35": 63.38999999999596
         },
         "tonic": 2,
+        "basedOn": null
+      }
+    }
+  },
+  "Nintendo/Blue Marlin, The": {
+    "Blue Marlin, The (1991-12-27)(Hot-B).nsf": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "_ _ _ _ ii ii-V5 I vi ii ii-V5 I V/ii ii ii I I+ ii ii I^ I",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "harmony:diatonic_seventh_chords",
+          "timbre:oscillator_as_percussion",
+          "bass:octaves"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "secondMeasure": 2.0000000000000013,
+        "form": {
+          "1": "intro (not looped)",
+          "5": "A",
+          "9": "A'",
+          "13": "B",
+          "17": "B'"
+        },
+        "loop": 21,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "20": 38.81000000000085
+        },
+        "tonic": 9,
+        "basedOn": null
+      },
+      "1": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "I-VII I-VII I-VII I-VII I-VII I-VII I-VII I-VII I5 VII VI^ v ii7 I^ VII V",
+        "clickResolutionMs": 0.01,
+        "modulations": {
+          "9": 7,
+          "13": 10
+        },
+        "tags": [
+          "harmony:mixolydian_shuttle",
+          "rhythm:3 against 2",
+          "form:uniform_period",
+          "voice_leading:Vsus4",
+          "rhythm:1+2+2+2",
+          "form:binary",
+          "middle_voice:static_chord_tones",
+          "middle_voice:arpeggio",
+          "upper_voices:polyphony"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "secondMeasure": 2.0899999999999994,
+        "form": {
+          "1": "A",
+          "5": "A",
+          "9": "B:sentence"
+        },
+        "loop": 17,
+        "firstMeasure": 0.3900000000000002,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 10,
+        "basedOn": null
+      },
+      "2": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "II5 V5 II5 V5 ii7 V7 iii7 vi7 ii7 V7 I^ I^ ii7 V7 iii7 vi7 ii7 V7 I^ I^ ii V7 I^ I^ ii7 V7 I^ I ii V i IV ii4 V/V V V",
+        "clickResolutionMs": 0.01,
+        "modulations": {
+          "21": 7,
+          "29": 11
+        },
+        "tags": [
+          "harmony:diatonic_seventh_chords",
+          "middle_voice:arpeggio",
+          "voice_leading:Vsus4",
+          "form:reversed_period",
+          "form:binary",
+          "lego:pullback",
+          "bass:root_fifth",
+          "melody:basic_idea_x3",
+          "melody:reharmonization",
+          "harmony:V7b9",
+          "middle_voice:static_chord_tones",
+          "form:period"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "secondMeasure": 0.8900000000000006,
+        "form": {
+          "1": "intro (not looped)",
+          "5": "A:antecedent",
+          "13": "A:consequent",
+          "21": "B:consequent",
+          "29": "B:antecedent"
+        },
+        "loop": 37,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "24": 21.34285714285714,
+          "28": 25.071428571428573,
+          "32": 28.8,
+          "34": 30.642857142857142,
+          "36": 32.48571428571429,
+          "38": 34.36000000000173
+        },
+        "tonic": 4,
         "basedOn": null
       }
     }

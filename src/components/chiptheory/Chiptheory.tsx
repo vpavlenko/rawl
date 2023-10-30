@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   ANALYSIS_STUB,
   Analysis,
@@ -331,7 +331,22 @@ const Chiptheory = ({
     }
   }, [savedAnalysis]);
 
+  const [previouslySelectedDownbeat, setPreviouslySelectedDownbeat] = useState<
+    number | null
+  >(null);
   const [selectedDownbeat, setSelectedDownbeat] = useState<number | null>(null);
+  const selectDownbeat = useCallback(
+    (downbeat) => {
+      if (downbeat === null) {
+        setPreviouslySelectedDownbeat(null);
+        setSelectedDownbeat(null);
+      } else {
+        setPreviouslySelectedDownbeat(selectedDownbeat);
+        setSelectedDownbeat(downbeat);
+      }
+    },
+    [selectedDownbeat],
+  );
 
   const analysisRef = useRef(analysis);
   useEffect(() => {
@@ -509,7 +524,7 @@ const Chiptheory = ({
   useEffect(() => {
     const handleEscapePress = (event) => {
       if (event.key === "Escape" || event.keyCode === 27) {
-        setSelectedDownbeat(null);
+        selectDownbeat(null);
       }
     };
 
@@ -590,8 +605,9 @@ const Chiptheory = ({
             measuresAndBeats={measuresAndBeats}
             midiNumberToY={midiNumberToY}
             noteHeight={noteHeight}
+            previouslySelectedDownbeat={previouslySelectedDownbeat}
             selectedDownbeat={selectedDownbeat}
-            selectDownbeat={setSelectedDownbeat}
+            selectDownbeat={selectDownbeat}
           />
           <div
             style={{
@@ -641,8 +657,9 @@ const Chiptheory = ({
             analysis={analysis}
             saveAnalysis={saveAnalysis}
             setAnalysis={setAnalysis}
+            previouslySelectedDownbeat={previouslySelectedDownbeat}
             selectedDownbeat={selectedDownbeat}
-            selectDownbeat={setSelectedDownbeat}
+            selectDownbeat={selectDownbeat}
           />
         ))}
     </div>

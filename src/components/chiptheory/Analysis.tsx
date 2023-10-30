@@ -2,7 +2,7 @@ import * as React from "react";
 import { useEffect, useState } from "react";
 import Select from "react-select";
 import styled from "styled-components";
-import { Note, secondsToX } from "./Chiptheory";
+import { Note, Span, secondsToX } from "./Chiptheory";
 import { MeasuresAndBeats, getPhrasingMeasures } from "./measures";
 import {
   MeasureOfRomanNumerals,
@@ -329,6 +329,11 @@ export const STEP_CALL_TO_ACTION: Record<Step, string> = {
 
 export type PitchClass = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11;
 
+type TagSpan = {
+  tag: string;
+  span: Span;
+};
+
 export type Analysis = {
   clickResolutionMs: number;
   step: Step;
@@ -346,6 +351,7 @@ export type Analysis = {
   tags: string[];
   disableSnapToNotes: boolean;
   form?: { [key: number]: string };
+  tagSpans?: TagSpan[];
 };
 
 export const ANALYSIS_STUB: Analysis = {
@@ -475,6 +481,7 @@ const Measure: React.FC<{
   span: [number, number];
   number: number;
   isFourMeasureMark: boolean;
+  previouslySelectedDownbeat: number;
   selectedDownbeat: number;
   selectDownbeat: (number: number) => void;
   romanNumeral: string;
@@ -484,6 +491,7 @@ const Measure: React.FC<{
   span,
   number,
   isFourMeasureMark,
+  previouslySelectedDownbeat,
   selectedDownbeat,
   selectDownbeat,
   romanNumeral,
@@ -507,10 +515,16 @@ const Measure: React.FC<{
           position: "absolute",
           top: 30,
           left: `${left + 7}px`,
-          color: selectedDownbeat === number ? "red" : "white",
+          color:
+            selectedDownbeat === number
+              ? "red"
+              : previouslySelectedDownbeat === number
+              ? "green"
+              : "white",
           zIndex: 5,
           cursor: "pointer",
           userSelect: "none",
+          width,
         }}
         onClick={(e) => {
           e.stopPropagation();
@@ -630,6 +644,7 @@ export const AnalysisGrid: React.FC<{
   measuresAndBeats: MeasuresAndBeats;
   midiNumberToY: (number: number) => number;
   noteHeight: number;
+  previouslySelectedDownbeat: number;
   selectedDownbeat: number;
   selectDownbeat: (number: number) => void;
 }> = React.memo(
@@ -638,6 +653,7 @@ export const AnalysisGrid: React.FC<{
     measuresAndBeats,
     midiNumberToY,
     noteHeight,
+    previouslySelectedDownbeat,
     selectedDownbeat,
     selectDownbeat,
   }) => {
@@ -664,6 +680,7 @@ export const AnalysisGrid: React.FC<{
               isFourMeasureMark={phrasingMeasures.indexOf(number) !== -1}
               formSection={(analysis.form ?? {})[number]}
               number={number}
+              previouslySelectedDownbeat={previouslySelectedDownbeat}
               selectedDownbeat={selectedDownbeat}
               selectDownbeat={selectDownbeat}
               romanNumeral={romanNumeralsToArray(analysis?.romanNumerals)[i]}
@@ -715,6 +732,7 @@ export const AnalysisBox: React.FC<{
   analysis: Analysis;
   saveAnalysis: (analysis: Analysis) => void;
   setAnalysis: (analysis: Analysis) => void;
+  previouslySelectedDownbeat: number;
   selectedDownbeat: number;
   selectDownbeat: (downbeat: number | null) => void;
 }> = React.memo(
@@ -722,6 +740,7 @@ export const AnalysisBox: React.FC<{
     analysis,
     saveAnalysis,
     setAnalysis,
+    previouslySelectedDownbeat,
     selectedDownbeat,
     selectDownbeat,
   }) => {
@@ -895,6 +914,34 @@ export const AnalysisBox: React.FC<{
                 <li>Adjust position: click anywhere</li>
                 <li>Enter modulation: alt+click on a new tonic</li>
                 <li>
+                  <div>
+                    Add tag to span: [{previouslySelectedDownbeat}-
+                    {selectedDownbeat}]
+                    <Select
+                      options={TAGS.map((tag) => ({ value: tag, label: tag }))}
+                      onChange={(tag) => {
+                        const newAnalysis = {
+                          ...analysis,
+                          tagSpans: [
+                            ...(analysis.tagSpans ?? []),
+                            {
+                              tag: tag.value,
+                              span: [
+                                previouslySelectedDownbeat,
+                                selectedDownbeat,
+                              ] as Span,
+                            },
+                          ],
+                        };
+
+                        selectDownbeat(null);
+                        saveAnalysis(newAnalysis);
+                        setAnalysis(newAnalysis);
+                      }}
+                    />
+                  </div>
+                </li>
+                <li>
                   {formSection}
                   <div>
                     {FORM_SECTIONS.map((formSection) => (
@@ -966,6 +1013,34 @@ export const AnalysisBox: React.FC<{
                   }}
                 />
               </div>
+              {analysis.tagSpans && (
+                <div key="tagSpans" style={{ marginTop: "10px" }}>
+                  Tag spans:{" "}
+                  {analysis.tagSpans.map(({ tag, span }, index) => (
+                    <div>
+                      {tag}: [{span[0]}, {span[1]}]{" "}
+                      <button
+                        style={{ marginRight: "10px", marginTop: "10px" }}
+                        className="box-button"
+                        onClick={() => {
+                          const newTagSpans = [...analysis.tagSpans];
+                          newTagSpans.splice(index, 1);
+
+                          const newAnalysis = {
+                            ...analysis,
+                            tagSpans: newTagSpans,
+                          };
+
+                          saveAnalysis(newAnalysis);
+                          setAnalysis(newAnalysis);
+                        }}
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           )}
         </div>

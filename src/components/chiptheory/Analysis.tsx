@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Select from "react-select";
 import styled from "styled-components";
 import { Note, Span, secondsToX } from "./Chiptheory";
@@ -172,6 +172,7 @@ const TAGS = [
   "form:EDM",
   "form:complex",
   "form:binary",
+  "form:binary_with_intro",
   "timbre:ultra_fast_notes",
   "timbre:rich",
   "timbre:layered",
@@ -196,6 +197,8 @@ const TAGS = [
   "melody:fill_after_cadence",
   "melody:stepwise",
   "melody:chord_tones",
+  "melody:development_via_rhythmic_shift",
+  "melody:chord_tones_as_motive",
   "bass:drone",
   "bass:transposed_riff",
   "bass:riff",
@@ -204,7 +207,8 @@ const TAGS = [
   "bass:alberti",
   "bass:pedal_point",
   "bass:counterpoint",
-  "bass:octaves",
+  "bass:octaves", // TODO: this means "octaves of root"
+  "bass:octaves_not_just_roots", // TODO: rename
   "bass:root",
   "bass:root_fifth",
   "bass:root_third_fifth",
@@ -500,6 +504,7 @@ const Measure: React.FC<{
 }) => {
   const left = secondsToX(span[0]) - 1;
   const width = secondsToX(span[1]) - left - 1;
+
   return (
     <>
       <Downbeat
@@ -801,6 +806,14 @@ export const AnalysisBox: React.FC<{
       );
     };
 
+    const tagSpanSelectRef = useRef(null);
+
+    useEffect(() => {
+      if (selectedDownbeat !== null) {
+        tagSpanSelectRef.current.focus();
+      }
+    }, [selectedDownbeat]);
+
     const basedOn = useInputField("", "basedOn", "Based on");
     const beatsPerMeasure = useInputField(
       4,
@@ -915,9 +928,11 @@ export const AnalysisBox: React.FC<{
                 <li>Enter modulation: alt+click on a new tonic</li>
                 <li>
                   <div>
-                    Add tag to span: [{previouslySelectedDownbeat}-
+                    Add tag to span: [
+                    {previouslySelectedDownbeat ?? selectedDownbeat}-
                     {selectedDownbeat}]
                     <Select
+                      ref={tagSpanSelectRef}
                       options={TAGS.map((tag) => ({ value: tag, label: tag }))}
                       onChange={(tag) => {
                         const newAnalysis = {
@@ -927,7 +942,7 @@ export const AnalysisBox: React.FC<{
                             {
                               tag: tag.value,
                               span: [
-                                previouslySelectedDownbeat,
+                                previouslySelectedDownbeat ?? selectedDownbeat,
                                 selectedDownbeat,
                               ] as Span,
                             },
@@ -1035,7 +1050,7 @@ export const AnalysisBox: React.FC<{
                           setAnalysis(newAnalysis);
                         }}
                       >
-                        Remove
+                        x
                       </button>
                     </div>
                   ))}

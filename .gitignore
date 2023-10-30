@@ -5,14 +5,14 @@ dist/
 build/
 cmake-build-debug/
 *.a
-*.wasm
-*.wasm.map
+# *.wasm
+# *.wasm.map
 lib*.js
 libxmp/libxmp-lite-stagedir/
 public/soundfonts/
 scripts/untracked/
 src/-catalog-tests/
-src/chip-core.js
+# src/chip-core.js
 server/catalog.json
 server/directories.json
 catalog

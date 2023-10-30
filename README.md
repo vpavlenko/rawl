@@ -29,4 +29,8 @@ Another hypothesis is that [Chinese](https://vpavlenko.github.io/chiptheory/sear
 
 What if every bootleg country has some unique musical language?
 
-Also, it feels like there was a gradual development of cool timbral hacks and compositional form. Games from 1986 are simpler than [games from 1993](https://vpavlenko.github.io/chiptheory/browse/Nintendo/Beauty%20and%20the%20Beast?subtune=1).
+Also, it feels like there was a gradual development of cool timbral hacks and compositional form. Games from 1986 are simpler than [games from 1993](https://vpavlenko.github.io/chiptheory/browse/Nintendo/Beauty%20and%20the%20Beast?subtune=1r).
+
+# Setup instructions
+
+Try `yarn install` and `yarn start`. If it doesn't work, try reading https://github.com/mmontag/chip-player-js/. Don't compile wasm, I pre-compiled it and added it to the repo.

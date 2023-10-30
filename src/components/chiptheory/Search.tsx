@@ -9,17 +9,18 @@ type Corpus = {
   [game: string]: { [file: string]: { [subtune: number]: Analysis } };
 };
 
+// TODO: fails on half-measures, seventh chords, power chords, inversions, modulations.
+// Also the spaces are hilarious
+export const doesAnalysisHaveRn = (analysis: Analysis, rnSpaced: string) =>
+  (" " + (analysis.romanNumerals || "").replace(/-/g, " ") + " ").includes(
+    " " + rnSpaced + " ",
+  );
+
 export const matches = (analysis: Analysis, searchPath: string): boolean => {
   const searchCategory = searchPath.slice(0, searchPath.indexOf("/"));
   const searchValue = searchPath.slice(searchPath.indexOf("/") + 1);
   if (searchCategory === "chords") {
-    // TODO: fails on half-measures, seventh chords, power chords, inversions.
-    // Also the spaces are hilarious
-    return (
-      " " +
-      (analysis.romanNumerals || "").replace(/-/g, " ") +
-      " "
-    ).includes(" " + searchValue.replace(/-/g, " ") + " ");
+    return doesAnalysisHaveRn(analysis, searchValue.replace(/-/g, " "));
   }
   if (searchCategory === "cover") {
     // a dirty hack: the section is called "covers", but that's how split by slash works when searchValue is empty
@@ -31,7 +32,7 @@ export const matches = (analysis: Analysis, searchPath: string): boolean => {
   );
 };
 
-const ROMAN_NUMERALS_SEARCH = [
+export const ROMAN_NUMERALS_SEARCH = [
   "VI VII I",
   "I III",
   "III IV V",

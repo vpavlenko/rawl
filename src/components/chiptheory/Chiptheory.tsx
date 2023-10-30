@@ -634,7 +634,7 @@ const Chiptheory = ({
               seek(start);
               seekCallback(start);
             }}
-            tags={analysis.tags}
+            analysis={analysis}
           />
         ) : (
           <AnalysisBox

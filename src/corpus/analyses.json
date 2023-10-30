@@ -11355,7 +11355,8 @@
           "middle_voice:creative_chord_tones",
           "location:level",
           "timbre:minor_seconds",
-          "harmony:phrygian_shuttle"
+          "harmony:phrygian_shuttle",
+          "scale:tetratonic"
         ],
         "fourMeasurePhrasingReferences": [],
         "form": [],
@@ -23984,6 +23985,30 @@
           "38": 34.36000000000173
         },
         "tonic": 4,
+        "basedOn": null
+      }
+    }
+  },
+  "Nintendo/Ikki": {
+    "Ikki (1985-11-28)(Tose)(Sunsoft).nsf": {
+      "1": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": true,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "scale:hemitonic_pentatonic"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 4.789999999999942,
+        "loop": null,
+        "firstMeasure": 3.1199999999999775,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
         "basedOn": null
       }
     }

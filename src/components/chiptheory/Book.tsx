@@ -1,7 +1,17 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import { SCALE_DEGREES } from "./Search";
-import { RN, TWELVE_CHORD_TONES, TWELVE_TONE_COLORS } from "./romanNumerals";
+import { Analysis } from "./Analysis";
+import {
+  ROMAN_NUMERALS_SEARCH,
+  SCALE_DEGREES,
+  doesAnalysisHaveRn,
+} from "./Search";
+import {
+  RN,
+  RowOfRomanNumerals,
+  TWELVE_CHORD_TONES,
+  TWELVE_TONE_COLORS,
+} from "./romanNumerals";
 
 const FS = ({ fs }) => (
   <div
@@ -1843,8 +1853,8 @@ export const BookTOC: React.FC = () => {
 export const BookExample: React.FC<{
   path: string;
   playSegment: (span: [number, number], mask: string) => void;
-  tags: string[];
-}> = ({ path, playSegment, tags }) => {
+  analysis: Analysis;
+}> = ({ path, playSegment, analysis }) => {
   const { title, text, index } = parseBookPath(path);
   const [previous, next] = getAdjacentExamples(path);
   return (
@@ -1875,13 +1885,13 @@ export const BookExample: React.FC<{
       <PlayContext.Provider value={playSegment}>
         <div>{text && text(playSegment)}</div>{" "}
       </PlayContext.Provider>
-      {tags && (!title || !title.startsWith("exercise")) && (
+      {analysis?.tags && (!title || !title.startsWith("exercise")) && (
         <div>
           <div>&nbsp;</div>
           <div>&nbsp;</div>
           <div>&nbsp;</div>
           <div>Tags:</div>
-          {tags.map((tag) => (
+          {analysis?.tags.map((tag) => (
             <div key={tag}>
               <a
                 href={`https://vpavlenko.github.io/chiptheory/search/${tag.replace(
@@ -1896,6 +1906,20 @@ export const BookExample: React.FC<{
           ))}
         </div>
       )}
+      <div>
+        <div>&nbsp;</div>
+        <div>&nbsp;</div>
+        <div>&nbsp;</div>
+        {analysis &&
+          ROMAN_NUMERALS_SEARCH.map(
+            (rn) =>
+              doesAnalysisHaveRn(analysis, rn) && (
+                <Link to={`/search/chords/${rn.replace(/ /g, "-")}`}>
+                  <RowOfRomanNumerals rnArray={rn.split(" ")} isSearch={true} />
+                </Link>
+              ),
+          )}
+      </div>
     </div>
   );
 };

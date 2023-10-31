@@ -10179,19 +10179,89 @@
     "Armadillo (1991-08-09)(AIM)(IGS).nsf": {
       "0": {
         "beatsPerMeasure": 4,
+        "tagSpans": [
+          {
+            "tag": "middle_voice:arpeggio",
+            "span": [
+              9,
+              13
+            ]
+          },
+          {
+            "tag": "middle_voice:parallel_sixths",
+            "span": [
+              1,
+              8
+            ]
+          },
+          {
+            "tag": "middle_voice:lower_chord_tones",
+            "span": [
+              14,
+              14
+            ]
+          },
+          {
+            "tag": "middle_voice:mixed_parallel",
+            "span": [
+              15,
+              16
+            ]
+          },
+          {
+            "tag": "bass:root_fifth",
+            "span": [
+              1,
+              13
+            ]
+          },
+          {
+            "tag": "voice_leading:descending_diatonic_bass",
+            "span": [
+              14,
+              14
+            ]
+          },
+          {
+            "tag": "bass:root_fifth",
+            "span": [
+              15,
+              17
+            ]
+          },
+          {
+            "tag": "timbre:silence",
+            "span": [
+              4,
+              4
+            ]
+          },
+          {
+            "tag": "form:extra_measure",
+            "span": [
+              17,
+              18
+            ]
+          },
+          {
+            "tag": "form:period",
+            "span": [
+              1,
+              8
+            ]
+          },
+          {
+            "tag": "form:reversed_period",
+            "span": [
+              9,
+              18
+            ]
+          }
+        ],
         "romanNumerals": "I IV-I vi-iii ii-V-_-_ I iv-I vi-iii V-I IV iii ii-V I-V7/IV IV-iv I-V-vi-vi IV-V-IV-V IV-iii-III-bII V",
         "clickResolutionMs": 0.01,
         "tags": [
-          "timbre:silence",
-          "form:binary",
-          "bass:root_fifth",
-          "middle_voice:parallel_sixths",
-          "middle_voice:lower_chord_tones",
-          "middle_voice:arpeggio",
-          "middle_voice:mixed_parallel",
-          "form:extra_measure",
-          "form:reversed_period",
-          "form:period"
+          "form:binary"
         ],
         "mode": null,
         "fourMeasurePhrasingReferences": [],
@@ -10579,19 +10649,38 @@
     "Adventures of Lolo.nsfe": {
       "0": {
         "beatsPerMeasure": 4,
+        "tagSpans": [
+          {
+            "tag": "bass:inversions",
+            "span": [
+              10,
+              10
+            ]
+          }
+        ],
         "disableSnapToNotes": false,
-        "romanNumerals": "I I VII VII-VII-I-V I I VII VII-V-I-I IV I IV-V I ii-V7 I-IV V/V V",
+        "romanNumerals": "I I I VII-VII-I-V I I I VII-V-I-I IV I IV-V I ii-V7 I-IV V/V V",
         "clickResolutionMs": 0.01,
         "modulations": {
+          "3": 5,
+          "4": 7,
+          "7": 5,
+          "8": 7,
           "13": 10,
           "15": 7
         },
         "tags": [
           "form:period",
-          "upper_voices:polyphony"
+          "upper_voices:polyphony",
+          "rhythm:swing"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.5900000000000012,
+        "form": {
+          "1": "A:antecedent",
+          "5": "A:consequent",
+          "9": "B"
+        },
         "loop": 17,
         "firstMeasure": 0,
         "step": "end",
@@ -12183,6 +12272,71 @@
         ]
       },
       "8": {
+        "tagSpans": [
+          {
+            "tag": "harmony:weird_chord",
+            "span": [
+              15,
+              16
+            ]
+          },
+          {
+            "tag": "bass:octaves",
+            "span": [
+              1,
+              8
+            ]
+          },
+          {
+            "tag": "voice_leading:descending_diatonic_bass",
+            "span": [
+              9,
+              14
+            ]
+          },
+          {
+            "tag": "bass:octaves",
+            "span": [
+              15,
+              16
+            ]
+          },
+          {
+            "tag": "middle_voice:melody",
+            "span": [
+              1,
+              8
+            ]
+          },
+          {
+            "tag": "melody:chord_tones_as_motive",
+            "span": [
+              1,
+              8
+            ]
+          },
+          {
+            "tag": "middle_voice:parallel_thirds",
+            "span": [
+              9,
+              14
+            ]
+          },
+          {
+            "tag": "harmony:diatonic_seventh_chords",
+            "span": [
+              1,
+              8
+            ]
+          },
+          {
+            "tag": "melody:basic_idea_x3",
+            "span": [
+              9,
+              14
+            ]
+          }
+        ],
         "romanNumerals": "iv v i i iv v i i I I VII VII VI VI i4 i4",
         "clickResolutionMs": 0.01,
         "modulations": {
@@ -12190,8 +12344,7 @@
           "15": 8
         },
         "tags": [
-          "middle_voice:parallel_thirds",
-          "middle_voice:melody"
+          "form:binary"
         ],
         "mode": "minor",
         "secondMeasure": 1.5900000000000012,
@@ -12205,6 +12358,7 @@
         "step": "end",
         "comment": "modulation from m.9",
         "correctedMeasures": {
+          "1": 11.257142857142858,
           "10": 14.428571428571429,
           "12": 17.642857142857142,
           "14": 20.82857142857143,

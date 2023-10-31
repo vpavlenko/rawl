@@ -249,7 +249,7 @@ const TAGS = [
   "middle_voice:transposed_riff",
   // four most typical cases:
   "middle_voice:absent",
-  "middle_voice:melody", // that implicitly means "upper_voice:arpeggio"
+  "middle_voice:melody", // that implicitly means "upper_voice:arpeggio" for the entire span
   "middle_voice:arpeggio", // that implicitly means "upper_voice:melody"
   "melody:arpeggio", // that implicitly means "no melody anywhere"
   "melody:reharmonization",
@@ -277,7 +277,13 @@ const TAGS = [
 ];
 
 const STRIPE_HEIGHT = 25;
-const CATEGORIES_IN_STRIPES = ["melody", "middle_voice", "bass"];
+const CATEGORIES_IN_STRIPES = [
+  "melody",
+  "middle_voice",
+  "bass",
+  "harmony",
+  "voice_leading",
+];
 export const STRIPES_HEIGHT = STRIPE_HEIGHT * CATEGORIES_IN_STRIPES.length;
 export const ANALYSIS_HEIGHT = STRIPES_HEIGHT + 55;
 
@@ -636,71 +642,106 @@ const TonalGrid: React.FC<{
   },
 );
 
-const StripeTag = ({ left, width, content }) => (
+const StripeTag = ({ left, widthInMeasures, content, removeTag }) => (
   <div
     style={{
       position: "absolute",
       left,
-      width,
+      width: secondsToX(widthInMeasures),
       backgroundColor: "black",
+      color: "white",
+      // fontFamily: "sans-serif",
+      // fontSize: "14px",
+      paddingLeft: "5px",
+      border: "0.1px solid white",
+      opacity: 0.8,
+      boxSizing: "border-box",
       height: STRIPE_HEIGHT,
+      zIndex: 400 - widthInMeasures,
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "space-between",
     }}
   >
     {content}
+    <button
+      // style={{ marginRight: "10px", marginTop: "10px" }}
+      // className="box-button"
+      onClick={removeTag}
+    >
+      [x]
+    </button>
   </div>
 );
 
 const Stripes: React.FC<{
   tagSpans: TagSpan[];
   measuresAndBeats: MeasuresAndBeats;
-}> = React.memo(({ tagSpans, measuresAndBeats }) => {
-  const stripeTags = new Array(CATEGORIES_IN_STRIPES.length)
-    .fill(null)
-    .map(() => []);
-  tagSpans.map(({ tag, span }) => {
-    const [category, content] = tag.split(":");
-    const index = CATEGORIES_IN_STRIPES.indexOf(category);
-    if (index != -1) {
-      stripeTags[index].push(
-        <StripeTag
-          left={secondsToX(measuresAndBeats.measures[span[0] - 1])}
-          width={secondsToX(
-            measuresAndBeats.measures[span[1]] -
-              measuresAndBeats.measures[span[0] - 1],
-          )}
-          content={content}
-        />,
-      );
-    }
-  });
+  analysis: Analysis;
+  saveAnalysis: (analysis: Analysis) => void;
+  setAnalysis: (analysis: Analysis) => void;
+}> = React.memo(
+  ({ tagSpans, measuresAndBeats, analysis, saveAnalysis, setAnalysis }) => {
+    const stripeTags = new Array(CATEGORIES_IN_STRIPES.length)
+      .fill(null)
+      .map(() => []);
+    tagSpans.map(({ tag, span }, tagIndex) => {
+      const [category, content] = tag.split(":");
+      const categoryIndex = CATEGORIES_IN_STRIPES.indexOf(category);
+      if (categoryIndex != -1) {
+        stripeTags[categoryIndex].push(
+          <StripeTag
+            left={secondsToX(measuresAndBeats.measures[span[0] - 1])}
+            widthInMeasures={
+              measuresAndBeats.measures[span[1]] -
+              measuresAndBeats.measures[span[0] - 1]
+            }
+            content={tag}
+            removeTag={() => {
+              const newTagSpans = [...tagSpans];
+              newTagSpans.splice(tagIndex, 1);
 
-  return (
-    <div
-      style={{
-        position: "absolute",
-        top: 0,
-        left: 0,
-        // width: "100%",
-        height: CATEGORIES_IN_STRIPES.length * STRIPE_HEIGHT,
-        zIndex: 1000,
-      }}
-    >
-      {stripeTags.map((bucket, index) => (
-        <div
-          style={{
-            height: STRIPE_HEIGHT,
-            position: "absolute",
-            top: index * STRIPE_HEIGHT,
-            left: 0,
-            width: "100%",
-          }}
-        >
-          {bucket}
-        </div>
-      ))}
-    </div>
-  );
-});
+              const newAnalysis = {
+                ...analysis,
+                tagSpans: newTagSpans,
+              };
+
+              saveAnalysis(newAnalysis);
+              setAnalysis(newAnalysis);
+            }}
+          />,
+        );
+      }
+    });
+
+    return (
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          // width: "100%",
+          height: CATEGORIES_IN_STRIPES.length * STRIPE_HEIGHT,
+          zIndex: 1000,
+        }}
+      >
+        {stripeTags.map((bucket, index) => (
+          <div
+            style={{
+              height: STRIPE_HEIGHT,
+              position: "absolute",
+              top: index * STRIPE_HEIGHT,
+              left: 0,
+              width: "100%",
+            }}
+          >
+            {bucket}
+          </div>
+        ))}
+      </div>
+    );
+  },
+);
 
 export const AnalysisGrid: React.FC<{
   analysis: Analysis;
@@ -711,6 +752,8 @@ export const AnalysisGrid: React.FC<{
   previouslySelectedDownbeat: number;
   selectedDownbeat: number;
   selectDownbeat: (number: number) => void;
+  saveAnalysis: (analysis: Analysis) => void;
+  setAnalysis: (analysis: Analysis) => void;
 }> = React.memo(
   ({
     analysis,
@@ -720,6 +763,8 @@ export const AnalysisGrid: React.FC<{
     previouslySelectedDownbeat,
     selectedDownbeat,
     selectDownbeat,
+    saveAnalysis,
+    setAnalysis,
   }) => {
     const { measures, beats } = measuresAndBeats;
     let loopLeft = null;
@@ -770,6 +815,9 @@ export const AnalysisGrid: React.FC<{
           <Stripes
             tagSpans={analysis.tagSpans}
             measuresAndBeats={measuresAndBeats}
+            analysis={analysis}
+            saveAnalysis={saveAnalysis}
+            setAnalysis={setAnalysis}
           />
         )}
         {loopLeft && (
@@ -1096,30 +1144,36 @@ export const AnalysisBox: React.FC<{
               </div>
               {analysis.tagSpans && (
                 <div key="tagSpans" style={{ marginTop: "10px" }}>
-                  Tag spans:{" "}
-                  {analysis.tagSpans.map(({ tag, span }, index) => (
-                    <div>
-                      {tag}: [{span[0]}, {span[1]}]{" "}
-                      <button
-                        style={{ marginRight: "10px", marginTop: "10px" }}
-                        className="box-button"
-                        onClick={() => {
-                          const newTagSpans = [...analysis.tagSpans];
-                          newTagSpans.splice(index, 1);
+                  Tag spans:
+                  {analysis.tagSpans
+                    .filter(
+                      ({ tag }) =>
+                        CATEGORIES_IN_STRIPES.indexOf(tag.split(":")[0]) === -1,
+                    )
+                    .map(({ tag, span }, index) => (
+                      <div>
+                        {tag}: [{span[0]}, {span[1]}]{" "}
+                        <button
+                          style={{ marginRight: "10px", marginTop: "10px" }}
+                          className="box-button"
+                          onClick={() => {
+                            // const newTagSpans = [...analysis.tagSpans];
+                            // newTagSpans.splice(index, 1);
 
-                          const newAnalysis = {
-                            ...analysis,
-                            tagSpans: newTagSpans,
-                          };
+                            // const newAnalysis = {
+                            //   ...analysis,
+                            //   tagSpans: newTagSpans,
+                            // };
 
-                          saveAnalysis(newAnalysis);
-                          setAnalysis(newAnalysis);
-                        }}
-                      >
-                        x
-                      </button>
-                    </div>
-                  ))}
+                            // saveAnalysis(newAnalysis);
+                            // setAnalysis(newAnalysis);
+                            alert("broken, fix");
+                          }}
+                        >
+                          x
+                        </button>
+                      </div>
+                    ))}
                 </div>
               )}
             </div>

@@ -610,6 +610,8 @@ const Chiptheory = ({
             previouslySelectedDownbeat={previouslySelectedDownbeat}
             selectedDownbeat={selectedDownbeat}
             selectDownbeat={selectDownbeat}
+            saveAnalysis={saveAnalysis}
+            setAnalysis={setAnalysis}
           />
           <div
             style={{

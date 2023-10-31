@@ -1010,6 +1010,9 @@ export const AnalysisBox: React.FC<{
                               ] as Span,
                             },
                           ],
+                          tags: (analysis.tags ?? []).filter(
+                            (item) => item !== tag.value,
+                          ),
                         };
 
                         selectDownbeat(null);

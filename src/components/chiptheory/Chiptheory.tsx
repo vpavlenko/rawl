@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
+  ANALYSIS_HEIGHT,
   ANALYSIS_STUB,
   Analysis,
   AnalysisBox,
@@ -406,7 +407,8 @@ const Chiptheory = ({
     divRef.current.scrollLeft = 0;
   }, [chipStateDump]);
 
-  const noteHeight = (divHeight - 60) / (maxMidiNumber - minMidiNumber + 7);
+  const noteHeight =
+    (divHeight - ANALYSIS_HEIGHT) / (maxMidiNumber - minMidiNumber + 7);
   const midiNumberToY = useMemo(
     () => (midiNumber) =>
       divHeight - (midiNumber - minMidiNumber + 4) * noteHeight,

@@ -276,6 +276,11 @@ const TAGS = [
   "lego:pullback",
 ];
 
+const STRIPE_HEIGHT = 25;
+const CATEGORIES_IN_STRIPES = ["melody", "middle_voice", "bass"];
+export const STRIPES_HEIGHT = STRIPE_HEIGHT * CATEGORIES_IN_STRIPES.length;
+export const ANALYSIS_HEIGHT = STRIPES_HEIGHT + 55;
+
 const FORM_SECTIONS = [
   "A",
   "A'",
@@ -518,7 +523,7 @@ const Measure: React.FC<{
         key={`db_n_${number}`}
         style={{
           position: "absolute",
-          top: 30,
+          top: 30 + STRIPES_HEIGHT,
           left: `${left + 7}px`,
           color:
             selectedDownbeat === number
@@ -544,7 +549,7 @@ const Measure: React.FC<{
           style={{
             position: "absolute",
             left: `${left + 1}px`,
-            top: "55px",
+            top: 55 + STRIPES_HEIGHT,
             zIndex: 10,
             backgroundColor: "#333",
             padding: "5px 10px 5px 10px",
@@ -562,11 +567,11 @@ const Measure: React.FC<{
           position: "absolute",
           left: `${left}px`,
           width,
-          top: 0,
-          height: "25px",
+          top: STRIPES_HEIGHT,
+          height: STRIPE_HEIGHT,
           display: "grid",
           placeItems: "center",
-          fontSize: "25px",
+          fontSize: STRIPE_HEIGHT,
           zIndex: 5,
           borderLeft: "1px solid black",
         }}
@@ -610,18 +615,6 @@ const TonalGrid: React.FC<{
         const midiNumber = tonic + octave * 12;
         result.push(
           <>
-            {/* <div
-              key={`tonic_${midiNumber}`}
-              style={{
-                position: "absolute",
-                width,
-                height: noteHeight,
-                left: secondsToX(from),
-                top: midiNumberToY(midiNumber),
-                backgroundColor: "#222",
-                zIndex: 1,
-              }}
-            /> */}
             <div
               key={`gradient_${midiNumber}`}
               style={{
@@ -642,6 +635,72 @@ const TonalGrid: React.FC<{
     return result;
   },
 );
+
+const StripeTag = ({ left, width, content }) => (
+  <div
+    style={{
+      position: "absolute",
+      left,
+      width,
+      backgroundColor: "black",
+      height: STRIPE_HEIGHT,
+    }}
+  >
+    {content}
+  </div>
+);
+
+const Stripes: React.FC<{
+  tagSpans: TagSpan[];
+  measuresAndBeats: MeasuresAndBeats;
+}> = React.memo(({ tagSpans, measuresAndBeats }) => {
+  const stripeTags = new Array(CATEGORIES_IN_STRIPES.length)
+    .fill(null)
+    .map(() => []);
+  tagSpans.map(({ tag, span }) => {
+    const [category, content] = tag.split(":");
+    const index = CATEGORIES_IN_STRIPES.indexOf(category);
+    if (index != -1) {
+      stripeTags[index].push(
+        <StripeTag
+          left={secondsToX(measuresAndBeats.measures[span[0] - 1])}
+          width={secondsToX(
+            measuresAndBeats.measures[span[1]] -
+              measuresAndBeats.measures[span[0] - 1],
+          )}
+          content={content}
+        />,
+      );
+    }
+  });
+
+  return (
+    <div
+      style={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        // width: "100%",
+        height: CATEGORIES_IN_STRIPES.length * STRIPE_HEIGHT,
+        zIndex: 1000,
+      }}
+    >
+      {stripeTags.map((bucket, index) => (
+        <div
+          style={{
+            height: STRIPE_HEIGHT,
+            position: "absolute",
+            top: index * STRIPE_HEIGHT,
+            left: 0,
+            width: "100%",
+          }}
+        >
+          {bucket}
+        </div>
+      ))}
+    </div>
+  );
+});
 
 export const AnalysisGrid: React.FC<{
   analysis: Analysis;
@@ -700,15 +759,19 @@ export const AnalysisGrid: React.FC<{
         {beats.map((time) => (
           <Beat key={time} second={time} />
         ))}
-        {
-          <TonalGrid
-            analysis={analysis}
-            measures={measures}
-            secondsToX={secondsToX}
-            midiNumberToY={midiNumberToY}
-            noteHeight={noteHeight}
+        <TonalGrid
+          analysis={analysis}
+          measures={measures}
+          secondsToX={secondsToX}
+          midiNumberToY={midiNumberToY}
+          noteHeight={noteHeight}
+        />
+        {analysis.tagSpans && (
+          <Stripes
+            tagSpans={analysis.tagSpans}
+            measuresAndBeats={measuresAndBeats}
           />
-        }
+        )}
         {loopLeft && (
           <div
             key="loop"

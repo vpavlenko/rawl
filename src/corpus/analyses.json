@@ -9,7 +9,7 @@
         "modulations": [],
         "tags": [
           "location:menu",
-          "non-chord tones:neighbor",
+          "non-chord_tones:neighbor",
           "bass:root_fifth",
           "timbre:one-channel delay"
         ],
@@ -6595,7 +6595,7 @@
         "step": "end",
         "tonic": 5,
         "tags": [
-          "non-chord tones:neighbor",
+          "non-chord_tones:neighbor",
           "rhythm:3+3+2",
           "lower_voices:double_parallel",
           "middle_voice:lower_chord_tones",
@@ -20397,7 +20397,7 @@
           "rhythm:latin",
           "middle_voice:thirds_and_sixths",
           "bass:riff",
-          "non-chord tones:neighbor",
+          "non-chord_tones:neighbor",
           "middle_voice:parallel_fourths"
         ],
         "fourMeasurePhrasingReferences": [],
@@ -22528,7 +22528,7 @@
           "bass:inversions",
           "melody:transposed_riff",
           "middle_voice:absent",
-          "non-chord tones:neighbor"
+          "non-chord_tones:neighbor"
         ],
         "fourMeasurePhrasingReferences": [],
         "form": {

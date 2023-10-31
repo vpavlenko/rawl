@@ -1,16 +1,3 @@
-const admin = require("firebase-admin");
-const serviceAccount = require("../src/config/firebaseConfig.json"); // replace with your service account JSON file path
-
-throw Error("Not implemented for a splitted corpus yet");
-
-// Initialize the Firebase Admin SDK
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-});
-
-const db = admin.firestore();
-
-// Get command line arguments
 const args = process.argv.slice(2);
 
 if (args.length !== 2) {
@@ -21,50 +8,54 @@ if (args.length !== 2) {
 const oldTagName = args[0];
 const newTagName = args[1];
 
-// Fetch all analyses for Vitaly Pavlenko
-const docRef = db.collection("users").doc("hqAWkYyzu2hIzNgE3ui89f41vFA2");
+const fs = require("fs");
+const path = require("path");
 
-docRef
-  .get()
-  .then((snapshot) => {
-    if (!snapshot.exists) {
-      console.log("User not found!");
-      return;
-    }
+const filePath = path.join(__dirname, "..", "src", "corpus", "analyses.json");
 
-    const data = snapshot.data();
-    const analyses = data.analyses;
+fs.readFile(filePath, "utf8", (err, data) => {
+  if (err) {
+    console.error("Error reading the file:", err);
+    return;
+  }
 
-    // Iterate over each analysis and rename the tag
-    for (let game in analyses) {
-      for (let song in analyses[game]) {
-        for (let subtune in analyses[game][song]) {
-          if (analyses[game][song][subtune].tags) {
-            const tagIndex =
-              analyses[game][song][subtune].tags.indexOf(oldTagName);
-            if (tagIndex !== -1) {
+  const analyses = JSON.parse(data);
+
+  for (let game in analyses) {
+    for (let song in analyses[game]) {
+      for (let subtune in analyses[game][song]) {
+        if (analyses[game][song][subtune].tags) {
+          const tagIndex =
+            analyses[game][song][subtune].tags.indexOf(oldTagName);
+          if (tagIndex !== -1) {
+            console.log(
+              `Renaming: in ${game} in ${song} in subtune ${subtune}: global`,
+            );
+            analyses[game][song][subtune].tags[tagIndex] = newTagName;
+          }
+        }
+        if (analyses[game][song][subtune].tagSpans) {
+          const { tagSpans } = analyses[game][song][subtune];
+          for (let i = 0; i < tagSpans.length; ++i) {
+            if (tagSpans[i].tag === oldTagName) {
+              tagSpans[i].tag = newTagName;
               console.log(
-                `Renaming: in ${game} in ${song} in subtune ${subtune}`,
+                `Renaming: in ${game} in ${song} in subtune ${subtune}: tagSpan ${tagSpans[i].span}`,
               );
-              analyses[game][song][subtune].tags[tagIndex] = newTagName;
             }
           }
+          analyses[game][song][subtune].tagSpans = tagSpans;
         }
       }
     }
+  }
 
-    // Update the document in Firestore
-    docRef
-      .update({ analyses: analyses })
-      .then(() => {
-        console.log(
-          `Successfully renamed tag "${oldTagName}" to "${newTagName}"!`,
-        );
-      })
-      .catch((error) => {
-        console.error("Error updating document:", error);
-      });
-  })
-  .catch((error) => {
-    console.error("Error fetching user data:", error);
+  fs.writeFile(filePath, JSON.stringify(analyses, null, 2), "utf8", (err) => {
+    if (err) {
+      console.error("Error writing to the file:", err);
+      return;
+    }
+
+    console.log("Successfully updated analyses.json!");
   });
+});

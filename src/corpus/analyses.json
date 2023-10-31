@@ -13826,19 +13826,52 @@
       },
       "2": {
         "beatsPerMeasure": 4,
+        "tagSpans": [
+          {
+            "tag": "rhythm:3+3+2",
+            "span": [
+              1,
+              35
+            ]
+          },
+          {
+            "tag": "form:progression",
+            "span": [
+              1,
+              32
+            ]
+          },
+          {
+            "tag": "bass:root_third_fifth",
+            "span": [
+              1,
+              32
+            ]
+          },
+          {
+            "tag": "timbre:layered",
+            "span": [
+              1,
+              32
+            ]
+          },
+          {
+            "tag": "middle_voice:absent",
+            "span": [
+              1,
+              32
+            ]
+          }
+        ],
         "disableSnapToNotes": false,
         "romanNumerals": "I V IV V I V IV V I V IV V I V IV V I V IV V I V IV V I V IV V I V IV V VI VII I",
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "rhythm:3+3+2",
-          "middle_voice:absent",
           "melody:arpeggio",
-          "form:progression",
           "form:not_looped",
           "location:game_won",
-          "harmony:unison",
-          "bass:root_third_fifth"
+          "harmony:unison"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.0400000000000007,

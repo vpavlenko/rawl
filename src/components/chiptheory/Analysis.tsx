@@ -762,7 +762,7 @@ const Stripes: React.FC<{
       if (categoryIndex === -1) {
         categoryIndex = CATEGORIES_IN_STRIPES.length - 1;
       }
-      stripeTags[categoryIndex].push(
+      const stripeTagNode = (
         <StripeTag
           left={secondsToX(measuresAndBeats.measures[span[0] - 1])}
           width={secondsToX(
@@ -799,7 +799,12 @@ const Stripes: React.FC<{
               setVoiceMask([true, true, true, true, true]);
             }
           }}
-        />,
+        />
+      );
+      stripeTags[categoryIndex].push(
+        <a href={`/search/${category}/${content}`} target="_blank">
+          {stripeTagNode}
+        </a>,
       );
     });
 

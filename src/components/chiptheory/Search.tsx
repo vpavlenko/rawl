@@ -16,6 +16,11 @@ export const doesAnalysisHaveRn = (analysis: Analysis, rnSpaced: string) =>
     " " + rnSpaced + " ",
   );
 
+const getAnalysisTags = (analysis: Analysis): string[] => [
+  ...(analysis.tags ?? []),
+  ...(analysis.tagSpans?.map(({ tag }) => tag) ?? []),
+];
+
 export const matches = (analysis: Analysis, searchPath: string): boolean => {
   const searchCategory = searchPath.slice(0, searchPath.indexOf("/"));
   const searchValue = searchPath.slice(searchPath.indexOf("/") + 1);
@@ -27,7 +32,7 @@ export const matches = (analysis: Analysis, searchPath: string): boolean => {
     return Boolean(analysis.basedOn);
   }
 
-  return (analysis.tags || []).some(
+  return getAnalysisTags(analysis).some(
     (tag) => tag === searchPath.replace("/", ":"),
   );
 };
@@ -145,7 +150,7 @@ const Search: React.FC<{
       Object.keys(analyses).map((game) =>
         Object.keys(analyses[game]).map((file) => {
           Object.entries(analyses[game][file]).map(([subtune, analysis]) => {
-            (analysis.tags || []).map((tag) => {
+            getAnalysisTags(analysis).map((tag) => {
               const [category, value] = tag.split(":");
               if (!result[category]) {
                 result[category] = {};

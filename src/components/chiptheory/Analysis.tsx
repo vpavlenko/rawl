@@ -52,7 +52,7 @@ const TAGS = [
   "harmony:diminished_seventh_chords",
   "harmony:shuttle",
   "harmony:mixolydian_shuttle",
-  "harmony:lydian_shuttle", // TODO: remove in favor of mixolydian shuttle
+  "harmony:lydian_shuttle", // all ambiguous cases are marked as mixolydian shuttle
   "harmony:plagal_shuttle",
   "harmony:phrygian_shuttle",
   "harmony:dorian_shuttle",
@@ -83,7 +83,6 @@ const TAGS = [
   "rhythm:syncopation",
   "rhythm:interesting",
   "rhythm:swing",
-  "rhythm:clave",
   "rhythm:latin",
   "rhythm:3+3+2",
   "rhythm:1+2+2+2",
@@ -137,14 +136,10 @@ const TAGS = [
   "voice_leading:rich_ornamentation",
   "voice_leading:three_parallel_voices",
   "voice_leading:three_independent_voices",
-  "non-chord tones:neighbor", // TODO: rename, remove space
+  "non-chord_tones:neighbor",
   "non-chord_tones:double_neighbor",
   "non-chord_tones:chromatic_passing",
   "non-chord_tones:mordent",
-  "chord:N6",
-  "chord:Aug6",
-  "motive:4 repetitions",
-  "motive:3 repetitions",
   "form:ABA",
   "form:AABA",
   "form:ABABC",
@@ -167,7 +162,7 @@ const TAGS = [
   "form:verse-chorus",
   "form:development_through_timbre",
   "form:sentence",
-  "form:not_looped", // this tag is needed because sometimes annotation lacks looping even when it's present
+  "form:not_looped", // this tag is needed because sometimes annotation lacks looping even when it's present. jingles aren't annotated, only long forms
   "form:progression",
   "form:EDM",
   "form:complex",
@@ -186,7 +181,7 @@ const TAGS = [
   "timbre:minor_seconds",
   "timbre:chorus",
   "timbre:tremolo",
-  "timbre:many_instruments_same_voice", // TODO: rename to timbre:many_instruments_same_oscillator
+  "timbre:many_instruments_same_oscillator",
   "timbre:variable_duty_cycle",
   "melody:riff",
   "melody:transposed_riff",
@@ -210,6 +205,7 @@ const TAGS = [
   "bass:octaves", // TODO: this means "octaves of root"
   "bass:octaves_not_just_roots", // TODO: rename
   "bass:root",
+  "bass:root_third",
   "bass:root_fifth",
   "bass:root_third_fifth",
   "bass:root_third_fifth_seventh",
@@ -263,6 +259,7 @@ const TAGS = [
   "upper_voices:legato_melody",
   "upper_voices:different_strategies",
   "upper_voices:same_range",
+  "middle_voice:two_notes",
   "upper_voice:riff", // when melody is in middle_voice
   "percussion:layered",
   "analyzed_in:hopkins",
@@ -650,8 +647,6 @@ const StripeTag = ({ left, widthInMeasures, content, removeTag }) => (
       width: secondsToX(widthInMeasures),
       backgroundColor: "black",
       color: "white",
-      // fontFamily: "sans-serif",
-      // fontSize: "14px",
       paddingLeft: "5px",
       border: "0.1px solid white",
       opacity: 0.8,
@@ -664,13 +659,7 @@ const StripeTag = ({ left, widthInMeasures, content, removeTag }) => (
     }}
   >
     {content}
-    <button
-      // style={{ marginRight: "10px", marginTop: "10px" }}
-      // className="box-button"
-      onClick={removeTag}
-    >
-      [x]
-    </button>
+    <button onClick={removeTag}>[x]</button>
   </div>
 );
 
@@ -720,7 +709,6 @@ const Stripes: React.FC<{
           position: "absolute",
           top: 0,
           left: 0,
-          // width: "100%",
           height: CATEGORIES_IN_STRIPES.length * STRIPE_HEIGHT,
           zIndex: 1000,
         }}

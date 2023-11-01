@@ -1384,13 +1384,43 @@
     "Aladdin (1994 Virgin).nsfe": {
       "0": {
         "beatsPerMeasure": 4,
+        "tagSpans": [
+          {
+            "tag": "bass:root_fifth",
+            "span": [
+              1,
+              24
+            ]
+          },
+          {
+            "tag": "middle_voice:static_chord_tones",
+            "span": [
+              1,
+              24
+            ]
+          },
+          {
+            "tag": "form:period",
+            "span": [
+              1,
+              16
+            ]
+          },
+          {
+            "tag": "form:reversed_period",
+            "span": [
+              17,
+              24
+            ]
+          }
+        ],
         "disableSnapToNotes": false,
-        "romanNumerals": "i i V7/IV iv V-i V7/VI-VI iv7 V i i V7/IV iv V-i V7/VI-VI iv7-V i iv i iv i iv i VI V/V-V",
+        "romanNumerals": "i i V7/IV iv V-i V7/VI-VI iv V i i V7/IV iv V-i V7/VI-VI iv-V i iv i iv i iv i VI V/V-V",
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "form:period",
-          "middle_voice:static_chord_tones"
+          "middle_voice:two_notes",
+          "form:sentence"
         ],
         "fourMeasurePhrasingReferences": [],
         "form": {
@@ -1401,18 +1431,80 @@
           "8": "HC",
           "9": "A:consequent",
           "16": "PAC",
-          "17": "bridge"
+          "17": "B:consequent",
+          "21": "B:antecedent"
         },
         "secondMeasure": 1.5900000000000012,
         "loop": 25,
         "firstMeasure": 0,
         "step": "end",
-        "comment": "",
+        "comment": "bass makes up two voices",
         "correctedMeasures": {
           "1": 2.5428571428571427,
           "17": 25.620000000001205
         },
         "tonic": 0,
+        "basedOn": null
+      },
+      "1": {
+        "beatsPerMeasure": 4,
+        "tagSpans": [
+          {
+            "tag": "harmony:weird_chord",
+            "span": [
+              18,
+              18
+            ]
+          }
+        ],
+        "disableSnapToNotes": false,
+        "romanNumerals": "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ v",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.5100000000000011,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      },
+      "2": {
+        "beatsPerMeasure": 4,
+        "tagSpans": [
+          {
+            "tag": "middle_voice:arpeggio",
+            "span": [
+              1,
+              32
+            ]
+          },
+          {
+            "tag": "non-chord_tones:double_neighbor",
+            "span": [
+              1,
+              1
+            ]
+          }
+        ],
+        "disableSnapToNotes": false,
+        "romanNumerals": "I I I IV-V ii vi IV V I I I IV-V ii vi IV V I I-ii I-IV vi IV-I IV-I ii V _ _ _ _ _ _ _ V",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.5900000000000012,
+        "loop": 33,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 9,
         "basedOn": null
       },
       "3": {
@@ -1800,44 +1892,91 @@
       },
       "3": {
         "beatsPerMeasure": 3,
+        "tagSpans": [
+          {
+            "tag": "timbre:oscillator_as_percussion",
+            "span": [
+              1,
+              16
+            ]
+          },
+          {
+            "tag": "scale:whole-tone",
+            "span": [
+              17,
+              32
+            ]
+          },
+          {
+            "tag": "scale:chromatic",
+            "span": [
+              33,
+              51
+            ]
+          },
+          {
+            "tag": "scale:natural_minor",
+            "span": [
+              1,
+              16
+            ]
+          },
+          {
+            "tag": "timbre:silence",
+            "span": [
+              33,
+              33
+            ]
+          },
+          {
+            "tag": "bass:root_fifth",
+            "span": [
+              1,
+              16
+            ]
+          }
+        ],
         "disableSnapToNotes": false,
         "romanNumerals": "",
         "clickResolutionMs": 0.01,
         "tags": [
-          "scale:whole-tone",
           "beats:incomplete_measure_on_transition",
-          "scale:chromatic",
-          "harmony:stasis",
-          "timbre:oscillator_as_percussion"
+          "harmony:stasis"
         ],
         "modulations": {
-          "12": 10,
-          "23": 4,
-          "34": 10,
-          "61": 0,
-          "65": 2,
-          "69": 0,
-          "73": 2,
-          "77": 3
+          "5": 10,
+          "9": 4,
+          "13": 10,
+          "33": 0,
+          "37": 2,
+          "41": 0,
+          "45": 2
         },
         "fourMeasurePhrasingReferences": [],
-        "secondMeasure": 0.8900000000000006,
-        "loop": 80,
+        "secondMeasure": 2.389999999999993,
+        "form": {
+          "1": "A",
+          "5": "A'",
+          "9": "A",
+          "13": "A'",
+          "17": "B",
+          "21": "B'",
+          "25": "B",
+          "29": "B'",
+          "33": "C",
+          "37": "C'",
+          "41": "C",
+          "45": "C'",
+          "49": "bridge"
+        },
+        "loop": 52,
         "firstMeasure": 0,
         "step": "end",
         "comment": "",
         "tonic": 4,
         "correctedMeasures": {
-          "12": 9.58999999999984,
-          "13": 10.48999999999982,
-          "23": 19.1800000000002,
-          "24": 20.08000000000034,
-          "34": 28.770000000001698,
-          "35": 29.67000000000184,
-          "45": 38.31000000000095,
-          "46": 40.71000000000047,
-          "67": 91.66000000000999,
-          "68": 94.06000000001121
+          "34": 79.67000000000385,
+          "35": 82.07000000000508
         },
         "basedOn": null
       },
@@ -6798,7 +6937,7 @@
         },
         "tags": [
           "harmony:diminished_seventh_chords",
-          "timbre:many_instruments_same_voice"
+          "timbre:many_instruments_same_oscillator"
         ],
         "fourMeasurePhrasingReferences": [],
         "form": [],
@@ -7549,13 +7688,34 @@
     "A Boy and His Blob.nsfe": {
       "0": {
         "beatsPerMeasure": 4,
+        "tagSpans": [
+          {
+            "tag": "form:extra_measure",
+            "span": [
+              5,
+              5
+            ]
+          },
+          {
+            "tag": "middle_voice:absent",
+            "span": [
+              1,
+              32
+            ]
+          },
+          {
+            "tag": "bass:root_third",
+            "span": [
+              1,
+              4
+            ]
+          }
+        ],
         "disableSnapToNotes": false,
-        "romanNumerals": "I vi I vi-IV5 V I I I I vi vi vi vi V5 V",
+        "romanNumerals": "I vi I IV V I I I I vi vi vi vi V5 V",
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "middle_voice:absent",
-          "form:extra_measure",
           "bass:riff",
           "timbre:ultra_fast_notes",
           "form:not_looped"
@@ -16605,7 +16765,7 @@
           "voice_leading:Vsus4",
           "form:extra_measure",
           "middle_voice:melody",
-          "motive:4 repetitions"
+          "melody:basic_idea_x4"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.1900000000000008,
@@ -18852,10 +19012,10 @@
         "tags": [
           "harmony:mixolydian_shuttle",
           "bass:transposed_riff",
-          "motive:3 repetitions",
           "middle_voice:melody",
           "middle_voice:mixed_parallel",
-          "harmony:stasis"
+          "harmony:stasis",
+          "melody:basic_idea_x3"
         ],
         "fourMeasurePhrasingReferences": [],
         "form": {
@@ -19733,7 +19893,7 @@
           "harmony:constant_structures",
           "middle_voice:mixed_parallel",
           "melody:fills_at_rests",
-          "timbre:many_instruments_same_voice"
+          "timbre:many_instruments_same_oscillator"
         ],
         "fourMeasurePhrasingReferences": [],
         "form": [],

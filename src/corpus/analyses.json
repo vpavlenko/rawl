@@ -94,7 +94,7 @@
           "harmony:diminished_seventh_chords",
           "scale:atonal",
           "location:final_boss",
-          "bass:octaves"
+          "bass:root_octaves"
         ],
         "fourMeasurePhrasingReferences": [],
         "form": [],
@@ -109,13 +109,47 @@
       },
       "5": {
         "beatsPerMeasure": 4,
-        "romanNumerals": "i VII VI V i VII VI VII i VII VI V i VII VI V",
+        "tagSpans": [
+          {
+            "tag": "form:progression",
+            "span": [
+              1,
+              16
+            ]
+          },
+          {
+            "tag": "bass:root_octaves",
+            "span": [
+              1,
+              16
+            ]
+          },
+          {
+            "tag": "form:period",
+            "span": [
+              1,
+              8
+            ]
+          },
+          {
+            "tag": "melody:basic_idea_x4",
+            "span": [
+              1,
+              8
+            ]
+          },
+          {
+            "tag": "middle_voice:thirds_and_chord_tones",
+            "span": [
+              1,
+              8
+            ]
+          }
+        ],
+        "romanNumerals": "i VII VI v i VII VI VII i VII VI v i VII VI v",
         "clickResolutionMs": 0.01,
         "tags": [
-          "location:game_won",
-          "form:period",
-          "bass:octaves",
-          "middle_voice:parallel_thirds"
+          "location:game_won"
         ],
         "mode": null,
         "fourMeasurePhrasingReferences": [],
@@ -794,7 +828,7 @@
           "beats:division_change",
           "voice_leading:Isus4",
           "melody:reharmonization",
-          "voice_leading:Vsus4"
+          "harmony:Vsus4"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.490000000000001,
@@ -2198,7 +2232,7 @@
         "clickResolutionMs": 0.01,
         "tags": [
           "scale:dorian",
-          "upper_voices:polyphony"
+          "middle_voice:counterpoint"
         ],
         "mode": null,
         "fourMeasurePhrasingReferences": [],
@@ -2370,7 +2404,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "upper_voices:polyphony",
+          "middle_voice:counterpoint",
           "voice_leading:Cad64",
           "form:period",
           "scale:mixed_minor"
@@ -2545,7 +2579,7 @@
           "form:extra_measure",
           "bass:riff",
           "scale:dorian",
-          "upper_voices:polyphony"
+          "middle_voice:counterpoint"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.290000000000001,
@@ -2658,7 +2692,7 @@
         "tags": [
           "scale:nikriz",
           "form:period",
-          "upper_voices:polyphony"
+          "middle_voice:counterpoint"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.5900000000000012,
@@ -3462,7 +3496,7 @@
           "bass:root_fifth",
           "bass:transposed_riff",
           "middle_voice:parallel_thirds",
-          "voice_leading:Vsus4"
+          "harmony:Vsus4"
         ],
         "fourMeasurePhrasingReferences": [],
         "form": {
@@ -3648,7 +3682,7 @@
         "tags": [
           "bass:walking",
           "middle_voice:melody",
-          "upper_voices:polyphony",
+          "middle_voice:counterpoint",
           "harmony:parallel_keys",
           "form:ABAC",
           "rhythm:swing",
@@ -4649,7 +4683,7 @@
         "modulations": [],
         "tags": [
           "style:common_practice",
-          "voice_leading:Vsus4"
+          "harmony:Vsus4"
         ],
         "fourMeasurePhrasingReferences": [
           6,
@@ -6964,7 +6998,7 @@
           "harmony:constant_structures",
           "location:jingle",
           "timbre:ultra_fast_notes",
-          "bass:octaves",
+          "bass:root_octaves",
           "bass:inversions"
         ],
         "fourMeasurePhrasingReferences": [],
@@ -7840,7 +7874,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "voice_leading:Vsus4"
+          "harmony:Vsus4"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.440000000000001,
@@ -10621,7 +10655,7 @@
           "rhythm:3+3+3+3+2+2",
           "bass:root_fifth",
           "middle_voice:arpeggio",
-          "voice_leading:Vsus4"
+          "harmony:Vsus4"
         ],
         "fourMeasurePhrasingReferences": [
           3
@@ -10831,7 +10865,7 @@
         },
         "tags": [
           "form:period",
-          "upper_voices:polyphony",
+          "middle_voice:counterpoint",
           "rhythm:swing"
         ],
         "fourMeasurePhrasingReferences": [],
@@ -11877,7 +11911,7 @@
           "location:game_won",
           "form:period",
           "style:common_practice",
-          "voice_leading:Vsus4",
+          "harmony:Vsus4",
           "middle_voice:melody",
           "voice_leading:Isus4",
           "voice_leading:Cad64"
@@ -12371,7 +12405,7 @@
           "scale:pentatonic",
           "melody:riff",
           "middle_voice:riff",
-          "upper_voices:polyphony"
+          "middle_voice:counterpoint"
         ]
       },
       "3": {
@@ -12441,7 +12475,7 @@
             ]
           },
           {
-            "tag": "bass:octaves",
+            "tag": "bass:root_octaves",
             "span": [
               1,
               8
@@ -12455,7 +12489,7 @@
             ]
           },
           {
-            "tag": "bass:octaves",
+            "tag": "bass:root_octaves",
             "span": [
               15,
               16
@@ -12852,7 +12886,7 @@
           "location:launch_screen",
           "form:period",
           "middle_voice:thirds_and_sixths",
-          "bass:octaves"
+          "bass:root_octaves"
         ],
         "fourMeasurePhrasingReferences": [
           3
@@ -12880,7 +12914,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "bass:octaves",
+          "bass:root_octaves",
           "middle_voice:thirds_and_sixths"
         ],
         "fourMeasurePhrasingReferences": [
@@ -12904,7 +12938,7 @@
         "modulations": [],
         "tags": [
           "middle_voice:thirds_and_sixths",
-          "bass:octaves"
+          "bass:root_octaves"
         ],
         "fourMeasurePhrasingReferences": [],
         "form": [],
@@ -13912,7 +13946,7 @@
         "correctedMeasures": [],
         "tonic": 9,
         "tags": [
-          "upper_voices:polyphony",
+          "middle_voice:counterpoint",
           "form:period"
         ]
       },
@@ -14335,7 +14369,7 @@
         "modulations": [],
         "tags": [
           "form:AABA",
-          "upper_voices:polyphony"
+          "middle_voice:counterpoint"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.5900000000000012,
@@ -14446,7 +14480,7 @@
           "rhythm:3 against 2",
           "timbre:chirp",
           "form:period",
-          "voice_leading:Vsus4",
+          "harmony:Vsus4",
           "middle_voice:lower_chord_tones"
         ],
         "fourMeasurePhrasingReferences": [],
@@ -15841,7 +15875,7 @@
         "tags": [
           "harmony:lydian_shuttle",
           "harmony:stasis",
-          "upper_voices:polyphony",
+          "middle_voice:counterpoint",
           "location:menu"
         ],
         "modulations": {
@@ -16762,7 +16796,7 @@
         "modulations": [],
         "tags": [
           "voice_leading:descending_diatonic_bass",
-          "voice_leading:Vsus4",
+          "harmony:Vsus4",
           "form:extra_measure",
           "middle_voice:melody",
           "melody:basic_idea_x4"
@@ -16853,7 +16887,7 @@
         "tags": [
           "bass:riff",
           "scale:dorian",
-          "upper_voices:polyphony",
+          "middle_voice:counterpoint",
           "middle_voice:parallel_thirds"
         ],
         "fourMeasurePhrasingReferences": [],
@@ -17029,7 +17063,7 @@
           "middle_voice:parallel_fourths",
           "bass:riff",
           "form:stasis_vs_progression",
-          "upper_voices:polyphony"
+          "middle_voice:counterpoint"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.5900000000000012,
@@ -17589,7 +17623,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "bass:octaves",
+          "bass:root_octaves",
           "scale:pentatonic",
           "form:accumulative",
           "middle_voice:absent",
@@ -17614,7 +17648,7 @@
         "modulations": [],
         "tags": [
           "scale:hemitonic_pentatonic",
-          "bass:octaves",
+          "bass:root_octaves",
           "bass:riff",
           "middle_voice:melody_echo",
           "form:accumulative"
@@ -18386,7 +18420,7 @@
           "form:period",
           "rhythm:latin",
           "form:reversed_period",
-          "voice_leading:Vsus4",
+          "harmony:Vsus4",
           "voice_leading:triple_suspension",
           "scale:blues",
           "middle_voice:lower_chord_tones",
@@ -18641,7 +18675,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "bass:octaves",
+          "bass:root_octaves",
           "timbre:oscillator_as_percussion",
           "bass:root_fifth"
         ],
@@ -19071,7 +19105,7 @@
         "modulations": [],
         "tags": [
           "middle_voice:thirds_and_sixths",
-          "bass:octaves",
+          "bass:root_octaves",
           "bass:pedal_point"
         ],
         "fourMeasurePhrasingReferences": [],
@@ -19918,7 +19952,7 @@
           "bass:root_fifth",
           "melody:fills_at_rests",
           "timbre:tremolo",
-          "upper_voices:polyphony"
+          "middle_voice:counterpoint"
         ],
         "fourMeasurePhrasingReferences": [],
         "form": {
@@ -20237,7 +20271,7 @@
         "modulations": [],
         "tags": [
           "tempo:twice_as_fast",
-          "bass:octaves",
+          "bass:root_octaves",
           "middle_voice:parallel_thirds"
         ],
         "fourMeasurePhrasingReferences": [],
@@ -20520,7 +20554,7 @@
           "melody:fills_at_rests",
           "upper_voices:same_range",
           "melody:basic_idea_x3",
-          "upper_voices:polyphony",
+          "middle_voice:counterpoint",
           "bass:riff"
         ],
         "fourMeasurePhrasingReferences": [],
@@ -20587,9 +20621,9 @@
         "modulations": [],
         "tags": [
           "style:ragtime",
-          "voice_leading:Vsus4",
+          "harmony:Vsus4",
           "timbre:portamento",
-          "upper_voices:polyphony",
+          "middle_voice:counterpoint",
           "bass:root",
           "bass:transposed_riff"
         ],
@@ -20721,7 +20755,7 @@
         "modulations": [],
         "tags": [
           "form:period",
-          "bass:octaves",
+          "bass:root_octaves",
           "middle_voice:absent",
           "tempo:ritardando",
           "timbre:unexpected_detune"
@@ -20755,7 +20789,7 @@
         "tags": [
           "reference:previous_subtune",
           "form:period",
-          "bass:octaves",
+          "bass:root_octaves",
           "middle_voice:absent"
         ],
         "fourMeasurePhrasingReferences": [],
@@ -20823,7 +20857,7 @@
         "modulations": [],
         "tags": [
           "harmony:i-VI shuttle",
-          "bass:octaves",
+          "bass:root_octaves",
           "melody:arpeggio",
           "middle_voice:absent"
         ],
@@ -20870,7 +20904,7 @@
         "tags": [
           "timbre:unexpected_detune",
           "melody:arpeggio",
-          "bass:octaves"
+          "bass:root_octaves"
         ],
         "fourMeasurePhrasingReferences": [],
         "form": [],
@@ -21134,7 +21168,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "bass:octaves"
+          "bass:root_octaves"
         ],
         "fourMeasurePhrasingReferences": [
           3
@@ -21174,7 +21208,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "bass:octaves",
+          "bass:root_octaves",
           "middle_voice:absent"
         ],
         "fourMeasurePhrasingReferences": [],
@@ -21255,7 +21289,7 @@
         "tags": [
           "form:12-bar_blues",
           "bass:root",
-          "upper_voices:polyphony"
+          "middle_voice:counterpoint"
         ],
         "fourMeasurePhrasingReferences": [],
         "form": [],
@@ -23423,7 +23457,7 @@
         "tags": [
           "location:game_won",
           "harmony:diatonic_seventh_chords",
-          "bass:octaves",
+          "bass:root_octaves",
           "middle_voice:parallel_octaves",
           "upper_voice:riff"
         ],
@@ -23817,7 +23851,7 @@
         "tags": [
           "bass:drone",
           "scale:natural_minor",
-          "upper_voices:polyphony",
+          "middle_voice:counterpoint",
           "tempo:twice_as_fast",
           "location:intro"
         ],
@@ -23866,7 +23900,7 @@
           "middle_voice:thirds_and_sixths",
           "middle_voice:riff",
           "scale:mixed_major",
-          "upper_voices:polyphony",
+          "middle_voice:counterpoint",
           "bass:pedal_point",
           "harmony:constant_structures",
           "form:complex"
@@ -23986,17 +24020,97 @@
     "Battle of Olympus [Olympus no Tatakai - Ai no Densetsu] (1988-03-28)(Infinity)(Imagineer).nsf": {
       "0": {
         "beatsPerMeasure": 4,
+        "tagSpans": [
+          {
+            "tag": "form:uniform_period",
+            "span": [
+              1,
+              8
+            ]
+          },
+          {
+            "tag": "harmony:Vsus4",
+            "span": [
+              13,
+              13
+            ]
+          },
+          {
+            "tag": "form:extra_measure",
+            "span": [
+              13,
+              13
+            ]
+          },
+          {
+            "tag": "middle_voice:thirds_and_chord_tones",
+            "span": [
+              1,
+              8
+            ]
+          },
+          {
+            "tag": "middle_voice:static_chord_tones",
+            "span": [
+              9,
+              11
+            ]
+          },
+          {
+            "tag": "middle_voice:counterpoint",
+            "span": [
+              12,
+              12
+            ]
+          },
+          {
+            "tag": "harmony:upper_structure",
+            "span": [
+              3,
+              3
+            ]
+          },
+          {
+            "tag": "bass:root_fifth",
+            "span": [
+              1,
+              8
+            ]
+          },
+          {
+            "tag": "melody:basic_idea_x4",
+            "span": [
+              1,
+              8
+            ]
+          },
+          {
+            "tag": "melody:arpeggio",
+            "span": [
+              9,
+              11
+            ]
+          },
+          {
+            "tag": "bass:root",
+            "span": [
+              9,
+              11
+            ]
+          },
+          {
+            "tag": "voice_leading:descending_diatonic_bass",
+            "span": [
+              12,
+              12
+            ]
+          }
+        ],
         "disableSnapToNotes": false,
-        "romanNumerals": "i VII III-VI VI-v i VII III-VI VI-v i iv V7",
+        "romanNumerals": "i VII III iio-v i VII III iio-v i iv V7",
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "form:extra_measure",
-          "middle_voice:parallel_thirds",
-          "harmony:upper_structure",
-          "middle_voice:static_chord_tones",
-          "melody:arpeggio",
-          "form:uniform_period",
           "form:binary"
         ],
         "fourMeasurePhrasingReferences": [],
@@ -24188,7 +24302,7 @@
         "tags": [
           "timbre:wide_vibrato",
           "form:progression",
-          "bass:octaves",
+          "bass:root_octaves",
           "middle_voice:arpeggio",
           "rhythm:3+3+2",
           "harmony:I-IV-V",
@@ -24231,7 +24345,7 @@
         "tags": [
           "harmony:diatonic_seventh_chords",
           "timbre:oscillator_as_percussion",
-          "bass:octaves"
+          "bass:root_octaves"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 2.0000000000000013,
@@ -24265,12 +24379,12 @@
           "harmony:mixolydian_shuttle",
           "rhythm:3 against 2",
           "form:uniform_period",
-          "voice_leading:Vsus4",
+          "harmony:Vsus4",
           "rhythm:1+2+2+2",
           "form:binary",
           "middle_voice:static_chord_tones",
           "middle_voice:arpeggio",
-          "upper_voices:polyphony"
+          "middle_voice:counterpoint"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 2.0899999999999994,
@@ -24299,7 +24413,7 @@
         "tags": [
           "harmony:diatonic_seventh_chords",
           "middle_voice:arpeggio",
-          "voice_leading:Vsus4",
+          "harmony:Vsus4",
           "form:reversed_period",
           "form:binary",
           "lego:pullback",
@@ -24359,7 +24473,7 @@
             ]
           },
           {
-            "tag": "voice_leading:Vsus4",
+            "tag": "harmony:Vsus4",
             "span": [
               12,
               12
@@ -24373,7 +24487,7 @@
             ]
           },
           {
-            "tag": "bass:octaves_not_just_roots",
+            "tag": "bass:mixed_octaves",
             "span": [
               25,
               34
@@ -24488,7 +24602,7 @@
             ]
           },
           {
-            "tag": "bass:octaves",
+            "tag": "bass:root_octaves",
             "span": [
               16,
               16
@@ -24582,7 +24696,7 @@
         "beatsPerMeasure": 4,
         "tagSpans": [
           {
-            "tag": "voice_leading:Vsus4",
+            "tag": "harmony:Vsus4",
             "span": [
               18,
               18
@@ -24625,7 +24739,7 @@
             ]
           },
           {
-            "tag": "bass:octaves",
+            "tag": "bass:root_octaves",
             "span": [
               1,
               18
@@ -24665,7 +24779,7 @@
             ]
           },
           {
-            "tag": "voice_leading:Vsus4",
+            "tag": "harmony:Vsus4",
             "span": [
               15,
               16

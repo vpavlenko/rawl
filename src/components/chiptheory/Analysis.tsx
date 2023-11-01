@@ -80,6 +80,7 @@ const TAGS = [
   "harmony:upper_structure",
   "harmony:I-IV-V",
   "harmony:V7b9",
+  "harmony:Vsus4",
   "rhythm:syncopation",
   "rhythm:interesting",
   "rhythm:swing",
@@ -127,7 +128,6 @@ const TAGS = [
   "voice_leading:ascending_bass",
   "voice_leading:descending_chromatic_melody",
   "voice_leading:ascending_chromatic",
-  "voice_leading:Vsus4",
   "voice_leading:Isus4",
   "voice_leading:Cad64",
   "voice_leading:Ger+6",
@@ -202,8 +202,8 @@ const TAGS = [
   "bass:alberti",
   "bass:pedal_point",
   "bass:counterpoint",
-  "bass:octaves", // TODO: this means "octaves of root"
-  "bass:octaves_not_just_roots", // TODO: rename
+  "bass:root_octaves",
+  "bass:mixed_octaves",
   "bass:root",
   "bass:root_third",
   "bass:root_fifth",
@@ -253,7 +253,7 @@ const TAGS = [
   "motive:natural_horn_call",
   "motive:telephone_call",
   "motive:cadential",
-  "upper_voices:polyphony",
+  "middle_voice:counterpoint",
   "upper_voices:arpeggio",
   "upper_voices:absent",
   "upper_voices:legato_melody",
@@ -273,13 +273,14 @@ const TAGS = [
   "lego:pullback",
 ];
 
-const STRIPE_HEIGHT = 25;
+const STRIPE_HEIGHT = 20;
 const CATEGORIES_IN_STRIPES = [
   "melody",
   "middle_voice",
   "bass",
   "harmony",
-  "voice_leading",
+  // "voice_leading",
+  "form",
 ];
 export const STRIPES_HEIGHT = STRIPE_HEIGHT * CATEGORIES_IN_STRIPES.length;
 export const ANALYSIS_HEIGHT = STRIPES_HEIGHT + 55;
@@ -571,10 +572,10 @@ const Measure: React.FC<{
           left: `${left}px`,
           width,
           top: STRIPES_HEIGHT,
-          height: STRIPE_HEIGHT,
+          height: "25px",
           display: "grid",
           placeItems: "center",
-          fontSize: STRIPE_HEIGHT,
+          fontSize: "25px",
           zIndex: 5,
           borderLeft: "1px solid black",
         }}
@@ -639,10 +640,56 @@ const TonalGrid: React.FC<{
   },
 );
 
+function stringToHash(str) {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    const char = str.charCodeAt(i);
+    hash = (hash << 5) - hash + char;
+    hash |= 0; // Convert to 32bit integer
+  }
+  return hash;
+}
+
+function hashToColor(hash) {
+  // Mask the hash to get a 6 digit hexadecimal number (for a color)
+  const color = (hash & 0xffffff).toString(16).toUpperCase();
+
+  // Ensure it's 6 digits
+  return "000000".substr(0, 6 - color.length) + color;
+}
+
+function luminosityFromRGB(r, g, b) {
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+}
+
+function ensureLowLuminosity(color) {
+  const r = parseInt(color.slice(0, 2), 16) / 255;
+  const g = parseInt(color.slice(2, 4), 16) / 255;
+  const b = parseInt(color.slice(4, 6), 16) / 255;
+
+  const lum = luminosityFromRGB(r, g, b);
+
+  if (lum > 0.5) {
+    // 0.5 is a mid-point, you can adjust for your needs
+    // Invert the color if luminosity is too high
+    const invertedR = (255 - r * 255).toString(16).padStart(2, "0");
+    const invertedG = (255 - g * 255).toString(16).padStart(2, "0");
+    const invertedB = (255 - b * 255).toString(16).padStart(2, "0");
+
+    return invertedR + invertedG + invertedB;
+  }
+
+  return color;
+}
+
+function stringToColor(str) {
+  return "#" + ensureLowLuminosity(hashToColor(stringToHash(str)));
+}
+
 const StripeTag = ({
   left,
   widthInMeasures,
-  content,
+  tag,
   removeTag,
   onMouseEnter,
   onMouseLeave,
@@ -652,11 +699,9 @@ const StripeTag = ({
       position: "absolute",
       left,
       width: secondsToX(widthInMeasures),
-      backgroundColor: "black",
+      backgroundColor: stringToColor(tag),
       color: "white",
       paddingLeft: "5px",
-      border: "0.1px solid white",
-      opacity: 0.8,
       boxSizing: "border-box",
       height: STRIPE_HEIGHT,
       zIndex: 400 - widthInMeasures,
@@ -667,8 +712,23 @@ const StripeTag = ({
     onMouseEnter={onMouseEnter}
     onMouseLeave={onMouseLeave}
   >
-    {content}
-    <button onClick={removeTag}>[x]</button>
+    <span style={{ overflow: "hidden", fontSize: STRIPE_HEIGHT }}>
+      {
+        tag.split(":")[1].replace(/_/g, " ")
+        // .replace("harmony: ", "")
+        // .replace("voice leading: ", "")
+      }
+    </span>
+    <button
+      onClick={removeTag}
+      style={{
+        backgroundColor: "transparent",
+        color: "white",
+        fontSize: STRIPE_HEIGHT,
+      }}
+    >
+      [x]
+    </button>
   </div>
 );
 
@@ -705,7 +765,7 @@ const Stripes: React.FC<{
                 Math.min(span[1], measuresAndBeats.measures.length - 1)
               ] - measuresAndBeats.measures[span[0] - 1]
             }
-            content={tag}
+            tag={tag}
             removeTag={() => {
               const newTagSpans = [...tagSpans];
               newTagSpans.splice(tagIndex, 1);
@@ -719,10 +779,17 @@ const Stripes: React.FC<{
               setAnalysis(newAnalysis);
             }}
             onMouseEnter={() => {
-              const newVoiceMask = [false, false, true, false, false];
-              setVoiceMask(newVoiceMask);
+              if (category === "bass") {
+                // TODO: actually store the bass voice in tagSpan object in the DB
+                const newVoiceMask = [false, false, true, false, false];
+                setVoiceMask(newVoiceMask);
+              }
             }}
-            onMouseLeave={() => setVoiceMask([true, true, true, true, true])}
+            onMouseLeave={() => {
+              if (category === "bass") {
+                setVoiceMask([true, true, true, true, true]);
+              }
+            }}
           />,
         );
       }

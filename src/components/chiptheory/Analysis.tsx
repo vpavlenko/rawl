@@ -720,7 +720,11 @@ const StripeTag = ({
     </span>
     {removeTag && (
       <button
-        onClick={removeTag}
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          removeTag();
+        }}
         style={{
           backgroundColor: "transparent",
           color: "white",
@@ -788,21 +792,25 @@ const Stripes: React.FC<{
             })
           }
           onMouseEnter={() => {
-            if (category === "bass") {
-              // TODO: actually store the bass voice in tagSpan object in the DB
-              const newVoiceMask = [false, false, true, false, false];
-              setVoiceMask(newVoiceMask);
-            }
+            // if (category === "bass") {
+            //   // TODO: actually store the bass voice in tagSpan object in the DB
+            //   const newVoiceMask = [false, false, true, false, false];
+            //   setVoiceMask(newVoiceMask);
+            // }
           }}
           onMouseLeave={() => {
-            if (category === "bass") {
-              setVoiceMask([true, true, true, true, true]);
-            }
+            // if (category === "bass") {
+            //   setVoiceMask([true, true, true, true, true]);
+            // }
           }}
         />
       );
       stripeTags[categoryIndex].push(
-        <a href={`/search/${category}/${content}`} target="_blank">
+        <a
+          href={`/search/${category}/${content}`}
+          target="_blank"
+          onClick={(e) => e.stopPropagation()}
+        >
           {stripeTagNode}
         </a>,
       );

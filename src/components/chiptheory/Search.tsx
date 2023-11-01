@@ -16,7 +16,7 @@ export const doesAnalysisHaveRn = (analysis: Analysis, rnSpaced: string) =>
     " " + rnSpaced + " ",
   );
 
-const getAnalysisTags = (analysis: Analysis): string[] => [
+export const getAnalysisTags = (analysis: Analysis): string[] => [
   ...(analysis.tags ?? []),
   ...(analysis.tagSpans?.map(({ tag }) => tag) ?? []),
 ];

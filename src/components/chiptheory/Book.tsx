@@ -1855,6 +1855,9 @@ export const BookExample: React.FC<{
   playSegment: (span: [number, number], mask: string) => void;
   analysis: Analysis;
 }> = ({ path, playSegment, analysis }) => {
+  if (!analysis) {
+    return <></>;
+  }
   const { title, text, index } = parseBookPath(path);
   const [previous, next] = getAdjacentExamples(path);
   return (
@@ -1885,13 +1888,13 @@ export const BookExample: React.FC<{
       <PlayContext.Provider value={playSegment}>
         <div>{text && text(playSegment)}</div>{" "}
       </PlayContext.Provider>
-      {analysis?.tags && (!title || !title.startsWith("exercise")) && (
+      {analysis.tags && (!title || !title.startsWith("exercise")) && (
         <div>
           <div>&nbsp;</div>
           <div>&nbsp;</div>
           <div>&nbsp;</div>
           <div>Tags:</div>
-          {analysis?.tags.map((tag) => (
+          {analysis.tags.map((tag) => (
             <div key={tag}>
               <a
                 href={`https://vpavlenko.github.io/chiptheory/search/${tag.replace(

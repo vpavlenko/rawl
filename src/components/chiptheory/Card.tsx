@@ -1,16 +1,21 @@
 import * as React from "react";
 import styled from "styled-components";
 
-import { Analysis } from "./Analysis";
+import { Analysis, tagToColor } from "./Analysis";
 import { FormAndHarmony } from "./romanNumerals";
+import { getAnalysisTags } from "./Search";
 
-const Badge = styled.span`
+type BadgeProps = {
+  backgroundColor?: string;
+  color?: string;
+};
+
+const Badge = styled.span<BadgeProps>`
   border-radius: 0px;
-  background-color: ${(props) => props.color || "#ccc"};
-  color: black;
-  font-family: Helvetica, sans-serif;
-  font-size: 12pt;
-  padding: 0px 5px;
+  background-color: ${(props) => props.backgroundColor || "#ccc"};
+  color: ${(props) => props.color || "black"};
+  font-size: 20px;
+  padding: 2px 5px;
   max-width: 400px;
 `;
 
@@ -28,38 +33,39 @@ const Card: React.FC<{ analysis: Analysis; index: number }> = ({
   badges.push(<Badge>{index}</Badge>);
   if (analysis.comment) {
     badges.push(
-      <Badge key="comment" color="#cc4">
+      <Badge key="comment" backgroundColor="#cc4">
         {analysis.comment}
       </Badge>,
     );
   }
   if ((analysis.beatsPerMeasure ?? 4) !== 4) {
     badges.push(
-      <Badge key="beats" color="#99f">{`${analysis.beatsPerMeasure}/4`}</Badge>,
+      <Badge
+        key="beats"
+        backgroundColor="#99f"
+      >{`${analysis.beatsPerMeasure}/4`}</Badge>,
     );
   }
-  if (analysis.tags && analysis.tags.length > 0) {
-    analysis.tags.map((tag) =>
-      badges.push(
-        <Badge key={`tag_${tag}`}>
-          {tag.split(":").join(": ").replace(/_/g, " ")}
-        </Badge>,
-      ),
-    );
-  }
+  getAnalysisTags(analysis).map((tag) =>
+    badges.push(
+      <Badge key={`tag_${tag}`} backgroundColor={tagToColor(tag)} color="white">
+        {tag.split(":").join(": ").replace(/_/g, " ")}
+      </Badge>,
+    ),
+  );
   if (analysis.romanNumerals) {
     badges.push(<FormAndHarmony key="formAndHarmony" analysis={analysis} />);
   }
   if (analysis.basedOn) {
     badges.push(
-      <Badge key="basedOn" color="#cfc">
+      <Badge key="basedOn" backgroundColor="#cfc">
         {analysis.basedOn}
       </Badge>,
     );
   }
   if (modulations.length > 0) {
     badges.push(
-      <Badge key="modulations" color="#fcc">
+      <Badge key="modulations" backgroundColor="#fcc">
         {"mod: " +
           modulations
             .map(([measure, newTonic]) =>
@@ -71,7 +77,7 @@ const Card: React.FC<{ analysis: Analysis; index: number }> = ({
   }
   if (badges.length === 0) {
     badges.push(
-      <Badge key="index" color="white">
+      <Badge key="index" backgroundColor="white">
         {index}
       </Badge>,
     );

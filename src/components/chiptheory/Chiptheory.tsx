@@ -125,7 +125,7 @@ const calculateNotesFromPeriods = (periods, oscType) => {
 };
 
 const SECOND_WIDTH = 70;
-const HORIZONTAL_HEADER_PADDING = 50;
+const HORIZONTAL_HEADER_PADDING = 55;
 export const secondsToX = (seconds) =>
   seconds * SECOND_WIDTH + HORIZONTAL_HEADER_PADDING;
 const xToSeconds = (x) => x / SECOND_WIDTH;

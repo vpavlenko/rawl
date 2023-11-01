@@ -617,7 +617,7 @@ const TonalGrid: React.FC<{
       const to =
         measures[Math.min(modulations[i + 1].measure, measures.length - 1)];
       const { tonic } = modulations[i];
-      const width = secondsToX(to - from);
+      const width = secondsToX(to) - secondsToX(from);
       if (!width) continue;
       for (let octave = 2; octave <= 9; ++octave) {
         const midiNumber = tonic + octave * 12;
@@ -686,7 +686,7 @@ function ensureLowLuminosity(color) {
   return color;
 }
 
-function stringToColor(str) {
+export function tagToColor(str) {
   return "#" + ensureLowLuminosity(hashToColor(stringToHash(str)));
 }
 
@@ -704,7 +704,7 @@ const StripeTag = ({
       position: "absolute",
       left,
       width,
-      backgroundColor: stringToColor(tag),
+      backgroundColor: tagToColor(tag),
       color: "white",
       padding: "0 5px 0 5px",
       boxSizing: "border-box",
@@ -775,11 +775,13 @@ const Stripes: React.FC<{
       const stripeTagNode = (
         <StripeTag
           left={secondsToX(measuresAndBeats.measures[span[0] - 1])}
-          width={secondsToX(
-            measuresAndBeats.measures[
-              Math.min(span[1], measuresAndBeats.measures.length - 1)
-            ] - measuresAndBeats.measures[span[0] - 1],
-          )}
+          width={
+            secondsToX(
+              measuresAndBeats.measures[
+                Math.min(span[1], measuresAndBeats.measures.length - 1)
+              ],
+            ) - secondsToX(measuresAndBeats.measures[span[0] - 1])
+          }
           widthInMeasures={span[1] - span[0]}
           tag={tag}
           removeTag={

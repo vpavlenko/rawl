@@ -312,7 +312,7 @@ const Chiptheory = ({
   savedAnalysis,
   saveAnalysis,
   voiceMask,
-  handleSetVoiceMask,
+  setVoiceMask,
   analysisEnabled,
   seek,
   registerSeekCallback,
@@ -369,7 +369,7 @@ const Chiptheory = ({
   }, [chipStateDump]);
 
   const allNotes = useMemo(
-    () => [...notes.t, ...notes.p1, ...notes.p2], // [...notes.n]
+    () => [...notes.t, ...notes.p1, ...notes.p2],
     [chipStateDump],
   );
 
@@ -612,6 +612,8 @@ const Chiptheory = ({
             selectDownbeat={selectDownbeat}
             saveAnalysis={saveAnalysis}
             setAnalysis={setAnalysis}
+            // voiceMask={voiceMask}
+            setVoiceMask={setVoiceMask}
           />
           <div
             style={{
@@ -646,7 +648,7 @@ const Chiptheory = ({
               for (let i = 0; i < mask.length; ++i) {
                 newVoiceMask[i] = mask[i] === "1";
               }
-              handleSetVoiceMask(newVoiceMask);
+              setVoiceMask(newVoiceMask);
               setPlayEnd(span ? span[1] : null);
               const start = span
                 ? measuresAndBeats.measures[span[0] - 1] * 1000

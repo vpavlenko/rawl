@@ -989,7 +989,7 @@ class App extends React.Component {
                                   savedAnalysis={savedAnalysis}
                                   saveAnalysis={this.saveAnalysis}
                                   voiceMask={this.state.voiceMask}
-                                  handleSetVoiceMask={this.handleSetVoiceMask}
+                                  setVoiceMask={this.handleSetVoiceMask}
                                   analysisEnabled={this.state.analysisEnabled}
                                   seek={(time) =>
                                     this.seekRelativeInner(time, true)

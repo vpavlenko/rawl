@@ -639,7 +639,14 @@ const TonalGrid: React.FC<{
   },
 );
 
-const StripeTag = ({ left, widthInMeasures, content, removeTag }) => (
+const StripeTag = ({
+  left,
+  widthInMeasures,
+  content,
+  removeTag,
+  onMouseEnter,
+  onMouseLeave,
+}) => (
   <div
     style={{
       position: "absolute",
@@ -657,6 +664,8 @@ const StripeTag = ({ left, widthInMeasures, content, removeTag }) => (
       flexDirection: "row",
       justifyContent: "space-between",
     }}
+    onMouseEnter={onMouseEnter}
+    onMouseLeave={onMouseLeave}
   >
     {content}
     <button onClick={removeTag}>[x]</button>
@@ -669,8 +678,18 @@ const Stripes: React.FC<{
   analysis: Analysis;
   saveAnalysis: (analysis: Analysis) => void;
   setAnalysis: (analysis: Analysis) => void;
+  // voiceMask: boolean[];
+  setVoiceMask: (voiceMask: boolean[]) => void;
 }> = React.memo(
-  ({ tagSpans, measuresAndBeats, analysis, saveAnalysis, setAnalysis }) => {
+  ({
+    tagSpans,
+    measuresAndBeats,
+    analysis,
+    saveAnalysis,
+    setAnalysis,
+    // voiceMask,
+    setVoiceMask,
+  }) => {
     const stripeTags = new Array(CATEGORIES_IN_STRIPES.length)
       .fill(null)
       .map(() => []);
@@ -682,8 +701,9 @@ const Stripes: React.FC<{
           <StripeTag
             left={secondsToX(measuresAndBeats.measures[span[0] - 1])}
             widthInMeasures={
-              measuresAndBeats.measures[span[1]] -
-              measuresAndBeats.measures[span[0] - 1]
+              measuresAndBeats.measures[
+                Math.min(span[1], measuresAndBeats.measures.length - 1)
+              ] - measuresAndBeats.measures[span[0] - 1]
             }
             content={tag}
             removeTag={() => {
@@ -698,6 +718,11 @@ const Stripes: React.FC<{
               saveAnalysis(newAnalysis);
               setAnalysis(newAnalysis);
             }}
+            onMouseEnter={() => {
+              const newVoiceMask = [false, false, true, false, false];
+              setVoiceMask(newVoiceMask);
+            }}
+            onMouseLeave={() => setVoiceMask([true, true, true, true, true])}
           />,
         );
       }
@@ -742,6 +767,9 @@ export const AnalysisGrid: React.FC<{
   selectDownbeat: (number: number) => void;
   saveAnalysis: (analysis: Analysis) => void;
   setAnalysis: (analysis: Analysis) => void;
+  // a callback for stripes to tweak voiceMask on hover
+  // voiceMask: boolean[];
+  setVoiceMask: (voiceMask: boolean[]) => void;
 }> = React.memo(
   ({
     analysis,
@@ -753,6 +781,8 @@ export const AnalysisGrid: React.FC<{
     selectDownbeat,
     saveAnalysis,
     setAnalysis,
+    // voiceMask,
+    setVoiceMask,
   }) => {
     const { measures, beats } = measuresAndBeats;
     let loopLeft = null;
@@ -806,6 +836,8 @@ export const AnalysisGrid: React.FC<{
             analysis={analysis}
             saveAnalysis={saveAnalysis}
             setAnalysis={setAnalysis}
+            // voiceMask={voiceMask}
+            setVoiceMask={setVoiceMask}
           />
         )}
         {loopLeft && (

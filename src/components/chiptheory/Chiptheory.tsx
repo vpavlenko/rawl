@@ -549,7 +549,7 @@ const Chiptheory = ({
     !paused &&
     bookPath &&
     analysis.loop &&
-    (positionMs > measuresAndBeats.measures[analysis.loop - 1] * 1000 ||
+    (positionMs - 1000 > measuresAndBeats.measures[analysis.loop - 1] * 1000 ||
       (playEnd && positionMs > measuresAndBeats.measures[playEnd] * 1000))
   ) {
     pause();

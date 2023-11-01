@@ -46,6 +46,7 @@ function BrowseList({ items, ...props }) {
       subtune = parseInt(subtune, 10) - 1;
 
       const href = CATALOG_PREFIX + path;
+
       handleSongClick(
         href,
         playContext,

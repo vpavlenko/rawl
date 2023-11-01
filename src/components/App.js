@@ -1026,21 +1026,6 @@ class App extends React.Component {
                       />
                     </Switch>
                   </div>
-                  {this.state.showPlayerSettings &&
-                    false && ( // moved to AppFooter
-                      <div className="App-main-content-area settings">
-                        <Settings
-                          ejected={this.state.ejected}
-                          tempo={this.state.tempo}
-                          currentSongNumVoices={this.state.currentSongNumVoices}
-                          voiceMask={this.state.voiceMask}
-                          voiceNames={this.state.voiceNames}
-                          handleSetVoiceMask={this.handleSetVoiceMask}
-                          handleTempoChange={this.handleTempoChange}
-                          sequencer={this.sequencer}
-                        />
-                      </div>
-                    )}
                 </div>
               </div>
               {!isMobile.phone && !this.state.loading && (

@@ -1,4 +1,4 @@
-import React, { memo, useCallback } from "react";
+import React, { memo } from "react";
 import { useLocation } from "react-router-dom";
 import downloadImage from "../images/download.png";
 import linkImage from "../images/link.png";
@@ -35,14 +35,6 @@ function AppFooter(props) {
     toggleInfo,
     togglePause,
   } = props;
-
-  const handleToggleInfo = useCallback(
-    (e) => {
-      e.preventDefault();
-      toggleInfo();
-    },
-    [toggleInfo],
-  );
 
   const location = useLocation();
 
@@ -120,11 +112,6 @@ function AppFooter(props) {
                     style={{ verticalAlign: "bottom" }}
                   />
                 </a>{" "}
-                {infoTexts.length > 0 && (
-                  <a onClick={handleToggleInfo} href="#">
-                    тхт
-                  </a>
-                )}
                 <span style={{ marginLeft: "20px" }}>{subtitle}</span>
               </div>
             </div>

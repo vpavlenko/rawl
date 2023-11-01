@@ -111,13 +111,6 @@
         "beatsPerMeasure": 4,
         "tagSpans": [
           {
-            "tag": "form:progression",
-            "span": [
-              1,
-              16
-            ]
-          },
-          {
             "tag": "bass:root_octaves",
             "span": [
               1,
@@ -149,7 +142,8 @@
         "romanNumerals": "i VII VI v i VII VI VII i VII VI v i VII VI v",
         "clickResolutionMs": 0.01,
         "tags": [
-          "location:game_won"
+          "location:game_won",
+          "form:progression"
         ],
         "mode": null,
         "fourMeasurePhrasingReferences": [],
@@ -10455,7 +10449,8 @@
         "romanNumerals": "I IV-I vi-iii ii-V-_-_ I iv-I vi-iii V-I IV iii ii-V I-V7/IV IV-iv I-V-vi-vi IV-V-IV-V IV-iii-III-bII V",
         "clickResolutionMs": 0.01,
         "tags": [
-          "form:binary"
+          "form:binary",
+          "rhythm:latin"
         ],
         "mode": null,
         "fourMeasurePhrasingReferences": [],
@@ -14043,16 +14038,30 @@
             ]
           },
           {
-            "tag": "timbre:layered",
+            "tag": "middle_voice:absent",
             "span": [
               1,
               32
             ]
           },
           {
-            "tag": "middle_voice:absent",
+            "tag": "bass:doubles_melody",
             "span": [
-              1,
+              17,
+              24
+            ]
+          },
+          {
+            "tag": "melody:arpeggio",
+            "span": [
+              17,
+              24
+            ]
+          },
+          {
+            "tag": "timbre:layered",
+            "span": [
+              17,
               32
             ]
           }
@@ -14062,10 +14071,8 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "melody:arpeggio",
           "form:not_looped",
-          "location:game_won",
-          "harmony:unison"
+          "location:game_won"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.0400000000000007,
@@ -17946,24 +17953,88 @@
     "Barcode World (1992-12-18)(Epoch)(Sunsoft).nsf": {
       "0": {
         "beatsPerMeasure": 4,
+        "tagSpans": [
+          {
+            "tag": "form:period",
+            "span": [
+              3,
+              10
+            ]
+          },
+          {
+            "tag": "harmony:blues_seventh_chords",
+            "span": [
+              3,
+              18
+            ]
+          },
+          {
+            "tag": "middle_voice:counterpoint_and_drone",
+            "span": [
+              11,
+              18
+            ]
+          },
+          {
+            "tag": "middle_voice:melody_below_arpeggio",
+            "span": [
+              3,
+              10
+            ]
+          },
+          {
+            "tag": "bass:root_fifth",
+            "span": [
+              3,
+              18
+            ]
+          },
+          {
+            "tag": "bass:diatonic_approach",
+            "span": [
+              4,
+              18
+            ]
+          },
+          {
+            "tag": "rhythm:swing",
+            "span": [
+              1,
+              18
+            ]
+          },
+          {
+            "tag": "rhythm:syncopation",
+            "span": [
+              2,
+              18
+            ]
+          },
+          {
+            "tag": "form:reversed_period",
+            "span": [
+              11,
+              18
+            ]
+          }
+        ],
         "disableSnapToNotes": false,
         "romanNumerals": "_ _ I7 IV7 VII7 VI-V I7 IV7 V7/V-V7 I7 IV7 vi7 IV7 vi7 IV7 vi7 V7/V V7",
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
           "tempo:twice_as_fast",
-          "harmony:blues_seventh_chords",
-          "rhythm:swing",
-          "middle_voice:melody_below_arpeggio",
-          "form:period"
+          "style:banjo"
         ],
         "fourMeasurePhrasingReferences": [
           3
         ],
         "form": {
+          "1": "intro (not looped)",
           "3": "A:antecedent",
           "7": "A:consequent",
-          "11": "B"
+          "11": "B:consequent",
+          "15": "B:antecedent"
         },
         "secondMeasure": 5.089999999999936,
         "loop": 19,
@@ -20758,27 +20829,6 @@
             ]
           },
           {
-            "tag": "middle_voice:absent",
-            "span": [
-              5,
-              28
-            ]
-          },
-          {
-            "tag": "form:period",
-            "span": [
-              5,
-              12
-            ]
-          },
-          {
-            "tag": "melody:basic_idea_x3",
-            "span": [
-              5,
-              12
-            ]
-          },
-          {
             "tag": "middle_voice:melody_below_arpeggio",
             "span": [
               1,
@@ -20812,31 +20862,10 @@
               1,
               3
             ]
-          },
-          {
-            "tag": "bass:root_octaves",
-            "span": [
-              5,
-              28
-            ]
-          },
-          {
-            "tag": "harmony:implied",
-            "span": [
-              13,
-              28
-            ]
-          },
-          {
-            "tag": "form:period",
-            "span": [
-              13,
-              28
-            ]
           }
         ],
         "disableSnapToNotes": false,
-        "romanNumerals": "_ _ _ _ I I vi vi I I vi vi-I V I V I _ _ _ _ _ _ _ _ _ _ II5-V5 I5-_",
+        "romanNumerals": "",
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
@@ -20846,7 +20875,7 @@
         "secondMeasure": 1.8400000000000014,
         "form": {
           "1": "intro (not looped)",
-          "5": "A:antecedent",
+          "5": "see next subtune for analysis",
           "9": "A:consequent",
           "13": "B:antecedent",
           "21": "B:consequent"
@@ -20891,6 +20920,41 @@
             "span": [
               1,
               24
+            ]
+          },
+          {
+            "tag": "timbre:many_instruments_same_oscillator",
+            "span": [
+              9,
+              12
+            ]
+          },
+          {
+            "tag": "melody:basic_idea_x3",
+            "span": [
+              1,
+              8
+            ]
+          },
+          {
+            "tag": "harmony:implied",
+            "span": [
+              17,
+              22
+            ]
+          },
+          {
+            "tag": "melody:basic_idea_x4",
+            "span": [
+              16,
+              20
+            ]
+          },
+          {
+            "tag": "melody:fills_at_rests",
+            "span": [
+              8,
+              12
             ]
           }
         ],

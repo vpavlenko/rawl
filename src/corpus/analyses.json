@@ -5495,6 +5495,36 @@
     "1943.nsfe": {
       "0": {
         "mode": "major",
+        "tagSpans": [
+          {
+            "tag": "bass:root_fifth",
+            "span": [
+              1,
+              3
+            ]
+          },
+          {
+            "tag": "bass:counterpoint",
+            "span": [
+              4,
+              8
+            ]
+          },
+          {
+            "tag": "lower_voices:same_range",
+            "span": [
+              1,
+              8
+            ]
+          },
+          {
+            "tag": "middle_voice:counterpoint",
+            "span": [
+              1,
+              8
+            ]
+          }
+        ],
         "secondMeasure": 1.5700000000000012,
         "loop": null,
         "romanNumerals": "I I IV IV IV-V viio/vi-vi-vi ii-V I5",
@@ -5504,21 +5534,61 @@
         "correctedMeasures": [],
         "tonic": 0,
         "tags": [
-          "form:not_looped",
-          "bass:different_strategies",
-          "lower_voices:same_range",
-          "middle_voice:parallel_fourths",
-          "middle_voice:mixed_parallel"
+          "form:not_looped"
         ]
       },
       "1": {
         "mode": null,
+        "tagSpans": [
+          {
+            "tag": "scale:mixed_minor",
+            "span": [
+              1,
+              8
+            ]
+          },
+          {
+            "tag": "harmony:stasis",
+            "span": [
+              1,
+              8
+            ]
+          },
+          {
+            "tag": "melody:basic_idea_x2_and_fragmentation",
+            "span": [
+              1,
+              8
+            ]
+          },
+          {
+            "tag": "middle_voice:any_chord_tones",
+            "span": [
+              1,
+              8
+            ]
+          },
+          {
+            "tag": "bass:drone",
+            "span": [
+              1,
+              8
+            ]
+          },
+          {
+            "tag": "form:modulation",
+            "span": [
+              1,
+              8
+            ]
+          }
+        ],
         "secondMeasure": 1.7700000000000014,
         "disableSnapToNotes": true,
         "loop": 9,
         "firstMeasure": 0,
         "clickResolutionMs": 0.01,
-        "step": "first measure",
+        "step": "end",
         "correctedMeasures": {
           "2": 1.6
         },
@@ -5528,24 +5598,123 @@
           "9": 9
         },
         "tags": [
-          "harmony:stasis",
-          "harmony:neo-riemannian",
-          "scale:mixed_minor",
-          "bass:root"
+          "harmony:neo-riemannian"
         ]
       },
       "2": {
         "beatsPerMeasure": 4,
+        "tagSpans": [
+          {
+            "tag": "bass:smooth_chord_tones",
+            "span": [
+              1,
+              14
+            ]
+          },
+          {
+            "tag": "bass:root",
+            "span": [
+              15,
+              17
+            ]
+          },
+          {
+            "tag": "bass:scale",
+            "span": [
+              18,
+              18
+            ]
+          },
+          {
+            "tag": "bass:smooth_chord_tones",
+            "span": [
+              19,
+              22
+            ]
+          },
+          {
+            "tag": "bass:root",
+            "span": [
+              23,
+              26
+            ]
+          },
+          {
+            "tag": "middle_voice:lower_chord_tones",
+            "span": [
+              1,
+              10
+            ]
+          },
+          {
+            "tag": "middle_voice:thirds_and_chord_tones",
+            "span": [
+              11,
+              26
+            ]
+          },
+          {
+            "tag": "form:uniform_period",
+            "span": [
+              1,
+              10
+            ]
+          },
+          {
+            "tag": "harmony:picardy_third",
+            "span": [
+              9,
+              10
+            ]
+          },
+          {
+            "tag": "harmony:parallel_keys",
+            "span": [
+              1,
+              26
+            ]
+          },
+          {
+            "tag": "melody:arc",
+            "span": [
+              11,
+              18
+            ]
+          },
+          {
+            "tag": "melody:basic_idea_x2_and_fragmentation",
+            "span": [
+              1,
+              10
+            ]
+          },
+          {
+            "tag": "form:uniform_period",
+            "span": [
+              11,
+              26
+            ]
+          },
+          {
+            "tag": "melody:stepwise",
+            "span": [
+              19,
+              22
+            ]
+          },
+          {
+            "tag": "non-chord_tones:chromatic_passing",
+            "span": [
+              19,
+              19
+            ]
+          }
+        ],
         "disableSnapToNotes": false,
         "romanNumerals": "i v VI IV-V i v VI IV-V I I I iii IV I ii viio V7 I5 I iii IV I ii viio V7 I5",
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "harmony:parallel_keys",
-          "form:uniform_period",
-          "bass:smooth_chord_tones",
-          "middle_voice:lower_chord_tones",
-          "middle_voice:parallel_thirds",
           "melody:chord_tones"
         ],
         "fourMeasurePhrasingReferences": [
@@ -5568,7 +5737,7 @@
         "loop": 28,
         "firstMeasure": 2.619999999999988,
         "step": "end",
-        "comment": "",
+        "comment": "mm.15-17 can be treated as a single chord",
         "correctedMeasures": {
           "10": 14.6,
           "11": 15.959999999999704,
@@ -8248,6 +8417,15 @@
       },
       "5": {
         "beatsPerMeasure": 4,
+        "tagSpans": [
+          {
+            "tag": "melody:ascending_chromatic",
+            "span": [
+              1,
+              5
+            ]
+          }
+        ],
         "disableSnapToNotes": false,
         "romanNumerals": "",
         "clickResolutionMs": 0.01,
@@ -8810,11 +8988,53 @@
     "Aigiina no Yogen - From the Legend of Balubalouk (1986-11-21)(VIC Tokai).nsf": {
       "0": {
         "beatsPerMeasure": 4,
+        "tagSpans": [
+          {
+            "tag": "melody:basic_idea_x3",
+            "span": [
+              1,
+              4
+            ]
+          },
+          {
+            "tag": "middle_voice:root_octaves",
+            "span": [
+              1,
+              8
+            ]
+          },
+          {
+            "tag": "bass:root",
+            "span": [
+              1,
+              8
+            ]
+          },
+          {
+            "tag": "voice_leading:ascending_bass",
+            "span": [
+              1,
+              4
+            ]
+          },
+          {
+            "tag": "voice_leading:descending_diatonic_bass",
+            "span": [
+              5,
+              8
+            ]
+          },
+          {
+            "tag": "harmony:constant_structures",
+            "span": [
+              1,
+              8
+            ]
+          }
+        ],
         "romanNumerals": "I II #III IV-V I VII VI V",
         "clickResolutionMs": 0.01,
-        "tags": [
-          "harmony:constant_structures"
-        ],
+        "tags": [],
         "mode": null,
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 2.6399999999999877,
@@ -8884,6 +9104,126 @@
         "comment": "",
         "correctedMeasures": [],
         "tonic": 0,
+        "basedOn": null
+      },
+      "6": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "harmony:mixolydian_shuttle"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "first measure",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 10,
+        "basedOn": null
+      },
+      "7": {
+        "beatsPerMeasure": 4,
+        "tagSpans": [
+          {
+            "tag": "form:uniform_period",
+            "span": [
+              1,
+              8
+            ]
+          },
+          {
+            "tag": "bass:root",
+            "span": [
+              1,
+              8
+            ]
+          },
+          {
+            "tag": "middle_voice:root",
+            "span": [
+              1,
+              8
+            ]
+          },
+          {
+            "tag": "timbre:siren",
+            "span": [
+              17,
+              24
+            ]
+          },
+          {
+            "tag": "timbre:ultra_fast_notes",
+            "span": [
+              21,
+              24
+            ]
+          },
+          {
+            "tag": "bass:root",
+            "span": [
+              17,
+              24
+            ]
+          },
+          {
+            "tag": "upper_voices:same_range",
+            "span": [
+              17,
+              24
+            ]
+          },
+          {
+            "tag": "middle_voice:root_octaves",
+            "span": [
+              17,
+              24
+            ]
+          },
+          {
+            "tag": "form:period",
+            "span": [
+              17,
+              24
+            ]
+          },
+          {
+            "tag": "melody:inversion",
+            "span": [
+              17,
+              24
+            ]
+          }
+        ],
+        "disableSnapToNotes": false,
+        "romanNumerals": "I I III I I I III I _ _ _ _ _ _ _ _ I-IV I V I I-IV I V I",
+        "clickResolutionMs": 0.01,
+        "tags": [],
+        "modulations": {
+          "9": 5,
+          "13": 2,
+          "17": 5
+        },
+        "fourMeasurePhrasingReferences": [],
+        "secondMeasure": 1.9900000000000015,
+        "form": {
+          "1": "A",
+          "5": "A",
+          "9": "B",
+          "17": "C:antecedent",
+          "21": "C:consequent"
+        },
+        "loop": 25,
+        "firstMeasure": 0.3900000000000002,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 8,
         "basedOn": null
       }
     }
@@ -12477,13 +12817,6 @@
             ]
           },
           {
-            "tag": "voice_leading:descending_diatonic_bass",
-            "span": [
-              9,
-              14
-            ]
-          },
-          {
             "tag": "bass:root_octaves",
             "span": [
               15,
@@ -12526,10 +12859,12 @@
             ]
           }
         ],
-        "romanNumerals": "iv v i i iv v i i I I VII VII VI VI i4 i4",
+        "romanNumerals": "iv v i i iv v i i I I I I I I i4 i4",
         "clickResolutionMs": 0.01,
         "modulations": {
           "9": 11,
+          "11": 9,
+          "13": 7,
           "15": 8
         },
         "tags": [
@@ -12545,7 +12880,7 @@
         "loop": 17,
         "firstMeasure": 0,
         "step": "end",
-        "comment": "modulation from m.9",
+        "comment": "",
         "correctedMeasures": {
           "1": 11.257142857142858,
           "10": 14.428571428571429,
@@ -18049,6 +18384,22 @@
       },
       "1": {
         "beatsPerMeasure": 4,
+        "tagSpans": [
+          {
+            "tag": "bass:root_fifth",
+            "span": [
+              1,
+              16
+            ]
+          },
+          {
+            "tag": "middle_voice:transposed_riff",
+            "span": [
+              1,
+              16
+            ]
+          }
+        ],
         "disableSnapToNotes": true,
         "romanNumerals": "I I I I iii7 iii7 IV^ IV^ I I IV^ IV^ I I IV^ IV^",
         "clickResolutionMs": 0.01,
@@ -18059,10 +18410,7 @@
         "tags": [
           "style:bossa_nova",
           "rhythm:latin",
-          "harmony:diatonic_seventh_chords",
-          "bass:root_fifth",
-          "bass:transposed_riff",
-          "middle_voice:transposed_riff"
+          "harmony:diatonic_seventh_chords"
         ],
         "fourMeasurePhrasingReferences": [],
         "form": [],
@@ -23467,14 +23815,56 @@
       },
       "10": {
         "beatsPerMeasure": 4,
+        "tagSpans": [
+          {
+            "tag": "harmony:constant_structures",
+            "span": [
+              1,
+              12
+            ]
+          },
+          {
+            "tag": "middle_voice:counterpoint",
+            "span": [
+              1,
+              7
+            ]
+          },
+          {
+            "tag": "middle_voice:arpeggio",
+            "span": [
+              8,
+              8
+            ]
+          },
+          {
+            "tag": "middle_voice:static_chord_tones",
+            "span": [
+              9,
+              12
+            ]
+          },
+          {
+            "tag": "bass:root_third_fifth",
+            "span": [
+              1,
+              12
+            ]
+          },
+          {
+            "tag": "bass:inversions",
+            "span": [
+              7,
+              8
+            ]
+          }
+        ],
         "disableSnapToNotes": false,
         "romanNumerals": "I I II II VII VII IV IV VI VII I I",
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "location:game_won",
-          "harmony:constant_structures",
-          "bass:root_fifth"
+          "location:game_won"
         ],
         "fourMeasurePhrasingReferences": [],
         "form": [],
@@ -24058,13 +24448,34 @@
       },
       "3": {
         "beatsPerMeasure": 4,
+        "tagSpans": [
+          {
+            "tag": "harmony:picardy_third",
+            "span": [
+              3,
+              3
+            ]
+          },
+          {
+            "tag": "voice_leading:three_parallel_voices",
+            "span": [
+              2,
+              3
+            ]
+          },
+          {
+            "tag": "scale:tetratonic",
+            "span": [
+              1,
+              1
+            ]
+          }
+        ],
         "disableSnapToNotes": false,
         "romanNumerals": "",
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "voice_leading:three_parallel_voices",
-          "harmony:picardy_third",
           "scale:mixed_minor"
         ],
         "fourMeasurePhrasingReferences": [],
@@ -25427,6 +25838,185 @@
         "comment": "",
         "correctedMeasures": [],
         "tonic": 0,
+        "basedOn": null
+      }
+    }
+  },
+  "Nintendo/Batsu & Terii - Makyou no Tetsujin Race": {
+    "Batsu & Terii - Makyou no Tetsujin Race (1987-07-22)(Use).nsf": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "tagSpans": [
+          {
+            "tag": "bass:root_octaves",
+            "span": [
+              1,
+              4
+            ]
+          },
+          {
+            "tag": "harmony:weird_chord",
+            "span": [
+              2,
+              2
+            ]
+          },
+          {
+            "tag": "middle_voice:absent",
+            "span": [
+              1,
+              4
+            ]
+          },
+          {
+            "tag": "form:sentence",
+            "span": [
+              1,
+              4
+            ]
+          }
+        ],
+        "disableSnapToNotes": false,
+        "romanNumerals": "I vio VI-VII V-I",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.5900000000000012,
+        "loop": 5,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "5": 6.357142857142857
+        },
+        "tonic": 11,
+        "basedOn": null
+      }
+    }
+  },
+  "Nintendo/Baseball Fighter": {
+    "Baseball Fighter (1991-07-05)(Graphic Research)(VAP).nsf": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "tagSpans": [
+          {
+            "tag": "form:period_without_melodic_repetition",
+            "span": [
+              3,
+              10
+            ]
+          },
+          {
+            "tag": "middle_voice:melody_echo",
+            "span": [
+              3,
+              4
+            ]
+          },
+          {
+            "tag": "middle_voice:parallel_thirds",
+            "span": [
+              5,
+              6
+            ]
+          },
+          {
+            "tag": "middle_voice:thirds_and_chord_tones",
+            "span": [
+              7,
+              10
+            ]
+          },
+          {
+            "tag": "middle_voice:static_chord_tones",
+            "span": [
+              1,
+              2
+            ]
+          },
+          {
+            "tag": "melody:ascending_chromatic",
+            "span": [
+              1,
+              2
+            ]
+          },
+          {
+            "tag": "bass:root_fifth",
+            "span": [
+              3,
+              10
+            ]
+          },
+          {
+            "tag": "rhythm:swing",
+            "span": [
+              1,
+              10
+            ]
+          },
+          {
+            "tag": "melody:basic_idea_x2_and_fragmentation",
+            "span": [
+              3,
+              6
+            ]
+          },
+          {
+            "tag": "melody:basic_idea_x2_and_fragmentation",
+            "span": [
+              7,
+              10
+            ]
+          }
+        ],
+        "disableSnapToNotes": false,
+        "romanNumerals": "V V7 I vi IV V I V7/vi IV-V I",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [
+          3
+        ],
+        "secondMeasure": 1.5900000000000012,
+        "form": {
+          "1": "intro (looped)"
+        },
+        "loop": 11,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      }
+    }
+  },
+  "Nintendo/Yu-Gi-Oh": {
+    "Yu-Gi-Oh (19xx)(Shenzhen Nanjing Technology).nsf": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "tags": [],
+        "modulations": {
+          "9": 10,
+          "15": 1
+        },
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 2.0400000000000005,
+        "loop": 17,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "9": 16.329999999999753
+        },
+        "tonic": 1,
         "basedOn": null
       }
     }

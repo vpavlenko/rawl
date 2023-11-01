@@ -1917,9 +1917,14 @@ export const BookExample: React.FC<{
           ROMAN_NUMERALS_SEARCH.map(
             (rn) =>
               doesAnalysisHaveRn(analysis, rn) && (
-                <Link to={`/search/chords/${rn.replace(/ /g, "-")}`}>
-                  <RowOfRomanNumerals rnArray={rn.split(" ")} isSearch={true} />
-                </Link>
+                <div style={{ marginBottom: "10px" }}>
+                  <Link to={`/search/chords/${rn.replace(/ /g, "-")}`}>
+                    <RowOfRomanNumerals
+                      rnArray={rn.split(" ")}
+                      isSearch={true}
+                    />
+                  </Link>
+                </div>
               ),
           )}
       </div>

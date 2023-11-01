@@ -284,7 +284,7 @@ const CATEGORIES_IN_STRIPES = [
   "middle_voice",
   "bass",
   "form",
-  "everything_else",
+  "other",
 ];
 export const STRIPES_HEIGHT = STRIPE_HEIGHT * CATEGORIES_IN_STRIPES.length;
 export const ANALYSIS_HEIGHT = STRIPES_HEIGHT + 70;
@@ -719,7 +719,10 @@ const StripeTag = ({
     onMouseLeave={onMouseLeave}
   >
     <span style={{ overflow: "hidden", fontSize: STRIPE_HEIGHT }}>
-      {tag.split(":")[1].replace(/_/g, " ")}
+      {(CATEGORIES_IN_STRIPES.indexOf(tag.split(":")[0]) === -1
+        ? tag.replace(":", ": ")
+        : tag.split(":")[1]
+      ).replace(/_/g, " ")}
     </span>
     {removeTag && (
       <button
@@ -846,7 +849,7 @@ const Stripes: React.FC<{
                 padding: "0 5px 0 5px",
               }}
             >
-              {CATEGORIES_IN_STRIPES[index]}
+              {CATEGORIES_IN_STRIPES[index].replace("middle_voice", "middle")}
             </div>
             {bucket}
           </div>

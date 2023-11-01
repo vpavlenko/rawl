@@ -125,7 +125,9 @@ const calculateNotesFromPeriods = (periods, oscType) => {
 };
 
 const SECOND_WIDTH = 70;
-export const secondsToX = (seconds) => seconds * SECOND_WIDTH;
+const HORIZONTAL_HEADER_PADDING = 50;
+export const secondsToX = (seconds) =>
+  seconds * SECOND_WIDTH + HORIZONTAL_HEADER_PADDING;
 const xToSeconds = (x) => x / SECOND_WIDTH;
 
 const isNoteCurrentlyPlayed = (note, positionMs) => {
@@ -581,7 +583,11 @@ const Chiptheory = ({
           onClick={(e) => {
             const targetElement = e.target as HTMLElement;
             const rect = targetElement.getBoundingClientRect();
-            const distance = e.clientX - rect.left + targetElement.scrollLeft;
+            const distance =
+              e.clientX -
+              rect.left +
+              targetElement.scrollLeft -
+              HORIZONTAL_HEADER_PADDING;
             const time = xToSeconds(distance);
             if (selectedDownbeat) {
               advanceAnalysis(

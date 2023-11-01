@@ -266,6 +266,14 @@ export const TAGS = [
   "lego:pullback",
 ];
 
+export const getAnalysisTags = (analysis: Analysis): string[] =>
+  Array.from(
+    new Set([
+      ...(analysis.tags ?? []),
+      ...(analysis.tagSpans?.map(({ tag }) => tag) ?? []),
+    ]),
+  );
+
 const STRIPE_HEIGHT = 20;
 export const CATEGORIES_IN_STRIPES = [
   "melody",

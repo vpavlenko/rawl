@@ -3,8 +3,7 @@ import styled from "styled-components";
 
 import { Analysis } from "./Analysis";
 import { FormAndHarmony } from "./romanNumerals";
-import { getAnalysisTags } from "./Search";
-import { tagToColor } from "./tags";
+import { getAnalysisTags, tagToColor } from "./tags";
 
 type BadgeProps = {
   backgroundColor?: string;

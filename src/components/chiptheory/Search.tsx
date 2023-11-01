@@ -4,6 +4,7 @@ import { Link, useHistory } from "react-router-dom";
 import { Analysis } from "./Analysis";
 import { Scale } from "./Book";
 import { RowOfRomanNumerals } from "./romanNumerals";
+import { getAnalysisTags } from "./tags";
 
 type Corpus = {
   [game: string]: { [file: string]: { [subtune: number]: Analysis } };
@@ -15,11 +16,6 @@ export const doesAnalysisHaveRn = (analysis: Analysis, rnSpaced: string) =>
   (" " + (analysis.romanNumerals || "").replace(/-/g, " ") + " ").includes(
     " " + rnSpaced + " ",
   );
-
-export const getAnalysisTags = (analysis: Analysis): string[] => [
-  ...(analysis.tags ?? []),
-  ...(analysis.tagSpans?.map(({ tag }) => tag) ?? []),
-];
 
 export const matches = (analysis: Analysis, searchPath: string): boolean => {
   const searchCategory = searchPath.slice(0, searchPath.indexOf("/"));

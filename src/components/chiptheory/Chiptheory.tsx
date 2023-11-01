@@ -1,7 +1,6 @@
 import * as React from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
-  ANALYSIS_HEIGHT,
   ANALYSIS_STUB,
   Analysis,
   AnalysisBox,
@@ -25,6 +24,7 @@ import {
   getNoteMeasure,
   getTonic,
 } from "./romanNumerals";
+import { ANALYSIS_HEIGHT } from "./tags";
 
 type OscType = "pulse" | "triangle" | "noise";
 export type Voice = "pulse1" | "pulse2" | "triangle" | "noise" | "under cursor";

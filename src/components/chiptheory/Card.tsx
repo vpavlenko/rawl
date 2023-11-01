@@ -1,9 +1,10 @@
 import * as React from "react";
 import styled from "styled-components";
 
-import { Analysis, tagToColor } from "./Analysis";
+import { Analysis } from "./Analysis";
 import { FormAndHarmony } from "./romanNumerals";
 import { getAnalysisTags } from "./Search";
+import { tagToColor } from "./tags";
 
 type BadgeProps = {
   backgroundColor?: string;

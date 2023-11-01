@@ -319,6 +319,7 @@ const Chiptheory = ({
   bookPath,
   pause,
   paused,
+  loggedIn,
 }) => {
   const [analysis, setAnalysis] = useState<Analysis>(ANALYSIS_STUB);
   const [showIntervals, setShowIntervals] = useState(false);
@@ -613,6 +614,7 @@ const Chiptheory = ({
             setAnalysis={setAnalysis}
             // voiceMask={voiceMask}
             setVoiceMask={setVoiceMask}
+            loggedIn={loggedIn}
           />
           <div
             style={{

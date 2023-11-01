@@ -689,6 +689,7 @@ function stringToColor(str) {
 
 const StripeTag = ({
   left,
+  width,
   widthInMeasures,
   tag,
   removeTag,
@@ -699,7 +700,7 @@ const StripeTag = ({
     style={{
       position: "absolute",
       left,
-      width: secondsToX(widthInMeasures),
+      width,
       backgroundColor: stringToColor(tag),
       color: "white",
       padding: "0 5px 0 5px",
@@ -717,16 +718,18 @@ const StripeTag = ({
     <span style={{ overflow: "hidden", fontSize: STRIPE_HEIGHT }}>
       {tag.split(":")[1].replace(/_/g, " ")}
     </span>
-    <button
-      onClick={removeTag}
-      style={{
-        backgroundColor: "transparent",
-        color: "white",
-        fontSize: STRIPE_HEIGHT,
-      }}
-    >
-      [x]
-    </button>
+    {removeTag && (
+      <button
+        onClick={removeTag}
+        style={{
+          backgroundColor: "transparent",
+          color: "white",
+          fontSize: STRIPE_HEIGHT,
+        }}
+      >
+        [x]
+      </button>
+    )}
   </div>
 );
 
@@ -738,6 +741,7 @@ const Stripes: React.FC<{
   setAnalysis: (analysis: Analysis) => void;
   // voiceMask: boolean[];
   setVoiceMask: (voiceMask: boolean[]) => void;
+  loggedIn: boolean;
 }> = React.memo(
   ({
     tagSpans,
@@ -747,6 +751,7 @@ const Stripes: React.FC<{
     setAnalysis,
     // voiceMask,
     setVoiceMask,
+    loggedIn,
   }) => {
     const stripeTags = new Array(CATEGORIES_IN_STRIPES.length)
       .fill(null)
@@ -760,24 +765,28 @@ const Stripes: React.FC<{
       stripeTags[categoryIndex].push(
         <StripeTag
           left={secondsToX(measuresAndBeats.measures[span[0] - 1])}
-          widthInMeasures={
+          width={secondsToX(
             measuresAndBeats.measures[
               Math.min(span[1], measuresAndBeats.measures.length - 1)
-            ] - measuresAndBeats.measures[span[0] - 1]
-          }
+            ] - measuresAndBeats.measures[span[0] - 1],
+          )}
+          widthInMeasures={span[1] - span[0]}
           tag={tag}
-          removeTag={() => {
-            const newTagSpans = [...tagSpans];
-            newTagSpans.splice(tagIndex, 1);
+          removeTag={
+            loggedIn &&
+            (() => {
+              const newTagSpans = [...tagSpans];
+              newTagSpans.splice(tagIndex, 1);
 
-            const newAnalysis = {
-              ...analysis,
-              tagSpans: newTagSpans,
-            };
+              const newAnalysis = {
+                ...analysis,
+                tagSpans: newTagSpans,
+              };
 
-            saveAnalysis(newAnalysis);
-            setAnalysis(newAnalysis);
-          }}
+              saveAnalysis(newAnalysis);
+              setAnalysis(newAnalysis);
+            })
+          }
           onMouseEnter={() => {
             if (category === "bass") {
               // TODO: actually store the bass voice in tagSpan object in the DB
@@ -845,6 +854,7 @@ export const AnalysisGrid: React.FC<{
   // a callback for stripes to tweak voiceMask on hover
   // voiceMask: boolean[];
   setVoiceMask: (voiceMask: boolean[]) => void;
+  loggedIn: boolean;
 }> = React.memo(
   ({
     analysis,
@@ -858,6 +868,7 @@ export const AnalysisGrid: React.FC<{
     setAnalysis,
     // voiceMask,
     setVoiceMask,
+    loggedIn,
   }) => {
     const { measures, beats } = measuresAndBeats;
     let loopLeft = null;
@@ -912,6 +923,7 @@ export const AnalysisGrid: React.FC<{
           setAnalysis={setAnalysis}
           // voiceMask={voiceMask}
           setVoiceMask={setVoiceMask}
+          loggedIn={loggedIn}
         />
         {loopLeft && (
           <div

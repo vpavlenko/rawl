@@ -1000,6 +1000,7 @@ class App extends React.Component {
                                   bookPath={bookPath}
                                   pause={this.togglePause}
                                   paused={this.state.paused}
+                                  loggedIn={!!this.state.user}
                                 />
                               </>
                             )

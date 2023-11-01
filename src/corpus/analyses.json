@@ -24527,6 +24527,85 @@
       },
       "2": {
         "beatsPerMeasure": 4,
+        "tagSpans": [
+          {
+            "tag": "middle_voice:arpeggio",
+            "span": [
+              5,
+              18
+            ]
+          },
+          {
+            "tag": "form:period",
+            "span": [
+              5,
+              20
+            ]
+          },
+          {
+            "tag": "form:reversed_period",
+            "span": [
+              21,
+              36
+            ]
+          },
+          {
+            "tag": "harmony:Vsus4",
+            "span": [
+              35,
+              36
+            ]
+          },
+          {
+            "tag": "harmony:V7b9",
+            "span": [
+              18,
+              18
+            ]
+          },
+          {
+            "tag": "bass:root_fifth",
+            "span": [
+              1,
+              36
+            ]
+          },
+          {
+            "tag": "melody:basic_idea_x3",
+            "span": [
+              5,
+              20
+            ]
+          },
+          {
+            "tag": "melody:reharmonization",
+            "span": [
+              21,
+              32
+            ]
+          },
+          {
+            "tag": "middle_voice:static_chord_tones",
+            "span": [
+              21,
+              36
+            ]
+          },
+          {
+            "tag": "lego:pullback",
+            "span": [
+              13,
+              20
+            ]
+          },
+          {
+            "tag": "harmony:diatonic_seventh_chords",
+            "span": [
+              5,
+              20
+            ]
+          }
+        ],
         "disableSnapToNotes": false,
         "romanNumerals": "II5 V5 II5 V5 ii7 V7 iii7 vi7 ii7 V7 I^ I^ ii7 V7 iii7 vi7 ii7 V7 I^ I^ ii V7 I^ I^ ii7 V7 I^ I ii V i IV ii4 V/V V V",
         "clickResolutionMs": 0.01,
@@ -24535,18 +24614,7 @@
           "29": 11
         },
         "tags": [
-          "harmony:diatonic_seventh_chords",
-          "middle_voice:arpeggio",
-          "harmony:Vsus4",
-          "form:reversed_period",
-          "form:binary",
-          "lego:pullback",
-          "bass:root_fifth",
-          "melody:basic_idea_x3",
-          "melody:reharmonization",
-          "harmony:V7b9",
-          "middle_voice:static_chord_tones",
-          "form:period"
+          "form:binary"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 0.8900000000000006,

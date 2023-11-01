@@ -3681,7 +3681,7 @@
         "modulations": [],
         "tags": [
           "bass:walking",
-          "middle_voice:melody",
+          "middle_voice:melody_below_arpeggio",
           "middle_voice:counterpoint",
           "harmony:parallel_keys",
           "form:ABAC",
@@ -3844,7 +3844,7 @@
         "tags": [
           "location:lost",
           "analyzed_in:hopkins",
-          "middle_voice:melody"
+          "middle_voice:melody_below_arpeggio"
         ],
         "fourMeasurePhrasingReferences": [],
         "form": {
@@ -4563,7 +4563,7 @@
         "tags": [
           "bass:pedal_point",
           "harmony:constant_structures",
-          "middle_voice:melody",
+          "middle_voice:melody_below_arpeggio",
           "location:menu"
         ],
         "fourMeasurePhrasingReferences": [
@@ -5363,7 +5363,7 @@
           "location:boss",
           "scale:chromatic",
           "middle_voice:melody_echo",
-          "middle_voice:melody"
+          "middle_voice:melody_below_arpeggio"
         ],
         "fourMeasurePhrasingReferences": [
           3,
@@ -7133,7 +7133,7 @@
         "tonic": 0,
         "tags": [
           "form:period",
-          "middle_voice:melody"
+          "middle_voice:melody_below_arpeggio"
         ]
       }
     }
@@ -8191,7 +8191,7 @@
           "harmony:mixolydian_shuttle",
           "location:menu",
           "middle_voice:melody_echo",
-          "middle_voice:melody"
+          "middle_voice:melody_below_arpeggio"
         ],
         "fourMeasurePhrasingReferences": [],
         "form": {
@@ -9202,7 +9202,7 @@
         "modulations": [],
         "tags": [
           "location:level",
-          "middle_voice:melody",
+          "middle_voice:melody_below_arpeggio",
           "timbre:oscillator_as_percussion"
         ],
         "fourMeasurePhrasingReferences": [],
@@ -9911,7 +9911,7 @@
         "tags": [
           "harmony:quartal",
           "harmony:mixolydian_shuttle",
-          "middle_voice:melody",
+          "middle_voice:melody_below_arpeggio",
           "harmony:parallel_keys",
           "middle_voice:parallel_fourths",
           "location:level",
@@ -11695,7 +11695,7 @@
         "tags": [
           "form:extra_measure",
           "form:period",
-          "middle_voice:melody",
+          "middle_voice:melody_below_arpeggio",
           "location:level",
           "timbre:ultra_fast_notes"
         ],
@@ -11734,7 +11734,7 @@
           "harmony:neo-riemannian",
           "harmony:mixolydian_shuttle",
           "middle_voice:lower_chord_tones",
-          "middle_voice:melody"
+          "middle_voice:melody_below_arpeggio"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.340000000000001,
@@ -11912,7 +11912,7 @@
           "form:period",
           "style:common_practice",
           "harmony:Vsus4",
-          "middle_voice:melody",
+          "middle_voice:melody_below_arpeggio",
           "voice_leading:Isus4",
           "voice_leading:Cad64"
         ],
@@ -12496,7 +12496,7 @@
             ]
           },
           {
-            "tag": "middle_voice:melody",
+            "tag": "middle_voice:melody_below_arpeggio",
             "span": [
               1,
               8
@@ -13483,7 +13483,7 @@
         "tags": [
           "melody:riff",
           "middle_voice:parallel_thirds",
-          "middle_voice:melody"
+          "middle_voice:melody_below_arpeggio"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 3.3399999999999728,
@@ -14388,7 +14388,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "middle_voice:melody",
+          "middle_voice:melody_below_arpeggio",
           "form:basso_ostinato"
         ],
         "fourMeasurePhrasingReferences": [],
@@ -15707,7 +15707,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "middle_voice:melody"
+          "middle_voice:melody_below_arpeggio"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.5700000000000012,
@@ -16759,7 +16759,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "middle_voice:melody"
+          "middle_voice:melody_below_arpeggio"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.340000000000001,
@@ -16798,7 +16798,7 @@
           "voice_leading:descending_diatonic_bass",
           "harmony:Vsus4",
           "form:extra_measure",
-          "middle_voice:melody",
+          "middle_voice:melody_below_arpeggio",
           "melody:basic_idea_x4"
         ],
         "fourMeasurePhrasingReferences": [],
@@ -16865,7 +16865,7 @@
         "tags": [
           "harmony:neo-riemannian",
           "harmony:constant_structures",
-          "middle_voice:melody"
+          "middle_voice:melody_below_arpeggio"
         ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [],
@@ -17954,7 +17954,7 @@
           "tempo:twice_as_fast",
           "harmony:blues_seventh_chords",
           "rhythm:swing",
-          "middle_voice:melody",
+          "middle_voice:melody_below_arpeggio",
           "form:period"
         ],
         "fourMeasurePhrasingReferences": [
@@ -18551,7 +18551,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "middle_voice:melody"
+          "middle_voice:melody_below_arpeggio"
         ],
         "fourMeasurePhrasingReferences": [],
         "form": [],
@@ -19046,7 +19046,7 @@
         "tags": [
           "harmony:mixolydian_shuttle",
           "bass:transposed_riff",
-          "middle_voice:melody",
+          "middle_voice:melody_below_arpeggio",
           "middle_voice:mixed_parallel",
           "harmony:stasis",
           "melody:basic_idea_x3"
@@ -19080,7 +19080,7 @@
           "bass:riff",
           "melody:fills_at_rests",
           "middle_voice:mixed_parallel",
-          "middle_voice:melody",
+          "middle_voice:melody_below_arpeggio",
           "bass:pedal_point",
           "harmony:mixolydian_shuttle"
         ],
@@ -19816,7 +19816,7 @@
           "harmony:rich_common_practice",
           "style:common_practice",
           "voice_leading:descending_chromatic_bass",
-          "middle_voice:melody"
+          "middle_voice:melody_below_arpeggio"
         ],
         "fourMeasurePhrasingReferences": [],
         "form": [],
@@ -20246,7 +20246,7 @@
         "tags": [
           "harmony:turnaround_coda",
           "form:period",
-          "middle_voice:melody",
+          "middle_voice:melody_below_arpeggio",
           "bass:transposed_riff"
         ],
         "fourMeasurePhrasingReferences": [],
@@ -20347,7 +20347,7 @@
         "modulations": [],
         "tags": [
           "harmony:diatonic_seventh_chords",
-          "middle_voice:melody",
+          "middle_voice:melody_below_arpeggio",
           "bass:melody",
           "middle_voice:parallel_octaves",
           "middle_voice:parallel_thirds",
@@ -20372,7 +20372,7 @@
         "modulations": [],
         "tags": [
           "middle_voice:static_chord_tones",
-          "middle_voice:melody",
+          "middle_voice:melody_below_arpeggio",
           "bass:transposed_riff",
           "melody:fill_after_cadence",
           "upper_voices:same_range"
@@ -20454,7 +20454,7 @@
         "tags": [
           "bass:inversions",
           "harmony:neo-riemannian",
-          "middle_voice:melody"
+          "middle_voice:melody_below_arpeggio"
         ],
         "fourMeasurePhrasingReferences": [],
         "form": [],
@@ -20749,21 +20749,103 @@
     "Bubble Bobble (1988-11)(Taito).nsf": {
       "0": {
         "beatsPerMeasure": 4,
+        "tagSpans": [
+          {
+            "tag": "tempo:ritardando",
+            "span": [
+              4,
+              4
+            ]
+          },
+          {
+            "tag": "middle_voice:absent",
+            "span": [
+              5,
+              28
+            ]
+          },
+          {
+            "tag": "form:period",
+            "span": [
+              5,
+              12
+            ]
+          },
+          {
+            "tag": "melody:basic_idea_x3",
+            "span": [
+              5,
+              12
+            ]
+          },
+          {
+            "tag": "middle_voice:melody_below_arpeggio",
+            "span": [
+              1,
+              3
+            ]
+          },
+          {
+            "tag": "middle_voice:parallel_thirds",
+            "span": [
+              4,
+              4
+            ]
+          },
+          {
+            "tag": "bass:doubles_melody",
+            "span": [
+              4,
+              4
+            ]
+          },
+          {
+            "tag": "bass:counterpoint",
+            "span": [
+              1,
+              3
+            ]
+          },
+          {
+            "tag": "timbre:unexpected_detune",
+            "span": [
+              1,
+              3
+            ]
+          },
+          {
+            "tag": "bass:root_octaves",
+            "span": [
+              5,
+              28
+            ]
+          },
+          {
+            "tag": "harmony:implied",
+            "span": [
+              13,
+              28
+            ]
+          },
+          {
+            "tag": "form:period",
+            "span": [
+              13,
+              28
+            ]
+          }
+        ],
         "disableSnapToNotes": false,
-        "romanNumerals": "_ _ _ _ I I vi vi _ _ _ _ V I V I _ _ _ _ _ _ _ _ _ _ II5-V5 I5-_",
+        "romanNumerals": "_ _ _ _ I I vi vi I I vi vi-I V I V I _ _ _ _ _ _ _ _ _ _ II5-V5 I5-_",
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "form:period",
-          "bass:root_octaves",
-          "middle_voice:absent",
-          "tempo:ritardando",
-          "timbre:unexpected_detune"
+          "form:binary"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.8400000000000014,
         "form": {
-          "1": "intro",
+          "1": "intro (not looped)",
           "5": "A:antecedent",
           "9": "A:consequent",
           "13": "B:antecedent",
@@ -20782,15 +20864,42 @@
       },
       "1": {
         "beatsPerMeasure": 4,
+        "tagSpans": [
+          {
+            "tag": "form:period",
+            "span": [
+              1,
+              8
+            ]
+          },
+          {
+            "tag": "form:period",
+            "span": [
+              9,
+              24
+            ]
+          },
+          {
+            "tag": "bass:root_octaves",
+            "span": [
+              1,
+              24
+            ]
+          },
+          {
+            "tag": "middle_voice:absent",
+            "span": [
+              1,
+              24
+            ]
+          }
+        ],
         "disableSnapToNotes": false,
-        "romanNumerals": "I I vi vi I5 I vi vi V I V I _ _ _ _ _ _ _ _ _ _ II5-V5 I5",
+        "romanNumerals": "I I vi vi I I vi vi-I V I V I _ _ _ _ _ _ _ _ _ _ II5-V5 I5",
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "reference:previous_subtune",
-          "form:period",
-          "bass:root_octaves",
-          "middle_voice:absent"
+          "reference:previous_subtune"
         ],
         "fourMeasurePhrasingReferences": [],
         "form": {
@@ -20830,12 +20939,27 @@
       },
       "3": {
         "beatsPerMeasure": 4,
+        "tagSpans": [
+          {
+            "tag": "scale:demo",
+            "span": [
+              3,
+              3
+            ]
+          },
+          {
+            "tag": "scale:major_pentatonic",
+            "span": [
+              1,
+              4
+            ]
+          }
+        ],
         "disableSnapToNotes": false,
         "romanNumerals": "",
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "scale:major_pentatonic",
           "location:jingle"
         ],
         "fourMeasurePhrasingReferences": [],
@@ -23494,7 +23618,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "middle_voice:melody",
+          "middle_voice:melody_below_arpeggio",
           "form:not_looped",
           "form:period",
           "harmony:tonic_added-sixth_chord"

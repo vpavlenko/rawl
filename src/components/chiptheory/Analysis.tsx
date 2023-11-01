@@ -81,6 +81,7 @@ const TAGS = [
   "harmony:I-IV-V",
   "harmony:V7b9",
   "harmony:Vsus4",
+  "harmony:implied",
   "rhythm:syncopation",
   "rhythm:interesting",
   "rhythm:swing",
@@ -214,6 +215,7 @@ const TAGS = [
   "bass:inversions",
   "bass:different_strategies",
   "bass:smooth_chord_tones",
+  "bass:doubles_melody",
   "style:common_practice",
   "style:ragtime",
   "style:waltz",
@@ -245,7 +247,7 @@ const TAGS = [
   "middle_voice:transposed_riff",
   // four most typical cases:
   "middle_voice:absent",
-  "middle_voice:melody", // that implicitly means "upper_voice:arpeggio" for the entire span
+  "middle_voice:melody_below_arpeggio",
   "middle_voice:arpeggio", // that implicitly means "upper_voice:melody"
   "melody:arpeggio", // that implicitly means "no melody anywhere"
   "melody:reharmonization",
@@ -278,12 +280,11 @@ const CATEGORIES_IN_STRIPES = [
   "melody",
   "middle_voice",
   "bass",
-  "harmony",
-  // "voice_leading",
   "form",
+  "everything_else",
 ];
 export const STRIPES_HEIGHT = STRIPE_HEIGHT * CATEGORIES_IN_STRIPES.length;
-export const ANALYSIS_HEIGHT = STRIPES_HEIGHT + 55;
+export const ANALYSIS_HEIGHT = STRIPES_HEIGHT + 70;
 
 const FORM_SECTIONS = [
   "A",
@@ -701,23 +702,20 @@ const StripeTag = ({
       width: secondsToX(widthInMeasures),
       backgroundColor: stringToColor(tag),
       color: "white",
-      paddingLeft: "5px",
+      padding: "0 5px 0 5px",
       boxSizing: "border-box",
       height: STRIPE_HEIGHT,
       zIndex: 400 - widthInMeasures,
       display: "flex",
       flexDirection: "row",
       justifyContent: "space-between",
+      borderRight: "1px solid black",
     }}
     onMouseEnter={onMouseEnter}
     onMouseLeave={onMouseLeave}
   >
     <span style={{ overflow: "hidden", fontSize: STRIPE_HEIGHT }}>
-      {
-        tag.split(":")[1].replace(/_/g, " ")
-        // .replace("harmony: ", "")
-        // .replace("voice leading: ", "")
-      }
+      {tag.split(":")[1].replace(/_/g, " ")}
     </span>
     <button
       onClick={removeTag}
@@ -755,44 +753,45 @@ const Stripes: React.FC<{
       .map(() => []);
     tagSpans.map(({ tag, span }, tagIndex) => {
       const [category, content] = tag.split(":");
-      const categoryIndex = CATEGORIES_IN_STRIPES.indexOf(category);
-      if (categoryIndex != -1) {
-        stripeTags[categoryIndex].push(
-          <StripeTag
-            left={secondsToX(measuresAndBeats.measures[span[0] - 1])}
-            widthInMeasures={
-              measuresAndBeats.measures[
-                Math.min(span[1], measuresAndBeats.measures.length - 1)
-              ] - measuresAndBeats.measures[span[0] - 1]
-            }
-            tag={tag}
-            removeTag={() => {
-              const newTagSpans = [...tagSpans];
-              newTagSpans.splice(tagIndex, 1);
-
-              const newAnalysis = {
-                ...analysis,
-                tagSpans: newTagSpans,
-              };
-
-              saveAnalysis(newAnalysis);
-              setAnalysis(newAnalysis);
-            }}
-            onMouseEnter={() => {
-              if (category === "bass") {
-                // TODO: actually store the bass voice in tagSpan object in the DB
-                const newVoiceMask = [false, false, true, false, false];
-                setVoiceMask(newVoiceMask);
-              }
-            }}
-            onMouseLeave={() => {
-              if (category === "bass") {
-                setVoiceMask([true, true, true, true, true]);
-              }
-            }}
-          />,
-        );
+      let categoryIndex = CATEGORIES_IN_STRIPES.indexOf(category);
+      if (categoryIndex === -1) {
+        categoryIndex = CATEGORIES_IN_STRIPES.length - 1;
       }
+      stripeTags[categoryIndex].push(
+        <StripeTag
+          left={secondsToX(measuresAndBeats.measures[span[0] - 1])}
+          widthInMeasures={
+            measuresAndBeats.measures[
+              Math.min(span[1], measuresAndBeats.measures.length - 1)
+            ] - measuresAndBeats.measures[span[0] - 1]
+          }
+          tag={tag}
+          removeTag={() => {
+            const newTagSpans = [...tagSpans];
+            newTagSpans.splice(tagIndex, 1);
+
+            const newAnalysis = {
+              ...analysis,
+              tagSpans: newTagSpans,
+            };
+
+            saveAnalysis(newAnalysis);
+            setAnalysis(newAnalysis);
+          }}
+          onMouseEnter={() => {
+            if (category === "bass") {
+              // TODO: actually store the bass voice in tagSpan object in the DB
+              const newVoiceMask = [false, false, true, false, false];
+              setVoiceMask(newVoiceMask);
+            }
+          }}
+          onMouseLeave={() => {
+            if (category === "bass") {
+              setVoiceMask([true, true, true, true, true]);
+            }
+          }}
+        />,
+      );
     });
 
     return (
@@ -815,6 +814,15 @@ const Stripes: React.FC<{
               width: "100%",
             }}
           >
+            <div
+              style={{
+                position: "absolute",
+                fontSize: STRIPE_HEIGHT,
+                padding: "0 5px 0 5px",
+              }}
+            >
+              {CATEGORIES_IN_STRIPES[index]}
+            </div>
             {bucket}
           </div>
         ))}
@@ -896,17 +904,15 @@ export const AnalysisGrid: React.FC<{
           midiNumberToY={midiNumberToY}
           noteHeight={noteHeight}
         />
-        {analysis.tagSpans && (
-          <Stripes
-            tagSpans={analysis.tagSpans}
-            measuresAndBeats={measuresAndBeats}
-            analysis={analysis}
-            saveAnalysis={saveAnalysis}
-            setAnalysis={setAnalysis}
-            // voiceMask={voiceMask}
-            setVoiceMask={setVoiceMask}
-          />
-        )}
+        <Stripes
+          tagSpans={analysis.tagSpans || []}
+          measuresAndBeats={measuresAndBeats}
+          analysis={analysis}
+          saveAnalysis={saveAnalysis}
+          setAnalysis={setAnalysis}
+          // voiceMask={voiceMask}
+          setVoiceMask={setVoiceMask}
+        />
         {loopLeft && (
           <div
             key="loop"

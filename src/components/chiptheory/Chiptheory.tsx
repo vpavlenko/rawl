@@ -561,7 +561,6 @@ const Chiptheory = ({
         style={{
           width: "100%",
           height: "100%",
-          marginTop: "19px",
           padding: 0,
           backgroundColor: "black",
         }}

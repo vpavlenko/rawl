@@ -141,7 +141,13 @@ export default class Browse extends React.PureComponent {
             </div>
           </div>
         ) : (
-          <div>
+          <div
+            style={{
+              height: "1px",
+              overflow: "hidden",
+              margin: 0,
+            }}
+          >
             <BrowseList
               key={browsePath}
               {...this.props}

@@ -117,15 +117,13 @@ export const ANALYSIS_STUB: Analysis = {
   form: [],
 };
 
-export const prevStep = (analysis, commitAnalysis) =>
-  commitAnalysis({
-    ...analysis,
+export const prevStep = (analysis, commitAnalysisUpdate) =>
+  commitAnalysisUpdate({
     step: STEPS[STEPS.indexOf(analysis.step) - 1],
   });
 
-export const nextStep = (analysis, commitAnalysis) =>
-  commitAnalysis({
-    ...analysis,
+export const nextStep = (analysis, commitAnalysisUpdate) =>
+  commitAnalysisUpdate({
     step: STEPS[STEPS.indexOf(analysis.step) + 1],
   });
 
@@ -182,7 +180,7 @@ export const advanceAnalysis = (
   selectedDownbeat: number | null,
   selectDownbeat: (_: null) => void,
   analysis: Analysis,
-  commitAnalysis: (analysis: Analysis) => void,
+  commitAnalysisUpdate: (analysisUpdate: Partial<Analysis>) => void,
   time: number = null,
   notes: Note[] = [],
   measures: number[] = [],
@@ -199,7 +197,7 @@ export const advanceAnalysis = (
   );
 
   selectDownbeat(null);
-  commitAnalysis(newAnalysis);
+  commitAnalysisUpdate(newAnalysis);
 };
 
 const VerticalBar = styled.div`
@@ -383,7 +381,7 @@ export const AnalysisGrid: React.FC<{
   previouslySelectedDownbeat: number;
   selectedDownbeat: number;
   selectDownbeat: (number: number) => void;
-  commitAnalysis: (analysis: Analysis) => void;
+  commitAnalysisUpdate: (analysisUpdate: Partial<Analysis>) => void;
   // a callback for stripes to tweak voiceMask on hover
   // voiceMask: boolean[];
   setVoiceMask: (voiceMask: boolean[]) => void;
@@ -397,7 +395,7 @@ export const AnalysisGrid: React.FC<{
     previouslySelectedDownbeat,
     selectedDownbeat,
     selectDownbeat,
-    commitAnalysis,
+    commitAnalysisUpdate,
     // voiceMask,
     setVoiceMask,
     loggedIn,
@@ -451,7 +449,7 @@ export const AnalysisGrid: React.FC<{
           tagSpans={analysis.tagSpans || []}
           measuresAndBeats={measuresAndBeats}
           analysis={analysis}
-          commitAnalysis={commitAnalysis}
+          commitAnalysisUpdate={commitAnalysisUpdate}
           // voiceMask={voiceMask}
           setVoiceMask={setVoiceMask}
           loggedIn={loggedIn}
@@ -482,14 +480,14 @@ export const AnalysisGrid: React.FC<{
 
 export const AnalysisBox: React.FC<{
   analysis: Analysis;
-  commitAnalysis: (analysis: Analysis) => void;
+  commitAnalysisUpdate: (analysisUpdate: Partial<Analysis>) => void;
   previouslySelectedDownbeat: number;
   selectedDownbeat: number;
   selectDownbeat: (downbeat: number | null) => void;
 }> = React.memo(
   ({
     analysis,
-    commitAnalysis,
+    commitAnalysisUpdate,
     previouslySelectedDownbeat,
     selectedDownbeat,
     selectDownbeat,
@@ -499,7 +497,7 @@ export const AnalysisBox: React.FC<{
       analysisFieldName,
       label,
       width = "95%",
-      mergeValueIntoAnalysis = null,
+      createAnalysisUpdate = null,
     ) => {
       const [value, setValue] = useState(initialValue.toString());
       const [isSaved, setIsSaved] = useState(false);
@@ -517,17 +515,16 @@ export const AnalysisBox: React.FC<{
 
       const handleKeyDown = (e) => {
         if (e.key === "Enter") {
-          const newAnalysis = mergeValueIntoAnalysis
-            ? mergeValueIntoAnalysis(analysis, value)
-            : {
-                ...analysis,
-                [analysisFieldName]:
-                  typeof initialValue === "number"
-                    ? parseInt(value, 10)
-                    : value,
-              };
-
-          commitAnalysis(newAnalysis);
+          commitAnalysisUpdate(
+            createAnalysisUpdate
+              ? createAnalysisUpdate(analysis, value)
+              : {
+                  [analysisFieldName]:
+                    typeof initialValue === "number"
+                      ? parseInt(value, 10)
+                      : value,
+                },
+          );
           setIsSaved(true);
         }
       };
@@ -575,7 +572,6 @@ export const AnalysisBox: React.FC<{
       (analysis, value) => {
         selectDownbeat(null);
         return {
-          ...analysis,
           form: { ...analysis.form, [selectedDownbeat]: value },
         };
       },
@@ -589,14 +585,14 @@ export const AnalysisBox: React.FC<{
               <button
                 className="box-button"
                 disabled={analysis.step === STEPS[0]}
-                onClick={() => prevStep(analysis, commitAnalysis)}
+                onClick={() => prevStep(analysis, commitAnalysisUpdate)}
               >
                 &lt;
               </button>{" "}
               <button
                 className="box-button"
                 disabled={analysis.step === STEPS[STEPS.length - 1]}
-                onClick={() => nextStep(analysis, commitAnalysis)}
+                onClick={() => nextStep(analysis, commitAnalysisUpdate)}
               >
                 &gt;
               </button>
@@ -619,8 +615,7 @@ export const AnalysisBox: React.FC<{
                     className="box-button"
                     onClick={() => {
                       selectDownbeat(null);
-                      commitAnalysis({
-                        ...analysis,
+                      commitAnalysisUpdate({
                         loop: selectedDownbeat,
                       });
                     }}
@@ -633,8 +628,7 @@ export const AnalysisBox: React.FC<{
                     className="box-button"
                     onClick={() => {
                       selectDownbeat(null);
-                      commitAnalysis({
-                        ...analysis,
+                      commitAnalysisUpdate({
                         fourMeasurePhrasingReferences: [selectedDownbeat],
                       });
                     }}
@@ -647,8 +641,7 @@ export const AnalysisBox: React.FC<{
                     className="box-button"
                     onClick={() => {
                       selectDownbeat(null);
-                      commitAnalysis({
-                        ...analysis,
+                      commitAnalysisUpdate({
                         fourMeasurePhrasingReferences: [
                           ...(analysis.fourMeasurePhrasingReferences || []),
                           selectedDownbeat,
@@ -671,8 +664,7 @@ export const AnalysisBox: React.FC<{
                       options={TAGS.map((tag) => ({ value: tag, label: tag }))}
                       onChange={(tag) => {
                         selectDownbeat(null);
-                        commitAnalysis({
-                          ...analysis,
+                        commitAnalysisUpdate({
                           tagSpans: [
                             ...(analysis.tagSpans ?? []),
                             {
@@ -700,8 +692,7 @@ export const AnalysisBox: React.FC<{
                         className="box-button"
                         onClick={() => {
                           selectDownbeat(null);
-                          commitAnalysis({
-                            ...analysis,
+                          commitAnalysisUpdate({
                             form: {
                               ...analysis.form,
                               [selectedDownbeat]: formSection,
@@ -725,8 +716,7 @@ export const AnalysisBox: React.FC<{
                   <input
                     type="checkbox"
                     onChange={() => {
-                      commitAnalysis({
-                        ...analysis,
+                      commitAnalysisUpdate({
                         disableSnapToNotes: !analysis.disableSnapToNotes,
                       });
                     }}
@@ -747,8 +737,7 @@ export const AnalysisBox: React.FC<{
                     label: tag,
                   }))}
                   onChange={(tags) => {
-                    commitAnalysis({
-                      ...analysis,
+                    commitAnalysisUpdate({
                       tags: tags.map((tag) => tag.value),
                     });
                   }}

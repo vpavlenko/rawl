@@ -414,7 +414,7 @@ export const Stripes: React.FC<{
   tagSpans: TagSpan[];
   measuresAndBeats: MeasuresAndBeats;
   analysis: Analysis;
-  commitAnalysis: (analysis: Analysis) => void;
+  commitAnalysisUpdate: (analysisUpdate: Partial<Analysis>) => void;
   // voiceMask: boolean[];
   setVoiceMask: (voiceMask: boolean[]) => void;
   loggedIn: boolean;
@@ -423,7 +423,7 @@ export const Stripes: React.FC<{
     tagSpans,
     measuresAndBeats,
     analysis,
-    commitAnalysis,
+    commitAnalysisUpdate,
     // voiceMask,
     setVoiceMask,
     loggedIn,
@@ -455,7 +455,7 @@ export const Stripes: React.FC<{
               const newTagSpans = [...tagSpans];
               newTagSpans.splice(tagIndex, 1);
 
-              commitAnalysis({
+              commitAnalysisUpdate({
                 ...analysis,
                 tagSpans: newTagSpans,
               });

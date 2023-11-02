@@ -124,7 +124,7 @@ const calculateNotesFromPeriods = (periods, oscType) => {
   return notes.filter((note) => note.note.midiNumber !== -1);
 };
 
-const SECOND_WIDTH = 70;
+const SECOND_WIDTH = 60;
 const HORIZONTAL_HEADER_PADDING = 55;
 export const secondsToX = (seconds) =>
   seconds * SECOND_WIDTH + HORIZONTAL_HEADER_PADDING;
@@ -272,7 +272,7 @@ const getNoteRectangles = (
               fontSize: "12px",
             }}
           >
-            {TWELVE_CHORD_TONES[intervalBelow]}
+            {TWELVE_CHORD_TONES[intervalBelow % 12]}
           </div>
         )}
         {!showIntervals && noteElement}
@@ -628,6 +628,7 @@ const Chiptheory = ({
             setVoiceMask={setVoiceMask}
             loggedIn={loggedIn}
             seek={seek}
+            showIntervals={() => setShowIntervals(true)}
           />
           <div
             style={{

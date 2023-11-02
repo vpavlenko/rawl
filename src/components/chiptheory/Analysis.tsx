@@ -390,6 +390,7 @@ export const AnalysisGrid: React.FC<{
   // voiceMask: boolean[];
   setVoiceMask: (voiceMask: boolean[]) => void;
   seek: (ms: number) => void;
+  showIntervals: () => void;
   loggedIn: boolean;
 }> = React.memo(
   ({
@@ -406,6 +407,7 @@ export const AnalysisGrid: React.FC<{
     loggedIn,
     voices,
     seek,
+    showIntervals,
   }) => {
     const { measures, beats } = measuresAndBeats;
     let loopLeft = null;
@@ -462,6 +464,7 @@ export const AnalysisGrid: React.FC<{
           loggedIn={loggedIn}
           voices={voices}
           seek={seek}
+          showIntervals={showIntervals}
         />
         {loopLeft && (
           <div

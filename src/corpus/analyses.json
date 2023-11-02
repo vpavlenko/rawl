@@ -2820,18 +2820,382 @@
     "America Daitouryou Senkyo (1998-10-28)(Hect Development Division 1)(Hect).nsf": {
       "0": {
         "beatsPerMeasure": 9,
-        "romanNumerals": "I _ V7 I I _ V I V7 I",
+        "tagSpans": [
+          {
+            "tag": "middle_voice:absent",
+            "span": [
+              1,
+              18
+            ]
+          },
+          {
+            "voices": [
+              1
+            ],
+            "tag": "bass:inversions",
+            "span": [
+              2,
+              2
+            ]
+          },
+          {
+            "voices": [
+              1
+            ],
+            "tag": "bass:transposed_riff",
+            "span": [
+              1,
+              8
+            ]
+          },
+          {
+            "tag": "form:period",
+            "span": [
+              1,
+              8
+            ]
+          },
+          {
+            "voices": [
+              0
+            ],
+            "tag": "melody:basic_idea_x2_and_fragmentation",
+            "span": [
+              1,
+              8
+            ]
+          },
+          {
+            "tag": "form:extra_measure",
+            "span": [
+              16,
+              18
+            ]
+          }
+        ],
+        "romanNumerals": "I ii6 V7 I I ii6 V I V7 I V/V V I ii V7 I-viio/vi-vi ii7 I",
         "clickResolutionMs": 0.01,
+        "tags": [
+          "form:AABA"
+        ],
         "mode": null,
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 3.5399999999999685,
-        "loop": null,
+        "form": {
+          "1": "A:antecedent",
+          "5": "A:consequent",
+          "9": "B",
+          "13": "A"
+        },
+        "loop": 19,
         "firstMeasure": 0,
         "step": "end",
         "comment": "",
         "correctedMeasures": [],
         "tonic": 3,
         "basedOn": "Stephen Foster - Beautiful Dreamer"
+      },
+      "1": {
+        "beatsPerMeasure": 4,
+        "tagSpans": [
+          {
+            "voices": [
+              1
+            ],
+            "tag": "bass:two_notes",
+            "span": [
+              1,
+              4
+            ]
+          },
+          {
+            "tag": "middle_voice:absent",
+            "span": [
+              1,
+              4
+            ]
+          },
+          {
+            "voices": [
+              0
+            ],
+            "tag": "melody:transposed_riff",
+            "span": [
+              1,
+              4
+            ]
+          }
+        ],
+        "disableSnapToNotes": false,
+        "romanNumerals": "I vi IV V",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 3.189999999999976,
+        "loop": 5,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      },
+      "2": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "I",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.5900000000000012,
+        "loop": 17,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "17": 25.33000000000116
+        },
+        "tonic": 10,
+        "basedOn": null
+      },
+      "3": {
+        "beatsPerMeasure": 4,
+        "tagSpans": [
+          {
+            "tag": "timbre:silence",
+            "span": [
+              32,
+              32
+            ]
+          },
+          {
+            "tag": "tempo:ritardando",
+            "span": [
+              28,
+              32
+            ]
+          },
+          {
+            "voices": [
+              2,
+              0
+            ],
+            "tag": "middle_voice:parallel_octaves",
+            "span": [
+              1,
+              16
+            ]
+          },
+          {
+            "voices": [
+              1
+            ],
+            "tag": "bass:counterpoint",
+            "span": [
+              1,
+              32
+            ]
+          },
+          {
+            "voices": [
+              2
+            ],
+            "tag": "middle_voice:static_chord_tones",
+            "span": [
+              25,
+              32
+            ]
+          },
+          {
+            "voices": [
+              2,
+              0
+            ],
+            "tag": "middle_voice:parallel_octaves",
+            "span": [
+              23,
+              24
+            ]
+          },
+          {
+            "voices": [
+              2
+            ],
+            "tag": "middle_voice:static_chord_tones",
+            "span": [
+              17,
+              22
+            ]
+          }
+        ],
+        "disableSnapToNotes": false,
+        "romanNumerals": "I _ _ _ _ V I5 I",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 2.339999999999994,
+        "loop": 33,
+        "firstMeasure": 0.5900000000000003,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "29": 51.49999999999832,
+          "30": 53.299999999997965
+        },
+        "tonic": 10,
+        "basedOn": "Star Spangled Banner"
+      },
+      "4": {
+        "beatsPerMeasure": 4,
+        "tagSpans": [
+          {
+            "tag": "middle_voice:absent",
+            "span": [
+              1,
+              24
+            ]
+          },
+          {
+            "voices": [
+              1
+            ],
+            "tag": "bass:root_third_fifth",
+            "span": [
+              1,
+              24
+            ]
+          },
+          {
+            "tag": "form:period",
+            "span": [
+              1,
+              24
+            ]
+          }
+        ],
+        "disableSnapToNotes": false,
+        "romanNumerals": "I I IV I I I IV V I I IV I IV I V I I I IV I IV I V I",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "harmony:I-IV-V"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "secondMeasure": 1.9400000000000015,
+        "form": {
+          "1": "A:antecedent",
+          "9": "A:consequent",
+          "17": "extension"
+        },
+        "loop": 25,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 2,
+        "basedOn": null
+      },
+      "5": {
+        "beatsPerMeasure": 5,
+        "disableSnapToNotes": true,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "location:jingle"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 5.989999999999917,
+        "loop": 8,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "2": 2
+        },
+        "tonic": 0,
+        "basedOn": "drum rhythm from Gustav Holst - Mars, the Bringer of War"
+      },
+      "6": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "i VII VI V",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 3.189999999999976,
+        "loop": 5,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 9,
+        "basedOn": null
+      },
+      "7": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.5900000000000012,
+        "loop": 17,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 7,
+        "basedOn": null
+      },
+      "8": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "I I I _ _ ii I5-V I",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 2.9399999999999813,
+        "loop": 9,
+        "firstMeasure": 0.5900000000000003,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 7,
+        "basedOn": null
+      },
+      "9": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "scale:demo"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "first measure",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
       }
     }
   },
@@ -25229,6 +25593,9 @@
             ]
           },
           {
+            "voices": [
+              1
+            ],
             "tag": "middle_voice:static_chord_tones",
             "span": [
               21,

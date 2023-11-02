@@ -414,8 +414,7 @@ export const Stripes: React.FC<{
   tagSpans: TagSpan[];
   measuresAndBeats: MeasuresAndBeats;
   analysis: Analysis;
-  saveAnalysis: (analysis: Analysis) => void;
-  setAnalysis: (analysis: Analysis) => void;
+  commitAnalysis: (analysis: Analysis) => void;
   // voiceMask: boolean[];
   setVoiceMask: (voiceMask: boolean[]) => void;
   loggedIn: boolean;
@@ -424,8 +423,7 @@ export const Stripes: React.FC<{
     tagSpans,
     measuresAndBeats,
     analysis,
-    saveAnalysis,
-    setAnalysis,
+    commitAnalysis,
     // voiceMask,
     setVoiceMask,
     loggedIn,
@@ -457,13 +455,10 @@ export const Stripes: React.FC<{
               const newTagSpans = [...tagSpans];
               newTagSpans.splice(tagIndex, 1);
 
-              const newAnalysis = {
+              commitAnalysis({
                 ...analysis,
                 tagSpans: newTagSpans,
-              };
-
-              saveAnalysis(newAnalysis);
-              setAnalysis(newAnalysis);
+              });
             })
           }
           onMouseEnter={() => {

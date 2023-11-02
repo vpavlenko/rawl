@@ -327,6 +327,15 @@ const Chiptheory = ({
   const [showIntervals, setShowIntervals] = useState(false);
   const [playEnd, setPlayEnd] = useState(null);
 
+  // maybe this function should be refactored to only receive a diff, i.e. analysisUpdate
+  const commitAnalysis = useCallback(
+    (analysis: Analysis) => {
+      saveAnalysis(analysis);
+      setAnalysis(analysis);
+    },
+    [saveAnalysis],
+  );
+
   useEffect(() => {
     if (savedAnalysis) {
       setAnalysis(savedAnalysis);
@@ -453,8 +462,7 @@ const Chiptheory = ({
       selectedDownbeatRef.current,
       setSelectedDownbeat,
       analysisRef.current,
-      saveAnalysis,
-      setAnalysis,
+      commitAnalysis,
       null,
       allNotes,
       measuresAndBeats.measures,
@@ -595,8 +603,7 @@ const Chiptheory = ({
                 selectedDownbeatRef.current,
                 setSelectedDownbeat,
                 analysisRef.current,
-                saveAnalysis,
-                setAnalysis,
+                commitAnalysis,
                 time,
               );
             } else {
@@ -616,8 +623,7 @@ const Chiptheory = ({
             previouslySelectedDownbeat={previouslySelectedDownbeat}
             selectedDownbeat={selectedDownbeat}
             selectDownbeat={selectDownbeat}
-            saveAnalysis={saveAnalysis}
-            setAnalysis={setAnalysis}
+            commitAnalysis={commitAnalysis}
             // voiceMask={voiceMask}
             setVoiceMask={setVoiceMask}
             loggedIn={loggedIn}
@@ -668,8 +674,7 @@ const Chiptheory = ({
         ) : (
           <AnalysisBox
             analysis={analysis}
-            saveAnalysis={saveAnalysis}
-            setAnalysis={setAnalysis}
+            commitAnalysis={commitAnalysis}
             previouslySelectedDownbeat={previouslySelectedDownbeat}
             selectedDownbeat={selectedDownbeat}
             selectDownbeat={selectDownbeat}

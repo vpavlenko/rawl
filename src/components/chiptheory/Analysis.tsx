@@ -117,12 +117,17 @@ export const ANALYSIS_STUB: Analysis = {
   form: [],
 };
 
-// These two don't propagate to Firestore because they tweak transient state.
-export const prevStep = (analysis, setAnalysis) =>
-  setAnalysis({ ...analysis, step: STEPS[STEPS.indexOf(analysis.step) - 1] });
+export const prevStep = (analysis, commitAnalysis) =>
+  commitAnalysis({
+    ...analysis,
+    step: STEPS[STEPS.indexOf(analysis.step) - 1],
+  });
 
-export const nextStep = (analysis, setAnalysis) =>
-  setAnalysis({ ...analysis, step: STEPS[STEPS.indexOf(analysis.step) + 1] });
+export const nextStep = (analysis, commitAnalysis) =>
+  commitAnalysis({
+    ...analysis,
+    step: STEPS[STEPS.indexOf(analysis.step) + 1],
+  });
 
 export const getNewAnalysis = (
   note: Note | null,
@@ -177,8 +182,7 @@ export const advanceAnalysis = (
   selectedDownbeat: number | null,
   selectDownbeat: (_: null) => void,
   analysis: Analysis,
-  saveAnalysis,
-  setAnalysis,
+  commitAnalysis: (analysis: Analysis) => void,
   time: number = null,
   notes: Note[] = [],
   measures: number[] = [],
@@ -195,8 +199,7 @@ export const advanceAnalysis = (
   );
 
   selectDownbeat(null);
-  saveAnalysis(newAnalysis);
-  setAnalysis(newAnalysis);
+  commitAnalysis(newAnalysis);
 };
 
 const VerticalBar = styled.div`
@@ -380,8 +383,7 @@ export const AnalysisGrid: React.FC<{
   previouslySelectedDownbeat: number;
   selectedDownbeat: number;
   selectDownbeat: (number: number) => void;
-  saveAnalysis: (analysis: Analysis) => void;
-  setAnalysis: (analysis: Analysis) => void;
+  commitAnalysis: (analysis: Analysis) => void;
   // a callback for stripes to tweak voiceMask on hover
   // voiceMask: boolean[];
   setVoiceMask: (voiceMask: boolean[]) => void;
@@ -395,8 +397,7 @@ export const AnalysisGrid: React.FC<{
     previouslySelectedDownbeat,
     selectedDownbeat,
     selectDownbeat,
-    saveAnalysis,
-    setAnalysis,
+    commitAnalysis,
     // voiceMask,
     setVoiceMask,
     loggedIn,
@@ -450,8 +451,7 @@ export const AnalysisGrid: React.FC<{
           tagSpans={analysis.tagSpans || []}
           measuresAndBeats={measuresAndBeats}
           analysis={analysis}
-          saveAnalysis={saveAnalysis}
-          setAnalysis={setAnalysis}
+          commitAnalysis={commitAnalysis}
           // voiceMask={voiceMask}
           setVoiceMask={setVoiceMask}
           loggedIn={loggedIn}
@@ -482,16 +482,14 @@ export const AnalysisGrid: React.FC<{
 
 export const AnalysisBox: React.FC<{
   analysis: Analysis;
-  saveAnalysis: (analysis: Analysis) => void;
-  setAnalysis: (analysis: Analysis) => void;
+  commitAnalysis: (analysis: Analysis) => void;
   previouslySelectedDownbeat: number;
   selectedDownbeat: number;
   selectDownbeat: (downbeat: number | null) => void;
 }> = React.memo(
   ({
     analysis,
-    saveAnalysis,
-    setAnalysis,
+    commitAnalysis,
     previouslySelectedDownbeat,
     selectedDownbeat,
     selectDownbeat,
@@ -529,8 +527,7 @@ export const AnalysisBox: React.FC<{
                     : value,
               };
 
-          saveAnalysis(newAnalysis);
-          setAnalysis(newAnalysis);
+          commitAnalysis(newAnalysis);
           setIsSaved(true);
         }
       };
@@ -592,14 +589,14 @@ export const AnalysisBox: React.FC<{
               <button
                 className="box-button"
                 disabled={analysis.step === STEPS[0]}
-                onClick={() => prevStep(analysis, setAnalysis)}
+                onClick={() => prevStep(analysis, commitAnalysis)}
               >
                 &lt;
               </button>{" "}
               <button
                 className="box-button"
                 disabled={analysis.step === STEPS[STEPS.length - 1]}
-                onClick={() => nextStep(analysis, setAnalysis)}
+                onClick={() => nextStep(analysis, commitAnalysis)}
               >
                 &gt;
               </button>
@@ -621,14 +618,11 @@ export const AnalysisBox: React.FC<{
                   <button
                     className="box-button"
                     onClick={() => {
-                      const newAnalysis = {
+                      selectDownbeat(null);
+                      commitAnalysis({
                         ...analysis,
                         loop: selectedDownbeat,
-                      };
-
-                      selectDownbeat(null);
-                      saveAnalysis(newAnalysis);
-                      setAnalysis(newAnalysis);
+                      });
                     }}
                   >
                     Mark loop start
@@ -638,14 +632,11 @@ export const AnalysisBox: React.FC<{
                   <button
                     className="box-button"
                     onClick={() => {
-                      const newAnalysis = {
+                      selectDownbeat(null);
+                      commitAnalysis({
                         ...analysis,
                         fourMeasurePhrasingReferences: [selectedDownbeat],
-                      };
-
-                      selectDownbeat(null);
-                      saveAnalysis(newAnalysis);
-                      setAnalysis(newAnalysis);
+                      });
                     }}
                   >
                     Mark start of 4-measure phrasing
@@ -655,17 +646,14 @@ export const AnalysisBox: React.FC<{
                   <button
                     className="box-button"
                     onClick={() => {
-                      const newAnalysis = {
+                      selectDownbeat(null);
+                      commitAnalysis({
                         ...analysis,
                         fourMeasurePhrasingReferences: [
                           ...(analysis.fourMeasurePhrasingReferences || []),
                           selectedDownbeat,
                         ].sort((a, b) => a - b),
-                      };
-
-                      selectDownbeat(null);
-                      saveAnalysis(newAnalysis);
-                      setAnalysis(newAnalysis);
+                      });
                     }}
                   >
                     Add custom phrasing measure (manual mode)
@@ -682,7 +670,8 @@ export const AnalysisBox: React.FC<{
                       ref={tagSpanSelectRef}
                       options={TAGS.map((tag) => ({ value: tag, label: tag }))}
                       onChange={(tag) => {
-                        const newAnalysis = {
+                        selectDownbeat(null);
+                        commitAnalysis({
                           ...analysis,
                           tagSpans: [
                             ...(analysis.tagSpans ?? []),
@@ -697,11 +686,7 @@ export const AnalysisBox: React.FC<{
                           tags: (analysis.tags ?? []).filter(
                             (item) => item !== tag.value,
                           ),
-                        };
-
-                        selectDownbeat(null);
-                        saveAnalysis(newAnalysis);
-                        setAnalysis(newAnalysis);
+                        });
                       }}
                     />
                   </div>
@@ -714,17 +699,14 @@ export const AnalysisBox: React.FC<{
                         style={{ marginRight: "10px", marginTop: "10px" }}
                         className="box-button"
                         onClick={() => {
-                          const newAnalysis = {
+                          selectDownbeat(null);
+                          commitAnalysis({
                             ...analysis,
                             form: {
                               ...analysis.form,
                               [selectedDownbeat]: formSection,
                             },
-                          };
-
-                          selectDownbeat(null);
-                          saveAnalysis(newAnalysis);
-                          setAnalysis(newAnalysis);
+                          });
                         }}
                       >
                         {formSection}
@@ -743,13 +725,10 @@ export const AnalysisBox: React.FC<{
                   <input
                     type="checkbox"
                     onChange={() => {
-                      const newAnalysis = {
+                      commitAnalysis({
                         ...analysis,
                         disableSnapToNotes: !analysis.disableSnapToNotes,
-                      };
-
-                      saveAnalysis(newAnalysis);
-                      setAnalysis(newAnalysis);
+                      });
                     }}
                     checked={analysis.disableSnapToNotes}
                   />
@@ -768,13 +747,10 @@ export const AnalysisBox: React.FC<{
                     label: tag,
                   }))}
                   onChange={(tags) => {
-                    const newAnalysis = {
+                    commitAnalysis({
                       ...analysis,
                       tags: tags.map((tag) => tag.value),
-                    };
-
-                    saveAnalysis(newAnalysis);
-                    setAnalysis(newAnalysis);
+                    });
                   }}
                 />
               </div>

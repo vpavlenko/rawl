@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Analysis, TagSpan } from "./Analysis";
-import { secondsToX } from "./Chiptheory";
+import { Note, secondsToX } from "./Chiptheory";
 import { MeasuresAndBeats } from "./measures";
 
 export const TAGS = [
@@ -341,22 +341,76 @@ export function tagToColor(str) {
   return "#" + ensureLowLuminosity(hashToColor(stringToHash(str)));
 }
 
-const StripeTag = ({
-  left,
-  width,
+const getAverageMidiNumber = (notes: Note[]) =>
+  notes.length > 0
+    ? notes.reduce((sum, note) => sum + note.note.midiNumber, 0) / notes.length
+    : Infinity;
+
+const EPSILON = 0.05; // 50 ms
+
+const getSemanticVoicesForSpan = (
+  voices: Note[][],
+  startSecond: number,
+  endSecond: number,
+) => {
+  const sortedVoices = voices
+    .map((voice, index) => [
+      getAverageMidiNumber(
+        voice.filter(
+          (note) =>
+            note.span[0] + EPSILON >= startSecond &&
+            note.span[1] - EPSILON <= endSecond,
+        ),
+      ),
+      index,
+    ])
+    .sort((a, b) => a[0] - b[0]);
+  if (sortedVoices[1][0] === Infinity) {
+    return { bass: sortedVoices[0][1] };
+  }
+  if (sortedVoices[2][0] === Infinity) {
+    return { bass: sortedVoices[0][1], high: sortedVoices[1][1] };
+  }
+  return {
+    bass: sortedVoices[0][1],
+    middle: sortedVoices[1][1],
+    high: sortedVoices[2][1],
+  };
+};
+
+const StripeTag: React.FC<{
+  startSecond: number;
+  endSecond: number;
+  widthInMeasures: number;
+  tag: string;
+  tagVoices: number[];
+  removeTag: () => void;
+  setVoiceMask: (voiceMask: boolean[]) => void;
+  seek: (ms: number) => void;
+  attachVoices: () => void;
+  onMouseEnter: () => void;
+  onMouseLeave: () => void;
+}> = ({
+  startSecond,
+  endSecond,
   widthInMeasures,
   tag,
+  tagVoices,
+  setVoiceMask,
+  seek,
   removeTag,
+  attachVoices,
   onMouseEnter,
   onMouseLeave,
 }) => {
   const [category, value] = tag.split(":");
   return (
     <div
+      className={"stripeTag"}
       style={{
         position: "absolute",
-        left,
-        width,
+        left: secondsToX(startSecond),
+        width: secondsToX(endSecond) - secondsToX(startSecond),
         backgroundColor: tagToColor(tag),
         color: "white",
         padding: "0 5px 0 5px",
@@ -370,16 +424,23 @@ const StripeTag = ({
       }}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
+      onClick={(e) => e.stopPropagation()}
     >
-      <span style={{ overflow: "hidden", fontSize: STRIPE_HEIGHT }}>
-        {value.replace(/_/g, " ")}
-      </span>
+      <a
+        href={`/search/${category}/${value}`}
+        target="_blank"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <span style={{ overflow: "hidden", fontSize: STRIPE_HEIGHT }}>
+          {value.replace(/_/g, " ")}
+        </span>
+      </a>
       {category === "bass" && (
         <button
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
-            // removeTag();
+            attachVoices();
           }}
           style={{
             backgroundColor: "transparent",
@@ -387,8 +448,26 @@ const StripeTag = ({
             fontSize: STRIPE_HEIGHT,
           }}
         >
-          [attach voice]
+          [attach voices]
         </button>
+      )}
+      {tagVoices && (
+        <span style={{ fontSize: STRIPE_HEIGHT }}>
+          voices:{" "}
+          {tagVoices.map((voice) => (
+            <span
+              onClick={() => {
+                const mask = [false, false, false, false, false];
+                mask[voice] = true;
+                setVoiceMask(mask);
+                seek(startSecond * 1000);
+              }}
+              style={{ fontSize: STRIPE_HEIGHT }}
+            >
+              {voice}
+            </span>
+          ))}
+        </span>
       )}
       {removeTag && (
         <button
@@ -418,6 +497,8 @@ export const Stripes: React.FC<{
   // voiceMask: boolean[];
   setVoiceMask: (voiceMask: boolean[]) => void;
   loggedIn: boolean;
+  voices: Note[][];
+  seek: (ms: number) => void;
 }> = React.memo(
   ({
     tagSpans,
@@ -427,28 +508,32 @@ export const Stripes: React.FC<{
     // voiceMask,
     setVoiceMask,
     loggedIn,
+    voices,
+    seek,
   }) => {
     const stripeTags = new Array(CATEGORIES_IN_STRIPES.length)
       .fill(null)
       .map(() => []);
-    tagSpans.map(({ tag, span }, tagIndex) => {
+    tagSpans.map(({ tag, span, voices: tagVoices }, tagIndex) => {
       const [category, content] = tag.split(":");
       let categoryIndex = CATEGORIES_IN_STRIPES.indexOf(category);
       if (categoryIndex === -1) {
         categoryIndex = CATEGORIES_IN_STRIPES.length - 1;
       }
-      const stripeTagNode = (
+      const startSecond = measuresAndBeats.measures[span[0] - 1];
+      const endSecond =
+        measuresAndBeats.measures[
+          Math.min(span[1], measuresAndBeats.measures.length - 1)
+        ];
+      stripeTags[categoryIndex].push(
         <StripeTag
-          left={secondsToX(measuresAndBeats.measures[span[0] - 1])}
-          width={
-            secondsToX(
-              measuresAndBeats.measures[
-                Math.min(span[1], measuresAndBeats.measures.length - 1)
-              ],
-            ) - secondsToX(measuresAndBeats.measures[span[0] - 1])
-          }
+          startSecond={startSecond}
+          endSecond={endSecond}
           widthInMeasures={span[1] - span[0]}
           tag={tag}
+          tagVoices={tagVoices}
+          setVoiceMask={setVoiceMask}
+          seek={seek}
           removeTag={
             loggedIn &&
             (() => {
@@ -461,6 +546,26 @@ export const Stripes: React.FC<{
               });
             })
           }
+          attachVoices={() => {
+            const semanticVoices = getSemanticVoicesForSpan(
+              voices,
+              startSecond,
+              endSecond,
+            );
+            if (category === "bass") {
+              commitAnalysisUpdate({
+                ...analysis,
+                tagSpans: [
+                  ...tagSpans.slice(0, tagIndex - 1),
+                  {
+                    tag,
+                    span,
+                    voices: [semanticVoices.bass],
+                  },
+                ],
+              });
+            }
+          }}
           onMouseEnter={() => {
             // if (category === "bass") {
             //   // TODO: actually store the bass voice in tagSpan object in the DB
@@ -473,16 +578,7 @@ export const Stripes: React.FC<{
             //   setVoiceMask([true, true, true, true, true]);
             // }
           }}
-        />
-      );
-      stripeTags[categoryIndex].push(
-        <a
-          href={`/search/${category}/${content}`}
-          target="_blank"
-          onClick={(e) => e.stopPropagation()}
-        >
-          {stripeTagNode}
-        </a>,
+        />,
       );
     });
 

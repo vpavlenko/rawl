@@ -2,7 +2,7 @@ import * as React from "react";
 import { useEffect, useRef, useState } from "react";
 import Select from "react-select";
 import styled from "styled-components";
-import { Note, Span, secondsToX } from "./Chiptheory";
+import { Note, secondsToX } from "./Chiptheory";
 import { MeasuresAndBeats, getPhrasingMeasures } from "./measures";
 import {
   MeasureOfRomanNumerals,
@@ -37,6 +37,8 @@ const FORM_SECTIONS = [
   "A:consequent",
   "B:antecedent",
   "B:consequent",
+  "C:antecedent",
+  "C:consequent",
   "antecedent",
   "consequent",
   "sentence. basic idea",
@@ -73,9 +75,11 @@ export const STEP_CALL_TO_ACTION: Record<Step, string> = {
 
 export type PitchClass = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11;
 
+export type MeasuresSpan = [number, number]; // one-based numbering, last measure inclusive. [1, 8] is the first eight measures
 export type TagSpan = {
   tag: string;
-  span: Span;
+  span: MeasuresSpan;
+  voices?: number[];
 };
 
 export type Analysis = {
@@ -374,7 +378,7 @@ const TonalGrid: React.FC<{
 
 export const AnalysisGrid: React.FC<{
   analysis: Analysis;
-  allNotes: Note[];
+  voices: Note[][];
   measuresAndBeats: MeasuresAndBeats;
   midiNumberToY: (number: number) => number;
   noteHeight: number;
@@ -385,6 +389,7 @@ export const AnalysisGrid: React.FC<{
   // a callback for stripes to tweak voiceMask on hover
   // voiceMask: boolean[];
   setVoiceMask: (voiceMask: boolean[]) => void;
+  seek: (ms: number) => void;
   loggedIn: boolean;
 }> = React.memo(
   ({
@@ -399,6 +404,8 @@ export const AnalysisGrid: React.FC<{
     // voiceMask,
     setVoiceMask,
     loggedIn,
+    voices,
+    seek,
   }) => {
     const { measures, beats } = measuresAndBeats;
     let loopLeft = null;
@@ -453,6 +460,8 @@ export const AnalysisGrid: React.FC<{
           // voiceMask={voiceMask}
           setVoiceMask={setVoiceMask}
           loggedIn={loggedIn}
+          voices={voices}
+          seek={seek}
         />
         {loopLeft && (
           <div
@@ -672,7 +681,7 @@ export const AnalysisBox: React.FC<{
                               span: [
                                 previouslySelectedDownbeat ?? selectedDownbeat,
                                 selectedDownbeat,
-                              ] as Span,
+                              ] as MeasuresSpan,
                             },
                           ],
                           tags: (analysis.tags ?? []).filter(

@@ -77,14 +77,14 @@ function findNoteWithClosestPeriod(
   return closestNote!;
 }
 
-export type Span = [number, number];
+type SecondsSpan = [number, number];
 
 export type Note = {
   note: {
     midiNumber: number;
     name: string;
   };
-  span: Span;
+  span: SecondsSpan;
   chipState: any;
 };
 
@@ -165,7 +165,7 @@ const getNoteColor = (
   ];
 };
 
-const isCenterInsideSpan = (note: Note, span: Span) => {
+const isCenterInsideSpan = (note: Note, span: SecondsSpan) => {
   let center = (note.span[0] + note.span[1]) / 2;
   return span[0] < center && center < span[1];
 };
@@ -616,7 +616,7 @@ const Chiptheory = ({
           <Cursor style={{ left: secondsToX(positionMs / 1000) }} />
           <AnalysisGrid
             analysis={futureAnalysis}
-            allNotes={allNotes}
+            voices={[notes.p1, notes.p2, notes.t]}
             measuresAndBeats={measuresAndBeats}
             midiNumberToY={midiNumberToY}
             noteHeight={noteHeight}
@@ -627,6 +627,7 @@ const Chiptheory = ({
             // voiceMask={voiceMask}
             setVoiceMask={setVoiceMask}
             loggedIn={loggedIn}
+            seek={seek}
           />
           <div
             style={{

@@ -132,7 +132,7 @@
             ]
           },
           {
-            "tag": "middle_voice:thirds_and_chord_tones",
+            "tag": "middle_voice:parallel_thirds_and_chord_tones",
             "span": [
               1,
               8
@@ -2436,7 +2436,7 @@
         "tags": [
           "form:period",
           "form:not_looped",
-          "middle_voice:thirds_and_sixths",
+          "middle_voice:parallel_thirds_and_sixths",
           "form:ABA"
         ],
         "fourMeasurePhrasingReferences": [],
@@ -2610,7 +2610,7 @@
         "tags": [
           "harmony:diminished_seventh_chords",
           "scale:mixed_minor",
-          "middle_voice:thirds_and_sixths"
+          "middle_voice:parallel_thirds_and_sixths"
         ],
         "fourMeasurePhrasingReferences": [
           2,
@@ -6011,7 +6011,7 @@
             ]
           },
           {
-            "tag": "middle_voice:thirds_and_chord_tones",
+            "tag": "middle_voice:parallel_thirds_and_chord_tones",
             "span": [
               11,
               26
@@ -7395,7 +7395,7 @@
         "tags": [
           "location:boss",
           "harmony:pure_I-V",
-          "middle_voice:thirds_and_sixths",
+          "middle_voice:parallel_thirds_and_sixths",
           "bass:root_third_fifth"
         ],
         "fourMeasurePhrasingReferences": [],
@@ -9215,7 +9215,7 @@
           "timbre:melody_echo",
           "voice_leading:descending_diatonic_bass",
           "location:game_won",
-          "middle_voice:thirds_and_sixths"
+          "middle_voice:parallel_thirds_and_sixths"
         ],
         "fourMeasurePhrasingReferences": [
           4,
@@ -13878,7 +13878,7 @@
         "tags": [
           "location:launch_screen",
           "form:period",
-          "middle_voice:thirds_and_sixths",
+          "middle_voice:parallel_thirds_and_sixths",
           "bass:root_octaves"
         ],
         "fourMeasurePhrasingReferences": [
@@ -13908,7 +13908,7 @@
         "modulations": [],
         "tags": [
           "bass:root_octaves",
-          "middle_voice:thirds_and_sixths"
+          "middle_voice:parallel_thirds_and_sixths"
         ],
         "fourMeasurePhrasingReferences": [
           3
@@ -13930,7 +13930,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "middle_voice:thirds_and_sixths",
+          "middle_voice:parallel_thirds_and_sixths",
           "bass:root_octaves"
         ],
         "fourMeasurePhrasingReferences": [],
@@ -20475,7 +20475,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "middle_voice:thirds_and_sixths",
+          "middle_voice:parallel_thirds_and_sixths",
           "bass:root_octaves",
           "bass:pedal_point"
         ],
@@ -20919,7 +20919,7 @@
           "form:not_looped",
           "reference:previous_subtune",
           "harmony:pure_I-V",
-          "middle_voice:thirds_and_chord_tones",
+          "middle_voice:parallel_thirds_and_chord_tones",
           "bass:walking",
           "middle_voice:parallel_thirds"
         ],
@@ -21591,7 +21591,7 @@
           "harmony:weird_chord",
           "bass:root_fifth",
           "bass:transposed_riff",
-          "middle_voice:thirds_and_sixths",
+          "middle_voice:parallel_thirds_and_sixths",
           "middle_voice:riff"
         ],
         "fourMeasurePhrasingReferences": [],
@@ -21960,7 +21960,7 @@
         "modulations": [],
         "tags": [
           "rhythm:latin",
-          "middle_voice:thirds_and_sixths",
+          "middle_voice:parallel_thirds_and_sixths",
           "bass:riff",
           "non-chord_tones:neighbor",
           "middle_voice:parallel_fourths"
@@ -25448,7 +25448,7 @@
         "clickResolutionMs": 0.01,
         "tags": [
           "harmony:diminished_seventh_chords",
-          "middle_voice:thirds_and_sixths",
+          "middle_voice:parallel_thirds_and_sixths",
           "middle_voice:riff",
           "scale:mixed_major",
           "middle_voice:counterpoint",
@@ -25594,7 +25594,7 @@
             ]
           },
           {
-            "tag": "middle_voice:thirds_and_chord_tones",
+            "tag": "middle_voice:parallel_thirds_and_chord_tones",
             "span": [
               1,
               8
@@ -26890,7 +26890,7 @@
             ]
           },
           {
-            "tag": "middle_voice:thirds_and_chord_tones",
+            "tag": "middle_voice:parallel_thirds_and_chord_tones",
             "span": [
               7,
               10
@@ -27708,6 +27708,56 @@
               32,
               32
             ]
+          },
+          {
+            "voices": [
+              2
+            ],
+            "tag": "bass:root_fifth",
+            "span": [
+              17,
+              24
+            ]
+          },
+          {
+            "voices": [
+              2
+            ],
+            "tag": "bass:root",
+            "span": [
+              25,
+              32
+            ]
+          },
+          {
+            "voices": [
+              2
+            ],
+            "tag": "bass:root_octaves",
+            "span": [
+              3,
+              10
+            ]
+          },
+          {
+            "voices": [
+              1
+            ],
+            "tag": "melody:x2_vs_new_x2",
+            "span": [
+              3,
+              6
+            ]
+          },
+          {
+            "voices": [
+              1
+            ],
+            "tag": "melody:basic_idea_x2_and_fragmentation",
+            "span": [
+              11,
+              16
+            ]
           }
         ],
         "disableSnapToNotes": true,
@@ -27755,6 +27805,331 @@
           "27": 39.91000000000063
         },
         "tonic": 0,
+        "basedOn": null
+      },
+      "4": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "first measure",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      },
+      "6": {
+        "beatsPerMeasure": 4,
+        "tagSpans": [
+          {
+            "tag": "tempo:ritardando",
+            "span": [
+              51,
+              55
+            ]
+          },
+          {
+            "tag": "harmony:constant_structures",
+            "span": [
+              1,
+              6
+            ]
+          },
+          {
+            "tag": "harmony:Vsus4",
+            "span": [
+              13,
+              14
+            ]
+          },
+          {
+            "tag": "harmony:diatonic_seventh_chords",
+            "span": [
+              15,
+              22
+            ]
+          },
+          {
+            "voices": [
+              1
+            ],
+            "tag": "melody:higher_pitch_on_repeat",
+            "span": [
+              15,
+              34
+            ]
+          },
+          {
+            "voices": [
+              2
+            ],
+            "tag": "bass:pedal_point",
+            "span": [
+              39,
+              42
+            ]
+          },
+          {
+            "tag": "harmony:upper_structure",
+            "span": [
+              9,
+              10
+            ]
+          },
+          {
+            "voices": [
+              2
+            ],
+            "tag": "bass:root",
+            "span": [
+              1,
+              6
+            ]
+          },
+          {
+            "voices": [
+              2
+            ],
+            "tag": "bass:root_fifth",
+            "span": [
+              7,
+              38
+            ]
+          },
+          {
+            "voices": [
+              2
+            ],
+            "tag": "bass:root_fifth",
+            "span": [
+              43,
+              50
+            ]
+          },
+          {
+            "voices": [
+              2
+            ],
+            "tag": "bass:root_octaves",
+            "span": [
+              51,
+              52
+            ]
+          },
+          {
+            "voices": [
+              2
+            ],
+            "tag": "bass:root",
+            "span": [
+              53,
+              55
+            ]
+          },
+          {
+            "voices": [
+              0,
+              1
+            ],
+            "tag": "middle_voice:lower_chord_tones",
+            "span": [
+              1,
+              10
+            ]
+          },
+          {
+            "voices": [
+              0,
+              1
+            ],
+            "tag": "middle_voice:parallel_thirds_and_chord_tones",
+            "span": [
+              11,
+              22
+            ]
+          },
+          {
+            "voices": [
+              1,
+              0
+            ],
+            "tag": "melody:fills_at_rests",
+            "span": [
+              11,
+              14
+            ]
+          },
+          {
+            "voices": [
+              0,
+              1
+            ],
+            "tag": "middle_voice:parallel_thirds_and_chord_tones",
+            "span": [
+              43,
+              55
+            ]
+          },
+          {
+            "voices": [
+              0,
+              1
+            ],
+            "tag": "middle_voice:parallel_sixths",
+            "span": [
+              39,
+              42
+            ]
+          },
+          {
+            "tag": "form:period",
+            "span": [
+              7,
+              38
+            ]
+          },
+          {
+            "tag": "rhythm:syncopation",
+            "span": [
+              11,
+              22
+            ]
+          },
+          {
+            "tag": "form:period_without_melodic_repetition",
+            "span": [
+              39,
+              55
+            ]
+          },
+          {
+            "tag": "harmony:diatonic_seventh_chords",
+            "span": [
+              43,
+              52
+            ]
+          }
+        ],
+        "disableSnapToNotes": true,
+        "romanNumerals": "II #III IV IV V V I I V7/IV V7/IV IV ii V V IV^ V iii7 vi ii7 ii7 V7 V7 I I V7/IV V7/IV IV ii V V IV^ V iii7 vi7 ii7 V I V7/IV IV IV IV IV iii7 vi ii7 V IV^ V iii vi7 ii7 V VI VII I",
+        "clickResolutionMs": 0.01,
+        "modulations": {
+          "39": 3,
+          "53": 0
+        },
+        "tags": [
+          "form:not_looped"
+        ],
+        "fourMeasurePhrasingReferences": [
+          7
+        ],
+        "secondMeasure": 1.5900000000000012,
+        "form": {
+          "1": "intro",
+          "7": "A:antecedent",
+          "23": "A:consequent",
+          "39": "B:antecedent",
+          "47": "B:consequent",
+          "53": "=IV"
+        },
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "8": 11.179999999999806,
+          "9": 12.779999999999772,
+          "24": 36.710000000001266,
+          "25": 38.31000000000095,
+          "54": 85.47000000000682,
+          "55": 88.91000000000858
+        },
+        "tonic": 10,
+        "basedOn": null
+      },
+      "7": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "first measure",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 9,
+        "basedOn": null
+      },
+      "8": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "location:jingle"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.5600000000000012,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      },
+      "9": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "location:jingle"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 2.06,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 2,
+        "basedOn": null
+      },
+      "10": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "location:jingle"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.5900000000000012,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 5,
         "basedOn": null
       }
     }

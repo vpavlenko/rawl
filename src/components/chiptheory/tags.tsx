@@ -192,13 +192,14 @@ export const TAGS = [
   "melody:arc",
   "melody:inversion",
   "melody:ascending_chromatic",
+  "melody:higher_pitch_on_repeat",
   "bass:drone",
   "bass:transposed_riff",
   "bass:riff",
   "bass:walking",
   "bass:melody",
   "bass:alberti",
-  "bass:pedal_point",
+  "bass:pedal_point", // should I rename to "harmony:pedal_point"?
   "bass:counterpoint",
   "bass:root_octaves",
   "bass:mixed_octaves",
@@ -236,9 +237,9 @@ export const TAGS = [
   "middle_voice:parallel_thirds",
   "middle_voice:parallel_thirds_with_bass",
   "middle_voice:mixed_parallel", // this is probably the same as "counterpoint"
-  "middle_voice:thirds_and_sixths",
+  "middle_voice:parallel_thirds_and_sixths",
   "middle_voice:parallel_sixths",
-  "middle_voice:thirds_and_chord_tones",
+  "middle_voice:parallel_thirds_and_chord_tones",
   "middle_voice:lower_chord_tones",
   "middle_voice:any_chord_tones",
   "middle_voice:creative_chord_tones", // TODO: check that it's not used for bass
@@ -447,8 +448,24 @@ const StripeTag: React.FC<{
       onMouseLeave={onMouseLeave}
       onClick={(e) => e.stopPropagation()}
     >
+      {removeTag && (
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            removeTag();
+          }}
+          style={{
+            backgroundColor: "transparent",
+            color: "white",
+            fontSize: STRIPE_HEIGHT,
+          }}
+        >
+          [x]
+        </button>
+      )}
       <a
-        href={`/search/${category}/${value}`}
+        href={`/chiptheory/search/${category}/${value}`}
         target="_blank"
         onClick={(e) => e.stopPropagation()}
       >
@@ -508,22 +525,6 @@ const StripeTag: React.FC<{
           )}
         </span>
       )}
-      {removeTag && (
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            removeTag();
-          }}
-          style={{
-            backgroundColor: "transparent",
-            color: "white",
-            fontSize: STRIPE_HEIGHT,
-          }}
-        >
-          [x]
-        </button>
-      )}
     </div>
   );
 };
@@ -540,7 +541,7 @@ const pickSemanticVoicesForTag = (
     return [semanticVoices.bass];
   }
   if (category === "middle_voice") {
-    if (value.startsWith("parallel")) {
+    if (value.startsWith("parallel") || value.endsWith("chord_tones")) {
       return [semanticVoices.middle, semanticVoices.high];
     }
     if (value === "melody_below_arpeggio") {
@@ -549,6 +550,9 @@ const pickSemanticVoicesForTag = (
     return [semanticVoices.middle];
   }
   if (category === "melody") {
+    if (value === "fills_at_rests") {
+      return [semanticVoices.high, semanticVoices.middle];
+    }
     // will fail when middle_voice:melody
     return [semanticVoices.high];
   }

@@ -16065,33 +16065,158 @@
     "720 (1989-11)(Atari Games)(Tengen)(Mindscape).nsf": {
       "2": {
         "mode": "phrygian",
-        "secondMeasure": 7.9699999999998745,
-        "loop": 16,
-        "firstMeasure": 6.369999999999909,
-        "clickResolutionMs": 0.01,
-        "step": "tonic",
-        "comment": "phrygian four notes",
-        "tonic": 4
-      },
-      "4": {
-        "mode": "minor",
-        "secondMeasure": 0.7700000000000005,
-        "loop": 49,
-        "romanNumerals": "I I I I vi vi vi vi ii ii ii ii IV IV v v i VII VI V I5 VII5 VI V I5 VII5 VI5 V",
+        "fourMeasurePhrasingReferences": [
+          3
+        ],
+        "secondMeasure": 2.849999999999983,
+        "loop": 11,
         "firstMeasure": 0,
         "clickResolutionMs": 0.01,
         "step": "end",
-        "comment": "mixolydian with 4th in chords",
-        "correctedMeasures": [],
-        "tonic": 7,
+        "comment": "phrygian four notes",
+        "tonic": 4,
+        "correctedMeasures": {
+          "2": 3.0166666666666666,
+          "4": 9.55999999999984
+        },
+        "tags": [
+          "tempo:twice_as_fast",
+          "scale:phrygian"
+        ]
+      },
+      "3": {
+        "beatsPerMeasure": 4,
+        "tagSpans": [
+          {
+            "tag": "melody:riff",
+            "span": [
+              9,
+              16
+            ]
+          },
+          {
+            "tag": "bass:doubles_melody",
+            "span": [
+              9,
+              16
+            ]
+          },
+          {
+            "tag": "middle_voice:absent",
+            "span": [
+              9,
+              16
+            ]
+          }
+        ],
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "tags": [],
+        "modulations": {
+          "5": 4,
+          "9": 9,
+          "13": 11
+        },
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.9400000000000015,
+        "loop": 17,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "3": 4.679999999999945,
+          "4": 7.169999999999892,
+          "5": 9.55999999999984,
+          "9": 19.183333333333334
+        },
+        "tonic": 11,
+        "basedOn": null
+      },
+      "4": {
+        "tagSpans": [
+          {
+            "tag": "form:progression",
+            "span": [
+              9,
+              24
+            ]
+          },
+          {
+            "voices": [
+              0
+            ],
+            "tag": "bass:transposed_riff",
+            "span": [
+              1,
+              8
+            ]
+          },
+          {
+            "voices": [
+              1
+            ],
+            "tag": "bass:root_fifth",
+            "span": [
+              9,
+              24
+            ]
+          },
+          {
+            "tag": "middle_voice:absent",
+            "span": [
+              1,
+              24
+            ]
+          }
+        ],
+        "romanNumerals": "I I vi vi ii ii  IV v i-VII VI-v i-VII VI-v i-VII VI-v i-VII VI-v i-VII VI-v i-VII VI-v i-VII VI-v i-VII VI-v ",
+        "clickResolutionMs": 0.01,
         "tags": [
           "harmony:parallel_keys",
-          "timbre:oscillator_as_percussion",
-          "middle_voice:absent"
-        ]
+          "timbre:oscillator_as_percussion"
+        ],
+        "mode": "minor",
+        "secondMeasure": 0.7700000000000005,
+        "form": {
+          "1": "A",
+          "9": "B"
+        },
+        "loop": 25,
+        "firstMeasure": 0,
+        "step": "second measure",
+        "comment": "mixolydian with 4th in chords",
+        "correctedMeasures": {
+          "2": 1.5700000000000012
+        },
+        "tonic": 7
       },
       "5": {
         "mode": "dorian",
+        "tagSpans": [
+          {
+            "tag": "beats:incomplete_measure_on_transition",
+            "span": [
+              8,
+              8
+            ]
+          },
+          {
+            "tag": "timbre:oscillator_as_percussion",
+            "span": [
+              1,
+              4
+            ]
+          },
+          {
+            "tag": "bass:doubles_melody",
+            "span": [
+              1,
+              8
+            ]
+          }
+        ],
         "secondMeasure": 1.5200000000000011,
         "loop": 9,
         "firstMeasure": 0,
@@ -16102,7 +16227,8 @@
           "3": 3.1199999999999775,
           "6": 7.9699999999998745,
           "7": 9.55999999999984
-        }
+        },
+        "tags": []
       }
     }
   },

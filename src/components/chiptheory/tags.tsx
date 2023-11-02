@@ -348,11 +348,17 @@ const getAverageMidiNumber = (notes: Note[]) =>
 
 const EPSILON = 0.05; // 50 ms
 
+type SemanticVoices = {
+  bass: number;
+  middle?: number;
+  high?: number;
+};
+
 const getSemanticVoicesForSpan = (
   voices: Note[][],
   startSecond: number,
   endSecond: number,
-) => {
+): SemanticVoices => {
   const sortedVoices = voices
     .map((voice, index) => [
       getAverageMidiNumber(
@@ -421,6 +427,7 @@ const StripeTag: React.FC<{
         flexDirection: "row",
         justifyContent: "space-between",
         borderRight: "1px solid black",
+        overflow: "hidden",
       }}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
@@ -431,11 +438,15 @@ const StripeTag: React.FC<{
         target="_blank"
         onClick={(e) => e.stopPropagation()}
       >
-        <span style={{ overflow: "hidden", fontSize: STRIPE_HEIGHT }}>
+        <span style={{ fontSize: STRIPE_HEIGHT }}>
           {value.replace(/_/g, " ")}
         </span>
       </a>
-      {category === "bass" && (
+      {pickSemanticVoicesForTag(
+        { bass: -1, middle: -1, high: -1 },
+        category,
+        value,
+      ) && (
         <button
           onClick={(e) => {
             e.preventDefault();
@@ -489,6 +500,22 @@ const StripeTag: React.FC<{
   );
 };
 
+const pickSemanticVoicesForTag = (
+  semanticVoices: SemanticVoices,
+  category: string,
+  value: string,
+): number[] | null => {
+  if (category === "bass") {
+    return [semanticVoices.bass];
+  }
+  if (category === "middle_voice") {
+    if (value === "arpeggio") {
+      return [semanticVoices.middle];
+    }
+  }
+  return null;
+};
+
 export const Stripes: React.FC<{
   tagSpans: TagSpan[];
   measuresAndBeats: MeasuresAndBeats;
@@ -515,7 +542,7 @@ export const Stripes: React.FC<{
       .fill(null)
       .map(() => []);
     tagSpans.map(({ tag, span, voices: tagVoices }, tagIndex) => {
-      const [category, content] = tag.split(":");
+      const [category, value] = tag.split(":");
       let categoryIndex = CATEGORIES_IN_STRIPES.indexOf(category);
       if (categoryIndex === -1) {
         categoryIndex = CATEGORIES_IN_STRIPES.length - 1;
@@ -552,16 +579,22 @@ export const Stripes: React.FC<{
               startSecond,
               endSecond,
             );
-            if (category === "bass") {
+            const pickedVoices = pickSemanticVoicesForTag(
+              semanticVoices,
+              category,
+              value,
+            );
+            if (pickedVoices) {
               commitAnalysisUpdate({
                 ...analysis,
                 tagSpans: [
-                  ...tagSpans.slice(0, tagIndex - 1),
+                  ...tagSpans.slice(0, tagIndex),
                   {
                     tag,
                     span,
-                    voices: [semanticVoices.bass],
+                    voices: pickedVoices,
                   },
+                  ...tagSpans.slice(tagIndex + 1),
                 ],
               });
             }

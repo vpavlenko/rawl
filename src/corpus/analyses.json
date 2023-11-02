@@ -24827,6 +24827,9 @@
             ]
           },
           {
+            "voices": [
+              2
+            ],
             "tag": "bass:root_fifth",
             "span": [
               1,
@@ -24848,6 +24851,9 @@
             ]
           },
           {
+            "voices": [
+              2
+            ],
             "tag": "bass:root",
             "span": [
               9,
@@ -25161,6 +25167,9 @@
         "beatsPerMeasure": 4,
         "tagSpans": [
           {
+            "voices": [
+              1
+            ],
             "tag": "middle_voice:arpeggio",
             "span": [
               5,
@@ -25196,6 +25205,9 @@
             ]
           },
           {
+            "voices": [
+              2
+            ],
             "tag": "bass:root_fifth",
             "span": [
               1,

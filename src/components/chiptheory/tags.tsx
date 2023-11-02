@@ -175,12 +175,14 @@ export const TAGS = [
   "timbre:many_instruments_same_oscillator",
   "timbre:variable_duty_cycle",
   "timbre:siren",
+  "timbre:melody_echo",
   "melody:riff",
   "melody:transposed_riff",
   "melody:chromatic_embellishments",
   "melody:basic_idea_x3",
   "melody:basic_idea_x4",
   "melody:basic_idea_x2_and_fragmentation",
+  "melody:x2_vs_new_x2",
   "melody:fills_at_rests",
   "melody:fill_after_cadence",
   "melody:stepwise",
@@ -225,7 +227,6 @@ export const TAGS = [
   "style:bossa_nova",
   "style:boogie-woogie",
   "style:banjo",
-  "middle_voice:melody_echo",
   "middle_voice:doubles_bass",
   "middle_voice:parallel_octaves",
   "middle_voice:parallel_fourths",
@@ -243,6 +244,7 @@ export const TAGS = [
   "middle_voice:static_chord_tones",
   "middle_voice:drone",
   "middle_voice:riff",
+  "middle_voice:riffy_complex",
   "middle_voice:transposed_riff",
   // four most typical cases:
   "middle_voice:absent",
@@ -413,6 +415,11 @@ const StripeTag: React.FC<{
   onMouseLeave,
 }) => {
   const [category, value] = tag.split(":");
+  const dummyPickVoices = pickSemanticVoicesForTag(
+    { bass: -1, middle: -1, high: -1 },
+    category,
+    value,
+  );
   return (
     <div
       className={"stripeTag"}
@@ -446,28 +453,22 @@ const StripeTag: React.FC<{
           {value.replace(/_/g, " ")}
         </span>
       </a>
-      {attachVoices &&
-        !tagVoices &&
-        pickSemanticVoicesForTag(
-          { bass: -1, middle: -1, high: -1 },
-          category,
-          value,
-        ) && (
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              attachVoices();
-            }}
-            style={{
-              backgroundColor: "transparent",
-              color: "white",
-              fontSize: STRIPE_HEIGHT,
-            }}
-          >
-            [attach voices]
-          </button>
-        )}
+      {attachVoices && !tagVoices && dummyPickVoices && (
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            attachVoices();
+          }}
+          style={{
+            backgroundColor: "transparent",
+            color: "white",
+            fontSize: STRIPE_HEIGHT,
+          }}
+        >
+          [attach {dummyPickVoices.length === 1 ? "a voice" : "voices"}]
+        </button>
+      )}
       {tagVoices && (
         <span style={{ fontSize: STRIPE_HEIGHT }}>
           {tagVoices.map((voice) => (
@@ -478,7 +479,11 @@ const StripeTag: React.FC<{
                 setVoiceMask(mask);
                 seek(startSecond * 1000);
               }}
-              style={{ fontSize: STRIPE_HEIGHT, marginRight: "10px" }}
+              style={{
+                fontSize: STRIPE_HEIGHT,
+                marginRight: "10px",
+                cursor: "pointer",
+              }}
             >
               #{voice}
             </span>
@@ -490,11 +495,14 @@ const StripeTag: React.FC<{
                 tagVoices.forEach((voice) => (mask[voice] = true));
                 setVoiceMask(mask);
                 seek(startSecond * 1000);
-                if (category === "middle_voice") {
+                if (
+                  category === "middle_voice" &&
+                  value !== "melody_below_arpeggio"
+                ) {
                   showIntervals();
                 }
               }}
-              style={{ fontSize: STRIPE_HEIGHT }}
+              style={{ fontSize: STRIPE_HEIGHT, cursor: "pointer" }}
             >
               mix
             </span>
@@ -530,12 +538,13 @@ const pickSemanticVoicesForTag = (
     return [semanticVoices.bass];
   }
   if (category === "middle_voice") {
-    if (value === "arpeggio" || value === "static_chord_tones") {
-      return [semanticVoices.middle];
-    }
     if (value.startsWith("parallel")) {
       return [semanticVoices.middle, semanticVoices.high];
     }
+    if (value === "melody_below_arpeggio") {
+      return [semanticVoices.high, semanticVoices.middle];
+    }
+    return [semanticVoices.middle];
   }
   if (category === "melody") {
     // will fail when middle_voice:melody
@@ -681,6 +690,38 @@ export const Stripes: React.FC<{
             {bucket}
           </div>
         ))}
+        <div
+          style={{
+            height: STRIPE_HEIGHT,
+            position: "absolute",
+            top: CATEGORIES_IN_STRIPES.length * STRIPE_HEIGHT,
+            left: 0,
+            width: "100%",
+          }}
+        >
+          <div
+            style={{
+              position: "absolute",
+              fontSize: STRIPE_HEIGHT,
+              padding: "0 5px 0 5px",
+            }}
+          >
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setVoiceMask([true, true, true, true, true]);
+              }}
+              style={{
+                backgroundColor: "transparent",
+                color: "white",
+                fontSize: STRIPE_HEIGHT,
+              }}
+            >
+              [mix]
+            </button>
+          </div>
+        </div>
       </div>
     );
   },

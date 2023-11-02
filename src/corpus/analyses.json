@@ -218,7 +218,7 @@
         "tags": [
           "location:level",
           "chip:toms_DMC",
-          "middle_voice:melody_echo",
+          "timbre:melody_echo",
           "bass:riff",
           "analyzed_in:hopkins"
         ],
@@ -301,7 +301,7 @@
           "form:period",
           "bass:pedal_point",
           "rhythm:swing",
-          "middle_voice:melody_echo"
+          "timbre:melody_echo"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.440000000000001,
@@ -754,7 +754,7 @@
           "scale:nikriz",
           "style:arabic",
           "timbre:layered",
-          "middle_voice:melody_echo",
+          "timbre:melody_echo",
           "middle_voice:parallel_octaves",
           "harmony:unison"
         ],
@@ -1637,7 +1637,7 @@
         "tags": [
           "location:boss",
           "rhythm:latin",
-          "middle_voice:melody_echo"
+          "timbre:melody_echo"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.9700000000000015,
@@ -1725,7 +1725,7 @@
         "modulations": [],
         "tags": [
           "harmony:diminished_seventh_chords",
-          "middle_voice:melody_echo",
+          "timbre:melody_echo",
           "voice_leading:descending_chromatic_melody",
           "middle_voice:drone"
         ],
@@ -1751,7 +1751,7 @@
         "modulations": [],
         "tags": [
           "scale:blues",
-          "middle_voice:melody_echo",
+          "timbre:melody_echo",
           "location:boss"
         ],
         "fourMeasurePhrasingReferences": [],
@@ -1775,7 +1775,7 @@
           "scale:blues",
           "voice_leading:W-arpeggio",
           "scale:pentatonic",
-          "middle_voice:melody_echo",
+          "timbre:melody_echo",
           "bass:riff",
           "location:boss"
         ],
@@ -3247,7 +3247,7 @@
         "tags": [
           "chip:tonal_DMC",
           "harmony:stasis",
-          "middle_voice:melody_echo",
+          "timbre:melody_echo",
           "location:intro"
         ],
         "fourMeasurePhrasingReferences": [],
@@ -3281,7 +3281,7 @@
           "timbre:wide_vibrato",
           "harmony:neo-riemannian",
           "middle_voice:parallel_octaves",
-          "middle_voice:melody_echo",
+          "timbre:melody_echo",
           "middle_voice:arpeggio",
           "scale:chromatic"
         ],
@@ -3318,7 +3318,7 @@
         "tags": [
           "chip:tonal_DMC",
           "location:level",
-          "middle_voice:melody_echo",
+          "timbre:melody_echo",
           "harmony:neo-riemannian",
           "middle_voice:arpeggio",
           "middle_voice:parallel_octaves",
@@ -3660,7 +3660,7 @@
         "tags": [
           "form:period",
           "melody:fills_at_rests",
-          "middle_voice:melody_echo",
+          "timbre:melody_echo",
           "bass:root_fifth",
           "timbre:wide_vibrato",
           "timbre:minor_seconds",
@@ -3709,7 +3709,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "middle_voice:melody_echo",
+          "timbre:melody_echo",
           "style:major_chord_jingle"
         ],
         "fourMeasurePhrasingReferences": [],
@@ -4685,7 +4685,7 @@
         "tags": [
           "harmony:plagal_shuttle",
           "scale:chromatic",
-          "middle_voice:melody_echo",
+          "timbre:melody_echo",
           "location:launch_screen",
           "scale:blues"
         ],
@@ -5220,7 +5220,7 @@
         "tags": [
           "scale:chromatic",
           "location:boss",
-          "middle_voice:melody_echo"
+          "timbre:melody_echo"
         ],
         "fourMeasurePhrasingReferences": [],
         "form": [],
@@ -5309,7 +5309,7 @@
         "romanNumerals": "i i I I",
         "clickResolutionMs": 0.01,
         "tags": [
-          "middle_voice:melody_echo",
+          "timbre:melody_echo",
           "middle_voice:arpeggio",
           "harmony:neo-riemannian",
           "middle_voice:mixed_parallel"
@@ -5482,7 +5482,7 @@
           "chip:tonal_DMC",
           "location:launch_screen",
           "rhythm:syncopation",
-          "middle_voice:melody_echo"
+          "timbre:melody_echo"
         ],
         "fourMeasurePhrasingReferences": [],
         "form": {
@@ -5541,7 +5541,7 @@
           "chip:tonal_DMC",
           "rhythm:syncopation",
           "timbre:oscillator_as_percussion",
-          "middle_voice:melody_echo",
+          "timbre:melody_echo",
           "form:basso_ostinato",
           "bass:riff"
         ],
@@ -5591,7 +5591,7 @@
         "modulations": [],
         "tags": [
           "chip:tonal_DMC",
-          "middle_voice:melody_echo"
+          "timbre:melody_echo"
         ],
         "fourMeasurePhrasingReferences": [],
         "form": {
@@ -5635,7 +5635,7 @@
           "location:level",
           "bass:riff",
           "form:period",
-          "middle_voice:melody_echo",
+          "timbre:melody_echo",
           "timbre:oscillator_as_percussion"
         ],
         "fourMeasurePhrasingReferences": [],
@@ -5673,7 +5673,7 @@
         "tags": [
           "chip:tonal_DMC",
           "location:level",
-          "middle_voice:melody_echo",
+          "timbre:melody_echo",
           "form:period",
           "scale:phrygian",
           "rhythm:3+3+2"
@@ -5720,7 +5720,7 @@
           "harmony:diminished_seventh_chords",
           "location:boss",
           "scale:chromatic",
-          "middle_voice:melody_echo",
+          "timbre:melody_echo",
           "middle_voice:melody_below_arpeggio"
         ],
         "fourMeasurePhrasingReferences": [
@@ -6394,7 +6394,7 @@
         "tags": [
           "harmony:constant_structures",
           "scale:pentatonic",
-          "middle_voice:melody_echo",
+          "timbre:melody_echo",
           "voice_leading:W-arpeggio",
           "location:intro"
         ],
@@ -7068,7 +7068,7 @@
         "tags": [
           "bass:alberti",
           "form:uniform_period",
-          "middle_voice:melody_echo",
+          "timbre:melody_echo",
           "melody:chromatic_embellishments"
         ],
         "fourMeasurePhrasingReferences": [],
@@ -7123,7 +7123,7 @@
           "rhythm:3+3+3+3+2+2",
           "melody:basic_idea_x3",
           "voice_leading:ascending_bass",
-          "middle_voice:melody_echo"
+          "timbre:melody_echo"
         ],
         "fourMeasurePhrasingReferences": [],
         "form": [],
@@ -7146,7 +7146,7 @@
         "modulations": [],
         "tags": [
           "voice_leading:descending_chromatic_bass",
-          "middle_voice:melody_echo",
+          "timbre:melody_echo",
           "bass:riff"
         ],
         "fourMeasurePhrasingReferences": [
@@ -8021,7 +8021,7 @@
         "modulations": [],
         "tags": [
           "scale:dorian",
-          "middle_voice:melody_echo"
+          "timbre:melody_echo"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 2.9899999999999802,
@@ -8717,7 +8717,7 @@
         "tags": [
           "harmony:mixolydian_shuttle",
           "location:menu",
-          "middle_voice:melody_echo",
+          "timbre:melody_echo",
           "middle_voice:melody_below_arpeggio"
         ],
         "fourMeasurePhrasingReferences": [],
@@ -8751,7 +8751,7 @@
         "tags": [
           "harmony:mixolydian_shuttle",
           "rhythm:syncopation",
-          "middle_voice:melody_echo",
+          "timbre:melody_echo",
           "melody:fills_at_rests",
           "location:level"
         ],
@@ -8803,7 +8803,7 @@
           "voice_leading:ascending_chromatic",
           "bass:riff",
           "melody:riff",
-          "middle_voice:melody_echo",
+          "timbre:melody_echo",
           "location:boss"
         ],
         "fourMeasurePhrasingReferences": [
@@ -8901,7 +8901,7 @@
           "tempo:twice_as_fast",
           "middle_voice:parallel_fourths",
           "bass:riff",
-          "middle_voice:melody_echo",
+          "timbre:melody_echo",
           "middle_voice:parallel_octaves",
           "harmony:blues_shuttle"
         ],
@@ -8939,7 +8939,7 @@
           "scale:pentatonic",
           "harmony:stasis",
           "voice_leading:descending_chromatic_melody",
-          "middle_voice:melody_echo",
+          "timbre:melody_echo",
           "bass:riff",
           "harmony:unison"
         ],
@@ -9086,7 +9086,7 @@
         "tags": [
           "melody:riff",
           "scale:blues",
-          "middle_voice:melody_echo",
+          "timbre:melody_echo",
           "middle_voice:parallel_sixths",
           "melody:fills_at_rests",
           "location:level"
@@ -9125,7 +9125,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "middle_voice:melody_echo",
+          "timbre:melody_echo",
           "middle_voice:parallel_fourths",
           "harmony:dorian_shuttle",
           "form:verse-chorus",
@@ -9182,7 +9182,7 @@
           "scale:dorian",
           "harmony:stasis",
           "melody:riff",
-          "middle_voice:melody_echo",
+          "timbre:melody_echo",
           "middle_voice:parallel_fourths",
           "voice_leading:W-arpeggio",
           "scale:octatonic"
@@ -9212,7 +9212,7 @@
         "tags": [
           "tempo:ritardando",
           "harmony:mixolydian_shuttle",
-          "middle_voice:melody_echo",
+          "timbre:melody_echo",
           "voice_leading:descending_diatonic_bass",
           "location:game_won",
           "middle_voice:thirds_and_sixths"
@@ -9924,7 +9924,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "middle_voice:melody_echo",
+          "timbre:melody_echo",
           "scale:hijaz",
           "location:level",
           "analyzed_in:hopkins",
@@ -9971,7 +9971,7 @@
         "tags": [
           "location:level",
           "chip:tonal_DMC",
-          "middle_voice:melody_echo",
+          "timbre:melody_echo",
           "form:extra_measure",
           "scale:lydian",
           "harmony:parallel_keys",
@@ -10032,7 +10032,7 @@
         },
         "tags": [
           "location:password",
-          "middle_voice:melody_echo",
+          "timbre:melody_echo",
           "form:period",
           "tempo:ritardando",
           "style:common_practice",
@@ -10094,7 +10094,7 @@
         },
         "tags": [
           "location:boss",
-          "middle_voice:melody_echo",
+          "timbre:melody_echo",
           "scale:blues",
           "middle_voice:parallel_fourths",
           "tempo:uneven",
@@ -10214,7 +10214,7 @@
           "location:boss",
           "scale:blues",
           "harmony:stasis",
-          "middle_voice:melody_echo"
+          "timbre:melody_echo"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.340000000000001,
@@ -10637,7 +10637,7 @@
           "middle_voice:parallel_fourths",
           "scale:pentatonic",
           "middle_voice:parallel_octaves",
-          "middle_voice:melody_echo",
+          "timbre:melody_echo",
           "location:level",
           "voice_leading:descending_chromatic_melody"
         ],
@@ -10801,7 +10801,7 @@
         "tags": [
           "scale:whole-tone",
           "location:launch_screen",
-          "middle_voice:melody_echo"
+          "timbre:melody_echo"
         ],
         "fourMeasurePhrasingReferences": [],
         "form": [],
@@ -12127,17 +12127,51 @@
   },
   "Nintendo/Al Unser Jr. Turbo Racing": {
     "Al Unser Jr. Turbo Racing [World Grand-Prix - Pole to Finish] (1989-01-31)(Data East).nsf": {
+      "27": {
+        "beatsPerMeasure": 4,
+        "tagSpans": [],
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "harmony:mixolydian_shuttle",
+          "voice_leading:W-arpeggio"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 2.489999999999991,
+        "loop": 3,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 10,
+        "basedOn": null
+      },
       "28": {
         "beatsPerMeasure": 4,
+        "tagSpans": [
+          {
+            "tag": "harmony:blues_seventh_chords",
+            "span": [
+              1,
+              12
+            ]
+          }
+        ],
         "romanNumerals": "I I I I IV IV I I V V IV IV",
         "clickResolutionMs": 0.01,
+        "tags": [
+          "form:16-bar_blues"
+        ],
         "mode": null,
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.490000000000001,
         "loop": 17,
         "firstMeasure": 0,
         "step": "end",
-        "comment": "12-bar blues",
+        "comment": "",
         "correctedMeasures": {
           "16": 22.214285714285715
         },
@@ -15719,7 +15753,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "middle_voice:melody_echo"
+          "timbre:melody_echo"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 3.189999999999976,
@@ -15816,7 +15850,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "middle_voice:melody_echo",
+          "timbre:melody_echo",
           "harmony:stasis",
           "bass:riff",
           "timbre:rich",
@@ -18273,7 +18307,7 @@
           "chip:tonal_DMC",
           "location:boss",
           "middle_voice:parallel_thirds",
-          "middle_voice:melody_echo",
+          "timbre:melody_echo",
           "scale:dorian"
         ],
         "fourMeasurePhrasingReferences": [],
@@ -18296,7 +18330,7 @@
         "tags": [
           "chip:tonal_DMC",
           "scale:chromatic",
-          "middle_voice:melody_echo",
+          "timbre:melody_echo",
           "bass:riff"
         ],
         "fourMeasurePhrasingReferences": [
@@ -18639,7 +18673,7 @@
           "scale:hemitonic_pentatonic",
           "bass:root_octaves",
           "bass:riff",
-          "middle_voice:melody_echo",
+          "timbre:melody_echo",
           "form:accumulative"
         ],
         "fourMeasurePhrasingReferences": [],
@@ -18785,7 +18819,7 @@
           "form:solo",
           "reference:previous_subtune",
           "scale:mixolydian",
-          "middle_voice:melody_echo",
+          "timbre:melody_echo",
           "timbre:ultra_fast_notes",
           "bass:riff",
           "timbre:layered",
@@ -18825,7 +18859,7 @@
           "rhythm:3+3+2",
           "voice_leading:W-arpeggio",
           "scale:pentatonic",
-          "middle_voice:melody_echo",
+          "timbre:melody_echo",
           "timbre:layered",
           "location:game_won"
         ],
@@ -19656,7 +19690,7 @@
         "modulations": [],
         "tags": [
           "harmony:lydian_shuttle",
-          "middle_voice:melody_echo",
+          "timbre:melody_echo",
           "bass:root",
           "timbre:oscillator_as_percussion",
           "rhythm:3+3+2",
@@ -19978,7 +20012,7 @@
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "middle_voice:melody_echo",
+          "timbre:melody_echo",
           "melody:transposed_riff",
           "form:abrupt_ending"
         ],
@@ -20552,7 +20586,7 @@
         "modulations": [],
         "tags": [
           "voice_leading:descending_chromatic_bass",
-          "middle_voice:melody_echo",
+          "timbre:melody_echo",
           "form:not_looped",
           "harmony:mixolydian_shuttle",
           "melody:arpeggio",
@@ -26571,7 +26605,7 @@
             ]
           },
           {
-            "tag": "middle_voice:melody_echo",
+            "tag": "timbre:melody_echo",
             "span": [
               3,
               4

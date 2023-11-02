@@ -390,7 +390,7 @@ export const AnalysisGrid: React.FC<{
   // voiceMask: boolean[];
   setVoiceMask: (voiceMask: boolean[]) => void;
   seek: (ms: number) => void;
-  showIntervals: () => void;
+  showIntervals: (yes: boolean) => void;
   loggedIn: boolean;
 }> = React.memo(
   ({

@@ -559,7 +559,7 @@ const Chiptheory = ({
     !paused &&
     bookPath &&
     analysis.loop &&
-    (positionMs - 1000 > measuresAndBeats.measures[analysis.loop - 1] * 1000 ||
+    (positionMs - 3000 > measuresAndBeats.measures[analysis.loop - 1] * 1000 ||
       (playEnd && positionMs > measuresAndBeats.measures[playEnd] * 1000))
   ) {
     pause();
@@ -628,7 +628,7 @@ const Chiptheory = ({
             setVoiceMask={setVoiceMask}
             loggedIn={loggedIn}
             seek={seek}
-            showIntervals={() => setShowIntervals(true)}
+            showIntervals={setShowIntervals}
           />
           <div
             style={{

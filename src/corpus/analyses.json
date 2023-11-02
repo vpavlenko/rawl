@@ -27475,5 +27475,245 @@
         "basedOn": null
       }
     }
+  },
+  "Nintendo/Super Rugby": {
+    "Super Rugby (1989-12-27)(Zap)(TSS).nsf": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "tagSpans": [
+          {
+            "tag": "harmony:upper_structure",
+            "span": [
+              5,
+              8
+            ]
+          }
+        ],
+        "disableSnapToNotes": false,
+        "romanNumerals": "_ _ VI VI-VII I _ _ _ I",
+        "clickResolutionMs": 0.01,
+        "tags": [],
+        "modulations": {
+          "9": 8
+        },
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.5900000000000012,
+        "loop": 13,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 7,
+        "basedOn": null
+      },
+      "1": {
+        "beatsPerMeasure": 4,
+        "tagSpans": [
+          {
+            "voices": [
+              2
+            ],
+            "tag": "bass:riff",
+            "span": [
+              1,
+              8
+            ]
+          },
+          {
+            "voices": [
+              1,
+              0
+            ],
+            "tag": "middle_voice:parallel_thirds",
+            "span": [
+              2,
+              4
+            ]
+          },
+          {
+            "voices": [
+              0,
+              1
+            ],
+            "tag": "middle_voice:parallel_fifths",
+            "span": [
+              5,
+              8
+            ]
+          },
+          {
+            "tag": "scale:dorian",
+            "span": [
+              1,
+              8
+            ]
+          },
+          {
+            "tag": "rhythm:interesting",
+            "span": [
+              5,
+              8
+            ]
+          },
+          {
+            "tag": "form:modulation",
+            "span": [
+              1,
+              8
+            ]
+          }
+        ],
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "tags": [],
+        "modulations": {
+          "5": 10
+        },
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.390000000000001,
+        "loop": 9,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 9,
+        "basedOn": null
+      },
+      "2": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "reference:previous_subtune"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "tonic",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": null,
+        "basedOn": null
+      },
+      "3": {
+        "beatsPerMeasure": 4,
+        "tagSpans": [
+          {
+            "tag": "harmony:phrygian_shuttle",
+            "span": [
+              16,
+              23
+            ]
+          },
+          {
+            "tag": "harmony:Vsus4",
+            "span": [
+              30,
+              31
+            ]
+          },
+          {
+            "tag": "form:extra_measure",
+            "span": [
+              15,
+              15
+            ]
+          },
+          {
+            "tag": "form:uniform_period",
+            "span": [
+              3,
+              10
+            ]
+          },
+          {
+            "tag": "middle_voice:arpeggio",
+            "span": [
+              3,
+              10
+            ]
+          },
+          {
+            "tag": "rhythm:syncopation",
+            "span": [
+              1,
+              10
+            ]
+          },
+          {
+            "tag": "harmony:diatonic_seventh_chords",
+            "span": [
+              3,
+              10
+            ]
+          },
+          {
+            "tag": "harmony:Vsus4",
+            "span": [
+              15,
+              15
+            ]
+          },
+          {
+            "voices": [
+              2,
+              1
+            ],
+            "tag": "bass:parallel_thirds_with_melody",
+            "span": [
+              11,
+              14
+            ]
+          }
+        ],
+        "disableSnapToNotes": true,
+        "romanNumerals": "_ I I VII^ vi7 VI^-VII6 I VII^ vi7 VI^-VII6 _ _ _ _ V _ _ _ _ _ _ _ _ I I IV IV V/V V/V V V",
+        "clickResolutionMs": 0.01,
+        "modulations": {
+          "16": 9,
+          "24": 3
+        },
+        "tags": [
+          "style:math-rock"
+        ],
+        "fourMeasurePhrasingReferences": [
+          3,
+          3,
+          16
+        ],
+        "form": {
+          "1": "intro (not looped)",
+          "3": "A",
+          "7": "A'",
+          "11": "bridge",
+          "16": "B",
+          "20": "B'",
+          "24": "C"
+        },
+        "secondMeasure": 1.490000000000001,
+        "loop": 32,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "2": 1.490000000000001,
+          "3": 3.066666666666667,
+          "4": 4.716666666666667,
+          "7": 9.58999999999984,
+          "8": 11.191666666666666,
+          "16": 23.970000000000947,
+          "17": 25.566666666666666
+        },
+        "tonic": 0,
+        "basedOn": null
+      }
+    }
   }
 }

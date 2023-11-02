@@ -214,6 +214,7 @@ export const TAGS = [
   "bass:smooth_chord_tones",
   "bass:doubles_melody",
   "bass:diatonic_approach",
+  "bass:parallel_thirds_with_melody",
   "bass:scale",
   "style:common_practice",
   "style:ragtime",
@@ -227,6 +228,7 @@ export const TAGS = [
   "style:bossa_nova",
   "style:boogie-woogie",
   "style:banjo",
+  "style:math-rock",
   "middle_voice:doubles_bass",
   "middle_voice:parallel_octaves",
   "middle_voice:parallel_fourths",
@@ -374,6 +376,7 @@ const getSemanticVoicesForSpan = (
       index,
     ])
     .sort((a, b) => a[0] - b[0]);
+  debugger;
   if (sortedVoices[1][0] === Infinity) {
     return { bass: sortedVoices[0][1] };
   }
@@ -397,7 +400,7 @@ const StripeTag: React.FC<{
   setVoiceMask: (voiceMask: boolean[]) => void;
   seek: (ms: number) => void;
   attachVoices: () => void;
-  showIntervals: () => void;
+  showIntervals: (yes: boolean) => void;
   onMouseEnter: () => void;
   onMouseLeave: () => void;
 }> = ({
@@ -495,12 +498,7 @@ const StripeTag: React.FC<{
                 tagVoices.forEach((voice) => (mask[voice] = true));
                 setVoiceMask(mask);
                 seek(startSecond * 1000);
-                if (
-                  category === "middle_voice" &&
-                  value !== "melody_below_arpeggio"
-                ) {
-                  showIntervals();
-                }
+                showIntervals(value.startsWith("parallel"));
               }}
               style={{ fontSize: STRIPE_HEIGHT, cursor: "pointer" }}
             >
@@ -535,6 +533,9 @@ const pickSemanticVoicesForTag = (
   value: string,
 ): number[] | null => {
   if (category === "bass") {
+    if (value === "parallel_thirds_with_melody") {
+      return [semanticVoices.bass, semanticVoices.high];
+    }
     return [semanticVoices.bass];
   }
   if (category === "middle_voice") {
@@ -563,7 +564,7 @@ export const Stripes: React.FC<{
   loggedIn: boolean;
   voices: Note[][];
   seek: (ms: number) => void;
-  showIntervals: () => void;
+  showIntervals: (yes: boolean) => void;
 }> = React.memo(
   ({
     tagSpans,
@@ -711,6 +712,7 @@ export const Stripes: React.FC<{
                 e.preventDefault();
                 e.stopPropagation();
                 setVoiceMask([true, true, true, true, true]);
+                showIntervals(false);
               }}
               style={{
                 backgroundColor: "transparent",

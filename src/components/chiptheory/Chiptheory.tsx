@@ -77,7 +77,7 @@ function findNoteWithClosestPeriod(
   return closestNote!;
 }
 
-type SecondsSpan = [number, number];
+export type SecondsSpan = [number, number];
 
 export type Note = {
   note: {

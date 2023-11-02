@@ -294,6 +294,7 @@ export const CATEGORIES_IN_STRIPES = [
   "melody",
   "middle_voice",
   "bass",
+  "harmony",
   "form",
   "other",
 ];
@@ -376,7 +377,6 @@ const getSemanticVoicesForSpan = (
       index,
     ])
     .sort((a, b) => a[0] - b[0]);
-  debugger;
   if (sortedVoices[1][0] === Infinity) {
     return { bass: sortedVoices[0][1] };
   }

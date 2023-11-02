@@ -1,10 +1,10 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { Analysis, PitchClass } from "./Analysis";
-import { Note, Span } from "./Chiptheory";
+import { Note, SecondsSpan } from "./Chiptheory";
 import { getPhrasingMeasures } from "./measures";
 
-const getIntersectionTime = (i: Span, j: Span): number => {
+const getIntersectionTime = (i: SecondsSpan, j: SecondsSpan): number => {
   const [iStart, iEnd] = i;
   const [jStart, jEnd] = j;
 
@@ -20,7 +20,7 @@ const getIntersectionTime = (i: Span, j: Span): number => {
 
 const sumPitchClassTimeInSpan = (
   pitchClass: PitchClass,
-  span: Span,
+  span: SecondsSpan,
   notes: Note[],
 ) => {
   let sum = 0;
@@ -98,12 +98,12 @@ export const updateRomanNumerals = (
 ) => {
   const noteMiddle = (note.span[0] + note.span[1]) / 2;
   const measureIndex = measures.findIndex((time) => time >= noteMiddle) - 1;
-  const measureSpan: Span = [
+  const measureSpan: SecondsSpan = [
     measures[measureIndex],
     measures[measureIndex + 1],
   ];
   const measureMiddle = measureSpan[0] * 0.5 + measureSpan[1] * 0.5;
-  const span: Span = isHalfMeasure
+  const span: SecondsSpan = isHalfMeasure
     ? noteMiddle < measureMiddle
       ? [measureSpan[0], measureMiddle]
       : [measureMiddle, measureSpan[1]]

@@ -27606,27 +27606,6 @@
         "beatsPerMeasure": 4,
         "tagSpans": [
           {
-            "tag": "harmony:phrygian_shuttle",
-            "span": [
-              16,
-              23
-            ]
-          },
-          {
-            "tag": "harmony:Vsus4",
-            "span": [
-              30,
-              31
-            ]
-          },
-          {
-            "tag": "form:extra_measure",
-            "span": [
-              15,
-              15
-            ]
-          },
-          {
             "tag": "form:uniform_period",
             "span": [
               3,
@@ -27634,6 +27613,9 @@
             ]
           },
           {
+            "voices": [
+              0
+            ],
             "tag": "middle_voice:arpeggio",
             "span": [
               3,
@@ -27641,24 +27623,10 @@
             ]
           },
           {
-            "tag": "rhythm:syncopation",
+            "tag": "harmony:phrygian_shuttle",
             "span": [
-              1,
-              10
-            ]
-          },
-          {
-            "tag": "harmony:diatonic_seventh_chords",
-            "span": [
-              3,
-              10
-            ]
-          },
-          {
-            "tag": "harmony:Vsus4",
-            "span": [
-              15,
-              15
+              17,
+              24
             ]
           },
           {
@@ -27669,36 +27637,105 @@
             "tag": "bass:parallel_thirds_with_melody",
             "span": [
               11,
-              14
+              15
+            ]
+          },
+          {
+            "tag": "form:extra_measure",
+            "span": [
+              15,
+              16
+            ]
+          },
+          {
+            "tag": "harmony:Vsus4",
+            "span": [
+              16,
+              16
+            ]
+          },
+          {
+            "tag": "rhythm:syncopation",
+            "span": [
+              1,
+              8
+            ]
+          },
+          {
+            "tag": "tempo:uneven",
+            "span": [
+              9,
+              20
+            ]
+          },
+          {
+            "tag": "harmony:Vsus4",
+            "span": [
+              31,
+              32
+            ]
+          },
+          {
+            "tag": "harmony:diatonic_seventh_chords",
+            "span": [
+              3,
+              24
+            ]
+          },
+          {
+            "voices": [
+              0
+            ],
+            "tag": "middle_voice:arpeggio",
+            "span": [
+              17,
+              24
+            ]
+          },
+          {
+            "voices": [
+              0
+            ],
+            "tag": "middle_voice:static_chord_tones",
+            "span": [
+              25,
+              31
+            ]
+          },
+          {
+            "tag": "middle_voice:arpeggio",
+            "span": [
+              32,
+              32
             ]
           }
         ],
         "disableSnapToNotes": true,
-        "romanNumerals": "_ I I VII^ vi7 VI^-VII6 I VII^ vi7 VI^-VII6 _ _ _ _ V _ _ _ _ _ _ _ _ I I IV IV V/V V/V V V",
+        "romanNumerals": "_ I I VII^ vi7 VI^-VII6 I VII^ vi7 VI^-VII6 _ _ _ _ _ V i i bII bII i i bII bII I I IV IV V/V V/V V V",
         "clickResolutionMs": 0.01,
-        "modulations": {
-          "16": 9,
-          "24": 3
-        },
         "tags": [
           "style:math-rock"
         ],
+        "modulations": {
+          "17": 9,
+          "25": 3
+        },
         "fourMeasurePhrasingReferences": [
           3,
           3,
-          16
+          29
         ],
+        "secondMeasure": 1.490000000000001,
         "form": {
           "1": "intro (not looped)",
           "3": "A",
           "7": "A'",
           "11": "bridge",
-          "16": "B",
-          "20": "B'",
-          "24": "C"
+          "17": "B",
+          "21": "B",
+          "25": "C"
         },
-        "secondMeasure": 1.490000000000001,
-        "loop": 32,
+        "loop": 33,
         "firstMeasure": 0,
         "step": "end",
         "comment": "",
@@ -27708,8 +27745,14 @@
           "4": 4.716666666666667,
           "7": 9.58999999999984,
           "8": 11.191666666666666,
-          "16": 23.970000000000947,
-          "17": 25.566666666666666
+          "12": 17.229999999999894,
+          "13": 18.380000000000074,
+          "14": 19.6,
+          "15": 20.8,
+          "16": 22.366666666666667,
+          "17": 23.970000000000947,
+          "23": 33.56666666666667,
+          "27": 39.91000000000063
         },
         "tonic": 0,
         "basedOn": null

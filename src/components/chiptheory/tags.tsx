@@ -349,50 +349,66 @@ const StripeTag = ({
   removeTag,
   onMouseEnter,
   onMouseLeave,
-}) => (
-  <div
-    style={{
-      position: "absolute",
-      left,
-      width,
-      backgroundColor: tagToColor(tag),
-      color: "white",
-      padding: "0 5px 0 5px",
-      boxSizing: "border-box",
-      height: STRIPE_HEIGHT,
-      zIndex: 4000 - widthInMeasures,
-      display: "flex",
-      flexDirection: "row",
-      justifyContent: "space-between",
-      borderRight: "1px solid black",
-    }}
-    onMouseEnter={onMouseEnter}
-    onMouseLeave={onMouseLeave}
-  >
-    <span style={{ overflow: "hidden", fontSize: STRIPE_HEIGHT }}>
-      {(CATEGORIES_IN_STRIPES.indexOf(tag.split(":")[0]) === -1
-        ? tag.replace(":", ": ")
-        : tag.split(":")[1]
-      ).replace(/_/g, " ")}
-    </span>
-    {removeTag && (
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          removeTag();
-        }}
-        style={{
-          backgroundColor: "transparent",
-          color: "white",
-          fontSize: STRIPE_HEIGHT,
-        }}
-      >
-        [x]
-      </button>
-    )}
-  </div>
-);
+}) => {
+  const [category, value] = tag.split(":");
+  return (
+    <div
+      style={{
+        position: "absolute",
+        left,
+        width,
+        backgroundColor: tagToColor(tag),
+        color: "white",
+        padding: "0 5px 0 5px",
+        boxSizing: "border-box",
+        height: STRIPE_HEIGHT,
+        zIndex: 4000 - widthInMeasures,
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        borderRight: "1px solid black",
+      }}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
+      <span style={{ overflow: "hidden", fontSize: STRIPE_HEIGHT }}>
+        {value.replace(/_/g, " ")}
+      </span>
+      {category === "bass" && (
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            // removeTag();
+          }}
+          style={{
+            backgroundColor: "transparent",
+            color: "white",
+            fontSize: STRIPE_HEIGHT,
+          }}
+        >
+          [attach voice]
+        </button>
+      )}
+      {removeTag && (
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            removeTag();
+          }}
+          style={{
+            backgroundColor: "transparent",
+            color: "white",
+            fontSize: STRIPE_HEIGHT,
+          }}
+        >
+          [x]
+        </button>
+      )}
+    </div>
+  );
+};
 
 export const Stripes: React.FC<{
   tagSpans: TagSpan[];

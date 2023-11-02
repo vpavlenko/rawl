@@ -140,6 +140,9 @@ const Search: React.FC<{
       },
       bass: {},
       middle_voice: {},
+      form: {},
+      harmony: {},
+      rhythm: {},
     };
     let basedOnCountInner = 0;
     if (analyses) {

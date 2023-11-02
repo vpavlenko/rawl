@@ -123,6 +123,7 @@ class App extends React.Component {
     onAuthStateChanged(auth, (user) => {
       this.setState({ user: user, loadingUser: !!user });
       if (user) {
+        this.setState({ analysisEnabled: true });
         const docRef = doc(this.db, "users", user.uid);
         getDoc(docRef)
           .then((userSnapshot) => {
@@ -222,7 +223,7 @@ class App extends React.Component {
       hasPlayer: false,
       paramDefs: [],
       chipStateDump: {},
-      analysisEnabled: true,
+      analysisEnabled: false,
       analyses: defaultAnalyses,
     };
 

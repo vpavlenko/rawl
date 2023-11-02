@@ -480,6 +480,7 @@ const StripeTag: React.FC<{
                 const mask = [false, false, false, false, false];
                 mask[voice] = true;
                 setVoiceMask(mask);
+                showIntervals(false);
                 seek(startSecond * 1000);
               }}
               style={{

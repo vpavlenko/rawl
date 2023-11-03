@@ -72,6 +72,7 @@ export const TAGS = [
   "harmony:Vsus4",
   "harmony:implied",
   "harmony:harmonic_rhythm_acceleration",
+  "harmony:weird_dominant",
   "rhythm:syncopation",
   "rhythm:interesting",
   "rhythm:swing",
@@ -572,6 +573,9 @@ const pickSemanticVoicesForTag = (
   if (category === "timbre") {
     if (value === "oscillator_as_percussion") {
       return [semanticVoices.bass];
+    }
+    if (value === "ultra_fast_notes") {
+      return [semanticVoices.high];
     }
   }
   return null;

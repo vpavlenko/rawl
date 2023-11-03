@@ -12239,22 +12239,73 @@
               3,
               14
             ]
+          },
+          {
+            "voices": [
+              2
+            ],
+            "tag": "bass:transposed_riff",
+            "span": [
+              3,
+              14
+            ]
+          },
+          {
+            "tag": "harmony:blues_seventh_chords",
+            "span": [
+              3,
+              14
+            ]
+          },
+          {
+            "voices": [
+              0,
+              1
+            ],
+            "tag": "middle_voice:parallel_fourths",
+            "span": [
+              12,
+              12
+            ]
+          },
+          {
+            "tag": "voice_leading:W-arpeggio",
+            "span": [
+              7,
+              10
+            ]
+          },
+          {
+            "voices": [
+              0,
+              1
+            ],
+            "tag": "middle_voice:parallel_thirds_and_chord_tones",
+            "span": [
+              5,
+              11
+            ]
+          },
+          {
+            "tag": "scale:pentatonic",
+            "span": [
+              7,
+              8
+            ]
           }
         ],
         "disableSnapToNotes": false,
         "romanNumerals": "_ _ I I I I IV IV I I V IV I I",
         "clickResolutionMs": 0.01,
         "modulations": [],
-        "tags": [
-          "voice_leading:W-arpeggio",
-          "scale:pentatonic"
-        ],
+        "tags": [],
         "fourMeasurePhrasingReferences": [
           3
         ],
         "secondMeasure": 1.5900000000000012,
         "form": {
-          "1": "last two chorus measures"
+          "1": "last two chorus measures",
+          "3": "chorus"
         },
         "loop": 15,
         "firstMeasure": 0,
@@ -13509,6 +13560,10 @@
             ]
           },
           {
+            "voices": [
+              1,
+              0
+            ],
             "tag": "middle_voice:parallel_thirds",
             "span": [
               1,
@@ -13516,6 +13571,10 @@
             ]
           },
           {
+            "voices": [
+              1,
+              0
+            ],
             "tag": "middle_voice:lower_chord_tones",
             "span": [
               9,
@@ -13523,6 +13582,9 @@
             ]
           },
           {
+            "voices": [
+              0
+            ],
             "tag": "melody:transposed_riff",
             "span": [
               1,
@@ -13537,6 +13599,9 @@
             ]
           },
           {
+            "voices": [
+              2
+            ],
             "tag": "bass:root",
             "span": [
               1,
@@ -22596,8 +22661,8 @@
         "form": [],
         "secondMeasure": null,
         "loop": null,
-        "firstMeasure": null,
-        "step": "first measure",
+        "firstMeasure": 0,
+        "step": "second measure",
         "comment": "",
         "correctedMeasures": [],
         "tonic": 8,
@@ -25827,19 +25892,101 @@
       },
       "2": {
         "beatsPerMeasure": 4,
+        "tagSpans": [
+          {
+            "voices": [
+              1
+            ],
+            "tag": "bass:transposed_riff",
+            "span": [
+              1,
+              48
+            ]
+          },
+          {
+            "voices": [
+              0
+            ],
+            "tag": "timbre:ultra_fast_notes",
+            "span": [
+              1,
+              12
+            ]
+          },
+          {
+            "voices": [
+              0
+            ],
+            "tag": "melody:x2",
+            "span": [
+              17,
+              20
+            ]
+          },
+          {
+            "voices": [
+              0
+            ],
+            "tag": "melody:arpeggio",
+            "span": [
+              1,
+              12
+            ]
+          },
+          {
+            "voices": [
+              2
+            ],
+            "tag": "middle_voice:arpeggio",
+            "span": [
+              1,
+              48
+            ]
+          },
+          {
+            "tag": "rhythm:3+3+2",
+            "span": [
+              21,
+              24
+            ]
+          },
+          {
+            "tag": "form:12-bar_blues",
+            "span": [
+              1,
+              48
+            ]
+          },
+          {
+            "voices": [
+              0
+            ],
+            "tag": "melody:transposed_riff",
+            "span": [
+              37,
+              48
+            ]
+          },
+          {
+            "tag": "melody:basic_idea_x4",
+            "span": [
+              13,
+              24
+            ]
+          },
+          {
+            "tag": "style:boogie-woogie",
+            "span": [
+              25,
+              36
+            ]
+          }
+        ],
         "disableSnapToNotes": false,
         "romanNumerals": "I I I I IV IV I I V IV I V I I I I IV IV I I V IV I V I I I I IV IV I I V IV I V I I I I IV IV I I V IV I V",
         "clickResolutionMs": 0.01,
         "modulations": [],
-        "tags": [
-          "form:12-bar_blues",
-          "style:boogie-woogie",
-          "timbre:ultra_fast_notes",
-          "rhythm:3+3+2",
-          "middle_voice:arpeggio",
-          "melody:arpeggio",
-          "melody:transposed_riff"
-        ],
+        "tags": [],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.5900000000000012,
         "form": {
@@ -28839,6 +28986,13 @@
               1,
               4
             ]
+          },
+          {
+            "tag": "timbre:melody_echo",
+            "span": [
+              5,
+              7
+            ]
           }
         ],
         "disableSnapToNotes": false,
@@ -29284,6 +29438,199 @@
         "comment": "",
         "correctedMeasures": [],
         "tonic": 1,
+        "basedOn": null
+      }
+    }
+  },
+  "Nintendo/Double Moon Densetsu": {
+    "Double Moon Densetsu (1992-10-30)(NCS)(Masaya).nsf": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "tagSpans": [
+          {
+            "tag": "harmony:weird_dominant",
+            "span": [
+              33,
+              37
+            ]
+          },
+          {
+            "tag": "harmony:Vsus4",
+            "span": [
+              11,
+              12
+            ]
+          },
+          {
+            "tag": "voice_leading:descending_diatonic_bass",
+            "span": [
+              13,
+              15
+            ]
+          },
+          {
+            "tag": "voice_leading:descending_chromatic_bass",
+            "span": [
+              17,
+              20
+            ]
+          },
+          {
+            "tag": "form:period",
+            "span": [
+              13,
+              20
+            ]
+          },
+          {
+            "tag": "harmony:quartal",
+            "span": [
+              35,
+              36
+            ]
+          },
+          {
+            "tag": "harmony:quartal",
+            "span": [
+              1,
+              4
+            ]
+          },
+          {
+            "tag": "form:sentence",
+            "span": [
+              1,
+              12
+            ]
+          },
+          {
+            "tag": "harmony:Vsus4",
+            "span": [
+              16,
+              16
+            ]
+          },
+          {
+            "tag": "voice_leading:Cad64",
+            "span": [
+              19,
+              20
+            ]
+          }
+        ],
+        "disableSnapToNotes": false,
+        "romanNumerals": "_ _ _ _ _ _ I-v^ I-v^ VI-VII III-VI V7 V7 I-V IV-I _-V/V V I-I5 V7/IV-IV iv-I _-V _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ I",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "form:not_looped"
+        ],
+        "fourMeasurePhrasingReferences": [
+          5,
+          9,
+          17,
+          27,
+          31
+        ],
+        "form": {
+          "1": "A",
+          "13": "B",
+          "21": "C",
+          "27": "B"
+        },
+        "secondMeasure": 1.9900000000000015,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "15": 27.970000000001573,
+          "19": 35.960000000001415,
+          "20": 37.89000000000103,
+          "33": 63.88999999999586
+        },
+        "tonic": 0,
+        "basedOn": null
+      },
+      "1": {
+        "beatsPerMeasure": 6,
+        "disableSnapToNotes": false,
+        "romanNumerals": "_ _ _ _ _ _ _ _ iv iv VII VII _ _ _ _ _ _ _ _ _ _ _ _ _ _ bII _ _ _ vio _ _ _ _ _ I I",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "secondMeasure": 1.440000000000001,
+        "form": {
+          "1": "intro (not looped)"
+        },
+        "loop": 41,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 9,
+        "basedOn": null
+      }
+    }
+  },
+  "Nintendo/Bard's Tale - Tales of the Unknown": {
+    "Bard's Tale - Tales of the Unknown (1990-12-21)(Interplay)(Atelier Double)(Pony Canyon).nsf": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "scale:mixed_minor",
+          "style:math-rock"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "second measure",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 4,
+        "basedOn": null
+      },
+      "2": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "first measure",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 7,
+        "basedOn": null
+      },
+      "5": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "first measure",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
         "basedOn": null
       }
     }

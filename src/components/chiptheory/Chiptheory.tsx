@@ -19,7 +19,6 @@ import {
 } from "./nesApuNoteEstimations";
 import {
   TWELVE_CHORD_TONES,
-  TWELVE_TONE_COLORS,
   getChordNote,
   getNoteMeasure,
   getTonic,
@@ -158,7 +157,7 @@ const getNoteColor = (
     return VOICE_TO_COLOR[voice];
   }
 
-  return TWELVE_TONE_COLORS[
+  return TWELVE_CHORD_TONES[
     (note.note.midiNumber -
       getTonic(getNoteMeasure(note, measures), analysis)) %
       12
@@ -204,11 +203,12 @@ const getNoteRectangles = (
   return notes.map((note) => {
     const top = midiNumberToY(note.note.midiNumber);
     const left = secondsToX(note.span[0]);
-    const color = getNoteColor(voice, note, analysis, measures);
-    const chordNote =
+    const chordNote = getNoteColor(voice, note, analysis, measures);
+    const color =
       voice !== "under cursor"
         ? getChordNote(note, analysis, measures, analysis.romanNumerals)
         : null;
+    debugger;
     const noteElement = chordNote ? (
       <span
         className="noteText"

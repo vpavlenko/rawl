@@ -450,7 +450,7 @@ export const getChordNote = (
   measures: number[] | null,
   romanNumerals?: string,
 ): string => {
-  if (note.span[1] - note.span[0] < 0.08) return "";
+  // if (note.span[1] - note.span[0] < 0.08) return "";
   if (!measures) return "";
 
   const measure = getNoteMeasure(note, measures);
@@ -474,7 +474,7 @@ export const getChordNote = (
   const rootChromaticScaleDegree = romanNumeralToChromaticDegree(romanNumeral);
   if (rootChromaticScaleDegree === -1) return "";
 
-  return TWELVE_CHORD_TONES[
+  return TWELVE_TONE_COLORS[
     (((note.note.midiNumber - getTonic(measure, analysis)) % 12) +
       12 -
       rootChromaticScaleDegree) %

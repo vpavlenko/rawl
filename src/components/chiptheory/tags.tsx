@@ -223,6 +223,7 @@ export const TAGS = [
   "bass:smooth_chord_tones",
   "bass:doubles_melody",
   "bass:diatonic_approach",
+  "bass:chromatic_approach",
   "bass:parallel_thirds_with_melody",
   "bass:scale",
   "style:common_practice",

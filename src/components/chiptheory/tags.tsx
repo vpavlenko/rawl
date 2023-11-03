@@ -29,6 +29,7 @@ export const TAGS = [
   "scale:demo",
   "scale:dorian_over_pentatonic",
   "scale:mixed_major",
+  "scale:mixed_b2",
   "harmony:stasis",
   "harmony:parallel_keys",
   "harmony:power_chords",

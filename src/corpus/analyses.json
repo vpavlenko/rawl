@@ -28703,5 +28703,112 @@
         "basedOn": null
       }
     }
+  },
+  "Nintendo/Bram Stoker's Dracula": {
+    "Bram Stoker's Dracula (1993-09)(Probe)(Sony Imagesoft).nsf": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "tagSpans": [
+          {
+            "voices": [
+              1,
+              0
+            ],
+            "tag": "middle_voice:melody_below_arpeggio",
+            "span": [
+              1,
+              24
+            ]
+          },
+          {
+            "tag": "harmony:harmonic_rhythm_acceleration",
+            "span": [
+              1,
+              8
+            ]
+          },
+          {
+            "voices": [
+              1
+            ],
+            "tag": "timbre:ultra_fast_notes",
+            "span": [
+              1,
+              8
+            ]
+          },
+          {
+            "voices": [
+              2
+            ],
+            "tag": "bass:root",
+            "span": [
+              1,
+              24
+            ]
+          },
+          {
+            "tag": "form:progression",
+            "span": [
+              1,
+              24
+            ]
+          },
+          {
+            "tag": "form:sentence",
+            "span": [
+              9,
+              16
+            ]
+          },
+          {
+            "voices": [
+              0
+            ],
+            "tag": "melody:development_via_embellishments",
+            "span": [
+              1,
+              16
+            ]
+          },
+          {
+            "voices": [
+              2
+            ],
+            "tag": "timbre:oscillator_as_percussion",
+            "span": [
+              9,
+              16
+            ]
+          }
+        ],
+        "disableSnapToNotes": true,
+        "romanNumerals": "I i5 io io iv5 VII5-VI5 v5 v5 i5 i5 io io iv5 VII5-VI5 v5 v5 i5 i5 io io iv5 VII5-VI5 v5 v5",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "scale:phrygian"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "secondMeasure": 1.470000000000001,
+        "form": {
+          "1": "A",
+          "9": "A'",
+          "17": "B"
+        },
+        "loop": 25,
+        "firstMeasure": 0.02,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "5": 5.85,
+          "8": 10.259999999999826,
+          "9": 11.709999999999795,
+          "12": 16.083333333333332
+        },
+        "tonic": 0,
+        "basedOn": null
+      }
+    }
   }
 }

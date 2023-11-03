@@ -70,6 +70,7 @@ export const TAGS = [
   "harmony:V7b9",
   "harmony:Vsus4",
   "harmony:implied",
+  "harmony:harmonic_rhythm_acceleration",
   "rhythm:syncopation",
   "rhythm:interesting",
   "rhythm:swing",
@@ -190,6 +191,7 @@ export const TAGS = [
   "melody:stepwise",
   "melody:chord_tones",
   "melody:development_via_rhythmic_shift",
+  "melody:development_via_embellishments",
   "melody:chord_tones_as_motive",
   "melody:arc",
   "melody:inversion",
@@ -494,42 +496,44 @@ const StripeTag: React.FC<{
           [attach {dummyPickVoices.length === 1 ? "a voice" : "voices"}]
         </button>
       )}
-      {tagVoices && (
-        <span style={{ fontSize: STRIPE_HEIGHT }}>
-          {tagVoices.map((voice) => (
-            <span
-              onClick={() => {
-                const mask = [false, false, false, false, false];
-                mask[voice] = true;
-                setVoiceMask(mask);
-                showIntervals(false);
-                seek(startSecond * 1000);
-              }}
-              style={{
-                fontSize: STRIPE_HEIGHT,
-                marginRight: "10px",
-                cursor: "pointer",
-              }}
-            >
-              #{voice}
-            </span>
-          ))}
-          {tagVoices.length > 1 && (
-            <span
-              onClick={() => {
+      <span>
+        {tagVoices?.map((voice) => (
+          <span
+            onClick={() => {
+              const mask = [false, false, false, false, false];
+              mask[voice] = true;
+              setVoiceMask(mask);
+              showIntervals(false);
+              seek(startSecond * 1000);
+            }}
+            style={{
+              fontSize: STRIPE_HEIGHT,
+              marginRight: "10px",
+              cursor: "pointer",
+            }}
+          >
+            #{voice}
+          </span>
+        ))}
+        {(!tagVoices || tagVoices.length > 1) && (
+          <span
+            onClick={() => {
+              if (tagVoices) {
                 const mask = [false, false, false, false, false];
                 tagVoices.forEach((voice) => (mask[voice] = true));
                 setVoiceMask(mask);
-                seek(startSecond * 1000);
-                showIntervals(value.startsWith("parallel"));
-              }}
-              style={{ fontSize: STRIPE_HEIGHT, cursor: "pointer" }}
-            >
-              mix
-            </span>
-          )}
-        </span>
-      )}
+              } else {
+                setVoiceMask([true, true, true, true, true]);
+              }
+              seek(startSecond * 1000);
+              showIntervals(value.startsWith("parallel"));
+            }}
+            style={{ fontSize: STRIPE_HEIGHT, cursor: "pointer" }}
+          >
+            {tagVoices ? "mix" : "play"}
+          </span>
+        )}
+      </span>
     </div>
   );
 };
@@ -563,6 +567,11 @@ const pickSemanticVoicesForTag = (
     }
     // will fail when middle_voice:melody
     return [semanticVoices.high];
+  }
+  if (category === "timbre") {
+    if (value === "oscillator_as_percussion") {
+      return [semanticVoices.bass];
+    }
   }
   return null;
 };

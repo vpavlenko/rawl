@@ -31,6 +31,10 @@ What if every bootleg country has some unique musical language?
 
 Also, it feels like there was a gradual development of cool timbral hacks and compositional form. Games from 1986 are simpler than [games from 1993](https://vpavlenko.github.io/chiptheory/browse/Nintendo/Beauty%20and%20the%20Beast?subtune=1r).
 
+# Composers
+
+Certain composers for NES can have very recognizable style and musical toolchain. [List of sound drivers](https://gdri.smspower.org/wiki/index.php/Famicom/NES_Sound_Driver_List) may also help. This is also a good way to listen to "something similar to that cool track that I've found".
+
 # Setup instructions
 
 Try `yarn install` and `yarn start`. If it doesn't work, try reading https://github.com/mmontag/chip-player-js/. Don't compile wasm, I pre-compiled it and added it to the repo.

@@ -478,11 +478,13 @@ export const AnalysisGrid: React.FC<{
               left: loopLeft,
               height: "100%",
               right: 0,
-              zIndex: 100,
+              zIndex: 1000,
               width: "5000px",
             }}
           >
-            <div style={{ margin: "50px", color: "white" }}>Loop</div>
+            <div style={{ margin: "200px 50px 50px 20px", color: "white" }}>
+              Loop
+            </div>
           </div>
         )}
       </>

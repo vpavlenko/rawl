@@ -134,6 +134,7 @@ export const TAGS = [
   "form:ABABC",
   "form:ABAC",
   "form:ABACA",
+  "form:ABAB",
   "form:B_part_triple_shuttle",
   "form:12-bar_blues",
   "form:16-bar_blues",
@@ -183,6 +184,7 @@ export const TAGS = [
   "melody:basic_idea_x4",
   "melody:basic_idea_x2_and_fragmentation",
   "melody:x2_vs_new_x2",
+  "melody:x2",
   "melody:fills_at_rests",
   "melody:fill_after_cadence",
   "melody:stepwise",
@@ -193,6 +195,8 @@ export const TAGS = [
   "melody:inversion",
   "melody:ascending_chromatic",
   "melody:higher_pitch_on_repeat",
+  "melody:starts_later_than_beat_one",
+  "melody:song-like",
   "bass:drone",
   "bass:transposed_riff",
   "bass:riff",
@@ -257,6 +261,7 @@ export const TAGS = [
   "melody:arpeggio", // that implicitly means "no melody anywhere"
   "melody:reharmonization",
   "reference:previous_subtune",
+  "reference:copy_of_previous_subtune",
   "motive:natural_horn_call",
   "motive:telephone_call",
   "motive:cadential",
@@ -541,6 +546,9 @@ const pickSemanticVoicesForTag = (
     return [semanticVoices.bass];
   }
   if (category === "middle_voice") {
+    if (value === "absent") {
+      return null;
+    }
     if (value.startsWith("parallel") || value.endsWith("chord_tones")) {
       return [semanticVoices.middle, semanticVoices.high];
     }
@@ -590,7 +598,11 @@ export const Stripes: React.FC<{
       const [category, value] = tag.split(":");
       let categoryIndex = CATEGORIES_IN_STRIPES.indexOf(category);
       if (categoryIndex === -1) {
-        categoryIndex = CATEGORIES_IN_STRIPES.length - 1;
+        if (category === "scale") {
+          categoryIndex = CATEGORIES_IN_STRIPES.indexOf("harmony");
+        } else {
+          categoryIndex = CATEGORIES_IN_STRIPES.length - 1;
+        }
       }
       const startSecond = measuresAndBeats.measures[span[0] - 1];
       const endSecond =

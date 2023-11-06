@@ -29,6 +29,10 @@ const getNotes = (data, channel): Note[] => {
 };
 
 export const parseMIDI = (data): Note[][] => {
-  // TODO: show channel with notes
-  return [getNotes(data, 0), getNotes(data, 3), getNotes(data, 4)];
+  const result = [];
+  for (let channel = 0; channel < 16; ++channel) {
+    result.push(getNotes(data, channel));
+  }
+
+  return result;
 };

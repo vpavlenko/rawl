@@ -1,9 +1,12 @@
 import { Note } from ".";
 
-const getNotes = (data, channel): Note[] => {
+const getNotes = (events, channel): Note[] => {
   const notes = [];
   const noteOnTime = {};
-  data.forEach((event) => {
+  events.forEach((event) => {
+    if (channel === 9) {
+      return []; // skip drums for now
+    }
     if (event.channel === channel && event.type === 8) {
       const midiNumber = event.param1;
       if (event.subtype === 9) {
@@ -28,11 +31,5 @@ const getNotes = (data, channel): Note[] => {
   return notes;
 };
 
-export const parseMIDI = (data): Note[][] => {
-  const result = [];
-  for (let channel = 0; channel < 16; ++channel) {
-    result.push(getNotes(data, channel));
-  }
-
-  return result;
-};
+export const parseMIDI = ({ events, activeChannels }): Note[][] =>
+  activeChannels.map((channel) => getNotes(events, channel));

@@ -86,9 +86,18 @@ MIDIPlayer.prototype.load = function (midiFile, useTrackLoops = false) {
   } else {
     this.events = midiFile.getEvents();
   }
-  this.setChipStateDump({ type: "midi", data: this.events });
-
   this.summarizeMidiEvents();
+
+  const activeChannels = [];
+  for (let i = 0; i < 16; i++) {
+    if (this.channelsInUse[i]) {
+      activeChannels.push(i);
+    }
+  }
+  this.setChipStateDump({
+    type: "midi",
+    data: { events: this.events, activeChannels },
+  });
 };
 
 MIDIPlayer.prototype.doSkipSilence = function () {

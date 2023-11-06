@@ -140,7 +140,7 @@ const getNoteRectangles = (
           top,
           left,
           pointerEvents: voiceIndex === -1 ? "none" : "auto",
-          borderRadius: [10, 3, 0][voiceIndex % 3],
+          borderRadius: [10, 3, 0, 5, 20, 7, 1][voiceIndex % 7],
           cursor: "pointer",
           zIndex: 10,
           opacity: isActiveVoice ? 0.9 : 0.1,
@@ -295,8 +295,8 @@ const Chiptheory: React.FC<{
   );
 
   const { minMidiNumber, maxMidiNumber } = useMemo(
-    () => getMidiRange(notes.flat()),
-    [notes],
+    () => getMidiRange(allActiveNotes.flat()),
+    [notes, voiceMask],
   );
 
   const [divHeight, setDivHeight] = useState(0);

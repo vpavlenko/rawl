@@ -37,5 +37,12 @@ const getNotes = (events, channel): Note[] => {
 // subtype: 89,
 // type: 255,
 
-export const parseMIDI = ({ events, activeChannels }): Note[][] =>
-  activeChannels.map((channel) => getNotes(events, channel));
+export const parseMIDI = ({ events, activeChannels }): Note[][] => {
+  for (const event of events) {
+    if (event.type === 255 && event.subtype === 89) {
+      alert(`key found: ${JSON.stringify(event)}`);
+      break;
+    }
+  }
+  return activeChannels.map((channel) => getNotes(events, channel));
+};

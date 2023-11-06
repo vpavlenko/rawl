@@ -301,7 +301,7 @@ export const getAnalysisTags = (analysis: Analysis): string[] =>
     ]),
   );
 
-const STRIPE_HEIGHT = 20;
+const STRIPE_HEIGHT = 0;
 export const CATEGORIES_IN_STRIPES = [
   "melody",
   "middle_voice",

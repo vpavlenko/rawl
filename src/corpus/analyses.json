@@ -6046,6 +6046,9 @@
             ]
           },
           {
+            "voices": [
+              0
+            ],
             "tag": "melody:basic_idea_x2_and_fragmentation",
             "span": [
               1,
@@ -6889,12 +6892,66 @@
     "Bad Street Brawler (1989-09)(Beam)(Mattel).nsf": {
       "0": {
         "beatsPerMeasure": 4,
+        "tagSpans": [
+          {
+            "tag": "form:12-bar_blues",
+            "span": [
+              1,
+              48
+            ]
+          },
+          {
+            "tag": "harmony:blues_seventh_chords",
+            "span": [
+              1,
+              12
+            ]
+          },
+          {
+            "voices": [
+              0
+            ],
+            "tag": "bass:transposed_riff",
+            "span": [
+              1,
+              48
+            ]
+          },
+          {
+            "voices": [
+              1
+            ],
+            "tag": "middle_voice:drone",
+            "span": [
+              1,
+              48
+            ]
+          },
+          {
+            "voices": [
+              2
+            ],
+            "tag": "melody:chord_tones",
+            "span": [
+              1,
+              12
+            ]
+          },
+          {
+            "tag": "rhythm:1+2+2+2",
+            "span": [
+              41,
+              44
+            ]
+          }
+        ],
         "disableSnapToNotes": false,
-        "romanNumerals": "I I I I IV IV I I V IV I V5 i i i i iv iv i i v iv i v i i i i iv iv i i v iv i v i i i i iv iv i i v iv i v",
+        "romanNumerals": "I7 I7 I7 I7 IV7 IV7 I7 I7 V7 IV7 I7 V7 i i i i iv iv i i v iv i v i i i i iv iv i i v iv i v i i i i iv iv i i v iv i v",
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [
-          "form:12-bar_blues"
+          "harmony:parallel_keys",
+          "timbre:unexpected_detune"
         ],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.0400000000000007,
@@ -13449,6 +13506,49 @@
       },
       "9": {
         "mode": "major",
+        "tagSpans": [
+          {
+            "voices": [
+              1
+            ],
+            "tag": "middle_voice:arpeggio",
+            "span": [
+              1,
+              8
+            ]
+          },
+          {
+            "voices": [
+              1,
+              0
+            ],
+            "tag": "middle_voice:parallel_thirds",
+            "span": [
+              9,
+              12
+            ]
+          },
+          {
+            "voices": [
+              2
+            ],
+            "tag": "bass:pedal_point",
+            "span": [
+              1,
+              8
+            ]
+          },
+          {
+            "voices": [
+              2
+            ],
+            "tag": "bass:root",
+            "span": [
+              9,
+              12
+            ]
+          }
+        ],
         "secondMeasure": 1.9900000000000015,
         "loop": 13,
         "romanNumerals": "I II ii I I II ii I IV IV V V ",
@@ -13457,10 +13557,7 @@
         "step": "end",
         "correctedMeasures": [],
         "tonic": 6,
-        "tags": [
-          "middle_voice:arpeggio",
-          "middle_voice:parallel_thirds"
-        ]
+        "tags": []
       },
       "10": {
         "mode": "major",
@@ -13611,7 +13708,7 @@
         ],
         "secondMeasure": 1.58857142857,
         "loop": 13,
-        "romanNumerals": "I I I I IV IV I I VI VII I",
+        "romanNumerals": "I I I I III5 ii I I VI VII I",
         "firstMeasure": 0,
         "clickResolutionMs": 0.01,
         "step": "end",
@@ -14749,13 +14846,64 @@
       },
       "1": {
         "beatsPerMeasure": 4,
+        "tagSpans": [
+          {
+            "tag": "form:12-bar_blues",
+            "span": [
+              1,
+              12
+            ]
+          },
+          {
+            "voices": [
+              2
+            ],
+            "tag": "bass:transposed_riff",
+            "span": [
+              1,
+              12
+            ]
+          },
+          {
+            "voices": [
+              1,
+              0
+            ],
+            "tag": "middle_voice:static_chord_tones",
+            "span": [
+              1,
+              12
+            ]
+          },
+          {
+            "voices": [
+              0
+            ],
+            "tag": "melody:riff",
+            "span": [
+              1,
+              8
+            ]
+          },
+          {
+            "tag": "rhythm:syncopation",
+            "span": [
+              1,
+              12
+            ]
+          },
+          {
+            "tag": "harmony:blues_seventh_chords",
+            "span": [
+              1,
+              12
+            ]
+          }
+        ],
         "romanNumerals": "I7 I7 I7 I7 IV7 IV7 I7 I7 V7 IV7 I7 V7",
         "clickResolutionMs": 0.01,
         "modulations": [],
-        "tags": [
-          "form:12-bar_blues",
-          "rhythm:syncopation"
-        ],
+        "tags": [],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.5400000000000011,
         "loop": 13,
@@ -15044,13 +15192,57 @@
       },
       "4": {
         "beatsPerMeasure": 4,
+        "tagSpans": [
+          {
+            "voices": [
+              2
+            ],
+            "tag": "bass:transposed_riff",
+            "span": [
+              1,
+              12
+            ]
+          },
+          {
+            "tag": "form:12-bar_blues",
+            "span": [
+              1,
+              12
+            ]
+          },
+          {
+            "voices": [
+              1
+            ],
+            "tag": "middle_voice:transposed_riff",
+            "span": [
+              1,
+              12
+            ]
+          },
+          {
+            "voices": [
+              0
+            ],
+            "tag": "melody:transposed_riff",
+            "span": [
+              1,
+              12
+            ]
+          },
+          {
+            "tag": "harmony:diatonic_seventh_chords",
+            "span": [
+              1,
+              12
+            ]
+          }
+        ],
         "disableSnapToNotes": false,
-        "romanNumerals": "i i i i iv iv i i v iv i i",
+        "romanNumerals": "i7 i7 i7 i7 iv7 iv7 i7 i7 v7 iv7 i7 i7",
         "clickResolutionMs": 0.01,
         "modulations": [],
-        "tags": [
-          "form:12-bar_blues"
-        ],
+        "tags": [],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.7900000000000014,
         "loop": 13,
@@ -17900,13 +18092,87 @@
       },
       "1": {
         "beatsPerMeasure": 4,
+        "tagSpans": [
+          {
+            "voices": [
+              0
+            ],
+            "tag": "bass:transposed_riff",
+            "span": [
+              5,
+              28
+            ]
+          },
+          {
+            "voices": [
+              0
+            ],
+            "tag": "bass:chromatic_approach",
+            "span": [
+              13,
+              16
+            ]
+          },
+          {
+            "voices": [
+              0
+            ],
+            "tag": "bass:chromatic_approach",
+            "span": [
+              25,
+              28
+            ]
+          },
+          {
+            "voices": [
+              1
+            ],
+            "tag": "middle_voice:transposed_riff",
+            "span": [
+              5,
+              28
+            ]
+          },
+          {
+            "voices": [
+              2
+            ],
+            "tag": "melody:riff",
+            "span": [
+              17,
+              28
+            ]
+          },
+          {
+            "voices": [
+              2
+            ],
+            "tag": "melody:riff",
+            "span": [
+              5,
+              16
+            ]
+          },
+          {
+            "tag": "harmony:tonic_added-sixth_chord",
+            "span": [
+              5,
+              28
+            ]
+          },
+          {
+            "tag": "form:12-bar_blues",
+            "span": [
+              5,
+              28
+            ]
+          }
+        ],
         "disableSnapToNotes": false,
         "romanNumerals": "_ _ _ _ I I I I IV IV I I V5 V I I I I I I IV IV I I V5 V I I",
         "clickResolutionMs": 0.01,
         "modulations": [],
-        "tags": [
-          "form:12-bar_blues"
-        ],
+        "tags": [],
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.0900000000000007,
         "form": {
@@ -21074,6 +21340,18 @@
     "Banana (1986-09-08)(Victor).nsf": {
       "0": {
         "beatsPerMeasure": 4,
+        "tagSpans": [
+          {
+            "voices": [
+              0
+            ],
+            "tag": "melody:basic_idea_x3",
+            "span": [
+              2,
+              5
+            ]
+          }
+        ],
         "disableSnapToNotes": false,
         "romanNumerals": "I-VII I VII I VII-I5 I VII I VII-I",
         "clickResolutionMs": 0.01,
@@ -21082,7 +21360,6 @@
           "harmony:mixolydian_shuttle",
           "bass:transposed_riff",
           "location:menu",
-          "melody:basic_idea_x3",
           "melody:fills_at_rests",
           "form:accumulative"
         ],
@@ -27822,13 +28099,6 @@
             ]
           },
           {
-            "tag": "harmony:Vsus4",
-            "span": [
-              31,
-              32
-            ]
-          },
-          {
             "tag": "harmony:diatonic_seventh_chords",
             "span": [
               3,
@@ -27911,10 +28181,17 @@
               11,
               16
             ]
+          },
+          {
+            "tag": "harmony:Vsus4",
+            "span": [
+              29,
+              32
+            ]
           }
         ],
         "disableSnapToNotes": true,
-        "romanNumerals": "_ I I VII^ vi7 VI^-VII6 I VII^ vi7 VI^-VII6 _ _ _ _ _ V i i bII bII i i bII bII I I IV IV V/V V/V V V",
+        "romanNumerals": "_ I I VII^ vi7 VI^-VII6 I VII^ vi7 VI^-VII6 _ _ _ _ _ V i7 i7 bII^ bII^ i7 i7 bII^ bII^ I I IV IV V/V V/V V V",
         "clickResolutionMs": 0.01,
         "tags": [
           "style:math-rock"
@@ -29631,6 +29908,83 @@
         "comment": "",
         "correctedMeasures": [],
         "tonic": 0,
+        "basedOn": null
+      }
+    }
+  },
+  "Nintendo/Dr. Jekyll and Mr. Hyde": {
+    "Dr. Jekyll and Mr. Hyde [Jekyll Hakase no Houma ga Koku] (1988-04-08)(Advance Communication)(Toho).nsf": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "i i i V i V i V i V i",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "scale:nikriz"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 3.9699999999999593,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 7,
+        "basedOn": null
+      }
+    }
+  },
+  "Nintendo/China Rabbit Baby": {
+    "China Rabbit Baby (19xx)(Copyright).nsf": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "I I I V V V V vi-viio I I I V V V V vi-viio IV I ii I IV iii V/V V",
+        "clickResolutionMs": 0.01,
+        "tags": [],
+        "modulations": {
+          "23": 10
+        },
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 0.8900000000000006,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "1": 0,
+          "18": 15.75,
+          "19": 16.733333333333334,
+          "24": 21.383333333333333,
+          "29": 26.09000000000128,
+          "30": 27.016666666666666
+        },
+        "tonic": 10,
+        "basedOn": null
+      }
+    }
+  },
+  "Nintendo/Chess Academys": {
+    "Chess Academys (1991)(Sachen).nsf": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "i VII VI v",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.5900000000000012,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "copy: 16 Mahjong",
+        "correctedMeasures": [],
+        "tonic": 9,
         "basedOn": null
       }
     }

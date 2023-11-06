@@ -11,7 +11,7 @@ import {
 } from "./Analysis";
 import { BookExample } from "./Book";
 import { calculateMeasuresAndBeats } from "./measures";
-import { Note, parseNotes } from "./noteParsers";
+import { ChipStateDump, Note, parseNotes } from "./noteParsers";
 import {
   TWELVE_CHORD_TONES,
   TWELVE_TONE_COLORS,
@@ -50,17 +50,13 @@ const VOICE_TO_COLOR: { [key in Voice]: string } = {
 };
 
 const getNoteColor = (
-  voice: Voice,
+  voiceIndex: number,
   note: Note,
   analysis,
   measures: number[],
 ): string => {
-  if (voice === "noise") {
-    return "black";
-  }
-
   if (analysis.tonic === null) {
-    return VOICE_TO_COLOR[voice];
+    return VOICE_TO_COLOR[voiceIndex % 3]; // TODO: introduce 16 colors for all possible midi channels
   }
 
   return TWELVE_TONE_COLORS[
@@ -93,7 +89,7 @@ const getIntervalBelow = (note: Note, allNotes: Note[]) => {
 
 const getNoteRectangles = (
   notes: Note[],
-  voice: Voice,
+  voiceIndex: number, // -1 if it's a note highlight for notes under cursor
   isActiveVoice: boolean,
   analysis: Analysis,
   midiNumberToY: (number: number) => number,
@@ -109,9 +105,9 @@ const getNoteRectangles = (
   return notes.map((note) => {
     const top = midiNumberToY(note.note.midiNumber);
     const left = secondsToX(note.span[0]);
-    const color = getNoteColor(voice, note, analysis, measures);
+    const color = getNoteColor(voiceIndex, note, analysis, measures);
     const chordNote =
-      voice !== "under cursor"
+      voiceIndex !== -1
         ? getChordNote(note, analysis, measures, analysis.romanNumerals)
         : null;
     const noteElement = chordNote ? (
@@ -143,15 +139,14 @@ const getNoteRectangles = (
           backgroundColor: color,
           top,
           left,
-          pointerEvents: voice === "under cursor" ? "none" : "auto",
-          borderRadius:
-            voice === "pulse1" ? "10px" : voice === "triangle" ? "3px" : "",
+          pointerEvents: voiceIndex === -1 ? "none" : "auto",
+          borderRadius: [10, 3, 0][voiceIndex % 3],
           cursor: "pointer",
           zIndex: 10,
           opacity: isActiveVoice ? 0.9 : 0.1,
           display: "grid",
           placeItems: "center",
-          ...(voice === "under cursor"
+          ...(voiceIndex === -1
             ? {
                 boxShadow: "white 0px 1px",
                 boxSizing: "border-box",
@@ -213,14 +208,28 @@ const getMidiRange = (
   return { minMidiNumber, maxMidiNumber };
 };
 
-const Chiptheory = ({
+const Chiptheory: React.FC<{
+  chipStateDump: ChipStateDump;
+  getCurrentPositionMs: () => number;
+  savedAnalysis: Analysis;
+  saveAnalysis: (Analysis) => void;
+  voiceMask: boolean[];
+  setVoiceMask: (mask: boolean[]) => void;
+  analysisEnabled: boolean;
+  seek: (ms: number) => void;
+  registerSeekCallback: (seekCallback: (ms: number) => void) => void;
+  bookPath: string;
+  pause: () => void;
+  paused: boolean;
+  loggedIn: boolean;
+}> = ({
   chipStateDump,
   getCurrentPositionMs,
   savedAnalysis,
   saveAnalysis,
   voiceMask,
   setVoiceMask,
-  analysisEnabled,
+  analysisEnabled, // is it a reasonable argument?
   seek,
   registerSeekCallback,
   bookPath,
@@ -278,22 +287,15 @@ const Chiptheory = ({
 
   const notes = useMemo(() => parseNotes(chipStateDump), [chipStateDump]);
 
-  const allNotes = useMemo(
-    () => [...notes.t, ...notes.p1, ...notes.p2],
-    [chipStateDump],
-  );
+  const allNotes = useMemo(() => notes.flat(), [chipStateDump]);
 
   const allActiveNotes = useMemo(
-    () => [
-      ...(voiceMask[2] ? notes.t : []),
-      ...(voiceMask[0] ? notes.p1 : []),
-      ...(voiceMask[1] ? notes.p2 : []),
-    ],
+    () => notes.filter((_, i) => voiceMask[i]).flat(),
     [chipStateDump, voiceMask],
   );
 
   const { minMidiNumber, maxMidiNumber } = useMemo(
-    () => getMidiRange([...notes.t, ...notes.p1, ...notes.p2]),
+    () => getMidiRange(notes.flat()),
     [notes],
   );
 
@@ -368,45 +370,41 @@ const Chiptheory = ({
     );
   };
 
-  const noteRectangles = useMemo(() => {
-    const voices = [
-      { notes: notes.p1, label: "pulse1", mask: voiceMask[0] },
-      { notes: notes.p2, label: "pulse2", mask: voiceMask[1] },
-      { notes: notes.t, label: "triangle", mask: voiceMask[2] },
-    ];
-
-    return voices.flatMap((voice) =>
-      getNoteRectangles(
-        voice.notes,
-        voice.label as Voice,
-        voice.mask,
-        futureAnalysis,
-        midiNumberToY,
-        noteHeight,
-        handleNoteClick,
-        measuresAndBeats.measures,
-        handleMouseEnter,
-        handleMouseLeave,
-        allActiveNotes,
-        voiceMask,
-        showIntervals,
+  const noteRectangles = useMemo(
+    () =>
+      notes.flatMap((voice, i) =>
+        getNoteRectangles(
+          voice,
+          i,
+          voiceMask[i],
+          futureAnalysis,
+          midiNumberToY,
+          noteHeight,
+          handleNoteClick,
+          measuresAndBeats.measures,
+          handleMouseEnter,
+          handleMouseLeave,
+          allActiveNotes,
+          voiceMask,
+          showIntervals,
+        ),
       ),
-    );
-  }, [
-    notes,
-    analysis,
-    measuresAndBeats,
-    noteHeight,
-    voiceMask,
-    hoveredNote,
-    hoveredAltKey,
-    showIntervals,
-  ]);
+    [
+      notes,
+      analysis,
+      measuresAndBeats,
+      noteHeight,
+      voiceMask,
+      hoveredNote,
+      hoveredAltKey,
+      showIntervals,
+    ],
+  );
 
   const [positionMs, setPositionMs] = useState(0);
   const currentlyPlayedRectangles = getNoteRectangles(
     findCurrentlyPlayedNotes(allNotes, positionMs),
-    "under cursor",
+    -1,
     true,
     analysis,
     midiNumberToY,
@@ -514,7 +512,7 @@ const Chiptheory = ({
           <Cursor style={{ left: secondsToX(positionMs / 1000) }} />
           <AnalysisGrid
             analysis={futureAnalysis}
-            voices={[notes.p1, notes.p2, notes.t]}
+            voices={notes}
             measuresAndBeats={measuresAndBeats}
             midiNumberToY={midiNumberToY}
             noteHeight={noteHeight}

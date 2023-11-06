@@ -88,11 +88,11 @@ const calculateNotesFromPeriods = (periods, oscType) => {
   return notes.filter((note) => note.note.midiNumber !== -1);
 };
 
-export const parseNES = (data) => {
-  return {
-    p1: calculateNotesFromPeriods(data.p1, "pulse"),
-    p2: calculateNotesFromPeriods(data.p2, "pulse"),
-    t: calculateNotesFromPeriods(data.t, "triangle"),
-    n: calculateNotesFromPeriods(data.n, "noise"),
-  };
+export const parseNES = (data): Note[][] => {
+  return [
+    calculateNotesFromPeriods(data.p1, "pulse"),
+    calculateNotesFromPeriods(data.p2, "pulse"),
+    calculateNotesFromPeriods(data.t, "triangle"),
+    // calculateNotesFromPeriods(data.n, "noise"),
+  ];
 };

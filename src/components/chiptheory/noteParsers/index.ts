@@ -11,19 +11,17 @@ export type Note = {
   chipState: any;
 };
 
-export type NotesInNesChannels = {
-  t: Note[];
-  p1: Note[];
-  p2: Note[];
-  n: Note[];
+export type ChipStateDump = {
+  type: "nes" | "midi";
+  data: any;
 };
 
-export const parseNotes = ({ type, data }): NotesInNesChannels => {
+export const parseNotes = ({ type, data }: ChipStateDump): Note[][] => {
   if (type === "nes") {
     return parseNES(data);
   }
   if (type === "midi") {
     return parseMIDI(data);
   }
-  return { t: [], p1: [], p2: [], n: [] };
+  return [];
 };

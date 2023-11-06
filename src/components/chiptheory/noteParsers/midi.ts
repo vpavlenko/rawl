@@ -1,4 +1,4 @@
-import { Note, NotesInNesChannels } from ".";
+import { Note } from ".";
 
 const getNotes = (data, channel): Note[] => {
   const notes = [];
@@ -28,11 +28,7 @@ const getNotes = (data, channel): Note[] => {
   return notes;
 };
 
-export const parseMIDI = (data): NotesInNesChannels => {
-  return {
-    p1: getNotes(data, 0),
-    p2: getNotes(data, 3),
-    t: getNotes(data, 4),
-    n: [],
-  };
+export const parseMIDI = (data): Note[][] => {
+  // TODO: show channel with notes
+  return [getNotes(data, 0), getNotes(data, 3), getNotes(data, 4)];
 };

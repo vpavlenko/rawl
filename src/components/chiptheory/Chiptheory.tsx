@@ -41,13 +41,7 @@ const isNoteCurrentlyPlayed = (note, positionMs) => {
 };
 
 // This is used when tonic isn't set yet.
-const VOICE_TO_COLOR: { [key in Voice]: string } = {
-  pulse1: "#26577C",
-  pulse2: "#AE445A",
-  triangle: "#63995a",
-  noise: "white",
-  "under cursor": "under cursor",
-};
+const VOICE_TO_COLOR = ["#26577C", "#AE445A", "#63995a"];
 
 const getNoteColor = (
   voiceIndex: number,
@@ -402,14 +396,14 @@ const Chiptheory: React.FC<{
   );
 
   const [positionMs, setPositionMs] = useState(0);
-  const currentlyPlayedRectangles = getNoteRectangles(
-    findCurrentlyPlayedNotes(allNotes, positionMs),
-    -1,
-    true,
-    analysis,
-    midiNumberToY,
-    noteHeight,
-  );
+  // const currentlyPlayedRectangles = getNoteRectangles(
+  //   findCurrentlyPlayedNotes(allNotes, positionMs),
+  //   -1,
+  //   true,
+  //   analysis,
+  //   midiNumberToY,
+  //   noteHeight,
+  // );
 
   useEffect(() => {
     let running = true;
@@ -508,7 +502,7 @@ const Chiptheory: React.FC<{
           }}
         >
           {noteRectangles}
-          {currentlyPlayedRectangles}
+          {/* {currentlyPlayedRectangles} */}
           <Cursor style={{ left: secondsToX(positionMs / 1000) }} />
           <AnalysisGrid
             analysis={futureAnalysis}

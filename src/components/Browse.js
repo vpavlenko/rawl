@@ -143,8 +143,8 @@ export default class Browse extends React.PureComponent {
         ) : (
           <div
             style={{
-              height: "20px",
-              overflow: "hidden",
+              height: "40px",
+              overflow: "scroll",
               margin: 0,
             }}
           >

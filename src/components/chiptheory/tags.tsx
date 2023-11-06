@@ -291,6 +291,7 @@ export const TAGS = [
   "origin:russia",
   "game_genre:baseball",
   "lego:pullback",
+  "yeah:yeah",
 ];
 
 export const getAnalysisTags = (analysis: Analysis): string[] =>

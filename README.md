@@ -38,3 +38,4 @@ Certain composers for NES can have very recognizable style and musical toolchain
 # Setup instructions
 
 Try `yarn install` and `yarn start`. If it doesn't work, try reading https://github.com/mmontag/chip-player-js/. Don't compile wasm, I pre-compiled it and added it to the repo.
+.

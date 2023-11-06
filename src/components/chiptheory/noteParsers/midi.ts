@@ -31,5 +31,11 @@ const getNotes = (events, channel): Note[] => {
   return notes;
 };
 
+// We can also find key event:
+// key: 0,
+// scale: 0,
+// subtype: 89,
+// type: 255,
+
 export const parseMIDI = ({ events, activeChannels }): Note[][] =>
   activeChannels.map((channel) => getNotes(events, channel));

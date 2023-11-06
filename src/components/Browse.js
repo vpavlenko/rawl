@@ -143,7 +143,7 @@ export default class Browse extends React.PureComponent {
         ) : (
           <div
             style={{
-              height: "40px",
+              height: browsePath.startsWith("Nintendo") ? "1px" : "40px",
               overflow: "scroll",
               margin: 0,
             }}

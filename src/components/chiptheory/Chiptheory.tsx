@@ -6,17 +6,12 @@ import {
   AnalysisBox,
   AnalysisGrid,
   Cursor,
-  RESOLUTION_MS,
   advanceAnalysis,
   getNewAnalysis,
 } from "./Analysis";
 import { BookExample } from "./Book";
 import { calculateMeasuresAndBeats } from "./measures";
-import {
-  NES_APU_NOTE_ESTIMATIONS,
-  PAUSE,
-  nesApuNoteEstimation,
-} from "./nesApuNoteEstimations";
+import { Note, parseNotes } from "./noteParsers";
 import {
   TWELVE_CHORD_TONES,
   TWELVE_TONE_COLORS,
@@ -26,103 +21,13 @@ import {
 } from "./romanNumerals";
 import { ANALYSIS_HEIGHT } from "./tags";
 
-type OscType = "pulse" | "triangle" | "noise";
 export type Voice = "pulse1" | "pulse2" | "triangle" | "noise" | "under cursor";
 
 // If not used, the playback cursor isn't exactly where the sound is
 const LATENCY_CORRECTION_MS =
   (localStorage && parseInt(localStorage.getItem("latency"), 10)) || 70;
 
-function findNoteWithClosestPeriod(
-  period: number,
-  oscType: OscType,
-): nesApuNoteEstimation {
-  if (period === -1) {
-    return PAUSE;
-  }
-  if (oscType === "noise") {
-    const noise = period % 4;
-    return {
-      name: `${noise}_`, // pause
-      midiNumber: noise + 90,
-      frequency: 0,
-      pianoNumber: null,
-      apuIndex: null,
-      pulsePeriod: null,
-      pulseFrequency: null,
-      pulseTuningError: null,
-      trianglePeriod: null,
-      triangleFrequency: null,
-      triangleTuningError: null,
-    };
-  }
-  let closestNote: nesApuNoteEstimation | null = null;
-  let smallestDifference = Infinity;
-
-  for (const note of NES_APU_NOTE_ESTIMATIONS) {
-    const currentPeriod =
-      oscType === "pulse"
-        ? Number(note.pulsePeriod)
-        : Number(note.trianglePeriod);
-    if (currentPeriod == null) continue;
-
-    const diff = Math.abs(period - currentPeriod);
-
-    if (diff < smallestDifference) {
-      smallestDifference = diff;
-      closestNote = note;
-    }
-  }
-
-  return closestNote!;
-}
-
 export type SecondsSpan = [number, number];
-
-export type Note = {
-  note: {
-    midiNumber: number;
-    name: string;
-  };
-  span: SecondsSpan;
-  chipState: any;
-};
-
-const calculateNotesFromPeriods = (periods, oscType) => {
-  if (periods === undefined) return [];
-
-  const notes: Note[] = [];
-  let timeInSeconds = 0;
-  const stepInSeconds = RESOLUTION_MS;
-
-  for (const period of periods) {
-    const newNoteEstimation = findNoteWithClosestPeriod(period, oscType);
-    const lastNote = notes[notes.length - 1];
-    if (
-      notes.length === 0 ||
-      lastNote.note.midiNumber !== newNoteEstimation.midiNumber
-    ) {
-      if (notes.length > 0) {
-        lastNote.span[1] = timeInSeconds;
-      }
-      notes.push({
-        note: {
-          midiNumber: period === -1 ? -1 : newNoteEstimation.midiNumber,
-          name: newNoteEstimation.name,
-        },
-        span: [timeInSeconds, 0],
-        chipState: { period: period },
-      });
-    }
-
-    timeInSeconds += stepInSeconds;
-  }
-  if (notes.length > 0) {
-    notes[notes.length - 1].span[1] = timeInSeconds;
-  }
-
-  return notes.filter((note) => note.note.midiNumber !== -1);
-};
 
 const SECOND_WIDTH = 60;
 const HORIZONTAL_HEADER_PADDING = 55;
@@ -371,14 +276,7 @@ const Chiptheory = ({
     selectedDownbeatRef.current = selectedDownbeat;
   }, [selectedDownbeat]);
 
-  const notes = useMemo(() => {
-    return {
-      p1: calculateNotesFromPeriods(chipStateDump.p1, "pulse"),
-      p2: calculateNotesFromPeriods(chipStateDump.p2, "pulse"),
-      t: calculateNotesFromPeriods(chipStateDump.t, "triangle"),
-      n: calculateNotesFromPeriods(chipStateDump.n, "noise"),
-    };
-  }, [chipStateDump]);
+  const notes = useMemo(() => parseNotes(chipStateDump), [chipStateDump]);
 
   const allNotes = useMemo(
     () => [...notes.t, ...notes.p1, ...notes.p2],

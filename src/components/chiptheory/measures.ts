@@ -1,5 +1,5 @@
 import { Analysis } from "./Analysis";
-import { Note } from "./Chiptheory";
+import { Note } from "./noteParsers";
 
 export type MeasuresAndBeats = {
   measures: number[];

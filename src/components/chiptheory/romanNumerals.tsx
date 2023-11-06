@@ -1,8 +1,9 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { Analysis, PitchClass } from "./Analysis";
-import { Note, SecondsSpan } from "./Chiptheory";
+import { SecondsSpan } from "./Chiptheory";
 import { getPhrasingMeasures } from "./measures";
+import { Note } from "./noteParsers";
 
 const getIntersectionTime = (i: SecondsSpan, j: SecondsSpan): number => {
   const [iStart, iEnd] = i;

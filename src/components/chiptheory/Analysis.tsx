@@ -2,8 +2,9 @@ import * as React from "react";
 import { useEffect, useRef, useState } from "react";
 import Select from "react-select";
 import styled from "styled-components";
-import { Note, secondsToX } from "./Chiptheory";
+import { secondsToX } from "./Chiptheory";
 import { MeasuresAndBeats, getPhrasingMeasures } from "./measures";
+import { Note } from "./noteParsers";
 import {
   MeasureOfRomanNumerals,
   getModulations,
@@ -13,6 +14,7 @@ import {
 } from "./romanNumerals";
 import { CATEGORIES_IN_STRIPES, STRIPES_HEIGHT, Stripes, TAGS } from "./tags";
 
+// TODO: move to nes.ts
 export const RESOLUTION_DUMPS_PER_SECOND = 100;
 export const RESOLUTION_MS = 1 / RESOLUTION_DUMPS_PER_SECOND;
 

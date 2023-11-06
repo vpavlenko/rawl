@@ -229,7 +229,7 @@ export default class GMEPlayer extends Player {
       n.push(parsedState.noise_volume > 0 ? parsedState.noise_period : -1);
     }
     // console.log(p1);
-    this.setChipStateDump({ p1, p2, t, n });
+    this.setChipStateDump({ type: "nes", data: { p1, p2, t, n } });
     console.timeEnd("extract notes from NES file");
 
     return core._gme_start_track(this.gmeCtx, subtune);

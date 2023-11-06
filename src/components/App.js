@@ -974,35 +974,37 @@ class App extends React.Component {
                                   analyses={this.state.analyses}
                                   sequencer={this.sequencer}
                                 />
-                                <Chiptheory
-                                  chipStateDump={this.state.chipStateDump}
-                                  getCurrentPositionMs={() => {
-                                    if (
-                                      this.sequencer &&
-                                      this.sequencer.getPlayer()
-                                    ) {
-                                      return this.sequencer
-                                        .getPlayer()
-                                        .getPositionMs();
+                                {this.state.chipStateDump?.type && (
+                                  <Chiptheory
+                                    chipStateDump={this.state.chipStateDump}
+                                    getCurrentPositionMs={() => {
+                                      if (
+                                        this.sequencer &&
+                                        this.sequencer.getPlayer()
+                                      ) {
+                                        return this.sequencer
+                                          .getPlayer()
+                                          .getPositionMs();
+                                      }
+                                      return 0;
+                                    }}
+                                    savedAnalysis={savedAnalysis}
+                                    saveAnalysis={this.saveAnalysis}
+                                    voiceMask={this.state.voiceMask}
+                                    setVoiceMask={this.handleSetVoiceMask}
+                                    analysisEnabled={this.state.analysisEnabled}
+                                    seek={(time) =>
+                                      this.seekRelativeInner(time, true)
                                     }
-                                    return 0;
-                                  }}
-                                  savedAnalysis={savedAnalysis}
-                                  saveAnalysis={this.saveAnalysis}
-                                  voiceMask={this.state.voiceMask}
-                                  setVoiceMask={this.handleSetVoiceMask}
-                                  analysisEnabled={this.state.analysisEnabled}
-                                  seek={(time) =>
-                                    this.seekRelativeInner(time, true)
-                                  }
-                                  registerSeekCallback={(seekCallback) =>
-                                    this.setState({ seekCallback })
-                                  }
-                                  bookPath={bookPath}
-                                  pause={this.togglePause}
-                                  paused={this.state.paused}
-                                  loggedIn={!!this.state.user}
-                                />
+                                    registerSeekCallback={(seekCallback) =>
+                                      this.setState({ seekCallback })
+                                    }
+                                    bookPath={bookPath}
+                                    pause={this.togglePause}
+                                    paused={this.state.paused}
+                                    loggedIn={!!this.state.user}
+                                  />
+                                )}
                               </>
                             )
                           );

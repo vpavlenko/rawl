@@ -1,7 +1,8 @@
 import * as React from "react";
 import { Analysis, TagSpan } from "./Analysis";
-import { Note, secondsToX } from "./Chiptheory";
+import { secondsToX } from "./Chiptheory";
 import { MeasuresAndBeats } from "./measures";
+import { Note } from "./noteParsers";
 
 export const TAGS = [
   "scale:blues",

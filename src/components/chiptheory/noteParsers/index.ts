@@ -1,4 +1,5 @@
 import { SecondsSpan } from "../Chiptheory";
+import { parseMIDI } from "./midi";
 import { parseNES } from "./nes";
 
 export type Note = {
@@ -10,9 +11,19 @@ export type Note = {
   chipState: any;
 };
 
-export const parseNotes = ({ type, data }) => {
+export type NotesInNesChannels = {
+  t: Note[];
+  p1: Note[];
+  p2: Note[];
+  n: Note[];
+};
+
+export const parseNotes = ({ type, data }): NotesInNesChannels => {
   if (type === "nes") {
     return parseNES(data);
   }
-  return {};
+  if (type === "midi") {
+    return parseMIDI(data);
+  }
+  return { t: [], p1: [], p2: [], n: [] };
 };

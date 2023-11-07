@@ -114,6 +114,8 @@ export default class Browse extends React.PureComponent {
       searchPath,
     );
 
+    const searchParams = new URLSearchParams(window.location.search);
+
     return (
       <>
         {isRoot || searchPath ? (
@@ -143,7 +145,10 @@ export default class Browse extends React.PureComponent {
         ) : (
           <div
             style={{
-              height: browsePath.startsWith("Nintendo") ? "1px" : "100%",
+              height:
+                browsePath.startsWith("Nintendo") || searchParams.get("song")
+                  ? "1px"
+                  : "100%",
               overflow: "scroll",
               margin: 0,
             }}

@@ -30,7 +30,8 @@ function BrowseList({ items, ...props }) {
   useEffect(() => {
     const firstSongItem = items.find((item) => item.type !== "directory");
 
-    if (firstSongItem) {
+    if (firstSongItem && firstSongItem?.path?.startsWith("/Nintendo/")) {
+      console.log("firstSongItem", firstSongItem);
       const path =
         firstSongItem.path === ".."
           ? browsePath.substr(0, browsePath.lastIndexOf("/"))
@@ -87,7 +88,7 @@ function BrowseList({ items, ...props }) {
             : {}
         }
       >
-        {items.slice(1).map((item) => {
+        {items.map((item) => {
           // XXX: Escape immediately: the escaped URL is considered canonical.
           //      The URL must be decoded for display from here on out.
           const path =
@@ -156,20 +157,41 @@ function BrowseList({ items, ...props }) {
               <div
                 key={name}
                 className={
-                  isPlaying
+                  (isPlaying
                     ? "Song-now-playing BrowseList-row"
-                    : "BrowseList-row"
+                    : "BrowseList-row") + " BrowseList-row-mainPage"
                 }
               >
                 <div className="BrowseList-colName">
-                  <a
-                    onClick={(e) =>
-                      handleSongClick(href, playContext, item.idx)(e)
-                    }
-                    href={href}
-                  >
-                    {name}
-                  </a>
+                  {path.startsWith("Nintendo") ? (
+                    <a
+                      onClick={(e) =>
+                        handleSongClick(href, playContext, item.idx)(e)
+                      }
+                    >
+                      {name}
+                    </a>
+                  ) : (
+                    <a
+                      onClick={(e) => {
+                        const currentPathname =
+                          window.location.pathname.replace("/chiptheory/", "/");
+                        const searchParams = new URLSearchParams(
+                          window.location.search,
+                        );
+                        searchParams.set("song", name);
+
+                        history.push({
+                          pathname: currentPathname,
+                          search: searchParams.toString(),
+                        });
+                        handleSongClick(href, playContext, item.idx)(e);
+                      }}
+                      style={{ color: "lightgray" }}
+                    >
+                      {name}
+                    </a>
+                  )}
                 </div>
               </div>
             );

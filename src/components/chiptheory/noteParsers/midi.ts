@@ -14,7 +14,7 @@ const getNotes = (events, channel): Note[] => {
       }
       if (event.subtype === 8) {
         if (!(midiNumber in noteOnTime)) {
-          console.log("WEIRD: noteOff for note not seen before", event);
+          //   console.log("WEIRD: noteOff for note not seen before", event);
         }
         notes.push({
           note: {
@@ -36,6 +36,7 @@ const getNotes = (events, channel): Note[] => {
 // scale: 0,
 // subtype: 89,
 // type: 255,
+// Except that in practice these events are always key=0 scale=0 (no one is setting them)
 
 export const parseMIDI = ({ events, activeChannels }): Note[][] =>
   activeChannels.map((channel) => getNotes(events, channel));

@@ -271,6 +271,7 @@ export const RomanNumeral: React.FC<{
             .replace("b", "♭")
             .replace("#", "♯")
             .replace("o", "ᵒ")
+            .replace("+", "⁺")
           // .replace("^", "▵")
         }
       </span>

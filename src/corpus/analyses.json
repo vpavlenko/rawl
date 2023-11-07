@@ -11130,6 +11130,9 @@
         "beatsPerMeasure": 4,
         "tagSpans": [
           {
+            "voices": [
+              1
+            ],
             "tag": "middle_voice:arpeggio",
             "span": [
               9,
@@ -11137,6 +11140,10 @@
             ]
           },
           {
+            "voices": [
+              1,
+              0
+            ],
             "tag": "middle_voice:parallel_sixths",
             "span": [
               1,
@@ -11144,6 +11151,10 @@
             ]
           },
           {
+            "voices": [
+              1,
+              0
+            ],
             "tag": "middle_voice:lower_chord_tones",
             "span": [
               14,
@@ -11151,6 +11162,9 @@
             ]
           },
           {
+            "voices": [
+              1
+            ],
             "tag": "middle_voice:mixed_parallel",
             "span": [
               15,
@@ -11158,6 +11172,9 @@
             ]
           },
           {
+            "voices": [
+              2
+            ],
             "tag": "bass:root_fifth",
             "span": [
               1,
@@ -11172,6 +11189,9 @@
             ]
           },
           {
+            "voices": [
+              2
+            ],
             "tag": "bass:root_fifth",
             "span": [
               15,
@@ -13802,6 +13822,9 @@
             ]
           },
           {
+            "voices": [
+              2
+            ],
             "tag": "bass:root_fifth",
             "span": [
               1,
@@ -13809,6 +13832,10 @@
             ]
           },
           {
+            "voices": [
+              1,
+              0
+            ],
             "tag": "middle_voice:parallel_thirds",
             "span": [
               1,
@@ -15314,22 +15341,31 @@
         "tonic": 0
       },
       "2": {
+        "tagSpans": [
+          {
+            "tag": "scale:whole-tone",
+            "span": [
+              3,
+              4
+            ]
+          }
+        ],
+        "romanNumerals": "I _ _ _ _ _ _ _ I",
+        "clickResolutionMs": 0.01,
+        "tags": [
+          "scale:atonal"
+        ],
         "mode": "major",
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.0000000000000007,
         "loop": 17,
-        "romanNumerals": "I _ _ _ _ _ _ _ I",
         "firstMeasure": 0,
-        "clickResolutionMs": 0.01,
         "step": "end",
         "comment": "jazzy",
         "correctedMeasures": {
           "2": 1.300000000000001
         },
-        "tonic": 0,
-        "tags": [
-          "scale:atonal"
-        ]
+        "tonic": 0
       },
       "3": {
         "mode": "minor",
@@ -15455,6 +15491,9 @@
             ]
           },
           {
+            "voices": [
+              1
+            ],
             "tag": "bass:root_third_fifth",
             "span": [
               1,
@@ -15469,6 +15508,9 @@
             ]
           },
           {
+            "voices": [
+              1
+            ],
             "tag": "bass:doubles_melody",
             "span": [
               17,
@@ -15476,6 +15518,9 @@
             ]
           },
           {
+            "voices": [
+              0
+            ],
             "tag": "melody:arpeggio",
             "span": [
               17,
@@ -19675,6 +19720,9 @@
         "beatsPerMeasure": 4,
         "tagSpans": [
           {
+            "voices": [
+              2
+            ],
             "tag": "bass:root_fifth",
             "span": [
               1,
@@ -19682,6 +19730,9 @@
             ]
           },
           {
+            "voices": [
+              1
+            ],
             "tag": "middle_voice:transposed_riff",
             "span": [
               1,
@@ -29985,6 +30036,953 @@
         "comment": "copy: 16 Mahjong",
         "correctedMeasures": [],
         "tonic": 9,
+        "basedOn": null
+      }
+    }
+  },
+  "Jazz MIDI": {
+    "Aintmisb.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": true,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 32.476122500000024,
+        "loop": null,
+        "firstMeasure": 30.459318500000023,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 9,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/The Offspring": {
+    "Amazed.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": true,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 6.9718275,
+        "loop": null,
+        "firstMeasure": 5.07042,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "1": 6.583333333333333,
+          "2": 6.716666666666667
+        },
+        "tonic": 9,
+        "basedOn": null
+      }
+    },
+    "All I Want.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 4.1933114375,
+        "loop": null,
+        "firstMeasure": 2.7979634375000004,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 6,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Marvin Gaye": {
+    "What's Goin' On.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 7.058759999999997,
+        "loop": null,
+        "firstMeasure": 4.70584,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 4,
+        "basedOn": null
+      }
+    },
+    "Let's Get It On.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "I-V IV-V I-iii IV-V I-iii IV-V I-iii IV-V I-iii IV-V I-iii IV-V I-iii IV-V I-iii IV-V I-iii IV-V I-iii IV-V I-iii IV-V I-iii IV-V I-iii IV-V I-iii IV-V I-iii IV-V I-iii IV-V I-iii IV-V I-iii IV-V I-iii IV-V I-iii IV-V I-iii IV-V I-iii IV-V I-iii IV-V I-iii IV-V I-iii IV-V I-iii IV-V I-iii IV-V I-iii IV-V I-iii IV-V I-iii IV-V",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 5.783136000000002,
+        "loop": null,
+        "firstMeasure": 2.8915680000000004,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 3,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Led Zeppelin": {
+    "Kashmir.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": true,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "tags": [],
+        "modulations": {
+          "109": 9,
+          "149": 2
+        },
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 2.25,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "tonic": 2,
+        "correctedMeasures": {
+          "60": 131.28333333333333,
+          "61": 132.375,
+          "62": 133.88333333333333,
+          "65": 138.375,
+          "66": 139.88333333333333,
+          "109": 204.375,
+          "110": 205.875,
+          "150": 266.0625
+        },
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Rammstein": {
+    "Engel.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ IV i _ v IV",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 5,
+        "loop": null,
+        "firstMeasure": 2.5,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 2,
+        "basedOn": null
+      }
+    }
+  },
+  "Classical MIDI/Beethoven": {
+    "Symphony No. 9 Piano (Hisamori) - 2.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": 1.8,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 9,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/The Doors": {
+    "Hello, I Love You, Won't You Tell Me Your Name?.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": true,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "tags": [],
+        "modulations": {
+          "76": 10
+        },
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 4.999999999999999,
+        "loop": null,
+        "firstMeasure": 4,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 9,
+        "basedOn": null
+      }
+    },
+    "Break On Through (to the Other Side).1.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "first measure",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 4,
+        "basedOn": null
+      }
+    },
+    "End of the Night.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "first measure",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 2,
+        "basedOn": null
+      }
+    },
+    "Hello, I Love You.1.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": true,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "tags": [],
+        "modulations": {
+          "77": 2
+        },
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 2,
+        "loop": null,
+        "firstMeasure": 1,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 9,
+        "basedOn": null
+      }
+    },
+    "Light My Fire.1.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": true,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "tags": [],
+        "modulations": {
+          "1": 7,
+          "3": 5,
+          "5": 9
+        },
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 4.90170390625,
+        "loop": null,
+        "firstMeasure": 3.9364840624999995,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 9,
+        "basedOn": null
+      }
+    },
+    "20th Century Fox.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": true,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 2.75,
+        "loop": null,
+        "firstMeasure": 2,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "2": 2.8666666666666667,
+          "4": 4.9,
+          "5": 6,
+          "6": 6.999999999999999
+        },
+        "tonic": 9,
+        "basedOn": null
+      }
+    },
+    "La Woman.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "first measure",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 9,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Alice in Chains": {
+    "I Stay Away.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 2.98125,
+        "loop": null,
+        "firstMeasure": 0.003125,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "3": 6.003125,
+          "4": 8.98125
+        },
+        "tonic": 1,
+        "basedOn": null
+      }
+    },
+    "Man in a Box (live).mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "scale:pentatonic"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "first measure",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 3,
+        "basedOn": null
+      }
+    },
+    "Don't Follow.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": true,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 2.033898,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "76": 152.25,
+          "123": 233.9866919999973,
+          "124": 236.05565799999732
+        },
+        "tonic": 2,
+        "basedOn": null
+      }
+    },
+    "Angry Chair.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "tags": [],
+        "modulations": {
+          "13": 11,
+          "17": 3
+        },
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 2.3558272392638044,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "tonic": 3,
+        "correctedMeasures": {},
+        "basedOn": null
+      }
+    },
+    "Brother.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": true,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 4.51875,
+        "loop": null,
+        "firstMeasure": 2.0770833333333334,
+        "step": "second measure",
+        "comment": "",
+        "correctedMeasures": {
+          "2": 4.766666666666667,
+          "9": 23.193749999999998,
+          "10": 25.733333333333334,
+          "13": 33.38541666666666
+        },
+        "tonic": 9,
+        "basedOn": null
+      }
+    },
+    "Killer Is Me.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 5.185416666666666,
+        "loop": null,
+        "firstMeasure": 0.9625,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 9,
+        "basedOn": null
+      }
+    },
+    "Over Now.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "tags": [],
+        "modulations": {
+          "3": 0,
+          "5": 4
+        },
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 2.25,
+        "loop": null,
+        "firstMeasure": 0.25,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "5": null
+        },
+        "tonic": 4,
+        "basedOn": null
+      }
+    },
+    "No Excuses.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 12.631559999999995,
+        "loop": null,
+        "firstMeasure": 8.421040000000001,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 11,
+        "basedOn": null
+      }
+    },
+    "Heaven Beside You.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "tagSpans": [
+          {
+            "tag": "harmony:constant_structures",
+            "span": [
+              41,
+              44
+            ]
+          }
+        ],
+        "disableSnapToNotes": true,
+        "romanNumerals": "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ #III IV V VI #III IV V V i",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 4.3589785,
+        "loop": null,
+        "firstMeasure": 2.051284,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "2": 4.083333333333333,
+          "4": 8.15,
+          "5": 10.25642,
+          "6": 12.307703999999998
+        },
+        "tonic": 3,
+        "basedOn": null
+      }
+    },
+    "Dam That River.mid": {
+      "0": {
+        "beatsPerMeasure": 6,
+        "disableSnapToNotes": true,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "scale:chromatic"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 4.285709999999999,
+        "loop": null,
+        "firstMeasure": 2.8571399999999993,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 4,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Nirvana": {
+    "Lithium.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "tags": [],
+        "modulations": {
+          "113": 9
+        },
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.461538,
+        "loop": null,
+        "firstMeasure": 0.461538,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 4,
+        "basedOn": null
+      }
+    },
+    "Smell Like Teen Spirit.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": true,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.75,
+        "loop": null,
+        "firstMeasure": 0.875,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "2": 1.8833333333333333,
+          "3": 2.875,
+          "25": 24.500000000000004,
+          "26": 25.499999999999993
+        },
+        "tonic": 5,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Zappa Frank": {
+    "Peaches en Regalia.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": true,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 8.076922000000012,
+        "loop": null,
+        "firstMeasure": 6.923076000000007,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 11,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/The Ventures": {
+    "Bird Rockers.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 3.265304000000001,
+        "loop": null,
+        "firstMeasure": 1.6326519999999995,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 9,
+        "basedOn": null
+      }
+    },
+    "Besame Mucho.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "tags": [],
+        "modulations": {
+          "53": 0,
+          "54": 0
+        },
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 8.418898625000004,
+        "loop": null,
+        "firstMeasure": 5.660278625000003,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "5": 15.974568124999996,
+          "6": 17.535667999999987
+        },
+        "tonic": 9,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Radiohead": {
+    "Airbag.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": true,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 6.923075999999999,
+        "loop": null,
+        "firstMeasure": 4.615384000000001,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 9,
+        "basedOn": null
+      }
+    },
+    "Creep.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "tagSpans": [],
+        "disableSnapToNotes": false,
+        "romanNumerals": "I I #III #III IV IV iv iv I I #III #III IV IV iv iv I I #III #III IV IV iv iv I I #III #III IV IV iv iv I I #III #III IV IV iv iv I I #III #III IV IV iv iv I I #III #III IV IV iv iv I I #III #III IV IV iv iv I I #III #III IV IV iv iv I I #III #III IV IV iv iv I I #III #III IV IV iv iv",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "form:progression"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": {
+          "1": "intro",
+          "9": "verse",
+          "25": "chorus",
+          "33": "verse",
+          "49": "chorus",
+          "57": "solo",
+          "73": "verse",
+          "81": "chorus"
+        },
+        "secondMeasure": 2.584004213541665,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 7,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Adriano Celentano": {
+    "Azzurro.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "first measure",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 10,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Modern Talking": {
+    "You Can Win If You Want.1.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "_ _ _ _ _ _ _ _ _ _ VII",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 6.000000000000002,
+        "loop": null,
+        "firstMeasure": 4.000000000000001,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 10,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/ABBA": {
+    "Money, Money, Money.4.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "i VI7 iv7-V+7 i i i i V V i _ _ _ _ i i VI VI iv V/V V/V _ i V/V V i i V/V V i iv V V7/IV iv-iv-viio/V-V i iv-V i VI7",
+        "clickResolutionMs": 0.01,
+        "tags": [],
+        "modulations": {
+          "74": 10
+        },
+        "fourMeasurePhrasingReferences": [
+          7
+        ],
+        "secondMeasure": 2,
+        "form": {
+          "5": "chorus",
+          "23": "verse"
+        },
+        "loop": null,
+        "firstMeasure": 0.0078125,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "21": 41.320202,
+          "22": 43.320202,
+          "56": 112.640404,
+          "57": 114.640404
+        },
+        "tonic": 9,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/The Beatles": {
+    "'Til There Was You.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": true,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 3.2727300000000006,
+        "loop": null,
+        "firstMeasure": 2.18182,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 5,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Herbie Hancock": {
+    "Chameleon.2.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": true,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 4.661676979166667,
+        "loop": null,
+        "firstMeasure": 2.3300799999999997,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 10,
+        "basedOn": null
+      }
+    },
+    "Cantaloupe_Island.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "tags": [],
+        "modulations": {
+          "11": 1,
+          "13": 2
+        },
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 2.1818159999999995,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 10,
+        "basedOn": null
+      }
+    }
+  },
+  "Classical MIDI/Rachmaninoff": {
+    "Symphony No. 1 in D minor, Op. 13 for piano duet - I. Grave, Allegro ma non troppo.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "first measure",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 2,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/10cc": {
+    "I'm Not In Love.1.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "tags": [],
+        "modulations": {
+          "13": 0,
+          "19": 3
+        },
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 11.09615477083335,
+        "loop": null,
+        "firstMeasure": 7.403846770833335,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 10,
         "basedOn": null
       }
     }

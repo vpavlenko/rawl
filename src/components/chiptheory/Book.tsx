@@ -1844,7 +1844,7 @@ export const BookTOC: React.FC = () => {
           </li>
         ))}
       </ol>
-      <span style={{ color: "white" }}>Games</span>
+      <span style={{ color: "white" }}>NES Games</span>
       <div>&nbsp;</div>
     </div>
   );

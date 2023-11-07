@@ -9,6 +9,16 @@ import { parseBookPath } from "./chiptheory/Book";
 import Card from "./chiptheory/Card";
 import { matches } from "./chiptheory/Search";
 
+function splitOnLastSlash(str) {
+  var lastIndex = str.lastIndexOf("/");
+  if (lastIndex === -1) {
+    return [str, ""];
+  }
+  var firstPart = str.substring(0, lastIndex);
+  var lastPart = str.substring(lastIndex + 1);
+  return [firstPart, lastPart];
+}
+
 export default memo(BrowseList);
 function BrowseList({ items, ...props }) {
   const {
@@ -102,8 +112,11 @@ function BrowseList({ items, ...props }) {
           const name = item.path.split("/").pop();
           const isPlaying = currContext === playContext && currIdx === item.idx;
           const isBackLink = item.path === ".." && prevPageIsParentDir;
+          const [artist, song] = splitOnLastSlash(path);
           let fileAnalysis =
-            analyses && analyses[path] && Object.values(analyses[path]);
+            analyses &&
+            ((analyses[path] && Object.values(analyses[path])) ||
+              (analyses[artist] && analyses[artist][song]));
           if (fileAnalysis && fileAnalysis[0]) {
             fileAnalysis = fileAnalysis[0];
           }
@@ -187,7 +200,7 @@ function BrowseList({ items, ...props }) {
                         });
                         handleSongClick(href, playContext, item.idx)(e);
                       }}
-                      style={{ color: "lightgray" }}
+                      style={{ color: fileAnalysis ? "#ff0" : "#aaa" }}
                     >
                       {name}
                     </a>

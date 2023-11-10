@@ -39,3 +39,10 @@ Certain composers for NES can have very recognizable style and musical toolchain
 
 Try `yarn install` and `yarn start`. If it doesn't work, try reading https://github.com/mmontag/chip-player-js/. Don't compile wasm, I pre-compiled it and added it to the repo.
 .
+
+
+# 12 Colors
+
+Music theory is way more visible once notes are colored in 12 colors starting from the tonic. There will be two main forms of this approach:
+- 12-colored piano roll
+- 12-colored noteheads in standard music notation

@@ -29,7 +29,7 @@ const LATENCY_CORRECTION_MS =
 
 export type SecondsSpan = [number, number];
 
-const SECOND_WIDTH = 60;
+const SECOND_WIDTH = 100;
 const HORIZONTAL_HEADER_PADDING = 55;
 export const secondsToX = (seconds) =>
   seconds * SECOND_WIDTH + HORIZONTAL_HEADER_PADDING;
@@ -279,7 +279,11 @@ const Chiptheory: React.FC<{
     selectedDownbeatRef.current = selectedDownbeat;
   }, [selectedDownbeat]);
 
-  const notes = useMemo(() => parseNotes(chipStateDump), [chipStateDump]);
+  const parsingResult = useMemo(
+    () => parseNotes(chipStateDump),
+    [chipStateDump],
+  );
+  const { notes } = parsingResult;
 
   const allNotes = useMemo(() => notes.flat(), [chipStateDump]);
 
@@ -347,8 +351,11 @@ const Chiptheory: React.FC<{
     [hoveredNote, analysis],
   );
   const measuresAndBeats = useMemo(() => {
+    if (parsingResult.measuresAndBeats) {
+      return parsingResult.measuresAndBeats;
+    }
     return calculateMeasuresAndBeats(futureAnalysis, allNotes);
-  }, [futureAnalysis, allNotes]);
+  }, [futureAnalysis, allNotes, parsingResult]);
 
   const handleNoteClick = (note: Note, altKey: boolean) => {
     advanceAnalysis(

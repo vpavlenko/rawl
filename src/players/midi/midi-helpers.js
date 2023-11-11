@@ -1,6 +1,5 @@
-import { EVENT_MIDI, EVENT_MIDI_CONTROLLER } from 'midievents';
-import MIDIEvents from 'midievents';
-import MIDIFile from 'midifile';
+import MIDIEvents, { EVENT_MIDI, EVENT_MIDI_CONTROLLER } from "midievents";
+import MIDIFile from "midifile";
 
 const CC_102_TRACK_LOOP_START = 102;
 const CC_103_TRACK_LOOP_END = 103;
@@ -20,7 +19,12 @@ class EventIterator {
     // Sanity check
     if (this.curTick < 1000000 && this.elapsedLoops < 1000) {
       this.pos = this.loopStartPos;
-      console.debug('Channel %d looped at tick %d (loop %d completed)', this.curEvent.channel, this.curTick, this.elapsedLoops);
+      console.debug(
+        "Channel %d looped at tick %d (loop %d completed)",
+        this.curEvent.channel,
+        this.curTick,
+        this.elapsedLoops,
+      );
       this.elapsedLoops++;
     }
   }
@@ -71,7 +75,7 @@ MIDIFile.prototype.getLoopedEvents = function (tracks, loopCount = 1) {
       // loooping through events
       event = eventIterator.next();
       while (event) {
-        playTime += event.delta ? event.delta * tickResolution / 1000 : 0;
+        playTime += event.delta ? (event.delta * tickResolution) / 1000 : 0;
         if (event.type === MIDIEvents.EVENT_META) {
           // tempo change events
           if (event.subtype === MIDIEvents.EVENT_META_SET_TEMPO) {
@@ -110,15 +114,15 @@ MIDIFile.prototype.getLoopedEvents = function (tracks, loopCount = 1) {
           if (
             -1 === smallestDelta ||
             trackIterators[i].curEvent.delta <
-            trackIterators[smallestDelta].curEvent.delta
+              trackIterators[smallestDelta].curEvent.delta
           ) {
             smallestDelta = i;
           } else if (
             // Prioritize tracks that haven't caught up with the loop count
             trackIterators[i].curEvent.delta ===
-            trackIterators[smallestDelta].curEvent.delta &&
+              trackIterators[smallestDelta].curEvent.delta &&
             trackIterators[i].elapsedLoops <
-            trackIterators[smallestDelta].elapsedLoops
+              trackIterators[smallestDelta].elapsedLoops
           ) {
             smallestDelta = i;
           }
@@ -134,7 +138,7 @@ MIDIFile.prototype.getLoopedEvents = function (tracks, loopCount = 1) {
         }
         // filling values
         event = trackIterators[smallestDelta].curEvent;
-        playTime += event.delta ? event.delta * tickResolution / 1000 : 0;
+        playTime += event.delta ? (event.delta * tickResolution) / 1000 : 0;
         if (event.type === MIDIEvents.EVENT_META) {
           // tempo change events
           if (event.subtype === MIDIEvents.EVENT_META_SET_TEMPO) {
@@ -151,21 +155,176 @@ MIDIFile.prototype.getLoopedEvents = function (tracks, loopCount = 1) {
           combinedEvents.push(event);
         }
         // get next event
-        trackIterators[smallestDelta].curEvent = trackIterators[smallestDelta].next();
+        trackIterators[smallestDelta].curEvent =
+          trackIterators[smallestDelta].next();
 
         // check elapsed loops
-        loopCountReached = trackIterators.every(it => it.curEvent == null || it.elapsedLoops >= loopCount);
+        loopCountReached = trackIterators.every(
+          (it) => it.curEvent == null || it.elapsedLoops >= loopCount,
+        );
       }
     } while (-1 !== smallestDelta && loopCountReached === false);
 
     for (let i = 0; i < trackIterators.length; i++) {
       if (trackIterators[i]?.curEvent) {
-        combinedEvents.push(allNotesOff(i, trackIterators[i].curEvent.channel, playTime));
+        combinedEvents.push(
+          allNotesOff(i, trackIterators[i].curEvent.channel, playTime),
+        );
       }
     }
   }
   console.debug(combinedEvents);
   return combinedEvents;
+};
+
+// Monkey patch MIDIFile class - for Chiptheory.
+MIDIFile.prototype.getTimeEvents = function (tracks) {
+  let event;
+  let playTime = 0;
+  const combinedEvents = [];
+  const format = this.header.getFormat();
+  let tickResolution = this.header.getTickResolution();
+  let i;
+  let j;
+  let smallestDelta;
+  // let loopCountReached = false;
+  const type = null;
+  const subtype = null;
+  const timeEvents = [];
+  let maxPlayTime = 0;
+
+  // Reading events
+  // if the read is sequential
+  console.log("MIDI format", format);
+  if (1 !== format || 1 === this.tracks.length) {
+    for (i = 0, j = this.tracks.length; i < j; i++) {
+      // reset playtime if format is 2
+      playTime = 2 === format && playTime ? playTime : 0;
+      const eventIterator = new EventIterator(tracks[i]);
+      // loooping through events
+      event = eventIterator.next();
+      while (event) {
+        playTime += event.delta ? (event.delta * tickResolution) / 1000 : 0;
+        if (event.type === MIDIEvents.EVENT_META) {
+          // tempo change events
+          if (event.subtype === MIDIEvents.EVENT_META_SET_TEMPO) {
+            timeEvents.push({ type: "bpm", bpm: event.tempoBPM, playTime });
+            tickResolution = this.header.getTickResolution(event.tempo);
+          }
+          if (event.subtype === MIDIEvents.EVENT_META_TIME_SIGNATURE) {
+            timeEvents.push({
+              type: "timeSignature",
+              numerator: event.param1,
+              denominatorPower: event.param2,
+              playTime,
+            });
+          }
+        }
+        // push the asked events
+        if (
+          (!type || event.type === type) &&
+          (!subtype || (event.subtype && event.subtype === subtype))
+        ) {
+          event.playTime = playTime;
+          combinedEvents.push(event);
+        }
+        event = eventIterator.next();
+      }
+    }
+    // the read is concurrent
+  } else {
+    smallestDelta = -1;
+
+    const trackIterators = [];
+
+    // Creating iterators
+    for (i = 0, j = tracks.length; i < j; i++) {
+      printTrack(i, tracks[i]);
+      trackIterators[i] = new EventIterator(tracks[i]);
+      trackIterators[i].curEvent = trackIterators[i].next();
+    }
+    // Filling events
+    do {
+      smallestDelta = -1;
+      // Find the shortest event
+      for (i = 0, j = trackIterators.length; i < j; i++) {
+        if (trackIterators[i].curEvent) {
+          if (
+            -1 === smallestDelta ||
+            trackIterators[i].curEvent.delta <
+              trackIterators[smallestDelta].curEvent.delta
+          ) {
+            smallestDelta = i;
+          } else if (
+            // Prioritize tracks that haven't caught up with the loop count
+            trackIterators[i].curEvent.delta ===
+              trackIterators[smallestDelta].curEvent.delta &&
+            trackIterators[i].elapsedLoops <
+              trackIterators[smallestDelta].elapsedLoops
+          ) {
+            smallestDelta = i;
+          }
+        }
+      }
+      if (-1 !== smallestDelta) {
+        // Subtract delta of previous events
+        for (i = 0, j = trackIterators.length; i < j; i++) {
+          if (i !== smallestDelta && trackIterators[i].curEvent) {
+            trackIterators[i].curEvent.delta -=
+              trackIterators[smallestDelta].curEvent.delta;
+          }
+        }
+        // filling values
+        event = trackIterators[smallestDelta].curEvent;
+        playTime += event.delta ? (event.delta * tickResolution) / 1000 : 0;
+        if (event.type === MIDIEvents.EVENT_META) {
+          // tempo change events
+          if (event.subtype === MIDIEvents.EVENT_META_SET_TEMPO) {
+            timeEvents.push({ type: "bpm", bpm: event.tempoBPM, playTime });
+            tickResolution = this.header.getTickResolution(event.tempo);
+          }
+          if (event.subtype === MIDIEvents.EVENT_META_TIME_SIGNATURE) {
+            timeEvents.push({
+              type: "timeSignature",
+              numerator: event.param1,
+              denominatorPower: event.param2,
+              playTime,
+            });
+          }
+        }
+        // push midi events
+        if (
+          (!type || event.type === type) &&
+          (!subtype || (event.subtype && event.subtype === subtype))
+        ) {
+          event.playTime = playTime;
+          event.track = smallestDelta;
+          combinedEvents.push(event);
+        }
+        // get next event
+        trackIterators[smallestDelta].curEvent =
+          trackIterators[smallestDelta].next();
+
+        // check elapsed loops
+        // loopCountReached = trackIterators.every(
+        //   (it) => it.curEvent == null || it.elapsedLoops >= loopCount,
+        // );
+      }
+    } while (-1 !== smallestDelta);
+
+    for (let i = 0; i < trackIterators.length; i++) {
+      if (trackIterators[i]?.curEvent) {
+        combinedEvents.push(
+          allNotesOff(i, trackIterators[i].curEvent.channel, playTime),
+        );
+      }
+    }
+  }
+  combinedEvents.forEach(({ playTime }) => {
+    if (playTime) maxPlayTime = Math.max(playTime, maxPlayTime);
+  });
+  timeEvents.push({ type: "bpm", bpm: 120, playTime: maxPlayTime });
+  return timeEvents.sort((a, b) => a.playTime - b.playTime);
 };
 
 function isLoopStart(event) {
@@ -213,24 +372,24 @@ function printTrack(t, events) {
     tick += event.delta;
     const j = Math.floor(tick / ticksPerChar);
     if (isAllNotesOff(event)) {
-      charArr[j] = 'X';
+      charArr[j] = "X";
       tick += ticksPerChar; // force next char so this doesn't get overwritten
     } else if (isLoopStart(event)) {
-      charArr[j] = '>';
+      charArr[j] = ">";
     } else if (isLoopEnd(event)) {
-      charArr[j] = '<';
+      charArr[j] = "<";
     } else if (charArr[j] == null) {
-      charArr[j] = '·';
-    } else if (charArr[j] === '·') {
-      charArr[j] = '-';
-    } else if (charArr[j] === '-') {
-      charArr[j] = '=';
+      charArr[j] = "·";
+    } else if (charArr[j] === "·") {
+      charArr[j] = "-";
+    } else if (charArr[j] === "-") {
+      charArr[j] = "=";
     }
   }
-  t = (''+t).padStart(2, '0');
+  t = ("" + t).padStart(2, "0");
   const viz = [];
   for (let k = 0; k < charArr.length; k++) {
-    viz[k] = charArr[k] || ' ';
+    viz[k] = charArr[k] || " ";
   }
-  console.debug(`Track ${t} |${viz.join('')}|`);
+  console.debug(`Track ${t} |${viz.join("")}|`);
 }

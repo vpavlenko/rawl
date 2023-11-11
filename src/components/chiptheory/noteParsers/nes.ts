@@ -1,4 +1,4 @@
-import { Note } from ".";
+import { Note, ParsingResult } from ".";
 import { RESOLUTION_MS } from "../Analysis";
 import {
   NES_APU_NOTE_ESTIMATIONS,
@@ -88,11 +88,13 @@ const calculateNotesFromPeriods = (periods, oscType) => {
   return notes.filter((note) => note.note.midiNumber !== -1);
 };
 
-export const parseNES = (data): Note[][] => {
-  return [
-    calculateNotesFromPeriods(data.p1, "pulse"),
-    calculateNotesFromPeriods(data.p2, "pulse"),
-    calculateNotesFromPeriods(data.t, "triangle"),
-    // calculateNotesFromPeriods(data.n, "noise"),
-  ];
+export const parseNES = (data): ParsingResult => {
+  return {
+    notes: [
+      calculateNotesFromPeriods(data.p1, "pulse"),
+      calculateNotesFromPeriods(data.p2, "pulse"),
+      calculateNotesFromPeriods(data.t, "triangle"),
+      // calculateNotesFromPeriods(data.n, "noise"),
+    ],
+  };
 };

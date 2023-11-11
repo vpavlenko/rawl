@@ -79,6 +79,7 @@ MIDIPlayer.prototype.load = function (midiFile, useTrackLoops = false) {
   this.stop();
   this.position = 0;
   this.elapsedTime = 0;
+
   const tracks = midiFile.tracks.map((_, i) => midiFile.getTrackEvents(i));
   if (useTrackLoops) {
     console.debug("Processing MIDI track loops...");
@@ -86,6 +87,7 @@ MIDIPlayer.prototype.load = function (midiFile, useTrackLoops = false) {
   } else {
     this.events = midiFile.getEvents();
   }
+  const timeEvents = midiFile.getTimeEvents(tracks);
   this.summarizeMidiEvents();
 
   const activeChannels = [];
@@ -96,7 +98,12 @@ MIDIPlayer.prototype.load = function (midiFile, useTrackLoops = false) {
   }
   this.setChipStateDump({
     type: "midi",
-    data: { events: this.events, activeChannels },
+    data: {
+      events: this.events,
+      activeChannels,
+      timebase: midiFile.header.datas.getUint16(12),
+      timeEvents,
+    },
   });
 };
 

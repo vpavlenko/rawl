@@ -351,17 +351,18 @@ const Chiptheory: React.FC<{
             analysisRef.current,
             null,
             allNotes,
-            calculateMeasuresAndBeats(analysis, allNotes).measures,
+            parsingResult?.measuresAndBeats?.measures ??
+              calculateMeasuresAndBeats(analysis, allNotes).measures,
             hoveredAltKey,
           )
         : analysis,
     [hoveredNote, analysis],
   );
   const measuresAndBeats = useMemo(() => {
-    if (parsingResult.measuresAndBeats) {
-      return parsingResult.measuresAndBeats;
-    }
-    return calculateMeasuresAndBeats(futureAnalysis, allNotes);
+    return (
+      parsingResult?.measuresAndBeats ??
+      calculateMeasuresAndBeats(futureAnalysis, allNotes)
+    );
   }, [futureAnalysis, allNotes, parsingResult]);
 
   const handleNoteClick = (note: Note, altKey: boolean) => {

@@ -1,3 +1,4 @@
+import MIDIEvents from "midievents";
 import { Note, ParsingResult } from ".";
 
 const getNotes = (events, channel): Note[] => {
@@ -44,7 +45,6 @@ const microsecPerQuarterNoteToBPM = (microsecondsPerQuarterNote) => {
 };
 
 function calculateMeasureAndBeats(timeEvents, timebase) {
-  debugger;
   // Sort events by playTime
   //   events.sort((a, b) => a.playTime - b.playTime);
   const measures = [0];
@@ -60,7 +60,7 @@ function calculateMeasureAndBeats(timeEvents, timebase) {
     // TODO adjust with time signature
     const newBeatEndTime =
       lastBeatTime + (1 - lastBeatFractionGone) * secondsPerQuarterNote;
-    if (newBeatEndTime <= timeUntil) {
+    if (newBeatEndTime - 0.005 <= timeUntil) {
       if (constructedBeatsInLastMeasure + 1 === numerator) {
         measures.push(newBeatEndTime);
         constructedBeatsInLastMeasure = 0;
@@ -109,6 +109,11 @@ export const parseMIDI = ({
   timeEvents,
 }): ParsingResult => {
   const measuresAndBeats = calculateMeasureAndBeats(timeEvents, timebase);
+  events.forEach((event) => {
+    if (event.subtype === MIDIEvents.EVENT_META_KEY_SIGNATURE) {
+      console.log("KEY SIGNATURE", JSON.stringify(events));
+    }
+  });
   return {
     notes: activeChannels.map((channel) => getNotes(events, channel)),
     measuresAndBeats,

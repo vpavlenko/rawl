@@ -178,6 +178,8 @@ MIDIFile.prototype.getLoopedEvents = function (tracks, loopCount = 1) {
 };
 
 // Monkey patch MIDIFile class - for Chiptheory.
+// Probably there's no value in doing this filtering here - all these
+// events are available in noteParsers/midi.ts anyways
 MIDIFile.prototype.getTimeEvents = function (tracks) {
   let event;
   let playTime = 0;

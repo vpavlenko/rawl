@@ -449,13 +449,15 @@ export const AnalysisGrid: React.FC<{
         {beats.map((time) => (
           <Beat key={time} second={time} />
         ))}
-        <TonalGrid
-          analysis={analysis}
-          measures={measures}
-          secondsToX={secondsToX}
-          midiNumberToY={midiNumberToY}
-          noteHeight={noteHeight}
-        />
+        {analysis.tonic !== null && (
+          <TonalGrid
+            analysis={analysis}
+            measures={measures}
+            secondsToX={secondsToX}
+            midiNumberToY={midiNumberToY}
+            noteHeight={noteHeight}
+          />
+        )}
         <Stripes
           tagSpans={analysis.tagSpans || []}
           measuresAndBeats={measuresAndBeats}

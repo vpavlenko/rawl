@@ -29,7 +29,7 @@ const LATENCY_CORRECTION_MS =
 
 export type SecondsSpan = [number, number];
 
-const SECOND_WIDTH = 100;
+const SECOND_WIDTH = 60;
 const HORIZONTAL_HEADER_PADDING = 55;
 export const secondsToX = (seconds) =>
   seconds * SECOND_WIDTH + HORIZONTAL_HEADER_PADDING;

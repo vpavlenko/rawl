@@ -74,6 +74,7 @@ function calculateMeasureAndBeats(timeEvents, timebase) {
     } else {
       lastBeatFractionGone +=
         (timeUntil - lastBeatTime) / secondsPerQuarterNote;
+      lastBeatTime = timeUntil;
       return false;
     }
   };

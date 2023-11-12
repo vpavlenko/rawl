@@ -125,6 +125,9 @@
             ]
           },
           {
+            "voices": [
+              0
+            ],
             "tag": "melody:basic_idea_x4",
             "span": [
               1,
@@ -9474,7 +9477,7 @@
         "mode": null,
         "fourMeasurePhrasingReferences": [],
         "secondMeasure": 1.9900000000000015,
-        "loop": null,
+        "loop": 30,
         "firstMeasure": 0,
         "step": "end",
         "comment": "",
@@ -22608,6 +22611,9 @@
             ]
           },
           {
+            "voices": [
+              2
+            ],
             "tag": "bass:root_octaves",
             "span": [
               1,
@@ -22629,6 +22635,9 @@
             ]
           },
           {
+            "voices": [
+              1
+            ],
             "tag": "melody:basic_idea_x3",
             "span": [
               1,
@@ -30800,16 +30809,16 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
-        "romanNumerals": "",
+        "romanNumerals": "_ _ _ _ i-_ _ _ _ _ _ _ _ I-V iii-V/ii V/V-V I-_",
         "clickResolutionMs": 0.01,
         "modulations": [],
         "tags": [],
         "fourMeasurePhrasingReferences": [],
         "form": [],
-        "secondMeasure": null,
+        "secondMeasure": 5.997879166666661,
         "loop": null,
-        "firstMeasure": null,
-        "step": "first measure",
+        "firstMeasure": 3.9810791666666665,
+        "step": "end",
         "comment": "",
         "correctedMeasures": [],
         "tonic": 10,
@@ -30871,6 +30880,26 @@
         "tonic": 9,
         "basedOn": null
       }
+    },
+    "Mamma Mia.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 3.433032281250001,
+        "loop": null,
+        "firstMeasure": 1.7232125624999999,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 2,
+        "basedOn": null
+      }
     }
   },
   "MIDI/The Beatles": {
@@ -30891,6 +30920,71 @@
         "comment": "",
         "correctedMeasures": [],
         "tonic": 5,
+        "basedOn": null
+      }
+    },
+    "Yellow Submarine.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ I",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 4.137927999999998,
+        "loop": null,
+        "firstMeasure": 2.0689639999999994,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 7,
+        "basedOn": null
+      }
+    },
+    "Hey Jude.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "VI v i III",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 64.71907200000017,
+        "loop": null,
+        "firstMeasure": 63.37075800000015,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 5,
+        "basedOn": null
+      }
+    },
+    "When I'm 64.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "tags": [],
+        "modulations": {
+          "23": 10,
+          "35": 1
+        },
+        "fourMeasurePhrasingReferences": [
+          7
+        ],
+        "form": [],
+        "secondMeasure": 1.714284,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 1,
         "basedOn": null
       }
     }
@@ -30960,6 +31054,36 @@
         "tonic": 2,
         "basedOn": null
       }
+    },
+    "Morceaux de fantaisie, Op. 3 – No. 2. Prélude in C♯ minor (T. O'Drisceoil).mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 3,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "3": 8.916666666666666,
+          "16": 83.28629099999999,
+          "17": 84.911888,
+          "18": 86.29364149999999,
+          "19": 87.56348149999997,
+          "23": 92.57460849999988,
+          "24": 93.6908844999999,
+          "33": 103.68415200000001,
+          "34": 104.67999999999995
+        },
+        "tonic": 1,
+        "basedOn": null
+      }
     }
   },
   "MIDI/10cc": {
@@ -30980,6 +31104,231 @@
         "loop": null,
         "firstMeasure": 7.403846770833335,
         "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 10,
+        "basedOn": null
+      }
+    }
+  },
+  "Classical MIDI/Holst": {
+    "The Planets, Op. 32 - 4. Jupiter, the Bringer of Jollity.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "first measure",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 3,
+        "basedOn": null
+      }
+    }
+  },
+  "Classical MIDI/Ravel": {
+    "Bolero.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "tags": [],
+        "modulations": {
+          "255": 4,
+          "263": 0
+        },
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 3.124998749999999,
+        "loop": null,
+        "firstMeasure": 0.62499975,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      }
+    }
+  },
+  "Classical MIDI/Mendelssohn": {
+    "Rondo capriccioso in E, Op. 14 (P. Wong).mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": 2.727272,
+        "step": "second measure",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 4,
+        "basedOn": null
+      }
+    }
+  },
+  "Nintendo/Hanjuku Hero": {
+    "Hanjuku Hero (1988-12-02)(Bits Laboratory)(Square).nsf": {
+      "8": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [
+          "tonic:ambiguous"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "tonic",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": null,
+        "basedOn": null
+      }
+    }
+  },
+  "Classical MIDI/Grieg": {
+    "Peer Gynt, Op. 23 – 4. Prelude to Act II∶ The Abduction; Ingrid's Lament (G. M. Kuhn).mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": true,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 0.75,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "first measure",
+        "comment": "",
+        "correctedMeasures": {
+          "6": 6.041666666666665,
+          "8": 13.033333333333328,
+          "9": 13.783333333333328
+        },
+        "tonic": 0,
+        "basedOn": null
+      }
+    },
+    "Lyric Pieces (iii), Op. 43 - 4. Vöglein (Little Bird) (T. D. Matthews).mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "first measure",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 4,
+        "basedOn": null
+      }
+    },
+    "Peer Gynt Suite No. 1, Op. 46 – 4. In the Hall of the Mountain King (D. A. Hall).mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 5.217383999999998,
+        "loop": null,
+        "firstMeasure": 1.739128,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "21": 70.6290258906253,
+          "22": 73.67810157812528
+        },
+        "tonic": 11,
+        "basedOn": null
+      }
+    }
+  },
+  "Classical MIDI/Chopin": {
+    "Mazurkas, Op. 63 – No. 2 in F minor (R. Lubetsky).mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "tags": [],
+        "modulations": {
+          "17": 8,
+          "23": 0,
+          "25": 0,
+          "26": 8,
+          "32": 7,
+          "38": 5,
+          "43": 5
+        },
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 2.0458333333333334,
+        "loop": null,
+        "firstMeasure": 0.10833333333333334,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "3": 3.6312500000000005,
+          "6": 8.460416666666665,
+          "7": 9.887500000000001,
+          "8": 11.495833333333335,
+          "9": 13.575000000000001,
+          "10": 15.483333333333334,
+          "11": 16.8875,
+          "12": 18.525000000000002,
+          "13": 20.07083333333334,
+          "14": 21.78333333333333,
+          "15": 23.316666666666674,
+          "17": 26.325000000000003
+        },
+        "tonic": 5,
+        "basedOn": null
+      }
+    },
+    "Piano Sonata No. 2 in B♭ minor, Op. 35.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "clickResolutionMs": 0.01,
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "first measure",
         "comment": "",
         "correctedMeasures": [],
         "tonic": 10,

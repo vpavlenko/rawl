@@ -41,7 +41,14 @@ const isNoteCurrentlyPlayed = (note, positionMs) => {
 };
 
 // This is used when tonic isn't set yet.
-const VOICE_TO_COLOR = ["#26577C", "#AE445A", "#63995a"];
+const VOICE_TO_COLOR = [
+  "#26577C",
+  "#AE445A",
+  "#63995a",
+  "#7c7126",
+  "#7c2676",
+  "#4e267c",
+];
 
 const getNoteColor = (
   voiceIndex: number,
@@ -50,7 +57,7 @@ const getNoteColor = (
   measures: number[],
 ): string => {
   if (analysis.tonic === null) {
-    return VOICE_TO_COLOR[voiceIndex % 3]; // TODO: introduce 16 colors for all possible midi channels
+    return VOICE_TO_COLOR[voiceIndex % VOICE_TO_COLOR.length]; // TODO: introduce 16 colors for all possible midi channels
   }
 
   return TWELVE_TONE_COLORS[

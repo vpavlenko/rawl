@@ -75,6 +75,7 @@ export const TAGS = [
   "harmony:harmonic_rhythm_acceleration",
   "harmony:weird_dominant",
   "harmony:I_in_minor",
+  "harmony:non-functional_maj7s",
   "rhythm:syncopation",
   "rhythm:interesting",
   "rhythm:swing",
@@ -242,6 +243,8 @@ export const TAGS = [
   "style:banjo",
   "style:math-rock",
   "style:big_band",
+  "style:reggae",
+  "style:static_power_chord_riff",
   "other:wrong_author",
   "middle_voice:doubles_bass",
   "middle_voice:parallel_octaves",
@@ -294,7 +297,7 @@ export const TAGS = [
   "origin:russia",
   "game_genre:baseball",
   "lego:pullback",
-  "yeah:yeah",
+  "midi:no_beat_grid",
 ];
 
 export const getAnalysisTags = (analysis: Analysis): string[] =>

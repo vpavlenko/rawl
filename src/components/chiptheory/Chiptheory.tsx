@@ -1,8 +1,8 @@
 import * as React from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AnalysisBox } from "./AnalysisBox";
-import { AnalysisGrid, Cursor } from "./AnalysisGrid";
 import { BookExample } from "./Book";
+import { InfiniteHorizontalScrollSystemLayout } from "./SystemLayout";
 import {
   ANALYSIS_STUB,
   Analysis,
@@ -11,14 +11,6 @@ import {
 } from "./analysis";
 import { calculateMeasuresAndBeats } from "./measures";
 import { ChipStateDump, Note, parseNotes } from "./noteParsers";
-import {
-  TWELVE_CHORD_TONES,
-  TWELVE_TONE_COLORS,
-  getChordNote,
-  getNoteMeasure,
-  getTonic,
-} from "./romanNumerals";
-import { ANALYSIS_HEIGHT } from "./tags";
 
 export type Voice = "pulse1" | "pulse2" | "triangle" | "noise" | "under cursor";
 
@@ -34,179 +26,21 @@ export const secondsToX = (seconds) =>
   seconds * SECOND_WIDTH + HORIZONTAL_HEADER_PADDING;
 const xToSeconds = (x) => x / SECOND_WIDTH;
 
-const isNoteCurrentlyPlayed = (note, positionMs) => {
-  const positionSeconds = positionMs / 1000;
-  return note.span[0] <= positionSeconds && positionSeconds <= note.span[1];
-};
-
-// This is used when tonic isn't set yet.
-const VOICE_TO_COLOR = [
-  "#26577C",
-  "#AE445A",
-  "#63995a",
-  "#7c7126",
-  "#7c2676",
-  "#4e267c",
-];
-
-const getNoteColor = (
-  voiceIndex: number,
-  note: Note,
-  analysis,
-  measures: number[],
-): string => {
-  if (analysis.tonic === null) {
-    return VOICE_TO_COLOR[voiceIndex % VOICE_TO_COLOR.length]; // TODO: introduce 16 colors for all possible midi channels
-  }
-
-  return TWELVE_TONE_COLORS[
-    (note.note.midiNumber -
-      getTonic(getNoteMeasure(note, measures), analysis)) %
-      12
-  ];
-};
-
-const isCenterInsideSpan = (note: Note, span: SecondsSpan) => {
-  let center = (note.span[0] + note.span[1]) / 2;
-  return span[0] < center && center < span[1];
-};
-
-const getIntervalBelow = (note: Note, allNotes: Note[]) => {
-  let minDistance = Infinity;
-  for (let n of allNotes) {
-    if (
-      n.note.midiNumber < note.note.midiNumber &&
-      isCenterInsideSpan(note, n.span)
-    ) {
-      minDistance = Math.min(
-        minDistance,
-        note.note.midiNumber - n.note.midiNumber,
-      );
-    }
-  }
-  return minDistance;
-};
-
-const getNoteRectangles = (
-  notes: Note[],
-  voiceIndex: number, // -1 if it's a note highlight for notes under cursor
-  isActiveVoice: boolean,
-  analysis: Analysis,
-  midiNumberToY: (number: number) => number,
-  noteHeight: number,
-  handleNoteClick = (note: Note, altKey: boolean) => {},
-  measures: number[] = null,
-  handleMouseEnter = (note: Note, altKey: boolean) => {},
-  handleMouseLeave = () => {},
-  allNotes: Note[] = [],
-  voiceMask = null,
-  showIntervals = false,
-) => {
-  return notes.map((note) => {
-    const top = midiNumberToY(note.note.midiNumber);
-    const left = secondsToX(note.span[0]);
-    const color = getNoteColor(voiceIndex, note, analysis, measures);
-    const chordNote =
-      voiceIndex !== -1
-        ? getChordNote(note, analysis, measures, analysis.romanNumerals)
-        : null;
-    const noteElement = chordNote ? (
-      <span
-        className="noteText"
-        style={{
-          fontSize: `${Math.min(noteHeight + 2, 14)}px`,
-          lineHeight: `${Math.min(noteHeight, 14)}px`,
-          fontFamily: "Helvetica, sans-serif",
-          fontWeight: 700,
-          color:
-            ["brown", "blue", "#9400D3", "#787276"].indexOf(color) !== -1
-              ? "white"
-              : "black",
-        }}
-      >
-        {chordNote}
-      </span>
-    ) : null;
-    const intervalBelow = showIntervals && getIntervalBelow(note, allNotes);
-
-    return (
-      <div
-        className={"noteRectangleTonal"}
-        style={{
-          position: "absolute",
-          height: `${noteHeight}px`,
-          width: secondsToX(note.span[1]) - secondsToX(note.span[0]),
-          backgroundColor: color,
-          top,
-          left,
-          pointerEvents: voiceIndex === -1 ? "none" : "auto",
-          borderRadius: [10, 3, 0, 5, 20, 7, 1][voiceIndex % 7],
-          cursor: "pointer",
-          zIndex: 10,
-          opacity: isActiveVoice ? 0.9 : 0.1,
-          display: "grid",
-          placeItems: "center",
-          ...(voiceIndex === -1
-            ? {
-                boxShadow: "white 0px 1px",
-                boxSizing: "border-box",
-                backgroundColor: "transparent",
-              }
-            : {}),
-        }}
-        onClick={(e) => {
-          e.stopPropagation();
-          handleNoteClick(note, e.altKey);
-        }}
-        onMouseEnter={(e) => handleMouseEnter(note, e.altKey)}
-        onMouseLeave={handleMouseLeave}
-      >
-        {showIntervals && intervalBelow !== Infinity && isActiveVoice && (
-          // voiceMask.filter(Boolean).length === 1 &&
-          <div
-            style={{
-              position: "relative",
-              top: noteHeight,
-              color: "white",
-              fontFamily: "sans-serif",
-              fontSize: "12px",
-            }}
-          >
-            {TWELVE_CHORD_TONES[intervalBelow % 12]}
-          </div>
-        )}
-        {!showIntervals && noteElement}
-      </div>
-    );
-  });
-};
-
-const findCurrentlyPlayedNotes = (notes, positionMs) => {
-  const result = [];
-  for (const note of notes) {
-    if (isNoteCurrentlyPlayed(note, positionMs)) {
-      result.push(note);
-    }
-  }
-  return result;
-};
-
-const getMidiRange = (
-  notes: Note[],
-): { minMidiNumber: number; maxMidiNumber: number } => {
-  let minMidiNumber = +Infinity;
-  let maxMidiNumber = -Infinity;
-  for (const note of notes) {
-    const { midiNumber } = note.note;
-    if (midiNumber < minMidiNumber) {
-      minMidiNumber = midiNumber;
-    }
-    if (midiNumber > maxMidiNumber) {
-      maxMidiNumber = midiNumber;
-    }
-  }
-  return { minMidiNumber, maxMidiNumber };
-};
+// For some reason I decided not to highlight currently played notes.
+//
+// const isNoteCurrentlyPlayed = (note, positionMs) => {
+//   const positionSeconds = positionMs / 1000;
+//   return note.span[0] <= positionSeconds && positionSeconds <= note.span[1];
+// };
+// const findCurrentlyPlayedNotes = (notes, positionMs) => {
+//   const result = [];
+//   for (const note of notes) {
+//     if (isNoteCurrentlyPlayed(note, positionMs)) {
+//       result.push(note);
+//     }
+//   }
+//   return result;
+// };
 
 const Chiptheory: React.FC<{
   chipStateDump: ChipStateDump;
@@ -298,39 +132,6 @@ const Chiptheory: React.FC<{
     [notes, voiceMask],
   );
 
-  const { minMidiNumber, maxMidiNumber } = useMemo(
-    () => getMidiRange(allActiveNotes.flat()),
-    [allActiveNotes],
-  );
-
-  const [divHeight, setDivHeight] = useState(0);
-  const divRef = useRef(null);
-  useEffect(() => {
-    const updateHeight = () => {
-      if (divRef.current) {
-        setDivHeight(divRef.current.offsetHeight);
-      }
-    };
-    updateHeight();
-    window.addEventListener("resize", updateHeight);
-    new ResizeObserver(() => updateHeight()).observe(divRef.current);
-    return () => {
-      window.removeEventListener("resize", updateHeight);
-    };
-  }, []);
-
-  useEffect(() => {
-    divRef.current.scrollLeft = 0;
-  }, [chipStateDump]);
-
-  const noteHeight =
-    (divHeight - ANALYSIS_HEIGHT) / (maxMidiNumber - minMidiNumber + 7);
-  const midiNumberToY = useMemo(
-    () => (midiNumber) =>
-      divHeight - (midiNumber - minMidiNumber + 4) * noteHeight,
-    [noteHeight],
-  );
-
   const [hoveredNote, setHoveredNote] = useState<Note | null>(null);
   const [hoveredAltKey, setHoveredAltKey] = useState<boolean>(false);
   const handleMouseEnter = (note: Note, altKey: boolean) => {
@@ -378,37 +179,6 @@ const Chiptheory: React.FC<{
     );
   };
 
-  const noteRectangles = useMemo(
-    () =>
-      notes.flatMap((voice, i) =>
-        getNoteRectangles(
-          voice,
-          i,
-          voiceMask[i],
-          futureAnalysis,
-          midiNumberToY,
-          noteHeight,
-          handleNoteClick,
-          measuresAndBeats.measures,
-          handleMouseEnter,
-          handleMouseLeave,
-          allActiveNotes,
-          voiceMask,
-          showIntervals,
-        ),
-      ),
-    [
-      notes,
-      analysis,
-      measuresAndBeats,
-      noteHeight,
-      voiceMask,
-      hoveredNote,
-      hoveredAltKey,
-      showIntervals,
-    ],
-  );
-
   const [positionMs, setPositionMs] = useState(0);
   // const currentlyPlayedRectangles = getNoteRectangles(
   //   findCurrentlyPlayedNotes(allNotes, positionMs),
@@ -452,12 +222,8 @@ const Chiptheory: React.FC<{
     };
   }, []);
 
-  const seekCallback = (seekMs) =>
-    (divRef.current.scrollLeft = secondsToX(seekMs / 1000) - 100);
-
-  useEffect(() => {
-    registerSeekCallback(seekCallback);
-  }, []);
+  // TODO: we should probably get rid of a tune timeline at some point.
+  // MuseScore somehow doesn't have it?
 
   if (
     !paused &&
@@ -469,99 +235,64 @@ const Chiptheory: React.FC<{
     pause();
   }
 
+  // TODO: fix to scroll back to top for both layouts
+  //
+  // useEffect(() => {
+  //   divRef.current.scrollLeft = 0;
+  // }, [chipStateDump]);
+
+  // TODO: useCallback
+  const systemClickHandler = (e) => {
+    const targetElement = e.target as HTMLElement;
+    const rect = targetElement.getBoundingClientRect();
+    const distance =
+      e.clientX -
+      rect.left +
+      targetElement.scrollLeft -
+      HORIZONTAL_HEADER_PADDING;
+    const time = xToSeconds(distance);
+    if (selectedMeasure) {
+      advanceAnalysis(
+        null,
+        selectedMeasureRef.current,
+        setSelectedMeasure,
+        analysisRef.current,
+        commitAnalysisUpdate,
+        time,
+      );
+    } else {
+      seek(time * 1000);
+    }
+  };
+
   return (
     <div className="App-main-content-and-settings">
-      <div
-        key="leftPanel"
-        style={{
-          width: "100%",
-          height: "100%",
-          padding: 0,
-          backgroundColor: "black",
-        }}
-      >
-        {/* Should probably clone this for the Stack view, as this shouldn't be scrollable, and all notes should be 
-        carefully repositioned according to their measures, instead of having a global (x, y) coordinate
-         */}
-        <div
-          ref={divRef}
-          style={{
-            margin: 0,
-            padding: 0,
-            position: "relative",
-            overflowX: "scroll",
-            overflowY: "hidden",
-            width: "100%",
-            height: "100%",
-            backgroundColor: "black",
-          }}
-          onClick={(e) => {
-            const targetElement = e.target as HTMLElement;
-            const rect = targetElement.getBoundingClientRect();
-            const distance =
-              e.clientX -
-              rect.left +
-              targetElement.scrollLeft -
-              HORIZONTAL_HEADER_PADDING;
-            const time = xToSeconds(distance);
-            if (selectedMeasure) {
-              advanceAnalysis(
-                null,
-                selectedMeasureRef.current,
-                setSelectedMeasure,
-                analysisRef.current,
-                commitAnalysisUpdate,
-                time,
-              );
-            } else {
-              seek(time * 1000);
-            }
-          }}
-        >
-          {noteRectangles}
-          {/* {currentlyPlayedRectangles} */}
-          <Cursor style={{ left: secondsToX(positionMs / 1000) }} />
-          <AnalysisGrid
-            analysis={futureAnalysis}
-            voices={notes}
-            measuresAndBeats={measuresAndBeats}
-            midiNumberToY={midiNumberToY}
-            noteHeight={noteHeight}
-            previouslySelectedMeasure={previouslySelectedMeasure}
-            selectedMeasure={selectedMeasure}
-            selectMeasure={selectMeasure}
-            commitAnalysisUpdate={commitAnalysisUpdate}
-            // voiceMask={voiceMask}
-            setVoiceMask={setVoiceMask}
-            loggedIn={loggedIn}
-            seek={seek}
-            showIntervals={setShowIntervals}
-            fileType={chipStateDump.type}
-          />
-          <div
-            style={{
-              position: "fixed",
-              top: "50px",
-              right: "20px",
-              zIndex: "100",
-            }}
-          >
-            <input
-              title="Intervals"
-              type="checkbox"
-              onClick={(e) => {
-                e.stopPropagation();
-              }}
-              onChange={(e) => {
-                e.stopPropagation();
-                setShowIntervals(e.target.checked);
-              }}
-              checked={showIntervals}
-            />
-            Intervals
-          </div>
-        </div>
-      </div>
+      <InfiniteHorizontalScrollSystemLayout
+        analysis={analysis}
+        voiceMask={voiceMask}
+        handleNoteClick={handleNoteClick}
+        handleMouseEnter={handleMouseEnter}
+        handleMouseLeave={handleMouseLeave}
+        allActiveNotes={allActiveNotes}
+        systemClickHandler={systemClickHandler}
+        positionMs={positionMs}
+        futureAnalysis={futureAnalysis}
+        notes={notes}
+        seek={seek}
+        measuresAndBeats={measuresAndBeats}
+        previouslySelectedMeasure={previouslySelectedMeasure}
+        selectedMeasure={selectedMeasure}
+        selectMeasure={selectMeasure}
+        commitAnalysisUpdate={commitAnalysisUpdate}
+        setVoiceMask={setVoiceMask}
+        loggedIn={loggedIn}
+        showIntervals={showIntervals}
+        setShowIntervals={setShowIntervals}
+        fileType={chipStateDump.type}
+        registerSeekCallback={registerSeekCallback}
+        hoveredNote={hoveredNote}
+        hoveredAltKey={hoveredAltKey}
+      />
       {analysisEnabled &&
         (bookPath ? (
           <BookExample
@@ -577,7 +308,8 @@ const Chiptheory: React.FC<{
                 ? measuresAndBeats.measures[span[0] - 1] * 1000
                 : 0;
               seek(start);
-              seekCallback(start);
+              // TODO: enable it
+              // seekCallback(start);
             }}
             analysis={analysis}
           />
@@ -590,6 +322,28 @@ const Chiptheory: React.FC<{
             selectMeasure={selectMeasure}
           />
         ))}
+      <div
+        style={{
+          position: "fixed",
+          top: "50px",
+          right: "20px",
+          zIndex: "100",
+        }}
+      >
+        <input
+          title="Intervals"
+          type="checkbox"
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+          onChange={(e) => {
+            e.stopPropagation();
+            setShowIntervals(e.target.checked);
+          }}
+          checked={showIntervals}
+        />
+        Intervals
+      </div>
     </div>
   );
 };

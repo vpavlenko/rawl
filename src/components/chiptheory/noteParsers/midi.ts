@@ -61,7 +61,7 @@ function calculateMeasureAndBeats(timeEvents, timebase) {
     const newBeatEndTime =
       lastBeatTime + (1 - lastBeatFractionGone) * secondsPerQuarterNote;
     if (newBeatEndTime - 0.005 <= timeUntil) {
-      if (constructedBeatsInLastMeasure + 1 === numerator) {
+      if (constructedBeatsInLastMeasure + 1 >= numerator) {
         measures.push(newBeatEndTime);
         constructedBeatsInLastMeasure = 0;
       } else {

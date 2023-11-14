@@ -23,6 +23,7 @@ import React from "react";
 import Dropzone from "react-dropzone";
 import { NavLink, Redirect, Route, Switch, withRouter } from "react-router-dom";
 import { parseBookPath } from "./chiptheory/Book";
+import { ChordPlayground } from "./chiptheory/ChordPlayground";
 
 import requestCache from "../RequestCache";
 import Sequencer, {
@@ -914,6 +915,11 @@ class App extends React.Component {
                         path="/"
                         exact
                         render={() => <Redirect to="/browse/Nintendo" />}
+                      />
+                      <Route
+                        path="/chordPlayground"
+                        exact
+                        render={() => <ChordPlayground />}
                       />
                       <Route
                         path="/search"

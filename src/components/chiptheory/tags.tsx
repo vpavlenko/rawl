@@ -298,6 +298,9 @@ export const TAGS = [
   "game_genre:baseball",
   "lego:pullback",
   "midi:no_beat_grid",
+  "midi:extra_half_measure",
+  "midi:time_signature_bugs",
+  "bassist:James_Jamerson",
 ];
 
 export const getAnalysisTags = (analysis: Analysis): string[] =>

@@ -3,12 +3,12 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   ANALYSIS_STUB,
   Analysis,
-  AnalysisBox,
   AnalysisGrid,
   Cursor,
   advanceAnalysis,
   getNewAnalysis,
 } from "./Analysis";
+import { AnalysisBox } from "./AnalysisBox";
 import { BookExample } from "./Book";
 import { calculateMeasuresAndBeats } from "./measures";
 import { ChipStateDump, Note, parseNotes } from "./noteParsers";

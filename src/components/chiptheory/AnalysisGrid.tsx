@@ -196,8 +196,6 @@ export const AnalysisGrid: React.FC<{
   selectedMeasure: number;
   selectMeasure: (number: number) => void;
   commitAnalysisUpdate: (analysisUpdate: Partial<Analysis>) => void;
-  // a callback for stripes to tweak voiceMask on hover
-  // voiceMask: boolean[];
   setVoiceMask: (voiceMask: boolean[]) => void;
   seek: (ms: number) => void;
   showIntervals: (yes: boolean) => void;
@@ -213,7 +211,6 @@ export const AnalysisGrid: React.FC<{
     selectedMeasure,
     selectMeasure,
     commitAnalysisUpdate,
-    // voiceMask,
     setVoiceMask,
     loggedIn,
     voices,
@@ -275,7 +272,6 @@ export const AnalysisGrid: React.FC<{
             measuresAndBeats={measuresAndBeats}
             analysis={analysis}
             commitAnalysisUpdate={commitAnalysisUpdate}
-            // voiceMask={voiceMask}
             setVoiceMask={setVoiceMask}
             loggedIn={loggedIn}
             voices={voices}

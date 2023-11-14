@@ -12,8 +12,10 @@ export type Note = {
   chipState: any;
 };
 
+export type FileType = "nes" | "midi";
+
 export type ChipStateDump = {
-  type: "nes" | "midi";
+  type: FileType;
   data: any;
 };
 

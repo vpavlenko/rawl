@@ -292,16 +292,16 @@ const Chiptheory: React.FC<{
   );
   const { notes } = parsingResult;
 
-  const allNotes = useMemo(() => notes.flat(), [chipStateDump]);
+  const allNotes = useMemo(() => notes.flat(), [notes]);
 
   const allActiveNotes = useMemo(
     () => notes.filter((_, i) => voiceMask[i]).flat(),
-    [chipStateDump, voiceMask],
+    [notes, voiceMask],
   );
 
   const { minMidiNumber, maxMidiNumber } = useMemo(
     () => getMidiRange(allActiveNotes.flat()),
-    [notes, voiceMask],
+    [allActiveNotes],
   );
 
   const [divHeight, setDivHeight] = useState(0);
@@ -534,6 +534,7 @@ const Chiptheory: React.FC<{
             loggedIn={loggedIn}
             seek={seek}
             showIntervals={setShowIntervals}
+            fileType={chipStateDump.type}
           />
           <div
             style={{

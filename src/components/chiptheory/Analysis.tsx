@@ -2,7 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 import { secondsToX } from "./Chiptheory";
 import { MeasuresAndBeats, getPhrasingMeasures } from "./measures";
-import { Note } from "./noteParsers";
+import { FileType, Note } from "./noteParsers";
 import {
   MeasureOfRomanNumerals,
   getModulations,
@@ -176,6 +176,7 @@ const Measure: React.FC<{
   romanNumeral: string;
   formSection: string;
   modulation: PitchClass | null;
+  stripesHeight: number;
 }> = ({
   span,
   number,
@@ -186,6 +187,7 @@ const Measure: React.FC<{
   romanNumeral,
   formSection,
   modulation,
+  stripesHeight,
 }) => {
   const left = secondsToX(span[0]) - 1;
   const width = secondsToX(span[1]) - left - 1;
@@ -203,7 +205,7 @@ const Measure: React.FC<{
         key={`db_n_${number}`}
         style={{
           position: "absolute",
-          top: 30 + STRIPES_HEIGHT,
+          top: 30 + stripesHeight,
           left: `${left + 7}px`,
           color:
             selectedMeasure === number
@@ -229,7 +231,7 @@ const Measure: React.FC<{
           style={{
             position: "absolute",
             left: `${left + 1}px`,
-            top: 55 + STRIPES_HEIGHT,
+            top: 55 + stripesHeight,
             zIndex: 10,
             backgroundColor: "#333",
             padding: "5px 10px 5px 10px",
@@ -247,7 +249,7 @@ const Measure: React.FC<{
           position: "absolute",
           left: `${left}px`,
           width,
-          top: STRIPES_HEIGHT,
+          top: stripesHeight,
           height: "25px",
           display: "grid",
           placeItems: "center",
@@ -332,6 +334,7 @@ export const AnalysisGrid: React.FC<{
   seek: (ms: number) => void;
   showIntervals: (yes: boolean) => void;
   loggedIn: boolean;
+  fileType: FileType;
 }> = React.memo(
   ({
     analysis,
@@ -348,6 +351,7 @@ export const AnalysisGrid: React.FC<{
     voices,
     seek,
     showIntervals,
+    fileType,
   }) => {
     const { measures, beats } = measuresAndBeats;
     let loopLeft = null;
@@ -381,6 +385,7 @@ export const AnalysisGrid: React.FC<{
                   ? relativeModulations[number]
                   : null
               }
+              stripesHeight={fileType === "nes" ? STRIPES_HEIGHT : 0}
             />
           );
         })}
@@ -396,18 +401,20 @@ export const AnalysisGrid: React.FC<{
             noteHeight={noteHeight}
           />
         )}
-        <Stripes
-          tagSpans={analysis.tagSpans || []}
-          measuresAndBeats={measuresAndBeats}
-          analysis={analysis}
-          commitAnalysisUpdate={commitAnalysisUpdate}
-          // voiceMask={voiceMask}
-          setVoiceMask={setVoiceMask}
-          loggedIn={loggedIn}
-          voices={voices}
-          seek={seek}
-          showIntervals={showIntervals}
-        />
+        {fileType === "nes" && (
+          <Stripes
+            tagSpans={analysis.tagSpans || []}
+            measuresAndBeats={measuresAndBeats}
+            analysis={analysis}
+            commitAnalysisUpdate={commitAnalysisUpdate}
+            // voiceMask={voiceMask}
+            setVoiceMask={setVoiceMask}
+            loggedIn={loggedIn}
+            voices={voices}
+            seek={seek}
+            showIntervals={showIntervals}
+          />
+        )}
         {loopLeft && (
           <div
             key="loop"

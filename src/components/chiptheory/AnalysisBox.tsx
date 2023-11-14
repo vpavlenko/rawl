@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useEffect, useRef, useState } from "react";
 import Select from "react-select";
-import { Analysis, MeasuresSpan, STEPS, Step } from "./Analysis";
+import { Analysis, MeasuresSpan, STEPS, Step } from "./analysis";
 import { CATEGORIES_IN_STRIPES, TAGS } from "./tags";
 
 const FORM_SECTIONS = [

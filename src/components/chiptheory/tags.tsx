@@ -1,6 +1,6 @@
 import * as React from "react";
-import { Analysis, TagSpan } from "./Analysis";
 import { secondsToX } from "./Chiptheory";
+import { Analysis, TagSpan } from "./analysis";
 import { MeasuresAndBeats } from "./measures";
 import { Note } from "./noteParsers";
 

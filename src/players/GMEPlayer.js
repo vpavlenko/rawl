@@ -1,6 +1,6 @@
 import autoBind from "auto-bind";
 import path from "path";
-import { RESOLUTION_DUMPS_PER_SECOND } from "../components/chiptheory/Analysis.tsx";
+import { RESOLUTION_DUMPS_PER_SECOND } from "../components/chiptheory/noteParsers/nes";
 import SubBass from "../effects/SubBass";
 import { allOrNone, remap01 } from "../util";
 import Player from "./Player.js";

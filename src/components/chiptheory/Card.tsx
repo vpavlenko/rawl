@@ -1,7 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 
-import { Analysis } from "./Analysis";
+import { Analysis } from "./analysis";
 import { FormAndHarmony } from "./romanNumerals";
 import { getAnalysisTags, tagToColor } from "./tags";
 

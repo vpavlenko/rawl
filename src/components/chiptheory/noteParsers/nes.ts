@@ -1,10 +1,12 @@
 import { Note, ParsingResult } from ".";
-import { RESOLUTION_MS } from "../Analysis";
 import {
   NES_APU_NOTE_ESTIMATIONS,
   PAUSE,
   nesApuNoteEstimation,
 } from "./nesApuNoteEstimations";
+
+export const RESOLUTION_DUMPS_PER_SECOND = 100;
+const RESOLUTION_MS = 1 / RESOLUTION_DUMPS_PER_SECOND;
 
 type OscType = "pulse" | "triangle" | "noise";
 
@@ -57,7 +59,6 @@ const calculateNotesFromPeriods = (periods, oscType) => {
 
   const notes: Note[] = [];
   let timeInSeconds = 0;
-  const stepInSeconds = RESOLUTION_MS;
 
   for (const period of periods) {
     const newNoteEstimation = findNoteWithClosestPeriod(period, oscType);
@@ -79,7 +80,7 @@ const calculateNotesFromPeriods = (periods, oscType) => {
       });
     }
 
-    timeInSeconds += stepInSeconds;
+    timeInSeconds += RESOLUTION_MS;
   }
   if (notes.length > 0) {
     notes[notes.length - 1].span[1] = timeInSeconds;

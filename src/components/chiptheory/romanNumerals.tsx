@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import { Analysis, PitchClass } from "./Analysis";
 import { SecondsSpan } from "./Chiptheory";
+import { Analysis, PitchClass } from "./analysis";
 import { getPhrasingMeasures } from "./measures";
 import { Note } from "./noteParsers";
 

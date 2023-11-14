@@ -1,4 +1,4 @@
-import { Analysis } from "./Analysis";
+import { Analysis } from "./analysis";
 import { Note } from "./noteParsers";
 
 export type MeasuresAndBeats = {

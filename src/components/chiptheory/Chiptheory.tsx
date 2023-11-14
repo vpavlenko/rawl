@@ -1,15 +1,14 @@
 import * as React from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { AnalysisBox } from "./AnalysisBox";
+import { AnalysisGrid, Cursor } from "./AnalysisGrid";
+import { BookExample } from "./Book";
 import {
   ANALYSIS_STUB,
   Analysis,
-  AnalysisGrid,
-  Cursor,
   advanceAnalysis,
   getNewAnalysis,
-} from "./Analysis";
-import { AnalysisBox } from "./AnalysisBox";
-import { BookExample } from "./Book";
+} from "./analysis";
 import { calculateMeasuresAndBeats } from "./measures";
 import { ChipStateDump, Note, parseNotes } from "./noteParsers";
 import {
@@ -481,6 +480,9 @@ const Chiptheory: React.FC<{
           backgroundColor: "black",
         }}
       >
+        {/* Should probably clone this for the Stack view, as this shouldn't be scrollable, and all notes should be 
+        carefully repositioned according to their measures, instead of having a global (x, y) coordinate
+         */}
         <div
           ref={divRef}
           style={{

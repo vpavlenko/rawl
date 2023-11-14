@@ -1,8 +1,8 @@
 import * as React from "react";
 import { memo, useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { Analysis } from "./Analysis";
 import { Scale } from "./Book";
+import { Analysis } from "./analysis";
 import { RowOfRomanNumerals } from "./romanNumerals";
 import { getAnalysisTags } from "./tags";
 

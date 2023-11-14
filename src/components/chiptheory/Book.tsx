@@ -1,11 +1,11 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import { Analysis } from "./Analysis";
 import {
   ROMAN_NUMERALS_SEARCH,
   SCALE_DEGREES,
   doesAnalysisHaveRn,
 } from "./Search";
+import { Analysis } from "./analysis";
 import {
   RN,
   RowOfRomanNumerals,

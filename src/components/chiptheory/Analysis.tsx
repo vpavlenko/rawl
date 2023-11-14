@@ -75,7 +75,7 @@ export const ANALYSIS_STUB: Analysis = {
 
 export const getNewAnalysis = (
   note: Note | null,
-  selectedDownbeat: number | null,
+  selectedMeasure: number | null,
   analysis: Analysis,
   time: number = null,
   notes: Note[] = [],
@@ -84,16 +84,16 @@ export const getNewAnalysis = (
 ): Analysis => {
   let update: Partial<Analysis> = {};
 
-  if (selectedDownbeat !== null) {
+  if (selectedMeasure !== null) {
     if (altKey) {
       if (note) {
         update.modulations = { ...(analysis.modulations || []) };
-        update.modulations[selectedDownbeat] = (note.note.midiNumber %
+        update.modulations[selectedMeasure] = (note.note.midiNumber %
           12) as PitchClass;
       }
     } else {
       update.correctedMeasures = { ...(analysis.correctedMeasures || []) };
-      update.correctedMeasures[selectedDownbeat] = note?.span[0] ?? time;
+      update.correctedMeasures[selectedMeasure] = note?.span[0] ?? time;
     }
   } else {
     const { step } = analysis;
@@ -123,8 +123,8 @@ export const getNewAnalysis = (
 
 export const advanceAnalysis = (
   note: Note | null,
-  selectedDownbeat: number | null,
-  selectDownbeat: (_: null) => void,
+  selectedMeasure: number | null,
+  selectMeasure: (_: null) => void,
   analysis: Analysis,
   commitAnalysisUpdate: (analysisUpdate: Partial<Analysis>) => void,
   time: number = null,
@@ -134,7 +134,7 @@ export const advanceAnalysis = (
 ) => {
   const newAnalysis = getNewAnalysis(
     note,
-    selectedDownbeat,
+    selectedMeasure,
     analysis,
     time,
     notes,
@@ -142,7 +142,7 @@ export const advanceAnalysis = (
     altKey,
   );
 
-  selectDownbeat(null);
+  selectMeasure(null);
   commitAnalysisUpdate(newAnalysis);
 };
 
@@ -160,7 +160,7 @@ export const Cursor = styled(VerticalBar)`
   pointer-events: none;
 `;
 
-const Downbeat = styled(VerticalBar)`
+const MeasureBar = styled(VerticalBar)`
   background-color: #444;
 `;
 
@@ -172,9 +172,9 @@ const Measure: React.FC<{
   span: [number, number];
   number: number;
   isFourMeasureMark: boolean;
-  previouslySelectedDownbeat: number;
-  selectedDownbeat: number;
-  selectDownbeat: (number: number) => void;
+  previouslySelectedMeasure: number;
+  selectedMeasure: number;
+  selectMeasure: (number: number) => void;
   romanNumeral: string;
   formSection: string;
   modulation: PitchClass | null;
@@ -182,9 +182,9 @@ const Measure: React.FC<{
   span,
   number,
   isFourMeasureMark,
-  previouslySelectedDownbeat,
-  selectedDownbeat,
-  selectDownbeat,
+  previouslySelectedMeasure,
+  selectedMeasure,
+  selectMeasure,
   romanNumeral,
   formSection,
   modulation,
@@ -194,7 +194,7 @@ const Measure: React.FC<{
 
   return (
     <>
-      <Downbeat
+      <MeasureBar
         key={`db_${number}`}
         style={{
           left,
@@ -208,9 +208,9 @@ const Measure: React.FC<{
           top: 30 + STRIPES_HEIGHT,
           left: `${left + 7}px`,
           color:
-            selectedDownbeat === number
+            selectedMeasure === number
               ? "red"
-              : previouslySelectedDownbeat === number
+              : previouslySelectedMeasure === number
               ? "green"
               : "white",
           zIndex: 5,
@@ -220,7 +220,7 @@ const Measure: React.FC<{
         }}
         onClick={(e) => {
           e.stopPropagation();
-          selectDownbeat(number);
+          selectMeasure(number);
         }}
       >
         {number}
@@ -324,9 +324,9 @@ export const AnalysisGrid: React.FC<{
   measuresAndBeats: MeasuresAndBeats;
   midiNumberToY: (number: number) => number;
   noteHeight: number;
-  previouslySelectedDownbeat: number;
-  selectedDownbeat: number;
-  selectDownbeat: (number: number) => void;
+  previouslySelectedMeasure: number;
+  selectedMeasure: number;
+  selectMeasure: (number: number) => void;
   commitAnalysisUpdate: (analysisUpdate: Partial<Analysis>) => void;
   // a callback for stripes to tweak voiceMask on hover
   // voiceMask: boolean[];
@@ -340,9 +340,9 @@ export const AnalysisGrid: React.FC<{
     measuresAndBeats,
     midiNumberToY,
     noteHeight,
-    previouslySelectedDownbeat,
-    selectedDownbeat,
-    selectDownbeat,
+    previouslySelectedMeasure,
+    selectedMeasure,
+    selectMeasure,
     commitAnalysisUpdate,
     // voiceMask,
     setVoiceMask,
@@ -374,9 +374,9 @@ export const AnalysisGrid: React.FC<{
               isFourMeasureMark={phrasingMeasures.indexOf(number) !== -1}
               formSection={(analysis.form ?? {})[number]}
               number={number}
-              previouslySelectedDownbeat={previouslySelectedDownbeat}
-              selectedDownbeat={selectedDownbeat}
-              selectDownbeat={selectDownbeat}
+              previouslySelectedMeasure={previouslySelectedMeasure}
+              selectedMeasure={selectedMeasure}
+              selectMeasure={selectMeasure}
               romanNumeral={romanNumeralsToArray(analysis?.romanNumerals)[i]}
               modulation={
                 number in relativeModulations

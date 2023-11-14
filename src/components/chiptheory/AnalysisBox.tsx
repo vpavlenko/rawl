@@ -65,16 +65,16 @@ const STEP_CALL_TO_ACTION: Record<Step, string> = {
 export const AnalysisBox: React.FC<{
   analysis: Analysis;
   commitAnalysisUpdate: (analysisUpdate: Partial<Analysis>) => void;
-  previouslySelectedDownbeat: number;
-  selectedDownbeat: number;
-  selectDownbeat: (downbeat: number | null) => void;
+  previouslySelectedMeasure: number;
+  selectedMeasure: number;
+  selectMeasure: (measure: number | null) => void;
 }> = React.memo(
   ({
     analysis,
     commitAnalysisUpdate,
-    previouslySelectedDownbeat,
-    selectedDownbeat,
-    selectDownbeat,
+    previouslySelectedMeasure,
+    selectedMeasure,
+    selectMeasure,
   }) => {
     const useInputField = (
       initialValue,
@@ -134,10 +134,10 @@ export const AnalysisBox: React.FC<{
     const tagSpanSelectRef = useRef(null);
 
     useEffect(() => {
-      if (selectedDownbeat !== null) {
+      if (selectedMeasure !== null) {
         tagSpanSelectRef.current.focus();
       }
-    }, [selectedDownbeat]);
+    }, [selectedMeasure]);
 
     const basedOn = useInputField("", "basedOn", "Based on");
     const beatsPerMeasure = useInputField(
@@ -154,9 +154,9 @@ export const AnalysisBox: React.FC<{
       "Form section",
       undefined,
       (analysis, value) => {
-        selectDownbeat(null);
+        selectMeasure(null);
         return {
-          form: { ...analysis.form, [selectedDownbeat]: value },
+          form: { ...analysis.form, [selectedMeasure]: value },
         };
       },
     );
@@ -183,24 +183,24 @@ export const AnalysisBox: React.FC<{
             </div>
           </div>
           {"  "}
-          {selectedDownbeat === null && (
+          {selectedMeasure === null && (
             <div style={{ color: STEP_FONT_COLOR[analysis.step] }}>
               {STEP_CALL_TO_ACTION[analysis.step]}
             </div>
           )}
         </div>
         <div key="menu" style={{ marginTop: "20px" }}>
-          {selectedDownbeat !== null ? (
+          {selectedMeasure !== null ? (
             <div>
-              <div>What to do with measure {selectedDownbeat}?</div>
+              <div>What to do with measure {selectedMeasure}?</div>
               <ul className="vertical-list-of-buttons">
                 <li>
                   <button
                     className="box-button"
                     onClick={() => {
-                      selectDownbeat(null);
+                      selectMeasure(null);
                       commitAnalysisUpdate({
-                        loop: selectedDownbeat,
+                        loop: selectedMeasure,
                       });
                     }}
                   >
@@ -211,9 +211,9 @@ export const AnalysisBox: React.FC<{
                   <button
                     className="box-button"
                     onClick={() => {
-                      selectDownbeat(null);
+                      selectMeasure(null);
                       commitAnalysisUpdate({
-                        fourMeasurePhrasingReferences: [selectedDownbeat],
+                        fourMeasurePhrasingReferences: [selectedMeasure],
                       });
                     }}
                   >
@@ -224,11 +224,11 @@ export const AnalysisBox: React.FC<{
                   <button
                     className="box-button"
                     onClick={() => {
-                      selectDownbeat(null);
+                      selectMeasure(null);
                       commitAnalysisUpdate({
                         fourMeasurePhrasingReferences: [
                           ...(analysis.fourMeasurePhrasingReferences || []),
-                          selectedDownbeat,
+                          selectedMeasure,
                         ].sort((a, b) => a - b),
                       });
                     }}
@@ -241,21 +241,21 @@ export const AnalysisBox: React.FC<{
                 <li>
                   <div>
                     Add tag to span: [
-                    {previouslySelectedDownbeat ?? selectedDownbeat}-
-                    {selectedDownbeat}]
+                    {previouslySelectedMeasure ?? selectedMeasure}-
+                    {selectedMeasure}]
                     <Select
                       ref={tagSpanSelectRef}
                       options={TAGS.map((tag) => ({ value: tag, label: tag }))}
                       onChange={(tag) => {
-                        selectDownbeat(null);
+                        selectMeasure(null);
                         commitAnalysisUpdate({
                           tagSpans: [
                             ...(analysis.tagSpans ?? []),
                             {
                               tag: tag.value,
                               span: [
-                                previouslySelectedDownbeat ?? selectedDownbeat,
-                                selectedDownbeat,
+                                previouslySelectedMeasure ?? selectedMeasure,
+                                selectedMeasure,
                               ] as MeasuresSpan,
                             },
                           ],
@@ -275,11 +275,11 @@ export const AnalysisBox: React.FC<{
                         style={{ marginRight: "10px", marginTop: "10px" }}
                         className="box-button"
                         onClick={() => {
-                          selectDownbeat(null);
+                          selectMeasure(null);
                           commitAnalysisUpdate({
                             form: {
                               ...analysis.form,
-                              [selectedDownbeat]: formSection,
+                              [selectedMeasure]: formSection,
                             },
                           });
                         }}

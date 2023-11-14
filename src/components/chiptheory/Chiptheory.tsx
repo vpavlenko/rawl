@@ -259,21 +259,21 @@ const Chiptheory: React.FC<{
     }
   }, [savedAnalysis]);
 
-  const [previouslySelectedDownbeat, setPreviouslySelectedDownbeat] = useState<
+  const [previouslySelectedMeasure, setPreviouslySelectedMeasure] = useState<
     number | null
   >(null);
-  const [selectedDownbeat, setSelectedDownbeat] = useState<number | null>(null);
-  const selectDownbeat = useCallback(
-    (downbeat) => {
-      if (downbeat === null) {
-        setPreviouslySelectedDownbeat(null);
-        setSelectedDownbeat(null);
+  const [selectedMeasure, setSelectedMeasure] = useState<number | null>(null);
+  const selectMeasure = useCallback(
+    (measure) => {
+      if (measure === null) {
+        setPreviouslySelectedMeasure(null);
+        setSelectedMeasure(null);
       } else {
-        setPreviouslySelectedDownbeat(selectedDownbeat);
-        setSelectedDownbeat(downbeat);
+        setPreviouslySelectedMeasure(selectedMeasure);
+        setSelectedMeasure(measure);
       }
     },
-    [selectedDownbeat],
+    [selectedMeasure],
   );
 
   const analysisRef = useRef(analysis);
@@ -281,10 +281,10 @@ const Chiptheory: React.FC<{
     analysisRef.current = analysis;
   }, [analysis]);
 
-  const selectedDownbeatRef = useRef(selectedDownbeat);
+  const selectedMeasureRef = useRef(selectedMeasure);
   useEffect(() => {
-    selectedDownbeatRef.current = selectedDownbeat;
-  }, [selectedDownbeat]);
+    selectedMeasureRef.current = selectedMeasure;
+  }, [selectedMeasure]);
 
   const parsingResult = useMemo(
     () => parseNotes(chipStateDump),
@@ -347,7 +347,7 @@ const Chiptheory: React.FC<{
       hoveredNote
         ? getNewAnalysis(
             hoveredNote,
-            selectedDownbeatRef.current,
+            selectedMeasureRef.current,
             analysisRef.current,
             null,
             allNotes,
@@ -368,8 +368,8 @@ const Chiptheory: React.FC<{
   const handleNoteClick = (note: Note, altKey: boolean) => {
     advanceAnalysis(
       note,
-      selectedDownbeatRef.current,
-      setSelectedDownbeat,
+      selectedMeasureRef.current,
+      setSelectedMeasure,
       analysisRef.current,
       commitAnalysisUpdate,
       null,
@@ -442,7 +442,7 @@ const Chiptheory: React.FC<{
   useEffect(() => {
     const handleEscapePress = (event) => {
       if (event.key === "Escape" || event.keyCode === 27) {
-        selectDownbeat(null);
+        selectMeasure(null);
       }
     };
 
@@ -502,11 +502,11 @@ const Chiptheory: React.FC<{
               targetElement.scrollLeft -
               HORIZONTAL_HEADER_PADDING;
             const time = xToSeconds(distance);
-            if (selectedDownbeat) {
+            if (selectedMeasure) {
               advanceAnalysis(
                 null,
-                selectedDownbeatRef.current,
-                setSelectedDownbeat,
+                selectedMeasureRef.current,
+                setSelectedMeasure,
                 analysisRef.current,
                 commitAnalysisUpdate,
                 time,
@@ -525,9 +525,9 @@ const Chiptheory: React.FC<{
             measuresAndBeats={measuresAndBeats}
             midiNumberToY={midiNumberToY}
             noteHeight={noteHeight}
-            previouslySelectedDownbeat={previouslySelectedDownbeat}
-            selectedDownbeat={selectedDownbeat}
-            selectDownbeat={selectDownbeat}
+            previouslySelectedMeasure={previouslySelectedMeasure}
+            selectedMeasure={selectedMeasure}
+            selectMeasure={selectMeasure}
             commitAnalysisUpdate={commitAnalysisUpdate}
             // voiceMask={voiceMask}
             setVoiceMask={setVoiceMask}
@@ -582,9 +582,9 @@ const Chiptheory: React.FC<{
           <AnalysisBox
             analysis={analysis}
             commitAnalysisUpdate={commitAnalysisUpdate}
-            previouslySelectedDownbeat={previouslySelectedDownbeat}
-            selectedDownbeat={selectedDownbeat}
-            selectDownbeat={selectDownbeat}
+            previouslySelectedMeasure={previouslySelectedMeasure}
+            selectedMeasure={selectedMeasure}
+            selectMeasure={selectMeasure}
           />
         ))}
     </div>

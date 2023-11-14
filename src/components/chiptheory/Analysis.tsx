@@ -35,7 +35,6 @@ export type TagSpan = {
 };
 
 export type Analysis = {
-  clickResolutionMs: number;
   step: Step;
   firstMeasure: number;
   secondMeasure: number;
@@ -55,7 +54,6 @@ export type Analysis = {
 };
 
 export const ANALYSIS_STUB: Analysis = {
-  clickResolutionMs: RESOLUTION_MS,
   step: STEPS[0],
   firstMeasure: null,
   secondMeasure: null,

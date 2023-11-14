@@ -73,6 +73,7 @@ export const getNewAnalysis = (
         update.modulations = { ...(analysis.modulations || []) };
         update.modulations[selectedMeasure] = (note.note.midiNumber %
           12) as PitchClass;
+        // TODO: if the next modulation is the same pitch class, we should remove the next one
       }
     } else {
       update.correctedMeasures = { ...(analysis.correctedMeasures || []) };

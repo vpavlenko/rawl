@@ -219,12 +219,6 @@ export const AnalysisGrid: React.FC<{
     fileType,
   }) => {
     const { measures, beats } = measuresAndBeats;
-    let loopLeft = null;
-
-    if (analysis.loop) {
-      loopLeft = secondsToX(measures[analysis.loop - 1]);
-    }
-
     const phrasingMeasures = getPhrasingMeasures(analysis, measures.length);
     const relativeModulations = getRelativeModulations(
       analysis.tonic,
@@ -279,7 +273,7 @@ export const AnalysisGrid: React.FC<{
             showIntervals={showIntervals}
           />
         )}
-        {loopLeft && (
+        {analysis.loop && (
           <div
             key="loop"
             style={{
@@ -288,7 +282,7 @@ export const AnalysisGrid: React.FC<{
               position: "absolute",
               background:
                 "linear-gradient(to right, rgba(0, 0, 0, 0.5) 0%, rgba(0,0,0,0.9) 300px)",
-              left: loopLeft,
+              left: secondsToX(measures[analysis.loop - 1]),
               height: "100%",
               right: 0,
               zIndex: 1000,

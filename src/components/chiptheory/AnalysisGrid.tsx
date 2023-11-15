@@ -239,7 +239,9 @@ export const AnalysisGrid: React.FC<
               previouslySelectedMeasure={previouslySelectedMeasure}
               selectedMeasure={selectedMeasure}
               selectMeasure={selectMeasure}
-              romanNumeral={romanNumeralsToArray(analysis?.romanNumerals)[i]}
+              romanNumeral={
+                romanNumeralsToArray(analysis?.romanNumerals)[number - 1]
+              }
               modulation={
                 number in relativeModulations
                   ? relativeModulations[number]

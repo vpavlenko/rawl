@@ -535,6 +535,9 @@ export const StackedSystemLayout: React.FC<
     analysis,
     measuresAndBeats.measures.length,
   );
+  if (phraseStarts[0] !== 1) {
+    phraseStarts.unshift(1);
+  }
   // TODO: support loops
   const dataForPhrases = useMemo(
     () => calculateDataForPhrases(notes, measuresAndBeats, phraseStarts),

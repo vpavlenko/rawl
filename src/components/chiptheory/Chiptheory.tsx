@@ -258,6 +258,8 @@ const Chiptheory: React.FC<{
     voices: notes,
   };
 
+  const positionSeconds = positionMs / 1000;
+
   return (
     <div className="App-main-content-and-settings">
       {stackedView ? (
@@ -276,6 +278,7 @@ const Chiptheory: React.FC<{
           selectedMeasure={selectedMeasure}
           selectMeasure={selectMeasure}
           showIntervals={showIntervals}
+          positionSeconds={positionSeconds}
         />
       ) : (
         <InfiniteHorizontalScrollSystemLayout
@@ -287,7 +290,6 @@ const Chiptheory: React.FC<{
           hoveredAltKey={hoveredAltKey}
           allActiveNotes={allActiveNotes}
           systemClickHandler={systemClickHandler}
-          positionMs={positionMs}
           futureAnalysis={futureAnalysis}
           notes={notes}
           measuresAndBeats={measuresAndBeats}
@@ -297,6 +299,7 @@ const Chiptheory: React.FC<{
           stripeSpecificProps={stripeSpecificProps}
           showIntervals={showIntervals}
           registerSeekCallback={registerSeekCallback}
+          positionSeconds={positionSeconds}
         />
       )}
       {analysisEnabled &&

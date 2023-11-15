@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { ReactNode, useEffect, useMemo, useRef, useState } from "react";
 import { AnalysisGrid, Cursor, MeasureSelection } from "./AnalysisGrid";
 import { SecondsSpan, secondsToX } from "./Chiptheory";
 import { Analysis, MeasuresSpan } from "./analysis";
@@ -206,7 +206,7 @@ export const InfiniteHorizontalScrollSystemLayout = ({
   handleMouseLeave,
   allActiveNotes,
   systemClickHandler,
-  positionMs,
+  positionSeconds,
   futureAnalysis,
   notes,
   measuresAndBeats,
@@ -311,7 +311,7 @@ export const InfiniteHorizontalScrollSystemLayout = ({
         onClick={systemClickHandler}
       >
         {noteRectangles}
-        <Cursor style={{ left: secondsToX(positionMs / 1000) }} />
+        <Cursor style={{ left: secondsToX(positionSeconds) }} />
         <AnalysisGrid
           analysis={futureAnalysis}
           measuresAndBeats={measuresAndBeats}
@@ -329,12 +329,16 @@ export const InfiniteHorizontalScrollSystemLayout = ({
   );
 };
 
+const isInSecondsSpan = (time: number, span: SecondsSpan) =>
+  span[0] <= time && time < span[1];
+
 const Phrase: React.FC<
   DataForPhrase & {
     voiceMask: boolean[];
     analysis: Analysis;
     showIntervals: boolean;
     globalMeasures: number[];
+    cursor?: ReactNode;
   } & NoteMouseHandlers &
     MeasureSelection
 > = ({
@@ -353,14 +357,8 @@ const Phrase: React.FC<
   selectedMeasure,
   selectMeasure,
   showIntervals,
+  cursor,
 }) => {
-  // Can I just use an <InfiniteScroll/>
-  // I should have a fixed noteHeight
-
-  // calculate midiRange
-
-  // showAnalysisGrid
-
   const { minMidiNumber, maxMidiNumber } = getMidiRangeWithMask(
     notes,
     voiceMask,
@@ -413,7 +411,15 @@ const Phrase: React.FC<
 
   return (
     <div>
-      <div style={{ width: "100%", height, position: "relative" }}>
+      <div
+        style={{
+          width: "100%",
+          height,
+          position: "relative",
+          overflow: "hidden",
+          marginBottom: "40px",
+        }}
+      >
         {noteRectangles}
         <AnalysisGrid
           analysis={analysis}
@@ -428,6 +434,7 @@ const Phrase: React.FC<
             secondsToX(seconds - globalMeasures[measuresSpan[0] - 1])
           }
         />
+        {cursor}
       </div>
     </div>
   );
@@ -437,20 +444,19 @@ const Phrase: React.FC<
 // I'm just too lazy to implement it now.
 const getNotesBetweenTimestamps = (
   notes: NotesInVoices,
-  secondFrom: number,
-  secondTo: number,
+  secondsSpan: SecondsSpan,
 ): NotesInVoices =>
   notes.map((notesInOneVoice) =>
-    notesInOneVoice.filter((note) => {
-      const middle = (note.span[0] + note.span[1]) / 2;
-      return secondFrom <= middle && middle < secondTo;
-    }),
+    notesInOneVoice.filter((note) =>
+      isInSecondsSpan((note.span[0] + note.span[1]) / 2, secondsSpan),
+    ),
   );
 
 type DataForPhrase = {
   notes: NotesInVoices;
   measuresAndBeats: MeasuresAndBeats;
   measuresSpan: MeasuresSpan;
+  secondsSpan: SecondsSpan;
 };
 
 const calculateDataForPhrases = (
@@ -462,24 +468,19 @@ const calculateDataForPhrases = (
   const data = [];
   for (let i = 0; i < phraseStarts.length - 1; ++i) {
     const measuresSpan = [phraseStarts[i], phraseStarts[i + 1]];
+    const secondsSpan = [
+      measures[measuresSpan[0] - 1],
+      measures[measuresSpan[1] - 1],
+    ] as SecondsSpan;
     data.push({
-      notes: getNotesBetweenTimestamps(
-        notes,
-        measures[measuresSpan[0] - 1],
-        measures[measuresSpan[1] - 1],
-      ),
+      notes: getNotesBetweenTimestamps(notes, secondsSpan),
       measuresSpan,
+      secondsSpan,
       measuresAndBeats: {
-        measures: measures.filter(
-          (measure) =>
-            measures[measuresSpan[0] - 1] <= measure &&
-            measure < measures[measuresSpan[1] - 1],
+        measures: measures.filter((measure) =>
+          isInSecondsSpan(measure, secondsSpan),
         ),
-        beats: beats.filter(
-          (beat) =>
-            measures[measuresSpan[0] - 1] <= beat &&
-            beat < measures[measuresSpan[1] - 1],
-        ),
+        beats: beats.filter((beat) => isInSecondsSpan(beat, secondsSpan)),
       },
     });
   }
@@ -495,6 +496,7 @@ export const StackedSystemLayout: React.FC<
     notes: NotesInVoices;
     voiceMask: boolean[];
     showIntervals: boolean;
+    positionSeconds: number;
   } & NoteMouseHandlers &
     MeasureSelection
 > = ({
@@ -512,6 +514,7 @@ export const StackedSystemLayout: React.FC<
   selectedMeasure,
   selectMeasure,
   showIntervals,
+  positionSeconds,
 }) => {
   // splitMeasuresIntoPhrases
   // splitNotesIntoPhrases
@@ -571,6 +574,15 @@ export const StackedSystemLayout: React.FC<
             selectedMeasure={selectedMeasure}
             selectMeasure={selectMeasure}
             showIntervals={showIntervals}
+            cursor={
+              isInSecondsSpan(positionSeconds, data.secondsSpan) && (
+                <Cursor
+                  style={{
+                    left: secondsToX(positionSeconds - data.secondsSpan[0]),
+                  }}
+                />
+              )
+            }
           />
         ))}
       </div>

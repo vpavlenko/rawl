@@ -95,12 +95,13 @@ const getIntervalBelow = (note: Note, allNotes: Note[]) => {
   return minDistance;
 };
 
-export type NoteMouseHandlers = {
+export type MouseHandlers = {
   handleNoteClick: (note: Note, altKey: boolean) => void;
   handleMouseEnter: (note: Note, altKey: boolean) => void;
   handleMouseLeave: () => void;
   hoveredNote: Note | null;
   hoveredAltKey: boolean;
+  systemClickHandler: (e: React.MouseEvent, time?: number) => void;
 };
 
 const getNoteRectangles = (
@@ -344,12 +345,13 @@ const Phrase: React.FC<
     globalMeasures: number[];
     cursor?: ReactNode;
     phraseStarts: number[];
-  } & NoteMouseHandlers &
+  } & MouseHandlers &
     MeasureSelection
 > = ({
   notes,
   measuresAndBeats,
   measuresSpan,
+  secondsSpan,
   voiceMask,
   analysis,
   globalMeasures,
@@ -358,6 +360,7 @@ const Phrase: React.FC<
   handleMouseLeave,
   hoveredNote,
   hoveredAltKey,
+  systemClickHandler,
   previouslySelectedMeasure,
   selectedMeasure,
   selectMeasure,
@@ -395,7 +398,7 @@ const Phrase: React.FC<
               handleMouseLeave,
               [], // TODO: pass allActiveNotes in this phrase to enable showIntervals view
               showIntervals,
-              globalMeasures[measuresSpan[0] - 1],
+              secondsSpan[0],
             )
           : [],
       ),
@@ -420,6 +423,7 @@ const Phrase: React.FC<
           overflow: "hidden",
           marginBottom: "20px",
         }}
+        onClick={(e) => systemClickHandler(e, secondsSpan[0])}
       >
         {noteRectangles}
         <AnalysisGrid
@@ -432,9 +436,7 @@ const Phrase: React.FC<
           selectMeasure={selectMeasure}
           firstMeasureNumber={measuresSpan[0]}
           phraseStarts={phraseStarts}
-          secondsToX={(seconds) =>
-            secondsToX(seconds - globalMeasures[measuresSpan[0] - 1])
-          }
+          secondsToX={(seconds) => secondsToX(seconds - secondsSpan[0])}
         />
         {cursor}
       </div>
@@ -499,7 +501,7 @@ export const StackedSystemLayout: React.FC<
     voiceMask: boolean[];
     showIntervals: boolean;
     positionSeconds: number;
-  } & NoteMouseHandlers &
+  } & MouseHandlers &
     MeasureSelection
 > = ({
   analysis,
@@ -512,6 +514,7 @@ export const StackedSystemLayout: React.FC<
   handleMouseLeave,
   hoveredNote,
   hoveredAltKey,
+  systemClickHandler,
   previouslySelectedMeasure,
   selectedMeasure,
   selectMeasure,
@@ -556,8 +559,6 @@ export const StackedSystemLayout: React.FC<
           height: "100%",
           backgroundColor: "black",
         }}
-        // TODO: implement seek
-        // onClick={systemClickHandler}
       >
         {/* <div style={{ position: "absolute", right: 20, top: 20 }}>
           by 4 or by 8
@@ -578,6 +579,7 @@ export const StackedSystemLayout: React.FC<
             selectMeasure={selectMeasure}
             showIntervals={showIntervals}
             phraseStarts={phraseStarts}
+            systemClickHandler={systemClickHandler}
             cursor={
               isInSecondsSpan(positionSeconds, data.secondsSpan) && (
                 <Cursor

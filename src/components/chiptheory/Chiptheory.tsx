@@ -224,29 +224,38 @@ const Chiptheory: React.FC<{
   //   divRef.current.scrollLeft = 0;
   // }, [chipStateDump]);
 
-  // TODO: useCallback
-  const systemClickHandler = (e) => {
-    const targetElement = e.target as HTMLElement;
-    const rect = targetElement.getBoundingClientRect();
-    const distance =
-      e.clientX -
-      rect.left +
-      targetElement.scrollLeft -
-      HORIZONTAL_HEADER_PADDING;
-    const time = xToSeconds(distance);
-    if (selectedMeasure) {
-      advanceAnalysis(
-        null,
-        selectedMeasureRef.current,
-        setSelectedMeasure,
-        analysisRef.current,
-        commitAnalysisUpdate,
-        time,
-      );
-    } else {
-      seek(time * 1000);
-    }
-  };
+  const systemClickHandler = useCallback(
+    (e: React.MouseEvent, timeOffset = 0) => {
+      const targetElement = e.target as HTMLElement;
+      const rect = targetElement.getBoundingClientRect();
+      const distance =
+        e.clientX -
+        rect.left +
+        targetElement.scrollLeft -
+        HORIZONTAL_HEADER_PADDING;
+      const time = xToSeconds(distance) + timeOffset;
+      if (selectedMeasure) {
+        advanceAnalysis(
+          null,
+          selectedMeasureRef.current,
+          setSelectedMeasure,
+          analysisRef.current,
+          commitAnalysisUpdate,
+          time,
+        );
+      } else {
+        seek(time * 1000);
+      }
+    },
+    [
+      selectedMeasure,
+      selectedMeasureRef,
+      setSelectedMeasure,
+      analysisRef,
+      commitAnalysisUpdate,
+      seek,
+    ],
+  );
 
   const stripeSpecificProps: StripesSpecificProps = chipStateDump.type ===
     "nes" && {
@@ -279,6 +288,7 @@ const Chiptheory: React.FC<{
           selectMeasure={selectMeasure}
           showIntervals={showIntervals}
           positionSeconds={positionSeconds}
+          systemClickHandler={systemClickHandler}
         />
       ) : (
         <InfiniteHorizontalScrollSystemLayout

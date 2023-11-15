@@ -1,7 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 import { Analysis, PitchClass } from "./analysis";
-import { MeasuresAndBeats, getPhrasingMeasures } from "./measures";
+import { MeasuresAndBeats } from "./measures";
 import {
   MeasureOfRomanNumerals,
   getModulations,
@@ -204,6 +204,7 @@ export const AnalysisGrid: React.FC<
     firstMeasureNumber: number;
     secondsToX: (number) => number;
     stripeSpecificProps?: StripesSpecificProps;
+    phraseStarts: number[];
   } & MeasureSelection
 > = React.memo(
   ({
@@ -217,9 +218,9 @@ export const AnalysisGrid: React.FC<
     stripeSpecificProps,
     firstMeasureNumber,
     secondsToX,
+    phraseStarts,
   }) => {
     const { measures, beats } = measuresAndBeats;
-    const phrasingMeasures = getPhrasingMeasures(analysis, measures.length);
     const relativeModulations = getRelativeModulations(
       analysis.tonic,
       analysis.modulations,
@@ -232,7 +233,7 @@ export const AnalysisGrid: React.FC<
             <Measure
               key={i}
               span={[time, measures[i + 1] ?? time]}
-              isFourMeasureMark={phrasingMeasures.indexOf(number) !== -1}
+              isFourMeasureMark={phraseStarts.indexOf(number) !== -1}
               formSection={(analysis.form ?? {})[number]}
               number={number}
               previouslySelectedMeasure={previouslySelectedMeasure}

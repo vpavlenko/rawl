@@ -323,6 +323,10 @@ export const InfiniteHorizontalScrollSystemLayout = ({
           stripeSpecificProps={stripeSpecificProps}
           firstMeasureNumber={1}
           secondsToX={secondsToX}
+          phraseStarts={getPhrasingMeasures(
+            futureAnalysis,
+            measuresAndBeats.measures.length,
+          )}
         />
       </div>
     </div>
@@ -330,7 +334,7 @@ export const InfiniteHorizontalScrollSystemLayout = ({
 };
 
 const isInSecondsSpan = (time: number, span: SecondsSpan) =>
-  span[0] <= time && time < span[1];
+  span[0] <= time && time <= span[1];
 
 const Phrase: React.FC<
   DataForPhrase & {
@@ -339,6 +343,7 @@ const Phrase: React.FC<
     showIntervals: boolean;
     globalMeasures: number[];
     cursor?: ReactNode;
+    phraseStarts: number[];
   } & NoteMouseHandlers &
     MeasureSelection
 > = ({
@@ -358,6 +363,7 @@ const Phrase: React.FC<
   selectMeasure,
   showIntervals,
   cursor,
+  phraseStarts,
 }) => {
   const { minMidiNumber, maxMidiNumber } = getMidiRangeWithMask(
     notes,
@@ -430,6 +436,7 @@ const Phrase: React.FC<
           selectedMeasure={selectedMeasure}
           selectMeasure={selectMeasure}
           firstMeasureNumber={measuresSpan[0]}
+          phraseStarts={phraseStarts}
           secondsToX={(seconds) =>
             secondsToX(seconds - globalMeasures[measuresSpan[0] - 1])
           }
@@ -574,6 +581,7 @@ export const StackedSystemLayout: React.FC<
             selectedMeasure={selectedMeasure}
             selectMeasure={selectMeasure}
             showIntervals={showIntervals}
+            phraseStarts={phraseStarts}
             cursor={
               isInSecondsSpan(positionSeconds, data.secondsSpan) && (
                 <Cursor

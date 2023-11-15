@@ -1,8 +1,8 @@
 import * as React from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { AnalysisGrid, Cursor } from "./AnalysisGrid";
+import { AnalysisGrid, Cursor, MeasureSelection } from "./AnalysisGrid";
 import { SecondsSpan, secondsToX } from "./Chiptheory";
-import { Analysis } from "./analysis";
+import { Analysis, MeasuresSpan } from "./analysis";
 import { MeasuresAndBeats, getPhrasingMeasures } from "./measures";
 import { Note, NotesInVoices } from "./noteParsers";
 import {
@@ -209,20 +209,15 @@ export const InfiniteHorizontalScrollSystemLayout = ({
   positionMs,
   futureAnalysis,
   notes,
-  seek,
   measuresAndBeats,
   previouslySelectedMeasure,
   selectedMeasure,
   selectMeasure,
-  commitAnalysisUpdate,
-  setVoiceMask,
-  loggedIn,
   showIntervals,
-  setShowIntervals,
-  fileType,
   registerSeekCallback,
   hoveredNote,
   hoveredAltKey,
+  stripeSpecificProps,
 }) => {
   const { minMidiNumber, maxMidiNumber } = useMemo(
     () => getMidiRange(allActiveNotes.flat()),
@@ -320,20 +315,15 @@ export const InfiniteHorizontalScrollSystemLayout = ({
         <Cursor style={{ left: secondsToX(positionMs / 1000) }} />
         <AnalysisGrid
           analysis={futureAnalysis}
-          voices={notes}
           measuresAndBeats={measuresAndBeats}
           midiNumberToY={midiNumberToY}
           noteHeight={noteHeight}
           previouslySelectedMeasure={previouslySelectedMeasure}
           selectedMeasure={selectedMeasure}
           selectMeasure={selectMeasure}
-          commitAnalysisUpdate={commitAnalysisUpdate}
-          setVoiceMask={setVoiceMask}
-          loggedIn={loggedIn}
-          seek={seek}
-          // TODO: rename this argument. very misleading
-          showIntervals={setShowIntervals}
-          fileType={fileType}
+          stripeSpecificProps={stripeSpecificProps}
+          firstMeasureNumber={1}
+          secondsToX={secondsToX}
         />
       </div>
     </div>
@@ -346,11 +336,12 @@ const Phrase: React.FC<
     analysis: Analysis;
     showIntervals: boolean;
     globalMeasures: number[];
-  } & NoteMouseHandlers
+  } & NoteMouseHandlers &
+    MeasureSelection
 > = ({
   notes,
-  from,
-  to,
+  measuresAndBeats,
+  measuresSpan,
   voiceMask,
   analysis,
   globalMeasures,
@@ -359,6 +350,9 @@ const Phrase: React.FC<
   handleMouseLeave,
   hoveredNote,
   hoveredAltKey,
+  previouslySelectedMeasure,
+  selectedMeasure,
+  selectMeasure,
   showIntervals,
 }) => {
   // Can I just use an <InfiniteScroll/>
@@ -376,7 +370,7 @@ const Phrase: React.FC<
   if (minMidiNumber === +Infinity) {
     return (
       <div>
-        no notes in mm. {from}-{to}
+        no notes in mm. {measuresSpan[0]}-{measuresSpan[1]}
       </div>
     );
   }
@@ -404,7 +398,7 @@ const Phrase: React.FC<
           handleMouseLeave,
           [], // TODO: pass allActiveNotes in this phrase to enable showIntervals view
           showIntervals,
-          globalMeasures[from],
+          globalMeasures[measuresSpan[0] - 1],
         ),
       ),
     [
@@ -420,12 +414,21 @@ const Phrase: React.FC<
 
   return (
     <div>
-      I'm a phrase. I show AnalysisGrid and noteRectangles. I have notes:
-      {JSON.stringify(notes.map((notesInOneVoice) => notesInOneVoice.length))}I
-      mm. {from}-{to}. minMidiNumber = {minMidiNumber}, maxMidiNumber ={" "}
-      {maxMidiNumber}
       <div style={{ width: "100%", height, position: "relative" }}>
         {noteRectangles}
+        <AnalysisGrid
+          analysis={analysis}
+          measuresAndBeats={measuresAndBeats}
+          midiNumberToY={midiNumberToY}
+          noteHeight={STACKED_LAYOUT_NOTE_HEIGHT}
+          previouslySelectedMeasure={previouslySelectedMeasure}
+          selectedMeasure={selectedMeasure}
+          selectMeasure={selectMeasure}
+          firstMeasureNumber={measuresSpan[0]}
+          secondsToX={(seconds) =>
+            secondsToX(seconds - globalMeasures[measuresSpan[0] - 1])
+          }
+        />
       </div>
     </div>
   );
@@ -447,23 +450,38 @@ const getNotesBetweenTimestamps = (
 
 type DataForPhrase = {
   notes: NotesInVoices;
-  from: number;
-  to: number;
+  measuresAndBeats: MeasuresAndBeats;
+  measuresSpan: MeasuresSpan;
 };
 
 const calculateDataForPhrases = (
   notes: NotesInVoices,
-  measures: number[],
+  measuresAndBeats: MeasuresAndBeats,
   phraseStarts: number[],
 ): DataForPhrase[] => {
+  const { measures, beats } = measuresAndBeats;
   const data = [];
   for (let i = 0; i < phraseStarts.length - 1; ++i) {
-    const from = phraseStarts[i] - 1;
-    const to = phraseStarts[i + 1] - 1;
+    const measuresSpan = [phraseStarts[i], phraseStarts[i + 1]];
     data.push({
-      notes: getNotesBetweenTimestamps(notes, measures[from], measures[to]),
-      from,
-      to,
+      notes: getNotesBetweenTimestamps(
+        notes,
+        measures[measuresSpan[0] - 1],
+        measures[measuresSpan[1] - 1],
+      ),
+      measuresSpan,
+      measuresAndBeats: {
+        measures: measures.filter(
+          (measure) =>
+            measures[measuresSpan[0] - 1] <= measure &&
+            measure < measures[measuresSpan[1] - 1],
+        ),
+        beats: beats.filter(
+          (beat) =>
+            measures[measuresSpan[0] - 1] <= beat &&
+            beat < measures[measuresSpan[1] - 1],
+        ),
+      },
     });
   }
   return data;
@@ -478,7 +496,8 @@ export const StackedSystemLayout: React.FC<
     notes: NotesInVoices;
     voiceMask: boolean[];
     showIntervals: boolean;
-  } & NoteMouseHandlers
+  } & NoteMouseHandlers &
+    MeasureSelection
 > = ({
   analysis,
   futureAnalysis,
@@ -490,6 +509,9 @@ export const StackedSystemLayout: React.FC<
   handleMouseLeave,
   hoveredNote,
   hoveredAltKey,
+  previouslySelectedMeasure,
+  selectedMeasure,
+  selectMeasure,
   showIntervals,
 }) => {
   // splitMeasuresIntoPhrases
@@ -497,15 +519,17 @@ export const StackedSystemLayout: React.FC<
 
   // we can make a very easy manual implementation: first 8 measures go to first phrase, everything else goes to the next measure
 
-  const { measures, beats } = measuresAndBeats;
-
   // let's skip all notes that are in muted voices
   // what's the efficient way to put all notes into phrase buckets?
 
-  const phraseStarts = getPhrasingMeasures(analysis, measures.length);
+  const phraseStarts = getPhrasingMeasures(
+    analysis,
+    measuresAndBeats.measures.length,
+  );
+  // TODO: support loops
   const dataForPhrases = useMemo(
-    () => calculateDataForPhrases(notes, measures, phraseStarts),
-    [notes, measures, phraseStarts],
+    () => calculateDataForPhrases(notes, measuresAndBeats, phraseStarts),
+    [notes, measuresAndBeats, phraseStarts],
   );
 
   return (
@@ -525,7 +549,7 @@ export const StackedSystemLayout: React.FC<
           padding: 0,
           position: "relative",
           overflowX: "scroll",
-          overflowY: "hidden",
+          overflowY: "scroll",
           width: "100%",
           height: "100%",
           backgroundColor: "black",
@@ -544,6 +568,9 @@ export const StackedSystemLayout: React.FC<
             handleMouseLeave={handleMouseLeave}
             hoveredNote={hoveredNote}
             hoveredAltKey={hoveredAltKey}
+            previouslySelectedMeasure={previouslySelectedMeasure}
+            selectedMeasure={selectedMeasure}
+            selectMeasure={selectMeasure}
             showIntervals={showIntervals}
           />
         ))}

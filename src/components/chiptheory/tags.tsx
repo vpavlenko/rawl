@@ -422,7 +422,7 @@ const StripeTag: React.FC<{
   setVoiceMask: (voiceMask: boolean[]) => void;
   seek: (ms: number) => void;
   attachVoices: () => void;
-  showIntervals: (yes: boolean) => void;
+  setShowIntervals: (yes: boolean) => void;
 }> = ({
   startSecond,
   endSecond,
@@ -433,7 +433,7 @@ const StripeTag: React.FC<{
   seek,
   removeTag,
   attachVoices,
-  showIntervals,
+  setShowIntervals,
 }) => {
   const [category, value] = tag.split(":");
   const dummyPickVoices = pickSemanticVoicesForTag(
@@ -511,7 +511,7 @@ const StripeTag: React.FC<{
               const mask = [false, false, false, false, false];
               mask[voice] = true;
               setVoiceMask(mask);
-              showIntervals(false);
+              setShowIntervals(false);
               seek(startSecond * 1000);
             }}
             style={{
@@ -534,7 +534,7 @@ const StripeTag: React.FC<{
                 setVoiceMask([true, true, true, true, true]);
               }
               seek(startSecond * 1000);
-              showIntervals(value.startsWith("parallel"));
+              setShowIntervals(value.startsWith("parallel"));
             }}
             style={{ fontSize: STRIPE_HEIGHT, cursor: "pointer" }}
           >
@@ -587,17 +587,22 @@ const pickSemanticVoicesForTag = (
   return null;
 };
 
-export const Stripes: React.FC<{
-  tagSpans: TagSpan[];
-  measuresAndBeats: MeasuresAndBeats;
-  analysis: Analysis;
+export type StripesSpecificProps = {
   commitAnalysisUpdate: (analysisUpdate: Partial<Analysis>) => void;
   setVoiceMask: (voiceMask: boolean[]) => void;
   loggedIn: boolean;
-  voices: NotesInVoices;
   seek: (ms: number) => void;
-  showIntervals: (yes: boolean) => void;
-}> = React.memo(
+  setShowIntervals: (yes: boolean) => void;
+  voices: NotesInVoices;
+};
+
+export const Stripes: React.FC<
+  {
+    tagSpans: TagSpan[];
+    measuresAndBeats: MeasuresAndBeats;
+    analysis: Analysis;
+  } & StripesSpecificProps
+> = React.memo(
   ({
     tagSpans,
     measuresAndBeats,
@@ -607,7 +612,7 @@ export const Stripes: React.FC<{
     loggedIn,
     voices,
     seek,
-    showIntervals,
+    setShowIntervals,
   }) => {
     const stripeTags = new Array(CATEGORIES_IN_STRIPES.length)
       .fill(null)
@@ -677,7 +682,7 @@ export const Stripes: React.FC<{
               }
             })
           }
-          showIntervals={showIntervals}
+          setShowIntervals={setShowIntervals}
         />,
       );
     });
@@ -735,7 +740,7 @@ export const Stripes: React.FC<{
                 e.preventDefault();
                 e.stopPropagation();
                 setVoiceMask([true, true, true, true, true]);
-                showIntervals(false);
+                setShowIntervals(false);
               }}
               style={{
                 backgroundColor: "transparent",

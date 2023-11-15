@@ -14,6 +14,7 @@ import {
 } from "./analysis";
 import { calculateMeasuresAndBeats } from "./measures";
 import { ChipStateDump, Note, parseNotes } from "./noteParsers";
+import { StripesSpecificProps } from "./tags";
 
 export type Voice = "pulse1" | "pulse2" | "triangle" | "noise" | "under cursor";
 
@@ -271,6 +272,16 @@ const Chiptheory: React.FC<{
     }
   };
 
+  const stripeSpecificProps: StripesSpecificProps = chipStateDump.type ===
+    "nes" && {
+    commitAnalysisUpdate,
+    setVoiceMask,
+    loggedIn,
+    seek,
+    setShowIntervals,
+    voices: notes,
+  };
+
   return (
     <div className="App-main-content-and-settings">
       {stackedView ? (
@@ -285,6 +296,9 @@ const Chiptheory: React.FC<{
           handleMouseLeave={handleMouseLeave}
           hoveredNote={hoveredNote}
           hoveredAltKey={hoveredAltKey}
+          previouslySelectedMeasure={previouslySelectedMeasure}
+          selectedMeasure={selectedMeasure}
+          selectMeasure={selectMeasure}
           showIntervals={showIntervals}
         />
       ) : (
@@ -300,17 +314,12 @@ const Chiptheory: React.FC<{
           positionMs={positionMs}
           futureAnalysis={futureAnalysis}
           notes={notes}
-          seek={seek}
           measuresAndBeats={measuresAndBeats}
           previouslySelectedMeasure={previouslySelectedMeasure}
           selectedMeasure={selectedMeasure}
           selectMeasure={selectMeasure}
-          commitAnalysisUpdate={commitAnalysisUpdate}
-          setVoiceMask={setVoiceMask}
-          loggedIn={loggedIn}
+          stripeSpecificProps={stripeSpecificProps}
           showIntervals={showIntervals}
-          setShowIntervals={setShowIntervals}
-          fileType={chipStateDump.type}
           registerSeekCallback={registerSeekCallback}
         />
       )}

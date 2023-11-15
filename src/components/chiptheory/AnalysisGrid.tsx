@@ -1,16 +1,14 @@
 import * as React from "react";
 import styled from "styled-components";
-import { secondsToX } from "./Chiptheory";
 import { Analysis, PitchClass } from "./analysis";
 import { MeasuresAndBeats, getPhrasingMeasures } from "./measures";
-import { FileType, NotesInVoices } from "./noteParsers";
 import {
   MeasureOfRomanNumerals,
   getModulations,
   getRelativeModulations,
   romanNumeralsToArray,
 } from "./romanNumerals";
-import { STRIPES_HEIGHT, Stripes } from "./tags";
+import { STRIPES_HEIGHT, Stripes, StripesSpecificProps } from "./tags";
 
 const VerticalBar = styled.div`
   width: 1px;
@@ -34,18 +32,24 @@ const BeatBar = styled(VerticalBar)`
   border-left: 1px dashed #262626;
 `;
 
-const Measure: React.FC<{
-  span: [number, number];
-  number: number;
-  isFourMeasureMark: boolean;
+export type MeasureSelection = {
   previouslySelectedMeasure: number;
   selectedMeasure: number;
-  selectMeasure: (number: number) => void;
-  romanNumeral: string;
-  formSection: string;
-  modulation: PitchClass | null;
-  stripesHeight: number;
-}> = ({
+  selectMeasure: (number) => void;
+};
+
+const Measure: React.FC<
+  {
+    span: [number, number];
+    number: number;
+    isFourMeasureMark: boolean;
+    romanNumeral: string;
+    formSection: string;
+    modulation: PitchClass | null;
+    stripesHeight: number;
+    secondsToX: (number) => number;
+  } & MeasureSelection
+> = ({
   span,
   number,
   isFourMeasureMark,
@@ -56,6 +60,7 @@ const Measure: React.FC<{
   formSection,
   modulation,
   stripesHeight,
+  secondsToX,
 }) => {
   const left = secondsToX(span[0]) - 1;
   const width = secondsToX(span[1]) - left - 1;
@@ -135,7 +140,10 @@ const Measure: React.FC<{
   );
 };
 
-const Beat = ({ second }) => (
+const Beat: React.FC<{ second: number; secondsToX: (number) => number }> = ({
+  second,
+  secondsToX,
+}) => (
   <BeatBar
     style={{ left: secondsToX(second), zIndex: 2, pointerEvents: "none" }}
   />
@@ -187,22 +195,17 @@ const TonalGrid: React.FC<{
   },
 );
 
-export const AnalysisGrid: React.FC<{
-  analysis: Analysis;
-  voices: NotesInVoices;
-  measuresAndBeats: MeasuresAndBeats;
-  midiNumberToY: (number: number) => number;
-  noteHeight: number;
-  previouslySelectedMeasure: number;
-  selectedMeasure: number;
-  selectMeasure: (number: number) => void;
-  commitAnalysisUpdate: (analysisUpdate: Partial<Analysis>) => void;
-  setVoiceMask: (voiceMask: boolean[]) => void;
-  seek: (ms: number) => void;
-  showIntervals: (yes: boolean) => void;
-  loggedIn: boolean;
-  fileType: FileType;
-}> = React.memo(
+export const AnalysisGrid: React.FC<
+  {
+    analysis: Analysis;
+    measuresAndBeats: MeasuresAndBeats;
+    midiNumberToY: (number: number) => number;
+    noteHeight: number;
+    firstMeasureNumber: number;
+    secondsToX: (number) => number;
+    stripeSpecificProps?: StripesSpecificProps;
+  } & MeasureSelection
+> = React.memo(
   ({
     analysis,
     measuresAndBeats,
@@ -211,13 +214,9 @@ export const AnalysisGrid: React.FC<{
     previouslySelectedMeasure,
     selectedMeasure,
     selectMeasure,
-    commitAnalysisUpdate,
-    setVoiceMask,
-    loggedIn,
-    voices,
-    seek,
-    showIntervals,
-    fileType,
+    stripeSpecificProps,
+    firstMeasureNumber,
+    secondsToX,
   }) => {
     const { measures, beats } = measuresAndBeats;
     const phrasingMeasures = getPhrasingMeasures(analysis, measures.length);
@@ -228,7 +227,7 @@ export const AnalysisGrid: React.FC<{
     return (
       <>
         {measures.map((time, i) => {
-          const number = i + 1; // Caveat: measures are 1-indexed when stored in the DB .__.
+          const number = i + firstMeasureNumber; // 1-indexed
           return (
             <Measure
               key={i}
@@ -245,12 +244,13 @@ export const AnalysisGrid: React.FC<{
                   ? relativeModulations[number]
                   : null
               }
-              stripesHeight={fileType === "nes" ? STRIPES_HEIGHT : 0}
+              stripesHeight={stripeSpecificProps ? STRIPES_HEIGHT : 0}
+              secondsToX={secondsToX}
             />
           );
         })}
         {beats.map((time) => (
-          <Beat key={time} second={time} />
+          <Beat key={time} second={time} secondsToX={secondsToX} />
         ))}
         {analysis.tonic !== null && (
           <TonalGrid
@@ -261,20 +261,15 @@ export const AnalysisGrid: React.FC<{
             noteHeight={noteHeight}
           />
         )}
-        {fileType === "nes" && (
+        {stripeSpecificProps && (
           <Stripes
             tagSpans={analysis.tagSpans || []}
             measuresAndBeats={measuresAndBeats}
             analysis={analysis}
-            commitAnalysisUpdate={commitAnalysisUpdate}
-            setVoiceMask={setVoiceMask}
-            loggedIn={loggedIn}
-            voices={voices}
-            seek={seek}
-            showIntervals={showIntervals}
+            {...stripeSpecificProps}
           />
         )}
-        {analysis.loop && (
+        {false && analysis.loop && (
           <div
             key="loop"
             style={{

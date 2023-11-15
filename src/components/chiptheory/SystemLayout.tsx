@@ -370,16 +370,9 @@ const Phrase: React.FC<
     voiceMask,
   );
 
-  if (minMidiNumber === +Infinity) {
-    return (
-      <div>
-        no notes in mm. {measuresSpan[0]}-{measuresSpan[1]}
-      </div>
-    );
-  }
-
   const height =
-    (maxMidiNumber - minMidiNumber + 1) * STACKED_LAYOUT_NOTE_HEIGHT +
+    (minMidiNumber === +Infinity ? 1 : maxMidiNumber - minMidiNumber + 1) *
+      STACKED_LAYOUT_NOTE_HEIGHT +
     STACKED_LAYOUT_HEADER_HEIGHT;
 
   const midiNumberToY = (midiNumber) =>
@@ -569,6 +562,9 @@ export const StackedSystemLayout: React.FC<
         // TODO: implement seek
         // onClick={systemClickHandler}
       >
+        {/* <div style={{ position: "absolute", right: 20, top: 20 }}>
+          by 4 or by 8
+        </div> */}
         {dataForPhrases.map((data) => (
           <Phrase
             {...data}

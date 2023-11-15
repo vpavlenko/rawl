@@ -32,22 +32,6 @@ export const secondsToX = (seconds) =>
   seconds * SECOND_WIDTH + HORIZONTAL_HEADER_PADDING;
 const xToSeconds = (x) => x / SECOND_WIDTH;
 
-// For some reason I decided not to highlight currently played notes.
-//
-// const isNoteCurrentlyPlayed = (note, positionMs) => {
-//   const positionSeconds = positionMs / 1000;
-//   return note.span[0] <= positionSeconds && positionSeconds <= note.span[1];
-// };
-// const findCurrentlyPlayedNotes = (notes, positionMs) => {
-//   const result = [];
-//   for (const note of notes) {
-//     if (isNoteCurrentlyPlayed(note, positionMs)) {
-//       result.push(note);
-//     }
-//   }
-//   return result;
-// };
-
 const Chiptheory: React.FC<{
   chipStateDump: ChipStateDump;
   getCurrentPositionMs: () => number;
@@ -187,14 +171,6 @@ const Chiptheory: React.FC<{
   };
 
   const [positionMs, setPositionMs] = useState(0);
-  // const currentlyPlayedRectangles = getNoteRectangles(
-  //   findCurrentlyPlayedNotes(allNotes, positionMs),
-  //   -1,
-  //   true,
-  //   analysis,
-  //   midiNumberToY,
-  //   noteHeight,
-  // );
 
   useEffect(() => {
     let running = true;

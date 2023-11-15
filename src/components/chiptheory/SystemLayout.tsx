@@ -311,7 +311,6 @@ export const InfiniteHorizontalScrollSystemLayout = ({
         onClick={systemClickHandler}
       >
         {noteRectangles}
-        {/* {currentlyPlayedRectangles} */}
         <Cursor style={{ left: secondsToX(positionMs / 1000) }} />
         <AnalysisGrid
           analysis={futureAnalysis}

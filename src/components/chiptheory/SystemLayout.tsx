@@ -3,7 +3,8 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { AnalysisGrid, Cursor } from "./AnalysisGrid";
 import { SecondsSpan, secondsToX } from "./Chiptheory";
 import { Analysis } from "./analysis";
-import { Note } from "./noteParsers";
+import { MeasuresAndBeats, getPhrasingMeasures } from "./measures";
+import { Note, NotesInVoices } from "./noteParsers";
 import {
   TWELVE_CHORD_TONES,
   TWELVE_TONE_COLORS,
@@ -13,6 +14,9 @@ import {
 } from "./romanNumerals";
 import { ANALYSIS_HEIGHT } from "./tags";
 
+const STACKED_LAYOUT_NOTE_HEIGHT = 10;
+const STACKED_LAYOUT_HEADER_HEIGHT = 50;
+
 const getMidiRange = (
   notes: Note[],
 ): { minMidiNumber: number; maxMidiNumber: number } => {
@@ -20,14 +24,27 @@ const getMidiRange = (
   let maxMidiNumber = -Infinity;
   for (const note of notes) {
     const { midiNumber } = note.note;
-    if (midiNumber < minMidiNumber) {
-      minMidiNumber = midiNumber;
-    }
-    if (midiNumber > maxMidiNumber) {
-      maxMidiNumber = midiNumber;
-    }
+    minMidiNumber = Math.min(minMidiNumber, midiNumber);
+    maxMidiNumber = Math.max(maxMidiNumber, midiNumber);
   }
   return { minMidiNumber, maxMidiNumber };
+};
+
+const getMidiRangeWithMask = (notes: NotesInVoices, voiceMask: boolean[]) => {
+  let globalMinMidiNumber = +Infinity;
+  let globalMaxMidiNumber = -Infinity;
+  for (let voice = 0; voice < notes.length; ++voice) {
+    if (!voiceMask[voice]) {
+      continue;
+    }
+    const { minMidiNumber, maxMidiNumber } = getMidiRange(notes[voice]);
+    globalMinMidiNumber = Math.min(globalMinMidiNumber, minMidiNumber);
+    globalMaxMidiNumber = Math.max(globalMaxMidiNumber, maxMidiNumber);
+  }
+  return {
+    minMidiNumber: globalMinMidiNumber,
+    maxMidiNumber: globalMaxMidiNumber,
+  };
 };
 
 // This is used when tonic isn't set yet.
@@ -78,9 +95,17 @@ const getIntervalBelow = (note: Note, allNotes: Note[]) => {
   return minDistance;
 };
 
+export type NoteMouseHandlers = {
+  handleNoteClick: (note: Note, altKey: boolean) => void;
+  handleMouseEnter: (note: Note, altKey: boolean) => void;
+  handleMouseLeave: () => void;
+  hoveredNote: Note | null;
+  hoveredAltKey: boolean;
+};
+
 const getNoteRectangles = (
   notes: Note[],
-  voiceIndex: number, // -1 if it's a note highlight for notes under cursor
+  voiceIndex: number, // -1 if it's a note highlight for notes under cursor. currently can't happen
   isActiveVoice: boolean,
   analysis: Analysis,
   midiNumberToY: (number: number) => number,
@@ -90,12 +115,12 @@ const getNoteRectangles = (
   handleMouseEnter = (note: Note, altKey: boolean) => {},
   handleMouseLeave = () => {},
   allNotes: Note[] = [],
-  voiceMask = null,
   showIntervals = false,
+  offsetSeconds: number,
 ) => {
   return notes.map((note) => {
     const top = midiNumberToY(note.note.midiNumber);
-    const left = secondsToX(note.span[0]);
+    const left = secondsToX(note.span[0] - offsetSeconds);
     const color = getNoteColor(voiceIndex, note, analysis, measures);
     const chordNote =
       voiceIndex !== -1
@@ -175,7 +200,6 @@ const getNoteRectangles = (
 // TODO: add types
 // TODO: maybe add React.memo
 export const InfiniteHorizontalScrollSystemLayout = ({
-  analysis,
   voiceMask,
   handleNoteClick,
   handleMouseEnter,
@@ -251,13 +275,13 @@ export const InfiniteHorizontalScrollSystemLayout = ({
           handleMouseEnter,
           handleMouseLeave,
           allActiveNotes,
-          voiceMask,
           showIntervals,
+          0,
         ),
       ),
     [
       notes,
-      analysis,
+      futureAnalysis,
       measuresAndBeats,
       noteHeight,
       voiceMask,
@@ -316,4 +340,214 @@ export const InfiniteHorizontalScrollSystemLayout = ({
   );
 };
 
-export const StackedSystemLayout = () => {};
+const Phrase: React.FC<
+  DataForPhrase & {
+    voiceMask: boolean[];
+    analysis: Analysis;
+    showIntervals: boolean;
+    globalMeasures: number[];
+  } & NoteMouseHandlers
+> = ({
+  notes,
+  from,
+  to,
+  voiceMask,
+  analysis,
+  globalMeasures,
+  handleNoteClick,
+  handleMouseEnter,
+  handleMouseLeave,
+  hoveredNote,
+  hoveredAltKey,
+  showIntervals,
+}) => {
+  // Can I just use an <InfiniteScroll/>
+  // I should have a fixed noteHeight
+
+  // calculate midiRange
+
+  // showAnalysisGrid
+
+  const { minMidiNumber, maxMidiNumber } = getMidiRangeWithMask(
+    notes,
+    voiceMask,
+  );
+
+  if (minMidiNumber === +Infinity) {
+    return (
+      <div>
+        no notes in mm. {from}-{to}
+      </div>
+    );
+  }
+
+  const height =
+    (maxMidiNumber - minMidiNumber + 1) * STACKED_LAYOUT_NOTE_HEIGHT +
+    STACKED_LAYOUT_HEADER_HEIGHT;
+
+  const midiNumberToY = (midiNumber) =>
+    height - (midiNumber - minMidiNumber + 1) * STACKED_LAYOUT_NOTE_HEIGHT;
+
+  const noteRectangles = useMemo(
+    () =>
+      notes.flatMap((notesInOneVoice, voice) =>
+        getNoteRectangles(
+          notesInOneVoice,
+          voice,
+          voiceMask[voice],
+          analysis,
+          midiNumberToY,
+          STACKED_LAYOUT_NOTE_HEIGHT,
+          handleNoteClick,
+          globalMeasures,
+          handleMouseEnter,
+          handleMouseLeave,
+          [], // TODO: pass allActiveNotes in this phrase to enable showIntervals view
+          showIntervals,
+          globalMeasures[from],
+        ),
+      ),
+    [
+      notes,
+      analysis,
+      globalMeasures,
+      voiceMask,
+      hoveredNote,
+      hoveredAltKey,
+      showIntervals,
+    ],
+  );
+
+  return (
+    <div>
+      I'm a phrase. I show AnalysisGrid and noteRectangles. I have notes:
+      {JSON.stringify(notes.map((notesInOneVoice) => notesInOneVoice.length))}I
+      mm. {from}-{to}. minMidiNumber = {minMidiNumber}, maxMidiNumber ={" "}
+      {maxMidiNumber}
+      <div style={{ width: "100%", height, position: "relative" }}>
+        {noteRectangles}
+      </div>
+    </div>
+  );
+};
+
+// TODO: if it's too slow, we can split notes into phrases more efficiently using linear scans.
+// I'm just too lazy to implement it now.
+const getNotesBetweenTimestamps = (
+  notes: NotesInVoices,
+  secondFrom: number,
+  secondTo: number,
+): NotesInVoices =>
+  notes.map((notesInOneVoice) =>
+    notesInOneVoice.filter((note) => {
+      const middle = (note.span[0] + note.span[1]) / 2;
+      return secondFrom <= middle && middle < secondTo;
+    }),
+  );
+
+type DataForPhrase = {
+  notes: NotesInVoices;
+  from: number;
+  to: number;
+};
+
+const calculateDataForPhrases = (
+  notes: NotesInVoices,
+  measures: number[],
+  phraseStarts: number[],
+): DataForPhrase[] => {
+  const data = [];
+  for (let i = 0; i < phraseStarts.length - 1; ++i) {
+    const from = phraseStarts[i] - 1;
+    const to = phraseStarts[i + 1] - 1;
+    data.push({
+      notes: getNotesBetweenTimestamps(notes, measures[from], measures[to]),
+      from,
+      to,
+    });
+  }
+  return data;
+};
+
+// TODO: memo everything
+export const StackedSystemLayout: React.FC<
+  {
+    analysis: Analysis;
+    futureAnalysis: Analysis;
+    measuresAndBeats: MeasuresAndBeats;
+    notes: NotesInVoices;
+    voiceMask: boolean[];
+    showIntervals: boolean;
+  } & NoteMouseHandlers
+> = ({
+  analysis,
+  futureAnalysis,
+  measuresAndBeats,
+  notes,
+  voiceMask,
+  handleNoteClick,
+  handleMouseEnter,
+  handleMouseLeave,
+  hoveredNote,
+  hoveredAltKey,
+  showIntervals,
+}) => {
+  // splitMeasuresIntoPhrases
+  // splitNotesIntoPhrases
+
+  // we can make a very easy manual implementation: first 8 measures go to first phrase, everything else goes to the next measure
+
+  const { measures, beats } = measuresAndBeats;
+
+  // let's skip all notes that are in muted voices
+  // what's the efficient way to put all notes into phrase buckets?
+
+  const phraseStarts = getPhrasingMeasures(analysis, measures.length);
+  const dataForPhrases = useMemo(
+    () => calculateDataForPhrases(notes, measures, phraseStarts),
+    [notes, measures, phraseStarts],
+  );
+
+  return (
+    <div
+      key="leftPanel"
+      style={{
+        width: "100%",
+        height: "100%",
+        padding: 0,
+        backgroundColor: "black",
+      }}
+    >
+      <div
+        // TODO: implement divRef
+        style={{
+          margin: 0,
+          padding: 0,
+          position: "relative",
+          overflowX: "scroll",
+          overflowY: "hidden",
+          width: "100%",
+          height: "100%",
+          backgroundColor: "black",
+        }}
+        // TODO: implement seek
+        // onClick={systemClickHandler}
+      >
+        {dataForPhrases.map((data) => (
+          <Phrase
+            {...data}
+            analysis={futureAnalysis}
+            voiceMask={voiceMask}
+            globalMeasures={measuresAndBeats.measures}
+            handleNoteClick={handleNoteClick}
+            handleMouseEnter={handleMouseEnter}
+            handleMouseLeave={handleMouseLeave}
+            hoveredNote={hoveredNote}
+            hoveredAltKey={hoveredAltKey}
+            showIntervals={showIntervals}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};

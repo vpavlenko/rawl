@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { secondsToX } from "./Chiptheory";
 import { Analysis, PitchClass } from "./analysis";
 import { MeasuresAndBeats, getPhrasingMeasures } from "./measures";
-import { FileType, Note } from "./noteParsers";
+import { FileType, NotesInVoices } from "./noteParsers";
 import {
   MeasureOfRomanNumerals,
   getModulations,
@@ -189,7 +189,7 @@ const TonalGrid: React.FC<{
 
 export const AnalysisGrid: React.FC<{
   analysis: Analysis;
-  voices: Note[][];
+  voices: NotesInVoices;
   measuresAndBeats: MeasuresAndBeats;
   midiNumberToY: (number: number) => number;
   noteHeight: number;

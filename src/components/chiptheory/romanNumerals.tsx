@@ -467,6 +467,8 @@ export const getChordNote = (
   let i = 0;
   const noteMiddle = (note.span[0] + note.span[1]) / 2;
 
+  // TODO: this assumes all beats are evenly distributed
+  // This is only valid for nes. In midi the beats can be more precisely positioned, see midi.ts.
   while (i < n && noteMiddle > l + ((r - l) * (i + 1)) / n) {
     i++;
   }

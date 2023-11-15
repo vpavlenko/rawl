@@ -40,10 +40,6 @@ const getNotes = (events, channel): Note[] => {
 // Except that in practice these events are always key=0 scale=0 (no one is setting them)
 // Although classics might have it
 
-const microsecPerQuarterNoteToBPM = (microsecondsPerQuarterNote) => {
-  return 60000000 / microsecondsPerQuarterNote;
-};
-
 function calculateMeasureAndBeats(timeEvents, timebase) {
   // Sort events by playTime
   //   events.sort((a, b) => a.playTime - b.playTime);

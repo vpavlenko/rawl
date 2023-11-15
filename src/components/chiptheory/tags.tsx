@@ -2,7 +2,7 @@ import * as React from "react";
 import { secondsToX } from "./Chiptheory";
 import { Analysis, TagSpan } from "./analysis";
 import { MeasuresAndBeats } from "./measures";
-import { Note } from "./noteParsers";
+import { Note, NotesInVoices } from "./noteParsers";
 
 export const TAGS = [
   "scale:blues",
@@ -383,7 +383,7 @@ type SemanticVoices = {
 };
 
 const getSemanticVoicesForSpan = (
-  voices: Note[][],
+  voices: NotesInVoices,
   startSecond: number,
   endSecond: number,
 ): SemanticVoices => {
@@ -594,7 +594,7 @@ export const Stripes: React.FC<{
   commitAnalysisUpdate: (analysisUpdate: Partial<Analysis>) => void;
   setVoiceMask: (voiceMask: boolean[]) => void;
   loggedIn: boolean;
-  voices: Note[][];
+  voices: NotesInVoices;
   seek: (ms: number) => void;
   showIntervals: (yes: boolean) => void;
 }> = React.memo(

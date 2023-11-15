@@ -12,6 +12,8 @@ export type Note = {
   chipState: any;
 };
 
+export type NotesInVoices = Note[][];
+
 export type FileType = "nes" | "midi";
 
 export type ChipStateDump = {
@@ -20,7 +22,7 @@ export type ChipStateDump = {
 };
 
 export type ParsingResult = {
-  notes: Note[][];
+  notes: NotesInVoices;
   measuresAndBeats?: MeasuresAndBeats;
 };
 

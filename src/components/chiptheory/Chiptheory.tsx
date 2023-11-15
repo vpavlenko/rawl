@@ -2,7 +2,10 @@ import * as React from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AnalysisBox } from "./AnalysisBox";
 import { BookExample } from "./Book";
-import { InfiniteHorizontalScrollSystemLayout } from "./SystemLayout";
+import {
+  InfiniteHorizontalScrollSystemLayout,
+  StackedSystemLayout,
+} from "./SystemLayout";
 import {
   ANALYSIS_STUB,
   Analysis,
@@ -22,6 +25,8 @@ export type SecondsSpan = [number, number];
 
 const SECOND_WIDTH = 60;
 const HORIZONTAL_HEADER_PADDING = 55;
+
+// TODO: remove HORIZONTAL_HEADER_PADDING for midi
 export const secondsToX = (seconds) =>
   seconds * SECOND_WIDTH + HORIZONTAL_HEADER_PADDING;
 const xToSeconds = (x) => x / SECOND_WIDTH;
@@ -73,6 +78,7 @@ const Chiptheory: React.FC<{
 }) => {
   const [analysis, setAnalysis] = useState<Analysis>(ANALYSIS_STUB);
   const [showIntervals, setShowIntervals] = useState(false);
+  const [stackedView, setStackedView] = useState(false);
   const [playEnd, setPlayEnd] = useState(null);
 
   const commitAnalysisUpdate = useCallback(
@@ -267,32 +273,47 @@ const Chiptheory: React.FC<{
 
   return (
     <div className="App-main-content-and-settings">
-      <InfiniteHorizontalScrollSystemLayout
-        analysis={analysis}
-        voiceMask={voiceMask}
-        handleNoteClick={handleNoteClick}
-        handleMouseEnter={handleMouseEnter}
-        handleMouseLeave={handleMouseLeave}
-        allActiveNotes={allActiveNotes}
-        systemClickHandler={systemClickHandler}
-        positionMs={positionMs}
-        futureAnalysis={futureAnalysis}
-        notes={notes}
-        seek={seek}
-        measuresAndBeats={measuresAndBeats}
-        previouslySelectedMeasure={previouslySelectedMeasure}
-        selectedMeasure={selectedMeasure}
-        selectMeasure={selectMeasure}
-        commitAnalysisUpdate={commitAnalysisUpdate}
-        setVoiceMask={setVoiceMask}
-        loggedIn={loggedIn}
-        showIntervals={showIntervals}
-        setShowIntervals={setShowIntervals}
-        fileType={chipStateDump.type}
-        registerSeekCallback={registerSeekCallback}
-        hoveredNote={hoveredNote}
-        hoveredAltKey={hoveredAltKey}
-      />
+      {stackedView ? (
+        <StackedSystemLayout
+          analysis={analysis}
+          futureAnalysis={futureAnalysis}
+          measuresAndBeats={measuresAndBeats}
+          notes={notes}
+          voiceMask={voiceMask}
+          handleNoteClick={handleNoteClick}
+          handleMouseEnter={handleMouseEnter}
+          handleMouseLeave={handleMouseLeave}
+          hoveredNote={hoveredNote}
+          hoveredAltKey={hoveredAltKey}
+          showIntervals={showIntervals}
+        />
+      ) : (
+        <InfiniteHorizontalScrollSystemLayout
+          voiceMask={voiceMask}
+          handleNoteClick={handleNoteClick}
+          handleMouseEnter={handleMouseEnter}
+          handleMouseLeave={handleMouseLeave}
+          hoveredNote={hoveredNote}
+          hoveredAltKey={hoveredAltKey}
+          allActiveNotes={allActiveNotes}
+          systemClickHandler={systemClickHandler}
+          positionMs={positionMs}
+          futureAnalysis={futureAnalysis}
+          notes={notes}
+          seek={seek}
+          measuresAndBeats={measuresAndBeats}
+          previouslySelectedMeasure={previouslySelectedMeasure}
+          selectedMeasure={selectedMeasure}
+          selectMeasure={selectMeasure}
+          commitAnalysisUpdate={commitAnalysisUpdate}
+          setVoiceMask={setVoiceMask}
+          loggedIn={loggedIn}
+          showIntervals={showIntervals}
+          setShowIntervals={setShowIntervals}
+          fileType={chipStateDump.type}
+          registerSeekCallback={registerSeekCallback}
+        />
+      )}
       {analysisEnabled &&
         (bookPath ? (
           <BookExample
@@ -326,23 +347,40 @@ const Chiptheory: React.FC<{
         style={{
           position: "fixed",
           top: "50px",
-          right: "20px",
+          right: "15px",
           zIndex: "100",
         }}
       >
-        <input
-          title="Intervals"
-          type="checkbox"
-          onClick={(e) => {
-            e.stopPropagation();
-          }}
-          onChange={(e) => {
-            e.stopPropagation();
-            setShowIntervals(e.target.checked);
-          }}
-          checked={showIntervals}
-        />
-        Intervals
+        <label className="inline">
+          <input
+            title="Intervals"
+            type="checkbox"
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+            onChange={(e) => {
+              e.stopPropagation();
+              setShowIntervals(e.target.checked);
+            }}
+            checked={showIntervals}
+          />
+          Intervals
+        </label>
+        <label className="inline">
+          <input
+            title="Stacked View"
+            type="checkbox"
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+            onChange={(e) => {
+              e.stopPropagation();
+              setStackedView(e.target.checked);
+            }}
+            checked={stackedView}
+          />
+          Stacked view
+        </label>
       </div>
     </div>
   );

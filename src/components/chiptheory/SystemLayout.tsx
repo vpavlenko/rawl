@@ -14,7 +14,7 @@ import {
 } from "./romanNumerals";
 import { ANALYSIS_HEIGHT } from "./tags";
 
-const STACKED_LAYOUT_NOTE_HEIGHT = 10;
+const STACKED_LAYOUT_NOTE_HEIGHT = 5;
 const STACKED_LAYOUT_HEADER_HEIGHT = 50;
 
 const getMidiRange = (
@@ -381,21 +381,23 @@ const Phrase: React.FC<
   const noteRectangles = useMemo(
     () =>
       notes.flatMap((notesInOneVoice, voice) =>
-        getNoteRectangles(
-          notesInOneVoice,
-          voice,
-          voiceMask[voice],
-          analysis,
-          midiNumberToY,
-          STACKED_LAYOUT_NOTE_HEIGHT,
-          handleNoteClick,
-          globalMeasures,
-          handleMouseEnter,
-          handleMouseLeave,
-          [], // TODO: pass allActiveNotes in this phrase to enable showIntervals view
-          showIntervals,
-          globalMeasures[measuresSpan[0] - 1],
-        ),
+        voiceMask[voice]
+          ? getNoteRectangles(
+              notesInOneVoice,
+              voice,
+              voiceMask[voice],
+              analysis,
+              midiNumberToY,
+              STACKED_LAYOUT_NOTE_HEIGHT,
+              handleNoteClick,
+              globalMeasures,
+              handleMouseEnter,
+              handleMouseLeave,
+              [], // TODO: pass allActiveNotes in this phrase to enable showIntervals view
+              showIntervals,
+              globalMeasures[measuresSpan[0] - 1],
+            )
+          : [],
       ),
     [
       notes,
@@ -416,7 +418,7 @@ const Phrase: React.FC<
           height,
           position: "relative",
           overflow: "hidden",
-          marginBottom: "40px",
+          marginBottom: "20px",
         }}
       >
         {noteRectangles}
@@ -466,8 +468,8 @@ const calculateDataForPhrases = (
 ): DataForPhrase[] => {
   const { measures, beats } = measuresAndBeats;
   const data = [];
-  for (let i = 0; i < phraseStarts.length - 1; ++i) {
-    const measuresSpan = [phraseStarts[i], phraseStarts[i + 1]];
+  for (let i = 0; i < phraseStarts.length - 2; i += 2) {
+    const measuresSpan = [phraseStarts[i], phraseStarts[i + 2]];
     const secondsSpan = [
       measures[measuresSpan[0] - 1],
       measures[measuresSpan[1] - 1],
@@ -516,21 +518,16 @@ export const StackedSystemLayout: React.FC<
   showIntervals,
   positionSeconds,
 }) => {
-  // splitMeasuresIntoPhrases
-  // splitNotesIntoPhrases
-
-  // we can make a very easy manual implementation: first 8 measures go to first phrase, everything else goes to the next measure
-
-  // let's skip all notes that are in muted voices
-  // what's the efficient way to put all notes into phrase buckets?
-
   const phraseStarts = getPhrasingMeasures(
     analysis,
     measuresAndBeats.measures.length,
   );
-  if (phraseStarts[0] !== 1) {
-    phraseStarts.unshift(1);
-  }
+
+  // This is good to display anacrusis. But right now it breaks the 8-mm. grid at the start.
+  //
+  //   if (phraseStarts[0] !== 1) {
+  //   phraseStarts.unshift(1);
+  //   }
   // TODO: support loops
   const dataForPhrases = useMemo(
     () => calculateDataForPhrases(notes, measuresAndBeats, phraseStarts),

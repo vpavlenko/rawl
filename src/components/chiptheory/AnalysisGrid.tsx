@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { SystemLayout } from "./SystemLayout";
+import { MidiRange, SystemLayout } from "./SystemLayout";
 import { Analysis, PitchClass } from "./analysis";
 import { MeasuresAndBeats } from "./measures";
 import {
@@ -77,7 +77,7 @@ const Measure: React.FC<
           ...(isFourMeasureMark && { backgroundColor: "#aaa" }),
         }}
       />
-      {span[1] > span[0] && (
+      {width ? (
         <>
           <div
             key={`db_n_${number}`}
@@ -94,7 +94,7 @@ const Measure: React.FC<
               zIndex: 5,
               cursor: "pointer",
               userSelect: "none",
-              width,
+              ...(systemLayout === "horizontal" ? { width } : {}), // enlarges seek area for stacked
             }}
             onClick={(e) => {
               e.stopPropagation();
@@ -130,7 +130,7 @@ const Measure: React.FC<
             </div>
           )}
         </>
-      )}
+      ) : null}
       <div
         key={`db_rn_${number}`}
         style={{
@@ -148,7 +148,7 @@ const Measure: React.FC<
       >
         {romanNumeral &&
           romanNumeral !== "_" &&
-          (systemLayout === "horizontal" || span[1] > span[0]) && (
+          (systemLayout === "horizontal" || width) && (
             <MeasureOfRomanNumerals
               dashedRN={romanNumeral}
               modulation={modulation}
@@ -174,25 +174,43 @@ const TonalGrid: React.FC<{
   midiNumberToY: (number) => number;
   secondsToX: (number) => number;
   noteHeight: number;
+  firstMeasureNumber: number;
+  midiRange: MidiRange;
 }> = React.memo(
-  ({ analysis, measures, midiNumberToY, secondsToX, noteHeight }) => {
+  ({
+    analysis,
+    measures,
+    midiNumberToY,
+    secondsToX,
+    noteHeight,
+    firstMeasureNumber,
+    midiRange,
+  }) => {
     const modulations = getModulations(analysis);
     if (!modulations || !measures) return;
-    modulations.push({ measure: measures.length, tonic: modulations[0].tonic });
+    modulations.push({
+      measure: measures.length + firstMeasureNumber - 1,
+      tonic: modulations[0].tonic,
+    });
 
     const result = [];
     for (let i = 0; i + 1 < modulations.length; ++i) {
-      const from = measures[Math.max(modulations[i].measure, 0)];
-      const to =
-        measures[Math.min(modulations[i + 1].measure, measures.length - 1)];
+      // TODO: this logic should be corrected for case when firstMeasureNumber !== 1
+      const fromIndex = modulations[i].measure - firstMeasureNumber + 1;
+      const toIndex = modulations[i + 1].measure - firstMeasureNumber + 1;
+      if (toIndex < 0 || fromIndex >= measures.length) {
+        continue;
+      }
+      const from = measures[Math.max(fromIndex, 0)];
+      const to = measures[Math.min(toIndex, measures.length - 1)];
       const { tonic } = modulations[i];
       const width = secondsToX(to) - secondsToX(from);
       if (!width) continue;
       for (let octave = 2; octave <= 9; ++octave) {
         const midiNumber = tonic + octave * 12;
-        // TODO: display a note like C4 gracefully at each gradient start
-        result.push(
-          <>
+        if (midiNumber - 12 <= midiRange[1])
+          // TODO: display a note like C4 gracefully at each gradient start
+          result.push(
             <div
               key={`gradient_${midiNumber}`}
               style={{
@@ -205,9 +223,8 @@ const TonalGrid: React.FC<{
                 background: `linear-gradient(to top, #222, transparent)`,
                 zIndex: 1,
               }}
-            />
-          </>,
-        );
+            />,
+          );
       }
     }
     return result;
@@ -225,6 +242,7 @@ export const AnalysisGrid: React.FC<
     stripeSpecificProps?: StripesSpecificProps;
     phraseStarts: number[];
     systemLayout: SystemLayout;
+    midiRange: MidiRange;
   } & MeasureSelection
 > = React.memo(
   ({
@@ -240,6 +258,7 @@ export const AnalysisGrid: React.FC<
     secondsToX,
     phraseStarts,
     systemLayout,
+    midiRange,
   }) => {
     const { measures, beats } = measuresAndBeats;
     const relativeModulations = getRelativeModulations(
@@ -284,6 +303,8 @@ export const AnalysisGrid: React.FC<
             secondsToX={secondsToX}
             midiNumberToY={midiNumberToY}
             noteHeight={noteHeight}
+            firstMeasureNumber={firstMeasureNumber}
+            midiRange={midiRange}
           />
         )}
         {stripeSpecificProps && (

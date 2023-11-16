@@ -19,9 +19,9 @@ export type SystemLayout = "horizontal" | "stacked";
 const STACKED_LAYOUT_NOTE_HEIGHT = 5;
 const STACKED_LAYOUT_HEADER_HEIGHT = 50;
 
-export type MidiSpan = [number, number];
+export type MidiRange = [number, number];
 
-const getMidiRange = (notes: Note[]): MidiSpan => {
+const getMidiRange = (notes: Note[]): MidiRange => {
   let min = +Infinity;
   let max = -Infinity;
   for (const note of notes) {
@@ -35,7 +35,7 @@ const getMidiRange = (notes: Note[]): MidiSpan => {
 const getMidiRangeWithMask = (
   notes: NotesInVoices,
   voiceMask: boolean[],
-): MidiSpan => {
+): MidiRange => {
   let min = +Infinity;
   let max = -Infinity;
   for (let voice = 0; voice < notes.length; ++voice) {
@@ -222,7 +222,7 @@ export const InfiniteHorizontalScrollSystemLayout = ({
   hoveredAltKey,
   stripeSpecificProps,
 }) => {
-  const midiSpan = useMemo(
+  const midiRange = useMemo(
     () => getMidiRange(allActiveNotes.flat()),
     [allActiveNotes],
   );
@@ -251,10 +251,10 @@ export const InfiniteHorizontalScrollSystemLayout = ({
   }, []);
 
   const noteHeight =
-    (divHeight - ANALYSIS_HEIGHT) / (midiSpan[1] - midiSpan[0] + 7);
+    (divHeight - ANALYSIS_HEIGHT) / (midiRange[1] - midiRange[0] + 7);
   const midiNumberToY = useMemo(
     () => (midiNumber) =>
-      divHeight - (midiNumber - midiSpan[0] + 4) * noteHeight,
+      divHeight - (midiNumber - midiRange[0] + 4) * noteHeight,
     [noteHeight],
   );
 
@@ -300,6 +300,7 @@ export const InfiniteHorizontalScrollSystemLayout = ({
       }}
     >
       <div
+        key="innerLeftPanel"
         ref={divRef}
         style={{
           margin: 0,
@@ -331,6 +332,7 @@ export const InfiniteHorizontalScrollSystemLayout = ({
             measuresAndBeats.measures.length,
           )}
           systemLayout={"horizontal"}
+          midiRange={midiRange}
         />
       </div>
     </div>
@@ -371,15 +373,15 @@ const Phrase: React.FC<
   cursor,
   phraseStarts,
 }) => {
-  const midiSpan = getMidiRangeWithMask(notes, voiceMask);
+  const midiRange = getMidiRangeWithMask(notes, voiceMask);
 
   const height =
-    (midiSpan[0] === +Infinity ? 1 : midiSpan[1] - midiSpan[0] + 1) *
+    (midiRange[0] === +Infinity ? 1 : midiRange[1] - midiRange[0] + 1) *
       STACKED_LAYOUT_NOTE_HEIGHT +
     STACKED_LAYOUT_HEADER_HEIGHT;
 
   const midiNumberToY = (midiNumber) =>
-    height - (midiNumber - midiSpan[0] + 1) * STACKED_LAYOUT_NOTE_HEIGHT;
+    height - (midiNumber - midiRange[0] + 1) * STACKED_LAYOUT_NOTE_HEIGHT;
 
   const noteRectangles = useMemo(
     () =>
@@ -438,6 +440,7 @@ const Phrase: React.FC<
           phraseStarts={phraseStarts}
           secondsToX={(seconds) => secondsToX(seconds - secondsSpan[0])}
           systemLayout={"stacked"}
+          midiRange={midiRange}
         />
         {cursor}
       </div>
@@ -566,6 +569,7 @@ export const StackedSystemLayout: React.FC<
         </div> */}
         {dataForPhrases.map((data) => (
           <Phrase
+            key={data.measuresSpan[0]}
             {...data}
             analysis={futureAnalysis}
             voiceMask={voiceMask}

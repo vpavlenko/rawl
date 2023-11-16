@@ -49,6 +49,7 @@ const Measure: React.FC<
     modulation: PitchClass | null;
     stripesHeight: number;
     secondsToX: (number) => number;
+    systemLayout: SystemLayout;
   } & MeasureSelection
 > = ({
   span,
@@ -62,6 +63,7 @@ const Measure: React.FC<
   modulation,
   stripesHeight,
   secondsToX,
+  systemLayout,
 }) => {
   const left = secondsToX(span[0]) - 1;
   const width = secondsToX(span[1]) - left - 1;
@@ -75,47 +77,59 @@ const Measure: React.FC<
           ...(isFourMeasureMark && { backgroundColor: "#aaa" }),
         }}
       />
-      <div
-        key={`db_n_${number}`}
-        style={{
-          position: "absolute",
-          top: 30 + stripesHeight,
-          left: `${left + 7}px`,
-          color:
-            selectedMeasure === number
-              ? "red"
-              : previouslySelectedMeasure === number
-              ? "green"
-              : "white",
-          zIndex: 5,
-          cursor: "pointer",
-          userSelect: "none",
-          width,
-        }}
-        onClick={(e) => {
-          e.stopPropagation();
-          selectMeasure(number);
-        }}
-      >
-        {number}
-      </div>
-      {formSection && (
-        <div
-          key={`form_section_${number}`}
-          style={{
-            position: "absolute",
-            left: `${left + 1}px`,
-            top: 55 + stripesHeight,
-            zIndex: 10,
-            backgroundColor: "#333",
-            padding: "5px 10px 5px 10px",
-            color: "#ffe",
-            userSelect: "none",
-            pointerEvents: "none",
-          }}
-        >
-          {formSection}
-        </div>
+      {span[1] > span[0] && (
+        <>
+          <div
+            key={`db_n_${number}`}
+            style={{
+              position: "absolute",
+              top: 30 + stripesHeight,
+              left: `${left + 7}px`,
+              color:
+                selectedMeasure === number
+                  ? "red"
+                  : previouslySelectedMeasure === number
+                  ? "green"
+                  : "white",
+              zIndex: 5,
+              cursor: "pointer",
+              userSelect: "none",
+              width,
+            }}
+            onClick={(e) => {
+              e.stopPropagation();
+              selectMeasure(number);
+            }}
+          >
+            <span
+              style={
+                systemLayout === "stacked"
+                  ? { fontSize: "16px", color: "gray" }
+                  : {}
+              }
+            >
+              {number}
+            </span>
+          </div>
+          {formSection && (
+            <div
+              key={`form_section_${number}`}
+              style={{
+                position: "absolute",
+                left: `${left + 1}px`,
+                top: 55 + stripesHeight,
+                zIndex: 10,
+                backgroundColor: "#333",
+                padding: "5px 10px 5px 10px",
+                color: "#ffe",
+                userSelect: "none",
+                pointerEvents: "none",
+              }}
+            >
+              {formSection}
+            </div>
+          )}
+        </>
       )}
       <div
         key={`db_rn_${number}`}
@@ -132,10 +146,14 @@ const Measure: React.FC<
           borderLeft: "1px solid black",
         }}
       >
-        <MeasureOfRomanNumerals
-          dashedRN={romanNumeral}
-          modulation={modulation}
-        />
+        {romanNumeral &&
+          romanNumeral !== "_" &&
+          (systemLayout === "horizontal" || span[1] > span[0]) && (
+            <MeasureOfRomanNumerals
+              dashedRN={romanNumeral}
+              modulation={modulation}
+            />
+          )}
       </div>
     </>
   );
@@ -252,6 +270,7 @@ export const AnalysisGrid: React.FC<
               }
               stripesHeight={stripeSpecificProps ? STRIPES_HEIGHT : 0}
               secondsToX={secondsToX}
+              systemLayout={systemLayout}
             />
           );
         })}

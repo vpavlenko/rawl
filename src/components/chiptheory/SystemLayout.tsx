@@ -1,6 +1,11 @@
 import * as React from "react";
 import { ReactNode, useEffect, useMemo, useRef, useState } from "react";
-import { AnalysisGrid, Cursor, MeasureSelection } from "./AnalysisGrid";
+import {
+  AnalysisGrid,
+  Cursor,
+  MeasureSelection,
+  STACKED_RN_HEIGHT,
+} from "./AnalysisGrid";
 import { SecondsSpan, secondsToX } from "./Chiptheory";
 import { Analysis, MeasuresSpan } from "./analysis";
 import { MeasuresAndBeats, getPhrasingMeasures } from "./measures";
@@ -11,13 +16,13 @@ import {
   getChordNote,
   getNoteMeasure,
   getTonic,
+  hasRomanNumeralInMeasuresSpan,
 } from "./romanNumerals";
 import { ANALYSIS_HEIGHT } from "./tags";
 
 export type SystemLayout = "horizontal" | "stacked";
 
-const STACKED_LAYOUT_NOTE_HEIGHT = 5;
-const STACKED_LAYOUT_HEADER_HEIGHT = 50;
+const STACKED_LAYOUT_NOTE_HEIGHT = 7;
 
 export type MidiRange = [number, number];
 
@@ -333,6 +338,7 @@ export const InfiniteHorizontalScrollSystemLayout = ({
           )}
           systemLayout={"horizontal"}
           midiRange={midiRange}
+          hasRomanNumerals={true}
         />
       </div>
     </div>
@@ -375,10 +381,16 @@ const Phrase: React.FC<
 }) => {
   const midiRange = getMidiRangeWithMask(notes, voiceMask);
 
+  debugger;
+  const hasRomanNumerals = hasRomanNumeralInMeasuresSpan(
+    analysis.romanNumerals,
+    measuresSpan,
+  );
+
   const height =
-    (midiRange[0] === +Infinity ? 1 : midiRange[1] - midiRange[0] + 1) *
+    (midiRange[0] === +Infinity ? 1 : midiRange[1] - midiRange[0] + 3) *
       STACKED_LAYOUT_NOTE_HEIGHT +
-    STACKED_LAYOUT_HEADER_HEIGHT;
+    (hasRomanNumerals ? STACKED_RN_HEIGHT : 15);
 
   const midiNumberToY = (midiNumber) =>
     height - (midiNumber - midiRange[0] + 1) * STACKED_LAYOUT_NOTE_HEIGHT;
@@ -423,6 +435,7 @@ const Phrase: React.FC<
           height,
           position: "relative",
           overflow: "hidden",
+          marginTop: "10px",
           marginBottom: "20px",
         }}
         onClick={(e) => systemClickHandler(e, secondsSpan[0])}
@@ -441,6 +454,7 @@ const Phrase: React.FC<
           secondsToX={(seconds) => secondsToX(seconds - secondsSpan[0])}
           systemLayout={"stacked"}
           midiRange={midiRange}
+          hasRomanNumerals={hasRomanNumerals}
         />
         {cursor}
       </div>
@@ -474,8 +488,9 @@ const calculateDataForPhrases = (
 ): DataForPhrase[] => {
   const { measures, beats } = measuresAndBeats;
   const data = [];
-  for (let i = 0; i < phraseStarts.length - 2; i += 2) {
-    const measuresSpan = [phraseStarts[i], phraseStarts[i + 2]];
+  const X = 4;
+  for (let i = 0; i < phraseStarts.length - X; i += X) {
+    const measuresSpan = [phraseStarts[i], phraseStarts[i + X]];
     const secondsSpan = [
       measures[measuresSpan[0] - 1],
       measures[measuresSpan[1] - 1],
@@ -533,6 +548,8 @@ export const StackedSystemLayout: React.FC<
   // This is good to display anacrusis. But right now it breaks the 8-mm. grid at the start.
   //
   //   if (phraseStarts[0] !== 1) {
+  //   phraseStarts.unshift(1);
+  //   phraseStarts.unshift(1);
   //   phraseStarts.unshift(1);
   //   }
   // TODO: support loops

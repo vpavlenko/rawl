@@ -11,6 +11,8 @@ import {
 } from "./romanNumerals";
 import { STRIPES_HEIGHT, Stripes, StripesSpecificProps } from "./tags";
 
+export const STACKED_RN_HEIGHT = 20;
+
 const VerticalBar = styled.div`
   width: 1px;
   height: 100%;
@@ -50,6 +52,7 @@ const Measure: React.FC<
     stripesHeight: number;
     secondsToX: (number) => number;
     systemLayout: SystemLayout;
+    hasRomanNumerals: boolean;
   } & MeasureSelection
 > = ({
   span,
@@ -64,6 +67,7 @@ const Measure: React.FC<
   stripesHeight,
   secondsToX,
   systemLayout,
+  hasRomanNumerals,
 }) => {
   const left = secondsToX(span[0]) - 1;
   const width = secondsToX(span[1]) - left - 1;
@@ -83,7 +87,7 @@ const Measure: React.FC<
             key={`db_n_${number}`}
             style={{
               position: "absolute",
-              top: 30 + stripesHeight,
+              top: stripesHeight + (hasRomanNumerals ? 25 : 0),
               left: `${left + 7}px`,
               color:
                 selectedMeasure === number
@@ -91,7 +95,7 @@ const Measure: React.FC<
                   : previouslySelectedMeasure === number
                   ? "green"
                   : "white",
-              zIndex: 5,
+              zIndex: 1000,
               cursor: "pointer",
               userSelect: "none",
               ...(systemLayout === "horizontal" ? { width } : {}), // enlarges seek area for stacked
@@ -102,11 +106,12 @@ const Measure: React.FC<
             }}
           >
             <span
-              style={
-                systemLayout === "stacked"
-                  ? { fontSize: "16px", color: "gray" }
-                  : {}
-              }
+              style={{
+                ...(systemLayout === "stacked"
+                  ? { fontSize: "12px" }
+                  : { fontSize: "12px" }),
+                fontFamily: "sans-serif",
+              }}
             >
               {number}
             </span>
@@ -131,31 +136,33 @@ const Measure: React.FC<
           )}
         </>
       ) : null}
-      <div
-        key={`db_rn_${number}`}
-        style={{
-          position: "absolute",
-          left: `${left}px`,
-          width,
-          top: stripesHeight,
-          height: systemLayout === "horizontal" ? "25px" : "20px",
-          display: "grid",
-          placeItems: "center",
-          zIndex: 5,
-          borderLeft: "1px solid black",
-        }}
-      >
-        {(romanNumeral &&
-          romanNumeral !== "_" &&
-          (systemLayout === "horizontal" || width) && (
-            <MeasureOfRomanNumerals
-              dashedRN={romanNumeral}
-              modulation={modulation}
-              fontSize={systemLayout === "stacked" && "16px"}
-            />
-          )) ||
-          null}
-      </div>
+      {hasRomanNumerals ? (
+        <div
+          key={`db_rn_${number}`}
+          style={{
+            position: "absolute",
+            left: `${left}px`,
+            width,
+            top: stripesHeight,
+            height: systemLayout === "horizontal" ? 25 : STACKED_RN_HEIGHT,
+            display: "grid",
+            placeItems: "center",
+            zIndex: 5,
+            borderLeft: "1px solid black",
+          }}
+        >
+          {(romanNumeral &&
+            romanNumeral !== "_" &&
+            (systemLayout === "horizontal" || width) && (
+              <MeasureOfRomanNumerals
+                dashedRN={romanNumeral}
+                modulation={modulation}
+                fontSize={systemLayout === "stacked" && "16px"}
+              />
+            )) ||
+            null}
+        </div>
+      ) : null}
     </>
   );
 };
@@ -244,6 +251,7 @@ export const AnalysisGrid: React.FC<
     phraseStarts: number[];
     systemLayout: SystemLayout;
     midiRange: MidiRange;
+    hasRomanNumerals: boolean;
   } & MeasureSelection
 > = React.memo(
   ({
@@ -260,6 +268,7 @@ export const AnalysisGrid: React.FC<
     phraseStarts,
     systemLayout,
     midiRange,
+    hasRomanNumerals = true,
   }) => {
     const { measures, beats } = measuresAndBeats;
     const relativeModulations = getRelativeModulations(
@@ -283,6 +292,7 @@ export const AnalysisGrid: React.FC<
               romanNumeral={
                 romanNumeralsToArray(analysis?.romanNumerals)[number - 1]
               }
+              hasRomanNumerals={hasRomanNumerals}
               modulation={
                 number in relativeModulations
                   ? relativeModulations[number]

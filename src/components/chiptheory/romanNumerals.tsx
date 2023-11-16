@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { SecondsSpan } from "./Chiptheory";
-import { Analysis, PitchClass } from "./analysis";
+import { Analysis, MeasuresSpan, PitchClass } from "./analysis";
 import { getPhrasingMeasures } from "./measures";
 import { Note } from "./noteParsers";
 
@@ -594,3 +594,11 @@ export const FormAndHarmony: React.FC<{ analysis: Analysis }> = ({
     </div>
   );
 };
+
+export const hasRomanNumeralInMeasuresSpan = (
+  romanNumerals: string,
+  measuresSpan: MeasuresSpan,
+): boolean =>
+  romanNumeralsToArray(romanNumerals)
+    .slice(measuresSpan[0] - 1, measuresSpan[1])
+    .some((rn) => rn && rn !== "_");

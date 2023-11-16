@@ -366,7 +366,7 @@ const Chiptheory: React.FC<{
         </label>
         <label className="inline">
           <input
-            title="Stacked View"
+            title="Stacked"
             type="checkbox"
             onClick={(e) => {
               e.stopPropagation();
@@ -377,7 +377,7 @@ const Chiptheory: React.FC<{
             }}
             checked={stackedView}
           />
-          Stacked view
+          Stacked
         </label>
       </div>
     </div>

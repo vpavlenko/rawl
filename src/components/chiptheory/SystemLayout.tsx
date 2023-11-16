@@ -388,12 +388,12 @@ const Phrase: React.FC<
   );
 
   const height =
-    (midiRange[0] === +Infinity ? 1 : midiRange[1] - midiRange[0] + 3) *
+    (midiRange[0] === +Infinity ? 1 : midiRange[1] - midiRange[0] + 5) *
       STACKED_LAYOUT_NOTE_HEIGHT +
     (hasRomanNumerals ? STACKED_RN_HEIGHT : 15);
 
   const midiNumberToY = (midiNumber) =>
-    height - (midiNumber - midiRange[0] + 1) * STACKED_LAYOUT_NOTE_HEIGHT;
+    height - (midiNumber - midiRange[0] + 3) * STACKED_LAYOUT_NOTE_HEIGHT;
 
   const noteRectangles = useMemo(
     () =>

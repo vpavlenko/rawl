@@ -14,6 +14,8 @@ import {
 } from "./romanNumerals";
 import { ANALYSIS_HEIGHT } from "./tags";
 
+export type SystemLayout = "horizontal" | "stacked";
+
 const STACKED_LAYOUT_NOTE_HEIGHT = 5;
 const STACKED_LAYOUT_HEADER_HEIGHT = 50;
 
@@ -328,6 +330,7 @@ export const InfiniteHorizontalScrollSystemLayout = ({
             futureAnalysis,
             measuresAndBeats.measures.length,
           )}
+          systemLayout={"horizontal"}
         />
       </div>
     </div>
@@ -437,6 +440,7 @@ const Phrase: React.FC<
           firstMeasureNumber={measuresSpan[0]}
           phraseStarts={phraseStarts}
           secondsToX={(seconds) => secondsToX(seconds - secondsSpan[0])}
+          systemLayout={"stacked"}
         />
         {cursor}
       </div>

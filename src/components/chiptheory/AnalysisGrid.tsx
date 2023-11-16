@@ -1,5 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
+import { SystemLayout } from "./SystemLayout";
 import { Analysis, PitchClass } from "./analysis";
 import { MeasuresAndBeats } from "./measures";
 import {
@@ -205,6 +206,7 @@ export const AnalysisGrid: React.FC<
     secondsToX: (number) => number;
     stripeSpecificProps?: StripesSpecificProps;
     phraseStarts: number[];
+    systemLayout: SystemLayout;
   } & MeasureSelection
 > = React.memo(
   ({
@@ -219,6 +221,7 @@ export const AnalysisGrid: React.FC<
     firstMeasureNumber,
     secondsToX,
     phraseStarts,
+    systemLayout,
   }) => {
     const { measures, beats } = measuresAndBeats;
     const relativeModulations = getRelativeModulations(
@@ -272,7 +275,7 @@ export const AnalysisGrid: React.FC<
             {...stripeSpecificProps}
           />
         )}
-        {false && analysis.loop && (
+        {systemLayout === "horizontal" && analysis.loop && (
           <div
             key="loop"
             style={{

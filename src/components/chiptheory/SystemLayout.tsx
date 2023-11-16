@@ -19,34 +19,34 @@ export type SystemLayout = "horizontal" | "stacked";
 const STACKED_LAYOUT_NOTE_HEIGHT = 5;
 const STACKED_LAYOUT_HEADER_HEIGHT = 50;
 
-const getMidiRange = (
-  notes: Note[],
-): { minMidiNumber: number; maxMidiNumber: number } => {
-  let minMidiNumber = +Infinity;
-  let maxMidiNumber = -Infinity;
+export type MidiSpan = [number, number];
+
+const getMidiRange = (notes: Note[]): MidiSpan => {
+  let min = +Infinity;
+  let max = -Infinity;
   for (const note of notes) {
     const { midiNumber } = note.note;
-    minMidiNumber = Math.min(minMidiNumber, midiNumber);
-    maxMidiNumber = Math.max(maxMidiNumber, midiNumber);
+    min = Math.min(min, midiNumber);
+    max = Math.max(max, midiNumber);
   }
-  return { minMidiNumber, maxMidiNumber };
+  return [min, max];
 };
 
-const getMidiRangeWithMask = (notes: NotesInVoices, voiceMask: boolean[]) => {
-  let globalMinMidiNumber = +Infinity;
-  let globalMaxMidiNumber = -Infinity;
+const getMidiRangeWithMask = (
+  notes: NotesInVoices,
+  voiceMask: boolean[],
+): MidiSpan => {
+  let min = +Infinity;
+  let max = -Infinity;
   for (let voice = 0; voice < notes.length; ++voice) {
     if (!voiceMask[voice]) {
       continue;
     }
-    const { minMidiNumber, maxMidiNumber } = getMidiRange(notes[voice]);
-    globalMinMidiNumber = Math.min(globalMinMidiNumber, minMidiNumber);
-    globalMaxMidiNumber = Math.max(globalMaxMidiNumber, maxMidiNumber);
+    const voiceSpan = getMidiRange(notes[voice]);
+    min = Math.min(min, voiceSpan[0]);
+    max = Math.max(max, voiceSpan[1]);
   }
-  return {
-    minMidiNumber: globalMinMidiNumber,
-    maxMidiNumber: globalMaxMidiNumber,
-  };
+  return [min, max];
 };
 
 // This is used when tonic isn't set yet.
@@ -222,7 +222,7 @@ export const InfiniteHorizontalScrollSystemLayout = ({
   hoveredAltKey,
   stripeSpecificProps,
 }) => {
-  const { minMidiNumber, maxMidiNumber } = useMemo(
+  const midiSpan = useMemo(
     () => getMidiRange(allActiveNotes.flat()),
     [allActiveNotes],
   );
@@ -251,10 +251,10 @@ export const InfiniteHorizontalScrollSystemLayout = ({
   }, []);
 
   const noteHeight =
-    (divHeight - ANALYSIS_HEIGHT) / (maxMidiNumber - minMidiNumber + 7);
+    (divHeight - ANALYSIS_HEIGHT) / (midiSpan[1] - midiSpan[0] + 7);
   const midiNumberToY = useMemo(
     () => (midiNumber) =>
-      divHeight - (midiNumber - minMidiNumber + 4) * noteHeight,
+      divHeight - (midiNumber - midiSpan[0] + 4) * noteHeight,
     [noteHeight],
   );
 
@@ -371,18 +371,15 @@ const Phrase: React.FC<
   cursor,
   phraseStarts,
 }) => {
-  const { minMidiNumber, maxMidiNumber } = getMidiRangeWithMask(
-    notes,
-    voiceMask,
-  );
+  const midiSpan = getMidiRangeWithMask(notes, voiceMask);
 
   const height =
-    (minMidiNumber === +Infinity ? 1 : maxMidiNumber - minMidiNumber + 1) *
+    (midiSpan[0] === +Infinity ? 1 : midiSpan[1] - midiSpan[0] + 1) *
       STACKED_LAYOUT_NOTE_HEIGHT +
     STACKED_LAYOUT_HEADER_HEIGHT;
 
   const midiNumberToY = (midiNumber) =>
-    height - (midiNumber - minMidiNumber + 1) * STACKED_LAYOUT_NOTE_HEIGHT;
+    height - (midiNumber - midiSpan[0] + 1) * STACKED_LAYOUT_NOTE_HEIGHT;
 
   const noteRectangles = useMemo(
     () =>

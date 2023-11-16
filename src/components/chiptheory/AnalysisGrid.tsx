@@ -121,8 +121,13 @@ const Measure: React.FC<
               key={`form_section_${number}`}
               style={{
                 position: "absolute",
-                left: `${left + 1}px`,
-                top: 55 + stripesHeight,
+                left: left + (systemLayout === "stacked" ? 23 : 1),
+                top:
+                  (systemLayout === "stacked"
+                    ? hasRomanNumerals
+                      ? 20
+                      : 0
+                    : 55) + stripesHeight,
                 zIndex: 10,
                 backgroundColor: "#333",
                 padding: "5px 10px 5px 10px",
@@ -157,7 +162,7 @@ const Measure: React.FC<
               <MeasureOfRomanNumerals
                 dashedRN={romanNumeral}
                 modulation={modulation}
-                fontSize={systemLayout === "stacked" && "16px"}
+                fontSize={systemLayout === "stacked" && "20px"}
               />
             )) ||
             null}

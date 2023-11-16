@@ -1,4 +1,4 @@
-import { Note } from "./noteParsers";
+import { FileType, Note } from "./noteParsers";
 import { updateRomanNumerals } from "./romanNumerals";
 
 export const STEPS = [
@@ -64,6 +64,7 @@ export const getNewAnalysis = (
   notes: Note[] = [],
   measures: number[] = [],
   altKey: boolean = false,
+  type: FileType,
 ): Analysis => {
   let update: Partial<Analysis> = {};
 
@@ -82,7 +83,7 @@ export const getNewAnalysis = (
   } else {
     const { step } = analysis;
     if (step !== "end") {
-      update.step = STEPS[STEPS.indexOf(step) + 1];
+      update.step = type === "midi" ? "end" : STEPS[STEPS.indexOf(step) + 1];
     }
 
     if (step === "first measure") {
@@ -111,6 +112,7 @@ export const advanceAnalysis = (
   selectMeasure: (_: null) => void,
   analysis: Analysis,
   commitAnalysisUpdate: (analysisUpdate: Partial<Analysis>) => void,
+  type: FileType,
   time: number = null,
   notes: Note[] = [],
   measures: number[] = [],
@@ -124,6 +126,7 @@ export const advanceAnalysis = (
     notes,
     measures,
     altKey,
+    type,
   );
 
   selectMeasure(null);

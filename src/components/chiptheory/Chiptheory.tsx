@@ -24,7 +24,7 @@ const LATENCY_CORRECTION_MS =
 
 export type SecondsSpan = [number, number];
 
-const SECOND_WIDTH = 60;
+const SECOND_WIDTH = 50;
 const HORIZONTAL_HEADER_PADDING = 55;
 
 // TODO: remove HORIZONTAL_HEADER_PADDING for midi
@@ -145,6 +145,7 @@ const Chiptheory: React.FC<{
             parsingResult?.measuresAndBeats?.measures ??
               calculateMeasuresAndBeats(analysis, allNotes).measures,
             hoveredAltKey,
+            chipStateDump.type,
           )
         : analysis,
     [hoveredNote, analysis],
@@ -163,6 +164,7 @@ const Chiptheory: React.FC<{
       setSelectedMeasure,
       analysisRef.current,
       commitAnalysisUpdate,
+      chipStateDump.type,
       null,
       allNotes,
       measuresAndBeats.measures,
@@ -241,6 +243,7 @@ const Chiptheory: React.FC<{
           setSelectedMeasure,
           analysisRef.current,
           commitAnalysisUpdate,
+          chipStateDump.type,
           time,
         );
       } else {

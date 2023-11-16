@@ -381,7 +381,6 @@ const Phrase: React.FC<
 }) => {
   const midiRange = getMidiRangeWithMask(notes, voiceMask);
 
-  debugger;
   const hasRomanNumerals = hasRomanNumeralInMeasuresSpan(
     analysis.romanNumerals,
     measuresSpan,
@@ -488,7 +487,7 @@ const calculateDataForPhrases = (
 ): DataForPhrase[] => {
   const { measures, beats } = measuresAndBeats;
   const data = [];
-  const X = 4;
+  const X = 2;
   for (let i = 0; i < phraseStarts.length - X; i += X) {
     const measuresSpan = [phraseStarts[i], phraseStarts[i + X]];
     const secondsSpan = [

@@ -138,22 +138,23 @@ const Measure: React.FC<
           left: `${left}px`,
           width,
           top: stripesHeight,
-          height: "25px",
+          height: systemLayout === "horizontal" ? "25px" : "20px",
           display: "grid",
           placeItems: "center",
-          fontSize: "25px",
           zIndex: 5,
           borderLeft: "1px solid black",
         }}
       >
-        {romanNumeral &&
+        {(romanNumeral &&
           romanNumeral !== "_" &&
           (systemLayout === "horizontal" || width) && (
             <MeasureOfRomanNumerals
               dashedRN={romanNumeral}
               modulation={modulation}
+              fontSize={systemLayout === "stacked" && "16px"}
             />
-          )}
+          )) ||
+          null}
       </div>
     </>
   );

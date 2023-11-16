@@ -374,7 +374,8 @@ export const RowOfRomanNumerals: React.FC<{
 export const MeasureOfRomanNumerals: React.FC<{
   dashedRN: string;
   modulation?: PitchClass | null;
-}> = ({ dashedRN, modulation = null }) => {
+  fontSize?: string;
+}> = ({ dashedRN, modulation = null, fontSize }) => {
   const chords = dashedRnToArray(dashedRN);
   return (
     <div
@@ -389,7 +390,10 @@ export const MeasureOfRomanNumerals: React.FC<{
         <Modulation semitones={modulation} isCompact={true} />
       )}
       {chords.map((chord) => (
-        <RomanNumeral romanNumeral={chord} />
+        <RomanNumeral
+          romanNumeral={chord}
+          styleProps={fontSize ? { fontSize } : {}}
+        />
       ))}
     </div>
   );

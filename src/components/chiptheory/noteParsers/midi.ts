@@ -14,18 +14,17 @@ const getNotes = (events, channel): Note[] => {
         noteOnTime[midiNumber] = event.playTime;
       }
       if (event.subtype === 8) {
-        if (!(midiNumber in noteOnTime)) {
-          //   console.log("WEIRD: noteOff for note not seen before", event);
+        if (midiNumber in noteOnTime) {
+          notes.push({
+            note: {
+              midiNumber,
+              name: "??",
+            },
+            span: [noteOnTime[midiNumber] / 1000, event.playTime / 1000],
+            chipState: event, // this is noteOff event, not useful - doesn't have original velocity
+          });
+          delete noteOnTime[midiNumber];
         }
-        notes.push({
-          note: {
-            midiNumber,
-            name: "??",
-          },
-          span: [noteOnTime[midiNumber] / 1000, event.playTime / 1000],
-          chipState: event, // this is noteOff event, not useful - doesn't have original velocity
-        });
-        delete noteOnTime[midiNumber];
       }
     }
   });

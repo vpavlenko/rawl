@@ -97,7 +97,6 @@ export const updateRomanNumerals = (
   measures: number[],
   isHalfMeasure: boolean,
 ) => {
-  debugger;
   const noteMiddle = (note.span[0] + note.span[1]) / 2;
   const measureIndex = measures.findIndex((time) => time >= noteMiddle) - 1;
   const measureSpan: SecondsSpan = [

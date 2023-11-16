@@ -128,7 +128,7 @@ const Measure: React.FC<
                       ? 20
                       : 0
                     : 55) + stripesHeight,
-                zIndex: 10,
+                zIndex: 5,
                 backgroundColor: "#333",
                 padding: "5px 10px 5px 10px",
                 color: "#ffe",

@@ -18,7 +18,7 @@ import {
   getTonic,
   hasRomanNumeralInMeasuresSpan,
 } from "./romanNumerals";
-import { ANALYSIS_HEIGHT } from "./tags";
+import { ANALYSIS_HEIGHT, getAverageMidiNumber } from "./tags";
 
 export type SystemLayout = "merged" | "split" | "stacked";
 
@@ -55,6 +55,7 @@ const getMidiRangeWithMask = (
 };
 
 // This is used when tonic isn't set yet.
+// TODO: introduce 16 colors for all possible midi channels
 const VOICE_TO_COLOR = [
   "#26577C",
   "#AE445A",
@@ -71,7 +72,7 @@ const getNoteColor = (
   measures: number[],
 ): string => {
   if (analysis.tonic === null) {
-    return VOICE_TO_COLOR[voiceIndex % VOICE_TO_COLOR.length]; // TODO: introduce 16 colors for all possible midi channels
+    return VOICE_TO_COLOR[voiceIndex % VOICE_TO_COLOR.length];
   }
 
   return TWELVE_TONE_COLORS[
@@ -541,7 +542,6 @@ export const StackedSystemLayout: React.FC<{
 
   return (
     <div
-      // TODO: implement divRef
       style={{
         margin: 0,
         padding: 0,
@@ -584,9 +584,35 @@ export const StackedSystemLayout: React.FC<{
 
 export const SplitSystemLayout: React.FC<{
   notes: NotesInVoices;
+  voiceMask: boolean[];
+  measuresAndBeats: MeasuresAndBeats;
+  showIntervals: boolean;
+  positionSeconds: number;
+  analysis: Analysis;
   mouseHandlers: MouseHandlers;
   measureSelection: MeasureSelection;
-}> = () => {
+}> = ({
+  notes,
+  voiceMask,
+  measuresAndBeats,
+  showIntervals,
+  positionSeconds,
+  analysis,
+  mouseHandlers,
+  measureSelection,
+}) => {
+  const voiceIndicesSortedByAverageMidiNumber = useMemo(
+    () =>
+      notes
+        .map((voice, voiceIndex) => ({
+          average: getAverageMidiNumber(voice),
+          voiceIndex,
+        }))
+        .sort((a, b) => b.average - a.average)
+        .map(({ voiceIndex }) => voiceIndex),
+    [notes],
+  );
+
   return (
     <div
       key="innerLeftPanel"
@@ -595,13 +621,37 @@ export const SplitSystemLayout: React.FC<{
         padding: 0,
         position: "relative",
         overflowX: "scroll",
-        overflowY: "hidden",
+        overflowY: "scroll",
         width: "100%",
         height: "100%",
         backgroundColor: "black",
       }}
     >
-      Split
+      {voiceIndicesSortedByAverageMidiNumber.map((voiceIndex, order) =>
+        voiceMask[voiceIndex] ? (
+          <Phrase
+            notes={[notes[voiceIndex]]}
+            voiceMask={[true]}
+            measuresAndBeats={measuresAndBeats}
+            measuresSpan={[1, measuresAndBeats.measures.length]}
+            secondsSpan={[
+              0,
+              measuresAndBeats.measures[measuresAndBeats.measures.length - 1],
+            ]}
+            analysis={analysis}
+            globalMeasures={measuresAndBeats.measures}
+            mouseHandlers={mouseHandlers}
+            measureSelection={measureSelection}
+            showIntervals={showIntervals}
+            // isTopmostPart={order === 0}
+            cursor={<Cursor style={{ left: secondsToX(positionSeconds) }} />}
+            phraseStarts={getPhrasingMeasures(
+              analysis,
+              measuresAndBeats.measures.length,
+            )}
+          />
+        ) : null,
+      )}
     </div>
   );
 };

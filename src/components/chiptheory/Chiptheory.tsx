@@ -291,6 +291,14 @@ const Chiptheory: React.FC<{
     selectMeasure,
   };
 
+  const commonParams = {
+    notes,
+    voiceMask,
+    measuresAndBeats,
+    showIntervals,
+    positionSeconds,
+  };
+
   return (
     <div className="App-main-content-and-settings">
       <div
@@ -304,35 +312,29 @@ const Chiptheory: React.FC<{
       >
         {systemLayout === "stacked" ? (
           <StackedSystemLayout
-            analysis={analysis}
-            futureAnalysis={futureAnalysis}
-            measuresAndBeats={measuresAndBeats}
-            notes={notes}
-            voiceMask={voiceMask}
+            {...commonParams}
             mouseHandlers={mouseHandlers}
             measureSelection={measureSelection}
-            showIntervals={showIntervals}
-            positionSeconds={positionSeconds}
+            analysis={analysis}
+            futureAnalysis={futureAnalysis}
           />
         ) : systemLayout === "merged" ? (
           <MergedSystemLayout
-            notes={notes}
-            voiceMask={voiceMask}
+            {...commonParams}
             mouseHandlers={mouseHandlers}
             measureSelection={measureSelection}
             allActiveNotes={allActiveNotes}
             futureAnalysis={futureAnalysis}
             measuresAndBeats={measuresAndBeats}
             stripeSpecificProps={stripeSpecificProps}
-            showIntervals={showIntervals}
             registerSeekCallback={registerSeekCallback}
-            positionSeconds={positionSeconds}
           />
         ) : (
           <SplitSystemLayout
-            notes={notes}
+            {...commonParams}
             mouseHandlers={mouseHandlers}
             measureSelection={measureSelection}
+            analysis={futureAnalysis}
           />
         )}
       </div>
@@ -388,16 +390,6 @@ const Chiptheory: React.FC<{
           />
           Intervals
         </label>{" "}
-        {/* <label key={"split"} className="inline">
-          <input
-            onClick={this.handleModeClick}
-            type="radio"
-            name="spectrogram-mode"
-            defaultChecked={this.state.vizMode === i}
-            value={i}
-          />
-          Split
-        </label>{" "} */}
         <label key={"merged"} className="inline">
           <input
             onClick={() => setSystemLayout("merged")}

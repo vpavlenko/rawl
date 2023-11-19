@@ -369,7 +369,7 @@ export function tagToColor(str) {
   return "#" + ensureLowLuminosity(hashToColor(stringToHash(str)));
 }
 
-const getAverageMidiNumber = (notes: Note[]) =>
+export const getAverageMidiNumber = (notes: Note[]) =>
   notes.length > 0
     ? notes.reduce((sum, note) => sum + note.note.midiNumber, 0) / notes.length
     : Infinity;

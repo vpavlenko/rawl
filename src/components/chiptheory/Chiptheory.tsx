@@ -3,8 +3,10 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AnalysisBox } from "./AnalysisBox";
 import { BookExample } from "./Book";
 import {
-  InfiniteHorizontalScrollSystemLayout,
+  MergedSystemLayout,
+  SplitSystemLayout,
   StackedSystemLayout,
+  SystemLayout,
 } from "./SystemLayout";
 import {
   ANALYSIS_STUB,
@@ -63,7 +65,7 @@ const Chiptheory: React.FC<{
 }) => {
   const [analysis, setAnalysis] = useState<Analysis>(ANALYSIS_STUB);
   const [showIntervals, setShowIntervals] = useState(false);
-  const [systemLayout, setSystemLayout] = useState("horizontal");
+  const [systemLayout, setSystemLayout] = useState<SystemLayout>("merged");
   const [playEnd, setPlayEnd] = useState(null);
 
   const commitAnalysisUpdate = useCallback(
@@ -293,8 +295,8 @@ const Chiptheory: React.FC<{
           positionSeconds={positionSeconds}
           systemClickHandler={systemClickHandler}
         />
-      ) : (
-        <InfiniteHorizontalScrollSystemLayout
+      ) : systemLayout === "merged" ? (
+        <MergedSystemLayout
           voiceMask={voiceMask}
           handleNoteClick={handleNoteClick}
           handleMouseEnter={handleMouseEnter}
@@ -314,6 +316,8 @@ const Chiptheory: React.FC<{
           registerSeekCallback={registerSeekCallback}
           positionSeconds={positionSeconds}
         />
+      ) : (
+        <SplitSystemLayout />
       )}
       {analysisEnabled &&
         (bookPath ? (
@@ -377,15 +381,25 @@ const Chiptheory: React.FC<{
           />
           Split
         </label>{" "} */}
-        <label key={"merge"} className="inline">
+        <label key={"merged"} className="inline">
           <input
-            onClick={() => setSystemLayout("horizontal")}
+            onClick={() => setSystemLayout("merged")}
             type="radio"
             name="system-layout"
-            defaultChecked={systemLayout === "horizontal"}
+            defaultChecked={systemLayout === "merged"}
             value={"horizontal"}
           />
-          Merge
+          Merged
+        </label>{" "}
+        <label key={"split"} className="inline">
+          <input
+            onClick={() => setSystemLayout("split")}
+            type="radio"
+            name="system-layout"
+            defaultChecked={systemLayout === "split"}
+            value={"split"}
+          />
+          Split
         </label>{" "}
         <label key={"stacked"} className="inline">
           <input

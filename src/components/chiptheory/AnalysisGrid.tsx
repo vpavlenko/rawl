@@ -98,7 +98,7 @@ const Measure: React.FC<
               zIndex: 1000,
               cursor: "pointer",
               userSelect: "none",
-              ...(systemLayout === "horizontal" ? { width } : {}), // enlarges seek area for stacked
+              ...(systemLayout === "merged" ? { width } : {}), // enlarges seek area for stacked
             }}
             onClick={(e) => {
               e.stopPropagation();
@@ -149,7 +149,7 @@ const Measure: React.FC<
             left: `${left}px`,
             width,
             top: stripesHeight,
-            height: systemLayout === "horizontal" ? 25 : STACKED_RN_HEIGHT,
+            height: systemLayout === "merged" ? 25 : STACKED_RN_HEIGHT,
             display: "grid",
             placeItems: "center",
             zIndex: 5,
@@ -158,7 +158,7 @@ const Measure: React.FC<
         >
           {(romanNumeral &&
             romanNumeral !== "_" &&
-            (systemLayout === "horizontal" || width) && (
+            (systemLayout === "merged" || width) && (
               <MeasureOfRomanNumerals
                 dashedRN={romanNumeral}
                 modulation={modulation}
@@ -331,7 +331,7 @@ export const AnalysisGrid: React.FC<
             {...stripeSpecificProps}
           />
         )}
-        {systemLayout === "horizontal" && analysis.loop && (
+        {systemLayout === "merged" && analysis.loop && (
           <div
             key="loop"
             style={{

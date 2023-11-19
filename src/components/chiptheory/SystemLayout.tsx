@@ -20,8 +20,7 @@ import {
 } from "./romanNumerals";
 import { ANALYSIS_HEIGHT } from "./tags";
 
-// TODO: rename 'horizontal' to 'merge' and add 'split'
-export type SystemLayout = "horizontal" | "stacked";
+export type SystemLayout = "merged" | "split" | "stacked";
 
 const STACKED_LAYOUT_NOTE_HEIGHT = 7;
 
@@ -208,7 +207,7 @@ const getNoteRectangles = (
 
 // TODO: add types
 // TODO: maybe add React.memo
-export const InfiniteHorizontalScrollSystemLayout = ({
+export const MergedSystemLayout = ({
   voiceMask,
   handleNoteClick,
   handleMouseEnter,
@@ -337,7 +336,7 @@ export const InfiniteHorizontalScrollSystemLayout = ({
             futureAnalysis,
             measuresAndBeats.measures.length,
           )}
-          systemLayout={"horizontal"}
+          systemLayout={"merged"}
           midiRange={midiRange}
           hasRomanNumerals={true}
         />
@@ -613,6 +612,36 @@ export const StackedSystemLayout: React.FC<
             }
           />
         ))}
+      </div>
+    </div>
+  );
+};
+
+export const SplitSystemLayout: React.FC<{}> = () => {
+  return (
+    <div
+      key="leftPanel"
+      style={{
+        width: "100%",
+        height: "100%",
+        padding: 0,
+        backgroundColor: "black",
+      }}
+    >
+      <div
+        key="innerLeftPanel"
+        style={{
+          margin: 0,
+          padding: 0,
+          position: "relative",
+          overflowX: "scroll",
+          overflowY: "hidden",
+          width: "100%",
+          height: "100%",
+          backgroundColor: "black",
+        }}
+      >
+        Split
       </div>
     </div>
   );

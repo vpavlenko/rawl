@@ -299,49 +299,39 @@ export const MergedSystemLayout = ({
 
   return (
     <div
-      key="leftPanel"
+      key="innerLeftPanel"
+      ref={divRef}
       style={{
+        margin: 0,
+        padding: 0,
+        position: "relative",
+        overflowX: "scroll",
+        overflowY: "hidden",
         width: "100%",
         height: "100%",
-        padding: 0,
         backgroundColor: "black",
       }}
+      onClick={systemClickHandler}
     >
-      <div
-        key="innerLeftPanel"
-        ref={divRef}
-        style={{
-          margin: 0,
-          padding: 0,
-          position: "relative",
-          overflowX: "scroll",
-          overflowY: "hidden",
-          width: "100%",
-          height: "100%",
-          backgroundColor: "black",
-        }}
-        onClick={systemClickHandler}
-      >
-        {noteRectangles}
-        <Cursor style={{ left: secondsToX(positionSeconds) }} />
-        <AnalysisGrid
-          analysis={futureAnalysis}
-          measuresAndBeats={measuresAndBeats}
-          midiNumberToY={midiNumberToY}
-          noteHeight={noteHeight}
-          measureSelection={measureSelection}
-          stripeSpecificProps={stripeSpecificProps}
-          firstMeasureNumber={1}
-          secondsToX={secondsToX}
-          phraseStarts={getPhrasingMeasures(
-            futureAnalysis,
-            measuresAndBeats.measures.length,
-          )}
-          systemLayout={"merged"}
-          midiRange={midiRange}
-          hasRomanNumerals={true}
-        />
-      </div>
+      {noteRectangles}
+      <Cursor style={{ left: secondsToX(positionSeconds) }} />
+      <AnalysisGrid
+        analysis={futureAnalysis}
+        measuresAndBeats={measuresAndBeats}
+        midiNumberToY={midiNumberToY}
+        noteHeight={noteHeight}
+        measureSelection={measureSelection}
+        stripeSpecificProps={stripeSpecificProps}
+        firstMeasureNumber={1}
+        secondsToX={secondsToX}
+        phraseStarts={getPhrasingMeasures(
+          futureAnalysis,
+          measuresAndBeats.measures.length,
+        )}
+        systemLayout={"merged"}
+        midiRange={midiRange}
+        hasRomanNumerals={true}
+      />
     </div>
   );
 };
@@ -431,34 +421,32 @@ const Phrase: React.FC<
   );
 
   return (
-    <div>
-      <div
-        style={{
-          width: "100%",
-          height,
-          position: "relative",
-          overflow: "hidden",
-          marginTop: "10px",
-          marginBottom: "20px",
-        }}
-        onClick={(e) => systemClickHandler(e, secondsSpan[0])}
-      >
-        {noteRectangles}
-        <AnalysisGrid
-          analysis={analysis}
-          measuresAndBeats={measuresAndBeats}
-          midiNumberToY={midiNumberToY}
-          noteHeight={STACKED_LAYOUT_NOTE_HEIGHT}
-          measureSelection={measureSelection}
-          firstMeasureNumber={measuresSpan[0]}
-          phraseStarts={phraseStarts}
-          secondsToX={(seconds) => secondsToX(seconds - secondsSpan[0])}
-          systemLayout={"stacked"}
-          midiRange={midiRange}
-          hasRomanNumerals={hasRomanNumerals}
-        />
-        {cursor}
-      </div>
+    <div
+      style={{
+        width: "100%",
+        height,
+        position: "relative",
+        overflow: "hidden",
+        marginTop: "10px",
+        marginBottom: "20px",
+      }}
+      onClick={(e) => systemClickHandler(e, secondsSpan[0])}
+    >
+      {noteRectangles}
+      <AnalysisGrid
+        analysis={analysis}
+        measuresAndBeats={measuresAndBeats}
+        midiNumberToY={midiNumberToY}
+        noteHeight={STACKED_LAYOUT_NOTE_HEIGHT}
+        measureSelection={measureSelection}
+        firstMeasureNumber={measuresSpan[0]}
+        phraseStarts={phraseStarts}
+        secondsToX={(seconds) => secondsToX(seconds - secondsSpan[0])}
+        systemLayout={"stacked"}
+        midiRange={midiRange}
+        hasRomanNumerals={hasRomanNumerals}
+      />
+      {cursor}
     </div>
   );
 };
@@ -553,53 +541,43 @@ export const StackedSystemLayout: React.FC<{
 
   return (
     <div
-      key="leftPanel"
+      // TODO: implement divRef
       style={{
+        margin: 0,
+        padding: 0,
+        position: "relative",
+        overflowX: "scroll",
+        overflowY: "scroll",
         width: "100%",
         height: "100%",
-        padding: 0,
         backgroundColor: "black",
       }}
     >
-      <div
-        // TODO: implement divRef
-        style={{
-          margin: 0,
-          padding: 0,
-          position: "relative",
-          overflowX: "scroll",
-          overflowY: "scroll",
-          width: "100%",
-          height: "100%",
-          backgroundColor: "black",
-        }}
-      >
-        {/* <div style={{ position: "absolute", right: 20, top: 20 }}>
+      {/* <div style={{ position: "absolute", right: 20, top: 20 }}>
           by 4 or by 8
         </div> */}
-        {dataForPhrases.map((data) => (
-          <Phrase
-            key={data.measuresSpan[0]}
-            {...data}
-            analysis={futureAnalysis}
-            voiceMask={voiceMask}
-            globalMeasures={measuresAndBeats.measures}
-            mouseHandlers={mouseHandlers}
-            measureSelection={measureSelection}
-            showIntervals={showIntervals}
-            phraseStarts={phraseStarts}
-            cursor={
-              isInSecondsSpan(positionSeconds, data.secondsSpan) && (
-                <Cursor
-                  style={{
-                    left: secondsToX(positionSeconds - data.secondsSpan[0]),
-                  }}
-                />
-              )
-            }
-          />
-        ))}
-      </div>
+      {dataForPhrases.map((data) => (
+        <Phrase
+          key={data.measuresSpan[0]}
+          {...data}
+          analysis={futureAnalysis}
+          voiceMask={voiceMask}
+          globalMeasures={measuresAndBeats.measures}
+          mouseHandlers={mouseHandlers}
+          measureSelection={measureSelection}
+          showIntervals={showIntervals}
+          phraseStarts={phraseStarts}
+          cursor={
+            isInSecondsSpan(positionSeconds, data.secondsSpan) && (
+              <Cursor
+                style={{
+                  left: secondsToX(positionSeconds - data.secondsSpan[0]),
+                }}
+              />
+            )
+          }
+        />
+      ))}
     </div>
   );
 };
@@ -611,29 +589,19 @@ export const SplitSystemLayout: React.FC<{
 }> = () => {
   return (
     <div
-      key="leftPanel"
+      key="innerLeftPanel"
       style={{
+        margin: 0,
+        padding: 0,
+        position: "relative",
+        overflowX: "scroll",
+        overflowY: "hidden",
         width: "100%",
         height: "100%",
-        padding: 0,
         backgroundColor: "black",
       }}
     >
-      <div
-        key="innerLeftPanel"
-        style={{
-          margin: 0,
-          padding: 0,
-          position: "relative",
-          overflowX: "scroll",
-          overflowY: "hidden",
-          width: "100%",
-          height: "100%",
-          backgroundColor: "black",
-        }}
-      >
-        Split
-      </div>
+      Split
     </div>
   );
 };

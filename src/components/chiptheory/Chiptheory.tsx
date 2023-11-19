@@ -293,39 +293,49 @@ const Chiptheory: React.FC<{
 
   return (
     <div className="App-main-content-and-settings">
-      {systemLayout === "stacked" ? (
-        <StackedSystemLayout
-          analysis={analysis}
-          futureAnalysis={futureAnalysis}
-          measuresAndBeats={measuresAndBeats}
-          notes={notes}
-          voiceMask={voiceMask}
-          mouseHandlers={mouseHandlers}
-          measureSelection={measureSelection}
-          showIntervals={showIntervals}
-          positionSeconds={positionSeconds}
-        />
-      ) : systemLayout === "merged" ? (
-        <MergedSystemLayout
-          notes={notes}
-          voiceMask={voiceMask}
-          mouseHandlers={mouseHandlers}
-          measureSelection={measureSelection}
-          allActiveNotes={allActiveNotes}
-          futureAnalysis={futureAnalysis}
-          measuresAndBeats={measuresAndBeats}
-          stripeSpecificProps={stripeSpecificProps}
-          showIntervals={showIntervals}
-          registerSeekCallback={registerSeekCallback}
-          positionSeconds={positionSeconds}
-        />
-      ) : (
-        <SplitSystemLayout
-          notes={notes}
-          mouseHandlers={mouseHandlers}
-          measureSelection={measureSelection}
-        />
-      )}
+      <div
+        key="leftPanel"
+        style={{
+          width: "100%",
+          height: "100%",
+          padding: 0,
+          backgroundColor: "black",
+        }}
+      >
+        {systemLayout === "stacked" ? (
+          <StackedSystemLayout
+            analysis={analysis}
+            futureAnalysis={futureAnalysis}
+            measuresAndBeats={measuresAndBeats}
+            notes={notes}
+            voiceMask={voiceMask}
+            mouseHandlers={mouseHandlers}
+            measureSelection={measureSelection}
+            showIntervals={showIntervals}
+            positionSeconds={positionSeconds}
+          />
+        ) : systemLayout === "merged" ? (
+          <MergedSystemLayout
+            notes={notes}
+            voiceMask={voiceMask}
+            mouseHandlers={mouseHandlers}
+            measureSelection={measureSelection}
+            allActiveNotes={allActiveNotes}
+            futureAnalysis={futureAnalysis}
+            measuresAndBeats={measuresAndBeats}
+            stripeSpecificProps={stripeSpecificProps}
+            showIntervals={showIntervals}
+            registerSeekCallback={registerSeekCallback}
+            positionSeconds={positionSeconds}
+          />
+        ) : (
+          <SplitSystemLayout
+            notes={notes}
+            mouseHandlers={mouseHandlers}
+            measureSelection={measureSelection}
+          />
+        )}
+      </div>
       {analysisEnabled &&
         (bookPath ? (
           <BookExample

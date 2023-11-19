@@ -20,6 +20,7 @@ import {
 } from "./romanNumerals";
 import { ANALYSIS_HEIGHT } from "./tags";
 
+// TODO: rename 'horizontal' to 'merge' and add 'split'
 export type SystemLayout = "horizontal" | "stacked";
 
 const STACKED_LAYOUT_NOTE_HEIGHT = 7;

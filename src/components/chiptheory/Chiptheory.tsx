@@ -63,7 +63,7 @@ const Chiptheory: React.FC<{
 }) => {
   const [analysis, setAnalysis] = useState<Analysis>(ANALYSIS_STUB);
   const [showIntervals, setShowIntervals] = useState(false);
-  const [stackedView, setStackedView] = useState(false);
+  const [systemLayout, setSystemLayout] = useState("horizontal");
   const [playEnd, setPlayEnd] = useState(null);
 
   const commitAnalysisUpdate = useCallback(
@@ -274,7 +274,7 @@ const Chiptheory: React.FC<{
 
   return (
     <div className="App-main-content-and-settings">
-      {stackedView ? (
+      {systemLayout === "stacked" ? (
         <StackedSystemLayout
           analysis={analysis}
           futureAnalysis={futureAnalysis}
@@ -366,19 +366,34 @@ const Chiptheory: React.FC<{
             checked={showIntervals}
           />
           Intervals
-        </label>
-        <label className="inline">
+        </label>{" "}
+        {/* <label key={"split"} className="inline">
           <input
-            title="Stacked"
-            type="checkbox"
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-            onChange={(e) => {
-              e.stopPropagation();
-              setStackedView(e.target.checked);
-            }}
-            checked={stackedView}
+            onClick={this.handleModeClick}
+            type="radio"
+            name="spectrogram-mode"
+            defaultChecked={this.state.vizMode === i}
+            value={i}
+          />
+          Split
+        </label>{" "} */}
+        <label key={"merge"} className="inline">
+          <input
+            onClick={() => setSystemLayout("horizontal")}
+            type="radio"
+            name="system-layout"
+            defaultChecked={systemLayout === "horizontal"}
+            value={"horizontal"}
+          />
+          Merge
+        </label>{" "}
+        <label key={"stacked"} className="inline">
+          <input
+            onClick={() => setSystemLayout("stacked")}
+            type="radio"
+            name="system-layout"
+            defaultChecked={systemLayout === "stacked"}
+            value={"stacked"}
           />
           Stacked
         </label>

@@ -6,7 +6,7 @@ export default class AppHeader extends React.PureComponent {
     return (
       <header className="AppHeader">
         <Link className="AppHeader-title" to={{ pathname: "/" }}>
-          Chiptheory
+          Rawl
         </Link>
         {this.props.user ? (
           <>

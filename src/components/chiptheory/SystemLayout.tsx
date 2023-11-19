@@ -209,24 +209,27 @@ const getNoteRectangles = (
 // TODO: maybe add React.memo
 export const MergedSystemLayout = ({
   voiceMask,
-  handleNoteClick,
-  handleMouseEnter,
-  handleMouseLeave,
   allActiveNotes,
-  systemClickHandler,
   positionSeconds,
   futureAnalysis,
   notes,
   measuresAndBeats,
-  previouslySelectedMeasure,
-  selectedMeasure,
-  selectMeasure,
+  measureSelection,
   showIntervals,
   registerSeekCallback,
-  hoveredNote,
-  hoveredAltKey,
+  mouseHandlers,
   stripeSpecificProps,
 }) => {
+  const {
+    handleNoteClick,
+    handleMouseEnter,
+    handleMouseLeave,
+    hoveredNote,
+    hoveredAltKey,
+    systemClickHandler,
+  } = mouseHandlers;
+
+  // TODO: should probably use just "notes" instead, since stretched notes look ugly.
   const midiRange = useMemo(
     () => getMidiRange(allActiveNotes.flat()),
     [allActiveNotes],
@@ -326,9 +329,7 @@ export const MergedSystemLayout = ({
           measuresAndBeats={measuresAndBeats}
           midiNumberToY={midiNumberToY}
           noteHeight={noteHeight}
-          previouslySelectedMeasure={previouslySelectedMeasure}
-          selectedMeasure={selectedMeasure}
-          selectMeasure={selectMeasure}
+          measureSelection={measureSelection}
           stripeSpecificProps={stripeSpecificProps}
           firstMeasureNumber={1}
           secondsToX={secondsToX}
@@ -356,8 +357,9 @@ const Phrase: React.FC<
     globalMeasures: number[];
     cursor?: ReactNode;
     phraseStarts: number[];
-  } & MouseHandlers &
-    MeasureSelection
+    mouseHandlers: MouseHandlers;
+    measureSelection: MeasureSelection;
+  }
 > = ({
   notes,
   measuresAndBeats,
@@ -366,20 +368,22 @@ const Phrase: React.FC<
   voiceMask,
   analysis,
   globalMeasures,
-  handleNoteClick,
-  handleMouseEnter,
-  handleMouseLeave,
-  hoveredNote,
-  hoveredAltKey,
-  systemClickHandler,
-  previouslySelectedMeasure,
-  selectedMeasure,
-  selectMeasure,
+  mouseHandlers,
+  measureSelection,
   showIntervals,
   cursor,
   phraseStarts,
 }) => {
   const midiRange = getMidiRangeWithMask(notes, voiceMask);
+
+  const {
+    handleNoteClick,
+    handleMouseEnter,
+    handleMouseLeave,
+    hoveredNote,
+    hoveredAltKey,
+    systemClickHandler,
+  } = mouseHandlers;
 
   const hasRomanNumerals = hasRomanNumeralInMeasuresSpan(
     analysis.romanNumerals,
@@ -445,9 +449,7 @@ const Phrase: React.FC<
           measuresAndBeats={measuresAndBeats}
           midiNumberToY={midiNumberToY}
           noteHeight={STACKED_LAYOUT_NOTE_HEIGHT}
-          previouslySelectedMeasure={previouslySelectedMeasure}
-          selectedMeasure={selectedMeasure}
-          selectMeasure={selectMeasure}
+          measureSelection={measureSelection}
           firstMeasureNumber={measuresSpan[0]}
           phraseStarts={phraseStarts}
           secondsToX={(seconds) => secondsToX(seconds - secondsSpan[0])}
@@ -510,32 +512,24 @@ const calculateDataForPhrases = (
 };
 
 // TODO: memo everything
-export const StackedSystemLayout: React.FC<
-  {
-    analysis: Analysis;
-    futureAnalysis: Analysis;
-    measuresAndBeats: MeasuresAndBeats;
-    notes: NotesInVoices;
-    voiceMask: boolean[];
-    showIntervals: boolean;
-    positionSeconds: number;
-  } & MouseHandlers &
-    MeasureSelection
-> = ({
+export const StackedSystemLayout: React.FC<{
+  analysis: Analysis;
+  futureAnalysis: Analysis;
+  measuresAndBeats: MeasuresAndBeats;
+  notes: NotesInVoices;
+  voiceMask: boolean[];
+  showIntervals: boolean;
+  positionSeconds: number;
+  mouseHandlers: MouseHandlers;
+  measureSelection: MeasureSelection;
+}> = ({
   analysis,
   futureAnalysis,
   measuresAndBeats,
   notes,
   voiceMask,
-  handleNoteClick,
-  handleMouseEnter,
-  handleMouseLeave,
-  hoveredNote,
-  hoveredAltKey,
-  systemClickHandler,
-  previouslySelectedMeasure,
-  selectedMeasure,
-  selectMeasure,
+  mouseHandlers,
+  measureSelection,
   showIntervals,
   positionSeconds,
 }) => {
@@ -590,17 +584,10 @@ export const StackedSystemLayout: React.FC<
             analysis={futureAnalysis}
             voiceMask={voiceMask}
             globalMeasures={measuresAndBeats.measures}
-            handleNoteClick={handleNoteClick}
-            handleMouseEnter={handleMouseEnter}
-            handleMouseLeave={handleMouseLeave}
-            hoveredNote={hoveredNote}
-            hoveredAltKey={hoveredAltKey}
-            previouslySelectedMeasure={previouslySelectedMeasure}
-            selectedMeasure={selectedMeasure}
-            selectMeasure={selectMeasure}
+            mouseHandlers={mouseHandlers}
+            measureSelection={measureSelection}
             showIntervals={showIntervals}
             phraseStarts={phraseStarts}
-            systemClickHandler={systemClickHandler}
             cursor={
               isInSecondsSpan(positionSeconds, data.secondsSpan) && (
                 <Cursor
@@ -617,7 +604,11 @@ export const StackedSystemLayout: React.FC<
   );
 };
 
-export const SplitSystemLayout: React.FC<{}> = () => {
+export const SplitSystemLayout: React.FC<{
+  notes: NotesInVoices;
+  mouseHandlers: MouseHandlers;
+  measureSelection: MeasureSelection;
+}> = () => {
   return (
     <div
       key="leftPanel"

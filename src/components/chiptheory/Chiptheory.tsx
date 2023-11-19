@@ -1,9 +1,11 @@
 import * as React from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AnalysisBox } from "./AnalysisBox";
+import { MeasureSelection } from "./AnalysisGrid";
 import { BookExample } from "./Book";
 import {
   MergedSystemLayout,
+  MouseHandlers,
   SplitSystemLayout,
   StackedSystemLayout,
   SystemLayout,
@@ -274,6 +276,21 @@ const Chiptheory: React.FC<{
 
   const positionSeconds = positionMs / 1000;
 
+  const mouseHandlers: MouseHandlers = {
+    handleNoteClick,
+    handleMouseEnter,
+    handleMouseLeave,
+    hoveredNote,
+    hoveredAltKey,
+    systemClickHandler,
+  };
+
+  const measureSelection: MeasureSelection = {
+    previouslySelectedMeasure,
+    selectedMeasure,
+    selectMeasure,
+  };
+
   return (
     <div className="App-main-content-and-settings">
       {systemLayout === "stacked" ? (
@@ -283,41 +300,31 @@ const Chiptheory: React.FC<{
           measuresAndBeats={measuresAndBeats}
           notes={notes}
           voiceMask={voiceMask}
-          handleNoteClick={handleNoteClick}
-          handleMouseEnter={handleMouseEnter}
-          handleMouseLeave={handleMouseLeave}
-          hoveredNote={hoveredNote}
-          hoveredAltKey={hoveredAltKey}
-          previouslySelectedMeasure={previouslySelectedMeasure}
-          selectedMeasure={selectedMeasure}
-          selectMeasure={selectMeasure}
+          mouseHandlers={mouseHandlers}
+          measureSelection={measureSelection}
           showIntervals={showIntervals}
           positionSeconds={positionSeconds}
-          systemClickHandler={systemClickHandler}
         />
       ) : systemLayout === "merged" ? (
         <MergedSystemLayout
-          voiceMask={voiceMask}
-          handleNoteClick={handleNoteClick}
-          handleMouseEnter={handleMouseEnter}
-          handleMouseLeave={handleMouseLeave}
-          hoveredNote={hoveredNote}
-          hoveredAltKey={hoveredAltKey}
-          allActiveNotes={allActiveNotes}
-          systemClickHandler={systemClickHandler}
-          futureAnalysis={futureAnalysis}
           notes={notes}
+          voiceMask={voiceMask}
+          mouseHandlers={mouseHandlers}
+          measureSelection={measureSelection}
+          allActiveNotes={allActiveNotes}
+          futureAnalysis={futureAnalysis}
           measuresAndBeats={measuresAndBeats}
-          previouslySelectedMeasure={previouslySelectedMeasure}
-          selectedMeasure={selectedMeasure}
-          selectMeasure={selectMeasure}
           stripeSpecificProps={stripeSpecificProps}
           showIntervals={showIntervals}
           registerSeekCallback={registerSeekCallback}
           positionSeconds={positionSeconds}
         />
       ) : (
-        <SplitSystemLayout />
+        <SplitSystemLayout
+          notes={notes}
+          mouseHandlers={mouseHandlers}
+          measureSelection={measureSelection}
+        />
       )}
       {analysisEnabled &&
         (bookPath ? (

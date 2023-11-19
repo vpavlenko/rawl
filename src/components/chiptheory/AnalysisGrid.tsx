@@ -41,26 +41,22 @@ export type MeasureSelection = {
   selectMeasure: (number) => void;
 };
 
-const Measure: React.FC<
-  {
-    span: [number, number];
-    number: number;
-    isFourMeasureMark: boolean;
-    romanNumeral: string;
-    formSection: string;
-    modulation: PitchClass | null;
-    stripesHeight: number;
-    secondsToX: (number) => number;
-    systemLayout: SystemLayout;
-    hasRomanNumerals: boolean;
-  } & MeasureSelection
-> = ({
+const Measure: React.FC<{
+  span: [number, number];
+  number: number;
+  isFourMeasureMark: boolean;
+  romanNumeral: string;
+  formSection: string;
+  modulation: PitchClass | null;
+  stripesHeight: number;
+  secondsToX: (number) => number;
+  systemLayout: SystemLayout;
+  hasRomanNumerals: boolean;
+  measureSelection: MeasureSelection;
+}> = ({
   span,
   number,
   isFourMeasureMark,
-  previouslySelectedMeasure,
-  selectedMeasure,
-  selectMeasure,
   romanNumeral,
   formSection,
   modulation,
@@ -68,7 +64,11 @@ const Measure: React.FC<
   secondsToX,
   systemLayout,
   hasRomanNumerals,
+  measureSelection,
 }) => {
+  const { previouslySelectedMeasure, selectedMeasure, selectMeasure } =
+    measureSelection;
+
   const left = secondsToX(span[0]) - 1;
   const width = secondsToX(span[1]) - left - 1;
 
@@ -244,29 +244,26 @@ const TonalGrid: React.FC<{
   },
 );
 
-export const AnalysisGrid: React.FC<
-  {
-    analysis: Analysis;
-    measuresAndBeats: MeasuresAndBeats;
-    midiNumberToY: (number: number) => number;
-    noteHeight: number;
-    firstMeasureNumber: number;
-    secondsToX: (number) => number;
-    stripeSpecificProps?: StripesSpecificProps;
-    phraseStarts: number[];
-    systemLayout: SystemLayout;
-    midiRange: MidiRange;
-    hasRomanNumerals: boolean;
-  } & MeasureSelection
-> = React.memo(
+export const AnalysisGrid: React.FC<{
+  analysis: Analysis;
+  measuresAndBeats: MeasuresAndBeats;
+  midiNumberToY: (number: number) => number;
+  noteHeight: number;
+  firstMeasureNumber: number;
+  secondsToX: (number) => number;
+  stripeSpecificProps?: StripesSpecificProps;
+  phraseStarts: number[];
+  systemLayout: SystemLayout;
+  midiRange: MidiRange;
+  hasRomanNumerals: boolean;
+  measureSelection: MeasureSelection;
+}> = React.memo(
   ({
     analysis,
     measuresAndBeats,
     midiNumberToY,
     noteHeight,
-    previouslySelectedMeasure,
-    selectedMeasure,
-    selectMeasure,
+    measureSelection,
     stripeSpecificProps,
     firstMeasureNumber,
     secondsToX,
@@ -291,9 +288,7 @@ export const AnalysisGrid: React.FC<
               isFourMeasureMark={phraseStarts.indexOf(number) !== -1}
               formSection={(analysis.form ?? {})[number]}
               number={number}
-              previouslySelectedMeasure={previouslySelectedMeasure}
-              selectedMeasure={selectedMeasure}
-              selectMeasure={selectMeasure}
+              measureSelection={measureSelection}
               romanNumeral={
                 romanNumeralsToArray(analysis?.romanNumerals)[number - 1]
               }

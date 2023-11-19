@@ -24,7 +24,7 @@
 @font-face {
     font-family: VGA_SquarePx;
     /*src: url(fonts/pxplus_vga_squarepx.ttf) format('truetype');*/
-    src: url(/chiptheory/static/media/pxplus_chipplayer.85e11d57.ttf) format('truetype');
+    src: url(/static/media/pxplus_chipplayer.85e11d57.ttf) format('truetype');
     font-weight: 400;
     font-style: normal
 }
@@ -1016,4 +1016,4 @@ img {
 }
 
 
-/*# sourceMappingURL=main.fe11285d.css.map*/
+/*# sourceMappingURL=main.bbae0e7b.css.map*/

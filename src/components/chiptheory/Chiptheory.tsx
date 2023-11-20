@@ -276,28 +276,44 @@ const Chiptheory: React.FC<{
 
   const positionSeconds = positionMs / 1000;
 
-  const mouseHandlers: MouseHandlers = {
-    handleNoteClick,
-    handleMouseEnter,
-    handleMouseLeave,
-    hoveredNote,
-    hoveredAltKey,
-    systemClickHandler,
-  };
+  const mouseHandlers: MouseHandlers = useMemo(
+    () => ({
+      handleNoteClick,
+      handleMouseEnter,
+      handleMouseLeave,
+      hoveredNote,
+      hoveredAltKey,
+      systemClickHandler,
+    }),
+    [
+      handleNoteClick,
+      handleMouseEnter,
+      handleMouseLeave,
+      hoveredNote,
+      hoveredAltKey,
+      systemClickHandler,
+    ],
+  );
 
-  const measureSelection: MeasureSelection = {
-    previouslySelectedMeasure,
-    selectedMeasure,
-    selectMeasure,
-  };
+  const measureSelection: MeasureSelection = useMemo(
+    () => ({
+      previouslySelectedMeasure,
+      selectedMeasure,
+      selectMeasure,
+    }),
+    [previouslySelectedMeasure, selectedMeasure, selectMeasure],
+  );
 
-  const commonParams = {
-    notes,
-    voiceMask,
-    measuresAndBeats,
-    showIntervals,
-    positionSeconds,
-  };
+  const commonParams = useMemo(
+    () => ({
+      notes,
+      voiceMask,
+      measuresAndBeats,
+      showIntervals,
+      positionSeconds,
+    }),
+    [notes, voiceMask, measuresAndBeats, showIntervals, positionSeconds],
+  );
 
   return (
     <div className="App-main-content-and-settings">

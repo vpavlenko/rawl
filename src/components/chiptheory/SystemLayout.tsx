@@ -296,6 +296,10 @@ export const MergedSystemLayout = ({
       showIntervals,
     ],
   );
+  const phraseStarts = useMemo(
+    () => getPhrasingMeasures(futureAnalysis, measuresAndBeats.measures.length),
+    [futureAnalysis, measuresAndBeats],
+  );
 
   return (
     <div
@@ -324,10 +328,7 @@ export const MergedSystemLayout = ({
         stripeSpecificProps={stripeSpecificProps}
         firstMeasureNumber={1}
         secondsToX={secondsToX}
-        phraseStarts={getPhrasingMeasures(
-          futureAnalysis,
-          measuresAndBeats.measures.length,
-        )}
+        phraseStarts={phraseStarts}
         systemLayout={"merged"}
         midiRange={midiRange}
         hasRomanNumerals={true}

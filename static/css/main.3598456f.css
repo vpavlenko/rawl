@@ -1015,5 +1015,17 @@ img {
     line-height: 1;
 }
 
+.zoomable {
+    -webkit-transition: -webkit-transform 0.3s ease;
+    transition: -webkit-transform 0.3s ease;
+    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, -webkit-transform 0.3s ease; /* Smooth transition for zoom effect */
+    /* Other styles for your div */
+  }
+  
+.zoomable:hover {
+    -webkit-transform: scale(5) translateY(10px);
+            transform: scale(5) translateY(10px); /* 300% zoom and move down by 100px */
+}
 
-/*# sourceMappingURL=main.bbae0e7b.css.map*/
+/*# sourceMappingURL=main.3598456f.css.map*/

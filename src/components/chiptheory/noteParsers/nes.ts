@@ -54,6 +54,8 @@ function findNoteWithClosestPeriod(
   return closestNote!;
 }
 
+let id = 0;
+
 const calculateNotesFromPeriods = (periods, oscType) => {
   if (periods === undefined) return [];
 
@@ -75,9 +77,11 @@ const calculateNotesFromPeriods = (periods, oscType) => {
           midiNumber: period === -1 ? -1 : newNoteEstimation.midiNumber,
           name: newNoteEstimation.name,
         },
+        id,
         span: [timeInSeconds, 0],
         chipState: { period: period },
       });
+      id++;
     }
 
     timeInSeconds += RESOLUTION_MS;

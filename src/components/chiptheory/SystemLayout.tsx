@@ -156,6 +156,7 @@ const getNoteRectangles = (
 
     return (
       <div
+        key={`nr_${note.id}`}
         className={"noteRectangleTonal"}
         style={{
           position: "absolute",
@@ -253,11 +254,10 @@ export const MergedSystemLayout = ({
     };
   }, []);
 
-  const seekCallback = (seekMs) =>
-    (divRef.current.scrollLeft = secondsToX(seekMs / 1000) - 100);
-
   useEffect(() => {
-    registerSeekCallback(seekCallback);
+    registerSeekCallback(
+      (seekMs) => (divRef.current.scrollLeft = secondsToX(seekMs / 1000) - 100),
+    );
   }, []);
 
   const noteHeight =
@@ -429,6 +429,7 @@ const Phrase: React.FC<
 
   return (
     <div
+      key={`outer_phrase_${measuresSpan[0]}`}
       style={{
         width: "100%",
         height,
@@ -547,6 +548,7 @@ export const StackedSystemLayout: React.FC<{
 
   return (
     <div
+      key="stacked_system_layout"
       style={{
         margin: 0,
         padding: 0,

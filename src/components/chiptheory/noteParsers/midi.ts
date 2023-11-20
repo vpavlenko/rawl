@@ -1,6 +1,8 @@
 import MIDIEvents from "midievents";
 import { Note, ParsingResult } from ".";
 
+let id = 0;
+
 const getNotes = (events, channel): Note[] => {
   const notes = [];
   const noteOnTime = {};
@@ -20,9 +22,11 @@ const getNotes = (events, channel): Note[] => {
               midiNumber,
               name: "??",
             },
+            id,
             span: [noteOnTime[midiNumber] / 1000, event.playTime / 1000],
             chipState: event, // this is noteOff event, not useful - doesn't have original velocity
           });
+          id++;
           delete noteOnTime[midiNumber];
         }
       }

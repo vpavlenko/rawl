@@ -8,6 +8,7 @@ export type Note = {
     midiNumber: number;
     name: string;
   };
+  id: number;
   span: SecondsSpan;
   chipState: any;
 };

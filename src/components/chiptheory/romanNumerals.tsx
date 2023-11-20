@@ -220,8 +220,8 @@ const RAINBOW_ORDER = [
 
 const TONIC_DOMINANT_ORDER = [
   "red",
-  "darkkhaki", // coral, darkgoldenrod, khaki, sandybrown
-  "#8f00ff",
+  "maroon", // coral, darkgoldenrod, khaki, sandybrown
+  "#ff60d0",
   "#ffff00",
   "#60ff00",
   "#60ffFF",
@@ -229,8 +229,8 @@ const TONIC_DOMINANT_ORDER = [
   "blue",
   "#ff7000",
   "green",
-  "#735832", // "#ff00ff", #FF007F
-  "#ff60d0", // "#e39ff6", "FF6EC7"
+  "#735832", //"tan"
+  "#8f00ff",
 ];
 
 export const TWELVE_TONE_COLORS = TONIC_DOMINANT_ORDER;
@@ -349,6 +349,7 @@ export const RowOfRomanNumerals: React.FC<{
     chords.forEach((chord, j) => {
       return row.push(
         <div
+          key={j}
           style={{
             width: isSearch ? 70 : 120 / chords.length,
             height: isSearch ? 30 : 30,

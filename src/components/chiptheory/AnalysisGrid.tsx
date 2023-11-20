@@ -223,7 +223,7 @@ const TonalGrid: React.FC<{
           // TODO: display a note like C4 gracefully at each gradient start
           result.push(
             <div
-              key={`gradient_${midiNumber}`}
+              key={`tonalgrid_octave_${i}_${midiNumber}`}
               style={{
                 position: "absolute",
                 width,

@@ -39,6 +39,7 @@ const RawlPalette = () => {
               ),
               fontFamily: "sans-serif",
               fontSize: "8px",
+              userSelect: "none",
             }}
           >
             {TWELVE_CHORD_TONES[WHITE_KEYS[i]]}
@@ -59,6 +60,7 @@ const RawlPalette = () => {
                 ),
                 fontFamily: "sans-serif",
                 fontSize: "8px",
+                userSelect: "none",
               }}
             >
               {TWELVE_CHORD_TONES[BLACK_KEYS[i]]}
@@ -93,9 +95,8 @@ export default class AppHeader extends React.PureComponent {
           <>
             {" • "}
             <a href="#" onClick={this.props.handleLogin}>
-              Login/Sign Up
+              .
             </a>{" "}
-            to Save Analyses (broken)
           </>
         )}
         {" • "}
@@ -108,16 +109,14 @@ export default class AppHeader extends React.PureComponent {
           Chip Player JS
         </a>
         {" • "}
-        <a
-          href="https://github.com/vpavlenko/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Github
-        </a>
-        {" • "}
         <div style={{ display: "inline-block" }}>
-          <RawlPalette />
+          <a
+            href="https://github.com/vpavlenko/12-colors/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <RawlPalette />
+          </a>
         </div>
       </header>
     );

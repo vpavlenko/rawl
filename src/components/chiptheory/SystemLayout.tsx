@@ -351,6 +351,7 @@ const Phrase: React.FC<
     phraseStarts: number[];
     mouseHandlers: MouseHandlers;
     measureSelection: MeasureSelection;
+    showHeader?: boolean;
   }
 > = ({
   notes,
@@ -365,8 +366,12 @@ const Phrase: React.FC<
   showIntervals,
   cursor,
   phraseStarts,
+  showHeader = true,
 }) => {
-  const midiRange = getMidiRangeWithMask(notes, voiceMask);
+  const midiRange = useMemo(
+    () => getMidiRangeWithMask(notes, voiceMask),
+    [notes, voiceMask],
+  );
 
   const {
     handleNoteClick,
@@ -428,7 +433,6 @@ const Phrase: React.FC<
         width: "100%",
         height,
         position: "relative",
-        overflow: "hidden",
         marginTop: "10px",
         marginBottom: "20px",
       }}
@@ -583,6 +587,8 @@ export const StackedSystemLayout: React.FC<{
   );
 };
 
+const SPLIT_VOICE_MASK = [true];
+
 export const SplitSystemLayout: React.FC<{
   notes: NotesInVoices;
   voiceMask: boolean[];
@@ -602,7 +608,7 @@ export const SplitSystemLayout: React.FC<{
   mouseHandlers,
   measureSelection,
 }) => {
-  const voiceIndicesSortedByAverageMidiNumber = useMemo(
+  const voicesSortedByAverageMidiNumber = useMemo(
     () =>
       notes
         .map((voice, voiceIndex) => ({
@@ -610,7 +616,7 @@ export const SplitSystemLayout: React.FC<{
           voiceIndex,
         }))
         .sort((a, b) => b.average - a.average)
-        .map(({ voiceIndex }) => voiceIndex),
+        .map(({ voiceIndex }) => ({ voiceIndex, notes: [notes[voiceIndex]] })),
     [notes],
   );
 
@@ -628,11 +634,12 @@ export const SplitSystemLayout: React.FC<{
         backgroundColor: "black",
       }}
     >
-      {voiceIndicesSortedByAverageMidiNumber.map((voiceIndex, order) =>
+      {voicesSortedByAverageMidiNumber.map(({ voiceIndex, notes }, order) =>
         voiceMask[voiceIndex] ? (
           <Phrase
-            notes={[notes[voiceIndex]]}
-            voiceMask={[true]}
+            key={voiceIndex}
+            notes={notes}
+            voiceMask={SPLIT_VOICE_MASK}
             measuresAndBeats={measuresAndBeats}
             measuresSpan={[1, measuresAndBeats.measures.length]}
             secondsSpan={[
@@ -644,7 +651,7 @@ export const SplitSystemLayout: React.FC<{
             mouseHandlers={mouseHandlers}
             measureSelection={measureSelection}
             showIntervals={showIntervals}
-            // isTopmostPart={order === 0}
+            showHeader={order === 0}
             cursor={<Cursor style={{ left: secondsToX(positionSeconds) }} />}
             phraseStarts={getPhrasingMeasures(
               analysis,

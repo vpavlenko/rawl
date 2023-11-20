@@ -107,9 +107,7 @@ const Measure: React.FC<{
           >
             <span
               style={{
-                ...(systemLayout === "stacked"
-                  ? { fontSize: "12px" }
-                  : { fontSize: "12px" }),
+                fontSize: "12px",
                 fontFamily: "sans-serif",
               }}
             >

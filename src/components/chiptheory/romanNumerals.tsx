@@ -202,11 +202,11 @@ export const romanNumeralToChromaticDegree = (romanNumeral: string): number => {
   return SIMPLE_RN_TO_CHROMATIC_DEGREE[romanNumeral];
 };
 
-export const TWELVE_TONE_COLORS = [
+const RAINBOW_ORDER = [
   "red",
-  "brown", // CC5500
+  "brown",
   "#FF8C00",
-  "#e8e800", // "#C1C100",
+  "#e8e800",
   "green",
   "#0EFFD0",
   "#787276",
@@ -217,6 +217,23 @@ export const TWELVE_TONE_COLORS = [
   "#ffaacc",
   "black",
 ];
+
+const TONIC_DOMINANT_ORDER = [
+  "red",
+  "khaki", // coral, darkgoldenrod, khaki, sandybrown
+  "#8f00ff",
+  "#ffff00",
+  "green",
+  "#60ffFF",
+  "gray",
+  "blue",
+  "#ff7000",
+  "#60ff00",
+  "#735832", // "#ff00ff", #FF007F
+  "#ff60d0", // "#e39ff6", "FF6EC7"
+];
+
+export const TWELVE_TONE_COLORS = TONIC_DOMINANT_ORDER;
 
 const makeArrowIfAppliedTo = (first: string, second?: string): string => {
   // won't work if modulation happens in between

@@ -168,7 +168,8 @@ const getNoteRectangles = (
           borderRadius: [10, 3, 0, 5, 20, 7, 1][voiceIndex % 7],
           cursor: "pointer",
           zIndex: 10,
-          opacity: isActiveVoice ? 0.9 : 0.1,
+          //   opacity: isActiveVoice ? 0.9 : 0.1,
+          opacity: isActiveVoice ? 1 : 0.1,
           display: "grid",
           placeItems: "center",
           ...(voiceIndex === -1

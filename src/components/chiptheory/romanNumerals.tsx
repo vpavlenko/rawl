@@ -221,16 +221,16 @@ const RAINBOW_ORDER = [
 const TONIC_DOMINANT_ORDER = [
   "red",
   "maroon", // coral, darkgoldenrod, khaki, sandybrown
-  "#ff60d0",
-  "#ffff00",
-  "#60ff00",
-  "#60ffFF",
+  "#ff60a0",
+  "#fffd37",
+  "#00ff20",
+  "#70e0FF",
   "gray",
   "blue",
   "#ff7000",
   "green",
   "#735832", //"tan"
-  "#8f00ff",
+  "#a000ff",
 ];
 
 export const TWELVE_TONE_COLORS = TONIC_DOMINANT_ORDER;

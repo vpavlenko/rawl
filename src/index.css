@@ -909,3 +909,12 @@ img {
     font-size: 12px;
     line-height: 1;
 }
+
+.zoomable {
+    transition: transform 0.3s ease; /* Smooth transition for zoom effect */
+    /* Other styles for your div */
+  }
+  
+.zoomable:hover {
+    transform: scale(5) translateY(10px); /* 300% zoom and move down by 100px */
+}

@@ -109,7 +109,7 @@ export default class AppHeader extends React.PureComponent {
           Chip Player JS
         </a>
         {" • "}
-        <div style={{ display: "inline-block" }}>
+        <div style={{ display: "inline-block" }} className="zoomable">
           <a
             href="https://github.com/vpavlenko/12-colors/"
             target="_blank"

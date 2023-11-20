@@ -1,6 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { TWELVE_TONE_COLORS } from "./chiptheory/romanNumerals";
+import {
+  TWELVE_CHORD_TONES,
+  TWELVE_TONE_COLORS,
+  getTextColorForBackground,
+} from "./chiptheory/romanNumerals";
 
 const BLACK_KEYS = [1, 3, -1, 6, 8, 10, -1];
 const WHITE_KEYS = [0, 2, 4, 5, 7, 9, 11];
@@ -8,7 +12,7 @@ const WHITE_KEYS = [0, 2, 4, 5, 7, 9, 11];
 const KEY_WIDTH = 10;
 const KEY_HEIGHT = 15;
 const PADDING = 1;
-const ROW_DISTANCE = 7;
+const ROW_DISTANCE = 10;
 const RawlPalette = () => {
   return (
     <div
@@ -30,8 +34,15 @@ const RawlPalette = () => {
               width: KEY_WIDTH,
               height: KEY_HEIGHT,
               textAlign: "center",
+              color: getTextColorForBackground(
+                TWELVE_TONE_COLORS[WHITE_KEYS[i]],
+              ),
+              fontFamily: "sans-serif",
+              fontSize: "8px",
             }}
-          />
+          >
+            {TWELVE_CHORD_TONES[WHITE_KEYS[i]]}
+          </div>
           {BLACK_KEYS[i] !== -1 ? (
             <div
               style={{
@@ -43,8 +54,15 @@ const RawlPalette = () => {
                 width: KEY_WIDTH,
                 height: KEY_HEIGHT,
                 textAlign: "center",
+                color: getTextColorForBackground(
+                  TWELVE_TONE_COLORS[BLACK_KEYS[i]],
+                ),
+                fontFamily: "sans-serif",
+                fontSize: "8px",
               }}
-            />
+            >
+              {TWELVE_CHORD_TONES[BLACK_KEYS[i]]}
+            </div>
           ) : null}
         </>
       ))}

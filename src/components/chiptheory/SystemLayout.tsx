@@ -15,6 +15,7 @@ import {
   TWELVE_TONE_COLORS,
   getChordNote,
   getNoteMeasure,
+  getTextColorForBackground,
   getTonic,
   hasRomanNumeralInMeasuresSpan,
 } from "./romanNumerals";
@@ -143,10 +144,7 @@ const getNoteRectangles = (
           lineHeight: `${Math.min(noteHeight, 14)}px`,
           fontFamily: "Helvetica, sans-serif",
           fontWeight: 700,
-          color:
-            ["brown", "blue", "#9400D3", "#787276"].indexOf(color) !== -1
-              ? "white"
-              : "black",
+          color: getTextColorForBackground(color),
         }}
       >
         {chordNote}

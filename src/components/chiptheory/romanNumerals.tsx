@@ -233,6 +233,21 @@ const TONIC_DOMINANT_ORDER = [
   "#a000ff",
 ];
 
+const DARK_COLORS = [
+  TONIC_DOMINANT_ORDER[0],
+  TONIC_DOMINANT_ORDER[1],
+  TONIC_DOMINANT_ORDER[2],
+  TONIC_DOMINANT_ORDER[6],
+  TONIC_DOMINANT_ORDER[7],
+  TONIC_DOMINANT_ORDER[8],
+  TONIC_DOMINANT_ORDER[9],
+  TONIC_DOMINANT_ORDER[10],
+  TONIC_DOMINANT_ORDER[11],
+];
+
+export const getTextColorForBackground = (color) =>
+  DARK_COLORS.indexOf(color) === -1 ? "black" : "white";
+
 export const TWELVE_TONE_COLORS = TONIC_DOMINANT_ORDER;
 
 const makeArrowIfAppliedTo = (first: string, second?: string): string => {
@@ -268,10 +283,7 @@ export const RomanNumeral: React.FC<{
     >
       <span
         style={{
-          color:
-            ["#e8e800", "#9F9FFF", "#0EFFD0"].indexOf(backgroundColor) !== -1
-              ? "black"
-              : "white",
+          color: getTextColorForBackground(backgroundColor),
           ...styleProps,
         }}
       >

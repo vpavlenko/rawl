@@ -916,5 +916,5 @@ img {
   }
   
 .zoomable:hover {
-    transform: scale(5) translateY(10px); /* 300% zoom and move down by 100px */
+    transform: scale(3) translateY(-10px) translateX(30px); /* 300% zoom and move down by 100px */
 }

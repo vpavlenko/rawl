@@ -3,6 +3,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AnalysisBox } from "./AnalysisBox";
 import { MeasureSelection } from "./AnalysisGrid";
 import { BookExample } from "./Book";
+import { PianoLegend } from "./PianoLegend";
 import {
   MergedSystemLayout,
   MouseHandlers,
@@ -316,7 +317,10 @@ const Chiptheory: React.FC<{
   );
 
   return (
-    <div className="App-main-content-and-settings">
+    <div
+      className="App-main-content-and-settings"
+      style={{ position: "relative" }}
+    >
       <div
         key="leftPanel"
         style={{
@@ -436,6 +440,12 @@ const Chiptheory: React.FC<{
           />
           Stacked
         </label>
+      </div>
+      <div
+        key="piano-legend"
+        style={{ position: "absolute", bottom: 10, left: 10, zIndex: 10000000 }}
+      >
+        <PianoLegend />
       </div>
     </div>
   );

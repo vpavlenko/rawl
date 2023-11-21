@@ -282,6 +282,7 @@ const Chiptheory: React.FC<{
       handleNoteClick,
       handleMouseEnter,
       handleMouseLeave,
+      // TODO: do we really need to pass hoveredNote?
       hoveredNote,
       hoveredAltKey,
       systemClickHandler,

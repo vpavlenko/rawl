@@ -1,5 +1,4 @@
 import { FileType, Note } from "./noteParsers";
-import { updateRomanNumerals } from "./romanNumerals";
 
 export const STEPS = [
   "tonic",
@@ -93,13 +92,13 @@ export const getNewAnalysis = (
     } else if (step === "tonic") {
       update.tonic = (note.note.midiNumber % 12) as PitchClass;
     } else if (step === "end") {
-      update.romanNumerals = updateRomanNumerals(
-        analysis,
-        note,
-        notes,
-        measures,
-        altKey,
-      );
+      //   update.romanNumerals = updateRomanNumerals(
+      //     analysis,
+      //     note,
+      //     notes,
+      //     measures,
+      //     altKey,
+      //   );
     }
   }
 

@@ -1,5 +1,12 @@
 import * as React from "react";
-import { ReactNode, useEffect, useMemo, useRef, useState } from "react";
+import {
+  ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import {
   AnalysisGrid,
   Cursor,
@@ -381,6 +388,7 @@ const Phrase: React.FC<
     systemClickHandler,
   } = mouseHandlers;
 
+  // TODO: memo
   const hasRomanNumerals = hasRomanNumeralInMeasuresSpan(
     analysis.romanNumerals,
     measuresSpan,
@@ -391,8 +399,16 @@ const Phrase: React.FC<
       STACKED_LAYOUT_NOTE_HEIGHT +
     (hasRomanNumerals ? STACKED_RN_HEIGHT : 15);
 
-  const midiNumberToY = (midiNumber) =>
-    height - (midiNumber - midiRange[0] + 3) * STACKED_LAYOUT_NOTE_HEIGHT;
+  const midiNumberToY = useCallback(
+    (midiNumber) =>
+      height - (midiNumber - midiRange[0] + 3) * STACKED_LAYOUT_NOTE_HEIGHT,
+    [height, midiRange],
+  );
+
+  const mySecondsToX = useCallback(
+    (seconds) => secondsToX(seconds - secondsSpan[0]),
+    [secondsSpan[0]],
+  );
 
   const noteRectangles = useMemo(
     () =>
@@ -447,7 +463,7 @@ const Phrase: React.FC<
         measureSelection={measureSelection}
         firstMeasureNumber={measuresSpan[0]}
         phraseStarts={phraseStarts}
-        secondsToX={(seconds) => secondsToX(seconds - secondsSpan[0])}
+        secondsToX={mySecondsToX}
         systemLayout={"stacked"}
         midiRange={midiRange}
         hasRomanNumerals={hasRomanNumerals}
@@ -621,6 +637,11 @@ export const SplitSystemLayout: React.FC<{
     [notes],
   );
 
+  const phraseStarts = useMemo(
+    () => getPhrasingMeasures(analysis, measuresAndBeats.measures.length),
+    [analysis, measuresAndBeats],
+  );
+
   return (
     <div
       key="innerLeftPanel"
@@ -654,10 +675,7 @@ export const SplitSystemLayout: React.FC<{
             showIntervals={showIntervals}
             showHeader={order === 0}
             cursor={<Cursor style={{ left: secondsToX(positionSeconds) }} />}
-            phraseStarts={getPhrasingMeasures(
-              analysis,
-              measuresAndBeats.measures.length,
-            )}
+            phraseStarts={phraseStarts}
           />
         ) : null,
       )}

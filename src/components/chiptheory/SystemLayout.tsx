@@ -388,7 +388,6 @@ const Phrase: React.FC<
     systemClickHandler,
   } = mouseHandlers;
 
-  // TODO: memo
   const hasRomanNumerals = hasRomanNumeralInMeasuresSpan(
     analysis.romanNumerals,
     measuresSpan,
@@ -521,7 +520,6 @@ const calculateDataForPhrases = (
   return data;
 };
 
-// TODO: memo everything
 export const StackedSystemLayout: React.FC<{
   analysis: Analysis;
   futureAnalysis: Analysis;
@@ -543,9 +541,9 @@ export const StackedSystemLayout: React.FC<{
   showIntervals,
   positionSeconds,
 }) => {
-  const phraseStarts = getPhrasingMeasures(
-    analysis,
-    measuresAndBeats.measures.length,
+  const phraseStarts = useMemo(
+    () => getPhrasingMeasures(analysis, measuresAndBeats.measures.length),
+    [analysis, measuresAndBeats],
   );
 
   // This is good to display anacrusis. But right now it breaks the 8-mm. grid at the start.

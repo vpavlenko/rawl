@@ -1024,8 +1024,8 @@ img {
   }
   
 .zoomable:hover {
-    -webkit-transform: scale(5) translateY(10px);
-            transform: scale(5) translateY(10px); /* 300% zoom and move down by 100px */
+    -webkit-transform: scale(3) translateY(-10px) translateX(30px);
+            transform: scale(3) translateY(-10px) translateX(30px); /* 300% zoom and move down by 100px */
 }
 
-/*# sourceMappingURL=main.3598456f.css.map*/
+/*# sourceMappingURL=main.404322c4.css.map*/

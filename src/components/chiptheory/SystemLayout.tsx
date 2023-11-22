@@ -469,6 +469,7 @@ const Phrase: React.FC<
         position: "relative",
         marginTop: hasVisibleNotes ? "10px" : 0,
         marginBottom: hasVisibleNotes ? "20px" : 0,
+        borderBottom: hasVisibleNotes ? "1px solid #888" : "",
       }}
       onClick={(e) => systemClickHandler(e, secondsSpan[0])}
     >
@@ -491,7 +492,16 @@ const Phrase: React.FC<
       ) : null}
       {cursor}
       {hasVisibleNotes ? (
-        <div style={{ position: "relative", left: scrollLeft + 10, zIndex: 2 }}>
+        <div
+          style={{
+            position: "relative",
+            left: scrollLeft + 10,
+            top: -15,
+            zIndex: 2,
+            fontFamily: "sans-serif",
+            fontSize: "12px",
+          }}
+        >
           {voiceName}
         </div>
       ) : null}
@@ -684,7 +694,7 @@ export const SplitSystemLayout: React.FC<{
 
   const parentRef = useRef(null);
 
-  const [scrollInfo, setScrollInfo] = useState({ left: 0, right: 0 });
+  const [scrollInfo, setScrollInfo] = useState({ left: 0, right: 100000 });
 
   const handleScroll = () => {
     const { scrollLeft, offsetWidth } = parentRef.current;

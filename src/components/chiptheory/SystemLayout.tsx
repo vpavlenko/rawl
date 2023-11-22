@@ -13,7 +13,7 @@ import {
   MeasureSelection,
   STACKED_RN_HEIGHT,
 } from "./AnalysisGrid";
-import { SecondsSpan, secondsToX } from "./Chiptheory";
+import { SecondsSpan, secondsToX, xToSeconds } from "./Chiptheory";
 import { Analysis, MeasuresSpan } from "./analysis";
 import { MeasuresAndBeats, getPhrasingMeasures } from "./measures";
 import { Note, NotesInVoices } from "./noteParsers";
@@ -30,14 +30,17 @@ import { ANALYSIS_HEIGHT, getAverageMidiNumber } from "./tags";
 
 export type SystemLayout = "merged" | "split" | "stacked";
 
-const STACKED_LAYOUT_NOTE_HEIGHT = 7;
+const STACKED_LAYOUT_NOTE_HEIGHT = 5;
 
 export type MidiRange = [number, number];
 
-const getMidiRange = (notes: Note[]): MidiRange => {
+const getMidiRange = (notes: Note[], span?: SecondsSpan): MidiRange => {
   let min = +Infinity;
   let max = -Infinity;
   for (const note of notes) {
+    if (span && (note.span[1] < span[0] || note.span[0] > span[1])) {
+      continue;
+    }
     const { midiNumber } = note.note;
     min = Math.min(min, midiNumber);
     max = Math.max(max, midiNumber);
@@ -48,6 +51,7 @@ const getMidiRange = (notes: Note[]): MidiRange => {
 const getMidiRangeWithMask = (
   notes: NotesInVoices,
   voiceMask: boolean[],
+  span?: SecondsSpan,
 ): MidiRange => {
   let min = +Infinity;
   let max = -Infinity;
@@ -55,7 +59,7 @@ const getMidiRangeWithMask = (
     if (!voiceMask[voice]) {
       continue;
     }
-    const voiceSpan = getMidiRange(notes[voice]);
+    const voiceSpan = getMidiRange(notes[voice], span);
     min = Math.min(min, voiceSpan[0]);
     max = Math.max(max, voiceSpan[1]);
   }
@@ -358,6 +362,8 @@ const Phrase: React.FC<
     mouseHandlers: MouseHandlers;
     measureSelection: MeasureSelection;
     showHeader?: boolean;
+    scrollLeft?: number;
+    scrollRight?: number;
   }
 > = ({
   notes,
@@ -373,10 +379,16 @@ const Phrase: React.FC<
   cursor,
   phraseStarts,
   showHeader = true,
+  scrollLeft = -1,
+  scrollRight = -1,
 }) => {
   const midiRange = useMemo(
-    () => getMidiRangeWithMask(notes, voiceMask),
-    [notes, voiceMask],
+    () =>
+      getMidiRangeWithMask(notes, voiceMask, [
+        xToSeconds(scrollLeft),
+        xToSeconds(scrollRight),
+      ]),
+    [notes, voiceMask, scrollLeft, scrollRight],
   );
 
   const {
@@ -394,13 +406,13 @@ const Phrase: React.FC<
   );
 
   const height =
-    (midiRange[0] === +Infinity ? 1 : midiRange[1] - midiRange[0] + 5) *
+    (midiRange[0] === +Infinity ? 1 : midiRange[1] - midiRange[0] + 1) *
       STACKED_LAYOUT_NOTE_HEIGHT +
     (showHeader ? (hasRomanNumerals ? STACKED_RN_HEIGHT : 15) : 0);
 
   const midiNumberToY = useCallback(
     (midiNumber) =>
-      height - (midiNumber - midiRange[0] + 3) * STACKED_LAYOUT_NOTE_HEIGHT,
+      height - (midiNumber - midiRange[0] + 1) * STACKED_LAYOUT_NOTE_HEIGHT,
     [height, midiRange],
   );
 
@@ -420,10 +432,10 @@ const Phrase: React.FC<
               analysis,
               midiNumberToY,
               STACKED_LAYOUT_NOTE_HEIGHT,
-              handleNoteClick,
+              () => {},
               globalMeasures,
-              handleMouseEnter,
-              handleMouseLeave,
+              () => {},
+              () => {},
               [], // TODO: pass allActiveNotes in this phrase to enable showIntervals view
               showIntervals,
               secondsSpan[0],
@@ -438,8 +450,11 @@ const Phrase: React.FC<
       hoveredNote,
       hoveredAltKey,
       showIntervals,
+      midiRange,
     ],
   );
+
+  const hasVisibleNotes = midiRange[1] > midiRange[0];
 
   return (
     <div
@@ -448,28 +463,30 @@ const Phrase: React.FC<
         width: mySecondsToX(
           measuresAndBeats.measures[measuresAndBeats.measures.length - 1],
         ),
-        height,
+        height: hasVisibleNotes ? height : 1,
         position: "relative",
-        marginTop: "10px",
-        marginBottom: "20px",
+        marginTop: hasVisibleNotes ? "10px" : 0,
+        marginBottom: hasVisibleNotes ? "20px" : 0,
       }}
       onClick={(e) => systemClickHandler(e, secondsSpan[0])}
     >
-      {noteRectangles}
-      <AnalysisGrid
-        analysis={analysis}
-        measuresAndBeats={measuresAndBeats}
-        midiNumberToY={midiNumberToY}
-        noteHeight={STACKED_LAYOUT_NOTE_HEIGHT}
-        measureSelection={measureSelection}
-        firstMeasureNumber={measuresSpan[0]}
-        phraseStarts={phraseStarts}
-        secondsToX={mySecondsToX}
-        systemLayout={"stacked"}
-        midiRange={midiRange}
-        hasRomanNumerals={hasRomanNumerals}
-        showHeader={showHeader}
-      />
+      {hasVisibleNotes ? noteRectangles : null}
+      {hasVisibleNotes ? (
+        <AnalysisGrid
+          analysis={analysis}
+          measuresAndBeats={measuresAndBeats}
+          midiNumberToY={midiNumberToY}
+          noteHeight={STACKED_LAYOUT_NOTE_HEIGHT}
+          measureSelection={measureSelection}
+          firstMeasureNumber={measuresSpan[0]}
+          phraseStarts={phraseStarts}
+          secondsToX={mySecondsToX}
+          systemLayout={"stacked"}
+          midiRange={midiRange}
+          hasRomanNumerals={hasRomanNumerals}
+          showHeader={showHeader}
+        />
+      ) : null}
       {cursor}
     </div>
   );
@@ -607,6 +624,16 @@ export const StackedSystemLayout: React.FC<{
 
 const SPLIT_VOICE_MASK = [true];
 
+const debounce = (func, delay) => {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      func.apply(this, args);
+    }, delay);
+  };
+};
+
 export const SplitSystemLayout: React.FC<{
   notes: NotesInVoices;
   voiceMask: boolean[];
@@ -643,6 +670,39 @@ export const SplitSystemLayout: React.FC<{
     [analysis, measuresAndBeats],
   );
 
+  // If scroll changed and debounced, we need to calculate which voices have
+  // any visible notes and hides those who don't.
+
+  const parentRef = useRef(null);
+
+  const [scrollInfo, setScrollInfo] = useState({ left: 0, right: 0 });
+
+  const handleScroll = () => {
+    const { scrollLeft, offsetWidth } = parentRef.current;
+    const scrollRight = scrollLeft + offsetWidth;
+
+    console.log("handleScroll");
+    setScrollInfo({
+      left: scrollLeft,
+      right: scrollRight,
+    });
+  };
+
+  useEffect(() => {
+    const parentDiv = parentRef.current;
+    if (parentDiv) {
+      parentDiv.addEventListener("scroll", handleScroll);
+    }
+
+    return () => {
+      if (parentDiv) {
+        parentDiv.removeEventListener("scroll", handleScroll);
+      }
+    };
+  }, []);
+
+  console.log("split rerender");
+
   return (
     <div
       key="innerLeftPanel"
@@ -656,30 +716,35 @@ export const SplitSystemLayout: React.FC<{
         height: "100%",
         backgroundColor: "black",
       }}
+      ref={parentRef}
     >
-      {voicesSortedByAverageMidiNumber.map(({ voiceIndex, notes }, order) =>
-        voiceMask[voiceIndex] ? (
-          <Phrase
-            key={voiceIndex}
-            notes={notes}
-            voiceMask={SPLIT_VOICE_MASK}
-            measuresAndBeats={measuresAndBeats}
-            measuresSpan={[1, measuresAndBeats.measures.length]}
-            secondsSpan={[
-              0,
-              measuresAndBeats.measures[measuresAndBeats.measures.length - 1],
-            ]}
-            analysis={analysis}
-            globalMeasures={measuresAndBeats.measures}
-            mouseHandlers={mouseHandlers}
-            measureSelection={measureSelection}
-            showIntervals={showIntervals}
-            showHeader={order === 0}
-            cursor={<Cursor style={{ left: secondsToX(positionSeconds) }} />}
-            phraseStarts={phraseStarts}
-          />
-        ) : null,
-      )}
+      <div>
+        {voicesSortedByAverageMidiNumber.map(({ voiceIndex, notes }, order) =>
+          voiceMask[voiceIndex] ? (
+            <Phrase
+              key={voiceIndex}
+              notes={notes}
+              voiceMask={SPLIT_VOICE_MASK}
+              measuresAndBeats={measuresAndBeats}
+              measuresSpan={[1, measuresAndBeats.measures.length]}
+              secondsSpan={[
+                0,
+                measuresAndBeats.measures[measuresAndBeats.measures.length - 1],
+              ]}
+              analysis={analysis}
+              globalMeasures={measuresAndBeats.measures}
+              mouseHandlers={mouseHandlers}
+              measureSelection={measureSelection}
+              showIntervals={showIntervals}
+              showHeader={order === 0}
+              cursor={<Cursor style={{ left: secondsToX(positionSeconds) }} />}
+              phraseStarts={phraseStarts}
+              scrollLeft={scrollInfo.left}
+              scrollRight={scrollInfo.right}
+            />
+          ) : null,
+        )}
+      </div>
     </div>
   );
 };

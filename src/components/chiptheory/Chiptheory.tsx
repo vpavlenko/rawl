@@ -35,7 +35,9 @@ const HORIZONTAL_HEADER_PADDING = 55;
 // TODO: remove HORIZONTAL_HEADER_PADDING for midi
 export const secondsToX = (seconds) =>
   seconds * SECOND_WIDTH + HORIZONTAL_HEADER_PADDING;
-const xToSeconds = (x) => x / SECOND_WIDTH;
+
+// TODO: should I subtract HORIZONTAL_HEADER_PADDING here?
+export const xToSeconds = (x) => x / SECOND_WIDTH;
 
 const Chiptheory: React.FC<{
   chipStateDump: ChipStateDump;

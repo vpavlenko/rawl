@@ -401,7 +401,7 @@ body,
     border-top: 1px solid var(--clickable);
     margin: 0 var(--charW2neg);
     flex-shrink: 0;
-    height: 100px;
+    height: 0px;
     display: flex;
 }
 

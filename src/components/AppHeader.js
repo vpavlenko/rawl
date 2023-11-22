@@ -13,6 +13,17 @@ export default class AppHeader extends React.PureComponent {
           MIDI
         </Link>
         {" • "}
+        <Link className="AppHeader-title" to={{ pathname: "/browse/Nintendo" }}>
+          NES
+        </Link>
+        {" • "}
+        <Link
+          className="AppHeader-title"
+          to={{ pathname: "/browse/Classical%20MIDI" }}
+        >
+          Classical
+        </Link>
+        {" • "}
         Built on top of{" "}
         <a
           href="https://chiptune.app/"

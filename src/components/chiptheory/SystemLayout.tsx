@@ -790,7 +790,7 @@ export const SplitSystemLayout: React.FC<{
     <div
       key="innerLeftPanel"
       style={{
-        margin: "2 0 0 0",
+        margin: 0,
         padding: 0,
         position: "relative",
         overflowX: "scroll",

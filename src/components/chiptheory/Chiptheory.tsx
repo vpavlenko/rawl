@@ -75,7 +75,7 @@ const Chiptheory: React.FC<{
 }) => {
   const [analysis, setAnalysis] = useState<Analysis>(ANALYSIS_STUB);
   const [showIntervals, setShowIntervals] = useState(false);
-  const [systemLayout, setSystemLayout] = useState<SystemLayout>("merged");
+  const [systemLayout, setSystemLayout] = useState<SystemLayout>("split");
   const [playEnd, setPlayEnd] = useState(null);
 
   const commitAnalysisUpdate = useCallback(

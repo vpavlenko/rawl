@@ -219,7 +219,7 @@ const TonalGrid: React.FC<{
       if (!width) continue;
       for (let octave = 2; octave <= 9; ++octave) {
         const midiNumber = tonic + octave * 12;
-        if (midiNumber - 12 <= midiRange[1])
+        if (midiNumber - 12 >= midiRange[0] && midiNumber - 12 <= midiRange[1])
           // TODO: display a note like C4 gracefully at each gradient start
           result.push(
             <div

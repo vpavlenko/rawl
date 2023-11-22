@@ -445,7 +445,9 @@ const Phrase: React.FC<
     <div
       key={`outer_phrase_${measuresSpan[0]}`}
       style={{
-        width: "100%",
+        width: mySecondsToX(
+          measuresAndBeats.measures[measuresAndBeats.measures.length - 1],
+        ),
         height,
         position: "relative",
         marginTop: "10px",

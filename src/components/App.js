@@ -996,6 +996,7 @@ class App extends React.Component {
                                     }}
                                     savedAnalysis={savedAnalysis}
                                     saveAnalysis={this.saveAnalysis}
+                                    voiceNames={this.state.voiceNames}
                                     voiceMask={this.state.voiceMask}
                                     setVoiceMask={this.handleSetVoiceMask}
                                     analysisEnabled={this.state.analysisEnabled}

@@ -353,6 +353,7 @@ const isInSecondsSpan = (time: number, span: SecondsSpan) =>
 
 const Phrase: React.FC<
   DataForPhrase & {
+    voiceName?: string;
     voiceMask: boolean[];
     analysis: Analysis;
     showIntervals: boolean;
@@ -381,6 +382,7 @@ const Phrase: React.FC<
   showHeader = true,
   scrollLeft = -1,
   scrollRight = -1,
+  voiceName,
 }) => {
   const midiRange = useMemo(
     () =>
@@ -488,6 +490,11 @@ const Phrase: React.FC<
         />
       ) : null}
       {cursor}
+      {hasVisibleNotes ? (
+        <div style={{ position: "relative", left: scrollLeft + 10, zIndex: 2 }}>
+          {voiceName}
+        </div>
+      ) : null}
     </div>
   );
 };
@@ -636,6 +643,7 @@ const debounce = (func, delay) => {
 
 export const SplitSystemLayout: React.FC<{
   notes: NotesInVoices;
+  voiceNames: string[];
   voiceMask: boolean[];
   measuresAndBeats: MeasuresAndBeats;
   showIntervals: boolean;
@@ -645,6 +653,7 @@ export const SplitSystemLayout: React.FC<{
   measureSelection: MeasureSelection;
 }> = ({
   notes,
+  voiceNames,
   voiceMask,
   measuresAndBeats,
   showIntervals,
@@ -681,11 +690,13 @@ export const SplitSystemLayout: React.FC<{
     const { scrollLeft, offsetWidth } = parentRef.current;
     const scrollRight = scrollLeft + offsetWidth;
 
-    console.log("handleScroll");
-    setScrollInfo({
-      left: scrollLeft,
-      right: scrollRight,
-    });
+    debounce(
+      setScrollInfo({
+        left: scrollLeft,
+        right: scrollRight,
+      }),
+      500,
+    );
   };
 
   useEffect(() => {
@@ -723,6 +734,7 @@ export const SplitSystemLayout: React.FC<{
           voiceMask[voiceIndex] ? (
             <Phrase
               key={voiceIndex}
+              voiceName={voiceNames[voiceIndex]}
               notes={notes}
               voiceMask={SPLIT_VOICE_MASK}
               measuresAndBeats={measuresAndBeats}
@@ -736,7 +748,7 @@ export const SplitSystemLayout: React.FC<{
               mouseHandlers={mouseHandlers}
               measureSelection={measureSelection}
               showIntervals={showIntervals}
-              showHeader={order === 0}
+              showHeader={order === voicesSortedByAverageMidiNumber.length - 1}
               cursor={<Cursor style={{ left: secondsToX(positionSeconds) }} />}
               phraseStarts={phraseStarts}
               scrollLeft={scrollInfo.left}

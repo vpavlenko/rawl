@@ -44,6 +44,7 @@ const Chiptheory: React.FC<{
   getCurrentPositionMs: () => number;
   savedAnalysis: Analysis;
   saveAnalysis: (Analysis) => void;
+  voiceNames: string[];
   voiceMask: boolean[];
   setVoiceMask: (mask: boolean[]) => void;
   analysisEnabled: boolean;
@@ -58,6 +59,7 @@ const Chiptheory: React.FC<{
   getCurrentPositionMs,
   savedAnalysis,
   saveAnalysis,
+  voiceNames,
   voiceMask,
   setVoiceMask,
   analysisEnabled, // is it a reasonable argument?
@@ -355,6 +357,7 @@ const Chiptheory: React.FC<{
         ) : (
           <SplitSystemLayout
             {...commonParams}
+            voiceNames={voiceNames}
             mouseHandlers={mouseHandlers}
             measureSelection={measureSelection}
             analysis={futureAnalysis}

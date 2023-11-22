@@ -914,7 +914,7 @@ class App extends React.Component {
                       <Route
                         path="/"
                         exact
-                        render={() => <Redirect to="/browse/Nintendo" />}
+                        render={() => <Redirect to="/browse/MIDI" />}
                       />
                       <Route
                         path="/chordPlayground"

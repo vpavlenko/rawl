@@ -13,7 +13,12 @@ import {
   MeasureSelection,
   STACKED_RN_HEIGHT,
 } from "./AnalysisGrid";
-import { SecondsSpan, secondsToX, xToSeconds } from "./Chiptheory";
+import {
+  SecondsSpan,
+  SetVoiceMask,
+  secondsToX,
+  xToSeconds,
+} from "./Chiptheory";
 import { Analysis, MeasuresSpan } from "./analysis";
 import { MeasuresAndBeats, getPhrasingMeasures } from "./measures";
 import { Note, NotesInVoices } from "./noteParsers";
@@ -351,10 +356,51 @@ export const MergedSystemLayout = ({
 const isInSecondsSpan = (time: number, span: SecondsSpan) =>
   span[0] <= time && time <= span[1];
 
+const VoiceName: React.FC<{
+  voiceName: string;
+  voiceMask: boolean[];
+  setVoiceMask: SetVoiceMask;
+  voiceIndex: number;
+}> = React.memo(({ voiceName, voiceMask, setVoiceMask, voiceIndex }) => {
+  return (
+    <>
+      {voiceName}{" "}
+      <span
+        style={{
+          cursor: "pointer",
+          userSelect: "none",
+          fontFamily: "sans-serif",
+          fontSize: 12,
+        }}
+        onClick={() =>
+          voiceMask.filter((voice) => voice).length === 1
+            ? setVoiceMask(voiceMask.map(() => true))
+            : setVoiceMask(voiceMask.map((_, i) => i === voiceIndex))
+        }
+      >
+        S
+      </span>{" "}
+      <span
+        style={{
+          cursor: "pointer",
+          userSelect: "none",
+          fontFamily: "sans-serif",
+          fontSize: 12,
+        }}
+        onClick={() =>
+          setVoiceMask(
+            voiceMask.map((value, i) => (i !== voiceIndex ? value : false)),
+          )
+        }
+      >
+        M
+      </span>{" "}
+    </>
+  );
+});
+
 const Phrase: React.FC<
   DataForPhrase & {
-    voiceName?: string;
-    voiceMask: boolean[];
     analysis: Analysis;
     showIntervals: boolean;
     globalMeasures: number[];
@@ -365,6 +411,11 @@ const Phrase: React.FC<
     showHeader?: boolean;
     scrollLeft?: number;
     scrollRight?: number;
+    voiceName?: string;
+    voiceMask: boolean[];
+    setVoiceMask?: SetVoiceMask;
+    voiceIndex?: number;
+    bigVoiceMask: boolean[];
   }
 > = ({
   notes,
@@ -383,6 +434,9 @@ const Phrase: React.FC<
   scrollLeft = -1,
   scrollRight = -1,
   voiceName,
+  voiceIndex = -1,
+  setVoiceMask = (mask) => {},
+  bigVoiceMask,
 }) => {
   const midiRange = useMemo(
     () =>
@@ -496,13 +550,18 @@ const Phrase: React.FC<
           style={{
             position: "relative",
             left: scrollLeft + 10,
-            top: -17,
+            top: -16,
             zIndex: 2,
             fontFamily: "sans-serif",
             fontSize: "12px",
           }}
         >
-          {voiceName}
+          <VoiceName
+            voiceName={voiceName}
+            voiceMask={bigVoiceMask}
+            setVoiceMask={setVoiceMask}
+            voiceIndex={voiceIndex}
+          />
         </div>
       ) : null}
     </div>
@@ -633,6 +692,7 @@ export const StackedSystemLayout: React.FC<{
               />
             )
           }
+          bigVoiceMask={voiceMask}
         />
       ))}
     </div>
@@ -661,6 +721,7 @@ export const SplitSystemLayout: React.FC<{
   analysis: Analysis;
   mouseHandlers: MouseHandlers;
   measureSelection: MeasureSelection;
+  setVoiceMask: SetVoiceMask;
 }> = ({
   notes,
   voiceNames,
@@ -671,6 +732,7 @@ export const SplitSystemLayout: React.FC<{
   analysis,
   mouseHandlers,
   measureSelection,
+  setVoiceMask,
 }) => {
   const voicesSortedByAverageMidiNumber = useMemo(
     () =>
@@ -746,6 +808,7 @@ export const SplitSystemLayout: React.FC<{
               key={voiceIndex}
               voiceName={voiceNames[voiceIndex]}
               notes={notes}
+              // this is legacy for Stacked
               voiceMask={SPLIT_VOICE_MASK}
               measuresAndBeats={measuresAndBeats}
               measuresSpan={[1, measuresAndBeats.measures.length]}
@@ -763,6 +826,9 @@ export const SplitSystemLayout: React.FC<{
               phraseStarts={phraseStarts}
               scrollLeft={scrollInfo.left}
               scrollRight={scrollInfo.right}
+              bigVoiceMask={voiceMask}
+              setVoiceMask={setVoiceMask}
+              voiceIndex={voiceIndex}
             />
           ) : null,
         )}

@@ -43,7 +43,7 @@ function AppFooter(props) {
   // if (currentSongNumSubtunes === 0) return null;
 
   return (
-    <div className="AppFooter">
+    <div className="AppFooter" style={{ height: showPlayerSettings ? 100 : 0 }}>
       <div className="AppFooter-main">
         <div className="AppFooter-main-inner">
           <div style={{ display: "flex", flexDirection: "row" }}>

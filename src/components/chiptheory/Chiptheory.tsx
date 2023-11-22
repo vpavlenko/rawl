@@ -40,6 +40,8 @@ export const secondsToX = (seconds) =>
 // TODO: should I subtract HORIZONTAL_HEADER_PADDING here?
 export const xToSeconds = (x) => x / SECOND_WIDTH;
 
+export type SetVoiceMask = (mask: boolean[]) => void;
+
 const Chiptheory: React.FC<{
   chipStateDump: ChipStateDump;
   getCurrentPositionMs: () => number;
@@ -47,7 +49,7 @@ const Chiptheory: React.FC<{
   saveAnalysis: (Analysis) => void;
   voiceNames: string[];
   voiceMask: boolean[];
-  setVoiceMask: (mask: boolean[]) => void;
+  setVoiceMask: SetVoiceMask;
   analysisEnabled: boolean;
   seek: (ms: number) => void;
   registerSeekCallback: (seekCallback: (ms: number) => void) => void;
@@ -369,6 +371,7 @@ const Chiptheory: React.FC<{
             mouseHandlers={mouseHandlers}
             measureSelection={measureSelection}
             analysis={futureAnalysis}
+            setVoiceMask={setVoiceMask}
           />
         )}
       </div>

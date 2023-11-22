@@ -496,7 +496,7 @@ const Phrase: React.FC<
           style={{
             position: "relative",
             left: scrollLeft + 10,
-            top: -15,
+            top: -17,
             zIndex: 2,
             fontFamily: "sans-serif",
             fontSize: "12px",
@@ -728,7 +728,7 @@ export const SplitSystemLayout: React.FC<{
     <div
       key="innerLeftPanel"
       style={{
-        margin: 0,
+        margin: "2 0 0 0",
         padding: 0,
         position: "relative",
         overflowX: "scroll",

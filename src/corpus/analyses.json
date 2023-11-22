@@ -9047,6 +9047,9 @@
         "beatsPerMeasure": 4,
         "tagSpans": [
           {
+            "voices": [
+              1
+            ],
             "tag": "melody:basic_idea_x3",
             "span": [
               1,
@@ -9054,6 +9057,9 @@
             ]
           },
           {
+            "voices": [
+              0
+            ],
             "tag": "middle_voice:root_octaves",
             "span": [
               1,
@@ -9061,6 +9067,9 @@
             ]
           },
           {
+            "voices": [
+              2
+            ],
             "tag": "bass:root",
             "span": [
               1,
@@ -24180,6 +24189,9 @@
             ]
           },
           {
+            "voices": [
+              1
+            ],
             "tag": "middle_voice:counterpoint",
             "span": [
               1,
@@ -24194,6 +24206,10 @@
             ]
           },
           {
+            "voices": [
+              1,
+              0
+            ],
             "tag": "middle_voice:static_chord_tones",
             "span": [
               9,
@@ -24201,13 +24217,9 @@
             ]
           },
           {
-            "tag": "bass:root_third_fifth",
-            "span": [
-              1,
-              12
-            ]
-          },
-          {
+            "voices": [
+              2
+            ],
             "tag": "bass:inversions",
             "span": [
               7,
@@ -28943,6 +28955,44 @@
         "tonic": 9,
         "basedOn": null
       }
+    },
+    "Symphony No. 9 (Cvikl) - 2.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 9,
+        "basedOn": null
+      }
+    },
+    "Symphony No. 9 (Cvikl) - 1.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 9,
+        "basedOn": null
+      }
     }
   },
   "Nintendo/Hanjuku Hero": {
@@ -29398,7 +29448,10 @@
         "modulations": [],
         "tags": [
           "style:big_band",
-          "other:wrong_author"
+          "other:wrong_author",
+          "bass:walking",
+          "rhythm:swing",
+          "harmony:tonic_added-sixth_chord"
         ],
         "fourMeasurePhrasingReferences": [
           4
@@ -29557,7 +29610,11 @@
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
         "romanNumerals": "",
-        "modulations": [],
+        "modulations": {
+          "14": 8,
+          "25": 7,
+          "28": 5
+        },
         "tags": [
           "midi:no_beat_grid"
         ],
@@ -29566,10 +29623,10 @@
         "secondMeasure": null,
         "loop": null,
         "firstMeasure": null,
-        "step": "tonic",
+        "step": "end",
         "comment": "",
         "correctedMeasures": [],
-        "tonic": null,
+        "tonic": 5,
         "basedOn": null
       }
     },
@@ -29610,7 +29667,7 @@
         "secondMeasure": null,
         "loop": null,
         "firstMeasure": null,
-        "step": "first measure",
+        "step": "end",
         "comment": "",
         "correctedMeasures": [],
         "tonic": 11,
@@ -29880,7 +29937,7 @@
         "beatsPerMeasure": 4,
         "tagSpans": [],
         "disableSnapToNotes": false,
-        "romanNumerals": "_ _ I^ bII^ I^ V-V-V-bII I^ I^ V7/V V7/V ii7 bII7 I^ I^ I^ I^ V7/V V7/V ii7 bII7 I^ I^ I^ I^ IV7 IV7 i7 i7 VI7 VI7 i7 i7 VI7 VI7 ii7/ii V7/ii ii7 V7",
+        "romanNumerals": "",
         "modulations": {
           "23": 6,
           "31": 7,
@@ -29901,7 +29958,7 @@
         "loop": null,
         "firstMeasure": 76.52727437500093,
         "step": "end",
-        "comment": "",
+        "comment": "_ _ I^ bII^ I^ V-V-V-bII I^ I^ V7/V V7/V ii7 bII7 I^ I^ I^ I^ V7/V V7/V ii7 bII7 I^ I^ I^ I^ IV7 IV7 i7 i7 VI7 VI7 i7 i7 VI7 VI7 ii7/ii V7/ii ii7 V7",
         "correctedMeasures": [],
         "tonic": 5,
         "basedOn": null
@@ -30462,7 +30519,7 @@
         "secondMeasure": null,
         "loop": null,
         "firstMeasure": null,
-        "step": "first measure",
+        "step": "end",
         "comment": "",
         "correctedMeasures": [],
         "tonic": 7,
@@ -30554,6 +30611,48 @@
         "tonic": 2,
         "basedOn": null
       }
+    },
+    "Waterloo.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [
+          3
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 2,
+        "basedOn": null
+      }
+    },
+    "Money, Money, Money.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [
+          4
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 9,
+        "basedOn": null
+      }
     }
   },
   "MIDI/AC DC": {
@@ -30594,6 +30693,27 @@
         "comment": "",
         "correctedMeasures": [],
         "tonic": 9,
+        "basedOn": null
+      }
+    },
+    "Thunderstruck.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [
+          2
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 11,
         "basedOn": null
       }
     }
@@ -30793,6 +30913,2434 @@
         "comment": "",
         "correctedMeasures": [],
         "tonic": 2,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Blues Image": {
+    "Ride Captain Ride.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [
+          2
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 2,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Armani": {
+    "Solo con l'anima mia.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "tags": [],
+        "modulations": {
+          "51": 4
+        },
+        "fourMeasurePhrasingReferences": [
+          2
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 2,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Charles Aznavour": {
+    "Emmenez-moi.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "tags": [],
+        "modulations": {
+          "59": 0,
+          "69": 9
+        },
+        "fourMeasurePhrasingReferences": [
+          3
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 9,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Banda Blanca": {
+    "Fiesta.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Bush": {
+    "Swallowed.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "tonic",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 8,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Alan Jackson": {
+    "Chattahoochee.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [
+          3
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 9,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Aerosmith": {
+    "What It Takes.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "_ I V vi IV-IV-IV-V I V vi IV-IV-IV-V I V vi IV V I vi IV IV-IV-IV-V I IV-IV-IV-V I IV-V/vi vi #IV #IV IV-VI I I V vi IV I V vi IV IV-IV-IV-V I IV-IV-IV-V I IV-V/vi vi #IV #IV IV-VI I _ _ _ _ _ _ _ V V/V IV I i VI III V IV I IV I IV-V/vi vi #IV #IV IV-VI I IV-VI I IV-VI",
+        "tags": [],
+        "modulations": {
+          "18": 5,
+          "28": 7,
+          "36": 5
+        },
+        "fourMeasurePhrasingReferences": [
+          2
+        ],
+        "secondMeasure": null,
+        "form": {
+          "2": "intro",
+          "6": "verse",
+          "14": "pre-chorus",
+          "18": "verse",
+          "28": "verse",
+          "36": "chorus",
+          "46": "solo",
+          "53": "bridge",
+          "61": "chorus"
+        },
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 7,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Al Jarreau": {
+    "Roof Garden.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "tags": [],
+        "modulations": {
+          "27": 3
+        },
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 10,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Al Wilson": {
+    "Show and Tell.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 2,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Alain Souchon": {
+    "Bidon.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "tags": [],
+        "modulations": {
+          "49": 11,
+          "56": 7
+        },
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 9,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Alain Chamfort": {
+    "Manureva.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 4,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Cher": {
+    "Strong Enough.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [
+          2
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 3,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Al Jolson": {
+    "You Made Me Love You.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Arabesque": {
+    "Take Me Don't Break Me.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [
+          4
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 2,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Led Zeppelin": {
+    "Kashmir.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "tags": [],
+        "modulations": {
+          "69": 9,
+          "89": 2
+        },
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 2,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Apollo 440": {
+    "StopTheRock.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 5,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Belinda Carlisle": {
+    "Circle In The Sand.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [
+          2
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 2,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Aqua": {
+    "Turn Back Time.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Babyface": {
+    "Change the World.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [
+          2
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 4,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Alain Barriere": {
+    "Ma vie.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Billy Mayerl": {
+    "Eskimo Shivers.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 8,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Blattschuss": {
+    "Kreuzberger Nachte.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [
+          4
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Adamo": {
+    "Affida una lacrima al vento.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [
+          "harmony:pure_I-V"
+        ],
+        "fourMeasurePhrasingReferences": [
+          3
+        ],
+        "secondMeasure": null,
+        "form": {
+          "3": "intro",
+          "7": "A",
+          "23": "A'",
+          "39": "B",
+          "55": "A'",
+          "71": "A'",
+          "87": "coda"
+        },
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "_ _ V V V V I I I I I I V V V V V V V V I I I I I I I I V V V V V V V V I I V/vi V/vi vi vi V/vi V/vi vi vi IV IV iii iii ii ii V V I I I I I I V V V V V V V V I I I I I I I I V V V V V V V V I I V V I I V V I I ",
+        "correctedMeasures": [],
+        "tonic": 9,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Britney Spears": {
+    "Stronger.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 8,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Al Hirt": {
+    "When the Saints Go Marching In.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Annie Cordy": {
+    "Frida oum papa.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "tags": [],
+        "modulations": {
+          "59": 5
+        },
+        "fourMeasurePhrasingReferences": [
+          3
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Ana Belen": {
+    "Desde mi libertad.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [
+          3
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Bernhard Brink": {
+    "Ich Glaub' Dir Jede Luge.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 1,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Bobby Bloom": {
+    "Montego Bay.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [
+          4
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 7,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Alain Bashung": {
+    "Osez Josephine.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": {
+          "31": 59.4
+        },
+        "tonic": 2,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/AL Bano": {
+    "Felicita.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [
+          "other:wrong_author"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "tonic",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": null,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Camaleonti": {
+    "Mamma mia.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 9,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Bommbastic": {
+    "Major Tom '94.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [
+          2
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 4,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Radiohead": {
+    "Just.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [
+          3
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 9,
+        "basedOn": null
+      }
+    },
+    "Creep.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "I I #III #III IV IV iv iv I I #III #III IV IV iv iv I I #III #III IV IV iv iv I I #III #III IV IV iv iv I I #III #III IV IV iv iv I I #III #III IV IV iv iv I I #III #III IV IV iv iv I I #III #III IV IV iv iv I I #III #III IV IV iv iv I I #III #III IV IV iv iv I I #III #III IV IV iv iv I",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "first measure",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 7,
+        "basedOn": null
+      }
+    },
+    "Ripcord.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "tags": [],
+        "modulations": {
+          "73": 2
+        },
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 9,
+        "basedOn": null
+      }
+    },
+    "Climbing Up the Walls.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 11,
+        "basedOn": null
+      }
+    },
+    "High and Dry.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 4,
+        "basedOn": null
+      }
+    },
+    "Subterranean Homesick Alien.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 7,
+        "basedOn": null
+      }
+    },
+    "Airbag.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 9,
+        "basedOn": null
+      }
+    },
+    "Fake Plastic Trees.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 9,
+        "basedOn": null
+      }
+    },
+    "Planet Telex.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 4,
+        "basedOn": null
+      }
+    },
+    "Street Spirit.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [
+          2
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 9,
+        "basedOn": null
+      }
+    },
+    "Lucky.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 4,
+        "basedOn": null
+      }
+    },
+    "Karma Police.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "iv _ i III iv bII i III",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "first measure",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 4,
+        "basedOn": null
+      }
+    },
+    "No Surprises.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 5,
+        "basedOn": null
+      }
+    },
+    "Paranoid Android.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 7,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/The Beatles": {
+    "Dear Prudence.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "second measure",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 2,
+        "basedOn": null
+      }
+    },
+    "Help!.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "tags": [],
+        "modulations": {
+          "26": 11,
+          "36": 9
+        },
+        "fourMeasurePhrasingReferences": [
+          2
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 9,
+        "basedOn": null
+      }
+    },
+    "Yesterday.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [
+          3
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 5,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Desireless": {
+    "Voyage Voyage.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [
+          3
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 8,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Acoustic Alchemy": {
+    "The Blue Chip Bop.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [
+          3
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 4,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Big Mountain": {
+    "Baby I Love Your Way.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [
+          3
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 4,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Bell": {
+    "Tighten Up.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 6,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Albert Hammond": {
+    "It Never Rains in Southern Californa.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 9,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Battisti Lucio": {
+    "Nessun dolore.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [
+          2
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Bilk": {
+    "Fond Memories.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [
+          3
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Apollo 100": {
+    "Besame Mucho.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [
+          3
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 9,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Jefferson Airplane": {
+    "White Rabbit.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 4,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Bill Haley & His Comets": {
+    "See You Later Aligator.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Aretha Franklin": {
+    "Respect.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "tags": [],
+        "modulations": {
+          "6": 7,
+          "12": 0,
+          "36": 6,
+          "42": 7
+        },
+        "fourMeasurePhrasingReferences": [
+          2
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      }
+    }
+  },
+  "Nintendo/Chip Addiction": {
+    "Chip Addiction.nsf": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [
+          "timbre:melody_echo"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": 1.7900000000000014,
+        "loop": null,
+        "firstMeasure": 0,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 7,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Donna Hightower": {
+    "This World Today is a Mess.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "tags": [],
+        "modulations": {
+          "6": 0
+        },
+        "fourMeasurePhrasingReferences": [
+          2
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 7,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Alien Ant Farm": {
+    "Smooth Criminal.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 9,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Alvin Stardust": {
+    "I Feel Like Buddy Holly.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [
+          2
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 7,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Chris de Burgh": {
+    "Lady in Red.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 10,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Basia": {
+    "Run for Cover.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "tags": [],
+        "modulations": {
+          "10": 6
+        },
+        "fourMeasurePhrasingReferences": [
+          2
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "first measure",
+        "comment": "",
+        "correctedMeasures": {
+          "58": 121.1
+        },
+        "tonic": 11,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Bob Marley": {
+    "Is This Love.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [
+          3
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 6,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Al Martino": {
+    "Volare.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "tags": [],
+        "modulations": {
+          "40": 3,
+          "50": 0
+        },
+        "fourMeasurePhrasingReferences": [
+          4
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Chumbawamba": {
+    "Tubthumping.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [
+          2
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 2,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Blue Oyster Cult": {
+    "Godzilla.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 6,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Billy Joel": {
+    "52nd Street.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [
+          2
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 4,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Bachman-Turner Overdrive": {
+    "Let It Ride.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "_ _ VI-III VII-i",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [
+          3
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 6,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Bauer": {
+    "De regenboog.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [
+          4
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 11,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Barbra Streisand": {
+    "All I Ask of You.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [
+          2
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "tonic",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": null,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Al Green": {
+    "Let's Stay Together.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [
+          3
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 5,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Baxter": {
+    "Unchained Melody.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [
+          3
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Atlanta Rhythm Section": {
+    "So in to You.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 5,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Alanis Morissette": {
+    "All I Really Want.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 10,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Amina": {
+    "Le Dernier qui a parle.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [
+          2
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Alunni del Sole": {
+    "Isa... Isabella.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Adamski": {
+    "Love and Life.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 3,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Billy Swan": {
+    "I Can Help.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [
+          "scale:whole-tone",
+          "form:12-bar_blues"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Air": {
+    "AlphaBetaGaga.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 7,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Eurythmics": {
+    "1984.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [
+          4
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 8,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Alberti": {
+    "De glimlach van een kind.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "tags": [],
+        "modulations": {
+          "35": 10,
+          "36": 11
+        },
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 10,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Albert West": {
+    "For the Good Times.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [
+          3
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 2,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Bonnie Raitt": {
+    "Something to Talk About.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "tags": [],
+        "modulations": {
+          "42": 11,
+          "48": 8
+        },
+        "fourMeasurePhrasingReferences": [
+          2
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 8,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Anna Oxa": {
+    "A lei.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 2,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Bernd Cluver": {
+    "Der Junge mit der Mundharmonika.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 5,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Assia": {
+    "Elle Est a Toi.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 6,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Alannah Myles": {
+    "Black Velvet.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 3,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Adiemus": {
+    "Kayama.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [
+          "voice_leading:descending_chromatic_bass"
+        ],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "first measure",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 2,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Air Supply": {
+    "All Out Of Love.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [
+          3
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Al Stewart": {
+    "Time Passages.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [
+          4
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 3,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Bette Midler": {
+    "Wind Beneath My Wings.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [
+          3
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 9,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Alabama": {
+    "Then Again.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "tags": [],
+        "modulations": {
+          "18": 2,
+          "32": 9,
+          "59": 2,
+          "71": 9,
+          "75": 9
+        },
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 9,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Adventures of Stevie V.": {
+    "Dirty Cash (Dime and Dollar mix).mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [
+          3
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "first measure",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Adriano Celentano": {
+    "Azzurro.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [
+          3
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "first measure",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 10,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Bad Boys Blue": {
+    "Lady in Black.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 6,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Bon Jovi": {
+    "Always.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "tags": [],
+        "modulations": {
+          "9": 1,
+          "21": 4
+        },
+        "fourMeasurePhrasingReferences": [
+          4
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 4,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Bad Company": {
+    "Shooting Star.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [
+          2
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 9,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Chicago": {
+    "Saturday In The Park.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "tags": [],
+        "modulations": {
+          "22": 2,
+          "28": 7,
+          "38": 0
+        },
+        "fourMeasurePhrasingReferences": [
+          2
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Alberto Fortis": {
+    "Settembre.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 0,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Blaque": {
+    "Bring It All to Me.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 7,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Bob Dylan": {
+    "Blowin' in the Wind.1.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [
+          2
+        ],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 2,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Alan Silvestri": {
+    "forrest_gump-feather_theme_rh.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 7,
+        "basedOn": null
+      }
+    }
+  },
+  "MIDI/Another Level": {
+    "I Want You for Myself.mid": {
+      "0": {
+        "beatsPerMeasure": 4,
+        "disableSnapToNotes": false,
+        "romanNumerals": "",
+        "modulations": [],
+        "tags": [],
+        "fourMeasurePhrasingReferences": [],
+        "form": [],
+        "secondMeasure": null,
+        "loop": null,
+        "firstMeasure": null,
+        "step": "end",
+        "comment": "",
+        "correctedMeasures": [],
+        "tonic": 1,
         "basedOn": null
       }
     }

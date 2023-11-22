@@ -17,6 +17,7 @@ import {
   advanceAnalysis,
   getNewAnalysis,
 } from "./analysis";
+import { findTonic } from "./autoAnalysis";
 import { calculateMeasuresAndBeats } from "./measures";
 import { ChipStateDump, Note, parseNotes } from "./noteParsers";
 import { StripesSpecificProps } from "./tags";
@@ -126,6 +127,13 @@ const Chiptheory: React.FC<{
   const { notes } = parsingResult;
 
   const allNotes = useMemo(() => notes.flat(), [notes]);
+
+  useEffect(() => {
+    const tonic = findTonic(allNotes);
+    if (tonic !== -1 && analysis.tonic === null) {
+      setAnalysis({ ...analysis, tonic });
+    }
+  }, [allNotes]);
 
   const allActiveNotes = useMemo(
     () => notes.filter((_, i) => voiceMask[i]).flat(),

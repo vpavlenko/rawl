@@ -58,7 +58,8 @@ function calculateMeasureAndBeats(timeEvents, timebase) {
   const createNewBeat = (timeUntil) => {
     // TODO adjust with time signature
     const newBeatEndTime =
-      lastBeatTime + (1 - lastBeatFractionGone) * secondsPerQuarterNote;
+      lastBeatTime +
+      (1 - lastBeatFractionGone) * ((secondsPerQuarterNote / denominator) * 4);
     if (newBeatEndTime - 0.005 <= timeUntil) {
       if (constructedBeatsInLastMeasure + 1 >= numerator) {
         measures.push(newBeatEndTime);

@@ -53,6 +53,7 @@ const Measure: React.FC<{
   systemLayout: SystemLayout;
   hasRomanNumerals: boolean;
   measureSelection: MeasureSelection;
+  showHeader: boolean;
 }> = ({
   span,
   number,
@@ -65,6 +66,7 @@ const Measure: React.FC<{
   systemLayout,
   hasRomanNumerals,
   measureSelection,
+  showHeader,
 }) => {
   const { previouslySelectedMeasure, selectedMeasure, selectMeasure } =
     measureSelection;
@@ -81,7 +83,7 @@ const Measure: React.FC<{
           ...(isFourMeasureMark && { backgroundColor: "#aaa" }),
         }}
       />
-      {width ? (
+      {width && showHeader ? (
         <>
           <div
             key={`db_n_${number}`}
@@ -139,7 +141,7 @@ const Measure: React.FC<{
           )}
         </>
       ) : null}
-      {hasRomanNumerals ? (
+      {hasRomanNumerals && showHeader ? (
         <div
           key={`db_rn_${number}`}
           style={{
@@ -255,6 +257,7 @@ export const AnalysisGrid: React.FC<{
   midiRange: MidiRange;
   hasRomanNumerals: boolean;
   measureSelection: MeasureSelection;
+  showHeader?: boolean;
 }> = React.memo(
   ({
     analysis,
@@ -269,6 +272,7 @@ export const AnalysisGrid: React.FC<{
     systemLayout,
     midiRange,
     hasRomanNumerals = true,
+    showHeader = true,
   }) => {
     console.log("rerender of AnalysisGrid");
     const { measures, beats } = measuresAndBeats;
@@ -283,6 +287,7 @@ export const AnalysisGrid: React.FC<{
           return (
             <Measure
               key={i}
+              showHeader={showHeader}
               span={[time, measures[i + 1] ?? time]}
               isFourMeasureMark={phraseStarts.indexOf(number) !== -1}
               formSection={(analysis.form ?? {})[number]}

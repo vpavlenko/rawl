@@ -396,7 +396,7 @@ const Phrase: React.FC<
   const height =
     (midiRange[0] === +Infinity ? 1 : midiRange[1] - midiRange[0] + 5) *
       STACKED_LAYOUT_NOTE_HEIGHT +
-    (hasRomanNumerals ? STACKED_RN_HEIGHT : 15);
+    (showHeader ? (hasRomanNumerals ? STACKED_RN_HEIGHT : 15) : 0);
 
   const midiNumberToY = useCallback(
     (midiNumber) =>
@@ -468,6 +468,7 @@ const Phrase: React.FC<
         systemLayout={"stacked"}
         midiRange={midiRange}
         hasRomanNumerals={hasRomanNumerals}
+        showHeader={showHeader}
       />
       {cursor}
     </div>

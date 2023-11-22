@@ -430,7 +430,6 @@ body,
     margin: 0 var(--charW2neg);
     -ms-flex-negative: 0;
         flex-shrink: 0;
-    height: 0px;
     display: -ms-flexbox;
     display: flex;
 }
@@ -1028,4 +1027,4 @@ img {
             transform: scale(3) translateY(-10px) translateX(30px); /* 300% zoom and move down by 100px */
 }
 
-/*# sourceMappingURL=main.14814a01.css.map*/
+/*# sourceMappingURL=main.39b20802.css.map*/

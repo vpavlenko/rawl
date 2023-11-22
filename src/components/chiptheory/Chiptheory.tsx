@@ -17,7 +17,7 @@ import {
   advanceAnalysis,
   getNewAnalysis,
 } from "./analysis";
-import { findTonic } from "./autoAnalysis";
+import { findPhrasingStart, findTonic } from "./autoAnalysis";
 import { calculateMeasuresAndBeats } from "./measures";
 import { ChipStateDump, Note, parseNotes } from "./noteParsers";
 import { StripesSpecificProps } from "./tags";
@@ -130,13 +130,6 @@ const Chiptheory: React.FC<{
 
   const allNotes = useMemo(() => notes.flat(), [notes]);
 
-  useEffect(() => {
-    const tonic = findTonic(allNotes);
-    if (tonic !== -1 && analysis.tonic === null) {
-      setAnalysis({ ...analysis, tonic });
-    }
-  }, [allNotes]);
-
   const allActiveNotes = useMemo(
     () => notes.filter((_, i) => voiceMask[i]).flat(),
     [notes, voiceMask],
@@ -175,6 +168,22 @@ const Chiptheory: React.FC<{
       calculateMeasuresAndBeats(futureAnalysis, allNotes)
     );
   }, [futureAnalysis, allNotes, parsingResult]);
+
+  useEffect(() => {
+    const phrasingStart = findPhrasingStart(allNotes, measuresAndBeats);
+    const diff: any = {};
+    if (
+      phrasingStart !== -1 &&
+      analysis.fourMeasurePhrasingReferences.length === 0
+    ) {
+      diff.fourMeasurePhrasingReferences = [phrasingStart + 1];
+    }
+    const tonic = findTonic(allNotes);
+    if (tonic !== -1 && analysis.tonic === null) {
+      diff.tonic = tonic;
+    }
+    setAnalysis({ ...analysis, ...diff });
+  }, [allNotes]);
 
   const handleNoteClick = (note: Note, altKey: boolean) => {
     advanceAnalysis(

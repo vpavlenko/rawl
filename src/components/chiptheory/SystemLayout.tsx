@@ -477,9 +477,9 @@ const Phrase: React.FC<
     [secondsSpan[0]],
   );
 
-  const noteRectangles = useMemo(
-    () =>
-      notes.flatMap((notesInOneVoice, voice) =>
+  const { noteRectangles, frozenHeight, frozenMidiRange } = useMemo(
+    () => ({
+      noteRectangles: notes.flatMap((notesInOneVoice, voice) =>
         voiceMask[voice]
           ? getNoteRectangles(
               notesInOneVoice,
@@ -498,6 +498,9 @@ const Phrase: React.FC<
             )
           : [],
       ),
+      frozenHeight: height,
+      frozenMidiRange: midiRange,
+    }),
     [
       notes,
       analysis,
@@ -506,7 +509,6 @@ const Phrase: React.FC<
       hoveredNote,
       hoveredAltKey,
       showIntervals,
-      midiRange,
     ],
   );
 
@@ -527,7 +529,17 @@ const Phrase: React.FC<
       }}
       onClick={(e) => systemClickHandler(e, secondsSpan[0])}
     >
-      {hasVisibleNotes ? noteRectangles : null}
+      <div
+        style={{
+          position: "relative",
+          top:
+            height -
+            frozenHeight +
+            (midiRange[0] - frozenMidiRange[0]) * STACKED_LAYOUT_NOTE_HEIGHT,
+        }}
+      >
+        {noteRectangles}
+      </div>
       {hasVisibleNotes ? (
         <AnalysisGrid
           analysis={analysis}

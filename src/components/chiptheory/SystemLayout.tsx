@@ -480,23 +480,21 @@ const Phrase: React.FC<
   const { noteRectangles, frozenHeight, frozenMidiRange } = useMemo(
     () => ({
       noteRectangles: notes.flatMap((notesInOneVoice, voice) =>
-        voiceMask[voice]
-          ? getNoteRectangles(
-              notesInOneVoice,
-              voice,
-              voiceMask[voice],
-              analysis,
-              midiNumberToY,
-              STACKED_LAYOUT_NOTE_HEIGHT,
-              () => {},
-              globalMeasures,
-              () => {},
-              () => {},
-              [], // TODO: pass allActiveNotes in this phrase to enable showIntervals view
-              showIntervals,
-              secondsSpan[0],
-            )
-          : [],
+        getNoteRectangles(
+          notesInOneVoice,
+          voice,
+          true,
+          analysis,
+          midiNumberToY,
+          STACKED_LAYOUT_NOTE_HEIGHT,
+          () => {},
+          globalMeasures,
+          () => {},
+          () => {},
+          [], // TODO: pass allActiveNotes in this phrase to enable showIntervals view
+          showIntervals,
+          secondsSpan[0],
+        ),
       ),
       frozenHeight: height,
       frozenMidiRange: midiRange,
@@ -505,9 +503,8 @@ const Phrase: React.FC<
       notes,
       analysis,
       globalMeasures,
-      voiceMask,
-      hoveredNote,
-      hoveredAltKey,
+      //   hoveredNote,
+      //   hoveredAltKey,
       showIntervals,
     ],
   );

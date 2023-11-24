@@ -842,6 +842,13 @@ class App extends React.Component {
     reader.readAsArrayBuffer(file);
   };
 
+  getCurrentPositionMs = () => {
+    if (this.sequencer && this.sequencer.getPlayer()) {
+      return this.sequencer.getPlayer().getPositionMs();
+    }
+    return 0;
+  };
+
   render() {
     const { title, subtitle } = titlesFromMetadata(
       this.state.currentSongMetadata,
@@ -983,17 +990,9 @@ class App extends React.Component {
                                 {this.state.chipStateDump?.type && (
                                   <Chiptheory
                                     chipStateDump={this.state.chipStateDump}
-                                    getCurrentPositionMs={() => {
-                                      if (
-                                        this.sequencer &&
-                                        this.sequencer.getPlayer()
-                                      ) {
-                                        return this.sequencer
-                                          .getPlayer()
-                                          .getPositionMs();
-                                      }
-                                      return 0;
-                                    }}
+                                    getCurrentPositionMs={
+                                      this.getCurrentPositionMs
+                                    }
                                     savedAnalysis={savedAnalysis}
                                     saveAnalysis={this.saveAnalysis}
                                     voiceNames={this.state.voiceNames}

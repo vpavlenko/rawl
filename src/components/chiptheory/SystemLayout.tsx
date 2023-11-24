@@ -767,17 +767,23 @@ export const SplitSystemLayout: React.FC<{
 
   const [scrollInfo, setScrollInfo] = useState({ left: 0, right: 100000 });
 
+  const debouncedScroll = useCallback(
+    debounce(
+      (left, right) =>
+        setScrollInfo({
+          left,
+          right,
+        }),
+      100,
+    ),
+    [],
+  );
+
   const handleScroll = () => {
     const { scrollLeft, offsetWidth } = parentRef.current;
     const scrollRight = scrollLeft + offsetWidth;
 
-    debounce(
-      setScrollInfo({
-        left: scrollLeft,
-        right: scrollRight,
-      }),
-      500,
-    );
+    debouncedScroll(scrollLeft, scrollRight);
   };
 
   useEffect(() => {

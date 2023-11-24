@@ -142,8 +142,10 @@ const getNoteRectangles = (
   handleMouseLeave = () => {},
   allNotes: Note[] = [],
   showIntervals = false,
+  showVelocity = false,
   offsetSeconds: number,
 ) => {
+  console.log("showVelocity", showVelocity);
   return notes.map((note) => {
     const top = midiNumberToY(note.note.midiNumber);
     const left = secondsToX(note.span[0] - offsetSeconds);
@@ -167,7 +169,6 @@ const getNoteRectangles = (
       </span>
     ) : null;
     const intervalBelow = showIntervals && getIntervalBelow(note, allNotes);
-
     return (
       <div
         key={`nr_${note.id}`}
@@ -184,7 +185,9 @@ const getNoteRectangles = (
           cursor: "pointer",
           zIndex: 10,
           //   opacity: isActiveVoice ? 0.9 : 0.1,
-          opacity: isActiveVoice ? 1 : 0.1,
+          opacity: isActiveVoice
+            ? (showVelocity && note?.chipState?.on?.param2 / 127) || 1
+            : 0.1,
           display: "grid",
           placeItems: "center",
           ...(voiceIndex === -1
@@ -233,6 +236,7 @@ export const MergedSystemLayout = ({
   measuresAndBeats,
   measureSelection,
   showIntervals,
+  showVelocity,
   registerSeekCallback,
   mouseHandlers,
   stripeSpecificProps,
@@ -298,6 +302,7 @@ export const MergedSystemLayout = ({
           handleMouseLeave,
           allActiveNotes,
           showIntervals,
+          showVelocity,
           0,
         ),
       ),
@@ -310,6 +315,7 @@ export const MergedSystemLayout = ({
       hoveredNote,
       hoveredAltKey,
       showIntervals,
+      showVelocity,
     ],
   );
   const phraseStarts = useMemo(
@@ -403,6 +409,7 @@ const Phrase: React.FC<
   DataForPhrase & {
     analysis: Analysis;
     showIntervals: boolean;
+    showVelocity: boolean;
     globalMeasures: number[];
     cursor?: ReactNode;
     phraseStarts: number[];
@@ -428,6 +435,7 @@ const Phrase: React.FC<
   mouseHandlers,
   measureSelection,
   showIntervals,
+  showVelocity,
   cursor,
   phraseStarts,
   showHeader = true,
@@ -493,6 +501,7 @@ const Phrase: React.FC<
           () => {},
           [], // TODO: pass allActiveNotes in this phrase to enable showIntervals view
           showIntervals,
+          showVelocity,
           secondsSpan[0],
         ),
       ),
@@ -506,6 +515,7 @@ const Phrase: React.FC<
       //   hoveredNote,
       //   hoveredAltKey,
       showIntervals,
+      showVelocity,
     ],
   );
 
@@ -632,6 +642,7 @@ export const StackedSystemLayout: React.FC<{
   notes: NotesInVoices;
   voiceMask: boolean[];
   showIntervals: boolean;
+  showVelocity: boolean;
   positionSeconds: number;
   mouseHandlers: MouseHandlers;
   measureSelection: MeasureSelection;
@@ -644,6 +655,7 @@ export const StackedSystemLayout: React.FC<{
   mouseHandlers,
   measureSelection,
   showIntervals,
+  showVelocity,
   positionSeconds,
 }) => {
   const phraseStarts = useMemo(
@@ -691,6 +703,7 @@ export const StackedSystemLayout: React.FC<{
           mouseHandlers={mouseHandlers}
           measureSelection={measureSelection}
           showIntervals={showIntervals}
+          showVelocity={showVelocity}
           phraseStarts={phraseStarts}
           cursor={
             isInSecondsSpan(positionSeconds, data.secondsSpan) && (
@@ -726,6 +739,7 @@ export const SplitSystemLayout: React.FC<{
   voiceMask: boolean[];
   measuresAndBeats: MeasuresAndBeats;
   showIntervals: boolean;
+  showVelocity: boolean;
   positionSeconds: number;
   analysis: Analysis;
   mouseHandlers: MouseHandlers;
@@ -737,6 +751,7 @@ export const SplitSystemLayout: React.FC<{
   voiceMask,
   measuresAndBeats,
   showIntervals,
+  showVelocity,
   positionSeconds,
   analysis,
   mouseHandlers,
@@ -836,6 +851,7 @@ export const SplitSystemLayout: React.FC<{
               mouseHandlers={mouseHandlers}
               measureSelection={measureSelection}
               showIntervals={showIntervals}
+              showVelocity={showVelocity}
               showHeader={order === voicesSortedByAverageMidiNumber.length - 1}
               cursor={<Cursor style={{ left: secondsToX(positionSeconds) }} />}
               phraseStarts={phraseStarts}

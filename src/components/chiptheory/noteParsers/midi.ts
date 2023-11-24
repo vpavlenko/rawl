@@ -5,7 +5,7 @@ let id = 0;
 
 const getNotes = (events, channel): Note[] => {
   const notes = [];
-  const noteOnTime = {};
+  const noteOn = {};
   events.forEach((event) => {
     if (channel === 9) {
       return []; // skip drums for now
@@ -13,24 +13,24 @@ const getNotes = (events, channel): Note[] => {
     if (event.channel === channel && event.type === 8) {
       const midiNumber = event.param1;
       if (event.subtype === 9) {
-        noteOnTime[midiNumber] = event.playTime;
+        noteOn[midiNumber] = event;
       }
       if (event.subtype === 8) {
-        if (midiNumber in noteOnTime) {
-          if (event.playTime / 1000 > noteOnTime[midiNumber] / 1000) {
+        if (midiNumber in noteOn) {
+          if (event.playTime / 1000 > noteOn[midiNumber].playTime / 1000) {
             notes.push({
               note: {
                 midiNumber,
                 name: "??",
               },
               id,
-              span: [noteOnTime[midiNumber] / 1000, event.playTime / 1000],
-              chipState: event, // this is noteOff event, not useful - doesn't have original velocity
+              span: [noteOn[midiNumber].playTime / 1000, event.playTime / 1000],
+              chipState: { on: noteOn[midiNumber], off: event },
             });
 
             id++;
           }
-          delete noteOnTime[midiNumber];
+          delete noteOn[midiNumber];
         }
       }
     }

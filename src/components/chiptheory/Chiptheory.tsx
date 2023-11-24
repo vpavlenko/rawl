@@ -77,6 +77,7 @@ const Chiptheory: React.FC<{
     savedAnalysis || ANALYSIS_STUB,
   );
   const [showIntervals, setShowIntervals] = useState(false);
+  const [showVelocity, setShowVelocity] = useState(false);
   const [systemLayout, setSystemLayout] = useState<SystemLayout>("split");
   const [playEnd, setPlayEnd] = useState(null);
 
@@ -340,6 +341,7 @@ const Chiptheory: React.FC<{
       voiceMask,
       measuresAndBeats,
       showIntervals,
+      showVelocity,
       positionSeconds,
     }),
     [notes, voiceMask, measuresAndBeats, showIntervals, positionSeconds],
@@ -426,6 +428,21 @@ const Chiptheory: React.FC<{
           zIndex: "100",
         }}
       >
+        <label className="inline">
+          <input
+            title="Velocity"
+            type="checkbox"
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+            onChange={(e) => {
+              e.stopPropagation();
+              setShowVelocity(e.target.checked);
+            }}
+            checked={showVelocity}
+          />
+          Velocity
+        </label>{" "}
         <label className="inline">
           <input
             title="Intervals"

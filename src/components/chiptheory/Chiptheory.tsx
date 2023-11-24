@@ -45,7 +45,7 @@ export type SetVoiceMask = (mask: boolean[]) => void;
 const Chiptheory: React.FC<{
   chipStateDump: ChipStateDump;
   getCurrentPositionMs: () => number;
-  savedAnalysis: Analysis;
+  savedAnalysis?: Analysis;
   saveAnalysis: (Analysis) => void;
   voiceNames: string[];
   voiceMask: boolean[];
@@ -73,7 +73,9 @@ const Chiptheory: React.FC<{
   paused,
   loggedIn,
 }) => {
-  const [analysis, setAnalysis] = useState<Analysis>(ANALYSIS_STUB);
+  const [analysis, setAnalysis] = useState<Analysis>(
+    savedAnalysis || ANALYSIS_STUB,
+  );
   const [showIntervals, setShowIntervals] = useState(false);
   const [systemLayout, setSystemLayout] = useState<SystemLayout>("split");
   const [playEnd, setPlayEnd] = useState(null);
@@ -87,7 +89,10 @@ const Chiptheory: React.FC<{
     [analysis, saveAnalysis],
   );
 
+  useEffect(() => setAnalysis(ANALYSIS_STUB), [chipStateDump]);
+
   useEffect(() => {
+    // this can be in a race if Firebase is slow
     if (savedAnalysis) {
       setAnalysis(savedAnalysis);
     } else {
@@ -183,7 +188,7 @@ const Chiptheory: React.FC<{
       diff.tonic = tonic;
     }
     setAnalysis({ ...analysis, ...diff });
-  }, [allNotes]);
+  }, [allNotes, analysis.tonic]);
 
   const handleNoteClick = (note: Note, altKey: boolean) => {
     advanceAnalysis(

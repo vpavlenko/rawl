@@ -227,8 +227,8 @@ const TONIC_DOMINANT_ORDER = [
   "#70e0FF",
   "gray",
   "blue",
-  "green",
   "#ff7000",
+  "green",
   "#735832", //"tan"
   "#a000ff",
 ];

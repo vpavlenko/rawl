@@ -40,8 +40,9 @@ function BrowseList({ items, ...props }) {
   useEffect(() => {
     const firstSongItem = items.find((item) => item.type !== "directory");
 
+    const params = new URLSearchParams(location.search);
+
     if (firstSongItem && firstSongItem?.path?.startsWith("/Nintendo/")) {
-      console.log("firstSongItem", firstSongItem);
       const path =
         firstSongItem.path === ".."
           ? browsePath.substr(0, browsePath.lastIndexOf("/"))
@@ -50,7 +51,6 @@ function BrowseList({ items, ...props }) {
               .replace("#", "%23")
               .replace(/^\//, "");
 
-      const params = new URLSearchParams(location.search);
       let subtune =
         params.get("subtune") ||
         (bookPath ? parseBookPath(bookPath).subtune : 1);
@@ -66,6 +66,23 @@ function BrowseList({ items, ...props }) {
       )({
         preventDefault: () => {},
       });
+    }
+
+    // Autoplay for MIDI song URLs
+    const song = params.get("song");
+    if (song) {
+      const item = items.find((item) => item.path.endsWith(song));
+      if (item) {
+        const href = CATALOG_PREFIX + item.path;
+
+        handleSongClick(
+          href,
+          playContext,
+          item.idx,
+        )({
+          preventDefault: () => {},
+        });
+      }
     }
   }, [items.length, location]);
 
@@ -187,15 +204,12 @@ function BrowseList({ items, ...props }) {
                   ) : (
                     <a
                       onClick={(e) => {
-                        const currentPathname =
-                          window.location.pathname.replace("/chiptheory/", "/");
                         const searchParams = new URLSearchParams(
                           window.location.search,
                         );
                         searchParams.set("song", name);
 
                         history.push({
-                          pathname: currentPathname,
                           search: searchParams.toString(),
                         });
                         handleSongClick(href, playContext, item.idx)(e);

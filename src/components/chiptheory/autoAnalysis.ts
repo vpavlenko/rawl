@@ -11,20 +11,35 @@ export const findTonic = (notes: Note[]): PitchClass | -1 => {
   for (let i = 0; i < 12; ++i) {
     countPitchClasses.push(0);
   }
-  notes.forEach((note) => countPitchClasses[note.note.midiNumber % 12]++);
+  notes.forEach(
+    (note) =>
+      (countPitchClasses[note.note.midiNumber % 12] +=
+        note.span[1] - note.span[0]),
+  );
   let bestTonic = -1;
   let bestValue = 0;
+  const scores = [];
   for (let i = 0; i < 12; ++i) {
-    const currentValue = Math.min(
-      countPitchClasses[i],
-      countPitchClasses[(i + 7) % 12],
-    );
+    const currentValue =
+      1.5 * countPitchClasses[i] +
+      0.7 * countPitchClasses[(i + 4) % 12] +
+      countPitchClasses[(i + 7) % 12] -
+      5 *
+        Math.min(
+          countPitchClasses[(i + 3) % 12],
+          countPitchClasses[(i + 4) % 12],
+        ) -
+      20 * countPitchClasses[(i + 1) % 12] -
+      7 * countPitchClasses[(i + 6) % 12];
+
+    scores.push(currentValue);
     if (currentValue > bestValue) {
       bestTonic = i;
       bestValue = currentValue;
     }
   }
   console.log("count", countPitchClasses);
+  console.log("scores", scores);
   console.log("bestValue", bestValue);
   console.log("bestTonic", bestTonic);
   return bestTonic as PitchClass | -1;

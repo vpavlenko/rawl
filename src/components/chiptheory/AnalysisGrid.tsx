@@ -274,7 +274,6 @@ export const AnalysisGrid: React.FC<{
     hasRomanNumerals = true,
     showHeader = true,
   }) => {
-    console.log("rerender of AnalysisGrid");
     const { measures, beats } = measuresAndBeats;
     const relativeModulations = getRelativeModulations(
       analysis.tonic,

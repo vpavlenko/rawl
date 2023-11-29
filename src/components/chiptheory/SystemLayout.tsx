@@ -185,6 +185,7 @@ const getNoteRectangles = (
           cursor: "pointer",
           zIndex: 10,
           //   opacity: isActiveVoice ? 0.9 : 0.1,
+          // TODO: make it map onto the dynamic range of a song? of a track?
           opacity: isActiveVoice
             ? (showVelocity && note?.chipState?.on?.param2 / 127) || 1
             : 0.1,
@@ -813,8 +814,6 @@ export const SplitSystemLayout: React.FC<{
       }
     };
   }, []);
-
-  console.log("split rerender");
 
   return (
     <div

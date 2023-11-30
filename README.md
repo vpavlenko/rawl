@@ -1,3 +1,5 @@
+<img width="1119" alt="Screenshot 2023-11-30 at 11 40 39" src="https://github.com/vpavlenko/rawl/assets/1491908/b62c2c4a-d56b-42b6-9a5b-5d6131e79d71">
+
 # Rawl
 
 This is a fork of [Chip Player JS](https://github.com/mmontag/chip-player-js) that focuses on music theory analysis of MIDI and NES tracks.

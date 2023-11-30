@@ -17,7 +17,7 @@ export const findTonic = (notes: Note[]): PitchClass | -1 => {
         note.span[1] - note.span[0]),
   );
   let bestTonic = -1;
-  let bestValue = 0;
+  let bestValue = -Infinity;
   const scores = [];
   for (let i = 0; i < 12; ++i) {
     const currentValue =

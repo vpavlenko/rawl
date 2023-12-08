@@ -37,13 +37,14 @@ export default class AppHeader extends React.PureComponent {
             {" • "}
             Logged in as {this.props.user.displayName}.{" "}
             <a href="#" onClick={this.props.handleLogout}>
-              Logout
+              Log out
             </a>
           </>
         ) : (
           <>
+            {" • "}
             <a href="#" onClick={this.props.handleLogin}>
-              {"."}
+              Log in
             </a>{" "}
           </>
         )}

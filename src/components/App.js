@@ -112,12 +112,15 @@ class App extends React.Component {
     const docRef = doc(this.db, "users", "hqAWkYyzu2hIzNgE3ui89f41vFA2");
     getDoc(docRef).then((userSnapshot) => {
       if (userSnapshot.exists() && userSnapshot.data().analyses) {
-        this.setState({
-          analyses: mergeAnalyses(
-            defaultAnalyses,
-            userSnapshot.data().analyses,
-          ),
-        });
+        if (this.state.analyses == defaultAnalyses) {
+          this.setState({
+            analyses: mergeAnalyses(
+              defaultAnalyses,
+              userSnapshot.data().analyses,
+            ),
+          });
+        }
+        // else: analyses of some other user have already been loaded, leave them intact
       }
     });
 
@@ -146,7 +149,7 @@ class App extends React.Component {
                 showPlayerSettings: data.settings
                   ? data.settings.showPlayerSettings
                   : false,
-                // analyses: data.analyses,
+                analyses: data.analyses,
               });
             }
           })

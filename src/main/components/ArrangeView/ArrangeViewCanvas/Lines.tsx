@@ -24,7 +24,7 @@ export const Lines: FC<{ width: number; zIndex: number }> = observer(
 
     const rects = useMemo(
       () => tracks.map((_, i) => trackHeight * (i + 1) - 1).map(hline),
-      [tracks, width, trackHeight],
+      [tracks.length, width, trackHeight],
     )
 
     const color = colorToVec4(Color(theme.dividerColor))

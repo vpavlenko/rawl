@@ -5,11 +5,12 @@ import { clamp } from "lodash"
 import { observer } from "mobx-react-lite"
 import { FC, useCallback, useEffect, useRef } from "react"
 import {
-  containsPoint,
   IPoint,
+  containsPoint,
   pointAdd,
   pointSub,
 } from "../../../common/geometry"
+import { Layout, WHEEL_SCROLL_RATE } from "../../Constants"
 import {
   arrangeEndSelection,
   arrangeMoveSelection,
@@ -17,20 +18,19 @@ import {
   arrangeStartSelection,
   selectTrack,
 } from "../../actions"
-import { Layout, WHEEL_SCROLL_RATE } from "../../Constants"
 import { getClientPos } from "../../helpers/mouseEvent"
 import { observeDrag } from "../../helpers/observeDrag"
 import { isTouchPadEvent } from "../../helpers/touchpad"
 import { useContextMenu } from "../../hooks/useContextMenu"
 import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
+import CanvasPianoRuler from "../PianoRoll/CanvasPianoRuler"
+import { TrackName } from "../TrackList/TrackName"
 import {
   HorizontalScaleScrollBar,
   VerticalScaleScrollBar,
 } from "../inputs/ScaleScrollBar"
 import { BAR_WIDTH } from "../inputs/ScrollBar"
-import CanvasPianoRuler from "../PianoRoll/CanvasPianoRuler"
-import { TrackName } from "../TrackList/TrackName"
 import { ArrangeContextMenu } from "./ArrangeContextMenu"
 import { ArrangeTrackContextMenu } from "./ArrangeTrackContextMenu"
 import { ArrangeViewCanvas } from "./ArrangeViewCanvas/ArrangeViewCanvas"
@@ -161,7 +161,7 @@ export const ArrangeView: FC = observer(() => {
     (e: React.MouseEvent) => {
       const startPosPx: IPoint = {
         x: e.nativeEvent.offsetX + scrollLeft,
-        y: e.nativeEvent.offsetY - Layout.rulerHeight + scrollTop,
+        y: e.nativeEvent.offsetY + scrollTop,
       }
 
       const isSelectionSelected =
@@ -341,8 +341,6 @@ export const ArrangeView: FC = observer(() => {
       >
         <div
           ref={ref}
-          onMouseDown={onMouseDown}
-          onContextMenu={useCallback((e: any) => e.preventDefault(), [])}
           onWheel={onWheel}
           style={{
             display: "flex",
@@ -361,7 +359,11 @@ export const ArrangeView: FC = observer(() => {
               boxSizing: "border-box",
             }}
           />
-          <ArrangeViewCanvas width={containerWidth} />
+          <ArrangeViewCanvas
+            width={containerWidth}
+            onMouseDown={onMouseDown}
+            onContextMenu={useCallback((e: any) => e.preventDefault(), [])}
+          />
         </div>
         <div
           style={{

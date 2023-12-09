@@ -1,6 +1,6 @@
 import { GLCanvas, Transform } from "@ryohey/webgl-react"
 import { observer } from "mobx-react-lite"
-import { FC, useMemo, useRef } from "react"
+import { ComponentProps, FC, useMemo } from "react"
 import { matrixFromTranslation } from "../../../helpers/matrix"
 import { useStores } from "../../../hooks/useStores"
 import { Beats } from "../../GLNodes/Beats"
@@ -9,12 +9,13 @@ import { Selection } from "../../GLNodes/Selection"
 import { Lines } from "./Lines"
 import { Notes } from "./Notes"
 
-export interface ArrangeViewCanvasProps {
-  width: number
-}
+export type ArrangeViewCanvasProps = Omit<
+  ComponentProps<typeof GLCanvas>,
+  "height"
+>
 
 export const ArrangeViewCanvas: FC<ArrangeViewCanvasProps> = observer(
-  ({ width }) => {
+  ({ width, ...props }) => {
     const rootStore = useStores()
     const tracks = rootStore.song.tracks
     const {
@@ -25,8 +26,6 @@ export const ArrangeViewCanvas: FC<ArrangeViewCanvasProps> = observer(
       cursorX,
       selectionRect,
     } = rootStore.arrangeViewStore
-    const ref = useRef<HTMLCanvasElement>(null)
-
     const scrollXMatrix = useMemo(
       () => matrixFromTranslation(-scrollLeft, 0),
       [scrollLeft],
@@ -45,12 +44,7 @@ export const ArrangeViewCanvas: FC<ArrangeViewCanvasProps> = observer(
     const height = trackHeight * tracks.length
 
     return (
-      <GLCanvas
-        ref={ref}
-        style={{ pointerEvents: "none" }}
-        width={width}
-        height={height}
-      >
+      <GLCanvas {...props} width={width} height={height}>
         <Transform matrix={scrollYMatrix}>
           <Lines width={width} zIndex={0} />
         </Transform>

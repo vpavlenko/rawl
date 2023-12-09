@@ -1,6 +1,5 @@
 import mapValues from "lodash/mapValues"
 import { isNotUndefined } from "../../common/helpers/array"
-import Quantizer from "../../common/quantizer"
 import {
   ArrangeSelection,
   arrangeSelectionFromPoints,
@@ -16,24 +15,6 @@ import clipboard from "../services/Clipboard"
 import RootStore from "../stores/RootStore"
 import { pushHistory } from "./history"
 import { transposeNotes } from "./song"
-
-const createSelection = (
-  start: ArrangePoint,
-  end: ArrangePoint,
-  quantizer: Quantizer,
-  maxTrackIndex: number,
-): ArrangeSelection | null => {
-  const rect = arrangeSelectionFromPoints(start, end, quantizer, maxTrackIndex)
-
-  if (start.trackIndex < 0) {
-    // Ruler をドラッグしている場合は全てのトラックを選択する
-    // If you are dragging Ruler, select all tracks
-    rect.fromTrackIndex = 0
-    rect.toTrackIndex = maxTrackIndex
-  }
-
-  return rect
-}
 
 export const arrangeResetSelection =
   ({ arrangeViewStore }: RootStore) =>
@@ -58,7 +39,7 @@ export const arrangeResizeSelection =
   (start: ArrangePoint, end: ArrangePoint) => {
     // 選択範囲作成時 (確定前) のドラッグ中
     // Drag during selection (before finalization)
-    arrangeViewStore.selection = createSelection(
+    arrangeViewStore.selection = arrangeSelectionFromPoints(
       start,
       end,
       quantizer,

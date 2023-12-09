@@ -1,11 +1,21 @@
 import styled from "@emotion/styled"
 import useComponentSize from "@rehooks/component-size"
+import { IPoint } from "@ryohey/webgl-react"
 import Color from "color"
 import { clamp } from "lodash"
 import { observer } from "mobx-react-lite"
 import { FC, useCallback, useEffect, useRef } from "react"
+import { pointAdd, pointSub } from "../../../common/geometry"
+import { ArrangePoint } from "../../../common/transform/ArrangePoint"
 import { Layout, WHEEL_SCROLL_RATE } from "../../Constants"
-import { selectTrack } from "../../actions"
+import {
+  arrangeEndSelection,
+  arrangeResizeSelection,
+  arrangeStartSelection,
+  selectTrack,
+} from "../../actions"
+import { getClientPos } from "../../helpers/mouseEvent"
+import { observeDrag } from "../../helpers/observeDrag"
 import { isTouchPadEvent } from "../../helpers/touchpad"
 import { useContextMenu } from "../../hooks/useContextMenu"
 import { useStores } from "../../hooks/useStores"
@@ -166,6 +176,43 @@ export const ArrangeView: FC = observer(() => {
     [arrangeViewStore, scrollBy],
   )
 
+  const onMouseDownRuler: React.MouseEventHandler<HTMLCanvasElement> =
+    useCallback(
+      (e) => {
+        if (e.button !== 0 || e.ctrlKey || e.altKey) {
+          return
+        }
+
+        const startPosPx: IPoint = {
+          x: e.nativeEvent.offsetX + scrollLeft,
+          y: e.nativeEvent.offsetY + scrollTop,
+        }
+        const startClientPos = getClientPos(e.nativeEvent)
+
+        const startPos: ArrangePoint = {
+          tick: trackTransform.getTick(startPosPx.x),
+          trackIndex: 0,
+        }
+        arrangeStartSelection(rootStore)()
+
+        observeDrag({
+          onMouseMove: (e) => {
+            const deltaPx = pointSub(getClientPos(e), startClientPos)
+            const selectionToPx = pointAdd(startPosPx, deltaPx)
+            const endPos = {
+              tick: trackTransform.getTick(selectionToPx.x),
+              trackIndex: tracks.length,
+            }
+            arrangeResizeSelection(rootStore)(startPos, endPos)
+          },
+          onMouseUp: (e) => {
+            arrangeEndSelection(rootStore)()
+          },
+        })
+      },
+      [arrangeViewStore, player, rootStore],
+    )
+
   const openTrack = (trackId: number) => {
     router.pushTrack()
     selectTrack(rootStore)(trackId)
@@ -222,6 +269,7 @@ export const ArrangeView: FC = observer(() => {
         >
           <CanvasPianoRuler
             rulerStore={arrangeViewStore.rulerStore}
+            onMouseDown={onMouseDownRuler}
             style={{
               background: theme.backgroundColor,
               borderBottom: `1px solid ${theme.dividerColor}`,

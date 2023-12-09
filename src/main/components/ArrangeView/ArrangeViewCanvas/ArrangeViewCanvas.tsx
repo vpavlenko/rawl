@@ -1,7 +1,17 @@
-import { GLCanvas, Transform } from "@ryohey/webgl-react"
+import { GLCanvas, IPoint, Transform } from "@ryohey/webgl-react"
 import { observer } from "mobx-react-lite"
-import { ComponentProps, FC, useMemo } from "react"
+import { FC, useCallback, useMemo } from "react"
+import { containsPoint, pointAdd, pointSub } from "../../../../common/geometry"
+import {
+  arrangeEndSelection,
+  arrangeMoveSelection,
+  arrangeResizeSelection,
+  arrangeStartSelection,
+} from "../../../actions"
 import { matrixFromTranslation } from "../../../helpers/matrix"
+import { getClientPos } from "../../../helpers/mouseEvent"
+import { observeDrag } from "../../../helpers/observeDrag"
+import { AbstractMouseEvent } from "../../../hooks/useContextMenu"
 import { useStores } from "../../../hooks/useStores"
 import { Beats } from "../../GLNodes/Beats"
 import { Cursor } from "../../GLNodes/Cursor"
@@ -9,23 +19,32 @@ import { Selection } from "../../GLNodes/Selection"
 import { Lines } from "./Lines"
 import { Notes } from "./Notes"
 
-export type ArrangeViewCanvasProps = Omit<
-  ComponentProps<typeof GLCanvas>,
-  "height"
->
+export interface ArrangeViewCanvasProps {
+  width: number
+  onContextMenu: (e: AbstractMouseEvent) => void
+}
+
+type DragHandler = (
+  e: MouseEvent,
+  mouseMove: (handler: (e: MouseEvent, delta: IPoint) => void) => void,
+  mouseUp: (handler: (e: MouseEvent) => void) => void,
+) => void
 
 export const ArrangeViewCanvas: FC<ArrangeViewCanvasProps> = observer(
-  ({ width, ...props }) => {
+  ({ width, onContextMenu }) => {
     const rootStore = useStores()
-    const tracks = rootStore.song.tracks
+    const { arrangeViewStore, song, player } = rootStore
+    const tracks = song.tracks
     const {
       trackHeight,
       scrollLeft,
       scrollTop,
       rulerStore: { beats },
       cursorX,
+      selection,
       selectionRect,
-    } = rootStore.arrangeViewStore
+      trackTransform,
+    } = arrangeViewStore
     const scrollXMatrix = useMemo(
       () => matrixFromTranslation(-scrollLeft, 0),
       [scrollLeft],
@@ -41,10 +60,135 @@ export const ArrangeViewCanvas: FC<ArrangeViewCanvasProps> = observer(
       [scrollLeft, scrollTop],
     )
 
+    const setScrollLeft = useCallback(
+      (v: number) => arrangeViewStore.setScrollLeftInPixels(v),
+      [],
+    )
+    const setScrollTop = useCallback(
+      (v: number) => arrangeViewStore.setScrollTop(v),
+      [],
+    )
+
     const height = trackHeight * tracks.length
 
+    const handleLeftClick = useCallback(
+      (e: React.MouseEvent) => {
+        const startPosPx: IPoint = {
+          x: e.nativeEvent.offsetX + scrollLeft,
+          y: e.nativeEvent.offsetY + scrollTop,
+        }
+
+        const isSelectionSelected =
+          selectionRect != null && containsPoint(selectionRect, startPosPx)
+
+        const createSelectionHandler: DragHandler = (e, mouseMove, mouseUp) => {
+          const startPos = trackTransform.getArrangePoint(startPosPx)
+          arrangeStartSelection(rootStore)()
+
+          if (!player.isPlaying) {
+            player.position = arrangeViewStore.quantizer.round(startPos.tick)
+          }
+
+          arrangeViewStore.selectedTrackId = Math.floor(startPos.trackIndex)
+
+          mouseMove((e, deltaPx) => {
+            const selectionToPx = pointAdd(startPosPx, deltaPx)
+            arrangeResizeSelection(rootStore)(
+              startPos,
+              trackTransform.getArrangePoint(selectionToPx),
+            )
+          })
+          mouseUp((e) => {
+            arrangeEndSelection(rootStore)()
+          })
+        }
+
+        const dragSelectionHandler: DragHandler = (e, mouseMove, mouseUp) => {
+          if (selectionRect == null) {
+            return
+          }
+
+          mouseMove((e, deltaPx) => {
+            const selectionFromPx = pointAdd(deltaPx, selectionRect)
+            arrangeMoveSelection(rootStore)(
+              trackTransform.getArrangePoint(selectionFromPx),
+            )
+          })
+          mouseUp((e) => {})
+        }
+
+        let handler
+
+        if (isSelectionSelected) {
+          handler = dragSelectionHandler
+        } else {
+          handler = createSelectionHandler
+        }
+
+        let mouseMove: (e: MouseEvent, delta: IPoint) => void
+        let mouseUp: (e: MouseEvent) => void
+        handler(
+          e.nativeEvent,
+          (fn) => (mouseMove = fn),
+          (fn) => (mouseUp = fn),
+        )
+
+        const startClientPos = getClientPos(e.nativeEvent)
+
+        observeDrag({
+          onMouseMove: (e) =>
+            mouseMove(e, pointSub(getClientPos(e), startClientPos)),
+          onMouseUp: (e) => mouseUp(e),
+        })
+      },
+      [selection, trackTransform, rootStore, scrollLeft, scrollTop],
+    )
+
+    const handleMiddleClick = useCallback(
+      (e: React.MouseEvent) => {
+        function createPoint(e: MouseEvent) {
+          return { x: e.clientX, y: e.clientY }
+        }
+        const startPos = createPoint(e.nativeEvent)
+
+        observeDrag({
+          onMouseMove(e) {
+            const pos = createPoint(e)
+            const delta = pointSub(pos, startPos)
+            setScrollLeft(Math.max(0, scrollLeft - delta.x))
+            setScrollTop(Math.max(0, scrollTop - delta.y))
+          },
+        })
+      },
+      [scrollLeft, scrollTop],
+    )
+
+    const onMouseDown = useCallback(
+      (e: React.MouseEvent) => {
+        switch (e.button) {
+          case 0:
+            handleLeftClick(e)
+            break
+          case 1:
+            handleMiddleClick(e)
+            break
+          case 2:
+            onContextMenu(e)
+            break
+          default:
+            break
+        }
+      },
+      [handleLeftClick, handleMiddleClick, onContextMenu],
+    )
+
     return (
-      <GLCanvas {...props} width={width} height={height}>
+      <GLCanvas
+        width={width}
+        height={height}
+        onMouseDown={onMouseDown}
+        onContextMenu={useCallback((e: any) => e.preventDefault(), [])}
+      >
         <Transform matrix={scrollYMatrix}>
           <Lines width={width} zIndex={0} />
         </Transform>

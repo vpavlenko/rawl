@@ -42,6 +42,8 @@ const Wrapper = styled.div`
 
 const LeftTopSpace = styled.div`
   position: absolute;
+  left: 0;
+  top: 0;
   width: 100%;
   box-sizing: border-box;
   border-bottom: 1px solid ${({ theme }) => theme.dividerColor};
@@ -80,10 +82,9 @@ export const ArrangeView: FC = observer(() => {
   const {
     arrangeViewStore,
     arrangeViewStore: {
-      selection,
-      selectionRect,
       trackHeight,
       contentWidth,
+      contentHeight,
       transform,
       trackTransform,
       scrollLeft,
@@ -109,7 +110,6 @@ export const ArrangeView: FC = observer(() => {
   )
 
   const containerWidth = size.width
-  const contentHeight = trackHeight * tracks.length
 
   const theme = useTheme()
 
@@ -221,7 +221,6 @@ export const ArrangeView: FC = observer(() => {
   return (
     <Wrapper>
       <HeaderList>
-        <LeftTopSpace style={{ height: Layout.rulerHeight }} />
         <div
           style={{
             marginTop: Layout.rulerHeight,
@@ -244,6 +243,7 @@ export const ArrangeView: FC = observer(() => {
             </TrackHeader>
           ))}
         </div>
+        <LeftTopSpace style={{ height: Layout.rulerHeight }} />
         <LeftBottomSpace style={{ height: BAR_WIDTH }} />
       </HeaderList>
       <div

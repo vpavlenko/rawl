@@ -24,12 +24,6 @@ export interface ArrangeViewCanvasProps {
   onContextMenu: (e: AbstractMouseEvent) => void
 }
 
-type DragHandler = (
-  e: MouseEvent,
-  mouseMove: (handler: (e: MouseEvent, delta: IPoint) => void) => void,
-  mouseUp: (handler: (e: MouseEvent) => void) => void,
-) => void
-
 export const ArrangeViewCanvas: FC<ArrangeViewCanvasProps> = observer(
   ({ width, onContextMenu }) => {
     const rootStore = useStores()
@@ -77,11 +71,22 @@ export const ArrangeViewCanvas: FC<ArrangeViewCanvasProps> = observer(
           x: e.nativeEvent.offsetX + scrollLeft,
           y: e.nativeEvent.offsetY + scrollTop,
         }
+        const startClientPos = getClientPos(e.nativeEvent)
 
         const isSelectionSelected =
           selectionRect != null && containsPoint(selectionRect, startPosPx)
 
-        const createSelectionHandler: DragHandler = (e, mouseMove, mouseUp) => {
+        if (isSelectionSelected) {
+          observeDrag({
+            onMouseMove: (e) => {
+              const deltaPx = pointSub(getClientPos(e), startClientPos)
+              const selectionFromPx = pointAdd(deltaPx, selectionRect)
+              arrangeMoveSelection(rootStore)(
+                trackTransform.getArrangePoint(selectionFromPx),
+              )
+            },
+          })
+        } else {
           const startPos = trackTransform.getArrangePoint(startPosPx)
           arrangeStartSelection(rootStore)()
 
@@ -91,55 +96,20 @@ export const ArrangeViewCanvas: FC<ArrangeViewCanvasProps> = observer(
 
           arrangeViewStore.selectedTrackId = Math.floor(startPos.trackIndex)
 
-          mouseMove((e, deltaPx) => {
-            const selectionToPx = pointAdd(startPosPx, deltaPx)
-            arrangeResizeSelection(rootStore)(
-              startPos,
-              trackTransform.getArrangePoint(selectionToPx),
-            )
-          })
-          mouseUp((e) => {
-            arrangeEndSelection(rootStore)()
+          observeDrag({
+            onMouseMove: (e) => {
+              const deltaPx = pointSub(getClientPos(e), startClientPos)
+              const selectionToPx = pointAdd(startPosPx, deltaPx)
+              arrangeResizeSelection(rootStore)(
+                startPos,
+                trackTransform.getArrangePoint(selectionToPx),
+              )
+            },
+            onMouseUp: (e) => {
+              arrangeEndSelection(rootStore)()
+            },
           })
         }
-
-        const dragSelectionHandler: DragHandler = (e, mouseMove, mouseUp) => {
-          if (selectionRect == null) {
-            return
-          }
-
-          mouseMove((e, deltaPx) => {
-            const selectionFromPx = pointAdd(deltaPx, selectionRect)
-            arrangeMoveSelection(rootStore)(
-              trackTransform.getArrangePoint(selectionFromPx),
-            )
-          })
-          mouseUp((e) => {})
-        }
-
-        let handler
-
-        if (isSelectionSelected) {
-          handler = dragSelectionHandler
-        } else {
-          handler = createSelectionHandler
-        }
-
-        let mouseMove: (e: MouseEvent, delta: IPoint) => void
-        let mouseUp: (e: MouseEvent) => void
-        handler(
-          e.nativeEvent,
-          (fn) => (mouseMove = fn),
-          (fn) => (mouseUp = fn),
-        )
-
-        const startClientPos = getClientPos(e.nativeEvent)
-
-        observeDrag({
-          onMouseMove: (e) =>
-            mouseMove(e, pointSub(getClientPos(e), startClientPos)),
-          onMouseUp: (e) => mouseUp(e),
-        })
       },
       [selection, trackTransform, rootStore, scrollLeft, scrollTop],
     )

@@ -6,8 +6,8 @@ import { Tooltip } from "../../../components/Tooltip"
 import { ToolbarButton } from "./ToolbarButton"
 
 const AutoScrollIcon = styled(KeyboardTab)`
-  height: 2rem;
-  font-size: 1.3rem;
+  width: 1.2rem;
+  fill: currentColor;
 `
 
 export interface AutoScrollButtonProps {

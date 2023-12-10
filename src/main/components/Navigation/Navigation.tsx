@@ -1,5 +1,4 @@
 import styled from "@emotion/styled"
-import Color from "color"
 import Forum from "mdi-react/ForumIcon"
 import Help from "mdi-react/HelpCircleIcon"
 import Settings from "mdi-react/SettingsIcon"
@@ -37,7 +36,7 @@ const LogoIcon = styled(Logo)`
 const Container = styled.div`
   display: flex;
   flex-direction: row;
-  background: ${({ theme }) => Color(theme.backgroundColor).darken(0.2).hex()};
+  background: ${({ theme }) => theme.darkBackgroundColor};
   height: 3rem;
   flex-shrink: 0;
 `

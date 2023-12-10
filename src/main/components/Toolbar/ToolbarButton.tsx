@@ -4,28 +4,23 @@ import { ComponentProps, forwardRef } from "react"
 const _ToolbarButton = styled.button<{ selected?: boolean }>`
   -webkit-appearance: none;
   min-width: auto;
-  padding: 0 0.75rem;
+  padding: 0 0.8rem;
   color: inherit;
-  border: 1px solid ${({ theme }) => theme.dividerColor};
+  border: none;
   background: ${({ theme, selected }) =>
-    selected ? theme.themeColor : "inherit"};
+    selected ? theme.themeColor : theme.darkBackgroundColor};
   text-transform: none;
   height: 2rem;
   overflow: hidden;
   white-space: nowrap;
   display: flex;
   align-items: center;
-  border-radius: 4px;
+  border-radius: 999px;
   cursor: pointer;
   outline: none;
 
   &:hover {
     background: ${({ theme }) => theme.highlightColor};
-  }
-
-  svg {
-    width: 1.3rem;
-    fill: currentColor;
   }
 `
 

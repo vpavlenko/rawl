@@ -50,7 +50,6 @@ const NoWrap = styled.span`
 `
 
 const Toolbar = styled.div`
-  border-bottom: 1px solid ${({ theme }) => theme.dividerColor};
   box-sizing: border-box;
   display: flex;
   margin-left: ${Layout.keyWidth}px;
@@ -97,7 +96,7 @@ const Parent = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  background: ${({ theme }) => theme.backgroundColor};
+  background: ${({ theme }) => theme.darkBackgroundColor};
 `
 
 const Content = styled.div`

@@ -34,22 +34,17 @@ const Toolbar = styled.div`
   box-sizing: border-box;
 `
 
-const RecordButton = styled(CircleButton)`
-  &.active {
-    color: ${({ theme }) => theme.recordColor};
-  }
+const RecordButton = styled(CircleButton)<{ active: boolean }>`
+  color: ${({ theme, active }) => (active ? theme.recordColor : "inherit")};
 `
 
-const LoopButton = styled(CircleButton)`
-  &.active {
-    color: ${({ theme }) => theme.themeColor};
-  }
+const LoopButton = styled(CircleButton)<{ active: boolean }>`
+  color: ${({ theme, active }) => (active ? theme.themeColor : "inherit")};
 `
 
-const MetronomeButton = styled(CircleButton)`
-  &.active {
-    color: ${({ theme }) => theme.themeColor};
-  }
+const MetronomeButton = styled(CircleButton)<{ active: boolean }>`
+  color: ${({ theme, active }) =>
+    active ? theme.themeColor : theme.secondaryTextColor};
 `
 
 const TimestampText = styled.div`
@@ -120,10 +115,7 @@ export const TransportPanel: FC = observer(() => {
           title={<Localized default="Record">record</Localized>}
           side="top"
         >
-          <RecordButton
-            onClick={onClickRecord}
-            className={isRecording ? "active" : undefined}
-          >
+          <RecordButton onClick={onClickRecord} active={isRecording}>
             <FiberManualRecord />
           </RecordButton>
         </Tooltip>
@@ -139,20 +131,14 @@ export const TransportPanel: FC = observer(() => {
       </Tooltip>
 
       {loop && (
-        <LoopButton
-          onClick={onClickEnableLoop}
-          className={loop.enabled ? "active" : undefined}
-        >
+        <LoopButton onClick={onClickEnableLoop} active={loop.enabled}>
           <Loop />
         </LoopButton>
       )}
 
       <ToolbarSeparator />
 
-      <MetronomeButton
-        onClick={onClickMetronone}
-        className={isMetronomeEnabled ? "active" : undefined}
-      >
+      <MetronomeButton onClick={onClickMetronone} active={isMetronomeEnabled}>
         <MetronomeIcon />
       </MetronomeButton>
 

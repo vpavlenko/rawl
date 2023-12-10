@@ -2,6 +2,7 @@ export interface Theme {
   font: string
   canvasFont: string
   themeColor: string
+  darkBackgroundColor: string
   backgroundColor: string
   secondaryBackgroundColor: string
   dividerColor: string
@@ -10,6 +11,7 @@ export interface Theme {
   tertiaryTextColor: string
   pianoKeyBlack: string
   pianoKeyWhite: string
+  pianoWhiteKeyLaneColor: string
   pianoBlackKeyLaneColor: string
   ghostNoteColor: string
   recordColor: string
@@ -25,14 +27,16 @@ export const defaultTheme: Theme = {
   canvasFont: "Arial",
   themeColor: "hsl(230, 70%, 55%)",
   textColor: "#ffffff",
-  secondaryTextColor: "#8e96ab",
+  secondaryTextColor: "hsl(223, 12%, 60%)",
   tertiaryTextColor: "#5a6173",
-  dividerColor: "#454a58",
-  backgroundColor: "hsl(228, 16%, 18%)",
-  secondaryBackgroundColor: "hsl(227, 16%, 22%)",
+  dividerColor: "hsl(224, 12%, 24%)",
+  darkBackgroundColor: "hsl(228, 10%, 13%)",
+  backgroundColor: "hsl(228, 10%, 16%)",
+  secondaryBackgroundColor: "hsl(227, 10%, 22%)",
   pianoKeyBlack: "#272a36",
   pianoKeyWhite: "#fbfcff",
-  pianoBlackKeyLaneColor: "hsl(228, 16%, 15%)",
+  pianoWhiteKeyLaneColor: "hsl(228, 10%, 16%)",
+  pianoBlackKeyLaneColor: "hsl(228, 10%, 13%)",
   ghostNoteColor: "#444444",
   recordColor: "#dd3c3c",
   shadowColor: "rgba(0, 0, 0, 0.2)",

@@ -101,7 +101,7 @@ const Row = styled.div`
   outline: none;
 
   &:focus {
-    background: ${({ theme }) => theme.secondaryBackgroundColor};
+    background: ${({ theme }) => theme.highlightColor};
   }
 `
 
@@ -109,7 +109,7 @@ const Cell = styled.div`
   padding: 0.5rem;
 
   &:focus-within {
-    background: ${({ theme }) => theme.secondaryBackgroundColor};
+    background: ${({ theme }) => theme.highlightColor};
   }
 `
 

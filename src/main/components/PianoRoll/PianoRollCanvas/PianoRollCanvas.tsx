@@ -11,6 +11,7 @@ import {
 import { matrixFromTranslation } from "../../../helpers/matrix"
 import { useContextMenu } from "../../../hooks/useContextMenu"
 import { useStores } from "../../../hooks/useStores"
+import { useTheme } from "../../../hooks/useTheme"
 import { Beats } from "../../GLNodes/Beats"
 import { Cursor } from "../../GLNodes/Cursor"
 import { Selection } from "../../GLNodes/Selection"
@@ -39,6 +40,8 @@ export const PianoRollCanvas: FC<PianoRollStageProps> = observer(
     const [mouseHandler] = useState(new NoteMouseHandler(rootStore))
 
     const { onContextMenu, menuProps } = useContextMenu()
+
+    const theme = useTheme()
 
     const handleContextMenu: MouseEventHandler = useCallback((e) => {
       if (pianoRollStore.mouseMode === "selection") {
@@ -76,7 +79,10 @@ export const PianoRollCanvas: FC<PianoRollStageProps> = observer(
         <GLCanvas
           width={width}
           height={height}
-          style={{ cursor: notesCursor }}
+          style={{
+            cursor: notesCursor,
+            background: theme.pianoWhiteKeyLaneColor,
+          }}
           onContextMenu={handleContextMenu}
           onMouseDown={mouseHandler.onMouseDown}
           onMouseMove={mouseHandler.onMouseMove}

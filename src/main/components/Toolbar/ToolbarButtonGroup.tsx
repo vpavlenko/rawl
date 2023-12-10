@@ -16,7 +16,7 @@ export const ToolbarButtonGroupItem = styled.button<{ selected?: boolean }>`
   padding: 0 0.5rem;
   color: inherit;
   background: ${({ theme, selected }) =>
-    selected ? theme.themeColor : "inherit"};
+    selected ? theme.themeColor : theme.secondaryBackgroundColor};
   text-transform: none;
   height: 2rem;
   overflow: hidden;
@@ -26,7 +26,7 @@ export const ToolbarButtonGroupItem = styled.button<{ selected?: boolean }>`
   cursor: pointer;
   margin: 0;
 
-  border: 1px solid ${({ theme }) => theme.dividerColor};
+  border: none;
   border-radius: 4px;
 
   &:first-child {
@@ -37,11 +37,7 @@ export const ToolbarButtonGroupItem = styled.button<{ selected?: boolean }>`
     border-radius: 0 4px 4px 0;
   }
 
-  &:not(:last-child) {
-    border-right: none;
-  }
-
   &:hover {
-    background: ${({ theme }) => theme.secondaryBackgroundColor};
+    background: ${({ theme }) => theme.highlightColor};
   }
 `

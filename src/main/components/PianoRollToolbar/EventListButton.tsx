@@ -15,7 +15,12 @@ export const EventListButton: FC = () => {
           pianoRollStore.showEventList = !pianoRollStore.showEventList
         }, [])}
       >
-        <FormatListBulleted />
+        <FormatListBulleted
+          style={{
+            width: "1.2rem",
+            fill: "currentColor",
+          }}
+        />
       </ToolbarButton>
     </Tooltip>
   )

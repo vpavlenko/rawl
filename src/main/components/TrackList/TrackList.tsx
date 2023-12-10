@@ -7,7 +7,7 @@ import { TrackListItem } from "./TrackListItem"
 
 const List = styled.div`
   overflow-y: auto;
-  border-right: 1px solid ${({ theme }) => theme.dividerColor};
+  background: ${({ theme }) => theme.backgroundColor};
   min-width: 14rem;
   flex-grow: 1;
 `

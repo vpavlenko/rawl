@@ -49,8 +49,9 @@ Rationale:
 - dominant (V and V7) has very catchy blue-violet-pink gradient (four shades)
 - natural major has two green shades, no yellow shades
 - natural minor has yellow, orange and brown, nothing green
+- therefore, modal mixture will be immediately visible as green vs yellow contrast
 - thirds and sixths are rhyming (light/dark yellow/green) - helps with mediant chords
-- to many genres, a definition of a local tonic will be "a picked starting note that maximizes amount of red and blue on a screen"
+- to many genres, a definition of a local tonic will be "a picked starting note that maximizes amount of red and blue on a screen", or "minimize the amount of rare colors"
 - lower/raised 6 and lower/raised 7 are all used in certain minor/major modes, so all four should be easy-to-name and distinguishable
 - gray is pretty rare, absent in some tracks. it's usage is lydian, V/V and blues scale. gray as a color should be in this schema because it's too good to throw out - it will work with both black and white backgrounds, it's a basic one
 - dark red is for phrygian and bII (tritone sub) or N6 - also rare and unique

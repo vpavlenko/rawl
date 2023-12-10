@@ -46,6 +46,7 @@ const _PanSlider: FC<PanSliderProps> = observer(({ trackId }) => {
       <Slider
         value={pan}
         onChange={(value) => onChange(value as number)}
+        onDoubleClick={() => onChange(PAN_CENTER)}
         min={0}
         max={127}
         defaultValue={PAN_CENTER}

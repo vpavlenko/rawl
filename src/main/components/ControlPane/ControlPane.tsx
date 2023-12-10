@@ -11,7 +11,7 @@ import { ValueEventGraph } from "./Graph/ValueEventGraph"
 import PianoVelocityControl from "./VelocityControl/VelocityControl"
 
 interface TabBarProps {
-  onClick: (mode: ControlMode) => void
+  onSelect: (mode: ControlMode) => void
   selectedMode: ControlMode
 }
 
@@ -50,7 +50,6 @@ const NoWrap = styled.span`
 `
 
 const Toolbar = styled.div`
-  border-bottom: 1px solid ${({ theme }) => theme.dividerColor};
   box-sizing: border-box;
   display: flex;
   margin-left: ${Layout.keyWidth}px;
@@ -65,7 +64,7 @@ const Toolbar = styled.div`
 `
 
 const TabBar: FC<TabBarProps> = React.memo(
-  observer(({ onClick, selectedMode }) => {
+  observer(({ onSelect, selectedMode }) => {
     const { controlStore, rootViewStore } = useStores()
     const { controlModes } = controlStore
 
@@ -74,7 +73,7 @@ const TabBar: FC<TabBarProps> = React.memo(
         {controlModes.map((mode, i) => (
           <TabButton
             selected={isEqualControlMode(selectedMode, mode)}
-            onClick={() => onClick(mode)}
+            onMouseDown={() => onSelect(mode)}
             key={i}
           >
             <NoWrap>
@@ -97,7 +96,7 @@ const Parent = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  background: ${({ theme }) => theme.backgroundColor};
+  background: ${({ theme }) => theme.darkBackgroundColor};
 `
 
 const Content = styled.div`
@@ -142,7 +141,7 @@ const ControlPane: FC = observer(() => {
 
   return (
     <Parent ref={ref}>
-      <TabBar onClick={onSelectTab} selectedMode={mode} />
+      <TabBar onSelect={onSelectTab} selectedMode={mode} />
       <Content>{control}</Content>
     </Parent>
   )

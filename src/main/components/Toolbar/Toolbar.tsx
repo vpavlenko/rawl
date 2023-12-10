@@ -9,5 +9,4 @@ export const Toolbar: FC<React.PropsWithChildren<unknown>> = styled.div`
   box-sizing: border-box;
 
   background: ${({ theme }) => theme.backgroundColor};
-  border-bottom: 1px solid ${({ theme }) => theme.dividerColor};
 `

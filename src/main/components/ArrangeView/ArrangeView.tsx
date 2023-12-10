@@ -1,7 +1,6 @@
 import styled from "@emotion/styled"
 import useComponentSize from "@rehooks/component-size"
 import { IPoint } from "@ryohey/webgl-react"
-import Color from "color"
 import { clamp } from "lodash"
 import { observer } from "mobx-react-lite"
 import { FC, useCallback, useEffect, useRef } from "react"
@@ -264,7 +263,7 @@ export const ArrangeView: FC = observer(() => {
             flexDirection: "column",
             position: "relative",
             overflow: "hidden",
-            background: Color(theme.backgroundColor).darken(0.1).hex(),
+            background: theme.darkBackgroundColor,
           }}
         >
           <CanvasPianoRuler

@@ -1,5 +1,4 @@
 import styled from "@emotion/styled"
-import Color from "color"
 import Forum from "mdi-react/ForumIcon"
 import Help from "mdi-react/HelpCircleIcon"
 import Settings from "mdi-react/SettingsIcon"
@@ -37,7 +36,7 @@ const LogoIcon = styled(Logo)`
 const Container = styled.div`
   display: flex;
   flex-direction: row;
-  background: ${({ theme }) => Color(theme.backgroundColor).darken(0.2).hex()};
+  background: ${({ theme }) => theme.darkBackgroundColor};
   height: 3rem;
   flex-shrink: 0;
 `
@@ -108,7 +107,7 @@ export const Navigation: FC = observer(() => {
       >
         <Tab
           className={router.path === "/track" ? "active" : undefined}
-          onClick={useCallback(() => (router.path = "/track"), [])}
+          onMouseDown={useCallback(() => (router.path = "/track"), [])}
         >
           <PianoIcon style={IconStyle} viewBox="0 0 128 128" />
           <TabTitle>
@@ -128,7 +127,7 @@ export const Navigation: FC = observer(() => {
       >
         <Tab
           className={router.path === "/arrange" ? "active" : undefined}
-          onClick={useCallback(() => (router.path = "/arrange"), [])}
+          onMouseDown={useCallback(() => (router.path = "/arrange"), [])}
         >
           <ArrangeIcon style={IconStyle} viewBox="0 0 128 128" />
           <TabTitle>
@@ -148,7 +147,7 @@ export const Navigation: FC = observer(() => {
       >
         <Tab
           className={router.path === "/tempo" ? "active" : undefined}
-          onClick={useCallback(() => (router.path = "/tempo"), [])}
+          onMouseDown={useCallback(() => (router.path = "/tempo"), [])}
         >
           <TempoIcon style={IconStyle} viewBox="0 0 128 128" />
           <TabTitle>

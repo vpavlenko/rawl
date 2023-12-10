@@ -6,8 +6,8 @@ import { Tooltip } from "../../../components/Tooltip"
 import { ToolbarButton } from "./ToolbarButton"
 
 const AutoScrollIcon = styled(KeyboardTab)`
-  height: 2rem;
-  font-size: 1.3rem;
+  width: 1.2rem;
+  fill: currentColor;
 `
 
 export interface AutoScrollButtonProps {
@@ -20,7 +20,13 @@ export const AutoScrollButton: FC<AutoScrollButtonProps> = ({
   selected,
 }) => (
   <Tooltip title={<Localized default="Auto-Scroll">auto-scroll</Localized>}>
-    <ToolbarButton onClick={onClick} selected={selected}>
+    <ToolbarButton
+      onMouseDown={(e) => {
+        e.preventDefault()
+        onClick()
+      }}
+      selected={selected}
+    >
       <AutoScrollIcon />
     </ToolbarButton>
   </Tooltip>

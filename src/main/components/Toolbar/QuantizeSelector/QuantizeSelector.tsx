@@ -92,7 +92,7 @@ function QuantizeSelector({
       <Tooltip
         title={<Localized default="Snap to Grid">snap-to-grid</Localized>}
       >
-        <Switch selected={enabled} onClick={onClickSwitch}>
+        <Switch selected={enabled} onMouseDown={onClickSwitch}>
           <Note />
         </Switch>
       </Tooltip>
@@ -106,7 +106,6 @@ function QuantizeSelector({
         onChangeTriplet={(t) => onSelect(calcQuantize(denominator, false, t))}
         trigger={
           <Content
-            tabIndex={-1}
             onWheel={(e) => {
               const currentIndex = list.indexOf(denominator)
               const delta = e.deltaY < 0 ? 1 : -1

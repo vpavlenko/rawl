@@ -34,22 +34,17 @@ const Toolbar = styled.div`
   box-sizing: border-box;
 `
 
-const RecordButton = styled(CircleButton)`
-  &.active {
-    color: ${({ theme }) => theme.recordColor};
-  }
+const RecordButton = styled(CircleButton)<{ active: boolean }>`
+  color: ${({ theme, active }) => (active ? theme.recordColor : "inherit")};
 `
 
-const LoopButton = styled(CircleButton)`
-  &.active {
-    color: ${({ theme }) => theme.themeColor};
-  }
+const LoopButton = styled(CircleButton)<{ active: boolean }>`
+  color: ${({ theme, active }) => (active ? theme.themeColor : "inherit")};
 `
 
-const MetronomeButton = styled(CircleButton)`
-  &.active {
-    color: ${({ theme }) => theme.themeColor};
-  }
+const MetronomeButton = styled(CircleButton)<{ active: boolean }>`
+  color: ${({ theme, active }) =>
+    active ? theme.themeColor : theme.secondaryTextColor};
 `
 
 const TimestampText = styled.div`
@@ -102,28 +97,25 @@ export const TransportPanel: FC = observer(() => {
         title={<Localized default="Rewind">rewind</Localized>}
         side="top"
       >
-        <CircleButton onClick={onClickBackward}>
+        <CircleButton onMouseDown={onClickBackward}>
           <FastRewind />
         </CircleButton>
       </Tooltip>
 
       <Tooltip title={<Localized default="Stop">stop</Localized>} side="top">
-        <CircleButton onClick={onClickStop}>
+        <CircleButton onMouseDown={onClickStop}>
           <Stop />
         </CircleButton>
       </Tooltip>
 
-      <PlayButton onClick={onClickPlay} isPlaying={isPlaying} />
+      <PlayButton onMouseDown={onClickPlay} isPlaying={isPlaying} />
 
       {canRecording && (
         <Tooltip
           title={<Localized default="Record">record</Localized>}
           side="top"
         >
-          <RecordButton
-            onClick={onClickRecord}
-            className={isRecording ? "active" : undefined}
-          >
+          <RecordButton onMouseDown={onClickRecord} active={isRecording}>
             <FiberManualRecord />
           </RecordButton>
         </Tooltip>
@@ -133,16 +125,13 @@ export const TransportPanel: FC = observer(() => {
         title={<Localized default="Fast Forward">fast-forward</Localized>}
         side="top"
       >
-        <CircleButton onClick={onClickForward}>
+        <CircleButton onMouseDown={onClickForward}>
           <FastForward />
         </CircleButton>
       </Tooltip>
 
       {loop && (
-        <LoopButton
-          onClick={onClickEnableLoop}
-          className={loop.enabled ? "active" : undefined}
-        >
+        <LoopButton onMouseDown={onClickEnableLoop} active={loop.enabled}>
           <Loop />
         </LoopButton>
       )}
@@ -150,8 +139,8 @@ export const TransportPanel: FC = observer(() => {
       <ToolbarSeparator />
 
       <MetronomeButton
-        onClick={onClickMetronone}
-        className={isMetronomeEnabled ? "active" : undefined}
+        onMouseDown={onClickMetronone}
+        active={isMetronomeEnabled}
       >
         <MetronomeIcon />
       </MetronomeButton>

@@ -5,7 +5,6 @@ import { Layout } from "../../../Constants"
 const Parent = styled.div`
   text-align: right;
   width: ${Layout.keyWidth}px;
-  border-right: 1px solid ${({ theme }) => theme.dividerColor};
   padding-right: 0.3em;
   box-sizing: border-box;
 `

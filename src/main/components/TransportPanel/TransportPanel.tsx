@@ -97,25 +97,25 @@ export const TransportPanel: FC = observer(() => {
         title={<Localized default="Rewind">rewind</Localized>}
         side="top"
       >
-        <CircleButton onClick={onClickBackward}>
+        <CircleButton onMouseDown={onClickBackward}>
           <FastRewind />
         </CircleButton>
       </Tooltip>
 
       <Tooltip title={<Localized default="Stop">stop</Localized>} side="top">
-        <CircleButton onClick={onClickStop}>
+        <CircleButton onMouseDown={onClickStop}>
           <Stop />
         </CircleButton>
       </Tooltip>
 
-      <PlayButton onClick={onClickPlay} isPlaying={isPlaying} />
+      <PlayButton onMouseDown={onClickPlay} isPlaying={isPlaying} />
 
       {canRecording && (
         <Tooltip
           title={<Localized default="Record">record</Localized>}
           side="top"
         >
-          <RecordButton onClick={onClickRecord} active={isRecording}>
+          <RecordButton onMouseDown={onClickRecord} active={isRecording}>
             <FiberManualRecord />
           </RecordButton>
         </Tooltip>
@@ -125,20 +125,23 @@ export const TransportPanel: FC = observer(() => {
         title={<Localized default="Fast Forward">fast-forward</Localized>}
         side="top"
       >
-        <CircleButton onClick={onClickForward}>
+        <CircleButton onMouseDown={onClickForward}>
           <FastForward />
         </CircleButton>
       </Tooltip>
 
       {loop && (
-        <LoopButton onClick={onClickEnableLoop} active={loop.enabled}>
+        <LoopButton onMouseDown={onClickEnableLoop} active={loop.enabled}>
           <Loop />
         </LoopButton>
       )}
 
       <ToolbarSeparator />
 
-      <MetronomeButton onClick={onClickMetronone} active={isMetronomeEnabled}>
+      <MetronomeButton
+        onMouseDown={onClickMetronone}
+        active={isMetronomeEnabled}
+      >
         <MetronomeIcon />
       </MetronomeButton>
 

@@ -107,7 +107,7 @@ export const Navigation: FC = observer(() => {
       >
         <Tab
           className={router.path === "/track" ? "active" : undefined}
-          onClick={useCallback(() => (router.path = "/track"), [])}
+          onMouseDown={useCallback(() => (router.path = "/track"), [])}
         >
           <PianoIcon style={IconStyle} viewBox="0 0 128 128" />
           <TabTitle>
@@ -127,7 +127,7 @@ export const Navigation: FC = observer(() => {
       >
         <Tab
           className={router.path === "/arrange" ? "active" : undefined}
-          onClick={useCallback(() => (router.path = "/arrange"), [])}
+          onMouseDown={useCallback(() => (router.path = "/arrange"), [])}
         >
           <ArrangeIcon style={IconStyle} viewBox="0 0 128 128" />
           <TabTitle>
@@ -147,7 +147,7 @@ export const Navigation: FC = observer(() => {
       >
         <Tab
           className={router.path === "/tempo" ? "active" : undefined}
-          onClick={useCallback(() => (router.path = "/tempo"), [])}
+          onMouseDown={useCallback(() => (router.path = "/tempo"), [])}
         >
           <TempoIcon style={IconStyle} viewBox="0 0 128 128" />
           <TabTitle>

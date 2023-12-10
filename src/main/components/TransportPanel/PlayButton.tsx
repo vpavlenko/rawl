@@ -20,12 +20,12 @@ export const StyledButton = styled(CircleButton)`
 `
 
 export interface PlayButtonProps {
-  onClick?: () => void
+  onMouseDown?: () => void
   isPlaying: boolean
 }
 
 export const PlayButton: FC<PlayButtonProps> = (
-  { onClick, isPlaying },
+  { onMouseDown, isPlaying },
   ref,
 ) => {
   return (
@@ -39,7 +39,7 @@ export const PlayButton: FC<PlayButtonProps> = (
     >
       <StyledButton
         id="button-play"
-        onClick={onClick}
+        onMouseDown={onMouseDown}
         className={isPlaying ? "active" : undefined}
       >
         {isPlaying ? <Pause /> : <PlayArrow />}

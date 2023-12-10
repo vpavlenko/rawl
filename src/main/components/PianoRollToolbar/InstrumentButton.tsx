@@ -32,7 +32,12 @@ export const InstrumentButton: FC = observer(() => {
   }, [pianoRollStore])
 
   return (
-    <ToolbarButton onClick={onClickInstrument}>
+    <ToolbarButton
+      onMouseDown={(e) => {
+        e.preventDefault()
+        onClickInstrument()
+      }}
+    >
       <span style={{ marginRight: "0.5rem" }}>{emoji}</span>
       <span>
         <TrackInstrumentName track={selectedTrack} />

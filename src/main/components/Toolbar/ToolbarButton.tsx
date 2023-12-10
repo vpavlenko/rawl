@@ -20,7 +20,8 @@ const _ToolbarButton = styled.button<{ selected?: boolean }>`
   outline: none;
 
   &:hover {
-    background: ${({ theme }) => theme.highlightColor};
+    background: ${({ theme, selected }) =>
+      selected ? theme.themeColor : theme.highlightColor};
   }
 `
 
@@ -29,10 +30,13 @@ export const ToolbarButton = forwardRef<
   React.PropsWithChildren<
     Omit<ComponentProps<typeof _ToolbarButton>, "tabIndex">
   >
->(({ children, ...props }, ref) => (
+>(({ children, onMouseDown, ...props }, ref) => (
   <_ToolbarButton
     {...props}
-    onMouseDown={(e) => e.preventDefault()}
+    onMouseDown={(e) => {
+      e.preventDefault()
+      onMouseDown?.(e)
+    }}
     tabIndex={-1}
     ref={ref}
   >

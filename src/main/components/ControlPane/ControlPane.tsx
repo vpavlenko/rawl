@@ -11,7 +11,7 @@ import { ValueEventGraph } from "./Graph/ValueEventGraph"
 import PianoVelocityControl from "./VelocityControl/VelocityControl"
 
 interface TabBarProps {
-  onClick: (mode: ControlMode) => void
+  onSelect: (mode: ControlMode) => void
   selectedMode: ControlMode
 }
 
@@ -64,7 +64,7 @@ const Toolbar = styled.div`
 `
 
 const TabBar: FC<TabBarProps> = React.memo(
-  observer(({ onClick, selectedMode }) => {
+  observer(({ onSelect, selectedMode }) => {
     const { controlStore, rootViewStore } = useStores()
     const { controlModes } = controlStore
 
@@ -73,7 +73,7 @@ const TabBar: FC<TabBarProps> = React.memo(
         {controlModes.map((mode, i) => (
           <TabButton
             selected={isEqualControlMode(selectedMode, mode)}
-            onClick={() => onClick(mode)}
+            onMouseDown={() => onSelect(mode)}
             key={i}
           >
             <NoWrap>
@@ -141,7 +141,7 @@ const ControlPane: FC = observer(() => {
 
   return (
     <Parent ref={ref}>
-      <TabBar onClick={onSelectTab} selectedMode={mode} />
+      <TabBar onSelect={onSelectTab} selectedMode={mode} />
       <Content>{control}</Content>
     </Parent>
   )

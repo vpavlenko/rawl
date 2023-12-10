@@ -200,7 +200,7 @@ export const TrackListItem: FC<TrackListItemProps> = observer(({ trackId }) => {
     <>
       <Container
         selected={selected}
-        onClick={onSelectTrack}
+        onMouseDown={onSelectTrack}
         onContextMenu={onContextMenu}
         tabIndex={-1}
       >

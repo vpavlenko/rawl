@@ -1,36 +1,32 @@
 import styled from "@emotion/styled"
 import useComponentSize from "@rehooks/component-size"
+import { IPoint } from "@ryohey/webgl-react"
 import Color from "color"
 import { clamp } from "lodash"
 import { observer } from "mobx-react-lite"
 import { FC, useCallback, useEffect, useRef } from "react"
-import {
-  containsPoint,
-  IPoint,
-  pointAdd,
-  pointSub,
-} from "../../../common/geometry"
+import { pointAdd, pointSub } from "../../../common/geometry"
+import { ArrangePoint } from "../../../common/transform/ArrangePoint"
+import { Layout, WHEEL_SCROLL_RATE } from "../../Constants"
 import {
   arrangeEndSelection,
-  arrangeMoveSelection,
   arrangeResizeSelection,
   arrangeStartSelection,
   selectTrack,
 } from "../../actions"
-import { Layout, WHEEL_SCROLL_RATE } from "../../Constants"
 import { getClientPos } from "../../helpers/mouseEvent"
 import { observeDrag } from "../../helpers/observeDrag"
 import { isTouchPadEvent } from "../../helpers/touchpad"
 import { useContextMenu } from "../../hooks/useContextMenu"
 import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
+import CanvasPianoRuler from "../PianoRoll/CanvasPianoRuler"
+import { TrackName } from "../TrackList/TrackName"
 import {
   HorizontalScaleScrollBar,
   VerticalScaleScrollBar,
 } from "../inputs/ScaleScrollBar"
 import { BAR_WIDTH } from "../inputs/ScrollBar"
-import CanvasPianoRuler from "../PianoRoll/CanvasPianoRuler"
-import { TrackName } from "../TrackList/TrackName"
 import { ArrangeContextMenu } from "./ArrangeContextMenu"
 import { ArrangeTrackContextMenu } from "./ArrangeTrackContextMenu"
 import { ArrangeViewCanvas } from "./ArrangeViewCanvas/ArrangeViewCanvas"
@@ -46,6 +42,8 @@ const Wrapper = styled.div`
 
 const LeftTopSpace = styled.div`
   position: absolute;
+  left: 0;
+  top: 0;
   width: 100%;
   box-sizing: border-box;
   border-bottom: 1px solid ${({ theme }) => theme.dividerColor};
@@ -79,21 +77,14 @@ const HeaderList = styled.div`
   border-right: 1px solid ${({ theme }) => theme.dividerColor};
 `
 
-type DragHandler = (
-  e: MouseEvent,
-  mouseMove: (handler: (e: MouseEvent, delta: IPoint) => void) => void,
-  mouseUp: (handler: (e: MouseEvent) => void) => void,
-) => void
-
 export const ArrangeView: FC = observer(() => {
   const rootStore = useStores()
   const {
     arrangeViewStore,
     arrangeViewStore: {
-      selection,
-      selectionRect,
       trackHeight,
       contentWidth,
+      contentHeight,
       transform,
       trackTransform,
       scrollLeft,
@@ -119,7 +110,6 @@ export const ArrangeView: FC = observer(() => {
   )
 
   const containerWidth = size.width
-  const contentHeight = trackHeight * tracks.length
 
   const theme = useTheme()
 
@@ -157,120 +147,9 @@ export const ArrangeView: FC = observer(() => {
     [arrangeViewStore],
   )
 
-  const handleLeftClick = useCallback(
-    (e: React.MouseEvent) => {
-      const startPosPx: IPoint = {
-        x: e.nativeEvent.offsetX + scrollLeft,
-        y: e.nativeEvent.offsetY - Layout.rulerHeight + scrollTop,
-      }
-
-      const isSelectionSelected =
-        selectionRect != null && containsPoint(selectionRect, startPosPx)
-
-      const createSelectionHandler: DragHandler = (e, mouseMove, mouseUp) => {
-        const startPos = trackTransform.getArrangePoint(startPosPx)
-        arrangeStartSelection(rootStore)()
-
-        if (!player.isPlaying) {
-          player.position = arrangeViewStore.quantizer.round(startPos.tick)
-        }
-
-        arrangeViewStore.selectedTrackId = Math.floor(startPos.trackIndex)
-
-        mouseMove((e, deltaPx) => {
-          const selectionToPx = pointAdd(startPosPx, deltaPx)
-          arrangeResizeSelection(rootStore)(
-            startPos,
-            trackTransform.getArrangePoint(selectionToPx),
-          )
-        })
-        mouseUp((e) => {
-          arrangeEndSelection(rootStore)()
-        })
-      }
-
-      const dragSelectionHandler: DragHandler = (e, mouseMove, mouseUp) => {
-        if (selectionRect == null) {
-          return
-        }
-
-        mouseMove((e, deltaPx) => {
-          const selectionFromPx = pointAdd(deltaPx, selectionRect)
-          arrangeMoveSelection(rootStore)(
-            trackTransform.getArrangePoint(selectionFromPx),
-          )
-        })
-        mouseUp((e) => {})
-      }
-
-      let handler
-
-      if (isSelectionSelected) {
-        handler = dragSelectionHandler
-      } else {
-        handler = createSelectionHandler
-      }
-
-      let mouseMove: (e: MouseEvent, delta: IPoint) => void
-      let mouseUp: (e: MouseEvent) => void
-      handler(
-        e.nativeEvent,
-        (fn) => (mouseMove = fn),
-        (fn) => (mouseUp = fn),
-      )
-
-      const startClientPos = getClientPos(e.nativeEvent)
-
-      observeDrag({
-        onMouseMove: (e) =>
-          mouseMove(e, pointSub(getClientPos(e), startClientPos)),
-        onMouseUp: (e) => mouseUp(e),
-      })
-    },
-    [selection, trackTransform, rootStore, scrollLeft, scrollTop],
-  )
-
-  const handleMiddleClick = useCallback(
-    (e: React.MouseEvent) => {
-      function createPoint(e: MouseEvent) {
-        return { x: e.clientX, y: e.clientY }
-      }
-      const startPos = createPoint(e.nativeEvent)
-
-      observeDrag({
-        onMouseMove(e) {
-          const pos = createPoint(e)
-          const delta = pointSub(pos, startPos)
-          setScrollLeft(Math.max(0, scrollLeft - delta.x))
-          setScrollTop(Math.max(0, scrollTop - delta.y))
-        },
-      })
-    },
-    [scrollLeft, scrollTop],
-  )
-
   const { onContextMenu, menuProps } = useContextMenu()
   const { onContextMenu: onTrackContextMenu, menuProps: trackMenuProps } =
     useContextMenu()
-
-  const onMouseDown = useCallback(
-    (e: React.MouseEvent) => {
-      switch (e.button) {
-        case 0:
-          handleLeftClick(e)
-          break
-        case 1:
-          handleMiddleClick(e)
-          break
-        case 2:
-          onContextMenu(e)
-          break
-        default:
-          break
-      }
-    },
-    [handleLeftClick, handleMiddleClick, onContextMenu],
-  )
 
   const onWheel = useCallback(
     (e: React.WheelEvent) => {
@@ -297,6 +176,43 @@ export const ArrangeView: FC = observer(() => {
     [arrangeViewStore, scrollBy],
   )
 
+  const onMouseDownRuler: React.MouseEventHandler<HTMLCanvasElement> =
+    useCallback(
+      (e) => {
+        if (e.button !== 0 || e.ctrlKey || e.altKey) {
+          return
+        }
+
+        const startPosPx: IPoint = {
+          x: e.nativeEvent.offsetX + scrollLeft,
+          y: e.nativeEvent.offsetY + scrollTop,
+        }
+        const startClientPos = getClientPos(e.nativeEvent)
+
+        const startPos: ArrangePoint = {
+          tick: trackTransform.getTick(startPosPx.x),
+          trackIndex: 0,
+        }
+        arrangeStartSelection(rootStore)()
+
+        observeDrag({
+          onMouseMove: (e) => {
+            const deltaPx = pointSub(getClientPos(e), startClientPos)
+            const selectionToPx = pointAdd(startPosPx, deltaPx)
+            const endPos = {
+              tick: trackTransform.getTick(selectionToPx.x),
+              trackIndex: tracks.length,
+            }
+            arrangeResizeSelection(rootStore)(startPos, endPos)
+          },
+          onMouseUp: (e) => {
+            arrangeEndSelection(rootStore)()
+          },
+        })
+      },
+      [arrangeViewStore, player, rootStore],
+    )
+
   const openTrack = (trackId: number) => {
     router.pushTrack()
     selectTrack(rootStore)(trackId)
@@ -305,7 +221,6 @@ export const ArrangeView: FC = observer(() => {
   return (
     <Wrapper>
       <HeaderList>
-        <LeftTopSpace style={{ height: Layout.rulerHeight }} />
         <div
           style={{
             marginTop: Layout.rulerHeight,
@@ -328,6 +243,7 @@ export const ArrangeView: FC = observer(() => {
             </TrackHeader>
           ))}
         </div>
+        <LeftTopSpace style={{ height: Layout.rulerHeight }} />
         <LeftBottomSpace style={{ height: BAR_WIDTH }} />
       </HeaderList>
       <div
@@ -341,8 +257,6 @@ export const ArrangeView: FC = observer(() => {
       >
         <div
           ref={ref}
-          onMouseDown={onMouseDown}
-          onContextMenu={useCallback((e: any) => e.preventDefault(), [])}
           onWheel={onWheel}
           style={{
             display: "flex",
@@ -355,13 +269,17 @@ export const ArrangeView: FC = observer(() => {
         >
           <CanvasPianoRuler
             rulerStore={arrangeViewStore.rulerStore}
+            onMouseDown={onMouseDownRuler}
             style={{
               background: theme.backgroundColor,
               borderBottom: `1px solid ${theme.dividerColor}`,
               boxSizing: "border-box",
             }}
           />
-          <ArrangeViewCanvas width={containerWidth} />
+          <ArrangeViewCanvas
+            width={containerWidth}
+            onContextMenu={onContextMenu}
+          />
         </div>
         <div
           style={{

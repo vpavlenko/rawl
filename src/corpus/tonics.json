@@ -3,6 +3,18 @@
     "path": "MIDI/ZZ Top/Tush.mid",
     "tonic": 7
   },
+  "0e499f82b3cf3bef79726220e4c2f4d3": {
+    "path": "MIDI/Zequinha Abreu/Tico Tico No Fuba.mid",
+    "tonic": 10,
+    "modulations": {
+      "8": 7,
+      "24": 10,
+      "40": 7,
+      "56": 10,
+      "72": 7,
+      "104": 10
+    }
+  },
   "1b4112a40a2995c3a2874f2003b3951b": {
     "path": "MIDI/Zucchero/You Make Me Feel Loved.mid",
     "tonic": 7
@@ -10,6 +22,17 @@
   "1d59206fe078e7ba54fe5624a9911446": {
     "path": "MIDI/ZZ Top/Sleeping Bag.1.mid",
     "tonic": 0
+  },
+  "2c79d4addb7a787e4e1bf967d84aaf72": {
+    "path": "MIDI/Zappa Frank/Catholic Girls.mid",
+    "tonic": 6,
+    "modulations": {
+      "24": 1,
+      "31": 4,
+      "40": 1,
+      "79": 4,
+      "88": 6
+    }
   },
   "33355d633234b07a8bf1403031777a9c": {
     "path": "MIDI/Zucchero/Voodoo voodoo.mid",
@@ -21,16 +44,57 @@
       "85": 0
     }
   },
+  "3759f77685fb286e9cada1d411e523a4": {
+    "path": "MIDI/Zero/Amando amando.mid",
+    "tonic": 2,
+    "modulations": {
+      "62": 11,
+      "88": 2,
+      "102": 2,
+      "142": 11
+    }
+  },
   "394c6f19a90d317a52c1e475362ecbb5": {
     "path": "MIDI/Zhi-Vago/Celebrate (The Love).mid",
     "tonic": 1
+  },
+  "3d350c93282557f1f4b049f160052a2b": {
+    "path": "MIDI/Zez Confrey/Greenwich Witch.mid",
+    "tonic": 3
+  },
+  "41e8002e0f85c6e9ea5e3bb78c78d863": {
+    "path": "MIDI/Zebrahead/Get Back.mid",
+    "tonic": 9,
+    "modulations": {
+      "65": 7,
+      "97": 9,
+      "129": 7,
+      "161": 9,
+      "185": 7
+    }
+  },
+  "4dc244856cafe5e7824a1b8dd579ac40": {
+    "path": "MIDI/Zeze di Camargo/Fala Serio.mid",
+    "tonic": 9
   },
   "a92c706e7b60cd3c42f5aee411cb7fe4": {
     "path": "MIDI/Zucchero/Un piccolo aiuto (feat. Gerard Depardieu).mid",
     "tonic": 7
   },
+  "c54f0d3883c3958d8a7fb9dcb876fe38": {
+    "path": "MIDI/Zamfir Gheorghe/The Lonely Shepherd.mid",
+    "tonic": 4
+  },
   "d568fda22eb95c6eb6c3b2f3d40af35f": {
     "path": "MIDI/ZZ Top/Viva Las Vegas.mid",
     "tonic": 7
+  },
+  "dfb9bbcc0d0813d33daae94f628dccf8": {
+    "path": "MIDI/Zhane/Hey Mr D.J..mid",
+    "tonic": 6
+  },
+  "f9f2b64869f71d400ecfccdef2abfd17": {
+    "path": "MIDI/Zappa/Whippin Post.mid",
+    "tonic": 9
   }
 }

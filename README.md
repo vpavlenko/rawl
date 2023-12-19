@@ -5,7 +5,7 @@
 This is a fork of [Chip Player JS](https://github.com/mmontag/chip-player-js) that focuses on music theory analysis of MIDI and NES tracks.
 All credits for tremendous original work go to Matt Montag and all contributors to libraries that he managed to wire together. I'm just writing a tiny layer on top. The licensing is the same.
 
-My stuff lives primarily in [src/components/chiptheory](src/components/chiptheory), I also removed some features from the UI to maximize useful display area for analysis. Annotations live in [src/corpus/analyses.json](src/corpus/analyses.json)
+My stuff lives primarily in [src/components/chiptheory](src/components/chiptheory), I also removed some features from the UI to maximize useful display area for analysis. Annotations live in [src/corpus/analyses.json](src/corpus/analyses.json). Additionally, manually annotated tonics for some of Lakh MIDIs are in [src/corpus/tonics.json](src/corpus/tonics.json).
 
 Your own annotations currently won't be saved, but I can fix that - please, contact me.
 
@@ -83,7 +83,7 @@ The concept of modulation vs. tonicization can be expressed in gradual hierarchy
 
 ### MIDI
 
-MIDI files can be dropped into https://vpavlenko.github.io/chiptheory for visualization. Saving for user files isn't supported yet (contact me). Additionally, there's a decent built-in MIDI library coming from Chip Player JS project: [rock/pop](https://vpavlenko.github.io/chiptheory/browse/MIDI/), [classical](https://vpavlenko.github.io/chiptheory/browse/Classical%20MIDI), [jazz](https://vpavlenko.github.io/chiptheory/browse/Jazz%20MIDI)
+MIDI files can be dropped into https://rawl.rocks/ for visualization - to do that, firstly navigate to any MIDI file in the database. Saving for user files isn't supported yet (contact me). Additionally, there's a decent built-in MIDI library coming from Chip Player JS project: [rock/pop](https://vpavlenko.github.io/chiptheory/browse/MIDI/), [classical](https://vpavlenko.github.io/chiptheory/browse/Classical%20MIDI), [jazz](https://vpavlenko.github.io/chiptheory/browse/Jazz%20MIDI)
 
 This content should be transformed so that it's discoverable via search engines on queries like "yellow submarine analysis".
 

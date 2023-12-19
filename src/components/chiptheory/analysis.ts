@@ -43,7 +43,7 @@ export const ANALYSIS_STUB: Analysis = {
   secondMeasure: null,
   correctedMeasures: [],
   fourMeasurePhrasingReferences: [],
-  modulations: [],
+  modulations: {},
   beatsPerMeasure: 4,
   loop: null,
   tonic: null,

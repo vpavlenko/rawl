@@ -48,6 +48,7 @@
     "ismobilejs": "^0.4.1",
     "jest": "20.0.4",
     "lodash": "^4.17.21",
+    "md5": "^2.3.0",
     "midievents": "latest",
     "midifile": "^2.0.0",
     "mini-css-extract-plugin": "^0.7.0",
@@ -118,6 +119,7 @@
     "server": "DEV=1 node public/index.js",
     "fixvgm": "node $NODE_DEBUG_OPTION scripts/fixvgm.js",
     "update-corpus": "node scripts/update-corpus.js",
+    "backup-tonics": "node scripts/backup-tonics.js",
     "rename-tag": "node scripts/rename-tag.js"
   },
   "jest": {

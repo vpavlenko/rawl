@@ -115,7 +115,7 @@ export const parseMIDI = ({
   const measuresAndBeats = calculateMeasureAndBeats(timeEvents, timebase);
   events.forEach((event) => {
     if (event.subtype === MIDIEvents.EVENT_META_KEY_SIGNATURE) {
-      console.log("KEY SIGNATURE", JSON.stringify(event));
+      alert("KEY SIGNATURE" + JSON.stringify(event));
     }
   });
   return {

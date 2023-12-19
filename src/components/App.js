@@ -127,7 +127,7 @@ class App extends React.Component {
     onAuthStateChanged(auth, (user) => {
       this.setState({ user: user, loadingUser: !!user });
       if (user) {
-        this.setState({ analysisEnabled: true });
+        // this.setState({ analysisEnabled: true });
         const docRef = doc(this.db, "users", user.uid);
         getDoc(docRef)
           .then((userSnapshot) => {
@@ -422,6 +422,19 @@ class App extends React.Component {
       this.setState((prevState) => ({
         analyses: mergeAnalyses(prevState.analyses, diff),
       }));
+
+      const tonicRef = doc(this.db, "tonics", this.sequencer.hash);
+      const tonicData = {
+        path,
+        tonic: analysis.tonic,
+      };
+      if (Object.keys(analysis.modulations).length > 0) {
+        tonicData.modulations = analysis.modulations;
+      }
+      await setDoc(tonicRef, tonicData).catch((e) => {
+        console.log("Couldn't save tonic.", e);
+        alert("Could not save tonic");
+      });
     }
   }
 

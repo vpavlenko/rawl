@@ -1,0 +1,36 @@
+{
+  "08b09903af721f2d2e9136ff10930f90": {
+    "path": "MIDI/ZZ Top/Tush.mid",
+    "tonic": 7
+  },
+  "1b4112a40a2995c3a2874f2003b3951b": {
+    "path": "MIDI/Zucchero/You Make Me Feel Loved.mid",
+    "tonic": 7
+  },
+  "1d59206fe078e7ba54fe5624a9911446": {
+    "path": "MIDI/ZZ Top/Sleeping Bag.1.mid",
+    "tonic": 0
+  },
+  "33355d633234b07a8bf1403031777a9c": {
+    "path": "MIDI/Zucchero/Voodoo voodoo.mid",
+    "tonic": 0,
+    "modulations": {
+      "59": 9,
+      "67": 0,
+      "76": 9,
+      "85": 0
+    }
+  },
+  "394c6f19a90d317a52c1e475362ecbb5": {
+    "path": "MIDI/Zhi-Vago/Celebrate (The Love).mid",
+    "tonic": 1
+  },
+  "a92c706e7b60cd3c42f5aee411cb7fe4": {
+    "path": "MIDI/Zucchero/Un piccolo aiuto (feat. Gerard Depardieu).mid",
+    "tonic": 7
+  },
+  "d568fda22eb95c6eb6c3b2f3d40af35f": {
+    "path": "MIDI/ZZ Top/Viva Las Vegas.mid",
+    "tonic": 7
+  }
+}

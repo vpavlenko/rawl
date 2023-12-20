@@ -34,6 +34,10 @@
       "88": 6
     }
   },
+  "2f4a612d777893fd275f362c9461fcaf": {
+    "path": "MIDI/Womack/I'm In Love.mid",
+    "tonic": 4
+  },
   "33355d633234b07a8bf1403031777a9c": {
     "path": "MIDI/Zucchero/Voodoo voodoo.mid",
     "tonic": 0,
@@ -42,6 +46,13 @@
       "67": 0,
       "76": 9,
       "85": 0
+    }
+  },
+  "36ee15d3dd900c22905f0ecb8bf369b2": {
+    "path": "MIDI/Wing/Baby Face.mid",
+    "tonic": 1,
+    "modulations": {
+      "86": 2
     }
   },
   "3759f77685fb286e9cada1d411e523a4": {
@@ -53,6 +64,10 @@
       "102": 2,
       "142": 11
     }
+  },
+  "37b6c768afb71aa8d9951b76447d77c2": {
+    "path": "MIDI/Will Smith/Gettin' Jiggy Wit It.mid",
+    "tonic": 6
   },
   "394c6f19a90d317a52c1e475362ecbb5": {
     "path": "MIDI/Zhi-Vago/Celebrate (The Love).mid",
@@ -77,13 +92,83 @@
     "path": "MIDI/Zeze di Camargo/Fala Serio.mid",
     "tonic": 9
   },
+  "5f9888f815ae517d592a7f133a26b385": {
+    "path": "MIDI/Yellow Magic Orchestra (YMO)/Waterford.mid",
+    "tonic": 10
+  },
+  "61301fb10ee7fca4e2f6a0fd0014a63d": {
+    "path": "MIDI/Wilbert Harrison/Kansas City.mid",
+    "tonic": 0
+  },
+  "6a80c9d28bc8a3094be25bbe687b83e3": {
+    "path": "MIDI/Will Glahe/Wiener Praterleben.mid",
+    "tonic": 9,
+    "modulations": {
+      "27": 2,
+      "50": 7,
+      "76": 0,
+      "101": 9
+    }
+  },
+  "7d95dcc4cd41f000e4a269a178bfb512": {
+    "path": "MIDI/Xavier Cugat/Begin the Beguine.mid",
+    "tonic": 0
+  },
+  "813120302566ee9a68ec5446f7c914e6": {
+    "path": "MIDI/Wolfgang Ambros/Zwickt's Mi.mid",
+    "tonic": 7
+  },
+  "92741f887cb8fea4bf8147236a9f02b6": {
+    "path": "MIDI/Wilson Pickett/In The Midnight Hour.mid",
+    "tonic": 10
+  },
+  "95392e0894127c2a675ebf39d397ebb6": {
+    "path": "MIDI/Wild Cherry/Play That Funky Music.mid",
+    "tonic": 4,
+    "modulations": {
+      "30": 7,
+      "38": 4,
+      "62": 7,
+      "70": 4,
+      "102": 7,
+      "108": 4,
+      "114": 7,
+      "122": 9,
+      "130": 4
+    }
+  },
   "a92c706e7b60cd3c42f5aee411cb7fe4": {
     "path": "MIDI/Zucchero/Un piccolo aiuto (feat. Gerard Depardieu).mid",
     "tonic": 7
   },
+  "bfb829ba4dddca341aea524e0574712a": {
+    "path": "MIDI/Worlds Apart/Je Te Donne.mid",
+    "tonic": 7,
+    "modulations": {
+      "75": 9
+    }
+  },
+  "c13a2cda7dae48d999d069d80dfdda39": {
+    "path": "MIDI/Whitney Houston/1 Moment in Time.mid",
+    "tonic": 0,
+    "modulations": {
+      "71": 1
+    }
+  },
+  "c2a5d24b1d8ecfd44d508cea371d83c9": {
+    "path": "MIDI/Wolter Kroes/Laat me los.mid",
+    "tonic": 2,
+    "modulations": {
+      "133": 5
+    }
+  },
   "c54f0d3883c3958d8a7fb9dcb876fe38": {
     "path": "MIDI/Zamfir Gheorghe/The Lonely Shepherd.mid",
     "tonic": 4
+  },
+  "ccdc9fe6108da5554b163ddded3df85a": {
+    "path": "MIDI/Winger/Miles Away.mid",
+    "tonic": 5
   },
   "d568fda22eb95c6eb6c3b2f3d40af35f": {
     "path": "MIDI/ZZ Top/Viva Las Vegas.mid",
@@ -93,8 +178,79 @@
     "path": "MIDI/Zhane/Hey Mr D.J..mid",
     "tonic": 6
   },
+  "e0a300f033ffd5b718c624ea01016fbc": {
+    "path": "MIDI/Wilson Phillips/Hold On.mid",
+    "tonic": 5
+  },
+  "e0e0dba35081f0c98b3b13e49744b752": {
+    "path": "MIDI/Willie Nelson/Always on My Mind.mid",
+    "tonic": 7
+  },
+  "e10bd24fb8fcf87214d5336007efdc7b": {
+    "path": "MIDI/Yazoo (Yaz)/The Only Way Is Up.mid",
+    "tonic": 0
+  },
+  "e37d9af27b1d11eacb3c2ed52daede25": {
+    "path": "MIDI/Wings/Silly Love Songs.mid",
+    "tonic": 0
+  },
+  "e61c90b9cc904a51ff618fdfab6b5757": {
+    "path": "MIDI/Yes/Your Move.mid",
+    "tonic": 4
+  },
+  "e7546e95794b39ef64667ceb94b95170": {
+    "path": "MIDI/Will to Power/I'm Not in Love.mid",
+    "tonic": 10,
+    "modulations": {
+      "10": 3,
+      "48": 6,
+      "53": 3,
+      "65": 10
+    }
+  },
+  "e7e043fa20a49bd6fabd995ae1acf2a0": {
+    "path": "MIDI/Williams Deniece/Let's Hear It For The Boy.mid",
+    "tonic": 5,
+    "modulations": {
+      "17": 8,
+      "25": 5,
+      "33": 8,
+      "41": 11,
+      "45": 5,
+      "56": 5,
+      "72": 8
+    }
+  },
+  "ef16a3cb36740c5ff395301edc6aaee1": {
+    "path": "MIDI/Eric Clapton/Cocaine.mid",
+    "tonic": 4
+  },
+  "efa2d91b1899f9682026ab0a6d2ca58f": {
+    "path": "MIDI/Whitesnake/Here I Go Again.mid",
+    "tonic": 7
+  },
+  "f333e282c4439bd885c2d89fcf84566e": {
+    "path": "MIDI/Xscape/Just Kickin' It.mid",
+    "tonic": 6
+  },
+  "f431a8ff38351636dc048e9d06753cfe": {
+    "path": "MIDI/Yanni/The Rain Must Fall.mid",
+    "tonic": 7
+  },
+  "f5270143f0354b4fa21a2c9dd5a0a629": {
+    "path": "MIDI/Whiteman Paul & His Orchestra/Sweet Sue, Just You.mid",
+    "tonic": 7
+  },
   "f9f2b64869f71d400ecfccdef2abfd17": {
     "path": "MIDI/Zappa/Whippin Post.mid",
     "tonic": 9
+  },
+  "fd7cbee6a25f2985789178497a501459": {
+    "path": "MIDI/Willeke Alberti/Het wijnfeest.mid",
+    "tonic": 9
+  },
+  "fe2eae799abb0e4cfa54b587637ee414": {
+    "path": "MIDI/Young Paul/Don't Dream It's Over.mid",
+    "tonic": 0
   }
 }

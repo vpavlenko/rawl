@@ -19,6 +19,13 @@
       "104": 10
     }
   },
+  "0f0956819b537805cee5246999203ae8": {
+    "path": "MIDI/Twila Paris/How Beautiful.mid",
+    "tonic": 2,
+    "modulations": {
+      "120": 4
+    }
+  },
   "17e546dd351ac9bf657f3c9592bf6b08": {
     "path": "MIDI/Weather Report/Birdland.mid",
     "tonic": 7
@@ -97,6 +104,13 @@
       "142": 11
     }
   },
+  "3787e5b9cb554755e0856a88cf6d2bc3": {
+    "path": "MIDI/Ultravox/Vienna.mid",
+    "tonic": 0,
+    "modulations": {
+      "67": 5
+    }
+  },
   "37b6c768afb71aa8d9951b76447d77c2": {
     "path": "MIDI/Will Smith/Gettin' Jiggy Wit It.mid",
     "tonic": 6
@@ -127,6 +141,22 @@
       "185": 7
     }
   },
+  "430b0e0bfe6c4917eb875455fa22d4fa": {
+    "path": "MIDI/Van Halen/(Oh) Pretty Woman.mid",
+    "tonic": 9,
+    "modulations": {
+      "37": 0,
+      "52": 9
+    }
+  },
+  "49751ac534c068f607f7921c8064c6c3": {
+    "path": "MIDI/Usher/My Way.1.mid",
+    "tonic": 7
+  },
+  "4abbad2b32a206fb46def430c3b8636f": {
+    "path": "MIDI/Turtles/Elenore.mid",
+    "tonic": 4
+  },
   "4aefe581bcb19927a3270924c06fea1b": {
     "path": "MIDI/White Town/Your Woman.mid",
     "tonic": 7
@@ -134,6 +164,10 @@
   "4dc244856cafe5e7824a1b8dd579ac40": {
     "path": "MIDI/Zeze di Camargo/Fala Serio.mid",
     "tonic": 9
+  },
+  "4f14bc6d5300840f789ec4948a92e5f9": {
+    "path": "MIDI/Usher/My Way.mid",
+    "tonic": 7
   },
   "4f5cc798c54fc2fda9e10ee70c0daccb": {
     "path": "MIDI/Wang Chung/Dance Hall Days.mid",
@@ -192,6 +226,14 @@
     "path": "MIDI/Venditti Antonello/Benvenuti in paradiso.mid",
     "tonic": 2
   },
+  "7175b1100bf84c4b54fabcace4e34346": {
+    "path": "MIDI/Urban Cookie Collective/The Key, the Secret.mid",
+    "tonic": 5
+  },
+  "73e43deab0d7f7edb220777538e4ceb9": {
+    "path": "MIDI/Valens Ritchie/La Bamba.mid",
+    "tonic": 0
+  },
   "7592fd323d9329464b078c621da4dff8": {
     "path": "MIDI/Vanessa Williams/Colors of the Wind.mid",
     "tonic": 2
@@ -241,6 +283,10 @@
     "path": "MIDI/White Zombie/Black Sunshine.mid",
     "tonic": 4
   },
+  "8ea5070bb8c55cbe654f7cfa7fde6c0d": {
+    "path": "MIDI/UZEB/New Hit.mid",
+    "tonic": 7
+  },
   "926fcf230e813c2ce6417599d094481f": {
     "path": "MIDI/Wendy Moten/Come in Out of the Rain.mid",
     "tonic": 5,
@@ -267,6 +313,29 @@
       "130": 4
     }
   },
+  "9e17162043117c8a2e61c7e4a915c084": {
+    "path": "MIDI/Us3/Cantaloop.mid",
+    "tonic": 5,
+    "modulations": {
+      "14": 1,
+      "20": 5,
+      "36": 1,
+      "40": 5,
+      "60": 1,
+      "64": 5,
+      "68": 1,
+      "72": 5,
+      "88": 1,
+      "92": 5,
+      "96": 1,
+      "100": 5,
+      "104": 1,
+      "108": 5,
+      "112": 1,
+      "116": 5,
+      "120": 1
+    }
+  },
   "9f7f0ca20e0ad2765da24817039dc950": {
     "path": "MIDI/Watson Johnny Guitar/A Real Mother for Ya.mid",
     "tonic": 5
@@ -274,6 +343,10 @@
   "a0320ee61534a2db2e338625e087e483": {
     "path": "MIDI/Vanessa Paradis/Be My Baby.mid",
     "tonic": 0
+  },
+  "a644e40e084acd6b49c17f95115c1d69": {
+    "path": "MIDI/UB40/(I Can't Help) Falling In Love With You.mid",
+    "tonic": 2
   },
   "a78f0fde630a265c342f11749e12fec6": {
     "path": "MIDI/Vertical Horizon/Everything You Want.mid",
@@ -289,6 +362,24 @@
     "modulations": {
       "48": 10
     }
+  },
+  "b1c207a6791d55db386d960a2868adbb": {
+    "path": "MIDI/U2/A Celebration.mid",
+    "tonic": 0
+  },
+  "bb99938796eb0130d1b3f6b6298234d2": {
+    "path": "MIDI/Uriah Heep/Easy Livin'.mid",
+    "tonic": 11,
+    "modulations": {
+      "37": 6,
+      "42": 8,
+      "45": 6,
+      "48": 11
+    }
+  },
+  "be051083f76054181f62d27f2e99418e": {
+    "path": "MIDI/Van Halen/316.mid",
+    "tonic": 9
   },
   "bf6e024ed91052a072104ea4a7bcc3d1": {
     "path": "MIDI/Vengaboys/Boom Boom Boom.mid",
@@ -329,6 +420,13 @@
       "147": 11
     }
   },
+  "c250ff3a8bda9209f3e0f2f5f773a916": {
+    "path": "MIDI/U.S.A. for Africa/We Are the World.mid",
+    "tonic": 4,
+    "modulations": {
+      "78": 5
+    }
+  },
   "c2a5d24b1d8ecfd44d508cea371d83c9": {
     "path": "MIDI/Wolter Kroes/Laat me los.mid",
     "tonic": 2,
@@ -352,6 +450,10 @@
     "path": "MIDI/Winger/Miles Away.mid",
     "tonic": 5
   },
+  "ce25cc6fa050582e4e069ec1669755ba": {
+    "path": "MIDI/Tyner Mccoy/Old Devil Moon.mid",
+    "tonic": 0
+  },
   "cf3e98dd5d50309a3fc6dd34789129a0": {
     "path": "MIDI/Warren Zevon/Lawyers, Guns and Money.mid",
     "tonic": 10
@@ -360,6 +462,18 @@
     "path": "MIDI/Weezer/Buddy Holly.mid",
     "tonic": 9
   },
+  "d2e30f20cbfaedf8343f364e4b056cfa": {
+    "path": "MIDI/Typically Tropical/Barbados.mid",
+    "tonic": 0,
+    "modulations": {
+      "59": 9,
+      "65": 0
+    }
+  },
+  "d3267cf75e9da7ce5da4f0260f29d3e4": {
+    "path": "MIDI/Undercover/Baker Street.mid",
+    "tonic": 2
+  },
   "d3f722dfa729b09410fb6609647b57d5": {
     "path": "MIDI/Was (Not Was)/Walk the Dinosaur.mid",
     "tonic": 3
@@ -367,6 +481,10 @@
   "d568fda22eb95c6eb6c3b2f3d40af35f": {
     "path": "MIDI/ZZ Top/Viva Las Vegas.mid",
     "tonic": 7
+  },
+  "dbd3b273ab47a98908327a8901e5e048": {
+    "path": "MIDI/U96/Club Bizarre.mid",
+    "tonic": 4
   },
   "df1c531b364595e7e275a21012874c55": {
     "path": "MIDI/Van Morrison/Brown Eyed Girl.mid",
@@ -413,6 +531,10 @@
       "53": 3,
       "65": 10
     }
+  },
+  "e769e7678dd46954eae31998b03cb1ef": {
+    "path": "MIDI/Ugly Kid Joe/Neighbor.mid",
+    "tonic": 6
   },
   "e7e043fa20a49bd6fabd995ae1acf2a0": {
     "path": "MIDI/Williams Deniece/Let's Hear It For The Boy.mid",
@@ -484,6 +606,10 @@
     "path": "MIDI/Whitesnake/Here I Go Again.mid",
     "tonic": 7
   },
+  "f046fe776a983b94e9110cd09eadafef": {
+    "path": "MIDI/Umberto Tozzi/Gloria.mid",
+    "tonic": 4
+  },
   "f16daf24c0ec708671d6b904fed481e1": {
     "path": "MIDI/Vince Guaraldi/Les Peanuts   Charly Brown   Snoopy.mid",
     "tonic": 8
@@ -507,6 +633,13 @@
   "f52bfb6f1f856762ea8c2004d3351e05": {
     "path": "MIDI/Waller Fats/Lonesome Road.mid",
     "tonic": 7
+  },
+  "f89303193f97dbc7afe4651c20d7c146": {
+    "path": "MIDI/Type O Negative/Love You to Death.mid",
+    "tonic": 8,
+    "modulations": {
+      "138": 11
+    }
   },
   "f90e419cdd114168a4a157f827362860": {
     "path": "MIDI/Vega/Tom's Diner (reprise).mid",

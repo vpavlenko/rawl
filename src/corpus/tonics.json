@@ -1,4 +1,8 @@
 {
+  "06d5fb379e55e254084daf8782215654": {
+    "path": "MIDI/Victoria Williams/Boogieman.mid",
+    "tonic": 5
+  },
   "08b09903af721f2d2e9136ff10930f90": {
     "path": "MIDI/ZZ Top/Tush.mid",
     "tonic": 7
@@ -19,13 +23,33 @@
     "path": "MIDI/Weather Report/Birdland.mid",
     "tonic": 7
   },
+  "18f578ae7de6e95c5c2b0c998222e096": {
+    "path": "MIDI/Violent Femmes/Blister in the Sun.mid",
+    "tonic": 7
+  },
   "1b4112a40a2995c3a2874f2003b3951b": {
     "path": "MIDI/Zucchero/You Make Me Feel Loved.mid",
     "tonic": 7
   },
+  "1ba2a8cd19ab903c5a20fb96cd23215d": {
+    "path": "MIDI/Walter Murphy/A Fifth Of Beethoven.mid",
+    "tonic": 0
+  },
   "1d59206fe078e7ba54fe5624a9911446": {
     "path": "MIDI/ZZ Top/Sleeping Bag.1.mid",
     "tonic": 0
+  },
+  "2297c78af23ba488da3271738a0811b8": {
+    "path": "MIDI/Vera Lynn/Land of Hope and Glory.mid",
+    "tonic": 3
+  },
+  "263c2e6152d8394a71690a7e77913327": {
+    "path": "MIDI/Walter Donaldson/My Blue Heaven.mid",
+    "tonic": 3
+  },
+  "27cf200cb291e5de30117102e8a90eca": {
+    "path": "MIDI/War/Low Rider.mid",
+    "tonic": 7
   },
   "2c79d4addb7a787e4e1bf967d84aaf72": {
     "path": "MIDI/Zappa Frank/Catholic Girls.mid",
@@ -81,6 +105,13 @@
     "path": "MIDI/Zhi-Vago/Celebrate (The Love).mid",
     "tonic": 1
   },
+  "3be5bbecd90e6cdda739fe95aeffc0ff": {
+    "path": "MIDI/Wax/Building a Bridge to Your Heart.mid",
+    "tonic": 4,
+    "modulations": {
+      "70": 6
+    }
+  },
   "3d350c93282557f1f4b049f160052a2b": {
     "path": "MIDI/Zez Confrey/Greenwich Witch.mid",
     "tonic": 3
@@ -104,6 +135,22 @@
     "path": "MIDI/Zeze di Camargo/Fala Serio.mid",
     "tonic": 9
   },
+  "4f5cc798c54fc2fda9e10ee70c0daccb": {
+    "path": "MIDI/Wang Chung/Dance Hall Days.mid",
+    "tonic": 7
+  },
+  "55e6f5a2016474df432ffe86f2b85609": {
+    "path": "MIDI/Vaughan Sarah/Fever.mid",
+    "tonic": 9,
+    "modulations": {
+      "60": 10,
+      "80": 0
+    }
+  },
+  "5b654b91b76da7e313cfcb9ff78de64b": {
+    "path": "MIDI/Village People/Five O'clock in the Morning.mid",
+    "tonic": 7
+  },
   "5f9888f815ae517d592a7f133a26b385": {
     "path": "MIDI/Yellow Magic Orchestra (YMO)/Waterford.mid",
     "tonic": 10
@@ -119,6 +166,10 @@
       "19": 7
     }
   },
+  "69aabbbe40eeae7d4d341ab23a3751eb": {
+    "path": "MIDI/Vaughn/Blue Tango.mid",
+    "tonic": 2
+  },
   "6a80c9d28bc8a3094be25bbe687b83e3": {
     "path": "MIDI/Will Glahe/Wiener Praterleben.mid",
     "tonic": 9,
@@ -129,6 +180,36 @@
       "101": 9
     }
   },
+  "6ed1e20f3c01a75f4b21e097fcf2c747": {
+    "path": "MIDI/VOF de Kunst/Een kopje koffie.mid",
+    "tonic": 7
+  },
+  "6f624c6e1da62a562e9f0fc81c474b68": {
+    "path": "MIDI/Warren G/Regulate.mid",
+    "tonic": 4
+  },
+  "70524723b9ad942f53b217c4b9fb698d": {
+    "path": "MIDI/Venditti Antonello/Benvenuti in paradiso.mid",
+    "tonic": 2
+  },
+  "7592fd323d9329464b078c621da4dff8": {
+    "path": "MIDI/Vanessa Williams/Colors of the Wind.mid",
+    "tonic": 2
+  },
+  "79592e2bde9fad59ff9f69423ec6fe00": {
+    "path": "MIDI/Warren/The More I See You.mid",
+    "tonic": 5
+  },
+  "7ab2bd00828d958be8041821791b10dd": {
+    "path": "MIDI/Washington Dinah/If I Can't Have You.mid",
+    "tonic": 9,
+    "modulations": {
+      "18": 0,
+      "35": 9,
+      "49": 0,
+      "63": 9
+    }
+  },
   "7d95dcc4cd41f000e4a269a178bfb512": {
     "path": "MIDI/Xavier Cugat/Begin the Beguine.mid",
     "tonic": 0
@@ -136,6 +217,25 @@
   "813120302566ee9a68ec5446f7c914e6": {
     "path": "MIDI/Wolfgang Ambros/Zwickt's Mi.mid",
     "tonic": 7
+  },
+  "82bc5e8029fe632f43cee3e238dadf7b": {
+    "path": "MIDI/Vasco/Albachiara.mid",
+    "tonic": 0
+  },
+  "82bcfb03a4110da3511e7459a63c21b8": {
+    "path": "MIDI/Van McCoy/The Hustle.mid",
+    "tonic": 5
+  },
+  "83cd6652f89e2a229ebe8b751298f0a4": {
+    "path": "MIDI/Vicki Brown/Stay With Me 'Till the Morning.mid",
+    "tonic": 3,
+    "modulations": {
+      "44": 5
+    }
+  },
+  "8428521aa7b1a245c57255f20251fd04": {
+    "path": "MIDI/Vera/At This Moment.mid",
+    "tonic": 6
   },
   "85ef387e9f7438e7c7803610d3d7021d": {
     "path": "MIDI/White Zombie/Black Sunshine.mid",
@@ -167,6 +267,18 @@
       "130": 4
     }
   },
+  "9f7f0ca20e0ad2765da24817039dc950": {
+    "path": "MIDI/Watson Johnny Guitar/A Real Mother for Ya.mid",
+    "tonic": 5
+  },
+  "a0320ee61534a2db2e338625e087e483": {
+    "path": "MIDI/Vanessa Paradis/Be My Baby.mid",
+    "tonic": 0
+  },
+  "a78f0fde630a265c342f11749e12fec6": {
+    "path": "MIDI/Vertical Horizon/Everything You Want.mid",
+    "tonic": 3
+  },
   "a92c706e7b60cd3c42f5aee411cb7fe4": {
     "path": "MIDI/Zucchero/Un piccolo aiuto (feat. Gerard Depardieu).mid",
     "tonic": 7
@@ -178,6 +290,10 @@
       "48": 10
     }
   },
+  "bf6e024ed91052a072104ea4a7bcc3d1": {
+    "path": "MIDI/Vengaboys/Boom Boom Boom.mid",
+    "tonic": 6
+  },
   "bfb829ba4dddca341aea524e0574712a": {
     "path": "MIDI/Worlds Apart/Je Te Donne.mid",
     "tonic": 7,
@@ -185,12 +301,24 @@
       "75": 9
     }
   },
+  "c0faa653e4a9a49fa96b871f7b283951": {
+    "path": "MIDI/Visage/Fade to Grey.mid",
+    "tonic": 9
+  },
   "c13a2cda7dae48d999d069d80dfdda39": {
     "path": "MIDI/Whitney Houston/1 Moment in Time.mid",
     "tonic": 0,
     "modulations": {
       "71": 1
     }
+  },
+  "c146cabb37936d143a58c8c66c9f6b0a": {
+    "path": "MIDI/Vangelis/1492: Conquest of Paradise.mid",
+    "tonic": 2
+  },
+  "c21509c5d2c2a5961f34fc2b0a5b3761": {
+    "path": "MIDI/Walter Egan/Magnet and Steel.mid",
+    "tonic": 1
   },
   "c230f37ef492da285f32343b0eeaff2b": {
     "path": "MIDI/Werner/So ein Mann.mid",
@@ -216,16 +344,32 @@
     "path": "MIDI/White Barry/Can't Get Enough of Your Love, Babe.mid",
     "tonic": 5
   },
+  "cc6b412aeeb834e8fecfd308f1103ee2": {
+    "path": "MIDI/Veruca Salt/Seether.mid",
+    "tonic": 10
+  },
   "ccdc9fe6108da5554b163ddded3df85a": {
     "path": "MIDI/Winger/Miles Away.mid",
     "tonic": 5
+  },
+  "cf3e98dd5d50309a3fc6dd34789129a0": {
+    "path": "MIDI/Warren Zevon/Lawyers, Guns and Money.mid",
+    "tonic": 10
   },
   "cfa0392864ab8b98f390b9bc0852ba41": {
     "path": "MIDI/Weezer/Buddy Holly.mid",
     "tonic": 9
   },
+  "d3f722dfa729b09410fb6609647b57d5": {
+    "path": "MIDI/Was (Not Was)/Walk the Dinosaur.mid",
+    "tonic": 3
+  },
   "d568fda22eb95c6eb6c3b2f3d40af35f": {
     "path": "MIDI/ZZ Top/Viva Las Vegas.mid",
+    "tonic": 7
+  },
+  "df1c531b364595e7e275a21012874c55": {
+    "path": "MIDI/Van Morrison/Brown Eyed Girl.mid",
     "tonic": 7
   },
   "dfb9bbcc0d0813d33daae94f628dccf8": {
@@ -283,6 +427,28 @@
       "72": 8
     }
   },
+  "ee6c656e37d3b03f797ef71391a4eb09": {
+    "path": "MIDI/Vicki Sue Robinson/Never Gonna Let You Go.mid",
+    "tonic": 6,
+    "modulations": {
+      "7": 7,
+      "11": 4,
+      "15": 5,
+      "17": 4,
+      "21": 5,
+      "25": 6,
+      "29": 7,
+      "33": 4,
+      "37": 5,
+      "39": 4,
+      "43": 5,
+      "47": 6,
+      "55": 3,
+      "57": 4,
+      "61": 5,
+      "65": 10
+    }
+  },
   "ef0082c9657c32080d2616fc35f26efc": {
     "path": "MIDI/Wet Wet Wet/Angel Eyes.mid",
     "tonic": 7,
@@ -318,6 +484,10 @@
     "path": "MIDI/Whitesnake/Here I Go Again.mid",
     "tonic": 7
   },
+  "f16daf24c0ec708671d6b904fed481e1": {
+    "path": "MIDI/Vince Guaraldi/Les Peanuts   Charly Brown   Snoopy.mid",
+    "tonic": 8
+  },
   "f191a4c1c0bbbbfa53bf7b2af53c8931": {
     "path": "MIDI/Westbam/Hard Times.mid",
     "tonic": 1
@@ -334,16 +504,48 @@
     "path": "MIDI/Whiteman Paul & His Orchestra/Sweet Sue, Just You.mid",
     "tonic": 7
   },
+  "f52bfb6f1f856762ea8c2004d3351e05": {
+    "path": "MIDI/Waller Fats/Lonesome Road.mid",
+    "tonic": 7
+  },
+  "f90e419cdd114168a4a157f827362860": {
+    "path": "MIDI/Vega/Tom's Diner (reprise).mid",
+    "tonic": 9
+  },
   "f9f2b64869f71d400ecfccdef2abfd17": {
     "path": "MIDI/Zappa/Whippin Post.mid",
     "tonic": 9
+  },
+  "fb111454d92754b4927c32a37710846b": {
+    "path": "MIDI/Ventures/Walk Don't Run.mid",
+    "tonic": 10
+  },
+  "fcb2bb3eaa584b25c8addbc76153da87": {
+    "path": "MIDI/Vanilla Ice/Ice Ice Baby.mid",
+    "tonic": 2
   },
   "fd7cbee6a25f2985789178497a501459": {
     "path": "MIDI/Willeke Alberti/Het wijnfeest.mid",
     "tonic": 9
   },
+  "fdff538c1ad14bb42fc85bcb9e211e44": {
+    "path": "MIDI/Vanilla Fudge/You Keep Me Hangin' On.mid",
+    "tonic": 4,
+    "modulations": {
+      "36": 5,
+      "43": 11,
+      "48": 4,
+      "62": 5,
+      "69": 11,
+      "74": 4
+    }
+  },
   "fe2eae799abb0e4cfa54b587637ee414": {
     "path": "MIDI/Young Paul/Don't Dream It's Over.mid",
     "tonic": 0
+  },
+  "ffb86830e710d798c06c870711753465": {
+    "path": "MIDI/Vincent Gene/Be Bob A-Lula.mid",
+    "tonic": 4
   }
 }

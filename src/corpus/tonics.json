@@ -15,6 +15,10 @@
       "104": 10
     }
   },
+  "17e546dd351ac9bf657f3c9592bf6b08": {
+    "path": "MIDI/Weather Report/Birdland.mid",
+    "tonic": 7
+  },
   "1b4112a40a2995c3a2874f2003b3951b": {
     "path": "MIDI/Zucchero/You Make Me Feel Loved.mid",
     "tonic": 7
@@ -33,6 +37,10 @@
       "79": 4,
       "88": 6
     }
+  },
+  "2ec9179be3631b4ea61e7604ba693606": {
+    "path": "MIDI/Wayne Jeff/The Eve of the War.mid",
+    "tonic": 2
   },
   "2f4a612d777893fd275f362c9461fcaf": {
     "path": "MIDI/Womack/I'm In Love.mid",
@@ -88,6 +96,10 @@
       "185": 7
     }
   },
+  "4aefe581bcb19927a3270924c06fea1b": {
+    "path": "MIDI/White Town/Your Woman.mid",
+    "tonic": 7
+  },
   "4dc244856cafe5e7824a1b8dd579ac40": {
     "path": "MIDI/Zeze di Camargo/Fala Serio.mid",
     "tonic": 9
@@ -99,6 +111,13 @@
   "61301fb10ee7fca4e2f6a0fd0014a63d": {
     "path": "MIDI/Wilbert Harrison/Kansas City.mid",
     "tonic": 0
+  },
+  "66f1d64326f241edbf62e4b87a9dc1f8": {
+    "path": "MIDI/White Lion/When the Children Cry.mid",
+    "tonic": 4,
+    "modulations": {
+      "19": 7
+    }
   },
   "6a80c9d28bc8a3094be25bbe687b83e3": {
     "path": "MIDI/Will Glahe/Wiener Praterleben.mid",
@@ -117,6 +136,17 @@
   "813120302566ee9a68ec5446f7c914e6": {
     "path": "MIDI/Wolfgang Ambros/Zwickt's Mi.mid",
     "tonic": 7
+  },
+  "85ef387e9f7438e7c7803610d3d7021d": {
+    "path": "MIDI/White Zombie/Black Sunshine.mid",
+    "tonic": 4
+  },
+  "926fcf230e813c2ce6417599d094481f": {
+    "path": "MIDI/Wendy Moten/Come in Out of the Rain.mid",
+    "tonic": 5,
+    "modulations": {
+      "95": 9
+    }
   },
   "92741f887cb8fea4bf8147236a9f02b6": {
     "path": "MIDI/Wilson Pickett/In The Midnight Hour.mid",
@@ -141,6 +171,13 @@
     "path": "MIDI/Zucchero/Un piccolo aiuto (feat. Gerard Depardieu).mid",
     "tonic": 7
   },
+  "af71bbcf8e7c3da781a746228d5cbf3b": {
+    "path": "MIDI/Wet Willie/Keep on Smiling.mid",
+    "tonic": 9,
+    "modulations": {
+      "48": 10
+    }
+  },
   "bfb829ba4dddca341aea524e0574712a": {
     "path": "MIDI/Worlds Apart/Je Te Donne.mid",
     "tonic": 7,
@@ -155,6 +192,15 @@
       "71": 1
     }
   },
+  "c230f37ef492da285f32343b0eeaff2b": {
+    "path": "MIDI/Werner/So ein Mann.mid",
+    "tonic": 10,
+    "modulations": {
+      "61": 11,
+      "112": 10,
+      "147": 11
+    }
+  },
   "c2a5d24b1d8ecfd44d508cea371d83c9": {
     "path": "MIDI/Wolter Kroes/Laat me los.mid",
     "tonic": 2,
@@ -166,9 +212,17 @@
     "path": "MIDI/Zamfir Gheorghe/The Lonely Shepherd.mid",
     "tonic": 4
   },
+  "c610f774ca04fa5399378edfdb88095a": {
+    "path": "MIDI/White Barry/Can't Get Enough of Your Love, Babe.mid",
+    "tonic": 5
+  },
   "ccdc9fe6108da5554b163ddded3df85a": {
     "path": "MIDI/Winger/Miles Away.mid",
     "tonic": 5
+  },
+  "cfa0392864ab8b98f390b9bc0852ba41": {
+    "path": "MIDI/Weezer/Buddy Holly.mid",
+    "tonic": 9
   },
   "d568fda22eb95c6eb6c3b2f3d40af35f": {
     "path": "MIDI/ZZ Top/Viva Las Vegas.mid",
@@ -194,9 +248,17 @@
     "path": "MIDI/Wings/Silly Love Songs.mid",
     "tonic": 0
   },
+  "e37ecff11f70e2949c41a72c19dab1b1": {
+    "path": "MIDI/Whigfield/Another Day.mid",
+    "tonic": 10
+  },
   "e61c90b9cc904a51ff618fdfab6b5757": {
     "path": "MIDI/Yes/Your Move.mid",
     "tonic": 4
+  },
+  "e64c18fde99e561e087cd2722bbf42cb": {
+    "path": "MIDI/Wham!/Careless Whisper.mid",
+    "tonic": 2
   },
   "e7546e95794b39ef64667ceb94b95170": {
     "path": "MIDI/Will to Power/I'm Not in Love.mid",
@@ -221,13 +283,44 @@
       "72": 8
     }
   },
+  "ef0082c9657c32080d2616fc35f26efc": {
+    "path": "MIDI/Wet Wet Wet/Angel Eyes.mid",
+    "tonic": 7,
+    "modulations": {
+      "35": 3,
+      "41": 7,
+      "59": 3,
+      "65": 7,
+      "97": 3,
+      "103": 7,
+      "123": 4
+    }
+  },
+  "ef0865f287f7d8ee78605f029596b1a6": {
+    "path": "MIDI/Westlife/Fool Again.mid",
+    "tonic": 4,
+    "modulations": {
+      "58": 6
+    }
+  },
   "ef16a3cb36740c5ff395301edc6aaee1": {
     "path": "MIDI/Eric Clapton/Cocaine.mid",
     "tonic": 4
   },
+  "ef3c8e073b44af6547c5a8432cfeba04": {
+    "path": "MIDI/Westernhagen/Mit Pfefferminz bin ich dein Prinz.mid",
+    "tonic": 7,
+    "modulations": {
+      "38": 9
+    }
+  },
   "efa2d91b1899f9682026ab0a6d2ca58f": {
     "path": "MIDI/Whitesnake/Here I Go Again.mid",
     "tonic": 7
+  },
+  "f191a4c1c0bbbbfa53bf7b2af53c8931": {
+    "path": "MIDI/Westbam/Hard Times.mid",
+    "tonic": 1
   },
   "f333e282c4439bd885c2d89fcf84566e": {
     "path": "MIDI/Xscape/Just Kickin' It.mid",

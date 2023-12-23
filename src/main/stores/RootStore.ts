@@ -2,6 +2,7 @@ import { makeObservable, observable } from "mobx"
 import Player from "../../common/player"
 import Song, { emptySong } from "../../common/song"
 import TrackMute from "../../common/trackMute"
+import { loadSongFromExternalMidiFile } from "../../firebase/song"
 import { SerializedState, pushHistory } from "../actions/history"
 import { GroupOutput } from "../services/GroupOutput"
 import { MIDIInput, previewMidiInput } from "../services/MIDIInput"
@@ -88,9 +89,19 @@ export default class RootStore {
       await this.synth.setup()
       await this.soundFontStore.init()
       this.setupMetronomeSynth()
+      await this.loadExternalMidiOnLaunchIfNeeded()
     } catch (e) {
       this.rootViewStore.initializeError = e as Error
       this.rootViewStore.openInitializeErrorDialog = true
+    }
+  }
+
+  private async loadExternalMidiOnLaunchIfNeeded() {
+    const params = new URLSearchParams(window.location.search)
+    const openParam = params.get("open")
+
+    if (openParam) {
+      await loadSongFromExternalMidiFile(openParam)
     }
   }
 

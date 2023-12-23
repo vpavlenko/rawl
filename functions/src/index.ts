@@ -41,6 +41,8 @@ export const storeMidiFile = functions.https.onRequest(
       const docRef = await midiCollection.add({
         url: midiFileUrl,
         data: midiData,
+        createdAt: admin.firestore.FieldValue.serverTimestamp(),
+        updatedAt: admin.firestore.FieldValue.serverTimestamp(),
       })
       response.send({ message: "MIDI file has been stored.", docId: docRef.id })
     } catch (error) {

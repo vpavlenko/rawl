@@ -13,5 +13,8 @@
     "axios": "^1.6.2",
     "firebase-admin": "^11.11.1",
     "firebase-functions": "^4.5.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3"
   }
 }

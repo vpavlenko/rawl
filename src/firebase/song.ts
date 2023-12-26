@@ -16,7 +16,7 @@ import {
   where,
 } from "firebase/firestore"
 import { httpsCallable } from "firebase/functions"
-import { basename } from "path"
+import { basename } from "../common/helpers/path"
 import { songFromMidi, songToMidi } from "../common/midi/midiConversion"
 import Song from "../common/song"
 import { auth, firestore, functions } from "./firebase"
@@ -194,7 +194,7 @@ export const loadSongFromExternalMidiFile = async (midiFileUrl: string) => {
     throw new Error("Midi data does not exist")
   }
   const song = songFromMidi(data.toUint8Array())
-  song.name = basename(midiFileUrl)
+  song.name = basename(midiFileUrl) ?? ""
   song.isSaved = true
   return song
 }

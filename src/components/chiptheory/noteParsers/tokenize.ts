@@ -15,31 +15,41 @@ export type Tokens = MeasureOfTokens[];
 type CellNote = {
   midiNumber: number;
   isDrum: boolean;
-  onset: number; // quantized, in relative coordinates, eg. 7/16
+  onset: string; // quantized, in relative coordinates, eg. 7/16
 };
 
 type Cell = CellNote[];
 
 const convertNotesToCellNotes = (notes: Note[], beats: number[]): CellNote[] =>
-  notes.map((note) => {
-    const {
-      note: { midiNumber },
-      isDrum,
-      span: [time],
-    } = note;
-    // let's encode onset
-    // find our beat segment and encode relative coord
-    let i = 0;
+  notes
+    .map((note) => {
+      const {
+        note: { midiNumber },
+        isDrum,
+        span: [time],
+      } = note;
+      // let's encode onset
+      // find our beat segment and encode relative coord
+      let i = 0;
 
-    while (beats[i + 1] <= time + EPSILON) {
-      i++;
-    }
-    return {
-      midiNumber,
-      isDrum,
-      onset: i + (time - beats[i]) / (beats[i + 1] - beats[i]),
-    };
-  });
+      while (beats[i + 1] <= time + EPSILON) {
+        i++;
+      }
+      return {
+        midiNumber,
+        isDrum,
+        onset: (
+          i +
+          (time - beats[i]) / (beats[i + 1] - beats[i]) +
+          EPSILON
+        ).toFixed(3),
+      };
+    })
+    .sort((i, j) =>
+      i.onset !== j.onset
+        ? parseFloat(i.onset) - parseFloat(j.onset)
+        : i.midiNumber - j.midiNumber,
+    );
 
 // A cell is measure+channel. Eg. m.20 ch.3.
 // A tokenization is valid if it can be expanded back into the original
@@ -90,7 +100,7 @@ const splitNotesIntoCells = (
 const debugCellTokenizer = (cell: Cell): string[] =>
   cell.map(
     ({ midiNumber, isDrum, onset }) =>
-      `${midiNumber}_${isDrum ? "drum_" : ""}_${(onset + EPSILON).toFixed(3)}`,
+      `${midiNumber}_${isDrum ? "drum_" : ""}_${onset}`,
   );
 
 const areCellsEqual = (cell1: Cell, cell2: Cell): boolean => {
@@ -106,7 +116,7 @@ const areCellsEqual = (cell1: Cell, cell2: Cell): boolean => {
     if (
       note1.midiNumber !== note2.midiNumber ||
       note1.isDrum !== note2.isDrum ||
-      Math.abs(note1.onset - note2.onset) > EPSILON
+      Math.abs(parseFloat(note1.onset) - parseFloat(note2.onset)) > EPSILON
     ) {
       return false;
     }

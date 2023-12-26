@@ -7,9 +7,6 @@ const getNotes = (events, channel): Note[] => {
   const notes = [];
   const noteOn = {};
   events.forEach((event) => {
-    if (channel === 9) {
-      return []; // skip drums for now
-    }
     if (event.channel === channel && event.type === 8) {
       const midiNumber = event.param1;
       if (event.subtype === 9) {
@@ -24,6 +21,7 @@ const getNotes = (events, channel): Note[] => {
                 name: "??",
               },
               id,
+              isDrum: channel === 9,
               span: [noteOn[midiNumber].playTime / 1000, event.playTime / 1000],
               chipState: { on: noteOn[midiNumber], off: event },
             });

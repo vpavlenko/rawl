@@ -39,6 +39,62 @@ const STACKED_LAYOUT_NOTE_HEIGHT = 5;
 
 export type MidiRange = [number, number];
 
+const GM_DRUM_KIT = {
+  35: "🦵", //"Acoustic Bass Drum",
+  36: "🦶🏼", //"Bass Drum 1",
+  37: "🏑", //"Side Stick",
+  38: "🥁", //"Acoustic Snare",
+  39: "👏", //"Hand Clap",
+  40: "⚡", //"Electric Snare",
+  41: "0️⃣", //"Low Floor Tom",
+  42: "💽", // "Closed Hi Hat",
+  43: "1️⃣", //"High Floor Tom",
+  44: "💿", //"Pedal Hi-Hat",
+  45: "2️⃣", //"Low Tom",
+  46: "📀", //"Open Hi-Hat",
+  47: "3️⃣", // "Low-Mid Tom",
+  48: "4️⃣", //"Hi-Mid Tom",
+  49: "💥", //"Crash Cymbal 1",
+  50: "5️⃣", //"High Tom",
+  51: "🚗", //"Ride Cymbal 1",
+  52: "🇨🇳", //"Chinese Cymbal",
+  53: "🛎️", //"Ride Bell",
+  54: "🔔", //"Tambourine",
+  55: "💦", //"Splash Cymbal",
+  56: "🐄",
+  57: "💣", //"Crash Cymbal 2",
+  58: "Vibraslap",
+  59: "🚙", //"Ride Cymbal 2",
+  60: "🔼",
+  61: "🔽",
+  62: "Mute Hi Conga",
+  63: "Open Hi Conga",
+  64: "Low Conga",
+  65: "⬆️",
+  66: "⬇️",
+  67: "High Agogo",
+  68: "Low Agogo",
+  69: "Cabasa",
+  70: "Maracas",
+  71: "😗",
+  72: "💨",
+  73: "Short Guiro",
+  74: "Long Guiro",
+  75: "🔑",
+  76: "🪵",
+  77: "🌳",
+  78: "Mute Cuica",
+  79: "Open Cuica",
+  80: "Mute Triangle",
+  81: "Open Triangle",
+  82: "⚱️", //'Shaker',
+  83: "j", //"Jingle Bell",
+  84: "Belltree",
+  85: "🌰",
+  86: "Mute Surdo",
+  87: "Open Surdo",
+};
+
 const getMidiRange = (notes: Note[], span?: SecondsSpan): MidiRange => {
   let min = +Infinity;
   let max = -Infinity;
@@ -145,23 +201,27 @@ const getNoteRectangles = (
   showVelocity = false,
   offsetSeconds: number,
 ) => {
-  console.log("showVelocity", showVelocity);
   return notes.map((note) => {
     const top = midiNumberToY(note.note.midiNumber);
     const left = secondsToX(note.span[0] - offsetSeconds);
-    const color = getNoteColor(voiceIndex, note, analysis, measures);
-    const chordNote =
-      voiceIndex !== -1
-        ? getChordNote(note, analysis, measures, analysis.romanNumerals)
-        : null;
+    const color = note.isDrum
+      ? "black"
+      : getNoteColor(voiceIndex, note, analysis, measures);
+    const chordNote = note.isDrum
+      ? GM_DRUM_KIT[note.note.midiNumber] || note.note.midiNumber
+      : voiceIndex !== -1
+      ? getChordNote(note, analysis, measures, analysis.romanNumerals)
+      : null;
     const noteElement = chordNote ? (
       <span
         className="noteText"
         style={{
-          fontSize: `${Math.min(noteHeight + 2, 14)}px`,
+          fontSize: note.isDrum ? "10px" : `${Math.min(noteHeight + 2, 14)}px`,
+          position: "relative",
+          left: note.isDrum ? "-5px" : "0px",
           lineHeight: `${Math.min(noteHeight, 14)}px`,
           fontFamily: "Helvetica, sans-serif",
-          fontWeight: 700,
+          fontWeight: note.isDrum ? 100 : 700,
           color: getTextColorForBackground(color),
         }}
       >
@@ -176,18 +236,26 @@ const getNoteRectangles = (
         style={{
           position: "absolute",
           height: `${noteHeight}px`,
-          width: secondsToX(note.span[1]) - secondsToX(note.span[0]),
+          width: note.isDrum
+            ? "0px"
+            : secondsToX(note.span[1]) - secondsToX(note.span[0]),
           backgroundColor: color,
+          overflow: "visible",
           top,
           left,
           pointerEvents: voiceIndex === -1 ? "none" : "auto",
-          borderRadius: [10, 3, 0, 5, 20, 7, 1][voiceIndex % 7],
+          borderRadius: note.isDrum
+            ? 0
+            : [10, 3, 0, 5, 20, 7, 1][voiceIndex % 7],
+          // borderBottom: note.isDrum ? "1px solid white" : "",
           cursor: "pointer",
           zIndex: 10,
           //   opacity: isActiveVoice ? 0.9 : 0.1,
           // TODO: make it map onto the dynamic range of a song? of a track?
           opacity: isActiveVoice
-            ? (showVelocity && note?.chipState?.on?.param2 / 127) || 1
+            ? ((showVelocity || note.isDrum) &&
+                note?.chipState?.on?.param2 / 127) ||
+              1
             : 0.1,
           display: "grid",
           placeItems: "center",

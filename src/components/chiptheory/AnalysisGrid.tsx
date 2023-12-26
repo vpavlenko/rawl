@@ -258,6 +258,7 @@ export const AnalysisGrid: React.FC<{
   hasRomanNumerals: boolean;
   measureSelection: MeasureSelection;
   showHeader?: boolean;
+  showTonalGrid?: boolean;
 }> = React.memo(
   ({
     analysis,
@@ -273,6 +274,7 @@ export const AnalysisGrid: React.FC<{
     midiRange,
     hasRomanNumerals = true,
     showHeader = true,
+    showTonalGrid = true,
   }) => {
     const { measures, beats } = measuresAndBeats;
     const relativeModulations = getRelativeModulations(
@@ -310,7 +312,7 @@ export const AnalysisGrid: React.FC<{
         {beats.map((time) => (
           <Beat key={time} second={time} secondsToX={secondsToX} />
         ))}
-        {analysis.tonic !== null && (
+        {showTonalGrid && analysis.tonic !== null && (
           <TonalGrid
             analysis={analysis}
             measures={measures}

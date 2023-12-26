@@ -47,11 +47,11 @@ const GM_DRUM_KIT = {
   39: "👏", //"Hand Clap",
   40: "⚡", //"Electric Snare",
   41: "0️⃣", //"Low Floor Tom",
-  42: "💽", // "Closed Hi Hat",
+  42: "🔒", // "Closed Hi Hat",
   43: "1️⃣", //"High Floor Tom",
-  44: "💿", //"Pedal Hi-Hat",
+  44: "🚴‍♀️", //"Pedal Hi-Hat",
   45: "2️⃣", //"Low Tom",
-  46: "📀", //"Open Hi-Hat",
+  46: "💿", //"Open Hi-Hat",
   47: "3️⃣", // "Low-Mid Tom",
   48: "4️⃣", //"Hi-Mid Tom",
   49: "💥", //"Crash Cymbal 1",
@@ -63,36 +63,36 @@ const GM_DRUM_KIT = {
   55: "💦", //"Splash Cymbal",
   56: "🐄",
   57: "🔥", //"Crash Cymbal 2",
-  58: "Vibraslap",
+  58: "📳",
   59: "🚙", //"Ride Cymbal 2",
   60: "🔼",
   61: "🔽",
-  62: "Mute Hi Conga",
-  63: "Open Hi Conga",
-  64: "Low Conga",
+  62: "🕺",
+  63: "💃",
+  64: "🪘",
   65: "⬆️",
   66: "⬇️",
-  67: "High Agogo",
-  68: "Low Agogo",
-  69: "Cabasa",
-  70: "Maracas",
+  67: "🗼",
+  68: "🍦",
+  69: "🍡",
+  70: "🎉",
   71: "😗",
   72: "💨",
-  73: "Short Guiro",
-  74: "Long Guiro",
+  73: "#️⃣",
+  74: "📶",
   75: "🔑",
   76: "🪵",
   77: "🌳",
-  78: "Mute Cuica",
-  79: "Open Cuica",
-  80: "Mute Triangle",
-  81: "Open Triangle",
+  78: "🐭",
+  79: "🇧🇷",
+  80: "⨻",
+  81: "△",
   82: "⚱️", //'Shaker',
-  83: "j", //"Jingle Bell",
-  84: "Belltree",
+  83: "🎅🏻", //"Jingle Bell",
+  84: "🚿",
   85: "🌰",
-  86: "Mute Surdo",
-  87: "Open Surdo",
+  86: "🍺",
+  87: "🛢️",
 };
 
 const getMidiRange = (notes: Note[], span?: SecondsSpan): MidiRange => {
@@ -205,7 +205,7 @@ const getNoteRectangles = (
     const top = midiNumberToY(note.note.midiNumber);
     const left = secondsToX(note.span[0] - offsetSeconds);
     const color = note.isDrum
-      ? "black"
+      ? "white"
       : getNoteColor(voiceIndex, note, analysis, measures);
     const chordNote = note.isDrum
       ? GM_DRUM_KIT[note.note.midiNumber] || note.note.midiNumber
@@ -253,9 +253,7 @@ const getNoteRectangles = (
           //   opacity: isActiveVoice ? 0.9 : 0.1,
           // TODO: make it map onto the dynamic range of a song? of a track?
           opacity: isActiveVoice
-            ? ((showVelocity || note.isDrum) &&
-                note?.chipState?.on?.param2 / 127) ||
-              1
+            ? (showVelocity && note?.chipState?.on?.param2 / 127) || 1
             : 0.1,
           display: "grid",
           placeItems: "center",
@@ -630,6 +628,7 @@ const Phrase: React.FC<
           midiRange={midiRange}
           hasRomanNumerals={hasRomanNumerals}
           showHeader={showHeader}
+          showTonalGrid={!notes?.[0]?.[0].isDrum}
         />
       ) : null}
       {cursor}

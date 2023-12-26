@@ -1,5 +1,6 @@
 import MIDIEvents from "midievents";
 import { Note, ParsingResult } from ".";
+import { tokenize } from "./tokenize";
 
 let id = 0;
 
@@ -116,8 +117,10 @@ export const parseMIDI = ({
       console.log("KEY SIGNATURE" + JSON.stringify(event));
     }
   });
+  const notes = activeChannels.map((channel) => getNotes(events, channel));
   return {
-    notes: activeChannels.map((channel) => getNotes(events, channel)),
     measuresAndBeats,
+    notes,
+    tokens: tokenize(notes, measuresAndBeats),
   };
 };

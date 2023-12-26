@@ -132,7 +132,7 @@ const Chiptheory: React.FC<{
     () => parseNotes(chipStateDump),
     [chipStateDump],
   );
-  const { notes } = parsingResult;
+  const { notes, tokens } = parsingResult;
 
   const allNotes = useMemo(() => notes.flat(), [notes]);
 

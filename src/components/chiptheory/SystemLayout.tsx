@@ -22,6 +22,7 @@ import {
 import { Analysis, MeasuresSpan } from "./analysis";
 import { MeasuresAndBeats, getPhrasingMeasures } from "./measures";
 import { Note, NotesInVoices } from "./noteParsers";
+import { ChannelOfTokens, Tokens } from "./noteParsers/tokenize";
 import {
   TWELVE_CHORD_TONES,
   TWELVE_TONE_COLORS,
@@ -474,6 +475,7 @@ const VoiceName: React.FC<{
 
 const Phrase: React.FC<
   DataForPhrase & {
+    tokens: ChannelOfTokens;
     analysis: Analysis;
     showIntervals: boolean;
     showVelocity: boolean;
@@ -493,6 +495,7 @@ const Phrase: React.FC<
   }
 > = ({
   notes,
+  tokens,
   measuresAndBeats,
   measuresSpan,
   secondsSpan,
@@ -629,6 +632,7 @@ const Phrase: React.FC<
           hasRomanNumerals={hasRomanNumerals}
           showHeader={showHeader}
           showTonalGrid={!notes?.[0]?.[0].isDrum}
+          tokens={tokens}
         />
       ) : null}
       {cursor}
@@ -765,6 +769,7 @@ export const StackedSystemLayout: React.FC<{
         <Phrase
           key={data.measuresSpan[0]}
           {...data}
+          tokens={[]}
           analysis={futureAnalysis}
           voiceMask={voiceMask}
           globalMeasures={measuresAndBeats.measures}
@@ -803,6 +808,7 @@ const debounce = (func, delay) => {
 
 export const SplitSystemLayout: React.FC<{
   notes: NotesInVoices;
+  tokens: Tokens;
   voiceNames: string[];
   voiceMask: boolean[];
   measuresAndBeats: MeasuresAndBeats;
@@ -815,6 +821,7 @@ export const SplitSystemLayout: React.FC<{
   setVoiceMask: SetVoiceMask;
 }> = ({
   notes,
+  tokens,
   voiceNames,
   voiceMask,
   measuresAndBeats,
@@ -834,7 +841,11 @@ export const SplitSystemLayout: React.FC<{
           voiceIndex,
         }))
         .sort((a, b) => b.average - a.average)
-        .map(({ voiceIndex }) => ({ voiceIndex, notes: [notes[voiceIndex]] })),
+        .map(({ voiceIndex }) => ({
+          voiceIndex,
+          notes: [notes[voiceIndex]],
+          tokens: tokens.map((measure) => measure[voiceIndex]),
+        })),
     [notes],
   );
 
@@ -898,36 +909,44 @@ export const SplitSystemLayout: React.FC<{
       ref={parentRef}
     >
       <div>
-        {voicesSortedByAverageMidiNumber.map(({ voiceIndex, notes }, order) =>
-          voiceMask[voiceIndex] ? (
-            <Phrase
-              key={voiceIndex}
-              voiceName={voiceNames[voiceIndex]}
-              notes={notes}
-              // this is legacy for Stacked
-              voiceMask={SPLIT_VOICE_MASK}
-              measuresAndBeats={measuresAndBeats}
-              measuresSpan={[1, measuresAndBeats.measures.length]}
-              secondsSpan={[
-                0,
-                measuresAndBeats.measures[measuresAndBeats.measures.length - 1],
-              ]}
-              analysis={analysis}
-              globalMeasures={measuresAndBeats.measures}
-              mouseHandlers={mouseHandlers}
-              measureSelection={measureSelection}
-              showIntervals={showIntervals}
-              showVelocity={showVelocity}
-              showHeader={order === voicesSortedByAverageMidiNumber.length - 1}
-              cursor={<Cursor style={{ left: secondsToX(positionSeconds) }} />}
-              phraseStarts={phraseStarts}
-              scrollLeft={scrollInfo.left}
-              scrollRight={scrollInfo.right}
-              bigVoiceMask={voiceMask}
-              setVoiceMask={setVoiceMask}
-              voiceIndex={voiceIndex}
-            />
-          ) : null,
+        {voicesSortedByAverageMidiNumber.map(
+          ({ voiceIndex, notes, tokens }, order) =>
+            voiceMask[voiceIndex] ? (
+              <Phrase
+                key={voiceIndex}
+                voiceName={voiceNames[voiceIndex]}
+                notes={notes}
+                tokens={tokens}
+                // this is legacy for Stacked
+                voiceMask={SPLIT_VOICE_MASK}
+                measuresAndBeats={measuresAndBeats}
+                measuresSpan={[1, measuresAndBeats.measures.length]}
+                secondsSpan={[
+                  0,
+                  measuresAndBeats.measures[
+                    measuresAndBeats.measures.length - 1
+                  ],
+                ]}
+                analysis={analysis}
+                globalMeasures={measuresAndBeats.measures}
+                mouseHandlers={mouseHandlers}
+                measureSelection={measureSelection}
+                showIntervals={showIntervals}
+                showVelocity={showVelocity}
+                showHeader={
+                  order === voicesSortedByAverageMidiNumber.length - 1
+                }
+                cursor={
+                  <Cursor style={{ left: secondsToX(positionSeconds) }} />
+                }
+                phraseStarts={phraseStarts}
+                scrollLeft={scrollInfo.left}
+                scrollRight={scrollInfo.right}
+                bigVoiceMask={voiceMask}
+                setVoiceMask={setVoiceMask}
+                voiceIndex={voiceIndex}
+              />
+            ) : null,
         )}
       </div>
     </div>

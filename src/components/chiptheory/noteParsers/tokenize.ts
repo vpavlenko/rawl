@@ -3,12 +3,13 @@ import { MeasuresAndBeats } from "../measures";
 
 // All onsets should be rounded up.
 
-const MAX_NUM_MEASURES_TO_TOKENIZE = 12;
+const MAX_NUM_MEASURES_TO_TOKENIZE = 100;
 const EPSILON = 1e-6;
 
-type Token = string;
-type ChannelMeasureOfTokens = Token[];
-type MeasureOfTokens = ChannelMeasureOfTokens[];
+export type Token = string;
+type CellOfTokens = Token[];
+type MeasureOfTokens = CellOfTokens[];
+export type ChannelOfTokens = CellOfTokens[];
 export type Tokens = MeasureOfTokens[];
 
 type CellNote = {
@@ -83,14 +84,81 @@ const splitNotesIntoCells = (
     // TODO: check if this measure is an exact repetition of some previous one
     result.push(newMeasure);
   }
-  return [];
+  return result;
+};
+
+const debugCellTokenizer = (cell: Cell): string[] =>
+  cell.map(
+    ({ midiNumber, isDrum, onset }) =>
+      `${midiNumber}_${isDrum ? "drum_" : ""}_${(onset + EPSILON).toFixed(3)}`,
+  );
+
+const areCellsEqual = (cell1: Cell, cell2: Cell): boolean => {
+  if (cell1.length !== cell2.length) {
+    return false;
+  }
+
+  // TODO: sort notes bottom to top.
+  for (let i = 0; i < cell1.length; i++) {
+    const note1 = cell1[i];
+    const note2 = cell2[i];
+
+    if (
+      note1.midiNumber !== note2.midiNumber ||
+      note1.isDrum !== note2.isDrum ||
+      Math.abs(note1.onset - note2.onset) > EPSILON
+    ) {
+      return false;
+    }
+  }
+
+  return true;
+};
+
+const possiblyFindCopy = (previousCells: Cell[], cell: Cell) => {
+  if (previousCells.length === 0 || cell.length === 0) {
+    return null;
+  }
+
+  for (let i = previousCells.length - 1; i >= 0; i--) {
+    if (areCellsEqual(previousCells[i], cell)) {
+      return [`repeat_${previousCells.length - i}`];
+    }
+  }
+
+  return null;
+};
+
+const countTokens = (_3d) => {
+  let sum = 0;
+  for (let i = 0; i < _3d.length; ++i) {
+    for (let j = 0; j < _3d[i].length; ++j) {
+      sum += _3d[i][j].length;
+    }
+  }
+  return sum;
 };
 
 export const tokenize = (
   notes: NotesInVoices,
   measuresAndBeats: MeasuresAndBeats,
 ): Tokens => {
-  const cells = splitNotesIntoCells(notes, measuresAndBeats);
+  const measures = splitNotesIntoCells(notes, measuresAndBeats);
 
-  return [];
+  // TODO: design cool strategies like encode repeated cells
+  console.log("RAW ONSET COUNT:", countTokens(measures));
+  const withRepeats = measures.map((measure, measureIndex) =>
+    measure.map(
+      (cell, channelIndex) =>
+        possiblyFindCopy(
+          measures
+            .map((measure) => measure[channelIndex])
+            .slice(0, measureIndex),
+          cell,
+        ) || debugCellTokenizer(cell),
+    ),
+  );
+
+  console.log("WITH REPEATS TOKENIZED:", countTokens(withRepeats));
+  return withRepeats;
 };

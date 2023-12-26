@@ -371,7 +371,10 @@ export function tagToColor(str) {
 
 export const getAverageMidiNumber = (notes: Note[]) =>
   notes.length > 0
-    ? notes.reduce((sum, note) => sum + note.note.midiNumber, 0) / notes.length
+    ? notes[0].isDrum
+      ? 0
+      : notes.reduce((sum, note) => sum + note.note.midiNumber, 0) /
+        notes.length
     : Infinity;
 
 const EPSILON = 0.05; // 50 ms

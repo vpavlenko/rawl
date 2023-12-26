@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { MidiRange, SystemLayout } from "./SystemLayout";
 import { Analysis, PitchClass } from "./analysis";
 import { MeasuresAndBeats } from "./measures";
+import { ChannelOfTokens, Token } from "./noteParsers/tokenize";
 import {
   MeasureOfRomanNumerals,
   getModulations,
@@ -54,6 +55,7 @@ const Measure: React.FC<{
   hasRomanNumerals: boolean;
   measureSelection: MeasureSelection;
   showHeader: boolean;
+  tokens?: Token[];
 }> = ({
   span,
   number,
@@ -67,6 +69,7 @@ const Measure: React.FC<{
   hasRomanNumerals,
   measureSelection,
   showHeader,
+  tokens,
 }) => {
   const { previouslySelectedMeasure, selectedMeasure, selectMeasure } =
     measureSelection;
@@ -83,6 +86,22 @@ const Measure: React.FC<{
           ...(isFourMeasureMark && { backgroundColor: "#aaa" }),
         }}
       />
+      <div style={{ position: "absolute", fontSize: "8px", left }}>
+        {tokens?.map((token) => (
+          <div
+            style={{
+              padding: 0,
+              margin: 0,
+              fontSize: "8px",
+              height: "8px",
+              fontFamily: "sans",
+              zIndex: 1000,
+            }}
+          >
+            {token}
+          </div>
+        ))}
+      </div>
       {width && showHeader ? (
         <>
           <div
@@ -259,6 +278,7 @@ export const AnalysisGrid: React.FC<{
   measureSelection: MeasureSelection;
   showHeader?: boolean;
   showTonalGrid?: boolean;
+  tokens?: ChannelOfTokens;
 }> = React.memo(
   ({
     analysis,
@@ -275,6 +295,7 @@ export const AnalysisGrid: React.FC<{
     hasRomanNumerals = true,
     showHeader = true,
     showTonalGrid = true,
+    tokens,
   }) => {
     const { measures, beats } = measuresAndBeats;
     const relativeModulations = getRelativeModulations(
@@ -306,6 +327,7 @@ export const AnalysisGrid: React.FC<{
               stripesHeight={stripeSpecificProps ? STRIPES_HEIGHT : 0}
               secondsToX={secondsToX}
               systemLayout={systemLayout}
+              tokens={tokens[number - 1]}
             />
           );
         })}

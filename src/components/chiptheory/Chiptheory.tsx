@@ -338,13 +338,21 @@ const Chiptheory: React.FC<{
   const commonParams = useMemo(
     () => ({
       notes,
+      tokens,
       voiceMask,
       measuresAndBeats,
       showIntervals,
       showVelocity,
       positionSeconds,
     }),
-    [notes, voiceMask, measuresAndBeats, showIntervals, positionSeconds],
+    [
+      notes,
+      tokens,
+      voiceMask,
+      measuresAndBeats,
+      showIntervals,
+      positionSeconds,
+    ],
   );
 
   return (

@@ -148,6 +148,8 @@ export default {
     remove: "削除",
     "initialize-error": "起動時の処理でエラーが発生しました",
     "soundfont-save-notice": "サウンドフォントはブラウザー内に保存されます",
+    "loading-external-midi": "外部のMIDIファイルを読み込み中...",
+    initializing: "起動中...",
     /* MIDI Instrument Categories */
     Piano: "ピアノ",
     "Chromatic Percussion": "クロマチック",

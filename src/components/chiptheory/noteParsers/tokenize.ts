@@ -429,12 +429,12 @@ export const tokenize = (
   let tokens = measures.map((measure, measureIndex) =>
     measure.map(
       (cell, channelIndex) =>
-        possiblyFindRepeat(
-          measures
-            .map((measure) => measure[channelIndex])
-            .slice(0, measureIndex),
-          cell,
-        ) ||
+        // possiblyFindRepeat(
+        //   measures
+        //     .map((measure) => measure[channelIndex])
+        //     .slice(0, measureIndex),
+        //   cell,
+        // ) ||
         possiblyFindDoubling(
           measures[measureIndex].slice(0, channelIndex),
           cell,

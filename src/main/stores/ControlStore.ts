@@ -15,6 +15,17 @@ import PianoRollStore from "./PianoRollStore"
 
 export type ControlMode = { type: "velocity" } | ValueEventType
 
+export const controlModeKey = (controlMode: ControlMode) => {
+  switch (controlMode.type) {
+    case "velocity":
+      return "velocity"
+    case "pitchBend":
+      return "pitchBend"
+    case "controller":
+      return `controller-${controlMode.controllerType}`
+  }
+}
+
 export const isEqualControlMode = (a: ControlMode, b: ControlMode) => {
   switch (a.type) {
     case "velocity":

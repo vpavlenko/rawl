@@ -136,14 +136,37 @@ const encodeCell = (cell: Cell, bassCell: Cell | null): string[] => {
       ...new Set(cell.map((note) => note.midiNumber)),
     ].sort((a, b) => a - b);
 
+    // given an array bagOfMidiNumbers, find a number pivot in it, such that
+    // it's equal to
+
+    let pivot = null;
+
     if (bassCell?.length > 0) {
-      result.push(`brel_${bagOfMidiNumbers[0] - bassCell[0].midiNumber}`);
+      const bass = bassCell[0].midiNumber;
+
+      for (let octave = -7; octave < 8; ++octave) {
+        const possiblePivot = bass + octave * 12;
+        if (bagOfMidiNumbers.indexOf(possiblePivot) !== -1) {
+          pivot = possiblePivot;
+          break;
+        }
+      }
+      if (pivot === null) {
+        pivot = bass;
+        while (pivot < Math.min(...bagOfMidiNumbers)) {
+          pivot += 12;
+        }
+      }
+
+      result.push(`oct_${Math.round((pivot - bass) / 12)}`);
+      result.push(`rel_${bagOfMidiNumbers[0] - pivot}`);
     } else {
+      pivot = bagOfMidiNumbers[0];
       result.push(`abs_${bagOfMidiNumbers[0]}`);
     }
 
     for (let i = 1; i < bagOfMidiNumbers.length; ++i) {
-      result.push(`rel_${bagOfMidiNumbers[i] - bagOfMidiNumbers[i - 1]}`);
+      result.push(`rel_${bagOfMidiNumbers[i] - pivot}`);
     }
 
     const referToBagOfWords = (midiNumber: number): {} =>
@@ -422,7 +445,6 @@ export const tokenize = (
     }))
     .sort((a, b) => b.average - a.average)
     .at(-2).voiceIndex;
-  debugger;
 
   // TODO: design cool strategies like encode repeated cells
   console.log("RAW ONSET COUNT:", countTokens(measures) * 2); // * 2 because every cell has pitch and time

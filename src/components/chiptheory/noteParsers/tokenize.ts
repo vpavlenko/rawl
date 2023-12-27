@@ -51,6 +51,9 @@ const convertNotesToCellNotes = (notes: Note[], beats: number[]): CellNote[] =>
         : i.midiNumber - j.midiNumber,
     );
 
+const toTimeShift = (onset1, onset2) =>
+  `ts_${(parseFloat(onset2) - parseFloat(onset1)).toFixed(3)}`;
+
 // A cell is measure+channel. Eg. m.20 ch.3.
 // A tokenization is valid if it can be expanded back into the original
 // array of notesInCells
@@ -103,18 +106,32 @@ const encodeCell = (cell: Cell): string[] => {
   const result = [];
 
   if (cell[0].isDrum) {
-    // TODO: Drum encoding is different:
-    // every drum is encoded separately (horizontally)
-    cell.forEach(({ midiNumber, isDrum, onset }) =>
-      result.push(`${midiNumber}_${isDrum ? "drum_" : ""}_${onset}`),
-    );
+    const drums = {};
+    cell.map(({ onset, midiNumber }) => {
+      if (!drums[midiNumber]) {
+        drums[midiNumber] = [onset];
+      } else {
+        drums[midiNumber].push(onset);
+      }
+    });
+
+    Object.keys(drums)
+      .sort()
+      .forEach((drum) => {
+        result.push(`drum_${drum}`);
+        const onsets = drums[drum];
+        result.push(`t_${onsets[0]}`);
+        for (let i = 1; i < onsets.length; ++i) {
+          result.push(toTimeShift(onsets[i - 1], onsets[i]));
+        }
+      });
   } else {
     // 1. Gather notes into chords
     const chords = [
       {
         onset: cell[0].onset,
         midiNumbers: [cell[0].midiNumber],
-        timeShift: cell[0].onset,
+        timeShift: `t_${cell[0].onset}`,
       },
     ];
     cell
@@ -140,9 +157,7 @@ const encodeCell = (cell: Cell): string[] => {
       }
 
       // 3. Switch to time shifts
-      chords[i].timeShift = (
-        parseFloat(chords[i].onset) - parseFloat(chords[i - 1].onset)
-      ).toFixed(3);
+      chords[i].timeShift = toTimeShift(chords[i - 1].onset, chords[i].onset);
     }
 
     // 4. Encode relative pitches
@@ -160,11 +175,69 @@ const encodeCell = (cell: Cell): string[] => {
         lastReferencePitch = midiNumbers[0];
       }
 
-      result.push(`ts_${timeShift}`);
+      result.push(timeShift);
     }
   }
   return result;
 };
+
+type DictionaryEntry = {
+  src: string[];
+  dest: string;
+};
+
+const BPE_DICTIONARY: DictionaryEntry[] = [
+  {
+    src: [
+      "t_0.000",
+      "ts_0.500",
+      "ts_0.500",
+      "ts_0.500",
+      "ts_0.500",
+      "ts_0.500",
+      "ts_0.500",
+      "ts_0.500",
+    ],
+    dest: "8x_ts_0.5",
+  },
+];
+
+const BPE = (tokens: string[]): string[] => {
+  let madeReplacement: boolean;
+
+  do {
+    madeReplacement = false;
+
+    for (const entry of BPE_DICTIONARY) {
+      const { src, dest } = entry;
+      const index = findSubsequenceIndex(tokens, src);
+
+      if (index !== -1) {
+        tokens.splice(index, src.length, dest);
+        madeReplacement = true;
+        break; // Restart the search after each replacement
+      }
+    }
+  } while (madeReplacement);
+
+  return tokens;
+};
+
+function findSubsequenceIndex(tokens: string[], subsequence: string[]): number {
+  for (let i = 0; i <= tokens.length - subsequence.length; i++) {
+    let match = true;
+    for (let j = 0; j < subsequence.length; j++) {
+      if (tokens[i + j] !== subsequence[j]) {
+        match = false;
+        break;
+      }
+    }
+    if (match) {
+      return i;
+    }
+  }
+  return -1;
+}
 
 const areCellsEqual = (cell1: Cell, cell2: Cell): boolean => {
   if (cell1.length !== cell2.length) {
@@ -230,7 +303,7 @@ export const tokenize = (
             .map((measure) => measure[channelIndex])
             .slice(0, measureIndex),
           cell,
-        ) || encodeCell(cell),
+        ) || BPE(encodeCell(cell)),
     ),
   );
 

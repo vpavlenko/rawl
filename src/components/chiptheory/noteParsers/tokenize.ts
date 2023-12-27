@@ -360,7 +360,7 @@ const wrapWithAffixes = (
   if (suffixLength >= 2) {
     result = [
       ...result.slice(0, -suffixLength),
-      `suffix_${distance}_${prefixLength}`,
+      `suffix_${distance}_${suffixLength}`,
     ];
   }
   return result;

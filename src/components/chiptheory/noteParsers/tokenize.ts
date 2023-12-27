@@ -128,6 +128,21 @@ const encodeCell = (cell: Cell): string[] => {
         }
       });
   } else {
+    // 1. First, we encode all notes that will be used inside these bars (a bag of words)
+    // 2. Second, we encode their patterns of usage.
+
+    const bagOfMidiNumbers = [
+      ...new Set(cell.map((note) => note.midiNumber)),
+    ].sort((a, b) => a - b);
+
+    result.push(`abs_${bagOfMidiNumbers[0]}`);
+    for (let i = 1; i < bagOfMidiNumbers.length; ++i) {
+      result.push(`rel_${bagOfMidiNumbers[i] - bagOfMidiNumbers[i - 1]}`);
+    }
+
+    const referToBagOfWords = (midiNumber: number): {} =>
+      result.push(`n_${bagOfMidiNumbers.indexOf(midiNumber)}`);
+
     // 1. Gather notes into chords
     const chords = [
       {
@@ -162,20 +177,12 @@ const encodeCell = (cell: Cell): string[] => {
       chords[i].timeShift = toTimeShift(chords[i - 1].onset, chords[i].onset);
     }
 
-    // 4. Encode relative pitches
-    let lastReferencePitch = chords[0].midiNumbers[0];
-    result.push(`abs_${lastReferencePitch}`);
+    // 4. Encode local pitches
     for (let i = 0; i < chords.length; i++) {
       const { timeShift, midiNumbers } = chords[i];
-      if (midiNumbers !== null) {
-        let localReference = lastReferencePitch;
-        midiNumbers.slice(i === 0 ? 1 : 0).forEach((midiNumber) => {
-          result.push(`rel_${midiNumber - localReference}`);
-          localReference = midiNumber;
-        });
-
-        lastReferencePitch = midiNumbers[0];
-      }
+      midiNumbers?.forEach((midiNumber) => {
+        referToBagOfWords(midiNumber);
+      });
 
       result.push(timeShift);
     }

@@ -3,6 +3,7 @@ import axios from "axios"
 import * as admin from "firebase-admin"
 import { FieldValue } from "firebase-admin/firestore"
 import * as functions from "firebase-functions"
+import { google } from "googleapis"
 
 admin.initializeApp()
 
@@ -52,3 +53,31 @@ export const storeMidiFile = functions.https.onCall(async (data) => {
     )
   }
 })
+
+export const disableApp = functions.pubsub
+  .topic("budget-alert")
+  .onPublish(async (m) => {
+    const data = JSON.parse(Buffer.from(m.data, "base64").toString()) as {
+      costAmount: number
+      budgetAmount: number
+    }
+    if (data.costAmount <= data.budgetAmount) {
+      console.info(`No action necessary. (Current cost: ${data.costAmount})`)
+      return null
+    }
+
+    const auth = new google.auth.GoogleAuth({
+      scopes: ["https://www.googleapis.com/auth/cloud-platform"],
+    })
+    google.options({ auth })
+    const projectId = await auth.getProjectId()
+
+    await google.appengine("v1").apps.patch({
+      appsId: projectId,
+      updateMask: "serving_status",
+      requestBody: { servingStatus: "USER_DISABLED" },
+    })
+    console.info(`App ${projectId} disabled`)
+
+    return null
+  })

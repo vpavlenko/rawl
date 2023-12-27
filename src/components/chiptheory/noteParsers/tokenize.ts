@@ -257,25 +257,32 @@ function findSubsequenceIndex(tokens: string[], subsequence: string[]): number {
   return -1;
 }
 
-const areCellsEqual = (cell1: Cell, cell2: Cell): boolean => {
-  if (cell1.length !== cell2.length) {
-    return false;
+const findTranspositionDelta = (cell1: Cell, cell2: Cell): number | null => {
+  if (
+    cell1.length !== cell2.length ||
+    cell1.length == 0 ||
+    cell2.length == 0 ||
+    cell1[0].isDrum !== cell2[0].isDrum ||
+    cell1[0].onset !== cell2[0].onset
+  ) {
+    return null;
   }
+
+  const delta = cell2[0].midiNumber - cell1[0].midiNumber;
 
   for (let i = 0; i < cell1.length; i++) {
     const note1 = cell1[i];
     const note2 = cell2[i];
 
     if (
-      note1.midiNumber !== note2.midiNumber ||
-      note1.isDrum !== note2.isDrum ||
-      Math.abs(parseFloat(note1.onset) - parseFloat(note2.onset)) > EPSILON
+      note2.midiNumber - note1.midiNumber !== delta ||
+      note1.onset !== note2.onset
     ) {
-      return false;
+      return null;
     }
   }
 
-  return true;
+  return delta;
 };
 
 const areMidiNumbersEqual = (a: number[], b: number[]): boolean =>
@@ -287,8 +294,13 @@ const possiblyFindRepeat = (previousCells: Cell[], cell: Cell) => {
   }
 
   for (let i = previousCells.length - 1; i >= 0; i--) {
-    if (areCellsEqual(previousCells[i], cell)) {
-      return [`repeat_${previousCells.length - i}`];
+    const delta = findTranspositionDelta(previousCells[i], cell);
+    if (delta !== null) {
+      return [
+        delta === 0
+          ? `repeat_${previousCells.length - i}`
+          : `transpose_${previousCells.length - i}_${delta}`,
+      ];
     }
   }
 
@@ -301,12 +313,77 @@ const possiblyFindDoubling = (bottomCells: Cell[], cell: Cell) => {
   }
 
   for (let i = bottomCells.length - 1; i >= 0; i--) {
-    if (areCellsEqual(bottomCells[i], cell)) {
-      return [`doubling_${bottomCells.length - i}`];
+    const delta = findTranspositionDelta(bottomCells[i], cell);
+    if (delta !== null) {
+      return [
+        delta === 0
+          ? `dbl_${bottomCells.length - i}`
+          : `dbl_transpose_${bottomCells.length - i}_${delta}`,
+      ];
     }
   }
 
   return null;
+};
+
+const wrapWithAffixes = (
+  source: CellOfTokens,
+  target: CellOfTokens,
+  distance: number,
+) => {
+  let prefixLength = 0;
+  while (
+    prefixLength < source.length &&
+    prefixLength < target.length &&
+    source[prefixLength] === target[prefixLength]
+  ) {
+    prefixLength++;
+  }
+
+  let suffixLength = 0;
+  while (
+    suffixLength < source.length &&
+    suffixLength < target.length &&
+    prefixLength + suffixLength < target.length &&
+    source.at(-suffixLength - 1) === target.at(-suffixLength - 1)
+  ) {
+    suffixLength++;
+  }
+
+  let result = target;
+  if (prefixLength >= 2) {
+    result = [
+      `prefix_${distance}_${prefixLength}`,
+      ...result.slice(prefixLength),
+    ];
+  }
+  if (suffixLength >= 2) {
+    result = [
+      ...result.slice(0, -suffixLength),
+      `suffix_${distance}_${prefixLength}`,
+    ];
+  }
+  return result;
+};
+
+const possiblyFindAffixes = (
+  previousCellsOfTokens: ChannelOfTokens,
+  cellOfTokens: CellOfTokens,
+): CellOfTokens => {
+  let shortestWrapping = cellOfTokens;
+
+  for (let i = previousCellsOfTokens.length - 1; i >= 0; i--) {
+    const wrapping = wrapWithAffixes(
+      previousCellsOfTokens[i],
+      cellOfTokens,
+      previousCellsOfTokens.length - i,
+    );
+    if (wrapping.length < shortestWrapping.length) {
+      shortestWrapping = wrapping;
+    }
+  }
+
+  return shortestWrapping;
 };
 
 const countTokens = (_3d) => {
@@ -327,7 +404,7 @@ export const tokenize = (
 
   // TODO: design cool strategies like encode repeated cells
   console.log("RAW ONSET COUNT:", countTokens(measures) * 2); // * 2 because every cell has pitch and time
-  const withRepeats = measures.map((measure, measureIndex) =>
+  let tokens = measures.map((measure, measureIndex) =>
     measure.map(
       (cell, channelIndex) =>
         possiblyFindRepeat(
@@ -344,16 +421,17 @@ export const tokenize = (
     ),
   );
 
-  // TODO: refactor into a two-stage pipeline. First we process each channel separately, then we process all measures together
+  tokens = tokens.map((measure, measureIndex) =>
+    measure.map((cellOfTokens, channelIndex) =>
+      possiblyFindAffixes(
+        tokens.map((measure) => measure[channelIndex]).slice(0, measureIndex),
+        cellOfTokens,
+      ),
+    ),
+  );
 
-  // TODO: implement "repeat_rhythm" for repeated strumming as a trailing sequence of t_ and ts_.
-  // TODO: implement "transpose" for total measure repetition from another abs_
-  // TODO: implement "double" for doubling of another track in the same measure
-  // TODO: implement "repeat_drum" for repeated pattern of a single drum from a previous measure
-  // TODO: if last chord is repeated across the bar, don't repeat the notes
+  // brainstorm: maybe all three hi-hats (pedal/close/open) should be a single "instrument" for the purpose of time-shifts idk
 
-  // brainstorm: maybe hi-hats should be a single "instrument" for the purpose of time-shifts idk
-
-  console.log("WITH REPEATS TOKENIZED:", countTokens(withRepeats));
-  return withRepeats;
+  console.log("WITH REPEATS TOKENIZED:", countTokens(tokens));
+  return tokens;
 };

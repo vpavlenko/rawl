@@ -38,3 +38,5 @@ esdoc
 pkg
 build
 dist
+
+*.env

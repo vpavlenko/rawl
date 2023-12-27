@@ -86,20 +86,30 @@ const Measure: React.FC<{
           ...(isFourMeasureMark && { backgroundColor: "#aaa" }),
         }}
       />
-      <div style={{ position: "absolute", fontSize: "8px", left }}>
+      <div
+        style={{
+          position: "absolute",
+          fontSize: "10px",
+          top: "24px",
+          left,
+          width,
+          lineHeight: 1,
+        }}
+      >
         {tokens?.map((token) => (
-          <div
+          <span
             style={{
               padding: 0,
               margin: 0,
-              fontSize: "8px",
-              height: "8px",
+              fontSize: "10px",
+              height: "10px",
               fontFamily: "sans",
               zIndex: 1000,
+              lineHeight: 1,
             }}
           >
-            {token}
-          </div>
+            {token},{" "}
+          </span>
         ))}
       </div>
       {width && showHeader ? (
@@ -334,7 +344,7 @@ export const AnalysisGrid: React.FC<{
         {beats.map((time) => (
           <Beat key={time} second={time} secondsToX={secondsToX} />
         ))}
-        {showTonalGrid && analysis.tonic !== null && (
+        {false && showTonalGrid && analysis.tonic !== null && (
           <TonalGrid
             analysis={analysis}
             measures={measures}

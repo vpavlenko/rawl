@@ -3,9 +3,9 @@ import { MeasuresAndBeats } from "../measures";
 
 // All onsets should be rounded up.
 
-const MAX_NUM_MEASURES_TO_TOKENIZE = 100;
 const EPSILON = 1e-6;
-const QUANTIZATION_LEVELS_INSIDE_BEAT = 12; // 3 * 4, allows to see swing and 16th, but not together
+const ONSET_PUSH_TO_RIGHT = 0.01; // onsets are shifted 10 ms to the right
+const QUANTIZATION_LEVELS_INSIDE_BEAT = 8; // 3 * 4, allows to see swing and 16th, but not together
 
 export type Token = string;
 type CellOfTokens = Token[];
@@ -47,7 +47,7 @@ const convertNotesToCellNotes = (notes: Note[], beats: number[]): CellNote[] =>
           i +
           quantizedInsideBeat((time - beats[i]) / (beats[i + 1] - beats[i])) +
           EPSILON
-        ).toFixed(3),
+        ).toFixed(2),
       };
     })
     .sort((i, j) =>
@@ -57,7 +57,7 @@ const convertNotesToCellNotes = (notes: Note[], beats: number[]): CellNote[] =>
     );
 
 const toTimeShift = (onset1, onset2) =>
-  `ts_${(parseFloat(onset2) - parseFloat(onset1)).toFixed(3)}`;
+  `ts_${(parseFloat(onset2) - parseFloat(onset1)).toFixed(2)}`;
 
 // A cell is measure+channel. Eg. m.20 ch.3.
 // A tokenization is valid if it can be expanded back into the original
@@ -69,11 +69,7 @@ const splitNotesIntoCells = (
   const result = [];
   const { measures, beats } = measuresAndBeats;
 
-  for (
-    let m = 0;
-    m < Math.min(MAX_NUM_MEASURES_TO_TOKENIZE, measures.length);
-    ++m
-  ) {
+  for (let m = 0; m < measures.length; ++m) {
     const measureStart = measures[m];
     const measureEnd =
       m + 1 < measures.length
@@ -89,10 +85,11 @@ const splitNotesIntoCells = (
       // TODO: maybe introduce epsilons
       newMeasure.push(
         convertNotesToCellNotes(
+          // Caveat: on a very edge a note can get inside two adjacent measures.
           notes[ch].filter(
             (note) =>
-              note.span[0] + EPSILON >= measureStart &&
-              note.span[0] + EPSILON < measureEnd,
+              note.span[0] + ONSET_PUSH_TO_RIGHT >= measureStart &&
+              note.span[0] + ONSET_PUSH_TO_RIGHT < measureEnd,
           ),
           [measureStart, ...beatsInMeasure, measureEnd],
         ),
@@ -194,33 +191,33 @@ type DictionaryEntry = {
 const BPE_DICTIONARY: DictionaryEntry[] = [
   {
     src: [
-      "t_0.000",
-      "ts_0.500",
-      "ts_0.500",
-      "ts_0.500",
-      "ts_0.500",
-      "ts_0.500",
-      "ts_0.500",
-      "ts_0.500",
+      "t_0.00",
+      "ts_0.50",
+      "ts_0.50",
+      "ts_0.50",
+      "ts_0.50",
+      "ts_0.50",
+      "ts_0.50",
+      "ts_0.50",
     ],
     dest: "8x_ts_0.5",
   },
-  { src: ["ts_0.250", "ts_0.250", "ts_0.250", "ts_0.250"], dest: "4x_ts_0.25" },
+  { src: ["ts_0.25", "ts_0.25", "ts_0.25", "ts_0.25"], dest: "4x_ts_0.25" },
   {
     src: [
-      "t_0.000",
+      "t_0.00",
       "4x_ts_0.25",
       "4x_ts_0.25",
       "4x_ts_0.25",
-      "ts_0.250",
-      "ts_0.250",
-      "ts_0.250",
+      "ts_0.25",
+      "ts_0.25",
+      "ts_0.25",
     ],
     dest: "16x_ts_0.25",
   },
-  { src: ["t_0.000", "ts_1.000", "ts_1.000", "ts_1.000"], dest: "4x_ts_1" },
-  { src: ["ts_0.500", "ts_0.500", "ts_0.500", "ts_0.500"], dest: "4x_ts_0.5" },
-  { src: ["ts_0.500", "ts_1.000", "ts_1.000", "ts_1.000"], dest: "1-2-2-2" },
+  { src: ["t_0.00", "ts_1.00", "ts_1.00", "ts_1.00"], dest: "4x_ts_1" },
+  { src: ["ts_0.50", "ts_0.50", "ts_0.50", "ts_0.50"], dest: "4x_ts_0.5" },
+  { src: ["ts_0.50", "ts_1.00", "ts_1.00", "ts_1.00"], dest: "1-2-2-2" },
 ];
 
 const BPE = (tokens: string[]): string[] => {
@@ -284,7 +281,7 @@ const areCellsEqual = (cell1: Cell, cell2: Cell): boolean => {
 const areMidiNumbersEqual = (a: number[], b: number[]): boolean =>
   a.length === b.length && a.every((val, index) => val === b[index]);
 
-const possiblyFindCopy = (previousCells: Cell[], cell: Cell) => {
+const possiblyFindRepeat = (previousCells: Cell[], cell: Cell) => {
   if (previousCells.length === 0 || cell.length === 0) {
     return null;
   }
@@ -292,6 +289,20 @@ const possiblyFindCopy = (previousCells: Cell[], cell: Cell) => {
   for (let i = previousCells.length - 1; i >= 0; i--) {
     if (areCellsEqual(previousCells[i], cell)) {
       return [`repeat_${previousCells.length - i}`];
+    }
+  }
+
+  return null;
+};
+
+const possiblyFindDoubling = (bottomCells: Cell[], cell: Cell) => {
+  if (bottomCells.length === 0 || cell.length === 0) {
+    return null;
+  }
+
+  for (let i = bottomCells.length - 1; i >= 0; i--) {
+    if (areCellsEqual(bottomCells[i], cell)) {
+      return [`doubling_${bottomCells.length - i}`];
     }
   }
 
@@ -315,18 +326,33 @@ export const tokenize = (
   const measures = splitNotesIntoCells(notes, measuresAndBeats);
 
   // TODO: design cool strategies like encode repeated cells
-  console.log("RAW ONSET COUNT:", countTokens(measures));
+  console.log("RAW ONSET COUNT:", countTokens(measures) * 2); // * 2 because every cell has pitch and time
   const withRepeats = measures.map((measure, measureIndex) =>
     measure.map(
       (cell, channelIndex) =>
-        possiblyFindCopy(
+        possiblyFindRepeat(
           measures
             .map((measure) => measure[channelIndex])
             .slice(0, measureIndex),
           cell,
-        ) || BPE(encodeCell(cell)),
+        ) ||
+        possiblyFindDoubling(
+          measures[measureIndex].slice(0, channelIndex),
+          cell,
+        ) ||
+        BPE(encodeCell(cell)),
     ),
   );
+
+  // TODO: refactor into a two-stage pipeline. First we process each channel separately, then we process all measures together
+
+  // TODO: implement "repeat_rhythm" for repeated strumming as a trailing sequence of t_ and ts_.
+  // TODO: implement "transpose" for total measure repetition from another abs_
+  // TODO: implement "double" for doubling of another track in the same measure
+  // TODO: implement "repeat_drum" for repeated pattern of a single drum from a previous measure
+  // TODO: if last chord is repeated across the bar, don't repeat the notes
+
+  // brainstorm: maybe hi-hats should be a single "instrument" for the purpose of time-shifts idk
 
   console.log("WITH REPEATS TOKENIZED:", countTokens(withRepeats));
   return withRepeats;

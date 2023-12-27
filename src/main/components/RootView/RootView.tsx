@@ -11,6 +11,7 @@ import { ExportProgressDialog } from "../ExportDialog/ExportProgressDialog"
 import { Head } from "../Head/Head"
 import { HelpDialog } from "../Help/HelpDialog"
 import { InitializeErrorDialog } from "../InitializeErrorDialog/InitializeErrorDialog"
+import { LoadingDialog } from "../LoadingDialog/LoadingDialog"
 import { Navigation } from "../Navigation/Navigation"
 import { OnBeforeUnload } from "../OnBeforeUnload/OnBeforeUnload"
 import { PianoRollEditor } from "../PianoRoll/PianoRollEditor"
@@ -70,5 +71,6 @@ export const RootView: FC = () => (
     <ControlSettingDialog />
     <InitializeErrorDialog />
     <OnBeforeUnload />
+    <LoadingDialog />
   </>
 )

@@ -63,7 +63,11 @@ export const ColorPicker: FC<ColorPickerProps> = ({
       <DialogContent>
         <Container>
           {colors.map((color) => (
-            <ColorItem color={color} onClick={() => _onSelect(color)} />
+            <ColorItem
+              key={color}
+              color={color}
+              onClick={() => _onSelect(color)}
+            />
           ))}
         </Container>
       </DialogContent>

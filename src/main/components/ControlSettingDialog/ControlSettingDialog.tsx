@@ -13,7 +13,11 @@ import {
 } from "../../../components/Dialog"
 import { Localized } from "../../../components/Localized"
 import { useStores } from "../../hooks/useStores"
-import { ControlMode, isEqualControlMode } from "../../stores/ControlStore"
+import {
+  ControlMode,
+  controlModeKey,
+  isEqualControlMode,
+} from "../../stores/ControlStore"
 import { ControlName } from "../ControlPane/ControlName"
 
 const getAllControlModes = (): ControlMode[] =>
@@ -113,6 +117,7 @@ export const ControlSettingDialog = observer(() => {
           <Pane>
             {leftItems.map((item) => (
               <Item
+                key={controlModeKey(item.mode)}
                 isSelected={item.isSelected}
                 onClick={() => {
                   setSelectedLeftMode(item.mode)
@@ -134,6 +139,7 @@ export const ControlSettingDialog = observer(() => {
           <Pane>
             {rightItems.map((item) => (
               <Item
+                key={controlModeKey(item.mode)}
                 isSelected={item.isSelected}
                 onClick={() => {
                   setSelectedLeftMode(null)

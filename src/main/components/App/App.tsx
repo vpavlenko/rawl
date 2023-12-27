@@ -25,10 +25,12 @@ Sentry.init({
   tracesSampleRate: 1.0,
 })
 
+const rootStore = new RootStore()
+
 export function App() {
   return (
     <React.StrictMode>
-      <StoreContext.Provider value={new RootStore()}>
+      <StoreContext.Provider value={rootStore}>
         <ThemeContext.Provider value={defaultTheme}>
           <EmotionThemeProvider>
             <HelmetProvider>

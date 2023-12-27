@@ -30,7 +30,7 @@ const _ToolbarButtonGroupItem = styled.button<{ selected?: boolean }>`
   border: none;
   border-radius: 4px;
 
-  &:first-child {
+  &:first-of-type {
     border-radius: 4px 0 0 4px;
   }
 

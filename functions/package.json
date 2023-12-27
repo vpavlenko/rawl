@@ -1,0 +1,21 @@
+{
+  "name": "functions",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@tonejs/midi": "^2.0.28",
+    "axios": "^1.6.2",
+    "firebase-admin": "^11.11.1",
+    "firebase-functions": "^4.5.0",
+    "googleapis": "^129.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  }
+}

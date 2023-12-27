@@ -3,6 +3,7 @@ import {
   Bytes,
   collection,
   deleteDoc,
+  doc,
   DocumentReference,
   FirestoreDataConverter,
   getDoc,
@@ -14,9 +15,11 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore"
+import { httpsCallable } from "firebase/functions"
+import { basename } from "../common/helpers/path"
 import { songFromMidi, songToMidi } from "../common/midi/midiConversion"
 import Song from "../common/song"
-import { auth, firestore } from "./firebase"
+import { auth, firestore, functions } from "./firebase"
 
 export interface FirestoreSongData {
   createdAt: Timestamp
@@ -31,6 +34,13 @@ export interface FirestoreSong {
   updatedAt: Timestamp
   dataRef: DocumentReference
   userId: string
+}
+
+export interface FirestoreMidi {
+  url: string
+  data: Bytes
+  createdAt: Timestamp
+  updatedAt: Timestamp
 }
 
 export const songConverter: FirestoreDataConverter<FirestoreSong> = {
@@ -50,6 +60,16 @@ export const songDataConverter: FirestoreDataConverter<FirestoreSongData> = {
   },
   toFirestore(song) {
     return song
+  },
+}
+
+export const midiConverter: FirestoreDataConverter<FirestoreMidi> = {
+  fromFirestore(snapshot, options) {
+    const data = snapshot.data(options)
+    return data as FirestoreMidi
+  },
+  toFirestore(midi) {
+    return midi
   },
 }
 
@@ -152,4 +172,29 @@ export const getCurrentUserSongs = async () => {
   return await getDocs(
     query(songCollection, where("userId", "==", auth.currentUser.uid)),
   )
+}
+
+interface StoreMidiFileResponse {
+  message: string
+  docId: string
+}
+
+export const loadSongFromExternalMidiFile = async (midiFileUrl: string) => {
+  const storeMidiFile = httpsCallable<
+    { midiFileUrl: string },
+    StoreMidiFileResponse
+  >(functions, "storeMidiFile")
+  const res = await storeMidiFile({ midiFileUrl })
+  const midiCollection = collection(firestore, "midis")
+  const snapshot = await getDoc(
+    doc(midiCollection, res.data.docId).withConverter(midiConverter),
+  )
+  const data = snapshot.data()?.data
+  if (data === undefined) {
+    throw new Error("Midi data does not exist")
+  }
+  const song = songFromMidi(data.toUint8Array())
+  song.name = basename(midiFileUrl) ?? ""
+  song.isSaved = true
+  return song
 }

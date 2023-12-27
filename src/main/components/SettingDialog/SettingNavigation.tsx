@@ -40,7 +40,7 @@ export const SettingNavigation: FC<{
   return (
     <Container>
       {routes.map((r) => (
-        <RouteItem selected={route === r} onClick={() => onChange(r)}>
+        <RouteItem key={r} selected={route === r} onClick={() => onChange(r)}>
           <RouteName key={r} route={r} />
         </RouteItem>
       ))}

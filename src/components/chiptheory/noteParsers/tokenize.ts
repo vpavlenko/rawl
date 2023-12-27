@@ -1,5 +1,6 @@
 import { Note, NotesInVoices } from ".";
 import { MeasuresAndBeats } from "../measures";
+import { getAverageMidiNumber } from "../tags";
 
 // All onsets should be rounded up.
 
@@ -102,7 +103,7 @@ const splitNotesIntoCells = (
   return result;
 };
 
-const encodeCell = (cell: Cell): string[] => {
+const encodeCell = (cell: Cell, bassCell: Cell | null): string[] => {
   if (cell.length === 0) return [];
 
   const result = [];
@@ -135,7 +136,12 @@ const encodeCell = (cell: Cell): string[] => {
       ...new Set(cell.map((note) => note.midiNumber)),
     ].sort((a, b) => a - b);
 
-    result.push(`abs_${bagOfMidiNumbers[0]}`);
+    if (bassCell?.length > 0) {
+      result.push(`brel_${bagOfMidiNumbers[0] - bassCell[0].midiNumber}`);
+    } else {
+      result.push(`abs_${bagOfMidiNumbers[0]}`);
+    }
+
     for (let i = 1; i < bagOfMidiNumbers.length; ++i) {
       result.push(`rel_${bagOfMidiNumbers[i] - bagOfMidiNumbers[i - 1]}`);
     }
@@ -409,6 +415,15 @@ export const tokenize = (
 ): Tokens => {
   const measures = splitNotesIntoCells(notes, measuresAndBeats);
 
+  const bassChannel = notes
+    .map((voice, voiceIndex) => ({
+      average: getAverageMidiNumber(voice),
+      voiceIndex,
+    }))
+    .sort((a, b) => b.average - a.average)
+    .at(-2).voiceIndex;
+  debugger;
+
   // TODO: design cool strategies like encode repeated cells
   console.log("RAW ONSET COUNT:", countTokens(measures) * 2); // * 2 because every cell has pitch and time
   let tokens = measures.map((measure, measureIndex) =>
@@ -424,7 +439,12 @@ export const tokenize = (
           measures[measureIndex].slice(0, channelIndex),
           cell,
         ) ||
-        BPE(encodeCell(cell)),
+        BPE(
+          encodeCell(
+            cell,
+            channelIndex !== bassChannel ? measure[bassChannel] : null,
+          ),
+        ),
     ),
   );
 

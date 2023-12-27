@@ -97,18 +97,80 @@ const splitNotesIntoCells = (
   return result;
 };
 
-const debugCellTokenizer = (cell: Cell): string[] =>
-  cell.map(
-    ({ midiNumber, isDrum, onset }) =>
-      `${midiNumber}_${isDrum ? "drum_" : ""}_${onset}`,
-  );
+const encodeCell = (cell: Cell): string[] => {
+  if (cell.length === 0) return [];
+
+  const result = [];
+
+  if (cell[0].isDrum) {
+    // TODO: Drum encoding is different:
+    // every drum is encoded separately (horizontally)
+    cell.forEach(({ midiNumber, isDrum, onset }) =>
+      result.push(`${midiNumber}_${isDrum ? "drum_" : ""}_${onset}`),
+    );
+  } else {
+    // 1. Gather notes into chords
+    const chords = [
+      {
+        onset: cell[0].onset,
+        midiNumbers: [cell[0].midiNumber],
+        timeShift: cell[0].onset,
+      },
+    ];
+    cell
+      .slice(1)
+      .map(({ onset, midiNumber }) =>
+        onset === chords.at(-1).onset
+          ? chords.at(-1).midiNumbers.push(midiNumber)
+          : chords.push({ onset, midiNumbers: [midiNumber], timeShift: null }),
+      );
+
+    let lastChord = 0;
+    for (let i = 1; i < chords.length; i++) {
+      // 2. Remove redundant chord declarations
+      if (
+        areMidiNumbersEqual(
+          chords[lastChord].midiNumbers,
+          chords[i].midiNumbers,
+        )
+      ) {
+        chords[i].midiNumbers = null;
+      } else {
+        lastChord = i;
+      }
+
+      // 3. Switch to time shifts
+      chords[i].timeShift = (
+        parseFloat(chords[i].onset) - parseFloat(chords[i - 1].onset)
+      ).toFixed(3);
+    }
+
+    // 4. Encode relative pitches
+    let lastReferencePitch = chords[0].midiNumbers[0];
+    result.push(`abs_${lastReferencePitch}`);
+    for (let i = 0; i < chords.length; i++) {
+      const { timeShift, midiNumbers } = chords[i];
+      if (midiNumbers !== null) {
+        let localReference = lastReferencePitch;
+        midiNumbers.slice(i === 0 ? 1 : 0).forEach((midiNumber) => {
+          result.push(`rel_${midiNumber - localReference}`);
+          localReference = midiNumber;
+        });
+
+        lastReferencePitch = midiNumbers[0];
+      }
+
+      result.push(`ts_${timeShift}`);
+    }
+  }
+  return result;
+};
 
 const areCellsEqual = (cell1: Cell, cell2: Cell): boolean => {
   if (cell1.length !== cell2.length) {
     return false;
   }
 
-  // TODO: sort notes bottom to top.
   for (let i = 0; i < cell1.length; i++) {
     const note1 = cell1[i];
     const note2 = cell2[i];
@@ -124,6 +186,9 @@ const areCellsEqual = (cell1: Cell, cell2: Cell): boolean => {
 
   return true;
 };
+
+const areMidiNumbersEqual = (a: number[], b: number[]): boolean =>
+  a.length === b.length && a.every((val, index) => val === b[index]);
 
 const possiblyFindCopy = (previousCells: Cell[], cell: Cell) => {
   if (previousCells.length === 0 || cell.length === 0) {
@@ -165,7 +230,7 @@ export const tokenize = (
             .map((measure) => measure[channelIndex])
             .slice(0, measureIndex),
           cell,
-        ) || debugCellTokenizer(cell),
+        ) || encodeCell(cell),
     ),
   );
 

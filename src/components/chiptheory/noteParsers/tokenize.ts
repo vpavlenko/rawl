@@ -5,6 +5,7 @@ import { MeasuresAndBeats } from "../measures";
 
 const MAX_NUM_MEASURES_TO_TOKENIZE = 100;
 const EPSILON = 1e-6;
+const QUANTIZATION_LEVELS_INSIDE_BEAT = 12; // 3 * 4, allows to see swing and 16th, but not together
 
 export type Token = string;
 type CellOfTokens = Token[];
@@ -19,6 +20,10 @@ type CellNote = {
 };
 
 type Cell = CellNote[];
+
+const quantizedInsideBeat = (precisePositionInsideBeat: number): number =>
+  Math.round(precisePositionInsideBeat * QUANTIZATION_LEVELS_INSIDE_BEAT) /
+  QUANTIZATION_LEVELS_INSIDE_BEAT;
 
 const convertNotesToCellNotes = (notes: Note[], beats: number[]): CellNote[] =>
   notes
@@ -40,7 +45,7 @@ const convertNotesToCellNotes = (notes: Note[], beats: number[]): CellNote[] =>
         isDrum,
         onset: (
           i +
-          (time - beats[i]) / (beats[i + 1] - beats[i]) +
+          quantizedInsideBeat((time - beats[i]) / (beats[i + 1] - beats[i])) +
           EPSILON
         ).toFixed(3),
       };
@@ -200,6 +205,22 @@ const BPE_DICTIONARY: DictionaryEntry[] = [
     ],
     dest: "8x_ts_0.5",
   },
+  { src: ["ts_0.250", "ts_0.250", "ts_0.250", "ts_0.250"], dest: "4x_ts_0.25" },
+  {
+    src: [
+      "t_0.000",
+      "4x_ts_0.25",
+      "4x_ts_0.25",
+      "4x_ts_0.25",
+      "ts_0.250",
+      "ts_0.250",
+      "ts_0.250",
+    ],
+    dest: "16x_ts_0.25",
+  },
+  { src: ["t_0.000", "ts_1.000", "ts_1.000", "ts_1.000"], dest: "4x_ts_1" },
+  { src: ["ts_0.500", "ts_0.500", "ts_0.500", "ts_0.500"], dest: "4x_ts_0.5" },
+  { src: ["ts_0.500", "ts_1.000", "ts_1.000", "ts_1.000"], dest: "1-2-2-2" },
 ];
 
 const BPE = (tokens: string[]): string[] => {

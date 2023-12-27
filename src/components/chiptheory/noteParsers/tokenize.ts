@@ -306,7 +306,7 @@ const possiblyFindRepeat = (previousCells: Cell[], cell: Cell) => {
       return [
         delta === 0
           ? `repeat_${previousCells.length - i}`
-          : `transpose_${previousCells.length - i}_${delta}`,
+          : `tr_${previousCells.length - i}_${delta}`,
       ];
     }
   }
@@ -325,7 +325,7 @@ const possiblyFindDoubling = (bottomCells: Cell[], cell: Cell) => {
       return [
         delta === 0
           ? `dbl_${bottomCells.length - i}`
-          : `dbl_transpose_${bottomCells.length - i}_${delta}`,
+          : `dbl_tr_${bottomCells.length - i}_${delta}`,
       ];
     }
   }

@@ -11,8 +11,9 @@ service cloud.firestore {
       allow update: if request.auth != null && request.auth.uid == resource.data.userId && !('uid' in request.writeFields);
       allow create: if request.auth != null && request.auth.uid == request.resource.data.userId;
     }
-    match /midi/{midiId} {
-      allow read
+    match /midis/{midiId} {
+      allow read: if true
+      allow write: if false
     }
   }
 }

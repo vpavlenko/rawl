@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app"
 import { connectAuthEmulator, getAuth } from "firebase/auth"
 import { connectFirestoreEmulator, getFirestore } from "firebase/firestore"
-import { getFunctions } from "firebase/functions"
+import { connectFunctionsEmulator, getFunctions } from "firebase/functions"
 
 const firebaseConfig = {
   apiKey: "AIzaSyC5b6N6A1fFxdUyWdZh0RqxvfdM--YD8P0",
@@ -21,4 +21,5 @@ export const functions = getFunctions(app)
 if (process.env.NODE_ENV !== "production") {
   connectAuthEmulator(auth, "http://localhost:9099")
   connectFirestoreEmulator(firestore, "localhost", 8080)
+  connectFunctionsEmulator(functions, "localhost", 5001)
 }

@@ -1,6 +1,7 @@
 import { Midi } from "@tonejs/midi"
 import axios from "axios"
 import * as admin from "firebase-admin"
+import { FieldValue } from "firebase-admin/firestore"
 import * as functions from "firebase-functions"
 
 admin.initializeApp()
@@ -39,8 +40,8 @@ export const storeMidiFile = functions.https.onCall(async (data) => {
     const docRef = await midiCollection.add({
       url: midiFileUrl,
       data: midiData,
-      createdAt: admin.firestore.FieldValue.serverTimestamp(),
-      updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+      createdAt: FieldValue.serverTimestamp(),
+      updatedAt: FieldValue.serverTimestamp(),
     })
     return { message: "MIDI file has been stored.", docId: docRef.id }
   } catch (error) {

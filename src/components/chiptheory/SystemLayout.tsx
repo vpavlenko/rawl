@@ -844,7 +844,7 @@ export const SplitSystemLayout: React.FC<{
         .map(({ voiceIndex }) => ({
           voiceIndex,
           notes: [notes[voiceIndex]],
-          tokens: tokens.map((measure) => measure[voiceIndex]),
+          tokens: tokens[voiceIndex],
         })),
     [notes],
   );

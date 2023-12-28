@@ -2,25 +2,39 @@ import { Note, NotesInVoices } from ".";
 import { MeasuresAndBeats } from "../measures";
 import { getAverageMidiNumber } from "../tags";
 
+// https://github.com/vpavlenko/study-music/blob/main/research/tokenizer.md#v2
+
 // All onsets should be rounded up.
 
 const EPSILON = 1e-6;
 const ONSET_PUSH_TO_RIGHT = 0.01; // onsets are shifted 10 ms to the right
 const QUANTIZATION_LEVELS_INSIDE_BEAT = 8; // 3 * 4, allows to see swing and 16th, but not together
 
-export type Token = string;
-type CellOfTokens = Token[];
-type MeasureOfTokens = CellOfTokens[];
-export type ChannelOfTokens = CellOfTokens[];
-export type Tokens = MeasureOfTokens[];
-
 type CellNote = {
   midiNumber: number;
   isDrum: boolean;
   onset: string; // quantized, in relative coordinates, eg. 7/16
 };
-
 type Cell = CellNote[];
+
+type BagOfNotes = string[];
+type Pattern = string[];
+
+type TonalCellIR = {
+  bagOfNotes: BagOfNotes;
+  pattern: Pattern;
+};
+
+type Rhythm = string[]; // absolute onsets, TODO process?
+type DrumCellIR = {
+  [key: number]: Rhythm;
+};
+
+type CellIR = TonalCellIR | DrumCellIR | null;
+type IR = CellIR[][];
+
+export type Token = string;
+export type GridOfTokens = Token[][][];
 
 const quantizedInsideBeat = (precisePositionInsideBeat: number): number =>
   Math.round(precisePositionInsideBeat * QUANTIZATION_LEVELS_INSIDE_BEAT) /
@@ -60,14 +74,11 @@ const convertNotesToCellNotes = (notes: Note[], beats: number[]): CellNote[] =>
 const toTimeShift = (onset1, onset2) =>
   `ts_${(parseFloat(onset2) - parseFloat(onset1)).toFixed(2)}`;
 
-// A cell is measure+channel. Eg. m.20 ch.3.
-// A tokenization is valid if it can be expanded back into the original
-// array of notesInCells
 const splitNotesIntoCells = (
   notes: NotesInVoices,
   measuresAndBeats: MeasuresAndBeats,
 ): Cell[][] => {
-  const result = [];
+  const voices = Array.from({ length: notes.length }, () => []);
   const { measures, beats } = measuresAndBeats;
 
   for (let m = 0; m < measures.length; ++m) {
@@ -81,13 +92,10 @@ const splitNotesIntoCells = (
     const beatsInMeasure = beats.filter(
       (beat) => measureStart < beat && beat < measureEnd,
     );
-    const newMeasure = [];
-    for (let ch = 0; ch < notes.length; ++ch) {
-      // TODO: maybe introduce epsilons
-      newMeasure.push(
+    for (let voice = 0; voice < notes.length; ++voice) {
+      voices[voice].push(
         convertNotesToCellNotes(
-          // Caveat: on a very edge a note can get inside two adjacent measures.
-          notes[ch].filter(
+          notes[voice].filter(
             (note) =>
               note.span[0] + ONSET_PUSH_TO_RIGHT >= measureStart &&
               note.span[0] + ONSET_PUSH_TO_RIGHT < measureEnd,
@@ -96,24 +104,19 @@ const splitNotesIntoCells = (
         ),
       );
     }
-
-    // TODO: check if this measure is an exact repetition of some previous one
-    result.push(newMeasure);
   }
-  return result;
+  return voices;
 };
 
-const encodeCell = (
+const convertCellToIR = (
   cell: Cell,
   bassCell: Cell | null,
   previousCell: Cell | null,
-): string[] => {
-  if (cell.length === 0) return [];
-
-  const result = [];
+): CellIR => {
+  if (cell.length === 0) return null;
 
   if (cell[0].isDrum) {
-    const drums = {};
+    const drums: DrumIR = {};
     cell.map(({ onset, midiNumber }) => {
       if (!drums[midiNumber]) {
         drums[midiNumber] = [onset];
@@ -122,116 +125,116 @@ const encodeCell = (
       }
     });
 
-    Object.keys(drums)
-      .sort()
-      .forEach((drum) => {
-        result.push(`drum_${drum}`);
-        const onsets = drums[drum];
-        result.push(`t_${onsets[0]}`);
-        for (let i = 1; i < onsets.length; ++i) {
-          result.push(toTimeShift(onsets[i - 1], onsets[i]));
-        }
-      });
+    return drums;
+
+    //   .forEach((drum) => {
+    //     result.push(`drum_${drum}`);
+    //     const onsets = drums[drum];
+    //     result.push(`ts_${onsets[0]}`);
+    //     for (let i = 1; i < onsets.length; ++i) {
+    //       result.push(toTimeShift(onsets[i - 1], onsets[i]));
+    //     }
+    //   });
+  }
+
+  const result = { bagOfNotes: [], pattern: [] };
+
+  // 1. First, we encode all notes that will be used inside these bars (a bag of words)
+  // 2. Second, we encode their patterns of usage.
+
+  const bagOfMidiNumbers = [
+    ...new Set(cell.map((note) => note.midiNumber)),
+  ].sort((a, b) => a - b);
+
+  let pivot = null;
+  const relateToBassBelow = bassCell?.length > 0;
+  let numNotesToSkip = 0;
+
+  if (relateToBassBelow) {
+    const bass = bassCell[0].midiNumber;
+
+    for (let octave = -7; octave < 8; ++octave) {
+      const possiblePivot = bass + octave * 12;
+      if (bagOfMidiNumbers.indexOf(possiblePivot) !== -1) {
+        pivot = possiblePivot;
+        break;
+      }
+    }
+    if (pivot === null) {
+      pivot = bass;
+      while (pivot < Math.min(...bagOfMidiNumbers)) {
+        pivot += 12;
+      }
+    }
+
+    result.bagOfNotes.push(`oct_${Math.round((pivot - bass) / 12)}`);
+    bagOfMidiNumbers.forEach((midiNumber) =>
+      result.bagOfNotes.push(`rel_${midiNumber - pivot}`),
+    );
   } else {
-    // 1. First, we encode all notes that will be used inside these bars (a bag of words)
-    // 2. Second, we encode their patterns of usage.
-
-    const bagOfMidiNumbers = [
-      ...new Set(cell.map((note) => note.midiNumber)),
-    ].sort((a, b) => a - b);
-
-    let pivot = null;
-    const relateToBassBelow = bassCell?.length > 0;
-    let numNotesToSkip = 0;
-
-    if (relateToBassBelow) {
-      const bass = bassCell[0].midiNumber;
-
-      for (let octave = -7; octave < 8; ++octave) {
-        const possiblePivot = bass + octave * 12;
-        if (bagOfMidiNumbers.indexOf(possiblePivot) !== -1) {
-          pivot = possiblePivot;
-          break;
-        }
-      }
-      if (pivot === null) {
-        pivot = bass;
-        while (pivot < Math.min(...bagOfMidiNumbers)) {
-          pivot += 12;
-        }
-      }
-
-      result.push(`oct_${Math.round((pivot - bass) / 12)}`);
-      bagOfMidiNumbers.forEach((midiNumber) =>
-        result.push(`rel_${midiNumber - pivot}`),
-      );
+    if (previousCell && previousCell.length > 0) {
+      pivot = previousCell.at(-1).midiNumber;
     } else {
-      if (previousCell && previousCell.length > 0) {
-        pivot = previousCell.at(-1).midiNumber;
-      } else {
-        pivot = cell[0].midiNumber;
-        numNotesToSkip = 1;
-        result.push(`abs_${pivot}`);
-      }
-    }
-
-    const referToNote = (midiNumber: number): void => {
-      if (numNotesToSkip) {
-        numNotesToSkip--;
-      } else {
-        if (relateToBassBelow) {
-          result.push(`n_${bagOfMidiNumbers.indexOf(midiNumber)}`);
-        } else {
-          result.push(`rel_${midiNumber - pivot}`);
-          pivot = midiNumber;
-        }
-      }
-    };
-
-    // 1. Gather notes into chords
-    const chords = [
-      {
-        onset: cell[0].onset,
-        midiNumbers: [cell[0].midiNumber],
-        timeShift: `t_${cell[0].onset}`,
-      },
-    ];
-    cell
-      .slice(1)
-      .map(({ onset, midiNumber }) =>
-        onset === chords.at(-1).onset
-          ? chords.at(-1).midiNumbers.push(midiNumber)
-          : chords.push({ onset, midiNumbers: [midiNumber], timeShift: null }),
-      );
-
-    let lastChord = 0;
-    for (let i = 1; i < chords.length; i++) {
-      // 2. Remove redundant chord declarations
-      if (
-        areMidiNumbersEqual(
-          chords[lastChord].midiNumbers,
-          chords[i].midiNumbers,
-        )
-      ) {
-        chords[i].midiNumbers = null;
-      } else {
-        lastChord = i;
-      }
-
-      // 3. Switch to time shifts
-      chords[i].timeShift = toTimeShift(chords[i - 1].onset, chords[i].onset);
-    }
-
-    // 4. Encode local pitches
-    for (let i = 0; i < chords.length; i++) {
-      const { timeShift, midiNumbers } = chords[i];
-      midiNumbers?.forEach((midiNumber) => {
-        referToNote(midiNumber);
-      });
-
-      result.push(timeShift);
+      pivot = cell[0].midiNumber;
+      numNotesToSkip = 1;
+      result.bagOfNotes.push(`abs_${pivot}`);
     }
   }
+
+  const referToNote = (midiNumber: number): void => {
+    if (numNotesToSkip) {
+      numNotesToSkip--;
+    } else {
+      if (relateToBassBelow) {
+        result.pattern.push(`n_${bagOfMidiNumbers.indexOf(midiNumber)}`);
+      } else {
+        result.pattern.push(`rel_${midiNumber - pivot}`);
+        pivot = midiNumber;
+      }
+    }
+  };
+
+  // 1. Gather notes into chords
+  const chords = [
+    {
+      onset: cell[0].onset,
+      midiNumbers: [cell[0].midiNumber],
+      timeShift: `t_${cell[0].onset}`,
+    },
+  ];
+  cell
+    .slice(1)
+    .map(({ onset, midiNumber }) =>
+      onset === chords.at(-1).onset
+        ? chords.at(-1).midiNumbers.push(midiNumber)
+        : chords.push({ onset, midiNumbers: [midiNumber], timeShift: null }),
+    );
+
+  let lastChord = 0;
+  for (let i = 1; i < chords.length; i++) {
+    // 2. Remove redundant chord declarations
+    if (
+      areMidiNumbersEqual(chords[lastChord].midiNumbers, chords[i].midiNumbers)
+    ) {
+      chords[i].midiNumbers = null;
+    } else {
+      lastChord = i;
+    }
+
+    // 3. Switch to time shifts
+    chords[i].timeShift = toTimeShift(chords[i - 1].onset, chords[i].onset);
+  }
+
+  // 4. Encode local pitches
+  for (let i = 0; i < chords.length; i++) {
+    const { timeShift, midiNumbers } = chords[i];
+    midiNumbers?.forEach((midiNumber) => {
+      referToNote(midiNumber);
+    });
+
+    result.pattern.push(timeShift);
+  }
+
   return result;
 };
 
@@ -383,23 +386,23 @@ const wrapWithAffixes = (
   target: CellOfTokens,
   distance: number,
 ) => {
-  let prefixLength = 0;
-  while (
-    prefixLength < source.length &&
-    prefixLength < target.length &&
-    source[prefixLength] === target[prefixLength]
-  ) {
-    prefixLength++;
-  }
-
   let suffixLength = 0;
   while (
     suffixLength < source.length &&
     suffixLength < target.length &&
-    prefixLength + suffixLength < target.length &&
     source.at(-suffixLength - 1) === target.at(-suffixLength - 1)
   ) {
     suffixLength++;
+  }
+
+  let prefixLength = 0;
+  while (
+    prefixLength < source.length &&
+    prefixLength < target.length &&
+    prefixLength + suffixLength < target.length &&
+    source[prefixLength] === target[prefixLength]
+  ) {
+    prefixLength++;
   }
 
   let result = target;
@@ -418,6 +421,7 @@ const wrapWithAffixes = (
   return result;
 };
 
+// TODO: implement taking prefix and suffix from different cells (suffix first)
 const possiblyFindAffixes = (
   previousCellsOfTokens: ChannelOfTokens,
   cellOfTokens: CellOfTokens,
@@ -448,57 +452,108 @@ const countTokens = (_3d) => {
   return sum;
 };
 
-export const tokenize = (
-  notes: NotesInVoices,
-  measuresAndBeats: MeasuresAndBeats,
-): Tokens => {
-  const measures = splitNotesIntoCells(notes, measuresAndBeats);
-
-  const bassChannel =
-    notes
-      .map((voice, voiceIndex) => ({
-        average: getAverageMidiNumber(voice),
-        voiceIndex,
-      }))
-      .sort((a, b) => b.average - a.average)
-      .at(-2)?.voiceIndex ?? 0;
-
-  // TODO: design cool strategies like encode repeated cells
-  console.log("RAW ONSET COUNT:", countTokens(measures) * 2); // * 2 because every cell has pitch and time
-  let tokens = measures.map((measure, measureIndex) =>
-    measure.map(
-      (cell, channelIndex) =>
-        possiblyFindRepeat(
-          measures
-            .map((measure) => measure[channelIndex])
-            .slice(0, measureIndex),
-          cell,
-        ) ||
-        possiblyFindDoubling(
-          measures[measureIndex].slice(0, channelIndex),
-          cell,
-        ) ||
-        BPE(
-          encodeCell(
-            cell,
-            channelIndex !== bassChannel ? measure[bassChannel] : null,
-            measures?.[measureIndex - 1]?.[channelIndex],
-          ),
-        ),
-    ),
-  );
-
-  tokens = tokens.map((measure, measureIndex) =>
-    measure.map((cellOfTokens, channelIndex) =>
-      possiblyFindAffixes(
-        tokens.map((measure) => measure[channelIndex]).slice(0, measureIndex),
-        cellOfTokens,
+const convertCellsToIR = (cells: Cell[][], bassVoiceIndex): IR =>
+  cells.map((voice, voiceIndex) =>
+    voice.map((cell, measureIndex) =>
+      convertCellToIR(
+        cell,
+        voiceIndex !== bassVoiceIndex
+          ? cells[bassVoiceIndex][measureIndex]
+          : null,
+        cells[voiceIndex][measureIndex - 1],
       ),
     ),
   );
 
-  // brainstorm: maybe all three hi-hats (pedal/close/open) should be a single "instrument" for the purpose of time-shifts idk
+const irToTokens = (cell: CellIR): Token[] => {
+  if (cell === null) {
+    return [];
+  }
+  if ("bagOfNotes" in cell) {
+    return [...cell.bagOfNotes, ...cell.pattern];
+  }
+  return Object.entries(cell).flatMap(([drum, onsets]) => [
+    `drum_${drum}`,
+    ...onsets.map((onset) => `t_${onset}`),
+  ]);
+};
 
-  console.log("WITH REPEATS TOKENIZED:", countTokens(tokens));
-  return tokens;
+const findRepetitions = (ir: IR, voiceOrder: number[]): GridOfTokens => {
+  // per-voice arrays
+  const rightmostCoveredBagOfNotes = Array.from(
+    { length: ir.length },
+    () => -1,
+  );
+  const rightmostCoveredPattern = Array.from({ length: ir.length }, () => -1);
+
+  // try finding strategies
+
+  const result = Array.from({ length: ir.length }, () =>
+    Array.from({ length: ir[0].length }, () => []),
+  );
+  for (let measureIndex = 0; measureIndex < ir[0].length; measureIndex++) {
+    for (const voiceIndex of voiceOrder) {
+      result[voiceIndex][measureIndex] = irToTokens(
+        ir[voiceIndex][measureIndex],
+      );
+    }
+  }
+  return result;
+};
+
+export const tokenize = (
+  notes: NotesInVoices,
+  measuresAndBeats: MeasuresAndBeats,
+): GridOfTokens => {
+  const cells = splitNotesIntoCells(notes, measuresAndBeats);
+
+  const voiceOrder = notes
+    .map((voice, voiceIndex) => ({
+      average: getAverageMidiNumber(voice),
+      voiceIndex,
+    }))
+    .sort((a, b) => b.average - a.average)
+    .map(({ voiceIndex }) => voiceIndex);
+
+  const bassVoiceIndex = voiceOrder.at(-2) ?? 0;
+
+  const ir = convertCellsToIR(cells, bassVoiceIndex);
+  const gridOfTokens = findRepetitions(ir, voiceOrder);
+
+  // TODO: design cool strategies like encode repeated cells
+  //   console.log("RAW ONSET COUNT:", countTokens(measures) * 2); // * 2 because every cell has pitch and time
+  //   let tokens = measures.map((measure, measureIndex) =>
+  //     measure.map(
+  //       (cell, channelIndex) =>
+  //         // possiblyFindRepeat(
+  //         //   measures
+  //         //     .map((measure) => measure[channelIndex])
+  //         //     .slice(0, measureIndex),
+  //         //   cell,
+  //         // ) ||
+  //         // possiblyFindDoubling(
+  //         //   measures[measureIndex].slice(0, channelIndex),
+  //         //   cell,
+  //         // ) ||
+  //         // BPE(
+  //         encodeCell(
+  //           cell,
+  //           channelIndex !== bassChannel ? measure[bassChannel] : null,
+  //           measures?.[measureIndex - 1]?.[channelIndex],
+  //         ),
+  //       // ),
+  //     ),
+  //   );
+
+  //   tokens = tokens.map((measure, measureIndex) =>
+  //     measure.map((cellOfTokens, channelIndex) =>
+  //       possiblyFindAffixes(
+  //         tokens.map((measure) => measure[channelIndex]).slice(0, measureIndex),
+  //         cellOfTokens,
+  //       ),
+  //     ),
+  //   );
+
+  //   console.log("WITH REPEATS TOKENIZED:", countTokens(tokens));
+  return gridOfTokens;
 };

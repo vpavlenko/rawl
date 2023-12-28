@@ -103,7 +103,11 @@ const splitNotesIntoCells = (
   return result;
 };
 
-const encodeCell = (cell: Cell, bassCell: Cell | null): string[] => {
+const encodeCell = (
+  cell: Cell,
+  bassCell: Cell | null,
+  previousCell: Cell | null,
+): string[] => {
   if (cell.length === 0) return [];
 
   const result = [];
@@ -136,12 +140,11 @@ const encodeCell = (cell: Cell, bassCell: Cell | null): string[] => {
       ...new Set(cell.map((note) => note.midiNumber)),
     ].sort((a, b) => a - b);
 
-    // given an array bagOfMidiNumbers, find a number pivot in it, such that
-    // it's equal to
-
     let pivot = null;
+    const relateToBassBelow = bassCell?.length > 0;
+    let numNotesToSkip = 0;
 
-    if (bassCell?.length > 0) {
+    if (relateToBassBelow) {
       const bass = bassCell[0].midiNumber;
 
       for (let octave = -7; octave < 8; ++octave) {
@@ -159,18 +162,31 @@ const encodeCell = (cell: Cell, bassCell: Cell | null): string[] => {
       }
 
       result.push(`oct_${Math.round((pivot - bass) / 12)}`);
-      result.push(`rel_${bagOfMidiNumbers[0] - pivot}`);
+      bagOfMidiNumbers.forEach((midiNumber) =>
+        result.push(`rel_${midiNumber - pivot}`),
+      );
     } else {
-      pivot = bagOfMidiNumbers[0];
-      result.push(`abs_${bagOfMidiNumbers[0]}`);
+      if (previousCell && previousCell.length > 0) {
+        pivot = previousCell.at(-1).midiNumber;
+      } else {
+        pivot = cell[0].midiNumber;
+        numNotesToSkip = 1;
+        result.push(`abs_${pivot}`);
+      }
     }
 
-    for (let i = 1; i < bagOfMidiNumbers.length; ++i) {
-      result.push(`rel_${bagOfMidiNumbers[i] - pivot}`);
-    }
-
-    const referToBagOfWords = (midiNumber: number): {} =>
-      result.push(`n_${bagOfMidiNumbers.indexOf(midiNumber)}`);
+    const referToNote = (midiNumber: number): void => {
+      if (numNotesToSkip) {
+        numNotesToSkip--;
+      } else {
+        if (relateToBassBelow) {
+          result.push(`n_${bagOfMidiNumbers.indexOf(midiNumber)}`);
+        } else {
+          result.push(`rel_${midiNumber - pivot}`);
+          pivot = midiNumber;
+        }
+      }
+    };
 
     // 1. Gather notes into chords
     const chords = [
@@ -210,7 +226,7 @@ const encodeCell = (cell: Cell, bassCell: Cell | null): string[] => {
     for (let i = 0; i < chords.length; i++) {
       const { timeShift, midiNumbers } = chords[i];
       midiNumbers?.forEach((midiNumber) => {
-        referToBagOfWords(midiNumber);
+        referToNote(midiNumber);
       });
 
       result.push(timeShift);
@@ -438,25 +454,26 @@ export const tokenize = (
 ): Tokens => {
   const measures = splitNotesIntoCells(notes, measuresAndBeats);
 
-  const bassChannel = notes
-    .map((voice, voiceIndex) => ({
-      average: getAverageMidiNumber(voice),
-      voiceIndex,
-    }))
-    .sort((a, b) => b.average - a.average)
-    .at(-2).voiceIndex;
+  const bassChannel =
+    notes
+      .map((voice, voiceIndex) => ({
+        average: getAverageMidiNumber(voice),
+        voiceIndex,
+      }))
+      .sort((a, b) => b.average - a.average)
+      .at(-2)?.voiceIndex ?? 0;
 
   // TODO: design cool strategies like encode repeated cells
   console.log("RAW ONSET COUNT:", countTokens(measures) * 2); // * 2 because every cell has pitch and time
   let tokens = measures.map((measure, measureIndex) =>
     measure.map(
       (cell, channelIndex) =>
-        // possiblyFindRepeat(
-        //   measures
-        //     .map((measure) => measure[channelIndex])
-        //     .slice(0, measureIndex),
-        //   cell,
-        // ) ||
+        possiblyFindRepeat(
+          measures
+            .map((measure) => measure[channelIndex])
+            .slice(0, measureIndex),
+          cell,
+        ) ||
         possiblyFindDoubling(
           measures[measureIndex].slice(0, channelIndex),
           cell,
@@ -465,6 +482,7 @@ export const tokenize = (
           encodeCell(
             cell,
             channelIndex !== bassChannel ? measure[bassChannel] : null,
+            measures?.[measureIndex - 1]?.[channelIndex],
           ),
         ),
     ),

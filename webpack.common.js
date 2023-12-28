@@ -27,17 +27,9 @@ module.exports = {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
   },
   plugins: [
-    new Dotenv(),
-    new webpack.EnvironmentPlugin({
-      VERCEL_ENV: null,
-      VERCEL_GIT_COMMIT_SHA: null,
-      SENTRY_DSN: null,
-      FIREBASE_API_KEY: null,
-      FIREBASE_AUTH_DOMAIN: null,
-      FIREBASE_PROJECT_ID: null,
-      FIREBASE_STORAGE_BUCKET: null,
-      FIREBASE_MESSAGING_SENDER_ID: null,
-      FIREBASE_APP_ID: null,
+    new Dotenv({
+      safe: true,
+      systemvars: true,
     }),
     new HtmlWebpackPlugin({
       inject: true,

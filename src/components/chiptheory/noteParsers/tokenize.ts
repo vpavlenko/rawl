@@ -169,14 +169,15 @@ const convertCellToIR = (
 
     result.bagOfNotes.push(`oct_${Math.round((pivot - bass) / 12)}`);
     bagOfMidiNumbers.forEach((midiNumber) =>
-      result.bagOfNotes.push(`rel_${midiNumber - pivot}`),
+      result.bagOfNotes.push(`vrel_${midiNumber - pivot}`),
     );
   } else {
+    numNotesToSkip = 1;
     if (previousCell && previousCell.length > 0) {
       pivot = previousCell.at(-1).midiNumber;
+      result.bagOfNotes.push(`crel_${cell[0].midiNumber - pivot}`);
     } else {
       pivot = cell[0].midiNumber;
-      numNotesToSkip = 1;
       result.bagOfNotes.push(`abs_${pivot}`);
     }
   }
@@ -188,7 +189,7 @@ const convertCellToIR = (
       if (relateToBassBelow) {
         result.pattern.push(`n_${bagOfMidiNumbers.indexOf(midiNumber)}`);
       } else {
-        result.pattern.push(`rel_${midiNumber - pivot}`);
+        result.pattern.push(`hrel_${midiNumber - pivot}`);
         pivot = midiNumber;
       }
     }
@@ -353,25 +354,6 @@ const areTokenArraysEqual = (
     a.length === b.length &&
     a.every((val, index) => val === b[index]));
 
-const possiblyFindRepeat = (previousCells: Cell[], cell: Cell) => {
-  if (previousCells.length === 0 || cell.length === 0) {
-    return null;
-  }
-
-  for (let i = previousCells.length - 1; i >= 0; i--) {
-    const delta = findTranspositionDelta(previousCells[i], cell);
-    if (delta !== null) {
-      return [
-        delta === 0
-          ? `repeat_${previousCells.length - i}`
-          : `tr_${previousCells.length - i}_${delta}`,
-      ];
-    }
-  }
-
-  return null;
-};
-
 const possiblyFindDoubling = (bottomCells: Cell[], cell: Cell) => {
   if (bottomCells.length === 0 || cell.length === 0) {
     return null;
@@ -390,67 +372,6 @@ const possiblyFindDoubling = (bottomCells: Cell[], cell: Cell) => {
 
   return null;
 };
-
-// const wrapWithAffixes = (
-//   source: CellOfTokens,
-//   target: CellOfTokens,
-//   distance: number,
-// ) => {
-//   let suffixLength = 0;
-//   while (
-//     suffixLength < source.length &&
-//     suffixLength < target.length &&
-//     source.at(-suffixLength - 1) === target.at(-suffixLength - 1)
-//   ) {
-//     suffixLength++;
-//   }
-
-//   let prefixLength = 0;
-//   while (
-//     prefixLength < source.length &&
-//     prefixLength < target.length &&
-//     prefixLength + suffixLength < target.length &&
-//     source[prefixLength] === target[prefixLength]
-//   ) {
-//     prefixLength++;
-//   }
-
-//   let result = target;
-//   if (prefixLength >= 2) {
-//     result = [
-//       `prefix_${distance}_${prefixLength}`,
-//       ...result.slice(prefixLength),
-//     ];
-//   }
-//   if (suffixLength >= 2) {
-//     result = [
-//       ...result.slice(0, -suffixLength),
-//       `suffix_${distance}_${suffixLength}`,
-//     ];
-//   }
-//   return result;
-// };
-
-// TODO: implement taking prefix and suffix from different cells (suffix first)
-// const possiblyFindAffixes = (
-//   previousCellsOfTokens: ChannelOfTokens,
-//   cellOfTokens: CellOfTokens,
-// ): CellOfTokens => {
-//   let shortestWrapping = cellOfTokens;
-
-//   for (let i = previousCellsOfTokens.length - 1; i >= 0; i--) {
-//     const wrapping = wrapWithAffixes(
-//       previousCellsOfTokens[i],
-//       cellOfTokens,
-//       previousCellsOfTokens.length - i,
-//     );
-//     if (wrapping.length < shortestWrapping.length) {
-//       shortestWrapping = wrapping;
-//     }
-//   }
-
-//   return shortestWrapping;
-// };
 
 const countTokens = (_3d) => {
   let sum = 0;
@@ -571,9 +492,6 @@ const findRepetitions = (ir: IR, voiceOrder: number[]): GridOfTokens => {
     Array.from({ length: ir[0].length }, () => []),
   );
   for (let measureIndex = 0; measureIndex < ir[0].length; measureIndex++) {
-    if (measureIndex === 2) {
-      debugger;
-    }
     for (const voiceIndex of voiceOrder) {
       const cell = ir[voiceIndex][measureIndex];
       if (cell === null) {
@@ -581,8 +499,10 @@ const findRepetitions = (ir: IR, voiceOrder: number[]): GridOfTokens => {
       }
 
       if ("bagOfNotes" in cell) {
+        // cell.bagOfNotes.length == 0 happens in bass in mm.2-...
         let isBagOfNotesCovered =
-          rightmostCoveredBagOfNotes[voiceIndex] >= measureIndex;
+          rightmostCoveredBagOfNotes[voiceIndex] >= measureIndex ||
+          cell.bagOfNotes.length == 0;
         let isPatternCovered =
           rightmostCoveredPattern[voiceIndex] >= measureIndex;
         if (isBagOfNotesCovered && isPatternCovered) {
@@ -662,6 +582,11 @@ export const tokenize = (
   const ir = convertCellsToIR(cells, bassVoiceIndex);
   const gridOfTokens = findRepetitions(ir, voiceOrder);
 
+  console.log(
+    "RAW ONSET COUNT:",
+    notes.flatMap((voice) => voice.length).reduce((a, v) => a + v, 0) * 2,
+  ); // * 2 because every cell has pitch and time
+
   // TODO: design cool strategies like encode repeated cells
   //   console.log("RAW ONSET COUNT:", countTokens(measures) * 2); // * 2 because every cell has pitch and time
   //   let tokens = measures.map((measure, measureIndex) =>
@@ -687,15 +612,6 @@ export const tokenize = (
   //     ),
   //   );
 
-  //   tokens = tokens.map((measure, measureIndex) =>
-  //     measure.map((cellOfTokens, channelIndex) =>
-  //       possiblyFindAffixes(
-  //         tokens.map((measure) => measure[channelIndex]).slice(0, measureIndex),
-  //         cellOfTokens,
-  //       ),
-  //     ),
-  //   );
-
-  //   console.log("WITH REPEATS TOKENIZED:", countTokens(tokens));
+  console.log("AFTER SECOND PASS:", countTokens(gridOfTokens));
   return gridOfTokens;
 };

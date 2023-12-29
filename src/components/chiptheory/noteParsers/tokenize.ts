@@ -488,11 +488,7 @@ const irToTokens = (cell: CellIR): Token[] => {
   ]);
 };
 
-const findLongestRepetition = (voice: CellIR[], rightStart: number) => {
-  if (!("bagOfNotes" in voice[rightStart])) {
-    return {};
-  }
-  const tonalVoice = voice as TonalCellIR[];
+const findLongestRepetition = (voice: TonalCellIR[], rightStart: number) => {
   let longestBagOfNotesStartDelta = -1,
     longestBagOfNotesLength = 0,
     longestPatternStartDelta = -1,
@@ -505,8 +501,8 @@ const findLongestRepetition = (voice: CellIR[], rightStart: number) => {
       leftStart + bagOfNotesLength < rightStart &&
       rightStart + bagOfNotesLength < voice.length &&
       areTokenArraysEqual(
-        tonalVoice[leftStart + bagOfNotesLength]?.bagOfNotes,
-        tonalVoice[rightStart + bagOfNotesLength]?.bagOfNotes,
+        voice[leftStart + bagOfNotesLength]?.bagOfNotes,
+        voice[rightStart + bagOfNotesLength]?.bagOfNotes,
       )
     ) {
       bagOfNotesLength++;
@@ -521,8 +517,8 @@ const findLongestRepetition = (voice: CellIR[], rightStart: number) => {
       leftStart + patternLength < rightStart &&
       rightStart + patternLength < voice.length &&
       areTokenArraysEqual(
-        tonalVoice[leftStart + patternLength]?.pattern,
-        tonalVoice[rightStart + patternLength]?.pattern,
+        voice[leftStart + patternLength]?.pattern,
+        voice[rightStart + patternLength]?.pattern,
       )
     ) {
       patternLength++;
@@ -537,12 +533,12 @@ const findLongestRepetition = (voice: CellIR[], rightStart: number) => {
       leftStart + totalLength < rightStart &&
       rightStart + totalLength < voice.length &&
       areTokenArraysEqual(
-        tonalVoice[leftStart + totalLength]?.bagOfNotes,
-        tonalVoice[rightStart + totalLength]?.bagOfNotes,
+        voice[leftStart + totalLength]?.bagOfNotes,
+        voice[rightStart + totalLength]?.bagOfNotes,
       ) &&
       areTokenArraysEqual(
-        tonalVoice[leftStart + totalLength]?.pattern,
-        tonalVoice[rightStart + totalLength]?.pattern,
+        voice[leftStart + totalLength]?.pattern,
+        voice[rightStart + totalLength]?.pattern,
       )
     ) {
       totalLength++;
@@ -575,49 +571,73 @@ const findRepetitions = (ir: IR, voiceOrder: number[]): GridOfTokens => {
     Array.from({ length: ir[0].length }, () => []),
   );
   for (let measureIndex = 0; measureIndex < ir[0].length; measureIndex++) {
-    if (measureIndex === 7) {
+    if (measureIndex === 2) {
       debugger;
     }
     for (const voiceIndex of voiceOrder) {
-      if (ir[voiceIndex][measureIndex] === null) {
+      const cell = ir[voiceIndex][measureIndex];
+      if (cell === null) {
         continue;
       }
 
-      let isBagOfNotesCovered =
-        rightmostCoveredBagOfNotes[voiceIndex] >= measureIndex;
-      let isPatternCovered =
-        rightmostCoveredPattern[voiceIndex] >= measureIndex;
-      if (isBagOfNotesCovered && isPatternCovered) {
-        continue;
+      if ("bagOfNotes" in cell) {
+        let isBagOfNotesCovered =
+          rightmostCoveredBagOfNotes[voiceIndex] >= measureIndex;
+        let isPatternCovered =
+          rightmostCoveredPattern[voiceIndex] >= measureIndex;
+        if (isBagOfNotesCovered && isPatternCovered) {
+          continue;
+        }
+        let bagOfNotes = isBagOfNotesCovered ? [] : cell.bagOfNotes;
+        let pattern = isPatternCovered ? [] : cell.pattern;
+
+        const {
+          longestBagOfNotesStartDelta,
+          longestBagOfNotesLength,
+          longestPatternStartDelta,
+          longestPatternLength,
+          longestTotalStartDelta,
+          longestTotalLength,
+        } = findLongestRepetition(
+          ir[voiceIndex] as TonalCellIR[],
+          measureIndex,
+        );
+
+        if (
+          longestTotalLength >= 2 &&
+          !isBagOfNotesCovered &&
+          !isPatternCovered
+        ) {
+          result[voiceIndex][measureIndex] = [
+            `repeat_D${longestTotalStartDelta}_L${longestTotalLength}`,
+          ];
+          rightmostCoveredBagOfNotes[voiceIndex] =
+            measureIndex + longestTotalLength - 1;
+          rightmostCoveredPattern[voiceIndex] =
+            measureIndex + longestTotalLength - 1;
+          continue;
+        }
+
+        if (!isBagOfNotesCovered && longestBagOfNotesLength > 0) {
+          bagOfNotes = [
+            `harmony_D${longestBagOfNotesStartDelta}_L${longestBagOfNotesLength}`,
+          ];
+          isBagOfNotesCovered = true;
+          rightmostCoveredBagOfNotes[voiceIndex] =
+            measureIndex + longestBagOfNotesLength - 1;
+        }
+
+        if (!isPatternCovered && longestPatternLength > 0) {
+          pattern = [
+            `pattern_D${longestPatternStartDelta}_L${longestPatternLength}`,
+          ];
+          isPatternCovered = true;
+          rightmostCoveredPattern[voiceIndex] =
+            measureIndex + longestPatternLength - 1;
+        }
+
+        result[voiceIndex][measureIndex] = [...bagOfNotes, ...pattern];
       }
-
-      const {
-        longestBagOfNotesStartDelta,
-        longestBagOfNotesLength,
-        longestPatternStartDelta,
-        longestPatternLength,
-        longestTotalStartDelta,
-        longestTotalLength,
-      } = findLongestRepetition(ir[voiceIndex], measureIndex);
-
-      if (
-        longestTotalLength >= 2 &&
-        !isBagOfNotesCovered &&
-        !isPatternCovered
-      ) {
-        result[voiceIndex][measureIndex] = [
-          `repeat_D${longestTotalStartDelta}_L${longestTotalLength}`,
-        ];
-        rightmostCoveredBagOfNotes[voiceIndex] =
-          measureIndex + longestTotalLength - 1;
-        rightmostCoveredPattern[voiceIndex] =
-          measureIndex + longestTotalLength - 1;
-        continue;
-      }
-
-      result[voiceIndex][measureIndex] = irToTokens(
-        ir[voiceIndex][measureIndex],
-      );
     }
   }
   return result;

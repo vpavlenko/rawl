@@ -149,6 +149,7 @@ const convertCellToIR = (
   let pivot = null;
   const relateToBassBelow = bassCell?.length > 0;
   let numNotesToSkip = 0;
+  let previousRelativeNote = null;
 
   if (relateToBassBelow) {
     const bass = bassCell[0].midiNumber;
@@ -187,7 +188,15 @@ const convertCellToIR = (
       numNotesToSkip--;
     } else {
       if (relateToBassBelow) {
-        result.pattern.push(`n_${bagOfMidiNumbers.indexOf(midiNumber)}`);
+        if (previousRelativeNote == null) {
+          previousRelativeNote = bagOfMidiNumbers.indexOf(midiNumber);
+          result.pattern.push(`n_${previousRelativeNote}`);
+        } else {
+          result.pattern.push(
+            `nr_${bagOfMidiNumbers.indexOf(midiNumber) - previousRelativeNote}`,
+          );
+          previousRelativeNote = bagOfMidiNumbers.indexOf(midiNumber);
+        }
       } else {
         result.pattern.push(`hrel_${midiNumber - pivot}`);
         pivot = midiNumber;

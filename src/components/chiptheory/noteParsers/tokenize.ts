@@ -116,7 +116,7 @@ const convertCellToIR = (
   if (cell.length === 0) return null;
 
   if (cell[0].isDrum) {
-    const drums: DrumIR = {};
+    const drums: DrumCellIR = {};
     cell.map(({ onset, midiNumber }) => {
       if (!drums[midiNumber]) {
         drums[midiNumber] = [onset];
@@ -343,6 +343,16 @@ const findTranspositionDelta = (cell1: Cell, cell2: Cell): number | null => {
 const areMidiNumbersEqual = (a: number[], b: number[]): boolean =>
   a.length === b.length && a.every((val, index) => val === b[index]);
 
+const areTokenArraysEqual = (
+  a: string[] | undefined,
+  b: string[] | undefined,
+): boolean =>
+  (a == undefined && b == undefined) ||
+  (a != undefined &&
+    b != undefined &&
+    a.length === b.length &&
+    a.every((val, index) => val === b[index]));
+
 const possiblyFindRepeat = (previousCells: Cell[], cell: Cell) => {
   if (previousCells.length === 0 || cell.length === 0) {
     return null;
@@ -381,66 +391,66 @@ const possiblyFindDoubling = (bottomCells: Cell[], cell: Cell) => {
   return null;
 };
 
-const wrapWithAffixes = (
-  source: CellOfTokens,
-  target: CellOfTokens,
-  distance: number,
-) => {
-  let suffixLength = 0;
-  while (
-    suffixLength < source.length &&
-    suffixLength < target.length &&
-    source.at(-suffixLength - 1) === target.at(-suffixLength - 1)
-  ) {
-    suffixLength++;
-  }
+// const wrapWithAffixes = (
+//   source: CellOfTokens,
+//   target: CellOfTokens,
+//   distance: number,
+// ) => {
+//   let suffixLength = 0;
+//   while (
+//     suffixLength < source.length &&
+//     suffixLength < target.length &&
+//     source.at(-suffixLength - 1) === target.at(-suffixLength - 1)
+//   ) {
+//     suffixLength++;
+//   }
 
-  let prefixLength = 0;
-  while (
-    prefixLength < source.length &&
-    prefixLength < target.length &&
-    prefixLength + suffixLength < target.length &&
-    source[prefixLength] === target[prefixLength]
-  ) {
-    prefixLength++;
-  }
+//   let prefixLength = 0;
+//   while (
+//     prefixLength < source.length &&
+//     prefixLength < target.length &&
+//     prefixLength + suffixLength < target.length &&
+//     source[prefixLength] === target[prefixLength]
+//   ) {
+//     prefixLength++;
+//   }
 
-  let result = target;
-  if (prefixLength >= 2) {
-    result = [
-      `prefix_${distance}_${prefixLength}`,
-      ...result.slice(prefixLength),
-    ];
-  }
-  if (suffixLength >= 2) {
-    result = [
-      ...result.slice(0, -suffixLength),
-      `suffix_${distance}_${suffixLength}`,
-    ];
-  }
-  return result;
-};
+//   let result = target;
+//   if (prefixLength >= 2) {
+//     result = [
+//       `prefix_${distance}_${prefixLength}`,
+//       ...result.slice(prefixLength),
+//     ];
+//   }
+//   if (suffixLength >= 2) {
+//     result = [
+//       ...result.slice(0, -suffixLength),
+//       `suffix_${distance}_${suffixLength}`,
+//     ];
+//   }
+//   return result;
+// };
 
 // TODO: implement taking prefix and suffix from different cells (suffix first)
-const possiblyFindAffixes = (
-  previousCellsOfTokens: ChannelOfTokens,
-  cellOfTokens: CellOfTokens,
-): CellOfTokens => {
-  let shortestWrapping = cellOfTokens;
+// const possiblyFindAffixes = (
+//   previousCellsOfTokens: ChannelOfTokens,
+//   cellOfTokens: CellOfTokens,
+// ): CellOfTokens => {
+//   let shortestWrapping = cellOfTokens;
 
-  for (let i = previousCellsOfTokens.length - 1; i >= 0; i--) {
-    const wrapping = wrapWithAffixes(
-      previousCellsOfTokens[i],
-      cellOfTokens,
-      previousCellsOfTokens.length - i,
-    );
-    if (wrapping.length < shortestWrapping.length) {
-      shortestWrapping = wrapping;
-    }
-  }
+//   for (let i = previousCellsOfTokens.length - 1; i >= 0; i--) {
+//     const wrapping = wrapWithAffixes(
+//       previousCellsOfTokens[i],
+//       cellOfTokens,
+//       previousCellsOfTokens.length - i,
+//     );
+//     if (wrapping.length < shortestWrapping.length) {
+//       shortestWrapping = wrapping;
+//     }
+//   }
 
-  return shortestWrapping;
-};
+//   return shortestWrapping;
+// };
 
 const countTokens = (_3d) => {
   let sum = 0;
@@ -478,6 +488,81 @@ const irToTokens = (cell: CellIR): Token[] => {
   ]);
 };
 
+const findLongestRepetition = (voice: CellIR[], rightStart: number) => {
+  if (!("bagOfNotes" in voice[rightStart])) {
+    return {};
+  }
+  const tonalVoice = voice as TonalCellIR[];
+  let longestBagOfNotesStartDelta = -1,
+    longestBagOfNotesLength = 0,
+    longestPatternStartDelta = -1,
+    longestPatternLength = 0,
+    longestTotalStartDelta = -1,
+    longestTotalLength = 0;
+  for (let leftStart = 0; leftStart < rightStart; ++leftStart) {
+    let bagOfNotesLength = 0;
+    while (
+      leftStart + bagOfNotesLength < rightStart &&
+      rightStart + bagOfNotesLength < voice.length &&
+      areTokenArraysEqual(
+        tonalVoice[leftStart + bagOfNotesLength]?.bagOfNotes,
+        tonalVoice[rightStart + bagOfNotesLength]?.bagOfNotes,
+      )
+    ) {
+      bagOfNotesLength++;
+    }
+    if (bagOfNotesLength > longestBagOfNotesLength) {
+      longestBagOfNotesLength = bagOfNotesLength;
+      longestBagOfNotesStartDelta = rightStart - leftStart;
+    }
+
+    let patternLength = 0;
+    while (
+      leftStart + patternLength < rightStart &&
+      rightStart + patternLength < voice.length &&
+      areTokenArraysEqual(
+        tonalVoice[leftStart + patternLength]?.pattern,
+        tonalVoice[rightStart + patternLength]?.pattern,
+      )
+    ) {
+      patternLength++;
+    }
+    if (patternLength > longestPatternLength) {
+      longestPatternLength = patternLength;
+      longestPatternStartDelta = rightStart - leftStart;
+    }
+
+    let totalLength = 0;
+    while (
+      leftStart + totalLength < rightStart &&
+      rightStart + totalLength < voice.length &&
+      areTokenArraysEqual(
+        tonalVoice[leftStart + totalLength]?.bagOfNotes,
+        tonalVoice[rightStart + totalLength]?.bagOfNotes,
+      ) &&
+      areTokenArraysEqual(
+        tonalVoice[leftStart + totalLength]?.pattern,
+        tonalVoice[rightStart + totalLength]?.pattern,
+      )
+    ) {
+      totalLength++;
+    }
+    if (totalLength > longestTotalLength) {
+      longestTotalLength = totalLength;
+      longestTotalStartDelta = rightStart - leftStart;
+    }
+  }
+
+  return {
+    longestBagOfNotesStartDelta,
+    longestBagOfNotesLength,
+    longestPatternStartDelta,
+    longestPatternLength,
+    longestTotalStartDelta,
+    longestTotalLength,
+  };
+};
+
 const findRepetitions = (ir: IR, voiceOrder: number[]): GridOfTokens => {
   // per-voice arrays
   const rightmostCoveredBagOfNotes = Array.from(
@@ -486,13 +571,50 @@ const findRepetitions = (ir: IR, voiceOrder: number[]): GridOfTokens => {
   );
   const rightmostCoveredPattern = Array.from({ length: ir.length }, () => -1);
 
-  // try finding strategies
-
   const result = Array.from({ length: ir.length }, () =>
     Array.from({ length: ir[0].length }, () => []),
   );
   for (let measureIndex = 0; measureIndex < ir[0].length; measureIndex++) {
+    if (measureIndex === 7) {
+      debugger;
+    }
     for (const voiceIndex of voiceOrder) {
+      if (ir[voiceIndex][measureIndex] === null) {
+        continue;
+      }
+
+      let isBagOfNotesCovered =
+        rightmostCoveredBagOfNotes[voiceIndex] >= measureIndex;
+      let isPatternCovered =
+        rightmostCoveredPattern[voiceIndex] >= measureIndex;
+      if (isBagOfNotesCovered && isPatternCovered) {
+        continue;
+      }
+
+      const {
+        longestBagOfNotesStartDelta,
+        longestBagOfNotesLength,
+        longestPatternStartDelta,
+        longestPatternLength,
+        longestTotalStartDelta,
+        longestTotalLength,
+      } = findLongestRepetition(ir[voiceIndex], measureIndex);
+
+      if (
+        longestTotalLength >= 2 &&
+        !isBagOfNotesCovered &&
+        !isPatternCovered
+      ) {
+        result[voiceIndex][measureIndex] = [
+          `repeat_D${longestTotalStartDelta}_L${longestTotalLength}`,
+        ];
+        rightmostCoveredBagOfNotes[voiceIndex] =
+          measureIndex + longestTotalLength - 1;
+        rightmostCoveredPattern[voiceIndex] =
+          measureIndex + longestTotalLength - 1;
+        continue;
+      }
+
       result[voiceIndex][measureIndex] = irToTokens(
         ir[voiceIndex][measureIndex],
       );

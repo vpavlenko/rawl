@@ -27,7 +27,7 @@ type TonalCellIR = {
 
 type Rhythm = string[]; // absolute onsets, TODO process?
 type DrumCellIR = {
-  [key: number]: Rhythm;
+  [drum: number]: Rhythm;
 };
 
 type CellIR = TonalCellIR | DrumCellIR | null;
@@ -483,7 +483,8 @@ const findLongestRepetition = (voice: TonalCellIR[], rightStart: number) => {
 const findDrumRepetitions = (
   voice: DrumCellIR[],
   rightStart: number,
-): string[] => {
+  coveredDrums: Set<string>,
+): { tokens: string[]; newCoverage: { [drum: number]: number } } => {
   const cell = voice[rightStart];
   const longestStartDelta = Object.fromEntries(
     Object.keys(cell).map((drum) => [drum, -1]),
@@ -492,6 +493,9 @@ const findDrumRepetitions = (
     Object.keys(cell).map((drum) => [drum, 0]),
   );
   for (const drum in cell) {
+    if (coveredDrums.has(drum)) {
+      continue;
+    }
     for (let leftStart = 0; leftStart < rightStart; ++leftStart) {
       if (!voice[leftStart] || !(drum in voice[leftStart])) {
         continue;
@@ -514,18 +518,26 @@ const findDrumRepetitions = (
       }
     }
   }
-  const result: string[] = [];
+  const tokens: string[] = [];
+
   for (const drum in cell) {
+    if (coveredDrums.has(drum)) {
+      continue;
+    }
     if (longestLength[drum] > 0) {
-      result.push(
+      tokens.push(
         `drep_${drum}_D${longestStartDelta[drum]}_L${longestLength[drum]}`,
       );
     } else {
-      result.push(`drum_${drum}`, ...cell[drum].map((t) => `t_${t}`));
+      tokens.push(`drum_${drum}`, ...cell[drum].map((t) => `t_${t}`));
     }
   }
+  const newCoverage = Object.fromEntries(
+    Object.entries(longestLength).filter(([drum, length]) => length > 0),
+  );
+
   // TODO: don't repeat drums that are covered by declarations before
-  return result;
+  return { tokens, newCoverage };
 };
 
 const findRepetitions = (ir: IR, voiceOrder: number[]): GridOfTokens => {
@@ -539,6 +551,7 @@ const findRepetitions = (ir: IR, voiceOrder: number[]): GridOfTokens => {
   const result = Array.from({ length: ir.length }, () =>
     Array.from({ length: ir[0].length }, () => []),
   );
+  const drumCoverage: { [drum: number]: number } = {};
   for (let measureIndex = 0; measureIndex < ir[0].length; measureIndex++) {
     for (const voiceIndex of voiceOrder) {
       const cell = ir[voiceIndex][measureIndex];
@@ -610,10 +623,20 @@ const findRepetitions = (ir: IR, voiceOrder: number[]): GridOfTokens => {
       }
 
       const voice = ir[voiceIndex] as DrumCellIR[];
-      result[voiceIndex][measureIndex] = findDrumRepetitions(
+      for (const drum in drumCoverage) {
+        if (drumCoverage[drum] < measureIndex) {
+          delete drumCoverage[drum];
+        }
+      }
+      const { tokens, newCoverage } = findDrumRepetitions(
         voice,
         measureIndex,
+        new Set(Object.keys(drumCoverage)),
       );
+      for (const drum in newCoverage) {
+        drumCoverage[drum] = measureIndex + newCoverage[drum] - 1;
+      }
+      result[voiceIndex][measureIndex] = tokens;
     }
   }
   return result;

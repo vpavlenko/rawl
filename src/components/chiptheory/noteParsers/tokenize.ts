@@ -480,6 +480,54 @@ const findLongestRepetition = (voice: TonalCellIR[], rightStart: number) => {
   };
 };
 
+const findDrumRepetitions = (
+  voice: DrumCellIR[],
+  rightStart: number,
+): string[] => {
+  const cell = voice[rightStart];
+  const longestStartDelta = Object.fromEntries(
+    Object.keys(cell).map((drum) => [drum, -1]),
+  );
+  const longestLength = Object.fromEntries(
+    Object.keys(cell).map((drum) => [drum, 0]),
+  );
+  for (const drum in cell) {
+    for (let leftStart = 0; leftStart < rightStart; ++leftStart) {
+      if (!voice[leftStart] || !(drum in voice[leftStart])) {
+        continue;
+      }
+
+      let length = 0;
+      while (
+        leftStart + length < rightStart &&
+        rightStart + length < voice.length &&
+        areTokenArraysEqual(
+          voice[leftStart + length]?.[drum],
+          voice[rightStart + length]?.[drum],
+        )
+      ) {
+        length++;
+      }
+      if (length > longestLength[drum]) {
+        longestStartDelta[drum] = rightStart - leftStart;
+        longestLength[drum] = length;
+      }
+    }
+  }
+  const result: string[] = [];
+  for (const drum in cell) {
+    if (longestLength[drum] > 0) {
+      result.push(
+        `drep_${drum}_D${longestStartDelta[drum]}_L${longestLength[drum]}`,
+      );
+    } else {
+      result.push(`drum_${drum}`, ...cell[drum].map((t) => `t_${t}`));
+    }
+  }
+  // TODO: don't repeat drums that are covered by declarations before
+  return result;
+};
+
 const findRepetitions = (ir: IR, voiceOrder: number[]): GridOfTokens => {
   // per-voice arrays
   const rightmostCoveredBagOfNotes = Array.from(
@@ -557,7 +605,15 @@ const findRepetitions = (ir: IR, voiceOrder: number[]): GridOfTokens => {
         }
 
         result[voiceIndex][measureIndex] = [...bagOfNotes, ...pattern];
+
+        continue;
       }
+
+      const voice = ir[voiceIndex] as DrumCellIR[];
+      result[voiceIndex][measureIndex] = findDrumRepetitions(
+        voice,
+        measureIndex,
+      );
     }
   }
   return result;
@@ -586,31 +642,6 @@ export const tokenize = (
     "RAW ONSET COUNT:",
     notes.flatMap((voice) => voice.length).reduce((a, v) => a + v, 0) * 2,
   ); // * 2 because every cell has pitch and time
-
-  // TODO: design cool strategies like encode repeated cells
-  //   console.log("RAW ONSET COUNT:", countTokens(measures) * 2); // * 2 because every cell has pitch and time
-  //   let tokens = measures.map((measure, measureIndex) =>
-  //     measure.map(
-  //       (cell, channelIndex) =>
-  //         // possiblyFindRepeat(
-  //         //   measures
-  //         //     .map((measure) => measure[channelIndex])
-  //         //     .slice(0, measureIndex),
-  //         //   cell,
-  //         // ) ||
-  //         // possiblyFindDoubling(
-  //         //   measures[measureIndex].slice(0, channelIndex),
-  //         //   cell,
-  //         // ) ||
-  //         // BPE(
-  //         encodeCell(
-  //           cell,
-  //           channelIndex !== bassChannel ? measure[bassChannel] : null,
-  //           measures?.[measureIndex - 1]?.[channelIndex],
-  //         ),
-  //       // ),
-  //     ),
-  //   );
 
   console.log("AFTER SECOND PASS:", countTokens(gridOfTokens));
   return gridOfTokens;

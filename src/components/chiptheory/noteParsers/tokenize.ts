@@ -169,8 +169,10 @@ const convertCellToIR = (
   } else {
     numNotesToSkip = 1;
     if (previousCell && previousCell.length > 0) {
-      pivot = previousCell.at(-1).midiNumber;
-      result.bagOfNotes.push(`crel_${cell[0].midiNumber - pivot}`);
+      pivot = cell[0].midiNumber;
+      result.bagOfNotes.push(
+        `crel_${cell[0].midiNumber - previousCell.at(-1).midiNumber}`,
+      );
     } else {
       pivot = cell[0].midiNumber;
       result.bagOfNotes.push(`abs_${pivot}`);
@@ -474,7 +476,8 @@ const findRepetitions = (
       if (
         measureIndex > 0 &&
         rightmostCoveredBagOfNotes[voiceIndex] < measureIndex &&
-        rightmostCoveredPattern[voiceIndex] < measureIndex
+        rightmostCoveredPattern[voiceIndex] < measureIndex &&
+        "bagOfNotes" in cell
       ) {
         while (
           measureIndex + riffLength < ir[voiceIndex].length &&
@@ -488,9 +491,14 @@ const findRepetitions = (
         if (riffLength > 0) {
           result[voiceIndex][measureIndex] = [`riff_D${riffLength}`];
 
+          // TODO: start drum riff per single drum at the point of definition, not in the next cell
           if (cells[voiceIndex][measureIndex][0].isDrum) {
             Object.keys(cell).forEach(
-              (drum) => (drumCoverage[drum] = measureIndex + riffLength - 1),
+              (drum) =>
+                (drumCoverage[drum] = Math.max(
+                  measureIndex + riffLength - 1,
+                  drumCoverage[drum],
+                )),
             );
           }
           rightmostCoveredBagOfNotes[voiceIndex] =

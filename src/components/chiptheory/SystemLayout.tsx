@@ -256,7 +256,7 @@ const getNoteRectangles = (
           // TODO: make it map onto the dynamic range of a song? of a track?
           opacity: isActiveVoice
             ? (showVelocity && note?.chipState?.on?.param2 / 127) ||
-              (showTokens ? 0.5 : 1) // to debug tokenization
+              (showTokens ? 0.8 : 1) // to debug tokenization
             : 0.1,
           display: "grid",
           placeItems: "center",

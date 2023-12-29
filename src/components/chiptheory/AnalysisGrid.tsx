@@ -105,6 +105,7 @@ const Measure: React.FC<{
               fontFamily: "sans",
               zIndex: 1000,
               lineHeight: 1,
+              color: "white",
             }}
           >
             {token},{" "}

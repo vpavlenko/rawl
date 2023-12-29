@@ -143,11 +143,11 @@ const convertCellToIR = (
     (cell) => cell.length > 0 && !cell[0].isDrum,
   )?.[0]?.[0]?.midiNumber;
 
-  const relateToBassBelow = bass > 0;
+  const relateToLowestVoice = bass > 0;
   let numNotesToSkip = 0;
   let previousRelativeNote = null;
 
-  if (relateToBassBelow) {
+  if (relateToLowestVoice) {
     for (let octave = -7; octave < 8; ++octave) {
       const possiblePivot = bass + octave * 12;
       if (bagOfMidiNumbers.indexOf(possiblePivot) !== -1) {
@@ -181,7 +181,7 @@ const convertCellToIR = (
     if (numNotesToSkip) {
       numNotesToSkip--;
     } else {
-      if (relateToBassBelow) {
+      if (relateToLowestVoice) {
         if (previousRelativeNote == null) {
           previousRelativeNote = bagOfMidiNumbers.indexOf(midiNumber);
           result.pattern.push(`n_${previousRelativeNote}`);
@@ -349,6 +349,37 @@ const findLongestRepetition = (voice: TonalCellIR[], rightStart: number) => {
   };
 };
 
+// I'm not sure that doubling should be made on IR and not on low-level Cells
+//
+// const findLongestDoubling = (
+//   voice: TonalCellIR[],
+//   ir: IR,
+//   lowerVoiceOrder: number[],
+//   measureIndex,
+// ) => {
+//   let longestDoublingLength = 0;
+//   let voiceOfLongestDoubling = -1;
+
+//   for (const lowerVoiceIndex of lowerVoiceOrder) {
+//     const lowerVoice = ir[lowerVoiceIndex];
+//     if (lowerVoice[measureIndex] == null || lowerVoice ) let length = 0;
+//     const i = measureIndex + length;
+//     while (
+//       i < voice.length &&
+//       voice[i] != null &&
+//       lowerVoice[i] != null &&
+//       !lowerVoice[i][0].isDrum &&
+//       areTokenArraysEqual(voice[i].bagOfNotes, lowerVoice[i].bagOfNotes) &&
+//       areTokenArraysEqual(voice[i].pattern, lowerVoice[i].pattern)
+//     ) {
+//       length++;
+//     }
+//     if (length > longestDoublingLength) {
+//       voiceOfLongestDoubling = lowerVoice;
+//     }
+//   }
+// };
+
 const findDrumRepetitions = (
   voice: DrumCellIR[],
   rightStart: number,
@@ -467,6 +498,15 @@ const findRepetitions = (ir: IR, voiceOrder: number[]): GridOfTokens => {
             measureIndex + longestTotalLength - 1;
           continue;
         }
+
+        // if (!isBagOfNotesCovered && !isPatternCovered) {
+        //   const { doublingLength, doublingVoice } = findLongestDoubling(
+        //     ir[voiceIndex] as TonalCellIR[],
+        //     ir,
+        //     voiceOrder.slice(0, voiceOrder.indexOf(voiceIndex)),
+        //     measureIndex,
+        //   );
+        // }
 
         if (!isBagOfNotesCovered && longestBagOfNotesLength > 0) {
           bagOfNotes = [

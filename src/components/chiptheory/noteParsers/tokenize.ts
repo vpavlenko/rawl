@@ -440,7 +440,18 @@ const findDrumRepetitions = (
   return { tokens, newCoverage };
 };
 
-const findRepetitions = (ir: IR, voiceOrder: number[]): GridOfTokens => {
+const areCellsEqual = (a: Cell, b: Cell): boolean =>
+  a.length === b.length &&
+  a.every(
+    (val, index) =>
+      val.midiNumber === b[index].midiNumber && val.onset === b[index].onset,
+  );
+
+const findRepetitions = (
+  ir: IR,
+  voiceOrder: number[],
+  cells: Cell[][],
+): GridOfTokens => {
   // per-voice arrays
   const rightmostCoveredBagOfNotes = Array.from(
     { length: ir.length },
@@ -457,6 +468,37 @@ const findRepetitions = (ir: IR, voiceOrder: number[]): GridOfTokens => {
       const cell = ir[voiceIndex][measureIndex];
       if (cell === null) {
         continue;
+      }
+
+      let riffLength = 0;
+      if (
+        measureIndex > 0 &&
+        rightmostCoveredBagOfNotes[voiceIndex] < measureIndex &&
+        rightmostCoveredPattern[voiceIndex] < measureIndex
+      ) {
+        while (
+          measureIndex + riffLength < ir[voiceIndex].length &&
+          areCellsEqual(
+            cells[voiceIndex][measureIndex - 1],
+            cells[voiceIndex][measureIndex + riffLength],
+          )
+        ) {
+          riffLength++;
+        }
+        if (riffLength > 0) {
+          result[voiceIndex][measureIndex] = [`riff_D${riffLength}`];
+
+          if (cells[voiceIndex][measureIndex][0].isDrum) {
+            Object.keys(cell).forEach(
+              (drum) => (drumCoverage[drum] = measureIndex + riffLength - 1),
+            );
+          }
+          rightmostCoveredBagOfNotes[voiceIndex] =
+            measureIndex + riffLength - 1;
+          rightmostCoveredPattern[voiceIndex] = measureIndex + riffLength - 1;
+
+          continue;
+        }
       }
 
       if ("bagOfNotes" in cell) {
@@ -566,7 +608,7 @@ export const tokenize = (
     .map(({ voiceIndex }) => voiceIndex);
 
   const ir = convertCellsToIR(cells, voiceOrder);
-  const gridOfTokens = findRepetitions(ir, voiceOrder);
+  const gridOfTokens = findRepetitions(ir, voiceOrder, cells);
 
   console.log(
     "RAW ONSET COUNT:",

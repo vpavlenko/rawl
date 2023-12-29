@@ -110,7 +110,7 @@ const splitNotesIntoCells = (
 
 const convertCellToIR = (
   cell: Cell,
-  bassCell: Cell | null,
+  lowerCells: Cell[],
   previousCell: Cell | null,
 ): CellIR => {
   if (cell.length === 0) return null;
@@ -126,15 +126,6 @@ const convertCellToIR = (
     });
 
     return drums;
-
-    //   .forEach((drum) => {
-    //     result.push(`drum_${drum}`);
-    //     const onsets = drums[drum];
-    //     result.push(`ts_${onsets[0]}`);
-    //     for (let i = 1; i < onsets.length; ++i) {
-    //       result.push(toTimeShift(onsets[i - 1], onsets[i]));
-    //     }
-    //   });
   }
 
   const result = { bagOfNotes: [], pattern: [] };
@@ -147,13 +138,16 @@ const convertCellToIR = (
   ].sort((a, b) => a - b);
 
   let pivot = null;
-  const relateToBassBelow = bassCell?.length > 0;
+
+  const bass = lowerCells.filter(
+    (cell) => cell.length > 0 && !cell[0].isDrum,
+  )?.[0]?.[0]?.midiNumber;
+
+  const relateToBassBelow = bass > 0;
   let numNotesToSkip = 0;
   let previousRelativeNote = null;
 
   if (relateToBassBelow) {
-    const bass = bassCell[0].midiNumber;
-
     for (let octave = -7; octave < 8; ++octave) {
       const possiblePivot = bass + octave * 12;
       if (bagOfMidiNumbers.indexOf(possiblePivot) !== -1) {
@@ -248,108 +242,6 @@ const convertCellToIR = (
   return result;
 };
 
-type DictionaryEntry = {
-  src: string[];
-  dest: string;
-};
-
-const BPE_DICTIONARY: DictionaryEntry[] = [
-  {
-    src: [
-      "t_0.00",
-      "ts_0.50",
-      "ts_0.50",
-      "ts_0.50",
-      "ts_0.50",
-      "ts_0.50",
-      "ts_0.50",
-      "ts_0.50",
-    ],
-    dest: "8x_ts_0.5",
-  },
-  { src: ["ts_0.25", "ts_0.25", "ts_0.25", "ts_0.25"], dest: "4x_ts_0.25" },
-  {
-    src: [
-      "t_0.00",
-      "4x_ts_0.25",
-      "4x_ts_0.25",
-      "4x_ts_0.25",
-      "ts_0.25",
-      "ts_0.25",
-      "ts_0.25",
-    ],
-    dest: "16x_ts_0.25",
-  },
-  { src: ["t_0.00", "ts_1.00", "ts_1.00", "ts_1.00"], dest: "4x_ts_1" },
-  { src: ["ts_0.50", "ts_0.50", "ts_0.50", "ts_0.50"], dest: "4x_ts_0.5" },
-  { src: ["ts_0.50", "ts_1.00", "ts_1.00", "ts_1.00"], dest: "1-2-2-2" },
-];
-
-const BPE = (tokens: string[]): string[] => {
-  let madeReplacement: boolean;
-
-  do {
-    madeReplacement = false;
-
-    for (const entry of BPE_DICTIONARY) {
-      const { src, dest } = entry;
-      const index = findSubsequenceIndex(tokens, src);
-
-      if (index !== -1) {
-        tokens.splice(index, src.length, dest);
-        madeReplacement = true;
-        break; // Restart the search after each replacement
-      }
-    }
-  } while (madeReplacement);
-
-  return tokens;
-};
-
-function findSubsequenceIndex(tokens: string[], subsequence: string[]): number {
-  for (let i = 0; i <= tokens.length - subsequence.length; i++) {
-    let match = true;
-    for (let j = 0; j < subsequence.length; j++) {
-      if (tokens[i + j] !== subsequence[j]) {
-        match = false;
-        break;
-      }
-    }
-    if (match) {
-      return i;
-    }
-  }
-  return -1;
-}
-
-const findTranspositionDelta = (cell1: Cell, cell2: Cell): number | null => {
-  if (
-    cell1.length !== cell2.length ||
-    cell1.length == 0 ||
-    cell2.length == 0 ||
-    cell1[0].isDrum !== cell2[0].isDrum ||
-    cell1[0].onset !== cell2[0].onset
-  ) {
-    return null;
-  }
-
-  const delta = cell2[0].midiNumber - cell1[0].midiNumber;
-
-  for (let i = 0; i < cell1.length; i++) {
-    const note1 = cell1[i];
-    const note2 = cell2[i];
-
-    if (
-      note2.midiNumber - note1.midiNumber !== delta ||
-      note1.onset !== note2.onset
-    ) {
-      return null;
-    }
-  }
-
-  return delta;
-};
-
 const areMidiNumbersEqual = (a: number[], b: number[]): boolean =>
   a.length === b.length && a.every((val, index) => val === b[index]);
 
@@ -363,25 +255,6 @@ const areTokenArraysEqual = (
     a.length === b.length &&
     a.every((val, index) => val === b[index]));
 
-const possiblyFindDoubling = (bottomCells: Cell[], cell: Cell) => {
-  if (bottomCells.length === 0 || cell.length === 0) {
-    return null;
-  }
-
-  for (let i = bottomCells.length - 1; i >= 0; i--) {
-    const delta = findTranspositionDelta(bottomCells[i], cell);
-    if (delta !== null) {
-      return [
-        delta === 0
-          ? `dbl_${bottomCells.length - i}`
-          : `dbl_tr_${bottomCells.length - i}_${delta}`,
-      ];
-    }
-  }
-
-  return null;
-};
-
 const countTokens = (_3d) => {
   let sum = 0;
   for (let i = 0; i < _3d.length; ++i) {
@@ -392,31 +265,18 @@ const countTokens = (_3d) => {
   return sum;
 };
 
-const convertCellsToIR = (cells: Cell[][], bassVoiceIndex): IR =>
+const convertCellsToIR = (cells: Cell[][], voiceOrder: number[]): IR =>
   cells.map((voice, voiceIndex) =>
     voice.map((cell, measureIndex) =>
       convertCellToIR(
         cell,
-        voiceIndex !== bassVoiceIndex
-          ? cells[bassVoiceIndex][measureIndex]
-          : null,
+        voiceOrder
+          .slice(0, voiceOrder.indexOf(voiceIndex))
+          .map((lowerVoice) => cells[lowerVoice][measureIndex]),
         cells[voiceIndex][measureIndex - 1],
       ),
     ),
   );
-
-const irToTokens = (cell: CellIR): Token[] => {
-  if (cell === null) {
-    return [];
-  }
-  if ("bagOfNotes" in cell) {
-    return [...cell.bagOfNotes, ...cell.pattern];
-  }
-  return Object.entries(cell).flatMap(([drum, onsets]) => [
-    `drum_${drum}`,
-    ...onsets.map((onset) => `t_${onset}`),
-  ]);
-};
 
 const findLongestRepetition = (voice: TonalCellIR[], rightStart: number) => {
   let longestBagOfNotesStartDelta = -1,
@@ -662,12 +522,10 @@ export const tokenize = (
       average: getAverageMidiNumber(voice),
       voiceIndex,
     }))
-    .sort((a, b) => b.average - a.average)
+    .sort((a, b) => a.average - b.average)
     .map(({ voiceIndex }) => voiceIndex);
 
-  const bassVoiceIndex = voiceOrder.at(-2) ?? 0;
-
-  const ir = convertCellsToIR(cells, bassVoiceIndex);
+  const ir = convertCellsToIR(cells, voiceOrder);
   const gridOfTokens = findRepetitions(ir, voiceOrder);
 
   console.log(

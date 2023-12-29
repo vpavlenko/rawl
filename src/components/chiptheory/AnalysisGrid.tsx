@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { MidiRange, SystemLayout } from "./SystemLayout";
 import { Analysis, PitchClass } from "./analysis";
 import { MeasuresAndBeats } from "./measures";
-import { ChannelOfTokens, Token } from "./noteParsers/tokenize";
+import { Token } from "./noteParsers/tokenize";
 import {
   MeasureOfRomanNumerals,
   getModulations,
@@ -90,7 +90,6 @@ const Measure: React.FC<{
         style={{
           position: "absolute",
           fontSize: "10px",
-          top: "24px",
           left,
           width,
           lineHeight: 1,
@@ -288,7 +287,7 @@ export const AnalysisGrid: React.FC<{
   measureSelection: MeasureSelection;
   showHeader?: boolean;
   showTonalGrid?: boolean;
-  tokens?: ChannelOfTokens;
+  tokens?: Token[][];
 }> = React.memo(
   ({
     analysis,

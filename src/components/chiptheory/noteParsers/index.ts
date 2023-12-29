@@ -2,7 +2,7 @@ import { SecondsSpan } from "../Chiptheory";
 import { MeasuresAndBeats } from "../measures";
 import { parseMIDI } from "./midi";
 import { parseNES } from "./nes";
-import { Tokens } from "./tokenize";
+import { GridOfTokens } from "./tokenize";
 
 export type Note = {
   note: {
@@ -27,7 +27,7 @@ export type ChipStateDump = {
 export type ParsingResult = {
   notes: NotesInVoices;
   measuresAndBeats?: MeasuresAndBeats;
-  tokens?: Tokens;
+  tokens?: GridOfTokens;
 };
 
 export const parseNotes = ({ type, data }: ChipStateDump): ParsingResult => {

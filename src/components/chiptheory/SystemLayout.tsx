@@ -22,7 +22,7 @@ import {
 import { Analysis, MeasuresSpan } from "./analysis";
 import { MeasuresAndBeats, getPhrasingMeasures } from "./measures";
 import { Note, NotesInVoices } from "./noteParsers";
-import { ChannelOfTokens, Tokens } from "./noteParsers/tokenize";
+import { GridOfTokens, Token } from "./noteParsers/tokenize";
 import {
   TWELVE_CHORD_TONES,
   TWELVE_TONE_COLORS,
@@ -201,6 +201,7 @@ const getNoteRectangles = (
   showIntervals = false,
   showVelocity = false,
   offsetSeconds: number,
+  showTokens = false,
 ) => {
   return notes.map((note) => {
     const top = midiNumberToY(note.note.midiNumber);
@@ -254,7 +255,8 @@ const getNoteRectangles = (
           //   opacity: isActiveVoice ? 0.9 : 0.1,
           // TODO: make it map onto the dynamic range of a song? of a track?
           opacity: isActiveVoice
-            ? (showVelocity && note?.chipState?.on?.param2 / 127) || 0.8 // to debug tokenization
+            ? (showVelocity && note?.chipState?.on?.param2 / 127) ||
+              (showTokens ? 0.5 : 1) // to debug tokenization
             : 0.1,
           display: "grid",
           placeItems: "center",
@@ -475,7 +477,7 @@ const VoiceName: React.FC<{
 
 const Phrase: React.FC<
   DataForPhrase & {
-    tokens: ChannelOfTokens;
+    tokens?: Token[][];
     analysis: Analysis;
     showIntervals: boolean;
     showVelocity: boolean;
@@ -573,6 +575,7 @@ const Phrase: React.FC<
           showIntervals,
           showVelocity,
           secondsSpan[0],
+          !!tokens,
         ),
       ),
       frozenHeight: height,
@@ -586,6 +589,7 @@ const Phrase: React.FC<
       //   hoveredAltKey,
       showIntervals,
       showVelocity,
+      !!tokens,
     ],
   );
 
@@ -808,10 +812,11 @@ const debounce = (func, delay) => {
 
 export const SplitSystemLayout: React.FC<{
   notes: NotesInVoices;
-  tokens: Tokens;
+  tokens: GridOfTokens;
   voiceNames: string[];
   voiceMask: boolean[];
   measuresAndBeats: MeasuresAndBeats;
+  showTokens: boolean;
   showIntervals: boolean;
   showVelocity: boolean;
   positionSeconds: number;
@@ -825,6 +830,7 @@ export const SplitSystemLayout: React.FC<{
   voiceNames,
   voiceMask,
   measuresAndBeats,
+  showTokens,
   showIntervals,
   showVelocity,
   positionSeconds,
@@ -916,7 +922,7 @@ export const SplitSystemLayout: React.FC<{
                 key={voiceIndex}
                 voiceName={voiceNames[voiceIndex]}
                 notes={notes}
-                tokens={tokens}
+                tokens={showTokens && tokens}
                 // this is legacy for Stacked
                 voiceMask={SPLIT_VOICE_MASK}
                 measuresAndBeats={measuresAndBeats}

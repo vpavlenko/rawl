@@ -76,6 +76,7 @@ const Chiptheory: React.FC<{
   const [analysis, setAnalysis] = useState<Analysis>(
     savedAnalysis || ANALYSIS_STUB,
   );
+  const [showTokens, setShowTokens] = useState(false);
   const [showIntervals, setShowIntervals] = useState(false);
   const [showVelocity, setShowVelocity] = useState(false);
   const [systemLayout, setSystemLayout] = useState<SystemLayout>("split");
@@ -343,6 +344,7 @@ const Chiptheory: React.FC<{
       measuresAndBeats,
       showIntervals,
       showVelocity,
+      showTokens,
       positionSeconds,
     }),
     [
@@ -351,6 +353,8 @@ const Chiptheory: React.FC<{
       voiceMask,
       measuresAndBeats,
       showIntervals,
+      showVelocity,
+      showTokens,
       positionSeconds,
     ],
   );
@@ -440,6 +444,21 @@ const Chiptheory: React.FC<{
         {"  "}
         <label className="inline">
           <input
+            title="Tokens"
+            type="checkbox"
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+            onChange={(e) => {
+              e.stopPropagation();
+              setShowTokens(e.target.checked);
+            }}
+            checked={showTokens}
+          />
+          Tokens
+        </label>{" "}
+        <label className="inline">
+          <input
             title="Velocity"
             type="checkbox"
             onClick={(e) => {
@@ -488,7 +507,7 @@ const Chiptheory: React.FC<{
           />
           Split
         </label>{" "}
-        <label key={"stacked"} className="inline">
+        {/* <label key={"stacked"} className="inline">
           <input
             onClick={() => setSystemLayout("stacked")}
             type="radio"
@@ -497,7 +516,7 @@ const Chiptheory: React.FC<{
             value={"stacked"}
           />
           Stacked
-        </label>
+        </label> */}
       </div>
       <div
         key="piano-legend"

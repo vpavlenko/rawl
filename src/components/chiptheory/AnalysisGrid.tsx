@@ -344,7 +344,7 @@ export const AnalysisGrid: React.FC<{
         {beats.map((time) => (
           <Beat key={time} second={time} secondsToX={secondsToX} />
         ))}
-        {false && showTonalGrid && analysis.tonic !== null && (
+        {showTonalGrid && analysis.tonic !== null && (
           <TonalGrid
             analysis={analysis}
             measures={measures}

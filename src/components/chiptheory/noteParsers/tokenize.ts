@@ -15,7 +15,7 @@ type CellNote = {
   isDrum: boolean;
   onset: string; // quantized, in relative coordinates, eg. 7/16
 };
-type Cell = CellNote[];
+export type Cell = CellNote[];
 
 type BagOfNotes = string[];
 type Pattern = string[];

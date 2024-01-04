@@ -14,6 +14,7 @@ export const GlobalCSS = () => {
         body {
           height: 100%;
           margin: 0;
+          padding: 0 !important; /* Remove unnecessary padding added by RemoveScroll in radix-ui/react-dialog */
         }
 
         body {

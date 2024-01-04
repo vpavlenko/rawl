@@ -1,6 +1,5 @@
 import { makeObservable, observable } from "mobx"
 import { deserialize, serialize } from "serializr"
-import { localized } from "../../common/localize/localizedString"
 import Player from "../../common/player"
 import Song, { emptySong } from "../../common/song"
 import TrackMute from "../../common/trackMute"
@@ -38,8 +37,16 @@ export interface SerializedRootStore {
   arrangeViewStore: SerializedArrangeViewStore
 }
 
+export type InitializationPhase =
+  | "initializing"
+  | "loadExternalMidi"
+  | "error"
+  | "done"
+
 export default class RootStore {
   song: Song = emptySong()
+  initializationPhase: InitializationPhase = "initializing"
+
   readonly router = new Router()
   readonly trackMute = new TrackMute()
   readonly historyStore = new HistoryStore<SerializedRootStore>()
@@ -64,6 +71,7 @@ export default class RootStore {
   constructor() {
     makeObservable(this, {
       song: observable.ref,
+      initializationPhase: observable,
     })
 
     const context = new (window.AudioContext || window.webkitAudioContext)()
@@ -118,20 +126,16 @@ export default class RootStore {
 
   private async init() {
     try {
-      this.rootViewStore.openLoadingDialog = true
-      this.rootViewStore.loadingDialogMessage = localized(
-        "initializing",
-        "Initializing...",
-      )
+      this.initializationPhase = "initializing"
       await this.synth.setup()
       await this.soundFontStore.init()
       this.setupMetronomeSynth()
       await this.loadExternalMidiOnLaunchIfNeeded()
+      this.initializationPhase = "done"
     } catch (e) {
+      this.initializationPhase = "error"
       this.rootViewStore.initializeError = e as Error
       this.rootViewStore.openInitializeErrorDialog = true
-    } finally {
-      this.rootViewStore.openLoadingDialog = false
     }
   }
 
@@ -140,9 +144,7 @@ export default class RootStore {
     const openParam = params.get("open")
 
     if (openParam) {
-      this.rootViewStore.loadingDialogMessage =
-        localized("loading-external-midi", "Loading external midi file...") ??
-        null
+      this.initializationPhase = "loadExternalMidi"
       const song = await loadSongFromExternalMidiFile(openParam)
       setSong(this)(song)
     }

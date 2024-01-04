@@ -85,11 +85,16 @@ const Time = styled.div`
 export interface SongListItemProps {
   song: { name: string; updatedAt: Date }
   user: { name: string; photoURL: string }
+  onClick: () => void
 }
 
-export const SongListItem: FC<SongListItemProps> = ({ song, user }) => {
+export const SongListItem: FC<SongListItemProps> = ({
+  song,
+  user,
+  onClick,
+}) => {
   return (
-    <Wrapper>
+    <Wrapper onClick={onClick}>
       <PlayButton />
       <Content>
         <Avatar src={user.photoURL} />

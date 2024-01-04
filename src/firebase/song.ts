@@ -82,19 +82,21 @@ export const songDataCollection = collection(
   "songData",
 ).withConverter(songDataConverter)
 
-export const loadSong = async (
-  songSnapshot: QueryDocumentSnapshot<FirestoreSong>,
-) => {
-  const snapshot = await getDoc(
-    songSnapshot.data().dataRef.withConverter(songDataConverter),
-  )
+export const loadSongFromFirestore = async (ref: DocumentReference) => {
+  const snapshot = await getDoc(ref.withConverter(songDataConverter))
   const data = snapshot.data()?.data
   if (data === undefined) {
     throw new Error("Song data does not exist")
   }
-  const song = songFromMidi(data.toUint8Array())
-  song.name = songSnapshot.data().name
-  song.firestoreReference = songSnapshot.ref
+  return songFromMidi(data.toUint8Array())
+}
+
+export const loadSong = async (
+  snapshot: QueryDocumentSnapshot<FirestoreSong>,
+) => {
+  const song = await loadSongFromFirestore(snapshot.data().dataRef)
+  song.name = snapshot.data().name
+  song.firestoreReference = snapshot.ref
   song.firestoreDataReference = snapshot.ref
   song.isSaved = true
   return song

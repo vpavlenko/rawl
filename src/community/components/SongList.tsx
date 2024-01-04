@@ -1,17 +1,16 @@
 import { observer } from "mobx-react-lite"
 import { FC, useEffect } from "react"
+import { usePlayer } from "../hooks/usePlayer"
 import { useStores } from "../hooks/useStores"
 import { SongListItem } from "./SongListItem"
 
 export const SongList: FC = observer(() => {
-  const { authStore, communitySongStore } = useStores()
+  const { communitySongStore } = useStores()
+  const { play } = usePlayer()
 
   useEffect(() => {
     ;(async () => {
-      if (authStore.user) {
-        // TODO: Remove checking user is logged-in
-        await communitySongStore.load()
-      }
+      await communitySongStore.load()
     })()
   }, [])
 
@@ -27,12 +26,17 @@ export const SongList: FC = observer(() => {
       name: d.data().userId,
       photoURL: "",
     },
+    dataRef: d.data().dataRef,
   }))
 
   return (
     <>
       {items.map((s) => (
-        <SongListItem song={s.song} user={s.user} />
+        <SongListItem
+          song={s.song}
+          user={s.user}
+          onClick={() => play(s.dataRef)}
+        />
       ))}
     </>
   )

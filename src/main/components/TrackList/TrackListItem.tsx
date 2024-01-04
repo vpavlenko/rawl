@@ -133,6 +133,16 @@ export const TrackListItem: FC<TrackListItemProps> = observer(({ trackId }) => {
   const [isDialogOpened, setDialogOpened] = useState(false)
   const [isColorPickerOpened, setColorPickerOpened] = useState(false)
 
+  const onDoubleClickIcon = useCallback(() => {
+    if (track.isConductorTrack) {
+      return
+    }
+    pianoRollStore.openInstrumentBrowser = true
+    pianoRollStore.instrumentBrowserSetting = {
+      programNumber: track.programNumber ?? 0,
+      isRhythmTrack: track.isRhythmTrack,
+    }
+  }, [])
   const onClickMute: React.MouseEventHandler<HTMLButtonElement> = useCallback(
     (e) => {
       e.stopPropagation()
@@ -204,7 +214,11 @@ export const TrackListItem: FC<TrackListItemProps> = observer(({ trackId }) => {
         onContextMenu={onContextMenu}
         tabIndex={-1}
       >
-        <Icon selected={selected} color={color}>
+        <Icon
+          selected={selected}
+          color={color}
+          onDoubleClick={onDoubleClickIcon}
+        >
           <IconInner selected={selected}>{emoji}</IconInner>
         </Icon>
         <div>

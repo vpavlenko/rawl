@@ -8,30 +8,28 @@ import {
 } from "../../../../common/helpers/bpm"
 import { TrackEventOf } from "../../../../common/track"
 import { TempoCoordTransform } from "../../../../common/transform"
-import { pushHistory } from "../../../actions/history"
 import { getClientPos } from "../../../helpers/mouseEvent"
 import { observeDrag } from "../../../helpers/observeDrag"
 import RootStore from "../../../stores/RootStore"
 
 export const handleSelectionDragEvents =
-  (rootStore: RootStore) =>
+  ({
+    song: { conductorTrack },
+    tempoEditorStore,
+    tempoEditorStore: { quantizer },
+    pushHistory,
+  }: RootStore) =>
   (
     e: MouseEvent,
     hitEventId: number,
     startPoint: IPoint,
     transform: TempoCoordTransform,
   ) => {
-    const {
-      song: { conductorTrack },
-      tempoEditorStore,
-      tempoEditorStore: { quantizer },
-    } = rootStore
-
     if (conductorTrack === undefined) {
       return
     }
 
-    pushHistory(rootStore)()
+    pushHistory()
 
     if (!tempoEditorStore.selectedEventIds.includes(hitEventId)) {
       tempoEditorStore.selectedEventIds = [hitEventId]

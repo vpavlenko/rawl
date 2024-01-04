@@ -1,4 +1,4 @@
-import { clamp } from "lodash"
+import { clamp, cloneDeep } from "lodash"
 import { action, autorun, computed, makeObservable, observable } from "mobx"
 import { IRect } from "../../common/geometry"
 import { filterEventsOverlapScroll } from "../../common/helpers/filterEvents"
@@ -11,6 +11,11 @@ import { Layout } from "../Constants"
 import { BAR_WIDTH } from "../components/inputs/ScrollBar"
 import RootStore from "./RootStore"
 import { RulerStore } from "./RulerStore"
+
+export type SerializedArrangeViewStore = Pick<
+  ArrangeViewStore,
+  "selection" | "selectedEventIds"
+>
 
 export default class ArrangeViewStore {
   readonly rulerStore: RulerStore
@@ -77,6 +82,18 @@ export default class ArrangeViewStore {
         }
       }
     })
+  }
+
+  serialize(): SerializedArrangeViewStore {
+    return {
+      selection: cloneDeep(this.selection),
+      selectedEventIds: cloneDeep(this.selectedEventIds),
+    }
+  }
+
+  restore(state: SerializedArrangeViewStore) {
+    this.selection = state.selection
+    this.selectedEventIds = state.selectedEventIds
   }
 
   get scrollLeft(): number {

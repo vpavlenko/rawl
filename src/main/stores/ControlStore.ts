@@ -1,3 +1,4 @@
+import { cloneDeep } from "lodash"
 import { ControllerEvent, MIDIControlEvents, PitchBendEvent } from "midifile-ts"
 import { computed, makeObservable, observable } from "mobx"
 import { makePersistable } from "mobx-persist-store"
@@ -41,6 +42,8 @@ export const isEqualControlMode = (a: ControlMode, b: ControlMode) => {
       }
   }
 }
+
+export type SerializedControlStore = Pick<ControlStore, "controlModes">
 
 export class ControlStore {
   controlMode: ControlMode = { type: "velocity" }
@@ -97,6 +100,16 @@ export class ControlStore {
       properties: ["controlModes"],
       storage: window.localStorage,
     })
+  }
+
+  serialize(): SerializedControlStore {
+    return {
+      controlModes: cloneDeep(this.controlModes),
+    }
+  }
+
+  restore(serialized: SerializedControlStore) {
+    this.controlModes = serialized.controlModes
   }
 
   get controlValueEvents(): (

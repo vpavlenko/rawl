@@ -1,23 +1,26 @@
 import { makeObservable, observable } from "mobx"
+import { deserialize, serialize } from "serializr"
 import { localized } from "../../common/localize/localizedString"
 import Player from "../../common/player"
 import Song, { emptySong } from "../../common/song"
 import TrackMute from "../../common/trackMute"
 import { loadSongFromExternalMidiFile } from "../../firebase/song"
 import { setSong } from "../actions"
-import { SerializedState, pushHistory } from "../actions/history"
+import { pushHistory } from "../actions/history"
 import { GroupOutput } from "../services/GroupOutput"
 import { MIDIInput, previewMidiInput } from "../services/MIDIInput"
 import { MIDIRecorder } from "../services/MIDIRecorder"
 import { SoundFontSynth } from "../services/SoundFontSynth"
-import ArrangeViewStore from "./ArrangeViewStore"
+import ArrangeViewStore, {
+  SerializedArrangeViewStore,
+} from "./ArrangeViewStore"
 import { AuthStore } from "./AuthStore"
 import { CloudFileStore } from "./CloudFileStore"
-import { ControlStore } from "./ControlStore"
+import { ControlStore, SerializedControlStore } from "./ControlStore"
 import { ExportStore } from "./ExportStore"
 import HistoryStore from "./HistoryStore"
 import { MIDIDeviceStore } from "./MIDIDeviceStore"
-import PianoRollStore from "./PianoRollStore"
+import PianoRollStore, { SerializedPianoRollStore } from "./PianoRollStore"
 import RootViewStore from "./RootViewStore"
 import Router from "./Router"
 import SettingStore from "./SettingStore"
@@ -25,11 +28,21 @@ import { SoundFontStore } from "./SoundFontStore"
 import TempoEditorStore from "./TempoEditorStore"
 import { registerReactions } from "./reactions"
 
+// we use any for now. related: https://github.com/Microsoft/TypeScript/issues/1897
+type Json = any
+
+export interface SerializedRootStore {
+  song: Json
+  pianoRollStore: SerializedPianoRollStore
+  controlStore: SerializedControlStore
+  arrangeViewStore: SerializedArrangeViewStore
+}
+
 export default class RootStore {
   song: Song = emptySong()
   readonly router = new Router()
   readonly trackMute = new TrackMute()
-  readonly historyStore = new HistoryStore<SerializedState>()
+  readonly historyStore = new HistoryStore<SerializedRootStore>()
   readonly rootViewStore = new RootViewStore()
   readonly pianoRollStore: PianoRollStore
   readonly controlStore: ControlStore
@@ -84,6 +97,23 @@ export default class RootStore {
     registerReactions(this)
 
     this.init()
+  }
+
+  serialize(): SerializedRootStore {
+    return {
+      song: serialize(this.song),
+      pianoRollStore: this.pianoRollStore.serialize(),
+      controlStore: this.controlStore.serialize(),
+      arrangeViewStore: this.arrangeViewStore.serialize(),
+    }
+  }
+
+  restore(serializedState: SerializedRootStore) {
+    const song = deserialize(Song, serializedState.song)
+    this.song = song
+    this.pianoRollStore.restore(serializedState.pianoRollStore)
+    this.controlStore.restore(serializedState.controlStore)
+    this.arrangeViewStore.restore(serializedState.arrangeViewStore)
   }
 
   private async init() {

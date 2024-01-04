@@ -1,4 +1,4 @@
-import { clamp, flatten, maxBy, minBy } from "lodash"
+import { clamp, cloneDeep, flatten, maxBy, minBy } from "lodash"
 import {
   action,
   autorun,
@@ -29,6 +29,11 @@ export type PianoNoteItem = IRect & {
   isDrum: boolean
   trackId: number
 }
+
+export type SerializedPianoRollStore = Pick<
+  PianoRollStore,
+  "selection" | "selectedNoteIds"
+>
 
 export default class PianoRollStore {
   readonly rulerStore: RulerStore
@@ -133,6 +138,18 @@ export default class PianoRollStore {
       this.selection = null
       this.selectedNoteIds = []
     })
+  }
+
+  serialize(): SerializedPianoRollStore {
+    return {
+      selection: cloneDeep(this.selection),
+      selectedNoteIds: cloneDeep(this.selectedNoteIds),
+    }
+  }
+
+  restore(serialized: SerializedPianoRollStore) {
+    this.selection = serialized.selection
+    this.selectedNoteIds = serialized.selectedNoteIds
   }
 
   get contentWidth(): number {

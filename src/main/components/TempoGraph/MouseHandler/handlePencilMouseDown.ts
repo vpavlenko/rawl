@@ -4,25 +4,19 @@ import { setTempoMidiEvent } from "../../../../common/midi/MidiEvent"
 import { isSetTempoEvent } from "../../../../common/track"
 import { TempoCoordTransform } from "../../../../common/transform"
 import { updateEventsInRange } from "../../../actions"
-import { pushHistory } from "../../../actions/history"
 import { getClientPos } from "../../../helpers/mouseEvent"
 import { observeDrag } from "../../../helpers/observeDrag"
 import RootStore from "../../../stores/RootStore"
 
 export const handlePencilMouseDown =
-  (rootStore: RootStore) =>
+  ({ song, tempoEditorStore: { quantizer }, pushHistory }: RootStore) =>
   (e: MouseEvent, startPoint: IPoint, transform: TempoCoordTransform) => {
-    const {
-      song,
-      tempoEditorStore: { quantizer },
-    } = rootStore
-
     const track = song.conductorTrack
     if (track === undefined) {
       return
     }
 
-    pushHistory(rootStore)()
+    pushHistory()
 
     const startClientPos = getClientPos(e)
     const pos = transform.fromPosition(startPoint)

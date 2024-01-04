@@ -16,7 +16,6 @@ import {
 } from "../clipboard/clipboardTypes"
 import clipboard from "../services/Clipboard"
 import RootStore from "../stores/RootStore"
-import { pushHistory } from "./history"
 import { transposeNotes } from "./song"
 
 function eventsInSelection(events: TrackEvent[], selection: Selection) {
@@ -83,9 +82,10 @@ export const transposeSelection =
     const {
       pianoRollStore,
       pianoRollStore: { selectedTrackId, selection, selectedNoteIds },
+      pushHistory,
     } = rootStore
 
-    pushHistory(rootStore)()
+    pushHistory()
 
     if (selection !== null) {
       const s = movedSelection(selection, 0, deltaPitch)
@@ -521,20 +521,20 @@ export const removeNoteFromSelection =
     )
   }
 
-export const selectNote = (rootStore: RootStore) => (noteId: number) => {
-  const {
+export const selectNote =
+  ({
     pianoRollStore,
     pianoRollStore: { selectedTrack },
     controlStore,
-  } = rootStore
+  }: RootStore) =>
+  (noteId: number) => {
+    if (selectedTrack === undefined) {
+      return
+    }
 
-  if (selectedTrack === undefined) {
-    return
+    controlStore.selectedEventIds = []
+    pianoRollStore.selectedNoteIds = [noteId]
   }
-
-  controlStore.selectedEventIds = []
-  pianoRollStore.selectedNoteIds = [noteId]
-}
 
 const sortedNotes = (notes: NoteEvent[]): NoteEvent[] =>
   notes.filter(isNoteEvent).sort((a, b) => {
@@ -580,32 +580,33 @@ export const selectNextNote = (rootStore: RootStore) => () =>
 export const selectPreviousNote = (rootStore: RootStore) => () =>
   selectNeighborNote(rootStore)(-1)
 
-export const quantizeSelectedNotes = (rootStore: RootStore) => () => {
-  const {
+export const quantizeSelectedNotes =
+  ({
     pianoRollStore: {
       selectedTrack,
       selectedNoteIds,
       enabledQuantizer: quantizer,
     },
-  } = rootStore
+    pushHistory,
+  }: RootStore) =>
+  () => {
+    if (selectedTrack === undefined || selectedNoteIds.length === 0) {
+      return
+    }
 
-  if (selectedTrack === undefined || selectedNoteIds.length === 0) {
-    return
+    pushHistory()
+
+    const notes = selectedNoteIds
+      .map((id) => selectedTrack.getEventById(id))
+      .filter(isNotUndefined)
+      .filter(isNoteEvent)
+      .map((e) => ({
+        ...e,
+        tick: quantizer.round(e.tick),
+      }))
+
+    selectedTrack.updateEvents(notes)
   }
-
-  pushHistory(rootStore)()
-
-  const notes = selectedNoteIds
-    .map((id) => selectedTrack.getEventById(id))
-    .filter(isNotUndefined)
-    .filter(isNoteEvent)
-    .map((e) => ({
-      ...e,
-      tick: quantizer.round(e.tick),
-    }))
-
-  selectedTrack.updateEvents(notes)
-}
 
 export const selectAllNotes =
   ({ pianoRollStore, pianoRollStore: { selectedTrack } }: RootStore) =>

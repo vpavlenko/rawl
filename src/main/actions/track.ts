@@ -1,9 +1,9 @@
 import { AnyChannelEvent, AnyEvent, SetTempoEvent } from "midifile-ts"
 import { closedRange } from "../../common/helpers/array"
 import {
+  ValueEventType,
   createValueEvent,
   isValueEvent,
-  ValueEventType,
 } from "../../common/helpers/valueEvent"
 import {
   panMidiEvent,
@@ -14,13 +14,12 @@ import {
 import Quantizer from "../../common/quantizer"
 import { getMeasureStart } from "../../common/song/selector"
 import Track, {
-  isNoteEvent,
   NoteEvent,
   TrackEvent,
   TrackEventOf,
+  isNoteEvent,
 } from "../../common/track"
 import RootStore from "../stores/RootStore"
-import { pushHistory } from "./history"
 import {
   resizeNotesInSelectionLeftBy,
   resizeNotesInSelectionRightBy,
@@ -218,6 +217,7 @@ export const resizeNoteLeft =
     const {
       pianoRollStore,
       pianoRollStore: { quantizer, selectedTrack },
+      pushHistory,
     } = rootStore
     if (selectedTrack === undefined) {
       return
@@ -234,7 +234,7 @@ export const resizeNoteLeft =
     const duration = note.duration + (note.tick - tick)
     const minDuration = quantize ? quantizer.unit : MIN_DURATION
     if (note.tick !== tick && duration >= minDuration) {
-      pushHistory(rootStore)()
+      pushHistory()
       pianoRollStore.lastNoteDuration = duration
       resizeNotesInSelectionLeftBy(rootStore)(tick - note.tick)
     }
@@ -245,6 +245,7 @@ export const resizeNoteRight =
     const {
       pianoRollStore,
       pianoRollStore: { quantizer, selectedTrack },
+      pushHistory,
     } = rootStore
     if (selectedTrack === undefined) {
       return
@@ -257,7 +258,7 @@ export const resizeNoteRight =
     const minDuration = quantize ? quantizer.unit : MIN_DURATION
     const duration = Math.max(minDuration, right - note.tick)
     if (note.duration !== duration) {
-      pushHistory(rootStore)()
+      pushHistory()
       pianoRollStore.lastNoteDuration = duration
       resizeNotesInSelectionRightBy(rootStore)(duration - note.duration)
     }

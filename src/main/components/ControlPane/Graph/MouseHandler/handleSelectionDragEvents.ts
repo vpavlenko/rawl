@@ -3,12 +3,11 @@ import { IPoint } from "../../../../../common/geometry"
 import { ValueEventType } from "../../../../../common/helpers/valueEvent"
 import { TrackEventOf } from "../../../../../common/track"
 import { ControlCoordTransform } from "../../../../../common/transform/ControlCoordTransform"
-import { pushHistory } from "../../../../actions/history"
 import { observeDrag2 } from "../../../../helpers/observeDrag"
 import RootStore from "../../../../stores/RootStore"
 
 export const handleSelectionDragEvents =
-  (rootStore: RootStore) =>
+  ({ controlStore, controlStore: { selectedTrack }, pushHistory }: RootStore) =>
   <T extends ControllerEvent | PitchBendEvent>(
     e: MouseEvent,
     hitEventId: number,
@@ -16,15 +15,11 @@ export const handleSelectionDragEvents =
     transform: ControlCoordTransform,
     type: ValueEventType,
   ) => {
-    const {
-      controlStore,
-      controlStore: { selectedTrack },
-    } = rootStore
     if (selectedTrack === undefined) {
       return
     }
 
-    pushHistory(rootStore)()
+    pushHistory()
 
     if (!controlStore.selectedEventIds.includes(hitEventId)) {
       controlStore.selectedEventIds = [hitEventId]

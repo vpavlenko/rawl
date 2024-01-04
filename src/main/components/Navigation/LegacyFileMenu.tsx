@@ -1,9 +1,9 @@
 import { observer } from "mobx-react-lite"
 import { ChangeEvent, FC } from "react"
+import { useLocalization } from "../../../common/localize/useLocalization"
 import { Localized } from "../../../components/Localized"
 import { MenuDivider, MenuItem } from "../../../components/Menu"
 import { createSong, openSong, saveSong } from "../../actions"
-import { useLocalization } from "../../hooks/useLocalization"
 import { useStores } from "../../hooks/useStores"
 import { useToast } from "../../hooks/useToast"
 

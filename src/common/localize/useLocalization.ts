@@ -9,7 +9,7 @@ export const LocalizedContext = createContext<LocalizedContextType>({
   language: null,
 })
 
-export const useLocalized = () => {
+export const useLocalization = () => {
   const context = useContext(LocalizedContext)
 
   if (!context) {

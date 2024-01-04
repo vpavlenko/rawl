@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite"
 import { FC, useCallback } from "react"
-import { useLocalization } from "../../hooks/useLocalization"
+import { useLocalization } from "../../../common/localize/useLocalization"
 import { useStores } from "../../hooks/useStores"
 import { useToast } from "../../hooks/useToast"
 import { SignInDialogContent } from "./SignInDialogContent"

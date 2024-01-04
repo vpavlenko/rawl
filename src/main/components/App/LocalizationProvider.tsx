@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite"
 import { FC, PropsWithChildren } from "react"
-import { LocalizedContext } from "../../../common/localize/useLocalized"
+import { LocalizedContext } from "../../../common/localize/useLocalization"
 import { useStores } from "../../hooks/useStores"
 
 export const LocalizationProvider: FC<PropsWithChildren<{}>> = observer(

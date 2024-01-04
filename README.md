@@ -1,4 +1,4 @@
-![logo-github](https://github.com/ryohey/signal/assets/5355966/8f28894d-b3e0-45ae-9216-fbec0800d91b)
+![logo-github](https://github.com/ryohey/signal/assets/5355966/46834ee4-30d8-4b66-a47c-6e081cc2c09f)
 
 ![Node.js CI](https://github.com/ryohey/signal/workflows/Node.js%20CI/badge.svg) [![Join the chat at https://discord.gg/XQxzNdDJse](https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/XQxzNdDJse)
 

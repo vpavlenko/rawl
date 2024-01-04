@@ -1,7 +1,6 @@
 import { observer } from "mobx-react-lite"
 import { FC } from "react"
-import { localized } from "../common/localize/localizedString"
-import { useStores } from "../main/hooks/useStores"
+import { useLocalized } from "../common/localize/useLocalized"
 
 export interface LocalizedProps {
   children: string
@@ -10,15 +9,7 @@ export interface LocalizedProps {
 
 export const Localized: FC<LocalizedProps> = observer(
   ({ children, default: defaultValue }) => {
-    const { settingStore } = useStores()
-    return (
-      <>
-        {localized(
-          children,
-          defaultValue,
-          settingStore.language ?? undefined,
-        ) ?? defaultValue}
-      </>
-    )
+    const localized = useLocalized()
+    return <>{localized(children, defaultValue)}</>
   },
 )

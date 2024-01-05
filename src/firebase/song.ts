@@ -32,6 +32,7 @@ export interface FirestoreSong {
   name: string
   createdAt: Timestamp
   updatedAt: Timestamp
+  publishedAt?: Timestamp
   dataRef: DocumentReference
   userId: string
 }
@@ -45,8 +46,8 @@ export interface FirestoreMidi {
 
 export const songConverter: FirestoreDataConverter<FirestoreSong> = {
   fromFirestore(snapshot, options) {
-    const data = snapshot.data(options)
-    return data as FirestoreSong
+    const data = snapshot.data(options) as FirestoreSong
+    return data
   },
   toFirestore(song) {
     return song

@@ -35,7 +35,7 @@ export const RootView: FC = () => {
       <Navigation />
       <Content>
         <Inner>
-          <Title>Community Tracks</Title>
+          <Title>Recent Tracks</Title>
           <SongList />
         </Inner>
       </Content>

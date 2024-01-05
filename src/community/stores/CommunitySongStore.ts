@@ -1,13 +1,14 @@
-import { QueryDocumentSnapshot } from "@firebase/firestore"
 import { makeObservable, observable } from "mobx"
-import { getPublicSongs } from "../../firebase/feed"
-import { FirestoreSong } from "../../firebase/song"
+import {
+  CloudSong,
+  ICloudSongRepository,
+} from "../../repositories/ICloudSongRepository"
 
 export class CommunitySongStore {
   isLoading = false
-  songs: QueryDocumentSnapshot<FirestoreSong>[] = []
+  songs: CloudSong[] = []
 
-  constructor() {
+  constructor(private readonly cloudSongRepository: ICloudSongRepository) {
     makeObservable(this, {
       isLoading: observable,
       songs: observable,
@@ -16,8 +17,7 @@ export class CommunitySongStore {
 
   async load() {
     this.isLoading = true
-    const snapshot = await getPublicSongs()
-    this.songs = snapshot.docs
+    this.songs = await this.cloudSongRepository.getPublicSongs()
     this.isLoading = false
   }
 }

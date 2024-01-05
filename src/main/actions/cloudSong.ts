@@ -1,35 +1,10 @@
-import {
-  Bytes,
-  collection,
-  doc,
-  FirestoreDataConverter,
-  getDoc,
-  Timestamp,
-} from "firebase/firestore"
 import { httpsCallable } from "firebase/functions"
-import { basename } from "../common/helpers/path"
-import { songFromMidi, songToMidi } from "../common/midi/midiConversion"
-import Song from "../common/song"
-import RootStore from "../main/stores/RootStore"
-import { CloudSong } from "../repositories/ICloudSongRepository"
-import { auth, firestore, functions } from "./firebase"
-
-export interface FirestoreMidi {
-  url: string
-  data: Bytes
-  createdAt: Timestamp
-  updatedAt: Timestamp
-}
-
-export const midiConverter: FirestoreDataConverter<FirestoreMidi> = {
-  fromFirestore(snapshot, options) {
-    const data = snapshot.data(options)
-    return data as FirestoreMidi
-  },
-  toFirestore(midi) {
-    return midi
-  },
-}
+import { basename } from "../../common/helpers/path"
+import { songFromMidi, songToMidi } from "../../common/midi/midiConversion"
+import Song from "../../common/song"
+import { functions } from "../../firebase/firebase"
+import { CloudSong } from "../../repositories/ICloudSongRepository"
+import RootStore from "../stores/RootStore"
 
 export const loadSong =
   ({ cloudSongDataRepository }: RootStore) =>
@@ -61,10 +36,6 @@ export const createSong =
 export const updateSong =
   ({ cloudSongRepository, cloudSongDataRepository }: RootStore) =>
   async (song: Song) => {
-    if (auth.currentUser === null) {
-      throw new Error("You must be logged in to save songs to the cloud")
-    }
-
     if (song.cloudSongId === null || song.cloudSongDataId === null) {
       throw new Error("This song is not loaded from the cloud")
     }
@@ -85,9 +56,6 @@ export const updateSong =
 export const deleteSong =
   ({ cloudSongRepository, cloudSongDataRepository }: RootStore) =>
   async (song: CloudSong) => {
-    if (auth.currentUser === null) {
-      throw new Error("You must be logged in to delete song")
-    }
     await cloudSongDataRepository.delete(song.songDataId)
     await cloudSongRepository.delete(song.id)
   }
@@ -97,22 +65,17 @@ interface StoreMidiFileResponse {
   docId: string
 }
 
-export const loadSongFromExternalMidiFile = async (midiFileUrl: string) => {
-  const storeMidiFile = httpsCallable<
-    { midiFileUrl: string },
-    StoreMidiFileResponse
-  >(functions, "storeMidiFile")
-  const res = await storeMidiFile({ midiFileUrl })
-  const midiCollection = collection(firestore, "midis")
-  const snapshot = await getDoc(
-    doc(midiCollection, res.data.docId).withConverter(midiConverter),
-  )
-  const data = snapshot.data()?.data
-  if (data === undefined) {
-    throw new Error("Midi data does not exist")
+export const loadSongFromExternalMidiFile =
+  ({ cloudMidiRepository }: RootStore) =>
+  async (midiFileUrl: string) => {
+    const storeMidiFile = httpsCallable<
+      { midiFileUrl: string },
+      StoreMidiFileResponse
+    >(functions, "storeMidiFile")
+    const res = await storeMidiFile({ midiFileUrl })
+    const data = await cloudMidiRepository.get(res.data.docId)
+    const song = songFromMidi(data)
+    song.name = basename(midiFileUrl) ?? ""
+    song.isSaved = true
+    return song
   }
-  const song = songFromMidi(data.toUint8Array())
-  song.name = basename(midiFileUrl) ?? ""
-  song.isSaved = true
-  return song
-}

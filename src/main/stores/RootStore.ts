@@ -4,10 +4,11 @@ import Player from "../../common/player"
 import Song, { emptySong } from "../../common/song"
 import TrackMute from "../../common/trackMute"
 import { firestore } from "../../firebase/firebase"
-import { loadSongFromExternalMidiFile } from "../../firebase/song"
+import { CloudMidiRepository } from "../../repositories/CloudMidiRepository"
 import { CloudSongDataRepository } from "../../repositories/CloudSongDataRepository"
 import { CloudSongRepository } from "../../repositories/CloudSongRepository"
 import { setSong } from "../actions"
+import { loadSongFromExternalMidiFile } from "../actions/cloudSong"
 import { pushHistory } from "../actions/history"
 import { GroupOutput } from "../services/GroupOutput"
 import { MIDIInput, previewMidiInput } from "../services/MIDIInput"
@@ -52,6 +53,7 @@ export default class RootStore {
 
   readonly cloudSongRepository = new CloudSongRepository(firestore)
   readonly cloudSongDataRepository = new CloudSongDataRepository(firestore)
+  readonly cloudMidiRepository = new CloudMidiRepository(firestore)
   readonly router = new Router()
   readonly trackMute = new TrackMute()
   readonly historyStore = new HistoryStore<SerializedRootStore>()
@@ -154,7 +156,7 @@ export default class RootStore {
 
     if (openParam) {
       this.initializationPhase = "loadExternalMidi"
-      const song = await loadSongFromExternalMidiFile(openParam)
+      const song = await loadSongFromExternalMidiFile(this)(openParam)
       setSong(this)(song)
     }
   }

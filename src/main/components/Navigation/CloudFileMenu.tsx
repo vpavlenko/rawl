@@ -24,7 +24,7 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
 
     const saveOrCreateSong = async () => {
       const { song } = rootStore
-      if (song.firestoreReference !== null) {
+      if (song.cloudSongId !== null) {
         if (song.name.length === 0) {
           const text = await prompt.show({
             title: localized("save-as", "Save as"),
@@ -33,7 +33,7 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
             song.name = text
           }
         }
-        await updateSong(song)
+        await updateSong(rootStore)(song)
         toast.success(localized("song-saved", "Song saved"))
       } else {
         if (song.name.length === 0) {
@@ -44,7 +44,7 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
             song.name = text
           }
         }
-        await createSong(song)
+        await createSong(rootStore)(song)
         toast.success(localized("song-created", "Song created"))
       }
     }
@@ -87,7 +87,7 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
         }
         const newSong = emptySong()
         setSong(rootStore)(newSong)
-        await createSong(newSong)
+        await createSong(rootStore)(newSong)
         toast.success(localized("song-created", "Song created"))
       } catch (e) {
         toast.error((e as Error).message)
@@ -128,7 +128,7 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
         } else {
           return
         }
-        await createSong(song)
+        await createSong(rootStore)(song)
         toast.success(localized("song-saved", "Song saved"))
       } catch (e) {
         toast.error((e as Error).message)
@@ -149,10 +149,10 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
             return Promise.resolve(false)
           }
         }
-        if (song.firestoreReference !== null) {
-          await updateSong(song)
+        if (song.cloudSongId !== null) {
+          await updateSong(rootStore)(song)
         } else {
-          await createSong(song)
+          await createSong(rootStore)(song)
         }
         toast.success(localized("song-saved", "Song saved"))
       } catch (e) {

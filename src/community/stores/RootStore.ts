@@ -1,4 +1,5 @@
 import Player from "../../common/player"
+import { firestore } from "../../firebase/firebase"
 import { SoundFontSynth } from "../../main/services/SoundFontSynth"
 import { AuthStore } from "../../main/stores/AuthStore"
 import { CloudSongDataRepository } from "../../repositories/CloudSongDataRepository"
@@ -6,13 +7,12 @@ import { CloudSongRepository } from "../../repositories/CloudSongRepository"
 import { CommunitySongStore } from "./CommunitySongStore"
 import { SongStore } from "./SongStore"
 
-const cloudSongRepository = new CloudSongRepository()
-const cloudSongDataRepository = new CloudSongDataRepository()
-
 export default class RootStore {
-  readonly songStore = new SongStore(cloudSongDataRepository)
+  readonly cloudSongRepository = new CloudSongRepository(firestore)
+  readonly cloudSongDataRepository = new CloudSongDataRepository(firestore)
+  readonly songStore = new SongStore(this.cloudSongDataRepository)
   readonly authStore = new AuthStore()
-  readonly communitySongStore = new CommunitySongStore(cloudSongRepository)
+  readonly communitySongStore = new CommunitySongStore(this.cloudSongRepository)
   readonly player: Player
   readonly synth: SoundFontSynth
 

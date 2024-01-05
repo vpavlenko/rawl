@@ -9,11 +9,9 @@ export interface CloudSong {
 }
 
 export interface ICloudSongRepository {
-  create(
-    data: Pick<CloudSong, "name" | "songDataId" | "userId">,
-  ): Promise<string>
+  create(data: Pick<CloudSong, "name" | "songDataId">): Promise<string>
   update(songId: string, data: Pick<CloudSong, "name">): Promise<void>
   delete(songId: string): Promise<void>
-  getSongsByUserId(userId: string): Promise<CloudSong[]>
+  getMySongs(): Promise<CloudSong[]>
   getPublicSongs(): Promise<CloudSong[]>
 }

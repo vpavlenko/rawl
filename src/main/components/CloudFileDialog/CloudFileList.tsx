@@ -1,5 +1,4 @@
 import styled from "@emotion/styled"
-import { QueryDocumentSnapshot } from "firebase/firestore"
 import ArrowDownward from "mdi-react/ArrowDownwardIcon"
 import ArrowDropDown from "mdi-react/ArrowDropDownIcon"
 import ArrowUpward from "mdi-react/ArrowUpwardIcon"
@@ -10,7 +9,8 @@ import { CircularProgress } from "../../../components/CircularProgress"
 import { IconButton } from "../../../components/IconButton"
 import { Localized } from "../../../components/Localized"
 import { Menu, MenuItem } from "../../../components/Menu"
-import { FirestoreSong, loadSong } from "../../../firebase/song"
+import { loadSong } from "../../../firebase/song"
+import { CloudSong } from "../../../repositories/ICloudSongRepository"
 import { setSong } from "../../actions"
 import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
@@ -86,9 +86,9 @@ export const CloudFileList = observer(() => {
     cloudFileStore.load()
   }, [])
 
-  const onClickSong = async (song: QueryDocumentSnapshot<FirestoreSong>) => {
+  const onClickSong = async (song: CloudSong) => {
     try {
-      const midiSong = await loadSong(song)
+      const midiSong = await loadSong(rootStore)(song)
       setSong(rootStore)(midiSong)
       rootViewStore.openCloudFileDialog = false
     } catch (e) {

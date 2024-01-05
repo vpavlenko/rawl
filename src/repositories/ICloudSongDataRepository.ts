@@ -7,7 +7,7 @@ export interface CloudSongData {
 }
 
 export interface ICloudSongDataRepository {
-  create(data: Pick<CloudSongData, "data" | "userId">): Promise<string>
+  create(data: Pick<CloudSongData, "data">): Promise<string>
   get(id: string): Promise<Uint8Array>
   update(id: string, data: Pick<CloudSongData, "data">): Promise<void>
   delete(id: string): Promise<void>

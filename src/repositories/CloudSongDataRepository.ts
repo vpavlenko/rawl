@@ -1,6 +1,10 @@
 import {
   Bytes,
+  Firestore,
+  FirestoreDataConverter,
+  Timestamp,
   addDoc,
+  collection,
   deleteDoc,
   doc,
   getDoc,
@@ -8,23 +12,28 @@ import {
   updateDoc,
 } from "firebase/firestore"
 import { auth } from "../firebase/firebase"
-import { songDataCollection } from "../firebase/song"
 import {
   CloudSongData,
   ICloudSongDataRepository,
 } from "./ICloudSongDataRepository"
 
 export class CloudSongDataRepository implements ICloudSongDataRepository {
-  private songDataRef(id: string) {
-    return doc(songDataCollection, id)
+  constructor(private readonly firestore: Firestore) {}
+
+  private get songDataCollection() {
+    return songDataCollection(this.firestore)
   }
 
-  async create(data: Pick<CloudSongData, "data" | "userId">): Promise<string> {
+  private songDataRef(id: string) {
+    return doc(this.songDataCollection, id)
+  }
+
+  async create(data: Pick<CloudSongData, "data">): Promise<string> {
     if (auth.currentUser === null) {
       throw new Error("You must be logged in to save songs to the cloud")
     }
 
-    const dataDoc = await addDoc(songDataCollection, {
+    const dataDoc = await addDoc(this.songDataCollection, {
       createdAt: serverTimestamp(),
       updatedAt: serverTimestamp(),
       data: Bytes.fromUint8Array(data.data),
@@ -58,3 +67,23 @@ export class CloudSongDataRepository implements ICloudSongDataRepository {
     await deleteDoc(this.songDataRef(id))
   }
 }
+
+interface FirestoreSongData {
+  createdAt: Timestamp
+  updatedAt: Timestamp
+  data?: Bytes
+  userId: string
+}
+
+const songDataConverter: FirestoreDataConverter<FirestoreSongData> = {
+  fromFirestore(snapshot, options) {
+    const data = snapshot.data(options)
+    return data as FirestoreSongData
+  },
+  toFirestore(song) {
+    return song
+  },
+}
+
+export const songDataCollection = (firestore: Firestore) =>
+  collection(firestore, "songData").withConverter(songDataConverter)

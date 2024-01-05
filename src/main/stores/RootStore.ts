@@ -3,7 +3,10 @@ import { deserialize, serialize } from "serializr"
 import Player from "../../common/player"
 import Song, { emptySong } from "../../common/song"
 import TrackMute from "../../common/trackMute"
+import { firestore } from "../../firebase/firebase"
 import { loadSongFromExternalMidiFile } from "../../firebase/song"
+import { CloudSongDataRepository } from "../../repositories/CloudSongDataRepository"
+import { CloudSongRepository } from "../../repositories/CloudSongRepository"
 import { setSong } from "../actions"
 import { pushHistory } from "../actions/history"
 import { GroupOutput } from "../services/GroupOutput"
@@ -47,6 +50,8 @@ export default class RootStore {
   song: Song = emptySong()
   initializationPhase: InitializationPhase = "initializing"
 
+  readonly cloudSongRepository = new CloudSongRepository(firestore)
+  readonly cloudSongDataRepository = new CloudSongDataRepository(firestore)
   readonly router = new Router()
   readonly trackMute = new TrackMute()
   readonly historyStore = new HistoryStore<SerializedRootStore>()
@@ -58,7 +63,11 @@ export default class RootStore {
   readonly midiDeviceStore = new MIDIDeviceStore()
   readonly exportStore = new ExportStore()
   readonly authStore = new AuthStore()
-  readonly cloudFileStore = new CloudFileStore(this)
+  readonly cloudFileStore = new CloudFileStore(
+    this,
+    this.cloudSongRepository,
+    this.cloudSongDataRepository,
+  )
   readonly settingStore = new SettingStore()
   readonly player: Player
   readonly synth: SoundFontSynth

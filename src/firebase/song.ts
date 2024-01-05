@@ -1,67 +1,24 @@
 import {
-  addDoc,
   Bytes,
   collection,
-  deleteDoc,
   doc,
-  DocumentReference,
   FirestoreDataConverter,
   getDoc,
-  getDocs,
-  query,
-  QueryDocumentSnapshot,
-  serverTimestamp,
   Timestamp,
-  updateDoc,
-  where,
 } from "firebase/firestore"
 import { httpsCallable } from "firebase/functions"
 import { basename } from "../common/helpers/path"
 import { songFromMidi, songToMidi } from "../common/midi/midiConversion"
 import Song from "../common/song"
+import RootStore from "../main/stores/RootStore"
+import { CloudSong } from "../repositories/ICloudSongRepository"
 import { auth, firestore, functions } from "./firebase"
-
-export interface FirestoreSongData {
-  createdAt: Timestamp
-  updatedAt: Timestamp
-  data?: Bytes
-  userId: string
-}
-
-export interface FirestoreSong {
-  name: string
-  createdAt: Timestamp
-  updatedAt: Timestamp
-  publishedAt?: Timestamp
-  dataRef: DocumentReference
-  userId: string
-}
 
 export interface FirestoreMidi {
   url: string
   data: Bytes
   createdAt: Timestamp
   updatedAt: Timestamp
-}
-
-export const songConverter: FirestoreDataConverter<FirestoreSong> = {
-  fromFirestore(snapshot, options) {
-    const data = snapshot.data(options) as FirestoreSong
-    return data
-  },
-  toFirestore(song) {
-    return song
-  },
-}
-
-export const songDataConverter: FirestoreDataConverter<FirestoreSongData> = {
-  fromFirestore(snapshot, options) {
-    const data = snapshot.data(options)
-    return data as FirestoreSongData
-  },
-  toFirestore(song) {
-    return song
-  },
 }
 
 export const midiConverter: FirestoreDataConverter<FirestoreMidi> = {
@@ -74,108 +31,66 @@ export const midiConverter: FirestoreDataConverter<FirestoreMidi> = {
   },
 }
 
-export const songCollection = collection(firestore, "songs").withConverter(
-  songConverter,
-)
-
-export const songDataCollection = collection(
-  firestore,
-  "songData",
-).withConverter(songDataConverter)
-
-export const loadSongFromFirestore = async (ref: DocumentReference) => {
-  const snapshot = await getDoc(ref.withConverter(songDataConverter))
-  const data = snapshot.data()?.data
-  if (data === undefined) {
-    throw new Error("Song data does not exist")
-  }
-  return songFromMidi(data.toUint8Array())
-}
-
-export const loadSong = async (
-  snapshot: QueryDocumentSnapshot<FirestoreSong>,
-) => {
-  const song = await loadSongFromFirestore(snapshot.data().dataRef)
-  song.name = snapshot.data().name
-  song.firestoreReference = snapshot.ref
-  song.firestoreDataReference = snapshot.ref
-  song.isSaved = true
-  return song
-}
-
-export const createSong = async (song: Song) => {
-  if (auth.currentUser === null) {
-    throw new Error("You must be logged in to save songs to the cloud")
+export const loadSong =
+  ({ cloudSongDataRepository }: RootStore) =>
+  async (cloudSong: CloudSong) => {
+    const songData = await cloudSongDataRepository.get(cloudSong.songDataId)
+    const song = songFromMidi(songData)
+    song.name = cloudSong.name
+    song.cloudSongId = cloudSong.id
+    song.cloudSongDataId = cloudSong.songDataId
+    song.isSaved = true
+    return song
   }
 
-  const bytes = songToMidi(song)
+export const createSong =
+  ({ cloudSongRepository, cloudSongDataRepository }: RootStore) =>
+  async (song: Song) => {
+    const bytes = songToMidi(song)
+    const songDataId = await cloudSongDataRepository.create({ data: bytes })
+    const songId = await cloudSongRepository.create({
+      name: song.name,
+      songDataId: songDataId,
+    })
 
-  const dataDoc = await addDoc(songDataCollection, {
-    createdAt: serverTimestamp(),
-    updatedAt: serverTimestamp(),
-    data: Bytes.fromUint8Array(bytes),
-    userId: auth.currentUser.uid,
-  })
-
-  const doc = await addDoc(songCollection, {
-    name: song.name,
-    createdAt: serverTimestamp(),
-    updatedAt: serverTimestamp(),
-    dataRef: dataDoc,
-    userId: auth.currentUser.uid,
-  })
-
-  song.firestoreDataReference = dataDoc
-  song.firestoreReference = doc
-  song.isSaved = true
-}
-
-export const updateSong = async (song: Song) => {
-  if (auth.currentUser === null) {
-    throw new Error("You must be logged in to save songs to the cloud")
+    song.cloudSongDataId = songDataId
+    song.cloudSongId = songId
+    song.isSaved = true
   }
 
-  if (
-    song.firestoreReference === null ||
-    song.firestoreDataReference === null
-  ) {
-    throw new Error("This song is not loaded from the cloud")
+export const updateSong =
+  ({ cloudSongRepository, cloudSongDataRepository }: RootStore) =>
+  async (song: Song) => {
+    if (auth.currentUser === null) {
+      throw new Error("You must be logged in to save songs to the cloud")
+    }
+
+    if (song.cloudSongId === null || song.cloudSongDataId === null) {
+      throw new Error("This song is not loaded from the cloud")
+    }
+
+    const bytes = songToMidi(song)
+
+    await cloudSongRepository.update(song.cloudSongId, {
+      name: song.name,
+    })
+
+    await cloudSongDataRepository.update(song.cloudSongDataId, {
+      data: bytes,
+    })
+
+    song.isSaved = true
   }
 
-  const bytes = songToMidi(song)
-
-  await updateDoc(song.firestoreReference, {
-    updatedAt: serverTimestamp(),
-    name: song.name,
-  })
-
-  await updateDoc(song.firestoreDataReference, {
-    updatedAt: serverTimestamp(),
-    data: Bytes.fromUint8Array(bytes),
-  })
-
-  song.isSaved = true
-}
-
-export const deleteSong = async (
-  song: QueryDocumentSnapshot<FirestoreSong>,
-) => {
-  if (auth.currentUser === null) {
-    throw new Error("You must be logged in to save songs to the cloud")
+export const deleteSong =
+  ({ cloudSongRepository, cloudSongDataRepository }: RootStore) =>
+  async (song: CloudSong) => {
+    if (auth.currentUser === null) {
+      throw new Error("You must be logged in to delete song")
+    }
+    await cloudSongDataRepository.delete(song.songDataId)
+    await cloudSongRepository.delete(song.id)
   }
-  await deleteDoc(song.data().dataRef)
-  await deleteDoc(song.ref)
-}
-
-export const getCurrentUserSongs = async () => {
-  if (auth.currentUser === null) {
-    throw new Error("You must be logged in to get songs from the cloud")
-  }
-
-  return await getDocs(
-    query(songCollection, where("userId", "==", auth.currentUser.uid)),
-  )
-}
 
 interface StoreMidiFileResponse {
   message: string

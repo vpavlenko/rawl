@@ -1,5 +1,6 @@
 import styled from "@emotion/styled"
 import Circle from "mdi-react/CircleIcon"
+import Pause from "mdi-react/PauseIcon"
 import PlayArrow from "mdi-react/PlayArrowIcon"
 import { FC } from "react"
 import { formatTimeAgo } from "../helpers/formatTimeAgo"
@@ -49,11 +50,17 @@ const PlayButtonWrapper = styled.div`
   }
 `
 
-const PlayButton = () => {
+const PlayButton: FC<{ isPlaying: boolean }> = ({ isPlaying }) => {
   return (
-    <PlayButtonWrapper className="play-button">
-      <Circle className="circle" />
-      <PlayArrow className="arrow" />
+    <PlayButtonWrapper>
+      {isPlaying ? (
+        <Pause />
+      ) : (
+        <>
+          <Circle className="circle" />
+          <PlayArrow className="arrow" />
+        </>
+      )}
     </PlayButtonWrapper>
   )
 }
@@ -85,6 +92,7 @@ const Time = styled.div`
 export interface SongListItemProps {
   song: { name: string; updatedAt: Date }
   user: { name: string; photoURL: string }
+  isPlaying: boolean
   onClick: () => void
 }
 
@@ -92,10 +100,11 @@ export const SongListItem: FC<SongListItemProps> = ({
   song,
   user,
   onClick,
+  isPlaying,
 }) => {
   return (
     <Wrapper onClick={onClick}>
-      <PlayButton />
+      <PlayButton isPlaying={isPlaying} />
       <Content>
         <Avatar src={user.photoURL} />
         <div>

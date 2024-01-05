@@ -16,6 +16,7 @@ export class SongStore {
   constructor(private readonly songDataRepository: ICloudSongDataRepository) {
     makeObservable(this, {
       song: computed,
+      currentSong: observable,
       isLoading: observable,
     })
   }

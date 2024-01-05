@@ -6,7 +6,11 @@ import { SongListItem } from "./SongListItem"
 
 export const SongList: FC = observer(() => {
   const rootStore = useStores()
-  const { communitySongStore } = rootStore
+  const {
+    player,
+    communitySongStore,
+    songStore: { currentSong },
+  } = rootStore
 
   useEffect(() => {
     ;(async () => {
@@ -28,7 +32,14 @@ export const SongList: FC = observer(() => {
             name: song.userId,
             photoURL: "",
           }}
-          onClick={() => playSong(rootStore)(song)}
+          isPlaying={player.isPlaying && currentSong?.metadata.id === song.id}
+          onClick={() => {
+            if (player.isPlaying && currentSong?.metadata.id === song.id) {
+              player.stop()
+            } else {
+              playSong(rootStore)(song)
+            }
+          }}
         />
       ))}
     </>

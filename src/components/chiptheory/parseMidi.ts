@@ -1,5 +1,31 @@
 import MIDIEvents from "midievents";
-import { Note, ParsingResult } from ".";
+import { SecondsSpan } from "./Chiptheory";
+import { MeasuresAndBeats } from "./SystemLayout";
+
+export type Note = {
+  note: {
+    midiNumber: number;
+    name: string;
+  };
+  isDrum: boolean;
+  id: number;
+  span: SecondsSpan;
+  chipState: any;
+};
+
+export type NotesInVoices = Note[][];
+
+export type MidiSource = {
+  events: any;
+  activeChannels: any;
+  timebase: any;
+  timeEvents: any;
+};
+
+export type ParsingResult = {
+  notes: NotesInVoices;
+  measuresAndBeats?: MeasuresAndBeats;
+};
 
 let id = 0;
 
@@ -44,7 +70,7 @@ const getNotes = (events, channel): Note[] => {
 // Except that in practice these events are always key=0 scale=0 (no one is setting them)
 // Although classics might have it
 
-function calculateMeasureAndBeats(timeEvents, timebase) {
+function calculateMeasureAndBeats(timeEvents) {
   // Sort events by playTime
   //   events.sort((a, b) => a.playTime - b.playTime);
   const measures = [0];
@@ -97,20 +123,12 @@ function calculateMeasureAndBeats(timeEvents, timebase) {
   return { measures, beats };
 }
 
-// Example usage:
-// const events = [...]; // Your combined tempo and time signature events with type field
-// const timebase = 480; // Example timebase
-// const measureStarts = calculateMeasureStarts(events, timebase);
-
-// The buildMeasures function would remain the same.
-
-export const parseMIDI = ({
+export const parseNotes = ({
   events,
   activeChannels,
-  timebase,
   timeEvents,
-}): ParsingResult => {
-  const measuresAndBeats = calculateMeasureAndBeats(timeEvents, timebase);
+}: MidiSource): ParsingResult => {
+  const measuresAndBeats = calculateMeasureAndBeats(timeEvents);
   events.forEach((event) => {
     if (event.subtype === MIDIEvents.EVENT_META_KEY_SIGNATURE) {
       console.log("KEY SIGNATURE" + JSON.stringify(event));

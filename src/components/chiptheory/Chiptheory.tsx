@@ -16,7 +16,7 @@ import {
   getNewAnalysis,
 } from "./analysis";
 import { findPhrasingStart, findTonic } from "./autoAnalysis";
-import { ChipStateDump, Note, parseNotes } from "./noteParsers";
+import { MidiSource, Note, parseNotes } from "./parseMidi";
 
 export type Voice = "pulse1" | "pulse2" | "triangle" | "noise" | "under cursor";
 
@@ -39,7 +39,7 @@ export const xToSeconds = (x) => x / SECOND_WIDTH;
 export type SetVoiceMask = (mask: boolean[]) => void;
 
 const Chiptheory: React.FC<{
-  chipStateDump: ChipStateDump;
+  midiSource: MidiSource;
   getCurrentPositionMs: () => number;
   savedAnalysis?: Analysis;
   saveAnalysis: (Analysis) => void;
@@ -54,7 +54,7 @@ const Chiptheory: React.FC<{
   paused: boolean;
   loggedIn: boolean;
 }> = ({
-  chipStateDump,
+  midiSource,
   getCurrentPositionMs,
   savedAnalysis,
   saveAnalysis,
@@ -85,7 +85,7 @@ const Chiptheory: React.FC<{
     [analysis, saveAnalysis],
   );
 
-  useEffect(() => setAnalysis(ANALYSIS_STUB), [chipStateDump]);
+  useEffect(() => setAnalysis(ANALYSIS_STUB), [midiSource]);
 
   useEffect(() => {
     // this can be in a race if Firebase is slow
@@ -123,10 +123,7 @@ const Chiptheory: React.FC<{
     selectedMeasureRef.current = selectedMeasure;
   }, [selectedMeasure]);
 
-  const parsingResult = useMemo(
-    () => parseNotes(chipStateDump),
-    [chipStateDump],
-  );
+  const parsingResult = useMemo(() => parseNotes(midiSource), [midiSource]);
   const { notes } = parsingResult;
 
   const allNotes = useMemo(() => notes.flat(), [notes]);
@@ -247,7 +244,7 @@ const Chiptheory: React.FC<{
   //
   // useEffect(() => {
   //   divRef.current.scrollLeft = 0;
-  // }, [chipStateDump]);
+  // }, [midiSource]);
 
   const systemClickHandler = useCallback(
     (e: React.MouseEvent, timeOffset = 0) => {

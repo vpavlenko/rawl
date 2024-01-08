@@ -1,4 +1,4 @@
-import { Note } from "./noteParsers";
+import { Note } from "./parseMidi";
 
 export const STEPS = [
   "tonic",

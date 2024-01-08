@@ -223,7 +223,7 @@ class App extends React.Component {
       directories: {},
       hasPlayer: false,
       paramDefs: [],
-      chipStateDump: {},
+      midiSource: {},
       analysisEnabled: false,
       analyses: defaultAnalyses,
     };
@@ -272,7 +272,7 @@ class App extends React.Component {
           audioCtx.sampleRate,
           bufferSize,
           debug,
-          (chipStateDump) => self.setState({ chipStateDump }),
+          (midiSource) => self.setState({ midiSource }),
           this.togglePause,
         ),
     );
@@ -982,9 +982,9 @@ class App extends React.Component {
                                   analyses={this.state.analyses}
                                   sequencer={this.sequencer}
                                 />
-                                {this.state.chipStateDump?.type && (
+                                {this.state.midiSource.events && (
                                   <Chiptheory
-                                    chipStateDump={this.state.chipStateDump}
+                                    midiSource={this.state.midiSource}
                                     getCurrentPositionMs={
                                       this.getCurrentPositionMs
                                     }

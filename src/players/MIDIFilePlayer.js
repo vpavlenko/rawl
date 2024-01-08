@@ -97,13 +97,10 @@ MIDIPlayer.prototype.load = function (midiFile, useTrackLoops = false) {
     }
   }
   this.setChipStateDump({
-    type: "midi",
-    data: {
-      events: this.events,
-      activeChannels,
-      timebase: midiFile.header.datas.getUint16(12),
-      timeEvents,
-    },
+    events: this.events,
+    activeChannels,
+    timebase: midiFile.header.datas.getUint16(12),
+    timeEvents,
   });
 };
 

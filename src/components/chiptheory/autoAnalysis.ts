@@ -4,7 +4,7 @@
 
 import { MeasuresAndBeats } from "./SystemLayout";
 import { PitchClass } from "./analysis";
-import { Note } from "./noteParsers";
+import { Note } from "./parseMidi";
 
 export const findTonic = (notes: Note[]): PitchClass | -1 => {
   const countPitchClasses = [];

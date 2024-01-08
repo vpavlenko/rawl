@@ -16,7 +16,7 @@ import {
 } from "./Chiptheory";
 import { Analysis, MeasuresSpan, PitchClass } from "./analysis";
 import { TWELVE_TONE_COLORS } from "./colors";
-import { Note, NotesInVoices } from "./noteParsers";
+import { Note, NotesInVoices } from "./parseMidi";
 
 export type MeasuresAndBeats = {
   measures: number[];

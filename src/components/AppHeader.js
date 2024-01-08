@@ -8,7 +8,7 @@ export default class AppHeader extends React.PureComponent {
         <Link className="AppHeader-title" to={{ pathname: "/" }}>
           Rawl
         </Link>
-        {" • "}
+        {/* {" • "}
         <Link className="AppHeader-title" to={{ pathname: "/browse/MIDI" }}>
           MIDI
         </Link>
@@ -18,7 +18,7 @@ export default class AppHeader extends React.PureComponent {
           to={{ pathname: "/browse/Classical%20MIDI" }}
         >
           Classical
-        </Link>
+        </Link> */}
         {" • "}
         Built on top of{" "}
         <a

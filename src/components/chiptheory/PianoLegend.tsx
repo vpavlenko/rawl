@@ -10,19 +10,23 @@ const KEY_HEIGHT = 15;
 const PADDING = 1;
 const ROW_DISTANCE = 10;
 
+const Hoverable = styled.div`
+  transition: transform 0.3s ease;
+  &:hover {
+    transform: scale(3) translateY(-10px) translateX(30px);
+  }
+`;
+
 const PianoKey = styled.div`
   position: absolute;
-  textalign: center;
-  fontfamily: sans-serif;
-  fontsize: 8px;
-  userselect: none;
-  width: ${KEY_WIDTH};
-  height: ${KEY_HEIGHT};
+  user-select: none;
+  width: ${KEY_WIDTH}px;
+  height: ${KEY_HEIGHT}px;
 `;
 
 export const PianoLegend = () => {
   return (
-    <div style={{ display: "inline-block" }} className="zoomable">
+    <Hoverable>
       <a
         href="https://github.com/vpavlenko/rawl#12-colors"
         target="_blank"
@@ -59,6 +63,6 @@ export const PianoLegend = () => {
           ))}
         </div>
       </a>
-    </div>
+    </Hoverable>
   );
 };

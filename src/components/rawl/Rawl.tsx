@@ -110,13 +110,7 @@ const Rawl: React.FC<{
   }, [selectedMeasure]);
 
   const { notes } = parsingResult;
-
   const allNotes = useMemo(() => notes.flat(), [notes]);
-
-  const allActiveNotes = useMemo(
-    () => notes.filter((_, i) => voiceMask[i]).flat(),
-    [notes, voiceMask],
-  );
 
   const [hoveredNote, setHoveredNote] = useState<Note | null>(null);
   const [hoveredAltKey, setHoveredAltKey] = useState<boolean>(false);
@@ -136,8 +130,6 @@ const Rawl: React.FC<{
             selectedMeasureRef.current,
             analysisRef.current,
             null,
-            allNotes,
-            parsingResult?.measuresAndBeats?.measures,
             hoveredAltKey,
           )
         : analysis,
@@ -311,7 +303,6 @@ const Rawl: React.FC<{
             {...commonParams}
             mouseHandlers={mouseHandlers}
             measureSelection={measureSelection}
-            allActiveNotes={allActiveNotes}
             futureAnalysis={futureAnalysis}
             measuresAndBeats={measuresAndBeats}
             registerSeekCallback={registerSeekCallback}

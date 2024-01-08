@@ -1,14 +1,5 @@
 import { Note } from "./parseMidi";
 
-export const STEPS = [
-  "tonic",
-  "first measure",
-  "second measure",
-  "end",
-] as const;
-
-export type Step = (typeof STEPS)[number];
-
 export type PitchClass = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11;
 
 export type MeasuresSpan = [number, number]; // one-based numbering, last measure inclusive. [1, 8] is the first eight measures
@@ -19,7 +10,6 @@ export type TagSpan = {
 };
 
 export type Analysis = {
-  step: Step;
   firstMeasure: number;
   secondMeasure: number;
   correctedMeasures: { [key: number]: number };
@@ -43,7 +33,6 @@ export type Analysis = {
 // };
 
 export const ANALYSIS_STUB: Analysis = {
-  step: STEPS[0],
   firstMeasure: null,
   secondMeasure: null,
   correctedMeasures: [],
@@ -65,8 +54,6 @@ export const getNewAnalysis = (
   selectedMeasure: number | null,
   analysis: Analysis,
   time: number = null,
-  notes: Note[] = [],
-  measures: number[] = [],
   altKey: boolean = false,
 ): Analysis => {
   let update: Partial<Analysis> = {};
@@ -84,26 +71,7 @@ export const getNewAnalysis = (
       update.correctedMeasures[selectedMeasure] = note?.span[0] ?? time;
     }
   } else {
-    const { step } = analysis;
-    if (step !== "end") {
-      update.step = "end";
-    }
-
-    if (step === "first measure") {
-      update.firstMeasure = note.span[0];
-    } else if (step === "second measure") {
-      update.secondMeasure = note.span[0];
-    } else if (step === "tonic") {
-      update.tonic = (note.note.midiNumber % 12) as PitchClass;
-    } else if (step === "end") {
-      //   update.romanNumerals = updateRomanNumerals(
-      //     analysis,
-      //     note,
-      //     notes,
-      //     measures,
-      //     altKey,
-      //   );
-    }
+    update.tonic = (note.note.midiNumber % 12) as PitchClass;
   }
 
   return { ...analysis, ...update };

@@ -239,7 +239,6 @@ const getNoteRectangles = (
   measures: number[] = null,
   handleMouseEnter = (note: Note, altKey: boolean) => {},
   handleMouseLeave = () => {},
-  allNotes: Note[] = [],
   showVelocity = false,
   offsetSeconds: number,
 ) => {
@@ -322,7 +321,6 @@ const getNoteRectangles = (
 // TODO: maybe add React.memo
 export const MergedSystemLayout = ({
   voiceMask,
-  allActiveNotes,
   positionSeconds,
   futureAnalysis,
   notes,
@@ -341,11 +339,8 @@ export const MergedSystemLayout = ({
     systemClickHandler,
   } = mouseHandlers;
 
-  // TODO: should probably use just "notes" instead, since stretched notes look ugly.
-  const midiRange = useMemo(
-    () => getMidiRange(allActiveNotes.flat()),
-    [allActiveNotes],
-  );
+  // TODO: probably should exclude isDrum notes
+  const midiRange = useMemo(() => getMidiRange(notes.flat()), [notes]);
 
   const [divHeight, setDivHeight] = useState(0);
   const divRef = useRef(null);
@@ -390,7 +385,6 @@ export const MergedSystemLayout = ({
           measuresAndBeats.measures,
           handleMouseEnter,
           handleMouseLeave,
-          allActiveNotes,
           showVelocity,
           0,
         ),
@@ -578,7 +572,6 @@ const Phrase: React.FC<
           globalMeasures,
           () => {},
           () => {},
-          [],
           showVelocity,
           secondsSpan[0],
         ),

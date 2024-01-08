@@ -1,6 +1,5 @@
 import MIDIEvents from "midievents";
 import { Note, ParsingResult } from ".";
-import { tokenize } from "./tokenize";
 
 let id = 0;
 
@@ -121,6 +120,5 @@ export const parseMIDI = ({
   return {
     measuresAndBeats,
     notes,
-    tokens: tokenize(notes, measuresAndBeats),
   };
 };

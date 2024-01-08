@@ -22,8 +22,6 @@ import queryString from "querystring";
 import React from "react";
 import Dropzone from "react-dropzone";
 import { NavLink, Redirect, Route, Switch, withRouter } from "react-router-dom";
-import { parseBookPath } from "./chiptheory/Book";
-import { ChordPlayground } from "./chiptheory/ChordPlayground";
 
 import requestCache from "../RequestCache";
 import Sequencer, {
@@ -67,7 +65,6 @@ import MessageBox from "./MessageBox";
 import Settings from "./Settings";
 import Visualizer from "./Visualizer";
 import Chiptheory from "./chiptheory/Chiptheory";
-import Search from "./chiptheory/Search";
 
 const mergeAnalyses = (base, diff) => {
   const result = { ...base };
@@ -940,29 +937,13 @@ class App extends React.Component {
                         render={() => <Redirect to="/browse/MIDI" />}
                       />
                       <Route
-                        path="/chordPlayground"
-                        exact
-                        render={() => <ChordPlayground />}
-                      />
-                      <Route
-                        path="/search"
-                        exact
-                        render={() => <Search analyses={this.state.analyses} />}
-                      />
-                      <Route
-                        path={[
-                          "/browse/:browsePath*",
-                          "/search/:searchPath*",
-                          "/book/:bookPath*",
-                        ]}
+                        path={["/browse/:browsePath*"]}
                         render={({ history, match, location }) => {
                           // Undo the react-router-dom double-encoded % workaround - see DirectoryLink.js
-                          const searchPath = match.params?.searchPath;
-                          const bookPath = match.params?.bookPath;
-                          const browsePath = searchPath
-                            ? "Nintendo"
-                            : match.params?.browsePath?.replace("%25", "%") ||
-                              (bookPath ? parseBookPath(bookPath).path : "");
+                          const browsePath = match.params?.browsePath?.replace(
+                            "%25",
+                            "%",
+                          );
                           console.log("BROWSE_PATH", browsePath);
 
                           this.browsePath = browsePath;
@@ -990,8 +971,6 @@ class App extends React.Component {
                                   historyAction={history.action}
                                   locationKey={location.key}
                                   browsePath={browsePath}
-                                  searchPath={searchPath}
-                                  bookPath={bookPath}
                                   listing={this.state.directories[browsePath]}
                                   playContext={this.playContexts[browsePath]}
                                   fetchDirectory={this.fetchDirectory}
@@ -1021,7 +1000,6 @@ class App extends React.Component {
                                     registerSeekCallback={(seekCallback) =>
                                       this.setState({ seekCallback })
                                     }
-                                    bookPath={bookPath}
                                     pause={this.togglePause}
                                     paused={this.state.paused}
                                     loggedIn={!!this.state.user}

@@ -2,8 +2,8 @@
 // Count all pitched midi events, find a fifth where min count of two notes
 // will be the highest
 
+import { MeasuresAndBeats } from "./SystemLayout";
 import { PitchClass } from "./analysis";
-import { MeasuresAndBeats } from "./measures";
 import { Note } from "./noteParsers";
 
 export const findTonic = (notes: Note[]): PitchClass | -1 => {

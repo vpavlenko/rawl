@@ -1,8 +1,6 @@
 import autoBindReact from "auto-bind/react";
 import React from "react";
 import BrowseList from "./BrowseList";
-import { BookTOC } from "./chiptheory/Book";
-import Search, { filterListing } from "./chiptheory/Search";
 
 export default class Browse extends React.PureComponent {
   constructor(props) {
@@ -96,8 +94,7 @@ export default class Browse extends React.PureComponent {
   }
 
   render() {
-    const { listing, browsePath, searchPath, playContext, analyses } =
-      this.props;
+    const { listing, browsePath, playContext } = this.props;
     const listingWithParent = [
       {
         path: "..",
@@ -106,61 +103,24 @@ export default class Browse extends React.PureComponent {
       ...(listing || []),
     ];
 
-    const isRoot = browsePath === "Nintendo";
-
-    const filteredListing = filterListing(
-      listingWithParent,
-      analyses,
-      searchPath,
-    );
-
     const searchParams = new URLSearchParams(window.location.search);
 
     return (
       <>
-        {isRoot || searchPath ? (
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "300px 1fr",
-              gap: "50px",
-              height: "100%",
-            }}
-          >
-            <div style={{ overflowY: "auto", height: "100%" }}>
-              <Search analyses={analyses} searchPath={searchPath} />
-            </div>
-
-            <div style={{ overflowY: "auto", height: "100%" }}>
-              {!searchPath && <BookTOC />}
-              <BrowseList
-                key={browsePath}
-                {...this.props}
-                playContext={playContext}
-                items={filteredListing}
-                isSearch={!!searchPath}
-              />
-            </div>
-          </div>
-        ) : (
-          <div
-            style={{
-              height:
-                browsePath.startsWith("Nintendo") || searchParams.get("song")
-                  ? "1px"
-                  : "100%",
-              overflow: "scroll",
-              margin: 0,
-            }}
-          >
-            <BrowseList
-              key={browsePath}
-              {...this.props}
-              playContext={playContext}
-              items={filteredListing}
-            />
-          </div>
-        )}
+        <div
+          style={{
+            height: searchParams.get("song") ? "1px" : "100%",
+            overflow: "scroll",
+            margin: 0,
+          }}
+        >
+          <BrowseList
+            key={browsePath}
+            {...this.props}
+            playContext={playContext}
+            items={listingWithParent}
+          />
+        </div>
       </>
     );
   }

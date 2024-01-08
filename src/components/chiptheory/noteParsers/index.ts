@@ -1,8 +1,6 @@
 import { SecondsSpan } from "../Chiptheory";
-import { MeasuresAndBeats } from "../measures";
+import { MeasuresAndBeats } from "../SystemLayout";
 import { parseMIDI } from "./midi";
-import { parseNES } from "./nes";
-import { GridOfTokens } from "./tokenize";
 
 export type Note = {
   note: {
@@ -17,24 +15,14 @@ export type Note = {
 
 export type NotesInVoices = Note[][];
 
-export type FileType = "nes" | "midi";
-
 export type ChipStateDump = {
-  type: FileType;
   data: any;
 };
 
 export type ParsingResult = {
   notes: NotesInVoices;
   measuresAndBeats?: MeasuresAndBeats;
-  tokens?: GridOfTokens;
 };
 
-export const parseNotes = ({ type, data }: ChipStateDump): ParsingResult => {
-  if (type === "nes") {
-    return parseNES(data);
-  }
-  if (type === "midi") {
-    return parseMIDI(data);
-  }
-};
+export const parseNotes = ({ data }: ChipStateDump): ParsingResult =>
+  parseMIDI(data);

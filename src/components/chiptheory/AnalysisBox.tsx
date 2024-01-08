@@ -2,7 +2,8 @@ import * as React from "react";
 import { useEffect, useRef, useState } from "react";
 import Select from "react-select";
 import { Analysis, MeasuresSpan, STEPS, Step } from "./analysis";
-import { CATEGORIES_IN_STRIPES, TAGS } from "./tags";
+
+const TAGS = ["no tags"];
 
 const FORM_SECTIONS = [
   "intro",
@@ -11,21 +12,6 @@ const FORM_SECTIONS = [
   "bridge",
   "outro",
   "solo",
-  "A:antecedent",
-  "A:consequent",
-  "B:antecedent",
-  "B:consequent",
-  "C:antecedent",
-  "C:consequent",
-  "antecedent",
-  "consequent",
-  "sentence. basic idea",
-  "basic idea repeated",
-  "fragmentation",
-  "cadence",
-  "extra measure",
-  "intro (looped)",
-  "intro (not looped)",
   "A",
   "A'",
   "B",
@@ -55,13 +41,6 @@ const STEP_FONT_COLOR: {
   "second measure": "#ffffaa",
   tonic: "#aaffaa",
   end: "white",
-};
-
-const STEP_CALL_TO_ACTION: Record<Step, string> = {
-  "first measure": "Click on a note at the start of the first measure",
-  "second measure": "Click on a note at the start of the second measure",
-  tonic: "Click on a main tonic",
-  end: "Click on root notes to enter chords. Alt+click for half duration",
 };
 
 export const AnalysisBox: React.FC<{
@@ -187,7 +166,7 @@ export const AnalysisBox: React.FC<{
           {"  "}
           {selectedMeasure === null && (
             <div style={{ color: STEP_FONT_COLOR[analysis.step] }}>
-              {STEP_CALL_TO_ACTION[analysis.step]}
+              {"call to action"}
             </div>
           )}
         </div>
@@ -329,40 +308,6 @@ export const AnalysisBox: React.FC<{
                   }}
                 />
               </div>
-              {analysis.tagSpans && (
-                <div key="tagSpans" style={{ marginTop: "10px" }}>
-                  Tag spans:
-                  {analysis.tagSpans
-                    .filter(
-                      ({ tag }) =>
-                        CATEGORIES_IN_STRIPES.indexOf(tag.split(":")[0]) === -1,
-                    )
-                    .map(({ tag, span }, index) => (
-                      <div>
-                        {tag}: [{span[0]}, {span[1]}]{" "}
-                        <button
-                          style={{ marginRight: "10px", marginTop: "10px" }}
-                          className="box-button"
-                          onClick={() => {
-                            // const newTagSpans = [...analysis.tagSpans];
-                            // newTagSpans.splice(index, 1);
-
-                            // const newAnalysis = {
-                            //   ...analysis,
-                            //   tagSpans: newTagSpans,
-                            // };
-
-                            // saveAnalysis(newAnalysis);
-                            // setAnalysis(newAnalysis);
-                            alert("broken, fix");
-                          }}
-                        >
-                          x
-                        </button>
-                      </div>
-                    ))}
-                </div>
-              )}
             </div>
           )}
         </div>

@@ -2,13 +2,11 @@ import * as React from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AnalysisBox } from "./AnalysisBox";
 import { MeasureSelection } from "./AnalysisGrid";
-import { BookExample } from "./Book";
 import { PianoLegend } from "./PianoLegend";
 import {
   MergedSystemLayout,
   MouseHandlers,
   SplitSystemLayout,
-  StackedSystemLayout,
   SystemLayout,
 } from "./SystemLayout";
 import {
@@ -18,9 +16,7 @@ import {
   getNewAnalysis,
 } from "./analysis";
 import { findPhrasingStart, findTonic } from "./autoAnalysis";
-import { calculateMeasuresAndBeats } from "./measures";
 import { ChipStateDump, Note, parseNotes } from "./noteParsers";
-import { StripesSpecificProps } from "./tags";
 
 export type Voice = "pulse1" | "pulse2" | "triangle" | "noise" | "under cursor";
 
@@ -76,8 +72,6 @@ const Chiptheory: React.FC<{
   const [analysis, setAnalysis] = useState<Analysis>(
     savedAnalysis || ANALYSIS_STUB,
   );
-  const [showTokens, setShowTokens] = useState(false);
-  const [showIntervals, setShowIntervals] = useState(false);
   const [showVelocity, setShowVelocity] = useState(false);
   const [systemLayout, setSystemLayout] = useState<SystemLayout>("split");
   const [playEnd, setPlayEnd] = useState(null);
@@ -133,7 +127,7 @@ const Chiptheory: React.FC<{
     () => parseNotes(chipStateDump),
     [chipStateDump],
   );
-  const { notes, tokens } = parsingResult;
+  const { notes } = parsingResult;
 
   const allNotes = useMemo(() => notes.flat(), [notes]);
 
@@ -161,19 +155,14 @@ const Chiptheory: React.FC<{
             analysisRef.current,
             null,
             allNotes,
-            parsingResult?.measuresAndBeats?.measures ??
-              calculateMeasuresAndBeats(analysis, allNotes).measures,
+            parsingResult?.measuresAndBeats?.measures,
             hoveredAltKey,
-            chipStateDump.type,
           )
         : analysis,
     [hoveredNote, analysis],
   );
   const measuresAndBeats = useMemo(() => {
-    return (
-      parsingResult?.measuresAndBeats ??
-      calculateMeasuresAndBeats(futureAnalysis, allNotes)
-    );
+    return parsingResult?.measuresAndBeats;
   }, [futureAnalysis, allNotes, parsingResult]);
 
   useEffect(() => {
@@ -199,7 +188,6 @@ const Chiptheory: React.FC<{
       setSelectedMeasure,
       analysisRef.current,
       commitAnalysisUpdate,
-      chipStateDump.type,
       null,
       allNotes,
       measuresAndBeats.measures,
@@ -278,7 +266,6 @@ const Chiptheory: React.FC<{
           setSelectedMeasure,
           analysisRef.current,
           commitAnalysisUpdate,
-          chipStateDump.type,
           time,
         );
       } else {
@@ -294,16 +281,6 @@ const Chiptheory: React.FC<{
       seek,
     ],
   );
-
-  const stripeSpecificProps: StripesSpecificProps = chipStateDump.type ===
-    "nes" && {
-    commitAnalysisUpdate,
-    setVoiceMask,
-    loggedIn,
-    seek,
-    setShowIntervals,
-    voices: notes,
-  };
 
   const positionSeconds = positionMs / 1000;
 
@@ -339,24 +316,12 @@ const Chiptheory: React.FC<{
   const commonParams = useMemo(
     () => ({
       notes,
-      tokens,
       voiceMask,
       measuresAndBeats,
-      showIntervals,
       showVelocity,
-      showTokens,
       positionSeconds,
     }),
-    [
-      notes,
-      tokens,
-      voiceMask,
-      measuresAndBeats,
-      showIntervals,
-      showVelocity,
-      showTokens,
-      positionSeconds,
-    ],
+    [notes, voiceMask, measuresAndBeats, showVelocity, positionSeconds],
   );
 
   return (
@@ -373,15 +338,7 @@ const Chiptheory: React.FC<{
           backgroundColor: "black",
         }}
       >
-        {systemLayout === "stacked" ? (
-          <StackedSystemLayout
-            {...commonParams}
-            mouseHandlers={mouseHandlers}
-            measureSelection={measureSelection}
-            analysis={analysis}
-            futureAnalysis={futureAnalysis}
-          />
-        ) : systemLayout === "merged" ? (
+        {systemLayout === "merged" ? (
           <MergedSystemLayout
             {...commonParams}
             mouseHandlers={mouseHandlers}
@@ -389,7 +346,6 @@ const Chiptheory: React.FC<{
             allActiveNotes={allActiveNotes}
             futureAnalysis={futureAnalysis}
             measuresAndBeats={measuresAndBeats}
-            stripeSpecificProps={stripeSpecificProps}
             registerSeekCallback={registerSeekCallback}
           />
         ) : (
@@ -403,35 +359,15 @@ const Chiptheory: React.FC<{
           />
         )}
       </div>
-      {analysisEnabled &&
-        (bookPath ? (
-          <BookExample
-            path={bookPath}
-            playSegment={(span, mask) => {
-              const newVoiceMask = [...voiceMask];
-              for (let i = 0; i < mask.length; ++i) {
-                newVoiceMask[i] = mask[i] === "1";
-              }
-              setVoiceMask(newVoiceMask);
-              setPlayEnd(span ? span[1] : null);
-              const start = span
-                ? measuresAndBeats.measures[span[0] - 1] * 1000
-                : 0;
-              seek(start);
-              // TODO: enable it
-              // seekCallback(start);
-            }}
-            analysis={analysis}
-          />
-        ) : (
-          <AnalysisBox
-            analysis={analysis}
-            commitAnalysisUpdate={commitAnalysisUpdate}
-            previouslySelectedMeasure={previouslySelectedMeasure}
-            selectedMeasure={selectedMeasure}
-            selectMeasure={selectMeasure}
-          />
-        ))}
+      {analysisEnabled && (
+        <AnalysisBox
+          analysis={analysis}
+          commitAnalysisUpdate={commitAnalysisUpdate}
+          previouslySelectedMeasure={previouslySelectedMeasure}
+          selectedMeasure={selectedMeasure}
+          selectMeasure={selectMeasure}
+        />
+      )}
       <div
         style={{
           position: "fixed",
@@ -442,21 +378,6 @@ const Chiptheory: React.FC<{
       >
         <button onClick={() => commitAnalysisUpdate({})}>Confirm tonic</button>
         {"  "}
-        <label className="inline">
-          <input
-            title="Tokens"
-            type="checkbox"
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-            onChange={(e) => {
-              e.stopPropagation();
-              setShowTokens(e.target.checked);
-            }}
-            checked={showTokens}
-          />
-          Tokens
-        </label>{" "}
         <label className="inline">
           <input
             title="Velocity"
@@ -471,21 +392,6 @@ const Chiptheory: React.FC<{
             checked={showVelocity}
           />
           Velocity
-        </label>{" "}
-        <label className="inline">
-          <input
-            title="Intervals"
-            type="checkbox"
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-            onChange={(e) => {
-              e.stopPropagation();
-              setShowIntervals(e.target.checked);
-            }}
-            checked={showIntervals}
-          />
-          Intervals
         </label>{" "}
         <label key={"merged"} className="inline">
           <input
@@ -507,16 +413,6 @@ const Chiptheory: React.FC<{
           />
           Split
         </label>{" "}
-        {/* <label key={"stacked"} className="inline">
-          <input
-            onClick={() => setSystemLayout("stacked")}
-            type="radio"
-            name="system-layout"
-            defaultChecked={systemLayout === "stacked"}
-            value={"stacked"}
-          />
-          Stacked
-        </label> */}
       </div>
       <div
         key="piano-legend"

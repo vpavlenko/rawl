@@ -12,7 +12,7 @@
     --active: #800;
     --button: #66d;
     --focus: #00f;
-    --background: #008;
+    --background: #000;
     --shadow: #005;
     --neutral4: #fff;
     --neutral3: #ccc;
@@ -21,17 +21,17 @@
     --neutral0: #000;
 }
 
-@font-face {
-    font-family: VGA_SquarePx;
-    /*src: url(fonts/pxplus_vga_squarepx.ttf) format('truetype');*/
+/* @font-face {
+    font-family: sans-serif;
     src: url(fonts/pxplus_chipplayer.ttf) format('truetype');
     font-weight: 400;
     font-style: normal
-}
+} */
 
-.App * {
-    font-size: 24px;
-    font-family: VGA_SquarePx, monospace;
+.App {
+    font-size: 16px;
+    /* font-family: VGA_SquarePx, monospace; */
+    font-family: 'Lato', sans-serif;
     -webkit-font-smoothing: antialiased;
     /* supports Japanese characters better than 'none' */
     -moz-osx-font-smoothing: grayscale;

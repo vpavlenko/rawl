@@ -7,36 +7,82 @@ import {
   useRef,
   useState,
 } from "react";
-import {
-  AnalysisGrid,
-  Cursor,
-  MeasureSelection,
-  STACKED_RN_HEIGHT,
-} from "./AnalysisGrid";
+import { AnalysisGrid, Cursor, MeasureSelection } from "./AnalysisGrid";
 import {
   SecondsSpan,
   SetVoiceMask,
   secondsToX,
   xToSeconds,
 } from "./Chiptheory";
-import { Analysis, MeasuresSpan } from "./analysis";
-import { MeasuresAndBeats, getPhrasingMeasures } from "./measures";
+import { Analysis, MeasuresSpan, PitchClass } from "./analysis";
+import { TWELVE_TONE_COLORS } from "./colors";
 import { Note, NotesInVoices } from "./noteParsers";
-import { GridOfTokens, Token } from "./noteParsers/tokenize";
-import {
-  TWELVE_CHORD_TONES,
-  TWELVE_TONE_COLORS,
-  getChordNote,
-  getNoteMeasure,
-  getTextColorForBackground,
-  getTonic,
-  hasRomanNumeralInMeasuresSpan,
-} from "./romanNumerals";
-import { ANALYSIS_HEIGHT, getAverageMidiNumber } from "./tags";
 
-export type SystemLayout = "merged" | "split" | "stacked";
+export type MeasuresAndBeats = {
+  measures: number[];
+  beats: number[];
+};
+
+const getPhrasingMeasures = (
+  analysis: Analysis,
+  numMeasures: number,
+): number[] => {
+  if ((analysis.fourMeasurePhrasingReferences?.length ?? 0) > 1) {
+    return Array.from(
+      new Set([
+        ...analysis.fourMeasurePhrasingReferences,
+        ...Object.keys(analysis.form || {}).map((key) => parseInt(key, 10)),
+      ]),
+    ).sort((a, b) => a - b);
+  }
+  const fourMeasurePhrasingStart =
+    analysis.fourMeasurePhrasingReferences?.[0] ?? 1;
+  const result = [];
+  let i;
+  for (i = fourMeasurePhrasingStart; i < numMeasures; i += 4) {
+    result.push(i);
+  }
+  result.push(i);
+  return result;
+};
 
 const STACKED_LAYOUT_NOTE_HEIGHT = 5;
+
+export const getModulations = (analysis: Analysis) =>
+  [
+    { measure: -1, tonic: analysis.tonic },
+    ...Object.entries(analysis.modulations || []).map((entry) => ({
+      measure: parseInt(entry[0], 10) - 1,
+      tonic: entry[1],
+    })),
+  ].sort((a, b) => a.measure - b.measure);
+
+const getTonic = (measure: number, analysis: Analysis): PitchClass => {
+  const modulations = getModulations(analysis);
+  let i = 0;
+  while (i + 1 < modulations.length && modulations[i + 1].measure <= measure) {
+    i++;
+  }
+  return modulations[i].tonic as PitchClass;
+};
+
+const getNoteMeasure = (note: Note, measures: number[] | null): number => {
+  if (!measures) {
+    return -1;
+  }
+  const noteMiddle = (note.span[0] + note.span[1]) / 2;
+  return measures.findIndex((time) => time >= noteMiddle) - 1;
+};
+
+const getAverageMidiNumber = (notes: Note[]) =>
+  notes.length > 0
+    ? notes[0].isDrum
+      ? 0
+      : notes.reduce((sum, note) => sum + note.note.midiNumber, 0) /
+        notes.length
+    : Infinity;
+
+export type SystemLayout = "merged" | "split";
 
 export type MidiRange = [number, number];
 
@@ -198,10 +244,8 @@ const getNoteRectangles = (
   handleMouseEnter = (note: Note, altKey: boolean) => {},
   handleMouseLeave = () => {},
   allNotes: Note[] = [],
-  showIntervals = false,
   showVelocity = false,
   offsetSeconds: number,
-  showTokens = false,
 ) => {
   return notes.map((note) => {
     const top = midiNumberToY(note.note.midiNumber);
@@ -211,9 +255,8 @@ const getNoteRectangles = (
       : getNoteColor(voiceIndex, note, analysis, measures);
     const chordNote = note.isDrum
       ? GM_DRUM_KIT[note.note.midiNumber] || note.note.midiNumber
-      : voiceIndex !== -1
-      ? getChordNote(note, analysis, measures, analysis.romanNumerals)
       : null;
+    // TODO: make it only for isDrum
     const noteElement = chordNote ? (
       <span
         className="noteText"
@@ -224,13 +267,12 @@ const getNoteRectangles = (
           lineHeight: `${Math.min(noteHeight, 14)}px`,
           fontFamily: "Helvetica, sans-serif",
           fontWeight: note.isDrum ? 100 : 700,
-          color: getTextColorForBackground(color),
+          color: "white",
         }}
       >
         {chordNote}
       </span>
     ) : null;
-    const intervalBelow = showIntervals && getIntervalBelow(note, allNotes);
     return (
       <div
         key={`nr_${note.id}`}
@@ -255,8 +297,7 @@ const getNoteRectangles = (
           //   opacity: isActiveVoice ? 0.9 : 0.1,
           // TODO: make it map onto the dynamic range of a song? of a track?
           opacity: isActiveVoice
-            ? (showVelocity && note?.chipState?.on?.param2 / 127) ||
-              (showTokens ? 0.8 : 1) // to debug tokenization
+            ? (showVelocity && note?.chipState?.on?.param2 / 127) || 1
             : 0.1,
           display: "grid",
           placeItems: "center",
@@ -275,21 +316,7 @@ const getNoteRectangles = (
         onMouseEnter={(e) => handleMouseEnter(note, e.altKey)}
         onMouseLeave={handleMouseLeave}
       >
-        {showIntervals && intervalBelow !== Infinity && isActiveVoice && (
-          // voiceMask.filter(Boolean).length === 1 &&
-          <div
-            style={{
-              position: "relative",
-              top: noteHeight,
-              color: "white",
-              fontFamily: "sans-serif",
-              fontSize: "12px",
-            }}
-          >
-            {TWELVE_CHORD_TONES[intervalBelow % 12]}
-          </div>
-        )}
-        {!showIntervals && noteElement}
+        {noteElement}
       </div>
     );
   });
@@ -305,11 +332,9 @@ export const MergedSystemLayout = ({
   notes,
   measuresAndBeats,
   measureSelection,
-  showIntervals,
   showVelocity,
   registerSeekCallback,
   mouseHandlers,
-  stripeSpecificProps,
 }) => {
   const {
     handleNoteClick,
@@ -348,8 +373,7 @@ export const MergedSystemLayout = ({
     );
   }, []);
 
-  const noteHeight =
-    (divHeight - ANALYSIS_HEIGHT) / (midiRange[1] - midiRange[0] + 7);
+  const noteHeight = divHeight / (midiRange[1] - midiRange[0] + 7);
   const midiNumberToY = useMemo(
     () => (midiNumber) =>
       divHeight - (midiNumber - midiRange[0] + 4) * noteHeight,
@@ -371,7 +395,6 @@ export const MergedSystemLayout = ({
           handleMouseEnter,
           handleMouseLeave,
           allActiveNotes,
-          showIntervals,
           showVelocity,
           0,
         ),
@@ -384,7 +407,6 @@ export const MergedSystemLayout = ({
       voiceMask,
       hoveredNote,
       hoveredAltKey,
-      showIntervals,
       showVelocity,
     ],
   );
@@ -417,13 +439,11 @@ export const MergedSystemLayout = ({
         midiNumberToY={midiNumberToY}
         noteHeight={noteHeight}
         measureSelection={measureSelection}
-        stripeSpecificProps={stripeSpecificProps}
         firstMeasureNumber={1}
         secondsToX={secondsToX}
         phraseStarts={phraseStarts}
         systemLayout={"merged"}
         midiRange={midiRange}
-        hasRomanNumerals={true}
       />
     </div>
   );
@@ -477,9 +497,7 @@ const VoiceName: React.FC<{
 
 const Phrase: React.FC<
   DataForPhrase & {
-    tokens?: Token[][];
     analysis: Analysis;
-    showIntervals: boolean;
     showVelocity: boolean;
     globalMeasures: number[];
     cursor?: ReactNode;
@@ -497,7 +515,6 @@ const Phrase: React.FC<
   }
 > = ({
   notes,
-  tokens,
   measuresAndBeats,
   measuresSpan,
   secondsSpan,
@@ -506,7 +523,6 @@ const Phrase: React.FC<
   globalMeasures,
   mouseHandlers,
   measureSelection,
-  showIntervals,
   showVelocity,
   cursor,
   phraseStarts,
@@ -536,15 +552,10 @@ const Phrase: React.FC<
     systemClickHandler,
   } = mouseHandlers;
 
-  const hasRomanNumerals = hasRomanNumeralInMeasuresSpan(
-    analysis.romanNumerals,
-    measuresSpan,
-  );
-
   const height =
     (midiRange[0] === +Infinity ? 1 : midiRange[1] - midiRange[0] + 1) *
       STACKED_LAYOUT_NOTE_HEIGHT +
-    (showHeader ? (hasRomanNumerals ? STACKED_RN_HEIGHT : 15) : 0);
+    (showHeader ? 15 : 0);
 
   const midiNumberToY = useCallback(
     (midiNumber) =>
@@ -571,11 +582,9 @@ const Phrase: React.FC<
           globalMeasures,
           () => {},
           () => {},
-          [], // TODO: pass allActiveNotes in this phrase to enable showIntervals view
-          showIntervals,
+          [],
           showVelocity,
           secondsSpan[0],
-          !!tokens,
         ),
       ),
       frozenHeight: height,
@@ -587,9 +596,7 @@ const Phrase: React.FC<
       globalMeasures,
       //   hoveredNote,
       //   hoveredAltKey,
-      showIntervals,
       showVelocity,
-      !!tokens,
     ],
   );
 
@@ -631,12 +638,10 @@ const Phrase: React.FC<
           firstMeasureNumber={measuresSpan[0]}
           phraseStarts={phraseStarts}
           secondsToX={mySecondsToX}
-          systemLayout={"stacked"}
+          systemLayout={"split"}
           midiRange={midiRange}
-          hasRomanNumerals={hasRomanNumerals}
           showHeader={showHeader}
           showTonalGrid={!notes?.[0]?.[0].isDrum}
-          tokens={tokens}
         />
       ) : null}
       {cursor}
@@ -682,122 +687,6 @@ type DataForPhrase = {
   secondsSpan: SecondsSpan;
 };
 
-const calculateDataForPhrases = (
-  notes: NotesInVoices,
-  measuresAndBeats: MeasuresAndBeats,
-  phraseStarts: number[],
-): DataForPhrase[] => {
-  const { measures, beats } = measuresAndBeats;
-  const data = [];
-  const X = 2;
-  for (let i = 0; i < phraseStarts.length - X; i += X) {
-    const measuresSpan = [phraseStarts[i], phraseStarts[i + X]];
-    const secondsSpan = [
-      measures[measuresSpan[0] - 1],
-      measures[measuresSpan[1] - 1],
-    ] as SecondsSpan;
-    data.push({
-      notes: getNotesBetweenTimestamps(notes, secondsSpan),
-      measuresSpan,
-      secondsSpan,
-      measuresAndBeats: {
-        measures: measures.filter((measure) =>
-          isInSecondsSpan(measure, secondsSpan),
-        ),
-        beats: beats.filter((beat) => isInSecondsSpan(beat, secondsSpan)),
-      },
-    });
-  }
-  return data;
-};
-
-export const StackedSystemLayout: React.FC<{
-  analysis: Analysis;
-  futureAnalysis: Analysis;
-  measuresAndBeats: MeasuresAndBeats;
-  notes: NotesInVoices;
-  voiceMask: boolean[];
-  showIntervals: boolean;
-  showVelocity: boolean;
-  positionSeconds: number;
-  mouseHandlers: MouseHandlers;
-  measureSelection: MeasureSelection;
-}> = ({
-  analysis,
-  futureAnalysis,
-  measuresAndBeats,
-  notes,
-  voiceMask,
-  mouseHandlers,
-  measureSelection,
-  showIntervals,
-  showVelocity,
-  positionSeconds,
-}) => {
-  const phraseStarts = useMemo(
-    () => getPhrasingMeasures(analysis, measuresAndBeats.measures.length),
-    [analysis, measuresAndBeats],
-  );
-
-  // This is good to display anacrusis. But right now it breaks the 8-mm. grid at the start.
-  //
-  //   if (phraseStarts[0] !== 1) {
-  //   phraseStarts.unshift(1);
-  //   phraseStarts.unshift(1);
-  //   phraseStarts.unshift(1);
-  //   }
-  // TODO: support loops
-  const dataForPhrases = useMemo(
-    () => calculateDataForPhrases(notes, measuresAndBeats, phraseStarts),
-    [notes, measuresAndBeats, phraseStarts],
-  );
-
-  return (
-    <div
-      key="stacked_system_layout"
-      style={{
-        margin: 0,
-        padding: 0,
-        position: "relative",
-        overflowX: "scroll",
-        overflowY: "scroll",
-        width: "100%",
-        height: "100%",
-        backgroundColor: "black",
-      }}
-    >
-      {/* <div style={{ position: "absolute", right: 20, top: 20 }}>
-          by 4 or by 8
-        </div> */}
-      {dataForPhrases.map((data) => (
-        <Phrase
-          key={data.measuresSpan[0]}
-          {...data}
-          tokens={[]}
-          analysis={futureAnalysis}
-          voiceMask={voiceMask}
-          globalMeasures={measuresAndBeats.measures}
-          mouseHandlers={mouseHandlers}
-          measureSelection={measureSelection}
-          showIntervals={showIntervals}
-          showVelocity={showVelocity}
-          phraseStarts={phraseStarts}
-          cursor={
-            isInSecondsSpan(positionSeconds, data.secondsSpan) && (
-              <Cursor
-                style={{
-                  left: secondsToX(positionSeconds - data.secondsSpan[0]),
-                }}
-              />
-            )
-          }
-          bigVoiceMask={voiceMask}
-        />
-      ))}
-    </div>
-  );
-};
-
 const SPLIT_VOICE_MASK = [true];
 
 const debounce = (func, delay) => {
@@ -812,12 +701,9 @@ const debounce = (func, delay) => {
 
 export const SplitSystemLayout: React.FC<{
   notes: NotesInVoices;
-  tokens: GridOfTokens;
   voiceNames: string[];
   voiceMask: boolean[];
   measuresAndBeats: MeasuresAndBeats;
-  showTokens: boolean;
-  showIntervals: boolean;
   showVelocity: boolean;
   positionSeconds: number;
   analysis: Analysis;
@@ -826,12 +712,9 @@ export const SplitSystemLayout: React.FC<{
   setVoiceMask: SetVoiceMask;
 }> = ({
   notes,
-  tokens,
   voiceNames,
   voiceMask,
   measuresAndBeats,
-  showTokens,
-  showIntervals,
   showVelocity,
   positionSeconds,
   analysis,
@@ -850,7 +733,6 @@ export const SplitSystemLayout: React.FC<{
         .map(({ voiceIndex }) => ({
           voiceIndex,
           notes: [notes[voiceIndex]],
-          tokens: tokens[voiceIndex],
         })),
     [notes],
   );
@@ -915,44 +797,35 @@ export const SplitSystemLayout: React.FC<{
       ref={parentRef}
     >
       <div>
-        {voicesSortedByAverageMidiNumber.map(
-          ({ voiceIndex, notes, tokens }, order) =>
-            voiceMask[voiceIndex] ? (
-              <Phrase
-                key={voiceIndex}
-                voiceName={voiceNames[voiceIndex]}
-                notes={notes}
-                tokens={showTokens && tokens}
-                // this is legacy for Stacked
-                voiceMask={SPLIT_VOICE_MASK}
-                measuresAndBeats={measuresAndBeats}
-                measuresSpan={[1, measuresAndBeats.measures.length]}
-                secondsSpan={[
-                  0,
-                  measuresAndBeats.measures[
-                    measuresAndBeats.measures.length - 1
-                  ],
-                ]}
-                analysis={analysis}
-                globalMeasures={measuresAndBeats.measures}
-                mouseHandlers={mouseHandlers}
-                measureSelection={measureSelection}
-                showIntervals={showIntervals}
-                showVelocity={showVelocity}
-                showHeader={
-                  order === voicesSortedByAverageMidiNumber.length - 1
-                }
-                cursor={
-                  <Cursor style={{ left: secondsToX(positionSeconds) }} />
-                }
-                phraseStarts={phraseStarts}
-                scrollLeft={scrollInfo.left}
-                scrollRight={scrollInfo.right}
-                bigVoiceMask={voiceMask}
-                setVoiceMask={setVoiceMask}
-                voiceIndex={voiceIndex}
-              />
-            ) : null,
+        {voicesSortedByAverageMidiNumber.map(({ voiceIndex, notes }, order) =>
+          voiceMask[voiceIndex] ? (
+            <Phrase
+              key={voiceIndex}
+              voiceName={voiceNames[voiceIndex]}
+              notes={notes}
+              // this is legacy for Stacked
+              voiceMask={SPLIT_VOICE_MASK}
+              measuresAndBeats={measuresAndBeats}
+              measuresSpan={[1, measuresAndBeats.measures.length]}
+              secondsSpan={[
+                0,
+                measuresAndBeats.measures[measuresAndBeats.measures.length - 1],
+              ]}
+              analysis={analysis}
+              globalMeasures={measuresAndBeats.measures}
+              mouseHandlers={mouseHandlers}
+              measureSelection={measureSelection}
+              showVelocity={showVelocity}
+              showHeader={order === voicesSortedByAverageMidiNumber.length - 1}
+              cursor={<Cursor style={{ left: secondsToX(positionSeconds) }} />}
+              phraseStarts={phraseStarts}
+              scrollLeft={scrollInfo.left}
+              scrollRight={scrollInfo.right}
+              bigVoiceMask={voiceMask}
+              setVoiceMask={setVoiceMask}
+              voiceIndex={voiceIndex}
+            />
+          ) : null,
         )}
       </div>
     </div>

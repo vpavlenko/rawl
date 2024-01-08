@@ -1,16 +1,41 @@
 import * as React from "react";
 import styled from "styled-components";
-import { MidiRange, SystemLayout } from "./SystemLayout";
-import { Analysis, PitchClass } from "./analysis";
-import { MeasuresAndBeats } from "./measures";
-import { Token } from "./noteParsers/tokenize";
 import {
-  MeasureOfRomanNumerals,
+  MeasuresAndBeats,
+  MidiRange,
+  SystemLayout,
   getModulations,
-  getRelativeModulations,
-  romanNumeralsToArray,
-} from "./romanNumerals";
-import { STRIPES_HEIGHT, Stripes, StripesSpecificProps } from "./tags";
+} from "./SystemLayout";
+import { Analysis, PitchClass } from "./analysis";
+
+type RelativeModulations = { [key: number]: PitchClass };
+
+const getRelativeModulations = (
+  tonic: PitchClass | null,
+  modulations: { [key: number]: PitchClass },
+): RelativeModulations => {
+  if (tonic === null) {
+    return {};
+  }
+
+  const modulationsCopy = { ...modulations, 0: tonic };
+
+  const sortedKeys = Object.keys(modulationsCopy)
+    .map(Number)
+    .sort((a, b) => a - b);
+
+  let relativeModulations: RelativeModulations = {};
+
+  for (let i = 1; i < sortedKeys.length; i++) {
+    const prev = modulationsCopy[sortedKeys[i - 1]];
+    const current = modulationsCopy[sortedKeys[i]];
+
+    relativeModulations[sortedKeys[i]] = ((current - prev + 12) %
+      12) as PitchClass;
+  }
+
+  return relativeModulations;
+};
 
 export const STACKED_RN_HEIGHT = 20;
 
@@ -46,30 +71,22 @@ const Measure: React.FC<{
   span: [number, number];
   number: number;
   isFourMeasureMark: boolean;
-  romanNumeral: string;
   formSection: string;
   modulation: PitchClass | null;
-  stripesHeight: number;
   secondsToX: (number) => number;
   systemLayout: SystemLayout;
-  hasRomanNumerals: boolean;
   measureSelection: MeasureSelection;
   showHeader: boolean;
-  tokens?: Token[];
 }> = ({
   span,
   number,
   isFourMeasureMark,
-  romanNumeral,
   formSection,
   modulation,
-  stripesHeight,
   secondsToX,
   systemLayout,
-  hasRomanNumerals,
   measureSelection,
   showHeader,
-  tokens,
 }) => {
   const { previouslySelectedMeasure, selectedMeasure, selectMeasure } =
     measureSelection;
@@ -86,39 +103,13 @@ const Measure: React.FC<{
           ...(isFourMeasureMark && { backgroundColor: "#aaa" }),
         }}
       />
-      <div
-        style={{
-          position: "absolute",
-          fontSize: "10px",
-          left,
-          width,
-          lineHeight: 1,
-        }}
-      >
-        {tokens?.map((token) => (
-          <span
-            style={{
-              padding: 0,
-              margin: 0,
-              fontSize: "10px",
-              height: "10px",
-              fontFamily: "sans",
-              zIndex: 1000,
-              lineHeight: 1,
-              color: "white",
-            }}
-          >
-            {token},{" "}
-          </span>
-        ))}
-      </div>
       {width && showHeader ? (
         <>
           <div
             key={`db_n_${number}`}
             style={{
               position: "absolute",
-              top: stripesHeight + (hasRomanNumerals ? 25 : 0),
+              top: 0,
               left: `${left + 7}px`,
               color:
                 selectedMeasure === number
@@ -150,13 +141,8 @@ const Measure: React.FC<{
               key={`form_section_${number}`}
               style={{
                 position: "absolute",
-                left: left + (systemLayout === "stacked" ? 23 : 1),
-                top:
-                  (systemLayout === "stacked"
-                    ? hasRomanNumerals
-                      ? 20
-                      : 0
-                    : 55) + stripesHeight,
+                left: left + (systemLayout === "split" ? 23 : 1),
+                top: 55,
                 zIndex: 5,
                 backgroundColor: "#333",
                 padding: "5px 10px 5px 10px",
@@ -169,33 +155,6 @@ const Measure: React.FC<{
             </div>
           )}
         </>
-      ) : null}
-      {hasRomanNumerals && showHeader ? (
-        <div
-          key={`db_rn_${number}`}
-          style={{
-            position: "absolute",
-            left: `${left}px`,
-            width,
-            top: stripesHeight,
-            height: systemLayout === "merged" ? 25 : STACKED_RN_HEIGHT,
-            display: "grid",
-            placeItems: "center",
-            zIndex: 5,
-            borderLeft: "1px solid black",
-          }}
-        >
-          {(romanNumeral &&
-            romanNumeral !== "_" &&
-            (systemLayout === "merged" || width) && (
-              <MeasureOfRomanNumerals
-                dashedRN={romanNumeral}
-                modulation={modulation}
-                fontSize={systemLayout === "stacked" && "20px"}
-              />
-            )) ||
-            null}
-        </div>
       ) : null}
     </>
   );
@@ -280,15 +239,12 @@ export const AnalysisGrid: React.FC<{
   noteHeight: number;
   firstMeasureNumber: number;
   secondsToX: (number) => number;
-  stripeSpecificProps?: StripesSpecificProps;
   phraseStarts: number[];
   systemLayout: SystemLayout;
   midiRange: MidiRange;
-  hasRomanNumerals: boolean;
   measureSelection: MeasureSelection;
   showHeader?: boolean;
   showTonalGrid?: boolean;
-  tokens?: Token[][];
 }> = React.memo(
   ({
     analysis,
@@ -296,16 +252,13 @@ export const AnalysisGrid: React.FC<{
     midiNumberToY,
     noteHeight,
     measureSelection,
-    stripeSpecificProps,
     firstMeasureNumber,
     secondsToX,
     phraseStarts,
     systemLayout,
     midiRange,
-    hasRomanNumerals = true,
     showHeader = true,
     showTonalGrid = true,
-    tokens,
   }) => {
     const { measures, beats } = measuresAndBeats;
     const relativeModulations = getRelativeModulations(
@@ -325,19 +278,13 @@ export const AnalysisGrid: React.FC<{
               formSection={(analysis.form ?? {})[number]}
               number={number}
               measureSelection={measureSelection}
-              romanNumeral={
-                romanNumeralsToArray(analysis?.romanNumerals)[number - 1]
-              }
-              hasRomanNumerals={hasRomanNumerals}
               modulation={
                 number in relativeModulations
                   ? relativeModulations[number]
                   : null
               }
-              stripesHeight={stripeSpecificProps ? STRIPES_HEIGHT : 0}
               secondsToX={secondsToX}
               systemLayout={systemLayout}
-              tokens={tokens[number - 1]}
             />
           );
         })}
@@ -353,14 +300,6 @@ export const AnalysisGrid: React.FC<{
             noteHeight={noteHeight}
             firstMeasureNumber={firstMeasureNumber}
             midiRange={midiRange}
-          />
-        )}
-        {stripeSpecificProps && (
-          <Stripes
-            tagSpans={analysis.tagSpans || []}
-            measuresAndBeats={measuresAndBeats}
-            analysis={analysis}
-            {...stripeSpecificProps}
           />
         )}
         {systemLayout === "merged" && analysis.loop && (

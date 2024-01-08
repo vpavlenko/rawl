@@ -1,4 +1,4 @@
-import { FileType, Note } from "./noteParsers";
+import { Note } from "./noteParsers";
 
 export const STEPS = [
   "tonic",
@@ -37,6 +37,11 @@ export type Analysis = {
   tagSpans?: TagSpan[];
 };
 
+// export type AnalysisV2 = {
+//   beatAdjustments: BeatAdjustments;
+//   tonics: Tonics;
+// };
+
 export const ANALYSIS_STUB: Analysis = {
   step: STEPS[0],
   firstMeasure: null,
@@ -63,7 +68,6 @@ export const getNewAnalysis = (
   notes: Note[] = [],
   measures: number[] = [],
   altKey: boolean = false,
-  type: FileType,
 ): Analysis => {
   let update: Partial<Analysis> = {};
 
@@ -82,7 +86,7 @@ export const getNewAnalysis = (
   } else {
     const { step } = analysis;
     if (step !== "end") {
-      update.step = type === "midi" ? "end" : STEPS[STEPS.indexOf(step) + 1];
+      update.step = "end";
     }
 
     if (step === "first measure") {
@@ -111,7 +115,6 @@ export const advanceAnalysis = (
   selectMeasure: (_: null) => void,
   analysis: Analysis,
   commitAnalysisUpdate: (analysisUpdate: Partial<Analysis>) => void,
-  type: FileType,
   time: number = null,
   notes: Note[] = [],
   measures: number[] = [],
@@ -125,7 +128,6 @@ export const advanceAnalysis = (
     notes,
     measures,
     altKey,
-    type,
   );
 
   selectMeasure(null);

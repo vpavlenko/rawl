@@ -1,7 +1,6 @@
 import React, { memo } from "react";
 import { useLocation } from "react-router-dom";
 import downloadImage from "../images/download.png";
-import linkImage from "../images/link.png";
 import PlayerParams from "./PlayerParams";
 import TimeSlider from "./TimeSlider";
 import VolumeSlider from "./VolumeSlider";
@@ -43,7 +42,7 @@ function AppFooter(props) {
   // if (currentSongNumSubtunes === 0) return null;
 
   return (
-    <div className="AppFooter" style={{ height: showPlayerSettings ? 100 : 0 }}>
+    <div className="AppFooter" style={{ height: showPlayerSettings ? 24 : 0 }}>
       <div className="AppFooter-main">
         <div className="AppFooter-main-inner">
           <div style={{ display: "flex", flexDirection: "row" }}>
@@ -56,21 +55,6 @@ function AppFooter(props) {
               >
                 {paused ? " ► " : " ⏸ "}
               </button>{" "}
-              Tune {currentSongSubtune + 1} of {currentSongNumSubtunes}{" "}
-              <button
-                className="box-button"
-                disabled={ejected || isBook}
-                onClick={prevSubtune}
-              >
-                &lt;
-              </button>{" "}
-              <button
-                className="box-button"
-                disabled={ejected || isBook}
-                onClick={nextSubtune}
-              >
-                &gt;
-              </button>
             </span>
             <TimeSlider
               paused={paused}
@@ -95,27 +79,17 @@ function AppFooter(props) {
               title="Double-click or right-click to reset to 100%."
               value={volume}
             />
+            <a
+              style={{ color: "var(--neutral4)", margin: "0px 20px" }}
+              href={songUrl}
+            >
+              <img
+                alt="Download"
+                src={downloadImage}
+                style={{ verticalAlign: "bottom" }}
+              />
+            </a>
           </div>
-          {!ejected && (
-            <div className="SongDetails">
-              <div className="SongDetails-title">
-                {title}{" "}
-                <img
-                  alt="Copy link"
-                  src={linkImage}
-                  style={{ verticalAlign: "bottom" }}
-                />{" "}
-                <a style={{ color: "var(--neutral4)" }} href={songUrl}>
-                  <img
-                    alt="Download"
-                    src={downloadImage}
-                    style={{ verticalAlign: "bottom" }}
-                  />
-                </a>{" "}
-                <span style={{ marginLeft: "20px" }}>{subtitle}</span>
-              </div>
-            </div>
-          )}
         </div>
       </div>
       {showPlayerSettings && (
@@ -137,9 +111,6 @@ function AppFooter(props) {
             <div>(No active player)</div>
           )}
         </div>
-      )}
-      {imageUrl && (
-        <img alt="Cover art" className="AppFooter-art" src={imageUrl} />
       )}
     </div>
   );

@@ -1,5 +1,5 @@
-import React, {PureComponent} from 'react';
-import autoBindReact from 'auto-bind/react';
+import autoBindReact from "auto-bind/react";
+import React, { PureComponent } from "react";
 
 export default class Slider extends PureComponent {
   constructor(props) {
@@ -16,7 +16,10 @@ export default class Slider extends PureComponent {
   onMouseMove(event) {
     if (this.state.dragging) {
       const node = this.node.current;
-      const pos = Math.max(Math.min((event.clientX - node.offsetLeft) / node.offsetWidth, 1), 0);
+      const pos = Math.max(
+        Math.min((event.clientX - node.offsetLeft) / node.offsetWidth, 1),
+        0,
+      );
       this.setState({
         draggedPos: pos,
       });
@@ -27,30 +30,36 @@ export default class Slider extends PureComponent {
   onMouseDown(event) {
     event.preventDefault();
     event.persist();
-    document.addEventListener('mousemove', this.onMouseMove);
-    document.addEventListener('mouseup', this.onMouseUp);
-    this.setState({dragging: true}, () => this.onMouseMove(event));
+    document.addEventListener("mousemove", this.onMouseMove);
+    document.addEventListener("mouseup", this.onMouseUp);
+    this.setState({ dragging: true }, () => this.onMouseMove(event));
   }
 
   onMouseUp(event) {
-    document.removeEventListener('mouseup', this.onMouseUp);
-    document.removeEventListener('mousemove', this.onMouseMove);
+    document.removeEventListener("mouseup", this.onMouseUp);
+    document.removeEventListener("mousemove", this.onMouseMove);
     // Wait a moment to prevent 'snapback' (pos momentarily won't match draggedPos)
     setTimeout(() => {
-      this.setState({dragging: false});
+      this.setState({ dragging: false });
     }, 150);
     this.props.onChange(this.state.draggedPos);
   }
 
   render() {
-    const pos = Math.max(Math.min((this.state.dragging ? this.state.draggedPos : this.props.pos), 1), 0) * 100 + '%';
+    const pos =
+      Math.max(
+        Math.min(
+          this.state.dragging ? this.state.draggedPos : this.props.pos,
+          1,
+        ),
+        0,
+      ) *
+        100 +
+      "%";
     return (
-      <div ref={this.node}
-           className="Slider"
-           onMouseDown={this.onMouseDown}>
-        <div className="Slider-rail"/>
-        <div className="Slider-knob"
-             style={{left: pos}}/>
+      <div ref={this.node} className="Slider" onMouseDown={this.onMouseDown}>
+        <div className="Slider-rail" />
+        <div className="Slider-knob" style={{ left: pos }} />
       </div>
     );
   }

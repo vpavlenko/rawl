@@ -398,20 +398,9 @@ body,
 }
 
 .AppFooter {
-    border-top: 1px solid var(--clickable);
-    margin: 0 var(--charW2neg);
+    margin: 0;
     flex-shrink: 0;
     display: flex;
-}
-
-.AppFooter-art {
-    width: 160px;
-    height: 100px;
-    background-color: var(--neutral0);
-    object-fit: scale-down;
-    image-rendering: unset;
-    border-left: 1px solid var(--clickable);
-    flex-shrink: 0;
 }
 
 @media screen and (max-width: 600px) {
@@ -430,7 +419,7 @@ body,
  https://stackoverflow.com/questions/42802717
 */
 .AppFooter-main-inner {
-    padding: var(--charH) var(--charW2);
+    /* padding: var(--charH) var(--charW2); */
     display: flex;
     flex-direction: column;
 }
@@ -464,9 +453,10 @@ body,
     padding: 0;
     cursor: pointer;
     position: relative;
-    width: calc(100% - var(--charW1));
+    width: 90%;
     box-sizing: border-box;
     border: 0;
+    display: inline-block;
 }
 
 .Slider-rail {

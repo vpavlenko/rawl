@@ -1,11 +1,11 @@
-import React from 'react';
+import autoBindReact from "auto-bind/react";
+import React from "react";
 import Slider from "./Slider";
-import autoBindReact from 'auto-bind/react';
 
 //  46 ms = 2048/44100 sec or 21.7 fps
 // 400 ms = 2.5 fps
 const UPDATE_INTERVAL_MS = 100;
-const pad = (n) => n < 10 ? '0' + n : n;
+const pad = (n) => (n < 10 ? "0" + n : n);
 
 export default class TimeSlider extends React.Component {
   constructor(props) {
@@ -22,9 +22,12 @@ export default class TimeSlider extends React.Component {
   componentDidUpdate(prevProps) {
     if (prevProps.paused === true && this.props.paused === false) {
       this.timer = setInterval(() => {
-        const {getCurrentPositionMs, currentSongDurationMs} = this.props;
+        const { getCurrentPositionMs, currentSongDurationMs } = this.props;
         this.setState({
-          currentSongPositionMs: Math.min(getCurrentPositionMs(), currentSongDurationMs),
+          currentSongPositionMs: Math.min(
+            getCurrentPositionMs(),
+            currentSongDurationMs,
+          ),
         });
       }, UPDATE_INTERVAL_MS);
     } else if (prevProps.paused === false && this.props.paused === true) {
@@ -41,14 +44,15 @@ export default class TimeSlider extends React.Component {
   }
 
   getTimeLabel() {
-    const val = this.state.draggedSongPositionMs >= 0 ?
-      this.state.draggedSongPositionMs :
-      this.state.currentSongPositionMs;
+    const val =
+      this.state.draggedSongPositionMs >= 0
+        ? this.state.draggedSongPositionMs
+        : this.state.currentSongPositionMs;
     return this.getTime(val);
   }
 
   getTime(ms) {
-    const sign = ms < 0 ? '-' : '';
+    const sign = ms < 0 ? "-" : "";
     ms = Math.abs(ms);
     const min = Math.floor(ms / 60000);
     const sec = (Math.floor((ms % 60000) / 100) / 10).toFixed(1);
@@ -73,15 +77,14 @@ export default class TimeSlider extends React.Component {
 
   render() {
     return (
-      <div className='TimeSlider'>
+      <div className="TimeSlider">
+        <span>{this.getTimeLabel()}</span>
         <Slider
           pos={this.getSongPos()}
           onDrag={this.handlePositionDrag}
-          onChange={this.handlePositionDrop}/>
-        <div className='TimeSlider-labels'>
-          <div>{this.getTimeLabel()}</div>
-          <div>{this.getTime(this.props.currentSongDurationMs)}</div>
-        </div>
+          onChange={this.handlePositionDrop}
+        />
+        <span>{this.getTime(this.props.currentSongDurationMs)}</span>
       </div>
     );
   }

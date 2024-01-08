@@ -302,27 +302,6 @@ export const AnalysisGrid: React.FC<{
             midiRange={midiRange}
           />
         )}
-        {systemLayout === "merged" && analysis.loop && (
-          <div
-            key="loop"
-            style={{
-              boxShadow: "inset 0px -5px 10px white",
-              pointerEvents: "none",
-              position: "absolute",
-              background:
-                "linear-gradient(to right, rgba(0, 0, 0, 0.5) 0%, rgba(0,0,0,0.9) 300px)",
-              left: secondsToX(measures[analysis.loop - 1]),
-              height: "100%",
-              right: 0,
-              zIndex: 1000,
-              width: "5000px",
-            }}
-          >
-            <div style={{ margin: "200px 50px 50px 20px", color: "white" }}>
-              Loop
-            </div>
-          </div>
-        )}
       </>
     );
   },

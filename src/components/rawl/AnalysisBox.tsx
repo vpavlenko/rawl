@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useEffect, useRef, useState } from "react";
 import Select from "react-select";
-import { Analysis, MeasuresSpan, STEPS, Step } from "./analysis";
+import { Analysis, MeasuresSpan } from "./analysis";
 
 const TAGS = ["no tags"];
 
@@ -23,25 +23,6 @@ const FORM_SECTIONS = [
   "E",
   "E'",
 ];
-
-const prevStep = (analysis, commitAnalysisUpdate) =>
-  commitAnalysisUpdate({
-    step: STEPS[STEPS.indexOf(analysis.step) - 1],
-  });
-
-const nextStep = (analysis, commitAnalysisUpdate) =>
-  commitAnalysisUpdate({
-    step: STEPS[STEPS.indexOf(analysis.step) + 1],
-  });
-
-const STEP_FONT_COLOR: {
-  [key in Step]: string;
-} = {
-  "first measure": "#ffaaaa",
-  "second measure": "#ffffaa",
-  tonic: "#aaffaa",
-  end: "white",
-};
 
 export const AnalysisBox: React.FC<{
   analysis: Analysis;
@@ -144,50 +125,11 @@ export const AnalysisBox: React.FC<{
 
     return (
       <div className="App-main-content-area settings" key="AnalysisBox">
-        <div key="nav-buttons">
-          <div style={{ display: "flex", flexDirection: "row" }}>
-            <div style={{ marginBottom: "10px" }}>
-              <button
-                className="box-button"
-                disabled={analysis.step === STEPS[0]}
-                onClick={() => prevStep(analysis, commitAnalysisUpdate)}
-              >
-                &lt;
-              </button>{" "}
-              <button
-                className="box-button"
-                disabled={analysis.step === STEPS[STEPS.length - 1]}
-                onClick={() => nextStep(analysis, commitAnalysisUpdate)}
-              >
-                &gt;
-              </button>
-            </div>
-          </div>
-          {"  "}
-          {selectedMeasure === null && (
-            <div style={{ color: STEP_FONT_COLOR[analysis.step] }}>
-              {"call to action"}
-            </div>
-          )}
-        </div>
         <div key="menu" style={{ marginTop: "20px" }}>
           {selectedMeasure !== null ? (
             <div>
               <div>What to do with measure {selectedMeasure}?</div>
               <ul className="vertical-list-of-buttons">
-                <li>
-                  <button
-                    className="box-button"
-                    onClick={() => {
-                      selectMeasure(null);
-                      commitAnalysisUpdate({
-                        loop: selectedMeasure,
-                      });
-                    }}
-                  >
-                    Mark loop start
-                  </button>
-                </li>
                 <li>
                   <button
                     className="box-button"

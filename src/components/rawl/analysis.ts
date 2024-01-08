@@ -15,7 +15,6 @@ export type Analysis = {
   correctedMeasures: { [key: number]: number };
   fourMeasurePhrasingReferences: number[];
   beatsPerMeasure: number;
-  loop: number | null;
   tonic: PitchClass | null;
   modulations: { [key: number]: PitchClass };
   basedOn: string;
@@ -27,9 +26,14 @@ export type Analysis = {
   tagSpans?: TagSpan[];
 };
 
+type Tonic = {
+  tonic: number; // will be extended to array for double-tonic regions
+  span: MeasuresSpan;
+};
+
 // export type AnalysisV2 = {
 //   beatAdjustments: BeatAdjustments;
-//   tonics: Tonics;
+//   tonics: Tonic[];
 // };
 
 export const ANALYSIS_STUB: Analysis = {
@@ -39,7 +43,6 @@ export const ANALYSIS_STUB: Analysis = {
   fourMeasurePhrasingReferences: [],
   modulations: {},
   beatsPerMeasure: 4,
-  loop: null,
   tonic: null,
   basedOn: null,
   romanNumerals: "",

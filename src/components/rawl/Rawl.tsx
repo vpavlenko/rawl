@@ -16,65 +16,65 @@ import {
   getNewAnalysis,
 } from "./analysis";
 import { findPhrasingStart, findTonic } from "./autoAnalysis";
-import { MidiSource, Note, parseNotes } from "./parseMidi";
+import { Note, ParsingResult } from "./parseMidi";
 
-export type Voice = "pulse1" | "pulse2" | "triangle" | "noise" | "under cursor";
-
-// If not used, the playback cursor isn't exactly where the sound is
+// If not used, the playback cursor isn't exactly where the sound is.
+// Sometimes it should be adjusted for external screens.
 const LATENCY_CORRECTION_MS =
   (localStorage && parseInt(localStorage.getItem("latency"), 10)) || 70;
 
 export type SecondsSpan = [number, number];
 
 const SECOND_WIDTH = 50;
-const HORIZONTAL_HEADER_PADDING = 55;
-
-// TODO: remove HORIZONTAL_HEADER_PADDING for midi
-export const secondsToX = (seconds) =>
-  seconds * SECOND_WIDTH + HORIZONTAL_HEADER_PADDING;
-
-// TODO: should I subtract HORIZONTAL_HEADER_PADDING here?
+export const secondsToX = (seconds) => seconds * SECOND_WIDTH;
 export const xToSeconds = (x) => x / SECOND_WIDTH;
 
 export type SetVoiceMask = (mask: boolean[]) => void;
 
 const Rawl: React.FC<{
-  midiSource: MidiSource;
+  parsingResult: ParsingResult;
   getCurrentPositionMs: () => number;
   savedAnalysis?: Analysis;
   saveAnalysis: (Analysis) => void;
   voiceNames: string[];
   voiceMask: boolean[];
   setVoiceMask: SetVoiceMask;
-  analysisEnabled: boolean;
+  showAnalysisBox: boolean;
   seek: (ms: number) => void;
   registerSeekCallback: (seekCallback: (ms: number) => void) => void;
-  bookPath: string;
-  pause: () => void;
-  paused: boolean;
-  loggedIn: boolean;
 }> = ({
-  midiSource,
+  parsingResult,
   getCurrentPositionMs,
   savedAnalysis,
   saveAnalysis,
   voiceNames,
   voiceMask,
   setVoiceMask,
-  analysisEnabled, // is it a reasonable argument?
+  showAnalysisBox,
   seek,
   registerSeekCallback,
-  bookPath,
-  pause,
-  paused,
-  loggedIn,
 }) => {
   const [analysis, setAnalysis] = useState<Analysis>(
     savedAnalysis || ANALYSIS_STUB,
   );
+  useEffect(() => setAnalysis(ANALYSIS_STUB), [parsingResult]);
+  useEffect(() => {
+    // this can be in a race if Firebase is slow
+    if (savedAnalysis) {
+      setAnalysis(savedAnalysis);
+    } else {
+      setAnalysis(ANALYSIS_STUB);
+    }
+  }, [savedAnalysis]);
+
+  // https://chat.openai.com/share/39958f7a-119d-43dc-b7a3-b2cd0958707b
+  const analysisRef = useRef(analysis);
+  useEffect(() => {
+    analysisRef.current = analysis;
+  }, [analysis]);
+
   const [showVelocity, setShowVelocity] = useState(false);
   const [systemLayout, setSystemLayout] = useState<SystemLayout>("split");
-  const [playEnd, setPlayEnd] = useState(null);
 
   const commitAnalysisUpdate = useCallback(
     (analysisUpdate: Partial<Analysis>) => {
@@ -85,17 +85,8 @@ const Rawl: React.FC<{
     [analysis, saveAnalysis],
   );
 
-  useEffect(() => setAnalysis(ANALYSIS_STUB), [midiSource]);
-
-  useEffect(() => {
-    // this can be in a race if Firebase is slow
-    if (savedAnalysis) {
-      setAnalysis(savedAnalysis);
-    } else {
-      setAnalysis(ANALYSIS_STUB);
-    }
-  }, [savedAnalysis]);
-
+  // The next two variables store a span of selected measures.
+  // TODO: refactor via renaming "selectedMeasureStart" and "selectedMeasureEnd", if ever used
   const [previouslySelectedMeasure, setPreviouslySelectedMeasure] = useState<
     number | null
   >(null);
@@ -113,17 +104,11 @@ const Rawl: React.FC<{
     [selectedMeasure],
   );
 
-  const analysisRef = useRef(analysis);
-  useEffect(() => {
-    analysisRef.current = analysis;
-  }, [analysis]);
-
   const selectedMeasureRef = useRef(selectedMeasure);
   useEffect(() => {
     selectedMeasureRef.current = selectedMeasure;
   }, [selectedMeasure]);
 
-  const parsingResult = useMemo(() => parseNotes(midiSource), [midiSource]);
   const { notes } = parsingResult;
 
   const allNotes = useMemo(() => notes.flat(), [notes]);
@@ -230,16 +215,6 @@ const Rawl: React.FC<{
   // TODO: we should probably get rid of a tune timeline at some point.
   // MuseScore somehow doesn't have it?
 
-  if (
-    !paused &&
-    bookPath &&
-    analysis.loop &&
-    (positionMs - 3000 > measuresAndBeats.measures[analysis.loop - 1] * 1000 ||
-      (playEnd && positionMs > measuresAndBeats.measures[playEnd] * 1000))
-  ) {
-    pause();
-  }
-
   // TODO: fix to scroll back to top for both layouts
   //
   // useEffect(() => {
@@ -250,11 +225,7 @@ const Rawl: React.FC<{
     (e: React.MouseEvent, timeOffset = 0) => {
       const targetElement = e.target as HTMLElement;
       const rect = targetElement.getBoundingClientRect();
-      const distance =
-        e.clientX -
-        rect.left +
-        targetElement.scrollLeft -
-        HORIZONTAL_HEADER_PADDING;
+      const distance = e.clientX - rect.left + targetElement.scrollLeft;
       const time = xToSeconds(distance) + timeOffset;
       if (selectedMeasure) {
         advanceAnalysis(
@@ -356,7 +327,7 @@ const Rawl: React.FC<{
           />
         )}
       </div>
-      {analysisEnabled && (
+      {showAnalysisBox && (
         <AnalysisBox
           analysis={analysis}
           commitAnalysisUpdate={commitAnalysisUpdate}

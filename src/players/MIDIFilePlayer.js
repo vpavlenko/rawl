@@ -1,4 +1,5 @@
 import autoBind from "auto-bind";
+import { parseNotes } from "../components/rawl/parseMidi";
 
 const MIDIEvents = require("midievents");
 require("./midi/midi-helpers");
@@ -96,12 +97,14 @@ MIDIPlayer.prototype.load = function (midiFile, useTrackLoops = false) {
       activeChannels.push(i);
     }
   }
-  this.setChipStateDump({
-    events: this.events,
-    activeChannels,
-    timebase: midiFile.header.datas.getUint16(12),
-    timeEvents,
-  });
+  this.setChipStateDump(
+    parseNotes({
+      events: this.events,
+      activeChannels,
+      timebase: midiFile.header.datas.getUint16(12),
+      timeEvents,
+    }),
+  );
 };
 
 MIDIPlayer.prototype.doSkipSilence = function () {

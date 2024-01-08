@@ -82,6 +82,7 @@ export type SystemLayout = "merged" | "split";
 export type MidiRange = [number, number];
 
 const GM_DRUM_KIT = {
+  31: "🕒", //"Metronome Click",
   35: "🦵", //"Acoustic Bass Drum",
   36: "🦶🏼", //"Bass Drum 1",
   37: "🏑", //"Side Stick",

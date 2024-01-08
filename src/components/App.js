@@ -982,9 +982,9 @@ class App extends React.Component {
                                   analyses={this.state.analyses}
                                   sequencer={this.sequencer}
                                 />
-                                {this.state.midiSource.events && (
+                                {this.state.midiSource.notes && (
                                   <Rawl
-                                    midiSource={this.state.midiSource}
+                                    parsingResult={this.state.midiSource}
                                     getCurrentPositionMs={
                                       this.getCurrentPositionMs
                                     }
@@ -993,16 +993,13 @@ class App extends React.Component {
                                     voiceNames={this.state.voiceNames}
                                     voiceMask={this.state.voiceMask}
                                     setVoiceMask={this.handleSetVoiceMask}
-                                    analysisEnabled={this.state.analysisEnabled}
+                                    showAnalysisBox={this.state.analysisEnabled}
                                     seek={(time) =>
                                       this.seekRelativeInner(time, true)
                                     }
                                     registerSeekCallback={(seekCallback) =>
                                       this.setState({ seekCallback })
                                     }
-                                    pause={this.togglePause}
-                                    paused={this.state.paused}
-                                    loggedIn={!!this.state.user}
                                   />
                                 )}
                               </>

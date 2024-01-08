@@ -10,12 +10,12 @@ export type TagSpan = {
 };
 
 export type Analysis = {
-  fourMeasurePhrasingReferences: number[];
   tonic: PitchClass | null;
   modulations: { [key: number]: PitchClass };
   comment: string;
   tags: string[];
   form?: { [key: number]: string };
+  phrasePatch: { measure: number; diff: number }[];
 };
 
 type Tonic = {
@@ -24,17 +24,17 @@ type Tonic = {
 };
 
 // export type AnalysisV2 = {
-//   beatAdjustments: BeatAdjustments;
+//   firstMeasureOffset: number;
 //   tonics: Tonic[];
 // };
 
 export const ANALYSIS_STUB: Analysis = {
-  fourMeasurePhrasingReferences: [],
   modulations: {},
   tonic: null,
   comment: "",
   tags: [],
   form: [],
+  phrasePatch: [],
 };
 
 export const getNewAnalysis = (

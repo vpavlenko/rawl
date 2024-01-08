@@ -97,36 +97,6 @@ export const AnalysisBox: React.FC<{
             <div>
               <div>What to do with measure {selectedMeasure}?</div>
               <ul className="vertical-list-of-buttons">
-                <li>
-                  <button
-                    className="box-button"
-                    onClick={() => {
-                      selectMeasure(null);
-                      commitAnalysisUpdate({
-                        fourMeasurePhrasingReferences: [selectedMeasure],
-                      });
-                    }}
-                  >
-                    Mark start of 4-measure phrasing
-                  </button>
-                </li>
-                <li>
-                  <button
-                    className="box-button"
-                    onClick={() => {
-                      selectMeasure(null);
-                      commitAnalysisUpdate({
-                        fourMeasurePhrasingReferences: [
-                          ...(analysis.fourMeasurePhrasingReferences || []),
-                          selectedMeasure,
-                        ].sort((a, b) => a - b),
-                      });
-                    }}
-                  >
-                    Add custom phrasing measure (manual mode)
-                  </button>
-                </li>
-                <li>Adjust position: click anywhere</li>
                 <li>Enter modulation: alt+click on a new tonic</li>
                 <li>
                   {formSection}

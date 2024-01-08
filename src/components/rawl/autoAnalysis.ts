@@ -45,7 +45,7 @@ export const findTonic = (notes: Note[]): PitchClass | -1 => {
   return bestTonic as PitchClass | -1;
 };
 
-export const findPhrasingStart = (
+export const findFirstPhraseStart = (
   notes: Note[],
   measuresAndBeats: MeasuresAndBeats,
 ): number => {

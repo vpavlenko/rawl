@@ -18,30 +18,24 @@ export type MeasuresAndBeats = {
   beats: number[];
 };
 
-const getPhrasingMeasures = (
-  analysis: Analysis,
-  numMeasures: number,
-): number[] => {
-  if ((analysis.fourMeasurePhrasingReferences?.length ?? 0) > 1) {
-    return Array.from(
-      new Set([
-        ...analysis.fourMeasurePhrasingReferences,
-        ...Object.keys(analysis.form || {}).map((key) => parseInt(key, 10)),
-      ]),
-    ).sort((a, b) => a - b);
-  }
-  const fourMeasurePhrasingStart =
-    analysis.fourMeasurePhrasingReferences?.[0] ?? 1;
+const getPhraseStarts = (analysis: Analysis, numMeasures: number): number[] => {
   const result = [];
   let i;
-  for (i = fourMeasurePhrasingStart; i < numMeasures; i += 4) {
+  for (i = 1; i < numMeasures; i += 4) {
     result.push(i);
   }
   result.push(i);
+
+  for (const { measure, diff } of analysis.phrasePatch || []) {
+    for (let j = result.indexOf(measure); j < result.length; ++j) {
+      result[j] += diff;
+    }
+  }
+
   return result;
 };
 
-const STACKED_LAYOUT_NOTE_HEIGHT = 5;
+const SPLIT_NOTE_HEIGHT = 5;
 
 export const getModulations = (analysis: Analysis) =>
   [
@@ -401,7 +395,7 @@ export const MergedSystemLayout = ({
     ],
   );
   const phraseStarts = useMemo(
-    () => getPhrasingMeasures(futureAnalysis, measuresAndBeats.measures.length),
+    () => getPhraseStarts(futureAnalysis, measuresAndBeats.measures.length),
     [futureAnalysis, measuresAndBeats],
   );
 
@@ -484,8 +478,8 @@ const VoiceName: React.FC<{
   );
 });
 
-const Phrase: React.FC<
-  DataForPhrase & {
+const Voice: React.FC<
+  DataForVoice & {
     analysis: Analysis;
     showVelocity: boolean;
     globalMeasures: number[];
@@ -543,12 +537,12 @@ const Phrase: React.FC<
 
   const height =
     (midiRange[0] === +Infinity ? 1 : midiRange[1] - midiRange[0] + 1) *
-      STACKED_LAYOUT_NOTE_HEIGHT +
+      SPLIT_NOTE_HEIGHT +
     (showHeader ? 15 : 0);
 
   const midiNumberToY = useCallback(
     (midiNumber) =>
-      height - (midiNumber - midiRange[0] + 1) * STACKED_LAYOUT_NOTE_HEIGHT,
+      height - (midiNumber - midiRange[0] + 1) * SPLIT_NOTE_HEIGHT,
     [height, midiRange],
   );
 
@@ -566,7 +560,7 @@ const Phrase: React.FC<
           true,
           analysis,
           midiNumberToY,
-          STACKED_LAYOUT_NOTE_HEIGHT,
+          SPLIT_NOTE_HEIGHT,
           () => {},
           globalMeasures,
           () => {},
@@ -592,7 +586,7 @@ const Phrase: React.FC<
 
   return (
     <div
-      key={`outer_phrase_${measuresSpan[0]}`}
+      key={`voice_${measuresSpan[0]}_parent`}
       style={{
         width: mySecondsToX(
           measuresAndBeats.measures[measuresAndBeats.measures.length - 1],
@@ -611,7 +605,7 @@ const Phrase: React.FC<
           top:
             height -
             frozenHeight +
-            (midiRange[0] - frozenMidiRange[0]) * STACKED_LAYOUT_NOTE_HEIGHT,
+            (midiRange[0] - frozenMidiRange[0]) * SPLIT_NOTE_HEIGHT,
         }}
       >
         {noteRectangles}
@@ -621,7 +615,7 @@ const Phrase: React.FC<
           analysis={analysis}
           measuresAndBeats={measuresAndBeats}
           midiNumberToY={midiNumberToY}
-          noteHeight={STACKED_LAYOUT_NOTE_HEIGHT}
+          noteHeight={SPLIT_NOTE_HEIGHT}
           measureSelection={measureSelection}
           phraseStarts={phraseStarts}
           secondsToX={mySecondsToX}
@@ -655,19 +649,7 @@ const Phrase: React.FC<
   );
 };
 
-// TODO: if it's too slow, we can split notes into phrases more efficiently using linear scans.
-// I'm just too lazy to implement it now.
-const getNotesBetweenTimestamps = (
-  notes: NotesInVoices,
-  secondsSpan: SecondsSpan,
-): NotesInVoices =>
-  notes.map((notesInOneVoice) =>
-    notesInOneVoice.filter((note) =>
-      isInSecondsSpan((note.span[0] + note.span[1]) / 2, secondsSpan),
-    ),
-  );
-
-type DataForPhrase = {
+type DataForVoice = {
   notes: NotesInVoices;
   measuresAndBeats: MeasuresAndBeats;
   measuresSpan: MeasuresSpan;
@@ -725,7 +707,7 @@ export const SplitSystemLayout: React.FC<{
   );
 
   const phraseStarts = useMemo(
-    () => getPhrasingMeasures(analysis, measuresAndBeats.measures.length),
+    () => getPhraseStarts(analysis, measuresAndBeats.measures.length),
     [analysis, measuresAndBeats],
   );
 
@@ -786,7 +768,7 @@ export const SplitSystemLayout: React.FC<{
       <div>
         {voicesSortedByAverageMidiNumber.map(({ voiceIndex, notes }, order) =>
           voiceMask[voiceIndex] ? (
-            <Phrase
+            <Voice
               key={voiceIndex}
               voiceName={voiceNames[voiceIndex]}
               notes={notes}

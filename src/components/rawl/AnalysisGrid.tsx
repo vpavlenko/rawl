@@ -6,36 +6,7 @@ import {
   SystemLayout,
   getModulations,
 } from "./SystemLayout";
-import { Analysis, PitchClass } from "./analysis";
-
-type RelativeModulations = { [key: number]: PitchClass };
-
-const getRelativeModulations = (
-  tonic: PitchClass | null,
-  modulations: { [key: number]: PitchClass },
-): RelativeModulations => {
-  if (tonic === null) {
-    return {};
-  }
-
-  const modulationsCopy = { ...modulations, 0: tonic };
-
-  const sortedKeys = Object.keys(modulationsCopy)
-    .map(Number)
-    .sort((a, b) => a - b);
-
-  let relativeModulations: RelativeModulations = {};
-
-  for (let i = 1; i < sortedKeys.length; i++) {
-    const prev = modulationsCopy[sortedKeys[i - 1]];
-    const current = modulationsCopy[sortedKeys[i]];
-
-    relativeModulations[sortedKeys[i]] = ((current - prev + 12) %
-      12) as PitchClass;
-  }
-
-  return relativeModulations;
-};
+import { Analysis } from "./analysis";
 
 export const STACKED_RN_HEIGHT = 20;
 
@@ -70,9 +41,8 @@ export type MeasureSelection = {
 const Measure: React.FC<{
   span: [number, number];
   number: number;
-  isFourMeasureMark: boolean;
+  isPhraseStart: boolean;
   formSection: string;
-  modulation: PitchClass | null;
   secondsToX: (number) => number;
   systemLayout: SystemLayout;
   measureSelection: MeasureSelection;
@@ -80,9 +50,8 @@ const Measure: React.FC<{
 }> = ({
   span,
   number,
-  isFourMeasureMark,
+  isPhraseStart,
   formSection,
-  modulation,
   secondsToX,
   systemLayout,
   measureSelection,
@@ -100,7 +69,7 @@ const Measure: React.FC<{
         key={`db_${number}`}
         style={{
           left,
-          ...(isFourMeasureMark && { backgroundColor: "#aaa" }),
+          ...(isPhraseStart && { backgroundColor: "#aaa" }),
         }}
       />
       {width && showHeader ? (
@@ -256,10 +225,6 @@ export const AnalysisGrid: React.FC<{
     showTonalGrid = true,
   }) => {
     const { measures, beats } = measuresAndBeats;
-    const relativeModulations = getRelativeModulations(
-      analysis.tonic,
-      analysis.modulations,
-    );
     return (
       <>
         {measures.map((time, i) => {
@@ -269,15 +234,10 @@ export const AnalysisGrid: React.FC<{
               key={i}
               showHeader={showHeader}
               span={[time, measures[i + 1] ?? time]}
-              isFourMeasureMark={phraseStarts.indexOf(number) !== -1}
+              isPhraseStart={phraseStarts.indexOf(number) !== -1}
               formSection={(analysis.form ?? {})[number]}
               number={number}
               measureSelection={measureSelection}
-              modulation={
-                number in relativeModulations
-                  ? relativeModulations[number]
-                  : null
-              }
               secondsToX={secondsToX}
               systemLayout={systemLayout}
             />

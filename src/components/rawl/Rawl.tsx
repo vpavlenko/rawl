@@ -15,7 +15,7 @@ import {
   advanceAnalysis,
   getNewAnalysis,
 } from "./analysis";
-import { findPhrasingStart, findTonic } from "./autoAnalysis";
+import { findFirstPhraseStart, findTonic } from "./autoAnalysis";
 import { Note, ParsingResult } from "./parseMidi";
 
 // If not used, the playback cursor isn't exactly where the sound is.
@@ -140,13 +140,10 @@ const Rawl: React.FC<{
   }, [futureAnalysis, allNotes, parsingResult]);
 
   useEffect(() => {
-    const phrasingStart = findPhrasingStart(allNotes, measuresAndBeats);
-    const diff: any = {};
-    if (
-      phrasingStart !== -1 &&
-      analysis.fourMeasurePhrasingReferences.length === 0
-    ) {
-      diff.fourMeasurePhrasingReferences = [phrasingStart + 1];
+    const firstPhraseStart = findFirstPhraseStart(allNotes, measuresAndBeats);
+    const diff: Partial<Analysis> = {};
+    if (firstPhraseStart !== -1) {
+      diff.phrasePatch = [{ measure: 1, diff: firstPhraseStart }];
     }
     const tonic = findTonic(allNotes);
     if (tonic !== -1 && analysis.tonic === null) {

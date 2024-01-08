@@ -26,7 +26,6 @@ function BrowseList({ items, ...props }) {
     playContext,
     analyses,
     searchPath,
-    isSearch,
   } = props;
 
   const location = useLocation();
@@ -50,7 +49,7 @@ function BrowseList({ items, ...props }) {
         });
       }
     }
-  }, [items.length, location]);
+  }, [items.length, location, handleSongClick, items, playContext]);
 
   // Scroll Into View
   // ----------------

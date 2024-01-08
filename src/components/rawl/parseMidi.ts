@@ -1,5 +1,5 @@
 import MIDIEvents from "midievents";
-import { SecondsSpan } from "./Chiptheory";
+import { SecondsSpan } from "./Rawl";
 import { MeasuresAndBeats } from "./SystemLayout";
 
 export type Note = {

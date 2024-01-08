@@ -38,7 +38,7 @@ export const xToSeconds = (x) => x / SECOND_WIDTH;
 
 export type SetVoiceMask = (mask: boolean[]) => void;
 
-const Chiptheory: React.FC<{
+const Rawl: React.FC<{
   midiSource: MidiSource;
   getCurrentPositionMs: () => number;
   savedAnalysis?: Analysis;
@@ -421,4 +421,4 @@ const Chiptheory: React.FC<{
   );
 };
 
-export default Chiptheory;
+export default Rawl;

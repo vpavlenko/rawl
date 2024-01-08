@@ -64,7 +64,7 @@ import DropMessage from "./DropMessage";
 import MessageBox from "./MessageBox";
 import Settings from "./Settings";
 import Visualizer from "./Visualizer";
-import Chiptheory from "./chiptheory/Chiptheory";
+import Rawl from "./rawl/Rawl";
 
 const mergeAnalyses = (base, diff) => {
   const result = { ...base };
@@ -983,7 +983,7 @@ class App extends React.Component {
                                   sequencer={this.sequencer}
                                 />
                                 {this.state.midiSource.events && (
-                                  <Chiptheory
+                                  <Rawl
                                     midiSource={this.state.midiSource}
                                     getCurrentPositionMs={
                                       this.getCurrentPositionMs

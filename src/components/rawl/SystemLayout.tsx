@@ -8,12 +8,7 @@ import {
   useState,
 } from "react";
 import { AnalysisGrid, Cursor, MeasureSelection } from "./AnalysisGrid";
-import {
-  SecondsSpan,
-  SetVoiceMask,
-  secondsToX,
-  xToSeconds,
-} from "./Chiptheory";
+import { SecondsSpan, SetVoiceMask, secondsToX, xToSeconds } from "./Rawl";
 import { Analysis, MeasuresSpan, PitchClass } from "./analysis";
 import { TWELVE_TONE_COLORS } from "./colors";
 import { Note, NotesInVoices } from "./parseMidi";

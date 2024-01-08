@@ -12,7 +12,7 @@
     --active: #800;
     --button: #66d;
     --focus: #00f;
-    --background: #008;
+    --background: #000;
     --shadow: #005;
     --neutral4: #fff;
     --neutral3: #ccc;
@@ -21,17 +21,17 @@
     --neutral0: #000;
 }
 
-@font-face {
-    font-family: VGA_SquarePx;
-    /*src: url(fonts/pxplus_vga_squarepx.ttf) format('truetype');*/
-    src: url(/static/media/pxplus_chipplayer.85e11d57.ttf) format('truetype');
+/* @font-face {
+    font-family: sans-serif;
+    src: url(fonts/pxplus_chipplayer.ttf) format('truetype');
     font-weight: 400;
     font-style: normal
-}
+} */
 
-.App * {
-    font-size: 24px;
-    font-family: VGA_SquarePx, monospace;
+.App {
+    font-size: 16px;
+    /* font-family: VGA_SquarePx, monospace; */
+    font-family: 'Lato', sans-serif;
     -webkit-font-smoothing: antialiased;
     /* supports Japanese characters better than 'none' */
     -moz-osx-font-smoothing: grayscale;
@@ -315,8 +315,8 @@ body {
 }
 
 ::-webkit-scrollbar {
-    height: var(--charW1);
-    width: var(--charW1);
+    height: 4px;
+    width: 1px;
     background: var(--button);
 }
 
@@ -426,24 +426,11 @@ body,
 }
 
 .AppFooter {
-    border-top: 1px solid var(--clickable);
-    margin: 0 var(--charW2neg);
+    margin: 0;
     -ms-flex-negative: 0;
         flex-shrink: 0;
     display: -ms-flexbox;
     display: flex;
-}
-
-.AppFooter-art {
-    width: 160px;
-    height: 100px;
-    background-color: var(--neutral0);
-    -o-object-fit: scale-down;
-       object-fit: scale-down;
-    image-rendering: unset;
-    border-left: 1px solid var(--clickable);
-    -ms-flex-negative: 0;
-        flex-shrink: 0;
 }
 
 @media screen and (max-width: 600px) {
@@ -463,7 +450,7 @@ body,
  https://stackoverflow.com/questions/42802717
 */
 .AppFooter-main-inner {
-    padding: var(--charH) var(--charW2);
+    /* padding: var(--charH) var(--charW2); */
     display: -ms-flexbox;
     display: flex;
     -ms-flex-direction: column;
@@ -499,10 +486,11 @@ body,
     padding: 0;
     cursor: pointer;
     position: relative;
-    width: calc(100% - var(--charW1));
+    width: 90%;
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
     border: 0;
+    display: inline-block;
 }
 
 .Slider-rail {
@@ -1014,17 +1002,5 @@ img {
     line-height: 1;
 }
 
-.zoomable {
-    -webkit-transition: -webkit-transform 0.3s ease;
-    transition: -webkit-transform 0.3s ease;
-    transition: transform 0.3s ease;
-    transition: transform 0.3s ease, -webkit-transform 0.3s ease; /* Smooth transition for zoom effect */
-    /* Other styles for your div */
-  }
-  
-.zoomable:hover {
-    -webkit-transform: scale(3) translateY(-10px) translateX(30px);
-            transform: scale(3) translateY(-10px) translateX(30px); /* 300% zoom and move down by 100px */
-}
 
-/*# sourceMappingURL=main.39b20802.css.map*/
+/*# sourceMappingURL=main.8e865d8d.css.map*/

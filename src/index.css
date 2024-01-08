@@ -304,8 +304,8 @@ body {
 }
 
 ::-webkit-scrollbar {
-    height: var(--charW1);
-    width: var(--charW1);
+    height: 4px;
+    width: 1px;
     background: var(--button);
 }
 

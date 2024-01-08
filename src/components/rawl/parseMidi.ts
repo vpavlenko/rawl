@@ -62,17 +62,15 @@ const getNotes = (events, channel): Note[] => {
   return notes;
 };
 
-// We can also find key event:
+// We can also find key events:
 // key: 0,
 // scale: 0,
 // subtype: 89,
 // type: 255,
 // Except that in practice these events are always key=0 scale=0 (no one is setting them)
-// Although classics might have it
+// Although classical music MIDI might have it.
 
 function calculateMeasureAndBeats(timeEvents) {
-  // Sort events by playTime
-  //   events.sort((a, b) => a.playTime - b.playTime);
   const measures = [0];
   const beats = [];
   let secondsPerQuarterNote = 0.5;
@@ -83,7 +81,6 @@ function calculateMeasureAndBeats(timeEvents) {
   let lastBeatTime = 0; // either measures[-1] or beats[-1]
 
   const createNewBeat = (timeUntil) => {
-    // TODO adjust with time signature
     const newBeatEndTime =
       lastBeatTime +
       (1 - lastBeatFractionGone) * ((secondsPerQuarterNote / denominator) * 4);
@@ -107,16 +104,14 @@ function calculateMeasureAndBeats(timeEvents) {
   };
 
   timeEvents.forEach((event) => {
+    const { bpm, playTime } = event;
+    while (createNewBeat(playTime / 1000));
+
     if (event.type === "timeSignature") {
       numerator = event.numerator;
       denominator = 2 ** event.denominatorPower;
-      // TODO: think about starting a new measure right here
     } else {
-      const { bpm: newBpm, playTime } = event;
-      // we should construst all measures and beats before the change
-      while (createNewBeat(playTime / 1000));
-
-      secondsPerQuarterNote = 60 / newBpm;
+      secondsPerQuarterNote = 60 / bpm;
     }
   });
 

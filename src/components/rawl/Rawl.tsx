@@ -163,8 +163,6 @@ const Rawl: React.FC<{
       analysisRef.current,
       commitAnalysisUpdate,
       null,
-      allNotes,
-      measuresAndBeats.measures,
       altKey,
     );
   };

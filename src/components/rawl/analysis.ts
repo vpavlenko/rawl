@@ -10,20 +10,12 @@ export type TagSpan = {
 };
 
 export type Analysis = {
-  firstMeasure: number;
-  secondMeasure: number;
-  correctedMeasures: { [key: number]: number };
   fourMeasurePhrasingReferences: number[];
-  beatsPerMeasure: number;
   tonic: PitchClass | null;
   modulations: { [key: number]: PitchClass };
-  basedOn: string;
-  romanNumerals?: string;
   comment: string;
   tags: string[];
-  disableSnapToNotes: boolean;
   form?: { [key: number]: string };
-  tagSpans?: TagSpan[];
 };
 
 type Tonic = {
@@ -37,18 +29,11 @@ type Tonic = {
 // };
 
 export const ANALYSIS_STUB: Analysis = {
-  firstMeasure: null,
-  secondMeasure: null,
-  correctedMeasures: [],
   fourMeasurePhrasingReferences: [],
   modulations: {},
-  beatsPerMeasure: 4,
   tonic: null,
-  basedOn: null,
-  romanNumerals: "",
   comment: "",
   tags: [],
-  disableSnapToNotes: false,
   form: [],
 };
 
@@ -69,9 +54,6 @@ export const getNewAnalysis = (
           12) as PitchClass;
         // TODO: if the next modulation is the same pitch class, we should remove the next one
       }
-    } else {
-      update.correctedMeasures = { ...(analysis.correctedMeasures || []) };
-      update.correctedMeasures[selectedMeasure] = note?.span[0] ?? time;
     }
   } else {
     update.tonic = (note.note.midiNumber % 12) as PitchClass;
@@ -87,8 +69,6 @@ export const advanceAnalysis = (
   analysis: Analysis,
   commitAnalysisUpdate: (analysisUpdate: Partial<Analysis>) => void,
   time: number = null,
-  notes: Note[] = [],
-  measures: number[] = [],
   altKey: boolean = false,
 ) => {
   const newAnalysis = getNewAnalysis(
@@ -96,8 +76,6 @@ export const advanceAnalysis = (
     selectedMeasure,
     analysis,
     time,
-    notes,
-    measures,
     altKey,
   );
 

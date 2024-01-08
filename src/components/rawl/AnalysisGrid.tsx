@@ -175,7 +175,6 @@ const TonalGrid: React.FC<{
   midiNumberToY: (number) => number;
   secondsToX: (number) => number;
   noteHeight: number;
-  firstMeasureNumber: number;
   midiRange: MidiRange;
 }> = React.memo(
   ({
@@ -184,21 +183,19 @@ const TonalGrid: React.FC<{
     midiNumberToY,
     secondsToX,
     noteHeight,
-    firstMeasureNumber,
     midiRange,
   }) => {
     const modulations = getModulations(analysis);
     if (!modulations || !measures) return;
     modulations.push({
-      measure: measures.length + firstMeasureNumber - 1,
+      measure: measures.length,
       tonic: modulations[0].tonic,
     });
 
     const result = [];
     for (let i = 0; i + 1 < modulations.length; ++i) {
-      // TODO: this logic should be corrected for case when firstMeasureNumber !== 1
-      const fromIndex = modulations[i].measure - firstMeasureNumber + 1;
-      const toIndex = modulations[i + 1].measure - firstMeasureNumber + 1;
+      const fromIndex = modulations[i].measure;
+      const toIndex = modulations[i + 1].measure;
       if (toIndex < 0 || fromIndex >= measures.length) {
         continue;
       }
@@ -237,7 +234,6 @@ export const AnalysisGrid: React.FC<{
   measuresAndBeats: MeasuresAndBeats;
   midiNumberToY: (number: number) => number;
   noteHeight: number;
-  firstMeasureNumber: number;
   secondsToX: (number) => number;
   phraseStarts: number[];
   systemLayout: SystemLayout;
@@ -252,7 +248,6 @@ export const AnalysisGrid: React.FC<{
     midiNumberToY,
     noteHeight,
     measureSelection,
-    firstMeasureNumber,
     secondsToX,
     phraseStarts,
     systemLayout,
@@ -268,7 +263,7 @@ export const AnalysisGrid: React.FC<{
     return (
       <>
         {measures.map((time, i) => {
-          const number = i + firstMeasureNumber; // 1-indexed
+          const number = i + 1; // 1-indexed
           return (
             <Measure
               key={i}
@@ -298,7 +293,6 @@ export const AnalysisGrid: React.FC<{
             secondsToX={secondsToX}
             midiNumberToY={midiNumberToY}
             noteHeight={noteHeight}
-            firstMeasureNumber={firstMeasureNumber}
             midiRange={midiRange}
           />
         )}

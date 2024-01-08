@@ -1,28 +1,11 @@
 import * as React from "react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Select from "react-select";
-import { Analysis, MeasuresSpan } from "./analysis";
+import { Analysis } from "./analysis";
 
 const TAGS = ["no tags"];
 
-const FORM_SECTIONS = [
-  "intro",
-  "verse",
-  "chorus",
-  "bridge",
-  "outro",
-  "solo",
-  "A",
-  "A'",
-  "B",
-  "B'",
-  "C",
-  "C'",
-  "D",
-  "D'",
-  "E",
-  "E'",
-];
+const FORM_SECTIONS = ["intro", "verse", "chorus", "bridge", "outro", "solo"];
 
 export const AnalysisBox: React.FC<{
   analysis: Analysis;
@@ -93,22 +76,6 @@ export const AnalysisBox: React.FC<{
       );
     };
 
-    const tagSpanSelectRef = useRef(null);
-
-    useEffect(() => {
-      if (selectedMeasure !== null) {
-        tagSpanSelectRef.current.focus();
-      }
-    }, [selectedMeasure]);
-
-    const basedOn = useInputField("", "basedOn", "Based on");
-    const beatsPerMeasure = useInputField(
-      4,
-      "beatsPerMeasure",
-      "Beats per measure",
-      "1em",
-    );
-    const romanNumerals = useInputField("", "romanNumerals", "Roman numerals");
     const comment = useInputField("", "comment", "Comment");
     const formSection = useInputField(
       "",
@@ -162,35 +129,6 @@ export const AnalysisBox: React.FC<{
                 <li>Adjust position: click anywhere</li>
                 <li>Enter modulation: alt+click on a new tonic</li>
                 <li>
-                  <div>
-                    Add tag to span: [
-                    {previouslySelectedMeasure ?? selectedMeasure}-
-                    {selectedMeasure}]
-                    <Select
-                      ref={tagSpanSelectRef}
-                      options={TAGS.map((tag) => ({ value: tag, label: tag }))}
-                      onChange={(tag) => {
-                        selectMeasure(null);
-                        commitAnalysisUpdate({
-                          tagSpans: [
-                            ...(analysis.tagSpans ?? []),
-                            {
-                              tag: tag.value,
-                              span: [
-                                previouslySelectedMeasure ?? selectedMeasure,
-                                selectedMeasure,
-                              ] as MeasuresSpan,
-                            },
-                          ],
-                          tags: (analysis.tags ?? []).filter(
-                            (item) => item !== tag.value,
-                          ),
-                        });
-                      }}
-                    />
-                  </div>
-                </li>
-                <li>
                   {formSection}
                   <div>
                     {FORM_SECTIONS.map((formSection) => (
@@ -216,23 +154,6 @@ export const AnalysisBox: React.FC<{
             </div>
           ) : (
             <div>
-              {basedOn}
-              {beatsPerMeasure}
-              <div key="disable_snap" style={{ marginTop: "10px" }}>
-                <label>
-                  <input
-                    type="checkbox"
-                    onChange={() => {
-                      commitAnalysisUpdate({
-                        disableSnapToNotes: !analysis.disableSnapToNotes,
-                      });
-                    }}
-                    checked={analysis.disableSnapToNotes}
-                  />
-                  Disable snap to notes
-                </label>
-              </div>
-              {romanNumerals}
               {comment}
               <div key="tags" style={{ marginTop: "10px" }}>
                 Tags:

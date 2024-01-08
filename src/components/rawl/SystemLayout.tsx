@@ -429,7 +429,6 @@ export const MergedSystemLayout = ({
         midiNumberToY={midiNumberToY}
         noteHeight={noteHeight}
         measureSelection={measureSelection}
-        firstMeasureNumber={1}
         secondsToX={secondsToX}
         phraseStarts={phraseStarts}
         systemLayout={"merged"}
@@ -624,7 +623,6 @@ const Phrase: React.FC<
           midiNumberToY={midiNumberToY}
           noteHeight={STACKED_LAYOUT_NOTE_HEIGHT}
           measureSelection={measureSelection}
-          firstMeasureNumber={measuresSpan[0]}
           phraseStarts={phraseStarts}
           secondsToX={mySecondsToX}
           systemLayout={"split"}

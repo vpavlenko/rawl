@@ -40,7 +40,7 @@ export const PianoLegend = () => {
           }}
         >
           {[0, 1, 2, 3, 4, 5, 6].map((i) => (
-            <>
+            <React.Fragment key={i}>
               <PianoKey
                 key={`w_${i}`}
                 style={{
@@ -51,6 +51,7 @@ export const PianoLegend = () => {
               />
               {BLACK_KEYS[i] !== -1 ? (
                 <PianoKey
+                  key={`b_${i}`}
                   style={{
                     backgroundColor: TWELVE_TONE_COLORS[BLACK_KEYS[i]],
                     top: 0,
@@ -59,7 +60,7 @@ export const PianoLegend = () => {
                   }}
                 />
               ) : null}
-            </>
+            </React.Fragment>
           ))}
         </div>
       </a>

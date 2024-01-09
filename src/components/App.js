@@ -224,7 +224,7 @@ class App extends React.Component {
       hasPlayer: false,
       paramDefs: [],
       midiSource: {},
-      analysisEnabled: false,
+      analysisEnabled: true,
       analyses: defaultAnalyses,
     };
 

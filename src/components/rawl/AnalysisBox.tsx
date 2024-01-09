@@ -3,7 +3,11 @@ import { useEffect, useState } from "react";
 import Select from "react-select";
 import { Analysis } from "./analysis";
 
-const TAGS = ["no tags"];
+const TAGS = [
+  "rhythm:swing",
+  "modulation:parallel_keys",
+  "arrangement:counterpoint",
+];
 
 const FORM_SECTIONS = ["intro", "verse", "chorus", "bridge", "outro", "solo"];
 
@@ -119,63 +123,61 @@ export const AnalysisBox: React.FC<{
     );
 
     return (
-      <div className="App-main-content-area settings" key="AnalysisBox">
-        <div key="menu" style={{ marginTop: "20px" }}>
-          {selectedMeasure !== null ? (
-            <div>
-              <div>What to do with measure {selectedMeasure}?</div>
-              <ul className="vertical-list-of-buttons">
-                <li>Enter modulation: alt+click on a new tonic</li>
-                <li>
-                  Move phrase start
-                  {movePhraseStart}
-                </li>
-                <li>
-                  {formSection}
-                  <div>
-                    {FORM_SECTIONS.map((formSection) => (
-                      <button
-                        style={{ marginRight: "10px", marginTop: "10px" }}
-                        className="box-button"
-                        onClick={() => {
-                          selectMeasure(null);
-                          commitAnalysisUpdate({
-                            form: {
-                              ...analysis.form,
-                              [selectedMeasure]: formSection,
-                            },
-                          });
-                        }}
-                      >
-                        {formSection}
-                      </button>
-                    ))}
-                  </div>
-                </li>
-              </ul>
+      <div key="menu" style={{ marginTop: "20px" }}>
+        {selectedMeasure !== null ? (
+          <div>
+            <div>What to do with measure {selectedMeasure}?</div>
+            <ul className="vertical-list-of-buttons">
+              <li>Enter modulation: alt+click on a new tonic</li>
+              <li>
+                Move phrase start
+                {movePhraseStart}
+              </li>
+              <li>
+                {formSection}
+                <div>
+                  {FORM_SECTIONS.map((formSection) => (
+                    <button
+                      style={{ marginRight: "10px", marginTop: "10px" }}
+                      className="box-button"
+                      onClick={() => {
+                        selectMeasure(null);
+                        commitAnalysisUpdate({
+                          form: {
+                            ...analysis.form,
+                            [selectedMeasure]: formSection,
+                          },
+                        });
+                      }}
+                    >
+                      {formSection}
+                    </button>
+                  ))}
+                </div>
+              </li>
+            </ul>
+          </div>
+        ) : (
+          <div>
+            {comment}
+            <div key="tags" style={{ marginTop: "10px" }}>
+              Tags:
+              <Select
+                isMulti
+                options={TAGS.map((tag) => ({ value: tag, label: tag }))}
+                value={(analysis.tags || []).map((tag) => ({
+                  value: tag,
+                  label: tag,
+                }))}
+                onChange={(tags) => {
+                  commitAnalysisUpdate({
+                    tags: tags.map((tag) => tag.value),
+                  });
+                }}
+              />
             </div>
-          ) : (
-            <div>
-              {comment}
-              <div key="tags" style={{ marginTop: "10px" }}>
-                Tags:
-                <Select
-                  isMulti
-                  options={TAGS.map((tag) => ({ value: tag, label: tag }))}
-                  value={(analysis.tags || []).map((tag) => ({
-                    value: tag,
-                    label: tag,
-                  }))}
-                  onChange={(tags) => {
-                    commitAnalysisUpdate({
-                      tags: tags.map((tag) => tag.value),
-                    });
-                  }}
-                />
-              </div>
-            </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     );
   },

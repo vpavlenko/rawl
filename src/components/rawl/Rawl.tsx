@@ -25,7 +25,7 @@ const LATENCY_CORRECTION_MS =
 
 export type SecondsSpan = [number, number];
 
-const SECOND_WIDTH = 50;
+const SECOND_WIDTH = 40;
 export const secondsToX = (seconds) => seconds * SECOND_WIDTH;
 export const xToSeconds = (x) => x / SECOND_WIDTH;
 
@@ -321,7 +321,7 @@ const Rawl: React.FC<{
         )}
       </div>
       {showAnalysisBox && (
-        <div style={{ width: "400px" }}>
+        <div style={{ width: "400px", height: "100%" }}>
           <AnalysisBox
             analysis={analysis}
             commitAnalysisUpdate={commitAnalysisUpdate}

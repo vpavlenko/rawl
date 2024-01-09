@@ -14,7 +14,7 @@ export type Analysis = {
   modulations: { [key: number]: PitchClass };
   comment: string;
   tags: string[];
-  form?: { [key: number]: string };
+  form: { [key: number]: string };
   phrasePatch: { measure: number; diff: number }[];
 };
 

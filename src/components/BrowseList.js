@@ -49,7 +49,7 @@ function BrowseList({ items, ...props }) {
         });
       }
     }
-  }, [items.length, location, handleSongClick, items, playContext]);
+  }, [items.length, location]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Scroll Into View
   // ----------------

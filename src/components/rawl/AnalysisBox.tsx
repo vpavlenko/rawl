@@ -9,8 +9,7 @@ const TAGS = [
 
   "modulation:parallel_keys",
   "modulation:up_at_the_end",
-  "modulation:constrast",
-  "modulation:cyclic",
+  "modulation:contrast",
 
   "arrangement:counterpoint",
   "arrangement:developed_piano",
@@ -30,9 +29,14 @@ const TAGS = [
   "chord:ii7",
   "chord:m7s",
   "chord:V7",
+  "chord:viio",
+  "chord:bVII", // in major
+  "chord:I_in_minor",
 
   "voice-leading:Vsus4",
   "voice-leading:in_chords",
+
+  "chunks:V-IV",
 
   "stability:bVII-V",
   "stability:bVI-bVII-I",
@@ -52,10 +56,18 @@ const TAGS = [
   "voicing:triads",
   "voicing:minor_sevenths",
   "voicing:diatonic_sevenths",
+  "voicing:transposed_riff",
+  "voicing:alterations",
 
   "scale:dorian",
   "scale:major",
   "scale:natural_minor",
+  "scale:transposed_pentatonics",
+
+  "tempo:accelerando",
+  "tempo:ritardando",
+
+  "dominant:IV",
 ];
 
 const FORM_SECTIONS = ["intro", "verse", "chorus", "bridge", "outro", "solo"];
@@ -211,6 +223,10 @@ export const AnalysisBox: React.FC<{
           </div>
         ) : (
           <div>
+            <ul>
+              <li>Click on the note to set global tonic</li>
+              <li>Alt+click to manually shift onset of measure 2</li>
+            </ul>
             {comment}
             <div key="tags" style={{ marginTop: "10px" }}>
               Tags:

@@ -309,8 +309,23 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 101,
+            "diff": -2
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
+        "tags": [
+          "voicing:transposed_riff",
+          "voicing:power_chords",
+          "scale:transposed_pentatonics",
+          "tempo:accelerando"
+        ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
           1
@@ -536,7 +551,7 @@
           "bass:diatonic_line",
           "chord:ii7",
           "functionality:shuttle",
-          "modulation:constrast",
+          "modulation:contrast",
           "scale:dorian",
           "functionality:functional",
           "stability:bVII-V",
@@ -895,8 +910,19 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
+        "tags": [
+          "chord:bVII",
+          "voicing:triads",
+          "functionality:stasis",
+          "functionality:progression"
+        ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
           3
@@ -1814,9 +1840,35 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          },
+          {
+            "measure": 31,
+            "diff": -1
+          },
+          {
+            "measure": 58,
+            "diff": -1
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
+        "tags": [
+          "functionality:stasis",
+          "tempo:ritardando",
+          "modulation:contrast",
+          "voicing:triads",
+          "chord:viio",
+          "scale:major",
+          "dominant:IV"
+        ],
         "modulations": {
+          "21": 5,
+          "30": 0,
+          "48": 5,
+          "57": 0,
           "67": 5
         },
         "fourMeasurePhrasingReferences": [
@@ -2170,9 +2222,41 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          },
+          {
+            "measure": 15,
+            "diff": 1
+          },
+          {
+            "measure": 36,
+            "diff": 1
+          },
+          {
+            "measure": 49,
+            "diff": 1
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
-        "modulations": {},
+        "modulations": {
+          "11": 6,
+          "14": 2,
+          "32": 6,
+          "35": 2,
+          "45": 6,
+          "48": 2
+        },
+        "tags": [
+          "functionality:functional",
+          "voicing:triads",
+          "modulation:contrast",
+          "scale:dorian",
+          "functionality:shuttle",
+          "bass:diatonic_line"
+        ],
         "fourMeasurePhrasingReferences": [
           3
         ],
@@ -2388,7 +2472,9 @@
           "scale:natural_minor",
           "bass:root",
           "bass:riff",
-          "functionality:stasis"
+          "functionality:stasis",
+          "modulation:parallel_keys",
+          "voicing:diatonic_sevenths"
         ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
@@ -2589,8 +2675,19 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
+        "tags": [
+          "chord:I_in_minor",
+          "voicing:alterations",
+          "modulation:parallel_keys",
+          "bass:root"
+        ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
           3
@@ -2602,7 +2699,7 @@
         "step": "tonic",
         "comment": "",
         "correctedMeasures": [],
-        "tonic": 9,
+        "tonic": 2,
         "basedOn": null
       }
     }
@@ -2846,8 +2943,30 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          },
+          {
+            "measure": 50,
+            "diff": 2
+          },
+          {
+            "measure": 112,
+            "diff": 2
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
+        "tags": [
+          "scale:major",
+          "voicing:transposed_riff",
+          "applied:V/V",
+          "chord:bVII",
+          "functionality:functional",
+          "voicing:triads",
+          "bass:diatonic_approaches"
+        ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
           2

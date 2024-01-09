@@ -435,30 +435,30 @@ const VoiceName: React.FC<{
   );
 });
 
-const Voice: React.FC<
-  DataForVoice & {
-    analysis: Analysis;
-    showVelocity: boolean;
-    globalMeasures: number[];
-    cursor?: ReactNode;
-    phraseStarts: number[];
-    mouseHandlers: MouseHandlers;
-    measureSelection: MeasureSelection;
-    showHeader?: boolean;
-    scrollLeft?: number;
-    scrollRight?: number;
-    voiceName?: string;
-    voiceMask: boolean[];
-    setVoiceMask?: SetVoiceMask;
-    voiceIndex?: number;
-    bigVoiceMask: boolean[];
-  }
-> = ({
+const Voice: React.FC<{
+  notes: NotesInVoices;
+  measuresAndBeats: MeasuresAndBeats;
+  measuresSpan: MeasuresSpan;
+  secondsSpan: SecondsSpan;
+  analysis: Analysis;
+  showVelocity: boolean;
+  globalMeasures: number[];
+  cursor: ReactNode;
+  phraseStarts: number[];
+  mouseHandlers: MouseHandlers;
+  measureSelection: MeasureSelection;
+  showHeader: boolean;
+  scrollLeft: number;
+  scrollRight: number;
+  voiceName: string;
+  setVoiceMask: SetVoiceMask;
+  voiceIndex: number;
+  voiceMask: boolean[];
+}> = ({
   notes,
   measuresAndBeats,
   measuresSpan,
   secondsSpan,
-  voiceMask,
   analysis,
   globalMeasures,
   mouseHandlers,
@@ -472,15 +472,15 @@ const Voice: React.FC<
   voiceName,
   voiceIndex = -1,
   setVoiceMask = (mask) => {},
-  bigVoiceMask,
+  voiceMask,
 }) => {
   const midiRange = useMemo(
     () =>
-      getMidiRangeWithMask(notes, voiceMask, [
+      getMidiRangeWithMask(notes, SPLIT_VOICE_MASK, [
         xToSeconds(scrollLeft),
         xToSeconds(scrollRight),
       ]),
-    [notes, voiceMask, scrollLeft, scrollRight],
+    [notes, scrollLeft, scrollRight],
   );
 
   const { systemClickHandler, handleNoteClick } = mouseHandlers;
@@ -525,7 +525,7 @@ const Voice: React.FC<
     [notes, analysis, globalMeasures, showVelocity],
   );
 
-  const hasVisibleNotes = midiRange[1] > midiRange[0];
+  const hasVisibleNotes = midiRange[1] >= midiRange[0];
 
   return (
     <div
@@ -583,7 +583,7 @@ const Voice: React.FC<
         >
           <VoiceName
             voiceName={voiceName}
-            voiceMask={bigVoiceMask}
+            voiceMask={voiceMask}
             setVoiceMask={setVoiceMask}
             voiceIndex={voiceIndex}
           />
@@ -591,13 +591,6 @@ const Voice: React.FC<
       ) : null}
     </div>
   );
-};
-
-type DataForVoice = {
-  notes: NotesInVoices;
-  measuresAndBeats: MeasuresAndBeats;
-  measuresSpan: MeasuresSpan;
-  secondsSpan: SecondsSpan;
 };
 
 const SPLIT_VOICE_MASK = [true];
@@ -716,8 +709,6 @@ export const SplitSystemLayout: React.FC<{
               key={voiceIndex}
               voiceName={voiceNames[voiceIndex]}
               notes={notes}
-              // this is legacy for Stacked
-              voiceMask={SPLIT_VOICE_MASK}
               measuresAndBeats={measuresAndBeats}
               measuresSpan={[1, measuresAndBeats.measures.length]}
               secondsSpan={[
@@ -734,7 +725,7 @@ export const SplitSystemLayout: React.FC<{
               phraseStarts={phraseStarts}
               scrollLeft={scrollInfo.left}
               scrollRight={scrollInfo.right}
-              bigVoiceMask={voiceMask}
+              voiceMask={voiceMask}
               setVoiceMask={setVoiceMask}
               voiceIndex={voiceIndex}
             />

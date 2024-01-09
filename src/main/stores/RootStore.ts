@@ -7,6 +7,7 @@ import { firestore } from "../../firebase/firebase"
 import { CloudMidiRepository } from "../../repositories/CloudMidiRepository"
 import { CloudSongDataRepository } from "../../repositories/CloudSongDataRepository"
 import { CloudSongRepository } from "../../repositories/CloudSongRepository"
+import { UserRepository } from "../../repositories/UserRepository"
 import { setSong } from "../actions"
 import { loadSongFromExternalMidiFile } from "../actions/cloudSong"
 import { pushHistory } from "../actions/history"
@@ -54,6 +55,8 @@ export default class RootStore {
   readonly cloudSongRepository = new CloudSongRepository(firestore)
   readonly cloudSongDataRepository = new CloudSongDataRepository(firestore)
   readonly cloudMidiRepository = new CloudMidiRepository(firestore)
+  readonly userRepository = new UserRepository(firestore)
+
   readonly router = new Router()
   readonly trackMute = new TrackMute()
   readonly historyStore = new HistoryStore<SerializedRootStore>()

@@ -18,6 +18,7 @@ import {
 import { auth } from "../firebase/firebase"
 import { songDataCollection } from "./CloudSongDataRepository"
 import { CloudSong, ICloudSongRepository } from "./ICloudSongRepository"
+import { User } from "./IUserRepository"
 
 export class CloudSongRepository implements ICloudSongRepository {
   constructor(private readonly firestore: Firestore) {}
@@ -59,6 +60,25 @@ export class CloudSongRepository implements ICloudSongRepository {
 
   async delete(songId: string): Promise<void> {
     await deleteDoc(this.songRef(songId))
+  }
+
+  async publish(songId: string, user: User): Promise<void> {
+    const ref = this.songRef(songId)
+
+    await updateDoc(ref, {
+      isPublic: true,
+      publishedAt: serverTimestamp(),
+      user,
+    })
+  }
+
+  async unpublish(songId: string): Promise<void> {
+    const ref = this.songRef(songId)
+
+    await updateDoc(ref, {
+      isPublic: false,
+      publishedAt: null,
+    })
   }
 
   async getMySongs(): Promise<CloudSong[]> {

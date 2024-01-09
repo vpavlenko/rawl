@@ -1,3 +1,4 @@
+import { Auth } from "firebase/auth"
 import {
   DocumentReference,
   Firestore,
@@ -15,13 +16,15 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore"
-import { auth } from "../firebase/firebase"
 import { songDataCollection } from "./CloudSongDataRepository"
 import { CloudSong, ICloudSongRepository } from "./ICloudSongRepository"
 import { User } from "./IUserRepository"
 
 export class CloudSongRepository implements ICloudSongRepository {
-  constructor(private readonly firestore: Firestore) {}
+  constructor(
+    private readonly firestore: Firestore,
+    private readonly auth: Auth,
+  ) {}
 
   private get songCollection() {
     return songCollection(this.firestore)
@@ -32,7 +35,7 @@ export class CloudSongRepository implements ICloudSongRepository {
   }
 
   async create(data: Pick<CloudSong, "name" | "songDataId">): Promise<string> {
-    if (auth.currentUser === null) {
+    if (this.auth.currentUser === null) {
       throw new Error("You must be logged in to save songs to the cloud")
     }
 
@@ -43,7 +46,7 @@ export class CloudSongRepository implements ICloudSongRepository {
       createdAt: serverTimestamp(),
       updatedAt: serverTimestamp(),
       dataRef,
-      userId: auth.currentUser.uid,
+      userId: this.auth.currentUser.uid,
     })
 
     return document.id
@@ -82,12 +85,15 @@ export class CloudSongRepository implements ICloudSongRepository {
   }
 
   async getMySongs(): Promise<CloudSong[]> {
-    if (auth.currentUser === null) {
+    if (this.auth.currentUser === null) {
       throw new Error("You must be logged in to get songs from the cloud")
     }
 
     const res = await getDocs(
-      query(this.songCollection, where("userId", "==", auth.currentUser.uid)),
+      query(
+        this.songCollection,
+        where("userId", "==", this.auth.currentUser.uid),
+      ),
     )
 
     return res.docs.map(toSong)

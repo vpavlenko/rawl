@@ -1,8 +1,10 @@
 import { orderBy } from "lodash"
 import { computed, makeObservable, observable } from "mobx"
-import { CloudSongDataRepository } from "../../repositories/CloudSongDataRepository"
-import { CloudSongRepository } from "../../repositories/CloudSongRepository"
-import { CloudSong } from "../../repositories/ICloudSongRepository"
+import { ICloudSongDataRepository } from "../../repositories/ICloudSongDataRepository"
+import {
+  CloudSong,
+  ICloudSongRepository,
+} from "../../repositories/ICloudSongRepository"
 import RootStore from "./RootStore"
 
 export class CloudFileStore {
@@ -14,8 +16,8 @@ export class CloudFileStore {
 
   constructor(
     private readonly rootStore: RootStore,
-    private readonly cloudSongRepository: CloudSongRepository,
-    private readonly cloudSongDataRepository: CloudSongDataRepository,
+    private readonly cloudSongRepository: ICloudSongRepository,
+    private readonly cloudSongDataRepository: ICloudSongDataRepository,
   ) {
     makeObservable(this, {
       isLoading: observable,

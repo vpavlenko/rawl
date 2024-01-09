@@ -4,12 +4,17 @@ import { SoundFontSynth } from "../../main/services/SoundFontSynth"
 import { AuthStore } from "../../main/stores/AuthStore"
 import { CloudSongDataRepository } from "../../repositories/CloudSongDataRepository"
 import { CloudSongRepository } from "../../repositories/CloudSongRepository"
+import { ICloudSongDataRepository } from "../../repositories/ICloudSongDataRepository"
+import { ICloudSongRepository } from "../../repositories/ICloudSongRepository"
 import { CommunitySongStore } from "./CommunitySongStore"
 import { SongStore } from "./SongStore"
 
 export default class RootStore {
-  readonly cloudSongRepository = new CloudSongRepository(firestore)
-  readonly cloudSongDataRepository = new CloudSongDataRepository(firestore)
+  readonly cloudSongRepository: ICloudSongRepository = new CloudSongRepository(
+    firestore,
+  )
+  readonly cloudSongDataRepository: ICloudSongDataRepository =
+    new CloudSongDataRepository(firestore)
   readonly songStore = new SongStore(this.cloudSongDataRepository)
   readonly authStore = new AuthStore()
   readonly communitySongStore = new CommunitySongStore(this.cloudSongRepository)

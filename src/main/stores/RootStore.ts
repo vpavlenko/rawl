@@ -3,10 +3,14 @@ import { deserialize, serialize } from "serializr"
 import Player from "../../common/player"
 import Song, { emptySong } from "../../common/song"
 import TrackMute from "../../common/trackMute"
-import { firestore } from "../../firebase/firebase"
+import { auth, firestore } from "../../firebase/firebase"
 import { CloudMidiRepository } from "../../repositories/CloudMidiRepository"
 import { CloudSongDataRepository } from "../../repositories/CloudSongDataRepository"
 import { CloudSongRepository } from "../../repositories/CloudSongRepository"
+import { ICloudMidiRepository } from "../../repositories/ICloudMidiRepository"
+import { ICloudSongDataRepository } from "../../repositories/ICloudSongDataRepository"
+import { ICloudSongRepository } from "../../repositories/ICloudSongRepository"
+import { IUserRepository } from "../../repositories/IUserRepository"
 import { UserRepository } from "../../repositories/UserRepository"
 import { setSong } from "../actions"
 import { loadSongFromExternalMidiFile } from "../actions/cloudSong"
@@ -52,10 +56,16 @@ export default class RootStore {
   song: Song = emptySong()
   initializationPhase: InitializationPhase = "initializing"
 
-  readonly cloudSongRepository = new CloudSongRepository(firestore)
-  readonly cloudSongDataRepository = new CloudSongDataRepository(firestore)
-  readonly cloudMidiRepository = new CloudMidiRepository(firestore)
-  readonly userRepository = new UserRepository(firestore)
+  readonly cloudSongRepository: ICloudSongRepository = new CloudSongRepository(
+    firestore,
+    auth,
+  )
+  readonly cloudSongDataRepository: ICloudSongDataRepository =
+    new CloudSongDataRepository(firestore)
+  readonly cloudMidiRepository: ICloudMidiRepository = new CloudMidiRepository(
+    firestore,
+  )
+  readonly userRepository: IUserRepository = new UserRepository(firestore, auth)
 
   readonly router = new Router()
   readonly trackMute = new TrackMute()

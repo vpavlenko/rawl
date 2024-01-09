@@ -8,5 +8,7 @@ export interface User {
 }
 
 export interface IUserRepository {
+  create(data: Pick<User, "name" | "photoURL" | "bio">): Promise<void>
+  update(data: Pick<User, "name" | "photoURL" | "bio">): Promise<void>
   getCurrentUser(): Promise<User>
 }

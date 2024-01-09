@@ -5,8 +5,21 @@ import { Analysis } from "./analysis";
 
 const TAGS = [
   "rhythm:swing",
+
   "modulation:parallel_keys",
+
   "arrangement:counterpoint",
+  "arrangement:developed_piano",
+  "arrangement:piano_trio",
+
+  "bass:diatonic_line",
+  "bass:walking",
+
+  "applied:V/V",
+
+  "time:3/4",
+
+  "style:jazz",
 ];
 
 const FORM_SECTIONS = ["intro", "verse", "chorus", "bridge", "outro", "solo"];

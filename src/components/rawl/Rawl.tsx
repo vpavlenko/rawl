@@ -57,13 +57,11 @@ const Rawl: React.FC<{
   const [analysis, setAnalysis] = useState<Analysis>(
     savedAnalysis || ANALYSIS_STUB,
   );
-  useEffect(() => setAnalysis(ANALYSIS_STUB), [parsingResult]);
+  // useEffect(() => setAnalysis(ANALYSIS_STUB), [parsingResult]);
   useEffect(() => {
     // this can be in a race if Firebase is slow
     if (savedAnalysis) {
       setAnalysis(savedAnalysis);
-    } else {
-      setAnalysis(ANALYSIS_STUB);
     }
   }, [savedAnalysis]);
 
@@ -140,11 +138,16 @@ const Rawl: React.FC<{
   }, [futureAnalysis, allNotes, parsingResult]);
 
   useEffect(() => {
+    if (analysis.phrasePatch?.length > 0) {
+      return;
+    }
+
     const firstPhraseStart = findFirstPhraseStart(allNotes, measuresAndBeats);
     const diff: Partial<Analysis> = {};
     if (firstPhraseStart !== -1) {
       diff.phrasePatch = [{ measure: 1, diff: firstPhraseStart }];
     }
+
     const tonic = findTonic(allNotes);
     if (tonic !== -1 && analysis.tonic === null) {
       diff.tonic = tonic;

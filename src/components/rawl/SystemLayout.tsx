@@ -432,9 +432,6 @@ export const MergedSystemLayout = ({
   );
 };
 
-const isInSecondsSpan = (time: number, span: SecondsSpan) =>
-  span[0] <= time && time <= span[1];
-
 const VoiceName: React.FC<{
   voiceName: string;
   voiceMask: boolean[];
@@ -526,19 +523,12 @@ const Voice: React.FC<
     [notes, voiceMask, scrollLeft, scrollRight],
   );
 
-  const {
-    handleNoteClick,
-    handleMouseEnter,
-    handleMouseLeave,
-    hoveredNote,
-    hoveredAltKey,
-    systemClickHandler,
-  } = mouseHandlers;
+  const { systemClickHandler } = mouseHandlers;
 
   const height =
     (midiRange[0] === +Infinity ? 1 : midiRange[1] - midiRange[0] + 1) *
       SPLIT_NOTE_HEIGHT +
-    (showHeader ? 15 : 0);
+    (showHeader ? 20 : 0);
 
   const midiNumberToY = useCallback(
     (midiNumber) =>
@@ -572,14 +562,7 @@ const Voice: React.FC<
       frozenHeight: height,
       frozenMidiRange: midiRange,
     }),
-    [
-      notes,
-      analysis,
-      globalMeasures,
-      //   hoveredNote,
-      //   hoveredAltKey,
-      showVelocity,
-    ],
+    [notes, analysis, globalMeasures, showVelocity],
   );
 
   const hasVisibleNotes = midiRange[1] > midiRange[0];
@@ -635,6 +618,7 @@ const Voice: React.FC<
             zIndex: 2,
             fontFamily: "sans-serif",
             fontSize: "12px",
+            overflow: "visible",
           }}
         >
           <VoiceName
@@ -725,7 +709,7 @@ export const SplitSystemLayout: React.FC<{
           left,
           right,
         }),
-      100,
+      50,
     ),
     [],
   );

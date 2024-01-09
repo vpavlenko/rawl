@@ -2786,5 +2786,32 @@
         "basedOn": null
       }
     }
+  },
+  "MIDI/Twila Paris": {
+    "How Beautiful.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          },
+          {
+            "measure": 74,
+            "diff": -2
+          }
+        ],
+        "comment": "",
+        "tonic": 2,
+        "tags": [
+          "bass:diatonic_line",
+          "applied:V/V",
+          "time:3/4"
+        ],
+        "modulations": {
+          "121": 4
+        }
+      }
+    }
   }
 }

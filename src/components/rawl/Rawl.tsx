@@ -150,7 +150,7 @@ const Rawl: React.FC<{
       diff.tonic = tonic;
     }
     setAnalysis({ ...analysis, ...diff });
-  }, [allNotes, analysis.tonic]);
+  }, [allNotes]);
 
   const handleNoteClick = (note: Note, altKey: boolean) => {
     advanceAnalysis(
@@ -281,8 +281,13 @@ const Rawl: React.FC<{
 
   return (
     <div
-      className="App-main-content-and-settings"
-      style={{ position: "relative" }}
+      style={{
+        position: "relative",
+        display: "flex",
+        flexDirection: "row",
+        overflow: "hidden",
+        flexGrow: 1,
+      }}
     >
       <div
         key="leftPanel"
@@ -291,6 +296,8 @@ const Rawl: React.FC<{
           height: "100%",
           padding: 0,
           backgroundColor: "black",
+          flexGrow: 1,
+          overflowX: "auto",
         }}
       >
         {systemLayout === "merged" ? (
@@ -314,13 +321,15 @@ const Rawl: React.FC<{
         )}
       </div>
       {showAnalysisBox && (
-        <AnalysisBox
-          analysis={analysis}
-          commitAnalysisUpdate={commitAnalysisUpdate}
-          previouslySelectedMeasure={previouslySelectedMeasure}
-          selectedMeasure={selectedMeasure}
-          selectMeasure={selectMeasure}
-        />
+        <div style={{ width: "400px" }}>
+          <AnalysisBox
+            analysis={analysis}
+            commitAnalysisUpdate={commitAnalysisUpdate}
+            previouslySelectedMeasure={previouslySelectedMeasure}
+            selectedMeasure={selectedMeasure}
+            selectMeasure={selectMeasure}
+          />
+        </div>
       )}
       <div
         style={{

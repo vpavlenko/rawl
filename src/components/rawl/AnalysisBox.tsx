@@ -22,11 +22,14 @@ export const AnalysisBox: React.FC<{
     selectMeasure,
   }) => {
     const useInputField = (
-      initialValue,
-      analysisFieldName,
-      label,
-      width = "95%",
-      createAnalysisUpdate = null,
+      initialValue: string | number,
+      analysisFieldName: string | null,
+      label: string,
+      width: string = "95%",
+      createAnalysisUpdate: (
+        analysis: Analysis,
+        value: string,
+      ) => Partial<Analysis> = null,
     ) => {
       const [value, setValue] = useState(initialValue.toString());
       const [isSaved, setIsSaved] = useState(false);
@@ -89,6 +92,31 @@ export const AnalysisBox: React.FC<{
         };
       },
     );
+    const movePhraseStart = useInputField(
+      1,
+      null,
+      "Diff",
+      "20%",
+      (analysis, stringValue) => {
+        const value = parseInt(stringValue, 10);
+        debugger;
+        selectMeasure(null);
+        return {
+          phrasePatch:
+            analysis.phrasePatch.filter(
+              ({ measure }) => measure === selectedMeasure,
+            ).length === 0
+              ? [
+                  ...analysis.phrasePatch,
+                  { measure: selectedMeasure, diff: value },
+                ]
+              : analysis.phrasePatch.map(({ measure, diff }) => ({
+                  measure,
+                  diff: measure === selectedMeasure ? value : diff,
+                })),
+        };
+      },
+    );
 
     return (
       <div className="App-main-content-area settings" key="AnalysisBox">
@@ -98,6 +126,10 @@ export const AnalysisBox: React.FC<{
               <div>What to do with measure {selectedMeasure}?</div>
               <ul className="vertical-list-of-buttons">
                 <li>Enter modulation: alt+click on a new tonic</li>
+                <li>
+                  Move phrase start
+                  {movePhraseStart}
+                </li>
                 <li>
                   {formSection}
                   <div>

@@ -127,14 +127,22 @@ const Rawl: React.FC<{
             hoveredNote,
             selectedMeasureRef.current,
             analysisRef.current,
-            null,
             hoveredAltKey,
+            measuresAndBeats,
           )
         : analysis,
     [hoveredNote, analysis],
   );
   const measuresAndBeats = useMemo(() => {
-    return parsingResult?.measuresAndBeats;
+    if (!parsingResult) {
+      return null;
+    }
+    const { measures, beats } = parsingResult.measuresAndBeats;
+    const timeShift = futureAnalysis.timeShift ?? 0;
+    return {
+      measures: measures.map((measure) => measure + timeShift),
+      beats: beats.map((beat) => beat + timeShift),
+    };
   }, [futureAnalysis, allNotes, parsingResult]);
 
   useEffect(() => {
@@ -162,8 +170,8 @@ const Rawl: React.FC<{
       setSelectedMeasure,
       analysisRef.current,
       commitAnalysisUpdate,
-      null,
       altKey,
+      measuresAndBeats,
     );
   };
 
@@ -204,6 +212,7 @@ const Rawl: React.FC<{
 
   // TODO: we should probably get rid of a tune timeline at some point.
   // MuseScore somehow doesn't have it?
+  // On the other hand, a timeline gives a birdview, and we may enhance it?
 
   // TODO: fix to scroll back to top for both layouts
   //
@@ -217,27 +226,9 @@ const Rawl: React.FC<{
       const rect = targetElement.getBoundingClientRect();
       const distance = e.clientX - rect.left + targetElement.scrollLeft;
       const time = xToSeconds(distance) + timeOffset;
-      if (selectedMeasure) {
-        advanceAnalysis(
-          null,
-          selectedMeasureRef.current,
-          setSelectedMeasure,
-          analysisRef.current,
-          commitAnalysisUpdate,
-          time,
-        );
-      } else {
-        seek(time * 1000);
-      }
+      seek(time * 1000);
     },
-    [
-      selectedMeasure,
-      selectedMeasureRef,
-      setSelectedMeasure,
-      analysisRef,
-      commitAnalysisUpdate,
-      seek,
-    ],
+    [seek],
   );
 
   const positionSeconds = positionMs / 1000;

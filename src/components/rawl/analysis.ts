@@ -1,3 +1,4 @@
+import { MeasuresAndBeats } from "./SystemLayout";
 import { Note } from "./parseMidi";
 
 export type PitchClass = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11;
@@ -16,17 +17,13 @@ export type Analysis = {
   tags: string[];
   form: { [key: number]: string };
   phrasePatch: { measure: number; diff: number }[];
+  timeShift: number;
 };
 
 type Tonic = {
   tonic: number; // will be extended to array for double-tonic regions
   span: MeasuresSpan;
 };
-
-// export type AnalysisV2 = {
-//   firstMeasureOffset: number;
-//   tonics: Tonic[];
-// };
 
 export const ANALYSIS_STUB: Analysis = {
   modulations: {},
@@ -35,14 +32,15 @@ export const ANALYSIS_STUB: Analysis = {
   tags: [],
   form: [],
   phrasePatch: [],
+  timeShift: 0,
 };
 
 export const getNewAnalysis = (
   note: Note | null,
   selectedMeasure: number | null,
   analysis: Analysis,
-  time: number = null,
   altKey: boolean = false,
+  measuresAndBeats: MeasuresAndBeats,
 ): Analysis => {
   let update: Partial<Analysis> = {};
 
@@ -56,7 +54,12 @@ export const getNewAnalysis = (
       }
     }
   } else {
-    update.tonic = (note.note.midiNumber % 12) as PitchClass;
+    if (altKey) {
+      debugger;
+      update.timeShift = note.span[0] - measuresAndBeats.measures[1];
+    } else {
+      update.tonic = (note.note.midiNumber % 12) as PitchClass;
+    }
   }
 
   return { ...analysis, ...update };
@@ -68,15 +71,15 @@ export const advanceAnalysis = (
   selectMeasure: (_: null) => void,
   analysis: Analysis,
   commitAnalysisUpdate: (analysisUpdate: Partial<Analysis>) => void,
-  time: number = null,
   altKey: boolean = false,
+  measuresAndBeats: MeasuresAndBeats,
 ) => {
   const newAnalysis = getNewAnalysis(
     note,
     selectedMeasure,
     analysis,
-    time,
     altKey,
+    measuresAndBeats,
   );
 
   selectMeasure(null);

@@ -5,21 +5,56 @@ import { Analysis } from "./analysis";
 
 const TAGS = [
   "rhythm:swing",
+  "rhythm:3+3+2",
 
   "modulation:parallel_keys",
+  "modulation:up_at_the_end",
+  "modulation:constrast",
+  "modulation:cyclic",
 
   "arrangement:counterpoint",
   "arrangement:developed_piano",
   "arrangement:piano_trio",
+  "arrangement:fills_at_rests",
+  "arrangement:ornamental_riff",
 
   "bass:diatonic_line",
   "bass:walking",
+  "bass:diatonic_approaches",
+  "bass:root",
+  "bass:simple",
+  "bass:riff",
 
   "applied:V/V",
+
+  "chord:ii7",
+  "chord:m7s",
+  "chord:V7",
+
+  "voice-leading:Vsus4",
+  "voice-leading:in_chords",
+
+  "stability:bVII-V",
+  "stability:bVI-bVII-I",
 
   "time:3/4",
 
   "style:jazz",
+  "style:reggae",
+
+  "functionality:shuttle",
+  "functionality:functional",
+  "functionality:progression",
+  "functionality:stasis",
+
+  "voicing:root",
+  "voicing:power_chords",
+  "voicing:triads",
+  "voicing:minor_sevenths",
+
+  "scale:dorian",
+  "scale:major",
+  "scale:natural_minor",
 ];
 
 const FORM_SECTIONS = ["intro", "verse", "chorus", "bridge", "outro", "solo"];
@@ -120,17 +155,20 @@ export const AnalysisBox: React.FC<{
         selectMeasure(null);
         return {
           phrasePatch:
-            analysis.phrasePatch.filter(
-              ({ measure }) => measure === selectedMeasure,
-            ).length === 0
+            analysis.phrasePatch.at(-1).measure +
+              analysis.phrasePatch.at(-1).diff ===
+            selectedMeasure
               ? [
+                  ...analysis.phrasePatch.slice(0, -1),
+                  {
+                    measure: analysis.phrasePatch.at(-1).measure,
+                    diff: analysis.phrasePatch.at(-1).diff + value,
+                  },
+                ]
+              : [
                   ...analysis.phrasePatch,
                   { measure: selectedMeasure, diff: value },
-                ]
-              : analysis.phrasePatch.map(({ measure, diff }) => ({
-                  measure,
-                  diff: measure === selectedMeasure ? value : diff,
-                })),
+                ],
         };
       },
     );

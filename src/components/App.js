@@ -946,6 +946,10 @@ class App extends React.Component {
                           );
                           console.log("BROWSE_PATH", browsePath);
 
+                          const searchParams = new URLSearchParams(
+                            window.location.search,
+                          );
+
                           this.browsePath = browsePath;
                           const path =
                             this.playContexts[browsePath] &&
@@ -982,26 +986,29 @@ class App extends React.Component {
                                   analyses={this.state.analyses}
                                   sequencer={this.sequencer}
                                 />
-                                {this.state.midiSource.notes && (
-                                  <Rawl
-                                    parsingResult={this.state.midiSource}
-                                    getCurrentPositionMs={
-                                      this.getCurrentPositionMs
-                                    }
-                                    savedAnalysis={savedAnalysis}
-                                    saveAnalysis={this.saveAnalysis}
-                                    voiceNames={this.state.voiceNames}
-                                    voiceMask={this.state.voiceMask}
-                                    setVoiceMask={this.handleSetVoiceMask}
-                                    showAnalysisBox={this.state.analysisEnabled}
-                                    seek={(time) =>
-                                      this.seekRelativeInner(time, true)
-                                    }
-                                    registerSeekCallback={(seekCallback) =>
-                                      this.setState({ seekCallback })
-                                    }
-                                  />
-                                )}
+                                {searchParams.get("song") &&
+                                  this.state.midiSource.notes && (
+                                    <Rawl
+                                      parsingResult={this.state.midiSource}
+                                      getCurrentPositionMs={
+                                        this.getCurrentPositionMs
+                                      }
+                                      savedAnalysis={savedAnalysis}
+                                      saveAnalysis={this.saveAnalysis}
+                                      voiceNames={this.state.voiceNames}
+                                      voiceMask={this.state.voiceMask}
+                                      setVoiceMask={this.handleSetVoiceMask}
+                                      showAnalysisBox={
+                                        this.state.analysisEnabled
+                                      }
+                                      seek={(time) =>
+                                        this.seekRelativeInner(time, true)
+                                      }
+                                      registerSeekCallback={(seekCallback) =>
+                                        this.setState({ seekCallback })
+                                      }
+                                    />
+                                  )}
                               </>
                             )
                           );

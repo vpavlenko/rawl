@@ -520,8 +520,30 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          },
+          {
+            "measure": 2,
+            "diff": 1
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
+        "tags": [
+          "style:reggae",
+          "bass:diatonic_line",
+          "chord:ii7",
+          "functionality:shuttle",
+          "modulation:constrast",
+          "scale:dorian",
+          "functionality:functional",
+          "stability:bVII-V",
+          "voicing:triads",
+          "arrangement:counterpoint",
+          "arrangement:fills_at_rests"
+        ],
         "modulations": {
           "59": 9,
           "65": 0
@@ -592,8 +614,29 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 4
+          },
+          {
+            "measure": 37,
+            "diff": 1
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
+        "tags": [
+          "voice-leading:Vsus4",
+          "chord:V7",
+          "functionality:functional",
+          "arrangement:ornamental_riff",
+          "bass:root",
+          "stability:bVI-bVII-I",
+          "modulation:up_at_the_end",
+          "voice-leading:in_chords",
+          "scale:major",
+          "voicing:minor_sevenths"
+        ],
         "modulations": {
           "78": 5
         },
@@ -1701,8 +1744,18 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
+        "tags": [
+          "functionality:shuttle",
+          "scale:dorian",
+          "voicing:root"
+        ],
         "modulations": {
           "138": 11
         },
@@ -1726,8 +1779,20 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 3
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
+        "tags": [
+          "functionality:shuttle",
+          "scale:dorian",
+          "voicing:power_chords",
+          "rhythm:3+3+2",
+          "bass:simple"
+        ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
           3
@@ -2311,8 +2376,20 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 4
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
+        "tags": [
+          "functionality:progression",
+          "scale:natural_minor",
+          "bass:root",
+          "bass:riff",
+          "functionality:stasis"
+        ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
           4
@@ -2806,11 +2883,33 @@
         "tags": [
           "bass:diatonic_line",
           "applied:V/V",
-          "time:3/4"
+          "time:3/4",
+          "modulation:up_at_the_end"
         ],
         "modulations": {
           "121": 4
         }
+      }
+    }
+  },
+  "MIDI/Tyner Mccoy": {
+    "Old Devil Moon.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 7,
+        "modulations": {},
+        "tags": [
+          "bass:walking",
+          "arrangement:piano_trio",
+          "style:jazz"
+        ]
       }
     }
   }

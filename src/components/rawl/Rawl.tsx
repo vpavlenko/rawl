@@ -202,42 +202,15 @@ const Rawl: React.FC<{
     };
   }, []);
 
-  // TODO: we should probably get rid of a tune timeline at some point.
-  // MuseScore somehow doesn't have it?
-
-  // TODO: fix to scroll back to top for both layouts
-  //
-  // useEffect(() => {
-  //   divRef.current.scrollLeft = 0;
-  // }, [midiSource]);
-
   const systemClickHandler = useCallback(
     (e: React.MouseEvent, timeOffset = 0) => {
       const targetElement = e.target as HTMLElement;
       const rect = targetElement.getBoundingClientRect();
       const distance = e.clientX - rect.left + targetElement.scrollLeft;
       const time = xToSeconds(distance) + timeOffset;
-      if (selectedMeasure) {
-        advanceAnalysis(
-          null,
-          selectedMeasureRef.current,
-          setSelectedMeasure,
-          analysisRef.current,
-          commitAnalysisUpdate,
-          time,
-        );
-      } else {
-        seek(time * 1000);
-      }
+      seek(time * 1000);
     },
-    [
-      selectedMeasure,
-      selectedMeasureRef,
-      setSelectedMeasure,
-      analysisRef,
-      commitAnalysisUpdate,
-      seek,
-    ],
+    [seek],
   );
 
   const positionSeconds = positionMs / 1000;

@@ -51,6 +51,7 @@ const TAGS = [
   "voicing:power_chords",
   "voicing:triads",
   "voicing:minor_sevenths",
+  "voicing:diatonic_sevenths",
 
   "scale:dorian",
   "scale:major",

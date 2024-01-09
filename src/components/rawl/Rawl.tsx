@@ -247,7 +247,6 @@ const Rawl: React.FC<{
       handleNoteClick,
       handleMouseEnter,
       handleMouseLeave,
-      // TODO: do we really need to pass hoveredNote?
       hoveredNote,
       hoveredAltKey,
       systemClickHandler,
@@ -278,8 +277,20 @@ const Rawl: React.FC<{
       measuresAndBeats,
       showVelocity,
       positionSeconds,
+      mouseHandlers,
+      measureSelection,
+      analysis: futureAnalysis,
     }),
-    [notes, voiceMask, measuresAndBeats, showVelocity, positionSeconds],
+    [
+      notes,
+      voiceMask,
+      measuresAndBeats,
+      showVelocity,
+      positionSeconds,
+      mouseHandlers,
+      measureSelection,
+      futureAnalysis,
+    ],
   );
 
   return (
@@ -306,9 +317,6 @@ const Rawl: React.FC<{
         {systemLayout === "merged" ? (
           <MergedSystemLayout
             {...commonParams}
-            mouseHandlers={mouseHandlers}
-            measureSelection={measureSelection}
-            futureAnalysis={futureAnalysis}
             measuresAndBeats={measuresAndBeats}
             registerSeekCallback={registerSeekCallback}
           />
@@ -316,9 +324,6 @@ const Rawl: React.FC<{
           <SplitSystemLayout
             {...commonParams}
             voiceNames={voiceNames}
-            mouseHandlers={mouseHandlers}
-            measureSelection={measureSelection}
-            analysis={futureAnalysis}
             setVoiceMask={setVoiceMask}
           />
         )}

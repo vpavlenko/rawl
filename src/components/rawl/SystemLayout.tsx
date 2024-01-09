@@ -164,54 +164,14 @@ const getMidiRangeWithMask = (
   return [min, max];
 };
 
-// This is used when tonic isn't set yet.
-// TODO: introduce 16 colors for all possible midi channels
-const VOICE_TO_COLOR = [
-  "#26577C",
-  "#AE445A",
-  "#63995a",
-  "#7c7126",
-  "#7c2676",
-  "#4e267c",
-];
-
-const getNoteColor = (
-  voiceIndex: number,
-  note: Note,
-  analysis,
-  measures: number[],
-): string => {
-  if (analysis.tonic === null) {
-    return VOICE_TO_COLOR[voiceIndex % VOICE_TO_COLOR.length];
-  }
-
-  return TWELVE_TONE_COLORS[
-    (note.note.midiNumber -
-      getTonic(getNoteMeasure(note, measures), analysis)) %
-      12
-  ];
-};
-
-const isCenterInsideSpan = (note: Note, span: SecondsSpan) => {
-  let center = (note.span[0] + note.span[1]) / 2;
-  return span[0] < center && center < span[1];
-};
-
-const getIntervalBelow = (note: Note, allNotes: Note[]) => {
-  let minDistance = Infinity;
-  for (let n of allNotes) {
-    if (
-      n.note.midiNumber < note.note.midiNumber &&
-      isCenterInsideSpan(note, n.span)
-    ) {
-      minDistance = Math.min(
-        minDistance,
-        note.note.midiNumber - n.note.midiNumber,
-      );
-    }
-  }
-  return minDistance;
-};
+const getNoteColor = (note: Note, analysis, measures: number[]): string =>
+  analysis.tonic === null
+    ? "white"
+    : TWELVE_TONE_COLORS[
+        (note.note.midiNumber -
+          getTonic(getNoteMeasure(note, measures), analysis)) %
+          12
+      ];
 
 export type MouseHandlers = {
   handleNoteClick: (note: Note, altKey: boolean) => void;
@@ -241,7 +201,7 @@ const getNoteRectangles = (
     const left = secondsToX(note.span[0] - offsetSeconds);
     const color = note.isDrum
       ? "white"
-      : getNoteColor(voiceIndex, note, analysis, measures);
+      : getNoteColor(note, analysis, measures);
     const chordNote = note.isDrum
       ? GM_DRUM_KIT[note.note.midiNumber] || note.note.midiNumber
       : null;
@@ -316,7 +276,7 @@ const getNoteRectangles = (
 export const MergedSystemLayout = ({
   voiceMask,
   positionSeconds,
-  futureAnalysis,
+  analysis,
   notes,
   measuresAndBeats,
   measureSelection,
@@ -372,7 +332,7 @@ export const MergedSystemLayout = ({
           voice,
           i,
           voiceMask[i],
-          futureAnalysis,
+          analysis,
           midiNumberToY,
           noteHeight,
           handleNoteClick,
@@ -385,7 +345,7 @@ export const MergedSystemLayout = ({
       ),
     [
       notes,
-      futureAnalysis,
+      analysis,
       measuresAndBeats,
       noteHeight,
       voiceMask,
@@ -395,8 +355,8 @@ export const MergedSystemLayout = ({
     ],
   );
   const phraseStarts = useMemo(
-    () => getPhraseStarts(futureAnalysis, measuresAndBeats.measures.length),
-    [futureAnalysis, measuresAndBeats],
+    () => getPhraseStarts(analysis, measuresAndBeats.measures.length),
+    [analysis, measuresAndBeats],
   );
 
   return (
@@ -418,7 +378,7 @@ export const MergedSystemLayout = ({
       {noteRectangles}
       <Cursor style={{ left: secondsToX(positionSeconds) }} />
       <AnalysisGrid
-        analysis={futureAnalysis}
+        analysis={analysis}
         measuresAndBeats={measuresAndBeats}
         midiNumberToY={midiNumberToY}
         noteHeight={noteHeight}
@@ -523,7 +483,7 @@ const Voice: React.FC<
     [notes, voiceMask, scrollLeft, scrollRight],
   );
 
-  const { systemClickHandler } = mouseHandlers;
+  const { systemClickHandler, handleNoteClick } = mouseHandlers;
 
   const height =
     (midiRange[0] === +Infinity ? 1 : midiRange[1] - midiRange[0] + 1) *
@@ -551,7 +511,7 @@ const Voice: React.FC<
           analysis,
           midiNumberToY,
           SPLIT_NOTE_HEIGHT,
-          () => {},
+          handleNoteClick,
           globalMeasures,
           () => {},
           () => {},

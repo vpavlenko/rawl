@@ -335,8 +335,8 @@ body,
 }
 
 .AppHeader {
-    padding: var(--charH) var(--charW2);
-    margin: 0 var(--charW2neg);
+    padding: 0;
+    margin: 0 0;
     flex-grow: 0;
 }
 
@@ -385,7 +385,7 @@ body,
     display: flex;
     flex-direction: column;
     min-width: 0;
-    padding: var(--charH) var(--charW2);
+    padding: 15px 0px;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     border-right: 1px solid var(--clickable);
@@ -662,8 +662,8 @@ body,
 
 .Visualizer-toggle {
     position: fixed;
-    top: var(--charH);
-    right: var(--charW2);
+    top: 0;
+    right: 0;
 }
 
 .Visualizer-analyzer {

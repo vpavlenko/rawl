@@ -12,6 +12,8 @@ const TAGS = [
   "modulation:parallel_keys",
   "modulation:up_at_the_end",
   "modulation:contrast",
+  "modulation:relative_major",
+  "modulation:often",
 
   "arrangement:counterpoint",
   "arrangement:developed_piano",
@@ -27,10 +29,15 @@ const TAGS = [
   "bass:simple",
   "bass:riff",
   "bass:root_fifth",
+  "bass:root_third_fifth",
+  "bass:melody",
+  "bass:developed",
 
   "applied:V/V",
   "applied:V/vi",
   "applied:V/iv",
+  "applied:V7/IV",
+  "applied:V/ii",
 
   "chord:ii7",
   "chord:m7s",
@@ -46,6 +53,9 @@ const TAGS = [
   "chord:iv_in_major",
   "chord:io7",
   "chord:bVI_in_major",
+  "chord:Iadd6",
+  "chord:bII",
+  "chord:IVadd9",
 
   "voice-leading:Vsus4",
   "voice-leading:in_chords",
@@ -56,9 +66,12 @@ const TAGS = [
 
   "chunks:V-IV",
   "chunks:V-vi_deceptive",
+  "chunks:i-VII-VI-V",
+  "chunks:circle_of_fifths",
 
   "stability:bVII-V",
   "stability:bVI-bVII-I",
+  "stability:bIII",
 
   "time:3/4",
 
@@ -66,11 +79,13 @@ const TAGS = [
   "style:reggae",
   "style:latin",
   "style:hip-hop_no_vocal",
+  "style:boogie",
 
   "functionality:shuttle",
   "functionality:functional",
   "functionality:progression",
   "functionality:stasis",
+  "functionality:drone",
 
   "harmony:pure_I-IV-V",
 
@@ -81,11 +96,13 @@ const TAGS = [
   "voicing:diatonic_sevenths",
   "voicing:transposed_riff",
   "voicing:alterations",
+  "voicing:blues",
 
   "scale:dorian",
   "scale:major",
   "scale:natural_minor",
   "scale:minor",
+  "scale:pentatonics",
   "scale:transposed_pentatonics",
   "scale:blues",
 
@@ -98,11 +115,21 @@ const TAGS = [
   "issues:merge_voices",
   "issues:mute_voices",
   "issues:manual_remeasuring_needed",
+  "issues:R=1/2N",
 
   "form:development_through_instrumentation",
   "form:solo_piano_intro",
+  "form:jazz_solo",
+  "form:rock_solo",
+  "form:drum_solo",
+  "form:period",
 
   "melody:non-transposed_riff",
+  "melody:in_thirds",
+
+  "percussion:tonal",
+
+  "texture:arpeggio",
 ];
 
 const FORM_SECTIONS = ["intro", "verse", "chorus", "bridge", "outro", "solo"];

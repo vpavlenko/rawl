@@ -141,8 +141,24 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          },
+          {
+            "measure": 18,
+            "diff": 2
+          },
+          {
+            "measure": 28,
+            "diff": 2
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
+        "tags": [
+          "stability:bIII"
+        ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
           2
@@ -661,8 +677,19 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
+        "tags": [
+          "voicing:power_chords",
+          "functionality:progression",
+          "voicing:root",
+          "scale:major"
+        ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
           3
@@ -672,7 +699,7 @@
         "loop": null,
         "firstMeasure": null,
         "step": "tonic",
-        "comment": "",
+        "comment": "Вирус - \"Ну где же ваши ручки?\"",
         "correctedMeasures": [],
         "tonic": 6,
         "basedOn": null
@@ -684,8 +711,32 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          },
+          {
+            "measure": 18,
+            "diff": 2
+          },
+          {
+            "measure": 68,
+            "diff": 2
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
+        "tags": [
+          "form:solo_piano_intro",
+          "bass:diatonic_line",
+          "voicing:diatonic_sevenths",
+          "chord:IVadd9",
+          "voice-leading:chromatic",
+          "applied:V/ii",
+          "chord:Vsus4",
+          "voicing:alterations",
+          "functionality:functional"
+        ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
           2
@@ -967,25 +1018,51 @@
     }
   },
   "MIDI/Vega": {
-    "Tom's Diner (reprise).mid": {
+    "Tom's Diner (reprise).2.mid": {
       "0": {
-        "beatsPerMeasure": 4,
-        "disableSnapToNotes": false,
-        "romanNumerals": "",
-        "tags": [],
-        "modulations": {},
-        "fourMeasurePhrasingReferences": [
-          3
-        ],
         "form": [],
-        "secondMeasure": null,
-        "loop": null,
-        "firstMeasure": null,
-        "step": "end",
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 17,
+            "diff": 1
+          },
+          {
+            "measure": 26,
+            "diff": 1
+          },
+          {
+            "measure": 35,
+            "diff": 1
+          },
+          {
+            "measure": 44,
+            "diff": 1
+          },
+          {
+            "measure": 69,
+            "diff": -2
+          },
+          {
+            "measure": 75,
+            "diff": 1
+          }
+        ],
         "comment": "",
-        "correctedMeasures": [],
-        "tonic": 9,
-        "basedOn": null
+        "tonic": 0,
+        "modulations": {},
+        "tags": [
+          "voicing:alterations",
+          "scale:minor",
+          "chord:bII",
+          "bass:diatonic_approaches",
+          "form:jazz_solo",
+          "rhythm:swing",
+          "form:drum_solo"
+        ]
       }
     }
   },
@@ -1381,6 +1458,12 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 4
+          }
+        ],
         "romanNumerals": "",
         "tags": [],
         "modulations": {
@@ -1394,7 +1477,7 @@
         "loop": null,
         "firstMeasure": null,
         "step": "end",
-        "comment": "",
+        "comment": "based on: Mozart Clarinet Concerto in A major K 622, part 2 Adagio",
         "correctedMeasures": [],
         "tonic": 3,
         "basedOn": null
@@ -1406,8 +1489,20 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
+        "tags": [
+          "style:boogie",
+          "rhythm:swing",
+          "voicing:transposed_riff",
+          "chord:Iadd6",
+          "scale:blues"
+        ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
           3
@@ -1551,8 +1646,36 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          },
+          {
+            "measure": 23,
+            "diff": -2
+          },
+          {
+            "measure": 45,
+            "diff": -2
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
+        "tags": [
+          "form:solo_piano_intro",
+          "voicing:alterations",
+          "texture:arpeggio",
+          "chord:Picardy_third",
+          "chunks:circle_of_fifths",
+          "chord:bII",
+          "bass:diatonic_line",
+          "modulation:contrast",
+          "melody:in_thirds",
+          "modulation:often",
+          "issues:R=1/2N",
+          "voice-leading:chromatic",
+          "issues:manual_remeasuring_needed"
+        ],
         "modulations": {
           "7": 7,
           "11": 4,
@@ -1579,7 +1702,7 @@
         "loop": null,
         "firstMeasure": null,
         "step": "end",
-        "comment": "constantly modulates",
+        "comment": "m.23 b.3 which chord?",
         "correctedMeasures": {
           "7": 6.36
         },
@@ -1735,8 +1858,29 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          },
+          {
+            "measure": 15,
+            "diff": -2
+          },
+          {
+            "measure": 73,
+            "diff": -1
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
+        "tags": [
+          "stability:bIII",
+          "scale:major",
+          "bass:developed",
+          "functionality:progression",
+          "voicing:triads",
+          "scale:pentatonics"
+        ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
           3
@@ -1946,8 +2090,26 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 4
+          },
+          {
+            "measure": 45,
+            "diff": -2
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
+        "tags": [
+          "chunks:i-VII-VI-V",
+          "voicing:triads",
+          "scale:minor",
+          "modulation:relative_major",
+          "chord:V7",
+          "voice-leading:entire_scale",
+          "bass:root"
+        ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
           5
@@ -2212,7 +2374,11 @@
         "romanNumerals": "",
         "tags": [
           "style:latin",
-          "voice-leading:triple_chromatic_up"
+          "voice-leading:triple_chromatic_up",
+          "applied:V7/IV",
+          "chord:V7",
+          "voicing:blues",
+          "chord:Iadd6"
         ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
@@ -2327,9 +2493,31 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 61,
+            "diff": 2
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
-        "modulations": {},
+        "tags": [
+          "scale:natural_minor",
+          "modulation:relative_major",
+          "functionality:progression",
+          "functionality:drone"
+        ],
+        "modulations": {
+          "25": 6,
+          "33": 3,
+          "45": 6,
+          "53": 3,
+          "71": 6,
+          "87": 3
+        },
         "fourMeasurePhrasingReferences": [
           1
         ],
@@ -2350,8 +2538,36 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 29,
+            "diff": 2
+          },
+          {
+            "measure": 35,
+            "diff": 2
+          },
+          {
+            "measure": 93,
+            "diff": -2
+          },
+          {
+            "measure": 107,
+            "diff": 2
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
+        "tags": [
+          "functionality:progression",
+          "melody:non-transposed_riff",
+          "bass:diatonic_line",
+          "voicing:alterations",
+          "scale:major"
+        ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
           1
@@ -2531,9 +2747,30 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
-        "modulations": {},
+        "tags": [
+          "voice-leading:chromatic",
+          "functionality:drone",
+          "arrangement:ornamental_riff",
+          "functionality:shuttle",
+          "bass:diatonic_line",
+          "voicing:triads",
+          "scale:major"
+        ],
+        "modulations": {
+          "13": 0,
+          "20": 7,
+          "29": 0,
+          "36": 7,
+          "41": 2,
+          "49": 7
+        },
         "fourMeasurePhrasingReferences": [
           1
         ],
@@ -2941,29 +3178,6 @@
       }
     }
   },
-  "MIDI/Vera Lynn": {
-    "Land of Hope and Glory.mid": {
-      "0": {
-        "beatsPerMeasure": 4,
-        "disableSnapToNotes": false,
-        "romanNumerals": "",
-        "tags": [],
-        "modulations": {},
-        "fourMeasurePhrasingReferences": [
-          1
-        ],
-        "form": [],
-        "secondMeasure": null,
-        "loop": null,
-        "firstMeasure": null,
-        "step": "tonic",
-        "comment": "",
-        "correctedMeasures": [],
-        "tonic": 3,
-        "basedOn": null
-      }
-    }
-  },
   "MIDI/Warren": {
     "The More I See You.mid": {
       "0": {
@@ -3349,6 +3563,36 @@
           "modulation:up_at_the_end",
           "chord:io7",
           "chord:bVI_in_major"
+        ]
+      }
+    }
+  },
+  "MIDI/T. Rex": {
+    "Get It On (Bang a Gong).1.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          },
+          {
+            "measure": 35,
+            "diff": -2
+          },
+          {
+            "measure": 57,
+            "diff": -2
+          }
+        ],
+        "comment": "",
+        "tonic": 4,
+        "modulations": {},
+        "tags": [
+          "functionality:shuttle",
+          "stability:bIII",
+          "bass:developed",
+          "voicing:triads"
         ]
       }
     }

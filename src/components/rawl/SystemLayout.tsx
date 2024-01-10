@@ -103,7 +103,7 @@ const GM_DRUM_KIT = {
   51: "🚗", //"Ride Cymbal 1",
   52: "🇨🇳", //"Chinese Cymbal",
   53: "🛎️", //"Ride Bell",
-  54: "🔔", //"Tambourine",
+  54: "⏰", //"Tambourine",
   55: "💦", //"Splash Cymbal",
   56: "🐄",
   57: "🔥", //"Crash Cymbal 2",

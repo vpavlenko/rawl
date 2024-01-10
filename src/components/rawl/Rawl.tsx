@@ -315,8 +315,8 @@ const Rawl: React.FC<{
       <div
         style={{
           position: "fixed",
-          top: "50px",
-          right: "15px",
+          top: "0px",
+          right: "500px",
           zIndex: "100",
         }}
       >

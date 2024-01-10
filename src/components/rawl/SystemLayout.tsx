@@ -414,11 +414,12 @@ const VoiceName: React.FC<{
           fontFamily: "sans-serif",
           fontSize: 12,
         }}
-        onClick={() =>
+        onClick={(e) => {
+          e.stopPropagation();
           voiceMask.filter((voice) => voice).length === 1
             ? setVoiceMask(voiceMask.map(() => true))
-            : setVoiceMask(voiceMask.map((_, i) => i === voiceIndex))
-        }
+            : setVoiceMask(voiceMask.map((_, i) => i === voiceIndex));
+        }}
       >
         S
       </span>{" "}
@@ -429,11 +430,12 @@ const VoiceName: React.FC<{
           fontFamily: "sans-serif",
           fontSize: 12,
         }}
-        onClick={() =>
+        onClick={(e) => {
+          e.stopPropagation();
           setVoiceMask(
             voiceMask.map((value, i) => (i !== voiceIndex ? value : false)),
-          )
-        }
+          );
+        }}
       >
         M
       </span>{" "}

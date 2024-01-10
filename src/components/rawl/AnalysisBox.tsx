@@ -29,6 +29,8 @@ const TAGS = [
   "bass:root_fifth",
 
   "applied:V/V",
+  "applied:V/vi",
+  "applied:V/iv",
 
   "chord:ii7",
   "chord:m7s",
@@ -38,12 +40,22 @@ const TAGS = [
   "chord:I_in_minor",
   "chord:Vsus4",
   "chord:Cad64",
+  "chord:Picardy_third",
+  "chord:i7",
+  "chord:iadd6",
+  "chord:iv_in_major",
+  "chord:io7",
+  "chord:bVI_in_major",
 
   "voice-leading:Vsus4",
   "voice-leading:in_chords",
   "voice-leading:chromatic",
+  "voice-leading:entire_scale",
+  "voice-leading:pedal",
+  "voice-leading:triple_chromatic_up",
 
   "chunks:V-IV",
+  "chunks:V-vi_deceptive",
 
   "stability:bVII-V",
   "stability:bVI-bVII-I",
@@ -53,6 +65,7 @@ const TAGS = [
   "style:jazz",
   "style:reggae",
   "style:latin",
+  "style:hip-hop_no_vocal",
 
   "functionality:shuttle",
   "functionality:functional",
@@ -72,15 +85,24 @@ const TAGS = [
   "scale:dorian",
   "scale:major",
   "scale:natural_minor",
+  "scale:minor",
   "scale:transposed_pentatonics",
+  "scale:blues",
 
   "tempo:accelerando",
   "tempo:ritardando",
 
   "dominant:IV",
+  "dominant:very_dissonant",
 
   "issues:merge_voices",
+  "issues:mute_voices",
   "issues:manual_remeasuring_needed",
+
+  "form:development_through_instrumentation",
+  "form:solo_piano_intro",
+
+  "melody:non-transposed_riff",
 ];
 
 const FORM_SECTIONS = ["intro", "verse", "chorus", "bridge", "outro", "solo"];

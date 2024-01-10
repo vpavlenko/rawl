@@ -81,6 +81,7 @@ export type SystemLayout = "merged" | "split";
 
 export type MidiRange = [number, number];
 
+// https://www.stevenestrella.com/midi/gmdrums.gif
 const GM_DRUM_KIT = {
   31: "🕒", //"Metronome Click",
   35: "🦵", //"Acoustic Bass Drum",

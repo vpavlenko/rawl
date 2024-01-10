@@ -210,8 +210,21 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 3
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
+        "tags": [
+          "rhythm:swing",
+          "dominant:very_dissonant",
+          "chord:iadd6",
+          "scale:blues",
+          "modulation:up_at_the_end",
+          "voice-leading:triple_chromatic_up"
+        ],
         "modulations": {
           "60": 10,
           "80": 0
@@ -487,8 +500,27 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          },
+          {
+            "measure": 50,
+            "diff": 2
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
+        "tags": [
+          "applied:V/V",
+          "voicing:triads",
+          "voice-leading:entire_scale",
+          "melody:non-transposed_riff",
+          "scale:major",
+          "functionality:functional",
+          "bass:diatonic_line",
+          "form:solo_piano_intro"
+        ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
           2
@@ -1025,14 +1057,37 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          },
+          {
+            "measure": 26,
+            "diff": -2
+          },
+          {
+            "measure": 52,
+            "diff": -2
+          },
+          {
+            "measure": 86,
+            "diff": -2
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
+        "tags": [
+          "applied:V/iv",
+          "modulation:contrast",
+          "chord:i7",
+          "scale:natural_minor"
+        ],
         "modulations": {
-          "36": 5,
-          "43": 11,
+          "36": 0,
+          "44": 11,
           "48": 4,
           "62": 5,
-          "69": 11,
+          "70": 11,
           "74": 4
         },
         "fourMeasurePhrasingReferences": [
@@ -1615,13 +1670,26 @@
           {
             "measure": 38,
             "diff": -1
+          },
+          {
+            "measure": 65,
+            "diff": -2
+          },
+          {
+            "measure": 67,
+            "diff": 1
           }
         ],
         "romanNumerals": "",
         "tags": [
           "functionality:functional",
           "scale:major",
-          "bass:diatonic_line"
+          "bass:diatonic_line",
+          "voicing:alterations",
+          "applied:V/vi",
+          "chunks:V-vi_deceptive",
+          "voice-leading:Vsus4",
+          "stability:bVII-V"
         ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
@@ -2135,8 +2203,17 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
+        "tags": [
+          "style:latin",
+          "voice-leading:triple_chromatic_up"
+        ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
           3
@@ -2202,25 +2279,23 @@
     }
   },
   "MIDI/Vanilla Ice": {
-    "Ice Ice Baby.mid": {
+    "Ice Ice Baby.1.mid": {
       "0": {
-        "beatsPerMeasure": 4,
-        "disableSnapToNotes": false,
-        "romanNumerals": "",
-        "tags": [],
-        "modulations": {},
-        "fourMeasurePhrasingReferences": [
-          6
-        ],
         "form": [],
-        "secondMeasure": null,
-        "loop": null,
-        "firstMeasure": null,
-        "step": "tonic",
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          }
+        ],
         "comment": "",
-        "correctedMeasures": [],
         "tonic": 2,
-        "basedOn": null
+        "tags": [
+          "style:hip-hop_no_vocal",
+          "scale:natural_minor",
+          "functionality:shuttle"
+        ],
+        "modulations": {}
       }
     }
   },
@@ -2527,8 +2602,39 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          },
+          {
+            "measure": 19,
+            "diff": 1
+          },
+          {
+            "measure": 36,
+            "diff": 1
+          },
+          {
+            "measure": 45,
+            "diff": 1
+          },
+          {
+            "measure": 78,
+            "diff": 1
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
+        "tags": [
+          "issues:mute_voices",
+          "chord:I_in_minor",
+          "functionality:functional",
+          "form:development_through_instrumentation",
+          "modulation:parallel_keys",
+          "voicing:triads",
+          "chord:Picardy_third",
+          "bass:root"
+        ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
           4
@@ -3202,6 +3308,47 @@
         "tags": [
           "scale:major",
           "voicing:triads"
+        ]
+      }
+    }
+  },
+  "MIDI/T-Square": {
+    "all_about_you.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 3
+          },
+          {
+            "measure": 28,
+            "diff": 2
+          }
+        ],
+        "comment": "",
+        "tonic": 4,
+        "modulations": {
+          "24": 9,
+          "28": 4,
+          "38": 4,
+          "58": 9,
+          "82": 4,
+          "94": 5,
+          "120": 4
+        },
+        "tags": [
+          "chord:iv_in_major",
+          "voice-leading:pedal",
+          "scale:major",
+          "chunks:V-IV",
+          "rhythm:syncopation",
+          "chord:Vsus4",
+          "voice-leading:chromatic",
+          "scale:dorian",
+          "modulation:up_at_the_end",
+          "chord:io7",
+          "chord:bVI_in_major"
         ]
       }
     }

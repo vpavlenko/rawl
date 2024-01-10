@@ -18,15 +18,21 @@ export type MeasuresAndBeats = {
   beats: number[];
 };
 
-const getPhraseStarts = (analysis: Analysis, numMeasures: number): number[] => {
+export const getPhraseStarts = (
+  analysis: Analysis,
+  numMeasures: number,
+): number[] => {
   const result = [];
   let i;
   for (i = 1; i < numMeasures; i += 4) {
     result.push(i);
   }
   result.push(i);
-
   for (const { measure, diff } of analysis.phrasePatch || []) {
+    if (result.indexOf(measure) === -1) {
+      alert(`bad phrasePatch, measure ${measure} not found`);
+      break;
+    }
     for (let j = result.indexOf(measure); j < result.length; ++j) {
       result[j] += diff;
     }

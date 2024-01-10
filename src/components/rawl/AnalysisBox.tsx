@@ -1,11 +1,13 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 import Select from "react-select";
+import { getPhraseStarts } from "./SystemLayout";
 import { Analysis } from "./analysis";
 
 const TAGS = [
   "rhythm:swing",
   "rhythm:3+3+2",
+  "rhythm:syncopation",
 
   "modulation:parallel_keys",
   "modulation:up_at_the_end",
@@ -14,6 +16,7 @@ const TAGS = [
   "arrangement:counterpoint",
   "arrangement:developed_piano",
   "arrangement:piano_trio",
+  "arrangement:guitar_trio",
   "arrangement:fills_at_rests",
   "arrangement:ornamental_riff",
 
@@ -23,6 +26,7 @@ const TAGS = [
   "bass:root",
   "bass:simple",
   "bass:riff",
+  "bass:root_fifth",
 
   "applied:V/V",
 
@@ -32,9 +36,12 @@ const TAGS = [
   "chord:viio",
   "chord:bVII", // in major
   "chord:I_in_minor",
+  "chord:Vsus4",
+  "chord:Cad64",
 
   "voice-leading:Vsus4",
   "voice-leading:in_chords",
+  "voice-leading:chromatic",
 
   "chunks:V-IV",
 
@@ -45,11 +52,14 @@ const TAGS = [
 
   "style:jazz",
   "style:reggae",
+  "style:latin",
 
   "functionality:shuttle",
   "functionality:functional",
   "functionality:progression",
   "functionality:stasis",
+
+  "harmony:pure_I-IV-V",
 
   "voicing:root",
   "voicing:power_chords",
@@ -68,6 +78,9 @@ const TAGS = [
   "tempo:ritardando",
 
   "dominant:IV",
+
+  "issues:merge_voices",
+  "issues:manual_remeasuring_needed",
 ];
 
 const FORM_SECTIONS = ["intro", "verse", "chorus", "bridge", "outro", "solo"];
@@ -164,7 +177,6 @@ export const AnalysisBox: React.FC<{
       "20%",
       (analysis, stringValue) => {
         const value = parseInt(stringValue, 10);
-        debugger;
         selectMeasure(null);
         return {
           phrasePatch:
@@ -193,10 +205,13 @@ export const AnalysisBox: React.FC<{
             <div>What to do with measure {selectedMeasure}?</div>
             <ul className="vertical-list-of-buttons">
               <li>Enter modulation: alt+click on a new tonic</li>
-              <li>
-                Move phrase start
-                {movePhraseStart}
-              </li>
+              {getPhraseStarts(analysis, 400).indexOf(selectedMeasure) !==
+                -1 && (
+                <li>
+                  Move phrase start
+                  {movePhraseStart}
+                </li>
+              )}
               <li>
                 {formSection}
                 <div>

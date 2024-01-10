@@ -4,8 +4,22 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 5,
+            "diff": 1
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
+        "tags": [
+          "voicing:diatonic_sevenths",
+          "functionality:progression",
+          "bass:root"
+        ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
           1
@@ -25,8 +39,18 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
+        "tags": [
+          "functionality:progression",
+          "voicing:diatonic_sevenths",
+          "bass:root"
+        ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
           3
@@ -235,8 +259,30 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          },
+          {
+            "measure": 43,
+            "diff": 2
+          },
+          {
+            "measure": 53,
+            "diff": 1
+          },
+          {
+            "measure": 94,
+            "diff": 2
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
+        "tags": [
+          "chord:Vsus4",
+          "voicing:alterations",
+          "modulation:parallel_keys"
+        ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
           3
@@ -790,6 +836,12 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          }
+        ],
         "romanNumerals": "",
         "tags": [],
         "modulations": {
@@ -1097,8 +1149,24 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 5,
+            "diff": -2
+          },
+          {
+            "measure": 7,
+            "diff": -1
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
+        "tags": [
+          "issues:manual_remeasuring_needed"
+        ],
         "modulations": {
           "37": 0,
           "52": 9
@@ -1223,8 +1291,20 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 4
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
+        "tags": [
+          "voice-leading:chromatic",
+          "chord:Cad64",
+          "functionality:functional",
+          "scale:major",
+          "bass:root_fifth"
+        ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
           5
@@ -1319,8 +1399,25 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 3
+          },
+          {
+            "measure": 12,
+            "diff": 2
+          },
+          {
+            "measure": 21,
+            "diff": -1
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
+        "tags": [
+          "style:jazz",
+          "arrangement:guitar_trio"
+        ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
           2
@@ -1510,8 +1607,22 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          },
+          {
+            "measure": 38,
+            "diff": -1
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
+        "tags": [
+          "functionality:functional",
+          "scale:major",
+          "bass:diatonic_line"
+        ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
           2
@@ -1694,8 +1805,28 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          },
+          {
+            "measure": 23,
+            "diff": -2
+          },
+          {
+            "measure": 37,
+            "diff": -2
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
+        "tags": [
+          "functionality:progression",
+          "style:latin",
+          "harmony:pure_I-IV-V",
+          "rhythm:syncopation",
+          "issues:merge_voices"
+        ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
           3
@@ -2895,8 +3026,31 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 5,
+            "diff": -3
+          },
+          {
+            "measure": 58,
+            "diff": 2
+          },
+          {
+            "measure": 100,
+            "diff": 2
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
+        "tags": [
+          "scale:major",
+          "voicing:triads",
+          "bass:diatonic_approaches",
+          "arrangement:counterpoint"
+        ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
           2
@@ -3028,6 +3182,26 @@
           "bass:walking",
           "arrangement:piano_trio",
           "style:jazz"
+        ]
+      }
+    }
+  },
+  "MIDI/The Beatles": {
+    "Misery.2.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          }
+        ],
+        "comment": "",
+        "tonic": 0,
+        "modulations": {},
+        "tags": [
+          "scale:major",
+          "voicing:triads"
         ]
       }
     }

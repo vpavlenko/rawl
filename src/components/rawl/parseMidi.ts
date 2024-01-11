@@ -40,7 +40,7 @@ const getNotes = (events, channel): Note[] => {
       }
       if (event.subtype === 8) {
         if (midiNumber in noteOn) {
-          if (event.playTime / 1000 > noteOn[midiNumber].playTime / 1000) {
+          if (event.playTime / 1000 >= noteOn[midiNumber].playTime / 1000) {
             notes.push({
               note: {
                 midiNumber,

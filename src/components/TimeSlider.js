@@ -78,13 +78,15 @@ export default class TimeSlider extends React.Component {
   render() {
     return (
       <div className="TimeSlider">
-        <span>{this.getTimeLabel()}</span>
+        <span style={{ marginRight: "15px" }}>{this.getTimeLabel()}</span>
         <Slider
           pos={this.getSongPos()}
           onDrag={this.handlePositionDrag}
           onChange={this.handlePositionDrop}
         />
-        <span>{this.getTime(this.props.currentSongDurationMs)}</span>
+        <span style={{ marginLeft: "20px" }}>
+          {this.getTime(this.props.currentSongDurationMs)}
+        </span>
       </div>
     );
   }

@@ -4,7 +4,7 @@ export default memo(VolumeSlider);
 function VolumeSlider(props) {
   return (
     <div className="VolumeSlider">
-      Vol
+      <snap style={{ marginRight: "10px" }}>Vol</snap>
       <input
         type="range"
         title={"Volume"}

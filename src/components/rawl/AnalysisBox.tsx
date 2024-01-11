@@ -8,6 +8,7 @@ const TAGS = [
   "rhythm:swing",
   "rhythm:3+3+2",
   "rhythm:syncopation",
+  "rhythm:triplet",
 
   "modulation:parallel_keys",
   "modulation:up_at_the_end",
@@ -21,6 +22,7 @@ const TAGS = [
   "arrangement:guitar_trio",
   "arrangement:fills_at_rests",
   "arrangement:ornamental_riff",
+  "arrangement:no_chords",
 
   "bass:diatonic_line",
   "bass:walking",
@@ -28,6 +30,7 @@ const TAGS = [
   "bass:root",
   "bass:simple",
   "bass:riff",
+  "bass:transposed_riff",
   "bass:root_fifth",
   "bass:root_third_fifth",
   "bass:melody",
@@ -38,6 +41,9 @@ const TAGS = [
   "applied:V/iv",
   "applied:V7/IV",
   "applied:V/ii",
+  "applied:V/iii",
+
+  "inversion:IV64",
 
   "chord:ii7",
   "chord:m7s",
@@ -56,6 +62,7 @@ const TAGS = [
   "chord:Iadd6",
   "chord:bII",
   "chord:IVadd9",
+  "chord:V+",
 
   "voice-leading:Vsus4",
   "voice-leading:in_chords",
@@ -63,11 +70,14 @@ const TAGS = [
   "voice-leading:entire_scale",
   "voice-leading:pedal",
   "voice-leading:triple_chromatic_up",
+  "voice-leading:triple_chromatic_down",
+  "voice-leading:triple_diatonic",
 
   "chunks:V-IV",
   "chunks:V-vi_deceptive",
   "chunks:i-VII-VI-V",
   "chunks:circle_of_fifths",
+  "chunks:bVII-IV-I",
 
   "stability:bVII-V",
   "stability:bVI-bVII-I",
@@ -79,13 +89,17 @@ const TAGS = [
   "style:reggae",
   "style:latin",
   "style:hip-hop_no_vocal",
+  "style:hip-hop",
   "style:boogie",
+  "style:blues",
+  "style:stride",
 
   "functionality:shuttle",
   "functionality:functional",
   "functionality:progression",
   "functionality:stasis",
   "functionality:drone",
+  "functionality:riff",
 
   "harmony:pure_I-IV-V",
 
@@ -105,6 +119,7 @@ const TAGS = [
   "scale:pentatonics",
   "scale:transposed_pentatonics",
   "scale:blues",
+  "scale:mixolydian",
 
   "tempo:accelerando",
   "tempo:ritardando",
@@ -123,6 +138,8 @@ const TAGS = [
   "form:rock_solo",
   "form:drum_solo",
   "form:period",
+  "form:AABA",
+  "form:solo_piano",
 
   "melody:non-transposed_riff",
   "melody:in_thirds",
@@ -130,6 +147,10 @@ const TAGS = [
   "percussion:tonal",
 
   "texture:arpeggio",
+
+  "genre:rockabilly",
+
+  "harmony:ambiguous_tonic",
 ];
 
 const FORM_SECTIONS = ["intro", "verse", "chorus", "bridge", "outro", "solo"];
@@ -157,6 +178,7 @@ export const AnalysisBox: React.FC<{
         analysis: Analysis,
         value: string,
       ) => Partial<Analysis> = null,
+      autofocus: boolean = false,
     ) => {
       const [value, setValue] = useState(initialValue.toString());
       const [isSaved, setIsSaved] = useState(false);
@@ -201,6 +223,7 @@ export const AnalysisBox: React.FC<{
             }}
             onChange={(e) => setValue(e.target.value)}
             onKeyDown={handleKeyDown}
+            autoFocus={autofocus}
           />
         </div>
       );
@@ -245,6 +268,7 @@ export const AnalysisBox: React.FC<{
                 ],
         };
       },
+      true,
     );
 
     return (

@@ -302,7 +302,7 @@ const Rawl: React.FC<{
         )}
       </div>
       {showAnalysisBox && (
-        <div style={{ width: "400px", height: "100%" }}>
+        <div style={{ width: "350px", height: "100%" }}>
           <AnalysisBox
             analysis={analysis}
             commitAnalysisUpdate={commitAnalysisUpdate}

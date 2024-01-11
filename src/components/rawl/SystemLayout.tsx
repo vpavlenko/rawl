@@ -36,6 +36,9 @@ export const getPhraseStarts = (
     for (let j = result.indexOf(measure); j < result.length; ++j) {
       result[j] += diff;
     }
+    while (result.at(-1) + 4 < numMeasures) {
+      result.push(result.at(-1) + 4);
+    }
   }
 
   return result;

@@ -174,7 +174,7 @@ class App extends React.Component {
           Math.log2((audioCtx.baseLatency || 0.001) * audioCtx.sampleRate),
         ),
       ),
-      2048,
+      2048, // can set to 16384, but the cursor will lag
     );
     const gainNode = (this.gainNode = audioCtx.createGain());
     gainNode.gain.value = 1;

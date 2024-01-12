@@ -15,6 +15,7 @@ const TAGS = [
   "modulation:contrast",
   "modulation:relative_major",
   "modulation:often",
+  "modulation:back_down",
 
   "arrangement:counterpoint",
   "arrangement:developed_piano",
@@ -42,6 +43,7 @@ const TAGS = [
   "applied:V7/IV",
   "applied:V/ii",
   "applied:V/iii",
+  "applied:viio/",
 
   "inversion:IV64",
 
@@ -63,6 +65,9 @@ const TAGS = [
   "chord:bII",
   "chord:IVadd9",
   "chord:V+",
+  "chord:V13",
+  "chord:IaddS9",
+  "chord:viø",
 
   "voice-leading:Vsus4",
   "voice-leading:in_chords",
@@ -82,10 +87,12 @@ const TAGS = [
   "stability:bVII-V",
   "stability:bVI-bVII-I",
   "stability:bIII",
+  "stability:unstable",
 
   "time:3/4",
 
   "style:jazz",
+  "style:jazz_fusion",
   "style:reggae",
   "style:latin",
   "style:hip-hop_no_vocal",
@@ -93,6 +100,10 @@ const TAGS = [
   "style:boogie",
   "style:blues",
   "style:stride",
+  "style:bossa_nova",
+  "style:funk",
+  "style:soul_ballad",
+  "style:EDM",
 
   "functionality:shuttle",
   "functionality:functional",
@@ -100,8 +111,10 @@ const TAGS = [
   "functionality:stasis",
   "functionality:drone",
   "functionality:riff",
+  "functionality:short_progression",
 
   "harmony:pure_I-IV-V",
+  "harmony:pure_I-V",
 
   "voicing:root",
   "voicing:power_chords",
@@ -120,6 +133,7 @@ const TAGS = [
   "scale:transposed_pentatonics",
   "scale:blues",
   "scale:mixolydian",
+  "scale:major_b6",
 
   "tempo:accelerando",
   "tempo:ritardando",

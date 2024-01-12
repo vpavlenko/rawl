@@ -204,8 +204,21 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
+        "tags": [
+          "issues:manual_remeasuring_needed",
+          "scale:minor",
+          "voice-leading:pedal",
+          "bass:developed",
+          "voicing:triads",
+          "chord:Picardy_third"
+        ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
           3
@@ -380,12 +393,38 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 3
+          },
+          {
+            "measure": 64,
+            "diff": -1
+          },
+          {
+            "measure": 115,
+            "diff": -1
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
+        "tags": [
+          "bass:diatonic_line",
+          "voice-leading:chromatic",
+          "applied:V7/IV",
+          "chord:viø",
+          "voicing:triads",
+          "modulation:up_at_the_end",
+          "scale:major",
+          "modulation:back_down",
+          "applied:V/V",
+          "arrangement:counterpoint",
+          "functionality:functional"
+        ],
         "modulations": {
           "61": 11,
           "112": 10,
-          "147": 11
+          "146": 11
         },
         "fourMeasurePhrasingReferences": [
           3
@@ -641,8 +680,32 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 4
+          },
+          {
+            "measure": 17,
+            "diff": 2
+          },
+          {
+            "measure": 43,
+            "diff": 2
+          },
+          {
+            "measure": 53,
+            "diff": 2
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
+        "tags": [
+          "chord:iv_in_major",
+          "melody:in_thirds",
+          "issues:mute_voices",
+          "voicing:power_chords",
+          "scale:major"
+        ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
           5
@@ -687,8 +750,24 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          },
+          {
+            "measure": 42,
+            "diff": -3
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
+        "tags": [
+          "style:blues",
+          "voicing:power_chords",
+          "voicing:blues",
+          "scale:major",
+          "form:rock_solo"
+        ],
         "modulations": {
           "38": 9
         },
@@ -887,8 +966,33 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 4
+          },
+          {
+            "measure": 105,
+            "diff": 2
+          },
+          {
+            "measure": 115,
+            "diff": 2
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
+        "tags": [
+          "voice-leading:triple_chromatic_down",
+          "stability:bIII",
+          "voicing:alterations",
+          "issues:merge_voices",
+          "style:funk",
+          "functionality:short_progression",
+          "voice-leading:triple_diatonic",
+          "bass:developed",
+          "chord:IaddS9",
+          "arrangement:fills_at_rests"
+        ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
           4
@@ -1373,8 +1477,39 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 3
+          },
+          {
+            "measure": 28,
+            "diff": 1
+          },
+          {
+            "measure": 65,
+            "diff": -2
+          },
+          {
+            "measure": 83,
+            "diff": -2
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
+        "tags": [
+          "scale:major",
+          "chord:iv_in_major",
+          "applied:V/V",
+          "applied:viio/",
+          "bass:diatonic_line",
+          "chord:V13",
+          "voice-leading:chromatic",
+          "chord:bVII",
+          "stability:bVI-bVII-I",
+          "modulation:up_at_the_end",
+          "arrangement:counterpoint",
+          "style:soul_ballad"
+        ],
         "modulations": {
           "95": 9
         },
@@ -1515,8 +1650,22 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
+        "tags": [
+          "functionality:progression",
+          "chord:iv_in_major",
+          "chord:bVII",
+          "stability:unstable",
+          "bass:developed",
+          "scale:major_b6",
+          "modulation:contrast"
+        ],
         "modulations": {
           "70": 6
         },
@@ -2247,11 +2396,11 @@
         ],
         "romanNumerals": "",
         "tags": [
-          "functionality:progression",
           "style:latin",
           "harmony:pure_I-IV-V",
           "rhythm:syncopation",
-          "issues:merge_voices"
+          "issues:merge_voices",
+          "functionality:short_progression"
         ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
@@ -2466,8 +2615,31 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 3
+          },
+          {
+            "measure": 8,
+            "diff": -1
+          },
+          {
+            "measure": 95,
+            "diff": 2
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
+        "tags": [
+          "scale:major",
+          "voicing:triads",
+          "functionality:progression",
+          "arrangement:counterpoint",
+          "modulation:contrast",
+          "stability:unstable",
+          "functionality:stasis",
+          "voicing:diatonic_sevenths"
+        ],
         "modulations": {
           "35": 3,
           "41": 7,
@@ -2497,13 +2669,54 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 3
+          },
+          {
+            "measure": 20,
+            "diff": 1
+          },
+          {
+            "measure": 25,
+            "diff": 1
+          },
+          {
+            "measure": 30,
+            "diff": 2
+          },
+          {
+            "measure": 52,
+            "diff": 1
+          },
+          {
+            "measure": 57,
+            "diff": 2
+          },
+          {
+            "measure": 63,
+            "diff": 2
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
+        "tags": [
+          "scale:natural_minor",
+          "chord:iv_in_major",
+          "voice-leading:pedal",
+          "voicing:triads",
+          "chord:bII",
+          "modulation:relative_major",
+          "melody:in_thirds",
+          "arrangement:counterpoint",
+          "bass:riff"
+        ],
         "modulations": {
           "18": 0,
           "35": 9,
           "49": 0,
-          "63": 9
+          "63": 9,
+          "105": 0
         },
         "fourMeasurePhrasingReferences": [
           3
@@ -2547,29 +2760,6 @@
         "comment": "R&B harmony with modulation to bIII",
         "correctedMeasures": [],
         "tonic": 5,
-        "basedOn": null
-      }
-    }
-  },
-  "MIDI/Weather Report": {
-    "Birdland.mid": {
-      "0": {
-        "beatsPerMeasure": 4,
-        "disableSnapToNotes": false,
-        "romanNumerals": "",
-        "tags": [],
-        "modulations": {},
-        "fourMeasurePhrasingReferences": [
-          2
-        ],
-        "form": [],
-        "secondMeasure": null,
-        "loop": null,
-        "firstMeasure": null,
-        "step": "tonic",
-        "comment": "",
-        "correctedMeasures": [],
-        "tonic": 7,
         "basedOn": null
       }
     }
@@ -2831,12 +3021,33 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          },
+          {
+            "measure": 39,
+            "diff": 1
+          },
+          {
+            "measure": 68,
+            "diff": 1
+          }
+        ],
         "romanNumerals": "",
         "modulations": {
           "48": 10
         },
         "tags": [
-          "harmony:pure_I-V"
+          "harmony:pure_I-V",
+          "voice-leading:chromatic",
+          "bass:root_fifth",
+          "melody:in_thirds",
+          "issues:manual_remeasuring_needed",
+          "modulation:up_at_the_end",
+          "scale:major",
+          "voicing:triads"
         ],
         "fourMeasurePhrasingReferences": [
           3
@@ -3302,8 +3513,20 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
+        "tags": [
+          "scale:minor",
+          "style:EDM",
+          "voicing:power_chords",
+          "stability:bVII-V",
+          "arrangement:ornamental_riff"
+        ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
           10
@@ -3757,8 +3980,25 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          },
+          {
+            "measure": 7,
+            "diff": -2
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
+        "tags": [
+          "scale:major",
+          "voicing:triads",
+          "issues:manual_remeasuring_needed",
+          "bass:developed",
+          "modulation:up_at_the_end",
+          "arrangement:counterpoint"
+        ],
         "modulations": {
           "58": 6
         },
@@ -3958,6 +4198,89 @@
           "stability:bIII",
           "bass:developed",
           "voicing:triads"
+        ]
+      }
+    }
+  },
+  "MIDI/Weather Report": {
+    "Palladium.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 3
+          },
+          {
+            "measure": 16,
+            "diff": -2
+          },
+          {
+            "measure": 22,
+            "diff": 2
+          },
+          {
+            "measure": 28,
+            "diff": 2
+          },
+          {
+            "measure": 34,
+            "diff": 3
+          }
+        ],
+        "comment": "",
+        "tonic": 5,
+        "tags": [
+          "stability:unstable",
+          "voicing:alterations",
+          "style:jazz_fusion"
+        ],
+        "modulations": {
+          "14": 2,
+          "37": 5,
+          "49": 2,
+          "77": 5,
+          "89": 2
+        }
+      }
+    }
+  },
+  "MIDI/Watanabe": {
+    "The Girl From Ipanema.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 3
+          }
+        ],
+        "comment": "",
+        "tonic": 5,
+        "modulations": {
+          "12": 6,
+          "16": 7,
+          "18": 5,
+          "32": 6,
+          "36": 7,
+          "38": 5,
+          "52": 6,
+          "56": 7,
+          "58": 5,
+          "72": 6,
+          "76": 7,
+          "78": 5
+        },
+        "tags": [
+          "form:jazz_solo",
+          "style:bossa_nova",
+          "chord:bII",
+          "voicing:diatonic_sevenths",
+          "applied:V/V",
+          "form:AABA",
+          "issues:merge_voices",
+          "modulation:contrast",
+          "voice-leading:triple_chromatic_down"
         ]
       }
     }

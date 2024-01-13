@@ -454,7 +454,7 @@ const Voice: React.FC<{
   secondsSpan: SecondsSpan;
   analysis: Analysis;
   showVelocity: boolean;
-  globalMeasures: number[];
+  measures: number[];
   cursor: ReactNode;
   phraseStarts: number[];
   mouseHandlers: MouseHandlers;
@@ -472,7 +472,7 @@ const Voice: React.FC<{
   measuresSpan,
   secondsSpan,
   analysis,
-  globalMeasures,
+  measures,
   mouseHandlers,
   measureSelection,
   showVelocity,
@@ -524,7 +524,7 @@ const Voice: React.FC<{
           midiNumberToY,
           SPLIT_NOTE_HEIGHT,
           handleNoteClick,
-          globalMeasures,
+          measures,
           () => {},
           () => {},
           showVelocity,
@@ -534,7 +534,7 @@ const Voice: React.FC<{
       frozenHeight: height,
       frozenMidiRange: midiRange,
     }),
-    [notes, analysis, globalMeasures, showVelocity],
+    [notes, analysis, measures, showVelocity],
   );
 
   const hasVisibleNotes = midiRange[1] >= midiRange[0];
@@ -640,6 +640,11 @@ export const SplitSystemLayout: React.FC<{
   measureSelection,
   setVoiceMask,
 }) => {
+  const prevPositionSeconds = useRef<number>(0);
+  useEffect(() => {
+    prevPositionSeconds.current = positionSeconds;
+  }, [positionSeconds]);
+
   const voicesSortedByAverageMidiNumber = useMemo(
     () =>
       notes
@@ -728,12 +733,23 @@ export const SplitSystemLayout: React.FC<{
                 measuresAndBeats.measures[measuresAndBeats.measures.length - 1],
               ]}
               analysis={analysis}
-              globalMeasures={measuresAndBeats.measures}
+              measures={measuresAndBeats.measures}
               mouseHandlers={mouseHandlers}
               measureSelection={measureSelection}
               showVelocity={showVelocity}
               showHeader={order === voicesSortedByAverageMidiNumber.length - 1}
-              cursor={<Cursor style={{ left: secondsToX(positionSeconds) }} />}
+              cursor={
+                <Cursor
+                  style={{
+                    transition:
+                      Math.abs(prevPositionSeconds.current - positionSeconds) <
+                      1
+                        ? "left 0.4s linear"
+                        : "",
+                    left: secondsToX(positionSeconds),
+                  }}
+                />
+              }
               phraseStarts={phraseStarts}
               scrollLeft={scrollInfo.left}
               scrollRight={scrollInfo.right}

@@ -1,7 +1,7 @@
 import MidiWriter from "midi-writer-js";
 import * as React from "react";
 import styled from "styled-components";
-import { SecondsSpan } from "./Rawl";
+import MIDI_PREVIEWS from "./AxesMidiPreviews";
 import { Voice } from "./SystemLayout";
 import { PitchClass } from "./analysis";
 
@@ -23,16 +23,20 @@ const Tag = ({
           track.addEvent(
             new MidiWriter.NoteEvent({
               pitch: chord.split("-"),
-              duration: "4",
+              duration: "2",
             }),
           ),
         );
         const binaryData = new MidiWriter.Writer(track).buildFile();
         const result = await sequencer.playSongFile("custom.mid", binaryData);
-        console.log(JSON.stringify(result));
+        MIDI_PREVIEWS[notes] = result;
+        console.log(JSON.stringify(MIDI_PREVIEWS));
       }}
     >
       {name.split(":")[1]}
+      {MIDI_PREVIEWS[notes] && (
+        <Voice {...VOICE_PARAMS} {...MIDI_PREVIEWS[notes]} />
+      )}
     </span>
   );
 };
@@ -40,7 +44,7 @@ const Tag = ({
 const AxisContent = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 20px;
+  gap: 50px;
   justify-content: flex-start;
 `;
 
@@ -57,11 +61,6 @@ const Axis: React.FC<React.PropsWithChildren<{ title: string }>> = ({
 };
 
 const VOICE_PARAMS = {
-  notes: JSON.parse(
-    '[[{"note":{"midiNumber":60},"id":0,"isDrum":false,"span":[0,1]},{"note":{"midiNumber":64},"id":1,"isDrum":false,"span":[0,1]},{"note":{"midiNumber":67},"id":2,"isDrum":false,"span":[0,1]},{"note":{"midiNumber":67},"id":3,"isDrum":false,"span":[1,2]},{"note":{"midiNumber":71},"id":4,"isDrum":false,"span":[1,2]},{"note":{"midiNumber":74},"id":5,"isDrum":false,"span":[1,2]}]]',
-  ),
-  measuresAndBeats: { measures: [0, 2], beats: [0.5, 1, 1.5] },
-  secondsSpan: [0, 2] as SecondsSpan,
   analysis: {
     modulations: {},
     tonic: 0 as PitchClass,
@@ -104,12 +103,12 @@ const Axes = ({ sequencer, children }) => {
         <Tag
           name="scale:major"
           sequencer={sequencer}
-          notes="C3-C4-E4-G4 F2-F4-A4-C5 G2-G4-B4-D5 C3-C4-E4-G4"
+          notes="C2-E3-G3-C4 A1-E3-A3-C4 E2-E3-G3-B3 F2-F3-A3-C4 D2-F3-A3-D4 G2-G3-B3-D4 C2-G3-C4-E4"
         />
         <Tag
           sequencer={sequencer}
           name="scale:minor"
-          notes="C3-C4-Eb4-G4 F2-F4-Ab4-C5 G2-G4-B4-D5 C3-C4-Eb4-G4"
+          notes="C2-Eb3-G3-C4 Ab1-Eb3-Ab3-C4 Bb1-F3-Bb3-D3 Eb2-Eb3-G3-Bb3 F2-F3-Ab3-C4 G2-G3-B3-D4 C2-G3-C4-Eb4"
         />
       </Axis>
       <Axis title="2. Thickness of voicing">
@@ -122,10 +121,6 @@ const Axes = ({ sequencer, children }) => {
         <Tag sequencer={sequencer} name="voicing:triads" />
         <Tag sequencer={sequencer} name="voicing:diatonic_sevenths" />
       </Axis>
-      <div>
-        <Voice {...VOICE_PARAMS} />
-      </div>
-      {/* <div>{children}</div> */}
     </div>
   );
 };

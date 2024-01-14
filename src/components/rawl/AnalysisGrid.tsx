@@ -1,5 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
+import { secondsToX } from "./Rawl";
 import {
   MeasuresAndBeats,
   MidiRange,
@@ -43,7 +44,6 @@ const Measure: React.FC<{
   number: number;
   isPhraseStart: boolean;
   formSection: string;
-  secondsToX: (number) => number;
   systemLayout: SystemLayout;
   measureSelection: MeasureSelection;
   showHeader: boolean;
@@ -52,7 +52,6 @@ const Measure: React.FC<{
   number,
   isPhraseStart,
   formSection,
-  secondsToX,
   systemLayout,
   measureSelection,
   showHeader,
@@ -129,10 +128,7 @@ const Measure: React.FC<{
   );
 };
 
-const Beat: React.FC<{ second: number; secondsToX: (number) => number }> = ({
-  second,
-  secondsToX,
-}) => (
+const Beat: React.FC<{ second: number }> = ({ second }) => (
   <BeatBar
     style={{ left: secondsToX(second), zIndex: 2, pointerEvents: "none" }}
   />
@@ -142,18 +138,10 @@ const TonalGrid: React.FC<{
   analysis: Analysis;
   measures: number[];
   midiNumberToY: (number) => number;
-  secondsToX: (number) => number;
   noteHeight: number;
   midiRange: MidiRange;
 }> = React.memo(
-  ({
-    analysis,
-    measures,
-    midiNumberToY,
-    secondsToX,
-    noteHeight,
-    midiRange,
-  }) => {
+  ({ analysis, measures, midiNumberToY, noteHeight, midiRange }) => {
     const modulations = getModulations(analysis);
     if (!modulations || !measures) return;
     modulations.push({
@@ -203,7 +191,6 @@ export const AnalysisGrid: React.FC<{
   measuresAndBeats: MeasuresAndBeats;
   midiNumberToY: (number: number) => number;
   noteHeight: number;
-  secondsToX: (number) => number;
   phraseStarts: number[];
   systemLayout: SystemLayout;
   midiRange: MidiRange;
@@ -217,7 +204,6 @@ export const AnalysisGrid: React.FC<{
     midiNumberToY,
     noteHeight,
     measureSelection,
-    secondsToX,
     phraseStarts,
     systemLayout,
     midiRange,
@@ -238,19 +224,17 @@ export const AnalysisGrid: React.FC<{
               formSection={(analysis.form ?? {})[number]}
               number={number}
               measureSelection={measureSelection}
-              secondsToX={secondsToX}
               systemLayout={systemLayout}
             />
           );
         })}
         {beats.map((time) => (
-          <Beat key={time} second={time} secondsToX={secondsToX} />
+          <Beat key={time} second={time} />
         ))}
         {showTonalGrid && analysis.tonic !== null && (
           <TonalGrid
             analysis={analysis}
             measures={measures}
-            secondsToX={secondsToX}
             midiNumberToY={midiNumberToY}
             noteHeight={noteHeight}
             midiRange={midiRange}

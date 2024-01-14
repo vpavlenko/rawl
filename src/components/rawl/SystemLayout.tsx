@@ -189,7 +189,7 @@ export type MouseHandlers = {
   handleMouseLeave: () => void;
   hoveredNote: Note | null;
   hoveredAltKey: boolean;
-  systemClickHandler: (e: React.MouseEvent, time?: number) => void;
+  systemClickHandler: (e: React.MouseEvent) => void;
 };
 
 const getNoteRectangles = (
@@ -204,11 +204,10 @@ const getNoteRectangles = (
   handleMouseEnter = (note: Note, altKey: boolean) => {},
   handleMouseLeave = () => {},
   showVelocity = false,
-  offsetSeconds: number,
 ) => {
   return notes.map((note) => {
     const top = midiNumberToY(note.note.midiNumber);
-    const left = secondsToX(note.span[0] - offsetSeconds);
+    const left = secondsToX(note.span[0]);
     const color = note.isDrum
       ? "white"
       : getNoteColor(note, analysis, measures);
@@ -350,7 +349,6 @@ export const MergedSystemLayout = ({
           handleMouseEnter,
           handleMouseLeave,
           showVelocity,
-          0,
         ),
       ),
     [
@@ -393,7 +391,6 @@ export const MergedSystemLayout = ({
         midiNumberToY={midiNumberToY}
         noteHeight={noteHeight}
         measureSelection={measureSelection}
-        secondsToX={secondsToX}
         phraseStarts={phraseStarts}
         systemLayout={"merged"}
         midiRange={midiRange}
@@ -450,7 +447,6 @@ const VoiceName: React.FC<{
 export const Voice: React.FC<{
   notes: NotesInVoices;
   measuresAndBeats: MeasuresAndBeats;
-  secondsSpan: SecondsSpan;
   analysis: Analysis;
   showVelocity: boolean;
   cursor: ReactNode;
@@ -468,7 +464,6 @@ export const Voice: React.FC<{
 }> = ({
   notes,
   measuresAndBeats,
-  secondsSpan,
   analysis,
   mouseHandlers,
   measureSelection,
@@ -506,11 +501,6 @@ export const Voice: React.FC<{
     [height, midiRange],
   );
 
-  const mySecondsToX = useCallback(
-    (seconds) => secondsToX(seconds - secondsSpan[0]),
-    [secondsSpan[0]],
-  );
-
   const { noteRectangles, frozenHeight, frozenMidiRange } = useMemo(
     () => ({
       noteRectangles: notes.flatMap((notesInOneVoice, voice) =>
@@ -526,7 +516,6 @@ export const Voice: React.FC<{
           () => {},
           () => {},
           showVelocity,
-          secondsSpan[0],
         ),
       ),
       frozenHeight: height,
@@ -541,8 +530,11 @@ export const Voice: React.FC<{
     <div
       key={`voice_${voiceIndex}_parent`}
       style={{
-        width: mySecondsToX(
-          measuresAndBeats.measures[measuresAndBeats.measures.length - 1],
+        width: secondsToX(
+          Math.max(
+            measuresAndBeats.measures.at(-1),
+            measuresAndBeats.beats.at(-1),
+          ),
         ),
         height: hasVisibleNotes ? height : 1,
         position: "relative",
@@ -550,7 +542,7 @@ export const Voice: React.FC<{
         marginBottom: hasVisibleNotes ? "20px" : 0,
         borderBottom: hasVisibleNotes ? "1px solid #888" : "",
       }}
-      onClick={(e) => systemClickHandler(e, secondsSpan[0])}
+      onClick={(e) => systemClickHandler(e)}
     >
       <div
         style={{
@@ -571,7 +563,6 @@ export const Voice: React.FC<{
           noteHeight={SPLIT_NOTE_HEIGHT}
           measureSelection={measureSelection}
           phraseStarts={phraseStarts}
-          secondsToX={mySecondsToX}
           systemLayout={"split"}
           midiRange={midiRange}
           showHeader={showHeader}
@@ -725,10 +716,6 @@ export const SplitSystemLayout: React.FC<{
               voiceName={voiceNames[voiceIndex]}
               notes={notes}
               measuresAndBeats={measuresAndBeats}
-              secondsSpan={[
-                0,
-                measuresAndBeats.measures[measuresAndBeats.measures.length - 1],
-              ]}
               analysis={analysis}
               mouseHandlers={mouseHandlers}
               measureSelection={measureSelection}

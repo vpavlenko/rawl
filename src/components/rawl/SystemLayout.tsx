@@ -408,7 +408,7 @@ const VoiceName: React.FC<{
   setVoiceMask: SetVoiceMask;
   voiceIndex: number;
 }> = React.memo(({ voiceName, voiceMask, setVoiceMask, voiceIndex }) => {
-  return (
+  return voiceName ? (
     <>
       {voiceName}{" "}
       <span
@@ -444,10 +444,10 @@ const VoiceName: React.FC<{
         M
       </span>{" "}
     </>
-  );
+  ) : null;
 });
 
-const Voice: React.FC<{
+export const Voice: React.FC<{
   notes: NotesInVoices;
   measuresAndBeats: MeasuresAndBeats;
   measuresSpan: MeasuresSpan;

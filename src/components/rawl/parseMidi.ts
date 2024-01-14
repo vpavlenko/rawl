@@ -44,7 +44,6 @@ const getNotes = (events, channel): Note[] => {
             notes.push({
               note: {
                 midiNumber,
-                name: "??",
               },
               id,
               isDrum: channel === 9,

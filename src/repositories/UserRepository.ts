@@ -66,7 +66,7 @@ export class UserRepository implements IUserRepository {
   }
 
   observeCurrentUser(callback: (user: User | null) => void) {
-    onSnapshot(this.userRef, (snapshot) => {
+    return onSnapshot(this.userRef, (snapshot) => {
       snapshot.exists() ? callback(toUser(snapshot)) : callback(null)
     })
   }

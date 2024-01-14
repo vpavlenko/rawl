@@ -1,32 +1,39 @@
-import { User } from "firebase/auth"
 import AccountCircle from "mdi-react/AccountCircleIcon"
-import { FC, useRef } from "react"
+import { observer } from "mobx-react-lite"
+import { useRef } from "react"
+import { useLocation } from "wouter"
 import { Localized } from "../../components/Localized"
 import { Menu, MenuItem } from "../../components/Menu"
+import { auth } from "../../firebase/firebase"
 import {
   IconStyle,
   Tab,
   TabTitle,
 } from "../../main/components/Navigation/Navigation"
 import { useTheme } from "../../main/hooks/useTheme"
+import { useStores } from "../hooks/useStores"
 
-export interface UserButtonContentProps {
-  user: User | null
-  onClickSignIn: () => void
-  onClickSignOut: () => void
-  onClickProfile: () => void
-}
-
-export const UserButtonContent: FC<UserButtonContentProps> = ({
-  user,
-  onClickSignIn,
-  onClickSignOut,
-  onClickProfile,
-}) => {
+export const UserButton = observer(() => {
   const theme = useTheme()
   const ref = useRef<HTMLDivElement>(null)
 
-  if (user === null) {
+  const {
+    authStore: { authUser, user },
+    rootViewStore,
+  } = useStores()
+  const [_, navigate] = useLocation()
+
+  const onClickSignIn = () => {
+    rootViewStore.openSignInDialog = true
+  }
+  const onClickSignOut = async () => {
+    await auth.signOut()
+  }
+  const onClickProfile = () => {
+    navigate("/profile")
+  }
+
+  if (authUser === null) {
     return (
       <Tab onClick={onClickSignIn}>
         <AccountCircle style={IconStyle} />
@@ -47,9 +54,9 @@ export const UserButtonContent: FC<UserButtonContentProps> = ({
               borderRadius: "0.65rem",
               border: `1px solid ${theme.dividerColor}`,
             }}
-            src={user.photoURL ?? undefined}
+            src={authUser.photoURL ?? undefined}
           />
-          <TabTitle>{user.displayName}</TabTitle>
+          <TabTitle>{user?.name ?? authUser.displayName}</TabTitle>
         </Tab>
       }
     >
@@ -61,4 +68,4 @@ export const UserButtonContent: FC<UserButtonContentProps> = ({
       </MenuItem>
     </Menu>
   )
-}
+})

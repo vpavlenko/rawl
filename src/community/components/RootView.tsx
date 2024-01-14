@@ -2,7 +2,7 @@ import { observer } from "mobx-react-lite"
 import { FC } from "react"
 import { Route, useLocation } from "wouter"
 import { HomePage } from "../pages/HomePage"
-import { ProfilePage } from "../pages/ProfilePage"
+import { EditProfilePage } from "../pages/ProfilePage"
 import { SignInDialog } from "./SignInDialog/SignInDialog"
 
 const Routes: FC = observer(() => {
@@ -11,7 +11,7 @@ const Routes: FC = observer(() => {
   return (
     <>
       <Route path="/community" component={HomePage} />
-      <Route path="/profile" component={ProfilePage} />
+      <Route path="/profile" component={EditProfilePage} />
     </>
   )
 })

@@ -33,7 +33,7 @@ const Action = styled.div`
   margin-top: 1rem;
 `
 
-export const ProfilePage: FC = observer(() => {
+export const EditProfilePage: FC = observer(() => {
   const {
     authStore: { authUser },
     userRepository,
@@ -83,7 +83,7 @@ export const ProfilePage: FC = observer(() => {
     return (
       <PageLayout>
         <Title>
-          <Localized default="Profile">profile</Localized>
+          <Localized default="Edit Profile">edit-profile</Localized>
         </Title>
         <Alert severity="warning">
           <Localized default="Please sign in to edit your profile">
@@ -98,7 +98,7 @@ export const ProfilePage: FC = observer(() => {
     return (
       <PageLayout>
         <Title>
-          <Localized default="Profile">profile</Localized>
+          <Localized default="Edit Profile">edit-profile</Localized>
         </Title>
         <CircularProgress />
       </PageLayout>
@@ -108,7 +108,7 @@ export const ProfilePage: FC = observer(() => {
   return (
     <PageLayout>
       <Title>
-        <Localized default="Profile">profile</Localized>
+        <Localized default="Edit Profile">edit-profile</Localized>
       </Title>
       <Form>
         <Label>

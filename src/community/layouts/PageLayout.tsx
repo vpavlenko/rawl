@@ -1,5 +1,6 @@
 import styled from "@emotion/styled"
 import { FC, PropsWithChildren } from "react"
+import { BottomPlayer } from "../components/BottomPlayer"
 import { Navigation } from "../components/Navigation"
 
 const Container = styled.div`
@@ -21,13 +22,10 @@ const Inner = styled.div`
   margin: 0 auto;
 `
 
-export interface PageLayoutProps {
-  bottom?: JSX.Element
-}
+export interface PageLayoutProps {}
 
 export const PageLayout: FC<PropsWithChildren<PageLayoutProps>> = ({
   children,
-  bottom,
 }) => {
   return (
     <Container>
@@ -35,7 +33,7 @@ export const PageLayout: FC<PropsWithChildren<PageLayoutProps>> = ({
       <Content>
         <Inner>{children}</Inner>
       </Content>
-      {bottom}
+      <BottomPlayer />
     </Container>
   )
 }

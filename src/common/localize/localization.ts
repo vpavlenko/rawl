@@ -151,6 +151,7 @@ export default {
     "loading-external-midi": "外部のMIDIファイルを読み込み中...",
     initializing: "起動中...",
     profile: "プロフィール",
+    "edit-profile": "プロフィールを編集",
     "signin-to-edit-profile":
       "プロフィールを編集するにはサインインしてください",
     /* MIDI Instrument Categories */

@@ -1,6 +1,5 @@
 import styled from "@emotion/styled"
 import { FC } from "react"
-import { BottomPlayer } from "../components/BottomPlayer"
 import { SongList } from "../components/SongList"
 import { PageLayout } from "../layouts/PageLayout"
 
@@ -12,7 +11,7 @@ const Title = styled.h1`
 
 export const HomePage: FC = () => {
   return (
-    <PageLayout bottom={<BottomPlayer />}>
+    <PageLayout>
       <Title>Recent Tracks</Title>
       <SongList />
     </PageLayout>

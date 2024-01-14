@@ -44,14 +44,7 @@ export const UserButton = observer(() => {
     <Menu
       trigger={
         <Tab ref={ref}>
-          <img
-            style={{
-              ...IconStyle,
-              borderRadius: "0.65rem",
-              border: `1px solid ${theme.dividerColor}`,
-            }}
-            src={authUser.photoURL ?? undefined}
-          />
+          <AccountCircle style={IconStyle} />
           <TabTitle>{user?.name ?? authUser.displayName}</TabTitle>
         </Tab>
       }

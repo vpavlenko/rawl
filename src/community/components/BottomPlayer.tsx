@@ -50,15 +50,7 @@ export const BottomPlayer: FC = observer(() => {
           onChange={() => {}}
           style={{ marginRight: "2rem" }}
         />
-        <BottomPlayerSong
-          song={{
-            name: currentSong?.metadata.name ?? "",
-          }}
-          user={{
-            name: "",
-            photoURL: "",
-          }}
-        />
+        {currentSong && <BottomPlayerSong song={currentSong.metadata} />}
       </Inner>
     </Wrapper>
   )

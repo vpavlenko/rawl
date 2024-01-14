@@ -1,5 +1,7 @@
 import styled from "@emotion/styled"
 import { FC } from "react"
+import { Localized } from "../../components/Localized"
+import { CloudSong } from "../../repositories/ICloudSongRepository"
 
 const Avatar = styled.img`
   border: 1px ${({ theme }) => theme.dividerColor} solid;
@@ -30,17 +32,21 @@ const Title = styled.div`
 `
 
 export interface SongListItemProps {
-  song: { name: string }
-  user: { name: string; photoURL: string }
+  song: CloudSong
 }
 
-export const BottomPlayerSong: FC<SongListItemProps> = ({ song, user }) => {
+export const BottomPlayerSong: FC<SongListItemProps> = ({ song }) => {
   return (
     <Wrapper>
-      <Avatar src={user.photoURL} />
       <div>
-        <Title>{song.name}</Title>
-        <Username>@{user.name}</Username>
+        <Title>
+          {song.name.length > 0 ? (
+            song.name
+          ) : (
+            <Localized default="Untitled song">untitled-song</Localized>
+          )}
+        </Title>
+        {song.user && <Username>by {song.user.name}</Username>}
       </div>
     </Wrapper>
   )

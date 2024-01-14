@@ -13,7 +13,6 @@ export const SongList: FC<SongListProps> = observer(({ songs }) => {
   const rootStore = useStores()
   const {
     player,
-    communitySongStore,
     songStore: { currentSong },
   } = rootStore
 
@@ -25,14 +24,8 @@ export const SongList: FC<SongListProps> = observer(({ songs }) => {
     <>
       {songs.map((song) => (
         <SongListItem
-          song={{
-            name: song.name,
-            updatedAt: song.updatedAt,
-          }}
-          user={{
-            name: song.userId,
-            photoURL: "",
-          }}
+          key={song.id}
+          song={song}
           isPlaying={player.isPlaying && currentSong?.metadata.id === song.id}
           onClick={() => {
             if (player.isPlaying && currentSong?.metadata.id === song.id) {

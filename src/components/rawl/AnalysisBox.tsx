@@ -103,6 +103,7 @@ const TAGS = [
   "style:bossa_nova",
   "style:funk",
   "style:soul_ballad",
+  "style:soul",
   "style:EDM",
 
   "functionality:shuttle",

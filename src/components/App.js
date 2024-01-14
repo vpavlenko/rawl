@@ -16,17 +16,15 @@ import {
 } from "firebase/firestore/lite";
 import isMobile from "ismobilejs";
 import clamp from "lodash/clamp";
-import shuffle from "lodash/shuffle";
 import path from "path";
 import queryString from "querystring";
 import React from "react";
 import Dropzone from "react-dropzone";
-import { NavLink, Redirect, Route, Switch, withRouter } from "react-router-dom";
+import { Redirect, Route, Switch, withRouter } from "react-router-dom";
 
 import requestCache from "../RequestCache";
 import Sequencer, {
   NUM_REPEAT_MODES,
-  NUM_SHUFFLE_MODES,
   REPEAT_OFF,
   SHUFFLE_OFF,
 } from "../Sequencer";
@@ -47,15 +45,9 @@ import {
   unlockAudioContext,
 } from "../util";
 
-import GMEPlayer from "../players/GMEPlayer";
-import MDXPlayer from "../players/MDXPlayer";
 import MIDIPlayer from "../players/MIDIPlayer";
-import N64Player from "../players/N64Player";
-import V2MPlayer from "../players/V2MPlayer";
-import XMPPlayer from "../players/XMPPlayer";
 
 import defaultAnalyses from "../corpus/analyses.json";
-import VGMPlayer from "../players/VGMPlayer";
 import Alert from "./Alert";
 import AppFooter from "./AppFooter";
 import AppHeader from "./AppHeader";
@@ -64,6 +56,7 @@ import DropMessage from "./DropMessage";
 import MessageBox from "./MessageBox";
 import Settings from "./Settings";
 import Visualizer from "./Visualizer";
+import Axes from "./rawl/Axes";
 import Rawl from "./rawl/Rawl";
 
 const mergeAnalyses = (base, diff) => {
@@ -257,15 +250,7 @@ class App extends React.Component {
     const debug = queryString.parse(window.location.search.substring(1)).debug;
     // Create all the players. Players will set up IDBFS mount points.
     const self = this;
-    const players = [
-      MIDIPlayer,
-      GMEPlayer,
-      XMPPlayer,
-      V2MPlayer,
-      N64Player,
-      MDXPlayer,
-      VGMPlayer,
-    ].map(
+    const players = [MIDIPlayer].map(
       (P) =>
         new P(
           this.chipCore,
@@ -741,28 +726,6 @@ class App extends React.Component {
     });
   }
 
-  handleShufflePlay(path) {
-    if (path === "favorites") {
-      this.sequencer.playContext(shuffle(this.state.faves));
-    } else {
-      // This is more like a synthetic recursive shuffle.
-      fetch(`${API_BASE}/shuffle?path=${encodeURI(path)}&limit=100`)
-        .then((response) => response.json())
-        .then((json) =>
-          json.items.map((item) =>
-            item.replace("%", "%25").replace("#", "%23").replace(/^\//, ""),
-          ),
-        )
-        .then((items) => this.sequencer.playContext(items));
-    }
-  }
-
-  handleCycleShuffle() {
-    const shuffle = (this.state.shuffle + 1) % NUM_SHUFFLE_MODES;
-    this.setState({ shuffle });
-    this.sequencer.setShuffle(shuffle);
-  }
-
   handleSongClick(url, context, index, subtune = 0) {
     return (e) => {
       e.preventDefault();
@@ -892,39 +855,6 @@ class App extends React.Component {
             />
             <div className="App-main">
               <div className="App-main-inner">
-                {(
-                  <div className="tab-container">
-                    <NavLink
-                      className="tab"
-                      activeClassName="tab-selected"
-                      to={{ pathname: "/", ...search }}
-                      exact
-                    >
-                      Search
-                    </NavLink>
-                    <NavLink
-                      className="tab"
-                      activeClassName="tab-selected"
-                      to={{ pathname: "/browse", ...search }}
-                    >
-                      Browse
-                    </NavLink>
-                    {/* <NavLink className="tab" activeClassName="tab-selected"
-                    to={{ pathname: "/favorites", ...search }}>Favorites</NavLink> */}
-                    {/* this.sequencer?.players?.map((p, i) => `p${i}:${p.stopped?'off':'on'}`).join(' ') */}
-                    <button
-                      className={
-                        this.state.showPlayerSettings
-                          ? "tab tab-selected"
-                          : "tab"
-                      }
-                      style={{ marginLeft: "auto", marginRight: 0 }}
-                      onClick={this.toggleSettings}
-                    >
-                      Settings
-                    </button>
-                  </div>
-                ) && false}
                 <div className="App-main-content-and-settings">
                   <div
                     className="App-main-content-area"
@@ -935,6 +865,10 @@ class App extends React.Component {
                         path="/"
                         exact
                         render={() => <Redirect to="/browse/MIDI" />}
+                      />
+                      <Route
+                        path="/axes"
+                        render={() => <Axes sequencer={this.sequencer} />}
                       />
                       <Route
                         path={["/browse/:browsePath*"]}
@@ -979,7 +913,6 @@ class App extends React.Component {
                                   playContext={this.playContexts[browsePath]}
                                   fetchDirectory={this.fetchDirectory}
                                   handleSongClick={this.handleSongClick}
-                                  handleShufflePlay={this.handleShufflePlay}
                                   scrollContainerRef={this.contentAreaRef}
                                   favorites={this.state.faves}
                                   toggleFavorite={this.handleToggleFavorite}
@@ -1054,40 +987,21 @@ class App extends React.Component {
             </div>
             <AppFooter
               currentSongDurationMs={this.state.currentSongDurationMs}
-              currentSongNumSubtunes={this.state.currentSongNumSubtunes}
               currentSongNumVoices={this.state.currentSongNumVoices}
-              currentSongSubtune={this.state.currentSongSubtune}
               ejected={this.state.ejected}
-              faves={this.state.faves}
-              getCurrentSongLink={this.getCurrentSongLink}
-              handleCycleRepeat={this.handleCycleRepeat}
-              handleCycleShuffle={this.handleCycleShuffle}
-              handleSetVoiceMask={this.handleSetVoiceMask}
-              handleTempoChange={this.handleTempoChange}
-              handleTimeSliderChange={this.handleTimeSliderChange}
-              handleToggleFavorite={this.handleToggleFavorite}
-              handleVolumeChange={this.handleVolumeChange}
-              imageUrl={this.state.imageUrl}
-              infoTexts={this.state.infoTexts}
-              nextSong={this.nextSong}
-              nextSubtune={this.nextSubtune}
               paused={this.state.paused}
-              prevSong={this.prevSong}
-              prevSubtune={this.prevSubtune}
-              repeat={this.state.repeat}
-              shuffle={this.state.shuffle}
-              sequencer={this.sequencer}
               showPlayerSettings={this.state.showPlayerSettings}
               songUrl={this.state.songUrl}
-              subtitle={subtitle}
               tempo={this.state.tempo}
-              title={title}
-              toggleInfo={this.toggleInfo}
-              togglePause={this.togglePause}
-              toggleSettings={this.toggleSettings}
               voiceNames={this.state.voiceNames}
               voiceMask={this.state.voiceMask}
               volume={this.state.volume}
+              handleSetVoiceMask={this.handleSetVoiceMask}
+              handleTempoChange={this.handleTempoChange}
+              handleTimeSliderChange={this.handleTimeSliderChange}
+              handleVolumeChange={this.handleVolumeChange}
+              sequencer={this.sequencer}
+              togglePause={this.togglePause}
             />
           </div>
         )}

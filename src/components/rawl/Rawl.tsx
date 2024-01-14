@@ -21,7 +21,7 @@ import { Note, ParsingResult } from "./parseMidi";
 // If not used, the playback cursor isn't exactly where the sound is.
 // Sometimes it should be adjusted for external screens.
 const LATENCY_CORRECTION_MS =
-  (localStorage && parseInt(localStorage.getItem("latency"), 10)) || 0;
+  (localStorage && parseInt(localStorage.getItem("latency"), 10)) || 150;
 
 export type SecondsSpan = [number, number];
 

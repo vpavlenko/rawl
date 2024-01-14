@@ -82,10 +82,6 @@ export default class Browse extends React.PureComponent {
     }
   }
 
-  handleShufflePlay() {
-    this.props.handleShufflePlay(this.props.browsePath);
-  }
-
   navigate() {
     const { browsePath, listing, fetchDirectory } = this.props;
     if (!listing) {

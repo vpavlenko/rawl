@@ -181,7 +181,7 @@ MIDIPlayer.prototype.doSkipSilence = function () {
       );
       this.lastProcessPlayTimestamp += firstNoteDelay - firstNote.playTime;
     } else {
-      this.setPosition(firstNote.playTime - 50);
+      this.setPosition(firstNote.playTime - 1500);
     }
   }
 };

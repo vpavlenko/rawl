@@ -2177,6 +2177,51 @@
   resolved "https://registry.npmjs.org/@rushstack/eslint-patch/-/eslint-patch-1.3.1.tgz"
   integrity sha512-RkmuBcqiNioeeBKbgzMlOdreUkJfYaSjwgx9XDgGGpjvWgyaxWvDmZVSN9CS6LjEASadhgPv2BcFp+SeouWXXA==
 
+"@tonaljs/core@^4.10.3":
+  version "4.10.3"
+  resolved "https://registry.yarnpkg.com/@tonaljs/core/-/core-4.10.3.tgz#1697254fe9211278fa44d09cd372e4cbaa202e54"
+  integrity sha512-8J/RcIYLRS1tYG/ZLUdW234HhWNwMKrH+clrGBwOnu8qTiB7eHj97oPiPleW9UfjHmAAw3bA/S9dCvKD9UONGg==
+  dependencies:
+    "@tonaljs/pitch" "^5.0.1"
+    "@tonaljs/pitch-distance" "^5.0.1"
+    "@tonaljs/pitch-interval" "^5.0.1"
+    "@tonaljs/pitch-note" "^5.0.1"
+
+"@tonaljs/midi@^4.9.0":
+  version "4.9.1"
+  resolved "https://registry.yarnpkg.com/@tonaljs/midi/-/midi-4.9.1.tgz#dceb4bb217243a7bec4ee90db4e55a58584ea844"
+  integrity sha512-hAsjaN71ZVRu1MHrnsWt/Vjtb8sbYs9AVuz1YNAMggSAsw8OJm3gydO0FiovzPlCQAwBs9mbAx9umxYypUNNPw==
+  dependencies:
+    "@tonaljs/core" "^4.10.3"
+
+"@tonaljs/pitch-distance@^5.0.1":
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/@tonaljs/pitch-distance/-/pitch-distance-5.0.1.tgz#aa1082a3abf3fae4ff4da3b5fa411ae4ae909224"
+  integrity sha512-9v/R5xtph3XavGLsL16/FuJiMUAcczT0q9tctFkGl73cTxdHzLYwsflzVV5zeWBG3MNp7IekDegn+uV6B+EKcA==
+  dependencies:
+    "@tonaljs/pitch" "^5.0.1"
+    "@tonaljs/pitch-interval" "^5.0.1"
+    "@tonaljs/pitch-note" "^5.0.1"
+
+"@tonaljs/pitch-interval@^5.0.1":
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/@tonaljs/pitch-interval/-/pitch-interval-5.0.1.tgz#b44b67f6834c791ac19e93c2ef23ca4b4a6c581d"
+  integrity sha512-tr+De3H7dN5v0NHlVTFOD8nodbuvUf6Mn3kCLMFrc1OucHXKZiD+dMTEC62iexjHMFi9ZAlYF08ZRJzmDlpJtw==
+  dependencies:
+    "@tonaljs/pitch" "^5.0.1"
+
+"@tonaljs/pitch-note@^5.0.1":
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/@tonaljs/pitch-note/-/pitch-note-5.0.1.tgz#c2a359dc2f1be0959ad5fa28bdcf8eb9f0b5550d"
+  integrity sha512-hRpyU06BOp4UYKZBpfS751o88WWbs3VX6sGqmhm0ggyQZpSeCi+DNQqL4eUG/0SfHivbW4HTmblA8b+tyQu0DQ==
+  dependencies:
+    "@tonaljs/pitch" "^5.0.1"
+
+"@tonaljs/pitch@^5.0.1":
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/@tonaljs/pitch/-/pitch-5.0.1.tgz#417bbf748bf947d609983928b444908ac4a5ac09"
+  integrity sha512-5HYkF4hGY0jS2y5V3Hf5gNFXX46kT4cAcI7JLEn+qQb9N1dU9Gz9koI9di0mD1Tbam+kviceiCsJl4WX/FqYjA==
+
 "@tootallnate/once@1":
   version "1.1.2"
   resolved "https://registry.npmjs.org/@tootallnate/once/-/once-1.1.2.tgz"
@@ -9420,6 +9465,13 @@ micromatch@^4.0.0, micromatch@^4.0.4, micromatch@^4.0.5:
   dependencies:
     braces "^3.0.2"
     picomatch "^2.3.1"
+
+midi-writer-js@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/midi-writer-js/-/midi-writer-js-3.1.1.tgz#8a53bf762a7ea2a77fd8e693236cafe094f617da"
+  integrity sha512-ruRzUWtmcvD7xQcrKRk9fH+1BELv8x07QJxhpM4PS5n6+MOyPb39ifxTV/oI1hHPgKMSuhnhWw2MaGWUAvH9DA==
+  dependencies:
+    "@tonaljs/midi" "^4.9.0"
 
 midievents@^2.0.0, midievents@latest:
   version "2.0.0"

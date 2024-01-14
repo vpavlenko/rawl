@@ -150,6 +150,7 @@ export default {
     "soundfont-save-notice": "サウンドフォントはブラウザー内に保存されます",
     "loading-external-midi": "外部のMIDIファイルを読み込み中...",
     initializing: "起動中...",
+    profile: "プロフィール",
     /* MIDI Instrument Categories */
     Piano: "ピアノ",
     "Chromatic Percussion": "クロマチック",

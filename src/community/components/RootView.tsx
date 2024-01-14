@@ -1,45 +1,26 @@
-import styled from "@emotion/styled"
+import { observer } from "mobx-react-lite"
 import { FC } from "react"
-import { BottomPlayer } from "./BottomPlayer"
-import { Navigation } from "./Navigation"
-import { SongList } from "./SongList"
+import { useStores } from "../hooks/useStores"
+import { HomePage } from "../pages/HomePage"
+import { ProfilePage } from "../pages/ProfilePage"
+import { SignInDialog } from "./SignInDialog/SignInDialog"
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-`
-
-const Content = styled.div`
-  flex-grow: 1;
-  overflow-y: auto;
-  flex-basis: 0;
-  padding-bottom: 2rem;
-`
-
-const Inner = styled.div`
-  width: 80%;
-  max-width: 60rem;
-  margin: 0 auto;
-`
-
-const Title = styled.h1`
-  font-size: 300%;
-  margin-top: 4rem;
-  margin-bottom: 2rem;
-`
-
-export const RootView: FC = () => {
+const Routes: FC = observer(() => {
+  const { router } = useStores()
+  const path = router.path
   return (
-    <Container>
-      <Navigation />
-      <Content>
-        <Inner>
-          <Title>Recent Tracks</Title>
-          <SongList />
-        </Inner>
-      </Content>
-      <BottomPlayer />
-    </Container>
+    <>
+      {path === "/" && <HomePage />}
+      {path === "/profile" && <ProfilePage />}
+    </>
   )
-}
+})
+
+export const RootView: FC = observer(() => {
+  return (
+    <>
+      <Routes />
+      <SignInDialog />
+    </>
+  )
+})

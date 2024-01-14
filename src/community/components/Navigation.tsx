@@ -1,8 +1,9 @@
 import styled from "@emotion/styled"
+import { observer } from "mobx-react-lite"
 import { FC } from "react"
 import { auth } from "../../firebase/firebase"
-import { UserButtonContent } from "../../main/components/Navigation/UserButtonContent"
 import { useStores } from "../hooks/useStores"
+import { UserButtonContent } from "./UserButtonContent"
 
 const Container = styled.div`
   width: 80%;
@@ -25,9 +26,11 @@ const NavigationWrapper = styled.div`
   padding: 1rem 0;
 `
 
-export const Navigation: FC = () => {
+export const Navigation: FC = observer(() => {
   const {
     authStore: { user },
+    rootViewStore,
+    router,
   } = useStores()
 
   return (
@@ -38,12 +41,17 @@ export const Navigation: FC = () => {
         </LogoWrapper>
         <UserButtonContent
           user={user}
-          onClickSignIn={() => {}}
+          onClickSignIn={() => {
+            rootViewStore.openSignInDialog = true
+          }}
           onClickSignOut={async () => {
             await auth.signOut()
+          }}
+          onClickProfile={() => {
+            router.pushProfile()
           }}
         />
       </Container>
     </NavigationWrapper>
   )
-}
+})

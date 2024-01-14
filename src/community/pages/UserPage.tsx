@@ -1,8 +1,10 @@
 import styled from "@emotion/styled"
 import { observer } from "mobx-react-lite"
 import { FC, useState } from "react"
+import { Alert } from "../../components/Alert"
 import { CircularProgress } from "../../components/CircularProgress"
 import { Localized } from "../../components/Localized"
+import { useToast } from "../../main/hooks/useToast"
 import { User } from "../../repositories/IUserRepository"
 import { UserSongList } from "../components/UserSongList"
 import { useAsyncEffect } from "../hooks/useAsyncEffect"
@@ -28,25 +30,42 @@ export const UserPage: FC<UserPageProps> = observer(({ userId }) => {
 
   const [isLoading, setIsLoading] = useState(true)
   const [user, setUser] = useState<User | null>(null)
+  const toast = useToast()
 
   useAsyncEffect(async () => {
-    const user = await userRepository.get(userId)
-    setUser(user)
-    setIsLoading(false)
+    try {
+      const user = await userRepository.get(userId)
+      setUser(user)
+      setIsLoading(false)
+    } catch (e) {
+      toast.error(`Failed to load user profile: ${(e as Error)?.message}`)
+    }
   }, [])
 
   if (isLoading) {
     return (
       <PageLayout>
+        <PageTitle>User</PageTitle>
         <CircularProgress /> Loading...
+      </PageLayout>
+    )
+  }
+
+  if (user === null) {
+    return (
+      <PageLayout>
+        <PageTitle>User</PageTitle>
+        <Alert severity="warning">
+          <Localized default="User not found">user-not-found</Localized>
+        </Alert>
       </PageLayout>
     )
   }
 
   return (
     <PageLayout>
-      <PageTitle>{user?.name}</PageTitle>
-      <Bio>{user?.bio}</Bio>
+      <PageTitle>{user.name}</PageTitle>
+      <Bio>{user.bio}</Bio>
       <SectionTitle>
         <Localized default="Tracks">tracks</Localized>
       </SectionTitle>

@@ -1,6 +1,8 @@
 import { observer } from "mobx-react-lite"
-import { FC, useEffect } from "react"
+import { FC } from "react"
+import { useToast } from "../../main/hooks/useToast"
 import { playSong } from "../actions/song"
+import { useAsyncEffect } from "../hooks/useAsyncEffect"
 import { useStores } from "../hooks/useStores"
 import { SongListItem } from "./SongListItem"
 
@@ -11,14 +13,21 @@ export const SongList: FC = observer(() => {
     communitySongStore,
     songStore: { currentSong },
   } = rootStore
+  const toast = useToast()
 
-  useEffect(() => {
-    ;(async () => {
+  useAsyncEffect(async () => {
+    try {
       await communitySongStore.load()
-    })()
+    } catch (e) {
+      toast.error((e as Error).message)
+    }
   }, [])
 
   const { songs } = communitySongStore
+
+  if (songs.length === 0) {
+    return <div>No songs</div>
+  }
 
   return (
     <>

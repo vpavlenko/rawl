@@ -154,6 +154,10 @@ export default {
     "edit-profile": "プロフィールを編集",
     "signin-to-edit-profile":
       "プロフィールを編集するにはサインインしてください",
+    "display-name": "表示名",
+    bio: "自己紹介",
+    save: "保存",
+    "recent-tracks": "最近の曲",
     /* MIDI Instrument Categories */
     Piano: "ピアノ",
     "Chromatic Percussion": "クロマチック",

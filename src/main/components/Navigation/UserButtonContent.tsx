@@ -50,6 +50,9 @@ export const UserButtonContent: FC<UserButtonContentProps> = ({
         </Tab>
       }
     >
+      <MenuItem onClick={() => (location.href = `/users/${user.uid}`)}>
+        <Localized default="Profile">profile</Localized>
+      </MenuItem>
       <MenuItem onClick={onClickSignOut}>
         <Localized default="Sign out">sign-out</Localized>
       </MenuItem>

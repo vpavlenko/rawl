@@ -1,6 +1,7 @@
 import styled from "@emotion/styled"
 import { observer } from "mobx-react-lite"
 import { FC } from "react"
+import { useLocation } from "wouter"
 import { auth } from "../../firebase/firebase"
 import { useStores } from "../hooks/useStores"
 import { UserButtonContent } from "./UserButtonContent"
@@ -30,8 +31,8 @@ export const Navigation: FC = observer(() => {
   const {
     authStore: { user },
     rootViewStore,
-    router,
   } = useStores()
+  const [_, navigate] = useLocation()
 
   return (
     <NavigationWrapper>
@@ -48,7 +49,7 @@ export const Navigation: FC = observer(() => {
             await auth.signOut()
           }}
           onClickProfile={() => {
-            router.pushProfile()
+            navigate("/profile")
           }}
         />
       </Container>

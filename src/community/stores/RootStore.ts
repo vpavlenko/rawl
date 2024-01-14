@@ -8,7 +8,6 @@ import { ICloudSongDataRepository } from "../../repositories/ICloudSongDataRepos
 import { ICloudSongRepository } from "../../repositories/ICloudSongRepository"
 import { CommunitySongStore } from "./CommunitySongStore"
 import RootViewStore from "./RootViewStore"
-import Router from "./Router"
 import { SongStore } from "./SongStore"
 
 export default class RootStore {
@@ -24,7 +23,6 @@ export default class RootStore {
   readonly rootViewStore = new RootViewStore()
   readonly player: Player
   readonly synth: SoundFontSynth
-  readonly router = new Router()
 
   constructor() {
     const context = new (window.AudioContext || window.webkitAudioContext)()

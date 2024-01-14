@@ -1,17 +1,17 @@
 import { observer } from "mobx-react-lite"
 import { FC } from "react"
-import { useStores } from "../hooks/useStores"
+import { Route, useLocation } from "wouter"
 import { HomePage } from "../pages/HomePage"
 import { ProfilePage } from "../pages/ProfilePage"
 import { SignInDialog } from "./SignInDialog/SignInDialog"
 
 const Routes: FC = observer(() => {
-  const { router } = useStores()
-  const path = router.path
+  const [location] = useLocation()
+  console.log(location)
   return (
     <>
-      {path === "/" && <HomePage />}
-      {path === "/profile" && <ProfilePage />}
+      <Route path="/community" component={HomePage} />
+      <Route path="/profile" component={ProfilePage} />
     </>
   )
 })

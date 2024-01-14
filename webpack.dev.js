@@ -22,10 +22,11 @@ module.exports = merge(common, {
     },
     historyApiFallback: {
       rewrites: [
-        {
-          from: /^\/([a-zA-Z_-]+)$/,
-          to: (context) => `/${context.match[1]}.html`,
-        },
+        { from: /^\/edit$/, to: "/edit.html" },
+        { from: /^\/community$/, to: "/community.html" },
+        { from: /^\/community\/.*$/, to: "/community.html" },
+        { from: /^\/profile$/, to: "/community.html" },
+        { from: /^\//, to: "/index.html" },
       ],
     },
     open: true,

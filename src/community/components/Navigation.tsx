@@ -1,7 +1,6 @@
 import styled from "@emotion/styled"
 import { observer } from "mobx-react-lite"
 import { FC } from "react"
-import { Link } from "wouter"
 import { UserButton } from "./UserButton"
 
 const Container = styled.div`
@@ -13,7 +12,7 @@ const Container = styled.div`
   justify-content: space-between;
 `
 
-const LogoWrapper = styled(Link)`
+const LogoWrapper = styled.div`
   display: flex;
   cursor: pointer;
 
@@ -30,8 +29,8 @@ export const Navigation: FC = observer(() => {
   return (
     <NavigationWrapper>
       <Container>
-        <LogoWrapper href="/community">
-          <a>
+        <LogoWrapper>
+          <a href="/">
             <img src="logo-white.svg" style={{ height: "1.7rem" }} />
           </a>
         </LogoWrapper>

@@ -6,11 +6,14 @@ import { CloudSongDataRepository } from "../../repositories/CloudSongDataReposit
 import { CloudSongRepository } from "../../repositories/CloudSongRepository"
 import { ICloudSongDataRepository } from "../../repositories/ICloudSongDataRepository"
 import { ICloudSongRepository } from "../../repositories/ICloudSongRepository"
+import { IUserRepository } from "../../repositories/IUserRepository"
+import { UserRepository } from "../../repositories/UserRepository"
 import { CommunitySongStore } from "./CommunitySongStore"
 import RootViewStore from "./RootViewStore"
 import { SongStore } from "./SongStore"
 
 export default class RootStore {
+  readonly userRepository: IUserRepository = new UserRepository(firestore, auth)
   readonly cloudSongRepository: ICloudSongRepository = new CloudSongRepository(
     firestore,
     auth,

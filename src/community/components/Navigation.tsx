@@ -1,7 +1,7 @@
 import styled from "@emotion/styled"
 import { observer } from "mobx-react-lite"
 import { FC } from "react"
-import { useLocation } from "wouter"
+import { Link, useLocation } from "wouter"
 import { auth } from "../../firebase/firebase"
 import { useStores } from "../hooks/useStores"
 import { UserButtonContent } from "./UserButtonContent"
@@ -15,8 +15,9 @@ const Container = styled.div`
   justify-content: space-between;
 `
 
-const LogoWrapper = styled.a`
+const LogoWrapper = styled(Link)`
   display: flex;
+  cursor: pointer;
 
   &:hover {
     opacity: 0.7;
@@ -37,8 +38,10 @@ export const Navigation: FC = observer(() => {
   return (
     <NavigationWrapper>
       <Container>
-        <LogoWrapper href="/">
-          <img src="logo-white.svg" style={{ height: "1.7rem" }} />
+        <LogoWrapper href="/community">
+          <a>
+            <img src="logo-white.svg" style={{ height: "1.7rem" }} />
+          </a>
         </LogoWrapper>
         <UserButtonContent
           user={user}

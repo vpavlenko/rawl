@@ -151,6 +151,8 @@ export default {
     "loading-external-midi": "外部のMIDIファイルを読み込み中...",
     initializing: "起動中...",
     profile: "プロフィール",
+    "signin-to-edit-profile":
+      "プロフィールを編集するにはサインインしてください",
     /* MIDI Instrument Categories */
     Piano: "ピアノ",
     "Chromatic Percussion": "クロマチック",

@@ -4,6 +4,7 @@ import { songFromMidi, songToMidi } from "../../common/midi/midiConversion"
 import Song from "../../common/song"
 import { functions } from "../../firebase/firebase"
 import { CloudSong } from "../../repositories/ICloudSongRepository"
+import { User } from "../../repositories/IUserRepository"
 import RootStore from "../stores/RootStore"
 
 export const loadSong =
@@ -81,13 +82,11 @@ export const loadSongFromExternalMidiFile =
   }
 
 export const publishSong =
-  ({ cloudSongRepository, userRepository }: RootStore) =>
-  async (song: Song) => {
+  ({ cloudSongRepository }: RootStore) =>
+  async (song: Song, user: User) => {
     if (song.cloudSongId === null) {
       throw new Error("This song is not loaded from the cloud")
     }
-
-    const user = await userRepository.getCurrentUser()
     await cloudSongRepository.publish(song.cloudSongId, user)
   }
 

@@ -8,6 +8,7 @@ import {
   collection,
   doc,
   getDoc,
+  onSnapshot,
   setDoc,
   updateDoc,
 } from "firebase/firestore"
@@ -15,7 +16,6 @@ import { IUserRepository, User } from "./IUserRepository"
 
 interface FirestoreUser {
   name: string
-  photoURL: string
   bio: string
   createdAt: Timestamp
   updatedAt: Timestamp
@@ -40,20 +40,18 @@ export class UserRepository implements IUserRepository {
     return doc(this.userCollection, this.auth.currentUser.uid)
   }
 
-  async create(data: Pick<User, "name" | "photoURL" | "bio">): Promise<void> {
+  async create(data: Pick<User, "name" | "bio">): Promise<void> {
     await setDoc(this.userRef, {
       name: data.name,
-      photoURL: data.photoURL,
       bio: data.bio,
       createdAt: Timestamp.now(),
       updatedAt: Timestamp.now(),
     })
   }
 
-  async update(data: Pick<User, "name" | "photoURL" | "bio">): Promise<void> {
+  async update(data: Pick<User, "name" | "bio">): Promise<void> {
     await updateDoc(this.userRef, {
       name: data.name,
-      photoURL: data.photoURL,
       bio: data.bio,
       updatedAt: Timestamp.now(),
     })
@@ -62,7 +60,7 @@ export class UserRepository implements IUserRepository {
   async getCurrentUser() {
     const userDoc = await getDoc(this.userRef)
     if (!userDoc.exists()) {
-      throw new Error("User not found")
+      return null
     }
     return toUser(userDoc)
   }
@@ -73,7 +71,6 @@ const toUser = (snapshot: QueryDocumentSnapshot<FirestoreUser>): User => {
   return {
     id: snapshot.id,
     name: data.name,
-    photoURL: data.photoURL,
     bio: data.bio,
     createdAt: data.createdAt.toDate(),
     updatedAt: data.updatedAt.toDate(),

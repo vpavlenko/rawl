@@ -466,6 +466,7 @@ export const Voice: React.FC<{
   setVoiceMask: SetVoiceMask;
   voiceIndex: number;
   voiceMask: boolean[];
+  showTonalGrid?: boolean;
 }> = ({
   notes,
   measuresAndBeats,
@@ -485,6 +486,7 @@ export const Voice: React.FC<{
   voiceIndex = -1,
   setVoiceMask = (mask) => {},
   voiceMask,
+  showTonalGrid = true,
 }) => {
   const midiRange = useMemo(
     () =>
@@ -577,7 +579,7 @@ export const Voice: React.FC<{
           systemLayout={"split"}
           midiRange={midiRange}
           showHeader={showHeader}
-          showTonalGrid={!notes?.[0]?.[0].isDrum}
+          showTonalGrid={showTonalGrid && !notes?.[0]?.[0].isDrum}
         />
       ) : null}
       {cursor}

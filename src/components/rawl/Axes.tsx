@@ -5,8 +5,35 @@ import { SecondsSpan } from "./Rawl";
 import { Voice } from "./SystemLayout";
 import { MeasuresSpan, PitchClass } from "./analysis";
 
-const Tag = ({ name }: { name: string }) => {
-  return <span>{name.split(":")[1]}</span>;
+const Tag = ({
+  name,
+  sequencer,
+  notes = "",
+}: {
+  name: string;
+  sequencer: any;
+  notes?: string;
+}) => {
+  return (
+    <span
+      onClick={() => {
+        const track = new MidiWriter.Track();
+        track.addEvent(new MidiWriter.ProgramChangeEvent({ instrument: 1 }));
+        notes.split(" ").map((chord) =>
+          track.addEvent(
+            new MidiWriter.NoteEvent({
+              pitch: chord.split("-"),
+              duration: "4",
+            }),
+          ),
+        );
+        const binaryData = new MidiWriter.Writer(track).buildFile();
+        sequencer.playSongFile("custom.mid", binaryData);
+      }}
+    >
+      {name.split(":")[1]}
+    </span>
+  );
 };
 
 const AxisContent = styled.div`
@@ -21,17 +48,12 @@ const Axis: React.FC<React.PropsWithChildren<{ title: string }>> = ({
   children,
 }) => {
   return (
-    <div>
-      <div>{title}</div>
+    <div style={{ marginTop: "50px" }}>
+      <h3>{title}</h3>
       <AxisContent>{children}</AxisContent>
     </div>
   );
 };
-
-// We should make a language to store clean examples for each tag
-// Each example should be a pattern from tonic that's playable and visualisable
-// If we convert it to midi, then we automatically get "sound equals visuals"
-// So we need a DSL to quickly draft MIDI
 
 const VOICE_PARAMS = {
   notes: JSON.parse(
@@ -72,6 +94,7 @@ const VOICE_PARAMS = {
   setVoiceMask: () => {},
   voiceIndex: 0,
   voiceMask: [true],
+  showTonalGrid: false,
 };
 
 const Axes = ({ sequencer, children }) => {
@@ -79,40 +102,27 @@ const Axes = ({ sequencer, children }) => {
     <div>
       <h3>Axes of Western popular harmony, as seen in 12 colors</h3>
       <Axis title="1. Major/minor">
-        <Tag name="scale:major" />
-        <Tag name="scale:minor" />
+        <Tag
+          name="scale:major"
+          sequencer={sequencer}
+          notes="C3-C4-E4-G4 F2-F4-A4-C5 G2-G4-B4-D5 C3-C4-E4-G4"
+        />
+        <Tag
+          sequencer={sequencer}
+          name="scale:minor"
+          notes="C3-C4-Eb4-G4 F2-F4-Ab4-C5 G2-G4-B4-D5 C3-C4-Eb4-G4"
+        />
       </Axis>
       <Axis title="2. Thickness of voicing">
-        <Tag name="voicing:root" />
-        <Tag name="voicing:power_chords" />
-        <Tag name="voicing:triads" />
-        <Tag name="voicing:diatonic_sevenths" />
+        <Tag sequencer={sequencer} name="voicing:root" />
+        <Tag sequencer={sequencer} name="voicing:power_chords" />
+        <Tag sequencer={sequencer} name="voicing:triads" />
+        <Tag sequencer={sequencer} name="voicing:diatonic_sevenths" />
       </Axis>
-      <Voice {...VOICE_PARAMS} />
-      <div
-        onClick={() => {
-          const track = new MidiWriter.Track();
-          track.addEvent(new MidiWriter.ProgramChangeEvent({ instrument: 1 }));
-          const cMajorChord = new MidiWriter.NoteEvent({
-            pitch: ["C4", "E4", "G4"],
-            duration: "2",
-          });
-          track.addEvent(cMajorChord);
-
-          // Add a G Major chord
-          const gMajorChord = new MidiWriter.NoteEvent({
-            pitch: ["G4", "B4", "D5"],
-            duration: "2",
-          });
-          track.addEvent(gMajorChord);
-
-          const binaryData = new MidiWriter.Writer(track).buildFile();
-          sequencer.playSongFile("custom.mid", binaryData);
-        }}
-      >
-        [play]
+      <div>
+        <Voice {...VOICE_PARAMS} />
       </div>
-      <div>{children}</div>
+      {/* <div>{children}</div> */}
     </div>
   );
 };

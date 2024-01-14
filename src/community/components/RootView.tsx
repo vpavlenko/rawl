@@ -1,8 +1,8 @@
 import { observer } from "mobx-react-lite"
 import { FC } from "react"
 import { Route, useLocation } from "wouter"
+import { EditProfilePage } from "../pages/EditProfilePage"
 import { HomePage } from "../pages/HomePage"
-import { EditProfilePage } from "../pages/ProfilePage"
 import { SignInDialog } from "./SignInDialog/SignInDialog"
 
 const Routes: FC = observer(() => {

@@ -1,5 +1,5 @@
 import Player from "../../common/player"
-import { firestore } from "../../firebase/firebase"
+import { auth, firestore } from "../../firebase/firebase"
 import { SoundFontSynth } from "../../main/services/SoundFontSynth"
 import { AuthStore } from "../../main/stores/AuthStore"
 import { CloudSongDataRepository } from "../../repositories/CloudSongDataRepository"
@@ -12,6 +12,7 @@ import { SongStore } from "./SongStore"
 export default class RootStore {
   readonly cloudSongRepository: ICloudSongRepository = new CloudSongRepository(
     firestore,
+    auth,
   )
   readonly cloudSongDataRepository: ICloudSongDataRepository =
     new CloudSongDataRepository(firestore)

@@ -3,7 +3,6 @@ import SkipNext from "mdi-react/SkipNextIcon"
 import SkipPrevious from "mdi-react/SkipPreviousIcon"
 import { observer } from "mobx-react-lite"
 import { FC } from "react"
-import { Slider } from "../../components/Slider"
 import { CircleButton } from "../../main/components/TransportPanel/CircleButton"
 import { PlayButton } from "../../main/components/TransportPanel/PlayButton"
 import { playNextSong, playPreviousSong } from "../actions/song"
@@ -23,11 +22,6 @@ const Inner = styled.div`
   align-items: center;
 `
 
-const PlaybackSlider = styled(Slider)`
-  color: ${({ theme }) => theme.textColor};
-  margin-left: 1rem;
-`
-
 export const BottomPlayer: FC = observer(() => {
   const rootStore = useStores()
   const {
@@ -42,14 +36,12 @@ export const BottomPlayer: FC = observer(() => {
           <SkipPrevious />
         </CircleButton>
         <PlayButton isPlaying={player.isPlaying} />
-        <CircleButton onClick={() => playNextSong(rootStore)()}>
+        <CircleButton
+          onClick={() => playNextSong(rootStore)()}
+          style={{ marginRight: "1rem" }}
+        >
           <SkipNext />
         </CircleButton>
-        <PlaybackSlider
-          value={0}
-          onChange={() => {}}
-          style={{ marginRight: "2rem" }}
-        />
         {currentSong && <BottomPlayerSong song={currentSong.metadata} />}
       </Inner>
     </Wrapper>

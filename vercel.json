@@ -3,7 +3,8 @@
     { "source": "/", "dest": "/index.html" },
     { "source": "/edit", "destination": "/edit.html" },
     { "source": "/profile", "destination": "/community.html" },
-    { "source": "/community/:path*", "destination": "/community.html" }
+    { "source": "/community/:path*", "destination": "/community.html" },
+    { "source": "/users/:path*", "destination": "/community.html" }
   ],
   "builds": [
     {

@@ -29,10 +29,6 @@ export const UserButton = observer(() => {
   const onClickSignOut = async () => {
     await auth.signOut()
   }
-  const onClickEditProfile = () => {
-    navigate("/profile")
-  }
-
   if (authUser === null) {
     return (
       <Tab onClick={onClickSignIn}>
@@ -60,7 +56,10 @@ export const UserButton = observer(() => {
         </Tab>
       }
     >
-      <MenuItem onClick={onClickEditProfile}>
+      <MenuItem onClick={() => navigate(`/users/${authUser.uid}`)}>
+        <Localized default="Profile">profile</Localized>
+      </MenuItem>
+      <MenuItem onClick={() => navigate("/profile")}>
         <Localized default="Edit Profile">edit-profile</Localized>
       </MenuItem>
       <MenuItem onClick={onClickSignOut}>

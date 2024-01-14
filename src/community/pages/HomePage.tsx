@@ -1,6 +1,6 @@
 import { FC } from "react"
 import { Localized } from "../../components/Localized"
-import { SongList } from "../components/SongList"
+import { RecentSongList } from "../components/RecentSongList"
 import { PageLayout, PageTitle } from "../layouts/PageLayout"
 
 export const HomePage: FC = () => {
@@ -9,7 +9,7 @@ export const HomePage: FC = () => {
       <PageTitle>
         <Localized default="Recent Tracks">recent-tracks</Localized>
       </PageTitle>
-      <SongList />
+      <RecentSongList />
     </PageLayout>
   )
 }

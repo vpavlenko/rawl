@@ -8,9 +8,12 @@ import {
   collection,
   doc,
   getDoc,
+  getDocs,
   onSnapshot,
+  query,
   setDoc,
   updateDoc,
+  where,
 } from "firebase/firestore"
 import { IUserRepository, User } from "./IUserRepository"
 
@@ -63,6 +66,24 @@ export class UserRepository implements IUserRepository {
       return null
     }
     return toUser(userDoc)
+  }
+
+  async get(id: string): Promise<User | null> {
+    const userDoc = await getDoc(doc(this.userCollection, id))
+    if (!userDoc.exists()) {
+      return null
+    }
+    return toUser(userDoc)
+  }
+
+  async getByUsername(username: string): Promise<User | null> {
+    const q = query(this.userCollection, where("name", "==", username))
+    const snapshot = await getDocs(q)
+    if (snapshot.empty) {
+      return null
+    }
+    const user = snapshot.docs[0]
+    return toUser(user)
   }
 
   observeCurrentUser(callback: (user: User | null) => void) {

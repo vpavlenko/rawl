@@ -3,7 +3,7 @@ import * as React from "react";
 import styled from "styled-components";
 import { SecondsSpan } from "./Rawl";
 import { Voice } from "./SystemLayout";
-import { MeasuresSpan, PitchClass } from "./analysis";
+import { PitchClass } from "./analysis";
 
 const Tag = ({
   name,
@@ -16,7 +16,7 @@ const Tag = ({
 }) => {
   return (
     <span
-      onClick={() => {
+      onClick={async () => {
         const track = new MidiWriter.Track();
         track.addEvent(new MidiWriter.ProgramChangeEvent({ instrument: 1 }));
         notes.split(" ").map((chord) =>
@@ -28,7 +28,8 @@ const Tag = ({
           ),
         );
         const binaryData = new MidiWriter.Writer(track).buildFile();
-        sequencer.playSongFile("custom.mid", binaryData);
+        const result = await sequencer.playSongFile("custom.mid", binaryData);
+        console.log(JSON.stringify(result));
       }}
     >
       {name.split(":")[1]}
@@ -60,7 +61,6 @@ const VOICE_PARAMS = {
     '[[{"note":{"midiNumber":60},"id":0,"isDrum":false,"span":[0,1]},{"note":{"midiNumber":64},"id":1,"isDrum":false,"span":[0,1]},{"note":{"midiNumber":67},"id":2,"isDrum":false,"span":[0,1]},{"note":{"midiNumber":67},"id":3,"isDrum":false,"span":[1,2]},{"note":{"midiNumber":71},"id":4,"isDrum":false,"span":[1,2]},{"note":{"midiNumber":74},"id":5,"isDrum":false,"span":[1,2]}]]',
   ),
   measuresAndBeats: { measures: [0, 2], beats: [0.5, 1, 1.5] },
-  measuresSpan: [1, 2] as MeasuresSpan,
   secondsSpan: [0, 2] as SecondsSpan,
   analysis: {
     modulations: {},
@@ -71,7 +71,6 @@ const VOICE_PARAMS = {
     phrasePatch: [],
   },
   showVelocity: false,
-  measures: [0, 2],
   cursor: null,
   phraseStarts: [],
   mouseHandlers: {
@@ -114,8 +113,12 @@ const Axes = ({ sequencer, children }) => {
         />
       </Axis>
       <Axis title="2. Thickness of voicing">
-        <Tag sequencer={sequencer} name="voicing:root" />
-        <Tag sequencer={sequencer} name="voicing:power_chords" />
+        <Tag sequencer={sequencer} name="voicing:root" notes="C3 F2 G2 C3" />
+        <Tag
+          sequencer={sequencer}
+          name="voicing:power_chords"
+          notes="C3-G3 F2-C3 G2-D3 C3-G3"
+        />
         <Tag sequencer={sequencer} name="voicing:triads" />
         <Tag sequencer={sequencer} name="voicing:diatonic_sevenths" />
       </Axis>

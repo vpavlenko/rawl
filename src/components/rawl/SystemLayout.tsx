@@ -9,7 +9,7 @@ import {
 } from "react";
 import { AnalysisGrid, Cursor, MeasureSelection } from "./AnalysisGrid";
 import { SecondsSpan, SetVoiceMask, secondsToX, xToSeconds } from "./Rawl";
-import { Analysis, MeasuresSpan, PitchClass } from "./analysis";
+import { Analysis, PitchClass } from "./analysis";
 import { TWELVE_TONE_COLORS } from "./colors";
 import { Note, NotesInVoices } from "./parseMidi";
 
@@ -450,11 +450,9 @@ const VoiceName: React.FC<{
 export const Voice: React.FC<{
   notes: NotesInVoices;
   measuresAndBeats: MeasuresAndBeats;
-  measuresSpan: MeasuresSpan;
   secondsSpan: SecondsSpan;
   analysis: Analysis;
   showVelocity: boolean;
-  measures: number[];
   cursor: ReactNode;
   phraseStarts: number[];
   mouseHandlers: MouseHandlers;
@@ -470,10 +468,8 @@ export const Voice: React.FC<{
 }> = ({
   notes,
   measuresAndBeats,
-  measuresSpan,
   secondsSpan,
   analysis,
-  measures,
   mouseHandlers,
   measureSelection,
   showVelocity,
@@ -526,7 +522,7 @@ export const Voice: React.FC<{
           midiNumberToY,
           SPLIT_NOTE_HEIGHT,
           handleNoteClick,
-          measures,
+          measuresAndBeats.measures,
           () => {},
           () => {},
           showVelocity,
@@ -536,14 +532,14 @@ export const Voice: React.FC<{
       frozenHeight: height,
       frozenMidiRange: midiRange,
     }),
-    [notes, analysis, measures, showVelocity],
+    [notes, measuresAndBeats, analysis, showVelocity],
   );
 
   const hasVisibleNotes = midiRange[1] >= midiRange[0];
 
   return (
     <div
-      key={`voice_${measuresSpan[0]}_parent`}
+      key={`voice_${voiceIndex}_parent`}
       style={{
         width: mySecondsToX(
           measuresAndBeats.measures[measuresAndBeats.measures.length - 1],
@@ -729,13 +725,11 @@ export const SplitSystemLayout: React.FC<{
               voiceName={voiceNames[voiceIndex]}
               notes={notes}
               measuresAndBeats={measuresAndBeats}
-              measuresSpan={[1, measuresAndBeats.measures.length]}
               secondsSpan={[
                 0,
                 measuresAndBeats.measures[measuresAndBeats.measures.length - 1],
               ]}
               analysis={analysis}
-              measures={measuresAndBeats.measures}
               mouseHandlers={mouseHandlers}
               measureSelection={measureSelection}
               showVelocity={showVelocity}

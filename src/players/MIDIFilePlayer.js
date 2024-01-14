@@ -97,14 +97,16 @@ MIDIPlayer.prototype.load = function (midiFile, useTrackLoops = false) {
       activeChannels.push(i);
     }
   }
-  this.setChipStateDump(
-    parseNotes({
-      events: this.events,
-      activeChannels,
-      timebase: midiFile.header.datas.getUint16(12),
-      timeEvents,
-    }),
-  );
+
+  const result = parseNotes({
+    events: this.events,
+    activeChannels,
+    timebase: midiFile.header.datas.getUint16(12),
+    timeEvents,
+  });
+  this.setChipStateDump(result);
+
+  return result;
 };
 
 MIDIPlayer.prototype.doSkipSilence = function () {

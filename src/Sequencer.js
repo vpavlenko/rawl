@@ -249,7 +249,7 @@ export default class Sequencer extends EventEmitter {
       });
   }
 
-  playSongFile(filepath, songData, subtune = 0) {
+  async playSongFile(filepath, songData, subtune = 0) {
     if (this.player !== null) {
       this.player.suspend();
     }
@@ -267,19 +267,21 @@ export default class Sequencer extends EventEmitter {
 
     this.context = [];
     this.currUrl = null;
-    this.playSongBuffer(filepath, songData, subtune);
+    return this.playSongBuffer(filepath, songData, subtune);
   }
 
   async playSongBuffer(filepath, buffer, subtune = 0) {
     let uint8Array;
     uint8Array = new Uint8Array(buffer);
     this.player.setTempo(1);
+    let result;
     try {
-      await this.player.loadData(uint8Array, filepath, subtune);
+      result = await this.player.loadData(uint8Array, filepath, subtune);
     } catch (e) {
       this.handlePlayerError(`Unable to play ${filepath} (${e.message}).`);
     }
     const numVoices = this.player.getNumVoices();
     this.player.setVoiceMask([...Array(numVoices)].fill(true));
+    return result;
   }
 }

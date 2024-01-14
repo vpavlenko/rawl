@@ -392,7 +392,7 @@ export default class MIDIPlayer extends Player {
     const midiFile = new MIDIFile(data);
     // Checking filepath doesn't work for dragged files. Force to true during development.
     const useTrackLoops = filepath.includes("SoundFont MIDI");
-    this.midiFilePlayer.load(midiFile, useTrackLoops);
+    const result = this.midiFilePlayer.load(midiFile, useTrackLoops);
     this.midiFilePlayer.play(() =>
       this.emit("playerStateUpdate", { isStopped: true }),
     );
@@ -407,6 +407,7 @@ export default class MIDIPlayer extends Player {
       ...this.getBasePlayerState(),
       isStopped: false,
     });
+    return result;
   }
 
   getSynthengineBasedOnFilename(filepath) {

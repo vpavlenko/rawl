@@ -30,7 +30,7 @@ const NavigationWrapper = styled.div`
 
 export const Navigation: FC = observer(() => {
   const {
-    authStore: { user },
+    authStore: { authUser: user },
     rootViewStore,
   } = useStores()
   const [_, navigate] = useLocation()

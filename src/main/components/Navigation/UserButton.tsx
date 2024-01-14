@@ -7,7 +7,7 @@ import { UserButtonContent } from "./UserButtonContent"
 export const UserButton: FC = observer(() => {
   const {
     rootViewStore,
-    authStore: { user },
+    authStore: { authUser: user },
   } = useStores()
 
   return (

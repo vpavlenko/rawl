@@ -35,7 +35,7 @@ const Action = styled.div`
 
 export const ProfilePage: FC = observer(() => {
   const {
-    authStore: { user: authUser },
+    authStore: { authUser },
     userRepository,
   } = useStores()
 

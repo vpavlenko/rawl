@@ -89,7 +89,7 @@ export const IconStyle: CSSProperties = {
 export const Navigation: FC = observer(() => {
   const {
     rootViewStore,
-    authStore: { user },
+    authStore: { authUser: user },
     router,
   } = useStores()
 

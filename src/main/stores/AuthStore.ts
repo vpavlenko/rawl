@@ -1,17 +1,17 @@
-import { User } from "firebase/auth"
+import { User as AuthUser } from "firebase/auth"
 import { makeObservable, observable } from "mobx"
 import { auth } from "../../firebase/firebase"
 
 export class AuthStore {
-  user: User | null = null
+  authUser: AuthUser | null = null
 
   constructor() {
     makeObservable(this, {
-      user: observable,
+      authUser: observable,
     })
 
     auth.onAuthStateChanged((user) => {
-      this.user = user
+      this.authUser = user
     })
   }
 }

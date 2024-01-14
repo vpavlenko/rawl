@@ -64,6 +64,12 @@ export class UserRepository implements IUserRepository {
     }
     return toUser(userDoc)
   }
+
+  observeCurrentUser(callback: (user: User | null) => void) {
+    onSnapshot(this.userRef, (snapshot) => {
+      snapshot.exists() ? callback(toUser(snapshot)) : callback(null)
+    })
+  }
 }
 
 const toUser = (snapshot: QueryDocumentSnapshot<FirestoreUser>): User => {

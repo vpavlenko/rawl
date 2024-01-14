@@ -22,6 +22,12 @@ const Inner = styled.div`
   margin: 0 auto;
 `
 
+export const PageTitle = styled.h1`
+  font-size: 300%;
+  margin-top: 4rem;
+  margin-bottom: 2rem;
+`
+
 export interface PageLayoutProps {}
 
 export const PageLayout: FC<PropsWithChildren<PageLayoutProps>> = ({

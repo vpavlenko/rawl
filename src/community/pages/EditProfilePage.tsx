@@ -10,13 +10,7 @@ import { TextField } from "../../components/TextField"
 import { useToast } from "../../main/hooks/useToast"
 import { useAsyncEffect } from "../hooks/useAsyncEffect"
 import { useStores } from "../hooks/useStores"
-import { PageLayout } from "../layouts/PageLayout"
-
-const Title = styled.h1`
-  font-size: 300%;
-  margin-top: 4rem;
-  margin-bottom: 2rem;
-`
+import { PageLayout, PageTitle } from "../layouts/PageLayout"
 
 const Form = styled.div`
   display: flex;
@@ -82,9 +76,9 @@ export const EditProfilePage: FC = observer(() => {
   if (!authUser) {
     return (
       <PageLayout>
-        <Title>
+        <PageTitle>
           <Localized default="Edit Profile">edit-profile</Localized>
-        </Title>
+        </PageTitle>
         <Alert severity="warning">
           <Localized default="Please sign in to edit your profile">
             signin-to-edit-profile
@@ -97,9 +91,9 @@ export const EditProfilePage: FC = observer(() => {
   if (isLoading) {
     return (
       <PageLayout>
-        <Title>
+        <PageTitle>
           <Localized default="Edit Profile">edit-profile</Localized>
-        </Title>
+        </PageTitle>
         <CircularProgress />
       </PageLayout>
     )
@@ -107,9 +101,9 @@ export const EditProfilePage: FC = observer(() => {
 
   return (
     <PageLayout>
-      <Title>
+      <PageTitle>
         <Localized default="Edit Profile">edit-profile</Localized>
-      </Title>
+      </PageTitle>
       <Form>
         <Label>
           <Localized default="Display name">display-name</Localized>

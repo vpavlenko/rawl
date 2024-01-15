@@ -320,8 +320,6 @@ const Rawl: React.FC<{
           zIndex: "100",
         }}
       >
-        <button onClick={() => commitAnalysisUpdate({})}>Confirm tonic</button>
-        {"  "}
         <label className="inline">
           <input
             title="Velocity"

@@ -868,27 +868,7 @@ class App extends React.Component {
                       />
                       <Route
                         path="/axes"
-                        render={() => (
-                          <Axes sequencer={this.sequencer}>
-                            {this.state.midiSource.notes && (
-                              <Rawl
-                                parsingResult={this.state.midiSource}
-                                getCurrentPositionMs={this.getCurrentPositionMs}
-                                saveAnalysis={this.saveAnalysis}
-                                voiceNames={this.state.voiceNames}
-                                voiceMask={this.state.voiceMask}
-                                setVoiceMask={this.handleSetVoiceMask}
-                                showAnalysisBox={this.state.analysisEnabled}
-                                seek={(time) =>
-                                  this.seekRelativeInner(time, true)
-                                }
-                                registerSeekCallback={(seekCallback) =>
-                                  this.setState({ seekCallback })
-                                }
-                              />
-                            )}
-                          </Axes>
-                        )}
+                        render={() => <Axes sequencer={this.sequencer} />}
                       />
                       <Route
                         path={["/browse/:browsePath*"]}

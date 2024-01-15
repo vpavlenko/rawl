@@ -95,7 +95,7 @@ const VOICE_PARAMS = {
   showTonalGrid: false,
 };
 
-const Axes = ({ sequencer, children }) => {
+const Axes = ({ sequencer }) => {
   return (
     <div>
       <h3>Axes of Western popular harmony, as seen in 12 colors</h3>
@@ -112,14 +112,43 @@ const Axes = ({ sequencer, children }) => {
         />
       </Axis>
       <Axis title="2. Thickness of voicing">
-        <Tag sequencer={sequencer} name="voicing:root" notes="C3 F2 G2 C3" />
+        <Tag
+          sequencer={sequencer}
+          name="voicing:root"
+          notes="C4 G3 A3 E3 F3 C3 F3 G3"
+        />
         <Tag
           sequencer={sequencer}
           name="voicing:power_chords"
-          notes="C3-G3 F2-C3 G2-D3 C3-G3"
+          notes="C4-G4 G3-D4 A3-E4 E3-B3 F3-C4 C3-G3 F3-C4 G3-D4"
         />
-        <Tag sequencer={sequencer} name="voicing:triads" />
-        <Tag sequencer={sequencer} name="voicing:diatonic_sevenths" />
+        <Tag
+          sequencer={sequencer}
+          name="voicing:triads"
+          notes="C4-E4-G4 G3-B3-D4 A3-C4-E4 E3-G3-B3 F3-A3-C4 C3-E3-G3 F3-A3-C4 G3-B3-D4"
+        />
+        <Tag
+          sequencer={sequencer}
+          name="voicing:diatonic_sevenths"
+          notes="C4-E4-G4-B4 G3-B3-D4-F4 A3-C4-E4-G4 E3-G3-B3-D4 F3-A3-C4-E4 C3-E3-G3-B3 F3-A3-C4-E4 G3-B3-D4-F4"
+        />
+        <Tag
+          sequencer={sequencer}
+          name="voicing:alterations"
+          notes="C4-D4-E4-G4-A4 G3-B3-C4-D4-F4 A3-C4-E4-G4-B4 E3-G3-B3-D4-F4 F3-A3-C4-D4-E4 C3-E3-G3-B3-D4 F3-A3-C4-E4-G4 G3-B3-D4-F4-Ab4"
+        />
+      </Axis>
+      <Axis title="3. Tonal stability">
+        <Tag
+          sequencer={sequencer}
+          name="harmony:pure_I-V"
+          notes="C3-E3-G3-C4 G2-B2-D3-D4 C3-E3-G3-E4 G2-B2-D3-F4 C3-E3-G3-G4 C3-E3-G3-A4 G2-B2-D3-B4 C3-E3-G3-C5"
+        />
+        <Tag
+          sequencer={sequencer}
+          name="harmony:pure_I-IV-V"
+          notes="C3-E3-G3-C4 G2-B2-D3-D4 C3-E3-G3-E4 F2-A2-C3-F4 C3-E3-G3-G4 F2-A2-C3-A4 G2-B2-D3-B4 C3-E3-G3-C5"
+        />
       </Axis>
     </div>
   );

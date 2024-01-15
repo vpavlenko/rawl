@@ -122,7 +122,6 @@ const TAGS = [
   "voicing:root",
   "voicing:power_chords",
   "voicing:triads",
-  "voicing:minor_sevenths",
   "voicing:diatonic_sevenths",
   "voicing:transposed_riff",
   "voicing:alterations",

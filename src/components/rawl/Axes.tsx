@@ -28,11 +28,16 @@ const Tag = ({
             track.addEvent(
               new MidiWriter.ProgramChangeEvent({ instrument: 1 }),
             );
-            notes.split(" ").map((chord) =>
+            let duration = "2";
+            let notesToPlay = notes;
+            if (notes.indexOf(",") !== -1) {
+              [duration, notesToPlay] = notes.split(",");
+            }
+            notesToPlay.split(" ").map((chord) =>
               track.addEvent(
                 new MidiWriter.NoteEvent({
                   pitch: chord.split("-"),
-                  duration: "2",
+                  duration,
                 }),
               ),
             );
@@ -134,8 +139,16 @@ const Axes = ({ sequencer }) => {
           name="scale:natural_minor"
           notes="C2-C3-Eb3-G3-C4 Bb1-Bb2-D3-F3-D4 Eb2-Eb3-G3-Bb3-Eb4 F2-F3-Ab3-C4-F4 G2-G3-Bb3-D4-G4 Ab2-Ab3-C4-Eb4-Ab4 Bb2-Bb3-D4-F4-Bb4 C3-C4-Eb4-G4-C5"
         />
-        <Tag sequencer={sequencer} name="scale:dorian" />
-        <Tag sequencer={sequencer} name="scale:pentatonic" />
+        <Tag
+          sequencer={sequencer}
+          name="scale:dorian"
+          notes="C2-C3-Eb3-G3-Eb4 F2-F3-A3-C4-F4 C2-C3-Eb3-G3-G4 F2-F3-A3-C4-A4 C2-C3-Eb3-G3-C5"
+        />
+        <Tag
+          sequencer={sequencer}
+          name="scale:pentatonic"
+          notes="8,C3 Eb3 F3 F#3 G3 Bb3 C4 Bb3 G3 F#3 F3 Eb3 C3"
+        />
         <Tag sequencer={sequencer} name="scale:transposed_pentatonic" />
         <Tag sequencer={sequencer} name="scale:blues" />
         <Tag sequencer={sequencer} name="scale:mixolydian" />
@@ -167,9 +180,11 @@ const Axes = ({ sequencer }) => {
           name="voicing:alterations"
           notes="C4-E4-G4-B4-D5 G3-D4-E4-G4-B4 A3-C4-E4-G4-B4 E3-G3-B3-D4 F3-A3-C4-E4-G4 C3-E3-G3-B3-D4 F3-A3-C4-E4-G4 G3-B3-D4-F4-A4"
         />
-        <Tag sequencer={sequencer} name="scale:blues" />
-        <Tag sequencer={sequencer} name="scale:minor_sevenths" />
-        <Tag sequencer={sequencer} name="scale:transposed_riff" />
+        <Tag
+          sequencer={sequencer}
+          name="voicing:blues"
+          notes="C3-E3-G3-Bb3 C3-E3-G3-Bb3 F3-A3-C4-Eb4 C3-E3-G3-Bb3 G3-B3-D4-F4 F3-A3-C4-Eb4 C3-E3-G3-Bb3"
+        />
       </Axis>
       <Axis title="3. Tonal stability">
         <Tag
@@ -195,9 +210,13 @@ const Axes = ({ sequencer }) => {
         <Tag
           name="modulation:up_at_the_end"
           sequencer={sequencer}
-          notes="C2-C3-E3-G3-C4 D2-A2-D3-F3-D4 G1-B2-D3-G3-B3 C2-C3-E3-G3-C4 C#2-C#3-E#3-G#3-C#4 D#2-A#2-D#3-F#3-D#4 G#1-B#2-D#3-G#3-B#3 C#2-C#3-E#3-G#3-C#4"
+          notes="C3-E3-G3-C4 F2-A2-C3-D4 G2-B2-D3-B3 C3-E3-G3-C4 C#3-E#3-G#3-C#4 F#2-A#2-C#3-D#4 G#2-B#2-D#3-B#3 C#3-E#3-G#3-C#4"
         />
-        <Tag sequencer={sequencer} name="modulation:parallel_keys" />
+        <Tag
+          sequencer={sequencer}
+          name="modulation:parallel_keys"
+          notes="C3-E3-G3-C4 F2-A2-C3-D4 G2-B2-D3-B3 C3-E3-G3-C4 C3-Eb3-G3-C4 F2-Ab2-C3-D4 G2-B2-D3-B3 C3-Eb3-G3-C4"
+        />
         <Tag sequencer={sequencer} name="modulation:relative_major" />
         <Tag sequencer={sequencer} name="modulation:contrast" />
         <Tag sequencer={sequencer} name="modulation:often" />

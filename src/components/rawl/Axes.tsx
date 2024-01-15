@@ -35,13 +35,18 @@ const Tag = ({
           );
           const binaryData = new MidiWriter.Writer(track).buildFile();
           const result = await sequencer.playSongFile("custom.mid", binaryData);
+          if (MIDI_PREVIEWS[notes]) {
+            return;
+          }
+          result.notes[0].forEach((note) => delete note.chipState);
           MIDI_PREVIEWS[notes] = result;
           console.log(JSON.stringify(MIDI_PREVIEWS));
         }}
       >
-        {MIDI_PREVIEWS[notes] && (
+        {(MIDI_PREVIEWS[notes] && (
           <Voice {...VOICE_PARAMS} {...MIDI_PREVIEWS[notes]} />
-        )}
+        )) ||
+          "play"}
       </div>
     </span>
   );
@@ -104,18 +109,23 @@ const VOICE_PARAMS = {
 const Axes = ({ sequencer }) => {
   return (
     <div>
-      <h3>Axes of Western popular harmony, as seen in 12 colors</h3>
+      <h2>Axes of Western popular harmony, as seen in 12 colors</h2>
       <PianoLegend hoverable={false} />
       <Axis title="1. Major/minor">
         <Tag
           name="scale:major"
           sequencer={sequencer}
-          notes="C2-E3-G3-C4 A1-E3-A3-C4 E2-E3-G3-B3 F2-F3-A3-C4 D2-F3-A3-D4 G2-G3-B3-D4 C2-G3-C4-E4"
+          notes="C2-C3-E3-G3-C4 D2-D3-F3-A3-D4 E2-E3-G3-B3-E4 F2-F3-A3-C4-F4 G2-G3-B3-D4-G4 A2-A3-C4-E4-A4 G2-G3-B3-D4-B4 C3-C4-E4-G4-C5"
         />
         <Tag
           sequencer={sequencer}
           name="scale:minor"
-          notes="C2-Eb3-G3-C4 Ab1-Eb3-Ab3-C4 Bb1-F3-Bb3-D3 Eb2-Eb3-G3-Bb3 F2-F3-Ab3-C4 G2-G3-B3-D4 C2-G3-C4-Eb4"
+          notes="C2-C3-Eb3-G3-C4 Bb1-Bb2-D3-F3-D4 Eb2-Eb3-G3-Bb3-Eb4 F2-F3-Ab3-C4-F4 G2-G3-Bb3-D4-G4 Ab2-Ab3-C4-Eb4-Ab4 G2-G3-B3-D4-B4 C3-C4-Eb4-G4-C5"
+        />
+        <Tag
+          sequencer={sequencer}
+          name="scale:natural_minor"
+          notes="C2-C3-Eb3-G3-C4 Bb1-Bb2-D3-F3-D4 Eb2-Eb3-G3-Bb3-Eb4 F2-F3-Ab3-C4-F4 G2-G3-Bb3-D4-G4 Ab2-Ab3-C4-Eb4-Ab4 Bb2-Bb3-D4-F4-Bb4 C3-C4-Eb4-G4-C5"
         />
       </Axis>
       <Axis title="2. Thickness of voicing">
@@ -142,7 +152,7 @@ const Axes = ({ sequencer }) => {
         <Tag
           sequencer={sequencer}
           name="voicing:alterations"
-          notes="C4-E4-G4-B4-D5 G3-B3-D4-E4 A3-C4-E4-G4-B4 E3-G3-B3-D4-F4 F3-A3-C4-D4-E4 C3-E3-G3-B3-D4 F3-A3-C4-E4-G4 G3-B3-D4-F4-Ab4"
+          notes="C4-E4-G4-B4-D5 G3-D4-E4-G4-B4 A3-C4-E4-G4-B4 E3-G3-B3-D4 F3-A3-C4-E4-G4 C3-E3-G3-B3-D4 F3-A3-C4-E4-G4 G3-B3-D4-F4-A4"
         />
       </Axis>
       <Axis title="3. Tonal stability">
@@ -154,7 +164,7 @@ const Axes = ({ sequencer }) => {
         <Tag
           sequencer={sequencer}
           name="harmony:pure_I-IV-V"
-          notes="C3-E3-G3-C4 G2-B2-D3-D4 C3-E3-G3-E4 F3-A3-C4-F4 C3-E3-G3-G4 F2-A2-C3-A4 G2-B2-D3-B4 C3-E3-G3-C5"
+          notes="C3-E3-G3-C4 G2-B2-D3-D4 C3-E3-G3-E4 F2-A2-C3-F4 C3-E3-G3-G4 F2-A2-C3-A4 G2-B2-D3-B4 C3-E3-G3-C5"
         />
         <Tag
           sequencer={sequencer}
@@ -164,7 +174,12 @@ const Axes = ({ sequencer }) => {
         <Tag
           sequencer={sequencer}
           name="applied:V/vi"
-          notes="C3-E3-G3-C4 G2-B2-D3-D4 C3-E3-G3-E4 F3-A3-C4-F4 E3-G#3-B3-G#4 A3-C4-E4-A4 G2-B2-D3-B4 C3-E3-G3-C5"
+          notes="C3-E3-G3-C4 G2-B2-D3-D4 C3-E3-G3-E4 F3-A3-C4-F4 E3-G#3-B3-G#4 A3-C4-E4-A4 G3-B3-D4-B4 C3-E3-G3-C5"
+        />
+        <Tag
+          name="modulation:up_at_the_end"
+          sequencer={sequencer}
+          notes="C2-C3-E3-G3-C4 D2-A2-D3-F3-D4 G1-B2-D3-G3-B3 C2-C3-E3-G3-C4 C#2-C#3-E#3-G#3-C#4 D#2-A#2-D#3-F#3-D#4 G#1-B#2-D#3-G#3-B#3 C#2-C#3-E#3-G#3-C#4"
         />
       </Axis>
     </div>

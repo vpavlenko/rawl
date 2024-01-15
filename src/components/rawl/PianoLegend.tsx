@@ -24,46 +24,50 @@ const PianoKey = styled.div`
   height: ${KEY_HEIGHT}px;
 `;
 
-export const PianoLegend = () => {
-  return (
-    <Hoverable>
-      <a
-        href="https://github.com/vpavlenko/rawl#12-colors"
-        target="_blank"
-        rel="noopener noreferrer"
+export const PianoLegend: React.FC<{ hoverable: boolean }> = ({
+  hoverable = true,
+}) => {
+  const content = (
+    <a
+      href="https://github.com/vpavlenko/rawl#12-colors"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <div
+        style={{
+          position: "relative",
+          width: 100,
+          height: KEY_HEIGHT + ROW_DISTANCE,
+        }}
       >
-        <div
-          style={{
-            position: "relative",
-            width: 100,
-            height: KEY_HEIGHT + ROW_DISTANCE,
-          }}
-        >
-          {[0, 1, 2, 3, 4, 5, 6].map((i) => (
-            <React.Fragment key={i}>
+        {[0, 1, 2, 3, 4, 5, 6].map((i) => (
+          <React.Fragment key={i}>
+            <PianoKey
+              key={`w_${i}`}
+              style={{
+                backgroundColor: TWELVE_TONE_COLORS[WHITE_KEYS[i]],
+                top: ROW_DISTANCE,
+                left: (KEY_WIDTH + PADDING) * i,
+              }}
+            />
+            {BLACK_KEYS[i] !== -1 ? (
               <PianoKey
-                key={`w_${i}`}
+                key={`b_${i}`}
                 style={{
-                  backgroundColor: TWELVE_TONE_COLORS[WHITE_KEYS[i]],
-                  top: ROW_DISTANCE,
-                  left: (KEY_WIDTH + PADDING) * i,
+                  backgroundColor: TWELVE_TONE_COLORS[BLACK_KEYS[i]],
+                  top: 0,
+                  left: (KEY_WIDTH + PADDING) * (i + 0.5),
+                  zIndex: 2,
                 }}
               />
-              {BLACK_KEYS[i] !== -1 ? (
-                <PianoKey
-                  key={`b_${i}`}
-                  style={{
-                    backgroundColor: TWELVE_TONE_COLORS[BLACK_KEYS[i]],
-                    top: 0,
-                    left: (KEY_WIDTH + PADDING) * (i + 0.5),
-                    zIndex: 2,
-                  }}
-                />
-              ) : null}
-            </React.Fragment>
-          ))}
-        </div>
-      </a>
-    </Hoverable>
+            ) : null}
+          </React.Fragment>
+        ))}
+      </div>
+    </a>
   );
+  if (hoverable) {
+    return <Hoverable>{content}</Hoverable>;
+  }
+  return content;
 };

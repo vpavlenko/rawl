@@ -2,6 +2,7 @@ import MidiWriter from "midi-writer-js";
 import * as React from "react";
 import styled from "styled-components";
 import MIDI_PREVIEWS from "./AxesMidiPreviews";
+import { PianoLegend } from "./PianoLegend";
 import { Voice } from "./SystemLayout";
 import { PitchClass } from "./analysis";
 
@@ -99,6 +100,7 @@ const Axes = ({ sequencer }) => {
   return (
     <div>
       <h3>Axes of Western popular harmony, as seen in 12 colors</h3>
+      <PianoLegend hoverable={false} />
       <Axis title="1. Major/minor">
         <Tag
           name="scale:major"
@@ -135,7 +137,7 @@ const Axes = ({ sequencer }) => {
         <Tag
           sequencer={sequencer}
           name="voicing:alterations"
-          notes="C4-D4-E4-G4-A4 G3-B3-C4-D4-F4 A3-C4-E4-G4-B4 E3-G3-B3-D4-F4 F3-A3-C4-D4-E4 C3-E3-G3-B3-D4 F3-A3-C4-E4-G4 G3-B3-D4-F4-Ab4"
+          notes="C4-E4-G4-B4-D5 G3-B3-D4-E4 A3-C4-E4-G4-B4 E3-G3-B3-D4-F4 F3-A3-C4-D4-E4 C3-E3-G3-B3-D4 F3-A3-C4-E4-G4 G3-B3-D4-F4-Ab4"
         />
       </Axis>
       <Axis title="3. Tonal stability">
@@ -147,7 +149,17 @@ const Axes = ({ sequencer }) => {
         <Tag
           sequencer={sequencer}
           name="harmony:pure_I-IV-V"
-          notes="C3-E3-G3-C4 G2-B2-D3-D4 C3-E3-G3-E4 F2-A2-C3-F4 C3-E3-G3-G4 F2-A2-C3-A4 G2-B2-D3-B4 C3-E3-G3-C5"
+          notes="C3-E3-G3-C4 G2-B2-D3-D4 C3-E3-G3-E4 F3-A3-C4-F4 C3-E3-G3-G4 F2-A2-C3-A4 G2-B2-D3-B4 C3-E3-G3-C5"
+        />
+        <Tag
+          sequencer={sequencer}
+          name="applied:V/V"
+          notes="C3-E3-G3-C4 G2-B2-D3-D4 C3-E3-G3-E4 F3-A3-C4-F4 C3-E3-G3-G4 D3-F#3-A3-A4 G3-B3-D4-B4 C3-E3-G3-C5"
+        />
+        <Tag
+          sequencer={sequencer}
+          name="applied:V/vi"
+          notes="C3-E3-G3-C4 G2-B2-D3-D4 C3-E3-G3-E4 F3-A3-C4-F4 E3-G#3-B3-G#4 A3-C4-E4-A4 G2-B2-D3-B4 C3-E3-G3-C5"
         />
       </Axis>
     </div>

@@ -77,6 +77,10 @@ h6 {
     font-weight: normal;
 }
 
+strong {
+    color: var(--neutral4);
+}
+
 p {
     margin: 0 0 var(--charH) 0;
 }
@@ -1003,4 +1007,4 @@ img {
 }
 
 
-/*# sourceMappingURL=main.d4ec2286.css.map*/
+/*# sourceMappingURL=main.8b307905.css.map*/

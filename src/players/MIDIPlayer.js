@@ -294,31 +294,31 @@ export default class MIDIPlayer extends Player {
 
     // Initialize MIDI output devices
     console.debug("Requesting MIDI output devices.");
-    if (typeof navigator.requestMIDIAccess === "function") {
-      navigator.requestMIDIAccess({ sysex: true }).then((access) => {
-        if (access.outputs.length === 0) {
-          console.warn("No MIDI output devices found.");
-        } else {
-          [...access.outputs.values()].forEach((midiOutput) => {
-            console.debug("MIDI Output:", midiOutput);
-            midiDevices.push(midiOutput);
-            this.paramDefs
-              .find((def) => def.id === "mididevice")
-              .options[0].items.push({
-                label: midiOutput.name,
-                value: midiDevices.length - 1,
-              });
-          });
+    // if (typeof navigator.requestMIDIAccess === "function") {
+    //   navigator.requestMIDIAccess({ sysex: true }).then((access) => {
+    //     if (access.outputs.length === 0) {
+    //       console.warn("No MIDI output devices found.");
+    //     } else {
+    //       [...access.outputs.values()].forEach((midiOutput) => {
+    //         console.debug("MIDI Output:", midiOutput);
+    //         midiDevices.push(midiOutput);
+    //         this.paramDefs
+    //           .find((def) => def.id === "mididevice")
+    //           .options[0].items.push({
+    //             label: midiOutput.name,
+    //             value: midiDevices.length - 1,
+    //           });
+    //       });
 
-          // TODO: remove if removing Dummy Device
-          this.setParameter("mididevice", 1);
-        }
-      });
-    } else {
-      console.warn(
-        "Web MIDI API not supported. Try Chrome if you want to use external MIDI output devices.",
-      );
-    }
+    //       // TODO: remove if removing Dummy Device
+    //       this.setParameter("mididevice", 1);
+    //     }
+    //   });
+    // } else {
+    //   console.warn(
+    //     "Web MIDI API not supported. Try Chrome if you want to use external MIDI output devices.",
+    //   );
+    // }
   }
 
   async loadData(data, filepath) {

@@ -748,6 +748,14 @@ const MIDI_PREVIEWS = {
         measures: [0, 2, 4, 6, 8],
         beats: [0.5, 1, 1.5, 2.5, 3, 3.5, 4.5, 5, 5.5, 6.5, 7, 7.5],
       },
+      analysis: {
+        modulations: { "3": 1 },
+        tonic: 0,
+        comment: "",
+        tags: [],
+        form: [],
+        phrasePatch: [],
+      },
       notes: [
         [
           { note: { midiNumber: 48 }, id: 98, isDrum: false, span: [0, 1] },

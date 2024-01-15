@@ -16,28 +16,32 @@ const Tag = ({
   notes?: string;
 }) => {
   return (
-    <span
-      onClick={async () => {
-        const track = new MidiWriter.Track();
-        track.addEvent(new MidiWriter.ProgramChangeEvent({ instrument: 1 }));
-        notes.split(" ").map((chord) =>
-          track.addEvent(
-            new MidiWriter.NoteEvent({
-              pitch: chord.split("-"),
-              duration: "2",
-            }),
-          ),
-        );
-        const binaryData = new MidiWriter.Writer(track).buildFile();
-        const result = await sequencer.playSongFile("custom.mid", binaryData);
-        MIDI_PREVIEWS[notes] = result;
-        console.log(JSON.stringify(MIDI_PREVIEWS));
-      }}
-    >
-      {name.split(":")[1]}
-      {MIDI_PREVIEWS[notes] && (
-        <Voice {...VOICE_PARAMS} {...MIDI_PREVIEWS[notes]} />
-      )}
+    <span>
+      <a href={`/tags/${name}`} target="_blank">
+        {name.split(":")[1]}
+      </a>
+      <div
+        onClick={async () => {
+          const track = new MidiWriter.Track();
+          track.addEvent(new MidiWriter.ProgramChangeEvent({ instrument: 1 }));
+          notes.split(" ").map((chord) =>
+            track.addEvent(
+              new MidiWriter.NoteEvent({
+                pitch: chord.split("-"),
+                duration: "2",
+              }),
+            ),
+          );
+          const binaryData = new MidiWriter.Writer(track).buildFile();
+          const result = await sequencer.playSongFile("custom.mid", binaryData);
+          MIDI_PREVIEWS[notes] = result;
+          console.log(JSON.stringify(MIDI_PREVIEWS));
+        }}
+      >
+        {MIDI_PREVIEWS[notes] && (
+          <Voice {...VOICE_PARAMS} {...MIDI_PREVIEWS[notes]} />
+        )}
+      </div>
     </span>
   );
 };

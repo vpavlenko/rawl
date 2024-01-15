@@ -59,6 +59,7 @@ import Visualizer from "./Visualizer";
 import Axes from "./rawl/Axes";
 import Intro from "./rawl/Intro";
 import Rawl from "./rawl/Rawl";
+import TagSearch from "./rawl/TagSearch";
 
 const mergeAnalyses = (base, diff) => {
   const result = { ...base };
@@ -872,6 +873,15 @@ class App extends React.Component {
                         render={() => <Axes sequencer={this.sequencer} />}
                       />
                       <Route path="/intro" render={() => <Intro />} />
+                      <Route
+                        path="/tags/:tag*"
+                        render={({ match }) => (
+                          <TagSearch
+                            tag={match.params?.tag}
+                            analyses={this.state.analyses}
+                          />
+                        )}
+                      />
                       <Route
                         path={["/browse/:browsePath*"]}
                         render={({ history, match, location }) => {

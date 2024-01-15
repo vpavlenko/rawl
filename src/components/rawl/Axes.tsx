@@ -21,6 +21,7 @@ const Tag = ({
         {name.split(":")[1]}
       </a>
       <div
+        style={{ cursor: "pointer" }}
         onClick={async () => {
           const track = new MidiWriter.Track();
           track.addEvent(new MidiWriter.ProgramChangeEvent({ instrument: 1 }));
@@ -78,7 +79,7 @@ const VOICE_PARAMS = {
   cursor: null,
   phraseStarts: [],
   mouseHandlers: {
-    handleNoteClick: () => {},
+    handleNoteClick: null,
     handleMouseEnter: () => {},
     handleMouseLeave: () => {},
     hoveredNote: null,

@@ -22,7 +22,7 @@ const TagSearch: React.FC<{ tag: string; analyses: Corpus }> = ({
           result.push(
             <li>
               <a href={`/browse/${artist}?song=${song}`} target="_blank">
-                {artist} - {song}
+                {artist.slice(5)} - {song.slice(0, -4)}
               </a>
             </li>,
           );
@@ -32,7 +32,9 @@ const TagSearch: React.FC<{ tag: string; analyses: Corpus }> = ({
   }
   return (
     <div>
-      <div>Search: {tag}</div>
+      <div>
+        These songs are marked with <strong>{tag}</strong> tag:
+      </div>
       <ul>{result}</ul>
     </div>
   );

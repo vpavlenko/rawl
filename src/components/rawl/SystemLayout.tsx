@@ -268,8 +268,10 @@ const getNoteRectangles = (
             : {}),
         }}
         onClick={(e) => {
-          e.stopPropagation();
-          handleNoteClick(note, e.altKey);
+          if (handleNoteClick) {
+            e.stopPropagation();
+            handleNoteClick(note, e.altKey);
+          }
         }}
         onMouseEnter={(e) => handleMouseEnter(note, e.altKey)}
         onMouseLeave={handleMouseLeave}

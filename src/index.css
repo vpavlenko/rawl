@@ -72,6 +72,10 @@ h6 {
     font-weight: normal;
 }
 
+strong {
+    color: var(--neutral4);
+}
+
 p {
     margin: 0 0 var(--charH) 0;
 }

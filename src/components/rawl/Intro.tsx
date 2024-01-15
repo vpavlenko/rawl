@@ -14,7 +14,15 @@ const Intro = () => {
               href="/browse/MIDI/Lennon%20John?song=Imagine.4.mid"
               target="_blank"
             >
-              John Lennon "Imagine"
+              John Lennon - "Imagine"
+            </a>
+          </li>
+          <li>
+            <a
+              href="/browse/MIDI/The%20Beatles?song=Misery.2.mid"
+              target="_blank"
+            >
+              The Beatles - "Misery"
             </a>
           </li>
         </ol>

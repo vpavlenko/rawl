@@ -459,7 +459,11 @@
         "tonic": 4,
         "tags": [
           "rhythm:swing",
-          "modulation:parallel_keys"
+          "modulation:parallel_keys",
+          "voicing:triads",
+          "bass:root_fifth",
+          "bass:diatonic_line",
+          "arrangement:simple_second_line"
         ],
         "modulations": {}
       }
@@ -484,7 +488,7 @@
         "tags": [
           "voicing:transposed_riff",
           "voicing:power_chords",
-          "scale:transposed_pentatonics",
+          "scale:transposed_pentatonic",
           "tempo:accelerando"
         ],
         "modulations": {},
@@ -591,7 +595,7 @@
           "voicing:blues",
           "rhythm:swing",
           "rhythm:triplet",
-          "scale:pentatonics",
+          "scale:pentatonic",
           "genre:rockabilly"
         ],
         "modulations": {},
@@ -1060,8 +1064,20 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
+        "tags": [
+          "scale:natural_minor",
+          "voicing:diatonic_sevenths",
+          "functionality:progression",
+          "bass:simple",
+          "arrangement:ornamental_riff"
+        ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
           2
@@ -1103,7 +1119,7 @@
         ],
         "romanNumerals": "",
         "tags": [
-          "scale:pentatonics",
+          "scale:pentatonic",
           "functionality:shuttle",
           "scale:natural_minor",
           "voicing:transposed_riff",
@@ -1165,9 +1181,26 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
-        "modulations": {},
+        "tags": [
+          "chord:IaddS9"
+        ],
+        "modulations": {
+          "17": 9,
+          "21": 4,
+          "29": 9,
+          "33": 4,
+          "41": 9,
+          "45": 4,
+          "101": 9,
+          "105": 4
+        },
         "fourMeasurePhrasingReferences": [
           1
         ],
@@ -2222,7 +2255,7 @@
           "bass:developed",
           "functionality:progression",
           "voicing:triads",
-          "scale:pentatonics"
+          "scale:pentatonic"
         ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
@@ -2291,8 +2324,34 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 4
+          },
+          {
+            "measure": 21,
+            "diff": 2
+          },
+          {
+            "measure": 51,
+            "diff": 2
+          },
+          {
+            "measure": 81,
+            "diff": 2
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
+        "tags": [
+          "chord:V13",
+          "voicing:alterations",
+          "functionality:short_progression",
+          "bass:developed",
+          "arrangement:ornamental_riff",
+          "scale:major",
+          "style:soul"
+        ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
           5
@@ -2874,8 +2933,20 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 3
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
+        "tags": [
+          "functionality:progression",
+          "scale:major",
+          "voice-leading:pedal",
+          "bass:diatonic_approaches",
+          "arrangement:no_chords"
+        ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
           3
@@ -3269,11 +3340,48 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          },
+          {
+            "measure": 18,
+            "diff": 1
+          },
+          {
+            "measure": 43,
+            "diff": 1
+          },
+          {
+            "measure": 52,
+            "diff": 1
+          },
+          {
+            "measure": 77,
+            "diff": 1
+          },
+          {
+            "measure": 86,
+            "diff": 1
+          },
+          {
+            "measure": 119,
+            "diff": 1
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
-        "modulations": {
-          "19": 7
-        },
+        "tags": [
+          "scale:natural_minor",
+          "modulation:relative_major",
+          "bass:diatonic_line",
+          "texture:arpeggio",
+          "tempo:ritardando",
+          "voicing:triads",
+          "melody:in_thirds",
+          "scale:major"
+        ],
+        "modulations": {},
         "fourMeasurePhrasingReferences": [
           2
         ],
@@ -3284,7 +3392,7 @@
         "step": "end",
         "comment": "",
         "correctedMeasures": [],
-        "tonic": 4,
+        "tonic": 7,
         "basedOn": null
       }
     }
@@ -4281,6 +4389,66 @@
           "issues:merge_voices",
           "modulation:contrast",
           "voice-leading:triple_chromatic_down"
+        ]
+      }
+    }
+  },
+  "MIDI/Al Stewart": {
+    "On The Border.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 7,
+        "tags": [],
+        "modulations": {}
+      }
+    }
+  },
+  "MIDI/Marvin Gaye": {
+    "What's Goin' On.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          }
+        ],
+        "comment": "",
+        "tonic": 4,
+        "modulations": {},
+        "tags": [
+          "voicing:diatonic_sevenths",
+          "chord:V13",
+          "chord:iv_in_major"
+        ]
+      }
+    }
+  },
+  "MIDI/Lennon John": {
+    "Imagine.4.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 0,
+        "modulations": {},
+        "tags": [
+          "bass:diatonic_line",
+          "scale:major",
+          "voicing:triads",
+          "chunks:III-IV"
         ]
       }
     }

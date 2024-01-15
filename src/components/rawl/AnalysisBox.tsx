@@ -24,6 +24,7 @@ const TAGS = [
   "arrangement:fills_at_rests",
   "arrangement:ornamental_riff",
   "arrangement:no_chords",
+  "arrangement:simple_second_line",
 
   "bass:diatonic_line",
   "bass:walking",
@@ -83,6 +84,7 @@ const TAGS = [
   "chunks:i-VII-VI-V",
   "chunks:circle_of_fifths",
   "chunks:bVII-IV-I",
+  "chunks:III-IV",
 
   "stability:bVII-V",
   "stability:bVI-bVII-I",

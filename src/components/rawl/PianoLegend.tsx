@@ -24,7 +24,7 @@ const PianoKey = styled.div`
   height: ${KEY_HEIGHT}px;
 `;
 
-export const PianoLegend: React.FC<{ hoverable: boolean }> = ({
+export const PianoLegend: React.FC<{ hoverable?: boolean }> = ({
   hoverable = true,
 }) => {
   const content = (

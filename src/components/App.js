@@ -57,6 +57,7 @@ import MessageBox from "./MessageBox";
 import Settings from "./Settings";
 import Visualizer from "./Visualizer";
 import Axes from "./rawl/Axes";
+import Intro from "./rawl/Intro";
 import Rawl from "./rawl/Rawl";
 
 const mergeAnalyses = (base, diff) => {
@@ -870,6 +871,7 @@ class App extends React.Component {
                         path="/axes"
                         render={() => <Axes sequencer={this.sequencer} />}
                       />
+                      <Route path="/intro" render={() => <Intro />} />
                       <Route
                         path={["/browse/:browsePath*"]}
                         render={({ history, match, location }) => {

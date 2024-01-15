@@ -12,6 +12,10 @@ export default class AppHeader extends React.PureComponent {
         <Link className="AppHeader-title" to={{ pathname: "/axes" }}>
           Axes
         </Link>
+        {" • "}
+        <Link className="AppHeader-title" to={{ pathname: "/intro" }}>
+          Intro
+        </Link>
         {/* {" • "}
         <Link
           className="AppHeader-title"

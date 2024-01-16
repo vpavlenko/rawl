@@ -238,7 +238,6 @@ const Axes = ({ sequencer }) => {
       <TagGroup group={"chord-scale"} sequencer={sequencer} />
       <TagGroup group={"rhythm"} sequencer={sequencer} />
       <TagGroup group={"style"} sequencer={sequencer} />
-      <TagGroup group={"voicing"} sequencer={sequencer} />
       <TagGroup group={"form"} sequencer={sequencer} />
       <TagGroup group={"tempo"} sequencer={sequencer} />
       <TagGroup group={"melody"} sequencer={sequencer} />

@@ -4452,5 +4452,410 @@
         ]
       }
     }
+  },
+  "MIDI/Lobo": {
+    "I'd Love You to Want Me.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          },
+          {
+            "measure": 10,
+            "diff": -2
+          },
+          {
+            "measure": 24,
+            "diff": -1
+          },
+          {
+            "measure": 35,
+            "diff": -2
+          },
+          {
+            "measure": 41,
+            "diff": -1
+          },
+          {
+            "measure": 52,
+            "diff": 1
+          },
+          {
+            "measure": 61,
+            "diff": -1
+          },
+          {
+            "measure": 76,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 10,
+        "tags": [
+          "harmony:pure_I-ii-IV-V",
+          "issues:merge_voices",
+          "scale:major",
+          "voicing:triads",
+          "texture:rich_piano_arpeggio",
+          "texture:guitar_strumming",
+          "issues:R=1/2N",
+          "rhythm:swing",
+          "arrangement:counterpoint",
+          "bass:developed"
+        ],
+        "modulations": {}
+      }
+    }
+  },
+  "MIDI/T'Pau": {
+    "China In Your Hand.2.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          },
+          {
+            "measure": 7,
+            "diff": -2
+          },
+          {
+            "measure": 9,
+            "diff": -1
+          },
+          {
+            "measure": 12,
+            "diff": -1
+          },
+          {
+            "measure": 23,
+            "diff": 1
+          },
+          {
+            "measure": 28,
+            "diff": -2
+          },
+          {
+            "measure": 30,
+            "diff": -1
+          },
+          {
+            "measure": 33,
+            "diff": -1
+          },
+          {
+            "measure": 44,
+            "diff": 1
+          },
+          {
+            "measure": 49,
+            "diff": 1
+          },
+          {
+            "measure": 58,
+            "diff": 1
+          },
+          {
+            "measure": 67,
+            "diff": 1
+          },
+          {
+            "measure": 76,
+            "diff": 1
+          },
+          {
+            "measure": 85,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 11,
+        "modulations": {},
+        "tags": [
+          "scale:major",
+          "voice-leading:chromatic",
+          "chord:ii7",
+          "chord:V7",
+          "voicing:triads",
+          "chord:Vsus4",
+          "bass:diatonic_line",
+          "arrangement:harmonic_embellishment"
+        ]
+      }
+    }
+  },
+  "MIDI/Chocolate": {
+    "Everybody Salsa.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 4
+          },
+          {
+            "measure": 57,
+            "diff": -2
+          },
+          {
+            "measure": 99,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 0,
+        "modulations": {
+          "83": 9,
+          "100": 0
+        },
+        "tags": [
+          "style:latin",
+          "harmony:pure_I-IV-V",
+          "modulation:relative_major",
+          "chunks:i-VII-VI-V",
+          "form:other_solo",
+          "voicing:triads",
+          "chord-scale:melodic_minor_V",
+          "bass:idk"
+        ]
+      }
+    }
+  },
+  "MIDI/Taco": {
+    "Puttin'on the Ritz.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          },
+          {
+            "measure": 58,
+            "diff": 2
+          }
+        ],
+        "comment": "Xylophone mm. 18-25 seems off",
+        "tonic": 5,
+        "modulations": {
+          "26": 8,
+          "33": 5,
+          "46": 8,
+          "50": 0,
+          "54": 7,
+          "56": 7,
+          "76": 10,
+          "83": 7
+        },
+        "tags": [
+          "scale:minor",
+          "modulation:relative_major",
+          "chord:V7",
+          "chord:io7",
+          "modulation:contrast",
+          "applied:V7/IV",
+          "applied:V/V",
+          "rhythm:2_against_3",
+          "bass:root_fifth",
+          "bass:diatonic_line",
+          "voice-leading:chromatic"
+        ]
+      }
+    }
+  },
+  "MIDI/Marx Richard": {
+    "Hazard.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 3
+          },
+          {
+            "measure": 100,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 7,
+        "modulations": {},
+        "tags": [
+          "voicing:triads",
+          "arrangement:ornamental_riff",
+          "bass:root_fifth",
+          "scale:dorian",
+          "melody:doubled",
+          "scale:natural_minor",
+          "form:rock_solo"
+        ]
+      }
+    }
+  },
+  "MIDI/CASIOPEA": {
+    "Asayake.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 4,
+        "tags": [
+          "style:jazz_fusion",
+          "voicing:alterations",
+          "arrangement:chordal_riff",
+          "modulation:parallel_keys",
+          "chord:iv_in_major",
+          "form:jazz_solo",
+          "functionality:functional",
+          "scale:major",
+          "issues:seek_breaks_instrument"
+        ],
+        "modulations": {}
+      }
+    }
+  },
+  "MIDI/Oingo Boingo": {
+    "Grey Matter.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          },
+          {
+            "measure": 30,
+            "diff": -1
+          },
+          {
+            "measure": 41,
+            "diff": -1
+          },
+          {
+            "measure": 76,
+            "diff": -1
+          },
+          {
+            "measure": 127,
+            "diff": -1
+          },
+          {
+            "measure": 134,
+            "diff": -1
+          },
+          {
+            "measure": 169,
+            "diff": 1
+          },
+          {
+            "measure": 186,
+            "diff": 1
+          },
+          {
+            "measure": 255,
+            "diff": -1
+          },
+          {
+            "measure": 262,
+            "diff": -1
+          }
+        ],
+        "comment": "",
+        "tonic": 11,
+        "modulations": {},
+        "tags": [
+          "voicing:power_chords",
+          "scale:natural_minor",
+          "bass:riff",
+          "functionality:stasis",
+          "arrangement:no_chords"
+        ]
+      }
+    }
+  },
+  "MIDI/Mary Wells": {
+    "My Guy.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 10,
+        "modulations": {},
+        "tags": [
+          "applied:V/ii",
+          "applied:V/V",
+          "chord:V7",
+          "scale:major",
+          "chord:III",
+          "chord-scale:phrygian_dominant",
+          "rhythm:swing",
+          "arrangement:chordal_riff"
+        ]
+      }
+    }
+  },
+  "MIDI/Clout": {
+    "Substitute.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          },
+          {
+            "measure": 10,
+            "diff": 2
+          },
+          {
+            "measure": 16,
+            "diff": 1
+          },
+          {
+            "measure": 25,
+            "diff": -1
+          },
+          {
+            "measure": 36,
+            "diff": 1
+          },
+          {
+            "measure": 41,
+            "diff": 1
+          },
+          {
+            "measure": 50,
+            "diff": -1
+          },
+          {
+            "measure": 65,
+            "diff": 2
+          }
+        ],
+        "comment": "",
+        "tonic": 4,
+        "modulations": {},
+        "tags": [
+          "scale:major",
+          "chord:bVII",
+          "voicing:triads",
+          "texture:guitar_strumming",
+          "bass:transposed_riff"
+        ]
+      }
+    }
   }
 }

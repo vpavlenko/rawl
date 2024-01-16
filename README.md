@@ -150,3 +150,13 @@ Also, it feels like there was a gradual development of cool timbral hacks and co
 ### Composers
 
 Certain composers for NES can have very recognizable style and musical toolchain. [List of sound drivers](https://gdri.smspower.org/wiki/index.php/Famicom/NES_Sound_Driver_List) may also help. This is also a good way to listen to "something similar to that cool track that I've found".
+
+# Levels of tailored education
+
+Let's build education around asking a student to analyze pieces of music.
+Then the levels of pieces of increasing attractiveness:
+
+1. Genres that the student doesn't listen to much, in a form that's hard to navigate. Eg. common-practice classical music in sheet music
+2. 12-colored piano rolls of random pop pieces available in MIDI. It's for the brave who want to get into the unknown
+3. Same for favorite artists for which MIDIs are available.
+4. Same but music only is available, so the MIDI is crafted via automatic transcription.

@@ -57,6 +57,7 @@ import MessageBox from "./MessageBox";
 import Settings from "./Settings";
 import Visualizer from "./Visualizer";
 import Axes from "./rawl/Axes";
+import Course from "./rawl/Course";
 import Intro from "./rawl/Intro";
 import Rawl from "./rawl/Rawl";
 import TagSearch from "./rawl/TagSearch";
@@ -872,6 +873,7 @@ class App extends React.Component {
                         path="/axes"
                         render={() => <Axes sequencer={this.sequencer} />}
                       />
+                      <Route path="/course" render={() => <Course />} />
                       <Route path="/intro" render={() => <Intro />} />
                       <Route
                         path="/tags/:tag*"

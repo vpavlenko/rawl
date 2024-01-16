@@ -40,6 +40,7 @@ export const TAGS = [
   "bass:root_third_fifth",
   "bass:melody",
   "bass:developed",
+  "bass:idk",
 
   "applied:V/V",
   "applied:V/vi",
@@ -75,6 +76,7 @@ export const TAGS = [
   "chord:III",
 
   "chord-scale:phrygian_dominant",
+  "chord-scale:melodic_minor_V",
 
   "voice-leading:Vsus4",
   "voice-leading:in_chords",
@@ -124,6 +126,7 @@ export const TAGS = [
 
   "harmony:pure_I-IV-V",
   "harmony:pure_I-V",
+  "harmony:pure_I-ii-IV-V",
 
   "voicing:root",
   "voicing:power_chords",
@@ -153,12 +156,15 @@ export const TAGS = [
   "issues:mute_voices",
   "issues:manual_remeasuring_needed",
   "issues:R=1/2N",
+  "issues:seek_breaks_instrument",
+  "issues:noteY_mismatch",
 
   "form:development_through_instrumentation",
   "form:solo_piano_intro",
   "form:jazz_solo",
   "form:rock_solo",
   "form:drum_solo",
+  "form:other_solo",
   "form:period",
   "form:AABA",
   "form:solo_piano",
@@ -170,6 +176,8 @@ export const TAGS = [
   "percussion:tonal",
 
   "texture:arpeggio",
+  "texture:rich_piano_arpeggio",
+  "texture:guitar_strumming",
 
   "genre:rockabilly",
 

@@ -16,6 +16,10 @@ export default class AppHeader extends React.PureComponent {
         <Link className="AppHeader-title" to={{ pathname: "/intro" }}>
           Intro
         </Link>
+        {" • "}
+        <Link className="AppHeader-title" to={{ pathname: "/course" }}>
+          Course
+        </Link>
         {/* {" • "}
         <Link
           className="AppHeader-title"

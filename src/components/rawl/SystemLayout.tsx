@@ -530,7 +530,7 @@ export const Voice: React.FC<{
 
   return (
     <div
-      key={`voice_${voiceIndex}_parent`}
+      key={`voice_${voiceIndex}_${measuresAndBeats.measures.at(-1)}_parent`}
       style={{
         width: secondsToX(
           Math.max(

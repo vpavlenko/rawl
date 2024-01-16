@@ -1,6 +1,7 @@
 import MidiWriter from "midi-writer-js";
 import * as React from "react";
 import styled from "styled-components";
+import { TAGS } from "./AnalysisBox";
 import MIDI_PREVIEWS from "./AxesMidiPreviews";
 import { PianoLegend } from "./PianoLegend";
 import { Voice } from "./SystemLayout";
@@ -63,6 +64,14 @@ const Tag = ({
     </span>
   );
 };
+
+const TagGroup = ({ group, sequencer }) => (
+  <Axis title={group}>
+    {TAGS.filter((tag) => tag.startsWith(`${group}:`)).map((tag) => (
+      <Tag sequencer={sequencer} name={tag} />
+    ))}
+  </Axis>
+);
 
 const AxisContent = styled.div`
   display: flex;
@@ -222,17 +231,17 @@ const Axes = ({ sequencer }) => {
         <Tag sequencer={sequencer} name="modulation:often" />
         <Tag sequencer={sequencer} name="modulation:back_down" />
       </Axis>
-      <Axis title="4. Bass melodicity">
-        <Tag sequencer={sequencer} name="bass:root" />
-        <Tag sequencer={sequencer} name="bass:root_fifth" />
-        <Tag sequencer={sequencer} name="bass:diatonic_approach" />
-        <Tag sequencer={sequencer} name="bass:simple" />
-        <Tag sequencer={sequencer} name="bass:diatonic_line" />
-        <Tag sequencer={sequencer} name="bass:developed" />
-        <Tag sequencer={sequencer} name="bass:riff" />
-        <Tag sequencer={sequencer} name="bass:transposed_riff" />
-        <Tag sequencer={sequencer} name="bass:walking" />
-      </Axis>
+      <TagGroup group={"bass"} sequencer={sequencer} />
+      <TagGroup group={"functionality"} sequencer={sequencer} />
+      <TagGroup group={"chord"} sequencer={sequencer} />
+      <TagGroup group={"chunks"} sequencer={sequencer} />
+      <TagGroup group={"chord-scale"} sequencer={sequencer} />
+      <TagGroup group={"rhythm"} sequencer={sequencer} />
+      <TagGroup group={"style"} sequencer={sequencer} />
+      <TagGroup group={"voicing"} sequencer={sequencer} />
+      <TagGroup group={"form"} sequencer={sequencer} />
+      <TagGroup group={"tempo"} sequencer={sequencer} />
+      <TagGroup group={"melody"} sequencer={sequencer} />
     </div>
   );
 };

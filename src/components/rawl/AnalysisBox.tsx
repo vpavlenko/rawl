@@ -4,11 +4,12 @@ import Select from "react-select";
 import { getPhraseStarts } from "./SystemLayout";
 import { Analysis } from "./analysis";
 
-const TAGS = [
+export const TAGS = [
   "rhythm:swing",
   "rhythm:3+3+2",
   "rhythm:syncopation",
   "rhythm:triplet",
+  "rhythm:2_against_3",
 
   "modulation:parallel_keys",
   "modulation:up_at_the_end",
@@ -23,8 +24,10 @@ const TAGS = [
   "arrangement:guitar_trio",
   "arrangement:fills_at_rests",
   "arrangement:ornamental_riff",
+  "arrangement:chordal_riff",
   "arrangement:no_chords",
   "arrangement:simple_second_line",
+  "arrangement:harmonic_embellishment",
 
   "bass:diatonic_line",
   "bass:walking",
@@ -69,6 +72,9 @@ const TAGS = [
   "chord:V13",
   "chord:IaddS9",
   "chord:viø",
+  "chord:III",
+
+  "chord-scale:phrygian_dominant",
 
   "voice-leading:Vsus4",
   "voice-leading:in_chords",
@@ -159,6 +165,7 @@ const TAGS = [
 
   "melody:non-transposed_riff",
   "melody:in_thirds",
+  "melody:doubled",
 
   "percussion:tonal",
 

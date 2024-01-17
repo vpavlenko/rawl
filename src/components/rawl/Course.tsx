@@ -23,6 +23,19 @@ const Course = () => {
             <S artist="MIDI/Typically Tropical" song="Barbados.mid" /> -
             exercise, find main tonic
           </li>
+          <li>
+            <S artist="MIDI/U.S.A. for Africa" song="We Are the World.mid" />
+            exercise
+          </li>
+          <ul>
+            <li>
+              <S
+                artist="MIDI/UB40"
+                song="(I Can't Help) Falling In Love With You.mid"
+              />{" "}
+              - exercise, also melody is stepwise
+            </li>
+          </ul>
         </ul>
         <h3>Phrases</h3>
         Fix non-squared phrases
@@ -33,6 +46,10 @@ const Course = () => {
             <S artist="MIDI/Typically Tropical" song="Barbados.mid" /> -
             diatonic approaches
           </li>
+          <li>
+            <S artist="MIDI/U.S.A. for Africa" song="We Are the World.mid" />
+            root
+          </li>
         </ul>
         <ul>
           <li>
@@ -41,22 +58,53 @@ const Course = () => {
           </li>
         </ul>
         <h3>Natural minor</h3>
-        <ul></ul>
-        <h3>V7</h3>
-        <h3>Diatonic seventh chords</h3>
-        <h3>Functionality - shuttle</h3>
         <ul>
           <li>
-            <S artist="MIDI/Type O Negative" song="Love You to Death.mid" /> -
-            dorian shuttle
+            <S artist="MIDI/U96" song="Club Bizarre.mid" /> - main tonic
           </li>
         </ul>
-        <h3>Functionality - four-chord progression</h3>
+        <h3>V7, minor</h3>
+        <ul>
+          <li>
+            <S artist="MIDI/U.S.A. for Africa" song="We Are the World.mid" /> -
+            no V7, complex
+          </li>
+        </ul>
+        <h3>Diatonic seventh chords</h3>
+        <ul>
+          <li>
+            <S artist="MIDI/U96" song="Club Bizarre.mid" />
+          </li>
+        </ul>
+        <h3>Functionality - progression</h3>
+        Cite Hearing Harmony
+        <ul>
+          <li>
+            <S artist="MIDI/U96" song="Club Bizarre.mid" />
+          </li>{" "}
+          - three chords
+        </ul>
         <h3>Functionality - stasis</h3>
+        <ul>
+          <li>
+            <S artist="MIDI/U96" song="Club Bizarre.mid" />- middle part, sort
+            of
+          </li>
+        </ul>
         <h3>Functionality - functional</h3>
         <ul>
           <li>
             <S artist="MIDI/Typically Tropical" song="Barbados.mid" />
+          </li>
+          <li>
+            <S artist="MIDI/U.S.A. for Africa" song="We Are the World.mid" />
+          </li>
+        </ul>
+        <h3>Style - eurodance</h3>
+        <h3>Bass - riff</h3>
+        <ul>
+          <li>
+            <S artist="MIDI/U96" song="Club Bizarre.mid" /> - with progression
           </li>
         </ul>
         <h3>Modulation up at the end</h3>
@@ -65,11 +113,19 @@ const Course = () => {
             <S artist="MIDI/Twila Paris" song="How Beautiful.mid" /> - up at the
             end
           </li>
+          <li>
+            <S artist="MIDI/U.S.A. for Africa" song="We Are the World.mid" />
+          </li>
         </ul>
         <ul>
           <li>Show transposition of the entire track</li>
         </ul>
         <h3>Parallel keys</h3>
+        <ul>
+          <li>
+            <S artist="MIDI/U96" song="Club Bizarre.mid" />
+          </li>
+        </ul>
         <h3>Bass - diatonic line</h3>
         <ul>
           <li>
@@ -77,7 +133,7 @@ const Course = () => {
             bass line
           </li>
         </ul>
-        <h3>Dorian</h3>
+        <h3>Dorian (shuttle?)</h3>
         <ul>
           <li>
             <S artist="MIDI/Type O Negative" song="Love You to Death.mid" /> -
@@ -87,8 +143,41 @@ const Course = () => {
             <S artist="MIDI/Typically Tropical" song="Barbados.mid" /> dorian
             relative shuttle after modulation
           </li>
+          <li>
+            <S artist="MIDI/U2" song="A Celebration.mid" />
+          </li>
+          <li>
+            <S
+              artist="MIDI/UB40"
+              song="(I Can't Help) Falling In Love With You.mid"
+            />
+          </li>
+        </ul>
+        <h3>Functionality - shuttle</h3>
+        <ul>
+          <li>
+            <S artist="MIDI/Type O Negative" song="Love You to Death.mid" /> -
+            dorian shuttle
+          </li>
+        </ul>
+        <h3>Modulation - contrast</h3>
+        <ul>
+          <li>
+            <S
+              artist="MIDI/UB40"
+              song="(I Can't Help) Falling In Love With You.mid"
+            />
+          </li>
         </ul>
         <h3>Applied chords</h3>
+        <h3>Chromatic chords - V+</h3>
+        <h3>Chromatic chords - iv</h3>
+        <h3>Relative key</h3>
+        <ul>
+          <li>
+            <S artist="MIDI/Typically Tropical" song="Barbados.mid" />
+          </li>
+        </ul>
         <h3>Chromatic chords - bVII</h3>
         <ul>
           <li>
@@ -96,12 +185,10 @@ const Course = () => {
             like pivot bII = bVII
           </li>
         </ul>
-        <h3>Chromatic chords - V+</h3>
-        <h3>Chromatic chords - iv</h3>
-        <h3>Relative key</h3>
+        <h3>bVI-bVII-I in major - Mario cadence</h3>
         <ul>
           <li>
-            <S artist="MIDI/Typically Tropical" song="Barbados.mid" />
+            <S artist="MIDI/U.S.A. for Africa" song="We Are the World.mid" />
           </li>
         </ul>
         <h3>Pentatonic languages, bIII</h3>
@@ -111,6 +198,8 @@ const Course = () => {
             <S artist="MIDI/Typically Tropical" song="Barbados.mid" />
           </li>
         </ul>
+        <h3>Vsus4</h3>
+        <h3>Alterations (9th, 13th)</h3>
         <h3>Jazz</h3>
         <ul>
           <li>

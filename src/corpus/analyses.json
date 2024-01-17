@@ -804,16 +804,16 @@
         "romanNumerals": "",
         "tags": [
           "style:reggae",
-          "bass:diatonic_line",
           "chord:ii7",
           "functionality:shuttle",
-          "modulation:contrast",
           "scale:dorian",
           "functionality:functional",
           "stability:bVII-V",
           "voicing:triads",
           "arrangement:counterpoint",
-          "arrangement:fills_at_rests"
+          "arrangement:fills_at_rests",
+          "bass:diatonic_approaches",
+          "modulation:relative_major"
         ],
         "modulations": {
           "59": 9,
@@ -933,7 +933,6 @@
         "romanNumerals": "",
         "tags": [
           "voice-leading:Vsus4",
-          "chord:V7",
           "functionality:functional",
           "arrangement:ornamental_riff",
           "bass:root",
@@ -941,7 +940,7 @@
           "modulation:up_at_the_end",
           "voice-leading:in_chords",
           "scale:major",
-          "voicing:minor_sevenths"
+          "voicing:alterations"
         ],
         "modulations": {
           "78": 5
@@ -2559,7 +2558,9 @@
         "tags": [
           "functionality:shuttle",
           "scale:dorian",
-          "voicing:root"
+          "voicing:root",
+          "form:solo_piano_intro",
+          "style:metal"
         ],
         "modulations": {
           "138": 11
@@ -2594,9 +2595,9 @@
         "tags": [
           "functionality:shuttle",
           "scale:dorian",
-          "voicing:power_chords",
           "rhythm:3+3+2",
-          "bass:simple"
+          "bass:simple",
+          "voice-leading:pedal"
         ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
@@ -3169,7 +3170,8 @@
           "modulation:contrast",
           "scale:dorian",
           "functionality:shuttle",
-          "bass:diatonic_line"
+          "bass:diatonic_line",
+          "chord:V9"
         ],
         "fourMeasurePhrasingReferences": [
           3
@@ -3507,7 +3509,9 @@
           "bass:riff",
           "functionality:stasis",
           "modulation:parallel_keys",
-          "voicing:diatonic_sevenths"
+          "voicing:diatonic_sevenths",
+          "fx:delay",
+          "style:eurodance"
         ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
@@ -4186,7 +4190,11 @@
           "bass:diatonic_line",
           "applied:V/V",
           "time:3/4",
-          "modulation:up_at_the_end"
+          "modulation:up_at_the_end",
+          "scale:major",
+          "issues:merge_voices",
+          "tempo:ritardando",
+          "arrangement:developed_piano"
         ],
         "modulations": {
           "121": 4
@@ -4850,6 +4858,105 @@
           "voicing:triads",
           "texture:guitar_strumming",
           "bass:transposed_riff"
+        ]
+      }
+    }
+  },
+  "MIDI/Creedence Clearwater Revival": {
+    "Bad Moon Rising.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          }
+        ],
+        "comment": "",
+        "tonic": 2,
+        "tags": [],
+        "modulations": {}
+      }
+    }
+  },
+  "MIDI/Chris Andrews": {
+    "Pretty Belinda.1.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 5
+          }
+        ],
+        "comment": "",
+        "tonic": 9,
+        "tags": [
+          "harmony:pure_I-V",
+          "scale:major",
+          "voicing:triads"
+        ],
+        "modulations": {}
+      }
+    },
+    "Pretty Belinda.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 4
+          }
+        ],
+        "comment": "",
+        "tonic": 9,
+        "tags": [],
+        "modulations": {}
+      }
+    }
+  },
+  "MIDI/Cascades": {
+    "Rhythm of the Rain.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          }
+        ],
+        "comment": "",
+        "tonic": 4,
+        "modulations": {},
+        "tags": [
+          "issues:mute_voices",
+          "chord:V7",
+          "applied:V7/IV",
+          "scale:major"
+        ]
+      }
+    }
+  },
+  "MIDI/Captain Hollywood Project": {
+    "More and More.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 9,
+        "modulations": {},
+        "tags": [
+          "style:eurodance",
+          "scale:natural_minor",
+          "functionality:progression",
+          "form:development_through_instrumentation",
+          "voicing:diatonic_sevenths",
+          "bass:root"
         ]
       }
     }

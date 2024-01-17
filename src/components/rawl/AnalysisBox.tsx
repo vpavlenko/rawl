@@ -71,6 +71,7 @@ export const TAGS = [
   "chord:IVadd9",
   "chord:V+",
   "chord:V13",
+  "chord:V9",
   "chord:IaddS9",
   "chord:viø",
   "chord:III",
@@ -184,6 +185,8 @@ export const TAGS = [
   "genre:rockabilly",
 
   "harmony:ambiguous_tonic",
+
+  "fx:delay",
 ];
 
 const FORM_SECTIONS = ["intro", "verse", "chorus", "bridge", "outro", "solo"];

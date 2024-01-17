@@ -78,6 +78,7 @@ export const TAGS = [
 
   "chord-scale:phrygian_dominant",
   "chord-scale:melodic_minor_V",
+  "chord-scale:ionian_IV",
 
   "voice-leading:Vsus4",
   "voice-leading:in_chords",

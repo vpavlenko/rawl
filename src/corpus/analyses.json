@@ -664,7 +664,8 @@
           "scale:major",
           "functionality:functional",
           "bass:diatonic_line",
-          "form:solo_piano_intro"
+          "form:solo_piano_intro",
+          "voicing:root"
         ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
@@ -903,8 +904,8 @@
           "voice-leading:chromatic",
           "applied:V/ii",
           "chord:Vsus4",
-          "voicing:alterations",
-          "functionality:functional"
+          "functionality:functional",
+          "chord:V13"
         ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
@@ -1431,7 +1432,8 @@
           "applied:V/iv",
           "modulation:contrast",
           "chord:i7",
-          "scale:natural_minor"
+          "scale:natural_minor",
+          "harmony:ambiguous_tonic"
         ],
         "modulations": {
           "36": 0,
@@ -1775,7 +1777,8 @@
           "chord:Cad64",
           "functionality:functional",
           "scale:major",
-          "bass:root_fifth"
+          "bass:root_fifth",
+          "applied:V/ii"
         ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
@@ -2165,7 +2168,9 @@
           "applied:V/vi",
           "chunks:V-vi_deceptive",
           "voice-leading:Vsus4",
-          "stability:bVII-V"
+          "stability:bVII-V",
+          "form:solo_piano_intro",
+          "chord:V9"
         ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
@@ -3080,11 +3085,10 @@
         ],
         "romanNumerals": "",
         "tags": [
-          "functionality:progression",
           "melody:non-transposed_riff",
           "bass:diatonic_line",
-          "voicing:alterations",
-          "scale:major"
+          "scale:major",
+          "voice-leading:pedal"
         ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
@@ -3471,7 +3475,6 @@
         "romanNumerals": "",
         "tags": [
           "issues:mute_voices",
-          "chord:I_in_minor",
           "functionality:functional",
           "form:development_through_instrumentation",
           "modulation:parallel_keys",
@@ -4125,7 +4128,8 @@
           "scale:major",
           "voicing:triads",
           "bass:diatonic_approaches",
-          "arrangement:counterpoint"
+          "arrangement:counterpoint",
+          "chord-scale:ionian_IV"
         ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [

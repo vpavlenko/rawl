@@ -43,6 +43,10 @@ const getNotes = (events, channel): Note[] => {
       }
       if (event.subtype === 8) {
         if (midiNumber in noteOn) {
+          if (channel !== 9 && noteOn[midiNumber].param2 <= 1) {
+            // Fix Vengaboys - Boom Boom Boom
+            return;
+          }
           if (event.playTime / 1000 >= noteOn[midiNumber].playTime / 1000) {
             notes.push({
               note: {

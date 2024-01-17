@@ -24,6 +24,12 @@ const Course = () => {
             arrangement: solo/mute voices, hidden chords
           </li>
           <li>
+            <S artist="MIDI/Van Morrison" song="Brown Eyed Girl.mid" />
+          </li>
+          <li>
+            <S artist="MIDI/The Beatles" song="Misery.2.mid" />
+          </li>
+          <li>
             <S artist="MIDI/Typically Tropical" song="Barbados.mid" /> -
             exercise, find main tonic
           </li>
@@ -44,9 +50,24 @@ const Course = () => {
           <li>
             <S artist="MIDI/Van Halen" song="316.mid" />
           </li>
+          <li>
+            <S artist="MIDI/Vanessa Williams" song="Colors of the Wind.mid" />
+          </li>
+          <li>
+            <S artist="MIDI/Vasco" song="Albachiara.mid" />
+          </li>
+          <li>
+            <S artist="MIDI/Vaughn" song="Blue Tango.mid" />
+          </li>
         </ul>
         <h3>Phrases</h3>
         Fix non-squared phrases
+        <ul>
+          <li>
+            <S artist="MIDI/Vanessa Williams" song="Colors of the Wind.mid" /> -
+            hard, since no drums
+          </li>
+        </ul>
         <h3>Power chords</h3>
         <ul>
           <li>
@@ -57,12 +78,22 @@ const Course = () => {
         <h3>Bass: root, root-fifth, diatonic approaches</h3>
         <ul>
           <li>
+            <S artist="MIDI/Vangelis" song="1492: Conquest of Paradise.mid" /> -
+            in minor, so early
+          </li>
+          <li>
             <S artist="MIDI/Typically Tropical" song="Barbados.mid" /> -
             diatonic approaches
           </li>
           <li>
+            <S artist="MIDI/Van Morrison" song="Brown Eyed Girl.mid" />
+          </li>
+          <li>
             <S artist="MIDI/U.S.A. for Africa" song="We Are the World.mid" />
             root
+          </li>
+          <li>
+            <S artist="MIDI/Vasco" song="Albachiara.mid" />
           </li>
         </ul>
         <ul>
@@ -76,8 +107,26 @@ const Course = () => {
           <li>
             <S artist="MIDI/U96" song="Club Bizarre.mid" /> - main tonic
           </li>
+          <li>
+            <S artist="MIDI/Vanilla Fudge" song="You Keep Me Hangin' On.mid" />
+          </li>
+          <li>
+            <S artist="MIDI/Vanilla Ice" song="Ice Ice Baby.1.mid" />
+          </li>
         </ul>
-        <h3>V7, minor</h3>
+        <h3>Minor before V7</h3>
+        <ul>
+          <li>
+            <S artist="MIDI/Vangelis" song="1492: Conquest of Paradise.mid" />
+          </li>
+        </ul>
+        <h3>V7 in major</h3>
+        <ul>
+          <li>
+            <S artist="MIDI/Vaughn" song="Blue Tango.mid" />
+          </li>
+        </ul>
+        <h3>minor with V7</h3>
         <ul>
           <li>
             <S artist="MIDI/U.S.A. for Africa" song="We Are the World.mid" /> -
@@ -88,6 +137,8 @@ const Course = () => {
             Andalusian R&B
           </li>
         </ul>
+        <h3>ii7 chord</h3>
+        <ul></ul>
         <h3>Diatonic seventh chords</h3>
         <ul>
           <li>
@@ -123,8 +174,16 @@ const Course = () => {
           <li>
             <S artist="MIDI/Umberto Tozzi" song="Gloria.mid" />
           </li>
+          <li>
+            <S artist="MIDI/Vasco" song="Albachiara.mid" />
+          </li>
         </ul>
-        <h3>Style - eurodance</h3>
+        <h3>Deceptive cadence</h3>
+        <ul>
+          <li>
+            <S artist="MIDI/Vanessa Williams" song="Colors of the Wind.mid" />
+          </li>
+        </ul>
         <h3>Bass - riff</h3>
         <ul>
           <li>
@@ -158,6 +217,15 @@ const Course = () => {
           <li>
             <S artist="MIDI/Van McCoy" song="The Hustle.mid" />
           </li>
+          <li>
+            <S artist="MIDI/Vangelis" song="1492: Conquest of Paradise.mid" />
+          </li>
+        </ul>
+        <h3>Picardy third</h3>
+        <ul>
+          <li>
+            <S artist="MIDI/Vangelis" song="1492: Conquest of Paradise.mid" />
+          </li>
         </ul>
         <h3>Bass - diatonic line</h3>
         <ul>
@@ -170,6 +238,18 @@ const Course = () => {
               artist="MIDI/UB40"
               song="(I Can't Help) Falling In Love With You.mid"
             />
+          </li>
+          <li>
+            <S artist="MIDI/Vasco" song="Albachiara.mid" />
+          </li>
+        </ul>
+        <h3>Chromatic voice-leading</h3>
+        <ul>
+          <li>
+            <S artist="MIDI/Vanessa Paradis" song="Be My Baby.mid" />
+          </li>
+          <li>
+            <S artist="MIDI/Vaughn" song="Blue Tango.mid" />
           </li>
         </ul>
         <h3>Dorian (shuttle?)</h3>
@@ -193,6 +273,12 @@ const Course = () => {
           </li>
           <li>
             <S artist="MIDI/Us3" song="Cantaloop.mid" />
+          </li>
+        </ul>
+        <h3>iadd6</h3>
+        <ul>
+          <li>
+            <S artist="MIDI/Vaughan Sarah" song="Fever.mid" />
           </li>
         </ul>
         <h3>Hexatonic minor</h3>
@@ -219,11 +305,47 @@ const Course = () => {
           <li>
             <S artist="MIDI/Ultravox" song="Vienna.mid" />
           </li>
+          <li>
+            <S artist="MIDI/Vanilla Fudge" song="You Keep Me Hangin' On.mid" />
+          </li>
         </ul>
         <h3>Applied chords - V/V</h3>
         <ul>
           <li>
             <S artist="MIDI/Umberto Tozzi" song="Gloria.mid" />
+          </li>
+          <li>
+            <S artist="MIDI/Vasco" song="Albachiara.mid" />
+          </li>
+        </ul>
+        <h3>Applied chords - V/ii</h3>
+        <ul>
+          <li>
+            <S artist="MIDI/Vanessa Paradis" song="Be My Baby.mid" />
+          </li>
+        </ul>
+        <h3>Applied chords - V/vi</h3>
+        <ul>
+          <li>
+            <S artist="MIDI/Vanessa Williams" song="Colors of the Wind.mid" />
+          </li>
+        </ul>
+        <h3>Applied chords - V7/IV</h3>
+        <ul>
+          <li>
+            <S artist="MIDI/Vaughn" song="Blue Tango.mid" />
+          </li>
+        </ul>
+        <h3>Applied chords - V/iv</h3>
+        <ul>
+          <li>
+            <S artist="MIDI/Vanilla Fudge" song="You Keep Me Hangin' On.mid" />
+          </li>
+        </ul>
+        <h3>bII</h3>
+        <ul>
+          <li>
+            <S artist="MIDI/Vaughn" song="Blue Tango.mid" />
           </li>
         </ul>
         <h3>Chromatic chords - V+</h3>
@@ -249,6 +371,9 @@ const Course = () => {
             <S artist="MIDI/Typically Tropical" song="Barbados.mid" /> - kind of
             like pivot bII = bVII
           </li>
+          <li>
+            <S artist="MIDI/Vanessa Williams" song="Colors of the Wind.mid" />
+          </li>
         </ul>
         <h3>bVI-bVII-I in major - Mario cadence</h3>
         <ul>
@@ -258,6 +383,9 @@ const Course = () => {
         </ul>
         <h3>Blues</h3>
         <ul>
+          <li>
+            <S artist="MIDI/Vaughn" song="Blue Tango.mid" />
+          </li>
           <li>
             <S artist="MIDI/Uriah Heep" song="Lady in Black.mid" />
             scale used as ornamentation
@@ -285,13 +413,39 @@ const Course = () => {
               song="(I Can't Help) Falling In Love With You.mid"
             />
           </li>
+          <li>
+            <S artist="MIDI/Vanessa Williams" song="Colors of the Wind.mid" />
+          </li>
         </ul>
         <h3>Alterations (9th, 13th)</h3>
+        <ul>
+          <li>
+            <S artist="MIDI/Vega" song="Tom's Diner (reprise).2.mid" />
+          </li>
+        </ul>
+        <h3>Chord scale</h3>
+        <ul>
+          <li>
+            <S artist="MIDI/Van Morrison" song="Brown Eyed Girl.mid" />
+          </li>
+        </ul>
+        <h3>Swing</h3>
+        <ul>
+          <li>
+            <S artist="MIDI/Vaughan Sarah" song="Fever.mid" />
+          </li>
+          <li>
+            <S artist="MIDI/Vega" song="Tom's Diner (reprise).2.mid" />
+          </li>
+        </ul>
         <h3>Jazz</h3>
         <ul>
           <li>
             <S artist="MIDI/Tyner Mccoy" song="Old Devil Moon.mid" /> - piano
             trio, walking bass
+          </li>
+          <li>
+            <S artist="MIDI/Vaughan Sarah" song="Fever.mid" />
           </li>
         </ul>
         <h3>Jazz fusion</h3>

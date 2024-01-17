@@ -550,6 +550,10 @@ MIDIPlayer.prototype.setPosition = function (ms) {
     pos = 0;
   }
 
+  for (const channel of this.channelsInUse) {
+    this.synth.pitchBend(channel, 8192);
+  }
+
   while (this.events[pos] && this.events[pos].playTime < ms) {
     const event = this.events[pos];
     if (event.subtype === MIDIEvents.EVENT_MIDI_PROGRAM_CHANGE) {

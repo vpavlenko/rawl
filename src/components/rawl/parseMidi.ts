@@ -35,6 +35,9 @@ const getNotes = (events, channel): Note[] => {
   events.forEach((event) => {
     if (event.channel === channel && event.type === 8) {
       const midiNumber = event.param1;
+      if (channel === 9 && midiNumber > 87) {
+        return;
+      }
       if (event.subtype === 9) {
         noteOn[midiNumber] = event;
       }

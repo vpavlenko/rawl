@@ -115,6 +115,7 @@ export const TAGS = [
   "style:soul_ballad",
   "style:soul",
   "style:EDM",
+  "style:eurodance",
 
   "functionality:shuttle",
   "functionality:functional",
@@ -192,6 +193,8 @@ export const AnalysisBox: React.FC<{
   previouslySelectedMeasure: number;
   selectedMeasure: number;
   selectMeasure: (measure: number | null) => void;
+  artist: string;
+  song: string;
 }> = React.memo(
   ({
     analysis,
@@ -199,6 +202,8 @@ export const AnalysisBox: React.FC<{
     previouslySelectedMeasure,
     selectedMeasure,
     selectMeasure,
+    artist,
+    song,
   }) => {
     const useInputField = (
       initialValue: string | number,
@@ -365,6 +370,17 @@ export const AnalysisBox: React.FC<{
             </div>
           </div>
         )}
+
+        <div
+          style={{ marginTop: "200px", cursor: "pointer" }}
+          onClick={() => {
+            navigator.clipboard.writeText(
+              `<li><S artist="${artist}" song="${song}" /></li>`,
+            );
+          }}
+        >
+          {`<li><S artist="${artist}" song="${song}" /></li>`}
+        </div>
       </div>
     );
   },

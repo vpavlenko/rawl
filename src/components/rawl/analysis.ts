@@ -18,16 +18,6 @@ export type Analysis = {
   phrasePatch: { measure: number; diff: number }[];
 };
 
-type Tonic = {
-  tonic: number; // will be extended to array for double-tonic regions
-  span: MeasuresSpan;
-};
-
-// export type AnalysisV2 = {
-//   firstMeasureOffset: number;
-//   tonics: Tonic[];
-// };
-
 export const ANALYSIS_STUB: Analysis = {
   modulations: {},
   tonic: null,

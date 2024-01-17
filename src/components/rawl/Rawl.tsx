@@ -21,7 +21,7 @@ import { Note, ParsingResult } from "./parseMidi";
 // If not used, the playback cursor isn't exactly where the sound is.
 // Sometimes it should be adjusted for external screens.
 const LATENCY_CORRECTION_MS =
-  (localStorage && parseInt(localStorage.getItem("latency"), 10)) || 0;
+  (localStorage && parseInt(localStorage.getItem("latency"), 10)) || 400;
 
 export type SecondsSpan = [number, number];
 
@@ -44,6 +44,8 @@ const Rawl: React.FC<{
   registerSeekCallback: (seekCallback: (ms: number) => void) => void;
   synth: { noteOn; noteOff };
   paused: boolean;
+  artist: string;
+  song: string;
 }> = ({
   parsingResult,
   getCurrentPositionMs,
@@ -57,6 +59,8 @@ const Rawl: React.FC<{
   registerSeekCallback,
   synth,
   paused,
+  artist,
+  song,
 }) => {
   const [analysis, setAnalysis] = useState<Analysis>(
     savedAnalysis || ANALYSIS_STUB,
@@ -140,9 +144,9 @@ const Rawl: React.FC<{
     },
     [paused],
   );
-  const handleMouseLeave = () => {
+  const handleMouseLeave = useCallback(() => {
     setHoveredNote(null);
-  };
+  }, []);
 
   const futureAnalysis = useMemo(
     () =>
@@ -333,6 +337,8 @@ const Rawl: React.FC<{
             previouslySelectedMeasure={previouslySelectedMeasure}
             selectedMeasure={selectedMeasure}
             selectMeasure={selectMeasure}
+            artist={artist}
+            song={song}
           />
         </div>
       )}

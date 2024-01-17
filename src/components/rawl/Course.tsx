@@ -1,5 +1,13 @@
 import * as React from "react";
 
+const S = ({ artist, song }) => {
+  return (
+    <a href={`/browse/${artist}?song=${song}`} target="_blank">
+      {artist.slice(5)} - {song.slice(0, -4)}
+    </a>
+  );
+};
+
 const Course = () => {
   return (
     <div style={{ display: "flex" }}>
@@ -20,9 +28,14 @@ const Course = () => {
         <h3>2. Phrases</h3>
         Some songs are perfectly square
       </div>
-      <div style={{ flexGrow: 1 }}>
-        <h3>Songs that I'm annotating:</h3>
-      </div>
+
+      <div>Order:</div>
+      <ol>
+        <li>
+          <S artist="MIDI/Chris Andrews" song="Pretty Belinda.1.mid" /> - pure I
+          V
+        </li>
+      </ol>
     </div>
   );
 };

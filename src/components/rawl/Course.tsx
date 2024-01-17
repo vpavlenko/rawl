@@ -37,7 +37,7 @@ const Course = () => {
             exercise, find main tonic
           </li>
           <li>
-            <S artist="MIDI/U.S.A. for Africa" song="We Are the World.mid" />
+            <S artist="MIDI/U.S.A. for Africa" song="We Are the World.mid" /> -
             exercise
           </li>
           <li>
@@ -227,6 +227,9 @@ const Course = () => {
           <li>
             <S artist="MIDI/Violent Femmes" song="Blister in the Sun.mid" />
           </li>
+          <li>
+            <S artist="MIDI/War" song="Low Rider.mid" />
+          </li>
         </ul>
         <h3>Texture - arpeggio</h3>
         <ul>
@@ -327,6 +330,15 @@ const Course = () => {
               song="Five O'clock in the Morning.mid"
             />
           </li>
+          <li>
+            <S artist="MIDI/Waller Fats" song="Lonesome Road.mid" />
+          </li>
+          <li>
+            <S artist="MIDI/Walter Donaldson" song="My Blue Heaven.mid" />
+          </li>
+          <li>
+            <S artist="MIDI/Wang Chung" song="Dance Hall Days.mid" />
+          </li>
         </ul>
         <h3>Dorian (shuttle?)</h3>
         <ul>
@@ -408,6 +420,9 @@ const Course = () => {
           <li>
             <S artist="MIDI/Vasco" song="Albachiara.mid" />
           </li>
+          <li>
+            <S artist="MIDI/Walter Donaldson" song="My Blue Heaven.mid" />
+          </li>
         </ul>
         <h3>Applied chords - V/ii</h3>
         <ul>
@@ -457,6 +472,12 @@ const Course = () => {
         <h3>Chromatic chords - V+</h3>
         <h3>Chromatic chords - iv</h3>
         <h3>Chromatic chords - viio</h3>
+        <h3>Chromatic chords - io7</h3>
+        <ul>
+          <li>
+            <S artist="MIDI/Walter Donaldson" song="My Blue Heaven.mid" />
+          </li>
+        </ul>
         <ul>
           <li>
             <S artist="MIDI/Ultravox" song="Vienna.mid" />
@@ -482,6 +503,10 @@ const Course = () => {
           </li>
           <li>
             <S artist="MIDI/Vanessa Williams" song="Colors of the Wind.mid" />
+          </li>
+          <li>
+            <S artist="MIDI/Wang Chung" song="Dance Hall Days.mid" /> -
+            bVII-IV-I
           </li>
         </ul>
         <h3>bVI-bVII-I in major - Mario cadence</h3>
@@ -521,6 +546,9 @@ const Course = () => {
           <li>
             <S artist="MIDI/Ugly Kid Joe" song="Neighbor.mid" />
           </li>
+          <li>
+            <S artist="MIDI/Walter Donaldson" song="My Blue Heaven.mid" />
+          </li>
         </ul>
         <h3>Pentatonic languages, bIII</h3>
         <ul>
@@ -556,6 +584,12 @@ const Course = () => {
             <S artist="MIDI/Vera" song="At This Moment.mid" />
           </li>
         </ul>
+        <h3>Iadd6</h3>
+        <ul>
+          <li>
+            <S artist="MIDI/Walter Donaldson" song="My Blue Heaven.mid" />
+          </li>
+        </ul>
         <h3>Alterations (9th, 13th)</h3>
         <ul>
           <li>
@@ -566,6 +600,9 @@ const Course = () => {
               artist="MIDI/Vicki Sue Robinson"
               song="Never Gonna Let You Go.mid"
             />
+          </li>
+          <li>
+            <S artist="MIDI/Waller Fats" song="Lonesome Road.mid" />
           </li>
         </ul>
         <h3>Chord scale</h3>
@@ -593,16 +630,40 @@ const Course = () => {
             <S artist="MIDI/Vaughan Sarah" song="Fever.mid" />
           </li>
         </ul>
+        <h3>Stride</h3>
+        <ul>
+          <li>
+            <S artist="MIDI/Walter Donaldson" song="My Blue Heaven.mid" />
+          </li>
+        </ul>
         <h3>Jazz solo</h3>
         <ul>
           <li>
             <S artist="MIDI/Vega" song="Tom's Diner (reprise).2.mid" />
+          </li>
+          <li>
+            <S artist="MIDI/Waller Fats" song="Lonesome Road.mid" />
           </li>
         </ul>
         <h3>Jazz fusion</h3>
         <ul>
           <li>
             <S artist="MIDI/UZEB" song="New Hit.mid" />
+          </li>
+        </ul>
+        <h3>Form - AABA</h3>
+        <ul>
+          <li>
+            <S artist="MIDI/Walter Donaldson" song="My Blue Heaven.mid" />
+          </li>
+          <li>
+            <S artist="MIDI/Waller Fats" song="Lonesome Road.mid" />
+          </li>
+        </ul>
+        <h3>Latin</h3>
+        <ul>
+          <li>
+            <S artist="MIDI/War" song="Low Rider.mid" />
           </li>
         </ul>
       </div>

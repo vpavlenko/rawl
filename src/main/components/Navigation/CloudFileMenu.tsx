@@ -139,15 +139,13 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
       close()
       const { song } = rootStore
       try {
-        if (song.name.length === 0) {
-          const text = await prompt.show({
-            title: localized("rename", "Rename"),
-          })
-          if (text !== null && text.length > 0) {
-            song.name = text
-          } else {
-            return Promise.resolve(false)
-          }
+        const text = await prompt.show({
+          title: localized("rename", "Rename"),
+        })
+        if (text !== null && text.length > 0) {
+          song.name = text
+        } else {
+          return Promise.resolve(false)
         }
         if (song.cloudSongId !== null) {
           await updateSong(rootStore)(song)

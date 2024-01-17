@@ -1,16 +1,11 @@
 import styled from "@emotion/styled"
 import Circle from "mdi-react/CircleIcon"
+import Pause from "mdi-react/PauseIcon"
 import PlayArrow from "mdi-react/PlayArrowIcon"
 import { FC } from "react"
+import { Localized } from "../../components/Localized"
+import { CloudSong } from "../../repositories/ICloudSongRepository"
 import { formatTimeAgo } from "../helpers/formatTimeAgo"
-
-const Avatar = styled.img`
-  border: 1px ${({ theme }) => theme.dividerColor} solid;
-  border-radius: 999px;
-  width: 2rem;
-  height: 2rem;
-  margin-right: 0.5rem;
-`
 
 const Content = styled.div`
   display: flex;
@@ -49,11 +44,17 @@ const PlayButtonWrapper = styled.div`
   }
 `
 
-const PlayButton = () => {
+const PlayButton: FC<{ isPlaying: boolean }> = ({ isPlaying }) => {
   return (
-    <PlayButtonWrapper className="play-button">
-      <Circle className="circle" />
-      <PlayArrow className="arrow" />
+    <PlayButtonWrapper>
+      {isPlaying ? (
+        <Pause />
+      ) : (
+        <>
+          <Circle className="circle" />
+          <PlayArrow className="arrow" />
+        </>
+      )}
     </PlayButtonWrapper>
   )
 }
@@ -77,26 +78,50 @@ const Wrapper = styled.div`
 `
 
 const Time = styled.div`
+  display: flex;
+  align-items: center;
   margin-top: 0.2rem;
   margin-right: 1rem;
   color: ${({ theme }) => theme.secondaryTextColor};
 `
 
+const Tag = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.5rem;
+  background: ${({ theme }) => theme.highlightColor};
+  color: ${({ theme }) => theme.textColor};
+  font-size: 90%;
+  margin-right: 0.5rem;
+`
+
 export interface SongListItemProps {
-  song: { name: string; updatedAt: Date }
-  user: { name: string; photoURL: string }
+  song: CloudSong
+  isPlaying: boolean
+  onClick: () => void
 }
 
-export const SongListItem: FC<SongListItemProps> = ({ song, user }) => {
+export const SongListItem: FC<SongListItemProps> = ({
+  song,
+  onClick,
+  isPlaying,
+}) => {
   return (
-    <Wrapper>
-      <PlayButton />
+    <Wrapper onClick={onClick}>
+      <PlayButton isPlaying={isPlaying} />
       <Content>
-        <Avatar src={user.photoURL} />
-        <div>
-          <Title>{song.name}</Title>
-          <Username>@{user.name}</Username>
+        <div style={{ marginRight: "1rem" }}>
+          <Title>
+            {song.name.length > 0 ? (
+              song.name
+            ) : (
+              <Localized default="Untitled song">untitled-song</Localized>
+            )}
+          </Title>
+          <Username>{song.user?.name}</Username>
         </div>
+        {!song.isPublic && <Tag>Private</Tag>}
       </Content>
       <Time>{formatTimeAgo(song.updatedAt)}</Time>
     </Wrapper>

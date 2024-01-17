@@ -49,6 +49,7 @@ export const Tab = styled.div`
   font-size: 0.75rem;
   border-top: solid 0.1rem transparent;
   color: ${({ theme }) => theme.secondaryTextColor};
+  cursor: pointer;
 
   &.active {
     color: ${({ theme }) => theme.textColor};
@@ -88,7 +89,7 @@ export const IconStyle: CSSProperties = {
 export const Navigation: FC = observer(() => {
   const {
     rootViewStore,
-    authStore: { user },
+    authStore: { authUser: user },
     router,
   } = useStores()
 

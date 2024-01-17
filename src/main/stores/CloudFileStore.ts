@@ -1,11 +1,10 @@
-import { QueryDocumentSnapshot } from "@firebase/firestore"
 import { orderBy } from "lodash"
 import { computed, makeObservable, observable } from "mobx"
+import { ICloudSongDataRepository } from "../../repositories/ICloudSongDataRepository"
 import {
-  FirestoreSong,
-  deleteSong,
-  getCurrentUserSongs,
-} from "../../firebase/song"
+  CloudSong,
+  ICloudSongRepository,
+} from "../../repositories/ICloudSongRepository"
 import RootStore from "./RootStore"
 
 export class CloudFileStore {
@@ -13,9 +12,13 @@ export class CloudFileStore {
   selectedColumn: "name" | "date" = "date"
   dateType: "created" | "updated" = "created"
   sortAscending = false
-  _files: QueryDocumentSnapshot<FirestoreSong>[] = []
+  _files: CloudSong[] = []
 
-  constructor(private readonly rootStore: RootStore) {
+  constructor(
+    private readonly rootStore: RootStore,
+    private readonly cloudSongRepository: ICloudSongRepository,
+    private readonly cloudSongDataRepository: ICloudSongDataRepository,
+  ) {
     makeObservable(this, {
       isLoading: observable,
       selectedColumn: observable,
@@ -28,25 +31,23 @@ export class CloudFileStore {
 
   async load() {
     this.isLoading = true
-    const snapshot = await getCurrentUserSongs()
-    this._files = snapshot.docs
+    this._files = await this.cloudSongRepository.getMySongs()
     this.isLoading = false
   }
 
   get files() {
     return orderBy(
       this._files,
-      (f) => {
-        const data = f.data()
+      (data) => {
         switch (this.selectedColumn) {
           case "name":
             return data.name
           case "date":
             switch (this.dateType) {
               case "created":
-                return data.createdAt.seconds
+                return data.createdAt.getTime()
               case "updated":
-                return data.updatedAt.seconds
+                return data.updatedAt.getTime()
             }
         }
       },
@@ -54,11 +55,13 @@ export class CloudFileStore {
     )
   }
 
-  async deleteSong(song: QueryDocumentSnapshot<FirestoreSong>) {
-    await deleteSong(song)
-    if (this.rootStore.song.firestoreReference?.id === song.id) {
-      this.rootStore.song.firestoreReference = null
-      this.rootStore.song.firestoreDataReference = null
+  async deleteSong(song: CloudSong) {
+    await this.cloudSongDataRepository.delete(song.songDataId)
+    await this.cloudSongRepository.delete(song.id)
+
+    if (this.rootStore.song.cloudSongId === song.id) {
+      this.rootStore.song.cloudSongId = null
+      this.rootStore.song.cloudSongDataId = null
     }
     await this.load()
   }

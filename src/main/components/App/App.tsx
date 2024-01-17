@@ -16,6 +16,7 @@ import { GlobalKeyboardShortcut } from "../KeyboardShortcut/GlobalKeyboardShortc
 import { RootView } from "../RootView/RootView"
 import { EmotionThemeProvider } from "../Theme/EmotionThemeProvider"
 import { GlobalCSS } from "../Theme/GlobalCSS"
+import { LocalizationProvider } from "./LocalizationProvider"
 
 Sentry.init({
   dsn: process.env.SENTRY_DSN,
@@ -37,9 +38,11 @@ export function App() {
               <ToastProvider component={Toast}>
                 <PromptProvider component={PromptDialog}>
                   <DialogProvider component={ActionDialog}>
-                    <GlobalKeyboardShortcut />
-                    <GlobalCSS />
-                    <RootView />
+                    <LocalizationProvider>
+                      <GlobalKeyboardShortcut />
+                      <GlobalCSS />
+                      <RootView />
+                    </LocalizationProvider>
                   </DialogProvider>
                 </PromptProvider>
               </ToastProvider>

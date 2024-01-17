@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite"
 import { useEffect } from "react"
-import { useLocalization } from "../../hooks/useLocalization"
+import { useLocalization } from "../../../common/localize/useLocalization"
 import { useStores } from "../../hooks/useStores"
 
 export const OnBeforeUnload = observer(() => {

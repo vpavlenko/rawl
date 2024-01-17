@@ -1,8 +1,7 @@
 import styled from "@emotion/styled"
+import { observer } from "mobx-react-lite"
 import { FC } from "react"
-import { auth } from "../../firebase/firebase"
-import { UserButtonContent } from "../../main/components/Navigation/UserButtonContent"
-import { useStores } from "../hooks/useStores"
+import { UserButton } from "./UserButton"
 
 const Container = styled.div`
   width: 80%;
@@ -13,8 +12,9 @@ const Container = styled.div`
   justify-content: space-between;
 `
 
-const LogoWrapper = styled.a`
+const LogoWrapper = styled.div`
   display: flex;
+  cursor: pointer;
 
   &:hover {
     opacity: 0.7;
@@ -25,25 +25,17 @@ const NavigationWrapper = styled.div`
   padding: 1rem 0;
 `
 
-export const Navigation: FC = () => {
-  const {
-    authStore: { user },
-  } = useStores()
-
+export const Navigation: FC = observer(() => {
   return (
     <NavigationWrapper>
       <Container>
-        <LogoWrapper href="/">
-          <img src="logo-white.svg" style={{ height: "1.7rem" }} />
+        <LogoWrapper>
+          <a href="/">
+            <img src="logo-white.svg" style={{ height: "1.7rem" }} />
+          </a>
         </LogoWrapper>
-        <UserButtonContent
-          user={user}
-          onClickSignIn={() => {}}
-          onClickSignOut={async () => {
-            await auth.signOut()
-          }}
-        />
+        <UserButton />
       </Container>
     </NavigationWrapper>
   )
-}
+})

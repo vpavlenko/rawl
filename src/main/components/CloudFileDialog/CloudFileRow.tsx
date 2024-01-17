@@ -1,13 +1,12 @@
 import styled from "@emotion/styled"
-import { QueryDocumentSnapshot } from "firebase/firestore"
 import DotsHorizontalIcon from "mdi-react/DotsHorizontalIcon"
 import { observer } from "mobx-react-lite"
 import { FC } from "react"
+import { useLocalization } from "../../../common/localize/useLocalization"
 import { IconButton } from "../../../components/IconButton"
 import { Localized } from "../../../components/Localized"
 import { Menu, MenuItem } from "../../../components/Menu"
-import { FirestoreSong } from "../../../firebase/song"
-import { useLocalization } from "../../hooks/useLocalization"
+import { CloudSong } from "../../../repositories/ICloudSongRepository"
 import { useStores } from "../../hooks/useStores"
 import { useTheme } from "../../hooks/useTheme"
 import { useToast } from "../../hooks/useToast"
@@ -53,7 +52,7 @@ const NoWrapText = styled.span`
 
 export interface CloudFileRowProps {
   onClick: () => void
-  song: QueryDocumentSnapshot<FirestoreSong>
+  song: CloudSong
   dateType: "created" | "updated"
 }
 
@@ -66,14 +65,14 @@ export const CloudFileRow: FC<CloudFileRowProps> = observer(
     const date: Date = (() => {
       switch (dateType) {
         case "created":
-          return song.data().createdAt.toDate()
+          return song.createdAt
         case "updated":
-          return song.data().updatedAt.toDate()
+          return song.updatedAt
       }
     })()
     const songName =
-      song.data().name.length > 0
-        ? song.data().name
+      song.name.length > 0
+        ? song.name
         : localized("untitled-song", "Untitled song")
     const dateStr = date.toLocaleDateString() + " " + date.toLocaleTimeString()
     return (

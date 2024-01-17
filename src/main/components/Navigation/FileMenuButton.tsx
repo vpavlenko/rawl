@@ -16,7 +16,7 @@ export const FileMenuButton: FC = observer(() => {
   const {
     rootViewStore,
     exportStore,
-    authStore: { user },
+    authStore: { authUser: user },
   } = rootStore
   const isOpen = rootViewStore.openDrawer
   const handleClose = () => (rootViewStore.openDrawer = false)

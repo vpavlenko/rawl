@@ -1,0 +1,43 @@
+import {
+  Bytes,
+  Firestore,
+  FirestoreDataConverter,
+  Timestamp,
+  collection,
+  doc,
+  getDoc,
+} from "firebase/firestore"
+import { ICloudMidiRepository } from "./ICloudMidiRepository"
+
+export class CloudMidiRepository implements ICloudMidiRepository {
+  constructor(private readonly firestore: Firestore) {}
+
+  async get(id: string): Promise<Uint8Array> {
+    const midiCollection = collection(this.firestore, "midis")
+    const snapshot = await getDoc(
+      doc(midiCollection, id).withConverter(midiConverter),
+    )
+    const data = snapshot.data()?.data
+    if (data === undefined) {
+      throw new Error("Midi data does not exist")
+    }
+    return data.toUint8Array()
+  }
+}
+
+interface FirestoreMidi {
+  url: string
+  data: Bytes
+  createdAt: Timestamp
+  updatedAt: Timestamp
+}
+
+const midiConverter: FirestoreDataConverter<FirestoreMidi> = {
+  fromFirestore(snapshot, options) {
+    const data = snapshot.data(options)
+    return data as FirestoreMidi
+  },
+  toFirestore(midi) {
+    return midi
+  },
+}

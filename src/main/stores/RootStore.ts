@@ -1,11 +1,19 @@
 import { makeObservable, observable } from "mobx"
 import { deserialize, serialize } from "serializr"
-import { localized } from "../../common/localize/localizedString"
 import Player from "../../common/player"
 import Song, { emptySong } from "../../common/song"
 import TrackMute from "../../common/trackMute"
-import { loadSongFromExternalMidiFile } from "../../firebase/song"
+import { auth, firestore } from "../../firebase/firebase"
+import { CloudMidiRepository } from "../../repositories/CloudMidiRepository"
+import { CloudSongDataRepository } from "../../repositories/CloudSongDataRepository"
+import { CloudSongRepository } from "../../repositories/CloudSongRepository"
+import { ICloudMidiRepository } from "../../repositories/ICloudMidiRepository"
+import { ICloudSongDataRepository } from "../../repositories/ICloudSongDataRepository"
+import { ICloudSongRepository } from "../../repositories/ICloudSongRepository"
+import { IUserRepository } from "../../repositories/IUserRepository"
+import { UserRepository } from "../../repositories/UserRepository"
 import { setSong } from "../actions"
+import { loadSongFromExternalMidiFile } from "../actions/cloudSong"
 import { pushHistory } from "../actions/history"
 import { GroupOutput } from "../services/GroupOutput"
 import { MIDIInput, previewMidiInput } from "../services/MIDIInput"
@@ -38,8 +46,27 @@ export interface SerializedRootStore {
   arrangeViewStore: SerializedArrangeViewStore
 }
 
+export type InitializationPhase =
+  | "initializing"
+  | "loadExternalMidi"
+  | "error"
+  | "done"
+
 export default class RootStore {
   song: Song = emptySong()
+  initializationPhase: InitializationPhase = "initializing"
+
+  readonly cloudSongRepository: ICloudSongRepository = new CloudSongRepository(
+    firestore,
+    auth,
+  )
+  readonly cloudSongDataRepository: ICloudSongDataRepository =
+    new CloudSongDataRepository(firestore)
+  readonly cloudMidiRepository: ICloudMidiRepository = new CloudMidiRepository(
+    firestore,
+  )
+  readonly userRepository: IUserRepository = new UserRepository(firestore, auth)
+
   readonly router = new Router()
   readonly trackMute = new TrackMute()
   readonly historyStore = new HistoryStore<SerializedRootStore>()
@@ -50,8 +77,12 @@ export default class RootStore {
   readonly tempoEditorStore = new TempoEditorStore(this)
   readonly midiDeviceStore = new MIDIDeviceStore()
   readonly exportStore = new ExportStore()
-  readonly authStore = new AuthStore()
-  readonly cloudFileStore = new CloudFileStore(this)
+  readonly authStore = new AuthStore(auth, this.userRepository)
+  readonly cloudFileStore = new CloudFileStore(
+    this,
+    this.cloudSongRepository,
+    this.cloudSongDataRepository,
+  )
   readonly settingStore = new SettingStore()
   readonly player: Player
   readonly synth: SoundFontSynth
@@ -64,6 +95,7 @@ export default class RootStore {
   constructor() {
     makeObservable(this, {
       song: observable.ref,
+      initializationPhase: observable,
     })
 
     const context = new (window.AudioContext || window.webkitAudioContext)()
@@ -118,20 +150,16 @@ export default class RootStore {
 
   private async init() {
     try {
-      this.rootViewStore.openLoadingDialog = true
-      this.rootViewStore.loadingDialogMessage = localized(
-        "initializing",
-        "Initializing...",
-      )
+      this.initializationPhase = "initializing"
       await this.synth.setup()
       await this.soundFontStore.init()
       this.setupMetronomeSynth()
       await this.loadExternalMidiOnLaunchIfNeeded()
+      this.initializationPhase = "done"
     } catch (e) {
+      this.initializationPhase = "error"
       this.rootViewStore.initializeError = e as Error
       this.rootViewStore.openInitializeErrorDialog = true
-    } finally {
-      this.rootViewStore.openLoadingDialog = false
     }
   }
 
@@ -140,10 +168,8 @@ export default class RootStore {
     const openParam = params.get("open")
 
     if (openParam) {
-      this.rootViewStore.loadingDialogMessage =
-        localized("loading-external-midi", "Loading external midi file...") ??
-        null
-      const song = await loadSongFromExternalMidiFile(openParam)
+      this.initializationPhase = "loadExternalMidi"
+      const song = await loadSongFromExternalMidiFile(this)(openParam)
       setSong(this)(song)
     }
   }

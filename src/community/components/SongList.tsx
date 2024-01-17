@@ -1,38 +1,40 @@
 import { observer } from "mobx-react-lite"
-import { FC, useEffect } from "react"
+import { FC } from "react"
+import { CloudSong } from "../../repositories/ICloudSongRepository"
+import { playSong } from "../actions/song"
 import { useStores } from "../hooks/useStores"
 import { SongListItem } from "./SongListItem"
 
-export const SongList: FC = observer(() => {
-  const { authStore, communitySongStore } = useStores()
+export interface SongListProps {
+  songs: CloudSong[]
+}
 
-  useEffect(() => {
-    ;(async () => {
-      if (authStore.user) {
-        // TODO: Remove checking user is logged-in
-        await communitySongStore.load()
-      }
-    })()
-  }, [])
+export const SongList: FC<SongListProps> = observer(({ songs }) => {
+  const rootStore = useStores()
+  const {
+    player,
+    songStore: { currentSong },
+  } = rootStore
 
-  const { songs } = communitySongStore
-
-  const items = songs.map((d) => ({
-    song: {
-      id: d.id,
-      name: d.data().name,
-      updatedAt: new Date(d.data().updatedAt.toDate()),
-    },
-    user: {
-      name: d.data().userId,
-      photoURL: "",
-    },
-  }))
+  if (songs.length === 0) {
+    return <div>No songs</div>
+  }
 
   return (
     <>
-      {items.map((s) => (
-        <SongListItem song={s.song} user={s.user} />
+      {songs.map((song) => (
+        <SongListItem
+          key={song.id}
+          song={song}
+          isPlaying={player.isPlaying && currentSong?.metadata.id === song.id}
+          onClick={() => {
+            if (player.isPlaying && currentSong?.metadata.id === song.id) {
+              player.stop()
+            } else {
+              playSong(rootStore)(song)
+            }
+          }}
+        />
       ))}
     </>
   )

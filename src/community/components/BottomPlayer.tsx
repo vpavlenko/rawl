@@ -1,10 +1,12 @@
 import styled from "@emotion/styled"
 import SkipNext from "mdi-react/SkipNextIcon"
 import SkipPrevious from "mdi-react/SkipPreviousIcon"
+import { observer } from "mobx-react-lite"
 import { FC } from "react"
-import { Slider } from "../../components/Slider"
 import { CircleButton } from "../../main/components/TransportPanel/CircleButton"
 import { PlayButton } from "../../main/components/TransportPanel/PlayButton"
+import { playNextSong, playPreviousSong } from "../actions/song"
+import { useStores } from "../hooks/useStores"
 import { BottomPlayerSong } from "./BottomPlayerSong"
 
 const Wrapper = styled.div`
@@ -20,42 +22,28 @@ const Inner = styled.div`
   align-items: center;
 `
 
-const PlaybackSlider = styled(Slider)`
-  color: ${({ theme }) => theme.textColor};
-  margin-left: 1rem;
-`
-
-export const BottomPlayer: FC = () => {
-  const song = {
-    song: {
-      id: 2,
-      name: "Swan, black",
-    },
-    user: {
-      name: "blegassick1",
-      created_at: new Date("2022-05-02T22:43:31Z"),
-      photoURL:
-        "https://robohash.org/autvoluptatemcumque.png?size=50x50&set=set1",
-    },
-  }
+export const BottomPlayer: FC = observer(() => {
+  const rootStore = useStores()
+  const {
+    player,
+    songStore: { currentSong },
+  } = rootStore
 
   return (
     <Wrapper>
       <Inner>
-        <CircleButton>
+        <CircleButton onClick={() => playPreviousSong(rootStore)()}>
           <SkipPrevious />
         </CircleButton>
-        <PlayButton isPlaying={false} />
-        <CircleButton>
+        <PlayButton isPlaying={player.isPlaying} />
+        <CircleButton
+          onClick={() => playNextSong(rootStore)()}
+          style={{ marginRight: "1rem" }}
+        >
           <SkipNext />
         </CircleButton>
-        <PlaybackSlider
-          value={0}
-          onChange={() => {}}
-          style={{ marginRight: "2rem" }}
-        />
-        <BottomPlayerSong song={song.song} user={song.user} />
+        {currentSong && <BottomPlayerSong song={currentSong.metadata} />}
       </Inner>
     </Wrapper>
   )
-}
+})

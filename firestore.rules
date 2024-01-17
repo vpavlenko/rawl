@@ -19,9 +19,9 @@ service cloud.firestore {
     }
     match /users/{userId} {
       allow read: if true;
-      allow delete: if request.auth != null && request.auth.uid == resource.data.userId;
-      allow update: if request.auth != null && request.auth.uid == resource.data.userId && request.auth.uid == request.resource.data.userId && request.resource.data.createdAt == resource.data.createdAt;
-      allow create: if request.auth != null && request.auth.uid == request.resource.data.userId;
+      allow delete: if request.auth != null && request.auth.uid == userId;
+      allow update: if request.auth != null && request.auth.uid == userId && request.resource.data.createdAt == resource.data.createdAt;
+      allow create: if request.auth != null && request.auth.uid == userId;
     }
   }
 }

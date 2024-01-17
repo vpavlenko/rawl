@@ -4,7 +4,6 @@ import { FC, useState } from "react"
 import { Alert } from "../../components/Alert"
 import { CircularProgress } from "../../components/CircularProgress"
 import { Localized } from "../../components/Localized"
-import { useToast } from "../../main/hooks/useToast"
 import { User } from "../../repositories/IUserRepository"
 import { UserSongList } from "../components/UserSongList"
 import { useAsyncEffect } from "../hooks/useAsyncEffect"
@@ -30,7 +29,7 @@ export const UserPage: FC<UserPageProps> = observer(({ userId }) => {
 
   const [isLoading, setIsLoading] = useState(true)
   const [user, setUser] = useState<User | null>(null)
-  const toast = useToast()
+  const [error, setError] = useState<Error | null>(null)
 
   useAsyncEffect(async () => {
     try {
@@ -38,15 +37,26 @@ export const UserPage: FC<UserPageProps> = observer(({ userId }) => {
       setUser(user)
       setIsLoading(false)
     } catch (e) {
-      toast.error(`Failed to load user profile: ${(e as Error)?.message}`)
+      setError(e as Error)
     }
-  }, [])
+  }, [userId])
 
   if (isLoading) {
     return (
       <PageLayout>
         <PageTitle>User</PageTitle>
         <CircularProgress /> Loading...
+      </PageLayout>
+    )
+  }
+
+  if (error !== null) {
+    return (
+      <PageLayout>
+        <PageTitle>User</PageTitle>
+        <Alert severity="warning">
+          Failed to load user profile: {error.message}
+        </Alert>
       </PageLayout>
     )
   }

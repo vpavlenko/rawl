@@ -93,6 +93,7 @@ export class CloudSongRepository implements ICloudSongRepository {
       query(
         this.songCollection,
         where("userId", "==", this.auth.currentUser.uid),
+        orderBy("updatedAt", "desc"),
       ),
     )
 

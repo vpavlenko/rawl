@@ -2008,7 +2008,6 @@
           "form:solo_piano_intro",
           "voicing:alterations",
           "texture:arpeggio",
-          "chord:Picardy_third",
           "chunks:circle_of_fifths",
           "chord:bII",
           "bass:diatonic_line",
@@ -2017,7 +2016,8 @@
           "modulation:often",
           "issues:R=1/2N",
           "voice-leading:chromatic",
-          "issues:manual_remeasuring_needed"
+          "issues:manual_remeasuring_needed",
+          "stability:bVI-bVII-I"
         ],
         "modulations": {
           "7": 7,
@@ -2257,7 +2257,8 @@
           "applied:V/ii",
           "voicing:blues",
           "style:blues",
-          "bass:root_fifth"
+          "bass:root_fifth",
+          "bass:riff"
         ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
@@ -2301,7 +2302,8 @@
           "bass:developed",
           "functionality:progression",
           "voicing:triads",
-          "scale:pentatonic"
+          "scale:pentatonic",
+          "style:grunge"
         ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [

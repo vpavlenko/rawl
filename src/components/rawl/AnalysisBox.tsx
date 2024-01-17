@@ -122,6 +122,7 @@ export const TAGS = [
   "style:metal",
   "style:RnB",
   "style:disco",
+  "style:grunge",
 
   "functionality:shuttle",
   "functionality:functional",

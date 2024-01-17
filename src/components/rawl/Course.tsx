@@ -24,6 +24,9 @@ const Course = () => {
             arrangement: solo/mute voices, hidden chords
           </li>
           <li>
+            <S artist="MIDI/Vengaboys" song="Boom Boom Boom.mid" />
+          </li>
+          <li>
             <S artist="MIDI/Van Morrison" song="Brown Eyed Girl.mid" />
           </li>
           <li>
@@ -74,6 +77,9 @@ const Course = () => {
             <S artist="MIDI/Van McCoy" song="The Hustle.mid" />
             root
           </li>
+          <li>
+            <S artist="MIDI/Vengaboys" song="Boom Boom Boom.mid" />
+          </li>
         </ul>
         <h3>Bass: root, root-fifth, diatonic approaches</h3>
         <ul>
@@ -113,6 +119,13 @@ const Course = () => {
           <li>
             <S artist="MIDI/Vanilla Ice" song="Ice Ice Baby.1.mid" />
           </li>
+          <li>
+            <S artist="MIDI/Vertical Horizon" song="Everything You Want.mid" />{" "}
+            - drone
+          </li>
+          <li>
+            <S artist="MIDI/Visage" song="Fade to Grey.mid" />
+          </li>
         </ul>
         <h3>Minor before V7</h3>
         <ul>
@@ -129,6 +142,10 @@ const Course = () => {
         <h3>minor with V7</h3>
         <ul>
           <li>
+            <S artist="MIDI/Ventures" song="Walk Don't Run.mid" /> - has entire
+            scale
+          </li>
+          <li>
             <S artist="MIDI/U.S.A. for Africa" song="We Are the World.mid" /> -
             no V7, complex
           </li>
@@ -144,6 +161,9 @@ const Course = () => {
           <li>
             <S artist="MIDI/U96" song="Club Bizarre.mid" />
           </li>
+          <li>
+            <S artist="MIDI/Vera" song="At This Moment.mid" />
+          </li>
         </ul>
         <h3>Functionality - progression</h3>
         Cite Hearing Harmony
@@ -154,13 +174,6 @@ const Course = () => {
 
           <li>
             <S artist="MIDI/Usher" song="My Way.mid" />
-          </li>
-        </ul>
-        <h3>Functionality - stasis</h3>
-        <ul>
-          <li>
-            <S artist="MIDI/U96" song="Club Bizarre.mid" />- middle part, sort
-            of
           </li>
         </ul>
         <h3>Functionality - functional</h3>
@@ -177,6 +190,9 @@ const Course = () => {
           <li>
             <S artist="MIDI/Vasco" song="Albachiara.mid" />
           </li>
+          <li>
+            <S artist="MIDI/Ventures" song="Walk Don't Run.mid" />
+          </li>
         </ul>
         <h3>Deceptive cadence</h3>
         <ul>
@@ -184,12 +200,45 @@ const Course = () => {
             <S artist="MIDI/Vanessa Williams" song="Colors of the Wind.mid" />
           </li>
         </ul>
+        <h3>Functionality - stasis, non-transposed riff, pedal</h3>
+        <ul>
+          <li>
+            <S artist="MIDI/U96" song="Club Bizarre.mid" />- middle part, sort
+            of
+          </li>
+          <li>
+            <S
+              artist="MIDI/Venditti Antonello"
+              song="Benvenuti in paradiso.mid"
+            />
+          </li>
+        </ul>
         <h3>Bass - riff</h3>
         <ul>
           <li>
             <S artist="MIDI/U96" song="Club Bizarre.mid" /> - with progression
           </li>
+          <li>
+            <S
+              artist="MIDI/Vince Guaraldi"
+              song="Les Peanuts   Charly Brown   Snoopy.mid"
+            />
+          </li>
+          <li>
+            <S artist="MIDI/Violent Femmes" song="Blister in the Sun.mid" />
+          </li>
         </ul>
+        <h3>Texture - arpeggio</h3>
+        <ul>
+          <li>
+            <S
+              artist="MIDI/Vicki Sue Robinson"
+              song="Never Gonna Let You Go.mid"
+            />
+          </li>
+        </ul>
+        <h3>Texture - guitar strumming</h3>
+        <ul></ul>
         <h3>Modulation up at the end</h3>
         <ul>
           <li>
@@ -207,6 +256,18 @@ const Course = () => {
         <ul>
           <li>
             <S artist="MIDI/Uriah Heep" song="Lady in Black.mid" />
+          </li>
+          <li>
+            <S
+              artist="MIDI/Vicki Sue Robinson"
+              song="Never Gonna Let You Go.mid"
+            />
+          </li>
+          <li>
+            <S
+              artist="MIDI/Vince Guaraldi"
+              song="Les Peanuts   Charly Brown   Snoopy.mid"
+            />
           </li>
         </ul>
         <h3>Parallel keys</h3>
@@ -251,6 +312,21 @@ const Course = () => {
           <li>
             <S artist="MIDI/Vaughn" song="Blue Tango.mid" />
           </li>
+          <li>
+            <S artist="MIDI/Vera" song="At This Moment.mid" />
+          </li>
+          <li>
+            <S
+              artist="MIDI/Vicki Sue Robinson"
+              song="Never Gonna Let You Go.mid"
+            />
+          </li>
+          <li>
+            <S
+              artist="MIDI/Village People"
+              song="Five O'clock in the Morning.mid"
+            />
+          </li>
         </ul>
         <h3>Dorian (shuttle?)</h3>
         <ul>
@@ -294,6 +370,15 @@ const Course = () => {
             dorian shuttle
           </li>
         </ul>
+        <h3>Mixolydian shuttle</h3>
+        <ul>
+          <li>
+            <S
+              artist="MIDI/Village People"
+              song="Five O'clock in the Morning.mid"
+            />
+          </li>
+        </ul>
         <h3>Modulation - contrast</h3>
         <ul>
           <li>
@@ -307,6 +392,12 @@ const Course = () => {
           </li>
           <li>
             <S artist="MIDI/Vanilla Fudge" song="You Keep Me Hangin' On.mid" />
+          </li>
+          <li>
+            <S
+              artist="MIDI/Vicki Sue Robinson"
+              song="Never Gonna Let You Go.mid"
+            />
           </li>
         </ul>
         <h3>Applied chords - V/V</h3>
@@ -322,6 +413,15 @@ const Course = () => {
         <ul>
           <li>
             <S artist="MIDI/Vanessa Paradis" song="Be My Baby.mid" />
+          </li>
+          <li>
+            <S artist="MIDI/Vera" song="At This Moment.mid" />
+          </li>
+        </ul>
+        <h3>Applied chords - V/iii</h3>
+        <ul>
+          <li>
+            <S artist="MIDI/VOF de Kunst" song="Een kopje koffie.mid" />
           </li>
         </ul>
         <h3>Applied chords - V/vi</h3>
@@ -347,6 +447,12 @@ const Course = () => {
           <li>
             <S artist="MIDI/Vaughn" song="Blue Tango.mid" />
           </li>
+          <li>
+            <S
+              artist="MIDI/Vicki Sue Robinson"
+              song="Never Gonna Let You Go.mid"
+            />
+          </li>
         </ul>
         <h3>Chromatic chords - V+</h3>
         <h3>Chromatic chords - iv</h3>
@@ -360,6 +466,9 @@ const Course = () => {
         <ul>
           <li>
             <S artist="MIDI/Typically Tropical" song="Barbados.mid" />
+          </li>
+          <li>
+            <S artist="MIDI/Vertical Horizon" song="Everything You Want.mid" />
           </li>
         </ul>
         <h3>Chromatic chords - bVII</h3>
@@ -380,6 +489,12 @@ const Course = () => {
           <li>
             <S artist="MIDI/U.S.A. for Africa" song="We Are the World.mid" />
           </li>
+          <li>
+            <S
+              artist="MIDI/Vicki Sue Robinson"
+              song="Never Gonna Let You Go.mid"
+            />
+          </li>
         </ul>
         <h3>Blues</h3>
         <ul>
@@ -390,6 +505,16 @@ const Course = () => {
             <S artist="MIDI/Uriah Heep" song="Lady in Black.mid" />
             scale used as ornamentation
           </li>
+          <li>
+            <S artist="MIDI/Victoria Williams" song="Boogieman.mid" /> - boogie
+          </li>
+          <li>
+            <S artist="MIDI/Vincent Gene" song="Be Bob A-Lula.mid" /> -
+            rockabilly
+          </li>
+          <li>
+            <S artist="MIDI/VOF de Kunst" song="Een kopje koffie.mid" />
+          </li>
         </ul>
         <h3>Pentatonics</h3>
         <ul>
@@ -398,6 +523,17 @@ const Course = () => {
           </li>
         </ul>
         <h3>Pentatonic languages, bIII</h3>
+        <ul>
+          <li>
+            <S artist="MIDI/Veruca Salt" song="Seether.mid" />
+          </li>
+          <li>
+            <S
+              artist="MIDI/Vince Guaraldi"
+              song="Les Peanuts   Charly Brown   Snoopy.mid"
+            />
+          </li>
+        </ul>
         <h3>Style - reggae</h3>
         <ul>
           <li>
@@ -416,11 +552,20 @@ const Course = () => {
           <li>
             <S artist="MIDI/Vanessa Williams" song="Colors of the Wind.mid" />
           </li>
+          <li>
+            <S artist="MIDI/Vera" song="At This Moment.mid" />
+          </li>
         </ul>
         <h3>Alterations (9th, 13th)</h3>
         <ul>
           <li>
             <S artist="MIDI/Vega" song="Tom's Diner (reprise).2.mid" />
+          </li>
+          <li>
+            <S
+              artist="MIDI/Vicki Sue Robinson"
+              song="Never Gonna Let You Go.mid"
+            />
           </li>
         </ul>
         <h3>Chord scale</h3>
@@ -446,6 +591,12 @@ const Course = () => {
           </li>
           <li>
             <S artist="MIDI/Vaughan Sarah" song="Fever.mid" />
+          </li>
+        </ul>
+        <h3>Jazz solo</h3>
+        <ul>
+          <li>
+            <S artist="MIDI/Vega" song="Tom's Diner (reprise).2.mid" />
           </li>
         </ul>
         <h3>Jazz fusion</h3>

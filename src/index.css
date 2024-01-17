@@ -902,3 +902,8 @@ img {
     font-size: 12px;
     line-height: 1;
 }
+
+.course h3 {
+    margin-top: 100px;
+    margin-bottom: 0px;
+}

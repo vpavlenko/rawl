@@ -116,6 +116,7 @@ export const TAGS = [
   "style:soul",
   "style:EDM",
   "style:eurodance",
+  "style:metal",
 
   "functionality:shuttle",
   "functionality:functional",

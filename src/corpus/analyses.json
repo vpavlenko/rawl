@@ -18,7 +18,9 @@
         "tags": [
           "voicing:diatonic_sevenths",
           "functionality:progression",
-          "bass:root"
+          "bass:root",
+          "chord:Vsus4",
+          "rhythm:swing"
         ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
@@ -49,7 +51,9 @@
         "tags": [
           "functionality:progression",
           "voicing:diatonic_sevenths",
-          "bass:root"
+          "bass:root",
+          "chunks:i-VII-VI-V",
+          "style:RnB"
         ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
@@ -370,7 +374,10 @@
         "tags": [
           "chord:Vsus4",
           "voicing:alterations",
-          "modulation:parallel_keys"
+          "modulation:parallel_keys",
+          "style:disco",
+          "arrangement:no_chords",
+          "voicing:root"
         ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
@@ -1149,7 +1156,9 @@
           }
         ],
         "romanNumerals": "",
-        "tags": [],
+        "tags": [
+          "scale:dorian"
+        ],
         "modulations": {
           "37": 6,
           "42": 8,
@@ -1168,6 +1177,31 @@
         "correctedMeasures": [],
         "tonic": 11,
         "basedOn": null
+      }
+    },
+    "Lady in Black.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 3
+          },
+          {
+            "measure": 20,
+            "diff": -1
+          }
+        ],
+        "comment": "",
+        "tonic": 9,
+        "modulations": {},
+        "tags": [
+          "bass:root",
+          "scale:blues",
+          "melody:in_thirds",
+          "scale:hexatonic_minor",
+          "issues:merge_voices"
+        ]
       }
     }
   },
@@ -1577,7 +1611,10 @@
         ],
         "romanNumerals": "",
         "tags": [
-          "issues:manual_remeasuring_needed"
+          "issues:manual_remeasuring_needed",
+          "inversion:IV64",
+          "chord:iv_in_major",
+          "modulation:contrast"
         ],
         "modulations": {
           "37": 0,
@@ -1601,8 +1638,17 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
+        "tags": [
+          "form:solo_guitar",
+          "voice-leading:chromatic"
+        ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
           2
@@ -1859,8 +1905,8 @@
         ],
         "romanNumerals": "",
         "tags": [
-          "style:jazz",
-          "arrangement:guitar_trio"
+          "arrangement:guitar_trio",
+          "style:jazz_fusion"
         ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
@@ -3454,8 +3500,20 @@
       "0": {
         "beatsPerMeasure": 4,
         "disableSnapToNotes": false,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          }
+        ],
         "romanNumerals": "",
-        "tags": [],
+        "tags": [
+          "modulation:contrast",
+          "style:hip-hop_no_vocal",
+          "style:modal_jazz",
+          "scale:dorian",
+          "scale:mixolydian"
+        ],
         "modulations": {
           "14": 1,
           "20": 5,
@@ -3766,7 +3824,9 @@
           "chord:I_in_minor",
           "voicing:alterations",
           "modulation:parallel_keys",
-          "bass:root"
+          "bass:root",
+          "chord:V13",
+          "harmony:ambiguous_tonic"
         ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [

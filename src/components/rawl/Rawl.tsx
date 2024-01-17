@@ -132,13 +132,16 @@ const Rawl: React.FC<{
           note.chipState.on.param1,
           note.chipState.on.param2,
         );
+        // Since buffer is large, controlling noteOff from here
+        // is probably a bad idea - not real-time. Results in very short
+        // notes sometimes.
         setTimeout(
           () =>
             synth.noteOff(
               note.chipState.off.channel,
               note.chipState.off.param1,
             ),
-          (note.span[1] - note.span[0]) * 1000,
+          Math.min((note.span[1] - note.span[0]) * 1000, 4000),
         );
       }
     },

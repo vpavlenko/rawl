@@ -103,6 +103,7 @@ export const TAGS = [
   "time:3/4",
 
   "style:jazz",
+  "style:modal_jazz",
   "style:jazz_fusion",
   "style:reggae",
   "style:latin",
@@ -118,6 +119,8 @@ export const TAGS = [
   "style:EDM",
   "style:eurodance",
   "style:metal",
+  "style:RnB",
+  "style:disco",
 
   "functionality:shuttle",
   "functionality:functional",
@@ -148,6 +151,7 @@ export const TAGS = [
   "scale:blues",
   "scale:mixolydian",
   "scale:major_b6",
+  "scale:hexatonic_minor",
 
   "tempo:accelerando",
   "tempo:ritardando",
@@ -171,6 +175,7 @@ export const TAGS = [
   "form:period",
   "form:AABA",
   "form:solo_piano",
+  "form:solo_guitar",
 
   "melody:non-transposed_riff",
   "melody:in_thirds",

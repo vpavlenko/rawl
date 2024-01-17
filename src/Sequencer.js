@@ -1,6 +1,5 @@
 import autoBindReact from "auto-bind/react";
 import EventEmitter from "events";
-import shuffle from "lodash/shuffle";
 import md5 from "md5";
 import { CATALOG_PREFIX } from "./config";
 import promisify from "./promisify-xhr";
@@ -10,11 +9,6 @@ export const REPEAT_ALL = 1;
 export const REPEAT_ONE = 2;
 export const NUM_REPEAT_MODES = 3;
 export const REPEAT_LABELS = ["Off", "All", "One"];
-
-export const SHUFFLE_OFF = 0;
-export const SHUFFLE_ON = 1;
-export const NUM_SHUFFLE_MODES = 2;
-export const SHUFFLE_LABELS = ["Off", "On"];
 
 export default class Sequencer extends EventEmitter {
   constructor(players, history) {
@@ -29,8 +23,6 @@ export default class Sequencer extends EventEmitter {
     this.currIdx = 0;
     this.context = null;
     this.currUrl = null;
-    this.shuffle = SHUFFLE_OFF;
-    this.shuffleOrder = [];
     this.songRequest = null;
     this.repeat = REPEAT_OFF;
     this.history = history;
@@ -43,11 +35,7 @@ export default class Sequencer extends EventEmitter {
 
   handlePlayerError(e) {
     this.emit("playerError", e);
-    if (this.context) {
-      this.nextSong();
-    } else {
-      this.emit("sequencerStateUpdate", { isEjected: true });
-    }
+    this.emit("sequencerStateUpdate", { isEjected: true });
   }
 
   handlePlayerStateUpdate(playerState) {
@@ -56,9 +44,6 @@ export default class Sequencer extends EventEmitter {
 
     if (isStopped) {
       this.currUrl = null;
-      if (this.context) {
-        this.nextSong();
-      }
     } else {
       this.emit("sequencerStateUpdate", {
         url: this.currUrl,
@@ -73,18 +58,11 @@ export default class Sequencer extends EventEmitter {
   playContext(context, index = 0, subtune = 0) {
     this.currIdx = index;
     this.context = context;
-    if (this.shuffle === SHUFFLE_ON) {
-      this.setShuffle(this.shuffle);
-    }
     this.playCurrentSong(subtune);
   }
 
   playCurrentSong(subtune = 0) {
     let idx = this.currIdx;
-    if (this.shuffle === SHUFFLE_ON) {
-      idx = this.shuffleOrder[idx];
-      console.log("Shuffle (%s): %s", this.currIdx, idx);
-    }
     this.playSong(this.context[idx], subtune);
   }
 
@@ -92,69 +70,14 @@ export default class Sequencer extends EventEmitter {
     this.playContext(urls, 0);
   }
 
-  toggleShuffle() {
-    this.setShuffle(!this.shuffle);
-  }
-
-  setShuffle(shuff) {
-    this.shuffle = shuff;
-    if (this.shuffle === SHUFFLE_ON && this.context) {
-      // Generate a new shuffle order.
-      // Insert current play index at the beginning.
-      this.shuffleOrder = [
-        this.currIdx,
-        ...shuffle(
-          this.context.map((_, i) => i).filter((i) => i !== this.currIdx),
-        ),
-      ];
-      this.currIdx = 0;
-    } else if (this.shuffleOrder) {
-      // Restore linear play sequence at current shuffle position.
-      if (this.shuffleOrder[this.currIdx] !== null) {
-        this.currIdx = this.shuffleOrder[this.currIdx];
-      }
-    }
-  }
-
   setRepeat(repeat) {
     this.repeat = repeat;
   }
 
-  advanceSong(direction) {
+  advanceSong() {
     if (this.context == null) return;
 
-    if (this.repeat !== REPEAT_ONE) {
-      this.currIdx += direction;
-    }
-
-    if (this.currIdx < 0 || this.currIdx >= this.context.length) {
-      if (this.repeat === REPEAT_ALL) {
-        this.currIdx =
-          (this.currIdx + this.context.length) % this.context.length;
-        this.playCurrentSong();
-      } else {
-        console.debug(
-          "Sequencer.advanceSong(direction=%s) %s passed end of context length %s",
-          direction,
-          this.currIdx,
-          this.context.length,
-        );
-        this.currIdx = 0;
-        this.context = null;
-        this.player.stop();
-        this.emit("sequencerStateUpdate", { isEjected: true });
-      }
-    } else {
-      this.playCurrentSong();
-    }
-  }
-
-  nextSong() {
-    this.advanceSong(1);
-  }
-
-  prevSong() {
-    this.advanceSong(-1);
+    this.playCurrentSong();
   }
 
   playSubtune(subtune) {
@@ -194,7 +117,7 @@ export default class Sequencer extends EventEmitter {
   }
 
   getCurrIdx() {
-    return this.shuffle ? this.shuffleOrder[this.currIdx] : this.currIdx;
+    return this.currIdx;
   }
 
   getCurrUrl() {

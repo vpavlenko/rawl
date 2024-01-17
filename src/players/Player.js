@@ -172,8 +172,9 @@ export default class Player extends EventEmitter {
   }
 
   suspend() {
-    this.stopped = true;
-    this.paused = true;
+    // this.stopped = true;
+    // this.paused = true;
+    this.seekMs(0);
   }
 
   processAudio(output) {

@@ -23,11 +23,7 @@ import Dropzone from "react-dropzone";
 import { Redirect, Route, Switch, withRouter } from "react-router-dom";
 
 import requestCache from "../RequestCache";
-import Sequencer, {
-  NUM_REPEAT_MODES,
-  REPEAT_OFF,
-  SHUFFLE_OFF,
-} from "../Sequencer";
+import Sequencer, { NUM_REPEAT_MODES, REPEAT_OFF } from "../Sequencer";
 import ChipCore from "../chip-core";
 import {
   API_BASE,
@@ -215,7 +211,6 @@ class App extends React.Component {
       songUrl: null,
       volume: 100,
       repeat: REPEAT_OFF,
-      shuffle: SHUFFLE_OFF,
       directories: {},
       hasPlayer: false,
       paramDefs: [],
@@ -440,12 +435,6 @@ class App extends React.Component {
       navigator.mediaSession.setActionHandler("pause", () =>
         this.togglePause(),
       );
-      navigator.mediaSession.setActionHandler("previoustrack", () =>
-        this.prevSong(),
-      );
-      navigator.mediaSession.setActionHandler("nexttrack", () =>
-        this.nextSong(),
-      );
       navigator.mediaSession.setActionHandler("seekbackward", () =>
         this.seekRelative(-5000),
       );
@@ -508,22 +497,6 @@ class App extends React.Component {
 
   playContext(context, index = 0, subtune = 0) {
     this.sequencer.playContext(context, index, subtune);
-  }
-
-  prevSong() {
-    this.sequencer.prevSong();
-  }
-
-  nextSong() {
-    this.sequencer.nextSong();
-  }
-
-  prevSubtune() {
-    this.sequencer.prevSubtune();
-  }
-
-  nextSubtune() {
-    this.sequencer.nextSubtune();
   }
 
   handleSequencerStateUpdate(sequencerState) {

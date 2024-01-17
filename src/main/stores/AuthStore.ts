@@ -6,7 +6,10 @@ export class AuthStore {
   authUser: AuthUser | null = null
   user: User | null = null
 
-  constructor(auth: Auth, userRepository: IUserRepository) {
+  constructor(
+    auth: Auth,
+    private readonly userRepository: IUserRepository,
+  ) {
     makeObservable(this, {
       authUser: observable,
       user: observable,
@@ -14,7 +17,7 @@ export class AuthStore {
 
     let subscribe: (() => void) | null = null
 
-    auth.onAuthStateChanged((user) => {
+    auth.onAuthStateChanged(async (user) => {
       this.authUser = user
 
       subscribe?.()
@@ -23,7 +26,20 @@ export class AuthStore {
         subscribe = userRepository.observeCurrentUser((user) => {
           this.user = user
         })
+        await this.createProfileIfNeeded(user)
       }
     })
+  }
+
+  private async createProfileIfNeeded(authUser: AuthUser) {
+    // Create user profile if not exists
+    const user = await this.userRepository.getCurrentUser()
+    if (user === null) {
+      const newUserData = {
+        name: authUser.displayName ?? "",
+        bio: "",
+      }
+      await this.userRepository.create(newUserData)
+    }
   }
 }

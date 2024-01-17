@@ -50,13 +50,38 @@ const Tag = ({
             if (MIDI_PREVIEWS[notes]) {
               return;
             }
-            result.notes[0].forEach((note) => delete note.chipState);
+            // result.notes[0].forEach((note) => delete note.chipState);
             MIDI_PREVIEWS[notes] = result;
             console.log(JSON.stringify(MIDI_PREVIEWS));
           }}
         >
           {(MIDI_PREVIEWS[notes] && (
-            <Voice {...VOICE_PARAMS} {...MIDI_PREVIEWS[notes]} />
+            <Voice
+              {...VOICE_PARAMS}
+              {...MIDI_PREVIEWS[notes]}
+              mouseHandlers={{
+                handleNoteClick: null,
+                handleMouseEnter: (note) => {
+                  sequencer.player.midiFilePlayer.synth.noteOn(
+                    note.chipState.on.channel,
+                    note.chipState.on.param1,
+                    note.chipState.on.param2,
+                  );
+                  setTimeout(
+                    () =>
+                      sequencer.player.midiFilePlayer.synth.noteOff(
+                        note.chipState.off.channel,
+                        note.chipState.off.param1,
+                      ),
+                    (note.span[1] - note.span[0]) * 1000,
+                  );
+                },
+                handleMouseLeave: () => {},
+                hoveredNote: null,
+                hoveredAltKey: false,
+                systemClickHandler: () => {},
+              }}
+            />
           )) ||
             "play"}
         </div>
@@ -104,14 +129,6 @@ const VOICE_PARAMS = {
   showVelocity: false,
   cursor: null,
   phraseStarts: [],
-  mouseHandlers: {
-    handleNoteClick: null,
-    handleMouseEnter: () => {},
-    handleMouseLeave: () => {},
-    hoveredNote: null,
-    hoveredAltKey: false,
-    systemClickHandler: () => {},
-  },
   measureSelection: {
     previouslySelectedMeasure: null,
     selectedMeasure: null,

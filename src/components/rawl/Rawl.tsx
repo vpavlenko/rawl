@@ -42,6 +42,8 @@ const Rawl: React.FC<{
   showAnalysisBox: boolean;
   seek: (ms: number) => void;
   registerSeekCallback: (seekCallback: (ms: number) => void) => void;
+  synth: { noteOn; noteOff };
+  paused: boolean;
 }> = ({
   parsingResult,
   getCurrentPositionMs,
@@ -53,6 +55,8 @@ const Rawl: React.FC<{
   showAnalysisBox,
   seek,
   registerSeekCallback,
+  synth,
+  paused,
 }) => {
   const [analysis, setAnalysis] = useState<Analysis>(
     savedAnalysis || ANALYSIS_STUB,
@@ -112,10 +116,28 @@ const Rawl: React.FC<{
 
   const [hoveredNote, setHoveredNote] = useState<Note | null>(null);
   const [hoveredAltKey, setHoveredAltKey] = useState<boolean>(false);
-  const handleMouseEnter = (note: Note, altKey: boolean) => {
-    setHoveredNote(note);
-    setHoveredAltKey(altKey);
-  };
+  const handleMouseEnter = useCallback(
+    (note: Note, altKey: boolean) => {
+      // setHoveredNote(note);
+      // setHoveredAltKey(altKey);
+      if (paused) {
+        synth.noteOn(
+          note.chipState.on.channel,
+          note.chipState.on.param1,
+          note.chipState.on.param2,
+        );
+        setTimeout(
+          () =>
+            synth.noteOff(
+              note.chipState.off.channel,
+              note.chipState.off.param1,
+            ),
+          (note.span[1] - note.span[0]) * 1000,
+        );
+      }
+    },
+    [paused],
+  );
   const handleMouseLeave = () => {
     setHoveredNote(null);
   };
@@ -155,7 +177,7 @@ const Rawl: React.FC<{
     setAnalysis({ ...analysis, ...diff });
   }, [allNotes]);
 
-  const handleNoteClick = (note: Note, altKey: boolean) => {
+  const handleNoteClick = useCallback((note: Note, altKey: boolean) => {
     advanceAnalysis(
       note,
       selectedMeasureRef.current,
@@ -165,7 +187,7 @@ const Rawl: React.FC<{
       null,
       altKey,
     );
-  };
+  }, []);
 
   const [positionMs, setPositionMs] = useState(0);
 

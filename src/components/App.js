@@ -166,7 +166,7 @@ class App extends React.Component {
           Math.log2((audioCtx.baseLatency || 0.001) * audioCtx.sampleRate),
         ),
       ),
-      16384, // can set to 16384, but the cursor will lag. smooth is 2048
+      2048, // can set to 16384, but the cursor will lag. smooth is 2048
     );
     const gainNode = (this.gainNode = audioCtx.createGain());
     gainNode.gain.value = 1;
@@ -927,6 +927,10 @@ class App extends React.Component {
                                       registerSeekCallback={(seekCallback) =>
                                         this.setState({ seekCallback })
                                       }
+                                      synth={
+                                        this.midiPlayer.midiFilePlayer.synth
+                                      }
+                                      paused={this.state.paused}
                                     />
                                   )}
                               </>

@@ -490,7 +490,8 @@ export const Voice: React.FC<{
     [notes, scrollLeft, scrollRight],
   );
 
-  const { systemClickHandler, handleNoteClick } = mouseHandlers;
+  const { systemClickHandler, handleNoteClick, handleMouseEnter } =
+    mouseHandlers;
 
   const height =
     (midiRange[0] === +Infinity ? 1 : midiRange[1] - midiRange[0] + 1) *
@@ -515,7 +516,7 @@ export const Voice: React.FC<{
           SPLIT_NOTE_HEIGHT,
           handleNoteClick,
           measuresAndBeats.measures,
-          () => {},
+          handleMouseEnter,
           () => {},
           showVelocity,
         ),
@@ -523,7 +524,7 @@ export const Voice: React.FC<{
       frozenHeight: height,
       frozenMidiRange: midiRange,
     }),
-    [notes, measuresAndBeats, analysis, showVelocity],
+    [notes, measuresAndBeats, analysis, showVelocity, handleMouseEnter],
   );
 
   const hasVisibleNotes = midiRange[1] >= midiRange[0];

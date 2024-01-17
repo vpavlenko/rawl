@@ -21,7 +21,7 @@ import { Note, ParsingResult } from "./parseMidi";
 // If not used, the playback cursor isn't exactly where the sound is.
 // Sometimes it should be adjusted for external screens.
 const LATENCY_CORRECTION_MS =
-  (localStorage && parseInt(localStorage.getItem("latency"), 10)) || 300;
+  (localStorage && parseInt(localStorage.getItem("latency"), 10)) || 0;
 
 export type SecondsSpan = [number, number];
 
@@ -118,8 +118,10 @@ const Rawl: React.FC<{
   const [hoveredAltKey, setHoveredAltKey] = useState<boolean>(false);
   const handleMouseEnter = useCallback(
     (note: Note, altKey: boolean) => {
-      // setHoveredNote(note);
-      // setHoveredAltKey(altKey);
+      if (altKey) {
+        setHoveredNote(note);
+      }
+      setHoveredAltKey(altKey);
       if (paused) {
         synth.noteOn(
           note.chipState.on.channel,

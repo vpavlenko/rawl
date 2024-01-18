@@ -37,7 +37,6 @@ import firebaseConfig from "../config/firebaseConfig";
 import {
   ensureEmscFileWithData,
   getMetadataUrlForCatalogUrl,
-  titlesFromMetadata,
   unlockAudioContext,
 } from "../util";
 
@@ -50,7 +49,6 @@ import AppHeader from "./AppHeader";
 import Browse from "./Browse";
 import DropMessage from "./DropMessage";
 import MessageBox from "./MessageBox";
-import Settings from "./Settings";
 import Visualizer from "./Visualizer";
 import Axes from "./rawl/Axes";
 import Course from "./rawl/Course";
@@ -378,7 +376,7 @@ class App extends React.Component {
     // hack .__.
     const lastSlashIndex = path.lastIndexOf("/");
     const beforeSlash = path.substring(0, lastSlashIndex);
-    const afterSlash = path.substring(lastSlashIndex + 1);
+    const song = path.substring(lastSlashIndex + 1);
 
     const user = this.state.user;
     if (user) {
@@ -388,7 +386,7 @@ class App extends React.Component {
       let userData = userDoc.exists ? userDoc.data() : {};
 
       const diff = {
-        [beforeSlash]: { [afterSlash]: { [subtune]: analysis } },
+        [beforeSlash]: { [song]: { [subtune]: analysis } },
       };
       userData.analyses = mergeAnalyses(userData.analyses ?? {}, diff);
 
@@ -800,12 +798,69 @@ class App extends React.Component {
   };
 
   render() {
-    const { title, subtitle } = titlesFromMetadata(
-      this.state.currentSongMetadata,
-    );
     const currContext = this.sequencer?.getCurrContext();
     const currIdx = this.sequencer?.getCurrIdx();
-    const search = { search: window.location.search };
+
+    const browseRoute = (
+      <Route
+        path={["/browse/:browsePath*"]}
+        render={({ history, match, location }) => {
+          // Undo the react-router-dom double-encoded % workaround - see DirectoryLink.js
+          const browsePath = match.params?.browsePath?.replace("%25", "%");
+          console.log("BROWSE_PATH", browsePath);
+
+          const searchParams = new URLSearchParams(window.location.search);
+
+          this.browsePath = browsePath;
+          const path = this.playContexts[browsePath]?.[currIdx];
+          const subtune = this.state.currentSongSubtune; // legacy from NES, always == '0' for MIDI
+          const song = path?.substring(path.lastIndexOf("/") + 1);
+          const savedAnalysis =
+            this.state.analyses[browsePath]?.[song]?.[subtune];
+          return (
+            this.contentAreaRef.current && (
+              <>
+                <Browse
+                  currContext={currContext}
+                  currIdx={currIdx}
+                  historyAction={history.action}
+                  locationKey={location.key}
+                  browsePath={browsePath}
+                  listing={this.state.directories[browsePath]}
+                  playContext={this.playContexts[browsePath]}
+                  fetchDirectory={this.fetchDirectory}
+                  handleSongClick={this.handleSongClick}
+                  scrollContainerRef={this.contentAreaRef}
+                  analyses={this.state.analyses}
+                  sequencer={this.sequencer}
+                />
+                {searchParams.get("song") && this.state.midiSource.notes && (
+                  <Rawl
+                    parsingResult={this.state.midiSource}
+                    getCurrentPositionMs={this.getCurrentPositionMs}
+                    savedAnalysis={savedAnalysis}
+                    saveAnalysis={this.saveAnalysis}
+                    voiceNames={this.state.voiceNames}
+                    voiceMask={this.state.voiceMask}
+                    setVoiceMask={this.handleSetVoiceMask}
+                    showAnalysisBox={this.state.analysisEnabled}
+                    seek={(time) => this.seekRelativeInner(time, true)}
+                    registerSeekCallback={(seekCallback) =>
+                      this.setState({ seekCallback })
+                    }
+                    synth={this.midiPlayer.midiFilePlayer.synth}
+                    paused={this.state.paused}
+                    artist={browsePath}
+                    song={song}
+                    exercise={searchParams.get("exercise")}
+                  />
+                )}
+              </>
+            )
+          );
+        }}
+      />
+    );
     return (
       <Dropzone disableClick style={{}} onDrop={this.onDrop}>
         {(dropzoneProps) => (
@@ -855,105 +910,7 @@ class App extends React.Component {
                           />
                         )}
                       />
-                      <Route
-                        path={["/browse/:browsePath*"]}
-                        render={({ history, match, location }) => {
-                          // Undo the react-router-dom double-encoded % workaround - see DirectoryLink.js
-                          const browsePath = match.params?.browsePath?.replace(
-                            "%25",
-                            "%",
-                          );
-                          console.log("BROWSE_PATH", browsePath);
-
-                          const searchParams = new URLSearchParams(
-                            window.location.search,
-                          );
-
-                          this.browsePath = browsePath;
-                          const path =
-                            this.playContexts[browsePath] &&
-                            this.playContexts[browsePath][currIdx];
-                          const subtune = this.state.currentSongSubtune;
-                          const lastSlashIndex = path && path.lastIndexOf("/");
-                          const afterSlash =
-                            lastSlashIndex &&
-                            path.substring(lastSlashIndex + 1);
-                          const savedAnalysis =
-                            this.state.analyses &&
-                            this.state.analyses[browsePath] &&
-                            this.state.analyses[browsePath][afterSlash] &&
-                            this.state.analyses[browsePath][afterSlash][
-                              subtune
-                            ];
-                          return (
-                            this.contentAreaRef.current && (
-                              <>
-                                <Browse
-                                  currContext={currContext}
-                                  currIdx={currIdx}
-                                  historyAction={history.action}
-                                  locationKey={location.key}
-                                  browsePath={browsePath}
-                                  listing={this.state.directories[browsePath]}
-                                  playContext={this.playContexts[browsePath]}
-                                  fetchDirectory={this.fetchDirectory}
-                                  handleSongClick={this.handleSongClick}
-                                  scrollContainerRef={this.contentAreaRef}
-                                  analyses={this.state.analyses}
-                                  sequencer={this.sequencer}
-                                />
-                                {searchParams.get("song") &&
-                                  this.state.midiSource.notes && (
-                                    <Rawl
-                                      parsingResult={this.state.midiSource}
-                                      getCurrentPositionMs={
-                                        this.getCurrentPositionMs
-                                      }
-                                      savedAnalysis={savedAnalysis}
-                                      saveAnalysis={this.saveAnalysis}
-                                      voiceNames={this.state.voiceNames}
-                                      voiceMask={this.state.voiceMask}
-                                      setVoiceMask={this.handleSetVoiceMask}
-                                      showAnalysisBox={
-                                        this.state.analysisEnabled
-                                      }
-                                      seek={(time) =>
-                                        this.seekRelativeInner(time, true)
-                                      }
-                                      registerSeekCallback={(seekCallback) =>
-                                        this.setState({ seekCallback })
-                                      }
-                                      synth={
-                                        this.midiPlayer.midiFilePlayer.synth
-                                      }
-                                      paused={this.state.paused}
-                                      artist={browsePath}
-                                      song={afterSlash}
-                                      exercise={searchParams.get("exercise")}
-                                    />
-                                  )}
-                              </>
-                            )
-                          );
-                        }}
-                      />
-                      <Route
-                        path="/settings"
-                        render={() => (
-                          <Settings
-                            ejected={this.state.ejected}
-                            tempo={this.state.tempo}
-                            currentSongNumVoices={
-                              this.state.currentSongNumVoices
-                            }
-                            voiceMask={this.state.voiceMask}
-                            voiceNames={this.state.voiceNames}
-                            handleSetVoiceMask={this.handleSetVoiceMask}
-                            handleTempoChange={this.handleTempoChange}
-                            sequencer={this.sequencer}
-                          />
-                        )}
-                      />
+                      {browseRoute}
                     </Switch>
                   </div>
                 </div>

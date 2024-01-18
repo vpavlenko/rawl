@@ -112,9 +112,12 @@ class App extends React.Component {
     });
 
     onAuthStateChanged(auth, (user) => {
-      this.setState({ user: user, loadingUser: !!user });
+      this.setState({
+        user,
+        loadingUser: !!user,
+        analysisEnabled: !!user,
+      });
       if (user) {
-        // this.setState({ analysisEnabled: true });
         const docRef = doc(this.db, "users", user.uid);
         getDoc(docRef)
           .then((userSnapshot) => {
@@ -857,6 +860,7 @@ class App extends React.Component {
                       artist={browsePath}
                       song={song}
                       exercise={searchParams.get("exercise")}
+                      sequencer={this.sequencer}
                     />
                   )}
               </>
@@ -903,7 +907,10 @@ class App extends React.Component {
                         path="/axes"
                         render={() => <Axes sequencer={this.sequencer} />}
                       />
-                      <Route path="/course" render={() => <Course />} />
+                      <Route
+                        path="/course"
+                        render={() => <Course sequencer={this.sequencer} />}
+                      />
                       <Route path="/intro" render={() => <Intro />} />
                       <Route
                         path="/tags/:tag*"

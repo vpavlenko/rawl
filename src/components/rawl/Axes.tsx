@@ -7,6 +7,71 @@ import { PianoLegend } from "./PianoLegend";
 import { Voice } from "./SystemLayout";
 import { PitchClass } from "./analysis";
 
+export const NoteSnippet = ({ notes, sequencer }) => {
+  return (
+    notes && (
+      <div
+        style={{ cursor: "pointer" }}
+        onClick={async () => {
+          const track = new MidiWriter.Track();
+          track.addEvent(new MidiWriter.ProgramChangeEvent({ instrument: 1 }));
+          let duration = "2";
+          let notesToPlay = notes;
+          if (notes.indexOf(",") !== -1) {
+            [duration, notesToPlay] = notes.split(",");
+          }
+          notesToPlay.split(" ").map((chord) =>
+            track.addEvent(
+              new MidiWriter.NoteEvent({
+                pitch: chord.split("-"),
+                duration,
+              }),
+            ),
+          );
+          const binaryData = new MidiWriter.Writer(track).buildFile();
+          const result = await sequencer.playSongFile("custom.mid", binaryData);
+          if (MIDI_PREVIEWS[notes]) {
+            return;
+          }
+          // result.notes[0].forEach((note) => delete note.chipState);
+          MIDI_PREVIEWS[notes] = result;
+          console.log(JSON.stringify(MIDI_PREVIEWS));
+        }}
+      >
+        {(MIDI_PREVIEWS[notes] && (
+          <Voice
+            {...VOICE_PARAMS}
+            {...MIDI_PREVIEWS[notes]}
+            mouseHandlers={{
+              handleNoteClick: null,
+              handleMouseEnter: (note) => {
+                sequencer.player.midiFilePlayer.synth.noteOn(
+                  note.chipState.on.channel,
+                  note.chipState.on.param1,
+                  note.chipState.on.param2,
+                );
+                setTimeout(
+                  () =>
+                    sequencer.player.midiFilePlayer.synth.noteOff(
+                      note.chipState.off.channel,
+                      note.chipState.off.param1,
+                    ),
+                  (note.span[1] - note.span[0]) * 1000,
+                );
+              },
+              handleMouseLeave: () => {},
+              hoveredNote: null,
+              hoveredAltKey: false,
+              systemClickHandler: () => {},
+            }}
+          />
+        )) ||
+          "play"}
+      </div>
+    )
+  );
+};
+
 const Tag = ({
   name,
   sequencer,
@@ -21,71 +86,7 @@ const Tag = ({
       <a href={`/tags/${name}`} target="_blank">
         {name.split(":")[1]}
       </a>
-      {notes && (
-        <div
-          style={{ cursor: "pointer" }}
-          onClick={async () => {
-            const track = new MidiWriter.Track();
-            track.addEvent(
-              new MidiWriter.ProgramChangeEvent({ instrument: 1 }),
-            );
-            let duration = "2";
-            let notesToPlay = notes;
-            if (notes.indexOf(",") !== -1) {
-              [duration, notesToPlay] = notes.split(",");
-            }
-            notesToPlay.split(" ").map((chord) =>
-              track.addEvent(
-                new MidiWriter.NoteEvent({
-                  pitch: chord.split("-"),
-                  duration,
-                }),
-              ),
-            );
-            const binaryData = new MidiWriter.Writer(track).buildFile();
-            const result = await sequencer.playSongFile(
-              "custom.mid",
-              binaryData,
-            );
-            if (MIDI_PREVIEWS[notes]) {
-              return;
-            }
-            // result.notes[0].forEach((note) => delete note.chipState);
-            MIDI_PREVIEWS[notes] = result;
-            console.log(JSON.stringify(MIDI_PREVIEWS));
-          }}
-        >
-          {(MIDI_PREVIEWS[notes] && (
-            <Voice
-              {...VOICE_PARAMS}
-              {...MIDI_PREVIEWS[notes]}
-              mouseHandlers={{
-                handleNoteClick: null,
-                handleMouseEnter: (note) => {
-                  sequencer.player.midiFilePlayer.synth.noteOn(
-                    note.chipState.on.channel,
-                    note.chipState.on.param1,
-                    note.chipState.on.param2,
-                  );
-                  setTimeout(
-                    () =>
-                      sequencer.player.midiFilePlayer.synth.noteOff(
-                        note.chipState.off.channel,
-                        note.chipState.off.param1,
-                      ),
-                    (note.span[1] - note.span[0]) * 1000,
-                  );
-                },
-                handleMouseLeave: () => {},
-                hoveredNote: null,
-                hoveredAltKey: false,
-                systemClickHandler: () => {},
-              }}
-            />
-          )) ||
-            "play"}
-        </div>
-      )}
+      <NoteSnippet notes={notes} sequencer={sequencer} />
     </span>
   );
 };

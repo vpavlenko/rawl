@@ -1,5 +1,5 @@
 import * as React from "react";
-import { TWELVE_TONE_COLORS } from "./colors";
+import { NoteSnippet } from "./Axes";
 
 const S = ({ artist, song, exercise = null }) => {
   return (
@@ -24,35 +24,32 @@ const S = ({ artist, song, exercise = null }) => {
   );
 };
 
-const Course = () => {
+const Course = ({ sequencer }) => {
   return (
     <div className="course" style={{ display: "flex", padding: "50px" }}>
       <div style={{ maxWidth: "600px", width: "100%" }}>
         <h2>Study music theory by analyzing MIDI files</h2>
         <h3>Major tonic</h3>
         <div>
-          A major scale has seven notes:{" "}
-          <span
-            style={{ display: "flex", flexDirection: "row", height: "60px" }}
-          >
-            {[0, 2, 4, 5, 7, 9, 11].map((i) => (
-              <div
-                key={`w_${i}`}
-                style={{
-                  backgroundColor: TWELVE_TONE_COLORS[i],
-                  width: "40px",
-                  height: "5px",
-                  position: "relative",
-                  top: (11 - i) * 5,
-                }}
-              />
-            ))}
-          </span>
+          In every octave there are 12 notes:
+          <NoteSnippet
+            notes="C3 C#3 D3 D#3 E3 F3 F#3 G3 G#3 A3 A#3 B3"
+            sequencer={sequencer}
+          />
         </div>
         <div>
-          Browse two examples below to see how major scale is used in songs.
-          Then try to find a main red note in exercises that use this scale. Use
-          "space" to pause. Click on a note to make it a tonic.
+          A major scale has seven notes:
+          <NoteSnippet notes="C3 D3 E3 F3 G3 A3 B3" sequencer={sequencer} />
+        </div>
+        <div>
+          A song in a major key will use those seven notes. It will rarely use
+          the rest five notes:{" "}
+          <NoteSnippet notes="C#3 D#3 F#3 G#3 A#3" sequencer={sequencer} />
+        </div>
+        <div>
+          Browse two examples below to see how are songs built using major
+          scale. Then try to find a main red note in exercises that use this
+          scale. Use "space" to pause. Click on a note to make it a tonic.
         </div>
         <ul>
           <li>

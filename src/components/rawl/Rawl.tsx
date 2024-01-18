@@ -55,6 +55,7 @@ const Rawl: React.FC<{
   artist: string;
   song: string;
   exercise: ExerciseType | null;
+  sequencer: any;
 }> = ({
   parsingResult,
   getCurrentPositionMs,
@@ -71,7 +72,12 @@ const Rawl: React.FC<{
   artist,
   song,
   exercise,
+  sequencer,
 }) => {
+  useEffect(() => {
+    document.title = `Rawl - ${artist.slice(5)} - ${song.slice(0, -4)}`;
+  }, [artist, song]);
+
   const [analysis, setAnalysis] = useState<Analysis>(
     (savedAnalysis && cleanForExercise(savedAnalysis, exercise)) ||
       ANALYSIS_STUB,
@@ -359,13 +365,25 @@ const Rawl: React.FC<{
         </div>
       )}
       {exercise && (
-        <div style={{ width: "350px", height: "100%" }}>
+        <div
+          style={{
+            position: "fixed",
+            right: 0,
+            backgroundColor: "black",
+            width: "350px",
+            height: "150px",
+            zIndex: 10000000,
+            border: "1px solid yellow",
+            padding: "10px",
+          }}
+        >
           <Exercise
             artist={artist}
             song={song}
             type={exercise}
             analysis={analysis}
             savedAnalysis={savedAnalysis}
+            sequencer={sequencer}
           />
         </div>
       )}

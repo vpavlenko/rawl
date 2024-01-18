@@ -5,7 +5,14 @@ export type ExerciseType = "tonic";
 
 export type Status = "correct" | "wrong" | "not evaluated";
 
-const Exercise = ({ type, artist, song, analysis, savedAnalysis }) => {
+const Exercise = ({
+  type,
+  artist,
+  song,
+  analysis,
+  savedAnalysis,
+  sequencer,
+}) => {
   const [status, setStatus] = useState<Status>("not evaluated");
   return (
     <div>
@@ -29,7 +36,13 @@ const Exercise = ({ type, artist, song, analysis, savedAnalysis }) => {
             Check the answer
           </button>
         </div>
-        <div>Status: {status}</div>
+        <div>
+          {status === "correct" ? (
+            <span style={{ fontWeight: 700, color: "green" }}>Correct</span>
+          ) : status === "wrong" ? (
+            <span style={{ fontWeight: 700, color: "red" }}>Wrong</span>
+          ) : null}
+        </div>
       </div>
     </div>
   );

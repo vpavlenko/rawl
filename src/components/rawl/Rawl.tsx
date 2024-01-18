@@ -2,6 +2,7 @@ import * as React from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AnalysisBox } from "./AnalysisBox";
 import { MeasureSelection } from "./AnalysisGrid";
+import Exercise, { ExerciseType } from "./Exercise";
 import { PianoLegend } from "./PianoLegend";
 import {
   MergedSystemLayout,
@@ -31,6 +32,13 @@ export const xToSeconds = (x) => x / SECOND_WIDTH;
 
 export type SetVoiceMask = (mask: boolean[]) => void;
 
+const cleanForExercise = (savedAnalysis: Analysis, exercise: ExerciseType) => {
+  if (exercise === "tonic") {
+    return { ...savedAnalysis, tonic: null, modulations: {} };
+  }
+  return savedAnalysis;
+};
+
 const Rawl: React.FC<{
   parsingResult: ParsingResult;
   getCurrentPositionMs: () => number;
@@ -46,7 +54,7 @@ const Rawl: React.FC<{
   paused: boolean;
   artist: string;
   song: string;
-  exercise: string | null;
+  exercise: ExerciseType | null;
 }> = ({
   parsingResult,
   getCurrentPositionMs,
@@ -65,13 +73,14 @@ const Rawl: React.FC<{
   exercise,
 }) => {
   const [analysis, setAnalysis] = useState<Analysis>(
-    savedAnalysis || ANALYSIS_STUB,
+    (savedAnalysis && cleanForExercise(savedAnalysis, exercise)) ||
+      ANALYSIS_STUB,
   );
   // useEffect(() => setAnalysis(ANALYSIS_STUB), [parsingResult]);
   useEffect(() => {
     // this can be in a race if Firebase is slow
     if (savedAnalysis) {
-      setAnalysis(savedAnalysis);
+      setAnalysis(cleanForExercise(savedAnalysis, exercise));
     }
   }, [savedAnalysis]);
 
@@ -87,7 +96,9 @@ const Rawl: React.FC<{
   const commitAnalysisUpdate = useCallback(
     (analysisUpdate: Partial<Analysis>) => {
       const updatedAnalysis = { ...analysis, ...analysisUpdate };
-      saveAnalysis(updatedAnalysis);
+      if (!exercise) {
+        saveAnalysis(updatedAnalysis);
+      }
       setAnalysis(updatedAnalysis);
     },
     [analysis, saveAnalysis],
@@ -334,7 +345,7 @@ const Rawl: React.FC<{
           />
         )}
       </div>
-      {showAnalysisBox && (
+      {showAnalysisBox && !exercise && (
         <div style={{ width: "350px", height: "100%" }}>
           <AnalysisBox
             analysis={analysis}
@@ -344,6 +355,17 @@ const Rawl: React.FC<{
             selectMeasure={selectMeasure}
             artist={artist}
             song={song}
+          />
+        </div>
+      )}
+      {exercise && (
+        <div style={{ width: "350px", height: "100%" }}>
+          <Exercise
+            artist={artist}
+            song={song}
+            type={exercise}
+            analysis={analysis}
+            savedAnalysis={savedAnalysis}
           />
         </div>
       )}

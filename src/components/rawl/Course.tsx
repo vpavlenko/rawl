@@ -44,40 +44,57 @@ const Course = () => {
             />
           </li>
           <li>
-            <S artist="MIDI/Van Morrison" song="Brown Eyed Girl.mid" />
+            <S
+              artist="MIDI/Van Morrison"
+              song="Brown Eyed Girl.mid"
+              exercise="tonic"
+            />
           </li>
           <li>
-            <S artist="MIDI/The Beatles" song="Misery.2.mid" />
+            <S artist="MIDI/The Beatles" song="Misery.2.mid" exercise="tonic" />
           </li>
           <li>
-            <S artist="MIDI/Typically Tropical" song="Barbados.mid" /> -
-            exercise, find main tonic
+            <S
+              artist="MIDI/Typically Tropical"
+              song="Barbados.mid"
+              exercise="tonic"
+            />{" "}
+            - exercise, find main tonic
           </li>
           <li>
-            <S artist="MIDI/U.S.A. for Africa" song="We Are the World.mid" /> -
-            exercise
+            <S
+              artist="MIDI/U.S.A. for Africa"
+              song="We Are the World.mid"
+              exercise="tonic"
+            />{" "}
+            - exercise
           </li>
           <li>
             <S
               artist="MIDI/UB40"
               song="(I Can't Help) Falling In Love With You.mid"
+              exercise="tonic"
             />{" "}
             - exercise, also melody is stepwise
           </li>
           <li>
-            <S artist="MIDI/Umberto Tozzi" song="Gloria.mid" />
+            <S artist="MIDI/Umberto Tozzi" song="Gloria.mid" exercise="tonic" />
           </li>
           <li>
-            <S artist="MIDI/Van Halen" song="316.mid" />
+            <S artist="MIDI/Van Halen" song="316.mid" exercise="tonic" />
           </li>
           <li>
-            <S artist="MIDI/Vanessa Williams" song="Colors of the Wind.mid" />
+            <S
+              artist="MIDI/Vanessa Williams"
+              song="Colors of the Wind.mid"
+              exercise="tonic"
+            />
           </li>
           <li>
-            <S artist="MIDI/Vasco" song="Albachiara.mid" />
+            <S artist="MIDI/Vasco" song="Albachiara.mid" exercise="tonic" />
           </li>
           <li>
-            <S artist="MIDI/Vaughn" song="Blue Tango.mid" />
+            <S artist="MIDI/Vaughn" song="Blue Tango.mid" exercise="tonic" />
           </li>
         </ul>
         <h3>Phrases</h3>

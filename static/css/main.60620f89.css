@@ -989,7 +989,11 @@ img {
 
 .course h3 {
     margin-top: 100px;
-    margin-bottom: 0px;
+    margin-bottom: 10px;
 }
 
-/*# sourceMappingURL=main.63346aa6.css.map*/
+.course div {
+    margin-bottom: 20px;
+}
+
+/*# sourceMappingURL=main.60620f89.css.map*/

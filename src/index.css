@@ -886,5 +886,9 @@ img {
 
 .course h3 {
     margin-top: 100px;
-    margin-bottom: 0px;
+    margin-bottom: 10px;
+}
+
+.course div {
+    margin-bottom: 20px;
 }

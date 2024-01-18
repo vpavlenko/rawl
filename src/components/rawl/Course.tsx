@@ -1,4 +1,5 @@
 import * as React from "react";
+import { TWELVE_TONE_COLORS } from "./colors";
 
 const S = ({ artist, song, exercise = null }) => {
   return (
@@ -11,7 +12,7 @@ const S = ({ artist, song, exercise = null }) => {
             style={{ color: "orange" }}
             target="_blank"
           >
-            {artist.slice(5)} - {song.slice(0, -4)} --- find {exercise}
+            {artist.slice(5)} - {song.slice(0, -4)}: find {exercise}
           </a>
         </>
       ) : (
@@ -29,6 +30,30 @@ const Course = () => {
       <div style={{ maxWidth: "600px", width: "100%" }}>
         <h2>Study music theory by analyzing MIDI files</h2>
         <h3>Major tonic</h3>
+        <div>
+          A major scale has seven notes:{" "}
+          <span
+            style={{ display: "flex", flexDirection: "row", height: "60px" }}
+          >
+            {[0, 2, 4, 5, 7, 9, 11].map((i) => (
+              <div
+                key={`w_${i}`}
+                style={{
+                  backgroundColor: TWELVE_TONE_COLORS[i],
+                  width: "40px",
+                  height: "5px",
+                  position: "relative",
+                  top: (11 - i) * 5,
+                }}
+              />
+            ))}
+          </span>
+        </div>
+        <div>
+          Browse two examples below to see how major scale is used in songs.
+          Then try to find a main red note in exercises that use this scale. Use
+          "space" to pause. Click on a note to make it a tonic.
+        </div>
         <ul>
           <li>
             <S artist="MIDI/Chris Andrews" song="Pretty Belinda.1.mid" /> - pure
@@ -60,16 +85,14 @@ const Course = () => {
               artist="MIDI/Typically Tropical"
               song="Barbados.mid"
               exercise="tonic"
-            />{" "}
-            - exercise, find main tonic
+            />
           </li>
           <li>
             <S
               artist="MIDI/U.S.A. for Africa"
               song="We Are the World.mid"
               exercise="tonic"
-            />{" "}
-            - exercise
+            />
           </li>
           <li>
             <S
@@ -77,7 +100,7 @@ const Course = () => {
               song="(I Can't Help) Falling In Love With You.mid"
               exercise="tonic"
             />{" "}
-            - exercise, also melody is stepwise
+            - also a melody is stepwise
           </li>
           <li>
             <S artist="MIDI/Umberto Tozzi" song="Gloria.mid" exercise="tonic" />

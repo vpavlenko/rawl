@@ -369,6 +369,7 @@ const Rawl: React.FC<{
           style={{
             position: "fixed",
             right: 0,
+            bottom: 0,
             backgroundColor: "black",
             width: "350px",
             height: "150px",

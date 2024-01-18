@@ -53,12 +53,10 @@ const Course = ({ sequencer }) => {
         </div>
         <ul>
           <li>
-            <S artist="MIDI/Chris Andrews" song="Pretty Belinda.1.mid" /> - pure
-            I V. Play scale, play chords
+            <S artist="MIDI/Chris Andrews" song="Pretty Belinda.1.mid" />
           </li>
           <li>
-            <S artist="MIDI/Valens Ritchie" song="La Bamba.mid" /> - complex
-            arrangement: solo/mute voices, hidden chords
+            <S artist="MIDI/Valens Ritchie" song="La Bamba.mid" />
           </li>
           <li>
             <S
@@ -117,6 +115,62 @@ const Course = ({ sequencer }) => {
           </li>
           <li>
             <S artist="MIDI/Vaughn" song="Blue Tango.mid" exercise="tonic" />
+          </li>
+        </ul>
+        <h3>Chords in major key</h3>
+        <div>
+          A major key usually uses these six chords:
+          <NoteSnippet
+            notes="C2-C3-E3-G3-C4 D2-D3-F3-A3-D4 E2-E3-G3-B3-E4 F2-F3-A3-C4-F4 G2-G3-B3-D4-G4 A2-A3-C4-E4-A4 G2-G3-B3-D4-B4 C3-C4-E4-G4-C5"
+            sequencer={sequencer}
+          />
+        </div>
+        <div>
+          Some pieces use only a subset of them. See if you can identify them
+          within the songs
+        </div>
+        <ul>
+          <li>
+            <S artist="MIDI/Chris Andrews" song="Pretty Belinda.1.mid" />
+          </li>
+          <li>
+            <S artist="MIDI/Valens Ritchie" song="La Bamba.mid" />
+          </li>
+          <li>
+            <S artist="MIDI/Vengaboys" song="Boom Boom Boom.mid" />
+          </li>
+          <li>
+            <S artist="MIDI/Van Morrison" song="Brown Eyed Girl.mid" />
+          </li>
+          <li>
+            <S artist="MIDI/The Beatles" song="Misery.2.mid" />
+          </li>
+          <li>
+            <S artist="MIDI/Typically Tropical" song="Barbados.mid" />
+          </li>
+          <li>
+            <S artist="MIDI/U.S.A. for Africa" song="We Are the World.mid" />
+          </li>
+          <li>
+            <S
+              artist="MIDI/UB40"
+              song="(I Can't Help) Falling In Love With You.mid"
+            />
+          </li>
+          <li>
+            <S artist="MIDI/Umberto Tozzi" song="Gloria.mid" />
+          </li>
+          <li>
+            <S artist="MIDI/Van Halen" song="316.mid" />
+          </li>
+          <li>
+            <S artist="MIDI/Vanessa Williams" song="Colors of the Wind.mid" />
+          </li>
+          <li>
+            <S artist="MIDI/Vasco" song="Albachiara.mid" />
+          </li>
+          <li>
+            <S artist="MIDI/Vaughn" song="Blue Tango.mid" />
           </li>
         </ul>
         <h3>Phrases</h3>

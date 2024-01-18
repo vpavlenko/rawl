@@ -34,34 +34,7 @@ export default class Browse extends React.PureComponent {
   componentDidUpdate(prevProps, prevState) {
     this.navigate();
 
-    /*
-    PROBLEM:
-
-    When ?play=... is appended to URL, location.key becomes orphaned (undefined).
-    The React Router history object might need to be shimmed to make this param
-    completely transparent to browser navigation.
-    See https://stackoverflow.com/a/56823112/264970.
-
-    Consequences of trying to make ?play=... orthogonal to browse history:
-
-    browse/b
-      [click link]
-    browse/b/c
-      [play Song_X]
-    browse/b/c?play=Song_X
-      [scroll down]
-      [back]
-    browse/b
-      [next song]
-    browse/b?play=Song_Y (now location.key will be undefined)
-      [forward]
-    browse/b/c?play=Song_X (play param incorrectly reverts to Song_X)
-
-    using back and forward has always been problematic with the play param,
-    since it restores invalid URLs. Only now it breaks scroll restoration too.
-
-    ...therefore, play param is now disabled.
-     */
+    // (a long comment deleted, see mmontag/chip-player-js)
     if (this.props.historyAction === "POP") {
       // User has just navigated back or forward
       const { browsePath, locationKey } = this.props;

@@ -1,10 +1,23 @@
 import * as React from "react";
 
-const S = ({ artist, song }) => {
+const S = ({ artist, song, exercise = null }) => {
   return (
-    <a href={`/browse/${artist}?song=${song}`} target="_blank">
-      {artist.slice(5)} - {song.slice(0, -4)}
-    </a>
+    <>
+      <a href={`/browse/${artist}?song=${song}`} target="_blank">
+        {artist.slice(5)} - {song.slice(0, -4)}
+      </a>
+      {exercise && (
+        <>
+          {" --- "}
+          <a
+            href={`/browse/${artist}?song=${song}&exercise=${exercise}`}
+            target="_blank"
+          >
+            Exercise "{exercise}"
+          </a>
+        </>
+      )}
+    </>
   );
 };
 
@@ -24,7 +37,11 @@ const Course = () => {
             arrangement: solo/mute voices, hidden chords
           </li>
           <li>
-            <S artist="MIDI/Vengaboys" song="Boom Boom Boom.mid" />
+            <S
+              artist="MIDI/Vengaboys"
+              song="Boom Boom Boom.mid"
+              exercise="tonic"
+            />
           </li>
           <li>
             <S artist="MIDI/Van Morrison" song="Brown Eyed Girl.mid" />
@@ -125,6 +142,9 @@ const Course = () => {
           </li>
           <li>
             <S artist="MIDI/Visage" song="Fade to Grey.mid" />
+          </li>
+          <li>
+            <S artist="MIDI/Warren G" song="Regulate.mid" />
           </li>
         </ul>
         <h3>Minor before V7</h3>

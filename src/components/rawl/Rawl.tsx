@@ -46,6 +46,7 @@ const Rawl: React.FC<{
   paused: boolean;
   artist: string;
   song: string;
+  exercise: string | null;
 }> = ({
   parsingResult,
   getCurrentPositionMs,
@@ -61,6 +62,7 @@ const Rawl: React.FC<{
   paused,
   artist,
   song,
+  exercise,
 }) => {
   const [analysis, setAnalysis] = useState<Analysis>(
     savedAnalysis || ANALYSIS_STUB,

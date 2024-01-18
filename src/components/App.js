@@ -365,8 +365,6 @@ class App extends React.Component {
     });
   }
 
-  handleToggleFavorite() {}
-
   async saveAnalysis(analysis) {
     const currIdx = this.sequencer?.getCurrIdx();
     if (currIdx === undefined) return;
@@ -901,8 +899,6 @@ class App extends React.Component {
                                   fetchDirectory={this.fetchDirectory}
                                   handleSongClick={this.handleSongClick}
                                   scrollContainerRef={this.contentAreaRef}
-                                  favorites={this.state.faves}
-                                  toggleFavorite={this.handleToggleFavorite}
                                   analyses={this.state.analyses}
                                   sequencer={this.sequencer}
                                 />
@@ -933,6 +929,7 @@ class App extends React.Component {
                                       paused={this.state.paused}
                                       artist={browsePath}
                                       song={afterSlash}
+                                      exercise={searchParams.get("exercise")}
                                     />
                                   )}
                               </>

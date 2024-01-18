@@ -212,7 +212,7 @@ class App extends React.Component {
       directories: {},
       hasPlayer: false,
       paramDefs: [],
-      midiSource: {},
+      parsings: {},
       analysisEnabled: true,
       analyses: defaultAnalyses,
     };
@@ -253,7 +253,10 @@ class App extends React.Component {
           audioCtx.sampleRate,
           bufferSize,
           debug,
-          (midiSource) => self.setState({ midiSource }),
+          (parsing) =>
+            self.setState((prevState) => ({
+              parsings: { ...prevState.parsings, [this.browsePath]: parsing },
+            })),
           this.togglePause,
         ),
     );
@@ -834,27 +837,28 @@ class App extends React.Component {
                   analyses={this.state.analyses}
                   sequencer={this.sequencer}
                 />
-                {searchParams.get("song") && this.state.midiSource.notes && (
-                  <Rawl
-                    parsingResult={this.state.midiSource}
-                    getCurrentPositionMs={this.getCurrentPositionMs}
-                    savedAnalysis={savedAnalysis}
-                    saveAnalysis={this.saveAnalysis}
-                    voiceNames={this.state.voiceNames}
-                    voiceMask={this.state.voiceMask}
-                    setVoiceMask={this.handleSetVoiceMask}
-                    showAnalysisBox={this.state.analysisEnabled}
-                    seek={(time) => this.seekRelativeInner(time, true)}
-                    registerSeekCallback={(seekCallback) =>
-                      this.setState({ seekCallback })
-                    }
-                    synth={this.midiPlayer.midiFilePlayer.synth}
-                    paused={this.state.paused}
-                    artist={browsePath}
-                    song={song}
-                    exercise={searchParams.get("exercise")}
-                  />
-                )}
+                {searchParams.get("song") &&
+                  this.state.parsings[browsePath] && (
+                    <Rawl
+                      parsingResult={this.state.parsings[browsePath]}
+                      getCurrentPositionMs={this.getCurrentPositionMs}
+                      savedAnalysis={savedAnalysis}
+                      saveAnalysis={this.saveAnalysis}
+                      voiceNames={this.state.voiceNames}
+                      voiceMask={this.state.voiceMask}
+                      setVoiceMask={this.handleSetVoiceMask}
+                      showAnalysisBox={this.state.analysisEnabled}
+                      seek={(time) => this.seekRelativeInner(time, true)}
+                      registerSeekCallback={(seekCallback) =>
+                        this.setState({ seekCallback })
+                      }
+                      synth={this.midiPlayer.midiFilePlayer.synth}
+                      paused={this.state.paused}
+                      artist={browsePath}
+                      song={song}
+                      exercise={searchParams.get("exercise")}
+                    />
+                  )}
               </>
             )
           );

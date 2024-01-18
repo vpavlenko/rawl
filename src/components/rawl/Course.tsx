@@ -3,19 +3,21 @@ import * as React from "react";
 const S = ({ artist, song, exercise = null }) => {
   return (
     <>
-      <a href={`/browse/${artist}?song=${song}`} target="_blank">
-        {artist.slice(5)} - {song.slice(0, -4)}
-      </a>
-      {exercise && (
+      {exercise ? (
         <>
-          {" --- "}
+          {""}
           <a
             href={`/browse/${artist}?song=${song}&exercise=${exercise}`}
+            style={{ color: "orange" }}
             target="_blank"
           >
-            Exercise "{exercise}"
+            {artist.slice(5)} - {song.slice(0, -4)} --- find {exercise}
           </a>
         </>
+      ) : (
+        <a href={`/browse/${artist}?song=${song}`} target="_blank">
+          {artist.slice(5)} - {song.slice(0, -4)}
+        </a>
       )}
     </>
   );

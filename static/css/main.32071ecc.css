@@ -109,7 +109,8 @@ select,
 button {
     border: none;
     background: none;
-    border-radius: 0;
+    border-radius: 2px;
+    padding: 5px;
     -moz-appearance: none;
     -webkit-appearance: none;
     padding: 0 var(--charW1);
@@ -136,12 +137,6 @@ select option {
 
 button {
     background: var(--button);
-    padding: 0;
-    margin: 0;
-}
-
-button:focus {
-    background: var(--focus);
 }
 
 button:active {
@@ -319,7 +314,7 @@ body {
 }
 
 ::-webkit-scrollbar {
-    height: 4px;
+    height: 10px;
     width: 1px;
     background: var(--button);
 }
@@ -996,4 +991,4 @@ img {
     margin-bottom: 20px;
 }
 
-/*# sourceMappingURL=main.60620f89.css.map*/
+/*# sourceMappingURL=main.32071ecc.css.map*/

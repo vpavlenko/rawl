@@ -42,18 +42,24 @@ const Course = ({ sequencer }) => {
           <NoteSnippet notes="C3 D3 E3 F3 G3 A3 B3" sequencer={sequencer} />
         </div>
         <div>
-          A song in a major key will use those seven notes. It will rarely use
-          the rest five notes:{" "}
-          <NoteSnippet notes="C#3 D#3 F#3 G#3 A#3" sequencer={sequencer} />
+          Some songs use this scale. That is, they don't play other five notes.
         </div>
         <div>
-          Browse two examples below to see how are songs built using major
-          scale. Then try to find a main red note in exercises that use this
-          scale. Use "space" to pause. Click on a note to make it a tonic.
+          A MIDI file doesn't store any analysis information. It only has note
+          numbers and duration. To start analyzing anything, we need to decide
+          which note out of 12 is a red one - a main one.
+        </div>
+        <div>
+          Browse two examples below to see how songs use major scale. Then try
+          to find a main red note in exercises that use this scale. Use "space"
+          to pause. Click on a note to make it a tonic.
         </div>
         <ul>
           <li>
             <S artist="MIDI/Chris Andrews" song="Pretty Belinda.1.mid" />
+          </li>
+          <li>
+            <S artist="MIDI/Lennon John" song="Imagine.4.mid" />
           </li>
           <li>
             <S
@@ -62,12 +68,9 @@ const Course = ({ sequencer }) => {
               exercise="tonic"
             />
           </li>
+
           <li>
-            <S
-              artist="MIDI/Vengaboys"
-              song="Boom Boom Boom.mid"
-              exercise="tonic"
-            />
+            <S artist="MIDI/Westlife" song="Fool Again.mid" exercise="tonic" />
           </li>
           <li>
             <S
@@ -81,23 +84,24 @@ const Course = ({ sequencer }) => {
           </li>
           <li>
             <S
-              artist="MIDI/Lennon John"
-              song="Imagine.4.mid"
-              exercise="tonic"
-            />
-          </li>
-          <li>
-            <S artist="MIDI/Westlife" song="Fool Again.mid" exercise="tonic" />
-          </li>
-          <li>
-            <S
               artist="MIDI/Typically Tropical"
               song="Barbados.mid"
               exercise="tonic"
             />
           </li>
           <li>
-            <S artist="MIDI/Violent Femmes" song="Blister in the Sun.mid" />
+            <S
+              artist="MIDI/Violent Femmes"
+              song="Blister in the Sun.mid"
+              exercise="tonic"
+            />
+          </li>
+          <li>
+            <S
+              artist="MIDI/Vengaboys"
+              song="Boom Boom Boom.mid"
+              exercise="tonic"
+            />
           </li>
           <li>
             <S
@@ -107,10 +111,21 @@ const Course = ({ sequencer }) => {
             />
           </li>
           <li>
-            <S artist="MIDI/Wet Wet Wet" song="Angel Eyes.mid" />
+            <S
+              artist="MIDI/Wet Wet Wet"
+              song="Angel Eyes.mid"
+              exercise="tonic"
+            />
           </li>
           <li>
-            <S artist="MIDI/Warren Zevon" song="Lawyers, Guns and Money.mid" />
+            <S artist="MIDI/Umberto Tozzi" song="Gloria.mid" exercise="tonic" />
+          </li>
+          <li>
+            <S
+              artist="MIDI/Warren Zevon"
+              song="Lawyers, Guns and Money.mid"
+              exercise="tonic"
+            />
           </li>
           <li>
             <S
@@ -127,19 +142,20 @@ const Course = ({ sequencer }) => {
             />
           </li>
           <li>
-            <S artist="MIDI/Whigfield" song="Another Day.mid" />
+            <S
+              artist="MIDI/Whigfield"
+              song="Another Day.mid"
+              exercise="tonic"
+            />
           </li>
           <li>
             <S
               artist="MIDI/UB40"
               song="(I Can't Help) Falling In Love With You.mid"
               exercise="tonic"
-            />{" "}
-            - also a melody is stepwise
+            />
           </li>
-          <li>
-            <S artist="MIDI/Umberto Tozzi" song="Gloria.mid" exercise="tonic" />
-          </li>
+
           <li>
             <S artist="MIDI/Van Halen" song="316.mid" exercise="tonic" />
           </li>
@@ -157,7 +173,11 @@ const Course = ({ sequencer }) => {
             <S artist="MIDI/Vaughn" song="Blue Tango.mid" exercise="tonic" />
           </li>
           <li>
-            <S artist="MIDI/White Lion" song="When the Children Cry.mid" />
+            <S
+              artist="MIDI/White Lion"
+              song="When the Children Cry.mid"
+              exercise="tonic"
+            />
           </li>
         </ul>
         <h3>Chords in major key</h3>
@@ -172,50 +192,7 @@ const Course = ({ sequencer }) => {
           Some pieces use only a subset of them. See if you can identify them
           within the songs
         </div>
-        <ul>
-          <li>
-            <S artist="MIDI/Chris Andrews" song="Pretty Belinda.1.mid" />
-          </li>
-          <li>
-            <S artist="MIDI/Valens Ritchie" song="La Bamba.mid" />
-          </li>
-          <li>
-            <S artist="MIDI/Vengaboys" song="Boom Boom Boom.mid" />
-          </li>
-          <li>
-            <S artist="MIDI/Van Morrison" song="Brown Eyed Girl.mid" />
-          </li>
-          <li>
-            <S artist="MIDI/The Beatles" song="Misery.2.mid" />
-          </li>
-          <li>
-            <S artist="MIDI/Typically Tropical" song="Barbados.mid" />
-          </li>
-          <li>
-            <S artist="MIDI/U.S.A. for Africa" song="We Are the World.mid" />
-          </li>
-          <li>
-            <S
-              artist="MIDI/UB40"
-              song="(I Can't Help) Falling In Love With You.mid"
-            />
-          </li>
-          <li>
-            <S artist="MIDI/Umberto Tozzi" song="Gloria.mid" />
-          </li>
-          <li>
-            <S artist="MIDI/Van Halen" song="316.mid" />
-          </li>
-          <li>
-            <S artist="MIDI/Vanessa Williams" song="Colors of the Wind.mid" />
-          </li>
-          <li>
-            <S artist="MIDI/Vasco" song="Albachiara.mid" />
-          </li>
-          <li>
-            <S artist="MIDI/Vaughn" song="Blue Tango.mid" />
-          </li>
-        </ul>
+        <ul></ul>
         <h3>Phrases</h3>
         Fix non-squared phrases
         <ul>

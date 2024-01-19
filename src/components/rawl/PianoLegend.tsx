@@ -28,11 +28,7 @@ export const PianoLegend: React.FC<{ hoverable?: boolean }> = ({
   hoverable = true,
 }) => {
   const content = (
-    <a
-      href="https://github.com/vpavlenko/rawl#12-colors"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
+    <div>
       <div
         style={{
           position: "relative",
@@ -64,7 +60,7 @@ export const PianoLegend: React.FC<{ hoverable?: boolean }> = ({
           </React.Fragment>
         ))}
       </div>
-    </a>
+    </div>
   );
   if (hoverable) {
     return <Hoverable>{content}</Hoverable>;

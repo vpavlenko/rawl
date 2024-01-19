@@ -15,8 +15,8 @@ const TagSearch: React.FC<{ tag: string; analyses: Corpus }> = ({
 }) => {
   const result = [];
 
-  for (const artist in analyses) {
-    for (const song in analyses[artist]) {
+  for (const artist of Object.keys(analyses).sort()) {
+    for (const song of Object.keys(analyses[artist]).sort()) {
       for (const subtune in analyses[artist][song]) {
         if (analyses[artist][song][subtune].tags.indexOf(tag) !== -1) {
           result.push(

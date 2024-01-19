@@ -56,7 +56,11 @@ const Course = ({ sequencer }) => {
             <S artist="MIDI/Chris Andrews" song="Pretty Belinda.1.mid" />
           </li>
           <li>
-            <S artist="MIDI/Valens Ritchie" song="La Bamba.mid" />
+            <S
+              artist="MIDI/Wet Willie"
+              song="Keep on Smiling.mid"
+              exercise="tonic"
+            />
           </li>
           <li>
             <S
@@ -77,10 +81,36 @@ const Course = ({ sequencer }) => {
           </li>
           <li>
             <S
+              artist="MIDI/Lennon John"
+              song="Imagine.4.mid"
+              exercise="tonic"
+            />
+          </li>
+          <li>
+            <S artist="MIDI/Westlife" song="Fool Again.mid" exercise="tonic" />
+          </li>
+          <li>
+            <S
               artist="MIDI/Typically Tropical"
               song="Barbados.mid"
               exercise="tonic"
             />
+          </li>
+          <li>
+            <S artist="MIDI/Violent Femmes" song="Blister in the Sun.mid" />
+          </li>
+          <li>
+            <S
+              artist="MIDI/Valens Ritchie"
+              song="La Bamba.mid"
+              exercise="tonic"
+            />
+          </li>
+          <li>
+            <S artist="MIDI/Wet Wet Wet" song="Angel Eyes.mid" />
+          </li>
+          <li>
+            <S artist="MIDI/Warren Zevon" song="Lawyers, Guns and Money.mid" />
           </li>
           <li>
             <S
@@ -88,6 +118,16 @@ const Course = ({ sequencer }) => {
               song="We Are the World.mid"
               exercise="tonic"
             />
+          </li>
+          <li>
+            <S
+              artist="MIDI/Chocolate"
+              song="Everybody Salsa.mid"
+              exercise="tonic"
+            />
+          </li>
+          <li>
+            <S artist="MIDI/Whigfield" song="Another Day.mid" />
           </li>
           <li>
             <S
@@ -115,6 +155,9 @@ const Course = ({ sequencer }) => {
           </li>
           <li>
             <S artist="MIDI/Vaughn" song="Blue Tango.mid" exercise="tonic" />
+          </li>
+          <li>
+            <S artist="MIDI/White Lion" song="When the Children Cry.mid" />
           </li>
         </ul>
         <h3>Chords in major key</h3>
@@ -190,6 +233,12 @@ const Course = ({ sequencer }) => {
           <li>
             <S artist="MIDI/Vengaboys" song="Boom Boom Boom.mid" />
           </li>
+          <li>
+            <S artist="MIDI/Weezer" song="Buddy Holly.mid" />
+          </li>
+          <li>
+            <S artist="MIDI/Violent Femmes" song="Blister in the Sun.mid" />
+          </li>
         </ul>
         <h3>Bass: root, root-fifth, diatonic approaches</h3>
         <ul>
@@ -210,6 +259,9 @@ const Course = ({ sequencer }) => {
           </li>
           <li>
             <S artist="MIDI/Vasco" song="Albachiara.mid" />
+          </li>
+          <li>
+            <S artist="MIDI/Whigfield" song="Another Day.mid" />
           </li>
         </ul>
         <ul>
@@ -284,7 +336,6 @@ const Course = ({ sequencer }) => {
           <li>
             <S artist="MIDI/U96" song="Club Bizarre.mid" /> - three chords
           </li>
-
           <li>
             <S artist="MIDI/Usher" song="My Way.mid" />
           </li>
@@ -306,6 +357,21 @@ const Course = ({ sequencer }) => {
           <li>
             <S artist="MIDI/Ventures" song="Walk Don't Run.mid" />
           </li>
+          <li>
+            <S artist="MIDI/Wet Wet Wet" song="Angel Eyes.mid" />
+          </li>
+          <li>
+            <S artist="MIDI/Werner" song="So ein Mann.mid" />
+          </li>
+        </ul>
+        <h3>Functionality - mixed</h3>
+        <ul>
+          <li>
+            <S
+              artist="MIDI/White Barry"
+              song="Can't Get Enough of Your Love, Babe.mid"
+            />
+          </li>
         </ul>
         <h3>Deceptive cadence</h3>
         <ul>
@@ -324,6 +390,12 @@ const Course = ({ sequencer }) => {
               artist="MIDI/Venditti Antonello"
               song="Benvenuti in paradiso.mid"
             />
+          </li>
+          <li>
+            <S artist="MIDI/Whigfield" song="Another Day.mid" />
+          </li>
+          <li>
+            <S artist="MIDI/Wet Wet Wet" song="Angel Eyes.mid" />
           </li>
         </ul>
         <h3>Bass - riff</h3>
@@ -352,17 +424,28 @@ const Course = ({ sequencer }) => {
               song="Never Gonna Let You Go.mid"
             />
           </li>
+          <li>
+            <S artist="MIDI/White Lion" song="When the Children Cry.mid" />
+          </li>
         </ul>
         <h3>Texture - guitar strumming</h3>
         <ul></ul>
         <h3>Modulation up at the end</h3>
         <ul>
           <li>
-            <S artist="MIDI/Twila Paris" song="How Beautiful.mid" /> - up at the
-            end
+            <S artist="MIDI/Twila Paris" song="How Beautiful.mid" />
           </li>
           <li>
             <S artist="MIDI/U.S.A. for Africa" song="We Are the World.mid" />
+          </li>
+          <li>
+            <S artist="MIDI/Westlife" song="Fool Again.mid" />
+          </li>
+          <li>
+            <S artist="MIDI/Werner" song="So ein Mann.mid" />
+          </li>
+          <li>
+            <S artist="MIDI/Wendy Moten" song="Come in Out of the Rain.mid" />
           </li>
         </ul>
         <ul>
@@ -384,6 +467,15 @@ const Course = ({ sequencer }) => {
               artist="MIDI/Vince Guaraldi"
               song="Les Peanuts   Charly Brown   Snoopy.mid"
             />
+          </li>
+          <li>
+            <S artist="MIDI/White Lion" song="When the Children Cry.mid" />
+          </li>
+          <li>
+            <S artist="MIDI/Whigfield" song="Another Day.mid" />
+          </li>
+          <li>
+            <S artist="MIDI/Weezer" song="Buddy Holly.mid" />
           </li>
         </ul>
         <h3>Parallel keys</h3>
@@ -419,6 +511,9 @@ const Course = ({ sequencer }) => {
           <li>
             <S artist="MIDI/Vasco" song="Albachiara.mid" />
           </li>
+          <li>
+            <S artist="MIDI/White Lion" song="When the Children Cry.mid" />
+          </li>
         </ul>
         <h3>Chromatic voice-leading</h3>
         <ul>
@@ -451,6 +546,21 @@ const Course = ({ sequencer }) => {
           </li>
           <li>
             <S artist="MIDI/Wang Chung" song="Dance Hall Days.mid" />
+          </li>
+          <li>
+            <S artist="MIDI/Whigfield" song="Another Day.mid" />
+          </li>
+          <li>
+            <S artist="MIDI/Werner" song="So ein Mann.mid" />
+          </li>
+          <li>
+            <S artist="MIDI/Wendy Moten" song="Come in Out of the Rain.mid" />
+          </li>
+        </ul>
+        <h3>Bass - developed</h3>
+        <ul>
+          <li>
+            <S artist="MIDI/Westlife" song="Fool Again.mid" />
           </li>
         </ul>
         <h3>Dorian (shuttle?)</h3>
@@ -524,6 +634,9 @@ const Course = ({ sequencer }) => {
               song="Never Gonna Let You Go.mid"
             />
           </li>
+          <li>
+            <S artist="MIDI/Wet Wet Wet" song="Angel Eyes.mid" />
+          </li>
         </ul>
         <h3>Applied chords - V/V</h3>
         <ul>
@@ -535,6 +648,9 @@ const Course = ({ sequencer }) => {
           </li>
           <li>
             <S artist="MIDI/Walter Donaldson" song="My Blue Heaven.mid" />
+          </li>
+          <li>
+            <S artist="MIDI/Werner" song="So ein Mann.mid" />
           </li>
         </ul>
         <h3>Applied chords - V/ii</h3>
@@ -563,6 +679,9 @@ const Course = ({ sequencer }) => {
           <li>
             <S artist="MIDI/Vaughn" song="Blue Tango.mid" />
           </li>
+          <li>
+            <S artist="MIDI/Werner" song="So ein Mann.mid" />
+          </li>
         </ul>
         <h3>Applied chords - V/iv</h3>
         <ul>
@@ -584,7 +703,17 @@ const Course = ({ sequencer }) => {
         </ul>
         <h3>Chromatic chords - V+</h3>
         <h3>Chromatic chords - iv</h3>
+        <ul>
+          <li>
+            <S artist="MIDI/Weezer" song="Buddy Holly.mid" />
+          </li>
+        </ul>
         <h3>Chromatic chords - viio</h3>
+        <ul>
+          <li>
+            <S artist="MIDI/Wendy Moten" song="Come in Out of the Rain.mid" />
+          </li>
+        </ul>
         <h3>Chromatic chords - io7</h3>
         <ul>
           <li>
@@ -621,6 +750,9 @@ const Course = ({ sequencer }) => {
             <S artist="MIDI/Wang Chung" song="Dance Hall Days.mid" /> -
             bVII-IV-I
           </li>
+          <li>
+            <S artist="MIDI/Wendy Moten" song="Come in Out of the Rain.mid" />
+          </li>
         </ul>
         <h3>bVI-bVII-I in major - Mario cadence</h3>
         <ul>
@@ -632,6 +764,9 @@ const Course = ({ sequencer }) => {
               artist="MIDI/Vicki Sue Robinson"
               song="Never Gonna Let You Go.mid"
             />
+          </li>
+          <li>
+            <S artist="MIDI/Wendy Moten" song="Come in Out of the Rain.mid" />
           </li>
         </ul>
         <h3>Blues</h3>
@@ -652,6 +787,12 @@ const Course = ({ sequencer }) => {
           </li>
           <li>
             <S artist="MIDI/VOF de Kunst" song="Een kopje koffie.mid" />
+          </li>
+          <li>
+            <S
+              artist="MIDI/Westernhagen"
+              song="Mit Pfefferminz bin ich dein Prinz.mid"
+            />
           </li>
         </ul>
         <h3>Pentatonics</h3>
@@ -696,6 +837,9 @@ const Course = ({ sequencer }) => {
           <li>
             <S artist="MIDI/Vera" song="At This Moment.mid" />
           </li>
+          <li>
+            <S artist="MIDI/Wendy Moten" song="Come in Out of the Rain.mid" />
+          </li>
         </ul>
         <h3>Iadd6</h3>
         <ul>
@@ -716,6 +860,12 @@ const Course = ({ sequencer }) => {
           </li>
           <li>
             <S artist="MIDI/Waller Fats" song="Lonesome Road.mid" />
+          </li>
+          <li>
+            <S
+              artist="MIDI/White Barry"
+              song="Can't Get Enough of Your Love, Babe.mid"
+            />
           </li>
         </ul>
         <h3>Chord scale</h3>
@@ -777,6 +927,18 @@ const Course = ({ sequencer }) => {
         <ul>
           <li>
             <S artist="MIDI/War" song="Low Rider.mid" />
+          </li>
+        </ul>
+        <h3>Arrangement - counterpoint</h3>
+        <ul>
+          <li>
+            <S artist="MIDI/Wet Wet Wet" song="Angel Eyes.mid" />
+          </li>
+          <li>
+            <S artist="MIDI/Westlife" song="Fool Again.mid" />
+          </li>
+          <li>
+            <S artist="MIDI/Werner" song="So ein Mann.mid" />
           </li>
         </ul>
       </div>

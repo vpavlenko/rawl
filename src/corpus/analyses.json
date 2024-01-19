@@ -2747,7 +2747,8 @@
           "modulation:contrast",
           "stability:unstable",
           "functionality:stasis",
-          "voicing:diatonic_sevenths"
+          "voicing:diatonic_sevenths",
+          "chord:V9"
         ],
         "modulations": {
           "35": 3,
@@ -3167,7 +3168,8 @@
           "issues:manual_remeasuring_needed",
           "modulation:up_at_the_end",
           "scale:major",
-          "voicing:triads"
+          "voicing:triads",
+          "texture:guitar_strumming"
         ],
         "fourMeasurePhrasingReferences": [
           3
@@ -3297,11 +3299,11 @@
         "romanNumerals": "",
         "modulations": {},
         "tags": [
-          "harmony:I-IV-V",
           "inversion:IV64",
           "scale:major",
           "voicing:triads",
-          "bass:simple"
+          "bass:simple",
+          "harmony:pure_I-IV-V"
         ],
         "fourMeasurePhrasingReferences": [
           3
@@ -3429,7 +3431,8 @@
           "tempo:ritardando",
           "voicing:triads",
           "melody:in_thirds",
-          "scale:major"
+          "scale:major",
+          "arrangement:simple_second_line"
         ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
@@ -4084,7 +4087,8 @@
           "rhythm:swing",
           "form:AABA",
           "applied:V/ii",
-          "voicing:alterations"
+          "voicing:alterations",
+          "scale:pentatonic"
         ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
@@ -5024,6 +5028,23 @@
           "voicing:diatonic_sevenths",
           "bass:root"
         ]
+      }
+    }
+  },
+  "Classical MIDI/Liszt": {
+    "Grandes Etudes de Paganini, S. 141, No. 3 - La Campanella (Yogore).mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 8,
+        "tags": [],
+        "modulations": {}
       }
     }
   }

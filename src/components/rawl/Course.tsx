@@ -1,5 +1,26 @@
 import * as React from "react";
+import styled from "styled-components";
 import { NoteSnippet } from "./Axes";
+
+const Row = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+const Arrow = () => (
+  <div
+    style={{
+      width: "100px",
+      textAlign: "center",
+      fontSize: "48px",
+      fontWeight: 700,
+      color: "white",
+    }}
+  >
+    →
+  </div>
+);
 
 const S = ({ artist, song, exercise = null }) => {
   return (
@@ -31,15 +52,55 @@ const Course = ({ sequencer }) => {
         <h2>Study music theory by analyzing MIDI files</h2>
         <h3>Major tonic</h3>
         <div>
-          In every octave there are 12 notes:
+          In every octave there are 12 notes. Click on it:
           <NoteSnippet
-            notes="C3 C#3 D3 D#3 E3 F3 F#3 G3 G#3 A3 A#3 B3"
+            notes="0,8,C2 C#2 D2 D#2 E2 F2 r4 F#2 G2 G#2 A2 A#2 B2 r4 C3 C#3 D3 D#3 E3 F3 r4 F#3 G3 G#3 A3 A#3 B3 r4 C4 C#4 D4 D#4 E4 F4 r4 F#4 G4 G#4 A4 A#4 B4"
             sequencer={sequencer}
           />
         </div>
         <div>
           A major scale has seven notes:
-          <NoteSnippet notes="C3 D3 E3 F3 G3 A3 B3" sequencer={sequencer} />
+          <NoteSnippet
+            notes="0,8,C2 D2 E2 F2 G2 A2 B2 r8 C3 D3 E3 F3 G3 A3 B3 r8 C4 D4 E4 F4 G4 A4 B4 C5"
+            sequencer={sequencer}
+          />
+        </div>
+        <div>
+          A scale is the same no matter which absolute note it starts from. So
+          our coloring is always relative to the note we chose as a red one:
+          <Row>
+            <NoteSnippet
+              notes="0,4,D#2 F2 G2 G#2 A#2 C3 D3 D#3"
+              sequencer={sequencer}
+            />
+            <Arrow />
+            <NoteSnippet
+              notes="3,4,D#2 F2 G2 G#2 A#2 C3 D3 D#3"
+              sequencer={sequencer}
+            />
+          </Row>
+          <Row>
+            <NoteSnippet
+              notes="0,4,F2 G2 A2 A#2 C3 D3 E3 F3"
+              sequencer={sequencer}
+            />
+            <Arrow />
+            <NoteSnippet
+              notes="5,4,F2 G2 A2 A#2 C3 D3 E3 F3"
+              sequencer={sequencer}
+            />
+          </Row>
+          <Row>
+            <NoteSnippet
+              notes="0,4,A#1 C2 D2 D#2 F2 G2 A2 A#2"
+              sequencer={sequencer}
+            />
+            <Arrow />
+            <NoteSnippet
+              notes="10,4,A#1 C2 D2 D#2 F2 G2 A2 A#2"
+              sequencer={sequencer}
+            />
+          </Row>
         </div>
         <div>
           Some songs use this scale. That is, they don't play other five notes.

@@ -17,17 +17,25 @@ export const NoteSnippet = ({ notes, sequencer }) => {
           track.addEvent(new MidiWriter.ProgramChangeEvent({ instrument: 1 }));
           let duration = "2";
           let notesToPlay = notes;
+          let wait = 0;
+          let tonic = 0;
           if (notes.indexOf(",") !== -1) {
-            [duration, notesToPlay] = notes.split(",");
+            [tonic, duration, notesToPlay] = notes.split(",");
           }
-          notesToPlay.split(" ").map((chord) =>
-            track.addEvent(
-              new MidiWriter.NoteEvent({
-                pitch: chord.split("-"),
-                duration,
-              }),
-            ),
-          );
+          notesToPlay.split(" ").map((chord) => {
+            if (chord.startsWith("r")) {
+              wait = chord.slice(1);
+            } else {
+              track.addEvent(
+                new MidiWriter.NoteEvent({
+                  pitch: chord.split("-"),
+                  duration,
+                  wait,
+                }),
+              );
+              wait = 0;
+            }
+          });
           const binaryData = new MidiWriter.Writer(track).buildFile();
           const result = await sequencer.playSongFile("custom.mid", binaryData);
           if (MIDI_PREVIEWS[notes]) {
@@ -174,7 +182,7 @@ const Axes = ({ sequencer }) => {
         <Tag
           sequencer={sequencer}
           name="scale:pentatonic"
-          notes="8,C3 Eb3 F3 F#3 G3 Bb3 C4 Bb3 G3 F#3 F3 Eb3 C3"
+          notes="0,8,C3 Eb3 F3 F#3 G3 Bb3 C4 Bb3 G3 F#3 F3 Eb3 C3"
         />
         <Tag sequencer={sequencer} name="scale:transposed_pentatonic" />
         <Tag sequencer={sequencer} name="scale:blues" />

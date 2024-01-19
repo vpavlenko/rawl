@@ -37,31 +37,29 @@ const getNotes = (events, channel): Note[] => {
       const midiNumber = event.param1;
       if (channel === 9 && midiNumber > 87) {
         return;
+        // probably a bug?
+      }
+      if (midiNumber in noteOn) {
+        if (channel !== 9 && noteOn[midiNumber].param2 === 0) {
+          return;
+        }
+        if (event.playTime >= noteOn[midiNumber].playTime) {
+          notes.push({
+            note: {
+              midiNumber,
+            },
+            id,
+            isDrum: channel === 9,
+            span: [noteOn[midiNumber].playTime / 1000, event.playTime / 1000],
+            chipState: { on: noteOn[midiNumber], off: event },
+          });
+
+          id++;
+        }
+        delete noteOn[midiNumber];
       }
       if (event.subtype === 9) {
         noteOn[midiNumber] = event;
-      }
-      if (event.subtype === 8) {
-        if (midiNumber in noteOn) {
-          if (channel !== 9 && noteOn[midiNumber].param2 <= 1) {
-            // Fix Vengaboys - Boom Boom Boom
-            return;
-          }
-          if (event.playTime / 1000 >= noteOn[midiNumber].playTime / 1000) {
-            notes.push({
-              note: {
-                midiNumber,
-              },
-              id,
-              isDrum: channel === 9,
-              span: [noteOn[midiNumber].playTime / 1000, event.playTime / 1000],
-              chipState: { on: noteOn[midiNumber], off: event },
-            });
-
-            id++;
-          }
-          delete noteOn[midiNumber];
-        }
       }
     }
   });

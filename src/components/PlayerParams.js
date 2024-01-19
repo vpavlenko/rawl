@@ -69,9 +69,6 @@ export default class PlayerParams extends PureComponent {
       <div className="PlayerParams">
         {this.props.numVoices > 1 && (
           <span className="PlayerParams-param PlayerParams-group">
-            <label className="PlayerParams-label">
-              Voices (alt+click to solo):{" "}
-            </label>
             <div className="PlayerParams-voiceList">
               {[...Array(this.props.numVoices)].map((_, i) => {
                 return (

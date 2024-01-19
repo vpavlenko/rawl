@@ -5,10 +5,12 @@ import { TWELVE_TONE_COLORS } from "./colors";
 const BLACK_KEYS = [1, 3, -1, 6, 8, 10, -1];
 const WHITE_KEYS = [0, 2, 4, 5, 7, 9, 11];
 
+const BLACK_KEY_LABELS = ["b2", "b3", -1, "#4", "b6", "b7", -1];
+
 const KEY_WIDTH = 10;
-const KEY_HEIGHT = 15;
+const KEY_HEIGHT = 20;
 const PADDING = 1;
-const ROW_DISTANCE = 10;
+const ROW_DISTANCE = 15;
 
 const Hoverable = styled.div`
   transition: transform 0.3s ease;
@@ -22,6 +24,10 @@ const PianoKey = styled.div`
   user-select: none;
   width: ${KEY_WIDTH}px;
   height: ${KEY_HEIGHT}px;
+  font-size: 8px;
+  text-align: center;
+  color: white;
+  text-shadow: 0px 0px 1px black;
 `;
 
 export const PianoLegend: React.FC<{ hoverable?: boolean }> = ({
@@ -45,7 +51,9 @@ export const PianoLegend: React.FC<{ hoverable?: boolean }> = ({
                 top: ROW_DISTANCE,
                 left: (KEY_WIDTH + PADDING) * i,
               }}
-            />
+            >
+              {i + 1}
+            </PianoKey>
             {BLACK_KEYS[i] !== -1 ? (
               <PianoKey
                 key={`b_${i}`}
@@ -55,7 +63,9 @@ export const PianoLegend: React.FC<{ hoverable?: boolean }> = ({
                   left: (KEY_WIDTH + PADDING) * (i + 0.5),
                   zIndex: 2,
                 }}
-              />
+              >
+                {BLACK_KEY_LABELS[i]}
+              </PianoKey>
             ) : null}
           </React.Fragment>
         ))}

@@ -27,13 +27,12 @@ const S = ({ artist, song, exercise = null }) => {
     <>
       {exercise ? (
         <>
-          {""}
           <a
             href={`/browse/${artist}?song=${song}&exercise=${exercise}`}
             style={{ color: "orange" }}
             target="_blank"
           >
-            {artist.slice(5)} - {song.slice(0, -4)}: find {exercise}
+            {artist.slice(5)} - {song.slice(0, -4)}: find the {exercise}
           </a>
         </>
       ) : (
@@ -129,10 +128,12 @@ const Course = ({ sequencer }) => {
               exercise="tonic"
             />
           </li>
-
           <li>
             <S artist="MIDI/Westlife" song="Fool Again.mid" exercise="tonic" />
           </li>
+        </ul>
+        <div>Try to find the tonic in these two files.</div>
+        <ul>
           <li>
             <S
               artist="MIDI/Van Morrison"
@@ -143,6 +144,16 @@ const Course = ({ sequencer }) => {
           <li>
             <S artist="MIDI/The Beatles" song="Misery.2.mid" exercise="tonic" />
           </li>
+        </ul>
+        <div>
+          Three most important chords in major are I, IV and V:
+          <NoteSnippet
+            notes="C3-E3-G3 F3-A3-C4 G3-B3-D4"
+            sequencer={sequencer}
+          />
+        </div>
+        <div>As you identify the tonic, also try to find these chords.</div>
+        <ul>
           <li>
             <S
               artist="MIDI/Typically Tropical"
@@ -157,6 +168,20 @@ const Course = ({ sequencer }) => {
               exercise="tonic"
             />
           </li>
+        </ul>
+        <div>
+          Other three chords that are ii, iii and vi:
+          <NoteSnippet
+            notes="D3-F3-A3 E3-G3-B3 A3-C4-E4"
+            sequencer={sequencer}
+          />
+        </div>
+        <div>
+          These chords are so called <i>minor chords</i>. That is because of
+          intervals between the notes. Compare their sound with the sound of I,
+          IV and V above.
+        </div>
+        <ul>
           <li>
             <S
               artist="MIDI/Vengaboys"
@@ -171,6 +196,14 @@ const Course = ({ sequencer }) => {
               exercise="tonic"
             />
           </li>
+        </ul>
+        <div>
+          Real songs are more complex than six chords. They can use other chords
+          and also the notes outside of the scale. Still, we say that they are
+          in major because of the prevalent structure. We'll describe more
+          complicated structures in later sections.
+        </div>
+        <ul>
           <li>
             <S
               artist="MIDI/Wet Wet Wet"
@@ -241,11 +274,11 @@ const Course = ({ sequencer }) => {
             />
           </li>
         </ul>
-        <h3>Chords in major key</h3>
+        {/* <h3>Chords in major key</h3>
         <div>
           A major key usually uses these six chords:
           <NoteSnippet
-            notes="C2-C3-E3-G3-C4 D2-D3-F3-A3-D4 E2-E3-G3-B3-E4 F2-F3-A3-C4-F4 G2-G3-B3-D4-G4 A2-A3-C4-E4-A4 G2-G3-B3-D4-B4 C3-C4-E4-G4-C5"
+            notes="C3-E3-G3 D3-F3-A3 E3-G3-B3 F3-A3-C4 G3-B3-D4 A3-C4-E4"
             sequencer={sequencer}
           />
         </div>
@@ -253,7 +286,7 @@ const Course = ({ sequencer }) => {
           Some pieces use only a subset of them. See if you can identify them
           within the songs
         </div>
-        <ul></ul>
+        <ul></ul> */}
         <h3>Phrases</h3>
         Fix non-squared phrases
         <ul>

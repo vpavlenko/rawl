@@ -3,7 +3,7 @@ import { localized } from "../common/localize/localizedString"
 const localizeElement = (e: Element) => {
   const key = e.getAttribute("data-i18n")
   if (key !== null) {
-    const text = localized(key, "")
+    const text = localized(key, e.textContent ?? "")
     if (text !== undefined) {
       e.textContent = text
     }

@@ -30,7 +30,7 @@ export const Navigation: FC = observer(() => {
     <NavigationWrapper>
       <Container>
         <LogoWrapper>
-          <a href="/">
+          <a href="/home">
             <img src="logo-white.svg" style={{ height: "1.7rem" }} />
           </a>
         </LogoWrapper>

@@ -4,6 +4,7 @@ import { observer } from "mobx-react-lite"
 import { FC, useCallback, useState } from "react"
 import { useLocalization } from "../../../common/localize/useLocalization"
 import { useAsyncEffect } from "../../../community/hooks/useAsyncEffect"
+import { Alert } from "../../../components/Alert"
 import { Button, PrimaryButton } from "../../../components/Button"
 import {
   Dialog,
@@ -92,9 +93,18 @@ export const PublishDialog: FC = observer(() => {
       </DialogTitle>
       <DialogContent>
         {publishState === "publishable" && (
-          <Localized default="Publishing your song makes it available for other users to listen to.">
-            publish-notice
-          </Localized>
+          <>
+            <div style={{ marginBottom: "1rem" }}>
+              <Localized default="Publishing your song makes it available for other users to listen to.">
+                publish-notice
+              </Localized>
+            </div>
+            <Alert severity="warning">
+              <Localized default="Important Notice: On this site, we only permit the posting of music that you have created yourself. In compliance with copyright laws, please ensure that you are the copyright holder or have explicit permission for any music you post. Unauthorized publication of others' music or copyright-protected works is legally prohibited. If such violations are detected, your post may be removed, and restrictions may be placed on your account. We encourage you to share creative and original works and contribute to the healthy growth of our community.">
+                publish-rules
+              </Localized>
+            </Alert>
+          </>
         )}
         {publishState === "published" &&
           rootStore.song.cloudSongId !== null && (

@@ -82,20 +82,21 @@ export const loadSongFromExternalMidiFile =
   }
 
 export const publishSong =
-  ({ cloudSongRepository }: RootStore) =>
+  ({ cloudSongRepository, cloudSongDataRepository }: RootStore) =>
   async (song: Song, user: User) => {
-    if (song.cloudSongId === null) {
+    if (song.cloudSongId === null || song.cloudSongDataId === null) {
       throw new Error("This song is not saved in the cloud")
     }
+    await cloudSongDataRepository.publish(song.cloudSongDataId)
     await cloudSongRepository.publish(song.cloudSongId, user)
   }
 
 export const unpublishSong =
-  ({ cloudSongRepository }: RootStore) =>
+  ({ cloudSongRepository, cloudSongDataRepository }: RootStore) =>
   async (song: Song) => {
-    if (song.cloudSongId === null) {
+    if (song.cloudSongId === null || song.cloudSongDataId === null) {
       throw new Error("This song is not loaded from the cloud")
     }
-
+    await cloudSongDataRepository.unpublish(song.cloudSongDataId)
     await cloudSongRepository.unpublish(song.cloudSongId)
   }

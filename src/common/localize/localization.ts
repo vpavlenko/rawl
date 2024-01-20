@@ -166,6 +166,8 @@ export default {
     "publish-song": "曲を公開",
     "song-published": "曲を公開しました",
     "song-unpublished": "曲を非公開にしました",
+    "share-my-song-text":
+      "🎶 signalで新しいトラックを作成しました！🎹✨\nMIDIを聴いてください！🎧👇\n#midi #signalmidi @signalmidi",
     /* MIDI Instrument Categories */
     Piano: "ピアノ",
     "Chromatic Percussion": "クロマチック",

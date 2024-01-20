@@ -2,16 +2,16 @@ import styled from "@emotion/styled"
 import OpenInNewIcon from "mdi-react/OpenInNewIcon"
 import { observer } from "mobx-react-lite"
 import { FC, useCallback, useState } from "react"
-import { localized } from "../../../common/localize/localizedString"
+import { useLocalization } from "../../../common/localize/useLocalization"
 import { useAsyncEffect } from "../../../community/hooks/useAsyncEffect"
 import { Button, PrimaryButton } from "../../../components/Button"
-import { CopyTextForm } from "../../../components/CopyTextForm"
 import {
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
 } from "../../../components/Dialog"
+import { LinkShare } from "../../../components/LinkShare"
 import { Localized } from "../../../components/Localized"
 import { publishSong, unpublishSong } from "../../actions/cloudSong"
 import { useStores } from "../../hooks/useStores"
@@ -29,6 +29,7 @@ export const PublishDialog: FC = observer(() => {
   const [isLoading, setIsLoading] = useState(true)
   const toast = useToast()
   const theme = useTheme()
+  const localized = useLocalization()
 
   useAsyncEffect(async () => {
     if (open) {
@@ -107,8 +108,12 @@ export const PublishDialog: FC = observer(() => {
                 </Localized>
                 <OpenInNewIcon color={theme.secondaryTextColor} size="1rem" />
               </SongLink>
-              <CopyTextForm
-                text={getCloudSongUrl(rootStore.song.cloudSongId)}
+              <LinkShare
+                url={getCloudSongUrl(rootStore.song.cloudSongId)}
+                text={localized(
+                  "share-my-song-text",
+                  "🎶 Just created a new track on signal! 🎹✨\nListen to my latest MIDI composition! 🎧👇\n#midi #signalmidi @signalmidi",
+                )}
               />
               <Divider />
             </>

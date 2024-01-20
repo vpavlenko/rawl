@@ -2,6 +2,8 @@ import styled from "@emotion/styled"
 import Color from "color"
 
 export const Button = styled.button`
+  display: flex;
+  align-items: center;
   background: transparent;
   border: none;
   border-radius: 0.2rem;

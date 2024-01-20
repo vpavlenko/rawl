@@ -9,6 +9,7 @@ import {
   collection,
   deleteDoc,
   doc,
+  getDoc,
   getDocs,
   orderBy,
   query,
@@ -32,6 +33,16 @@ export class CloudSongRepository implements ICloudSongRepository {
 
   private songRef(id: string) {
     return doc(this.songCollection, id)
+  }
+
+  async get(id: string): Promise<CloudSong | null> {
+    const doc = await getDoc(this.songRef(id))
+
+    if (!doc.exists()) {
+      return null
+    }
+
+    return toSong(doc)
   }
 
   async create(data: Pick<CloudSong, "name" | "songDataId">): Promise<string> {

@@ -158,6 +158,14 @@ export default {
     bio: "自己紹介",
     save: "保存",
     "recent-tracks": "最近の曲",
+    "publish-notice":
+      "楽曲を公開すると他のユーザーがこの曲を聴くことができるようになります。",
+    "published-notice": "この曲は公開されています。",
+    publish: "公開",
+    unpublish: "非公開",
+    "publish-song": "曲を公開",
+    "song-published": "曲を公開しました",
+    "song-unpublished": "曲を非公開にしました",
     /* MIDI Instrument Categories */
     Piano: "ピアノ",
     "Chromatic Percussion": "クロマチック",

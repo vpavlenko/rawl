@@ -16,11 +16,12 @@ import { FileInput } from "./LegacyFileMenu"
 export const CloudFileMenu: FC<{ close: () => void }> = observer(
   ({ close }) => {
     const rootStore = useStores()
-    const { rootViewStore } = rootStore
+    const { rootViewStore, song } = rootStore
     const toast = useToast()
     const prompt = usePrompt()
     const dialog = useDialog()
     const localized = useLocalization()
+    const isCloudSaved = song.cloudSongId !== null
 
     const saveOrCreateSong = async () => {
       const { song } = rootStore
@@ -193,6 +194,12 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
       }
     }
 
+    const onClickPublish = async () => {
+      close()
+      const { rootViewStore } = rootStore
+      rootViewStore.openPublishDialog = true
+    }
+
     return (
       <>
         <MenuItem onClick={onClickNew}>
@@ -209,11 +216,11 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
           <Localized default="Save">save-song</Localized>
         </MenuItem>
 
-        <MenuItem onClick={onClickSaveAs}>
+        <MenuItem onClick={onClickSaveAs} disabled={!isCloudSaved}>
           <Localized default="Save As">save-as</Localized>
         </MenuItem>
 
-        <MenuItem onClick={onClickRename}>
+        <MenuItem onClick={onClickRename} disabled={!isCloudSaved}>
           <Localized default="Rename">rename</Localized>
         </MenuItem>
 
@@ -235,6 +242,12 @@ export const CloudFileMenu: FC<{ close: () => void }> = observer(
 
         <MenuItem onClick={onClickExport}>
           <Localized default="Export MIDI file">export-midi</Localized>
+        </MenuItem>
+
+        <MenuDivider />
+
+        <MenuItem onClick={onClickPublish} disabled={!isCloudSaved}>
+          <Localized default="Publish">publish</Localized>
         </MenuItem>
       </>
     )

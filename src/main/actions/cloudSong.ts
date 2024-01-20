@@ -85,7 +85,7 @@ export const publishSong =
   ({ cloudSongRepository }: RootStore) =>
   async (song: Song, user: User) => {
     if (song.cloudSongId === null) {
-      throw new Error("This song is not loaded from the cloud")
+      throw new Error("This song is not saved in the cloud")
     }
     await cloudSongRepository.publish(song.cloudSongId, user)
   }

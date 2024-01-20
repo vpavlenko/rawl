@@ -13,6 +13,7 @@ export interface CloudSong {
 }
 
 export interface ICloudSongRepository {
+  get(id: string): Promise<CloudSong | null>
   create(data: Pick<CloudSong, "name" | "songDataId">): Promise<string>
   update(songId: string, data: Pick<CloudSong, "name">): Promise<void>
   delete(songId: string): Promise<void>
@@ -20,4 +21,5 @@ export interface ICloudSongRepository {
   unpublish(songId: string): Promise<void>
   getMySongs(): Promise<CloudSong[]>
   getPublicSongs(): Promise<CloudSong[]>
+  getPublicSongsByUser(userId: string): Promise<CloudSong[]>
 }

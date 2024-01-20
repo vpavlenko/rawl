@@ -20,6 +20,7 @@ export const UserSongList: FC<UserSongListProps> = observer(({ userId }) => {
   } = rootStore
   const toast = useToast()
   const [isLoading, setIsLoading] = useState(true)
+  const [songs, setSongs] = useState<CloudSong[]>([])
 
   useAsyncEffect(async () => {
     try {
@@ -27,17 +28,16 @@ export const UserSongList: FC<UserSongListProps> = observer(({ userId }) => {
       if (userId === authUser?.uid) {
         songs = await cloudSongRepository.getMySongs()
       } else {
-        songs = await cloudSongRepository.getPublicSongs()
+        songs = await cloudSongRepository.getPublicSongsByUser(userId)
       }
       communitySongStore.songs = songs
+      setSongs(songs)
     } catch (e) {
       toast.error((e as Error).message)
     } finally {
       setIsLoading(false)
     }
-  }, [])
-
-  const { songs } = communitySongStore
+  }, [userId])
 
   if (isLoading) {
     return (

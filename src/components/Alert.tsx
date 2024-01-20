@@ -8,6 +8,7 @@ const Wrapper = styled.div`
   display: flex;
   padding: 1rem;
   border-radius: 0.5rem;
+  line-height: 1.5;
 `
 
 export type Severity = "info" | "warning"
@@ -38,7 +39,10 @@ export const Alert: FC<
 > = ({ children, severity, ...props }) => {
   return (
     <Wrapper {...props}>
-      <SeverityIcon severity={severity} style={{ marginRight: "1rem" }} />
+      <SeverityIcon
+        severity={severity}
+        style={{ marginRight: "1rem", flexShrink: "0" }}
+      />
       <Content>{children}</Content>
     </Wrapper>
   )

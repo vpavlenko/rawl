@@ -2,10 +2,14 @@ import styled from "@emotion/styled"
 import Circle from "mdi-react/CircleIcon"
 import Pause from "mdi-react/PauseIcon"
 import PlayArrow from "mdi-react/PlayArrowIcon"
+import { observer } from "mobx-react-lite"
 import { FC } from "react"
 import { Localized } from "../../components/Localized"
+import { useToast } from "../../main/hooks/useToast"
 import { CloudSong } from "../../repositories/ICloudSongRepository"
+import { playSong } from "../actions/song"
 import { formatTimeAgo } from "../helpers/formatTimeAgo"
+import { useStores } from "../hooks/useStores"
 
 const Content = styled.div`
   display: flex;
@@ -98,15 +102,29 @@ const Tag = styled.div`
 
 export interface SongListItemProps {
   song: CloudSong
-  isPlaying: boolean
-  onClick: () => void
 }
 
-export const SongListItem: FC<SongListItemProps> = ({
-  song,
-  onClick,
-  isPlaying,
-}) => {
+export const SongListItem: FC<SongListItemProps> = observer(({ song }) => {
+  const rootStore = useStores()
+  const {
+    player,
+    songStore: { currentSong },
+  } = rootStore
+  const toast = useToast()
+
+  const isPlaying = player.isPlaying && currentSong?.metadata.id === song.id
+  const onClick = () => {
+    if (player.isPlaying && currentSong?.metadata.id === song.id) {
+      player.stop()
+    } else {
+      try {
+        playSong(rootStore)(song)
+      } catch (e) {
+        toast.error(`Failed to play: ${(e as Error).message}`)
+      }
+    }
+  }
+
   return (
     <Wrapper onClick={onClick}>
       <PlayButton isPlaying={isPlaying} />
@@ -126,4 +144,4 @@ export const SongListItem: FC<SongListItemProps> = ({
       <Time>{formatTimeAgo(song.updatedAt)}</Time>
     </Wrapper>
   )
-}
+})

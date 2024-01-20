@@ -1,5 +1,6 @@
 import styled from "@emotion/styled"
 import { FC } from "react"
+import { Link } from "wouter"
 import { Localized } from "../../components/Localized"
 import { CloudSong } from "../../repositories/ICloudSongRepository"
 
@@ -40,11 +41,16 @@ export const BottomPlayerSong: FC<SongListItemProps> = ({ song }) => {
     <Wrapper>
       <div>
         <Title>
-          {song.name.length > 0 ? (
-            song.name
-          ) : (
-            <Localized default="Untitled song">untitled-song</Localized>
-          )}
+          <Link
+            href={`/songs/${song.id}`}
+            style={{ color: "currentColor", textDecoration: "none" }}
+          >
+            {song.name.length > 0 ? (
+              song.name
+            ) : (
+              <Localized default="Untitled song">untitled-song</Localized>
+            )}
+          </Link>
         </Title>
         {song.user && <Username>by {song.user.name}</Username>}
       </div>

@@ -12,6 +12,7 @@ export default class RootViewStore {
   openControlSettingDialog = false
   initializeError: Error | null = null
   openInitializeErrorDialog = false
+  openPublishDialog = false
 
   constructor() {
     makeObservable(this, {
@@ -25,6 +26,7 @@ export default class RootViewStore {
       openControlSettingDialog: observable,
       initializeError: observable,
       openInitializeErrorDialog: observable,
+      openPublishDialog: observable,
     })
   }
 }

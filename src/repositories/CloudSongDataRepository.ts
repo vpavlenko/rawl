@@ -63,6 +63,22 @@ export class CloudSongDataRepository implements ICloudSongDataRepository {
     })
   }
 
+  async publish(id: string): Promise<void> {
+    const ref = this.songDataRef(id)
+
+    await updateDoc(ref, {
+      isPublic: true,
+    })
+  }
+
+  async unpublish(id: string): Promise<void> {
+    const ref = this.songDataRef(id)
+
+    await updateDoc(ref, {
+      isPublic: false,
+    })
+  }
+
   async delete(id: string): Promise<void> {
     await deleteDoc(this.songDataRef(id))
   }
@@ -73,6 +89,7 @@ interface FirestoreSongData {
   updatedAt: Timestamp
   data?: Bytes
   userId: string
+  isPublic?: boolean
 }
 
 const songDataConverter: FirestoreDataConverter<FirestoreSongData> = {

@@ -1,6 +1,9 @@
 import styled from "@emotion/styled"
+import Color from "color"
+import PlusIcon from "mdi-react/PlusIcon"
 import { observer } from "mobx-react-lite"
 import { FC } from "react"
+import { Localized } from "../../components/Localized"
 import { UserButton } from "./UserButton"
 
 const Container = styled.div`
@@ -25,6 +28,36 @@ const NavigationWrapper = styled.div`
   padding: 1rem 0;
 `
 
+const Right = styled.div`
+  display: flex;
+  align-items: center;
+`
+
+const CreateButton = styled.a`
+  display: flex;
+  align-items: center;
+  background: transparent;
+  border: none;
+  border-radius: 0.2rem;
+  color: ${({ theme }) => theme.textColor};
+  padding: 0 0.5rem;
+  cursor: pointer;
+  height: 2rem;
+  outline: none;
+  font-size: 0.8rem;
+  text-decoration: none;
+  font-weight: 600;
+  margin-right: 1rem;
+
+  &:hover {
+    background: ${({ theme }) => theme.highlightColor};
+  }
+  &:active {
+    background: ${({ theme }) =>
+      Color(theme.secondaryBackgroundColor).lighten(0.1).hex()};
+  }
+`
+
 export const Navigation: FC = observer(() => {
   return (
     <NavigationWrapper>
@@ -34,7 +67,13 @@ export const Navigation: FC = observer(() => {
             <img src="logo-white.svg" style={{ height: "1.7rem" }} />
           </a>
         </LogoWrapper>
-        <UserButton />
+        <Right>
+          <CreateButton href="/edit" target="_blank">
+            <PlusIcon size="1rem" style={{ marginRight: "0.5rem" }} />
+            <Localized default="Create New">create-new</Localized>
+          </CreateButton>
+          <UserButton />
+        </Right>
       </Container>
     </NavigationWrapper>
   )

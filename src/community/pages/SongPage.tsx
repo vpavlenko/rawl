@@ -10,6 +10,7 @@ import { Alert } from "../../components/Alert"
 import { Button } from "../../components/Button"
 import { CircularProgress } from "../../components/CircularProgress"
 import { Localized } from "../../components/Localized"
+import { useToast } from "../../main/hooks/useToast"
 import { CloudSong } from "../../repositories/ICloudSongRepository"
 import { playSong } from "../actions/song"
 import { BigPlayButton } from "../components/BigPlayButton"
@@ -73,6 +74,7 @@ export const SongPage: FC<SongPageProps> = observer(({ songId }) => {
   const [song, setSong] = useState<CloudSong | null>(null)
   const [error, setError] = useState<Error | null>(null)
   const [isShareDialogOpen, setIsShareDialogOpen] = useState(false)
+  const toast = useToast()
 
   const isPlaying =
     player.isPlaying && song !== null && currentSong?.metadata.id === song.id
@@ -83,7 +85,11 @@ export const SongPage: FC<SongPageProps> = observer(({ songId }) => {
     if (player.isPlaying && currentSong?.metadata.id === song.id) {
       player.stop()
     } else {
-      playSong(rootStore)(song)
+      try {
+        playSong(rootStore)(song)
+      } catch (e) {
+        toast.error(`Failed to play: ${(e as Error).message}`)
+      }
     }
   }
 

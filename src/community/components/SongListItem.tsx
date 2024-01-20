@@ -5,6 +5,7 @@ import PlayArrow from "mdi-react/PlayArrowIcon"
 import { observer } from "mobx-react-lite"
 import { FC } from "react"
 import { Localized } from "../../components/Localized"
+import { useToast } from "../../main/hooks/useToast"
 import { CloudSong } from "../../repositories/ICloudSongRepository"
 import { playSong } from "../actions/song"
 import { formatTimeAgo } from "../helpers/formatTimeAgo"
@@ -109,13 +110,18 @@ export const SongListItem: FC<SongListItemProps> = observer(({ song }) => {
     player,
     songStore: { currentSong },
   } = rootStore
+  const toast = useToast()
 
   const isPlaying = player.isPlaying && currentSong?.metadata.id === song.id
   const onClick = () => {
     if (player.isPlaying && currentSong?.metadata.id === song.id) {
       player.stop()
     } else {
-      playSong(rootStore)(song)
+      try {
+        playSong(rootStore)(song)
+      } catch (e) {
+        toast.error(`Failed to play: ${(e as Error).message}`)
+      }
     }
   }
 

@@ -28,7 +28,7 @@ export const UserSongList: FC<UserSongListProps> = observer(({ userId }) => {
       if (userId === authUser?.uid) {
         songs = await cloudSongRepository.getMySongs()
       } else {
-        songs = await cloudSongRepository.getPublicSongs()
+        songs = await cloudSongRepository.getPublicSongsByUser(userId)
       }
       communitySongStore.songs = songs
       setSongs(songs)
@@ -37,7 +37,7 @@ export const UserSongList: FC<UserSongListProps> = observer(({ userId }) => {
     } finally {
       setIsLoading(false)
     }
-  }, [])
+  }, [userId])
 
   if (isLoading) {
     return (

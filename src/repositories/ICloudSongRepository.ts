@@ -21,4 +21,5 @@ export interface ICloudSongRepository {
   unpublish(songId: string): Promise<void>
   getMySongs(): Promise<CloudSong[]>
   getPublicSongs(): Promise<CloudSong[]>
+  getPublicSongsByUser(userId: string): Promise<CloudSong[]>
 }

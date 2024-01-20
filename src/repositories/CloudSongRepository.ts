@@ -122,6 +122,18 @@ export class CloudSongRepository implements ICloudSongRepository {
     const docs = await getDocs(publicSongsQuery)
     return docs.docs.map(toSong)
   }
+
+  async getPublicSongsByUser(userId: string): Promise<CloudSong[]> {
+    const publicSongsQuery = query(
+      this.songCollection,
+      where("isPublic", "==", true),
+      where("userId", "==", userId),
+      orderBy("publishedAt", "desc"),
+    )
+
+    const docs = await getDocs(publicSongsQuery)
+    return docs.docs.map(toSong)
+  }
 }
 
 interface FirestoreSong {

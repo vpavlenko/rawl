@@ -25,7 +25,9 @@ const LogoWrapper = styled.div`
 `
 
 const NavigationWrapper = styled.div`
-  padding: 1rem 0;
+  display: flex;
+  align-items: center;
+  height: 5rem;
 `
 
 const Right = styled.div`

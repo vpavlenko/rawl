@@ -116,7 +116,7 @@ export class CloudSongRepository implements ICloudSongRepository {
     const publicSongsQuery = query(
       this.songCollection,
       where("isPublic", "==", true),
-      orderBy("publishedAt"),
+      orderBy("publishedAt", "desc"),
     )
 
     const docs = await getDocs(publicSongsQuery)

@@ -13,16 +13,12 @@ const AppHeader: React.FC<{
         Rawl
       </Link>
       {" • "}
-      <Link className="AppHeader-title" to={{ pathname: "/axes" }}>
-        Axes
-      </Link>
-      {" • "}
-      <Link className="AppHeader-title" to={{ pathname: "/intro" }}>
-        Intro
-      </Link>
-      {" • "}
       <Link className="AppHeader-title" to={{ pathname: "/course" }}>
         Course
+      </Link>
+      {" • "}
+      <Link className="AppHeader-title" to={{ pathname: "/axes" }}>
+        Axes
       </Link>
       {/* {" • "}
         <Link

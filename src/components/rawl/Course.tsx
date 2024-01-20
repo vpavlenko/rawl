@@ -109,11 +109,7 @@ const Course = ({ sequencer }) => {
           numbers and duration. To start analyzing anything, we need to decide
           which note out of 12 is a red one - a main one.
         </div>
-        <div>
-          Browse two examples below to see how songs use major scale. Then try
-          to find a main red note in exercises that use this scale. Use "space"
-          to pause. Click on a note to make it a tonic.
-        </div>
+        <div>Browse two examples below to see how songs use major scale.</div>
         <ul>
           <li>
             <S artist="MIDI/Chris Andrews" song="Pretty Belinda.1.mid" />
@@ -121,6 +117,13 @@ const Course = ({ sequencer }) => {
           <li>
             <S artist="MIDI/Lennon John" song="Imagine.4.mid" />
           </li>
+        </ul>
+        <div>
+          {" "}
+          Then try to find a main red note in exercises that use this scale. Use
+          "space" to pause. Click on a note to make it a tonic.
+        </div>
+        <ul>
           <li>
             <S
               artist="MIDI/Wet Willie"
@@ -130,19 +133,6 @@ const Course = ({ sequencer }) => {
           </li>
           <li>
             <S artist="MIDI/Westlife" song="Fool Again.mid" exercise="tonic" />
-          </li>
-        </ul>
-        <div>Try to find the tonic in these two files.</div>
-        <ul>
-          <li>
-            <S
-              artist="MIDI/Van Morrison"
-              song="Brown Eyed Girl.mid"
-              exercise="tonic"
-            />
-          </li>
-          <li>
-            <S artist="MIDI/The Beatles" song="Misery.2.mid" exercise="tonic" />
           </li>
         </ul>
         <div>
@@ -156,15 +146,15 @@ const Course = ({ sequencer }) => {
         <ul>
           <li>
             <S
-              artist="MIDI/Typically Tropical"
-              song="Barbados.mid"
+              artist="MIDI/Van Morrison"
+              song="Brown Eyed Girl.mid"
               exercise="tonic"
             />
           </li>
           <li>
             <S
-              artist="MIDI/Violent Femmes"
-              song="Blister in the Sun.mid"
+              artist="MIDI/Typically Tropical"
+              song="Barbados.mid"
               exercise="tonic"
             />
           </li>
@@ -183,6 +173,27 @@ const Course = ({ sequencer }) => {
         </div>
         <ul>
           <li>
+            <S artist="MIDI/The Beatles" song="Misery.2.mid" exercise="tonic" />
+          </li>
+          <li>
+            <S
+              artist="MIDI/Wet Wet Wet"
+              song="Angel Eyes.mid"
+              exercise="tonic"
+            />
+          </li>
+        </ul>
+        <div>
+          Not all arrangements have chords clearly visible. Some of them play
+          just two outer notes of the chord - the power chord. Are there chords
+          in the next two songs?
+          <NoteSnippet
+            notes="C3-E3-G3 D3-F3-A3 E3-G3-B3 F3-A3-C4 G3-B3-D4 A3-C4-E4 C3-G3 D3-A3 E3-B3 F3-C4 G3-D4 A3-E4"
+            sequencer={sequencer}
+          />
+        </div>
+        <ul>
+          <li>
             <S
               artist="MIDI/Vengaboys"
               song="Boom Boom Boom.mid"
@@ -191,8 +202,8 @@ const Course = ({ sequencer }) => {
           </li>
           <li>
             <S
-              artist="MIDI/Valens Ritchie"
-              song="La Bamba.mid"
+              artist="MIDI/Violent Femmes"
+              song="Blister in the Sun.mid"
               exercise="tonic"
             />
           </li>
@@ -204,13 +215,6 @@ const Course = ({ sequencer }) => {
           complicated structures in later sections.
         </div>
         <ul>
-          <li>
-            <S
-              artist="MIDI/Wet Wet Wet"
-              song="Angel Eyes.mid"
-              exercise="tonic"
-            />
-          </li>
           <li>
             <S artist="MIDI/Umberto Tozzi" song="Gloria.mid" exercise="tonic" />
           </li>
@@ -228,6 +232,12 @@ const Course = ({ sequencer }) => {
               exercise="tonic"
             />
           </li>
+        </ul>
+        <div>
+          The next two songs have simple I-IV-V chords played in short
+          durations. Can you still see and hear the chords?
+        </div>
+        <ul>
           <li>
             <S
               artist="MIDI/Chocolate"
@@ -235,6 +245,20 @@ const Course = ({ sequencer }) => {
               exercise="tonic"
             />
           </li>
+          <li>
+            <S
+              artist="MIDI/Valens Ritchie"
+              song="La Bamba.mid"
+              exercise="tonic"
+            />
+          </li>
+        </ul>
+        <div>
+          As you go through the files, try to spot any patterns in the order of
+          the chords. Which chord is it the beginning? At the end? Which chord
+          usually goes before I? After V? Can you hear different chords?
+        </div>
+        <ul>
           <li>
             <S
               artist="MIDI/Whigfield"
@@ -266,13 +290,6 @@ const Course = ({ sequencer }) => {
           <li>
             <S artist="MIDI/Vaughn" song="Blue Tango.mid" exercise="tonic" />
           </li>
-          <li>
-            <S
-              artist="MIDI/White Lion"
-              song="When the Children Cry.mid"
-              exercise="tonic"
-            />
-          </li>
         </ul>
         {/* <h3>Chords in major key</h3>
         <div>
@@ -291,8 +308,14 @@ const Course = ({ sequencer }) => {
         Fix non-squared phrases
         <ul>
           <li>
-            <S artist="MIDI/Vanessa Williams" song="Colors of the Wind.mid" /> -
-            hard, since no drums
+            <S
+              artist="MIDI/White Lion"
+              song="When the Children Cry.mid"
+              exercise="tonic"
+            />
+          </li>
+          <li>
+            <S artist="MIDI/Vanessa Williams" song="Colors of the Wind.mid" />
           </li>
         </ul>
         <h3>Power chords</h3>

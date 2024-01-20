@@ -1,6 +1,7 @@
 import styled from "@emotion/styled"
 import { observer } from "mobx-react-lite"
 import { FC, useState } from "react"
+import { Helmet } from "react-helmet-async"
 import { Alert } from "../../components/Alert"
 import { CircularProgress } from "../../components/CircularProgress"
 import { Localized } from "../../components/Localized"
@@ -74,6 +75,9 @@ export const UserPage: FC<UserPageProps> = observer(({ userId }) => {
 
   return (
     <PageLayout>
+      <Helmet>
+        <title>{`${user.name} - signal`}</title>
+      </Helmet>
       <PageTitle>{user.name}</PageTitle>
       <Bio>{user.bio}</Bio>
       <SectionTitle>

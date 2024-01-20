@@ -3,6 +3,7 @@ import DownloadIcon from "mdi-react/DownloadIcon"
 import ShareIcon from "mdi-react/ShareIcon"
 import { observer } from "mobx-react-lite"
 import { FC, useState } from "react"
+import { Helmet } from "react-helmet-async"
 import { Link } from "wouter"
 import { downloadBlob } from "../../common/helpers/Downloader"
 import { Alert } from "../../components/Alert"
@@ -138,6 +139,9 @@ export const SongPage: FC<SongPageProps> = observer(({ songId }) => {
 
   return (
     <PageLayout>
+      <Helmet>
+        <title>{`${song.name} - signal`}</title>
+      </Helmet>
       <Header>
         <BigPlayButton isPlaying={isPlaying} onMouseDown={onClickPlay} />
         <HeaderRight>

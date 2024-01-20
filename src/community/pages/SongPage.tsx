@@ -15,13 +15,13 @@ import { BigPlayButton } from "../components/BigPlayButton"
 import { ShareDialog } from "../components/ShareDialog"
 import { useAsyncEffect } from "../hooks/useAsyncEffect"
 import { useStores } from "../hooks/useStores"
-import { PageLayout } from "../layouts/PageLayout"
+import { PageLayout, PageTitle } from "../layouts/PageLayout"
 
 export interface SongPageProps {
   songId: string
 }
 
-export const PageTitle = styled.h1`
+export const SongTitle = styled.h1`
   margin: 0;
   font-size: 300%;
 `
@@ -119,7 +119,7 @@ export const SongPage: FC<SongPageProps> = observer(({ songId }) => {
   if (error !== null) {
     return (
       <PageLayout>
-        <PageTitle>User</PageTitle>
+        <PageTitle>Song</PageTitle>
         <Alert severity="warning">Failed to load song: {error.message}</Alert>
       </PageLayout>
     )
@@ -141,7 +141,7 @@ export const SongPage: FC<SongPageProps> = observer(({ songId }) => {
       <Header>
         <BigPlayButton isPlaying={isPlaying} onMouseDown={onClickPlay} />
         <HeaderRight>
-          <PageTitle style={{ marginBottom: 0 }}>{song.name}</PageTitle>
+          <SongTitle style={{ marginBottom: 0 }}>{song.name}</SongTitle>
           {song.user && (
             <Author>
               by{" "}

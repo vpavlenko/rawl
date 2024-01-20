@@ -29,13 +29,17 @@ export const BottomPlayer: FC = observer(() => {
     songStore: { currentSong },
   } = rootStore
 
+  const onClickPlay = () => {
+    player.isPlaying ? player.stop() : player.play()
+  }
+
   return (
     <Wrapper>
       <Inner>
         <CircleButton onClick={() => playPreviousSong(rootStore)()}>
           <SkipPrevious />
         </CircleButton>
-        <PlayButton isPlaying={player.isPlaying} />
+        <PlayButton isPlaying={player.isPlaying} onMouseDown={onClickPlay} />
         <CircleButton
           onClick={() => playNextSong(rootStore)()}
           style={{ marginRight: "1rem" }}

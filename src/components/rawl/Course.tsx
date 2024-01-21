@@ -1134,8 +1134,7 @@ const Course = ({ sequencer }) => {
         key="piano-legend"
         style={{
           position: "absolute",
-          transform: "scale(5)",
-          top: 200,
+          top: 100,
           right: 150,
           zIndex: 10000000,
         }}

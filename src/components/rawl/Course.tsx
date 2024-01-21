@@ -104,7 +104,7 @@ const Course = ({ sequencer }) => {
             <S artist="MIDI/Wet Willie" song="Keep on Smiling.mid" />
           </li>
         </ul>
-        <h2>I-IV-V</h2>
+        <h3>I-IV-V</h3>
         <div>
           Let's grow our vocabulary and add a IV chord to it. I-IV-V-I:
           <NoteSnippet
@@ -128,7 +128,7 @@ const Course = ({ sequencer }) => {
             <S artist="MIDI/Valens Ritchie" song="La Bamba.mid" />
           </li>
         </ul>
-        <h2>vi</h2>
+        <h3>vi</h3>
         <div>
           If we add one more chord - the vi chord - then we cover{" "}
           <a

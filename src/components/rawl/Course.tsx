@@ -13,7 +13,7 @@ const Row = styled.div`
 const Arrow = () => (
   <div
     style={{
-      width: "100px",
+      width: "30px",
       textAlign: "center",
       fontSize: "48px",
       fontWeight: 700,
@@ -233,7 +233,7 @@ const Course = ({ sequencer }) => {
         <div>
           A scale is the same no matter which absolute note it starts from. So
           our coloring is always relative to the note we chose as a red one:
-          <Row>
+          <Row style={{ alignItems: "center" }}>
             <NoteSnippet
               notes="0,4,D#2 F2 G2 G#2 A#2 C3 D3 D#3"
               sequencer={sequencer}
@@ -244,7 +244,7 @@ const Course = ({ sequencer }) => {
               sequencer={sequencer}
             />
           </Row>
-          <Row>
+          <Row style={{ alignItems: "center" }}>
             <NoteSnippet
               notes="0,4,F2 G2 A2 A#2 C3 D3 E3 F3"
               sequencer={sequencer}
@@ -255,7 +255,7 @@ const Course = ({ sequencer }) => {
               sequencer={sequencer}
             />
           </Row>
-          <Row>
+          <Row style={{ alignItems: "center" }}>
             <NoteSnippet
               notes="0,4,A#1 C2 D2 D#2 F2 G2 A2 A#2"
               sequencer={sequencer}
@@ -396,6 +396,28 @@ const Course = ({ sequencer }) => {
           within the songs
         </div>
         <ul></ul> */}
+        <h2>Natural minor</h2>
+        <ul>
+          <li>
+            <S artist="MIDI/U96" song="Club Bizarre.mid" /> - main tonic
+          </li>
+          <li>
+            <S artist="MIDI/Vanilla Fudge" song="You Keep Me Hangin' On.mid" />
+          </li>
+          <li>
+            <S artist="MIDI/Vanilla Ice" song="Ice Ice Baby.1.mid" />
+          </li>
+          <li>
+            <S artist="MIDI/Vertical Horizon" song="Everything You Want.mid" />{" "}
+            - drone
+          </li>
+          <li>
+            <S artist="MIDI/Visage" song="Fade to Grey.mid" />
+          </li>
+          <li>
+            <S artist="MIDI/Warren G" song="Regulate.mid" />
+          </li>
+        </ul>
         <h2>The rest</h2>
         <h3>Phrases</h3>
         Fix non-squared phrases
@@ -413,10 +435,6 @@ const Course = ({ sequencer }) => {
         </ul>
         <h3>Power chords</h3>
         <ul>
-          <li>
-            <S artist="MIDI/Van McCoy" song="The Hustle.mid" />
-            root
-          </li>
           <li>
             <S artist="MIDI/Vengaboys" song="Boom Boom Boom.mid" />
           </li>
@@ -455,28 +473,6 @@ const Course = ({ sequencer }) => {
           <li>
             <S artist="MIDI/Type O Negative" song="Love You to Death.mid" /> -
             root metal - hard to give since it's dorian
-          </li>
-        </ul>
-        <h3>Natural minor</h3>
-        <ul>
-          <li>
-            <S artist="MIDI/U96" song="Club Bizarre.mid" /> - main tonic
-          </li>
-          <li>
-            <S artist="MIDI/Vanilla Fudge" song="You Keep Me Hangin' On.mid" />
-          </li>
-          <li>
-            <S artist="MIDI/Vanilla Ice" song="Ice Ice Baby.1.mid" />
-          </li>
-          <li>
-            <S artist="MIDI/Vertical Horizon" song="Everything You Want.mid" />{" "}
-            - drone
-          </li>
-          <li>
-            <S artist="MIDI/Visage" song="Fade to Grey.mid" />
-          </li>
-          <li>
-            <S artist="MIDI/Warren G" song="Regulate.mid" />
           </li>
         </ul>
         <h3>Minor before V7</h3>

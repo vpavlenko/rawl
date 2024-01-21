@@ -139,7 +139,7 @@ const Axes = ({ sequencer }) => {
   return (
     <div>
       <h2>Axes of Western popular harmony, as seen in 12 colors</h2>
-      <PianoLegend hoverable={false} />
+      <PianoLegend />
       <Axis title="1. Major/minor">
         <Tag
           name="scale:major"

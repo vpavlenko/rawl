@@ -17,7 +17,7 @@ import {
 } from "firebase/firestore"
 import { IUserRepository, User } from "./IUserRepository"
 
-interface FirestoreUser {
+export interface FirestoreUser {
   name: string
   bio: string
   createdAt: Timestamp
@@ -93,15 +93,17 @@ export class UserRepository implements IUserRepository {
   }
 }
 
+export const convertUser = (id: string, data: FirestoreUser): User => ({
+  id: id,
+  name: data.name,
+  bio: data.bio,
+  createdAt: data.createdAt.toDate(),
+  updatedAt: data.updatedAt.toDate(),
+})
+
 const toUser = (snapshot: QueryDocumentSnapshot<FirestoreUser>): User => {
   const data = snapshot.data()
-  return {
-    id: snapshot.id,
-    name: data.name,
-    bio: data.bio,
-    createdAt: data.createdAt.toDate(),
-    updatedAt: data.updatedAt.toDate(),
-  }
+  return convertUser(snapshot.id, data)
 }
 
 const userConverter: FirestoreDataConverter<FirestoreUser> = {

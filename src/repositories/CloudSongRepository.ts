@@ -20,6 +20,7 @@ import {
 import { songDataCollection } from "./CloudSongDataRepository"
 import { CloudSong, ICloudSongRepository } from "./ICloudSongRepository"
 import { User } from "./IUserRepository"
+import { FirestoreUser, convertUser } from "./UserRepository"
 
 export class CloudSongRepository implements ICloudSongRepository {
   constructor(
@@ -143,6 +144,7 @@ interface FirestoreSong {
   publishedAt?: Timestamp
   dataRef: DocumentReference
   userId: string
+  user?: FirestoreUser
 }
 
 const toSong = (doc: QueryDocumentSnapshot<FirestoreSong>): CloudSong => {
@@ -154,6 +156,7 @@ const toSong = (doc: QueryDocumentSnapshot<FirestoreSong>): CloudSong => {
     createdAt: data.createdAt.toDate(),
     updatedAt: data.updatedAt.toDate(),
     publishedAt: data.publishedAt?.toDate(),
+    user: data.user && convertUser(data.userId, data.user),
   }
 }
 

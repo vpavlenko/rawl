@@ -20,16 +20,28 @@ const Wrapper = styled.div`
   flex-shrink: 0;
 `
 
-const Username = styled.div`
+const Author = styled.a`
   display: flex;
   align-items: center;
   color: ${({ theme }) => theme.secondaryTextColor};
   font-size: 90%;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
 `
 
-const Title = styled.div`
+const Title = styled.a`
+  color: ${({ theme }) => theme.textColor};
+  display: block;
   font-weight: 600;
   font-size: 130%;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
 `
 
 export interface SongListItemProps {
@@ -40,19 +52,26 @@ export const BottomPlayerSong: FC<SongListItemProps> = ({ song }) => {
   return (
     <Wrapper>
       <div>
-        <Title>
-          <Link
-            href={`/songs/${song.id}`}
-            style={{ color: "currentColor", textDecoration: "none" }}
-          >
+        <Link
+          href={`/songs/${song.id}`}
+          style={{ color: "currentColor", textDecoration: "none" }}
+        >
+          <Title>
             {song.name.length > 0 ? (
               song.name
             ) : (
               <Localized default="Untitled song">untitled-song</Localized>
             )}
+          </Title>
+        </Link>
+        {song.user && (
+          <Link
+            href={`/users/${song.user.id}`}
+            style={{ color: "currentColor", textDecoration: "none" }}
+          >
+            <Author>{song.user.name}</Author>
           </Link>
-        </Title>
-        {song.user && <Username>by {song.user.name}</Username>}
+        )}
       </div>
     </Wrapper>
   )

@@ -33,6 +33,15 @@ const Author = styled.p`
   margin: 0.25rem 0 0 0;
 `
 
+const AuthorLink = styled.a`
+  color: currentColor;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`
+
 const Header = styled.div`
   display: flex;
   align-items: center;
@@ -159,7 +168,7 @@ export const SongPage: FC<SongPageProps> = observer(({ songId }) => {
                 href={`/users/${song.user.id}`}
                 style={{ color: "currentColor", textDecoration: "none" }}
               >
-                {song.user.name}
+                <AuthorLink>{song.user.name}</AuthorLink>
               </Link>
             </Author>
           )}

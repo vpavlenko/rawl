@@ -64,6 +64,7 @@ const Course = ({ sequencer }) => {
                 notes="0,4,C3 D3 E3 F3 G3 A3 B3 C4"
                 sequencer={sequencer}
               />
+              <span style={{ color: "white" }}>↑ ↑ ↑ click to play ↑ ↑ ↑ </span>
             </div>
             <div>
               Eb-major:
@@ -94,7 +95,7 @@ const Course = ({ sequencer }) => {
         </div>
         <div>
           Find these chords in two songs below. Find out what notes do
-          non-melodic instruments play, relative to the chods.
+          non-melodic instruments play, relative to the chords.
         </div>
         <ul>
           <li>

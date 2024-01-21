@@ -6,6 +6,7 @@ const Row = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  gap: 40px;
 `;
 
 const Arrow = () => (
@@ -49,6 +50,38 @@ const Course = ({ sequencer }) => {
     <div className="course" style={{ display: "flex", padding: "50px" }}>
       <div style={{ maxWidth: "600px", width: "100%" }}>
         <h2>Study music theory by analyzing MIDI files</h2>
+        <h3>Chords in a major key</h3>
+        <div>
+          We're gonna analyze songs in major. We'll color any of the twelve
+          major keys in the same seven colors starting from the red note:{" "}
+          <Row>
+            <NoteSnippet
+              notes="3,4,D#2 F2 G2 G#2 A#2 C3 D3 D#3"
+              sequencer={sequencer}
+            />
+            <NoteSnippet
+              notes="5,4,F2 G2 A2 A#2 C3 D3 E3 F3"
+              sequencer={sequencer}
+            />
+            <NoteSnippet
+              notes="10,4,A#1 C2 D2 D#2 F2 G2 A2 A#2"
+              sequencer={sequencer}
+            />
+          </Row>
+        </div>
+        <div>
+          In the simplest case, a song in major uses only two chords, I and V:
+          <NoteSnippet notes="C3-E3-G3 G3-B3-D4" sequencer={sequencer} />
+        </div>
+        <div>Find these chords in two songs below:</div>
+        <ul>
+          <li>
+            <S artist="MIDI/Chris Andrews" song="Pretty Belinda.1.mid" />
+          </li>
+          <li>
+            <S artist="MIDI/Wet Willie" song="Keep on Smiling.mid" />
+          </li>
+        </ul>
         <h3>Major tonic</h3>
         <div>
           In every octave there are 12 notes. Click on it:

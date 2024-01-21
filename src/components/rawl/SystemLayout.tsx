@@ -409,52 +409,55 @@ const VoiceName: React.FC<{
   setVoiceMask: SetVoiceMask;
   voiceIndex: number;
 }> = React.memo(({ voiceName, voiceMask, setVoiceMask, voiceIndex }) => {
+  const isSingleActive =
+    voiceMask[voiceIndex] && voiceMask.filter((voice) => voice).length === 1;
   return voiceName ? (
-    <div>
-      <div
+    <span style={{ backgroundColor: "black", marginLeft: "2px" }}>
+      <span>
+        {!isSingleActive && (
+          <input
+            title="active"
+            type="checkbox"
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+            onChange={(e) => {
+              e.stopPropagation();
+              setVoiceMask(
+                voiceMask.map((value, i) =>
+                  i === voiceIndex ? !value : value,
+                ),
+              );
+            }}
+            checked={voiceMask[voiceIndex]}
+          />
+        )}
+        <button
+          style={{
+            cursor: "pointer",
+            userSelect: "none",
+            fontFamily: "sans-serif",
+            fontSize: 12,
+          }}
+          onClick={(e) => {
+            e.stopPropagation();
+            isSingleActive
+              ? setVoiceMask(voiceMask.map(() => true))
+              : setVoiceMask(voiceMask.map((_, i) => i === voiceIndex));
+          }}
+        >
+          {isSingleActive ? "Unsolo All" : "Solo"}
+        </button>
+      </span>
+      <span
         style={{
-          backgroundColor: "black",
-          color: "white",
-          display: "inline-block",
+          color: voiceMask[voiceIndex] ? "white" : "#444",
+          marginLeft: "30px",
         }}
       >
         {voiceName}
-      </div>
-      <div>
-        <button
-          style={{
-            cursor: "pointer",
-            userSelect: "none",
-            fontFamily: "sans-serif",
-            fontSize: 12,
-          }}
-          onClick={(e) => {
-            e.stopPropagation();
-            voiceMask.every((voice) => voice) || !voiceMask[voiceIndex]
-              ? setVoiceMask(voiceMask.map((_, i) => i === voiceIndex))
-              : setVoiceMask(voiceMask.map(() => true));
-          }}
-        >
-          Solo
-        </button>{" "}
-        <button
-          style={{
-            cursor: "pointer",
-            userSelect: "none",
-            fontFamily: "sans-serif",
-            fontSize: 12,
-          }}
-          onClick={(e) => {
-            e.stopPropagation();
-            setVoiceMask(
-              voiceMask.map((value, i) => (i !== voiceIndex ? value : false)),
-            );
-          }}
-        >
-          Mute
-        </button>
-      </div>
-    </div>
+      </span>
+    </span>
   ) : null;
 });
 
@@ -561,8 +564,9 @@ export const Voice: React.FC<{
         ),
         height: hasVisibleNotes ? height : 1,
         position: "relative",
-        marginTop: hasVisibleNotes ? "10px" : 0,
-        marginBottom: hasVisibleNotes ? "20px" : 0,
+        marginTop: hasVisibleNotes ? "35px" : 0,
+        marginBottom: hasVisibleNotes ? "0px" : 0,
+        marginLeft: "0px",
         borderBottom: hasVisibleNotes ? "1px solid #888" : "",
       }}
       onClick={(e) => systemClickHandler(e)}
@@ -574,6 +578,7 @@ export const Voice: React.FC<{
             height -
             frozenHeight +
             (midiRange[0] - frozenMidiRange[0]) * SPLIT_NOTE_HEIGHT,
+          zIndex: 10,
         }}
       >
         {noteRectangles}
@@ -597,12 +602,12 @@ export const Voice: React.FC<{
         <div
           style={{
             position: "relative",
-            left: scrollLeft + 10,
-            top: -15,
-            zIndex: 2,
+            left: scrollLeft,
+            top: -20,
             fontFamily: "sans-serif",
             fontSize: "12px",
             overflow: "visible",
+            zIndex: 20,
           }}
         >
           <VoiceName

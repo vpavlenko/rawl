@@ -178,7 +178,7 @@ const Course = ({ sequencer }) => {
         <div>Analyze these songs:</div>
         <ul>
           <li>
-            <S artist="MIDI/The Beatles" song="Misery.2.mid" exercise="tonic" />
+            <S artist="MIDI/The Beatles" song="Misery.2.mid" />
           </li>
           <li>
             <S artist="MIDI/Van Morrison" song="Brown Eyed Girl.mid" />
@@ -205,14 +205,10 @@ const Course = ({ sequencer }) => {
         <ul>
           <li>
             {" "}
-            <S artist="MIDI/Westlife" song="Fool Again.mid" exercise="tonic" />
+            <S artist="MIDI/Westlife" song="Fool Again.mid" />
           </li>
           <li>
-            <S
-              artist="MIDI/Wet Wet Wet"
-              song="Angel Eyes.mid"
-              exercise="tonic"
-            />
+            <S artist="MIDI/Wet Wet Wet" song="Angel Eyes.mid" />
           </li>
         </ul>
         <h2>Find a major tonic</h2>

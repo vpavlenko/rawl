@@ -46,11 +46,6 @@
     color: #000088;
 }
 
-*:focus {
-    outline: none;
-    background-color: var(--focus);
-}
-
 /* Basic elements */
 
 body {
@@ -170,12 +165,6 @@ input[type=text]::selection {
 
 input[type=text]::-webkit-input-placeholder {
     color: var(--neutral1)
-}
-
-input[type=checkbox]:focus,
-input[type=radio]:focus,
-input[type=range]:focus {
-    background: var(--focus);
 }
 
 label {

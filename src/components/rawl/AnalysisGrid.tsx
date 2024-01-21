@@ -85,7 +85,7 @@ const Measure: React.FC<{
                   : previouslySelectedMeasure === number
                   ? "green"
                   : "white",
-              zIndex: 1000,
+              zIndex: 15,
               cursor: "pointer",
               userSelect: "none",
               ...(systemLayout === "merged" ? { width } : {}), // enlarges seek area for stacked
@@ -212,7 +212,7 @@ export const AnalysisGrid: React.FC<{
   }) => {
     const { measures, beats } = measuresAndBeats;
     return (
-      <>
+      <div style={{ zIndex: 15 }}>
         {measures.map((time, i) => {
           const number = i + 1; // 1-indexed
           return (
@@ -240,7 +240,7 @@ export const AnalysisGrid: React.FC<{
             midiRange={midiRange}
           />
         )}
-      </>
+      </div>
     );
   },
 );

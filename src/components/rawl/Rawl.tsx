@@ -352,7 +352,7 @@ const Rawl: React.FC<{
         )}
       </div>
       {showAnalysisBox && !exercise && (
-        <div style={{ width: "350px", height: "100%" }}>
+        <div style={{ width: "350px", height: "100%", zIndex: 20 }}>
           <AnalysisBox
             analysis={analysis}
             commitAnalysisUpdate={commitAnalysisUpdate}
@@ -368,8 +368,8 @@ const Rawl: React.FC<{
         <div
           style={{
             position: "fixed",
-            right: 0,
-            bottom: 0,
+            right: 280,
+            bottom: 30,
             backgroundColor: "black",
             width: "250px",
             height: "120px",
@@ -434,7 +434,7 @@ const Rawl: React.FC<{
       </div>
       <div
         key="piano-legend"
-        style={{ position: "absolute", bottom: 10, left: 10, zIndex: 10000000 }}
+        style={{ position: "absolute", bottom: 20, right: 20, zIndex: 10 }}
       >
         <PianoLegend />
       </div>

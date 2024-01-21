@@ -8,7 +8,7 @@ const WHITE_KEYS = [0, 2, 4, 5, 7, 9, 11];
 const BLACK_KEY_LABELS = ["b2", "b3", -1, "#4", "b6", "b7", -1];
 
 const KEY_WIDTH = 30;
-const KEY_HEIGHT = 80;
+const KEY_HEIGHT = 60;
 const PADDING = 1;
 const ROW_DISTANCE = 40;
 
@@ -27,11 +27,11 @@ const PianoKey = styled.div`
 `;
 
 export const PianoLegend: React.FC = () => (
-  <div>
+  <div style={{ backgroundColor: "black", padding: "10px" }}>
     <div
       style={{
         position: "relative",
-        width: 100,
+        width: WHITE_KEYS.length * (KEY_WIDTH + PADDING),
         height: KEY_HEIGHT + ROW_DISTANCE,
       }}
     >

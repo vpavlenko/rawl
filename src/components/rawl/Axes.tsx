@@ -18,9 +18,8 @@ export const NoteSnippet = ({ notes, sequencer }) => {
           let duration = "2";
           let notesToPlay = notes;
           let wait = 0;
-          let tonic = 0;
           if (notes.indexOf(",") !== -1) {
-            [tonic, duration, notesToPlay] = notes.split(",");
+            [, duration, notesToPlay] = notes.split(",");
           }
           notesToPlay.split(" ").map((chord) => {
             if (chord.startsWith("r")) {
@@ -47,32 +46,7 @@ export const NoteSnippet = ({ notes, sequencer }) => {
         }}
       >
         {(MIDI_PREVIEWS[notes] && (
-          <Voice
-            {...VOICE_PARAMS}
-            {...MIDI_PREVIEWS[notes]}
-            mouseHandlers={{
-              handleNoteClick: null,
-              handleMouseEnter: (note) => {
-                sequencer.player.midiFilePlayer.synth.noteOn(
-                  note.chipState.on.channel,
-                  note.chipState.on.param1,
-                  note.chipState.on.param2,
-                );
-                setTimeout(
-                  () =>
-                    sequencer.player.midiFilePlayer.synth.noteOff(
-                      note.chipState.off.channel,
-                      note.chipState.off.param1,
-                    ),
-                  (note.span[1] - note.span[0]) * 1000,
-                );
-              },
-              handleMouseLeave: () => {},
-              hoveredNote: null,
-              hoveredAltKey: false,
-              systemClickHandler: () => {},
-            }}
-          />
+          <Voice {...VOICE_PARAMS} {...MIDI_PREVIEWS[notes]} />
         )) ||
           "play"}
       </div>
@@ -151,6 +125,14 @@ const VOICE_PARAMS = {
   voiceIndex: 0,
   voiceMask: [true],
   showTonalGrid: false,
+  mouseHandlers: {
+    handleNoteClick: null,
+    handleMouseEnter: () => {},
+    handleMouseLeave: () => {},
+    hoveredNote: null,
+    hoveredAltKey: false,
+    systemClickHandler: () => {},
+  },
 };
 
 const Axes = ({ sequencer }) => {

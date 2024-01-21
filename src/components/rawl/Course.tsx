@@ -53,25 +53,43 @@ const Course = ({ sequencer }) => {
         <h3>Chords in a major key</h3>
         <div>
           We're gonna analyze songs in major. We'll color any of the twelve
-          major keys in the same seven colors starting from the red note:{" "}
+          major keys in the same seven colors starting from the red note:
+        </div>
+        <div>
           <Row>
-            <NoteSnippet
-              notes="3,4,D#2 F2 G2 G#2 A#2 C3 D3 D#3"
-              sequencer={sequencer}
-            />
-            <NoteSnippet
-              notes="5,4,F2 G2 A2 A#2 C3 D3 E3 F3"
-              sequencer={sequencer}
-            />
-            <NoteSnippet
-              notes="10,4,A#1 C2 D2 D#2 F2 G2 A2 A#2"
-              sequencer={sequencer}
-            />
+            <div>
+              C major:
+              <NoteSnippet
+                notes="0,4,C3 D3 E3 F3 G3 A3 B3 C4"
+                sequencer={sequencer}
+              />
+            </div>
+            <div>
+              Eb-major:
+              <NoteSnippet
+                notes="3,4,D#3 F3 G3 G#3 A#3 C4 D4 D#4"
+                sequencer={sequencer}
+              />
+            </div>
+            <div>
+              A major:
+              <NoteSnippet
+                notes="9,4,A2 B2 C#3 D3 E3 F#3 G#3 A3"
+                sequencer={sequencer}
+              />
+            </div>
           </Row>
         </div>
         <div>
           In the simplest case, a song in major uses only two chords, I and V:
-          <NoteSnippet notes="C3-E3-G3 G3-B3-D4" sequencer={sequencer} />
+          <NoteSnippet notes="0,1,C3-E3-G3 G3-B3-D4" sequencer={sequencer} />
+        </div>
+        <div>
+          These chords can be arranged using multiple octaves:
+          <NoteSnippet
+            notes="0,1,C2-G2-C3-E3-G3-C4 G1-G2-B2-D3-G3-B3 C2-G2-C3-E3-G3-C4 G1-G2-B2-D3-G3-D4 C2-G2-C3-E3-G3-E4"
+            sequencer={sequencer}
+          />
         </div>
         <div>Find these chords in two songs below:</div>
         <ul>

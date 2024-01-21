@@ -35,8 +35,7 @@ const Exercise = ({
           >
             Check the answer
           </button>
-        </div>
-        <div>
+          &nbsp;&nbsp;&nbsp;
           {status === "correct" ? (
             <span style={{ fontWeight: 700, color: "green" }}>Correct</span>
           ) : status === "wrong" ? (

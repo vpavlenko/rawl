@@ -23,7 +23,7 @@ const Exercise = ({
       </div>
       <div>
         <h5>Select a main note for the first part of the song (a tonic).</h5>
-        <div style={{ margin: "20px" }}>
+        <div>
           <button
             onClick={() => {
               if (analysis.tonic === savedAnalysis.tonic) {

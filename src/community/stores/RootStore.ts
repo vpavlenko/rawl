@@ -8,6 +8,7 @@ import { ICloudSongDataRepository } from "../../repositories/ICloudSongDataRepos
 import { ICloudSongRepository } from "../../repositories/ICloudSongRepository"
 import { IUserRepository } from "../../repositories/IUserRepository"
 import { UserRepository } from "../../repositories/UserRepository"
+import { LazySoundFontSynth } from "../services/LazySoundFontSynth"
 import { CommunitySongStore } from "./CommunitySongStore"
 import RootViewStore from "./RootViewStore"
 import { SongStore } from "./SongStore"
@@ -25,12 +26,12 @@ export default class RootStore {
   readonly communitySongStore = new CommunitySongStore()
   readonly rootViewStore = new RootViewStore()
   readonly player: Player
-  readonly synth: SoundFontSynth
+  readonly synth: LazySoundFontSynth
 
   constructor() {
     const context = new (window.AudioContext || window.webkitAudioContext)()
 
-    this.synth = new SoundFontSynth(context)
+    this.synth = new LazySoundFontSynth(new SoundFontSynth(context))
 
     const dummySynth = {
       activate() {},
@@ -47,15 +48,5 @@ export default class RootStore {
       dummyTrackMute,
       this.songStore,
     )
-
-    this.setupSynth()
-  }
-
-  private async setupSynth() {
-    const soundFontURL =
-      "https://cdn.jsdelivr.net/gh/ryohey/signal@4569a31/public/A320U.sf2"
-    await this.synth.setup()
-    const data = await (await fetch(soundFontURL)).arrayBuffer()
-    await this.synth.loadSoundFont(data)
   }
 }

@@ -34,25 +34,6 @@ By setting these constraints, signal aims to offer a streamlined and distraction
    cd signal
    ```
 
-### Setting up Firebase Configuration
-
-1. This project uses Firebase. If you haven't already, create a Firebase project at the [Firebase Console](https://console.firebase.google.com/).
-2. Once your Firebase project is set up, navigate to the project settings in the Firebase Console.
-3. Under the 'General' tab, you will find your Firebase configuration settings (API key, Auth domain, etc.).
-4. Keep this information handy as you will need it to set up your environment variables.
-
-### Configuring Environment Variables
-
-1. Locate the `.env.example` file in the root directory of the project.
-2. Copy the contents of `.env.example` into a new file named `.env` in the same directory.
-3. Replace the placeholder values in the `.env` file with your Firebase configuration values:
-   - `FIREBASE_API_KEY` - Your Firebase API key
-   - `FIREBASE_AUTH_DOMAIN` - Your Firebase Auth domain
-   - `FIREBASE_PROJECT_ID` - Your Firebase project ID
-   - `FIREBASE_STORAGE_BUCKET` - Your Firebase storage bucket
-   - `FIREBASE_MESSAGING_SENDER_ID` - Your Firebase messaging sender ID
-   - `FIREBASE_APP_ID` - Your Firebase app ID
-
 ### Installing Dependencies
 
 1. In the project root directory, run the following command to install the required dependencies:

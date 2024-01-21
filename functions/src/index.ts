@@ -81,3 +81,24 @@ export const disableApp = functions.pubsub
 
     return null
   })
+
+export const syncUserToSongs = functions.firestore
+  .document("users/{userId}")
+  .onUpdate(async (change, context) => {
+    const newValue = change.after.data()
+    const userId = context.params.userId
+
+    const songsRef = admin.firestore().collection("songs")
+    const snapshot = await songsRef.where("userId", "==", userId).get()
+
+    if (snapshot.empty) {
+      console.log("No matching documents.")
+      return null
+    }
+
+    return admin.firestore().runTransaction(async (transaction) => {
+      snapshot.docs.forEach((doc) => {
+        transaction.update(doc.ref, { user: newValue })
+      })
+    })
+  })

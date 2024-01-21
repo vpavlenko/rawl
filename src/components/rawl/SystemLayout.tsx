@@ -255,11 +255,10 @@ const getNoteRectangles = (
           // borderBottom: note.isDrum ? "1px solid white" : "",
           cursor: "pointer",
           zIndex: 10,
-          //   opacity: isActiveVoice ? 0.9 : 0.1,
           // TODO: make it map onto the dynamic range of a song? of a track?
           opacity: isActiveVoice
             ? (showVelocity && note?.chipState?.on?.param2 / 127) || 1
-            : 0.1,
+            : 0.5,
           display: "grid",
           placeItems: "center",
           ...(voiceIndex === -1
@@ -413,7 +412,7 @@ const VoiceName: React.FC<{
   return voiceName ? (
     <>
       {voiceName}{" "}
-      <span
+      <button
         style={{
           cursor: "pointer",
           userSelect: "none",
@@ -422,14 +421,14 @@ const VoiceName: React.FC<{
         }}
         onClick={(e) => {
           e.stopPropagation();
-          voiceMask.filter((voice) => voice).length === 1
-            ? setVoiceMask(voiceMask.map(() => true))
-            : setVoiceMask(voiceMask.map((_, i) => i === voiceIndex));
+          voiceMask.every((voice) => voice) || !voiceMask[voiceIndex]
+            ? setVoiceMask(voiceMask.map((_, i) => i === voiceIndex))
+            : setVoiceMask(voiceMask.map(() => true));
         }}
       >
-        S
-      </span>{" "}
-      <span
+        Solo
+      </button>{" "}
+      <button
         style={{
           cursor: "pointer",
           userSelect: "none",
@@ -443,8 +442,8 @@ const VoiceName: React.FC<{
           );
         }}
       >
-        M
-      </span>{" "}
+        Mute
+      </button>{" "}
     </>
   ) : null;
 });
@@ -513,7 +512,7 @@ export const Voice: React.FC<{
         getNoteRectangles(
           notesInOneVoice,
           voice,
-          true,
+          voiceMask[voiceIndex],
           analysis,
           midiNumberToY,
           SPLIT_NOTE_HEIGHT,
@@ -527,7 +526,15 @@ export const Voice: React.FC<{
       frozenHeight: height,
       frozenMidiRange: midiRange,
     }),
-    [notes, measuresAndBeats, analysis, showVelocity, handleMouseEnter],
+    [
+      notes,
+      measuresAndBeats,
+      analysis,
+      showVelocity,
+      handleMouseEnter,
+      voiceMask,
+      scrollLeft,
+    ],
   );
 
   const hasVisibleNotes = midiRange[1] >= midiRange[0];
@@ -715,39 +722,36 @@ export const SplitSystemLayout: React.FC<{
       ref={parentRef}
     >
       <div>
-        {voicesSortedByAverageMidiNumber.map(({ voiceIndex, notes }, order) =>
-          voiceMask[voiceIndex] ? (
-            <Voice
-              key={voiceIndex}
-              voiceName={voiceNames[voiceIndex]}
-              notes={notes}
-              measuresAndBeats={measuresAndBeats}
-              analysis={analysis}
-              mouseHandlers={mouseHandlers}
-              measureSelection={measureSelection}
-              showVelocity={showVelocity}
-              showHeader={order === voicesSortedByAverageMidiNumber.length - 1}
-              cursor={
-                <Cursor
-                  style={{
-                    transition:
-                      Math.abs(prevPositionSeconds.current - positionSeconds) <
-                      1
-                        ? "left 0.4s linear"
-                        : "",
-                    left: secondsToX(positionSeconds),
-                  }}
-                />
-              }
-              phraseStarts={phraseStarts}
-              scrollLeft={scrollInfo.left}
-              scrollRight={scrollInfo.right}
-              voiceMask={voiceMask}
-              setVoiceMask={setVoiceMask}
-              voiceIndex={voiceIndex}
-            />
-          ) : null,
-        )}
+        {voicesSortedByAverageMidiNumber.map(({ voiceIndex, notes }, order) => (
+          <Voice
+            key={voiceIndex}
+            voiceName={voiceNames[voiceIndex]}
+            notes={notes}
+            measuresAndBeats={measuresAndBeats}
+            analysis={analysis}
+            mouseHandlers={mouseHandlers}
+            measureSelection={measureSelection}
+            showVelocity={showVelocity}
+            showHeader={order === voicesSortedByAverageMidiNumber.length - 1}
+            cursor={
+              <Cursor
+                style={{
+                  transition:
+                    Math.abs(prevPositionSeconds.current - positionSeconds) < 1
+                      ? "left 0.4s linear"
+                      : "",
+                  left: secondsToX(positionSeconds),
+                }}
+              />
+            }
+            phraseStarts={phraseStarts}
+            scrollLeft={scrollInfo.left}
+            scrollRight={scrollInfo.right}
+            voiceMask={voiceMask}
+            setVoiceMask={setVoiceMask}
+            voiceIndex={voiceIndex}
+          />
+        ))}
       </div>
     </div>
   );

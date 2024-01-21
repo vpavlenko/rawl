@@ -588,7 +588,7 @@ export const Voice: React.FC<{
           style={{
             position: "relative",
             left: scrollLeft + 10,
-            top: -13,
+            top: -15,
             zIndex: 2,
             fontFamily: "sans-serif",
             fontSize: "12px",

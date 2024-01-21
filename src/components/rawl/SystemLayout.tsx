@@ -609,6 +609,16 @@ export const Voice: React.FC<{
 
 const SPLIT_VOICE_MASK = [true];
 
+const debounce = (func, delay) => {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      func.apply(this, args);
+    }, delay);
+  };
+};
+
 export const SplitSystemLayout: React.FC<{
   notes: NotesInVoices;
   voiceNames: string[];
@@ -657,27 +667,31 @@ export const SplitSystemLayout: React.FC<{
     [analysis, measuresAndBeats],
   );
 
+  // If scroll changed and debounced, we need to calculate which voices have
+  // any visible notes and hides those who don't.
+
   const parentRef = useRef(null);
-  const frameId = useRef(null);
+
   const [scrollInfo, setScrollInfo] = useState({ left: 0, right: 100000 });
 
-  const handleScroll = useCallback(() => {
-    if (frameId.current) {
-      cancelAnimationFrame(frameId.current);
-    }
-
-    frameId.current = requestAnimationFrame(() => {
-      if (parentRef.current) {
-        const { scrollLeft, offsetWidth } = parentRef.current;
-        const scrollRight = scrollLeft + offsetWidth;
-
+  const debouncedScroll = useCallback(
+    debounce(
+      (left, right) =>
         setScrollInfo({
-          left: scrollLeft,
-          right: scrollRight,
-        });
-      }
-    });
-  }, []);
+          left,
+          right,
+        }),
+      50,
+    ),
+    [],
+  );
+
+  const handleScroll = () => {
+    const { scrollLeft, offsetWidth } = parentRef.current;
+    const scrollRight = scrollLeft + offsetWidth;
+
+    debouncedScroll(scrollLeft, scrollRight);
+  };
 
   useEffect(() => {
     const parentDiv = parentRef.current;

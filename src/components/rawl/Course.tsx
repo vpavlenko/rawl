@@ -47,10 +47,11 @@ const S = ({ artist, song, exercise = null }) => {
 
 const Course = ({ sequencer }) => {
   return (
-    <div className="course" style={{ display: "flex", padding: "50px" }}>
+    <div className="course" style={{ padding: "50px" }}>
+      <h1>Study music theory by analyzing MIDI files</h1>
       <div style={{ maxWidth: "600px", width: "100%" }}>
-        <h2>Study music theory by analyzing MIDI files</h2>
-        <h3>Chords in a major key</h3>
+        <h2>Chords in a major key</h2>
+        <h3>I-V</h3>
         <div>
           We're gonna analyze songs in major. We'll color any of the twelve
           major keys in the same seven colors starting from the red note:
@@ -91,7 +92,10 @@ const Course = ({ sequencer }) => {
             sequencer={sequencer}
           />
         </div>
-        <div>Find these chords in two songs below:</div>
+        <div>
+          Find these chords in two songs below. Find out what notes do
+          non-melodic instruments play, relative to the chods.
+        </div>
         <ul>
           <li>
             <S artist="MIDI/Chris Andrews" song="Pretty Belinda.1.mid" />
@@ -100,7 +104,76 @@ const Course = ({ sequencer }) => {
             <S artist="MIDI/Wet Willie" song="Keep on Smiling.mid" />
           </li>
         </ul>
-        <h3>Major tonic</h3>
+        <h2>I-IV-V</h2>
+        <div>
+          Let's grow our vocabulary and add a IV chord to it. I-IV-V-I:
+          <NoteSnippet
+            notes="0,1,C3-E3-G3 F3-A3-C4 G3-B3-D4 C3-E3-G3"
+            sequencer={sequencer}
+          />
+        </div>
+        <div>
+          Using these three chords we can smoothly harmonize the whole scale:
+          <NoteSnippet
+            notes="0,1,C2-G2-C3-E3-G3-C4 G1-G2-B2-D3-G3-D4 C2-G2-C3-E3-G3-E4 F1-A2-C3-F3-A3-F4 C2-G2-C3-E3-G3-G4 F1-A2-C3-F3-A3-A4 G1-G2-B2-D3-G3-B4 C2-G2-C3-E3-G3-C5"
+            sequencer={sequencer}
+          />
+        </div>
+        <div>Find chords in two arrangements below:</div>
+        <ul>
+          <li>
+            <S artist="MIDI/Chocolate" song="Everybody Salsa.mid" />
+          </li>
+          <li>
+            <S artist="MIDI/Valens Ritchie" song="La Bamba.mid" />
+          </li>
+        </ul>
+        <h2>vi</h2>
+        <div>
+          If we add one more chord - the vi chord - then we cover{" "}
+          <a
+            href="https://en.wikipedia.org/wiki/I%E2%80%93V%E2%80%93vi%E2%80%93IV_progression"
+            target="_blank"
+          >
+            way
+          </a>{" "}
+          <a
+            href="https://en.wikipedia.org/wiki/%2750s_progression"
+            target="_blank"
+          >
+            more
+          </a>{" "}
+          <a
+            href="https://www.hooktheory.com/theorytab/difficulties/beginner"
+            target="_blank"
+          >
+            songs
+          </a>
+          .
+        </div>
+        <div>
+          I-vi-IV-V-I:
+          <NoteSnippet
+            notes="0,1,C3-E3-G3 A3-C4-E4 F3-A3-C4 G3-B3-D4 C3-E3-G3"
+            sequencer={sequencer}
+          />
+        </div>
+        <div>
+          <NoteSnippet
+            notes="0,1,C2-G2-C3-E3-G3-C4 G1-G2-B2-D3-G3-D4 A1-A2-C3-E3-A3-E4 F1-A2-C3-F3-A3-F4 C2-G2-C3-E3-G3-G4 F1-A2-C3-F3-A3-A4 G1-G2-B2-D3-G3-B4 C2-G2-C3-E3-G3-C5"
+            sequencer={sequencer}
+          />
+        </div>
+        <div>Analyze these songs:</div>
+        <ul>
+          <li>
+            <S artist="MIDI/The Beatles" song="Misery.2.mid" exercise="tonic" />
+          </li>
+          <li>
+            <S artist="MIDI/Van Morrison" song="Brown Eyed Girl.mid" />
+          </li>
+        </ul>
+        <h2>Find a major tonic</h2>
         <div>
           In every octave there are 12 notes. Click on it:
           <NoteSnippet
@@ -160,25 +233,15 @@ const Course = ({ sequencer }) => {
           numbers and duration. To start analyzing anything, we need to decide
           which note out of 12 is a red one - a main one.
         </div>
-        <div>Browse two examples below to see how songs use major scale.</div>
-        <ul>
-          <li>
-            <S artist="MIDI/Chris Andrews" song="Pretty Belinda.1.mid" />
-          </li>
-          <li>
-            <S artist="MIDI/Lennon John" song="Imagine.4.mid" />
-          </li>
-        </ul>
         <div>
-          {" "}
-          Then try to find a main red note in exercises that use this scale. Use
+          Try to find a main red note in exercises that use this scale. Use
           "space" to pause. Click on a note to make it a tonic.
         </div>
         <ul>
           <li>
             <S
-              artist="MIDI/Wet Willie"
-              song="Keep on Smiling.mid"
+              artist="MIDI/Lennon John"
+              song="Imagine.4.mid"
               exercise="tonic"
             />
           </li>
@@ -187,31 +250,7 @@ const Course = ({ sequencer }) => {
           </li>
         </ul>
         <div>
-          Three most important chords in major are I, IV and V:
-          <NoteSnippet
-            notes="C3-E3-G3 F3-A3-C4 G3-B3-D4"
-            sequencer={sequencer}
-          />
-        </div>
-        <div>As you identify the tonic, also try to find these chords.</div>
-        <ul>
-          <li>
-            <S
-              artist="MIDI/Van Morrison"
-              song="Brown Eyed Girl.mid"
-              exercise="tonic"
-            />
-          </li>
-          <li>
-            <S
-              artist="MIDI/Typically Tropical"
-              song="Barbados.mid"
-              exercise="tonic"
-            />
-          </li>
-        </ul>
-        <div>
-          Other three chords that are ii, iii and vi:
+          Let's look at three chords - ii, iii and vi:
           <NoteSnippet
             notes="D3-F3-A3 E3-G3-B3 A3-C4-E4"
             sequencer={sequencer}
@@ -224,7 +263,11 @@ const Course = ({ sequencer }) => {
         </div>
         <ul>
           <li>
-            <S artist="MIDI/The Beatles" song="Misery.2.mid" exercise="tonic" />
+            <S
+              artist="MIDI/Typically Tropical"
+              song="Barbados.mid"
+              exercise="tonic"
+            />
           </li>
           <li>
             <S
@@ -285,26 +328,6 @@ const Course = ({ sequencer }) => {
           </li>
         </ul>
         <div>
-          The next two songs have simple I-IV-V chords played in short
-          durations. Can you still see and hear the chords?
-        </div>
-        <ul>
-          <li>
-            <S
-              artist="MIDI/Chocolate"
-              song="Everybody Salsa.mid"
-              exercise="tonic"
-            />
-          </li>
-          <li>
-            <S
-              artist="MIDI/Valens Ritchie"
-              song="La Bamba.mid"
-              exercise="tonic"
-            />
-          </li>
-        </ul>
-        <div>
           As you go through the files, try to spot any patterns in the order of
           the chords. Which chord is it the beginning? At the end? Which chord
           usually goes before I? After V? Can you hear different chords?
@@ -355,6 +378,7 @@ const Course = ({ sequencer }) => {
           within the songs
         </div>
         <ul></ul> */}
+        <h2>The rest</h2>
         <h3>Phrases</h3>
         Fix non-squared phrases
         <ul>

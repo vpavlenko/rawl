@@ -901,7 +901,7 @@ class App extends React.Component {
                       <Route
                         path="/"
                         exact
-                        render={() => <Redirect to="/browse/MIDI" />}
+                        render={() => <Redirect to="/course" />}
                       />
                       <Route
                         path="/axes"

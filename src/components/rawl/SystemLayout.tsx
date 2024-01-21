@@ -258,7 +258,7 @@ const getNoteRectangles = (
           // TODO: make it map onto the dynamic range of a song? of a track?
           opacity: isActiveVoice
             ? (showVelocity && note?.chipState?.on?.param2 / 127) || 1
-            : 0.5,
+            : 0.4,
           display: "grid",
           placeItems: "center",
           ...(voiceIndex === -1
@@ -410,41 +410,51 @@ const VoiceName: React.FC<{
   voiceIndex: number;
 }> = React.memo(({ voiceName, voiceMask, setVoiceMask, voiceIndex }) => {
   return voiceName ? (
-    <>
-      {voiceName}{" "}
-      <button
+    <div>
+      <div
         style={{
-          cursor: "pointer",
-          userSelect: "none",
-          fontFamily: "sans-serif",
-          fontSize: 12,
-        }}
-        onClick={(e) => {
-          e.stopPropagation();
-          voiceMask.every((voice) => voice) || !voiceMask[voiceIndex]
-            ? setVoiceMask(voiceMask.map((_, i) => i === voiceIndex))
-            : setVoiceMask(voiceMask.map(() => true));
+          backgroundColor: "black",
+          color: "white",
+          display: "inline-block",
         }}
       >
-        Solo
-      </button>{" "}
-      <button
-        style={{
-          cursor: "pointer",
-          userSelect: "none",
-          fontFamily: "sans-serif",
-          fontSize: 12,
-        }}
-        onClick={(e) => {
-          e.stopPropagation();
-          setVoiceMask(
-            voiceMask.map((value, i) => (i !== voiceIndex ? value : false)),
-          );
-        }}
-      >
-        Mute
-      </button>{" "}
-    </>
+        {voiceName}
+      </div>
+      <div>
+        <button
+          style={{
+            cursor: "pointer",
+            userSelect: "none",
+            fontFamily: "sans-serif",
+            fontSize: 12,
+          }}
+          onClick={(e) => {
+            e.stopPropagation();
+            voiceMask.every((voice) => voice) || !voiceMask[voiceIndex]
+              ? setVoiceMask(voiceMask.map((_, i) => i === voiceIndex))
+              : setVoiceMask(voiceMask.map(() => true));
+          }}
+        >
+          Solo
+        </button>{" "}
+        <button
+          style={{
+            cursor: "pointer",
+            userSelect: "none",
+            fontFamily: "sans-serif",
+            fontSize: 12,
+          }}
+          onClick={(e) => {
+            e.stopPropagation();
+            setVoiceMask(
+              voiceMask.map((value, i) => (i !== voiceIndex ? value : false)),
+            );
+          }}
+        >
+          Mute
+        </button>
+      </div>
+    </div>
   ) : null;
 });
 

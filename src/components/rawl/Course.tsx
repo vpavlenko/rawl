@@ -130,8 +130,11 @@ const Course = ({ sequencer }) => {
         <div>Find chords in two arrangements below:</div>
         <ul>
           <li>
-            <S artist="MIDI/Chocolate" song="Everybody Salsa.mid" />
+            <S artist="MIDI/Chocolate" song="Everybody Salsa.mid" /> – This one
+            modulates to parallel minor in measure 83. We'll talk about both
+            minor and this type of modulation later on.
           </li>
+
           <li>
             <S artist="MIDI/Valens Ritchie" song="La Bamba.mid" />
           </li>

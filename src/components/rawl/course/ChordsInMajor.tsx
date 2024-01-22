@@ -19,7 +19,6 @@ const Arrow = () => (
 const ChordsInMajor = ({ sequencer }) => {
   return (
     <>
-      <h2>Chords in a major key</h2>
       <h3>I-V</h3>
       <div>
         We're gonna analyze songs in major. We'll color any of the twelve major

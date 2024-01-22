@@ -87,9 +87,10 @@ export default class Visualizer extends PureComponent {
       width: VIS_WIDTH,
       boxSizing: "border-box",
     };
+    const { user, handleLogin, handleLogout } = this.props;
     return (
       <div className="Visualizer">
-        <h3 className="Visualizer-toggle">
+        <div className="Visualizer-toggle">
           <label className="inline">
             <input
               onChange={this.props.handleToggleAnalysis}
@@ -120,7 +121,22 @@ export default class Visualizer extends PureComponent {
             />
             Settings
           </label>
-        </h3>
+          {user ? (
+            <>
+              {" • "}
+              Logged in as {user.email}.{" "}
+              <a href="#" onClick={handleLogout}>
+                Logout
+              </a>
+            </>
+          ) : (
+            <>
+              <a href="#" onClick={handleLogin}>
+                {"."}
+              </a>{" "}
+            </>
+          )}
+        </div>
         <div className="Visualizer-options" style={enabledStyle}>
           <div>
             Mode:{" "}

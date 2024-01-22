@@ -4,7 +4,6 @@ import { S } from "./Course";
 const TheRest = ({ sequencer }) => {
   return (
     <>
-      <h2>The rest</h2>
       <h3>Chromatic voice-leading</h3>
       <ul>
         <li>

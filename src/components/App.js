@@ -884,12 +884,7 @@ class App extends React.Component {
               playerError={this.state.playerError}
               showPlayerError={this.state.showPlayerError}
             />
-            <AppHeader
-              user={this.state.user}
-              handleLogout={this.handleLogout}
-              handleLogin={this.handleLogin}
-              isPhone={isMobile.phone}
-            />
+            <AppHeader isPhone={isMobile.phone} />
             <div className="App-main">
               <div className="App-main-inner">
                 <div className="App-main-content-and-settings">
@@ -945,6 +940,9 @@ class App extends React.Component {
                     }))
                   }
                   paused={this.state.ejected || this.state.paused}
+                  user={this.state.user}
+                  handleLogout={this.handleLogout}
+                  handleLogin={this.handleLogin}
                 />
               )}
             </div>

@@ -19,7 +19,6 @@ const Arrow = () => (
 const Tonic = ({ sequencer }) => {
   return (
     <>
-      <h2>Find a major tonic</h2>
       <div>
         In every octave there are 12 notes. Click on it:
         <NoteSnippet

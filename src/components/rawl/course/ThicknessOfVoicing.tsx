@@ -4,7 +4,6 @@ import { S } from "./Course";
 const ThicknessOfVoicing = ({ sequencer }) => {
   return (
     <>
-      <h2>ThicknessOfVoicing</h2>
       <h3>Power chords</h3>
       <ul>
         <li>

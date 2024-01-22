@@ -4,7 +4,7 @@ import { S } from "./Course";
 const ChordsInMinor = ({ sequencer }) => {
   return (
     <>
-      <h2>Natural minor</h2>
+      <h3>Natural minor</h3>
       <ul>
         <li>
           <S artist="MIDI/U96" song="Club Bizarre.mid" /> - main tonic

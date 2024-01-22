@@ -199,7 +199,7 @@ input[type=checkbox]:before {
 }
 
 input[type=checkbox]:checked:before {
-    content: '[×]';
+    content: '[X]';
 }
 
 input[type=radio]:before {

@@ -77,14 +77,13 @@ const Course = ({ chapter, sequencer }) => {
     chapter >= 0 && chapter < CHAPTERS.length && CHAPTERS[chapter].component;
   return (
     <div
-      className="course"
       style={{
         display: "grid",
         gridTemplateColumns: "300px auto",
         columnGap: "50px",
       }}
     >
-      <div>
+      <div style={{ marginTop: 20 }}>
         <h3>Western pop harmony as seen in 12 colors</h3>
         {CHAPTERS.map(({ title }, index) => (
           <div style={{ margin: 0, padding: 5 }}>
@@ -95,15 +94,15 @@ const Course = ({ chapter, sequencer }) => {
           key="piano-legend"
           style={{
             position: "absolute",
-            bottom: 20,
-            left: 20,
+            bottom: 30,
+            left: 0,
             zIndex: 10000000,
           }}
         >
           <PianoLegend />
         </div>
       </div>
-      <div style={{ width: "600px" }}>
+      <div className="course" style={{ width: "600px" }}>
         {Component && <Component sequencer={sequencer} />}
       </div>
     </div>

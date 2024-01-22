@@ -864,13 +864,15 @@ img {
 }
 
 .course h2 {
-    margin-top: 100px;
-    margin-bottom: 30px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 36px;
 }
 
 .course h3 {
     margin-top: 100px;
     margin-bottom: 30px;
+    font-size: 28px;
 }
 
 .course div {

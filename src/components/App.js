@@ -51,10 +51,10 @@ import DropMessage from "./DropMessage";
 import MessageBox from "./MessageBox";
 import Visualizer from "./Visualizer";
 import Axes from "./rawl/Axes";
-import Course from "./rawl/Course";
 import Intro from "./rawl/Intro";
 import Rawl from "./rawl/Rawl";
 import TagSearch from "./rawl/TagSearch";
+import Course from "./rawl/course/Course";
 
 const mergeAnalyses = (base, diff) => {
   const result = { ...base };
@@ -908,8 +908,13 @@ class App extends React.Component {
                         render={() => <Axes sequencer={this.sequencer} />}
                       />
                       <Route
-                        path="/course"
-                        render={() => <Course sequencer={this.sequencer} />}
+                        path="/course/:chapter*"
+                        render={({ match }) => (
+                          <Course
+                            sequencer={this.sequencer}
+                            chapter={match.params?.chapter}
+                          />
+                        )}
                       />
                       <Route path="/intro" render={() => <Intro />} />
                       <Route

@@ -26,6 +26,27 @@ const ChordsInMinor = ({ sequencer }) => {
           <S artist="MIDI/Warren G" song="Regulate.mid" />
         </li>
       </ul>
+      <h3>Minor before V7</h3>
+      <ul>
+        <li>
+          <S artist="MIDI/Vangelis" song="1492: Conquest of Paradise.mid" />
+        </li>
+      </ul>
+      <h3>minor with V7</h3>
+      <ul>
+        <li>
+          <S artist="MIDI/Ventures" song="Walk Don't Run.mid" /> - has entire
+          scale
+        </li>
+        <li>
+          <S artist="MIDI/U.S.A. for Africa" song="We Are the World.mid" /> - no
+          V7, complex
+        </li>
+        <li>
+          <S artist="MIDI/Usher" song="My Way.mid" />
+          Andalusian R&B
+        </li>
+      </ul>
     </>
   );
 };

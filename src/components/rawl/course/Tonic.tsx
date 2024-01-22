@@ -16,7 +16,7 @@ const Arrow = () => (
   </div>
 );
 
-const Annotation = ({ sequencer }) => {
+const Tonic = ({ sequencer }) => {
   return (
     <>
       <h2>Find a major tonic</h2>
@@ -179,8 +179,29 @@ const Annotation = ({ sequencer }) => {
           <S artist="MIDI/Vaughn" song="Blue Tango.mid" exercise="tonic" />
         </li>
       </ul>
+      <h3>Modulation up at the end</h3>
+      <ul>
+        <li>
+          <S artist="MIDI/Twila Paris" song="How Beautiful.mid" />
+        </li>
+        <li>
+          <S artist="MIDI/U.S.A. for Africa" song="We Are the World.mid" />
+        </li>
+        <li>
+          <S artist="MIDI/Westlife" song="Fool Again.mid" />
+        </li>
+        <li>
+          <S artist="MIDI/Werner" song="So ein Mann.mid" />
+        </li>
+        <li>
+          <S artist="MIDI/Wendy Moten" song="Come in Out of the Rain.mid" />
+        </li>
+      </ul>
+      <ul>
+        <li>Show transposition of the entire track</li>
+      </ul>
     </>
   );
 };
 
-export default Annotation;
+export default Tonic;

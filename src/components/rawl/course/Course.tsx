@@ -2,15 +2,41 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { PianoLegend } from "../PianoLegend";
-import Annotation from "./Annotation";
+import AppliedChords from "./AppliedChords";
+import BassLines from "./BassLines";
+import Blues from "./Blues";
+import ChordScaleTheory from "./ChordScaleTheory";
 import ChordsInMajor from "./ChordsInMajor";
 import ChordsInMinor from "./ChordsInMinor";
+import ChromaticChords from "./ChromaticChords";
+import Functionality from "./Functionality";
+import Jazz from "./Jazz";
+import Modes from "./Modes";
+import Modulation from "./Modulation";
+import Pentatonic from "./Pentatonic";
+import Phrases from "./Phrases";
+import Texture from "./Texture";
 import TheRest from "./TheRest";
+import ThicknessOfVoicing from "./ThicknessOfVoicing";
+import Tonic from "./Tonic";
 
 const CHAPTERS = [
   { title: "Chords in a major key", component: ChordsInMajor },
-  { title: "Annotation", component: Annotation },
   { title: "Chords in a minor key", component: ChordsInMinor },
+  { title: "Thickness of voicing", component: ThicknessOfVoicing },
+  { title: "Bass lines", component: BassLines },
+  { title: "Tonic", component: Tonic },
+  { title: "Phrases", component: Phrases },
+  { title: "Texture", component: Texture },
+  { title: "Functionality", component: Functionality },
+  { title: "Applied Chords", component: AppliedChords },
+  { title: "Modes", component: Modes },
+  { title: "Chromatic Chords", component: ChromaticChords },
+  { title: "Modulation", component: Modulation },
+  { title: "Pentatonic", component: Pentatonic },
+  { title: "Blues", component: Blues },
+  { title: "Chord-scale theory", component: ChordScaleTheory },
+  { title: "Jazz", component: Jazz },
   { title: "The rest", component: TheRest },
 ];
 
@@ -61,7 +87,7 @@ const Course = ({ chapter, sequencer }) => {
       <div>
         <h3>Western pop harmony as seen in 12 colors</h3>
         {CHAPTERS.map(({ title }, index) => (
-          <div>
+          <div style={{ margin: 0, padding: 5 }}>
             <Link to={`/course/${index}`}>{title}</Link>
           </div>
         ))}

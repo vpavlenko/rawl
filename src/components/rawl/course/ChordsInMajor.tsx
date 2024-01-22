@@ -67,8 +67,7 @@ const ChordsInMajor = ({ sequencer }) => {
         <ul>
           <li>a melody?</li>
           <li>a chord?</li>
-          <li>a lowest note of a chord?</li>
-          <li>any ornamentations to them?</li>
+          <li>notes somehow related to a chord?</li>
         </ul>
       </div>
       <ol>
@@ -76,9 +75,15 @@ const ChordsInMajor = ({ sequencer }) => {
           <S artist="MIDI/Chris Andrews" song="Pretty Belinda.1.mid" />
         </li>
         <li>
-          <S artist="MIDI/Wet Willie" song="Keep on Smiling.mid" />
+          <S artist="MIDI/Carpenters" song="Jambalaya (On the Bayou).mid" />
         </li>
       </ol>
+      {/* <h3>V7</h3>
+      <ul>
+        <li>
+          <S artist="MIDI/Wet Willie" song="Keep on Smiling.mid" />
+        </li>
+      </ul> */}
       <h3>I-IV-V</h3>
       <div>
         Let's grow our vocabulary and add a IV chord to it. I-IV-V-I:
@@ -97,11 +102,13 @@ const ChordsInMajor = ({ sequencer }) => {
       <div>Find chords in two arrangements below:</div>
       <ul>
         <li>
+          <S artist="MIDI/Bob Marley" song="Three Little Birds.mid" />
+        </li>
+        <li>
           <S artist="MIDI/Chocolate" song="Everybody Salsa.mid" /> – This one
           modulates to parallel minor in measure 83. We'll talk about both minor
           and this type of modulation later on.
         </li>
-
         <li>
           <S artist="MIDI/Valens Ritchie" song="La Bamba.mid" />
         </li>
@@ -176,12 +183,6 @@ const ChordsInMajor = ({ sequencer }) => {
         </li>
         <li>
           <S artist="MIDI/Wet Wet Wet" song="Angel Eyes.mid" />
-        </li>
-      </ul>
-      <h3>V7 in major</h3>
-      <ul>
-        <li>
-          <S artist="MIDI/Vaughn" song="Blue Tango.mid" />
         </li>
       </ul>
     </>

@@ -24,6 +24,9 @@ const ThicknessOfVoicing = ({ sequencer }) => {
         <li>
           <S artist="MIDI/Vera" song="At This Moment.mid" />
         </li>
+        <li>
+          <S artist="MIDI/Bob Marley" song="Waiting In Vain.mid" />
+        </li>
       </ul>
       <h3>Blues seventh chords</h3>
       <ul>
@@ -48,6 +51,9 @@ const ThicknessOfVoicing = ({ sequencer }) => {
             artist="MIDI/Westernhagen"
             song="Mit Pfefferminz bin ich dein Prinz.mid"
           />
+        </li>
+        <li>
+          <S artist="MIDI/Donovan" song="Mellow Yellow.1.mid" />
         </li>
       </ul>
       <h3>ii7 chord</h3>

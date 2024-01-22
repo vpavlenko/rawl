@@ -26,6 +26,9 @@ const TheRest = ({ sequencer }) => {
         <li>
           <S artist="MIDI/Us3" song="Cantaloop.mid" />
         </li>
+        <li>
+          <S artist="MIDI/Bob Marley" song="Jammin'.mid" />
+        </li>
       </ul>
       <h3>iadd6</h3>
       <ul>

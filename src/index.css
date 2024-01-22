@@ -188,7 +188,7 @@ input[type=radio] {
     border: 0;
     border-radius: 0;
     outline: 0;
-    width: 32px;
+    width: 1.6em;
     margin: 0;
     color: var(--clickable);
     cursor: pointer;
@@ -631,7 +631,7 @@ body,
 
 .Visualizer-toggle {
     position: fixed;
-    top: 0;
+    top: 5px;
     right: 0;
 }
 

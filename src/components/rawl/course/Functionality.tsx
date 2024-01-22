@@ -13,6 +13,9 @@ const Functionality = ({ sequencer }) => {
         <li>
           <S artist="MIDI/Usher" song="My Way.mid" />
         </li>
+        <li>
+          <S artist="MIDI/Bob Marley" song="Jammin'.mid" />
+        </li>
       </ul>
       <h3>Functionality - functional</h3>
       <ul>
@@ -69,6 +72,19 @@ const Functionality = ({ sequencer }) => {
         </li>
         <li>
           <S artist="MIDI/Wet Wet Wet" song="Angel Eyes.mid" />
+        </li>
+      </ul>
+      <h3>Shuttle</h3>
+      <ul>
+        <li>The Beatles - Eleanor Rigby VI-i</li>
+        <li>
+          <S artist="MIDI/Traffic" song="Feelin' All Right.mid" />
+        </li>
+        <li>
+          <S artist="MIDI/America" song="A Horse With No Name.1.mid" />
+        </li>
+        <li>
+          <S artist="MIDI/Bob Marley" song="Waiting In Vain.mid" />
         </li>
       </ul>
     </>

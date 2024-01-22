@@ -365,19 +365,21 @@ export const AnalysisBox: React.FC<{
             {comment}
             <div key="tags" style={{ marginTop: "10px" }}>
               Tags:
-              <Select
-                isMulti
-                options={TAGS.map((tag) => ({ value: tag, label: tag }))}
-                value={(analysis.tags || []).map((tag) => ({
-                  value: tag,
-                  label: tag,
-                }))}
-                onChange={(tags) => {
-                  commitAnalysisUpdate({
-                    tags: tags.map((tag) => tag.value),
-                  });
-                }}
-              />
+              <div style={{ color: "black" }}>
+                <Select
+                  isMulti
+                  options={TAGS.map((tag) => ({ value: tag, label: tag }))}
+                  value={(analysis.tags || []).map((tag) => ({
+                    value: tag,
+                    label: tag,
+                  }))}
+                  onChange={(tags) => {
+                    commitAnalysisUpdate({
+                      tags: tags.map((tag) => tag.value),
+                    });
+                  }}
+                />
+              </div>
             </div>
           </div>
         )}

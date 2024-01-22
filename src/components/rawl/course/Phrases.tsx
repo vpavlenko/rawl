@@ -31,6 +31,9 @@ const Phrases = ({ sequencer }) => {
         <li>
           <S artist="MIDI/Vanessa Williams" song="Colors of the Wind.mid" />
         </li>
+        <li>
+          <S artist="MIDI/Bob Marley" song="Redemption Song.mid" />
+        </li>
       </ul>
     </>
   );

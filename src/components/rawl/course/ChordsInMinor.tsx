@@ -25,6 +25,9 @@ const ChordsInMinor = ({ sequencer }) => {
         <li>
           <S artist="MIDI/Warren G" song="Regulate.mid" />
         </li>
+        <li>
+          <S artist="MIDI/Bob Marley" song="I shot the Sheriff.mid" />
+        </li>
       </ul>
       <h3>Minor before V7</h3>
       <ul>

@@ -447,7 +447,7 @@ const VoiceName: React.FC<{
           top,
           left: "2px",
           marginLeft: "2px",
-          display: voiceName ? "block" : "none",
+          display: voiceName && top > 35 ? "block" : "none",
           fontFamily: "sans-serif",
           fontSize: "12px",
         }}
@@ -493,6 +493,7 @@ const VoiceName: React.FC<{
           style={{
             color: voiceMask[voiceIndex] ? "white" : "#444",
             marginLeft: "30px",
+            zIndex: 100,
           }}
         >
           {voiceName}

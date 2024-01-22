@@ -7,6 +7,9 @@ const TheRest = ({ sequencer }) => {
       <h3>Blues</h3>
       <ul>
         <li>
+          <S artist="MIDI/Traffic" song="Feelin' All Right.mid" />
+        </li>
+        <li>
           <S artist="MIDI/Vaughn" song="Blue Tango.mid" />
         </li>
         <li>
@@ -28,6 +31,7 @@ const TheRest = ({ sequencer }) => {
             song="Mit Pfefferminz bin ich dein Prinz.mid"
           />
         </li>
+        <li>https://chiptune.app/?q=blues</li>
       </ul>
     </>
   );

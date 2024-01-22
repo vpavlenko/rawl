@@ -186,9 +186,10 @@ const getNoteColor = (note: Note, analysis, measures: number[]): string =>
           12
       ];
 
+type MouseEventHanlder = (note: Note, altKey: boolean) => void;
 export type MouseHandlers = {
-  handleNoteClick: (note: Note, altKey: boolean) => void;
-  handleMouseEnter: (note: Note, altKey: boolean) => void;
+  handleNoteClick: MouseEventHanlder | null;
+  handleMouseEnter: MouseEventHanlder;
   handleMouseLeave: () => void;
   hoveredNote: Note | null;
   hoveredAltKey: boolean;
@@ -202,10 +203,10 @@ const getNoteRectangles = (
   analysis: Analysis,
   midiNumberToY: (number: number) => number,
   noteHeight: number,
-  handleNoteClick = (note: Note, altKey: boolean) => {},
   measures: number[] = null,
-  handleMouseEnter = (note: Note, altKey: boolean) => {},
-  handleMouseLeave = () => {},
+  handleNoteClick: MouseEventHanlder,
+  handleMouseEnter: MouseEventHanlder,
+  handleMouseLeave: () => void,
   showVelocity = false,
 ) => {
   return notes.map((note) => {
@@ -253,7 +254,7 @@ const getNoteRectangles = (
             ? 0
             : [10, 3, 0, 5, 20, 7, 1][voiceIndex % 7],
           // borderBottom: note.isDrum ? "1px solid white" : "",
-          cursor: "pointer",
+          cursor: handleNoteClick ? "pointer" : "default",
           zIndex: 10,
           // TODO: make it map onto the dynamic range of a song? of a track?
           opacity: isActiveVoice
@@ -270,8 +271,8 @@ const getNoteRectangles = (
             : {}),
         }}
         onClick={(e) => {
+          e.stopPropagation();
           if (handleNoteClick) {
-            e.stopPropagation();
             handleNoteClick(note, e.altKey);
           }
         }}
@@ -348,8 +349,8 @@ export const MergedSystemLayout = ({
           analysis,
           midiNumberToY,
           noteHeight,
-          handleNoteClick,
           measuresAndBeats.measures,
+          handleNoteClick,
           handleMouseEnter,
           handleMouseLeave,
           showVelocity,
@@ -569,8 +570,8 @@ export const Voice: React.FC<{
           analysis,
           midiNumberToY,
           SPLIT_NOTE_HEIGHT,
-          handleNoteClick,
           measuresAndBeats.measures,
+          handleNoteClick,
           handleMouseEnter,
           () => {},
           showVelocity,

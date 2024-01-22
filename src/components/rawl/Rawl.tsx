@@ -205,17 +205,22 @@ const Rawl: React.FC<{
     setAnalysis({ ...analysis, ...diff });
   }, [allNotes]);
 
-  const handleNoteClick = useCallback((note: Note, altKey: boolean) => {
-    advanceAnalysis(
-      note,
-      selectedMeasureRef.current,
-      setSelectedMeasure,
-      analysisRef.current,
-      commitAnalysisUpdate,
-      null,
-      altKey,
-    );
-  }, []);
+  const handleNoteClick = useCallback(
+    showAnalysisBox
+      ? (note: Note, altKey: boolean) => {
+          advanceAnalysis(
+            note,
+            selectedMeasureRef.current,
+            setSelectedMeasure,
+            analysisRef.current,
+            commitAnalysisUpdate,
+            null,
+            altKey,
+          );
+        }
+      : null,
+    [showAnalysisBox],
+  );
 
   const [positionMs, setPositionMs] = useState(0);
 
@@ -391,8 +396,8 @@ const Rawl: React.FC<{
       <div
         style={{
           position: "fixed",
-          top: "0px",
-          right: "500px",
+          top: 43,
+          right: 5,
           zIndex: "100",
         }}
       >

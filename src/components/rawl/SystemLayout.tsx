@@ -10,7 +10,6 @@ import {
 import { AnalysisGrid, Cursor, MeasureSelection } from "./AnalysisGrid";
 import { SecondsSpan, SetVoiceMask, secondsToX, xToSeconds } from "./Rawl";
 import { Analysis, PitchClass } from "./analysis";
-import { TWELVE_TONE_COLORS } from "./colors";
 import { Note, NotesInVoices } from "./parseMidi";
 
 export type MeasuresAndBeats = {
@@ -178,13 +177,13 @@ const getMidiRangeWithMask = (
 };
 
 const getNoteColor = (note: Note, analysis, measures: number[]): string =>
-  analysis.tonic === null
-    ? "white"
-    : TWELVE_TONE_COLORS[
-        (note.note.midiNumber -
+  `noteColor_${
+    analysis.tonic === null
+      ? "default"
+      : (note.note.midiNumber -
           getTonic(getNoteMeasure(note, measures), analysis)) %
-          12
-      ];
+        12
+  }`;
 
 type MouseEventHanlder = (note: Note, altKey: boolean) => void;
 export type MouseHandlers = {
@@ -213,7 +212,7 @@ const getNoteRectangles = (
     const top = midiNumberToY(note.note.midiNumber);
     const left = secondsToX(note.span[0]);
     const color = note.isDrum
-      ? "white"
+      ? "noteColor_drum"
       : getNoteColor(note, analysis, measures);
     const chordNote = note.isDrum
       ? GM_DRUM_KIT[note.note.midiNumber] || note.note.midiNumber
@@ -238,14 +237,13 @@ const getNoteRectangles = (
     return (
       <div
         key={`nr_${note.id}`}
-        className={"noteRectangleTonal"}
+        className={color}
         style={{
           position: "absolute",
           height: `${noteHeight}px`,
           width: note.isDrum
             ? "0px"
             : secondsToX(note.span[1]) - secondsToX(note.span[0]),
-          backgroundColor: color,
           overflow: "visible",
           top,
           left,

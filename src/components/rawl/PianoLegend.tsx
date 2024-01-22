@@ -1,6 +1,5 @@
 import * as React from "react";
 import styled from "styled-components";
-import { TWELVE_TONE_COLORS } from "./colors";
 
 const BLACK_KEYS = [1, 3, -1, 6, 8, 10, -1];
 const WHITE_KEYS = [0, 2, 4, 5, 7, 9, 11];
@@ -39,8 +38,8 @@ export const PianoLegend: React.FC = () => (
         <React.Fragment key={i}>
           <PianoKey
             key={`w_${i}`}
+            className={`noteColor_${[WHITE_KEYS[i]]}`}
             style={{
-              backgroundColor: TWELVE_TONE_COLORS[WHITE_KEYS[i]],
               top: ROW_DISTANCE,
               left: (KEY_WIDTH + PADDING) * i,
             }}
@@ -50,8 +49,8 @@ export const PianoLegend: React.FC = () => (
           {BLACK_KEYS[i] !== -1 ? (
             <PianoKey
               key={`b_${i}`}
+              className={`noteColor_${[BLACK_KEYS[i]]}`}
               style={{
-                backgroundColor: TWELVE_TONE_COLORS[BLACK_KEYS[i]],
                 top: 0,
                 left: (KEY_WIDTH + PADDING) * (i + 0.5),
                 zIndex: 2,

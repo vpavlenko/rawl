@@ -845,10 +845,6 @@ img {
     box-shadow: none;
 }
 
-.noteRectangleTonal:hover .noteText {
-    opacity: 1;
-}
-
 .vertical-list-of-buttons {
     margin-bottom: 20px;
 }
@@ -884,4 +880,56 @@ img {
     width: 20px;
     height: 20px;
     display: inline-block;
+}
+
+.noteColor_default {
+    background-color: white;
+}
+
+.noteColor_0 {
+    background-color: red;
+}
+
+.noteColor_1 {
+    background-color: maroon;
+}
+
+.noteColor_2 {
+    background-color: #ff60a0;
+}
+
+.noteColor_3 {
+    background-color: #fffd37;
+}
+
+.noteColor_4 {
+    background-color: #00ff59;
+}
+
+.noteColor_5 {
+    background-color: #00d5ff;
+}
+
+.noteColor_6 {
+    background-color: gray;
+}
+
+.noteColor_7 {
+    background-color: blue;
+}
+
+.noteColor_8 {
+    background-color: #ff7000;
+}
+
+.noteColor_9 {
+    background-color: #007000;
+}
+
+.noteColor_10 {
+    background-color: #9c5c02;
+}
+
+.noteColor_11 {
+    background-color: #a000ff;
 }

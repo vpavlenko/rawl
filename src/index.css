@@ -939,8 +939,9 @@ img {
 }
 
 .noteColor_1_a {
-    background-color: rgb(150, 150, 255);
-    transform: skew(45deg);
+    background-color: black;
+    border: 2px dotted white;
+    box-sizing: border-box;
 }
 
 .noteColor_2_a {
@@ -949,7 +950,10 @@ img {
 
 .noteColor_3_a {
     background-color: blue;
-    border: 1px dashed white
+    border: 1px solid white;
+    box-sizing: border-box;
+    box-shadow: 1px 1px 6px white;
+    border-radius: 0 !important;
 }
 
 .noteColor_4_a {
@@ -964,8 +968,8 @@ img {
 }
 
 .noteColor_6_a {
-    background-color: yellow;
-    transform: skew(135deg);
+    background-color: black;
+    box-shadow: 0 0 6px white;
 }
 
 .noteColor_7_a {
@@ -986,9 +990,11 @@ img {
 
 .noteColor_10_a {
     background-color: yellow;
-    border: 1px solid rgb(72, 72, 255);
+    border: 1px solid blue;
+    outline: 1px solid yellow;
     box-sizing: border-box;
-    
+    box-shadow: 1px 1px 6px yellow;
+    border-radius: 0 !important;
 }
 
 .noteColor_11_a {

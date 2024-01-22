@@ -408,58 +408,98 @@ const VoiceName: React.FC<{
   voiceMask: boolean[];
   setVoiceMask: SetVoiceMask;
   voiceIndex: number;
-}> = React.memo(({ voiceName, voiceMask, setVoiceMask, voiceIndex }) => {
-  const isSingleActive =
-    voiceMask[voiceIndex] && voiceMask.filter((voice) => voice).length === 1;
-  return voiceName ? (
-    <span style={{ backgroundColor: "black", marginLeft: "2px" }}>
-      <span>
-        {!isSingleActive && (
-          <input
-            title="active"
-            type="checkbox"
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-            onChange={(e) => {
-              e.stopPropagation();
-              setVoiceMask(
-                voiceMask.map((value, i) =>
-                  i === voiceIndex ? !value : value,
-                ),
-              );
-            }}
-            checked={voiceMask[voiceIndex]}
-          />
-        )}
-        <button
-          style={{
-            cursor: "pointer",
-            userSelect: "none",
-            fontFamily: "sans-serif",
-            fontSize: 12,
-          }}
-          onClick={(e) => {
-            e.stopPropagation();
-            isSingleActive
-              ? setVoiceMask(voiceMask.map(() => true))
-              : setVoiceMask(voiceMask.map((_, i) => i === voiceIndex));
-          }}
-        >
-          {isSingleActive ? "Unsolo All" : "Solo"}
-        </button>
-      </span>
+  scrollLeft: number;
+}> = React.memo(
+  ({ voiceName, voiceMask, setVoiceMask, voiceIndex, scrollLeft }) => {
+    const isSingleActive =
+      voiceMask[voiceIndex] && voiceMask.filter((voice) => voice).length === 1;
+
+    const ref = useRef(null);
+    const [top, setTop] = useState(0);
+
+    const updatePosition = () => {
+      if (ref.current) {
+        const outerComponentRect =
+          ref.current.parentElement.getBoundingClientRect();
+        setTop(outerComponentRect.top + window.scrollY - 20);
+      }
+    };
+
+    useEffect(updatePosition, [scrollLeft]);
+
+    useEffect(() => {
+      ref.current
+        .closest(".SplitLayout")
+        ?.addEventListener("scroll", updatePosition);
+
+      return () => {
+        ref.current
+          .closest(".SplitLayout")
+          ?.removeEventListener("scroll", updatePosition);
+      };
+    }, []);
+
+    return (
       <span
         style={{
-          color: voiceMask[voiceIndex] ? "white" : "#444",
-          marginLeft: "30px",
+          position: "fixed",
+          top,
+          left: "2px",
+          marginLeft: "2px",
+          display: voiceName ? "block" : "none",
+          fontFamily: "sans-serif",
+          fontSize: "12px",
         }}
+        ref={ref}
       >
-        {voiceName}
+        <span>
+          {!isSingleActive && (
+            <input
+              title="active"
+              type="checkbox"
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+              onChange={(e) => {
+                e.stopPropagation();
+                setVoiceMask(
+                  voiceMask.map((value, i) =>
+                    i === voiceIndex ? !value : value,
+                  ),
+                );
+              }}
+              checked={voiceMask[voiceIndex]}
+            />
+          )}
+          <button
+            style={{
+              cursor: "pointer",
+              userSelect: "none",
+              fontFamily: "sans-serif",
+              fontSize: 12,
+            }}
+            onClick={(e) => {
+              e.stopPropagation();
+              isSingleActive
+                ? setVoiceMask(voiceMask.map(() => true))
+                : setVoiceMask(voiceMask.map((_, i) => i === voiceIndex));
+            }}
+          >
+            {isSingleActive ? "Unsolo All" : "Solo"}
+          </button>
+        </span>
+        <span
+          style={{
+            color: voiceMask[voiceIndex] ? "white" : "#444",
+            marginLeft: "30px",
+          }}
+        >
+          {voiceName}
+        </span>
       </span>
-    </span>
-  ) : null;
-});
+    );
+  },
+);
 
 export const Voice: React.FC<{
   notes: NotesInVoices;
@@ -578,7 +618,6 @@ export const Voice: React.FC<{
             height -
             frozenHeight +
             (midiRange[0] - frozenMidiRange[0]) * SPLIT_NOTE_HEIGHT,
-          zIndex: 10,
         }}
       >
         {noteRectangles}
@@ -599,24 +638,13 @@ export const Voice: React.FC<{
       ) : null}
       {cursor}
       {hasVisibleNotes ? (
-        <div
-          style={{
-            position: "relative",
-            left: scrollLeft,
-            top: -20,
-            fontFamily: "sans-serif",
-            fontSize: "12px",
-            overflow: "visible",
-            zIndex: 20,
-          }}
-        >
-          <VoiceName
-            voiceName={voiceName}
-            voiceMask={voiceMask}
-            setVoiceMask={setVoiceMask}
-            voiceIndex={voiceIndex}
-          />
-        </div>
+        <VoiceName
+          voiceName={voiceName}
+          voiceMask={voiceMask}
+          setVoiceMask={setVoiceMask}
+          voiceIndex={voiceIndex}
+          scrollLeft={scrollLeft}
+        />
       ) : null}
     </div>
   );
@@ -735,6 +763,7 @@ export const SplitSystemLayout: React.FC<{
         backgroundColor: "black",
       }}
       ref={parentRef}
+      className="SplitLayout"
     >
       <div>
         {voicesSortedByAverageMidiNumber.map(({ voiceIndex, notes }, order) => (

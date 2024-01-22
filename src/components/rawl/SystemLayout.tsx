@@ -43,7 +43,7 @@ export const getPhraseStarts = (
   return result;
 };
 
-const SPLIT_NOTE_HEIGHT = 5;
+const SPLIT_NOTE_HEIGHT = 7;
 
 export const getModulations = (analysis: Analysis) =>
   [
@@ -183,7 +183,7 @@ const getNoteColor = (note: Note, analysis, measures: number[]): string =>
       : (note.note.midiNumber -
           getTonic(getNoteMeasure(note, measures), analysis)) %
         12
-  }`;
+  }_a`;
 
 type MouseEventHanlder = (note: Note, altKey: boolean) => void;
 export type MouseHandlers = {
@@ -248,9 +248,6 @@ const getNoteRectangles = (
           top,
           left,
           pointerEvents: voiceIndex === -1 ? "none" : "auto",
-          borderRadius: note.isDrum
-            ? 0
-            : [10, 3, 0, 5, 20, 7, 1][voiceIndex % 7],
           // borderBottom: note.isDrum ? "1px solid white" : "",
           cursor: handleNoteClick ? "pointer" : "default",
           zIndex: 10,
@@ -258,6 +255,7 @@ const getNoteRectangles = (
           opacity: isActiveVoice
             ? (showVelocity && note?.chipState?.on?.param2 / 127) || 1
             : 0.4,
+          borderRadius: "5px",
           display: "grid",
           placeItems: "center",
           ...(voiceIndex === -1

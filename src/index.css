@@ -933,3 +933,65 @@ img {
 .noteColor_11 {
     background-color: #a000ff;
 }
+
+.noteColor_0_a {
+    background-color: rgb(150, 150, 255);
+}
+
+.noteColor_1_a {
+    background-color: rgb(150, 150, 255);
+    transform: skew(45deg);
+}
+
+.noteColor_2_a {
+    background-color: rgb(156, 156, 0);
+}
+
+.noteColor_3_a {
+    background-color: blue;
+    border: 1px dashed white
+}
+
+.noteColor_4_a {
+    background-color: rgb(22, 22, 255);
+}
+
+.noteColor_5_a {
+    background-color: rgb(0, 0, 0);
+    /* box-shadow: 0px 0px 4px rgb(255, 255, 87); */
+    border: 1px solid yellow;
+    box-sizing: border-box;
+}
+
+.noteColor_6_a {
+    background-color: yellow;
+    transform: skew(135deg);
+}
+
+.noteColor_7_a {
+    background-color: white;
+}
+
+.noteColor_8_a {
+    background-color: rgb(117, 117, 117);
+    border: 1px dashed white
+}
+
+.noteColor_9_a {
+    background-color: rgb(97, 97, 97);
+    border: 1px solid white;
+    box-sizing: border-box;
+    /* border: 1px solid white; */
+}
+
+.noteColor_10_a {
+    background-color: yellow;
+    border: 1px solid rgb(72, 72, 255);
+    box-sizing: border-box;
+    
+}
+
+.noteColor_11_a {
+    background-color:  rgb(255, 255, 0);
+}
+

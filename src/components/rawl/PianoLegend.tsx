@@ -38,7 +38,7 @@ export const PianoLegend: React.FC = () => (
         <React.Fragment key={i}>
           <PianoKey
             key={`w_${i}`}
-            className={`noteColor_${[WHITE_KEYS[i]]}`}
+            className={`noteColor_${[WHITE_KEYS[i]]}_a`}
             style={{
               top: ROW_DISTANCE,
               left: (KEY_WIDTH + PADDING) * i,
@@ -49,7 +49,7 @@ export const PianoLegend: React.FC = () => (
           {BLACK_KEYS[i] !== -1 ? (
             <PianoKey
               key={`b_${i}`}
-              className={`noteColor_${[BLACK_KEYS[i]]}`}
+              className={`noteColor_${[BLACK_KEYS[i]]}_a`}
               style={{
                 top: 0,
                 left: (KEY_WIDTH + PADDING) * (i + 0.5),

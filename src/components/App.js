@@ -861,6 +861,7 @@ class App extends React.Component {
                       song={song}
                       exercise={searchParams.get("exercise")}
                       sequencer={this.sequencer}
+                      isAudioSuspended={this.audioCtx.state === "suspended"}
                     />
                   )}
               </>

@@ -56,6 +56,7 @@ const Rawl: React.FC<{
   song: string;
   exercise: ExerciseType | null;
   sequencer: any;
+  isAudioSuspended: boolean;
 }> = ({
   parsingResult,
   getCurrentPositionMs,
@@ -73,6 +74,7 @@ const Rawl: React.FC<{
   song,
   exercise,
   sequencer,
+  isAudioSuspended,
 }) => {
   useEffect(() => {
     document.title = `Rawl - ${artist.slice(5)} - ${song.slice(0, -4)}`;
@@ -342,6 +344,21 @@ const Rawl: React.FC<{
           overflowX: "auto",
         }}
       >
+        {isAudioSuspended && (
+          <div
+            style={{
+              position: "absolute",
+              top: 40,
+              left: 20,
+              zIndex: 10000,
+              backgroundColor: "black",
+              height: "300px",
+              width: "600px",
+            }}
+          >
+            Click here to play
+          </div>
+        )}
         {systemLayout === "merged" ? (
           <MergedSystemLayout
             {...commonParams}

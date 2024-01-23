@@ -1,3 +1,5 @@
+import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -64,7 +66,11 @@ export const S = ({ artist, song, exercise = null }) => {
         </>
       ) : (
         <a href={`/browse/${artist}?song=${song}`} target="_blank">
-          {artist.slice(5)} - {song.slice(0, -4)}
+          {artist.slice(5)} - {song.slice(0, -4)}&nbsp;&nbsp;
+          <FontAwesomeIcon
+            icon={faArrowUpRightFromSquare}
+            style={{ width: "10px" }}
+          />
         </a>
       )}
     </>

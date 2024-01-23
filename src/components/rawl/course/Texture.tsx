@@ -44,6 +44,9 @@ const Texture = ({ sequencer }) => {
         <li>
           <S artist="MIDI/Weezer" song="Buddy Holly.mid" />
         </li>
+        <li>
+          <S artist="MIDI/Valens Ritchie" song="La Bamba.mid" />
+        </li>
       </ul>
 
       <h3>Arrangement - counterpoint</h3>

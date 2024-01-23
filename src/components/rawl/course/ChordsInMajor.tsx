@@ -2,20 +2,6 @@ import * as React from "react";
 import { NoteSnippet } from "../Axes";
 import { Row, S } from "./Course";
 
-const Arrow = () => (
-  <div
-    style={{
-      width: "30px",
-      textAlign: "center",
-      fontSize: "48px",
-      fontWeight: 700,
-      color: "white",
-    }}
-  >
-    →
-  </div>
-);
-
 const ChordsInMajor = ({ sequencer }) => {
   return (
     <>
@@ -72,7 +58,7 @@ const ChordsInMajor = ({ sequencer }) => {
       </div>
       <ol>
         <li>
-          <S artist="MIDI/Chris Andrews" song="Pretty Belinda.1.mid" />
+          <S artist="MIDI/Chris Andrews" song="Pretty Belinda.1.mid" />{" "}
         </li>
         <li>
           <S artist="MIDI/Carpenters" song="Jambalaya (On the Bayou).mid" />

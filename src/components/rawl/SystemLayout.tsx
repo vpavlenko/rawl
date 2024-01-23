@@ -248,7 +248,6 @@ const getNoteRectangles = (
           top,
           left,
           pointerEvents: voiceIndex === -1 ? "none" : "auto",
-          // borderBottom: note.isDrum ? "1px solid white" : "",
           cursor: handleNoteClick ? "pointer" : "default",
           zIndex: 10,
           // TODO: make it map onto the dynamic range of a song? of a track?
@@ -256,15 +255,9 @@ const getNoteRectangles = (
             ? (showVelocity && note?.chipState?.on?.param2 / 127) || 1
             : 0.4,
           borderRadius: "5px",
+          boxSizing: "border-box",
           display: "grid",
           placeItems: "center",
-          ...(voiceIndex === -1
-            ? {
-                boxShadow: "white 0px 1px",
-                boxSizing: "border-box",
-                backgroundColor: "transparent",
-              }
-            : {}),
         }}
         onClick={(e) => {
           e.stopPropagation();

@@ -8,7 +8,7 @@ const BLACK_KEY_LABELS = ["b2", "b3", -1, "#4", "b6", "b7", -1];
 
 const KEY_WIDTH = 30;
 const KEY_HEIGHT = 60;
-const PADDING = 1;
+const PADDING = 3;
 const ROW_DISTANCE = 40;
 
 const PianoKey = styled.div`
@@ -23,6 +23,8 @@ const PianoKey = styled.div`
   text-shadow: 0px 0px 5px black;
   display: grid;
   align-content: end;
+  border-radius: 5px;
+  box-sizing: border-box;
 `;
 
 export const PianoLegend: React.FC = () => (

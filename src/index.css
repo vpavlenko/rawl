@@ -940,8 +940,7 @@ img {
 
 .noteColor_1_a {
     background-color: black;
-    border: 2px dotted white;
-    box-sizing: border-box;
+    border: 1px dashed white;
 }
 
 .noteColor_2_a {
@@ -950,10 +949,9 @@ img {
 
 .noteColor_3_a {
     background-color: blue;
-    border: 1px solid white;
-    box-sizing: border-box;
-    box-shadow: 1px 1px 6px white;
-    border-radius: 0 !important;
+    border-top: 1px solid white;
+    border-left: 1px solid white;
+    border-radius: 0px !important;
 }
 
 .noteColor_4_a {
@@ -961,15 +959,17 @@ img {
 }
 
 .noteColor_5_a {
-    background-color: rgb(0, 0, 0);
-    /* box-shadow: 0px 0px 4px rgb(255, 255, 87); */
-    border: 1px solid yellow;
-    box-sizing: border-box;
+    background-color: rgb(0,
+     0, 0);
+    border-top: 1px solid yellow;
+    border-bottom: 1px solid yellow;
+    border-radius: 0 !important;
+    position: relative;
 }
 
 .noteColor_6_a {
     background-color: black;
-    box-shadow: 0 0 6px white;
+    box-shadow: 0 0 6px white, inset 0 0 3px white;
 }
 
 .noteColor_7_a {
@@ -977,27 +977,34 @@ img {
 }
 
 .noteColor_8_a {
-    background-color: rgb(117, 117, 117);
-    border: 1px dashed white
+    background-color: rgb(71, 71, 71);
+    border-top: 1px solid rgb(255, 255, 0);
+    border-left: 1px solid yellow;
+    border-radius: 0 !important;
 }
 
 .noteColor_9_a {
-    background-color: rgb(97, 97, 97);
-    border: 1px solid white;
-    box-sizing: border-box;
-    /* border: 1px solid white; */
+    background-color: rgb(81, 81, 81);
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    border-radius: 0 !important;
+}
+
+.noteColor_9_a:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%; /* This centers the line in the middle of the div */
+    border-top: 1px solid white; /* This creates the line */
+    transform: translateY(-50%); /* Adjusts the position to account for the line's thickness */
 }
 
 .noteColor_10_a {
-    background-color: yellow;
-    border: 1px solid blue;
-    outline: 1px solid yellow;
-    box-sizing: border-box;
-    box-shadow: 1px 1px 6px yellow;
+    background: linear-gradient(to top, rgb(51, 51, 252), yellow);
     border-radius: 0 !important;
 }
 
 .noteColor_11_a {
     background-color:  rgb(255, 255, 0);
 }
-

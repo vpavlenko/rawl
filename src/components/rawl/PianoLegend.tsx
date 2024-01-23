@@ -77,7 +77,7 @@ export const PianoLegend: React.FC = () => {
             defaultChecked={colorScheme === "colors"}
             value={"colors"}
           />
-          colors
+          rainbow
         </label>{" "}
         <label key={"split"} className="inline">
           <input
@@ -87,7 +87,7 @@ export const PianoLegend: React.FC = () => {
             defaultChecked={colorScheme === "shapes"}
             value={"shapes"}
           />
-          shapes
+          neon
         </label>
       </div>
     </div>

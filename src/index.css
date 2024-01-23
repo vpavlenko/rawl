@@ -886,79 +886,79 @@ img {
     background-color: white;
 }
 
-.noteColor_0 {
+.noteColor_0_colors {
     background-color: red;
 }
 
-.noteColor_1 {
+.noteColor_1_colors {
     background-color: maroon;
 }
 
-.noteColor_2 {
+.noteColor_2_colors {
     background-color: #ff60a0;
 }
 
-.noteColor_3 {
+.noteColor_3_colors {
     background-color: #fffd37;
 }
 
-.noteColor_4 {
+.noteColor_4_colors {
     background-color: #00ff59;
 }
 
-.noteColor_5 {
+.noteColor_5_colors {
     background-color: #00d5ff;
 }
 
-.noteColor_6 {
+.noteColor_6_colors {
     background-color: gray;
 }
 
-.noteColor_7 {
+.noteColor_7_colors {
     background-color: blue;
 }
 
-.noteColor_8 {
+.noteColor_8_colors {
     background-color: #ff7000;
 }
 
-.noteColor_9 {
+.noteColor_9_colors {
     background-color: #007000;
 }
 
-.noteColor_10 {
+.noteColor_10_colors {
     background-color: #9c5c02;
 }
 
-.noteColor_11 {
+.noteColor_11_colors {
     background-color: #a000ff;
 }
 
-.noteColor_0_a {
+.noteColor_0_shapes {
     background-color: rgb(150, 150, 255);
 }
 
-.noteColor_1_a {
+.noteColor_1_shapes {
     background-color: black;
     border: 1px dashed white;
 }
 
-.noteColor_2_a {
+.noteColor_2_shapes {
     background-color: rgb(156, 156, 0);
 }
 
-.noteColor_3_a {
+.noteColor_3_shapes {
     background-color: blue;
     border-top: 1px solid white;
     border-left: 1px solid white;
     border-radius: 0px !important;
 }
 
-.noteColor_4_a {
+.noteColor_4_shapes {
     background-color: rgb(22, 22, 255);
 }
 
-.noteColor_5_a {
+.noteColor_5_shapes {
     background-color: rgb(0,
      0, 0);
     border-top: 1px solid yellow;
@@ -967,44 +967,44 @@ img {
     position: relative;
 }
 
-.noteColor_6_a {
+.noteColor_6_shapes {
     background-color: black;
-    box-shadow: 0 0 6px white, inset 0 0 3px white;
+    box-shadow: 0 0 3px white, 0 0 6px white, 0 0 9px white;
 }
 
-.noteColor_7_a {
+.noteColor_7_shapes {
     background-color: white;
 }
 
-.noteColor_8_a {
+.noteColor_8_shapes {
     background-color: rgb(71, 71, 71);
     border-top: 1px solid rgb(255, 255, 0);
     border-left: 1px solid yellow;
     border-radius: 0 !important;
 }
 
-.noteColor_9_a {
-    background-color: rgb(81, 81, 81);
+.noteColor_9_shapes {
+    /* background-color: rgb(83, 83, 83); */
     border-top: 1px solid white;
     border-bottom: 1px solid white;
     border-radius: 0 !important;
 }
 
-.noteColor_9_a:after {
+.noteColor_9_shapes:after {
     content: "";
     position: absolute;
     left: 0;
     right: 0;
-    top: 50%; /* This centers the line in the middle of the div */
-    border-top: 1px solid white; /* This creates the line */
-    transform: translateY(-50%); /* Adjusts the position to account for the line's thickness */
+    top: 50%; 
+    border-top: 1px solid white; 
+    transform: translateY(-50%); 
 }
 
-.noteColor_10_a {
+.noteColor_10_shapes {
     background: linear-gradient(to top, rgb(51, 51, 252), yellow);
     border-radius: 0 !important;
 }
 
-.noteColor_11_a {
+.noteColor_11_shapes {
     background-color:  rgb(255, 255, 0);
 }

@@ -74,7 +74,7 @@ const AppFooter = ({
     </div>
     {showPlayerSettings && (
       <div className="AppFooter-settings">
-        {sequencer.getPlayer() ? (
+        {sequencer?.getPlayer() ? (
           <PlayerParams
             ejected={ejected}
             tempo={tempo}
@@ -87,9 +87,7 @@ const AppFooter = ({
             setParameter={sequencer.getPlayer().setParameter}
             paramDefs={sequencer.getPlayer().getParamDefs()}
           />
-        ) : (
-          <div>(No active player)</div>
-        )}
+        ) : null}
       </div>
     )}
   </div>

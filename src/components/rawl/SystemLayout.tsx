@@ -450,17 +450,18 @@ const VoiceName: React.FC<{
           display: voiceName && top > 35 ? "block" : "none",
           fontFamily: "sans-serif",
           fontSize: "12px",
+          userSelect: "none",
         }}
         ref={ref}
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
       >
         <span>
           {!isSingleActive && (
             <input
               title="active"
               type="checkbox"
-              onClick={(e) => {
-                e.stopPropagation();
-              }}
               onChange={(e) => {
                 e.stopPropagation();
                 setVoiceMask(
@@ -774,34 +775,37 @@ export const SplitSystemLayout: React.FC<{
     >
       <div>
         {voicesSortedByAverageMidiNumber.map(({ voiceIndex, notes }, order) => (
-          <Voice
-            key={voiceIndex}
-            voiceName={voiceNames[voiceIndex]}
-            notes={notes}
-            measuresAndBeats={measuresAndBeats}
-            analysis={analysis}
-            mouseHandlers={mouseHandlers}
-            measureSelection={measureSelection}
-            showVelocity={showVelocity}
-            showHeader={order === voicesSortedByAverageMidiNumber.length - 1}
-            cursor={
-              <Cursor
-                style={{
-                  transition:
-                    Math.abs(prevPositionSeconds.current - positionSeconds) < 1
-                      ? "left 0.4s linear"
-                      : "",
-                  left: secondsToX(positionSeconds),
-                }}
-              />
-            }
-            phraseStarts={phraseStarts}
-            scrollLeft={scrollInfo.left}
-            scrollRight={scrollInfo.right}
-            voiceMask={voiceMask}
-            setVoiceMask={setVoiceMask}
-            voiceIndex={voiceIndex}
-          />
+          <div style={{ zIndex: 20 - voiceIndex }}>
+            <Voice
+              key={voiceIndex}
+              voiceName={voiceNames[voiceIndex]}
+              notes={notes}
+              measuresAndBeats={measuresAndBeats}
+              analysis={analysis}
+              mouseHandlers={mouseHandlers}
+              measureSelection={measureSelection}
+              showVelocity={showVelocity}
+              showHeader={order === voicesSortedByAverageMidiNumber.length - 1}
+              cursor={
+                <Cursor
+                  style={{
+                    transition:
+                      Math.abs(prevPositionSeconds.current - positionSeconds) <
+                      1
+                        ? "left 0.4s linear"
+                        : "",
+                    left: secondsToX(positionSeconds),
+                  }}
+                />
+              }
+              phraseStarts={phraseStarts}
+              scrollLeft={scrollInfo.left}
+              scrollRight={scrollInfo.right}
+              voiceMask={voiceMask}
+              setVoiceMask={setVoiceMask}
+              voiceIndex={voiceIndex}
+            />
+          </div>
         ))}
       </div>
     </div>

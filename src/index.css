@@ -9,6 +9,7 @@
     --charW3neg: -24px;
 
     --clickable: #fb0;
+    --visited: rgb(255, 115, 0);
     --active: #800;
     --button: #66d;
     --focus: #00f;
@@ -76,10 +77,10 @@ a:focus {
 a:active {
     background: var(--active);
 }
-/* 
+
 a:visited {
-    color: var(--clickable);
-} */
+    color: var(--visited);
+}
 
 /* Form elements */
 
@@ -92,7 +93,7 @@ button {
     -moz-appearance: none;
     -webkit-appearance: none;
     padding: 0 var(--charW1);
-    color: var(--clickable);
+    color: white;
     cursor: pointer;
 }
 
@@ -248,8 +249,6 @@ body,
 
 .AppFooter-settings {
     border-left: 1px solid var(--clickable);
-    padding: var(--charH) var(--charW2);
-    max-width: 360px;
     overflow-y: scroll;
     overflow-x: hidden;
 }

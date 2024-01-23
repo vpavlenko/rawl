@@ -207,7 +207,7 @@ class App extends React.Component {
       infoTexts: [],
       showInfo: false,
       showPlayerError: false,
-      showPlayerSettings: false,
+      showPlayerSettings: true,
       user: null,
       faves: [],
       songUrl: null,

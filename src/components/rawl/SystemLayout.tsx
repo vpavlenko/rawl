@@ -470,6 +470,7 @@ const VoiceName: React.FC<{
                 );
               }}
               checked={voiceMask[voiceIndex]}
+              style={{ marginRight: 10 }}
             />
           )}
           <button
@@ -492,7 +493,7 @@ const VoiceName: React.FC<{
         <span
           style={{
             color: voiceMask[voiceIndex] ? "white" : "#444",
-            marginLeft: "30px",
+            marginLeft: "10px",
             zIndex: 100,
           }}
         >

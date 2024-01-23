@@ -59,6 +59,15 @@ const TheRest = ({ sequencer }) => {
           <S artist="MIDI/War" song="Low Rider.mid" />
         </li>
       </ul>
+      <h3>Rock solo</h3>
+      <ul>
+        <li>
+          <S artist="MIDI/Zucchero" song="Senza Una Donna.7.mid" />
+        </li>
+        <li>
+          <S artist="MIDI/Marx Richard" song="Hazard.mid" />
+        </li>
+      </ul>
     </>
   );
 };

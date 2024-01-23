@@ -439,7 +439,7 @@ const Rawl: React.FC<{
       </div>
       <div
         key="piano-legend"
-        style={{ position: "absolute", bottom: 20, right: 20, zIndex: 10 }}
+        style={{ position: "absolute", bottom: 20, right: 20, zIndex: 30 }}
       >
         <PianoLegend />
       </div>

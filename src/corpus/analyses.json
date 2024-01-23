@@ -773,8 +773,7 @@
           "style:blues",
           "voicing:power_chords",
           "voicing:blues",
-          "scale:major",
-          "form:rock_solo"
+          "scale:major"
         ],
         "modulations": {
           "38": 9
@@ -3169,7 +3168,8 @@
           "modulation:up_at_the_end",
           "scale:major",
           "voicing:triads",
-          "texture:guitar_strumming"
+          "texture:guitar_strumming",
+          "arrangement:fills_at_rests"
         ],
         "fourMeasurePhrasingReferences": [
           3
@@ -4474,11 +4474,41 @@
         "phrasePatch": [
           {
             "measure": 1,
-            "diff": 1
+            "diff": 0
+          },
+          {
+            "measure": 9,
+            "diff": 2
+          },
+          {
+            "measure": 19,
+            "diff": 4
+          },
+          {
+            "measure": 51,
+            "diff": -2
           }
         ],
         "comment": "",
-        "tonic": 7,
+        "tonic": 11,
+        "tags": [],
+        "modulations": {
+          "23": 2,
+          "49": 11
+        }
+      }
+    },
+    "The Year of the Cat.1.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 0,
         "tags": [],
         "modulations": {}
       }
@@ -5045,6 +5075,275 @@
         "tonic": 8,
         "tags": [],
         "modulations": {}
+      }
+    }
+  },
+  "MIDI/Zhi-Vago": {
+    "Celebrate (The Love).mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 3
+          }
+        ],
+        "comment": "",
+        "tonic": 1,
+        "modulations": {},
+        "tags": [
+          "scale:natural_minor",
+          "voicing:root"
+        ]
+      }
+    }
+  },
+  "MIDI/Jane's Addiction": {
+    "Jane Says.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 7,
+        "modulations": {},
+        "tags": [
+          "functionality:shuttle"
+        ]
+      }
+    }
+  },
+  "MIDI/Eddy Grant": {
+    "Electric Avenue.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 7,
+        "modulations": {},
+        "tags": [
+          "functionality:stasis",
+          "voicing:blues"
+        ]
+      }
+    }
+  },
+  "MIDI/Zucchero": {
+    "Senza Una Donna.7.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 11,
+        "modulations": {
+          "22": 2,
+          "30": 11,
+          "46": 2,
+          "54": 11,
+          "70": 2
+        },
+        "tags": [
+          "scale:dorian",
+          "modulation:relative_major",
+          "voicing:alterations",
+          "form:rock_solo"
+        ]
+      }
+    }
+  },
+  "MIDI/Bob Marley": {
+    "Waiting In Vain.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          }
+        ],
+        "comment": "",
+        "tonic": 8,
+        "modulations": {},
+        "tags": [
+          "voicing:diatonic_sevenths",
+          "functionality:shuttle"
+        ]
+      }
+    },
+    "Jammin'.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          }
+        ],
+        "comment": "",
+        "tonic": 11,
+        "modulations": {},
+        "tags": [
+          "scale:dorian"
+        ]
+      }
+    },
+    "Three Little Birds.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          }
+        ],
+        "comment": "",
+        "tonic": 9,
+        "modulations": {},
+        "tags": [
+          "harmony:pure_I-IV-V"
+        ]
+      }
+    },
+    "I shot the Sheriff.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          },
+          {
+            "measure": 23,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 7,
+        "modulations": {},
+        "tags": [
+          "scale:natural_minor"
+        ]
+      }
+    },
+    "Could You Be Loved.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          }
+        ],
+        "comment": "",
+        "tonic": 0,
+        "tags": [],
+        "modulations": {}
+      }
+    }
+  },
+  "MIDI/Carpenters": {
+    "Jambalaya (On the Bayou).mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 5,
+            "diff": -1
+          },
+          {
+            "measure": 8,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 7,
+        "modulations": {},
+        "tags": [
+          "harmony:pure_I-V",
+          "chord:Iadd6"
+        ]
+      }
+    },
+    "Jambalaya (On the Bayou).1.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 5,
+            "diff": -1
+          }
+        ],
+        "comment": "",
+        "tonic": 10,
+        "tags": [
+          "harmony:pure_I-V",
+          "modulation:up_at_the_end"
+        ],
+        "modulations": {
+          "28": 11
+        }
+      }
+    }
+  },
+  "MIDI/Traffic": {
+    "Feelin' All Right.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          }
+        ],
+        "comment": "",
+        "tonic": 0,
+        "modulations": {},
+        "tags": [
+          "voicing:blues"
+        ]
+      }
+    }
+  },
+  "MIDI/Donovan": {
+    "Mellow Yellow.1.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          }
+        ],
+        "comment": "",
+        "tonic": 2,
+        "modulations": {},
+        "tags": [
+          "voice-leading:chromatic",
+          "harmony:pure_I-IV-V",
+          "voicing:blues"
+        ]
       }
     }
   }

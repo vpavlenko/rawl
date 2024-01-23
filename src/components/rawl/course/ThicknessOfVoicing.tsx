@@ -4,6 +4,12 @@ import { S } from "./Course";
 const ThicknessOfVoicing = ({ sequencer }) => {
   return (
     <>
+      <h3>Just the bass</h3>
+      <ul>
+        <li>
+          <S artist="MIDI/Zhi-Vago" song="Celebrate (The Love).mid" />
+        </li>
+      </ul>
       <h3>Power chords</h3>
       <ul>
         <li>
@@ -14,6 +20,9 @@ const ThicknessOfVoicing = ({ sequencer }) => {
         </li>
         <li>
           <S artist="MIDI/Violent Femmes" song="Blister in the Sun.mid" />
+        </li>
+        <li>
+          <S artist="MIDI/ZZ Top" song="Sharp Dressed Man.3.mid" />
         </li>
       </ul>
       <h3>Diatonic seventh chords</h3>

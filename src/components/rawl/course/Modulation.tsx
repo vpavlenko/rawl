@@ -54,6 +54,9 @@ const Modulation = ({ sequencer }) => {
         <li>
           <S artist="MIDI/Vertical Horizon" song="Everything You Want.mid" />
         </li>
+        <li>
+          <S artist="MIDI/Zucchero" song="Senza Una Donna.7.mid" />
+        </li>
       </ul>
     </>
   );

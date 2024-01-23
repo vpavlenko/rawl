@@ -900,6 +900,7 @@ img {
 
 .noteColor_3_colors {
     background-color: #fffd37;
+    border-radius: 0 !important;
 }
 
 .noteColor_4_colors {
@@ -919,7 +920,8 @@ img {
 }
 
 .noteColor_8_colors {
-    background-color: #ff7000;
+    background-color: #ff7811;
+    border-radius: 0 !important;
 }
 
 .noteColor_9_colors {
@@ -927,11 +929,14 @@ img {
 }
 
 .noteColor_10_colors {
-    background-color: #9c5c02;
+    background-color: #925601;
 }
 
 .noteColor_11_colors {
-    background-color: #a000ff;
+    border-top: 2px solid #a000ff;
+    border-bottom: 2px solid #a000ff;
+    border-radius: 0 !important;
+    /* background-color: #a000ff; */
 }
 
 .noteColor_0_shapes {
@@ -986,8 +991,8 @@ img {
 
 .noteColor_9_shapes {
     /* background-color: rgb(83, 83, 83); */
-    border-top: 1px solid rgb(46, 46, 255);
-    border-bottom: 1px solid rgb(46, 46, 255);
+    border-top: 1px solid rgb(100, 100, 255);
+    border-bottom: 1px solid rgb(100, 100, 255);
     border-radius: 0 !important;
 }
 

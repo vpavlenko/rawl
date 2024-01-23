@@ -8,6 +8,7 @@ import {
   useState,
 } from "react";
 import { AnalysisGrid, Cursor, MeasureSelection } from "./AnalysisGrid";
+import { ColorScheme, useColorScheme } from "./ColorScheme";
 import { SecondsSpan, SetVoiceMask, secondsToX, xToSeconds } from "./Rawl";
 import { Analysis, PitchClass } from "./analysis";
 import { Note, NotesInVoices } from "./parseMidi";
@@ -176,14 +177,19 @@ const getMidiRangeWithMask = (
   return [min, max];
 };
 
-const getNoteColor = (note: Note, analysis, measures: number[]): string =>
+const getNoteColor = (
+  note: Note,
+  analysis,
+  measures: number[],
+  colorScheme: ColorScheme,
+): string =>
   `noteColor_${
     analysis.tonic === null
       ? "default"
       : (note.note.midiNumber -
           getTonic(getNoteMeasure(note, measures), analysis)) %
         12
-  }`;
+  }_${colorScheme}`;
 
 type MouseEventHanlder = (note: Note, altKey: boolean) => void;
 export type MouseHandlers = {
@@ -207,13 +213,14 @@ const getNoteRectangles = (
   handleMouseEnter: MouseEventHanlder,
   handleMouseLeave: () => void,
   showVelocity = false,
+  colorScheme: ColorScheme,
 ) => {
   return notes.map((note) => {
     const top = midiNumberToY(note.note.midiNumber);
     const left = secondsToX(note.span[0]);
     const color = note.isDrum
       ? "noteColor_drum"
-      : getNoteColor(note, analysis, measures);
+      : getNoteColor(note, analysis, measures, colorScheme);
     const chordNote = note.isDrum
       ? GM_DRUM_KIT[note.note.midiNumber] || note.note.midiNumber
       : null;
@@ -248,25 +255,16 @@ const getNoteRectangles = (
           top,
           left,
           pointerEvents: voiceIndex === -1 ? "none" : "auto",
-          borderRadius: note.isDrum
-            ? 0
-            : [10, 3, 0, 5, 20, 7, 1][voiceIndex % 7],
-          // borderBottom: note.isDrum ? "1px solid white" : "",
           cursor: handleNoteClick ? "pointer" : "default",
           zIndex: 10,
           // TODO: make it map onto the dynamic range of a song? of a track?
           opacity: isActiveVoice
             ? (showVelocity && note?.chipState?.on?.param2 / 127) || 1
             : 0.4,
+          borderRadius: "5px",
+          boxSizing: "border-box",
           display: "grid",
           placeItems: "center",
-          ...(voiceIndex === -1
-            ? {
-                boxShadow: "white 0px 1px",
-                boxSizing: "border-box",
-                backgroundColor: "transparent",
-              }
-            : {}),
         }}
         onClick={(e) => {
           e.stopPropagation();
@@ -304,6 +302,8 @@ export const MergedSystemLayout = ({
     hoveredAltKey,
     systemClickHandler,
   } = mouseHandlers;
+
+  const { colorScheme } = useColorScheme();
 
   // TODO: probably should exclude isDrum notes
   const midiRange = useMemo(() => getMidiRange(notes.flat()), [notes]);
@@ -352,6 +352,7 @@ export const MergedSystemLayout = ({
           handleMouseEnter,
           handleMouseLeave,
           showVelocity,
+          colorScheme,
         ),
       ),
     [
@@ -363,6 +364,7 @@ export const MergedSystemLayout = ({
       hoveredNote,
       hoveredAltKey,
       showVelocity,
+      colorScheme,
     ],
   );
   const phraseStarts = useMemo(
@@ -536,6 +538,8 @@ export const Voice: React.FC<{
   voiceMask,
   showTonalGrid = true,
 }) => {
+  const { colorScheme } = useColorScheme();
+
   const midiRange = useMemo(
     () =>
       getMidiRangeWithMask(notes, SPLIT_VOICE_MASK, [
@@ -574,6 +578,7 @@ export const Voice: React.FC<{
           handleMouseEnter,
           () => {},
           showVelocity,
+          colorScheme,
         ),
       ),
       frozenHeight: height,
@@ -587,6 +592,7 @@ export const Voice: React.FC<{
       handleMouseEnter,
       voiceMask,
       scrollLeft,
+      colorScheme,
     ],
   );
 

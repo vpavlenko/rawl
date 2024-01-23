@@ -51,6 +51,7 @@ import DropMessage from "./DropMessage";
 import MessageBox from "./MessageBox";
 import Visualizer from "./Visualizer";
 import Axes from "./rawl/Axes";
+import { ColorSchemeProvider } from "./rawl/ColorScheme";
 import Intro from "./rawl/Intro";
 import Rawl from "./rawl/Rawl";
 import TagSearch from "./rawl/TagSearch";
@@ -870,103 +871,105 @@ class App extends React.Component {
       />
     );
     return (
-      <Dropzone disableClick style={{}} onDrop={this.onDrop}>
-        {(dropzoneProps) => (
-          <div className="App">
-            <DropMessage dropzoneProps={dropzoneProps} />
-            <MessageBox
-              showInfo={this.state.showInfo}
-              infoTexts={this.state.infoTexts}
-              toggleInfo={this.toggleInfo}
-            />
-            <Alert
-              handlePlayerError={this.handlePlayerError}
-              playerError={this.state.playerError}
-              showPlayerError={this.state.showPlayerError}
-            />
-            <AppHeader isPhone={isMobile.phone} />
-            <div className="App-main">
-              <div className="App-main-inner">
-                <div className="App-main-content-and-settings">
-                  <div
-                    className="App-main-content-area"
-                    ref={this.contentAreaRef}
-                  >
-                    <Switch>
-                      <Route
-                        path="/"
-                        exact
-                        render={() => <Redirect to="/course" />}
-                      />
-                      <Route
-                        path="/axes"
-                        render={() => <Axes sequencer={this.sequencer} />}
-                      />
-                      <Route
-                        path="/course/:chapter*"
-                        render={({ match }) => (
-                          <Course
-                            sequencer={this.sequencer}
-                            chapter={match.params?.chapter}
-                          />
-                        )}
-                      />
-                      <Route path="/intro" render={() => <Intro />} />
-                      <Route
-                        path="/tags/:tag*"
-                        render={({ match }) => (
-                          <TagSearch
-                            tag={match.params?.tag}
-                            analyses={this.state.analyses}
-                          />
-                        )}
-                      />
-                      {browseRoute}
-                    </Switch>
+      <ColorSchemeProvider>
+        <Dropzone disableClick style={{}} onDrop={this.onDrop}>
+          {(dropzoneProps) => (
+            <div className="App">
+              <DropMessage dropzoneProps={dropzoneProps} />
+              <MessageBox
+                showInfo={this.state.showInfo}
+                infoTexts={this.state.infoTexts}
+                toggleInfo={this.toggleInfo}
+              />
+              <Alert
+                handlePlayerError={this.handlePlayerError}
+                playerError={this.state.playerError}
+                showPlayerError={this.state.showPlayerError}
+              />
+              <AppHeader isPhone={isMobile.phone} />
+              <div className="App-main">
+                <div className="App-main-inner">
+                  <div className="App-main-content-and-settings">
+                    <div
+                      className="App-main-content-area"
+                      ref={this.contentAreaRef}
+                    >
+                      <Switch>
+                        <Route
+                          path="/"
+                          exact
+                          render={() => <Redirect to="/course" />}
+                        />
+                        <Route
+                          path="/axes"
+                          render={() => <Axes sequencer={this.sequencer} />}
+                        />
+                        <Route
+                          path="/course/:chapter*"
+                          render={({ match }) => (
+                            <Course
+                              sequencer={this.sequencer}
+                              chapter={match.params?.chapter}
+                            />
+                          )}
+                        />
+                        <Route path="/intro" render={() => <Intro />} />
+                        <Route
+                          path="/tags/:tag*"
+                          render={({ match }) => (
+                            <TagSearch
+                              tag={match.params?.tag}
+                              analyses={this.state.analyses}
+                            />
+                          )}
+                        />
+                        {browseRoute}
+                      </Switch>
+                    </div>
                   </div>
                 </div>
+                {!isMobile.phone && !this.state.loading && (
+                  <Visualizer
+                    audioCtx={this.audioCtx}
+                    sourceNode={this.playerNode}
+                    chipCore={this.chipCore}
+                    settingsEnabled={this.state.showPlayerSettings}
+                    handleToggleSettings={this.toggleSettings}
+                    analysisEnabled={this.state.analysisEnabled}
+                    handleToggleAnalysis={() =>
+                      this.setState((state) => ({
+                        analysisEnabled: !state.analysisEnabled,
+                      }))
+                    }
+                    paused={this.state.ejected || this.state.paused}
+                    user={this.state.user}
+                    handleLogout={this.handleLogout}
+                    handleLogin={this.handleLogin}
+                  />
+                )}
               </div>
-              {!isMobile.phone && !this.state.loading && (
-                <Visualizer
-                  audioCtx={this.audioCtx}
-                  sourceNode={this.playerNode}
-                  chipCore={this.chipCore}
-                  settingsEnabled={this.state.showPlayerSettings}
-                  handleToggleSettings={this.toggleSettings}
-                  analysisEnabled={this.state.analysisEnabled}
-                  handleToggleAnalysis={() =>
-                    this.setState((state) => ({
-                      analysisEnabled: !state.analysisEnabled,
-                    }))
-                  }
-                  paused={this.state.ejected || this.state.paused}
-                  user={this.state.user}
-                  handleLogout={this.handleLogout}
-                  handleLogin={this.handleLogin}
-                />
-              )}
+              <AppFooter
+                currentSongDurationMs={this.state.currentSongDurationMs}
+                currentSongNumVoices={this.state.currentSongNumVoices}
+                ejected={this.state.ejected}
+                paused={this.state.paused}
+                showPlayerSettings={this.state.showPlayerSettings}
+                songUrl={this.state.songUrl}
+                tempo={this.state.tempo}
+                voiceNames={this.state.voiceNames}
+                voiceMask={this.state.voiceMask}
+                volume={this.state.volume}
+                handleSetVoiceMask={this.handleSetVoiceMask}
+                handleTempoChange={this.handleTempoChange}
+                handleTimeSliderChange={this.handleTimeSliderChange}
+                handleVolumeChange={this.handleVolumeChange}
+                sequencer={this.sequencer}
+                togglePause={this.togglePause}
+              />
             </div>
-            <AppFooter
-              currentSongDurationMs={this.state.currentSongDurationMs}
-              currentSongNumVoices={this.state.currentSongNumVoices}
-              ejected={this.state.ejected}
-              paused={this.state.paused}
-              showPlayerSettings={this.state.showPlayerSettings}
-              songUrl={this.state.songUrl}
-              tempo={this.state.tempo}
-              voiceNames={this.state.voiceNames}
-              voiceMask={this.state.voiceMask}
-              volume={this.state.volume}
-              handleSetVoiceMask={this.handleSetVoiceMask}
-              handleTempoChange={this.handleTempoChange}
-              handleTimeSliderChange={this.handleTimeSliderChange}
-              handleVolumeChange={this.handleVolumeChange}
-              sequencer={this.sequencer}
-              togglePause={this.togglePause}
-            />
-          </div>
-        )}
-      </Dropzone>
+          )}
+        </Dropzone>
+      </ColorSchemeProvider>
     );
   }
 }

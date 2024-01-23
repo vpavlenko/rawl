@@ -21,7 +21,7 @@ const VerticalBar = styled.div`
 `;
 
 export const Cursor = styled(VerticalBar)`
-  background-color: #ff6666;
+  background-color: orange;
   pointer-events: none;
 `;
 

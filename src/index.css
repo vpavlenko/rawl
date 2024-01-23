@@ -24,7 +24,7 @@
 .App {
     font-size: 16px;
     font-family: 'Lato', sans-serif;
-    -webkit-font-smoothing: antialiased;
+    -webkit-font-smoothing: antialiased; 
     -moz-osx-font-smoothing: grayscale;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
@@ -730,8 +730,8 @@ img {
 }
 
 .noteColor_0_shapes {
-    background-color: rgb(126, 171, 254);
-    box-shadow: 0 0 6px rgb(126, 171, 254);
+    background-color: #ff90ff;
+    box-shadow: 0 0 3px #ff00ff, 0 0 6px #ff00ff, 0 0 9px #ff00ff;
 }
 
 .noteColor_1_shapes {
@@ -744,14 +744,16 @@ img {
 }
 
 .noteColor_3_shapes {
-    background-color: rgb(144, 0, 253);
-    border-top: 1px solid white;
-    border-left: 1px solid white;
+    background-color: rgb(192, 0, 176);
+     /* border-top: 1px solid white; */
+    /* border-left: 1px solid white;  */
+    border-left: 1px dashed white;
+    border-top: 1px dashed white;
     border-radius: 0px !important;
 }
 
 .noteColor_4_shapes {
-    background-color: rgb(0, 0, 247);
+    background-color: rgb(0, 0, 183);
 }
 
 .noteColor_5_shapes {
@@ -765,6 +767,7 @@ img {
 
 .noteColor_6_shapes {
     background-color: black;
+    border: 1px dotted white;
     box-shadow: 0 0 3px white, 0 0 6px white, 0 0 9px white;
 }
 
@@ -774,8 +777,10 @@ img {
 
 .noteColor_8_shapes {
     background-color: rgb(71, 71, 71);
-    border-top: 1px solid yellow;
-    border-left: 1px solid yellow;
+    /* border-top: 1px solid yellow; */
+    /* border-left: 1px solid yellow; */
+    border-left: 1px dashed rgb(228, 228, 0);
+    border-top: 1px dashed rgb(228, 228, 0);
     border-radius: 0 !important;
 }
 
@@ -797,11 +802,13 @@ img {
 }
 
 .noteColor_10_shapes {
-    background: linear-gradient(to top, rgb(51, 51, 252), yellow);
+    /* background: linear-gradient(to top, rgb(51, 51, 252), yellow); */
+
+    box-shadow: 0 0 3px orange, 0 0 6px orange, 0 0 9px orange, inset 0 0 3px blue, inset 0 0 6px blue;
     border-radius: 0 !important;
 }
 
 .noteColor_11_shapes {
-    background-color: rgb(255, 229, 32);
-    box-shadow: 0 0 6px rgb(255, 229, 32);
+    background-color: rgb(38, 255, 30);
+    box-shadow: 0 0 3px rgb(38, 255, 30), 0 0 6px rgb(38, 255, 30), 0 0 9px rgb(38, 255, 30);
 }

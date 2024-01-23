@@ -78,7 +78,7 @@ export default class Browse extends React.PureComponent {
       <>
         <div
           style={{
-            height: searchParams.get("song") ? "1px" : "100%",
+            height: searchParams.get("song") ? "0px" : "100%",
             overflow: "scroll",
             margin: 0,
           }}

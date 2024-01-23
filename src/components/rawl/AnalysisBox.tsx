@@ -319,7 +319,7 @@ export const AnalysisBox: React.FC<{
     );
 
     return (
-      <div key="menu" style={{ marginTop: "20px" }}>
+      <div key="menu" style={{ marginTop: "100px" }}>
         {selectedMeasure !== null ? (
           <div>
             <div>What to do with measure {selectedMeasure}?</div>

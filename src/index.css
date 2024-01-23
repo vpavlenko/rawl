@@ -682,12 +682,11 @@ img {
 
 .noteColor_1_colors {
     background-color: maroon;
-    box-shadow: 0 0 3px maroon, 0 0 6px maroon, 0 0 9px maroon;
+    box-shadow: 0 0 3px maroon, 0 0 6px maroon;
 }
 
 .noteColor_2_colors {
     background-color: #fc697f;
-    border-radius: 0 !important;
 }
 
 .noteColor_3_colors {
@@ -696,7 +695,7 @@ img {
 
 .noteColor_4_colors {
     background-color: #00ff59;
-    box-shadow: 0 0 3px #00ff59, 0 0 6px #00ff59, 0 0 9px #00ff59;
+    box-shadow: 0 0 3px #00ff59, 0 0 6px #00ff59;
 }
 
 .noteColor_5_colors {
@@ -705,40 +704,36 @@ img {
      0, 0); 
     border-top: 2px solid #00d5ff;
     border-bottom: 2px solid #00d5ff;
-    border-radius: 0 !important;
 }
 
 .noteColor_6_colors {
     background-color: gray;
-    box-shadow: 0 0 3px gray, 0 0 6px gray, 0 0 9px gray;
+    box-shadow: 0 0 3px gray, 0 0 6px gray;
 }
 
 .noteColor_7_colors {
     background-color: rgb(12, 12, 252);
-    border-radius: 0px !important;
 }
 
 .noteColor_8_colors {
     /* background-color: #dd4d00; */
     border-top: 2px solid #dd4d00;
     border-bottom: 2px solid #dd4d00;
-    border-radius: 0 !important;
 }
 
 .noteColor_9_colors {
     border-top: 2px solid #007000;
     border-bottom: 2px solid #007000;
-    border-radius: 0 !important;
 }
 
 .noteColor_10_colors {
     background-color: #925601;
-    box-shadow: 0 0 3px #925601, 0 0 6px #925601, 0 0 9px #925601;
+    box-shadow: 0 0 3px #925601, 0 0 6px #925601;
 }
 
 .noteColor_11_colors {
     background-color: #a000ff;
-    box-shadow: 0 0 3px #a000ff, 0 0 6px #a000ff, 0 0 9px #a000ff;
+    box-shadow: 0 0 3px #a000ff, 0 0 6px #a000ff;
 }
 
 .noteColor_0_shapes {

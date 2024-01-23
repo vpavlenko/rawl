@@ -37,18 +37,54 @@ const ChordsInMajor = ({ sequencer }) => {
         </Row>
       </div>
       <div>
-        In the simplest case, a song in major uses only two chords, I and V:
+        A fundamental structure used everywhere in Western music is chords built
+        in thirds. A chord is several notes that sound together. "Built in
+        thirds" simply means that as you start with a root note, you go up and
+        skip one - add one - skip one - add one the from the scale. Let's see
+        how all six most popular chords are built from the major scale:
+        <NoteSnippet
+          notes="0,4,C3 E3 G3 r4 C3-E3-G3 r4 D3 F3 A3 r4 D3-F3-A3 r4 E3 G3 B3 r4 E3-G3-B3 r4 F3 A3 C4 r4 F3-A3-C4 r4 G3 B3 D4 r4 G3-B3-D4 r4 A3 C4 E4 r4 A3-C4-E4"
+          sequencer={sequencer}
+        />
+      </div>
+      <div>
+        In the simplest case, a song in major uses only two chords, I and V,
+        named so because of root notes they're built on:
         <NoteSnippet notes="0,1,C3-E3-G3 G3-B3-D4" sequencer={sequencer} />
       </div>
       <div>
-        These chords can be arranged by doubling some notes in other octaves:
+        In Western music a bass usually plays the root, and some other
+        instrument - a piano or a guitar - plays all notes of the chord. So
+        we'll call it the same chords - I and V - even if they are{" "}
+        <i>inverted</i>, like this:
+        <NoteSnippet
+          notes="0,2,C3-E3-G3 E3-G3-C4 G3-C4-E4 C4-E4-G4 G2-B2-D3 B2-D3-G3 D3-G3-B3 G3-B3-D4"
+          sequencer={sequencer}
+        />
+      </div>
+      <div>
+        These two chords can be arranged by doubling some notes in other
+        octaves:
         <NoteSnippet
           notes="0,1,C2-G2-C3-E3-G3-C4 G1-G2-B2-D3-G3-B3 C2-G2-C3-E3-G3-C4 G1-G2-B2-D3-G3-D4 C2-G2-C3-E3-G3-E4"
           sequencer={sequencer}
         />
       </div>
       <div>
-        Find these chords in two songs below. What does every instrument play,
+        Find chords I and V in two songs below. Try to remember a chord as a
+        visual picture bundle of three specific colors. This will help you to
+        rapidly recognize the chords everywhere.
+        <ul>
+          <li>
+            <S artist="MIDI/Chris Andrews" song="Pretty Belinda.1.mid" />
+          </li>
+          <li>
+            <S artist="MIDI/Carpenters" song="Jambalaya (On the Bayou).mid" />
+          </li>
+        </ul>
+      </div>
+      <div>
+        Look again at those two songs. What does every instrument play,
         structurally:
         <ul>
           <li>a melody?</li>
@@ -56,20 +92,6 @@ const ChordsInMajor = ({ sequencer }) => {
           <li>notes somehow related to a chord?</li>
         </ul>
       </div>
-      <ol>
-        <li>
-          <S artist="MIDI/Chris Andrews" song="Pretty Belinda.1.mid" />{" "}
-        </li>
-        <li>
-          <S artist="MIDI/Carpenters" song="Jambalaya (On the Bayou).mid" />
-        </li>
-      </ol>
-      {/* <h3>V7</h3>
-      <ul>
-        <li>
-          <S artist="MIDI/Wet Willie" song="Keep on Smiling.mid" />
-        </li>
-      </ul> */}
       <h3>I-IV-V</h3>
       <div>
         Let's grow our vocabulary and add a IV chord to it. I-IV-V-I:
@@ -79,21 +101,34 @@ const ChordsInMajor = ({ sequencer }) => {
         />
       </div>
       <div>
-        Using these three chords we can smoothly harmonize the whole scale:
+        Let's take our major scale:
+        <NoteSnippet
+          notes="0,4,C3 D3 E3 F3 G3 A3 B3 C4"
+          sequencer={sequencer}
+        />
+      </div>
+      <div>
+        Using these three chords we can smoothly <i>harmonize</i> the whole
+        scale as a melody - we can add chords beneath it so that every chord has
+        a note of this melody:
         <NoteSnippet
           notes="0,1,C2-G2-C3-E3-G3-C4 G1-G2-B2-D3-G3-D4 C2-G2-C3-E3-G3-E4 F1-A2-C3-F3-A3-F4 C2-G2-C3-E3-G3-G4 F1-A2-C3-F3-A3-A4 G1-G2-B2-D3-G3-B4 C2-G2-C3-E3-G3-C5"
           sequencer={sequencer}
         />
       </div>
-      <div>Find chords in two arrangements below:</div>
+      <div>
+        Find chords in three arrangements below. Can you "hear" these chords?
+        What does a melody usually do - does it play the notes of the current
+        chord, mostly?
+      </div>
       <ul>
         <li>
           <S artist="MIDI/Bob Marley" song="Three Little Birds.mid" />
         </li>
         <li>
-          <S artist="MIDI/Chocolate" song="Everybody Salsa.mid" /> – This one
-          modulates to parallel minor in measure 83. We'll talk about both minor
-          and this type of modulation later on.
+          <S artist="MIDI/Chocolate" song="Everybody Salsa.mid" /> – Skip the
+          part after measure 83. It modulates to parallel minor. We'll talk
+          about minors and modulation in later chapters.
         </li>
         <li>
           <S artist="MIDI/Valens Ritchie" song="La Bamba.mid" />

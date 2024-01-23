@@ -736,12 +736,12 @@ img {
 
 .noteColor_1_shapes {
     background-color: black;
-    border: 1px dashed rgb(253, 139, 139);
+    border: 1px dashed rgb(253, 139, 0);
 }
 
 .noteColor_2_shapes {
-    background-color: rgba(0, 255, 119, 0.935);
-    box-shadow: 0 0 3px rgba(0, 255, 119, 0.935), 0 0 6px rgba(0, 255, 119, 0.935), 0 0 9px rgba(0, 255, 119, 0.935);
+    background-color: rgb(0, 255, 123);
+    box-shadow: 0 0 3px rgb(0, 255, 123), 0 0 6px rgb(0, 255, 123), 0 0 9px rgb(0, 255, 123);
 }
 
 .noteColor_3_shapes {
@@ -754,7 +754,7 @@ img {
 }
 
 .noteColor_4_shapes {
-    background-color: rgb(0, 0, 183);
+    background-color: #0e72d6;
 }
 
 .noteColor_5_shapes {
@@ -805,10 +805,10 @@ img {
 .noteColor_10_shapes {
     /* background: linear-gradient(to top, rgb(51, 51, 252), yellow); */
 
-    box-shadow: 0 0 3px orange, 0 0 6px orange, 0 0 9px orange, inset 0 0 3px blue, inset 0 0 6px blue;
+    box-shadow: 0 0 3px rgb(0, 255, 123), 0 0 6px rgb(0, 255, 123), 0 0 9px rgb(0, 255, 123), inset 0 0 3px blue, inset 0 0 6px blue;
     border-radius: 0 !important;
 }
 
 .noteColor_11_shapes {
-    background-color: rgb(103, 121, 0);
+    background-color: #ff0000;
 }

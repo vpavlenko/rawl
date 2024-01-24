@@ -112,7 +112,7 @@ const ChordCloud: React.FC<{
             fontSize: 72,
             zIndex: 10,
             textShadow:
-              "0 0 1px black, 0 0 3px black, 0 0 5px black, 0 0 7px black, 0 0 10px black, 0 0 15px black, 0 0 20px black, 0 0 30px black, 0 0 40px black, 0 0 100px black",
+              "0 0 1px black, 0 0 3px black, 0 0 5px black, 0 0 7px black, 0 0 10px black, 0 0 15px black, 0 0 20px black, 0 0 30px black",
           }}
         >
           {name}

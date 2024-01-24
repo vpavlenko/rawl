@@ -421,7 +421,7 @@ const Rawl: React.FC<{
             onClick={() => setSystemLayout("merged")}
             type="radio"
             name="system-layout"
-            defaultChecked={systemLayout === "merged"}
+            checked={systemLayout === "merged"}
             value={"horizontal"}
           />
           Merged
@@ -431,7 +431,7 @@ const Rawl: React.FC<{
             onClick={() => setSystemLayout("split")}
             type="radio"
             name="system-layout"
-            defaultChecked={systemLayout === "split"}
+            checked={systemLayout === "split"}
             value={"split"}
           />
           Split

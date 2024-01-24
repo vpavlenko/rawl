@@ -77,7 +77,7 @@ export const PianoLegend: React.FC = () => {
             onClick={() => setColorScheme("colors")}
             type="radio"
             name="color-scheme"
-            defaultChecked={colorScheme === "colors"}
+            checked={colorScheme === "colors"}
             value={"colors"}
           />
           rainbow
@@ -87,7 +87,7 @@ export const PianoLegend: React.FC = () => {
             onClick={() => setColorScheme("shapes")}
             type="radio"
             name="color-scheme"
-            defaultChecked={colorScheme === "shapes"}
+            checked={colorScheme === "shapes"}
             value={"shapes"}
           />
           neon

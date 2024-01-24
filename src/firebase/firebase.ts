@@ -1,7 +1,15 @@
-import { initializeApp } from "firebase/app"
-import { connectAuthEmulator, getAuth } from "firebase/auth"
-import { connectFirestoreEmulator, getFirestore } from "firebase/firestore"
-import { connectFunctionsEmulator, getFunctions } from "firebase/functions"
+import { FirebaseApp, initializeApp } from "firebase/app"
+import { Auth, connectAuthEmulator, getAuth } from "firebase/auth"
+import {
+  Firestore,
+  connectFirestoreEmulator,
+  getFirestore,
+} from "firebase/firestore"
+import {
+  Functions,
+  connectFunctionsEmulator,
+  getFunctions,
+} from "firebase/functions"
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -12,15 +20,39 @@ const firebaseConfig = {
   appId: process.env.FIREBASE_APP_ID,
 }
 
-const app = initializeApp(firebaseConfig)
+const modules = (() => {
+  try {
+    const app = initializeApp(firebaseConfig)
+    const auth = getAuth(app)
+    const firestore = getFirestore(app)
+    const functions = getFunctions(app)
 
-export const auth = getAuth(app)
-export const firestore = getFirestore(app)
-export const functions = getFunctions(app)
+    if (process.env.NODE_ENV !== "production") {
+      const currentHost = window.location.hostname
+      connectAuthEmulator(auth, `http://${currentHost}:9099`)
+      connectFirestoreEmulator(firestore, currentHost, 8080)
+      connectFunctionsEmulator(functions, currentHost, 5001)
+    }
 
-if (process.env.NODE_ENV !== "production") {
-  const currentHost = window.location.hostname
-  connectAuthEmulator(auth, `http://${currentHost}:9099`)
-  connectFirestoreEmulator(firestore, currentHost, 8080)
-  connectFunctionsEmulator(functions, currentHost, 5001)
-}
+    return {
+      app,
+      auth,
+      firestore,
+      functions,
+    }
+  } catch (e) {
+    console.warn(`Failed to initialize Firebase: ${e}`)
+  }
+
+  return {
+    app: null,
+    auth: null,
+    firestore: null,
+    functions: null,
+  }
+})()
+
+export const app = modules.app as FirebaseApp
+export const auth = modules.auth as Auth
+export const firestore = modules.firestore as Firestore
+export const functions = modules.functions as Functions

@@ -22,7 +22,7 @@ export default class RootStore {
   readonly cloudSongDataRepository: ICloudSongDataRepository =
     new CloudSongDataRepository(firestore)
   readonly songStore = new SongStore(this.cloudSongDataRepository)
-  readonly authStore = new AuthStore(auth, this.userRepository)
+  readonly authStore = new AuthStore(this.userRepository)
   readonly communitySongStore = new CommunitySongStore()
   readonly rootViewStore = new RootViewStore()
   readonly player: Player

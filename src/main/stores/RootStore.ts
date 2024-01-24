@@ -77,7 +77,7 @@ export default class RootStore {
   readonly tempoEditorStore = new TempoEditorStore(this)
   readonly midiDeviceStore = new MIDIDeviceStore()
   readonly exportStore = new ExportStore()
-  readonly authStore = new AuthStore(auth, this.userRepository)
+  readonly authStore = new AuthStore(this.userRepository)
   readonly cloudFileStore = new CloudFileStore(
     this,
     this.cloudSongRepository,

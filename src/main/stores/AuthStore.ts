@@ -1,15 +1,15 @@
-import { Auth, User as AuthUser } from "firebase/auth"
 import { makeObservable, observable } from "mobx"
-import { IUserRepository, User } from "../../repositories/IUserRepository"
+import {
+  AuthUser,
+  IUserRepository,
+  User,
+} from "../../repositories/IUserRepository"
 
 export class AuthStore {
   authUser: AuthUser | null = null
   user: User | null = null
 
-  constructor(
-    auth: Auth,
-    private readonly userRepository: IUserRepository,
-  ) {
+  constructor(private readonly userRepository: IUserRepository) {
     makeObservable(this, {
       authUser: observable,
       user: observable,
@@ -17,7 +17,7 @@ export class AuthStore {
 
     let subscribe: (() => void) | null = null
 
-    auth.onAuthStateChanged(async (user) => {
+    userRepository.observeAuthUser(async (user) => {
       this.authUser = user
 
       subscribe?.()

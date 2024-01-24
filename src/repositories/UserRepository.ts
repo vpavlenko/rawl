@@ -1,6 +1,5 @@
 import { Auth } from "firebase/auth"
 import {
-  CollectionReference,
   Firestore,
   FirestoreDataConverter,
   QueryDocumentSnapshot,
@@ -15,7 +14,7 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore"
-import { IUserRepository, User } from "./IUserRepository"
+import { AuthUser, IUserRepository, User } from "./IUserRepository"
 
 export interface FirestoreUser {
   name: string
@@ -25,15 +24,12 @@ export interface FirestoreUser {
 }
 
 export class UserRepository implements IUserRepository {
-  private readonly userCollection: CollectionReference<FirestoreUser>
-
   constructor(
     private readonly firestore: Firestore,
     private readonly auth: Auth,
-  ) {
-    this.userCollection = collection(this.firestore, "users").withConverter(
-      userConverter,
-    )
+  ) {}
+  private get userCollection() {
+    return collection(this.firestore, "users").withConverter(userConverter)
   }
 
   private get userRef() {
@@ -89,6 +85,13 @@ export class UserRepository implements IUserRepository {
   observeCurrentUser(callback: (user: User | null) => void) {
     return onSnapshot(this.userRef, (snapshot) => {
       snapshot.exists() ? callback(toUser(snapshot)) : callback(null)
+    })
+  }
+
+  observeAuthUser(callback: (user: AuthUser | null) => void): () => void {
+    // If Firebase initialization fails, auth will be null, so use optional chaining to do nothing in that case.
+    return this.auth?.onAuthStateChanged((user) => {
+      callback(user)
     })
   }
 }

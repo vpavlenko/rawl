@@ -51,6 +51,7 @@ const ChordCloud: React.FC<{
   for (let i = notes.length - 1; i >= 0; i--) {
     const note = notes[i];
     legendNotes.push(
+      // @ts-ignore
       <CloudPianoKey
         className={`noteColor_${note}_${colorScheme}`}
         style={{ position: "absolute", top, left: -50 }}

@@ -1,11 +1,93 @@
+import isEqual from "lodash/isEqual";
 import * as React from "react";
+import { useState } from "react";
 import { NoteSnippet } from "../Axes";
+import { ColorScheme, useColorScheme } from "../ColorScheme";
+import { SPLIT_NOTE_HEIGHT } from "../SystemLayout";
 import { Row, S } from "./Course";
 
+const CLOUD_HEIGHT = 400;
+const CLOUD_WIDTH = 200;
+const ChordCloud: React.FC<{
+  notes: number[];
+  name: string;
+  colorScheme: ColorScheme;
+}> = React.memo(({ notes, name, colorScheme }) => {
+  const [numRerenders, setNumRerenders] = useState(0);
+  const noteDivs = [];
+  for (let i = 0; i < 100; ++i) {
+    const width = Math.random() * 50;
+
+    noteDivs.push(
+      <div
+        className={`noteColor_${
+          notes[Math.floor(Math.random() * notes.length)]
+        }_${colorScheme}`}
+        style={{
+          position: "absolute",
+          top: Math.random() * (CLOUD_HEIGHT - SPLIT_NOTE_HEIGHT),
+          left: Math.random() * (CLOUD_WIDTH - width),
+          width,
+          height: SPLIT_NOTE_HEIGHT,
+          boxSizing: "border-box",
+          borderRadius: "5px",
+        }}
+      />,
+    );
+  }
+  return (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
+      <div
+        style={{
+          width: CLOUD_WIDTH,
+          height: CLOUD_HEIGHT,
+          position: "relative",
+        }}
+        onMouseMove={() => setNumRerenders(numRerenders + 1)}
+      >
+        {noteDivs}
+      </div>
+      <span style={{ fontSize: 48 }}>{name}</span>
+    </div>
+  );
+}, isEqual);
+
+const ChordClouds = ({ chords, colorScheme }) => (
+  <div>
+    <div style={{ position: "relative" }}>
+      <Row style={{ position: "absolute", left: 800 }}>
+        {chords.map((chord) => (
+          <>
+            <ChordCloud
+              notes={chord.notes}
+              name={chord.name}
+              colorScheme={colorScheme}
+            />{" "}
+          </>
+        ))}
+      </Row>
+    </div>
+  </div>
+);
+
 const ChordsInMajor = ({ sequencer }) => {
+  const { colorScheme } = useColorScheme();
   return (
     <>
       <h3>I-V</h3>
+      <ChordClouds
+        chords={[
+          { notes: [0, 4, 7], name: "I" },
+          { notes: [2, 7, 11], name: "V" },
+        ]}
+        colorScheme={colorScheme}
+      />
       <div>
         We're gonna analyze songs in major. We'll color any of the twelve major
         keys in the same seven colors starting from the red note:
@@ -93,6 +175,13 @@ const ChordsInMajor = ({ sequencer }) => {
         </ul>
       </div>
       <h3>I-IV-V</h3>
+      <ChordClouds
+        chords={[
+          { notes: [0, 4, 7], name: "I" },
+          { notes: [0, 5, 9], name: "IV" },
+        ]}
+        colorScheme={colorScheme}
+      />
       <div>
         Let's grow our vocabulary and add a IV chord to it. I-IV-V-I:
         <NoteSnippet
@@ -135,6 +224,13 @@ const ChordsInMajor = ({ sequencer }) => {
         </li>
       </ul>
       <h3>vi</h3>
+      <ChordClouds
+        chords={[
+          { notes: [0, 4, 7], name: "I" },
+          { notes: [0, 4, 9], name: "vi" },
+        ]}
+        colorScheme={colorScheme}
+      />
       <div>
         If we add one more chord - the vi chord - then we cover{" "}
         <a
@@ -180,6 +276,13 @@ const ChordsInMajor = ({ sequencer }) => {
         </li>
       </ul>
       <h3>ii and iii</h3>
+      <ChordClouds
+        chords={[
+          { notes: [2, 5, 9], name: "ii" },
+          { notes: [4, 7, 11], name: "iii" },
+        ]}
+        colorScheme={colorScheme}
+      />
       <div>
         Last two chords, which are more rare in use in major, are ii and iii.
       </div>

@@ -44,7 +44,7 @@ export const getPhraseStarts = (
   return result;
 };
 
-const SPLIT_NOTE_HEIGHT = 5;
+export const SPLIT_NOTE_HEIGHT = 5;
 
 export const getModulations = (analysis: Analysis) =>
   [

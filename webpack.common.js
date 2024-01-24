@@ -28,7 +28,6 @@ module.exports = {
   },
   plugins: [
     new Dotenv({
-      safe: true,
       systemvars: true,
     }),
     new HtmlWebpackPlugin({

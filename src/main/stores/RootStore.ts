@@ -3,7 +3,7 @@ import { deserialize, serialize } from "serializr"
 import Player from "../../common/player"
 import Song, { emptySong } from "../../common/song"
 import TrackMute from "../../common/trackMute"
-import { auth, firestore } from "../../firebase/firebase"
+import { auth, firestore, functions } from "../../firebase/firebase"
 import { CloudMidiRepository } from "../../repositories/CloudMidiRepository"
 import { CloudSongDataRepository } from "../../repositories/CloudSongDataRepository"
 import { CloudSongRepository } from "../../repositories/CloudSongRepository"
@@ -64,6 +64,7 @@ export default class RootStore {
     new CloudSongDataRepository(firestore)
   readonly cloudMidiRepository: ICloudMidiRepository = new CloudMidiRepository(
     firestore,
+    functions,
   )
   readonly userRepository: IUserRepository = new UserRepository(firestore, auth)
 
@@ -77,7 +78,7 @@ export default class RootStore {
   readonly tempoEditorStore = new TempoEditorStore(this)
   readonly midiDeviceStore = new MIDIDeviceStore()
   readonly exportStore = new ExportStore()
-  readonly authStore = new AuthStore(auth, this.userRepository)
+  readonly authStore = new AuthStore(this.userRepository)
   readonly cloudFileStore = new CloudFileStore(
     this,
     this.cloudSongRepository,

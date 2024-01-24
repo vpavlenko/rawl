@@ -1,8 +1,6 @@
-import { httpsCallable } from "firebase/functions"
 import { basename } from "../../common/helpers/path"
 import { songFromMidi, songToMidi } from "../../common/midi/midiConversion"
 import Song from "../../common/song"
-import { functions } from "../../firebase/firebase"
 import { CloudSong } from "../../repositories/ICloudSongRepository"
 import { User } from "../../repositories/IUserRepository"
 import RootStore from "../stores/RootStore"
@@ -61,20 +59,11 @@ export const deleteSong =
     await cloudSongRepository.delete(song.id)
   }
 
-interface StoreMidiFileResponse {
-  message: string
-  docId: string
-}
-
 export const loadSongFromExternalMidiFile =
   ({ cloudMidiRepository }: RootStore) =>
   async (midiFileUrl: string) => {
-    const storeMidiFile = httpsCallable<
-      { midiFileUrl: string },
-      StoreMidiFileResponse
-    >(functions, "storeMidiFile")
-    const res = await storeMidiFile({ midiFileUrl })
-    const data = await cloudMidiRepository.get(res.data.docId)
+    const id = await cloudMidiRepository.storeMidiFile(midiFileUrl)
+    const data = await cloudMidiRepository.get(id)
     const song = songFromMidi(data)
     song.name = basename(midiFileUrl) ?? ""
     song.isSaved = true

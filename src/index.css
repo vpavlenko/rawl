@@ -215,8 +215,8 @@ body,
 }
 
 .App-main-content-area.settings {
-    width: 360px;
-    min-width: 360px;
+    width: 500px;
+    min-width: 500px;
     flex-grow: 0;
 }
 
@@ -354,8 +354,8 @@ body,
     min-width: calc(var(--charW1) * 10);
 }
 
-.DirectoryLink-dim {
-    color: var(--neutral2);
+.DirectoryLink-dim, .DirectoryLink-dim:visited {
+    color: white;
 }
 
 .DirectoryLink-folderIcon {

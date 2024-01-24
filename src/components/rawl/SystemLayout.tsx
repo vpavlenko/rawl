@@ -512,6 +512,43 @@ const VoiceName: React.FC<{
   },
 );
 
+const MeasureNumbers = ({
+  measuresAndBeats,
+  analysis,
+  phraseStarts,
+  measureSelection,
+}) => (
+  <div
+    key="measure_header"
+    style={{
+      width: secondsToX(
+        Math.max(
+          measuresAndBeats.measures.at(-1),
+          measuresAndBeats.beats.at(-1),
+        ),
+      ),
+      height: 20,
+      position: "relative",
+      marginBottom: "-15px",
+      marginLeft: "0px",
+      zIndex: 10,
+    }}
+  >
+    <AnalysisGrid
+      analysis={analysis}
+      measuresAndBeats={measuresAndBeats}
+      midiNumberToY={() => 0}
+      noteHeight={SPLIT_NOTE_HEIGHT}
+      measureSelection={measureSelection}
+      phraseStarts={phraseStarts}
+      systemLayout={"split"}
+      midiRange={[0, 0]}
+      showHeader={true}
+      showTonalGrid={false}
+    />
+  </div>
+);
+
 export const Voice: React.FC<{
   notes: NotesInVoices;
   measuresAndBeats: MeasuresAndBeats;
@@ -521,7 +558,6 @@ export const Voice: React.FC<{
   phraseStarts: number[];
   mouseHandlers: MouseHandlers;
   measureSelection: MeasureSelection;
-  showHeader: boolean;
   scrollLeft: number;
   scrollRight: number;
   voiceName: string;
@@ -538,7 +574,6 @@ export const Voice: React.FC<{
   showVelocity,
   cursor,
   phraseStarts,
-  showHeader = true,
   scrollLeft = -1,
   scrollRight = -1,
   voiceName,
@@ -563,8 +598,7 @@ export const Voice: React.FC<{
 
   const height =
     (midiRange[0] === +Infinity ? 1 : midiRange[1] - midiRange[0] + 1) *
-      SPLIT_NOTE_HEIGHT +
-    (showHeader ? 20 : 0);
+    SPLIT_NOTE_HEIGHT;
 
   const midiNumberToY = useCallback(
     (midiNumber) =>
@@ -648,7 +682,7 @@ export const Voice: React.FC<{
           phraseStarts={phraseStarts}
           systemLayout={"split"}
           midiRange={midiRange}
-          showHeader={showHeader}
+          showHeader={false}
           showTonalGrid={showTonalGrid && !notes?.[0]?.[0].isDrum}
         />
       ) : null}
@@ -782,6 +816,12 @@ export const SplitSystemLayout: React.FC<{
       className="SplitLayout"
     >
       <div>
+        <MeasureNumbers
+          measuresAndBeats={measuresAndBeats}
+          analysis={analysis}
+          phraseStarts={phraseStarts}
+          measureSelection={measureSelection}
+        />
         {voicesSortedByAverageMidiNumber.map(({ voiceIndex, notes }, order) => (
           <div style={{ zIndex: 20 - voiceIndex, position: "relative" }}>
             <Voice
@@ -793,7 +833,6 @@ export const SplitSystemLayout: React.FC<{
               mouseHandlers={mouseHandlers}
               measureSelection={measureSelection}
               showVelocity={showVelocity}
-              showHeader={order === voicesSortedByAverageMidiNumber.length - 1}
               cursor={
                 <Cursor
                   style={{

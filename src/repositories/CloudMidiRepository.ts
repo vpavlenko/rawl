@@ -7,10 +7,14 @@ import {
   doc,
   getDoc,
 } from "firebase/firestore"
+import { Functions, httpsCallable } from "firebase/functions"
 import { ICloudMidiRepository } from "./ICloudMidiRepository"
 
 export class CloudMidiRepository implements ICloudMidiRepository {
-  constructor(private readonly firestore: Firestore) {}
+  constructor(
+    private readonly firestore: Firestore,
+    private readonly functions: Functions,
+  ) {}
 
   async get(id: string): Promise<Uint8Array> {
     const midiCollection = collection(this.firestore, "midis")
@@ -22,6 +26,15 @@ export class CloudMidiRepository implements ICloudMidiRepository {
       throw new Error("Midi data does not exist")
     }
     return data.toUint8Array()
+  }
+
+  async storeMidiFile(midiFileUrl: string): Promise<string> {
+    const storeMidiFile = httpsCallable<
+      { midiFileUrl: string },
+      StoreMidiFileResponse
+    >(this.functions, "storeMidiFile")
+    const res = await storeMidiFile({ midiFileUrl })
+    return res.data.docId
   }
 }
 
@@ -40,4 +53,9 @@ const midiConverter: FirestoreDataConverter<FirestoreMidi> = {
   toFirestore(midi) {
     return midi
   },
+}
+
+interface StoreMidiFileResponse {
+  message: string
+  docId: string
 }

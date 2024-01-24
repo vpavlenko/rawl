@@ -56,7 +56,6 @@ const ChordCloud: React.FC<{
       />,
     );
   }
-  const maxNote = Math.max(...notes);
 
   const legendNotes = [];
   let top = 0;
@@ -101,12 +100,24 @@ const ChordCloud: React.FC<{
           width: CLOUD_WIDTH,
           height: CLOUD_HEIGHT,
           position: "relative",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
         }}
         onMouseMove={() => setNumRerenders(numRerenders + 1)}
       >
         {noteDivs}
+        <span
+          style={{
+            fontSize: 72,
+            zIndex: 10,
+            textShadow:
+              "0 0 1px black, 0 0 3px black, 0 0 5px black, 0 0 7px black, 0 0 10px black, 0 0 15px black, 0 0 20px black, 0 0 30px black, 0 0 40px black, 0 0 100px black",
+          }}
+        >
+          {name}
+        </span>
       </div>
-      <span style={{ fontSize: 36, marginBottom: 20 }}>{name}</span>
       <span style={{ fontSize: 20, position: "relative" }}>{legendNotes}</span>
     </div>
   );

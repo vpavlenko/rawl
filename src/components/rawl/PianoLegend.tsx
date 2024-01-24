@@ -12,21 +12,33 @@ const KEY_HEIGHT = 60;
 const PADDING = 3;
 const ROW_DISTANCE = 40;
 
-const PianoKey = styled.div`
-  position: absolute;
+interface PianoKeyProps {
+  width: number;
+  height: number;
+}
+
+export const BasePianoKey = styled.div<PianoKeyProps>`
   user-select: none;
-  width: ${KEY_WIDTH}px;
-  height: ${KEY_HEIGHT}px;
+  width: ${(props) => props.width}px;
+  height: ${(props) => props.height}px;
   font-size: 16px;
   text-align: center;
   vertical-align: bottom;
   color: white;
-  text-shadow: 0px 0px 5px black;
+  text-shadow:
+    0px 0px 5px black,
+    0px 0px 3px black;
   display: grid;
   align-content: end;
   border-radius: 5px;
   box-sizing: border-box;
   border-width: 5px;
+`;
+
+const PianoKey = styled(BasePianoKey)`
+  width: ${KEY_WIDTH}px;
+  height: ${KEY_HEIGHT}px;
+  position: absolute;
 `;
 
 export const PianoLegend: React.FC = () => {

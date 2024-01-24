@@ -1,13 +1,22 @@
 import isEqual from "lodash/isEqual";
 import * as React from "react";
 import { useState } from "react";
+import styled from "styled-components";
 import { NoteSnippet } from "../Axes";
 import { ColorScheme, useColorScheme } from "../ColorScheme";
+import { BasePianoKey } from "../PianoLegend";
 import { SPLIT_NOTE_HEIGHT } from "../SystemLayout";
 import { Row, S } from "./Course";
 
-const CLOUD_HEIGHT = 400;
+const NOTES = ["1", "b2", "2", "b3", "3", "4", "#4", "5", "b6", "6", "b7", "7"];
+const CLOUD_HEIGHT = 300;
 const CLOUD_WIDTH = 200;
+
+const CloudPianoKey = styled(BasePianoKey)`
+  width: 100px;
+  height: 15px;
+`;
+
 const ChordCloud: React.FC<{
   notes: number[];
   name: string;
@@ -35,6 +44,24 @@ const ChordCloud: React.FC<{
       />,
     );
   }
+  const maxNote = Math.max(...notes);
+
+  const legendNotes = [];
+  let top = 0;
+  for (let i = notes.length - 1; i >= 0; i--) {
+    const note = notes[i];
+    legendNotes.push(
+      <CloudPianoKey
+        className={`noteColor_${note}_${colorScheme}`}
+        style={{ position: "absolute", top, left: -50 }}
+      >
+        {NOTES[note]}
+      </CloudPianoKey>,
+    );
+    if (i > 0) {
+      top += ((12 + notes[i] - notes[i - 1]) % 12) * 15;
+    }
+  }
   return (
     <div
       style={{
@@ -53,7 +80,8 @@ const ChordCloud: React.FC<{
       >
         {noteDivs}
       </div>
-      <span style={{ fontSize: 48 }}>{name}</span>
+      <span style={{ fontSize: 36, marginBottom: 20 }}>{name}</span>
+      <span style={{ fontSize: 20, position: "relative" }}>{legendNotes}</span>
     </div>
   );
 }, isEqual);
@@ -84,7 +112,7 @@ const ChordsInMajor = ({ sequencer }) => {
       <ChordClouds
         chords={[
           { notes: [0, 4, 7], name: "I" },
-          { notes: [2, 7, 11], name: "V" },
+          { notes: [7, 11, 2], name: "V" },
         ]}
         colorScheme={colorScheme}
       />
@@ -178,7 +206,7 @@ const ChordsInMajor = ({ sequencer }) => {
       <ChordClouds
         chords={[
           { notes: [0, 4, 7], name: "I" },
-          { notes: [0, 5, 9], name: "IV" },
+          { notes: [5, 9, 0], name: "IV" },
         ]}
         colorScheme={colorScheme}
       />
@@ -227,7 +255,7 @@ const ChordsInMajor = ({ sequencer }) => {
       <ChordClouds
         chords={[
           { notes: [0, 4, 7], name: "I" },
-          { notes: [0, 4, 9], name: "vi" },
+          { notes: [9, 0, 4], name: "vi" },
         ]}
         colorScheme={colorScheme}
       />
@@ -312,8 +340,8 @@ const ChordsInMajor = ({ sequencer }) => {
       <h3>V and V7</h3>
       <ChordClouds
         chords={[
-          { notes: [2, 7, 11], name: "V" },
-          { notes: [2, 5, 7, 11], name: "V7" },
+          { notes: [7, 11, 2], name: "V" },
+          { notes: [7, 11, 2, 5], name: "V7" },
         ]}
         colorScheme={colorScheme}
       />

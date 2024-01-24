@@ -4,17 +4,29 @@ import { useState } from "react";
 import styled from "styled-components";
 import { NoteSnippet } from "../Axes";
 import { ColorScheme, useColorScheme } from "../ColorScheme";
-import { BasePianoKey } from "../PianoLegend";
 import { SPLIT_NOTE_HEIGHT } from "../SystemLayout";
 import { Row, S } from "./Course";
 
 const NOTES = ["1", "b2", "2", "b3", "3", "4", "#4", "5", "b6", "6", "b7", "7"];
 const CLOUD_HEIGHT = 300;
 const CLOUD_WIDTH = 200;
+const CLOUD_LEGENT_NOTE_HEIGHT = 20;
 
-const CloudPianoKey = styled(BasePianoKey)`
+const CloudPianoKey = styled.div`
+  user-select: none;
   width: 100px;
-  height: 15px;
+  height: ${CLOUD_LEGENT_NOTE_HEIGHT}px;
+  text-align: center;
+  vertical-align: bottom;
+  color: white;
+  text-shadow:
+    0px 0px 5px black,
+    0px 0px 3px black;
+  display: grid;
+  align-content: end;
+  border-radius: 5px;
+  box-sizing: border-box;
+  border-width: 5px;
 `;
 
 const ChordCloud: React.FC<{
@@ -51,16 +63,29 @@ const ChordCloud: React.FC<{
   for (let i = notes.length - 1; i >= 0; i--) {
     const note = notes[i];
     legendNotes.push(
-      // @ts-ignore
-      <CloudPianoKey
-        className={`noteColor_${note}_${colorScheme}`}
-        style={{ position: "absolute", top, left: -50 }}
-      >
-        {NOTES[note]}
-      </CloudPianoKey>,
+      <div style={{ position: "absolute", top, left: -50 }}>
+        <CloudPianoKey
+          className={`noteColor_${note}_${colorScheme}`}
+        ></CloudPianoKey>
+        <div
+          style={{
+            backgroundColor: "black",
+            borderRadius: "50%",
+            fontSize: 14,
+            width: 15,
+            height: 15,
+            position: "absolute",
+            left: 42,
+            textAlign: "center",
+            top: 2,
+          }}
+        >
+          {NOTES[note]}
+        </div>
+      </div>,
     );
     if (i > 0) {
-      top += ((12 + notes[i] - notes[i - 1]) % 12) * 15;
+      top += ((12 + notes[i] - notes[i - 1]) % 12) * CLOUD_LEGENT_NOTE_HEIGHT;
     }
   }
   return (

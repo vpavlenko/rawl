@@ -309,6 +309,22 @@ const ChordsInMajor = ({ sequencer }) => {
           <S artist="MIDI/Wet Wet Wet" song="Angel Eyes.mid" />
         </li>
       </ul>
+      <h3>V and V7</h3>
+      <ChordClouds
+        chords={[
+          { notes: [2, 7, 11], name: "V" },
+          { notes: [2, 5, 7, 11], name: "V7" },
+        ]}
+        colorScheme={colorScheme}
+      />
+      <div>
+        A fourth note is often added to the V chord making it a V7 chord. It's
+        also added in thirds from the scale: skip one - add one:
+        <NoteSnippet
+          notes="0,4,G3 B3 D4 r4 G3-B3-D4 r4 G3 B3 D4 F4 r4 G3-B3-D4-F4"
+          sequencer={sequencer}
+        />
+      </div>
     </>
   );
 };

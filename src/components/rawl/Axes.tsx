@@ -36,7 +36,10 @@ export const NoteSnippet = ({ notes, sequencer }) => {
             }
           });
           const binaryData = new MidiWriter.Writer(track).buildFile();
-          const result = await sequencer.playSongFile("custom.mid", binaryData);
+          const result = await sequencer.playSongFile(
+            "no_connection_to_internet_maybe.mid",
+            binaryData,
+          );
           if (MIDI_PREVIEWS[notes]) {
             return;
           }

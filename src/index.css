@@ -751,21 +751,21 @@ img {
 }
 
 .noteColor_3_shapes {
-    background-color: rgb(192, 0, 176);
+    background-color: #ae0089;
     border-left: 1px dashed white;
     border-top: 1px dashed white;
     border-radius: 0px !important;
 }
 
 .noteColor_4_shapes {
-    background-color: #0e72d6;
+    background-color: #1f85eb;
 }
 
 .noteColor_5_shapes {
     background-color: rgb(0,
      0, 0);
-    border-top: 1px solid rgb(255, 164, 84);
-    border-bottom: 1px solid rgb(255, 164, 84);
+    border-top: 1px solid #fc697f;
+    border-bottom: 1px solid #fc697f;
     border-radius: 0 !important;
 }
 
@@ -780,15 +780,15 @@ img {
 }
 
 .noteColor_8_shapes {
-    background-color: rgb(71, 71, 71);
-    border-left: 1px dashed rgb(228, 228, 0);
-    border-top: 1px dashed rgb(228, 228, 0);
+    background-color: rgb(134, 134, 134);
+    border-left: 1px dashed #47ffa0;
+    border-top: 1px dashed #47ffa0;
     border-radius: 0 !important;
 }
 
 .noteColor_9_shapes {
-    border-top: 1px solid rgb(100, 100, 255);
-    border-bottom: 1px solid rgb(100, 100, 255);
+    border-top: 1px solid rgb(220, 60, 255);
+    border-bottom: 1px solid rgb(220, 60, 255);
     border-radius: 0 !important;
 }
 
@@ -803,8 +803,7 @@ img {
 
 .noteColor_10_shapes {
     /* background: linear-gradient(to top, rgb(51, 51, 252), yellow); */
-
-    box-shadow: 0 0 3px rgb(0, 255, 123), 0 0 6px rgb(0, 255, 123), 0 0 9px rgb(0, 255, 123), inset 0 0 3px blue, inset 0 0 6px blue;
+    box-shadow: 0 0 3px rgb(252, 197, 134), 0 0 6px rgb(252, 197, 134), 0 0 9px rgb(252, 197, 134), inset 0 0 3px blue, inset 0 0 6px blue;
     border-radius: 0 !important;
 }
 

@@ -29,7 +29,7 @@ const AppFooter = ({
           <span style={{ whiteSpace: "nowrap" }}>
             <button
               onClick={togglePause}
-              title={paused ? "Resume" : "Pause"}
+              title={paused ? "Resume (use Space)" : "Pause (use Space)"}
               className="box-button"
               disabled={ejected}
             >

@@ -422,7 +422,7 @@ const VoiceName: React.FC<{
       if (ref.current) {
         const outerComponentRect =
           ref.current.parentElement.getBoundingClientRect();
-        setTop(outerComponentRect.top + window.scrollY - 20);
+        setTop(outerComponentRect.top + window.scrollY - 5);
       }
     };
 
@@ -451,6 +451,10 @@ const VoiceName: React.FC<{
           fontFamily: "sans-serif",
           fontSize: "12px",
           userSelect: "none",
+          backgroundColor: "black",
+          zIndex: 100,
+          padding: 7,
+          boxShadow: "inset 0 0 1px white",
         }}
         ref={ref}
         onClick={(e) => {
@@ -458,22 +462,6 @@ const VoiceName: React.FC<{
         }}
       >
         <span>
-          {!isSingleActive && (
-            <input
-              title="active"
-              type="checkbox"
-              onChange={(e) => {
-                e.stopPropagation();
-                setVoiceMask(
-                  voiceMask.map((value, i) =>
-                    i === voiceIndex ? !value : value,
-                  ),
-                );
-              }}
-              checked={voiceMask[voiceIndex]}
-              style={{ marginRight: 10 }}
-            />
-          )}
           <button
             style={{
               cursor: "pointer",
@@ -490,6 +478,25 @@ const VoiceName: React.FC<{
           >
             {isSingleActive ? "Unsolo All" : "Solo"}
           </button>
+
+          <input
+            title="active"
+            type="checkbox"
+            onChange={(e) => {
+              e.stopPropagation();
+              setVoiceMask(
+                voiceMask.map((value, i) =>
+                  i === voiceIndex ? !value : value,
+                ),
+              );
+            }}
+            checked={voiceMask[voiceIndex]}
+            style={{
+              margin: "0px 0px 0px 17px",
+              height: 11,
+              display: isSingleActive ? "none" : "inline",
+            }}
+          />
         </span>
         <span
           style={{
@@ -612,10 +619,11 @@ export const Voice: React.FC<{
         ),
         height: hasVisibleNotes ? height : 1,
         position: "relative",
-        marginTop: hasVisibleNotes ? "35px" : 0,
+        marginTop: hasVisibleNotes ? "15px" : 0,
         marginBottom: hasVisibleNotes ? "0px" : 0,
         marginLeft: "0px",
         borderBottom: hasVisibleNotes ? "1px solid #888" : "",
+        zIndex: 1,
       }}
       onClick={(e) => systemClickHandler(e)}
     >
@@ -775,7 +783,7 @@ export const SplitSystemLayout: React.FC<{
     >
       <div>
         {voicesSortedByAverageMidiNumber.map(({ voiceIndex, notes }, order) => (
-          <div style={{ zIndex: 20 - voiceIndex }}>
+          <div style={{ zIndex: 20 - voiceIndex, position: "relative" }}>
             <Voice
               key={voiceIndex}
               voiceName={voiceNames[voiceIndex]}

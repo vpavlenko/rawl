@@ -171,9 +171,9 @@ const TonalGrid: React.FC<{
               style={{
                 position: "absolute",
                 width,
-                height: 12 * noteHeight,
+                height: 6 * noteHeight,
                 left: secondsToX(from),
-                top: midiNumberToY(midiNumber - 1),
+                top: midiNumberToY(midiNumber - 7),
                 pointerEvents: "none",
                 background: `linear-gradient(to top, #222, transparent)`,
                 zIndex: 0,

@@ -5,6 +5,8 @@ export type EventInputProp =
   | {
       type: "number"
       value: number
+      minValue: number
+      maxValue: number
     }
   | {
       type: "text"
@@ -33,8 +35,10 @@ export function getEventController<T extends TrackEvent>(
             name:
               controllerTypeString(e.controllerType) ?? `CC${e.controllerType}`,
             value: {
-              value: e.value,
               type: "number",
+              value: e.value,
+              minValue: 0,
+              maxValue: 127,
               update: (value) => ({ value }),
             },
           }
@@ -44,11 +48,15 @@ export function getEventController<T extends TrackEvent>(
             value: {
               type: "number",
               value: e.velocity,
+              minValue: 0,
+              maxValue: 127,
               update: (velocity) => ({ velocity }),
             },
             gate: {
               type: "number",
               value: e.duration,
+              minValue: 0,
+              maxValue: Infinity,
               update: (duration) => ({ duration }),
             },
           }
@@ -58,6 +66,8 @@ export function getEventController<T extends TrackEvent>(
             value: {
               type: "number",
               value: e.value,
+              minValue: 0,
+              maxValue: 127,
               update: (value) => ({ value }),
             },
           }
@@ -67,6 +77,8 @@ export function getEventController<T extends TrackEvent>(
             value: {
               type: "number",
               value: e.value,
+              minValue: 0,
+              maxValue: 16384,
               update: (value) => ({ value }),
             },
           }
@@ -79,8 +91,8 @@ export function getEventController<T extends TrackEvent>(
           return {
             name: e.subtype,
             value: {
-              value: e.text,
               type: "text",
+              value: e.text,
               update: (text) => ({ text }),
             },
           }
@@ -88,8 +100,10 @@ export function getEventController<T extends TrackEvent>(
           return {
             name: e.subtype,
             value: {
-              value: e.value,
               type: "number",
+              value: e.value,
+              minValue: 0,
+              maxValue: 127,
               update: (channel) => ({ channel }),
             },
           }

@@ -1,6 +1,6 @@
 import styled from "@emotion/styled"
 import useComponentSize from "@rehooks/component-size"
-import { isEqual } from "lodash"
+import { clamp, isEqual } from "lodash"
 import { observer } from "mobx-react-lite"
 import React, { FC, useCallback, useMemo, useRef, useState } from "react"
 import { FixedSizeList, ListChildComponentProps } from "react-window"
@@ -117,6 +117,8 @@ type InputCellProps = EventInputProp & {
   style?: React.CSSProperties
   type: "number" | "text"
   onChange: (value: number | string) => void
+  minValue?: number
+  maxValue?: number
 }
 
 const StyledInput = styled.input`
@@ -145,7 +147,14 @@ const DisabledInputCell: FC<{ style?: React.CSSProperties }> = ({ style }) => (
   </Cell>
 )
 
-const InputCell: FC<InputCellProps> = ({ value, type, style, onChange }) => {
+const InputCell: FC<InputCellProps> = ({
+  value,
+  type,
+  style,
+  minValue,
+  maxValue,
+  onChange,
+}) => {
   const [isFocus, setFocus] = useState(false)
   const [inputValue, setInputValue] = useState("")
 
@@ -154,7 +163,7 @@ const InputCell: FC<InputCellProps> = ({ value, type, style, onChange }) => {
       case "number":
         const num = parseInt(inputValue)
         if (!Number.isNaN(num)) {
-          onChange(num)
+          onChange(clamp(num, minValue ?? 0, maxValue ?? Infinity))
         }
         break
       case "text":

@@ -12,7 +12,9 @@ function getSearch() {
 export default memo(DirectoryLink);
 
 function DirectoryLink(props) {
-  const linkClassName = props.dim ? "DirectoryLink-dim" : null;
+  const linkClassName = props.dim
+    ? "DirectoryLink-dim"
+    : "DirectoryLink-another";
   // const folderClassName = props.dim ? 'DirectoryLink-folderIconDim' : 'DirectoryLink-folderIcon';
   // Double encode % because react-router will decode this into history.
   // See https://github.com/ReactTraining/history/issues/505

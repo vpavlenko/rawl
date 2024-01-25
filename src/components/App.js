@@ -52,7 +52,6 @@ import MessageBox from "./MessageBox";
 import Visualizer from "./Visualizer";
 import Axes from "./rawl/Axes";
 import { ColorSchemeProvider } from "./rawl/ColorScheme";
-import Intro from "./rawl/Intro";
 import Rawl from "./rawl/Rawl";
 import TagSearch from "./rawl/TagSearch";
 import Course from "./rawl/course/Course";
@@ -913,7 +912,6 @@ class App extends React.Component {
                             />
                           )}
                         />
-                        <Route path="/intro" render={() => <Intro />} />
                         <Route
                           path="/tags/:tag*"
                           render={({ match }) => (

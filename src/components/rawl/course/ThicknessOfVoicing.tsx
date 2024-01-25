@@ -36,6 +36,9 @@ const ThicknessOfVoicing = ({ sequencer }) => {
         <li>
           <S artist="MIDI/Bob Marley" song="Waiting In Vain.mid" />
         </li>
+        <li>
+          <S artist="MIDI/Take That" song="Back For Good.mid" />
+        </li>
       </ul>
       <h3>Blues seventh chords</h3>
       <ul>

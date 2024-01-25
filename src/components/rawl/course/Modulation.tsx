@@ -49,6 +49,9 @@ const Modulation = ({ sequencer }) => {
       <h3>Relative key</h3>
       <ul>
         <li>
+          <S artist="MIDI/Taja Sevelle" song="Take Me for a Ride.mid" />
+        </li>
+        <li>
           <S artist="MIDI/Typically Tropical" song="Barbados.mid" />
         </li>
         <li>

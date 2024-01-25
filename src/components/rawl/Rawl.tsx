@@ -398,7 +398,8 @@ const Rawl: React.FC<{
           position: "fixed",
           top: 43,
           right: 5,
-          zIndex: "100",
+          zIndex: 100,
+          backgroundColor: "black",
         }}
       >
         <label className="inline">

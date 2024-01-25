@@ -373,6 +373,12 @@ const ChordsInMajor = ({ sequencer }) => {
         <li>
           <S artist="MIDI/Wet Wet Wet" song="Angel Eyes.mid" />
         </li>
+        <li>
+          <S artist="MIDI/Taja Sevelle" song="Take Me for a Ride.mid" />
+        </li>
+        <li>
+          <S artist="MIDI/Take That" song="Back For Good.mid" />
+        </li>
       </ul>
       <h3>V and V7</h3>
       <ChordClouds

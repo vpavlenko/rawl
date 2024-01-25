@@ -163,23 +163,59 @@ const TonalGrid: React.FC<{
       if (!width) continue;
       for (let octave = 2; octave <= 9; ++octave) {
         const midiNumber = tonic + octave * 12;
-        if (midiNumber - 12 >= midiRange[0] && midiNumber - 12 <= midiRange[1])
-          // TODO: display a note like C4 gracefully at each gradient start
+        if (midiNumber >= midiRange[0] && midiNumber <= midiRange[1]) {
           result.push(
             <div
               key={`tonalgrid_octave_${i}_${midiNumber}`}
               style={{
                 position: "absolute",
                 width,
-                height: 6 * noteHeight,
+                height: 1,
                 left: secondsToX(from),
-                top: midiNumberToY(midiNumber - 7),
+                top: midiNumberToY(midiNumber - 1) - 1,
                 pointerEvents: "none",
-                background: `linear-gradient(to top, #222, transparent)`,
+                borderBottom: "1px solid #222",
                 zIndex: 0,
               }}
             />,
           );
+        }
+        const fifth = midiNumber + 7;
+        if (fifth >= midiRange[0] && fifth <= midiRange[1]) {
+          result.push(
+            <div
+              key={`tonalgrid_octave_${i}_${midiNumber}`}
+              style={{
+                position: "absolute",
+                width,
+                height: 1,
+                left: secondsToX(from),
+                top: midiNumberToY(fifth - 1) - 1,
+                pointerEvents: "none",
+                borderBottom: "1px dashed #222",
+                zIndex: 0,
+              }}
+            />,
+          );
+        }
+
+        // if (midiNumber - 12 >= midiRange[0] && midiNumber - 12 <= midiRange[1])
+        //   // TODO: display a note like C4 gracefully at each gradient start
+        //   result.push(
+        //     <div
+        //       key={`tonalgrid_octave_${i}_${midiNumber}`}
+        //       style={{
+        //         position: "absolute",
+        //         width,
+        //         height: 6 * noteHeight,
+        //         left: secondsToX(from),
+        //         top: midiNumberToY(midiNumber - 7),
+        //         pointerEvents: "none",
+        //         background: `linear-gradient(to top, #222 0%, transparent 10%, transparent 100%)`,
+        //         zIndex: 0,
+        //       }}
+        //     />,
+        //   );
       }
     }
     return result;

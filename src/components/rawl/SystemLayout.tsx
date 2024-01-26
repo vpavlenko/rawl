@@ -255,9 +255,8 @@ const getNoteRectangles = (
           top,
           left,
           pointerEvents: voiceIndex === -1 ? "none" : "auto",
-          cursor: handleNoteClick ? "pointer" : "default",
+          cursor: handleNoteClick && !note.isDrum ? "pointer" : "default",
           zIndex: 10,
-          // TODO: make it map onto the dynamic range of a song? of a track?
           opacity: isActiveVoice
             ? (showVelocity && note?.chipState?.on?.param2 / 127) || 1
             : 0.4,
@@ -268,12 +267,12 @@ const getNoteRectangles = (
         }}
         onClick={(e) => {
           e.stopPropagation();
-          if (handleNoteClick) {
+          if (handleNoteClick && !note.isDrum) {
             handleNoteClick(note, e.altKey);
           }
         }}
-        onMouseEnter={(e) => handleMouseEnter(note, e.altKey)}
-        onMouseLeave={handleMouseLeave}
+        onMouseEnter={(e) => !note.isDrum && handleMouseEnter(note, e.altKey)}
+        onMouseLeave={() => !note.isDrum && handleMouseLeave()}
       >
         {noteElement}
       </div>

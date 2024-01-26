@@ -21,6 +21,9 @@ const Texture = ({ sequencer }) => {
         <li>
           <S artist="MIDI/Take That" song="Back For Good.mid" />
         </li>
+        <li>
+          <S artist="MIDI/Tammy Wynette" song="Stand By Your Man.1.mid" />
+        </li>
       </ul>
       <h3>Melody in thirds</h3>
       <ul>
@@ -63,6 +66,13 @@ const Texture = ({ sequencer }) => {
         </li>
         <li>
           <S artist="MIDI/Werner" song="So ein Mann.mid" />
+        </li>
+      </ul>
+
+      <h3>Pads</h3>
+      <ul>
+        <li>
+          <S artist="MIDI/Talk Talk" song="It's My Life.mid" />
         </li>
       </ul>
     </>

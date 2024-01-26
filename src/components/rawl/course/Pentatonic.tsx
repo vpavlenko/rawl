@@ -15,6 +15,9 @@ const TheRest = ({ sequencer }) => {
           like pivot bII = bVII
         </li>
         <li>
+          <S artist="MIDI/Tal Bachman" song="She's So High.mid" />
+        </li>
+        <li>
           <S artist="MIDI/Vanessa Williams" song="Colors of the Wind.mid" />
         </li>
         <li>

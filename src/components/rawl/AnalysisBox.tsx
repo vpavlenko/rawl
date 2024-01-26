@@ -43,6 +43,7 @@ export const TAGS = [
   "bass:idk",
 
   "applied:V/V",
+  "applied:V/V/V",
   "applied:V/vi",
   "applied:V/iv",
   "applied:V7/IV",

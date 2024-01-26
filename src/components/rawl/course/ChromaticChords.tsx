@@ -1,4 +1,5 @@
 import * as React from "react";
+import ChordClouds from "./ChordClouds";
 import { S } from "./Course";
 
 const ChromaticChords = ({ sequencer }) => {
@@ -38,6 +39,13 @@ const ChromaticChords = ({ sequencer }) => {
       <ul>
         <li>
           <S artist="MIDI/Ultravox" song="Vienna.mid" />
+        </li>
+      </ul>
+      <ChordClouds chords={["III", "IV"]} />
+      <h3>III-IV</h3>
+      <ul>
+        <li>
+          <S artist="MIDI/Tammy Wynette" song="Stand By Your Man.1.mid" />
         </li>
       </ul>
     </>

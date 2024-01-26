@@ -1,15 +1,20 @@
 import * as React from "react";
+import { S } from "./Course";
 
 const About = ({ sequencer }) => {
   return (
     <>
       <div style={{ position: "relative" }}>
-        <img
-          width="496"
-          alt="Screenshot 2024-01-25 at 16 07 22"
-          src="https://github.com/vpavlenko/rawl/assets/1491908/9b5e0339-f58b-45ea-99a4-2a919864fa8a"
-          style={{ position: "absolute", left: 700 }}
-        />
+        <div style={{ position: "absolute", left: 700 }}>
+          <img
+            width="496"
+            alt="Screenshot 2024-01-25 at 16 07 22"
+            src="https://github.com/vpavlenko/rawl/assets/1491908/9b5e0339-f58b-45ea-99a4-2a919864fa8a"
+          />
+          <div style={{ marginTop: 25 }}>
+            <S artist="MIDI/Take That" song="Back For Good.mid" />
+          </div>
+        </div>
       </div>
       <h3>12 colors</h3>
       <div>

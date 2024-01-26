@@ -7,6 +7,9 @@ const BassLines = ({ sequencer }) => {
       <h3>Bass: root, root-fifth, diatonic approaches</h3>
       <ul>
         <li>
+          <S artist="MIDI/Tal Bachman" song="She's So High.mid" />
+        </li>
+        <li>
           <S artist="MIDI/Vangelis" song="1492: Conquest of Paradise.mid" /> -
           in minor, so early
         </li>

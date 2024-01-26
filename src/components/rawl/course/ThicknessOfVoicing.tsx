@@ -13,6 +13,9 @@ const ThicknessOfVoicing = ({ sequencer }) => {
       <h3>Power chords</h3>
       <ul>
         <li>
+          <S artist="MIDI/Tal Bachman" song="She's So High.mid" />
+        </li>
+        <li>
           <S artist="MIDI/Vengaboys" song="Boom Boom Boom.mid" />
         </li>
         <li>

@@ -60,6 +60,9 @@ const TheRest = ({ sequencer }) => {
             song="Five O'clock in the Morning.mid"
           />
         </li>
+        <li>
+          <S artist="MIDI/Talk Talk" song="It's My Life.mid" />
+        </li>
       </ul>
     </>
   );

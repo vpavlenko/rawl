@@ -74,6 +74,9 @@ const Texture = ({ sequencer }) => {
         <li>
           <S artist="MIDI/Talk Talk" song="It's My Life.mid" />
         </li>
+        <li>
+          <S artist="MIDI/Tasmin Archer" song="Sleeping Satellite.mid" />
+        </li>
       </ul>
     </>
   );

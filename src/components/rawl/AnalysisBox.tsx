@@ -27,7 +27,8 @@ export const TAGS = [
   "arrangement:chordal_riff",
   "arrangement:no_chords",
   "arrangement:simple_second_line",
-  "arrangement:harmonic_embellishment",
+  "arrangement:harmonic_embellishment", // TODO: merge in pad_chord_tones
+  "arrangement:pad_chord_tones",
 
   "bass:diatonic_line",
   "bass:walking",
@@ -76,6 +77,7 @@ export const TAGS = [
   "chord:IaddS9",
   "chord:viø",
   "chord:III",
+  "chord:ii_in_minor",
 
   "chord-scale:phrygian_dominant",
   "chord-scale:melodic_minor_V",

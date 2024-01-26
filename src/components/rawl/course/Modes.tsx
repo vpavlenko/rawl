@@ -1,9 +1,11 @@
 import * as React from "react";
+import ChordClouds from "./ChordClouds";
 import { S } from "./Course";
 
 const TheRest = ({ sequencer }) => {
   return (
     <>
+      <ChordClouds chords={["i", "IV"]} />
       <h3>Dorian (shuttle?)</h3>
       <ul>
         <li>
@@ -31,6 +33,10 @@ const TheRest = ({ sequencer }) => {
         </li>
         <li>
           <S artist="MIDI/Zucchero" song="Senza Una Donna.7.mid" />
+        </li>
+        <li>
+          <S artist="MIDI/Tasmin Archer" song="Sleeping Satellite.mid" /> - ii
+          in minor, dorian solo, mixed dorian/natural
         </li>
       </ul>
       <h3>iadd6</h3>

@@ -70,6 +70,9 @@ const ThicknessOfVoicing = ({ sequencer }) => {
         <li>
           <S artist="MIDI/Donovan" song="Mellow Yellow.1.mid" />
         </li>
+        <li>
+          <S artist="MIDI/Tatyana Ali" song="Daydreamin'.mid" />
+        </li>
       </ul>
       <h3>ii7 chord</h3>
       <ul></ul>

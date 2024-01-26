@@ -73,6 +73,10 @@ const Functionality = ({ sequencer }) => {
         <li>
           <S artist="MIDI/Wet Wet Wet" song="Angel Eyes.mid" />
         </li>
+        <li>
+          <S artist="MIDI/Tasmin Archer" song="Sleeping Satellite.mid" /> -
+          pedal in the intro, 1 and 5 in pedal
+        </li>
       </ul>
       <h3>Shuttle</h3>
       <ul>
@@ -85,6 +89,9 @@ const Functionality = ({ sequencer }) => {
         </li>
         <li>
           <S artist="MIDI/Bob Marley" song="Waiting In Vain.mid" />
+        </li>
+        <li>
+          <S artist="MIDI/Tatyana Ali" song="Daydreamin'.mid" />
         </li>
       </ul>
     </>

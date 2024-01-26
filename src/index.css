@@ -680,8 +680,20 @@ img {
 }
 
 .noteColor_1_colors {
-    background-color: maroon;
+    background-color: rgb(130, 0, 0);
     box-shadow: 0 0 3px maroon, 0 0 6px maroon;
+}
+
+.noteColor_1_colors:after, .noteColor_1_shapes:after {
+    content: ''; /* Required for :after to work */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 2px; /* Size of the dot */
+    height: 2px; /* Size of the dot */
+    background-color: white; /* Color of the dot */
+    border-radius: 50%; /* Makes the dot circular */
+    transform: translate(-50%, -50%); /* Centers the dot */
 }
 
 .noteColor_2_colors {

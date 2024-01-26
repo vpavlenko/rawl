@@ -53,6 +53,15 @@ const Jazz = ({ sequencer }) => {
           <S artist="MIDI/Waller Fats" song="Lonesome Road.mid" />
         </li>
       </ul>
+      <h3>Applied harmony</h3>
+      <ul>
+        <li>
+          <S
+            artist="MIDI/Television Theme Songs"
+            song="Coronation Street.mid"
+          />
+        </li>
+      </ul>
     </>
   );
 };

@@ -49,6 +49,12 @@ const ChordsInMinor = ({ sequencer }) => {
           <S artist="MIDI/Vangelis" song="1492: Conquest of Paradise.mid" />
         </li>
       </ul>
+      <h3>i-iv-v-i</h3>
+      <ul>
+        <li>
+          <S artist="MIDI/Technotronic" song="Pump Up the Jam.mid" /> - also III
+        </li>
+      </ul>
       <h3>minor with V7</h3>
       <ul>
         <li>

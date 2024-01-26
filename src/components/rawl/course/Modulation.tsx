@@ -15,6 +15,9 @@ const Modulation = ({ sequencer }) => {
         <li>
           <S artist="MIDI/Vangelis" song="1492: Conquest of Paradise.mid" />
         </li>
+        <li>
+          <S artist="MIDI/Television Theme Songs" song="ER.mid" />
+        </li>
       </ul>
       <h3>Picardy third</h3>
       <ul>

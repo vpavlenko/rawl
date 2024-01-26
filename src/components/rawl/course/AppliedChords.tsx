@@ -43,7 +43,14 @@ const AppliedChords = ({ sequencer }) => {
         </li>
       </ul>
       <h3>Applied chords - V7/IV</h3>
+      <div>Hypothesis: V7/IV always implies V7 instead of V?</div>
       <ul>
+        <li>
+          <S
+            artist="MIDI/Telly Savalas"
+            song="Some Broken Hearts Never Mend.mid"
+          />
+        </li>
         <li>
           <S artist="MIDI/Talk of the Town" song="The Kwek Kwek Song.mid" />
         </li>

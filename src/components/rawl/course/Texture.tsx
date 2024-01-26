@@ -19,6 +19,12 @@ const Texture = ({ sequencer }) => {
       <h3>Texture - guitar strumming</h3>
       <ul>
         <li>
+          <S
+            artist="MIDI/Telly Savalas"
+            song="Some Broken Hearts Never Mend.mid"
+          />
+        </li>
+        <li>
           <S artist="MIDI/Take That" song="Back For Good.mid" />
         </li>
         <li>

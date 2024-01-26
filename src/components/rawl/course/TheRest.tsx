@@ -70,6 +70,9 @@ const TheRest = ({ sequencer }) => {
         <li>
           <S artist="MIDI/Tasmin Archer" song="Sleeping Satellite.mid" />
         </li>
+        <li>
+          <S artist="MIDI/Ted Nugent" song="Cat Scratch Fever.mid" />
+        </li>
       </ul>
     </>
   );

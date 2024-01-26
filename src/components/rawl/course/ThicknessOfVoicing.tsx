@@ -45,6 +45,10 @@ const ThicknessOfVoicing = ({ sequencer }) => {
         <li>
           <S artist="MIDI/Take That" song="Back For Good.mid" />
         </li>
+        <li>
+          <S artist="MIDI/Television Theme Songs" song="Eastenders.mid" /> -
+          only minor sevenths?
+        </li>
       </ul>
       <h3>Blues seventh chords</h3>
       <ul>

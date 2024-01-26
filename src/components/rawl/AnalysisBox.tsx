@@ -129,6 +129,7 @@ export const TAGS = [
   "style:disco",
   "style:grunge",
   "style:dance_pop",
+  "style:techno",
 
   "functionality:shuttle",
   "functionality:functional",
@@ -146,6 +147,7 @@ export const TAGS = [
   "voicing:power_chords",
   "voicing:triads",
   "voicing:diatonic_sevenths",
+  "voicing:only_minor_sevenths_in_major",
   "voicing:transposed_riff",
   "voicing:alterations",
   "voicing:blues",

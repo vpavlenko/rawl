@@ -2455,6 +2455,10 @@
           {
             "measure": 77,
             "diff": 1
+          },
+          {
+            "measure": 45,
+            "diff": 2
           }
         ],
         "romanNumerals": "",
@@ -2463,7 +2467,8 @@
           "voicing:triads",
           "bass:root",
           "rhythm:3+3+2",
-          "functionality:progression"
+          "functionality:progression",
+          "issues:mute_voices"
         ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
@@ -2506,7 +2511,8 @@
           "harmony:pure_I-IV-V",
           "rhythm:syncopation",
           "issues:merge_voices",
-          "functionality:short_progression"
+          "functionality:short_progression",
+          "melody:in_thirds"
         ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
@@ -4723,7 +4729,8 @@
           "form:other_solo",
           "voicing:triads",
           "chord-scale:melodic_minor_V",
-          "bass:idk"
+          "bass:idk",
+          "chord:Iadd6"
         ]
       }
     }
@@ -5086,6 +5093,18 @@
           {
             "measure": 1,
             "diff": 3
+          },
+          {
+            "measure": 40,
+            "diff": 1
+          },
+          {
+            "measure": 97,
+            "diff": 2
+          },
+          {
+            "measure": 115,
+            "diff": 1
           }
         ],
         "comment": "",
@@ -5093,7 +5112,9 @@
         "modulations": {},
         "tags": [
           "scale:natural_minor",
-          "voicing:root"
+          "voicing:root",
+          "style:EDM",
+          "functionality:progression"
         ]
       }
     }
@@ -5344,6 +5365,775 @@
           "harmony:pure_I-IV-V",
           "voicing:blues"
         ]
+      }
+    }
+  },
+  "MIDI/Ted Nugent": {
+    "Cat Scratch Fever.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          },
+          {
+            "measure": 54,
+            "diff": 1
+          },
+          {
+            "measure": 67,
+            "diff": -2
+          }
+        ],
+        "comment": "no vocals",
+        "tonic": 9,
+        "modulations": {
+          "46": 0,
+          "55": 9
+        },
+        "tags": [
+          "form:rock_solo",
+          "functionality:riff"
+        ]
+      }
+    }
+  },
+  "MIDI/Take That": {
+    "Back For Good.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          },
+          {
+            "measure": 7,
+            "diff": 1
+          },
+          {
+            "measure": 56,
+            "diff": 2
+          }
+        ],
+        "comment": "",
+        "tonic": 5,
+        "tags": [
+          "issues:R=1/2N",
+          "voicing:diatonic_sevenths",
+          "scale:major",
+          "voicing:triads",
+          "texture:guitar_strumming",
+          "tempo:ritardando"
+        ],
+        "modulations": {}
+      }
+    }
+  },
+  "MIDI/Tatyana Ali": {
+    "Daydreamin'.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          }
+        ],
+        "comment": "",
+        "tonic": 10,
+        "modulations": {},
+        "tags": [
+          "voicing:diatonic_sevenths",
+          "scale:natural_minor",
+          "functionality:shuttle",
+          "style:RnB"
+        ]
+      }
+    }
+  },
+  "MIDI/Tag Team": {
+    "Whoomp (There It Is).1.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 3
+          }
+        ],
+        "comment": "",
+        "tonic": 6,
+        "tags": [],
+        "modulations": {}
+      }
+    }
+  },
+  "MIDI/Talk of the Town": {
+    "The Kwek Kwek Song.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 3
+          },
+          {
+            "measure": 44,
+            "diff": -2
+          }
+        ],
+        "comment": "",
+        "tonic": 9,
+        "modulations": {
+          "40": 11,
+          "58": 9
+        },
+        "tags": [
+          "modulation:contrast",
+          "applied:V7/IV",
+          "voicing:triads",
+          "bass:root_fifth"
+        ]
+      }
+    }
+  },
+  "MIDI/Tracy Chapman": {
+    "Give Me One Reason.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 6,
+        "modulations": {},
+        "tags": [
+          "style:blues",
+          "voicing:triads",
+          "bass:developed",
+          "voicing:blues"
+        ]
+      }
+    }
+  },
+  "MIDI/Taja Sevelle": {
+    "Take Me for a Ride.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          },
+          {
+            "measure": 91,
+            "diff": 1
+          },
+          {
+            "measure": 100,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 1,
+        "tags": [
+          "modulation:relative_major",
+          "scale:major",
+          "voicing:triads"
+        ],
+        "modulations": {}
+      }
+    }
+  },
+  "MIDI/Tears for Fears": {
+    "Shout.5.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 5
+          }
+        ],
+        "comment": "",
+        "tonic": 7,
+        "modulations": {},
+        "tags": [
+          "voicing:root"
+        ]
+      }
+    }
+  },
+  "MIDI/Tanita Tikaram": {
+    "Twist In My Sobriety.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 6,
+        "modulations": {},
+        "tags": [
+          "voicing:triads"
+        ]
+      }
+    }
+  },
+  "MIDI/Television Theme Songs": {
+    "X-Files.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 10,
+        "modulations": {},
+        "tags": [
+          "fx:delay",
+          "scale:natural_minor",
+          "functionality:stasis"
+        ]
+      }
+    },
+    "Eastenders.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          },
+          {
+            "measure": 35,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 3,
+        "modulations": {},
+        "tags": [
+          "voicing:diatonic_sevenths",
+          "functionality:functional",
+          "scale:major",
+          "bass:root",
+          "arrangement:piano_glissando",
+          "voicing:only_minor_sevenths_in_major",
+          "tempo:ritardando"
+        ]
+      }
+    },
+    "Coronation Street.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          }
+        ],
+        "comment": "",
+        "tonic": 8,
+        "modulations": {},
+        "tags": [
+          "bass:walking",
+          "voicing:diatonic_sevenths",
+          "scale:major",
+          "applied:V7/IV",
+          "applied:viio/"
+        ]
+      }
+    },
+    "ER.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 11,
+        "modulations": {},
+        "tags": [
+          "modulation:parallel_keys"
+        ]
+      }
+    }
+  },
+  "MIDI/Technohead": {
+    "I Wanna Be a Hippy.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          }
+        ],
+        "comment": "",
+        "tonic": 1,
+        "modulations": {},
+        "tags": [
+          "scale:mixolydian",
+          "voicing:triads",
+          "bass:root_fifth",
+          "style:EDM",
+          "style:techno"
+        ]
+      }
+    }
+  },
+  "MIDI/Technotronic": {
+    "Pump Up the Jam.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 3
+          }
+        ],
+        "comment": "",
+        "tonic": 0,
+        "tags": [
+          "scale:natural_minor",
+          "style:eurodance",
+          "voicing:triads",
+          "bass:riff",
+          "functionality:riff"
+        ],
+        "modulations": {}
+      }
+    }
+  },
+  "MIDI/Tracy Byrd": {
+    "The Keeper of the Stars.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          },
+          {
+            "measure": 11,
+            "diff": -6
+          },
+          {
+            "measure": 21,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 2,
+        "modulations": {},
+        "tags": [
+          "bass:diatonic_line",
+          "melody:in_thirds",
+          "arrangement:no_chords"
+        ]
+      }
+    }
+  },
+  "MIDI/Telly Savalas": {
+    "Some Broken Hearts Never Mend.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 6
+          }
+        ],
+        "comment": "",
+        "tonic": 9,
+        "modulations": {},
+        "tags": [
+          "scale:major",
+          "applied:V7/IV",
+          "texture:arpeggio"
+        ]
+      }
+    }
+  },
+  "MIDI/Tears n' Joy": {
+    "I Will Always Love You.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 3
+          }
+        ],
+        "comment": "",
+        "tonic": 9,
+        "modulations": {
+          "96": 11
+        },
+        "tags": [
+          "issues:mute_voices",
+          "scale:major",
+          "functionality:functional",
+          "arrangement:chordal_riff",
+          "voicing:triads",
+          "modulation:up_at_the_end",
+          "bass:root",
+          "arrangement:pad_chord_tones"
+        ]
+      }
+    }
+  },
+  "MIDI/Tasmin Archer": {
+    "Sleeping Satellite.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 4
+          },
+          {
+            "measure": 17,
+            "diff": -1
+          },
+          {
+            "measure": 36,
+            "diff": -1
+          },
+          {
+            "measure": 55,
+            "diff": -1
+          },
+          {
+            "measure": 82,
+            "diff": -1
+          },
+          {
+            "measure": 93,
+            "diff": -2
+          }
+        ],
+        "comment": "",
+        "tonic": 5,
+        "tags": [
+          "voice-leading:pedal",
+          "scale:natural_minor",
+          "form:rock_solo",
+          "chord:ii_in_minor",
+          "scale:dorian",
+          "arrangement:pad_chord_tones"
+        ],
+        "modulations": {}
+      }
+    }
+  },
+  "MIDI/Tammy Wynette": {
+    "Stand By Your Man.1.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 9,
+        "modulations": {},
+        "tags": [
+          "texture:guitar_strumming",
+          "voicing:triads",
+          "chord:III",
+          "applied:V/V/V",
+          "applied:V/V",
+          "applied:V/ii",
+          "functionality:functional",
+          "arrangement:counterpoint",
+          "melody:in_thirds",
+          "bass:diatonic_approaches"
+        ]
+      }
+    }
+  },
+  "Classical MIDI/Britten": {
+    "Young Person's Guide to the Orchestra (Pajares).mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 2,
+        "tags": [],
+        "modulations": {}
+      }
+    }
+  },
+  "MIDI/Talk Talk": {
+    "It's My Life.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          },
+          {
+            "measure": 31,
+            "diff": -2
+          },
+          {
+            "measure": 49,
+            "diff": -2
+          },
+          {
+            "measure": 75,
+            "diff": -2
+          }
+        ],
+        "comment": "",
+        "tonic": 3,
+        "modulations": {
+          "27": 9,
+          "45": 3,
+          "71": 9,
+          "89": 10,
+          "100": 9
+        },
+        "tags": [
+          "scale:mixolydian",
+          "functionality:shuttle",
+          "voicing:triads",
+          "modulation:contrast",
+          "bass:developed",
+          "scale:natural_minor",
+          "arrangement:harmonic_embellishment"
+        ]
+      }
+    }
+  },
+  "MIDI/Talking Heads": {
+    "Psycho Killer.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          },
+          {
+            "measure": 39,
+            "diff": -2
+          },
+          {
+            "measure": 69,
+            "diff": -2
+          }
+        ],
+        "comment": "are voicings real?",
+        "tonic": 9,
+        "modulations": {
+          "67": 7,
+          "75": 9
+        },
+        "tags": [
+          "voicing:blues",
+          "scale:natural_minor",
+          "voicing:triads",
+          "bass:transposed_riff"
+        ]
+      }
+    }
+  },
+  "MIDI/Terence Trent D'Arby": {
+    "Wishing Well.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 4
+          }
+        ],
+        "comment": "",
+        "tonic": 10,
+        "tags": [
+          "scale:mixolydian",
+          "functionality:shuttle"
+        ],
+        "modulations": {}
+      }
+    }
+  },
+  "MIDI/Ten Years After": {
+    "I'd Love to Change the World.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "wrong chord (IV), ugly timbres",
+        "tonic": 4,
+        "tags": [],
+        "modulations": {}
+      }
+    }
+  },
+  "MIDI/Taylor Dayne": {
+    "Tell It to My Heart.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          },
+          {
+            "measure": 78,
+            "diff": -2
+          }
+        ],
+        "comment": "",
+        "tonic": 5,
+        "modulations": {},
+        "tags": [
+          "scale:minor",
+          "style:dance_pop",
+          "voicing:triads",
+          "arrangement:fills_at_rests",
+          "bass:simple",
+          "arrangement:ornamental_riff",
+          "functionality:functional",
+          "arrangement:silent_break"
+        ]
+      }
+    }
+  },
+  "MIDI/Tal Bachman": {
+    "She's So High.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 21,
+            "diff": 1
+          },
+          {
+            "measure": 13,
+            "diff": -2
+          },
+          {
+            "measure": 20,
+            "diff": -1
+          },
+          {
+            "measure": 23,
+            "diff": -1
+          },
+          {
+            "measure": 46,
+            "diff": -2
+          },
+          {
+            "measure": 56,
+            "diff": -1
+          },
+          {
+            "measure": 71,
+            "diff": -2
+          },
+          {
+            "measure": 97,
+            "diff": -1
+          }
+        ],
+        "comment": "",
+        "tonic": 9,
+        "modulations": {},
+        "tags": [
+          "voicing:power_chords",
+          "scale:major",
+          "arrangement:ornamental_riff",
+          "chord:bVII",
+          "bass:root"
+        ]
+      }
+    }
+  },
+  "MIDI/Tavares": {
+    "Heaven Must Be Missing an Angel.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 7
+          }
+        ],
+        "comment": "",
+        "tonic": 0,
+        "modulations": {},
+        "tags": [
+          "chord:V9",
+          "functionality:short_progression",
+          "arrangement:ornamental_riff",
+          "voicing:alterations",
+          "style:soul",
+          "style:disco",
+          "arrangement:piano_glissando",
+          "melody:in_thirds",
+          "bass:transposed_riff"
+        ]
+      }
+    }
+  },
+  "Classical MIDI/Tchaikovsky": {
+    "Swan Lake, Op. 20 – 14. Scène (J. F. Lucarelli).mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          },
+          {
+            "measure": 6,
+            "diff": 1
+          },
+          {
+            "measure": 19,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 11,
+        "tags": [],
+        "modulations": {}
       }
     }
   }

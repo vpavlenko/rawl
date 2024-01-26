@@ -69,6 +69,12 @@ const TheRest = ({ sequencer }) => {
         <li>
           <S artist="MIDI/Talk Talk" song="It's My Life.mid" />
         </li>
+        <li>
+          <S artist="MIDI/Technohead" song="I Wanna Be a Hippy.mid" />
+        </li>
+        <li>
+          <S artist="MIDI/Terence Trent D'Arby" song="Wishing Well.mid" />
+        </li>
       </ul>
     </>
   );

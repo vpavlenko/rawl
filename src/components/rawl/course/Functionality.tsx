@@ -90,6 +90,13 @@ const Functionality = ({ sequencer }) => {
           <S artist="MIDI/Tasmin Archer" song="Sleeping Satellite.mid" /> -
           pedal in the intro, 1 and 5 in pedal
         </li>
+        <li>
+          <S artist="MIDI/Ted Nugent" song="Cat Scratch Fever.mid" /> - riff,
+          vocals absent
+        </li>
+        <li>
+          <S artist="MIDI/Television Theme Songs" song="X-Files.mid" />
+        </li>
       </ul>
       <h3>Shuttle</h3>
       <ul>

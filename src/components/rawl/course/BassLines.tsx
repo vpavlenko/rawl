@@ -34,6 +34,10 @@ const BassLines = ({ sequencer }) => {
           <S artist="MIDI/Tammy Wynette" song="Stand By Your Man.1.mid" /> -
           applied/chromatic chords
         </li>
+        <li>
+          <S artist="MIDI/Taylor Dayne" song="Tell It to My Heart.mid" /> - root
+          with embellishments
+        </li>
       </ul>
       <ul>
         <li>
@@ -57,6 +61,9 @@ const BassLines = ({ sequencer }) => {
         </li>
         <li>
           <S artist="MIDI/War" song="Low Rider.mid" />
+        </li>
+        <li>
+          <S artist="MIDI/Tavares" song="Heaven Must Be Missing an Angel.mid" />
         </li>
       </ul>
       <h3>Bass - diatonic line</h3>

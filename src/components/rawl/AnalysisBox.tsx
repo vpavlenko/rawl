@@ -29,6 +29,8 @@ export const TAGS = [
   "arrangement:simple_second_line",
   "arrangement:harmonic_embellishment", // TODO: merge in pad_chord_tones
   "arrangement:pad_chord_tones",
+  "arrangement:piano_glissando",
+  "arrangement:silent_break",
 
   "bass:diatonic_line",
   "bass:walking",
@@ -126,6 +128,7 @@ export const TAGS = [
   "style:RnB",
   "style:disco",
   "style:grunge",
+  "style:dance_pop",
 
   "functionality:shuttle",
   "functionality:functional",

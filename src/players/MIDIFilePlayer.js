@@ -554,6 +554,8 @@ MIDIPlayer.prototype.setPosition = function (ms) {
     this.synth.pitchBend(channel, 8192);
   }
 
+  // TODO: if we seek inside some notes, it's best to retrigger their noteOn, eg. for string pads.
+
   while (this.events[pos] && this.events[pos].playTime < ms) {
     const event = this.events[pos];
     if (event.subtype === MIDIEvents.EVENT_MIDI_PROGRAM_CHANGE) {

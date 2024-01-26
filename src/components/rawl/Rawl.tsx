@@ -75,7 +75,7 @@ const Rawl: React.FC<{
   sequencer,
 }) => {
   useEffect(() => {
-    document.title = `Rawl - ${artist.slice(5)} - ${song.slice(0, -4)}`;
+    document.title = `${artist.slice(5)} - ${song.slice(0, -4)} - Rawl`;
   }, [artist, song]);
 
   const [analysis, setAnalysis] = useState<Analysis>(

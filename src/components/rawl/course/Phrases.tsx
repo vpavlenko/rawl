@@ -1,20 +1,6 @@
 import * as React from "react";
 import { S } from "./Course";
 
-const Arrow = () => (
-  <div
-    style={{
-      width: "30px",
-      textAlign: "center",
-      fontSize: "48px",
-      fontWeight: 700,
-      color: "white",
-    }}
-  >
-    →
-  </div>
-);
-
 const Phrases = ({ sequencer }) => {
   return (
     <>
@@ -36,6 +22,13 @@ const Phrases = ({ sequencer }) => {
         </li>
         <li>
           <S artist="MIDI/Zhi-Vago" song="Celebrate (The Love).mid" />
+        </li>
+      </ul>
+      <h3>Dominant prolongation</h3>
+      <h3>Silent break</h3>
+      <ul>
+        <li>
+          <S artist="MIDI/Taylor Dayne" song="Tell It to My Heart.mid" />
         </li>
       </ul>
     </>

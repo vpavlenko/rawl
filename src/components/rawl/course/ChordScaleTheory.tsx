@@ -49,6 +49,9 @@ const ChordScaleTheory = ({ sequencer }) => {
             song="Can't Get Enough of Your Love, Babe.mid"
           />
         </li>
+        <li>
+          <S artist="MIDI/Tavares" song="Heaven Must Be Missing an Angel.mid" />
+        </li>
       </ul>
       <h3>Chord scale</h3>
       <ul>

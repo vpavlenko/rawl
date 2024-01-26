@@ -17,6 +17,15 @@ const Functionality = ({ sequencer }) => {
           <S artist="MIDI/Bob Marley" song="Jammin'.mid" />
         </li>
       </ul>
+      <h3>Short progression</h3>
+      <ul>
+        <li>
+          <S artist="MIDI/Valens Ritchie" song="La Bamba.mid" />
+        </li>
+        <li>
+          <S artist="MIDI/Tavares" song="Heaven Must Be Missing an Angel.mid" />
+        </li>
+      </ul>
       <h3>Functionality - functional</h3>
       <ul>
         <li>
@@ -39,6 +48,10 @@ const Functionality = ({ sequencer }) => {
         </li>
         <li>
           <S artist="MIDI/Werner" song="So ein Mann.mid" />
+        </li>
+        <li>
+          <S artist="MIDI/Taylor Dayne" song="Tell It to My Heart.mid" /> -
+          mostly natural minor functional
         </li>
       </ul>
       <h3>Functionality - mixed</h3>

@@ -25,7 +25,7 @@ const Texture = ({ sequencer }) => {
           <S artist="MIDI/Tammy Wynette" song="Stand By Your Man.1.mid" />
         </li>
       </ul>
-      <h3>Melody in thirds</h3>
+      <h3>Doubling in thirds</h3>
       <ul>
         <li>
           <S artist="MIDI/Uriah Heep" song="Lady in Black.mid" />
@@ -54,8 +54,10 @@ const Texture = ({ sequencer }) => {
         <li>
           <S artist="MIDI/Valens Ritchie" song="La Bamba.mid" />
         </li>
+        <li>
+          <S artist="MIDI/Tavares" song="Heaven Must Be Missing an Angel.mid" />
+        </li>
       </ul>
-
       <h3>Arrangement - counterpoint</h3>
       <ul>
         <li>
@@ -68,7 +70,6 @@ const Texture = ({ sequencer }) => {
           <S artist="MIDI/Werner" song="So ein Mann.mid" />
         </li>
       </ul>
-
       <h3>Pads</h3>
       <ul>
         <li>
@@ -76,6 +77,18 @@ const Texture = ({ sequencer }) => {
         </li>
         <li>
           <S artist="MIDI/Tasmin Archer" song="Sleeping Satellite.mid" />
+        </li>
+      </ul>
+      <h3>Piano glissando</h3>
+      <ul>
+        <li>
+          <S artist="MIDI/Tavares" song="Heaven Must Be Missing an Angel.mid" />
+        </li>
+      </ul>
+      <h3>Fills at rests</h3>
+      <ul>
+        <li>
+          <S artist="MIDI/Taylor Dayne" song="Tell It to My Heart.mid" />
         </li>
       </ul>
     </>

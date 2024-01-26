@@ -92,7 +92,9 @@ const About = ({ sequencer }) => {
         Therefore, it's safer to say that we learn a "listener's grammar" of
         arrangers who created those MIDI files after listening original tracks.
         I can't make a stronger claim that we actually study the originals.
-        Still, I hope we're close enough.
+        Still, I hope we're close enough. If there are several arrangements
+        available, I sometimes try to pick one that's closer to the source in
+        that it preserves vocals, ornamentations and harmony.
       </div>
       <h3>Other resources</h3>
       <div>

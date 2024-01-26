@@ -60,8 +60,15 @@ const ChordsInMinor = ({ sequencer }) => {
           V7, complex
         </li>
         <li>
-          <S artist="MIDI/Usher" song="My Way.mid" />
-          Andalusian R&B
+          <S artist="MIDI/Usher" song="My Way.mid" /> - Andalusian R&B
+        </li>
+      </ul>
+      <ChordClouds chords={["Vsus4", "V"]} />
+      <h3>Vsus4-V</h3>
+      <ul>
+        <li>
+          <S artist="MIDI/Taylor Dayne" song="Tell It to My Heart.mid" /> -
+          mixed, also bVII-v7
         </li>
       </ul>
     </>

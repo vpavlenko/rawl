@@ -24,6 +24,7 @@ const CHORDS = {
   "V/V/V": [9, 1, 4],
   "V/ii": [9, 1, 4],
   III: [4, 8, 11],
+  Vsus4: [7, 0, 2],
 };
 type Chord = keyof typeof CHORDS;
 

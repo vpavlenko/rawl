@@ -9,6 +9,9 @@ const ThicknessOfVoicing = ({ sequencer }) => {
         <li>
           <S artist="MIDI/Zhi-Vago" song="Celebrate (The Love).mid" />
         </li>
+        <li>
+          <S artist="MIDI/Tears for Fears" song="Shout.5.mid" />
+        </li>
       </ul>
       <h3>Power chords</h3>
       <ul>

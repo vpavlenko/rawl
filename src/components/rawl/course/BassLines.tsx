@@ -30,6 +30,10 @@ const BassLines = ({ sequencer }) => {
         <li>
           <S artist="MIDI/Whigfield" song="Another Day.mid" />
         </li>
+        <li>
+          <S artist="MIDI/Tammy Wynette" song="Stand By Your Man.1.mid" /> -
+          applied/chromatic chords
+        </li>
       </ul>
       <ul>
         <li>

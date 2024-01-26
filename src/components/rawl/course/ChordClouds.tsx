@@ -11,8 +11,10 @@ const CLOUD_HEIGHT = 300;
 const CLOUD_WIDTH = 200;
 const CLOUD_LEGENT_NOTE_HEIGHT = 20;
 const CHORDS = {
+  i: [0, 3, 7],
   ii: [2, 5, 9],
   iii: [4, 7, 11],
+  iv: [5, 8, 0],
   I: [0, 4, 7], // Note: This will be the value of the last "I" chord in the array
   vi: [9, 0, 4],
   IV: [5, 9, 0],
@@ -84,8 +86,8 @@ const ChordCloud: React.FC<{
             backgroundColor: "black",
             borderRadius: "50%",
             fontSize: 14,
-            width: 15,
-            height: 15,
+            width: 17,
+            height: 17,
             position: "absolute",
             left: 42,
             textAlign: "center",

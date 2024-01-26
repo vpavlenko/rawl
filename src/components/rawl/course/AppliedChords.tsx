@@ -64,7 +64,8 @@ const AppliedChords = ({ sequencer }) => {
       <h3>V/V/V</h3>
       <ul>
         <li>
-          <S artist="MIDI/Tammy Wynette" song="Stand By Your Man.1.mid" />
+          <S artist="MIDI/Tammy Wynette" song="Stand By Your Man.1.mid" /> -
+          very functional
         </li>
       </ul>
     </>

@@ -1,4 +1,5 @@
 import * as React from "react";
+import ChordClouds from "./ChordClouds";
 import { S } from "./Course";
 
 const ChordsInMinor = ({ sequencer }) => {
@@ -27,6 +28,13 @@ const ChordsInMinor = ({ sequencer }) => {
         </li>
         <li>
           <S artist="MIDI/Bob Marley" song="I shot the Sheriff.mid" />
+        </li>
+      </ul>
+      <ChordClouds chords={["i", "iv"]} />
+      <h3>i-iv-V-i</h3>
+      <ul>
+        <li>
+          <S artist="MIDI/Tanita Tikaram" song="Twist In My Sobriety.mid" />
         </li>
       </ul>
       <h3>VI-VII-i</h3>

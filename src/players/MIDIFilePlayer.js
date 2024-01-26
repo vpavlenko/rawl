@@ -550,7 +550,7 @@ MIDIPlayer.prototype.setPosition = function (ms) {
     pos = 0;
   }
 
-  for (const channel of this.channelsInUse) {
+  for (const channel in this.channelsInUse) {
     this.synth.pitchBend(channel, 8192);
   }
 

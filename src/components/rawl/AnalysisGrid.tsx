@@ -88,6 +88,7 @@ const Measure: React.FC<{
               zIndex: 15,
               cursor: "pointer",
               userSelect: "none",
+              backgroundColor: "#0009",
               ...(systemLayout === "merged" ? { width } : {}), // enlarges seek area for stacked
             }}
             onClick={(e) => {

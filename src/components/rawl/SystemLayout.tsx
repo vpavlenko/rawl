@@ -527,10 +527,11 @@ const MeasureNumbers = ({
         ),
       ),
       height: 20,
-      position: "relative",
       marginBottom: "-14px",
       marginLeft: "0px",
-      zIndex: 10,
+      zIndex: 10000,
+      position: "sticky",
+      top: 0,
     }}
   >
     <AnalysisGrid

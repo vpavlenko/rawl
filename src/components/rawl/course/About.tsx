@@ -1,7 +1,7 @@
 import * as React from "react";
-import { S } from "./Course";
+import { Chapter, S } from "./Course";
 
-const About = ({ sequencer }) => {
+const About: Chapter = ({ sequencer }) => {
   return (
     <>
       <div style={{ position: "relative" }}>

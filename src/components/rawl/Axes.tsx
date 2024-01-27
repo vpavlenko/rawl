@@ -57,13 +57,13 @@ export const NoteSnippet = ({ notes, sequencer }) => {
   );
 };
 
-const Tag = ({
+export const Tag = ({
   name,
   sequencer,
   notes = "",
 }: {
   name: string;
-  sequencer: any;
+  sequencer?: any;
   notes?: string;
 }) => {
   return (
@@ -71,7 +71,9 @@ const Tag = ({
       <a href={`/tags/${name}`} target="_blank">
         {name.split(":")[1]}
       </a>
-      <NoteSnippet notes={notes} sequencer={sequencer} />
+      {notes && sequencer && (
+        <NoteSnippet notes={notes} sequencer={sequencer} />
+      )}
     </span>
   );
 };

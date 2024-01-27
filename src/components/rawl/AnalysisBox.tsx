@@ -31,6 +31,7 @@ export const TAGS = [
   "arrangement:pad_chord_tones",
   "arrangement:piano_glissando",
   "arrangement:silent_break",
+  "arrangement:karaoke",
 
   "bass:diatonic_line",
   "bass:walking",

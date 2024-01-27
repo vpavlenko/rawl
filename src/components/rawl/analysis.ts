@@ -18,6 +18,14 @@ export type Analysis = {
   phrasePatch: { measure: number; diff: number }[];
 };
 
+export type Corpus = {
+  [artist: string]: {
+    [song: string]: {
+      [zeroLiteral: string]: Analysis;
+    };
+  };
+};
+
 export const ANALYSIS_STUB: Analysis = {
   modulations: {},
   tonic: null,

@@ -4,6 +4,7 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { PianoLegend } from "../PianoLegend";
+import { Corpus } from "../analysis";
 import About from "./About";
 import AppliedChords from "./AppliedChords";
 import BassLines from "./BassLines";
@@ -23,7 +24,7 @@ import TheRest from "./TheRest";
 import ThicknessOfVoicing from "./ThicknessOfVoicing";
 import Tonic from "./Tonic";
 
-const CHAPTERS = [
+const CHAPTERS: { title: string; component: Chapter }[] = [
   { title: "About", component: About },
   { title: "Chords in a Major Key", component: ChordsInMajor },
   { title: "Chords in a Minor Key", component: ChordsInMinor },
@@ -43,6 +44,8 @@ const CHAPTERS = [
   { title: "Jazz", component: Jazz },
   { title: "The Rest", component: TheRest },
 ];
+
+export type Chapter = React.FC<{ sequencer: any; analyses: Corpus }>;
 
 export const Row = styled.div`
   display: flex;
@@ -77,7 +80,15 @@ export const S = ({ artist, song, exercise = null }) => {
   );
 };
 
-const Course = ({ chapter, sequencer }) => {
+const Course = ({
+  chapter,
+  sequencer,
+  analyses,
+}: {
+  chapter: number;
+  sequencer: any;
+  analyses: Corpus;
+}) => {
   if (!(chapter >= 0 && chapter < CHAPTERS.length)) {
     chapter = 1;
   }
@@ -116,7 +127,7 @@ const Course = ({ chapter, sequencer }) => {
       </div>
       <div className="course" style={{ width: "600px" }}>
         <h2>{title}</h2>
-        {Component && <Component sequencer={sequencer} />}
+        {Component && <Component sequencer={sequencer} analyses={analyses} />}
       </div>
     </div>
   );

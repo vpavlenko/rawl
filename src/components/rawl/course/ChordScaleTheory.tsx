@@ -1,13 +1,17 @@
 import * as React from "react";
-import { S } from "./Course";
+import TagSearch from "../TagSearch";
+import { Chapter, S } from "./Course";
 
-const ChordScaleTheory = ({ sequencer }) => {
+const ChordScaleTheory: Chapter = ({ sequencer, analyses }) => {
   return (
     <>
       <h3>Iadd6</h3>
       <ul>
         <li>
           <S artist="MIDI/Walter Donaldson" song="My Blue Heaven.mid" />
+        </li>
+        <li>
+          <S artist="MIDI/Texas" song="Say What You Want.mid" />
         </li>
       </ul>
       <h3>V9, V13</h3>
@@ -59,6 +63,9 @@ const ChordScaleTheory = ({ sequencer }) => {
           <S artist="MIDI/Van Morrison" song="Brown Eyed Girl.mid" />
         </li>
       </ul>
+      <TagSearch tag="chord-scale:phrygian_dominant" analyses={analyses} />
+      <TagSearch tag="chord-scale:melodic_minor_V" analyses={analyses} />
+      <TagSearch tag="chord-scale:ionian_IV" analyses={analyses} />
     </>
   );
 };

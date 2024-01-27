@@ -31,6 +31,12 @@ const ThicknessOfVoicing = ({ sequencer }) => {
           <S artist="MIDI/ZZ Top" song="Sharp Dressed Man.3.mid" />
         </li>
       </ul>
+      <h3>ii7</h3>
+      <ul>
+        <li>
+          <S artist="MIDI/Terry Stafford" song="Suspicion.mid" />
+        </li>
+      </ul>
       <h3>Diatonic seventh chords</h3>
       <ul>
         <li>

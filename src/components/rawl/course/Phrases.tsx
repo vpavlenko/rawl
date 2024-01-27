@@ -23,12 +23,21 @@ const Phrases = ({ sequencer }) => {
         <li>
           <S artist="MIDI/Zhi-Vago" song="Celebrate (The Love).mid" />
         </li>
+        <li>
+          <S artist="MIDI/Terry Jacks" song="Seasons in the Sun.2.mid" />
+        </li>
       </ul>
       <h3>Dominant prolongation</h3>
       <h3>Silent break</h3>
       <ul>
         <li>
           <S artist="MIDI/Taylor Dayne" song="Tell It to My Heart.mid" />
+        </li>
+      </ul>
+      <h3>Contraction?</h3>
+      <ul>
+        <li>
+          <S artist="MIDI/Terry Stafford" song="Suspicion.mid" />
         </li>
       </ul>
     </>

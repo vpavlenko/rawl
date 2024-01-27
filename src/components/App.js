@@ -909,6 +909,7 @@ class App extends React.Component {
                             <Course
                               sequencer={this.sequencer}
                               chapter={match.params?.chapter}
+                              analyses={this.state.analyses}
                             />
                           )}
                         />

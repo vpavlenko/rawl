@@ -198,7 +198,9 @@ const ChordsInMajor = ({ sequencer }) => (
     <div>Find all six chords in arrangements below:</div>
     <ul>
       <li>
-        {" "}
+        <S artist="MIDI/Terry Jacks" song="Seasons in the Sun.2.mid" />
+      </li>
+      <li>
         <S artist="MIDI/Westlife" song="Fool Again.mid" />
       </li>
       <li>

@@ -1,7 +1,8 @@
 import * as React from "react";
+import TagSearch from "../TagSearch";
 import { S } from "./Course";
 
-const TheRest = ({ sequencer }) => {
+const TheRest = ({ sequencer, analyses }) => {
   return (
     <>
       <h3>Chromatic voice-leading</h3>
@@ -47,33 +48,15 @@ const TheRest = ({ sequencer }) => {
         </li>
       </ul>
       <h3>Style - reggae</h3>
-      <ul>
-        <li>
-          <S artist="MIDI/Typically Tropical" song="Barbados.mid" />
-        </li>
-      </ul>
+      <TagSearch tag="style:reggae" analyses={analyses} />
       <h3>Vsus4</h3>
+      <TagSearch tag="chord:Vsus4" analyses={analyses} />
       <h3>Latin</h3>
-      <ul>
-        <li>
-          <S artist="MIDI/War" song="Low Rider.mid" />
-        </li>
-      </ul>
+      <TagSearch tag="style:latin" analyses={analyses} />
       <h3>Rock solo</h3>
-      <ul>
-        <li>
-          <S artist="MIDI/Zucchero" song="Senza Una Donna.7.mid" />
-        </li>
-        <li>
-          <S artist="MIDI/Marx Richard" song="Hazard.mid" />
-        </li>
-        <li>
-          <S artist="MIDI/Tasmin Archer" song="Sleeping Satellite.mid" />
-        </li>
-        <li>
-          <S artist="MIDI/Ted Nugent" song="Cat Scratch Fever.mid" />
-        </li>
-      </ul>
+      <TagSearch tag="form:rock_solo" analyses={analyses} />
+      <h3>Silent break</h3>
+      <TagSearch tag="arrangement:silent_break" analyses={analyses} />
     </>
   );
 };

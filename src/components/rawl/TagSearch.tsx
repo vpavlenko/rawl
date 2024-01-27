@@ -1,13 +1,5 @@
 import * as React from "react";
-import { Analysis } from "./analysis";
-
-type Corpus = {
-  [artist: string]: {
-    [song: string]: {
-      [zeroLiteral: string]: Analysis;
-    };
-  };
-};
+import { Corpus } from "./analysis";
 
 const TagSearch: React.FC<{ tag: string; analyses: Corpus }> = ({
   tag,

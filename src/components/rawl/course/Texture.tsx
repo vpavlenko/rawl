@@ -30,6 +30,9 @@ const Texture = ({ sequencer }) => {
         <li>
           <S artist="MIDI/Tammy Wynette" song="Stand By Your Man.1.mid" />
         </li>
+        <li>
+          <S artist="MIDI/Terry Stafford" song="Suspicion.mid" />
+        </li>
       </ul>
       <h3>Doubling in thirds</h3>
       <ul>
@@ -83,6 +86,9 @@ const Texture = ({ sequencer }) => {
         </li>
         <li>
           <S artist="MIDI/Tasmin Archer" song="Sleeping Satellite.mid" />
+        </li>
+        <li>
+          <S artist="MIDI/Terry Stafford" song="Suspicion.mid" />
         </li>
       </ul>
       <h3>Piano glissando</h3>

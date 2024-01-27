@@ -761,12 +761,9 @@ export const SplitSystemLayout: React.FC<{
     [analysis, measuresAndBeats],
   );
 
-  // If scroll changed and debounced, we need to calculate which voices have
-  // any visible notes and hides those who don't.
-
   const parentRef = useRef(null);
 
-  const [scrollInfo, setScrollInfo] = useState({ left: 0, right: 100000 });
+  const [scrollInfo, setScrollInfo] = useState({ left: -1, right: 100000 });
 
   const debouncedScroll = useCallback(
     debounce(
@@ -791,6 +788,7 @@ export const SplitSystemLayout: React.FC<{
     const parentDiv = parentRef.current;
     if (parentDiv) {
       parentDiv.addEventListener("scroll", handleScroll);
+      handleScroll();
     }
 
     return () => {

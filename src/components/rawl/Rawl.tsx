@@ -1,5 +1,8 @@
+import { faExpand } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as React from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import { AnalysisBox } from "./AnalysisBox";
 import { MeasureSelection } from "./AnalysisGrid";
 import Exercise, { ExerciseType } from "./Exercise";
@@ -321,130 +324,145 @@ const Rawl: React.FC<{
     ],
   );
 
+  const fullScreenHandle = useFullScreenHandle();
+
   return (
-    <div
-      style={{
-        position: "relative",
-        display: "flex",
-        flexDirection: "row",
-        overflow: "hidden",
-        flexGrow: 1,
-      }}
-    >
+    <FullScreen handle={fullScreenHandle}>
       <div
-        key="leftPanel"
         style={{
-          width: "100%",
-          height: "100%",
-          padding: 0,
-          backgroundColor: "black",
+          position: "relative",
+          display: "flex",
+          flexDirection: "row",
+          overflow: "hidden",
           flexGrow: 1,
-          overflowX: "auto",
         }}
       >
-        {systemLayout === "merged" ? (
-          <MergedSystemLayout
-            {...commonParams}
-            measuresAndBeats={measuresAndBeats}
-            registerSeekCallback={registerSeekCallback}
-          />
-        ) : (
-          <SplitSystemLayout
-            {...commonParams}
-            voiceNames={voiceNames}
-            setVoiceMask={setVoiceMask}
-          />
-        )}
-      </div>
-      {showAnalysisBox && !exercise && (
-        <div style={{ width: "350px", height: "100%", zIndex: 20 }}>
-          <AnalysisBox
-            analysis={analysis}
-            commitAnalysisUpdate={commitAnalysisUpdate}
-            previouslySelectedMeasure={previouslySelectedMeasure}
-            selectedMeasure={selectedMeasure}
-            selectMeasure={selectMeasure}
-            artist={artist}
-            song={song}
-          />
+        <div
+          key="leftPanel"
+          style={{
+            width: "100%",
+            height: "100%",
+            padding: 0,
+            backgroundColor: "black",
+            flexGrow: 1,
+            overflowX: "auto",
+          }}
+        >
+          {systemLayout === "merged" ? (
+            <MergedSystemLayout
+              {...commonParams}
+              measuresAndBeats={measuresAndBeats}
+              registerSeekCallback={registerSeekCallback}
+            />
+          ) : (
+            <SplitSystemLayout
+              {...commonParams}
+              voiceNames={voiceNames}
+              setVoiceMask={setVoiceMask}
+            />
+          )}
         </div>
-      )}
-      {exercise && (
+        {showAnalysisBox && !exercise && (
+          <div style={{ width: "350px", height: "100%", zIndex: 20 }}>
+            <AnalysisBox
+              analysis={analysis}
+              commitAnalysisUpdate={commitAnalysisUpdate}
+              previouslySelectedMeasure={previouslySelectedMeasure}
+              selectedMeasure={selectedMeasure}
+              selectMeasure={selectMeasure}
+              artist={artist}
+              song={song}
+            />
+          </div>
+        )}
+        {exercise && (
+          <div
+            style={{
+              position: "fixed",
+              right: 280,
+              bottom: 30,
+              backgroundColor: "black",
+              width: "250px",
+              height: "120px",
+              zIndex: 10000000,
+              border: "1px solid yellow",
+              padding: "10px",
+            }}
+          >
+            <Exercise
+              artist={artist}
+              song={song}
+              type={exercise}
+              analysis={analysis}
+              savedAnalysis={savedAnalysis}
+              sequencer={sequencer}
+            />
+          </div>
+        )}
+        <div
+          key="piano-legend"
+          style={{ position: "absolute", bottom: 20, right: 20, zIndex: 30 }}
+        >
+          <PianoLegend />
+        </div>
+
         <div
           style={{
             position: "fixed",
-            right: 280,
-            bottom: 30,
+            top: 43,
+            right: 5,
+            zIndex: 10000,
             backgroundColor: "black",
-            width: "250px",
-            height: "120px",
-            zIndex: 10000000,
-            border: "1px solid yellow",
-            padding: "10px",
+            display: "flex",
+            flexDirection: "row",
+            gap: 15,
           }}
         >
-          <Exercise
-            artist={artist}
-            song={song}
-            type={exercise}
-            analysis={analysis}
-            savedAnalysis={savedAnalysis}
-            sequencer={sequencer}
-          />
+          <label className="inline">
+            <input
+              title="Velocity"
+              type="checkbox"
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+              onChange={(e) => {
+                e.stopPropagation();
+                setShowVelocity(e.target.checked);
+              }}
+              checked={showVelocity}
+            />
+            Velocity
+          </label>
+          <label key={"merged"} className="inline">
+            <input
+              onClick={() => setSystemLayout("merged")}
+              type="radio"
+              name="system-layout"
+              checked={systemLayout === "merged"}
+              value={"horizontal"}
+            />
+            Merged
+          </label>
+          <label key={"split"} className="inline">
+            <input
+              onClick={() => setSystemLayout("split")}
+              type="radio"
+              name="system-layout"
+              checked={systemLayout === "split"}
+              value={"split"}
+            />
+            Split
+          </label>
+          {!fullScreenHandle.active && (
+            <FontAwesomeIcon
+              icon={faExpand}
+              style={{ cursor: "pointer", position: "relative", top: 2 }}
+              onClick={fullScreenHandle.enter}
+            />
+          )}
         </div>
-      )}
-      <div
-        style={{
-          position: "fixed",
-          top: 43,
-          right: 5,
-          zIndex: 100,
-          backgroundColor: "black",
-        }}
-      >
-        <label className="inline">
-          <input
-            title="Velocity"
-            type="checkbox"
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-            onChange={(e) => {
-              e.stopPropagation();
-              setShowVelocity(e.target.checked);
-            }}
-            checked={showVelocity}
-          />
-          Velocity
-        </label>{" "}
-        <label key={"merged"} className="inline">
-          <input
-            onClick={() => setSystemLayout("merged")}
-            type="radio"
-            name="system-layout"
-            checked={systemLayout === "merged"}
-            value={"horizontal"}
-          />
-          Merged
-        </label>{" "}
-        <label key={"split"} className="inline">
-          <input
-            onClick={() => setSystemLayout("split")}
-            type="radio"
-            name="system-layout"
-            checked={systemLayout === "split"}
-            value={"split"}
-          />
-          Split
-        </label>{" "}
       </div>
-      <div
-        key="piano-legend"
-        style={{ position: "absolute", bottom: 20, right: 20, zIndex: 30 }}
-      >
-        <PianoLegend />
-      </div>
-    </div>
+    </FullScreen>
   );
 };
 

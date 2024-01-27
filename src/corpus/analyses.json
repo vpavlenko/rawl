@@ -3001,7 +3001,8 @@
           "scale:major",
           "voice-leading:pedal",
           "bass:diatonic_approaches",
-          "arrangement:no_chords"
+          "arrangement:no_chords",
+          "melody:in_thirds"
         ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
@@ -3438,7 +3439,8 @@
           "voicing:triads",
           "melody:in_thirds",
           "scale:major",
-          "arrangement:simple_second_line"
+          "arrangement:simple_second_line",
+          "phrasing:dominant_prolongation"
         ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
@@ -5114,7 +5116,8 @@
           "scale:natural_minor",
           "voicing:root",
           "style:EDM",
-          "functionality:progression"
+          "functionality:progression",
+          "arrangement:silent_break"
         ]
       }
     }
@@ -5212,13 +5215,21 @@
           {
             "measure": 1,
             "diff": 2
+          },
+          {
+            "measure": 63,
+            "diff": 2
           }
         ],
         "comment": "",
         "tonic": 11,
         "modulations": {},
         "tags": [
-          "scale:dorian"
+          "scale:dorian",
+          "style:reggae",
+          "functionality:progression",
+          "voicing:triads",
+          "arrangement:silent_break"
         ]
       }
     },
@@ -5235,7 +5246,12 @@
         "tonic": 9,
         "modulations": {},
         "tags": [
-          "harmony:pure_I-IV-V"
+          "harmony:pure_I-IV-V",
+          "scale:major",
+          "style:reggae",
+          "voicing:blues",
+          "voicing:triads",
+          "arrangement:fills_at_rests"
         ]
       }
     },
@@ -5273,6 +5289,23 @@
         "tonic": 0,
         "tags": [],
         "modulations": {}
+      }
+    },
+    "Redemption Song.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 7,
+        "modulations": {},
+        "tags": [
+          "phrasing:dominant_prolongation"
+        ]
       }
     }
   },
@@ -5765,7 +5798,8 @@
         "tags": [
           "scale:major",
           "applied:V7/IV",
-          "texture:arpeggio"
+          "texture:arpeggio",
+          "texture:guitar_strumming"
         ]
       }
     }
@@ -5925,7 +5959,8 @@
           "modulation:contrast",
           "bass:developed",
           "scale:natural_minor",
-          "arrangement:harmonic_embellishment"
+          "arrangement:harmonic_embellishment",
+          "arrangement:pad_chord_tones"
         ]
       }
     }
@@ -6134,6 +6169,280 @@
         "tonic": 11,
         "tags": [],
         "modulations": {}
+      }
+    }
+  },
+  "MIDI/The Animals": {
+    "The House of the Rising Sun.5.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 3
+          },
+          {
+            "measure": 28,
+            "diff": -2
+          },
+          {
+            "measure": 50,
+            "diff": -2
+          },
+          {
+            "measure": 72,
+            "diff": -2
+          },
+          {
+            "measure": 94,
+            "diff": -2
+          },
+          {
+            "measure": 116,
+            "diff": -2
+          },
+          {
+            "measure": 138,
+            "diff": -2
+          },
+          {
+            "measure": 160,
+            "diff": -2
+          }
+        ],
+        "comment": "bVI7 (Ger) - voice-leading process",
+        "tonic": 9,
+        "modulations": {},
+        "tags": [
+          "scale:dorian",
+          "texture:arpeggio",
+          "bass:root",
+          "form:alterations_on_last_chord"
+        ]
+      }
+    }
+  },
+  "MIDI/Terry Stafford": {
+    "Suspicion.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          },
+          {
+            "measure": 35,
+            "diff": -1
+          },
+          {
+            "measure": 58,
+            "diff": -1
+          },
+          {
+            "measure": 81,
+            "diff": -1
+          }
+        ],
+        "comment": "",
+        "tonic": 2,
+        "modulations": {},
+        "tags": [
+          "chord:ii7",
+          "arrangement:pad_chord_tones",
+          "texture:guitar_strumming",
+          "scale:major",
+          "voicing:triads",
+          "arrangement:karaoke",
+          "bass:root_fifth"
+        ]
+      }
+    }
+  },
+  "MIDI/The Association": {
+    "Never My Love.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 3
+          },
+          {
+            "measure": 28,
+            "diff": 1
+          },
+          {
+            "measure": 33,
+            "diff": -2
+          }
+        ],
+        "comment": "",
+        "tonic": 1,
+        "modulations": {},
+        "tags": [
+          "chord:bVII",
+          "scale:major",
+          "voicing:triads",
+          "bass:diatonic_approaches",
+          "arrangement:fills_at_rests",
+          "applied:V/vi",
+          "voice-leading:Vsus4",
+          "functionality:functional",
+          "arrangement:silent_break"
+        ]
+      }
+    }
+  },
+  "MIDI/Terry Jacks": {
+    "Seasons in the Sun.2.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          },
+          {
+            "measure": 7,
+            "diff": -1
+          },
+          {
+            "measure": 22,
+            "diff": 1
+          },
+          {
+            "measure": 31,
+            "diff": -2
+          }
+        ],
+        "comment": "",
+        "tonic": 6,
+        "modulations": {
+          "50": 9,
+          "54": 6,
+          "76": 9,
+          "80": 10
+        },
+        "tags": [
+          "scale:major",
+          "voicing:triads",
+          "issues:manual_remeasuring_needed",
+          "modulation:up_at_the_end"
+        ]
+      }
+    }
+  },
+  "MIDI/The Allman Brothers Band": {
+    "Midnight Rider.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 0,
+        "modulations": {},
+        "tags": [
+          "stability:bVI-bVII-I"
+        ]
+      }
+    }
+  },
+  "MIDI/The Archies": {
+    "Sugar Sugar.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          }
+        ],
+        "comment": "",
+        "tonic": 2,
+        "modulations": {},
+        "tags": [
+          "chord:bVII",
+          "voicing:triads",
+          "scale:major",
+          "harmony:pure_I-IV-V",
+          "functionality:functional",
+          "bass:root_fifth",
+          "arrangement:fills_at_rests",
+          "melody:in_thirds"
+        ]
+      }
+    }
+  },
+  "MIDI/The Alan Parsons Project": {
+    "Eye In The Sky.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          },
+          {
+            "measure": 55,
+            "diff": -2
+          },
+          {
+            "measure": 89,
+            "diff": -2
+          },
+          {
+            "measure": 107,
+            "diff": -2
+          }
+        ],
+        "comment": "alterations are explained via chromatic voice-leading",
+        "tonic": 2,
+        "modulations": {},
+        "tags": [
+          "voicing:power_chords",
+          "modulation:relative_major",
+          "form:rock_solo",
+          "fx:delay",
+          "chord:iv_in_major",
+          "chord:iiadd6",
+          "applied:V/V",
+          "texture:arpeggio",
+          "voice-leading:pedal",
+          "voice-leading:chromatic",
+          "rhythm:anticipation",
+          "harmony:ambiguous_tonic"
+        ]
+      }
+    }
+  },
+  "MIDI/Texas": {
+    "Say What You Want.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          },
+          {
+            "measure": 175,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 4,
+        "modulations": {},
+        "tags": [
+          "voice-leading:pedal",
+          "bass:diatonic_line",
+          "chord:Iadd6",
+          "arrangement:silent_break"
+        ]
       }
     }
   }

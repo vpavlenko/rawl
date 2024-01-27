@@ -19,7 +19,8 @@ const TheRest = ({ sequencer, analyses }) => {
         <li>
           <S
             artist="MIDI/Vicki Sue Robinson"
-            song="Never Gonna Let You Go.mid"
+            song="N
+            ever Gonna Let You Go.mid"
           />
         </li>
         <li>
@@ -50,6 +51,7 @@ const TheRest = ({ sequencer, analyses }) => {
       <h3>Style - reggae</h3>
       <TagSearch tag="style:reggae" analyses={analyses} />
       <h3>Vsus4</h3>
+      <TagSearch tag="voice-leading:Vsus4" analyses={analyses} />
       <TagSearch tag="chord:Vsus4" analyses={analyses} />
       <h3>Latin</h3>
       <TagSearch tag="style:latin" analyses={analyses} />

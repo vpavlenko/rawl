@@ -89,6 +89,7 @@ export const TAGS = [
   "chord-scale:ionian_IV",
 
   "voice-leading:Vsus4",
+  "voice-leading:Vsus4_in_applied",
   "voice-leading:in_chords",
   "voice-leading:chromatic",
   "voice-leading:entire_scale",
@@ -206,6 +207,8 @@ export const TAGS = [
   "harmony:ambiguous_tonic",
 
   "fx:delay",
+
+  "phrasing:dominant_prolongation",
 ];
 
 const FORM_SECTIONS = ["intro", "verse", "chorus", "bridge", "outro", "solo"];

@@ -1,8 +1,9 @@
 import * as React from "react";
+import TagSearch from "../TagSearch";
 import ChordClouds from "./ChordClouds";
-import { S } from "./Course";
+import { Chapter, S } from "./Course";
 
-const AppliedChords = ({ sequencer }) => {
+const AppliedChords: Chapter = ({ sequencer, analyses }) => {
   return (
     <>
       <ChordClouds chords={["V/V", "V"]} />
@@ -42,6 +43,8 @@ const AppliedChords = ({ sequencer }) => {
           <S artist="MIDI/Vanessa Williams" song="Colors of the Wind.mid" />
         </li>
       </ul>
+      <h3>Vsus4 in applied chords</h3>
+      <TagSearch tag="voice-leading:Vsus4_in_applied" analyses={analyses} />
       <h3>Applied chords - V7/IV</h3>
       <div>Hypothesis: V7/IV always implies V7 instead of V?</div>
       <ul>

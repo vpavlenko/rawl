@@ -79,6 +79,7 @@ const Modes: Chapter = ({ sequencer, analyses }) => {
           <S artist="MIDI/Terence Trent D'Arby" song="Wishing Well.mid" />
         </li>
       </ul>
+      <TagSearch tag="chord:bVII" analyses={analyses} />
     </>
   );
 };

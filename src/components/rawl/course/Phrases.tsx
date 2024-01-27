@@ -1,39 +1,23 @@
 import * as React from "react";
-import { S } from "./Course";
+import TagSearch from "../TagSearch";
+import { Chapter, S } from "./Course";
 
-const Phrases = ({ sequencer }) => {
+const Phrases: Chapter = ({ sequencer, analyses }) => {
   return (
     <>
-      <h3>Phrases</h3>
-      Fix non-squared phrases
+      <h3>Unsorted</h3>
       <ul>
         <li>
-          <S
-            artist="MIDI/White Lion"
-            song="When the Children Cry.mid"
-            exercise="tonic"
-          />
-        </li>
-        <li>
           <S artist="MIDI/Vanessa Williams" song="Colors of the Wind.mid" />
-        </li>
-        <li>
-          <S artist="MIDI/Bob Marley" song="Redemption Song.mid" />
-        </li>
-        <li>
-          <S artist="MIDI/Zhi-Vago" song="Celebrate (The Love).mid" />
         </li>
         <li>
           <S artist="MIDI/Terry Jacks" song="Seasons in the Sun.2.mid" />
         </li>
       </ul>
       <h3>Dominant prolongation</h3>
+      <TagSearch tag="phrasing:dominant_prolongation" analyses={analyses} />
       <h3>Silent break</h3>
-      <ul>
-        <li>
-          <S artist="MIDI/Taylor Dayne" song="Tell It to My Heart.mid" />
-        </li>
-      </ul>
+      <TagSearch tag="arrangement:silent_break" analyses={analyses} />
       <h3>Contraction?</h3>
       <ul>
         <li>

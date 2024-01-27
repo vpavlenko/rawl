@@ -1,31 +1,15 @@
 import * as React from "react";
-import { S } from "./Course";
+import TagSearch from "../TagSearch";
+import { Chapter, S } from "./Course";
 
-const Functionality = ({ sequencer }) => {
+const Functionality: Chapter = ({ sequencer, analyses }) => {
   return (
     <>
       <h3>Functionality - progression</h3>
       Cite Hearing Harmony
-      <ul>
-        <li>
-          <S artist="MIDI/U96" song="Club Bizarre.mid" /> - three chords
-        </li>
-        <li>
-          <S artist="MIDI/Usher" song="My Way.mid" />
-        </li>
-        <li>
-          <S artist="MIDI/Bob Marley" song="Jammin'.mid" />
-        </li>
-      </ul>
+      <TagSearch tag="functionality:progression" analyses={analyses} />
       <h3>Short progression</h3>
-      <ul>
-        <li>
-          <S artist="MIDI/Valens Ritchie" song="La Bamba.mid" />
-        </li>
-        <li>
-          <S artist="MIDI/Tavares" song="Heaven Must Be Missing an Angel.mid" />
-        </li>
-      </ul>
+      <TagSearch tag="functionality:short_progression" analyses={analyses} />
       <h3>Functionality - functional</h3>
       <ul>
         <li>

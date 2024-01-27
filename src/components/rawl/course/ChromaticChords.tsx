@@ -48,6 +48,16 @@ const ChromaticChords = ({ sequencer }) => {
           <S artist="MIDI/Tammy Wynette" song="Stand By Your Man.1.mid" />
         </li>
       </ul>
+      <h3>Other</h3>
+      <ul>
+        <li>
+          <S
+            artist="MIDI/The Animals"
+            song="The House of the Rising Sun.5.mid"
+          />{" "}
+          - bVI (Ger) after IV in minor as a voice-leading process
+        </li>
+      </ul>
     </>
   );
 };

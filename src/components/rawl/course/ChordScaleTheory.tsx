@@ -14,7 +14,7 @@ const ChordScaleTheory: Chapter = ({ sequencer, analyses }) => {
           <S artist="MIDI/Texas" song="Say What You Want.mid" />
         </li>
       </ul>
-      <h3>V9, V13</h3>
+      <h3>V9, V11, V13</h3>
       <ul>
         <li>
           <S
@@ -57,6 +57,8 @@ const ChordScaleTheory: Chapter = ({ sequencer, analyses }) => {
           <S artist="MIDI/Tavares" song="Heaven Must Be Missing an Angel.mid" />
         </li>
       </ul>
+      <TagSearch tag="voicing:alterations" analyses={analyses} />
+      <TagSearch tag="form:alterations_on_last_chord" analyses={analyses} />
       <h3>Chord scale</h3>
       <ul>
         <li>

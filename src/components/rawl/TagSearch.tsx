@@ -25,7 +25,7 @@ const TagSearch: React.FC<{ tag: string; analyses: Corpus }> = ({
   return (
     <div>
       <div>
-        These songs are marked with <strong>{tag}</strong> tag:
+        <strong>{tag}</strong>:
       </div>
       <ul>{result}</ul>
     </div>

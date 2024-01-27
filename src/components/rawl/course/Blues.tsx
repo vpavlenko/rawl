@@ -1,40 +1,28 @@
 import * as React from "react";
-import { S } from "./Course";
+import TagSearch from "../TagSearch";
+import { Chapter, S } from "./Course";
 
-const TheRest = ({ sequencer }) => {
+const Blues: Chapter = ({ sequencer, analyses }) => {
   return (
     <>
       <h3>Blues</h3>
       <ul>
         <li>
-          <S artist="MIDI/Traffic" song="Feelin' All Right.mid" />
+          <S artist="MIDI/Uriah Heep" song="Lady in Black.mid" /> - scale used
+          as ornamentation
         </li>
         <li>
-          <S artist="MIDI/Vaughn" song="Blue Tango.mid" />
+          <a href="https://chiptune.app/?q=blues">
+            https://chiptune.app/?q=blues
+          </a>
         </li>
-        <li>
-          <S artist="MIDI/Uriah Heep" song="Lady in Black.mid" />
-          scale used as ornamentation
-        </li>
-        <li>
-          <S artist="MIDI/Victoria Williams" song="Boogieman.mid" /> - boogie
-        </li>
-        <li>
-          <S artist="MIDI/Vincent Gene" song="Be Bob A-Lula.mid" /> - rockabilly
-        </li>
-        <li>
-          <S artist="MIDI/VOF de Kunst" song="Een kopje koffie.mid" />
-        </li>
-        <li>
-          <S
-            artist="MIDI/Westernhagen"
-            song="Mit Pfefferminz bin ich dein Prinz.mid"
-          />
-        </li>
-        <li>https://chiptune.app/?q=blues</li>
       </ul>
+      <TagSearch tag="voicing:blues" analyses={analyses} />
+      <TagSearch tag="style:blues" analyses={analyses} />
+      <TagSearch tag="style:boogie" analyses={analyses} />
+      <TagSearch tag="genre:rockabilly" analyses={analyses} />
     </>
   );
 };
 
-export default TheRest;
+export default Blues;

@@ -10,6 +10,7 @@ export const TAGS = [
   "rhythm:syncopation",
   "rhythm:triplet",
   "rhythm:2_against_3",
+  "rhythm:anticipation",
 
   "modulation:parallel_keys",
   "modulation:up_at_the_end",
@@ -188,6 +189,7 @@ export const TAGS = [
   "form:AABA",
   "form:solo_piano",
   "form:solo_guitar",
+  "form:alterations_on_last_chord",
 
   "melody:non-transposed_riff",
   "melody:in_thirds",

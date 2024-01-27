@@ -1,12 +1,14 @@
 import * as React from "react";
+import TagSearch from "../TagSearch";
 import ChordClouds from "./ChordClouds";
-import { S } from "./Course";
+import { Chapter, S } from "./Course";
 
-const TheRest = ({ sequencer }) => {
+const Modes: Chapter = ({ sequencer, analyses }) => {
   return (
     <>
       <ChordClouds chords={["i", "IV"]} />
       <h3>Dorian (shuttle?)</h3>
+
       <ul>
         <li>
           <S artist="MIDI/Type O Negative" song="Love You to Death.mid" /> -
@@ -39,6 +41,7 @@ const TheRest = ({ sequencer }) => {
           in minor, dorian solo, mixed dorian/natural
         </li>
       </ul>
+      <TagSearch tag="scale:dorian" analyses={analyses} />
       <h3>iadd6</h3>
       <ul>
         <li>
@@ -80,4 +83,4 @@ const TheRest = ({ sequencer }) => {
   );
 };
 
-export default TheRest;
+export default Modes;

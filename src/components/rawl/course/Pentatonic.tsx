@@ -63,6 +63,11 @@ const TheRest = ({ sequencer }) => {
           />
         </li>
       </ul>
+      <h3>References</h3>
+      <div>
+        Biamonte, Nicole. 2010. “Triadic Modal and Pentatonic Patterns in Rock
+        Music.” Music Theory Spectrum 32, no. 2: 95–110.
+      </div>
     </>
   );
 };

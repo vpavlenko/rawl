@@ -40,6 +40,21 @@ const Phrases = ({ sequencer }) => {
           <S artist="MIDI/Terry Stafford" song="Suspicion.mid" />
         </li>
       </ul>
+      <h3>Sudden abrupt on repeat</h3>
+      <ul>
+        <li>
+          <S artist="MIDI/The Alan Parsons Project" song="Eye In The Sky.mid" />
+        </li>
+      </ul>
+      <h3>Fusion</h3>
+      <ul>
+        <li>
+          <S
+            artist="MIDI/The Animals"
+            song="The House of the Rising Sun.5.mid"
+          />
+        </li>
+      </ul>
     </>
   );
 };

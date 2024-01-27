@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Corpus } from "./analysis";
+import { SongLink } from "./course/Course";
 
 const TagSearch: React.FC<{ tag: string; analyses: Corpus }> = ({
   tag,
@@ -13,9 +14,7 @@ const TagSearch: React.FC<{ tag: string; analyses: Corpus }> = ({
         if (analyses[artist][song][subtune].tags.indexOf(tag) !== -1) {
           result.push(
             <li>
-              <a href={`/browse/${artist}?song=${song}`} target="_blank">
-                {artist.slice(5)} - {song.slice(0, -4)}
-              </a>
+              <SongLink artist={artist} song={song} />
             </li>,
           );
         }

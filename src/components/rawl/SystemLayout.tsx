@@ -520,12 +520,13 @@ const MeasureNumbers = ({
   <div
     key="measure_header"
     style={{
-      width: secondsToX(
-        Math.max(
-          measuresAndBeats.measures.at(-1),
-          measuresAndBeats.beats.at(-1),
-        ),
-      ),
+      width:
+        secondsToX(
+          Math.max(
+            measuresAndBeats.measures.at(-1),
+            measuresAndBeats.beats.at(-1),
+          ),
+        ) + 300,
       height: 20,
       marginBottom: "-14px",
       marginLeft: "0px",

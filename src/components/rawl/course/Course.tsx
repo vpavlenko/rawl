@@ -54,6 +54,16 @@ export const Row = styled.div`
   gap: 40px;
 `;
 
+export const SongLink = ({ artist, song }) => (
+  <a href={`/browse/${artist}?song=${song}`} target="_blank">
+    {artist.slice(5)} - {song.slice(0, -4)}&nbsp;&nbsp;
+    <FontAwesomeIcon
+      icon={faArrowUpRightFromSquare}
+      style={{ width: "10px" }}
+    />
+  </a>
+);
+
 export const S = ({ artist, song, exercise = null }) => {
   return (
     <>
@@ -68,13 +78,7 @@ export const S = ({ artist, song, exercise = null }) => {
           </a>
         </>
       ) : (
-        <a href={`/browse/${artist}?song=${song}`} target="_blank">
-          {artist.slice(5)} - {song.slice(0, -4)}&nbsp;&nbsp;
-          <FontAwesomeIcon
-            icon={faArrowUpRightFromSquare}
-            style={{ width: "10px" }}
-          />
-        </a>
+        <SongLink artist={artist} song={song} />
       )}
     </>
   );

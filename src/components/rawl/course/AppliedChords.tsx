@@ -1,13 +1,19 @@
 import * as React from "react";
 import TagSearch from "../TagSearch";
 import ChordClouds from "./ChordClouds";
-import { Chapter } from "./Course";
+import { Chapter, S } from "./Course";
 
 const AppliedChords: Chapter = ({ sequencer, analyses }) => {
   return (
     <>
       <ChordClouds chords={["V/V", "V"]} />
       <h3>Applied chords - V/V</h3>
+      <ul>
+        <li>
+          <S artist="MIDI/The Beautiful South" song="Don't Marry Her.mid" /> -
+          pure I-IV-V and V7/V. Allow a user to change the tonic and recolor.
+        </li>
+      </ul>
       <TagSearch tag="applied:V/V" analyses={analyses} />
 
       <h3>Applied chords - V/ii</h3>
@@ -32,6 +38,15 @@ const AppliedChords: Chapter = ({ sequencer, analyses }) => {
       <ChordClouds chords={["V/V/V", "V/V"]} />
       <h3>V/V/V</h3>
       <TagSearch tag="applied:V/V/V" analyses={analyses} />
+
+      <h3>Applied chords to IV</h3>
+      <ul>
+        <li>
+          <S artist="MIDI/The Blue Diamonds" song="Ramona.mid" /> - VI leading
+          to IV
+        </li>
+      </ul>
+      <TagSearch tag="chord:III" analyses={analyses} />
     </>
   );
 };

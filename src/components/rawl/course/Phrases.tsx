@@ -14,6 +14,7 @@ const Phrases: Chapter = ({ sequencer, analyses }) => {
       <div>
         There are common deformations that lenghten or shorten a phrase.
       </div>
+
       <h3>Dominant prolongation</h3>
       <TagSearch tag="phrasing:dominant_prolongation" analyses={analyses} />
       <li>
@@ -23,31 +24,22 @@ const Phrases: Chapter = ({ sequencer, analyses }) => {
           a dominant
         </a>
       </li>
+
       <h3>Silent break</h3>
       <TagSearch tag="arrangement:silent_break" analyses={analyses} />
-      <h3>Contraction</h3>
-      <ul>
-        <li>
-          <S artist="MIDI/Terry Stafford" song="Suspicion.mid" />
-        </li>
-      </ul>
-      <h3>Sudden abrupt on repeat</h3>
-      <ul>
-        <li>
-          <S artist="MIDI/The Alan Parsons Project" song="Eye In The Sky.mid" />
-        </li>
-      </ul>
+
       <h3>Fusion</h3>
-      <ul>
-        <li>
-          <S
-            artist="MIDI/The Animals"
-            song="The House of the Rising Sun.5.mid"
-          />
-        </li>
-      </ul>
+      <TagSearch tag="phrasing:fusion" analyses={analyses} />
+
       <h3>Unsorted</h3>
       <ul>
+        <li>
+          <S artist="MIDI/The Alan Parsons Project" song="Eye In The Sky.mid" />{" "}
+          - Sudden abrupt on repeat
+        </li>
+        <li>
+          <S artist="MIDI/Terry Stafford" song="Suspicion.mid" /> - contraction
+        </li>
         <li>
           <S artist="MIDI/Vanessa Williams" song="Colors of the Wind.mid" />
         </li>

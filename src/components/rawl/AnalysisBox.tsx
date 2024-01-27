@@ -109,6 +109,7 @@ export const TAGS = [
   "stability:bVI-bVII-I",
   "stability:bIII",
   "stability:unstable",
+  "stability:rapid_circle_of_fifths",
 
   "time:3/4",
 
@@ -209,6 +210,7 @@ export const TAGS = [
   "fx:delay",
 
   "phrasing:dominant_prolongation",
+  "phrasing:fusion",
 ];
 
 const FORM_SECTIONS = ["intro", "verse", "chorus", "bridge", "outro", "solo"];

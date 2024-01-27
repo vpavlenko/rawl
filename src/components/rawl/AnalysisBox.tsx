@@ -81,6 +81,7 @@ export const TAGS = [
   "chord:viø",
   "chord:III",
   "chord:ii_in_minor",
+  "chord:iiadd6",
 
   "chord-scale:phrygian_dominant",
   "chord-scale:melodic_minor_V",

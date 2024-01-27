@@ -57,6 +57,8 @@ const TheRest = ({ sequencer, analyses }) => {
       <TagSearch tag="form:rock_solo" analyses={analyses} />
       <h3>Silent break</h3>
       <TagSearch tag="arrangement:silent_break" analyses={analyses} />
+      <h3>Delay effect</h3>
+      <TagSearch tag="fx:delay" analyses={analyses} />
     </>
   );
 };

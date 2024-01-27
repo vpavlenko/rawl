@@ -478,6 +478,8 @@ class App extends React.Component {
         case "+":
           this.setSpeedRelative(0.01);
           break;
+        case "f":
+          this.enterFullScreen();
         default:
       }
 
@@ -861,6 +863,9 @@ class App extends React.Component {
                       song={song}
                       exercise={searchParams.get("exercise")}
                       sequencer={this.sequencer}
+                      setEnterFullScreen={(enterFullScreen) =>
+                        (this.enterFullScreen = enterFullScreen)
+                      }
                     />
                   )}
               </>

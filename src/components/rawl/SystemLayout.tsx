@@ -7,6 +7,7 @@ import {
   useRef,
   useState,
 } from "react";
+import { FullScreen } from "react-full-screen";
 import { AnalysisGrid, Cursor, MeasureSelection } from "./AnalysisGrid";
 import { ColorScheme, useColorScheme } from "./ColorScheme";
 import { SecondsSpan, SetVoiceMask, secondsToX, xToSeconds } from "./Rawl";
@@ -446,7 +447,6 @@ const VoiceName: React.FC<{
           top,
           left: "2px",
           marginLeft: "2px",
-          display: voiceName && top > 35 ? "block" : "none",
           fontFamily: "sans-serif",
           fontSize: "12px",
           userSelect: "none",
@@ -598,7 +598,7 @@ export const Voice: React.FC<{
     mouseHandlers;
 
   const height =
-    (midiRange[0] === +Infinity ? 1 : midiRange[1] - midiRange[0] + 1) *
+    (midiRange[0] === +Infinity ? 0 : midiRange[1] - midiRange[0] + 1) *
     SPLIT_NOTE_HEIGHT;
 
   const midiNumberToY = useCallback(
@@ -688,7 +688,7 @@ export const Voice: React.FC<{
         />
       ) : null}
       {cursor}
-      {hasVisibleNotes ? (
+      {hasVisibleNotes && voiceName ? (
         <VoiceName
           voiceName={voiceName}
           voiceMask={voiceMask}
@@ -724,6 +724,7 @@ export const SplitSystemLayout: React.FC<{
   mouseHandlers: MouseHandlers;
   measureSelection: MeasureSelection;
   setVoiceMask: SetVoiceMask;
+  fullScreenHandle: any;
 }> = ({
   notes,
   voiceNames,
@@ -735,6 +736,7 @@ export const SplitSystemLayout: React.FC<{
   mouseHandlers,
   measureSelection,
   setVoiceMask,
+  fullScreenHandle,
 }) => {
   const prevPositionSeconds = useRef<number>(0);
   useEffect(() => {
@@ -799,22 +801,22 @@ export const SplitSystemLayout: React.FC<{
   }, []);
 
   return (
-    <div
-      key="innerLeftPanel"
-      style={{
-        margin: 0,
-        padding: 0,
-        position: "relative",
-        overflowX: "scroll",
-        overflowY: "scroll",
-        width: "100%",
-        height: "100%",
-        backgroundColor: "black",
-      }}
-      ref={parentRef}
-      className="SplitLayout"
-    >
-      <div>
+    <FullScreen handle={fullScreenHandle} className="FullScreen">
+      <div
+        key="innerLeftPanel"
+        style={{
+          margin: 0,
+          padding: 0,
+          position: "relative",
+          overflowX: "scroll",
+          overflowY: "scroll",
+          width: "100%",
+          height: "100vh",
+          backgroundColor: "black",
+        }}
+        ref={parentRef}
+        className="SplitLayout"
+      >
         <MeasureNumbers
           measuresAndBeats={measuresAndBeats}
           analysis={analysis}
@@ -822,7 +824,7 @@ export const SplitSystemLayout: React.FC<{
           measureSelection={measureSelection}
         />
         {voicesSortedByAverageMidiNumber.map(({ voiceIndex, notes }, order) => (
-          <div style={{ zIndex: 20 - voiceIndex, position: "relative" }}>
+          <div style={{ position: "relative" }}>
             <Voice
               key={voiceIndex}
               voiceName={voiceNames[voiceIndex]}
@@ -854,6 +856,6 @@ export const SplitSystemLayout: React.FC<{
           </div>
         ))}
       </div>
-    </div>
+    </FullScreen>
   );
 };

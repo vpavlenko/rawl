@@ -2,7 +2,7 @@ import { faExpand } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as React from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { FullScreen, useFullScreenHandle } from "react-full-screen";
+import { useFullScreenHandle } from "react-full-screen";
 import { AnalysisBox } from "./AnalysisBox";
 import { MeasureSelection } from "./AnalysisGrid";
 import Exercise, { ExerciseType } from "./Exercise";
@@ -59,6 +59,7 @@ const Rawl: React.FC<{
   song: string;
   exercise: ExerciseType | null;
   sequencer: any;
+  setEnterFullScreen: any;
 }> = ({
   parsingResult,
   getCurrentPositionMs,
@@ -76,6 +77,7 @@ const Rawl: React.FC<{
   song,
   exercise,
   sequencer,
+  setEnterFullScreen,
 }) => {
   useEffect(() => {
     document.title = `${artist.slice(5)} - ${song.slice(0, -4)} - Rawl`;
@@ -148,24 +150,6 @@ const Rawl: React.FC<{
         setHoveredNote(note);
       }
       setHoveredAltKey(altKey);
-      // if (paused) {
-      //   synth.noteOn(
-      //     note.chipState.on.channel,
-      //     note.chipState.on.param1,
-      //     note.chipState.on.param2,
-      //   );
-      //   // Since buffer is large, controlling noteOff from here
-      //   // is probably a bad idea - not real-time. Results in very short
-      //   // notes sometimes.
-      //   setTimeout(
-      //     () =>
-      //       synth.noteOff(
-      //         note.chipState.off.channel,
-      //         note.chipState.off.param1,
-      //       ),
-      //     Math.min((note.span[1] - note.span[0]) * 1000, 4000),
-      //   );
-      // }
     },
     [paused],
   );
@@ -325,144 +309,144 @@ const Rawl: React.FC<{
   );
 
   const fullScreenHandle = useFullScreenHandle();
+  useEffect(() => setEnterFullScreen(fullScreenHandle.enter), []);
 
   return (
-    <FullScreen handle={fullScreenHandle}>
+    <div
+      style={{
+        position: "relative",
+        display: "flex",
+        flexDirection: "row",
+        overflow: "hidden",
+        flexGrow: 1,
+      }}
+    >
       <div
+        key="leftPanel"
         style={{
-          position: "relative",
-          display: "flex",
-          flexDirection: "row",
-          overflow: "hidden",
+          width: "100%",
+          height: "100%",
+          padding: 0,
+          backgroundColor: "black",
           flexGrow: 1,
+          overflowX: "auto",
         }}
       >
-        <div
-          key="leftPanel"
-          style={{
-            width: "100%",
-            height: "100%",
-            padding: 0,
-            backgroundColor: "black",
-            flexGrow: 1,
-            overflowX: "auto",
-          }}
-        >
-          {systemLayout === "merged" ? (
-            <MergedSystemLayout
-              {...commonParams}
-              measuresAndBeats={measuresAndBeats}
-              registerSeekCallback={registerSeekCallback}
-            />
-          ) : (
-            <SplitSystemLayout
-              {...commonParams}
-              voiceNames={voiceNames}
-              setVoiceMask={setVoiceMask}
-            />
-          )}
-        </div>
-        {showAnalysisBox && !exercise && (
-          <div style={{ width: "350px", height: "100%", zIndex: 20 }}>
-            <AnalysisBox
-              analysis={analysis}
-              commitAnalysisUpdate={commitAnalysisUpdate}
-              previouslySelectedMeasure={previouslySelectedMeasure}
-              selectedMeasure={selectedMeasure}
-              selectMeasure={selectMeasure}
-              artist={artist}
-              song={song}
-            />
-          </div>
+        {systemLayout === "merged" ? (
+          <MergedSystemLayout
+            {...commonParams}
+            measuresAndBeats={measuresAndBeats}
+            registerSeekCallback={registerSeekCallback}
+          />
+        ) : (
+          <SplitSystemLayout
+            {...commonParams}
+            voiceNames={voiceNames}
+            setVoiceMask={setVoiceMask}
+            fullScreenHandle={fullScreenHandle}
+          />
         )}
-        {exercise && (
-          <div
-            style={{
-              position: "fixed",
-              right: 280,
-              bottom: 30,
-              backgroundColor: "black",
-              width: "250px",
-              height: "120px",
-              zIndex: 10000000,
-              border: "1px solid yellow",
-              padding: "10px",
-            }}
-          >
-            <Exercise
-              artist={artist}
-              song={song}
-              type={exercise}
-              analysis={analysis}
-              savedAnalysis={savedAnalysis}
-              sequencer={sequencer}
-            />
-          </div>
-        )}
-        <div
-          key="piano-legend"
-          style={{ position: "absolute", bottom: 20, right: 20, zIndex: 30 }}
-        >
-          <PianoLegend />
+      </div>
+      {showAnalysisBox && !exercise && (
+        <div style={{ width: "350px", height: "100%", zIndex: 20 }}>
+          <AnalysisBox
+            analysis={analysis}
+            commitAnalysisUpdate={commitAnalysisUpdate}
+            previouslySelectedMeasure={previouslySelectedMeasure}
+            selectedMeasure={selectedMeasure}
+            selectMeasure={selectMeasure}
+            artist={artist}
+            song={song}
+          />
         </div>
-
+      )}
+      {exercise && (
         <div
           style={{
             position: "fixed",
-            top: 43,
-            right: 5,
-            zIndex: 10000,
+            right: 280,
+            bottom: 30,
             backgroundColor: "black",
-            display: "flex",
-            flexDirection: "row",
-            gap: 15,
+            width: "250px",
+            height: "120px",
+            zIndex: 10000000,
+            border: "1px solid yellow",
+            padding: "10px",
           }}
         >
-          <label className="inline">
-            <input
-              title="Velocity"
-              type="checkbox"
-              onClick={(e) => {
-                e.stopPropagation();
-              }}
-              onChange={(e) => {
-                e.stopPropagation();
-                setShowVelocity(e.target.checked);
-              }}
-              checked={showVelocity}
-            />
-            Velocity
-          </label>
-          <label key={"merged"} className="inline">
-            <input
-              onClick={() => setSystemLayout("merged")}
-              type="radio"
-              name="system-layout"
-              checked={systemLayout === "merged"}
-              value={"horizontal"}
-            />
-            Merged
-          </label>
-          <label key={"split"} className="inline">
-            <input
-              onClick={() => setSystemLayout("split")}
-              type="radio"
-              name="system-layout"
-              checked={systemLayout === "split"}
-              value={"split"}
-            />
-            Split
-          </label>
-          {!fullScreenHandle.active && (
-            <FontAwesomeIcon
-              icon={faExpand}
-              style={{ cursor: "pointer", position: "relative", top: 2 }}
-              onClick={fullScreenHandle.enter}
-            />
-          )}
+          <Exercise
+            artist={artist}
+            song={song}
+            type={exercise}
+            analysis={analysis}
+            savedAnalysis={savedAnalysis}
+            sequencer={sequencer}
+          />
         </div>
+      )}
+      <div
+        key="piano-legend"
+        style={{ position: "absolute", bottom: 20, right: 20, zIndex: 30 }}
+      >
+        <PianoLegend />
       </div>
-    </FullScreen>
+
+      <div
+        style={{
+          position: "fixed",
+          top: 43,
+          right: 5,
+          zIndex: 10000,
+          backgroundColor: "black",
+          display: "flex",
+          flexDirection: "row",
+          gap: 15,
+        }}
+      >
+        <label className="inline">
+          <input
+            title="Velocity"
+            type="checkbox"
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+            onChange={(e) => {
+              e.stopPropagation();
+              setShowVelocity(e.target.checked);
+            }}
+            checked={showVelocity}
+          />
+          Velocity
+        </label>
+        <label key={"merged"} className="inline">
+          <input
+            onClick={() => setSystemLayout("merged")}
+            type="radio"
+            name="system-layout"
+            checked={systemLayout === "merged"}
+            value={"horizontal"}
+          />
+          Merged
+        </label>
+        <label key={"split"} className="inline">
+          <input
+            onClick={() => setSystemLayout("split")}
+            type="radio"
+            name="system-layout"
+            checked={systemLayout === "split"}
+            value={"split"}
+          />
+          Split
+        </label>
+        {!fullScreenHandle.active && (
+          <FontAwesomeIcon
+            icon={faExpand}
+            style={{ cursor: "pointer", position: "relative", top: 2 }}
+            onClick={fullScreenHandle.enter}
+          />
+        )}
+      </div>
+    </div>
   );
 };
 

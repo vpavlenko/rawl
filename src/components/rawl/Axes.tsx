@@ -125,7 +125,7 @@ const VOICE_PARAMS = {
   showHeader: false,
   scrollLeft: 0,
   scrollRight: 1000,
-  voiceName: "",
+  voiceName: null,
   setVoiceMask: () => {},
   voiceIndex: 0,
   voiceMask: [true],

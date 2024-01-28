@@ -26,7 +26,7 @@ const AppliedChords: Chapter = ({ sequencer, analyses }) => {
       <TagSearch tag="applied:V/vi" analyses={analyses} />
 
       <h3>Vsus4 in applied chords</h3>
-      <TagSearch tag="applied:Vsus4_in_applied" analyses={analyses} />
+      <TagSearch tag="voice-leading:Vsus4_in_applied" analyses={analyses} />
 
       <h3>Applied chords - V7/IV</h3>
       <div>Hypothesis: V7/IV always implies V7 instead of V?</div>

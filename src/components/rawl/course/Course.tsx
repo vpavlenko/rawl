@@ -19,10 +19,12 @@ import Modes from "./Modes";
 import Modulation from "./Modulation";
 import Pentatonic from "./Pentatonic";
 import Phrases from "./Phrases";
+import RockSolo from "./RockSolo";
 import Texture from "./Texture";
 import TheRest from "./TheRest";
 import ThicknessOfVoicing from "./ThicknessOfVoicing";
 import Tonic from "./Tonic";
+import VoiceLeading from "./VoiceLeading";
 
 const CHAPTERS: { title: string; component: Chapter }[] = [
   { title: "About", component: About },
@@ -33,14 +35,16 @@ const CHAPTERS: { title: string; component: Chapter }[] = [
   { title: "Tonic", component: Tonic },
   { title: "Phrases", component: Phrases },
   { title: "Texture", component: Texture },
+  { title: "Voice-Leading", component: VoiceLeading },
   { title: "Functionality", component: Functionality },
   { title: "Applied Chords", component: AppliedChords },
   { title: "Modes", component: Modes },
   { title: "Chromatic Chords", component: ChromaticChords },
   { title: "Modulation", component: Modulation },
-  { title: "Pentatonic", component: Pentatonic },
+  { title: "bIII, bVI, bVII in Major", component: Pentatonic },
   { title: "Blues", component: Blues },
   { title: "Chord-Scale Theory", component: ChordScaleTheory },
+  { title: "Rock Solo", component: RockSolo },
   { title: "Jazz", component: Jazz },
   { title: "The Rest", component: TheRest },
 ];

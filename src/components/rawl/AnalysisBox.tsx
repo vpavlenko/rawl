@@ -94,8 +94,7 @@ export const TAGS = [
   "voice-leading:chromatic",
   "voice-leading:entire_scale",
   "voice-leading:pedal",
-  "voice-leading:triple_chromatic_up",
-  "voice-leading:triple_chromatic_down",
+  "voice-leading:triple_chromatic",
   "voice-leading:triple_diatonic",
 
   "chunks:V-IV",
@@ -211,6 +210,7 @@ export const TAGS = [
   "fx:delay",
 
   "phrasing:dominant_prolongation",
+  "phrasing:tonic_prolongation",
   "phrasing:fusion",
 
   "instrument:banjo",

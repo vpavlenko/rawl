@@ -17,13 +17,19 @@ const Phrases: Chapter = ({ sequencer, analyses }) => {
 
       <h3>Dominant prolongation</h3>
       <TagSearch tag="phrasing:dominant_prolongation" analyses={analyses} />
-      <li>
-        <S artist="MIDI/The Association" song="Never My Love.mid" /> - here a
-        prolongation on IV chord votes for it to be{" "}
-        <a href="https://mtosmt.org/issues/mto.11.17.1/mto.11.17.1.temperley.html">
-          a dominant
-        </a>
-      </li>
+      <ul>
+        <li>
+          <S artist="MIDI/The Association" song="Never My Love.mid" /> - here a
+          prolongation on IV chord votes for it to be{" "}
+          <a href="https://mtosmt.org/issues/mto.11.17.1/mto.11.17.1.temperley.html">
+            a dominant
+          </a>
+        </li>
+        <li>
+          <S artist="MIDI/The Boomtown Rats" song="I Don't Like Monday's.mid" />{" "}
+          - both IV and V are prolonged
+        </li>
+      </ul>
 
       <h3>Silent break</h3>
       <TagSearch tag="arrangement:silent_break" analyses={analyses} />

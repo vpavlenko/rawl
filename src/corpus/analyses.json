@@ -280,7 +280,7 @@
           "chord:iadd6",
           "scale:blues",
           "modulation:up_at_the_end",
-          "voice-leading:triple_chromatic_up"
+          "voice-leading:triple_chromatic"
         ],
         "modulations": {
           "60": 10,
@@ -314,8 +314,7 @@
         ],
         "romanNumerals": "",
         "tags": [
-          "voice-leading:triple_chromatic_down",
-          "voice-leading:triple_chromatic_up",
+          "voice-leading:triple_chromatic",
           "voice-leading:chromatic",
           "form:AABA",
           "style:jazz",
@@ -988,7 +987,7 @@
         ],
         "romanNumerals": "",
         "tags": [
-          "voice-leading:triple_chromatic_down",
+          "voice-leading:triple_chromatic",
           "stability:bIII",
           "voicing:alterations",
           "issues:merge_voices",
@@ -2893,7 +2892,7 @@
         "romanNumerals": "",
         "tags": [
           "style:latin",
-          "voice-leading:triple_chromatic_up",
+          "voice-leading:triple_chromatic",
           "applied:V7/IV",
           "chord:V7",
           "voicing:blues",
@@ -4090,7 +4089,7 @@
           "style:stride",
           "chord:Iadd6",
           "applied:V/V",
-          "voice-leading:triple_chromatic_down",
+          "voice-leading:triple_chromatic",
           "chord:io7",
           "rhythm:swing",
           "form:AABA",
@@ -4470,7 +4469,7 @@
           "form:AABA",
           "issues:merge_voices",
           "modulation:contrast",
-          "voice-leading:triple_chromatic_down"
+          "voice-leading:triple_chromatic"
         ]
       }
     }

@@ -160,24 +160,6 @@ const getMidiRange = (notes: Note[], span?: SecondsSpan): MidiRange => {
   return [min, max];
 };
 
-const getMidiRangeWithMask = (
-  notes: NotesInVoices,
-  voiceMask: boolean[],
-  span?: SecondsSpan,
-): MidiRange => {
-  let min = +Infinity;
-  let max = -Infinity;
-  for (let voice = 0; voice < notes.length; ++voice) {
-    if (!voiceMask[voice]) {
-      continue;
-    }
-    const voiceSpan = getMidiRange(notes[voice], span);
-    min = Math.min(min, voiceSpan[0]);
-    max = Math.max(max, voiceSpan[1]);
-  }
-  return [min, max];
-};
-
 const getNoteColor = (
   note: Note,
   analysis,
@@ -551,7 +533,7 @@ const MeasureNumbers = ({
 );
 
 export const Voice: React.FC<{
-  notes: NotesInVoices;
+  notes: Note[];
   measuresAndBeats: MeasuresAndBeats;
   analysis: Analysis;
   showVelocity: boolean;
@@ -587,10 +569,7 @@ export const Voice: React.FC<{
 
   const midiRange = useMemo(
     () =>
-      getMidiRangeWithMask(notes, SPLIT_VOICE_MASK, [
-        xToSeconds(scrollLeft),
-        xToSeconds(scrollRight),
-      ]),
+      getMidiRange(notes, [xToSeconds(scrollLeft), xToSeconds(scrollRight)]),
     [notes, scrollLeft, scrollRight],
   );
 
@@ -609,21 +588,19 @@ export const Voice: React.FC<{
 
   const { noteRectangles, frozenHeight, frozenMidiRange } = useMemo(
     () => ({
-      noteRectangles: notes.flatMap((notesInOneVoice, voice) =>
-        getNoteRectangles(
-          notesInOneVoice,
-          voice,
-          voiceMask[voiceIndex],
-          analysis,
-          midiNumberToY,
-          SPLIT_NOTE_HEIGHT,
-          measuresAndBeats.measures,
-          handleNoteClick,
-          handleMouseEnter,
-          () => {},
-          showVelocity,
-          colorScheme,
-        ),
+      noteRectangles: getNoteRectangles(
+        notes,
+        0,
+        true,
+        analysis,
+        midiNumberToY,
+        SPLIT_NOTE_HEIGHT,
+        measuresAndBeats.measures,
+        handleNoteClick,
+        handleMouseEnter,
+        () => {},
+        showVelocity,
+        colorScheme,
       ),
       frozenHeight: height,
       frozenMidiRange: midiRange,
@@ -684,7 +661,7 @@ export const Voice: React.FC<{
           systemLayout={"split"}
           midiRange={midiRange}
           showHeader={false}
-          showTonalGrid={showTonalGrid && !notes?.[0]?.[0].isDrum}
+          showTonalGrid={showTonalGrid && !notes[0]?.isDrum}
         />
       ) : null}
       {cursor}
@@ -700,8 +677,6 @@ export const Voice: React.FC<{
     </div>
   );
 };
-
-const SPLIT_VOICE_MASK = [true];
 
 const debounce = (func, delay) => {
   let timer;
@@ -753,7 +728,7 @@ export const SplitSystemLayout: React.FC<{
         .sort((a, b) => b.average - a.average)
         .map(({ voiceIndex }) => ({
           voiceIndex,
-          notes: [notes[voiceIndex]],
+          notes: notes[voiceIndex],
         })),
     [notes],
   );

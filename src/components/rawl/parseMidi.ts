@@ -37,7 +37,7 @@ const getNotes = (events, channel): Note[] => {
       const midiNumber = event.param1;
       if (channel === 9 && midiNumber > 87) {
         return;
-        // probably a bug?
+        // probably a bug? can't be played by a default MIDI sound font
       }
       if (midiNumber in noteOn) {
         if (channel !== 9 && noteOn[midiNumber].param2 === 0) {
@@ -63,6 +63,22 @@ const getNotes = (events, channel): Note[] => {
       }
     }
   });
+  if (channel === 9) {
+    const uniqueMidiNumbers = [
+      ...new Set(notes.map((note) => note.note.midiNumber)),
+    ].sort((a, b) => a - b);
+
+    const midiToRelativeNumberMap = new Map();
+    uniqueMidiNumbers.forEach((midiNumber, index) => {
+      midiToRelativeNumberMap.set(midiNumber, index * 2);
+    });
+
+    notes.forEach((note) => {
+      note.note.relativeNumber = midiToRelativeNumberMap.get(
+        note.note.midiNumber,
+      );
+    });
+  }
   return notes;
 };
 

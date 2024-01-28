@@ -5,7 +5,7 @@
 This is a fork of [Chip Player JS](https://github.com/mmontag/chip-player-js) that focuses on music theory analysis of MIDI and NES tracks.
 All credits for tremendous original work go to Matt Montag and all contributors to libraries that he managed to wire together. I'm just writing a tiny layer on top. The licensing is the same.
 
-My stuff lives primarily in [src/components/chiptheory](src/components/chiptheory), I also removed some features from the UI to maximize useful display area for analysis. Annotations live in [src/corpus/analyses.json](src/corpus/analyses.json). Additionally, manually annotated tonics for some of Lakh MIDIs are in [src/corpus/tonics.json](src/corpus/tonics.json).
+My stuff lives primarily in [src/components/rawl](src/components/rawl), I also removed some features from the UI to maximize useful display area for analysis. Annotations live in [src/corpus/analyses.json](src/corpus/analyses.json). 
 
 Your own annotations currently won't be saved, but I can fix that - please, contact me.
 

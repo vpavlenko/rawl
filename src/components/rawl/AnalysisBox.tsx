@@ -135,6 +135,7 @@ export const TAGS = [
   "style:grunge",
   "style:dance_pop",
   "style:techno",
+  "style:bluegrass",
 
   "functionality:shuttle",
   "functionality:functional",
@@ -211,6 +212,8 @@ export const TAGS = [
 
   "phrasing:dominant_prolongation",
   "phrasing:fusion",
+
+  "instrument:banjo",
 ];
 
 const FORM_SECTIONS = ["intro", "verse", "chorus", "bridge", "outro", "solo"];

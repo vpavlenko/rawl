@@ -44,6 +44,10 @@ const BassLines = ({ sequencer }) => {
           <S artist="MIDI/Taylor Dayne" song="Tell It to My Heart.mid" /> - root
           with embellishments
         </li>
+        <li>
+          <S artist="MIDI/The Bluegrass Cardinals" song="Pretty Red Wing.mid" />{" "}
+          - see bass on ii7
+        </li>
       </ul>
       <ul>
         <li>

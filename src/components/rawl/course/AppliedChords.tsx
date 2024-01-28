@@ -37,6 +37,12 @@ const AppliedChords: Chapter = ({ sequencer, analyses }) => {
 
       <ChordClouds chords={["V/V/V", "V/V"]} />
       <h3>V/V/V</h3>
+      <ul>
+        <li>
+          <S artist="MIDI/The Bluegrass Cardinals" song="Pretty Red Wing.mid" />{" "}
+          - pure I-IV-V7-I, V/V and V/V/V
+        </li>
+      </ul>
       <TagSearch tag="applied:V/V/V" analyses={analyses} />
 
       <h3>Applied chords to IV</h3>

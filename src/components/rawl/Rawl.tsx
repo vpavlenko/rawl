@@ -309,14 +309,10 @@ const Rawl: React.FC<{
   );
 
   const fullScreenHandle = useFullScreenHandle();
-  useEffect(
-    () =>
-      setEnterFullScreen(() => {
-        debugger;
-        fullScreenHandle.enter();
-      }),
-    [],
-  );
+  useEffect(() => {
+    setEnterFullScreen(fullScreenHandle.enter);
+    return () => setEnterFullScreen(() => {});
+  }, []);
 
   return (
     <div

@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { TAGS } from "./AnalysisBox";
 import MIDI_PREVIEWS from "./AxesMidiPreviews";
 import { PianoLegend } from "./PianoLegend";
+import { secondsToX__, xToSeconds__ } from "./Rawl";
 import { Voice } from "./SystemLayout";
 import { PitchClass } from "./analysis";
 
@@ -142,6 +143,8 @@ const VOICE_PARAMS = {
     systemClickHandler: () => {},
   },
   noteHeight: 5,
+  xToSeconds: xToSeconds__,
+  secondsToX: secondsToX__,
 };
 
 const Axes = ({ sequencer }) => {

@@ -30,8 +30,8 @@ const LATENCY_CORRECTION_MS =
 export type SecondsSpan = [number, number];
 
 const SECOND_WIDTH = 40;
-export const secondsToX = (seconds) => seconds * SECOND_WIDTH;
-export const xToSeconds = (x) => x / SECOND_WIDTH;
+export const secondsToX__ = (seconds) => seconds * SECOND_WIDTH;
+export const xToSeconds__ = (x) => x / SECOND_WIDTH;
 
 export type SetVoiceMask = (mask: boolean[]) => void;
 
@@ -249,7 +249,7 @@ const Rawl: React.FC<{
       const targetElement = e.target as HTMLElement;
       const rect = targetElement.getBoundingClientRect();
       const distance = e.clientX - rect.left + targetElement.scrollLeft;
-      const time = xToSeconds(distance) + timeOffset;
+      const time = xToSeconds__(distance) + timeOffset;
       seek(time * 1000);
     },
     [seek],

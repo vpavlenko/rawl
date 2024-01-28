@@ -10,7 +10,7 @@ import {
 import { FullScreen } from "react-full-screen";
 import { AnalysisGrid, Cursor, MeasureSelection } from "./AnalysisGrid";
 import { ColorScheme, useColorScheme } from "./ColorScheme";
-import { SecondsSpan, SetVoiceMask, secondsToX, xToSeconds } from "./Rawl";
+import { SecondsSpan, SetVoiceMask, secondsToX__ } from "./Rawl";
 import { Analysis, PitchClass } from "./analysis";
 import { Note, NotesInVoices } from "./parseMidi";
 
@@ -196,6 +196,7 @@ const getNoteRectangles = (
   handleMouseLeave: () => void,
   showVelocity = false,
   colorScheme: ColorScheme,
+  secondsToX: (number) => number,
 ) => {
   return notes.map((note) => {
     const {
@@ -309,7 +310,8 @@ export const MergedSystemLayout = ({
 
   useEffect(() => {
     registerSeekCallback(
-      (seekMs) => (divRef.current.scrollLeft = secondsToX(seekMs / 1000) - 100),
+      (seekMs) =>
+        (divRef.current.scrollLeft = secondsToX__(seekMs / 1000) - 100),
     );
   }, []);
 
@@ -336,6 +338,7 @@ export const MergedSystemLayout = ({
           handleMouseLeave,
           showVelocity,
           colorScheme,
+          secondsToX__,
         ),
       ),
     [
@@ -372,7 +375,7 @@ export const MergedSystemLayout = ({
       onClick={systemClickHandler}
     >
       {noteRectangles}
-      <Cursor style={{ left: secondsToX(positionSeconds) }} />
+      <Cursor style={{ left: secondsToX__(positionSeconds) }} />
       <AnalysisGrid
         analysis={analysis}
         measuresAndBeats={measuresAndBeats}
@@ -382,6 +385,7 @@ export const MergedSystemLayout = ({
         phraseStarts={phraseStarts}
         systemLayout={"merged"}
         midiRange={midiRange}
+        secondsToX={secondsToX__}
       />
     </div>
   );
@@ -496,12 +500,14 @@ const MeasureNumbers = ({
   phraseStarts,
   measureSelection,
   noteHeight,
+  secondsToX,
 }: {
   measuresAndBeats: MeasuresAndBeats;
   analysis: Analysis;
   phraseStarts: number[];
   measureSelection: MeasureSelection;
   noteHeight: number;
+  secondsToX: (number) => number;
 }) => (
   <div
     key="measure_header"
@@ -532,6 +538,7 @@ const MeasureNumbers = ({
       midiRange={[0, 0]}
       showHeader={true}
       showTonalGrid={false}
+      secondsToX={secondsToX}
     />
   </div>
 );
@@ -553,6 +560,8 @@ export const Voice: React.FC<{
   voiceMask: boolean[];
   showTonalGrid?: boolean;
   noteHeight: number;
+  secondsToX: (number) => number;
+  xToSeconds: (number) => number;
 }> = ({
   notes,
   measuresAndBeats,
@@ -570,6 +579,8 @@ export const Voice: React.FC<{
   voiceMask,
   showTonalGrid = true,
   noteHeight,
+  secondsToX,
+  xToSeconds,
 }) => {
   const { colorScheme } = useColorScheme();
 
@@ -606,6 +617,7 @@ export const Voice: React.FC<{
         () => {},
         showVelocity,
         colorScheme,
+        secondsToX,
       ),
       frozenHeight: height,
       frozenMidiRange: midiRange,
@@ -620,6 +632,7 @@ export const Voice: React.FC<{
       scrollLeft,
       colorScheme,
       noteHeight,
+      secondsToX,
     ],
   );
 
@@ -668,6 +681,7 @@ export const Voice: React.FC<{
           midiRange={midiRange}
           showHeader={false}
           showTonalGrid={showTonalGrid && !notes[0]?.isDrum}
+          secondsToX={secondsToX}
         />
       ) : null}
       {cursor}
@@ -782,6 +796,12 @@ export const SplitSystemLayout: React.FC<{
   }, []);
 
   const [noteHeight, setNoteHeight] = useState(7);
+  const [secondWidth, setSecondWidth] = useState(40);
+  const secondsToX = useCallback(
+    (seconds) => seconds * secondWidth,
+    [secondWidth],
+  );
+  const xToSeconds = useCallback((x) => x / secondWidth, [secondWidth]);
 
   return (
     <FullScreen handle={fullScreenHandle} className="FullScreen">
@@ -802,8 +822,8 @@ export const SplitSystemLayout: React.FC<{
       >
         <div
           style={{
-            position: "absolute",
-            top: 0,
+            position: "fixed",
+            bottom: 100,
             right: -60,
             zIndex: 10000,
           }}
@@ -821,12 +841,32 @@ export const SplitSystemLayout: React.FC<{
             }}
           />
         </div>
+        <div
+          style={{
+            position: "fixed",
+            bottom: 20,
+            right: 50,
+            zIndex: 10000,
+          }}
+        >
+          <input
+            type="range"
+            min="10"
+            max="100"
+            value={secondWidth}
+            onChange={(e) => setSecondWidth(parseInt(e.target.value, 10))}
+            style={{
+              width: 80,
+            }}
+          />
+        </div>
         <MeasureNumbers
           measuresAndBeats={measuresAndBeats}
           analysis={analysis}
           phraseStarts={phraseStarts}
           measureSelection={measureSelection}
           noteHeight={noteHeight}
+          secondsToX={secondsToX}
         />
         {voicesSortedByAverageMidiNumber.map(({ voiceIndex, notes }, order) => (
           <div style={{ position: "relative" }}>
@@ -858,6 +898,8 @@ export const SplitSystemLayout: React.FC<{
               setVoiceMask={setVoiceMask}
               voiceIndex={voiceIndex}
               noteHeight={noteHeight}
+              secondsToX={secondsToX}
+              xToSeconds={xToSeconds}
             />
           </div>
         ))}

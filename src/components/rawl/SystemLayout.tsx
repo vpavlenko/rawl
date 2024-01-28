@@ -45,8 +45,6 @@ export const getPhraseStarts = (
   return result;
 };
 
-export const SPLIT_NOTE_HEIGHT = 5;
-
 export const getModulations = (analysis: Analysis) =>
   [
     { measure: -1, tonic: analysis.tonic },
@@ -395,112 +393,115 @@ const VoiceName: React.FC<{
   setVoiceMask: SetVoiceMask;
   voiceIndex: number;
   scrollLeft: number;
-}> = React.memo(
-  ({ voiceName, voiceMask, setVoiceMask, voiceIndex, scrollLeft }) => {
-    const isSingleActive =
-      voiceMask[voiceIndex] && voiceMask.filter((voice) => voice).length === 1;
+}> = ({ voiceName, voiceMask, setVoiceMask, voiceIndex, scrollLeft }) => {
+  const isSingleActive =
+    voiceMask[voiceIndex] && voiceMask.filter((voice) => voice).length === 1;
 
-    const ref = useRef(null);
-    const [top, setTop] = useState(0);
+  const ref = useRef(null);
+  const [top, setTop] = useState(0);
 
-    const updatePosition = () => {
-      if (ref.current) {
-        const outerComponentRect =
-          ref.current.parentElement.getBoundingClientRect();
-        setTop(outerComponentRect.top + window.scrollY - 5);
-      }
-    };
+  const updatePosition = () => {
+    if (ref.current) {
+      const outerComponentRect =
+        ref.current.parentElement.getBoundingClientRect();
+      setTop(outerComponentRect.top + window.scrollY - 5);
+    }
+  };
 
-    useEffect(updatePosition, [scrollLeft]);
+  useEffect(updatePosition, [scrollLeft]);
 
-    useEffect(() => {
+  useEffect(() => {
+    ref.current
+      .closest(".SplitLayout")
+      ?.addEventListener("scroll", updatePosition);
+
+    return () => {
       ref.current
         .closest(".SplitLayout")
-        ?.addEventListener("scroll", updatePosition);
+        ?.removeEventListener("scroll", updatePosition);
+    };
+  }, []);
 
-      return () => {
-        ref.current
-          .closest(".SplitLayout")
-          ?.removeEventListener("scroll", updatePosition);
-      };
-    }, []);
-
-    return (
-      <span
-        style={{
-          position: "fixed",
-          top,
-          left: "2px",
-          marginLeft: "2px",
-          fontFamily: "sans-serif",
-          fontSize: "12px",
-          userSelect: "none",
-          backgroundColor: "#0009",
-          zIndex: 100,
-          padding: 7,
-          boxShadow: "inset 0 0 1px white",
-        }}
-        ref={ref}
-        onClick={(e) => {
-          e.stopPropagation();
-        }}
-      >
-        <span>
-          <button
-            style={{
-              cursor: "pointer",
-              userSelect: "none",
-              fontFamily: "sans-serif",
-              fontSize: 12,
-            }}
-            onClick={(e) => {
-              e.stopPropagation();
-              isSingleActive
-                ? setVoiceMask(voiceMask.map(() => true))
-                : setVoiceMask(voiceMask.map((_, i) => i === voiceIndex));
-            }}
-          >
-            {isSingleActive ? "Unsolo All" : "Solo"}
-          </button>
-
-          <input
-            title="active"
-            type="checkbox"
-            onChange={(e) => {
-              e.stopPropagation();
-              setVoiceMask(
-                voiceMask.map((value, i) =>
-                  i === voiceIndex ? !value : value,
-                ),
-              );
-            }}
-            checked={voiceMask[voiceIndex]}
-            style={{
-              margin: "0px 0px 0px 17px",
-              height: 11,
-              display: isSingleActive ? "none" : "inline",
-            }}
-          />
-        </span>
-        <span
+  return (
+    <span
+      style={{
+        position: "fixed",
+        top,
+        left: "2px",
+        marginLeft: "2px",
+        fontFamily: "sans-serif",
+        fontSize: "12px",
+        userSelect: "none",
+        backgroundColor: "#0009",
+        zIndex: 100,
+        padding: 7,
+        boxShadow: "inset 0 0 1px white",
+      }}
+      ref={ref}
+      onClick={(e) => {
+        e.stopPropagation();
+      }}
+    >
+      <span>
+        <button
           style={{
-            color: voiceMask[voiceIndex] ? "white" : "#444",
-            marginLeft: "10px",
-            zIndex: 100,
+            cursor: "pointer",
+            userSelect: "none",
+            fontFamily: "sans-serif",
+            fontSize: 12,
+          }}
+          onClick={(e) => {
+            e.stopPropagation();
+            isSingleActive
+              ? setVoiceMask(voiceMask.map(() => true))
+              : setVoiceMask(voiceMask.map((_, i) => i === voiceIndex));
           }}
         >
-          {voiceName}
-        </span>
+          {isSingleActive ? "Unsolo All" : "Solo"}
+        </button>
+
+        <input
+          title="active"
+          type="checkbox"
+          onChange={(e) => {
+            e.stopPropagation();
+            setVoiceMask(
+              voiceMask.map((value, i) => (i === voiceIndex ? !value : value)),
+            );
+          }}
+          checked={voiceMask[voiceIndex]}
+          style={{
+            margin: "0px 0px 0px 17px",
+            height: 11,
+            display: isSingleActive ? "none" : "inline",
+          }}
+        />
       </span>
-    );
-  },
-);
+      <span
+        style={{
+          color: voiceMask[voiceIndex] ? "white" : "#444",
+          marginLeft: "10px",
+          zIndex: 100,
+        }}
+      >
+        {voiceName}
+      </span>
+    </span>
+  );
+};
 
 const MeasureNumbers = ({
   measuresAndBeats,
   analysis,
   phraseStarts,
   measureSelection,
+  noteHeight,
+}: {
+  measuresAndBeats: MeasuresAndBeats;
+  analysis: Analysis;
+  phraseStarts: number[];
+  measureSelection: MeasureSelection;
+  noteHeight: number;
 }) => (
   <div
     key="measure_header"
@@ -524,7 +525,7 @@ const MeasureNumbers = ({
       analysis={analysis}
       measuresAndBeats={measuresAndBeats}
       midiNumberToY={() => 0}
-      noteHeight={SPLIT_NOTE_HEIGHT}
+      noteHeight={noteHeight}
       measureSelection={measureSelection}
       phraseStarts={phraseStarts}
       systemLayout={"split"}
@@ -551,6 +552,7 @@ export const Voice: React.FC<{
   voiceIndex: number;
   voiceMask: boolean[];
   showTonalGrid?: boolean;
+  noteHeight: number;
 }> = ({
   notes,
   measuresAndBeats,
@@ -567,6 +569,7 @@ export const Voice: React.FC<{
   setVoiceMask = (mask) => {},
   voiceMask,
   showTonalGrid = true,
+  noteHeight,
 }) => {
   const { colorScheme } = useColorScheme();
 
@@ -581,12 +584,11 @@ export const Voice: React.FC<{
 
   const height =
     (midiRange[0] === +Infinity ? 0 : midiRange[1] - midiRange[0] + 1) *
-    SPLIT_NOTE_HEIGHT;
+    noteHeight;
 
   const midiNumberToY = useCallback(
-    (midiNumber) =>
-      height - (midiNumber - midiRange[0] + 1) * SPLIT_NOTE_HEIGHT,
-    [height, midiRange],
+    (midiNumber) => height - (midiNumber - midiRange[0] + 1) * noteHeight,
+    [height, midiRange, noteHeight],
   );
 
   const { noteRectangles, frozenHeight, frozenMidiRange } = useMemo(
@@ -597,7 +599,7 @@ export const Voice: React.FC<{
         true,
         analysis,
         midiNumberToY,
-        SPLIT_NOTE_HEIGHT,
+        noteHeight,
         measuresAndBeats.measures,
         handleNoteClick,
         handleMouseEnter,
@@ -617,6 +619,7 @@ export const Voice: React.FC<{
       voiceMask,
       scrollLeft,
       colorScheme,
+      noteHeight,
     ],
   );
 
@@ -648,7 +651,7 @@ export const Voice: React.FC<{
           top:
             height -
             frozenHeight +
-            (midiRange[0] - frozenMidiRange[0]) * SPLIT_NOTE_HEIGHT,
+            (midiRange[0] - frozenMidiRange[0]) * noteHeight,
         }}
       >
         {noteRectangles}
@@ -658,7 +661,7 @@ export const Voice: React.FC<{
           analysis={analysis}
           measuresAndBeats={measuresAndBeats}
           midiNumberToY={midiNumberToY}
-          noteHeight={SPLIT_NOTE_HEIGHT}
+          noteHeight={noteHeight}
           measureSelection={measureSelection}
           phraseStarts={phraseStarts}
           systemLayout={"split"}
@@ -778,6 +781,8 @@ export const SplitSystemLayout: React.FC<{
     };
   }, []);
 
+  const [noteHeight, setNoteHeight] = useState(7);
+
   return (
     <FullScreen handle={fullScreenHandle} className="FullScreen">
       <div
@@ -795,11 +800,33 @@ export const SplitSystemLayout: React.FC<{
         ref={parentRef}
         className="SplitLayout"
       >
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            right: -60,
+            zIndex: 10000,
+          }}
+        >
+          <input
+            type="range"
+            min="4"
+            max="15"
+            value={noteHeight}
+            onChange={(e) => setNoteHeight(parseInt(e.target.value, 10))}
+            style={{
+              transform: "rotate(90deg)",
+              transformOrigin: "bottom left",
+              width: 80,
+            }}
+          />
+        </div>
         <MeasureNumbers
           measuresAndBeats={measuresAndBeats}
           analysis={analysis}
           phraseStarts={phraseStarts}
           measureSelection={measureSelection}
+          noteHeight={noteHeight}
         />
         {voicesSortedByAverageMidiNumber.map(({ voiceIndex, notes }, order) => (
           <div style={{ position: "relative" }}>
@@ -830,6 +857,7 @@ export const SplitSystemLayout: React.FC<{
               voiceMask={voiceMask}
               setVoiceMask={setVoiceMask}
               voiceIndex={voiceIndex}
+              noteHeight={noteHeight}
             />
           </div>
         ))}

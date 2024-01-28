@@ -309,7 +309,14 @@ const Rawl: React.FC<{
   );
 
   const fullScreenHandle = useFullScreenHandle();
-  useEffect(() => setEnterFullScreen(fullScreenHandle.enter), []);
+  useEffect(
+    () =>
+      setEnterFullScreen(() => {
+        debugger;
+        fullScreenHandle.enter();
+      }),
+    [],
+  );
 
   return (
     <div
@@ -401,6 +408,7 @@ const Rawl: React.FC<{
           display: "flex",
           flexDirection: "row",
           gap: 15,
+          marginRight: 30,
         }}
       >
         <label className="inline">
@@ -446,6 +454,7 @@ const Rawl: React.FC<{
           />
         )}
       </div>
+      <div></div>
     </div>
   );
 };

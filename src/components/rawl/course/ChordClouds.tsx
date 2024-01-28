@@ -3,8 +3,9 @@ import * as React from "react";
 import { useState } from "react";
 import styled from "styled-components";
 import { ColorScheme, useColorScheme } from "../ColorScheme";
-import { SPLIT_NOTE_HEIGHT } from "../SystemLayout";
 import { Row } from "./Course";
+
+const NOTE_HEIGHT = 5;
 
 const NOTES = ["1", "b2", "2", "b3", "3", "4", "#4", "5", "b6", "6", "b7", "7"];
 const CLOUD_HEIGHT = 300;
@@ -62,10 +63,10 @@ const ChordCloud: React.FC<{
         }_${colorScheme}`}
         style={{
           position: "absolute",
-          top: Math.random() * (CLOUD_HEIGHT - SPLIT_NOTE_HEIGHT),
+          top: Math.random() * (CLOUD_HEIGHT - NOTE_HEIGHT),
           left: Math.random() * (CLOUD_WIDTH - width),
           width,
-          height: SPLIT_NOTE_HEIGHT,
+          height: NOTE_HEIGHT,
           boxSizing: "border-box",
           borderRadius: "5px",
         }}

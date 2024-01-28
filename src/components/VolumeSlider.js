@@ -1,21 +1,22 @@
-import React, { memo } from "react";
+import React from "react";
 
-export default memo(VolumeSlider);
-function VolumeSlider(props) {
+const VolumeSlider = ({ onChange, handleReset, value }) => {
   return (
     <div className="VolumeSlider">
       <span style={{ marginRight: "10px" }}>Vol</span>
       <input
         type="range"
-        title={"Volume"}
+        title="Volume"
         min={0}
         max={150}
         step={1}
-        onChange={props.onChange}
-        onDoubleClick={props.handleReset}
-        onContextMenu={props.handleReset}
-        value={props.value}
-      ></input>
+        onChange={onChange}
+        onDoubleClick={handleReset}
+        onContextMenu={handleReset}
+        value={value}
+      />
     </div>
   );
-}
+};
+
+export default React.memo(VolumeSlider);

@@ -710,11 +710,7 @@ img {
 }
 
 .noteColor_5_colors {
-    /* background-color: #00d5ff; */
-    background-color: rgb(0,
-     0, 0); 
-    border-top: 2px solid #00d5ff;
-    border-bottom: 2px solid #00d5ff;
+    background-color:  #00d5ff;
 }
 
 .noteColor_6_colors {
@@ -733,8 +729,19 @@ img {
 }
 
 .noteColor_9_colors {
-    border-top: 2px solid #007000;
-    border-bottom: 2px solid #007000;
+    background-color: #007000;
+}
+
+.noteColor_9_colors:after, .noteColor_5_colors:after {
+    content: ''; /* Required for :after to work */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%; /* Size of the dot */
+    height: 1px; /* Size of the dot */
+    background-color: black; /* Color of the dot */
+    border-radius: 50%; /* Makes the dot circular */
+    transform: translate(-50%, -50%); /* Centers the dot */
 }
 
 .noteColor_10_colors {

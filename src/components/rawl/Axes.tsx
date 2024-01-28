@@ -141,6 +141,7 @@ const VOICE_PARAMS = {
     hoveredAltKey: false,
     systemClickHandler: () => {},
   },
+  noteHeight: 5,
 };
 
 const Axes = ({ sequencer }) => {

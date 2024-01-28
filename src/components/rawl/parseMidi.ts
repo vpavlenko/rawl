@@ -5,7 +5,7 @@ import { MeasuresAndBeats } from "./SystemLayout";
 export type Note = {
   note: {
     midiNumber: number;
-    name: string;
+    relativeNumber?: number;
   };
   isDrum: boolean;
   id: number;
@@ -30,7 +30,7 @@ export type ParsingResult = {
 let id = 0;
 
 const getNotes = (events, channel): Note[] => {
-  const notes = [];
+  const notes: Note[] = [];
   const noteOn = {};
   events.forEach((event) => {
     if (event.channel === channel && event.type === 8) {

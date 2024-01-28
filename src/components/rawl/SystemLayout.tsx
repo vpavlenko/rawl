@@ -153,16 +153,17 @@ const getMidiRange = (notes: Note[], span?: SecondsSpan): MidiRange => {
     if (span && (note.span[1] < span[0] || note.span[0] > span[1])) {
       continue;
     }
-    const { midiNumber } = note.note;
-    min = Math.min(min, midiNumber);
-    max = Math.max(max, midiNumber);
+    const { midiNumber, relativeNumber } = note.note;
+    const number = relativeNumber === undefined ? midiNumber : relativeNumber;
+    min = Math.min(min, number);
+    max = Math.max(max, number);
   }
   return [min, max];
 };
 
 const getNoteColor = (
   note: Note,
-  analysis,
+  analysis: Analysis,
   measures: number[],
   colorScheme: ColorScheme,
 ): string =>
@@ -186,7 +187,7 @@ export type MouseHandlers = {
 
 const getNoteRectangles = (
   notes: Note[],
-  voiceIndex: number, // -1 if it's a note highlight for notes under cursor. currently can't happen
+  voiceIndex: number,
   isActiveVoice: boolean,
   analysis: Analysis,
   midiNumberToY: (number: number) => number,
@@ -199,29 +200,31 @@ const getNoteRectangles = (
   colorScheme: ColorScheme,
 ) => {
   return notes.map((note) => {
-    const top = midiNumberToY(note.note.midiNumber);
+    const {
+      isDrum,
+      note: { midiNumber, relativeNumber },
+    } = note;
+    const number = relativeNumber === undefined ? midiNumber : relativeNumber;
+    const top = midiNumberToY(number);
     const left = secondsToX(note.span[0]);
-    const color = note.isDrum
+    const color = isDrum
       ? "noteColor_drum"
       : getNoteColor(note, analysis, measures, colorScheme);
-    const chordNote = note.isDrum
-      ? GM_DRUM_KIT[note.note.midiNumber] || note.note.midiNumber
-      : null;
-    // TODO: make it only for isDrum
-    const noteElement = chordNote ? (
+    const drumEmoji = isDrum ? GM_DRUM_KIT[midiNumber] || midiNumber : null;
+    const noteElement = drumEmoji ? (
       <span
         className="noteText"
         style={{
-          fontSize: note.isDrum ? "10px" : `${Math.min(noteHeight + 2, 14)}px`,
+          fontSize: isDrum ? "10px" : `${Math.min(noteHeight + 2, 14)}px`,
           position: "relative",
-          left: note.isDrum ? "-5px" : "0px",
+          left: isDrum ? "-5px" : "0px",
           lineHeight: `${Math.min(noteHeight, 14)}px`,
           fontFamily: "Helvetica, sans-serif",
-          fontWeight: note.isDrum ? 100 : 700,
+          fontWeight: isDrum ? 100 : 700,
           color: "white",
         }}
       >
-        {chordNote}
+        {drumEmoji}
       </span>
     ) : null;
     return (
@@ -231,14 +234,14 @@ const getNoteRectangles = (
         style={{
           position: "absolute",
           height: `${noteHeight}px`,
-          width: note.isDrum
+          width: isDrum
             ? "0px"
             : secondsToX(note.span[1]) - secondsToX(note.span[0]),
           overflow: "visible",
           top,
           left,
           pointerEvents: voiceIndex === -1 ? "none" : "auto",
-          cursor: handleNoteClick && !note.isDrum ? "pointer" : "default",
+          cursor: handleNoteClick && !isDrum ? "pointer" : "default",
           zIndex: 10,
           opacity: isActiveVoice
             ? (showVelocity && note?.chipState?.on?.param2 / 127) || 1
@@ -250,12 +253,12 @@ const getNoteRectangles = (
         }}
         onClick={(e) => {
           e.stopPropagation();
-          if (handleNoteClick && !note.isDrum) {
+          if (handleNoteClick && !isDrum) {
             handleNoteClick(note, e.altKey);
           }
         }}
-        onMouseEnter={(e) => !note.isDrum && handleMouseEnter(note, e.altKey)}
-        onMouseLeave={() => !note.isDrum && handleMouseLeave()}
+        onMouseEnter={(e) => !isDrum && handleMouseEnter(note, e.altKey)}
+        onMouseLeave={() => !isDrum && handleMouseLeave()}
       >
         {noteElement}
       </div>

@@ -44,7 +44,10 @@ export const NoteSnippet = ({ notes, sequencer }) => {
             return;
           }
           // result.notes[0].forEach((note) => delete note.chipState);
-          MIDI_PREVIEWS[notes] = result;
+          MIDI_PREVIEWS[notes] = {
+            measuresAndBeats: result.measuresAndBeats,
+            notes: result.notes[0],
+          };
           console.log(JSON.stringify(MIDI_PREVIEWS));
         }}
       >

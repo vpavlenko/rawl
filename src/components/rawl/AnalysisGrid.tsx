@@ -47,6 +47,7 @@ const Measure: React.FC<{
   measureSelection: MeasureSelection;
   showHeader: boolean;
   secondsToX: (number) => number;
+  showNonPhraseStarts: boolean;
 }> = ({
   span,
   number,
@@ -56,6 +57,7 @@ const Measure: React.FC<{
   measureSelection,
   showHeader,
   secondsToX,
+  showNonPhraseStarts,
 }) => {
   const { previouslySelectedMeasure, selectedMeasure, selectMeasure } =
     measureSelection;
@@ -65,67 +67,73 @@ const Measure: React.FC<{
 
   return (
     <>
-      <MeasureBar
-        key={`db_${number}`}
-        style={{
-          left,
-          ...(isPhraseStart && { backgroundColor: "#aaa" }),
-        }}
-      />
-      {width && showHeader ? (
+      {(showNonPhraseStarts || isPhraseStart) && (
         <>
-          <div
-            key={`db_n_${number}`}
+          <MeasureBar
+            key={`db_${number}`}
             style={{
-              position: "absolute",
-              top: 0,
-              left: `${left + 7}px`,
-              color:
-                selectedMeasure === number
-                  ? "red"
-                  : previouslySelectedMeasure === number
-                  ? "green"
-                  : "white",
-              zIndex: 15,
-              cursor: "pointer",
-              userSelect: "none",
-              backgroundColor: "#0009",
-              ...(systemLayout === "merged" ? { width } : {}), // enlarges seek area for stacked
+              left,
+              ...(showNonPhraseStarts && isPhraseStart
+                ? { backgroundColor: "#aaa" }
+                : {}),
             }}
-            onClick={(e) => {
-              e.stopPropagation();
-              selectMeasure(number);
-            }}
-          >
-            <span
-              style={{
-                fontSize: "12px",
-                fontFamily: "sans-serif",
-              }}
-            >
-              {number}
-            </span>
-          </div>
-          {formSection && (
-            <div
-              key={`form_section_${number}`}
-              style={{
-                position: "absolute",
-                left: left + (systemLayout === "split" ? 23 : 1),
-                top: 55,
-                zIndex: 5,
-                backgroundColor: "#333",
-                padding: "5px 10px 5px 10px",
-                color: "#ffe",
-                userSelect: "none",
-                pointerEvents: "none",
-              }}
-            >
-              {formSection}
-            </div>
-          )}
+          />
+          {width && showHeader ? (
+            <>
+              <div
+                key={`db_n_${number}`}
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: `${left + 7}px`,
+                  color:
+                    selectedMeasure === number
+                      ? "red"
+                      : previouslySelectedMeasure === number
+                      ? "green"
+                      : "white",
+                  zIndex: 15,
+                  cursor: "pointer",
+                  userSelect: "none",
+                  backgroundColor: "#0009",
+                  ...(systemLayout === "merged" ? { width } : {}), // enlarges seek area for stacked
+                }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  selectMeasure(number);
+                }}
+              >
+                <span
+                  style={{
+                    fontSize: "12px",
+                    fontFamily: "sans-serif",
+                  }}
+                >
+                  {number}
+                </span>
+              </div>
+              {formSection && (
+                <div
+                  key={`form_section_${number}`}
+                  style={{
+                    position: "absolute",
+                    left: left + (systemLayout === "split" ? 23 : 1),
+                    top: 55,
+                    zIndex: 5,
+                    backgroundColor: "#333",
+                    padding: "5px 10px 5px 10px",
+                    color: "#ffe",
+                    userSelect: "none",
+                    pointerEvents: "none",
+                  }}
+                >
+                  {formSection}
+                </div>
+              )}
+            </>
+          ) : null}
         </>
-      ) : null}
+      )}
     </>
   );
 };
@@ -241,12 +249,18 @@ export const AnalysisGrid: React.FC<{
               measureSelection={measureSelection}
               systemLayout={systemLayout}
               secondsToX={secondsToX}
+              showNonPhraseStarts={
+                measures.length >= 2 &&
+                secondsToX(measures[1]) - secondsToX(measures[0]) > 20
+              }
             />
           );
         })}
-        {beats.map((time) => (
-          <Beat key={time} second={time} secondsToX={secondsToX} />
-        ))}
+        {beats.length >= 2 &&
+          secondsToX(beats[1]) - secondsToX(beats[0]) > 15 &&
+          beats.map((time) => (
+            <Beat key={time} second={time} secondsToX={secondsToX} />
+          ))}
         {showTonalGrid && analysis.tonic !== null && (
           <TonalGrid
             analysis={analysis}

@@ -587,7 +587,7 @@ export const Voice: React.FC<{
   const midiRange = useMemo(
     () =>
       getMidiRange(notes, [xToSeconds(scrollLeft), xToSeconds(scrollRight)]),
-    [notes, scrollLeft, scrollRight],
+    [notes, scrollLeft, scrollRight, xToSeconds],
   );
 
   const { systemClickHandler, handleNoteClick, handleMouseEnter } =
@@ -830,7 +830,7 @@ export const SplitSystemLayout: React.FC<{
         >
           <input
             type="range"
-            min="4"
+            min="1"
             max="15"
             value={noteHeight}
             onChange={(e) => setNoteHeight(parseInt(e.target.value, 10))}
@@ -851,7 +851,7 @@ export const SplitSystemLayout: React.FC<{
         >
           <input
             type="range"
-            min="10"
+            min="2"
             max="100"
             value={secondWidth}
             onChange={(e) => setSecondWidth(parseInt(e.target.value, 10))}

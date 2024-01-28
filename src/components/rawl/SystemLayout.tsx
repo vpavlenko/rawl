@@ -180,7 +180,10 @@ export type MouseHandlers = {
   handleMouseLeave: () => void;
   hoveredNote: Note | null;
   hoveredAltKey: boolean;
-  systemClickHandler: (e: React.MouseEvent) => void;
+  systemClickHandler: (
+    e: React.MouseEvent,
+    xToSeconds?: (number) => number,
+  ) => void;
 };
 
 const getNoteRectangles = (
@@ -656,7 +659,7 @@ export const Voice: React.FC<{
         borderBottom: hasVisibleNotes ? "1px solid #888" : "",
         zIndex: 1,
       }}
-      onClick={(e) => systemClickHandler(e)}
+      onClick={(e) => systemClickHandler(e, xToSeconds)}
     >
       <div
         style={{

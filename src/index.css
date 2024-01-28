@@ -723,25 +723,22 @@ img {
 }
 
 .noteColor_8_colors {
-    /* background-color: #dd4d00; */
-    border-top: 2px solid #fe6412;
-    border-bottom: 2px solid #fe6412;
+    background-color: #fe6412;
 }
 
 .noteColor_9_colors {
     background-color: #007000;
 }
 
-.noteColor_9_colors:after, .noteColor_5_colors:after {
-    content: ''; /* Required for :after to work */
+.noteColor_9_colors:after, .noteColor_5_colors:after, .noteColor_8_colors:after {
+    content: '';
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 100%; /* Size of the dot */
-    height: 1px; /* Size of the dot */
-    background-color: black; /* Color of the dot */
-    border-radius: 50%; /* Makes the dot circular */
-    transform: translate(-50%, -50%); /* Centers the dot */
+    width: 100%;
+    height: 1px;
+    background-color: black;
+    transform: translate(-50%, -50%);
 }
 
 .noteColor_10_colors {

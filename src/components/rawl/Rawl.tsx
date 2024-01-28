@@ -245,11 +245,12 @@ const Rawl: React.FC<{
   }, []);
 
   const systemClickHandler = useCallback(
-    (e: React.MouseEvent, timeOffset = 0) => {
+    (e: React.MouseEvent, xToSeconds = xToSeconds__) => {
+      debugger;
       const targetElement = e.target as HTMLElement;
       const rect = targetElement.getBoundingClientRect();
       const distance = e.clientX - rect.left + targetElement.scrollLeft;
-      const time = xToSeconds__(distance) + timeOffset;
+      const time = xToSeconds(distance);
       seek(time * 1000);
     },
     [seek],

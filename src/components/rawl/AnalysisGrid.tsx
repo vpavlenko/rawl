@@ -251,7 +251,7 @@ export const AnalysisGrid: React.FC<{
               secondsToX={secondsToX}
               showNonPhraseStarts={
                 measures.length >= 2 &&
-                secondsToX(measures[1]) - secondsToX(measures[0]) > 20
+                secondsToX(measures[1]) - secondsToX(measures[0]) > 25
               }
             />
           );

@@ -268,7 +268,6 @@ export const AnalysisGrid: React.FC<{
     const modulations = new Map(
       getModulations(analysis).map(({ measure, tonic }) => [measure, tonic]),
     );
-    debugger;
 
     return (
       <div style={{ zIndex: 15 }}>

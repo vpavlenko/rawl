@@ -394,13 +394,28 @@ export const MergedSystemLayout = ({
   );
 };
 
+type ScrollInfo = {
+  left: number;
+  right: number;
+};
+
 const VoiceName: React.FC<{
   voiceName: string;
   voiceMask: boolean[];
   setVoiceMask: SetVoiceMask;
   voiceIndex: number;
-  scrollLeft: number;
-}> = ({ voiceName, voiceMask, setVoiceMask, voiceIndex, scrollLeft }) => {
+  scrollInfo: ScrollInfo;
+  secondsToX: (number) => number;
+  midiNumberToY: (number) => number;
+}> = ({
+  voiceName,
+  voiceMask,
+  setVoiceMask,
+  voiceIndex,
+  scrollInfo,
+  secondsToX,
+  midiNumberToY,
+}) => {
   const isSingleActive =
     voiceMask[voiceIndex] && voiceMask.filter((voice) => voice).length === 1;
 
@@ -415,16 +430,21 @@ const VoiceName: React.FC<{
     }
   };
 
-  useEffect(updatePosition, [scrollLeft]);
+  useEffect(updatePosition, [scrollInfo, secondsToX, midiNumberToY]);
 
   useEffect(() => {
     ref.current
       .closest(".SplitLayout")
       ?.addEventListener("scroll", updatePosition);
 
+    ref.current.closest(".Rawl")?.addEventListener("scroll", updatePosition);
+
     return () => {
       ref.current
         .closest(".SplitLayout")
+        ?.removeEventListener("scroll", updatePosition);
+      ref.current
+        .closest(".Rawl")
         ?.removeEventListener("scroll", updatePosition);
     };
   }, []);
@@ -555,8 +575,7 @@ export const Voice: React.FC<{
   phraseStarts: number[];
   mouseHandlers: MouseHandlers;
   measureSelection: MeasureSelection;
-  scrollLeft: number;
-  scrollRight: number;
+  scrollInfo: ScrollInfo;
   voiceName: string;
   setVoiceMask: SetVoiceMask;
   voiceIndex: number;
@@ -574,8 +593,7 @@ export const Voice: React.FC<{
   showVelocity,
   cursor,
   phraseStarts,
-  scrollLeft = -1,
-  scrollRight = -1,
+  scrollInfo,
   voiceName,
   voiceIndex = -1,
   setVoiceMask = (mask) => {},
@@ -589,8 +607,11 @@ export const Voice: React.FC<{
 
   const midiRange = useMemo(
     () =>
-      getMidiRange(notes, [xToSeconds(scrollLeft), xToSeconds(scrollRight)]),
-    [notes, scrollLeft, scrollRight, xToSeconds],
+      getMidiRange(notes, [
+        xToSeconds(scrollInfo.left),
+        xToSeconds(scrollInfo.right),
+      ]),
+    [notes, scrollInfo, xToSeconds],
   );
 
   const { systemClickHandler, handleNoteClick, handleMouseEnter } =
@@ -632,7 +653,7 @@ export const Voice: React.FC<{
       showVelocity,
       handleMouseEnter,
       voiceMask,
-      scrollLeft,
+      scrollInfo,
       colorScheme,
       noteHeight,
       secondsToX,
@@ -694,7 +715,9 @@ export const Voice: React.FC<{
           voiceMask={voiceMask}
           setVoiceMask={setVoiceMask}
           voiceIndex={voiceIndex}
-          scrollLeft={scrollLeft}
+          scrollInfo={scrollInfo}
+          secondsToX={secondsToX}
+          midiNumberToY={midiNumberToY}
         />
       ) : null}
     </div>
@@ -763,7 +786,10 @@ export const SplitSystemLayout: React.FC<{
 
   const parentRef = useRef(null);
 
-  const [scrollInfo, setScrollInfo] = useState({ left: -1, right: 100000 });
+  const [scrollInfo, setScrollInfo] = useState<ScrollInfo>({
+    left: -1,
+    right: 100000,
+  });
 
   const debouncedScroll = useCallback(
     debounce(
@@ -826,7 +852,7 @@ export const SplitSystemLayout: React.FC<{
         <div
           style={{
             position: "fixed",
-            bottom: 100,
+            bottom: 130,
             right: -60,
             zIndex: 10000,
           }}
@@ -847,8 +873,8 @@ export const SplitSystemLayout: React.FC<{
         <div
           style={{
             position: "fixed",
-            bottom: 20,
-            right: 50,
+            bottom: 30,
+            right: 25,
             zIndex: 10000,
           }}
         >
@@ -895,8 +921,7 @@ export const SplitSystemLayout: React.FC<{
                 />
               }
               phraseStarts={phraseStarts}
-              scrollLeft={scrollInfo.left}
-              scrollRight={scrollInfo.right}
+              scrollInfo={scrollInfo}
               voiceMask={voiceMask}
               setVoiceMask={setVoiceMask}
               voiceIndex={voiceIndex}

@@ -334,6 +334,7 @@ const Rawl: React.FC<{
           flexGrow: 1,
           overflowX: "auto",
         }}
+        className="Rawl"
       >
         {systemLayout === "merged" ? (
           <MergedSystemLayout

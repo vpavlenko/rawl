@@ -1532,6 +1532,82 @@
         "tonic": 4,
         "basedOn": null
       }
+    },
+    "And You and I.1.mid": {
+      "0": {
+        "form": {
+          "2": "A: Cord of Life (a): intro",
+          "15": "verses",
+          "57": "transition",
+          "67": "\"And You and I\"",
+          "76": "A: Eclipse: instrumental",
+          "88": "solo / \"Coming Quickly\""
+        },
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          },
+          {
+            "measure": 14,
+            "diff": 1
+          },
+          {
+            "measure": 23,
+            "diff": 2
+          },
+          {
+            "measure": 69,
+            "diff": -2
+          },
+          {
+            "measure": 65,
+            "diff": -2
+          },
+          {
+            "measure": 65,
+            "diff": 2
+          },
+          {
+            "measure": 75,
+            "diff": 1
+          },
+          {
+            "measure": 80,
+            "diff": -1
+          },
+          {
+            "measure": 83,
+            "diff": -1
+          },
+          {
+            "measure": 86,
+            "diff": -1
+          },
+          {
+            "measure": 89,
+            "diff": -1
+          },
+          {
+            "measure": 96,
+            "diff": -2
+          }
+        ],
+        "comment": "",
+        "tonic": 7,
+        "tags": [
+          "stability:bIII"
+        ],
+        "modulations": {
+          "14": 2,
+          "67": 9,
+          "76": 2,
+          "79": 9,
+          "82": 4,
+          "85": 11,
+          "88": 4
+        }
+      }
     }
   },
   "MIDI/Wendy Moten": {
@@ -6216,7 +6292,8 @@
           "scale:dorian",
           "texture:arpeggio",
           "bass:root",
-          "form:alterations_on_last_chord"
+          "form:alterations_on_last_chord",
+          "phrasing:fusion"
         ]
       }
     }
@@ -6274,6 +6351,14 @@
           {
             "measure": 33,
             "diff": -2
+          },
+          {
+            "measure": 51,
+            "diff": 1
+          },
+          {
+            "measure": 56,
+            "diff": -1
           }
         ],
         "comment": "",
@@ -6286,9 +6371,11 @@
           "bass:diatonic_approaches",
           "arrangement:fills_at_rests",
           "applied:V/vi",
-          "voice-leading:Vsus4",
           "functionality:functional",
-          "arrangement:silent_break"
+          "arrangement:silent_break",
+          "voice-leading:Vsus4_in_applied",
+          "phrasing:dominant_prolongation",
+          "form:rock_solo"
         ]
       }
     }
@@ -6441,6 +6528,354 @@
           "bass:diatonic_line",
           "chord:Iadd6",
           "arrangement:silent_break"
+        ]
+      }
+    }
+  },
+  "MIDI/The Box Tops": {
+    "The Letter.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 4
+          },
+          {
+            "measure": 21,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 9,
+        "modulations": {},
+        "tags": [
+          "scale:dorian",
+          "bass:root_fifth",
+          "melody:in_thirds",
+          "phrasing:tonic_prolongation",
+          "voice-leading:in_chords"
+        ]
+      }
+    }
+  },
+  "MIDI/The Babys": {
+    "Midnight Rendezvous.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 4,
+        "modulations": {},
+        "tags": [
+          "issues:manual_remeasuring_needed",
+          "stability:bVI-bVII-I"
+        ]
+      }
+    }
+  },
+  "MIDI/The Bluebells": {
+    "Young At Heart.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          }
+        ],
+        "comment": "",
+        "tonic": 2,
+        "modulations": {},
+        "tags": [
+          "scale:major",
+          "voicing:triads",
+          "bass:root_fifth",
+          "texture:guitar_strumming",
+          "melody:in_thirds",
+          "arrangement:ornamental_riff",
+          "arrangement:counterpoint"
+        ]
+      }
+    }
+  },
+  "MIDI/The Blue Diamonds": {
+    "Ramona.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          },
+          {
+            "measure": 38,
+            "diff": -2
+          }
+        ],
+        "comment": "",
+        "tonic": 6,
+        "modulations": {},
+        "tags": [
+          "applied:V/vi",
+          "phrasing:fusion",
+          "arrangement:silent_break"
+        ]
+      }
+    }
+  },
+  "MIDI/The Boomtown Rats": {
+    "I Don't Like Monday's.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 3
+          },
+          {
+            "measure": 36,
+            "diff": 1
+          },
+          {
+            "measure": 45,
+            "diff": 2
+          },
+          {
+            "measure": 67,
+            "diff": 1
+          },
+          {
+            "measure": 76,
+            "diff": 2
+          },
+          {
+            "measure": 106,
+            "diff": 1
+          },
+          {
+            "measure": 123,
+            "diff": 1
+          },
+          {
+            "measure": 140,
+            "diff": 2
+          }
+        ],
+        "comment": "",
+        "tonic": 11,
+        "modulations": {},
+        "tags": [
+          "scale:pentatonic",
+          "scale:major",
+          "voicing:triads",
+          "phrasing:dominant_prolongation",
+          "bass:diatonic_line",
+          "arrangement:developed_piano",
+          "form:development_through_instrumentation"
+        ]
+      }
+    }
+  },
+  "MIDI/The B-52's": {
+    "Love Shack.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 0,
+        "modulations": {},
+        "tags": [
+          "stability:bIII",
+          "functionality:riff",
+          "arrangement:karaoke"
+        ]
+      }
+    }
+  },
+  "MIDI/The Bluegrass Cardinals": {
+    "Pretty Red Wing.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          }
+        ],
+        "comment": "see bass on ii7",
+        "tonic": 0,
+        "modulations": {},
+        "tags": [
+          "form:period",
+          "applied:V/V",
+          "applied:V/V/V",
+          "form:rock_solo",
+          "style:bluegrass",
+          "instrument:banjo",
+          "scale:major",
+          "chord:ii7",
+          "voicing:blues",
+          "bass:root_fifth"
+        ]
+      }
+    }
+  },
+  "MIDI/ZZ Top": {
+    "Sharp Dressed Man.3.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          }
+        ],
+        "comment": "",
+        "tonic": 0,
+        "modulations": {},
+        "tags": [
+          "voicing:power_chords",
+          "chunks:bVII-IV-I",
+          "chord:bVII"
+        ]
+      }
+    }
+  },
+  "MIDI/The Beautiful South": {
+    "Don't Marry Her.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          }
+        ],
+        "comment": "",
+        "tonic": 0,
+        "modulations": {},
+        "tags": [
+          "applied:V/V",
+          "texture:guitar_strumming",
+          "form:period",
+          "bass:diatonic_line",
+          "arrangement:counterpoint",
+          "form:rock_solo",
+          "scale:major",
+          "voicing:triads"
+        ]
+      }
+    }
+  },
+  "MIDI/The Beau Brummels": {
+    "Laugh Laugh.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          }
+        ],
+        "comment": "",
+        "tonic": 5,
+        "modulations": {},
+        "tags": [
+          "stability:bIII",
+          "chord:bVI_in_major",
+          "stability:rapid_circle_of_fifths",
+          "stability:unstable"
+        ]
+      }
+    }
+  },
+  "MIDI/The Bangles": {
+    "Eternal Flame.9.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 4
+          },
+          {
+            "measure": 13,
+            "diff": 1
+          },
+          {
+            "measure": 22,
+            "diff": 1
+          },
+          {
+            "measure": 31,
+            "diff": -1
+          },
+          {
+            "measure": 34,
+            "diff": 1
+          },
+          {
+            "measure": 43,
+            "diff": -1
+          },
+          {
+            "measure": 50,
+            "diff": 1
+          },
+          {
+            "measure": 59,
+            "diff": 1
+          },
+          {
+            "measure": 68,
+            "diff": 1
+          }
+        ],
+        "comment": "ii as Vsus4?",
+        "tonic": 7,
+        "modulations": {},
+        "tags": [
+          "issues:R=1/2N",
+          "bass:developed",
+          "texture:arpeggio",
+          "applied:V/vi",
+          "chord:Vsus4",
+          "phrasing:dominant_prolongation",
+          "scale:major",
+          "voicing:only_minor_sevenths_in_major",
+          "voice-leading:chromatic",
+          "chord:bVII",
+          "applied:V/V"
+        ]
+      }
+    }
+  },
+  "MIDI/Emerson, Lake & Palmer": {
+    "Tarkus.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 0,
+        "modulations": {},
+        "tags": [
+          "harmony:quartal"
         ]
       }
     }

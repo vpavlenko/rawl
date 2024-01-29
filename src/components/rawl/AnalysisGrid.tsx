@@ -149,9 +149,9 @@ const Measure: React.FC<{
                   style={{
                     position: "absolute",
                     left: left + (systemLayout === "split" ? 23 : 1),
-                    top: 55,
-                    zIndex: 5,
-                    backgroundColor: "#333",
+                    top: 0,
+                    zIndex: 95,
+                    backgroundColor: "#3339",
                     padding: "5px 10px 5px 10px",
                     color: "#ffe",
                     userSelect: "none",

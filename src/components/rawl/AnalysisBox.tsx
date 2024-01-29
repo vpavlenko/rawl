@@ -135,6 +135,7 @@ export const TAGS = [
   "style:dance_pop",
   "style:techno",
   "style:bluegrass",
+  "style:prog_rock",
 
   "functionality:shuttle",
   "functionality:functional",
@@ -147,6 +148,7 @@ export const TAGS = [
   "harmony:pure_I-IV-V",
   "harmony:pure_I-V",
   "harmony:pure_I-ii-IV-V",
+  "harmony:quartal",
 
   "voicing:root",
   "voicing:power_chords",

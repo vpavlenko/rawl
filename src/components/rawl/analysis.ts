@@ -11,10 +11,10 @@ export type TagSpan = {
 
 export type Analysis = {
   tonic: PitchClass | null;
-  modulations: { [key: number]: PitchClass };
+  modulations: { [oneIndexedMeasureStart: number]: PitchClass };
   comment: string;
   tags: string[];
-  form: { [key: number]: string };
+  form: { [oneIndexedMeasureStart: number]: string };
   phrasePatch: { measure: number; diff: number }[];
 };
 

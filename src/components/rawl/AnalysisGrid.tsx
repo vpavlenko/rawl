@@ -6,7 +6,7 @@ import {
   SystemLayout,
   getModulations,
 } from "./SystemLayout";
-import { Analysis } from "./analysis";
+import { Analysis, PitchClass } from "./analysis";
 
 export const STACKED_RN_HEIGHT = 20;
 
@@ -38,6 +38,21 @@ export type MeasureSelection = {
   selectMeasure: (number) => void;
 };
 
+const PITCH_CLASS_TO_LETTER = {
+  0: "C",
+  1: "Db",
+  2: "D",
+  3: "Eb",
+  4: "E",
+  5: "F",
+  6: "F#",
+  7: "G",
+  8: "Ab",
+  9: "A",
+  10: "Bb",
+  11: "B",
+};
+
 const Measure: React.FC<{
   span: [number, number];
   number: number;
@@ -48,6 +63,7 @@ const Measure: React.FC<{
   showHeader: boolean;
   secondsToX: (number) => number;
   showNonPhraseStarts: boolean;
+  tonicStart?: PitchClass;
 }> = ({
   span,
   number,
@@ -58,6 +74,7 @@ const Measure: React.FC<{
   showHeader,
   secondsToX,
   showNonPhraseStarts,
+  tonicStart,
 }) => {
   const { previouslySelectedMeasure, selectedMeasure, selectMeasure } =
     measureSelection;
@@ -67,6 +84,20 @@ const Measure: React.FC<{
 
   return (
     <>
+      {showHeader && tonicStart !== undefined && (
+        <span
+          style={{
+            color: "red",
+            position: "absolute",
+            top: 0,
+            left: left + 25,
+            fontSize: 12,
+            zIndex: 100,
+          }}
+        >
+          {PITCH_CLASS_TO_LETTER[tonicStart]}
+        </span>
+      )}
       {(showNonPhraseStarts || isPhraseStart) && (
         <>
           <MeasureBar
@@ -85,7 +116,7 @@ const Measure: React.FC<{
                 style={{
                   position: "absolute",
                   top: 0,
-                  left: `${left + 7}px`,
+                  left: left + 7,
                   color:
                     selectedMeasure === number
                       ? "red"
@@ -234,6 +265,11 @@ export const AnalysisGrid: React.FC<{
     secondsToX,
   }) => {
     const { measures, beats } = measuresAndBeats;
+    const modulations = new Map(
+      getModulations(analysis).map(({ measure, tonic }) => [measure, tonic]),
+    );
+    debugger;
+
     return (
       <div style={{ zIndex: 15 }}>
         {measures.map((time, i) => {
@@ -242,7 +278,7 @@ export const AnalysisGrid: React.FC<{
             <Measure
               key={i}
               showHeader={showHeader}
-              span={[time, measures[i + 1] ?? time]}
+              span={[time, measures[number] ?? time]}
               isPhraseStart={phraseStarts.indexOf(number) !== -1}
               formSection={(analysis.form ?? {})[number]}
               number={number}
@@ -253,6 +289,7 @@ export const AnalysisGrid: React.FC<{
                 measures.length >= 2 &&
                 secondsToX(measures[1]) - secondsToX(measures[0]) > 25
               }
+              tonicStart={modulations.get(i === 0 ? -1 : i)}
             />
           );
         })}

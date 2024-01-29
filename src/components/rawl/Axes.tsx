@@ -127,7 +127,7 @@ const VOICE_PARAMS = {
     selectMeasure: () => {},
   },
   showHeader: false,
-  scrollLeft: 0,
+  scrollInfo: { left: 0, top: 0 },
   scrollRight: 1000,
   voiceName: null,
   setVoiceMask: () => {},

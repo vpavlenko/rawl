@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as React from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useFullScreenHandle } from "react-full-screen";
+import styled from "styled-components";
 import { AnalysisBox } from "./AnalysisBox";
 import { MeasureSelection } from "./AnalysisGrid";
 import Exercise, { ExerciseType } from "./Exercise";
@@ -20,6 +21,7 @@ import {
   getNewAnalysis,
 } from "./analysis";
 import { findFirstPhraseStart, findTonic } from "./autoAnalysis";
+import { LinkForSeparateTab } from "./course/Course";
 import { Note, ParsingResult } from "./parseMidi";
 
 // If not used, the playback cursor isn't exactly where the sound is.
@@ -40,6 +42,35 @@ const cleanForExercise = (savedAnalysis: Analysis, exercise: ExerciseType) => {
     return { ...savedAnalysis, tonic: null, modulations: {} };
   }
   return savedAnalysis;
+};
+
+const Control = styled.div`
+  cursor: pointer;
+  color: aqua;
+`;
+
+const TagBrowser: React.FC<{ tags?: string[] }> = ({ tags }) => {
+  const [isShown, setIsShown] = useState<boolean>(false);
+  return (
+    tags?.length > 0 &&
+    (isShown ? (
+      <div>
+        <Control onClick={() => setIsShown(false)}>hide</Control>
+        {tags.map((tag) => (
+          <div>
+            <LinkForSeparateTab
+              href={`/tags/${tag}`}
+              text={`${tag.replace(":", ": ").replace("_", " ")}`}
+            />
+          </div>
+        ))}
+      </div>
+    ) : (
+      <Control onClick={() => setIsShown(true)} style={{}}>
+        show <strong>{tags?.length}</strong> tag{tags?.length > 1 && "s"}
+      </Control>
+    ))
+  );
 };
 
 const Rawl: React.FC<{
@@ -397,58 +428,63 @@ const Rawl: React.FC<{
       <div
         style={{
           position: "fixed",
-          top: 43,
+          top: 40,
           right: 5,
           zIndex: 10000,
           backgroundColor: "black",
-          display: "flex",
-          flexDirection: "row",
-          gap: 15,
           marginRight: 30,
+          padding: 10,
         }}
       >
-        <label className="inline">
-          <input
-            title="Velocity"
-            type="checkbox"
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-            onChange={(e) => {
-              e.stopPropagation();
-              setShowVelocity(e.target.checked);
-            }}
-            checked={showVelocity}
-          />
-          Velocity
-        </label>
-        <label key={"merged"} className="inline">
-          <input
-            onClick={() => setSystemLayout("merged")}
-            type="radio"
-            name="system-layout"
-            checked={systemLayout === "merged"}
-            value={"horizontal"}
-          />
-          Merged
-        </label>
-        <label key={"split"} className="inline">
-          <input
-            onClick={() => setSystemLayout("split")}
-            type="radio"
-            name="system-layout"
-            checked={systemLayout === "split"}
-            value={"split"}
-          />
-          Split
-        </label>
-        {!fullScreenHandle.active && (
-          <FontAwesomeIcon
-            icon={faExpand}
-            style={{ cursor: "pointer", position: "relative", top: 2 }}
-            onClick={fullScreenHandle.enter}
-          />
-        )}
+        <div style={{ display: "flex", flexDirection: "row", gap: 15 }}>
+          <label className="inline">
+            <input
+              title="Velocity"
+              type="checkbox"
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+              onChange={(e) => {
+                e.stopPropagation();
+                setShowVelocity(e.target.checked);
+              }}
+              checked={showVelocity}
+            />
+            Velocity
+          </label>
+          <label key={"merged"} className="inline">
+            <input
+              onClick={() => setSystemLayout("merged")}
+              type="radio"
+              name="system-layout"
+              checked={systemLayout === "merged"}
+              value={"horizontal"}
+            />
+            Merged
+          </label>
+          <label key={"split"} className="inline">
+            <input
+              onClick={() => setSystemLayout("split")}
+              type="radio"
+              name="system-layout"
+              checked={systemLayout === "split"}
+              value={"split"}
+            />
+            Split
+          </label>
+          {!fullScreenHandle.active && (
+            <FontAwesomeIcon
+              icon={faExpand}
+              style={{
+                cursor: "pointer",
+                position: "relative",
+                top: 2,
+              }}
+              onClick={fullScreenHandle.enter}
+            />
+          )}
+        </div>
+        <TagBrowser tags={analysis.tags} />
       </div>
       <div></div>
     </div>

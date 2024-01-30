@@ -91,16 +91,18 @@ export default class Visualizer extends PureComponent {
     return (
       <div className="Visualizer">
         <div className="Visualizer-toggle">
-          <label className="inline">
-            <input
-              onChange={this.props.handleToggleAnalysis}
-              type="checkbox"
-              // value={true}
-              checked={this.props.analysisEnabled}
-              name="analysis-enabled"
-            />
-            Analysis
-          </label>
+          {user && (
+            <label className="inline">
+              <input
+                onChange={this.props.handleToggleAnalysis}
+                type="checkbox"
+                // value={true}
+                checked={this.props.analysisEnabled}
+                name="analysis-enabled"
+              />
+              Analysis
+            </label>
+          )}
           <label className="inline" style={{ marginLeft: "20px" }}>
             <input
               onChange={this.handleToggleVisualizer}
@@ -109,9 +111,9 @@ export default class Visualizer extends PureComponent {
               checked={this.state.enabled}
               name="visualizer-enabled"
             />
-            Visualizer
+            Spectrogram
           </label>
-          <label className="inline" style={{ marginLeft: "20px" }}>
+          {/* <label className="inline" style={{ marginLeft: "20px" }}>
             <input
               onChange={this.props.handleToggleSettings}
               type="checkbox"
@@ -120,7 +122,7 @@ export default class Visualizer extends PureComponent {
               name="settings-enabled"
             />
             Settings
-          </label>
+          </label> */}
           {user ? (
             <>
               {" • "}

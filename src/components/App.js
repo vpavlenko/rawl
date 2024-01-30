@@ -7,13 +7,7 @@ import {
   signInWithPopup,
   signOut,
 } from "firebase/auth";
-import {
-  doc,
-  getDoc,
-  getFirestore,
-  setDoc,
-  updateDoc,
-} from "firebase/firestore/lite";
+import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore/lite";
 import isMobile from "ismobilejs";
 import clamp from "lodash/clamp";
 import path from "path";
@@ -136,9 +130,6 @@ class App extends React.Component {
               const data = userSnapshot.data();
               this.setState({
                 faves: data.faves || [],
-                showPlayerSettings: data.settings
-                  ? data.settings.showPlayerSettings
-                  : false,
                 // analyses: data.analyses,
               });
             }
@@ -216,7 +207,7 @@ class App extends React.Component {
       hasPlayer: false,
       paramDefs: [],
       parsings: {},
-      analysisEnabled: true,
+      analysisEnabled: false,
       analyses: defaultAnalyses,
     };
 
@@ -611,19 +602,19 @@ class App extends React.Component {
   }
 
   toggleSettings() {
-    let showPlayerSettings = !this.state.showPlayerSettings;
-    // Optimistic update
-    this.setState({ showPlayerSettings: showPlayerSettings });
+    this.setState({ showPlayerSettings: !this.state.showPlayerSettings });
 
-    const user = this.state.user;
-    if (user) {
-      const userRef = doc(this.db, "users", user.uid);
-      updateDoc(userRef, {
-        settings: { showPlayerSettings: showPlayerSettings },
-      }).catch((e) => {
-        console.log("Couldn't update settings in Firebase.", e);
-      });
-    }
+    // I save it here as a memory on how to save anything on a user's account.
+    //
+    // const user = this.state.user;
+    // if (user) {
+    //   const userRef = doc(this.db, "users", user.uid);
+    //   updateDoc(userRef, {
+    //     settings: { showPlayerSettings: showPlayerSettings },
+    //   }).catch((e) => {
+    //     console.log("Couldn't update settings in Firebase.", e);
+    //   });
+    // }
   }
 
   handleTimeSliderChange(event) {

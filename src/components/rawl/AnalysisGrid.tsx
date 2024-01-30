@@ -93,6 +93,7 @@ const Measure: React.FC<{
             left: left + 28,
             fontSize: 12,
             zIndex: 100,
+            fontWeight: 700,
           }}
         >
           {PITCH_CLASS_TO_LETTER[tonicStart]}

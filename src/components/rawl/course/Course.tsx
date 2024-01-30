@@ -58,14 +58,23 @@ export const Row = styled.div`
   gap: 40px;
 `;
 
-export const SongLink = ({ artist, song }) => (
-  <a href={`/browse/${artist}?song=${song}`} target="_blank">
-    {artist.slice(5)} - {song.slice(0, -4)}&nbsp;&nbsp;
+export const LinkForSeparateTab: React.FC<{ href: string; text: string }> = ({
+  href,
+  text,
+}) => (
+  <a href={href} target="_blank">
+    {text}&nbsp;&nbsp;
     <FontAwesomeIcon
       icon={faArrowUpRightFromSquare}
       style={{ width: "10px" }}
     />
   </a>
+);
+export const SongLink = ({ artist, song }) => (
+  <LinkForSeparateTab
+    href={`/browse/${artist}?song=${song}`}
+    text={`${artist.slice(5)} - ${song.slice(0, -4)}`}
+  />
 );
 
 export const S = ({ artist, song, exercise = null }) => {

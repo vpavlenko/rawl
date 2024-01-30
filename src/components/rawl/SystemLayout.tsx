@@ -8,6 +8,7 @@ import {
   useState,
 } from "react";
 import { FullScreen } from "react-full-screen";
+import { useLocalStorage } from "usehooks-ts";
 import { AnalysisGrid, Cursor, MeasureSelection } from "./AnalysisGrid";
 import { ColorScheme, useColorScheme } from "./ColorScheme";
 import { SecondsSpan, SetVoiceMask, secondsToX__ } from "./Rawl";
@@ -824,8 +825,8 @@ export const SplitSystemLayout: React.FC<{
     };
   }, []);
 
-  const [noteHeight, setNoteHeight] = useState(7);
-  const [secondWidth, setSecondWidth] = useState(40);
+  const [noteHeight, setNoteHeight] = useLocalStorage("noteHeight", 7);
+  const [secondWidth, setSecondWidth] = useLocalStorage("secondWidth", 40);
   const secondsToX = useCallback(
     (seconds) => seconds * secondWidth,
     [secondWidth],

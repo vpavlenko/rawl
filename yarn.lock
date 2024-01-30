@@ -13538,6 +13538,11 @@ use@^3.1.0:
   resolved "https://registry.npmjs.org/use/-/use-3.1.1.tgz"
   integrity sha512-cwESVXlO3url9YWlFW/TA9cshCEhtu7IKJ/p5soJ/gGpj7vbvFrAY/eIioQ6Dw23KjZhYgiIo8HOs1nQ2vr/oQ==
 
+usehooks-ts@^2.10.0:
+  version "2.10.0"
+  resolved "https://registry.yarnpkg.com/usehooks-ts/-/usehooks-ts-2.10.0.tgz#ccd0d63168e4db95b061e26e585b0068d3fad0ed"
+  integrity sha512-hN22L5pqcsM1LwL6Q3p1QfxI9K+wuP4lrBXyCQ4Vi5Zo94YhphqRh2l7G7uhqPzLunAObLUAoSKzo64lisNyWQ==
+
 utf-8@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npmjs.org/utf-8/-/utf-8-2.0.0.tgz"

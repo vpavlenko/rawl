@@ -39,7 +39,6 @@ export const getNewAnalysis = (
   note: Note | null,
   selectedMeasure: number | null,
   analysis: Analysis,
-  time: number = null,
   altKey: boolean = false,
 ): Analysis => {
   let update: Partial<Analysis> = {};
@@ -66,16 +65,9 @@ export const advanceAnalysis = (
   selectMeasure: (_: null) => void,
   analysis: Analysis,
   commitAnalysisUpdate: (analysisUpdate: Partial<Analysis>) => void,
-  time: number = null,
   altKey: boolean = false,
 ) => {
-  const newAnalysis = getNewAnalysis(
-    note,
-    selectedMeasure,
-    analysis,
-    time,
-    altKey,
-  );
+  const newAnalysis = getNewAnalysis(note, selectedMeasure, analysis, altKey);
 
   selectMeasure(null);
   commitAnalysisUpdate(newAnalysis);

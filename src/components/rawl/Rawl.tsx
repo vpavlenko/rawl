@@ -164,7 +164,6 @@ const Rawl: React.FC<{
             hoveredNote,
             selectedMeasureRef.current,
             analysisRef.current,
-            null,
             hoveredAltKey,
           )
         : analysis,
@@ -201,7 +200,6 @@ const Rawl: React.FC<{
             setSelectedMeasure,
             analysisRef.current,
             commitAnalysisUpdate,
-            null,
             altKey,
           );
         }
@@ -234,6 +232,7 @@ const Rawl: React.FC<{
     const handleEscapePress = (event) => {
       if (event.key === "Escape" || event.keyCode === 27) {
         selectMeasure(null);
+        setHoveredNote(null);
       }
     };
 

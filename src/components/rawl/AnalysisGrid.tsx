@@ -89,8 +89,8 @@ const Measure: React.FC<{
           style={{
             color: "red",
             position: "absolute",
-            top: 0,
-            left: left + 25,
+            top: -2,
+            left: left + 28,
             fontSize: 12,
             zIndex: 100,
           }}

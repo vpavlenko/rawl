@@ -719,7 +719,6 @@ export const Voice: React.FC<{
       showVelocity,
       handleMouseEnter,
       voiceMask,
-      scrollInfo,
       colorScheme,
       noteHeight,
       secondsToX,

@@ -317,7 +317,7 @@ export default {
     Applause: "拍手",
     Gunshot: "銃声",
   },
-  zh: {
+  "zh-Hans": {
     "landing-title": "signal - 在线 MIDI 编辑器",
     "app-intro": "在浏览器中编辑曲目",
     "app-desc": "无需安装任何东西即可开始创作曲目",
@@ -611,7 +611,7 @@ export default {
     tick: "起始",
     value: "值",
   },
-  tw: {
+  "zh-Hant": {
     "landing-title": "signal - 線上 MIDI 編輯器",
     "app-intro": "在瀏覽器中製作音樂",
     "app-desc": "可立即使用的MIDI編輯自由軟體",

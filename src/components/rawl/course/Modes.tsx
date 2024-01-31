@@ -7,41 +7,24 @@ const Modes: Chapter = ({ sequencer, analyses }) => {
   return (
     <>
       <ChordClouds chords={["i", "IV"]} />
-      <h3>Dorian (shuttle?)</h3>
-
-      <ul>
-        <li>
-          <S artist="MIDI/Type O Negative" song="Love You to Death.mid" /> -
-          dorian
-        </li>
-        <li>
-          <S artist="MIDI/Typically Tropical" song="Barbados.mid" /> dorian
-          relative shuttle after modulation
-        </li>
-        <li>
-          <S artist="MIDI/U2" song="A Celebration.mid" />
-        </li>
-        <li>
-          <S
-            artist="MIDI/UB40"
-            song="(I Can't Help) Falling In Love With You.mid"
-          />
-        </li>
-        <li>
-          <S artist="MIDI/Us3" song="Cantaloop.mid" />
-        </li>
-        <li>
-          <S artist="MIDI/Bob Marley" song="Jammin'.mid" />
-        </li>
-        <li>
-          <S artist="MIDI/Zucchero" song="Senza Una Donna.7.mid" />
-        </li>
-        <li>
-          <S artist="MIDI/Tasmin Archer" song="Sleeping Satellite.mid" /> - ii
-          in minor, dorian solo, mixed dorian/natural
-        </li>
-      </ul>
+      <h3>Dorian</h3>
+      <div>
+        The most popular rendition of dorian is a i-IV shuttle. Why? Well, once
+        you've played i-IV, you realize two things:
+        <ul>
+          <li>
+            What you've done is already unusual enough to pause the development
+            and stand there for a while
+          </li>
+          <li>
+            Being rare, a dorian mode doesn't care a lot of functional
+            expectations, so nothing dictates you what chord chunks and paths to
+            weave
+          </li>
+        </ul>
+      </div>
       <TagSearch tag="scale:dorian" analyses={analyses} />
+      <TagSearch tag="chord:iadd6" analyses={analyses} />
       <h3>iadd6</h3>
       <ul>
         <li>
@@ -49,18 +32,8 @@ const Modes: Chapter = ({ sequencer, analyses }) => {
         </li>
       </ul>
       <h3>Hexatonic minor</h3>
-      <ul>
-        <li>
-          <S artist="MIDI/Uriah Heep" song="Lady in Black.mid" /> - two chords
-        </li>
-      </ul>
-      <h3>Functionality - shuttle</h3>
-      <ul>
-        <li>
-          <S artist="MIDI/Type O Negative" song="Love You to Death.mid" /> -
-          dorian shuttle
-        </li>
-      </ul>
+      <TagSearch tag="scale:hexatonic_minor" analyses={analyses} />
+
       <h3>Mixolydian shuttle</h3>
       <ul>
         <li>

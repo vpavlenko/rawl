@@ -22,7 +22,7 @@ const TagSearch: React.FC<{ tag: string; analyses: Corpus }> = ({
     }
   }
   return (
-    <div>
+    <div style={{ marginTop: "40px" }}>
       <div>
         <strong>{tag}</strong>:
       </div>

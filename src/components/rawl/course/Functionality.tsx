@@ -7,37 +7,20 @@ const Functionality: Chapter = ({ sequencer, analyses }) => {
     <>
       <h3>Functionality - progression</h3>
       Cite Hearing Harmony
-      <TagSearch tag="functionality:progression" analyses={analyses} />
-      <h3>Short progression</h3>
       <TagSearch tag="functionality:short_progression" analyses={analyses} />
+      <TagSearch tag="functionality:progression" analyses={analyses} />
       <h3>Functionality - functional</h3>
+      <div>
+        The best intro into this is Chapter 1 of Drew Nobile's "Form as Harmony
+        in Rock Music"
+      </div>
       <ul>
-        <li>
-          <S artist="MIDI/Typically Tropical" song="Barbados.mid" />
-        </li>
-        <li>
-          <S artist="MIDI/U.S.A. for Africa" song="We Are the World.mid" />
-        </li>
-        <li>
-          <S artist="MIDI/Umberto Tozzi" song="Gloria.mid" />
-        </li>
-        <li>
-          <S artist="MIDI/Vasco" song="Albachiara.mid" />
-        </li>
-        <li>
-          <S artist="MIDI/Ventures" song="Walk Don't Run.mid" />
-        </li>
-        <li>
-          <S artist="MIDI/Wet Wet Wet" song="Angel Eyes.mid" />
-        </li>
-        <li>
-          <S artist="MIDI/Werner" song="So ein Mann.mid" />
-        </li>
         <li>
           <S artist="MIDI/Taylor Dayne" song="Tell It to My Heart.mid" /> -
           mostly natural minor functional
         </li>
       </ul>
+      <TagSearch tag="functionality:functional" analyses={analyses} />
       <h3>Functionality - mixed</h3>
       <ul>
         <li>
@@ -82,22 +65,15 @@ const Functionality: Chapter = ({ sequencer, analyses }) => {
           <S artist="MIDI/Television Theme Songs" song="X-Files.mid" />
         </li>
       </ul>
+      <TagSearch tag="functionality:stasis" analyses={analyses} />
+      <TagSearch tag="functionality:drone" analyses={analyses} />
+      <TagSearch tag="functionality:riff" analyses={analyses} />
+      <TagSearch tag="voice-leading:pedal" analyses={analyses} />
       <h3>Shuttle</h3>
       <ul>
         <li>The Beatles - Eleanor Rigby VI-i</li>
-        <li>
-          <S artist="MIDI/Traffic" song="Feelin' All Right.mid" />
-        </li>
-        <li>
-          <S artist="MIDI/America" song="A Horse With No Name.1.mid" />
-        </li>
-        <li>
-          <S artist="MIDI/Bob Marley" song="Waiting In Vain.mid" />
-        </li>
-        <li>
-          <S artist="MIDI/Tatyana Ali" song="Daydreamin'.mid" />
-        </li>
       </ul>
+      <TagSearch tag="functionality:shuttle" analyses={analyses} />
     </>
   );
 };

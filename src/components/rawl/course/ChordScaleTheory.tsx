@@ -6,14 +6,11 @@ const ChordScaleTheory: Chapter = ({ sequencer, analyses }) => {
   return (
     <>
       <h3>Iadd6</h3>
-      <ul>
-        <li>
-          <S artist="MIDI/Walter Donaldson" song="My Blue Heaven.mid" />
-        </li>
-        <li>
-          <S artist="MIDI/Texas" song="Say What You Want.mid" />
-        </li>
-      </ul>
+      <a href="https://www.mtosmt.org/issues/mto.23.29.2/mto.23.29.2.martin.html">
+        Henry Martin. On the Tonic Added-Sixth Chord in Jazz
+      </a>
+      <TagSearch tag="chord:Iadd6" analyses={analyses} />
+
       <h3>V9, V11, V13</h3>
       <ul>
         <li>

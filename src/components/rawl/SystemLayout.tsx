@@ -789,15 +789,77 @@ export const Voice: React.FC<{
   );
 };
 
-const debounce = (func, delay) => {
-  let timer;
-  return (...args) => {
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-      func.apply(this, args);
+function useDebouncedState<T>(
+  initialValue: T,
+  delay: number = 50,
+): [T, (value: T | ((prevValue: T) => T)) => void] {
+  const [value, setValue] = useState<T>(initialValue);
+  const [debouncedValue, setDebouncedValue] = useState<T>(initialValue);
+
+  // Function to update the debounced value
+  const updateDebouncedValue = useCallback(
+    (value: T | ((prevValue: T) => T)) => {
+      setDebouncedValue((prev) =>
+        typeof value === "function" ? (value as Function)(prev) : value,
+      );
+    },
+    [],
+  );
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      // Schedule the state update on the next animation frame after the delay
+      const frameId = requestAnimationFrame(() => setValue(debouncedValue));
+
+      // Cleanup function to cancel scheduled frame update
+      return () => cancelAnimationFrame(frameId);
     }, delay);
-  };
-};
+
+    // Cleanup function to clear the timeout if the component unmounts or value changes
+    return () => clearTimeout(timer);
+  }, [debouncedValue, delay]);
+
+  return [value, updateDebouncedValue];
+}
+
+function useDebouncedLocalStorage<T>(
+  key: string,
+  initialValue: T,
+  delay: number = 50,
+): [T, T, (value: T | ((prevValue: T) => T)) => void] {
+  // Use your existing useLocalStorage hook
+  const [value, setValue] = useLocalStorage<T>(key, initialValue);
+  const [debouncedValue, setDebouncedValue] = useState<T>(value);
+  const [optimisticFutureValue, setOptimisticFutureValue] = useState<T>(value);
+
+  // Function to update the debounced value
+  const updateDebouncedValue = useCallback(
+    (value: T | ((prevValue: T) => T)) => {
+      setDebouncedValue((prev) =>
+        typeof value === "function" ? (value as Function)(prev) : value,
+      );
+      setOptimisticFutureValue((prev) =>
+        typeof value === "function" ? (value as Function)(prev) : value,
+      );
+    },
+    [],
+  );
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      // Schedule the update on the next animation frame after the delay
+      const frameId = requestAnimationFrame(() => setValue(debouncedValue));
+
+      // Cleanup function to cancel the scheduled frame update
+      return () => cancelAnimationFrame(frameId);
+    }, delay);
+
+    // Cleanup function to clear the timeout if the component unmounts or value changes
+    return () => clearTimeout(timer);
+  }, [debouncedValue, delay]);
+
+  return [value, optimisticFutureValue, updateDebouncedValue];
+}
 
 export const SplitSystemLayout: React.FC<{
   notes: NotesInVoices;
@@ -851,31 +913,19 @@ export const SplitSystemLayout: React.FC<{
 
   const parentRef = useRef(null);
 
-  const [scrollInfo, setScrollInfo] = useState<ScrollInfo>({
+  const [scrollInfo, setScrollInfo] = useDebouncedState<ScrollInfo>({
     left: -1,
     right: 100000,
   });
 
-  const debouncedScroll = useCallback(
-    debounce(
-      (left, right) =>
-        setScrollInfo({
-          left,
-          right,
-        }),
-      50,
-    ),
-    [],
-  );
-
-  const handleScroll = () => {
-    const { scrollLeft, offsetWidth } = parentRef.current;
-    const scrollRight = scrollLeft + offsetWidth;
-
-    debouncedScroll(scrollLeft, scrollRight);
-  };
-
   useEffect(() => {
+    const handleScroll = () => {
+      const { scrollLeft: left, offsetWidth } = parentRef.current;
+      const right = left + offsetWidth;
+
+      setScrollInfo({ left, right });
+    };
+
     const parentDiv = parentRef.current;
     if (parentDiv) {
       parentDiv.addEventListener("scroll", handleScroll);
@@ -889,8 +939,10 @@ export const SplitSystemLayout: React.FC<{
     };
   }, []);
 
-  const [noteHeight, setNoteHeight] = useLocalStorage("noteHeight", 7);
-  const [secondWidth, setSecondWidth] = useLocalStorage("secondWidth", 40);
+  const [noteHeight, futureNoteHeight, setNoteHeight] =
+    useDebouncedLocalStorage("noteHeight", 7);
+  const [secondWidth, futureSecondWidth, setSecondWidth] =
+    useDebouncedLocalStorage("secondWidth", 40);
   const secondsToX = useCallback(
     (seconds) => seconds * secondWidth,
     [secondWidth],
@@ -926,7 +978,7 @@ export const SplitSystemLayout: React.FC<{
             type="range"
             min="1"
             max="15"
-            value={noteHeight}
+            value={futureNoteHeight}
             onChange={(e) => setNoteHeight(parseInt(e.target.value, 10))}
             style={{
               transform: "rotate(90deg)",
@@ -947,7 +999,7 @@ export const SplitSystemLayout: React.FC<{
             type="range"
             min="2"
             max="100"
-            value={secondWidth}
+            value={futureSecondWidth}
             onChange={(e) => setSecondWidth(parseInt(e.target.value, 10))}
             style={{
               width: 80,

@@ -11,6 +11,7 @@ import { FullScreen } from "react-full-screen";
 import { useLocalStorage } from "usehooks-ts";
 import { AnalysisGrid, Cursor, MeasureSelection } from "./AnalysisGrid";
 import { ColorScheme, useColorScheme } from "./ColorScheme";
+import { PianoLegend } from "./PianoLegend";
 import { SecondsSpan, SetVoiceMask, secondsToX__ } from "./Rawl";
 import { Analysis, PitchClass } from "./analysis";
 import { Note, NotesInVoices, PitchBendPoint } from "./parseMidi";
@@ -918,7 +919,7 @@ export const SplitSystemLayout: React.FC<{
           style={{
             position: "fixed",
             bottom: 130,
-            right: -60,
+            right: -45,
             zIndex: 10000,
           }}
         >
@@ -939,7 +940,7 @@ export const SplitSystemLayout: React.FC<{
           style={{
             position: "fixed",
             bottom: 30,
-            right: 25,
+            right: 40,
             zIndex: 10000,
           }}
         >
@@ -996,6 +997,13 @@ export const SplitSystemLayout: React.FC<{
             />
           </div>
         ))}
+
+        <div
+          key="piano-legend"
+          style={{ position: "fixed", bottom: 50, right: 50, zIndex: 30 }}
+        >
+          <PianoLegend />
+        </div>
       </div>
     </FullScreen>
   );

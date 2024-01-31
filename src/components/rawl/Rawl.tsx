@@ -7,7 +7,6 @@ import styled from "styled-components";
 import { AnalysisBox } from "./AnalysisBox";
 import { MeasureSelection } from "./AnalysisGrid";
 import Exercise, { ExerciseType } from "./Exercise";
-import { PianoLegend } from "./PianoLegend";
 import {
   MergedSystemLayout,
   MouseHandlers,
@@ -418,12 +417,6 @@ const Rawl: React.FC<{
           />
         </div>
       )}
-      <div
-        key="piano-legend"
-        style={{ position: "absolute", bottom: 20, right: 20, zIndex: 30 }}
-      >
-        <PianoLegend />
-      </div>
 
       <div
         style={{

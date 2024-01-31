@@ -58,6 +58,7 @@ const ChordCloud: React.FC<{
 
     noteDivs.push(
       <div
+        key={i}
         className={`noteColor_${
           notes[Math.floor(Math.random() * notes.length)]
         }_${colorScheme}`}
@@ -79,7 +80,7 @@ const ChordCloud: React.FC<{
   for (let i = notes.length - 1; i >= 0; i--) {
     const note = notes[i];
     legendNotes.push(
-      <div style={{ position: "absolute", top, left: -50 }}>
+      <div key={i} style={{ position: "absolute", top, left: -50 }}>
         <CloudPianoKey
           className={`noteColor_${note}_${colorScheme}`}
         ></CloudPianoKey>
@@ -146,10 +147,10 @@ const ChordClouds = ({ chords }: { chords: Chord[] }) => {
     <div>
       <div style={{ position: "relative" }}>
         <Row style={{ position: "absolute", left: 800 }}>
-          {chords.map((chord) => (
-            <>
+          {chords.map((chord, index) => (
+            <React.Fragment key={index}>
               <ChordCloud name={chord} colorScheme={colorScheme} />{" "}
-            </>
+            </React.Fragment>
           ))}
         </Row>
       </div>

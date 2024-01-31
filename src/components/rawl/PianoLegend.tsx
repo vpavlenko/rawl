@@ -74,7 +74,7 @@ export const PianoLegend: React.FC = () => {
       <div>
         <label key={"merged"} className="inline">
           <input
-            onClick={() => setColorScheme("colors")}
+            onChange={() => setColorScheme("colors")}
             type="radio"
             name="color-scheme"
             checked={colorScheme === "colors"}
@@ -84,7 +84,7 @@ export const PianoLegend: React.FC = () => {
         </label>{" "}
         <label key={"split"} className="inline">
           <input
-            onClick={() => setColorScheme("shapes")}
+            onChange={() => setColorScheme("shapes")}
             type="radio"
             name="color-scheme"
             checked={colorScheme === "shapes"}

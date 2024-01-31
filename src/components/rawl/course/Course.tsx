@@ -130,7 +130,7 @@ const Course = ({
       <div style={{ marginTop: 20, marginLeft: 15 }}>
         <h3>Western Popular Harmony and Arrangement as Seen in 12 Colors</h3>
         {CHAPTERS.map(({ title }, index) => (
-          <div style={{ margin: 0, paddingTop: 10 }}>
+          <div key={title} style={{ margin: 0, paddingTop: 10 }}>
             {chapter == index ? (
               title
             ) : (

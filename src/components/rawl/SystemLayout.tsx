@@ -964,7 +964,7 @@ export const SplitSystemLayout: React.FC<{
           secondsToX={secondsToX}
         />
         {voicesSortedByAverageMidiNumber.map(({ voiceIndex, notes }, order) => (
-          <div style={{ position: "relative" }}>
+          <div key={order} style={{ position: "relative" }}>
             <Voice
               key={voiceIndex}
               voiceName={voiceNames[voiceIndex]}

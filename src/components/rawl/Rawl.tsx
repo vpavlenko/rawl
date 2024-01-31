@@ -434,9 +434,6 @@ const Rawl: React.FC<{
             <input
               title="Velocity"
               type="checkbox"
-              onClick={(e) => {
-                e.stopPropagation();
-              }}
               onChange={(e) => {
                 e.stopPropagation();
                 setShowVelocity(e.target.checked);
@@ -447,7 +444,7 @@ const Rawl: React.FC<{
           </label>
           <label key={"merged"} className="inline">
             <input
-              onClick={() => setSystemLayout("merged")}
+              onChange={() => setSystemLayout("merged")}
               type="radio"
               name="system-layout"
               checked={systemLayout === "merged"}
@@ -457,7 +454,7 @@ const Rawl: React.FC<{
           </label>
           <label key={"split"} className="inline">
             <input
-              onClick={() => setSystemLayout("split")}
+              onChange={() => setSystemLayout("split")}
               type="radio"
               name="system-layout"
               checked={systemLayout === "split"}
